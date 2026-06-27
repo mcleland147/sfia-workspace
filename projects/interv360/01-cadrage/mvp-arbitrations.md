@@ -48,7 +48,7 @@ Les arbitrages MVP Interv360 doivent respecter les principes suivants :
 | ARB-MVP-04 | Niveau de simulation des intégrations | Q11–Q12, A-I01 à A-I05, framing-review §4 | Haute | Validable après réinstruction |
 | ARB-MVP-05 | Gestion des erreurs d'intégration | A-I07, RG-I06–RG-I09, framing-review §4 | Haute | Validable après réinstruction |
 | ARB-MVP-06 | Conservation photos / signatures / logs | A-S03, A-FG01–A-FG02, framing-review §4 | Haute | Validable avec précision |
-| ARB-MVP-07 | Écrans réellement prioritaires | §14.3, R-UX03, framing-review §4 | Haute | À ajuster |
+| ARB-MVP-07 | Écrans réellement prioritaires | §14.3, R-UX03, framing-review §4 | Haute | Validable après clarification dashboard/KPI/UX |
 
 ---
 
@@ -342,40 +342,44 @@ Quels **écrans candidats** (§14.3) constituent le **noyau MVP** et lesquels so
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider** (statut revue : **À ajuster**).
+**Recommandation candidate validable après clarification dashboard/KPI/UX.**
 
-**Prioriser un noyau MVP étendu de 8 écrans :**
+**Recommandation candidate — à valider :**
 
-- **tableau de bord SAV complet** ;
-- liste des demandes ;
-- fiche demande SAV ;
-- planning ;
-- fiche intervention technicien ;
-- compte rendu intervention ;
-- suivi des erreurs d'intégration ;
-- **vue pilotage dirigeant avancée**.
+Inclure au MVP un **noyau de 8 écrans** :
 
-**Mettre en cible ultérieure :**
+1. tableau de bord SAV complet ;
+2. liste des demandes ;
+3. fiche demande SAV ;
+4. planning ;
+5. fiche intervention technicien ;
+6. compte rendu intervention ;
+7. suivi des erreurs d'intégration ;
+8. vue pilotage dirigeant avancée.
 
-- suivi détaillé des notifications ;
-- portail client.
+Le **tableau de bord SAV** doit être orienté **suivi opérationnel quotidien**, tandis que la **vue dirigeant** doit fournir une **lecture consolidée, synthétique et orientée décision**.
 
-### Ajustement demandé
+Le **suivi détaillé des notifications** et le **portail client** restent en **évolution ultérieure**.
 
-Le **noyau de 7 écrans** initial est **conservé comme base**, mais la **vue pilotage dirigeant avancée** doit être **intégrée au MVP**. Le **tableau de bord SAV** doit être **plus complet que prévu initialement**, afin de démontrer une **vraie valeur de pilotage**.
+**Référence interne :** voir `dashboard-kpi-ux-review.md`, sections §2 à §8.
+
+### Clarification effectuée
+
+- le **tableau de bord SAV n'est pas minimaliste** ;
+- les **KPI minimum** sont cadrés dans `dashboard-kpi-ux-review.md` **§4** ;
+- la **vue dirigeant avancée** est cadrée dans **§5** ;
+- les **limites MVP** sont cadrées dans **§6** ;
+- les **impacts UX et garde-fous** sont cadrés dans **§7** ;
+- **Figma reste interdit** avant brief UX/UI validé (§14.6).
 
 ### Impacts sur le cadrage
 
-- **Règles de gestion impactées** : Transversal — toutes les règles liées aux écrans prioritaires ; RG-I09 (visibilité anomalies) ; **RG-C08, RG-FG07** (KPI)
-- **Parcours impactés** : Ensemble du parcours §6 ; parcours utilisateurs §14.2 ; **parcours dirigeant / pilotage**
-- **Écrans impactés** : Priorisation explicite §14.3 (**8 prioritaires**, 2 ultérieurs) ; **tableau de bord SAV enrichi**
-- **ADR candidate éventuelle** : Non directe ; **besoin de clarifier les KPI minimum (Q5, R-M08)**
-- **Complexité UX accrue** — noyau étendu de 7 à 8 écrans ; tableau de bord plus riche
-- **Valeur dirigeant renforcée** — vue pilotage dirigeant avancée incluse au MVP
-- **Lien Q5 et R-M08** — indicateurs minimum dirigeant à préciser avant brief UX/UI
-- **Brief UX/UI** — nécessité de produire un **brief UX/UI solide avant Figma** (§14.6)
-- **Règle Figma** : la sélection des écrans prioritaires **ne déclenche pas directement Figma** ; elle déclenche la **production d'un brief UX/UI** ; Figma intervient uniquement après validation des écrans prioritaires et des critères UX (§14.6)
-- **Capitalisation SFIA possible** : Template priorisation écrans MVP ; checklist UX Review par écran ; base composants UI candidats ; **standard de déclenchement Figma** ; **template brief UX/UI** ; **checklist d'entrée Figma**
+- **Règles / questions impactées** : **Q5**, **R-M08**, **critères UX §14.4** ; RG-I09 (visibilité anomalies) ; RG-C08, RG-FG07 (KPI)
+- **Parcours impactés** : Ensemble du parcours §6 ; parcours utilisateurs §14.2 ; parcours dirigeant / pilotage
+- **Écrans impactés** : **Noyau 8 écrans** (§14.3) ; suivi notifications et portail client en cible ultérieure
+- **ADR candidate éventuelle** : Non directe
+- **Capitalisation SFIA possible** : **Template Dashboard KPI Matrix** ; **Template Executive View Framing** ; **Checklist Dashboard MVP** ; **Checklist UX surcharge cognitive** ; **Critères QA dashboard** ; template priorisation écrans MVP ; standard de déclenchement Figma ; template brief UX/UI ; checklist d'entrée Figma
+- **Figma** : **brief UX/UI obligatoire** avant toute maquette (§14.6)
 
 ### Décision
 
@@ -393,7 +397,7 @@ Le **noyau de 7 écrans** initial est **conservé comme base**, mais la **vue pi
 | ARB-MVP-04 — Simulation intégrations | Vrais contrats API documentés avec implémentation simulée | Non tranché |
 | ARB-MVP-05 — Erreurs intégration | Erreurs visibles dans écran anomalies + reprise manuelle simulée ; retry automatique hors MVP | Non tranché |
 | ARB-MVP-06 — Conservation | Conservation limitée fictive documentée sous forme d'hypothèses RSSI / GreenOps | Non tranché |
-| ARB-MVP-07 — Écrans prioritaires | Noyau MVP étendu avec tableau de bord SAV complet et vue pilotage dirigeant avancée ; notifications détaillées et portail client en cible ultérieure | Non tranché |
+| ARB-MVP-07 — Écrans prioritaires | Noyau MVP 8 écrans avec tableau de bord SAV complet et vue pilotage dirigeant avancée ; suivi détaillé notifications et portail client en évolution ultérieure | Non tranché |
 
 ---
 
@@ -422,8 +426,10 @@ Le **noyau de 7 écrans** initial est **conservé comme base**, mais la **vue pi
 | **Email sécurisé** | **Clarifié** — recommandation candidate validable (ARB-MVP-01) ; voir `secure-email-intake-review.md` | Standard canal email sécurisé ; ADR authentification, journalisation, pièces jointes ; règles RG-C02, RG-C04, RG-S01, RG-S06, RG-I07 | RSSI / Architecte / Business Analyst |
 | **Vrais contrats API vs API simulées** | **Réinstruit** — recommandation candidate validable (ARB-MVP-04) | Option C confirmée comme candidate ; ADR niveau de contrat API ; voir `integration-error-arbitration-review.md` | Architecte / Chef de projet / Business Analyst |
 | **Périmètre de gestion d'erreur** | **Réinstruit** — recommandation candidate validable (ARB-MVP-05) | Niveau 3 confirmé comme candidate ; ADR gestion erreurs et journalisation ; voir `integration-error-arbitration-review.md` | Architecte / QA / Concepteur UX |
-| **KPI tableau de bord SAV / vue dirigeant** | Noyau écrans étendu ; tableau de bord plus complet ; lien Q5 et R-M08 (ARB-MVP-07) | Liste KPI minimum dirigeant ; hypothèses affichage tableau de bord SAV | Business Analyst / Product Owner / Dirigeant (fictif) |
-| **Impacts UX du noyau d'écrans étendu** | Passage de 7 à 8 écrans ; complexité UX accrue ; brief UX/UI requis avant Figma (ARB-MVP-07) | Brief UX/UI solide ; priorisation composants UI ; checklist entrée Figma | Concepteur fonctionnel / Product Owner |
+| **KPI tableau de bord SAV / vue dirigeant** | **Clarifié** — recommandation candidate validable (ARB-MVP-07) ; voir `dashboard-kpi-ux-review.md` §4–§5 | KPI minimum cadrés ; différenciation dashboard SAV vs vue dirigeant | Business Analyst / Product Owner / Dirigeant (fictif) |
+| **Impacts UX du noyau d'écrans étendu** | **Clarifié** — recommandation candidate validable (ARB-MVP-07) ; voir `dashboard-kpi-ux-review.md` §6–§7 | Garde-fous UX ; limites MVP ; brief UX/UI obligatoire avant Figma | Concepteur fonctionnel / Product Owner |
+
+Tous les points identifiés comme **à clarifier** ou **à réinstruire** disposent désormais d'une **recommandation candidate validable**. La prochaine étape peut être la **validation finale des arbitrages MVP**, sans produire encore d'architecture ni backlog.
 
 ---
 
