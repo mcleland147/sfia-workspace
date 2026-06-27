@@ -29,8 +29,8 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 
 Le document d'intake est disponible :
 
-- [`00-intake/project-intake.md`](00-intake/project-intake.md) — version de travail (Git)
-- **Notion** : [KNO-002 — Interv360 Project Intake](https://app.notion.com/p/KNO-002-Interv360-Project-Intake-38c0bc3380748120acc9faa1f3aea148) — statut **Draft**
+- [`00-intake/project-intake.md`](00-intake/project-intake.md) — version de travail (Git, v1.1)
+- **Notion** : [KNO-002 — Interv360 Project Intake](https://app.notion.com/p/KNO-002-Interv360-Project-Intake-38c0bc3380748120acc9faa1f3aea148) — statut **Draft** (enrichi avec les axes SFIA avancés)
 
 Le projet est également référencé dans Notion : **PRJ-INTERV360 — Interv360**.
 

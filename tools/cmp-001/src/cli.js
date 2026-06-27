@@ -14,6 +14,7 @@ import { createADR } from './services/createADR.js';
 import { createREX } from './services/createREX.js';
 import { createKPI } from './services/createKPI.js';
 import { createKnowledgeArticle } from './services/createKnowledgeArticle.js';
+import { updateKnowledgeArticle } from './services/updateKnowledgeArticle.js';
 import { createProject } from './services/createProject.js';
 import { createReferencePage } from './services/createReferencePage.js';
 import { runDiscover } from './services/discover.js';
@@ -44,6 +45,10 @@ function loadJsonFile(filePath) {
   }
 }
 
+const UPDATERS = {
+  knowledge: updateKnowledgeArticle,
+};
+
 async function runCreate(objectType, jsonFile) {
   const normalizedType = normalizeObjectType(objectType);
   const creator = CREATORS[normalizedType];
@@ -56,6 +61,24 @@ async function runCreate(objectType, jsonFile) {
   const result = await creator(payload);
 
   console.log('Page Notion créée avec succès.');
+  console.log(`  Type   : ${result.objectType}`);
+  console.log(`  Titre  : ${result.title}`);
+  console.log(`  ID     : ${result.pageId}`);
+  console.log(`  URL    : ${result.url}`);
+}
+
+async function runUpdate(objectType, pageId, jsonFile) {
+  const normalizedType = normalizeObjectType(objectType);
+  const updater = UPDATERS[normalizedType];
+
+  if (!updater) {
+    throw new Error(`Aucun service de mise à jour pour le type "${normalizedType}".`);
+  }
+
+  const payload = loadJsonFile(jsonFile);
+  const result = await updater(pageId, payload);
+
+  console.log('Page Notion mise à jour avec succès.');
   console.log(`  Type   : ${result.objectType}`);
   console.log(`  Titre  : ${result.title}`);
   console.log(`  ID     : ${result.pageId}`);
@@ -77,6 +100,22 @@ program
   .action(async (type, jsonFile) => {
     try {
       await runCreate(type, jsonFile);
+    } catch (error) {
+      const message = error?.body?.message || error.message || String(error);
+      console.error(`Erreur : ${message}`);
+      process.exitCode = 1;
+    }
+  });
+
+program
+  .command('update')
+  .description('Mettre à jour un objet SFIA existant dans Notion à partir d\'un fichier JSON')
+  .argument('<type>', `Type d'objet (${Object.keys(UPDATERS).join(', ')})`)
+  .argument('<page-id>', 'Identifiant de la page Notion à mettre à jour')
+  .argument('<json-file>', 'Chemin vers le fichier JSON source')
+  .action(async (type, pageId, jsonFile) => {
+    try {
+      await runUpdate(type, pageId, jsonFile);
     } catch (error) {
       const message = error?.body?.message || error.message || String(error);
       console.error(`Erreur : ${message}`);

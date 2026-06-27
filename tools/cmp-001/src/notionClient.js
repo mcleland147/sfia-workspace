@@ -172,6 +172,39 @@ export async function appendPageBlocks(pageId, blocks) {
   }
 }
 
+export async function listPageBlocks(pageId) {
+  const notion = getNotionClient();
+  const blocks = [];
+  let startCursor;
+
+  do {
+    const response = await notion.blocks.children.list({
+      block_id: pageId,
+      page_size: 100,
+      start_cursor: startCursor,
+    });
+
+    blocks.push(...response.results);
+    startCursor = response.has_more ? response.next_cursor : undefined;
+  } while (startCursor);
+
+  return blocks;
+}
+
+export async function clearPageBlocks(pageId) {
+  const notion = getNotionClient();
+  const blocks = await listPageBlocks(pageId);
+
+  for (const block of blocks) {
+    await notion.blocks.delete({ block_id: block.id });
+  }
+}
+
+export async function replacePageBlocks(pageId, blocks) {
+  await clearPageBlocks(pageId);
+  await appendPageBlocks(pageId, blocks);
+}
+
 export function buildPageContentBlocks(payload, schema) {
   const blocks = [];
   const summary = payload.summary;
@@ -195,6 +228,17 @@ export async function createNotionPage(databaseId, properties) {
 
   const response = await notion.pages.create({
     parent: { database_id: databaseId },
+    properties,
+  });
+
+  return response;
+}
+
+export async function updateNotionPage(pageId, properties) {
+  const notion = getNotionClient();
+
+  const response = await notion.pages.update({
+    page_id: pageId,
     properties,
   });
 

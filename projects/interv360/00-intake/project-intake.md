@@ -2,6 +2,7 @@
 
 **Projet** : PRJ-INTERV360  
 **Phase** : Intake  
+**Version** : 1.1 — enrichissement axes SFIA avancés  
 **Date** : 2026-06-27  
 **Statut** : Rédigé — en attente de validation
 
@@ -225,6 +226,25 @@ Interv360 est un **projet d'apprentissage et de démonstration** pour la platefo
 | Documentation projet | Production et maintenance de la doc tout au long du cycle |
 | REX | Capitalisation des enseignements en fin de projet |
 
+### Capacités avancées SFIA à éprouver
+
+Interv360 doit également servir de **projet pilote** pour éprouver la capacité de la SFIA à intégrer des dimensions transverses dès les phases amont d'un projet.
+
+| Axe avancé | Objectif de test |
+|------------|------------------|
+| Rôles transverses | Vérifier que la SFIA sait intégrer des rôles complémentaires au bon moment : RSSI, FinOps, GreenOps, Data/IA, Product Owner, Architecte |
+| RSSI / sécurité | Identifier les données sensibles, les règles d'accès, les risques API, la traçabilité et les exigences de sécurité dès le cadrage |
+| FinOps | Anticiper les coûts liés à l'hébergement, au stockage des photos, aux notifications, aux appels API et à l'usage éventuel de services IA |
+| GreenOps | Challenger la sobriété applicative : stockage raisonné, compression des images, durée de conservation, limitation des traitements inutiles |
+| Architecture API | Tester la capacité de la SFIA à concevoir une application basée sur des échanges API entre frontend, backend, module mobile, notifications et services externes |
+| Intégrations | Préparer les futurs échanges avec un CRM, un outil de facturation, un service de notification ou un module IA |
+| Gouvernance des données | Définir les objets de données critiques, leur cycle de vie, leur conservation et leur exposition aux différents profils utilisateurs |
+| IA légère | Évaluer l'intérêt d'une assistance IA limitée : résumé de compte rendu, classification des demandes, aide à la priorisation |
+| ADR | Identifier les décisions structurantes à documenter pendant le cadrage et l'architecture |
+| Réutilisabilité SFIA | Détecter les composants, templates, prompts ou standards qui pourraient être réutilisés sur d'autres projets |
+
+Cette dimension avancée ne signifie pas que toutes ces capacités doivent être implémentées dans le MVP. Elle impose en revanche qu'elles soient **identifiées, discutées et arbitrées** pendant le cadrage afin de tester la capacité de la SFIA à structurer un projet applicatif réaliste de bout en bout.
+
 ---
 
 ## 14. Questions ouvertes
@@ -239,6 +259,14 @@ Interv360 est un **projet d'apprentissage et de démonstration** pour la platefo
 | Q6 | Quel format de compte rendu (PDF, page web, les deux) ? | Livrable compte rendu |
 | Q7 | L'assistance IA légère entre-t-elle dans le MVP ou en phase ultérieure ? | Périmètre F12 |
 | Q8 | Faut-il modéliser plusieurs types d'intervention (urgence, préventif, installation) ? | Complexité métier |
+| Q9 | Quels rôles transverses doivent intervenir dès le cadrage : RSSI, FinOps, GreenOps, Data/IA, Architecte ? | Gouvernance projet |
+| Q10 | Quelles données doivent être considérées comme sensibles ou critiques ? | RSSI / sécurité |
+| Q11 | Quels flux API sont nécessaires pour supporter le cycle demande → intervention → clôture ? | Architecture API |
+| Q12 | Quels systèmes externes doivent être simulés ou préparés : CRM, facturation, notification, IA ? | Intégrations |
+| Q13 | Quels coûts doivent être suivis dès le prototype : hébergement, stockage, notifications, API, IA ? | FinOps |
+| Q14 | Quels principes GreenOps appliquer au stockage des photos, documents et comptes rendus ? | GreenOps |
+| Q15 | Quelle place donner à l'IA légère : MVP, option, ou phase ultérieure ? | IA légère |
+| Q16 | Quelles décisions devront faire l'objet d'une ADR dès la phase de cadrage ou d'architecture ? | ADR |
 
 Ces questions seront traitées lors de la phase de cadrage métier.
 
