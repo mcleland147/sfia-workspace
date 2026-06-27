@@ -1,6 +1,6 @@
 {
   "name": "sfia-notion-sync",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Connecteur local SFIA pour créer des objets structurés dans Notion via l'API",
   "type": "module",
   "main": "src/cli.js",

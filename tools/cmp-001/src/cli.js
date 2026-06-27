@@ -92,7 +92,7 @@ const program = new Command();
 program
   .name('sfia-notion-sync')
   .description('Connecteur SFIA — création d\'objets structurés dans Notion')
-  .version('1.1.1');
+  .version('1.1.2');
 
 program
   .command('create')

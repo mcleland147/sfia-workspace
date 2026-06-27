@@ -4,6 +4,14 @@ Toutes les modifications notables de **CMP-001 — SFIA Notion Sync** sont docum
 
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et le projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
+## [1.1.2] — 2026-06-27
+
+### Added
+
+- Ajout de la commande `update project` pour mettre à jour un objet Project existant dans Notion.
+- Validation avec PRJ-INTERV360 — Interv360.
+- Évite la création de doublons lors des changements de statut ou de phase projet.
+
 ## [1.1.1] — 2026-06-27
 
 ### Fixed / Added
@@ -65,6 +73,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et le p
 - Les schémas doivent correspondre aux colonnes des bases Notion cibles
 - Champs `rich_text` limités à 2000 caractères par bloc (contrainte API Notion)
 
+[1.1.2]: https://github.com/example/sfia-notion-sync/releases/tag/v1.1.2
 [1.1.1]: https://github.com/example/sfia-notion-sync/releases/tag/v1.1.1
 [1.1.0]: https://github.com/example/sfia-notion-sync/releases/tag/v1.1.0
 [1.0.0]: https://github.com/example/sfia-notion-sync/releases/tag/v1.0.0
