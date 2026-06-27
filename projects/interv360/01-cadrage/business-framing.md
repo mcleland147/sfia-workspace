@@ -369,24 +369,132 @@ Les arbitrages listés ci-dessus seront traités progressivement pendant le cadr
 
 ---
 
-## 13. Risques et points d'attention
+## 13. Validation métier, fonctionnelle et UX/UI
+
+Cette section définit les points de validation nécessaires pour garantir que le projet Interv360 respecte une logique métier, fonctionnelle et utilisateur avant tout passage vers la conception détaillée, l'architecture ou le développement. Dans le cadre du projet pilote, ces validations peuvent être **fictives**, mais elles doivent être formalisées afin d'alimenter les futurs templates SFIA.
+
+### 13.1 Circuit de validation métier et fonctionnelle
+
+| Étape | Livrable validé | Valideur fictif | Critères de validation | Effet de la validation | Capitalisation SFIA |
+|-------|-----------------|-----------------|------------------------|------------------------|---------------------|
+| **Intake** | Project intake | Dirigeant / Product Owner | Besoin compréhensible, objectif clair, périmètre initial cohérent | Passage au cadrage | Template Intake + workflow Notion |
+| **Cadrage métier** | Business framing | Responsable SAV / Product Owner | Parcours, rôles, périmètre et irritants cohérents | Passage à la conception fonctionnelle | Template Business Framing |
+| **Parcours utilisateur** | Parcours SAV cible | Responsable planning / Technicien | Parcours réaliste, utilisable et aligné terrain | Préparation UX/UI | Template User Journey |
+| **Règles de gestion** | Règles métier | Responsable SAV / Assistant administratif | Règles applicables, non ambiguës et testables | Préparation spécifications | Template Business Rules |
+| **Données sensibles** | Cartographie données | RSSI | Données sensibles, accès et conservation identifiés | Passage architecture sécurité | Checklist RSSI |
+| **Coûts et sobriété** | Hypothèses FinOps / GreenOps | FinOps / GreenOps | Coûts variables et impacts de sobriété qualifiés | Arbitrages MVP | Checklist FinOps / GreenOps |
+| **Arbitrages structurants** | ADR candidates | Architecte / PO / Chef de projet | Décisions structurantes identifiées et traçables | Préparation architecture | Template ADR |
+| **Critères d'acceptation** | Critères de validation fonctionnelle | PO / QA | Critères testables et vérifiables | Préparation recette | Template Acceptance Criteria |
+| **Validation UX** | Parcours et écrans candidats | Utilisateurs métier fictifs / Concepteur UX | Parcours compréhensibles, écrans utiles, friction limitée | Préparation maquettes | Template UX Review |
+
+### 13.2 Critères de passage de phase
+
+| Passage de phase | Conditions minimales | Bloquant si absent ? | Trace attendue |
+|------------------|---------------------|----------------------|----------------|
+| **Intake → Cadrage** | Intake validé, problème métier documenté, questions ouvertes listées | Oui | KNO-002 Published ; statut projet Cadrage |
+| **Cadrage → Conception fonctionnelle** | Parcours SAV, rôles, arbitrages et règles de gestion cadrés | Oui | Business framing validé ; workflow Notion |
+| **Conception fonctionnelle → UX/UI détaillée** | Personas, parcours utilisateurs et écrans candidats identifiés | Oui | Template User Journey ; UX Framing |
+| **UX/UI → Architecture** | Critères d'utilisabilité définis, validation UX formalisée | Oui | Template UX Review ; trace validation |
+| **Architecture → Delivery** | ADR structurantes validées, contrats d'intégration cadrés | Oui | ADR publiés ; architecture validée |
+| **Delivery → Tests** | Fonctionnalités livrées documentées, critères d'acceptation définis | Oui | Documentation technique ; critères recette |
+| **Tests → Recette** | Cas de tests exécutés, anomalies traitées ou arbitrées | Oui | PV de tests ; PV de recette |
+| **Recette → REX / capitalisation** | Recette validée, éléments capitalisables identifiés | Oui | REX ; bilan capitalisation SFIA |
+
+---
+
+## 14. Personas, parcours utilisateurs et cadrage UX/UI
+
+Cette section prépare la conception UX/UI **sans produire encore de maquettes détaillées**. Elle sert à identifier les utilisateurs, leurs objectifs, leurs irritants, leurs parcours critiques, les écrans candidats et les critères d'utilisabilité à valider avant la conception détaillée.
+
+### 14.1 Personas métier
+
+| Persona | Objectif principal | Irritants actuels | Besoins dans Interv360 | Parcours critique | Validation attendue |
+|---------|-------------------|-------------------|------------------------|-------------------|---------------------|
+| **Dirigeant** | Vision consolidée de l'activité SAV | Pas de tableau de bord fiable, données dispersées | Pilotage, indicateurs, anomalies visibles | Consulter le pilotage d'activité | Validation parcours dirigeant ; critères utilisabilité pilotage |
+| **Responsable SAV / planning** | Organiser et ajuster les interventions | Planning Excel, double saisie, conflits de créneaux | Planning centralisé, qualification, affectation | Planifier une intervention ; qualifier une demande | Validation parcours planning |
+| **Technicien terrain** | Exécuter et documenter l'intervention | Contexte incomplet, compte rendu tardif | Accès contexte client, CR simple sur mobile | Consulter intervention ; réaliser compte rendu ; signer | Validation parcours technicien |
+| **Assistant administratif** | Préparer clôture et facturation | Ressaisie manuelle, données terrain incomplètes | Synchronisation CRM, éléments facturables structurés | Créer demande ; suivre clôture | Validation parcours administratif |
+| **Client final** | Suivre sa demande et recevoir le compte rendu | Appels pour connaître l'avancement | Notifications, visibilité statut, réception CR | Recevoir notifications ; consulter statut (si portail) | Validation parcours client |
+| **Manager opérationnel** | Superviser charge, délais et anomalies | Manque d'indicateurs opérationnels | Tableau de bord anomalies, suivi charge | Suivre anomalies d'intégration ; consulter pilotage | Validation parcours manager |
+
+### 14.2 Parcours utilisateurs à préparer
+
+| Parcours | Persona principal | Objectif | Étapes clés | Points de friction à analyser | Sortie attendue |
+|----------|-------------------|----------|-------------|------------------------------|-----------------|
+| Créer une demande SAV depuis un CRM simulé | Assistant administratif | Enregistrer une demande sans ressaisie | Réception CRM → création demande → confirmation | Mapping incomplet, doublons, statut initial | Template User Journey ; règle de gestion |
+| Créer une demande SAV depuis un email simulé | Assistant administratif | Transformer un email en demande structurée | Réception email → extraction → qualification initiale | Classification, pièces jointes, données manquantes | Template User Journey ; règle de gestion |
+| Qualifier une demande | Responsable SAV / planning | Prioriser et valider le périmètre | Ouverture demande → analyse → qualification | Critères flous, délai qualification | Règle de gestion ; écran fiche demande |
+| Planifier une intervention | Responsable SAV / planning | Affecter technicien et créneau | Demande qualifiée → calendrier → notification | Conflits créneau, modification tardive | Écran planning ; template planification |
+| Consulter une intervention terrain | Technicien terrain | Accéder au contexte avant intervention | Liste interventions → fiche → contexte client | Contexte incomplet, accès mobile | Écran fiche intervention technicien |
+| Réaliser un compte rendu | Technicien terrain | Documenter l'intervention sur site | Fin intervention → photos → commentaires → CR | Saisie lourde, hors ligne, délai | Écran compte rendu ; critères utilisabilité |
+| Signer une intervention | Technicien terrain / Client final | Valider la clôture terrain | CR → signature → validation | Signature obligatoire ou non, preuve | Règle de gestion ; arbitrage A-F04 |
+| Suivre les anomalies d'intégration | Manager opérationnel / Dirigeant | Détecter et traiter les échecs de sync | Alerte → détail erreur → reprise | Visibilité, priorisation, traçabilité | Écran erreurs d'intégration |
+| Consulter le pilotage d'activité | Dirigeant / Manager opérationnel | Vision consolidée de l'activité | Tableau de bord → filtres → détail | Indicateurs incomplets, lisibilité | Écran vue pilotage dirigeant |
+
+### 14.3 Écrans candidats
+
+| Écran candidat | Utilisateurs concernés | Objectif | Données affichées | Questions UX à traiter |
+|----------------|------------------------|----------|-------------------|------------------------|
+| **Tableau de bord SAV** | Dirigeant, Manager opérationnel | Vision globale activité | Demandes en cours, anomalies, indicateurs clés | Quels indicateurs minimum ? Lisibilité mobile ? |
+| **Liste des demandes** | Responsable SAV, Assistant administratif | Parcourir et filtrer les demandes | Statut, client, priorité, date, source | Filtres, tri, recherche, doubles saisies |
+| **Fiche demande SAV** | Responsable SAV, Assistant administratif | Détail et qualification d'une demande | Historique client, description, statut, pièces | Niveau de détail qualification ; actions disponibles |
+| **Planning** | Responsable SAV / planning | Visualiser et ajuster le planning | Créneaux, techniciens, interventions, conflits | Vue jour/semaine ; modification rapide ; conflits visibles |
+| **Fiche intervention technicien** | Technicien terrain | Préparer et exécuter l'intervention | Client, adresse, consignes, historique, statut | Accès mobile ; hors ligne ; contexte complet |
+| **Compte rendu intervention** | Technicien terrain | Documenter l'intervention | Photos, commentaires, checklist, signature | Simplicité saisie ; nombre de champs ; sobriété |
+| **Suivi des notifications** | Assistant administratif, Client final | Vérifier les notifications envoyées | Événement, canal, statut envoi, contenu | Fréquence ; coût ; lisibilité message client |
+| **Suivi des erreurs d'intégration** | Manager opérationnel, Architecte | Traiter les échecs de synchronisation | Type erreur, source, horodatage, action corrective | Visibilité immédiate ; niveau de détail logs |
+| **Vue pilotage dirigeant** | Dirigeant | Piloter l'activité et anticiper | KPI, délais, charge, taux clôture, anomalies | Quels KPI minimum (Q5) ; granularité ; export |
+
+### 14.4 Critères d'utilisabilité à valider
+
+- **Compréhension rapide du statut d'une demande** — l'utilisateur identifie le statut sans ambiguïté ;
+- **Limitation des doubles saisies** — une information saisie une fois est réutilisée dans le parcours ;
+- **Accès rapide au contexte intervention** — le technicien accède au dossier client en moins de 3 actions ;
+- **Simplicité du compte rendu terrain** — saisie minimale sur mobile, champs essentiels priorisés ;
+- **Visibilité des erreurs d'intégration** — les anomalies sont visibles sans recherche proactive ;
+- **Lisibilité du planning** — conflits et disponibilités compréhensibles en un coup d'œil ;
+- **Clarté des notifications client** — message compréhensible, statut et prochaine étape explicites ;
+- **Sobriété des écrans** — pas de surcharge visuelle, informations hiérarchisées ;
+- **Cohérence entre parcours métier et écrans** — chaque étape du parcours §6 a un support écran identifiable.
+
+### 14.5 Capitalisation SFIA UX/UI
+
+Cette section doit permettre de capitaliser :
+
+- un **template Persona Matrix** ;
+- un **template User Journey** ;
+- un **template UX/UI Framing** ;
+- une **checklist UX Review** ;
+- des **prompts de génération de maquettes** ;
+- des **critères d'acceptation UX** ;
+- des **composants UI candidats** réutilisables.
+
+---
+
+## 15. Risques et points d'attention
 
 *À compléter.*
 
 ---
 
-## 14. Livrables attendus du cadrage
+## 16. Livrables attendus du cadrage
 
 - matrice des rôles SFIA ;
 - parcours SAV détaillé ;
 - cartographie des intégrations simulées ;
 - liste des règles de gestion ;
 - première liste d'ADR candidates ;
-- première liste des éléments capitalisables SFIA.
+- première liste des éléments capitalisables SFIA ;
+- circuit de validation métier / fonctionnelle / UX ;
+- personas métier ;
+- parcours utilisateurs ;
+- écrans candidats ;
+- critères d'utilisabilité ;
+- éléments UX/UI à capitaliser.
 
 ---
 
-## 15. Critères de sortie du cadrage
+## 17. Critères de sortie du cadrage
 
 Le cadrage ne pourra être considéré comme terminé que si :
 
@@ -397,11 +505,16 @@ Le cadrage ne pourra être considéré comme terminé que si :
 - les données sensibles sont identifiées ;
 - les coûts et impacts GreenOps sont au moins qualifiés ;
 - les ADR candidates sont listées ;
-- les éléments à capitaliser dans la SFIA sont identifiés.
+- les éléments à capitaliser dans la SFIA sont identifiés ;
+- les validations métier et fonctionnelles attendues sont identifiées ;
+- les personas principaux sont décrits ;
+- les parcours utilisateurs critiques sont identifiés ;
+- les écrans candidats sont listés ;
+- les critères d'utilisabilité sont définis.
 
 ---
 
-## 16. Capitalisation SFIA attendue
+## 18. Capitalisation SFIA attendue
 
 À la fin du cadrage, un mini-bilan devra identifier :
 
@@ -415,6 +528,12 @@ Le cadrage ne pourra être considéré comme terminé que si :
 | Mapping statuts Git / Notion | Standard |
 | Passage Intake → Cadrage | Workflow Notion |
 | Structure projet Interv360 | Blueprint réutilisable |
+| Circuit de validation métier / fonctionnelle / UX | Template / Workflow Notion |
+| Persona Matrix | Template |
+| User Journey | Template |
+| UX/UI Framing | Template |
+| UX Review Checklist | Checklist |
+| Écrans candidats | Base composants UI |
 
 ---
 
