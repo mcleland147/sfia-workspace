@@ -293,17 +293,79 @@ Ces questions ne doivent pas toutes être résolues immédiatement. Elles consti
 
 ## 12. Arbitrages attendus
 
-Arbitrages à traiter pendant le cadrage :
+Les arbitrages ci-dessous découlent des questions ouvertes de la section §11. Ils structurent les décisions à traiter pendant le cadrage **sans les trancher à ce stade**.
 
-- niveau réel de simulation des intégrations ;
-- inclusion ou non de l'IA légère dans le MVP ;
-- statut de la géolocalisation : MVP ou cible ;
-- niveau de gestion des erreurs d'intégration ;
-- niveau de portail client ;
-- format du compte rendu ;
-- priorisation MVP ;
-- décisions devant donner lieu à ADR ;
-- éléments à capitaliser en templates ou standards.
+### 12.1 Arbitrages fonctionnels
+
+| ID | Arbitrage | Questions liées | Rôles à mobiliser | Sortie attendue | ADR candidate ? |
+|----|-----------|-----------------|-------------------|-----------------|-----------------|
+| A-F01 | Canal prioritaire de création des demandes SAV (CRM simulé, email simulé, saisie manuelle) | Q1 | Business Analyst, Product Owner | Décision MVP ; règle de gestion | Non |
+| A-F02 | Portail client simple ou notifications uniquement | Q2 | Concepteur fonctionnel, Product Owner | Décision MVP ; règle de gestion | Non |
+| A-F03 | Niveau de qualification (checklist minimale, devis rapide, validation approfondie) | Q3 | Business Analyst, Concepteur fonctionnel | Règle de gestion ; template SFIA | Non |
+| A-F04 | Signature client obligatoire ou optionnelle pour clôturer une intervention | Q4 | Business Analyst, Product Owner | Règle de gestion ; décision MVP | Non |
+| A-F05 | Types d'intervention à modéliser (urgence, préventif, installation, autre) | Q8 | Business Analyst, Architecte | Décision MVP ; règle de gestion | Oui |
+| A-F06 | Format du compte rendu (PDF, page web, les deux) | Q6 | Concepteur fonctionnel, Product Owner | Décision MVP ; template SFIA | Non |
+
+### 12.2 Arbitrages intégration / API
+
+| ID | Arbitrage | Questions liées | Rôles à mobiliser | Sortie attendue | ADR candidate ? |
+|----|-----------|-----------------|-------------------|-----------------|-----------------|
+| A-I01 | Périmètre et niveau de simulation du CRM | Q11, Q12 | Architecte, Product Owner | Décision MVP ; cartographie intégrations | Oui |
+| A-I02 | Périmètre et niveau de simulation de l'email entrant | Q11, Q12 | Architecte, Business Analyst | Décision MVP ; règle de gestion | Oui |
+| A-I03 | Périmètre et niveau de simulation du calendrier | Q11, Q12 | Architecte, Business Analyst | Décision MVP ; règle de gestion | Oui |
+| A-I04 | Périmètre des notifications client (canaux, événements, contenu) | Q2, Q12 | Architecte, Product Owner, FinOps | Décision MVP ; hypothèse FinOps | Oui |
+| A-I05 | Niveau de simulation des API (mock, contrats partiels, échanges complets simulés) | Q11, Q12 | Architecte | ADR ; décision MVP | Oui |
+| A-I06 | Synchronisation des statuts entre plateforme, CRM simulé et calendrier | Q11, Q23 | Architecte, Business Analyst | Règle de gestion ; ADR | Oui |
+| A-I07 | Niveau de gestion des erreurs d'intégration (alerte, retry, reprise manuelle) | Q11, Q12 | Architecte, QA / Testeur | Règle de gestion ; standard de cadrage | Oui |
+| A-I08 | Journalisation des flux d'intégration (logs, traçabilité, supervision) | Q11 | Architecte, RSSI | Exigence sécurité ; règle de gestion | Oui |
+
+### 12.3 Arbitrages sécurité / gouvernance des données
+
+| ID | Arbitrage | Questions liées | Rôles à mobiliser | Sortie attendue | ADR candidate ? |
+|----|-----------|-----------------|-------------------|-----------------|-----------------|
+| A-S01 | Classification des données sensibles ou critiques | Q10 | RSSI, Data / IA | Exigence sécurité ; règle de gestion | Oui |
+| A-S02 | Règles d'accès par profil (dirigeant, planning, technicien, admin, client) | Q10, Q9 | RSSI, Business Analyst | Exigence sécurité ; règle de gestion | Oui |
+| A-S03 | Conservation des photos, signatures et comptes rendus | Q10, Q14 | RSSI, GreenOps | Exigence sécurité ; principe GreenOps | Oui |
+| A-S04 | Niveau de traçabilité des actions et des modifications de statut | Q10, Q16, Q22 | RSSI, Architecte | Exigence sécurité ; ADR | Oui |
+| A-S05 | Exposition des données au client final (notifications vs portail) | Q2, Q10 | RSSI, Concepteur fonctionnel | Exigence sécurité ; décision MVP | Oui |
+| A-S06 | Mobilisation et périmètre d'intervention du RSSI au cadrage | Q9, Q16 | RSSI, Chef de projet | Checklist rôles ; workflow Notion | Non |
+
+### 12.4 Arbitrages FinOps / GreenOps
+
+| ID | Arbitrage | Questions liées | Rôles à mobiliser | Sortie attendue | ADR candidate ? |
+|----|-----------|-----------------|-------------------|-----------------|-----------------|
+| A-FG01 | Politique de stockage des photos et documents | Q13, Q14 | FinOps, GreenOps | Hypothèse FinOps ; principe GreenOps | Oui |
+| A-FG02 | Volume et durée de conservation des logs | Q13, Q14 | FinOps, GreenOps, RSSI | Hypothèse FinOps ; principe GreenOps | Oui |
+| A-FG03 | Coût et fréquence des notifications client | Q13 | FinOps, Product Owner | Hypothèse FinOps ; décision MVP | Non |
+| A-FG04 | Coût des appels API et des intégrations simulées | Q13 | FinOps, Architecte | Hypothèse FinOps ; ADR | Oui |
+| A-FG05 | Coût éventuel des services IA | Q13, Q7, Q15 | FinOps, Data / IA | Hypothèse FinOps ; décision MVP | Oui |
+| A-FG06 | Sobriété de la géolocalisation (précision, fréquence, finalité) | Q14 | GreenOps, RSSI | Principe GreenOps ; règle de gestion | Oui |
+| A-FG07 | Durée de conservation globale des données opérationnelles | Q14, Q10 | GreenOps, RSSI | Principe GreenOps ; exigence sécurité | Oui |
+
+### 12.5 Arbitrages IA légère
+
+| ID | Arbitrage | Questions liées | Rôles à mobiliser | Sortie attendue | ADR candidate ? |
+|----|-----------|-----------------|-------------------|-----------------|-----------------|
+| A-IA01 | Inclusion ou non de l'IA légère dans le MVP | Q7, Q15 | Product Owner, Data / IA | Décision MVP ; backlog futur | Oui |
+| A-IA02 | Cas d'usage IA candidats à évaluer (résumé CR, classification, priorisation) | Q7, Q15, Q12 | Data / IA, Business Analyst | Backlog futur ; décision MVP | Oui |
+| A-IA03 | Résumé automatique de compte rendu : utile, optionnel ou hors MVP | Q7, Q15 | Data / IA, Concepteur fonctionnel | Décision MVP ; backlog futur | Non |
+| A-IA04 | Classification automatique des demandes SAV | Q7, Q15 | Data / IA, Business Analyst | Décision MVP ; règle de gestion | Oui |
+| A-IA05 | Aide à la priorisation des interventions | Q7, Q15 | Data / IA, Product Owner | Décision MVP ; backlog futur | Non |
+| A-IA06 | Gouvernance des données utilisées par l'IA (sources, conservation, anonymisation) | Q10, Q15 | Data / IA, RSSI | Exigence sécurité ; ADR | Oui |
+
+### 12.6 Arbitrages automatisation SFIA
+
+| ID | Arbitrage | Questions liées | Rôles à mobiliser | Sortie attendue | ADR candidate ? |
+|----|-----------|-----------------|-------------------|-----------------|-----------------|
+| A-SF01 | Champs minimaux du formulaire de besoin | Q17 | Business Analyst, Chef de projet | Template SFIA ; workflow Notion | Oui |
+| A-SF02 | Templates SFIA à déclencher automatiquement selon la phase | Q18 | Chef de projet, Business Analyst | Template SFIA ; workflow Notion | Oui |
+| A-SF03 | Statuts Notion pilotant le workflow projet | Q19 | Chef de projet | Workflow Notion ; standard gouvernance | Oui |
+| A-SF04 | Rôles déclenchables selon le type de projet | Q9, Q20 | Chef de projet, RSSI | Template SFIA ; workflow Notion | Oui |
+| A-SF05 | Livrables générables automatiquement (intake, cadrage, ADR, doc) | Q21 | Chef de projet, Business Analyst | Template SFIA ; workflow Notion | Oui |
+| A-SF06 | Éléments à synchroniser entre Notion et Cursor | Q23 | Chef de projet, Architecte | Standard gouvernance ; workflow Notion | Oui |
+| A-SF07 | Éléments à capitaliser en prompts, templates ou composants | Q24, Q18 | Chef de projet, Architecte | Template SFIA ; composant réutilisable | Oui |
+
+Les arbitrages listés ci-dessus seront traités progressivement pendant le cadrage. Ils ne doivent pas tous être tranchés immédiatement. Les décisions structurantes seront documentées sous forme d'**ADR** lorsqu'elles impactent durablement l'architecture, le périmètre MVP, la gouvernance SFIA ou les choix d'automatisation.
 
 ---
 
