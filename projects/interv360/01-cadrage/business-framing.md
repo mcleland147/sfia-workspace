@@ -27,7 +27,24 @@ Il ne doit pas uniquement préciser le besoin métier Interv360, mais aussi **id
 
 ## 2. Rappel de la vision projet
 
-*À compléter — Interv360 comme plateforme SAV avec intégrations externes simulées et premier projet pilote SFIA.*
+**Interv360 — Plateforme de gestion d'interventions SAV avec intégrations externes simulées.**
+
+Le projet s'appuie sur **ServiTech Pro**, entreprise fictive de maintenance multi-technique (25 à 50 salariés, 10 à 20 techniciens terrain), pour ancrer le besoin dans un contexte PME réaliste.
+
+**Objectif métier** : l'objectif n'est pas de remplacer le CRM, l'email, le calendrier partagé ou l'outil de facturation déjà en place, mais d'**orchestrer le cycle SAV** de la demande à la clôture en centralisant l'information et en synchronisant les échanges entre outils existants.
+
+**Objectif SFIA** : Interv360 est le **premier projet pilote** destiné à tester la SFIA comme **système complet de création d'application**. Le projet doit démontrer la chaîne :
+
+```
+Formulaire → workflow → projet → application
+```
+
+- **Formulaire** : besoin structuré en entrée ;
+- **Workflow** : pilotage des phases et statuts dans Notion ;
+- **Projet** : trajectoire documentée (intake, cadrage, architecture, delivery) ;
+- **Application** : démonstrateur produit versionné dans Cursor/Git.
+
+Chaque livrable du cadrage doit produire une double valeur : **valeur immédiate pour Interv360** et **capitalisation durable pour la SFIA**.
 
 ---
 
@@ -65,7 +82,40 @@ Chaque action projet doit produire une **double valeur** :
 
 ## 4. Périmètre métier à cadrer
 
-*À compléter.*
+### Inclus dans le cadrage
+
+- cycle demande SAV → clôture ;
+- création de demande depuis CRM simulé, email simulé ou saisie manuelle ;
+- qualification et priorisation ;
+- planification calendrier ;
+- notification client ;
+- intervention terrain ;
+- ajout de photos, commentaires et signature ;
+- compte rendu ;
+- synchronisation CRM / préparation facturation ;
+- gestion des erreurs d'intégration ;
+- tableau de bord activité et anomalies.
+
+### À arbitrer pendant le cadrage
+
+- niveau de simulation des intégrations ;
+- présence ou non d'un portail client simple ;
+- niveau de géolocalisation ;
+- place de l'IA légère ;
+- format du compte rendu ;
+- niveau de gestion des erreurs ;
+- périmètre MVP ;
+- décisions à documenter en ADR.
+
+### Hors cadrage immédiat
+
+- développement complet ;
+- architecture technique détaillée ;
+- backlog exhaustif ;
+- intégration CRM réelle ;
+- moteur d'orchestration complexe ;
+- géolocalisation temps réel avancée ;
+- ERP ou facturation complète.
 
 ---
 
@@ -107,7 +157,32 @@ Cette matrice doit être considérée comme un **premier candidat au template SF
 
 ## 6. Parcours SAV cible à détailler
 
-*À compléter — détailler le parcours CRM/Email → clôture issu de l'intake.*
+```
+CRM / Email / Saisie manuelle
+    → Création demande SAV
+        → Qualification
+            → Planification calendrier
+                → Notification client
+                    → Intervention terrain
+                        → Mise à jour statut / géolocalisation éventuelle
+                            → Compte rendu
+                                → Synchronisation CRM / préparation facturation
+                                    → Clôture
+```
+
+| Étape | Objectif métier | Acteur principal | Entrée | Sortie | Point de vigilance | Capitalisation SFIA possible |
+|-------|-----------------|----------------|--------|--------|-------------------|---------------------------|
+| **Création demande SAV** | Enregistrer une demande d'intervention depuis une source externe ou une saisie manuelle | Assistant administratif / Responsable SAV | Message CRM, email simulé ou saisie formulaire | Demande SAV créée avec identifiant et statut initial | Doublons entre sources, données incomplètes, traçabilité de l'origine | Template formulaire demande ; mapping sources → objet demande |
+| **Qualification** | Analyser le besoin, prioriser et valider le périmètre d'intervention | Responsable SAV / planning | Demande SAV brute | Demande qualifiée, priorisée, prête à planifier | Critères de priorisation, délais de qualification, rejet ou report | Checklist qualification ; règles de priorisation |
+| **Planification calendrier** | Affecter un technicien et un créneau, synchroniser avec le calendrier simulé | Responsable SAV / planning | Demande qualifiée | Intervention planifiée, créneau réservé | Conflits de créneau, disponibilité technicien, modification tardive | Template planification ; règles conflit calendrier |
+| **Notification client** | Informer le client de la planification ou d'un changement | Plateforme (service notification simulé) | Intervention planifiée ou statut modifié | Notification envoyée, accusé de réception simulé | Fréquence, coût, contenu du message, échec d'envoi | Template notification ; événements déclencheurs |
+| **Intervention terrain** | Exécuter l'intervention avec le contexte client complet | Technicien terrain | Dossier intervention, historique client, consignes | Intervention en cours, preuves collectées | Accès hors ligne, contexte incomplet, sécurité des données terrain | Template espace technicien ; checklist intervention |
+| **Mise à jour statut / géolocalisation** | Confirmer la présence sur site et mettre à jour le statut | Technicien terrain | Intervention en cours | Statut mis à jour, coordonnée légère enregistrée si applicable | Vie privée, précision, conservation des coordonnées | Standard géolocalisation légère ; règles conservation |
+| **Compte rendu** | Documenter l'intervention avec photos, commentaires et signature client | Technicien terrain | Intervention terminée sur site | Compte rendu structuré, preuves attachées | Qualité des photos, signature obligatoire ou non, délai de rédaction | Template compte rendu ; format livrable |
+| **Synchronisation CRM / préparation facturation** | Remonter les éléments clôturés vers les systèmes simulés | Plateforme / Assistant administratif | Compte rendu validé | Statut CRM mis à jour, éléments facturables préparés | Échec de synchronisation, mapping incomplet, données manquantes | Standard synchronisation ; mapping statuts CRM |
+| **Clôture** | Finaliser administrativement l'intervention | Assistant administratif / Responsable SAV | Intervention documentée et synchronisée | Intervention clôturée, historique client enrichi | Clôture prématurée, données incomplètes, réouverture | Workflow clôture ; critères de clôture |
+
+*Le détail des règles de transition entre étapes sera produit en section 10. Le périmètre MVP sera arbitré ultérieurement — il n'est pas défini à ce stade.*
 
 ---
 

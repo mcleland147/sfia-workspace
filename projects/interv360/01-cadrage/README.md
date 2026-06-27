@@ -12,10 +12,10 @@ Phase de **cadrage métier** : formalisation du besoin, des objectifs et du pér
 
 ## Statut
 
-Phase active — squelette enrichi du cadrage prêt, rédaction du cadrage métier peut commencer.
+Phase active — premières sections métier du cadrage en cours de rédaction (vision, périmètre, parcours SAV).
 
 ## Livrable
 
 | Document | Statut |
 |----------|--------|
-| [business-framing.md](business-framing.md) | Draft — structure enrichie (matrice rôles, intégrations, capitalisation SFIA) |
+| [business-framing.md](business-framing.md) | Draft — §2, §4, §6 rédigés ; sections suivantes à compléter |
