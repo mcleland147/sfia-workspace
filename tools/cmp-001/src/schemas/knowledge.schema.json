@@ -17,7 +17,7 @@
     },
     "category": {
       "type": "string",
-      "enum": ["Guide", "Reference", "FAQ", "How-to"],
+      "enum": ["Guide", "Reference", "FAQ", "How-to", "Project Documentation"],
       "notionType": "select",
       "notionProperty": "Category"
     },

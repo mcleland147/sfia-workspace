@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-06-27T15:33:01.043Z",
+  "exportedAt": "2026-06-27T16:18:18.151Z",
   "version": "1.1.0",
   "bases": [
     {
@@ -63,15 +63,15 @@
       "file": "knowledge.json",
       "databaseId": "e304c66c-5e64-48f1-a6e5-f1a4e5058777",
       "databaseTitle": "Knowledge Articles",
-      "count": 2
+      "count": 3
     },
     {
       "objectType": "project",
       "file": "projects.json",
       "databaseId": "1fac1e57-d588-4e3b-ba7b-4af2902e8976",
       "databaseTitle": "Projects",
-      "count": 1
+      "count": 2
     }
   ],
-  "totalObjects": 22
+  "totalObjects": 24
 }

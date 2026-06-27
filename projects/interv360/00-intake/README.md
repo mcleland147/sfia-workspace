@@ -11,10 +11,10 @@ Phase d'**intake** : collecte initiale du besoin, du contexte et des parties pre
 
 ## Livrables
 
-| Document | Statut |
-|----------|--------|
-| [project-intake.md](project-intake.md) | Rédigé — en attente de validation |
+| Document | Statut | Notion |
+|----------|--------|--------|
+| [project-intake.md](project-intake.md) | Rédigé — en attente de validation | [KNO-002 — Interv360 Project Intake](https://app.notion.com/p/KNO-002-Interv360-Project-Intake-38c0bc3380748120acc9faa1f3aea148) — **Draft** |
 
 ## Statut
 
-Phase active — intake rédigé, validation en attente.
+Phase active — intake rédigé et publié dans Notion en statut **Draft**, validation en attente.
