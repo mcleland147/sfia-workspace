@@ -10,6 +10,8 @@ Chaque projet dispose de son propre sous-dossier et, le cas échéant, de son d�
 - Lier le projet à la base Notion **Projects**
 - Ne pas mélanger le code de plusieurs projets dans un même dépôt
 
-## À venir
+## Projets actifs
 
-- `interv360/` — non créé à ce stade
+| Projet | ID | Statut | Phase |
+|--------|-----|--------|-------|
+| [Interv360](interv360/) | PRJ-INTERV360 | Initiated | Intake |

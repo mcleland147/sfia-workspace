@@ -1,0 +1,16 @@
+{
+  "id": "PRJ-INTERV360",
+  "name": "Interv360",
+  "status": "Initiated",
+  "phase": "Intake",
+  "type": "Project",
+  "createdFrom": "SFIA Workspace",
+  "governance": "SFIA",
+  "description": "",
+  "objectives": [],
+  "stakeholders": [],
+  "constraints": [],
+  "deliverables": [],
+  "decisions": [],
+  "nextStep": "Complete project intake"
+}
