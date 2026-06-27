@@ -96,16 +96,23 @@ Chaque action projet doit produire une **double valeur** :
 - gestion des erreurs d'intégration ;
 - tableau de bord activité et anomalies.
 
-### À arbitrer pendant le cadrage
+### Arbitré au niveau cadrage (périmètre MVP)
 
-- niveau de simulation des intégrations ;
-- présence ou non d'un portail client simple ;
+Le **périmètre MVP est stabilisé au niveau cadrage/arbitrage** — voir `mvp-arbitration-validation.md` et §12.7. Sans détail technique :
+
+- canal principal **CRM simulé** ; saisie manuelle secours ; **email sécurisé** cadré (non principal) ;
+- **notifications client** au MVP ; **portail client** en évolution ultérieure ;
+- **signature optionnelle** ; **contrats API documentés** avec implémentation simulée ;
+- **erreurs visibles** + reprise manuelle simulée ; **conservation fictive** RSSI/GreenOps ;
+- **noyau 8 écrans** (tableau de bord SAV complet, vue dirigeant avancée, etc.).
+
+### Encore à arbitrer ou à traiter en conception / architecture
+
 - niveau de géolocalisation ;
 - place de l'IA légère ;
-- format du compte rendu ;
-- niveau de gestion des erreurs ;
-- périmètre MVP ;
-- décisions à documenter en ADR.
+- format du compte rendu (détail livrable) ;
+- arbitrages A-* non couverts par les MVP validés ;
+- décisions à documenter en **ADR** (phase architecture).
 
 ### Hors cadrage immédiat
 
@@ -182,7 +189,7 @@ CRM / Email / Saisie manuelle
 | **Synchronisation CRM / préparation facturation** | Remonter les éléments clôturés vers les systèmes simulés | Plateforme / Assistant administratif | Compte rendu validé | Statut CRM mis à jour, éléments facturables préparés | Échec de synchronisation, mapping incomplet, données manquantes | Standard synchronisation ; mapping statuts CRM |
 | **Clôture** | Finaliser administrativement l'intervention | Assistant administratif / Responsable SAV | Intervention documentée et synchronisée | Intervention clôturée, historique client enrichi | Clôture prématurée, données incomplètes, réouverture | Workflow clôture ; critères de clôture |
 
-*Le détail des règles de transition entre étapes sera produit en section §10. Le périmètre MVP sera arbitré ultérieurement — il n'est pas défini à ce stade.*
+*Le détail des règles de transition entre étapes est en section §10. Le **périmètre MVP est arbitré au niveau cadrage** — voir §12.7 et `mvp-arbitration-validation.md`.*
 
 ---
 
@@ -206,14 +213,14 @@ Cas obligatoires issus de la stratégie SFIA (à détailler pendant le cadrage) 
 
 | Intégration | Objectif métier | Type de simulation | Points à cadrer |
 |-------------|-----------------|-------------------|-----------------|
-| **CRM** | Créer / synchroniser une demande SAV | Mock API ou fichier JSON | Mapping données, statuts, doublons |
-| **Email** | Transformer une demande email en demande SAV | Email simulé / payload | Pièces jointes, classification, origine |
-| **Calendrier** | Planifier une intervention | Mock calendrier | Créneau, conflit, mise à jour |
-| **Notifications** | Informer le client | Mock email/SMS | Événements déclencheurs, coût, fréquence |
+| **CRM** | Créer / synchroniser une demande SAV | **Contrat API documenté** avec implémentation simulée | Mapping données, statuts, doublons ; canal principal MVP |
+| **Email** | Transformer une demande email en demande SAV | **Canal sécurisé cadré**, non principal ; contrat fonctionnel `POST /email/intake` | Authentification, autorisation, pièces jointes, rejet emails non légitimes |
+| **Calendrier** | Planifier une intervention | **Contrat documenté** avec implémentation simulée | Créneau, conflit, mise à jour |
+| **Notifications** | Informer le client | **Contrat documenté** avec implémentation simulée | Événements déclencheurs, coût, fréquence ; notifications MVP (sans écran dédié détaillé) |
 | **Géolocalisation** | Preuve terrain légère | Coordonnée simulée | Vie privée, précision, conservation |
-| **Facturation** | Préparer les éléments facturables | Export simulé | Temps, pièces, statut clôturé |
+| **Facturation** | Préparer les éléments facturables | **Contrat documenté** avec implémentation simulée | Temps, pièces, statut clôturé |
 
-*Le niveau réel de simulation de chaque intégration sera arbitré en section 12.*
+*Les **contrats restent fonctionnels** — ils ne constituent pas une architecture technique. Niveau de simulation validé : **vrais contrats API documentés, implémentation simulée** (ARB-MVP-04).*
 
 ---
 
@@ -298,6 +305,8 @@ Cette cartographie doit permettre de capitaliser :
 ## 10. Règles de gestion à définir
 
 Cette section identifie les **règles de gestion à instruire** pendant le cadrage. Elles servent à clarifier les comportements attendus du produit, les conditions de passage entre statuts, les validations métier, les contrôles fonctionnels, les erreurs d'intégration et les critères de recette futurs. Elles ne constituent **pas encore** des spécifications détaillées ni un backlog.
+
+Les règles **RG-*** devront être **détaillées à partir des arbitrages MVP validés** (`mvp-arbitration-validation.md`), notamment : **canaux** (CRM, email, saisie), **signature**, **contrats API**, **erreurs d'intégration**, **conservation**, **KPI dashboard** et **écrans MVP**. Cette section ne transforme pas les règles en spécifications détaillées.
 
 ### 10.1 Règles de création et qualification des demandes SAV
 
@@ -540,7 +549,23 @@ Les arbitrages ci-dessous découlent des questions ouvertes de la section §11. 
 | A-SF06 | Éléments à synchroniser entre Notion et Cursor | Q23 | Chef de projet, Architecte | Standard gouvernance ; workflow Notion | Oui |
 | A-SF07 | Éléments à capitaliser en prompts, templates ou composants | Q24, Q18 | Chef de projet, Architecte | Template SFIA ; composant réutilisable | Oui |
 
-Les arbitrages listés ci-dessus seront traités progressivement pendant le cadrage. Ils ne doivent pas tous être tranchés immédiatement. Les décisions structurantes seront documentées sous forme d'**ADR** lorsqu'elles impactent durablement l'architecture, le périmètre MVP, la gouvernance SFIA ou les choix d'automatisation.
+### 12.7 Synthèse des arbitrages MVP validés
+
+Les **7 arbitrages MVP prioritaires** sont **validés au niveau cadrage** — source : `mvp-arbitration-validation.md`.
+
+| ID | Décision validée | Impact cadrage |
+|----|------------------|----------------|
+| **ARB-MVP-01** | CRM simulé principal ; saisie manuelle secours ; email sécurisé cadré comme canal d'intégration complet **non principal** | Canaux création §8 ; RG-C01–RG-C04 ; contrat email ; ADR email SSI |
+| **ARB-MVP-02** | Notifications client uniquement au MVP ; portail client en évolution ultérieure | RG-P05, RG-I03 ; pas de portail au noyau MVP |
+| **ARB-MVP-03** | Signature client **optionnelle**, non bloquante, structurée dans modèle métier et compte rendu | RG-R01, RG-R02 ; parcours technicien |
+| **ARB-MVP-04** | **Vrais contrats API documentés** avec implémentation simulée | §8 intégrations ; RG-I01–RG-I05 ; ADR contrats API |
+| **ARB-MVP-05** | Erreurs visibles écran anomalies + reprise manuelle simulée ; **retry automatique hors MVP** | RG-I06–RG-I09 ; cas métier CF9 ; écran erreurs |
+| **ARB-MVP-06** | Conservation limitée fictive (hypothèses RSSI / GreenOps) ; pas de purge/archivage lourd au MVP | RG-S03–RG-S05, RG-FG01–RG-FG02 |
+| **ARB-MVP-07** | **Noyau MVP 8 écrans** : tableau de bord SAV complet, liste demandes, fiche demande, planning, fiche technicien, CR, erreurs intégration, vue dirigeant avancée ; suivi notifications détaillé et portail client en **évolution ultérieure** | §14.3 ; KPI §4–§5 dashboard-kpi-ux-review ; brief UX/UI avant Figma |
+
+Les arbitrages listés en §12.1 à §12.6 restent la **base de travail** pour les sujets non couverts par les MVP validés ou pour le détail en conception / ADR.
+
+Les arbitrages listés ci-dessus seront traités progressivement pendant le cadrage. **Les arbitrages MVP prioritaires ont été validés dans `mvp-arbitration-validation.md`.** Les arbitrages restants ou plus détaillés pourront être traités pendant la conception fonctionnelle, l'architecture ou les ADR candidates. Les décisions structurantes seront documentées sous forme d'**ADR** lorsqu'elles impactent durablement l'architecture, le périmètre MVP, la gouvernance SFIA ou les choix d'automatisation.
 
 ---
 
@@ -608,17 +633,32 @@ Cette section prépare la conception UX/UI **sans produire encore de maquettes d
 
 ### 14.3 Écrans candidats
 
-| Écran candidat | Utilisateurs concernés | Objectif | Données affichées | Questions UX à traiter |
-|----------------|------------------------|----------|-------------------|------------------------|
-| **Tableau de bord SAV** | Dirigeant, Manager opérationnel | Vision globale activité | Demandes en cours, anomalies, indicateurs clés | Quels indicateurs minimum ? Lisibilité mobile ? |
-| **Liste des demandes** | Responsable SAV, Assistant administratif | Parcourir et filtrer les demandes | Statut, client, priorité, date, source | Filtres, tri, recherche, doubles saisies |
-| **Fiche demande SAV** | Responsable SAV, Assistant administratif | Détail et qualification d'une demande | Historique client, description, statut, pièces | Niveau de détail qualification ; actions disponibles |
-| **Planning** | Responsable SAV / planning | Visualiser et ajuster le planning | Créneaux, techniciens, interventions, conflits | Vue jour/semaine ; modification rapide ; conflits visibles |
-| **Fiche intervention technicien** | Technicien terrain | Préparer et exécuter l'intervention | Client, adresse, consignes, historique, statut | Accès mobile ; hors ligne ; contexte complet |
-| **Compte rendu intervention** | Technicien terrain | Documenter l'intervention | Photos, commentaires, checklist, signature | Simplicité saisie ; nombre de champs ; sobriété |
-| **Suivi des notifications** | Assistant administratif, Client final | Vérifier les notifications envoyées | Événement, canal, statut envoi, contenu | Fréquence ; coût ; lisibilité message client |
-| **Suivi des erreurs d'intégration** | Manager opérationnel, Architecte | Traiter les échecs de synchronisation | Type erreur, source, horodatage, action corrective | Visibilité immédiate ; niveau de détail logs |
-| **Vue pilotage dirigeant** | Dirigeant | Piloter l'activité et anticiper | KPI, délais, charge, taux clôture, anomalies | Quels KPI minimum (Q5) ; granularité ; export |
+**Noyau MVP validé — 8 écrans** (ARB-MVP-07, `dashboard-kpi-ux-review.md`) :
+
+1. tableau de bord SAV **complet** ;
+2. liste des demandes ;
+3. fiche demande SAV ;
+4. planning ;
+5. fiche intervention technicien ;
+6. compte rendu intervention ;
+7. suivi des erreurs d'intégration ;
+8. vue pilotage dirigeant **avancée**.
+
+**Évolution ultérieure :** suivi détaillé des notifications ; portail client.
+
+**Brief UX/UI obligatoire avant Figma** (§14.6) — Figma non déclenché à ce stade.
+
+| Écran candidat | Périmètre MVP | Utilisateurs concernés | Objectif | Données affichées | Questions UX à traiter |
+|----------------|---------------|------------------------|----------|-------------------|------------------------|
+| **Tableau de bord SAV** | **MVP — complet** | Dirigeant, Manager opérationnel, Responsable SAV | Vision opérationnelle activité quotidienne | Demandes en cours, anomalies, indicateurs clés (§4 dashboard-kpi-ux-review) | KPI minimum ; différenciation vs vue dirigeant |
+| **Liste des demandes** | **MVP** | Responsable SAV, Assistant administratif | Parcourir et filtrer les demandes | Statut, client, priorité, date, source | Filtres, tri, recherche, doubles saisies |
+| **Fiche demande SAV** | **MVP** | Responsable SAV, Assistant administratif | Détail et qualification d'une demande | Historique client, description, statut, pièces | Niveau de détail qualification ; actions disponibles |
+| **Planning** | **MVP** | Responsable SAV / planning | Visualiser et ajuster le planning | Créneaux, techniciens, interventions, conflits | Vue jour/semaine ; modification rapide ; conflits visibles |
+| **Fiche intervention technicien** | **MVP** | Technicien terrain | Préparer et exécuter l'intervention | Client, adresse, consignes, historique, statut | Accès mobile ; hors ligne ; contexte complet |
+| **Compte rendu intervention** | **MVP** | Technicien terrain | Documenter l'intervention | Photos, commentaires, checklist, signature optionnelle | Simplicité saisie ; nombre de champs ; sobriété |
+| **Suivi des notifications** | Évolution ultérieure | Assistant administratif, Client final | Vérifier les notifications envoyées | Événement, canal, statut envoi, contenu | Indicateur agrégé au dashboard MVP |
+| **Suivi des erreurs d'intégration** | **MVP** | Manager opérationnel, Architecte | Traiter les échecs de synchronisation | Type erreur, source, horodatage, action corrective | Visibilité immédiate ; reprise manuelle simulée |
+| **Vue pilotage dirigeant** | **MVP — avancée** | Dirigeant | Piloter l'activité et anticiper | KPI consolidés, tendances, alertes (§5 dashboard-kpi-ux-review) | Lecture synthétique ; pas de BI avancée |
 
 ### 14.4 Critères d'utilisabilité à valider
 
@@ -684,6 +724,8 @@ Cette règle est **candidate à un standard SFIA** (déclenchement Figma post-ca
 ## 15. Risques et points d'attention
 
 Cette section identifie les principaux **risques et points d'attention** issus du cadrage Interv360. Elle sert à préparer les arbitrages, les ADR candidates, les validations métier/fonctionnelles/UX et les actions de sécurisation avant les phases de conception, architecture et delivery.
+
+Les **arbitrages MVP validés** (§12.7) **réduisent certains risques** de scope, intégration, erreurs, UX et SSI, mais **ne suppriment pas** les risques de mise en œuvre. Ces risques devront être **suivis pendant la conception, les ADR et le delivery**.
 
 ### 15.1 Risques métier et fonctionnels
 
@@ -798,7 +840,13 @@ Cette section doit permettre de capitaliser :
 - parcours utilisateurs ;
 - écrans candidats ;
 - critères d'utilisabilité ;
-- éléments UX/UI à capitaliser.
+- éléments UX/UI à capitaliser ;
+- `mvp-arbitrations.md` et **`mvp-arbitration-validation.md`** ;
+- **`integration-error-arbitration-review.md`** ;
+- **`secure-email-intake-review.md`** ;
+- **`dashboard-kpi-ux-review.md`** ;
+- **brief UX/UI** à produire en sortie ou suite de cadrage ;
+- **ADR candidates** à préparer en phase architecture.
 
 ---
 
@@ -806,13 +854,18 @@ Cette section doit permettre de capitaliser :
 
 Le cadrage ne pourra être considéré comme terminé que si :
 
-- le périmètre MVP est défini ;
+- les **arbitrages MVP sont validés** (`mvp-arbitration-validation.md`, §12.7) ;
+- le **périmètre MVP est stabilisé au niveau cadrage** (sans architecture ni backlog) ;
+- les **ADR candidates sont identifiées** ;
+- les **règles de gestion à détailler** sont identifiées (§10) ;
+- le **brief UX/UI est prévu** avant toute maquette Figma (§14.6) ;
+- **architecture, backlog, user stories et maquettes ne sont pas produits** à ce stade du cadrage ;
+- le périmètre MVP est défini au niveau cadrage ;
 - les rôles SFIA sont clarifiés ;
 - les intégrations simulées sont cadrées ;
 - les cas d'erreur sont identifiés ;
 - les données sensibles sont identifiées ;
 - les coûts et impacts GreenOps sont au moins qualifiés ;
-- les ADR candidates sont listées ;
 - les éléments à capitaliser dans la SFIA sont identifiés ;
 - les validations métier et fonctionnelles attendues sont identifiées ;
 - les personas principaux sont décrits ;
@@ -846,6 +899,14 @@ Le cadrage ne pourra être considéré comme terminé que si :
 | Règle de déclenchement Figma | Standard UX/UI SFIA |
 | Brief UX/UI avant Figma | Template |
 | Critères d'entrée Figma | Checklist |
+| Template MVP Arbitration Validation | Template |
+| Standard contrats API documentés avec implémentation simulée | Standard |
+| Standard canal email sécurisé | Standard |
+| Template Dashboard KPI Matrix | Template |
+| Template Executive View Framing | Template |
+| Checklist API Error Handling | Checklist |
+| Checklist SSI email | Checklist |
+| Template Error Matrix | Template |
 
 ---
 
