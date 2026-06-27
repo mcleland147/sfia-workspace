@@ -648,7 +648,105 @@ Cette section doit permettre de capitaliser :
 
 ## 15. Risques et points d'attention
 
-*À compléter.*
+Cette section identifie les principaux **risques et points d'attention** issus du cadrage Interv360. Elle sert à préparer les arbitrages, les ADR candidates, les validations métier/fonctionnelles/UX et les actions de sécurisation avant les phases de conception, architecture et delivery.
+
+### 15.1 Risques métier et fonctionnels
+
+| ID | Risque / point d'attention | Source dans le cadrage | Impact potentiel | Rôle à mobiliser | Action attendue |
+|----|---------------------------|------------------------|------------------|------------------|-----------------|
+| R-M01 | Périmètre SAV trop large | §4 Inclus, §7 cas obligatoires | Dérive scope, MVP inexploitable, cadrage interminable | Product Owner / Chef de projet | Qualifier périmètre ; préparer arbitrage priorisation |
+| R-M02 | Règles de qualification ambiguës | RG-C07, Q3, A-F03 | Demandes mal traitées, délais qualification | Business Analyst / Responsable SAV | Formaliser règles ; valider avec valideur fictif |
+| R-M03 | Priorisation des demandes non définie | RG-C08, Q8 | Interventions mal ordonnées, insatisfaction client | Product Owner / Responsable SAV | Préparer arbitrage priorisation |
+| R-M04 | Clôture d'intervention mal cadrée | RG-R05, §6 clôture | Facturation retardée, données incomplètes | Business Analyst / Assistant administratif | Compléter règles clôture ; lier à RG-R07 |
+| R-M05 | Compte rendu trop complexe | RG-R01, §14 critères utilisabilité | Retards terrain, adoption technicien faible | Concepteur fonctionnel / Technicien (fictif) | Préparer validation UX ; arbitrer format A-F06 |
+| R-M06 | Signature client non arbitrée | RG-R02, A-F04, Q4 | Blocage clôture ou preuve insuffisante | Product Owner / Business Analyst | Traiter arbitrage A-F04 |
+| R-M07 | Portail client ou notifications non clarifiés | A-F02, Q2, RG-P05 | Expérience client incohérente, surcoût ou frustration | Product Owner / Concepteur fonctionnel | Traiter arbitrage A-F02 |
+| R-M08 | Indicateurs dirigeant trop nombreux ou flous | Q5, §14 écran pilotage | Tableau de bord inutilisable | Business Analyst / Dirigeant (fictif) | Préparer arbitrage indicateurs minimum |
+
+### 15.2 Risques UX/UI et adoption utilisateur
+
+| ID | Risque / point d'attention | Source dans le cadrage | Impact potentiel | Rôle à mobiliser | Action attendue |
+|----|---------------------------|------------------------|------------------|------------------|-----------------|
+| R-UX01 | Parcours technicien trop lourd | §14.2, RG-T01 à RG-T08 | Faible adoption terrain, CR tardifs | Concepteur fonctionnel / Technicien (fictif) | Préparer validation UX parcours technicien |
+| R-UX02 | Planning difficile à lire | §14.3 planning, §14.4 lisibilité | Erreurs planification, conflits créneaux | Concepteur fonctionnel / Responsable SAV | Préparer revue UX planning |
+| R-UX03 | Trop grand nombre d'écrans candidats | §14.3 (9 écrans) | Complexité produit, coût delivery | Product Owner / Concepteur fonctionnel | Prioriser écrans lors arbitrages MVP |
+| R-UX04 | Double saisie non résolue | §14.4, RG-C04, O8 intake | Perte temps, incohérences données | Business Analyst / Concepteur UX | Identifier règles anti-doublon ; lier intégrations |
+| R-UX05 | Compte rendu terrain peu utilisable sur mobile | §14.3 CR, RG-T05 | Qualité CR dégradée, photos manquantes | Concepteur fonctionnel / Technicien (fictif) | Préparer validation UX mobile |
+| R-UX06 | Erreurs d'intégration peu visibles | RG-I09, §14.3 anomalies | Anomalies non traitées, perte confiance dirigeant | Concepteur UX / Manager opérationnel | Préparer revue écran anomalies |
+| R-UX07 | Notifications client peu compréhensibles | RG-P05, RG-I03, §14.4 clarté | Appels clients, insatisfaction | Concepteur fonctionnel / Client final (fictif) | Préparer validation contenu notifications |
+| R-UX08 | Absence de validation UX fictive | §13.1 Validation UX, §13.2 passage UX | Parcours non validés avant maquettes | Chef de projet / Concepteur UX | Planifier sessions validation UX fictive |
+
+### 15.3 Risques intégration et synchronisation
+
+| ID | Risque / point d'attention | Source dans le cadrage | Impact potentiel | Rôle à mobiliser | Action attendue |
+|----|---------------------------|------------------------|------------------|------------------|-----------------|
+| R-I01 | Simulation CRM trop simplifiée | A-I01, §9.2, CF1 | Démonstrateur peu crédible, mapping insuffisant | Architecte / Business Analyst | Traiter arbitrage niveau simulation A-I05 |
+| R-I02 | Mapping des statuts incomplet | RG-I05, A-I06, §9.1 Statut | Incohérences entre systèmes, erreurs sync | Architecte / Business Analyst | Compléter standard mapping statuts |
+| R-I03 | Gestion des erreurs insuffisante | RG-I06, A-I07, CF9 | Anomalies silencieuses, données perdues | Architecte / QA | Traiter arbitrage A-I07 |
+| R-I04 | Absence de retry ou reprise manuelle | RG-I08, A-I07 | Blocage parcours, intervention non clôturée | Architecte / Product Owner | Préparer arbitrage retry vs manuel |
+| R-I05 | Logs trop détaillés ou insuffisants | RG-I07, A-I08, A-FG02 | RSSI non satisfait ou coûts GreenOps/FinOps | RSSI / FinOps / Architecte | Traiter arbitrage journalisation |
+| R-I06 | Synchronisation calendrier ambiguë | RG-I02, A-I03, CF3 | Conflits créneaux, technicien mal informé | Architecte / Responsable SAV | Compléter règles RG-P03, RG-I02 |
+| R-I07 | Export facturation mal cadré | RG-I04, RG-R07, §8 facturation | Éléments facturables incomplets | Business Analyst / Assistant administratif | Formaliser règles export |
+| R-I08 | Dérive vers architecture technique prématurée | §4 Hors cadrage, §12 arbitrages API | Cadrage métier incomplet, décisions techniques hâtives | Chef de projet / Architecte | Maintenir garde-fou §15.7 ; reporter architecture |
+
+### 15.4 Risques sécurité, données et gouvernance
+
+| ID | Risque / point d'attention | Source dans le cadrage | Impact potentiel | Rôle à mobiliser | Action attendue |
+|----|---------------------------|------------------------|------------------|------------------|-----------------|
+| R-S01 | Données sensibles non classifiées | §9.3, A-S01, Q10 | Fuite données, non-conformité | RSSI / Data / IA | Compléter classification ; checklist RSSI |
+| R-S02 | Accès par profil non cadrés | RG-S01, A-S02 | Accès excessifs, données exposées | RSSI / Business Analyst | Formaliser matrice accès |
+| R-S03 | Conservation photos/signatures/logs non arbitrée | RG-S03, RG-S04, RG-S05, A-FG07 | Stockage excessif ou preuves perdues | RSSI / GreenOps | Traiter arbitrages conservation |
+| R-S04 | Géolocalisation insuffisamment encadrée | RG-T04, RG-FG05, A-FG06 | Vie privée, coûts, données sensibles | RSSI / GreenOps | Traiter arbitrage géolocalisation |
+| R-S05 | Données client trop exposées | RG-S02, A-S05 | Confiance client compromise | RSSI / Concepteur fonctionnel | Traiter arbitrage portail vs notifications |
+| R-S06 | Traçabilité insuffisante | RG-S06, A-S04 | Décisions non reconstituables | RSSI / Architecte | Définir standard traçabilité |
+| R-S07 | Usage IA sans gouvernance | RG-S08, A-IA06 | Données IA non maîtrisées | Data / IA / RSSI | Traiter arbitrages A-IA01, A-IA06 |
+| R-S08 | Rôle RSSI mobilisé trop tard | §5 rôles transverses, A-S06 | Exigences sécurité réactives, rework | RSSI / Chef de projet | Mobiliser RSSI dès suite cadrage |
+
+### 15.5 Risques FinOps / GreenOps
+
+| ID | Risque / point d'attention | Source dans le cadrage | Impact potentiel | Rôle à mobiliser | Action attendue |
+|----|---------------------------|------------------------|------------------|------------------|-----------------|
+| R-FG01 | Stockage photos/documents trop volumineux | RG-FG01, A-FG01, §9.3 photos | Coûts stockage, lenteur application | FinOps / GreenOps | Traiter arbitrages compression et limite |
+| R-FG02 | Conservation excessive des logs | RG-FG02, A-FG02 | Coûts stockage, enjeux RSSI | FinOps / GreenOps / RSSI | Traiter arbitrage durée logs |
+| R-FG03 | Fréquence de notifications coûteuse | RG-FG03, A-FG03 | Coûts récurrents prototype | FinOps / Product Owner | Traiter arbitrage fréquence notifications |
+| R-FG04 | Appels API non maîtrisés | RG-FG07, A-FG04 | Coûts variables imprévus | FinOps / Architecte | Qualifier hypothèses coûts API |
+| R-FG05 | Usage IA trop coûteux pour un prototype | RG-FG06, A-FG05, A-IA01 | Dépassement budget démonstrateur | FinOps / Data / IA | Traiter arbitrage inclusion IA MVP |
+| R-FG06 | Géolocalisation trop fréquente | RG-FG05, RG-T04 | Coûts et données excessives | GreenOps / RSSI | Traiter arbitrage sobriété géoloc |
+| R-FG07 | Absence d'indicateurs de volume ou coût | RG-FG07, Q13 | Pilotage FinOps impossible | FinOps / Dirigeant (fictif) | Définir indicateurs volume minimum |
+
+### 15.6 Risques SFIA / automatisation / capitalisation
+
+| ID | Risque / point d'attention | Source dans le cadrage | Impact potentiel | Rôle à mobiliser | Action attendue |
+|----|---------------------------|------------------------|------------------|------------------|-----------------|
+| R-SF01 | Cadrage utile au projet mais non réutilisable | §3 Règle itération, §16.8 capitalisation | Valeur SFIA perdue | Chef de projet | Identifier capitalisation à chaque livrable |
+| R-SF02 | Matrices non transformées en templates | §10.8, §14.5, §9.5 | Effort non capitalisé | Chef de projet / Business Analyst | Planifier mini-bilan capitalisation |
+| R-SF03 | Critères de passage de phase non automatisables | §13.2 | Workflow Notion manuel, erreurs | Chef de projet | Formaliser traces §13.2 |
+| R-SF04 | Mauvaise synchronisation Notion / Cursor | RG-SF06, Q23, A-SF06 | Divergence référentiel / production | Chef de projet / Architecte | Traiter arbitrage sync Notion/Cursor |
+| R-SF05 | Trop de livrables générés sans valeur | §3 double valeur | Surcharge documentaire | Chef de projet / Product Owner | Filtrer livrables §16 |
+| R-SF06 | Absence de mini-bilan de capitalisation | §18 Capitalisation SFIA | Templates non identifiés en fin cadrage | Chef de projet | Prévoir bilan fin cadrage |
+| R-SF07 | Dérive vers application classique au lieu de pilote SFIA | §2 vision SFIA, §4 hors cadrage dev | Objectif pilote SFIA perdu | Chef de projet / Product Owner | Maintenir garde-fou vision §2 |
+| R-SF08 | Décisions non tracées en ADR | §12 arbitrages, Q16, Q22, R-SF08 | Perte traçabilité, rework architecture | Architecte / Chef de projet | Maintenir liste ADR candidates |
+
+### 15.7 Points d'attention pour la suite du cadrage
+
+- ne pas définir le MVP avant la revue des arbitrages (§12) ;
+- ne pas produire d'architecture avant les validations métier, fonctionnelles et UX (§13) ;
+- garder les règles de gestion traçables et testables (§10) ;
+- identifier les ADR candidates avant la phase architecture (§12, §16) ;
+- maintenir la double valeur projet / SFIA (§3) ;
+- préparer les templates réutilisables à partir des sections validées (§10.8, §14.5, §9.5).
+
+### 15.8 Capitalisation SFIA des risques
+
+Cette section doit permettre de capitaliser :
+
+- un **template Risk Matrix** ;
+- une **checklist de risques par phase projet** ;
+- une **checklist risques intégration API** ;
+- une **checklist risques UX/UI** ;
+- une **checklist risques RSSI / FinOps / GreenOps** ;
+- des **critères d'alerte pour workflow Notion** ;
+- des **prompts de revue des risques**.
 
 ---
 
