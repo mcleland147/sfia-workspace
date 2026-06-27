@@ -11,4 +11,10 @@ Phase de **cadrage métier** : formalisation du besoin, des objectifs et du pér
 
 ## Statut
 
-À venir — après validation de l'intake.
+Phase active — intake validé, production du cadrage métier en cours.
+
+## Livrable
+
+| Document | Statut |
+|----------|--------|
+| [business-framing.md](business-framing.md) | Draft — à produire |

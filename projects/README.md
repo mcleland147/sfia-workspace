@@ -14,4 +14,4 @@ Chaque projet dispose de son propre sous-dossier et, le cas échéant, de son d�
 
 | Projet | ID | Statut | Phase |
 |--------|-----|--------|-------|
-| [Interv360](interv360/) | PRJ-INTERV360 | Initiated | Intake |
+| [Interv360](interv360/) | PRJ-INTERV360 | In progress | Cadrage |

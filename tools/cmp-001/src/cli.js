@@ -15,6 +15,7 @@ import { createREX } from './services/createREX.js';
 import { createKPI } from './services/createKPI.js';
 import { createKnowledgeArticle } from './services/createKnowledgeArticle.js';
 import { updateKnowledgeArticle } from './services/updateKnowledgeArticle.js';
+import { updateProject } from './services/updateProject.js';
 import { createProject } from './services/createProject.js';
 import { createReferencePage } from './services/createReferencePage.js';
 import { runDiscover } from './services/discover.js';
@@ -47,6 +48,7 @@ function loadJsonFile(filePath) {
 
 const UPDATERS = {
   knowledge: updateKnowledgeArticle,
+  project: updateProject,
 };
 
 async function runCreate(objectType, jsonFile) {

@@ -4,7 +4,7 @@
 **Phase** : Intake  
 **Version** : 1.3 — ajustements rôles transverses, orchestration et indicateurs SFIA  
 **Date** : 2026-06-27  
-**Statut** : Rédigé — en attente de validation
+**Statut** : Validated
 
 ---
 
@@ -363,16 +363,16 @@ Ces questions seront traitées lors de la phase de cadrage métier.
 
 | Élément | Statut |
 |---------|--------|
-| **Document d'intake** | Rédigé |
+| **Document d'intake** | Validated |
 | **Problème métier** | Identifié et documenté |
 | **Utilisateurs cibles** | Recensés |
 | **Parcours métier cible** | Esquissé |
 | **Hors périmètre initial** | Délimité |
 | **Questions ouvertes** | Listées |
 
-**Décision proposée** : valider cet intake et ouvrir la phase **01-cadrage** pour traiter les questions ouvertes, préciser le périmètre MVP et produire le document de cadrage métier.
+**Décision actée** : l'intake Interv360 v1.3 est validé. La phase **01-cadrage** est ouverte afin de traiter les questions ouvertes, préciser le périmètre MVP, formaliser le cadrage métier, structurer les rôles SFIA mobilisés et préparer les premiers arbitrages projet.
 
-**Prochaine étape** : `Validate project intake and start business framing`
+**Prochaine étape** : `Start business framing`
 
 ---
 

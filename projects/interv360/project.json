@@ -1,8 +1,8 @@
 {
   "id": "PRJ-INTERV360",
   "name": "Interv360",
-  "status": "Initiated",
-  "phase": "Intake",
+  "status": "In progress",
+  "phase": "Cadrage",
   "type": "Project",
   "createdFrom": "SFIA Workspace",
   "governance": "SFIA",
@@ -33,11 +33,13 @@
     "La gouvernance du projet suit les principes SFIA"
   ],
   "deliverables": [
-    "Document d'intake projet (project-intake.md)",
-    "Document de cadrage métier (à produire en phase 01-cadrage)",
+    "project-intake.md validated",
+    "Document de cadrage métier (business-framing.md — en cours)",
     "Démonstrateur produit Interv360 (à produire en phases ultérieures)",
     "Documentation projet et REX SFIA"
   ],
-  "decisions": [],
-  "nextStep": "Validate project intake and start business framing"
+  "decisions": [
+    "Intake v1.3 validé — phase 01-cadrage ouverte"
+  ],
+  "nextStep": "Start business framing"
 }

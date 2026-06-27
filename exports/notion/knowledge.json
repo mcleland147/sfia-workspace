@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-06-27T16:59:28.678Z",
+  "exportedAt": "2026-06-27T17:12:34.048Z",
   "objectType": "knowledge",
   "databaseId": "e304c66c-5e64-48f1-a6e5-f1a4e5058777",
   "databaseTitle": "Knowledge Articles",
@@ -11,20 +11,23 @@
       "properties": {
         "Category": "Project Documentation",
         "Author": [],
-        "Updated": "2026-06-27T16:59:00.000Z",
+        "Updated": "2026-06-27T17:12:00.000Z",
         "Project": [],
         "Tags": [
           "Interv360"
         ],
         "Component": [],
         "Created": "2026-06-27T16:18:00.000Z",
-        "Published date": null,
-        "Status": "Draft",
+        "Published date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Status": "Published",
         "Article": "KNO-002 — Interv360 Project Intake"
       },
       "url": "https://app.notion.com/p/KNO-002-Interv360-Project-Intake-38c0bc3380748120acc9faa1f3aea148",
       "createdAt": "2026-06-27T16:18:00.000Z",
-      "updatedAt": "2026-06-27T16:59:00.000Z"
+      "updatedAt": "2026-06-27T17:12:00.000Z"
     },
     {
       "id": "38c0bc33-8074-814e-8d6c-c4ee032480be",
