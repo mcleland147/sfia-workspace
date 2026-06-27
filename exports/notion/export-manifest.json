@@ -1,0 +1,77 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.043Z",
+  "version": "1.1.0",
+  "bases": [
+    {
+      "objectType": "experiment",
+      "file": "experiments.json",
+      "databaseId": "05bc96b1-5793-4b59-b468-a6a393c520e6",
+      "databaseTitle": "Experiments",
+      "count": 6
+    },
+    {
+      "objectType": "component",
+      "file": "components.json",
+      "databaseId": "056fa8ce-bfab-4dbc-a5a7-50078083aef4",
+      "databaseTitle": "Components",
+      "count": 2
+    },
+    {
+      "objectType": "prompt",
+      "file": "prompts.json",
+      "databaseId": "ceee9b1d-5a7f-436c-9ed7-c50b8b2b79c7",
+      "databaseTitle": "Prompts",
+      "count": 2
+    },
+    {
+      "objectType": "template",
+      "file": "templates.json",
+      "databaseId": "2bb3717a-3fbd-44c4-942c-2fe01b49d013",
+      "databaseTitle": "SFIA — Templates",
+      "count": 2
+    },
+    {
+      "objectType": "standard",
+      "file": "standards.json",
+      "databaseId": "20fa398e-00e2-48c5-aa74-388459c3a802",
+      "databaseTitle": "SFIA — Standards",
+      "count": 2
+    },
+    {
+      "objectType": "adr",
+      "file": "adr.json",
+      "databaseId": "86fc0ac7-f568-49c2-bf42-6da07fb4a38a",
+      "databaseTitle": "ADR",
+      "count": 2
+    },
+    {
+      "objectType": "rex",
+      "file": "rex.json",
+      "databaseId": "31a91555-27f4-4da6-a9f4-d321272ddc91",
+      "databaseTitle": "REX",
+      "count": 2
+    },
+    {
+      "objectType": "kpi",
+      "file": "kpi.json",
+      "databaseId": "9cd87864-dab0-45bb-94e7-77a6d99f86ed",
+      "databaseTitle": "KPI",
+      "count": 1
+    },
+    {
+      "objectType": "knowledge",
+      "file": "knowledge.json",
+      "databaseId": "e304c66c-5e64-48f1-a6e5-f1a4e5058777",
+      "databaseTitle": "Knowledge Articles",
+      "count": 2
+    },
+    {
+      "objectType": "project",
+      "file": "projects.json",
+      "databaseId": "1fac1e57-d588-4e3b-ba7b-4af2902e8976",
+      "databaseTitle": "Projects",
+      "count": 1
+    }
+  ],
+  "totalObjects": 22
+}

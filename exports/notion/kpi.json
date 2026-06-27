@@ -1,0 +1,32 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.051Z",
+  "objectType": "kpi",
+  "databaseId": "9cd87864-dab0-45bb-94e7-77a6d99f86ed",
+  "databaseTitle": "KPI",
+  "count": 1,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-8130-87e5-d3aacc44e5e7",
+      "title": "[ARCHIVED TEST] KPI 2026-06-27T13-41-55",
+      "properties": {
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Domain": "Delivery",
+        "Owner": [],
+        "Period": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Trend": "Stable",
+        "Status": "Archived",
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Current": 0,
+        "Target": 1,
+        "Project": [],
+        "KPI": "[ARCHIVED TEST] KPI 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-KPI-2026-06-27T13-41-55-38c0bc338074813087e5d3aacc44e5e7",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}

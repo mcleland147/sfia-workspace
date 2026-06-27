@@ -1,0 +1,53 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.050Z",
+  "objectType": "adr",
+  "databaseId": "86fc0ac7-f568-49c2-bf42-6da07fb4a38a",
+  "databaseTitle": "ADR",
+  "count": 2,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-8124-a894-fd8de42cda6d",
+      "title": "ADR-002 — Adopt Notion as SFIA Registry via CMP-001",
+      "properties": {
+        "Created": "2026-06-27T14:42:00.000Z",
+        "Status": "Accepted",
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "ADR Candidate": [],
+        "Decision": [],
+        "Owner": [],
+        "Impact": "Strategic",
+        "Component": [],
+        "Decision date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "ADR": "ADR-002 — Adopt Notion as SFIA Registry via CMP-001"
+      },
+      "url": "https://app.notion.com/p/ADR-002-Adopt-Notion-as-SFIA-Registry-via-CMP-001-38c0bc3380748124a894fd8de42cda6d",
+      "createdAt": "2026-06-27T14:42:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    },
+    {
+      "id": "38c0bc33-8074-81a5-9d8f-f6eedff65a99",
+      "title": "[ARCHIVED TEST] ADR 2026-06-27T13-41-55",
+      "properties": {
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Status": "Draft",
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "ADR Candidate": [],
+        "Decision": [],
+        "Owner": [],
+        "Impact": "Low",
+        "Component": [],
+        "Decision date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "ADR": "[ARCHIVED TEST] ADR 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-ADR-2026-06-27T13-41-55-38c0bc33807481a59d8ff6eedff65a99",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}

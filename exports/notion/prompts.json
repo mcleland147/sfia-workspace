@@ -1,0 +1,52 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.050Z",
+  "objectType": "prompt",
+  "databaseId": "ceee9b1d-5a7f-436c-9ed7-c50b8b2b79c7",
+  "databaseTitle": "Prompts",
+  "count": 2,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-81b4-8826-f0190e5cfaca",
+      "title": "PRM-001 — Notion Object Creation",
+      "properties": {
+        "Status": "Approved",
+        "Created": "2026-06-27T14:42:00.000Z",
+        "Version": "Tu es un assistant SFIA. Génère un fichier JSON strictement conforme au schéma src/schemas/<type>.schema.json du connecteur SFIA Notion Sync. Inclus uniquement les champs reconnus. Le titre doit suivre le format <PREFIX>-<NNN> — <Nom lisible>. Ne préfixe jamais avec [TEST]. Valide les enum avant de répondre.",
+        "Model": "GPT",
+        "Rating": 5,
+        "Tags": [
+          "Production",
+          "Reusable"
+        ],
+        "Category": "Agent",
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Owner": [],
+        "Prompt": "PRM-001 — Notion Object Creation"
+      },
+      "url": "https://app.notion.com/p/PRM-001-Notion-Object-Creation-38c0bc33807481b48826f0190e5cfaca",
+      "createdAt": "2026-06-27T14:42:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    },
+    {
+      "id": "38c0bc33-8074-81f7-a76a-c3b4c8bfa047",
+      "title": "[ARCHIVED TEST] Prompt 2026-06-27T13-41-55",
+      "properties": {
+        "Status": "Draft",
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Version": "test-1",
+        "Model": "Generic",
+        "Rating": 1,
+        "Tags": [
+          "Experimental"
+        ],
+        "Category": "Agent",
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Owner": [],
+        "Prompt": "[ARCHIVED TEST] Prompt 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-Prompt-2026-06-27T13-41-55-38c0bc33807481f7a76ac3b4c8bfa047",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}

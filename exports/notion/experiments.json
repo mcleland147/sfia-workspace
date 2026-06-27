@@ -1,0 +1,169 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.049Z",
+  "objectType": "experiment",
+  "databaseId": "05bc96b1-5793-4b59-b468-a6a393c520e6",
+  "databaseTitle": "Experiments",
+  "count": 6,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-8147-a627-c3fb0b5c7e8b",
+      "title": "[ARCHIVED TEST] Experiment 2026-06-27T13-41-55",
+      "properties": {
+        "End": null,
+        "Priority": "Low",
+        "Score": 1,
+        "Type": "Prototype",
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Status": "Idea",
+        "Owner": [],
+        "Tags": [
+          "api"
+        ],
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Start": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Experiment": "[ARCHIVED TEST] Experiment 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-Experiment-2026-06-27T13-41-55-38c0bc3380748147a627c3fb0b5c7e8b",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    },
+    {
+      "id": "3c4fba80-efa1-4047-a9dc-43ba60d658af",
+      "title": "EXP-014 — Object Behaviors",
+      "properties": {
+        "End": null,
+        "Priority": "High",
+        "Score": null,
+        "Type": "Prototype",
+        "Created": "2026-06-27T12:28:00.000Z",
+        "Status": "Idea",
+        "Owner": [
+          {
+            "id": "388d872b-594c-815e-86b5-0002080451b1",
+            "name": "Morris Cleland"
+          }
+        ],
+        "Tags": [
+          "Agent",
+          "DevOps"
+        ],
+        "Updated": "2026-06-27T12:28:00.000Z",
+        "Start": null,
+        "Experiment": "EXP-014 — Object Behaviors"
+      },
+      "url": "https://app.notion.com/p/EXP-014-Object-Behaviors-3c4fba80efa14047a9dc43ba60d658af",
+      "createdAt": "2026-06-27T12:28:00.000Z",
+      "updatedAt": "2026-06-27T12:28:00.000Z"
+    },
+    {
+      "id": "d001e060-2912-4093-b4ab-a932515367dc",
+      "title": "EXP-015 — SFIA Ontology",
+      "properties": {
+        "End": null,
+        "Priority": "Critical",
+        "Score": null,
+        "Type": "Research",
+        "Created": "2026-06-27T12:28:00.000Z",
+        "Status": "Idea",
+        "Owner": [
+          {
+            "id": "388d872b-594c-815e-86b5-0002080451b1",
+            "name": "Morris Cleland"
+          }
+        ],
+        "Tags": [
+          "LLM",
+          "Agent"
+        ],
+        "Updated": "2026-06-27T12:28:00.000Z",
+        "Start": null,
+        "Experiment": "EXP-015 — SFIA Ontology"
+      },
+      "url": "https://app.notion.com/p/EXP-015-SFIA-Ontology-d001e06029124093b4aba932515367dc",
+      "createdAt": "2026-06-27T12:28:00.000Z",
+      "updatedAt": "2026-06-27T12:28:00.000Z"
+    },
+    {
+      "id": "c373036b-317f-47e1-90cd-a2d51b5f3136",
+      "title": "EXP-013 — Artifact Meta-Object",
+      "properties": {
+        "End": null,
+        "Priority": "Medium",
+        "Score": null,
+        "Type": "Research",
+        "Created": "2026-06-27T12:28:00.000Z",
+        "Status": "Idea",
+        "Owner": [
+          {
+            "id": "388d872b-594c-815e-86b5-0002080451b1",
+            "name": "Morris Cleland"
+          }
+        ],
+        "Tags": [],
+        "Updated": "2026-06-27T12:28:00.000Z",
+        "Start": null,
+        "Experiment": "EXP-013 — Artifact Meta-Object"
+      },
+      "url": "https://app.notion.com/p/EXP-013-Artifact-Meta-Object-c373036b317f47e190cda2d51b5f3136",
+      "createdAt": "2026-06-27T12:28:00.000Z",
+      "updatedAt": "2026-06-27T12:28:00.000Z"
+    },
+    {
+      "id": "8ca2dd67-2734-4588-89a2-f2c5d5cd8f2a",
+      "title": "EXP-012 — Context Object",
+      "properties": {
+        "End": null,
+        "Priority": "High",
+        "Score": null,
+        "Type": "Research",
+        "Created": "2026-06-27T12:28:00.000Z",
+        "Status": "Idea",
+        "Owner": [
+          {
+            "id": "388d872b-594c-815e-86b5-0002080451b1",
+            "name": "Morris Cleland"
+          }
+        ],
+        "Tags": [
+          "Agent"
+        ],
+        "Updated": "2026-06-27T12:28:00.000Z",
+        "Start": null,
+        "Experiment": "EXP-012 — Context Object"
+      },
+      "url": "https://app.notion.com/p/EXP-012-Context-Object-8ca2dd672734458889a2f2c5d5cd8f2a",
+      "createdAt": "2026-06-27T12:28:00.000Z",
+      "updatedAt": "2026-06-27T12:28:00.000Z"
+    },
+    {
+      "id": "060af54f-998d-48d5-a228-77b6cfbcc58f",
+      "title": "EXP-011 — Mission Object",
+      "properties": {
+        "End": null,
+        "Priority": "High",
+        "Score": null,
+        "Type": "Research",
+        "Created": "2026-06-27T12:28:00.000Z",
+        "Status": "Idea",
+        "Owner": [
+          {
+            "id": "388d872b-594c-815e-86b5-0002080451b1",
+            "name": "Morris Cleland"
+          }
+        ],
+        "Tags": [
+          "Agent"
+        ],
+        "Updated": "2026-06-27T12:28:00.000Z",
+        "Start": null,
+        "Experiment": "EXP-011 — Mission Object"
+      },
+      "url": "https://app.notion.com/p/EXP-011-Mission-Object-060af54f998d48d5a22877b6cfbcc58f",
+      "createdAt": "2026-06-27T12:28:00.000Z",
+      "updatedAt": "2026-06-27T12:28:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.051Z",
+  "objectType": "rex",
+  "databaseId": "31a91555-27f4-4da6-a9f4-d321272ddc91",
+  "databaseTitle": "REX",
+  "count": 2,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-8112-bca2-c823279ef44c",
+      "title": "REX-001 — CMP-001 Notion Sync Delivery",
+      "properties": {
+        "Owner": [],
+        "Tags": [
+          "Lesson learned",
+          "Improvement"
+        ],
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Project": [],
+        "Component": [],
+        "Date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Status": "Published",
+        "Created": "2026-06-27T14:42:00.000Z",
+        "Impact": "Medium",
+        "REX": "REX-001 — CMP-001 Notion Sync Delivery"
+      },
+      "url": "https://app.notion.com/p/REX-001-CMP-001-Notion-Sync-Delivery-38c0bc3380748112bca2c823279ef44c",
+      "createdAt": "2026-06-27T14:42:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    },
+    {
+      "id": "38c0bc33-8074-8180-9573-d16767c6ec2f",
+      "title": "[ARCHIVED TEST] REX 2026-06-27T13-41-55",
+      "properties": {
+        "Owner": [],
+        "Tags": [
+          "Lesson learned"
+        ],
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Project": [],
+        "Component": [],
+        "Date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Status": "Archived",
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Impact": "Low",
+        "REX": "[ARCHIVED TEST] REX 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-REX-2026-06-27T13-41-55-38c0bc33807481809573d16767c6ec2f",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}

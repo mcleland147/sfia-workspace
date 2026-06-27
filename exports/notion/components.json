@@ -1,0 +1,47 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.050Z",
+  "objectType": "component",
+  "databaseId": "056fa8ce-bfab-4dbc-a5a7-50078083aef4",
+  "databaseTitle": "Components",
+  "count": 2,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-810b-af32-f8ce4e87a5f7",
+      "title": "CMP-001 — SFIA Notion Sync",
+      "properties": {
+        "Current version": "ID: CMP-001 | Nom: SFIA Notion Sync | Version: v1.0.0 | Statut: Stable | Catégorie: Core Component | Domaine: Knowledge Platform | Production Ready: Oui | Tests: 10/10 validés\n\nDescription:\nConnecteur officiel permettant de créer et mettre à jour les objets SFIA dans Notion via l'API Notion.\n\nObjectif:\nStandardiser les échanges entre la plateforme SFIA et Notion.\n\nFonctionnalités:\n- Découverte automatique des bases\n- Génération automatique du fichier .env\n- Création des objets du Domain Model\n- Validation JSON\n- Tests automatisés\n\nDocumentation: README.md | Changelog: CHANGELOG.md | Roadmap: ROADMAP.md",
+        "Status": "Active",
+        "Updated": "2026-06-27T13:53:00.000Z",
+        "Criticality": "High",
+        "Repository": "https://github.com/sfia-platform/sfia-notion-sync",
+        "Owner": [],
+        "Created": "2026-06-27T13:53:00.000Z",
+        "Type": "Connector",
+        "Documentation": "https://github.com/sfia-platform/sfia-notion-sync/blob/main/README.md",
+        "Component": "CMP-001 — SFIA Notion Sync"
+      },
+      "url": "https://app.notion.com/p/CMP-001-SFIA-Notion-Sync-38c0bc338074810baf32f8ce4e87a5f7",
+      "createdAt": "2026-06-27T13:53:00.000Z",
+      "updatedAt": "2026-06-27T13:53:00.000Z"
+    },
+    {
+      "id": "38c0bc33-8074-81ab-a10d-e9e8fc8bed39",
+      "title": "[ARCHIVED TEST] Component 2026-06-27T13-41-55",
+      "properties": {
+        "Current version": "0.0.0-test",
+        "Status": "Backlog",
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Criticality": "Low",
+        "Repository": "https://github.com/example/sfia-notion-sync",
+        "Owner": [],
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Type": "Connector",
+        "Documentation": null,
+        "Component": "[ARCHIVED TEST] Component 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-Component-2026-06-27T13-41-55-38c0bc33807481aba10de9e8fc8bed39",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}

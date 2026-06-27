@@ -4,10 +4,11 @@ node_modules/
 *.log
 exports.zip
 
-# Exports JSON (générés) — conserver la structure et les README
+# Exports JSON — versionner les snapshots Notion
 exports/**
 !exports/notion/
 !exports/notion/README.md
+!exports/notion/*.json
 
 # Exports locaux du connecteur embarqué
 tools/cmp-001/exports/

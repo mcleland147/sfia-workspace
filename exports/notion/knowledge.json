@@ -1,0 +1,58 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.051Z",
+  "objectType": "knowledge",
+  "databaseId": "e304c66c-5e64-48f1-a6e5-f1a4e5058777",
+  "databaseTitle": "Knowledge Articles",
+  "count": 2,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-814e-8d6c-c4ee032480be",
+      "title": "KNO-001 — SFIA Engineering Principles",
+      "properties": {
+        "Category": "Reference",
+        "Author": [],
+        "Updated": "2026-06-27T15:12:00.000Z",
+        "Project": [],
+        "Tags": [
+          "Architecture",
+          "AI"
+        ],
+        "Component": [],
+        "Created": "2026-06-27T15:11:00.000Z",
+        "Published date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Status": "Published",
+        "Article": "KNO-001 — SFIA Engineering Principles"
+      },
+      "url": "https://app.notion.com/p/KNO-001-SFIA-Engineering-Principles-38c0bc338074814e8d6cc4ee032480be",
+      "createdAt": "2026-06-27T15:11:00.000Z",
+      "updatedAt": "2026-06-27T15:12:00.000Z"
+    },
+    {
+      "id": "38c0bc33-8074-815b-ab20-eaa831fb17cb",
+      "title": "[ARCHIVED TEST] Knowledge Article 2026-06-27T13-41-55",
+      "properties": {
+        "Category": "Guide",
+        "Author": [],
+        "Updated": "2026-06-27T14:42:00.000Z",
+        "Project": [],
+        "Tags": [
+          "AI"
+        ],
+        "Component": [],
+        "Created": "2026-06-27T13:41:00.000Z",
+        "Published date": {
+          "start": "2026-06-27",
+          "end": null
+        },
+        "Status": "Archived",
+        "Article": "[ARCHIVED TEST] Knowledge Article 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-Knowledge-Article-2026-06-27T13-41-55-38c0bc338074815bab20eaa831fb17cb",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}

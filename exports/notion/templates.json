@@ -1,0 +1,35 @@
+{
+  "exportedAt": "2026-06-27T15:33:01.050Z",
+  "objectType": "template",
+  "databaseId": "2bb3717a-3fbd-44c4-942c-2fe01b49d013",
+  "databaseTitle": "SFIA — Templates",
+  "count": 2,
+  "entries": [
+    {
+      "id": "38c0bc33-8074-8175-85a3-c4699072b177",
+      "title": "TPL-001 — Experiment Template",
+      "properties": {
+        "Status": "Published",
+        "Owner": [],
+        "Template Type": "Experiment",
+        "Name": "TPL-001 — Experiment Template"
+      },
+      "url": "https://app.notion.com/p/TPL-001-Experiment-Template-38c0bc338074817585a3c4699072b177",
+      "createdAt": "2026-06-27T14:42:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    },
+    {
+      "id": "38c0bc33-8074-819e-be8e-c030adc10411",
+      "title": "[ARCHIVED TEST] Template 2026-06-27T13-41-55",
+      "properties": {
+        "Status": "Draft",
+        "Owner": [],
+        "Template Type": "Experiment",
+        "Name": "[ARCHIVED TEST] Template 2026-06-27T13-41-55"
+      },
+      "url": "https://app.notion.com/p/ARCHIVED-TEST-Template-2026-06-27T13-41-55-38c0bc338074819ebe8ec030adc10411",
+      "createdAt": "2026-06-27T13:41:00.000Z",
+      "updatedAt": "2026-06-27T14:42:00.000Z"
+    }
+  ]
+}
