@@ -2,7 +2,7 @@
 
 **Projet** : PRJ-INTERV360  
 **Phase** : Intake  
-**Version** : 1.2 — alignement vision SFIA automation et plateforme SAV  
+**Version** : 1.3 — ajustements rôles transverses, orchestration et indicateurs SFIA  
 **Date** : 2026-06-27  
 **Statut** : Rédigé — en attente de validation
 
@@ -102,8 +102,9 @@ Le problème n'est pas uniquement opérationnel : il impacte la relation client,
 | O5 | Améliorer l'information client sur l'état d'avancement |
 | O6 | Structurer les preuves d'intervention (photos, signature, commentaires) |
 | O7 | Produire un démonstrateur crédible pour une PME de services terrain |
+| O8 | Orchestrer les échanges entre les outils existants sans les remplacer |
 
-Ces objectifs orientent le périmètre fonctionnel sans présumer de choix techniques.
+Ces objectifs orientent le périmètre fonctionnel sans présumer de choix techniques. **O8** rend explicite que la valeur d'Interv360 n'est pas de remplacer le CRM, l'email, le calendrier ou l'outil de facturation, mais de centraliser le cycle SAV et d'orchestrer les échanges entre ces outils.
 
 ---
 
@@ -119,6 +120,19 @@ Ces objectifs orientent le périmètre fonctionnel sans présumer de choix techn
 | **Manager opérationnel** | Supervision opérationnelle | Suivre la charge, les délais, les anomalies |
 
 Chaque profil intervient à des étapes distinctes du parcours métier cible. Le cadrage devra préciser les droits et les interactions entre ces acteurs.
+
+### Rôles transverses mobilisés au cadrage
+
+| Rôle transverse | Contribution attendue |
+|-----------------|----------------------|
+| **RSSI** | Challenger les données sensibles, les accès, la sécurité API, la traçabilité et la conservation |
+| **FinOps** | Identifier les coûts liés à l'hébergement, au stockage, aux notifications, aux API et à l'usage éventuel de l'IA |
+| **GreenOps** | Challenger la sobriété applicative : stockage, logs, notifications, géolocalisation, traitements inutiles |
+| **Architecte** | Structurer les flux, les intégrations, les dépendances et les choix d'architecture |
+| **Product Owner** | Prioriser le MVP, arbitrer la valeur métier et maintenir la cohérence produit |
+| **Data / IA** | Évaluer les usages d'assistance IA légère et la gouvernance des données associées |
+
+Ces rôles ne sont pas des utilisateurs finaux de la plateforme, mais des **contributeurs obligatoires du cadrage** afin de tester la capacité de la SFIA à intégrer les dimensions transverses dès les phases amont.
 
 ---
 
@@ -247,6 +261,9 @@ Ces hypothèses seront challengées lors du cadrage métier.
 | **Fiabilité facturation** | Les éléments de facturation sont structurés et traçables |
 | **Crédibilité métier** | Le démonstrateur est reconnaissable par une PME de services terrain |
 | **Trajectoire SFIA** | Le projet a produit cadrage, architecture, delivery et documentation selon la méthode |
+| **Flux simulés démontrables** | Les flux CRM, email, calendrier et notifications sont représentés ou simulés de manière compréhensible |
+| **Cas d'erreur démontrable** | Au moins un échec d'intégration est tracé, visible et traité dans le parcours |
+| **Automatisation SFIA évaluée** | Les templates, statuts Notion, rôles déclenchables et livrables automatisables sont identifiés pendant le projet |
 
 Les indicateurs quantitatifs seront précisés au cadrage.
 
