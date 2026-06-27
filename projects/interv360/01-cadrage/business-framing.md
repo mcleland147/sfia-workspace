@@ -219,7 +219,79 @@ Cas obligatoires issus de la stratégie SFIA (à détailler pendant le cadrage) 
 
 ## 9. Données et objets métier à modéliser
 
-*À compléter.*
+Cette section identifie les principaux objets métier nécessaires au cadrage d'Interv360. Elle ne constitue **pas encore un modèle de données technique**. Elle sert à préparer les règles de gestion, les intégrations simulées, les droits d'accès, les enjeux RSSI, les hypothèses FinOps / GreenOps, les futurs écrans et les arbitrages d'architecture.
+
+### 9.1 Objets métier principaux
+
+| Objet métier | Description | Acteurs concernés | Relations principales | Points de vigilance | Capitalisation SFIA possible |
+|--------------|-------------|-------------------|----------------------|---------------------|------------------------------|
+| **Client** | Entreprise ou personne bénéficiaire du service SAV | Dirigeant, Assistant administratif, Client final | Possède des sites, contacts, demandes SAV, historique | Données personnelles, unicité, doublons CRM | Template Domain Model ; règle de gestion |
+| **Site client** | Lieu d'intervention (adresse, accès, consignes) | Technicien, Responsable SAV | Rattaché à un client ; lié aux interventions | Adresse sensible, accès terrain, géolocalisation | Template Domain Model |
+| **Contact client** | Personne référente pour une demande ou un site | Assistant administratif, Client final | Rattaché à client / site ; lié aux notifications | Coordonnées sensibles, consentement notification | Checklist RSSI |
+| **Demande SAV** | Point d'entrée du besoin client (CRM, email, saisie manuelle) | Responsable SAV, Assistant administratif | Génère ou alimente une intervention ; liée au client | Source multiple, doublons, statut initial | Template Domain Model ; workflow Notion |
+| **Intervention** | Unité opérationnelle d'exécution terrain | Technicien, Responsable SAV | Issue d'une demande ; liée au planning, CR, photos | Cycle de vie, statuts, synchronisation | Template Domain Model ; ADR candidate |
+| **Technicien** | Ressource terrain affectée aux interventions | Technicien, Responsable SAV | Lié au planning, interventions, comptes rendus | Disponibilité, compétences, accès mobile | Règle de gestion |
+| **Planning / créneau** | Créneau horaire affecté à une intervention | Responsable SAV / planning | Lie technicien, intervention, calendrier simulé | Conflits, modifications tardives, sync calendrier | Template planification |
+| **Statut d'intervention** | État courant dans le cycle SAV | Tous acteurs métier | Appliqué à demande et intervention ; synchronisé | Cohérence statuts, transitions, mapping CRM | Standard mapping statuts ; ADR candidate |
+| **Compte rendu** | Synthèse documentée de l'intervention | Technicien, Client final | Clôture l'intervention ; alimente facturation | Format, délai, signature, conservation | Template compte rendu |
+| **Photo / pièce jointe** | Preuve visuelle ou document attaché | Technicien | Rattachée au compte rendu / intervention | Stockage, taille, conservation, GreenOps | Checklist GreenOps ; exigence sécurité |
+| **Signature client** | Validation client de l'intervention | Technicien, Client final | Liée au compte rendu ; condition de clôture (A-F04) | Obligation ou option, preuve légale, conservation | Règle de gestion ; arbitrage A-F04 |
+| **Notification** | Message envoyé au client ou acteur interne | Plateforme, Client final | Déclenchée par événement du parcours | Coût, fréquence, contenu, échec envoi | Hypothèse FinOps ; template notification |
+| **Élément de facturation** | Données préparées pour facturation simulée | Assistant administratif | Issu du compte rendu clôturé ; export facturation | Complétude, ressaisie, mapping CRM | Règle de gestion ; standard synchronisation |
+| **Utilisateur / rôle** | Profil d'accès à la plateforme | Tous | Définit droits sur objets métier | RSSI, moindre privilège, traçabilité accès | Checklist RSSI ; matrice rôles |
+| **Historique / journal d'activité** | Trace des actions et changements de statut | Dirigeant, Manager, RSSI | Lié à tous les objets métier principaux | Volume logs, conservation, FinOps, GreenOps | Standard traçabilité ; checklist FinOps |
+
+### 9.2 Objets d'intégration
+
+| Objet d'intégration | Source / cible | Rôle dans le parcours | Risques | ADR candidate ? |
+|---------------------|----------------|----------------------|---------|-----------------|
+| **Demande CRM simulée** | CRM simulé → Plateforme | Création demande SAV (CF1) | Mapping incomplet, doublons, statut incohérent | Oui |
+| **Email entrant simulé** | Messagerie simulée → Plateforme | Création demande SAV (CF2) | Classification erronée, pièces jointes, données manquantes | Oui |
+| **Événement calendrier** | Calendrier simulé ↔ Plateforme | Planification intervention (CF3) | Conflit créneau, désynchronisation, modification tardive | Oui |
+| **Notification sortante** | Plateforme → Service notification simulé | Information client (CF4) | Échec envoi, coût, contenu inadapté | Oui |
+| **Flux de synchronisation CRM** | Plateforme → CRM simulé | Mise à jour statut post-intervention (CF8) | Échec sync, données partielles, retry | Oui |
+| **Export facturation simulé** | Plateforme → Facturation simulée | Préparation éléments facturables | Données incomplètes, format incompatible | Oui |
+| **Erreur d'intégration** | Systèmes simulés ↔ Plateforme | Gestion cas CF9 | Visibilité, reprise manuelle, alerte | Oui |
+| **Log d'échange API** | Plateforme / intégrations | Traçabilité des flux (A-I08) | Volume, conservation, données sensibles dans logs | Oui |
+
+### 9.3 Données sensibles ou à gouverner
+
+| Donnée | Pourquoi elle est sensible | Rôle à mobiliser | Règle à définir |
+|--------|---------------------------|------------------|-----------------|
+| **Coordonnées client** | Données personnelles, contact direct | RSSI | Classification, accès, conservation |
+| **Adresse d'intervention** | Localisation, sécurité terrain, vie privée | RSSI, GreenOps | Accès limité, conservation, exposition client |
+| **Photos terrain** | Preuve visuelle, contenu potentiellement sensible | RSSI, GreenOps | Stockage, compression, durée conservation |
+| **Signature client** | Preuve d'acceptation, données biométriques légères | RSSI | Obligation, format, conservation |
+| **Historique d'intervention** | Traçabilité métier, données cumulées client | RSSI, Business Analyst | Accès par profil, durée conservation |
+| **Données de géolocalisation** | Localisation technicien, vie privée | RSSI, GreenOps | Précision, finalité, durée, sobriété (A-FG06) |
+| **Commentaires technicien** | Contenu libre, risque d'information sensible | RSSI, Data / IA | Modération, accès, conservation |
+| **Données de facturation** | Données financières, temps, pièces | RSSI, FinOps | Accès restreint, intégrité, export contrôlé |
+| **Logs d'intégration** | Peuvent contenir données métier en clair | RSSI, FinOps, GreenOps | Anonymisation, rétention, volume |
+| **Données potentiellement utilisées par l'IA** | Résumés, classifications, inputs modèle | Data / IA, RSSI | Gouvernance usage IA, sources autorisées, conservation |
+
+### 9.4 Lien avec les personas et parcours UX/UI
+
+| Objet métier | Parcours utilisateur concerné | Écran candidat associé | Point UX à surveiller |
+|--------------|------------------------------|------------------------|----------------------|
+| **Demande SAV** | Créer demande CRM ; créer demande email ; qualifier demande | Liste des demandes ; fiche demande SAV | Doubles saisies ; statut lisible ; filtres |
+| **Intervention** | Consulter intervention terrain ; réaliser compte rendu | Fiche intervention technicien | Contexte complet ; accès mobile |
+| **Planning / créneau** | Planifier une intervention | Planning | Conflits visibles ; modification rapide |
+| **Compte rendu** | Réaliser compte rendu ; signer intervention | Compte rendu intervention | Simplicité saisie ; nombre de champs |
+| **Notification** | Parcours client (suivi demande) | Suivi des notifications | Clarté message ; statut envoi |
+| **Erreur d'intégration** | Suivre anomalies d'intégration | Suivi des erreurs d'intégration | Visibilité immédiate ; action corrective |
+| **KPI / activité** | Consulter pilotage d'activité | Tableau de bord SAV ; vue pilotage dirigeant | Indicateurs minimum ; lisibilité |
+
+### 9.5 Impacts SFIA
+
+Cette cartographie doit permettre de capitaliser :
+
+- un **template de modèle d'objets métier** ;
+- une **checklist RSSI données sensibles** ;
+- une **checklist intégration API** ;
+- une **base pour les règles de gestion** (section §10) ;
+- une **base pour les futures ADR** ;
+- une **base pour le Domain Model projet** ;
+- une **passerelle entre cadrage métier et cadrage UX/UI** (sections §6, §14).
 
 ---
 
