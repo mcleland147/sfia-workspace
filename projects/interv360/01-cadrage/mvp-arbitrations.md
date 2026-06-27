@@ -303,7 +303,8 @@ Quels **écrans candidats** (§14.3) constituent le **noyau MVP** et lesquels so
 - **Parcours impactés** : Ensemble du parcours §6 ; parcours utilisateurs §14.2
 - **Écrans impactés** : Priorisation explicite §14.3 (7 prioritaires, 3 ultérieurs)
 - **ADR candidate éventuelle** : Non directe ; lien avec indicateurs dirigeant (Q5) en vue ultérieure
-- **Capitalisation SFIA possible** : Template priorisation écrans MVP ; checklist UX Review par écran ; base composants UI candidats
+- **Règle Figma** : la sélection des écrans prioritaires **ne déclenche pas directement Figma** ; elle déclenche la **production d'un brief UX/UI** ; Figma intervient uniquement après validation des écrans prioritaires et des critères UX (§14.6)
+- **Capitalisation SFIA possible** : Template priorisation écrans MVP ; checklist UX Review par écran ; base composants UI candidats ; **standard de déclenchement Figma** ; **template brief UX/UI** ; **checklist d'entrée Figma**
 
 ### Décision
 
@@ -337,6 +338,9 @@ Quels **écrans candidats** (§14.3) constituent le **noyau MVP** et lesquels so
 | Lien arbitrage → écrans prioritaires | Traçabilité ARB-MVP-07 → écrans §14.3 | Checklist |
 | Prompt de revue MVP | Revue cohérence post-arbitrage sans figer MVP | Prompt |
 | Template MVP Arbitration | Structure document mvp-arbitrations.md réutilisable | Template |
+| Règle Figma post-cadrage UX/UI | Déclenchement Figma après brief UX/UI validé (§14.6) | Standard |
+| Brief UX/UI avant maquette | Document préalable obligatoire avant Figma | Template |
+| Checklist entrée Figma | Critères de validation avant ouverture Figma | Checklist |
 
 ---
 

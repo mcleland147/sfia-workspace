@@ -644,6 +644,41 @@ Cette section doit permettre de capitaliser :
 - des **critères d'acceptation UX** ;
 - des **composants UI candidats** réutilisables.
 
+### 14.6 Règle de déclenchement Figma
+
+**Figma n'est pas déclenché pendant le cadrage UX/UI amont.**
+
+Le cadrage UX/UI produit uniquement :
+
+- les **personas** métier (§14.1) ;
+- les **parcours utilisateurs** (§14.2) ;
+- les **écrans candidats** (§14.3) ;
+- les **critères d'utilisabilité** (§14.4).
+
+**Figma intervient uniquement après** :
+
+- validation du cadrage UX/UI ;
+- arbitrage et sélection des **écrans prioritaires** (ARB-MVP-07) ;
+- validation des **parcours utilisateurs critiques** ;
+- production d'un **brief UX/UI exploitable**.
+
+**Trajectoire cible :**
+
+```
+Cadrage UX/UI
+  → personas / parcours / écrans candidats / critères d'utilisabilité
+  → arbitrages MVP
+  → sélection des écrans prioritaires
+  → brief UX/UI
+  → Figma / wireframes
+  → validation UX
+  → conception fonctionnelle détaillée
+```
+
+Un **brief UX/UI** doit être produit **avant toute maquette** Figma. La sélection des écrans prioritaires ne déclenche pas directement Figma : elle déclenche la production du brief.
+
+Cette règle est **candidate à un standard SFIA** (déclenchement Figma post-cadrage UX/UI).
+
 ---
 
 ## 15. Risques et points d'attention
@@ -783,7 +818,8 @@ Le cadrage ne pourra être considéré comme terminé que si :
 - les personas principaux sont décrits ;
 - les parcours utilisateurs critiques sont identifiés ;
 - les écrans candidats sont listés ;
-- les critères d'utilisabilité sont définis.
+- les critères d'utilisabilité sont définis ;
+- la **règle de déclenchement Figma** est clarifiée : aucun travail Figma avant validation des écrans prioritaires et production d'un brief UX/UI (§14.6).
 
 ---
 
@@ -807,6 +843,9 @@ Le cadrage ne pourra être considéré comme terminé que si :
 | UX/UI Framing | Template |
 | UX Review Checklist | Checklist |
 | Écrans candidats | Base composants UI |
+| Règle de déclenchement Figma | Standard UX/UI SFIA |
+| Brief UX/UI avant Figma | Template |
+| Critères d'entrée Figma | Checklist |
 
 ---
 

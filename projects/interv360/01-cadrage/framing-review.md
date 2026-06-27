@@ -60,6 +60,7 @@ Les vérifications suivantes doivent être réalisées avant ou pendant la premi
 | 7 | **Absence de MVP défini prématurément** | §4, §6, §12 | Périmètre MVP listé en « À arbitrer » ; note explicite §6 : MVP non défini | **Conforme** — maintenir le garde-fou |
 | 8 | **Absence d'architecture technique prématurée** | §4, §12 | Architecture technique détaillée en « Hors cadrage immédiat » ; risque R-I08 identifié | **Conforme** — reporter à post-validation |
 | 9 | **Absence de backlog prématuré** | §4, §12 | Backlog exhaustif en « Hors cadrage immédiat » ; arbitrages IA renvoient à « backlog futur » sans le produire | **Conforme** — ne pas créer de backlog à ce stade |
+| 10 | **Absence de travail Figma prématuré** | §14.6, ARB-MVP-07 | Figma non déclenché pendant le cadrage UX/UI amont ; brief UX/UI requis avant maquette | **Conforme** — vérifier qu'aucun travail Figma n'est lancé avant validation des écrans prioritaires et production du brief UX/UI |
 
 ---
 
