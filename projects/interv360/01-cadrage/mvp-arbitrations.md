@@ -42,7 +42,7 @@ Les arbitrages MVP Interv360 doivent respecter les principes suivants :
 
 | ID | Arbitrage | Source | Priorité | Statut |
 |----|-----------|--------|----------|--------|
-| ARB-MVP-01 | Canal prioritaire de création des demandes | Q1, A-F01, framing-review §4 | Haute | À ajuster |
+| ARB-MVP-01 | Canal prioritaire de création des demandes | Q1, A-F01, framing-review §4 | Haute | Validable après clarification email |
 | ARB-MVP-02 | Portail client ou notifications uniquement | Q2, A-F02, A-S05, framing-review §4 | Haute | Validable en l'état |
 | ARB-MVP-03 | Signature obligatoire ou optionnelle | Q4, A-F04, framing-review §4 | Haute | Validable en l'état |
 | ARB-MVP-04 | Niveau de simulation des intégrations | Q11–Q12, A-I01 à A-I05, framing-review §4 | Haute | Validable après réinstruction |
@@ -69,33 +69,30 @@ Quel canal de création des demandes SAV doit être **prioritaire** pour le dém
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider** (statut revue : **À ajuster**).
+**Recommandation candidate validable après clarification email.**
 
-Retenir la **création depuis CRM simulé comme canal principal**, avec **saisie manuelle en secours**, tout en **cadrant l'email comme un canal d'intégration complet et sécurisé**. L'email n'est pas forcément le flux prioritaire du MVP, mais il doit être traité avec une **vraie logique SSI** : authentification, droits, traçabilité, pièces jointes et gestion des emails non légitimes.
+**Recommandation candidate — à valider :**
 
-### Ajustement demandé
+Conserver le **CRM simulé comme canal principal du MVP** et la **saisie manuelle comme canal de secours**, tout en **cadrant l'email comme un canal d'intégration sécurisé complet**. L'email **n'est pas le flux principal du MVP**, mais il doit disposer d'**exigences SSI**, d'un **contrat fonctionnel documenté**, de **scénarios d'erreur** et de **critères QA**.
 
-L'email ne doit **pas** être réduit à un scénario secondaire faible. Il doit faire l'objet d'un **cadrage complet**, avec une vraie logique d'**authentification et de sécurité** conforme aux règles SSI définies pendant le cadrage.
+**Référence interne :** voir `secure-email-intake-review.md`, sections §2 à §6.
 
-L'email peut rester **non prioritaire dans le parcours principal MVP**, mais il doit être traité comme un **cas d'intégration sérieux**, notamment sur :
+### Clarification effectuée (synthèse)
 
-- authentification ;
-- autorisation ;
-- sécurité des accès ;
-- traçabilité ;
-- traitement des pièces jointes ;
-- classification de la demande ;
-- protection contre les emails non légitimes ;
-- journalisation ;
-- conformité RSSI.
+Le canal email a été clarifié dans `secure-email-intake-review.md` :
+
+- CRM simulé = canal principal du parcours démonstrateur ;
+- saisie manuelle = secours ;
+- email = canal d'intégration sécurisé complet (non principal) ;
+- contrat fonctionnel `POST /email/intake` ; exigences SSI §3 ; scénarios §5.
 
 ### Impacts sur le cadrage
 
 - **Règles de gestion impactées** : RG-C01, RG-C02, RG-C03, RG-C04, RG-C05, RG-C06, RG-I01, RG-S01, RG-S06, RG-I07
 - **Parcours impactés** : Création demande SAV (§6, étape 1)
 - **Écrans impactés** : Liste des demandes, Fiche demande SAV
-- **ADR candidate éventuelle** : **Sécurité / authentification du canal email** ; mapping statuts via A-I06 en lien indirect
-- **Capitalisation SFIA possible** : Template mapping sources → objet demande ; prompt revue canal d'entrée ; **checklist intégration email sécurisée** ; **standard « email intake security »**
+- **ADR candidates** : **Authentification et sécurité du canal email** ; **Journalisation des flux email** ; **Gestion des pièces jointes** ; mapping statuts via A-I06 en lien indirect
+- **Capitalisation SFIA possible** : **Standard canal email sécurisé** ; **Template Secure Email Intake** ; **Checklist SSI email** ; **Error Matrix email** ; **Critères QA email intake** ; template mapping sources → objet demande ; prompt revue canal d'entrée
 
 ### Décision
 
@@ -390,7 +387,7 @@ Le **noyau de 7 écrans** initial est **conservé comme base**, mais la **vue pi
 
 | Arbitrage | Recommandation candidate | Décision finale |
 |-----------|-------------------------|-----------------|
-| ARB-MVP-01 — Canal prioritaire | CRM principal + saisie manuelle secours + email cadré comme canal sécurisé complet | Non tranché |
+| ARB-MVP-01 — Canal prioritaire | CRM simulé principal ; saisie manuelle secours ; email sécurisé cadré comme canal d'intégration complet, non principal | Non tranché |
 | ARB-MVP-02 — Portail / notifications | Notifications uniquement ; portail en extension ultérieure | Non tranché |
 | ARB-MVP-03 — Signature | Optionnelle au MVP ; modèle métier structuré | Non tranché |
 | ARB-MVP-04 — Simulation intégrations | Vrais contrats API documentés avec implémentation simulée | Non tranché |
@@ -422,7 +419,7 @@ Le **noyau de 7 écrans** initial est **conservé comme base**, mais la **vue pi
 
 | Sujet | Pourquoi réinstruire ? | Sortie attendue | Rôles à mobiliser |
 |-------|------------------------|-----------------|-------------------|
-| **Email sécurisé** | L'email ne peut pas rester un scénario secondaire faible ; cadrage SSI complet requis (ARB-MVP-01) | Checklist intégration email sécurisée ; ADR candidate authentification canal email ; règles RG-C02, RG-S01, RG-S06 affinées | RSSI / Architecte / Business Analyst |
+| **Email sécurisé** | **Clarifié** — recommandation candidate validable (ARB-MVP-01) ; voir `secure-email-intake-review.md` | Standard canal email sécurisé ; ADR authentification, journalisation, pièces jointes ; règles RG-C02, RG-C04, RG-S01, RG-S06, RG-I07 | RSSI / Architecte / Business Analyst |
 | **Vrais contrats API vs API simulées** | **Réinstruit** — recommandation candidate validable (ARB-MVP-04) | Option C confirmée comme candidate ; ADR niveau de contrat API ; voir `integration-error-arbitration-review.md` | Architecte / Chef de projet / Business Analyst |
 | **Périmètre de gestion d'erreur** | **Réinstruit** — recommandation candidate validable (ARB-MVP-05) | Niveau 3 confirmé comme candidate ; ADR gestion erreurs et journalisation ; voir `integration-error-arbitration-review.md` | Architecte / QA / Concepteur UX |
 | **KPI tableau de bord SAV / vue dirigeant** | Noyau écrans étendu ; tableau de bord plus complet ; lien Q5 et R-M08 (ARB-MVP-07) | Liste KPI minimum dirigeant ; hypothèses affichage tableau de bord SAV | Business Analyst / Product Owner / Dirigeant (fictif) |
