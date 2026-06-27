@@ -42,13 +42,13 @@ Les arbitrages MVP Interv360 doivent respecter les principes suivants :
 
 | ID | Arbitrage | Source | Priorité | Statut |
 |----|-----------|--------|----------|--------|
-| ARB-MVP-01 | Canal prioritaire de création des demandes | Q1, A-F01, framing-review §4 | Haute | Validable après clarification email |
-| ARB-MVP-02 | Portail client ou notifications uniquement | Q2, A-F02, A-S05, framing-review §4 | Haute | Validable en l'état |
-| ARB-MVP-03 | Signature obligatoire ou optionnelle | Q4, A-F04, framing-review §4 | Haute | Validable en l'état |
-| ARB-MVP-04 | Niveau de simulation des intégrations | Q11–Q12, A-I01 à A-I05, framing-review §4 | Haute | Validable après réinstruction |
-| ARB-MVP-05 | Gestion des erreurs d'intégration | A-I07, RG-I06–RG-I09, framing-review §4 | Haute | Validable après réinstruction |
-| ARB-MVP-06 | Conservation photos / signatures / logs | A-S03, A-FG01–A-FG02, framing-review §4 | Haute | Validable avec précision |
-| ARB-MVP-07 | Écrans réellement prioritaires | §14.3, R-UX03, framing-review §4 | Haute | Validable après clarification dashboard/KPI/UX |
+| ARB-MVP-01 | Canal prioritaire de création des demandes | Q1, A-F01, framing-review §4 | Haute | Validé |
+| ARB-MVP-02 | Portail client ou notifications uniquement | Q2, A-F02, A-S05, framing-review §4 | Haute | Validé |
+| ARB-MVP-03 | Signature obligatoire ou optionnelle | Q4, A-F04, framing-review §4 | Haute | Validé |
+| ARB-MVP-04 | Niveau de simulation des intégrations | Q11–Q12, A-I01 à A-I05, framing-review §4 | Haute | Validé |
+| ARB-MVP-05 | Gestion des erreurs d'intégration | A-I07, RG-I06–RG-I09, framing-review §4 | Haute | Validé |
+| ARB-MVP-06 | Conservation photos / signatures / logs | A-S03, A-FG01–A-FG02, framing-review §4 | Haute | Validé |
+| ARB-MVP-07 | Écrans réellement prioritaires | §14.3, R-UX03, framing-review §4 | Haute | Validé |
 
 ---
 
@@ -96,7 +96,7 @@ Le canal email a été clarifié dans `secure-email-intake-review.md` :
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -131,7 +131,7 @@ Retenir les **notifications client uniquement** au MVP, **sans portail client co
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -166,7 +166,7 @@ La **signature client** est-elle **obligatoire** pour clôturer une intervention
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -224,7 +224,7 @@ La **plus-value des vrais contrats API** a été analysée comparativement :
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -286,7 +286,7 @@ L'objectif reste de **démontrer un parcours robuste** sans basculer dans une **
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -321,7 +321,7 @@ Quelles **règles de conservation** appliquer au MVP pour photos terrain, signat
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -383,7 +383,7 @@ Le **suivi détaillé des notifications** et le **portail client** restent en **
 
 ### Décision
 
-**Non tranché à ce stade.**
+**Validée — voir `mvp-arbitration-validation.md`.**
 
 ---
 
@@ -391,13 +391,13 @@ Le **suivi détaillé des notifications** et le **portail client** restent en **
 
 | Arbitrage | Recommandation candidate | Décision finale |
 |-----------|-------------------------|-----------------|
-| ARB-MVP-01 — Canal prioritaire | CRM simulé principal ; saisie manuelle secours ; email sécurisé cadré comme canal d'intégration complet, non principal | Non tranché |
-| ARB-MVP-02 — Portail / notifications | Notifications uniquement ; portail en extension ultérieure | Non tranché |
-| ARB-MVP-03 — Signature | Optionnelle au MVP ; modèle métier structuré | Non tranché |
-| ARB-MVP-04 — Simulation intégrations | Vrais contrats API documentés avec implémentation simulée | Non tranché |
-| ARB-MVP-05 — Erreurs intégration | Erreurs visibles dans écran anomalies + reprise manuelle simulée ; retry automatique hors MVP | Non tranché |
-| ARB-MVP-06 — Conservation | Conservation limitée fictive documentée sous forme d'hypothèses RSSI / GreenOps | Non tranché |
-| ARB-MVP-07 — Écrans prioritaires | Noyau MVP 8 écrans avec tableau de bord SAV complet et vue pilotage dirigeant avancée ; suivi détaillé notifications et portail client en évolution ultérieure | Non tranché |
+| ARB-MVP-01 — Canal prioritaire | CRM simulé principal ; saisie manuelle secours ; email sécurisé cadré comme canal d'intégration complet, non principal | Validée |
+| ARB-MVP-02 — Portail / notifications | Notifications uniquement ; portail en extension ultérieure | Validée |
+| ARB-MVP-03 — Signature | Optionnelle au MVP ; modèle métier structuré | Validée |
+| ARB-MVP-04 — Simulation intégrations | Vrais contrats API documentés avec implémentation simulée | Validée |
+| ARB-MVP-05 — Erreurs intégration | Erreurs visibles dans écran anomalies + reprise manuelle simulée ; retry automatique hors MVP | Validée |
+| ARB-MVP-06 — Conservation | Conservation limitée fictive documentée sous forme d'hypothèses RSSI / GreenOps | Validée |
+| ARB-MVP-07 — Écrans prioritaires | Noyau MVP 8 écrans avec tableau de bord SAV complet et vue pilotage dirigeant avancée ; suivi détaillé notifications et portail client en évolution ultérieure | Validée |
 
 ---
 
@@ -431,6 +431,8 @@ Le **suivi détaillé des notifications** et le **portail client** restent en **
 
 Tous les points identifiés comme **à clarifier** ou **à réinstruire** disposent désormais d'une **recommandation candidate validable**. La prochaine étape peut être la **validation finale des arbitrages MVP**, sans produire encore d'architecture ni backlog.
 
+**Mise à jour :** les **7 arbitrages MVP ont été validés** — voir `mvp-arbitration-validation.md`. La suite relève de la **consolidation du cadrage**, du **brief UX/UI**, des **règles détaillées** et des **ADR candidates**, sans architecture technique, backlog, user stories, maquettes ou Figma à ce stade.
+
 ---
 
-*Document produit dans le cadre du projet Interv360 — gouvernance SFIA. Aucune décision finale ni périmètre MVP définitif à ce stade.*
+*Document produit dans le cadre du projet Interv360 — gouvernance SFIA. Arbitrages MVP **validés** — voir `mvp-arbitration-validation.md`. Périmètre cadrage stabilisé ; architecture, backlog, SF détaillée, maquettes et Figma non produits.*
