@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "Project"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Not started", "In progress", "At risk", "Done", "Cancelled"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["Low", "Medium", "High", "Critical"],
+      "notionType": "select",
+      "notionProperty": "Priority"
+    },
+    "health": {
+      "type": "string",
+      "enum": ["Green", "Yellow", "Red"],
+      "notionType": "select",
+      "notionProperty": "Health"
+    },
+    "budget": {
+      "type": "number",
+      "notionType": "number",
+      "notionProperty": "Budget"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "Start"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "End"
+    }
+  }
+}

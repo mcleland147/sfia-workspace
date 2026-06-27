@@ -1,0 +1,31 @@
+{
+  "name": "sfia-notion-sync",
+  "version": "1.1.1",
+  "description": "Connecteur local SFIA pour créer des objets structurés dans Notion via l'API",
+  "type": "module",
+  "main": "src/cli.js",
+  "bin": {
+    "sfia-notion-sync": "src/cli.js"
+  },
+  "scripts": {
+    "create": "node src/cli.js create",
+    "help": "node src/cli.js --help",
+    "test:all": "node tests/run-all-tests.js",
+    "export": "node src/cli.js export"
+  },
+  "keywords": [
+    "sfia",
+    "notion",
+    "sync",
+    "connector"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.7"
+  }
+}

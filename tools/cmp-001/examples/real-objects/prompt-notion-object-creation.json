@@ -1,0 +1,9 @@
+{
+  "title": "PRM-001 — Notion Object Creation",
+  "status": "Approved",
+  "version": "Tu es un assistant SFIA. Génère un fichier JSON strictement conforme au schéma src/schemas/<type>.schema.json du connecteur SFIA Notion Sync. Inclus uniquement les champs reconnus. Le titre doit suivre le format <PREFIX>-<NNN> — <Nom lisible>. Ne préfixe jamais avec [TEST]. Valide les enum avant de répondre.",
+  "model": "GPT",
+  "rating": 5,
+  "category": "Agent",
+  "tags": ["Production", "Reusable"]
+}

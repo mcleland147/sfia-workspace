@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reference Page",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "Reference Page"
+    },
+    "summary": {
+      "type": "string",
+      "notionType": "rich_text",
+      "notionProperty": "Summary"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Architecture", "API", "Process", "Tooling", "Documentation", "Other"],
+      "notionType": "select",
+      "notionProperty": "Category"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Published", "Archived"],
+      "notionType": "select",
+      "notionProperty": "Status"
+    },
+    "url": {
+      "type": "string",
+      "format": "url",
+      "notionType": "url",
+      "notionProperty": "URL"
+    },
+    "source": {
+      "type": "string",
+      "notionType": "rich_text",
+      "notionProperty": "Source"
+    },
+    "tags": {
+      "type": "array",
+      "items": "string",
+      "notionType": "multi_select",
+      "notionProperty": "Tags"
+    }
+  }
+}

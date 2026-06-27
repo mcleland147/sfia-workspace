@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ADR",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "ADR"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Review", "Accepted", "Superseded"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "impact": {
+      "type": "string",
+      "enum": ["Low", "Medium", "High", "Strategic"],
+      "notionType": "select",
+      "notionProperty": "Impact"
+    },
+    "decisionDate": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "Decision date"
+    }
+  }
+}

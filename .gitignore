@@ -1,0 +1,13 @@
+node_modules/
+.env
+.DS_Store
+*.log
+exports.zip
+
+# Exports JSON (générés) — conserver la structure et les README
+exports/**
+!exports/notion/
+!exports/notion/README.md
+
+# Exports locaux du connecteur embarqué
+tools/cmp-001/exports/

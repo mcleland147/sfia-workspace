@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KPI",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "KPI"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Defined", "Measured", "At risk", "On target", "Archived"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["Delivery", "Quality", "Operations", "Adoption", "Finance"],
+      "notionType": "select",
+      "notionProperty": "Domain"
+    },
+    "trend": {
+      "type": "string",
+      "enum": ["Up", "Stable", "Down"],
+      "notionType": "select",
+      "notionProperty": "Trend"
+    },
+    "current": {
+      "type": "number",
+      "notionType": "number",
+      "notionProperty": "Current"
+    },
+    "target": {
+      "type": "number",
+      "notionType": "number",
+      "notionProperty": "Target"
+    },
+    "period": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "Period"
+    }
+  }
+}

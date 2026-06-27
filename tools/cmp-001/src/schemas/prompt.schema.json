@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prompt",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "Prompt"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Testing", "Approved", "Retired"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "version": {
+      "type": "string",
+      "notionType": "rich_text",
+      "notionProperty": "Version"
+    },
+    "model": {
+      "type": "string",
+      "enum": ["Generic", "GPT", "Claude", "Gemini"],
+      "notionType": "select",
+      "notionProperty": "Model"
+    },
+    "rating": {
+      "type": "number",
+      "notionType": "number",
+      "notionProperty": "Rating"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Agent", "RAG", "Coding", "Analysis", "Writing"],
+      "notionType": "select",
+      "notionProperty": "Category"
+    },
+    "tags": {
+      "type": "array",
+      "items": "string",
+      "notionType": "multi_select",
+      "notionProperty": "Tags"
+    }
+  }
+}

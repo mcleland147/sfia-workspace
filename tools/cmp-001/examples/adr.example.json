@@ -1,0 +1,10 @@
+{
+  "title": "ADR-001 — Utiliser Notion comme registre SFIA",
+  "status": "Accepted",
+  "context": "La plateforme SFIA nécessite un registre partagé accessible aux équipes produit et technique.",
+  "decision": "Adopter Notion comme source de vérité pour les objets SFIA structurés, alimenté via un connecteur local.",
+  "consequences": "Dépendance à l'API Notion, nécessité de schémas JSON stricts, pas de relations complexes en V1.",
+  "date": "2026-06-27",
+  "author": "SFIA Architecture",
+  "tags": ["adr", "notion", "sfia"]
+}

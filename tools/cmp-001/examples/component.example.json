@@ -1,0 +1,10 @@
+{
+  "title": "sfia-notion-sync",
+  "description": "Connecteur local pour synchroniser des objets SFIA vers Notion.",
+  "type": "Service",
+  "version": "1.0.0",
+  "status": "Active",
+  "owner": "SFIA Platform",
+  "repository": "https://github.com/example/sfia-notion-sync",
+  "tags": ["notion", "connector", "sfia"]
+}

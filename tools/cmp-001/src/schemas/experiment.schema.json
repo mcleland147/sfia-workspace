@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "Experiment"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Idea", "Running", "Review", "Validated", "Rejected"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["Prototype", "Benchmark", "Research", "Integration"],
+      "notionType": "select",
+      "notionProperty": "Type"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["Low", "Medium", "High", "Critical"],
+      "notionType": "select",
+      "notionProperty": "Priority"
+    },
+    "score": {
+      "type": "number",
+      "notionType": "number",
+      "notionProperty": "Score"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "Start"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "End"
+    },
+    "tags": {
+      "type": "array",
+      "items": "string",
+      "notionType": "multi_select",
+      "notionProperty": "Tags"
+    }
+  }
+}

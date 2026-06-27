@@ -1,0 +1,11 @@
+{
+  "title": "SFIA Notion Sync — V1",
+  "description": "Connecteur local pour alimenter Notion avec les objets du Domain Model SFIA.",
+  "status": "Active",
+  "priority": "High",
+  "startDate": "2026-06-01",
+  "endDate": "2026-09-30",
+  "owner": "SFIA Platform",
+  "repository": "https://github.com/example/sfia-notion-sync",
+  "tags": ["notion", "connector", "sfia"]
+}

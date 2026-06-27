@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Article",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "Article"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Review", "Published", "Archived"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Guide", "Reference", "FAQ", "How-to"],
+      "notionType": "select",
+      "notionProperty": "Category"
+    },
+    "publishedDate": {
+      "type": "string",
+      "format": "date",
+      "notionType": "date",
+      "notionProperty": "Published date"
+    },
+    "tags": {
+      "type": "array",
+      "items": "string",
+      "notionType": "multi_select",
+      "notionProperty": "Tags"
+    },
+    "summary": {
+      "type": "string",
+      "notionType": "page_content"
+    },
+    "content": {
+      "type": "string",
+      "notionType": "page_content"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Component",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "notionType": "title",
+      "notionProperty": "Component"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Backlog", "Design", "Build", "Active", "Deprecated"],
+      "notionType": "status",
+      "notionProperty": "Status"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["Service", "Library", "Agent", "Connector", "UI"],
+      "notionType": "select",
+      "notionProperty": "Type"
+    },
+    "criticality": {
+      "type": "string",
+      "enum": ["Low", "Medium", "High", "Critical"],
+      "notionType": "select",
+      "notionProperty": "Criticality"
+    },
+    "currentVersion": {
+      "type": "string",
+      "notionType": "rich_text",
+      "notionProperty": "Current version"
+    },
+    "repository": {
+      "type": "string",
+      "format": "url",
+      "notionType": "url",
+      "notionProperty": "Repository"
+    },
+    "documentation": {
+      "type": "string",
+      "format": "url",
+      "notionType": "url",
+      "notionProperty": "Documentation"
+    }
+  }
+}
