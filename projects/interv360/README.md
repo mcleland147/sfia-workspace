@@ -5,7 +5,7 @@
 | **Nom** | Interv360 |
 | **Statut** | Initiated |
 | **Phase actuelle** | Intake |
-| **Objectif** | À définir |
+| **Objectif** | Démonstrateur produit — cycle d'intervention terrain pour PME |
 | **Gouvernance** | SFIA |
 
 ## Règle fondamentale
@@ -24,6 +24,14 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 | `05-tests/` | Tests |
 | `06-documentation/` | Documentation |
 | `07-rex/` | Retour d'expérience |
+
+## Intake
+
+Le document d'intake est disponible :
+
+- [`00-intake/project-intake.md`](00-intake/project-intake.md)
+
+**Prochaine étape** : valider l'intake et ouvrir le cadrage métier.
 
 ## Métadonnées
 

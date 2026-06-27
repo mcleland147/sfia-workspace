@@ -6,11 +6,38 @@
   "type": "Project",
   "createdFrom": "SFIA Workspace",
   "governance": "SFIA",
-  "description": "",
-  "objectives": [],
-  "stakeholders": [],
-  "constraints": [],
-  "deliverables": [],
+  "description": "Démonstrateur produit pour PME de services terrain (ServiTech Pro) visant à centraliser et piloter le cycle complet d'une intervention, du besoin client jusqu'au compte rendu et à la clôture.",
+  "objectives": [
+    "Centraliser le cycle d'intervention de la demande à la clôture",
+    "Donner au dirigeant une vision consolidée de l'activité terrain",
+    "Réduire les délais entre intervention et compte rendu",
+    "Fiabiliser les informations transmises à la facturation",
+    "Améliorer l'information client sur l'état d'avancement",
+    "Structurer les preuves d'intervention (photos, signature, commentaires)",
+    "Produire un démonstrateur crédible pour une PME de services terrain"
+  ],
+  "stakeholders": [
+    "Dirigeant",
+    "Responsable planning",
+    "Technicien terrain",
+    "Assistant administratif",
+    "Client final",
+    "Manager opérationnel"
+  ],
+  "constraints": [
+    "Aucune solution technique avant validation du cadrage métier",
+    "Le projet doit rester un démonstrateur, pas un produit industriel complet",
+    "Le périmètre MVP doit rester maîtrisable pour valider la méthode SFIA",
+    "Le contexte ServiTech Pro doit rester cohérent tout au long du projet",
+    "Les livrables doivent alimenter les référentiels SFIA (templates, standards, ADR, REX)",
+    "La gouvernance du projet suit les principes SFIA"
+  ],
+  "deliverables": [
+    "Document d'intake projet (project-intake.md)",
+    "Document de cadrage métier (à produire en phase 01-cadrage)",
+    "Démonstrateur produit Interv360 (à produire en phases ultérieures)",
+    "Documentation projet et REX SFIA"
+  ],
   "decisions": [],
-  "nextStep": "Complete project intake"
+  "nextStep": "Validate project intake and start business framing"
 }
