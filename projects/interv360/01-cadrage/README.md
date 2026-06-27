@@ -8,13 +8,14 @@ Phase de **cadrage métier** : formalisation du besoin, des objectifs et du pér
 - Délimiter le périmètre fonctionnel
 - Valider les hypothèses avant toute solution technique
 - Produire les livrables de cadrage validés par les parties prenantes
+- Identifier les éléments capitalisables pour la SFIA
 
 ## Statut
 
-Phase active — intake validé, production du cadrage métier en cours.
+Phase active — squelette enrichi du cadrage prêt, rédaction du cadrage métier peut commencer.
 
 ## Livrable
 
 | Document | Statut |
 |----------|--------|
-| [business-framing.md](business-framing.md) | Draft — à produire |
+| [business-framing.md](business-framing.md) | Draft — structure enrichie (matrice rôles, intégrations, capitalisation SFIA) |
