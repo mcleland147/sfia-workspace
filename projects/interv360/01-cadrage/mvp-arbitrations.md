@@ -42,13 +42,13 @@ Les arbitrages MVP Interv360 doivent respecter les principes suivants :
 
 | ID | Arbitrage | Source | Priorité | Statut |
 |----|-----------|--------|----------|--------|
-| ARB-MVP-01 | Canal prioritaire de création des demandes | Q1, A-F01, framing-review §4 | Haute | À instruire |
-| ARB-MVP-02 | Portail client ou notifications uniquement | Q2, A-F02, A-S05, framing-review §4 | Haute | À instruire |
-| ARB-MVP-03 | Signature obligatoire ou optionnelle | Q4, A-F04, framing-review §4 | Haute | À instruire |
-| ARB-MVP-04 | Niveau de simulation des intégrations | Q11–Q12, A-I01 à A-I05, framing-review §4 | Haute | À instruire |
-| ARB-MVP-05 | Gestion des erreurs d'intégration | A-I07, RG-I06–RG-I09, framing-review §4 | Haute | À instruire |
-| ARB-MVP-06 | Conservation photos / signatures / logs | A-S03, A-FG01–A-FG02, framing-review §4 | Haute | À instruire |
-| ARB-MVP-07 | Écrans réellement prioritaires | §14.3, R-UX03, framing-review §4 | Haute | À instruire |
+| ARB-MVP-01 | Canal prioritaire de création des demandes | Q1, A-F01, framing-review §4 | Haute | À ajuster |
+| ARB-MVP-02 | Portail client ou notifications uniquement | Q2, A-F02, A-S05, framing-review §4 | Haute | Validable en l'état |
+| ARB-MVP-03 | Signature obligatoire ou optionnelle | Q4, A-F04, framing-review §4 | Haute | Validable en l'état |
+| ARB-MVP-04 | Niveau de simulation des intégrations | Q11–Q12, A-I01 à A-I05, framing-review §4 | Haute | À réinstruire |
+| ARB-MVP-05 | Gestion des erreurs d'intégration | A-I07, RG-I06–RG-I09, framing-review §4 | Haute | À réinstruire |
+| ARB-MVP-06 | Conservation photos / signatures / logs | A-S03, A-FG01–A-FG02, framing-review §4 | Haute | Validable avec précision |
+| ARB-MVP-07 | Écrans réellement prioritaires | §14.3, R-UX03, framing-review §4 | Haute | À ajuster |
 
 ---
 
@@ -69,17 +69,33 @@ Quel canal de création des demandes SAV doit être **prioritaire** pour le dém
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider.**
+**Recommandation candidate — à valider** (statut revue : **À ajuster**).
 
-Retenir la **création depuis CRM simulé comme canal principal**, avec **saisie manuelle en secours**. L'**email simulé** peut rester en **cas secondaire** ou démonstrateur secondaire (scénario optionnel, non bloquant pour le parcours principal).
+Retenir la **création depuis CRM simulé comme canal principal**, avec **saisie manuelle en secours**, tout en **cadrant l'email comme un canal d'intégration complet et sécurisé**. L'email n'est pas forcément le flux prioritaire du MVP, mais il doit être traité avec une **vraie logique SSI** : authentification, droits, traçabilité, pièces jointes et gestion des emails non légitimes.
+
+### Ajustement demandé
+
+L'email ne doit **pas** être réduit à un scénario secondaire faible. Il doit faire l'objet d'un **cadrage complet**, avec une vraie logique d'**authentification et de sécurité** conforme aux règles SSI définies pendant le cadrage.
+
+L'email peut rester **non prioritaire dans le parcours principal MVP**, mais il doit être traité comme un **cas d'intégration sérieux**, notamment sur :
+
+- authentification ;
+- autorisation ;
+- sécurité des accès ;
+- traçabilité ;
+- traitement des pièces jointes ;
+- classification de la demande ;
+- protection contre les emails non légitimes ;
+- journalisation ;
+- conformité RSSI.
 
 ### Impacts sur le cadrage
 
-- **Règles de gestion impactées** : RG-C01, RG-C02, RG-C03, RG-C04, RG-C05, RG-C06, RG-I01
+- **Règles de gestion impactées** : RG-C01, RG-C02, RG-C03, RG-C04, RG-C05, RG-C06, RG-I01, RG-S01, RG-S06, RG-I07
 - **Parcours impactés** : Création demande SAV (§6, étape 1)
 - **Écrans impactés** : Liste des demandes, Fiche demande SAV
-- **ADR candidate éventuelle** : Non (A-F01 marqué « Non » en §12) ; mapping statuts via A-I06 en lien indirect
-- **Capitalisation SFIA possible** : Template mapping sources → objet demande ; prompt revue canal d'entrée
+- **ADR candidate éventuelle** : **Sécurité / authentification du canal email** ; mapping statuts via A-I06 en lien indirect
+- **Capitalisation SFIA possible** : Template mapping sources → objet demande ; prompt revue canal d'entrée ; **checklist intégration email sécurisée** ; **standard « email intake security »**
 
 ### Décision
 
@@ -174,9 +190,34 @@ Quel **niveau de simulation** retenir pour CRM, calendrier, notifications et API
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider.**
+**Recommandation candidate à réinstruire.**
 
-Utiliser des **mocks / API simulées avec contrats simples** pour CRM, calendrier et notifications. **Éviter les intégrations réelles** au MVP.
+Utiliser des **mocks / API simulées avec contrats simples** pour CRM, calendrier et notifications reste une **hypothèse de départ**, mais **ne peut pas être confirmée** sans analyse comparative de la plus-value des vrais contrats API. **Éviter les intégrations réelles** au MVP reste un garde-fou, sous réserve de réinstruction.
+
+### Point à réinstruire
+
+La **plus-value des vrais contrats API** doit être analysée avant de confirmer le niveau de simulation. Il faut comparer :
+
+- mocks statiques ;
+- API simulées avec contrats simples ;
+- vrais contrats API documentés mais implémentation simulée ;
+- intégrations réelles partielles.
+
+| Option | Valeur projet | Valeur SFIA | Complexité | Risque | Position à instruire |
+|--------|---------------|-------------|------------|--------|----------------------|
+| **Mocks statiques** | Démonstration rapide du cycle SAV | Faible capitalisation contrats | Faible | Crédibilité limitée (R-I01) | Candidat minimal — à comparer |
+| **API simulées avec contrats simples** | Équilibre crédibilité / effort | Standard intégration simulée réutilisable | Moyenne | Effort cadrage contrats | Hypothèse actuelle — non confirmée |
+| **Vrais contrats API documentés, implémentation simulée** | Meilleure préparation architecture et tests | Forte capitalisation pour génération future | Moyenne à élevée | Effort documentation contrats | **À instruire en priorité** |
+| **Intégrations réelles partielles** | Réalisme maximal | Peu réutilisable comme template pilote | Élevée | Dérive scope ; hors cadrage §4 | À exclure sauf justification forte |
+
+La question n'est **pas seulement technique**, mais aussi **méthodologique pour la SFIA** :
+
+- est-ce que les vrais contrats API **améliorent la qualité du cadrage** ?
+- est-ce qu'ils **améliorent la génération future** ?
+- est-ce qu'ils permettent de **mieux préparer architecture et tests** ?
+- est-ce qu'ils **alourdissent trop le MVP** ?
+
+**Ne pas trancher** avant réinstruction.
 
 ### Impacts sur le cadrage
 
@@ -209,9 +250,37 @@ Quel **niveau de gestion des erreurs d'intégration** inclure au MVP : alerte se
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider.**
+**Recommandation candidate à réinstruire.**
 
-Inclure au MVP **un cas d'erreur visible dans un écran d'anomalies**, avec **reprise manuelle simulée**. **Ne pas implémenter de retry complexe** au MVP.
+Inclure au MVP **un cas d'erreur visible dans un écran d'anomalies**, avec **reprise manuelle simulée**, reste une **hypothèse de départ**, mais le **périmètre exact de gestion d'erreur** doit être précisé avant validation. **Ne pas trancher** avant réinstruction.
+
+### Point à réinstruire
+
+Le **périmètre de gestion d'erreur** doit être précisé avant validation. Il faut comparer :
+
+- simple affichage d'erreur ;
+- écran anomalies ;
+- reprise manuelle simulée ;
+- retry simple ;
+- historisation ;
+- notification interne ;
+- niveau de détail des logs ;
+- cas d'erreur bloquant vs non bloquant.
+
+| Niveau | Description | Valeur métier | Valeur démonstrateur | Complexité | À retenir ? |
+|--------|-------------|---------------|----------------------|------------|-------------|
+| **Simple affichage d'erreur** | Message d'erreur visible sans action guidée | Faible — anomalie signalée | Partielle — CF9 peu crédible | Faible | À comparer |
+| **Écran anomalies** | Vue dédiée listant les erreurs d'intégration | Moyenne — visibilité manager | Forte — démontre supervision légère | Moyenne | Candidat probable |
+| **Reprise manuelle simulée** | Action corrective par l'utilisateur | Forte — parcours robuste | Forte — démontre reprise sans orchestration | Moyenne | Candidat probable |
+| **Retry simple** | Nouvelle tentative automatique après échec | Moyenne — réduction blocages | Moyenne — robustesse perçue | Moyenne à élevée | **À instruire** |
+| **Historisation** | Conservation de l'historique des erreurs | Forte — traçabilité | Moyenne — valeur démo indirecte | Moyenne | **À instruire** |
+| **Notification interne** | Alerte aux rôles concernés (planning, admin) | Forte — réactivité opérationnelle | Moyenne — scénario secondaire | Moyenne | **À instruire** |
+| **Niveau de détail des logs** | Logs techniques consultables (RG-I07) | Variable — RSSI vs UX | Faible à moyenne | Variable | **À instruire** — lien A-I08 |
+| **Erreur bloquante vs non bloquante** | Distinction impact parcours SAV | Forte — clarté métier | Forte — démontre gestion fine | Faible à moyenne | **À instruire en priorité** |
+
+L'objectif est de **démontrer un parcours robuste** sans basculer dans une **supervision ou orchestration complexe**.
+
+**Ne pas trancher** avant réinstruction.
 
 ### Impacts sur le cadrage
 
@@ -244,9 +313,9 @@ Quelles **règles de conservation** appliquer au MVP pour photos terrain, signat
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider.**
+**Décision candidate validable avec précision** (statut revue : **Validable avec précision**).
 
-Définir une **conservation limitée et fictive** pour photos, signatures et logs, avec **règles RSSI / GreenOps documentées**, **sans implémentation lourde** de purge ou archivage au MVP.
+**Conservation limitée fictive documentée** sous forme d'**hypothèses de cadrage RSSI / GreenOps**. **Aucune implémentation lourde** de purge ou d'archivage au MVP.
 
 ### Impacts sur le cadrage
 
@@ -279,30 +348,38 @@ Quels **écrans candidats** (§14.3) constituent le **noyau MVP** et lesquels so
 
 ### Recommandation candidate
 
-**Recommandation candidate — à valider.**
+**Recommandation candidate — à valider** (statut revue : **À ajuster**).
 
-**Prioriser un noyau de 7 écrans :**
+**Prioriser un noyau MVP étendu de 8 écrans :**
 
-- tableau de bord SAV ;
+- **tableau de bord SAV complet** ;
 - liste des demandes ;
 - fiche demande SAV ;
 - planning ;
 - fiche intervention technicien ;
 - compte rendu intervention ;
-- suivi des erreurs d'intégration.
+- suivi des erreurs d'intégration ;
+- **vue pilotage dirigeant avancée**.
 
 **Mettre en cible ultérieure :**
 
 - suivi détaillé des notifications ;
-- vue pilotage dirigeant avancée ;
 - portail client.
+
+### Ajustement demandé
+
+Le **noyau de 7 écrans** initial est **conservé comme base**, mais la **vue pilotage dirigeant avancée** doit être **intégrée au MVP**. Le **tableau de bord SAV** doit être **plus complet que prévu initialement**, afin de démontrer une **vraie valeur de pilotage**.
 
 ### Impacts sur le cadrage
 
-- **Règles de gestion impactées** : Transversal — toutes les règles liées aux écrans prioritaires ; RG-I09 (visibilité anomalies)
-- **Parcours impactés** : Ensemble du parcours §6 ; parcours utilisateurs §14.2
-- **Écrans impactés** : Priorisation explicite §14.3 (7 prioritaires, 3 ultérieurs)
-- **ADR candidate éventuelle** : Non directe ; lien avec indicateurs dirigeant (Q5) en vue ultérieure
+- **Règles de gestion impactées** : Transversal — toutes les règles liées aux écrans prioritaires ; RG-I09 (visibilité anomalies) ; **RG-C08, RG-FG07** (KPI)
+- **Parcours impactés** : Ensemble du parcours §6 ; parcours utilisateurs §14.2 ; **parcours dirigeant / pilotage**
+- **Écrans impactés** : Priorisation explicite §14.3 (**8 prioritaires**, 2 ultérieurs) ; **tableau de bord SAV enrichi**
+- **ADR candidate éventuelle** : Non directe ; **besoin de clarifier les KPI minimum (Q5, R-M08)**
+- **Complexité UX accrue** — noyau étendu de 7 à 8 écrans ; tableau de bord plus riche
+- **Valeur dirigeant renforcée** — vue pilotage dirigeant avancée incluse au MVP
+- **Lien Q5 et R-M08** — indicateurs minimum dirigeant à préciser avant brief UX/UI
+- **Brief UX/UI** — nécessité de produire un **brief UX/UI solide avant Figma** (§14.6)
 - **Règle Figma** : la sélection des écrans prioritaires **ne déclenche pas directement Figma** ; elle déclenche la **production d'un brief UX/UI** ; Figma intervient uniquement après validation des écrans prioritaires et des critères UX (§14.6)
 - **Capitalisation SFIA possible** : Template priorisation écrans MVP ; checklist UX Review par écran ; base composants UI candidats ; **standard de déclenchement Figma** ; **template brief UX/UI** ; **checklist d'entrée Figma**
 
@@ -316,13 +393,13 @@ Quels **écrans candidats** (§14.3) constituent le **noyau MVP** et lesquels so
 
 | Arbitrage | Recommandation candidate | Décision finale |
 |-----------|-------------------------|-----------------|
-| ARB-MVP-01 — Canal prioritaire | CRM simulé principal ; saisie manuelle secours ; email secondaire | Non tranché |
+| ARB-MVP-01 — Canal prioritaire | CRM principal + saisie manuelle secours + email cadré comme canal sécurisé complet | Non tranché |
 | ARB-MVP-02 — Portail / notifications | Notifications uniquement ; portail en extension ultérieure | Non tranché |
 | ARB-MVP-03 — Signature | Optionnelle au MVP ; modèle métier structuré | Non tranché |
-| ARB-MVP-04 — Simulation intégrations | Mocks / API simulées avec contrats simples ; pas d'intégrations réelles | Non tranché |
-| ARB-MVP-05 — Erreurs intégration | Écran anomalies + reprise manuelle simulée ; pas de retry complexe | Non tranché |
-| ARB-MVP-06 — Conservation | Conservation limitée fictive documentée ; règles RSSI/GreenOps sans implémentation lourde | Non tranché |
-| ARB-MVP-07 — Écrans prioritaires | Noyau 7 écrans ; notifications détaillées, pilotage dirigeant avancé et portail en cible ultérieure | Non tranché |
+| ARB-MVP-04 — Simulation intégrations | **À réinstruire** — comparer mocks, API simulées, vrais contrats API et intégrations réelles partielles | Non tranché |
+| ARB-MVP-05 — Erreurs intégration | **À réinstruire** — préciser le périmètre de gestion d'erreur | Non tranché |
+| ARB-MVP-06 — Conservation | Conservation limitée fictive documentée sous forme d'hypothèses RSSI / GreenOps | Non tranché |
+| ARB-MVP-07 — Écrans prioritaires | Noyau MVP étendu avec tableau de bord SAV complet et vue pilotage dirigeant avancée ; notifications détaillées et portail client en cible ultérieure | Non tranché |
 
 ---
 
@@ -341,6 +418,18 @@ Quels **écrans candidats** (§14.3) constituent le **noyau MVP** et lesquels so
 | Règle Figma post-cadrage UX/UI | Déclenchement Figma après brief UX/UI validé (§14.6) | Standard |
 | Brief UX/UI avant maquette | Document préalable obligatoire avant Figma | Template |
 | Checklist entrée Figma | Critères de validation avant ouverture Figma | Checklist |
+
+---
+
+## 13. Points à réinstruire avant validation finale
+
+| Sujet | Pourquoi réinstruire ? | Sortie attendue | Rôles à mobiliser |
+|-------|------------------------|-----------------|-------------------|
+| **Email sécurisé** | L'email ne peut pas rester un scénario secondaire faible ; cadrage SSI complet requis (ARB-MVP-01) | Checklist intégration email sécurisée ; ADR candidate authentification canal email ; règles RG-C02, RG-S01, RG-S06 affinées | RSSI / Architecte / Business Analyst |
+| **Vrais contrats API vs API simulées** | Plus-value méthodologique SFIA non tranchée ; hypothèse « contrats simples » non confirmée (ARB-MVP-04) | Grille comparative instruite ; recommandation candidate révisée ; ADR simulation API | Architecte / Chef de projet / Business Analyst |
+| **Périmètre de gestion d'erreur** | Hypothèse « écran anomalies + reprise manuelle » insuffisante ; niveaux à comparer (ARB-MVP-05) | Matrice niveaux de gestion d'erreur ; périmètre MVP erreur validé ; règles RG-I06–RG-I09 affinées | Architecte / QA / Concepteur UX |
+| **KPI tableau de bord SAV / vue dirigeant** | Noyau écrans étendu ; tableau de bord plus complet ; lien Q5 et R-M08 (ARB-MVP-07) | Liste KPI minimum dirigeant ; hypothèses affichage tableau de bord SAV | Business Analyst / Product Owner / Dirigeant (fictif) |
+| **Impacts UX du noyau d'écrans étendu** | Passage de 7 à 8 écrans ; complexité UX accrue ; brief UX/UI requis avant Figma (ARB-MVP-07) | Brief UX/UI solide ; priorisation composants UI ; checklist entrée Figma | Concepteur fonctionnel / Product Owner |
 
 ---
 
