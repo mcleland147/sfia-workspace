@@ -2,7 +2,7 @@
 
 **Projet** : PRJ-INTERV360  
 **Phase** : Intake  
-**Version** : 1.1 — enrichissement axes SFIA avancés  
+**Version** : 1.2 — alignement vision SFIA automation et plateforme SAV  
 **Date** : 2026-06-27  
 **Statut** : Rédigé — en attente de validation
 
@@ -10,13 +10,19 @@
 
 ## 1. Synthèse exécutive
 
-Interv360 est un **démonstrateur produit** destiné aux PME de services terrain. Il vise à centraliser et piloter le cycle complet d'une intervention, du besoin client jusqu'au compte rendu et à la clôture.
+**Interv360 — Plateforme de gestion d'interventions SAV avec intégrations externes.**
+
+Interv360 est le **premier projet pilote** destiné à éprouver la SFIA comme système complet de création d'application. Au-delà du besoin métier, il vise à tester la chaîne **formulaire → workflow → projet → application** : besoin structuré dans Notion, trajectoire projet gouvernée, puis démonstrateur produit versionné dans Cursor/Git.
+
+La plateforme cible centralise et pilote le cycle complet d'une intervention SAV — du besoin client jusqu'au compte rendu et à la clôture — en orchestrant des **intégrations externes simulées** (CRM, email, calendrier, notifications, API).
 
 Le projet s'appuie sur une entreprise fictive — **ServiTech Pro** — pour ancrer le besoin dans un contexte métier réaliste : maintenance multi-technique pour petites entreprises, commerces et agences locales (25 à 50 salariés, dont 10 à 20 techniciens terrain).
 
-L'enjeu principal est de donner au dirigeant une **vision fiable et centralisée** de l'activité terrain, aujourd'hui fragmentée entre Excel, WhatsApp, mails, photos dispersées et facturation ressaisie manuellement.
+L'enjeu principal est double : donner au dirigeant une **vision fiable et centralisée** de l'activité terrain, et prouver que la SFIA sait structurer un projet applicatif réaliste de bout en bout.
 
-Interv360 n'est pas un ERP ni une solution de facturation complète au démarrage. Il constitue un **prototype avancé** permettant de tester la capacité de la SFIA à transformer un besoin métier réaliste en trajectoire projet structurée.
+Interv360 n'est pas un ERP ni une solution de facturation complète au démarrage. Il constitue un **prototype avancé** permettant de tester la capacité de la SFIA à transformer une demande structurée en trajectoire projet exploitable puis en application.
+
+Voir également : [`interv360-sfia-test-strategy.md`](interv360-sfia-test-strategy.md) — document garde-fou de la stratégie de test SFIA.
 
 ---
 
@@ -31,7 +37,17 @@ Interv360 n'est pas un ERP ni une solution de facturation complète au démarrag
 | **Effectif terrain** | 10 à 20 techniciens |
 | **Modèle d'activité** | Interventions planifiées et urgentes, multi-compétences, relation client de proximité |
 
-ServiTech Pro intervient sur des demandes variées (dépannage, maintenance préventive, installations) avec une organisation où le terrain et l'administratif doivent rester alignés en permanence.
+**Outils existants chez ServiTech Pro** (non orchestrés) :
+
+| Outil | Usage actuel |
+|-------|--------------|
+| **CRM** | Suivi clients et historique partiel des demandes |
+| **Boîte email** | Réception des demandes SAV et échanges clients |
+| **Calendriers partagés** | Planification informelle des interventions |
+| **Outil de facturation** | Facturation en fin de chaîne, ressaisie manuelle |
+| **Échanges terrain informels** | WhatsApp, appels, photos hors système |
+
+ServiTech Pro intervient sur des demandes variées (dépannage, maintenance préventive, installations) avec une organisation où le terrain, l'administratif et les outils existants doivent rester alignés — ce qui n'est pas le cas aujourd'hui.
 
 ---
 
@@ -56,6 +72,8 @@ Cette organisation crée des délais, des pertes d'information et une charge adm
 
 **Problème principal** : le dirigeant n'a pas une vision fiable et centralisée de l'activité terrain.
 
+**Problème complémentaire** : l'absence d'**orchestration entre outils existants** (CRM, email, calendrier, facturation, échanges terrain) empêche toute continuité d'information de la demande SAV à la clôture.
+
 **Irritants identifiés** :
 
 - Demandes clients dispersées (mail, téléphone, messages) sans point d'entrée unique
@@ -66,8 +84,10 @@ Cette organisation crée des délais, des pertes d'information et une charge adm
 - Clients qui appellent pour connaître l'état d'avancement, faute de visibilité partagée
 - Facturation dépendante de données terrain incomplètes ou incohérentes
 - Manque d'indicateurs opérationnels pour piloter l'activité (délais, charge, taux de clôture)
+- Absence de synchronisation entre CRM, email, calendrier et outils terrain
+- Erreurs et retards de mise à jour des statuts entre systèmes
 
-Le problème n'est pas uniquement opérationnel : il impacte la relation client, la trésorerie et la capacité du dirigeant à anticiper.
+Le problème n'est pas uniquement opérationnel : il impacte la relation client, la trésorerie, la capacité du dirigeant à anticiper, et la fiabilité des intégrations entre outils.
 
 ---
 
@@ -105,26 +125,31 @@ Chaque profil intervient à des étapes distinctes du parcours métier cible. Le
 ## 7. Parcours métier cible
 
 ```
-Demande client
-    → Qualification
-        → Planification
-            → Intervention terrain
-                → Compte rendu
-                    → Clôture
-                        → Préparation facturation
+CRM / Email
+    → Création demande SAV
+        → Qualification
+            → Planification calendrier
+                → Notification client
+                    → Intervention terrain
+                        → Mise à jour statut / géolocalisation éventuelle
+                            → Compte rendu
+                                → Synchronisation CRM / préparation facturation
+                                    → Clôture
 ```
 
-| Étape | Description |
-|-------|-------------|
-| **Demande client** | Saisie ou réception d'une demande d'intervention |
-| **Qualification** | Analyse du besoin, priorisation, validation du périmètre |
-| **Planification** | Affectation d'un technicien, créneau, matériel éventuel |
-| **Intervention terrain** | Exécution sur site, collecte de preuves |
-| **Compte rendu** | Synthèse de l'intervention, validation client si applicable |
-| **Clôture** | Finalisation administrative de l'intervention |
-| **Préparation facturation** | Transmission des éléments facturables (sans facturation complète au MVP) |
+| Étape | Description | Source / flux |
+|-------|-------------|---------------|
+| **Création demande SAV** | Réception ou saisie d'une demande d'intervention | CRM simulé, email simulé, saisie manuelle |
+| **Qualification** | Analyse du besoin, priorisation, validation du périmètre | Plateforme Interv360 |
+| **Planification calendrier** | Affectation technicien, créneau, synchronisation calendrier | Calendrier simulé |
+| **Notification client** | Information proactive sur planification ou changement | Service de notification simulé |
+| **Intervention terrain** | Exécution sur site, collecte de preuves | Module technicien |
+| **Mise à jour statut / géolocalisation** | Preuve de présence légère, mise à jour du statut | API, géolocalisation légère |
+| **Compte rendu** | Synthèse de l'intervention, photos, signature client | Plateforme Interv360 |
+| **Synchronisation CRM / préparation facturation** | Remontée des éléments clôturés vers systèmes simulés | CRM simulé, facturation simulée |
+| **Clôture** | Finalisation administrative de l'intervention | Plateforme Interv360 |
 
-Ce parcours constitue l'ossature métier du démonstrateur. Le cadrage devra détailler les entrées, sorties et règles de transition à chaque étape.
+Ce parcours constitue l'ossature métier du démonstrateur. Le cadrage devra détailler les entrées, sorties, flux d'intégration et règles de transition à chaque étape.
 
 ---
 
@@ -146,6 +171,15 @@ Les fonctionnalités ci-dessous sont **candidates** pour le démonstrateur. Elle
 | F10 | Tableau de bord | Pilotage (dirigeant, manager) |
 | F11 | Historique client | Demande → Historique |
 | F12 | Assistance IA légère | À étudier ultérieurement |
+| F13 | Intégration CRM simulée | Création demande SAV → Qualification |
+| F14 | Ingestion email simulée | Création demande SAV |
+| F15 | Synchronisation calendrier | Planification calendrier |
+| F16 | Géolocalisation légère | Intervention terrain |
+| F17 | API création / mise à jour intervention | Tout le cycle |
+| F18 | Logs d'intégration | Intégrations |
+| F19 | Gestion des erreurs d'intégration | Synchronisation CRM |
+| F20 | Synchronisation de statuts | CRM, calendrier, notifications |
+| F21 | Tableau de bord des anomalies | Pilotage (dirigeant, manager) |
 
 ---
 
@@ -162,6 +196,11 @@ Les éléments suivants sont **explicitement exclus** du MVP au démarrage :
 | IA avancée | Assistance légère à étudier plus tard |
 | Couverture multi-industries | Focus maintenance multi-technique PME |
 | Application trop complexe dès la v1 | Priorité à la démonstration du cycle complet simplifié |
+| CRM réel du marché | Intégration simulée ou mockée au départ |
+| Connecteurs industriels complets | Hors périmètre MVP |
+| Géolocalisation temps réel avancée | Géolocalisation légère uniquement |
+| Moteur d'orchestration complexe | Orchestration simplifiée pour le démonstrateur |
+| Automatisation complète formulaire → application dès le MVP | Chaîne documentée et partiellement automatisée |
 
 ---
 
@@ -191,6 +230,10 @@ Ces hypothèses seront challengées lors du cadrage métier.
 | C4 | Le contexte ServiTech Pro doit rester cohérent tout au long du projet |
 | C5 | Les livrables doivent alimenter les référentiels SFIA (templates, standards, ADR, REX) |
 | C6 | La gouvernance du projet suit les principes SFIA |
+| C7 | Les intégrations seront simulées ou mockées au départ |
+| C8 | Les cas d'erreur d'intégration doivent être cadrés et testés |
+| C9 | Les rôles RSSI, FinOps, GreenOps et Architecte doivent intervenir dans les arbitrages |
+| C10 | La logique d'automatisation SFIA (formulaire → workflow → application) doit être documentée même si elle n'est pas totalement développée au MVP |
 
 ---
 
@@ -245,6 +288,25 @@ Interv360 doit également servir de **projet pilote** pour éprouver la capacit�
 
 Cette dimension avancée ne signifie pas que toutes ces capacités doivent être implémentées dans le MVP. Elle impose en revanche qu'elles soient **identifiées, discutées et arbitrées** pendant le cadrage afin de tester la capacité de la SFIA à structurer un projet applicatif réaliste de bout en bout.
 
+### Automatisation SFIA à éprouver
+
+Interv360 doit tester la capacité de la SFIA à industrialiser la trajectoire **formulaire → workflow → projet → application** :
+
+| Maillon | Objectif de test |
+|---------|------------------|
+| Formulaire d'entrée besoin | Structurer la demande initiale en champs exploitables |
+| Création objet Project dans Notion | Générer le projet gouverné dans le référentiel |
+| Génération intake | Produire le document d'intake à partir du besoin structuré |
+| Génération cadrage | Déclencher le livrable de cadrage métier |
+| Templates prédéfinis | Appliquer et enrichir les modèles SFIA |
+| Workflow projet | Piloter les phases via statuts et livrables Notion |
+| Génération documentaire | Produire intake, cadrage, ADR, documentation projet |
+| Déclenchement des rôles transverses | Solliciter RSSI, FinOps, GreenOps, Data/IA, Architecte au bon moment |
+| Création workspace Cursor | Structurer le dépôt de production Git |
+| Synchronisation CMP-001 | Publier et exporter les objets Notion |
+| Capitalisation templates / prompts / composants | Identifier les éléments réutilisables |
+| Trajectoire cible | Valider la chaîne formulaire → workflow → projet → application |
+
 ---
 
 ## 14. Questions ouvertes
@@ -267,6 +329,14 @@ Cette dimension avancée ne signifie pas que toutes ces capacités doivent être
 | Q14 | Quels principes GreenOps appliquer au stockage des photos, documents et comptes rendus ? | GreenOps |
 | Q15 | Quelle place donner à l'IA légère : MVP, option, ou phase ultérieure ? | IA légère |
 | Q16 | Quelles décisions devront faire l'objet d'une ADR dès la phase de cadrage ou d'architecture ? | ADR |
+| Q17 | Quels champs minimaux un formulaire de besoin devrait-il contenir ? | Automatisation SFIA |
+| Q18 | Quels templates SFIA doivent être déclenchés automatiquement ? | Templates / workflow |
+| Q19 | Quels statuts Notion doivent piloter le workflow projet ? | Workflow Notion |
+| Q20 | Quels rôles transverses doivent être déclenchés selon le type de projet ? | Gouvernance projet |
+| Q21 | Quels livrables peuvent être générés automatiquement ? | Génération documentaire |
+| Q22 | Quelles décisions doivent déclencher une ADR ? | ADR |
+| Q23 | Quels éléments doivent être synchronisés entre Notion et Cursor ? | Gouvernance Git / Notion |
+| Q24 | Quels composants ou prompts peuvent devenir réutilisables ? | Capitalisation SFIA |
 
 Ces questions seront traitées lors de la phase de cadrage métier.
 
