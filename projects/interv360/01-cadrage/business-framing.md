@@ -182,7 +182,7 @@ CRM / Email / Saisie manuelle
 | **Synchronisation CRM / préparation facturation** | Remonter les éléments clôturés vers les systèmes simulés | Plateforme / Assistant administratif | Compte rendu validé | Statut CRM mis à jour, éléments facturables préparés | Échec de synchronisation, mapping incomplet, données manquantes | Standard synchronisation ; mapping statuts CRM |
 | **Clôture** | Finaliser administrativement l'intervention | Assistant administratif / Responsable SAV | Intervention documentée et synchronisée | Intervention clôturée, historique client enrichi | Clôture prématurée, données incomplètes, réouverture | Workflow clôture ; critères de clôture |
 
-*Le détail des règles de transition entre étapes sera produit en section 10. Le périmètre MVP sera arbitré ultérieurement — il n'est pas défini à ce stade.*
+*Le détail des règles de transition entre étapes sera produit en section §10. Le périmètre MVP sera arbitré ultérieurement — il n'est pas défini à ce stade.*
 
 ---
 
@@ -297,7 +297,110 @@ Cette cartographie doit permettre de capitaliser :
 
 ## 10. Règles de gestion à définir
 
-*À compléter.*
+Cette section identifie les **règles de gestion à instruire** pendant le cadrage. Elles servent à clarifier les comportements attendus du produit, les conditions de passage entre statuts, les validations métier, les contrôles fonctionnels, les erreurs d'intégration et les critères de recette futurs. Elles ne constituent **pas encore** des spécifications détaillées ni un backlog.
+
+### 10.1 Règles de création et qualification des demandes SAV
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-C01 | Création d'une demande depuis CRM simulé | Demande SAV, Demande CRM simulée | Q1, Q12, A-F01, A-I01 | Business Analyst / Product Owner | À arbitrer ; candidat règle MVP |
+| RG-C02 | Création d'une demande depuis email simulé | Demande SAV, Email entrant simulé | Q1, Q12, A-F01, A-I02 | Business Analyst / Product Owner | À arbitrer ; candidat règle MVP |
+| RG-C03 | Création manuelle d'une demande | Demande SAV | Q1, A-F01 | Business Analyst / Responsable SAV | À définir ; candidat règle MVP |
+| RG-C04 | Détection ou gestion des doublons (CRM, email, saisie) | Demande SAV, Client | Q12, A-I01, A-I02 | Business Analyst / Architecte | À définir ; règle de gestion |
+| RG-C05 | Données minimales obligatoires à la création | Demande SAV, Client, Contact client | Q3, Q17 | Business Analyst / Product Owner | À valider ; template formulaire |
+| RG-C06 | Statut initial d'une demande à la création | Demande SAV, Statut d'intervention | A-I06, Q19 | Business Analyst / Responsable SAV | À définir ; standard mapping statuts |
+| RG-C07 | Règles de qualification (checklist, validation périmètre) | Demande SAV | Q3, A-F03 | Business Analyst / Responsable SAV | À arbitrer ; template qualification |
+| RG-C08 | Règles de priorisation (urgence, délai, client) | Demande SAV | Q8, A-F05 | Product Owner / Responsable SAV | À définir ; règle de gestion |
+| RG-C09 | Rejet ou mise en attente d'une demande incomplète | Demande SAV | Q3 | Business Analyst / Responsable SAV | À valider ; règle de gestion |
+
+### 10.2 Règles de planification et affectation
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-P01 | Affectation d'un technicien à une intervention | Intervention, Technicien, Planning | §6 planification | Responsable SAV / planning | À définir ; règle de gestion |
+| RG-P02 | Gestion des disponibilités technicien | Technicien, Planning / créneau | A-I03 | Responsable SAV / planning | À définir ; règle de gestion |
+| RG-P03 | Gestion des conflits de créneau | Planning / créneau, Événement calendrier | A-I03, CF3 | Responsable SAV / Architecte | À arbitrer ; règle de gestion |
+| RG-P04 | Modification ou report d'une intervention planifiée | Intervention, Planning / créneau | §6 notification client | Responsable SAV / planning | À valider ; règle de gestion |
+| RG-P05 | Notification client après planification | Notification, Intervention | Q2, A-F02, A-I04 | Product Owner / Concepteur fonctionnel | À arbitrer ; template notification |
+| RG-P06 | Statut après planification | Statut d'intervention, Intervention | A-I06 | Business Analyst / Responsable SAV | À définir ; standard mapping statuts |
+| RG-P07 | Conditions de passage vers intervention terrain | Intervention, Statut d'intervention | §6 parcours | Business Analyst / QA | À valider ; critères d'acceptation futurs |
+
+### 10.3 Règles d'intervention terrain
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-T01 | Accès au dossier intervention (contexte client complet) | Intervention, Client, Site client | §14 parcours technicien | Concepteur fonctionnel / Technicien (fictif) | À valider ; critère utilisabilité |
+| RG-T02 | Démarrage d'intervention (conditions, horodatage) | Intervention, Statut d'intervention | §6 intervention terrain | Business Analyst / Technicien (fictif) | À définir ; règle de gestion |
+| RG-T03 | Mise à jour de statut en cours d'intervention | Statut d'intervention, Intervention | A-I06 | Business Analyst / Responsable SAV | À définir ; standard mapping statuts |
+| RG-T04 | Géolocalisation légère si retenue (déclenchement, finalité) | Données géolocalisation, Intervention | A-FG06, Q14, arbitrage géoloc | GreenOps / RSSI / Product Owner | À arbitrer ; principe GreenOps |
+| RG-T05 | Ajout de photos (nombre, taille, moment) | Photo / pièce jointe, Intervention | A-FG01, Q14 | GreenOps / Technicien (fictif) | À arbitrer ; règle de gestion |
+| RG-T06 | Ajout de commentaires technicien | Compte rendu, Intervention | A-S03, données sensibles | RSSI / Business Analyst | À valider ; règle de gestion |
+| RG-T07 | Gestion d'intervention impossible ou incomplète | Intervention, Statut d'intervention | CF9, cas métier | Business Analyst / Responsable SAV | À définir ; règle de gestion |
+| RG-T08 | Passage vers compte rendu (conditions minimales) | Compte rendu, Intervention | §6 compte rendu | Business Analyst / QA | À valider ; critères d'acceptation futurs |
+
+### 10.4 Règles de compte rendu, signature et clôture
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-R01 | Champs obligatoires du compte rendu | Compte rendu | Q6, A-F06 | Concepteur fonctionnel / Business Analyst | À arbitrer ; template compte rendu |
+| RG-R02 | Signature client obligatoire ou optionnelle | Signature client, Compte rendu | Q4, A-F04 | Product Owner / Business Analyst | À arbitrer ; règle de gestion |
+| RG-R03 | Ajout de pièces jointes au compte rendu | Photo / pièce jointe, Compte rendu | A-FG01 | GreenOps / Technicien (fictif) | À valider ; règle de gestion |
+| RG-R04 | Validation du compte rendu (qui valide, quand) | Compte rendu, Intervention | §13 circuit validation | Responsable SAV / QA | À définir ; critères d'acceptation futurs |
+| RG-R05 | Conditions de clôture d'une intervention | Intervention, Statut d'intervention | §6 clôture, A-F04 | Business Analyst / Product Owner | À valider ; règle de gestion |
+| RG-R06 | Réouverture éventuelle d'une intervention clôturée | Intervention, Historique | — | Business Analyst / Responsable SAV | À définir ; règle de gestion |
+| RG-R07 | Préparation des éléments de facturation à la clôture | Élément de facturation, Compte rendu | §8 facturation simulée | Assistant administratif / Business Analyst | À valider ; règle de gestion |
+| RG-R08 | Synchronisation CRM / systèmes simulés après clôture | Flux sync CRM, Intervention | A-I06, A-I07, CF8 | Architecte / Business Analyst | À arbitrer ; standard synchronisation |
+
+### 10.5 Règles d'intégration et de synchronisation
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-I01 | Synchronisation CRM (création, mise à jour, statuts) | Demande CRM simulée, Flux sync CRM | A-I01, A-I06 | Architecte / Business Analyst | À arbitrer ; ADR candidate |
+| RG-I02 | Synchronisation calendrier (création, modification, annulation) | Événement calendrier, Planning | A-I03 | Architecte / Responsable SAV | À arbitrer ; règle de gestion |
+| RG-I03 | Notifications sortantes (événements déclencheurs, contenu) | Notification | A-I04, A-FG03 | Product Owner / FinOps | À arbitrer ; template notification |
+| RG-I04 | Export facturation simulé (format, déclenchement, contenu) | Export facturation, Élément facturation | A-I01, §8 | Business Analyst / Assistant administratif | À valider ; règle de gestion |
+| RG-I05 | Mapping des statuts entre plateforme et systèmes simulés | Statut d'intervention, Flux sync | A-I06, Q19 | Architecte / Business Analyst | À définir ; standard mapping statuts |
+| RG-I06 | Gestion des erreurs d'intégration (détection, gravité) | Erreur d'intégration | A-I07, CF9 | Architecte / QA | À arbitrer ; standard de cadrage |
+| RG-I07 | Journalisation des échanges API | Log d'échange API | A-I08, A-FG02 | RSSI / Architecte | À valider ; exigence sécurité |
+| RG-I08 | Reprise manuelle ou retry automatique | Erreur d'intégration | A-I07 | Architecte / Product Owner | À arbitrer ; ADR candidate |
+| RG-I09 | Visibilité des anomalies pour manager / dirigeant | Erreur d'intégration, KPI | §14 écran anomalies | Manager opérationnel / Concepteur UX | À valider ; critère utilisabilité |
+
+### 10.6 Règles de sécurité, données et accès
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-S01 | Accès par profil (dirigeant, planning, technicien, admin, client) | Utilisateur / rôle, tous objets | A-S02, Q10 | RSSI / Business Analyst | À définir ; exigence sécurité |
+| RG-S02 | Visibilité des données pour le client final | Client, Notification, Demande SAV | A-S05, A-F02 | RSSI / Concepteur fonctionnel | À arbitrer ; exigence sécurité |
+| RG-S03 | Conservation des photos terrain | Photo / pièce jointe | A-S03, A-FG01, Q14 | RSSI / GreenOps | À arbitrer ; principe GreenOps |
+| RG-S04 | Conservation des signatures client | Signature client | A-S03 | RSSI | À valider ; exigence sécurité |
+| RG-S05 | Conservation des logs d'intégration | Log d'échange API | A-FG02, A-S04 | RSSI / FinOps / GreenOps | À arbitrer ; exigence sécurité |
+| RG-S06 | Traçabilité des modifications (qui, quoi, quand) | Historique / journal d'activité | A-S04, Q16 | RSSI / Architecte | À valider ; standard traçabilité |
+| RG-S07 | Données accessibles au technicien en intervention | Intervention, Client, Site client | RG-T01, A-S02 | RSSI / Technicien (fictif) | À confirmer par le rôle valideur |
+| RG-S08 | Données utilisables par l'IA si l'IA est retenue | Données IA, Compte rendu, Demande SAV | A-IA06, Q7, Q15 | Data / IA / RSSI | À arbitrer ; exigence gouvernance IA |
+
+### 10.7 Règles FinOps / GreenOps / sobriété
+
+| ID | Règle à définir | Objet concerné | Questions / arbitrages liés | Rôle valideur | Sortie attendue |
+|----|-----------------|----------------|----------------------------|---------------|-----------------|
+| RG-FG01 | Limitation du stockage photos (taille, nombre, compression) | Photo / pièce jointe | A-FG01, Q14 | GreenOps / FinOps | À arbitrer ; principe GreenOps |
+| RG-FG02 | Limitation du volume et de la durée des logs | Log d'échange API, Historique | A-FG02, Q13 | FinOps / GreenOps | À arbitrer ; hypothèse FinOps |
+| RG-FG03 | Fréquence maximale des notifications client | Notification | A-FG03, A-I04 | FinOps / Product Owner | À arbitrer ; hypothèse FinOps |
+| RG-FG04 | Durée de conservation globale des données opérationnelles | Tous objets métier | A-FG07, Q14 | GreenOps / RSSI | À arbitrer ; principe GreenOps |
+| RG-FG05 | Sobriété de la géolocalisation (précision, fréquence, finalité) | Données géolocalisation | A-FG06 | GreenOps / RSSI | À arbitrer ; principe GreenOps |
+| RG-FG06 | Usage raisonné de l'IA (quand, sur quelles données) | Données IA | A-FG05, A-IA01 | FinOps / Data / IA | À arbitrer ; hypothèse FinOps |
+| RG-FG07 | Indicateurs de coût ou de volume à suivre (stockage, API, notif, IA) | KPI / activité | Q13, Q5 | FinOps / Dirigeant (fictif) | À définir ; hypothèse FinOps |
+
+### 10.8 Capitalisation SFIA des règles de gestion
+
+Cette section doit permettre de capitaliser :
+
+- un **template Business Rules Matrix** ;
+- une **checklist de règles par type de projet** ;
+- des **critères de transformation en tests fonctionnels** ;
+- des **prompts de génération de règles** ;
+- des **prompts de revue BA / PO / QA** ;
+- des **règles candidates pour workflow Notion** ;
+- une **base pour les futurs critères d'acceptation**.
 
 ---
 
