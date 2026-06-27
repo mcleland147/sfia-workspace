@@ -231,7 +231,63 @@ Cas obligatoires issus de la stratégie SFIA (à détailler pendant le cadrage) 
 
 ## 11. Questions ouvertes issues de l'intake
 
-*À compléter — reprendre Q1 à Q24 de project-intake.md.*
+Les questions ci-dessous reprennent **Q1 à Q24** de `project-intake.md` v1.3 validé. Elles sont regroupées par thème de cadrage pour guider les arbitrages, les règles de gestion et la capitalisation SFIA.
+
+### 11.1 Parcours métier et périmètre fonctionnel
+
+| ID | Question | Impact cadrage | Rôle principal à mobiliser | Sortie attendue |
+|----|----------|----------------|---------------------------|-----------------|
+| Q1 | Quel canal prioritaire pour la saisie des demandes client au MVP ? | Parcours demande, point d'entrée unique | Business Analyst / Product Owner | Arbitrage MVP ; règle de gestion |
+| Q2 | Le client final a-t-il un accès direct (portail simple) ou uniquement des notifications ? | Périmètre portail, expérience client | Concepteur fonctionnel / Product Owner | Arbitrage MVP ; règle de gestion |
+| Q3 | Quel niveau de détail pour la qualification (checklist, devis rapide) ? | Étape qualification, complexité métier | Business Analyst / Concepteur fonctionnel | Règle de gestion ; template qualification |
+| Q4 | La signature client est-elle obligatoire pour clôturer une intervention ? | Règle de clôture, parcours compte rendu | Business Analyst / Product Owner | Règle de gestion ; arbitrage MVP |
+| Q5 | Quels indicateurs minimum pour le tableau de bord dirigeant ? | Périmètre pilotage, vision consolidée | Business Analyst / Product Owner | Arbitrage MVP ; règle de gestion |
+| Q6 | Quel format de compte rendu (PDF, page web, les deux) ? | Livrable compte rendu, clôture | Concepteur fonctionnel / Product Owner | Arbitrage MVP ; template compte rendu |
+| Q8 | Faut-il modéliser plusieurs types d'intervention (urgence, préventif, installation) ? | Complexité métier, modélisation | Business Analyst / Architecte | Arbitrage MVP ; règle de gestion ; ADR candidate |
+
+### 11.2 Intégrations externes et API
+
+| ID | Question | Impact cadrage | Rôle principal à mobiliser | Sortie attendue |
+|----|----------|----------------|---------------------------|-----------------|
+| Q11 | Quels flux API sont nécessaires pour supporter le cycle demande → intervention → clôture ? | Architecture des échanges, dépendances | Architecte / Business Analyst | ADR candidate ; template intégration |
+| Q12 | Quels systèmes externes doivent être simulés ou préparés : CRM, facturation, notification, IA ? | Périmètre intégrations simulées | Architecte / Product Owner | Arbitrage MVP ; cartographie intégrations |
+
+### 11.3 Données, sécurité et gouvernance
+
+| ID | Question | Impact cadrage | Rôle principal à mobiliser | Sortie attendue |
+|----|----------|----------------|---------------------------|-----------------|
+| Q9 | Quels rôles transverses doivent intervenir dès le cadrage : RSSI, FinOps, GreenOps, Data/IA, Architecte ? | Gouvernance projet, mobilisation des rôles | Chef de projet / RSSI | Workflow Notion ; checklist rôles |
+| Q10 | Quelles données doivent être considérées comme sensibles ou critiques ? | Classification données, accès | RSSI / Data / IA | Exigence sécurité ; règle de gestion ; ADR candidate |
+| Q16 | Quelles décisions devront faire l'objet d'une ADR dès la phase de cadrage ou d'architecture ? | Traçabilité décisionnelle | Architecte / Chef de projet | ADR candidate ; standard gouvernance |
+| Q22 | Quelles décisions doivent déclencher une ADR ? | Critères de documentation des décisions | Architecte / Chef de projet | ADR candidate ; standard gouvernance |
+
+### 11.4 FinOps, GreenOps et sobriété
+
+| ID | Question | Impact cadrage | Rôle principal à mobiliser | Sortie attendue |
+|----|----------|----------------|---------------------------|-----------------|
+| Q13 | Quels coûts doivent être suivis dès le prototype : hébergement, stockage, notifications, API, IA ? | Hypothèses coûts, arbitrages économiques | FinOps / Architecte | Hypothèse FinOps ; ADR candidate |
+| Q14 | Quels principes GreenOps appliquer au stockage des photos, documents et comptes rendus ? | Sobriété, conservation, limitation des traitements | GreenOps / RSSI | Checklist GreenOps ; règle de gestion ; ADR candidate |
+
+### 11.5 IA légère
+
+| ID | Question | Impact cadrage | Rôle principal à mobiliser | Sortie attendue |
+|----|----------|----------------|---------------------------|-----------------|
+| Q7 | L'assistance IA légère entre-t-elle dans le MVP ou en phase ultérieure ? | Périmètre fonctionnel F12 | Product Owner / Data / IA | Arbitrage MVP ; backlog futur |
+| Q15 | Quelle place donner à l'IA légère : MVP, option, ou phase ultérieure ? | Positionnement IA, gouvernance usage | Data / IA / Product Owner | Arbitrage MVP ; exigence gouvernance IA |
+
+### 11.6 Automatisation SFIA
+
+| ID | Question | Impact cadrage | Rôle principal à mobiliser | Sortie attendue |
+|----|----------|----------------|---------------------------|-----------------|
+| Q17 | Quels champs minimaux un formulaire de besoin devrait-il contenir ? | Entrée formulaire → workflow | Business Analyst / Chef de projet | Template SFIA ; workflow Notion |
+| Q18 | Quels templates SFIA doivent être déclenchés automatiquement ? | Automatisation documentaire | Chef de projet / Business Analyst | Template SFIA ; workflow Notion |
+| Q19 | Quels statuts Notion doivent piloter le workflow projet ? | Pilotage des phases projet | Chef de projet | Workflow Notion ; standard gouvernance |
+| Q20 | Quels rôles transverses doivent être déclenchés selon le type de projet ? | Matrice rôles dynamique | Chef de projet | Template SFIA ; workflow Notion |
+| Q21 | Quels livrables peuvent être générés automatiquement ? | Génération documentaire, productivité SFIA | Chef de projet / Business Analyst | Template SFIA ; workflow Notion |
+| Q23 | Quels éléments doivent être synchronisés entre Notion et Cursor ? | Gouvernance Git / Notion | Chef de projet / Architecte | Standard gouvernance ; workflow Notion |
+| Q24 | Quels composants ou prompts peuvent devenir réutilisables ? | Capitalisation SFIA | Chef de projet / Architecte | Template SFIA ; composant réutilisable |
+
+Ces questions ne doivent pas toutes être résolues immédiatement. Elles constituent la **base de travail du cadrage** et permettront d'alimenter les arbitrages, les règles de gestion, les ADR candidates et les éléments de capitalisation SFIA.
 
 ---
 
