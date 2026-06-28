@@ -47,7 +47,7 @@ Ce document **ne crée pas** encore les ADR formelles.
 |----------|---------------|-------------------|
 | Haute | Mapping durable des statuts | **ADR-001 créée — Accepted** |
 | Haute | Synchronisation CRM simulée | **ADR-002 créée — Accepted** |
-| Haute | Gestion des erreurs d'intégration | Formaliser RG-I06 : gravité, anomalie, reprise manuelle |
+| Haute | Gestion des erreurs d'intégration | **ADR-003 créée — Accepted** |
 | Haute | Clôture locale vs synchronisation externe | Confirmer que la clôture locale reste valide même si sync KO |
 | Moyenne / Haute | Clôture sans signature | Formaliser signature optionnelle, motif obligatoire et CR obligatoire |
 | Moyenne | Gestion des doublons | Formaliser détection, arbitrage manuel et absence de fusion automatique |
@@ -61,7 +61,7 @@ Ce document **ne crée pas** encore les ADR formelles.
 
 1. ~~ADR — Mapping durable des statuts~~ → **ADR-001 Accepted**
 2. ~~ADR — Synchronisation CRM simulée~~ → **ADR-002 Accepted**
-3. ADR — Gestion des erreurs d'intégration
+3. ~~ADR — Gestion des erreurs d'intégration~~ → **ADR-003 Accepted**
 4. ADR — Clôture locale vs synchronisation externe
 
 Ces quatre ADR structurent le **cœur fonctionnel du MVP** et conditionnent les futurs choix d'architecture fonctionnelle et de design.
@@ -114,6 +114,7 @@ Les ADR doivent rester des **décisions d'architecture documentées**, reliées 
 |-----|-------|--------|---------|
 | ADR-001 | Mapping durable des statuts | Accepted | `ADR-001-status-mapping.md` |
 | ADR-002 | Synchronisation CRM simulée | Accepted | `ADR-002-simulated-crm-sync.md` |
+| ADR-003 | Gestion des erreurs d'intégration | Accepted | `ADR-003-integration-error-management.md` |
 
 ---
 
