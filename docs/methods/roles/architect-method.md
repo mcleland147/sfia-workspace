@@ -158,7 +158,7 @@ Chaque choix d'intégration alimente standards, templates et ADR candidates réu
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a validé l'option C : contrats API documentés avec implémentation simulée, erreurs visibles avec reprise manuelle, retry hors MVP. Le bloc ADR P1 (quatre ADR formelles) consolide ces choix — voir §15.
+Interv360 a validé l'option C : contrats API documentés avec implémentation simulée, erreurs visibles avec reprise manuelle, retry hors MVP. Les blocs ADR P1 et P2 design-impact consolident ces choix — voir §15.
 
 ---
 
@@ -239,11 +239,61 @@ Interv360 a validé l'option C : contrats API documentés avec implémentation s
 - Besoin de **traçabilité décisionnelle** avant implémentation.
 - **Non applicable** si le projet exige des intégrations réelles dès le MVP — adapter les garde-fous.
 
+### Apprentissages issus du bloc ADR P2 design-impact Interv360
+
+*Capitalisés depuis Interv360 — réutilisables sur tout projet SFIA avec ADR design-impact avant Figma.*
+
+#### Apprentissages clés
+
+- **Les décisions design-impact peuvent être aussi structurantes que les décisions techniques** — bloc P2 avant Figma.
+- **Cadrer les objets visibles avant design** — preuves, notifications, signature, dashboards.
+- **Distinguer données fictives, métadonnées, traces et stockage réel** — pas d'architecture de conservation implicite.
+- **Éviter de créer implicitement une architecture de portail, BI, IA ou conservation réelle** — exclusions explicites.
+- **Relier les décisions UX aux ADR existantes** — P2 complète P1 (notifications → ADR-001 ; logs → ADR-004).
+- **Préparer Figma sans déclencher architecture complète, backlog ou code** — ADR design-impact ≠ delivery.
+
+#### Savoir-faire renforcés
+
+- Instruction bloc ADR P2 design-impact après consolidation P1.
+- Matrice objet visible → statut → trace minimale → stockage réel (reporté).
+- Lien ADR P1/P2 → impacts Figma → agrégats dashboard sans logs techniques.
+- Confirmation post-MVP (ex. IA) sans ADR formelle quand candidate explicitement reportée.
+
+#### Savoir-être / posture
+
+- **Penser architecture par garde-fous** — ce qu'on n'implémente pas compte autant que ce qu'on cadré.
+- **Détecter les implications cachées des écrans** — portail, IA, BI émergent par le design si non arbitrés.
+- **Refuser les composants implicites non arbitrés** — pas de scoring ni prédiction « par défaut ».
+- **Préserver la cohérence ADR P1, P2 et UX/UI** — une trajectoire, pas des silos.
+
+#### Garde-fous à réutiliser
+
+- Bloc ADR P2 design-impact + synthèse avant préparation Figma.
+- Aucune architecture portail, BI, IA ou conservation réelle produite par les ADR P2.
+- Objets fictifs documentés comme tels — pas de schéma stockage probatoire au MVP.
+- Confirmation hors MVP documentée quand pas d'ADR formelle (ex. ADR-CAND-009).
+
+#### Questions réflexes à poser
+
+- Cette décision **impacte-t-elle les écrans** sans être arbitrée ?
+- Crée-t-on **implicitement** un composant ou un stockage non décidé ?
+- Les **agrégats dashboard** exposent-ils des **données sensibles** ?
+- Faut-il une **ADR design-impact** avant Figma ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Checklist ADR design-impact | Checklist |
+| Template Fictive Retention Matrix | Template |
+| Template Dashboard Separation Matrix | Template |
+| Standard IA post-MVP | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Les phases suivantes (ADR P2, Figma, delivery) continueront l'enrichissement. Les futurs projets pilotes affineront le standard intégration simulée sans figer les choix d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Les phases suivantes (Figma, delivery) continueront l'enrichissement. Les futurs projets pilotes affineront le standard intégration simulée sans figer les choix d'un pilote unique.
 
 ---
 

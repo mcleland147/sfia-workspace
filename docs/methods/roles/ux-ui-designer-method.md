@@ -159,7 +159,7 @@ Chaque brief et validation alimente templates, checklists et standards réutilis
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a produit un brief UX/UI validé avec checklist entrée Figma. Le bloc ADR P1 stabilise les décisions utiles avant maquette (anomalies, message métier / log) — voir §15.
+Interv360 a produit un brief UX/UI validé avec checklist entrée Figma. Les blocs ADR P1 et P2 design-impact stabilisent les décisions utiles avant maquette — voir §15.
 
 ---
 
@@ -235,11 +235,64 @@ Interv360 a produit un brief UX/UI validé avec checklist entrée Figma. Le bloc
 - Phase **architecture ADR P1 consolidée** avant engagement Figma.
 - **Non applicable** si le MVP n'expose pas d'erreurs d'intégration — adapter la fiche écran anomalies.
 
+### Apprentissages issus du bloc ADR P2 design-impact Interv360
+
+*Capitalisés depuis Interv360 — réutilisables sur tout projet SFIA avec ADR design-impact avant Figma.*
+
+#### Apprentissages clés
+
+- **Ne pas ouvrir Figma avant clarification des ADR design-impact** — synthèse P2 comme prérequis.
+- **Concevoir à partir de décisions stabilisées** — pas d'improvisation sur preuves, notifications, signature, dashboards.
+- **Prévoir zones, statuts et libellés sans surpromesse** — « preuve associée », « signature enregistrée », pas conformité réelle.
+- **Gérer preuves fictives, signatures optionnelles, notifications simples et dashboards séparés** — ADR-005 à ADR-008.
+- **Éviter les composants hors MVP** — portail client, IA, BI avancée, centre notifications.
+- **Distinguer dashboard opérationnel et vue dirigeant** — actionnable vs synthétique ; pas de doublon illisible.
+- **Éviter les libellés promettant une conformité réelle** — conservation, signature, archivage.
+- **Préserver la lisibilité et réduire la surcharge cognitive** — KPI socle, alertes déterministes.
+
+#### Savoir-faire renforcés
+
+- Matrice zone écran → impact P2 → garde-fou Figma (§ synthèse P2).
+- Checklist entrée Figma enrichie : bloc ADR P2 consolidé + exclusions explicites.
+- Statuts signature (signé, non signé, motif) et notification (envoyée, échec) alignés ADR.
+- Séparation visuelle dashboard SAV / vue dirigeant ; pas logs ni preuves détaillées côté dirigeant.
+
+#### Savoir-être / posture
+
+- **Sobriété design** — indicateurs et zones, pas composants définitifs sur-promettants.
+- **Prudence dans les libellés** — pas de « signature certifiée », « archivage conforme », « recommandation IA ».
+- **Ne pas embellir au-delà des décisions** — Figma matérialise, n'invente pas le périmètre.
+- **Transformer les contraintes MVP en clarté UX** — optionnel explicite, exclusions visibles.
+
+#### Garde-fous à réutiliser
+
+- Aucun composant, badge ou placeholder IA au MVP Figma.
+- Aucun portail client ni centre notifications avancé.
+- Signature optionnelle — clôture toujours possible sans signature.
+- Dashboards déterministes — KPI, filtres, alertes par règles, pas prédictif.
+- Conservation fictive — vignettes, compteurs, métadonnées ; pas galerie ni dump sensible.
+
+#### Questions réflexes à poser
+
+- Cet écran **respecte-t-il les garde-fous P2** ?
+- Un libellé **suggère-t-il une promesse** non décidée ?
+- Dashboard SAV et vue dirigeant sont-ils **clairement différenciés** ?
+- Une **décision ADR design-impact** manque-t-elle avant Figma ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Checklist ADR design-impact avant Figma | Checklist |
+| Template Dashboard Separation Matrix | Template |
+| Checklist anti-surpromesse IA | Checklist |
+| Standard dashboard opérationnel / vue dirigeant | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Figma, delivery et recette continueront l'enrichissement. Les retours d'implémentation UX alimenteront les templates sans figer les méthodes d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Figma, delivery et recette continueront l'enrichissement. Les retours d'implémentation UX alimenteront les templates sans figer les méthodes d'un pilote unique.
 
 ---
 

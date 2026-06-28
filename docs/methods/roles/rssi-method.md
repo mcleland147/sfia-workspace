@@ -159,7 +159,7 @@ Chaque revue SSI alimente templates, checklists et ADR candidates réutilisables
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a cadré un canal email sécurisé non principal avec exigences SSI, contrat intake simulé, scénarios rejet/PJ/doublon et journalisation minimale. Le bloc ADR P1 consolide ces apports — voir §15.
+Interv360 a cadré un canal email sécurisé non principal avec exigences SSI, contrat intake simulé, scénarios rejet/PJ/doublon et journalisation minimale. Les blocs ADR P1 et P2 design-impact consolident ces apports — voir §15.
 
 ---
 
@@ -237,11 +237,62 @@ Interv360 a cadré un canal email sécurisé non principal avec exigences SSI, c
 - Besoin de **traçabilité rejets** sans implémentation messagerie réelle.
 - **Non applicable** si aucun canal d'entrée externe simulé — adapter ou omettre la section email.
 
+### Apprentissages issus du bloc ADR P2 design-impact Interv360
+
+*Capitalisés depuis Interv360 — réutilisables sur tout projet SFIA avec preuves, signatures ou conservation fictive au MVP.*
+
+#### Apprentissages clés
+
+- **Même fictive, une preuve photo, signature ou pièce jointe doit être cadrée** — ADR conservation fictive.
+- **Ne pas exposer données sensibles, logs techniques, pièces jointes ou signatures complètes** — métadonnées et libellés prudents.
+- **Refuser les promesses de conservation réelle non décidées** — archivage, purge, durée réelle post-MVP.
+- **Distinguer preuve métier, preuve fictive et preuve juridique** — signature enregistrée ≠ e-signature qualifiée.
+- **Sécuriser les libellés UI** pour éviter la surpromesse conformité.
+- **Confirmer portail client, e-signature complète et politique réelle de conservation post-MVP**.
+- **Vérifier que l'IA ne soit pas introduite sans gouvernance données** — ADR-CAND-009 reportée.
+
+#### Savoir-faire renforcés
+
+- Checklist exposition preuve : vignette, compteur, statut — pas image biométrique ni PJ complète en UI.
+- Grille libellés prudents vs libellés interdits (conformité, archivage, certification).
+- Validation co-portée ADR P2 : conservation fictive, signature optionnelle, dashboards sans logs sensibles.
+- Lien exigence SSI → statut fictif → visibilité limitée → exclusion dirigeant.
+
+#### Savoir-être / posture
+
+- **Vigilance sans blocage** — MVP démonstrateur avec garde-fous, pas audit complet.
+- **Clarté sur les limites** — ce qui est fictif, reporté ou hors MVP.
+- **Protection contre les promesses implicites** — UI et marketing interne alignés ADR.
+- **Pédagogie SSI adaptée au MVP** — expliquer pourquoi pas portail, pas IA, pas conservation réelle.
+
+#### Garde-fous à réutiliser
+
+- Aucune signature complète ni photo sensible exposée intégralement en UI.
+- Aucun log technique complet dans dashboards ou vue dirigeant.
+- Aucun libellé suggérant conformité réglementaire ou archivage probatoire au MVP.
+- IA, portail client et e-signature complète **hors MVP** sans ADR et gouvernance dédiées.
+
+#### Questions réflexes à poser
+
+- Cette **preuve visible** expose-t-elle une **donnée sensible** ?
+- Le libellé **promet-il** une conformité non décidée ?
+- La **conservation** est-elle présentée comme **fictive** ou réelle ?
+- L'**IA** introduit-elle des données sans gouvernance ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Template Fictive Retention Matrix | Template |
+| Checklist logs sans données sensibles | Checklist |
+| Checklist anti-surpromesse conformité UI | Checklist |
+| Standard conservation fictive MVP | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Les ADR P2 (conservation, accès) et les phases delivery continueront l'enrichissement. Les futurs projets pilotes étendront le Template Secure Email Intake sans figer les exigences d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Les phases delivery et REX continueront l'enrichissement. Les futurs projets pilotes étendront le Template Secure Email Intake sans figer les exigences d'un pilote unique.
 
 ---
 

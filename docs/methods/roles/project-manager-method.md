@@ -158,7 +158,7 @@ Livrer une trajectoire lisible : phases, jalons, validations, prochaines étapes
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a validé gouvernance Notion/Git, phase gate cadrage, ouverture phase architecture par README, bloc ADR P1 et enrichissement méthodes rôle différé — voir §15.
+Interv360 a validé gouvernance Notion/Git, phase gate cadrage, ouverture phase architecture par README, blocs ADR P1 et P2 design-impact, enrichissement méthodes rôle différé — voir §15.
 
 ---
 
@@ -235,11 +235,62 @@ Interv360 a validé gouvernance Notion/Git, phase gate cadrage, ouverture phase 
 - Phase **architecture** avec ADR candidates préparées en cadrage.
 - **Non applicable** si projet sans phase gate ni capitalisation SFIA — adapter la gouvernance.
 
+### Apprentissages issus du bloc ADR P2 design-impact Interv360
+
+*Capitalisés depuis Interv360 — réutilisables sur tout projet SFIA avec bloc ADR design-impact avant Figma.*
+
+#### Apprentissages clés
+
+- **Structurer un bloc ADR design-impact avant Figma** — P2 après P1, avant UX/UI.
+- **Séquencer P1 → P2 → synthèse → enrichissement méthodes → sync Notion → ouverture UX/UI** — pas de saut de phase.
+- **Éviter de passer trop vite de l'architecture à Figma** — garde-fous P2 documentés.
+- **Tracer clairement Done, post-MVP, hors MVP** — statuts jalon et confirmations hors ADR formelle.
+- **Protéger la gouvernance Git / Notion** — synthèse P2 avant sync ; pas de duplication ADR.
+- **Capitaliser après un bloc cohérent** — enrichissement méthodes post-P2, pas ADR par ADR.
+- **Préparer la prochaine phase sans la déclencher prématurément** — note ouverture Figma ≠ Figma produit.
+
+#### Savoir-faire renforcés
+
+- Orchestration séquence P2 : ADR-005 à 008 + confirmation CAND-009 → synthèse design-impact → enrichissement méthodes.
+- Checklist jalon P2 : décisions consolidées, exclusions Figma, prompts identifiés, Notion différé.
+- Matrice jalon → livrables → capitalisation (templates P2, standards, checklists).
+- Règle confirmation post-MVP sans ADR formelle quand structure projet le permet.
+
+#### Savoir-être / posture
+
+- **Discipline de séquencement** — Figma préparé, pas lancé par défaut après P2.
+- **Recul sur la trajectoire** — ralentir pour solidifier avant design.
+- **Capacité à ralentir pour éviter de refaire** — ADR design-impact vs retouches maquettes.
+- **Arbitrage entre avancement visible et solidité méthodologique** — jalon Done avant sync Notion.
+
+#### Garde-fous à réutiliser
+
+- Synthèse ADR P2 design-impact avant enrichissement méthodes et sync Notion.
+- Aucun Figma, backlog, user story ou code produit par enrichissement méthodes ou synthèse P2.
+- Confirmation post-MVP tracée (ex. IA) sans créer ADR formelle inutile.
+- Notion sync post-jalon P2 consolidé — pas avant.
+
+#### Questions réflexes à poser
+
+- Le **bloc P2** est-il **consolidé** avant Figma ?
+- La **synthèse design-impact** existe-t-elle ?
+- **Notion** doit-il être synchronisé **maintenant** ou après payload P2 ?
+- L'équipe **confond-elle** préparation Figma et production Figma ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Synthèse ADR P2 design-impact | Template |
+| Synthèse enrichissement post-jalon P2 | Template |
+| Checklist séquence P1 → P2 → Figma | Checklist |
+| Règles confirmation post-MVP hors ADR | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14) et déclenché l'enrichissement des méthodes rôle associées. Figma, ADR P2, delivery et REX continueront les checklists phase gate et la gouvernance.
+Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14) et déclenché l'enrichissement des méthodes rôle associées. Figma, delivery et REX continueront les checklists phase gate et la gouvernance.
 
 ---
 

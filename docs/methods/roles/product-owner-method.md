@@ -231,11 +231,64 @@ Interv360 a produit 7 arbitrages MVP validés formalisés ensuite en ADR P1. Les
 - Phase **architecture** avec ADR formalisant les choix cadrage.
 - **Non applicable** si le projet vise un produit industriel dès le MVP — adapter les garde-fous simulation.
 
+### Apprentissages issus du bloc ADR P2 design-impact Interv360
+
+*Capitalisés depuis Interv360 — réutilisables sur tout projet SFIA avec ADR design-impact avant Figma.*
+
+#### Apprentissages clés
+
+- **Sécuriser les décisions qui impactent le design avant Figma** — bloc ADR P2 design-impact avant ouverture UX/UI.
+- **Distinguer MVP, post-MVP et hors MVP** avant de lancer la conception.
+- **Protéger le MVP contre la dérive fonctionnelle** — portail client, IA, BI avancée, centre notifications.
+- **Cadrer preuves, notifications, signatures, dashboards et IA** avant design — pas après maquette.
+- **Accepter une valeur métier crédible sans surpromesse** — conservation fictive, signature optionnelle, notifications simulées.
+- **Arbitrer ce qui doit être visible dans le produit vs reporté** — visibilité limitée, pas promesse réelle.
+- **Éviter de transformer une opportunité future en engagement MVP** — IA légère, portail, e-signature complète.
+- **Savoir dire non** à un portail client, à une IA ou à une BI avancée tant que le MVP ne l'exige pas.
+
+#### Savoir-faire renforcés
+
+- Instruction ADR design-impact (conservation fictive, notifications, signature, dashboards, exclusions IA).
+- Grille visible MVP / post-MVP / hors MVP par objet UX (preuve, notification, signature, KPI, composant IA).
+- Validation co-portée ADR P2 impact produit avant brief Figma ou note d'ouverture design.
+- Documentation explicite des exclusions Figma (portail, IA, BI, logs techniques en dashboard).
+
+#### Savoir-être / posture
+
+- **Challenger sans bloquer** — opportunités futures documentées, pas livrées au MVP.
+- **Protéger le MVP** — refuser la séduction fonctionnelle prématurée.
+- **Accepter une solution simple mais cohérente** — démonstrateur crédible, pas produit complet.
+- **Éviter la séduction fonctionnelle prématurée** — Figma ne remplace pas les arbitrages.
+
+#### Garde-fous à réutiliser
+
+- ADR P2 design-impact consolidée avant préparation Figma.
+- Portail client, IA, BI avancée et centre notifications **hors MVP** sauf décision explicite.
+- Conservation fictive et signature optionnelle — pas surpromesse juridique ou archivage réel.
+- Synthèse jalon P2 avant enrichissement méthodes et sync Notion.
+
+#### Questions réflexes à poser
+
+- Cette fonctionnalité **doit-elle apparaître au MVP** ou peut-elle attendre ?
+- Le design **promet-il plus** que ce que les ADR autorisent ?
+- Les **exclusions** (portail, IA, BI) sont-elles explicites pour l'équipe UX ?
+- La **valeur démo** est-elle atteinte **sans élargir le périmètre** ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Template Notification Scope Matrix | Template |
+| Template Optional Signature Matrix | Template |
+| Template Dashboard Separation Matrix | Template |
+| Checklist anti-surpromesse IA | Checklist |
+| Standard conservation fictive MVP | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Delivery, recette et ADR P2 continueront l'enrichissement. Les futurs projets pilotes affineront les grilles arbitrage sans figer les choix d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Delivery, recette et REX continueront l'enrichissement. Les futurs projets pilotes affineront les grilles arbitrage sans figer les choix d'un pilote unique.
 
 ---
 
