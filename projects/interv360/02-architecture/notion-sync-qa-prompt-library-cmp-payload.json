@@ -1,0 +1,104 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "prompt",
+  "database_env_key": "NOTION_DATABASE_PROMPTS",
+  "database_title_reference": "Prompts (SFIA Prompt Library)",
+  "publish_to_notion": false,
+  "manual_review_required": true,
+  "command_pattern": "node src/cli.js create prompt <item-json-file>",
+  "limitations": [
+    "Une commande create prompt par entrée — pas de batch natif",
+    "update prompt non supporté (seuls knowledge et project)",
+    "Schéma prompt sans champ content / page_content — corps de fiche à compléter manuellement ou via évolution schéma",
+    "Status Candidate non supporté — utiliser Draft",
+    "Category QA / Testeur non supportée dans l'enum schéma — Analysis retenue comme valeur CMP provisoire",
+    "Vérifier absence de doublons PROMPT-QA-* dans Notion avant exécution"
+  ],
+  "category_mapping": {
+    "intended": "QA / Testeur",
+    "cmp_enum_used": "Analysis"
+  },
+  "items": [
+    {
+      "title": "PROMPT-QA-001 — Analyse de testabilité d'un besoin",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360"]
+    },
+    {
+      "title": "PROMPT-QA-002 — Revue QA d'une maquette UX/UI",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360", "UX/UI"]
+    },
+    {
+      "title": "PROMPT-QA-003 — Questions réflexes QA en revue transverse",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360"]
+    },
+    {
+      "title": "PROMPT-QA-004 — Lecture happy path / non happy path",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360"]
+    },
+    {
+      "title": "PROMPT-QA-005 — Grille de risques qualité",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360"]
+    },
+    {
+      "title": "PROMPT-QA-006 — Préparation légère d'une stratégie de test",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360", "Vigilance"]
+    },
+    {
+      "title": "PROMPT-QA-007 — Revue d'anomalie métier",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360"]
+    },
+    {
+      "title": "PROMPT-QA-008 — Traçabilité besoin / critère / test futur / anomalie",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360", "Vigilance"]
+    },
+    {
+      "title": "PROMPT-QA-009 — Revue des critères d'acceptation futurs",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360", "Vigilance"]
+    },
+    {
+      "title": "PROMPT-QA-010 — Vérification des garde-fous QA",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Analysis",
+      "tags": ["QA", "Testeur", "Interv360"]
+    }
+  ]
+}
