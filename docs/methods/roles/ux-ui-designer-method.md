@@ -159,13 +159,87 @@ Chaque brief et validation alimente templates, checklists et standards réutilis
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a produit un brief UX/UI validé : 6 personas, 10 parcours critiques, 8 fiches écran MVP, checklist entrée Figma et 8 points ouverts conservés visibles. La règle « brief before Figma » et la différenciation dashboard SAV / vue dirigeant sont capitalisées comme garde-fous réutilisables.
+Interv360 a produit un brief UX/UI validé avec checklist entrée Figma. Le bloc ADR P1 stabilise les décisions utiles avant maquette (anomalies, message métier / log) — voir §15.
 
 ---
 
-## 14. Évolution continue
+## 14. Apprentissages issus des ADR P1 Interv360
 
-Ce fichier est **évolutif**. Il sera enrichi après cadrage Figma, delivery et recette d'Interv360. Les retours d'implémentation UX et les REX alimenteront les templates sans figer les méthodes du cadrage initial.
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec écrans d'anomalies ou intégrations visibles.*
+
+### Apprentissages clés
+
+- **Intégrer les décisions d'architecture utiles avant Figma** — ADR P1 comme prérequis design, pas l'inverse.
+- **Distinguer message métier visible et log technique** — l'UI expose le métier ; le log trace le contexte hors UI.
+- Concevoir un **écran anomalies compréhensible** sans exposer de détail sensible.
+- **Éviter la surcharge cognitive** dans les listes d'anomalies (gravité, statut, action claire).
+- Différencier **erreur bloquante, non bloquante, à qualifier, reprise disponible**.
+- Prévoir la **reprise manuelle simulée comme parcours UX** — action utilisateur, pas retry automatique.
+- **Utiliser les ADR pour stabiliser les écrans** avant maquette (statuts, wording, actions).
+
+### Savoir-faire renforcés
+
+- Fiche écran anomalies : objectif, utilisateurs, données affichées, actions, critères utilisabilité.
+- Matrice élément → message visible → journalisé minimalement.
+- Wording statuts fonctionnels alignés ADR (Nouvelle, Reprise disponible, Échec confirmé, etc.).
+- Checklist entrée Figma enrichie : ADR P1 consolidées avant maquette.
+- Gestion points ouverts UX non bloquants (niveau détail log vs message).
+
+### Savoir-être / posture
+
+- **Ne pas maquettiser trop tôt** — attendre brief validé et ADR structurantes utiles.
+- **Rendre visible sans surcharger** — anomalies lisibles, pas de liste interminable.
+- **Traduire une erreur technique en message métier** — langage support / manager.
+- **Protéger l'utilisateur des détails inutiles** — pas de dump log en UI.
+- **Collaborer avec Architecte, RSSI et QA avant Figma** — cohérence message / sécurité / testabilité.
+
+### Garde-fous à réutiliser
+
+- Figma uniquement après brief validé et décisions ADR utiles prises en compte.
+- Aucune donnée sensible exposée dans messages visibles.
+- Aucun log technique complet affiché dans l'UI.
+- Écran anomalies ≠ outil de supervision complète.
+- Reprise manuelle simulée — pas de retry automatique en UX MVP.
+
+### Questions réflexes à poser
+
+- L'utilisateur **comprend-il** ce qui s'est passé ?
+- Le message visible **expose-t-il une donnée sensible** ?
+- L'**action attendue** est-elle claire ?
+- Le **détail technique** est-il nécessaire dans l'UI ?
+- L'**écran anomalies** reste-t-il utilisable ?
+- Une **décision ADR** est-elle nécessaire avant Figma ?
+
+### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Template Screen Brief — écran anomalies | Template |
+| Matrice message métier / log technique | Template |
+| Checklist entrée Figma post-ADR | Checklist |
+| Standard erreurs visibles + reprise manuelle simulée | Standard |
+
+### Liens avec les autres rôles
+
+| Rôle | Lien |
+|------|------|
+| **Architecte** | Statuts anomalies, corrélation contrats / UI |
+| **RSSI** | Exclusion données sensibles ; rejet non verbeux |
+| **QA / Testeur** | Scénarios non happy path ; vérification message vs log |
+| **Product Owner** | Périmètre écrans MVP ; retry hors scope |
+| **Chef de projet** | Figma autorisé post-jalon ADR P1 |
+
+### Conditions de réutilisation sur un autre projet SFIA
+
+- Projet avec **intégrations simulées visibles** ou écran anomalies / erreurs.
+- Phase **architecture ADR P1 consolidée** avant engagement Figma.
+- **Non applicable** si le MVP n'expose pas d'erreurs d'intégration — adapter la fiche écran anomalies.
+
+---
+
+## 15. Évolution continue
+
+Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Figma, delivery et recette continueront l'enrichissement. Les retours d'implémentation UX alimenteront les templates sans figer les méthodes d'un pilote unique.
 
 ---
 

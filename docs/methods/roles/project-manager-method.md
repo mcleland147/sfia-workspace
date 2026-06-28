@@ -158,13 +158,88 @@ Livrer une trajectoire lisible : phases, jalons, validations, prochaines étapes
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a validé une gouvernance Notion/Git avec sync sans doublon, jalons cadrage (MVP validé, brief UX validé), validations fictives orchestrées et règle d'enrichissement continu des rôles. Le Chef de projet est le garant de la trajectoire formulaire → workflow → projet → application.
+Interv360 a validé gouvernance Notion/Git, phase gate cadrage, ouverture phase architecture par README, bloc ADR P1 et enrichissement méthodes rôle différé — voir §15.
 
 ---
 
-## 14. Évolution continue
+## 14. Apprentissages issus des ADR P1 Interv360
 
-Ce fichier est **évolutif**. Chaque phase Interv360 (Figma, architecture, delivery, QA, recette, REX) enrichira les checklists phase gate et la gouvernance. Les futurs projets pilotes affineront le workflow Notion et les contrôles capitalisation SFIA.
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec phase architecture et capitalisation progressive.*
+
+### Apprentissages clés
+
+- **Utiliser le phase gate** pour sécuriser le passage de phase (Go conditionnel, critères explicites).
+- **Ouvrir une phase avec un README de cadre** avant production des livrables de la phase.
+- **Traiter les ADR par bloc cohérent** (P1 : contrats, erreurs, email, journalisation) — pas une ADR isolée sans consolidation.
+- **Ne pas synchroniser Notion avant consolidation d'un jalon** — Git source détaillée, Notion gouvernance.
+- **Tracer les décisions dans Git** — ADR versionnées, commit par jalon.
+- **Différer l'enrichissement des méthodes rôle** jusqu'à consolidation du bloc ADR cohérent.
+- **Piloter la capitalisation SFIA après chaque jalon** — valeur projet + valeur SFIA à chaque itération.
+
+### Savoir-faire renforcés
+
+- Orchestration séquence : phase gate → README phase → ADR P1 bloc → enrichissement méthodes rôle → synthèse jalon.
+- Checklist interdits de phase (pas backlog, user stories, Figma, code pendant architecture ADR).
+- Matrice jalon → livrables → capitalisation SFIA (standards, templates, checklists).
+- Règle enrichissement méthodes : après bloc ADR, pas après chaque ADR isolée.
+- Préparation sync Notion post-jalon architecture consolidé.
+
+### Savoir-être / posture
+
+- **Tenir la trajectoire** — phases, jalons, interdits respectés.
+- **Éviter les emballements de phase** — pas de delivery déguisé en architecture.
+- **Protéger la cohérence Git / Notion** — pas de duplication, pas de sync prématurée.
+- **Rappeler les interdits de phase** à chaque itération.
+- **Transformer chaque jalon projet en apprentissage SFIA** — méthodes, prompts, standards.
+- **Arbitrer le bon moment pour capitaliser** — bloc cohérent avant enrichissement.
+
+### Garde-fous à réutiliser
+
+- Phase README avant livrables architecture.
+- ADR une par une, capitalisation méthodes après bloc.
+- Notion sync uniquement après jalon consolidé.
+- Aucun backlog / user story / code / Figma pendant phase ADR P1.
+- Chaque ADR : valeur projet + valeur SFIA documentées.
+
+### Questions réflexes à poser
+
+- Le jalon est-il **suffisamment consolidé** pour être capitalisé ?
+- Faut-il enrichir une **méthode rôle maintenant** ou attendre un bloc cohérent ?
+- **Notion** doit-il être synchronisé maintenant ou après consolidation ?
+- Les **interdits de phase** sont-ils respectés ?
+- Le projet avance-t-il en **valeur projet et en valeur SFIA** ?
+
+### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Template phase gate | Template |
+| Template README phase | Template |
+| Règles enrichissement méthodes après bloc ADR | Standard |
+| Synthèse enrichissement post-jalon | Template |
+| Checklist interdits de phase architecture | Checklist |
+
+### Liens avec les autres rôles
+
+| Rôle | Lien |
+|------|------|
+| **Architecte** | Instruction ADR P1 ; dépendances entre ADR |
+| **RSSI** | Co-ADR email et journalisation |
+| **Product Owner** | Validation périmètre ; maintien MVP |
+| **UX/UI Designer** | Figma autorisé post-jalon ADR |
+| **Tous rôles** | Enrichissement méthodes après bloc consolidé |
+
+### Conditions de réutilisation sur un autre projet SFIA
+
+- Projet pilote avec **phases formalisées** et gouvernance Git / Notion.
+- Phase **architecture** avec ADR candidates préparées en cadrage.
+- **Non applicable** si projet sans phase gate ni capitalisation SFIA — adapter la gouvernance.
+
+---
+
+## 15. Évolution continue
+
+Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14) et déclenché l'enrichissement des méthodes rôle associées. Figma, ADR P2, delivery et REX continueront les checklists phase gate et la gouvernance.
 
 ---
 

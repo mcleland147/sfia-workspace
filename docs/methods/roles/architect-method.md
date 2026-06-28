@@ -158,13 +158,92 @@ Chaque choix d'intégration alimente standards, templates et ADR candidates réu
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a validé l'option C : contrats API documentés avec implémentation simulée, erreurs visibles avec reprise manuelle, retry hors MVP. Huit ADR candidates sont identifiées (contrats API, erreurs, auth email, journalisation, conservation). Les revues integration-error et secure-email constituent la base template la plus dense.
+Interv360 a validé l'option C : contrats API documentés avec implémentation simulée, erreurs visibles avec reprise manuelle, retry hors MVP. Le bloc ADR P1 (quatre ADR formelles) consolide ces choix — voir §15.
 
 ---
 
-## 14. Évolution continue
+## 14. Apprentissages issus des ADR P1 Interv360
 
-Ce fichier est **évolutif**. La phase architecture Interv360 enrichira obligatoirement ce template (ADR finalisées, journalisation, implémentation). Les futurs projets pilotes affineront le standard intégration simulée sans figer les choix du pilote Interv360.
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec intégrations simulées.*
+
+### Apprentissages clés
+
+- Formaliser les décisions structurantes sous forme d'**ADR** avant de produire une architecture complète.
+- **Distinguer contrat documenté et implémentation simulée** — le contrat décrit l'échange ; l'implémentation reste locale ou simulée.
+- Cadrer les intégrations simulées **sans dériver vers des intégrations réelles** au MVP.
+- **Relier contrats API, erreurs visibles et journalisation minimale** — trois ADR indissociables formant un bloc cohérent.
+- Identifier les **dépendances entre ADR** (ex. erreurs dépendent des contrats ; journalisation consolide les deux).
+- Maintenir les choix techniques au **bon niveau de maturité** — fonctionnel et décisionnel, pas implémentatoire prématuré.
+- Documenter **conséquences positives, négatives et garde-fous** dans chaque ADR.
+- Préparer des **standards réutilisables** : contrats API simulés, Error Matrix, Minimal Logging Matrix.
+
+### Savoir-faire renforcés
+
+- Instruction d'ADR candidates en bloc P1 priorisé.
+- Rédaction de contrats fonctionnels par domaine d'intégration (endpoints, statuts, erreurs attendues).
+- Matrice options simulation (mocks → contrats documentés → intégrations réelles).
+- Lien systématique contrat → scénario erreur → critère QA → événement journalisé.
+- Frontière explicite ADR / architecture technique complète / backlog.
+
+### Savoir-être / posture
+
+- **Challenger sans sur-spécifier** — exiger la crédibilité sans produire une architecture exhaustive.
+- **Sécuriser la trajectoire sans bloquer le projet** — décisions traçables, livrables progressifs.
+- **Refuser la fausse précision technique** quand le projet n'est pas prêt pour l'implémentation.
+- **Protéger le MVP contre la dérive d'architecture** — intégrations réelles, SIEM, supervision complète hors MVP.
+- **Garder une logique de décision traçable** — chaque choix structurant produit une ADR, pas un document technique monolithique.
+
+### Garde-fous à réutiliser
+
+- Aucune ADR formelle sans ADR candidate source.
+- Aucune architecture technique complète avant bloc ADR P1 consolidé.
+- Aucune connexion système externe réel au MVP démonstrateur.
+- Aucun backlog ou user story produit par une ADR.
+- Séparation explicite contrat documenté / implémentation simulée.
+- Retry automatique et supervision complète reportés explicitement hors MVP.
+
+### Questions réflexes à poser
+
+- Cette décision nécessite-t-elle une **ADR** ?
+- Le choix est-il **structurant** ou simplement implémentatoire ?
+- Les **alternatives** sont-elles documentées ?
+- Les **conséquences** sont-elles claires (projet + SFIA) ?
+- Le choix produit-il une **valeur projet** et une **valeur SFIA** ?
+- Le **niveau de détail** est-il adapté à la phase ?
+
+### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Standard contrats API simulés | Standard |
+| Template API Contract Framing | Template |
+| Template Error Matrix | Template |
+| Template Minimal Logging Matrix | Template |
+| Checklist ADR guardrails | Checklist |
+| Matrice ADR → prompts / rôles | Template |
+
+### Liens avec les autres rôles
+
+| Rôle | Lien |
+|------|------|
+| **RSSI** | Co-instruction ADR canal sécurisé et journalisation ; garde-fous données sensibles |
+| **Product Owner** | Validation périmètre MVP ; exclusion retry et intégrations réelles |
+| **QA / Testeur** | Error Matrix, scénarios non happy path basés sur contrats |
+| **UX/UI Designer** | Écran anomalies ; distinction message métier / log technique |
+| **Chef de projet** | Bloc ADR cohérent ; capitalisation méthodes après consolidation |
+
+### Conditions de réutilisation sur un autre projet SFIA
+
+- Projet avec **intégrations externes simulées** ou démonstrateur sans systèmes réels.
+- Phase **architecture** ouverte avec ADR candidates préparées en cadrage.
+- Besoin de **traçabilité décisionnelle** avant implémentation.
+- **Non applicable** si le projet exige des intégrations réelles dès le MVP — adapter les garde-fous.
+
+---
+
+## 15. Évolution continue
+
+Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Les phases suivantes (ADR P2, Figma, delivery) continueront l'enrichissement. Les futurs projets pilotes affineront le standard intégration simulée sans figer les choix d'un pilote unique.
 
 ---
 

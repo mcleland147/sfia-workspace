@@ -159,13 +159,89 @@ Chaque revue SSI alimente templates, checklists et ADR candidates réutilisables
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a cadré un canal email sécurisé non principal avec 10 exigences SSI, contrat `POST /email/intake`, scénarios rejet/PJ/doublon et conservation fictive ARB-MVP-06. Le modèle « challenger sans bloquer » sur un canal d'intégration secondaire est la contribution RSSI la plus capitalisable du pilote.
+Interv360 a cadré un canal email sécurisé non principal avec exigences SSI, contrat intake simulé, scénarios rejet/PJ/doublon et journalisation minimale. Le bloc ADR P1 consolide ces apports — voir §15.
 
 ---
 
-## 14. Évolution continue
+## 14. Apprentissages issus des ADR P1 Interv360
 
-Ce fichier est **évolutif**. La phase architecture Interv360 enrichira les ADR sécurité, les accès par profil et l'implémentation journalisation. Les futurs projets pilotes avec intégrations externes étendront le Template Secure Email Intake sans figer les exigences ServiTech Pro.
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec canaux d'intégration simulés.*
+
+### Apprentissages clés
+
+- Cadrer les **exigences SSI même sur un canal simulé** — la simulation n'exonère pas du risque.
+- Traiter l'**email comme canal secondaire sécurisé**, pas comme simple mock sans règles.
+- **Distinguer rejet métier, rejet SSI et erreur technique** — statuts et visibilité différents.
+- Imposer des **règles minimales** : source connue, expéditeur autorisé, pièce jointe contrôlée, rejet explicite non verbeux.
+- **Éviter l'exposition de données sensibles** dans les messages visibles et les logs.
+- Cadrer la **journalisation minimale** sans produire de supervision complète ni SIEM.
+- **Préparer la conservation** des logs et pièces jointes dans une ADR ou phase ultérieure (P2).
+
+### Savoir-faire renforcés
+
+- Rédaction d'exigences SSI tabulaires par canal d'intégration.
+- Contrat fonctionnel intake email : statuts rejet, qualification, doublon.
+- Checklist logs sans données sensibles (corps email, PJ, données client intégrales exclus).
+- Lien exigence SSI → statut fonctionnel → visibilité anomalies → événement journalisé.
+- Validation co-portée avec Architecte sur journalisation minimale.
+
+### Savoir-être / posture
+
+- **Challenger sans bloquer** — exigences proportionnées au MVP démonstrateur.
+- **Rendre le risque visible et traitable** — rejets tracés, anomalies compréhensibles.
+- **Éviter le « tout ou rien » sécurité** — ni canal ignoré, ni SIEM imposé au MVP.
+- **Protéger les données sans surcharger le MVP** — exclusion contenu sensible des logs et UI.
+- **Faire expliciter les limites de simulation** — pas de messagerie réelle, conservation reportée.
+
+### Garde-fous à réutiliser
+
+- Canal simulé ≠ canal sans SSI.
+- Aucune donnée sensible complète dans logs ou messages UI.
+- Aucun corps email ni pièce jointe stockés dans le log.
+- Aucune messagerie réelle connectée au MVP démonstrateur.
+- Rejet explicite, non verbeux, visible si impact métier ou SSI.
+- Conservation longue reportée à ADR ou phase P2 dédiée.
+
+### Questions réflexes à poser
+
+- Le canal simulé porte-t-il quand même un **risque SSI** ?
+- Quelles données ne doivent **jamais apparaître dans l'UI** ?
+- Quels **rejets** doivent être visibles ?
+- Quels **événements** doivent être tracés ?
+- La journalisation est-elle **suffisante sans être excessive** ?
+- La **conservation** doit-elle être instruite séparément ?
+
+### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Template Secure Email Intake | Template |
+| Checklist SSI Email Intake | Checklist |
+| Checklist logs sans données sensibles | Checklist |
+| Standard canal secondaire sécurisé | Standard |
+| Standard journalisation minimale | Standard |
+
+### Liens avec les autres rôles
+
+| Rôle | Lien |
+|------|------|
+| **Architecte** | Co-ADR contrats, journalisation, corrélation flux |
+| **UX/UI Designer** | Messages visibles non verbeux ; pas de détail sensible en UI |
+| **QA / Testeur** | Scénarios rejet, spoof, PJ invalide, doublon |
+| **Product Owner** | Canal secondaire maintenu ; CRM ou flux principal prioritaire |
+| **Chef de projet** | Capitalisation après bloc ADR ; sync Notion post-jalon |
+
+### Conditions de réutilisation sur un autre projet SFIA
+
+- Projet avec **canal email ou intake externe simulé** (non principal).
+- Besoin de **traçabilité rejets** sans implémentation messagerie réelle.
+- **Non applicable** si aucun canal d'entrée externe simulé — adapter ou omettre la section email.
+
+---
+
+## 15. Évolution continue
+
+Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Les ADR P2 (conservation, accès) et les phases delivery continueront l'enrichissement. Les futurs projets pilotes étendront le Template Secure Email Intake sans figer les exigences d'un pilote unique.
 
 ---
 

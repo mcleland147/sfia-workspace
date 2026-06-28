@@ -157,13 +157,85 @@ Chaque arbitrage identifie un template, standard ou checklist réutilisable pour
 
 ## 13. Origine / apprentissage Interv360
 
-Interv360 a produit 7 arbitrages MVP validés (ARB-MVP-01 à 07) avec un format reproductible : CRM principal, notifications seules, signature optionnelle, contrats API simulés, erreurs visibles, conservation fictive, 8 écrans MVP. Les reports portail, retry et IA légère sont documentés sans bloquer le parcours démo.
+Interv360 a produit 7 arbitrages MVP validés formalisés ensuite en ADR P1. Les reports portail, retry et IA légère restent documentés — voir §15 pour la capitalisation post-ADR.
 
 ---
 
-## 14. Évolution continue
+## 14. Apprentissages issus des ADR P1 Interv360
 
-Ce fichier est **évolutif**. Il sera enrichi après delivery, recette et REX d'Interv360, et par les futurs projets pilotes. Les arbitrages de phase architecture et les ajustements périmètre delivery alimenteront ce template sans le figer.
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec MVP démonstrateur et arbitrages structurants.*
+
+### Apprentissages clés
+
+- **Maintenir le MVP** malgré les tentations de réalisme technique (intégrations réelles, retry, supervision).
+- **Arbitrer entre crédibilité démonstrateur et complexité réelle** — simulation documentée acceptable si testable.
+- **Accepter les intégrations simulées** si contrats documentés et scénarios QA prévus.
+- **Garder le canal principal identifié** (ex. CRM) et les canaux secondaires encadrés (ex. email sécurisé).
+- **Exclure explicitement le retry automatique** du MVP — report post-MVP ou ADR future.
+- **Distinguer MVP, post-MVP et extension future** dans chaque décision structurante.
+- **Utiliser les ADR pour protéger les arbitrages MVP** — formalisation durable des choix cadrage.
+
+### Savoir-faire renforcés
+
+- Lien arbitrage MVP → ADR candidate → ADR formelle → garde-fous périmètre.
+- Validation co-portée ADR impact produit (canaux, retry, périmètre démo).
+- Grille valeur démonstrateur vs effort réel (simulation vs intégration réelle).
+- Documentation explicite des reports post-MVP dans les ADR (SIEM, supervision, multi-canal équivalent).
+
+### Savoir-être / posture
+
+- **Arbitrer sans perdre la vision produit** — démonstrateur crédible, pas produit industriel.
+- **Dire non sans appauvrir la valeur** — simulation structurée plutôt qu'exclusion ou sur-engineering.
+- **Protéger le MVP contre la dérive fonctionnelle** — backlog, user stories, delivery hors phase.
+- **Accepter une simulation crédible** plutôt qu'un réalisme coûteux au MVP.
+- **Maintenir les limites visibles** — parties prenantes informées des reports.
+
+### Garde-fous à réutiliser
+
+- ADR ne produit pas de backlog ni user stories.
+- Retry automatique et intégrations réelles exclus du MVP sauf décision explicite.
+- Canal principal maintenu ; canaux secondaires encadrés, pas équivalents.
+- Chaque ADR produit valeur projet + valeur SFIA.
+- Reports post-MVP tracés, pas oubliés.
+
+### Questions réflexes à poser
+
+- Cette décision **renforce-t-elle le MVP** ou l'alourdit-elle ?
+- Est-ce **nécessaire maintenant** ou post-MVP ?
+- La simulation est-elle **crédible pour démontrer la valeur** ?
+- Le choix **respecte-t-il les arbitrages MVP** ?
+- Le périmètre reste-t-il **compréhensible pour les parties prenantes** ?
+
+### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Template MVP Arbitration | Template |
+| Grille valeur démonstrateur / complexité réelle | Template |
+| Standard MVP démonstrateur vs produit complet | Standard |
+| Checklist ADR impact produit | Checklist |
+
+### Liens avec les autres rôles
+
+| Rôle | Lien |
+|------|------|
+| **Architecte** | Validation périmètre technique MVP ; exclusion intégrations réelles |
+| **RSSI** | Canal secondaire sécurisé sans élargir flux principal |
+| **UX/UI Designer** | Écrans MVP ; Figma post-ADR |
+| **Chef de projet** | Jalons ; capitalisation après bloc ADR |
+| **QA / Testeur** | Scénarios démo non happy path obligatoires |
+
+### Conditions de réutilisation sur un autre projet SFIA
+
+- Projet **pilote ou MVP démonstrateur** avec arbitrages structurants documentés.
+- Phase **architecture** avec ADR formalisant les choix cadrage.
+- **Non applicable** si le projet vise un produit industriel dès le MVP — adapter les garde-fous simulation.
+
+---
+
+## 15. Évolution continue
+
+Ce fichier est **évolutif**. Le bloc ADR P1 Interv360 a enrichi ce template (§14). Delivery, recette et ADR P2 continueront l'enrichissement. Les futurs projets pilotes affineront les grilles arbitrage sans figer les choix d'un pilote unique.
 
 ---
 
