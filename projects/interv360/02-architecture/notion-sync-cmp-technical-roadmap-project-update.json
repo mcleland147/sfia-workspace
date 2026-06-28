@@ -1,0 +1,18 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "project",
+  "command_pattern": "node src/cli.js update project <payload-json-file>",
+  "publish_to_notion": false,
+  "manual_review_required": true,
+  "project_page_id_env_key": "NOTION_PAGE_PROJECT_INTERV360",
+  "item": {
+    "title": "PRJ-INTERV360 — Interv360",
+    "status": "In progress",
+    "priority": "High",
+    "health": "Green",
+    "startDate": "2026-06-27",
+    "summary": "Roadmap technique CMP / SFIA outillage ajoutée après clôture Prompt Library 39/39. Évolutions post-synchronisation identifiées — publication Notion non exécutée dans cette préparation.",
+    "content": "## Contexte\n\nLa synchronisation initiale **SFIA Prompt Library** est **terminée** :\n\n- **39/39** prompts publiés dans Notion ;\n- **PR #1** mergée dans `main` ;\n- branche de travail clôturée ;\n- note de clôture merge : `merge-closure-prompt-library-sync.md`.\n\n**Git** reste la source détaillée. **Notion** porte la synthèse gouvernance.\n\n## Bilan Prompt Library\n\n| Lot | Famille | Nombre | Statut |\n|-----|---------|--------|--------|\n| Lot 0 | QA / Testeur | 10 | Publié |\n| Lot 1 | Architecture & Sécurité | 2 | Publié |\n| Lot 2 | UX/UI V1 Governance | 15 | Publié |\n| Lot final | Prompts restants | 12 | Publié |\n| **Total** | SFIA Prompt Library | **39** | **Publié** |\n\n## Roadmap technique CMP / SFIA outillage\n\n**Source Git** : `docs/roadmaps/cmp-technical-roadmap.md`\n\n| ID | Sujet | Priorité | Statut |\n|----|-------|----------|--------|\n| CMP-ROADMAP-001 | Ajouter update prompt | Haute | À cadrer |\n| CMP-ROADMAP-002 | Ajouter un mode batch | Haute | À cadrer |\n| CMP-ROADMAP-003 | Formaliser prompts Draft sous `prompts/<famille>/` | Moyenne | À planifier |\n| CMP-ROADMAP-004 | Passage Draft → Tested | Moyenne | À cadrer |\n| CMP-ROADMAP-005 | Fiabiliser export Notion | Haute | À cadrer |\n| CMP-ROADMAP-006 | Contrôle doublons renforcé | Haute | À cadrer |\n| CMP-ROADMAP-007 | Procédure standard publication Prompt Library | Moyenne | À documenter |\n| CMP-ROADMAP-008 | Clôture semi-automatique des lots | Basse | À étudier |\n\n## Priorités immédiates\n\n1. update prompt (CMP-ROADMAP-001)\n2. batch (CMP-ROADMAP-002)\n3. export Notion fiable (CMP-ROADMAP-005)\n4. contrôle doublons (CMP-ROADMAP-006)\n\n## Garde-fous\n\n- Pas de publication Notion automatique.\n- Pas de secret affiché.\n- Pas de modification `.env`.\n- Pas de delivery ouvert.\n- Pas de backlog, user stories ou code applicatif.\n- Git reste source détaillée.\n\n## Gouvernance projet\n\n- **Phase actuelle** : 02-architecture\n- **Chantier** : Roadmap technique CMP / SFIA outillage\n- **Source détaillée** : Git — `docs/roadmaps/cmp-technical-roadmap.md`\n- **Notion** : synthèse gouvernance (cette mise à jour — **non publiée**)\n\n## Sources Git\n\n- `docs/roadmaps/cmp-technical-roadmap.md`\n- `projects/interv360/02-architecture/notion-sync-prompt-library-closure-summary.md`\n- `projects/interv360/02-architecture/merge-closure-prompt-library-sync.md`\n- `projects/interv360/02-architecture/notion-sync-cmp-technical-roadmap-preparation.md`\n\n## Prochaine étape\n\nRevue manuelle du payload, puis synchronisation Notion via `update project` dans une tâche dédiée.\n\n## Conclusion\n\nLa roadmap technique CMP formalise les évolutions post-synchronisation Prompt Library. Aucune implémentation n'est déclenchée par cette préparation."
+  }
+}
