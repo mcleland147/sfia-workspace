@@ -1,0 +1,127 @@
+{
+  "project_id": "PRJ-INTERV360",
+  "project_name": "Interv360",
+  "phase": "02-architecture",
+  "milestone": "Figma V1",
+  "sync_type": "governance_milestone_closure",
+  "status": "closed",
+  "publish_to_notion": false,
+  "notion_publication_mode": "manual_review_required",
+  "decision": {
+    "summary": "Figma V1 validated as presentable with minor adjustments",
+    "quality_score": "8.3/10",
+    "v1_status": "presentable_non_final",
+    "v2_status": "deferred",
+    "delivery_status": "blocked",
+    "backlog_status": "blocked",
+    "user_stories_status": "blocked",
+    "code_status": "blocked"
+  },
+  "governance_message": {
+    "fr": "Le jalon Figma V1 est clôturé. La maquette est validée comme présentable avec ajustements mineurs, non définitive. La V2 est différée et le delivery reste bloqué tant qu'un jalon dédié n'est pas explicitement ouvert."
+  },
+  "validated_items": [
+    "MVP scope",
+    "8 MVP screens",
+    "11 versioned Figma captures",
+    "Enterprise clean visual direction",
+    "Separated SAV and executive dashboards",
+    "Technician mobile screens",
+    "Optional signature",
+    "Business-readable anomalies",
+    "ADR P1/P2 guardrails",
+    "No AI in MVP",
+    "No client portal",
+    "No technical logs",
+    "No advanced BI",
+    "No full legal e-signature",
+    "Simulated multi-role review",
+    "Role methods enrichment"
+  ],
+  "deferred_adjustments": [
+    {
+      "priority": "P1",
+      "item": "Clarify or remove dashboard KPI vertical bars",
+      "target": "V2 / polish"
+    },
+    {
+      "priority": "P1",
+      "item": "Review wording for tabs and secondary actions",
+      "target": "V2 / wording review"
+    },
+    {
+      "priority": "P2",
+      "item": "Soften executive operational index card",
+      "target": "V2 / polish"
+    },
+    {
+      "priority": "P2",
+      "item": "Improve planning temporal readability",
+      "target": "V2 if available"
+    },
+    {
+      "priority": "P2",
+      "item": "Improve mobile hierarchy",
+      "target": "V2"
+    },
+    {
+      "priority": "P3",
+      "item": "Improve dashboard graphs",
+      "target": "V2 optional"
+    },
+    {
+      "priority": "P3",
+      "item": "Enrich empty/loading/error states",
+      "target": "V2 optional"
+    },
+    {
+      "priority": "P3",
+      "item": "Export pages 01-04 if V2",
+      "target": "V2 optional"
+    }
+  ],
+  "out_of_mvp": [
+    "AI / scoring / recommendations",
+    "Client portal",
+    "Advanced BI / drill-down analytics",
+    "Full legal e-signature",
+    "Real retention / archive / purge policy",
+    "Technical logs / SIEM"
+  ],
+  "sfia_capitalization": [
+    "Figma production method",
+    "Figma production prompt",
+    "First draft review pattern",
+    "Transverse review preparation",
+    "Review minutes template",
+    "Simulated multi-role review",
+    "Role methods enrichment",
+    "V1 presentable vs final vs delivery distinction",
+    "QA / Tester candidate role",
+    "Tool credits constraint management"
+  ],
+  "source_documents": [
+    "figma-v1-closure-summary.md",
+    "figma-review-session-minutes.md",
+    "role-methods-enrichment-after-figma-v1.md",
+    "figma-first-draft-review.md",
+    "figma-review-session-preparation.md",
+    "figma-review-session-minutes-template.md",
+    "figma-production-prompt.md",
+    "figma-design-instructions.md",
+    "ux-ui-figma-opening-note.md",
+    "ux-ui-design-research-and-benchmark.md",
+    "architecture-p1-summary.md",
+    "architecture-p2-design-impact-summary.md",
+    "ADR-CAND-009-ai-light-post-mvp-confirmation.md"
+  ],
+  "constraints": {
+    "no_delivery_opening": true,
+    "no_backlog": true,
+    "no_user_stories": true,
+    "no_code": true,
+    "no_new_figma": true,
+    "manual_review_required": true
+  },
+  "recommended_next_action": "Prepare manual Notion governance update for Figma V1 closure without opening delivery."
+}
