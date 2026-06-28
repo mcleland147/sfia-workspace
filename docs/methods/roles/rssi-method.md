@@ -288,11 +288,62 @@ Interv360 a cadré un canal email sécurisé non principal avec exigences SSI, c
 | Checklist anti-surpromesse conformité UI | Checklist |
 | Standard conservation fictive MVP | Standard |
 
+### Apprentissages issus de la production et revue maquette Figma V1
+
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec revue sécurité d'une maquette avant delivery.*
+
+#### Apprentissages clés
+
+- **Une maquette peut créer une promesse de sécurité ou conformité sans code** — libellés, onglets, badges, zones signature.
+- **Revue sécurité maquette** — données sensibles visibles, logs techniques, preuves/PJ, signature, notifications, wording conformité.
+- **Vérifier absence de logs, SIEM, dump technique, signature juridiquement complète** non arbitrée.
+- **Surveiller onglets Preuves, Notifications, Signature** — métadonnées et statuts fictifs acceptables ; pas galerie sensible ni archivage promis.
+- **Anomalies en message métier** — reprise manuelle compréhensible sans exposition technique excessive.
+- **Absence d'IA implicite** — scoring, chatbot, prédiction, résumé automatique visuellement absents.
+- **Notifications simples** — pas de centre notifications ni portail client.
+
+#### Savoir-faire renforcés
+
+- Checklist revue RSSI maquette V1 — sensible, logs, preuves, signature, notifications, IA, conformité implicite.
+- Grille libellé maquette → promesse SSI réelle ou fictive.
+- Validation co-portée garde-fous ADR P1/P2 sur captures versionnées.
+- Confirmation checklist garde-fous en session revue transverse.
+
+#### Savoir-être / posture
+
+- **Vigilance sur la surpromesse visuelle** — même maquette « démo ».
+- **Ne pas exiger un produit sécurisé** — exiger absence de promesse non décidée.
+- **Pédagogie** — expliquer pourquoi un onglet ou libellé pose problème.
+- **Valider ou formuler réserves** — documentées dans compte rendu.
+
+#### Garde-fous à réutiliser
+
+- Aucun log technique, SIEM ou donnée sensible inutile en UI maquette.
+- Signature **optionnelle** — absence non bloquante ; pas e-signature qualifiée suggérée.
+- Preuves **fictives / métadonnées** — pas conservation réelle promise.
+- Maquette validée SSI **≠** audit sécurité implémentation.
+
+#### Questions réflexes à poser
+
+- Un écran **expose-t-il** une donnée sensible ou un log technique ?
+- Un libellé **promet-il** conformité, archivage ou signature juridique ?
+- Les **onglets sensibles** restent-ils prudents ?
+- Une **fonctionnalité IA** est-elle suggérée visuellement ?
+- La maquette **induit-elle** un portail ou un SIEM ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Checklist revue RSSI maquette V1 | Checklist |
+| Grille promesse SSI maquette vs ADR | Template |
+| Standard garde-fous SSI revue design | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Les phases delivery et REX continueront l'enrichissement. Les futurs projets pilotes étendront le Template Secure Email Intake sans figer les exigences d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1, P2 design-impact et la revue maquette Figma V1 Interv360 ont enrichi ce template (§14). Les phases delivery et REX continueront l'enrichissement. Les futurs projets pilotes étendront le Template Secure Email Intake sans figer les exigences d'un pilote unique.
 
 ---
 

@@ -289,11 +289,61 @@ Interv360 a validé l'option C : contrats API documentés avec implémentation s
 | Template Dashboard Separation Matrix | Template |
 | Standard IA post-MVP | Standard |
 
+### Apprentissages issus de la production et revue maquette Figma V1
+
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec maquette à confronter aux ADR avant delivery.*
+
+#### Apprentissages clés
+
+- **Une maquette peut suggérer une architecture non décidée** — portail, BI, IA, moteur de prédiction, conservation réelle, intégration « réelle ».
+- **Cohérence maquette UX et ADR P1/P2** — intégrations simulées, reprise manuelle, anomalies métier, dashboards séparés.
+- **Intégrations simulées non présentées comme réelles** — suivi erreurs, notifications, statuts sync.
+- **Vue dirigeant sans BI avancée ni prédiction** — tendances et indice opérationnel déterministes.
+- **Détection architecture implicite** — onglets, graphs, alertes, workflows suggérant composants non arbitrés.
+- **Cohérence entre écrans** — même logique statuts, anomalies, signature optionnelle sur tout le parcours.
+
+#### Savoir-faire renforcés
+
+- Checklist revue architecte maquette V1 — ADR, simulation, exclusions portail/BI/IA, dashboards.
+- Matrice écran maquette → décision ADR → écart ou validation.
+- Validation intégrations simulées et reprise manuelle sur captures anomalies.
+- Décision V2 vs clôture jalon — écarts architecture implicite bloquants ou polish.
+
+#### Savoir-être / posture
+
+- **Lire la maquette comme un diagramme implicite** — détecter ce qui n'a pas été arbitré.
+- **Ne pas bloquer sur polish** — bloquer sur architecture implicite non décidée.
+- **Aligner avec PO et RSSI** — surpromesse fonctionnelle et SSI souvent liées.
+- **Documenter écarts** pour V2 ou ADR complémentaire.
+
+#### Garde-fous à réutiliser
+
+- Maquette **≠** architecture technique complète — revue de cohérence décisionnelle.
+- Portail, BI avancée, IA, conservation réelle **non introduits par le design** sans ADR.
+- Agrégats dashboard sans logs techniques ni données sensibles non prévues.
+- Validation transverse documentée avant backlog ou code.
+
+#### Questions réflexes à poser
+
+- Cet écran **contredit-il** une ADR P1 ou P2 ?
+- La maquette **suggère-t-elle** un composant non arbitré ?
+- Les **intégrations** restent-elles clairement simulées ?
+- La **vue dirigeant** induit-elle BI ou prédiction ?
+- Faut-il une **ADR complémentaire** avant delivery ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Checklist cohérence maquette / ADR | Checklist |
+| Matrice écran maquette → ADR | Template |
+| Standard détection architecture implicite en design | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Les phases suivantes (Figma, delivery) continueront l'enrichissement. Les futurs projets pilotes affineront le standard intégration simulée sans figer les choix d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1, P2 design-impact et la revue maquette Figma V1 Interv360 ont enrichi ce template (§14). Delivery et REX continueront l'enrichissement. Les futurs projets pilotes affineront le standard intégration simulée sans figer les choix d'un pilote unique.
 
 ---
 

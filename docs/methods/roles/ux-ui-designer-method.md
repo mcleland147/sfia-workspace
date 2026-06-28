@@ -288,11 +288,63 @@ Interv360 a produit un brief UX/UI validé avec checklist entrée Figma. Les blo
 | Checklist anti-surpromesse IA | Checklist |
 | Standard dashboard opérationnel / vue dirigeant | Standard |
 
+### Apprentissages issus de la production et revue maquette Figma V1
+
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec maquette générée (IA ou outil) soumise à revue transverse.*
+
+#### Apprentissages clés
+
+- **Une maquette générée peut être acceptable** si direction visuelle, garde-fous ADR et hiérarchie globale sont respectés.
+- **Distinguer défaut bloquant et défaut de maturité visuelle** — polish (graphs, contraste, planning temporel) ne bloque pas forcément une V1 présentable.
+- **Évaluer cohérence visuelle, hiérarchie, lisibilité dashboards, composants inline** — design system partiel acceptable si écrans métier cohérents.
+- **Surveiller la surpromesse induite par les composants** — barres KPI décoratives, onglets riches, cartes contrastées suggérant BI ou scoring.
+- **États empty / loading / error** — à enrichir en V2 ; absence partielle acceptable si anomalies métier déjà lisibles.
+- **Accessibilité minimale** — contraste, taille CTA mobile, lisibilité SLA et statuts.
+- **Pages structure non exportées** (principes, tokens, composants, flux) — limiter l'impact revue si cover et écrans métier suffisent.
+
+#### Savoir-faire renforcés
+
+- Grille évaluation maquette V1 : cohérence / hiérarchie / polish / surpromesse / accessibilité minimale.
+- Checklist revue UX maquette : barres KPI, contraste carte synthétique, planning temporel, hiérarchie mobile.
+- Priorisation ajustements UI P1 (wording, composants ambigus) vs P2 (polish) vs P3 (export structure Figma).
+- Revue maquette générée — critères d'acceptation distincts d'une maquette artisanale haute fidélité.
+
+#### Savoir-être / posture
+
+- **Juger la maturité sans perfectionnisme bloquant** — V1 figée provisoirement acceptable.
+- **Signaler la surpromesse visuelle** — même sans intention produit.
+- **Collaborer avec PO, RSSI, Architecte** — revue transverse, pas opinion UX isolée.
+- **Documenter les ajustements** pour V2 ou polish ultérieur.
+
+#### Garde-fous à réutiliser
+
+- Polish UI insuffisant **≠** non-respect MVP ou ADR.
+- Aucun composant IA, portail, BI avancée ou log technique — même en version « jolie ».
+- Libellés prudents maintenus après génération — vérifier onglets et CTA secondaires.
+- Maquette V1 **non définitive** — exports versionnés Git comme référence de revue.
+
+#### Questions réflexes à poser
+
+- La **direction visuelle** est-elle tenue sur tous les écrans ?
+- Un élément UI **suggère-t-il** une fonctionnalité hors MVP ?
+- Le défaut identifié est-il **bloquant** ou **maturité visuelle** ?
+- Les **dashboards** SAV et dirigeant sont-ils lisibles et différenciés ?
+- Faut-il une **V2** pour polish ou structure design system ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Grille évaluation maquette V1 UX | Template |
+| Checklist revue UX maquette générée | Checklist |
+| Standard polish vs bloquant V1 | Standard |
+| Checklist garde-fous visuels post-génération | Checklist |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Figma, delivery et recette continueront l'enrichissement. Les retours d'implémentation UX alimenteront les templates sans figer les méthodes d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1, P2 design-impact et la revue maquette Figma V1 Interv360 ont enrichi ce template (§14). Delivery et recette continueront l'enrichissement. Les retours d'implémentation UX alimenteront les templates sans figer les méthodes d'un pilote unique.
 
 ---
 

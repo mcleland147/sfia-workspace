@@ -286,11 +286,63 @@ Interv360 a validé gouvernance Notion/Git, phase gate cadrage, ouverture phase 
 | Checklist séquence P1 → P2 → Figma | Checklist |
 | Règles confirmation post-MVP hors ADR | Standard |
 
+### Apprentissages issus de la production et revue maquette Figma V1
+
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec jalon maquette V1 et revue transverse avant delivery.*
+
+#### Apprentissages clés
+
+- **Gérer un jalon Figma V1** — production, captures versionnées Git, revue documentée, V1 figée provisoirement.
+- **Décision V1 présentable / non définitive** — qualité indicative acceptable sans feu vert delivery.
+- **Blocage backlog, user stories et code** tant que validation transverse non acquise et documentée.
+- **Contraintes outil / crédits** — limites génératif ou Figma gratuit à tracer ; impact sur V2 différée.
+- **Séquence sécurisée** : production → revue → décision → capitalisation → éventuelle V2 → seulement ensuite delivery.
+- **Documentation des retours** — préparation revue, template compte rendu, minutes post-session.
+- **Arbitrage V2** — nécessaire, différée ou non ; périmètre et conditions explicites.
+
+#### Savoir-faire renforcés
+
+- Checklist jalon maquette V1 : captures, revue, préparation transverse, CR, décision delivery.
+- Traçabilité Git des exports PNG et documents revue.
+- Orchestration revue PO / UX / RSSI / Architecte (+ QA candidat).
+- Gestion contrainte crédits / outil dans compte rendu et décision V2.
+
+#### Savoir-être / posture
+
+- **Empêcher le passage prématuré** vers backlog ou code après maquette « jolie ».
+- **Assumer la contrainte outil** — documenter, pas masquer.
+- **Cadencer la revue** — support de cadrage avant opinions dispersées.
+- **Capitaliser avant revue simulée ou réelle** — méthodes rôle à jour.
+
+#### Garde-fous à réutiliser
+
+- Maquette produite **≠** jalon clos **≠** delivery autorisé.
+- Retours revue documentés avant V2, sync Notion ou ouverture delivery.
+- Aucun backlog / user story / code sans décision explicite dans CR.
+- V1 présentable non définitive — standard de jalon acceptable.
+
+#### Questions réflexes à poser
+
+- Le **jalon Figma V1** est-il traçable (captures, revue, préparation) ?
+- La **revue transverse** est-elle cadrée et documentée ?
+- Le **delivery** est-il demandé trop tôt ?
+- Une **V2** est-elle bloquée par contrainte outil ?
+- Les **méthodes rôle** sont-elles à jour avant revue simulée ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Checklist jalon maquette V1 | Checklist |
+| Template préparation revue transverse maquette | Template |
+| Template compte rendu revue maquette | Template |
+| Standard V1 présentable non définitive | Standard |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14) et déclenché l'enrichissement des méthodes rôle associées. Figma, delivery et REX continueront les checklists phase gate et la gouvernance.
+Ce fichier est **évolutif**. Les blocs ADR P1, P2 design-impact et la revue maquette Figma V1 Interv360 ont enrichi ce template (§14) et déclenché l'enrichissement des méthodes rôle associées. Delivery et REX continueront les checklists phase gate et la gouvernance.
 
 ---
 

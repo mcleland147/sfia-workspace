@@ -284,11 +284,64 @@ Interv360 a produit 7 arbitrages MVP validés formalisés ensuite en ADR P1. Les
 | Checklist anti-surpromesse IA | Checklist |
 | Standard conservation fictive MVP | Standard |
 
+### Apprentissages issus de la production et revue maquette Figma V1
+
+*Capitalisés depuis un projet pilote — réutilisables sur tout projet SFIA avec maquette V1 présentable avant revue transverse ou delivery.*
+
+#### Apprentissages clés
+
+- **Distinguer présentable, validé, définitif et prêt delivery** — une V1 peut être validée comme support de revue sans être définitive ni déclencheuse de backlog.
+- **Contrôler le respect MVP** sur les captures — les 8 écrans cœur, pas les explorations ou pages structure non exportées.
+- **Détecter les dérives fonctionnelles implicites** — portail client, IA, BI avancée, signature juridique complète, workflows non arbitrés suggérés par libellés ou onglets.
+- **Vigilance sur les libellés qui promettent trop** — onglets Preuves, Notifications, actions secondaires, CTA contextuels.
+- **Valider la valeur métier visible** — SLA, responsables, prochaines actions, statuts crédibles pour démonstrateur.
+- **Confirmer qu'une maquette ne déclenche pas automatiquement** backlog, user stories ou code — validation transverse documentée requise.
+- **Statuer sur les ajustements P1/P2/P3** — bloquant vs polish ; prioriser avant V2.
+- **Décider si une V2 est nécessaire, différée ou abandonnée** — contraintes outil, crédits, maturité visuelle.
+
+#### Savoir-faire renforcés
+
+- Grille statuts maquette : présentable → revue transverse → validée avec réserves → définitive → prêt delivery.
+- Checklist revue PO maquette V1 : MVP, exclusions ADR, valeur démo, surpromesse fonctionnelle.
+- Priorisation ajustements P1 (wording, composants ambigus) / P2 (polish) / P3 (structure Figma, états).
+- Décision V2 vs passage delivery — conditions explicites dans compte rendu de revue.
+
+#### Savoir-être / posture
+
+- **Ne pas confondre satisfaction visuelle et validation périmètre** — 8/10 en polish n'autorise pas le delivery.
+- **Challenger les écrans qui « font pro »** — crédibilité démo oui, produit complet non.
+- **Protéger la séquence** — revue documentée avant backlog ou user stories.
+- **Arbitrer sans bloquer indéfiniment** — V1 figée provisoirement acceptable si garde-fous tenus.
+
+#### Garde-fous à réutiliser
+
+- Maquette V1 présentable **≠** maquette définitive **≠** feu vert delivery.
+- Aucun backlog, user story ou code sans validation transverse explicite.
+- Portail, IA, BI, signature complète et workflows non arbitrés **à rejeter ou reporter** si visibles.
+- Retours de revue documentés avant V2 ou delivery.
+
+#### Questions réflexes à poser
+
+- Cette V1 **respecte-t-elle le MVP** sans élargissement implicite ?
+- Un écran ou libellé **promet-il** plus que les ADR autorisent ?
+- La maquette est-elle **suffisante pour démontrer la valeur** sans être définitive ?
+- Faut-il une **V2** ou peut-on clôturer le jalon avec ajustements mineurs ?
+- Le **delivery** est-il prématuré ?
+
+#### Livrables ou templates candidats
+
+| Élément | Type |
+|---------|------|
+| Grille présentable / validé / définitif / prêt delivery | Template |
+| Checklist revue PO maquette V1 | Checklist |
+| Standard V1 présentable non définitive | Standard |
+| Template compte rendu revue maquette | Template |
+
 ---
 
 ## 15. Évolution continue
 
-Ce fichier est **évolutif**. Les blocs ADR P1 et P2 design-impact Interv360 ont enrichi ce template (§14). Delivery, recette et REX continueront l'enrichissement. Les futurs projets pilotes affineront les grilles arbitrage sans figer les choix d'un pilote unique.
+Ce fichier est **évolutif**. Les blocs ADR P1, P2 design-impact et la revue maquette Figma V1 Interv360 ont enrichi ce template (§14). Delivery, recette et REX continueront l'enrichissement. Les futurs projets pilotes affineront les grilles arbitrage sans figer les choix d'un pilote unique.
 
 ---
 
