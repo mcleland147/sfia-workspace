@@ -1,0 +1,94 @@
+{
+  "project": {
+    "id": "PRJ-INTERV360",
+    "name": "Interv360",
+    "phase": "02-architecture",
+    "current_milestone": "Architecture P1",
+    "milestone_status": "Done",
+    "publication_status": "Prepared - not published"
+  },
+  "governance_update": {
+    "summary": "Le bloc ADR P1 est clôturé : ADR-001 à ADR-004 acceptées. MVP basé sur intégrations simulées documentées, erreurs visibles avec reprise manuelle, email sécurisé secondaire, journalisation minimale. Méthodes rôle enrichies. PROMPT-ARCH-001 et PROMPT-SEC-001 en Draft. Suite à arbitrer : UX/UI/Figma ou ADR P2.",
+    "decision": "Architecture P1 consolidé",
+    "next_action": "Décider suite UX/UI/Figma ou ADR P2",
+    "source_of_truth": "Git",
+    "notion_mode": "Governance summary only"
+  },
+  "adr_statuses": [
+    {
+      "id": "ADR-001",
+      "title": "Contrats API documentés avec implémentation simulée",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-001-api-contracts-simulated-implementation.md"
+    },
+    {
+      "id": "ADR-002",
+      "title": "Gestion visible des erreurs avec reprise manuelle",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-002-visible-integration-errors-manual-recovery.md"
+    },
+    {
+      "id": "ADR-003",
+      "title": "Canal email sécurisé non principal",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-003-secure-email-secondary-channel.md"
+    },
+    {
+      "id": "ADR-004",
+      "title": "Journalisation minimale des flux et rejets",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-004-minimal-flow-rejection-logging.md"
+    }
+  ],
+  "role_methods": {
+    "status": "Done",
+    "source": "projects/interv360/02-architecture/role-methods-enrichment-after-adr-p1.md",
+    "roles": [
+      "Architecte",
+      "RSSI",
+      "UX/UI Designer",
+      "Product Owner",
+      "Chef de projet"
+    ]
+  },
+  "prompts": [
+    {
+      "id": "PROMPT-ARCH-001",
+      "title": "Revue intégrations et erreurs",
+      "status": "Draft",
+      "source": "prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md"
+    },
+    {
+      "id": "PROMPT-SEC-001",
+      "title": "Revue canal email sécurisé",
+      "status": "Draft",
+      "source": "prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md"
+    }
+  ],
+  "out_of_scope": [
+    "Intégrations réelles",
+    "Retry automatique",
+    "Supervision complète",
+    "SIEM",
+    "Politique complète de conservation",
+    "Backlog",
+    "User stories",
+    "Delivery",
+    "Code",
+    "Figma déclenché automatiquement"
+  ],
+  "next_actions": [
+    "Mettre à jour le catalogue prompts",
+    "Décider suite UX/UI/Figma ou ADR P2",
+    "Préparer ouverture UX/UI/Figma si retenue",
+    "Instruire ADR P2 si retenue",
+    "Maintenir Notion en gouvernance sans duplication Git"
+  ],
+  "controls": {
+    "duplicate_full_adr_content": false,
+    "duplicate_full_prompt_content": false,
+    "duplicate_full_role_methods": false,
+    "publish_to_notion": false,
+    "git_remains_source_of_truth": true
+  }
+}
