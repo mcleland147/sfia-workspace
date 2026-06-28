@@ -19,5 +19,6 @@ Les méthodes sont issues des projets pilotes, puis généralisées pour devenir
 | `bpmn-process-modeling-method.md` | Méthode de modélisation BPMN |
 | `bpmn-deliverables-standard.md` | Standard des livrables BPMN projet |
 | `bpmn-integration-checklist.md` | Checklist avant ouverture cycle BPMN |
+| `bpmn-method-cycle-closure.md` | Synthèse de clôture du cycle méthode BPMN (Phases A–C) |
 
 Ces méthodes sont **évolutives** et doivent être enrichies à chaque phase projet, à partir des apprentissages, savoir-faire et savoir-être capitalisés.
