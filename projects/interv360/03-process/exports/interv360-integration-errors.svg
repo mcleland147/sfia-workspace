@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="800" viewBox="120 10 2000 800">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#333"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;font-size:11px;fill:#111}.lane{fill:#f8f9fb;stroke:#9aa5b1}.pool{fill:#fff;stroke:#4a5568;stroke-width:2}.task{fill:#fff;stroke:#2563eb;stroke-width:1.5}.gateway{fill:#fff;stroke:#d97706;stroke-width:1.5}.event-start{fill:#dcfce7;stroke:#16a34a;stroke-width:2}.event-end{fill:#fee2e2;stroke:#dc2626;stroke-width:3}.flow{fill:none;stroke:#4b5563;stroke-width:1.5;marker-end:url(#arrow)}.label-flow{font-size:10px;fill:#374151}.title{font-size:16px;font-weight:bold}.annotation{fill:#fffbeb;stroke:#d97706}.ann-text{font-size:10px}.assoc{fill:none;stroke:#94a3b8;stroke-dasharray:4 3}</style>
+<text class="title" x="140" y="34">Interv360 Integration Errors — Anomalies d'intégration (lecture)</text>
+<rect class="pool" x="160" y="80" width="1920" height="600"/>
+<rect class="lane" x="190" y="80" width="1890" height="150"/>
+<text x="198" y="98">Interv360</text>
+<rect class="lane" x="190" y="230" width="1890" height="150"/>
+<text x="198" y="248">CRM simulé / intégration</text>
+<rect class="lane" x="190" y="380" width="1890" height="150"/>
+<text x="198" y="398">Manager SAV</text>
+<rect class="lane" x="190" y="530" width="1890" height="150"/>
+<text x="198" y="548">Dashboard / pilotage</text>
+<path class="flow" d="M 236,120.0 L 300,120.0"/>
+<path class="flow" d="M 430,120.0 L 460,120.0"/>
+<path class="flow" d="M 590,120.0 L 575,140 L 575,305 L 620,305"/>
+<path class="flow" d="M 750,305 L 780,305"/>
+<path class="flow" d="M 990,305 L 940,305"/>
+<text class="label-flow" x="944" y="301">Oui</text>
+<path class="flow" d="M 805.0,307 L 805,355 L 805,140 L 940,140"/>
+<text class="label-flow" x="809" y="136">Non</text>
+<path class="flow" d="M 1070,270.0 L 1050,305 L 1050,140 L 1100,140"/>
+<path class="flow" d="M 1230,120.0 L 1230,140 L 1230,580 L 1260,580"/>
+<path class="flow" d="M 1390,570.0 L 1420,570.0"/>
+<path class="flow" d="M 1070,120.0 L 1070,140 L 1070,430 L 1100,430"/>
+<path class="flow" d="M 1230,420.0 L 1285.0,432.0"/>
+<path class="flow" d="M 1310,432.0 L 1420,430"/>
+<text class="label-flow" x="1424" y="426">Oui</text>
+<path class="flow" d="M 1285.0,407 L 1285,380 L 1285,140 L 1420,140"/>
+<text class="label-flow" x="1289" y="136">Non</text>
+<path class="flow" d="M 1550,420.0 L 1550,430 L 1550,140 L 1580,140"/>
+<path class="flow" d="M 1710,120.0 L 1710,140 L 1710,580 L 1740,580"/>
+<path class="flow" d="M 1550,120.0 L 1550,140 L 1550,520 L 1740,520 L 1740,580"/>
+<path class="flow" d="M 1870,570.0 L 1900,570.0"/>
+<path class="flow" d="M 1645.0,80 L 1645,80 L 1645,60 L 525,60 L 525,80"/>
+<circle class="event-start" cx="218.0" cy="120.0" r="18.0"/>
+<text text-anchor="middle" x="218.0" y="124.0">Clôture locale validée</text>
+<rect class="task" x="300" y="80" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="365.0" y="118.0">Préparer les</text>
+<text text-anchor="middle" x="365.0" y="132.0">données de synchronisation</text>
+<rect class="task" x="460" y="80" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="525.0" y="118.0">Envoyer la clôture</text>
+<text text-anchor="middle" x="525.0" y="132.0">au CRM simulé</text>
+<rect class="task" x="620" y="230" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="685.0" y="274.0">Traiter la synchronisation</text>
+<polygon class="gateway" points="805.0,257 830,282.0 805.0,307 780,282.0"/>
+<text text-anchor="middle" x="805.0" y="286.0">Synchronisation réussie ?</text>
+<rect class="task" x="940" y="230" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1005.0" y="274.0">Confirmer la synchronisation</text>
+<rect class="task" x="1100" y="80" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1165.0" y="124.0">Journaliser le succès</text>
+<rect class="task" x="1260" y="530" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1325.0" y="574.0">Mettre à jour le dashboard</text>
+<circle class="event-end" cx="1438.0" cy="570.0" r="18.0"/><circle fill="none" stroke="#dc2626" stroke-width="2" cx="1438.0" cy="570.0" r="14.0"/>
+<text text-anchor="middle" x="1438.0" y="574.0">Synchronisation terminée</text>
+<rect class="task" x="940" y="80" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1005.0" y="118.0">Créer une</text>
+<text text-anchor="middle" x="1005.0" y="132.0">anomalie d'intégration</text>
+<rect class="task" x="1100" y="380" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1165.0" y="424.0">Qualifier la gravité</text>
+<polygon class="gateway" points="1285.0,407 1310,432.0 1285.0,457 1260,432.0"/>
+<text text-anchor="middle" x="1285.0" y="436.0">Reprise manuelle requise ?</text>
+<rect class="task" x="1420" y="380" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1485.0" y="418.0">Corriger les données</text>
+<text text-anchor="middle" x="1485.0" y="432.0">ou relancer la sync</text>
+<rect class="task" x="1580" y="80" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1645.0" y="124.0">Journaliser la reprise</text>
+<rect class="task" x="1420" y="80" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1485.0" y="124.0">Journaliser l'anomalie</text>
+<rect class="task" x="1740" y="530" width="130" height="80" rx="8"/>
+<text text-anchor="middle" x="1805.0" y="568.0">Afficher l'anomalie</text>
+<text text-anchor="middle" x="1805.0" y="582.0">au dashboard</text>
+<circle class="event-end" cx="1918.0" cy="570.0" r="18.0"/><circle fill="none" stroke="#dc2626" stroke-width="2" cx="1918.0" cy="570.0" r="14.0"/>
+<text text-anchor="middle" x="1918.0" y="574.0">Anomalie suivie</text>
+<rect class="annotation" x="180" y="620" width="300" height="70" rx="4"/>
+<text class="ann-text" x="188" y="638">Clôture locale conservée</text>
+<text class="ann-text" x="188" y="652">La clôture reste valide même si la sync échoue.</text>
+<rect class="annotation" x="1080" y="500" width="280" height="55" rx="4"/>
+<text class="ann-text" x="1088" y="518">Gravités RG-I06</text>
+<text class="ann-text" x="1088" y="532">Information ; Bloquant métier ; Bloquant sync.</text>
+<rect class="annotation" x="1400" y="500" width="300" height="55" rx="4"/>
+<text class="ann-text" x="1408" y="518">Retry hors MVP</text>
+<text class="ann-text" x="1408" y="532">Reprise manuelle simulée.</text>
+</svg>
