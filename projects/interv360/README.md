@@ -4,7 +4,7 @@
 |-------|--------|
 | **Nom** | Interv360 |
 | **Statut** | In progress |
-| **Phase actuelle** | 01-cadrage |
+| **Phase actuelle** | 03-process |
 | **Intake** | Validated (v1.3) |
 | **Objectif** | Plateforme SAV avec intégrations simulées — projet pilote SFIA |
 | **Gouvernance** | SFIA |
@@ -18,13 +18,22 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 | Dossier | Phase | Statut |
 |---------|-------|--------|
 | `00-intake/` | Intake | Clôturé — validé |
-| `01-cadrage/` | Cadrage métier | **Active** |
-| `02-architecture/` | Architecture | À venir |
-| `03-design/` | Design | À venir |
+| `01-cadrage/` | Cadrage métier | Clôturé |
+| `02-architecture/` | Architecture / clarification | Clôturé |
+| `03-process/` | Processus BPMN | **Active** — cycle SAV MVP, exceptions métier, anomalies d'intégration |
+| `03-design/` | Design UX/UI détaillé | À venir — écrans et parcours (après BPMN) |
 | `04-delivery/` | Delivery | À venir |
 | `05-tests/` | Tests | À venir |
 | `06-documentation/` | Documentation | À venir |
 | `07-rex/` | Retour d'expérience | À venir |
+
+## Trajectoire projet
+
+```
+01-cadrage → 02-architecture / clarification → 03-process / BPMN → ADR → architecture fonctionnelle → 03-design / UX détaillée
+```
+
+**Note :** `03-process/` précède l'exploitation détaillée de `03-design/`, conformément à la méthode BPMN SFIA. `03-design/` reste dédié aux maquettes, écrans et parcours utilisateur.
 
 ## Intake (clôturé)
 
@@ -36,13 +45,26 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 
 Le projet est référencé dans Notion : **PRJ-INTERV360 — Interv360**.
 
-## Cadrage (phase active)
+## Cadrage (clôturé)
 
 | Document | Statut |
 |----------|--------|
-| [`01-cadrage/business-framing.md`](01-cadrage/business-framing.md) | Draft — à produire |
+| [`01-cadrage/business-framing.md`](01-cadrage/business-framing.md) | Draft |
 
-**Prochaine étape** : produire le document de cadrage métier.
+## Architecture / clarification (clôturé)
+
+Cycle de clarification MVP terminé — voir `02-architecture/clarification-cycle-closure.md`.
+
+## Processus BPMN (phase active)
+
+| Document | Statut |
+|----------|--------|
+| [`03-process/process-scope.md`](03-process/process-scope.md) | Draft — cadrage BPMN |
+| `03-process/bpmn/interv360-sav-mvp.bpmn` | À venir |
+| `03-process/bpmn/interv360-sav-exceptions.bpmn` | À venir |
+| `03-process/bpmn/interv360-integration-errors.bpmn` | À venir |
+
+**Prochaine étape** : préparer le processus principal `interv360-sav-mvp.bpmn` pour Camunda Modeler.
 
 ## Métadonnées
 
