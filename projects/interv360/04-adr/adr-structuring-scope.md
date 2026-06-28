@@ -46,7 +46,7 @@ Ce document **ne crée pas** encore les ADR formelles.
 | Priorité | ADR candidate | Décision attendue |
 |----------|---------------|-------------------|
 | Haute | Mapping durable des statuts | **ADR-001 créée — Accepted** |
-| Haute | Synchronisation CRM simulée | Définir le rôle du CRM simulé dans le MVP |
+| Haute | Synchronisation CRM simulée | **ADR-002 créée — Accepted** |
 | Haute | Gestion des erreurs d'intégration | Formaliser RG-I06 : gravité, anomalie, reprise manuelle |
 | Haute | Clôture locale vs synchronisation externe | Confirmer que la clôture locale reste valide même si sync KO |
 | Moyenne / Haute | Clôture sans signature | Formaliser signature optionnelle, motif obligatoire et CR obligatoire |
@@ -60,7 +60,7 @@ Ce document **ne crée pas** encore les ADR formelles.
 **Premier lot recommandé :**
 
 1. ~~ADR — Mapping durable des statuts~~ → **ADR-001 Accepted**
-2. ADR — Synchronisation CRM simulée
+2. ~~ADR — Synchronisation CRM simulée~~ → **ADR-002 Accepted**
 3. ADR — Gestion des erreurs d'intégration
 4. ADR — Clôture locale vs synchronisation externe
 
@@ -113,6 +113,7 @@ Les ADR doivent rester des **décisions d'architecture documentées**, reliées 
 | ADR | Sujet | Statut | Fichier |
 |-----|-------|--------|---------|
 | ADR-001 | Mapping durable des statuts | Accepted | `ADR-001-status-mapping.md` |
+| ADR-002 | Synchronisation CRM simulée | Accepted | `ADR-002-simulated-crm-sync.md` |
 
 ---
 
