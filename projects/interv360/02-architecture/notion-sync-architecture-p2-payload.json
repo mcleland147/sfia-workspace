@@ -1,0 +1,115 @@
+{
+  "project": {
+    "id": "PRJ-INTERV360",
+    "name": "Interv360",
+    "phase": "02-architecture",
+    "current_milestone": "ADR P2 design-impact",
+    "milestone_status": "Done",
+    "publication_status": "Prepared - not published"
+  },
+  "governance_update": {
+    "summary": "Le bloc ADR P2 design-impact est consolidé : conservation fictive limitée, notifications simples sans portail client, signature optionnelle structurée, dashboard SAV et vue dirigeant séparés, IA légère reportée post-MVP. Les méthodes rôle ont été enrichies. UX/UI / Figma peut maintenant être préparé avec garde-fous, sans déclencher backlog, user stories ou code.",
+    "decision": "ADR P2 design-impact consolidé",
+    "next_action": "Préparer l'ouverture UX/UI / Figma",
+    "source_of_truth": "Git",
+    "notion_mode": "Governance summary only"
+  },
+  "decisions": [
+    {
+      "id": "ADR-005",
+      "title": "Conservation fictive photos, signatures et logs",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-005-fictive-retention-photos-signatures-logs.md"
+    },
+    {
+      "id": "ADR-006",
+      "title": "Notifications client sans portail client",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-006-client-notifications-without-client-portal.md"
+    },
+    {
+      "id": "ADR-007",
+      "title": "Signature client optionnelle structurée",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-007-optional-structured-client-signature.md"
+    },
+    {
+      "id": "ADR-008",
+      "title": "Dashboard SAV et vue dirigeant séparés",
+      "status": "Accepted",
+      "source": "projects/interv360/02-architecture/adr/ADR-008-separated-sav-dashboard-and-executive-view.md"
+    },
+    {
+      "id": "ADR-CAND-009",
+      "title": "IA légère reportée post-MVP",
+      "status": "Confirmed - Post-MVP",
+      "source": "projects/interv360/02-architecture/adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md"
+    }
+  ],
+  "summaries": [
+    {
+      "title": "Synthèse ADR P2 design-impact",
+      "status": "Done",
+      "source": "projects/interv360/02-architecture/architecture-p2-design-impact-summary.md"
+    },
+    {
+      "title": "Enrichissement méthodes rôle après ADR P2",
+      "status": "Done",
+      "source": "projects/interv360/02-architecture/role-methods-enrichment-after-adr-p2.md"
+    }
+  ],
+  "role_methods": {
+    "status": "Done",
+    "source": "projects/interv360/02-architecture/role-methods-enrichment-after-adr-p2.md",
+    "enriched_roles": [
+      "Product Owner",
+      "UX/UI Designer",
+      "RSSI",
+      "Architecte",
+      "Chef de projet"
+    ],
+    "future_candidate_roles": [
+      "QA / Testeur",
+      "Concepteur fonctionnel",
+      "Data / IA"
+    ]
+  },
+  "ux_ui_guardrails": [
+    "Preuves et photos uniquement en mode fictif / métadonnées",
+    "Signature optionnelle et non bloquante",
+    "Notifications simples et simulées",
+    "Pas de portail client",
+    "Pas de centre notifications avancé",
+    "Dashboard SAV et vue dirigeant séparés",
+    "Pas de logs techniques dans les dashboards",
+    "Pas de preuves détaillées côté dirigeant",
+    "Pas de composant IA",
+    "Pas de scoring, prédiction, chatbot ou résumé automatique"
+  ],
+  "out_of_scope": [
+    "Figma produit dans cette tâche",
+    "Backlog",
+    "User stories",
+    "Code",
+    "Portail client",
+    "Signature électronique juridiquement complète",
+    "Politique réelle de conservation",
+    "BI avancée",
+    "IA MVP"
+  ],
+  "next_actions": [
+    "Préparer l'ouverture UX/UI / Figma",
+    "Mettre à jour le brief UX/UI ou produire une note d'ouverture Figma",
+    "Préparer les garde-fous Figma à partir de la synthèse P2",
+    "Ne pas lancer backlog, user stories ou code avant validation UX/UI",
+    "Prévoir extraction future de la méthode QA / Testeur si nécessaire"
+  ],
+  "controls": {
+    "duplicate_full_adr_content": false,
+    "duplicate_full_candidate_confirmation": false,
+    "duplicate_full_role_methods": false,
+    "duplicate_full_p2_summary": false,
+    "publish_to_notion": false,
+    "git_remains_source_of_truth": true
+  }
+}
