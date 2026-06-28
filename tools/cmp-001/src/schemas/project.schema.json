@@ -43,6 +43,14 @@
       "format": "date",
       "notionType": "date",
       "notionProperty": "End"
+    },
+    "summary": {
+      "type": "string",
+      "notionType": "page_content"
+    },
+    "content": {
+      "type": "string",
+      "notionType": "page_content"
     }
   }
 }

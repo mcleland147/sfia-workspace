@@ -57,8 +57,8 @@ Cette note **prépare la publication Notion** de la clôture Figma V1 via **CMP-
 **Compatibilité schéma CMP Project**
 
 - **Propriétés Notion** (`title`, `status`, `priority`, `health`, `startDate`) : conformes au schéma `tools/cmp-001/src/schemas/project.schema.json`.
-- **`summary` / `content`** : suivent le modèle `01-cadrage/notion-sync-payload.json` ; consommés par `buildPageContentBlocks` / `replacePageBlocks` lors de `update project`.
-- **Point de vigilance** : le validateur CMP v1.1.2 peut rejeter `summary` et `content` comme champs non reconnus tant que le schéma Project n'inclut pas ces champs (`notionType: page_content`, comme Knowledge). **Avant exécution CLI**, vérifier la validation ou étendre le schéma Project — hors scope de cette préparation.
+- **`summary` / `content`** : champs `page_content` ajoutés au schéma Project (voir `cmp-project-schema-extension-for-governance-content.md`) ; consommés par `buildPageContentBlocks` / `replacePageBlocks` lors de `update project`.
+- **Validation** : le JSON passe la validation CMP après extension du schéma.
 
 ---
 
@@ -103,7 +103,7 @@ Chemin relatif depuis `tools/cmp-001/` vers le JSON préparé.
 - [ ] Intégration Notion autorisée sur la base Projects
 - [ ] Page ID vérifié (`38c0bc33-8074-8182-881a-c284f2cf789b` ou ID à jour)
 - [ ] JSON CMP relu (`notion-sync-figma-v1-cmp-project-update.json`)
-- [ ] Validation CMP `summary`/`content` résolue si nécessaire
+- [x] Validation CMP `summary`/`content` — schéma Project étendu (voir `cmp-project-schema-extension-for-governance-content.md`)
 - [ ] **Décision explicite** de publication confirmée
 - [ ] Payload initial `notion-sync-figma-v1-closure-payload.json` inchangé (`publish_to_notion: false` jusqu'à décision)
 
