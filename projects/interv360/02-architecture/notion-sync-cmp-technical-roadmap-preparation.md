@@ -125,6 +125,27 @@ node src/cli.js create component /tmp/sfia-cmp-roadmap/SFIA-COMP-CMP-001.json
 
 ---
 
+## Publication SFIA Components bloquée par doublon
+
+La **cible principale** reste **SFIA Components**.
+
+Toutefois, la publication automatique via **`create component`** est **bloquée** car une fiche équivalente existe déjà :
+
+**CMP-001 — SFIA Notion Sync**
+
+En l'absence de **`update component`**, la synchronisation Notion **ne doit pas** créer de nouvelle fiche.
+
+**Décision** :
+
+- **ne pas publier** SFIA-COMP-CMP-001 ;
+- **conserver** la roadmap dans Git ;
+- **enrichir manuellement** la fiche existante ou attendre **`update component`** ;
+- ouvrir une **PR documentaire** vers `main`.
+
+*Voir : `notion-sync-cmp-technical-roadmap-sfia-components-blocked.md`*
+
+---
+
 ## 6. Garde-fous
 
 - [x] publication **non exécutée** ;
