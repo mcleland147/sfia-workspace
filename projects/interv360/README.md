@@ -23,7 +23,8 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 | `03-process/` | Processus BPMN | **Active** — cycle SAV MVP, exceptions métier, anomalies d'intégration |
 | `04-adr/` | ADR structurantes | **Active** — décisions d'architecture issues du cadrage, de la clarification et du cycle BPMN |
 | `05-functional-architecture/` | Architecture fonctionnelle détaillée | **Active** — issue des cycles clarification, BPMN et ADR |
-| `03-design/` | Design UX/UI détaillé | À venir — écrans et parcours (après BPMN) |
+| `06-ux-ui/` | Reprise UX/UI détaillée | **Clôturé** — cycle documentaire (PR #14) |
+| `03-design/` | Design UX/UI détaillé | À venir — maquettes et design system (après reprise documentaire) |
 | `04-delivery/` | Delivery | À venir |
 | `05-tests/` | Tests | À venir |
 | `06-documentation/` | Documentation | À venir |
@@ -32,10 +33,10 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 ## Trajectoire projet
 
 ```
-01-cadrage → 02-architecture / clarification → 03-process / BPMN → ADR → architecture fonctionnelle → 03-design / UX détaillée
+01-cadrage → 02-architecture / clarification → 03-process / BPMN → ADR → architecture fonctionnelle → 06-ux-ui / reprise UX documentaire → 03-design / UX détaillée
 ```
 
-**Note :** `03-process/` précède l'exploitation détaillée de `03-design/`, conformément à la méthode BPMN SFIA. `03-design/` reste dédié aux maquettes, écrans et parcours utilisateur.
+**Note :** `03-process/` précède l'exploitation détaillée de `03-design/`, conformément à la méthode BPMN SFIA. `06-ux-ui/` documente la reprise UX/UI (parcours, écrans, dashboard) sans produire de maquette finale. `03-design/` reste dédié aux maquettes, écrans et parcours utilisateur.
 
 ## Intake (clôturé)
 
@@ -67,6 +68,21 @@ Cycle de clarification MVP terminé — voir `02-architecture/clarification-cycl
 | `03-process/bpmn/interv360-integration-errors.bpmn` | À venir |
 
 **Prochaine étape** : préparer le processus principal `interv360-sav-mvp.bpmn` pour Camunda Modeler.
+
+## Reprise UX/UI détaillée (clôturé)
+
+Cycle documentaire de reprise UX/UI Interv360, construit à partir du brief UX/UI existant, des décisions atelier, de Figma V1 comme référence non définitive, de l'architecture fonctionnelle détaillée et des ADR structurantes.
+
+| Document | Rôle |
+|----------|------|
+| [`06-ux-ui/ux-ui-reprise-analysis.md`](06-ux-ui/ux-ui-reprise-analysis.md) | État des lieux UX/UI existant et points ouverts |
+| [`06-ux-ui/ux-ui-reprise-scope.md`](06-ux-ui/ux-ui-reprise-scope.md) | Cadrage du cycle de reprise |
+| [`06-ux-ui/user-journeys.md`](06-ux-ui/user-journeys.md) | Parcours utilisateurs consolidés |
+| [`06-ux-ui/screen-inventory.md`](06-ux-ui/screen-inventory.md) | Inventaire des vues et écrans |
+| [`06-ux-ui/screen-functional-specs.md`](06-ux-ui/screen-functional-specs.md) | Spécifications fonctionnelles des écrans |
+| [`06-ux-ui/dashboard-ux-view.md`](06-ux-ui/dashboard-ux-view.md) | Vues dashboard Manager SAV, Technicien et Pilotage |
+| [`06-ux-ui/ux-ui-summary.md`](06-ux-ui/ux-ui-summary.md) | Synthèse consolidée |
+| [`06-ux-ui/ux-ui-cycle-closure.md`](06-ux-ui/ux-ui-cycle-closure.md) | Clôture du cycle |
 
 ## Métadonnées
 
