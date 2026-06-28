@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Interv360IntegrationErrors" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.31.0">
+  <bpmn:collaboration id="Collaboration_Interv360IntegrationErrors">
+    <bpmn:participant id="Participant_IntegrationErrors" name="Interv360 Integration Errors" processRef="Process_Interv360_Integration_Errors"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Interv360_Integration_Errors" name="Interv360 Integration Errors" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_IntegrationErrors">
+      <bpmn:lane id="Lane_Interv360" name="Interv360">
+        <bpmn:flowNodeRef>StartEvent_ClosureLocal</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_PreparerSync</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_EnvoyerCrm</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CreerAnomalie</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_JournalSucces</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_JournalReprise</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_JournalAnomalie</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CrmSimule" name="CRM simulé / intégration">
+        <bpmn:flowNodeRef>Task_TraiterSync</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_SyncOk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ConfirmerSync</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_ManagerSav" name="Manager SAV">
+        <bpmn:flowNodeRef>Task_QualifierGravite</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_RepriseManuelle</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CorrigerRelancer</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Dashboard" name="Dashboard / pilotage">
+        <bpmn:flowNodeRef>Task_UpdateDashboard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_SyncDone</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AfficherDashboard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_AnomalieSuivie</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_ClosureLocal" name="Clôture locale validée">
+      <bpmn:outgoing>Flow_Start_Preparer</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_PreparerSync" name="Préparer les données de synchronisation">
+      <bpmn:incoming>Flow_Start_Preparer</bpmn:incoming>
+      <bpmn:outgoing>Flow_Preparer_Envoyer</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_EnvoyerCrm" name="Envoyer la clôture au CRM simulé">
+      <bpmn:incoming>Flow_Preparer_Envoyer</bpmn:incoming>
+      <bpmn:incoming>Flow_Relance_Loop</bpmn:incoming>
+      <bpmn:outgoing>Flow_Envoyer_Traiter</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_TraiterSync" name="Traiter la synchronisation">
+      <bpmn:incoming>Flow_Envoyer_Traiter</bpmn:incoming>
+      <bpmn:outgoing>Flow_Traiter_Gateway</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_SyncOk" name="Synchronisation réussie ?" default="Flow_Sync_Non">
+      <bpmn:incoming>Flow_Traiter_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Sync_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Sync_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_ConfirmerSync" name="Confirmer la synchronisation">
+      <bpmn:incoming>Flow_Sync_Oui</bpmn:incoming>
+      <bpmn:outgoing>Flow_Confirmer_Journal</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_JournalSucces" name="Journaliser le succès">
+      <bpmn:incoming>Flow_Confirmer_Journal</bpmn:incoming>
+      <bpmn:outgoing>Flow_Journal_Update</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_UpdateDashboard" name="Mettre à jour le dashboard">
+      <bpmn:incoming>Flow_Journal_Update</bpmn:incoming>
+      <bpmn:outgoing>Flow_Update_End</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_SyncDone" name="Synchronisation terminée">
+      <bpmn:incoming>Flow_Update_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_CreerAnomalie" name="Créer une anomalie d'intégration">
+      <bpmn:incoming>Flow_Sync_Non</bpmn:incoming>
+      <bpmn:outgoing>Flow_Creer_Qualifier</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_QualifierGravite" name="Qualifier la gravité">
+      <bpmn:incoming>Flow_Creer_Qualifier</bpmn:incoming>
+      <bpmn:outgoing>Flow_Qualifier_Reprise</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_RepriseManuelle" name="Reprise manuelle requise ?" default="Flow_Reprise_Non">
+      <bpmn:incoming>Flow_Qualifier_Reprise</bpmn:incoming>
+      <bpmn:outgoing>Flow_Reprise_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Reprise_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CorrigerRelancer" name="Corriger les données ou relancer la sync">
+      <bpmn:incoming>Flow_Reprise_Oui</bpmn:incoming>
+      <bpmn:outgoing>Flow_Corriger_JournalReprise</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_JournalReprise" name="Journaliser la reprise">
+      <bpmn:incoming>Flow_Corriger_JournalReprise</bpmn:incoming>
+      <bpmn:outgoing>Flow_JournalReprise_Afficher</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Relance_Loop</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_JournalAnomalie" name="Journaliser l'anomalie">
+      <bpmn:incoming>Flow_Reprise_Non</bpmn:incoming>
+      <bpmn:outgoing>Flow_JournalAnomalie_Afficher</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_AfficherDashboard" name="Afficher l'anomalie au dashboard">
+      <bpmn:incoming>Flow_JournalReprise_Afficher</bpmn:incoming>
+      <bpmn:incoming>Flow_JournalAnomalie_Afficher</bpmn:incoming>
+      <bpmn:outgoing>Flow_Afficher_EndAnomalie</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_AnomalieSuivie" name="Anomalie suivie">
+      <bpmn:incoming>Flow_Afficher_EndAnomalie</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:textAnnotation id="TextAnnotation_ClosureLocal">
+      <bpmn:text>Clôture locale conservée : la clôture reste valide même si la sync CRM échoue. L'anomalie porte uniquement sur la synchronisation.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_Gravites">
+      <bpmn:text>Gravités RG-I06 : Information ; Bloquant métier ; Bloquant sync.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_Retry">
+      <bpmn:text>Retry automatique avancé hors MVP : reprise manuelle simulée.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_Closure" associationDirection="None" sourceRef="TextAnnotation_ClosureLocal" targetRef="StartEvent_ClosureLocal"/>
+    <bpmn:association id="Association_Gravites" associationDirection="None" sourceRef="TextAnnotation_Gravites" targetRef="Task_QualifierGravite"/>
+    <bpmn:association id="Association_Retry" associationDirection="None" sourceRef="TextAnnotation_Retry" targetRef="Task_CorrigerRelancer"/>
+    <bpmn:sequenceFlow id="Flow_Start_Preparer" sourceRef="StartEvent_ClosureLocal" targetRef="Task_PreparerSync"/>
+    <bpmn:sequenceFlow id="Flow_Preparer_Envoyer" sourceRef="Task_PreparerSync" targetRef="Task_EnvoyerCrm"/>
+    <bpmn:sequenceFlow id="Flow_Envoyer_Traiter" sourceRef="Task_EnvoyerCrm" targetRef="Task_TraiterSync"/>
+    <bpmn:sequenceFlow id="Flow_Traiter_Gateway" sourceRef="Task_TraiterSync" targetRef="Gateway_SyncOk"/>
+    <bpmn:sequenceFlow id="Flow_Sync_Oui" sourceRef="Gateway_SyncOk" targetRef="Task_ConfirmerSync" name="Oui"/>
+    <bpmn:sequenceFlow id="Flow_Sync_Non" sourceRef="Gateway_SyncOk" targetRef="Task_CreerAnomalie" name="Non"/>
+    <bpmn:sequenceFlow id="Flow_Confirmer_Journal" sourceRef="Task_ConfirmerSync" targetRef="Task_JournalSucces"/>
+    <bpmn:sequenceFlow id="Flow_Journal_Update" sourceRef="Task_JournalSucces" targetRef="Task_UpdateDashboard"/>
+    <bpmn:sequenceFlow id="Flow_Update_End" sourceRef="Task_UpdateDashboard" targetRef="EndEvent_SyncDone"/>
+    <bpmn:sequenceFlow id="Flow_Creer_Qualifier" sourceRef="Task_CreerAnomalie" targetRef="Task_QualifierGravite"/>
+    <bpmn:sequenceFlow id="Flow_Qualifier_Reprise" sourceRef="Task_QualifierGravite" targetRef="Gateway_RepriseManuelle"/>
+    <bpmn:sequenceFlow id="Flow_Reprise_Oui" sourceRef="Gateway_RepriseManuelle" targetRef="Task_CorrigerRelancer" name="Oui"/>
+    <bpmn:sequenceFlow id="Flow_Reprise_Non" sourceRef="Gateway_RepriseManuelle" targetRef="Task_JournalAnomalie" name="Non"/>
+    <bpmn:sequenceFlow id="Flow_Corriger_JournalReprise" sourceRef="Task_CorrigerRelancer" targetRef="Task_JournalReprise"/>
+    <bpmn:sequenceFlow id="Flow_JournalReprise_Afficher" sourceRef="Task_JournalReprise" targetRef="Task_AfficherDashboard"/>
+    <bpmn:sequenceFlow id="Flow_JournalAnomalie_Afficher" sourceRef="Task_JournalAnomalie" targetRef="Task_AfficherDashboard"/>
+    <bpmn:sequenceFlow id="Flow_Afficher_EndAnomalie" sourceRef="Task_AfficherDashboard" targetRef="EndEvent_AnomalieSuivie"/>
+    <bpmn:sequenceFlow id="Flow_Relance_Loop" sourceRef="Task_JournalReprise" targetRef="Task_EnvoyerCrm"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_IntegrationErrors">
+    <bpmndi:BPMNPlane id="BPMNPlane_IntegrationErrors" bpmnElement="Collaboration_Interv360IntegrationErrors">
+      <bpmndi:BPMNShape id="Participant_di" bpmnElement="Participant_IntegrationErrors" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1920" height="600"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Interv360_di" bpmnElement="Lane_Interv360" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="1890" height="150"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CrmSimule_di" bpmnElement="Lane_CrmSimule" isHorizontal="true">
+        <dc:Bounds x="190" y="230" width="1890" height="150"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_ManagerSav_di" bpmnElement="Lane_ManagerSav" isHorizontal="true">
+        <dc:Bounds x="190" y="380" width="1890" height="150"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Dashboard_di" bpmnElement="Lane_Dashboard" isHorizontal="true">
+        <dc:Bounds x="190" y="530" width="1890" height="150"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_ClosureLocal_di" bpmnElement="StartEvent_ClosureLocal">
+        <dc:Bounds x="200" y="102" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PreparerSync_di" bpmnElement="Task_PreparerSync">
+        <dc:Bounds x="300" y="80" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EnvoyerCrm_di" bpmnElement="Task_EnvoyerCrm">
+        <dc:Bounds x="460" y="80" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TraiterSync_di" bpmnElement="Task_TraiterSync">
+        <dc:Bounds x="620" y="230" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_SyncOk_di" bpmnElement="Gateway_SyncOk" isMarkerVisible="true">
+        <dc:Bounds x="780" y="257" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ConfirmerSync_di" bpmnElement="Task_ConfirmerSync">
+        <dc:Bounds x="940" y="230" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_JournalSucces_di" bpmnElement="Task_JournalSucces">
+        <dc:Bounds x="1100" y="80" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_UpdateDashboard_di" bpmnElement="Task_UpdateDashboard">
+        <dc:Bounds x="1260" y="530" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_SyncDone_di" bpmnElement="EndEvent_SyncDone">
+        <dc:Bounds x="1420" y="552" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CreerAnomalie_di" bpmnElement="Task_CreerAnomalie">
+        <dc:Bounds x="940" y="80" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_QualifierGravite_di" bpmnElement="Task_QualifierGravite">
+        <dc:Bounds x="1100" y="380" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_RepriseManuelle_di" bpmnElement="Gateway_RepriseManuelle" isMarkerVisible="true">
+        <dc:Bounds x="1260" y="407" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CorrigerRelancer_di" bpmnElement="Task_CorrigerRelancer">
+        <dc:Bounds x="1420" y="380" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_JournalReprise_di" bpmnElement="Task_JournalReprise">
+        <dc:Bounds x="1580" y="80" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_JournalAnomalie_di" bpmnElement="Task_JournalAnomalie">
+        <dc:Bounds x="1420" y="80" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AfficherDashboard_di" bpmnElement="Task_AfficherDashboard">
+        <dc:Bounds x="1740" y="530" width="130" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_AnomalieSuivie_di" bpmnElement="EndEvent_AnomalieSuivie">
+        <dc:Bounds x="1900" y="552" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_ClosureLocal_di" bpmnElement="TextAnnotation_ClosureLocal">
+        <dc:Bounds x="180" y="620" width="300" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_Gravites_di" bpmnElement="TextAnnotation_Gravites">
+        <dc:Bounds x="1080" y="500" width="280" height="55"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_Retry_di" bpmnElement="TextAnnotation_Retry">
+        <dc:Bounds x="1400" y="500" width="300" height="55"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_Preparer_di" bpmnElement="Flow_Start_Preparer">
+        <di:waypoint x="236" y="120.0"/>
+        <di:waypoint x="300" y="120.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Preparer_Envoyer_di" bpmnElement="Flow_Preparer_Envoyer">
+        <di:waypoint x="430" y="120.0"/>
+        <di:waypoint x="460" y="120.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Envoyer_Traiter_di" bpmnElement="Flow_Envoyer_Traiter">
+        <di:waypoint x="590" y="120.0"/>
+        <di:waypoint x="575" y="140"/>
+        <di:waypoint x="575" y="305"/>
+        <di:waypoint x="620" y="305"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Traiter_Gateway_di" bpmnElement="Flow_Traiter_Gateway">
+        <di:waypoint x="750" y="305"/>
+        <di:waypoint x="780" y="305"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Sync_Oui_di" bpmnElement="Flow_Sync_Oui">
+        <di:waypoint x="990" y="305"/>
+        <di:waypoint x="940" y="305"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Sync_Non_di" bpmnElement="Flow_Sync_Non">
+        <di:waypoint x="805.0" y="307"/>
+        <di:waypoint x="805" y="355"/>
+        <di:waypoint x="805" y="140"/>
+        <di:waypoint x="940" y="140"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Confirmer_Journal_di" bpmnElement="Flow_Confirmer_Journal">
+        <di:waypoint x="1070" y="270.0"/>
+        <di:waypoint x="1050" y="305"/>
+        <di:waypoint x="1050" y="140"/>
+        <di:waypoint x="1100" y="140"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Journal_Update_di" bpmnElement="Flow_Journal_Update">
+        <di:waypoint x="1230" y="120.0"/>
+        <di:waypoint x="1230" y="140"/>
+        <di:waypoint x="1230" y="580"/>
+        <di:waypoint x="1260" y="580"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Update_End_di" bpmnElement="Flow_Update_End">
+        <di:waypoint x="1390" y="570.0"/>
+        <di:waypoint x="1420" y="570.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Creer_Qualifier_di" bpmnElement="Flow_Creer_Qualifier">
+        <di:waypoint x="1070" y="120.0"/>
+        <di:waypoint x="1070" y="140"/>
+        <di:waypoint x="1070" y="430"/>
+        <di:waypoint x="1100" y="430"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Qualifier_Reprise_di" bpmnElement="Flow_Qualifier_Reprise">
+        <di:waypoint x="1230" y="420.0"/>
+        <di:waypoint x="1285.0" y="432.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Reprise_Oui_di" bpmnElement="Flow_Reprise_Oui">
+        <di:waypoint x="1310" y="432.0"/>
+        <di:waypoint x="1420" y="430"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Reprise_Non_di" bpmnElement="Flow_Reprise_Non">
+        <di:waypoint x="1285.0" y="407"/>
+        <di:waypoint x="1285" y="380"/>
+        <di:waypoint x="1285" y="140"/>
+        <di:waypoint x="1420" y="140"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Corriger_JournalReprise_di" bpmnElement="Flow_Corriger_JournalReprise">
+        <di:waypoint x="1550" y="420.0"/>
+        <di:waypoint x="1550" y="430"/>
+        <di:waypoint x="1550" y="140"/>
+        <di:waypoint x="1580" y="140"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_JournalReprise_Afficher_di" bpmnElement="Flow_JournalReprise_Afficher">
+        <di:waypoint x="1710" y="120.0"/>
+        <di:waypoint x="1710" y="140"/>
+        <di:waypoint x="1710" y="580"/>
+        <di:waypoint x="1740" y="580"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_JournalAnomalie_Afficher_di" bpmnElement="Flow_JournalAnomalie_Afficher">
+        <di:waypoint x="1550" y="120.0"/>
+        <di:waypoint x="1550" y="140"/>
+        <di:waypoint x="1550" y="520"/>
+        <di:waypoint x="1740" y="520"/>
+        <di:waypoint x="1740" y="580"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Afficher_EndAnomalie_di" bpmnElement="Flow_Afficher_EndAnomalie">
+        <di:waypoint x="1870" y="570.0"/>
+        <di:waypoint x="1900" y="570.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Relance_Loop_di" bpmnElement="Flow_Relance_Loop">
+        <di:waypoint x="1645.0" y="80"/>
+        <di:waypoint x="1645" y="80"/>
+        <di:waypoint x="1645" y="60"/>
+        <di:waypoint x="525" y="60"/>
+        <di:waypoint x="525" y="80"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_Closure_di" bpmnElement="Association_Closure">
+        <di:waypoint x="330.0" y="620"/>
+        <di:waypoint x="218.0" y="138"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_Gravites_di" bpmnElement="Association_Gravites">
+        <di:waypoint x="1220.0" y="500"/>
+        <di:waypoint x="1165.0" y="460"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_Retry_di" bpmnElement="Association_Retry">
+        <di:waypoint x="1550.0" y="500"/>
+        <di:waypoint x="1485.0" y="460"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
