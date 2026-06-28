@@ -53,6 +53,7 @@ Un prompt peut être capitalisé si :
 | **Architecture** | `prompts/architecture/` | Intégrations, erreurs, ADR candidates |
 | **Sécurité / RSSI** | `prompts/security/` | Revues SSI, canal email sécurisé, données sensibles |
 | **QA / Testeur** | `prompts/qa/` | Testabilité, revues qualité, risques, traçabilité — voir §14 |
+| **Process Modeling / BPMN** | `prompts/bpmn/` | Cadrage, modélisation, analyse et clôture cycle BPMN — voir §15 |
 | **Gouvernance** | `prompts/governance/` | Phase gate, capitalisation, contrôles structure |
 | **Notion / Sync** | `prompts/governance/notion/` | Synchronisation gouvernance Notion via CMP-001 |
 
@@ -315,6 +316,56 @@ Elle couvre la **testabilité**, les **revues qualité**, les **risques**, la **
 | `{review_objective}` | Objectif de la revue |
 | `{delivery_allowed}` | `blocked` ou `authorized` |
 | `{expected_output_level}` | Niveau de sortie attendu |
+
+---
+
+## 15. Process Modeling / BPMN
+
+Cette famille de prompts accompagne la **méthode officielle** [`docs/methods/process/bpmn-process-modeling-method.md`](../docs/methods/process/bpmn-process-modeling-method.md).
+
+Elle couvre la **readiness**, le **cadrage**, la **préparation des diagrammes**, la **revue de cohérence** et la **clôture de cycle BPMN** — **sans déclencher** delivery, backlog, user stories, tests, code ou publication Notion automatique.
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | Draft |
+| **Méthode liée** | `docs/methods/process/bpmn-process-modeling-method.md` |
+| **Standard lié** | `docs/methods/process/bpmn-deliverables-standard.md` |
+| **Checklist liée** | `docs/methods/process/bpmn-integration-checklist.md` |
+| **Dossier** | `prompts/bpmn/` |
+| **Fichier principal** | `prompts/bpmn/bpmn-prompt-family.md` |
+
+| ID | Nom | Statut | Emplacement |
+|----|-----|--------|-------------|
+| **PROMPT-BPMN-001** | Audit readiness BPMN | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+| **PROMPT-BPMN-002** | Définir périmètre BPMN | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+| **PROMPT-BPMN-003** | Préparer processus principal | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+| **PROMPT-BPMN-004** | Préparer exceptions métier | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+| **PROMPT-BPMN-005** | Préparer anomalies intégration | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+| **PROMPT-BPMN-006** | Relire BPMN vs règles/statuts | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+| **PROMPT-BPMN-007** | Clôturer cycle BPMN | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
+
+### Garde-fous communs (BPMN)
+
+- ne pas produire backlog ;
+- ne pas produire user stories ;
+- ne pas produire cas de tests ;
+- ne pas produire scénarios de tests ;
+- ne pas produire code applicatif ;
+- ne pas publier dans Notion ;
+- ne pas appeler l'API Notion ;
+- ne pas modifier `.env` ;
+- ne pas créer de PR avant fin de cycle BPMN.
+
+### Variables communes
+
+| Variable | Description |
+|----------|-------------|
+| `{project_id}` | Identifiant projet |
+| `{project_name}` | Nom projet |
+| `{branch}` | Branche Git de travail |
+| `{phase}` | Phase courante (ex. 03-process) |
+| `{bpmn_folder}` | Dossier BPMN projet |
+| `{source_documents}` | Documents Git source de vérité |
 
 ---
 

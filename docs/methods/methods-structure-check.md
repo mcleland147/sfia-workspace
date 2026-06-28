@@ -26,7 +26,8 @@ Il confirme que :
 sfia-workspace/
 ├── docs/                    # Documentation méthodologique SFIA
 │   └── methods/             # Méthodes SFIA réutilisables
-│       └── roles/           # Méthodes SFIA par rôle
+│       ├── roles/           # Méthodes SFIA par rôle
+│       └── process/         # Modélisation processus / BPMN
 ├── prompts/                 # Prompts réutilisables
 ├── projects/                # Projets pilotes alimentant SFIA
 ├── tools/                   # Outillage SFIA
@@ -45,6 +46,7 @@ sfia-workspace/
 | **docs/** | Existe | Documentation méthodologique et gouvernance SFIA | Contient foundation, architecture, methods, adr, rex, etc. |
 | **docs/methods/** | Existe | Méthodes SFIA réutilisables | README présent |
 | **docs/methods/roles/** | Existe | Méthodes SFIA par rôle | 6 Role Methods + README |
+| **docs/methods/process/** | Existe | Modélisation processus / BPMN | Audit, méthode, standard livrables, checklist |
 | **prompts/** | Existe | Prompts réutilisables Cursor/ChatGPT | README présent ; registre officiel dans Notion |
 | **projects/** | Existe | Projets pilotes (ex. Interv360) | Alimentent la capitalisation SFIA |
 | **tools/** | Existe | Outillage SFIA (ex. CMP-001) | Connecteur Notion Sync embarqué |
@@ -111,7 +113,7 @@ Recherche workspace sur `sfia/methods/`, `methods/roles/` (racine) et `methods/`
 |--------|--------|-------------|
 | **README.md** (racine) | Conforme | Arborescence cible avec docs/methods/roles/ ; séparation prompts/projects/tools |
 | **docs/README.md** | Conforme | methods/ et methods/roles/ listés comme sous-dossiers docs/ |
-| **docs/methods/README.md** | Conforme | Rôle et enrichissement continu documentés |
+| **docs/methods/README.md** | Conforme | Rôle, `roles/` et `process/` (BPMN) documentés |
 | **docs/methods/roles/README.md** | Conforme | Structure Role Method et templates vivants documentés |
 | **prompts/README.md** | Conforme | Pas de référence aux anciens chemins ; distinction Notion/local |
 
@@ -147,6 +149,7 @@ Le contrôle est **conforme** : dossiers cibles présents, 6 Role Methods en pla
 - **Ne pas recréer** `sfia/methods/` ou `methods/` à la racine du workspace.
 - Les dossiers **templates/** et **standards/** à la racine sont **à venir** — ne pas les confondre avec `docs/templates/` et `docs/standards/` déjà présents sous docs/.
 - Les **5 rôles non encore extraits** (Concepteur fonctionnel, QA, FinOps, GreenOps, Data/IA) devront être ajoutés dans `docs/methods/roles/` après enrichissement pilote.
+- Le dossier **`docs/methods/process/`** contient la capacité BPMN : méthode, standard livrables, checklist d'intégration — templates et prompts BPMN en Phase C.
 
 ---
 

@@ -59,8 +59,19 @@ prompts/
 ├── architecture/
 ├── security/
 ├── qa/
+├── bpmn/
 └── governance/
     └── notion/
 ```
+
+### Famille BPMN (`bpmn/`)
+
+| Élément | Détail |
+|---------|--------|
+| **Fichier** | `prompts/bpmn/bpmn-prompt-family.md` |
+| **Prompts** | PROMPT-BPMN-001 à PROMPT-BPMN-007 |
+| **Domaine** | Process Modeling / BPMN |
+| **Méthode** | `docs/methods/process/bpmn-process-modeling-method.md` |
+| **Publication Notion** | Non automatique — uniquement sur décision explicite |
 
 Voir [`prompt-catalog.md`](prompt-catalog.md) pour le catalogue complet des prompts candidats.
