@@ -37,28 +37,32 @@ cp -r tools/cmp-001/exports/* exports/notion/
 
 ```
 sfia-workspace/
-├── docs/           # Documentation locale (miroir / travail sur exports Notion)
-├── methods/        # Méthodes SFIA réutilisables
-│   └── roles/      # Méthodes par rôle (Role Methods)
-├── projects/       # Projets pilotes alimentant SFIA (un dossier par projet)
-├── prompts/        # Prompts réutilisables
-├── templates/      # Modèles de livrables
-├── standards/      # Standards et règles communes
-├── components/     # Notes et artefacts liés aux composants
-├── exports/notion/ # Exports JSON du référentiel Notion
-└── tools/cmp-001/  # Connecteur CMP-001 (SFIA Notion Sync)
+├── docs/              # Documentation méthodologique et gouvernance du produit SFIA
+│   └── methods/       # Méthodes SFIA réutilisables
+│       └── roles/     # Méthodes SFIA par rôle
+├── prompts/           # Prompts réutilisables
+├── templates/         # Modèles de livrables
+├── standards/         # Standards et règles communes
+├── projects/          # Projets pilotes alimentant SFIA
+├── tools/             # Outillage SFIA
+├── components/        # Composants réutilisables
+└── exports/           # Exports générés (ex. exports/notion/)
 ```
 
 ### Référentiels réutilisables
 
 | Dossier | Contenu |
 |---------|---------|
-| **methods/** | Méthodes SFIA — savoir-faire, savoir-être, postures par rôle |
-| **methods/roles/** | Templates Role Method extraits des projets pilotes |
+| **docs/** | Documentation méthodologique et gouvernance du produit SFIA |
+| **docs/methods/** | Méthodes SFIA — savoir-faire, savoir-être, postures par rôle |
+| **docs/methods/roles/** | Templates Role Method extraits des projets pilotes |
 | **prompts/** | Prompts réutilisables |
 | **templates/** | Modèles de livrables |
 | **standards/** | Standards et règles communes |
 | **projects/** | Projets pilotes (ex. Interv360) alimentant la capitalisation SFIA |
+| **tools/** | Outillage SFIA (ex. CMP-001) |
+| **components/** | Composants réutilisables |
+| **exports/** | Exports générés |
 
 ## Projets réels
 

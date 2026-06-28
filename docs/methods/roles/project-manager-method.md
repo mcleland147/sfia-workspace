@@ -62,7 +62,7 @@ Le Chef de projet pilote la trajectoire projet : jalons, livrables, risques, pas
 7. Git reste-t-il la source détaillée sans duplication Notion ?
 8. Quels rôles ont été mobilisés sur ce livrable ?
 9. Quelle valeur SFIA ce livrable produit-il ?
-10. Faut-il mettre à jour role-methods-framing ou methods/roles/ ?
+10. Faut-il mettre à jour role-methods-framing ou docs/methods/roles/ ?
 
 ---
 
@@ -113,7 +113,7 @@ Maintenir Notion comme référentiel de gouvernance — statuts, synthèses, tra
 Livrer une trajectoire lisible : phases, jalons, validations, prochaines étapes.
 
 **Rapport à la capitalisation SFIA**  
-À chaque livrable, vérifier si role-methods-framing, methods/roles/ ou les référentiels templates/prompts doivent être enrichis.
+À chaque livrable, vérifier si role-methods-framing, docs/methods/roles/ ou les référentiels templates/prompts doivent être enrichis.
 
 ---
 

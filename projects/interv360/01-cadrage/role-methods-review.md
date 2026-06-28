@@ -10,7 +10,7 @@
 
 ## 1. Objectif de la revue
 
-Cette revue vise à déterminer si `role-methods-framing.md` est **suffisamment robuste** pour alimenter les futurs templates SFIA par rôle dans `methods/roles/`.
+Cette revue vise à déterminer si `role-methods-framing.md` est **suffisamment robuste** pour alimenter les futurs templates SFIA par rôle dans `docs/methods/roles/`.
 
 Elle s'inscrit dans la logique SFIA **produit dynamique et évolutif** : chaque projet pilote doit enrichir la méthode SFIA non seulement sur les livrables et le savoir-faire, mais aussi sur le **savoir-être projet** — posture, réflexes, vigilance, arbitrage, collaboration, capacité à challenger sans bloquer, erreurs à éviter.
 
@@ -176,8 +176,8 @@ Chaque prochaine étape Interv360 devra contenir un **contrôle de capitalisatio
 | Valeur SFIA produite | Quel template, checklist, prompt ou standard candidat ? |
 | Savoir-faire ajouté | Quelle méthode, question type ou matrice à mettre à jour ? |
 | Savoir-être ajouté | Quelle posture, réflexe ou erreur à éviter à formaliser ? |
-| Templates / checklists / prompts impactés | Quels fichiers `methods/roles/` ou role-methods-framing.md §4.x ? |
-| Mise à jour documentaire | `role-methods-framing.md` et/ou futurs fichiers `methods/roles/` à enrichir ? |
+| Templates / checklists / prompts impactés | Quels fichiers `docs/methods/roles/` ou role-methods-framing.md §4.x ? |
+| Mise à jour documentaire | `role-methods-framing.md` et/ou futurs fichiers `docs/methods/roles/` à enrichir ? |
 
 **Moments déclencheurs** (reprise §2.1 role-methods-framing) : fin de cadrage ✓ · validation MVP ✓ · brief UX/UI ✓ · préparation Figma · architecture · ADR · conception fonctionnelle · delivery · QA / tests · recette · REX · synchronisation Notion.
 
@@ -200,9 +200,9 @@ Chaque prochaine étape Interv360 devra contenir un **contrôle de capitalisatio
 
 La revue confirme que la **capitalisation par rôle** constitue une **brique structurante de SFIA**. Le document `role-methods-framing.md` offre une base **robuste et traçable** pour le découpage en templates, avec une couverture **Fort** sur 6 rôles sur 11 au stade cadrage.
 
-Les rôles doivent rester **évolutifs** et être **enrichis à chaque phase Interv360** — savoir-faire et savoir-être — avant toute extraction définitive. Le savoir-être, aujourd'hui implicite, devra devenir **explicite** dans les futurs fichiers `methods/roles/`.
+Les rôles doivent rester **évolutifs** et être **enrichis à chaque phase Interv360** — savoir-faire et savoir-être — avant toute extraction définitive. Le savoir-être, aujourd'hui implicite, devra devenir **explicite** dans les futurs fichiers `docs/methods/roles/`.
 
-La prochaine étape pourra consister à **extraire les premiers templates par rôle** dans `methods/roles/`, en commençant par : business-analyst, product-owner, project-manager, ux-ui-designer, architect et rssi.
+La prochaine étape pourra consister à **extraire les premiers templates par rôle** dans `docs/methods/roles/`, en commençant par : business-analyst, product-owner, project-manager, ux-ui-designer, architect et rssi.
 
 ---
 
