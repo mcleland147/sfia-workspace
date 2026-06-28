@@ -21,6 +21,8 @@ L'objectif est de préparer la **future capitalisation SFIA** :
 - règles de passage entre phases ;
 - éléments réutilisables pour d'autres projets.
 
+Ce document est une **base vivante**. Les méthodes par rôle ne sont pas figées à la fin du cadrage : elles doivent être **enrichies à chaque phase** du projet Interv360, dès qu'un rôle produit un nouveau livrable, porte une décision, valide un passage de phase, identifie une erreur à éviter ou génère un élément capitalisable pour la SFIA.
+
 **Ce document ne produit pas** d'architecture technique, backlog, user stories, maquettes, Figma ou code.
 
 ---
@@ -45,6 +47,40 @@ Chaque rôle mobilisé pendant le cadrage Interv360 doit produire **deux valeurs
 | **FinOps** | Hypothèses coûts notifications, stockage photos, logs, API ; limites MVP | Checklist FinOps cadrage ; template hypothèses coûts ; prompt revue FinOps |
 | **GreenOps** | Sobriété stockage, photos, logs, géolocalisation légère, conservation fictive ARB-MVP-06 | Checklist GreenOps cadrage ; template sobriété données ; prompt revue GreenOps |
 | **Data / IA** | Place de l'IA légère reportée ou optionnelle, gouvernance données, risques surcomplexification | Checklist IA légère ; template AI Use Case Framing ; prompt revue Data / IA |
+
+### 2.1 Règle d'enrichissement continu des rôles
+
+Les méthodes par rôle SFIA **ne se clôsent pas** à la fin du cadrage Interv360. Chaque itération projet — livrable produit, décision prise, validation effectuée ou phase franchie — doit alimenter la capitalisation méthodologique.
+
+**À chaque itération**, une vérification systématique est attendue :
+
+- quels rôles ont été mobilisés ?
+- quel savoir-faire nouveau a été produit ?
+- quelles questions types doivent être ajoutées ?
+- quels livrables ont été produits ou enrichis ?
+- quelles décisions ou validations ont été prises ?
+- quels templates, checklists, prompts ou standards sont candidats à la capitalisation ?
+- quelles erreurs à éviter ont été identifiées ?
+- quels éléments devront être répercutés dans les futurs fichiers `sfia/methods/roles/` ?
+
+| Moment projet | Action attendue sur les méthodes par rôle |
+|---------------|----------------------------------------|
+| **Fin de cadrage** | Consolider les §4.x ; compléter §5–§7 ; identifier les templates candidats prioritaires |
+| **Validation MVP** | Enrichir Product Owner, Business Analyst, Architecte, QA ; mettre à jour décisions et erreurs à éviter |
+| **Brief UX/UI** | Enrichir UX/UI Designer, Concepteur fonctionnel ; ajouter questions types et checklists Figma |
+| **Préparation Figma** | Documenter garde-fous UX, points ouverts, critères entrée maquette ; capitaliser prompts revue UX |
+| **Architecture** | Enrichir Architecte, RSSI, FinOps, GreenOps ; ajouter ADR candidates et limites cadrage / architecture |
+| **ADR** | Mettre à jour Architecte, Chef de projet ; tracer décisions structurantes et rôles valideurs |
+| **Conception fonctionnelle** | Enrichir Concepteur fonctionnel, Business Analyst ; compléter parcours, écrans, règles fonctionnelles |
+| **Delivery** | Enrichir Développeur (futur), Chef de projet ; documenter savoir-faire delivery et limites |
+| **QA / tests** | Enrichir QA / Testeur ; ajouter scénarios, critères testables, matrices d'erreur |
+| **Recette** | Consolider QA, Product Owner, Chef de projet ; capitaliser critères d'acceptation et validations |
+| **REX** | Enrichir tous les rôles mobilisés ; formaliser enseignements, erreurs évitées, templates confirmés |
+| **Synchronisation Notion** | Enrichir Chef de projet ; tracer gouvernance, statuts, jalons et liens vers Git |
+
+#### Consigne permanente pour les futures itérations
+
+À chaque nouveau livrable Interv360, il faut vérifier si `role-methods-framing.md` ou les futurs fichiers `sfia/methods/roles/` doivent être mis à jour. Si un rôle a produit une **valeur projet** ou une **valeur SFIA** nouvelle, cette contribution doit être capitalisée.
 
 ---
 
@@ -746,7 +782,8 @@ Un rôle est correctement mobilisé dans la méthode SFIA lorsque :
 - [ ] ses **validations sont documentées** (réelles ou fictives) ;
 - [ ] ses **templates candidats sont identifiés** avec priorité de capitalisation ;
 - [ ] ses **limites sont claires** (ce que le rôle ne produit pas à ce stade) ;
-- [ ] ses **erreurs à éviter sont connues** et partagées.
+- [ ] ses **erreurs à éviter sont connues** et partagées ;
+- [ ] le rôle est **enrichi dynamiquement au fil des phases projet**, et non figé à la fin du cadrage.
 
 ---
 
@@ -761,6 +798,7 @@ Un rôle est correctement mobilisé dans la méthode SFIA lorsque :
 | Prompt génération méthode rôle | Générer une fiche rôle depuis un projet pilote | Prompt |
 | Prompt découpage templates par rôle | Extraire un fichier `sfia/methods/roles/*.md` depuis ce document | Prompt |
 | Standard double valeur rôle projet / SFIA | §2 — principe obligatoire à chaque intervention | Standard |
+| Standard d'enrichissement continu des rôles | Mise à jour des méthodes rôle à chaque itération projet | Standard |
 
 ---
 
@@ -769,6 +807,8 @@ Un rôle est correctement mobilisé dans la méthode SFIA lorsque :
 Le cadrage Interv360 a mobilisé **11 rôles** — 7 rôles cœur projet (Business Analyst, Product Owner, Chef de projet, Concepteur fonctionnel, UX/UI Designer, Architecte, QA / Testeur) et **4 rôles transverses** (RSSI, FinOps, GreenOps, Data / IA) — chacun avec une contribution traçable dans les livrables de cadrage.
 
 Ce document formalise leur **méthode d'intervention** afin de préparer la capitalisation SFIA : templates, checklists, prompts et standards réutilisables pour les futurs projets.
+
+Ce document devra être **mis à jour au fil des prochaines phases Interv360** — architecture, design, delivery, tests, recette, REX — avant d'être découpé en templates définitifs.
 
 La prochaine étape pourra consister à **découper ce document** en fichiers méthodologiques par rôle dans `sfia/methods/roles/`, puis à alimenter les référentiels SFIA (templates, prompts, standards) sans reproduire une description RH générique des rôles.
 
