@@ -11,7 +11,7 @@
 
 Ce catalogue recense les **prompts candidats à la capitalisation SFIA**, identifiés à partir du projet pilote Interv360 et des méthodes stabilisées dans `docs/methods/roles/`.
 
-Il ne contient **pas encore** le texte complet de chaque prompt. Pour chaque entrée, il documente :
+Deux prompts sont **formalisés en Draft** (fichiers dédiés sous `prompts/<famille>/`) — voir §11. Pour les autres entrées, le catalogue documente :
 
 - l'**objectif** ;
 - la **famille** ;
@@ -71,8 +71,8 @@ Un prompt peut être capitalisé si :
 | **PROMPT-ROLE-001** | Méthode globale par rôle | Rôles | role-methods-framing.md | role-methods-framing.md | Chef de projet / tous rôles | Candidat | Haute |
 | **PROMPT-ROLE-002** | Revue méthode par rôle | Rôles | role-methods-review.md | role-methods-review.md | Chef de projet | Candidat | Haute |
 | **PROMPT-ROLE-003** | Extraction méthode rôle | Rôles | docs/methods/roles/ | Fichiers Role Method | Chef de projet / rôle concerné | Candidat | Haute |
-| **PROMPT-ARCH-001** | Revue intégrations et erreurs | Architecture | integration-error-arbitration-review.md | Revue intégrations / erreurs | Architecte | Candidat | Haute |
-| **PROMPT-SEC-001** | Revue canal email sécurisé | Sécurité / RSSI | secure-email-intake-review.md | Revue email sécurisé | RSSI / Architecte | Candidat | Haute |
+| **PROMPT-ARCH-001** | Revue intégrations et erreurs | Architecture | ADR-001 à ADR-004 + integration-error-arbitration-review.md | Revue intégrations / erreurs | Architecte | **Draft** | Haute |
+| **PROMPT-SEC-001** | Revue canal email sécurisé | Sécurité / RSSI | ADR-003 + secure-email-intake-review.md | Revue email sécurisé | RSSI / Architecte | **Draft** | Haute |
 | **PROMPT-GOV-001** | Synchronisation gouvernance Notion projet | Gouvernance / Notion | notion-sync-summary.md + notion-sync-payload.json + CMP-001 | Synthèse / payload gouvernance Notion | Chef de projet | Candidat | Haute |
 | **PROMPT-GOV-002** | Contrôle structure méthodes | Gouvernance | docs/methods/methods-structure-check.md | Rapport contrôle arborescence méthodes | Chef de projet | Candidat | Moyenne |
 
@@ -140,8 +140,11 @@ Chaque fichier prompt formalisé suivra la structure type :
 - PROMPT-CAD-002 — Revue cohérence cadrage
 - PROMPT-ARB-002 — Validation arbitrages MVP
 - PROMPT-UX-002 — Validation brief UX/UI
-- PROMPT-ARCH-001 — Revue intégrations et erreurs
-- PROMPT-SEC-001 — Revue canal email sécurisé
+
+### Formalisés (Draft)
+
+- PROMPT-ARCH-001 — Revue intégrations et erreurs *(jalon Architecture P1)*
+- PROMPT-SEC-001 — Revue canal email sécurisé *(jalon Architecture P1)*
 
 ### Priorité 3
 
@@ -173,6 +176,23 @@ Chaque fichier prompt formalisé suivra la structure type :
 | Prompt Family Taxonomy | §3 — familles et dossiers | Standard |
 | Prompt ↔ Role Method Mapping | §7 — lien rôles / prompts | Template |
 | Prompt Evolution Standard | §9 — règle d'évolution continue | Standard |
+
+---
+
+## 11. Prompts formalisés (Draft)
+
+| ID | Famille | Statut | Chemin | Source pilote | Source de capitalisation | Usage principal |
+|----|---------|--------|--------|---------------|--------------------------|-----------------|
+| **PROMPT-ARCH-001** | Architecture | Draft | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | PRJ-INTERV360 | ADR-001 à ADR-004 + enrichissement méthodes rôle après ADR P1 | Revue intégrations, erreurs, Error Matrix, journalisation minimale, ADR candidates |
+| **PROMPT-SEC-001** | Sécurité / RSSI | Draft | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | PRJ-INTERV360 | secure-email-intake-review.md + ADR-003 + ADR-004 + rssi-method enrichie | Revue canal email / intake externe, rejets SSI, pièces jointes, logs sans données sensibles |
+
+---
+
+## 12. Dernières mises à jour
+
+Le **jalon Architecture P1** du projet Interv360 a permis de passer **PROMPT-ARCH-001** et **PROMPT-SEC-001** au statut **Draft**.
+
+Ces prompts restent à **tester sur un projet hors pilote** avant passage au statut **Tested**.
 
 ---
 
