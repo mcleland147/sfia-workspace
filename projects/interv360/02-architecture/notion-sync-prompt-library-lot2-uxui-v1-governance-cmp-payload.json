@@ -1,0 +1,283 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "prompt",
+  "database_env_key": "NOTION_DATABASE_PROMPTS",
+  "database_title_reference": "Prompts (SFIA Prompt Library)",
+  "lot": {
+    "id": "LOT-2",
+    "name": "UX/UI V1 Governance",
+    "publish_to_notion": false,
+    "manual_review_required": true
+  },
+  "command_pattern": "node src/cli.js create prompt <item-json-file>",
+  "limitations": [
+    "Une commande create prompt par entrée — pas de batch natif",
+    "update prompt non supporté",
+    "Première publication en Draft",
+    "Vérifier absence de doublons PROMPT-UXUI-* avant exécution",
+    "Réexporter exports/notion/prompts.json si possible avant publication",
+    "Lot volumineux : 15 commandes distinctes"
+  ],
+  "items": [
+    {
+      "title": "PROMPT-UXUI-001 — Ouverture jalon UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Opening"
+      ],
+      "summary": "Ouverture jalon UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nPréparer l'ouverture d'un jalon UX/UI V1 post-ADR ou post-cadrage, sans lancer la production immédiate.\n\n## Entrées\nContexte projet ; phase ; décisions ADR ou cadrage ; périmètre MVP ; garde-fous documentés.\n\n## Sortie attendue\nNote d'ouverture ; garde-fous rappelés ; design ≠ delivery.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/ux-ui-figma-opening-note.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-002 — Recherche design / benchmark UX/UI",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Research"
+      ],
+      "summary": "Recherche design / benchmark UX/UI — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nProduire une recherche design et benchmark avant génération ou production de maquette.\n\n## Entrées\nContexte projet ; objectifs UX/UI ; contraintes MVP ; références design pertinentes.\n\n## Sortie attendue\nDocument recherche ; direction visuelle ; principes UI.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/ux-ui-design-research-and-benchmark.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-003 — Instructions UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Instructions"
+      ],
+      "summary": "Instructions UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nTransformer décisions ADR / garde-fous / MVP en consignes design exploitables.\n\n## Entrées\nADR ; garde-fous ; périmètre MVP ; écrans cibles ; contraintes wording et états.\n\n## Sortie attendue\nInstructions design ; écrans autorisés / interdits ; wording, états.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-design-instructions.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-004 — Production maquette UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Vigilance",
+        "Production"
+      ],
+      "summary": "Production maquette UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nProduire une maquette V1 via prompt structuré, avec garde-fous MVP et exclusions.\n\n## Entrées\nInstructions design ; design tool ; ADR ; garde-fous ; périmètre MVP.\n\n## Sortie attendue\nMaquette V1 dans {design_tool} ; captures prévues ; pas d'IA / portail / BI / logs hors périmètre.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Point de vigilance\nLa maquette V1 ne vaut pas delivery, backlog, user stories ni code. Ce prompt ne produit pas le fichier design — il fournit les consignes exploitables.\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-production-prompt.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-005 — Revue premier jet UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Review"
+      ],
+      "summary": "Revue premier jet UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nAnalyser une première maquette V1 ; points validés, écarts, ajustements P1/P2/P3.\n\n## Entrées\nMaquette V1 ; instructions design ; garde-fous ; critères de présentabilité.\n\n## Sortie attendue\nRevue V1 ; V1 présentable ou non ; bloquant vs polish.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-first-draft-review.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-006 — Préparation revue transverse UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Review"
+      ],
+      "summary": "Préparation revue transverse UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nPréparer une revue PO / UX / RSSI / Architecte / Chef de projet / BA / QA candidat.\n\n## Entrées\nMaquette V1 ; rôles mobilisés ; objectifs revue ; garde-fous delivery.\n\n## Sortie attendue\nDocument préparation ; questions par rôle ; revue ≠ delivery.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-review-session-preparation.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-007 — Template compte rendu revue UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Template"
+      ],
+      "summary": "Template compte rendu revue UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nCréer un template de CR vide, à compléter après revue réelle ou simulée.\n\n## Entrées\nStructure revue attendue ; rôles ; mode revue (real / simulated).\n\n## Sortie attendue\nTemplate CR ; pas de retours fictifs ; delivery bloqué par défaut.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-review-session-minutes-template.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-008 — Enrichissement méthodes rôle après UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Roles"
+      ],
+      "summary": "Enrichissement méthodes rôle après UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nCapitaliser apprentissages UX/UI V1 dans les méthodes rôle avant revue simulée.\n\n## Entrées\nLivrables UX/UI V1 ; méthodes rôle concernées ; décisions projet.\n\n## Sortie attendue\nNote enrichissement ; méthodes rôle ; QA candidat identifié.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/role-methods-enrichment-after-figma-v1.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-009 — Compte rendu revue simulée UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Vigilance",
+        "Simulated"
+      ],
+      "summary": "Compte rendu revue simulée UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nProduire une revue simulée multi-rôles sans acteurs réels ni participants fictifs.\n\n## Entrées\nPréparation revue ; maquette V1 ; rôles SFIA ; mode simulated explicite.\n\n## Sortie attendue\nCR simulé ; validation par rôles SFIA ; delivery bloqué sauf décision explicite.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Point de vigilance\nNe pas inventer de participants réels. Distinguer explicitement revue réelle et revue simulée.\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-review-session-minutes.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-010 — Clôture jalon UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Closure"
+      ],
+      "summary": "Clôture jalon UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nClôturer le jalon ; décision, ajustements différés, hors MVP, suites possibles.\n\n## Entrées\nLivrables UX/UI V1 ; revues réalisées ; décisions projet ; garde-fous.\n\n## Sortie attendue\nSynthèse clôture ; V1 présentable / non définitive ; V2 différée ; delivery bloqué.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/figma-v1-closure-summary.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-011 — Sync gouvernance UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Vigilance",
+        "Notion"
+      ],
+      "summary": "Sync gouvernance UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nPréparer sync Notion ou outil de gouvernance — informative, non publiée par défaut.\n\n## Entrées\nSynthèse clôture UX/UI V1 ; payload gouvernance ; outil cible (Notion).\n\n## Sortie attendue\nPayload + synthèse ; publish_to_notion: false par défaut ; revue manuelle.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Point de vigilance\nPrompt méta-sync gouvernance — ne pas confondre avec publication automatique Notion. Arbitrage recommandé avant capitalisation Prompt Library.\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/notion-sync-figma-v1-closure-summary.md + notion-sync-figma-v1-closure-payload.json\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-012 — Standard candidat UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Standard"
+      ],
+      "summary": "Standard candidat UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nCapitaliser un cycle projet en standard candidat avant promotion officielle.\n\n## Entrées\nLivrables et décisions cycle UX/UI V1 ; apprentissages projet.\n\n## Sortie attendue\nStandard candidat projet ; pas de promotion automatique.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/sfia-figma-v1-standard-candidate.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-013 — Revue standard candidat UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Standard"
+      ],
+      "summary": "Revue standard candidat UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nÉvaluer si un standard candidat est robuste et promotable.\n\n## Entrées\nStandard candidat ; critères robustesse ; garde-fous SFIA.\n\n## Sortie attendue\nDécision revue ; promotable / à renforcer ; promotion différée si besoin.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/sfia-figma-v1-standard-candidate-review.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-014 — Préparation promotion standard officiel",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Standard"
+      ],
+      "summary": "Préparation promotion standard officiel — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nPréparer promotion candidat → officiel sans créer le fichier officiel.\n\n## Entrées\nStandard candidat validé ; nom cible ; variables ; conditions promotion.\n\n## Sortie attendue\nDossier promotion ; nom cible ; variables ; conditions.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- projects/interv360/02-architecture/sfia-figma-v1-standard-promotion-preparation.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    },
+    {
+      "title": "PROMPT-UXUI-015 — Promotion standard officiel UX/UI V1",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "UXUI",
+        "Governance",
+        "Interv360",
+        "SFIA",
+        "Standard",
+        "Official"
+      ],
+      "summary": "Promotion standard officiel UX/UI V1 — prompt UX/UI V1 Governance candidat (synthèse catalogue et source projet).",
+      "content": "## Objectif\nCréer un standard officiel générique à partir d'un candidat validé.\n\n## Entrées\nStandard candidat revu et promotable ; structure standard SFIA.\n\n## Sortie attendue\nStandard officiel docs/standards/ ; pilote en exemple non normatif.\n\n## Garde-fous\n- Ne pas confondre maquette et spécification\n- Ne pas produire backlog, user stories ou code\n- Ne pas ouvrir delivery sans jalon explicite\n- Ne pas publier automatiquement dans Notion ou autre outil de gouvernance\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — validé dans projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md ; synthèse Prompt Library en Draft v0.1.\n\n## Standard lié\ndocs/standards/ux-ui-v1-governance-standard.md\n\n## Sources Git\n- docs/standards/ux-ui-v1-governance-standard.md\n- prompts/prompt-catalog.md §13\n- projects/interv360/02-architecture/prompt-catalog-ux-ui-v1-validation.md"
+    }
+  ]
+}
