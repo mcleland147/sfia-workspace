@@ -1,0 +1,43 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "prompt",
+  "database_env_key": "NOTION_DATABASE_PROMPTS",
+  "database_title_reference": "Prompts (SFIA Prompt Library)",
+  "lot": {
+    "id": "LOT-1",
+    "name": "Architecture & Security",
+    "publish_to_notion": false,
+    "manual_review_required": true
+  },
+  "command_pattern": "node src/cli.js create prompt <item-json-file>",
+  "limitations": [
+    "Une commande create prompt par entrée — pas de batch natif",
+    "update prompt non supporté",
+    "Première publication en Draft",
+    "Vérifier absence de doublons PROMPT-ARCH-001 et PROMPT-SEC-001 avant exécution",
+    "Réexporter exports/notion/prompts.json si possible avant publication"
+  ],
+  "items": [
+    {
+      "title": "PROMPT-ARCH-001 — Revue intégrations et erreurs",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Architecture",
+      "tags": ["Architecture", "Interv360", "SFIA"],
+      "summary": "Revue structurée des intégrations et erreurs d'un projet SFIA — prompt Architecture Draft validé pour capitalisation.",
+      "content": "## Objectif\nRéaliser une revue structurée des intégrations et erreurs d'un projet SFIA : identifier intégrations externes ou simulées, cadrer contrats, erreurs attendues, Error Matrix, journalisation minimale, ADR candidates et capitalisation SFIA.\n\n## Entrées\n- Contexte projet (nom, objectif, type pilote/MVP/produit)\n- Phase projet et périmètre MVP\n- Liste des intégrations connues (CRM, email, calendrier, notifications, etc.)\n- Arbitrages MVP, règles métier, exigences SSI (recommandé)\n- Parcours utilisateur, écrans concernés, risques connus (recommandé)\n- ADR candidates existantes, méthodes rôle applicables (`docs/methods/roles/`)\n\n## Sortie attendue\n- Cartographie des intégrations (réelle / simulée / mock / hors MVP)\n- Matrice des contrats à documenter\n- Error Matrix (domaine, erreur, gravité, visibilité, action, journalisation)\n- Journalisation minimale recommandée (sans données sensibles)\n- ADR candidates ou ADR formelles proposées\n- Impacts projet et impacts SFIA (templates, standards, méthodes rôle)\n- Document structuré — pas d'architecture technique complète si phase non autorisée\n\n## Garde-fous\n- Ne pas produire de code\n- Ne pas produire de backlog ni user stories\n- Ne pas produire d'architecture technique complète si la phase ne l'autorise pas\n- Ne pas connecter par défaut des systèmes externes réels\n- Ne pas masquer les erreurs significatives dans des logs uniquement\n- Ne pas exposer de données sensibles dans les messages visibles\n- Distinguer contrat documenté et implémentation ; message métier et log technique\n- Ne pas remplacer une analyse RSSI dédiée ni une analyse QA détaillée (plans de test exhaustifs)\n\n## Statut de validation\nDraft — formalisé sous `prompts/architecture/` ; passage Tested/Validated après usage hors pilote.\n\n## Sources Git\n- prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md\n- prompts/prompt-catalog.md\n- docs/methods/roles/architect-method.md\n- projects/interv360/02-architecture/notion-sync-existing-prompt-library-inventory.md"
+    },
+    {
+      "title": "PROMPT-SEC-001 — Revue canal email sécurisé",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Security",
+      "tags": ["Security", "Sécurité", "RSSI", "Interv360", "SFIA"],
+      "summary": "Revue structurée d'un canal email sécurisé ou intake externe — prompt Sécurité / RSSI Draft, complémentaire de PROMPT-ARCH-001.",
+      "content": "## Objectif\nRéaliser une revue structurée d'un canal email sécurisé (ou intake externe équivalent) : qualifier le canal (principal/secondaire/secours), identifier risques SSI, règles de rejet, visibilité anomalies, journalisation minimale sans données sensibles, ADR candidates et capitalisation SFIA.\n\n## Entrées\n- Contexte projet et phase\n- Périmètre MVP\n- Rôle du canal email (principal, secondaire, secours, hors MVP)\n- Canal principal identifié et canaux secondaires (recommandé)\n- Règles métier intake, exigences SSI, types de données, pièces jointes (recommandé)\n- Règles de qualification et de rejet (recommandé)\n- ADR candidates ou existantes, méthodes rôle applicables\n\n## Sortie attendue\n- Qualification du canal (simulé / réel ; positionnement vs canal principal)\n- Risques SSI (spoofing, PJ, doublon, rejet silencieux, sur-exposition)\n- Règles minimales SSI et contrat fonctionnel cible (niveau fonctionnel)\n- Statuts de traitement email et matrice des rejets\n- Visibilité anomalies / rejets et journalisation minimale\n- Données à exclure des logs et de l'UI (corps email, PJ, données client intégrales)\n- ADR candidates, impacts projet et SFIA\n- Document structuré — pas d'architecture technique complète si phase non autorisée\n\n## Garde-fous\n- Ne pas faire du canal email le canal principal sans arbitrage explicite\n- Ne pas connecter de messagerie réelle si phase ou MVP ne l'autorise pas\n- Ne pas traiter un canal simulé comme sans risque SSI\n- Ne pas stocker corps email complet ni pièces jointes dans les logs\n- Ne pas exposer de données sensibles dans les messages visibles\n- Ne pas produire backlog, user stories, code ni architecture technique complète si phase non autorisée\n- Distinguer rejet métier, rejet SSI et erreur technique\n- Complémentaire avec PROMPT-ARCH-001 (revue globale intégrations/erreurs)\n\n## Statut de validation\nDraft — formalisé sous `prompts/security/` ; passage Tested/Validated après usage hors pilote.\n\n## Sources Git\n- prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md\n- prompts/prompt-catalog.md\n- docs/methods/roles/rssi-method.md\n- docs/methods/roles/architect-method.md\n- projects/interv360/02-architecture/notion-sync-existing-prompt-library-inventory.md"
+    }
+  ]
+}

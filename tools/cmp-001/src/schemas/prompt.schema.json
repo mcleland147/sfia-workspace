@@ -33,7 +33,7 @@
     },
     "category": {
       "type": "string",
-      "enum": ["Agent", "RAG", "Coding", "Analysis", "Writing", "QA"],
+      "enum": ["Agent", "RAG", "Coding", "Analysis", "Writing", "QA", "Architecture", "Security"],
       "notionType": "select",
       "notionProperty": "Category"
     },
