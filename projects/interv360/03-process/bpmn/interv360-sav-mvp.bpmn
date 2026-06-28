@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Interv360SavMvp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="SFIA BPMN Phase D" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Interv360SavMvp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.31.0">
   <bpmn:collaboration id="Collaboration_Interv360SavMvp">
     <bpmn:participant id="Participant_Interv360SavMvp" name="Interv360 SAV MVP" processRef="Process_Interv360SavMvp" />
   </bpmn:collaboration>
@@ -229,7 +229,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_CompleterMaintenirAQualifier_di" bpmnElement="Task_CompleterMaintenirAQualifier">
-        <dc:Bounds x="740" y="270" width="120" height="80" />
+        <dc:Bounds x="900" y="270" width="120" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_RechercherDoublonPotentiel_di" bpmnElement="Task_RechercherDoublonPotentiel">
         <dc:Bounds x="740" y="570" width="120" height="80" />
@@ -265,7 +265,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_PasserEnAttenteClient_di" bpmnElement="Task_PasserEnAttenteClient">
-        <dc:Bounds x="2060" y="270" width="120" height="80" />
+        <dc:Bounds x="2180" y="270" width="120" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_RealiserIntervention_di" bpmnElement="Task_RealiserIntervention">
         <dc:Bounds x="2060" y="420" width="120" height="80" />
@@ -332,10 +332,14 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Donnees_Non_di" bpmnElement="Flow_Donnees_Non">
         <di:waypoint x="695" y="310" />
-        <di:waypoint x="740" y="310" />
+        <di:waypoint x="900" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Completer_Verifier_di" bpmnElement="Flow_Completer_Verifier">
-        <di:waypoint x="740" y="310" />
+        <di:waypoint x="900" y="310" />
+        <di:waypoint x="820" y="310" />
+        <di:waypoint x="820" y="360" />
+        <di:waypoint x="540" y="360" />
+        <di:waypoint x="540" y="310" />
         <di:waypoint x="600" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Rechercher_GatewayDoublon_di" bpmnElement="Flow_Rechercher_GatewayDoublon">
@@ -350,8 +354,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Doublon_Non_di" bpmnElement="Flow_Doublon_Non">
         <di:waypoint x="930" y="335" />
-        <di:waypoint x="930" y="360" />
-        <di:waypoint x="1220" y="360" />
+        <di:waypoint x="930" y="400" />
+        <di:waypoint x="1220" y="400" />
         <di:waypoint x="1220" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Arbitrer_Qualifier_di" bpmnElement="Flow_Arbitrer_Qualifier">
@@ -387,12 +391,12 @@
       <bpmndi:BPMNEdge id="Flow_Realisable_Non_di" bpmnElement="Flow_Realisable_Non">
         <di:waypoint x="1990" y="435" />
         <di:waypoint x="1990" y="310" />
-        <di:waypoint x="2060" y="310" />
+        <di:waypoint x="2180" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Attente_Reprise_di" bpmnElement="Flow_Attente_Reprise">
-        <di:waypoint x="2120" y="270" />
-        <di:waypoint x="2120" y="200" />
-        <di:waypoint x="1860" y="200" />
+        <di:waypoint x="2240" y="270" />
+        <di:waypoint x="2240" y="105" />
+        <di:waypoint x="1860" y="105" />
         <di:waypoint x="1860" y="420" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_Realiser_CR_di" bpmnElement="Flow_Realiser_CR">
