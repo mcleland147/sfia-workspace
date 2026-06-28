@@ -1,0 +1,48 @@
+{
+  "project_id": "PRJ-INTERV360",
+  "project_name": "Interv360",
+  "phase": "02-architecture",
+  "governance_topic": "QA / Testeur",
+  "status": "Prepared — Not published",
+  "publish_to_notion": false,
+  "manual_review_required": true,
+  "source_of_truth": "git",
+  "delivery_status": "blocked",
+  "summary_title": "QA / Testeur — Méthode officielle & prompts candidats validés",
+  "method": {
+    "status": "Official role method",
+    "path": "docs/methods/roles/qa-tester-method.md",
+    "summary": "Rôle transverse de contribution à la qualité, la testabilité, la maîtrise des risques et la traçabilité."
+  },
+  "prompt_family": {
+    "status": "Candidate prompt family — validated",
+    "path": "prompts/qa/qa-tester-prompt-family.md",
+    "catalog_path": "prompts/prompt-catalog.md",
+    "validation_path": "projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md",
+    "prompt_count": 10,
+    "validated": 7,
+    "validated_with_vigilance": 3,
+    "to_strengthen": 0,
+    "vigilance_prompts": [
+      "PROMPT-QA-006",
+      "PROMPT-QA-008",
+      "PROMPT-QA-009"
+    ]
+  },
+  "guardrails": [
+    "no_delivery",
+    "no_backlog",
+    "no_user_stories",
+    "no_code",
+    "no_project_test_scenarios",
+    "no_detailed_test_cases",
+    "no_full_acceptance_strategy",
+    "manual_review_before_publication"
+  ],
+  "next_steps": [
+    "manual_review_payload",
+    "prepare_cmp_compatible_payload_if_needed",
+    "publish_via_cmp_001_in_dedicated_task",
+    "trace_publication_in_git"
+  ]
+}
