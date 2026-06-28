@@ -38,12 +38,27 @@ cp -r tools/cmp-001/exports/* exports/notion/
 ```
 sfia-workspace/
 ├── docs/           # Documentation locale (miroir / travail sur exports Notion)
-├── projects/       # Projets réels SFIA (un dossier par projet)
+├── methods/        # Méthodes SFIA réutilisables
+│   └── roles/      # Méthodes par rôle (Role Methods)
+├── projects/       # Projets pilotes alimentant SFIA (un dossier par projet)
+├── prompts/        # Prompts réutilisables
+├── templates/      # Modèles de livrables
+├── standards/      # Standards et règles communes
 ├── components/     # Notes et artefacts liés aux composants
-├── prompts/        # Prompts locaux de travail
 ├── exports/notion/ # Exports JSON du référentiel Notion
-└── tools/cmp-001/  # Connecteur CMP-001 (SFIA Notion Sync v1.1.1)
+└── tools/cmp-001/  # Connecteur CMP-001 (SFIA Notion Sync)
 ```
+
+### Référentiels réutilisables
+
+| Dossier | Contenu |
+|---------|---------|
+| **methods/** | Méthodes SFIA — savoir-faire, savoir-être, postures par rôle |
+| **methods/roles/** | Templates Role Method extraits des projets pilotes |
+| **prompts/** | Prompts réutilisables |
+| **templates/** | Modèles de livrables |
+| **standards/** | Standards et règles communes |
+| **projects/** | Projets pilotes (ex. Interv360) alimentant la capitalisation SFIA |
 
 ## Projets réels
 

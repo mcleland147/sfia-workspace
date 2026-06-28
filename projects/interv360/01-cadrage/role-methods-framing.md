@@ -61,7 +61,7 @@ Les méthodes par rôle SFIA **ne se clôsent pas** à la fin du cadrage Interv3
 - quelles décisions ou validations ont été prises ?
 - quels templates, checklists, prompts ou standards sont candidats à la capitalisation ?
 - quelles erreurs à éviter ont été identifiées ?
-- quels éléments devront être répercutés dans les futurs fichiers `sfia/methods/roles/` ?
+- quels éléments devront être répercutés dans les futurs fichiers `methods/roles/` ?
 
 | Moment projet | Action attendue sur les méthodes par rôle |
 |---------------|----------------------------------------|
@@ -80,7 +80,7 @@ Les méthodes par rôle SFIA **ne se clôsent pas** à la fin du cadrage Interv3
 
 #### Consigne permanente pour les futures itérations
 
-À chaque nouveau livrable Interv360, il faut vérifier si `role-methods-framing.md` ou les futurs fichiers `sfia/methods/roles/` doivent être mis à jour. Si un rôle a produit une **valeur projet** ou une **valeur SFIA** nouvelle, cette contribution doit être capitalisée.
+À chaque nouveau livrable Interv360, il faut vérifier si `role-methods-framing.md` ou les futurs fichiers `methods/roles/` doivent être mis à jour. Si un rôle a produit une **valeur projet** ou une **valeur SFIA** nouvelle, cette contribution doit être capitalisée.
 
 ---
 
@@ -764,7 +764,7 @@ Le présent document constitue une **première capitalisation globale** de la m�
 | greenops-method.md | Sobriété, stockage, conservation fictive |
 | data-ai-method.md | IA légère, gouvernance données, report post-MVP |
 
-**Emplacement cible proposé :** `sfia/methods/roles/`
+**Emplacement cible proposé :** `methods/roles/`
 
 Chaque fichier extrait reprendra le format §4.x (mission, intervention, questions, livrables, décisions, savoir-faire, templates, erreurs) enrichi au fil des prochains projets pilotes.
 
@@ -796,7 +796,7 @@ Un rôle est correctement mobilisé dans la méthode SFIA lorsque :
 | Template Role Deliverable Matrix | §5 — rôles par livrable | Template |
 | Checklist Role Quality | §9 — critères qualité rôle SFIA | Checklist |
 | Prompt génération méthode rôle | Générer une fiche rôle depuis un projet pilote | Prompt |
-| Prompt découpage templates par rôle | Extraire un fichier `sfia/methods/roles/*.md` depuis ce document | Prompt |
+| Prompt découpage templates par rôle | Extraire un fichier `methods/roles/*.md` depuis ce document | Prompt |
 | Standard double valeur rôle projet / SFIA | §2 — principe obligatoire à chaque intervention | Standard |
 | Standard d'enrichissement continu des rôles | Mise à jour des méthodes rôle à chaque itération projet | Standard |
 
@@ -810,7 +810,7 @@ Ce document formalise leur **méthode d'intervention** afin de préparer la capi
 
 Ce document devra être **mis à jour au fil des prochaines phases Interv360** — architecture, design, delivery, tests, recette, REX — avant d'être découpé en templates définitifs.
 
-La prochaine étape pourra consister à **découper ce document** en fichiers méthodologiques par rôle dans `sfia/methods/roles/`, puis à alimenter les référentiels SFIA (templates, prompts, standards) sans reproduire une description RH générique des rôles.
+La prochaine étape pourra consister à **découper ce document** en fichiers méthodologiques par rôle dans `methods/roles/`, puis à alimenter les référentiels SFIA (templates, prompts, standards) sans reproduire une description RH générique des rôles.
 
 ---
 
