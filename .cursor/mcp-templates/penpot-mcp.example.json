@@ -1,6 +1,10 @@
 {
   "mcpServers": {
-    "penpot": {
+    "penpot-self-host": {
+      "type": "http",
+      "url": "http://localhost:9001/mcp/stream?userToken=REPLACE_WITH_LOCAL_USER_TOKEN"
+    },
+    "penpot-standalone": {
       "type": "http",
       "url": "http://localhost:4401/mcp"
     }

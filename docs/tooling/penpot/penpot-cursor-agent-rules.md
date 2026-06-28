@@ -100,7 +100,25 @@ L'agent assiste la production visuelle — il **ne remplace pas** le designer, l
 
 ---
 
-## 6. En cas d'écart spec / Penpot
+## 7. Préconditions MCP avant action
+
+Avant toute action sur un fichier Penpot :
+
+| Précondition | Vérification |
+|--------------|--------------|
+| Instance Penpot self-host accessible | UI disponible (ex. `http://localhost:9001`) |
+| Fichier cible ouvert | Même fichier que celui visé par l'agent, ouvert dans le navigateur |
+| Plugin MCP connecté | Bouton **MCP** → état **connecté** dans ce fichier |
+| Endpoint MCP adapté | Self-host : `http://localhost:9001/mcp/stream?userToken=...` — standalone : `http://localhost:4401/mcp` |
+| Test lecture seule réussi | Lister pages / frames sans modification **avant** toute écriture |
+
+Si le test de lecture échoue (`No userToken found`, `No plugin instance connected for user token`), corriger la config ou le plugin — **ne pas** lancer de modifications.
+
+Voir : [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md), [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md).
+
+---
+
+## 8. En cas d'écart spec / Penpot
 
 1. **Documenter** l'écart dans Git (review ou summary).
 2. **Ne pas** « corriger » la spec depuis Penpot sans validation métier.
@@ -108,10 +126,11 @@ L'agent assiste la production visuelle — il **ne remplace pas** le designer, l
 
 ---
 
-## 7. Références
+## 9. Références
 
 - Architecture : [`penpot-design-agent-architecture.md`](penpot-design-agent-architecture.md)
 - Intégration méthodes : [`penpot-sfia-method-integration.md`](penpot-sfia-method-integration.md)
+- REX MCP self-host : [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md)
 - Prompts : [`../../../prompts/tooling/penpot/penpot-design-agent-prompt-family.md`](../../../prompts/tooling/penpot/penpot-design-agent-prompt-family.md)
 - MCP template : [`.cursor/mcp-templates/`](../../../.cursor/mcp-templates/)
 

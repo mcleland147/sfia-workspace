@@ -130,16 +130,58 @@ Le MCP Penpot peut être activé **après** :
 
 1. Installation Penpot opérationnelle ;
 2. Accès UI validé ;
-3. Session navigateur active si le mode MCP local l'exige.
+3. Fichier Penpot cible ouvert dans le navigateur ;
+4. Plugin MCP connecté dans ce fichier (voir §9.1).
 
 ### Configuration
 
 - Utiliser le template [`.cursor/mcp-templates/penpot-mcp.example.json`](../../../.cursor/mcp-templates/penpot-mcp.example.json).
 - Copier le bloc dans la configuration MCP **locale** de Cursor — pas dans le repo.
-- Adapter l'URL MCP selon le mode Penpot (ex. `http://localhost:4401/mcp`).
+- Choisir l'URL MCP selon le **mode d'installation** retenu (self-host vs standalone — voir §9.1).
 - **Aucune clé** ni token dans Git.
 
-Voir [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md).
+Voir [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md) et le REX [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md).
+
+### 9.1 MCP Cursor — retour d'expérience self-host
+
+Dans une installation Penpot **self-host** locale, l'intégration MCP validée utilise l'endpoint exposé par l'instance Penpot elle-même :
+
+```
+http://localhost:9001/mcp/stream?userToken=<USER_TOKEN>
+```
+
+| Point validé | Détail |
+|--------------|--------|
+| Instance Penpot | Accessible sur `http://localhost:9001` |
+| Serveur MCP | Exposé par l'instance self-host (pas un service séparé sur le port 4401) |
+| `userToken` | **Requis** dans l'URL MCP — généré dans Penpot (Integrations → MCP Server) |
+| Fichier ouvert | Le fichier Penpot cible doit être ouvert dans le navigateur |
+| Plugin MCP | Le bouton / plugin **MCP** doit afficher un état **connecté** dans ce fichier |
+
+**Erreurs typiques si une condition manque :**
+
+| Erreur | Cause probable |
+|--------|----------------|
+| `No userToken found in session context` | URL MCP sans `userToken` ou token absent de la config Cursor |
+| `No plugin instance connected for user token` | Fichier non ouvert, ou plugin MCP non connecté dans Penpot |
+
+Une fois le plugin connecté, Cursor peut **lire** le fichier Penpot ouvert (pages, frames, composants) via `execute_code`.
+
+**À ne jamais commiter :**
+
+- token réel ;
+- URL MCP complète avec vrai token ;
+- capture d'écran contenant un token ;
+- configuration Cursor locale contenant un token.
+
+**Différence avec le mode standalone :**
+
+| Mode | Endpoint type | Usage |
+|------|---------------|-------|
+| **Self-host** (validé SFIA) | `http://localhost:9001/mcp/stream?userToken=...` | Instance Penpot Docker locale — MCP intégré à l'instance |
+| **Standalone** | `http://localhost:4401/mcp` | Serveur MCP séparé (`npx @penpot/mcp@stable` ou équivalent) |
+
+Le choix dépend du mode d'installation MCP retenu. Pour une stack Penpot self-host Docker, utiliser le mode **self-host**.
 
 ---
 
@@ -164,7 +206,9 @@ Voir [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.m
 |----------|-------|
 | Port déjà utilisé | Changer mapping dans override ou arrêter service conflictuel |
 | Override ignoré | Vérifier noms de services dans compose officiel |
-| MCP inaccessible | Vérifier URL, session Penpot, doc MCP à jour |
+| MCP inaccessible | Vérifier mode (self-host `9001/mcp/stream` vs standalone `4401/mcp`), `userToken`, plugin connecté — voir §9.1 |
+| `No userToken found` | Ajouter `userToken` à l'URL MCP Cursor |
+| `No plugin instance connected` | Ouvrir le fichier Penpot ; connecter le plugin MCP |
 | Perte données | Restaurer depuis backup volumes / BDD |
 
 ---
