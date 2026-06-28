@@ -152,4 +152,20 @@ Un payload CMP-compatible partiel est fourni (`notion-sync-qa-prompt-library-cmp
 
 ---
 
+## Mise à jour après extension schéma CMP Prompt
+
+*Suite à `cmp-prompt-schema-extension-for-qa-library.md` — schéma et payload enrichis, publication toujours non exécutée.*
+
+| Évolution | Statut |
+|-----------|--------|
+| **Catégorie QA** | Désormais supportée dans `prompt.schema.json` — `category: QA` |
+| **summary / content** | Désormais supportés (`notionType: page_content`) — contenu page riche via `create prompt` |
+| **Payload CMP** | `notion-sync-qa-prompt-library-cmp-payload.json` mis à jour — 10 items avec summary, content, `category: QA` |
+| **Code CMP** | Inchangé — `createObject.js` exploite déjà `buildPageContentBlocks` de façon générique |
+| **Publication** | **Non exécutée** — revue manuelle requise avant `create prompt` |
+| **update prompt** | Toujours **hors périmètre** |
+| **batch** | Toujours **hors périmètre** — 10 commandes distinctes |
+
+---
+
 *Préparation sync Prompt Library QA / Testeur — gouvernance SFIA — non publié dans Notion.*
