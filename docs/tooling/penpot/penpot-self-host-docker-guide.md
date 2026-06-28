@@ -1,0 +1,172 @@
+# Penpot self-host — Guide Docker SFIA
+
+**Type** : Guide outillage  
+**Domaine** : UX/UI — Design tooling  
+**Statut** : Draft  
+**Branche** : `tooling/penpot-design-agent`
+
+---
+
+## 1. Objectif
+
+Ce guide décrit comment **préparer** une installation Penpot self-host en Docker pour l'écosystème SFIA.
+
+Il **ne remplace pas** la documentation officielle Penpot. Il complète le repo SFIA avec des templates sûrs (`docker/penpot/`) et des règles d'intégration Cursor MCP.
+
+**Cette tâche documentaire n'installe pas** Penpot automatiquement — l'installation réelle se fait sur la machine cible en suivant ce guide et la doc officielle.
+
+---
+
+## 2. Pré-requis
+
+| Pré-requis | Usage |
+|------------|-------|
+| **Docker** | Exécution conteneurs Penpot |
+| **Docker Compose** | Orchestration stack officielle |
+| **Navigateur** | Accès UI Penpot, session pour MCP local si requis |
+| **DNS local ou domaine** | Si exposition hors localhost |
+| **Reverse proxy (optionnel)** | HTTPS, certificats — Traefik, Caddy, nginx |
+| **Gestion des volumes** | Persistance données et assets |
+| **Sauvegardes** | Backup BDD et volumes avant mise à jour |
+
+---
+
+## 3. Principe d'installation
+
+L'**installation officielle Penpot** reste la **référence technique**.
+
+### Documentation officielle (à consulter avant déploiement)
+
+| Ressource | URL |
+|-----------|-----|
+| Penpot — Technical guide / Getting started | [https://help.penpot.app/technical-guide/getting-started/](https://help.penpot.app/technical-guide/getting-started/) |
+| Penpot — Docker installation | [https://help.penpot.app/technical-guide/getting-started/docker/](https://help.penpot.app/technical-guide/getting-started/docker/) |
+| Penpot MCP | Vérifier la documentation MCP la plus récente sur [https://penpot.app](https://penpot.app) et le dépôt / annonces Penpot |
+
+**Garde-fou :** ce repo SFIA **ne duplique pas** le `docker-compose.yml` officiel complet. Le dossier `docker/penpot/` fournit des **overrides et exemples** uniquement.
+
+### Étapes recommandées (hors repo)
+
+1. Cloner ou télécharger la stack Docker **officielle** Penpot selon la doc du moment.
+2. Copier `docker/penpot/.env.example` vers `.env` **localement** (hors commit).
+3. Générer `PENPOT_SECRET_KEY` localement — ne jamais commiter.
+4. Appliquer `docker-compose.override.example.yml` si les noms de services correspondent.
+5. Démarrer la stack et valider l'accès UI.
+
+---
+
+## 4. Arborescence proposée (repo SFIA)
+
+```
+docker/penpot/
+  README.md
+  docker-compose.override.example.yml
+  .env.example
+```
+
+Le `docker-compose.yml` **principal** provient de la documentation officielle Penpot, pas de ce repo.
+
+---
+
+## 5. Variables d'environnement
+
+Le fichier `docker/penpot/.env.example` contient **uniquement des placeholders**.
+
+| Variable | Exemple placeholder | Rôle |
+|----------|---------------------|------|
+| `PENPOT_PUBLIC_URI` | `http://localhost:9001` | URL publique de l'instance |
+| `PENPOT_SECRET_KEY` | `CHANGE_ME_GENERATE_LOCALLY` | Secret application — générer localement |
+| `PENPOT_SMTP_DEFAULT_FROM` | `no-reply@example.local` | Expéditeur mail (si SMTP activé) |
+| `PENPOT_SMTP_DEFAULT_REPLY_TO` | `no-reply@example.local` | Reply-to mail |
+| `PENPOT_DOMAIN` | `localhost` | Domaine optionnel |
+
+**Règles :**
+
+- Copier `.env.example` → `.env` sur la machine locale.
+- **Ne jamais** commiter `.env`.
+- Les vraies valeurs restent locales ou dans un gestionnaire de secrets.
+
+---
+
+## 6. Ports et accès
+
+| Élément | Recommandation SFIA |
+|---------|---------------------|
+| Port local UI | **9001** (exemple override — adapter si conflit) |
+| URL locale type | `http://localhost:9001` |
+| Reverse proxy | Recommandé si exposition réseau ou internet |
+| HTTPS | **Obligatoire** si instance accessible hors réseau de confiance |
+
+Vérifier les ports réellement mappés dans le `docker-compose.yml` officiel avant de démarrer.
+
+---
+
+## 7. Volumes et sauvegardes
+
+| Élément | Action recommandée |
+|---------|-------------------|
+| Base de données | Backup régulier selon doc Penpot (pg_dump ou procédure officielle) |
+| Assets / fichiers | Sauvegarder volumes Docker nommés |
+| Configuration locale | Sauvegarder `.env` **hors Git** (gestionnaire secrets ou coffre local) |
+| Test restauration | Restaurer sur environnement de test au moins une fois |
+
+Documenter emplacement des volumes et fréquence de backup dans la doc projet ou runbook local.
+
+---
+
+## 8. Sécurité
+
+- **Instance locale** par défaut pour le développement SFIA.
+- **Comptes utilisateurs** : créer comptes dédiés, pas de compte admin partagé en production.
+- **Pas d'exposition publique** sans HTTPS et durcissement.
+- **Pas de secrets** dans Git — `.gitignore` couvre `.env` et `.env.*` (sauf `.env.example`).
+- **Sauvegarde chiffrée** si données design sensibles.
+
+---
+
+## 9. MCP Cursor
+
+Le MCP Penpot peut être activé **après** :
+
+1. Installation Penpot opérationnelle ;
+2. Accès UI validé ;
+3. Session navigateur active si le mode MCP local l'exige.
+
+### Configuration
+
+- Utiliser le template [`.cursor/mcp-templates/penpot-mcp.example.json`](../../../.cursor/mcp-templates/penpot-mcp.example.json).
+- Copier le bloc dans la configuration MCP **locale** de Cursor — pas dans le repo.
+- Adapter l'URL MCP selon le mode Penpot (ex. `http://localhost:4401/mcp`).
+- **Aucune clé** ni token dans Git.
+
+Voir [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md).
+
+---
+
+## 10. Critères de validation
+
+| Critère | Validé |
+|---------|:------:|
+| Conteneurs Penpot démarrés | ☐ |
+| Penpot accessible dans le navigateur | ☐ |
+| Compte admin créé | ☐ |
+| Projet test créé (structure pages SFIA) | ☐ |
+| Fichier test ouvert | ☐ |
+| Cursor connecté via MCP (config locale) | ☐ |
+| Prompt de lecture simple réussi | ☐ |
+| Aucun secret commité dans sfia-workspace | ☐ |
+
+---
+
+## 11. Dépannage rapide
+
+| Symptôme | Piste |
+|----------|-------|
+| Port déjà utilisé | Changer mapping dans override ou arrêter service conflictuel |
+| Override ignoré | Vérifier noms de services dans compose officiel |
+| MCP inaccessible | Vérifier URL, session Penpot, doc MCP à jour |
+| Perte données | Restaurer depuis backup volumes / BDD |
+
+---
+
+*Guide outillage SFIA — Penpot self-host Docker — Draft.*

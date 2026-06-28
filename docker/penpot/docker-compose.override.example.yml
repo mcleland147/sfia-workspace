@@ -1,0 +1,11 @@
+# Example override for a local SFIA Penpot setup.
+# Use only with the official Penpot docker-compose.yml.
+# Do not treat this file as a standalone installation.
+#
+# IMPORTANT: Service names may differ in the official Penpot compose file.
+# Verify service names (e.g. penpot-frontend, frontend, penpot) before applying.
+
+services:
+  penpot-frontend:
+    ports:
+      - "9001:80"
