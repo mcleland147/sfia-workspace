@@ -1,0 +1,123 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "prompt",
+  "database_env_key": "NOTION_DATABASE_PROMPTS",
+  "database_title_reference": "Prompts (SFIA Prompt Library)",
+  "publish_to_notion": false,
+  "manual_review_required": true,
+  "command_pattern": "node src/cli.js create prompt <item-json-file>",
+  "limitations": [
+    "Une commande create prompt par entrée — pas de batch natif",
+    "update prompt non supporté (seuls knowledge et project)",
+    "Status Candidate non supporté — utiliser Draft pour la première publication",
+    "Vérifier absence de doublons PROMPT-QA-* dans Notion avant exécution"
+  ],
+  "category_mapping": {
+    "intended": "QA / Testeur",
+    "cmp_enum_used": "QA",
+    "testeur_via_tags": true
+  },
+  "items": [
+    {
+      "title": "PROMPT-QA-001 — Analyse de testabilité d'un besoin",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360"],
+      "summary": "Analyse de testabilité d'un besoin — prompt QA candidat validé.",
+      "content": "## Objectif\nAnalyser si un besoin est clair, vérifiable, traçable et suffisamment testable.\n\n## Entrées\n- Besoin métier\n- Contexte projet\n- Hypothèses et exclusions\n- Niveau de maturité du projet\n\n## Sortie attendue\n- Points testables\n- Ambiguïtés et risques\n- Questions ouvertes\n- Recommandations de clarification\n- Aucun scénario détaillé sauf demande explicite\n\n## Garde-fous\n- Ne pas produire user stories\n- Ne pas produire backlog\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-002 — Revue QA d'une maquette UX/UI",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360", "UX/UI"],
+      "summary": "Revue QA d'une maquette UX/UI — prompt QA candidat validé.",
+      "content": "## Objectif\nRelire une maquette sous l'angle testabilité, parcours, états visibles et erreurs métier.\n\n## Entrées\n- Description ou capture de la maquette\n- Rôles utilisateurs\n- Parcours attendus\n- Exclusions connues\n\n## Sortie attendue\n- Happy path et non happy path pressentis\n- États vides, chargement, erreur\n- Questions QA et points de vigilance\n- Aucun cas de test détaillé\n\n## Garde-fous\n- Ne pas transformer la maquette en recette\n- Ne pas produire backlog\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-003 — Questions réflexes QA en revue transverse",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360"],
+      "summary": "Questions réflexes QA en revue transverse — prompt QA candidat validé.",
+      "content": "## Objectif\nPréparer une liste de questions QA pour une revue transverse multi-rôles.\n\n## Entrées\n- Livrable à revoir\n- Phase projet\n- Rôles mobilisés\n- Objectifs de la revue\n\n## Sortie attendue\n- Questions par thème (testabilité, risques, anomalies, traçabilité)\n- Limites du rôle QA explicites\n\n## Garde-fous\n- Ne pas ouvrir delivery\n- Ne pas produire backlog\n- Ne pas produire user stories\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-004 — Lecture happy path / non happy path",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360"],
+      "summary": "Lecture happy path / non happy path — prompt QA candidat validé.",
+      "content": "## Objectif\nIdentifier les chemins nominaux et dégradés pressentis, sans produire de scénarios détaillés.\n\n## Entrées\n- Parcours utilisateur\n- Rôles concernés\n- Actions principales\n- Exclusions\n\n## Sortie attendue\n- Happy path résumé\n- Non happy path pressentis\n- États limites\n- Questions ouvertes et risques à clarifier\n\n## Garde-fous\n- Ne pas produire de scénarios de tests détaillés\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-005 — Grille de risques qualité",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360"],
+      "summary": "Grille de risques qualité — prompt QA candidat validé.",
+      "content": "## Objectif\nIdentifier les zones à risque qualité sur un livrable projet.\n\n## Entrées\n- Livrable\n- Contexte projet\n- Criticité métier\n- Contraintes connues\n\n## Sortie attendue\n- Risques qualité (impact, probabilité, criticité)\n- Recommandations\n- Aucun plan de test complet sauf jalon dédié\n\n## Garde-fous\n- Ne pas produire de stratégie de recette complète\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-006 — Préparation légère d'une stratégie de test",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360", "Vigilance"],
+      "summary": "Préparation légère d'une stratégie de test — prompt QA validé avec vigilance.",
+      "content": "## Objectif\nPréparer une orientation de stratégie de test, sans produire une stratégie de recette complète.\n\n## Entrées\n- Périmètre projet\n- Maturité et risques\n- Livrables disponibles\n- Jalon visé\n\n## Sortie attendue\n- Niveaux de test pressentis\n- Priorités, limites et dépendances\n- Critères de passage à une vraie stratégie de test\n\n## Garde-fous\n- Cette sortie ne vaut pas stratégie de recette complète\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated with vigilance\n\n## Point de vigilance\nÉviter toute dérive vers une stratégie de recette complète. La sortie reste une orientation légère, pas un plan de test officiel.\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-007 — Revue d'anomalie métier",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360"],
+      "summary": "Revue d'anomalie métier — prompt QA candidat validé.",
+      "content": "## Objectif\nVérifier si une anomalie métier est suffisamment exploitable.\n\n## Entrées\n- Description anomalie\n- Contexte et impact\n- Résultat attendu vs obtenu\n\n## Sortie attendue\n- Clarté et reproductibilité\n- Informations manquantes\n- Impact métier\n- Sévérité / priorité proposées\n- Recommandations de reformulation\n\n## Garde-fous\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-008 — Traçabilité besoin / critère / test futur / anomalie",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360", "Vigilance"],
+      "summary": "Traçabilité besoin / critère / test futur / anomalie — prompt QA validé avec vigilance.",
+      "content": "## Objectif\nPréparer une lecture de traçabilité sans produire les tests détaillés.\n\n## Entrées\n- Besoin\n- Critère pressenti\n- Anomalie éventuelle\n- Décision projet\n\n## Sortie attendue\n- Chaîne de traçabilité\n- Trous de traçabilité\n- Questions ouvertes et recommandations\n\n## Garde-fous\n- Ne pas produire de matrice de tests détaillée sans jalon dédié\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated with vigilance\n\n## Point de vigilance\nÉviter toute dérive vers une matrice de tests détaillée. La sortie reste une lecture de traçabilité, pas un jeu de tests.\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-009 — Revue des critères d'acceptation futurs",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360", "Vigilance"],
+      "summary": "Revue des critères d'acceptation futurs — prompt QA validé avec vigilance.",
+      "content": "## Objectif\nAider à rendre des critères futurs testables, sans produire de user stories.\n\n## Entrées\n- Besoin ou fonctionnalité\n- Objectif métier\n- Contraintes et exclusions\n\n## Sortie attendue\n- Critères pressentis\n- Ambiguïtés et risques\n- Reformulations possibles\n- Points à valider avec PO / BA\n\n## Garde-fous\n- Ne pas créer de user stories\n- Ne pas créer de backlog\n- Ne pas ouvrir delivery\n- Ne pas produire de code\n\n## Statut de validation\nValidated with vigilance\n\n## Point de vigilance\nÉviter toute dérive vers la création de user stories ou de backlog. Les critères restent des pressentis testables, pas des US.\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    },
+    {
+      "title": "PROMPT-QA-010 — Vérification des garde-fous QA",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "QA",
+      "tags": ["QA", "Testeur", "Interv360"],
+      "summary": "Vérification des garde-fous QA — prompt QA candidat validé.",
+      "content": "## Objectif\nContrôler qu'une production QA respecte les garde-fous SFIA.\n\n## Entrées\n- Document QA\n- Phase projet\n- Jalon autorisé\n\n## Sortie attendue\n- Conformité aux garde-fous\n- Risques de surproduction\n- Éléments à retirer ou différer\n- Décision recommandée : conforme / à ajuster / à bloquer\n\n## Garde-fous\n- Ne pas ouvrir delivery\n- Ne pas produire backlog\n- Ne pas produire user stories\n- Ne pas produire de code\n\n## Statut de validation\nValidated\n\n## Sources Git\n- prompts/qa/qa-tester-prompt-family.md\n- docs/methods/roles/qa-tester-method.md\n- projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+    }
+  ]
+}

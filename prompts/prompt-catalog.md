@@ -52,7 +52,7 @@ Un prompt peut être capitalisé si :
 | **Rôles** | `prompts/roles/` | Méthodes par rôle, revues, extractions Role Method |
 | **Architecture** | `prompts/architecture/` | Intégrations, erreurs, ADR candidates |
 | **Sécurité / RSSI** | `prompts/security/` | Revues SSI, canal email sécurisé, données sensibles |
-| **QA / Tests** | `prompts/qa/` | Scénarios, critères testables, non happy path |
+| **QA / Testeur** | `prompts/qa/` | Testabilité, revues qualité, risques, traçabilité — voir §14 |
 | **Gouvernance** | `prompts/governance/` | Phase gate, capitalisation, contrôles structure |
 | **Notion / Sync** | `prompts/governance/notion/` | Synchronisation gouvernance Notion via CMP-001 |
 
@@ -123,6 +123,7 @@ Chaque fichier prompt formalisé suivra la structure type :
 | **UX/UI Designer** | docs/methods/roles/ux-ui-designer-method.md | PROMPT-UX-001, PROMPT-UX-002, PROMPT-UX-003 |
 | **Architecte** | docs/methods/roles/architect-method.md | PROMPT-ARCH-001, PROMPT-SEC-001 |
 | **RSSI** | docs/methods/roles/rssi-method.md | PROMPT-SEC-001 |
+| **QA / Testeur** | docs/methods/roles/qa-tester-method.md | PROMPT-QA-001 à PROMPT-QA-010 — voir §14 |
 
 ---
 
@@ -197,6 +198,8 @@ Ces prompts restent à **tester sur un projet hors pilote** avant passage au sta
 
 Le **standard officiel UX/UI V1** (`docs/standards/ux-ui-v1-governance-standard.md`) a alimenté la famille **UX/UI V1 Governance** (§13) — **15 prompts candidats** issus du cycle Figma V1 Interv360, référencés par modèle projet sans modification des prompts sources.
 
+La **méthode officielle QA / Testeur** (`docs/methods/roles/qa-tester-method.md`) a alimenté la famille **QA / Testeur** (§14) — **10 prompts candidats** — testabilité et qualité sans ouverture delivery.
+
 ---
 
 ## 13. UX/UI V1 Governance
@@ -257,6 +260,61 @@ Les entrées ci-dessous sont des **prompts candidats** : modèles et livrables p
 | `{governance_tool}` | Notion ou autre outil de pilotage |
 | `{delivery_status}` | `blocked` ou `authorized` (explicite) |
 | `{source_documents}` | Documents Git source de vérité |
+
+---
+
+## 14. QA / Testeur
+
+Cette famille de prompts accompagne la **méthode officielle** [`docs/methods/roles/qa-tester-method.md`](../docs/methods/roles/qa-tester-method.md).
+
+Elle couvre la **testabilité**, les **revues qualité**, les **risques**, la **traçabilité** et la **préparation future** des tests — **sans déclencher** delivery, backlog, user stories ou code.
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | Candidate prompt family |
+| **Méthode liée** | `docs/methods/roles/qa-tester-method.md` |
+| **Dossier** | `prompts/qa/` |
+| **Fichier principal** | `prompts/qa/qa-tester-prompt-family.md` |
+
+| Prompt | Objectif |
+|--------|----------|
+| **PROMPT-QA-001** — Analyse de testabilité d'un besoin | Clarifier testabilité, ambiguïtés et risques d'un besoin |
+| **PROMPT-QA-002** — Revue QA d'une maquette UX/UI | Testabilité maquette, parcours, états, erreurs métier |
+| **PROMPT-QA-003** — Questions réflexes QA en revue transverse | Préparer questions QA pour revue multi-rôles |
+| **PROMPT-QA-004** — Lecture happy path / non happy path | Chemins nominaux et dégradés pressentis |
+| **PROMPT-QA-005** — Grille de risques qualité | Zones à risque qualité sur un livrable |
+| **PROMPT-QA-006** — Préparation légère d'une stratégie de test | Orientation stratégie — pas recette complète |
+| **PROMPT-QA-007** — Revue d'anomalie métier | Exploitabilité et clarté d'une anomalie |
+| **PROMPT-QA-008** — Traçabilité besoin / critère / test futur / anomalie | Chaîne de traçabilité sans tests détaillés |
+| **PROMPT-QA-009** — Revue des critères d'acceptation futurs | Critères testables futurs — sans user stories |
+| **PROMPT-QA-010** — Vérification des garde-fous QA | Contrôle conformité garde-fous SFIA |
+
+**Statut famille** : 10 prompts **Candidat** — famille documentée ; fichiers prompt individuels à formaliser ultérieurement.
+
+### Garde-fous communs (QA / Testeur)
+
+- ne pas ouvrir delivery ;
+- ne pas produire backlog ;
+- ne pas produire user stories ;
+- ne pas produire code ;
+- ne pas transformer une maquette en recette ;
+- ne pas produire de cas de tests détaillés sans jalon dédié ;
+- ne pas remplacer PO, BA, RSSI, Architecte ou Chef de projet ;
+- ne pas automatiser sans stratégie validée.
+
+### Variables communes
+
+| Variable | Description |
+|----------|-------------|
+| `{project_name}` | Nom projet |
+| `{project_phase}` | Phase courante |
+| `{deliverable_type}` | Type de livrable revu |
+| `{maturity_level}` | Niveau de maturité projet |
+| `{user_roles}` | Rôles utilisateurs ou SFIA |
+| `{known_exclusions}` | Exclusions connues |
+| `{review_objective}` | Objectif de la revue |
+| `{delivery_allowed}` | `blocked` ou `authorized` |
+| `{expected_output_level}` | Niveau de sortie attendu |
 
 ---
 

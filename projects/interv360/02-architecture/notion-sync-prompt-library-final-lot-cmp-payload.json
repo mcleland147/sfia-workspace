@@ -1,0 +1,220 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "prompt",
+  "database_env_key": "NOTION_DATABASE_PROMPTS",
+  "database_title_reference": "Prompts (SFIA Prompt Library)",
+  "lot": {
+    "id": "LOT-FINAL",
+    "name": "Remaining Prompt Library Items",
+    "publish_to_notion": false,
+    "manual_review_required": true
+  },
+  "command_pattern": "node src/cli.js create prompt <item-json-file>",
+  "limitations": [
+    "Une commande create prompt par entrée — pas de batch natif",
+    "update prompt non supporté",
+    "Première publication en Draft",
+    "Vérifier absence de doublons avant exécution",
+    "Réexporter exports/notion/prompts.json si possible avant publication",
+    "Lot final multi-familles — 12 commandes distinctes",
+    "Synthèse catalogue + livrables projet — corps exécutable non formalisé sous prompts/<famille>/",
+    "PROMPT-GOV-001 : arbitrage méta-sync recommandé avant publication",
+    "PROMPT-ROLE-003 : formalisation fichier prompt recommandée avant statut Tested"
+  ],
+  "items": [
+    {
+      "title": "PROMPT-CAD-001 — Cadrage métier projet",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Framing",
+      "tags": [
+        "Framing",
+        "Cadrage",
+        "BA",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Cadrage métier projet — formaliser périmètre métier, rôles SFIA et capitalisation avant solution technique (synthèse livrable pilote).",
+      "content": "## Objectif\nFormaliser le périmètre métier d'un projet SFIA, les rôles mobilisés et les arbitrages nécessaires avant toute solution technique, en produisant une double valeur projet et capitalisation SFIA (templates, standards, prompts, gouvernance).\n\n## Entrées\n- Intake projet validé (vision, contexte, contraintes)\n- Socle SFIA à respecter (Notion gouvernance, Cursor/Git production)\n- Rôles cœur et transverses à mobiliser\n- Périmètre métier, parcours, objets, règles et questions ouvertes connus\n\n## Sortie attendue\n- Document de cadrage métier structuré (vision, périmètre, parcours, objets, règles, arbitrages candidats, risques, capitalisation SFIA)\n- Éléments réutilisables identifiés (templates, prompts, ADR candidates)\n\n## Garde-fous\n- Ne pas figer prématurément le périmètre MVP final\n- Ne pas produire d'architecture technique, backlog, user stories ou code\n- Ne pas publier automatiquement dans Notion\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote ; fichier prompt dédié sous `prompts/cadrage/` non encore créé.\n\n## Sources Git\n- projects/interv360/01-cadrage/business-framing.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/business-analyst-method.md\n\n## Limites\nCorps exécutable complet non formalisé sous `prompts/cadrage/` — Git reste source détaillée."
+    },
+    {
+      "title": "PROMPT-CAD-002 — Revue cohérence cadrage",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Framing",
+      "tags": [
+        "Framing",
+        "Cadrage",
+        "BA",
+        "Interv360",
+        "SFIA",
+        "Review"
+      ],
+      "summary": "Revue cohérence cadrage — vérifier la maturité et la cohérence globale du cadrage avant arbitrages MVP (synthèse livrable pilote).",
+      "content": "## Objectif\nVérifier la cohérence globale d'un document de cadrage avant d'engager une première passe d'arbitrages MVP : constater la maturité, identifier clarifications préalables, ADR candidates et éléments capitalisables SFIA — sans trancher de décision.\n\n## Entrées\n- Document de cadrage métier (ex. business-framing.md)\n- Sections parcours, objets, règles, questions ouvertes, arbitrages et risques\n- Critères de sortie de phase cadrage\n\n## Sortie attendue\n- Revue de cadrage structurée (synthèse maturité par domaine, points de cohérence, clarifications préalables, suites attendues)\n- Liste des arbitrages et ADR candidates à préparer\n\n## Garde-fous\n- Ne pas définir le MVP\n- Ne pas produire d'architecture technique, backlog ou publication Notion automatique\n- Ne pas modifier l'intake validé sans décision explicite\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote.\n\n## Sources Git\n- projects/interv360/01-cadrage/framing-review.md\n- projects/interv360/01-cadrage/business-framing.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/business-analyst-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/cadrage/` non encore créé."
+    },
+    {
+      "title": "PROMPT-ARB-001 — Arbitrages MVP",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Arbitration",
+      "tags": [
+        "Arbitration",
+        "MVP",
+        "Product",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Arbitrages MVP — première passe structurante sans figer le périmètre MVP final (synthèse livrable pilote).",
+      "content": "## Objectif\nPréparer les arbitrages MVP à partir du cadrage et de la revue de cohérence : formaliser recommandations candidates sur les points prioritaires sans figer le périmètre MVP final ni lancer l'architecture technique.\n\n## Entrées\n- Cadrage métier consolidé\n- Revue de cohérence cadrage\n- Questions ouvertes et arbitrages listés (périmètre, intégrations, UX, SSI)\n- Principes d'arbitrage projet / SFIA\n\n## Sortie attendue\n- Document d'arbitrages MVP (options, recommandations candidates, impacts SFIA, statut non tranché ou validable)\n- ADR candidates identifiées sans finalisation\n\n## Garde-fous\n- Ne pas figer le périmètre MVP final sans validation dédiée\n- Ne pas produire backlog, user stories, ADR finalisées, architecture technique ou code\n- Ne pas publier dans Notion automatiquement\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote.\n\n## Sources Git\n- projects/interv360/01-cadrage/mvp-arbitrations.md\n- projects/interv360/01-cadrage/framing-review.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/product-owner-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/arbitrages/` non encore créé."
+    },
+    {
+      "title": "PROMPT-ARB-002 — Validation arbitrages MVP",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Arbitration",
+      "tags": [
+        "Arbitration",
+        "MVP",
+        "Product",
+        "Interv360",
+        "SFIA",
+        "Validation"
+      ],
+      "summary": "Validation arbitrages MVP — consolider formellement les décisions MVP au niveau cadrage (synthèse livrable pilote).",
+      "content": "## Objectif\nValider formellement les arbitrages MVP issus du cadrage, après clarification des points ouverts, en consolidant les décisions au niveau cadrage/arbitrage sans produire architecture, backlog ou maquettes.\n\n## Entrées\n- Document d'arbitrages MVP (mvp-arbitrations.md ou équivalent)\n- Clarifications intégration, email sécurisé, dashboard/KPI/UX si applicable\n- Grille des arbitrages prioritaires (ou équivalent projet)\n\n## Sortie attendue\n- Document de validation arbitrages MVP (décisions validées, périmètre MVP stabilisé au niveau cadrage, limites post-MVP)\n- Synthèse des décisions structurantes pour suites (brief UX/UI, ADR candidates)\n\n## Garde-fous\n- Ne pas produire architecture technique, backlog, user stories, maquettes Figma ou code\n- Ne pas confondre périmètre MVP validé cadrage et spécifications détaillées\n- Ne pas publier automatiquement dans Notion\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote validé Interv360.\n\n## Sources Git\n- projects/interv360/01-cadrage/mvp-arbitration-validation.md\n- projects/interv360/01-cadrage/mvp-arbitrations.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/product-owner-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/arbitrages/` non encore créé."
+    },
+    {
+      "title": "PROMPT-UX-001 — Brief UX/UI avant Figma",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "Brief",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Brief UX/UI avant Figma — préparer écrans MVP, parcours, KPI et critères entrée maquette sans design graphique (synthèse livrable pilote).",
+      "content": "## Objectif\nPréparer la future conception UX/UI à partir du cadrage consolidé et des arbitrages MVP validés : formaliser écrans MVP, parcours critiques, personas, KPI, principes UX et critères d'entrée en maquette — sans produire de design graphique.\n\n## Entrées\n- Cadrage consolidé et arbitrages MVP validés\n- Personas, parcours SAV et écrans candidats\n- Principes UX transverses et garde-fous surcharge cognitive\n- Règle de déclenchement Figma (validation brief préalable)\n\n## Sortie attendue\n- Brief UX/UI structuré (personas, parcours, noyau écrans MVP, KPI dashboard, principes UX, checklist entrée Figma)\n- Points ouverts avant maquette explicités\n\n## Garde-fous\n- Ne pas produire maquette, wireframe ni travail Figma\n- Ne pas produire backlog, user stories ou architecture technique\n- Ne pas ouvrir delivery\n- Brief ≠ maquette ; Figma uniquement après validation brief\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote validé.\n\n## Sources Git\n- projects/interv360/01-cadrage/ux-ui-brief.md\n- projects/interv360/01-cadrage/mvp-arbitration-validation.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/ux-ui-designer-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/ux-ui/` non encore créé."
+    },
+    {
+      "title": "PROMPT-UX-002 — Validation brief UX/UI",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "Brief",
+        "Validation",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Validation brief UX/UI — validation fictive multi-rôles du brief préalable à Figma sans déclenchement automatique maquette.",
+      "content": "## Objectif\nFormaliser une validation fictive PO / Concepteur fonctionnel / UX du brief UX/UI : confirmer que le brief est suffisamment cadré pour préparer la conception UX/UI, sans produire de maquette ni déclencher automatiquement Figma.\n\n## Entrées\n- Brief UX/UI complet (ux-ui-brief.md ou équivalent)\n- Checklist entrée Figma\n- Points ouverts avant maquette\n\n## Sortie attendue\n- Document de validation brief UX/UI (périmètre relu, checklist validée, points ouverts conservés visibles)\n- Autorisation de préparation maquette — pas de déclenchement Figma automatique\n\n## Garde-fous\n- Ne pas produire maquette ni wireframe\n- Ne pas déclencher automatiquement Figma\n- Ne pas masquer les points ouverts bloquants pour la conception\n- Ne pas produire backlog, user stories ou code\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote validé.\n\n## Sources Git\n- projects/interv360/01-cadrage/ux-ui-brief-validation.md\n- projects/interv360/01-cadrage/ux-ui-brief.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/ux-ui-designer-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/ux-ui/` non encore créé."
+    },
+    {
+      "title": "PROMPT-UX-003 — Revue dashboard KPI UX",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "UX/UI",
+      "tags": [
+        "UX/UI",
+        "Dashboard",
+        "KPI",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Revue dashboard KPI UX — clarifier tableaux de bord, KPI minimum et impacts UX du noyau MVP (synthèse livrable pilote).",
+      "content": "## Objectif\nClarifier le périmètre du tableau de bord SAV, de la vue pilotage dirigeant et des impacts UX du noyau MVP étendu : formaliser KPI minimum, limites MVP, garde-fous UX et recommandations candidates.\n\n## Entrées\n- Cadrage métier et arbitrages MVP en cours\n- Revue de cohérence cadrage (personas, écrans candidats)\n- Positionnement écrans de pilotage (opérationnel vs dirigeant)\n\n## Sortie attendue\n- Document revue dashboard / KPI / UX (différenciation écrans, KPI minimum, garde-fous surcharge cognitive, recommandation candidate)\n\n## Garde-fous\n- Ne pas produire maquettes, wireframes ou Figma\n- Ne pas produire backlog, user stories, ADR finalisées ou code\n- Ne pas définir MVP final sans validation arbitrage dédiée\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote.\n\n## Sources Git\n- projects/interv360/01-cadrage/dashboard-kpi-ux-review.md\n- projects/interv360/01-cadrage/mvp-arbitrations.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/ux-ui-designer-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/ux-ui/` non encore créé."
+    },
+    {
+      "title": "PROMPT-ROLE-001 — Méthode globale par rôle",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Role",
+      "tags": [
+        "Role",
+        "Méthode",
+        "Interv360",
+        "SFIA",
+        "Capitalisation"
+      ],
+      "summary": "Méthode globale par rôle — formaliser le savoir-faire mobilisé par chaque rôle pendant une phase projet pour capitalisation SFIA.",
+      "content": "## Objectif\nFormaliser le savoir-faire mobilisé par chaque rôle SFIA pendant une phase projet (ex. cadrage), à partir des livrables réellement produits, pour préparer templates, checklists, prompts et critères de qualité réutilisables.\n\n## Entrées\n- Livrables de phase projet (cadrage, arbitrages, briefs, revues)\n- Matrice des rôles mobilisés (cœur et transverses)\n- Règle double valeur projet / SFIA\n\n## Sortie attendue\n- Document de capitalisation méthodologique par rôle (valeur projet, valeur SFIA, questions types, livrables, templates candidats, enrichissement futur)\n\n## Garde-fous\n- Ne pas produire architecture technique, backlog, user stories, maquettes, Figma ou code\n- Ne pas figer les méthodes rôle — base vivante enrichie à chaque phase\n- Conserver Git comme source détaillée\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote.\n\n## Sources Git\n- projects/interv360/01-cadrage/role-methods-framing.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/project-manager-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/roles/` non encore créé."
+    },
+    {
+      "title": "PROMPT-ROLE-002 — Revue méthode par rôle",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Role",
+      "tags": [
+        "Role",
+        "Méthode",
+        "Review",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Revue méthode par rôle — évaluer la robustesse de la capitalisation méthodologique avant découpage en templates SFIA.",
+      "content": "## Objectif\nDéterminer si un document de capitalisation méthodologique par rôle est suffisamment robuste pour alimenter les futurs templates SFIA dans `docs/methods/roles/`.\n\n## Entrées\n- Document role-methods-framing.md ou équivalent\n- Critères de revue par rôle (checklist capitalisation)\n- Liste des rôles cœur et transverses mobilisés\n\n## Sortie attendue\n- Revue qualité capitalisation méthodologique (évaluation par rôle, rôles à renforcer, rôles à extraire en priorité, améliorations avant découpage)\n\n## Garde-fous\n- Ne pas produire architecture technique, backlog, user stories, maquettes ou code\n- Ne pas publier automatiquement les méthodes rôle sans revue\n- Distinguer savoir-faire documenté et savoir-être à formaliser explicitement\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis livrable pilote.\n\n## Sources Git\n- projects/interv360/01-cadrage/role-methods-review.md\n- projects/interv360/01-cadrage/role-methods-framing.md\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/project-manager-method.md\n\n## Limites\nFichier prompt dédié sous `prompts/roles/` non encore créé."
+    },
+    {
+      "title": "PROMPT-ROLE-003 — Extraction méthode rôle",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Role",
+      "tags": [
+        "Role",
+        "Méthode",
+        "Extraction",
+        "Interv360",
+        "SFIA"
+      ],
+      "summary": "Extraction méthode rôle — enrichir une Role Method SFIA à partir des apprentissages projet.",
+      "content": "## Objectif\nExtraire ou enrichir une méthode rôle SFIA (`docs/methods/roles/<role>-method.md`) à partir des apprentissages d'un projet pilote, sans remplacer la méthode par un simple copier-coller projet.\n\n## Entrées\n- Livrables projet et revues par rôle concerné\n- Fichier Role Method existant ou candidat\n- Règle d'enrichissement continu des méthodes rôle\n\n## Sortie attendue\n- Proposition d'enrichissement Role Method structurée (sections à ajouter/modifier, templates candidats, traçabilité source projet)\n\n## Garde-fous\n- Ne pas produire code, backlog ou user stories\n- Ne pas généraliser sans validation revue méthode\n- Conserver la méthode comme template vivant\n- Git reste source détaillée\n\n## Statut de validation\nCandidat — **formalisation fichier prompt recommandée** avant statut Tested.\n\n## Sources Git\n- docs/methods/roles/ (6 Role Methods + README)\n- prompts/prompt-catalog.md §4\n- projects/interv360/01-cadrage/role-methods-framing.md\n- projects/interv360/02-architecture/role-methods-enrichment-after-adr-p1.md\n\n## Limites\nAucun fichier prompt dédié sous `prompts/roles/` — workflow d'extraction à formaliser explicitement."
+    },
+    {
+      "title": "PROMPT-GOV-001 — Synchronisation gouvernance Notion projet",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Governance",
+      "tags": [
+        "Governance",
+        "Notion",
+        "CMP",
+        "Interv360",
+        "SFIA",
+        "Sync"
+      ],
+      "summary": "Synchronisation gouvernance Notion projet — préparer synthèse et payload CMP sans publication automatique.",
+      "content": "## Objectif\nPréparer une synchronisation de gouvernance projet vers Notion (synthèse + payload CMP) à partir des livrables Git consolidés — opération informative et traçable, non déclenchée automatiquement.\n\n## Entrées\n- Phase projet et statut cadrage / jalon\n- Livrables Git consolidés (liste, statuts, décisions clés)\n- Payload CMP projet ou équivalent (summary, content)\n- Référence CMP-001 et base Notion cible\n\n## Sortie attendue\n- Synthèse gouvernance Notion (résumé phase, jalons, décisions, prochaines étapes)\n- Payload CMP documenté avec publish_to_notion: false par défaut\n- Trace Git de préparation — pas de publication sans revue explicite\n\n## Garde-fous\n- Méta-sync Notion — pas de publication automatique\n- Ne pas afficher ni committer de secrets (.env)\n- Ne pas ouvrir delivery, backlog, user stories ou code via cette opération\n- Git reste source détaillée\n\n## Statut de validation\nCandidat — arbitrage recommandé avant publication Prompt Library.\n\n## Sources Git\n- projects/interv360/01-cadrage/notion-sync-summary.md\n- projects/interv360/01-cadrage/notion-sync-payload.json\n- prompts/prompt-catalog.md §4\n- docs/methods/roles/project-manager-method.md\n\n## Limites\nSynthèse source courte — revue manuelle et arbitrage requis."
+    },
+    {
+      "title": "PROMPT-GOV-002 — Contrôle structure méthodes",
+      "status": "Draft",
+      "version": "v0.1",
+      "model": "GPT",
+      "category": "Governance",
+      "tags": [
+        "Governance",
+        "Méthode",
+        "Structure",
+        "SFIA"
+      ],
+      "summary": "Contrôle structure méthodes — vérifier cohérence arborescence SFIA et présence des Role Methods.",
+      "content": "## Objectif\nVérifier la cohérence de l'arborescence SFIA après réorganisation des méthodes : dossiers cibles, Role Methods présents, anciens chemins inactifs, séparation documentation / prompts / projets / outils.\n\n## Entrées\n- Arborescence cible SFIA (docs, methods, roles, prompts, projects, tools)\n- Liste des Role Methods attendus\n- Références documentaires (README, liens internes)\n\n## Sortie attendue\n- Rapport de contrôle structure méthodes (dossiers, fichiers Role Method, anciens chemins, écarts signalés)\n\n## Garde-fous\n- Ne pas modifier l'arborescence sans décision explicite\n- Ne pas produire code applicatif\n- Rapport informatif — pas de publication Notion automatique\n\n## Statut de validation\nCandidat — synthèse Draft v0.1 depuis doc contrôle existant.\n\n## Sources Git\n- docs/methods/methods-structure-check.md\n- docs/methods/roles/README.md\n- prompts/prompt-catalog.md §4\n\n## Limites\nFichier prompt dédié sous `prompts/governance/` non encore créé."
+    }
+  ]
+}

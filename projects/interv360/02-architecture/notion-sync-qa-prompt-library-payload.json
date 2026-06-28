@@ -1,0 +1,183 @@
+{
+  "target": {
+    "workspace": "SFIA",
+    "notion_page_or_database": "SFIA Prompt Library",
+    "type": "prompt_library",
+    "publish_to_notion": false,
+    "manual_review_required": true
+  },
+  "source": {
+    "project_id": "PRJ-INTERV360",
+    "source_of_truth": "git",
+    "prompt_family_path": "prompts/qa/qa-tester-prompt-family.md",
+    "catalog_path": "prompts/prompt-catalog.md",
+    "method_path": "docs/methods/roles/qa-tester-method.md",
+    "validation_path": "projects/interv360/02-architecture/prompt-catalog-qa-tester-validation.md"
+  },
+  "defaults": {
+    "status": "Draft",
+    "category": "QA / Testeur",
+    "model": "GPT",
+    "version": "v0.1",
+    "delivery_status": "blocked"
+  },
+  "prompts": [
+    {
+      "id": "PROMPT-QA-001",
+      "name": "Analyse de testabilité d'un besoin",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Analyser si un besoin est clair, vérifiable, traçable et suffisamment testable.",
+      "guardrails": [
+        "no_delivery",
+        "no_backlog",
+        "no_user_stories",
+        "no_code"
+      ],
+      "validation": "validated"
+    },
+    {
+      "id": "PROMPT-QA-002",
+      "name": "Revue QA d'une maquette UX/UI",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Relire une maquette sous l'angle testabilité, parcours, états visibles et erreurs métier.",
+      "guardrails": [
+        "no_delivery",
+        "no_backlog",
+        "no_detailed_test_cases",
+        "no_code"
+      ],
+      "validation": "validated"
+    },
+    {
+      "id": "PROMPT-QA-003",
+      "name": "Questions réflexes QA en revue transverse",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Préparer une liste de questions QA pour une revue transverse multi-rôles.",
+      "guardrails": [
+        "no_delivery",
+        "no_backlog",
+        "no_user_stories",
+        "no_code"
+      ],
+      "validation": "validated"
+    },
+    {
+      "id": "PROMPT-QA-004",
+      "name": "Lecture happy path / non happy path",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Identifier les chemins nominaux et dégradés pressentis, sans produire de scénarios détaillés.",
+      "guardrails": [
+        "no_delivery",
+        "no_detailed_test_scenarios",
+        "no_code"
+      ],
+      "validation": "validated"
+    },
+    {
+      "id": "PROMPT-QA-005",
+      "name": "Grille de risques qualité",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Identifier les zones à risque qualité sur un livrable projet.",
+      "guardrails": [
+        "no_delivery",
+        "no_full_test_plan",
+        "no_code"
+      ],
+      "validation": "validated"
+    },
+    {
+      "id": "PROMPT-QA-006",
+      "name": "Préparation légère d'une stratégie de test",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Préparer une orientation de stratégie de test, sans produire une stratégie de recette complète.",
+      "guardrails": [
+        "no_delivery",
+        "no_full_test_strategy",
+        "no_code"
+      ],
+      "validation": "validated_with_vigilance",
+      "vigilance": "Éviter toute dérive vers une stratégie de recette complète ; la sortie ne vaut pas stratégie officielle."
+    },
+    {
+      "id": "PROMPT-QA-007",
+      "name": "Revue d'anomalie métier",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Vérifier si une anomalie métier est suffisamment exploitable (clarté, reproductibilité, impact).",
+      "guardrails": [
+        "no_delivery",
+        "no_code"
+      ],
+      "validation": "validated"
+    },
+    {
+      "id": "PROMPT-QA-008",
+      "name": "Traçabilité besoin / critère / test futur / anomalie",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Préparer une lecture de traçabilité sans produire les tests détaillés.",
+      "guardrails": [
+        "no_delivery",
+        "no_detailed_test_matrix",
+        "no_code"
+      ],
+      "validation": "validated_with_vigilance",
+      "vigilance": "Éviter toute dérive vers une matrice de tests détaillée sans jalon dédié."
+    },
+    {
+      "id": "PROMPT-QA-009",
+      "name": "Revue des critères d'acceptation futurs",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Aider à rendre des critères futurs testables, sans produire de user stories.",
+      "guardrails": [
+        "no_delivery",
+        "no_backlog",
+        "no_user_stories",
+        "no_code"
+      ],
+      "validation": "validated_with_vigilance",
+      "vigilance": "Éviter toute dérive vers la création de user stories ou de backlog."
+    },
+    {
+      "id": "PROMPT-QA-010",
+      "name": "Vérification des garde-fous QA",
+      "status": "Draft",
+      "category": "QA / Testeur",
+      "model": "GPT",
+      "version": "v0.1",
+      "objective": "Contrôler qu'une production QA respecte les garde-fous SFIA.",
+      "guardrails": [
+        "no_delivery",
+        "no_backlog",
+        "no_user_stories",
+        "no_code"
+      ],
+      "validation": "validated"
+    }
+  ]
+}

@@ -33,7 +33,7 @@
     },
     "category": {
       "type": "string",
-      "enum": ["Agent", "RAG", "Coding", "Analysis", "Writing"],
+      "enum": ["Agent", "RAG", "Coding", "Analysis", "Writing", "QA", "Architecture", "Security", "UX/UI", "Framing", "Governance", "Role", "Arbitration"],
       "notionType": "select",
       "notionProperty": "Category"
     },
@@ -42,6 +42,14 @@
       "items": "string",
       "notionType": "multi_select",
       "notionProperty": "Tags"
+    },
+    "summary": {
+      "type": "string",
+      "notionType": "page_content"
+    },
+    "content": {
+      "type": "string",
+      "notionType": "page_content"
     }
   }
 }
