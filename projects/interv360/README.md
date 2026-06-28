@@ -22,6 +22,7 @@ Aucune solution technique ne doit être produite avant validation du cadrage mé
 | `02-architecture/` | Architecture / clarification | Clôturé |
 | `03-process/` | Processus BPMN | **Active** — cycle SAV MVP, exceptions métier, anomalies d'intégration |
 | `04-adr/` | ADR structurantes | **Active** — décisions d'architecture issues du cadrage, de la clarification et du cycle BPMN |
+| `05-functional-architecture/` | Architecture fonctionnelle détaillée | **Active** — issue des cycles clarification, BPMN et ADR |
 | `03-design/` | Design UX/UI détaillé | À venir — écrans et parcours (après BPMN) |
 | `04-delivery/` | Delivery | À venir |
 | `05-tests/` | Tests | À venir |
