@@ -1,0 +1,83 @@
+{
+  "cmp_connector": "sfia-workspace/tools/cmp-001",
+  "cmp_version": "1.1.2",
+  "type": "component",
+  "database_env_key": "NOTION_DATABASE_COMPONENTS",
+  "database_title_reference": "SFIA Components",
+  "target": "SFIA Components",
+  "publish_to_notion": false,
+  "manual_review_required": true,
+  "command_pattern": "node src/cli.js create component <item-json-file>",
+  "limitations": [
+    "Une commande create component par entrée — pas de batch natif",
+    "update component non supporté — mise à jour CMP-001 existant nécessite arbitrage (édition manuelle ou évolution CMP)",
+    "Vérifier absence de doublon CMP-001 / SFIA-COMP-CMP-001 avant exécution",
+    "Publication désactivée dans cette préparation",
+    "Schéma component V1 : métadonnées détaillées portées par currentVersion (rich_text)"
+  ],
+  "items": [
+    {
+      "title": "SFIA-COMP-CMP-001 — CMP-001 Notion Connector",
+      "status": "Active",
+      "type": "Connector",
+      "criticality": "High",
+      "currentVersion": "ID: SFIA-COMP-CMP-001 | CMP-001 | Version: v1.1.2 | Statut: Active | Catégorie: SFIA Components | Domaine: Knowledge Platform\n\nRésumé:\nComposant d'outillage SFIA assurant la synchronisation contrôlée entre Git et Notion. Roadmap post Prompt Library 39/39 : update prompt, batch, export fiable, contrôle doublons et procédure standard.\n\n## Contexte\n\n- Synchronisation initiale SFIA Prompt Library terminée : 39/39 prompts publiés dans Notion.\n- PR #1 mergée dans main ; clôture documentée.\n- Git reste la source détaillée ; Notion porte la synthèse et la gouvernance des composants.\n\n## Rôle du composant\n\n- Connecteur officiel CMP-001 entre Git (sfia-workspace / sfia-notion-sync) et Notion.\n- Création contrôlée d'objets SFIA (prompt, component, project, etc.).\n- Validation JSON par schémas CMP.\n- Export bases Notion (exports/notion/).\n\n## État actuel\n\n- create prompt opérationnel — 39 prompts publiés (Lots 0 à final).\n- update project et update knowledge supportés pour certains types.\n- update prompt et batch non supportés.\n- Export prompts.json obsolète pendant les publications initiales.\n- Contrôle doublons manuel via grep export.\n\n## Roadmap technique (post Prompt Library)\n\n| ID | Sujet | Priorité | Statut |\n|----|-------|----------|--------|\n| CMP-ROADMAP-001 | Ajouter update prompt | Haute | À cadrer |\n| CMP-ROADMAP-002 | Ajouter un mode batch | Haute | À cadrer |\n| CMP-ROADMAP-003 | Formaliser prompts Draft sous prompts/<famille>/ | Moyenne | À planifier |\n| CMP-ROADMAP-004 | Passage Draft → Tested | Moyenne | À cadrer |\n| CMP-ROADMAP-005 | Fiabiliser export Notion | Haute | À cadrer |\n| CMP-ROADMAP-006 | Contrôle doublons renforcé | Haute | À cadrer |\n| CMP-ROADMAP-007 | Procédure standard publication Prompt Library | Moyenne | À documenter |\n| CMP-ROADMAP-008 | Clôture semi-automatique des lots | Basse | À étudier |\n\n## Priorités immédiates\n\n1. update prompt (CMP-ROADMAP-001)\n2. batch (CMP-ROADMAP-002)\n3. export Notion fiable (CMP-ROADMAP-005)\n4. contrôle doublons (CMP-ROADMAP-006)\n\n## Garde-fous\n\n- Pas de publication Notion automatique.\n- Pas de secret affiché.\n- Pas de delivery, backlog, user stories ou code applicatif via cette roadmap.\n- Git reste source détaillée.\n\n## Sources Git\n\n- docs/roadmaps/cmp-technical-roadmap.md\n- projects/interv360/02-architecture/notion-sync-prompt-library-closure-summary.md\n- projects/interv360/02-architecture/merge-closure-prompt-library-sync.md\n- tools/cmp-001/README.md\n- tools/cmp-001/ROADMAP.md\n\n## Prochaine étape\n\nRevue manuelle du payload SFIA Components, arbitrage doublon CMP-001 existant, puis synchronisation Notion dédiée."
+    },
+    {
+      "title": "CMP-ROADMAP-001 — Ajouter update prompt",
+      "status": "Backlog",
+      "type": "Connector",
+      "criticality": "High",
+      "currentVersion": "ID: CMP-ROADMAP-001 | Composant: évolution CMP-001 | Priorité: Haute | Statut: À cadrer | Catégorie: SFIA Components\n\nDescription:\nAjouter une commande CMP permettant de mettre à jour une fiche Prompt Library existante.\n\nGarde-fous:\nPas de publication automatique. Git reste source détaillée.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-002 — Ajouter un mode batch",
+      "status": "Backlog",
+      "type": "Connector",
+      "criticality": "High",
+      "currentVersion": "ID: CMP-ROADMAP-002 | Composant: évolution CMP-001 | Priorité: Haute | Statut: À cadrer | Catégorie: SFIA Components\n\nDescription:\nPermettre la création ou publication de plusieurs prompts depuis un payload agrégé, avec arrêt en cas d'échec.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-005 — Fiabiliser export Notion",
+      "status": "Backlog",
+      "type": "Connector",
+      "criticality": "High",
+      "currentVersion": "ID: CMP-ROADMAP-005 | Composant: évolution CMP-001 | Priorité: Haute | Statut: À cadrer | Catégorie: SFIA Components\n\nDescription:\nRafraîchir et fiabiliser exports/notion/prompts.json pour refléter l'état réel de la Prompt Library.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-006 — Contrôle doublons renforcé",
+      "status": "Backlog",
+      "type": "Connector",
+      "criticality": "High",
+      "currentVersion": "ID: CMP-ROADMAP-006 | Composant: évolution CMP-001 | Priorité: Haute | Statut: À cadrer | Catégorie: SFIA Components\n\nDescription:\nContrôle dédié des doublons PROMPT-* avant création Notion.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-003 — Formaliser prompts Draft",
+      "status": "Backlog",
+      "type": "Library",
+      "criticality": "Medium",
+      "currentVersion": "ID: CMP-ROADMAP-003 | Composant: évolution Prompt Library | Priorité: Moyenne | Statut: À planifier | Catégorie: SFIA Components\n\nDescription:\nCréer progressivement des fichiers sources sous prompts/<famille>/ pour les prompts encore en synthèse Draft.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-004 — Passage Draft → Tested",
+      "status": "Backlog",
+      "type": "Library",
+      "criticality": "Medium",
+      "currentVersion": "ID: CMP-ROADMAP-004 | Composant: évolution Prompt Library | Priorité: Moyenne | Statut: À cadrer | Catégorie: SFIA Components\n\nDescription:\nProcessus de promotion des prompts après usage réel documenté.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-007 — Procédure standard publication Prompt Library",
+      "status": "Backlog",
+      "type": "Connector",
+      "criticality": "Medium",
+      "currentVersion": "ID: CMP-ROADMAP-007 | Composant: évolution CMP-001 | Priorité: Moyenne | Statut: À documenter | Catégorie: SFIA Components\n\nDescription:\nDocumenter le processus standard : préparation, revue, publication, trace Git, vérification visuelle, clôture.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    },
+    {
+      "title": "CMP-ROADMAP-008 — Clôture semi-automatique des lots",
+      "status": "Backlog",
+      "type": "Connector",
+      "criticality": "Low",
+      "currentVersion": "ID: CMP-ROADMAP-008 | Composant: évolution CMP-001 | Priorité: Basse | Statut: À étudier | Catégorie: SFIA Components\n\nDescription:\nÉtudier génération semi-automatique des logs de publication et notes de clôture.\n\nSource Git:\ndocs/roadmaps/cmp-technical-roadmap.md"
+    }
+  ]
+}
