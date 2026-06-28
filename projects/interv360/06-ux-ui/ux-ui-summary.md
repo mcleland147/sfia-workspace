@@ -61,7 +61,7 @@ Ce document **ne produit pas** :
 | 5 | `screen-functional-specs.md` | Spécifications fonctionnelles par écran | **Produit** |
 | 6 | `dashboard-ux-view.md` | Vues Manager SAV, Technicien, Pilotage ; KPI et alertes | **Produit** |
 | 7 | `ux-ui-summary.md` | Synthèse consolidée (ce document) | **Produit** |
-| 8 | `ux-ui-cycle-closure.md` | Clôture formelle du cycle | **À produire** |
+| 8 | `ux-ui-cycle-closure.md` | Clôture formelle du cycle | **Produit** |
 
 ---
 
@@ -223,11 +223,9 @@ Ce document **ne produit pas** :
 
 ## 14. Prochaine action recommandée
 
-Produire :
+Le cycle est **clôturé** via `ux-ui-cycle-closure.md`.
 
-**`projects/interv360/06-ux-ui/ux-ui-cycle-closure.md`**
-
-**Objectif** : clôturer formellement le cycle de reprise UX/UI — confirmer les livrables produits, les garde-fous, les exclusions respectées et les suites possibles (sans les engager).
+**Suite** : contrôle qualité de la branche `ux/interv360-reprise-ui-detail`, puis **préparation PR** vers `main` — sans merge automatique.
 
 ---
 
@@ -241,9 +239,9 @@ La **reprise UX/UI Interv360** est **consolidée** et **alignée** avec :
 - l'**architecture fonctionnelle détaillée** (7 domaines, 16 objets, STAT-01 à STAT-08) ;
 - les **ADR structurantes** ADR-001 à ADR-004.
 
-Le cycle documentaire a produit **7 livrables** (dont cette synthèse) couvrant état des lieux, cadrage, parcours, inventaire, specs écran et vues dashboard — **sans** maquette finale, backlog, tests ni delivery.
+Le cycle documentaire a produit **8 livrables** dans `projects/interv360/06-ux-ui/` — état des lieux, cadrage, parcours, inventaire, specs écran, vues dashboard, synthèse et clôture — **sans** maquette finale, backlog, tests ni delivery.
 
-La **clôture formelle** du cycle via `ux-ui-cycle-closure.md` constitue la **dernière étape** avant toute phase ultérieure (maquette, implémentation, recette).
+La **clôture formelle** (`ux-ui-cycle-closure.md`) confirme le cycle ; toute phase ultérieure (maquette, implémentation, recette) reste **non engagée**.
 
 ---
 
