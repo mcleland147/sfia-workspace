@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Interv360SavExceptions" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.31.0">
+  <bpmn:collaboration id="Collaboration_Interv360SavExceptions">
+    <bpmn:participant id="Participant_Interv360SavExceptions" name="Interv360 SAV Exceptions" processRef="Process_Interv360_SAV_Exceptions"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Interv360_SAV_Exceptions" name="Interv360 SAV Exceptions" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Exceptions">
+      <bpmn:lane id="Lane_ManagerSav" name="Manager SAV">
+        <bpmn:flowNodeRef>Group_S1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Group_S4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Group_S5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Group_S2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Group_S3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_S1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S1_Identify</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S1_Complete</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_S1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_S1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S2_Compare</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_S2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S2_Link</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S2_Continue</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_S2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S4_Analyze</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S4_Replan</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Technicien" name="Technicien">
+        <bpmn:flowNodeRef>StartEvent_S3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S3_Wait</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S3_Reason</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_S3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S3_Resume</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_S3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_S5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S5_Select</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S5_Complete</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S5_Validate</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Interv360" name="Interv360">
+        <bpmn:flowNodeRef>Task_S1_Update</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_S2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S2_Display</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S3_Dashboard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_S5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S5_Close</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_S5</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Dashboard" name="Dashboard / pilotage">
+        <bpmn:flowNodeRef>StartEvent_S4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_S4_Signal</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_S4</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:group id="Group_S1" name="1. Données insuffisantes"/>
+    <bpmn:group id="Group_S2" name="2. Doublon potentiel"/>
+    <bpmn:group id="Group_S3" name="3. Attente client"/>
+    <bpmn:group id="Group_S4" name="4. Retard"/>
+    <bpmn:group id="Group_S5" name="5. Clôture sans signature"/>
+    <bpmn:startEvent id="StartEvent_S1" name="Données insuffisantes détectées">
+      <bpmn:outgoing>Flow_S1_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_S1_Identify" name="Identifier les données manquantes">
+      <bpmn:incoming>Flow_S1_1</bpmn:incoming>
+      <bpmn:incoming>Flow_S1_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_S1_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S1_Complete" name="Compléter la demande">
+      <bpmn:incoming>Flow_S1_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_S1_3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S1_Update" name="Mettre à jour la demande">
+      <bpmn:incoming>Flow_S1_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_S1_4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_S1" name="Données minimales complètes ?" default="Flow_S1_6">
+      <bpmn:incoming>Flow_S1_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_S1_5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_S1_6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_S1" name="Demande prête à qualifier">
+      <bpmn:incoming>Flow_S1_5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_S2" name="Doublon potentiel détecté">
+      <bpmn:outgoing>Flow_S2_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_S2_Display" name="Afficher les demandes proches">
+      <bpmn:incoming>Flow_S2_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_S2_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S2_Compare" name="Comparer les demandes">
+      <bpmn:incoming>Flow_S2_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_S2_3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_S2" name="Doublon confirmé ?" default="Flow_S2_5">
+      <bpmn:incoming>Flow_S2_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_S2_4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_S2_5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_S2_Link" name="Lier ou marquer comme doublon">
+      <bpmn:incoming>Flow_S2_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_S2_6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S2_Continue" name="Continuer la qualification">
+      <bpmn:incoming>Flow_S2_5</bpmn:incoming>
+      <bpmn:incoming>Flow_S2_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_S2_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_S2" name="Arbitrage doublon terminé">
+      <bpmn:incoming>Flow_S2_7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_S3" name="Blocage client identifié">
+      <bpmn:outgoing>Flow_S3_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_S3_Wait" name="Passer en attente client">
+      <bpmn:incoming>Flow_S3_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_S3_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S3_Reason" name="Renseigner le motif d'attente">
+      <bpmn:incoming>Flow_S3_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_S3_3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S3_Dashboard" name="Rendre l'attente visible au dashboard">
+      <bpmn:incoming>Flow_S3_3</bpmn:incoming>
+      <bpmn:incoming>Flow_S3_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_S3_4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_S3" name="Blocage levé ?" default="Flow_S3_6">
+      <bpmn:incoming>Flow_S3_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_S3_5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_S3_6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_S3_Resume" name="Reprendre l'intervention">
+      <bpmn:incoming>Flow_S3_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_S3_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_S3" name="Intervention reprise">
+      <bpmn:incoming>Flow_S3_7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_S4" name="Échéance dépassée">
+      <bpmn:outgoing>Flow_S4_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_S4_Signal" name="Signaler le retard">
+      <bpmn:incoming>Flow_S4_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_S4_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S4_Analyze" name="Analyser la cause du retard">
+      <bpmn:incoming>Flow_S4_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_S4_3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S4_Replan" name="Réajuster la planification">
+      <bpmn:incoming>Flow_S4_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_S4_4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_S4" name="Retard pris en compte">
+      <bpmn:incoming>Flow_S4_4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_S5" name="Signature client indisponible">
+      <bpmn:outgoing>Flow_S5_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_S5_Select" name="Sélectionner un motif d'absence">
+      <bpmn:incoming>Flow_S5_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_S5_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_S5" name="Motif suffisant ?" default="Flow_S5_4">
+      <bpmn:incoming>Flow_S5_2</bpmn:incoming>
+      <bpmn:incoming>Flow_S5_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_S5_3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_S5_4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_S5_Complete" name="Compléter le motif">
+      <bpmn:incoming>Flow_S5_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_S5_5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S5_Validate" name="Valider le compte rendu">
+      <bpmn:incoming>Flow_S5_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_S5_6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_S5_Close" name="Clôturer sans signature">
+      <bpmn:incoming>Flow_S5_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_S5_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_S5" name="Intervention clôturée sans signature">
+      <bpmn:incoming>Flow_S5_7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_S1_1" sourceRef="StartEvent_S1" targetRef="Task_S1_Identify"/>
+    <bpmn:sequenceFlow id="Flow_S1_2" sourceRef="Task_S1_Identify" targetRef="Task_S1_Complete"/>
+    <bpmn:sequenceFlow id="Flow_S1_3" sourceRef="Task_S1_Complete" targetRef="Task_S1_Update"/>
+    <bpmn:sequenceFlow id="Flow_S1_4" sourceRef="Task_S1_Update" targetRef="Gateway_S1"/>
+    <bpmn:sequenceFlow id="Flow_S1_5" sourceRef="Gateway_S1" targetRef="EndEvent_S1" name="Oui"/>
+    <bpmn:sequenceFlow id="Flow_S1_6" sourceRef="Gateway_S1" targetRef="Task_S1_Identify" name="Non"/>
+    <bpmn:sequenceFlow id="Flow_S2_1" sourceRef="StartEvent_S2" targetRef="Task_S2_Display"/>
+    <bpmn:sequenceFlow id="Flow_S2_2" sourceRef="Task_S2_Display" targetRef="Task_S2_Compare"/>
+    <bpmn:sequenceFlow id="Flow_S2_3" sourceRef="Task_S2_Compare" targetRef="Gateway_S2"/>
+    <bpmn:sequenceFlow id="Flow_S2_4" sourceRef="Gateway_S2" targetRef="Task_S2_Link" name="Oui"/>
+    <bpmn:sequenceFlow id="Flow_S2_5" sourceRef="Gateway_S2" targetRef="Task_S2_Continue" name="Non"/>
+    <bpmn:sequenceFlow id="Flow_S2_6" sourceRef="Task_S2_Link" targetRef="Task_S2_Continue"/>
+    <bpmn:sequenceFlow id="Flow_S2_7" sourceRef="Task_S2_Continue" targetRef="EndEvent_S2"/>
+    <bpmn:sequenceFlow id="Flow_S3_1" sourceRef="StartEvent_S3" targetRef="Task_S3_Wait"/>
+    <bpmn:sequenceFlow id="Flow_S3_2" sourceRef="Task_S3_Wait" targetRef="Task_S3_Reason"/>
+    <bpmn:sequenceFlow id="Flow_S3_3" sourceRef="Task_S3_Reason" targetRef="Task_S3_Dashboard"/>
+    <bpmn:sequenceFlow id="Flow_S3_4" sourceRef="Task_S3_Dashboard" targetRef="Gateway_S3"/>
+    <bpmn:sequenceFlow id="Flow_S3_5" sourceRef="Gateway_S3" targetRef="Task_S3_Resume" name="Oui"/>
+    <bpmn:sequenceFlow id="Flow_S3_6" sourceRef="Gateway_S3" targetRef="Task_S3_Dashboard" name="Non"/>
+    <bpmn:sequenceFlow id="Flow_S3_7" sourceRef="Task_S3_Resume" targetRef="EndEvent_S3"/>
+    <bpmn:sequenceFlow id="Flow_S4_1" sourceRef="StartEvent_S4" targetRef="Task_S4_Signal"/>
+    <bpmn:sequenceFlow id="Flow_S4_2" sourceRef="Task_S4_Signal" targetRef="Task_S4_Analyze"/>
+    <bpmn:sequenceFlow id="Flow_S4_3" sourceRef="Task_S4_Analyze" targetRef="Task_S4_Replan"/>
+    <bpmn:sequenceFlow id="Flow_S4_4" sourceRef="Task_S4_Replan" targetRef="EndEvent_S4"/>
+    <bpmn:sequenceFlow id="Flow_S5_1" sourceRef="StartEvent_S5" targetRef="Task_S5_Select"/>
+    <bpmn:sequenceFlow id="Flow_S5_2" sourceRef="Task_S5_Select" targetRef="Gateway_S5"/>
+    <bpmn:sequenceFlow id="Flow_S5_3" sourceRef="Gateway_S5" targetRef="Task_S5_Validate" name="Oui"/>
+    <bpmn:sequenceFlow id="Flow_S5_4" sourceRef="Gateway_S5" targetRef="Task_S5_Complete" name="Non"/>
+    <bpmn:sequenceFlow id="Flow_S5_5" sourceRef="Task_S5_Complete" targetRef="Gateway_S5"/>
+    <bpmn:sequenceFlow id="Flow_S5_6" sourceRef="Task_S5_Validate" targetRef="Task_S5_Close"/>
+    <bpmn:sequenceFlow id="Flow_S5_7" sourceRef="Task_S5_Close" targetRef="EndEvent_S5"/>
+    <bpmn:textAnnotation id="TextAnnotation_Motifs">
+      <bpmn:text>Motifs absence signature : Client absent ; Signature refusée ; Signature non applicable ; Contrainte terrain ; Autre motif à préciser</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Exceptions">
+    <bpmndi:BPMNPlane id="BPMNPlane_Exceptions" bpmnElement="Collaboration_Interv360SavExceptions">
+      <bpmndi:BPMNShape id="Participant_di" bpmnElement="Participant_Interv360SavExceptions" isHorizontal="true">
+        <dc:Bounds x="120" y="60" width="3500" height="840"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_ManagerSav_di" bpmnElement="Lane_ManagerSav" isHorizontal="true">
+        <dc:Bounds x="150" y="80" width="3470" height="200"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Technicien_di" bpmnElement="Lane_Technicien" isHorizontal="true">
+        <dc:Bounds x="150" y="280" width="3470" height="200"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Interv360_di" bpmnElement="Lane_Interv360" isHorizontal="true">
+        <dc:Bounds x="150" y="480" width="3470" height="200"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Dashboard_di" bpmnElement="Lane_Dashboard" isHorizontal="true">
+        <dc:Bounds x="150" y="680" width="3470" height="200"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_S1_di" bpmnElement="Group_S1" isHorizontal="true">
+        <dc:Bounds x="180" y="90" width="640" height="720"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="190" y="70" width="640" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_S2_di" bpmnElement="Group_S2" isHorizontal="true">
+        <dc:Bounds x="880" y="90" width="640" height="720"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="890" y="70" width="640" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_S3_di" bpmnElement="Group_S3" isHorizontal="true">
+        <dc:Bounds x="1580" y="90" width="640" height="720"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1590" y="70" width="640" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_S4_di" bpmnElement="Group_S4" isHorizontal="true">
+        <dc:Bounds x="2280" y="90" width="520" height="720"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2290" y="70" width="520" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_S5_di" bpmnElement="Group_S5" isHorizontal="true">
+        <dc:Bounds x="2840" y="90" width="640" height="720"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2850" y="70" width="640" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_S1_di" bpmnElement="StartEvent_S1">
+        <dc:Bounds x="220" y="158" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S1_Identify_di" bpmnElement="Task_S1_Identify">
+        <dc:Bounds x="320" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S1_Complete_di" bpmnElement="Task_S1_Complete">
+        <dc:Bounds x="450" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S1_Update_di" bpmnElement="Task_S1_Update">
+        <dc:Bounds x="580" y="540" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_S1_di" bpmnElement="Gateway_S1" isMarkerVisible="true">
+        <dc:Bounds x="710" y="165" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_S1_di" bpmnElement="EndEvent_S1">
+        <dc:Bounds x="840" y="158" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_S2_di" bpmnElement="StartEvent_S2">
+        <dc:Bounds x="920" y="558" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S2_Display_di" bpmnElement="Task_S2_Display">
+        <dc:Bounds x="1020" y="540" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S2_Compare_di" bpmnElement="Task_S2_Compare">
+        <dc:Bounds x="1150" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_S2_di" bpmnElement="Gateway_S2" isMarkerVisible="true">
+        <dc:Bounds x="1280" y="165" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S2_Link_di" bpmnElement="Task_S2_Link">
+        <dc:Bounds x="1390" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S2_Continue_di" bpmnElement="Task_S2_Continue">
+        <dc:Bounds x="1500" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_S2_di" bpmnElement="EndEvent_S2">
+        <dc:Bounds x="1620" y="158" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_S3_di" bpmnElement="StartEvent_S3">
+        <dc:Bounds x="1620" y="358" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S3_Wait_di" bpmnElement="Task_S3_Wait">
+        <dc:Bounds x="1720" y="340" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S3_Reason_di" bpmnElement="Task_S3_Reason">
+        <dc:Bounds x="1850" y="340" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S3_Dashboard_di" bpmnElement="Task_S3_Dashboard">
+        <dc:Bounds x="1980" y="540" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_S3_di" bpmnElement="Gateway_S3" isMarkerVisible="true">
+        <dc:Bounds x="2110" y="365" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S3_Resume_di" bpmnElement="Task_S3_Resume">
+        <dc:Bounds x="2220" y="340" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_S3_di" bpmnElement="EndEvent_S3">
+        <dc:Bounds x="2340" y="358" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_S4_di" bpmnElement="StartEvent_S4">
+        <dc:Bounds x="2320" y="758" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S4_Signal_di" bpmnElement="Task_S4_Signal">
+        <dc:Bounds x="2420" y="740" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S4_Analyze_di" bpmnElement="Task_S4_Analyze">
+        <dc:Bounds x="2550" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S4_Replan_di" bpmnElement="Task_S4_Replan">
+        <dc:Bounds x="2680" y="140" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_S4_di" bpmnElement="EndEvent_S4">
+        <dc:Bounds x="2780" y="758" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_S5_di" bpmnElement="StartEvent_S5">
+        <dc:Bounds x="2880" y="358" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S5_Select_di" bpmnElement="Task_S5_Select">
+        <dc:Bounds x="2980" y="340" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_S5_di" bpmnElement="Gateway_S5" isMarkerVisible="true">
+        <dc:Bounds x="3110" y="565" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S5_Complete_di" bpmnElement="Task_S5_Complete">
+        <dc:Bounds x="3220" y="340" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S5_Validate_di" bpmnElement="Task_S5_Validate">
+        <dc:Bounds x="3350" y="340" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_S5_Close_di" bpmnElement="Task_S5_Close">
+        <dc:Bounds x="3350" y="540" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_S5_di" bpmnElement="EndEvent_S5">
+        <dc:Bounds x="3480" y="558" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_S1_1_di" bpmnElement="Flow_S1_1">
+        <di:waypoint x="256" y="176.0"/>
+        <di:waypoint x="320" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S1_2_di" bpmnElement="Flow_S1_2">
+        <di:waypoint x="440" y="180.0"/>
+        <di:waypoint x="450" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S1_3_di" bpmnElement="Flow_S1_3">
+        <di:waypoint x="570" y="180.0"/>
+        <di:waypoint x="575.0" y="180.0"/>
+        <di:waypoint x="575.0" y="580.0"/>
+        <di:waypoint x="580" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S1_4_di" bpmnElement="Flow_S1_4">
+        <di:waypoint x="700" y="580.0"/>
+        <di:waypoint x="717.5" y="580.0"/>
+        <di:waypoint x="717.5" y="190.0"/>
+        <di:waypoint x="735.0" y="190.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S1_5_di" bpmnElement="Flow_S1_5">
+        <di:waypoint x="735.0" y="190.0"/>
+        <di:waypoint x="840" y="176.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S1_6_di" bpmnElement="Flow_S1_6">
+        <di:waypoint x="735.0" y="190.0"/>
+        <di:waypoint x="730" y="420"/>
+        <di:waypoint x="380" y="420"/>
+        <di:waypoint x="380" y="220"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_1_di" bpmnElement="Flow_S2_1">
+        <di:waypoint x="956" y="576.0"/>
+        <di:waypoint x="1020" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_2_di" bpmnElement="Flow_S2_2">
+        <di:waypoint x="1140" y="580.0"/>
+        <di:waypoint x="1145.0" y="580.0"/>
+        <di:waypoint x="1145.0" y="180.0"/>
+        <di:waypoint x="1150" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_3_di" bpmnElement="Flow_S2_3">
+        <di:waypoint x="1270" y="180.0"/>
+        <di:waypoint x="1305.0" y="190.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_4_di" bpmnElement="Flow_S2_4">
+        <di:waypoint x="1305.0" y="190.0"/>
+        <di:waypoint x="1390" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_5_di" bpmnElement="Flow_S2_5">
+        <di:waypoint x="1305.0" y="190.0"/>
+        <di:waypoint x="1500" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_6_di" bpmnElement="Flow_S2_6">
+        <di:waypoint x="1510" y="180.0"/>
+        <di:waypoint x="1500" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S2_7_di" bpmnElement="Flow_S2_7">
+        <di:waypoint x="1620" y="180.0"/>
+        <di:waypoint x="1620" y="176.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_1_di" bpmnElement="Flow_S3_1">
+        <di:waypoint x="1656" y="376.0"/>
+        <di:waypoint x="1720" y="380.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_2_di" bpmnElement="Flow_S3_2">
+        <di:waypoint x="1840" y="380.0"/>
+        <di:waypoint x="1850" y="380.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_3_di" bpmnElement="Flow_S3_3">
+        <di:waypoint x="1970" y="380.0"/>
+        <di:waypoint x="1975.0" y="380.0"/>
+        <di:waypoint x="1975.0" y="580.0"/>
+        <di:waypoint x="1980" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_4_di" bpmnElement="Flow_S3_4">
+        <di:waypoint x="2100" y="580.0"/>
+        <di:waypoint x="2117.5" y="580.0"/>
+        <di:waypoint x="2117.5" y="390.0"/>
+        <di:waypoint x="2135.0" y="390.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_5_di" bpmnElement="Flow_S3_5">
+        <di:waypoint x="2135.0" y="390.0"/>
+        <di:waypoint x="2220" y="380.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_6_di" bpmnElement="Flow_S3_6">
+        <di:waypoint x="2135.0" y="365"/>
+        <di:waypoint x="2110" y="300"/>
+        <di:waypoint x="2040" y="300"/>
+        <di:waypoint x="2040" y="540"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S3_7_di" bpmnElement="Flow_S3_7">
+        <di:waypoint x="2340" y="380.0"/>
+        <di:waypoint x="2340" y="376.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S4_1_di" bpmnElement="Flow_S4_1">
+        <di:waypoint x="2356" y="776.0"/>
+        <di:waypoint x="2420" y="780.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S4_2_di" bpmnElement="Flow_S4_2">
+        <di:waypoint x="2540" y="780.0"/>
+        <di:waypoint x="2480" y="758"/>
+        <di:waypoint x="2480" y="180"/>
+        <di:waypoint x="2550" y="180"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S4_3_di" bpmnElement="Flow_S4_3">
+        <di:waypoint x="2670" y="180.0"/>
+        <di:waypoint x="2680" y="180.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S4_4_di" bpmnElement="Flow_S4_4">
+        <di:waypoint x="2800" y="180.0"/>
+        <di:waypoint x="2800" y="180"/>
+        <di:waypoint x="2800" y="650"/>
+        <di:waypoint x="2780" y="758"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_1_di" bpmnElement="Flow_S5_1">
+        <di:waypoint x="2916" y="376.0"/>
+        <di:waypoint x="2980" y="380.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_2_di" bpmnElement="Flow_S5_2">
+        <di:waypoint x="3100" y="380.0"/>
+        <di:waypoint x="3117.5" y="380.0"/>
+        <di:waypoint x="3117.5" y="590.0"/>
+        <di:waypoint x="3135.0" y="590.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_3_di" bpmnElement="Flow_S5_3">
+        <di:waypoint x="3135.0" y="590.0"/>
+        <di:waypoint x="3242.5" y="590.0"/>
+        <di:waypoint x="3242.5" y="380.0"/>
+        <di:waypoint x="3350" y="380.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_4_di" bpmnElement="Flow_S5_4">
+        <di:waypoint x="3135.0" y="590.0"/>
+        <di:waypoint x="3177.5" y="590.0"/>
+        <di:waypoint x="3177.5" y="380.0"/>
+        <di:waypoint x="3220" y="380.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_5_di" bpmnElement="Flow_S5_5">
+        <di:waypoint x="3135.0" y="565"/>
+        <di:waypoint x="3110" y="300"/>
+        <di:waypoint x="3280" y="300"/>
+        <di:waypoint x="3280" y="340"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_6_di" bpmnElement="Flow_S5_6">
+        <di:waypoint x="3470" y="380.0"/>
+        <di:waypoint x="3410.0" y="380.0"/>
+        <di:waypoint x="3410.0" y="580.0"/>
+        <di:waypoint x="3350" y="580.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_S5_7_di" bpmnElement="Flow_S5_7">
+        <di:waypoint x="3470" y="580.0"/>
+        <di:waypoint x="3480" y="576.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_Motifs_di" bpmnElement="TextAnnotation_Motifs">
+        <dc:Bounds x="2840" y="820" width="320" height="60"/>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

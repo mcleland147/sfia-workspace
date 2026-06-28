@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="3580" height="950" viewBox="3440 506.0 3580 950">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#333"/></marker></defs>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;font-size:11px;fill:#111}
+.lane{fill:#f8f9fb;stroke:#9aa5b1;stroke-width:1}
+.pool{fill:#fff;stroke:#4a5568;stroke-width:2}
+.group{fill:none;stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:6 4}
+.grouplabel{font-size:12px;font-weight:bold;fill:#475569}
+.task{fill:#fff;stroke:#2563eb;stroke-width:1.5}
+.gateway{fill:#fff;stroke:#d97706;stroke-width:1.5}
+.event-start{fill:#dcfce7;stroke:#16a34a;stroke-width:2}
+.event-end{fill:#fee2e2;stroke:#dc2626;stroke-width:3}
+.flow{fill:none;stroke:#4b5563;stroke-width:1.5;marker-end:url(#arrow)}
+.label-flow{fill:#374151;font-size:10px}
+.title{font-size:16px;font-weight:bold}
+.annotation{fill:#fffbeb;stroke:#d97706;stroke-width:1}
+.ann-text{font-size:10px;fill:#444}
+</style>
+<text class="title" x="3460" y="530.0">Interv360 SAV Exceptions — Diagramme exceptions métier (lecture)</text>
+<rect class="pool" x="3480" y="576.0" width="3500" height="840"/>
+<rect class="lane" x="3510" y="80" width="3470" height="200"/>
+<text x="3518" y="98">Manager SAV</text>
+<rect class="lane" x="3510" y="280" width="3470" height="200"/>
+<text x="3518" y="298">Technicien</text>
+<rect class="lane" x="3510" y="480" width="3470" height="200"/>
+<text x="3518" y="498">Interv360</text>
+<rect class="lane" x="3510" y="680" width="3470" height="200"/>
+<text x="3518" y="698">Dashboard / pilotage</text>
+<rect class="group" x="180" y="90" width="640" height="720" rx="6"/>
+<text class="grouplabel" x="188" y="106">1. Données insuffisantes</text>
+<rect class="group" x="880" y="90" width="640" height="720" rx="6"/>
+<text class="grouplabel" x="888" y="106">2. Doublon potentiel</text>
+<rect class="group" x="1580" y="90" width="640" height="720" rx="6"/>
+<text class="grouplabel" x="1588" y="106">3. Attente client</text>
+<rect class="group" x="2280" y="90" width="520" height="720" rx="6"/>
+<text class="grouplabel" x="2288" y="106">4. Retard</text>
+<rect class="group" x="2840" y="90" width="640" height="720" rx="6"/>
+<text class="grouplabel" x="2848" y="106">5. Clôture sans signature</text>
+<path class="flow" d="M 256,176.0 L 320,180.0"/>
+<path class="flow" d="M 440,180.0 L 450,180.0"/>
+<path class="flow" d="M 570,180.0 L 575.0,180.0 L 575.0,580.0 L 580,580.0"/>
+<path class="flow" d="M 700,580.0 L 717.5,580.0 L 717.5,190.0 L 735.0,190.0"/>
+<path class="flow" d="M 735.0,190.0 L 840,176.0"/>
+<text class="label-flow" x="844" y="172.0">Oui</text>
+<path class="flow" d="M 735.0,190.0 L 730,420 L 380,420 L 380,220"/>
+<text class="label-flow" x="384" y="416">Non</text>
+<path class="flow" d="M 956,576.0 L 1020,580.0"/>
+<path class="flow" d="M 1140,580.0 L 1145.0,580.0 L 1145.0,180.0 L 1150,180.0"/>
+<path class="flow" d="M 1270,180.0 L 1305.0,190.0"/>
+<path class="flow" d="M 1305.0,190.0 L 1390,180.0"/>
+<text class="label-flow" x="1394" y="176.0">Oui</text>
+<path class="flow" d="M 1305.0,190.0 L 1500,180.0"/>
+<text class="label-flow" x="1504" y="176.0">Non</text>
+<path class="flow" d="M 1510,180.0 L 1500,180.0"/>
+<path class="flow" d="M 1620,180.0 L 1620,176.0"/>
+<path class="flow" d="M 1656,376.0 L 1720,380.0"/>
+<path class="flow" d="M 1840,380.0 L 1850,380.0"/>
+<path class="flow" d="M 1970,380.0 L 1975.0,380.0 L 1975.0,580.0 L 1980,580.0"/>
+<path class="flow" d="M 2100,580.0 L 2117.5,580.0 L 2117.5,390.0 L 2135.0,390.0"/>
+<path class="flow" d="M 2135.0,390.0 L 2220,380.0"/>
+<text class="label-flow" x="2224" y="376.0">Oui</text>
+<path class="flow" d="M 2135.0,365 L 2110,300 L 2040,300 L 2040,540"/>
+<text class="label-flow" x="2044" y="296">Non</text>
+<path class="flow" d="M 2340,380.0 L 2340,376.0"/>
+<path class="flow" d="M 2356,776.0 L 2420,780.0"/>
+<path class="flow" d="M 2540,780.0 L 2480,758 L 2480,180 L 2550,180"/>
+<path class="flow" d="M 2670,180.0 L 2680,180.0"/>
+<path class="flow" d="M 2800,180.0 L 2800,180 L 2800,650 L 2780,758"/>
+<path class="flow" d="M 2916,376.0 L 2980,380.0"/>
+<path class="flow" d="M 3100,380.0 L 3117.5,380.0 L 3117.5,590.0 L 3135.0,590.0"/>
+<path class="flow" d="M 3135.0,590.0 L 3242.5,590.0 L 3242.5,380.0 L 3350,380.0"/>
+<text class="label-flow" x="3246.5" y="376.0">Oui</text>
+<path class="flow" d="M 3135.0,590.0 L 3177.5,590.0 L 3177.5,380.0 L 3220,380.0"/>
+<text class="label-flow" x="3181.5" y="376.0">Non</text>
+<path class="flow" d="M 3135.0,565 L 3110,300 L 3280,300 L 3280,340"/>
+<path class="flow" d="M 3470,380.0 L 3410.0,380.0 L 3410.0,580.0 L 3350,580.0"/>
+<path class="flow" d="M 3470,580.0 L 3480,576.0"/>
+<circle class="event-start" cx="238.0" cy="176.0" r="18.0"/>
+<text text-anchor="middle" x="238.0" y="174.0">Données</text>
+<text text-anchor="middle" x="238.0" y="188.0">insuffisantes détectées</text>
+<rect class="task" x="320" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="380.0" y="178.0">Identifier les</text>
+<text text-anchor="middle" x="380.0" y="192.0">données manquantes</text>
+<rect class="task" x="450" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="510.0" y="184.0">Compléter la demande</text>
+<rect class="task" x="580" y="540" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="640.0" y="584.0">Mettre à jour la demande</text>
+<polygon class="gateway" points="735.0,165 760,190.0 735.0,215 710,190.0"/>
+<text text-anchor="middle" x="735.0" y="188.0">Données minimales</text>
+<text text-anchor="middle" x="735.0" y="202.0">complètes ?</text>
+<circle class="event-end" cx="858.0" cy="176.0" r="18.0"/>
+<circle fill="none" stroke="#dc2626" stroke-width="2" cx="858.0" cy="176.0" r="14.0"/>
+<text text-anchor="middle" x="858.0" y="174.0">Demande prête</text>
+<text text-anchor="middle" x="858.0" y="188.0">à qualifier</text>
+<circle class="event-start" cx="938.0" cy="576.0" r="18.0"/>
+<text text-anchor="middle" x="938.0" y="574.0">Doublon</text>
+<text text-anchor="middle" x="938.0" y="588.0">potentiel détecté</text>
+<rect class="task" x="1020" y="540" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="1080.0" y="578.0">Afficher les</text>
+<text text-anchor="middle" x="1080.0" y="592.0">demandes proches</text>
+<rect class="task" x="1150" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="1210.0" y="184.0">Comparer les demandes</text>
+<polygon class="gateway" points="1305.0,165 1330,190.0 1305.0,215 1280,190.0"/>
+<text text-anchor="middle" x="1305.0" y="194.0">Doublon confirmé ?</text>
+<rect class="task" x="1390" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="1450.0" y="178.0">Lier ou</text>
+<text text-anchor="middle" x="1450.0" y="192.0">marquer comme doublon</text>
+<rect class="task" x="1500" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="1560.0" y="178.0">Continuer</text>
+<text text-anchor="middle" x="1560.0" y="192.0">la qualification</text>
+<circle class="event-end" cx="1638.0" cy="176.0" r="18.0"/>
+<circle fill="none" stroke="#dc2626" stroke-width="2" cx="1638.0" cy="176.0" r="14.0"/>
+<text text-anchor="middle" x="1638.0" y="174.0">Arbitrage</text>
+<text text-anchor="middle" x="1638.0" y="188.0">doublon terminé</text>
+<circle class="event-start" cx="1638.0" cy="376.0" r="18.0"/>
+<text text-anchor="middle" x="1638.0" y="380.0">Blocage client identifié</text>
+<rect class="task" x="1720" y="340" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="1780.0" y="384.0">Passer en attente client</text>
+<rect class="task" x="1850" y="340" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="1910.0" y="378.0">Renseigner le</text>
+<text text-anchor="middle" x="1910.0" y="392.0">motif d'attente</text>
+<rect class="task" x="1980" y="540" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="2040.0" y="578.0">Rendre l'attente</text>
+<text text-anchor="middle" x="2040.0" y="592.0">visible au dashboard</text>
+<polygon class="gateway" points="2135.0,365 2160,390.0 2135.0,415 2110,390.0"/>
+<text text-anchor="middle" x="2135.0" y="394.0">Blocage levé ?</text>
+<rect class="task" x="2220" y="340" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="2280.0" y="384.0">Reprendre l'intervention</text>
+<circle class="event-end" cx="2358.0" cy="376.0" r="18.0"/>
+<circle fill="none" stroke="#dc2626" stroke-width="2" cx="2358.0" cy="376.0" r="14.0"/>
+<text text-anchor="middle" x="2358.0" y="380.0">Intervention reprise</text>
+<circle class="event-start" cx="2338.0" cy="776.0" r="18.0"/>
+<text text-anchor="middle" x="2338.0" y="780.0">Échéance dépassée</text>
+<rect class="task" x="2420" y="740" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="2480.0" y="784.0">Signaler le retard</text>
+<rect class="task" x="2550" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="2610.0" y="178.0">Analyser la</text>
+<text text-anchor="middle" x="2610.0" y="192.0">cause du retard</text>
+<rect class="task" x="2680" y="140" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="2740.0" y="178.0">Réajuster</text>
+<text text-anchor="middle" x="2740.0" y="192.0">la planification</text>
+<circle class="event-end" cx="2798.0" cy="776.0" r="18.0"/>
+<circle fill="none" stroke="#dc2626" stroke-width="2" cx="2798.0" cy="776.0" r="14.0"/>
+<text text-anchor="middle" x="2798.0" y="780.0">Retard pris en compte</text>
+<circle class="event-start" cx="2898.0" cy="376.0" r="18.0"/>
+<text text-anchor="middle" x="2898.0" y="374.0">Signature</text>
+<text text-anchor="middle" x="2898.0" y="388.0">client indisponible</text>
+<rect class="task" x="2980" y="340" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="3040.0" y="378.0">Sélectionner un</text>
+<text text-anchor="middle" x="3040.0" y="392.0">motif d'absence</text>
+<polygon class="gateway" points="3135.0,565 3160,590.0 3135.0,615 3110,590.0"/>
+<text text-anchor="middle" x="3135.0" y="594.0">Motif suffisant ?</text>
+<rect class="task" x="3220" y="340" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="3280.0" y="384.0">Compléter le motif</text>
+<rect class="task" x="3350" y="340" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="3410.0" y="384.0">Valider le compte rendu</text>
+<rect class="task" x="3350" y="540" width="120" height="80" rx="8"/>
+<text text-anchor="middle" x="3410.0" y="584.0">Clôturer sans signature</text>
+<circle class="event-end" cx="3498.0" cy="576.0" r="18.0"/>
+<circle fill="none" stroke="#dc2626" stroke-width="2" cx="3498.0" cy="576.0" r="14.0"/>
+<text text-anchor="middle" x="3498.0" y="574.0">Intervention clôturée</text>
+<text text-anchor="middle" x="3498.0" y="588.0">sans signature</text>
+<rect class="annotation" x="2840" y="820" width="320" height="60" rx="4"/>
+<text x="2850" y="838" class="ann-text">Motifs : Client absent ; Signature refusée ;</text>
+<text x="2850" y="852" class="ann-text">Non applicable ; Contrainte terrain ; Autre</text>
+</svg>
