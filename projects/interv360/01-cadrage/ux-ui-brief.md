@@ -2,7 +2,7 @@
 
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
-**Statut** : Draft  
+**Statut** : Validated  
 **Source** : `business-framing.md` + `mvp-arbitration-validation.md` + `dashboard-kpi-ux-review.md`  
 **Objet** : brief UX/UI préalable à toute maquette ou travail Figma
 
@@ -36,7 +36,7 @@ Règle validée dans `business-framing.md` §14.6 :
 - validation des **parcours utilisateurs critiques** ;
 - production d'un **brief UX/UI exploitable**.
 
-**Le présent document constitue le brief UX/UI préalable.** Il devra être **relu et validé** (validation fictive PO / Concepteur fonctionnel / UX) **avant toute production Figma**.
+**Le présent document constitue le brief UX/UI préalable.** La **validation fictive** du brief est formalisée dans `ux-ui-brief-validation.md`. Figma ne doit être engagé qu'**après** cette validation et le traitement progressif des points ouverts §9.
 
 ---
 
@@ -338,6 +338,8 @@ Checklist — **toutes les conditions doivent être remplies avant Figma** :
 - [ ] absence de demande de backlog ou architecture ;
 - [ ] validation fictive PO / Concepteur fonctionnel / UX effectuée.
 
+*Note : la checklist est **validée au niveau cadrage** dans `ux-ui-brief-validation.md` §3. Les points ouverts §9 restent à traiter avant ou pendant la conception Figma.*
+
 ---
 
 ## 9. Points ouverts avant maquette
@@ -381,7 +383,7 @@ Il formalise :
 - les **principes UX transverses** et **critères d'entrée Figma** ;
 - les **points ouverts** à trancher avant maquette.
 
-**Prochaine étape :** validation fictive du brief, puis — et seulement alors — production maquettes / Figma. Aucune architecture, backlog, user story, ADR finalisée ou code n'est produit par ce document.
+**Prochaine étape :** préparation maquettes / Figma — sous réserve des points ouverts §9. Le brief est **validé au niveau cadrage** (`ux-ui-brief-validation.md`) et peut servir d'**entrée à la préparation Figma**. Aucune architecture, backlog, user story, ADR finalisée, maquette ou code n'est produit par ce document.
 
 ---
 
