@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Interv360SavMvp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="SFIA BPMN Phase D" exporterVersion="1.0">
+  <bpmn:collaboration id="Collaboration_Interv360SavMvp">
+    <bpmn:participant id="Participant_Interv360SavMvp" name="Interv360 SAV MVP" processRef="Process_Interv360SavMvp" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Interv360SavMvp" name="Interv360 SAV MVP" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Interv360SavMvp">
+      <bpmn:lane id="Lane_Client" name="Client / canal entrant">
+        <bpmn:flowNodeRef>StartEvent_DemandeSavRecue</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_ManagerSav" name="Manager SAV">
+        <bpmn:flowNodeRef>Task_VerifierDonneesMinimales</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_DonneesSuffisantes</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CompleterMaintenirAQualifier</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_DoublonPotentiel</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ArbitrerDoublon</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_QualifierDemande</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_PlanifierIntervention</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AffecterTechnicien</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Technicien" name="Technicien">
+        <bpmn:flowNodeRef>Task_ConsulterInterventionPlanifiee</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_DemarrerIntervention</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_InterventionRealisable</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_PasserEnAttenteClient</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RealiserIntervention</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RedigerCompteRenduWeb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_SignatureClient</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CapturerSignature</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RenseignerMotifAbsenceSignature</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Interv360" name="Interv360">
+        <bpmn:flowNodeRef>Task_CreerEnregistrerDemande</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RechercherDoublonPotentiel</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CloreIntervention</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CrmSimule" name="CRM simulé / intégration">
+        <bpmn:flowNodeRef>Task_SynchroniserClotureCrm</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_SynchronisationReussie</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_SignalerAnomalieIntegration</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Dashboard" name="Dashboard / pilotage">
+        <bpmn:flowNodeRef>Task_MettreAJourDashboard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_InterventionCloturee</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_DemandeSavRecue" name="Demande SAV reçue">
+      <bpmn:outgoing>Flow_Start_Creer</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_CreerEnregistrerDemande" name="Créer ou enregistrer la demande">
+      <bpmn:incoming>Flow_Start_Creer</bpmn:incoming>
+      <bpmn:outgoing>Flow_Creer_Verifier</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_VerifierDonneesMinimales" name="Vérifier les données minimales">
+      <bpmn:incoming>Flow_Creer_Verifier</bpmn:incoming>
+      <bpmn:incoming>Flow_Completer_Verifier</bpmn:incoming>
+      <bpmn:outgoing>Flow_Verifier_GatewayDonnees</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_DonneesSuffisantes" name="Données suffisantes ?" default="Flow_Donnees_Non">
+      <bpmn:incoming>Flow_Verifier_GatewayDonnees</bpmn:incoming>
+      <bpmn:outgoing>Flow_Donnees_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Donnees_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CompleterMaintenirAQualifier" name="Compléter / maintenir à qualifier">
+      <bpmn:incoming>Flow_Donnees_Non</bpmn:incoming>
+      <bpmn:outgoing>Flow_Completer_Verifier</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_RechercherDoublonPotentiel" name="Rechercher doublon potentiel">
+      <bpmn:incoming>Flow_Donnees_Oui</bpmn:incoming>
+      <bpmn:outgoing>Flow_Rechercher_GatewayDoublon</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_DoublonPotentiel" name="Doublon potentiel détecté ?" default="Flow_Doublon_Non">
+      <bpmn:incoming>Flow_Rechercher_GatewayDoublon</bpmn:incoming>
+      <bpmn:outgoing>Flow_Doublon_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Doublon_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_ArbitrerDoublon" name="Arbitrer le doublon manuellement">
+      <bpmn:incoming>Flow_Doublon_Oui</bpmn:incoming>
+      <bpmn:outgoing>Flow_Arbitrer_Qualifier</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_QualifierDemande" name="Qualifier la demande">
+      <bpmn:incoming>Flow_Doublon_Non</bpmn:incoming>
+      <bpmn:incoming>Flow_Arbitrer_Qualifier</bpmn:incoming>
+      <bpmn:outgoing>Flow_Qualifier_Planifier</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_PlanifierIntervention" name="Planifier l&#39;intervention">
+      <bpmn:incoming>Flow_Qualifier_Planifier</bpmn:incoming>
+      <bpmn:outgoing>Flow_Planifier_Affecter</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_AffecterTechnicien" name="Affecter un technicien">
+      <bpmn:incoming>Flow_Planifier_Affecter</bpmn:incoming>
+      <bpmn:outgoing>Flow_Affecter_Consulter</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ConsulterInterventionPlanifiee" name="Consulter l&#39;intervention planifiée">
+      <bpmn:incoming>Flow_Affecter_Consulter</bpmn:incoming>
+      <bpmn:outgoing>Flow_Consulter_Demarrer</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_DemarrerIntervention" name="Démarrer l&#39;intervention">
+      <bpmn:incoming>Flow_Consulter_Demarrer</bpmn:incoming>
+      <bpmn:incoming>Flow_Attente_Reprise</bpmn:incoming>
+      <bpmn:outgoing>Flow_Demarrer_GatewayRealisable</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_InterventionRealisable" name="Intervention réalisable ?" default="Flow_Realisable_Non">
+      <bpmn:incoming>Flow_Demarrer_GatewayRealisable</bpmn:incoming>
+      <bpmn:outgoing>Flow_Realisable_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Realisable_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_PasserEnAttenteClient" name="Passer en attente client">
+      <bpmn:incoming>Flow_Realisable_Non</bpmn:incoming>
+      <bpmn:outgoing>Flow_Attente_Reprise</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_RealiserIntervention" name="Réaliser l&#39;intervention">
+      <bpmn:incoming>Flow_Realisable_Oui</bpmn:incoming>
+      <bpmn:outgoing>Flow_Realiser_CR</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_RedigerCompteRenduWeb" name="Rédiger le compte rendu web">
+      <bpmn:incoming>Flow_Realiser_CR</bpmn:incoming>
+      <bpmn:outgoing>Flow_CR_GatewaySignature</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_SignatureClient" name="Signature client disponible ?" default="Flow_Signature_Non">
+      <bpmn:incoming>Flow_CR_GatewaySignature</bpmn:incoming>
+      <bpmn:outgoing>Flow_Signature_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Signature_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CapturerSignature" name="Capturer la signature">
+      <bpmn:incoming>Flow_Signature_Oui</bpmn:incoming>
+      <bpmn:outgoing>Flow_Capturer_Clore</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_RenseignerMotifAbsenceSignature" name="Renseigner le motif d&#39;absence de signature">
+      <bpmn:incoming>Flow_Signature_Non</bpmn:incoming>
+      <bpmn:outgoing>Flow_Motif_Clore</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_CloreIntervention" name="Clôturer l&#39;intervention">
+      <bpmn:incoming>Flow_Capturer_Clore</bpmn:incoming>
+      <bpmn:incoming>Flow_Motif_Clore</bpmn:incoming>
+      <bpmn:outgoing>Flow_Clore_Sync</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_SynchroniserClotureCrm" name="Synchroniser la clôture vers CRM simulé">
+      <bpmn:incoming>Flow_Clore_Sync</bpmn:incoming>
+      <bpmn:outgoing>Flow_Sync_Gateway</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_SynchronisationReussie" name="Synchronisation réussie ?" default="Flow_Sync_Non">
+      <bpmn:incoming>Flow_Sync_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Sync_Oui</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Sync_Non</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_SignalerAnomalieIntegration" name="Signaler anomalie d&#39;intégration">
+      <bpmn:incoming>Flow_Sync_Non</bpmn:incoming>
+      <bpmn:outgoing>Flow_Anomalie_Dashboard</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_MettreAJourDashboard" name="Mettre à jour le dashboard">
+      <bpmn:incoming>Flow_Sync_Oui</bpmn:incoming>
+      <bpmn:incoming>Flow_Anomalie_Dashboard</bpmn:incoming>
+      <bpmn:outgoing>Flow_Dashboard_End</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_InterventionCloturee" name="Intervention clôturée">
+      <bpmn:incoming>Flow_Dashboard_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Creer" sourceRef="StartEvent_DemandeSavRecue" targetRef="Task_CreerEnregistrerDemande" />
+    <bpmn:sequenceFlow id="Flow_Creer_Verifier" sourceRef="Task_CreerEnregistrerDemande" targetRef="Task_VerifierDonneesMinimales" />
+    <bpmn:sequenceFlow id="Flow_Verifier_GatewayDonnees" sourceRef="Task_VerifierDonneesMinimales" targetRef="Gateway_DonneesSuffisantes" />
+    <bpmn:sequenceFlow id="Flow_Donnees_Oui" name="Oui" sourceRef="Gateway_DonneesSuffisantes" targetRef="Task_RechercherDoublonPotentiel" />
+    <bpmn:sequenceFlow id="Flow_Donnees_Non" name="Non" sourceRef="Gateway_DonneesSuffisantes" targetRef="Task_CompleterMaintenirAQualifier" />
+    <bpmn:sequenceFlow id="Flow_Completer_Verifier" sourceRef="Task_CompleterMaintenirAQualifier" targetRef="Task_VerifierDonneesMinimales" />
+    <bpmn:sequenceFlow id="Flow_Rechercher_GatewayDoublon" sourceRef="Task_RechercherDoublonPotentiel" targetRef="Gateway_DoublonPotentiel" />
+    <bpmn:sequenceFlow id="Flow_Doublon_Oui" name="Oui" sourceRef="Gateway_DoublonPotentiel" targetRef="Task_ArbitrerDoublon" />
+    <bpmn:sequenceFlow id="Flow_Doublon_Non" name="Non" sourceRef="Gateway_DoublonPotentiel" targetRef="Task_QualifierDemande" />
+    <bpmn:sequenceFlow id="Flow_Arbitrer_Qualifier" sourceRef="Task_ArbitrerDoublon" targetRef="Task_QualifierDemande" />
+    <bpmn:sequenceFlow id="Flow_Qualifier_Planifier" sourceRef="Task_QualifierDemande" targetRef="Task_PlanifierIntervention" />
+    <bpmn:sequenceFlow id="Flow_Planifier_Affecter" sourceRef="Task_PlanifierIntervention" targetRef="Task_AffecterTechnicien" />
+    <bpmn:sequenceFlow id="Flow_Affecter_Consulter" sourceRef="Task_AffecterTechnicien" targetRef="Task_ConsulterInterventionPlanifiee" />
+    <bpmn:sequenceFlow id="Flow_Consulter_Demarrer" sourceRef="Task_ConsulterInterventionPlanifiee" targetRef="Task_DemarrerIntervention" />
+    <bpmn:sequenceFlow id="Flow_Demarrer_GatewayRealisable" sourceRef="Task_DemarrerIntervention" targetRef="Gateway_InterventionRealisable" />
+    <bpmn:sequenceFlow id="Flow_Realisable_Oui" name="Oui" sourceRef="Gateway_InterventionRealisable" targetRef="Task_RealiserIntervention" />
+    <bpmn:sequenceFlow id="Flow_Realisable_Non" name="Non" sourceRef="Gateway_InterventionRealisable" targetRef="Task_PasserEnAttenteClient" />
+    <bpmn:sequenceFlow id="Flow_Attente_Reprise" sourceRef="Task_PasserEnAttenteClient" targetRef="Task_DemarrerIntervention" />
+    <bpmn:sequenceFlow id="Flow_Realiser_CR" sourceRef="Task_RealiserIntervention" targetRef="Task_RedigerCompteRenduWeb" />
+    <bpmn:sequenceFlow id="Flow_CR_GatewaySignature" sourceRef="Task_RedigerCompteRenduWeb" targetRef="Gateway_SignatureClient" />
+    <bpmn:sequenceFlow id="Flow_Signature_Oui" name="Oui" sourceRef="Gateway_SignatureClient" targetRef="Task_CapturerSignature" />
+    <bpmn:sequenceFlow id="Flow_Signature_Non" name="Non" sourceRef="Gateway_SignatureClient" targetRef="Task_RenseignerMotifAbsenceSignature" />
+    <bpmn:sequenceFlow id="Flow_Capturer_Clore" sourceRef="Task_CapturerSignature" targetRef="Task_CloreIntervention" />
+    <bpmn:sequenceFlow id="Flow_Motif_Clore" sourceRef="Task_RenseignerMotifAbsenceSignature" targetRef="Task_CloreIntervention" />
+    <bpmn:sequenceFlow id="Flow_Clore_Sync" sourceRef="Task_CloreIntervention" targetRef="Task_SynchroniserClotureCrm" />
+    <bpmn:sequenceFlow id="Flow_Sync_Gateway" sourceRef="Task_SynchroniserClotureCrm" targetRef="Gateway_SynchronisationReussie" />
+    <bpmn:sequenceFlow id="Flow_Sync_Oui" name="Oui" sourceRef="Gateway_SynchronisationReussie" targetRef="Task_MettreAJourDashboard" />
+    <bpmn:sequenceFlow id="Flow_Sync_Non" name="Non" sourceRef="Gateway_SynchronisationReussie" targetRef="Task_SignalerAnomalieIntegration" />
+    <bpmn:sequenceFlow id="Flow_Anomalie_Dashboard" sourceRef="Task_SignalerAnomalieIntegration" targetRef="Task_MettreAJourDashboard" />
+    <bpmn:sequenceFlow id="Flow_Dashboard_End" sourceRef="Task_MettreAJourDashboard" targetRef="EndEvent_InterventionCloturee" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Interv360SavMvp">
+    <bpmndi:BPMNPlane id="BPMNPlane_Interv360SavMvp" bpmnElement="Collaboration_Interv360SavMvp">
+      <bpmndi:BPMNShape id="Participant_Interv360SavMvp_di" bpmnElement="Participant_Interv360SavMvp" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="3820" height="900" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Client_di" bpmnElement="Lane_Client" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="3790" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_ManagerSav_di" bpmnElement="Lane_ManagerSav" isHorizontal="true">
+        <dc:Bounds x="190" y="230" width="3790" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Technicien_di" bpmnElement="Lane_Technicien" isHorizontal="true">
+        <dc:Bounds x="190" y="380" width="3790" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Interv360_di" bpmnElement="Lane_Interv360" isHorizontal="true">
+        <dc:Bounds x="190" y="530" width="3790" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CrmSimule_di" bpmnElement="Lane_CrmSimule" isHorizontal="true">
+        <dc:Bounds x="190" y="680" width="3790" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Dashboard_di" bpmnElement="Lane_Dashboard" isHorizontal="true">
+        <dc:Bounds x="190" y="830" width="3790" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_DemandeSavRecue_di" bpmnElement="StartEvent_DemandeSavRecue">
+        <dc:Bounds x="232" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="208" y="185" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CreerEnregistrerDemande_di" bpmnElement="Task_CreerEnregistrerDemande">
+        <dc:Bounds x="320" y="570" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_VerifierDonneesMinimales_di" bpmnElement="Task_VerifierDonneesMinimales">
+        <dc:Bounds x="480" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DonneesSuffisantes_di" bpmnElement="Gateway_DonneesSuffisantes" isMarkerVisible="true">
+        <dc:Bounds x="645" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="625" y="245" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CompleterMaintenirAQualifier_di" bpmnElement="Task_CompleterMaintenirAQualifier">
+        <dc:Bounds x="740" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RechercherDoublonPotentiel_di" bpmnElement="Task_RechercherDoublonPotentiel">
+        <dc:Bounds x="740" y="570" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DoublonPotentiel_di" bpmnElement="Gateway_DoublonPotentiel" isMarkerVisible="true">
+        <dc:Bounds x="905" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="875" y="245" width="110" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ArbitrerDoublon_di" bpmnElement="Task_ArbitrerDoublon">
+        <dc:Bounds x="1000" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_QualifierDemande_di" bpmnElement="Task_QualifierDemande">
+        <dc:Bounds x="1160" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PlanifierIntervention_di" bpmnElement="Task_PlanifierIntervention">
+        <dc:Bounds x="1320" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AffecterTechnicien_di" bpmnElement="Task_AffecterTechnicien">
+        <dc:Bounds x="1480" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ConsulterInterventionPlanifiee_di" bpmnElement="Task_ConsulterInterventionPlanifiee">
+        <dc:Bounds x="1640" y="420" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DemarrerIntervention_di" bpmnElement="Task_DemarrerIntervention">
+        <dc:Bounds x="1800" y="420" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_InterventionRealisable_di" bpmnElement="Gateway_InterventionRealisable" isMarkerVisible="true">
+        <dc:Bounds x="1965" y="435" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1940" y="395" width="100" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PasserEnAttenteClient_di" bpmnElement="Task_PasserEnAttenteClient">
+        <dc:Bounds x="2060" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RealiserIntervention_di" bpmnElement="Task_RealiserIntervention">
+        <dc:Bounds x="2060" y="420" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RedigerCompteRenduWeb_di" bpmnElement="Task_RedigerCompteRenduWeb">
+        <dc:Bounds x="2220" y="420" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_SignatureClient_di" bpmnElement="Gateway_SignatureClient" isMarkerVisible="true">
+        <dc:Bounds x="2385" y="435" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2355" y="395" width="110" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CapturerSignature_di" bpmnElement="Task_CapturerSignature">
+        <dc:Bounds x="2480" y="420" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RenseignerMotifAbsenceSignature_di" bpmnElement="Task_RenseignerMotifAbsenceSignature">
+        <dc:Bounds x="2480" y="270" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CloreIntervention_di" bpmnElement="Task_CloreIntervention">
+        <dc:Bounds x="2640" y="570" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SynchroniserClotureCrm_di" bpmnElement="Task_SynchroniserClotureCrm">
+        <dc:Bounds x="2800" y="720" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_SynchronisationReussie_di" bpmnElement="Gateway_SynchronisationReussie" isMarkerVisible="true">
+        <dc:Bounds x="2965" y="735" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2940" y="695" width="100" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SignalerAnomalieIntegration_di" bpmnElement="Task_SignalerAnomalieIntegration">
+        <dc:Bounds x="3060" y="720" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MettreAJourDashboard_di" bpmnElement="Task_MettreAJourDashboard">
+        <dc:Bounds x="3220" y="870" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_InterventionCloturee_di" bpmnElement="EndEvent_InterventionCloturee">
+        <dc:Bounds x="3382" y="892" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3355" y="935" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_Creer_di" bpmnElement="Flow_Start_Creer">
+        <di:waypoint x="268" y="160" />
+        <di:waypoint x="294" y="160" />
+        <di:waypoint x="294" y="610" />
+        <di:waypoint x="320" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Creer_Verifier_di" bpmnElement="Flow_Creer_Verifier">
+        <di:waypoint x="440" y="610" />
+        <di:waypoint x="460" y="610" />
+        <di:waypoint x="460" y="310" />
+        <di:waypoint x="480" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Verifier_GatewayDonnees_di" bpmnElement="Flow_Verifier_GatewayDonnees">
+        <di:waypoint x="600" y="310" />
+        <di:waypoint x="645" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Donnees_Oui_di" bpmnElement="Flow_Donnees_Oui">
+        <di:waypoint x="670" y="335" />
+        <di:waypoint x="670" y="610" />
+        <di:waypoint x="740" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Donnees_Non_di" bpmnElement="Flow_Donnees_Non">
+        <di:waypoint x="695" y="310" />
+        <di:waypoint x="740" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Completer_Verifier_di" bpmnElement="Flow_Completer_Verifier">
+        <di:waypoint x="740" y="310" />
+        <di:waypoint x="600" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Rechercher_GatewayDoublon_di" bpmnElement="Flow_Rechercher_GatewayDoublon">
+        <di:waypoint x="860" y="610" />
+        <di:waypoint x="880" y="610" />
+        <di:waypoint x="880" y="310" />
+        <di:waypoint x="905" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Doublon_Oui_di" bpmnElement="Flow_Doublon_Oui">
+        <di:waypoint x="955" y="310" />
+        <di:waypoint x="1000" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Doublon_Non_di" bpmnElement="Flow_Doublon_Non">
+        <di:waypoint x="930" y="335" />
+        <di:waypoint x="930" y="360" />
+        <di:waypoint x="1220" y="360" />
+        <di:waypoint x="1220" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Arbitrer_Qualifier_di" bpmnElement="Flow_Arbitrer_Qualifier">
+        <di:waypoint x="1120" y="310" />
+        <di:waypoint x="1160" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Qualifier_Planifier_di" bpmnElement="Flow_Qualifier_Planifier">
+        <di:waypoint x="1280" y="310" />
+        <di:waypoint x="1320" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Planifier_Affecter_di" bpmnElement="Flow_Planifier_Affecter">
+        <di:waypoint x="1440" y="310" />
+        <di:waypoint x="1480" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Affecter_Consulter_di" bpmnElement="Flow_Affecter_Consulter">
+        <di:waypoint x="1600" y="310" />
+        <di:waypoint x="1620" y="310" />
+        <di:waypoint x="1620" y="460" />
+        <di:waypoint x="1640" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Consulter_Demarrer_di" bpmnElement="Flow_Consulter_Demarrer">
+        <di:waypoint x="1760" y="460" />
+        <di:waypoint x="1800" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Demarrer_GatewayRealisable_di" bpmnElement="Flow_Demarrer_GatewayRealisable">
+        <di:waypoint x="1920" y="460" />
+        <di:waypoint x="1965" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Realisable_Oui_di" bpmnElement="Flow_Realisable_Oui">
+        <di:waypoint x="2015" y="460" />
+        <di:waypoint x="2060" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Realisable_Non_di" bpmnElement="Flow_Realisable_Non">
+        <di:waypoint x="1990" y="435" />
+        <di:waypoint x="1990" y="310" />
+        <di:waypoint x="2060" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Attente_Reprise_di" bpmnElement="Flow_Attente_Reprise">
+        <di:waypoint x="2120" y="270" />
+        <di:waypoint x="2120" y="200" />
+        <di:waypoint x="1860" y="200" />
+        <di:waypoint x="1860" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Realiser_CR_di" bpmnElement="Flow_Realiser_CR">
+        <di:waypoint x="2180" y="460" />
+        <di:waypoint x="2220" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CR_GatewaySignature_di" bpmnElement="Flow_CR_GatewaySignature">
+        <di:waypoint x="2340" y="460" />
+        <di:waypoint x="2385" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Signature_Oui_di" bpmnElement="Flow_Signature_Oui">
+        <di:waypoint x="2435" y="460" />
+        <di:waypoint x="2480" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Signature_Non_di" bpmnElement="Flow_Signature_Non">
+        <di:waypoint x="2410" y="435" />
+        <di:waypoint x="2410" y="310" />
+        <di:waypoint x="2480" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Capturer_Clore_di" bpmnElement="Flow_Capturer_Clore">
+        <di:waypoint x="2600" y="460" />
+        <di:waypoint x="2620" y="460" />
+        <di:waypoint x="2620" y="610" />
+        <di:waypoint x="2640" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Motif_Clore_di" bpmnElement="Flow_Motif_Clore">
+        <di:waypoint x="2600" y="310" />
+        <di:waypoint x="2620" y="310" />
+        <di:waypoint x="2620" y="610" />
+        <di:waypoint x="2640" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Clore_Sync_di" bpmnElement="Flow_Clore_Sync">
+        <di:waypoint x="2760" y="610" />
+        <di:waypoint x="2780" y="610" />
+        <di:waypoint x="2780" y="760" />
+        <di:waypoint x="2800" y="760" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Sync_Gateway_di" bpmnElement="Flow_Sync_Gateway">
+        <di:waypoint x="2920" y="760" />
+        <di:waypoint x="2965" y="760" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Sync_Oui_di" bpmnElement="Flow_Sync_Oui">
+        <di:waypoint x="3015" y="760" />
+        <di:waypoint x="3035" y="760" />
+        <di:waypoint x="3035" y="910" />
+        <di:waypoint x="3220" y="910" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Sync_Non_di" bpmnElement="Flow_Sync_Non">
+        <di:waypoint x="2990" y="785" />
+        <di:waypoint x="2990" y="810" />
+        <di:waypoint x="3060" y="760" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Anomalie_Dashboard_di" bpmnElement="Flow_Anomalie_Dashboard">
+        <di:waypoint x="3180" y="760" />
+        <di:waypoint x="3200" y="760" />
+        <di:waypoint x="3200" y="910" />
+        <di:waypoint x="3220" y="910" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Dashboard_End_di" bpmnElement="Flow_Dashboard_End">
+        <di:waypoint x="3340" y="910" />
+        <di:waypoint x="3382" y="910" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
