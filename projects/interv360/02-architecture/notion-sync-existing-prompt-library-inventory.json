@@ -1,0 +1,576 @@
+{
+  "target": {
+    "workspace": "SFIA",
+    "notion_page_or_database": "SFIA Prompt Library",
+    "type": "prompt_library_inventory",
+    "publish_to_notion": false,
+    "manual_review_required": true
+  },
+  "source": {
+    "source_of_truth": "git",
+    "catalog_path": "prompts/prompt-catalog.md",
+    "prompts_root": "prompts/",
+    "notion_export_path": "exports/notion/prompts.json",
+    "notion_export_note": "tools/cmp-001/exports/notion/prompts.json does not exist; active export is at workspace root exports/notion/prompts.json (stale — 2 entries, does not reflect QA publications)",
+    "prompt_schema_path": "tools/cmp-001/src/schemas/prompt.schema.json",
+    "qa_publication_log": "projects/interv360/02-architecture/notion-sync-qa-prompt-library-publication-log.md"
+  },
+  "summary": {
+    "total_detected_in_catalog": 39,
+    "already_published_count": 10,
+    "to_publish_count": 29,
+    "individual_prompt_files_under_prompts": 2,
+    "families_detected": [
+      "QA / Testeur",
+      "Architecture",
+      "Sécurité / RSSI",
+      "UX/UI V1 Governance",
+      "Cadrage",
+      "Arbitrages",
+      "UX/UI",
+      "Rôles",
+      "Gouvernance"
+    ],
+    "notion_export_stale": true,
+    "notion_entries_in_export": 2,
+    "prompt_qa_in_export": 0
+  },
+  "already_published": [
+    {
+      "id": "PROMPT-QA-001",
+      "name": "Analyse de testabilité d'un besoin",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA",
+      "trace": "notion-sync-qa-prompt-library-publication-log.md"
+    },
+    {
+      "id": "PROMPT-QA-002",
+      "name": "Revue QA d'une maquette UX/UI",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA"
+    },
+    {
+      "id": "PROMPT-QA-003",
+      "name": "Questions réflexes QA en revue transverse",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA"
+    },
+    {
+      "id": "PROMPT-QA-004",
+      "name": "Lecture happy path / non happy path",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA"
+    },
+    {
+      "id": "PROMPT-QA-005",
+      "name": "Grille de risques qualité",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA"
+    },
+    {
+      "id": "PROMPT-QA-006",
+      "name": "Préparation légère d'une stratégie de test",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA",
+      "vigilance": true
+    },
+    {
+      "id": "PROMPT-QA-007",
+      "name": "Revue d'anomalie métier",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA"
+    },
+    {
+      "id": "PROMPT-QA-008",
+      "name": "Traçabilité besoin / critère / test futur / anomalie",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA",
+      "vigilance": true
+    },
+    {
+      "id": "PROMPT-QA-009",
+      "name": "Revue des critères d'acceptation futurs",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA",
+      "vigilance": true
+    },
+    {
+      "id": "PROMPT-QA-010",
+      "name": "Vérification des garde-fous QA",
+      "source": "prompts/qa/qa-tester-prompt-family.md",
+      "notion_status": "Draft",
+      "notion_category": "QA"
+    }
+  ],
+  "excluded_from_republication": [
+    {
+      "id": "PRM-001",
+      "name": "Notion Object Creation",
+      "reason": "Meta-prompt CMP tooling — already in Notion export",
+      "action": "exclude"
+    },
+    {
+      "id": "[ARCHIVED TEST]",
+      "name": "Prompt 2026-06-27T13-41-55",
+      "reason": "Test entry archived in Notion",
+      "action": "exclude"
+    }
+  ],
+  "detected_prompts": [
+    {
+      "id": "PROMPT-ARCH-001",
+      "name": "Revue intégrations et erreurs",
+      "family": "Architecture",
+      "source_file": "prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md",
+      "method_path": "docs/methods/roles/architect-method.md",
+      "catalog_status": "Draft",
+      "desired_category": "Architecture",
+      "recommended_action": "publish",
+      "batch": "lot-1-architecture-security",
+      "guardrails": ["no_delivery", "no_code"]
+    },
+    {
+      "id": "PROMPT-SEC-001",
+      "name": "Revue canal email sécurisé",
+      "family": "Sécurité / RSSI",
+      "source_file": "prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md",
+      "method_path": "docs/methods/roles/rssi-method.md",
+      "catalog_status": "Draft",
+      "desired_category": "Sécurité",
+      "recommended_action": "publish",
+      "batch": "lot-1-architecture-security",
+      "guardrails": ["no_delivery", "no_sensitive_data_in_logs"]
+    },
+    {
+      "id": "PROMPT-UXUI-001",
+      "name": "Ouverture jalon UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/ux-ui-figma-opening-note.md",
+      "method_path": "docs/methods/roles/ux-ui-designer-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-002",
+      "name": "Recherche design / benchmark UX/UI",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/ux-ui-design-research-and-benchmark.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-003",
+      "name": "Instructions UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-design-instructions.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-004",
+      "name": "Production maquette UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-production-prompt.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance",
+      "vigilance": "design_not_delivery"
+    },
+    {
+      "id": "PROMPT-UXUI-005",
+      "name": "Revue premier jet UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-first-draft-review.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-006",
+      "name": "Préparation revue transverse UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-review-session-preparation.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-007",
+      "name": "Template compte rendu revue UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-review-session-minutes-template.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-008",
+      "name": "Enrichissement méthodes rôle après UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/role-methods-enrichment-after-figma-v1.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-009",
+      "name": "Compte rendu revue simulée UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-review-session-minutes.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance",
+      "vigilance": "no_fictitious_participants"
+    },
+    {
+      "id": "PROMPT-UXUI-010",
+      "name": "Clôture jalon UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/figma-v1-closure-summary.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-011",
+      "name": "Sync gouvernance UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/notion-sync-figma-v1-closure-summary.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Gouvernance",
+      "recommended_action": "ambiguous",
+      "batch": "lot-2-uxui-v1-governance",
+      "notes": "Meta Notion sync — arbitrage before publication"
+    },
+    {
+      "id": "PROMPT-UXUI-012",
+      "name": "Standard candidat UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/sfia-figma-v1-standard-candidate.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-013",
+      "name": "Revue standard candidat UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/sfia-figma-v1-standard-candidate-review.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-014",
+      "name": "Préparation promotion standard officiel",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "projects/interv360/02-architecture/sfia-figma-v1-standard-promotion-preparation.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-UXUI-015",
+      "name": "Promotion standard officiel UX/UI V1",
+      "family": "UX/UI V1 Governance",
+      "source_file": "prompts/prompt-catalog.md §13",
+      "project_source": "docs/standards/ux-ui-v1-governance-standard.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review_then_publish",
+      "batch": "lot-2-uxui-v1-governance"
+    },
+    {
+      "id": "PROMPT-CAD-001",
+      "name": "Cadrage métier projet",
+      "family": "Cadrage",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/business-analyst-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Cadrage",
+      "recommended_action": "review",
+      "batch": "lot-3-cadrage-arbitrages"
+    },
+    {
+      "id": "PROMPT-CAD-002",
+      "name": "Revue cohérence cadrage",
+      "family": "Cadrage",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/business-analyst-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Cadrage",
+      "recommended_action": "review",
+      "batch": "lot-3-cadrage-arbitrages"
+    },
+    {
+      "id": "PROMPT-ARB-001",
+      "name": "Arbitrages MVP",
+      "family": "Arbitrages",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/product-owner-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Product / Arbitrage",
+      "recommended_action": "review",
+      "batch": "lot-3-cadrage-arbitrages"
+    },
+    {
+      "id": "PROMPT-ARB-002",
+      "name": "Validation arbitrages MVP",
+      "family": "Arbitrages",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/product-owner-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Product / Arbitrage",
+      "recommended_action": "review",
+      "batch": "lot-3-cadrage-arbitrages"
+    },
+    {
+      "id": "PROMPT-UX-001",
+      "name": "Brief UX/UI avant Figma",
+      "family": "UX/UI",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/ux-ui-designer-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review",
+      "batch": "lot-4-ux-ui-classic"
+    },
+    {
+      "id": "PROMPT-UX-002",
+      "name": "Validation brief UX/UI",
+      "family": "UX/UI",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/ux-ui-designer-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review",
+      "batch": "lot-4-ux-ui-classic"
+    },
+    {
+      "id": "PROMPT-UX-003",
+      "name": "Revue dashboard KPI UX",
+      "family": "UX/UI",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/ux-ui-designer-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "UX/UI",
+      "recommended_action": "review",
+      "batch": "lot-4-ux-ui-classic"
+    },
+    {
+      "id": "PROMPT-ROLE-001",
+      "name": "Méthode globale par rôle",
+      "family": "Rôles",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/project-manager-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Rôles / Gouvernance",
+      "recommended_action": "review",
+      "batch": "lot-5-roles-governance"
+    },
+    {
+      "id": "PROMPT-ROLE-002",
+      "name": "Revue méthode par rôle",
+      "family": "Rôles",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/project-manager-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Rôles / Gouvernance",
+      "recommended_action": "review",
+      "batch": "lot-5-roles-governance"
+    },
+    {
+      "id": "PROMPT-ROLE-003",
+      "name": "Extraction méthode rôle",
+      "family": "Rôles",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/",
+      "catalog_status": "Candidat",
+      "desired_category": "Rôles / Gouvernance",
+      "recommended_action": "review",
+      "batch": "lot-5-roles-governance"
+    },
+    {
+      "id": "PROMPT-GOV-001",
+      "name": "Synchronisation gouvernance Notion projet",
+      "family": "Gouvernance",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/project-manager-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Gouvernance",
+      "recommended_action": "ambiguous",
+      "batch": "lot-5-roles-governance",
+      "notes": "Meta Notion sync — arbitrage before publication"
+    },
+    {
+      "id": "PROMPT-GOV-002",
+      "name": "Contrôle structure méthodes",
+      "family": "Gouvernance",
+      "source_file": "prompts/prompt-catalog.md §4",
+      "method_path": "docs/methods/roles/project-manager-method.md",
+      "catalog_status": "Candidat",
+      "desired_category": "Gouvernance",
+      "recommended_action": "review",
+      "batch": "lot-5-roles-governance"
+    }
+  ],
+  "recommended_batches": [
+    {
+      "id": "lot-0-qa",
+      "family": "QA / Testeur",
+      "prompt_count": 10,
+      "ready_to_publish": true,
+      "status": "published",
+      "conditions": "Completed — see notion-sync-qa-prompt-library-publication-log.md"
+    },
+    {
+      "id": "lot-1-architecture-security",
+      "family": "Architecture & Sécurité",
+      "prompt_count": 2,
+      "ready_to_publish": false,
+      "status": "next_recommended",
+      "conditions": "Draft files exist; extend CMP categories Architecture/Security recommended; prepare CMP payload; manual review"
+    },
+    {
+      "id": "lot-2-uxui-v1-governance",
+      "family": "UX/UI V1 Governance",
+      "prompt_count": 15,
+      "ready_to_publish": false,
+      "conditions": "Extract content from project sources; resolve UXUI-011 ambiguity; UX/UI category extension; manual review per prompt"
+    },
+    {
+      "id": "lot-3-cadrage-arbitrages",
+      "family": "Cadrage & Arbitrages",
+      "prompt_count": 4,
+      "ready_to_publish": false,
+      "conditions": "Catalog-only candidats; formalize prompt files or synthesize content first"
+    },
+    {
+      "id": "lot-4-ux-ui-classic",
+      "family": "UX/UI classique",
+      "prompt_count": 3,
+      "ready_to_publish": false,
+      "conditions": "Catalog-only candidats; formalization required"
+    },
+    {
+      "id": "lot-5-roles-governance",
+      "family": "Rôles & Gouvernance",
+      "prompt_count": 5,
+      "ready_to_publish": false,
+      "conditions": "Catalog-only candidats; arbitrage GOV-001; formalization required"
+    }
+  ],
+  "category_mapping": [
+    {
+      "family": "QA / Testeur",
+      "desired_category": "QA",
+      "cmp_category_existing": "QA",
+      "gap": false,
+      "recommendation": "Reference model — already published"
+    },
+    {
+      "family": "Architecture",
+      "desired_category": "Architecture",
+      "cmp_category_existing": null,
+      "gap": true,
+      "recommendation": "Add Architecture to prompt.schema.json in dedicated task; interim Analysis + tag Architecture"
+    },
+    {
+      "family": "Sécurité / RSSI",
+      "desired_category": "Sécurité",
+      "cmp_category_existing": null,
+      "gap": true,
+      "recommendation": "Add Security or RSSI to schema; interim Analysis + tags Sécurité, RSSI"
+    },
+    {
+      "family": "UX/UI",
+      "desired_category": "UX/UI",
+      "cmp_category_existing": null,
+      "gap": true,
+      "recommendation": "Add UX/UI or Design to schema; interim Writing + tags UX, UI"
+    },
+    {
+      "family": "UX/UI V1 Governance",
+      "desired_category": "UX/UI Governance",
+      "cmp_category_existing": null,
+      "gap": true,
+      "recommendation": "Same as UX/UI; tags V1, Governance"
+    },
+    {
+      "family": "Cadrage",
+      "desired_category": "Cadrage",
+      "cmp_category_existing": null,
+      "gap": true,
+      "recommendation": "Add Cadrage or use Writing + tags Cadrage, BA"
+    },
+    {
+      "family": "Arbitrages",
+      "desired_category": "Product / Arbitrage",
+      "cmp_category_existing": null,
+      "gap": true,
+      "recommendation": "Analysis + tags Product, MVP, Arbitrage — or new category"
+    },
+    {
+      "family": "Rôles",
+      "desired_category": "Rôles / Gouvernance",
+      "cmp_category_existing": "Agent",
+      "gap": true,
+      "recommendation": "Agent too generic; tags Rôles, Méthode or Governance category"
+    },
+    {
+      "family": "Gouvernance",
+      "desired_category": "Gouvernance",
+      "cmp_category_existing": "Agent",
+      "gap": true,
+      "recommendation": "Agent + tags Gouvernance; arbitrage for GOV-001"
+    }
+  ],
+  "guardrails": [
+    "no_notion_publication",
+    "no_api_call",
+    "no_create_prompt",
+    "no_delivery",
+    "no_backlog",
+    "no_user_stories",
+    "no_code"
+  ]
+}
