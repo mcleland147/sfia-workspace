@@ -48,6 +48,7 @@ Un prompt peut être capitalisé si :
 | **Cadrage** | `prompts/cadrage/` | Produire ou enrichir des documents de cadrage métier |
 | **Arbitrages** | `prompts/arbitrages/` | Arbitrer le périmètre MVP et valider les décisions |
 | **UX/UI** | `prompts/ux-ui/` | Brief UX/UI, validation, revues dashboard/KPI |
+| **UX/UI V1 Governance** | `prompts/ux-ui/` *(famille catalogue)* | Cycle maquette V1 — ouverture, production, revue, clôture, gouvernance — voir §13 |
 | **Rôles** | `prompts/roles/` | Méthodes par rôle, revues, extractions Role Method |
 | **Architecture** | `prompts/architecture/` | Intégrations, erreurs, ADR candidates |
 | **Sécurité / RSSI** | `prompts/security/` | Revues SSI, canal email sécurisé, données sensibles |
@@ -193,6 +194,69 @@ Chaque fichier prompt formalisé suivra la structure type :
 Le **jalon Architecture P1** du projet Interv360 a permis de passer **PROMPT-ARCH-001** et **PROMPT-SEC-001** au statut **Draft**.
 
 Ces prompts restent à **tester sur un projet hors pilote** avant passage au statut **Tested**.
+
+Le **standard officiel UX/UI V1** (`docs/standards/ux-ui-v1-governance-standard.md`) a alimenté la famille **UX/UI V1 Governance** (§13) — **15 prompts candidats** issus du cycle Figma V1 Interv360, référencés par modèle projet sans modification des prompts sources.
+
+---
+
+## 13. UX/UI V1 Governance
+
+Cette famille de prompts accompagne le **standard officiel** [`docs/standards/ux-ui-v1-governance-standard.md`](../docs/standards/ux-ui-v1-governance-standard.md).
+
+Elle couvre l'**ouverture**, la **production**, la **revue**, la **clôture**, la **gouvernance** et la **standardisation** d'une maquette **UX/UI V1** — sans déclencher prématurément delivery, backlog, user stories ou code.
+
+Les entrées ci-dessous sont des **prompts candidats** : modèles et livrables pilote documentés ; fichiers prompt dédiés sous `prompts/ux-ui/` à formaliser ultérieurement **sans modifier** les documents sources Interv360.
+
+| Prompt | Objectif | Source / modèle | Sortie attendue |
+|--------|----------|-----------------|-----------------|
+| **PROMPT-UXUI-001** — Ouverture jalon UX/UI V1 | Préparer l'ouverture d'un jalon UX/UI V1 post-ADR ou post-cadrage, sans lancer la production immédiate | `projects/interv360/02-architecture/ux-ui-figma-opening-note.md` | Note d'ouverture ; garde-fous rappelés ; design ≠ delivery |
+| **PROMPT-UXUI-002** — Recherche design / benchmark UX/UI | Produire une recherche design et benchmark avant génération ou production de maquette | `projects/interv360/02-architecture/ux-ui-design-research-and-benchmark.md` | Document recherche ; direction visuelle ; principes UI |
+| **PROMPT-UXUI-003** — Instructions UX/UI V1 | Transformer décisions ADR / garde-fous / MVP en consignes design exploitables | `projects/interv360/02-architecture/figma-design-instructions.md` | Instructions design ; écrans autorisés / interdits ; wording, états |
+| **PROMPT-UXUI-004** — Production maquette UX/UI V1 | Produire une maquette V1 via prompt structuré, avec garde-fous MVP et exclusions | `projects/interv360/02-architecture/figma-production-prompt.md` | Maquette V1 dans `{design_tool}` ; captures prévues ; pas d'IA / portail / BI / logs |
+| **PROMPT-UXUI-005** — Revue premier jet UX/UI V1 | Analyser une première maquette V1 ; points validés, écarts, ajustements P1/P2/P3 | `projects/interv360/02-architecture/figma-first-draft-review.md` | Revue V1 ; V1 présentable ou non ; bloquant vs polish |
+| **PROMPT-UXUI-006** — Préparation revue transverse UX/UI V1 | Préparer une revue PO / UX / RSSI / Architecte / Chef de projet / BA / QA candidat | `projects/interv360/02-architecture/figma-review-session-preparation.md` | Document préparation ; questions par rôle ; revue ≠ delivery |
+| **PROMPT-UXUI-007** — Template compte rendu revue UX/UI V1 | Créer un template de CR vide, à compléter après revue réelle ou simulée | `projects/interv360/02-architecture/figma-review-session-minutes-template.md` | Template CR ; pas de retours fictifs ; delivery bloqué par défaut |
+| **PROMPT-UXUI-008** — Enrichissement méthodes rôle après UX/UI V1 | Capitaliser apprentissages UX/UI V1 dans les méthodes rôle avant revue simulée | `projects/interv360/02-architecture/role-methods-enrichment-after-figma-v1.md` | Note enrichissement ; §14 méthodes rôle ; QA candidat identifié |
+| **PROMPT-UXUI-009** — Compte rendu revue simulée UX/UI V1 | Produire une revue simulée multi-rôles sans acteurs réels ni participants fictifs | `projects/interv360/02-architecture/figma-review-session-minutes.md` | CR simulé ; validation par rôles SFIA ; delivery bloqué sauf décision explicite |
+| **PROMPT-UXUI-010** — Clôture jalon UX/UI V1 | Clôturer le jalon ; décision, ajustements différés, hors MVP, suites possibles | `projects/interv360/02-architecture/figma-v1-closure-summary.md` | Synthèse clôture ; V1 présentable / non définitive ; V2 différée ; delivery bloqué |
+| **PROMPT-UXUI-011** — Sync gouvernance UX/UI V1 | Préparer sync Notion ou outil de gouvernance — informative, non publiée par défaut | `notion-sync-figma-v1-closure-summary.md` + `notion-sync-figma-v1-closure-payload.json` | Payload + synthèse ; `publish_to_notion: false` ; revue manuelle |
+| **PROMPT-UXUI-012** — Standard candidat UX/UI V1 | Capitaliser un cycle projet en standard candidat avant promotion officielle | `projects/interv360/02-architecture/sfia-figma-v1-standard-candidate.md` | Standard candidat projet ; pas de promotion auto |
+| **PROMPT-UXUI-013** — Revue standard candidat UX/UI V1 | Évaluer si un standard candidat est robuste et promotable | `projects/interv360/02-architecture/sfia-figma-v1-standard-candidate-review.md` | Décision revue ; promotable / à renforcer ; promotion différée si besoin |
+| **PROMPT-UXUI-014** — Préparation promotion standard officiel | Préparer promotion candidat → officiel sans créer le fichier officiel | `projects/interv360/02-architecture/sfia-figma-v1-standard-promotion-preparation.md` | Dossier promotion ; nom cible ; variables ; conditions |
+| **PROMPT-UXUI-015** — Promotion standard officiel UX/UI V1 | Créer un standard officiel générique à partir d'un candidat validé | `docs/standards/ux-ui-v1-governance-standard.md` | Standard officiel `docs/standards/` ; pilote en exemple non normatif |
+
+**Statut famille** : 15 prompts **Candidat** — modèles pilote documentés ; formalisation fichiers `prompts/ux-ui/` à planifier.
+
+**Standard lié** : [`ux-ui-v1-governance-standard.md`](../docs/standards/ux-ui-v1-governance-standard.md) v1.0.
+
+### Garde-fous communs (UX/UI V1 Governance)
+
+- ne pas confondre **maquette** et **spécification** ;
+- ne pas produire de **backlog** ;
+- ne pas produire de **user stories** ;
+- ne pas produire de **code** ;
+- ne pas **ouvrir delivery** sans jalon explicite ;
+- ne pas **publier automatiquement** dans Notion ou autre outil de gouvernance ;
+- ne pas **inventer de participants réels** en revue simulée ;
+- **distinguer** revue réelle et revue simulée ;
+- **documenter** les contraintes outil (`{design_tool}`, crédits, génératif) ;
+- conserver **Git** comme source détaillée.
+
+### Variables génériques recommandées
+
+| Variable | Description |
+|----------|-------------|
+| `{project_id}` | Identifiant projet (ex. PRJ-INTERV360) |
+| `{project_name}` | Nom projet |
+| `{phase}` | Phase courante (ex. 02-architecture) |
+| `{milestone}` | Jalon UX/UI V1 |
+| `{design_tool}` | Outil design (Figma, autre, génératif) |
+| `{review_mode}` | `real` ou `simulated` |
+| `{roles_involved}` | Rôles SFIA mobilisés |
+| `{screens_folder}` | Dossier captures versionnées Git |
+| `{governance_tool}` | Notion ou autre outil de pilotage |
+| `{delivery_status}` | `blocked` ou `authorized` (explicite) |
+| `{source_documents}` | Documents Git source de vérité |
 
 ---
 
