@@ -6,9 +6,9 @@
 **Outil évalué** : Penpot self-host + Cursor MCP  
 **Référence visuelle** : Figma V1 (`figma-first-draft-screens/`)  
 **Écran cible** : Liste demandes  
-**Statut** : Draft  
+**Statut** : Décision rendue  
 **Branche** : `design/interv360-penpot-first-screen-cycle`  
-**Documents associés** : [`penpot-first-screen-review.md`](penpot-first-screen-review.md), [`penpot-application-frame-template.md`](penpot-application-frame-template.md), [`penpot-first-screen-v11-instructions.md`](penpot-first-screen-v11-instructions.md)
+**Documents associés** : [`penpot-first-screen-review.md`](penpot-first-screen-review.md), [`penpot-application-frame-template.md`](penpot-application-frame-template.md), [`penpot-first-screen-v11-instructions.md`](penpot-first-screen-v11-instructions.md), [`penpot-first-screen-v2-visual-instructions.md`](penpot-first-screen-v2-visual-instructions.md), [`penpot-first-screen-cycle-summary.md`](penpot-first-screen-cycle-summary.md)
 
 ---
 
@@ -253,4 +253,73 @@ Objectif : préparer le prompt MCP pour produire **`Liste demandes — V2 visual
 
 ---
 
-*Benchmark Interv360 — Qualité visuelle Penpot vs Figma — Draft.*
+## 12. Décision après V2 visual standard
+
+La frame `Liste demandes — V2 visual standard` a été produite dans Penpot via MCP afin de tester la capacité de Penpot à atteindre un niveau visuel comparable aux premières maquettes Figma V1.
+
+### Résultat observé
+
+La V2 améliore nettement la V1.1 :
+
+- structure plus applicative ;
+- sidebar et navigation active ;
+- card principale ;
+- CTA plus visible ;
+- intention de badges / pills ;
+- hiérarchie visuelle plus affirmée.
+
+Cependant, le résultat reste inférieur au standard Figma V1 attendu :
+
+- export PNG incomplet ou fragile ;
+- certains textes tronqués ;
+- tableau principal insuffisamment rendu à l'export ;
+- filtres / recherche peu visibles ;
+- labels de navigation partiellement absents ;
+- micro-détails et icônes absents ;
+- niveau de finition global inférieur à `06-liste-demandes.png` ;
+- génération encore fragile malgré un cadrage très détaillé ;
+- création de 2 orphelins accidentels à la racine de la page lors d'une tentative MCP intermédiaire.
+
+### Décision d'outillage
+
+Penpot self-host + Cursor MCP n'est **pas validé** comme remplaçant Figma pour les maquettes high fidelity Interv360 / SFIA.
+
+Décision retenue :
+
+| Outil | Rôle retenu |
+|-------|-------------|
+| **Figma** | Maquettes finales, présentables, démonstrations, design high fidelity |
+| **Penpot** | Wireframes avancés, documentation visuelle, preuve Git → design |
+| **Git** | Source fonctionnelle, architecture, méthode SFIA, décisions de conception |
+
+### Qualification du résultat
+
+Selon la matrice de décision (§9) :
+
+**`V2 correcte mais inférieure`**
+
+Conséquence :
+
+**Penpot validé pour wireframe avancé ; Figma retenu pour final UI.**
+
+### Enseignement méthodologique
+
+Le test Penpot reste utile car il a permis de valider :
+
+- la connexion MCP ;
+- la capacité à créer des frames depuis les specs Git ;
+- la nécessité d'un gabarit layout strict ;
+- les limites actuelles pour la production high fidelity ;
+- la valeur d'un benchmark outillage avant généralisation.
+
+### Décision pour la suite Interv360
+
+Ne pas produire les 8 autres écrans MVP dans Penpot en high fidelity.
+
+Reprendre la trajectoire design dans Figma pour les écrans présentables.
+
+Penpot pourra être conservé comme outil secondaire si besoin, mais ne doit pas porter la qualité finale des maquettes SFIA.
+
+---
+
+*Benchmark Interv360 — Qualité visuelle Penpot vs Figma — Décision rendue.*
