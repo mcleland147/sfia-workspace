@@ -5,7 +5,7 @@
 **Référence** : SFIA delivery / realization method  
 **Statut** : Ready for closure  
 **Branche** : `method/interv360-realization-capitalization`  
-**Documents associés** : [`capitalization-plan.md`](capitalization-plan.md), [`realization-method.md`](realization-method.md), [`realization-deliverables-standard.md`](realization-deliverables-standard.md), [`realization-checklists.md`](realization-checklists.md), [`realization-templates.md`](realization-templates.md), [`realization-prompt-family.md`](realization-prompt-family.md)
+**Documents associés** : [`capitalization-plan.md`](capitalization-plan.md), [`realization-method.md`](realization-method.md), [`realization-deliverables-standard.md`](realization-deliverables-standard.md), [`realization-checklists.md`](realization-checklists.md), [`realization-templates.md`](realization-templates.md), [`realization-prompt-family.md`](realization-prompt-family.md), [`notion-integration-plan.md`](notion-integration-plan.md)
 
 ---
 
@@ -34,6 +34,7 @@ Elle **ne constitue pas** une autorisation de coder.
 | Checklists réutilisables produites | ✅ `realization-checklists.md` |
 | Templates génériques produits | ✅ `realization-templates.md` |
 | Famille de prompts capitalisée | ✅ `realization-prompt-family.md` |
+| Plan d'intégration Notion préparé | ✅ `notion-integration-plan.md` |
 | Garde-fous anti-démarrage prématuré consolidés | ✅ |
 | Aucune autorisation de code donnée | ✅ |
 
@@ -55,9 +56,10 @@ Cela signifie que la capitalisation documentaire est suffisante pour proposer un
 | [`realization-checklists.md`](realization-checklists.md) | ✅ | Checklists réutilisables |
 | [`realization-templates.md`](realization-templates.md) | ✅ | Modèles génériques de documents |
 | [`realization-prompt-family.md`](realization-prompt-family.md) | ✅ | Famille de prompts Cursor / ChatGPT |
+| [`notion-integration-plan.md`](notion-integration-plan.md) | ✅ | Plan d'intégration Notion manuelle / semi-manuelle |
 | [`capitalization-summary.md`](capitalization-summary.md) | ✅ | Synthèse et clôture |
 
-**Commits du cycle (7) :**
+**Commits du cycle (9) :**
 
 | Commit | Message |
 |--------|---------|
@@ -67,7 +69,9 @@ Cela signifie que la capitalisation documentaire est suffisante pour proposer un
 | `c8264d6` | docs: add realization method checklists |
 | `d2186e5` | docs: add realization document templates |
 | `72e10e0` | docs: add realization prompt family |
-| *(ce commit)* | docs: summarize Interv360 realization capitalization |
+| `63b9805` | docs: summarize Interv360 realization capitalization |
+| `930e672` | docs: plan realization method Notion integration |
+| *(ce commit)* | docs: update capitalization summary with Notion integration |
 
 ---
 
@@ -85,6 +89,7 @@ Cela signifie que la capitalisation documentaire est suffisante pour proposer un
 | Contrôle anti-démarrage prématuré | Checklist et anti-patterns documentés |
 | Contrôle PR documentaire | Processus de revue avant merge |
 | Garde-fous code / projet / API / tickets | Consolidés dans tous les livrables |
+| Préparation Notion | Mapping Markdown / Notion, arborescence, règles de transformation et maintenance |
 
 ---
 
@@ -184,7 +189,26 @@ Référence complète : [`realization-prompt-family.md`](realization-prompt-fami
 
 ---
 
-## 10. Ce que la capitalisation ne fait pas
+## 10. Plan d'intégration Notion obtenu
+
+Le cycle prépare également l'intégration de la documentation dans Notion, **sans publication ni automatisation**.
+
+| Élément | Résultat |
+|---------|----------|
+| Source de vérité | Git reste la source de vérité documentaire |
+| Rôle de Notion | Couche de lecture, navigation et appropriation |
+| Arborescence | 9 zones recommandées : 00 à 07 + 99 |
+| Mapping | 8 fichiers Git vers pages Notion |
+| Transformation | Règles Markdown → Notion définies |
+| Maintenance | Sync Notion après merge PR |
+| Publication | Aucune publication dans ce cycle |
+| Automatisation | Aucune API Notion, aucun script |
+
+Référence complète : [`notion-integration-plan.md`](notion-integration-plan.md)
+
+---
+
+## 11. Ce que la capitalisation ne fait pas
 
 | Non réalisé | Raison |
 |-------------|--------|
@@ -199,10 +223,12 @@ Référence complète : [`realization-prompt-family.md`](realization-prompt-fami
 | Elle ne remplace pas le futur Go / No-go réalisation | Cycle distinct à ouvrir explicitement |
 | Elle ne donne pas d'autorisation de code | Décision explicite requise |
 | Elle ne déplace pas encore les fichiers vers `docs/methods/` | Généralisation SFIA = futur cycle dédié |
+| Elle ne publie pas dans Notion | L'intégration Notion reste manuelle après merge |
+| Elle ne crée pas d'automatisation Notion | Aucun script ni API Notion dans ce cycle |
 
 ---
 
-## 11. Garde-fous consolidés
+## 12. Garde-fous consolidés
 
 | Garde-fou | Statut |
 |-----------|:------:|
@@ -220,15 +246,17 @@ Référence complète : [`realization-prompt-family.md`](realization-prompt-fami
 | Pas de modification Figma / Penpot | ✅ |
 | Exports non committés | ✅ |
 | Pas de push / PR / merge automatique | ✅ |
+| Pas de publication Notion | ✅ |
+| Pas d'API Notion / script d'import | ✅ |
 | Autorisation de code non donnée | ✅ |
 
 ---
 
-## 12. Recommandation de suite
+## 13. Recommandation de suite
 
 La recommandation actuelle est de **clôturer la capitalisation par PR documentaire vers `main`**.
 
-Après merge, **deux suites possibles** — aucune n'est déclenchée automatiquement :
+Après merge, **trois suites possibles** — aucune n'est déclenchée automatiquement :
 
 ### 1. Généralisation méthode SFIA
 
@@ -245,11 +273,20 @@ Après merge, **deux suites possibles** — aucune n'est déclenchée automatiqu
 - Geler le périmètre INC-01 ;
 - Donner ou refuser l'autorisation de créer le projet applicatif et de coder.
 
+### 3. Intégration Notion manuelle
+
+- Créer ou mettre à jour l'espace Notion `SFIA — Méthodes / Préparation réalisation` ;
+- appliquer l'arborescence 00 à 07 + 99 ;
+- convertir les fichiers Markdown selon le mapping défini ;
+- conserver Git comme source de vérité ;
+- documenter la date de synchronisation ;
+- ne pas transformer Notion en source normative divergente.
+
 **Décision de principe héritée (Interv360) :** GO d'intention pour poursuivre vers la réalisation — mais la capitalisation méthode devait précéder tout développement. Cette intention **ne constitue pas** une autorisation de code.
 
 ---
 
-## 13. Décision PR
+## 14. Décision PR
 
 **La branche `method/interv360-realization-capitalization` peut être poussée et proposée en PR vers `main`.**
 
@@ -258,7 +295,7 @@ Après merge, **deux suites possibles** — aucune n'est déclenchée automatiqu
 | Critère | Attendu |
 |---------|---------|
 | Type | PR documentaire |
-| Fichiers | Uniquement sous `method/interv360-realization/` (7 fichiers) |
+| Fichiers | Uniquement sous `method/interv360-realization/` (8 fichiers) |
 | Exclusions | Aucun fichier `exports/`, code, API, SQL, tickets |
 | Autorisation de code | Non donnée par la PR |
 
@@ -269,13 +306,14 @@ Après merge, **deux suites possibles** — aucune n'est déclenchée automatiqu
 ### Corps PR — éléments à inclure
 
 - Synthèse : capitalisation des cycles delivery/realization Interv360 en méthode générique SFIA ;
-- Livrables : méthode, standard, checklists, templates, prompts ;
+- Livrables : méthode, standard, checklists, templates, prompts, plan Notion ;
 - Garde-fous : pas de code, pas de projet applicatif, pas d'autorisation de code ;
-- Suites possibles après merge : généralisation vers `docs/methods/` ou cycle `delivery/interv360-implementation-go-no-go` — non déclenchées automatiquement.
+- Notion : plan d'intégration manuelle post-merge, Git reste source de vérité ;
+- Suites possibles après merge : généralisation vers `docs/methods/`, cycle `delivery/interv360-implementation-go-no-go`, ou intégration Notion manuelle — non déclenchées automatiquement.
 
 ---
 
-## 14. Décisions retenues
+## 15. Décisions retenues
 
 | Décision | Statut |
 |----------|--------|
@@ -285,6 +323,9 @@ Après merge, **deux suites possibles** — aucune n'est déclenchée automatiqu
 | Checklists réutilisables capitalisées | ✅ Retenu |
 | Templates génériques capitalisés | ✅ Retenu |
 | Famille de prompts capitalisée | ✅ Retenu |
+| Plan d'intégration Notion capitalisé | ✅ Retenu |
+| Git source de vérité / Notion couche de lecture | ✅ Retenu |
+| Publication Notion post-merge uniquement | ✅ Retenu |
 | Garde-fous anti-code consolidés | ✅ Retenu |
 | Généralisation SFIA possible dans un futur cycle | ✅ Retenu |
 | Retour Interv360 Go / No-go possible dans un futur cycle | ✅ Retenu |
@@ -292,7 +333,7 @@ Après merge, **deux suites possibles** — aucune n'est déclenchée automatiqu
 
 ---
 
-## 15. Critères de sortie
+## 16. Critères de sortie
 
 - [x] décision de clôture formulée ;
 - [x] livrables produits listés ;
@@ -302,9 +343,11 @@ Après merge, **deux suites possibles** — aucune n'est déclenchée automatiqu
 - [x] checklists synthétisées ;
 - [x] templates synthétisés ;
 - [x] famille de prompts synthétisée ;
+- [x] plan d'intégration Notion synthétisé ;
 - [x] non-réalisés listés ;
 - [x] garde-fous consolidés ;
 - [x] recommandation de suite formulée ;
+- [x] suite Notion post-merge formulée ;
 - [x] décision PR formulée ;
 - [x] décisions retenues listées.
 
