@@ -23,6 +23,10 @@ Figma est l'outil cible pour produire une **maquette présentable** — high fid
 
 Cette reprise fait suite au cycle Penpot, qui a validé le périmètre fonctionnel et les garde-fous, mais n'a pas atteint le standard visuel attendu.
 
+> **Note — nouveau compte Figma :**  
+> Si le fichier Figma historique n'est pas accessible, suivre aussi [`figma-fresh-start-instructions.md`](figma-fresh-start-instructions.md).  
+> La reprise se fait alors à partir des captures PNG versionnées et des specs Git, sans dépendre des composants ou frames historiques.
+
 ---
 
 ## 2. Pourquoi reprendre cet écran en premier
