@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { STORAGE_KEY_PREFIX, STORAGE_KEY_REQUESTS } from "./localStorageKeys";
+import { STORAGE_KEY_JOURNAL, STORAGE_KEY_REQUESTS } from "./localStorageKeys";
 import { getRequests, resetDemoData } from "./requestsRepository";
 
 describe("requestsRepository demo reset", () => {
@@ -21,13 +21,13 @@ describe("requestsRepository demo reset", () => {
         },
       ]),
     );
-    localStorage.setItem(`${STORAGE_KEY_PREFIX}journal`, "[]");
+    localStorage.setItem(STORAGE_KEY_JOURNAL, "[]");
 
     const restored = resetDemoData();
 
     expect(restored).toHaveLength(1);
     expect(restored[0]?.id).toBe("SAV-DEMO-001");
     expect(getRequests()[0]?.id).toBe("SAV-DEMO-001");
-    expect(localStorage.getItem(`${STORAGE_KEY_PREFIX}journal`)).toBeNull();
+    expect(localStorage.getItem(STORAGE_KEY_JOURNAL)).toBeNull();
   });
 });

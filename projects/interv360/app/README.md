@@ -62,7 +62,7 @@ npm run preview  # preview production build
 
 ## Status
 
-**Foundation + requests list skeleton + request detail skeleton + explicit demo reset + qualification readonly skeleton + planning readonly skeleton + intervention readonly skeleton + report readonly skeleton.**
+**Phase 2 — controlled local workflow skeleton on top of the readonly INC-01 demo foundation.**
 
 Screens:
 
@@ -72,7 +72,25 @@ Screens:
 - `PlanningReadonly` — fictitious planning view for `SAV-DEMO-001` (read-only)
 - `InterventionReadonly` — fictitious field intervention view for `SAV-DEMO-001` (read-only)
 - `ReportReadonly` — fictitious report view for `SAV-DEMO-001` (read-only)
+- `WorkflowActionControl` — single controlled workflow action for `SAV-DEMO-001`
+- `WorkflowJournalReadonly` — fictitious local workflow journal (read-only)
 - `DemoResetControl` — explicit demo reset (fictitious data only)
+
+Controlled workflow (nominal INC-01 path only):
+
+- `STAT-01 → STAT-02` — Qualifier la demande
+- `STAT-02 → STAT-03` — Planifier l'intervention
+- `STAT-03 → STAT-04` — Marquer l'intervention réalisée
+- `STAT-04 → STAT-06` — Clôturer avec compte rendu fictif
+
+Workflow rules:
+
+- one visible action at a time, based on current status ;
+- no action in `STAT-06` ;
+- fictitious local journal via `src/data/` ;
+- reset restores `SAV-DEMO-001` to `STAT-01` and clears the journal ;
+- no transition outside the nominal INC-01 path ;
+- no backend, API, server database or real data.
 
 Report readonly:
 

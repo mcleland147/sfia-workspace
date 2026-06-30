@@ -5,6 +5,21 @@ export type RequestStatus =
   | "STAT-04"
   | "STAT-06";
 
+export type DemoWorkflowEventType =
+  | "qualification.confirmed"
+  | "planning.confirmed"
+  | "intervention.completed"
+  | "report.closed";
+
+export interface DemoWorkflowEvent {
+  type: DemoWorkflowEventType;
+  requestId: string;
+  fromStatus: RequestStatus;
+  toStatus: RequestStatus;
+  message: string;
+  createdAt: string;
+}
+
 export interface DemoRequest {
   id: string;
   title: string;
