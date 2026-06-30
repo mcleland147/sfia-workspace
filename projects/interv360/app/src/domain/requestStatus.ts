@@ -21,4 +21,8 @@ export interface DemoRequest {
   planningSlotLabel?: string;
   planningTechnicianLabel?: string;
   planningReadonlyNotes?: string;
+  interventionLocationLabel?: string;
+  interventionWindowLabel?: string;
+  interventionReadonlyNotes?: string;
+  interventionSafetyChecklist?: string[];
 }

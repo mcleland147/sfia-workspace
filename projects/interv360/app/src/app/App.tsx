@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { resetDemoData } from "../data/requestsRepository";
+import { InterventionReadonly } from "../ui/intervention/InterventionReadonly";
 import { QualificationReadonly } from "../ui/qualification/QualificationReadonly";
 import { PlanningReadonly } from "../ui/planning/PlanningReadonly";
 import { DemoResetControl } from "../ui/requests/DemoResetControl";
@@ -41,6 +42,10 @@ export function App() {
         dataVersion={dataVersion}
       />
       <PlanningReadonly
+        requestId={DEMO_REQUEST_ID}
+        dataVersion={dataVersion}
+      />
+      <InterventionReadonly
         requestId={DEMO_REQUEST_ID}
         dataVersion={dataVersion}
       />

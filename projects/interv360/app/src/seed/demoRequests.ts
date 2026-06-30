@@ -24,5 +24,14 @@ export const demoRequests: DemoRequest[] = [
     planningTechnicianLabel: "Technicien Démo 01",
     planningReadonlyNotes:
       "Créneau fictif proposé pour démonstration readonly.",
+    interventionLocationLabel: "Zone Démo Atelier",
+    interventionWindowLabel: "J+1 matin",
+    interventionReadonlyNotes:
+      "Intervention fictive préparée pour démonstration readonly.",
+    interventionSafetyChecklist: [
+      "Accès site fictif confirmé",
+      "Consignes de démonstration prises en compte",
+      "Matériel de diagnostic démo prévu",
+    ],
   },
 ];
