@@ -62,6 +62,7 @@ npm run preview  # preview production build
 
 ## Status
 
-**Foundation only.**
+**Foundation + requests list skeleton.**
 
-This first application commit does not implement the complete INC-01 flow.
+The first INC-01 screen (`RequestsList`) displays fictitious demo data only.
+The complete INC-01 flow (STAT-01 → STAT-06) is not implemented.

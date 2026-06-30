@@ -1,16 +1,4 @@
 .app-shell {
-  font-family: system-ui, sans-serif;
-  margin: 2rem auto;
-  max-width: 40rem;
-  padding: 0 1rem;
-}
-
-.app-shell h1 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.app-shell ul {
-  margin-top: 1rem;
-  padding-left: 1.25rem;
+  margin: 0;
+  min-height: 100vh;
 }
