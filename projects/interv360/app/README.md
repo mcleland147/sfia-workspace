@@ -62,7 +62,12 @@ npm run preview  # preview production build
 
 ## Status
 
-**Foundation + requests list skeleton.**
+**Foundation + requests list skeleton + request detail skeleton.**
 
-The first INC-01 screen (`RequestsList`) displays fictitious demo data only.
+Screens:
+
+- `RequestsList` — fictitious demo requests list
+- `RequestDetail` — fictitious detail for `SAV-DEMO-001`
+
 The complete INC-01 flow (STAT-01 → STAT-06) is not implemented.
+No business actions or status transitions are available.

@@ -9,11 +9,14 @@ describe("App smoke", () => {
     localStorage.removeItem(STORAGE_KEY_REQUESTS);
   });
 
-  it("renders the requests list skeleton", () => {
+  it("renders the requests list and detail skeleton", () => {
     render(<App />);
     expect(
       screen.getByRole("heading", { name: /Demandes SAV/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText("SAV-DEMO-001")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Fiche demande SAV/i }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
   });
 });

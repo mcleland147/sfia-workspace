@@ -12,4 +12,8 @@ export interface DemoRequest {
   siteLabel: string;
   status: RequestStatus;
   assignedTechnicianLabel?: string;
+  description?: string;
+  priorityLabel?: string;
+  createdAtLabel?: string;
+  qualificationSummary?: string;
 }

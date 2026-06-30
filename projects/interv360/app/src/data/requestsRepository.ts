@@ -28,3 +28,7 @@ export function getRequests(): DemoRequest[] {
 export function resetDemoRequests(): void {
   writeStoredRequests(demoRequests);
 }
+
+export function getRequestById(id: string): DemoRequest | undefined {
+  return getRequests().find((request) => request.id === id);
+}

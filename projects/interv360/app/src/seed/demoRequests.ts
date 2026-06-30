@@ -8,5 +8,10 @@ export const demoRequests: DemoRequest[] = [
     siteLabel: "Lyon Démo",
     status: "STAT-01",
     assignedTechnicianLabel: "Technicien Démo 01",
+    description:
+      "Panne intermittente constatée sur une machine de démonstration.",
+    priorityLabel: "Priorité démo",
+    createdAtLabel: "J-2",
+    qualificationSummary: "Contexte confirmé, intervention nécessaire.",
   },
 ];
