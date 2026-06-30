@@ -16,4 +16,6 @@ export interface DemoRequest {
   priorityLabel?: string;
   createdAtLabel?: string;
   qualificationSummary?: string;
+  qualificationChecklist?: string[];
+  qualificationReadonlyNotes?: string;
 }

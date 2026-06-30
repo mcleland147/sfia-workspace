@@ -13,5 +13,12 @@ export const demoRequests: DemoRequest[] = [
     priorityLabel: "Priorité démo",
     createdAtLabel: "J-2",
     qualificationSummary: "Contexte confirmé, intervention nécessaire.",
+    qualificationChecklist: [
+      "Contexte de panne confirmé",
+      "Impact démonstration identifié",
+      "Intervention nécessaire",
+    ],
+    qualificationReadonlyNotes:
+      "Qualification fictive préparée pour démonstration readonly.",
   },
 ];

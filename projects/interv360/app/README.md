@@ -62,13 +62,21 @@ npm run preview  # preview production build
 
 ## Status
 
-**Foundation + requests list skeleton + request detail skeleton + explicit demo reset.**
+**Foundation + requests list skeleton + request detail skeleton + explicit demo reset + qualification readonly skeleton.**
 
 Screens:
 
 - `RequestsList` — fictitious demo requests list
 - `RequestDetail` — fictitious detail for `SAV-DEMO-001`
+- `QualificationReadonly` — fictitious qualification view for `SAV-DEMO-001` (read-only)
 - `DemoResetControl` — explicit demo reset (fictitious data only)
+
+Qualification readonly:
+
+- displays fictitious checklist and summary for `SAV-DEMO-001`;
+- no STAT-01 → STAT-02 transition;
+- no qualify/validate action buttons;
+- fictitious data only.
 
 Demo reset:
 

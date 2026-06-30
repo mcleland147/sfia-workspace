@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { resetDemoData } from "../data/requestsRepository";
+import { QualificationReadonly } from "../ui/qualification/QualificationReadonly";
 import { DemoResetControl } from "../ui/requests/DemoResetControl";
 import { RequestDetail } from "../ui/requests/RequestDetail";
 import { RequestsList } from "../ui/requests/RequestsList";
@@ -31,6 +32,10 @@ export function App() {
       />
       <RequestsList dataVersion={dataVersion} />
       <RequestDetail
+        requestId={DEMO_REQUEST_ID}
+        dataVersion={dataVersion}
+      />
+      <QualificationReadonly
         requestId={DEMO_REQUEST_ID}
         dataVersion={dataVersion}
       />
