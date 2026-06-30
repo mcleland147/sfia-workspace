@@ -62,7 +62,7 @@ npm run preview  # preview production build
 
 ## Status
 
-**Foundation + requests list skeleton + request detail skeleton + explicit demo reset + qualification readonly skeleton + planning readonly skeleton + intervention readonly skeleton.**
+**Foundation + requests list skeleton + request detail skeleton + explicit demo reset + qualification readonly skeleton + planning readonly skeleton + intervention readonly skeleton + report readonly skeleton.**
 
 Screens:
 
@@ -71,7 +71,15 @@ Screens:
 - `QualificationReadonly` — fictitious qualification view for `SAV-DEMO-001` (read-only)
 - `PlanningReadonly` — fictitious planning view for `SAV-DEMO-001` (read-only)
 - `InterventionReadonly` — fictitious field intervention view for `SAV-DEMO-001` (read-only)
+- `ReportReadonly` — fictitious report view for `SAV-DEMO-001` (read-only)
 - `DemoResetControl` — explicit demo reset (fictitious data only)
+
+Report readonly:
+
+- displays fictitious summary, result and checklist for `SAV-DEMO-001`;
+- no STAT-06 transition;
+- no enter/validate/close report action buttons;
+- fictitious data only.
 
 Intervention readonly:
 

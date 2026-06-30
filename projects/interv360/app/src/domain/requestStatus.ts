@@ -25,4 +25,8 @@ export interface DemoRequest {
   interventionWindowLabel?: string;
   interventionReadonlyNotes?: string;
   interventionSafetyChecklist?: string[];
+  reportSummaryLabel?: string;
+  reportResultLabel?: string;
+  reportReadonlyNotes?: string;
+  reportChecklist?: string[];
 }

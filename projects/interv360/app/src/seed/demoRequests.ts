@@ -33,5 +33,15 @@ export const demoRequests: DemoRequest[] = [
       "Consignes de démonstration prises en compte",
       "Matériel de diagnostic démo prévu",
     ],
+    reportSummaryLabel:
+      "Contrôle effectué sur scénario de démonstration.",
+    reportResultLabel: "Remise en service fictive confirmée.",
+    reportReadonlyNotes:
+      "Compte rendu fictif préparé pour démonstration readonly.",
+    reportChecklist: [
+      "Diagnostic démo consulté",
+      "Résultat fictif renseigné",
+      "Clôture non active dans ce cycle",
+    ],
   },
 ];

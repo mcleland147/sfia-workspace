@@ -9,7 +9,7 @@ describe("App smoke", () => {
     localStorage.removeItem(STORAGE_KEY_REQUESTS);
   });
 
-  it("renders the requests list, detail, qualification, planning and intervention readonly skeleton", () => {
+  it("renders the requests list, detail, qualification, planning, intervention and report readonly skeleton", () => {
     render(<App />);
     expect(
       screen.getByRole("heading", { name: /Demandes SAV/i }),
@@ -25,6 +25,9 @@ describe("App smoke", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /Intervention terrain/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Compte rendu SAV/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
     expect(
