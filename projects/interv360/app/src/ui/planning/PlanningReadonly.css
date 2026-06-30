@@ -1,0 +1,65 @@
+.planning-readonly {
+  border-top: 1px solid #ddd;
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+  max-width: 48rem;
+  padding: 1.5rem 1rem 2rem;
+}
+
+.planning-readonly__header h2 {
+  font-size: 1.35rem;
+  margin: 0 0 0.25rem;
+}
+
+.planning-readonly__subtitle {
+  color: #444;
+  margin: 0 0 0.5rem;
+}
+
+.planning-readonly__notice {
+  background: #f5f5f5;
+  border-left: 3px solid #666;
+  color: #333;
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.planning-readonly__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+}
+
+.planning-readonly__field {
+  display: grid;
+  gap: 0.25rem 1rem;
+  grid-template-columns: 7rem 1fr;
+}
+
+.planning-readonly__field dt {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.planning-readonly__field dd {
+  margin: 0;
+}
+
+.planning-readonly__notes h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.planning-readonly__notes p {
+  line-height: 1.4;
+  margin: 0;
+}
+
+.planning-readonly__missing {
+  color: #666;
+  font-style: italic;
+}

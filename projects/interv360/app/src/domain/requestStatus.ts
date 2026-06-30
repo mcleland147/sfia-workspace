@@ -18,4 +18,7 @@ export interface DemoRequest {
   qualificationSummary?: string;
   qualificationChecklist?: string[];
   qualificationReadonlyNotes?: string;
+  planningSlotLabel?: string;
+  planningTechnicianLabel?: string;
+  planningReadonlyNotes?: string;
 }

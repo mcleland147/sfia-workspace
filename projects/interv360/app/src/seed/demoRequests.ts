@@ -20,5 +20,9 @@ export const demoRequests: DemoRequest[] = [
     ],
     qualificationReadonlyNotes:
       "Qualification fictive préparée pour démonstration readonly.",
+    planningSlotLabel: "J+1 matin",
+    planningTechnicianLabel: "Technicien Démo 01",
+    planningReadonlyNotes:
+      "Créneau fictif proposé pour démonstration readonly.",
   },
 ];
