@@ -2,7 +2,7 @@
 
 **Projet** : Interv360  
 **Cycle** : Préparation passage en réalisation  
-**Statut** : Draft  
+**Statut** : Go conditionnel — INC-01  
 **Branche** : `delivery/interv360-implementation-go-no-go`
 
 ---
@@ -162,12 +162,10 @@ Ces livrables ne sont pas créés automatiquement dans ce premier commit sauf si
 Statut à compléter en fin de cycle :
 
 - [ ] Go réalisation
-- [ ] Go conditionnel
+- [x] Go conditionnel
 - [ ] No-go temporaire
 
-Décision :
-
-À compléter après analyse.
+Décision : voir §16 — **Go conditionnel sur INC-01** (formalisé).
 
 ---
 
@@ -291,7 +289,7 @@ Niveaux utilisés : Solide · Suffisant pour MVP · À compléter · Bloquant.
 
 ---
 
-## 16. Recommandation provisoire
+## 16. Décision go/no-go
 
 **Décision proposée :**
 
@@ -299,33 +297,43 @@ Niveaux utilisés : Solide · Suffisant pour MVP · À compléter · Bloquant.
 - [x] Go conditionnel
 - [ ] No-go temporaire
 
-**Recommandation :**
+### Décision
 
-Interv360 dispose d'un **socle documentaire solide** pour entrer en réalisation **de manière maîtrisée**, mais **pas encore** pour démarrer le code sans conditions.
+Interv360 peut entrer en réalisation de façon maîtrisée sur le périmètre **INC-01**, sous réserve de lever les conditions préalables identifiées.
 
-Le projet n'est **pas** en no-go : le cadrage produit, l'architecture fonctionnelle, les parcours, le périmètre MVP, le découpage delivery et la préparation INC-01 sont **suffisants** pour une réalisation ciblée.
+Le démarrage immédiat du code n'est pas recommandé tant que les arbitrages minimaux suivants ne sont pas réalisés :
 
-En revanche, la réalisation doit rester **conditionnée** :
+1. décision formelle de passage en réalisation ;
+2. gel du périmètre INC-01 ;
+3. arbitrage stack minimal ;
+4. stratégie data minimale ;
+5. confirmation des responsabilités de réalisation.
 
-1. **première cible = INC-01 uniquement** (flux SAV minimal jusqu'à STAT-06) ;
-2. **arbitrages stack et data** à trancher avant autorisation code ;
-3. **décision formelle** à acter après revue de cette analyse ;
-4. **aucun sprint, ticket Jira ni code** dans ce cycle.
+### Justification
 
-**Conditions éventuelles :**
+Le cadrage produit, le périmètre MVP, les parcours utilisateurs, les objets métier et l'architecture fonctionnelle sont suffisamment matures pour cadrer une première réalisation.
 
-- valider explicitement le gel INC-01 ;
-- confirmer stack indicative et stratégie de persistance ;
-- confirmer que specs Git + Figma liste demandes suffisent pour les 5 écrans INC-01 ;
-- maintenir CRM simulé, dashboard et STAT-07/08 hors premier incrément code.
+Le niveau de préparation est renforcé par les livrables de préparation réalisation et par la documentation INC-01 déjà constituée.
 
-**Prochaine étape proposée :**
+En revanche, les éléments techniques et data ne sont pas encore suffisamment arbitrés pour autoriser un démarrage code immédiat sans risque de reprise ou de divergence.
 
-1. Revue de cette analyse et arbitrage go / go conditionnel / no-go.
-2. Si go conditionnel accepté : ouvrir un cycle d'**arbitrage technique minimal** (stack + data) sans coder.
-3. Puis autoriser le démarrage code **INC-01** uniquement, avec données de démo fictives.
+### Décision opérationnelle
 
-**Réponse à la question centrale :**
+La suite recommandée est d'ouvrir un cycle court d'**arbitrage technique minimal** avant réalisation INC-01.
+
+Ce cycle devra produire :
+
+- une décision stack minimaliste ;
+- une stratégie data minimale ;
+- une confirmation du périmètre INC-01 ;
+- une liste des décisions nécessaires avant premier commit applicatif ;
+- une autorisation explicite ou non de démarrage code.
+
+### Statut final du cycle
+
+**Go conditionnel — réalisation INC-01 possible après arbitrage technique minimal.**
+
+### Réponse à la question centrale
 
 > **Interv360 est-il prêt à passer en réalisation ?**
 > **Oui, de façon conditionnelle** — le dossier documentaire le permet pour **INC-01**.
@@ -334,4 +342,29 @@ En revanche, la réalisation doit rester **conditionnée** :
 > **INC-01 — Flux SAV minimal démontrable** (16 MB P0-A, STAT-06 local, 5 écrans, sans CRM ni dashboard).
 >
 > **Quels prérequis restent ?**
-> Arbitrage stack/data, gel INC-01 explicite, décision formelle, validation données de démo — voir §14.
+> Voir §14 — arbitrage stack/data, gel INC-01 explicite, décision formelle, validation données de démo.
+
+---
+
+## 17. Suite immédiate recommandée
+
+Ouvrir un cycle dédié :
+
+`delivery/interv360-technical-arbitration`
+
+**Objectif :**
+
+- arbitrer la stack minimale ;
+- arbitrer la stratégie data ;
+- confirmer les choix nécessaires au démarrage INC-01 ;
+- éviter un démarrage code prématuré ;
+- préparer une décision explicite d'autorisation de réalisation.
+
+**Non-périmètre de ce cycle suivant :**
+
+- développement complet ;
+- backlog Jira ;
+- sprint planning ;
+- publication Notion ;
+- refonte UX/UI ;
+- extension du périmètre au-delà d'INC-01.
