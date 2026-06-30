@@ -2,8 +2,12 @@ import { useMemo } from "react";
 import { getRequests } from "../../data/requestsRepository";
 import "./RequestsList.css";
 
-export function RequestsList() {
-  const requests = useMemo(() => getRequests(), []);
+interface RequestsListProps {
+  dataVersion?: number;
+}
+
+export function RequestsList({ dataVersion = 0 }: RequestsListProps) {
+  const requests = useMemo(() => getRequests(), [dataVersion]);
 
   return (
     <section className="requests-list">

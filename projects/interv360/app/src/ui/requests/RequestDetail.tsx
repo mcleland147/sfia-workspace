@@ -4,10 +4,17 @@ import "./RequestDetail.css";
 
 interface RequestDetailProps {
   requestId: string;
+  dataVersion?: number;
 }
 
-export function RequestDetail({ requestId }: RequestDetailProps) {
-  const request = useMemo(() => getRequestById(requestId), [requestId]);
+export function RequestDetail({
+  requestId,
+  dataVersion = 0,
+}: RequestDetailProps) {
+  const request = useMemo(
+    () => getRequestById(requestId),
+    [requestId, dataVersion],
+  );
 
   if (!request) {
     return (

@@ -62,12 +62,20 @@ npm run preview  # preview production build
 
 ## Status
 
-**Foundation + requests list skeleton + request detail skeleton.**
+**Foundation + requests list skeleton + request detail skeleton + explicit demo reset.**
 
 Screens:
 
 - `RequestsList` — fictitious demo requests list
 - `RequestDetail` — fictitious detail for `SAV-DEMO-001`
+- `DemoResetControl` — explicit demo reset (fictitious data only)
+
+Demo reset:
+
+- purges all `interv360-inc01:` localStorage keys via `src/data/`;
+- reloads the fictitious seed (`SAV-DEMO-001`);
+- refreshes list and detail views;
+- no business workflow or status transitions.
 
 The complete INC-01 flow (STAT-01 → STAT-06) is not implemented.
 No business actions or status transitions are available.

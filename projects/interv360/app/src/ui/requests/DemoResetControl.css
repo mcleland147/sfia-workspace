@@ -1,0 +1,35 @@
+.demo-reset-control {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: system-ui, sans-serif;
+  margin: 1rem auto;
+  max-width: 48rem;
+  padding: 1rem;
+}
+
+.demo-reset-control__notice {
+  color: #444;
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+.demo-reset-control__button {
+  background: #fff;
+  border: 1px solid #666;
+  border-radius: 4px;
+  color: #222;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.demo-reset-control__button:hover {
+  background: #f0f0f0;
+}
+
+.demo-reset-control__confirmation {
+  color: #2f6b2f;
+  font-size: 0.9rem;
+  margin: 0.75rem 0 0;
+}
