@@ -170,7 +170,7 @@ Objectif :
 | INC-PROD-01 | CORS local / ports Vite / documentation API | Réalisé |
 | INC-PROD-02 | Runbook API persistant / validation reproductible | Réalisé — documentation uniquement |
 | INC-PROD-03 | Configuration de lancement API local (scripts) | Non retenu — `npm run dev` existant suffisant |
-| INC-PROD-04 | Préparation PR du lot | En cours |
+| INC-PROD-04 | Préparation PR du lot | Réalisé — push OK, PR manuelle |
 
 ### Décision batch
 
@@ -332,13 +332,15 @@ The batch remains limited to local API demo hardening.
 
 ## 16. Statut push / PR
 
-À compléter après push.
-
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-api-demo-hardening?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-api-demo-hardening` |
 | Merge automatique | Non |
+
+**Titre PR** : `Harden Interv360 local API demo mode`
+
+**Corps PR** : voir §15 ou `/tmp/api-demo-hardening-pr-body.md`
