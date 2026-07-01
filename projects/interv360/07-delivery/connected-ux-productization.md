@@ -323,3 +323,95 @@ Validation navigateur non rejouée — contrôles documentés dans le runbook, t
 | Cible | main |
 | Source | delivery/interv360-connected-ux-productization |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#55](https://github.com/mcleland147/sfia-workspace/pull/55) |
+| Source | `delivery/interv360-connected-ux-productization` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `2ac957f` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 32 tests |
+| INC-PROD-01 | OK — cadrage UX connectée |
+| INC-PROD-02 | OK — affichage champs productisés |
+| INC-PROD-03 | Non retenu — valeur marginale à ce stade |
+| INC-PROD-04 | OK — documentation / runbook |
+| `requestedDate` affiché | OK |
+| `equipmentLabel` affiché | OK |
+| `businessImpact` affiché | OK |
+| `siteLabel` conservé | OK |
+| `impactLabel` conservé | OK |
+| `businessImpact` distinct de `impactLabel` | OK |
+| `requestedDate` distinct de `createdAtLabel` | OK |
+| Mode local conservé | OK |
+| Mode API opt-in conservé | OK |
+| API `/api/v1` conservée | OK |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| React Router ajouté | Non |
+| Nouvelle dépendance ajoutée | Non |
+| Authentification introduite | Non |
+| Utilisateurs / rôles introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Connected UX Productization** est mergé dans `main`.
+
+La branche principale rend désormais visibles côté frontend les champs métier productisés :
+
+- `requestedDate` sous le libellé **Date de demande** ;
+- `equipmentLabel` sous le libellé **Équipement / objet** ;
+- `businessImpact` sous le libellé **Impact métier**.
+
+Le batch conserve :
+
+- `siteLabel` comme contexte site ;
+- `impactLabel` comme impact court distinct de `businessImpact` ;
+- le mode local par défaut ;
+- le mode API opt-in ;
+- la navigation existante ;
+- l’API `/api/v1`.
+
+INC-PROD-03 n’a pas été retenu : l’amélioration de l’affichage des erreurs API apporterait une valeur marginale à ce stade, les erreurs étant déjà propagées via les messages existants.
+
+Aucun backend, SQLite, workflow, auth, users, rôles, CRM, donnée réelle, nouveau statut, React Router, nouvelle dépendance, PostgreSQL ou ORM lourd n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Batch Delivery produit contrôlé.
+
+### Prochaine étape recommandée
+
+Le socle Interv360 dispose maintenant :
+
+- d’un backend SQLite persistant ;
+- d’une API locale stabilisée ;
+- d’un modèle RequestDetail productisé ;
+- d’erreurs API clarifiées ;
+- d’un frontend qui affiche les champs métier productisés.
+
+Options possibles pour la suite :
+
+1. `architecture/interv360-auth-and-user-framing`
+   - si l’objectif produit devient identité, utilisateurs, rôles et responsabilités ;
+2. `architecture/interv360-workflow-extension-framing`
+   - si l’objectif devient l’extension du workflow métier ;
+3. `delivery/interv360-product-demo-consolidation`
+   - si l’objectif est de consolider une démonstration produit complète après les derniers incréments ;
+4. `architecture/interv360-product-roadmap-next`
+   - si une nouvelle priorisation produit est nécessaire avant le prochain batch.
