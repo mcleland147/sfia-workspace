@@ -320,3 +320,79 @@ Conclusion :
 | Cible | `main` |
 | Source | `delivery/interv360-demo-polish` |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#47](https://github.com/mcleland147/sfia-workspace/pull/47) |
+| Source | `delivery/interv360-demo-polish` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `d07c764` |
+| Main synchronisée | OK |
+| Revue visuelle pré-merge | OK — vue par page validée |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 18 tests |
+| Backend modifié | Non |
+| Nouveau scope métier | Non |
+| Polish limité au scroll/navigation | OK |
+| Nouvelle dépendance introduite | Non |
+| React Router introduit | Non |
+| Readiness conservée | OK |
+| Scénario guidé conservé | OK |
+| Workflow nominal conservé | OK |
+| Journal conservé | OK |
+| Reset conservé | OK |
+| Mode local par défaut | OK |
+| Mode API opt-in | OK |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Demo Polish** est mergé dans `main`.
+
+La branche principale contient désormais une navigation par écran permettant de réduire le scroll pendant la présentation.
+
+Le polish traite uniquement l'irritant confirmé par feedback humain :
+
+> page longue / scroll.
+
+La revue visuelle pré-merge a confirmé que la vue par page est satisfaisante.
+
+Aucun backend n'a été modifié.
+Aucune nouvelle dépendance ni React Router n'ont été introduits.
+Aucun autre irritant non confirmé n'a été traité.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery contrôlé.
+
+### Prochaine étape recommandée
+
+**Cycle recommandé :** `delivery/interv360-demo-mvp-closure`
+
+Objectif :
+
+- clôturer la version démonstrateur Interv360 ;
+- formaliser l'état atteint ;
+- lister ce qui est démontrable ;
+- lister les hors-scope assumés ;
+- identifier la trajectoire suivante éventuelle :
+  - API renforcée ;
+  - persistance ;
+  - authentification ;
+  - CRM ;
+  - industrialisation ;
+  - design/Figma si une vraie refonte UX est décidée.
+
+Ne pas ouvrir de nouveau polish sans nouveau feedback.
