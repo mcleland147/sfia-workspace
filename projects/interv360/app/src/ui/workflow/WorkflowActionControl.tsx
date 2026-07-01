@@ -16,12 +16,14 @@ interface WorkflowActionControlProps {
   request: DemoRequest | undefined;
   onAction: () => void;
   lastActionMessage?: string;
+  isActionDisabled?: boolean;
 }
 
 export function WorkflowActionControl({
   request,
   onAction,
   lastActionMessage,
+  isActionDisabled = false,
 }: WorkflowActionControlProps) {
   const actionLabel = request ? WORKFLOW_ACTION_LABELS[request.status] : undefined;
 
@@ -44,13 +46,25 @@ export function WorkflowActionControl({
       ) : null}
 
       {actionLabel ? (
-        <button
-          className="workflow-action-control__button"
-          type="button"
-          onClick={onAction}
-        >
-          {actionLabel}
-        </button>
+        <>
+          <button
+            className={
+              isActionDisabled
+                ? "workflow-action-control__button workflow-action-control__button--disabled"
+                : "workflow-action-control__button"
+            }
+            type="button"
+            aria-disabled={isActionDisabled}
+            onClick={onAction}
+          >
+            {actionLabel}
+          </button>
+          {isActionDisabled ? (
+            <p className="workflow-action-control__role-blocked" role="status">
+              Action non autorisée pour le rôle actuel
+            </p>
+          ) : null}
+        </>
       ) : request?.status === "STAT-06" ? (
         <p className="workflow-action-control__closed" role="status">
           Demande clôturée fictivement.

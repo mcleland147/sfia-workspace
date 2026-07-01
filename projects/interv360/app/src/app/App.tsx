@@ -4,11 +4,19 @@ import {
   getDataSourceMode,
   getDataSourceModeLabel,
 } from "../data/requestsRepositoryFactory";
+import { simulatedRoleStorageKey } from "../data/localStorageKeys";
 import {
   getTransitionActionForStatus,
   RequestsRepositoryError,
 } from "../data/requestsRepository.types";
 import type { DemoRequest, DemoWorkflowEvent } from "../domain/requestStatus";
+import {
+  canRolePerform,
+  DEFAULT_SIMULATED_ROLE,
+  formatUnauthorizedRoleMessage,
+  isSimulatedRole,
+  type SimulatedRole,
+} from "../domain/simulatedRoles";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
 import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
@@ -38,6 +46,7 @@ import {
 } from "../ui/requests/requestListFilters";
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
 import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
+import { SimulatedRoleControl } from "../ui/roles/SimulatedRoleControl";
 import "./App.css";
 
 export function App() {
@@ -65,6 +74,10 @@ export function App() {
   const [currentDemoScreen, setCurrentDemoScreen] = useState<DemoScreenId>(
     INITIAL_DEMO_SCREEN_ID,
   );
+  const [simulatedRole, setSimulatedRole] = useState<SimulatedRole>(() => {
+    const storedRole = window.localStorage.getItem(simulatedRoleStorageKey);
+    return isSimulatedRole(storedRole) ? storedRole : DEFAULT_SIMULATED_ROLE;
+  });
 
   const currentScreenIndex = getDemoScreenIndex(currentDemoScreen);
   const currentScreen = getDemoScreenById(currentDemoScreen);
@@ -124,7 +137,26 @@ export function App() {
     setLastActionMessage(undefined);
   }, []);
 
+  const handleSimulatedRoleChange = useCallback((nextRole: SimulatedRole) => {
+    setSimulatedRole(nextRole);
+    window.localStorage.setItem(simulatedRoleStorageKey, nextRole);
+    setLastActionMessage(undefined);
+  }, []);
+
+  const workflowAction = request
+    ? getTransitionActionForStatus(request.status)
+    : undefined;
+  const canPerformWorkflowAction =
+    workflowAction !== undefined &&
+    canRolePerform(simulatedRole, workflowAction);
+  const canPerformDemoReset = canRolePerform(simulatedRole, "demo_reset");
+
   const handleDemoReset = useCallback(async () => {
+    if (!canRolePerform(simulatedRole, "demo_reset")) {
+      setLastActionMessage(formatUnauthorizedRoleMessage(simulatedRole));
+      return;
+    }
+
     try {
       await repository.resetDemo();
       setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
@@ -147,7 +179,7 @@ export function App() {
           : "Impossible de réinitialiser la démo.";
       setLastActionMessage(message);
     }
-  }, [repository]);
+  }, [repository, simulatedRole]);
 
   const handlePreviousScenarioStep = useCallback(() => {
     setScenarioStepIndex((index) => Math.max(0, index - 1));
@@ -173,6 +205,11 @@ export function App() {
       return;
     }
 
+    if (!canRolePerform(simulatedRole, action)) {
+      setLastActionMessage(formatUnauthorizedRoleMessage(simulatedRole));
+      return;
+    }
+
     try {
       const updated = await repository.applyTransition(selectedRequestId, action);
       if (updated) {
@@ -188,7 +225,7 @@ export function App() {
           : "Transition fictive refusée.";
       setLastActionMessage(message);
     }
-  }, [repository, request, selectedRequestId]);
+  }, [repository, request, selectedRequestId, simulatedRole]);
 
   const goToDemoScreen = useCallback((screenId: DemoScreenId) => {
     setCurrentDemoScreen(screenId);
@@ -211,6 +248,10 @@ export function App() {
   if (isLoading && requests.length === 0 && !loadError) {
     return (
       <main className="app-shell">
+        <SimulatedRoleControl
+          role={simulatedRole}
+          onRoleChange={handleSimulatedRoleChange}
+        />
         <p className="app-data-mode" role="status">
           {getDataSourceModeLabel(dataSourceMode)}
         </p>
@@ -222,6 +263,10 @@ export function App() {
   if (loadError && requests.length === 0) {
     return (
       <main className="app-shell">
+        <SimulatedRoleControl
+          role={simulatedRole}
+          onRoleChange={handleSimulatedRoleChange}
+        />
         <p className="app-data-mode" role="status">
           {getDataSourceModeLabel(dataSourceMode)}
         </p>
@@ -234,6 +279,10 @@ export function App() {
 
   return (
     <main className="app-shell">
+      <SimulatedRoleControl
+        role={simulatedRole}
+        onRoleChange={handleSimulatedRoleChange}
+      />
       <p className="app-data-mode" role="status">
         {getDataSourceModeLabel(dataSourceMode)}
       </p>
@@ -364,6 +413,7 @@ export function App() {
                   void handleWorkflowAction();
                 }}
                 lastActionMessage={lastActionMessage}
+                isActionDisabled={workflowAction !== undefined && !canPerformWorkflowAction}
               />
             </section>
             <section
@@ -414,6 +464,10 @@ export function App() {
                 void handleDemoReset();
               }}
               lastResetLabel={lastResetLabel}
+              isResetDisabled={!canPerformDemoReset}
+              lastActionMessage={
+                currentDemoScreen === "journal" ? lastActionMessage : undefined
+              }
             />
             <WorkflowJournalReadonly
               events={workflowEvents}

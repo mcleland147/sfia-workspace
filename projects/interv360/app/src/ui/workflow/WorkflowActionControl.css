@@ -43,6 +43,23 @@
   background: #163a66;
 }
 
+.workflow-action-control__button--disabled,
+.workflow-action-control__button[aria-disabled="true"] {
+  background: #9aa8ba;
+  cursor: not-allowed;
+}
+
+.workflow-action-control__button--disabled:hover,
+.workflow-action-control__button[aria-disabled="true"]:hover {
+  background: #9aa8ba;
+}
+
+.workflow-action-control__role-blocked {
+  color: #6b4a1f;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
 .workflow-action-control__closed {
   background: #eef6ee;
   border-left: 3px solid #3a7a3a;

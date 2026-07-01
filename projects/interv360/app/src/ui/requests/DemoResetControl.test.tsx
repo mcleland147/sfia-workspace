@@ -13,6 +13,16 @@ describe("DemoResetControl", () => {
     ).toBeInTheDocument();
   });
 
+  it("disables reset when not allowed for the role", () => {
+    render(<DemoResetControl onReset={() => undefined} isResetDisabled />);
+    expect(
+      screen.getByRole("button", { name: /Réinitialiser la démo/i }),
+    ).toHaveAttribute("aria-disabled", "true");
+    expect(
+      screen.getByText(/Action non autorisée pour le rôle actuel/i),
+    ).toBeInTheDocument();
+  });
+
   it("calls the reset handler without touching localStorage directly", () => {
     const onReset = vi.fn();
 

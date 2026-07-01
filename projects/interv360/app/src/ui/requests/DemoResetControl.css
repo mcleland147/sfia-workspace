@@ -28,8 +28,31 @@
   background: #f0f0f0;
 }
 
+.demo-reset-control__button--disabled,
+.demo-reset-control__button[aria-disabled="true"] {
+  color: #888;
+  cursor: not-allowed;
+}
+
+.demo-reset-control__button--disabled:hover,
+.demo-reset-control__button[aria-disabled="true"]:hover {
+  background: #fff;
+}
+
+.demo-reset-control__role-blocked {
+  color: #6b4a1f;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
 .demo-reset-control__confirmation {
   color: #2f6b2f;
+  font-size: 0.9rem;
+  margin: 0.75rem 0 0;
+}
+
+.demo-reset-control__feedback {
+  color: #6b4a1f;
   font-size: 0.9rem;
   margin: 0.75rem 0 0;
 }

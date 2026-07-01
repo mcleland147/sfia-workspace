@@ -98,7 +98,44 @@ Notes:
 - `requestedDate` is distinct from the existing creation date label.
 - `businessImpact` is distinct from the existing short impact label.
 - The frontend keeps the current navigation, local mode, and API opt-in mode.
-- No authentication, users, roles, CRM integration, real data or extended workflow status is introduced.
+- Simulated roles are documented below; no real authentication, OAuth, JWT, SSO, backend user database, CRM integration, or extended workflow status is introduced.
+
+### Simulated roles
+
+The frontend includes a controlled simulated role mode.
+
+Default role:
+
+- `technician`
+
+Available roles:
+
+- `requester`
+- `technician`
+- `manager`
+- `admin`
+- `viewer`
+
+The active role is stored in local storage:
+
+```text
+interv360:simulated-role
+```
+
+The simulation controls existing workflow actions:
+
+- `technician`, `manager`, and `admin` can perform workflow transitions.
+- `requester` and `viewer` cannot perform workflow transitions.
+- Only `admin` can trigger the demo reset.
+
+Unauthorized actions are blocked on the frontend and display a user message:
+
+`Action non autorisée pour le rôle simulé : <role label>.`
+
+The simulated role is preserved after a demo reset.
+
+This is not real authentication.
+No OAuth, JWT, SSO, backend user database, CRM integration, real data, or production security is introduced.
 
 ## Status
 

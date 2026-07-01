@@ -77,6 +77,22 @@ describe("WorkflowActionControl", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
+  it("disables the workflow button when action is not allowed for the role", () => {
+    render(
+      <WorkflowActionControl
+        request={baseRequest}
+        onAction={vi.fn()}
+        isActionDisabled
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: /Qualifier la demande/i }),
+    ).toHaveAttribute("aria-disabled", "true");
+    expect(
+      screen.getByText(/Action non autorisée pour le rôle actuel/i),
+    ).toBeInTheDocument();
+  });
+
   it("calls onAction when the visible button is clicked", () => {
     const onAction = vi.fn();
     render(
