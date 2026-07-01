@@ -281,9 +281,9 @@ Hors périmètre confirmé : `app/src`, Controlled Delivery, sfia-notion-sync, e
 
 | Élément | Valeur |
 |---------|--------|
-| Push | En attente |
-| PR créée automatiquement | En attente |
-| URL PR ou comparaison | En attente |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-backend-minimal-prototype?expand=1 |
 | Cible | main |
 | Source | delivery/interv360-backend-minimal-prototype |
 | Merge automatique | Non |
