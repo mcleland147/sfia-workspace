@@ -322,6 +322,10 @@ Décision :
 
 Clôturer la version Interv360 Demo MVP et ne pas ouvrir de nouveau polish sans feedback ou décision explicite post-MVP.
 
+**Avancement démonstrateur retenu :** environ **95 %**.
+
+Les ~5 % restants correspondent aux hors-scope assumés (produit industrialisé, persistance, auth, CRM, API live fluide, design system) — non bloquants pour la clôture de la phase démo.
+
 ---
 
 ## 13. Validation du cycle de clôture
