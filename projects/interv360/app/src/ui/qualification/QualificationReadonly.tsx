@@ -1,19 +1,22 @@
 import { useMemo } from "react";
+import type { DemoRequest } from "../../domain/requestStatus";
 import { getRequestById } from "../../data/requestsRepository";
 import "./QualificationReadonly.css";
 
 interface QualificationReadonlyProps {
+  request?: DemoRequest;
   requestId: string;
   dataVersion?: number;
 }
 
 export function QualificationReadonly({
+  request: requestProp,
   requestId,
   dataVersion = 0,
 }: QualificationReadonlyProps) {
   const request = useMemo(
-    () => getRequestById(requestId),
-    [requestId, dataVersion],
+    () => requestProp ?? getRequestById(requestId),
+    [requestProp, requestId, dataVersion],
   );
 
   if (!request) {

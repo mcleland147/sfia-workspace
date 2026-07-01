@@ -1,7 +1,16 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { STORAGE_KEY_REQUESTS } from "../data/localStorageKeys";
 import { App } from "../app/App";
+
+async function renderAppAndWait() {
+  render(<App />);
+  await waitFor(() => {
+    expect(
+      screen.getByRole("heading", { name: /Demandes SAV/i }),
+    ).toBeInTheDocument();
+  });
+}
 
 describe("App smoke", () => {
   beforeEach(() => {
@@ -9,8 +18,13 @@ describe("App smoke", () => {
     localStorage.removeItem(STORAGE_KEY_REQUESTS);
   });
 
-  it("renders the readonly skeleton and workflow controls", () => {
-    render(<App />);
+  it("shows local data mode by default", async () => {
+    await renderAppAndWait();
+    expect(screen.getByText("Mode local")).toBeInTheDocument();
+  });
+
+  it("renders the readonly skeleton and workflow controls", async () => {
+    await renderAppAndWait();
     expect(
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
@@ -66,7 +80,7 @@ describe("App smoke", () => {
     ).toBeInTheDocument();
   });
 
-  it("restores SAV-DEMO-001 after explicit demo reset", () => {
+  it("restores SAV-DEMO-001 after explicit demo reset", async () => {
     localStorage.setItem(
       STORAGE_KEY_REQUESTS,
       JSON.stringify([
@@ -81,74 +95,92 @@ describe("App smoke", () => {
     );
 
     render(<App />);
-    expect(screen.getAllByText("SAV-MUTATED").length).toBeGreaterThan(0);
+    await waitFor(() => {
+      expect(screen.getAllByText("SAV-MUTATED").length).toBeGreaterThan(0);
+    });
 
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
 
-    expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
-    expect(screen.queryByText("SAV-MUTATED")).not.toBeInTheDocument();
-    expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
+      expect(screen.queryByText("SAV-MUTATED")).not.toBeInTheDocument();
+      expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
+    });
   });
 
-  it("switches detail and workflow context when selecting another request", () => {
-    render(<App />);
+  it("switches detail and workflow context when selecting another request", async () => {
+    await renderAppAndWait();
 
     fireEvent.click(screen.getByRole("button", { name: /SAV-DEMO-002/i }));
 
-    expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
-    expect(
-      screen.getByRole("button", { name: /Planifier l'intervention/i }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
+      expect(
+        screen.getByRole("button", { name: /Planifier l'intervention/i }),
+      ).toBeInTheDocument();
+    });
     expect(
       screen.queryByRole("button", { name: /Qualifier la demande/i }),
     ).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /SAV-DEMO-003/i }));
 
-    expect(
-      screen.getByText(/Demande clôturée fictivement/i),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Demande clôturée fictivement/i),
+      ).toBeInTheDocument();
+    });
   });
 
-  it("filters requests locally and realigns selection when needed", () => {
-    render(<App />);
+  it("filters requests locally and realigns selection when needed", async () => {
+    await renderAppAndWait();
 
     fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
 
-    expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
-    expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
-    expect(screen.getByText(/Filtre actif : STAT-02/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Planifier l'intervention/i }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
+      expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
+      expect(screen.getByText(/Filtre actif : STAT-02/i)).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /Planifier l'intervention/i }),
+      ).toBeInTheDocument();
+    });
   });
 
-  it("searches requests locally and restores criteria on reset", () => {
-    render(<App />);
+  it("searches requests locally and restores criteria on reset", async () => {
+    await renderAppAndWait();
 
     fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
       target: { value: "SAV-DEMO-003" },
     });
 
-    expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
-    expect(screen.getAllByText("SAV-DEMO-003").length).toBeGreaterThan(0);
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("button", { name: /SAV-DEMO-001/i }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /SAV-DEMO-003/i }),
+      ).toBeInTheDocument();
+    });
 
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
 
-    expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
-    expect(screen.getByText(/Filtre actif : Toutes les demandes/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Recherche locale/i)).toHaveValue("");
-    expect(
-      screen.getByText(/Aucun événement fictif enregistré/i),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
+      expect(screen.getByText(/Filtre actif : Toutes les demandes/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Recherche locale/i)).toHaveValue("");
+      expect(
+        screen.getByText(/Aucun événement fictif enregistré/i),
+      ).toBeInTheDocument();
+    });
   });
 
-  it("shows empty state when combined filter and search return nothing", () => {
-    render(<App />);
+  it("shows empty state when combined filter and search return nothing", async () => {
+    await renderAppAndWait();
 
     fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
     fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
@@ -160,8 +192,8 @@ describe("App smoke", () => {
     ).toBeInTheDocument();
   });
 
-  it("navigates the guided scenario and resets scenario step without data changes", () => {
-    render(<App />);
+  it("navigates the guided scenario and resets scenario step without data changes", async () => {
+    await renderAppAndWait();
 
     expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
 
@@ -180,8 +212,8 @@ describe("App smoke", () => {
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
   });
 
-  it("restores scenario step on global demo reset", () => {
-    render(<App />);
+  it("restores scenario step on global demo reset", async () => {
+    await renderAppAndWait();
 
     fireEvent.click(screen.getByRole("button", { name: /Étape suivante/i }));
     fireEvent.click(screen.getByRole("button", { name: /Étape suivante/i }));
@@ -191,59 +223,71 @@ describe("App smoke", () => {
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
 
-    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
+      expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
+    });
   });
 
-  it("runs the nominal controlled workflow and restores initial state on reset", () => {
-    render(<App />);
+  it("runs the nominal controlled workflow and restores initial state on reset", async () => {
+    await renderAppAndWait();
 
     fireEvent.click(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
     );
-    expect(
-      screen.getByRole("button", { name: /Planifier l'intervention/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByText("qualification.confirmed")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: /Planifier l'intervention/i }),
+      ).toBeInTheDocument();
+      expect(screen.getByText("qualification.confirmed")).toBeInTheDocument();
+    });
 
     fireEvent.click(
       screen.getByRole("button", { name: /Planifier l'intervention/i }),
     );
-    expect(
-      screen.getByRole("button", {
-        name: /Marquer l'intervention réalisée/i,
-      }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", {
+          name: /Marquer l'intervention réalisée/i,
+        }),
+      ).toBeInTheDocument();
+    });
 
     fireEvent.click(
       screen.getByRole("button", {
         name: /Marquer l'intervention réalisée/i,
       }),
     );
-    expect(
-      screen.getByRole("button", {
-        name: /Clôturer avec compte rendu fictif/i,
-      }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", {
+          name: /Clôturer avec compte rendu fictif/i,
+        }),
+      ).toBeInTheDocument();
+    });
 
     fireEvent.click(
       screen.getByRole("button", {
         name: /Clôturer avec compte rendu fictif/i,
       }),
     );
-    expect(
-      screen.getByText(/Demande clôturée fictivement/i),
-    ).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /Qualifier/i })).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Demande clôturée fictivement/i),
+      ).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /Qualifier/i })).not.toBeInTheDocument();
+    });
 
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
-    expect(
-      screen.getByRole("button", { name: /Qualifier la demande/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Aucun événement fictif enregistré/i),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: /Qualifier la demande/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(/Aucun événement fictif enregistré/i),
+      ).toBeInTheDocument();
+    });
   });
 });

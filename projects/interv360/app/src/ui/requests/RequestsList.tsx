@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import type { DemoRequest } from "../../domain/requestStatus";
 import { getRequests } from "../../data/requestsRepository";
 import { RequestBadges } from "./RequestBadges";
 import {
@@ -13,6 +14,7 @@ export const EMPTY_VISIBLE_REQUESTS_MESSAGE =
   "Aucune demande fictive ne correspond aux critères locaux.";
 
 interface RequestsListProps {
+  requests?: DemoRequest[];
   dataVersion?: number;
   selectedRequestId: string;
   onSelectRequest: (requestId: string) => void;
@@ -23,6 +25,7 @@ interface RequestsListProps {
 }
 
 export function RequestsList({
+  requests: requestsProp,
   dataVersion = 0,
   selectedRequestId,
   onSelectRequest,
@@ -31,7 +34,10 @@ export function RequestsList({
   searchQuery,
   onSearchQueryChange,
 }: RequestsListProps) {
-  const requests = useMemo(() => getRequests(), [dataVersion]);
+  const requests = useMemo(
+    () => requestsProp ?? getRequests(),
+    [requestsProp, dataVersion],
+  );
   const statusCounts = useMemo(
     () => countRequestsByStatus(requests),
     [requests],

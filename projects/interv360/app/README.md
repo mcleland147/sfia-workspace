@@ -60,6 +60,22 @@ npm run test     # smoke tests (vitest)
 npm run preview  # preview production build
 ```
 
+## Mode données local/API
+
+Par défaut, l'application utilise le **mode local** basé sur `localStorage`.
+
+Un **mode API local** peut être activé explicitement pour tester le backend minimal :
+
+```bash
+VITE_INTERV360_DATA_SOURCE=api \
+VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
+npm run dev
+```
+
+Le backend doit alors être lancé séparément depuis `projects/interv360/backend/` (`npm run dev`).
+
+Le mode local reste le mode de démonstration par défaut. Aucun fallback automatique vers le local n'est activé en cas d'erreur API.
+
 ## Status
 
 **Phase 2 — controlled local workflow skeleton on top of the readonly INC-01 demo foundation.**

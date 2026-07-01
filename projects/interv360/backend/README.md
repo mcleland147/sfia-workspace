@@ -7,7 +7,7 @@ Local Node.js / TypeScript / Express backend for the Interv360 demo API contract
 Validate the path:
 
 ```text
-Frontend React / TypeScript  (not connected in this cycle)
+Frontend React / TypeScript  (mode API local optionnel)
         ↓ REST
 Backend Node.js / TypeScript / Express
         ↓
@@ -51,7 +51,20 @@ npm run test     # unit + API tests
 - No CRM, authentication, or multi-user
 - Nominal workflow only (STAT-01 → STAT-02 → STAT-03 → STAT-04 → STAT-06)
 - No STAT-05 / STAT-07 / STAT-08
-- **Frontend is not connected** in this cycle
+- Frontend **mode local** remains the default demo mode
+
+## Connexion frontend
+
+Le frontend peut être lancé en mode API local avec :
+
+```bash
+cd ../app
+VITE_INTERV360_DATA_SOURCE=api \
+VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
+npm run dev
+```
+
+Le mode local du frontend reste le mode par défaut.
 
 ## Structure
 

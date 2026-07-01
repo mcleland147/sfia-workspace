@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import type { DemoRequest } from "../../domain/requestStatus";
 import { getRequestById } from "../../data/requestsRepository";
 import { RequestBadges } from "./RequestBadges";
 import {
@@ -8,17 +9,19 @@ import {
 import "./RequestDetail.css";
 
 interface RequestDetailProps {
+  request?: DemoRequest;
   requestId: string;
   dataVersion?: number;
 }
 
 export function RequestDetail({
+  request: requestProp,
   requestId,
   dataVersion = 0,
 }: RequestDetailProps) {
   const request = useMemo(
-    () => getRequestById(requestId),
-    [requestId, dataVersion],
+    () => requestProp ?? getRequestById(requestId),
+    [requestProp, requestId, dataVersion],
   );
 
   if (!request) {
