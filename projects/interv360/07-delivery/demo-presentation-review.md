@@ -247,3 +247,61 @@ Les retours ci-dessous ne doivent pas être interprétés comme un feedback inte
 | Controlled Delivery modifié | Non |
 | sfia-notion-sync modifié | Non |
 | Exports Figma ajoutés | Non |
+
+---
+
+## 13. Préparation PR intégrée
+
+### Titre proposé
+
+`Prepare Interv360 demo presentation review`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds the Interv360 demo presentation review preparation.
+It documents:
+- the recommended presentation flow;
+- the human feedback grid;
+- the irritants to confirm during a real presentation;
+- the decision not to start UX polish without human feedback;
+- the next step outside the repo: run the presentation/review session.
+
+## Validation
+- Frontend build: OK
+- Frontend tests: 77 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- No human feedback invented
+- No UX polish started
+- No code changed
+
+## Guardrails
+No frontend change, backend change, new business scope, UX polish, SQL database, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Périmètre PR (vs `main`)
+
+| Fichier | Rôle |
+|---------|------|
+| `07-delivery/demo-presentation-review.md` | Préparation revue présentation humaine |
+
+Hors périmètre confirmé : code frontend/backend, polish UX, feedback inventé.
+
+### Réflexion SFIA
+
+Cette PR doit être **mergée dans `main` même sans feedback humain réel** : elle trace l'état « prêt à présenter, en attente d'interlocuteur » et évite qu'une branche isolée devienne la seule référence de la trame. Le feedback humain viendra ensuite, hors repo ou via un cycle de suivi documentaire.
+
+---
+
+## 14. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | main |
+| Source | delivery/interv360-demo-presentation-review |
+| Merge automatique | Non |
