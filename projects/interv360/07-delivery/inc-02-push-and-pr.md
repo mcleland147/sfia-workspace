@@ -4,7 +4,7 @@
 **Incrément** : INC-02 — UX Demo Improvement  
 **Cycle** : Push and PR  
 **Mode** : SFIA accéléré  
-**Statut** : Branche poussée — PR à compléter  
+**Statut** : Branche poussée — PR à créer manuellement (`gh` indisponible)  
 **Branche** : `delivery/interv360-inc-02-pr-preparation`
 
 ---
@@ -73,12 +73,14 @@ Il ne merge pas la PR.
 
 | Élément | Valeur |
 |---------|--------|
-| URL PR | À compléter après création |
-| Numéro PR | À compléter après création |
+| URL PR | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-inc-02-pr-preparation?expand=1 |
+| Numéro PR | Non créée (`gh` CLI indisponible) |
 | Source | `delivery/interv360-inc-02-pr-preparation` |
 | Cible | `main` |
 | Merge automatique | Non |
-| Push remote | À compléter |
+| Push remote | OK (`origin/delivery/interv360-inc-02-pr-preparation`) |
+
+**Création manuelle :** ouvrir l'URL ci-dessus, titre `Improve Interv360 INC-02 demo UX`, corps dans `/tmp/inc-02-pr-body.md`.
 
 ---
 
@@ -100,13 +102,13 @@ Le cycle n'a pas créé :
 **Décision proposée :**
 
 - [ ] PR INC-02 créée
-- [x] PR à compléter après push
+- [x] PR à compléter (création manuelle via GitHub)
 - [ ] PR à reprendre
 
 ### Décision
 
-La branche INC-02 est poussée sur `origin`.
+La branche INC-02 est **poussée** sur `origin`.
 
-La PR reste à créer ou à confirmer (voir section 6).
+La PR reste à créer manuellement via l'URL de comparaison (section 6).
 
 Le merge reste une décision séparée.
