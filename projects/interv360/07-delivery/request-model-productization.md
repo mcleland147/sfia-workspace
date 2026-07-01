@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Request Model Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-02 réalisé  
+**Statut** : Batch produit — INC-PROD-04 réalisé  
 **Branche** : `delivery/interv360-request-model-productization`
 
 ---
@@ -85,8 +85,8 @@ Le batch ne doit pas inclure :
 |----------|----------|--------|
 | INC-PROD-01 | Borner les champs métier minimaux | Réalisé |
 | INC-PROD-02 | Implémenter les champs côté backend + SQLite | Réalisé |
-| INC-PROD-03 | Ajouter validation API ciblée | Non retenu — couvert par tests INC-PROD-02 |
-| INC-PROD-04 | Mettre à jour documentation / runbook | À faire |
+| INC-PROD-03 | Ajouter validation API ciblée | Non retenu — couvert par les tests INC-PROD-02 |
+| INC-PROD-04 | Mettre à jour documentation / runbook | Réalisé |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
 ---
@@ -211,6 +211,14 @@ INC-PROD-02 devra **productiser** les champs retenus (exposition API cohérente,
 - adaptation du seed et du mapping store (`sqliteSeed.ts`, `demoStore.ts`) ;
 - adaptation des tests backend (`api.test.ts`, `persistence.test.ts`).
 
+**INC-PROD-04** — documentation / runbook :
+
+- documentation des champs métier ajoutés au détail de demande ;
+- clarification du mapping `siteLabel` comme exposition site côté `Request` ;
+- clarification de `businessImpact` comme impact métier distinct de `impact` ;
+- mention de la note dev sur les bases SQLite locales préexistantes ;
+- aucune modification de code.
+
 ---
 
 ## 9. Validations
@@ -244,4 +252,25 @@ INC-PROD-02 devra **productiser** les champs retenus (exposition API cohérente,
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-04** : mettre à jour documentation / runbook (INC-PROD-03 validation API ciblée à arbitrer selon couverture tests).
+**INC-PROD-05** : préparer la PR finale du batch `delivery/interv360-request-model-productization`.
+
+---
+
+## 12. Payload détail productisé
+
+Le payload détail de demande expose désormais les champs métier suivants :
+
+| Champ | Niveau | Description |
+|-------|--------|-------------|
+| `category` | `RequestDetail` | Catégorie métier de la demande |
+| `requestedDate` | `RequestDetail` | Date métier de demande |
+| `equipmentLabel` | `RequestDetail` | Équipement ou objet concerné |
+| `businessImpact` | `RequestDetail` | Impact métier productisé |
+| `siteLabel` | `Request` | Site fictif concerné par la demande |
+
+Clarification :
+
+- `businessImpact` complète `impact`, sans le remplacer ;
+- `impact` reste un libellé court existant ;
+- `siteLabel` reste le champ canonique exposé côté `Request` pour le site ;
+- aucun champ `userId`, `crmReference`, `requesterName` ou `assignedTechnician` n’est introduit.

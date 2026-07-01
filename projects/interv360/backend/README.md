@@ -71,6 +71,23 @@ The local SQLite file is created automatically and ignored by Git (`data/`, `*.s
 | POST | `/api/v1/requests/:id/transitions` | Apply nominal transition |
 | POST | `/api/v1/demo/reset` | Reset demo seed and clear journal |
 
+### Request detail productized fields
+
+The request detail payload includes product-oriented fictitious fields:
+
+- `category`
+- `requestedDate`
+- `equipmentLabel`
+- `businessImpact`
+
+The request list/detail also keeps `siteLabel` as the site-facing field on `Request`.
+
+Notes:
+
+- `businessImpact` is distinct from the existing short `impact` field.
+- No user, role, CRM reference, real data or extended workflow status is introduced.
+- For an existing local SQLite database, run the demo reset or remove `data/interv360.sqlite` to reload the enriched seed after schema migration.
+
 ## Guardrails
 
 - Fictitious data only (`isDemo: true`)
