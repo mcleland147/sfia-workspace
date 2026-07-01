@@ -170,7 +170,7 @@ Objectif :
 | INC-PROD-01 | CORS local / ports Vite / documentation API | Réalisé |
 | INC-PROD-02 | Runbook API persistant / validation reproductible | Réalisé — documentation uniquement |
 | INC-PROD-03 | Configuration de lancement API local (scripts) | Non retenu — `npm run dev` existant suffisant |
-| INC-PROD-04 | Préparation PR du lot | À venir |
+| INC-PROD-04 | Préparation PR du lot | En cours |
 
 ### Décision batch
 
@@ -267,15 +267,78 @@ Aucun sujet auth, CRM, données réelles, utilisateurs ou rôles n’a été ouv
 
 Le batch reste documentaire sur INC-PROD-02 : validation API + SQLite + CORS rendue reproductible sans élargir le périmètre.
 
-## 15. Prochaine étape recommandée
+## 15. Préparation PR intégrée
 
-Préparer la PR finale du lot :
+### Titre proposé
 
-- `delivery/interv360-api-demo-hardening-pr-preparation` ;
-- branche `delivery/interv360-api-demo-hardening` → `main` ;
-- lot : INC-PROD-01 (CORS + tests) + INC-PROD-02 (runbook persistant).
+`Harden Interv360 local API demo mode`
 
-Cycles produit ultérieurs (hors ce batch) :
+### Description proposée
 
-- `architecture/interv360-auth-and-user-framing` si cadrage identité/utilisateurs ;
-- `architecture/interv360-product-roadmap-after-persistence` si priorisation produit globale.
+```markdown
+## Summary
+This PR hardens the Interv360 local API demo mode after backend SQLite persistence.
+It includes two controlled product increments:
+1. Local API CORS hardening
+   - support for Vite local ports;
+   - `localhost` and `127.0.0.1` origins;
+   - optional `INTERV360_CORS_ORIGINS` configuration;
+   - CORS regression tests.
+2. Persistent API runbook strengthening
+   - documented validation path for API mode after SQLite;
+   - backend restart validation;
+   - transition, journal, reset path;
+   - supported local frontend ports.
+## Validation
+- Backend build: OK
+- Backend tests: 25 passed
+- Frontend build: OK
+- Frontend tests: 81 passed
+- Browser API validation: OK on local Vite alternate port
+- Curl API validation: OK
+- Reset API: OK
+- Frontend source unchanged
+## Guardrails
+No authentication, users, roles, CRM integration, real data, PostgreSQL, heavy ORM, API contract change, new workflow, STAT-05/07/08, production deployment, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+The batch remains limited to local API demo hardening.
+```
+
+### Fichiers inclus dans la PR
+
+| Fichier | Incrément |
+|---------|-----------|
+| `projects/interv360/07-delivery/api-demo-hardening.md` | Lot + batch |
+| `projects/interv360/backend/src/config/cors.ts` | INC-PROD-01 |
+| `projects/interv360/backend/test/cors.test.ts` | INC-PROD-01 |
+| `projects/interv360/backend/src/app.ts` | INC-PROD-01 |
+| `projects/interv360/backend/README.md` | INC-PROD-01 |
+| `projects/interv360/app/README.md` | INC-PROD-01 |
+| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-01 + INC-PROD-02 |
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité au lot attendu (7 fichiers) | OK |
+| Frontend source (`app/src`) non modifié | OK |
+| Contrat API `/api/v1` non modifié | OK |
+| Persistance SQLite conservée | OK |
+| Backend build | OK |
+| Backend tests | OK — 25 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+
+---
+
+## 16. Statut push / PR
+
+À compléter après push.
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-api-demo-hardening` |
+| Merge automatique | Non |
