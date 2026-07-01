@@ -354,3 +354,74 @@ No frontend change, backend change, persistence implementation, dependency, ORM,
 | Cible | `main` |
 | Source | `architecture/interv360-backend-persistence-decision` |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#50](https://github.com/mcleland147/sfia-workspace/pull/50) |
+| Source | `architecture/interv360-backend-persistence-decision` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `8bb1609` |
+| Main synchronisée | OK |
+| Décision persistance actée | OK |
+| Option retenue | SQLite |
+| Prochain cycle recommandé | OK — `delivery/interv360-backend-persistence` |
+| Code frontend modifié | Non |
+| Backend modifié | Non |
+| Implémentation SQLite introduite | Non |
+| Dépendance ajoutée | Non |
+| ORM introduit | Non |
+| Migration introduite | Non |
+| DB SQL introduite dans le code | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Backend Persistence Decision** est mergé dans `main`.
+
+La branche principale acte désormais officiellement :
+
+- le choix de **SQLite** comme première brique de persistance backend ;
+- le rejet de JSON file comme solution trop proche du démonstrateur ;
+- le report de PostgreSQL à une phase d'industrialisation plus avancée ;
+- le prochain cycle produit recommandé : `delivery/interv360-backend-persistence`.
+
+Aucune implémentation de persistance n'a été introduite dans ce cycle.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery architecture.
+
+### Prochaine étape recommandée
+
+Cycle recommandé :
+
+`delivery/interv360-backend-persistence`
+
+Objectif :
+
+- introduire SQLite côté backend ;
+- persister les demandes, détails et événements de workflow ;
+- conserver l'API `/api/v1` ;
+- conserver le seed fictif ;
+- conserver le reset de démonstration ;
+- adapter les tests backend ;
+- éviter toute modification frontend sauf nécessité mineure.
+
+Points à trancher au début du cycle delivery :
+
+- librairie SQLite exacte ;
+- stratégie de migrations ;
+- emplacement du fichier SQLite ;
+- reset démo ;
+- initialisation automatique si base absente ;
+- repository backend ;
+- tests avec base temporaire.
