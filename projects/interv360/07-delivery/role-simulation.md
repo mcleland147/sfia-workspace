@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Role Simulation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-02 réalisé  
+**Statut** : Batch produit — INC-PROD-03 réalisé  
 **Branche** : `delivery/interv360-role-simulation`
 
 ---
@@ -104,7 +104,7 @@ Rôles du cadrage :
 |----------|----------|--------|
 | INC-PROD-01 | Intégrer le cadrage rôles / responsabilités | Réalisé |
 | INC-PROD-02 | Définir le comportement UX de simulation | Réalisé |
-| INC-PROD-03 | Implémenter la simulation de rôle | À faire |
+| INC-PROD-03 | Implémenter la simulation de rôle | Réalisé |
 | INC-PROD-04 | Tests et documentation | À faire |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
@@ -278,9 +278,9 @@ INC-PROD-02 ne prévoit pas :
 | Cadrage rôles intégré | OK |
 | Rôle actif simulé défini | OK |
 | Permissions par action définies | OK |
-| Actions non autorisées gérées | À faire |
-| Frontend testé | À faire |
-| Backend non modifié ou justification claire | OK — non modifié prévu |
+| Actions non autorisées gérées | OK |
+| Frontend testé | OK |
+| Backend non modifié ou justification claire | OK — non modifié |
 | API `/api/v1` conservée | OK |
 | Workflow conservé | OK |
 | Pas d’auth réelle | OK |
@@ -331,6 +331,19 @@ INC-PROD-02 ne prévoit pas :
 - application en mode local et en mode API ;
 - aucune auth réelle introduite.
 
+**INC-PROD-03** — simulation de rôle implémentée :
+
+- ajout du modèle de rôles simulés (`domain/simulatedRoles.ts`) ;
+- ajout du rôle par défaut `technician` ;
+- ajout du stockage `localStorage` via `interv360:simulated-role` ;
+- ajout d’un contrôle UI de rôle simulé (`SimulatedRoleControl`) ;
+- application des permissions sur les actions workflow existantes ;
+- reset démo réservé à `admin` côté frontend ;
+- message utilisateur pour les actions non autorisées ;
+- tests frontend ajoutés ;
+- aucun backend modifié ;
+- aucune auth réelle introduite.
+
 ---
 
 ## 11. Validations
@@ -368,4 +381,4 @@ INC-PROD-02 ne prévoit pas :
 
 ## 13. Prochaine étape
 
-**INC-PROD-03** : implémenter la simulation de rôle selon les décisions INC-PROD-02, côté frontend uniquement, sans auth réelle et sans modification backend.
+**INC-PROD-04** : finaliser tests et documentation du batch (runbook, validations finales) avant préparation de la PR unique.

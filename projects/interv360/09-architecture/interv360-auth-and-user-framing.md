@@ -282,3 +282,22 @@ Dans le cadre du batch `delivery/interv360-role-simulation`, le comportement sui
 Cette décision ne constitue pas une sécurité réelle. Elle sert uniquement à démontrer les responsabilités produit avant une éventuelle authentification réelle future.
 
 Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §7.1
+
+---
+
+## 14. Statut INC-PROD-03
+
+La simulation de rôle a été implémentée dans le batch `delivery/interv360-role-simulation`.
+
+L’implémentation reste conforme au cadrage :
+
+- simulation frontend uniquement ;
+- rôle par défaut `technician` ;
+- rôles simulés `requester`, `technician`, `manager`, `admin`, `viewer` ;
+- permissions appliquées aux actions existantes ;
+- reset démo réservé à `admin` ;
+- aucune authentification réelle ;
+- aucun OAuth / JWT / SSO ;
+- aucun backend modifié ;
+- aucune base users complète ;
+- aucun workflow étendu.
