@@ -200,3 +200,50 @@ Créer la branche :
 Objectif :
 
 > cadrer l’identité produit, les utilisateurs, les rôles et les responsabilités avant toute implémentation.
+
+---
+
+## 9. Préparation PR
+
+### Titre proposé
+
+`Define Interv360 next product roadmap`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR defines the next Interv360 product roadmap decision after the product demo consolidation cycle.
+The current product baseline is now demonstrable end-to-end:
+- persistent SQLite backend;
+- stabilized `/api/v1`;
+- productized `RequestDetail` model;
+- clarified API validation errors;
+- connected frontend displaying productized request fields;
+- consolidated product demo runbook.
+## Decision
+The recommended next axis is:
+> open a dedicated **Auth / users / roles framing** cycle before any implementation.
+Recommended next branch:
+`architecture/interv360-auth-and-user-framing`
+## Rationale
+- The product is now demonstrable enough to move beyond the mono-profile demo.
+- Users, roles and responsibilities will strongly structure the next product increments.
+- Workflow extension should be deferred until actors and responsibilities are clarified.
+- Direct auth implementation would be premature without architecture framing.
+## Guardrails
+No code, frontend, backend, SQLite, API, workflow, authentication, users, roles, CRM integration, real data, PostgreSQL, heavy ORM, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+```
+
+---
+
+## 10. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | <OK / KO> |
+| PR créée automatiquement | <Oui / Non> |
+| URL PR ou comparaison | <url> |
+| Cible | main |
+| Source | architecture/interv360-product-roadmap-next |
+| Merge automatique | Non |
