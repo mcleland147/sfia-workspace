@@ -371,3 +371,63 @@ Cycle recommandé uniquement en cas de poursuite produit :
 Cycle recommandé uniquement en cas de poursuite démonstration :
 
 `delivery/interv360-demo-presentation-package-update`
+
+---
+
+## 15. Préparation PR intégrée
+
+### Titre proposé
+
+`Close Interv360 demo MVP`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR closes the Interv360 Demo MVP phase.
+It documents:
+- the final MVP state;
+- what is demonstrable in local mode;
+- the optional API mode;
+- the nominal workflow;
+- the decisions made during the demo phase;
+- the validations performed;
+- the human feedback integrated;
+- the confirmed scroll irritant and its resolution;
+- the assumed limitations and out-of-scope items;
+- the possible post-MVP trajectories.
+## Validation
+- Frontend build: OK
+- Frontend tests: 81 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- Demo MVP considered closable
+- Demo phase progress retained: approximately 95%
+- No code changed in this closure cycle
+## Guardrails
+No frontend change, backend change, new business scope, new UX polish, SQL database, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité à `demo-mvp-closure.md` | OK |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+| Backend build | OK |
+| Backend tests | OK — 18 tests |
+| Avancement démonstrateur documenté | OK — ~95 % |
+
+## 16. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-demo-mvp-closure?expand=1 |
+| Cible | `main` |
+| Source | `delivery/interv360-demo-mvp-closure` |
+| Merge automatique | Non |
