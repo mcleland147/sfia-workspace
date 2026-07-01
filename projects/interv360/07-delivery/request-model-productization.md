@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Request Model Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-04 réalisé  
+**Statut** : Batch produit — INC-PROD-05 en cours  
 **Branche** : `delivery/interv360-request-model-productization`
 
 ---
@@ -87,7 +87,7 @@ Le batch ne doit pas inclure :
 | INC-PROD-02 | Implémenter les champs côté backend + SQLite | Réalisé |
 | INC-PROD-03 | Ajouter validation API ciblée | Non retenu — couvert par les tests INC-PROD-02 |
 | INC-PROD-04 | Mettre à jour documentation / runbook | Réalisé |
-| INC-PROD-05 | Préparer PR du batch | À venir |
+| INC-PROD-05 | Préparer PR du batch | En cours |
 
 ---
 
@@ -274,3 +274,87 @@ Clarification :
 - `impact` reste un libellé court existant ;
 - `siteLabel` reste le champ canonique exposé côté `Request` pour le site ;
 - aucun champ `userId`, `crmReference`, `requesterName` ou `assignedTechnician` n’est introduit.
+
+---
+
+## 13. Préparation PR intégrée
+
+### Titre proposé
+
+`Productize Interv360 request detail model`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR productizes the Interv360 request detail model after backend SQLite persistence and local API hardening.
+It includes a controlled product batch:
+1. Request model scope decision
+   - selected minimal product fields;
+   - deferred user/role/planning fields;
+   - excluded CRM/user identifiers.
+2. Backend + SQLite implementation
+   - adds `requestedDate`, `equipmentLabel`, and `businessImpact` to `RequestDetail`;
+   - keeps `category`;
+   - keeps `siteLabel` as the site-facing field on `Request`;
+   - keeps `businessImpact` distinct from the existing short `impact` field;
+   - updates SQLite schema, seed, repository, and reset behavior.
+3. Documentation / runbook
+   - documents productized request detail payload;
+   - documents SQLite local database note;
+   - updates API contract note and E2E runbook checks.
+## Validation
+- Backend build: OK
+- Backend tests: 27 passed
+- Frontend build: OK
+- Frontend tests: 81 passed
+- API curl: OK — fields exposed and reset validated
+- SQLite persistence: OK
+- Frontend source unchanged
+## Guardrails
+No authentication, users, roles, CRM integration, real data, new workflow status, STAT-05/07/08, PostgreSQL, heavy ORM, frontend source change, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Fichiers inclus dans la PR
+
+| Fichier | Incrément |
+|---------|-----------|
+| `projects/interv360/07-delivery/request-model-productization.md` | Lot + batch |
+| `projects/interv360/backend/src/domain/types.ts` | INC-PROD-02 |
+| `projects/interv360/backend/src/seed/demoSeed.ts` | INC-PROD-02 |
+| `projects/interv360/backend/src/persistence/sqliteSchema.ts` | INC-PROD-02 |
+| `projects/interv360/backend/src/persistence/sqliteSeed.ts` | INC-PROD-02 |
+| `projects/interv360/backend/src/store/demoStore.ts` | INC-PROD-02 |
+| `projects/interv360/backend/test/api.test.ts` | INC-PROD-02 |
+| `projects/interv360/backend/test/persistence.test.ts` | INC-PROD-02 |
+| `projects/interv360/backend/README.md` | INC-PROD-04 |
+| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-04 |
+| `projects/interv360/09-architecture/interv360-backend-api-contract-framing.md` | INC-PROD-04 |
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité au lot attendu (11 fichiers) | OK |
+| Frontend source (`app/src`) non modifié | OK |
+| Contrat API `/api/v1` conservé | OK |
+| Persistance SQLite adaptée | OK |
+| Backend build | OK |
+| Backend tests | OK — 27 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+
+---
+
+## 14. Statut push / PR
+
+À compléter après push.
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-request-model-productization` |
+| Merge automatique | Non |
