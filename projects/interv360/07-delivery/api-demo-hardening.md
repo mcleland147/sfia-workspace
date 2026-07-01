@@ -344,3 +344,88 @@ The batch remains limited to local API demo hardening.
 **Titre PR** : `Harden Interv360 local API demo mode`
 
 **Corps PR** : voir §15 ou `/tmp/api-demo-hardening-pr-body.md`
+
+---
+
+## 17. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#52 — Harden Interv360 local API demo mode](https://github.com/mcleland147/sfia-workspace/pull/52) |
+| Source | `delivery/interv360-api-demo-hardening` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `0dac51f` |
+| Main synchronisée | OK |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 25 tests |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| Batch INC-PROD-01 | OK — CORS local / ports Vite / tests / README |
+| Batch INC-PROD-02 | OK — runbook API persistant |
+| CORS local stabilisé | OK |
+| Ports Vite supportés | OK — `5173`, `5174`, `5175` |
+| Variable `INTERV360_CORS_ORIGINS` documentée | OK |
+| `CORS_ORIGIN` legacy conservée | OK |
+| API `/api/v1` conservée | OK |
+| Persistance SQLite conservée | OK |
+| Reset API conservé | OK |
+| Frontend source modifié | Non |
+| Authentification introduite | Non |
+| Utilisateurs / rôles introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Nouveaux statuts introduits | Non |
+| Production / déploiement introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **API Demo Hardening** est mergé dans `main`.
+
+La branche principale contient désormais un mode API local plus robuste après persistance SQLite :
+
+- CORS local stabilisé ;
+- ports Vite alternatifs supportés ;
+- configuration `INTERV360_CORS_ORIGINS` documentée ;
+- runbook API persistant renforcé ;
+- validation du parcours SQLite + redémarrage + reset documentée.
+
+Le batch reste limité au hardening API local.
+
+Aucun sujet auth, users, rôles, CRM, données réelles, PostgreSQL, ORM lourd, production, nouveau workflow ou nouveau statut n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Batch Delivery produit contrôlé.
+
+### Prochaine étape recommandée
+
+Ne pas ouvrir directement un développement auth/users sans décision produit.
+
+Cycle recommandé :
+
+`architecture/interv360-product-roadmap-after-persistence`
+
+Objectif :
+
+- décider le prochain axe produit après :
+  - Demo MVP clôturé ;
+  - backend SQLite persistant ;
+  - mode API local stabilisé ;
+- comparer les prochaines options :
+  - auth / users / rôles ;
+  - enrichissement modèle métier ;
+  - workflow produit étendu ;
+  - API product hardening ;
+  - préparation industrialisation ;
+- choisir un prochain incrément ou batch cohérent.
+
+Alternative :
+
+`architecture/interv360-auth-and-user-framing`
+
+À ouvrir uniquement si la décision est déjà de prioriser identité, utilisateurs et rôles.
