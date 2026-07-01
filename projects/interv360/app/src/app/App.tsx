@@ -10,6 +10,12 @@ import {
 } from "../data/requestsRepository";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
+import { DemoScenarioGuide } from "../ui/demo/DemoScenarioGuide";
+import {
+  DEMO_SCENARIO_STEPS,
+  getScenarioStepCount,
+  INITIAL_SCENARIO_STEP_INDEX,
+} from "../ui/demo/demoScenarioSteps";
 import { InterventionReadonly } from "../ui/intervention/InterventionReadonly";
 import { QualificationReadonly } from "../ui/qualification/QualificationReadonly";
 import { PlanningReadonly } from "../ui/planning/PlanningReadonly";
@@ -45,6 +51,9 @@ export function App() {
   const [lastActionMessage, setLastActionMessage] = useState<
     string | undefined
   >();
+  const [scenarioStepIndex, setScenarioStepIndex] = useState(
+    INITIAL_SCENARIO_STEP_INDEX,
+  );
 
   const request = useMemo(
     () => getRequestById(selectedRequestId),
@@ -81,6 +90,7 @@ export function App() {
     setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
     setStatusFilter("ALL");
     setSearchQuery("");
+    setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
     setDataVersion((version) => version + 1);
     setLastActionMessage(undefined);
     setLastResetLabel(
@@ -90,6 +100,20 @@ export function App() {
         second: "2-digit",
       }),
     );
+  }, []);
+
+  const handlePreviousScenarioStep = useCallback(() => {
+    setScenarioStepIndex((index) => Math.max(0, index - 1));
+  }, []);
+
+  const handleNextScenarioStep = useCallback(() => {
+    setScenarioStepIndex((index) =>
+      Math.min(getScenarioStepCount() - 1, index + 1),
+    );
+  }, []);
+
+  const handleResetScenario = useCallback(() => {
+    setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
   }, []);
 
   const handleWorkflowAction = useCallback(() => {
@@ -128,11 +152,18 @@ export function App() {
       <DemoOverview
         requestId={selectedRequestId}
         currentStatus={request?.status}
+        scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
+        scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
       />
 
       <nav className="app-nav" aria-label="Navigation interne de la démo">
         <p className="app-nav__label">Aller à</p>
         <ul className="app-nav__list">
+          <li>
+            <a className="app-nav__link" href="#section-scenario">
+              Scénario
+            </a>
+          </li>
           {DEMO_SECTION_LINKS.map((link) => (
             <li key={link.href}>
               <a className="app-nav__link" href={link.href}>
@@ -144,6 +175,19 @@ export function App() {
       </nav>
 
       <div className="app-layout">
+        <section
+          id="section-scenario"
+          className="app-section app-section--scenario"
+          aria-label="Scénario guidé"
+        >
+          <DemoScenarioGuide
+            currentStepIndex={scenarioStepIndex}
+            onPreviousStep={handlePreviousScenarioStep}
+            onNextStep={handleNextScenarioStep}
+            onResetScenario={handleResetScenario}
+          />
+        </section>
+
         <section
           id="section-controls"
           className="app-section app-section--controls"

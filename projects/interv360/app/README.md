@@ -150,6 +150,28 @@ Unchanged:
 - no React routing or new dependency;
 - nominal workflow path unchanged.
 
+## Batch 02 — Demo control & scenario
+
+Batch 02 improves demo presentation control with a guided local scenario layer.
+
+Changes:
+
+- guided demo scenario with six presenter steps;
+- visual scenario progression (`Étape X sur Y`) and previous/next navigation;
+- scenario reset back to step 1 without changing business data;
+- contextual help per scenario step;
+- overview panel showing current scenario step;
+- global reset also restores scenario step 1.
+
+Unchanged:
+
+- controlled workflow transitions and rules per request;
+- fictitious local data only;
+- filters, search, selection, journal and Batch 01 indicators;
+- no backend, API, server database, SQL, CRM, dashboard, chart, or export;
+- no React routing or new dependency;
+- nominal workflow path unchanged.
+
 Report readonly:
 
 - displays fictitious summary, result and checklist for `SAV-DEMO-001`;
