@@ -457,10 +457,35 @@ Toutes les erreurs suivent le format :
 | Code | HTTP | Usage |
 |------|------|-------|
 | `REQUEST_NOT_FOUND` | 404 | Demande inexistante |
-| `INVALID_TRANSITION_ACTION` | 400 | Action non reconnue |
+| `INVALID_TRANSITION_ACTION` | 400 | Action non reconnue ou absente |
 | `TRANSITION_NOT_ALLOWED` | 409 | Transition invalide depuis le statut courant |
+| `INVALID_JSON_BODY` | 400 | Corps JSON invalide |
 | `DEMO_MODE_REQUIRED` | 403 | Reset hors mode démo |
 | `INTERNAL_ERROR` | 500 | Erreur inattendue |
+
+### Note — Validation API produit
+
+Le batch `delivery/interv360-api-product-validation` clarifie les erreurs API sans refondre le contrat global.
+
+Le format existant est conservé :
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+Les cas suivants sont explicitement couverts :
+
+- `REQUEST_NOT_FOUND` → `404` ;
+- `INVALID_TRANSITION_ACTION` → `400` (action absente, non-string ou inconnue) ;
+- `TRANSITION_NOT_ALLOWED` → `409` ;
+- `INVALID_JSON_BODY` → `400`.
+
+Aucune authentification, gestion utilisateurs/rôles, CRM, donnée réelle ou extension de workflow n’est introduite.
 
 ---
 

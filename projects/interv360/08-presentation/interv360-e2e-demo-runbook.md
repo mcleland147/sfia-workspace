@@ -175,6 +175,66 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001
 ```
 
+### Contrôle des erreurs API produit
+
+Demande inconnue :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/UNKNOWN/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"qualify"}'
+```
+
+Action absente :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{}'
+```
+
+Action inconnue :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"unknown"}'
+```
+
+Transition métier invalide :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"close_report"}'
+```
+
+JSON invalide :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":'
+```
+
+**Attendus :**
+
+- `REQUEST_NOT_FOUND` en `404` ;
+- `INVALID_TRANSITION_ACTION` en `400` ;
+- `TRANSITION_NOT_ALLOWED` en `409` ;
+- `INVALID_JSON_BODY` en `400`.
+
+Le format d’erreur reste :
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
 ---
 
 ## 7. Garde-fous

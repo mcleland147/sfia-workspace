@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : API Product Validation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-02 / INC-PROD-03 réalisés  
+**Statut** : Batch produit — INC-PROD-04 réalisé  
 **Branche** : `delivery/interv360-api-product-validation`
 
 ---
@@ -79,7 +79,7 @@ Le batch ne doit pas inclure :
 | INC-PROD-01 | Cadrer les validations API ciblées | Réalisé |
 | INC-PROD-02 | Implémenter validation payload / erreurs | Réalisé |
 | INC-PROD-03 | Adapter tests backend | Réalisé avec INC-PROD-02 |
-| INC-PROD-04 | Mettre à jour documentation | À faire |
+| INC-PROD-04 | Mettre à jour documentation | Réalisé |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
 ---
@@ -190,6 +190,15 @@ Le handler actuel convertit une `action` absente en chaîne vide, ce qui aboutit
 - aucune librairie de validation ajoutée ;
 - SQLite et seed non modifiés.
 
+**INC-PROD-04** — documentation :
+
+- documentation des erreurs API clarifiées ;
+- ajout des exemples curl utiles ;
+- clarification du format d’erreur conservé ;
+- rappel du reset API stable ;
+- rappel de la non-régression du payload détail productisé ;
+- aucune modification de code.
+
 ---
 
 ## 9. Validations
@@ -216,10 +225,37 @@ Le handler actuel convertit une `action` absente en chaîne vide, ce qui aboutit
 - pas de nouveaux statuts ;
 - pas de production ;
 - pas de validation complète type sécurité ;
-- INC-PROD-01 ne modifie pas le code.
+- pas de librairie de validation externe.
 
 ---
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-02** : implémenter les gardes explicites sur les transitions et clarifier les erreurs `400` / `404` / `409` dans `routes.ts` (et store si nécessaire), sans librairie externe.
+**INC-PROD-05** : préparer la PR finale du batch `delivery/interv360-api-product-validation`.
+
+---
+
+## 12. Erreurs API clarifiées
+
+Le batch conserve le format d’erreur existant :
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+| Cas | HTTP | Code |
+|-----|------|------|
+| Demande inconnue | 404 | `REQUEST_NOT_FOUND` |
+| Action absente | 400 | `INVALID_TRANSITION_ACTION` |
+| Action non-string | 400 | `INVALID_TRANSITION_ACTION` |
+| Action inconnue | 400 | `INVALID_TRANSITION_ACTION` |
+| Transition métier invalide | 409 | `TRANSITION_NOT_ALLOWED` |
+| Body JSON invalide | 400 | `INVALID_JSON_BODY` |
+| Reset démo | 200 | Réponse stable `{ status, mode, requestsCount }` |
+
+Le batch ne modifie pas le contrat API global et n’introduit aucune librairie de validation.
