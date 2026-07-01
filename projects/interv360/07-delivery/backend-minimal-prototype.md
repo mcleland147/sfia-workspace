@@ -287,3 +287,61 @@ Hors périmètre confirmé : `app/src`, Controlled Delivery, sfia-notion-sync, e
 | Cible | main |
 | Source | delivery/interv360-backend-minimal-prototype |
 | Merge automatique | Non |
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#41](https://github.com/mcleland147/sfia-workspace/pull/41) — Add Interv360 backend minimal prototype |
+| Source | `delivery/interv360-backend-minimal-prototype` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `6b664cd` |
+| Main synchronisée | OK |
+| Build backend post-merge | OK |
+| Tests backend post-merge | OK — 18 tests |
+| Frontend connecté au backend | Non |
+| Frontend modifié | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Backend Minimal Prototype** est mergé dans `main`.
+
+La branche principale contient désormais :
+
+- le cadrage cible backend ;
+- la décision de modèle de données ;
+- la décision de stack technique ;
+- le cadrage du contrat API ;
+- un backend minimal Node.js / TypeScript / Express ;
+- les endpoints REST `/api/v1` cadrés ;
+- un store démo en mémoire initialisé depuis des données fictives ;
+- les règles de transition nominales côté backend ;
+- les tests unitaires et API backend.
+
+Le frontend reste volontairement non connecté au backend.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery contrôlé.
+
+### Prochaine étape recommandée
+
+Ne pas connecter le frontend directement sans cadrage.
+
+**Cycle recommandé :** `delivery/interv360-frontend-api-connection-framing`
+
+Objectif :
+
+- décider comment connecter progressivement le frontend au backend ;
+- préserver la démo locale ;
+- conserver un mode fallback local si nécessaire ;
+- cadrer les impacts UX, reset, journal et tests.
