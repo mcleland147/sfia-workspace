@@ -472,3 +472,99 @@ No real authentication, OAuth, JWT, SSO, backend user database, CRM integration,
 | Cible | `main` |
 | Source | `delivery/interv360-role-simulation` |
 | Merge automatique | Non |
+
+---
+
+## 17. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#58](https://github.com/mcleland147/sfia-workspace/pull/58) |
+| Source | `delivery/interv360-role-simulation` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `401b6c9` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 96 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 32 tests |
+| INC-PROD-01 | OK — cadrage rôles / responsabilités intégré |
+| INC-PROD-02 | OK — comportement UX de simulation défini |
+| INC-PROD-03 | OK — simulation de rôle implémentée |
+| INC-PROD-04 | OK — tests et documentation |
+| INC-PROD-05 | OK — PR unique préparée |
+| Rôle par défaut | `technician` |
+| Rôles simulés | `requester`, `technician`, `manager`, `admin`, `viewer` |
+| Clé `localStorage` | `interv360:simulated-role` |
+| Actions non autorisées bloquées côté frontend | OK |
+| Reset réservé à `admin` | OK |
+| Rôle conservé après reset | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| API `/api/v1` modifiée | Non |
+| Workflow nominal modifié | Non |
+| Auth réelle introduite | Non |
+| OAuth introduit | Non |
+| JWT introduit | Non |
+| SSO introduit | Non |
+| Base users introduite | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Role Simulation** est mergé dans `main`.
+
+La branche principale dispose désormais d’une simulation de rôle frontend contrôlée :
+
+- rôle actif simulé visible ;
+- rôle par défaut `technician` ;
+- rôles disponibles : `requester`, `technician`, `manager`, `admin`, `viewer` ;
+- sélection de rôle côté frontend ;
+- stockage du rôle dans `localStorage` avec la clé `interv360:simulated-role` ;
+- blocage frontend des actions non autorisées ;
+- message utilisateur explicite ;
+- reset démo réservé à `admin` ;
+- rôle conservé après reset ;
+- fonctionnement conservé en mode local et en mode API opt-in.
+
+La simulation ne constitue pas une authentification réelle.
+
+Aucun backend, SQLite, API, workflow, OAuth, JWT, SSO, base users, CRM, donnée réelle ou nouveau statut n’a été introduit.
+
+Aucune PR documentaire dédiée au cadrage auth/users/rôles n’a été créée : le cadrage a été intégré comme INC-PROD-01 du batch afin de réduire le nombre de PR et de livrer un résultat produit utile dans une PR unique.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Batch Delivery produit contrôlé.
+
+### Prochaine étape recommandée
+
+Le produit dispose maintenant :
+
+- d’un backend SQLite persistant ;
+- d’une API stabilisée ;
+- d’un modèle RequestDetail productisé ;
+- d’erreurs API clarifiées ;
+- d’un frontend connecté ;
+- d’un runbook produit consolidé ;
+- d’une simulation de rôle frontend.
+
+Options possibles pour la suite :
+
+1. `architecture/interv360-role-simulation-review`
+   - si une revue fonctionnelle de la simulation est nécessaire ;
+2. `architecture/interv360-workflow-extension-framing`
+   - si l’objectif devient l’extension du workflow métier maintenant que les rôles sont clarifiés ;
+3. `architecture/interv360-auth-real-framing`
+   - uniquement si l’objectif devient une authentification réelle ;
+4. `architecture/interv360-product-roadmap-next`
+   - si une nouvelle priorisation produit est souhaitée avant d’ouvrir un chantier structurant.

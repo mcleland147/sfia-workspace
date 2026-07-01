@@ -328,3 +328,25 @@ La simulation de rôle reste conforme au cadrage :
 - aucun workflow étendu.
 
 Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §11, §14
+
+---
+
+## 16. Statut merge du batch Role Simulation
+
+Le cadrage auth/users/rôles a été intégré au batch `delivery/interv360-role-simulation`, puis mergé dans `main`.
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#58](https://github.com/mcleland147/sfia-workspace/pull/58) |
+| Commit merge | `401b6c9` |
+| Cadrage mergé comme PR dédiée | Non |
+| Cadrage intégré au batch Role Simulation | Oui |
+| Simulation de rôle mergée | Oui |
+| Auth réelle introduite | Non |
+| OAuth / JWT / SSO introduits | Non |
+| Base users introduite | Non |
+| Backend modifié | Non |
+| API modifiée | Non |
+| Workflow étendu | Non |
+
+La décision d’intégrer le cadrage dans le batch a permis de réduire le nombre de PR documentaires tout en conservant la traçabilité de la décision.
