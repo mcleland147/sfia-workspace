@@ -16,13 +16,20 @@ describe("RequestDetail", () => {
     ).toBeInTheDocument();
   });
 
-  it("displays fictitious request SAV-DEMO-001", () => {
+  it("displays fictitious request SAV-DEMO-001 with enriched fields", () => {
     render(<RequestDetail requestId="SAV-DEMO-001" />);
     expect(screen.getByText("SAV-DEMO-001")).toBeInTheDocument();
     expect(
       screen.getByText("Machine client en panne intermittente"),
     ).toBeInTheDocument();
     expect(screen.getByText(/Données fictives uniquement/i)).toBeInTheDocument();
+    expect(screen.getByText("Panne machine")).toBeInTheDocument();
+    expect(screen.getByText("Portail démo")).toBeInTheDocument();
+    expect(screen.getByText("Centre démo Nord")).toBeInTheDocument();
+    expect(screen.getByText("Haute")).toBeInTheDocument();
+    expect(screen.getByText("Urgente")).toBeInTheDocument();
+    expect(screen.getByText(/Priorité Haute/i)).toBeInTheDocument();
+    expect(screen.getByText(/Criticité Urgente/i)).toBeInTheDocument();
   });
 
   it("does not expose business action buttons", () => {

@@ -1,4 +1,5 @@
 import type { DemoRequest, RequestStatus } from "../../domain/requestStatus";
+import { buildRequestSearchHaystack } from "./requestIndicators";
 
 export type StatusFilter = RequestStatus | "ALL";
 
@@ -31,6 +32,30 @@ export function filterRequestsByStatus(
   }
 
   return requests.filter((request) => request.status === statusFilter);
+}
+
+export function searchLocalRequests(
+  requests: DemoRequest[],
+  searchQuery: string,
+): DemoRequest[] {
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return requests;
+  }
+
+  return requests.filter((request) =>
+    buildRequestSearchHaystack(request).includes(normalizedQuery),
+  );
+}
+
+export function filterVisibleRequests(
+  requests: DemoRequest[],
+  statusFilter: StatusFilter,
+  searchQuery: string,
+): DemoRequest[] {
+  const byStatus = filterRequestsByStatus(requests, statusFilter);
+  return searchLocalRequests(byStatus, searchQuery);
 }
 
 export function getStatusesWithRequests(

@@ -5,6 +5,10 @@ export type RequestStatus =
   | "STAT-04"
   | "STAT-06";
 
+export type RequestPriority = "low" | "medium" | "high";
+
+export type RequestCriticality = "standard" | "sensitive" | "urgent";
+
 export type DemoWorkflowEventType =
   | "qualification.confirmed"
   | "planning.confirmed"
@@ -26,9 +30,14 @@ export interface DemoRequest {
   customerLabel: string;
   siteLabel: string;
   status: RequestStatus;
+  priority: RequestPriority;
+  criticality: RequestCriticality;
+  categoryLabel?: string;
+  channelLabel?: string;
+  impactLabel?: string;
+  siteDetailLabel?: string;
   assignedTechnicianLabel?: string;
   description?: string;
-  priorityLabel?: string;
   createdAtLabel?: string;
   qualificationSummary?: string;
   qualificationChecklist?: string[];

@@ -129,6 +129,27 @@ Unchanged:
 - no backend, API, server database, SQL, CRM, dashboard, chart, or export;
 - no React routing or new dependency.
 
+## Batch 01 — Demo credibility
+
+Batch 01 groups several low-risk local demo enhancements into one coherent delivery lot.
+
+Changes:
+
+- fictitious priority indicators (`Basse` / `Moyenne` / `Haute`);
+- lightweight criticality indicators (`Standard` / `Sensible` / `Urgente`);
+- local in-memory search on id, title, status, priority and criticality;
+- enriched fictitious request detail (category, channel, impact, demo centre, date);
+- empty state when local filters and/or search return no request;
+- reset restores seed data, filter `Toutes`, empty search and default selection (`SAV-DEMO-001`).
+
+Unchanged:
+
+- controlled workflow transitions and rules per request;
+- fictitious local data only;
+- no backend, API, server database, SQL, CRM, dashboard, chart, or export;
+- no React routing or new dependency;
+- nominal workflow path unchanged.
+
 Report readonly:
 
 - displays fictitious summary, result and checklist for `SAV-DEMO-001`;
