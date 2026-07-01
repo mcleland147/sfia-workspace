@@ -270,3 +270,38 @@ Bloc « Aide contextuelle » par étape, court et orienté présentation.
 ## 7. Documentation applicative
 
 Section Batch 02 ajoutée dans `projects/interv360/app/README.md`.
+
+---
+
+## 13. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #38 — https://github.com/mcleland147/sfia-workspace/pull/38 |
+| Source | `delivery/interv360-batch-02-demo-control-scenario` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `27e4b28` |
+| Main synchronisée | OK |
+| Build post-merge | OK |
+| Tests post-merge | OK — 60 passés / 15 fichiers |
+| Workflow métier | Inchangé |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Batch 02 est mergé dans `main`.
+
+Le démonstrateur Interv360 dispose désormais, dans la branche principale, des enrichissements suivants :
+
+- scénario guidé de démonstration ;
+- progression visuelle ;
+- aide contextuelle ;
+- reset scénario ;
+- meilleure lisibilité de l'état courant de démonstration ;
+- conservation des filtres, recherche, sélection, workflow nominal, reset global et journal.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Batch Delivery.
