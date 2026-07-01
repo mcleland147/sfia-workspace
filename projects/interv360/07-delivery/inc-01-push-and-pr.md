@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Cycle** : Push and PR  
-**Statut** : PR créée  
+**Statut** : Branche poussée — PR à créer manuellement (`gh` indisponible)  
 **Branche** : `delivery/interv360-inc-01-push-and-pr`
 
 ---
@@ -123,11 +123,14 @@ The method distinguishes:
 
 | Élément | Valeur |
 |---------|--------|
-| URL PR | À compléter après création |
-| Numéro PR | À compléter après création |
+| URL PR | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-inc-01-push-and-pr?expand=1 |
+| Numéro PR | Non créée (`gh` CLI indisponible sur l'environnement) |
 | Source | `delivery/interv360-inc-01-push-and-pr` |
 | Cible | `main` |
 | Merge automatique | Non |
+| Push remote | OK (`origin/delivery/interv360-inc-01-push-and-pr`) |
+
+**Création manuelle :** ouvrir l'URL ci-dessus, coller le titre et la description de la section 5, puis créer la PR sans merger.
 
 ---
 
@@ -148,12 +151,14 @@ Le cycle n'a pas créé :
 
 **Décision proposée :**
 
-- [x] PR INC-01 créée
-- [ ] PR à compléter
+- [ ] PR INC-01 créée
+- [x] PR à compléter (création manuelle via GitHub)
 - [ ] PR à reprendre
 
 ### Décision
 
-La PR INC-01 est créée et prête pour revue.
+La branche `delivery/interv360-inc-01-push-and-pr` est poussée sur `origin`.
+
+La PR reste à créer manuellement via l'URL de comparaison GitHub (section 6).
 
 Le merge reste une décision séparée.
