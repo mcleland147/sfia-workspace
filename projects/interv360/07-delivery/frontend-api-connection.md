@@ -222,11 +222,67 @@ Aucun push, aucune PR et aucun merge ne sont effectués dans ce cycle.
 
 ## 12. Prochaine étape recommandée
 
-**Cycle recommandé :** `delivery/interv360-frontend-api-connection-pr-preparation`
+**Cycle suivant :** merge PR puis post-merge léger (section §15).
 
-Objectif :
+---
 
-- préparer la PR ;
-- vérifier tests frontend/backend ;
-- documenter le mode dual ;
-- ne pas ajouter de nouveau périmètre.
+## 13. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 frontend API connection mode`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds a dual local/API data mode to the Interv360 frontend.
+It includes:
+- an async RequestsRepository abstraction;
+- a local repository preserving the existing localStorage demo behavior;
+- an API repository using the backend `/api/v1` endpoints;
+- explicit Vite configuration for API mode;
+- local mode as the default behavior;
+- loading and error handling for API mode;
+- UI indication for local/API mode;
+- frontend tests for repository factory, API repository, and App API mode;
+- README updates for app/backend usage.
+
+## Validation
+- Frontend build: OK
+- Frontend tests: 77 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- Local mode remains default
+- API mode requires explicit configuration
+- localStorage preserved
+- No silent fallback to local mode
+- No real data introduced
+
+## Guardrails
+No SQL database, CRM integration, authentication, multi-user logic, real data, STAT-05/07/08, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Périmètre PR (vs `main`)
+
+| Zone | Contenu |
+|------|---------|
+| Cadrage | `07-delivery/frontend-api-connection-framing.md` |
+| Livraison | `07-delivery/frontend-api-connection.md` |
+| Frontend | Repository dual, `App.tsx` async, composants UI, tests |
+| Docs | `app/README.md`, `backend/README.md` |
+
+Hors périmètre confirmé : suppression `localStorage`, SQL, CRM, auth, Controlled Delivery, sfia-notion-sync.
+
+---
+
+## 14. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | main |
+| Source | delivery/interv360-frontend-api-connection |
+| Merge automatique | Non |
