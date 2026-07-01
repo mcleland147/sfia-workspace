@@ -348,9 +348,9 @@ No frontend change, backend change, persistence implementation, dependency, ORM,
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...architecture/interv360-backend-persistence-decision?expand=1 |
 | Cible | `main` |
 | Source | `architecture/interv360-backend-persistence-decision` |
 | Merge automatique | Non |
