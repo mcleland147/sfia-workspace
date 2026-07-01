@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Connected UX Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-05 en cours  
+**Statut** : Batch produit — INC-PROD-05 réalisé  
 **Branche** : `delivery/interv360-connected-ux-productization`
 
 ---
@@ -77,7 +77,7 @@ Le batch ne doit pas inclure :
 | INC-PROD-02 | Afficher les champs métier productisés | Réalisé |
 | INC-PROD-03 | Améliorer l’affichage des erreurs API | Non retenu — valeur marginale à ce stade |
 | INC-PROD-04 | Mettre à jour documentation / runbook | Réalisé |
-| INC-PROD-05 | Préparer PR du batch | En cours |
+| INC-PROD-05 | Préparer PR du batch | Réalisé |
 
 ---
 
@@ -317,9 +317,9 @@ Validation navigateur non rejouée — contrôles documentés dans le runbook, t
 
 | Élément | Valeur |
 |---------|--------|
-| Push | <OK / KO> |
-| PR créée automatiquement | <Oui / Non> |
-| URL PR ou comparaison | <url> |
+| Push | OK |
+| PR créée automatiquement | Non |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-connected-ux-productization?expand=1 |
 | Cible | main |
 | Source | delivery/interv360-connected-ux-productization |
 | Merge automatique | Non |
