@@ -246,6 +246,8 @@ Retourner une demande complète avec son détail.
 }
 ```
 
+> **Note (batch `request-model-productization`)** : le payload `detail` a été enrichi avec `requestedDate`, `equipmentLabel` et `businessImpact`. `category` et `siteLabel` (côté `request`) sont productisés comme champs métier exposés. `businessImpact` est distinct du libellé court `impact`. Aucun changement d’endpoint ni de contrat d’erreur.
+
 ### Erreur `404`
 
 ```json

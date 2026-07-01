@@ -56,8 +56,33 @@ describe("SQLite persistence", () => {
 
     resetDemoStoreForTests();
 
-    const { request } = getRequestWithDetail("SAV-DEMO-001");
+    const { request, detail } = getRequestWithDetail("SAV-DEMO-001");
     expect(request.status).toBe("STAT-01");
+    expect(request.siteLabel).toBe("Lyon Démo");
+    expect(detail.category).toBe("Panne machine");
+    expect(detail.requestedDate).toBe("2026-01-12T09:00:00.000Z");
+    expect(detail.equipmentLabel).toBe("Ligne d'assemblage démo — poste 3");
+    expect(detail.businessImpact).toBe(
+      "Interruption d'un flux de production fictif planifié",
+    );
     expect(listEventsForRequest("SAV-DEMO-001")).toHaveLength(0);
+  });
+
+  it("persists productized detail fields across database reopen", () => {
+    const { detail: beforeClose } = getRequestWithDetail("SAV-DEMO-002");
+    expect(beforeClose.requestedDate).toBe("2026-01-10T14:30:00.000Z");
+    expect(beforeClose.equipmentLabel).toBe(
+      "Capteur pression — zone démo atelier",
+    );
+    expect(beforeClose.businessImpact).toBe(
+      "Surveillance opérationnelle démo dégradée",
+    );
+
+    closeDatabase();
+
+    const { detail: afterReopen } = getRequestWithDetail("SAV-DEMO-002");
+    expect(afterReopen.requestedDate).toBe(beforeClose.requestedDate);
+    expect(afterReopen.equipmentLabel).toBe(beforeClose.equipmentLabel);
+    expect(afterReopen.businessImpact).toBe(beforeClose.businessImpact);
   });
 });

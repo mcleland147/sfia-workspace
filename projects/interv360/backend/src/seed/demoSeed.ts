@@ -86,6 +86,9 @@ export const demoDetailsSeed: DemoRequestDetail[] = [
     category: "Panne machine",
     channel: "Portail démo",
     impact: "Production démo limitée",
+    requestedDate: "2026-01-12T09:00:00.000Z",
+    equipmentLabel: "Ligne d'assemblage démo — poste 3",
+    businessImpact: "Interruption d'un flux de production fictif planifié",
     demoCenter: "Centre démo Nord",
     description:
       "Panne intermittente constatée sur une machine de démonstration.",
@@ -97,6 +100,9 @@ export const demoDetailsSeed: DemoRequestDetail[] = [
     category: "Maintenance préventive",
     channel: "Téléphone démo",
     impact: "Confort opérationnel démo",
+    requestedDate: "2026-01-10T14:30:00.000Z",
+    equipmentLabel: "Capteur pression — zone démo atelier",
+    businessImpact: "Surveillance opérationnelle démo dégradée",
     demoCenter: "Centre démo Sud",
     description: "Signal erratique sur capteur de démonstration.",
     readonlyBlocks: {
@@ -120,6 +126,9 @@ export const demoDetailsSeed: DemoRequestDetail[] = [
     category: "Suivi post-intervention",
     channel: "Canal démo interne",
     impact: "Aucun impact critique démo",
+    requestedDate: "2026-01-05T08:00:00.000Z",
+    equipmentLabel: "Unité de maintenance préventive démo",
+    businessImpact: "Clôture fictive sans impact métier résiduel",
     demoCenter: "Centre démo Est",
     description: "Maintenance fictive déjà clôturée pour variété de statuts.",
     readonlyBlocks: {

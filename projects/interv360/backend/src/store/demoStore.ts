@@ -37,6 +37,9 @@ interface DetailRow {
   category: string;
   channel: string;
   impact: string;
+  requested_date: string;
+  equipment_label: string;
+  business_impact: string;
   demo_center: string;
   description: string;
   readonly_blocks_json: string;
@@ -82,6 +85,9 @@ function rowToDetail(row: DetailRow): DemoRequestDetail {
     category: row.category,
     channel: row.channel,
     impact: row.impact,
+    requestedDate: row.requested_date,
+    equipmentLabel: row.equipment_label,
+    businessImpact: row.business_impact,
     demoCenter: row.demo_center,
     description: row.description,
     readonlyBlocks: JSON.parse(row.readonly_blocks_json) as DemoRequestDetail["readonlyBlocks"],

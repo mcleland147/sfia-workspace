@@ -149,6 +149,32 @@ curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001/events
 curl -s -X POST http://localhost:3001/api/v1/demo/reset
 ```
 
+### Contrôle du payload détail productisé
+
+Sur une demande, vérifier que le détail expose :
+
+- `category`
+- `requestedDate`
+- `equipmentLabel`
+- `businessImpact`
+
+Et que la demande expose toujours :
+
+- `siteLabel`
+
+Exemple :
+
+```bash
+curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001
+```
+
+Le reset API doit conserver le seed enrichi :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/demo/reset
+curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001
+```
+
 ---
 
 ## 7. Garde-fous
