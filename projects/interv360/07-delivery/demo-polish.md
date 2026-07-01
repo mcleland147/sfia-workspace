@@ -279,6 +279,37 @@ The polish is strictly limited to the confirmed feedback: reducing scroll throug
 | Backend build | OK |
 | Backend tests | OK — 18 tests |
 
+### Revue visuelle pré-PR
+
+Revue visuelle locale effectuée avant PR (`http://localhost:5173/`, mode local).
+
+| Écran | Résultat |
+|-------|----------|
+| Vue d'ensemble / Readiness | OK |
+| Scénario guidé | OK |
+| Demandes | OK |
+| Détail & workflow | OK |
+| Journal & reset | OK |
+
+Contrôles complémentaires :
+
+| Contrôle | Résultat |
+|----------|----------|
+| Onglets visibles | OK |
+| Précédent / suivant fonctionnels | OK |
+| Écran courant identifiable (N sur 5) | OK |
+| Scroll réduit par écran | OK |
+| Reset conserve l'écran courant | OK |
+| Message « Démo réinitialisée » visible | OK |
+| Mode local par défaut | OK |
+
+Conclusion :
+
+- navigation par écran fluide ;
+- scroll réduit ;
+- contenu existant conservé ;
+- aucune dérive de scope identifiée.
+
 ## 15. Statut push / PR
 
 | Élément | Valeur |
