@@ -25,12 +25,12 @@ export function DemoOverview({
   return (
     <header className="demo-overview">
       <div className="demo-overview__intro">
-        <p className="demo-overview__eyebrow">Batch 02 — Pilotage démo</p>
+        <p className="demo-overview__eyebrow">Batch 03 — Présentation démo</p>
         <h1 className="demo-overview__title">Interv360 — flux SAV minimal</h1>
         <p className="demo-overview__lead">
-          Démonstrateur local et fictif. Demande sélectionnée :{" "}
-          <strong>{requestId}</strong>. Aucun backend, aucune API, aucune
-          donnée réelle.
+          Démonstrateur local et fictif prêt à présenter. Demande sélectionnée :{" "}
+          <strong>{requestId}</strong>. Consultez le package readiness pour le
+          fil conducteur, les capacités et les limites.
         </p>
       </div>
 
