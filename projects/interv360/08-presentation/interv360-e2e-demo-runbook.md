@@ -114,7 +114,44 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 
 ---
 
-## 6. Garde-fous
+## 6. Validation API persistante après SQLite
+
+Avec le backend lancé :
+
+1. Lancer le frontend en mode API (section 3).
+2. Vérifier le badge **Mode API local**.
+3. Exécuter une transition sur `SAV-DEMO-001` (ex. **Qualifier la demande**).
+4. Vérifier le journal (événement `qualification.confirmed`).
+5. Arrêter le backend (Ctrl+C terminal 1), puis le relancer (`npm run dev`).
+6. Recharger le frontend en mode API.
+7. Vérifier que le statut (`STAT-02`) et le journal sont conservés (SQLite côté backend).
+8. Exécuter le reset API (bouton **Réinitialiser la démo** ou `POST /api/v1/demo/reset`).
+9. Vérifier le retour à l'état seed (`SAV-DEMO-001` en STAT-01, journal vide).
+
+**Ports frontend supportés en local :**
+
+- `http://localhost:5173`
+- `http://localhost:5174`
+- `http://localhost:5175`
+
+Le backend accepte ces origins localement pour faciliter la démonstration API.
+
+**Variante curl (persistance sans navigateur) :**
+
+```bash
+# transition
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' -d '{"action":"qualify"}'
+# vérifier journal
+curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001/events
+# redémarrer le backend, puis relancer les deux commandes ci-dessus : le journal doit rester
+# reset
+curl -s -X POST http://localhost:3001/api/v1/demo/reset
+```
+
+---
+
+## 7. Garde-fous
 
 - Données fictives uniquement.
 - Mode local par défaut.
@@ -127,7 +164,7 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 
 ---
 
-## 7. Dépannage rapide
+## 8. Dépannage rapide
 
 | Symptôme | Cause probable | Action |
 |----------|----------------|--------|

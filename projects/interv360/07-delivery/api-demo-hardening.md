@@ -2,8 +2,8 @@
 
 **Projet** : Interv360  
 **Cycle** : API Demo Hardening  
-**Mode** : SFIA Fast Delivery contrôlé  
-**Statut** : Hardening mode API local  
+**Mode** : SFIA Batch Delivery produit contrôlé  
+**Statut** : Batch en cours — INC-PROD-02 réalisé  
 **Branche** : `delivery/interv360-api-demo-hardening`
 
 ---
@@ -143,9 +143,61 @@ Décision recommandée appliquée :
 - Mise à jour de `app/README.md` : rappel ports Vite alternatifs et CORS backend.
 - Mise à jour de `interv360-e2e-demo-runbook.md` : section mode API (ports, CORS, SQLite, dépannage).
 
+**INC-PROD-02 (batch)** — documentation uniquement :
+
+- Ajout de la section **Validation API persistante après SQLite** dans le runbook E2E ;
+- parcours reproductible : transition, journal, redémarrage backend, persistance, reset ;
+- ports Vite alternatifs rappelés dans le parcours persistant ;
+- aucun code, script npm ni modification frontend.
+
 ---
 
-## 9. Validations
+## 9. Mode Batch Delivery produit contrôlé
+
+Après validation du premier incrément de hardening API local, le cycle est poursuivi en mode **Batch Delivery produit contrôlé**.
+
+Objectif :
+
+- éviter une PR trop fine pour chaque micro-amélioration ;
+- regrouper plusieurs incréments cohérents autour du mode API local persistant ;
+- conserver une limite stricte de périmètre ;
+- préparer une PR finale unique du lot.
+
+### Incréments du lot
+
+| Incrément | Objectif | Statut |
+|----------|----------|--------|
+| INC-PROD-01 | CORS local / ports Vite / documentation API | Réalisé |
+| INC-PROD-02 | Runbook API persistant / validation reproductible | Réalisé — documentation uniquement |
+| INC-PROD-03 | Configuration de lancement API local (scripts) | Non retenu — `npm run dev` existant suffisant |
+| INC-PROD-04 | Préparation PR du lot | À venir |
+
+### Décision batch
+
+- **INC-PROD-02 retenu** : renforcement documentaire du runbook API persistant (SQLite + CORS + reset).
+- **INC-PROD-03 non retenu** : les scripts `npm run dev` backend et frontend couvrent déjà le lancement ; pas de script dédié ajouté.
+- **Aucun code supplémentaire** dans cet incrément batch.
+
+### Garde-fous du lot
+
+Le lot ne doit pas introduire :
+
+- authentification ;
+- utilisateurs ;
+- rôles / permissions ;
+- CRM ;
+- données réelles ;
+- PostgreSQL ;
+- ORM lourd ;
+- changement de contrat API ;
+- nouveau workflow ;
+- STAT-05 / STAT-07 / STAT-08 ;
+- refonte frontend ;
+- production / déploiement.
+
+---
+
+## 10. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
@@ -160,7 +212,7 @@ Décision recommandée appliquée :
 
 ---
 
-## 10. Limites assumées
+## 11. Limites assumées
 
 - mode API local uniquement ;
 - pas de production ;
@@ -174,15 +226,14 @@ Décision recommandée appliquée :
 
 ---
 
-## 11. Prochaine étape recommandée
+## 12. Prochaine étape recommandée
 
-- `delivery/interv360-api-demo-hardening-pr-preparation` si le hardening est validé ;
-- `architecture/interv360-auth-and-user-framing` uniquement si la décision produit est de cadrer identité/utilisateurs ;
-- `architecture/interv360-product-roadmap-after-persistence` si une priorisation produit globale est souhaitée.
+- **INC-PROD-04** : préparer la PR finale du lot (`delivery/interv360-api-demo-hardening-pr-preparation`) ;
+- pas d'incrément complémentaire supplémentaire identifié sur ce batch.
 
 ---
 
-## 12. Mini-clôture
+## 13. Mini-clôture
 
 | Contrôle | Résultat |
 |----------|----------|
@@ -204,8 +255,9 @@ Décision recommandée appliquée :
 | CRM introduit | Non |
 | Authentification introduite | Non |
 | Production / déploiement introduit | Non |
+| Batch INC-PROD-02 | OK — runbook API persistant, sans code |
 
-## 13. Décision
+## 14. Décision
 
 Le mode API local est stabilisé pour capitaliser la persistance SQLite côté backend.
 
@@ -213,10 +265,17 @@ Le cycle ne transforme pas le mode API en cible production.
 
 Aucun sujet auth, CRM, données réelles, utilisateurs ou rôles n’a été ouvert.
 
-## 14. Prochaine étape recommandée
+Le batch reste documentaire sur INC-PROD-02 : validation API + SQLite + CORS rendue reproductible sans élargir le périmètre.
 
-À choisir après validation :
+## 15. Prochaine étape recommandée
 
-- `delivery/interv360-api-demo-hardening-pr-preparation` si le hardening est terminé ;
-- `architecture/interv360-auth-and-user-framing` uniquement si la décision produit est de cadrer identité/utilisateurs ;
-- `architecture/interv360-product-roadmap-after-persistence` si une priorisation produit globale est souhaitée.
+Préparer la PR finale du lot :
+
+- `delivery/interv360-api-demo-hardening-pr-preparation` ;
+- branche `delivery/interv360-api-demo-hardening` → `main` ;
+- lot : INC-PROD-01 (CORS + tests) + INC-PROD-02 (runbook persistant).
+
+Cycles produit ultérieurs (hors ce batch) :
+
+- `architecture/interv360-auth-and-user-framing` si cadrage identité/utilisateurs ;
+- `architecture/interv360-product-roadmap-after-persistence` si priorisation produit globale.
