@@ -20,6 +20,8 @@ Il permet d'adapter le niveau de contrôle au niveau de maturité d'un sujet :
 | Standard summary | [`controlled-delivery-standard-summary.md`](controlled-delivery-standard-summary.md) |
 | Hardening summary | [`controlled-delivery-standard-hardening-summary.md`](controlled-delivery-standard-hardening-summary.md) |
 | Publication prep | [`controlled-delivery-publication-prep.md`](controlled-delivery-publication-prep.md) |
+| Publication package | [`controlled-delivery-publication-package.md`](controlled-delivery-publication-package.md) |
+| Publication checklist | [`controlled-delivery-publication-checklist.md`](controlled-delivery-publication-checklist.md) |
 
 ---
 
