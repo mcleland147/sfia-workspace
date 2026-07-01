@@ -241,9 +241,9 @@ No code, frontend, backend, SQLite, API, workflow, authentication, users, roles,
 
 | Élément | Valeur |
 |---------|--------|
-| Push | <OK / KO> |
-| PR créée automatiquement | <Oui / Non> |
-| URL PR ou comparaison | <url> |
+| Push | OK |
+| PR créée automatiquement | Non |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...architecture/interv360-product-roadmap-next?expand=1 |
 | Cible | main |
 | Source | architecture/interv360-product-roadmap-next |
 | Merge automatique | Non |
