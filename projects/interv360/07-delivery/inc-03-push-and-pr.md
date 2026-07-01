@@ -98,7 +98,7 @@ The nominal workflow remains unchanged.
 | Élément | Valeur |
 |---------|--------|
 | Remote branch | `origin/delivery/interv360-inc-03-pr-preparation` |
-| Push | À compléter après push |
+| Push | OK |
 
 ---
 
@@ -106,16 +106,20 @@ The nominal workflow remains unchanged.
 
 | Élément | Valeur |
 |---------|--------|
-| PR créée automatiquement | À compléter |
-| URL PR ou URL comparaison | À compléter |
+| PR créée automatiquement | Non (`gh` CLI indisponible) |
+| URL PR ou URL comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-inc-03-pr-preparation?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-inc-03-pr-preparation` |
 | Merge automatique | Non |
+
+**Création manuelle :** titre `Add Interv360 INC-03 multi-request local demo`, corps dans `/tmp/inc-03-pr-body.md`.
 
 ---
 
 ## 8. Décision
 
-La branche INC-03 est poussée et prête pour PR.
+La branche INC-03 est **poussée** sur `origin`.
+
+La PR reste à créer manuellement via l'URL de comparaison (section 7).
 
 Aucun merge automatique n'est effectué.
