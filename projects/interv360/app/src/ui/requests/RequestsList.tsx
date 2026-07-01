@@ -1,12 +1,16 @@
 import { useMemo } from "react";
 import { getRequests } from "../../data/requestsRepository";
+import { RequestBadges } from "./RequestBadges";
 import {
   countRequestsByStatus,
-  filterRequestsByStatus,
+  filterVisibleRequests,
   getStatusesWithRequests,
   type StatusFilter,
 } from "./requestListFilters";
 import "./RequestsList.css";
+
+export const EMPTY_VISIBLE_REQUESTS_MESSAGE =
+  "Aucune demande fictive ne correspond aux critères locaux.";
 
 interface RequestsListProps {
   dataVersion?: number;
@@ -14,6 +18,8 @@ interface RequestsListProps {
   onSelectRequest: (requestId: string) => void;
   statusFilter: StatusFilter;
   onStatusFilterChange: (filter: StatusFilter) => void;
+  searchQuery: string;
+  onSearchQueryChange: (query: string) => void;
 }
 
 export function RequestsList({
@@ -22,6 +28,8 @@ export function RequestsList({
   onSelectRequest,
   statusFilter,
   onStatusFilterChange,
+  searchQuery,
+  onSearchQueryChange,
 }: RequestsListProps) {
   const requests = useMemo(() => getRequests(), [dataVersion]);
   const statusCounts = useMemo(
@@ -33,23 +41,24 @@ export function RequestsList({
     [requests],
   );
   const visibleRequests = useMemo(
-    () => filterRequestsByStatus(requests, statusFilter),
-    [requests, statusFilter],
+    () => filterVisibleRequests(requests, statusFilter, searchQuery),
+    [requests, statusFilter, searchQuery],
   );
 
   const activeFilterLabel =
     statusFilter === "ALL" ? "Toutes les demandes" : statusFilter;
+  const hasActiveSearch = searchQuery.trim().length > 0;
 
   return (
     <section className="requests-list">
       <header className="requests-list__header">
         <h2>Demandes SAV</h2>
         <p className="requests-list__subtitle">
-          INC-04 — {requests.length} demandes fictives locales
+          Batch 01 — {requests.length} demandes fictives locales
         </p>
         <p className="requests-list__notice">
-          Démonstration fictive uniquement. Filtrez la liste et sélectionnez une
-          demande pour consulter le détail et le workflow associé.
+          Démonstration fictive uniquement. Filtrez, recherchez et sélectionnez
+          une demande pour consulter le détail et le workflow associé.
         </p>
       </header>
 
@@ -72,6 +81,31 @@ export function RequestsList({
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="requests-list__search">
+        <label className="requests-list__search-label" htmlFor="requests-search">
+          Recherche locale
+        </label>
+        <div className="requests-list__search-row">
+          <input
+            id="requests-search"
+            className="requests-list__search-input"
+            type="search"
+            value={searchQuery}
+            placeholder="ID, titre, statut, priorité ou criticité"
+            onChange={(event) => onSearchQueryChange(event.target.value)}
+          />
+          {hasActiveSearch ? (
+            <button
+              type="button"
+              className="requests-list__search-clear"
+              onClick={() => onSearchQueryChange("")}
+            >
+              Effacer la recherche
+            </button>
+          ) : null}
+        </div>
       </div>
 
       <div
@@ -110,12 +144,11 @@ export function RequestsList({
 
       <p className="requests-list__active-filter" role="status">
         Filtre actif : {activeFilterLabel}
+        {hasActiveSearch ? ` — Recherche : « ${searchQuery.trim()} »` : ""}
       </p>
 
       {visibleRequests.length === 0 ? (
-        <p className="requests-list__empty">
-          Aucune demande fictive visible pour le filtre {activeFilterLabel}.
-        </p>
+        <p className="requests-list__empty">{EMPTY_VISIBLE_REQUESTS_MESSAGE}</p>
       ) : (
         <ul className="requests-list__items">
           {visibleRequests.map((request) => {
@@ -133,6 +166,7 @@ export function RequestsList({
                   aria-pressed={isSelected}
                   onClick={() => onSelectRequest(request.id)}
                 >
+                  <RequestBadges request={request} />
                   <div className="requests-list__card-row">
                     <span className="requests-list__label">Identifiant</span>
                     <span>{request.id}</span>

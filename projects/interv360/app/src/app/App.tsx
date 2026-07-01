@@ -18,7 +18,7 @@ import { DemoResetControl } from "../ui/requests/DemoResetControl";
 import { RequestDetail } from "../ui/requests/RequestDetail";
 import { RequestsList } from "../ui/requests/RequestsList";
 import {
-  filterRequestsByStatus,
+  filterVisibleRequests,
   type StatusFilter,
 } from "../ui/requests/requestListFilters";
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
@@ -40,6 +40,7 @@ export function App() {
     DEFAULT_SELECTED_REQUEST_ID,
   );
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("ALL");
+  const [searchQuery, setSearchQuery] = useState("");
   const [lastResetLabel, setLastResetLabel] = useState<string | undefined>();
   const [lastActionMessage, setLastActionMessage] = useState<
     string | undefined
@@ -52,8 +53,8 @@ export function App() {
 
   const visibleRequests = useMemo(() => {
     const requests = getRequests();
-    return filterRequestsByStatus(requests, statusFilter);
-  }, [dataVersion, statusFilter]);
+    return filterVisibleRequests(requests, statusFilter, searchQuery);
+  }, [dataVersion, statusFilter, searchQuery]);
 
   useEffect(() => {
     if (visibleRequests.length === 0) {
@@ -79,6 +80,7 @@ export function App() {
     resetDemoData();
     setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
     setStatusFilter("ALL");
+    setSearchQuery("");
     setDataVersion((version) => version + 1);
     setLastActionMessage(undefined);
     setLastResetLabel(
@@ -169,6 +171,8 @@ export function App() {
             onSelectRequest={handleSelectRequest}
             statusFilter={statusFilter}
             onStatusFilterChange={setStatusFilter}
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
           />
           <RequestDetail
             requestId={selectedRequestId}

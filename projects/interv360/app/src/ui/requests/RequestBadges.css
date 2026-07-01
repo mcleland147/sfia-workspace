@@ -1,0 +1,49 @@
+.request-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.request-badge {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+}
+
+.request-badge--priority-low {
+  background: #eef7ee;
+  border: 1px solid #9bc79b;
+  color: #2f6b2f;
+}
+
+.request-badge--priority-medium {
+  background: #fff8e8;
+  border: 1px solid #e0b35a;
+  color: #8a5a00;
+}
+
+.request-badge--priority-high {
+  background: #fdeeee;
+  border: 1px solid #d88;
+  color: #8a1f1f;
+}
+
+.request-badge--criticality-standard {
+  background: #f3f6fa;
+  border: 1px solid #c8d2e0;
+  color: #2a3545;
+}
+
+.request-badge--criticality-sensitive {
+  background: #f5f0ff;
+  border: 1px solid #b9a3e8;
+  color: #4a2f8a;
+}
+
+.request-badge--criticality-urgent {
+  background: #fff0f0;
+  border: 1px solid #e88;
+  color: #9a1a1a;
+}

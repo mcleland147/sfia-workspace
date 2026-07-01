@@ -3,7 +3,9 @@ import type { DemoRequest } from "../../domain/requestStatus";
 import {
   countRequestsByStatus,
   filterRequestsByStatus,
+  filterVisibleRequests,
   getStatusesWithRequests,
+  searchLocalRequests,
 } from "./requestListFilters";
 
 const sampleRequests: DemoRequest[] = [
@@ -13,6 +15,8 @@ const sampleRequests: DemoRequest[] = [
     customerLabel: "Client A",
     siteLabel: "Site A",
     status: "STAT-01",
+    priority: "high",
+    criticality: "urgent",
   },
   {
     id: "SAV-DEMO-002",
@@ -20,6 +24,8 @@ const sampleRequests: DemoRequest[] = [
     customerLabel: "Client B",
     siteLabel: "Site B",
     status: "STAT-02",
+    priority: "medium",
+    criticality: "sensitive",
   },
   {
     id: "SAV-DEMO-003",
@@ -27,6 +33,8 @@ const sampleRequests: DemoRequest[] = [
     customerLabel: "Client C",
     siteLabel: "Site C",
     status: "STAT-06",
+    priority: "low",
+    criticality: "standard",
   },
 ];
 
@@ -51,5 +59,31 @@ describe("requestListFilters", () => {
       "STAT-02",
       "STAT-06",
     ]);
+  });
+
+  it("searches requests locally by id, title, status and indicators", () => {
+    expect(searchLocalRequests(sampleRequests, "SAV-DEMO-002")).toEqual([
+      sampleRequests[1],
+    ]);
+    expect(searchLocalRequests(sampleRequests, "panne")).toEqual([]);
+    expect(searchLocalRequests(sampleRequests, "haute")).toEqual([
+      sampleRequests[0],
+    ]);
+    expect(searchLocalRequests(sampleRequests, "STAT-06")).toEqual([
+      sampleRequests[2],
+    ]);
+    expect(searchLocalRequests(sampleRequests, "urgente")).toEqual([
+      sampleRequests[0],
+    ]);
+  });
+
+  it("combines status filter and local search", () => {
+    expect(
+      filterVisibleRequests(sampleRequests, "STAT-02", "SAV-DEMO-002"),
+    ).toEqual([sampleRequests[1]]);
+    expect(
+      filterVisibleRequests(sampleRequests, "STAT-02", "SAV-DEMO-001"),
+    ).toEqual([]);
+    expect(filterVisibleRequests(sampleRequests, "ALL", "")).toHaveLength(3);
   });
 });

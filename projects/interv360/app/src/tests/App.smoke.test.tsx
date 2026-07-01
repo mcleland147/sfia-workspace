@@ -15,7 +15,8 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText(/INC-03/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/INC-04/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Batch 01/i).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText(/Recherche locale/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Synthèse locale par statut/i)).toBeInTheDocument();
     expect(
       screen.getByRole("navigation", { name: /Navigation interne de la démo/i }),
@@ -111,6 +112,41 @@ describe("App smoke", () => {
     expect(screen.getByText(/Filtre actif : STAT-02/i)).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Planifier l'intervention/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("searches requests locally and restores criteria on reset", () => {
+    render(<App />);
+
+    fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
+      target: { value: "SAV-DEMO-003" },
+    });
+
+    expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
+    expect(screen.getAllByText("SAV-DEMO-003").length).toBeGreaterThan(0);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Réinitialiser la démo/i }),
+    );
+
+    expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
+    expect(screen.getByText(/Filtre actif : Toutes les demandes/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Recherche locale/i)).toHaveValue("");
+    expect(
+      screen.getByText(/Aucun événement fictif enregistré/i),
+    ).toBeInTheDocument();
+  });
+
+  it("shows empty state when combined filter and search return nothing", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
+    fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
+      target: { value: "SAV-DEMO-003" },
+    });
+
+    expect(
+      screen.getByText(/Aucune demande fictive ne correspond aux critères locaux/i),
     ).toBeInTheDocument();
   });
 

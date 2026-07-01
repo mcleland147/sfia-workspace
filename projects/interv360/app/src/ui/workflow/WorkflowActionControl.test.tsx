@@ -9,6 +9,8 @@ const baseRequest: DemoRequest = {
   customerLabel: "Client Démo Industrie",
   siteLabel: "Lyon Démo",
   status: "STAT-01",
+  priority: "high",
+  criticality: "urgent",
 };
 
 describe("WorkflowActionControl", () => {
