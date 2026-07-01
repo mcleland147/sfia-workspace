@@ -247,3 +247,52 @@ No code, frontend, backend, SQLite, API, workflow, authentication, users, roles,
 | Cible | main |
 | Source | architecture/interv360-product-roadmap-next |
 | Merge automatique | Non |
+
+---
+
+## 11. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#57](https://github.com/mcleland147/sfia-workspace/pull/57) |
+| Source | `architecture/interv360-product-roadmap-next` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `e6a6941` |
+| Main synchronisée | OK |
+| Décision roadmap | OK |
+| Prochain axe | Auth / users / rôles |
+| Prochaine branche | `architecture/interv360-auth-and-user-framing` |
+| Workflow extension | Différé |
+| Implémentation immédiate | Non |
+| Code modifié | Non |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| API modifiée | Non |
+| Auth implémentée | Non |
+| Users / rôles implémentés | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+La décision **Product Roadmap Next** est mergée dans `main`.
+
+La prochaine étape recommandée est d’ouvrir un cadrage dédié :
+
+`architecture/interv360-auth-and-user-framing`
+
+Objectif du prochain cycle :
+
+> cadrer l’identité produit, les utilisateurs, les rôles et les responsabilités avant toute implémentation.
+
+Le workflow extension reste différé.
+
+Aucune implémentation auth, users, rôles, workflow, CRM ou données réelles n’a été introduite dans cette décision.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode Fast Delivery stratégique.
