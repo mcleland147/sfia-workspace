@@ -219,3 +219,33 @@ La méthode ne doit pas être jugée à la quantité de documents produits, mais
 - ajuster son intensité au risque réel.
 
 Le prochain travail peut reprendre en Batch Delivery si les prochains sujets restent cohérents et faibles en risque.
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #37 — https://github.com/mcleland147/sfia-workspace/pull/37 |
+| Source | `method/delivery-acceleration-level-3-rex` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `985fa03` |
+| Main synchronisée | OK |
+| Modification applicative | Non |
+| Publication Notion | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le REX Delivery Acceleration Level 3 est intégré dans `main`.
+
+La méthode SFIA dispose désormais d'une règle formalisée pour choisir entre :
+
+- micro-cycles contrôlés ;
+- Fast Delivery par incrément ;
+- Batch Delivery par lot cohérent ;
+- post-merge léger.
+
+Aucun document de merge séparé n'a été créé afin de respecter le principe de capitalisation compacte.
