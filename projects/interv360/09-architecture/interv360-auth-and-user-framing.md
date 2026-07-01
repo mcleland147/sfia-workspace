@@ -1,10 +1,10 @@
 # Interv360 — Auth and User Framing
 
 **Projet** : Interv360  
-**Cycle** : Auth and User Framing  
-**Mode** : Fast Delivery stratégique / architecture  
-**Statut** : Cadrage architecture  
-**Branche** : `architecture/interv360-auth-and-user-framing`
+**Cycle** : Role Simulation  
+**Mode** : SFIA Batch Delivery produit contrôlé  
+**Statut** : Batch produit — INC-PROD-01 réalisé  
+**Branche** : `delivery/interv360-role-simulation`
 
 ---
 
@@ -19,6 +19,8 @@ L’objectif n’est pas de coder l’authentification, mais de décider :
 - quelles responsabilités sont portées par chaque rôle ;
 - quelles actions sont autorisées ou non ;
 - quel niveau d’authentification est pertinent pour le prochain incrément.
+
+> Note SFIA : ce cadrage n’est pas mergé via une PR dédiée. Il devient l’INC-PROD-01 du batch `delivery/interv360-role-simulation`, afin de réduire le nombre de PR documentaires et de livrer un résultat produit utile dans une PR unique.
 
 ---
 
@@ -38,6 +40,30 @@ Le socle actuel dispose déjà :
 - d’un runbook produit consolidé.
 
 Le produit reste cependant mono-profil et sans modèle d’acteurs.
+
+### 2.1. Intégration dans le batch Role Simulation
+
+Ce document constitue l’INC-PROD-01 du batch `delivery/interv360-role-simulation`.
+
+Objectif du batch :
+
+- conserver le cadrage rôles et responsabilités ;
+- implémenter ensuite une simulation de rôle contrôlée ;
+- ne pas introduire d’authentification réelle ;
+- ne pas introduire OAuth, JWT, SSO ou base users complète ;
+- produire une PR unique à la fin du batch.
+
+Incréments prévus :
+
+| Incrément | Objectif | Statut |
+|----------|----------|--------|
+| INC-PROD-01 | Cadrer rôles, responsabilités et option auth simulée | Réalisé |
+| INC-PROD-02 | Définir le comportement de simulation de rôle | À faire |
+| INC-PROD-03 | Implémenter la simulation de rôle | À faire |
+| INC-PROD-04 | Tests et documentation | À faire |
+| INC-PROD-05 | Préparer PR du batch | À venir |
+
+Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md)
 
 ---
 
