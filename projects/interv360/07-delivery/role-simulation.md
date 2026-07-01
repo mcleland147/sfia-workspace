@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Role Simulation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-03 réalisé  
+**Statut** : Batch produit — INC-PROD-04 réalisé  
 **Branche** : `delivery/interv360-role-simulation`
 
 ---
@@ -105,7 +105,7 @@ Rôles du cadrage :
 | INC-PROD-01 | Intégrer le cadrage rôles / responsabilités | Réalisé |
 | INC-PROD-02 | Définir le comportement UX de simulation | Réalisé |
 | INC-PROD-03 | Implémenter la simulation de rôle | Réalisé |
-| INC-PROD-04 | Tests et documentation | À faire |
+| INC-PROD-04 | Tests et documentation | Réalisé |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
 ---
@@ -344,20 +344,29 @@ INC-PROD-02 ne prévoit pas :
 - aucun backend modifié ;
 - aucune auth réelle introduite.
 
+**INC-PROD-04** — tests et documentation finaux :
+
+- mise à jour du runbook de démonstration ;
+- documentation du contrôle de rôle simulé ;
+- documentation du blocage des actions non autorisées ;
+- documentation du reset réservé à `admin` ;
+- documentation de la clé `localStorage` ;
+- validation frontend build/tests ;
+- validation backend build/tests ;
+- aucun ajustement UX supplémentaire.
+
 ---
 
 ## 11. Validations
 
-À compléter en fin de batch.
-
 | Contrôle | Résultat |
 |----------|----------|
-| Frontend build | `<OK / KO>` |
-| Frontend tests | `<OK / KO>` |
-| Backend build | `<OK / KO>` |
-| Backend tests | `<OK / KO>` |
-| Validation navigateur local | `<OK / KO / non exécutée>` |
-| Validation navigateur API | `<OK / KO / non exécutée>` |
+| Frontend build | OK |
+| Frontend tests | OK — 96 tests |
+| Backend build | OK |
+| Backend tests | OK — 32 tests |
+| Validation navigateur local | Documentée — exécution optionnelle |
+| Validation navigateur API | Documentée — exécution optionnelle |
 
 ---
 
@@ -381,4 +390,29 @@ INC-PROD-02 ne prévoit pas :
 
 ## 13. Prochaine étape
 
-**INC-PROD-04** : finaliser tests et documentation du batch (runbook, validations finales) avant préparation de la PR unique.
+**INC-PROD-05** : préparer la PR unique du batch `delivery/interv360-role-simulation`.
+
+---
+
+## 14. Synthèse du batch
+
+Le batch **Role Simulation** introduit une simulation de rôle frontend contrôlée.
+
+Le produit permet désormais de démontrer :
+
+- un rôle actif simulé ;
+- une sélection de rôle ;
+- des permissions différenciées selon le rôle ;
+- le blocage des transitions pour les rôles non autorisés ;
+- le reset réservé à `admin` ;
+- la conservation du rôle simulé après reset.
+
+La simulation reste volontairement limitée :
+
+- aucune authentification réelle ;
+- aucune sécurité backend ;
+- aucun OAuth / JWT / SSO ;
+- aucune base users ;
+- aucune donnée réelle ;
+- aucun CRM ;
+- aucun workflow étendu.

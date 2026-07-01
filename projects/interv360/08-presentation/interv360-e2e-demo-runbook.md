@@ -102,8 +102,11 @@ npm run dev
 11. Vérifier le panneau **Readiness** et le **scénario guidé**.
 12. Exécuter le scénario guidé ou les transitions disponibles (workflow nominal).
 13. Vérifier que le journal local reflète les actions de démonstration.
-14. Cliquer sur **Réinitialiser la démo**.
-15. Vérifier le retour à l’état seed (`SAV-DEMO-001` en STAT-01, journal vide).
+14. Sélectionner le rôle **Administrateur** dans le sélecteur de rôle simulé (bandeau en haut de page).
+15. Cliquer sur **Réinitialiser la démo**.
+16. Vérifier le retour à l’état seed (`SAV-DEMO-001` en STAT-01, journal vide) et la conservation du rôle simulé.
+
+Voir aussi : [Contrôle — simulation de rôle](#contrôle--simulation-de-rôle).
 
 ---
 
@@ -168,9 +171,10 @@ Le mode API est opt-in.
 7. Vérifier que **Impact métier** est distinct de **Impact**.
 8. Exécuter **Qualifier la demande** (`qualify` → STAT-02).
 9. Vérifier le journal API (événement `qualification.confirmed`).
-10. Cliquer sur **Réinitialiser la démo** (`POST /api/v1/demo/reset`).
-11. Vérifier le retour à l’état seed (STAT-01, journal vide, champs productisés présents).
-12. Arrêter le backend, recharger le frontend en mode API : message **Backend indisponible en mode API local…** (pas de bascule silencieuse).
+10. Sélectionner le rôle **Administrateur** dans le sélecteur de rôle simulé.
+11. Cliquer sur **Réinitialiser la démo** (`POST /api/v1/demo/reset`).
+12. Vérifier le retour à l’état seed (STAT-01, journal vide, champs productisés présents) et la conservation du rôle simulé.
+13. Arrêter le backend, recharger le frontend en mode API : message **Backend indisponible en mode API local…** (pas de bascule silencieuse).
 
 **Points d’attention :**
 
@@ -190,12 +194,54 @@ Le mode API est opt-in.
 
 ---
 
+## Contrôle — simulation de rôle
+
+Interv360 dispose d’une simulation de rôle frontend.
+
+Cette simulation sert uniquement à démontrer les responsabilités produit.  
+Elle ne constitue pas une authentification réelle.
+
+### Rôles disponibles
+
+| Rôle | Libellé |
+|------|---------|
+| `requester` | Demandeur |
+| `technician` | Technicien |
+| `manager` | Responsable |
+| `admin` | Administrateur |
+| `viewer` | Observateur |
+
+### Contrôles à effectuer
+
+1. Vérifier que le rôle simulé est visible dans l’interface.
+2. Vérifier la mention : **Simulation — aucune authentification réelle**.
+3. Vérifier que le rôle par défaut est **Technicien**.
+4. Changer le rôle vers **Observateur**.
+5. Vérifier que les actions workflow sont bloquées.
+6. Tenter une action non autorisée et vérifier le message :
+   `Action non autorisée pour le rôle simulé : Observateur.`
+7. Changer le rôle vers **Administrateur**.
+8. Vérifier que le reset démo est autorisé.
+9. Exécuter le reset.
+10. Vérifier que le rôle simulé est conservé après reset.
+
+### Points d’attention
+
+- la simulation s’applique en mode local ;
+- la simulation s’applique en mode API opt-in ;
+- aucun appel API ne doit être réalisé lorsqu’une action est non autorisée ;
+- le reset démo est réservé à `admin` côté frontend ;
+- le backend n’est pas sécurisé par cette simulation ;
+- aucune auth réelle, OAuth, JWT, SSO ou base users n’est introduite.
+
+---
+
 ## 8. Preuves techniques à présenter
 
 | Preuve | Commande / contrôle | Attendu |
 |--------|---------------------|---------|
 | Frontend build | `npm run build` dans `projects/interv360/app` | OK |
-| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 81 tests ou plus |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 96 tests ou plus |
 | Backend build | `npm run build` dans `projects/interv360/backend` | OK |
 | Backend tests | `npm run test` dans `projects/interv360/backend` | 32 tests ou plus |
 | API health | `GET /health` | OK |
@@ -318,9 +364,10 @@ La démonstration reste volontairement bornée.
 
 **Hors périmètre actuel :**
 
-- authentification ;
-- utilisateurs ;
-- rôles et permissions ;
+- authentification réelle ;
+- utilisateurs réels ;
+- OAuth / JWT / SSO ;
+- base users complète ;
 - CRM ;
 - données réelles ;
 - workflow étendu ;
@@ -330,6 +377,13 @@ La démonstration reste volontairement bornée.
 - déploiement cloud ;
 - multi-tenant ;
 - audit réglementaire.
+
+**Simulation de rôle (frontend uniquement) :**
+
+- rôle actif simulé avec sélecteur ;
+- permissions différenciées selon le rôle ;
+- reset démo réservé au rôle `admin` côté frontend ;
+- aucune sécurité backend associée.
 
 Ces sujets nécessitent un cadrage dédié avant implémentation.
 
@@ -355,8 +409,9 @@ Le récit recommandé :
 5. Le frontend peut fonctionner seul en mode local pour une démo rapide.
 6. Le même parcours peut être connecté à une API locale persistante avec SQLite.
 7. Les erreurs API sont structurées et testées.
-8. Le reset permet de rejouer la démonstration.
-9. Les limites sont explicites : pas encore d’auth, users, rôles, CRM ou workflow étendu.
+8. Le reset permet de rejouer la démonstration (rôle **Administrateur** requis côté frontend).
+9. Une simulation de rôle frontend permet de démontrer les responsabilités sans auth réelle.
+10. Les limites restent explicites : pas d’auth réelle, pas de base users, pas de CRM ni workflow étendu.
 
 ---
 

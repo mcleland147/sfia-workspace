@@ -301,3 +301,30 @@ L’implémentation reste conforme au cadrage :
 - aucun backend modifié ;
 - aucune base users complète ;
 - aucun workflow étendu.
+
+---
+
+## 15. Statut INC-PROD-04
+
+Les tests et la documentation du batch `delivery/interv360-role-simulation` sont complétés.
+
+Validations :
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 96 tests |
+| Backend build | OK |
+| Backend tests | OK — 32 tests |
+
+La simulation de rôle reste conforme au cadrage :
+
+- frontend uniquement ;
+- aucune authentification réelle ;
+- aucun OAuth / JWT / SSO ;
+- aucune base users complète ;
+- aucun backend modifié ;
+- aucune API modifiée ;
+- aucun workflow étendu.
+
+Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §11, §14
