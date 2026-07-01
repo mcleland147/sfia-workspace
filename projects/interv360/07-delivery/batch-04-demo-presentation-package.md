@@ -180,9 +180,9 @@ No backend, API, database, SQL, CRM integration, real data, authentication, mult
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter après push |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-batch-04-demo-presentation-package?expand=1 |
 | Cible | main |
 | Source | delivery/interv360-batch-04-demo-presentation-package |
 | Merge automatique | Non |
