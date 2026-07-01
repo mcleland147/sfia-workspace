@@ -66,6 +66,8 @@ npm run dev
 
 Le mode local du frontend reste le mode par défaut.
 
+Runbook E2E (local + API) : [`../08-presentation/interv360-e2e-demo-runbook.md`](../08-presentation/interv360-e2e-demo-runbook.md)
+
 ## Structure
 
 ```text
