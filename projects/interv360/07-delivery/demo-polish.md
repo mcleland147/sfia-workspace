@@ -283,9 +283,9 @@ The polish is strictly limited to the confirmed feedback: reducing scroll throug
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-demo-polish?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-demo-polish` |
 | Merge automatique | Non |
