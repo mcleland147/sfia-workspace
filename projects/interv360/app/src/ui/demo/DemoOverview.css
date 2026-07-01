@@ -1,0 +1,107 @@
+.demo-overview {
+  background: linear-gradient(180deg, #f7f9fc 0%, #ffffff 100%);
+  border-bottom: 1px solid #d8dee8;
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 1.5rem 1.25rem 1.25rem;
+}
+
+.demo-overview__eyebrow {
+  color: #4a5d7a;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+}
+
+.demo-overview__title {
+  color: #1a2433;
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.demo-overview__lead {
+  color: #3a4658;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 42rem;
+}
+
+.demo-overview__panels {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin-top: 1.25rem;
+}
+
+.demo-overview__panel {
+  background: #fff;
+  border: 1px solid #dde3ec;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+}
+
+.demo-overview__panel-title {
+  color: #2a3545;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.demo-overview__path {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.demo-overview__path-step {
+  margin: 0;
+}
+
+.demo-overview__path-badge,
+.demo-overview__status-badge {
+  background: #eef2f7;
+  border: 1px solid #c8d2e0;
+  border-radius: 999px;
+  color: #2a3545;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+}
+
+.demo-overview__path-step--current .demo-overview__path-badge,
+.demo-overview__status-badge {
+  background: #e8f1ff;
+  border-color: #7aa7e8;
+  color: #1f4f9c;
+}
+
+.demo-overview__status {
+  margin: 0;
+}
+
+.demo-overview__status--missing {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.demo-overview__limits {
+  color: #3a4658;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.demo-overview__limits li + li {
+  margin-top: 0.25rem;
+}

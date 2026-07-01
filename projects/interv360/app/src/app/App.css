@@ -1,4 +1,105 @@
 .app-shell {
+  background: #f4f6f9;
   margin: 0;
   min-height: 100vh;
+}
+
+.app-nav {
+  background: #fff;
+  border-bottom: 1px solid #dde3ec;
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.app-nav__label {
+  color: #5a6678;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.app-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app-nav__link {
+  background: #f3f6fa;
+  border: 1px solid #cfd8e6;
+  border-radius: 999px;
+  color: #1f4f9c;
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  text-decoration: none;
+}
+
+.app-nav__link:hover {
+  background: #e8f1ff;
+}
+
+.app-layout {
+  display: grid;
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 1rem 1.25rem 2rem;
+}
+
+.app-section {
+  display: grid;
+  gap: 1rem;
+}
+
+.app-section--controls {
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.app-section--request {
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.app-section__title {
+  color: #2a3545;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.app-journey-grid {
+  display: grid;
+  gap: 1rem;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.app-journey-card {
+  min-width: 0;
+}
+
+.app-section--journal {
+  grid-template-columns: 1fr;
+}
+
+.app-section--controls > *,
+.app-section--request > *,
+.app-journey-card > *,
+.app-section--journal > * {
+  margin: 0;
+  max-width: none;
+}
+
+@media (min-width: 960px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
 }

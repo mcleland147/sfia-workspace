@@ -12,6 +12,13 @@ describe("App smoke", () => {
   it("renders the readonly skeleton and workflow controls", () => {
     render(<App />);
     expect(
+      screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/INC-02/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("navigation", { name: /Navigation interne de la démo/i }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("heading", { name: /Demandes SAV/i }),
     ).toBeInTheDocument();
     expect(
@@ -67,9 +74,7 @@ describe("App smoke", () => {
 
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
     expect(screen.queryByText("SAV-MUTATED")).not.toBeInTheDocument();
-    expect(screen.getAllByRole("status")[0]).toHaveTextContent(
-      /Démo réinitialisée/i,
-    );
+    expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
   });
 
   it("runs the nominal controlled workflow and restores initial state on reset", () => {
