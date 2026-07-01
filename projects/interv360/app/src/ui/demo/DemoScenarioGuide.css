@@ -1,0 +1,156 @@
+.demo-scenario-guide {
+  background: #fff;
+  border: 1px solid #dde3ec;
+  border-radius: 8px;
+  font-family: system-ui, sans-serif;
+  padding: 1rem 1.25rem;
+}
+
+.demo-scenario-guide__header {
+  margin-bottom: 1rem;
+}
+
+.demo-scenario-guide__eyebrow {
+  color: #5a6678;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.demo-scenario-guide__title {
+  font-size: 1.1rem;
+  margin: 0 0 0.35rem;
+}
+
+.demo-scenario-guide__progress {
+  color: #1f4f9c;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.demo-scenario-guide__steps {
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.demo-scenario-guide__step {
+  align-items: center;
+  border-left: 3px solid #dde3ec;
+  color: #5a6678;
+  display: flex;
+  font-size: 0.85rem;
+  gap: 0.5rem;
+  padding: 0.25rem 0 0.25rem 0.5rem;
+}
+
+.demo-scenario-guide__step--current {
+  border-left-color: #1f4f9c;
+  color: #1f4f9c;
+  font-weight: 600;
+}
+
+.demo-scenario-guide__step--completed {
+  border-left-color: #9bc79b;
+  color: #2f6b2f;
+}
+
+.demo-scenario-guide__step-index {
+  background: #f3f6fa;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  height: 1.4rem;
+  justify-content: center;
+  min-width: 1.4rem;
+}
+
+.demo-scenario-guide__step--current .demo-scenario-guide__step-index {
+  background: #e8f1ff;
+  color: #1f4f9c;
+}
+
+.demo-scenario-guide__current {
+  background: #f8fafc;
+  border: 1px solid #e3e9f2;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.demo-scenario-guide__current-title {
+  font-size: 0.95rem;
+  margin: 0 0 0.35rem;
+}
+
+.demo-scenario-guide__current-summary {
+  color: #2a3545;
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+.demo-scenario-guide__help {
+  background: #fff;
+  border-left: 3px solid #cfd8e6;
+  color: #444;
+  font-size: 0.85rem;
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+}
+
+.demo-scenario-guide__help-label {
+  color: #5a6678;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.demo-scenario-guide__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.demo-scenario-guide__button {
+  background: #fff;
+  border: 1px solid #cfd8e6;
+  border-radius: 6px;
+  color: #2a3545;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.75rem;
+}
+
+.demo-scenario-guide__button:hover:not(:disabled) {
+  background: #f3f6fa;
+}
+
+.demo-scenario-guide__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.demo-scenario-guide__button--primary {
+  background: #e8f1ff;
+  border-color: #1f4f9c;
+  color: #1f4f9c;
+  font-weight: 600;
+}
+
+.demo-scenario-guide__button--reset {
+  margin-left: auto;
+}
+
+@media (max-width: 40rem) {
+  .demo-scenario-guide__button--reset {
+    margin-left: 0;
+    width: 100%;
+  }
+}

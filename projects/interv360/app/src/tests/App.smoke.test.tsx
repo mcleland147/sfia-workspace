@@ -14,8 +14,12 @@ describe("App smoke", () => {
     expect(
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText(/INC-03/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Batch 01/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Batch 02/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("region", { name: /Scénario guidé de démonstration/i }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
     expect(screen.getByLabelText(/Recherche locale/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Synthèse locale par statut/i)).toBeInTheDocument();
     expect(
@@ -148,6 +152,41 @@ describe("App smoke", () => {
     expect(
       screen.getByText(/Aucune demande fictive ne correspond aux critères locaux/i),
     ).toBeInTheDocument();
+  });
+
+  it("navigates the guided scenario and resets scenario step without data changes", () => {
+    render(<App />);
+
+    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
+
+    fireEvent.click(screen.getByRole("button", { name: /Étape suivante/i }));
+    expect(screen.getAllByText(/Étape 2 sur 6/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("heading", {
+        name: /Observer le statut et les indicateurs/i,
+      }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Revenir au début du scénario/i }),
+    );
+    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
+  });
+
+  it("restores scenario step on global demo reset", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Étape suivante/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Étape suivante/i }));
+    expect(screen.getAllByText(/Étape 3 sur 6/i).length).toBeGreaterThan(0);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Réinitialiser la démo/i }),
+    );
+
+    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
   });
 
   it("runs the nominal controlled workflow and restores initial state on reset", () => {

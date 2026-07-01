@@ -94,6 +94,29 @@
   font-size: 0.9rem;
 }
 
+.demo-overview__scenario {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.demo-overview__scenario-progress {
+  color: #1f4f9c;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.demo-overview__scenario-title {
+  color: #2a3545;
+  font-size: 0.9rem;
+}
+
+.demo-overview__scenario--missing {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 .demo-overview__limits {
   color: #3a4658;
   font-size: 0.9rem;

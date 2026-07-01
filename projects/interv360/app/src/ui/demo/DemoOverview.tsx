@@ -12,13 +12,20 @@ const NOMINAL_PATH: RequestStatus[] = [
 interface DemoOverviewProps {
   requestId: string;
   currentStatus?: RequestStatus;
+  scenarioStepTitle?: string;
+  scenarioProgressLabel?: string;
 }
 
-export function DemoOverview({ requestId, currentStatus }: DemoOverviewProps) {
+export function DemoOverview({
+  requestId,
+  currentStatus,
+  scenarioStepTitle,
+  scenarioProgressLabel,
+}: DemoOverviewProps) {
   return (
     <header className="demo-overview">
       <div className="demo-overview__intro">
-        <p className="demo-overview__eyebrow">INC-03 — Multi-demandes locales</p>
+        <p className="demo-overview__eyebrow">Batch 02 — Pilotage démo</p>
         <h1 className="demo-overview__title">Interv360 — flux SAV minimal</h1>
         <p className="demo-overview__lead">
           Démonstrateur local et fictif. Demande sélectionnée :{" "}
@@ -55,6 +62,24 @@ export function DemoOverview({ requestId, currentStatus }: DemoOverviewProps) {
           ) : (
             <p className="demo-overview__status demo-overview__status--missing">
               Statut indisponible
+            </p>
+          )}
+        </div>
+
+        <div className="demo-overview__panel">
+          <h2 className="demo-overview__panel-title">Scénario courant</h2>
+          {scenarioStepTitle && scenarioProgressLabel ? (
+            <p className="demo-overview__scenario" role="status">
+              <span className="demo-overview__scenario-progress">
+                {scenarioProgressLabel}
+              </span>
+              <span className="demo-overview__scenario-title">
+                {scenarioStepTitle}
+              </span>
+            </p>
+          ) : (
+            <p className="demo-overview__scenario demo-overview__scenario--missing">
+              Scénario indisponible
             </p>
           )}
         </div>
