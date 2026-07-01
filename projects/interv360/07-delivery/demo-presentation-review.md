@@ -305,3 +305,65 @@ Cette PR doit être **mergée dans `main` même sans feedback humain réel** : e
 | Cible | main |
 | Source | delivery/interv360-demo-presentation-review |
 | Merge automatique | Non |
+
+---
+
+## 15. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#45](https://github.com/mcleland147/sfia-workspace/pull/45) |
+| Source | `delivery/interv360-demo-presentation-review` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `9324f83` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 77 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 18 tests |
+| Code frontend modifié | Non |
+| Backend modifié | Non |
+| Nouveau scope métier | Non |
+| Polish UX réalisé | Non |
+| Feedback humain inventé | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Demo Presentation Review** est mergé dans `main`.
+
+La branche principale contient désormais :
+
+- une trame de présentation Interv360 ;
+- une grille de feedback humain ;
+- une liste d'irritants à confirmer ;
+- une décision explicite de ne pas lancer de polish UX sans feedback humain ;
+- l'état documentaire `prêt à présenter, en attente d'interlocuteur`.
+
+Aucun changement produit n'a été introduit.
+
+Aucun feedback humain n'a été inventé.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery documentaire.
+
+### Prochaine étape recommandée
+
+**Prochaine étape hors repo :**
+
+- exécuter la présentation ou revue avec un interlocuteur réel ;
+- compléter la grille de feedback ;
+- confirmer ou infirmer les irritants documentés.
+
+**Cycle repo ultérieur selon résultat :**
+
+- `delivery/interv360-demo-polish` si irritants UX confirmés ;
+- `delivery/interv360-demo-presentation-feedback` si l'objectif est de tracer le feedback humain collecté ;
+- pause temporaire si aucun irritant significatif n'est confirmé.
