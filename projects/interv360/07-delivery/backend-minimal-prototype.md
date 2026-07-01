@@ -217,12 +217,73 @@ Aucun push, aucune PR et aucun merge ne sont effectués dans ce cycle.
 
 Ne pas connecter immédiatement le frontend.
 
-**Cycle recommandé suivant :** `delivery/interv360-backend-pr-preparation`
-
-**Alternative :** `delivery/interv360-frontend-api-connection-framing`
+**Cycle recommandé suivant :** `delivery/interv360-frontend-api-connection-framing`
 
 Objectif :
 
 - décider comment le frontend basculera de `localStorage` vers l'API ;
 - éviter de casser la démo locale ;
 - garder un mode local/demo clair.
+
+---
+
+## 12. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 backend minimal prototype`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds the Interv360 backend minimal prototype.
+It includes:
+- backend target framing;
+- backend data model decision;
+- backend technical stack decision;
+- backend API contract framing;
+- a local Node.js / TypeScript / Express backend;
+- REST endpoints under `/api/v1`;
+- in-memory demo store initialized from fictitious seed data;
+- transition validation on the backend side;
+- workflow event creation after successful transitions;
+- demo reset endpoint;
+- backend unit and API tests.
+
+## Validation
+- Backend build: OK
+- Backend tests: 18 passed
+- API endpoints: OK
+- Transition rules: OK
+- Demo reset: OK
+- Fictitious data only: OK
+- Frontend not connected
+- Frontend source not modified
+
+## Guardrails
+No frontend connection, SQL database, SQLite, PostgreSQL, CRM integration, authentication, multi-user logic, real data, production deployment, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Périmètre PR (vs `main`)
+
+| Zone | Fichiers |
+|------|----------|
+| Architecture | `09-architecture/interv360-backend-*.md` (4 documents) |
+| Livraison | `07-delivery/backend-minimal-prototype.md` |
+| Backend | `projects/interv360/backend/` (14 fichiers) |
+
+Hors périmètre confirmé : `app/src`, Controlled Delivery, sfia-notion-sync, exports Figma.
+
+---
+
+## 13. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | main |
+| Source | delivery/interv360-backend-minimal-prototype |
+| Merge automatique | Non |
