@@ -44,6 +44,8 @@ npm run dev
 
 Attendu : `Interv360 backend listening on http://localhost:3001`
 
+Le backend persiste l'état démo dans un fichier SQLite local (`data/interv360.sqlite` par défaut). Un redémarrage du backend conserve transitions et journal jusqu'au reset.
+
 ### Terminal 2 — frontend
 
 ```bash
@@ -52,6 +54,12 @@ VITE_INTERV360_DATA_SOURCE=api \
 VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
 npm run dev
 ```
+
+**Ports :**
+
+- backend : `3001` ;
+- frontend Vite : `5173` par défaut, ou `5174` / `5175` si le port est occupé ;
+- le backend autorise en local les origins Vite courantes (`localhost` et `127.0.0.1` sur ces ports).
 
 **Attendu :**
 
@@ -114,7 +122,7 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 - Pas de fallback automatique silencieux.
 - Pas de CRM.
 - Pas d'authentification.
-- Pas de DB SQL.
+- Persistance SQLite côté backend uniquement (pas de SQL navigateur).
 - Workflow nominal uniquement (STAT-01 → STAT-02 → STAT-03 → STAT-04 → STAT-06).
 
 ---
@@ -125,5 +133,7 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 |----------|----------------|--------|
 | `ERR_CONNECTION_REFUSED` sur `:5173` | Frontend non lancé | `npm run dev` dans `app/` |
 | Badge Mode API + message backend indisponible | Backend arrêté | Lancer `npm run dev` dans `backend/` |
+| Erreur CORS en mode API (port Vite alternatif) | Origin non autorisée (rare) | Vérifier le port affiché par Vite ; par défaut `5173`–`5175` sont autorisés, ou définir `INTERV360_CORS_ORIGINS` côté backend |
 | Liste vide en mode API | Mauvaise URL API | Vérifier `VITE_INTERV360_API_BASE_URL` |
 | Transition refusée | Statut incompatible | Vérifier statut courant (STAT-06 terminal) |
+| État API incohérent après tests | SQLite conserve l'état | `POST /api/v1/demo/reset` ou bouton **Réinitialiser la démo** |

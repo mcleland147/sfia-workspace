@@ -32,7 +32,31 @@ npm run test     # unit + API + persistence tests
 | `PORT` | `3001` | HTTP port |
 | `SQLITE_PATH` | `data/interv360.sqlite` | SQLite database file (`:memory:` supported) |
 | `DEMO_MODE` | `true` (when unset) | Required for `POST /api/v1/demo/reset` |
-| `CORS_ORIGIN` | `http://localhost:5173` | Allowed frontend origin |
+| `INTERV360_CORS_ORIGINS` | *(see below)* | Optional comma-separated list of allowed browser origins |
+| `CORS_ORIGIN` | *(legacy)* | Single allowed origin if `INTERV360_CORS_ORIGINS` is unset |
+
+### Local CORS (demo API mode)
+
+By default the backend allows common **local Vite dev server** origins:
+
+- `http://localhost:5173`, `5174`, `5175`
+- `http://127.0.0.1:5173`, `5174`, `5175`
+
+If Vite picks an alternate port because `5173` is busy, the API mode still works without changing frontend env vars.
+
+Override with a custom list when needed:
+
+```bash
+INTERV360_CORS_ORIGINS=http://localhost:5180,http://127.0.0.1:5180 npm run dev
+```
+
+Legacy single-origin override (still supported):
+
+```bash
+CORS_ORIGIN=http://localhost:5173 npm run dev
+```
+
+This is **local demo hardening only** — not a production CORS policy.
 
 The local SQLite file is created automatically and ignored by Git (`data/`, `*.sqlite`).
 
