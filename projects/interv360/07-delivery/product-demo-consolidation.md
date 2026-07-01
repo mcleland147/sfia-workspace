@@ -300,9 +300,9 @@ No code change, frontend source change, backend change, SQLite change, API contr
 
 | Élément | Valeur |
 |---------|--------|
-| Push | <OK / KO> |
-| PR créée automatiquement | <Oui / Non> |
-| URL PR ou comparaison | <url> |
+| Push | OK |
+| PR créée automatiquement | Non |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-product-demo-consolidation?expand=1 |
 | Cible | main |
 | Source | delivery/interv360-product-demo-consolidation |
 | Merge automatique | Non |
