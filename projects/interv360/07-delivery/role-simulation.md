@@ -464,13 +464,11 @@ No real authentication, OAuth, JWT, SSO, backend user database, CRM integration,
 
 ## 16. Statut push / PR
 
-À compléter après push.
-
 | Élément | Valeur |
 |---------|--------|
-| Push | `<OK / KO>` |
-| PR créée automatiquement | `<Oui / Non>` |
-| URL PR ou comparaison | `<url>` |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-role-simulation?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-role-simulation` |
 | Merge automatique | Non |
