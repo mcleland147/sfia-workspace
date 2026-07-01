@@ -1,5 +1,20 @@
 import type Database from "better-sqlite3";
 
+function addColumnIfMissing(
+  db: Database.Database,
+  table: string,
+  column: string,
+  definition: string,
+): void {
+  const columns = db
+    .prepare(`PRAGMA table_info(${table})`)
+    .all() as Array<{ name: string }>;
+
+  if (!columns.some((entry) => entry.name === column)) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
 export function applySqliteSchema(db: Database.Database): void {
   db.exec(`
     CREATE TABLE IF NOT EXISTS requests (
@@ -23,6 +38,9 @@ export function applySqliteSchema(db: Database.Database): void {
       category TEXT NOT NULL,
       channel TEXT NOT NULL,
       impact TEXT NOT NULL,
+      requested_date TEXT NOT NULL DEFAULT '',
+      equipment_label TEXT NOT NULL DEFAULT '',
+      business_impact TEXT NOT NULL DEFAULT '',
       demo_center TEXT NOT NULL,
       description TEXT NOT NULL,
       readonly_blocks_json TEXT NOT NULL,
@@ -47,4 +65,23 @@ export function applySqliteSchema(db: Database.Database): void {
       value TEXT NOT NULL
     );
   `);
+
+  addColumnIfMissing(
+    db,
+    "request_details",
+    "requested_date",
+    "TEXT NOT NULL DEFAULT ''",
+  );
+  addColumnIfMissing(
+    db,
+    "request_details",
+    "equipment_label",
+    "TEXT NOT NULL DEFAULT ''",
+  );
+  addColumnIfMissing(
+    db,
+    "request_details",
+    "business_impact",
+    "TEXT NOT NULL DEFAULT ''",
+  );
 }

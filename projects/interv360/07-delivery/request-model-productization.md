@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Request Model Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-01 réalisé  
+**Statut** : Batch produit — INC-PROD-02 réalisé  
 **Branche** : `delivery/interv360-request-model-productization`
 
 ---
@@ -84,8 +84,8 @@ Le batch ne doit pas inclure :
 | Incrément | Objectif | Statut |
 |----------|----------|--------|
 | INC-PROD-01 | Borner les champs métier minimaux | Réalisé |
-| INC-PROD-02 | Implémenter les champs côté backend + SQLite | À faire |
-| INC-PROD-03 | Ajouter validation API ciblée | À confirmer |
+| INC-PROD-02 | Implémenter les champs côté backend + SQLite | Réalisé |
+| INC-PROD-03 | Ajouter validation API ciblée | Non retenu — couvert par tests INC-PROD-02 |
 | INC-PROD-04 | Mettre à jour documentation / runbook | À faire |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
@@ -166,10 +166,10 @@ INC-PROD-02 devra **productiser** les champs retenus (exposition API cohérente,
 |---------|----------|
 | Champs métier minimaux décidés | OK |
 | Nombre de champs limité | OK — 5 champs retenus |
-| SQLite adaptée | À faire (INC-PROD-02) |
-| Seed fictif adapté | À faire (INC-PROD-02) |
-| API `/api/v1` conservée | OK — objectif batch |
-| Tests backend adaptés | À faire (INC-PROD-02) |
+| SQLite adaptée | OK |
+| Seed fictif adapté | OK |
+| API `/api/v1` conservée | OK |
+| Tests backend adaptés | OK |
 | Frontend source non modifié ou justification mineure | OK — non modifié par défaut |
 | Pas d’auth / users / rôles | OK |
 | Pas de CRM / données réelles | OK |
@@ -181,13 +181,15 @@ INC-PROD-02 devra **productiser** les champs retenus (exposition API cohérente,
 
 | Sujet | Décision |
 |------|----------|
-| Champs retenus | `category`, `site`, `requestedDate`, `equipmentLabel`, `businessImpact` |
+| Champs retenus | `category`, `siteLabel` comme exposition site, `requestedDate`, `equipmentLabel`, `businessImpact` |
+| Champs effectivement ajoutés | `requestedDate`, `equipmentLabel`, `businessImpact` |
+| Champs existants productisés | `category`, `siteLabel` |
 | Champs différés | `plannedInterventionDate`, `requesterName`, `assignedTechnician` |
 | Champs exclus | `crmReference`, `userId` |
-| SQLite | À adapter dans INC-PROD-02 |
-| Seed | À adapter dans INC-PROD-02 |
+| SQLite | Colonnes `requested_date`, `equipment_label`, `business_impact` sur `request_details` ; migration `ALTER TABLE` ciblée si base locale existante |
+| Seed | Données fictives enrichies sur les 3 demandes démo |
 | API contract | Conservé — enrichissement payload sans rupture |
-| Frontend | Non modifié par défaut |
+| Frontend | Non modifié |
 
 ---
 
@@ -199,19 +201,29 @@ INC-PROD-02 devra **productiser** les champs retenus (exposition API cohérente,
 - intégration de la décision roadmap post-persistance ;
 - décision ferme sur les champs métier minimaux.
 
+**INC-PROD-02** — backend + SQLite :
+
+- ajout de `requestedDate`, `equipmentLabel`, `businessImpact` sur `RequestDetail` ;
+- conservation de `category` ;
+- conservation de `siteLabel` comme exposition site côté `Request` ;
+- conservation de `impact` comme libellé démo court distinct de `businessImpact` ;
+- adaptation du schéma SQLite (`sqliteSchema.ts`) avec migration `ALTER TABLE` ciblée ;
+- adaptation du seed et du mapping store (`sqliteSeed.ts`, `demoStore.ts`) ;
+- adaptation des tests backend (`api.test.ts`, `persistence.test.ts`).
+
 ---
 
 ## 9. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
-| Backend build | Non applicable — INC-PROD-01 documentaire |
-| Backend tests | Non applicable — INC-PROD-01 documentaire |
-| Frontend build | Non applicable — INC-PROD-01 documentaire |
-| Frontend tests | Non applicable — INC-PROD-01 documentaire |
-| API curl | Non exécutée — INC-PROD-01 documentaire |
-| Reset API | Non applicable — INC-PROD-01 documentaire |
-| Persistance SQLite | Non modifiée — INC-PROD-01 documentaire |
+| Backend build | OK |
+| Backend tests | OK — 27 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+| API curl | OK — `requestedDate`, `equipmentLabel`, `businessImpact`, `category`, `siteLabel` |
+| Reset API | OK |
+| Persistance SQLite | OK — tests persistence + migration colonnes |
 
 ---
 
@@ -225,10 +237,11 @@ INC-PROD-02 devra **productiser** les champs retenus (exposition API cohérente,
 - pas de workflow étendu ;
 - pas de nouveaux statuts ;
 - pas de production ;
-- INC-PROD-01 ne modifie pas le code.
+- INC-PROD-02 limité au backend ; frontend inchangé ;
+- bases SQLite locales existantes : exécuter un reset démo ou supprimer `data/interv360.sqlite` pour recharger le seed enrichi si colonnes migrées vides.
 
 ---
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-02** : implémenter les champs retenus côté backend + SQLite + seed, en clarifiant le mapping avec les champs démo existants (`siteLabel`, `impact`, `category`).
+**INC-PROD-04** : mettre à jour documentation / runbook (INC-PROD-03 validation API ciblée à arbitrer selon couverture tests).

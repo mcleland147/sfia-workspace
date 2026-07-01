@@ -48,6 +48,21 @@ describe("Interv360 API", () => {
     expect(response.body.request.isDemo).toBe(true);
   });
 
+  it("GET /api/v1/requests/:id exposes productized detail fields", async () => {
+    const response = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(response.status).toBe(200);
+    expect(response.body.request.siteLabel).toBe("Lyon Démo");
+    expect(response.body.detail.category).toBe("Panne machine");
+    expect(response.body.detail.requestedDate).toBe("2026-01-12T09:00:00.000Z");
+    expect(response.body.detail.equipmentLabel).toBe(
+      "Ligne d'assemblage démo — poste 3",
+    );
+    expect(response.body.detail.businessImpact).toBe(
+      "Interruption d'un flux de production fictif planifié",
+    );
+    expect(response.body.detail.impact).toBe("Production démo limitée");
+  });
+
   it("GET /api/v1/requests/:id unknown returns REQUEST_NOT_FOUND", async () => {
     const response = await request(app).get("/api/v1/requests/UNKNOWN");
     expect(response.status).toBe(404);
@@ -126,6 +141,19 @@ describe("Interv360 API", () => {
       "/api/v1/requests/SAV-DEMO-001/events",
     );
     expect(eventsAfter.body.items).toHaveLength(0);
+
+    const detailAfterReset = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001",
+    );
+    expect(detailAfterReset.body.detail.requestedDate).toBe(
+      "2026-01-12T09:00:00.000Z",
+    );
+    expect(detailAfterReset.body.detail.equipmentLabel).toBe(
+      "Ligne d'assemblage démo — poste 3",
+    );
+    expect(detailAfterReset.body.detail.businessImpact).toBe(
+      "Interruption d'un flux de production fictif planifié",
+    );
   });
 
   it("POST /api/v1/demo/reset returns DEMO_MODE_REQUIRED when disabled", async () => {

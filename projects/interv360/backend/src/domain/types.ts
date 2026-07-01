@@ -42,6 +42,9 @@ export interface DemoRequestDetail {
   category: string;
   channel: string;
   impact: string;
+  requestedDate: string;
+  equipmentLabel: string;
+  businessImpact: string;
   demoCenter: string;
   description: string;
   readonlyBlocks: {

@@ -39,9 +39,11 @@ export function insertSeedData(db: Database.Database): void {
   const insertDetail = db.prepare(`
     INSERT INTO request_details (
       id, request_id, category, channel, impact,
+      requested_date, equipment_label, business_impact,
       demo_center, description, readonly_blocks_json
     ) VALUES (
       @id, @requestId, @category, @channel, @impact,
+      @requestedDate, @equipmentLabel, @businessImpact,
       @demoCenter, @description, @readonlyBlocksJson
     )
   `);
@@ -89,6 +91,9 @@ function detailToRow(detail: DemoRequestDetail) {
     category: detail.category,
     channel: detail.channel,
     impact: detail.impact,
+    requestedDate: detail.requestedDate,
+    equipmentLabel: detail.equipmentLabel,
+    businessImpact: detail.businessImpact,
     demoCenter: detail.demoCenter,
     description: detail.description,
     readonlyBlocksJson: JSON.stringify(detail.readonlyBlocks),
