@@ -319,3 +319,65 @@ Décision attendue :
 - JSON file si objectif transition très légère ;
 - SQLite si objectif première vraie persistance produit locale ;
 - PostgreSQL plus tard si industrialisation.
+
+---
+
+## 14. Préparation PR intégrée
+
+### Titre proposé
+
+`Frame Interv360 product industrialization`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR frames the transition of Interv360 from Demo MVP to product trajectory.
+It documents:
+- the decision to stop demo-oriented polish cycles;
+- the difference between Demo MVP and product reality;
+- the risks of coding product features too quickly;
+- four possible product trajectories;
+- the recommendation to start with backend persistence;
+- the next recommended cycle: `architecture/interv360-backend-persistence-decision`.
+## Key decision
+Interv360 should now move out of demo mode and enter a product trajectory.
+The recommended first product step is backend persistence, because the demo already has:
+- a usable frontend;
+- a minimal backend;
+- an API contract;
+- a nominal workflow.
+## Validation
+- Product framing created
+- Demo phase recognized as closed
+- Product trajectory defined
+- First product cycle recommended
+- No frontend code changed
+- No backend code changed
+- No product implementation introduced
+## Guardrails
+No frontend change, backend change, demo polish, SQL database, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité au document de cadrage | OK |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| Persistance implémentée | Non |
+| Polish démo ajouté | Non |
+| Trajectoire produit documentée | OK |
+| Premier cycle recommandé | OK — `architecture/interv360-backend-persistence-decision` |
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `architecture/interv360-product-industrialization-framing` |
+| Merge automatique | Non |
