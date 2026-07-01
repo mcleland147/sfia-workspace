@@ -381,3 +381,67 @@ No frontend change, backend change, demo polish, SQL database, CRM integration, 
 | Cible | `main` |
 | Source | `architecture/interv360-product-industrialization-framing` |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#49](https://github.com/mcleland147/sfia-workspace/pull/49) |
+| Source | `architecture/interv360-product-industrialization-framing` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `81e56b7` |
+| Main synchronisée | OK |
+| Sortie mode démo actée | OK |
+| Trajectoire produit définie | OK |
+| Recommandation persistance backend | OK |
+| Premier cycle produit recommandé | OK — `architecture/interv360-backend-persistence-decision` |
+| Code frontend modifié | Non |
+| Backend modifié | Non |
+| Code produit introduit | Non |
+| Persistance implémentée | Non |
+| Polish démo ajouté | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Product Industrialization Framing** est mergé dans `main`.
+
+La branche principale acte désormais officiellement :
+
+- la fin du mode démonstrateur opportuniste ;
+- l'entrée d'Interv360 dans une trajectoire produit ;
+- l'arrêt des polish démo non justifiés ;
+- la recommandation de commencer par une brique de persistance backend ;
+- le prochain cycle recommandé : `architecture/interv360-backend-persistence-decision`.
+
+Aucune implémentation produit n'a été introduite dans ce cycle.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery stratégique.
+
+### Prochaine étape recommandée
+
+Cycle recommandé :
+
+`architecture/interv360-backend-persistence-decision`
+
+Objectif :
+
+- comparer JSON file, SQLite et PostgreSQL ;
+- choisir la stratégie de persistance backend adaptée au passage démo → produit ;
+- préparer le premier incrément produit d'implémentation.
+
+Décision attendue :
+
+- éviter PostgreSQL tant que l'industrialisation complète n'est pas décidée ;
+- éviter une solution trop légère si elle ne permet pas de sortir réellement du mode démo ;
+- privilégier une première brique produit locale, testable et maintenable.
