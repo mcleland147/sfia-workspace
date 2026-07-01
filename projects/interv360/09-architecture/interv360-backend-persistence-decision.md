@@ -293,3 +293,64 @@ Objectif :
 - conserver l'API `/api/v1` et les données fictives de seed ;
 - trancher les points ouverts (§10) dans le cadre de l'implémentation ;
 - ne pas ouvrir auth, CRM, PostgreSQL ou refonte frontend.
+
+---
+
+## 14. Préparation PR intégrée
+
+### Titre proposé
+
+`Decide Interv360 backend persistence`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR documents the backend persistence decision for Interv360.
+It compares:
+- JSON file
+- SQLite
+- PostgreSQL
+## Key decision
+SQLite is selected as the first backend persistence brick for the product trajectory.
+Rationale:
+- JSON file remains too close to the demo;
+- PostgreSQL is too heavy for the first product increment;
+- SQLite provides durable persistence, local testability, structured data, and a future path toward PostgreSQL.
+## Next cycle
+Recommended next cycle:
+`delivery/interv360-backend-persistence`
+Expected implementation scope:
+- introduce SQLite in the backend;
+- persist requests, details, and workflow events;
+- keep the existing `/api/v1` API;
+- keep fictitious seed data;
+- keep demo reset;
+- adapt backend tests;
+- avoid frontend changes except minor necessity.
+## Guardrails
+No frontend change, backend change, persistence implementation, dependency, ORM, migration, SQL database in code, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced in this decision cycle.
+```
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité au document de décision | OK |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| SQLite implémenté | Non |
+| Dépendance ajoutée | Non |
+| Décision SQLite documentée | OK |
+| Prochain cycle recommandé | OK — `delivery/interv360-backend-persistence` |
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `architecture/interv360-backend-persistence-decision` |
+| Merge automatique | Non |
