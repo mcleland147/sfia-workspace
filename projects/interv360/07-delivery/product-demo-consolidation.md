@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Product Demo Consolidation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-02 réalisé  
+**Statut** : Batch produit — INC-PROD-04 réalisé  
 **Branche** : `delivery/interv360-product-demo-consolidation`
 
 ---
@@ -80,8 +80,8 @@ Le batch ne doit pas inclure :
 |----------|----------|--------|
 | INC-PROD-01 | Cadrer la consolidation démo produit | Réalisé |
 | INC-PROD-02 | Mettre à jour le runbook bout-en-bout | Réalisé |
-| INC-PROD-03 | Consolider le récit produit / support court | À confirmer |
-| INC-PROD-04 | Valider le parcours et préparer PR | À venir |
+| INC-PROD-03 | Consolider le récit produit / support court | Non retenu — récit déjà consolidé dans le runbook |
+| INC-PROD-04 | Valider le parcours et préparer PR | Réalisé |
 
 ---
 
@@ -166,7 +166,7 @@ Les supports de présentation existants (`interv360-e2e-demo-runbook.md`, `inter
 | Code frontend | Non modifié |
 | Code backend | Non modifié |
 | Runbook | Consolidé |
-| Support court | À confirmer après relecture du runbook |
+| Support court | Non retenu — runbook suffisant |
 | Validation navigateur | Documentée, exécution optionnelle |
 | API contract | Conservé |
 | Mode local | Conservé |
@@ -195,16 +195,30 @@ Les supports de présentation existants (`interv360-e2e-demo-runbook.md`, `inter
 - ajout d’un récit de démonstration synthétique ;
 - aucun code modifié.
 
+**INC-PROD-03** — support court non retenu :
+
+- le récit produit est déjà consolidé dans le runbook ;
+- les preuves techniques sont déjà listées ;
+- les limites assumées sont déjà clarifiées ;
+- modifier le script ou le one-page summary apporterait une valeur marginale à ce stade ;
+- aucun support court supplémentaire n’est modifié dans ce batch.
+
+**INC-PROD-04** — validation + préparation PR :
+
+- validations automatisées rejouées ;
+- préparation PR intégrée au document de batch ;
+- conservation du périmètre documentaire uniquement.
+
 ---
 
 ## 9. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
-| Backend build | Non exécuté — documentation uniquement |
-| Backend tests | Non exécutés — documentation uniquement |
-| Frontend build | Non exécuté — documentation uniquement |
-| Frontend tests | Non exécutés — documentation uniquement |
+| Backend build | OK |
+| Backend tests | OK — 32 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
 | Validation navigateur local | Documentée — exécution optionnelle |
 | Validation navigateur API | Documentée — exécution optionnelle |
 | Reset API | Documenté — exécution optionnelle |
@@ -229,4 +243,66 @@ Limites attendues :
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-03** : décider si le support court et le script de démo nécessitent un alignement léger après consolidation du runbook.
+Le batch est prêt pour PR.
+
+Après merge, options possibles :
+
+1. `architecture/interv360-auth-and-user-framing`
+   - si l’objectif devient identité, utilisateurs, rôles et responsabilités ;
+2. `architecture/interv360-workflow-extension-framing`
+   - si l’objectif devient l’extension du workflow métier ;
+3. `architecture/interv360-product-roadmap-next`
+   - si une nouvelle priorisation produit est nécessaire.
+
+---
+
+## 12. Préparation PR intégrée
+
+### Titre proposé
+
+`Consolidate Interv360 product demo runbook`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR consolidates the Interv360 product demo runbook after backend persistence, API validation hardening, request model productization and connected UX productization.
+It includes a controlled documentation-only product batch:
+1. Product demo consolidation scope
+   - confirms the product is ready for an end-to-end demo consolidation;
+   - excludes auth, users, roles, CRM, workflow extension, frontend refactor and new features.
+2. End-to-end runbook consolidation
+   - documents the consolidated product state;
+   - clarifies local and API demo paths;
+   - lists demonstrated product value;
+   - lists technical proof points;
+   - provides essential curl commands;
+   - clarifies accepted limits;
+   - adds a synthetic product demo narrative.
+3. Support short-form decision
+   - records that no short support/script update is needed in this batch;
+   - keeps the runbook as the operational reference.
+## Validation
+- Frontend build: OK
+- Frontend tests: 81 passed
+- Backend build: OK
+- Backend tests: 32 passed
+- Browser local validation: documented, optional
+- Browser API validation: documented, optional
+- Reset API validation: documented, optional
+## Guardrails
+No code change, frontend source change, backend change, SQLite change, API contract change, workflow change, authentication, users, roles, CRM integration, real data, new workflow status, STAT-05/07/08, PostgreSQL, heavy ORM, React Router, new frontend dependency, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+```
+
+---
+
+## 13. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | <OK / KO> |
+| PR créée automatiquement | <Oui / Non> |
+| URL PR ou comparaison | <url> |
+| Cible | main |
+| Source | delivery/interv360-product-demo-consolidation |
+| Merge automatique | Non |
