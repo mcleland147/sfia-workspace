@@ -62,11 +62,23 @@ export function createApiRouter(): Router {
   });
 
   router.post("/requests/:id/transitions", (req, res) => {
-    const action =
-      typeof req.body?.action === "string" ? req.body.action : "";
+    const action = req.body?.action;
+
+    if (typeof action !== "string" || action.trim().length === 0) {
+      res.status(400).json({
+        error: {
+          code: "INVALID_TRANSITION_ACTION",
+          message: "Transition action is required.",
+        },
+      });
+      return;
+    }
 
     try {
-      const { request, event } = applyTransition(req.params.id, action);
+      const { request, event } = applyTransition(
+        req.params.id,
+        action.trim(),
+      );
       res.json({ request, event });
     } catch (error) {
       if (error instanceof StoreError) {

@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : API Product Validation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-01 réalisé  
+**Statut** : Batch produit — INC-PROD-02 / INC-PROD-03 réalisés  
 **Branche** : `delivery/interv360-api-product-validation`
 
 ---
@@ -77,8 +77,8 @@ Le batch ne doit pas inclure :
 | Incrément | Objectif | Statut |
 |----------|----------|--------|
 | INC-PROD-01 | Cadrer les validations API ciblées | Réalisé |
-| INC-PROD-02 | Implémenter validation payload / erreurs | À faire |
-| INC-PROD-03 | Adapter tests backend | À faire |
+| INC-PROD-02 | Implémenter validation payload / erreurs | Réalisé |
+| INC-PROD-03 | Adapter tests backend | Réalisé avec INC-PROD-02 |
 | INC-PROD-04 | Mettre à jour documentation | À faire |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
@@ -140,12 +140,12 @@ Le handler actuel convertit une `action` absente en chaîne vide, ce qui aboutit
 | Critère | Résultat |
 |---------|----------|
 | Validations ciblées décidées | OK |
-| Erreurs API cohérentes | À faire (INC-PROD-02) |
-| Transitions invalides testées | À faire (INC-PROD-03) |
-| Request inconnue testée | À faire (INC-PROD-03) |
-| Payload detail productisé non régressé | À faire (INC-PROD-03) |
-| Reset API non régressé | À faire (INC-PROD-03) |
-| SQLite non régressée | À faire (INC-PROD-03) |
+| Erreurs API cohérentes | OK |
+| Transitions invalides testées | OK |
+| Request inconnue testée | OK |
+| Payload detail productisé non régressé | OK |
+| Reset API non régressé | OK |
+| SQLite non régressée | OK |
 | Frontend source non modifié | OK — objectif batch |
 | Pas d’auth / users / rôles | OK |
 | Pas de CRM / données réelles | OK |
@@ -158,9 +158,10 @@ Le handler actuel convertit une `action` absente en chaîne vide, ce qui aboutit
 | Sujet | Décision |
 |------|----------|
 | Librairie validation | Aucune |
-| Validation transitions | `requestId`, `action`, action connue, transition autorisée |
+| Validation transitions | Garde explicite sur `action`, action connue, transition autorisée |
 | Erreurs API | `400`, `404`, `409` conservés et clarifiés |
 | Format erreurs | Format existant `{ error: { code, message } }` conservé |
+| Body JSON invalide | Couvert par `INVALID_JSON_BODY` via middleware Express minimal |
 | Reset API | Réponse stable à conserver |
 | Payload productisé | Non-régression des champs `requestedDate`, `equipmentLabel`, `businessImpact` |
 | API contract | Conservé |
@@ -177,19 +178,31 @@ Le handler actuel convertit une `action` absente en chaîne vide, ce qui aboutit
 - conservation du contrat API ;
 - exclusion des sujets sécurité/auth/users/CRM.
 
+**INC-PROD-02 / INC-PROD-03** — validation API + tests :
+
+- ajout d’une garde explicite sur l’action de transition dans `routes.ts` ;
+- middleware minimal `INVALID_JSON_BODY` dans `app.ts` ;
+- clarification des erreurs `400`, `404`, `409` ;
+- conservation du format `{ error: { code, message } }` ;
+- ajout de tests backend sur erreurs API (`api.test.ts`) ;
+- ajout de tests de non-régression du payload détail productisé ;
+- conservation du reset API ;
+- aucune librairie de validation ajoutée ;
+- SQLite et seed non modifiés.
+
 ---
 
 ## 9. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
-| Backend build | Non applicable — INC-PROD-01 documentaire |
-| Backend tests | Non applicable — INC-PROD-01 documentaire |
-| Frontend build | Non applicable — INC-PROD-01 documentaire |
-| Frontend tests | Non applicable — INC-PROD-01 documentaire |
-| API curl | Non exécutée — INC-PROD-01 documentaire |
-| Reset API | Non applicable — INC-PROD-01 documentaire |
-| Persistance SQLite | Non modifiée — INC-PROD-01 documentaire |
+| Backend build | OK |
+| Backend tests | OK — 32 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+| API curl | OK — 404, 400, 409, reset, payload productisé |
+| Reset API | OK |
+| Persistance SQLite | OK — tests persistence non régressés |
 
 ---
 

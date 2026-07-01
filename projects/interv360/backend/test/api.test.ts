@@ -106,6 +106,57 @@ describe("Interv360 API", () => {
     expect(response.body.error.code).toBe("INVALID_TRANSITION_ACTION");
   });
 
+  it("POST transition on unknown request returns REQUEST_NOT_FOUND", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/UNKNOWN/transitions")
+      .send({ action: "qualify" });
+
+    expect(response.status).toBe(404);
+    expect(response.body.error.code).toBe("REQUEST_NOT_FOUND");
+  });
+
+  it("POST transition without action returns INVALID_TRANSITION_ACTION", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({});
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_TRANSITION_ACTION");
+    expect(response.body.error.message).toBe("Transition action is required.");
+  });
+
+  it("POST transition with non-string action returns INVALID_TRANSITION_ACTION", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: 42 });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_TRANSITION_ACTION");
+    expect(response.body.error.message).toBe("Transition action is required.");
+  });
+
+  it("POST transition with invalid JSON body returns INVALID_JSON_BODY", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .set("Content-Type", "application/json")
+      .send("{invalid");
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_JSON_BODY");
+    expect(response.body.error.message).toBe(
+      "Request body must be valid JSON.",
+    );
+  });
+
+  it("POST transition with disallowed action from current status returns TRANSITION_NOT_ALLOWED", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "close_report" });
+
+    expect(response.status).toBe(409);
+    expect(response.body.error.code).toBe("TRANSITION_NOT_ALLOWED");
+  });
+
   it("POST transition from STAT-06 is refused", async () => {
     const response = await request(app)
       .post("/api/v1/requests/SAV-DEMO-003/transitions")
