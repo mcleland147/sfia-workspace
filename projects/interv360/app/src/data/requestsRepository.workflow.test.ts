@@ -111,7 +111,19 @@ describe("requestsRepository controlled workflow", () => {
     resetDemoData();
 
     expect(getRequestById(DEMO_REQUEST_ID)?.status).toBe("STAT-01");
+    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-02");
+    expect(getRequestById("SAV-DEMO-003")?.status).toBe("STAT-06");
     expect(getDemoWorkflowEvents(DEMO_REQUEST_ID)).toHaveLength(0);
     expect(localStorage.getItem(STORAGE_KEY_JOURNAL)).toBeNull();
+  });
+
+  it("keeps workflow events scoped per request", () => {
+    getRequests();
+    qualifyDemoRequest(DEMO_REQUEST_ID);
+
+    expect(getRequestById(DEMO_REQUEST_ID)?.status).toBe("STAT-02");
+    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-02");
+    expect(getDemoWorkflowEvents(DEMO_REQUEST_ID)).toHaveLength(1);
+    expect(getDemoWorkflowEvents("SAV-DEMO-002")).toHaveLength(0);
   });
 });

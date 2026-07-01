@@ -92,6 +92,24 @@ Workflow rules:
 - no transition outside the nominal INC-01 path ;
 - no backend, API, server database or real data.
 
+## INC-03 — Multi-request local demo
+
+INC-03 extends the demonstrator with several fictitious local SAV requests.
+
+Changes:
+
+- three fictitious requests: `SAV-DEMO-001` (STAT-01), `SAV-DEMO-002` (STAT-02), `SAV-DEMO-003` (STAT-06);
+- request selection from the list;
+- detail, readonly journey, workflow action and journal scoped to the selected request;
+- multi-request reset restores all seed data and default selection (`SAV-DEMO-001`).
+
+Unchanged:
+
+- controlled workflow transitions and rules per request;
+- fictitious local data only;
+- no backend, API, server database, SQL, CRM, or real data;
+- no React routing or new dependency.
+
 Report readonly:
 
 - displays fictitious summary, result and checklist for `SAV-DEMO-001`;

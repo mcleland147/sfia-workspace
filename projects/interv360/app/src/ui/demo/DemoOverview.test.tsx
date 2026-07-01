@@ -9,7 +9,7 @@ describe("DemoOverview", () => {
     );
 
     expect(screen.getByText(/SAV-DEMO-001/)).toBeInTheDocument();
-    expect(screen.getByText(/INC-02/i)).toBeInTheDocument();
+    expect(screen.getByText(/INC-03/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Parcours nominal INC-01/i)).toBeInTheDocument();
     expect(screen.getAllByText("STAT-01").length).toBeGreaterThan(0);
     expect(screen.getByText("STAT-06")).toBeInTheDocument();

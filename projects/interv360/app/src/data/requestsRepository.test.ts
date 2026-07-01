@@ -25,8 +25,11 @@ describe("requestsRepository demo reset", () => {
 
     const restored = resetDemoData();
 
-    expect(restored).toHaveLength(1);
+    expect(restored).toHaveLength(3);
     expect(restored[0]?.id).toBe("SAV-DEMO-001");
+    expect(restored[1]?.id).toBe("SAV-DEMO-002");
+    expect(restored[2]?.id).toBe("SAV-DEMO-003");
+    expect(getRequests()).toHaveLength(3);
     expect(getRequests()[0]?.id).toBe("SAV-DEMO-001");
     expect(localStorage.getItem(STORAGE_KEY_JOURNAL)).toBeNull();
   });

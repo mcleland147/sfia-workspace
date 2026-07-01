@@ -18,10 +18,10 @@ export function DemoOverview({ requestId, currentStatus }: DemoOverviewProps) {
   return (
     <header className="demo-overview">
       <div className="demo-overview__intro">
-        <p className="demo-overview__eyebrow">INC-02 — Démonstration locale</p>
+        <p className="demo-overview__eyebrow">INC-03 — Multi-demandes locales</p>
         <h1 className="demo-overview__title">Interv360 — flux SAV minimal</h1>
         <p className="demo-overview__lead">
-          Démonstrateur local et fictif pour la demande{" "}
+          Démonstrateur local et fictif. Demande sélectionnée :{" "}
           <strong>{requestId}</strong>. Aucun backend, aucune API, aucune
           donnée réelle.
         </p>
