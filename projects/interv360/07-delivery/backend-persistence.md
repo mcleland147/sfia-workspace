@@ -209,3 +209,69 @@ Objectif :
 - préparer la PR ;
 - vérifier que l'implémentation reste limitée à la persistance backend ;
 - ne pas ouvrir auth, CRM, PostgreSQL ou refonte frontend.
+
+---
+
+## 14. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 backend SQLite persistence`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds the first product-oriented backend persistence brick for Interv360.
+It replaces the in-memory backend store with SQLite persistence using `better-sqlite3`.
+The implementation persists:
+- requests;
+- request details;
+- workflow events.
+It preserves:
+- the existing `/api/v1` API;
+- fictitious seed data;
+- demo reset;
+- backend tests;
+- frontend behavior.
+## Validation
+- Backend build: OK
+- Backend tests: 20 passed
+- Frontend build: OK
+- Frontend tests: 81 passed
+- Persistence after backend restart: OK
+- Demo reset: OK
+- Frontend unchanged
+## Guardrails
+No frontend change, API contract change, PostgreSQL, heavy ORM, authentication, users, roles, CRM integration, real data, multi-tenant support, production deployment, new workflow, STAT-05/07/08, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+SQLite is introduced only as the first backend persistence brick.
+```
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité backend + document | OK |
+| Frontend modifié | Non |
+| API `/api/v1` conservée | OK |
+| Dépendance `better-sqlite3` uniquement | OK |
+| Base SQLite locale non suivie | OK |
+| Persistance après redémarrage | OK — tests + curl documentés |
+| Reset démo | OK |
+
+### Note validation manuelle
+
+- persistance après redémarrage : validée via `persistence.test.ts` et curl ;
+- serveur de test manuel interrompu après validation curl ;
+- tests automatisés couvrent la persistance.
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-backend-persistence` |
+| Merge automatique | Non |
