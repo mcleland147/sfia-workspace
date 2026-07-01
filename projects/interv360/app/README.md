@@ -72,9 +72,13 @@ VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
 npm run dev
 ```
 
-Le backend doit alors être lancé séparément depuis `projects/interv360/backend/` (`npm run dev`).
+Le backend doit alors être lancé séparément depuis `projects/interv360/backend/` (`npm run dev` sur `http://localhost:3001`).
+
+Le frontend Vite utilise par défaut le port **5173**. Si ce port est occupé, Vite bascule sur **5174** ou **5175** : le backend autorise ces origins locales sans modifier `VITE_INTERV360_API_BASE_URL`.
 
 Le mode local reste le mode de démonstration par défaut. Aucun fallback automatique vers le local n'est activé en cas d'erreur API.
+
+Les transitions et le journal en mode API sont **persistés côté backend** (SQLite). Un redémarrage du backend conserve l'état jusqu'au reset démo (`POST /api/v1/demo/reset` ou bouton **Réinitialiser la démo**).
 
 La démo dispose d'une **navigation par écran** (vue d'ensemble, scénario, demandes, détail, journal) pour réduire le scroll en présentation.
 

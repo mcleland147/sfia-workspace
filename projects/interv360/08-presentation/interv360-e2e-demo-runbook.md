@@ -44,6 +44,8 @@ npm run dev
 
 Attendu : `Interv360 backend listening on http://localhost:3001`
 
+Le backend persiste l'état démo dans un fichier SQLite local (`data/interv360.sqlite` par défaut). Un redémarrage du backend conserve transitions et journal jusqu'au reset.
+
 ### Terminal 2 — frontend
 
 ```bash
@@ -52,6 +54,12 @@ VITE_INTERV360_DATA_SOURCE=api \
 VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
 npm run dev
 ```
+
+**Ports :**
+
+- backend : `3001` ;
+- frontend Vite : `5173` par défaut, ou `5174` / `5175` si le port est occupé ;
+- le backend autorise en local les origins Vite courantes (`localhost` et `127.0.0.1` sur ces ports).
 
 **Attendu :**
 
@@ -106,7 +114,44 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 
 ---
 
-## 6. Garde-fous
+## 6. Validation API persistante après SQLite
+
+Avec le backend lancé :
+
+1. Lancer le frontend en mode API (section 3).
+2. Vérifier le badge **Mode API local**.
+3. Exécuter une transition sur `SAV-DEMO-001` (ex. **Qualifier la demande**).
+4. Vérifier le journal (événement `qualification.confirmed`).
+5. Arrêter le backend (Ctrl+C terminal 1), puis le relancer (`npm run dev`).
+6. Recharger le frontend en mode API.
+7. Vérifier que le statut (`STAT-02`) et le journal sont conservés (SQLite côté backend).
+8. Exécuter le reset API (bouton **Réinitialiser la démo** ou `POST /api/v1/demo/reset`).
+9. Vérifier le retour à l'état seed (`SAV-DEMO-001` en STAT-01, journal vide).
+
+**Ports frontend supportés en local :**
+
+- `http://localhost:5173`
+- `http://localhost:5174`
+- `http://localhost:5175`
+
+Le backend accepte ces origins localement pour faciliter la démonstration API.
+
+**Variante curl (persistance sans navigateur) :**
+
+```bash
+# transition
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' -d '{"action":"qualify"}'
+# vérifier journal
+curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001/events
+# redémarrer le backend, puis relancer les deux commandes ci-dessus : le journal doit rester
+# reset
+curl -s -X POST http://localhost:3001/api/v1/demo/reset
+```
+
+---
+
+## 7. Garde-fous
 
 - Données fictives uniquement.
 - Mode local par défaut.
@@ -114,16 +159,18 @@ curl -s -X POST http://localhost:3001/api/v1/demo/reset
 - Pas de fallback automatique silencieux.
 - Pas de CRM.
 - Pas d'authentification.
-- Pas de DB SQL.
+- Persistance SQLite côté backend uniquement (pas de SQL navigateur).
 - Workflow nominal uniquement (STAT-01 → STAT-02 → STAT-03 → STAT-04 → STAT-06).
 
 ---
 
-## 7. Dépannage rapide
+## 8. Dépannage rapide
 
 | Symptôme | Cause probable | Action |
 |----------|----------------|--------|
 | `ERR_CONNECTION_REFUSED` sur `:5173` | Frontend non lancé | `npm run dev` dans `app/` |
 | Badge Mode API + message backend indisponible | Backend arrêté | Lancer `npm run dev` dans `backend/` |
+| Erreur CORS en mode API (port Vite alternatif) | Origin non autorisée (rare) | Vérifier le port affiché par Vite ; par défaut `5173`–`5175` sont autorisés, ou définir `INTERV360_CORS_ORIGINS` côté backend |
 | Liste vide en mode API | Mauvaise URL API | Vérifier `VITE_INTERV360_API_BASE_URL` |
 | Transition refusée | Statut incompatible | Vérifier statut courant (STAT-06 terminal) |
+| État API incohérent après tests | SQLite conserve l'état | `POST /api/v1/demo/reset` ou bouton **Réinitialiser la démo** |
