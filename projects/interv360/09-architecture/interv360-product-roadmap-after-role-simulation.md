@@ -323,13 +323,11 @@ No code, frontend, backend, SQLite, API, workflow extension, real authentication
 
 ## 11. Statut push / PR
 
-À compléter après push.
-
 | Élément | Valeur |
 |---------|--------|
-| Push | `<OK / KO>` |
-| PR créée automatiquement | `<Oui / Non>` |
-| URL PR ou comparaison | `<url>` |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...architecture/interv360-product-roadmap-after-role-simulation?expand=1 |
 | Cible | `main` |
 | Source | `architecture/interv360-product-roadmap-after-role-simulation` |
 | Merge automatique | Non |
