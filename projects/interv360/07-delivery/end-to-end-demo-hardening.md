@@ -207,14 +207,64 @@ Runbook : [`projects/interv360/08-presentation/interv360-e2e-demo-runbook.md`](.
 
 ## 13. Prochaine étape recommandée
 
-**Cycle recommandé :** `delivery/interv360-end-to-end-demo-hardening-pr-preparation`
+**Cycle suivant :** merge PR puis post-merge léger (section §15).
 
-Objectif :
+---
 
-- préparer la PR ;
-- vérifier que le runbook et les validations sont complets ;
-- ne pas ajouter de nouveau périmètre.
+## 14. Préparation PR intégrée
 
-**Alternative :** `delivery/interv360-demo-polish`
+### Titre proposé
 
-Uniquement si des irritants UX mineurs sont identifiés lors d'une présentation réelle.
+`Harden Interv360 end-to-end demo`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR hardens the Interv360 end-to-end demo experience.
+It includes:
+- an E2E demo runbook for local and API modes;
+- local mode launch and validation steps;
+- API mode launch and validation steps;
+- curl-based backend validation steps;
+- troubleshooting guidance;
+- links from app/backend README files to the runbook;
+- documented validation results for frontend and backend.
+
+## Validation
+- Frontend build: OK
+- Frontend tests: 77 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- Local mode E2E: OK via automated tests
+- API mode E2E: OK via automated tests + live curl validation
+- Backend not required in local mode
+- No new business feature introduced
+
+## Guardrails
+No new business scope, SQL database, CRM integration, authentication, real data, STAT-05/07/08, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Périmètre PR (vs `main`)
+
+| Fichier | Rôle |
+|---------|------|
+| `07-delivery/end-to-end-demo-hardening.md` | Document de livraison |
+| `08-presentation/interv360-e2e-demo-runbook.md` | Runbook E2E local/API |
+| `app/README.md` | Lien vers runbook |
+| `backend/README.md` | Lien vers runbook |
+
+Hors périmètre confirmé : code métier frontend/backend, SQL, CRM, auth, Controlled Delivery.
+
+---
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | main |
+| Source | delivery/interv360-end-to-end-demo-hardening |
+| Merge automatique | Non |
