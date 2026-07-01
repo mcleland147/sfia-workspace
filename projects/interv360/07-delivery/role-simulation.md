@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Role Simulation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-04 réalisé  
+**Statut** : Batch produit — INC-PROD-05 réalisé  
 **Branche** : `delivery/interv360-role-simulation`
 
 ---
@@ -106,7 +106,7 @@ Rôles du cadrage :
 | INC-PROD-02 | Définir le comportement UX de simulation | Réalisé |
 | INC-PROD-03 | Implémenter la simulation de rôle | Réalisé |
 | INC-PROD-04 | Tests et documentation | Réalisé |
-| INC-PROD-05 | Préparer PR du batch | À venir |
+| INC-PROD-05 | Préparer PR du batch | Réalisé |
 
 ---
 
@@ -390,7 +390,7 @@ INC-PROD-02 ne prévoit pas :
 
 ## 13. Prochaine étape
 
-**INC-PROD-05** : préparer la PR unique du batch `delivery/interv360-role-simulation`.
+Batch **Role Simulation** prêt pour revue et merge via PR unique.
 
 ---
 
@@ -416,3 +416,61 @@ La simulation reste volontairement limitée :
 - aucune donnée réelle ;
 - aucun CRM ;
 - aucun workflow étendu.
+
+---
+
+## 15. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 simulated role controls`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR introduces a controlled frontend-only role simulation for Interv360.
+It keeps the batch intentionally bounded:
+1. Auth / users / roles framing
+   - frames roles and responsibilities;
+   - confirms no real authentication is introduced;
+   - excludes OAuth, JWT, SSO, backend user database and real security.
+2. Role simulation behavior
+   - defines the default simulated role as `technician`;
+   - defines simulated roles: `requester`, `technician`, `manager`, `admin`, `viewer`;
+   - stores the active role in `localStorage` using `interv360:simulated-role`;
+   - keeps the role after demo reset.
+3. Frontend implementation
+   - adds visible simulated role controls;
+   - blocks unauthorized workflow actions on the frontend;
+   - displays a clear unauthorized action message;
+   - reserves demo reset to `admin`;
+   - applies the behavior in local mode and API opt-in mode.
+4. Documentation and validation
+   - updates the E2E runbook;
+   - updates the frontend README;
+   - documents the limits of the simulation;
+   - keeps backend, SQLite and API unchanged.
+## Validation
+- Frontend build: OK
+- Frontend tests: 96 passed
+- Backend build: OK
+- Backend tests: 32 passed
+## Guardrails
+No real authentication, OAuth, JWT, SSO, backend user database, CRM integration, real data, new workflow status, workflow extension, backend change, SQLite change, API contract change, PostgreSQL, heavy ORM, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+```
+
+---
+
+## 16. Statut push / PR
+
+À compléter après push.
+
+| Élément | Valeur |
+|---------|--------|
+| Push | `<OK / KO>` |
+| PR créée automatiquement | `<Oui / Non>` |
+| URL PR ou comparaison | `<url>` |
+| Cible | `main` |
+| Source | `delivery/interv360-role-simulation` |
+| Merge automatique | Non |
