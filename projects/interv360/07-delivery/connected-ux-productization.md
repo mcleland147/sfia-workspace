@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Connected UX Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-02 réalisé  
+**Statut** : Batch produit — INC-PROD-04 réalisé  
 **Branche** : `delivery/interv360-connected-ux-productization`
 
 ---
@@ -75,8 +75,8 @@ Le batch ne doit pas inclure :
 |----------|----------|--------|
 | INC-PROD-01 | Borner les améliorations UX connectée | Réalisé |
 | INC-PROD-02 | Afficher les champs métier productisés | Réalisé |
-| INC-PROD-03 | Améliorer l’affichage des erreurs API | À confirmer |
-| INC-PROD-04 | Mettre à jour documentation / runbook | À faire |
+| INC-PROD-03 | Améliorer l’affichage des erreurs API | Non retenu — valeur marginale à ce stade |
+| INC-PROD-04 | Mettre à jour documentation / runbook | Réalisé |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
 ---
@@ -145,9 +145,9 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 | Mode local par défaut conservé | OK |
 | Mode API opt-in conservé | OK |
 | API `/api/v1` conservée | OK |
-| Erreurs API mieux affichées si retenu | non retenu (INC-PROD-03 à confirmer) |
+| Erreurs API mieux affichées si retenu | Non retenu — propagation existante suffisante |
 | Tests frontend adaptés | OK |
-| Backend non modifié ou justification mineure | OK |
+| Backend non modifié ou justification mineure | OK — non modifié |
 | Pas d’auth / users / rôles | OK |
 | Pas de CRM / données réelles | OK |
 | Pas de nouveaux statuts | OK |
@@ -159,8 +159,8 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 | Sujet | Décision |
 |------|----------|
 | Champs affichés | `requestedDate`, `equipmentLabel`, `businessImpact`, `siteLabel` |
-| Libellés UI | `Date de demande`, `Équipement / objet`, `Impact métier` |
-| Erreurs API | À confirmer après observation du rendu |
+| Libellés UI | `Date de demande`, `Équipement / objet`, `Impact métier`, `Site` |
+| Erreurs API | Non retenu dans ce batch — propagation existante suffisante |
 | Navigation | Conservée |
 | React Router | Non |
 | Nouvelle dépendance | Non |
@@ -192,6 +192,15 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 - tests frontend adaptés ;
 - aucun backend modifié.
 
+**INC-PROD-04** — documentation / runbook :
+
+- documentation des champs métier affichés dans la fiche demande ;
+- clarification de `businessImpact` comme champ distinct de `impactLabel` ;
+- clarification de `requestedDate` comme champ distinct de `createdAtLabel` ;
+- documentation de la non-réalisation d’INC-PROD-03 ;
+- mise à jour du runbook de validation ;
+- aucune modification de code.
+
 ---
 
 ## 9. Validations
@@ -202,9 +211,9 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 | Backend tests | OK — 32 tests |
 | Frontend build | OK |
 | Frontend tests | OK — 81 tests |
-| Validation navigateur local | non exécutée |
-| Validation navigateur API | non exécutée |
-| Reset API | non exécutée |
+| Validation navigateur local | Non exécutée |
+| Validation navigateur API | Non exécutée |
+| Reset API | Non exécutée |
 
 ---
 
@@ -226,4 +235,36 @@ Limites attendues :
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-03** : confirmer si une amélioration légère des erreurs API est nécessaire, ou passer à la documentation / PR.
+**INC-PROD-05** : préparer la PR finale du batch `delivery/interv360-connected-ux-productization`.
+
+---
+
+## 12. Champs affichés dans la fiche demande
+
+La fiche demande affiche désormais les champs métier productisés suivants :
+
+| Champ | Libellé UI | Commentaire |
+|-------|------------|-------------|
+| `requestedDate` | Date de demande | Distinct de `createdAtLabel` / « Créée » |
+| `equipmentLabel` | Équipement / objet | Objet métier concerné |
+| `businessImpact` | Impact métier | Distinct de `impactLabel` / « Impact » |
+| `siteLabel` | Site | Contexte site conservé |
+
+Ces champs sont disponibles en mode local et en mode API.
+
+Le frontend source reste sans authentification, sans rôles, sans CRM, sans workflow étendu et sans nouvelle navigation.
+
+---
+
+## 13. Décision INC-PROD-03
+
+INC-PROD-03, initialement envisagé pour améliorer l’affichage des erreurs API, n’est pas retenu dans ce batch.
+
+Raison :
+
+- les erreurs API sont déjà propagées via `RequestsRepositoryError` ;
+- `loadError` et `lastActionMessage` affichent déjà un message utilisateur ;
+- afficher les codes techniques comme `TRANSITION_NOT_ALLOWED` dans l’interface apporterait une valeur produit marginale à ce stade ;
+- le batch doit rester centré sur la valorisation UX des champs productisés.
+
+Le sujet pourra être rouvert plus tard si un besoin UX clair apparaît autour des erreurs API.

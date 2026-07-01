@@ -168,6 +168,25 @@ Exemple :
 curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001
 ```
 
+### Contrôle UX connectée — champs productisés
+
+Sur une fiche demande, vérifier que les informations suivantes sont visibles :
+
+- **Date de demande**
+- **Équipement / objet**
+- **Impact métier**
+- **Site**
+- **Impact**
+
+Points d’attention :
+
+- **Date de demande** est distinct de **Créée** ;
+- **Impact métier** est distinct de **Impact** ;
+- les champs doivent être visibles en mode local ;
+- les champs doivent être visibles en mode API si le backend est lancé ;
+- le mode API reste opt-in ;
+- le reset API ne change pas la structure affichée.
+
 Le reset API doit conserver le seed enrichi :
 
 ```bash
