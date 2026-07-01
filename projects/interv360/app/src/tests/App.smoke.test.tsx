@@ -15,6 +15,8 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText(/INC-03/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/INC-04/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Synthèse locale par statut/i)).toBeInTheDocument();
     expect(
       screen.getByRole("navigation", { name: /Navigation interne de la démo/i }),
     ).toBeInTheDocument();
@@ -96,6 +98,19 @@ describe("App smoke", () => {
 
     expect(
       screen.getByText(/Demande clôturée fictivement/i),
+    ).toBeInTheDocument();
+  });
+
+  it("filters requests locally and realigns selection when needed", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
+
+    expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
+    expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
+    expect(screen.getByText(/Filtre actif : STAT-02/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Planifier l'intervention/i }),
     ).toBeInTheDocument();
   });
 

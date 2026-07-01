@@ -1,8 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   closeDemoRequest,
   completeDemoIntervention,
   getRequestById,
+  getRequests,
   planDemoIntervention,
   qualifyDemoRequest,
   resetDemoData,
@@ -16,6 +17,10 @@ import { ReportReadonly } from "../ui/report/ReportReadonly";
 import { DemoResetControl } from "../ui/requests/DemoResetControl";
 import { RequestDetail } from "../ui/requests/RequestDetail";
 import { RequestsList } from "../ui/requests/RequestsList";
+import {
+  filterRequestsByStatus,
+  type StatusFilter,
+} from "../ui/requests/requestListFilters";
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
 import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
 import "./App.css";
@@ -34,6 +39,7 @@ export function App() {
   const [selectedRequestId, setSelectedRequestId] = useState(
     DEFAULT_SELECTED_REQUEST_ID,
   );
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("ALL");
   const [lastResetLabel, setLastResetLabel] = useState<string | undefined>();
   const [lastActionMessage, setLastActionMessage] = useState<
     string | undefined
@@ -44,6 +50,26 @@ export function App() {
     [selectedRequestId, dataVersion],
   );
 
+  const visibleRequests = useMemo(() => {
+    const requests = getRequests();
+    return filterRequestsByStatus(requests, statusFilter);
+  }, [dataVersion, statusFilter]);
+
+  useEffect(() => {
+    if (visibleRequests.length === 0) {
+      return;
+    }
+
+    const selectedStillVisible = visibleRequests.some(
+      (item) => item.id === selectedRequestId,
+    );
+
+    if (!selectedStillVisible) {
+      setSelectedRequestId(visibleRequests[0].id);
+      setLastActionMessage(undefined);
+    }
+  }, [visibleRequests, selectedRequestId]);
+
   const handleSelectRequest = useCallback((requestId: string) => {
     setSelectedRequestId(requestId);
     setLastActionMessage(undefined);
@@ -52,6 +78,7 @@ export function App() {
   const handleDemoReset = useCallback(() => {
     resetDemoData();
     setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
+    setStatusFilter("ALL");
     setDataVersion((version) => version + 1);
     setLastActionMessage(undefined);
     setLastResetLabel(
@@ -140,6 +167,8 @@ export function App() {
             dataVersion={dataVersion}
             selectedRequestId={selectedRequestId}
             onSelectRequest={handleSelectRequest}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
           />
           <RequestDetail
             requestId={selectedRequestId}
