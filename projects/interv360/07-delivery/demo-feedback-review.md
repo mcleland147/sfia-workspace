@@ -274,3 +274,64 @@ Cette PR documentaire trace une décision structurée (pas de polish immédiat) 
 | Cible | main |
 | Source | delivery/interv360-demo-feedback-review |
 | Merge automatique | Non |
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#44](https://github.com/mcleland147/sfia-workspace/pull/44) |
+| Source | `delivery/interv360-demo-feedback-review` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `c078f3b` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 77 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 18 tests |
+| Code frontend modifié | Non |
+| Backend modifié | Non |
+| Nouveau scope métier | Non |
+| Polish UX réalisé | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Demo Feedback Review** est mergé dans `main`.
+
+La branche principale contient désormais la revue de feedback de démonstration, incluant :
+
+- la validation du parcours local ;
+- la validation partielle du parcours API ;
+- les irritants observés ;
+- leur classification par niveau ;
+- la décision de ne pas lancer de polish UX immédiat ;
+- la recommandation de réaliser une présentation/revue humaine réelle avant tout polish.
+
+Aucun changement produit n'a été introduit.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery documentaire.
+
+### Prochaine étape recommandée
+
+**Cycle recommandé :** `delivery/interv360-demo-presentation-review`
+
+Objectif :
+
+- présenter ou rejouer Interv360 auprès d'un interlocuteur réel ;
+- collecter un feedback humain ;
+- confirmer ou ajuster les irritants observés ;
+- décider si un polish UX est justifié.
+
+**Alternative :** `delivery/interv360-demo-polish`
+
+Uniquement si une présentation réelle confirme des irritants UX concrets.
