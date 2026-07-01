@@ -313,3 +313,86 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 | Cible | main |
 | Source | delivery/interv360-api-product-validation |
 | Merge automatique | Non |
+
+---
+
+## 15. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#54](https://github.com/mcleland147/sfia-workspace/pull/54) |
+| Source | `delivery/interv360-api-product-validation` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `74a1dbb` |
+| Main synchronisée | OK |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 32 tests |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| INC-PROD-01 | OK — cadrage validation API ciblée |
+| INC-PROD-02 | OK — gardes explicites / erreurs API |
+| INC-PROD-03 | OK — tests backend |
+| INC-PROD-04 | OK — documentation / runbook |
+| Garde explicite sur `action` | OK |
+| `INVALID_JSON_BODY` ajouté | OK |
+| `REQUEST_NOT_FOUND` | OK — `404` |
+| `INVALID_TRANSITION_ACTION` | OK — `400` |
+| `TRANSITION_NOT_ALLOWED` | OK — `409` |
+| Format `{ error: { code, message } }` conservé | OK |
+| Reset API conservé | OK |
+| Payload productisé non régressé | OK |
+| API `/api/v1` conservée | OK |
+| SQLite modifiée | Non |
+| Frontend source modifié | Non |
+| Librairie de validation ajoutée | Non |
+| Authentification introduite | Non |
+| Utilisateurs / rôles introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **API Product Validation** est mergé dans `main`.
+
+La branche principale contient désormais une validation API plus explicite et plus robuste :
+
+- garde explicite sur l’action de transition ;
+- clarification des erreurs `400`, `404`, `409` ;
+- ajout du cas `INVALID_JSON_BODY` ;
+- conservation du format `{ error: { code, message } }` ;
+- conservation du reset API ;
+- non-régression du payload détail productisé.
+
+Le batch ne modifie pas SQLite, le frontend source, le workflow, ni le contrat global `/api/v1`.
+
+Aucun sujet auth, users, rôles, CRM, données réelles, nouveau statut, PostgreSQL ou ORM lourd n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Batch Delivery produit contrôlé.
+
+### Prochaine étape recommandée
+
+Le socle produit backend est maintenant plus solide :
+
+- SQLite persistant ;
+- API locale stabilisée ;
+- modèle RequestDetail productisé ;
+- erreurs API clarifiées.
+
+Options possibles pour la suite :
+
+1. `architecture/interv360-auth-and-user-framing`
+   - si l’objectif produit devient identité, utilisateurs et rôles ;
+2. `architecture/interv360-workflow-extension-framing`
+   - si l’objectif devient l’extension du workflow ;
+3. `delivery/interv360-connected-ux-productization`
+   - si l’objectif est de rendre le frontend plus exploitable avec le backend API productisé ;
+4. `architecture/interv360-product-roadmap-next`
+   - si une nouvelle priorisation produit est nécessaire avant le prochain batch.
