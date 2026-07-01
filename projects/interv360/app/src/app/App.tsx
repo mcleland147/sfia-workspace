@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  closeDemoRequest,
-  completeDemoIntervention,
-  getRequestById,
-  getRequests,
-  planDemoIntervention,
-  qualifyDemoRequest,
-  resetDemoData,
-} from "../data/requestsRepository";
+  createRequestsRepository,
+  getDataSourceMode,
+  getDataSourceModeLabel,
+} from "../data/requestsRepositoryFactory";
+import {
+  getTransitionActionForStatus,
+  RequestsRepositoryError,
+} from "../data/requestsRepository.types";
+import type { DemoRequest, DemoWorkflowEvent } from "../domain/requestStatus";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
 import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
@@ -42,7 +43,15 @@ const DEMO_SECTION_LINKS = [
 ] as const;
 
 export function App() {
+  const repository = useMemo(() => createRequestsRepository(), []);
+  const dataSourceMode = useMemo(() => getDataSourceMode(), []);
+
   const [dataVersion, setDataVersion] = useState(0);
+  const [requests, setRequests] = useState<DemoRequest[]>([]);
+  const [selectedRequest, setSelectedRequest] = useState<DemoRequest | undefined>();
+  const [workflowEvents, setWorkflowEvents] = useState<DemoWorkflowEvent[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | undefined>();
   const [selectedRequestId, setSelectedRequestId] = useState(
     DEFAULT_SELECTED_REQUEST_ID,
   );
@@ -56,18 +65,43 @@ export function App() {
     INITIAL_SCENARIO_STEP_INDEX,
   );
 
-  const request = useMemo(
-    () => getRequestById(selectedRequestId),
-    [selectedRequestId, dataVersion],
-  );
+  const reloadData = useCallback(async () => {
+    setIsLoading(true);
+    setLoadError(undefined);
 
-  const visibleRequests = useMemo(() => {
-    const requests = getRequests();
-    return filterVisibleRequests(requests, statusFilter, searchQuery);
-  }, [dataVersion, statusFilter, searchQuery]);
+    try {
+      const [list, detail, events] = await Promise.all([
+        repository.listRequests(),
+        repository.getRequestById(selectedRequestId),
+        repository.listEventsForRequest(selectedRequestId),
+      ]);
+
+      setRequests(list);
+      setSelectedRequest(detail);
+      setWorkflowEvents(events);
+    } catch (error) {
+      const message =
+        error instanceof RequestsRepositoryError
+          ? error.message
+          : "Erreur de chargement des données fictives.";
+      setLoadError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [repository, selectedRequestId]);
 
   useEffect(() => {
-    if (visibleRequests.length === 0) {
+    void reloadData();
+  }, [reloadData, dataVersion]);
+
+  const request = selectedRequest;
+
+  const visibleRequests = useMemo(() => {
+    return filterVisibleRequests(requests, statusFilter, searchQuery);
+  }, [requests, statusFilter, searchQuery]);
+
+  useEffect(() => {
+    if (visibleRequests.length === 0 || isLoading) {
       return;
     }
 
@@ -79,29 +113,37 @@ export function App() {
       setSelectedRequestId(visibleRequests[0].id);
       setLastActionMessage(undefined);
     }
-  }, [visibleRequests, selectedRequestId]);
+  }, [visibleRequests, selectedRequestId, isLoading]);
 
   const handleSelectRequest = useCallback((requestId: string) => {
     setSelectedRequestId(requestId);
     setLastActionMessage(undefined);
   }, []);
 
-  const handleDemoReset = useCallback(() => {
-    resetDemoData();
-    setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
-    setStatusFilter("ALL");
-    setSearchQuery("");
-    setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
-    setDataVersion((version) => version + 1);
-    setLastActionMessage(undefined);
-    setLastResetLabel(
-      new Date().toLocaleTimeString("fr-FR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      }),
-    );
-  }, []);
+  const handleDemoReset = useCallback(async () => {
+    try {
+      await repository.resetDemo();
+      setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
+      setStatusFilter("ALL");
+      setSearchQuery("");
+      setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
+      setDataVersion((version) => version + 1);
+      setLastActionMessage(undefined);
+      setLastResetLabel(
+        new Date().toLocaleTimeString("fr-FR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+      );
+    } catch (error) {
+      const message =
+        error instanceof RequestsRepositoryError
+          ? error.message
+          : "Impossible de réinitialiser la démo.";
+      setLastActionMessage(message);
+    }
+  }, [repository]);
 
   const handlePreviousScenarioStep = useCallback(() => {
     setScenarioStepIndex((index) => Math.max(0, index - 1));
@@ -117,39 +159,69 @@ export function App() {
     setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
   }, []);
 
-  const handleWorkflowAction = useCallback(() => {
+  const handleWorkflowAction = useCallback(async () => {
     if (!request) {
       return;
     }
 
-    let updated;
-    switch (request.status) {
-      case "STAT-01":
-        updated = qualifyDemoRequest(selectedRequestId);
-        break;
-      case "STAT-02":
-        updated = planDemoIntervention(selectedRequestId);
-        break;
-      case "STAT-03":
-        updated = completeDemoIntervention(selectedRequestId);
-        break;
-      case "STAT-04":
-        updated = closeDemoRequest(selectedRequestId);
-        break;
-      default:
-        return;
+    const action = getTransitionActionForStatus(request.status);
+    if (!action) {
+      return;
     }
 
-    if (updated) {
-      setDataVersion((version) => version + 1);
-      setLastActionMessage(
-        `Action fictive enregistrée pour ${selectedRequestId} : ${updated.status}.`,
-      );
+    try {
+      const updated = await repository.applyTransition(selectedRequestId, action);
+      if (updated) {
+        setDataVersion((version) => version + 1);
+        setLastActionMessage(
+          `Action fictive enregistrée pour ${selectedRequestId} : ${updated.status}.`,
+        );
+      }
+    } catch (error) {
+      const message =
+        error instanceof RequestsRepositoryError
+          ? error.message
+          : "Transition fictive refusée.";
+      setLastActionMessage(message);
     }
-  }, [request, selectedRequestId]);
+  }, [repository, request, selectedRequestId]);
+
+  if (isLoading && requests.length === 0 && !loadError) {
+    return (
+      <main className="app-shell">
+        <p className="app-data-mode" role="status">
+          {getDataSourceModeLabel(dataSourceMode)}
+        </p>
+        <p className="app-loading">Chargement des données fictives…</p>
+      </main>
+    );
+  }
+
+  if (loadError && requests.length === 0) {
+    return (
+      <main className="app-shell">
+        <p className="app-data-mode" role="status">
+          {getDataSourceModeLabel(dataSourceMode)}
+        </p>
+        <p className="app-error" role="alert">
+          {loadError}
+        </p>
+      </main>
+    );
+  }
 
   return (
     <main className="app-shell">
+      <p className="app-data-mode" role="status">
+        {getDataSourceModeLabel(dataSourceMode)}
+      </p>
+
+      {loadError ? (
+        <p className="app-error app-error--inline" role="alert">
+          {loadError}
+        </p>
+      ) : null}
+
       <DemoOverview
         requestId={selectedRequestId}
         currentStatus={request?.status}
@@ -208,12 +280,16 @@ export function App() {
           aria-label="Contrôles de démonstration"
         >
           <DemoResetControl
-            onReset={handleDemoReset}
+            onReset={() => {
+              void handleDemoReset();
+            }}
             lastResetLabel={lastResetLabel}
           />
           <WorkflowActionControl
             request={request}
-            onAction={handleWorkflowAction}
+            onAction={() => {
+              void handleWorkflowAction();
+            }}
             lastActionMessage={lastActionMessage}
           />
         </section>
@@ -224,7 +300,7 @@ export function App() {
           aria-label="Demandes fictives"
         >
           <RequestsList
-            dataVersion={dataVersion}
+            requests={requests}
             selectedRequestId={selectedRequestId}
             onSelectRequest={handleSelectRequest}
             statusFilter={statusFilter}
@@ -232,10 +308,7 @@ export function App() {
             searchQuery={searchQuery}
             onSearchQueryChange={setSearchQuery}
           />
-          <RequestDetail
-            requestId={selectedRequestId}
-            dataVersion={dataVersion}
-          />
+          <RequestDetail request={request} requestId={selectedRequestId} />
         </section>
 
         <section
@@ -247,28 +320,16 @@ export function App() {
           </h2>
           <div className="app-journey-grid">
             <div id="section-qualification" className="app-journey-card">
-              <QualificationReadonly
-                requestId={selectedRequestId}
-                dataVersion={dataVersion}
-              />
+              <QualificationReadonly request={request} requestId={selectedRequestId} />
             </div>
             <div id="section-planification" className="app-journey-card">
-              <PlanningReadonly
-                requestId={selectedRequestId}
-                dataVersion={dataVersion}
-              />
+              <PlanningReadonly request={request} requestId={selectedRequestId} />
             </div>
             <div id="section-intervention" className="app-journey-card">
-              <InterventionReadonly
-                requestId={selectedRequestId}
-                dataVersion={dataVersion}
-              />
+              <InterventionReadonly request={request} requestId={selectedRequestId} />
             </div>
             <div id="section-compte-rendu" className="app-journey-card">
-              <ReportReadonly
-                requestId={selectedRequestId}
-                dataVersion={dataVersion}
-              />
+              <ReportReadonly request={request} requestId={selectedRequestId} />
             </div>
           </div>
         </section>
@@ -279,8 +340,8 @@ export function App() {
           aria-label="Journal local fictif"
         >
           <WorkflowJournalReadonly
+            events={workflowEvents}
             requestId={selectedRequestId}
-            dataVersion={dataVersion}
           />
         </section>
       </div>

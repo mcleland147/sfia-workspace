@@ -1,19 +1,22 @@
 import { useMemo } from "react";
+import type { DemoRequest } from "../../domain/requestStatus";
 import { getRequestById } from "../../data/requestsRepository";
 import "./ReportReadonly.css";
 
 interface ReportReadonlyProps {
+  request?: DemoRequest;
   requestId: string;
   dataVersion?: number;
 }
 
 export function ReportReadonly({
+  request: requestProp,
   requestId,
   dataVersion = 0,
 }: ReportReadonlyProps) {
   const request = useMemo(
-    () => getRequestById(requestId),
-    [requestId, dataVersion],
+    () => requestProp ?? getRequestById(requestId),
+    [requestProp, requestId, dataVersion],
   );
 
   if (!request) {

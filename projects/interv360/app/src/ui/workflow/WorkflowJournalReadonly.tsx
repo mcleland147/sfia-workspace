@@ -1,19 +1,22 @@
 import { useMemo } from "react";
+import type { DemoWorkflowEvent } from "../../domain/requestStatus";
 import { getDemoWorkflowEvents } from "../../data/requestsRepository";
 import "./WorkflowJournalReadonly.css";
 
 interface WorkflowJournalReadonlyProps {
+  events?: DemoWorkflowEvent[];
   requestId: string;
   dataVersion?: number;
 }
 
 export function WorkflowJournalReadonly({
+  events: eventsProp,
   requestId,
   dataVersion = 0,
 }: WorkflowJournalReadonlyProps) {
   const events = useMemo(
-    () => getDemoWorkflowEvents(requestId),
-    [requestId, dataVersion],
+    () => eventsProp ?? getDemoWorkflowEvents(requestId),
+    [eventsProp, requestId, dataVersion],
   );
 
   return (
