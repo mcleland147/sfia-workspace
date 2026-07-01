@@ -193,9 +193,7 @@ Uniquement si des irritants UX concrets sont confirmés par une présentation r�
 
 **Arrêt temporaire** acceptable si la prochaine démo n'est pas planifiée : l'état actuel est suffisant pour une démo locale autonome.
 
----
-
-## 12. Validation
+### Validation
 
 | Contrôle | Résultat |
 |----------|----------|
@@ -216,3 +214,63 @@ Uniquement si des irritants UX concrets sont confirmés par une présentation r�
 | Controlled Delivery modifié | Non |
 | sfia-notion-sync modifié | Non |
 | Exports Figma ajoutés | Non |
+
+---
+
+## 12. Préparation PR intégrée
+
+### Titre proposé
+
+`Review Interv360 demo feedback`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds the Interv360 demo feedback review.
+It documents:
+- the replay of the local demo path;
+- the API validation path;
+- the observed demo irritants;
+- the classification of irritants by severity;
+- the decision not to start immediate UX polish;
+- the recommendation to perform a real presentation review before any polish.
+
+## Validation
+- Frontend build: OK
+- Frontend tests: 77 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- Local demo path reviewed
+- API path partially validated through curl and browser attempt
+- No blocking irritant identified
+- No code changed
+
+## Guardrails
+No frontend change, backend change, new business scope, UX polish, SQL database, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Périmètre PR (vs `main`)
+
+| Fichier | Rôle |
+|---------|------|
+| `07-delivery/demo-feedback-review.md` | Document de revue feedback démo |
+
+Hors périmètre confirmé : code frontend/backend, polish UX, nouveau scope métier.
+
+### Réflexion SFIA
+
+Cette PR documentaire trace une décision structurée (pas de polish immédiat) et mérite d'être mergée dans `main` avant une présentation réelle : elle fige les irritants observés et évite un cycle polish prématuré.
+
+---
+
+## 13. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | main |
+| Source | delivery/interv360-demo-feedback-review |
+| Merge automatique | Non |
