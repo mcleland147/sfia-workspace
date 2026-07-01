@@ -1,0 +1,159 @@
+.demo-readiness-panel {
+  background: #fff;
+  border: 1px solid #dde3ec;
+  border-radius: 8px;
+  font-family: system-ui, sans-serif;
+  padding: 1rem 1.25rem;
+}
+
+.demo-readiness-panel__header {
+  margin-bottom: 1rem;
+}
+
+.demo-readiness-panel__eyebrow {
+  color: #5a6678;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.demo-readiness-panel__title {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.demo-readiness-panel__status {
+  align-items: center;
+  color: #2a3545;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.demo-readiness-panel__status-badge {
+  background: #eef7ee;
+  border: 1px solid #9bc79b;
+  border-radius: 999px;
+  color: #2f6b2f;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+}
+
+.demo-readiness-panel__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.demo-readiness-panel__card {
+  background: #f8fafc;
+  border: 1px solid #e3e9f2;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+}
+
+.demo-readiness-panel__card--wide {
+  grid-column: 1 / -1;
+}
+
+.demo-readiness-panel__card-title {
+  color: #2a3545;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 0.65rem;
+  text-transform: uppercase;
+}
+
+.demo-readiness-panel__criteria,
+.demo-readiness-panel__limitations {
+  color: #3a4658;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.demo-readiness-panel__criteria li,
+.demo-readiness-panel__limitations li {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.demo-readiness-panel__check {
+  color: #2f6b2f;
+  font-weight: 700;
+}
+
+.demo-readiness-panel__checklist {
+  color: #3a4658;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.demo-readiness-panel__checklist li {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.demo-readiness-panel__step {
+  background: #e8f1ff;
+  border-radius: 999px;
+  color: #1f4f9c;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  height: 1.35rem;
+  justify-content: center;
+  min-width: 1.35rem;
+}
+
+.demo-readiness-panel__capabilities {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.demo-readiness-panel__capability-group ul {
+  color: #3a4658;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.demo-readiness-panel__capability-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+}
+
+.demo-readiness-panel__capability-label--demonstrated {
+  color: #1f4f9c;
+}
+
+.demo-readiness-panel__capability-label--fictitious {
+  color: #8a5a00;
+}
+
+.demo-readiness-panel__capability-label--out-of-scope {
+  color: #6a4a8a;
+}
+
+.demo-readiness-panel__notice {
+  border-left: 3px solid #cfd8e6;
+  color: #5a6678;
+  font-size: 0.85rem;
+  margin: 0.75rem 0 0;
+  padding-left: 0.65rem;
+}

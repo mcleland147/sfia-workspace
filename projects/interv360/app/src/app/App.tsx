@@ -10,6 +10,7 @@ import {
 } from "../data/requestsRepository";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
+import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
 import { DemoScenarioGuide } from "../ui/demo/DemoScenarioGuide";
 import {
   DEMO_SCENARIO_STEPS,
@@ -160,6 +161,11 @@ export function App() {
         <p className="app-nav__label">Aller à</p>
         <ul className="app-nav__list">
           <li>
+            <a className="app-nav__link" href="#section-readiness">
+              Readiness
+            </a>
+          </li>
+          <li>
             <a className="app-nav__link" href="#section-scenario">
               Scénario
             </a>
@@ -175,6 +181,14 @@ export function App() {
       </nav>
 
       <div className="app-layout">
+        <section
+          id="section-readiness"
+          className="app-section app-section--readiness"
+          aria-label="Demo readiness"
+        >
+          <DemoReadinessPanel />
+        </section>
+
         <section
           id="section-scenario"
           className="app-section app-section--scenario"

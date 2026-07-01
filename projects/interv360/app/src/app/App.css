@@ -66,6 +66,10 @@
   grid-column: 1 / -1;
 }
 
+.app-section--readiness {
+  grid-column: 1 / -1;
+}
+
 .app-section--request {
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 }

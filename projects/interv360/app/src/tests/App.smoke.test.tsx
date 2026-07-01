@@ -15,7 +15,13 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText(/Batch 01/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Batch 02/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Batch 02/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Batch 03/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Démo prête/i)).toBeInTheDocument();
+    expect(screen.getByText(/Checklist de présentation/i)).toBeInTheDocument();
+    expect(screen.getByText(/Capacités livrées/i)).toBeInTheDocument();
+    expect(screen.getByText(/Limites assumées/i)).toBeInTheDocument();
+    expect(screen.getByText(/Hors périmètre/i)).toBeInTheDocument();
     expect(
       screen.getByRole("region", { name: /Scénario guidé de démonstration/i }),
     ).toBeInTheDocument();

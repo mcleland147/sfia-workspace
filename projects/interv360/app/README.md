@@ -172,6 +172,28 @@ Unchanged:
 - no React routing or new dependency;
 - nominal workflow path unchanged.
 
+## Batch 03 — Demo readiness & presentation package
+
+Batch 03 prepares the demonstrator for clearer presentation and reuse.
+
+Changes:
+
+- `DemoReadinessPanel` with demo readiness criteria and ready status;
+- integrated static presentation checklist;
+- compact summary of delivered capabilities;
+- explicit assumed limitations;
+- distinction between demonstrated, fictitious/local, and out-of-scope items;
+- overview lead updated for presentation context;
+- anchor navigation link to readiness section.
+
+Unchanged:
+
+- guided scenario, filters, search, selection, workflow, reset and journal;
+- fictitious local data only;
+- no backend, API, server database, SQL, CRM, dashboard, chart, or export;
+- no React routing or new dependency;
+- nominal workflow path unchanged.
+
 Report readonly:
 
 - displays fictitious summary, result and checklist for `SAV-DEMO-001`;
