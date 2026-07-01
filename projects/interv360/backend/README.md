@@ -11,7 +11,7 @@ Frontend React / TypeScript  (mode API local optionnel)
         ↓ REST
 Backend Node.js / TypeScript / Express
         ↓
-In-memory demo store (seed from TypeScript — JSON-first palier)
+SQLite local (fictitious demo seed)
 ```
 
 ## Commands
@@ -22,7 +22,7 @@ From `projects/interv360/backend/`:
 npm install
 npm run dev      # start server on http://localhost:3001
 npm run build    # TypeScript check
-npm run test     # unit + API tests
+npm run test     # unit + API + persistence tests
 ```
 
 ## Environment
@@ -30,8 +30,11 @@ npm run test     # unit + API tests
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `PORT` | `3001` | HTTP port |
+| `SQLITE_PATH` | `data/interv360.sqlite` | SQLite database file (`:memory:` supported) |
 | `DEMO_MODE` | `true` (when unset) | Required for `POST /api/v1/demo/reset` |
-| `CORS_ORIGIN` | `http://localhost:5173` | Allowed frontend origin (not used yet) |
+| `CORS_ORIGIN` | `http://localhost:5173` | Allowed frontend origin |
+
+The local SQLite file is created automatically and ignored by Git (`data/`, `*.sqlite`).
 
 ## Endpoints
 
@@ -47,7 +50,7 @@ npm run test     # unit + API tests
 ## Guardrails
 
 - Fictitious data only (`isDemo: true`)
-- No SQL / SQLite / PostgreSQL
+- SQLite local only — no PostgreSQL in this cycle
 - No CRM, authentication, or multi-user
 - Nominal workflow only (STAT-01 → STAT-02 → STAT-03 → STAT-04 → STAT-06)
 - No STAT-05 / STAT-07 / STAT-08
@@ -72,11 +75,13 @@ Runbook E2E (local + API) : [`../08-presentation/interv360-e2e-demo-runbook.md`]
 
 ```text
 src/
-  domain/     — types and transition rules
-  seed/       — fictitious demo seed
-  store/      — in-memory demo store
-  api/        — Express routes
-  app.ts      — Express app factory
-  index.ts    — server entry
-test/         — Vitest unit and API tests
+  domain/       — types and transition rules
+  seed/         — fictitious demo seed
+  persistence/  — SQLite schema, connection, seed helpers
+  store/        — demo store backed by SQLite
+  api/          — Express routes
+  app.ts        — Express app factory
+  index.ts      — server entry
+test/           — Vitest unit, API, and persistence tests
+data/           — local SQLite file (gitignored)
 ```
