@@ -22,6 +22,13 @@ Il permet d'adapter le niveau de contrôle au niveau de maturité d'un sujet :
 | Publication prep | [`controlled-delivery-publication-prep.md`](controlled-delivery-publication-prep.md) |
 | Publication package | [`controlled-delivery-publication-package.md`](controlled-delivery-publication-package.md) |
 | Publication checklist | [`controlled-delivery-publication-checklist.md`](controlled-delivery-publication-checklist.md) |
+| Delivery Acceleration Level 3 REX | [`delivery-acceleration-level-3-rex.md`](delivery-acceleration-level-3-rex.md) |
+
+---
+
+## Références méthode
+
+- [Delivery Acceleration Level 3 REX](./delivery-acceleration-level-3-rex.md) — retour d'expérience compact sur le passage des micro-cycles au Fast Delivery puis au Batch Delivery.
 
 ---
 

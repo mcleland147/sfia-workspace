@@ -31,6 +31,8 @@ La publication Notion n'est pas réalisée depuis cet index.
 
 **Actifs principaux :** [`controlled-delivery/`](controlled-delivery/)
 
+- Delivery Acceleration Level 3 REX — règles d'usage des micro-cycles, du Fast Delivery et du Batch Delivery.
+
 ---
 
 ## Garde-fous
