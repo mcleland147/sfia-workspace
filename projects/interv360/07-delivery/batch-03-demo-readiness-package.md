@@ -265,3 +265,40 @@ README Batch 03 et panneau applicatif intégré.
 ## 7. Documentation applicative
 
 Section Batch 03 ajoutée dans `projects/interv360/app/README.md`.
+
+---
+
+## 13. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #39 — https://github.com/mcleland147/sfia-workspace/pull/39 |
+| Source | `delivery/interv360-batch-03-demo-readiness-package` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `4fe679b` |
+| Main synchronisée | OK |
+| Build post-merge | OK |
+| Tests post-merge | OK — 64 passés / 16 fichiers |
+| Workflow métier | Inchangé |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Batch 03 est mergé dans `main`.
+
+Le démonstrateur Interv360 dispose désormais, dans la branche principale, des enrichissements suivants :
+
+- panneau de readiness de démonstration ;
+- checklist intégrée de présentation ;
+- résumé des capacités livrées ;
+- limites assumées visibles ;
+- distinction claire entre éléments démontrés, fictifs locaux et hors périmètre ;
+- README enrichi pour la présentation ;
+- workflow nominal inchangé ;
+- reset global et journal conservés.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Batch Delivery.
