@@ -431,3 +431,70 @@ No frontend change, backend change, new business scope, new UX polish, SQL datab
 | Cible | `main` |
 | Source | `delivery/interv360-demo-mvp-closure` |
 | Merge automatique | Non |
+
+---
+
+## 17. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#48](https://github.com/mcleland147/sfia-workspace/pull/48) |
+| Source | `delivery/interv360-demo-mvp-closure` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `fee3af2` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 18 tests |
+| Phase Demo MVP clôturée | OK |
+| Avancement démonstrateur retenu | ~95 % |
+| Code frontend modifié | Non |
+| Backend modifié | Non |
+| Nouveau scope métier | Non |
+| Nouveau polish réalisé | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+La phase **Interv360 Demo MVP** est officiellement clôturée dans `main`.
+
+La branche principale contient désormais :
+
+- l'état final du démonstrateur ;
+- les capacités démontrables ;
+- les validations frontend/backend ;
+- les décisions structurantes ;
+- le feedback humain intégré ;
+- l'irritant scroll traité par navigation par écran ;
+- les limites assumées ;
+- les hors-scope ;
+- les trajectoires post-MVP possibles ;
+- l'avancement démonstrateur retenu à environ **95 %**.
+
+Aucun changement produit n'a été introduit dans ce cycle de clôture.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery documentaire.
+
+### État final retenu
+
+`Interv360 Demo MVP` est considéré comme terminé.
+
+La suite ne doit pas être ouverte comme un polish opportuniste.
+
+Toute poursuite doit relever d'une décision explicite post-MVP :
+
+- présentation/package ;
+- API live ;
+- persistance backend ;
+- industrialisation produit ;
+- design/Figma ;
+- autre cadrage dédié.
