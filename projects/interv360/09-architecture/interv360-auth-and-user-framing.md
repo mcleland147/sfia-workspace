@@ -260,3 +260,25 @@ Ce cadrage n’implémente pas :
 | Workflow extension | Toujours différé |
 | CRM / données réelles | Différé |
 | Prochaine étape recommandée | Cadrer ou implémenter une simulation de rôle contrôlée |
+
+---
+
+## 13. Décision INC-PROD-02 — Simulation de rôle
+
+Dans le cadre du batch `delivery/interv360-role-simulation`, le comportement suivant est retenu :
+
+| Sujet | Décision |
+|------|----------|
+| Rôle par défaut | `technician` |
+| Rôles simulés | `requester`, `technician`, `manager`, `admin`, `viewer` |
+| Auth réelle | Non |
+| Stockage | `localStorage` côté frontend |
+| Sélection rôle | Sélecteur frontend simple |
+| Reset démo | Réservé à `admin` côté frontend |
+| Backend | Non modifié |
+| API | Conservée |
+| Workflow | Conservé |
+
+Cette décision ne constitue pas une sécurité réelle. Elle sert uniquement à démontrer les responsabilités produit avant une éventuelle authentification réelle future.
+
+Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §7.1
