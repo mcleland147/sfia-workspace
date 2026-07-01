@@ -183,3 +183,64 @@ Cette approche évite un polish sur hypothèse et conserve la logique Fast Deliv
 | Controlled Delivery modifié | Non |
 | sfia-notion-sync modifié | Non |
 | Exports Figma ajoutés | Non |
+
+---
+
+## 12. Préparation PR intégrée
+
+### Titre proposé
+
+`Capture Interv360 demo presentation feedback`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR captures the human feedback received after the Interv360 demo presentation/review.
+It documents:
+- the confirmed positive points;
+- the confirmed priority irritant: long page / scroll;
+- the decision to start a targeted UX polish;
+- the strict polish scope: page-by-page or screen-based navigation;
+- the explicit out-of-scope items for the immediate polish;
+- the recommendation to open `delivery/interv360-demo-polish` after merge.
+
+## Validation
+- Frontend build: OK
+- Frontend tests: 77 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- Human feedback captured
+- Priority irritant confirmed
+- Polish decision documented
+- No code changed
+- No polish implemented in this cycle
+
+## Guardrails
+No frontend change, backend change, new business scope, SQL database, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+### Périmètre PR (vs `main`)
+
+| Fichier | Rôle |
+|---------|------|
+| `07-delivery/demo-presentation-feedback.md` | Feedback humain post-présentation |
+
+Hors périmètre confirmé : code frontend/backend, polish UX, nouveau scope métier.
+
+### Réflexion SFIA
+
+Cette PR doit être **mergée dans `main` avant** d'ouvrir `delivery/interv360-demo-polish` : le polish ciblé doit s'appuyer sur un feedback humain tracé et mergé, pas sur une branche isolée.
+
+---
+
+## 13. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | main |
+| Source | delivery/interv360-demo-presentation-feedback |
+| Merge automatique | Non |
