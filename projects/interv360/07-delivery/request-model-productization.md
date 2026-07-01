@@ -360,3 +360,84 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 **Titre PR** : `Productize Interv360 request detail model`
 
 **Corps PR** : voir §13 ou `/tmp/request-model-productization-pr-body.md`
+
+---
+
+## 15. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#53 — Productize Interv360 request detail model](https://github.com/mcleland147/sfia-workspace/pull/53) |
+| Source | `delivery/interv360-request-model-productization` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `06cbceb` |
+| Main synchronisée | OK |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 27 tests |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| INC-PROD-01 | OK — décision champs métier minimaux |
+| INC-PROD-02 | OK — backend + SQLite + seed + tests |
+| INC-PROD-03 | Non retenu — couvert par tests INC-PROD-02 |
+| INC-PROD-04 | OK — documentation / runbook |
+| Champs ajoutés | `requestedDate`, `equipmentLabel`, `businessImpact` |
+| Champs productisés | `category`, `siteLabel` |
+| `businessImpact` distinct de `impact` | OK |
+| API `/api/v1` conservée | OK |
+| SQLite adaptée | OK |
+| Seed fictif enrichi | OK |
+| Reset API conservé | OK |
+| Frontend source modifié | Non |
+| Authentification introduite | Non |
+| Utilisateurs / rôles introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Request Model Productization** est mergé dans `main`.
+
+La branche principale contient désormais un modèle détail de demande plus productisé :
+
+- `requestedDate` ;
+- `equipmentLabel` ;
+- `businessImpact`.
+
+Le batch conserve :
+
+- `category` ;
+- `siteLabel` comme exposition site côté `Request` ;
+- `impact` comme libellé court distinct de `businessImpact` ;
+- l’API `/api/v1` ;
+- SQLite ;
+- le seed fictif ;
+- le reset API.
+
+Le frontend source n’a pas été modifié.
+
+Aucun sujet auth, users, rôles, CRM, données réelles, nouveau statut, PostgreSQL ou ORM lourd n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Batch Delivery produit contrôlé.
+
+### Prochaine étape recommandée
+
+Ne pas ouvrir directement auth/users/rôles sans décision dédiée.
+
+Options possibles pour la suite :
+
+1. `architecture/interv360-auth-and-user-framing`
+   - uniquement si l’objectif produit est maintenant de cadrer identité, utilisateurs et rôles ;
+2. `architecture/interv360-workflow-extension-framing`
+   - uniquement si l’objectif produit est d’étendre le workflow au-delà des statuts actuels ;
+3. `delivery/interv360-api-product-validation`
+   - si l’objectif est de renforcer validation payload / erreurs API sans ouvrir auth ni workflow ;
+4. `architecture/interv360-product-roadmap-next`
+   - si une nouvelle priorisation produit est nécessaire avant le prochain batch.
