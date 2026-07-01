@@ -8,8 +8,6 @@ import { demoRequests } from "../seed/demoRequests";
 import { clearInterv360LocalStorage } from "./interv360LocalStorage";
 import { STORAGE_KEY_JOURNAL, STORAGE_KEY_REQUESTS } from "./localStorageKeys";
 
-const DEMO_REQUEST_ID = "SAV-DEMO-001";
-
 function readStoredRequests(): DemoRequest[] | null {
   const raw = localStorage.getItem(STORAGE_KEY_REQUESTS);
   if (!raw) {
@@ -52,10 +50,6 @@ function performTransition(
   eventType: DemoWorkflowEventType,
   message: string,
 ): DemoRequest | undefined {
-  if (requestId !== DEMO_REQUEST_ID) {
-    return undefined;
-  }
-
   const requests = getRequests();
   const index = requests.findIndex((request) => request.id === requestId);
   if (index === -1) {

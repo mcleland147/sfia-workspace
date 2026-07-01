@@ -14,7 +14,7 @@ describe("App smoke", () => {
     expect(
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/INC-02/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/INC-03/i).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("navigation", { name: /Navigation interne de la démo/i }),
     ).toBeInTheDocument();
@@ -43,6 +43,8 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Journal local fictif/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
+    expect(screen.getByText("SAV-DEMO-002")).toBeInTheDocument();
+    expect(screen.getByText("SAV-DEMO-003")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     ).toBeInTheDocument();
@@ -75,6 +77,26 @@ describe("App smoke", () => {
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
     expect(screen.queryByText("SAV-MUTATED")).not.toBeInTheDocument();
     expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
+  });
+
+  it("switches detail and workflow context when selecting another request", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: /SAV-DEMO-002/i }));
+
+    expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("button", { name: /Planifier l'intervention/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /Qualifier la demande/i }),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /SAV-DEMO-003/i }));
+
+    expect(
+      screen.getByText(/Demande clôturée fictivement/i),
+    ).toBeInTheDocument();
   });
 
   it("runs the nominal controlled workflow and restores initial state on reset", () => {

@@ -5,8 +5,8 @@
   padding: 1.5rem 1rem;
 }
 
-.requests-list__header h1 {
-  font-size: 1.5rem;
+.requests-list__header h2 {
+  font-size: 1.25rem;
   margin: 0 0 0.25rem;
 }
 
@@ -34,12 +34,26 @@
 }
 
 .requests-list__card {
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   padding: 1rem;
+  text-align: left;
+  width: 100%;
+}
+
+.requests-list__card:hover {
+  border-color: #7aa7e8;
+}
+
+.requests-list__card--selected {
+  background: #f3f8ff;
+  border-color: #1f4f9c;
+  box-shadow: 0 0 0 1px #1f4f9c;
 }
 
 .requests-list__card-row {

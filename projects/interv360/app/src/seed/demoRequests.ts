@@ -1,17 +1,27 @@
 import type { DemoRequest } from "../domain/requestStatus";
 
-export const demoRequests: DemoRequest[] = [
-  {
-    id: "SAV-DEMO-001",
-    title: "Machine client en panne intermittente",
-    customerLabel: "Client Démo Industrie",
-    siteLabel: "Lyon Démo",
-    status: "STAT-01",
-    assignedTechnicianLabel: "Technicien Démo 01",
-    description:
-      "Panne intermittente constatée sur une machine de démonstration.",
-    priorityLabel: "Priorité démo",
-    createdAtLabel: "J-2",
+export const DEFAULT_SELECTED_REQUEST_ID = "SAV-DEMO-001";
+
+function baseReadonlyFields(
+  overrides: Partial<DemoRequest> = {},
+): Pick<
+  DemoRequest,
+  | "qualificationSummary"
+  | "qualificationChecklist"
+  | "qualificationReadonlyNotes"
+  | "planningSlotLabel"
+  | "planningTechnicianLabel"
+  | "planningReadonlyNotes"
+  | "interventionLocationLabel"
+  | "interventionWindowLabel"
+  | "interventionReadonlyNotes"
+  | "interventionSafetyChecklist"
+  | "reportSummaryLabel"
+  | "reportResultLabel"
+  | "reportReadonlyNotes"
+  | "reportChecklist"
+> {
+  return {
     qualificationSummary: "Contexte confirmé, intervention nécessaire.",
     qualificationChecklist: [
       "Contexte de panne confirmé",
@@ -33,8 +43,7 @@ export const demoRequests: DemoRequest[] = [
       "Consignes de démonstration prises en compte",
       "Matériel de diagnostic démo prévu",
     ],
-    reportSummaryLabel:
-      "Contrôle effectué sur scénario de démonstration.",
+    reportSummaryLabel: "Contrôle effectué sur scénario de démonstration.",
     reportResultLabel: "Remise en service fictive confirmée.",
     reportReadonlyNotes:
       "Compte rendu fictif préparé pour démonstration readonly.",
@@ -43,5 +52,63 @@ export const demoRequests: DemoRequest[] = [
       "Résultat fictif renseigné",
       "Clôture non active dans ce cycle",
     ],
+    ...overrides,
+  };
+}
+
+export const demoRequests: DemoRequest[] = [
+  {
+    id: "SAV-DEMO-001",
+    title: "Machine client en panne intermittente",
+    customerLabel: "Client Démo Industrie",
+    siteLabel: "Lyon Démo",
+    status: "STAT-01",
+    assignedTechnicianLabel: "Technicien Démo 01",
+    description:
+      "Panne intermittente constatée sur une machine de démonstration.",
+    priorityLabel: "Priorité démo",
+    createdAtLabel: "J-2",
+    ...baseReadonlyFields(),
+  },
+  {
+    id: "SAV-DEMO-002",
+    title: "Capteur pression signal défectueux",
+    customerLabel: "Client Démo Logistique",
+    siteLabel: "Nantes Démo",
+    status: "STAT-02",
+    assignedTechnicianLabel: "Technicien Démo 02",
+    description: "Signal erratique sur capteur de démonstration.",
+    priorityLabel: "Priorité démo",
+    createdAtLabel: "J-1",
+    ...baseReadonlyFields({
+      qualificationSummary: "Qualification fictive déjà validée.",
+      qualificationReadonlyNotes:
+        "Demande fictive en planification pour démonstration multi-demandes.",
+      planningSlotLabel: "J+2 après-midi",
+      planningTechnicianLabel: "Technicien Démo 02",
+    }),
+  },
+  {
+    id: "SAV-DEMO-003",
+    title: "Maintenance préventive terminée",
+    customerLabel: "Client Démo Services",
+    siteLabel: "Bordeaux Démo",
+    status: "STAT-06",
+    assignedTechnicianLabel: "Technicien Démo 03",
+    description: "Maintenance fictive déjà clôturée pour variété de statuts.",
+    priorityLabel: "Priorité démo",
+    createdAtLabel: "J-5",
+    ...baseReadonlyFields({
+      qualificationSummary: "Qualification fictive archivée.",
+      reportSummaryLabel: "Maintenance préventive fictive terminée.",
+      reportResultLabel: "Équipement démo remis en service.",
+      reportReadonlyNotes:
+        "Demande fictive clôturée pour démonstration multi-demandes.",
+      reportChecklist: [
+        "Contrôle démo effectué",
+        "Résultat fictif archivé",
+        "Clôture fictive enregistrée",
+      ],
+    }),
   },
 ];

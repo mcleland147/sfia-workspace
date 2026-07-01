@@ -7,6 +7,7 @@ import {
   qualifyDemoRequest,
   resetDemoData,
 } from "../data/requestsRepository";
+import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
 import { InterventionReadonly } from "../ui/intervention/InterventionReadonly";
 import { QualificationReadonly } from "../ui/qualification/QualificationReadonly";
@@ -19,8 +20,6 @@ import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
 import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
 import "./App.css";
 
-const DEMO_REQUEST_ID = "SAV-DEMO-001";
-
 const DEMO_SECTION_LINKS = [
   { href: "#section-demande", label: "Demande" },
   { href: "#section-qualification", label: "Qualification" },
@@ -32,18 +31,27 @@ const DEMO_SECTION_LINKS = [
 
 export function App() {
   const [dataVersion, setDataVersion] = useState(0);
+  const [selectedRequestId, setSelectedRequestId] = useState(
+    DEFAULT_SELECTED_REQUEST_ID,
+  );
   const [lastResetLabel, setLastResetLabel] = useState<string | undefined>();
   const [lastActionMessage, setLastActionMessage] = useState<
     string | undefined
   >();
 
   const request = useMemo(
-    () => getRequestById(DEMO_REQUEST_ID),
-    [dataVersion],
+    () => getRequestById(selectedRequestId),
+    [selectedRequestId, dataVersion],
   );
+
+  const handleSelectRequest = useCallback((requestId: string) => {
+    setSelectedRequestId(requestId);
+    setLastActionMessage(undefined);
+  }, []);
 
   const handleDemoReset = useCallback(() => {
     resetDemoData();
+    setSelectedRequestId(DEFAULT_SELECTED_REQUEST_ID);
     setDataVersion((version) => version + 1);
     setLastActionMessage(undefined);
     setLastResetLabel(
@@ -63,16 +71,16 @@ export function App() {
     let updated;
     switch (request.status) {
       case "STAT-01":
-        updated = qualifyDemoRequest(DEMO_REQUEST_ID);
+        updated = qualifyDemoRequest(selectedRequestId);
         break;
       case "STAT-02":
-        updated = planDemoIntervention(DEMO_REQUEST_ID);
+        updated = planDemoIntervention(selectedRequestId);
         break;
       case "STAT-03":
-        updated = completeDemoIntervention(DEMO_REQUEST_ID);
+        updated = completeDemoIntervention(selectedRequestId);
         break;
       case "STAT-04":
-        updated = closeDemoRequest(DEMO_REQUEST_ID);
+        updated = closeDemoRequest(selectedRequestId);
         break;
       default:
         return;
@@ -81,15 +89,15 @@ export function App() {
     if (updated) {
       setDataVersion((version) => version + 1);
       setLastActionMessage(
-        `Action fictive enregistrée : ${updated.status}.`,
+        `Action fictive enregistrée pour ${selectedRequestId} : ${updated.status}.`,
       );
     }
-  }, [request]);
+  }, [request, selectedRequestId]);
 
   return (
     <main className="app-shell">
       <DemoOverview
-        requestId={DEMO_REQUEST_ID}
+        requestId={selectedRequestId}
         currentStatus={request?.status}
       />
 
@@ -126,11 +134,15 @@ export function App() {
         <section
           id="section-demande"
           className="app-section app-section--request"
-          aria-label="Demande fictive"
+          aria-label="Demandes fictives"
         >
-          <RequestsList dataVersion={dataVersion} />
+          <RequestsList
+            dataVersion={dataVersion}
+            selectedRequestId={selectedRequestId}
+            onSelectRequest={handleSelectRequest}
+          />
           <RequestDetail
-            requestId={DEMO_REQUEST_ID}
+            requestId={selectedRequestId}
             dataVersion={dataVersion}
           />
         </section>
@@ -139,29 +151,31 @@ export function App() {
           className="app-section app-section--journey"
           aria-label="Parcours readonly"
         >
-          <h2 className="app-section__title">Parcours readonly</h2>
+          <h2 className="app-section__title">
+            Parcours readonly — {selectedRequestId}
+          </h2>
           <div className="app-journey-grid">
             <div id="section-qualification" className="app-journey-card">
               <QualificationReadonly
-                requestId={DEMO_REQUEST_ID}
+                requestId={selectedRequestId}
                 dataVersion={dataVersion}
               />
             </div>
             <div id="section-planification" className="app-journey-card">
               <PlanningReadonly
-                requestId={DEMO_REQUEST_ID}
+                requestId={selectedRequestId}
                 dataVersion={dataVersion}
               />
             </div>
             <div id="section-intervention" className="app-journey-card">
               <InterventionReadonly
-                requestId={DEMO_REQUEST_ID}
+                requestId={selectedRequestId}
                 dataVersion={dataVersion}
               />
             </div>
             <div id="section-compte-rendu" className="app-journey-card">
               <ReportReadonly
-                requestId={DEMO_REQUEST_ID}
+                requestId={selectedRequestId}
                 dataVersion={dataVersion}
               />
             </div>
@@ -174,7 +188,7 @@ export function App() {
           aria-label="Journal local fictif"
         >
           <WorkflowJournalReadonly
-            requestId={DEMO_REQUEST_ID}
+            requestId={selectedRequestId}
             dataVersion={dataVersion}
           />
         </section>
