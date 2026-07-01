@@ -76,6 +76,8 @@ Le backend doit alors être lancé séparément depuis `projects/interv360/backe
 
 Le mode local reste le mode de démonstration par défaut. Aucun fallback automatique vers le local n'est activé en cas d'erreur API.
 
+La démo dispose d'une **navigation par écran** (vue d'ensemble, scénario, demandes, détail, journal) pour réduire le scroll en présentation.
+
 Runbook E2E : [`../08-presentation/interv360-e2e-demo-runbook.md`](../08-presentation/interv360-e2e-demo-runbook.md)
 
 ## Status

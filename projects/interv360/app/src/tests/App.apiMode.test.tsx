@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../app/App";
 
@@ -100,9 +100,13 @@ describe("App API mode", () => {
       expect(screen.getByText("Mode API local")).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByRole("heading", { name: /Demandes SAV/i }),
-    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Demandes" }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("heading", { name: /Demandes SAV/i }),
+      ).toBeInTheDocument();
+    });
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
   });
 

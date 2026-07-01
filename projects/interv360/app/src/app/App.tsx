@@ -14,6 +14,13 @@ import { DemoOverview } from "../ui/demo/DemoOverview";
 import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
 import { DemoScenarioGuide } from "../ui/demo/DemoScenarioGuide";
 import {
+  DEMO_SCREENS,
+  getDemoScreenById,
+  getDemoScreenIndex,
+  INITIAL_DEMO_SCREEN_ID,
+  type DemoScreenId,
+} from "../ui/demo/demoScreens";
+import {
   DEMO_SCENARIO_STEPS,
   getScenarioStepCount,
   INITIAL_SCENARIO_STEP_INDEX,
@@ -32,15 +39,6 @@ import {
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
 import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
 import "./App.css";
-
-const DEMO_SECTION_LINKS = [
-  { href: "#section-demande", label: "Demande" },
-  { href: "#section-qualification", label: "Qualification" },
-  { href: "#section-planification", label: "Planification" },
-  { href: "#section-intervention", label: "Intervention" },
-  { href: "#section-compte-rendu", label: "Compte rendu" },
-  { href: "#section-journal", label: "Journal" },
-] as const;
 
 export function App() {
   const repository = useMemo(() => createRequestsRepository(), []);
@@ -64,6 +62,12 @@ export function App() {
   const [scenarioStepIndex, setScenarioStepIndex] = useState(
     INITIAL_SCENARIO_STEP_INDEX,
   );
+  const [currentDemoScreen, setCurrentDemoScreen] = useState<DemoScreenId>(
+    INITIAL_DEMO_SCREEN_ID,
+  );
+
+  const currentScreenIndex = getDemoScreenIndex(currentDemoScreen);
+  const currentScreen = getDemoScreenById(currentDemoScreen);
 
   const reloadData = useCallback(async () => {
     setIsLoading(true);
@@ -186,6 +190,24 @@ export function App() {
     }
   }, [repository, request, selectedRequestId]);
 
+  const goToDemoScreen = useCallback((screenId: DemoScreenId) => {
+    setCurrentDemoScreen(screenId);
+  }, []);
+
+  const goToPreviousDemoScreen = useCallback(() => {
+    setCurrentDemoScreen(
+      DEMO_SCREENS[Math.max(0, currentScreenIndex - 1)].id,
+    );
+  }, [currentScreenIndex]);
+
+  const goToNextDemoScreen = useCallback(() => {
+    setCurrentDemoScreen(
+      DEMO_SCREENS[
+        Math.min(DEMO_SCREENS.length - 1, currentScreenIndex + 1)
+      ].id,
+    );
+  }, [currentScreenIndex]);
+
   if (isLoading && requests.length === 0 && !loadError) {
     return (
       <main className="app-shell">
@@ -222,128 +244,183 @@ export function App() {
         </p>
       ) : null}
 
-      <DemoOverview
-        requestId={selectedRequestId}
-        currentStatus={request?.status}
-        scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
-        scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
-      />
-
-      <nav className="app-nav" aria-label="Navigation interne de la démo">
-        <p className="app-nav__label">Aller à</p>
-        <ul className="app-nav__list">
-          <li>
-            <a className="app-nav__link" href="#section-readiness">
-              Readiness
-            </a>
-          </li>
-          <li>
-            <a className="app-nav__link" href="#section-scenario">
-              Scénario
-            </a>
-          </li>
-          {DEMO_SECTION_LINKS.map((link) => (
-            <li key={link.href}>
-              <a className="app-nav__link" href={link.href}>
-                {link.label}
-              </a>
+      <nav
+        className="app-screen-nav"
+        aria-label="Navigation par écran de démonstration"
+      >
+        <div className="app-screen-nav__header">
+          <p className="app-screen-nav__status" role="status">
+            Écran {currentScreenIndex + 1} sur {DEMO_SCREENS.length} —{" "}
+            {currentScreen.label}
+          </p>
+          <div
+            className="app-screen-nav__stepper"
+            aria-label="Navigation entre écrans"
+          >
+            <button
+              type="button"
+              className="app-screen-nav__step"
+              onClick={goToPreviousDemoScreen}
+              disabled={currentScreenIndex === 0}
+            >
+              Écran précédent
+            </button>
+            <button
+              type="button"
+              className="app-screen-nav__step"
+              onClick={goToNextDemoScreen}
+              disabled={currentScreenIndex === DEMO_SCREENS.length - 1}
+            >
+              Écran suivant
+            </button>
+          </div>
+        </div>
+        <ul className="app-screen-nav__list">
+          {DEMO_SCREENS.map((screen) => (
+            <li key={screen.id}>
+              <button
+                type="button"
+                className={
+                  screen.id === currentDemoScreen
+                    ? "app-screen-nav__tab app-screen-nav__tab--active"
+                    : "app-screen-nav__tab"
+                }
+                aria-current={
+                  screen.id === currentDemoScreen ? "page" : undefined
+                }
+                onClick={() => {
+                  goToDemoScreen(screen.id);
+                }}
+              >
+                {screen.shortLabel}
+              </button>
             </li>
           ))}
         </ul>
       </nav>
 
-      <div className="app-layout">
-        <section
-          id="section-readiness"
-          className="app-section app-section--readiness"
-          aria-label="Demo readiness"
-        >
-          <DemoReadinessPanel />
-        </section>
-
-        <section
-          id="section-scenario"
-          className="app-section app-section--scenario"
-          aria-label="Scénario guidé"
-        >
-          <DemoScenarioGuide
-            currentStepIndex={scenarioStepIndex}
-            onPreviousStep={handlePreviousScenarioStep}
-            onNextStep={handleNextScenarioStep}
-            onResetScenario={handleResetScenario}
-          />
-        </section>
-
-        <section
-          id="section-controls"
-          className="app-section app-section--controls"
-          aria-label="Contrôles de démonstration"
-        >
-          <DemoResetControl
-            onReset={() => {
-              void handleDemoReset();
-            }}
-            lastResetLabel={lastResetLabel}
-          />
-          <WorkflowActionControl
-            request={request}
-            onAction={() => {
-              void handleWorkflowAction();
-            }}
-            lastActionMessage={lastActionMessage}
-          />
-        </section>
-
-        <section
-          id="section-demande"
-          className="app-section app-section--request"
-          aria-label="Demandes fictives"
-        >
-          <RequestsList
-            requests={requests}
-            selectedRequestId={selectedRequestId}
-            onSelectRequest={handleSelectRequest}
-            statusFilter={statusFilter}
-            onStatusFilterChange={setStatusFilter}
-            searchQuery={searchQuery}
-            onSearchQueryChange={setSearchQuery}
-          />
-          <RequestDetail request={request} requestId={selectedRequestId} />
-        </section>
-
-        <section
-          className="app-section app-section--journey"
-          aria-label="Parcours readonly"
-        >
-          <h2 className="app-section__title">
-            Parcours readonly — {selectedRequestId}
-          </h2>
-          <div className="app-journey-grid">
-            <div id="section-qualification" className="app-journey-card">
-              <QualificationReadonly request={request} requestId={selectedRequestId} />
-            </div>
-            <div id="section-planification" className="app-journey-card">
-              <PlanningReadonly request={request} requestId={selectedRequestId} />
-            </div>
-            <div id="section-intervention" className="app-journey-card">
-              <InterventionReadonly request={request} requestId={selectedRequestId} />
-            </div>
-            <div id="section-compte-rendu" className="app-journey-card">
-              <ReportReadonly request={request} requestId={selectedRequestId} />
-            </div>
+      <div className="app-layout app-layout--screen">
+        {currentDemoScreen === "overview" ? (
+          <div className="app-screen-panel">
+            <DemoOverview
+              requestId={selectedRequestId}
+              currentStatus={request?.status}
+              scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
+              scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
+            />
+            <section
+              id="section-readiness"
+              className="app-section app-section--readiness"
+              aria-label="Demo readiness"
+            >
+              <DemoReadinessPanel />
+            </section>
           </div>
-        </section>
+        ) : null}
 
-        <section
-          id="section-journal"
-          className="app-section app-section--journal"
-          aria-label="Journal local fictif"
-        >
-          <WorkflowJournalReadonly
-            events={workflowEvents}
-            requestId={selectedRequestId}
-          />
-        </section>
+        {currentDemoScreen === "scenario" ? (
+          <section
+            id="section-scenario"
+            className="app-section app-section--scenario app-screen-panel"
+            aria-label="Scénario guidé"
+          >
+            <DemoScenarioGuide
+              currentStepIndex={scenarioStepIndex}
+              onPreviousStep={handlePreviousScenarioStep}
+              onNextStep={handleNextScenarioStep}
+              onResetScenario={handleResetScenario}
+            />
+          </section>
+        ) : null}
+
+        {currentDemoScreen === "requests" ? (
+          <section
+            id="section-demande"
+            className="app-section app-section--request app-screen-panel"
+            aria-label="Demandes fictives"
+          >
+            <RequestsList
+              requests={requests}
+              selectedRequestId={selectedRequestId}
+              onSelectRequest={handleSelectRequest}
+              statusFilter={statusFilter}
+              onStatusFilterChange={setStatusFilter}
+              searchQuery={searchQuery}
+              onSearchQueryChange={setSearchQuery}
+            />
+          </section>
+        ) : null}
+
+        {currentDemoScreen === "details" ? (
+          <div className="app-screen-panel">
+            <section
+              className="app-section app-section--request-detail"
+              aria-label="Détail et workflow"
+            >
+              <RequestDetail request={request} requestId={selectedRequestId} />
+              <WorkflowActionControl
+                request={request}
+                onAction={() => {
+                  void handleWorkflowAction();
+                }}
+                lastActionMessage={lastActionMessage}
+              />
+            </section>
+            <section
+              className="app-section app-section--journey"
+              aria-label="Parcours readonly"
+            >
+              <h2 className="app-section__title">
+                Parcours readonly — {selectedRequestId}
+              </h2>
+              <div className="app-journey-grid">
+                <div id="section-qualification" className="app-journey-card">
+                  <QualificationReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+                <div id="section-planification" className="app-journey-card">
+                  <PlanningReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+                <div id="section-intervention" className="app-journey-card">
+                  <InterventionReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+                <div id="section-compte-rendu" className="app-journey-card">
+                  <ReportReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+              </div>
+            </section>
+          </div>
+        ) : null}
+
+        {currentDemoScreen === "journal" ? (
+          <section
+            id="section-journal"
+            className="app-section app-section--journal app-screen-panel"
+            aria-label="Journal et reset"
+          >
+            <DemoResetControl
+              onReset={() => {
+                void handleDemoReset();
+              }}
+              lastResetLabel={lastResetLabel}
+            />
+            <WorkflowJournalReadonly
+              events={workflowEvents}
+              requestId={selectedRequestId}
+            />
+          </section>
+        ) : null}
       </div>
     </main>
   );
