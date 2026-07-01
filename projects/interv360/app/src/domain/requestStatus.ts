@@ -35,6 +35,9 @@ export interface DemoRequest {
   categoryLabel?: string;
   channelLabel?: string;
   impactLabel?: string;
+  requestedDate?: string;
+  equipmentLabel?: string;
+  businessImpact?: string;
   siteDetailLabel?: string;
   assignedTechnicianLabel?: string;
   description?: string;

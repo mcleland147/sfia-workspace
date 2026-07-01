@@ -34,6 +34,9 @@ interface ApiDetailPayload {
     category: string;
     channel: string;
     impact: string;
+    requestedDate?: string;
+    equipmentLabel?: string;
+    businessImpact?: string;
     demoCenter: string;
     description: string;
     readonlyBlocks: {
@@ -105,6 +108,11 @@ function mapApiDetailToDemoRequest(payload: ApiDetailPayload): DemoRequest {
     categoryLabel: detail.category,
     channelLabel: detail.channel,
     impactLabel: detail.impact,
+    requestedDate: detail.requestedDate
+      ? formatIsoLabel(detail.requestedDate)
+      : undefined,
+    equipmentLabel: detail.equipmentLabel,
+    businessImpact: detail.businessImpact,
     siteDetailLabel: detail.demoCenter,
     assignedTechnicianLabel: request.assignedTechnicianLabel ?? undefined,
     description: detail.description,

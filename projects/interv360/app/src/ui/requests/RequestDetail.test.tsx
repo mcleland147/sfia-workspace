@@ -26,6 +26,18 @@ describe("RequestDetail", () => {
     expect(screen.getByText("Panne machine")).toBeInTheDocument();
     expect(screen.getByText("Portail démo")).toBeInTheDocument();
     expect(screen.getByText("Centre démo Nord")).toBeInTheDocument();
+    expect(screen.getByText("12/01/2026")).toBeInTheDocument();
+    expect(screen.getByText("Date de demande")).toBeInTheDocument();
+    expect(
+      screen.getByText("Système de visioconférence salle A"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Équipement / objet")).toBeInTheDocument();
+    expect(
+      screen.getByText("Interruption d'un usage pédagogique planifié"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Impact métier")).toBeInTheDocument();
+    expect(screen.getByText("Production démo limitée")).toBeInTheDocument();
+    expect(screen.getByText("Lyon Démo")).toBeInTheDocument();
     expect(screen.getByText("Haute")).toBeInTheDocument();
     expect(screen.getByText("Urgente")).toBeInTheDocument();
     expect(screen.getByText(/Priorité Haute/i)).toBeInTheDocument();

@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Connected UX Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-01 réalisé  
+**Statut** : Batch produit — INC-PROD-02 réalisé  
 **Branche** : `delivery/interv360-connected-ux-productization`
 
 ---
@@ -74,7 +74,7 @@ Le batch ne doit pas inclure :
 | Incrément | Objectif | Statut |
 |----------|----------|--------|
 | INC-PROD-01 | Borner les améliorations UX connectée | Réalisé |
-| INC-PROD-02 | Afficher les champs métier productisés | À faire |
+| INC-PROD-02 | Afficher les champs métier productisés | Réalisé |
 | INC-PROD-03 | Améliorer l’affichage des erreurs API | À confirmer |
 | INC-PROD-04 | Mettre à jour documentation / runbook | À faire |
 | INC-PROD-05 | Préparer PR du batch | À venir |
@@ -141,16 +141,16 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 | Critère | Résultat |
 |---------|----------|
 | Améliorations UX ciblées décidées | OK |
-| Champs productisés visibles | `<OK / KO>` |
-| Mode local par défaut conservé | `<OK / KO>` |
-| Mode API opt-in conservé | `<OK / KO>` |
-| API `/api/v1` conservée | `<OK / KO>` |
-| Erreurs API mieux affichées si retenu | `<OK / non retenu>` |
-| Tests frontend adaptés | `<OK / KO>` |
-| Backend non modifié ou justification mineure | `<OK / KO>` |
-| Pas d’auth / users / rôles | `<OK / KO>` |
-| Pas de CRM / données réelles | `<OK / KO>` |
-| Pas de nouveaux statuts | `<OK / KO>` |
+| Champs productisés visibles | OK |
+| Mode local par défaut conservé | OK |
+| Mode API opt-in conservé | OK |
+| API `/api/v1` conservée | OK |
+| Erreurs API mieux affichées si retenu | non retenu (INC-PROD-03 à confirmer) |
+| Tests frontend adaptés | OK |
+| Backend non modifié ou justification mineure | OK |
+| Pas d’auth / users / rôles | OK |
+| Pas de CRM / données réelles | OK |
+| Pas de nouveaux statuts | OK |
 
 ---
 
@@ -159,11 +159,12 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 | Sujet | Décision |
 |------|----------|
 | Champs affichés | `requestedDate`, `equipmentLabel`, `businessImpact`, `siteLabel` |
-| Erreurs API | Amélioration légère possible, sans refonte |
+| Libellés UI | `Date de demande`, `Équipement / objet`, `Impact métier` |
+| Erreurs API | À confirmer après observation du rendu |
 | Navigation | Conservée |
 | React Router | Non |
 | Nouvelle dépendance | Non |
-| Backend | Non modifié par défaut |
+| Backend | Non modifié |
 | API contract | Conservé |
 | Mode local | Conservé |
 | Mode API | Conservé |
@@ -180,19 +181,30 @@ Le mapping frontend actuel (`apiRequestsRepository.ts`, type `DemoRequest`) ne p
 - conservation de la navigation existante ;
 - conservation du mode local et du mode API opt-in.
 
+**INC-PROD-02** — affichage des champs productisés :
+
+- extension ciblée du modèle frontend ;
+- mapping API de `requestedDate`, `equipmentLabel`, `businessImpact` ;
+- alignement du mode local avec des valeurs fictives ;
+- affichage des champs dans la fiche détail ;
+- conservation de `siteLabel` comme contexte site ;
+- conservation de `impactLabel` comme impact court distinct de `businessImpact` ;
+- tests frontend adaptés ;
+- aucun backend modifié.
+
 ---
 
 ## 9. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
-| Backend build | `<OK / KO>` |
-| Backend tests | `<OK / KO>` |
-| Frontend build | `<OK / KO>` |
-| Frontend tests | `<OK / KO>` |
-| Validation navigateur local | `<OK / KO / non exécutée>` |
-| Validation navigateur API | `<OK / KO / non exécutée>` |
-| Reset API | `<OK / KO / non exécutée>` |
+| Backend build | OK |
+| Backend tests | OK — 32 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+| Validation navigateur local | non exécutée |
+| Validation navigateur API | non exécutée |
+| Reset API | non exécutée |
 
 ---
 
@@ -214,4 +226,4 @@ Limites attendues :
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-02** : afficher les champs métier productisés dans `RequestDetail`, en étendant le modèle frontend et le mapping API.
+**INC-PROD-03** : confirmer si une amélioration légère des erreurs API est nécessaire, ou passer à la documentation / PR.
