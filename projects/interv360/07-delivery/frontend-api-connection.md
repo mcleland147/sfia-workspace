@@ -286,3 +286,74 @@ Hors périmètre confirmé : suppression `localStorage`, SQL, CRM, auth, Control
 | Cible | main |
 | Source | delivery/interv360-frontend-api-connection |
 | Merge automatique | Non |
+
+---
+
+## 15. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#42](https://github.com/mcleland147/sfia-workspace/pull/42) — Add Interv360 frontend API connection mode |
+| Source | `delivery/interv360-frontend-api-connection` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `dad22eb` |
+| Main synchronisée | OK |
+| Build frontend post-merge | OK |
+| Tests frontend post-merge | OK — 77 tests |
+| Build backend post-merge | OK |
+| Tests backend post-merge | OK — 18 tests |
+| Mode local par défaut | OK |
+| Mode API activable explicitement | OK |
+| Backend obligatoire en mode local | Non |
+| localStorage conservé | OK |
+| Fallback automatique silencieux | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Frontend API Connection** est mergé dans `main`.
+
+La branche principale contient désormais :
+
+- une abstraction repository async ;
+- un repository local conservant le comportement `localStorage` ;
+- un repository API utilisant les endpoints backend `/api/v1` ;
+- une factory de sélection local/API par configuration ;
+- le mode local par défaut ;
+- le mode API activable explicitement via variables Vite ;
+- une gestion simple des états loading/error ;
+- une indication UI du mode de données ;
+- les tests frontend associés ;
+- les validations backend maintenues.
+
+Le frontend peut désormais être connecté au backend minimal sans rendre le backend obligatoire pour la démonstration locale.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery contrôlé.
+
+### Prochaine étape recommandée
+
+**Cycle recommandé :** `delivery/interv360-end-to-end-demo-hardening`
+
+Objectif :
+
+- vérifier la démonstration complète en mode local et en mode API ;
+- renforcer la documentation d'usage local/API ;
+- stabiliser les éventuels irritants UX ;
+- préparer un package de validation bout-en-bout.
+
+**Alternative :** `delivery/interv360-frontend-api-connection-cleanup`
+
+Objectif :
+
+- nettoyer les points mineurs de dette technique ;
+- simplifier les tests ;
+- améliorer les messages d'erreur ;
+- sans changer le périmètre fonctionnel.
