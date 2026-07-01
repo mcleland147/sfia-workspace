@@ -110,6 +110,25 @@ Unchanged:
 - no backend, API, server database, SQL, CRM, or real data;
 - no React routing or new dependency.
 
+## INC-04 — Local list filtering and summary
+
+INC-04 improves multi-request list exploitation with lightweight local filters.
+
+Changes:
+
+- local status summary (count per visible status);
+- filter `Toutes` and per-status filters for existing requests;
+- active filter indication;
+- selection realigned when the active filter hides the selected request;
+- reset restores filter to `Toutes`.
+
+Unchanged:
+
+- controlled workflow transitions and rules per request;
+- fictitious local data only;
+- no backend, API, server database, SQL, CRM, dashboard, chart, or export;
+- no React routing or new dependency.
+
 Report readonly:
 
 - displays fictitious summary, result and checklist for `SAV-DEMO-001`;
