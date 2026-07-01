@@ -358,3 +358,40 @@ Ajouter une section Batch 01 :
 - pas de backend/API/DB ;
 - pas de données réelles ;
 - workflow nominal inchangé.
+
+---
+
+## 13. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #36 — https://github.com/mcleland147/sfia-workspace/pull/36 |
+| Source | `delivery/interv360-batch-01-demo-credibility` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `74f4476` |
+| Main synchronisée | OK |
+| Build post-merge | OK |
+| Tests post-merge | OK — 55 passés / 14 fichiers |
+| Workflow métier | Inchangé |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Batch 01 est mergé dans `main`.
+
+Le démonstrateur Interv360 dispose désormais, dans la branche principale, des enrichissements suivants :
+
+- priorités fictives ;
+- criticité fictive ;
+- recherche locale ;
+- fiche détail enrichie ;
+- états vides ;
+- filtres existants conservés ;
+- workflow nominal inchangé ;
+- reset et journal conservés.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Batch Delivery.
