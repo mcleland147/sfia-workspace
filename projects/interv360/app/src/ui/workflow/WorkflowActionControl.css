@@ -1,0 +1,64 @@
+.workflow-action-control {
+  border-top: 1px solid #ddd;
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+  max-width: 48rem;
+  padding: 1.5rem 1rem;
+}
+
+.workflow-action-control__header h2 {
+  font-size: 1.35rem;
+  margin: 0 0 0.25rem;
+}
+
+.workflow-action-control__subtitle {
+  color: #444;
+  margin: 0 0 0.5rem;
+}
+
+.workflow-action-control__notice {
+  background: #f5f5f5;
+  border-left: 3px solid #666;
+  color: #333;
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.workflow-action-control__status {
+  margin: 0 0 1rem;
+}
+
+.workflow-action-control__button {
+  background: #1f4f8a;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem;
+}
+
+.workflow-action-control__button:hover {
+  background: #163a66;
+}
+
+.workflow-action-control__closed {
+  background: #eef6ee;
+  border-left: 3px solid #3a7a3a;
+  color: #2d5f2d;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+}
+
+.workflow-action-control__confirmation {
+  color: #2d5f2d;
+  font-size: 0.9rem;
+  margin: 0.75rem 0 0;
+}
+
+.workflow-action-control__missing {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}

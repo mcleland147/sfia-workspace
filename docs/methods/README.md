@@ -44,3 +44,17 @@ Méthodes et standards liés à la reprise UX/UI documentaire.
 | `bpmn-method-cycle-closure.md` | Synthèse de clôture du cycle méthode BPMN (Phases A–C) |
 
 Ces méthodes sont **évolutives** et doivent être enrichies à chaque phase projet, à partir des apprentissages, savoir-faire et savoir-être capitalisés.
+
+---
+
+## Méthodes capitalisées (racine repo)
+
+Certaines méthodes SFIA sont capitalisées comme standards réutilisables dans le dossier [`methods/`](../../methods/) à la racine du workspace.
+
+| Méthode | Domaine | Statut | Lien |
+|---------|---------|--------|------|
+| Controlled Delivery | Delivery Method | Draft — Hardened / Publication package ready | [`methods/controlled-delivery/README.md`](../../methods/controlled-delivery/README.md) |
+
+Controlled Delivery structure un delivery contrôlé en deux rythmes : phase 1 (cadrage fin par micro-cycles) et phase 2 (réalisation groupée contrôlée).
+
+**Index local :** [`methods/README.md`](../../methods/README.md)
