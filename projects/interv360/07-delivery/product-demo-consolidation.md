@@ -306,3 +306,95 @@ No code change, frontend source change, backend change, SQLite change, API contr
 | Cible | main |
 | Source | delivery/interv360-product-demo-consolidation |
 | Merge automatique | Non |
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#56](https://github.com/mcleland147/sfia-workspace/pull/56) |
+| Source | `delivery/interv360-product-demo-consolidation` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `e4eb5e3` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 32 tests |
+| INC-PROD-01 | OK — cadrage consolidation démo |
+| INC-PROD-02 | OK — runbook bout-en-bout consolidé |
+| INC-PROD-03 | Non retenu — runbook suffisant |
+| INC-PROD-04 | OK — validation + préparation PR |
+| Runbook consolidé | OK |
+| État produit consolidé documenté | OK |
+| Parcours local documenté | OK |
+| Parcours API documenté | OK |
+| Preuves techniques listées | OK |
+| Curl essentiels documentés | OK |
+| Limites assumées clarifiées | OK |
+| Récit synthétique documenté | OK |
+| Code modifié | Non |
+| Frontend source modifié | Non |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| API `/api/v1` modifiée | Non |
+| Workflow modifié | Non |
+| Authentification introduite | Non |
+| Utilisateurs / rôles introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| React Router ajouté | Non |
+| Nouvelle dépendance ajoutée | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Product Demo Consolidation** est mergé dans `main`.
+
+La branche principale dispose désormais d’un runbook de démonstration produit consolidé, couvrant :
+
+- l’état produit actuel ;
+- la valeur produit démontrée ;
+- le parcours de démonstration local ;
+- le parcours de démonstration API ;
+- les preuves techniques ;
+- les curl essentiels ;
+- les erreurs API utiles ;
+- les limites assumées ;
+- le récit synthétique de démonstration.
+
+INC-PROD-03 n’a pas été retenu : le script court et le one-page summary n’ont pas été modifiés, car le récit, les preuves et les limites sont déjà consolidés dans le runbook opérationnel.
+
+Aucun code, frontend source, backend, SQLite, API, workflow, auth, users, rôles, CRM, donnée réelle, nouveau statut, React Router, nouvelle dépendance, PostgreSQL ou ORM lourd n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Batch Delivery produit contrôlé.
+
+### Prochaine étape recommandée
+
+Le socle Interv360 dispose maintenant :
+
+- d’un backend SQLite persistant ;
+- d’une API locale stabilisée ;
+- d’un modèle RequestDetail productisé ;
+- d’erreurs API clarifiées ;
+- d’un frontend affichant les champs métier productisés ;
+- d’un runbook produit bout-en-bout consolidé.
+
+Options possibles pour la suite :
+
+1. `architecture/interv360-auth-and-user-framing`
+   - si l’objectif devient identité, utilisateurs, rôles et responsabilités ;
+2. `architecture/interv360-workflow-extension-framing`
+   - si l’objectif devient l’extension du workflow métier ;
+3. `architecture/interv360-product-roadmap-next`
+   - si une nouvelle priorisation produit est nécessaire avant d’ouvrir un chantier structurant.
+
+**Recommandation :** ouvrir un cadrage dédié avant toute implémentation auth/users/rôles ou workflow étendu.
