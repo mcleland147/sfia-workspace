@@ -275,3 +275,80 @@ SQLite is introduced only as the first backend persistence brick.
 | Cible | `main` |
 | Source | `delivery/interv360-backend-persistence` |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#51](https://github.com/mcleland147/sfia-workspace/pull/51) |
+| Source | `delivery/interv360-backend-persistence` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `8dc9d9a` |
+| Main synchronisée | OK |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 20 tests |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 81 tests |
+| SQLite introduit côté backend | OK |
+| Dépendance utilisée | `better-sqlite3` |
+| API `/api/v1` conservée | OK |
+| Demandes persistées | OK |
+| Détails persistés | OK |
+| Événements persistés | OK |
+| Reset démo conservé | OK |
+| Persistance après redémarrage | OK |
+| Frontend modifié | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Authentification introduite | Non |
+| Utilisateurs / rôles introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| Production / déploiement introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Backend Persistence** est mergé dans `main`.
+
+La branche principale contient désormais la première vraie brique produit backend :
+
+> persistance SQLite des demandes, détails et événements de workflow.
+
+Le backend ne repose plus uniquement sur un store mémoire démonstrateur.
+
+L'API `/api/v1`, le seed fictif et le reset de démonstration sont conservés.
+
+Le frontend n'a pas été modifié.
+
+Aucun PostgreSQL, ORM lourd, CRM, authentification, donnée réelle, nouveau workflow ou statut supplémentaire n'a été introduit.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery contrôlé.
+
+### Prochaine étape recommandée
+
+Ne pas ouvrir directement auth, CRM ou industrialisation complète.
+
+**Cycle recommandé :** `delivery/interv360-api-demo-hardening`
+
+Objectif possible :
+
+- rendre le mode API local plus fluide ;
+- sécuriser CORS / ports ;
+- améliorer la configuration backend/frontend API ;
+- capitaliser la persistance SQLite dans le run API.
+
+**Alternative produit :** `architecture/interv360-auth-and-user-framing`
+
+Uniquement si la décision est de commencer à cadrer utilisateurs, authentification et rôles.
+
+**Alternative technique :** `architecture/interv360-product-roadmap-after-persistence`
+
+Si une priorisation globale post-persistance est souhaitée avant le prochain développement.
