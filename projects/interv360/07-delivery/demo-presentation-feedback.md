@@ -244,3 +244,78 @@ Cette PR doit être **mergée dans `main` avant** d'ouvrir `delivery/interv360-d
 | Cible | main |
 | Source | delivery/interv360-demo-presentation-feedback |
 | Merge automatique | Non |
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#46](https://github.com/mcleland147/sfia-workspace/pull/46) |
+| Source | `delivery/interv360-demo-presentation-feedback` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `8e6ba18` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 77 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 18 tests |
+| Feedback humain tracé | OK |
+| Irritant prioritaire confirmé | OK — page longue / scroll |
+| Décision polish | OK — polish UX mineur recommandé |
+| Code frontend modifié | Non |
+| Backend modifié | Non |
+| Nouveau scope métier | Non |
+| Polish UX réalisé | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **Demo Presentation Feedback** est mergé dans `main`.
+
+La branche principale contient désormais le feedback humain réel qui justifie un polish UX ciblé.
+
+Le seul irritant confirmé comme prioritaire est :
+
+> page longue / scroll.
+
+Le prochain cycle produit peut donc être ouvert sur un périmètre strict :
+
+`delivery/interv360-demo-polish`
+
+**Objectif :**
+
+- réduire le scroll ;
+- introduire une vue par page ou une navigation par écran ;
+- améliorer la lisibilité en présentation ;
+- conserver readiness ;
+- conserver scénario guidé ;
+- conserver workflow nominal ;
+- conserver mode local par défaut.
+
+Aucun polish n'a été réalisé dans ce cycle.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery documentaire.
+
+### Hors scope à maintenir pour le polish
+
+Le polish immédiat ne doit pas traiter :
+
+- polish large du mode API ;
+- démonstration API live ;
+- correction des labels Batch / INC ;
+- synchronisation automatique scénario ↔ workflow ;
+- refonte globale UI ;
+- nouveau parcours métier ;
+- nouveau statut ;
+- CRM ;
+- authentification ;
+- données réelles.
