@@ -88,6 +88,42 @@ Notes:
 - No user, role, CRM reference, real data or extended workflow status is introduced.
 - For an existing local SQLite database, run the demo reset or remove `data/interv360.sqlite` to reload the enriched seed after schema migration.
 
+### API validation errors
+
+Transition endpoints return structured API errors with the existing format:
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+Main validation cases:
+
+| Case | HTTP | Code |
+|------|------|------|
+| Unknown request | 404 | `REQUEST_NOT_FOUND` |
+| Missing transition action | 400 | `INVALID_TRANSITION_ACTION` |
+| Non-string transition action | 400 | `INVALID_TRANSITION_ACTION` |
+| Unknown transition action | 400 | `INVALID_TRANSITION_ACTION` |
+| Business transition not allowed | 409 | `TRANSITION_NOT_ALLOWED` |
+| Invalid JSON body | 400 | `INVALID_JSON_BODY` |
+
+The demo reset keeps a stable response:
+
+```json
+{
+  "status": "reset",
+  "mode": "demo",
+  "requestsCount": 3
+}
+```
+
+No authentication, users, roles, CRM integration, real data or extended workflow status is introduced.
+
 ## Guardrails
 
 - Fictitious data only (`isDemo: true`)

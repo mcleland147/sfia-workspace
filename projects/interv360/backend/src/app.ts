@@ -20,6 +20,27 @@ export function createApp(): express.Application {
 
   app.use(
     (
+      err: unknown,
+      _req: express.Request,
+      res: express.Response,
+      next: express.NextFunction,
+    ) => {
+      if (err instanceof SyntaxError && "body" in err) {
+        res.status(400).json({
+          error: {
+            code: "INVALID_JSON_BODY",
+            message: "Request body must be valid JSON.",
+          },
+        });
+        return;
+      }
+
+      next(err);
+    },
+  );
+
+  app.use(
+    (
       _err: unknown,
       _req: express.Request,
       res: express.Response,
