@@ -230,3 +230,35 @@ Synthèse courte objectif / message / capacités / limites / valeur / trajectoir
 ## 7. Documentation applicative
 
 Mention courte Batch 04 ajoutée dans `projects/interv360/app/README.md`.
+
+---
+
+## 13. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #40 — https://github.com/mcleland147/sfia-workspace/pull/40 |
+| Source | `delivery/interv360-batch-04-demo-presentation-package` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `a885e0f` |
+| Main synchronisée | OK |
+| Livrables présentation présents | OK |
+| Modification applicative | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Batch 04 est mergé dans `main`.
+
+Le démonstrateur Interv360 dispose désormais, dans la branche principale, d'un package de présentation externe comprenant :
+
+- un package complet de présentation ;
+- un script de démonstration pas à pas ;
+- une synthèse one-page partageable ;
+- une mention courte dans le README applicatif.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Batch Delivery.
