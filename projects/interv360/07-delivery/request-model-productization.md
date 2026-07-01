@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Request Model Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-05 en cours  
+**Statut** : Batch produit — INC-PROD-05 réalisé  
 **Branche** : `delivery/interv360-request-model-productization`
 
 ---
@@ -87,7 +87,7 @@ Le batch ne doit pas inclure :
 | INC-PROD-02 | Implémenter les champs côté backend + SQLite | Réalisé |
 | INC-PROD-03 | Ajouter validation API ciblée | Non retenu — couvert par les tests INC-PROD-02 |
 | INC-PROD-04 | Mettre à jour documentation / runbook | Réalisé |
-| INC-PROD-05 | Préparer PR du batch | En cours |
+| INC-PROD-05 | Préparer PR du batch | Réalisé — push OK, PR manuelle |
 
 ---
 
@@ -348,13 +348,15 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 
 ## 14. Statut push / PR
 
-À compléter après push.
-
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-request-model-productization?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-request-model-productization` |
 | Merge automatique | Non |
+
+**Titre PR** : `Productize Interv360 request detail model`
+
+**Corps PR** : voir §13 ou `/tmp/request-model-productization-pr-body.md`
