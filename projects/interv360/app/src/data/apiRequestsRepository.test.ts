@@ -25,6 +25,9 @@ const apiDetailPayload = {
     category: "Panne machine",
     channel: "Portail démo",
     impact: "Production démo limitée",
+    requestedDate: "2026-01-12T09:00:00.000Z",
+    equipmentLabel: "Ligne d'assemblage démo — poste 3",
+    businessImpact: "Interruption d'un flux de production fictif planifié",
     demoCenter: "Centre démo Nord",
     description: "Panne intermittente constatée sur une machine de démonstration.",
     readonlyBlocks: {
@@ -92,6 +95,13 @@ describe("apiRequestsRepository", () => {
 
     expect(request?.categoryLabel).toBe("Panne machine");
     expect(request?.qualificationSummary).toContain("Contexte confirmé");
+    expect(request?.requestedDate).toContain("2026");
+    expect(request?.equipmentLabel).toBe("Ligne d'assemblage démo — poste 3");
+    expect(request?.businessImpact).toBe(
+      "Interruption d'un flux de production fictif planifié",
+    );
+    expect(request?.impactLabel).toBe("Production démo limitée");
+    expect(request?.siteLabel).toBe("Lyon Démo");
   });
 
   it("applies a transition via the API", async () => {

@@ -66,6 +66,12 @@ export function RequestDetail({
             <dd>{request.siteDetailLabel}</dd>
           </div>
         ) : null}
+        {request.requestedDate ? (
+          <div className="request-detail__field">
+            <dt>Date de demande</dt>
+            <dd>{request.requestedDate}</dd>
+          </div>
+        ) : null}
         <div className="request-detail__field">
           <dt>Statut</dt>
           <dd>{request.status}</dd>
@@ -94,6 +100,18 @@ export function RequestDetail({
           <div className="request-detail__field">
             <dt>Impact</dt>
             <dd>{request.impactLabel}</dd>
+          </div>
+        ) : null}
+        {request.businessImpact ? (
+          <div className="request-detail__field">
+            <dt>Impact métier</dt>
+            <dd>{request.businessImpact}</dd>
+          </div>
+        ) : null}
+        {request.equipmentLabel ? (
+          <div className="request-detail__field">
+            <dt>Équipement / objet</dt>
+            <dd>{request.equipmentLabel}</dd>
           </div>
         ) : null}
         {request.assignedTechnicianLabel ? (

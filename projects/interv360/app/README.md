@@ -84,6 +84,22 @@ La démo dispose d'une **navigation par écran** (vue d'ensemble, scénario, dem
 
 Runbook E2E : [`../08-presentation/interv360-e2e-demo-runbook.md`](../08-presentation/interv360-e2e-demo-runbook.md)
 
+### Productized request detail fields
+
+The request detail view displays product-oriented fields in both local and API modes:
+
+- `requestedDate` as **Date de demande**
+- `equipmentLabel` as **Équipement / objet**
+- `businessImpact` as **Impact métier**
+- `siteLabel` as **Site**
+
+Notes:
+
+- `requestedDate` is distinct from the existing creation date label.
+- `businessImpact` is distinct from the existing short impact label.
+- The frontend keeps the current navigation, local mode, and API opt-in mode.
+- No authentication, users, roles, CRM integration, real data or extended workflow status is introduced.
+
 ## Status
 
 **Phase 2 — controlled local workflow skeleton on top of the readonly INC-01 demo foundation.**
