@@ -268,3 +268,71 @@ Hors périmètre confirmé : code métier frontend/backend, SQL, CRM, auth, Cont
 | Cible | main |
 | Source | delivery/interv360-end-to-end-demo-hardening |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | [#43](https://github.com/mcleland147/sfia-workspace/pull/43) |
+| Source | `delivery/interv360-end-to-end-demo-hardening` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `d5c03c0` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 77 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 18 tests |
+| Runbook E2E présent | OK |
+| Liens README app/backend | OK |
+| Nouveau scope métier | Non |
+| Modification code métier | Non |
+| Mode local par défaut | OK |
+| Backend obligatoire en local | Non |
+| Fallback automatique silencieux | Non |
+| DB SQL introduite | Non |
+| Données réelles introduites | Non |
+| CRM introduit | Non |
+| Authentification introduite | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le cycle **End-to-End Demo Hardening** est mergé dans `main`.
+
+La branche principale contient désormais :
+
+- un runbook de démonstration E2E local/API ;
+- les procédures de lancement en mode local et en mode API ;
+- un parcours de validation local ;
+- un parcours de validation API ;
+- une validation curl backend ;
+- des garde-fous de démonstration ;
+- une section de dépannage rapide ;
+- des liens README app/backend vers le runbook.
+
+Aucun nouveau scope métier n'a été introduit.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery contrôlé.
+
+### Prochaine étape recommandée
+
+Ne pas lancer de polish UX sans retour réel de démonstration.
+
+**Cycle recommandé :** `delivery/interv360-demo-feedback-review`
+
+Objectif :
+
+- présenter ou rejouer la démo avec le runbook ;
+- noter les irritants réels ;
+- décider si un polish UX est utile ;
+- éviter d'ajouter du scope sur hypothèse.
+
+**Alternative :** `delivery/interv360-demo-polish`
+
+Uniquement si des irritants UX concrets sont identifiés.
