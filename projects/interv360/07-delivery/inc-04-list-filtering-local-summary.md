@@ -210,3 +210,31 @@ The nominal workflow remains unchanged.
 INC-04 est **clôturé** : les filtres locaux et la synthèse légère améliorent l'exploitation des demandes sans transformer le démonstrateur en dashboard.
 
 Aucun merge automatique n'est effectué.
+
+---
+
+## 13. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#35](https://github.com/mcleland147/sfia-workspace/pull/35) |
+| Source | `delivery/interv360-inc-04-list-filtering-local-summary` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `1a75a04` — `Merge pull request #35 from mcleland147/delivery/interv360-inc-04-list-filtering-local-summary` |
+| Main synchronisée | OK |
+| Build post-merge | OK |
+| Tests post-merge | OK — 48 passés / 14 fichiers |
+| Workflow métier | Inchangé |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+INC-04 est **mergé dans `main`**.
+
+Les filtres locaux et la synthèse légère par statut sont disponibles dans la branche principale.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Delivery.
