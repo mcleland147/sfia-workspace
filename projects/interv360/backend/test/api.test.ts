@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createApp } from "../src/app.js";
 import {
   applyTransition,
+  closeDemoStoreForTests,
   resetDemoStoreForTests,
 } from "../src/store/demoStore.js";
 
@@ -10,12 +11,16 @@ const app = createApp();
 
 describe("Interv360 API", () => {
   beforeEach(() => {
+    process.env.SQLITE_PATH = ":memory:";
+    closeDemoStoreForTests();
     resetDemoStoreForTests();
   });
 
   afterEach(() => {
     resetDemoStoreForTests();
+    closeDemoStoreForTests();
     delete process.env.DEMO_MODE;
+    delete process.env.SQLITE_PATH;
   });
 
   it("GET /health returns ok", async () => {
@@ -112,7 +117,10 @@ describe("Interv360 API", () => {
     });
 
     const listResponse = await request(app).get("/api/v1/requests");
-    expect(listResponse.body.items[0].status).toBe("STAT-01");
+    const sav001 = listResponse.body.items.find(
+      (item: { id: string }) => item.id === "SAV-DEMO-001",
+    );
+    expect(sav001?.status).toBe("STAT-01");
 
     const eventsAfter = await request(app).get(
       "/api/v1/requests/SAV-DEMO-001/events",

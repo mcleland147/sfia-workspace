@@ -2,116 +2,227 @@ import { resolveTransition } from "../domain/transitions.js";
 import type {
   DemoRequest,
   DemoRequestDetail,
+  RequestCriticality,
+  RequestPriority,
+  RequestStatus,
   WorkflowEvent,
+  WorkflowEventType,
 } from "../domain/types.js";
 import { StoreError } from "../domain/types.js";
-import { demoDetailsSeed, demoRequestsSeed } from "../seed/demoSeed.js";
+import { closeDatabase, getDatabase } from "../persistence/sqliteDatabase.js";
+import {
+  clearPersistedData,
+  insertSeedData,
+  nextEventId,
+} from "../persistence/sqliteSeed.js";
 
-interface StoreState {
-  requests: DemoRequest[];
-  details: Map<string, DemoRequestDetail>;
-  events: WorkflowEvent[];
-  eventCounter: number;
+interface RequestRow {
+  id: string;
+  title: string;
+  status: string;
+  priority: string;
+  criticality: string;
+  customer_label: string;
+  site_label: string;
+  assigned_technician_label: string | null;
+  created_at: string;
+  updated_at: string;
+  detail_id: string;
+  is_demo: number;
 }
 
-let state: StoreState = createInitialState();
-
-function createInitialState(): StoreState {
-  return {
-    requests: demoRequestsSeed.map((request) => ({ ...request })),
-    details: new Map(
-      demoDetailsSeed.map((detail) => [detail.requestId, { ...detail }]),
-    ),
-    events: [],
-    eventCounter: 0,
-  };
+interface DetailRow {
+  id: string;
+  request_id: string;
+  category: string;
+  channel: string;
+  impact: string;
+  demo_center: string;
+  description: string;
+  readonly_blocks_json: string;
 }
 
-function nextEventId(): string {
-  state.eventCounter += 1;
-  return `evt-demo-${String(state.eventCounter).padStart(3, "0")}`;
+interface EventRow {
+  id: string;
+  request_id: string;
+  type: string;
+  from_status: string;
+  to_status: string;
+  label: string;
+  created_at: string;
+  source: string;
+  is_demo: number;
 }
 
 function nowIso(): string {
   return new Date().toISOString();
 }
 
-function findRequest(id: string): DemoRequest | undefined {
-  return state.requests.find((request) => request.id === id);
+function rowToRequest(row: RequestRow): DemoRequest {
+  return {
+    id: row.id,
+    title: row.title,
+    status: row.status as RequestStatus,
+    priority: row.priority as RequestPriority,
+    criticality: row.criticality as RequestCriticality,
+    customerLabel: row.customer_label,
+    siteLabel: row.site_label,
+    assignedTechnicianLabel: row.assigned_technician_label,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    detailId: row.detail_id,
+    isDemo: true,
+  };
+}
+
+function rowToDetail(row: DetailRow): DemoRequestDetail {
+  return {
+    id: row.id,
+    requestId: row.request_id,
+    category: row.category,
+    channel: row.channel,
+    impact: row.impact,
+    demoCenter: row.demo_center,
+    description: row.description,
+    readonlyBlocks: JSON.parse(row.readonly_blocks_json) as DemoRequestDetail["readonlyBlocks"],
+  };
+}
+
+function rowToEvent(row: EventRow): WorkflowEvent {
+  return {
+    id: row.id,
+    requestId: row.request_id,
+    type: row.type as WorkflowEventType,
+    fromStatus: row.from_status as RequestStatus,
+    toStatus: row.to_status as RequestStatus,
+    label: row.label,
+    createdAt: row.created_at,
+    source: "demo",
+    isDemo: true,
+  };
+}
+
+function findRequestRow(id: string): RequestRow | undefined {
+  const db = getDatabase();
+  return db
+    .prepare("SELECT * FROM requests WHERE id = ?")
+    .get(id) as RequestRow | undefined;
 }
 
 export function listRequests(): DemoRequest[] {
-  return state.requests.map((request) => ({ ...request }));
+  const db = getDatabase();
+  const rows = db
+    .prepare("SELECT * FROM requests ORDER BY created_at ASC")
+    .all() as RequestRow[];
+
+  return rows.map(rowToRequest);
 }
 
 export function getRequestWithDetail(
   id: string,
 ): { request: DemoRequest; detail: DemoRequestDetail } {
-  const request = findRequest(id);
-  if (!request) {
+  const requestRow = findRequestRow(id);
+  if (!requestRow) {
     throw new StoreError("REQUEST_NOT_FOUND", "Request not found");
   }
 
-  const detail = state.details.get(id);
-  if (!detail) {
+  const db = getDatabase();
+  const detailRow = db
+    .prepare("SELECT * FROM request_details WHERE request_id = ?")
+    .get(id) as DetailRow | undefined;
+
+  if (!detailRow) {
     throw new StoreError("REQUEST_NOT_FOUND", "Request not found");
   }
 
   return {
-    request: { ...request },
-    detail: structuredClone(detail),
+    request: rowToRequest(requestRow),
+    detail: structuredClone(rowToDetail(detailRow)),
   };
 }
 
 export function listEventsForRequest(id: string): WorkflowEvent[] {
-  if (!findRequest(id)) {
+  if (!findRequestRow(id)) {
     throw new StoreError("REQUEST_NOT_FOUND", "Request not found");
   }
 
-  return state.events
-    .filter((event) => event.requestId === id)
-    .map((event) => ({ ...event }))
-    .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  const db = getDatabase();
+  const rows = db
+    .prepare(
+      "SELECT * FROM workflow_events WHERE request_id = ? ORDER BY created_at ASC",
+    )
+    .all(id) as EventRow[];
+
+  return rows.map(rowToEvent);
 }
 
 export function applyTransition(
   id: string,
   action: string,
 ): { request: DemoRequest; event: WorkflowEvent } {
-  const index = state.requests.findIndex((request) => request.id === id);
-  if (index === -1) {
+  const requestRow = findRequestRow(id);
+  if (!requestRow) {
     throw new StoreError("REQUEST_NOT_FOUND", "Request not found");
   }
 
-  const current = state.requests[index];
+  const current = rowToRequest(requestRow);
   const result = resolveTransition(current.status, action);
 
   if (!result.ok) {
     throw new StoreError(result.code, getErrorMessage(result.code));
   }
 
+  const db = getDatabase();
   const updatedAt = nowIso();
+
+  const apply = db.transaction(() => {
+    db.prepare(
+      `
+      UPDATE requests
+      SET status = ?, updated_at = ?
+      WHERE id = ?
+    `,
+    ).run(result.toStatus, updatedAt, id);
+
+    const event: WorkflowEvent = {
+      id: nextEventId(db),
+      requestId: id,
+      type: result.type,
+      fromStatus: result.fromStatus,
+      toStatus: result.toStatus,
+      label: result.label,
+      createdAt: updatedAt,
+      source: "demo",
+      isDemo: true,
+    };
+
+    db.prepare(
+      `
+      INSERT INTO workflow_events (
+        id, request_id, type, from_status, to_status,
+        label, created_at, source, is_demo
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+    `,
+    ).run(
+      event.id,
+      event.requestId,
+      event.type,
+      event.fromStatus,
+      event.toStatus,
+      event.label,
+      event.createdAt,
+      event.source,
+    );
+
+    return event;
+  });
+
+  const event = apply();
   const updatedRequest: DemoRequest = {
     ...current,
     status: result.toStatus,
     updatedAt,
   };
-
-  state.requests[index] = updatedRequest;
-
-  const event: WorkflowEvent = {
-    id: nextEventId(),
-    requestId: id,
-    type: result.type,
-    fromStatus: result.fromStatus,
-    toStatus: result.toStatus,
-    label: result.label,
-    createdAt: updatedAt,
-    source: "demo",
-    isDemo: true,
-  };
-
-  state.events.push(event);
 
   return {
     request: { ...updatedRequest },
@@ -121,14 +232,18 @@ export function applyTransition(
 
 export function resetDemoStore(): { requestsCount: number } {
   if (!isDemoModeEnabled()) {
-    throw new StoreError(
-      "DEMO_MODE_REQUIRED",
-      "Demo mode is required",
-    );
+    throw new StoreError("DEMO_MODE_REQUIRED", "Demo mode is required");
   }
 
-  state = createInitialState();
-  return { requestsCount: state.requests.length };
+  const db = getDatabase();
+  const reset = db.transaction(() => {
+    clearPersistedData(db);
+    insertSeedData(db);
+  });
+
+  reset();
+
+  return { requestsCount: listRequests().length };
 }
 
 export function isDemoModeEnabled(): boolean {
@@ -156,5 +271,16 @@ function getErrorMessage(code: string): string {
 
 /** Test helper: restore seed without demo mode check. */
 export function resetDemoStoreForTests(): void {
-  state = createInitialState();
+  const db = getDatabase();
+  const reset = db.transaction(() => {
+    clearPersistedData(db);
+    insertSeedData(db);
+  });
+
+  reset();
+}
+
+/** Test helper: close SQLite connection between isolated runs. */
+export function closeDemoStoreForTests(): void {
+  closeDatabase();
 }
