@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Connected UX Productization  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-04 réalisé  
+**Statut** : Batch produit — INC-PROD-05 en cours  
 **Branche** : `delivery/interv360-connected-ux-productization`
 
 ---
@@ -77,7 +77,7 @@ Le batch ne doit pas inclure :
 | INC-PROD-02 | Afficher les champs métier productisés | Réalisé |
 | INC-PROD-03 | Améliorer l’affichage des erreurs API | Non retenu — valeur marginale à ce stade |
 | INC-PROD-04 | Mettre à jour documentation / runbook | Réalisé |
-| INC-PROD-05 | Préparer PR du batch | À venir |
+| INC-PROD-05 | Préparer PR du batch | En cours |
 
 ---
 
@@ -268,3 +268,58 @@ Raison :
 - le batch doit rester centré sur la valorisation UX des champs productisés.
 
 Le sujet pourra être rouvert plus tard si un besoin UX clair apparaît autour des erreurs API.
+
+---
+
+## 14. Préparation PR intégrée
+
+### Titre proposé
+
+`Surface Interv360 productized request details`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR productizes the connected Interv360 frontend UX after backend request model productization and API validation hardening.
+It includes a controlled product batch:
+1. Connected UX scope decision
+   - selected productized request detail fields to surface;
+   - excluded auth, users, roles, CRM, workflow extension, React Router and frontend refactor.
+2. Productized request detail display
+   - surfaces `requestedDate` as **Date de demande**;
+   - surfaces `equipmentLabel` as **Équipement / objet**;
+   - surfaces `businessImpact` as **Impact métier**;
+   - keeps `siteLabel` visible as **Site**;
+   - keeps `impactLabel` visible as **Impact**;
+   - keeps `businessImpact` distinct from `impactLabel`;
+   - keeps `requestedDate` distinct from the existing creation label.
+3. Documentation / runbook
+   - documents productized frontend fields;
+   - documents local and API mode validation checks;
+   - records that API error display improvement was not retained in this batch.
+## Validation
+- Frontend build: OK
+- Frontend tests: 81 passed
+- Backend build: OK
+- Backend tests: 32 passed
+- Browser local validation: not rerun; covered by frontend tests and documented in runbook
+- Browser API validation: not rerun; covered by API mapping tests and documented in runbook
+## Guardrails
+No backend change, SQLite change, API contract change, workflow change, authentication, users, roles, CRM integration, real data, new workflow status, STAT-05/07/08, PostgreSQL, heavy ORM, React Router, new frontend dependency, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+Validation navigateur non rejouée — contrôles documentés dans le runbook, tests frontend couvrent l'affichage et le mapping API.
+
+---
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | <OK / KO> |
+| PR créée automatiquement | <Oui / Non> |
+| URL PR ou comparaison | <url> |
+| Cible | main |
+| Source | delivery/interv360-connected-ux-productization |
+| Merge automatique | Non |
