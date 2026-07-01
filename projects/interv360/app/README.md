@@ -194,6 +194,17 @@ Unchanged:
 - no React routing or new dependency;
 - nominal workflow path unchanged.
 
+## Batch 04 — Demo presentation package
+
+Batch 04 adds a documentary presentation package to facilitate external demonstration of Interv360:
+
+- presentation package (`projects/interv360/08-presentation/interv360-demo-presentation-package.md`);
+- demo script (`interv360-demo-script.md`);
+- one-page summary (`interv360-demo-one-page-summary.md`);
+- reminder of demonstrated capabilities and assumed limits.
+
+No application code change is introduced by this batch.
+
 Report readonly:
 
 - displays fictitious summary, result and checklist for `SAV-DEMO-001`;
