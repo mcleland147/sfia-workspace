@@ -280,3 +280,56 @@ Cette décision n’introduit pas :
 | UX produit | À traiter si feedback concret |
 | Implémentation immédiate | Non |
 | PR dédiée | À décider après réflexion SFIA |
+
+---
+
+## 10. Préparation PR
+
+### Titre proposé
+
+`Define Interv360 roadmap after role simulation`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR defines the next Interv360 product roadmap decision after the Role Simulation batch.
+The current product baseline now includes:
+- persistent SQLite backend;
+- stabilized `/api/v1`;
+- productized request detail model;
+- clarified API validation errors;
+- connected frontend;
+- consolidated demo runbook;
+- frontend-only simulated roles;
+- unauthorized action blocking on the frontend;
+- demo reset reserved to `admin`.
+## Decision
+The recommended next axis is:
+> open a short **product review / role simulation feedback** cycle before extending the workflow or framing real authentication.
+Recommended next branch:
+`architecture/interv360-role-simulation-review`
+## Rationale
+- The role simulation is now delivered and documented.
+- The next large options — workflow extension, real auth, UX refinement, industrialization — should not be opened without product feedback.
+- A review cycle can validate whether roles, permissions, unauthorized action feedback and demo value are understandable.
+- Real authentication and industrialization remain premature.
+- Workflow extension remains relevant, but only after review or dedicated framing.
+## Guardrails
+No code, frontend, backend, SQLite, API, workflow extension, real authentication, OAuth, JWT, SSO, user database, CRM integration, real data, new workflow status, PostgreSQL, heavy ORM, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+```
+
+---
+
+## 11. Statut push / PR
+
+À compléter après push.
+
+| Élément | Valeur |
+|---------|--------|
+| Push | `<OK / KO>` |
+| PR créée automatiquement | `<Oui / Non>` |
+| URL PR ou comparaison | `<url>` |
+| Cible | `main` |
+| Source | `architecture/interv360-product-roadmap-after-role-simulation` |
+| Merge automatique | Non |
