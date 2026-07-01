@@ -227,3 +227,65 @@ Objectif :
 - préparer la PR ;
 - vérifier que le polish reste strictement limité au scroll / navigation par écran ;
 - ne pas ajouter de scope complémentaire.
+
+---
+
+## 14. Préparation PR intégrée
+
+### Titre proposé
+
+`Polish Interv360 demo navigation`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds a targeted UX polish for the Interv360 demo.
+It addresses the confirmed human feedback irritant:
+- the page was too long and required too much scrolling during presentation.
+The implementation keeps the app as a single-page React application while introducing screen-based demo navigation:
+- Overview / Readiness
+- Guided scenario
+- Requests
+- Detail & workflow
+- Journal & reset
+## Validation
+- Frontend build: OK
+- Frontend tests: 81 passed
+- Backend build: OK
+- Backend tests: 18 passed
+- Backend unchanged
+- Local mode remains the default
+- API mode remains opt-in
+- No new dependency introduced
+- No React Router introduced
+- No business workflow changed
+## Guardrails
+No backend change, new business scope, SQL database, CRM integration, authentication, real data, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+The polish is strictly limited to the confirmed feedback: reducing scroll through screen-based navigation.
+```
+
+### Vérifications pré-PR
+
+| Contrôle | Résultat |
+|----------|----------|
+| Diff limité aux 8 fichiers attendus | OK |
+| Backend non modifié | OK |
+| `package.json` inchangé | OK |
+| Pas de React Router | OK |
+| Pas de SQL / CRM / auth / données réelles | OK |
+| Frontend build | OK |
+| Frontend tests | OK — 81 tests |
+| Backend build | OK |
+| Backend tests | OK — 18 tests |
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-demo-polish` |
+| Merge automatique | Non |
