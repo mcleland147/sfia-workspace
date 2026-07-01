@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : API Product Validation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-04 réalisé  
+**Statut** : Batch produit — INC-PROD-05 réalisé  
 **Branche** : `delivery/interv360-api-product-validation`
 
 ---
@@ -80,7 +80,7 @@ Le batch ne doit pas inclure :
 | INC-PROD-02 | Implémenter validation payload / erreurs | Réalisé |
 | INC-PROD-03 | Adapter tests backend | Réalisé avec INC-PROD-02 |
 | INC-PROD-04 | Mettre à jour documentation | Réalisé |
-| INC-PROD-05 | Préparer PR du batch | À venir |
+| INC-PROD-05 | Préparer PR du batch | Réalisé |
 
 ---
 
@@ -231,7 +231,7 @@ Le handler actuel convertit une `action` absente en chaîne vide, ce qui aboutit
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-05** : préparer la PR finale du batch `delivery/interv360-api-product-validation`.
+Après merge de la PR `Clarify Interv360 API validation errors`, enregistrer le statut post-merge dans ce document (section dédiée, sans merge-summary séparé).
 
 ---
 
@@ -259,3 +259,57 @@ Le batch conserve le format d’erreur existant :
 | Reset démo | 200 | Réponse stable `{ status, mode, requestsCount }` |
 
 Le batch ne modifie pas le contrat API global et n’introduit aucune librairie de validation.
+
+---
+
+## 13. Préparation PR intégrée
+
+### Titre proposé
+
+`Clarify Interv360 API validation errors`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR strengthens Interv360 API product validation after request model productization.
+It includes a controlled product batch:
+1. API validation scope decision
+   - selected targeted transition and payload validation cases;
+   - excluded authentication, users, roles, CRM, exhaustive field validation and validation libraries.
+2. API validation implementation and tests
+   - adds an explicit guard for missing or non-string transition actions;
+   - keeps `REQUEST_NOT_FOUND` as `404`;
+   - keeps `INVALID_TRANSITION_ACTION` as `400`;
+   - keeps `TRANSITION_NOT_ALLOWED` as `409`;
+   - adds `INVALID_JSON_BODY` as `400`;
+   - preserves the existing `{ error: { code, message } }` format;
+   - adds backend tests for API error cases.
+3. Documentation / runbook
+   - documents API validation errors;
+   - adds curl examples;
+   - updates the API contract note.
+## Validation
+- Backend build: OK
+- Backend tests: 32 passed
+- Frontend build: OK
+- Frontend tests: 81 passed
+- API curl: OK — 404, 400, 409, reset, productized payload
+- Reset API: OK
+- Frontend source unchanged
+## Guardrails
+No authentication, users, roles, CRM integration, real data, new workflow status, STAT-05/07/08, PostgreSQL, heavy ORM, SQLite change, frontend source change, Notion publication, Controlled Delivery change, or sfia-notion-sync update was introduced.
+```
+
+---
+
+## 14. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | <OK / KO> |
+| PR créée automatiquement | <Oui / Non> |
+| URL PR ou comparaison | <url> |
+| Cible | main |
+| Source | delivery/interv360-api-product-validation |
+| Merge automatique | Non |
