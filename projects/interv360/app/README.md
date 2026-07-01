@@ -129,3 +129,20 @@ Demo reset:
 
 The complete INC-01 flow (STAT-01 → STAT-06) is not implemented.
 No business actions or status transitions are available.
+
+## INC-02 — UX demo improvement
+
+INC-02 improves demonstration readability without changing the INC-01 business workflow.
+
+Changes:
+
+- `DemoOverview` — local/fictitious context, nominal path, current status, demo limits;
+- clearer page layout with separated controls, request, readonly journey and journal;
+- simple internal anchor navigation (no React routing).
+
+Unchanged:
+
+- controlled workflow transitions and rules;
+- fictitious local data only;
+- no backend, API, server database, SQL, CRM, or real data;
+- no new integration or Notion publication.
