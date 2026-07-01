@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Product Demo Consolidation  
 **Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-01 réalisé  
+**Statut** : Batch produit — INC-PROD-02 réalisé  
 **Branche** : `delivery/interv360-product-demo-consolidation`
 
 ---
@@ -79,7 +79,7 @@ Le batch ne doit pas inclure :
 | Incrément | Objectif | Statut |
 |----------|----------|--------|
 | INC-PROD-01 | Cadrer la consolidation démo produit | Réalisé |
-| INC-PROD-02 | Mettre à jour le runbook bout-en-bout | À faire |
+| INC-PROD-02 | Mettre à jour le runbook bout-en-bout | Réalisé |
 | INC-PROD-03 | Consolider le récit produit / support court | À confirmer |
 | INC-PROD-04 | Valider le parcours et préparer PR | À venir |
 
@@ -144,17 +144,17 @@ Les supports de présentation existants (`interv360-e2e-demo-runbook.md`, `inter
 | Critère | Résultat |
 |---------|----------|
 | Cadrage consolidation décidé | OK |
-| Runbook bout-en-bout consolidé | `<OK / KO>` |
-| Récit produit consolidé | `<OK / non retenu>` |
-| Preuves techniques listées | `<OK / KO>` |
-| Limites assumées clarifiées | `<OK / KO>` |
-| Validation frontend local documentée | `<OK / KO>` |
-| Validation frontend API documentée | `<OK / KO>` |
-| Backend non modifié | `<OK / KO>` |
-| Frontend source non modifié | `<OK / KO>` |
-| Pas d’auth / users / rôles | `<OK / KO>` |
-| Pas de CRM / données réelles | `<OK / KO>` |
-| Pas de nouveaux statuts | `<OK / KO>` |
+| Runbook bout-en-bout consolidé | OK |
+| Récit produit consolidé | OK — dans le runbook |
+| Preuves techniques listées | OK |
+| Limites assumées clarifiées | OK |
+| Validation frontend local documentée | OK |
+| Validation frontend API documentée | OK |
+| Backend non modifié | OK |
+| Frontend source non modifié | OK |
+| Pas d’auth / users / rôles | OK |
+| Pas de CRM / données réelles | OK |
+| Pas de nouveaux statuts | OK |
 
 ---
 
@@ -165,8 +165,8 @@ Les supports de présentation existants (`interv360-e2e-demo-runbook.md`, `inter
 | Type de batch | Documentation / consolidation |
 | Code frontend | Non modifié |
 | Code backend | Non modifié |
-| Runbook | À consolider |
-| Support court | À confirmer |
+| Runbook | Consolidé |
+| Support court | À confirmer après relecture du runbook |
 | Validation navigateur | Documentée, exécution optionnelle |
 | API contract | Conservé |
 | Mode local | Conservé |
@@ -184,19 +184,30 @@ Les supports de présentation existants (`interv360-e2e-demo-runbook.md`, `inter
 - exclusion d’auth/users/rôles, CRM, workflow étendu, nouvelle fonctionnalité et refonte frontend ;
 - validation navigateur documentée mais non obligatoire à ce stade.
 
+**INC-PROD-02** — runbook bout-en-bout consolidé :
+
+- consolidation de l’état produit démontrable ;
+- clarification du parcours local ;
+- clarification du parcours API ;
+- ajout des preuves techniques à présenter ;
+- rappel des curl essentiels ;
+- clarification des limites assumées ;
+- ajout d’un récit de démonstration synthétique ;
+- aucun code modifié.
+
 ---
 
 ## 9. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
-| Backend build | `<OK / KO>` |
-| Backend tests | `<OK / KO>` |
-| Frontend build | `<OK / KO>` |
-| Frontend tests | `<OK / KO>` |
-| Validation navigateur local | `<OK / KO / non exécutée>` |
-| Validation navigateur API | `<OK / KO / non exécutée>` |
-| Reset API | `<OK / KO / non exécutée>` |
+| Backend build | Non exécuté — documentation uniquement |
+| Backend tests | Non exécutés — documentation uniquement |
+| Frontend build | Non exécuté — documentation uniquement |
+| Frontend tests | Non exécutés — documentation uniquement |
+| Validation navigateur local | Documentée — exécution optionnelle |
+| Validation navigateur API | Documentée — exécution optionnelle |
+| Reset API | Documenté — exécution optionnelle |
 
 ---
 
@@ -218,4 +229,4 @@ Limites attendues :
 
 ## 11. Prochaine étape recommandée
 
-**INC-PROD-02** : mettre à jour le runbook bout-en-bout (`interv360-e2e-demo-runbook.md`) avec le parcours produit consolidé local/API.
+**INC-PROD-03** : décider si le support court et le script de démo nécessitent un alignement léger après consolidation du runbook.
