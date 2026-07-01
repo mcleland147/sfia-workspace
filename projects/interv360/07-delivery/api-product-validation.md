@@ -307,9 +307,9 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 
 | Élément | Valeur |
 |---------|--------|
-| Push | <OK / KO> |
-| PR créée automatiquement | <Oui / Non> |
-| URL PR ou comparaison | <url> |
+| Push | OK |
+| PR créée automatiquement | Non |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-api-product-validation?expand=1 |
 | Cible | main |
 | Source | delivery/interv360-api-product-validation |
 | Merge automatique | Non |
