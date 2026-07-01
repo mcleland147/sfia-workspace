@@ -194,12 +194,14 @@ The nominal workflow remains unchanged.
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter après push |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK (`origin/delivery/interv360-inc-04-list-filtering-local-summary`) |
+| PR créée automatiquement | Non (`gh` CLI indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-inc-04-list-filtering-local-summary?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-inc-04-list-filtering-local-summary` |
 | Merge automatique | Non |
+
+**Création manuelle :** titre `Add Interv360 INC-04 local request filtering`, corps dans `/tmp/inc-04-pr-body.md`.
 
 ---
 
