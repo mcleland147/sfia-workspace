@@ -80,6 +80,85 @@ describe("simulatedRoles", () => {
     expect(canRolePerform("requester", "demo_reset")).toBe(false);
   });
 
+  it("matches the workflow permission matrix including requalify", () => {
+    const matrix: Record<
+      string,
+      Record<string, boolean>
+    > = {
+      qualify: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      plan: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      complete_intervention: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      close_report: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      put_on_hold: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      resume: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      cancel: {
+        requester: false,
+        technician: false,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      requalify: {
+        requester: false,
+        technician: true,
+        manager: true,
+        admin: true,
+        viewer: false,
+      },
+      demo_reset: {
+        requester: false,
+        technician: false,
+        manager: false,
+        admin: true,
+        viewer: false,
+      },
+    };
+
+    for (const [action, permissions] of Object.entries(matrix)) {
+      for (const [role, allowed] of Object.entries(permissions)) {
+        expect(
+          canRolePerform(role as "requester", action as "qualify"),
+        ).toBe(allowed);
+      }
+    }
+  });
+
   it("formats unauthorized role messages with French labels", () => {
     expect(formatUnauthorizedRoleMessage("viewer")).toBe(
       "Action non autorisée pour le rôle simulé : Observateur.",

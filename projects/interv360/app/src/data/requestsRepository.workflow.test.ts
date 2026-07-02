@@ -14,6 +14,7 @@ import {
   resetDemoData,
   resumeDemoRequest,
 } from "./requestsRepository";
+import { getAvailableWorkflowActions } from "./requestsRepository.types";
 
 const DEMO_REQUEST_ID = "SAV-DEMO-001";
 
@@ -234,5 +235,24 @@ describe("requestsRepository controlled workflow", () => {
 
     expect(requalifyDemoRequest("SAV-DEMO-002")).toBeUndefined();
     expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-04");
+  });
+
+  it("exposes requalify only from STAT-02, STAT-03 and STAT-05", () => {
+    expect(getAvailableWorkflowActions("STAT-02")).toContain("requalify");
+    expect(getAvailableWorkflowActions("STAT-03")).toContain("requalify");
+    expect(getAvailableWorkflowActions("STAT-05")).toContain("requalify");
+    expect(getAvailableWorkflowActions("STAT-01")).not.toContain("requalify");
+    expect(getAvailableWorkflowActions("STAT-04")).not.toContain("requalify");
+    expect(getAvailableWorkflowActions("STAT-06")).toHaveLength(0);
+    expect(getAvailableWorkflowActions("STAT-07")).toHaveLength(0);
+  });
+
+  it("keeps cancel last when present in available actions", () => {
+    for (const status of ["STAT-01", "STAT-02", "STAT-03", "STAT-05"] as const) {
+      const actions = getAvailableWorkflowActions(status);
+      if (actions.includes("cancel")) {
+        expect(actions[actions.length - 1]).toBe("cancel");
+      }
+    }
   });
 });

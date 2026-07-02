@@ -223,7 +223,7 @@ Aucune nouvelle table.
 | INC-RQ-01 | Cadrer le périmètre requalification | Réalisé |
 | INC-RQ-02 | Implémenter l’action backend `requalify` | Réalisé |
 | INC-RQ-03 | Exposer `Requalifier` côté frontend | Réalisé |
-| INC-RQ-04 | Tests, permissions et runbook | À faire |
+| INC-RQ-04 | Tests, permissions et runbook | Réalisé |
 | INC-RQ-05 | Préparer PR unique | À venir |
 
 ---
@@ -239,7 +239,7 @@ Aucune nouvelle table.
 | SQLite sans nouvelle table | OK |
 | Backend testé | OK |
 | Frontend testé | OK |
-| Runbook mis à jour | À faire |
+| Runbook mis à jour | OK |
 | Auth réelle exclue | OK |
 | CRM / données réelles exclus | OK |
 
@@ -312,6 +312,36 @@ Règles d’exclusion :
 
 ---
 
+## 9.3. Changements INC-RQ-04
+
+INC-RQ-04 finalise la requalification légère côté démonstration.
+
+Changements réalisés :
+
+- alignement des permissions simulées pour `requalify` ;
+- confirmation que `technician`, `manager` et `admin` peuvent requalifier ;
+- confirmation que `requester` et `viewer` ne peuvent pas requalifier ;
+- tests frontend renforcés ;
+- runbook mis à jour avec les scénarios de requalification ;
+- README frontend mis à jour si nécessaire ;
+- backend conservé sans modification supplémentaire.
+
+Matrice finale des permissions workflow simulées :
+
+| Action | requester | technician | manager | admin | viewer |
+|--------|-----------|------------|---------|-------|--------|
+| `qualify` | Non | Oui | Oui | Oui | Non |
+| `plan` | Non | Oui | Oui | Oui | Non |
+| `complete_intervention` | Non | Oui | Oui | Oui | Non |
+| `close_report` | Non | Oui | Oui | Oui | Non |
+| `put_on_hold` | Non | Oui | Oui | Oui | Non |
+| `resume` | Non | Oui | Oui | Oui | Non |
+| `cancel` | Non | Non | Oui | Oui | Non |
+| `requalify` | Non | Oui | Oui | Oui | Non |
+| `demo_reset` | Non | Non | Non | Oui | Non |
+
+---
+
 ## 10. Validations
 
 | Contrôle | Résultat |
@@ -319,12 +349,27 @@ Règles d’exclusion :
 | Backend build | OK |
 | Backend tests | OK — 67 tests |
 | Frontend build | OK |
-| Frontend tests | OK — 120 tests |
+| Frontend tests | OK — 130 tests |
 | Validation navigateur local | Non exécutée — validation automatisée OK |
 | Validation navigateur API | Non exécutée — validation automatisée OK |
 
 ---
 
-## 11. Prochaine étape
+## 11. Synthèse avant PR
 
-**INC-RQ-04** : finaliser les permissions simulées fines, le runbook et les tests finaux, sans nouveau statut ni changement de contrat API.
+Le batch **Workflow Requalification** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- requalification légère d’une demande ;
+- action `requalify` ;
+- libellé UI `Requalifier` ;
+- retour vers `STAT-02` ;
+- aucun `STAT-08` ;
+- aucun nouveau statut ;
+- permissions simulées alignées ;
+- contrat API conservé ;
+- SQLite conservée sans nouvelle table ;
+- runbook mis à jour.
+
+La prochaine étape est **INC-RQ-05** : préparation de la PR unique du batch.

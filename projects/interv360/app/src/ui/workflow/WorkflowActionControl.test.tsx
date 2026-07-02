@@ -77,6 +77,18 @@ describe("WorkflowActionControl", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("does not show requalify in STAT-04", () => {
+    render(
+      <WorkflowActionControl
+        request={{ ...baseRequest, status: "STAT-04" }}
+        onAction={vi.fn()}
+      />,
+    );
+    expect(
+      screen.queryByRole("button", { name: /Requalifier/i }),
+    ).not.toBeInTheDocument();
+  });
+
   it("shows close action only in STAT-04", () => {
     render(
       <WorkflowActionControl
@@ -170,6 +182,19 @@ describe("WorkflowActionControl", () => {
     expect(
       screen.getByText(/Action non autorisée pour le rôle actuel/i),
     ).toBeInTheDocument();
+  });
+
+  it("keeps cancel as the last action when present", () => {
+    render(
+      <WorkflowActionControl
+        request={{ ...baseRequest, status: "STAT-02" }}
+        onAction={vi.fn()}
+      />,
+    );
+    const buttons = screen.getAllByRole("button");
+    expect(buttons[buttons.length - 1]).toHaveTextContent(
+      /Annuler la demande/i,
+    );
   });
 
   it("calls onAction with the clicked action", () => {

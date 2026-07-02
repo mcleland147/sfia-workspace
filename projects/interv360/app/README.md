@@ -122,6 +122,27 @@ Role simulation still applies on top of workflow actions:
 - only `manager` and `admin` can cancel requests.
 - `requester` and `viewer` remain read-only for workflow actions.
 
+### Workflow requalification
+
+The frontend exposes the lightweight requalification action:
+
+- `requalify` — Requalifier
+
+The action is available from:
+
+- `STAT-02`
+- `STAT-03`
+- `STAT-05`
+
+It returns the request to `STAT-02`.
+
+No `STAT-08` status is introduced.
+
+Role simulation applies:
+
+- `technician`, `manager`, and `admin` can requalify requests.
+- `requester` and `viewer` remain read-only for this action.
+
 ### Simulated roles
 
 The frontend includes a controlled simulated role mode.
