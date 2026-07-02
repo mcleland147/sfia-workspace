@@ -3,8 +3,8 @@
 **Projet** : Interv360  
 **Cycle** : Next Product Axis  
 **Mode** : SFIA Fast Track — décision produit courte  
-**Statut** : Décision d'orientation  
-**Branche** : `architecture/interv360-next-product-axis`
+**Statut** : Décision d'orientation — intégrée au cadrage Auth Foundation  
+**Branche** : `architecture/interv360-auth-foundation-framing`
 
 ---
 
@@ -254,6 +254,24 @@ Ce cycle n'introduit pas :
 | UX polish | Plus tard |
 | OAuth / JWT / SSO | À ne pas ouvrir directement |
 | Prochaine branche recommandée | `architecture/interv360-auth-foundation-framing` |
+
+---
+
+## 8.1. Intégration au cadrage Auth Foundation
+
+Cette décision n'est pas mergée via une PR dédiée.  
+Elle est intégrée directement au cycle :  
+`architecture/interv360-auth-foundation-framing`
+
+Raison :
+
+- éviter une PR documentaire intermédiaire ;
+- conserver le mode SFIA Fast Track ;
+- passer directement du choix d'axe au cadrage utile ;
+- garder une seule PR documentaire pour la décision produit et le cadrage Auth Foundation.
+
+La prochaine étape est le document :  
+`interv360-auth-foundation-framing.md`
 
 ---
 
