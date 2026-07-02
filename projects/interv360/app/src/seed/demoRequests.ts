@@ -83,7 +83,7 @@ export const demoRequests: DemoRequest[] = [
     title: "Capteur pression signal défectueux",
     customerLabel: "Client Démo Logistique",
     siteLabel: "Nantes Démo",
-    status: "STAT-02",
+    status: "STAT-03",
     priority: "medium",
     criticality: "sensitive",
     categoryLabel: "Maintenance préventive",
@@ -99,7 +99,7 @@ export const demoRequests: DemoRequest[] = [
     ...baseReadonlyFields({
       qualificationSummary: "Qualification fictive déjà validée.",
       qualificationReadonlyNotes:
-        "Demande fictive en planification pour démonstration multi-demandes.",
+        "Demande fictive en cours de traitement pour démonstration multi-demandes.",
       planningSlotLabel: "J+2 après-midi",
       planningTechnicianLabel: "Technicien Démo 02",
     }),

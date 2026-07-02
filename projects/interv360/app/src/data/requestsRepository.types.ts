@@ -10,7 +10,20 @@ export type DemoTransitionAction =
   | "qualify"
   | "plan"
   | "complete_intervention"
-  | "close_report";
+  | "close_report"
+  | "put_on_hold"
+  | "resume"
+  | "cancel";
+
+export const workflowActionLabels: Record<DemoTransitionAction, string> = {
+  qualify: "Qualifier la demande",
+  plan: "Planifier l'intervention",
+  complete_intervention: "Marquer l'intervention réalisée",
+  close_report: "Clôturer avec compte rendu fictif",
+  put_on_hold: "Mettre en attente",
+  resume: "Reprendre",
+  cancel: "Annuler la demande",
+};
 
 export interface RequestsRepository {
   listRequests(): Promise<DemoRequest[]>;
@@ -33,19 +46,35 @@ export class RequestsRepositoryError extends Error {
   }
 }
 
+export function getAvailableWorkflowActions(
+  status: RequestStatus,
+): DemoTransitionAction[] {
+  switch (status) {
+    case "STAT-01":
+      return ["qualify", "cancel"];
+    case "STAT-02":
+      return ["plan", "cancel"];
+    case "STAT-03":
+      return ["complete_intervention", "put_on_hold", "cancel"];
+    case "STAT-04":
+      return ["close_report"];
+    case "STAT-05":
+      return ["resume", "cancel"];
+    case "STAT-06":
+    case "STAT-07":
+      return [];
+    default:
+      return [];
+  }
+}
+
+/** @deprecated Use getAvailableWorkflowActions for multi-action statuses. */
 export function getTransitionActionForStatus(
   status: RequestStatus,
 ): DemoTransitionAction | undefined {
-  switch (status) {
-    case "STAT-01":
-      return "qualify";
-    case "STAT-02":
-      return "plan";
-    case "STAT-03":
-      return "complete_intervention";
-    case "STAT-04":
-      return "close_report";
-    default:
-      return undefined;
-  }
+  return getAvailableWorkflowActions(status)[0];
+}
+
+export function getWorkflowActionLabel(action: DemoTransitionAction): string {
+  return workflowActionLabels[action];
 }

@@ -14,17 +14,20 @@ const baseRequest: DemoRequest = {
 };
 
 describe("WorkflowActionControl", () => {
-  it("shows qualify action in STAT-01", () => {
+  it("shows qualify and cancel actions in STAT-01", () => {
     render(
       <WorkflowActionControl request={baseRequest} onAction={vi.fn()} />,
     );
     expect(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Données fictives uniquement/i)).toBeInTheDocument();
   });
 
-  it("shows planning action in STAT-02", () => {
+  it("shows planning and cancel actions in STAT-02", () => {
     render(
       <WorkflowActionControl
         request={{ ...baseRequest, status: "STAT-02" }}
@@ -34,9 +37,12 @@ describe("WorkflowActionControl", () => {
     expect(
       screen.getByRole("button", { name: /Planifier l'intervention/i }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    ).toBeInTheDocument();
   });
 
-  it("shows completion action in STAT-03", () => {
+  it("shows completion, hold and cancel actions in STAT-03", () => {
     render(
       <WorkflowActionControl
         request={{ ...baseRequest, status: "STAT-03" }}
@@ -48,9 +54,15 @@ describe("WorkflowActionControl", () => {
         name: /Marquer l'intervention réalisée/i,
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Mettre en attente/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    ).toBeInTheDocument();
   });
 
-  it("shows close action in STAT-04", () => {
+  it("shows close action only in STAT-04", () => {
     render(
       <WorkflowActionControl
         request={{ ...baseRequest, status: "STAT-04" }}
@@ -62,6 +74,21 @@ describe("WorkflowActionControl", () => {
         name: /Clôturer avec compte rendu fictif/i,
       }),
     ).toBeInTheDocument();
+    expect(screen.getAllByRole("button")).toHaveLength(1);
+  });
+
+  it("shows resume and cancel actions in STAT-05", () => {
+    render(
+      <WorkflowActionControl
+        request={{ ...baseRequest, status: "STAT-05" }}
+        onAction={vi.fn()}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /Reprendre/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/En attente \(STAT-05\)/i)).toBeInTheDocument();
   });
 
   it("shows closed message in STAT-06 without business button", () => {
@@ -77,12 +104,26 @@ describe("WorkflowActionControl", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
-  it("disables the workflow button when action is not allowed for the role", () => {
+  it("shows cancelled message in STAT-07 without business button", () => {
+    render(
+      <WorkflowActionControl
+        request={{ ...baseRequest, status: "STAT-07" }}
+        onAction={vi.fn()}
+      />,
+    );
+    expect(
+      screen.getByText(/Demande annulée fictivement/i),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Annulée \(STAT-07\)/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
+
+  it("disables workflow buttons when action is not allowed for the role", () => {
     render(
       <WorkflowActionControl
         request={baseRequest}
         onAction={vi.fn()}
-        isActionDisabled
+        isActionDisabled={() => true}
       />,
     );
     expect(
@@ -93,7 +134,7 @@ describe("WorkflowActionControl", () => {
     ).toBeInTheDocument();
   });
 
-  it("calls onAction when the visible button is clicked", () => {
+  it("calls onAction with the clicked action", () => {
     const onAction = vi.fn();
     render(
       <WorkflowActionControl request={baseRequest} onAction={onAction} />,
@@ -101,6 +142,6 @@ describe("WorkflowActionControl", () => {
     fireEvent.click(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
     );
-    expect(onAction).toHaveBeenCalledTimes(1);
+    expect(onAction).toHaveBeenCalledWith("qualify");
   });
 });

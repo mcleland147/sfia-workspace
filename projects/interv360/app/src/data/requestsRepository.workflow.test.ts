@@ -1,14 +1,17 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { STORAGE_KEY_JOURNAL, STORAGE_KEY_REQUESTS } from "./localStorageKeys";
 import {
+  cancelDemoRequest,
   closeDemoRequest,
   completeDemoIntervention,
   getDemoWorkflowEvents,
   getRequestById,
   getRequests,
   planDemoIntervention,
+  putDemoRequestOnHold,
   qualifyDemoRequest,
   resetDemoData,
+  resumeDemoRequest,
 } from "./requestsRepository";
 
 const DEMO_REQUEST_ID = "SAV-DEMO-001";
@@ -111,7 +114,7 @@ describe("requestsRepository controlled workflow", () => {
     resetDemoData();
 
     expect(getRequestById(DEMO_REQUEST_ID)?.status).toBe("STAT-01");
-    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-02");
+    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-03");
     expect(getRequestById("SAV-DEMO-003")?.status).toBe("STAT-06");
     expect(getDemoWorkflowEvents(DEMO_REQUEST_ID)).toHaveLength(0);
     expect(localStorage.getItem(STORAGE_KEY_JOURNAL)).toBeNull();
@@ -122,8 +125,61 @@ describe("requestsRepository controlled workflow", () => {
     qualifyDemoRequest(DEMO_REQUEST_ID);
 
     expect(getRequestById(DEMO_REQUEST_ID)?.status).toBe("STAT-02");
-    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-02");
+    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-03");
     expect(getDemoWorkflowEvents(DEMO_REQUEST_ID)).toHaveLength(1);
     expect(getDemoWorkflowEvents("SAV-DEMO-002")).toHaveLength(0);
+  });
+
+  it("puts request on hold from STAT-03 to STAT-05", () => {
+    getRequests();
+    const updated = putDemoRequestOnHold("SAV-DEMO-002");
+
+    expect(updated?.status).toBe("STAT-05");
+    expect(getDemoWorkflowEvents("SAV-DEMO-002")[0]).toMatchObject({
+      type: "hold.placed",
+      fromStatus: "STAT-03",
+      toStatus: "STAT-05",
+    });
+  });
+
+  it("resumes request from STAT-05 to STAT-03", () => {
+    getRequests();
+    putDemoRequestOnHold("SAV-DEMO-002");
+    const updated = resumeDemoRequest("SAV-DEMO-002");
+
+    expect(updated?.status).toBe("STAT-03");
+    expect(getDemoWorkflowEvents("SAV-DEMO-002")[1]).toMatchObject({
+      type: "hold.resumed",
+      fromStatus: "STAT-05",
+      toStatus: "STAT-03",
+    });
+  });
+
+  it("cancels request from STAT-01 to STAT-07", () => {
+    getRequests();
+    const updated = cancelDemoRequest(DEMO_REQUEST_ID);
+
+    expect(updated?.status).toBe("STAT-07");
+    expect(getDemoWorkflowEvents(DEMO_REQUEST_ID)[0]).toMatchObject({
+      type: "request.cancelled",
+      fromStatus: "STAT-01",
+      toStatus: "STAT-07",
+    });
+  });
+
+  it("rejects put_on_hold from STAT-04", () => {
+    getRequests();
+    completeDemoIntervention("SAV-DEMO-002");
+
+    expect(putDemoRequestOnHold("SAV-DEMO-002")).toBeUndefined();
+    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-04");
+  });
+
+  it("rejects cancel from STAT-04", () => {
+    getRequests();
+    completeDemoIntervention("SAV-DEMO-002");
+
+    expect(cancelDemoRequest("SAV-DEMO-002")).toBeUndefined();
+    expect(getRequestById("SAV-DEMO-002")?.status).toBe("STAT-04");
   });
 });

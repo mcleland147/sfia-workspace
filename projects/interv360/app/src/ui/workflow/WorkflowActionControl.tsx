@@ -1,31 +1,31 @@
 import type { DemoRequest } from "../../domain/requestStatus";
+import { getRequestStatusLabel } from "../../domain/requestStatus";
+import type { DemoTransitionAction } from "../../data/requestsRepository.types";
+import {
+  getAvailableWorkflowActions,
+  getWorkflowActionLabel,
+} from "../../data/requestsRepository.types";
 import "./WorkflowActionControl.css";
-
-const WORKFLOW_ACTION_LABELS: Record<
-  DemoRequest["status"],
-  string | undefined
-> = {
-  "STAT-01": "Qualifier la demande",
-  "STAT-02": "Planifier l'intervention",
-  "STAT-03": "Marquer l'intervention réalisée",
-  "STAT-04": "Clôturer avec compte rendu fictif",
-  "STAT-06": undefined,
-};
 
 interface WorkflowActionControlProps {
   request: DemoRequest | undefined;
-  onAction: () => void;
+  onAction: (action: DemoTransitionAction) => void;
   lastActionMessage?: string;
-  isActionDisabled?: boolean;
+  isActionDisabled?: (action: DemoTransitionAction) => boolean;
 }
 
 export function WorkflowActionControl({
   request,
   onAction,
   lastActionMessage,
-  isActionDisabled = false,
+  isActionDisabled = () => false,
 }: WorkflowActionControlProps) {
-  const actionLabel = request ? WORKFLOW_ACTION_LABELS[request.status] : undefined;
+  const availableActions = request
+    ? getAvailableWorkflowActions(request.status)
+    : [];
+  const hasBlockedAction = availableActions.some((action) =>
+    isActionDisabled(action),
+  );
 
   return (
     <section className="workflow-action-control">
@@ -41,25 +41,36 @@ export function WorkflowActionControl({
 
       {request ? (
         <p className="workflow-action-control__status">
-          Statut courant : <strong>{request.status}</strong>
+          Statut courant :{" "}
+          <strong>
+            {getRequestStatusLabel(request.status)} ({request.status})
+          </strong>
         </p>
       ) : null}
 
-      {actionLabel ? (
+      {availableActions.length > 0 ? (
         <>
-          <button
-            className={
-              isActionDisabled
-                ? "workflow-action-control__button workflow-action-control__button--disabled"
-                : "workflow-action-control__button"
-            }
-            type="button"
-            aria-disabled={isActionDisabled}
-            onClick={onAction}
-          >
-            {actionLabel}
-          </button>
-          {isActionDisabled ? (
+          <div className="workflow-action-control__actions">
+            {availableActions.map((action) => {
+              const disabled = isActionDisabled(action);
+              return (
+                <button
+                  key={action}
+                  className={
+                    disabled
+                      ? "workflow-action-control__button workflow-action-control__button--disabled"
+                      : "workflow-action-control__button"
+                  }
+                  type="button"
+                  aria-disabled={disabled}
+                  onClick={() => onAction(action)}
+                >
+                  {getWorkflowActionLabel(action)}
+                </button>
+              );
+            })}
+          </div>
+          {hasBlockedAction ? (
             <p className="workflow-action-control__role-blocked" role="status">
               Action non autorisée pour le rôle actuel
             </p>
@@ -68,6 +79,10 @@ export function WorkflowActionControl({
       ) : request?.status === "STAT-06" ? (
         <p className="workflow-action-control__closed" role="status">
           Demande clôturée fictivement.
+        </p>
+      ) : request?.status === "STAT-07" ? (
+        <p className="workflow-action-control__closed" role="status">
+          Demande annulée fictivement.
         </p>
       ) : (
         <p className="workflow-action-control__missing">

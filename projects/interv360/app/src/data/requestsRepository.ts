@@ -154,3 +154,47 @@ export function closeDemoRequest(requestId: string): DemoRequest | undefined {
     "Compte rendu fictif clôturé",
   );
 }
+
+export function putDemoRequestOnHold(
+  requestId: string,
+): DemoRequest | undefined {
+  return performTransition(
+    requestId,
+    "STAT-03",
+    "STAT-05",
+    "hold.placed",
+    "Demande fictive mise en attente",
+  );
+}
+
+export function resumeDemoRequest(requestId: string): DemoRequest | undefined {
+  return performTransition(
+    requestId,
+    "STAT-05",
+    "STAT-03",
+    "hold.resumed",
+    "Reprise fictive du traitement",
+  );
+}
+
+const CANCELLABLE_STATUSES: RequestStatus[] = [
+  "STAT-01",
+  "STAT-02",
+  "STAT-03",
+  "STAT-05",
+];
+
+export function cancelDemoRequest(requestId: string): DemoRequest | undefined {
+  const request = getRequestById(requestId);
+  if (!request || !CANCELLABLE_STATUSES.includes(request.status)) {
+    return undefined;
+  }
+
+  return performTransition(
+    requestId,
+    request.status,
+    "STAT-07",
+    "request.cancelled",
+    "Demande fictive annulée",
+  );
+}

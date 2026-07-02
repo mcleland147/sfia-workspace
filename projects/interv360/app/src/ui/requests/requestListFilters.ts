@@ -8,7 +8,9 @@ export const NOMINAL_STATUS_ORDER: RequestStatus[] = [
   "STAT-02",
   "STAT-03",
   "STAT-04",
+  "STAT-05",
   "STAT-06",
+  "STAT-07",
 ];
 
 export function countRequestsByStatus(

@@ -174,7 +174,7 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
       expect(
-        screen.getByRole("button", { name: /Planifier l'intervention/i }),
+        screen.getByRole("button", { name: /Mettre en attente/i }),
       ).toBeInTheDocument();
     });
     expect(
@@ -195,18 +195,18 @@ describe("App smoke", () => {
   it("filters requests locally and realigns selection when needed", async () => {
     await renderAppOnRequestsScreen();
 
-    fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^STAT-03$/ }));
 
     await waitFor(() => {
       expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
       expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
-      expect(screen.getByText(/Filtre actif : STAT-02/i)).toBeInTheDocument();
+      expect(screen.getByText(/Filtre actif : STAT-03/i)).toBeInTheDocument();
     });
 
     goToDemoScreen("Détail");
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: /Planifier l'intervention/i }),
+        screen.getByRole("button", { name: /Mettre en attente/i }),
       ).toBeInTheDocument();
     });
   });
@@ -253,7 +253,7 @@ describe("App smoke", () => {
   it("shows empty state when combined filter and search return nothing", async () => {
     await renderAppOnRequestsScreen();
 
-    fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^STAT-03$/ }));
     fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
       target: { value: "SAV-DEMO-003" },
     });

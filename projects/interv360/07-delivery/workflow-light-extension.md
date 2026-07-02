@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Workflow Light Extension  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-WF-02 réalisé  
+**Statut** : Batch produit — INC-WF-03 réalisé  
 **Branche** : `delivery/interv360-workflow-light-extension`
 
 ---
@@ -137,7 +137,7 @@ Aucune nouvelle table prévue.
 |----------|----------|--------|
 | INC-WF-01 | Confirmer le périmètre statuts/transitions | Réalisé |
 | INC-WF-02 | Implémenter statuts/actions backend | Réalisé |
-| INC-WF-03 | Exposer actions frontend | À faire |
+| INC-WF-03 | Exposer actions frontend | Réalisé |
 | INC-WF-04 | Adapter rôles simulés, tests et runbook | À faire |
 | INC-WF-05 | Préparer PR unique du batch | À venir |
 
@@ -156,7 +156,7 @@ Aucune nouvelle table prévue.
 | API contract conservé | OK |
 | SQLite sans nouvelle table | OK |
 | Backend testé | OK |
-| Frontend testé | À faire |
+| Frontend testé | OK |
 | Runbook mis à jour | À faire |
 | Auth réelle exclue | OK |
 | CRM / données réelles exclus | OK |
@@ -206,6 +206,37 @@ Règles confirmées :
 
 ---
 
+## 9.2. Changements INC-WF-03
+
+INC-WF-03 expose côté frontend les nouveaux statuts et les nouvelles actions workflow.
+
+Changements réalisés :
+
+- ajout des libellés frontend `STAT-05 — En attente` et `STAT-07 — Annulée` ;
+- exposition de l’action `put_on_hold` avec le libellé `Mettre en attente` ;
+- exposition de l’action `resume` avec le libellé `Reprendre` ;
+- exposition de l’action `cancel` avec le libellé `Annuler la demande` ;
+- affichage de plusieurs actions quand le statut le permet ;
+- alignement du mode local sur les transitions backend ;
+- conservation du mode API via le contrat existant ;
+- tests frontend adaptés.
+
+Règles frontend confirmées :
+
+| Statut courant | Actions proposées |
+|----------------|------------------|
+| `STAT-01` | `qualify`, `cancel` |
+| `STAT-02` | `plan`, `cancel` |
+| `STAT-03` | `complete_intervention`, `put_on_hold`, `cancel` |
+| `STAT-04` | `close_report` |
+| `STAT-05` | `resume`, `cancel` |
+| `STAT-06` | aucune |
+| `STAT-07` | aucune |
+
+Les actions nominales existantes (`complete_intervention`, `close_report`) sont conservées.
+
+---
+
 ## 10. Validations
 
 À compléter pendant le batch.
@@ -223,4 +254,4 @@ Règles confirmées :
 
 ## 11. Prochaine étape
 
-**INC-WF-03** : exposer les nouvelles actions côté frontend, sans changer le contrat API.
+**INC-WF-04** : affiner les permissions simulées pour les nouvelles actions, compléter les tests finaux et mettre à jour le runbook.
