@@ -606,3 +606,55 @@ Décision :
 - pas de PR documentaire intermédiaire pour AT-01 ;
 - le cadrage opérationnel est intégré directement au lot delivery ;
 - PR unique prévue en fin de lot.
+
+---
+
+## 20. Clôture du Lot 2 — Audit Trail
+
+Le Lot 2 de la roadmap est mergé dans `main`.
+
+PR :
+
+#66 — https://github.com/mcleland147/sfia-workspace/pull/66
+
+Commit merge :
+
+`693113b`
+
+Résultat :
+
+- enrichissement SQLite de `workflow_events` ;
+- persistance de `action` ;
+- conservation de `fromStatus` / `toStatus` ;
+- rattachement optionnel d'un acteur aux transitions API via `actorUserId` ;
+- validation de l'acteur contre les users backend actifs ;
+- erreur `INVALID_ACTOR_USER` ;
+- stockage du snapshot acteur :
+  - `actorUserId`
+  - `actorDisplayName`
+  - `actorRole`
+- API events enrichie ;
+- réponse events `{ items: [...] }` conservée ;
+- journal frontend enrichi ;
+- compatibilité avec les événements legacy ;
+- mode local conservé ;
+- mode API conservé ;
+- permissions existantes conservées ;
+- reset admin conservé.
+
+Impact roadmap :
+
+| Jalons | Estimation |
+|--------|------------|
+| Après Lot 1 | 72% |
+| Après Lot 2 | 80% |
+
+Prochain lot :
+
+`delivery/interv360-request-model-finalization`
+
+Objectif :
+
+- stabiliser le modèle métier `Request` ;
+- finaliser les champs métier structurants ;
+- renforcer la cohérence métier avant durcissement API.

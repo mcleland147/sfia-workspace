@@ -830,3 +830,89 @@ The actor is a demo/product audit actor, not an authenticated identity.
 | Cible | `main` |
 | Source | `delivery/interv360-audit-trail` |
 | Merge automatique | Non |
+
+---
+
+## 21. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #66 — https://github.com/mcleland147/sfia-workspace/pull/66 |
+| Source | `delivery/interv360-audit-trail` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `693113b` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 167 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 112 tests |
+| AT-01 | OK — cadrage opérationnel |
+| AT-02 | OK — SQLite workflow_events enrichi |
+| AT-03 | OK — transitions API avec acteur |
+| AT-04 | OK — events API enrichis |
+| AT-05 | OK — frontend historique enrichi |
+| AT-06 | OK — tests backend/frontend |
+| AT-07 | OK — runbook/README |
+| AT-08 | OK — PR unique |
+| SQLite `workflow_events` enrichi | OK |
+| `action` persistée | OK |
+| `fromStatus` / `toStatus` conservés | OK |
+| `actorUserId` optionnel | OK |
+| Validation acteur backend | OK |
+| `INVALID_ACTOR_USER` | OK |
+| Snapshot acteur | OK |
+| Events API enrichis | OK |
+| Réponse events `{ items: [...] }` | OK |
+| Journal frontend enrichi | OK |
+| Événements legacy compatibles | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Permissions existantes conservées | OK |
+| Reset admin conservé | OK |
+| Auth réelle introduite | Non |
+| Session backend introduite | Non |
+| Login/password introduits | Non |
+| Token introduit | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| `STAT-08` introduit | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le Lot 2 **Audit Trail** est mergé dans `main`.
+
+Interv360 dispose désormais d'un audit trail produit exploitable :
+
+- événements workflow enrichis ;
+- action persistée ;
+- ancien statut et nouveau statut conservés ;
+- acteur optionnel rattaché aux transitions API ;
+- validation de l'acteur contre les users backend actifs ;
+- snapshot acteur stocké ;
+- events API enrichis ;
+- journal frontend enrichi ;
+- compatibilité avec les événements legacy ;
+- mode local et mode API conservés.
+
+Ce lot ne met pas en place une authentification réelle.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Prochaine étape
+
+Ouvrir le Lot 3 :
+
+`delivery/interv360-request-model-finalization`
+
+Objectif :
+
+- stabiliser le modèle métier `Request` ;
+- finaliser les champs métier structurants ;
+- renforcer les validations métier ;
+- préparer l'API product hardening.
