@@ -224,7 +224,7 @@ Aucune nouvelle table.
 | INC-RQ-02 | Implémenter l’action backend `requalify` | Réalisé |
 | INC-RQ-03 | Exposer `Requalifier` côté frontend | Réalisé |
 | INC-RQ-04 | Tests, permissions et runbook | Réalisé |
-| INC-RQ-05 | Préparer PR unique | À venir |
+| INC-RQ-05 | Préparer PR unique | Réalisé |
 
 ---
 
@@ -442,9 +442,9 @@ The requalification is intentionally lightweight and returns requests to `STAT-0
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-workflow-requalification?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-workflow-requalification` |
 | Merge automatique | Non |
