@@ -238,7 +238,7 @@ Décision proposée pour rester Fast Track :
 | IND-02 | Audit installation / scripts / env / docs | Réalisé |
 | IND-03 | README global et guides locaux | Réalisé |
 | IND-04 | Variables `.env`, scripts et exploitation locale | Réalisé |
-| IND-05 | Tests, non-régression et CI éventuelle | À faire |
+| IND-05 | Tests, non-régression et CI éventuelle | Réalisé |
 | IND-06 | Documentation finale runbook/README | À faire |
 | IND-07 | Préparation PR unique | À venir |
 
@@ -259,18 +259,18 @@ Décision proposée pour rester Fast Track :
 | SQLite / reset documentés | OK |
 | Limites connues documentées | OK |
 | Déploiement simple cadré | OK |
-| Décision CI prise | À faire |
-| Mode local conservé | À valider |
-| Mode API conservé | À valider |
-| Audit trail conservé | À valider |
-| Request model conservé | À valider |
-| Permissions conservées | À valider |
-| UX MVP conservée | À valider |
-| Backend inchangé | À valider |
-| Frontend tests | À faire |
-| Backend tests | À faire |
-| Frontend build | À faire |
-| Backend build | À faire |
+| Décision CI prise | OK — CI minimale ajoutée |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Audit trail conservé | OK |
+| Request model conservé | OK |
+| Permissions conservées | OK |
+| UX MVP conservée | OK |
+| Backend inchangé | OK |
+| Frontend tests | OK — 191 tests |
+| Backend tests | OK — 125 tests |
+| Frontend build | OK |
+| Backend build | OK |
 | Auth réelle exclue | OK |
 | OAuth/JWT/SSO exclus | OK |
 | CRM/données réelles exclus | OK |
@@ -668,8 +668,90 @@ Validations :
 
 ---
 
+## 14.5. Changements IND-05
+
+IND-05 stabilise le lot Product Industrialization par les tests, la non-régression et la décision CI minimale.
+
+Changements réalisés :
+
+- frontend build relancé ;
+- tests frontend relancés ;
+- backend build relancé ;
+- tests backend relancés ;
+- `.env.example` vérifiés ;
+- mode local conservé ;
+- mode API conservé ;
+- absence de changement fonctionnel confirmée ;
+- absence de modification backend fonctionnelle confirmée ;
+- absence de modification frontend fonctionnelle confirmée ;
+- décision CI minimale prise ;
+- CI minimale ajoutée.
+
+Décision CI :
+
+| Sujet | Décision |
+|-------|----------|
+| CI/CD complète | Non |
+| Déploiement automatique | Non |
+| Docker | Non |
+| CI minimale build+test | Ajoutée |
+| Workflow | `.github/workflows/interv360-ci.yml` |
+| Déclenchement | PR / push `main` sur `projects/interv360/**` |
+| Node.js | 20 |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| `.env.example` frontend | OK |
+| `.env.example` backend | OK |
+| Code frontend | Inchangé |
+| Code backend | Inchangé |
+| Scripts npm | Inchangés |
+| API | Inchangée |
+| SQLite | Inchangée |
+
+Préservé :
+
+- frontend ;
+- backend ;
+- API ;
+- SQLite ;
+- workflow ;
+- statuts ;
+- audit trail ;
+- request model ;
+- permissions ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée.
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas de Docker obligatoire ;
+- pas de CI/CD lourde ;
+- pas de déploiement cloud ;
+- pas d'arc Figma ;
+- pas d'export Figma.
+
+---
+
 ## 15. Prochaine étape
 
-Exécuter **IND-05** :
+Exécuter **IND-06** :
 
-Tests, non-régression et CI éventuelle
+Documentation finale runbook/README

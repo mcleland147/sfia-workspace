@@ -245,6 +245,35 @@ Hors périmètre actuel :
 
 ---
 
+## CI minimale
+
+Interv360 dispose d'une CI GitHub Actions minimale :
+
+```text
+.github/workflows/interv360-ci.yml
+```
+
+Elle s'exécute sur les pull requests et les pushes vers `main` qui modifient `projects/interv360/**`.
+
+Étapes :
+
+- installation frontend ;
+- build frontend ;
+- tests frontend ;
+- installation backend ;
+- build backend ;
+- tests backend.
+
+La CI ne réalise pas :
+
+- déploiement ;
+- build Docker ;
+- publication cloud ;
+- analyse de sécurité avancée ;
+- supervision.
+
+---
+
 ## Documentation utile
 
 | Document | Usage |
