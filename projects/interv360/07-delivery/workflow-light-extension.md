@@ -376,4 +376,15 @@ Only `STAT-05` and `STAT-07` are introduced in this batch.
 
 ## 14. Statut push / PR
 
-À compléter après push.
+| Élément | Valeur |
+|---------|--------|
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-workflow-light-extension?expand=1 |
+| Cible | `main` |
+| Source | `delivery/interv360-workflow-light-extension` |
+| Merge automatique | Non |
+
+**Titre proposé :** `Add Interv360 workflow light extension`
+
+**Corps PR :** voir §13 ou `/tmp/workflow-light-extension-pr-body.md`
