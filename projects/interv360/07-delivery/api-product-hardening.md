@@ -1003,3 +1003,16 @@ No full CRUD API, request creation form, real authentication, login, logout, pas
 Existing endpoints, OK response formats, workflow, transitions, audit trail, request model, permissions, local mode, API mode and admin reset behavior are preserved.
 `METHOD_NOT_ALLOWED` remains intentionally out of scope for this lot.
 ```
+
+---
+
+## 20. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | OK |
+| PR créée automatiquement | Non |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-api-product-hardening?expand=1 |
+| Cible | main |
+| Source | delivery/interv360-api-product-hardening |
+| Merge automatique | Non |
