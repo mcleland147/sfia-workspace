@@ -116,7 +116,7 @@ Règle :
 |----------|----------|--------|
 | AUTH-US-01 | Définir utilisateurs fictifs et session locale | Réalisé |
 | AUTH-US-02 | Remplacer le sélecteur de rôle par un sélecteur utilisateur | Réalisé |
-| AUTH-US-03 | Adapter permissions/tests | À faire |
+| AUTH-US-03 | Adapter permissions/tests | Réalisé |
 | AUTH-US-04 | Mettre à jour runbook/README | À faire |
 | AUTH-US-05 | Préparer PR unique | À venir |
 
@@ -191,6 +191,44 @@ Décisions confirmées :
 - aucun OAuth/JWT/SSO ;
 - aucune session backend ;
 - aucune table users backend.
+
+---
+
+## 9.2. Changements AUTH-US-03
+
+AUTH-US-03 stabilise le user switcher côté permissions et tests.
+
+Changements réalisés :
+
+- confirmation que le rôle actif est dérivé de l’utilisateur courant ;
+- confirmation que la matrice de permissions existante est conservée ;
+- renforcement des tests de session locale ;
+- renforcement des tests UI par utilisateur ;
+- vérification du reset réservé à `admin` ;
+- vérification de la persistance de l’utilisateur courant ;
+- conservation du backend sans modification ;
+- conservation de l’API sans modification ;
+- conservation de SQLite sans modification.
+
+Règles confirmées :
+
+| Utilisateur | Rôle | Résultat attendu |
+|-------------|------|------------------|
+| Alice Demandeur | `requester` | Lecture seule workflow |
+| Théo Technicien | `technician` | Traitement autorisé, annulation interdite |
+| Maya Responsable | `manager` | Traitement et annulation autorisés |
+| Amin Admin | `admin` | Traitement, annulation et reset autorisés |
+| Victor Lecteur | `viewer` | Lecture seule workflow |
+
+Garde-fous confirmés :
+
+- aucun login réel ;
+- aucun mot de passe ;
+- aucun token ;
+- aucun OAuth/JWT/SSO ;
+- aucune session backend ;
+- aucune table users backend ;
+- aucun changement API.
 
 ---
 

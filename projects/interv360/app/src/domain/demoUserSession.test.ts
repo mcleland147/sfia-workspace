@@ -45,4 +45,13 @@ describe("demoUserSession", () => {
     expect(user.displayName).toBe("Maya Responsable");
     expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-manager");
   });
+
+  it("normalises unknown ids through setCurrentDemoUser", () => {
+    const user = setCurrentDemoUser("unknown-user");
+
+    expect(user.id).toBe("user-technician");
+    expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe(
+      "user-technician",
+    );
+  });
 });
