@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../app/App";
 import { CURRENT_USER_STORAGE_KEY } from "../domain/demoUsers";
@@ -203,7 +203,7 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText("Mode API local")).toBeInTheDocument();
+      expect(screen.getByText("Mode API")).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByRole("button", { name: "Demandes" }));
@@ -220,7 +220,7 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
         "Théo Technicien",
       );
     });
@@ -256,17 +256,19 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByLabelText(/Changer d'utilisateur/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Changer de profil/i)).toBeInTheDocument();
     });
 
-    fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+    fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
       target: { value: "user-manager" },
     });
 
-    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Maya Responsable",
     );
-    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Responsable");
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
+      "Responsable",
+    );
     expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-manager");
   });
 
@@ -325,10 +327,10 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByLabelText(/Changer d'utilisateur/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Changer de profil/i)).toBeInTheDocument();
     });
 
-    fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+    fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
       target: { value: "user-manager" },
     });
 
@@ -389,11 +391,17 @@ describe("App API mode", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Journal" }));
 
-    await waitFor(() => {
-      expect(screen.getByText(/Par Théo Technicien — technician/i)).toBeInTheDocument();
+    const journal = await screen.findByRole("region", {
+      name: /Historique de la demande/i,
     });
-    expect(screen.getByText(/Action : qualify/i)).toBeInTheDocument();
-    expect(screen.getByText(/STAT-01 → STAT-02/)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(within(journal).getByText(/Théo Technicien/i)).toBeInTheDocument();
+      expect(within(journal).getByText(/— Technicien/i)).toBeInTheDocument();
+    });
+    expect(within(journal).getByText(/Qualifier la demande/i)).toBeInTheDocument();
+    expect(within(journal).getByText(/Qualifiée → Planifiée/i)).toBeInTheDocument();
+    expect(within(journal).getByText(/STAT-01 → STAT-02/i)).toBeInTheDocument();
   });
 
   it("keeps legacy API events readable in journal", async () => {
@@ -425,7 +433,7 @@ describe("App API mode", () => {
     await waitFor(() => {
       expect(screen.getByText(/Qualification fictive confirmée/i)).toBeInTheDocument();
     });
-    expect(screen.queryByText(/Par /i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Par Théo/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/undefined/i)).not.toBeInTheDocument();
   });
 
@@ -437,7 +445,7 @@ describe("App API mode", () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          /Backend indisponible en mode API local/i,
+          /Impossible de contacter l'API locale/i,
         ),
       ).toBeInTheDocument();
     });
@@ -449,7 +457,7 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
         "Maya Responsable",
       );
     });
@@ -463,7 +471,7 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
         "Théo Technicien",
       );
     });
@@ -499,7 +507,7 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
         "Maya Responsable",
       );
     });
@@ -521,7 +529,7 @@ describe("App API mode", () => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Théo Technicien",
     );
   });
@@ -569,10 +577,10 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText("Mode API local")).toBeInTheDocument();
+      expect(screen.getByText("Mode API")).toBeInTheDocument();
     });
 
-    fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+    fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
       target: { value: "user-admin" },
     });
 
@@ -601,7 +609,7 @@ describe("App API mode", () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText("Mode API local")).toBeInTheDocument();
+      expect(screen.getByText("Mode API")).toBeInTheDocument();
     });
 
     expect(

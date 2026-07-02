@@ -19,7 +19,7 @@ export async function listApiUsers(apiBaseUrl = getApiBaseUrl()): Promise<DemoUs
     response = await fetch(`${apiBaseUrl}/users`);
   } catch {
     throw new RequestsRepositoryError(
-      "Backend indisponible en mode API local. Vérifiez que le backend Interv360 est lancé.",
+      "Impossible de contacter l'API locale. Vérifiez que le backend Interv360 est démarré.",
       "BACKEND_UNAVAILABLE",
     );
   }

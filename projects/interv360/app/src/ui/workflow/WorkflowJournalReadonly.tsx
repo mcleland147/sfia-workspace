@@ -1,12 +1,40 @@
 import { useMemo } from "react";
 import type { DemoWorkflowEvent } from "../../domain/requestStatus";
+import { getRequestStatusLabel } from "../../domain/requestStatus";
 import { getDemoWorkflowEvents } from "../../data/requestsRepository";
+import {
+  type DemoTransitionAction,
+  workflowActionLabels,
+} from "../../data/requestsRepository.types";
+import {
+  isSimulatedRole,
+  simulatedRoleLabels,
+} from "../../domain/simulatedRoles";
 import "./WorkflowJournalReadonly.css";
 
 interface WorkflowJournalReadonlyProps {
   events?: DemoWorkflowEvent[];
   requestId: string;
   dataVersion?: number;
+}
+
+function formatActorRoleLabel(actorRole?: string): string | undefined {
+  if (!actorRole) {
+    return undefined;
+  }
+
+  return isSimulatedRole(actorRole)
+    ? simulatedRoleLabels[actorRole]
+    : actorRole;
+}
+
+function formatEventActionLabel(action?: string): string | undefined {
+  if (!action) {
+    return undefined;
+  }
+
+  const label = workflowActionLabels[action as DemoTransitionAction];
+  return label ?? action;
 }
 
 export function WorkflowJournalReadonly({
@@ -20,47 +48,60 @@ export function WorkflowJournalReadonly({
   );
 
   return (
-    <section className="workflow-journal-readonly">
+    <section
+      className="workflow-journal-readonly"
+      aria-label="Historique de la demande"
+    >
       <header className="workflow-journal-readonly__header">
-        <h2>Journal local fictif</h2>
-        <p className="workflow-journal-readonly__subtitle">Vue readonly</p>
-        <p className="workflow-journal-readonly__notice">
-          Données fictives uniquement.
+        <h2>Historique de la demande</h2>
+        <p className="workflow-journal-readonly__subtitle">
+          Suivi des transitions et interventions enregistrées
         </p>
       </header>
 
       {events.length === 0 ? (
-        <p className="workflow-journal-readonly__empty">
-          Aucun événement fictif enregistré pour {requestId}.
+        <p className="workflow-journal-readonly__empty" role="status">
+          Aucun événement enregistré pour cette demande.
         </p>
       ) : (
         <ol className="workflow-journal-readonly__list">
-          {events.map((event, index) => (
-            <li
-              key={`${event.type}-${event.createdAt}-${index}`}
-              className="workflow-journal-readonly__item"
-            >
-              <p className="workflow-journal-readonly__message">{event.message}</p>
-              {event.actorDisplayName ? (
-                <p className="workflow-journal-readonly__actor">
-                  Par {event.actorDisplayName}
-                  {event.actorRole ? ` — ${event.actorRole}` : ""}
+          {events.map((event, index) => {
+            const roleLabel = formatActorRoleLabel(event.actorRole);
+            const actionLabel = formatEventActionLabel(event.action);
+
+            return (
+              <li
+                key={`${event.type}-${event.createdAt}-${index}`}
+                className="workflow-journal-readonly__item"
+              >
+                {event.actorDisplayName ? (
+                  <p className="workflow-journal-readonly__actor">
+                    <strong>{event.actorDisplayName}</strong>
+                    {roleLabel ? ` — ${roleLabel}` : ""}
+                  </p>
+                ) : null}
+                <p className="workflow-journal-readonly__message">
+                  {actionLabel ?? event.message}
                 </p>
-              ) : null}
-              {event.action ? (
-                <p className="workflow-journal-readonly__action">
-                  Action : {event.action}
+                {actionLabel && event.message !== actionLabel ? (
+                  <p className="workflow-journal-readonly__detail">
+                    {event.message}
+                  </p>
+                ) : null}
+                <p className="workflow-journal-readonly__timestamp">
+                  {event.createdAt}
                 </p>
-              ) : null}
-              <p className="workflow-journal-readonly__type">{event.type}</p>
-              <p>
-                {event.fromStatus} → {event.toStatus}
-              </p>
-              <p className="workflow-journal-readonly__timestamp">
-                {event.createdAt}
-              </p>
-            </li>
-          ))}
+                <p className="workflow-journal-readonly__transition">
+                  {getRequestStatusLabel(event.fromStatus)} →{" "}
+                  {getRequestStatusLabel(event.toStatus)}
+                  <span className="workflow-journal-readonly__transition-code">
+                    {event.fromStatus} → {event.toStatus}
+                  </span>
+                </p>
+                <p className="workflow-journal-readonly__type">{event.type}</p>
+              </li>
+            );
+          })}
         </ol>
       )}
     </section>

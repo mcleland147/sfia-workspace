@@ -23,7 +23,7 @@ function goToDemoScreen(shortLabel: string) {
 }
 
 function switchDemoUser(userId: string) {
-  fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+  fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
     target: { value: userId },
   });
 }
@@ -68,6 +68,9 @@ describe("App smoke", () => {
   it("shows local data mode by default", async () => {
     await renderAppAndWait();
     expect(screen.getByText("Mode local")).toBeInTheDocument();
+    expect(
+      screen.getByText(/jeu de démonstration embarqué/i),
+    ).toBeInTheDocument();
   });
 
   it("renders the readonly skeleton and workflow controls across demo screens", async () => {
@@ -120,7 +123,7 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Compte rendu SAV/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Workflow local contrôlé/i }),
+      screen.getByRole("heading", { name: /Actions disponibles/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
@@ -128,7 +131,7 @@ describe("App smoke", () => {
 
     goToDemoScreen("Journal");
     expect(
-      screen.getByRole("heading", { name: /Journal local fictif/i }),
+      screen.getByRole("heading", { name: /Historique de la demande/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
@@ -196,7 +199,7 @@ describe("App smoke", () => {
     goToDemoScreen("Détail");
     await waitFor(() => {
       expect(
-        screen.getByText(/Demande clôturée fictivement/i),
+        screen.getByText(/Demande clôturée — aucune action supplémentaire/i),
       ).toBeInTheDocument();
     });
   });
@@ -256,7 +259,7 @@ describe("App smoke", () => {
     goToDemoScreen("Journal");
     await waitFor(() => {
       expect(
-        screen.getByText(/Aucun événement fictif enregistré/i),
+        screen.getByText(/Aucun événement enregistré pour cette demande/i),
       ).toBeInTheDocument();
     });
   });
@@ -368,7 +371,7 @@ describe("App smoke", () => {
     );
     await waitFor(() => {
       expect(
-        screen.getByText(/Demande clôturée fictivement/i),
+        screen.getByText(/Demande clôturée — aucune action supplémentaire/i),
       ).toBeInTheDocument();
       expect(screen.queryByRole("button", { name: /Qualifier/i })).not.toBeInTheDocument();
     });
@@ -393,7 +396,7 @@ describe("App smoke", () => {
     goToDemoScreen("Journal");
     await waitFor(() => {
       expect(
-        screen.getByText(/Aucun événement fictif enregistré/i),
+        screen.getByText(/Aucun événement enregistré pour cette demande/i),
       ).toBeInTheDocument();
     });
   });

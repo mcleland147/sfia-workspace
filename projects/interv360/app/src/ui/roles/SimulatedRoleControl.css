@@ -6,10 +6,22 @@
   padding: 0.65rem 1.25rem;
 }
 
+.simulated-role-control__title {
+  color: #2a3545;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
 .simulated-role-control__active {
   color: #5a4a1f;
   font-size: 0.9rem;
   margin: 0 0 0.25rem;
+}
+
+.simulated-role-control__identity {
+  color: #6b5a2e;
+  font-size: 0.85rem;
 }
 
 .simulated-role-control__notice {

@@ -237,7 +237,7 @@ Décision proposée pour rester Fast Track :
 | UX-01 | Cadrage opérationnel UX produit MVP | Réalisé |
 | UX-02 | Audit UX existante et décisions d'amélioration | Réalisé |
 | UX-03 | Fiche demande et hiérarchie information | Réalisé |
-| UX-04 | Actions, historique et messages | À faire |
+| UX-04 | Actions, historique et messages | Réalisé |
 | UX-05 | Tests frontend et non-régression | À faire |
 | UX-06 | Documentation runbook/README | À faire |
 | UX-07 | Préparation PR unique | À venir |
@@ -254,16 +254,16 @@ Décision proposée pour rester Fast Track :
 | Décisions d'amélioration prises | OK |
 | Fiche demande clarifiée | OK |
 | Liste demandes conservée/améliorée | OK |
-| Actions clarifiées | À faire |
-| Historique clarifié | À faire |
-| Messages et états d'erreur clarifiés | À faire |
+| Actions clarifiées | OK |
+| Historique clarifié | OK |
+| Messages et états d'erreur clarifiés | OK |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
-| Audit trail conservé | À valider |
+| Audit trail conservé | OK |
 | Request model conservé | OK |
 | Permissions conservées | À valider |
 | Backend inchangé | À valider |
-| Frontend tests | À faire |
+| Frontend tests | À valider |
 | Backend tests | À valider |
 | Frontend build | À faire |
 | Backend build | À valider |
@@ -528,8 +528,54 @@ Validations :
 
 ---
 
+## 15.4. Changements UX-04
+
+UX-04 améliore les actions, l'historique, les messages et le contexte utilisateur.
+
+Changements réalisés :
+
+- zone actions clarifiée ;
+- actions disponibles rendues plus lisibles ;
+- actions indisponibles accompagnées d'un motif plus explicite ;
+- accessibilité des actions améliorée (`disabled` réel, hints par bouton) ;
+- historique rendu plus lisible ;
+- affichage acteur / action / date clarifié ;
+- statuts métier affichés avec libellés lisibles ;
+- états vides du journal clarifiés ;
+- messages d'erreur et de succès rendus plus neutres produit ;
+- profil actif clarifié ;
+- badge mode local/API clarifié ;
+- tests frontend ajustés / renforcés (+2 tests).
+
+Préservé :
+
+- actions métier existantes ;
+- transitions existantes ;
+- statuts techniques existants ;
+- permissions existantes ;
+- `actorUserId` dans les transitions ;
+- mode local ;
+- mode API ;
+- absence de fallback silencieux ;
+- request model ;
+- audit trail ;
+- backend ;
+- API ;
+- reset admin.
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK (non-régression) |
+| Backend tests | OK — 125 tests |
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **UX-04** :
+Exécuter **UX-05** :
 
-Actions, historique et messages
+Tests frontend et non-régression
