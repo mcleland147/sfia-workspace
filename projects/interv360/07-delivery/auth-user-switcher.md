@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Auth User Switcher  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — AUTH-US-04 réalisé  
+**Statut** : Batch produit — AUTH-US-05 réalisé  
 **Branche** : `delivery/interv360-auth-user-switcher`
 
 ---
@@ -118,7 +118,7 @@ Règle :
 | AUTH-US-02 | Remplacer le sélecteur de rôle par un sélecteur utilisateur | Réalisé |
 | AUTH-US-03 | Adapter permissions/tests | Réalisé |
 | AUTH-US-04 | Mettre à jour runbook/README | Réalisé |
-| AUTH-US-05 | Préparer PR unique | En cours |
+| AUTH-US-05 | Préparer PR unique | Réalisé |
 
 ---
 
@@ -374,9 +374,9 @@ The change is frontend-only for the user/session simulation layer.
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-auth-user-switcher?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-auth-user-switcher` |
 | Merge automatique | Non |
