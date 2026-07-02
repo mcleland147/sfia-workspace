@@ -13,22 +13,24 @@ export function DemoUserControl({
   currentUser,
   onUserChange,
 }: DemoUserControlProps) {
+  const roleLabel = simulatedRoleLabels[currentUser.role];
+
   return (
-    <section
-      className="simulated-role-control"
-      aria-label="Utilisateur de démonstration"
-    >
+    <section className="simulated-role-control" aria-label="Profil actif">
+      <h2 className="simulated-role-control__title">Profil actif</h2>
       <p className="simulated-role-control__active" role="status">
-        Utilisateur démo : <strong>{currentUser.displayName}</strong> —{" "}
-        {currentUser.team}
+        Vous consultez Interv360 avec le rôle : <strong>{roleLabel}</strong>
         <br />
-        Rôle : <strong>{simulatedRoleLabels[currentUser.role]}</strong>
+        <span className="simulated-role-control__identity">
+          {currentUser.displayName} — {currentUser.team}
+        </span>
       </p>
       <p className="simulated-role-control__notice">
-        Simulation — aucune authentification réelle
+        Ce profil pilote les actions disponibles dans la démonstration MVP.
+        Aucune authentification réelle.
       </p>
       <label className="simulated-role-control__label" htmlFor="demo-user-select">
-        Changer d&apos;utilisateur
+        Changer de profil
         <select
           id="demo-user-select"
           className="simulated-role-control__select"

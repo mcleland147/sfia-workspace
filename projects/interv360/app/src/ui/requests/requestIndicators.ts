@@ -3,6 +3,7 @@ import type {
   RequestCriticality,
   RequestPriority,
 } from "../../domain/requestStatus";
+import { getRequestStatusLabel } from "../../domain/requestStatus";
 
 const PRIORITY_LABELS: Record<RequestPriority, string> = {
   low: "Basse",
@@ -49,6 +50,7 @@ export function buildRequestSearchHaystack(request: DemoRequest): string {
     request.id,
     request.title,
     request.status,
+    getRequestStatusLabel(request.status),
     request.priority,
     request.criticality,
     getPriorityLabel(request.priority),

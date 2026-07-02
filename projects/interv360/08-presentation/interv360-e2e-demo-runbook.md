@@ -982,12 +982,134 @@ Ce lot n'introduit pas :
 
 ---
 
+## Contrôle — Product UX Finalization
+
+Le Lot 5 améliore l'expérience produit MVP d'Interv360 sans élargir le périmètre fonctionnel.
+
+Objectif :
+
+- rendre la fiche demande plus lisible ;
+- rendre la liste des demandes plus produit ;
+- clarifier les actions disponibles ;
+- clarifier les actions indisponibles ;
+- rendre l'historique plus exploitable ;
+- clarifier le profil actif ;
+- clarifier le mode local/API ;
+- conserver les garde-fous MVP.
+
+### Contrôle fiche demande
+
+Depuis une demande sélectionnée, vérifier :
+
+- l'en-tête affiche un titre produit clair ;
+- la référence de la demande reste visible ;
+- le statut métier est lisible ;
+- le code technique reste secondaire si affiché ;
+- les informations sont regroupées en sections :
+  - Résumé ;
+  - Site & équipement ;
+  - Priorisation ;
+  - Détails ;
+- demandeur, équipe, site, équipement, priorité, criticité, impact et affectation restent visibles ;
+- la notice de démonstration MVP reste sobre.
+
+### Contrôle liste des demandes
+
+Vérifier :
+
+- la liste n'affiche plus de wording orienté batch technique ;
+- les statuts sont affichés avec libellés métier ;
+- les filtres et la recherche restent disponibles ;
+- la recherche fonctionne aussi sur les libellés métier ;
+- les informations demandeur / affectation restent visibles ;
+- priorité et criticité restent visibles.
+
+### Contrôle actions workflow
+
+Vérifier :
+
+- la zone s'intitule clairement « Actions disponibles » ;
+- le profil acteur est visible ;
+- les actions autorisées sont activables ;
+- les actions interdites sont désactivées ;
+- chaque action bloquée dispose d'un motif compréhensible ;
+- les transitions conservent l'utilisateur courant via `actorUserId`.
+
+### Contrôle historique
+
+Vérifier :
+
+- l'historique affiche clairement :
+  - acteur ;
+  - rôle ;
+  - action ;
+  - date ;
+  - transition de statut ;
+- les statuts métier sont lisibles ;
+- les codes techniques éventuels sont secondaires ;
+- l'état vide du journal est explicite.
+
+### Contrôle profil actif
+
+Vérifier :
+
+- le profil actif est lisible ;
+- le rôle courant est visible ;
+- le user switcher reste disponible ;
+- les permissions changent bien selon le rôle simulé ;
+- aucune authentification réelle n'est introduite.
+
+### Contrôle mode local/API
+
+Vérifier :
+
+- le badge « Mode local » est clair en mode local ;
+- le badge « Mode API » est clair en mode API ;
+- le backend indisponible affiche un message explicite ;
+- le mode API ne bascule pas silencieusement vers le mode local ;
+- le reset admin reste disponible selon les règles existantes.
+
+### Preuves techniques
+
+| Contrôle | Commande | Attendu |
+|----------|----------|---------|
+| Frontend build | `npm run build` dans `projects/interv360/app` | OK |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 191 tests ou plus |
+| Backend build | `npm run build` dans `projects/interv360/backend` | OK |
+| Backend tests | `npm run test` dans `projects/interv360/backend` | 125 tests ou plus |
+
+### Limites confirmées
+
+Le Lot 5 n'introduit pas :
+
+- CRUD complet ;
+- formulaire de création demande ;
+- authentification réelle ;
+- login ;
+- logout ;
+- mot de passe ;
+- token ;
+- OAuth ;
+- JWT ;
+- SSO ;
+- Entra ID ;
+- CRM ;
+- données réelles ;
+- nouveau statut ;
+- `STAT-08` ;
+- nouvelle action métier ;
+- nouvelle dépendance UI ;
+- design system complet ;
+- export Figma dans Git.
+
+---
+
 ## 8. Preuves techniques à présenter
 
 | Preuve | Commande / contrôle | Attendu |
 |--------|---------------------|---------|
 | Frontend build | `npm run build` dans `projects/interv360/app` | OK |
-| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 187 tests ou plus |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 191 tests ou plus |
 | Backend build | `npm run build` dans `projects/interv360/backend` | OK |
 | Backend tests | `npm run test` dans `projects/interv360/backend` | 125 tests ou plus |
 | API health | `GET /health` | OK |

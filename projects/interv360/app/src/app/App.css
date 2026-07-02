@@ -9,11 +9,22 @@
   border-bottom: 1px solid #cfd8e6;
   color: #1f4f9c;
   font-family: system-ui, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
   margin: 0;
-  padding: 0.5rem 1.25rem;
+  padding: 0.65rem 1.25rem;
   text-align: center;
+}
+
+.app-data-mode__label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+}
+
+.app-data-mode__description {
+  color: #3d5f96;
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin: 0;
 }
 
 .app-loading,

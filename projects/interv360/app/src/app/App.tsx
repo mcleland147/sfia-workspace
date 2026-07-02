@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createRequestsRepository,
   getDataSourceMode,
+  getDataSourceModeDescription,
   getDataSourceModeLabel,
 } from "../data/requestsRepositoryFactory";
 import { RequestsRepositoryError } from "../data/requestsRepository.types";
@@ -22,9 +23,11 @@ import {
   setCurrentDemoUser,
 } from "../domain/demoUserSession";
 import type { DemoRequest, DemoWorkflowEvent } from "../domain/requestStatus";
+import { getRequestStatusLabel } from "../domain/requestStatus";
 import {
   canRolePerform,
   formatUnauthorizedRoleMessage,
+  simulatedRoleLabels,
 } from "../domain/simulatedRoles";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
@@ -77,6 +80,9 @@ export function App() {
   const [lastActionMessage, setLastActionMessage] = useState<
     string | undefined
   >();
+  const [lastActionMessageKind, setLastActionMessageKind] = useState<
+    "success" | "error" | undefined
+  >();
   const [scenarioStepIndex, setScenarioStepIndex] = useState(
     INITIAL_SCENARIO_STEP_INDEX,
   );
@@ -113,7 +119,9 @@ export function App() {
       const message =
         error instanceof RequestsRepositoryError
           ? error.message
-          : "Erreur de chargement des données fictives.";
+          : dataSourceMode === "api"
+            ? "Impossible de contacter l'API locale. Vérifiez que le backend Interv360 est démarré."
+            : "Erreur de chargement des données de démonstration.";
       setLoadError(message);
     } finally {
       setIsLoading(false);
@@ -142,12 +150,14 @@ export function App() {
     if (!selectedStillVisible) {
       setSelectedRequestId(visibleRequests[0].id);
       setLastActionMessage(undefined);
+      setLastActionMessageKind(undefined);
     }
   }, [visibleRequests, selectedRequestId, isLoading]);
 
   const handleSelectRequest = useCallback((requestId: string) => {
     setSelectedRequestId(requestId);
     setLastActionMessage(undefined);
+    setLastActionMessageKind(undefined);
   }, []);
 
   const resolveCurrentUser = useCallback((users: DemoUser[]): DemoUser => {
@@ -230,6 +240,7 @@ export function App() {
       setCurrentUser(setCurrentDemoUser(userId));
     }
     setLastActionMessage(undefined);
+    setLastActionMessageKind(undefined);
   }, [availableUsers, dataSourceMode, resolveCurrentUser]);
 
   const handleWorkflowAction = useCallback(
@@ -240,6 +251,7 @@ export function App() {
 
       if (!canRolePerform(currentRole, action)) {
         setLastActionMessage(formatUnauthorizedRoleMessage(currentRole));
+        setLastActionMessageKind("error");
         return;
       }
 
@@ -256,15 +268,17 @@ export function App() {
         if (updated) {
           setDataVersion((version) => version + 1);
           setLastActionMessage(
-            `Action fictive enregistrée pour ${selectedRequestId} : ${updated.status}.`,
+            `Action enregistrée — statut ${getRequestStatusLabel(updated.status)}.`,
           );
+          setLastActionMessageKind("success");
         }
       } catch (error) {
         const message =
           error instanceof RequestsRepositoryError
             ? error.message
-            : "Impossible d'enregistrer l'action fictive.";
+            : "Impossible d'enregistrer l'action demandée.";
         setLastActionMessage(message);
+        setLastActionMessageKind("error");
       }
     },
     [repository, request, selectedRequestId, currentRole, currentUser],
@@ -275,6 +289,7 @@ export function App() {
   const handleDemoReset = useCallback(async () => {
     if (!canRolePerform(currentRole, "demo_reset")) {
       setLastActionMessage(formatUnauthorizedRoleMessage(currentRole));
+      setLastActionMessageKind("error");
       return;
     }
 
@@ -286,6 +301,7 @@ export function App() {
       setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
       setDataVersion((version) => version + 1);
       setLastActionMessage(undefined);
+      setLastActionMessageKind(undefined);
       setLastResetLabel(
         new Date().toLocaleTimeString("fr-FR", {
           hour: "2-digit",
@@ -297,8 +313,9 @@ export function App() {
       const message =
         error instanceof RequestsRepositoryError
           ? error.message
-          : "Impossible de réinitialiser la démo.";
+          : "Impossible de réinitialiser la démonstration.";
       setLastActionMessage(message);
+      setLastActionMessageKind("error");
     }
   }, [repository, currentRole]);
 
@@ -334,6 +351,17 @@ export function App() {
     );
   }, [currentScreenIndex]);
 
+  const dataModeBanner = (
+    <div className="app-data-mode" role="status">
+      <p className="app-data-mode__label">
+        {getDataSourceModeLabel(dataSourceMode)}
+      </p>
+      <p className="app-data-mode__description">
+        {getDataSourceModeDescription(dataSourceMode)}
+      </p>
+    </div>
+  );
+
   if (isLoading && requests.length === 0 && !loadError) {
     return (
       <main className="app-shell">
@@ -342,10 +370,8 @@ export function App() {
           currentUser={currentUser}
           onUserChange={handleDemoUserChange}
         />
-        <p className="app-data-mode" role="status">
-          {getDataSourceModeLabel(dataSourceMode)}
-        </p>
-        <p className="app-loading">Chargement des données fictives…</p>
+        {dataModeBanner}
+        <p className="app-loading">Chargement des données de démonstration…</p>
       </main>
     );
   }
@@ -358,9 +384,7 @@ export function App() {
           currentUser={currentUser}
           onUserChange={handleDemoUserChange}
         />
-        <p className="app-data-mode" role="status">
-          {getDataSourceModeLabel(dataSourceMode)}
-        </p>
+        {dataModeBanner}
         <p className="app-error" role="alert">
           {loadError}
         </p>
@@ -375,9 +399,7 @@ export function App() {
         currentUser={currentUser}
         onUserChange={handleDemoUserChange}
       />
-      <p className="app-data-mode" role="status">
-        {getDataSourceModeLabel(dataSourceMode)}
-      </p>
+      {dataModeBanner}
 
       {loadError || usersLoadError ? (
         <p className="app-error app-error--inline" role="alert">
@@ -505,6 +527,9 @@ export function App() {
                   void handleWorkflowAction(action);
                 }}
                 lastActionMessage={lastActionMessage}
+                lastActionMessageKind={lastActionMessageKind}
+                actorDisplayName={currentUser.displayName}
+                actorRoleLabel={simulatedRoleLabels[currentRole]}
                 isActionDisabled={(action) =>
                   !canRolePerform(currentRole, action)
                 }

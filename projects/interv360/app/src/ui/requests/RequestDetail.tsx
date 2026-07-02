@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useMemo } from "react";
 import type { DemoRequest } from "../../domain/requestStatus";
 import { getRequestStatusLabel } from "../../domain/requestStatus";
@@ -17,6 +18,44 @@ interface RequestDetailProps {
   dataVersion?: number;
 }
 
+interface DetailFieldProps {
+  label: string;
+  value: ReactNode;
+  wide?: boolean;
+}
+
+function DetailField({ label, value, wide = false }: DetailFieldProps) {
+  return (
+    <div
+      className={
+        wide
+          ? "request-detail__field request-detail__field--wide"
+          : "request-detail__field"
+      }
+    >
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+    </div>
+  );
+}
+
+interface DetailSectionProps {
+  title: string;
+  sectionId: string;
+  children: ReactNode;
+}
+
+function DetailSection({ title, sectionId, children }: DetailSectionProps) {
+  return (
+    <section className="request-detail__section" aria-labelledby={sectionId}>
+      <h3 className="request-detail__section-title" id={sectionId}>
+        {title}
+      </h3>
+      <dl className="request-detail__fields">{children}</dl>
+    </section>
+  );
+}
+
 export function RequestDetail({
   request: requestProp,
   requestId,
@@ -29,9 +68,9 @@ export function RequestDetail({
 
   if (!request) {
     return (
-      <section className="request-detail">
+      <section className="request-detail" data-testid="request-detail">
         <p className="request-detail__missing">
-          Demande fictive introuvable : {requestId}
+          Demande introuvable : {requestId}
         </p>
       </section>
     );
@@ -39,124 +78,90 @@ export function RequestDetail({
 
   const requesterDisplay = getRequesterDisplay(request);
   const assignmentDisplay = getAssignmentDisplay(request);
+  const statusLabel = getRequestStatusLabel(request.status);
 
   return (
-    <section className="request-detail">
+    <section className="request-detail" data-testid="request-detail">
       <header className="request-detail__header">
-        <h2>Fiche demande SAV</h2>
-        <p className="request-detail__subtitle">Batch 01 — fiche enrichie</p>
-        <p className="request-detail__notice">Données fictives uniquement.</p>
+        <h2 className="request-detail__title">{request.title}</h2>
+        <p className="request-detail__reference">Référence {request.id}</p>
+        <div className="request-detail__status-row">
+          <span className="request-detail__status">{statusLabel}</span>
+          <span className="request-detail__status-code">{request.status}</span>
+        </div>
         <RequestBadges request={request} />
+        <p className="request-detail__notice">
+          Contexte démonstration MVP — données simulées, sans authentification
+          réelle.
+        </p>
       </header>
 
-      <dl className="request-detail__fields">
-        <div className="request-detail__field">
-          <dt>Identifiant</dt>
-          <dd>{request.id}</dd>
-        </div>
-        <div className="request-detail__field">
-          <dt>Titre</dt>
-          <dd>{request.title}</dd>
-        </div>
-        <div className="request-detail__field">
-          <dt>Client</dt>
-          <dd>{request.customerLabel}</dd>
-        </div>
-        <div className="request-detail__field">
-          <dt>Demandeur</dt>
-          <dd>{requesterDisplay}</dd>
-        </div>
+      <DetailSection title="Résumé" sectionId="request-detail-summary">
+        <DetailField label="Client" value={request.customerLabel} />
+        <DetailField label="Demandeur" value={requesterDisplay} />
         {request.requesterTeam ? (
-          <div className="request-detail__field">
-            <dt>Équipe demandeuse</dt>
-            <dd>{request.requesterTeam}</dd>
-          </div>
+          <DetailField label="Équipe" value={request.requesterTeam} />
         ) : null}
-        <div className="request-detail__field">
-          <dt>Site</dt>
-          <dd>{request.siteLabel}</dd>
-        </div>
+        <DetailField label="Statut" value={statusLabel} />
+        {assignmentDisplay ? (
+          <DetailField label="Affectation" value={assignmentDisplay} />
+        ) : null}
+      </DetailSection>
+
+      <DetailSection title="Site & équipement" sectionId="request-detail-site">
+        <DetailField label="Site" value={request.siteLabel} />
         {request.siteDetailLabel ? (
-          <div className="request-detail__field">
-            <dt>Centre démo</dt>
-            <dd>{request.siteDetailLabel}</dd>
-          </div>
-        ) : null}
-        {request.requestedDate ? (
-          <div className="request-detail__field">
-            <dt>Date de demande</dt>
-            <dd>{request.requestedDate}</dd>
-          </div>
-        ) : null}
-        <div className="request-detail__field">
-          <dt>Statut</dt>
-          <dd>
-            {getRequestStatusLabel(request.status)} ({request.status})
-          </dd>
-        </div>
-        <div className="request-detail__field">
-          <dt>Priorité</dt>
-          <dd>{getPriorityLabel(request.priority)}</dd>
-        </div>
-        <div className="request-detail__field">
-          <dt>Criticité</dt>
-          <dd>{getCriticalityLabel(request.criticality)}</dd>
-        </div>
-        {request.categoryLabel ? (
-          <div className="request-detail__field">
-            <dt>Catégorie</dt>
-            <dd>{request.categoryLabel}</dd>
-          </div>
-        ) : null}
-        {request.channelLabel ? (
-          <div className="request-detail__field">
-            <dt>Canal</dt>
-            <dd>{request.channelLabel}</dd>
-          </div>
-        ) : null}
-        {request.impactLabel ? (
-          <div className="request-detail__field">
-            <dt>Impact</dt>
-            <dd>{request.impactLabel}</dd>
-          </div>
-        ) : null}
-        {request.businessImpact ? (
-          <div className="request-detail__field">
-            <dt>Impact métier</dt>
-            <dd>{request.businessImpact}</dd>
-          </div>
+          <DetailField label="Localisation" value={request.siteDetailLabel} />
         ) : null}
         {request.equipmentLabel ? (
-          <div className="request-detail__field">
-            <dt>Équipement / objet</dt>
-            <dd>{request.equipmentLabel}</dd>
-          </div>
+          <DetailField label="Équipement" value={request.equipmentLabel} />
         ) : null}
-        {assignmentDisplay ? (
-          <div className="request-detail__field">
-            <dt>Affectation</dt>
-            <dd>{assignmentDisplay}</dd>
-          </div>
+        {request.categoryLabel ? (
+          <DetailField label="Catégorie" value={request.categoryLabel} />
+        ) : null}
+      </DetailSection>
+
+      <DetailSection
+        title="Priorisation"
+        sectionId="request-detail-prioritization"
+      >
+        <DetailField
+          label="Priorité"
+          value={getPriorityLabel(request.priority)}
+        />
+        <DetailField
+          label="Criticité"
+          value={getCriticalityLabel(request.criticality)}
+        />
+        {request.impactLabel ? (
+          <DetailField label="Impact" value={request.impactLabel} />
+        ) : null}
+        {request.businessImpact ? (
+          <DetailField label="Impact métier" value={request.businessImpact} />
+        ) : null}
+      </DetailSection>
+
+      <DetailSection title="Détails" sectionId="request-detail-details">
+        {request.requestedDate ? (
+          <DetailField label="Date de demande" value={request.requestedDate} />
+        ) : null}
+        {request.channelLabel ? (
+          <DetailField label="Canal" value={request.channelLabel} />
         ) : null}
         {request.createdAtLabel ? (
-          <div className="request-detail__field">
-            <dt>Créée</dt>
-            <dd>{request.createdAtLabel}</dd>
-          </div>
+          <DetailField label="Créée" value={request.createdAtLabel} />
         ) : null}
         {request.description ? (
-          <div className="request-detail__field request-detail__field--wide">
-            <dt>Description</dt>
-            <dd>{request.description}</dd>
-          </div>
+          <DetailField label="Description" value={request.description} wide />
         ) : null}
         {request.qualificationSummary ? (
-          <div className="request-detail__field request-detail__field--wide">
-            <dt>Qualification</dt>
-            <dd>{request.qualificationSummary}</dd>
-          </div>
+          <DetailField
+            label="Qualification"
+            value={request.qualificationSummary}
+            wide
+          />
         ) : null}
-      </dl>
+      </DetailSection>
     </section>
   );
 }

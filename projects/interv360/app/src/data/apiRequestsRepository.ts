@@ -236,7 +236,7 @@ async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
     });
   } catch {
     throw new RequestsRepositoryError(
-      "Backend indisponible en mode API local. Vérifiez que le backend Interv360 est lancé.",
+      "Impossible de contacter l'API locale. Vérifiez que le backend Interv360 est démarré.",
       "BACKEND_UNAVAILABLE",
     );
   }

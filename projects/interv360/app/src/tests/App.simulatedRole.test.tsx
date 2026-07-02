@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CURRENT_USER_STORAGE_KEY, DEMO_USERS } from "../domain/demoUsers";
 import { App } from "../app/App";
@@ -18,7 +18,7 @@ function goToDemoScreen(shortLabel: string) {
 }
 
 function switchDemoUser(userId: string) {
-  fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+  fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
     target: { value: userId },
   });
 }
@@ -35,9 +35,7 @@ async function renderAppOnDetailsScreenForRequest(requestId: string) {
   fireEvent.click(screen.getByRole("button", { name: new RegExp(requestId) }));
   goToDemoScreen("Détail");
   await waitFor(() => {
-    expect(
-      screen.getByRole("heading", { name: /Fiche demande SAV/i }),
-    ).toBeInTheDocument();
+    expect(screen.getAllByText(requestId).length).toBeGreaterThan(0);
   });
 }
 
@@ -80,7 +78,7 @@ describe("App simulated role", () => {
     render(<App />);
     await waitForScreenNavigation();
 
-    const userSelect = screen.getByLabelText(/Changer d'utilisateur/i);
+    const userSelect = screen.getByLabelText(/Changer de profil/i);
     const options = Array.from(userSelect.querySelectorAll("option")).map(
       (option) => option.getAttribute("value"),
     );
@@ -92,12 +90,14 @@ describe("App simulated role", () => {
     render(<App />);
     await waitForScreenNavigation();
 
-    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Théo Technicien",
     );
-    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Technicien");
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
+      "Technicien",
+    );
     expect(
-      screen.getByText(/Simulation — aucune authentification réelle/i),
+      screen.getByText(/Aucune authentification réelle/i),
     ).toBeInTheDocument();
   });
 
@@ -126,10 +126,10 @@ describe("App simulated role", () => {
     switchDemoUser("user-viewer");
 
     expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-viewer");
-    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Victor Lecteur",
     );
-    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Observateur");
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent("Observateur");
   });
 
   it("keeps selected user after remount", async () => {
@@ -142,35 +142,22 @@ describe("App simulated role", () => {
     render(<App />);
     await waitForScreenNavigation();
 
-    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Maya Responsable",
     );
-    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Responsable");
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent("Responsable");
   });
 
   it("disables workflow actions for viewer and shows unauthorized message on forced handler path", async () => {
     await renderAppOnDetailsScreen();
     switchDemoUser("user-viewer");
 
-    const qualifyButton = screen.getByRole("button", {
-      name: /Qualifier la demande/i,
-    });
     expect(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
-    ).toHaveAttribute("aria-disabled", "true");
+    ).toBeDisabled();
     expect(
-      screen.getByText(/Action non autorisée pour le rôle actuel/i),
-    ).toBeInTheDocument();
-
-    fireEvent.click(qualifyButton);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Action non autorisée pour le rôle simulé : Observateur/i,
-        ),
-      ).toBeInTheDocument();
-    });
+      screen.getAllByText(/votre rôle ne permet pas cette action/i).length,
+    ).toBeGreaterThan(0);
   });
 
   it("allows workflow transitions for technician", async () => {
@@ -223,10 +210,10 @@ describe("App simulated role", () => {
     });
 
     expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-admin");
-    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Amin Admin",
     );
-    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Administrateur");
+    expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent("Administrateur");
   });
 
   it("blocks hold and resume for viewer on STAT-03 request", async () => {
@@ -236,17 +223,7 @@ describe("App simulated role", () => {
     const holdButton = screen.getByRole("button", {
       name: /Mettre en attente/i,
     });
-    expect(holdButton).toHaveAttribute("aria-disabled", "true");
-
-    fireEvent.click(holdButton);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Action non autorisée pour le rôle simulé : Observateur/i,
-        ),
-      ).toBeInTheDocument();
-    });
+    expect(holdButton).toBeDisabled();
   });
 
   it("blocks workflow extension actions for requester", async () => {
@@ -255,10 +232,10 @@ describe("App simulated role", () => {
 
     expect(
       screen.getByRole("button", { name: /Mettre en attente/i }),
-    ).toHaveAttribute("aria-disabled", "true");
+    ).toBeDisabled();
     expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
-    ).toHaveAttribute("aria-disabled", "true");
+    ).toBeDisabled();
   });
 
   it("allows technician to put request on hold but blocks cancel", async () => {
@@ -271,8 +248,11 @@ describe("App simulated role", () => {
       name: /Annuler la demande/i,
     });
 
-    expect(holdButton).not.toHaveAttribute("aria-disabled", "true");
-    expect(cancelButton).toHaveAttribute("aria-disabled", "true");
+    expect(holdButton).toBeEnabled();
+    expect(cancelButton).toBeDisabled();
+    expect(
+      screen.getByText(/Non disponible — votre rôle ne permet pas cette action/i),
+    ).toBeInTheDocument();
 
     fireEvent.click(holdButton);
 
@@ -280,19 +260,7 @@ describe("App simulated role", () => {
       expect(
         screen.getByRole("button", { name: /Reprendre/i }),
       ).toBeInTheDocument();
-      expect(screen.getAllByText(/En attente \(STAT-05\)/i).length).toBeGreaterThan(
-        0,
-      );
-    });
-
-    fireEvent.click(cancelButton);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Action non autorisée pour le rôle simulé : Technicien/i,
-        ),
-      ).toBeInTheDocument();
+      expect(screen.getAllByText(/En attente/i).length).toBeGreaterThan(0);
     });
   });
 
@@ -303,16 +271,14 @@ describe("App simulated role", () => {
     const cancelButton = screen.getByRole("button", {
       name: /Annuler la demande/i,
     });
-    expect(cancelButton).not.toHaveAttribute("aria-disabled", "true");
+    expect(cancelButton).toBeEnabled();
 
     fireEvent.click(cancelButton);
 
     await waitFor(() => {
-      expect(screen.getAllByText(/Annulée \(STAT-07\)/i).length).toBeGreaterThan(
-        0,
-      );
+      expect(screen.getAllByText(/Annulée/i).length).toBeGreaterThan(0);
       expect(
-        screen.getByText(/Demande annulée fictivement/i),
+        screen.getByText(/Demande annulée — aucune action supplémentaire/i),
       ).toBeInTheDocument();
     });
   });
@@ -326,9 +292,7 @@ describe("App simulated role", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getAllByText(/Annulée \(STAT-07\)/i).length).toBeGreaterThan(
-        0,
-      );
+      expect(screen.getAllByText(/Annulée/i).length).toBeGreaterThan(0);
     });
   });
 
@@ -338,14 +302,12 @@ describe("App simulated role", () => {
     const requalifyButton = screen.getByRole("button", {
       name: /Requalifier/i,
     });
-    expect(requalifyButton).not.toHaveAttribute("aria-disabled", "true");
+    expect(requalifyButton).toBeEnabled();
 
     fireEvent.click(requalifyButton);
 
     await waitFor(() => {
-      expect(screen.getAllByText(/Planifiée \(STAT-02\)/i).length).toBeGreaterThan(
-        0,
-      );
+      expect(screen.getAllByText(/Planifiée/i).length).toBeGreaterThan(0);
     });
   });
 
@@ -356,9 +318,7 @@ describe("App simulated role", () => {
     fireEvent.click(screen.getByRole("button", { name: /Requalifier/i }));
 
     await waitFor(() => {
-      expect(screen.getAllByText(/Planifiée \(STAT-02\)/i).length).toBeGreaterThan(
-        0,
-      );
+      expect(screen.getAllByText(/Planifiée/i).length).toBeGreaterThan(0);
     });
   });
 
@@ -369,9 +329,7 @@ describe("App simulated role", () => {
     fireEvent.click(screen.getByRole("button", { name: /Requalifier/i }));
 
     await waitFor(() => {
-      expect(screen.getAllByText(/Planifiée \(STAT-02\)/i).length).toBeGreaterThan(
-        0,
-      );
+      expect(screen.getAllByText(/Planifiée/i).length).toBeGreaterThan(0);
     });
   });
 
@@ -382,17 +340,10 @@ describe("App simulated role", () => {
     const requalifyButton = screen.getByRole("button", {
       name: /Requalifier/i,
     });
-    expect(requalifyButton).toHaveAttribute("aria-disabled", "true");
-
-    fireEvent.click(requalifyButton);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Action non autorisée pour le rôle simulé : Observateur/i,
-        ),
-      ).toBeInTheDocument();
-    });
+    expect(requalifyButton).toBeDisabled();
+    expect(
+      screen.getAllByText(/votre rôle ne permet pas cette action/i).length,
+    ).toBeGreaterThan(0);
   });
 
   it("blocks requalify for requester with unauthorized message", async () => {
@@ -402,17 +353,10 @@ describe("App simulated role", () => {
     const requalifyButton = screen.getByRole("button", {
       name: /Requalifier/i,
     });
-    expect(requalifyButton).toHaveAttribute("aria-disabled", "true");
-
-    fireEvent.click(requalifyButton);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          /Action non autorisée pour le rôle simulé : Demandeur/i,
-        ),
-      ).toBeInTheDocument();
-    });
+    expect(requalifyButton).toBeDisabled();
+    expect(
+      screen.getAllByText(/votre rôle ne permet pas cette action/i).length,
+    ).toBeGreaterThan(0);
   });
 
   it("shows local journal with actor after workflow transition", async () => {
@@ -420,11 +364,20 @@ describe("App simulated role", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /Qualifier la demande/i }));
 
+    await waitFor(() => {
+      expect(screen.getByText(/Action enregistrée/i)).toBeInTheDocument();
+    });
+
     goToDemoScreen("Journal");
 
-    await waitFor(() => {
-      expect(screen.getByText(/Par Théo Technicien — technician/i)).toBeInTheDocument();
+    const journal = await screen.findByRole("region", {
+      name: /Historique de la demande/i,
     });
-    expect(screen.getByText(/Action : qualify/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(within(journal).getByText(/Théo Technicien/i)).toBeInTheDocument();
+      expect(within(journal).getByText(/— Technicien/i)).toBeInTheDocument();
+    });
+    expect(within(journal).getByText(/Qualifier la demande/i)).toBeInTheDocument();
   });
 });

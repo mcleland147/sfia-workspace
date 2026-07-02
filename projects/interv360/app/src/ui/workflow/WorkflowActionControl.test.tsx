@@ -16,15 +16,23 @@ const baseRequest: DemoRequest = {
 describe("WorkflowActionControl", () => {
   it("shows qualify and cancel actions in STAT-01", () => {
     render(
-      <WorkflowActionControl request={baseRequest} onAction={vi.fn()} />,
+      <WorkflowActionControl
+        request={baseRequest}
+        onAction={vi.fn()}
+        actorRoleLabel="Technicien"
+        actorDisplayName="Théo Technicien"
+      />,
     );
+    expect(
+      screen.getByRole("heading", { name: /Actions disponibles/i }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Données fictives uniquement/i)).toBeInTheDocument();
+    expect(screen.getByText(/Vous intervenez avec le profil/i)).toBeInTheDocument();
   });
 
   it("shows planning, requalify and cancel actions in STAT-02", () => {
@@ -118,7 +126,7 @@ describe("WorkflowActionControl", () => {
     expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/En attente \(STAT-05\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/En attente/i)).toBeInTheDocument();
   });
 
   it("shows closed message in STAT-06 without business button", () => {
@@ -129,7 +137,7 @@ describe("WorkflowActionControl", () => {
       />,
     );
     expect(
-      screen.getByText(/Demande clôturée fictivement/i),
+      screen.getByText(/Demande clôturée — aucune action supplémentaire/i),
     ).toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
@@ -142,9 +150,9 @@ describe("WorkflowActionControl", () => {
       />,
     );
     expect(
-      screen.getByText(/Demande annulée fictivement/i),
+      screen.getByText(/Demande annulée — aucune action supplémentaire/i),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Annulée \(STAT-07\)/i)).toBeInTheDocument();
+    expect(screen.getByText("STAT-07")).toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
@@ -158,10 +166,10 @@ describe("WorkflowActionControl", () => {
     );
     expect(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
-    ).toHaveAttribute("aria-disabled", "true");
+    ).toBeDisabled();
     expect(
-      screen.getByText(/Action non autorisée pour le rôle actuel/i),
-    ).toBeInTheDocument();
+      screen.getAllByText(/votre rôle ne permet pas cette action/i).length,
+    ).toBeGreaterThan(0);
   });
 
   it("disables only blocked actions when some permissions are denied", () => {
@@ -175,13 +183,30 @@ describe("WorkflowActionControl", () => {
 
     expect(
       screen.getByRole("button", { name: /Mettre en attente/i }),
-    ).not.toHaveAttribute("aria-disabled", "true");
+    ).toBeEnabled();
     expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
-    ).toHaveAttribute("aria-disabled", "true");
+    ).toBeDisabled();
     expect(
-      screen.getByText(/Action non autorisée pour le rôle actuel/i),
+      screen.getByText(/Non disponible — votre rôle ne permet pas cette action/i),
     ).toBeInTheDocument();
+  });
+
+  it("does not call onAction when clicking a disabled button", () => {
+    const onAction = vi.fn();
+    render(
+      <WorkflowActionControl
+        request={baseRequest}
+        onAction={onAction}
+        isActionDisabled={() => true}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Qualifier la demande/i }),
+    );
+
+    expect(onAction).not.toHaveBeenCalled();
   });
 
   it("keeps cancel as the last action when present", () => {
@@ -206,5 +231,29 @@ describe("WorkflowActionControl", () => {
       screen.getByRole("button", { name: /Qualifier la demande/i }),
     );
     expect(onAction).toHaveBeenCalledWith("qualify");
+  });
+
+  it("renders success and error feedback with distinct roles", () => {
+    const { rerender } = render(
+      <WorkflowActionControl
+        request={baseRequest}
+        onAction={vi.fn()}
+        lastActionMessage="Action enregistrée — statut Planifiée."
+        lastActionMessageKind="success"
+      />,
+    );
+    expect(screen.getByRole("status")).toHaveTextContent(
+      /Action enregistrée/i,
+    );
+
+    rerender(
+      <WorkflowActionControl
+        request={baseRequest}
+        onAction={vi.fn()}
+        lastActionMessage="Action non autorisée pour le rôle simulé : Observateur."
+        lastActionMessageKind="error"
+      />,
+    );
+    expect(screen.getByRole("alert")).toHaveTextContent(/non autorisée/i);
   });
 });

@@ -12,23 +12,19 @@
 }
 
 .workflow-journal-readonly__subtitle {
-  color: #444;
-  margin: 0 0 0.5rem;
-}
-
-.workflow-journal-readonly__notice {
-  background: #f5f5f5;
-  border-left: 3px solid #666;
-  color: #333;
+  color: #5a6678;
   font-size: 0.9rem;
-  margin: 0 0 1.25rem;
-  padding: 0.5rem 0.75rem;
+  margin: 0 0 1rem;
 }
 
 .workflow-journal-readonly__empty {
+  background: #fafafa;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
   color: #666;
-  font-style: italic;
+  font-size: 0.9rem;
   margin: 0;
+  padding: 1rem;
 }
 
 .workflow-journal-readonly__list {
@@ -43,30 +39,54 @@
 .workflow-journal-readonly__item {
   background: #fafafa;
   border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  padding: 0.75rem;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
 }
 
 .workflow-journal-readonly__item p {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.35rem;
 }
 
-.workflow-journal-readonly__type {
-  color: #555;
-  font-size: 0.9rem;
+.workflow-journal-readonly__item p:last-child {
+  margin-bottom: 0;
 }
 
 .workflow-journal-readonly__message {
+  color: #2a3545;
+  font-size: 1rem;
   font-weight: 600;
 }
 
-.workflow-journal-readonly__actor,
-.workflow-journal-readonly__action {
-  color: #333;
+.workflow-journal-readonly__detail {
+  color: #5a6678;
+  font-size: 0.9rem;
+}
+
+.workflow-journal-readonly__actor {
+  color: #2a3545;
   font-size: 0.95rem;
 }
 
 .workflow-journal-readonly__timestamp {
   color: #666;
   font-size: 0.85rem;
+}
+
+.workflow-journal-readonly__transition {
+  color: #1f4f9c;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.workflow-journal-readonly__transition-code {
+  color: #7a8494;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-top: 0.15rem;
+}
+
+.workflow-journal-readonly__type {
+  color: #8a94a6;
+  font-size: 0.75rem;
 }

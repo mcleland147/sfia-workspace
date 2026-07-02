@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import type { DemoRequest } from "../../domain/requestStatus";
+import { getRequestStatusLabel } from "../../domain/requestStatus";
 import { getRequests } from "../../data/requestsRepository";
 import { RequestBadges } from "./RequestBadges";
 import { getAssignmentDisplay } from "./requestIndicators";
@@ -12,7 +13,7 @@ import {
 import "./RequestsList.css";
 
 export const EMPTY_VISIBLE_REQUESTS_MESSAGE =
-  "Aucune demande fictive ne correspond aux critères locaux.";
+  "Aucune demande ne correspond aux critères de recherche.";
 
 interface RequestsListProps {
   requests?: DemoRequest[];
@@ -53,7 +54,9 @@ export function RequestsList({
   );
 
   const activeFilterLabel =
-    statusFilter === "ALL" ? "Toutes les demandes" : statusFilter;
+    statusFilter === "ALL"
+      ? "Toutes les demandes"
+      : getRequestStatusLabel(statusFilter);
   const hasActiveSearch = searchQuery.trim().length > 0;
 
   return (
@@ -61,19 +64,19 @@ export function RequestsList({
       <header className="requests-list__header">
         <h2>Demandes SAV</h2>
         <p className="requests-list__subtitle">
-          Batch 01 — {requests.length} demandes fictives locales
+          {requests.length} demandes — consultation et suivi
         </p>
         <p className="requests-list__notice">
-          Démonstration fictive uniquement. Filtrez, recherchez et sélectionnez
-          une demande pour consulter le détail et le workflow associé.
+          Filtrez, recherchez et sélectionnez une demande pour consulter le
+          détail et le workflow associé.
         </p>
       </header>
 
       <div
         className="requests-list__summary"
-        aria-label="Synthèse locale par statut"
+        aria-label="Synthèse par statut"
       >
-        <p className="requests-list__summary-title">Synthèse locale</p>
+        <p className="requests-list__summary-title">Synthèse par statut</p>
         <ul className="requests-list__summary-items">
           <li>
             <span className="requests-list__summary-label">Toutes</span>
@@ -81,7 +84,9 @@ export function RequestsList({
           </li>
           {statusesWithRequests.map((status) => (
             <li key={status}>
-              <span className="requests-list__summary-label">{status}</span>
+              <span className="requests-list__summary-label">
+                {getRequestStatusLabel(status)}
+              </span>
               <span className="requests-list__summary-count">
                 {statusCounts.get(status) ?? 0}
               </span>
@@ -92,7 +97,7 @@ export function RequestsList({
 
       <div className="requests-list__search">
         <label className="requests-list__search-label" htmlFor="requests-search">
-          Recherche locale
+          Recherche
         </label>
         <div className="requests-list__search-row">
           <input
@@ -118,7 +123,7 @@ export function RequestsList({
       <div
         className="requests-list__filters"
         role="group"
-        aria-label="Filtres locaux par statut"
+        aria-label="Filtres par statut"
       >
         <button
           type="button"
@@ -144,7 +149,7 @@ export function RequestsList({
             aria-pressed={statusFilter === status}
             onClick={() => onStatusFilterChange(status)}
           >
-            {status}
+            {getRequestStatusLabel(status)}
           </button>
         ))}
       </div>
@@ -160,6 +165,7 @@ export function RequestsList({
         <ul className="requests-list__items">
           {visibleRequests.map((request) => {
             const isSelected = request.id === selectedRequestId;
+            const statusLabel = getRequestStatusLabel(request.status);
 
             return (
               <li key={request.id}>
@@ -198,7 +204,7 @@ export function RequestsList({
                   </div>
                   <div className="requests-list__card-row">
                     <span className="requests-list__label">Statut</span>
-                    <span>{request.status}</span>
+                    <span>{statusLabel}</span>
                   </div>
                   {getAssignmentDisplay(request) ? (
                     <div className="requests-list__card-row">

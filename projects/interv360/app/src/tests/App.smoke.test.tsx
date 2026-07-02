@@ -1,7 +1,12 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { STORAGE_KEY_REQUESTS } from "../data/localStorageKeys";
 import { App } from "../app/App";
+
+function clickStatusFilter(label: RegExp) {
+  const filters = screen.getByRole("group", { name: /Filtres par statut/i });
+  fireEvent.click(within(filters).getByRole("button", { name: label }));
+}
 
 async function waitForScreenNavigation() {
   await waitFor(() => {
@@ -18,7 +23,7 @@ function goToDemoScreen(shortLabel: string) {
 }
 
 function switchDemoUser(userId: string) {
-  fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+  fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
     target: { value: userId },
   });
 }
@@ -47,7 +52,9 @@ async function renderAppOnDetailsScreen() {
   goToDemoScreen("Détail");
   await waitFor(() => {
     expect(
-      screen.getByRole("heading", { name: /Fiche demande SAV/i }),
+      screen.getByRole("heading", {
+        name: /Machine client en panne intermittente/i,
+      }),
     ).toBeInTheDocument();
   });
 }
@@ -61,6 +68,9 @@ describe("App smoke", () => {
   it("shows local data mode by default", async () => {
     await renderAppAndWait();
     expect(screen.getByText("Mode local")).toBeInTheDocument();
+    expect(
+      screen.getByText(/jeu de démonstration embarqué/i),
+    ).toBeInTheDocument();
   });
 
   it("renders the readonly skeleton and workflow controls across demo screens", async () => {
@@ -84,19 +94,21 @@ describe("App smoke", () => {
     expect(screen.getByText(/Batch 02/i)).toBeInTheDocument();
 
     goToDemoScreen("Demandes");
-    expect(screen.getByLabelText(/Recherche locale/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Synthèse locale par statut/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Recherche$/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Synthèse par statut/i)).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /Demandes SAV/i }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText(/Batch 01/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/consultation et suivi/i)).toBeInTheDocument();
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
     expect(screen.getByText("SAV-DEMO-002")).toBeInTheDocument();
     expect(screen.getByText("SAV-DEMO-003")).toBeInTheDocument();
 
     goToDemoScreen("Détail");
     expect(
-      screen.getByRole("heading", { name: /Fiche demande SAV/i }),
+      screen.getByRole("heading", {
+        name: /Machine client en panne intermittente/i,
+      }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /Qualification SAV/i }),
@@ -111,7 +123,7 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Compte rendu SAV/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Workflow local contrôlé/i }),
+      screen.getByRole("heading", { name: /Actions disponibles/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Qualifier la demande/i }),
@@ -119,7 +131,7 @@ describe("App smoke", () => {
 
     goToDemoScreen("Journal");
     expect(
-      screen.getByRole("heading", { name: /Journal local fictif/i }),
+      screen.getByRole("heading", { name: /Historique de la demande/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
@@ -187,7 +199,7 @@ describe("App smoke", () => {
     goToDemoScreen("Détail");
     await waitFor(() => {
       expect(
-        screen.getByText(/Demande clôturée fictivement/i),
+        screen.getByText(/Demande clôturée — aucune action supplémentaire/i),
       ).toBeInTheDocument();
     });
   });
@@ -195,12 +207,14 @@ describe("App smoke", () => {
   it("filters requests locally and realigns selection when needed", async () => {
     await renderAppOnRequestsScreen();
 
-    fireEvent.click(screen.getByRole("button", { name: /^STAT-03$/ }));
+    clickStatusFilter(/^En cours de traitement$/);
 
     await waitFor(() => {
       expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
       expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
-      expect(screen.getByText(/Filtre actif : STAT-03/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Filtre actif : En cours de traitement/i),
+      ).toBeInTheDocument();
     });
 
     goToDemoScreen("Détail");
@@ -214,7 +228,7 @@ describe("App smoke", () => {
   it("searches requests locally and restores criteria on reset", async () => {
     await renderAppOnRequestsScreen();
 
-    fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
+    fireEvent.change(screen.getByLabelText(/Recherche/i), {
       target: { value: "SAV-DEMO-003" },
     });
 
@@ -240,12 +254,12 @@ describe("App smoke", () => {
     goToDemoScreen("Demandes");
     expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
     expect(screen.getByText(/Filtre actif : Toutes les demandes/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Recherche locale/i)).toHaveValue("");
+    expect(screen.getByLabelText(/Recherche/i)).toHaveValue("");
 
     goToDemoScreen("Journal");
     await waitFor(() => {
       expect(
-        screen.getByText(/Aucun événement fictif enregistré/i),
+        screen.getByText(/Aucun événement enregistré pour cette demande/i),
       ).toBeInTheDocument();
     });
   });
@@ -253,13 +267,13 @@ describe("App smoke", () => {
   it("shows empty state when combined filter and search return nothing", async () => {
     await renderAppOnRequestsScreen();
 
-    fireEvent.click(screen.getByRole("button", { name: /^STAT-03$/ }));
-    fireEvent.change(screen.getByLabelText(/Recherche locale/i), {
+    clickStatusFilter(/^En cours de traitement$/);
+    fireEvent.change(screen.getByLabelText(/Recherche/i), {
       target: { value: "SAV-DEMO-003" },
     });
 
     expect(
-      screen.getByText(/Aucune demande fictive ne correspond aux critères locaux/i),
+      screen.getByText(/Aucune demande ne correspond aux critères de recherche/i),
     ).toBeInTheDocument();
   });
 
@@ -357,7 +371,7 @@ describe("App smoke", () => {
     );
     await waitFor(() => {
       expect(
-        screen.getByText(/Demande clôturée fictivement/i),
+        screen.getByText(/Demande clôturée — aucune action supplémentaire/i),
       ).toBeInTheDocument();
       expect(screen.queryByRole("button", { name: /Qualifier/i })).not.toBeInTheDocument();
     });
@@ -382,7 +396,7 @@ describe("App smoke", () => {
     goToDemoScreen("Journal");
     await waitFor(() => {
       expect(
-        screen.getByText(/Aucun événement fictif enregistré/i),
+        screen.getByText(/Aucun événement enregistré pour cette demande/i),
       ).toBeInTheDocument();
     });
   });

@@ -318,6 +318,81 @@ Guardrails:
 - no backend auth session;
 - `actorUserId` optional on transitions.
 
+## Product UX MVP
+
+The frontend provides a product-oriented MVP experience for Interv360.
+
+The UX finalization keeps the existing product scope while improving readability:
+
+- request cards use business status labels instead of raw technical status codes as the main label;
+- the request detail page is structured into readable sections;
+- workflow actions are grouped and explain why unavailable actions are disabled;
+- the workflow journal highlights actor, action and date;
+- the active simulated profile is visible;
+- local/API mode indicators are explicit;
+- API mode does not silently fall back to local mode when the backend is unavailable.
+
+### Request detail
+
+The request detail view highlights:
+
+- request title and reference;
+- business status label;
+- requester and team;
+- site and equipment;
+- priority, criticality and business impact;
+- assignment;
+- additional details.
+
+Sections: **Résumé**, **Site & équipement**, **Priorisation**, **Détails**.
+
+### Workflow actions
+
+Workflow actions keep the existing transition model and permissions.
+
+The frontend only improves readability:
+
+- available actions remain actionable;
+- unavailable actions are disabled;
+- unavailable actions provide a readable reason;
+- transitions still send the current simulated user as `actorUserId`.
+
+### Workflow journal
+
+The journal keeps the existing audit trail data and displays it in a more readable way:
+
+- actor;
+- role;
+- action;
+- date;
+- status transition.
+
+### Local and API modes
+
+Both modes are preserved:
+
+- local mode uses the embedded demo dataset;
+- API mode uses the local backend;
+- no silent fallback to local mode occurs when API mode cannot reach the backend.
+
+### Guardrails
+
+This UX lot does not introduce:
+
+- full CRUD;
+- request creation form;
+- real authentication;
+- login/logout;
+- password;
+- token;
+- OAuth/JWT/SSO;
+- CRM integration;
+- real data;
+- new workflow status;
+- `STAT-08`;
+- new UI dependency;
+- Figma export in the repository.
+
 ## Status
 
 **Phase 2 — controlled local workflow skeleton on top of the readonly INC-01 demo foundation.**

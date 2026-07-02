@@ -75,6 +75,9 @@ describe("requestListFilters", () => {
     expect(searchLocalRequests(sampleRequests, "urgente")).toEqual([
       sampleRequests[0],
     ]);
+    expect(searchLocalRequests(sampleRequests, "qualifiée")).toEqual([
+      sampleRequests[0],
+    ]);
   });
 
   it("searches requests by enriched request model fields", () => {

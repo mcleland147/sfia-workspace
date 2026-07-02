@@ -311,6 +311,23 @@ When an actor is provided, the backend stores a snapshot (`actorDisplayName`, `a
 
 Legacy events without actor fields remain compatible.
 
+### Frontend UX compatibility
+
+The Product UX Finalization lot does not change the backend contract.
+
+The backend keeps:
+
+- existing `/api/v1` endpoints;
+- existing OK response formats;
+- structured API errors `{ error: { code, message } }`;
+- users API;
+- request model;
+- workflow transitions;
+- audit trail events;
+- demo reset behavior.
+
+No authentication, token, CRM integration, real data, new workflow status or request CRUD API is introduced by the UX lot.
+
 ## Guardrails
 
 - Fictitious data only (`isDemo: true`)
