@@ -245,7 +245,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | BUS-01 | Cadrage opérationnel backend users/session | Réalisé |
 | BUS-02 | Modèle users SQLite + seed backend | Réalisé |
 | BUS-03 | Repository users + endpoints API | Réalisé |
-| BUS-04 | Frontend API users + fallback local | À faire |
+| BUS-04 | Frontend API users + fallback local | Réalisé |
 | BUS-05 | Tests backend/frontend et non-régression | À faire |
 | BUS-06 | Documentation runbook/README | À faire |
 | BUS-07 | Préparation PR unique | À venir |
@@ -262,10 +262,10 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | Seed 5 utilisateurs backend | OK |
 | Endpoint users créé | OK |
 | Session minimale documentée | OK |
-| Frontend mode API branché sur users backend | À faire |
+| Frontend mode API branché sur users backend | OK |
 | Permissions existantes conservées | À valider |
-| Backend tests | OK — 76 tests |
-| Frontend tests | OK — 141 tests |
+| Backend tests | OK — 85 tests |
+| Frontend tests | OK — 147 tests |
 | Backend build | OK |
 | Frontend build | OK |
 | Audit trail complet exclu | OK |
@@ -400,8 +400,49 @@ Garde-fous confirmés :
 
 ---
 
+## 16.3. Changements BUS-04
+
+BUS-04 branche le frontend sur les utilisateurs backend en mode API.
+
+Changements réalisés :
+
+- ajout d'un client frontend pour `GET /api/v1/users` ;
+- chargement des utilisateurs backend lorsque le mode API est actif ;
+- conservation des utilisateurs locaux en mode local ;
+- conservation de la session locale `interv360:current-user-id` ;
+- validation de l'utilisateur courant contre la liste disponible ;
+- fallback vers `user-technician` quand disponible ;
+- rôle actif toujours dérivé depuis l'utilisateur courant ;
+- permissions existantes conservées ;
+- aucun envoi d'utilisateur dans les transitions ;
+- aucune session backend réelle ;
+- aucun login/logout.
+
+Comportement confirmé :
+
+| Mode | Source utilisateurs | Session |
+|------|---------------------|---------|
+| Local | `DEMO_USERS` frontend | `interv360:current-user-id` |
+| API | `GET /api/v1/users` | `interv360:current-user-id` validé contre la liste API |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas d'audit trail complet ;
+- pas de nouveau statut.
+
+---
+
 ## 17. Prochaine étape
 
-Exécuter **BUS-04** :
+Exécuter **BUS-05** :
 
-Frontend API users + fallback local
+Tests backend/frontend et non-régression
