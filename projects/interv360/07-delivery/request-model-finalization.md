@@ -255,7 +255,7 @@ Décision proposée pour rester Fast Track :
 | RM-03 | Backend SQLite/API Request finalisé | Réalisé |
 | RM-04 | Frontend fiche/liste Request alignées | Réalisé |
 | RM-05 | Tests backend/frontend et non-régression | Réalisé |
-| RM-06 | Documentation runbook/README | À faire |
+| RM-06 | Documentation runbook/README | Réalisé |
 | RM-07 | Préparation PR unique | À venir |
 
 ---
@@ -280,6 +280,9 @@ Décision proposée pour rester Fast Track :
 | Frontend tests | OK — 175 tests |
 | Backend build | OK |
 | Frontend build | OK |
+| Runbook mis à jour | OK |
+| README frontend mis à jour | OK |
+| README backend mis à jour | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -769,8 +772,115 @@ Garde-fous confirmés :
 
 ---
 
+## 15.6. Changements RM-06
+
+RM-06 finalise la documentation du lot Request Model Finalization.
+
+Changements réalisés :
+
+- documentation du modèle `Request` enrichi ;
+- documentation des champs demandeur :
+  - `requesterName`
+  - `requesterTeam`
+- documentation des champs affectation :
+  - `assignedToUserId`
+  - `assignedToDisplayName`
+- documentation des champs legacy conservés :
+  - `customerLabel`
+  - `assignedTechnicianLabel`
+- documentation des colonnes SQLite :
+  - `requester_name`
+  - `requester_team`
+  - `assigned_to_user_id`
+  - `assigned_to_display_name`
+- documentation des endpoints :
+  - `GET /api/v1/requests`
+  - `GET /api/v1/requests/:id`
+- documentation de l'affichage frontend fiche/liste ;
+- documentation de la recherche enrichie ;
+- documentation de l'alignement seed local/backend ;
+- mise à jour du runbook ;
+- mise à jour du README frontend ;
+- mise à jour du README backend.
+
+Synthèse :
+
+| Élément | Résultat |
+|---------|----------|
+| Modèle Request enrichi | Documenté |
+| Champs demandeur | Documentés |
+| Champs affectation | Documentés |
+| SQLite | Documentée |
+| API liste | Documentée |
+| API détail | Documentée |
+| Frontend fiche | Documenté |
+| Frontend liste | Documenté |
+| Recherche enrichie | Documentée |
+| Seed local/backend | Documenté |
+| Mode local | Conservé |
+| Mode API | Conservé |
+| Auth réelle | Exclue |
+| CRM / données réelles | Exclus |
+| Nouveau statut | Exclu |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **RM-06** :
+Exécuter **RM-07** :
 
-Documentation runbook/README
+Préparation PR unique
+
+---
+
+## 17. Synthèse avant PR
+
+Le lot **Request Model Finalization** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- stabilisation du modèle métier `Request` ;
+- enrichissement compatible SQLite ;
+- ajout des champs demandeur :
+  - `requesterName`
+  - `requesterTeam`
+- ajout des champs affectation :
+  - `assignedToUserId`
+  - `assignedToDisplayName`
+- conservation des champs legacy :
+  - `customerLabel`
+  - `assignedTechnicianLabel`
+- exposition API liste et détail ;
+- alignement frontend mode API ;
+- alignement frontend mode local ;
+- réalignement du seed fictif local/backend ;
+- affichage du demandeur dans la fiche ;
+- affichage de l'affectation dans la fiche ;
+- affichage demandeur/affectation en liste ;
+- recherche enrichie ;
+- tests backend/frontend renforcés ;
+- runbook/README mis à jour.
+
+Le lot ne met pas en place :
+
+- CRUD complet ;
+- formulaire création demande ;
+- authentification réelle ;
+- CRM ;
+- données réelles ;
+- nouveau statut.
+
+La prochaine étape est RM-07 : préparation de la PR unique du lot.

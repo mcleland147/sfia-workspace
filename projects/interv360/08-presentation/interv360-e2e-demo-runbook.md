@@ -657,17 +657,142 @@ Ce lot n'introduit pas :
 
 ---
 
+## Contrôle — Request Model enrichi
+
+Interv360 dispose désormais d'un modèle `Request` enrichi pour le MVP produit.
+
+Le modèle demande conserve les champs historiques et ajoute des informations métier structurantes :
+
+| Champ | Usage |
+|-------|-------|
+| `requesterName` | Demandeur de l'intervention |
+| `requesterTeam` | Équipe demandeuse |
+| `assignedToUserId` | Référence optionnelle vers un utilisateur backend |
+| `assignedToDisplayName` | Affichage de l'affectation |
+| `customerLabel` | Champ legacy conservé |
+| `assignedTechnicianLabel` | Champ legacy conservé |
+
+Les champs legacy restent conservés afin de garantir la compatibilité de l'interface et des données existantes.
+
+### Contrôle API liste
+
+Appeler :
+
+```bash
+curl -s http://localhost:3001/api/v1/requests
+```
+
+Réponse attendue :
+
+```json
+{
+  "items": [
+    {
+      "id": "SAV-DEMO-001",
+      "title": "...",
+      "requesterName": "Alice Demandeur",
+      "requesterTeam": "Centre demandeur",
+      "assignedToUserId": "user-technician",
+      "assignedToDisplayName": "Théo Technicien",
+      "customerLabel": "...",
+      "assignedTechnicianLabel": "...",
+      "priority": "high",
+      "criticality": "urgent"
+    }
+  ]
+}
+```
+
+### Contrôle API détail
+
+Appeler :
+
+```bash
+curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001
+```
+
+Réponse attendue :
+
+```json
+{
+  "request": {
+    "id": "SAV-DEMO-001",
+    "requesterName": "Alice Demandeur",
+    "requesterTeam": "Centre demandeur",
+    "assignedToUserId": "user-technician",
+    "assignedToDisplayName": "Théo Technicien"
+  },
+  "detail": {
+    "businessImpact": "...",
+    "equipmentLabel": "...",
+    "siteLabel": "..."
+  }
+}
+```
+
+### Contrôle frontend
+
+Dans le frontend :
+
+1. ouvrir une demande ;
+2. vérifier l'affichage du demandeur ;
+3. vérifier l'affichage de l'équipe demandeuse si disponible ;
+4. vérifier l'affichage de l'affectation ;
+5. vérifier que les champs historiques restent visibles ;
+6. vérifier que la liste des demandes reste lisible ;
+7. vérifier que la recherche retrouve une demande par :
+   - demandeur ;
+   - équipe ;
+   - affectation ;
+   - catégorie ;
+   - équipement.
+
+### Contrôle mode local / mode API
+
+Le seed local frontend et le seed backend sont alignés sur les demandes fictives principales.
+
+Exemples attendus :
+
+| Demande | Demandeur | Équipe | Affectation |
+|---------|-----------|--------|-------------|
+| SAV-DEMO-001 | Alice Demandeur | Centre demandeur | Théo Technicien |
+| SAV-DEMO-002 | Maya Responsable | Pilotage SAV | Théo Technicien |
+| SAV-DEMO-003 | Alice Demandeur | Centre demandeur | Théo Technicien |
+
+### Limites confirmées
+
+Ce lot n'introduit pas :
+
+- CRUD complet ;
+- formulaire de création de demande ;
+- nouveau statut ;
+- `STAT-08` ;
+- authentification réelle ;
+- login ;
+- logout ;
+- mot de passe ;
+- hash de mot de passe ;
+- token ;
+- OAuth ;
+- JWT ;
+- SSO ;
+- Entra ID ;
+- CRM ;
+- données réelles.
+
+---
+
 ## 8. Preuves techniques à présenter
 
 | Preuve | Commande / contrôle | Attendu |
 |--------|---------------------|---------|
 | Frontend build | `npm run build` dans `projects/interv360/app` | OK |
-| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 157 tests ou plus |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 175 tests ou plus |
 | Backend build | `npm run build` dans `projects/interv360/backend` | OK |
-| Backend tests | `npm run test` dans `projects/interv360/backend` | 93 tests ou plus |
+| Backend tests | `npm run test` dans `projects/interv360/backend` | 121 tests ou plus |
 | API health | `GET /health` | OK |
-| Liste demandes | `GET /api/v1/requests` | demandes fictives |
-| Détail demande | `GET /api/v1/requests/SAV-DEMO-001` | champs productisés présents |
+| Liste demandes | `GET /api/v1/requests` | demandes fictives enrichies |
+| Détail demande | `GET /api/v1/requests/SAV-DEMO-001` | champs productisés et enrichis présents |
 | Reset API | `POST /api/v1/demo/reset` | `{ status, mode, requestsCount }` |
 | Erreur demande inconnue | transition sur demande inconnue | `404 REQUEST_NOT_FOUND` |
 | Erreur action invalide | action absente / inconnue | `400 INVALID_TRANSITION_ACTION` |
@@ -686,13 +811,25 @@ Avec le backend lancé sur `http://localhost:3001` :
 curl -s http://localhost:3001/health
 ```
 
-**Liste des demandes :**
+**Liste des demandes enrichies :**
 
 ```bash
 curl -s http://localhost:3001/api/v1/requests
 ```
 
-**Détail d’une demande** (vérifier `requestedDate`, `equipmentLabel`, `businessImpact`, `siteLabel`) :
+Champs enrichis attendus :
+
+- `requesterName`
+- `requesterTeam`
+- `assignedToUserId`
+- `assignedToDisplayName`
+
+Champs legacy conservés :
+
+- `customerLabel`
+- `assignedTechnicianLabel`
+
+**Détail d’une demande enrichie** (vérifier aussi `requestedDate`, `equipmentLabel`, `businessImpact`, `siteLabel`) :
 
 ```bash
 curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001
