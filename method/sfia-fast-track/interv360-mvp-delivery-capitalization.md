@@ -295,6 +295,36 @@ Usage recommandé :
 
 ---
 
-## 18. Prochaine étape
+## 18. Template réutilisable
 
-Préparer un template réutilisable pour appliquer ce pattern à un autre projet.
+Le template réutilisable du pattern est disponible ici :
+
+`templates/mvp-delivery-pattern-template.md`
+
+Il permet d'appliquer le pattern **SFIA Fast Track MVP Delivery** à un autre projet sans repartir de zéro.
+
+Contenu du template :
+
+- conditions d'utilisation ;
+- décision structurante initiale ;
+- roadmap MVP cible ;
+- structure type d'un lot produit ;
+- post-merge léger ;
+- release readiness ;
+- checklist Go / No-Go ;
+- garde-fous standard ;
+- commandes de validation ;
+- création du tag MVP ;
+- anti-patterns.
+
+---
+
+## 19. Prochaine étape
+
+Préparer la PR unique de capitalisation méthode.
+
+La PR devra inclure :
+
+- la capitalisation Interv360 ;
+- le template réutilisable ;
+- la confirmation qu'aucun produit Interv360 n'a été modifié.
