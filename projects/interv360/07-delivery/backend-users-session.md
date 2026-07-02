@@ -247,7 +247,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | BUS-03 | Repository users + endpoints API | Réalisé |
 | BUS-04 | Frontend API users + fallback local | Réalisé |
 | BUS-05 | Tests backend/frontend et non-régression | Réalisé |
-| BUS-06 | Documentation runbook/README | À faire |
+| BUS-06 | Documentation runbook/README | Réalisé |
 | BUS-07 | Préparation PR unique | À venir |
 
 ---
@@ -268,6 +268,9 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | Frontend tests | OK — 157 tests |
 | Backend build | OK |
 | Frontend build | OK |
+| Runbook mis à jour | OK |
+| README frontend mis à jour | OK |
+| README backend/global mis à jour | OK |
 | Audit trail complet exclu | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
@@ -489,8 +492,83 @@ Garde-fous confirmés :
 
 ---
 
+## 16.5. Changements BUS-06
+
+BUS-06 finalise la documentation du lot Backend Users & Session.
+
+Changements réalisés :
+
+- documentation du chargement des utilisateurs backend en mode API ;
+- documentation de `GET /api/v1/users` ;
+- documentation de `GET /api/v1/users/:id` ;
+- documentation des 5 utilisateurs backend seedés ;
+- documentation de la session locale `interv360:current-user-id` ;
+- documentation des règles de fallback utilisateur ;
+- documentation du maintien du mode local via `DEMO_USERS` ;
+- documentation de l'absence d'envoi `userId/session/token` dans les transitions ;
+- documentation du report de l'audit trail complet au Lot 2 ;
+- mise à jour du runbook ;
+- mise à jour du README frontend ;
+- mise à jour du README backend.
+
+Synthèse :
+
+| Élément | Résultat |
+|---------|----------|
+| Users backend | Documentés |
+| API users | Documentée |
+| Mode API frontend | Documenté |
+| Mode local | Documenté |
+| Session locale | Documentée |
+| Fallback utilisateur | Documenté |
+| Transitions | Inchangées |
+| Audit trail complet | Reporté Lot 2 |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas d'audit trail complet ;
+- pas de nouveau statut.
+
+---
+
 ## 17. Prochaine étape
 
-Exécuter **BUS-06** :
+Exécuter **BUS-07** :
 
-Documentation runbook/README
+Préparation PR unique
+
+---
+
+## 18. Synthèse avant PR
+
+Le lot **Backend Users & Session** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- modèle backend `User` ;
+- table SQLite `users` ;
+- seed idempotent des 5 utilisateurs ;
+- repository users ;
+- endpoints :
+  - `GET /api/v1/users`
+  - `GET /api/v1/users/:id`
+- frontend mode API branché sur les users backend ;
+- mode local conservé ;
+- session locale `interv360:current-user-id` conservée ;
+- fallback utilisateur documenté et testé ;
+- transitions inchangées ;
+- tests backend/frontend renforcés ;
+- runbook/README mis à jour.
+
+Le lot ne met pas en place une authentification réelle.
+
+La prochaine étape est BUS-07 : préparation de la PR unique du lot.
