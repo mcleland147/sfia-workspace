@@ -244,7 +244,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 |-----------|----------|--------|
 | BUS-01 | Cadrage opérationnel backend users/session | Réalisé |
 | BUS-02 | Modèle users SQLite + seed backend | Réalisé |
-| BUS-03 | Repository users + endpoints API | À faire |
+| BUS-03 | Repository users + endpoints API | Réalisé |
 | BUS-04 | Frontend API users + fallback local | À faire |
 | BUS-05 | Tests backend/frontend et non-régression | À faire |
 | BUS-06 | Documentation runbook/README | À faire |
@@ -260,7 +260,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | Users backend modélisés | OK |
 | Table users créée | OK |
 | Seed 5 utilisateurs backend | OK |
-| Endpoint users créé | À faire |
+| Endpoint users créé | OK |
 | Session minimale documentée | OK |
 | Frontend mode API branché sur users backend | À faire |
 | Permissions existantes conservées | À valider |
@@ -359,8 +359,49 @@ Garde-fous confirmés :
 
 ---
 
+## 16.2. Changements BUS-03
+
+BUS-03 expose les utilisateurs backend via une API minimale.
+
+Changements réalisés :
+
+- création du repository users ;
+- mapping SQLite vers le modèle domaine `User` ;
+- ajout de `GET /api/v1/users` ;
+- ajout de `GET /api/v1/users/:id` ;
+- réponse API sans mot de passe, sans token, sans donnée sensible ;
+- tests repository users ;
+- tests API users ;
+- aucune modification frontend ;
+- aucune session backend réelle ;
+- aucune modification des transitions ;
+- aucun audit trail complet.
+
+Endpoints exposés :
+
+| Endpoint | Résultat |
+|----------|----------|
+| `GET /api/v1/users` | Liste les utilisateurs actifs |
+| `GET /api/v1/users/:id` | Retourne un utilisateur ou `USER_NOT_FOUND` |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas d'audit trail complet ;
+- pas de nouveau statut.
+
+---
+
 ## 17. Prochaine étape
 
-Exécuter **BUS-03** :
+Exécuter **BUS-04** :
 
-Repository users + endpoints API
+Frontend API users + fallback local

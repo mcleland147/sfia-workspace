@@ -40,6 +40,71 @@ describe("Interv360 API", () => {
     ).toBe(true);
   });
 
+  it("GET /api/v1/users returns seeded users", async () => {
+    const response = await request(app).get("/api/v1/users");
+
+    expect(response.status).toBe(200);
+    expect(response.body.users).toHaveLength(5);
+
+    const technician = response.body.users.find(
+      (user: { id: string }) => user.id === "user-technician",
+    );
+
+    expect(technician).toMatchObject({
+      id: "user-technician",
+      displayName: "Théo Technicien",
+      email: "theo.technicien@example.test",
+      role: "technician",
+      team: "Support technique",
+      isActive: true,
+    });
+    expect(technician.password).toBeUndefined();
+    expect(technician.passwordHash).toBeUndefined();
+    expect(technician.token).toBeUndefined();
+
+    expect(
+      response.body.users.every(
+        (user: { isActive: boolean }) => typeof user.isActive === "boolean",
+      ),
+    ).toBe(true);
+  });
+
+  it("GET /api/v1/users returns expected role mapping", async () => {
+    const response = await request(app).get("/api/v1/users");
+    expect(response.status).toBe(200);
+
+    const byId = new Map(
+      response.body.users.map((user: { id: string; role: string }) => [
+        user.id,
+        user.role,
+      ]),
+    );
+
+    expect(byId.get("user-requester")).toBe("requester");
+    expect(byId.get("user-technician")).toBe("technician");
+    expect(byId.get("user-manager")).toBe("manager");
+    expect(byId.get("user-admin")).toBe("admin");
+    expect(byId.get("user-viewer")).toBe("viewer");
+  });
+
+  it("GET /api/v1/users/:id returns one user", async () => {
+    const response = await request(app).get("/api/v1/users/user-technician");
+    expect(response.status).toBe(200);
+    expect(response.body.user).toMatchObject({
+      id: "user-technician",
+      displayName: "Théo Technicien",
+      role: "technician",
+      isActive: true,
+    });
+  });
+
+  it("GET /api/v1/users/:id unknown returns USER_NOT_FOUND", async () => {
+    const response = await request(app).get("/api/v1/users/unknown");
+    expect(response.status).toBe(404);
+    expect(response.body.error.code).toBe("USER_NOT_FOUND");
+    expect(response.body.error.message).toBe("User not found.");
+  });
+
   it("GET /api/v1/requests/:id returns request and detail", async () => {
     const response = await request(app).get("/api/v1/requests/SAV-DEMO-001");
     expect(response.status).toBe(200);

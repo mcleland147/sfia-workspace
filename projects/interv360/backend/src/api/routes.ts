@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { StoreError } from "../domain/types.js";
+import { getDatabase } from "../persistence/sqliteDatabase.js";
+import { getUserById, listUsers } from "../repositories/usersRepository.js";
 import {
   applyTransition,
   getRequestWithDetail,
@@ -30,6 +32,27 @@ function sendStoreError(
 
 export function createApiRouter(): Router {
   const router = Router();
+
+  router.get("/users", (_req, res) => {
+    const users = listUsers(getDatabase());
+    res.json({ users });
+  });
+
+  router.get("/users/:id", (req, res) => {
+    const user = getUserById(getDatabase(), req.params.id);
+
+    if (!user) {
+      res.status(404).json({
+        error: {
+          code: "USER_NOT_FOUND",
+          message: "User not found.",
+        },
+      });
+      return;
+    }
+
+    res.json({ user });
+  });
 
   router.get("/requests", (_req, res) => {
     res.json({ items: listRequests() });
