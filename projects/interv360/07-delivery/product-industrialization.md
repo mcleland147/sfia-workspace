@@ -240,7 +240,7 @@ Décision proposée pour rester Fast Track :
 | IND-04 | Variables `.env`, scripts et exploitation locale | Réalisé |
 | IND-05 | Tests, non-régression et CI éventuelle | Réalisé |
 | IND-06 | Documentation finale runbook/README | Réalisé |
-| IND-07 | Préparation PR unique | À venir |
+| IND-07 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -904,3 +904,135 @@ Le lot ne met pas en place :
 - export Figma.
 
 La prochaine étape est IND-07 : préparation de la PR unique du lot.
+
+---
+
+## 17. Validations finales IND-07
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| Diff global vs main | OK |
+| README racine point d'entrée MVP | OK |
+| README frontend consolidé | OK |
+| README backend consolidé | OK |
+| Runbook E2E harmonisé | OK |
+| `.env.example` frontend | OK |
+| `.env.example` backend | OK |
+| Scripts frontend documentés | OK |
+| Scripts backend documentés | OK |
+| SQLite / reset documentés | OK |
+| Mode local documenté | OK |
+| Mode API documenté | OK |
+| Déploiement simple documenté | OK |
+| CI minimale ajoutée | OK |
+| Workflow CI sans secrets | OK |
+| Workflow CI sans Docker | OK |
+| Workflow CI sans déploiement | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Request model conservé | OK |
+| Audit trail conservé | OK |
+| Workflow métier conservé | OK |
+| Statuts techniques conservés | OK |
+| Transitions métier conservées | OK |
+| Permissions conservées | OK |
+| UX MVP conservée | OK |
+| Backend fonctionnel inchangé | OK |
+| API inchangée | OK |
+| Scripts npm inchangés | OK |
+| CRUD complet exclu | OK |
+| Formulaire création exclu | OK |
+| Auth réelle exclue | OK |
+| Session backend réelle exclue | OK |
+| Login/password exclus | OK |
+| Token exclu | OK |
+| OAuth/JWT/SSO exclus | OK |
+| CRM/données réelles exclus | OK |
+| Nouveau statut exclu | OK |
+| `STAT-08` exclu | OK |
+| Docker obligatoire exclu | OK |
+| CI/CD lourde exclue | OK |
+| Déploiement cloud complet exclu | OK |
+| Arc Figma exclu | OK |
+| Exports Figma exclus | OK |
+| sfia-notion-sync exclu | OK |
+
+---
+
+## 18. Préparation PR intégrée
+
+### Titre proposé
+
+`Industrialize Interv360 MVP delivery`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR delivers Lot 6 of the Interv360 MVP Final Roadmap: Product Industrialization.
+It makes the Interv360 MVP easier to install, run, test and operate locally without expanding the product scope. The lot consolidates the root README, local setup, local/API mode instructions, environment examples, SQLite/reset documentation, simple deployment guidance, the E2E runbook and a minimal CI workflow.
+This is not a cloud deployment, not a Dockerization effort, not a CI/CD platform implementation and does not introduce authentication, CRM, real data, CRUD expansion or new workflow statuses.
+## What changed
+### Product documentation
+- turns `projects/interv360/README.md` into the MVP entry point;
+- documents quick installation for `app/` and `backend/`;
+- documents local mode without backend;
+- documents API mode with backend + SQLite;
+- documents build/test/run commands;
+- documents validation counters;
+- keeps links to specialized frontend/backend README files and the E2E runbook.
+### Environment and local operations
+- adds `projects/interv360/app/.env.example`;
+- adds `projects/interv360/backend/.env.example`;
+- documents frontend environment variables:
+  - `VITE_INTERV360_DATA_SOURCE`
+  - `VITE_INTERV360_API_BASE_URL`
+- documents backend environment variables:
+  - `PORT`
+  - `SQLITE_PATH`
+  - `DEMO_MODE`
+  - `INTERV360_CORS_ORIGINS`
+  - `CORS_ORIGIN` legacy fallback if supported;
+- documents SQLite persistence and reset;
+- documents local demo reset through UI and API;
+- documents a simple pre-cloud deployment strategy.
+### CI
+- adds a minimal GitHub Actions workflow:
+  - `.github/workflows/interv360-ci.yml`
+- runs on pull requests and pushes to `main` affecting `projects/interv360/**`;
+- installs, builds and tests the frontend;
+- installs, builds and tests the backend;
+- uses Node.js 20;
+- does not deploy;
+- does not use secrets;
+- does not build Docker images.
+### Runbook
+- adds a Product Industrialization control section to the E2E runbook;
+- documents installation, mode local/API, `.env.example`, SQLite/reset, CI and technical evidence.
+## Validation
+- Frontend build: OK
+- Frontend tests: 191 passed
+- Backend build: OK
+- Backend tests: 125 passed
+## Guardrails
+No product behavior, frontend feature, backend API, SQLite schema, workflow, technical status, transition, permission model, request model or audit trail behavior was changed.
+No full CRUD API, request creation form, real authentication, login, logout, password, token, OAuth, JWT, SSO, Entra ID, CRM integration, real data, new workflow status, `STAT-08`, Docker requirement, full CI/CD pipeline, cloud deployment, observability stack, supervision, Notion publication, Controlled Delivery change, sfia-notion-sync update, Figma arc or Figma export was introduced.
+Existing local mode, API mode, SQLite persistence, demo reset, request model, audit trail, workflow, permissions and Product UX MVP behavior are preserved.
+```
+
+---
+
+## 19. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-product-industrialization` |
+| Merge automatique | Non |
