@@ -248,7 +248,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | BUS-04 | Frontend API users + fallback local | Réalisé |
 | BUS-05 | Tests backend/frontend et non-régression | Réalisé |
 | BUS-06 | Documentation runbook/README | Réalisé |
-| BUS-07 | Préparation PR unique | À venir |
+| BUS-07 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -542,9 +542,7 @@ Garde-fous confirmés :
 
 ## 17. Prochaine étape
 
-Exécuter **BUS-07** :
-
-Préparation PR unique
+Lot **Backend Users & Session** prêt pour revue et merge via PR unique.
 
 ---
 
@@ -571,4 +569,105 @@ Capacités ajoutées :
 
 Le lot ne met pas en place une authentification réelle.
 
-La prochaine étape est BUS-07 : préparation de la PR unique du lot.
+---
+
+## 19. Validations finales BUS-07
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 157 tests |
+| Backend build | OK |
+| Backend tests | OK — 93 tests |
+| Diff global vs main | OK |
+| Transitions inchangées | OK |
+| Aucun user/session/token envoyé dans transitions | OK |
+| Aucun endpoint login/logout/session/auth/token | OK |
+| Audit trail complet reporté Lot 2 | OK |
+| Auth réelle exclue | OK |
+| OAuth/JWT/SSO exclus | OK |
+| CRM/données réelles exclus | OK |
+| `STAT-08` exclu | OK |
+| sfia-notion-sync exclu | OK |
+| Exports Figma exclus | OK |
+
+---
+
+## 20. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 backend users session`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR delivers Lot 1 of the Interv360 MVP Final Roadmap: Backend Users & Session.
+It moves Interv360 from a frontend-only demo user switcher toward a product-oriented user foundation backed by SQLite and exposed through the backend API.
+This is not real authentication.
+## What changed
+### Product delivery
+- opens Lot 1 from the MVP Final Roadmap;
+- adds the Backend Users & Session delivery document;
+- keeps the SFIA Fast Track delivery approach;
+- confirms that Audit Trail with actor attribution is deferred to Lot 2.
+### Backend
+- adds a backend `User` domain model;
+- adds a SQLite `users` table;
+- seeds the 5 demo users idempotently:
+  - Alice Demandeur — `requester`;
+  - Théo Technicien — `technician`;
+  - Maya Responsable — `manager`;
+  - Amin Admin — `admin`;
+  - Victor Lecteur — `viewer`;
+- adds a users repository;
+- exposes:
+  - `GET /api/v1/users`;
+  - `GET /api/v1/users/:id`;
+- returns users without sensitive authentication fields.
+### Frontend
+- adds a users API client;
+- loads users from `GET /api/v1/users` in API mode;
+- keeps local mode based on frontend `DEMO_USERS`;
+- keeps local session storage with:
+  `interv360:current-user-id`
+- keeps fallback to `user-technician` when available;
+- derives the active role from the selected user;
+- keeps the existing permissions matrix;
+- keeps transition payloads unchanged.
+### Tests
+- adds backend seed tests;
+- adds backend users repository tests;
+- extends backend API tests;
+- adds frontend users API client tests;
+- strengthens frontend API mode tests;
+- strengthens local mode non-regression tests.
+### Documentation
+- updates the E2E runbook with Backend Users & Session controls;
+- updates frontend README;
+- updates backend README;
+- updates the delivery document with BUS-01 to BUS-07 status.
+## Validation
+- Frontend build: OK
+- Frontend tests: 157 passed
+- Backend build: OK
+- Backend tests: 93 passed
+## Guardrails
+No real authentication, login, logout, password, password hash, token, OAuth, JWT, SSO, Entra ID, backend auth session, CRM integration, real data, workflow status, `STAT-08`, audit trail actor attribution, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+Transition payloads remain unchanged and still send only `{ "action": "<action>" }`.
+Audit Trail with actor attribution is explicitly deferred to Lot 2.
+```
+
+---
+
+## 21. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | En attente |
+| PR créée automatiquement | En attente |
+| URL PR ou comparaison | En attente |
+| Cible | `main` |
+| Source | `delivery/interv360-backend-users-session` |
+| Merge automatique | Non |
