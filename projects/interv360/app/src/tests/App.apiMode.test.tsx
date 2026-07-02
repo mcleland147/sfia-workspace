@@ -12,6 +12,10 @@ const apiRequest = {
   customerLabel: "Client Démo Industrie",
   siteLabel: "Lyon Démo",
   assignedTechnicianLabel: "Technicien Démo 01",
+  requesterName: "Alice Demandeur",
+  requesterTeam: "Centre demandeur",
+  assignedToUserId: "user-technician",
+  assignedToDisplayName: "Théo Technicien",
   createdAt: "2026-03-12T07:30:00.000Z",
   updatedAt: "2026-03-12T07:30:00.000Z",
   detailId: "SAV-DEMO-001",
@@ -211,6 +215,28 @@ describe("App API mode", () => {
     });
 
     expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-technician");
+  });
+
+  it("displays enriched request model fields from API in request detail", async () => {
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Détail" })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Détail" }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("heading", { name: /Fiche demande SAV/i }),
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Alice Demandeur")).toBeInTheDocument();
+    expect(screen.getByText("Demandeur")).toBeInTheDocument();
+    expect(screen.getByText("Affectation")).toBeInTheDocument();
+    expect(screen.getAllByText("Théo Technicien").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Centre demandeur")).toBeInTheDocument();
   });
 
   it("switches to manager and keeps role derived from selected user", async () => {

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import type { DemoRequest } from "../../domain/requestStatus";
 import { getRequests } from "../../data/requestsRepository";
 import { RequestBadges } from "./RequestBadges";
+import { getAssignmentDisplay } from "./requestIndicators";
 import {
   countRequestsByStatus,
   filterVisibleRequests,
@@ -185,6 +186,12 @@ export function RequestsList({
                     <span className="requests-list__label">Client</span>
                     <span>{request.customerLabel}</span>
                   </div>
+                  {request.requesterName ? (
+                    <div className="requests-list__card-row">
+                      <span className="requests-list__label">Demandeur</span>
+                      <span>{request.requesterName}</span>
+                    </div>
+                  ) : null}
                   <div className="requests-list__card-row">
                     <span className="requests-list__label">Site</span>
                     <span>{request.siteLabel}</span>
@@ -193,10 +200,10 @@ export function RequestsList({
                     <span className="requests-list__label">Statut</span>
                     <span>{request.status}</span>
                   </div>
-                  {request.assignedTechnicianLabel ? (
+                  {getAssignmentDisplay(request) ? (
                     <div className="requests-list__card-row">
-                      <span className="requests-list__label">Technicien</span>
-                      <span>{request.assignedTechnicianLabel}</span>
+                      <span className="requests-list__label">Affectation</span>
+                      <span>{getAssignmentDisplay(request)}</span>
                     </div>
                   ) : null}
                 </button>

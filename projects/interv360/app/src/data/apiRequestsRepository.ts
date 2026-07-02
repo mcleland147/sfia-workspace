@@ -20,6 +20,10 @@ interface ApiListItem {
   customerLabel: string;
   siteLabel: string;
   assignedTechnicianLabel: string | null;
+  requesterName?: string;
+  requesterTeam?: string;
+  assignedToUserId?: string;
+  assignedToDisplayName?: string;
   createdAt: string;
   updatedAt: string;
   detailId: string;
@@ -94,6 +98,45 @@ function asStringArray(value: unknown): string[] | undefined {
     : undefined;
 }
 
+function mapRequestModelFields(
+  item: Pick<
+    ApiListItem,
+    | "requesterName"
+    | "requesterTeam"
+    | "assignedToUserId"
+    | "assignedToDisplayName"
+  >,
+): Pick<
+  DemoRequest,
+  | "requesterName"
+  | "requesterTeam"
+  | "assignedToUserId"
+  | "assignedToDisplayName"
+> {
+  const mapped: Pick<
+    DemoRequest,
+    | "requesterName"
+    | "requesterTeam"
+    | "assignedToUserId"
+    | "assignedToDisplayName"
+  > = {};
+
+  if (item.requesterName) {
+    mapped.requesterName = item.requesterName;
+  }
+  if (item.requesterTeam) {
+    mapped.requesterTeam = item.requesterTeam;
+  }
+  if (item.assignedToUserId) {
+    mapped.assignedToUserId = item.assignedToUserId;
+  }
+  if (item.assignedToDisplayName) {
+    mapped.assignedToDisplayName = item.assignedToDisplayName;
+  }
+
+  return mapped;
+}
+
 function mapApiDetailToDemoRequest(payload: ApiDetailPayload): DemoRequest {
   const { request, detail } = payload;
   const qualification = detail.readonlyBlocks.qualification;
@@ -109,6 +152,7 @@ function mapApiDetailToDemoRequest(payload: ApiDetailPayload): DemoRequest {
     status: request.status,
     priority: request.priority,
     criticality: request.criticality,
+    ...mapRequestModelFields(request),
     categoryLabel: detail.category,
     channelLabel: detail.channel,
     impactLabel: detail.impact,
@@ -147,6 +191,7 @@ function mapListItemToDemoRequest(item: ApiListItem): DemoRequest {
     status: item.status,
     priority: item.priority,
     criticality: item.criticality,
+    ...mapRequestModelFields(item),
     assignedTechnicianLabel: item.assignedTechnicianLabel ?? undefined,
     createdAtLabel: formatIsoLabel(item.createdAt),
   };

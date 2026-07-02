@@ -100,6 +100,30 @@ Notes:
 - The frontend keeps the current navigation, local mode, and API opt-in mode.
 - Simulated roles are documented below via the demo user switcher; no real authentication, OAuth, JWT, SSO, backend user database, CRM integration, or real data is introduced.
 
+### Enriched request model
+
+The frontend supports the enriched Interv360 request model.
+
+Requests can now expose:
+
+- `requesterName`
+- `requesterTeam`
+- `assignedToUserId`
+- `assignedToDisplayName`
+
+Legacy fields remain supported for compatibility:
+
+- `customerLabel`
+- `assignedTechnicianLabel`
+
+The request detail view displays the requester and assignment information when available, with fallback to legacy fields when needed.
+
+The request list remains compatible and can display requester and assignment information.
+
+Search also includes enriched request fields such as requester, requester team, assignment, category, and equipment.
+
+Both local mode and API mode are supported.
+
 ### Workflow light extension
 
 The frontend exposes the workflow light extension:

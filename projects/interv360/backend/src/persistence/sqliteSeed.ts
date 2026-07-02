@@ -57,10 +57,12 @@ export function insertSeedData(db: Database.Database): void {
     INSERT INTO requests (
       id, title, status, priority, criticality,
       customer_label, site_label, assigned_technician_label,
+      requester_name, requester_team, assigned_to_user_id, assigned_to_display_name,
       created_at, updated_at, detail_id, is_demo
     ) VALUES (
       @id, @title, @status, @priority, @criticality,
       @customerLabel, @siteLabel, @assignedTechnicianLabel,
+      @requesterName, @requesterTeam, @assignedToUserId, @assignedToDisplayName,
       @createdAt, @updatedAt, @detailId, 1
     )
   `);
@@ -107,6 +109,10 @@ function requestToRow(request: DemoRequest) {
     customerLabel: request.customerLabel,
     siteLabel: request.siteLabel,
     assignedTechnicianLabel: request.assignedTechnicianLabel,
+    requesterName: request.requesterName ?? null,
+    requesterTeam: request.requesterTeam ?? null,
+    assignedToUserId: request.assignedToUserId ?? null,
+    assignedToDisplayName: request.assignedToDisplayName ?? null,
     createdAt: request.createdAt,
     updatedAt: request.updatedAt,
     detailId: request.detailId,

@@ -4,8 +4,10 @@ import { getRequestStatusLabel } from "../../domain/requestStatus";
 import { getRequestById } from "../../data/requestsRepository";
 import { RequestBadges } from "./RequestBadges";
 import {
+  getAssignmentDisplay,
   getCriticalityLabel,
   getPriorityLabel,
+  getRequesterDisplay,
 } from "./requestIndicators";
 import "./RequestDetail.css";
 
@@ -35,6 +37,9 @@ export function RequestDetail({
     );
   }
 
+  const requesterDisplay = getRequesterDisplay(request);
+  const assignmentDisplay = getAssignmentDisplay(request);
+
   return (
     <section className="request-detail">
       <header className="request-detail__header">
@@ -57,6 +62,16 @@ export function RequestDetail({
           <dt>Client</dt>
           <dd>{request.customerLabel}</dd>
         </div>
+        <div className="request-detail__field">
+          <dt>Demandeur</dt>
+          <dd>{requesterDisplay}</dd>
+        </div>
+        {request.requesterTeam ? (
+          <div className="request-detail__field">
+            <dt>Équipe demandeuse</dt>
+            <dd>{request.requesterTeam}</dd>
+          </div>
+        ) : null}
         <div className="request-detail__field">
           <dt>Site</dt>
           <dd>{request.siteLabel}</dd>
@@ -117,10 +132,10 @@ export function RequestDetail({
             <dd>{request.equipmentLabel}</dd>
           </div>
         ) : null}
-        {request.assignedTechnicianLabel ? (
+        {assignmentDisplay ? (
           <div className="request-detail__field">
-            <dt>Technicien</dt>
-            <dd>{request.assignedTechnicianLabel}</dd>
+            <dt>Affectation</dt>
+            <dd>{assignmentDisplay}</dd>
           </div>
         ) : null}
         {request.createdAtLabel ? (

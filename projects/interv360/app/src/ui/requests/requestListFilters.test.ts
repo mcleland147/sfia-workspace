@@ -77,6 +77,35 @@ describe("requestListFilters", () => {
     ]);
   });
 
+  it("searches requests by enriched request model fields", () => {
+    const enrichedRequests: DemoRequest[] = [
+      {
+        ...sampleRequests[0]!,
+        requesterName: "Alice Demandeur",
+        requesterTeam: "Centre demandeur",
+        assignedToDisplayName: "Théo Technicien",
+        categoryLabel: "Panne machine",
+        equipmentLabel: "Ligne démo",
+      },
+    ];
+
+    expect(searchLocalRequests(enrichedRequests, "alice")).toEqual(
+      enrichedRequests,
+    );
+    expect(searchLocalRequests(enrichedRequests, "centre demandeur")).toEqual(
+      enrichedRequests,
+    );
+    expect(searchLocalRequests(enrichedRequests, "théo technicien")).toEqual(
+      enrichedRequests,
+    );
+    expect(searchLocalRequests(enrichedRequests, "panne machine")).toEqual(
+      enrichedRequests,
+    );
+    expect(searchLocalRequests(enrichedRequests, "ligne démo")).toEqual(
+      enrichedRequests,
+    );
+  });
+
   it("combines status filter and local search", () => {
     expect(
       filterVisibleRequests(sampleRequests, "STAT-02", "SAV-DEMO-002"),

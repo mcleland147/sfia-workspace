@@ -101,4 +101,8 @@ export function applySqliteSchema(db: Database.Database): void {
   addColumnIfMissing(db, "workflow_events", "actor_user_id", "TEXT");
   addColumnIfMissing(db, "workflow_events", "actor_display_name", "TEXT");
   addColumnIfMissing(db, "workflow_events", "actor_role", "TEXT");
+  addColumnIfMissing(db, "requests", "requester_name", "TEXT");
+  addColumnIfMissing(db, "requests", "requester_team", "TEXT");
+  addColumnIfMissing(db, "requests", "assigned_to_user_id", "TEXT");
+  addColumnIfMissing(db, "requests", "assigned_to_display_name", "TEXT");
 }

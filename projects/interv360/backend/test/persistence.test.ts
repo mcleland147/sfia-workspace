@@ -59,6 +59,8 @@ describe("SQLite persistence", () => {
     const { request, detail } = getRequestWithDetail("SAV-DEMO-001");
     expect(request.status).toBe("STAT-01");
     expect(request.siteLabel).toBe("Lyon Démo");
+    expect(request.requesterName).toBe("Alice Demandeur");
+    expect(request.assignedToUserId).toBe("user-technician");
     expect(detail.category).toBe("Panne machine");
     expect(detail.requestedDate).toBe("2026-01-12T09:00:00.000Z");
     expect(detail.equipmentLabel).toBe("Ligne d'assemblage démo — poste 3");

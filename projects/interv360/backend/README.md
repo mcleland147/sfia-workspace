@@ -90,6 +90,76 @@ Notes:
 - No user, role, CRM reference, real data or extended workflow status is introduced.
 - For an existing local SQLite database, run the demo reset or remove `data/interv360.sqlite` to reload the enriched seed after schema migration.
 
+### Enriched request model
+
+The backend request model exposes additional MVP product fields:
+
+- `requesterName`
+- `requesterTeam`
+- `assignedToUserId`
+- `assignedToDisplayName`
+
+The SQLite `requests` table is migrated compatibly with nullable columns:
+
+- `requester_name`
+- `requester_team`
+- `assigned_to_user_id`
+- `assigned_to_display_name`
+
+Legacy fields remain available:
+
+- `customerLabel`
+- `assignedTechnicianLabel`
+
+Request list endpoint:
+
+```text
+GET /api/v1/requests
+```
+
+Response shape:
+
+```json
+{
+  "items": [
+    {
+      "id": "SAV-DEMO-001",
+      "requesterName": "Alice Demandeur",
+      "requesterTeam": "Centre demandeur",
+      "assignedToUserId": "user-technician",
+      "assignedToDisplayName": "Théo Technicien"
+    }
+  ]
+}
+```
+
+Request detail endpoint:
+
+```text
+GET /api/v1/requests/:id
+```
+
+Response shape:
+
+```json
+{
+  "request": {
+    "id": "SAV-DEMO-001",
+    "requesterName": "Alice Demandeur",
+    "requesterTeam": "Centre demandeur",
+    "assignedToUserId": "user-technician",
+    "assignedToDisplayName": "Théo Technicien"
+  },
+  "detail": {
+    "businessImpact": "...",
+    "equipmentLabel": "...",
+    "siteLabel": "..."
+  }
+}
+```
+
+This does not introduce request creation, a full CRUD API, real CRM data, or real authentication.
+
 ### API validation errors
 
 Transition endpoints return structured API errors with the existing format:

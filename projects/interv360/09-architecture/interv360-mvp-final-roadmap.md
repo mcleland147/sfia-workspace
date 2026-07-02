@@ -658,3 +658,29 @@ Objectif :
 - stabiliser le modèle métier `Request` ;
 - finaliser les champs métier structurants ;
 - renforcer la cohérence métier avant durcissement API.
+
+---
+
+## 21. Ouverture du Lot 3 — Request Model Finalization
+
+Le Lot 3 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-request-model-finalization`
+
+Objectif :
+
+- stabiliser le modèle métier `Request` ;
+- finaliser les champs métier structurants ;
+- aligner backend / SQLite / API / frontend ;
+- conserver les modes local et API ;
+- préserver l'audit trail enrichi.
+
+Document delivery associé :
+
+`../07-delivery/request-model-finalization.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour RM-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot.

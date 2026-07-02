@@ -41,6 +41,65 @@ describe("Interv360 API", () => {
     ).toBe(true);
   });
 
+  it("GET /api/v1/requests exposes enriched request model fields", async () => {
+    const response = await request(app).get("/api/v1/requests");
+    expect(response.status).toBe(200);
+
+    const demo001 = response.body.items.find(
+      (item: { id: string }) => item.id === "SAV-DEMO-001",
+    );
+
+    expect(demo001).toMatchObject({
+      requesterName: "Alice Demandeur",
+      requesterTeam: "Centre demandeur",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Industrie",
+      assignedTechnicianLabel: "Technicien Démo 01",
+      priority: "high",
+      criticality: "urgent",
+    });
+    expect(demo001.password).toBeUndefined();
+    expect(demo001.token).toBeUndefined();
+  });
+
+  it("GET /api/v1/requests exposes enriched fields for all seeded requests", async () => {
+    const response = await request(app).get("/api/v1/requests");
+    expect(response.status).toBe(200);
+
+    const demo002 = response.body.items.find(
+      (item: { id: string }) => item.id === "SAV-DEMO-002",
+    );
+
+    expect(demo002).toMatchObject({
+      requesterName: "Maya Responsable",
+      requesterTeam: "Pilotage SAV",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Services",
+    });
+  });
+
+  it("keeps enriched request fields after transition", async () => {
+    const transition = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-technician" });
+
+    expect(transition.status).toBe(200);
+
+    const detail = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(detail.status).toBe(200);
+    expect(detail.body.request).toMatchObject({
+      status: "STAT-02",
+      requesterName: "Alice Demandeur",
+      requesterTeam: "Centre demandeur",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Industrie",
+    });
+    expect(detail.body.detail.category).toBe("Panne machine");
+  });
+
   it("GET /api/v1/users returns seeded users", async () => {
     const response = await request(app).get("/api/v1/users");
 
@@ -183,6 +242,19 @@ describe("Interv360 API", () => {
       "Interruption d'un flux de production fictif planifié",
     );
     expect(response.body.detail.impact).toBe("Production démo limitée");
+  });
+
+  it("GET /api/v1/requests/:id exposes enriched request fields on request", async () => {
+    const response = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(response.status).toBe(200);
+    expect(response.body.request).toMatchObject({
+      requesterName: "Alice Demandeur",
+      requesterTeam: "Centre demandeur",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Industrie",
+      assignedTechnicianLabel: "Technicien Démo 01",
+    });
   });
 
   it("GET /api/v1/requests/:id unknown returns REQUEST_NOT_FOUND", async () => {
