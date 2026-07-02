@@ -753,3 +753,31 @@ Objectif :
 - renforcer les validations API ;
 - documenter le contrat API ;
 - conserver la compatibilité frontend avant finalisation UX.
+
+---
+
+## 23. Ouverture du Lot 4 — API Product Hardening
+
+Le Lot 4 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-api-product-hardening`
+
+Objectif :
+
+- clarifier les endpoints API ;
+- homogénéiser les erreurs ;
+- renforcer les validations API ;
+- documenter le contrat API ;
+- conserver la compatibilité frontend ;
+- préserver le modèle Request enrichi ;
+- préserver l'audit trail enrichi.
+
+Document delivery associé :
+
+`../07-delivery/api-product-hardening.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour APH-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot.
