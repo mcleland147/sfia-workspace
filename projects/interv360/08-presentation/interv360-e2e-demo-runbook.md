@@ -102,11 +102,11 @@ npm run dev
 11. Vérifier le panneau **Readiness** et le **scénario guidé**.
 12. Exécuter le scénario guidé ou les transitions disponibles (workflow nominal).
 13. Vérifier que le journal local reflète les actions de démonstration.
-14. Sélectionner le rôle **Administrateur** dans le sélecteur de rôle simulé (bandeau en haut de page).
+14. Sélectionner l'utilisateur **Amin Admin** dans le sélecteur d'utilisateur de démonstration (bandeau en haut de page).
 15. Cliquer sur **Réinitialiser la démo**.
-16. Vérifier le retour à l’état seed (`SAV-DEMO-001` en STAT-01, journal vide) et la conservation du rôle simulé.
+16. Vérifier le retour à l’état seed (`SAV-DEMO-001` en STAT-01, journal vide) et la conservation de l'utilisateur courant.
 
-Voir aussi : [Contrôle — simulation de rôle](#contrôle--simulation-de-rôle).
+Voir aussi : [Contrôle — Auth User Switcher](#contrôle--auth-user-switcher).
 
 ---
 
@@ -171,9 +171,9 @@ Le mode API est opt-in.
 7. Vérifier que **Impact métier** est distinct de **Impact**.
 8. Exécuter **Qualifier la demande** (`qualify` → STAT-02).
 9. Vérifier le journal API (événement `qualification.confirmed`).
-10. Sélectionner le rôle **Administrateur** dans le sélecteur de rôle simulé.
+10. Sélectionner l'utilisateur **Amin Admin** dans le sélecteur d'utilisateur de démonstration.
 11. Cliquer sur **Réinitialiser la démo** (`POST /api/v1/demo/reset`).
-12. Vérifier le retour à l’état seed (STAT-01, journal vide, champs productisés présents) et la conservation du rôle simulé.
+12. Vérifier le retour à l’état seed (STAT-01, journal vide, champs productisés présents) et la conservation de l'utilisateur courant.
 13. Arrêter le backend, recharger le frontend en mode API : message **Backend indisponible en mode API local…** (pas de bascule silencieuse).
 
 **Points d’attention :**
@@ -196,7 +196,9 @@ Le mode API est opt-in.
 
 ## Contrôle — simulation de rôle
 
-Interv360 dispose d’une simulation de rôle frontend.
+> **Note :** depuis le batch Auth User Switcher, le rôle actif est dérivé de l'utilisateur de démonstration sélectionné. Voir [Contrôle — Auth User Switcher](#contrôle--auth-user-switcher) pour les scénarios à jour.
+
+Interv360 dispose d'une simulation de rôle frontend (désormais portée par le sélecteur d'utilisateur).
 
 Cette simulation sert uniquement à démontrer les responsabilités produit.  
 Elle ne constitue pas une authentification réelle.
@@ -341,6 +343,73 @@ Cette requalification ne crée pas de nouveau statut.
 - aucun nouveau contrat API n’est introduit ;
 - aucune nouvelle table SQLite n’est introduite ;
 - `STAT-06` et `STAT-07` restent terminaux.
+
+---
+
+## Contrôle — Auth User Switcher
+
+Interv360 utilise désormais un sélecteur d'utilisateur de démonstration.
+
+Le rôle actif n'est plus choisi directement : il est dérivé de l'utilisateur courant.
+
+### Utilisateurs de démonstration
+
+| Utilisateur | Rôle | Attendu |
+|------------|------|---------|
+| Alice Demandeur | `requester` | Lecture seule workflow |
+| Théo Technicien | `technician` | Traitement autorisé, annulation interdite |
+| Maya Responsable | `manager` | Traitement et annulation autorisés |
+| Amin Admin | `admin` | Traitement, annulation et reset autorisés |
+| Victor Lecteur | `viewer` | Lecture seule workflow |
+
+### Scénario 1 — utilisateur par défaut
+
+1. Ouvrir la démonstration Interv360.
+2. Vérifier que l'utilisateur par défaut est **Théo Technicien**.
+3. Vérifier que le rôle affiché est **Technicien**.
+4. Vérifier que les actions de traitement sont disponibles.
+5. Vérifier que l'annulation reste interdite pour ce profil.
+
+### Scénario 2 — responsable
+
+1. Changer l'utilisateur vers **Maya Responsable**.
+2. Vérifier que le rôle affiché est **Responsable**.
+3. Ouvrir une demande annulable.
+4. Vérifier que l'action **Annuler la demande** est disponible.
+
+### Scénario 3 — administrateur
+
+1. Changer l'utilisateur vers **Amin Admin**.
+2. Vérifier que le rôle affiché est **Administrateur**.
+3. Vérifier que le reset démo est autorisé.
+4. Exécuter le reset démo si nécessaire.
+5. Vérifier que l'utilisateur courant reste **Amin Admin** après reset.
+
+### Scénario 4 — profils lecture seule
+
+1. Changer l'utilisateur vers **Alice Demandeur**.
+2. Vérifier que les actions workflow sont bloquées.
+3. Vérifier le message d'action non autorisée.
+4. Changer l'utilisateur vers **Victor Lecteur**.
+5. Vérifier que les actions workflow restent bloquées.
+
+### Scénario 5 — persistance locale
+
+1. Sélectionner **Maya Responsable**.
+2. Recharger ou remonter la démonstration.
+3. Vérifier que **Maya Responsable** reste sélectionnée.
+
+### Limites
+
+- il ne s'agit pas d'une authentification réelle ;
+- aucun login réel n'est introduit ;
+- aucun mot de passe n'est introduit ;
+- aucun token n'est introduit ;
+- aucun OAuth/JWT/SSO n'est introduit ;
+- aucun Entra ID n'est introduit ;
+- aucune session backend n'est introduite ;
+- aucune table users backend n'est introduite ;
+- l'utilisateur courant est stocké localement via `interv360:current-user-id`.
 
 ---
 

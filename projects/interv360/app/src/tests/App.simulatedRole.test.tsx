@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
-import { simulatedRoleStorageKey } from "../data/localStorageKeys";
+import { CURRENT_USER_STORAGE_KEY } from "../domain/demoUsers";
 import { App } from "../app/App";
 
 async function waitForScreenNavigation() {
@@ -17,9 +17,9 @@ function goToDemoScreen(shortLabel: string) {
   fireEvent.click(screen.getByRole("button", { name: shortLabel }));
 }
 
-function switchSimulatedRole(role: string) {
-  fireEvent.change(screen.getByLabelText(/Changer de rôle/i), {
-    target: { value: role },
+function switchDemoUser(userId: string) {
+  fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+    target: { value: userId },
   });
 }
 
@@ -50,29 +50,51 @@ describe("App simulated role", () => {
     localStorage.clear();
   });
 
-  it("shows technician as the default simulated role", async () => {
+  it("shows Théo Technicien as the default demo user", async () => {
     render(<App />);
     await waitForScreenNavigation();
 
-    expect(screen.getByText(/Rôle simulé/i)).toHaveTextContent("Technicien");
+    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      "Théo Technicien",
+    );
+    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Technicien");
     expect(
       screen.getByText(/Simulation — aucune authentification réelle/i),
     ).toBeInTheDocument();
   });
 
-  it("persists role changes in localStorage", async () => {
+  it("persists user changes in localStorage", async () => {
     render(<App />);
     await waitForScreenNavigation();
 
-    switchSimulatedRole("viewer");
+    switchDemoUser("user-viewer");
 
-    expect(localStorage.getItem(simulatedRoleStorageKey)).toBe("viewer");
-    expect(screen.getByText(/Rôle simulé/i)).toHaveTextContent("Observateur");
+    expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-viewer");
+    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      "Victor Lecteur",
+    );
+    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Observateur");
+  });
+
+  it("keeps selected user after remount", async () => {
+    const { unmount } = render(<App />);
+    await waitForScreenNavigation();
+
+    switchDemoUser("user-manager");
+    unmount();
+
+    render(<App />);
+    await waitForScreenNavigation();
+
+    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      "Maya Responsable",
+    );
+    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Responsable");
   });
 
   it("disables workflow actions for viewer and shows unauthorized message on forced handler path", async () => {
     await renderAppOnDetailsScreen();
-    switchSimulatedRole("viewer");
+    switchDemoUser("user-viewer");
 
     const qualifyButton = screen.getByRole("button", {
       name: /Qualifier la demande/i,
@@ -130,10 +152,10 @@ describe("App simulated role", () => {
     });
   });
 
-  it("allows demo reset for admin and keeps simulated role after reset", async () => {
+  it("allows demo reset for admin and keeps current user after reset", async () => {
     render(<App />);
     await waitForScreenNavigation();
-    switchSimulatedRole("admin");
+    switchDemoUser("user-admin");
 
     goToDemoScreen("Journal");
     fireEvent.click(
@@ -144,15 +166,16 @@ describe("App simulated role", () => {
       expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
     });
 
-    expect(localStorage.getItem(simulatedRoleStorageKey)).toBe("admin");
-    expect(screen.getByText(/Rôle simulé/i)).toHaveTextContent(
-      "Administrateur",
+    expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-admin");
+    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      "Amin Admin",
     );
+    expect(screen.getByText(/Rôle :/i)).toHaveTextContent("Administrateur");
   });
 
   it("blocks hold and resume for viewer on STAT-03 request", async () => {
     await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
-    switchSimulatedRole("viewer");
+    switchDemoUser("user-viewer");
 
     const holdButton = screen.getByRole("button", {
       name: /Mettre en attente/i,
@@ -172,7 +195,7 @@ describe("App simulated role", () => {
 
   it("blocks workflow extension actions for requester", async () => {
     await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
-    switchSimulatedRole("requester");
+    switchDemoUser("user-requester");
 
     expect(
       screen.getByRole("button", { name: /Mettre en attente/i }),
@@ -219,7 +242,7 @@ describe("App simulated role", () => {
 
   it("allows manager to cancel a request", async () => {
     await renderAppOnDetailsScreen();
-    switchSimulatedRole("manager");
+    switchDemoUser("user-manager");
 
     const cancelButton = screen.getByRole("button", {
       name: /Annuler la demande/i,
@@ -240,7 +263,7 @@ describe("App simulated role", () => {
 
   it("allows admin to cancel a request", async () => {
     await renderAppOnDetailsScreen();
-    switchSimulatedRole("admin");
+    switchDemoUser("user-admin");
 
     fireEvent.click(
       screen.getByRole("button", { name: /Annuler la demande/i }),
@@ -272,7 +295,7 @@ describe("App simulated role", () => {
 
   it("allows manager to requalify a compatible request", async () => {
     await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
-    switchSimulatedRole("manager");
+    switchDemoUser("user-manager");
 
     fireEvent.click(screen.getByRole("button", { name: /Requalifier/i }));
 
@@ -285,7 +308,7 @@ describe("App simulated role", () => {
 
   it("allows admin to requalify a compatible request", async () => {
     await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
-    switchSimulatedRole("admin");
+    switchDemoUser("user-admin");
 
     fireEvent.click(screen.getByRole("button", { name: /Requalifier/i }));
 
@@ -298,7 +321,7 @@ describe("App simulated role", () => {
 
   it("blocks requalify for viewer with unauthorized message", async () => {
     await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
-    switchSimulatedRole("viewer");
+    switchDemoUser("user-viewer");
 
     const requalifyButton = screen.getByRole("button", {
       name: /Requalifier/i,
@@ -318,7 +341,7 @@ describe("App simulated role", () => {
 
   it("blocks requalify for requester with unauthorized message", async () => {
     await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
-    switchSimulatedRole("requester");
+    switchDemoUser("user-requester");
 
     const requalifyButton = screen.getByRole("button", {
       name: /Requalifier/i,
