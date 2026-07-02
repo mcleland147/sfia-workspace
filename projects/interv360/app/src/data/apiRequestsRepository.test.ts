@@ -412,4 +412,29 @@ describe("apiRequestsRepository", () => {
       message: "INVALID_TRANSITION_ACTION",
     } satisfies Partial<RequestsRepositoryError>);
   });
+
+  it("maps INVALID_TRANSITION_ACTION message from structured API errors", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: async () => ({
+          error: {
+            code: "INVALID_TRANSITION_ACTION",
+            message: "Transition action is required.",
+          },
+        }),
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+
+    await expect(
+      repository.applyTransition("SAV-DEMO-001", "qualify"),
+    ).rejects.toMatchObject({
+      code: "INVALID_TRANSITION_ACTION",
+      message: "Transition action is required.",
+    } satisfies Partial<RequestsRepositoryError>);
+  });
 });

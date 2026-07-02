@@ -546,6 +546,52 @@ describe("App API mode", () => {
     expect(screen.queryByText(/Mode local/i)).not.toBeInTheDocument();
   });
 
+  it("calls demo reset endpoint for admin in API mode", async () => {
+    const { mock, calls } = createFetchMock({
+      usersPayload: {
+        users: [
+          ...apiUsersPayload.users,
+          {
+            id: "user-admin",
+            displayName: "Amin Admin",
+            email: "amin.admin@example.test",
+            role: "admin",
+            team: "Administration",
+            isActive: true,
+          },
+        ],
+      },
+    });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Mode API local")).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+      target: { value: "user-admin" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Réinitialiser la démo/i }),
+    );
+
+    await waitFor(() => {
+      expect(
+        calls.some(
+          (call) =>
+            call.url.includes("/demo/reset") && call.method === "POST",
+        ),
+      ).toBe(true);
+    });
+
+    expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
+  });
+
   it("does not call login, logout, session, auth or token endpoints", async () => {
     const { mock, calls } = createFetchMock();
     vi.stubGlobal("fetch", mock);

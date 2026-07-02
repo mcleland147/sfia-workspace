@@ -251,7 +251,7 @@ Décision proposée pour rester Fast Track :
 | APH-02 | Audit contrat API et décisions erreurs/validations | Réalisé |
 | APH-03 | Backend API errors/validation hardening | Réalisé |
 | APH-04 | Frontend API compatibility hardening | Réalisé |
-| APH-05 | Tests backend/frontend et non-régression | À faire |
+| APH-05 | Tests backend/frontend et non-régression | Réalisé |
 | APH-06 | Documentation runbook/README | À faire |
 | APH-07 | Préparation PR unique | À venir |
 
@@ -268,16 +268,15 @@ Décision proposée pour rester Fast Track :
 | Backend erreurs alignées | OK |
 | Backend validations alignées | OK |
 | Frontend compatibilité API conservée | OK |
-| Mode local conservé | À valider |
-| Mode API conservé | À valider |
-| Audit trail conservé | À valider |
-| Request model conservé | À valider |
-| Permissions conservées | À valider |
-| Backend tests | OK — 124 tests |
-| Frontend tests | OK — 183 tests |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Audit trail conservé | OK |
+| Request model conservé | OK |
+| Permissions conservées | OK |
+| Backend tests | OK — 125 tests |
+| Frontend tests | OK — 187 tests |
 | Backend build | OK |
 | Frontend build | OK |
-| Frontend build | À faire |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -684,8 +683,91 @@ Garde-fous confirmés :
 
 ---
 
+## 15.5. Changements APH-05
+
+APH-05 stabilise le lot API Product Hardening par les tests et la non-régression.
+
+Changements réalisés :
+
+- vérification des tests backend du contrat API ;
+- vérification des tests frontend du parsing d'erreurs API ;
+- confirmation du format d'erreur :
+  - `{ error: { code, message } }`
+- confirmation des codes backend :
+  - `REQUEST_NOT_FOUND`
+  - `INVALID_TRANSITION_ACTION`
+  - `TRANSITION_NOT_ALLOWED`
+  - `INVALID_JSON_BODY`
+  - `INVALID_ACTOR_USER`
+  - `USER_NOT_FOUND`
+  - `DEMO_MODE_REQUIRED`
+  - `INTERNAL_ERROR` (conservé, non testé de façon intrusive)
+  - `ROUTE_NOT_FOUND`
+- confirmation du report de `METHOD_NOT_ALLOWED` ;
+- confirmation de l'absence de `DEMO_RESET_FAILED` artificiel ;
+- confirmation des réponses API OK existantes ;
+- confirmation de la compatibilité frontend API ;
+- confirmation du mode local ;
+- confirmation du mode API ;
+- confirmation de l'absence de fallback silencieux vers local ;
+- confirmation de l'audit trail ;
+- confirmation du request model enrichi ;
+- confirmation des permissions ;
+- confirmation du reset admin ;
+- tests backend complétés (stack absente, `TRANSITION_NOT_ALLOWED` structuré) ;
+- tests frontend complétés (`readApiErrorFromResponse`, `INVALID_TRANSITION_ACTION`, reset admin API mode) ;
+- confirmation de l'absence de nouveau workflow, nouveau statut, CRUD complet ou formulaire création.
+
+Contrat stabilisé :
+
+| Élément | Résultat |
+|---------|----------|
+| Format erreur API | OK |
+| Codes erreur API | OK |
+| Validations transitions | OK |
+| Route inconnue API | OK |
+| Méthode non supportée | Reportée |
+| Réponses API OK | Conservées |
+| Parsing frontend requests | OK |
+| Parsing frontend users | OK |
+| Mode local | OK |
+| Mode API | OK |
+| Fallback silencieux | Non |
+| Audit trail | OK |
+| Request model | OK |
+| Permissions | OK |
+| Reset admin | OK |
+| CRUD complet | Non |
+| Formulaire création | Non |
+| Auth réelle | Non |
+| Nouveau statut | Non |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 187 tests |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **APH-05** :
+Exécuter **APH-06** :
 
-Tests backend/frontend et non-régression
+Documentation runbook/README

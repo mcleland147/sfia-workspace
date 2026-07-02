@@ -163,6 +163,7 @@ describe("Interv360 API", () => {
     expect(response.status).toBe(404);
     expect(response.body.error.code).toBe("USER_NOT_FOUND");
     expect(response.body.error.message).toBe("User not found.");
+    expect(response.body.stack).toBeUndefined();
   });
 
   it("GET /api/v1/users returns only active users", async () => {
@@ -575,6 +576,7 @@ describe("Interv360 API", () => {
     expect(response.body.error.message).toBe(
       "Request body must be valid JSON.",
     );
+    expect(response.body.stack).toBeUndefined();
   });
 
   it("POST transition with disallowed action from current status returns TRANSITION_NOT_ALLOWED", async () => {
@@ -804,6 +806,8 @@ describe("Interv360 API", () => {
     const response = await request(app).post("/api/v1/demo/reset");
     expect(response.status).toBe(403);
     expect(response.body.error.code).toBe("DEMO_MODE_REQUIRED");
+    expect(typeof response.body.error.message).toBe("string");
+    expect(response.body.stack).toBeUndefined();
   });
 
   it("POST transition with empty action returns INVALID_TRANSITION_ACTION", async () => {
@@ -834,6 +838,17 @@ describe("Interv360 API", () => {
       code: "REQUEST_NOT_FOUND",
       message: expect.any(String),
     });
+    expect(response.body.stack).toBeUndefined();
+  });
+
+  it("TRANSITION_NOT_ALLOWED returns structured API error without stack", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-002/transitions")
+      .send({ action: "qualify" });
+
+    expect(response.status).toBe(409);
+    expect(response.body.error.code).toBe("TRANSITION_NOT_ALLOWED");
+    expect(typeof response.body.error.message).toBe("string");
     expect(response.body.stack).toBeUndefined();
   });
 });
