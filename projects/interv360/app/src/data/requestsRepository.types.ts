@@ -13,7 +13,8 @@ export type DemoTransitionAction =
   | "close_report"
   | "put_on_hold"
   | "resume"
-  | "cancel";
+  | "cancel"
+  | "requalify";
 
 export const workflowActionLabels: Record<DemoTransitionAction, string> = {
   qualify: "Qualifier la demande",
@@ -22,6 +23,7 @@ export const workflowActionLabels: Record<DemoTransitionAction, string> = {
   close_report: "Clôturer avec compte rendu fictif",
   put_on_hold: "Mettre en attente",
   resume: "Reprendre",
+  requalify: "Requalifier",
   cancel: "Annuler la demande",
 };
 
@@ -53,13 +55,13 @@ export function getAvailableWorkflowActions(
     case "STAT-01":
       return ["qualify", "cancel"];
     case "STAT-02":
-      return ["plan", "cancel"];
+      return ["plan", "requalify", "cancel"];
     case "STAT-03":
-      return ["complete_intervention", "put_on_hold", "cancel"];
+      return ["complete_intervention", "put_on_hold", "requalify", "cancel"];
     case "STAT-04":
       return ["close_report"];
     case "STAT-05":
-      return ["resume", "cancel"];
+      return ["resume", "requalify", "cancel"];
     case "STAT-06":
     case "STAT-07":
       return [];

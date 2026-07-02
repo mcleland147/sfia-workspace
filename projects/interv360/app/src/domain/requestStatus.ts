@@ -18,7 +18,8 @@ export type DemoWorkflowEventType =
   | "report.closed"
   | "hold.placed"
   | "hold.resumed"
-  | "request.cancelled";
+  | "request.cancelled"
+  | "request.requalified";
 
 export const requestStatusLabels: Record<RequestStatus, string> = {
   "STAT-01": "Qualifiée",

@@ -222,7 +222,7 @@ Aucune nouvelle table.
 |----------|----------|--------|
 | INC-RQ-01 | Cadrer le périmètre requalification | Réalisé |
 | INC-RQ-02 | Implémenter l’action backend `requalify` | Réalisé |
-| INC-RQ-03 | Exposer `Requalifier` côté frontend | À faire |
+| INC-RQ-03 | Exposer `Requalifier` côté frontend | Réalisé |
 | INC-RQ-04 | Tests, permissions et runbook | À faire |
 | INC-RQ-05 | Préparer PR unique | À venir |
 
@@ -238,7 +238,7 @@ Aucune nouvelle table.
 | API contract conservé | OK |
 | SQLite sans nouvelle table | OK |
 | Backend testé | OK |
-| Frontend testé | À faire |
+| Frontend testé | OK |
 | Runbook mis à jour | À faire |
 | Auth réelle exclue | OK |
 | CRM / données réelles exclus | OK |
@@ -278,6 +278,40 @@ Règles d’exclusion :
 
 ---
 
+## 9.2. Changements INC-RQ-03
+
+INC-RQ-03 expose côté frontend l’action `requalify`.
+
+Changements réalisés :
+
+- ajout de l’action frontend `requalify` ;
+- ajout du libellé UI `Requalifier` ;
+- exposition de l’action depuis `STAT-02`, `STAT-03` et `STAT-05` ;
+- alignement du mode local sur les transitions backend ;
+- conservation du mode API via le contrat existant ;
+- tests frontend adaptés.
+
+Règles frontend confirmées :
+
+| Statut courant | Actions proposées |
+|----------------|------------------|
+| `STAT-01` | `qualify`, `cancel` |
+| `STAT-02` | `plan`, `requalify`, `cancel` |
+| `STAT-03` | `complete_intervention`, `put_on_hold`, `requalify`, `cancel` |
+| `STAT-04` | `close_report` |
+| `STAT-05` | `resume`, `requalify`, `cancel` |
+| `STAT-06` | aucune |
+| `STAT-07` | aucune |
+
+Règles d’exclusion :
+
+- pas de `STAT-08` ;
+- pas de nouveau statut ;
+- pas de nouveau contrat API ;
+- pas de nouvelle table SQLite.
+
+---
+
 ## 10. Validations
 
 | Contrôle | Résultat |
@@ -285,7 +319,7 @@ Règles d’exclusion :
 | Backend build | OK |
 | Backend tests | OK — 67 tests |
 | Frontend build | OK |
-| Frontend tests | OK — 113 tests |
+| Frontend tests | OK — 120 tests |
 | Validation navigateur local | Non exécutée — validation automatisée OK |
 | Validation navigateur API | Non exécutée — validation automatisée OK |
 
@@ -293,4 +327,4 @@ Règles d’exclusion :
 
 ## 11. Prochaine étape
 
-**INC-RQ-03** : exposer l’action `Requalifier` côté frontend, sans nouveau statut et sans changer le contrat API.
+**INC-RQ-04** : finaliser les permissions simulées fines, le runbook et les tests finaux, sans nouveau statut ni changement de contrat API.

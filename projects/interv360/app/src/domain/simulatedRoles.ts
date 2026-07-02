@@ -13,6 +13,7 @@ export type RoleControlledAction =
   | "put_on_hold"
   | "resume"
   | "cancel"
+  | "requalify"
   | "demo_reset";
 
 export const DEFAULT_SIMULATED_ROLE: SimulatedRole = "technician";
@@ -45,6 +46,7 @@ export const rolePermissions: Record<
     put_on_hold: false,
     resume: false,
     cancel: false,
+    requalify: false,
     demo_reset: false,
   },
   technician: {
@@ -55,6 +57,7 @@ export const rolePermissions: Record<
     put_on_hold: true,
     resume: true,
     cancel: false,
+    requalify: true,
     demo_reset: false,
   },
   manager: {
@@ -65,6 +68,7 @@ export const rolePermissions: Record<
     put_on_hold: true,
     resume: true,
     cancel: true,
+    requalify: true,
     demo_reset: false,
   },
   admin: {
@@ -75,6 +79,7 @@ export const rolePermissions: Record<
     put_on_hold: true,
     resume: true,
     cancel: true,
+    requalify: true,
     demo_reset: true,
   },
   viewer: {
@@ -85,6 +90,7 @@ export const rolePermissions: Record<
     put_on_hold: false,
     resume: false,
     cancel: false,
+    requalify: false,
     demo_reset: false,
   },
 };

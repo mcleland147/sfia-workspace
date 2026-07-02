@@ -33,6 +33,7 @@ describe("simulatedRoles", () => {
       expect(canRolePerform(role, "put_on_hold")).toBe(false);
       expect(canRolePerform(role, "resume")).toBe(false);
       expect(canRolePerform(role, "cancel")).toBe(false);
+      expect(canRolePerform(role, "requalify")).toBe(false);
       expect(canRolePerform(role, "demo_reset")).toBe(false);
     }
   });
@@ -45,7 +46,16 @@ describe("simulatedRoles", () => {
       expect(canRolePerform(role, "close_report")).toBe(true);
       expect(canRolePerform(role, "put_on_hold")).toBe(true);
       expect(canRolePerform(role, "resume")).toBe(true);
+      expect(canRolePerform(role, "requalify")).toBe(true);
     }
+  });
+
+  it("allows requalify for technician, manager, and admin", () => {
+    for (const role of ["technician", "manager", "admin"] as const) {
+      expect(canRolePerform(role, "requalify")).toBe(true);
+    }
+    expect(canRolePerform("requester", "requalify")).toBe(false);
+    expect(canRolePerform("viewer", "requalify")).toBe(false);
   });
 
   it("allows hold and resume for technician but not cancel", () => {

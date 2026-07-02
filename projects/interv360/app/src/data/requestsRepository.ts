@@ -198,3 +198,26 @@ export function cancelDemoRequest(requestId: string): DemoRequest | undefined {
     "Demande fictive annulée",
   );
 }
+
+const REQUALIFIABLE_STATUSES: RequestStatus[] = [
+  "STAT-02",
+  "STAT-03",
+  "STAT-05",
+];
+
+export function requalifyDemoRequest(
+  requestId: string,
+): DemoRequest | undefined {
+  const request = getRequestById(requestId);
+  if (!request || !REQUALIFIABLE_STATUSES.includes(request.status)) {
+    return undefined;
+  }
+
+  return performTransition(
+    requestId,
+    request.status,
+    "STAT-02",
+    "request.requalified",
+    "Demande fictive requalifiée",
+  );
+}

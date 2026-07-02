@@ -27,7 +27,7 @@ describe("WorkflowActionControl", () => {
     expect(screen.getByText(/Données fictives uniquement/i)).toBeInTheDocument();
   });
 
-  it("shows planning and cancel actions in STAT-02", () => {
+  it("shows planning, requalify and cancel actions in STAT-02", () => {
     render(
       <WorkflowActionControl
         request={{ ...baseRequest, status: "STAT-02" }}
@@ -38,11 +38,14 @@ describe("WorkflowActionControl", () => {
       screen.getByRole("button", { name: /Planifier l'intervention/i }),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole("button", { name: /Requalifier/i }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
     ).toBeInTheDocument();
   });
 
-  it("shows completion, hold and cancel actions in STAT-03", () => {
+  it("shows completion, hold, requalify and cancel actions in STAT-03", () => {
     render(
       <WorkflowActionControl
         request={{ ...baseRequest, status: "STAT-03" }}
@@ -58,8 +61,20 @@ describe("WorkflowActionControl", () => {
       screen.getByRole("button", { name: /Mettre en attente/i }),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole("button", { name: /Requalifier/i }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
     ).toBeInTheDocument();
+  });
+
+  it("does not show requalify in STAT-01", () => {
+    render(
+      <WorkflowActionControl request={baseRequest} onAction={vi.fn()} />,
+    );
+    expect(
+      screen.queryByRole("button", { name: /Requalifier/i }),
+    ).not.toBeInTheDocument();
   });
 
   it("shows close action only in STAT-04", () => {
@@ -77,7 +92,7 @@ describe("WorkflowActionControl", () => {
     expect(screen.getAllByRole("button")).toHaveLength(1);
   });
 
-  it("shows resume and cancel actions in STAT-05", () => {
+  it("shows resume, requalify and cancel actions in STAT-05", () => {
     render(
       <WorkflowActionControl
         request={{ ...baseRequest, status: "STAT-05" }}
@@ -85,6 +100,9 @@ describe("WorkflowActionControl", () => {
       />,
     );
     expect(screen.getByRole("button", { name: /Reprendre/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Requalifier/i }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Annuler la demande/i }),
     ).toBeInTheDocument();
