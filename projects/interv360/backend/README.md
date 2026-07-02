@@ -1,5 +1,7 @@
 # Interv360 — Backend Minimal Prototype
 
+> For the full Interv360 local installation and run guide, start with [`../README.md`](../README.md).
+
 Local Node.js / TypeScript / Express backend for the Interv360 demo API contract.
 
 ## Objective

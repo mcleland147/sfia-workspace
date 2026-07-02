@@ -236,7 +236,7 @@ Décision proposée pour rester Fast Track :
 |-----------|----------|--------|
 | IND-01 | Cadrage opérationnel industrialisation MVP | Réalisé |
 | IND-02 | Audit installation / scripts / env / docs | Réalisé |
-| IND-03 | README global et guides locaux | À faire |
+| IND-03 | README global et guides locaux | Réalisé |
 | IND-04 | Variables `.env`, scripts et exploitation locale | À faire |
 | IND-05 | Tests, non-régression et CI éventuelle | À faire |
 | IND-06 | Documentation finale runbook/README | À faire |
@@ -251,13 +251,13 @@ Décision proposée pour rester Fast Track :
 | Document delivery créé | OK |
 | Industrialisation cible cadrée | OK |
 | Audit installation/scripts/env réalisé | OK |
-| README global / index projet clarifié | À faire |
+| README global / index projet clarifié | OK |
 | README frontend consolidé | À faire |
 | README backend consolidé | À faire |
 | Variables `.env` documentées | À faire |
-| Scripts build/test/run documentés | À faire |
-| SQLite / reset documentés | À faire |
-| Limites connues documentées | À faire |
+| Scripts build/test/run documentés | Partiel — README global |
+| SQLite / reset documentés | Partiel — README global |
+| Limites connues documentées | Partiel — README global |
 | Déploiement simple cadré | À faire |
 | Décision CI prise | À faire |
 | Mode local conservé | À valider |
@@ -545,8 +545,59 @@ IND-02 confirme que le lot ne crée pas :
 
 ---
 
+## 14.3. Changements IND-03
+
+IND-03 transforme le README racine Interv360 en point d'entrée MVP produit.
+
+Changements réalisés :
+
+- README racine réorienté produit ;
+- état MVP clarifié ;
+- structure du projet documentée ;
+- prérequis documentés ;
+- installation rapide documentée ;
+- lancement mode local documenté ;
+- lancement mode API local documenté ;
+- commandes essentielles frontend/backend documentées ;
+- validation rapide frontend/backend documentée ;
+- données SQLite et reset présentés ;
+- variables d'environnement principales listées ;
+- liens vers README spécialisés et runbook ajoutés ;
+- limites assumées du MVP rappelées ;
+- mode de livraison SFIA Fast Track rappelé ;
+- renvoi court ajouté en tête des README `app/` et `backend/`.
+
+Préservé :
+
+- scripts existants ;
+- frontend ;
+- backend ;
+- API ;
+- SQLite ;
+- workflow ;
+- statuts ;
+- audit trail ;
+- request model ;
+- permissions ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée.
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| README racine | OK |
+| Code frontend | Inchangé |
+| Code backend | Inchangé |
+| Scripts npm | Inchangés |
+| API | Inchangée |
+| SQLite | Inchangée |
+
+---
+
 ## 15. Prochaine étape
 
-Exécuter **IND-03** :
+Exécuter **IND-04** :
 
-README global et guides locaux
+Variables `.env`, scripts et exploitation locale

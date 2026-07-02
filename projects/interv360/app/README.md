@@ -1,5 +1,7 @@
 # Interv360 — INC-01 App Foundation
 
+> For the full Interv360 local installation and run guide, start with [`../README.md`](../README.md).
+
 This application folder contains the first minimal foundation for INC-01.
 
 ## Starter choice
