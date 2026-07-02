@@ -170,8 +170,8 @@ Décision à confirmer dans le cycle :
 
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
-| REL-01 | Cadrage release readiness | En cours |
-| REL-02 | Checklist validation MVP | À faire |
+| REL-01 | Cadrage release readiness | Réalisé |
+| REL-02 | Checklist validation MVP | Réalisé |
 | REL-03 | Release notes et limites connues | À faire |
 | REL-04 | Préparation PR unique | À venir |
 
@@ -183,16 +183,16 @@ Décision à confirmer dans le cycle :
 |---------|----------|
 | Document release readiness créé | OK |
 | Roadmap MVP Final Roadmap reconnue comme close | OK |
-| Périmètre livré synthétisé | À faire |
-| Checklist validation MVP créée | À faire |
+| Périmètre livré synthétisé | Partiel — checklist MVP |
+| Checklist validation MVP créée | OK |
 | Release notes MVP créées | À faire |
 | Limites connues documentées | À faire |
-| Version cible décidée | À faire |
+| Version cible décidée | À confirmer — `v0.1.0-mvp` proposée |
 | Décision tag / release GitHub prise | À faire |
-| Frontend build | À faire |
-| Frontend tests | À faire |
-| Backend build | À faire |
-| Backend tests | À faire |
+| Frontend build | À valider |
+| Frontend tests | À valider |
+| Backend build | À valider |
+| Backend tests | À valider |
 | CI minimale conservée | À valider |
 | Aucun nouveau scope fonctionnel | OK |
 | Auth réelle exclue | OK |
@@ -267,8 +267,206 @@ Décisions :
 
 ---
 
+## 11.1. REL-02 — Checklist validation MVP
+
+REL-02 formalise la checklist de validation MVP.
+
+Objectif :
+
+> disposer d'une checklist exploitable pour confirmer qu'Interv360 peut être considéré comme MVP produit livrable en local / pré-cloud.
+
+Cette checklist ne crée pas de nouveau périmètre fonctionnel.
+
+---
+
+### 11.1.1. Checklist Go / No-Go
+
+| Domaine | Critère Go | Statut attendu |
+|---------|------------|----------------|
+| Roadmap | Lots 1 à 6 mergés | OK |
+| Release readiness | Cycle distinct ouvert, pas Lot 7 | OK |
+| Version cible | Version proposée `v0.1.0-mvp` | À confirmer |
+| Frontend | Build OK | À valider |
+| Frontend | Tests OK — 191 ou plus | À valider |
+| Backend | Build OK | À valider |
+| Backend | Tests OK — 125 ou plus | À valider |
+| CI | Workflow minimal build+test présent | À valider |
+| Documentation | README racine exploitable | OK |
+| Documentation | README app/backend exploitables | OK |
+| Documentation | Runbook E2E exploitable | OK |
+| Environnement | `.env.example` frontend/backend présents | OK |
+| Mode local | Fonctionnel sans backend | À valider |
+| Mode API | Fonctionnel avec backend local | À valider |
+| SQLite | Persistance locale documentée | OK |
+| Reset | Reset admin / API documenté | OK |
+| Garde-fous | Aucun scope enterprise introduit | OK |
+
+Décision Go / No-Go :
+
+| Décision | Condition |
+|----------|-----------|
+| Go MVP | Tous les contrôles critiques sont OK |
+| Go avec réserve | Seuls des écarts documentaires mineurs subsistent |
+| No-Go | Une validation build/test échoue ou un garde-fou critique est violé |
+
+---
+
+### 11.1.2. Checklist fonctionnelle
+
+| Capacité MVP | Validation attendue | Statut |
+|--------------|--------------------|--------|
+| Liste des demandes | Demandes fictives visibles en mode local et API | À valider |
+| Fiche demande | Informations métier enrichies visibles | À valider |
+| Statuts métier | Statuts lisibles côté UI | À valider |
+| Workflow nominal | Transitions autorisées fonctionnelles | À valider |
+| Actions bloquées | Actions interdites désactivées avec motif | À valider |
+| Permissions | Rôles requester / technician / manager / admin / viewer cohérents | À valider |
+| User switcher | Utilisateur courant visible et modifiable | À valider |
+| Audit trail | Actions tracées avec acteur si disponible | À valider |
+| Journal UI | Historique lisible acteur / action / date | À valider |
+| Mode local | Utilisable sans backend | À valider |
+| Mode API | Utilisable avec backend local | À valider |
+| Backend indisponible | Pas de fallback silencieux vers mode local | À valider |
+| Reset admin | Reset disponible pour admin | À valider |
+
+---
+
+### 11.1.3. Checklist API / backend
+
+| Contrôle | Attendu | Statut |
+|----------|---------|--------|
+| `GET /health` | Backend disponible | À valider |
+| `GET /api/v1/users` | 5 utilisateurs fictifs actifs | À valider |
+| `GET /api/v1/requests` | Liste demandes enrichies | À valider |
+| `GET /api/v1/requests/:id` | Détail demande enrichi | À valider |
+| `POST /api/v1/requests/:id/transitions` | Transition workflow | À valider |
+| `GET /api/v1/requests/:id/events` | Journal enrichi | À valider |
+| `POST /api/v1/demo/reset` | Reset démo si `DEMO_MODE=true` | À valider |
+| Erreurs API | Format `{ error: { code, message } }` | À valider |
+| Acteur invalide | `INVALID_ACTOR_USER` | À valider |
+| Action invalide | `INVALID_TRANSITION_ACTION` | À valider |
+| Transition interdite | `TRANSITION_NOT_ALLOWED` | À valider |
+| Route inconnue | `ROUTE_NOT_FOUND` | À valider |
+
+---
+
+### 11.1.4. Checklist technique
+
+| Domaine | Contrôle | Statut |
+|---------|----------|--------|
+| Frontend | `npm run build` | À valider |
+| Frontend | `npm run test -- --run` | À valider |
+| Backend | `npm run build` | À valider |
+| Backend | `npm run test` | À valider |
+| CI | `.github/workflows/interv360-ci.yml` présent | À valider |
+| CI | Node.js 20 | À valider |
+| CI | Frontend install/build/test | À valider |
+| CI | Backend install/build/test | À valider |
+| CI | Aucun secret | À valider |
+| CI | Aucun déploiement | À valider |
+| Env frontend | `app/.env.example` présent | OK |
+| Env backend | `backend/.env.example` présent | OK |
+| SQLite | DB locale ignorée par Git | OK |
+| Scripts | Scripts npm inchangés | OK |
+
+---
+
+### 11.1.5. Checklist documentation
+
+| Document | Attendu | Statut |
+|----------|---------|--------|
+| `projects/interv360/README.md` | Point d'entrée MVP | OK |
+| `projects/interv360/app/README.md` | Référence frontend | OK |
+| `projects/interv360/backend/README.md` | Référence backend | OK |
+| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | Runbook E2E | OK |
+| `projects/interv360/09-architecture/interv360-mvp-final-roadmap.md` | Roadmap close + cycle release | OK |
+| `projects/interv360/07-delivery/mvp-release-readiness.md` | Release readiness | OK |
+| `.env.example` | Exemples sans secret | OK |
+| CI | Workflow documenté dans README/runbook | OK |
+
+---
+
+### 11.1.6. Checklist garde-fous
+
+| Garde-fou | Statut |
+|----------|--------|
+| Pas de Lot 7 automatique | OK |
+| Pas de nouveau scope fonctionnel | OK |
+| Pas de modification frontend fonctionnelle | OK |
+| Pas de modification backend fonctionnelle | OK |
+| Pas de modification API | OK |
+| Pas de modification SQLite | OK |
+| Pas de modification workflow métier | OK |
+| Pas de modification statuts | OK |
+| Pas de modification permissions | OK |
+| Pas de modification request model | OK |
+| Pas de modification audit trail | OK |
+| Pas d'auth réelle | OK |
+| Pas de login/logout/password | OK |
+| Pas de token | OK |
+| Pas d'OAuth/JWT/SSO | OK |
+| Pas d'Entra ID | OK |
+| Pas de CRM | OK |
+| Pas de données réelles | OK |
+| Pas de CRUD complet | OK |
+| Pas de formulaire création demande | OK |
+| Pas de nouveau statut | OK |
+| Pas de `STAT-08` | OK |
+| Pas de Docker obligatoire | OK |
+| Pas de déploiement cloud complet | OK |
+| Pas d'arc Figma | OK |
+| Pas d'export Figma | OK |
+| Pas de Notion | OK |
+| Pas de Controlled Delivery | OK |
+| Pas de `sfia-notion-sync` | OK |
+
+---
+
+### 11.1.7. Checklist de validation rapide
+
+Commandes à exécuter avant décision Go MVP :
+
+```bash
+cd /Users/morris/Projects/sfia-workspace/projects/interv360/app
+npm run build
+npm run test -- --run
+```
+
+Attendu :
+
+- frontend build OK ;
+- frontend tests : 191 ou plus.
+
+```bash
+cd /Users/morris/Projects/sfia-workspace/projects/interv360/backend
+npm run build
+npm run test
+```
+
+Attendu :
+
+- backend build OK ;
+- backend tests : 125 ou plus.
+
+---
+
+### 11.1.8. Décision REL-02
+
+REL-02 valide la structure de checklist MVP.
+
+Décisions :
+
+- utiliser cette checklist comme base de décision Go / No-Go MVP ;
+- exécuter les validations finales en REL-03 ou REL-04 selon le rythme du cycle ;
+- conserver la version cible proposée `v0.1.0-mvp` jusqu'à décision finale ;
+- ne pas créer de tag Git dans REL-02 ;
+- ne pas créer de GitHub Release dans REL-02 ;
+- ne pas ajouter de nouveau scope fonctionnel.
+
+---
+
 ## 12. Prochaine étape
 
-Exécuter **REL-02** :
+Exécuter **REL-03** :
 
-Checklist validation MVP
+Release notes et limites connues
