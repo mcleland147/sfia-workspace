@@ -537,3 +537,47 @@ Décision :
 - pas de PR documentaire intermédiaire pour BUS-01 ;
 - le cadrage opérationnel est intégré directement au lot delivery ;
 - PR unique prévue en fin de lot.
+
+---
+
+## 18. Clôture du Lot 1 — Backend Users & Session
+
+Le Lot 1 de la roadmap est mergé dans `main`.
+
+PR :
+
+#65 — https://github.com/mcleland147/sfia-workspace/pull/65
+
+Commit merge :
+
+`7bac858`
+
+Résultat :
+
+- modèle backend `User` ;
+- table SQLite `users` ;
+- seed idempotent des 5 utilisateurs ;
+- API users ;
+- frontend mode API branché sur les users backend ;
+- mode local conservé ;
+- session locale `interv360:current-user-id` ;
+- fallback utilisateur ;
+- transitions inchangées ;
+- audit trail complet reporté au Lot 2.
+
+Impact roadmap :
+
+| Jalons | Estimation |
+|--------|------------|
+| Avant Lot 1 | 65% |
+| Après Lot 1 | 72% |
+
+Prochain lot :
+
+`delivery/interv360-audit-trail`
+
+Objectif :
+
+- introduire l'acteur dans les événements ;
+- enrichir l'historique ;
+- rendre le journal exploitable côté produit.

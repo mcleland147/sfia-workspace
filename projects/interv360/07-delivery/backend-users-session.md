@@ -671,3 +671,88 @@ Audit Trail with actor attribution is explicitly deferred to Lot 2.
 | Cible | `main` |
 | Source | `delivery/interv360-backend-users-session` |
 | Merge automatique | Non |
+
+---
+
+## 22. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #65 — https://github.com/mcleland147/sfia-workspace/pull/65 |
+| Source | `delivery/interv360-backend-users-session` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `7bac858` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 157 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 93 tests |
+| BUS-01 | OK — cadrage opérationnel |
+| BUS-02 | OK — modèle users SQLite + seed |
+| BUS-03 | OK — repository users + endpoints API |
+| BUS-04 | OK — frontend API users + fallback local |
+| BUS-05 | OK — tests backend/frontend |
+| BUS-06 | OK — runbook/README |
+| BUS-07 | OK — PR unique |
+| Modèle backend `User` | OK |
+| Table SQLite `users` | OK |
+| Seed idempotent 5 users | OK |
+| Repository users | OK |
+| `GET /api/v1/users` | OK |
+| `GET /api/v1/users/:id` | OK |
+| Frontend mode API branché users backend | OK |
+| Mode local conservé | OK |
+| Session `interv360:current-user-id` | OK |
+| Fallback utilisateur | OK |
+| Rôle dérivé depuis utilisateur | OK |
+| Permissions existantes conservées | OK |
+| Transitions modifiées | Non |
+| User/session/token envoyé dans transitions | Non |
+| Endpoint login/logout/session/auth/token | Non |
+| Audit trail complet introduit | Non — reporté Lot 2 |
+| Auth réelle introduite | Non |
+| Login/password introduits | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| `STAT-08` introduit | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le Lot 1 **Backend Users & Session** est mergé dans `main`.
+
+Interv360 dispose désormais d'un premier socle users/session produit :
+
+- modèle backend `User` ;
+- table SQLite `users` ;
+- seed idempotent des 5 utilisateurs ;
+- repository users ;
+- endpoints users ;
+- frontend mode API branché sur les users backend ;
+- mode local conservé ;
+- session locale `interv360:current-user-id` ;
+- fallback utilisateur ;
+- permissions existantes conservées ;
+- transitions inchangées.
+
+Ce lot ne met pas en place une authentification réelle.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Prochaine étape
+
+Ouvrir le Lot 2 :
+
+`delivery/interv360-audit-trail`
+
+Objectif :
+
+- rattacher les actions métier à un acteur ;
+- enrichir les événements avec utilisateur, ancien statut, nouveau statut, action et date ;
+- afficher un historique exploitable ;
+- conserver les garde-fous auth : pas d'OAuth/JWT/SSO à ce stade.
