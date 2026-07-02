@@ -262,7 +262,7 @@ Décision proposée pour rester Fast Track :
 | AT-03 | Transitions API avec acteur | Réalisé |
 | AT-04 | Events API enrichis | Réalisé |
 | AT-05 | Frontend historique enrichi | Réalisé |
-| AT-06 | Tests backend/frontend et non-régression | À faire |
+| AT-06 | Tests backend/frontend et non-régression | Réalisé |
 | AT-07 | Documentation runbook/README | À faire |
 | AT-08 | Préparation PR unique | À venir |
 
@@ -279,10 +279,10 @@ Décision proposée pour rester Fast Track :
 | Validation acteur backend | OK |
 | Events API enrichis | OK |
 | Frontend historique enrichi | OK |
-| Permissions existantes conservées | À valider |
-| Mode local conservé | À valider |
-| Backend tests | OK |
-| Frontend tests | OK — 165 tests |
+| Permissions existantes conservées | OK |
+| Mode local conservé | OK |
+| Backend tests | OK — 112 tests |
+| Frontend tests | OK — 167 tests |
 | Backend build | OK |
 | Frontend build | OK |
 | Auth réelle exclue | OK |
@@ -550,8 +550,73 @@ Garde-fous confirmés :
 
 ---
 
+## 15.5. Changements AT-06
+
+AT-06 stabilise le lot Audit Trail par les tests et la non-régression.
+
+Changements réalisés :
+
+- vérification des tests backend audit trail ;
+- vérification des tests frontend audit trail ;
+- confirmation du stockage de l'action ;
+- confirmation du snapshot acteur ;
+- confirmation de l'exposition des events enrichis ;
+- confirmation de l'affichage frontend enrichi ;
+- confirmation de la compatibilité avec les événements legacy ;
+- confirmation du mode local ;
+- confirmation du mode API ;
+- confirmation des permissions existantes ;
+- confirmation du reset admin ;
+- confirmation de l'absence d'authentification réelle ;
+- confirmation de l'absence de token/session/password ;
+- confirmation de l'absence de nouveau statut.
+
+Contrat stabilisé :
+
+| Élément | Résultat |
+|---------|----------|
+| SQLite `workflow_events` enrichi | OK |
+| Transition avec `actorUserId` optionnel | OK |
+| Validation acteur backend | OK |
+| Events API enrichis | OK |
+| Journal frontend enrichi | OK |
+| Events legacy compatibles | OK |
+| Mode local | OK |
+| Mode API | OK |
+| Permissions | OK |
+| Reset admin | OK |
+| Auth réelle | Non |
+| Token | Non |
+| Login/logout | Non |
+| Nouveau statut | Non |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Backend build | OK |
+| Backend tests | OK — 112 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 167 tests |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08`.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **AT-06** :
+Exécuter **AT-07** :
 
-Tests backend/frontend et non-régression
+Documentation runbook/README

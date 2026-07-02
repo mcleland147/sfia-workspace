@@ -164,6 +164,25 @@ describe("apiRequestsRepository", () => {
     );
   });
 
+  it("does not add Authorization header to transition requests", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        request: { ...apiRequest, status: "STAT-02" },
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const repository = createApiRequestsRepository();
+    await repository.applyTransition("SAV-DEMO-001", "qualify", {
+      actorUserId: "user-technician",
+    });
+
+    const [, init] = fetchMock.mock.calls[0] ?? [];
+    const headers = init?.headers as Record<string, string> | undefined;
+    expect(headers?.Authorization).toBeUndefined();
+  });
+
   it("loads workflow events from the API", async () => {
     vi.stubGlobal(
       "fetch",

@@ -432,6 +432,19 @@ describe("Interv360 API", () => {
     expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
   });
 
+  it("keeps users API available after transition with actor", async () => {
+    const transition = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-technician" });
+
+    expect(transition.status).toBe(200);
+
+    const usersResponse = await request(app).get("/api/v1/users");
+    expect(usersResponse.status).toBe(200);
+    expect(usersResponse.body.users).toHaveLength(5);
+    expect(usersResponse.body.users[0]?.password).toBeUndefined();
+  });
+
   it("POST transition invalid returns TRANSITION_NOT_ALLOWED", async () => {
     const response = await request(app)
       .post("/api/v1/requests/SAV-DEMO-002/transitions")

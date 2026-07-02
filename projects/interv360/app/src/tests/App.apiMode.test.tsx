@@ -275,6 +275,8 @@ describe("App API mode", () => {
     expect(payload.session).toBeUndefined();
     expect(payload.password).toBeUndefined();
     expect(payload.passwordHash).toBeUndefined();
+    expect(payload.actorDisplayName).toBeUndefined();
+    expect(payload.actorRole).toBeUndefined();
   });
 
   it("sends selected user as actorUserId in API transitions", async () => {
