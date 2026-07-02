@@ -409,3 +409,80 @@ Après revue, une synthèse courte devra permettre de décider entre :
 Aucun code, frontend, backend, API, workflow, auth réelle, CRM ou donnée réelle n’a été introduit.
 
 Aucun document de merge séparé n’a été créé afin de respecter le mode Fast Delivery stratégique.
+
+---
+
+## 13. Synthèse de revue exécutée
+
+### Contexte
+
+La revue produit de la simulation de rôle a été exécutée le **2 juillet 2026** sur :
+
+`http://localhost:5173/`
+
+Mode utilisé :
+
+- mode local ;
+- scénario de revue basé sur les sections §4 à §7 du présent document ;
+- profil relecteur : facilitateur produit / démo technique ;
+- pas encore de panel métier terrain externe.
+
+Objectif :
+
+> vérifier si la simulation de rôle aide à comprendre les responsabilités métier sans introduire d’authentification réelle.
+
+### Observations principales
+
+| Sujet | Observation |
+|------|-------------|
+| Principe de simulation | Clair dès l’ouverture grâce au bandeau `Rôle simulé : …` et à la mention `Simulation — aucune authentification réelle`. |
+| Rôle `technician` | Crédible et lisible pour exécuter le workflow nominal. |
+| Rôle `viewer` | Lecture OK ; actions bloquées ; message explicite ; aucun changement d’état. |
+| Rôle `requester` | Compréhensible en lecture seule, mais la création de demande n’existe pas encore. |
+| Rôle `admin` | Reset autorisé ; rôle conservé après reset. |
+| Point d’attention démo | Le rôle persisté en `localStorage` peut surprendre au premier chargement. |
+| Irritant mineur | Double message de blocage légèrement redondant. |
+| Écart mineur | Le readiness panel mentionne encore l’authentification multi-utilisateur en hors périmètre alors qu’une simulation existe. |
+
+### Grille de feedback synthétique
+
+| Sujet | Feedback |
+|------|----------|
+| Rôles compréhensibles | Oui |
+| Libellés adaptés | Oui |
+| Permissions crédibles | Oui globalement |
+| Blocage clair | Oui, avec légère redondance |
+| Reset admin logique | Oui |
+| Valeur de démonstration | Oui |
+| Workflow suffisant | Non, trop simple pour l’ambition produit |
+| Auth réelle nécessaire maintenant | Non |
+| Irritant UX prioritaire | Non, irritants mineurs |
+| Prochain axe recommandé | `architecture/interv360-workflow-extension-framing` |
+
+### Décision après revue
+
+Cas retenu :
+
+| Cas | Signal observé | Suite |
+|----|----------------|-------|
+| A | Rôles compris ; workflow perçu comme trop simple | `architecture/interv360-workflow-extension-framing` |
+
+Cas non retenus :
+
+- auth réelle : différée ;
+- polish rôles : différé ;
+- roadmap supplémentaire : inutile à ce stade.
+
+### Décision finale
+
+La simulation de rôle remplit son objectif.
+
+Le frein produit principal n’est plus la compréhension des rôles, mais la **richesse du cycle métier**.
+
+Décision :
+
+> ouvrir directement le cadrage `architecture/interv360-workflow-extension-framing`.
+
+Cette synthèse est volontairement intégrée au cycle workflow extension afin d’éviter une PR documentaire intermédiaire.
+
+Document de cadrage : [`interv360-workflow-extension-framing.md`](./interv360-workflow-extension-framing.md)
