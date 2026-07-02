@@ -49,6 +49,52 @@ describe("usersRepository", () => {
     );
   });
 
+  it("maps structured API errors from users endpoint", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 404,
+        json: async () => ({
+          error: {
+            code: "ROUTE_NOT_FOUND",
+            message: "API route not found.",
+          },
+        }),
+      }),
+    );
+
+    await expect(listApiUsers("http://localhost:3001/api/v1")).rejects.toMatchObject(
+      {
+        name: RequestsRepositoryError.name,
+        code: "ROUTE_NOT_FOUND",
+        message: "API route not found.",
+      },
+    );
+  });
+
+  it("falls back to API error code when message is absent", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: async () => ({
+          error: {
+            code: "INVALID_ACTOR_USER",
+          },
+        }),
+      }),
+    );
+
+    await expect(listApiUsers("http://localhost:3001/api/v1")).rejects.toMatchObject(
+      {
+        code: "INVALID_ACTOR_USER",
+        message: "INVALID_ACTOR_USER",
+      },
+    );
+  });
+
   it("throws backend unavailable error when fetch fails", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("network")));
 

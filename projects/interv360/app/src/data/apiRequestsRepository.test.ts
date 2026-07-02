@@ -362,6 +362,79 @@ describe("apiRequestsRepository", () => {
       repository.applyTransition("SAV-DEMO-003", "close_report"),
     ).rejects.toMatchObject({
       code: "TRANSITION_NOT_ALLOWED",
+      message: "Transition not allowed from current status",
+    } satisfies Partial<RequestsRepositoryError>);
+  });
+
+  it("maps ROUTE_NOT_FOUND from list requests API errors", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 404,
+        json: async () => ({
+          error: {
+            code: "ROUTE_NOT_FOUND",
+            message: "API route not found.",
+          },
+        }),
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+
+    await expect(repository.listRequests()).rejects.toMatchObject({
+      code: "ROUTE_NOT_FOUND",
+      message: "API route not found.",
+    } satisfies Partial<RequestsRepositoryError>);
+  });
+
+  it("falls back to API error code when message is absent", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: async () => ({
+          error: {
+            code: "INVALID_TRANSITION_ACTION",
+          },
+        }),
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+
+    await expect(
+      repository.applyTransition("SAV-DEMO-001", "qualify"),
+    ).rejects.toMatchObject({
+      code: "INVALID_TRANSITION_ACTION",
+      message: "INVALID_TRANSITION_ACTION",
+    } satisfies Partial<RequestsRepositoryError>);
+  });
+
+  it("maps INVALID_TRANSITION_ACTION message from structured API errors", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: async () => ({
+          error: {
+            code: "INVALID_TRANSITION_ACTION",
+            message: "Transition action is required.",
+          },
+        }),
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+
+    await expect(
+      repository.applyTransition("SAV-DEMO-001", "qualify"),
+    ).rejects.toMatchObject({
+      code: "INVALID_TRANSITION_ACTION",
+      message: "Transition action is required.",
     } satisfies Partial<RequestsRepositoryError>);
   });
 });

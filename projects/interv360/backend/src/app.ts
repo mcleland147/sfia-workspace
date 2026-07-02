@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { sendApiError } from "./api/apiErrors.js";
 import { createApiRouter } from "./api/routes.js";
 import { createLocalCorsOptions } from "./config/cors.js";
 
@@ -26,12 +27,12 @@ export function createApp(): express.Application {
       next: express.NextFunction,
     ) => {
       if (err instanceof SyntaxError && "body" in err) {
-        res.status(400).json({
-          error: {
-            code: "INVALID_JSON_BODY",
-            message: "Request body must be valid JSON.",
-          },
-        });
+        sendApiError(
+          res,
+          400,
+          "INVALID_JSON_BODY",
+          "Request body must be valid JSON.",
+        );
         return;
       }
 
@@ -46,12 +47,7 @@ export function createApp(): express.Application {
       res: express.Response,
       _next: express.NextFunction,
     ) => {
-      res.status(500).json({
-        error: {
-          code: "INTERNAL_ERROR",
-          message: "Internal server error",
-        },
-      });
+      sendApiError(res, 500, "INTERNAL_ERROR", "Internal server error");
     },
   );
 

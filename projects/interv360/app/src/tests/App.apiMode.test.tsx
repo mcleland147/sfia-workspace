@@ -73,6 +73,7 @@ const apiUsersPayload = {
 function createFetchMock(options?: {
   usersPayload?: typeof apiUsersPayload;
   usersFail?: boolean;
+  usersStructuredError?: { code: string; message: string };
   eventsPayload?: Array<Record<string, unknown>>;
 }) {
   const calls: Array<{ url: string; method: string; body?: string }> = [];
@@ -92,6 +93,16 @@ function createFetchMock(options?: {
     calls.push({ url, method, body });
 
     if (url.endsWith("/users") && method === "GET") {
+      if (options?.usersStructuredError) {
+        return {
+          ok: false,
+          status: 404,
+          json: async () => ({
+            error: options.usersStructuredError,
+          }),
+        };
+      }
+
       if (options?.usersFail) {
         return {
           ok: false,
@@ -511,6 +522,74 @@ describe("App API mode", () => {
     expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
       "Théo Technicien",
     );
+  });
+
+  it("shows users fallback message when users API returns structured error", async () => {
+    const { mock } = createFetchMock({
+      usersStructuredError: {
+        code: "ROUTE_NOT_FOUND",
+        message: "API route not found.",
+      },
+    });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          /Impossible de charger les utilisateurs API\. Utilisation des utilisateurs locaux\./i,
+        ),
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText(/Mode local/i)).not.toBeInTheDocument();
+  });
+
+  it("calls demo reset endpoint for admin in API mode", async () => {
+    const { mock, calls } = createFetchMock({
+      usersPayload: {
+        users: [
+          ...apiUsersPayload.users,
+          {
+            id: "user-admin",
+            displayName: "Amin Admin",
+            email: "amin.admin@example.test",
+            role: "admin",
+            team: "Administration",
+            isActive: true,
+          },
+        ],
+      },
+    });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Mode API local")).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+      target: { value: "user-admin" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Réinitialiser la démo/i }),
+    );
+
+    await waitFor(() => {
+      expect(
+        calls.some(
+          (call) =>
+            call.url.includes("/demo/reset") && call.method === "POST",
+        ),
+      ).toBe(true);
+    });
+
+    expect(screen.getByText(/Démo réinitialisée/i)).toBeInTheDocument();
   });
 
   it("does not call login, logout, session, auth or token endpoints", async () => {
