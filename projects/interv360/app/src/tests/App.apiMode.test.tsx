@@ -449,6 +449,13 @@ describe("App API mode", () => {
         ),
       ).toBeInTheDocument();
     });
+
+    expect(screen.getByText("Mode API")).toBeInTheDocument();
+    expect(screen.queryByText("Mode local")).not.toBeInTheDocument();
+    expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: /Demandes SAV/i }),
+    ).not.toBeInTheDocument();
   });
 
   it("keeps stored user-manager when API returns manager", async () => {

@@ -238,7 +238,7 @@ Décision proposée pour rester Fast Track :
 | UX-02 | Audit UX existante et décisions d'amélioration | Réalisé |
 | UX-03 | Fiche demande et hiérarchie information | Réalisé |
 | UX-04 | Actions, historique et messages | Réalisé |
-| UX-05 | Tests frontend et non-régression | À faire |
+| UX-05 | Tests frontend et non-régression | Réalisé |
 | UX-06 | Documentation runbook/README | À faire |
 | UX-07 | Préparation PR unique | À venir |
 
@@ -257,16 +257,16 @@ Décision proposée pour rester Fast Track :
 | Actions clarifiées | OK |
 | Historique clarifié | OK |
 | Messages et états d'erreur clarifiés | OK |
-| Mode local conservé | À valider |
-| Mode API conservé | À valider |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
 | Audit trail conservé | OK |
 | Request model conservé | OK |
-| Permissions conservées | À valider |
-| Backend inchangé | À valider |
-| Frontend tests | À valider |
-| Backend tests | À valider |
-| Frontend build | À faire |
-| Backend build | À valider |
+| Permissions conservées | OK |
+| Backend inchangé | OK |
+| Frontend tests | OK — 191 tests |
+| Backend tests | OK — 125 tests |
+| Frontend build | OK |
+| Backend build | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -574,8 +574,77 @@ Validations :
 
 ---
 
+## 15.5. Changements UX-05
+
+UX-05 stabilise le lot Product UX Finalization par les tests et la non-régression globale.
+
+Changements réalisés :
+
+- vérification des tests frontend sur la fiche demande ;
+- vérification des tests frontend sur la liste demandes ;
+- vérification des tests frontend sur les actions workflow ;
+- vérification des tests frontend sur l'historique ;
+- vérification des tests frontend sur le profil actif ;
+- vérification des tests frontend sur les messages et le mode local/API ;
+- renforcement du test « backend indisponible » pour confirmer l'absence de fallback silencieux vers les données locales ;
+- confirmation de la non-régression backend ;
+- confirmation du mode local ;
+- confirmation du mode API ;
+- confirmation de l'absence de fallback silencieux ;
+- confirmation de la conservation du request model ;
+- confirmation de la conservation de l'audit trail ;
+- confirmation de la conservation des permissions ;
+- confirmation du reset admin ;
+- aucun nouveau scope UX fonctionnel.
+
+Couverture confirmée :
+
+| Zone | Résultat |
+|------|----------|
+| Fiche demande UX-03 | OK |
+| Liste demandes UX-03 | OK |
+| Actions UX-04 | OK |
+| Historique UX-04 | OK |
+| Profil actif | OK |
+| Mode local | OK |
+| Mode API | OK |
+| Messages / erreurs | OK |
+| États vides | OK |
+| Permissions | OK |
+| Reset admin | OK |
+| Request model | OK |
+| Audit trail | OK |
+| Backend | Inchangé |
+| API | Inchangée |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de dépendance UI ajoutée ;
+- pas d'export Figma ajouté.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **UX-05** :
+Exécuter **UX-06** :
 
-Tests frontend et non-régression
+Documentation runbook/README
