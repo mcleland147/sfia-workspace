@@ -264,7 +264,7 @@ Décision proposée pour rester Fast Track :
 | AT-05 | Frontend historique enrichi | Réalisé |
 | AT-06 | Tests backend/frontend et non-régression | Réalisé |
 | AT-07 | Documentation runbook/README | Réalisé |
-| AT-08 | Préparation PR unique | À venir |
+| AT-08 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -675,9 +675,9 @@ Garde-fous confirmés :
 
 ## 16. Prochaine étape
 
-Exécuter **AT-08** :
+PR unique préparée sur `delivery/interv360-audit-trail` → `main`.
 
-Préparation PR unique
+Merge manuel après revue.
 
 ---
 
@@ -708,4 +708,127 @@ Capacités ajoutées :
 
 Le lot ne met pas en place une authentification réelle.
 
-La prochaine étape est AT-08 : préparation de la PR unique du lot.
+---
+
+## 18. Validations finales AT-08
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 167 tests |
+| Backend build | OK |
+| Backend tests | OK — 112 tests |
+| Diff global vs main | OK |
+| SQLite `workflow_events` enrichi | OK |
+| `actorUserId` optionnel | OK |
+| Validation acteur backend | OK |
+| `INVALID_ACTOR_USER` | OK |
+| Events API enrichis | OK |
+| Réponse events `{ items: [...] }` | OK |
+| Journal frontend enrichi | OK |
+| Événements legacy compatibles | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Permissions existantes conservées | OK |
+| Reset admin conservé | OK |
+| Auth réelle exclue | OK |
+| Login/password exclus | OK |
+| Token/session backend exclus | OK |
+| OAuth/JWT/SSO exclus | OK |
+| CRM/données réelles exclus | OK |
+| Nouveau statut exclu | OK |
+| `STAT-08` exclu | OK |
+| sfia-notion-sync exclu | OK |
+| Exports Figma exclus | OK |
+
+---
+
+## 19. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 enriched audit trail`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR delivers Lot 2 of the Interv360 MVP Final Roadmap: Audit Trail.
+It enriches Interv360 workflow history by attaching an optional actor to transitions, persisting an audit snapshot, exposing enriched events through the API, and displaying the enriched audit trail in the frontend.
+This is not real authentication.
+## What changed
+### Product delivery
+- opens Lot 2 from the MVP Final Roadmap;
+- adds the Audit Trail delivery document;
+- confirms that the Backend Users & Session foundation from Lot 1 is reused;
+- keeps the SFIA Fast Track delivery approach.
+### Backend
+- enriches the `WorkflowEvent` model;
+- enriches SQLite `workflow_events` with:
+  - `action`;
+  - `actor_user_id`;
+  - `actor_display_name`;
+  - `actor_role`;
+- keeps `from_status` and `to_status`;
+- adds compatible schema migration for existing databases;
+- accepts optional `actorUserId` in workflow transitions;
+- validates `actorUserId` against active backend users when provided;
+- rejects invalid or inactive actors with `INVALID_ACTOR_USER`;
+- stores an actor snapshot in workflow events;
+- keeps transitions without actor compatible;
+- exposes enriched events through:
+  - `GET /api/v1/requests/:id/events`.
+### Frontend
+- sends `actorUserId` in API-mode workflow transitions;
+- keeps the selected user based on `interv360:current-user-id`;
+- maps enriched events from the API response `{ items: [...] }`;
+- displays actor, role, action, and status transition in the workflow journal when available;
+- keeps legacy events without actor readable;
+- keeps local mode working;
+- keeps existing permissions and admin reset behavior.
+### Tests
+- adds audit trail persistence tests;
+- extends backend API tests for transitions with actor;
+- validates enriched events API;
+- strengthens non-regression around users/session;
+- strengthens frontend transition payload tests;
+- validates that no Authorization header/token/session/password is sent;
+- validates enriched journal rendering;
+- validates local mode non-regression.
+### Documentation
+- updates the E2E runbook with Audit Trail controls and curl examples;
+- updates frontend README;
+- updates backend README;
+- updates the Audit Trail delivery document with AT-01 to AT-08 status.
+## Validation
+- Frontend build: OK
+- Frontend tests: 167 passed
+- Backend build: OK
+- Backend tests: 112 passed
+## Guardrails
+No real authentication, login, logout, password, password hash, token, OAuth, JWT, SSO, Entra ID, backend auth session, CRM integration, real data, workflow status, `STAT-08`, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+`actorUserId` remains optional.
+Transition payloads only include workflow data:
+```json
+{
+  "action": "qualify",
+  "actorUserId": "user-technician"
+}
+```
+The actor is a demo/product audit actor, not an authenticated identity.
+```
+
+---
+
+## 20. Statut push / PR
+
+À compléter après push.
+
+| Élément | Valeur |
+|--------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-audit-trail` |
+| Merge automatique | Non |
