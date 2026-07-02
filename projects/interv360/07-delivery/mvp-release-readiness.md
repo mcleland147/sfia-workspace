@@ -172,7 +172,7 @@ Décision à confirmer dans le cycle :
 |-----------|----------|--------|
 | REL-01 | Cadrage release readiness | Réalisé |
 | REL-02 | Checklist validation MVP | Réalisé |
-| REL-03 | Release notes et limites connues | À faire |
+| REL-03 | Release notes et limites connues | Réalisé |
 | REL-04 | Préparation PR unique | À venir |
 
 ---
@@ -183,12 +183,12 @@ Décision à confirmer dans le cycle :
 |---------|----------|
 | Document release readiness créé | OK |
 | Roadmap MVP Final Roadmap reconnue comme close | OK |
-| Périmètre livré synthétisé | Partiel — checklist MVP |
+| Périmètre livré synthétisé | OK |
 | Checklist validation MVP créée | OK |
-| Release notes MVP créées | À faire |
-| Limites connues documentées | À faire |
-| Version cible décidée | À confirmer — `v0.1.0-mvp` proposée |
-| Décision tag / release GitHub prise | À faire |
+| Release notes MVP créées | OK |
+| Limites connues documentées | OK |
+| Version cible décidée | OK — `v0.1.0-mvp` |
+| Décision tag / release GitHub prise | À confirmer en REL-04 |
 | Frontend build | À valider |
 | Frontend tests | À valider |
 | Backend build | À valider |
@@ -465,8 +465,320 @@ Décisions :
 
 ---
 
+## 11.2. REL-03 — Release notes et limites connues
+
+REL-03 formalise les release notes de la version cible `v0.1.0-mvp` et les limites connues de la release.
+
+Objectif :
+
+> disposer d'une synthèse claire de ce qui est livré, de ce qui est explicitement exclu, et des conditions minimales de validation avant PR.
+
+Cette section ne crée pas de tag Git et ne crée pas de GitHub Release.
+
+---
+
+### 11.2.1. Version cible
+
+Version cible retenue pour la release readiness :
+
+`v0.1.0-mvp`
+
+Justification :
+
+- première version MVP structurée ;
+- six lots MVP mergés ;
+- produit installable localement ;
+- produit testable localement ;
+- frontend et backend documentés ;
+- mode local disponible ;
+- mode API disponible ;
+- CI minimale disponible ;
+- limites enterprise explicitement assumées.
+
+Décision :
+
+| Élément | Décision |
+|---------|----------|
+| Version cible | `v0.1.0-mvp` |
+| Tag Git en REL-03 | Non |
+| GitHub Release en REL-03 | Non |
+| Décision tag / release | À confirmer en REL-04 |
+| Release notes documentaires | Oui |
+
+---
+
+### 11.2.2. Périmètre officiellement livré
+
+La version cible `v0.1.0-mvp` couvre :
+
+| Domaine | Livré |
+|---------|-------|
+| Frontend | Application Vite / React |
+| Backend | API Node.js / TypeScript |
+| Persistance | SQLite locale |
+| API | Contrat `/api/v1` durci |
+| Users | Utilisateurs fictifs backend |
+| Session | Session applicative minimale de démonstration |
+| Permissions | Matrice de permissions simulée |
+| Workflow | Cycle de vie demande exploitable |
+| Request model | Modèle demande enrichi |
+| Audit trail | Historique enrichi avec acteur si disponible |
+| UX MVP | Interface finalisée pour démonstration produit |
+| Mode local | Utilisable sans backend |
+| Mode API | Utilisable avec backend local |
+| Reset | Reset admin / démo documenté |
+| Documentation | README racine + README app/backend |
+| Runbook | Runbook E2E harmonisé |
+| Environnement | `.env.example` frontend/backend |
+| CI | Workflow minimal build + tests |
+
+---
+
+### 11.2.3. Capacités produit incluses
+
+La release MVP permet de démontrer :
+
+- consultation d'une liste de demandes ;
+- consultation d'une fiche demande enrichie ;
+- visualisation d'un statut métier lisible ;
+- exécution de transitions autorisées ;
+- blocage des actions non autorisées ;
+- affichage des motifs d'indisponibilité ;
+- visualisation de l'utilisateur courant ;
+- changement d'utilisateur de démonstration ;
+- application de permissions selon rôle ;
+- consultation d'un historique lisible ;
+- traçabilité des actions ;
+- reset d'environnement de démonstration ;
+- usage en mode local ;
+- usage en mode API ;
+- validation par tests automatisés.
+
+---
+
+### 11.2.4. Release notes `v0.1.0-mvp`
+
+#### Summary
+
+`v0.1.0-mvp` formalise la première version MVP structurée d'Interv360.
+
+Cette version clôture la roadmap MVP Final Roadmap et fige une base produit installable, testable et exploitable localement / pré-cloud.
+
+#### Highlights
+
+- Backend TypeScript avec API `/api/v1`.
+- Persistance SQLite locale.
+- Frontend Vite / React.
+- Mode local et mode API.
+- Utilisateurs fictifs backend.
+- Session applicative minimale.
+- Modèle demande enrichi.
+- Audit trail enrichi.
+- Permissions simulées.
+- UX MVP finalisée.
+- README et runbook consolidés.
+- Fichiers `.env.example`.
+- CI minimale build + tests.
+
+#### Validation cible
+
+- frontend build OK ;
+- frontend tests : 191 ou plus ;
+- backend build OK ;
+- backend tests : 125 ou plus ;
+- CI minimale conservée.
+
+#### Scope assumé
+
+Cette release est une version MVP locale / pré-cloud.
+
+Elle n'est pas une version production enterprise.
+
+---
+
+### 11.2.5. Limites connues
+
+| Domaine | Limite connue |
+|---------|---------------|
+| Authentification | Pas d'authentification réelle |
+| Session | Pas de session backend sécurisée |
+| Sécurité | Pas de token, OAuth, JWT ou SSO |
+| Identité | Pas d'intégration Entra ID |
+| Données | Pas de données réelles |
+| CRM | Pas d'intégration CRM |
+| CRUD | Pas de CRUD complet |
+| Création demande | Pas de formulaire complet de création demande |
+| Workflow | Pas de moteur workflow externe |
+| Statuts | Pas de nouveau statut `STAT-08` |
+| Notifications | Pas de notifications |
+| Reporting | Pas de reporting avancé |
+| Supervision | Pas de supervision applicative |
+| Observabilité | Pas d'observabilité avancée |
+| Déploiement | Pas de déploiement cloud complet |
+| Conteneurisation | Pas de Docker obligatoire |
+| Infrastructure | Pas de Kubernetes, Terraform, Helm |
+| CI/CD | Pas de CI/CD complète |
+| Design | Pas d'arc Figma |
+| Exports | Pas d'export Figma |
+| Données multi-client | Pas de multi-tenant |
+| SLA | Pas de SLA de production |
+
+---
+
+### 11.2.6. Prérequis d'installation
+
+Prérequis minimum :
+
+- Node.js compatible avec le projet ;
+- npm ;
+- accès au repository ;
+- terminal local ;
+- ports locaux disponibles pour frontend/backend ;
+- environnement local autorisant SQLite ;
+- configuration `.env` facultative via `.env.example`.
+
+Variables principales :
+
+| Cible | Variable | Usage |
+|-------|----------|-------|
+| Frontend | `VITE_INTERV360_DATA_SOURCE` | `local` ou `api` |
+| Frontend | `VITE_INTERV360_API_BASE_URL` | URL backend API |
+| Backend | `PORT` | Port backend |
+| Backend | `SQLITE_PATH` | Chemin DB SQLite |
+| Backend | `DEMO_MODE` | Active le reset démo |
+| Backend | `INTERV360_CORS_ORIGINS` | Origines frontend autorisées |
+
+---
+
+### 11.2.7. Commandes de validation release
+
+Frontend :
+
+```bash
+cd /Users/morris/Projects/sfia-workspace/projects/interv360/app
+npm run build
+npm run test -- --run
+```
+
+Backend :
+
+```bash
+cd /Users/morris/Projects/sfia-workspace/projects/interv360/backend
+npm run build
+npm run test
+```
+
+Git / diff :
+
+```bash
+cd /Users/morris/Projects/sfia-workspace
+git status --short
+git diff --stat
+```
+
+---
+
+### 11.2.8. Conditions de Go MVP
+
+La release peut être considérée Go MVP si :
+
+- build frontend OK ;
+- tests frontend OK avec 191 tests ou plus ;
+- build backend OK ;
+- tests backend OK avec 125 tests ou plus ;
+- CI minimale présente ;
+- README et runbook présents ;
+- `.env.example` frontend/backend présents ;
+- aucune régression fonctionnelle détectée ;
+- aucun garde-fou critique violé ;
+- limites connues acceptées ;
+- version cible confirmée.
+
+---
+
+### 11.2.9. Conditions de Go avec réserve
+
+La release peut être considérée Go avec réserve si :
+
+- tous les builds/tests sont OK ;
+- aucun garde-fou critique n'est violé ;
+- seules des réserves documentaires mineures subsistent ;
+- la version cible est confirmée ;
+- le tag / GitHub Release est reporté volontairement.
+
+---
+
+### 11.2.10. Conditions de No-Go
+
+La release doit être considérée No-Go si :
+
+- build frontend en échec ;
+- tests frontend en échec ;
+- build backend en échec ;
+- tests backend en échec ;
+- CI minimale absente ou cassée ;
+- modification fonctionnelle non prévue ;
+- introduction d'un scope enterprise ;
+- introduction d'une auth réelle ;
+- introduction d'un token/OAuth/JWT/SSO ;
+- introduction d'un CRM ou de données réelles ;
+- introduction d'un CRUD complet ;
+- introduction d'un nouveau statut ;
+- introduction de `STAT-08` ;
+- modification de `sfia-notion-sync` ;
+- ajout d'un export Figma non demandé.
+
+---
+
+### 11.2.11. Sujets candidats après release
+
+Les sujets suivants sont exclus de `v0.1.0-mvp` mais peuvent être cadrés ensuite comme cycles distincts :
+
+| Sujet | Nature |
+|-------|--------|
+| Pré-release finale / tag | Release management |
+| Déploiement cible | Cloud / infra |
+| Supervision | Exploitation |
+| Observabilité | Logs / métriques / traces |
+| Auth réelle | Sécurité / identité |
+| Entra ID / SSO | Enterprise identity |
+| CRM | Intégration métier |
+| Données réelles | Migration / gouvernance |
+| CRUD complet | Évolution produit |
+| Création demande | Évolution fonctionnelle |
+| Reporting | Pilotage |
+| Notifications | Expérience utilisateur |
+| Design system | UX/UI |
+| Figma | Design produit |
+
+---
+
+### 11.2.12. Décision REL-03
+
+REL-03 valide :
+
+- la version cible `v0.1.0-mvp` ;
+- le périmètre officiellement livré ;
+- les release notes documentaires ;
+- les limites connues ;
+- les prérequis d'installation ;
+- les commandes de validation ;
+- les conditions Go / Go avec réserve / No-Go ;
+- l'absence de tag Git en REL-03 ;
+- l'absence de GitHub Release en REL-03.
+
+Décisions :
+
+- reporter la décision tag Git à REL-04 ;
+- reporter la décision GitHub Release à REL-04 ;
+- exécuter les validations finales en REL-04 ;
+- préparer la PR unique en REL-04 ;
+- ne pas ajouter de nouveau scope fonctionnel.
+
+---
+
 ## 12. Prochaine étape
 
-Exécuter **REL-03** :
+Exécuter **REL-04** :
 
-Release notes et limites connues
+Préparation PR unique, validations finales et décision tag / GitHub Release
