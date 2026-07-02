@@ -380,3 +380,64 @@ The change is frontend-only for the user/session simulation layer.
 | Cible | `main` |
 | Source | `delivery/interv360-auth-user-switcher` |
 | Merge automatique | Non |
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #63 — https://github.com/mcleland147/sfia-workspace/pull/63 |
+| Source | `delivery/interv360-auth-user-switcher` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `5af4e7c` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 141 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 67 tests |
+| AUTH-US-01 | OK — utilisateurs fictifs et session locale |
+| AUTH-US-02 | OK — user switcher frontend |
+| AUTH-US-03 | OK — permissions/tests renforcés |
+| AUTH-US-04 | OK — runbook/README |
+| AUTH-US-05 | OK — PR unique préparée |
+| Utilisateurs fictifs | OK |
+| Session locale `interv360:current-user-id` | OK |
+| Utilisateur par défaut `Théo Technicien` | OK |
+| Rôle dérivé depuis utilisateur | OK |
+| Matrice permissions conservée | OK |
+| Reset admin conservé | OK |
+| Backend modifié | Non |
+| API contract modifié | Non |
+| SQLite modifiée | Non |
+| Auth réelle introduite | Non |
+| Login/password introduits | Non |
+| OAuth / JWT / SSO introduits | Non |
+| Entra ID introduit | Non |
+| Base users backend introduite | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| `STAT-08` introduit | Non |
+| Nouveau statut introduit | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Auth User Switcher** est mergé dans `main`.
+
+Interv360 dispose désormais d'une première fondation utilisateur côté frontend :
+
+- 5 utilisateurs fictifs ;
+- session locale `interv360:current-user-id` ;
+- utilisateur par défaut `Théo Technicien` ;
+- sélecteur utilisateur ;
+- rôle actif dérivé depuis l'utilisateur courant ;
+- matrice de permissions conservée ;
+- reset toujours réservé à `admin`.
+
+Ce batch ne met pas en place une authentification réelle.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
