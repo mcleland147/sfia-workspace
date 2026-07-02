@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import type { ComponentProps } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { STORAGE_KEY_REQUESTS } from "../../data/localStorageKeys";
@@ -39,17 +39,19 @@ describe("RequestsList", () => {
     ).toBeInTheDocument();
   });
 
-  it("displays three fictitious demo requests, summary and priority badges", () => {
+  it("displays demo requests with status labels, summary and priority badges", () => {
     renderRequestsList();
     expect(screen.getByText("SAV-DEMO-001")).toBeInTheDocument();
     expect(screen.getByText("SAV-DEMO-002")).toBeInTheDocument();
     expect(screen.getByText("SAV-DEMO-003")).toBeInTheDocument();
-    expect(screen.getByLabelText(/Synthèse locale par statut/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Synthèse par statut/i)).toBeInTheDocument();
     expect(screen.getAllByText(/Priorité Haute/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Criticité Urgente/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/STAT-01/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/STAT-03/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/STAT-06/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Qualifiée/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/En cours de traitement/i).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Clôturée/i).length).toBeGreaterThan(0);
   });
 
   it("displays requester and assignment on request cards when available", () => {
@@ -69,19 +71,24 @@ describe("RequestsList", () => {
     expect(onSelectRequest).toHaveBeenCalledWith("SAV-DEMO-002");
   });
 
-  it("filters requests by status and shows active filter", () => {
+  it("filters requests by status and shows active filter with status label", () => {
     renderRequestsList({ statusFilter: "STAT-03" });
 
     expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
     expect(screen.getByText("SAV-DEMO-002")).toBeInTheDocument();
     expect(screen.queryByText("SAV-DEMO-003")).not.toBeInTheDocument();
-    expect(screen.getByText(/Filtre actif : STAT-03/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Filtre actif : En cours de traitement/i),
+    ).toBeInTheDocument();
   });
 
   it("calls onStatusFilterChange when a filter button is clicked", () => {
     const { onStatusFilterChange } = renderRequestsList();
 
-    fireEvent.click(screen.getByRole("button", { name: /^STAT-03$/ }));
+    const filters = screen.getByRole("group", { name: /Filtres par statut/i });
+    fireEvent.click(
+      within(filters).getByRole("button", { name: /En cours de traitement/i }),
+    );
 
     expect(onStatusFilterChange).toHaveBeenCalledWith("STAT-03");
   });
@@ -93,6 +100,14 @@ describe("RequestsList", () => {
     expect(screen.queryByText("SAV-DEMO-002")).not.toBeInTheDocument();
     expect(screen.getByText("SAV-DEMO-003")).toBeInTheDocument();
     expect(screen.getByText(/Recherche : « SAV-DEMO-003 »/i)).toBeInTheDocument();
+  });
+
+  it("searches requests by readable status label", () => {
+    renderRequestsList({ searchQuery: "qualifiée" });
+
+    expect(screen.getByText("SAV-DEMO-001")).toBeInTheDocument();
+    expect(screen.queryByText("SAV-DEMO-002")).not.toBeInTheDocument();
+    expect(screen.queryByText("SAV-DEMO-003")).not.toBeInTheDocument();
   });
 
   it("shows empty state when filter and search return no result", () => {

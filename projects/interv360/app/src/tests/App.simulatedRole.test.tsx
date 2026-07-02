@@ -36,7 +36,9 @@ async function renderAppOnDetailsScreenForRequest(requestId: string) {
   goToDemoScreen("Détail");
   await waitFor(() => {
     expect(
-      screen.getByRole("heading", { name: /Fiche demande SAV/i }),
+      screen.getByRole("heading", {
+        name: /Machine client en panne intermittente/i,
+      }),
     ).toBeInTheDocument();
   });
 }

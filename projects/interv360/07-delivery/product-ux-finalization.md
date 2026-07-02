@@ -236,7 +236,7 @@ Décision proposée pour rester Fast Track :
 |-----------|----------|--------|
 | UX-01 | Cadrage opérationnel UX produit MVP | Réalisé |
 | UX-02 | Audit UX existante et décisions d'amélioration | Réalisé |
-| UX-03 | Fiche demande et hiérarchie information | À faire |
+| UX-03 | Fiche demande et hiérarchie information | Réalisé |
 | UX-04 | Actions, historique et messages | À faire |
 | UX-05 | Tests frontend et non-régression | À faire |
 | UX-06 | Documentation runbook/README | À faire |
@@ -252,15 +252,15 @@ Décision proposée pour rester Fast Track :
 | UX cible cadrée | OK |
 | Audit UX réalisé | OK |
 | Décisions d'amélioration prises | OK |
-| Fiche demande clarifiée | À faire |
-| Liste demandes conservée/améliorée | À valider |
+| Fiche demande clarifiée | OK |
+| Liste demandes conservée/améliorée | OK |
 | Actions clarifiées | À faire |
 | Historique clarifié | À faire |
 | Messages et états d'erreur clarifiés | À faire |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
 | Audit trail conservé | À valider |
-| Request model conservé | À valider |
+| Request model conservé | OK |
 | Permissions conservées | À valider |
 | Backend inchangé | À valider |
 | Frontend tests | À faire |
@@ -483,8 +483,53 @@ UX-02 confirme que le lot ne crée pas :
 
 ---
 
+## 15.3. Changements UX-03
+
+UX-03 améliore la fiche demande et la hiérarchie d'information.
+
+Changements réalisés :
+
+- en-tête de fiche demande clarifié avec titre, référence et statut métier mis en avant ;
+- statut métier affiché avec libellé lisible via `getRequestStatusLabel` (helper existant réutilisé) ;
+- informations demande regroupées en sections : Résumé, Site & équipement, Priorisation, Détails ;
+- section identité clarifiée (client, demandeur, équipe, affectation) ;
+- section site & équipement clarifiée (site, localisation, équipement, catégorie) ;
+- section priorisation clarifiée (priorité, criticité, impact) ;
+- section détails clarifiée (canal, dates, description, qualification) ;
+- wording démonstratif réduit (« Batch 01 », « données fictives uniquement » remplacés par libellés produit) ;
+- liste demandes allégée (synthèse, recherche, filtres et message vide) ;
+- statuts affichés avec libellés métier dans liste, synthèse et filtres ;
+- recherche enrichie avec libellés statut dans le haystack ;
+- styles CSS ajustés pour sections et hiérarchie visuelle ;
+- tests frontend ajustés / renforcés (+2 tests).
+
+Préservé :
+
+- champs existants du request model ;
+- filtres et recherche ;
+- mode local ;
+- mode API ;
+- permissions ;
+- workflow ;
+- statuts techniques ;
+- audit trail ;
+- reset admin ;
+- backend ;
+- API.
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 189 tests |
+| Backend build | OK (non-régression) |
+| Backend tests | OK — 125 tests |
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **UX-03** :
+Exécuter **UX-04** :
 
-Fiche demande et hiérarchie information
+Actions, historique et messages
