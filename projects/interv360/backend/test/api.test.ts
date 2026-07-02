@@ -41,6 +41,28 @@ describe("Interv360 API", () => {
     ).toBe(true);
   });
 
+  it("GET /api/v1/requests exposes enriched request model fields", async () => {
+    const response = await request(app).get("/api/v1/requests");
+    expect(response.status).toBe(200);
+
+    const demo001 = response.body.items.find(
+      (item: { id: string }) => item.id === "SAV-DEMO-001",
+    );
+
+    expect(demo001).toMatchObject({
+      requesterName: "Alice Demandeur",
+      requesterTeam: "Centre demandeur",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Industrie",
+      assignedTechnicianLabel: "Technicien Démo 01",
+      priority: "high",
+      criticality: "urgent",
+    });
+    expect(demo001.password).toBeUndefined();
+    expect(demo001.token).toBeUndefined();
+  });
+
   it("GET /api/v1/users returns seeded users", async () => {
     const response = await request(app).get("/api/v1/users");
 
@@ -183,6 +205,19 @@ describe("Interv360 API", () => {
       "Interruption d'un flux de production fictif planifié",
     );
     expect(response.body.detail.impact).toBe("Production démo limitée");
+  });
+
+  it("GET /api/v1/requests/:id exposes enriched request fields on request", async () => {
+    const response = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(response.status).toBe(200);
+    expect(response.body.request).toMatchObject({
+      requesterName: "Alice Demandeur",
+      requesterTeam: "Centre demandeur",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Industrie",
+      assignedTechnicianLabel: "Technicien Démo 01",
+    });
   });
 
   it("GET /api/v1/requests/:id unknown returns REQUEST_NOT_FOUND", async () => {

@@ -25,6 +25,10 @@ interface RequestRow {
   customer_label: string;
   site_label: string;
   assigned_technician_label: string | null;
+  requester_name?: string | null;
+  requester_team?: string | null;
+  assigned_to_user_id?: string | null;
+  assigned_to_display_name?: string | null;
   created_at: string;
   updated_at: string;
   detail_id: string;
@@ -72,7 +76,7 @@ function nowIso(): string {
 }
 
 function rowToRequest(row: RequestRow): DemoRequest {
-  return {
+  const request: DemoRequest = {
     id: row.id,
     title: row.title,
     status: row.status as RequestStatus,
@@ -86,6 +90,24 @@ function rowToRequest(row: RequestRow): DemoRequest {
     detailId: row.detail_id,
     isDemo: true,
   };
+
+  if (row.requester_name != null && row.requester_name !== "") {
+    request.requesterName = row.requester_name;
+  }
+  if (row.requester_team != null && row.requester_team !== "") {
+    request.requesterTeam = row.requester_team;
+  }
+  if (row.assigned_to_user_id != null && row.assigned_to_user_id !== "") {
+    request.assignedToUserId = row.assigned_to_user_id;
+  }
+  if (
+    row.assigned_to_display_name != null &&
+    row.assigned_to_display_name !== ""
+  ) {
+    request.assignedToDisplayName = row.assigned_to_display_name;
+  }
+
+  return request;
 }
 
 function rowToDetail(row: DetailRow): DemoRequestDetail {

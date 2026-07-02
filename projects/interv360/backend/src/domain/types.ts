@@ -40,6 +40,10 @@ export interface DemoRequest {
   customerLabel: string;
   siteLabel: string;
   assignedTechnicianLabel: string | null;
+  requesterName?: string;
+  requesterTeam?: string;
+  assignedToUserId?: string;
+  assignedToDisplayName?: string;
   createdAt: string;
   updatedAt: string;
   detailId: string;

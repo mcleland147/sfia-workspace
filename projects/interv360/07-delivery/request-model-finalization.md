@@ -252,7 +252,7 @@ Décision proposée pour rester Fast Track :
 |-----------|----------|--------|
 | RM-01 | Cadrage opérationnel modèle Request | Réalisé |
 | RM-02 | Audit modèle existant et décision champs cibles | Réalisé |
-| RM-03 | Backend SQLite/API Request finalisé | À faire |
+| RM-03 | Backend SQLite/API Request finalisé | Réalisé |
 | RM-04 | Frontend fiche/liste Request alignées | À faire |
 | RM-05 | Tests backend/frontend et non-régression | À faire |
 | RM-06 | Documentation runbook/README | À faire |
@@ -268,17 +268,17 @@ Décision proposée pour rester Fast Track :
 | Modèle Request cible cadré | OK |
 | Audit modèle existant réalisé | OK |
 | Champs cibles décidés | OK |
-| Backend Request aligné | À faire |
-| SQLite Request aligné | À faire |
-| API Request alignée | À faire |
+| Backend Request aligné | OK |
+| SQLite Request aligné | OK |
+| API Request alignée | OK |
 | Frontend fiche/liste alignés | À faire |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
 | Audit trail conservé | À valider |
 | Permissions conservées | À valider |
-| Backend tests | À faire |
+| Backend tests | OK — 119 tests |
 | Frontend tests | À faire |
-| Backend build | À faire |
+| Backend build | OK |
 | Frontend build | À faire |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
@@ -557,8 +557,78 @@ Notes d'implémentation RM-03 :
 
 ---
 
+## 15.3. Changements RM-03
+
+RM-03 aligne le backend SQLite/API sur le modèle `Request` cible.
+
+Changements réalisés :
+
+- enrichissement compatible du modèle backend `DemoRequest` ;
+- ajout des colonnes SQLite sur `requests` :
+  - `requester_name`
+  - `requester_team`
+  - `assigned_to_user_id`
+  - `assigned_to_display_name`
+- ajout des champs demandeur :
+  - `requesterName`
+  - `requesterTeam`
+- ajout des champs affectation :
+  - `assignedToUserId`
+  - `assignedToDisplayName`
+- conservation des champs legacy :
+  - `customerLabel`
+  - `assignedTechnicianLabel`
+- conservation du split SQLite `requests` / `request_details` ;
+- migration SQLite compatible via `addColumnIfMissing` ;
+- seed backend enrichi avec des données fictives liées aux users existants ;
+- mapping store/API enrichi pour la liste et le détail ;
+- tests backend ajoutés/adaptés (`requestModelPersistence.test.ts`, `api.test.ts`, `persistence.test.ts`) ;
+- aucune modification frontend ;
+- aucune modification workflow ;
+- aucune modification audit trail.
+
+Décisions confirmées :
+
+| Sujet | Décision |
+|-------|----------|
+| Split SQLite | Conservé |
+| Emplacement champs | Table `requests` |
+| Demandeur | `requesterName` + `requesterTeam` |
+| Affectation | `assignedToUserId` + `assignedToDisplayName` |
+| Legacy client | `customerLabel` conservé |
+| Legacy technicien | `assignedTechnicianLabel` conservé |
+| Priorité | Enum `low/medium/high` conservé |
+| Criticité | Enum `standard/sensitive/urgent` conservé |
+| Workflow | Inchangé |
+| Audit trail | Inchangé |
+| Frontend | À aligner en RM-04 |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Backend build | OK |
+| Backend tests | OK — 119 tests |
+| Frontend build | OK (non-régression) |
+| Frontend tests | OK — 167 tests (non-régression) |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **RM-03** :
+Exécuter **RM-04** :
 
-Backend SQLite/API Request finalisé
+Frontend fiche/liste Request alignées
