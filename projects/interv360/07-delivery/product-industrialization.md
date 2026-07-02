@@ -235,7 +235,7 @@ Décision proposée pour rester Fast Track :
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
 | IND-01 | Cadrage opérationnel industrialisation MVP | Réalisé |
-| IND-02 | Audit installation / scripts / env / docs | À faire |
+| IND-02 | Audit installation / scripts / env / docs | Réalisé |
 | IND-03 | README global et guides locaux | À faire |
 | IND-04 | Variables `.env`, scripts et exploitation locale | À faire |
 | IND-05 | Tests, non-régression et CI éventuelle | À faire |
@@ -250,7 +250,7 @@ Décision proposée pour rester Fast Track :
 |---------|----------|
 | Document delivery créé | OK |
 | Industrialisation cible cadrée | OK |
-| Audit installation/scripts/env réalisé | À faire |
+| Audit installation/scripts/env réalisé | OK |
 | README global / index projet clarifié | À faire |
 | README frontend consolidé | À faire |
 | README backend consolidé | À faire |
@@ -347,8 +347,206 @@ Décisions :
 
 ---
 
+## 14.1. Audit IND-02 — installation, scripts, env et docs
+
+IND-02 audite l'existant d'industrialisation avant consolidation.
+
+### 14.1.1. Synthèse d'audit
+
+| Zone | État actuel | Écart / risque | Décision |
+|------|-------------|----------------|----------|
+| README racine | Orienté phases SFIA (intake, cadrage, BPMN, UX documentaire) ; pas de point d'entrée produit pour installer/lancer | Un nouveau contributeur ne trouve pas `app/` et `backend/` depuis la racine Interv360 | IND-03 : ajouter section MVP runnable ou README produit dédié |
+| README frontend | Très détaillé (~500 lignes) : structure, modes, workflow, users, UX MVP ; commandes `npm install/dev/build/test` | Historique INC/Batch volumineux ; variables env en prose ; pas de `.env.example` | IND-03/IND-04 : index rapide + consolidation ; IND-04 : tableau env |
+| README backend | Clair : commandes, endpoints, env (`PORT`, `SQLITE_PATH`, `DEMO_MODE`, CORS), connexion frontend | Pas de parcours « démarrer backend seul puis frontend API » en une page | IND-03 : guide local unifié ; IND-04 : compléter si besoin |
+| Runbook E2E | Complet : parcours local/API, contrôles lots 1–5, curl, dépannage ; compteurs **191 / 125** | Long ; chevauche README app/backend ; pas de « quick start » 5 minutes | IND-06 : harmonisation finale ; IND-03 : lien depuis README racine |
+| Installation frontend | `cd projects/interv360/app && npm install && npm run dev` documenté dans `app/README.md` | Non répété au niveau racine Interv360 | IND-03 |
+| Installation backend | `cd projects/interv360/backend && npm install && npm run dev` documenté dans `backend/README.md` | Prérequis Node non centralisé ; SQLite créée au premier run | IND-03 / IND-04 |
+| Mode local | Défaut (`VITE_INTERV360_DATA_SOURCE` absent ou ≠ `api`) ; `localStorage` ; pas de backend requis | Bien documenté dans app README et runbook | Conserver ; IND-03 : rappel ordre de lancement |
+| Mode API | `VITE_INTERV360_DATA_SOURCE=api` + backend sur 3001 ; pas de fallback silencieux | Documenté ; message erreur produit (Lot 5) | Conserver ; IND-04 : tableau env + troubleshooting |
+| Variables frontend | 2 variables Vite auditées (voir §14.1.3) | Absence de `.env.example` ; valeurs par défaut implicites dans le code | IND-04 : documenter + `.env.example` si utile |
+| Variables backend | 5 variables auditées (voir §14.1.3) | Table partielle dans README backend ; `CORS_ORIGIN` legacy peu visible | IND-04 : tableau consolidé |
+| Scripts frontend | `dev`, `build`, `test`, `preview` — suffisants pour MVP | Pas de script racine monorepo | Conserver scripts ; IND-03 documente l'ordre ; pas de script global en IND-04 sauf besoin simple |
+| Scripts backend | `dev`, `build` (tsc --noEmit), `test` — suffisants | `build` = typecheck uniquement, pas d'emit dist | Documenter en IND-04 ; pas de nouveau script |
+| SQLite / data | Fichier `backend/data/interv360.sqlite` (gitignored) ; seed auto ; `:memory:` en tests | Chemin changeable via `SQLITE_PATH` ; état persiste entre redémarrages | IND-04 : doc SQLite + procédure reset fichier |
+| Reset démo | UI admin + `POST /api/v1/demo/reset` ; mode local purge `localStorage` | Procédure fichier SQLite (supprimer DB) peu explicite hors README backend | IND-04 |
+| Tests | 191 frontend, 125 backend (validés sur `main` post-Lot 5) | Commandes dispersées dans README et runbook | IND-05 : revalidation + centralisation compteurs |
+| CI | Aucun workflow GitHub pour `projects/interv360` | Pas de garde-fou automatique sur PR | IND-05 : décider CI minimale (build+test) ou report |
+| Docker | Aucun Dockerfile / compose pour Interv360 | Cohérent avec principe installation locale simple | Exclu du lot ; report optionnel hors MVP |
+| Déploiement simple | Non documenté centralement ; Vite `build` → `dist/` ; backend `tsx` dev | Stratégie pré-cloud absente (static + API locale) | IND-04 / IND-06 : cadrage documentaire simple |
+
+### 14.1.2. Constats principaux
+
+Constats :
+
+- l'installation fonctionne déjà en deux dossiers (`app/`, `backend/`) avec des scripts npm minimaux et stables ;
+- la documentation technique est riche mais fragmentée entre README racine (phases SFIA), README spécialisés et runbook ;
+- les variables d'environnement sont implémentées et partiellement documentées, sans fichier `.env.example` ;
+- SQLite locale, seed et reset démo sont opérationnels ; la persistance entre sessions est un atout mais rarement expliquée pour la remise à zéro ;
+- aucune CI ni Docker n'existe pour Interv360 — cohérent avec le périmètre MVP local ;
+- les compteurs de tests (**191 / 125**) sont à jour dans le runbook et les deliveries récents.
+
+Points déjà solides :
+
+- frontend Vite déjà installable ;
+- backend Node.js / TypeScript déjà installable ;
+- mode local disponible sans backend ;
+- mode API disponible avec backend local ;
+- tests frontend et backend stables ;
+- runbook E2E existant ;
+- README frontend/backend existants.
+
+Écarts à traiter :
+
+- README racine non orienté « lancer le MVP » ;
+- absence de guide d'installation unifié (ordre frontend seul / backend + frontend API) ;
+- variables `.env` non centralisées dans un tableau unique ni exemplifiées ;
+- limites connues et stratégie de déploiement simple non regroupées ;
+- décision CI minimale encore ouverte.
+
+### 14.1.3. Variables d'environnement auditées
+
+| Variable | Côté | Défaut | Usage | Décision |
+|----------|------|--------|-------|----------|
+| `VITE_INTERV360_DATA_SOURCE` | Frontend | `local` (implicite si absent ou ≠ `api`) | Sélectionne le repository local (`localStorage`) ou API (`api`) | IND-04 : documenter ; `.env.example` optionnel |
+| `VITE_INTERV360_API_BASE_URL` | Frontend | `http://localhost:3001/api/v1` | URL de base API en mode `api` | IND-04 : documenter ; aligner avec port backend |
+| `PORT` | Backend | `3001` | Port HTTP du serveur Express | IND-04 : documenter |
+| `SQLITE_PATH` | Backend | `data/interv360.sqlite` (sous `backend/`) | Chemin fichier SQLite ; `:memory:` supporté (tests) | IND-04 : documenter chemin, gitignore, reset fichier |
+| `DEMO_MODE` | Backend | `true` (si variable absente) | Autorise `POST /api/v1/demo/reset` ; `false` désactive le reset | IND-04 : documenter |
+| `INTERV360_CORS_ORIGINS` | Backend | Origines Vite locales 5173–5175 (`localhost` et `127.0.0.1`) | Liste CORS comma-separated pour mode API | IND-04 : documenter ; mentionner fallback `CORS_ORIGIN` legacy |
+
+Risques identifiés :
+
+- mode API sans backend démarré → erreur explicite (pas de fallback) — comportement voulu, à maintenir en doc ;
+- port Vite alternatif (5174/5175) → CORS backend couvre déjà ces ports par défaut ;
+- `DEMO_MODE=false` → reset API refusé — à documenter pour éviter confusion en démo.
+
+### 14.1.4. Scripts audités
+
+| Script | Côté | Usage | Décision |
+|--------|------|-------|----------|
+| `npm run dev` | Frontend | Serveur Vite dev (port 5173 par défaut) | Conserver ; IND-03/IND-04 |
+| `npm run build` | Frontend | `tsc -b && vite build` → `dist/` | Conserver ; IND-04 |
+| `npm run test -- --run` | Frontend | Vitest (191 tests) | Conserver ; IND-05 revalidation |
+| `npm run preview` | Frontend | Preview build production locale | Conserver ; IND-04 mention optionnelle |
+| `npm run dev` | Backend | `tsx watch src/index.ts` — API sur PORT | Conserver ; IND-03/IND-04 |
+| `npm run build` | Backend | `tsc --noEmit` — vérification types uniquement | Conserver ; IND-04 préciser « pas d'emit » |
+| `npm run test` | Backend | Vitest (125 tests) | Conserver ; IND-05 revalidation |
+
+Décision scripts : les scripts actuels suffisent pour le MVP ; pas de script racine monorepo en IND-02 ; évaluer en IND-04 un helper documentaire simple (ex. section Makefile ou npm à la racine `projects/interv360/`) uniquement si la lecture reste confuse après IND-03.
+
+### 14.1.5. Décision CI / Docker
+
+| Sujet | Décision |
+|-------|----------|
+| Docker obligatoire | Non |
+| Dockerfile dans ce lot | Reporté |
+| CI/CD complète | Non |
+| CI minimale | À décider en IND-05 (build + test frontend/backend sur PR) |
+| Déploiement cloud complet | Non |
+| Déploiement simple documenté | Oui — IND-04 / IND-06 |
+
+### 14.1.6. Priorités à traiter
+
+| Priorité | Sujet | Pourquoi | Incrément cible |
+|----------|-------|----------|-----------------|
+| Haute | README racine orienté produit MVP | Point d'entrée manquant pour installation | IND-03 |
+| Haute | Guide installation locale unifié | Parcours fragmenté entre 3 documents | IND-03 |
+| Haute | Tableau variables `.env` + exemples | Réduction erreurs mode API / CORS / SQLite | IND-04 |
+| Moyenne | SQLite, reset et limites données | Exploitation locale et dépannage | IND-04 |
+| Moyenne | Stratégie déploiement simple | Clôture industrialisation sans cloud | IND-04 / IND-06 |
+| Moyenne | CI minimale (build+test) | Garde-fou qualité sans sur-ingénierie | IND-05 |
+
+---
+
+## 14.2. Décision IND-02 — consolidation retenue
+
+IND-02 fixe les décisions à implémenter en IND-03, IND-04 et IND-05.
+
+### Décisions générales
+
+- consolider le README racine Interv360 comme point d'entrée produit ;
+- conserver les README frontend/backend comme références spécialisées ;
+- harmoniser README et runbook ;
+- documenter les variables d'environnement plutôt que changer leur comportement ;
+- créer des exemples `.env` uniquement si utiles (décision IND-04) ;
+- conserver les scripts npm existants sauf besoin simple identifié ;
+- ne pas imposer Docker ;
+- ne pas créer de CI/CD complète ;
+- décider une CI minimale en IND-05 ;
+- ne pas modifier le comportement produit ;
+- ne pas modifier le backend API ;
+- ne pas modifier l'UX MVP.
+
+### IND-03 — README global et guides locaux
+
+À traiter en IND-03 :
+
+- clarifier le README racine Interv360 ;
+- ajouter un parcours d'installation local ;
+- documenter le lancement en mode local ;
+- documenter le lancement en mode API ;
+- documenter les commandes essentielles ;
+- clarifier l'ordre recommandé frontend/backend ;
+- pointer vers les README spécialisés et le runbook.
+
+### IND-04 — Variables `.env`, scripts et exploitation locale
+
+À traiter en IND-04 :
+
+- documenter les variables frontend ;
+- documenter les variables backend ;
+- décider si `.env.example` est utile (`app/` et/ou `backend/`) ;
+- documenter SQLite ;
+- documenter reset demo ;
+- documenter les scripts build/test/run ;
+- documenter les limites d'exploitation locale ;
+- documenter une stratégie de déploiement simple (static frontend + API Node locale).
+
+### IND-05 — Tests, non-régression et CI éventuelle
+
+À traiter en IND-05 :
+
+- relancer validations frontend/backend ;
+- confirmer les compteurs tests ;
+- confirmer mode local/API ;
+- confirmer absence de changement fonctionnel ;
+- décider définitivement la CI minimale :
+  - soit reportée ;
+  - soit ajoutée si simple et utile (workflow GitHub : install + build + test sur `projects/interv360/app` et `backend`) ;
+- ne pas créer de pipeline lourd.
+
+### Hors scope confirmé
+
+IND-02 confirme que le lot ne crée pas :
+
+- déploiement cloud complet ;
+- infrastructure cloud ;
+- Kubernetes ;
+- Terraform ;
+- Helm ;
+- Docker obligatoire ;
+- CI/CD complète ;
+- observabilité avancée ;
+- supervision ;
+- SLA ;
+- multi-tenant ;
+- authentification réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- nouveau statut ;
+- `STAT-08` ;
+- CRUD complet ;
+- formulaire création demande ;
+- refonte UX ;
+- arc Figma ;
+- export Figma.
+
+---
+
 ## 15. Prochaine étape
 
-Exécuter **IND-02** :
+Exécuter **IND-03** :
 
-Audit installation / scripts / env / docs
+README global et guides locaux
