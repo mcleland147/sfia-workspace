@@ -859,3 +859,59 @@ Objectif :
 - clarifier les actions disponibles ;
 - améliorer les messages et états vides / erreurs ;
 - conserver le socle API, request model, audit trail et permissions.
+
+---
+
+## 25. Ouverture du Lot 5 — Product UX Finalization
+
+Le Lot 5 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-product-ux-finalization`
+
+Objectif :
+
+- améliorer l'expérience produit MVP ;
+- clarifier la fiche demande ;
+- clarifier l'historique ;
+- clarifier les actions disponibles ;
+- améliorer les messages et états vides / erreurs ;
+- clarifier l'utilisateur courant ;
+- conserver le socle API, request model, audit trail et permissions.
+
+Document delivery associé :
+
+`../07-delivery/product-ux-finalization.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour UX-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot.
+
+---
+
+## 25. Ouverture du Lot 5 — Product UX Finalization
+
+Le Lot 5 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-product-ux-finalization`
+
+Objectif :
+
+- améliorer l'expérience produit MVP ;
+- clarifier la fiche demande ;
+- clarifier l'historique ;
+- clarifier les actions disponibles ;
+- améliorer les messages et états vides / erreurs ;
+- clarifier l'utilisateur courant ;
+- conserver le socle API, request model, audit trail et permissions.
+
+Document delivery associé :
+
+`../07-delivery/product-ux-finalization.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour UX-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot.
