@@ -6,7 +6,7 @@ import type {
   RequestPriority,
   RequestStatus,
 } from "../domain/requestStatus";
-import type { RequestsRepository } from "./requestsRepository.types";
+import type { ApplyTransitionOptions, RequestsRepository } from "./requestsRepository.types";
 import { RequestsRepositoryError } from "./requestsRepository.types";
 
 const DEFAULT_API_BASE_URL = "http://localhost:3001/api/v1";
@@ -58,6 +58,10 @@ interface ApiWorkflowEvent {
   createdAt: string;
   source: "demo";
   isDemo: true;
+  action?: string;
+  actorUserId?: string;
+  actorDisplayName?: string;
+  actorRole?: string;
 }
 
 interface ApiErrorBody {
@@ -149,7 +153,7 @@ function mapListItemToDemoRequest(item: ApiListItem): DemoRequest {
 }
 
 function mapApiEvent(event: ApiWorkflowEvent): DemoWorkflowEvent {
-  return {
+  const mapped: DemoWorkflowEvent = {
     type: event.type,
     requestId: event.requestId,
     fromStatus: event.fromStatus,
@@ -157,6 +161,21 @@ function mapApiEvent(event: ApiWorkflowEvent): DemoWorkflowEvent {
     message: event.label,
     createdAt: formatIsoLabel(event.createdAt),
   };
+
+  if (event.action) {
+    mapped.action = event.action;
+  }
+  if (event.actorUserId) {
+    mapped.actorUserId = event.actorUserId;
+  }
+  if (event.actorDisplayName) {
+    mapped.actorDisplayName = event.actorDisplayName;
+  }
+  if (event.actorRole) {
+    mapped.actorRole = event.actorRole;
+  }
+
+  return mapped;
 }
 
 async function parseApiError(response: Response): Promise<never> {
@@ -234,12 +253,21 @@ export function createApiRequestsRepository(): RequestsRepository {
       return body.items.map(mapApiEvent);
     },
 
-    applyTransition: async (id, action) => {
+    applyTransition: async (
+      id,
+      action,
+      options?: ApplyTransitionOptions,
+    ) => {
+      const payload: { action: string; actorUserId?: string } = { action };
+      if (options?.actorUserId) {
+        payload.actorUserId = options.actorUserId;
+      }
+
       const response = await apiFetch(
         `/requests/${encodeURIComponent(id)}/transitions`,
         {
           method: "POST",
-          body: JSON.stringify({ action }),
+          body: JSON.stringify(payload),
         },
       );
 

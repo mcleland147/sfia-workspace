@@ -38,4 +38,53 @@ describe("WorkflowJournalReadonly", () => {
     expect(screen.getByText(/STAT-01 → STAT-02/)).toBeInTheDocument();
     expect(screen.getByText(/Qualification fictive confirmée/i)).toBeInTheDocument();
   });
+
+  it("displays enriched audit fields when present", () => {
+    render(
+      <WorkflowJournalReadonly
+        requestId="SAV-DEMO-001"
+        events={[
+          {
+            type: "qualification.confirmed",
+            requestId: "SAV-DEMO-001",
+            fromStatus: "STAT-01",
+            toStatus: "STAT-02",
+            message: "Qualification fictive confirmée",
+            createdAt: "12/03/2026 10:00:00",
+            action: "qualify",
+            actorUserId: "user-technician",
+            actorDisplayName: "Théo Technicien",
+            actorRole: "technician",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByText(/Par Théo Technicien — technician/i)).toBeInTheDocument();
+    expect(screen.getByText(/Action : qualify/i)).toBeInTheDocument();
+    expect(screen.getByText(/STAT-01 → STAT-02/)).toBeInTheDocument();
+  });
+
+  it("keeps legacy events readable without actor or action", () => {
+    render(
+      <WorkflowJournalReadonly
+        requestId="SAV-DEMO-001"
+        events={[
+          {
+            type: "qualification.confirmed",
+            requestId: "SAV-DEMO-001",
+            fromStatus: "STAT-01",
+            toStatus: "STAT-02",
+            message: "Qualification fictive confirmée",
+            createdAt: "12/03/2026 10:00:00",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByText(/Qualification fictive confirmée/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Par /i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Action :/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/undefined/i)).not.toBeInTheDocument();
+  });
 });

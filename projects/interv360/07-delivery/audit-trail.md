@@ -261,7 +261,7 @@ Décision proposée pour rester Fast Track :
 | AT-02 | SQLite workflow_events enrichi | Réalisé |
 | AT-03 | Transitions API avec acteur | Réalisé |
 | AT-04 | Events API enrichis | Réalisé |
-| AT-05 | Frontend historique enrichi | À faire |
+| AT-05 | Frontend historique enrichi | Réalisé |
 | AT-06 | Tests backend/frontend et non-régression | À faire |
 | AT-07 | Documentation runbook/README | À faire |
 | AT-08 | Préparation PR unique | À venir |
@@ -278,13 +278,13 @@ Décision proposée pour rester Fast Track :
 | Transitions API compatibles | OK |
 | Validation acteur backend | OK |
 | Events API enrichis | OK |
-| Frontend historique enrichi | À faire |
+| Frontend historique enrichi | OK |
 | Permissions existantes conservées | À valider |
 | Mode local conservé | À valider |
 | Backend tests | OK |
-| Frontend tests | À faire |
+| Frontend tests | OK — 165 tests |
 | Backend build | OK |
-| Frontend build | À faire |
+| Frontend build | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -492,8 +492,66 @@ Garde-fous confirmés :
 
 ---
 
+## 15.4. Changements AT-05
+
+AT-05 branche le frontend sur l'audit trail enrichi.
+
+Changements réalisés :
+
+- envoi de `actorUserId` dans les transitions API ;
+- conservation de `action` comme champ obligatoire ;
+- absence d'envoi token/session/password ;
+- enrichissement des types frontend events ;
+- mapping frontend des champs events enrichis :
+  - `action`
+  - `fromStatus`
+  - `toStatus`
+  - `actorUserId`
+  - `actorDisplayName`
+  - `actorRole`
+- affichage de l'acteur dans le journal si disponible ;
+- affichage de l'action si disponible ;
+- affichage de la transition de statut si disponible ;
+- enrichissement optionnel du journal local avec l'utilisateur courant ;
+- compatibilité avec les événements legacy sans acteur ;
+- mode local conservé ;
+- permissions existantes conservées ;
+- aucune session backend réelle ;
+- aucune authentification réelle.
+
+Contrat frontend confirmé :
+
+```json
+{
+  "action": "qualify",
+  "actorUserId": "user-technician"
+}
+```
+
+Le frontend n'envoie pas :
+
+- token ;
+- session ;
+- password ;
+- passwordHash.
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **AT-05** :
+Exécuter **AT-06** :
 
-Frontend historique enrichi
+Tests backend/frontend et non-régression

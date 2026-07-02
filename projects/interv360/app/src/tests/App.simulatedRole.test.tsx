@@ -383,4 +383,17 @@ describe("App simulated role", () => {
       ).toBeInTheDocument();
     });
   });
+
+  it("shows local journal with actor after workflow transition", async () => {
+    await renderAppOnDetailsScreen();
+
+    fireEvent.click(screen.getByRole("button", { name: /Qualifier la demande/i }));
+
+    goToDemoScreen("Journal");
+
+    await waitFor(() => {
+      expect(screen.getByText(/Par Théo Technicien — technician/i)).toBeInTheDocument();
+    });
+    expect(screen.getByText(/Action : qualify/i)).toBeInTheDocument();
+  });
 });

@@ -247,6 +247,11 @@ export function App() {
         const updated = await repository.applyTransition(
           selectedRequestId,
           action,
+          {
+            actorUserId: currentUser.id,
+            actorDisplayName: currentUser.displayName,
+            actorRole: currentUser.role,
+          },
         );
         if (updated) {
           setDataVersion((version) => version + 1);
@@ -262,7 +267,7 @@ export function App() {
         setLastActionMessage(message);
       }
     },
-    [repository, request, selectedRequestId, currentRole],
+    [repository, request, selectedRequestId, currentRole, currentUser],
   );
 
   const canPerformDemoReset = canRolePerform(currentRole, "demo_reset");
