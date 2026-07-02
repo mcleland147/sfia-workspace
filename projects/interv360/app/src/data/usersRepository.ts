@@ -1,4 +1,5 @@
 import type { DemoUser } from "../domain/demoUsers";
+import { readApiErrorFromResponse } from "./apiErrorParsing";
 import { RequestsRepositoryError } from "./requestsRepository.types";
 
 const DEFAULT_API_BASE_URL = "http://localhost:3001/api/v1";
@@ -24,7 +25,8 @@ export async function listApiUsers(apiBaseUrl = getApiBaseUrl()): Promise<DemoUs
   }
 
   if (!response.ok) {
-    throw new RequestsRepositoryError(
+    throw await readApiErrorFromResponse(
+      response,
       `Unable to load users: ${response.status}`,
       "USERS_UNAVAILABLE",
     );

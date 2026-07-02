@@ -8,6 +8,7 @@ import type {
 } from "../domain/requestStatus";
 import type { ApplyTransitionOptions, RequestsRepository } from "./requestsRepository.types";
 import { RequestsRepositoryError } from "./requestsRepository.types";
+import { readApiErrorFromResponse } from "./apiErrorParsing";
 
 const DEFAULT_API_BASE_URL = "http://localhost:3001/api/v1";
 
@@ -66,13 +67,6 @@ interface ApiWorkflowEvent {
   actorUserId?: string;
   actorDisplayName?: string;
   actorRole?: string;
-}
-
-interface ApiErrorBody {
-  error?: {
-    code?: string;
-    message?: string;
-  };
 }
 
 function getApiBaseUrl(): string {
@@ -224,19 +218,11 @@ function mapApiEvent(event: ApiWorkflowEvent): DemoWorkflowEvent {
 }
 
 async function parseApiError(response: Response): Promise<never> {
-  try {
-    const body = (await response.json()) as ApiErrorBody;
-    throw new RequestsRepositoryError(
-      body.error?.message ?? "Request failed",
-      body.error?.code ?? "UNKNOWN_ERROR",
-    );
-  } catch (error) {
-    if (error instanceof RequestsRepositoryError) {
-      throw error;
-    }
-
-    throw new RequestsRepositoryError("Request failed", "UNKNOWN_ERROR");
-  }
+  throw await readApiErrorFromResponse(
+    response,
+    "Request failed",
+    "UNKNOWN_ERROR",
+  );
 }
 
 async function apiFetch(path: string, init?: RequestInit): Promise<Response> {

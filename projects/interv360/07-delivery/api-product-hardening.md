@@ -250,7 +250,7 @@ Décision proposée pour rester Fast Track :
 | APH-01 | Cadrage opérationnel API hardening | Réalisé |
 | APH-02 | Audit contrat API et décisions erreurs/validations | Réalisé |
 | APH-03 | Backend API errors/validation hardening | Réalisé |
-| APH-04 | Frontend API compatibility hardening | À faire |
+| APH-04 | Frontend API compatibility hardening | Réalisé |
 | APH-05 | Tests backend/frontend et non-régression | À faire |
 | APH-06 | Documentation runbook/README | À faire |
 | APH-07 | Préparation PR unique | À venir |
@@ -267,15 +267,16 @@ Décision proposée pour rester Fast Track :
 | Décisions erreurs/validations prises | OK |
 | Backend erreurs alignées | OK |
 | Backend validations alignées | OK |
-| Frontend compatibilité API conservée | À valider |
+| Frontend compatibilité API conservée | OK |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
 | Audit trail conservé | À valider |
 | Request model conservé | À valider |
 | Permissions conservées | À valider |
 | Backend tests | OK — 124 tests |
-| Frontend tests | À faire |
+| Frontend tests | OK — 183 tests |
 | Backend build | OK |
+| Frontend build | OK |
 | Frontend build | À faire |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
@@ -626,8 +627,65 @@ Garde-fous confirmés :
 
 ---
 
+## 15.4. Changements APH-04
+
+APH-04 vérifie et durcit la compatibilité frontend avec le contrat d'erreur API.
+
+Changements réalisés :
+
+- introduction du helper partagé `apiErrorParsing.ts` (`getApiErrorDetails`, `readApiErrorFromResponse`) ;
+- alignement de `apiUsersRepository` sur le format `{ error: { code, message } }` ;
+- conservation et factorisation du parsing dans `apiRequestsRepository` ;
+- conservation du mode API ;
+- conservation du mode local ;
+- conservation de l'absence de fallback silencieux vers le mode local ;
+- conservation des transitions avec `actorUserId` ;
+- conservation du message « backend indisponible en mode API local » ;
+- tests frontend ajoutés (`apiErrorParsing`, `usersRepository`, `apiRequestsRepository`, `App.apiMode`) ;
+- aucune modification backend ;
+- aucune modification workflow ;
+- aucune modification request model ;
+- aucune modification audit trail.
+
+Décisions confirmées :
+
+| Sujet | Décision |
+|-------|----------|
+| Format erreur API | `{ error: { code, message } }` consommé |
+| `apiRequestsRepository` | Compatible |
+| `apiUsersRepository` | Compatible |
+| Backend indisponible | Message existant conservé |
+| Fallback silencieux vers local | Non |
+| Mode local | Inchangé |
+| Mode API | Conservé |
+| Auth réelle | Non |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 183 tests |
+| Backend build | OK (non-régression) |
+| Backend tests | OK — 124 tests (non-régression) |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **APH-04** :
+Exécuter **APH-05** :
 
-Frontend API compatibility hardening
+Tests backend/frontend et non-régression
