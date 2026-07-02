@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Workflow Light Extension  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-WF-04 réalisé  
+**Statut** : Batch produit — INC-WF-05 réalisé  
 **Branche** : `delivery/interv360-workflow-light-extension`
 
 ---
@@ -139,7 +139,7 @@ Aucune nouvelle table prévue.
 | INC-WF-02 | Implémenter statuts/actions backend | Réalisé |
 | INC-WF-03 | Exposer actions frontend | Réalisé |
 | INC-WF-04 | Adapter rôles simulés, tests et runbook | Réalisé |
-| INC-WF-05 | Préparer PR unique du batch | À venir |
+| INC-WF-05 | Préparer PR unique du batch | Réalisé |
 
 ---
 
@@ -270,22 +270,20 @@ Matrice finale des permissions workflow simulées :
 
 ## 10. Validations
 
-À compléter pendant le batch.
-
 | Contrôle | Résultat |
 |----------|----------|
 | Backend build | OK |
-| Backend tests | OK |
+| Backend tests | OK — 54 tests |
 | Frontend build | OK |
-| Frontend tests | OK |
-| Validation navigateur local | non exécutée |
-| Validation navigateur API | non exécutée |
+| Frontend tests | OK — 113 tests |
+| Validation navigateur local | Non exécutée — validation automatisée OK |
+| Validation navigateur API | Non exécutée — validation automatisée OK |
 
 ---
 
 ## 11. Prochaine étape
 
-**INC-WF-05** : préparer la PR unique du batch.
+Merger la PR unique du batch après revue.
 
 ---
 
@@ -304,4 +302,78 @@ Capacités ajoutées :
 - SQLite conservée sans nouvelle table ;
 - runbook mis à jour.
 
-La prochaine étape est INC-WF-05 : préparation de la PR unique du batch.
+La PR unique du batch est préparée sur `delivery/interv360-workflow-light-extension`.
+
+---
+
+## 13. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 workflow light extension`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds a controlled workflow light extension to Interv360.
+It keeps the existing API contract and SQLite persistence model while adding two new workflow statuses and three new transition actions.
+
+## What changed
+### Product framing
+- integrated the role simulation review feedback;
+- confirmed that the next product bottleneck is workflow richness, not authentication;
+- framed a light workflow extension instead of a full workflow redesign.
+
+### Backend
+- added `STAT-05 — En attente`;
+- added `STAT-07 — Annulée`;
+- added transition actions:
+  - `put_on_hold`;
+  - `resume`;
+  - `cancel`;
+- preserved the existing API endpoint:
+  `POST /api/v1/requests/:id/transitions`
+- kept SQLite without a new table;
+- added backend tests for valid and invalid transitions, API behavior, and persistence.
+
+### Frontend
+- exposed `STAT-05` and `STAT-07`;
+- exposed workflow actions:
+  - `Mettre en attente`;
+  - `Reprendre`;
+  - `Annuler la demande`;
+- supports multiple actions per status;
+- aligns local mode with backend transition rules;
+- keeps API opt-in mode on the existing contract.
+
+### Role simulation
+- aligned simulated permissions:
+  - `technician` can put on hold and resume;
+  - `technician` cannot cancel;
+  - `manager` and `admin` can cancel;
+  - `requester` and `viewer` remain read-only for workflow actions;
+- preserved the existing unauthorized action message.
+
+### Documentation
+- updated the workflow light extension delivery document;
+- updated the E2E runbook with hold/resume/cancel scenarios;
+- updated the frontend README.
+
+## Validation
+- Backend build: OK
+- Backend tests: 54 passed
+- Frontend build: OK
+- Frontend tests: 113 passed
+
+## Guardrails
+No real authentication, OAuth, JWT, SSO, backend user database, CRM integration, real data, workflow engine, BPMN engine, new API endpoint, new SQLite table, PostgreSQL, heavy ORM, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+Requalification remains deferred.
+Only `STAT-05` and `STAT-07` are introduced in this batch.
+```
+
+---
+
+## 14. Statut push / PR
+
+À compléter après push.
