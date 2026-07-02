@@ -240,7 +240,7 @@ Décision proposée pour rester Fast Track :
 | UX-04 | Actions, historique et messages | Réalisé |
 | UX-05 | Tests frontend et non-régression | Réalisé |
 | UX-06 | Documentation runbook/README | Réalisé |
-| UX-07 | Préparation PR unique | À venir |
+| UX-07 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -722,9 +722,7 @@ Décision :
 
 ## 16. Prochaine étape
 
-Exécuter **UX-07** :
-
-Préparation PR unique
+Lot **Product UX Finalization** clos — PR unique préparée (UX-07).
 
 ---
 
@@ -777,4 +775,128 @@ Le lot ne met pas en place :
 - dépendance UI ;
 - export Figma.
 
-La prochaine étape est UX-07 : préparation de la PR unique du lot.
+La prochaine étape est la revue et le merge de la PR unique du lot.
+
+---
+
+## 18. Validations finales UX-07
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| Diff global vs main | OK |
+| Fiche demande clarifiée | OK |
+| Liste demandes orientée produit | OK |
+| Statuts métier lisibles | OK |
+| Actions workflow clarifiées | OK |
+| Actions indisponibles avec motifs | OK |
+| Historique acteur / action / date | OK |
+| Profil actif clarifié | OK |
+| Badge mode local/API clarifié | OK |
+| Backend indisponible sans fallback silencieux | OK |
+| Reset admin conservé | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Request model conservé | OK |
+| Audit trail conservé | OK |
+| Workflow conservé | OK |
+| Statuts techniques conservés | OK |
+| Transitions métier conservées | OK |
+| Permissions conservées | OK |
+| Backend inchangé | OK |
+| API inchangée | OK |
+| CRUD complet exclu | OK |
+| Formulaire création exclu | OK |
+| Auth réelle exclue | OK |
+| Session backend réelle exclue | OK |
+| Login/password exclus | OK |
+| Token exclu | OK |
+| OAuth/JWT/SSO exclus | OK |
+| CRM/données réelles exclus | OK |
+| Nouveau statut exclu | OK |
+| `STAT-08` exclu | OK |
+| Nouvelle dépendance UI exclue | OK |
+| Arc Figma exclu de cette PR | OK |
+| Exports Figma exclus | OK |
+| sfia-notion-sync exclu | OK |
+
+---
+
+## 19. Préparation PR intégrée
+
+### Titre proposé
+
+`Finalize Interv360 product UX MVP`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR delivers Lot 5 of the Interv360 MVP Final Roadmap: Product UX Finalization.
+It improves the product readability of the Interv360 frontend without expanding the functional scope. The lot clarifies the request detail page, request list, workflow actions, workflow journal, active simulated profile, local/API mode indicators and product messages.
+This is not a redesign, not a CRUD expansion, and does not introduce real authentication, tokens, CRM integration, real data, new workflow statuses or Figma exports.
+## What changed
+### Product delivery
+- opens Lot 5 from the MVP Final Roadmap;
+- adds the Product UX Finalization delivery document;
+- preserves the stabilized users/session foundation, audit trail, request model and API hardening;
+- keeps the SFIA Fast Track delivery approach.
+### Request UX
+- restructures the request detail page into clearer sections;
+- highlights request title, reference, business status and key badges;
+- displays business status labels as the primary status wording;
+- keeps technical status codes secondary when useful;
+- improves the request list wording;
+- removes demo-oriented wording such as batch labels where it reduced product readability;
+- keeps search, filters, requester, assignment, priority and criticality.
+### Workflow UX
+- clarifies the workflow action area;
+- displays available actions more clearly;
+- disables unavailable actions explicitly;
+- provides readable reasons for blocked actions;
+- preserves existing workflow actions, transitions, statuses and permissions;
+- keeps `actorUserId` in API transitions.
+### Journal and messages
+- makes the workflow journal more readable;
+- emphasizes actor, action and date;
+- displays business status labels in the journal;
+- keeps technical codes secondary;
+- clarifies empty states;
+- improves product messages for success, error and backend unavailable cases;
+- confirms API mode does not silently fall back to local mode.
+### Active profile and modes
+- clarifies the active simulated profile;
+- keeps the user switcher;
+- clarifies local/API mode badges;
+- preserves local mode and API mode.
+### Documentation
+- updates the E2E runbook with Product UX Finalization controls;
+- updates the frontend README with Product UX MVP documentation;
+- updates the backend README with frontend UX compatibility notes;
+- updates the Product UX Finalization delivery document with UX-01 to UX-07 status.
+## Validation
+- Frontend build: OK
+- Frontend tests: 191 passed
+- Backend build: OK
+- Backend tests: 125 passed
+## Guardrails
+No full CRUD API, request creation form, real authentication, login, logout, password, password hash, token, OAuth, JWT, SSO, Entra ID, backend auth session, CRM integration, real data, workflow status, `STAT-08`, new workflow action, backend API change, SQLite change, Notion publication, Controlled Delivery change, sfia-notion-sync update, Figma arc or Figma export was introduced.
+Existing backend, API contract, SQLite persistence, request model, audit trail, workflow, technical statuses, transitions, permissions, local mode, API mode and admin reset behavior are preserved.
+Figma remains available for a future design arc if a broader redesign or design system becomes necessary, but no Figma artifact is included in this PR.
+```
+
+---
+
+## 20. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-product-ux-finalization` |
+| Merge automatique | Non |
