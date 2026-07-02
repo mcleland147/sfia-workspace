@@ -9,26 +9,36 @@ import {
   listRequests,
   resetDemoStore,
 } from "../store/demoStore.js";
+import { sendApiError, sendStoreError } from "./apiErrors.js";
 
-function sendStoreError(
-  res: import("express").Response,
-  error: StoreError,
-): void {
-  const statusByCode: Record<string, number> = {
-    REQUEST_NOT_FOUND: 404,
-    INVALID_TRANSITION_ACTION: 400,
-    INVALID_ACTOR_USER: 400,
-    TRANSITION_NOT_ALLOWED: 409,
-    DEMO_MODE_REQUIRED: 403,
-  };
+const INVALID_TRANSITION_ACTION_MESSAGE = "Transition action is required.";
+const INVALID_ACTOR_USER_MESSAGE = "Actor user is invalid or inactive.";
 
-  const status = statusByCode[error.code] ?? 500;
-  res.status(status).json({
-    error: {
-      code: error.code,
-      message: error.message,
-    },
-  });
+function parseTransitionAction(body: unknown): string | null {
+  const action = (body as { action?: unknown } | null | undefined)?.action;
+
+  if (typeof action !== "string" || action.trim().length === 0) {
+    return null;
+  }
+
+  return action.trim();
+}
+
+function parseOptionalActorUserId(
+  body: unknown,
+): { ok: true; actorUserId?: string } | { ok: false } {
+  const actorUserId = (body as { actorUserId?: unknown } | null | undefined)
+    ?.actorUserId;
+
+  if (actorUserId === undefined || actorUserId === null) {
+    return { ok: true };
+  }
+
+  if (typeof actorUserId !== "string" || actorUserId.trim().length === 0) {
+    return { ok: false };
+  }
+
+  return { ok: true, actorUserId: actorUserId.trim() };
 }
 
 export function createApiRouter(): Router {
@@ -43,12 +53,7 @@ export function createApiRouter(): Router {
     const user = getUserById(getDatabase(), req.params.id);
 
     if (!user) {
-      res.status(404).json({
-        error: {
-          code: "USER_NOT_FOUND",
-          message: "User not found.",
-        },
-      });
+      sendApiError(res, 404, "USER_NOT_FOUND", "User not found.");
       return;
     }
 
@@ -86,16 +91,27 @@ export function createApiRouter(): Router {
   });
 
   router.post("/requests/:id/transitions", (req, res) => {
-    const action = req.body?.action;
-    const actorUserId = req.body?.actorUserId;
+    const action = parseTransitionAction(req.body);
 
-    if (typeof action !== "string" || action.trim().length === 0) {
-      res.status(400).json({
-        error: {
-          code: "INVALID_TRANSITION_ACTION",
-          message: "Transition action is required.",
-        },
-      });
+    if (!action) {
+      sendApiError(
+        res,
+        400,
+        "INVALID_TRANSITION_ACTION",
+        INVALID_TRANSITION_ACTION_MESSAGE,
+      );
+      return;
+    }
+
+    const actorParse = parseOptionalActorUserId(req.body);
+
+    if (!actorParse.ok) {
+      sendApiError(
+        res,
+        400,
+        "INVALID_ACTOR_USER",
+        INVALID_ACTOR_USER_MESSAGE,
+      );
       return;
     }
 
@@ -107,26 +123,16 @@ export function createApiRouter(): Router {
         }
       | undefined;
 
-    if (actorUserId !== undefined && actorUserId !== null) {
-      if (typeof actorUserId !== "string" || actorUserId.trim().length === 0) {
-        res.status(400).json({
-          error: {
-            code: "INVALID_ACTOR_USER",
-            message: "Actor user is invalid or inactive.",
-          },
-        });
-        return;
-      }
-
-      const user = getUserById(getDatabase(), actorUserId.trim());
+    if (actorParse.actorUserId) {
+      const user = getUserById(getDatabase(), actorParse.actorUserId);
 
       if (!user || !user.isActive) {
-        res.status(400).json({
-          error: {
-            code: "INVALID_ACTOR_USER",
-            message: "Actor user is invalid or inactive.",
-          },
-        });
+        sendApiError(
+          res,
+          400,
+          "INVALID_ACTOR_USER",
+          INVALID_ACTOR_USER_MESSAGE,
+        );
         return;
       }
 
@@ -138,11 +144,7 @@ export function createApiRouter(): Router {
     }
 
     try {
-      const { request, event } = applyTransition(
-        req.params.id,
-        action.trim(),
-        actor,
-      );
+      const { request, event } = applyTransition(req.params.id, action, actor);
       res.json({ request, event });
     } catch (error) {
       if (error instanceof StoreError) {
@@ -168,6 +170,10 @@ export function createApiRouter(): Router {
       }
       throw error;
     }
+  });
+
+  router.use((_req, res) => {
+    sendApiError(res, 404, "ROUTE_NOT_FOUND", "API route not found.");
   });
 
   return router;

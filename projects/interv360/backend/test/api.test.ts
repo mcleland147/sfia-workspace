@@ -805,4 +805,35 @@ describe("Interv360 API", () => {
     expect(response.status).toBe(403);
     expect(response.body.error.code).toBe("DEMO_MODE_REQUIRED");
   });
+
+  it("POST transition with empty action returns INVALID_TRANSITION_ACTION", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "   " });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_TRANSITION_ACTION");
+    expect(response.body.error.message).toBe("Transition action is required.");
+    expect(response.body.stack).toBeUndefined();
+  });
+
+  it("GET unknown API route returns ROUTE_NOT_FOUND", async () => {
+    const response = await request(app).get("/api/v1/unknown-route");
+
+    expect(response.status).toBe(404);
+    expect(response.body.error.code).toBe("ROUTE_NOT_FOUND");
+    expect(response.body.error.message).toBe("API route not found.");
+    expect(response.body.stack).toBeUndefined();
+  });
+
+  it("API errors use { error: { code, message } } without stack", async () => {
+    const response = await request(app).get("/api/v1/requests/UNKNOWN");
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toMatchObject({
+      code: "REQUEST_NOT_FOUND",
+      message: expect.any(String),
+    });
+    expect(response.body.stack).toBeUndefined();
+  });
 });

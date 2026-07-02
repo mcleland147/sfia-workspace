@@ -249,7 +249,7 @@ Décision proposée pour rester Fast Track :
 |-----------|----------|--------|
 | APH-01 | Cadrage opérationnel API hardening | Réalisé |
 | APH-02 | Audit contrat API et décisions erreurs/validations | Réalisé |
-| APH-03 | Backend API errors/validation hardening | À faire |
+| APH-03 | Backend API errors/validation hardening | Réalisé |
 | APH-04 | Frontend API compatibility hardening | À faire |
 | APH-05 | Tests backend/frontend et non-régression | À faire |
 | APH-06 | Documentation runbook/README | À faire |
@@ -265,17 +265,17 @@ Décision proposée pour rester Fast Track :
 | Contrat API cible cadré | OK |
 | Audit endpoints réalisé | OK |
 | Décisions erreurs/validations prises | OK |
-| Backend erreurs alignées | À faire |
-| Backend validations alignées | À faire |
+| Backend erreurs alignées | OK |
+| Backend validations alignées | OK |
 | Frontend compatibilité API conservée | À valider |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
 | Audit trail conservé | À valider |
 | Request model conservé | À valider |
 | Permissions conservées | À valider |
-| Backend tests | À faire |
+| Backend tests | OK — 124 tests |
 | Frontend tests | À faire |
-| Backend build | À faire |
+| Backend build | OK |
 | Frontend build | À faire |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
@@ -551,8 +551,83 @@ APH-02 confirme que le lot ne crée pas :
 
 ---
 
+## 15.3. Changements APH-03
+
+APH-03 durcit les erreurs et validations backend API.
+
+Changements réalisés :
+
+- centralisation du helper d'erreur API dans `backend/src/api/apiErrors.ts` ;
+- `sendApiError()` et `sendStoreError()` partagés ;
+- généralisation du format :
+  - `{ error: { code, message } }`
+- conservation des codes existants :
+  - `REQUEST_NOT_FOUND`
+  - `INVALID_TRANSITION_ACTION`
+  - `TRANSITION_NOT_ALLOWED`
+  - `INVALID_JSON_BODY`
+  - `INVALID_ACTOR_USER`
+  - `USER_NOT_FOUND`
+  - `DEMO_MODE_REQUIRED`
+  - `INTERNAL_ERROR`
+- introduction de `ROUTE_NOT_FOUND` (404) pour les routes `/api/v1` inconnues ;
+- durcissement des validations transition via helpers dédiés :
+  - `action` absent ;
+  - `action` non string ;
+  - `action` vide ;
+  - `action` inconnue (via store existant) ;
+  - `actorUserId` non string ;
+  - `actorUserId` vide ;
+  - `actorUserId` inconnu ;
+  - `actorUserId` inactif ;
+- homogénéisation `USER_NOT_FOUND` via `sendApiError()` ;
+- homogénéisation `INVALID_JSON_BODY` et `INTERNAL_ERROR` via `sendApiError()` dans `app.ts` ;
+- tests backend ajoutés (action vide, route inconnue, contrat erreur sans stack) ;
+- aucun changement frontend ;
+- aucune modification workflow ;
+- aucune modification request model ;
+- aucune modification audit trail.
+
+Décisions confirmées :
+
+| Sujet | Décision |
+|-------|----------|
+| Format erreur | `{ error: { code, message } }` |
+| Stack trace exposée | Non |
+| `DEMO_RESET_FAILED` | Non ajouté ; `DEMO_MODE_REQUIRED` conservé |
+| `ROUTE_NOT_FOUND` | Implémenté |
+| `METHOD_NOT_ALLOWED` | Reporté |
+| Frontend | À vérifier en APH-04 |
+| Workflow | Inchangé |
+| Request model | Inchangé |
+| Audit trail | Inchangé |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Backend build | OK |
+| Backend tests | OK — 124 tests |
+| Frontend build | OK (non-régression) |
+| Frontend tests | OK — 175 tests (non-régression) |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **APH-03** :
+Exécuter **APH-04** :
 
-Backend API errors/validation hardening
+Frontend API compatibility hardening
