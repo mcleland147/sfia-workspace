@@ -328,3 +328,65 @@ La PR devra inclure :
 - la capitalisation Interv360 ;
 - le template réutilisable ;
 - la confirmation qu'aucun produit Interv360 n'a été modifié.
+
+---
+
+## 20. Statut merge
+
+Le cycle de capitalisation **SFIA Fast Track MVP Delivery Pattern** est mergé dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #72 |
+| Source | `method/interv360-mvp-delivery-capitalization` |
+| Cible | `main` |
+| Méthode | Merge commit GitHub PR |
+| Commit merge | `fece7b4` |
+| Main synchronisée | OK |
+| Capitalisation méthode | OK |
+| Template réutilisable | OK |
+| Interv360 produit modifié | Non |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| API modifiée | Non |
+| SQLite modifiée | Non |
+| CI modifiée | Non |
+| Tag `v0.1.0-mvp` modifié | Non |
+| GitHub Release créée | Non |
+| Controlled Delivery modifié | Non |
+| `sfia-notion-sync` modifié | Non |
+| Export Figma ajouté | Non |
+
+### Décision post-merge
+
+La capitalisation méthode est clôturée.
+
+Le pattern **SFIA Fast Track MVP Delivery** est désormais disponible comme actif réutilisable.
+
+Livrables mergés :
+
+- `method/sfia-fast-track/interv360-mvp-delivery-capitalization.md`
+- `method/sfia-fast-track/templates/mvp-delivery-pattern-template.md`
+
+Décisions confirmées :
+
+- la méthode issue d'Interv360 `v0.1.0-mvp` est capitalisée ;
+- le template générique v1.0 est disponible ;
+- le pattern peut être réutilisé pour transformer une démonstration ou un prototype en MVP structuré ;
+- aucun fichier produit Interv360 n'a été modifié ;
+- aucun tag, aucune GitHub Release, aucun outil transverse n'a été modifié.
+
+### Prochaine étape
+
+Ne pas ouvrir automatiquement de nouveau cycle.
+
+Les prochains cycles possibles devront être décidés explicitement :
+
+- appliquer le template à un nouveau projet ;
+- ouvrir un cycle produit Interv360 distinct ;
+- ouvrir un cycle enterprise readiness ;
+- ouvrir un cycle déploiement cible ;
+- ouvrir un cycle supervision / observabilité ;
+- ouvrir un cycle auth / CRM / données réelles.
+
+Aucun Lot 7 automatique ne doit être créé.
