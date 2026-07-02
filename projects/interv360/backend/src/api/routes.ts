@@ -17,6 +17,7 @@ function sendStoreError(
   const statusByCode: Record<string, number> = {
     REQUEST_NOT_FOUND: 404,
     INVALID_TRANSITION_ACTION: 400,
+    INVALID_ACTOR_USER: 400,
     TRANSITION_NOT_ALLOWED: 409,
     DEMO_MODE_REQUIRED: 403,
   };
@@ -86,6 +87,7 @@ export function createApiRouter(): Router {
 
   router.post("/requests/:id/transitions", (req, res) => {
     const action = req.body?.action;
+    const actorUserId = req.body?.actorUserId;
 
     if (typeof action !== "string" || action.trim().length === 0) {
       res.status(400).json({
@@ -97,10 +99,49 @@ export function createApiRouter(): Router {
       return;
     }
 
+    let actor:
+      | {
+          userId: string;
+          displayName: string;
+          role: string;
+        }
+      | undefined;
+
+    if (actorUserId !== undefined && actorUserId !== null) {
+      if (typeof actorUserId !== "string" || actorUserId.trim().length === 0) {
+        res.status(400).json({
+          error: {
+            code: "INVALID_ACTOR_USER",
+            message: "Actor user is invalid or inactive.",
+          },
+        });
+        return;
+      }
+
+      const user = getUserById(getDatabase(), actorUserId.trim());
+
+      if (!user || !user.isActive) {
+        res.status(400).json({
+          error: {
+            code: "INVALID_ACTOR_USER",
+            message: "Actor user is invalid or inactive.",
+          },
+        });
+        return;
+      }
+
+      actor = {
+        userId: user.id,
+        displayName: user.displayName,
+        role: user.role,
+      };
+    }
+
     try {
       const { request, event } = applyTransition(
         req.params.id,
         action.trim(),
+        actor,
       );
       res.json({ request, event });
     } catch (error) {

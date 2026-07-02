@@ -208,6 +208,114 @@ describe("Interv360 API", () => {
     expect(response.body.request.status).toBe("STAT-02");
     expect(response.body.event.type).toBe("qualification.confirmed");
     expect(response.body.event.isDemo).toBe(true);
+    expect(response.body.event.action).toBe("qualify");
+    expect(response.body.event.actorUserId).toBeUndefined();
+  });
+
+  it("POST transition without actor keeps legacy behavior", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify" });
+
+    expect(response.status).toBe(200);
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.status).toBe(200);
+    expect(eventsResponse.body.items).toHaveLength(1);
+    expect(eventsResponse.body.items[0]?.action).toBe("qualify");
+    expect(eventsResponse.body.items[0]?.actorUserId).toBeUndefined();
+  });
+
+  it("POST transition with valid actor stores action and actor snapshot", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-technician" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.event).toMatchObject({
+      action: "qualify",
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+      fromStatus: "STAT-01",
+      toStatus: "STAT-02",
+    });
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.body.items[0]).toMatchObject({
+      action: "qualify",
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+    });
+  });
+
+  it("POST transition with unknown actor returns INVALID_ACTOR_USER", async () => {
+    const before = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(before.status).toBe(200);
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "unknown" });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+    expect(response.body.error.message).toBe(
+      "Actor user is invalid or inactive.",
+    );
+
+    const after = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(after.body.request.status).toBe(before.body.request.status);
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.body.items).toHaveLength(0);
+  });
+
+  it("POST transition with inactive actor returns INVALID_ACTOR_USER", async () => {
+    getDatabase()
+      .prepare("UPDATE users SET is_active = 0 WHERE id = ?")
+      .run("user-viewer");
+
+    const before = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-viewer" });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+
+    const after = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(after.body.request.status).toBe(before.body.request.status);
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.body.items).toHaveLength(0);
+  });
+
+  it("POST transition rejects non-string actorUserId", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: 42 });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+  });
+
+  it("POST transition rejects empty actorUserId", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "   " });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
   });
 
   it("POST transition invalid returns TRANSITION_NOT_ALLOWED", async () => {

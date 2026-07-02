@@ -140,11 +140,30 @@ describe("audit trail persistence", () => {
       type: "qualification.confirmed",
       fromStatus: "STAT-01",
       toStatus: "STAT-02",
+      action: "qualify",
     });
-    expect(event?.action).toBeUndefined();
     expect(event?.actorUserId).toBeUndefined();
     expect(event?.actorDisplayName).toBeUndefined();
     expect(event?.actorRole).toBeUndefined();
+  });
+
+  it("persists actor snapshot when transition includes actor", () => {
+    applyTransition("SAV-DEMO-001", "qualify", {
+      userId: "user-technician",
+      displayName: "Théo Technicien",
+      role: "technician",
+    });
+
+    const [event] = listEventsForRequest("SAV-DEMO-001");
+
+    expect(event).toMatchObject({
+      action: "qualify",
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+      fromStatus: "STAT-01",
+      toStatus: "STAT-02",
+    });
   });
 
   it("maps persisted audit trail fields when present", () => {

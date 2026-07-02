@@ -259,7 +259,7 @@ Décision proposée pour rester Fast Track :
 |-----------|----------|--------|
 | AT-01 | Cadrage opérationnel audit trail | Réalisé |
 | AT-02 | SQLite workflow_events enrichi | Réalisé |
-| AT-03 | Transitions API avec acteur | À faire |
+| AT-03 | Transitions API avec acteur | Réalisé |
 | AT-04 | Events API enrichis | À faire |
 | AT-05 | Frontend historique enrichi | À faire |
 | AT-06 | Tests backend/frontend et non-régression | À faire |
@@ -275,8 +275,8 @@ Décision proposée pour rester Fast Track :
 | Document delivery créé | OK |
 | Acteur utilisateur cadré | OK |
 | SQLite audit enrichi | OK |
-| Transitions API compatibles | À faire |
-| Validation acteur backend | À faire |
+| Transitions API compatibles | OK |
+| Validation acteur backend | OK |
 | Events API enrichis | À faire |
 | Frontend historique enrichi | À faire |
 | Permissions existantes conservées | À valider |
@@ -386,8 +386,56 @@ Garde-fous confirmés :
 
 ---
 
+## 15.2. Changements AT-03
+
+AT-03 rattache les transitions API à un acteur utilisateur optionnel.
+
+Changements réalisés :
+
+- extension compatible du payload transition avec `actorUserId` optionnel ;
+- conservation de `action` comme champ obligatoire ;
+- validation de `actorUserId` contre les users backend actifs ;
+- refus explicite des acteurs inconnus ou inactifs ;
+- stockage de `action` dans `workflow_events` ;
+- stockage du snapshot acteur :
+  - `actor_user_id`
+  - `actor_display_name`
+  - `actor_role`
+- conservation de `from_status` et `to_status` ;
+- compatibilité des transitions sans acteur ;
+- aucune modification frontend ;
+- aucune session backend réelle ;
+- aucun token ;
+- aucune auth réelle.
+
+Contrat transition confirmé :
+
+```json
+{
+  "action": "qualify",
+  "actorUserId": "user-technician"
+}
+```
+
+`actorUserId` reste optionnel.
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **AT-03** :
+Exécuter **AT-04** :
 
-Transitions API avec acteur
+Events API enrichis
