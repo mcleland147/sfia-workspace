@@ -101,6 +101,24 @@ describe("App simulated role", () => {
     ).toBeInTheDocument();
   });
 
+  it("shows enriched request model fields in local request detail", async () => {
+    await renderAppOnDetailsScreen();
+
+    expect(screen.getByText("Alice Demandeur")).toBeInTheDocument();
+    expect(screen.getByText("Demandeur")).toBeInTheDocument();
+    expect(screen.getByText("Affectation")).toBeInTheDocument();
+    expect(screen.getAllByText("Théo Technicien").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Centre demandeur")).toBeInTheDocument();
+  });
+
+  it("aligns local seed SAV-DEMO-002 with backend request model fields", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+
+    expect(screen.getAllByText("Maya Responsable").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Paris Démo")).toBeInTheDocument();
+    expect(screen.getByText("Client Démo Services")).toBeInTheDocument();
+  });
+
   it("persists user changes in localStorage", async () => {
     render(<App />);
     await waitForScreenNavigation();

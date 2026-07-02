@@ -11,6 +11,10 @@ const apiRequest = {
   customerLabel: "Client Démo Industrie",
   siteLabel: "Lyon Démo",
   assignedTechnicianLabel: "Technicien Démo 01",
+  requesterName: "Alice Demandeur",
+  requesterTeam: "Centre demandeur",
+  assignedToUserId: "user-technician",
+  assignedToDisplayName: "Théo Technicien",
   createdAt: "2026-03-12T07:30:00.000Z",
   updatedAt: "2026-03-12T07:30:00.000Z",
   detailId: "SAV-DEMO-001",
@@ -79,6 +83,32 @@ describe("apiRequestsRepository", () => {
     expect(requests).toHaveLength(1);
     expect(requests[0]?.id).toBe("SAV-DEMO-001");
     expect(requests[0]?.customerLabel).toBe("Client Démo Industrie");
+    expect(requests[0]?.requesterName).toBe("Alice Demandeur");
+    expect(requests[0]?.assignedToDisplayName).toBe("Théo Technicien");
+  });
+
+  it("maps enriched request model fields from API detail", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => apiDetailPayload,
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+    const request = await repository.getRequestById("SAV-DEMO-001");
+
+    expect(request).toMatchObject({
+      requesterName: "Alice Demandeur",
+      requesterTeam: "Centre demandeur",
+      assignedToUserId: "user-technician",
+      assignedToDisplayName: "Théo Technicien",
+      customerLabel: "Client Démo Industrie",
+      assignedTechnicianLabel: "Technicien Démo 01",
+    });
+    expect(request).not.toHaveProperty("token");
+    expect(request).not.toHaveProperty("session");
   });
 
   it("loads request detail from the API", async () => {
@@ -102,6 +132,34 @@ describe("apiRequestsRepository", () => {
     );
     expect(request?.impactLabel).toBe("Production démo limitée");
     expect(request?.siteLabel).toBe("Lyon Démo");
+  });
+
+  it("omits enriched request model fields when absent from API", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          items: [
+            {
+              ...apiRequest,
+              requesterName: undefined,
+              requesterTeam: undefined,
+              assignedToUserId: undefined,
+              assignedToDisplayName: undefined,
+            },
+          ],
+        }),
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+    const requests = await repository.listRequests();
+
+    expect(requests[0]?.requesterName).toBeUndefined();
+    expect(requests[0]?.assignedToDisplayName).toBeUndefined();
+    expect(requests[0]?.customerLabel).toBe("Client Démo Industrie");
+    expect(requests[0]?.assignedTechnicianLabel).toBe("Technicien Démo 01");
   });
 
   it("applies a transition via the API", async () => {

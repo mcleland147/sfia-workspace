@@ -34,6 +34,16 @@ export function getCriticalityBadgeClass(
   return `request-badge request-badge--criticality-${criticality}`;
 }
 
+export function getRequesterDisplay(request: DemoRequest): string {
+  return request.requesterName ?? request.customerLabel;
+}
+
+export function getAssignmentDisplay(
+  request: DemoRequest,
+): string | undefined {
+  return request.assignedToDisplayName ?? request.assignedTechnicianLabel;
+}
+
 export function buildRequestSearchHaystack(request: DemoRequest): string {
   return [
     request.id,
@@ -44,10 +54,15 @@ export function buildRequestSearchHaystack(request: DemoRequest): string {
     getPriorityLabel(request.priority),
     getCriticalityLabel(request.criticality),
     request.customerLabel,
+    request.requesterName,
+    request.requesterTeam,
+    request.assignedToDisplayName,
+    request.assignedToUserId,
     request.siteLabel,
     request.categoryLabel,
     request.channelLabel,
     request.impactLabel,
+    request.equipmentLabel,
   ]
     .filter(Boolean)
     .join(" ")

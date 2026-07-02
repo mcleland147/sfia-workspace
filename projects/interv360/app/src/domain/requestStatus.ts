@@ -56,6 +56,10 @@ export interface DemoRequest {
   status: RequestStatus;
   priority: RequestPriority;
   criticality: RequestCriticality;
+  requesterName?: string;
+  requesterTeam?: string;
+  assignedToUserId?: string;
+  assignedToDisplayName?: string;
   categoryLabel?: string;
   channelLabel?: string;
   impactLabel?: string;

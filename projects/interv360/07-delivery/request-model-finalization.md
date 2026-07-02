@@ -253,7 +253,7 @@ Décision proposée pour rester Fast Track :
 | RM-01 | Cadrage opérationnel modèle Request | Réalisé |
 | RM-02 | Audit modèle existant et décision champs cibles | Réalisé |
 | RM-03 | Backend SQLite/API Request finalisé | Réalisé |
-| RM-04 | Frontend fiche/liste Request alignées | À faire |
+| RM-04 | Frontend fiche/liste Request alignées | Réalisé |
 | RM-05 | Tests backend/frontend et non-régression | À faire |
 | RM-06 | Documentation runbook/README | À faire |
 | RM-07 | Préparation PR unique | À venir |
@@ -271,15 +271,15 @@ Décision proposée pour rester Fast Track :
 | Backend Request aligné | OK |
 | SQLite Request aligné | OK |
 | API Request alignée | OK |
-| Frontend fiche/liste alignés | À faire |
+| Frontend fiche/liste alignés | OK |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
 | Audit trail conservé | À valider |
 | Permissions conservées | À valider |
 | Backend tests | OK — 119 tests |
-| Frontend tests | À faire |
+| Frontend tests | OK — 173 tests |
 | Backend build | OK |
-| Frontend build | À faire |
+| Frontend build | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -627,8 +627,75 @@ Garde-fous confirmés :
 
 ---
 
+## 15.4. Changements RM-04
+
+RM-04 aligne le frontend sur le modèle `Request` cible.
+
+Changements réalisés :
+
+- enrichissement des types frontend `DemoRequest` ;
+- mapping API des champs :
+  - `requesterName`
+  - `requesterTeam`
+  - `assignedToUserId`
+  - `assignedToDisplayName`
+- conservation des champs legacy :
+  - `customerLabel`
+  - `assignedTechnicianLabel`
+- réalignement du seed local avec le seed backend ;
+- affichage du demandeur dans la fiche demande ;
+- affichage de l'équipe demandeuse si disponible ;
+- affichage de l'affectation si disponible ;
+- fallback legacy via `getRequesterDisplay()` et `getAssignmentDisplay()` ;
+- liste enrichie avec demandeur et affectation si disponibles ;
+- recherche enrichie avec demandeur, équipe et affectation ;
+- tests frontend ajoutés/adaptés ;
+- aucune modification backend ;
+- aucune modification workflow ;
+- aucune modification audit trail.
+
+Décisions confirmées :
+
+| Sujet | Décision |
+|-------|----------|
+| Demandeur | Affiché via `requesterName` |
+| Équipe demandeuse | Affichée via `requesterTeam` si disponible |
+| Affectation | Affichée via `assignedToDisplayName` |
+| Legacy client | `customerLabel` conservé en fallback demandeur |
+| Legacy technicien | `assignedTechnicianLabel` conservé en fallback affectation |
+| Liste | Conservée, enrichie avec demandeur/affectation |
+| Recherche | Conservée, enrichie avec nouveaux champs |
+| Mode local | Conservé |
+| Mode API | Conservé |
+| Workflow | Inchangé |
+| Audit trail | Inchangé |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 173 tests |
+| Backend build | OK (non-régression) |
+| Backend tests | OK — 119 tests (non-régression) |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **RM-04** :
+Exécuter **RM-05** :
 
-Frontend fiche/liste Request alignées
+Tests backend/frontend et non-régression
