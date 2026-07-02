@@ -289,3 +289,59 @@ Ce cycle n’introduit pas :
 | Auth réelle | Possible mais non prioritaire sans signal fort |
 | UX polish | Possible si irritant concret |
 | Industrialisation | Différée |
+
+---
+
+## 10. Préparation PR
+
+### Titre proposé
+
+`Prepare Interv360 role simulation review`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR prepares the Interv360 role simulation product review.
+It adds a review document with:
+- review objectives;
+- product starting point after the Role Simulation batch;
+- review questions;
+- a 6-step review scenario;
+- a feedback grid;
+- decision criteria after review;
+- expected review output;
+- explicit guardrails.
+## Review scope
+The review focuses on validating whether:
+- simulated roles are understandable;
+- role labels are appropriate;
+- the permissions matrix is credible;
+- unauthorized action blocking is clear;
+- the `admin`-only demo reset is logical;
+- the simulation brings demonstration value;
+- the next axis should be workflow extension, real auth, UX polish, or another trajectory.
+## Decision after review
+The review should help decide between:
+- `architecture/interv360-workflow-extension-framing`;
+- `architecture/interv360-auth-real-framing`;
+- `delivery/interv360-role-simulation-polish`;
+- another roadmap decision if feedback is inconclusive.
+## Guardrails
+No code, frontend, backend, SQLite, API, workflow extension, real authentication, OAuth, JWT, SSO, user database, CRM integration, real data, new workflow status, PostgreSQL, heavy ORM, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+```
+
+---
+
+## 11. Statut push / PR
+
+À compléter après push.
+
+| Élément | Valeur |
+|---------|--------|
+| Push | `<OK / KO>` |
+| PR créée automatiquement | `<Oui / Non>` |
+| URL PR ou comparaison | `<url>` |
+| Cible | `main` |
+| Source | `architecture/interv360-role-simulation-review` |
+| Merge automatique | Non |
