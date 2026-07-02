@@ -445,3 +445,28 @@ Interv360 dispose désormais d’une extension légère du workflow :
 - runbook mis à jour.
 
 Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Fast Track.
+
+---
+
+## 16. Validation démo post-merge
+
+La démonstration navigateur du batch **Workflow Light Extension** a été réalisée après merge.
+
+Scénarios vérifiés :
+
+| Scénario | Résultat |
+|----------|----------|
+| `hold` — mettre une demande en attente | OK |
+| `resume` — reprendre une demande en attente | OK |
+| `cancel` — annuler une demande avec rôle autorisé | OK |
+| Blocage `cancel` pour `technician` | OK |
+| Permissions simulées `manager` / `admin` | OK |
+| Rôles `requester` / `viewer` en lecture seule | OK |
+
+Conclusion :
+
+> le batch Workflow Light Extension est validé côté démonstration et peut servir de socle au prochain enrichissement métier.
+
+Prochain axe retenu :
+
+`delivery/interv360-workflow-requalification`
