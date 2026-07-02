@@ -64,6 +64,15 @@ export function applySqliteSchema(db: Database.Database): void {
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id TEXT PRIMARY KEY,
+      display_name TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      role TEXT NOT NULL,
+      team TEXT NOT NULL,
+      is_active INTEGER NOT NULL DEFAULT 1
+    );
   `);
 
   addColumnIfMissing(

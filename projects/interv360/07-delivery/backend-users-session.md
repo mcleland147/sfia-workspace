@@ -243,7 +243,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
 | BUS-01 | Cadrage opérationnel backend users/session | Réalisé |
-| BUS-02 | Modèle users SQLite + seed backend | À faire |
+| BUS-02 | Modèle users SQLite + seed backend | Réalisé |
 | BUS-03 | Repository users + endpoints API | À faire |
 | BUS-04 | Frontend API users + fallback local | À faire |
 | BUS-05 | Tests backend/frontend et non-régression | À faire |
@@ -257,17 +257,17 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | Critère | Résultat |
 |---------|----------|
 | Document delivery créé | OK |
-| Users backend modélisés | À faire |
-| Table users créée | À faire |
-| Seed 5 utilisateurs backend | À faire |
+| Users backend modélisés | OK |
+| Table users créée | OK |
+| Seed 5 utilisateurs backend | OK |
 | Endpoint users créé | À faire |
 | Session minimale documentée | OK |
 | Frontend mode API branché sur users backend | À faire |
 | Permissions existantes conservées | À valider |
-| Backend tests | À faire |
-| Frontend tests | À faire |
-| Backend build | À faire |
-| Frontend build | À faire |
+| Backend tests | OK — 76 tests |
+| Frontend tests | OK — 141 tests |
+| Backend build | OK |
+| Frontend build | OK |
 | Audit trail complet exclu | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
@@ -319,8 +319,48 @@ Décisions :
 
 ---
 
+## 16.1. Changements BUS-02
+
+BUS-02 introduit le socle users côté SQLite.
+
+Changements réalisés :
+
+- création du modèle backend `User` ;
+- création de la table SQLite `users` ;
+- ajout d'un seed idempotent des 5 utilisateurs de référence ;
+- alignement strict des IDs avec le user switcher frontend ;
+- conservation des tables existantes ;
+- aucun endpoint API exposé dans cet incrément ;
+- aucune modification frontend ;
+- aucune session backend réelle.
+
+Utilisateurs seedés :
+
+| ID | Nom affiché | Rôle |
+|----|-------------|------|
+| `user-requester` | Alice Demandeur | `requester` |
+| `user-technician` | Théo Technicien | `technician` |
+| `user-manager` | Maya Responsable | `manager` |
+| `user-admin` | Amin Admin | `admin` |
+| `user-viewer` | Victor Lecteur | `viewer` |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas d'audit trail complet ;
+- pas de nouveau statut.
+
+---
+
 ## 17. Prochaine étape
 
-Exécuter **BUS-02** :
+Exécuter **BUS-03** :
 
-Modèle users SQLite + seed backend
+Repository users + endpoints API
