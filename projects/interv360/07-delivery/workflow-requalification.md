@@ -373,3 +373,78 @@ Capacités ajoutées :
 - runbook mis à jour.
 
 La prochaine étape est **INC-RQ-05** : préparation de la PR unique du batch.
+
+---
+
+## 12. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 workflow requalification`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds a lightweight requalification action to the Interv360 workflow.
+It keeps the existing API contract and SQLite persistence model while adding one new workflow action: `requalify`.
+No new status is introduced. `STAT-08` remains deferred.
+## What changed
+### Product framing
+- recorded the post-merge demo validation of the previous Workflow Light Extension batch;
+- opened a focused requalification batch in SFIA Fast Track mode;
+- selected a lightweight requalification without a dedicated `STAT-08` status.
+### Backend
+- added the `requalify` transition action;
+- added the `request.requalified` workflow event;
+- allows `requalify` from:
+  - `STAT-02`;
+  - `STAT-03`;
+  - `STAT-05`;
+- sends the request back to `STAT-02`;
+- preserves the existing API endpoint:
+  `POST /api/v1/requests/:id/transitions`
+- keeps SQLite without a new table;
+- adds backend tests for valid and invalid transitions, API behavior, and persistence.
+### Frontend
+- exposes the `Requalifier` action;
+- shows it from:
+  - `STAT-02`;
+  - `STAT-03`;
+  - `STAT-05`;
+- aligns local mode with backend transition rules;
+- keeps API opt-in mode on the existing contract.
+### Role simulation
+- aligns simulated permissions:
+  - `technician` can requalify;
+  - `manager` can requalify;
+  - `admin` can requalify;
+  - `requester` and `viewer` cannot requalify;
+- preserves the existing unauthorized action message.
+### Documentation
+- added the Workflow Requalification delivery document;
+- updated the previous Workflow Light Extension document with post-merge demo validation;
+- updated the E2E runbook with requalification scenarios;
+- updated the frontend README.
+## Validation
+- Backend build: OK
+- Backend tests: 67 passed
+- Frontend build: OK
+- Frontend tests: 130 passed
+## Guardrails
+No `STAT-08`, new workflow status, real authentication, OAuth, JWT, SSO, backend user database, CRM integration, real data, workflow engine, BPMN engine, new API endpoint, new SQLite table, PostgreSQL, heavy ORM, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+The requalification is intentionally lightweight and returns requests to `STAT-02`.
+```
+
+---
+
+## 13. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-workflow-requalification` |
+| Merge automatique | Non |
