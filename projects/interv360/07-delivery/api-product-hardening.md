@@ -1016,3 +1016,116 @@ Existing endpoints, OK response formats, workflow, transitions, audit trail, req
 | Cible | main |
 | Source | delivery/interv360-api-product-hardening |
 | Merge automatique | Non |
+
+---
+
+## 21. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #68 — https://github.com/mcleland147/sfia-workspace/pull/68 |
+| Source | `delivery/interv360-api-product-hardening` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `157a604` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 187 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 125 tests |
+| APH-01 | OK — cadrage opérationnel |
+| APH-02 | OK — audit contrat API et décisions erreurs/validations |
+| APH-03 | OK — backend API errors/validation hardening |
+| APH-04 | OK — frontend API compatibility hardening |
+| APH-05 | OK — tests backend/frontend et non-régression |
+| APH-06 | OK — runbook/README |
+| APH-07 | OK — PR unique |
+| Contrat API clarifié | OK |
+| Endpoints existants préservés | OK |
+| Formats OK existants préservés | OK |
+| Format `{ error: { code, message } }` | OK |
+| Helper backend erreurs API | OK |
+| Validations transitions durcies | OK |
+| `REQUEST_NOT_FOUND` | OK |
+| `INVALID_TRANSITION_ACTION` | OK |
+| `TRANSITION_NOT_ALLOWED` | OK |
+| `INVALID_JSON_BODY` | OK |
+| `INVALID_ACTOR_USER` | OK |
+| `USER_NOT_FOUND` | OK |
+| `DEMO_MODE_REQUIRED` | OK |
+| `INTERNAL_ERROR` | OK |
+| `ROUTE_NOT_FOUND` | OK |
+| `METHOD_NOT_ALLOWED` | Reporté |
+| `DEMO_RESET_FAILED` | Non ajouté |
+| Parsing frontend requests | OK |
+| Parsing frontend users | OK |
+| Absence fallback silencieux | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Request model conservé | OK |
+| Audit trail conservé | OK |
+| Permissions conservées | OK |
+| Reset admin conservé | OK |
+| CRUD complet introduit | Non |
+| Formulaire création demande introduit | Non |
+| Auth réelle introduite | Non |
+| Session backend réelle introduite | Non |
+| Login/password introduits | Non |
+| Token introduit | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| `STAT-08` introduit | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le Lot 4 **API Product Hardening** est mergé dans `main`.
+
+Interv360 dispose désormais d'un contrat API MVP plus robuste :
+
+- endpoints existants clarifiés ;
+- réponses OK existantes préservées ;
+- erreurs API centralisées ;
+- format `{ error: { code, message } }` stabilisé ;
+- validations transitions durcies ;
+- route API inconnue structurée via `ROUTE_NOT_FOUND` ;
+- parsing frontend requests aligné ;
+- parsing frontend users aligné ;
+- absence de fallback silencieux vers le mode local confirmée ;
+- mode local conservé ;
+- mode API conservé ;
+- request model enrichi conservé ;
+- audit trail enrichi conservé ;
+- permissions conservées ;
+- reset admin conservé.
+
+Ce lot ne met pas en place :
+
+- CRUD complet ;
+- formulaire de création demande ;
+- authentification réelle ;
+- session backend réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- nouveau statut.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Prochaine étape
+
+Ouvrir le Lot 5 :
+
+`delivery/interv360-product-ux-finalization`
+
+Objectif :
+
+- sortir davantage de l'interface orientée démonstration ;
+- améliorer la lisibilité du parcours utilisateur ;
+- clarifier fiche demande, historique, actions, messages et états d'erreur ;
+- conserver le socle backend/API existant.

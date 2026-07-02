@@ -781,3 +781,81 @@ Décision :
 - pas de PR documentaire intermédiaire pour APH-01 ;
 - le cadrage opérationnel est intégré directement au lot delivery ;
 - PR unique prévue en fin de lot.
+
+---
+
+## 24. Clôture du Lot 4 — API Product Hardening
+
+Le Lot 4 de la roadmap est mergé dans `main`.
+
+PR :
+
+#68 — https://github.com/mcleland147/sfia-workspace/pull/68
+
+Commit merge :
+
+`157a604`
+
+Résultat :
+
+- contrat API clarifié ;
+- endpoints existants préservés ;
+- formats OK existants préservés ;
+- format d'erreur stabilisé :
+  - `{ error: { code, message } }`
+- helper backend erreurs API ajouté ;
+- validations transitions durcies ;
+- codes d'erreur stabilisés :
+  - `REQUEST_NOT_FOUND`
+  - `INVALID_TRANSITION_ACTION`
+  - `TRANSITION_NOT_ALLOWED`
+  - `INVALID_JSON_BODY`
+  - `INVALID_ACTOR_USER`
+  - `USER_NOT_FOUND`
+  - `DEMO_MODE_REQUIRED`
+  - `INTERNAL_ERROR`
+  - `ROUTE_NOT_FOUND`
+- `METHOD_NOT_ALLOWED` reporté ;
+- `DEMO_RESET_FAILED` non ajouté artificiellement ;
+- parsing frontend requests aligné ;
+- parsing frontend users aligné ;
+- absence de fallback silencieux vers le mode local confirmée ;
+- mode local conservé ;
+- mode API conservé ;
+- request model enrichi conservé ;
+- audit trail enrichi conservé ;
+- permissions existantes conservées ;
+- reset admin conservé.
+
+Limites confirmées :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas d'authentification réelle ;
+- pas de session backend réelle ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08`.
+
+Impact roadmap :
+
+| Jalons | Estimation |
+|--------|------------|
+| Après Lot 3 | 86% |
+| Après Lot 4 | 90% |
+
+Prochain lot :
+
+`delivery/interv360-product-ux-finalization`
+
+Objectif :
+
+- améliorer l'expérience produit MVP ;
+- clarifier la fiche demande ;
+- clarifier l'historique ;
+- clarifier les actions disponibles ;
+- améliorer les messages et états vides / erreurs ;
+- conserver le socle API, request model, audit trail et permissions.
