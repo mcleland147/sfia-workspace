@@ -1,0 +1,53 @@
+name: Interv360 CI
+
+on:
+  pull_request:
+    paths:
+      - "projects/interv360/**"
+      - ".github/workflows/interv360-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "projects/interv360/**"
+      - ".github/workflows/interv360-ci.yml"
+
+jobs:
+  build-test:
+    name: Build and test Interv360
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install frontend dependencies
+        working-directory: projects/interv360/app
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: projects/interv360/app
+        run: npm run build
+
+      - name: Test frontend
+        working-directory: projects/interv360/app
+        run: npm run test -- --run
+
+      - name: Install backend dependencies
+        working-directory: projects/interv360/backend
+        run: npm ci
+
+      - name: Build backend
+        working-directory: projects/interv360/backend
+        run: npm run build
+
+      - name: Test backend
+        working-directory: projects/interv360/backend
+        run: npm run test

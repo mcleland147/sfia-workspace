@@ -1,5 +1,7 @@
 # Interv360 — Backend Minimal Prototype
 
+> For the full Interv360 local installation and run guide, start with [`../README.md`](../README.md).
+
 Local Node.js / TypeScript / Express backend for the Interv360 demo API contract.
 
 ## Objective
@@ -59,6 +61,61 @@ CORS_ORIGIN=http://localhost:5173 npm run dev
 This is **local demo hardening only** — not a production CORS policy.
 
 The local SQLite file is created automatically and ignored by Git (`data/`, `*.sqlite`).
+
+### Example file
+
+Use `.env.example` as a local template if needed:
+
+```bash
+cp .env.example .env
+```
+
+The `.env` file must remain local and must not be committed.
+
+## SQLite data
+
+By default, API mode persists demo data in:
+
+```text
+projects/interv360/backend/data/interv360.sqlite
+```
+
+Key points:
+
+- the database is local;
+- the file is not intended to be committed;
+- the seed is applied automatically;
+- the state persists between backend restarts;
+- tests can use `:memory:` through `SQLITE_PATH`.
+
+## Reset the demo state
+
+Preferred reset:
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/demo/reset
+```
+
+The frontend reset button is also available for the admin profile.
+
+If the local SQLite state is corrupted or no longer useful, stop the backend and remove the local database file:
+
+```bash
+rm -f data/interv360.sqlite
+npm run dev
+```
+
+The backend will recreate the local demo database.
+
+## Scripts
+
+| Command | Usage |
+|---------|-------|
+| `npm run dev` | Starts the backend in watch mode with `tsx`. |
+| `npm run build` | Runs TypeScript checks with `tsc --noEmit`. It does not emit a production bundle. |
+| `npm run test` | Runs the backend test suite (125 tests or more). |
+
+Point d'entrée MVP et CI minimale : [`../README.md`](../README.md).
 
 ## Endpoints
 
