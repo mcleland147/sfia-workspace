@@ -448,3 +448,58 @@ The requalification is intentionally lightweight and returns requests to `STAT-0
 | Cible | `main` |
 | Source | `delivery/interv360-workflow-requalification` |
 | Merge automatique | Non |
+
+---
+
+## 14. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #62 — https://github.com/mcleland147/sfia-workspace/pull/62 |
+| Source | `delivery/interv360-workflow-requalification` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `87412e5` |
+| Main synchronisée | OK |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 67 tests |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 130 tests |
+| INC-RQ-01 | OK — cadrage intégré |
+| INC-RQ-02 | OK — backend `requalify` |
+| INC-RQ-03 | OK — frontend `Requalifier` exposé |
+| INC-RQ-04 | OK — permissions/runbook/tests |
+| INC-RQ-05 | OK — PR unique préparée |
+| `requalify` | OK |
+| `request.requalified` | OK |
+| Retour vers `STAT-02` | OK |
+| `STAT-08` introduit | Non |
+| Nouveau statut introduit | Non |
+| API contract conservé | OK |
+| SQLite sans nouvelle table | OK |
+| Auth réelle introduite | Non |
+| OAuth / JWT / SSO introduits | Non |
+| Base users introduite | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Workflow Requalification** est mergé dans `main`.
+
+Interv360 dispose désormais d’une requalification légère du workflow :
+
+- action `requalify` ;
+- événement `request.requalified` ;
+- libellé UI `Requalifier` ;
+- retour vers `STAT-02` depuis `STAT-02`, `STAT-03` et `STAT-05` ;
+- permissions simulées alignées ;
+- contrat API conservé ;
+- SQLite conservée sans nouvelle table ;
+- aucun `STAT-08` ;
+- aucun nouveau statut.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Fast Track.
