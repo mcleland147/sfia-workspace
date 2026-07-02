@@ -999,3 +999,16 @@ Legacy request fields remain available:
 - `customerLabel`;
 - `assignedTechnicianLabel`.
 ```
+
+---
+
+## 20. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-request-model-finalization?expand=1 |
+| Cible | `main` |
+| Source | `delivery/interv360-request-model-finalization` |
+| Merge automatique | Non |
