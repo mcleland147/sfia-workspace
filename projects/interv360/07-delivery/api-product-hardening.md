@@ -162,7 +162,7 @@ Erreurs déjà attendues / à consolider :
 | `TRANSITION_NOT_ALLOWED` | 409 | Transition métier impossible |
 | `INVALID_JSON_BODY` | 400 | Body JSON invalide |
 | `INVALID_ACTOR_USER` | 400 | Acteur inconnu ou inactif |
-| `DEMO_RESET_FAILED` | 500 | Reset impossible si cas existant |
+| `DEMO_MODE_REQUIRED` | 403 | Reset impossible hors mode démo |
 
 Objectif :
 
@@ -248,7 +248,7 @@ Décision proposée pour rester Fast Track :
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
 | APH-01 | Cadrage opérationnel API hardening | Réalisé |
-| APH-02 | Audit contrat API et décisions erreurs/validations | À faire |
+| APH-02 | Audit contrat API et décisions erreurs/validations | Réalisé |
 | APH-03 | Backend API errors/validation hardening | À faire |
 | APH-04 | Frontend API compatibility hardening | À faire |
 | APH-05 | Tests backend/frontend et non-régression | À faire |
@@ -263,8 +263,8 @@ Décision proposée pour rester Fast Track :
 |---------|----------|
 | Document delivery créé | OK |
 | Contrat API cible cadré | OK |
-| Audit endpoints réalisé | À faire |
-| Décisions erreurs/validations prises | À faire |
+| Audit endpoints réalisé | OK |
+| Décisions erreurs/validations prises | OK |
 | Backend erreurs alignées | À faire |
 | Backend validations alignées | À faire |
 | Frontend compatibilité API conservée | À valider |
@@ -343,8 +343,216 @@ Décisions :
 
 ---
 
+## 15.1. Audit APH-02 — contrat API existant
+
+APH-02 audite le contrat API existant avant durcissement.
+
+### 15.1.1. Endpoints exposés
+
+| Endpoint | Méthode | Format réponse OK | Erreurs connues | Décision |
+|----------|---------|-------------------|-----------------|----------|
+| `/health` | GET | `{ status: "ok", mode: "demo" }` | Aucune erreur produit documentée | À préserver tel quel |
+| `/api/v1/users` | GET | `{ users: [...] }` | Aucune erreur structurée côté route | À préserver ; pas de durcissement métier |
+| `/api/v1/users/:id` | GET | `{ user: {...} }` | `USER_NOT_FOUND` (404) inline dans `routes.ts` | À préserver ; homogénéiser via helper en APH-03 si simple |
+| `/api/v1/requests` | GET | `{ items: [...] }` | Aucune erreur structurée côté route | À préserver |
+| `/api/v1/requests/:id` | GET | `{ request, detail }` | `REQUEST_NOT_FOUND` (404) via `sendStoreError()` | À préserver |
+| `/api/v1/requests/:id/transitions` | POST | `{ request, event }` | `INVALID_TRANSITION_ACTION`, `INVALID_ACTOR_USER`, `REQUEST_NOT_FOUND`, `TRANSITION_NOT_ALLOWED` | À préserver ; consolider validations |
+| `/api/v1/requests/:id/events` | GET | `{ items: [...] }` | `REQUEST_NOT_FOUND` (404) via `sendStoreError()` | À préserver |
+| `/api/v1/demo/reset` | POST | `{ status: "reset", mode: "demo", requestsCount }` | `DEMO_MODE_REQUIRED` (403) via `sendStoreError()` | À préserver ; code réel = `DEMO_MODE_REQUIRED`, pas `DEMO_RESET_FAILED` |
+
+Helpers et middleware existants :
+
+- `sendStoreError()` dans `routes.ts` mappe les `StoreError` vers `{ error: { code, message } }` ;
+- middleware `express.json()` + handler `INVALID_JSON_BODY` (400) dans `app.ts` ;
+- handler final `INTERNAL_ERROR` (500) dans `app.ts` pour erreurs non gérées ;
+- pas de handler global `ROUTE_NOT_FOUND` / `METHOD_NOT_ALLOWED` structuré.
+
+### 15.1.2. Formats de réponse à préserver
+
+| Cas | Format existant | Décision |
+|-----|-----------------|----------|
+| Health | `{ status: "ok", mode: "demo" }` | À préserver |
+| Users list | `{ users: [...] }` | À préserver |
+| User detail | `{ user: {...} }` | À préserver |
+| Requests list | `{ items: [...] }` | À préserver |
+| Request detail | `{ request, detail }` | À préserver |
+| Transition | `{ request, event }` | À préserver |
+| Events | `{ items: [...] }` | À préserver |
+| Reset | `{ status: "reset", mode: "demo", requestsCount }` | À préserver |
+| Erreur | `{ error: { code, message } }` | À généraliser sur tous les cas API produit connus |
+
+### 15.1.3. Erreurs existantes
+
+| Code | HTTP actuel | Cas | Test existant | Décision |
+|------|-------------|-----|---------------|----------|
+| `REQUEST_NOT_FOUND` | 404 | Demande inconnue (detail, events, transition) | Oui (`api.test.ts`) | À conserver |
+| `INVALID_TRANSITION_ACTION` | 400 | Action absente, non string ou inconnue | Oui | À conserver |
+| `TRANSITION_NOT_ALLOWED` | 409 | Transition métier impossible | Oui (plusieurs cas) | À conserver |
+| `INVALID_JSON_BODY` | 400 | Body JSON invalide | Oui | À conserver |
+| `INVALID_ACTOR_USER` | 400 | Acteur non string, vide, inconnu ou inactif | Oui | À conserver |
+| `USER_NOT_FOUND` | 404 | User inconnu (`GET /users/:id`) | Oui | À conserver ; documenter dans le contrat |
+| `DEMO_MODE_REQUIRED` | 403 | Reset refusé si `DEMO_MODE=false` | Oui | À conserver (code réel, pas `DEMO_RESET_FAILED`) |
+| `INTERNAL_ERROR` | 500 | Erreur non gérée (handler final) | Non | À conserver ; tester en APH-05 si faisable |
+| `ROUTE_NOT_FOUND` | — | Route inconnue | Non | Reporté — Express renvoie 404 HTML non structuré |
+| `METHOD_NOT_ALLOWED` | — | Méthode non supportée | Non | Reporté — Express renvoie 404 HTML par défaut |
+
+Écart principal : routes inconnues et méthodes non supportées ne renvoient pas encore `{ error: { code, message } }`.
+
+### 15.1.4. Validations existantes
+
+| Entrée | État actuel | Écart | Décision |
+|--------|-------------|-------|----------|
+| Body JSON absent sur transition | `{}` accepté → `INVALID_TRANSITION_ACTION` si `action` absent | Couvert indirectement | Confirmer en APH-03 |
+| Body JSON invalide | `INVALID_JSON_BODY` via middleware Express | Aucun | Confirmer / documenter |
+| `action` absent | `INVALID_TRANSITION_ACTION` (400) inline route | Aucun | Confirmer |
+| `action` non string | `INVALID_TRANSITION_ACTION` (400) inline route | Aucun | Confirmer |
+| `action` inconnue | `INVALID_TRANSITION_ACTION` via `resolveTransition()` | Aucun | Confirmer |
+| `actorUserId` non string | `INVALID_ACTOR_USER` (400) inline route | Aucun | Confirmer |
+| `actorUserId` vide (`"   "`) | `INVALID_ACTOR_USER` (400) | Aucun | Confirmer |
+| `actorUserId` inconnu | `INVALID_ACTOR_USER` (400) | Aucun | Confirmer |
+| `actorUserId` inactif | `INVALID_ACTOR_USER` (400) | Aucun | Confirmer |
+| `actorUserId` null / absent | Ignoré (acteur optionnel) | Comportement voulu | À préserver |
+| request id inconnu | `REQUEST_NOT_FOUND` (404) via store | Aucun | Confirmer |
+| route inconnue | 404 HTML Express (`Cannot GET/POST ...`) | Pas de JSON structuré | Reporté — handler global seulement si simple |
+| méthode non supportée | 404 HTML Express par défaut | Pas de JSON structuré | Reporté — handler global seulement si simple |
+
+Trous de couverture tests identifiés pour APH-03/APH-05 :
+
+- routes inconnues / méthodes non supportées ;
+- `INTERNAL_ERROR` ;
+- homogénéité `error.message` sur tous les codes ;
+- `USER_NOT_FOUND` hors transition (déjà testé, à documenter).
+
+### 15.1.5. Compatibilité frontend
+
+| Sujet | État actuel | Décision |
+|-------|-------------|----------|
+| Mode API indisponible | `BACKEND_UNAVAILABLE` via `catch` réseau (`apiRequestsRepository`, `usersRepository`) | À préserver |
+| Parsing erreurs API requests | `parseApiError()` lit `error.code` et `error.message` → `RequestsRepositoryError` | À préserver ; ajuster seulement si format backend change |
+| Parsing erreurs API users | Erreur générique `USERS_UNAVAILABLE` avec statut HTTP seulement | À préserver en APH-04 ; enrichir parsing seulement si utile |
+| Transitions avec `actorUserId` | Payload `{ action, actorUserId? }` sans header auth | À préserver |
+| Requests list/detail | Mapping enrichi via `mapRequestModelFields()` | À préserver |
+| Events `{ items }` | Mapping journal enrichi ; 404 → `[]` côté frontend | À préserver |
+| Reset admin | `POST /demo/reset` sans body | À préserver |
+| Fallback silencieux | `getRequestById` 404 → `undefined` ; events 404 → `[]` (comportement voulu) | À exclure pour les autres cas (pas de fallback local) |
+
+Impact APH-04 : faible si les codes HTTP et `{ error: { code, message } }` restent stables.
+
+---
+
+## 15.2. Décision APH-02 — erreurs et validations cibles
+
+APH-02 fixe les décisions à implémenter en APH-03/APH-04.
+
+### Format d'erreur cible
+
+Toutes les erreurs API produit doivent utiliser :
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+Décisions :
+
+- `code` est stable et testé ;
+- `message` reste lisible mais non utilisé comme contrat principal ;
+- pas d'erreur Express brute dans les cas API connus ;
+- pas de stack trace exposée ;
+- pas de champ sensible exposé.
+
+### Codes d'erreur cibles
+
+| Code | HTTP cible | Décision |
+|------|------------|----------|
+| `REQUEST_NOT_FOUND` | 404 | À utiliser pour demande inconnue |
+| `INVALID_TRANSITION_ACTION` | 400 | À utiliser pour action absente, non string ou inconnue |
+| `TRANSITION_NOT_ALLOWED` | 409 | À utiliser pour transition métier impossible |
+| `INVALID_JSON_BODY` | 400 | À utiliser pour JSON invalide |
+| `INVALID_ACTOR_USER` | 400 | À utiliser pour acteur invalide, inconnu ou inactif |
+| `USER_NOT_FOUND` | 404 | À conserver pour user inconnu |
+| `DEMO_MODE_REQUIRED` | 403 | À conserver pour reset refusé hors mode démo |
+| `INTERNAL_ERROR` | 500 | À conserver pour erreurs non gérées |
+| `ROUTE_NOT_FOUND` | 404 | Reporté — introduire seulement si handler global simple |
+| `METHOD_NOT_ALLOWED` | 405 | Reporté — introduire seulement si handler global simple |
+
+Note : `DEMO_RESET_FAILED` n'existe pas dans le code actuel ; le code réel est `DEMO_MODE_REQUIRED`.
+
+### Validations à durcir en APH-03
+
+| Validation | Décision |
+|------------|----------|
+| Body JSON invalide | Confirmer via middleware existant |
+| Body JSON absent sur transition | Retourner `INVALID_TRANSITION_ACTION` si `action` absent (comportement actuel) |
+| `action` absent | `INVALID_TRANSITION_ACTION` |
+| `action` non string | `INVALID_TRANSITION_ACTION` |
+| `action` inconnue | `INVALID_TRANSITION_ACTION` |
+| `actorUserId` non string | `INVALID_ACTOR_USER` |
+| `actorUserId` vide | `INVALID_ACTOR_USER` |
+| `actorUserId` inconnu | `INVALID_ACTOR_USER` |
+| `actorUserId` inactif | `INVALID_ACTOR_USER` |
+| `actorUserId` null / absent | Ignoré (optionnel) — à préserver |
+| request id inconnu | `REQUEST_NOT_FOUND` |
+| route inconnue | Reporté — documenter l'existant Express si non traité |
+| méthode non supportée | Reporté — documenter l'existant Express si non traité |
+
+Travaux APH-03 prioritaires :
+
+- centraliser les réponses d'erreur (`sendStoreError` ou équivalent) y compris `USER_NOT_FOUND` ;
+- vérifier la cohérence des messages `error.message` ;
+- documenter explicitement les codes dans `types.ts` / README ;
+- évaluer un handler 404 JSON global sans sur-ingénierie.
+
+### Réponses à préserver
+
+| Endpoint | Format à préserver |
+|----------|-------------------|
+| `GET /health` | `{ status, mode }` |
+| `GET /api/v1/users` | `{ users: [...] }` |
+| `GET /api/v1/users/:id` | `{ user: {...} }` |
+| `GET /api/v1/requests` | `{ items: [...] }` |
+| `GET /api/v1/requests/:id` | `{ request, detail }` |
+| `POST /api/v1/requests/:id/transitions` | `{ request, event }` |
+| `GET /api/v1/requests/:id/events` | `{ items: [...] }` |
+| `POST /api/v1/demo/reset` | `{ status, mode, requestsCount }` |
+
+### Frontend
+
+Décisions :
+
+- préserver la compatibilité frontend existante ;
+- ajuster le parsing d'erreur uniquement si nécessaire (priorité `apiRequestsRepository`) ;
+- ne pas ajouter de logique auth ;
+- ne pas ajouter de fallback silencieux vers le mode local ;
+- ne pas modifier le mode local ;
+- ne pas modifier l'UX hors messages d'erreur si strictement nécessaire.
+
+### Hors scope confirmé
+
+APH-02 confirme que le lot ne crée pas :
+
+- auth réelle ;
+- session backend réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- CRUD complet ;
+- formulaire création demande ;
+- nouveau statut ;
+- `STAT-08` ;
+- pagination avancée ;
+- tri avancé ;
+- versioning API complexe.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **APH-02** :
+Exécuter **APH-03** :
 
-Audit contrat API et décisions erreurs/validations
+Backend API errors/validation hardening
