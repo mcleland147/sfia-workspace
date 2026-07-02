@@ -1096,3 +1096,43 @@ Les prochains sujets devront être cadrés comme des cycles distincts selon la p
 - supervision ;
 - cloud ;
 - design system / Figma si besoin.
+
+---
+
+## 29. Cycle suivant — MVP Release Readiness
+
+Le cycle **MVP Final Roadmap** est clos après les six lots prévus.
+
+Décision :
+
+- ne pas ouvrir de Lot 7 automatique ;
+- ouvrir un nouveau cycle distinct : `release/interv360-mvp-release-readiness` ;
+- objectif : figer Interv360 comme MVP produit livrable ;
+- préparer checklist de validation ;
+- préparer release notes ;
+- documenter limites connues ;
+- décider version cible et tag éventuel.
+
+Document associé :
+
+`../07-delivery/mvp-release-readiness.md`
+
+Version cible proposée :
+
+`v0.1.0-mvp`
+
+Principes :
+
+- pas de nouveau périmètre fonctionnel ;
+- pas de modification frontend/backend/API/workflow ;
+- pas d'auth réelle ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de CRUD complet ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas de déploiement cloud complet ;
+- pas de Docker obligatoire ;
+- pas d'arc Figma.
+
+Les prochains sujets enterprise ou pré-production devront être ouverts comme des cycles séparés, selon priorité produit.
