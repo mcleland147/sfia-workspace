@@ -900,3 +900,133 @@ Figma remains available for a future design arc if a broader redesign or design 
 | Cible | `main` |
 | Source | `delivery/interv360-product-ux-finalization` |
 | Merge automatique | Non |
+
+---
+
+## 21. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #69 — https://github.com/mcleland147/sfia-workspace/pull/69 |
+| Source | `delivery/interv360-product-ux-finalization` |
+| Cible | `main` |
+| Méthode | Merge commit GitHub PR |
+| Commit merge | `6edd943` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 191 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 125 tests |
+| UX-01 | OK — cadrage opérationnel |
+| UX-02 | OK — audit UX et décisions |
+| UX-03 | OK — fiche demande et hiérarchie |
+| UX-04 | OK — actions, historique et messages |
+| UX-05 | OK — tests frontend et non-régression |
+| UX-06 | OK — runbook/README |
+| UX-07 | OK — PR unique |
+| Fiche demande clarifiée | OK |
+| Liste demandes orientée produit | OK |
+| Statuts métier lisibles | OK |
+| Actions workflow clarifiées | OK |
+| Actions indisponibles avec motifs | OK |
+| Historique acteur / action / date | OK |
+| Profil actif clarifié | OK |
+| Badge mode local/API clarifié | OK |
+| Backend indisponible sans fallback silencieux | OK |
+| Reset admin conservé | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Request model conservé | OK |
+| Audit trail conservé | OK |
+| Workflow conservé | OK |
+| Statuts techniques conservés | OK |
+| Transitions métier conservées | OK |
+| Permissions conservées | OK |
+| Backend inchangé | OK |
+| API inchangée | OK |
+| CRUD complet introduit | Non |
+| Formulaire création demande introduit | Non |
+| Auth réelle introduite | Non |
+| Session backend réelle introduite | Non |
+| Login/password introduits | Non |
+| Token introduit | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| `STAT-08` introduit | Non |
+| Nouvelle dépendance UI introduite | Non |
+| Arc Figma introduit | Non |
+| Export Figma ajouté | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+
+### Décision post-merge
+
+Le Lot 5 **Product UX Finalization** est mergé dans `main`.
+
+Interv360 dispose désormais d'une UX MVP plus lisible :
+
+- fiche demande mieux hiérarchisée ;
+- liste demandes plus orientée produit ;
+- statuts métier affichés avec libellés lisibles ;
+- actions workflow clarifiées ;
+- actions indisponibles accompagnées de motifs ;
+- historique rendu plus exploitable ;
+- affichage acteur / action / date clarifié ;
+- profil actif clarifié ;
+- badge mode local/API clarifié ;
+- messages et états vides améliorés ;
+- absence de fallback silencieux confirmée ;
+- documentation runbook/README mise à jour.
+
+Ce lot préserve :
+
+- backend ;
+- API ;
+- SQLite ;
+- request model enrichi ;
+- audit trail enrichi ;
+- workflow existant ;
+- statuts techniques existants ;
+- transitions métier existantes ;
+- permissions existantes ;
+- mode local ;
+- mode API ;
+- reset admin.
+
+Ce lot ne met pas en place :
+
+- CRUD complet ;
+- formulaire de création demande ;
+- authentification réelle ;
+- session backend réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- nouveau statut ;
+- `STAT-08` ;
+- dépendance UI ;
+- arc Figma ;
+- export Figma.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Prochaine étape
+
+Ouvrir le Lot 6 :
+
+`delivery/interv360-product-industrialization`
+
+Objectif :
+
+- rendre le MVP livrable proprement ;
+- consolider README global ;
+- clarifier installation locale ;
+- clarifier exploitation locale ;
+- vérifier variables `.env` ;
+- documenter scripts build/test/run ;
+- documenter limites connues ;
+- préparer une stratégie de déploiement simple ;
+- éventuellement cadrer CI sans sur-ingénierie.

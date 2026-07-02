@@ -887,3 +887,86 @@ Décision :
 - pas de PR documentaire intermédiaire pour UX-01 ;
 - le cadrage opérationnel est intégré directement au lot delivery ;
 - PR unique prévue en fin de lot.
+
+---
+
+## 26. Clôture du Lot 5 — Product UX Finalization
+
+Le Lot 5 de la roadmap est mergé dans `main`.
+
+PR :
+
+#69 — https://github.com/mcleland147/sfia-workspace/pull/69
+
+Commit merge :
+
+`6edd943`
+
+Résultat :
+
+- fiche demande mieux hiérarchisée ;
+- liste demandes plus orientée produit ;
+- statuts métier affichés avec libellés lisibles ;
+- actions workflow clarifiées ;
+- actions indisponibles accompagnées de motifs ;
+- historique rendu plus exploitable ;
+- affichage acteur / action / date clarifié ;
+- profil actif clarifié ;
+- badge mode local/API clarifié ;
+- messages et états vides améliorés ;
+- absence de fallback silencieux confirmée ;
+- documentation runbook/README mise à jour.
+
+Préservé :
+
+- backend ;
+- API ;
+- SQLite ;
+- request model enrichi ;
+- audit trail enrichi ;
+- workflow existant ;
+- statuts techniques existants ;
+- transitions métier existantes ;
+- permissions existantes ;
+- mode local ;
+- mode API ;
+- reset admin.
+
+Limites confirmées :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas d'authentification réelle ;
+- pas de session backend réelle ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas de dépendance UI ;
+- pas d'arc Figma ;
+- pas d'export Figma.
+
+Impact roadmap :
+
+| Jalons | Estimation |
+|--------|------------|
+| Après Lot 4 | 90% |
+| Après Lot 5 | 94% |
+
+Prochain lot :
+
+`delivery/interv360-product-industrialization`
+
+Objectif :
+
+- rendre le produit livrable proprement ;
+- consolider README global ;
+- clarifier installation ;
+- clarifier exploitation locale ;
+- documenter variables `.env` ;
+- documenter scripts build/test/run ;
+- documenter limites connues ;
+- préparer une stratégie de déploiement simple ;
+- éventuellement cadrer CI.
