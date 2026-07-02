@@ -970,3 +970,34 @@ Objectif :
 - documenter limites connues ;
 - préparer une stratégie de déploiement simple ;
 - éventuellement cadrer CI.
+
+---
+
+## 27. Ouverture du Lot 6 — Product Industrialization
+
+Le Lot 6 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-product-industrialization`
+
+Objectif :
+
+- rendre le produit livrable proprement ;
+- consolider README global ;
+- clarifier installation locale ;
+- clarifier exploitation locale ;
+- documenter variables `.env` ;
+- documenter scripts build/test/run ;
+- documenter limites connues ;
+- préparer une stratégie de déploiement simple ;
+- décider si une CI minimale est utile.
+
+Document delivery associé :
+
+`../07-delivery/product-industrialization.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour IND-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot ;
+- aucun nouveau périmètre fonctionnel n'est ouvert.
