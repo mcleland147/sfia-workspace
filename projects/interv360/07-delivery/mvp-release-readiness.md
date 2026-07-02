@@ -173,7 +173,7 @@ Décision à confirmer dans le cycle :
 | REL-01 | Cadrage release readiness | Réalisé |
 | REL-02 | Checklist validation MVP | Réalisé |
 | REL-03 | Release notes et limites connues | Réalisé |
-| REL-04 | Préparation PR unique | À venir |
+| REL-04 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -188,12 +188,12 @@ Décision à confirmer dans le cycle :
 | Release notes MVP créées | OK |
 | Limites connues documentées | OK |
 | Version cible décidée | OK — `v0.1.0-mvp` |
-| Décision tag / release GitHub prise | À confirmer en REL-04 |
-| Frontend build | À valider |
-| Frontend tests | À valider |
-| Backend build | À valider |
-| Backend tests | À valider |
-| CI minimale conservée | À valider |
+| Décision tag / release GitHub prise | OK — report volontaire après merge PR |
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| CI minimale conservée | OK |
 | Aucun nouveau scope fonctionnel | OK |
 | Auth réelle exclue | OK |
 | CRM/données réelles exclus | OK |
@@ -777,8 +777,173 @@ Décisions :
 
 ---
 
+## 11.3. REL-04 — Validations finales et préparation PR unique
+
+REL-04 clôture opérationnellement le cycle **MVP Release Readiness**.
+
+Objectif :
+
+> confirmer que la release cible `v0.1.0-mvp` est prête à être proposée en PR unique, sans ajout de périmètre fonctionnel.
+
+---
+
+### 11.3.1. Validations finales
+
+| Validation | Résultat |
+|------------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| CI minimale | OK |
+| Working tree | Propre hors exports design non suivis éventuels |
+| Diff fonctionnel | Aucun |
+| Diff backend | Aucun |
+| Diff API | Aucun |
+| Diff CI | Aucun |
+| Diff scripts npm | Aucun |
+
+---
+
+### 11.3.2. Décision Go MVP
+
+Décision :
+
+> **Go MVP avec release readiness documentaire.**
+
+Justification :
+
+- roadmap MVP Final Roadmap close ;
+- Lots 1 à 6 mergés ;
+- MVP estimé à 96–98% ;
+- release cible `v0.1.0-mvp` documentée ;
+- checklist MVP complète ;
+- release notes documentaires prêtes ;
+- limites connues explicites ;
+- validations build/test OK ;
+- CI minimale conservée ;
+- aucun garde-fou critique violé.
+
+---
+
+### 11.3.3. Décision tag Git / GitHub Release
+
+Décision :
+
+| Élément | Décision |
+|---------|----------|
+| Tag Git dans REL-04 | Non |
+| GitHub Release dans REL-04 | Non |
+| Tag cible recommandé après merge | `v0.1.0-mvp` |
+| GitHub Release recommandée après merge | Oui, si décision produit confirmée |
+| Moment recommandé | Après merge de la PR release readiness dans `main` |
+
+Justification :
+
+- éviter de taguer une branche non mergée ;
+- conserver un historique propre ;
+- créer le tag uniquement depuis `main` après merge ;
+- garder la PR release readiness comme point de validation final.
+
+---
+
+### 11.3.4. PR unique
+
+Titre proposé :
+
+`Prepare Interv360 MVP release readiness`
+
+Corps proposé :
+
+```markdown
+## Summary
+This PR prepares the Interv360 MVP release readiness cycle.
+It closes the release readiness documentation for the target version `v0.1.0-mvp`, after completion of the MVP Final Roadmap and its six delivery lots.
+## What changed
+- adds the MVP release readiness document;
+- confirms the MVP Final Roadmap is closed;
+- confirms this cycle is not a Lot 7;
+- defines the target version `v0.1.0-mvp`;
+- adds the MVP validation checklist;
+- defines Go / Go with reserve / No-Go criteria;
+- documents the officially delivered MVP scope;
+- adds documentary release notes;
+- documents known limitations;
+- documents installation prerequisites and validation commands;
+- records final validation results;
+- records the tag / GitHub Release decision.
+## Validation
+- Frontend build: OK
+- Frontend tests: OK — 191 tests
+- Backend build: OK
+- Backend tests: OK — 125 tests
+- Minimal CI: preserved
+## Decision
+Go MVP with documentary release readiness.
+The Git tag and GitHub Release are not created in this PR.
+Recommended next step after merge: create tag `v0.1.0-mvp` from `main`, if the product decision is confirmed.
+## Guardrails
+No frontend behavior change.
+No backend behavior change.
+No API change.
+No SQLite change.
+No workflow change.
+No status change.
+No permission change.
+No request model change.
+No audit trail change.
+No npm script change.
+No CI change.
+No CRUD.
+No request creation form.
+No real authentication.
+No login/password.
+No token.
+No OAuth/JWT/SSO.
+No CRM.
+No real data.
+No new status.
+No `STAT-08`.
+No mandatory Docker.
+No full cloud deployment.
+No heavy CI/CD.
+No Figma arc.
+No Figma export.
+No Notion publication.
+No Controlled Delivery change.
+No `sfia-notion-sync` change.
+```
+
+---
+
+### 11.3.5. Décision REL-04
+
+REL-04 valide :
+
+- validations finales OK ;
+- décision Go MVP ;
+- PR unique préparée ;
+- tag Git reporté après merge ;
+- GitHub Release reportée après merge ;
+- aucun nouveau scope fonctionnel ;
+- aucun garde-fou critique violé.
+
+Décision finale :
+
+Le cycle MVP Release Readiness est prêt pour PR.
+
+Après merge, la prochaine action recommandée sera un post-merge léger, puis décision explicite de création du tag `v0.1.0-mvp` depuis `main`.
+
+---
+
 ## 12. Prochaine étape
 
-Exécuter **REL-04** :
+Créer la PR unique :
 
-Préparation PR unique, validations finales et décision tag / GitHub Release
+`release/interv360-mvp-release-readiness` → `main`
+
+Après merge :
+
+- exécuter le post-merge léger ;
+- décider explicitement de créer ou non le tag `v0.1.0-mvp` depuis `main` ;
+- décider explicitement de créer ou non une GitHub Release.
