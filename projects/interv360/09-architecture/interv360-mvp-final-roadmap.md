@@ -512,3 +512,28 @@ Objectif :
 - introduire une session applicative minimale ;
 - conserver une approche simple sans OAuth/JWT/SSO ;
 - préparer l'audit trail.
+
+---
+
+## 17. Ouverture du Lot 1
+
+Le Lot 1 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-backend-users-session`
+
+Objectif :
+
+- matérialiser les utilisateurs côté backend ;
+- introduire une session applicative minimale ;
+- conserver une approche simple sans OAuth/JWT/SSO ;
+- préparer le Lot 2 Audit Trail.
+
+Document delivery associé :
+
+`../07-delivery/backend-users-session.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour BUS-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot.
