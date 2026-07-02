@@ -894,9 +894,9 @@ Figma remains available for a future design arc if a broader redesign or design 
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-product-ux-finalization?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-product-ux-finalization` |
 | Merge automatique | Non |
