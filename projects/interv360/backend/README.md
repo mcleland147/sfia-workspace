@@ -68,6 +68,8 @@ The local SQLite file is created automatically and ignored by Git (`data/`, `*.s
 | GET | `/api/v1/requests` | List fictitious requests |
 | GET | `/api/v1/requests/:id` | Request + detail |
 | GET | `/api/v1/requests/:id/events` | Workflow journal |
+| GET | `/api/v1/users` | List active demo users |
+| GET | `/api/v1/users/:id` | Get one demo user or `USER_NOT_FOUND` |
 | POST | `/api/v1/requests/:id/transitions` | Apply nominal transition |
 | POST | `/api/v1/demo/reset` | Reset demo seed and clear journal |
 
@@ -122,7 +124,32 @@ The demo reset keeps a stable response:
 }
 ```
 
-No authentication, users, roles, CRM integration, real data or extended workflow status is introduced.
+No authentication session, CRM integration, real data or extended workflow status is introduced.
+
+### Backend users
+
+The backend now seeds a minimal `users` table.
+
+Seeded users:
+
+| ID | Role |
+|----|------|
+| `user-requester` | `requester` |
+| `user-technician` | `technician` |
+| `user-manager` | `manager` |
+| `user-admin` | `admin` |
+| `user-viewer` | `viewer` |
+
+Available endpoints:
+
+```text
+GET /api/v1/users
+GET /api/v1/users/:id
+```
+
+These endpoints return active demo users without sensitive authentication fields.
+
+The backend does not provide login, logout, password, token, OAuth, JWT, SSO, or a real authentication session in this lot.
 
 ## Guardrails
 

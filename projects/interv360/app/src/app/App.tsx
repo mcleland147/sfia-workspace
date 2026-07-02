@@ -6,10 +6,19 @@ import {
 } from "../data/requestsRepositoryFactory";
 import { RequestsRepositoryError } from "../data/requestsRepository.types";
 import type { DemoTransitionAction } from "../data/requestsRepository.types";
+import { listApiUsers } from "../data/usersRepository";
 import type { DemoUser } from "../domain/demoUsers";
-import { getDemoUserRole } from "../domain/demoUsers";
+import {
+  DEFAULT_DEMO_USER_ID,
+  DEMO_USERS,
+  findDemoUserById,
+  getDefaultDemoUser,
+  getDemoUserRole,
+} from "../domain/demoUsers";
 import {
   getCurrentDemoUser,
+  getStoredCurrentUserId,
+  persistCurrentUserId,
   setCurrentDemoUser,
 } from "../domain/demoUserSession";
 import type { DemoRequest, DemoWorkflowEvent } from "../domain/requestStatus";
@@ -77,6 +86,10 @@ export function App() {
   const [currentUser, setCurrentUser] = useState<DemoUser>(() =>
     getCurrentDemoUser(),
   );
+  const [availableUsers, setAvailableUsers] = useState<DemoUser[]>(() =>
+    dataSourceMode === "api" ? [] : DEMO_USERS,
+  );
+  const [usersLoadError, setUsersLoadError] = useState<string | undefined>();
   const currentRole = getDemoUserRole(currentUser);
 
   const currentScreenIndex = getDemoScreenIndex(currentDemoScreen);
@@ -137,10 +150,87 @@ export function App() {
     setLastActionMessage(undefined);
   }, []);
 
-  const handleDemoUserChange = useCallback((userId: string) => {
-    setCurrentUser(setCurrentDemoUser(userId));
-    setLastActionMessage(undefined);
+  const resolveCurrentUser = useCallback((users: DemoUser[]): DemoUser => {
+    const activeUsers = users.filter((user) => user.isActive);
+    const candidates = activeUsers.length > 0 ? activeUsers : users;
+
+    if (candidates.length === 0) {
+      return getDefaultDemoUser();
+    }
+
+    const storedId = getStoredCurrentUserId();
+    const storedMatch = candidates.find((user) => user.id === storedId);
+    if (storedMatch) {
+      return storedMatch;
+    }
+
+    const defaultMatch = candidates.find(
+      (user) => user.id === DEFAULT_DEMO_USER_ID,
+    );
+    if (defaultMatch) {
+      return defaultMatch;
+    }
+
+    return candidates[0];
   }, []);
+
+  useEffect(() => {
+    if (dataSourceMode !== "api") {
+      setAvailableUsers(DEMO_USERS);
+      setCurrentUser(getCurrentDemoUser());
+      setUsersLoadError(undefined);
+      return;
+    }
+
+    let cancelled = false;
+
+    const loadApiUsers = async () => {
+      try {
+        const apiUsers = await listApiUsers();
+        if (cancelled) {
+          return;
+        }
+
+        const nextUser = resolveCurrentUser(apiUsers);
+        persistCurrentUserId(nextUser.id);
+        setAvailableUsers(apiUsers);
+        setCurrentUser(nextUser);
+        setUsersLoadError(undefined);
+      } catch {
+        if (cancelled) {
+          return;
+        }
+
+        const fallbackUser = findDemoUserById(getStoredCurrentUserId()) ??
+          getCurrentDemoUser();
+        persistCurrentUserId(fallbackUser.id);
+        setAvailableUsers(DEMO_USERS);
+        setCurrentUser(fallbackUser);
+        setUsersLoadError(
+          "Impossible de charger les utilisateurs API. Utilisation des utilisateurs locaux.",
+        );
+      }
+    };
+
+    void loadApiUsers();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [dataSourceMode, resolveCurrentUser]);
+
+  const handleDemoUserChange = useCallback((userId: string) => {
+    if (dataSourceMode === "api") {
+      const nextUser =
+        availableUsers.find((user) => user.id === userId) ??
+        resolveCurrentUser(availableUsers);
+      persistCurrentUserId(nextUser.id);
+      setCurrentUser(nextUser);
+    } else {
+      setCurrentUser(setCurrentDemoUser(userId));
+    }
+    setLastActionMessage(undefined);
+  }, [availableUsers, dataSourceMode, resolveCurrentUser]);
 
   const handleWorkflowAction = useCallback(
     async (action: DemoTransitionAction) => {
@@ -243,7 +333,8 @@ export function App() {
     return (
       <main className="app-shell">
         <DemoUserControl
-          user={currentUser}
+          users={availableUsers.length > 0 ? availableUsers : DEMO_USERS}
+          currentUser={currentUser}
           onUserChange={handleDemoUserChange}
         />
         <p className="app-data-mode" role="status">
@@ -258,7 +349,8 @@ export function App() {
     return (
       <main className="app-shell">
         <DemoUserControl
-          user={currentUser}
+          users={availableUsers.length > 0 ? availableUsers : DEMO_USERS}
+          currentUser={currentUser}
           onUserChange={handleDemoUserChange}
         />
         <p className="app-data-mode" role="status">
@@ -274,16 +366,17 @@ export function App() {
   return (
     <main className="app-shell">
       <DemoUserControl
-        user={currentUser}
+        users={availableUsers.length > 0 ? availableUsers : DEMO_USERS}
+        currentUser={currentUser}
         onUserChange={handleDemoUserChange}
       />
       <p className="app-data-mode" role="status">
         {getDataSourceModeLabel(dataSourceMode)}
       </p>
 
-      {loadError ? (
+      {loadError || usersLoadError ? (
         <p className="app-error app-error--inline" role="alert">
-          {loadError}
+          {loadError ?? usersLoadError}
         </p>
       ) : null}
 

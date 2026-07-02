@@ -13,6 +13,24 @@ function getStorage(): Storage | null {
   return window.localStorage;
 }
 
+export function getStoredCurrentUserId(): string | null {
+  const storage = getStorage();
+  if (!storage) {
+    return null;
+  }
+
+  return storage.getItem(CURRENT_USER_STORAGE_KEY);
+}
+
+export function persistCurrentUserId(userId: string): void {
+  const storage = getStorage();
+  if (!storage) {
+    return;
+  }
+
+  storage.setItem(CURRENT_USER_STORAGE_KEY, userId);
+}
+
 export function getCurrentDemoUser(): DemoUser {
   const storage = getStorage();
   const defaultUser = getDefaultDemoUser();
@@ -21,14 +39,14 @@ export function getCurrentDemoUser(): DemoUser {
     return defaultUser;
   }
 
-  const storedId = storage.getItem(CURRENT_USER_STORAGE_KEY);
+  const storedId = getStoredCurrentUserId();
   const foundUser = findDemoUserById(storedId);
 
   if (foundUser) {
     return foundUser;
   }
 
-  storage.setItem(CURRENT_USER_STORAGE_KEY, defaultUser.id);
+  persistCurrentUserId(defaultUser.id);
   return defaultUser;
 }
 
@@ -37,7 +55,7 @@ export function setCurrentDemoUser(userId: string): DemoUser {
   const user = findDemoUserById(userId) ?? getDefaultDemoUser();
 
   if (storage) {
-    storage.setItem(CURRENT_USER_STORAGE_KEY, user.id);
+    persistCurrentUserId(user.id);
   }
 
   return user;

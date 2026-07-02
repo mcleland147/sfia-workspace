@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
-import { CURRENT_USER_STORAGE_KEY } from "../domain/demoUsers";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { CURRENT_USER_STORAGE_KEY, DEMO_USERS } from "../domain/demoUsers";
 import { App } from "../app/App";
 
 async function waitForScreenNavigation() {
@@ -48,6 +48,31 @@ async function renderAppOnDetailsScreen() {
 describe("App simulated role", () => {
   beforeEach(() => {
     localStorage.clear();
+    vi.unstubAllGlobals();
+  });
+
+  it("does not call GET /api/v1/users in local mode", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<App />);
+    await waitForScreenNavigation();
+
+    expect(
+      fetchMock.mock.calls.some(([url]) => String(url).includes("/users")),
+    ).toBe(false);
+  });
+
+  it("exposes all five local demo users in the switcher", async () => {
+    render(<App />);
+    await waitForScreenNavigation();
+
+    const userSelect = screen.getByLabelText(/Changer d'utilisateur/i);
+    const options = Array.from(userSelect.querySelectorAll("option")).map(
+      (option) => option.getAttribute("value"),
+    );
+
+    expect(options).toEqual(DEMO_USERS.map((user) => user.id));
   });
 
   it("shows Théo Technicien as the default demo user", async () => {

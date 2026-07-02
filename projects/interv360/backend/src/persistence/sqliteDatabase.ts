@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Database from "better-sqlite3";
 import { applySqliteSchema } from "./sqliteSchema.js";
-import { seedDatabaseIfEmpty } from "./sqliteSeed.js";
+import { seedDatabaseIfEmpty, seedUsers } from "./sqliteSeed.js";
 
 const backendRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -37,6 +37,7 @@ export function getDatabase(): Database.Database {
     database = new Database(databasePath);
     activePath = databasePath;
     applySqliteSchema(database);
+    seedUsers(database);
     seedDatabaseIfEmpty(database);
   }
 

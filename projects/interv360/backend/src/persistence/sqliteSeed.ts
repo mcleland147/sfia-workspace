@@ -1,8 +1,37 @@
 import type Database from "better-sqlite3";
 import type { DemoRequest, DemoRequestDetail } from "../domain/types.js";
 import { demoDetailsSeed, demoRequestsSeed } from "../seed/demoSeed.js";
+import { SEEDED_USERS } from "../seed/usersSeed.js";
 
 const EVENT_COUNTER_KEY = "event_counter";
+
+export function seedUsers(db: Database.Database): void {
+  const insertUser = db.prepare(`
+    INSERT INTO users (id, display_name, email, role, team, is_active)
+    VALUES (@id, @displayName, @email, @role, @team, @isActive)
+    ON CONFLICT(id) DO UPDATE SET
+      display_name = excluded.display_name,
+      email = excluded.email,
+      role = excluded.role,
+      team = excluded.team,
+      is_active = excluded.is_active
+  `);
+
+  const seedTransaction = db.transaction(() => {
+    for (const user of SEEDED_USERS) {
+      insertUser.run({
+        id: user.id,
+        displayName: user.displayName,
+        email: user.email,
+        role: user.role,
+        team: user.team,
+        isActive: user.isActive ? 1 : 0,
+      });
+    }
+  });
+
+  seedTransaction();
+}
 
 export function seedDatabaseIfEmpty(db: Database.Database): void {
   const row = db

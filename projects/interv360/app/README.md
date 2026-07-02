@@ -189,6 +189,42 @@ Unauthorized actions are blocked on the frontend and display a user message:
 
 The current demo user is preserved after a demo reset.
 
+### Backend users in API mode
+
+When API mode is enabled, the frontend loads demo users from the backend:
+
+```text
+GET /api/v1/users
+```
+
+The selected user is still stored locally with:
+
+```text
+interv360:current-user-id
+```
+
+User resolution rules:
+
+1. keep the stored user if it exists in the backend users list;
+2. fallback to `user-technician` when available;
+3. fallback to the first active user if `user-technician` is not available.
+
+Local mode still uses the frontend `DEMO_USERS` list.
+
+Transition requests are unchanged and still send only:
+
+```json
+{
+  "action": "<action>"
+}
+```
+
+The frontend does not send `userId`, `session`, or `token` in transition payloads.
+
+This is still not real authentication.
+
+No login, password, token, OAuth, JWT, SSO, Entra ID, or backend auth session is introduced.
+
 Guardrails:
 
 - no real login;
@@ -198,9 +234,8 @@ Guardrails:
 - no JWT;
 - no SSO;
 - no Entra ID;
-- no backend users table;
-- no backend session;
-- no API contract change.
+- no backend auth session;
+- no API contract change for transitions.
 
 ## Status
 

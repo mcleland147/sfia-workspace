@@ -234,7 +234,8 @@ Elle ne constitue pas une authentification réelle.
 - aucun appel API ne doit être réalisé lorsqu’une action est non autorisée ;
 - le reset démo est réservé à `admin` côté frontend ;
 - le backend n’est pas sécurisé par cette simulation ;
-- aucune auth réelle, OAuth, JWT, SSO ou base users n’est introduite.
+- aucune auth réelle, OAuth, JWT, SSO ou session backend n'est introduite ;
+- en mode API, les utilisateurs proviennent de `GET /api/v1/users` (voir [Contrôle — Backend Users & Session](#contrôle--backend-users--session)).
 
 ---
 
@@ -408,8 +409,120 @@ Le rôle actif n'est plus choisi directement : il est dérivé de l'utilisateur 
 - aucun OAuth/JWT/SSO n'est introduit ;
 - aucun Entra ID n'est introduit ;
 - aucune session backend n'est introduite ;
-- aucune table users backend n'est introduite ;
 - l'utilisateur courant est stocké localement via `interv360:current-user-id`.
+
+En mode local, les utilisateurs proviennent de `DEMO_USERS` côté frontend. En mode API, voir [Contrôle — Backend Users & Session](#contrôle--backend-users--session).
+
+---
+
+## Contrôle — Backend Users & Session
+
+Interv360 dispose désormais d'un socle utilisateurs côté backend.
+
+En mode API, le frontend charge les utilisateurs depuis :
+
+```text
+GET /api/v1/users
+```
+
+Le user switcher reste visible côté frontend, mais la source des utilisateurs dépend du mode utilisé.
+
+### Sources utilisateurs
+
+| Mode | Source utilisateurs | Session locale |
+|------|---------------------|----------------|
+| Local | `DEMO_USERS` frontend | `interv360:current-user-id` |
+| API | `GET /api/v1/users` | `interv360:current-user-id` validé contre la liste API |
+
+### Utilisateurs backend seedés
+
+| Utilisateur | ID | Rôle |
+|-------------|----|------|
+| Alice Demandeur | `user-requester` | `requester` |
+| Théo Technicien | `user-technician` | `technician` |
+| Maya Responsable | `user-manager` | `manager` |
+| Amin Admin | `user-admin` | `admin` |
+| Victor Lecteur | `user-viewer` | `viewer` |
+
+Utilisateur par défaut :
+
+```text
+user-technician
+```
+
+### Contrôle API users
+
+1. Lancer le backend.
+2. Appeler `GET /api/v1/users`.
+3. Vérifier que la réponse contient 5 utilisateurs actifs.
+4. Vérifier que les champs retournés sont :
+   - `id`
+   - `displayName`
+   - `email`
+   - `role`
+   - `team`
+   - `isActive`
+5. Vérifier qu'aucun champ sensible n'est retourné :
+   - `password`
+   - `passwordHash`
+   - `token`
+   - `provider`
+   - `externalId`
+
+### Contrôle frontend en mode API
+
+1. Lancer le frontend en mode API.
+2. Vérifier que le user switcher affiche les utilisateurs issus du backend.
+3. Vérifier que l'utilisateur par défaut est **Théo Technicien** si aucun utilisateur valide n'est stocké.
+4. Sélectionner **Maya Responsable**.
+5. Vérifier que la sélection est persistée via `interv360:current-user-id`.
+6. Vérifier que le rôle affiché est **Responsable**.
+7. Vérifier que les permissions restent cohérentes avec le rôle.
+
+### Contrôle fallback
+
+1. Stocker un utilisateur inconnu dans `interv360:current-user-id`.
+2. Recharger l'application en mode API.
+3. Vérifier que l'application revient vers `user-technician` si disponible.
+4. Si `user-technician` n'est pas disponible, vérifier le fallback vers le premier utilisateur actif.
+
+### Contrôle transitions
+
+Les transitions workflow restent inchangées.
+
+Le payload attendu reste :
+
+```json
+{
+  "action": "<action>"
+}
+```
+
+Le frontend ne doit pas envoyer :
+
+- `userId`
+- `session`
+- `token`
+
+L'acteur métier sera traité dans le Lot 2 Audit Trail.
+
+### Limites confirmées
+
+Ce lot n'introduit pas :
+
+- login réel ;
+- logout ;
+- mot de passe ;
+- hash de mot de passe ;
+- token ;
+- OAuth ;
+- JWT ;
+- SSO ;
+- Entra ID ;
+- session backend réelle ;
+- audit trail complet ;
+- CRM ;
+- données réelles.
 
 ---
 
@@ -418,9 +531,9 @@ Le rôle actif n'est plus choisi directement : il est dérivé de l'utilisateur 
 | Preuve | Commande / contrôle | Attendu |
 |--------|---------------------|---------|
 | Frontend build | `npm run build` dans `projects/interv360/app` | OK |
-| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 105 tests ou plus |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 157 tests ou plus |
 | Backend build | `npm run build` dans `projects/interv360/backend` | OK |
-| Backend tests | `npm run test` dans `projects/interv360/backend` | 54 tests ou plus |
+| Backend tests | `npm run test` dans `projects/interv360/backend` | 93 tests ou plus |
 | API health | `GET /health` | OK |
 | Liste demandes | `GET /api/v1/requests` | demandes fictives |
 | Détail demande | `GET /api/v1/requests/SAV-DEMO-001` | champs productisés présents |
