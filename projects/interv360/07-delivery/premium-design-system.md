@@ -207,9 +207,11 @@ Palette à rapprocher de la maquette Figma :
 |-----------|----------|--------|
 | UI-01 | Audit design et cadrage premium | Réalisé |
 | UI-02 | Shell applicatif + design tokens | Réalisé |
-| UI-03 | Page demandes premium | À faire |
-| UI-04 | Fiche demande + journal premium | À faire |
-| UI-05 | Validations, polish et PR unique | À venir |
+| FIGMA-01 | Direction artistique Figma premium | En cours |
+| FIGMA-02 | Maquettes Figma écrans clés | À faire |
+| UI-03 | Implémentation page demandes depuis Figma | À faire |
+| UI-04 | Implémentation fiche demande + journal depuis Figma | À faire |
+| UI-05 | Polish, validations et PR unique | À venir |
 
 ---
 
@@ -224,13 +226,14 @@ Palette à rapprocher de la maquette Figma :
 | Header produit créé | OK |
 | Design tokens créés | OK |
 | Layout pleine largeur SaaS créé | OK |
-| Page demandes alignée Figma | À faire |
-| Cards KPI premium | À faire |
-| Tableau demandes premium | À faire |
-| Badges harmonisés | À faire |
-| Filtres harmonisés | À faire |
-| Fiche demande améliorée | À faire |
-| Journal amélioré | À faire |
+| Décision Figma-first prise | OK |
+| Maquette page demandes premium | À faire |
+| Maquette fiche demande premium | À faire |
+| Maquette journal / timeline premium | À faire |
+| Maquette dashboard léger | À faire |
+| Maquette création demande future | Optionnel |
+| Implémentation page demandes | Suspendue avant validation Figma |
+| Implémentation fiche demande | Suspendue avant validation Figma |
 | Tests frontend OK | À faire |
 | Build frontend OK | À faire |
 | Backend inchangé | À valider |
@@ -297,8 +300,92 @@ Décision :
 
 ---
 
+## 10.2. FIGMA-01 — Direction artistique Figma premium
+
+FIGMA-01 réoriente le cycle UI vers une approche Figma-first.
+
+Constat :
+
+L'IHM actuelle est fonctionnelle mais ne donne pas encore l'impression d'un vrai produit SaaS premium. Elle reste trop proche d'un démonstrateur technique.
+
+Décision :
+
+> Ne pas poursuivre l'implémentation UI page par page avant d'avoir retravaillé les maquettes Figma.
+
+Objectif :
+
+Produire une direction artistique plus ambitieuse, plus crédible et plus présentable.
+
+Les maquettes doivent permettre de mieux vendre l'application fictive en démonstration.
+
+### Écrans Figma à retravailler
+
+| Écran | Priorité | Objectif |
+|------|----------|----------|
+| Page Demandes | Très haute | Page vitrine SaaS |
+| Fiche demande | Très haute | Donner de la profondeur métier |
+| Journal / timeline | Haute | Valoriser l'audit trail |
+| Dashboard léger | Moyenne | Donner une impression produit complet |
+| Création demande | Optionnelle | Préparer le futur CRUD sans l'implémenter |
+
+### Direction artistique attendue
+
+Le design cible doit être :
+
+- premium ;
+- moderne ;
+- SaaS ;
+- dense mais lisible ;
+- crédible en démonstration ;
+- proche d'un outil métier terrain ;
+- plus ambitieux que la maquette actuelle ;
+- plus fort visuellement que l'IHM actuelle.
+
+### Principes visuels
+
+À explorer dans Figma :
+
+- sidebar sombre plus travaillée ;
+- header plus premium ;
+- cards KPI plus élégantes ;
+- tableau plus dense ;
+- badges plus qualitatifs ;
+- fiche demande en layout deux colonnes ;
+- timeline verticale plus visuelle ;
+- usage plus fort des icônes ;
+- meilleure hiérarchie typographique ;
+- spacing plus maîtrisé ;
+- ombres et bordures plus modernes ;
+- états hover / selected / active plus soignés.
+
+### Contraintes
+
+Les maquettes peuvent montrer une vision plus ambitieuse, mais l'implémentation devra ensuite préserver :
+
+- backend existant ;
+- API existante ;
+- modèle métier existant ;
+- workflow existant ;
+- statuts existants ;
+- permissions existantes ;
+- absence de CRUD complet ;
+- absence d'auth réelle ;
+- absence de CRM ;
+- absence de données réelles.
+
+### Décision FIGMA-01
+
+FIGMA-01 valide :
+
+- l'arrêt temporaire de l'implémentation UI-03 ;
+- la priorité donnée au retravail Figma ;
+- la nécessité d'une maquette premium avant développement ;
+- la volonté d'obtenir une application qui donne envie en présentation.
+
+---
+
 ## 11. Prochaine étape
 
-Exécuter **UI-03** :
+Exécuter **FIGMA-02** :
 
-Page demandes premium — KPI cards, recherche, filtres, tableau, badges et bouton d'action visuel.
+Produire les maquettes Figma premium des écrans clés avant de reprendre l'implémentation UI.
