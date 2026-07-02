@@ -403,3 +403,54 @@ Ce lot ne doit pas introduire :
 | Méthode | SFIA Fast Track produit |
 | Prochain lot | Backend users & session |
 | Prochaine branche recommandée | `delivery/interv360-backend-users-session` |
+
+---
+
+## 14. Préparation PR
+
+### Titre proposé
+
+`Define Interv360 MVP final roadmap`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR defines the final MVP roadmap for Interv360.
+It marks the end of the demo-oriented phase and shifts the project toward a structured, finalizable product MVP.
+
+## What changed
+- defines the current product maturity at approximately 65%;
+- defines the target as 90–95% MVP product maturity;
+- clarifies that the demo phase is now considered validated;
+- defines the MVP final criteria;
+- introduces the SFIA Fast Track product-oriented method;
+- defines the 6 delivery lots required to finalize the MVP:
+  1. Backend users & session
+  2. Audit trail
+  3. Request model finalization
+  4. API product hardening
+  5. Product UX finalization
+  6. Product industrialization
+
+## Next recommended lot
+`delivery/interv360-backend-users-session`
+This lot will introduce backend users and a minimal application session, while keeping the approach simple and excluding OAuth/JWT/SSO at this stage.
+
+## Validation
+Documentation-only PR.
+No code, frontend, backend, SQLite, API, authentication, OAuth/JWT/SSO, CRM, real data, workflow status, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+```
+
+---
+
+## 15. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `product/interv360-mvp-final-roadmap` |
+| Merge automatique | Non |
