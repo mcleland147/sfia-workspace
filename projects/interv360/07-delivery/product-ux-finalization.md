@@ -239,7 +239,7 @@ Décision proposée pour rester Fast Track :
 | UX-03 | Fiche demande et hiérarchie information | Réalisé |
 | UX-04 | Actions, historique et messages | Réalisé |
 | UX-05 | Tests frontend et non-régression | Réalisé |
-| UX-06 | Documentation runbook/README | À faire |
+| UX-06 | Documentation runbook/README | Réalisé |
 | UX-07 | Préparation PR unique | À venir |
 
 ---
@@ -267,6 +267,9 @@ Décision proposée pour rester Fast Track :
 | Backend tests | OK — 125 tests |
 | Frontend build | OK |
 | Backend build | OK |
+| Runbook mis à jour | OK |
+| README frontend mis à jour | OK |
+| README backend mis à jour | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -643,8 +646,135 @@ Garde-fous confirmés :
 
 ---
 
+## 15.6. Changements UX-06
+
+UX-06 finalise la documentation du lot Product UX Finalization.
+
+Changements réalisés :
+
+- documentation de la fiche demande structurée ;
+- documentation de la liste demandes orientée produit ;
+- documentation des statuts métier lisibles ;
+- documentation des actions disponibles / indisponibles ;
+- documentation de l'historique acteur / action / date ;
+- documentation du profil actif ;
+- documentation du mode local/API ;
+- documentation du backend indisponible sans fallback silencieux ;
+- documentation du reset admin ;
+- mise à jour du runbook ;
+- mise à jour du README frontend ;
+- mise à jour du README backend.
+
+Synthèse :
+
+| Élément | Résultat |
+|---------|----------|
+| Fiche demande | Documentée |
+| Liste demandes | Documentée |
+| Actions workflow | Documentées |
+| Historique | Documenté |
+| Profil actif | Documenté |
+| Mode local | Documenté |
+| Mode API | Documenté |
+| Fallback silencieux | Non |
+| Reset admin | Documenté |
+| Backend | Inchangé |
+| API | Inchangée |
+| Request model | Conservé |
+| Audit trail | Conservé |
+| Permissions | Conservées |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de dépendance UI ajoutée ;
+- pas d'export Figma ajouté.
+
+### Note Figma
+
+Aucun arc Figma n'est ouvert dans ce lot.
+
+Décision :
+
+- le Lot 5 reste une finalisation UX MVP directement dans le code ;
+- un arc Figma pourra être ouvert ultérieurement uniquement si une refonte plus large ou un design system devient nécessaire ;
+- aucun export Figma n'est ajouté au repository.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **UX-06** :
+Exécuter **UX-07** :
 
-Documentation runbook/README
+Préparation PR unique
+
+---
+
+## 17. Synthèse avant PR
+
+Le lot **Product UX Finalization** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- fiche demande mieux hiérarchisée ;
+- liste demandes plus orientée produit ;
+- statuts métier affichés avec libellés lisibles ;
+- actions workflow clarifiées ;
+- actions indisponibles accompagnées de motifs ;
+- historique rendu plus lisible ;
+- affichage acteur / action / date clarifié ;
+- profil actif clarifié ;
+- badge mode local/API clarifié ;
+- messages et états vides améliorés ;
+- absence de fallback silencieux confirmée ;
+- tests frontend renforcés ;
+- runbook/README mis à jour.
+
+Le lot préserve :
+
+- backend ;
+- API ;
+- SQLite ;
+- request model enrichi ;
+- audit trail enrichi ;
+- workflow existant ;
+- statuts techniques existants ;
+- transitions métier existantes ;
+- permissions existantes ;
+- mode local ;
+- mode API ;
+- reset admin.
+
+Le lot ne met pas en place :
+
+- CRUD complet ;
+- formulaire création demande ;
+- authentification réelle ;
+- session backend réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- nouveau statut ;
+- dépendance UI ;
+- export Figma.
+
+La prochaine étape est UX-07 : préparation de la PR unique du lot.
