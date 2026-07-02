@@ -4,16 +4,18 @@ import {
   getDataSourceMode,
   getDataSourceModeLabel,
 } from "../data/requestsRepositoryFactory";
-import { simulatedRoleStorageKey } from "../data/localStorageKeys";
 import { RequestsRepositoryError } from "../data/requestsRepository.types";
 import type { DemoTransitionAction } from "../data/requestsRepository.types";
+import type { DemoUser } from "../domain/demoUsers";
+import { getDemoUserRole } from "../domain/demoUsers";
+import {
+  getCurrentDemoUser,
+  setCurrentDemoUser,
+} from "../domain/demoUserSession";
 import type { DemoRequest, DemoWorkflowEvent } from "../domain/requestStatus";
 import {
   canRolePerform,
-  DEFAULT_SIMULATED_ROLE,
   formatUnauthorizedRoleMessage,
-  isSimulatedRole,
-  type SimulatedRole,
 } from "../domain/simulatedRoles";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DemoOverview } from "../ui/demo/DemoOverview";
@@ -44,7 +46,7 @@ import {
 } from "../ui/requests/requestListFilters";
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
 import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
-import { SimulatedRoleControl } from "../ui/roles/SimulatedRoleControl";
+import { DemoUserControl } from "../ui/roles/DemoUserControl";
 import "./App.css";
 
 export function App() {
@@ -72,10 +74,10 @@ export function App() {
   const [currentDemoScreen, setCurrentDemoScreen] = useState<DemoScreenId>(
     INITIAL_DEMO_SCREEN_ID,
   );
-  const [simulatedRole, setSimulatedRole] = useState<SimulatedRole>(() => {
-    const storedRole = window.localStorage.getItem(simulatedRoleStorageKey);
-    return isSimulatedRole(storedRole) ? storedRole : DEFAULT_SIMULATED_ROLE;
-  });
+  const [currentUser, setCurrentUser] = useState<DemoUser>(() =>
+    getCurrentDemoUser(),
+  );
+  const currentRole = getDemoUserRole(currentUser);
 
   const currentScreenIndex = getDemoScreenIndex(currentDemoScreen);
   const currentScreen = getDemoScreenById(currentDemoScreen);
@@ -135,9 +137,8 @@ export function App() {
     setLastActionMessage(undefined);
   }, []);
 
-  const handleSimulatedRoleChange = useCallback((nextRole: SimulatedRole) => {
-    setSimulatedRole(nextRole);
-    window.localStorage.setItem(simulatedRoleStorageKey, nextRole);
+  const handleDemoUserChange = useCallback((userId: string) => {
+    setCurrentUser(setCurrentDemoUser(userId));
     setLastActionMessage(undefined);
   }, []);
 
@@ -147,8 +148,8 @@ export function App() {
         return;
       }
 
-      if (!canRolePerform(simulatedRole, action)) {
-        setLastActionMessage(formatUnauthorizedRoleMessage(simulatedRole));
+      if (!canRolePerform(currentRole, action)) {
+        setLastActionMessage(formatUnauthorizedRoleMessage(currentRole));
         return;
       }
 
@@ -171,14 +172,14 @@ export function App() {
         setLastActionMessage(message);
       }
     },
-    [repository, request, selectedRequestId, simulatedRole],
+    [repository, request, selectedRequestId, currentRole],
   );
 
-  const canPerformDemoReset = canRolePerform(simulatedRole, "demo_reset");
+  const canPerformDemoReset = canRolePerform(currentRole, "demo_reset");
 
   const handleDemoReset = useCallback(async () => {
-    if (!canRolePerform(simulatedRole, "demo_reset")) {
-      setLastActionMessage(formatUnauthorizedRoleMessage(simulatedRole));
+    if (!canRolePerform(currentRole, "demo_reset")) {
+      setLastActionMessage(formatUnauthorizedRoleMessage(currentRole));
       return;
     }
 
@@ -204,7 +205,7 @@ export function App() {
           : "Impossible de réinitialiser la démo.";
       setLastActionMessage(message);
     }
-  }, [repository, simulatedRole]);
+  }, [repository, currentRole]);
 
   const handlePreviousScenarioStep = useCallback(() => {
     setScenarioStepIndex((index) => Math.max(0, index - 1));
@@ -241,9 +242,9 @@ export function App() {
   if (isLoading && requests.length === 0 && !loadError) {
     return (
       <main className="app-shell">
-        <SimulatedRoleControl
-          role={simulatedRole}
-          onRoleChange={handleSimulatedRoleChange}
+        <DemoUserControl
+          user={currentUser}
+          onUserChange={handleDemoUserChange}
         />
         <p className="app-data-mode" role="status">
           {getDataSourceModeLabel(dataSourceMode)}
@@ -256,9 +257,9 @@ export function App() {
   if (loadError && requests.length === 0) {
     return (
       <main className="app-shell">
-        <SimulatedRoleControl
-          role={simulatedRole}
-          onRoleChange={handleSimulatedRoleChange}
+        <DemoUserControl
+          user={currentUser}
+          onUserChange={handleDemoUserChange}
         />
         <p className="app-data-mode" role="status">
           {getDataSourceModeLabel(dataSourceMode)}
@@ -272,9 +273,9 @@ export function App() {
 
   return (
     <main className="app-shell">
-      <SimulatedRoleControl
-        role={simulatedRole}
-        onRoleChange={handleSimulatedRoleChange}
+      <DemoUserControl
+        user={currentUser}
+        onUserChange={handleDemoUserChange}
       />
       <p className="app-data-mode" role="status">
         {getDataSourceModeLabel(dataSourceMode)}
@@ -407,7 +408,7 @@ export function App() {
                 }}
                 lastActionMessage={lastActionMessage}
                 isActionDisabled={(action) =>
-                  !canRolePerform(simulatedRole, action)
+                  !canRolePerform(currentRole, action)
                 }
               />
             </section>

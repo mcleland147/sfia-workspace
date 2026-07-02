@@ -17,14 +17,14 @@ function goToDemoScreen(shortLabel: string) {
   fireEvent.click(screen.getByRole("button", { name: shortLabel }));
 }
 
-function switchSimulatedRole(role: string) {
-  fireEvent.change(screen.getByLabelText(/Changer de rôle/i), {
-    target: { value: role },
+function switchDemoUser(userId: string) {
+  fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+    target: { value: userId },
   });
 }
 
-function switchToAdminRole() {
-  switchSimulatedRole("admin");
+function switchToAdminUser() {
+  switchDemoUser("user-admin");
 }
 
 async function renderAppAndWait() {
@@ -148,7 +148,7 @@ describe("App smoke", () => {
     });
 
     goToDemoScreen("Journal");
-    switchToAdminRole();
+    switchToAdminUser();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -228,7 +228,7 @@ describe("App smoke", () => {
     });
 
     goToDemoScreen("Journal");
-    switchToAdminRole();
+    switchToAdminUser();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -295,7 +295,7 @@ describe("App smoke", () => {
     expect(screen.getAllByText(/Étape 3 sur 6/i).length).toBeGreaterThan(0);
 
     goToDemoScreen("Journal");
-    switchToAdminRole();
+    switchToAdminUser();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -363,7 +363,7 @@ describe("App smoke", () => {
     });
 
     goToDemoScreen("Journal");
-    switchToAdminRole();
+    switchToAdminUser();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
