@@ -108,6 +108,8 @@ The `.env` file must remain local and must not be committed.
 | `npm run test -- --run` | Runs the frontend test suite (191 tests or more). |
 | `npm run preview` | Serves the production build locally. |
 
+Point d'entrée MVP et CI minimale : [`../README.md`](../README.md).
+
 ## Mode données local/API
 
 Par défaut, l'application utilise le **mode local** basé sur `localStorage` (voir [Environment variables](#environment-variables) ci-dessus).

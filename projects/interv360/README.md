@@ -183,7 +183,8 @@ Points clés :
 - **mode API** : données servies par le backend local ;
 - SQLite conserve l'état entre redémarrages backend ;
 - reset disponible dans l'interface pour le profil administrateur ;
-- endpoint reset : `POST /api/v1/demo/reset`.
+- endpoint reset : `POST /api/v1/demo/reset` ;
+- suppression possible du fichier `backend/data/interv360.sqlite` si l'état local doit être recréé (arrêter le backend avant suppression).
 
 ---
 

@@ -115,6 +115,8 @@ The backend will recreate the local demo database.
 | `npm run build` | Runs TypeScript checks with `tsc --noEmit`. It does not emit a production bundle. |
 | `npm run test` | Runs the backend test suite (125 tests or more). |
 
+Point d'entrée MVP et CI minimale : [`../README.md`](../README.md).
+
 ## Endpoints
 
 | Method | Path | Description |

@@ -239,7 +239,7 @@ Décision proposée pour rester Fast Track :
 | IND-03 | README global et guides locaux | Réalisé |
 | IND-04 | Variables `.env`, scripts et exploitation locale | Réalisé |
 | IND-05 | Tests, non-régression et CI éventuelle | Réalisé |
-| IND-06 | Documentation finale runbook/README | À faire |
+| IND-06 | Documentation finale runbook/README | Réalisé |
 | IND-07 | Préparation PR unique | À venir |
 
 ---
@@ -271,6 +271,11 @@ Décision proposée pour rester Fast Track :
 | Backend tests | OK — 125 tests |
 | Frontend build | OK |
 | Backend build | OK |
+| Runbook mis à jour | OK |
+| README racine finalisé | OK |
+| README frontend finalisé | OK |
+| README backend finalisé | OK |
+| CI minimale documentée | OK |
 | Auth réelle exclue | OK |
 | OAuth/JWT/SSO exclus | OK |
 | CRM/données réelles exclus | OK |
@@ -750,8 +755,152 @@ Garde-fous confirmés :
 
 ---
 
+## 14.6. Changements IND-06
+
+IND-06 finalise la documentation du lot Product Industrialization.
+
+Changements réalisés :
+
+- runbook E2E harmonisé avec l'industrialisation MVP ;
+- contrôle Product Industrialization ajouté au runbook ;
+- README racine vérifié et finalisé ;
+- README frontend vérifié et finalisé ;
+- README backend vérifié et finalisé ;
+- documentation `.env.example` consolidée ;
+- documentation SQLite / reset consolidée ;
+- documentation scripts build/test/run consolidée ;
+- documentation stratégie de déploiement simple consolidée ;
+- documentation CI minimale consolidée ;
+- limites MVP harmonisées.
+
+Synthèse documentaire :
+
+| Élément | Résultat |
+|---------|----------|
+| README racine | Finalisé |
+| README frontend | Finalisé |
+| README backend | Finalisé |
+| Runbook E2E | Finalisé |
+| `.env.example` frontend | Documenté |
+| `.env.example` backend | Documenté |
+| Scripts frontend | Documentés |
+| Scripts backend | Documentés |
+| SQLite | Documenté |
+| Reset demo | Documenté |
+| Mode local | Documenté |
+| Mode API | Documenté |
+| CI minimale | Documentée |
+| Déploiement simple | Documenté |
+| Limites MVP | Documentées |
+
+Validations reprises :
+
+| Cible | Résultat |
+|-------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 191 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| CI minimale | Ajoutée |
+
+Préservé :
+
+- frontend ;
+- backend ;
+- API ;
+- SQLite ;
+- workflow ;
+- statuts ;
+- audit trail ;
+- request model ;
+- permissions ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée.
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas de Docker obligatoire ;
+- pas de CI/CD lourde ;
+- pas de déploiement cloud complet ;
+- pas d'arc Figma ;
+- pas d'export Figma.
+
+---
+
 ## 15. Prochaine étape
 
-Exécuter **IND-06** :
+Exécuter **IND-07** :
 
-Documentation finale runbook/README
+Préparation PR unique
+
+---
+
+## 16. Synthèse avant PR
+
+Le lot **Product Industrialization** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- README racine orienté MVP produit ;
+- guide installation locale ;
+- guide mode local ;
+- guide mode API ;
+- documentation `.env.example` frontend/backend ;
+- documentation scripts build/test/run ;
+- documentation SQLite et reset ;
+- documentation exploitation locale ;
+- stratégie de déploiement simple ;
+- CI minimale build+test ;
+- runbook E2E harmonisé.
+
+Le lot préserve :
+
+- frontend fonctionnel ;
+- backend fonctionnel ;
+- API ;
+- SQLite ;
+- request model enrichi ;
+- audit trail enrichi ;
+- workflow existant ;
+- statuts techniques existants ;
+- transitions métier existantes ;
+- permissions existantes ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée ;
+- reset admin.
+
+Le lot ne met pas en place :
+
+- déploiement cloud complet ;
+- Docker obligatoire ;
+- Kubernetes ;
+- Terraform ;
+- Helm ;
+- CI/CD complète ;
+- observabilité avancée ;
+- supervision ;
+- authentification réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- CRUD complet ;
+- formulaire création demande ;
+- nouveau statut ;
+- `STAT-08` ;
+- arc Figma ;
+- export Figma.
+
+La prochaine étape est IND-07 : préparation de la PR unique du lot.

@@ -1104,6 +1104,166 @@ Le Lot 5 n'introduit pas :
 
 ---
 
+## Contrôle — Product Industrialization
+
+Le Lot 6 industrialise le MVP Interv360 sans élargir le périmètre fonctionnel.
+
+Objectif :
+
+- rendre le produit plus facilement installable ;
+- clarifier les modes de lancement local et API ;
+- documenter les variables d'environnement ;
+- documenter les scripts build/test/run ;
+- clarifier SQLite et le reset de démonstration ;
+- cadrer une stratégie de déploiement simple ;
+- ajouter une CI minimale build+test.
+
+### Contrôle documentation
+
+Vérifier :
+
+- le README racine `projects/interv360/README.md` est le point d'entrée MVP ;
+- les README `app/` et `backend/` restent les références spécialisées ;
+- les fichiers `.env.example` existent pour le frontend et le backend ;
+- les limites MVP sont explicites ;
+- les garde-fous sont cohérents avec la roadmap.
+
+### Contrôle installation locale
+
+Depuis la racine du repository :
+
+```bash
+cd projects/interv360/app
+npm install
+cd ../backend
+npm install
+```
+
+### Contrôle mode local
+
+```bash
+cd projects/interv360/app
+npm run dev
+```
+
+Attendu :
+
+- frontend accessible sur le port Vite local ;
+- badge **Mode local** ;
+- aucune dépendance au backend ;
+- demandes de démonstration visibles.
+
+### Contrôle mode API
+
+Terminal 1 :
+
+```bash
+cd projects/interv360/backend
+npm run dev
+```
+
+Terminal 2 :
+
+```bash
+cd projects/interv360/app
+VITE_INTERV360_DATA_SOURCE=api \
+VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
+npm run dev
+```
+
+Attendu :
+
+- backend disponible sur `http://localhost:3001` ;
+- frontend en **Mode API** ;
+- demandes chargées depuis l'API ;
+- persistance SQLite locale ;
+- pas de fallback silencieux vers le mode local si le backend est indisponible.
+
+### Contrôle fichiers d'environnement
+
+Fichiers fournis :
+
+| Fichier | Usage |
+|---------|-------|
+| `projects/interv360/app/.env.example` | Exemple de configuration frontend |
+| `projects/interv360/backend/.env.example` | Exemple de configuration backend |
+
+Les fichiers `.env` réels doivent rester locaux et ne doivent pas être commités.
+
+### Contrôle SQLite et reset
+
+Vérifier :
+
+- SQLite locale par défaut : `projects/interv360/backend/data/interv360.sqlite` ;
+- fichier SQLite non commité ;
+- reset API : `POST /api/v1/demo/reset` ;
+- reset UI disponible pour le profil administrateur ;
+- suppression possible du fichier SQLite local si l'état de démonstration doit être recréé.
+
+### Contrôle CI minimale
+
+Workflow :
+
+```text
+.github/workflows/interv360-ci.yml
+```
+
+La CI minimale s'exécute sur les pull requests et les pushes vers `main` qui modifient `projects/interv360/**`.
+
+Étapes :
+
+- installation frontend ;
+- build frontend ;
+- tests frontend ;
+- installation backend ;
+- build backend ;
+- tests backend.
+
+Elle ne réalise pas :
+
+- déploiement ;
+- build Docker ;
+- publication cloud ;
+- gestion de secrets ;
+- supervision ;
+- analyse de sécurité avancée.
+
+### Preuves techniques
+
+| Contrôle | Commande | Attendu |
+|----------|----------|---------|
+| Frontend build | `npm run build` dans `projects/interv360/app` | OK |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 191 tests ou plus |
+| Backend build | `npm run build` dans `projects/interv360/backend` | OK |
+| Backend tests | `npm run test` dans `projects/interv360/backend` | 125 tests ou plus |
+| CI minimale | GitHub Actions Interv360 CI | Build + tests frontend/backend |
+
+### Limites confirmées
+
+Le Lot 6 n'introduit pas :
+
+- déploiement cloud complet ;
+- Docker obligatoire ;
+- Kubernetes ;
+- Terraform ;
+- Helm ;
+- CI/CD complète ;
+- observabilité avancée ;
+- supervision ;
+- authentification réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- CRUD complet ;
+- formulaire création demande ;
+- nouveau statut ;
+- `STAT-08` ;
+- arc Figma ;
+- export Figma.
+
+---
+
 ## 8. Preuves techniques à présenter
 
 | Preuve | Commande / contrôle | Attendu |
