@@ -237,7 +237,7 @@ Décision proposée pour rester Fast Track :
 | IND-01 | Cadrage opérationnel industrialisation MVP | Réalisé |
 | IND-02 | Audit installation / scripts / env / docs | Réalisé |
 | IND-03 | README global et guides locaux | Réalisé |
-| IND-04 | Variables `.env`, scripts et exploitation locale | À faire |
+| IND-04 | Variables `.env`, scripts et exploitation locale | Réalisé |
 | IND-05 | Tests, non-régression et CI éventuelle | À faire |
 | IND-06 | Documentation finale runbook/README | À faire |
 | IND-07 | Préparation PR unique | À venir |
@@ -252,13 +252,13 @@ Décision proposée pour rester Fast Track :
 | Industrialisation cible cadrée | OK |
 | Audit installation/scripts/env réalisé | OK |
 | README global / index projet clarifié | OK |
-| README frontend consolidé | À faire |
-| README backend consolidé | À faire |
-| Variables `.env` documentées | À faire |
-| Scripts build/test/run documentés | Partiel — README global |
-| SQLite / reset documentés | Partiel — README global |
-| Limites connues documentées | Partiel — README global |
-| Déploiement simple cadré | À faire |
+| README frontend consolidé | OK |
+| README backend consolidé | OK |
+| Variables `.env` documentées | OK |
+| Scripts build/test/run documentés | OK |
+| SQLite / reset documentés | OK |
+| Limites connues documentées | OK |
+| Déploiement simple cadré | OK |
 | Décision CI prise | À faire |
 | Mode local conservé | À valider |
 | Mode API conservé | À valider |
@@ -596,8 +596,80 @@ Validations :
 
 ---
 
+## 14.4. Changements IND-04
+
+IND-04 consolide les variables d'environnement, les scripts et l'exploitation locale.
+
+Changements réalisés :
+
+- variables frontend documentées ;
+- variables backend documentées ;
+- fichiers `.env.example` ajoutés (`app/` et `backend/`) ;
+- scripts frontend documentés ;
+- scripts backend documentés ;
+- comportement SQLite documenté ;
+- reset démo documenté ;
+- procédure de remise à zéro SQLite documentée ;
+- CORS local documenté ;
+- limites d'exploitation locale précisées ;
+- stratégie de déploiement simple cadrée.
+
+Décisions :
+
+- les scripts npm existants sont conservés ;
+- aucun script racine monorepo n'est ajouté dans IND-04 ;
+- Docker reste reporté ;
+- CI/CD complète reste exclue ;
+- CI minimale reste à décider en IND-05 ;
+- les fichiers `.env.example` ne contiennent aucun secret ;
+- les fichiers `.env` réels restent locaux et non commités.
+
+Synthèse variables :
+
+| Variable | Côté | Défaut | Décision |
+|----------|------|--------|----------|
+| `VITE_INTERV360_DATA_SOURCE` | Frontend | `local` implicite | Documentée |
+| `VITE_INTERV360_API_BASE_URL` | Frontend | `http://localhost:3001/api/v1` | Documentée |
+| `PORT` | Backend | `3001` | Documentée |
+| `SQLITE_PATH` | Backend | `data/interv360.sqlite` | Documentée |
+| `DEMO_MODE` | Backend | `true` si absent | Documentée |
+| `INTERV360_CORS_ORIGINS` | Backend | origins Vite locales 5173–5175 | Documentée |
+| `CORS_ORIGIN` | Backend | legacy si supporté | Documentée |
+
+Préservé :
+
+- frontend ;
+- backend ;
+- API ;
+- SQLite ;
+- workflow ;
+- statuts ;
+- audit trail ;
+- request model ;
+- permissions ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée.
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| README racine | OK |
+| README frontend | OK |
+| README backend | OK |
+| `.env.example` frontend | OK |
+| `.env.example` backend | OK |
+| Code frontend | Inchangé |
+| Code backend | Inchangé |
+| Scripts npm | Inchangés |
+| API | Inchangée |
+| SQLite | Inchangée |
+
+---
+
 ## 15. Prochaine étape
 
-Exécuter **IND-04** :
+Exécuter **IND-05** :
 
-Variables `.env`, scripts et exploitation locale
+Tests, non-régression et CI éventuelle

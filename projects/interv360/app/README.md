@@ -62,11 +62,24 @@ npm run test     # smoke tests (vitest)
 npm run preview  # preview production build
 ```
 
-## Mode données local/API
+## Environment variables
 
-Par défaut, l'application utilise le **mode local** basé sur `localStorage`.
+The frontend can run in two modes:
 
-Un **mode API local** peut être activé explicitement pour tester le backend minimal :
+| Variable | Default | Usage |
+|----------|---------|-------|
+| `VITE_INTERV360_DATA_SOURCE` | `local` when absent or different from `api` | Selects the data source. Use `api` to connect to the backend. |
+| `VITE_INTERV360_API_BASE_URL` | `http://localhost:3001/api/v1` | Backend API base URL used in API mode. |
+
+### Local mode
+
+No environment variable is required.
+
+```bash
+npm run dev
+```
+
+### API mode
 
 ```bash
 VITE_INTERV360_DATA_SOURCE=api \
@@ -74,11 +87,34 @@ VITE_INTERV360_API_BASE_URL=http://localhost:3001/api/v1 \
 npm run dev
 ```
 
-Le backend doit alors être lancé séparément depuis `projects/interv360/backend/` (`npm run dev` sur `http://localhost:3001`).
+If the backend is unavailable in API mode, the frontend displays an explicit error and does not silently fall back to local mode.
+
+### Example file
+
+Use `.env.example` as a local template if needed:
+
+```bash
+cp .env.example .env
+```
+
+The `.env` file must remain local and must not be committed.
+
+## Scripts
+
+| Command | Usage |
+|---------|-------|
+| `npm run dev` | Starts the Vite development server. |
+| `npm run build` | Type-checks and builds the frontend into `dist/`. |
+| `npm run test -- --run` | Runs the frontend test suite (191 tests or more). |
+| `npm run preview` | Serves the production build locally. |
+
+## Mode données local/API
+
+Par défaut, l'application utilise le **mode local** basé sur `localStorage` (voir [Environment variables](#environment-variables) ci-dessus).
+
+Le backend doit être lancé séparément en mode API depuis `projects/interv360/backend/` (`npm run dev` sur `http://localhost:3001`).
 
 Le frontend Vite utilise par défaut le port **5173**. Si ce port est occupé, Vite bascule sur **5174** ou **5175** : le backend autorise ces origins locales sans modifier `VITE_INTERV360_API_BASE_URL`.
-
-Le mode local reste le mode de démonstration par défaut. Aucun fallback automatique vers le local n'est activé en cas d'erreur API.
 
 Les transitions et le journal en mode API sont **persistés côté backend** (SQLite). Un redémarrage du backend conserve l'état jusqu'au reset démo (`POST /api/v1/demo/reset` ou bouton **Réinitialiser la démo**).
 

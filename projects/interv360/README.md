@@ -189,7 +189,25 @@ Points clés :
 
 ## Variables d'environnement
 
-Les variables sont détaillées dans les README spécialisés et seront consolidées dans le lot Product Industrialization (IND-04).
+Des exemples locaux sont disponibles :
+
+| Fichier | Usage |
+|---------|-------|
+| `app/.env.example` | Variables frontend pour mode local/API |
+| `backend/.env.example` | Variables backend pour port, SQLite, reset et CORS |
+
+Pour créer une configuration locale :
+
+```bash
+cd projects/interv360/app
+cp .env.example .env
+cd ../backend
+cp .env.example .env
+```
+
+Les fichiers `.env` sont locaux et ne doivent pas être commités. Les valeurs par défaut permettent déjà de lancer le MVP sans fichier `.env`.
+
+Détails : [app/README.md](app/README.md) et [backend/README.md](backend/README.md).
 
 | Variable | Côté | Usage |
 |----------|------|-------|
@@ -199,6 +217,31 @@ Les variables sont détaillées dans les README spécialisés et seront consolid
 | `SQLITE_PATH` | Backend | Chemin de la base SQLite |
 | `DEMO_MODE` | Backend | Activation du mode démonstration |
 | `INTERV360_CORS_ORIGINS` | Backend | Origins CORS autorisées |
+| `CORS_ORIGIN` | Backend | Legacy — origine unique si `INTERV360_CORS_ORIGINS` absent |
+
+---
+
+## Stratégie de déploiement simple
+
+Le MVP reste orienté local / pré-cloud.
+
+Stratégie cible simple :
+
+- frontend : build statique Vite (`app/dist/`) ;
+- backend : API Node.js / TypeScript à exécuter comme service applicatif ;
+- données : SQLite locale pour démonstration ou environnement contrôlé ;
+- configuration : variables d'environnement ;
+- reset : endpoint de démonstration activé uniquement si `DEMO_MODE=true`.
+
+Hors périmètre actuel :
+
+- déploiement cloud complet ;
+- Docker obligatoire ;
+- Kubernetes ;
+- Terraform ;
+- CI/CD complète ;
+- supervision avancée ;
+- authentification réelle.
 
 ---
 
