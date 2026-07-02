@@ -205,8 +205,8 @@ Palette à rapprocher de la maquette Figma :
 
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
-| UI-01 | Audit design et cadrage premium | En cours |
-| UI-02 | Shell applicatif + design tokens | À faire |
+| UI-01 | Audit design et cadrage premium | Réalisé |
+| UI-02 | Shell applicatif + design tokens | Réalisé |
 | UI-03 | Page demandes premium | À faire |
 | UI-04 | Fiche demande + journal premium | À faire |
 | UI-05 | Validations, polish et PR unique | À venir |
@@ -220,8 +220,10 @@ Palette à rapprocher de la maquette Figma :
 | Document de cycle UI créé | OK |
 | Écart Figma / app actuelle identifié | OK |
 | Direction design cible posée | OK |
-| Sidebar sombre créée | À faire |
-| Header produit créé | À faire |
+| Sidebar sombre créée | OK |
+| Header produit créé | OK |
+| Design tokens créés | OK |
+| Layout pleine largeur SaaS créé | OK |
 | Page demandes alignée Figma | À faire |
 | Cards KPI premium | À faire |
 | Tableau demandes premium | À faire |
@@ -255,8 +257,48 @@ Décisions :
 
 ---
 
+## 10.1. UI-02 — Shell applicatif premium + design tokens
+
+UI-02 met en place la fondation visuelle premium d'Interv360.
+
+Livré :
+
+- design tokens CSS ;
+- palette premium ;
+- sidebar sombre ;
+- branding Interv360 ;
+- navigation latérale produit ;
+- header / topbar ;
+- zone principale pleine largeur ;
+- intégration plus discrète du mode local/API ;
+- réduction du rendu démonstrateur centré ;
+- préparation des pages UI-03/UI-04.
+
+Préservé :
+
+- backend ;
+- API ;
+- SQLite ;
+- mode local ;
+- mode API ;
+- request model ;
+- audit trail ;
+- workflow ;
+- statuts ;
+- transitions ;
+- permissions ;
+- scripts npm ;
+- CI.
+
+Décision :
+
+> La fondation visuelle premium est posée.  
+> UI-03 peut maintenant traiter la page demandes pour la rapprocher fortement de la maquette Figma.
+
+---
+
 ## 11. Prochaine étape
 
-Exécuter **UI-02** :
+Exécuter **UI-03** :
 
-Shell applicatif premium + design tokens.
+Page demandes premium — KPI cards, recherche, filtres, tableau, badges et bouton d'action visuel.

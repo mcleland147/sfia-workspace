@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   createRequestsRepository,
   getDataSourceMode,
@@ -60,6 +60,126 @@ import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
 import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
 import { DemoUserControl } from "../ui/roles/DemoUserControl";
 import "./App.css";
+
+const SIDEBAR_NAV_ITEMS = [
+  { label: "Dashboard", active: false },
+  { label: "Demandes", active: true },
+  { label: "Planning", active: false },
+  { label: "Interventions", active: false },
+  { label: "Intégrations", active: false },
+] as const;
+
+const SCREEN_BREADCRUMB_LABELS: Record<DemoScreenId, string> = {
+  overview: "Dashboard",
+  scenario: "Scénario guidé",
+  requests: "Demandes",
+  details: "Détail demande",
+  journal: "Journal",
+};
+
+function getUserInitials(displayName: string): string {
+  return displayName
+    .split(/\s+/)
+    .map((part) => part[0] ?? "")
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+type PremiumAppShellProps = {
+  users: DemoUser[];
+  currentUser: DemoUser;
+  onUserChange: (userId: string) => void;
+  dataSourceMode: ReturnType<typeof getDataSourceMode>;
+  dataModeBanner: ReactNode;
+  currentScreen: DemoScreenId;
+  children: ReactNode;
+};
+
+function PremiumAppShell({
+  users,
+  currentUser,
+  onUserChange,
+  dataSourceMode,
+  dataModeBanner,
+  currentScreen,
+  children,
+}: PremiumAppShellProps) {
+  const roleLabel = simulatedRoleLabels[currentUser.role];
+  const breadcrumbLabel = SCREEN_BREADCRUMB_LABELS[currentScreen];
+
+  return (
+    <div className="app-shell">
+      <aside className="app-sidebar" aria-label="Navigation principale">
+        <div className="app-sidebar-brand">
+          <div className="app-sidebar-logo" aria-hidden="true">
+            I
+          </div>
+          <div className="app-sidebar-title">
+            <strong>Interv360</strong>
+            <span>SAV &amp; terrain</span>
+          </div>
+        </div>
+
+        <nav className="app-sidebar-nav" aria-label="Sections produit">
+          <p className="app-sidebar-section">Navigation</p>
+          {SIDEBAR_NAV_ITEMS.map((item) => (
+            <div
+              key={item.label}
+              className={
+                item.active
+                  ? "app-sidebar-link is-active"
+                  : "app-sidebar-link"
+              }
+              aria-hidden="true"
+            >
+              {item.label}
+              {item.active ? (
+                <span className="app-sidebar-link-dot" aria-hidden="true" />
+              ) : null}
+            </div>
+          ))}
+        </nav>
+
+        <div className="app-sidebar-footer">
+          <div className="app-sidebar-user">
+            <div className="app-sidebar-avatar" aria-hidden="true">
+              {getUserInitials(currentUser.displayName)}
+            </div>
+            <div>
+              <strong>{currentUser.displayName}</strong>
+              <span>{roleLabel}</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div className="app-main">
+        <header className="app-topbar">
+          <nav className="app-breadcrumb" aria-label="Fil d'Ariane">
+            <span>Accueil</span>
+            <span aria-hidden="true">/</span>
+            <strong>{breadcrumbLabel}</strong>
+          </nav>
+          <div className="app-topbar-actions">
+            <span className="app-topbar-pill">{getDataSourceModeLabel(dataSourceMode)}</span>
+            <div className="app-profile-strip">
+              <DemoUserControl
+                users={users}
+                currentUser={currentUser}
+                onUserChange={onUserChange}
+              />
+            </div>
+          </div>
+        </header>
+
+        {dataModeBanner}
+
+        <main className="app-content">{children}</main>
+      </div>
+    </div>
+  );
+}
 
 export function App() {
   const repository = useMemo(() => createRequestsRepository(), []);
@@ -353,54 +473,41 @@ export function App() {
 
   const dataModeBanner = (
     <div className="app-data-mode" role="status">
-      <p className="app-data-mode__label">
-        {getDataSourceModeLabel(dataSourceMode)}
-      </p>
-      <p className="app-data-mode__description">
+      <span className="app-data-mode__description">
         {getDataSourceModeDescription(dataSourceMode)}
-      </p>
+      </span>
     </div>
   );
 
+  const shellProps = {
+    users: availableUsers.length > 0 ? availableUsers : DEMO_USERS,
+    currentUser,
+    onUserChange: handleDemoUserChange,
+    dataSourceMode,
+    dataModeBanner,
+    currentScreen: currentDemoScreen,
+  };
+
   if (isLoading && requests.length === 0 && !loadError) {
     return (
-      <main className="app-shell">
-        <DemoUserControl
-          users={availableUsers.length > 0 ? availableUsers : DEMO_USERS}
-          currentUser={currentUser}
-          onUserChange={handleDemoUserChange}
-        />
-        {dataModeBanner}
+      <PremiumAppShell {...shellProps} currentScreen={INITIAL_DEMO_SCREEN_ID}>
         <p className="app-loading">Chargement des données de démonstration…</p>
-      </main>
+      </PremiumAppShell>
     );
   }
 
   if (loadError && requests.length === 0) {
     return (
-      <main className="app-shell">
-        <DemoUserControl
-          users={availableUsers.length > 0 ? availableUsers : DEMO_USERS}
-          currentUser={currentUser}
-          onUserChange={handleDemoUserChange}
-        />
-        {dataModeBanner}
+      <PremiumAppShell {...shellProps} currentScreen={INITIAL_DEMO_SCREEN_ID}>
         <p className="app-error" role="alert">
           {loadError}
         </p>
-      </main>
+      </PremiumAppShell>
     );
   }
 
   return (
-    <main className="app-shell">
-      <DemoUserControl
-        users={availableUsers.length > 0 ? availableUsers : DEMO_USERS}
-        currentUser={currentUser}
-        onUserChange={handleDemoUserChange}
-      />
-      {dataModeBanner}
-
+    <PremiumAppShell {...shellProps}>
       {loadError || usersLoadError ? (
         <p className="app-error app-error--inline" role="alert">
           {loadError ?? usersLoadError}
@@ -595,6 +702,6 @@ export function App() {
           </section>
         ) : null}
       </div>
-    </main>
+    </PremiumAppShell>
   );
 }
