@@ -67,4 +67,36 @@ describe("usersRepository", () => {
       expect(user.role).toBe(expectedRoles.get(user.displayName));
     }
   });
+
+  it("listUsers excludes inactive users", () => {
+    db.prepare("UPDATE users SET is_active = 0 WHERE id = ?").run("user-viewer");
+
+    const users = listUsers(db);
+    expect(users).toHaveLength(4);
+    expect(users.some((user) => user.id === "user-viewer")).toBe(false);
+  });
+
+  it("listUsers returns users sorted by display name", () => {
+    const users = listUsers(db);
+    const displayNames = users.map((user) => user.displayName);
+    expect(displayNames).toEqual([...displayNames].sort((a, b) => a.localeCompare(b)));
+  });
+
+  it("getUserById returns inactive user when id exists", () => {
+    db.prepare("UPDATE users SET is_active = 0 WHERE id = ?").run("user-viewer");
+
+    const user = getUserById(db, "user-viewer");
+    expect(user).toMatchObject({
+      id: "user-viewer",
+      displayName: "Victor Lecteur",
+      isActive: false,
+    });
+  });
+
+  it("covers all five expected role values", () => {
+    const roles = new Set(listUsers(db).map((user) => user.role));
+    expect(roles).toEqual(
+      new Set(["requester", "technician", "manager", "admin", "viewer"]),
+    );
+  });
 });

@@ -31,5 +31,12 @@ export async function listApiUsers(apiBaseUrl = getApiBaseUrl()): Promise<DemoUs
   }
 
   const payload = (await response.json()) as UsersApiResponse;
+  if (!Array.isArray(payload.users)) {
+    throw new RequestsRepositoryError(
+      "Invalid users API response.",
+      "USERS_UNAVAILABLE",
+    );
+  }
+
   return payload.users;
 }

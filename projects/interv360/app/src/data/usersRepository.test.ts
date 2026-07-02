@@ -59,4 +59,51 @@ describe("usersRepository", () => {
       },
     );
   });
+
+  it("throws when users payload is missing or invalid", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({}),
+      }),
+    );
+
+    await expect(listApiUsers("http://localhost:3001/api/v1")).rejects.toMatchObject(
+      {
+        name: RequestsRepositoryError.name,
+        code: "USERS_UNAVAILABLE",
+        message: "Invalid users API response.",
+      },
+    );
+  });
+
+  it("calls only /users without Authorization header", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ users: [] }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await listApiUsers("http://localhost:3001/api/v1");
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3001/api/v1/users");
+    const [, init] = fetchMock.mock.calls[0] ?? [];
+    expect(init?.headers).toBeUndefined();
+  });
+
+  it("does not read token from localStorage", async () => {
+    localStorage.setItem("interv360:token", "secret-token");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ users: [] }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await listApiUsers("http://localhost:3001/api/v1");
+
+    const [, init] = fetchMock.mock.calls[0] ?? [];
+    expect(init?.headers).toBeUndefined();
+  });
 });

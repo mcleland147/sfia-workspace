@@ -66,8 +66,12 @@ const apiUsersPayload = {
   ],
 };
 
-function createFetchMock() {
+function createFetchMock(options?: {
+  usersPayload?: typeof apiUsersPayload;
+  usersFail?: boolean;
+}) {
   const calls: Array<{ url: string; method: string; body?: string }> = [];
+  const usersPayload = options?.usersPayload ?? apiUsersPayload;
 
   const mock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
@@ -82,9 +86,16 @@ function createFetchMock() {
     calls.push({ url, method, body });
 
     if (url.endsWith("/users") && method === "GET") {
+      if (options?.usersFail) {
+        return {
+          ok: false,
+          status: 503,
+        };
+      }
+
       return {
         ok: true,
-        json: async () => apiUsersPayload,
+        json: async () => usersPayload,
       };
     }
 
@@ -241,5 +252,105 @@ describe("App API mode", () => {
         ),
       ).toBeInTheDocument();
     });
+  });
+
+  it("keeps stored user-manager when API returns manager", async () => {
+    localStorage.setItem(CURRENT_USER_STORAGE_KEY, "user-manager");
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+        "Maya Responsable",
+      );
+    });
+
+    expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-manager");
+  });
+
+  it("falls back to user-technician when stored user id is unknown", async () => {
+    localStorage.setItem(CURRENT_USER_STORAGE_KEY, "unknown-user");
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+        "Théo Technicien",
+      );
+    });
+
+    expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-technician");
+  });
+
+  it("falls back to first active user when technician is absent", async () => {
+    const usersWithoutTechnician = {
+      users: [
+        {
+          id: "user-manager",
+          displayName: "Maya Responsable",
+          email: "maya.responsable@example.test",
+          role: "manager",
+          team: "Pilotage SAV",
+          isActive: true,
+        },
+        {
+          id: "user-admin",
+          displayName: "Amin Admin",
+          email: "amin.admin@example.test",
+          role: "admin",
+          team: "Administration",
+          isActive: true,
+        },
+      ],
+    };
+
+    const { mock } = createFetchMock({ usersPayload: usersWithoutTechnician });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+        "Maya Responsable",
+      );
+    });
+
+    expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-manager");
+  });
+
+  it("falls back to local users when /users fails", async () => {
+    const { mock } = createFetchMock({ usersFail: true });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          /Impossible de charger les utilisateurs API\. Utilisation des utilisateurs locaux\./i,
+        ),
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getByText(/Utilisateur démo/i)).toHaveTextContent(
+      "Théo Technicien",
+    );
+  });
+
+  it("does not call login, logout, session, auth or token endpoints", async () => {
+    const { mock, calls } = createFetchMock();
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Mode API local")).toBeInTheDocument();
+    });
+
+    expect(
+      calls.some((call) =>
+        /\/(login|logout|session|auth|token)(\/|$)/.test(call.url),
+      ),
+    ).toBe(false);
   });
 });

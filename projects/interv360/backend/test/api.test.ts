@@ -1,6 +1,7 @@
 import request from "supertest";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createApp } from "../src/app.js";
+import { getDatabase } from "../src/persistence/sqliteDatabase.js";
 import {
   applyTransition,
   closeDemoStoreForTests,
@@ -103,6 +104,62 @@ describe("Interv360 API", () => {
     expect(response.status).toBe(404);
     expect(response.body.error.code).toBe("USER_NOT_FOUND");
     expect(response.body.error.message).toBe("User not found.");
+  });
+
+  it("GET /api/v1/users returns only active users", async () => {
+    const database = getDatabase();
+    database
+      .prepare("UPDATE users SET is_active = 0 WHERE id = ?")
+      .run("user-viewer");
+
+    const response = await request(app).get("/api/v1/users");
+    expect(response.status).toBe(200);
+    expect(response.body.users).toHaveLength(4);
+    expect(
+      response.body.users.every((user: { isActive: boolean }) => user.isActive),
+    ).toBe(true);
+    expect(
+      response.body.users.some((user: { id: string }) => user.id === "user-viewer"),
+    ).toBe(false);
+  });
+
+  it("GET /api/v1/users never returns sensitive fields", async () => {
+    const response = await request(app).get("/api/v1/users");
+    expect(response.status).toBe(200);
+
+    for (const user of response.body.users) {
+      expect(user.password).toBeUndefined();
+      expect(user.passwordHash).toBeUndefined();
+      expect(user.token).toBeUndefined();
+      expect(user.provider).toBeUndefined();
+      expect(user.externalId).toBeUndefined();
+    }
+  });
+
+  it("GET /api/v1/users/:id never returns sensitive fields", async () => {
+    const response = await request(app).get("/api/v1/users/user-admin");
+    expect(response.status).toBe(200);
+    expect(response.body.user.password).toBeUndefined();
+    expect(response.body.user.passwordHash).toBeUndefined();
+    expect(response.body.user.token).toBeUndefined();
+    expect(response.body.user.provider).toBeUndefined();
+    expect(response.body.user.externalId).toBeUndefined();
+  });
+
+  it("GET /api/v1/users does not modify existing requests data", async () => {
+    const before = await request(app).get("/api/v1/requests");
+    expect(before.status).toBe(200);
+    expect(before.body.items).toHaveLength(3);
+    const beforeIds = before.body.items.map((item: { id: string }) => item.id);
+
+    const usersResponse = await request(app).get("/api/v1/users");
+    expect(usersResponse.status).toBe(200);
+
+    const after = await request(app).get("/api/v1/requests");
+    expect(after.status).toBe(200);
+    expect(after.body.items).toHaveLength(3);
+    const afterIds = after.body.items.map((item: { id: string }) => item.id);
+    expect(afterIds.sort()).toEqual(beforeIds.sort());
   });
 
   it("GET /api/v1/requests/:id returns request and detail", async () => {

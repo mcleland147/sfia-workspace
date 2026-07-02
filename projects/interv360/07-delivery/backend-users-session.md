@@ -246,7 +246,7 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | BUS-02 | Modèle users SQLite + seed backend | Réalisé |
 | BUS-03 | Repository users + endpoints API | Réalisé |
 | BUS-04 | Frontend API users + fallback local | Réalisé |
-| BUS-05 | Tests backend/frontend et non-régression | À faire |
+| BUS-05 | Tests backend/frontend et non-régression | Réalisé |
 | BUS-06 | Documentation runbook/README | À faire |
 | BUS-07 | Préparation PR unique | À venir |
 
@@ -263,9 +263,9 @@ l'audit trail avec acteur sera traité dans le Lot 2.
 | Endpoint users créé | OK |
 | Session minimale documentée | OK |
 | Frontend mode API branché sur users backend | OK |
-| Permissions existantes conservées | À valider |
-| Backend tests | OK — 85 tests |
-| Frontend tests | OK — 147 tests |
+| Permissions existantes conservées | OK |
+| Backend tests | OK — 93 tests |
+| Frontend tests | OK — 157 tests |
 | Backend build | OK |
 | Frontend build | OK |
 | Audit trail complet exclu | OK |
@@ -441,8 +441,56 @@ Garde-fous confirmés :
 
 ---
 
+## 16.4. Changements BUS-05
+
+BUS-05 stabilise le lot Backend Users & Session par les tests et la non-régression.
+
+Changements réalisés :
+
+- renforcement des tests backend users ;
+- renforcement des tests API users ;
+- renforcement des tests frontend du client users API ;
+- renforcement des tests du mode API dans l'application ;
+- confirmation du fallback utilisateur ;
+- confirmation de la persistance via `interv360:current-user-id` ;
+- confirmation de la compatibilité mode local ;
+- confirmation que les transitions ne reçoivent pas d'utilisateur, session ou token ;
+- confirmation qu'aucun endpoint login/logout/session/auth/token n'est appelé ;
+- confirmation que l'audit trail complet reste reporté au Lot 2.
+
+Contrat confirmé :
+
+| Élément | Résultat |
+|---------|----------|
+| Users backend | OK |
+| API users | OK |
+| Frontend mode API | OK |
+| Mode local | OK |
+| Session locale | OK |
+| Transitions inchangées | OK |
+| Auth réelle | Non |
+| Token | Non |
+| Login/logout | Non |
+| Audit trail complet | Non |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas d'audit trail complet ;
+- pas de nouveau statut.
+
+---
+
 ## 17. Prochaine étape
 
-Exécuter **BUS-05** :
+Exécuter **BUS-06** :
 
-Tests backend/frontend et non-régression
+Documentation runbook/README
