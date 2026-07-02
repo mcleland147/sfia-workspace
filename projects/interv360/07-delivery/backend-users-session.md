@@ -665,9 +665,9 @@ Audit Trail with actor attribution is explicitly deferred to Lot 2.
 
 | Élément | Valeur |
 |---------|--------|
-| Push | En attente |
-| PR créée automatiquement | En attente |
-| URL PR ou comparaison | En attente |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-backend-users-session?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-backend-users-session` |
 | Merge automatique | Non |
