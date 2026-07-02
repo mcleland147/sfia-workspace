@@ -448,9 +448,9 @@ No code, frontend, backend, SQLite, API, authentication, OAuth/JWT/SSO, CRM, rea
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` indisponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...product/interv360-mvp-final-roadmap?expand=1 |
 | Cible | `main` |
 | Source | `product/interv360-mvp-final-roadmap` |
 | Merge automatique | Non |
