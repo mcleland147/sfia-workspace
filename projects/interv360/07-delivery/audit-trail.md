@@ -822,13 +822,11 @@ The actor is a demo/product audit actor, not an authenticated identity.
 
 ## 20. Statut push / PR
 
-À compléter après push.
-
 | Élément | Valeur |
 |--------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | OK |
+| PR créée automatiquement | Non (`gh` non disponible) |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-audit-trail?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-audit-trail` |
 | Merge automatique | Non |
