@@ -1012,3 +1012,106 @@ Legacy request fields remain available:
 | Cible | `main` |
 | Source | `delivery/interv360-request-model-finalization` |
 | Merge automatique | Non |
+
+---
+
+## 21. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #67 — https://github.com/mcleland147/sfia-workspace/pull/67 |
+| Source | `delivery/interv360-request-model-finalization` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `6638f8c` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 175 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 121 tests |
+| RM-01 | OK — cadrage opérationnel |
+| RM-02 | OK — audit et décision champs cibles |
+| RM-03 | OK — backend SQLite/API Request finalisé |
+| RM-04 | OK — frontend fiche/liste Request alignées |
+| RM-05 | OK — tests backend/frontend |
+| RM-06 | OK — runbook/README |
+| RM-07 | OK — PR unique |
+| Modèle Request enrichi | OK |
+| SQLite `requests` enrichie | OK |
+| `requesterName` | OK |
+| `requesterTeam` | OK |
+| `assignedToUserId` | OK |
+| `assignedToDisplayName` | OK |
+| `customerLabel` conservé | OK |
+| `assignedTechnicianLabel` conservé | OK |
+| Seed backend enrichi | OK |
+| Seed local aligné | OK |
+| API liste enrichie | OK |
+| API détail enrichie | OK |
+| Frontend fiche enrichie | OK |
+| Frontend liste enrichie | OK |
+| Recherche enrichie | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Audit trail conservé | OK |
+| Permissions conservées | OK |
+| Reset admin conservé | OK |
+| CRUD complet introduit | Non |
+| Formulaire création demande introduit | Non |
+| Auth réelle introduite | Non |
+| Session backend réelle introduite | Non |
+| Login/password introduits | Non |
+| Token introduit | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| `STAT-08` introduit | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le Lot 3 **Request Model Finalization** est mergé dans `main`.
+
+Interv360 dispose désormais d'un modèle `Request` MVP plus exploitable :
+
+- demandeur identifié ;
+- équipe demandeuse identifiée ;
+- affectation optionnelle à un utilisateur backend ;
+- affichage d'affectation stabilisé ;
+- champs legacy conservés ;
+- SQLite enrichie par migration compatible ;
+- API liste et détail enrichies ;
+- frontend local et API alignés ;
+- fiche demande enrichie ;
+- liste demande enrichie ;
+- recherche enrichie ;
+- seeds backend/local alignés ;
+- audit trail, permissions et reset admin conservés.
+
+Ce lot ne met pas en place :
+
+- CRUD complet ;
+- formulaire de création demande ;
+- authentification réelle ;
+- CRM ;
+- données réelles ;
+- nouveau statut.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Prochaine étape
+
+Ouvrir le Lot 4 :
+
+`delivery/interv360-api-product-hardening`
+
+Objectif :
+
+- clarifier les endpoints API ;
+- homogénéiser les erreurs ;
+- renforcer les validations API ;
+- documenter le contrat API ;
+- conserver la compatibilité frontend.

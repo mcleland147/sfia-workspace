@@ -684,3 +684,72 @@ Décision :
 - pas de PR documentaire intermédiaire pour RM-01 ;
 - le cadrage opérationnel est intégré directement au lot delivery ;
 - PR unique prévue en fin de lot.
+
+---
+
+## 22. Clôture du Lot 3 — Request Model Finalization
+
+Le Lot 3 de la roadmap est mergé dans `main`.
+
+PR :
+
+#67 — https://github.com/mcleland147/sfia-workspace/pull/67
+
+Commit merge :
+
+`6638f8c`
+
+Résultat :
+
+- stabilisation du modèle métier `Request` ;
+- enrichissement compatible SQLite de la table `requests` ;
+- ajout des champs demandeur :
+  - `requesterName`
+  - `requesterTeam`
+- ajout des champs affectation :
+  - `assignedToUserId`
+  - `assignedToDisplayName`
+- conservation des champs legacy :
+  - `customerLabel`
+  - `assignedTechnicianLabel`
+- seed backend enrichi ;
+- seed local aligné avec le backend ;
+- API liste enrichie ;
+- API détail enrichie ;
+- frontend fiche demande enrichie ;
+- frontend liste demande enrichie ;
+- recherche enrichie ;
+- mode local conservé ;
+- mode API conservé ;
+- audit trail conservé ;
+- permissions existantes conservées ;
+- reset admin conservé.
+
+Limites confirmées :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas d'authentification réelle ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08`.
+
+Impact roadmap :
+
+| Jalons | Estimation |
+|--------|------------|
+| Après Lot 2 | 80% |
+| Après Lot 3 | 86% |
+
+Prochain lot :
+
+`delivery/interv360-api-product-hardening`
+
+Objectif :
+
+- clarifier les endpoints API ;
+- homogénéiser les erreurs ;
+- renforcer les validations API ;
+- documenter le contrat API ;
+- conserver la compatibilité frontend avant finalisation UX.
