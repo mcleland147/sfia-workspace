@@ -253,7 +253,7 @@ Décision proposée pour rester Fast Track :
 | APH-04 | Frontend API compatibility hardening | Réalisé |
 | APH-05 | Tests backend/frontend et non-régression | Réalisé |
 | APH-06 | Documentation runbook/README | Réalisé |
-| APH-07 | Préparation PR unique | À venir |
+| APH-07 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -832,9 +832,7 @@ Garde-fous confirmés :
 
 ## 16. Prochaine étape
 
-Exécuter **APH-07** :
-
-Préparation PR unique
+PR unique préparée — revue et merge sur `main` à valider.
 
 ---
 
@@ -878,4 +876,130 @@ Le lot ne met pas en place :
 - données réelles ;
 - nouveau statut.
 
-La prochaine étape est APH-07 : préparation de la PR unique du lot.
+---
+
+## 18. Validations finales APH-07
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 187 tests |
+| Backend build | OK |
+| Backend tests | OK — 125 tests |
+| Diff global vs main | OK |
+| Contrat API clarifié | OK |
+| Endpoints API documentés | OK |
+| Format erreur `{ error: { code, message } }` | OK |
+| Helper erreur backend | OK |
+| Erreurs backend homogénéisées | OK |
+| Validations transitions durcies | OK |
+| `REQUEST_NOT_FOUND` | OK |
+| `INVALID_TRANSITION_ACTION` | OK |
+| `TRANSITION_NOT_ALLOWED` | OK |
+| `INVALID_JSON_BODY` | OK |
+| `INVALID_ACTOR_USER` | OK |
+| `USER_NOT_FOUND` | OK |
+| `DEMO_MODE_REQUIRED` | OK |
+| `INTERNAL_ERROR` | OK |
+| `ROUTE_NOT_FOUND` | OK |
+| `METHOD_NOT_ALLOWED` | Reporté |
+| `DEMO_RESET_FAILED` | Non ajouté |
+| Parsing frontend requests | OK |
+| Parsing frontend users | OK |
+| Absence fallback silencieux | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Request model conservé | OK |
+| Audit trail conservé | OK |
+| Permissions conservées | OK |
+| Reset admin conservé | OK |
+| CRUD complet exclu | OK |
+| Formulaire création exclu | OK |
+| Auth réelle exclue | OK |
+| Login/password exclus | OK |
+| Token exclu | OK |
+| OAuth/JWT/SSO exclus | OK |
+| CRM/données réelles exclus | OK |
+| Nouveau statut exclu | OK |
+| `STAT-08` exclu | OK |
+| sfia-notion-sync exclu | OK |
+| Exports Figma exclus | OK |
+
+---
+
+## 19. Préparation PR intégrée
+
+### Titre proposé
+
+`Harden Interv360 API product contract`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR delivers Lot 4 of the Interv360 MVP Final Roadmap: API Product Hardening.
+It clarifies and hardens the Interv360 backend API contract, centralizes structured API errors, strengthens transition validations, aligns frontend API error parsing, and documents the resulting contract.
+This is not a CRUD expansion and does not introduce real authentication, tokens, CRM integration, real data or new workflow statuses.
+## What changed
+### Product delivery
+- opens Lot 4 from the MVP Final Roadmap;
+- adds the API Product Hardening delivery document;
+- reuses the stabilized users/session foundation, audit trail and request model;
+- keeps the SFIA Fast Track delivery approach.
+### Backend API
+- adds a shared API error helper;
+- centralizes structured API errors with:
+  - `{ error: { code, message } }`;
+- preserves and tests stable error codes:
+  - `REQUEST_NOT_FOUND`;
+  - `INVALID_TRANSITION_ACTION`;
+  - `TRANSITION_NOT_ALLOWED`;
+  - `INVALID_JSON_BODY`;
+  - `INVALID_ACTOR_USER`;
+  - `USER_NOT_FOUND`;
+  - `DEMO_MODE_REQUIRED`;
+  - `INTERNAL_ERROR`;
+  - `ROUTE_NOT_FOUND`;
+- strengthens transition input validation:
+  - missing action;
+  - non-string action;
+  - empty action;
+  - unknown action;
+  - invalid actor user;
+  - unknown actor user;
+  - inactive actor user;
+- implements structured `ROUTE_NOT_FOUND` for unknown API routes;
+- keeps `METHOD_NOT_ALLOWED` intentionally out of scope;
+- does not introduce `DEMO_RESET_FAILED` artificially.
+### Frontend API compatibility
+- adds shared frontend API error parsing;
+- aligns request API error parsing;
+- aligns users API error parsing;
+- reads `error.message` first;
+- falls back to `error.code`;
+- keeps a generic fallback when the response body is not usable;
+- confirms API mode does not silently fall back to local mode;
+- preserves transitions with `actorUserId`.
+### Tests
+- extends backend API error coverage;
+- confirms structured API errors do not expose stack traces;
+- confirms transition validation errors;
+- confirms `ROUTE_NOT_FOUND`;
+- extends frontend API error parsing tests;
+- extends request/users repository tests;
+- confirms API mode error handling and reset admin non-regression.
+### Documentation
+- updates the E2E runbook with API Product Hardening controls and curl examples;
+- updates backend README with the API error contract;
+- updates frontend README with API error compatibility;
+- updates the API Product Hardening delivery document with APH-01 to APH-07 status.
+## Validation
+- Frontend build: OK
+- Frontend tests: 187 passed
+- Backend build: OK
+- Backend tests: 125 passed
+## Guardrails
+No full CRUD API, request creation form, real authentication, login, logout, password, password hash, token, OAuth, JWT, SSO, Entra ID, backend auth session, CRM integration, real data, workflow status, `STAT-08`, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+Existing endpoints, OK response formats, workflow, transitions, audit trail, request model, permissions, local mode, API mode and admin reset behavior are preserved.
+`METHOD_NOT_ALLOWED` remains intentionally out of scope for this lot.
+```
