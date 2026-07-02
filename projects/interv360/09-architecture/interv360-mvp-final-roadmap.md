@@ -454,3 +454,61 @@ No code, frontend, backend, SQLite, API, authentication, OAuth/JWT/SSO, CRM, rea
 | Cible | `main` |
 | Source | `product/interv360-mvp-final-roadmap` |
 | Merge automatique | Non |
+
+---
+
+## 16. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | #64 — https://github.com/mcleland147/sfia-workspace/pull/64 |
+| Source | `product/interv360-mvp-final-roadmap` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `93c28b0` |
+| Main synchronisée | OK |
+| Type de PR | Décision structurante |
+| Code modifié | Non |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| API modifiée | Non |
+| Auth réelle introduite | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+La roadmap **Interv360 MVP Final Roadmap** est mergée dans `main`.
+
+Elle acte la bascule suivante :
+
+> phase démo validée → finalisation MVP produit structuré.
+
+Décisions confirmées :
+
+- avancement actuel estimé : **65%** ;
+- cible intermédiaire : **90–95% MVP produit structuré** ;
+- méthode : **SFIA Fast Track produit** ;
+- découpage en 6 lots ;
+- premier lot à ouvrir : `delivery/interv360-backend-users-session`.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Prochaine étape
+
+Ouvrir le Lot 1 :
+
+`delivery/interv360-backend-users-session`
+
+Objectif :
+
+- matérialiser les utilisateurs côté backend ;
+- introduire une session applicative minimale ;
+- conserver une approche simple sans OAuth/JWT/SSO ;
+- préparer l'audit trail.
