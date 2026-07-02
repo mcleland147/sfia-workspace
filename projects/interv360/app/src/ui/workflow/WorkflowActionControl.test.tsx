@@ -134,6 +134,26 @@ describe("WorkflowActionControl", () => {
     ).toBeInTheDocument();
   });
 
+  it("disables only blocked actions when some permissions are denied", () => {
+    render(
+      <WorkflowActionControl
+        request={{ ...baseRequest, status: "STAT-03" }}
+        onAction={vi.fn()}
+        isActionDisabled={(action) => action === "cancel"}
+      />,
+    );
+
+    expect(
+      screen.getByRole("button", { name: /Mettre en attente/i }),
+    ).not.toHaveAttribute("aria-disabled", "true");
+    expect(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    ).toHaveAttribute("aria-disabled", "true");
+    expect(
+      screen.getByText(/Action non autorisée pour le rôle actuel/i),
+    ).toBeInTheDocument();
+  });
+
   it("calls onAction with the clicked action", () => {
     const onAction = vi.fn();
     render(

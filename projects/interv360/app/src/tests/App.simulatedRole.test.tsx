@@ -23,7 +23,7 @@ function switchSimulatedRole(role: string) {
   });
 }
 
-async function renderAppOnDetailsScreen() {
+async function renderAppOnDetailsScreenForRequest(requestId: string) {
   render(<App />);
   await waitForScreenNavigation();
   goToDemoScreen("Demandes");
@@ -32,12 +32,17 @@ async function renderAppOnDetailsScreen() {
       screen.getByRole("heading", { name: /Demandes SAV/i }),
     ).toBeInTheDocument();
   });
+  fireEvent.click(screen.getByRole("button", { name: new RegExp(requestId) }));
   goToDemoScreen("Détail");
   await waitFor(() => {
     expect(
       screen.getByRole("heading", { name: /Fiche demande SAV/i }),
     ).toBeInTheDocument();
   });
+}
+
+async function renderAppOnDetailsScreen() {
+  await renderAppOnDetailsScreenForRequest("SAV-DEMO-001");
 }
 
 describe("App simulated role", () => {
@@ -143,5 +148,108 @@ describe("App simulated role", () => {
     expect(screen.getByText(/Rôle simulé/i)).toHaveTextContent(
       "Administrateur",
     );
+  });
+
+  it("blocks hold and resume for viewer on STAT-03 request", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+    switchSimulatedRole("viewer");
+
+    const holdButton = screen.getByRole("button", {
+      name: /Mettre en attente/i,
+    });
+    expect(holdButton).toHaveAttribute("aria-disabled", "true");
+
+    fireEvent.click(holdButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          /Action non autorisée pour le rôle simulé : Observateur/i,
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("blocks workflow extension actions for requester", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+    switchSimulatedRole("requester");
+
+    expect(
+      screen.getByRole("button", { name: /Mettre en attente/i }),
+    ).toHaveAttribute("aria-disabled", "true");
+    expect(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    ).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("allows technician to put request on hold but blocks cancel", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+
+    const holdButton = screen.getByRole("button", {
+      name: /Mettre en attente/i,
+    });
+    const cancelButton = screen.getByRole("button", {
+      name: /Annuler la demande/i,
+    });
+
+    expect(holdButton).not.toHaveAttribute("aria-disabled", "true");
+    expect(cancelButton).toHaveAttribute("aria-disabled", "true");
+
+    fireEvent.click(holdButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: /Reprendre/i }),
+      ).toBeInTheDocument();
+      expect(screen.getAllByText(/En attente \(STAT-05\)/i).length).toBeGreaterThan(
+        0,
+      );
+    });
+
+    fireEvent.click(cancelButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          /Action non autorisée pour le rôle simulé : Technicien/i,
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("allows manager to cancel a request", async () => {
+    await renderAppOnDetailsScreen();
+    switchSimulatedRole("manager");
+
+    const cancelButton = screen.getByRole("button", {
+      name: /Annuler la demande/i,
+    });
+    expect(cancelButton).not.toHaveAttribute("aria-disabled", "true");
+
+    fireEvent.click(cancelButton);
+
+    await waitFor(() => {
+      expect(screen.getAllByText(/Annulée \(STAT-07\)/i).length).toBeGreaterThan(
+        0,
+      );
+      expect(
+        screen.getByText(/Demande annulée fictivement/i),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("allows admin to cancel a request", async () => {
+    await renderAppOnDetailsScreen();
+    switchSimulatedRole("admin");
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Annuler la demande/i }),
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText(/Annulée \(STAT-07\)/i).length).toBeGreaterThan(
+        0,
+      );
+    });
   });
 });

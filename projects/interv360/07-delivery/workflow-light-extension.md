@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Workflow Light Extension  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-WF-03 réalisé  
+**Statut** : Batch produit — INC-WF-04 réalisé  
 **Branche** : `delivery/interv360-workflow-light-extension`
 
 ---
@@ -138,7 +138,7 @@ Aucune nouvelle table prévue.
 | INC-WF-01 | Confirmer le périmètre statuts/transitions | Réalisé |
 | INC-WF-02 | Implémenter statuts/actions backend | Réalisé |
 | INC-WF-03 | Exposer actions frontend | Réalisé |
-| INC-WF-04 | Adapter rôles simulés, tests et runbook | À faire |
+| INC-WF-04 | Adapter rôles simulés, tests et runbook | Réalisé |
 | INC-WF-05 | Préparer PR unique du batch | À venir |
 
 ---
@@ -157,7 +157,7 @@ Aucune nouvelle table prévue.
 | SQLite sans nouvelle table | OK |
 | Backend testé | OK |
 | Frontend testé | OK |
-| Runbook mis à jour | À faire |
+| Runbook mis à jour | OK |
 | Auth réelle exclue | OK |
 | CRM / données réelles exclus | OK |
 
@@ -237,6 +237,37 @@ Les actions nominales existantes (`complete_intervention`, `close_report`) sont 
 
 ---
 
+## 9.3. Changements INC-WF-04
+
+INC-WF-04 finalise l’extension légère du workflow côté démonstration.
+
+Changements réalisés :
+
+- alignement des permissions simulées avec les nouvelles actions ;
+- confirmation que `technician` peut `put_on_hold` et `resume` ;
+- confirmation que `technician` ne peut pas `cancel` ;
+- confirmation que `manager` et `admin` peuvent `cancel` ;
+- confirmation que `requester` et `viewer` restent lecture seule pour les actions workflow ;
+- tests frontend renforcés ;
+- runbook mis à jour avec les scénarios hold / resume / cancel ;
+- README frontend mis à jour ;
+- backend conservé sans modification supplémentaire.
+
+Matrice finale des permissions workflow simulées :
+
+| Action | requester | technician | manager | admin | viewer |
+|--------|-----------|------------|---------|-------|--------|
+| `qualify` | Non | Oui | Oui | Oui | Non |
+| `plan` | Non | Oui | Oui | Oui | Non |
+| `complete_intervention` | Non | Oui | Oui | Oui | Non |
+| `close_report` | Non | Oui | Oui | Oui | Non |
+| `put_on_hold` | Non | Oui | Oui | Oui | Non |
+| `resume` | Non | Oui | Oui | Oui | Non |
+| `cancel` | Non | Non | Oui | Oui | Non |
+| `demo_reset` | Non | Non | Non | Oui | Non |
+
+---
+
 ## 10. Validations
 
 À compléter pendant le batch.
@@ -254,4 +285,23 @@ Les actions nominales existantes (`complete_intervention`, `close_report`) sont 
 
 ## 11. Prochaine étape
 
-**INC-WF-04** : affiner les permissions simulées pour les nouvelles actions, compléter les tests finaux et mettre à jour le runbook.
+**INC-WF-05** : préparer la PR unique du batch.
+
+---
+
+## 12. Synthèse avant PR
+
+Le batch **Workflow Light Extension** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- mise en attente d’une demande ;
+- reprise d’une demande en attente ;
+- annulation d’une demande ;
+- deux nouveaux statuts métier : `STAT-05 En attente`, `STAT-07 Annulée` ;
+- permissions simulées alignées ;
+- contrat API conservé ;
+- SQLite conservée sans nouvelle table ;
+- runbook mis à jour.
+
+La prochaine étape est INC-WF-05 : préparation de la PR unique du batch.
