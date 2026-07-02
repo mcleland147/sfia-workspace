@@ -118,7 +118,7 @@ Règle :
 | AUTH-US-02 | Remplacer le sélecteur de rôle par un sélecteur utilisateur | Réalisé |
 | AUTH-US-03 | Adapter permissions/tests | Réalisé |
 | AUTH-US-04 | Mettre à jour runbook/README | Réalisé |
-| AUTH-US-05 | Préparer PR unique | À venir |
+| AUTH-US-05 | Préparer PR unique | En cours |
 
 ---
 
@@ -305,3 +305,78 @@ Capacités ajoutées :
 Le batch ne met pas en place une authentification réelle.
 
 La prochaine étape est **AUTH-US-05** : préparation de la PR unique du batch.
+
+---
+
+## 12. Préparation PR intégrée
+
+### Titre proposé
+
+`Add Interv360 auth user switcher`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR adds a frontend-only Auth User Switcher to Interv360.
+It replaces the direct simulated role selection with a demo user selection. The active role is now derived from the selected demo user.
+This is not real authentication.
+
+## What changed
+### Product and architecture framing
+- records the next product axis decision after the workflow batches;
+- frames an Auth Foundation approach;
+- recommends a frontend-only user switcher as the first delivery step;
+- defers real authentication, OAuth, JWT, SSO, Entra ID, backend users, backend sessions, CRM, and real data.
+
+### Frontend
+- adds 5 demo users:
+  - Alice Demandeur — `requester`;
+  - Théo Technicien — `technician`;
+  - Maya Responsable — `manager`;
+  - Amin Admin — `admin`;
+  - Victor Lecteur — `viewer`;
+- adds a local frontend session key:
+  `interv360:current-user-id`
+- defaults to `Théo Technicien`;
+- adds a demo user switcher UI;
+- derives the active role from `currentUser.role`;
+- keeps the existing permission matrix unchanged;
+- preserves the existing unauthorized action message.
+
+### Tests
+- adds domain tests for demo users and local session;
+- strengthens UI tests by demo user;
+- confirms the selected user persists across remount;
+- confirms reset remains admin-only;
+- confirms the previous `interv360:simulated-role` key is no longer the primary source.
+
+### Documentation
+- adds the Auth User Switcher delivery document;
+- updates the Auth Foundation framing;
+- updates the E2E demo runbook with user-based scenarios;
+- updates the frontend README.
+
+## Validation
+- Frontend build: OK
+- Frontend tests: 141 passed
+- Backend build: OK
+- Backend tests: 67 passed
+
+## Guardrails
+No real authentication, login, password, token, OAuth, JWT, SSO, Entra ID, backend users table, backend session, CRM integration, real data, new API endpoint, SQLite change, workflow change, `STAT-08`, new workflow status, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+The change is frontend-only for the user/session simulation layer.
+```
+
+---
+
+## 13. Statut push / PR
+
+| Élément | Valeur |
+|---------|--------|
+| Push | À compléter |
+| PR créée automatiquement | À compléter |
+| URL PR ou comparaison | À compléter |
+| Cible | `main` |
+| Source | `delivery/interv360-auth-user-switcher` |
+| Merge automatique | Non |
