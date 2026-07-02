@@ -258,7 +258,7 @@ Décision proposée pour rester Fast Track :
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
 | AT-01 | Cadrage opérationnel audit trail | Réalisé |
-| AT-02 | SQLite workflow_events enrichi | À faire |
+| AT-02 | SQLite workflow_events enrichi | Réalisé |
 | AT-03 | Transitions API avec acteur | À faire |
 | AT-04 | Events API enrichis | À faire |
 | AT-05 | Frontend historique enrichi | À faire |
@@ -274,16 +274,16 @@ Décision proposée pour rester Fast Track :
 |---------|----------|
 | Document delivery créé | OK |
 | Acteur utilisateur cadré | OK |
-| SQLite audit enrichi | À faire |
+| SQLite audit enrichi | OK |
 | Transitions API compatibles | À faire |
 | Validation acteur backend | À faire |
 | Events API enrichis | À faire |
 | Frontend historique enrichi | À faire |
 | Permissions existantes conservées | À valider |
 | Mode local conservé | À valider |
-| Backend tests | À faire |
+| Backend tests | OK |
 | Frontend tests | À faire |
-| Backend build | À faire |
+| Backend build | OK |
 | Frontend build | À faire |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
@@ -342,8 +342,52 @@ Décisions :
 
 ---
 
+## 15.1. Changements AT-02
+
+AT-02 prépare la persistance de l'audit trail enrichi côté SQLite.
+
+Changements réalisés :
+
+- enrichissement compatible de la table `workflow_events` ;
+- ajout du champ `action` ;
+- ajout des champs acteur :
+  - `actor_user_id`
+  - `actor_display_name`
+  - `actor_role`
+- conservation de `from_status` et `to_status` ;
+- nouveaux champs nullable pour préserver les événements existants ;
+- mapping repository vers le modèle backend ;
+- tests de persistance audit trail ;
+- aucune modification frontend ;
+- aucune modification du payload transition ;
+- aucun acteur encore envoyé par le frontend ;
+- aucune session backend réelle.
+
+Compatibilité confirmée :
+
+| Élément | Résultat |
+|---------|----------|
+| Événements existants | Compatibles |
+| Acteur obligatoire | Non |
+| Données existantes supprimées | Non |
+| Table audit séparée | Non |
+| Transitions API modifiées | Non |
+| Frontend modifié | Non |
+
+Garde-fous confirmés :
+
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **AT-02** :
+Exécuter **AT-03** :
 
-SQLite workflow_events enrichi
+Transitions API avec acteur

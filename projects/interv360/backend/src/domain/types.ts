@@ -72,6 +72,10 @@ export interface WorkflowEvent {
   fromStatus: RequestStatus;
   toStatus: RequestStatus;
   label: string;
+  action?: string;
+  actorUserId?: string;
+  actorDisplayName?: string;
+  actorRole?: string;
   createdAt: string;
   source: "demo";
   isDemo: true;

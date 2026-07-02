@@ -55,6 +55,10 @@ interface EventRow {
   created_at: string;
   source: string;
   is_demo: number;
+  action: string | null;
+  actor_user_id: string | null;
+  actor_display_name: string | null;
+  actor_role: string | null;
 }
 
 function nowIso(): string {
@@ -95,7 +99,7 @@ function rowToDetail(row: DetailRow): DemoRequestDetail {
 }
 
 function rowToEvent(row: EventRow): WorkflowEvent {
-  return {
+  const event: WorkflowEvent = {
     id: row.id,
     requestId: row.request_id,
     type: row.type as WorkflowEventType,
@@ -106,6 +110,21 @@ function rowToEvent(row: EventRow): WorkflowEvent {
     source: "demo",
     isDemo: true,
   };
+
+  if (row.action != null) {
+    event.action = row.action;
+  }
+  if (row.actor_user_id != null) {
+    event.actorUserId = row.actor_user_id;
+  }
+  if (row.actor_display_name != null) {
+    event.actorDisplayName = row.actor_display_name;
+  }
+  if (row.actor_role != null) {
+    event.actorRole = row.actor_role;
+  }
+
+  return event;
 }
 
 function findRequestRow(id: string): RequestRow | undefined {
