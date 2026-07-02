@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import type { DemoRequest } from "../../domain/requestStatus";
+import { getRequestStatusLabel } from "../../domain/requestStatus";
 import { getRequestById } from "../../data/requestsRepository";
 import { RequestBadges } from "./RequestBadges";
 import {
@@ -74,7 +75,9 @@ export function RequestDetail({
         ) : null}
         <div className="request-detail__field">
           <dt>Statut</dt>
-          <dd>{request.status}</dd>
+          <dd>
+            {getRequestStatusLabel(request.status)} ({request.status})
+          </dd>
         </div>
         <div className="request-detail__field">
           <dt>Priorité</dt>

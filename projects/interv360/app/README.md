@@ -98,7 +98,29 @@ Notes:
 - `requestedDate` is distinct from the existing creation date label.
 - `businessImpact` is distinct from the existing short impact label.
 - The frontend keeps the current navigation, local mode, and API opt-in mode.
-- Simulated roles are documented below; no real authentication, OAuth, JWT, SSO, backend user database, CRM integration, or extended workflow status is introduced.
+- Simulated roles are documented below; no real authentication, OAuth, JWT, SSO, backend user database, CRM integration, or real data is introduced.
+
+### Workflow light extension
+
+The frontend exposes the workflow light extension:
+
+- `STAT-05` — En attente
+- `STAT-07` — Annulée
+- `put_on_hold` — Mettre en attente
+- `resume` — Reprendre
+- `cancel` — Annuler la demande
+
+The API contract remains unchanged:
+
+```text
+POST /api/v1/requests/:id/transitions
+```
+
+Role simulation still applies on top of workflow actions:
+
+- `technician`, `manager`, and `admin` can put requests on hold and resume them.
+- only `manager` and `admin` can cancel requests.
+- `requester` and `viewer` remain read-only for workflow actions.
 
 ### Simulated roles
 
@@ -124,7 +146,9 @@ interv360:simulated-role
 
 The simulation controls existing workflow actions:
 
-- `technician`, `manager`, and `admin` can perform workflow transitions.
+- `technician`, `manager`, and `admin` can perform nominal workflow transitions.
+- `technician`, `manager`, and `admin` can put requests on hold and resume them.
+- only `manager` and `admin` can cancel requests.
 - `requester` and `viewer` cannot perform workflow transitions.
 - Only `admin` can trigger the demo reset.
 

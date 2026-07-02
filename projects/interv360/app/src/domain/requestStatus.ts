@@ -3,7 +3,9 @@ export type RequestStatus =
   | "STAT-02"
   | "STAT-03"
   | "STAT-04"
-  | "STAT-06";
+  | "STAT-05"
+  | "STAT-06"
+  | "STAT-07";
 
 export type RequestPriority = "low" | "medium" | "high";
 
@@ -13,7 +15,24 @@ export type DemoWorkflowEventType =
   | "qualification.confirmed"
   | "planning.confirmed"
   | "intervention.completed"
-  | "report.closed";
+  | "report.closed"
+  | "hold.placed"
+  | "hold.resumed"
+  | "request.cancelled";
+
+export const requestStatusLabels: Record<RequestStatus, string> = {
+  "STAT-01": "Qualifiée",
+  "STAT-02": "Planifiée",
+  "STAT-03": "En cours de traitement",
+  "STAT-04": "Intervention réalisée",
+  "STAT-05": "En attente",
+  "STAT-06": "Clôturée",
+  "STAT-07": "Annulée",
+};
+
+export function getRequestStatusLabel(status: RequestStatus): string {
+  return requestStatusLabels[status];
+}
 
 export interface DemoWorkflowEvent {
   type: DemoWorkflowEventType;

@@ -52,7 +52,7 @@ export const demoRequestsSeed: DemoRequest[] = [
   {
     id: "SAV-DEMO-002",
     title: "Capteur pression signal défectueux",
-    status: "STAT-02",
+    status: "STAT-03",
     priority: "medium",
     criticality: "sensitive",
     customerLabel: "Client Démo Services",
@@ -111,7 +111,7 @@ export const demoDetailsSeed: DemoRequestDetail[] = [
         summary: "Qualification fictive déjà validée.",
         checklist: ["Contexte de panne confirmé"],
         notes:
-          "Demande fictive en planification pour démonstration multi-demandes.",
+          "Demande fictive en cours de traitement pour démonstration multi-demandes.",
       },
       planning: {
         slot: "J+2 après-midi",

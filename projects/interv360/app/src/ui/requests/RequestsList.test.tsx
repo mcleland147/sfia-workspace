@@ -48,7 +48,7 @@ describe("RequestsList", () => {
     expect(screen.getAllByText(/Priorité Haute/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Criticité Urgente/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/STAT-01/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/STAT-02/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/STAT-03/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/STAT-06/i).length).toBeGreaterThan(0);
   });
 
@@ -61,20 +61,20 @@ describe("RequestsList", () => {
   });
 
   it("filters requests by status and shows active filter", () => {
-    renderRequestsList({ statusFilter: "STAT-02" });
+    renderRequestsList({ statusFilter: "STAT-03" });
 
     expect(screen.queryByText("SAV-DEMO-001")).not.toBeInTheDocument();
     expect(screen.getByText("SAV-DEMO-002")).toBeInTheDocument();
     expect(screen.queryByText("SAV-DEMO-003")).not.toBeInTheDocument();
-    expect(screen.getByText(/Filtre actif : STAT-02/i)).toBeInTheDocument();
+    expect(screen.getByText(/Filtre actif : STAT-03/i)).toBeInTheDocument();
   });
 
   it("calls onStatusFilterChange when a filter button is clicked", () => {
     const { onStatusFilterChange } = renderRequestsList();
 
-    fireEvent.click(screen.getByRole("button", { name: /^STAT-02$/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^STAT-03$/ }));
 
-    expect(onStatusFilterChange).toHaveBeenCalledWith("STAT-02");
+    expect(onStatusFilterChange).toHaveBeenCalledWith("STAT-03");
   });
 
   it("searches requests locally and shows active search", () => {
@@ -87,7 +87,7 @@ describe("RequestsList", () => {
   });
 
   it("shows empty state when filter and search return no result", () => {
-    renderRequestsList({ statusFilter: "STAT-02", searchQuery: "SAV-DEMO-003" });
+    renderRequestsList({ statusFilter: "STAT-03", searchQuery: "SAV-DEMO-003" });
 
     expect(screen.getByText(EMPTY_VISIBLE_REQUESTS_MESSAGE)).toBeInTheDocument();
   });

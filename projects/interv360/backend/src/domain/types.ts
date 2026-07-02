@@ -3,7 +3,9 @@ export type RequestStatus =
   | "STAT-02"
   | "STAT-03"
   | "STAT-04"
-  | "STAT-06";
+  | "STAT-05"
+  | "STAT-06"
+  | "STAT-07";
 
 export type RequestPriority = "low" | "medium" | "high";
 
@@ -13,13 +15,19 @@ export type TransitionAction =
   | "qualify"
   | "plan"
   | "complete_intervention"
-  | "close_report";
+  | "close_report"
+  | "put_on_hold"
+  | "resume"
+  | "cancel";
 
 export type WorkflowEventType =
   | "qualification.confirmed"
   | "planning.confirmed"
   | "intervention.completed"
-  | "report.closed";
+  | "report.closed"
+  | "hold.placed"
+  | "hold.resumed"
+  | "request.cancelled";
 
 export interface DemoRequest {
   id: string;

@@ -29,6 +29,12 @@
   margin: 0 0 1rem;
 }
 
+.workflow-action-control__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .workflow-action-control__button {
   background: #1f4f8a;
   border: none;

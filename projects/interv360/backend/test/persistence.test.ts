@@ -85,4 +85,32 @@ describe("SQLite persistence", () => {
     expect(afterReopen.equipmentLabel).toBe(beforeClose.equipmentLabel);
     expect(afterReopen.businessImpact).toBe(beforeClose.businessImpact);
   });
+
+  it("persists request moved to STAT-05 across database reopen", () => {
+    applyTransition("SAV-DEMO-002", "put_on_hold");
+
+    closeDatabase();
+
+    const { request } = getRequestWithDetail("SAV-DEMO-002");
+    expect(request.status).toBe("STAT-05");
+
+    const events = listEventsForRequest("SAV-DEMO-002");
+    expect(events).toHaveLength(1);
+    expect(events[0]?.type).toBe("hold.placed");
+    expect(events[0]?.toStatus).toBe("STAT-05");
+  });
+
+  it("persists request moved to STAT-07 across database reopen", () => {
+    applyTransition("SAV-DEMO-001", "cancel");
+
+    closeDatabase();
+
+    const { request } = getRequestWithDetail("SAV-DEMO-001");
+    expect(request.status).toBe("STAT-07");
+
+    const events = listEventsForRequest("SAV-DEMO-001");
+    expect(events).toHaveLength(1);
+    expect(events[0]?.type).toBe("request.cancelled");
+    expect(events[0]?.toStatus).toBe("STAT-07");
+  });
 });

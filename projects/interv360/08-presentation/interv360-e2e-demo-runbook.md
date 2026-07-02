@@ -236,14 +236,70 @@ Elle ne constitue pas une authentification réelle.
 
 ---
 
+## Contrôle — extension légère du workflow
+
+Le workflow Interv360 expose désormais deux nouveaux états :
+
+| Statut | Libellé |
+|--------|---------|
+| `STAT-05` | En attente |
+| `STAT-07` | Annulée |
+
+Et trois nouvelles actions :
+
+| Action | Libellé UI |
+|--------|------------|
+| `put_on_hold` | Mettre en attente |
+| `resume` | Reprendre |
+| `cancel` | Annuler la demande |
+
+### Scénario hold / resume
+
+1. Ouvrir une demande en statut `STAT-03` (ex. `SAV-DEMO-002`).
+2. Vérifier que l’action **Mettre en attente** est disponible.
+3. Cliquer sur **Mettre en attente**.
+4. Vérifier que la demande passe en **En attente**.
+5. Vérifier que l’action **Reprendre** est disponible.
+6. Cliquer sur **Reprendre**.
+7. Vérifier que la demande repasse en statut de traitement.
+
+### Scénario cancel
+
+1. Ouvrir une demande en statut compatible avec l’annulation.
+2. Utiliser un rôle `manager` ou `admin`.
+3. Cliquer sur **Annuler la demande**.
+4. Vérifier que la demande passe en **Annulée**.
+5. Vérifier qu’aucune action workflow n’est ensuite proposée.
+
+### Contrôle permissions simulées
+
+| Rôle | Attendu |
+|------|---------|
+| `viewer` | Lecture seule, actions bloquées |
+| `requester` | Lecture seule, actions bloquées |
+| `technician` | Peut traiter, mettre en attente et reprendre ; ne peut pas annuler |
+| `manager` | Peut traiter, mettre en attente, reprendre et annuler |
+| `admin` | Peut traiter, mettre en attente, reprendre, annuler et reset |
+
+### Limites
+
+- l’extension reste légère ;
+- aucune requalification n’est introduite ;
+- aucune authentification réelle n’est introduite ;
+- aucun nouveau contrat API n’est introduit ;
+- aucune nouvelle table SQLite n’est introduite ;
+- `STAT-06` et `STAT-07` sont terminaux.
+
+---
+
 ## 8. Preuves techniques à présenter
 
 | Preuve | Commande / contrôle | Attendu |
 |--------|---------------------|---------|
 | Frontend build | `npm run build` dans `projects/interv360/app` | OK |
-| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 96 tests ou plus |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 105 tests ou plus |
 | Backend build | `npm run build` dans `projects/interv360/backend` | OK |
-| Backend tests | `npm run test` dans `projects/interv360/backend` | 32 tests ou plus |
+| Backend tests | `npm run test` dans `projects/interv360/backend` | 54 tests ou plus |
 | API health | `GET /health` | OK |
 | Liste demandes | `GET /api/v1/requests` | demandes fictives |
 | Détail demande | `GET /api/v1/requests/SAV-DEMO-001` | champs productisés présents |
@@ -370,8 +426,8 @@ La démonstration reste volontairement bornée.
 - base users complète ;
 - CRM ;
 - données réelles ;
-- workflow étendu ;
-- statuts supplémentaires (STAT-05 / STAT-07 / STAT-08) ;
+- requalification ;
+- statut `STAT-08` (requalification différée) ;
 - production ;
 - supervision ;
 - déploiement cloud ;
@@ -394,7 +450,7 @@ Ces sujets nécessitent un cadrage dédié avant implémentation.
 - backend non obligatoire pour présentation standard ;
 - pas de fallback automatique silencieux ;
 - persistance SQLite côté backend uniquement (pas de SQL navigateur) ;
-- workflow nominal uniquement (STAT-01 → STAT-02 → STAT-03 → STAT-04 → STAT-06).
+- workflow nominal (STAT-01 → STAT-06) avec extension légère (`STAT-05` En attente, `STAT-07` Annulée).
 
 ---
 
@@ -405,7 +461,7 @@ Le récit recommandé :
 1. Interv360 part d’un besoin simple : suivre et qualifier des demandes d’intervention.
 2. Le produit propose une liste de demandes fictives mais structurées.
 3. Chaque demande dispose d’une fiche enrichie avec site, date de demande, équipement, impact court et impact métier.
-4. Le workflow nominal permet de qualifier, planifier, réaliser puis clôturer une intervention.
+4. Le workflow nominal permet de qualifier, planifier, réaliser puis clôturer une intervention ; l’extension légère permet mise en attente, reprise et annulation.
 5. Le frontend peut fonctionner seul en mode local pour une démo rapide.
 6. Le même parcours peut être connecté à une API locale persistante avec SQLite.
 7. Les erreurs API sont structurées et testées.

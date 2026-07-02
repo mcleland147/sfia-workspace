@@ -5,10 +5,8 @@ import {
   getDataSourceModeLabel,
 } from "../data/requestsRepositoryFactory";
 import { simulatedRoleStorageKey } from "../data/localStorageKeys";
-import {
-  getTransitionActionForStatus,
-  RequestsRepositoryError,
-} from "../data/requestsRepository.types";
+import { RequestsRepositoryError } from "../data/requestsRepository.types";
+import type { DemoTransitionAction } from "../data/requestsRepository.types";
 import type { DemoRequest, DemoWorkflowEvent } from "../domain/requestStatus";
 import {
   canRolePerform,
@@ -143,12 +141,39 @@ export function App() {
     setLastActionMessage(undefined);
   }, []);
 
-  const workflowAction = request
-    ? getTransitionActionForStatus(request.status)
-    : undefined;
-  const canPerformWorkflowAction =
-    workflowAction !== undefined &&
-    canRolePerform(simulatedRole, workflowAction);
+  const handleWorkflowAction = useCallback(
+    async (action: DemoTransitionAction) => {
+      if (!request) {
+        return;
+      }
+
+      if (!canRolePerform(simulatedRole, action)) {
+        setLastActionMessage(formatUnauthorizedRoleMessage(simulatedRole));
+        return;
+      }
+
+      try {
+        const updated = await repository.applyTransition(
+          selectedRequestId,
+          action,
+        );
+        if (updated) {
+          setDataVersion((version) => version + 1);
+          setLastActionMessage(
+            `Action fictive enregistrée pour ${selectedRequestId} : ${updated.status}.`,
+          );
+        }
+      } catch (error) {
+        const message =
+          error instanceof RequestsRepositoryError
+            ? error.message
+            : "Impossible d'enregistrer l'action fictive.";
+        setLastActionMessage(message);
+      }
+    },
+    [repository, request, selectedRequestId, simulatedRole],
+  );
+
   const canPerformDemoReset = canRolePerform(simulatedRole, "demo_reset");
 
   const handleDemoReset = useCallback(async () => {
@@ -194,38 +219,6 @@ export function App() {
   const handleResetScenario = useCallback(() => {
     setScenarioStepIndex(INITIAL_SCENARIO_STEP_INDEX);
   }, []);
-
-  const handleWorkflowAction = useCallback(async () => {
-    if (!request) {
-      return;
-    }
-
-    const action = getTransitionActionForStatus(request.status);
-    if (!action) {
-      return;
-    }
-
-    if (!canRolePerform(simulatedRole, action)) {
-      setLastActionMessage(formatUnauthorizedRoleMessage(simulatedRole));
-      return;
-    }
-
-    try {
-      const updated = await repository.applyTransition(selectedRequestId, action);
-      if (updated) {
-        setDataVersion((version) => version + 1);
-        setLastActionMessage(
-          `Action fictive enregistrée pour ${selectedRequestId} : ${updated.status}.`,
-        );
-      }
-    } catch (error) {
-      const message =
-        error instanceof RequestsRepositoryError
-          ? error.message
-          : "Transition fictive refusée.";
-      setLastActionMessage(message);
-    }
-  }, [repository, request, selectedRequestId, simulatedRole]);
 
   const goToDemoScreen = useCallback((screenId: DemoScreenId) => {
     setCurrentDemoScreen(screenId);
@@ -409,11 +402,13 @@ export function App() {
               <RequestDetail request={request} requestId={selectedRequestId} />
               <WorkflowActionControl
                 request={request}
-                onAction={() => {
-                  void handleWorkflowAction();
+                onAction={(action) => {
+                  void handleWorkflowAction(action);
                 }}
                 lastActionMessage={lastActionMessage}
-                isActionDisabled={workflowAction !== undefined && !canPerformWorkflowAction}
+                isActionDisabled={(action) =>
+                  !canRolePerform(simulatedRole, action)
+                }
               />
             </section>
             <section

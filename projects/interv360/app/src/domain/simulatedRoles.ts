@@ -10,6 +10,9 @@ export type RoleControlledAction =
   | "plan"
   | "complete_intervention"
   | "close_report"
+  | "put_on_hold"
+  | "resume"
+  | "cancel"
   | "demo_reset";
 
 export const DEFAULT_SIMULATED_ROLE: SimulatedRole = "technician";
@@ -39,6 +42,9 @@ export const rolePermissions: Record<
     plan: false,
     complete_intervention: false,
     close_report: false,
+    put_on_hold: false,
+    resume: false,
+    cancel: false,
     demo_reset: false,
   },
   technician: {
@@ -46,6 +52,9 @@ export const rolePermissions: Record<
     plan: true,
     complete_intervention: true,
     close_report: true,
+    put_on_hold: true,
+    resume: true,
+    cancel: false,
     demo_reset: false,
   },
   manager: {
@@ -53,6 +62,9 @@ export const rolePermissions: Record<
     plan: true,
     complete_intervention: true,
     close_report: true,
+    put_on_hold: true,
+    resume: true,
+    cancel: true,
     demo_reset: false,
   },
   admin: {
@@ -60,6 +72,9 @@ export const rolePermissions: Record<
     plan: true,
     complete_intervention: true,
     close_report: true,
+    put_on_hold: true,
+    resume: true,
+    cancel: true,
     demo_reset: true,
   },
   viewer: {
@@ -67,6 +82,9 @@ export const rolePermissions: Record<
     plan: false,
     complete_intervention: false,
     close_report: false,
+    put_on_hold: false,
+    resume: false,
+    cancel: false,
     demo_reset: false,
   },
 };
