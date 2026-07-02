@@ -1001,3 +1001,98 @@ Décision :
 - le cadrage opérationnel est intégré directement au lot delivery ;
 - PR unique prévue en fin de lot ;
 - aucun nouveau périmètre fonctionnel n'est ouvert.
+
+---
+
+## 28. Clôture du Lot 6 — Product Industrialization
+
+Le Lot 6 de la roadmap est mergé dans `main`.
+
+PR :
+
+#70 — https://github.com/mcleland147/sfia-workspace/pull/70
+
+Commit merge :
+
+`179cd4c`
+
+Résultat :
+
+- README racine orienté MVP produit ;
+- guide installation locale ;
+- guide mode local ;
+- guide mode API ;
+- fichiers `.env.example` frontend/backend ;
+- documentation variables d'environnement ;
+- documentation scripts build/test/run ;
+- documentation SQLite et reset ;
+- documentation exploitation locale ;
+- stratégie de déploiement simple ;
+- CI minimale build+test ;
+- runbook E2E harmonisé.
+
+Préservé :
+
+- frontend fonctionnel ;
+- backend fonctionnel ;
+- API ;
+- SQLite ;
+- request model enrichi ;
+- audit trail enrichi ;
+- workflow existant ;
+- statuts techniques existants ;
+- transitions métier existantes ;
+- permissions existantes ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée ;
+- reset admin.
+
+Limites confirmées :
+
+- pas de déploiement cloud complet ;
+- pas de Docker obligatoire ;
+- pas de Kubernetes ;
+- pas de Terraform ;
+- pas de Helm ;
+- pas de CI/CD complète ;
+- pas d'observabilité avancée ;
+- pas de supervision ;
+- pas d'authentification réelle ;
+- pas de session backend réelle ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'arc Figma ;
+- pas d'export Figma.
+
+Impact roadmap :
+
+| Jalons | Estimation |
+|--------|------------|
+| Après Lot 5 | 94% |
+| Après Lot 6 | 96–98% |
+
+Décision :
+
+Le cycle de finalisation MVP structuré défini dans la roadmap est désormais complet sur les six lots.
+
+Prochaine étape :
+
+Ne pas ouvrir automatiquement de nouveau lot.
+
+Les prochains sujets devront être cadrés comme des cycles distincts selon la priorité produit :
+
+- stabilisation finale pré-release ;
+- packaging release ;
+- déploiement cible ;
+- authentification réelle ;
+- CRM / données réelles ;
+- supervision ;
+- cloud ;
+- design system / Figma si besoin.

@@ -1038,3 +1038,156 @@ Existing local mode, API mode, SQLite persistence, demo reset, request model, au
 | Merge automatique | Non |
 
 Action manuelle : pousser la branche avec un token disposant du scope `workflow`, puis créer la PR avec le titre `Industrialize Interv360 MVP delivery` et le corps documenté en §18.
+
+---
+
+## 20. Statut merge
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #70 — https://github.com/mcleland147/sfia-workspace/pull/70 |
+| Source | `delivery/interv360-product-industrialization` |
+| Cible | `main` |
+| Méthode | Merge commit GitHub PR |
+| Commit merge | `179cd4c` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 191 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 125 tests |
+| IND-01 | OK — cadrage opérationnel |
+| IND-02 | OK — audit installation / scripts / env / docs |
+| IND-03 | OK — README global et guides locaux |
+| IND-04 | OK — variables `.env`, scripts et exploitation locale |
+| IND-05 | OK — tests, non-régression et CI minimale |
+| IND-06 | OK — documentation finale runbook/README |
+| IND-07 | OK — PR unique |
+| README racine point d'entrée MVP | OK |
+| README frontend consolidé | OK |
+| README backend consolidé | OK |
+| Runbook E2E harmonisé | OK |
+| `.env.example` frontend | OK |
+| `.env.example` backend | OK |
+| Scripts frontend documentés | OK |
+| Scripts backend documentés | OK |
+| SQLite / reset documentés | OK |
+| Mode local documenté | OK |
+| Mode API documenté | OK |
+| Déploiement simple documenté | OK |
+| CI minimale ajoutée | OK |
+| Workflow CI sans secrets | OK |
+| Workflow CI sans Docker | OK |
+| Workflow CI sans déploiement | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Request model conservé | OK |
+| Audit trail conservé | OK |
+| Workflow métier conservé | OK |
+| Statuts techniques conservés | OK |
+| Transitions métier conservées | OK |
+| Permissions conservées | OK |
+| UX MVP conservée | OK |
+| Backend fonctionnel inchangé | OK |
+| API inchangée | OK |
+| Scripts npm inchangés | OK |
+| CRUD complet introduit | Non |
+| Formulaire création demande introduit | Non |
+| Auth réelle introduite | Non |
+| Session backend réelle introduite | Non |
+| Login/password introduits | Non |
+| Token introduit | Non |
+| OAuth / JWT / SSO introduits | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveau statut introduit | Non |
+| `STAT-08` introduit | Non |
+| Docker obligatoire introduit | Non |
+| CI/CD lourde introduite | Non |
+| Déploiement cloud complet introduit | Non |
+| Arc Figma introduit | Non |
+| Export Figma ajouté | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+
+### Décision post-merge
+
+Le Lot 6 **Product Industrialization** est mergé dans `main`.
+
+Interv360 dispose désormais d'un MVP plus facilement livrable, installable, testable et exploitable localement :
+
+- README racine orienté MVP produit ;
+- guide installation locale ;
+- guide mode local ;
+- guide mode API ;
+- fichiers `.env.example` frontend/backend ;
+- documentation des variables d'environnement ;
+- documentation des scripts build/test/run ;
+- documentation SQLite et reset ;
+- documentation exploitation locale ;
+- stratégie de déploiement simple ;
+- CI minimale build+test ;
+- runbook E2E harmonisé.
+
+Ce lot préserve :
+
+- frontend fonctionnel ;
+- backend fonctionnel ;
+- API ;
+- SQLite ;
+- request model enrichi ;
+- audit trail enrichi ;
+- workflow existant ;
+- statuts techniques existants ;
+- transitions métier existantes ;
+- permissions existantes ;
+- mode local ;
+- mode API ;
+- UX MVP finalisée ;
+- reset admin.
+
+Ce lot ne met pas en place :
+
+- déploiement cloud complet ;
+- Docker obligatoire ;
+- Kubernetes ;
+- Terraform ;
+- Helm ;
+- CI/CD complète ;
+- observabilité avancée ;
+- supervision ;
+- authentification réelle ;
+- session backend réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- CRUD complet ;
+- formulaire création demande ;
+- nouveau statut ;
+- `STAT-08` ;
+- arc Figma ;
+- export Figma.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+### Impact MVP
+
+Après le Lot 6, Interv360 atteint environ **96–98% du MVP produit structuré** défini par la roadmap.
+
+### Prochaine étape
+
+Ne pas ouvrir automatiquement de nouveau lot.
+
+Le MVP final est désormais industrialisé pour un usage local / pré-cloud.
+
+Les prochains sujets possibles sont à cadrer séparément selon priorité produit :
+
+- stabilisation finale pré-release ;
+- packaging release ;
+- scénario déploiement cible ;
+- auth réelle ;
+- CRM ;
+- données réelles ;
+- supervision ;
+- cloud ;
+- design system / Figma si refonte plus large.
