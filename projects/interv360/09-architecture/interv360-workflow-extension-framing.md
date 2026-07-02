@@ -1,10 +1,10 @@
 # Interv360 — Workflow Extension Framing
 
 **Projet** : Interv360  
-**Cycle** : Workflow Extension Framing  
-**Mode** : SFIA Fast Track — cadrage utile direct  
-**Statut** : Cadrage architecture produit  
-**Branche** : `architecture/interv360-workflow-extension-framing`
+**Cycle** : Workflow Light Extension  
+**Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
+**Statut** : Batch produit — INC-WF-01 réalisé  
+**Branche** : `delivery/interv360-workflow-light-extension`
 
 ---
 
@@ -15,6 +15,8 @@ Ce document cadre l’extension du workflow métier Interv360 après validation 
 L’objectif est de définir quels enrichissements métier sont pertinents avant toute implémentation.
 
 Ce cadrage ne modifie pas encore le code.
+
+> Note SFIA : ce cadrage n’est pas mergé via une PR documentaire dédiée. Il devient l’INC-WF-01 du batch `delivery/interv360-workflow-light-extension`, afin d’accélérer le cycle et de livrer une extension workflow utile dans une PR unique.
 
 ---
 
@@ -44,6 +46,31 @@ Références :
 - [`interv360-role-simulation-review.md`](./interv360-role-simulation-review.md) — §13
 - [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md)
 - [`interv360-product-roadmap-after-role-simulation.md`](./interv360-product-roadmap-after-role-simulation.md)
+
+### 2.1. Intégration dans le batch Workflow Light Extension
+
+Ce document constitue l’INC-WF-01 du batch `delivery/interv360-workflow-light-extension`.
+
+Objectif du batch :
+
+- implémenter une extension légère du workflow ;
+- ajouter un nombre limité de statuts ;
+- conserver le contrat API existant ;
+- conserver SQLite sans nouvelle table ;
+- conserver les rôles simulés ;
+- produire une PR unique en fin de batch.
+
+Incréments prévus :
+
+| Incrément | Objectif | Statut |
+|----------|----------|--------|
+| INC-WF-01 | Confirmer le périmètre statuts/transitions | Réalisé |
+| INC-WF-02 | Implémenter statuts/actions backend | À faire |
+| INC-WF-03 | Exposer actions frontend | À faire |
+| INC-WF-04 | Adapter rôles simulés, tests et runbook | À faire |
+| INC-WF-05 | Préparer PR unique du batch | À venir |
+
+Document delivery : [`../07-delivery/workflow-light-extension.md`](../07-delivery/workflow-light-extension.md)
 
 ---
 
@@ -249,6 +276,52 @@ Mapping indicatif avec le workflow nominal actuel :
 - « En cours de traitement » couvre `STAT-02`, `STAT-03`, `STAT-04` selon le point d’entrée retenu à l’implémentation ;
 - « Avant clôture » exclut `STAT-06` ;
 - la requalification peut rester une transition sans nouveau statut si le retour vers `STAT-01` ou `STAT-02` est suffisant.
+
+### 9.1. Décision INC-WF-01 — périmètre retenu pour implémentation
+
+Afin de limiter l’effort et d’éviter une extension trop large, le premier batch retient uniquement :
+
+- `STAT-05 — En attente`
+- `STAT-07 — Annulée`
+
+La requalification n’est pas implémentée dans ce batch.
+
+Décision :
+
+| Élément | Décision |
+|--------|----------|
+| Nouveau statut `STAT-05` | Retenu |
+| Nouveau statut `STAT-07` | Retenu |
+| Statut `STAT-08` | Différé |
+| Statut `STAT-09` | Non retenu |
+| Requalification | Différée |
+| Nouvelle table SQLite | Non |
+| Nouveau endpoint API | Non |
+| Moteur workflow | Non |
+
+#### Mapping statuts / transitions retenu
+
+| Action | Depuis | Vers | Rôles autorisés |
+|--------|--------|------|-----------------|
+| `put_on_hold` | `STAT-03` | `STAT-05` | `technician`, `manager`, `admin` |
+| `resume` | `STAT-05` | `STAT-03` | `technician`, `manager`, `admin` |
+| `cancel` | `STAT-01`, `STAT-02`, `STAT-03`, `STAT-05` | `STAT-07` | `manager`, `admin` |
+
+Règles complémentaires :
+
+- `STAT-06` reste un état terminal de clôture ;
+- `STAT-07` devient un état terminal d’annulation ;
+- aucune annulation après `STAT-04` dans ce premier batch ;
+- aucune mise en attente après `STAT-04` ;
+- aucune reprise vers un état d’origine variable ;
+- `resume` revient toujours vers `STAT-03` pour éviter d’ajouter une mémoire d’état ou une nouvelle structure de données.
+
+Justification :
+
+- le mapping reste simple ;
+- aucune nouvelle table n’est nécessaire ;
+- l’API existante `POST /api/v1/requests/:id/transitions` est conservée ;
+- le workflow devient plus crédible sans refonte complète.
 
 ---
 
