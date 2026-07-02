@@ -331,3 +331,61 @@ No code, frontend, backend, SQLite, API, workflow extension, real authentication
 | Cible | `main` |
 | Source | `architecture/interv360-product-roadmap-after-role-simulation` |
 | Merge automatique | Non |
+
+---
+
+## 12. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#59](https://github.com/mcleland147/sfia-workspace/pull/59) |
+| Source | `architecture/interv360-product-roadmap-after-role-simulation` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `1665e71` |
+| Main synchronisée | OK |
+| Décision roadmap | OK |
+| Prochain axe recommandé | Revue produit / feedback simulation rôle |
+| Prochaine branche recommandée | `architecture/interv360-role-simulation-review` |
+| Workflow extension | Différée |
+| Auth réelle | Différée |
+| Industrialisation | Différée |
+| Implémentation immédiate | Non |
+| Code modifié | Non |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| API modifiée | Non |
+| Workflow modifié | Non |
+| Auth réelle introduite | Non |
+| OAuth introduit | Non |
+| JWT introduit | Non |
+| SSO introduit | Non |
+| Base users introduite | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+La décision **Product Roadmap After Role Simulation** est mergée dans `main`.
+
+La prochaine étape recommandée est d’ouvrir une revue produit courte :
+
+`architecture/interv360-role-simulation-review`
+
+Objectif du prochain cycle :
+
+> préparer une grille de revue et un scénario de feedback pour valider la simulation de rôle avant d’ouvrir un chantier workflow extension, auth réelle, UX produit ou industrialisation.
+
+Cette décision permet d’éviter d’enchaîner directement sur un chantier structurant sans retour produit.
+
+Aucun code, frontend, backend, API, workflow, auth réelle, CRM ou donnée réelle n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode Fast Delivery stratégique.
