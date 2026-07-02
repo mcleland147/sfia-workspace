@@ -9,6 +9,7 @@ import {
   planDemoIntervention,
   putDemoRequestOnHold,
   qualifyDemoRequest,
+  requalifyDemoRequest,
   resetDemoData,
   resumeDemoRequest,
 } from "./requestsRepository";
@@ -32,6 +33,8 @@ function applyLocalTransition(
       return resumeDemoRequest(id);
     case "cancel":
       return cancelDemoRequest(id);
+    case "requalify":
+      return requalifyDemoRequest(id);
     default:
       return undefined;
   }

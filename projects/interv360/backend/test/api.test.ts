@@ -271,6 +271,63 @@ describe("Interv360 API", () => {
     expect(response.body.error.code).toBe("TRANSITION_NOT_ALLOWED");
   });
 
+  it("POST requalify from STAT-03 returns STAT-02 and request.requalified event", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-002/transitions")
+      .send({ action: "requalify" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.request.status).toBe("STAT-02");
+    expect(response.body.event.type).toBe("request.requalified");
+    expect(response.body.event.fromStatus).toBe("STAT-03");
+    expect(response.body.event.toStatus).toBe("STAT-02");
+  });
+
+  it("POST requalify from STAT-02 returns STAT-02", async () => {
+    applyTransition("SAV-DEMO-001", "qualify");
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "requalify" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.request.status).toBe("STAT-02");
+    expect(response.body.event.type).toBe("request.requalified");
+  });
+
+  it("POST requalify from STAT-05 returns STAT-02", async () => {
+    applyTransition("SAV-DEMO-002", "put_on_hold");
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-002/transitions")
+      .send({ action: "requalify" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.request.status).toBe("STAT-02");
+    expect(response.body.event.type).toBe("request.requalified");
+    expect(response.body.event.fromStatus).toBe("STAT-05");
+  });
+
+  it("POST requalify from STAT-01 returns TRANSITION_NOT_ALLOWED", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "requalify" });
+
+    expect(response.status).toBe(409);
+    expect(response.body.error.code).toBe("TRANSITION_NOT_ALLOWED");
+  });
+
+  it("POST requalify from STAT-04 returns TRANSITION_NOT_ALLOWED", async () => {
+    applyTransition("SAV-DEMO-002", "complete_intervention");
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-002/transitions")
+      .send({ action: "requalify" });
+
+    expect(response.status).toBe(409);
+    expect(response.body.error.code).toBe("TRANSITION_NOT_ALLOWED");
+  });
+
   it("POST /api/v1/demo/reset restores seed and clears journal", async () => {
     applyTransition("SAV-DEMO-001", "qualify");
 

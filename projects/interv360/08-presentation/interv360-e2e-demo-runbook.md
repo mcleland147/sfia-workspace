@@ -284,11 +284,63 @@ Et trois nouvelles actions :
 ### Limites
 
 - l’extension reste légère ;
-- aucune requalification n’est introduite ;
 - aucune authentification réelle n’est introduite ;
 - aucun nouveau contrat API n’est introduit ;
 - aucune nouvelle table SQLite n’est introduite ;
 - `STAT-06` et `STAT-07` sont terminaux.
+
+---
+
+## Contrôle — requalification légère du workflow
+
+Le workflow Interv360 expose désormais une action de requalification légère :
+
+| Action | Libellé UI | Depuis | Vers |
+|--------|------------|--------|------|
+| `requalify` | Requalifier | `STAT-02`, `STAT-03`, `STAT-05` | `STAT-02` |
+
+Cette requalification ne crée pas de nouveau statut.
+
+### Scénario requalification depuis une demande planifiée
+
+1. Ouvrir une demande en statut `STAT-02`.
+2. Vérifier que l’action **Requalifier** est disponible.
+3. Cliquer sur **Requalifier**.
+4. Vérifier que la demande reste ou revient en statut de qualification / planification selon le libellé affiché.
+5. Vérifier que l’action est journalisée.
+
+### Scénario requalification depuis une demande en traitement
+
+1. Ouvrir une demande en statut `STAT-03`.
+2. Vérifier que l’action **Requalifier** est disponible.
+3. Cliquer sur **Requalifier**.
+4. Vérifier que la demande revient vers `STAT-02`.
+
+### Scénario requalification depuis une demande en attente
+
+1. Mettre une demande en attente ou ouvrir une demande en statut `STAT-05`.
+2. Vérifier que l’action **Requalifier** est disponible.
+3. Cliquer sur **Requalifier**.
+4. Vérifier que la demande revient vers `STAT-02`.
+
+### Contrôle permissions simulées
+
+| Rôle | Attendu |
+|------|---------|
+| `viewer` | Ne peut pas requalifier |
+| `requester` | Ne peut pas requalifier |
+| `technician` | Peut requalifier |
+| `manager` | Peut requalifier |
+| `admin` | Peut requalifier |
+
+### Limites
+
+- aucun `STAT-08` n’est introduit ;
+- aucun nouveau statut n’est introduit ;
+- aucune authentification réelle n’est introduite ;
+- aucun nouveau contrat API n’est introduit ;
+- aucune nouvelle table SQLite n’est introduite ;
+- `STAT-06` et `STAT-07` restent terminaux.
 
 ---
 
@@ -426,7 +478,6 @@ La démonstration reste volontairement bornée.
 - base users complète ;
 - CRM ;
 - données réelles ;
-- requalification ;
 - statut `STAT-08` (requalification différée) ;
 - production ;
 - supervision ;
@@ -461,7 +512,7 @@ Le récit recommandé :
 1. Interv360 part d’un besoin simple : suivre et qualifier des demandes d’intervention.
 2. Le produit propose une liste de demandes fictives mais structurées.
 3. Chaque demande dispose d’une fiche enrichie avec site, date de demande, équipement, impact court et impact métier.
-4. Le workflow nominal permet de qualifier, planifier, réaliser puis clôturer une intervention ; l’extension légère permet mise en attente, reprise et annulation.
+4. Le workflow nominal permet de qualifier, planifier, réaliser puis clôturer une intervention ; l’extension légère permet mise en attente, reprise et annulation ; la requalification légère permet de revenir vers `STAT-02` depuis `STAT-02`, `STAT-03` ou `STAT-05`.
 5. Le frontend peut fonctionner seul en mode local pour une démo rapide.
 6. Le même parcours peut être connecté à une API locale persistante avec SQLite.
 7. Les erreurs API sont structurées et testées.

@@ -252,4 +252,87 @@ describe("App simulated role", () => {
       );
     });
   });
+
+  it("allows technician to requalify a compatible request", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+
+    const requalifyButton = screen.getByRole("button", {
+      name: /Requalifier/i,
+    });
+    expect(requalifyButton).not.toHaveAttribute("aria-disabled", "true");
+
+    fireEvent.click(requalifyButton);
+
+    await waitFor(() => {
+      expect(screen.getAllByText(/Planifiée \(STAT-02\)/i).length).toBeGreaterThan(
+        0,
+      );
+    });
+  });
+
+  it("allows manager to requalify a compatible request", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+    switchSimulatedRole("manager");
+
+    fireEvent.click(screen.getByRole("button", { name: /Requalifier/i }));
+
+    await waitFor(() => {
+      expect(screen.getAllByText(/Planifiée \(STAT-02\)/i).length).toBeGreaterThan(
+        0,
+      );
+    });
+  });
+
+  it("allows admin to requalify a compatible request", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+    switchSimulatedRole("admin");
+
+    fireEvent.click(screen.getByRole("button", { name: /Requalifier/i }));
+
+    await waitFor(() => {
+      expect(screen.getAllByText(/Planifiée \(STAT-02\)/i).length).toBeGreaterThan(
+        0,
+      );
+    });
+  });
+
+  it("blocks requalify for viewer with unauthorized message", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+    switchSimulatedRole("viewer");
+
+    const requalifyButton = screen.getByRole("button", {
+      name: /Requalifier/i,
+    });
+    expect(requalifyButton).toHaveAttribute("aria-disabled", "true");
+
+    fireEvent.click(requalifyButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          /Action non autorisée pour le rôle simulé : Observateur/i,
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("blocks requalify for requester with unauthorized message", async () => {
+    await renderAppOnDetailsScreenForRequest("SAV-DEMO-002");
+    switchSimulatedRole("requester");
+
+    const requalifyButton = screen.getByRole("button", {
+      name: /Requalifier/i,
+    });
+    expect(requalifyButton).toHaveAttribute("aria-disabled", "true");
+
+    fireEvent.click(requalifyButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          /Action non autorisée pour le rôle simulé : Demandeur/i,
+        ),
+      ).toBeInTheDocument();
+    });
+  });
 });

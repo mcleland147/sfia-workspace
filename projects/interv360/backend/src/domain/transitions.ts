@@ -79,6 +79,13 @@ const TRANSITION_RULES: TransitionRule[] = [
     type: "request.cancelled",
     label: "Demande fictive annulée",
   },
+  {
+    action: "requalify",
+    from: ["STAT-02", "STAT-03", "STAT-05"],
+    to: "STAT-02",
+    type: "request.requalified",
+    label: "Demande fictive requalifiée",
+  },
 ];
 
 const VALID_ACTIONS = new Set<string>(

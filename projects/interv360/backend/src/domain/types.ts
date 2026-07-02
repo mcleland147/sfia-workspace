@@ -18,7 +18,8 @@ export type TransitionAction =
   | "close_report"
   | "put_on_hold"
   | "resume"
-  | "cancel";
+  | "cancel"
+  | "requalify";
 
 export type WorkflowEventType =
   | "qualification.confirmed"
@@ -27,7 +28,8 @@ export type WorkflowEventType =
   | "report.closed"
   | "hold.placed"
   | "hold.resumed"
-  | "request.cancelled";
+  | "request.cancelled"
+  | "request.requalified";
 
 export interface DemoRequest {
   id: string;
