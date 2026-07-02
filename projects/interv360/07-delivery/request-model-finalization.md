@@ -256,7 +256,7 @@ Décision proposée pour rester Fast Track :
 | RM-04 | Frontend fiche/liste Request alignées | Réalisé |
 | RM-05 | Tests backend/frontend et non-régression | Réalisé |
 | RM-06 | Documentation runbook/README | Réalisé |
-| RM-07 | Préparation PR unique | À venir |
+| RM-07 | Préparation PR unique | Réalisé |
 
 ---
 
@@ -840,9 +840,7 @@ Garde-fous confirmés :
 
 ## 16. Prochaine étape
 
-Exécuter **RM-07** :
-
-Préparation PR unique
+PR unique préparée — revue et merge sur `main` à valider.
 
 ---
 
@@ -883,4 +881,121 @@ Le lot ne met pas en place :
 - données réelles ;
 - nouveau statut.
 
-La prochaine étape est RM-07 : préparation de la PR unique du lot.
+---
+
+## 18. Validations finales RM-07
+
+| Contrôle | Résultat |
+|----------|----------|
+| Frontend build | OK |
+| Frontend tests | OK — 175 tests |
+| Backend build | OK |
+| Backend tests | OK — 121 tests |
+| Diff global vs main | OK |
+| Modèle Request enrichi | OK |
+| SQLite `requests` enrichie | OK |
+| Colonnes `requester_name` / `requester_team` | OK |
+| Colonnes `assigned_to_user_id` / `assigned_to_display_name` | OK |
+| Seed backend enrichi | OK |
+| Seed local aligné | OK |
+| API liste enrichie | OK |
+| API détail enrichie | OK |
+| Frontend fiche enrichie | OK |
+| Frontend liste enrichie | OK |
+| Recherche enrichie | OK |
+| Champs legacy conservés | OK |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Audit trail conservé | OK |
+| Permissions conservées | OK |
+| Reset admin conservé | OK |
+| CRUD complet exclu | OK |
+| Formulaire création exclu | OK |
+| Auth réelle exclue | OK |
+| Login/password exclus | OK |
+| Token exclu | OK |
+| OAuth/JWT/SSO exclus | OK |
+| CRM/données réelles exclus | OK |
+| Nouveau statut exclu | OK |
+| `STAT-08` exclu | OK |
+| sfia-notion-sync exclu | OK |
+| Exports Figma exclus | OK |
+
+---
+
+## 19. Préparation PR intégrée
+
+### Titre proposé
+
+`Finalize Interv360 request model`
+
+### Description proposée
+
+```markdown
+## Summary
+This PR delivers Lot 3 of the Interv360 MVP Final Roadmap: Request Model Finalization.
+It stabilizes the Interv360 request model by adding requester and assignment fields, aligning backend SQLite/API with frontend local/API modes, and documenting the enriched request contract.
+This is not a CRUD expansion and does not introduce real authentication or real CRM data.
+## What changed
+### Product delivery
+- opens Lot 3 from the MVP Final Roadmap;
+- adds the Request Model Finalization delivery document;
+- confirms that Lot 1 Backend Users & Session and Lot 2 Audit Trail are reused;
+- keeps the SFIA Fast Track delivery approach.
+### Backend
+- enriches the backend `DemoRequest` model with:
+  - `requesterName`;
+  - `requesterTeam`;
+  - `assignedToUserId`;
+  - `assignedToDisplayName`;
+- adds compatible SQLite migrations on `requests`:
+  - `requester_name`;
+  - `requester_team`;
+  - `assigned_to_user_id`;
+  - `assigned_to_display_name`;
+- enriches the backend fictive seed for the 3 demo requests;
+- keeps the existing `requests` / `request_details` split;
+- keeps legacy fields:
+  - `customerLabel`;
+  - `assignedTechnicianLabel`;
+- keeps existing `priority` and `criticality` enums;
+- exposes enriched fields through:
+  - `GET /api/v1/requests`;
+  - `GET /api/v1/requests/:id`.
+### Frontend
+- enriches the frontend `DemoRequest` type;
+- maps enriched API fields in API mode;
+- aligns the local seed with the backend seed;
+- displays requester and assignment information in the request detail;
+- displays requester and assignment information in the request list;
+- enriches request search with requester, team and assignment fields;
+- keeps fallbacks to legacy fields:
+  - `customerLabel`;
+  - `assignedTechnicianLabel`;
+- keeps local mode and API mode compatible.
+### Tests
+- adds backend persistence coverage for the enriched request model;
+- extends backend API tests for list/detail responses;
+- confirms enriched fields survive workflow transitions;
+- extends frontend API mapping tests;
+- extends request detail/list tests;
+- extends search tests;
+- confirms mode local/API non-regression;
+- confirms audit trail, permissions and reset behavior remain compatible.
+### Documentation
+- updates the E2E runbook with Request Model controls and curl examples;
+- updates frontend README;
+- updates backend README;
+- updates the Request Model Finalization delivery document with RM-01 to RM-07 status.
+## Validation
+- Frontend build: OK
+- Frontend tests: 175 passed
+- Backend build: OK
+- Backend tests: 121 passed
+## Guardrails
+No full CRUD API, request creation form, real authentication, login, logout, password, password hash, token, OAuth, JWT, SSO, Entra ID, backend auth session, CRM integration, real data, workflow status, `STAT-08`, Notion publication, Controlled Delivery change, sfia-notion-sync update, or Figma export was introduced.
+Existing workflow, transitions, audit trail, permissions, local mode, API mode and admin reset behavior are preserved.
+Legacy request fields remain available:
+- `customerLabel`;
+- `assignedTechnicianLabel`.
+```
