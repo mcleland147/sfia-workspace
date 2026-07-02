@@ -65,4 +65,89 @@ describe("resolveTransition", () => {
       code: "TRANSITION_NOT_ALLOWED",
     });
   });
+
+  it("puts on hold from STAT-03", () => {
+    const result = resolveTransition("STAT-03", "put_on_hold");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.toStatus).toBe("STAT-05");
+      expect(result.type).toBe("hold.placed");
+      expect(result.label).toBe("Demande fictive mise en attente");
+    }
+  });
+
+  it("resumes from STAT-05", () => {
+    const result = resolveTransition("STAT-05", "resume");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.toStatus).toBe("STAT-03");
+      expect(result.type).toBe("hold.resumed");
+      expect(result.label).toBe("Reprise fictive du traitement");
+    }
+  });
+
+  it("cancels from STAT-01", () => {
+    const result = resolveTransition("STAT-01", "cancel");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.toStatus).toBe("STAT-07");
+      expect(result.type).toBe("request.cancelled");
+    }
+  });
+
+  it("cancels from STAT-02", () => {
+    const result = resolveTransition("STAT-02", "cancel");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.toStatus).toBe("STAT-07");
+    }
+  });
+
+  it("cancels from STAT-03", () => {
+    const result = resolveTransition("STAT-03", "cancel");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.toStatus).toBe("STAT-07");
+    }
+  });
+
+  it("cancels from STAT-05", () => {
+    const result = resolveTransition("STAT-05", "cancel");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.toStatus).toBe("STAT-07");
+    }
+  });
+
+  it("refuses put_on_hold from STAT-04", () => {
+    const result = resolveTransition("STAT-04", "put_on_hold");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
+
+  it("refuses cancel from STAT-04", () => {
+    const result = resolveTransition("STAT-04", "cancel");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
+
+  it("refuses resume from STAT-03", () => {
+    const result = resolveTransition("STAT-03", "resume");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
+
+  it("refuses transition from STAT-07", () => {
+    const result = resolveTransition("STAT-07", "cancel");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
 });

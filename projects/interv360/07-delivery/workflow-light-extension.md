@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Workflow Light Extension  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-WF-01 réalisé  
+**Statut** : Batch produit — INC-WF-02 réalisé  
 **Branche** : `delivery/interv360-workflow-light-extension`
 
 ---
@@ -136,7 +136,7 @@ Aucune nouvelle table prévue.
 | Incrément | Objectif | Statut |
 |----------|----------|--------|
 | INC-WF-01 | Confirmer le périmètre statuts/transitions | Réalisé |
-| INC-WF-02 | Implémenter statuts/actions backend | À faire |
+| INC-WF-02 | Implémenter statuts/actions backend | Réalisé |
 | INC-WF-03 | Exposer actions frontend | À faire |
 | INC-WF-04 | Adapter rôles simulés, tests et runbook | À faire |
 | INC-WF-05 | Préparer PR unique du batch | À venir |
@@ -153,9 +153,9 @@ Aucune nouvelle table prévue.
 | `resume` défini | OK |
 | `cancel` défini | OK |
 | Requalification différée | OK |
-| API contract conservé | À valider |
-| SQLite sans nouvelle table | À valider |
-| Backend testé | À faire |
+| API contract conservé | OK |
+| SQLite sans nouvelle table | OK |
+| Backend testé | OK |
 | Frontend testé | À faire |
 | Runbook mis à jour | À faire |
 | Auth réelle exclue | OK |
@@ -178,21 +178,49 @@ Aucune nouvelle table prévue.
 
 ---
 
+## 9.1. Changements INC-WF-02
+
+INC-WF-02 implémente côté backend l’extension légère du workflow.
+
+Changements réalisés :
+
+- ajout du statut `STAT-05 — En attente` ;
+- ajout du statut `STAT-07 — Annulée` ;
+- ajout de l’action `put_on_hold` ;
+- ajout de l’action `resume` ;
+- ajout de l’action `cancel` ;
+- validation des transitions retenues ;
+- conservation du contrat `POST /api/v1/requests/:id/transitions` ;
+- conservation de SQLite sans nouvelle table ;
+- tests backend ajoutés.
+
+Règles confirmées :
+
+- `STAT-06` reste terminal ;
+- `STAT-07` est terminal ;
+- `put_on_hold` est autorisé uniquement depuis `STAT-03` ;
+- `resume` est autorisé uniquement depuis `STAT-05` ;
+- `cancel` est autorisé depuis `STAT-01`, `STAT-02`, `STAT-03`, `STAT-05` ;
+- `cancel` est interdit depuis `STAT-04` ;
+- aucune requalification n’est introduite.
+
+---
+
 ## 10. Validations
 
 À compléter pendant le batch.
 
 | Contrôle | Résultat |
 |----------|----------|
-| Backend build | `<OK / KO>` |
-| Backend tests | `<OK / KO>` |
-| Frontend build | `<OK / KO>` |
-| Frontend tests | `<OK / KO>` |
-| Validation navigateur local | `<OK / KO / non exécutée>` |
-| Validation navigateur API | `<OK / KO / non exécutée>` |
+| Backend build | OK |
+| Backend tests | OK |
+| Frontend build | OK |
+| Frontend tests | OK |
+| Validation navigateur local | non exécutée |
+| Validation navigateur API | non exécutée |
 
 ---
 
 ## 11. Prochaine étape
 
-**INC-WF-02** : implémenter les statuts et transitions côté backend, sans changer le contrat API.
+**INC-WF-03** : exposer les nouvelles actions côté frontend, sans changer le contrat API.
