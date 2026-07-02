@@ -388,3 +388,60 @@ Only `STAT-05` and `STAT-07` are introduced in this batch.
 **Titre proposé :** `Add Interv360 workflow light extension`
 
 **Corps PR :** voir §13 ou `/tmp/workflow-light-extension-pr-body.md`
+
+---
+
+## 15. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#61](https://github.com/mcleland147/sfia-workspace/pull/61) — Add Interv360 workflow light extension |
+| Source | `delivery/interv360-workflow-light-extension` |
+| Cible | `main` |
+| Méthode | Merge commit (GitHub PR merge) |
+| Commit merge | `2a21541` |
+| Main synchronisée | OK |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 54 tests |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 113 tests |
+| INC-WF-01 | OK — cadrage intégré |
+| INC-WF-02 | OK — backend statuts/actions |
+| INC-WF-03 | OK — frontend actions exposées |
+| INC-WF-04 | OK — permissions/runbook/tests |
+| INC-WF-05 | OK — PR unique préparée |
+| `STAT-05 En attente` | OK |
+| `STAT-07 Annulée` | OK |
+| `put_on_hold` | OK |
+| `resume` | OK |
+| `cancel` | OK |
+| API contract conservé | OK |
+| SQLite sans nouvelle table | OK |
+| Auth réelle introduite | Non |
+| OAuth / JWT / SSO introduits | Non |
+| Base users introduite | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Requalification introduite | Non |
+| Nouveaux statuts au-delà de `STAT-05` / `STAT-07` | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le batch **Workflow Light Extension** est mergé dans `main`.
+
+Interv360 dispose désormais d’une extension légère du workflow :
+
+- `STAT-05 — En attente` ;
+- `STAT-07 — Annulée` ;
+- action `put_on_hold` ;
+- action `resume` ;
+- action `cancel` ;
+- permissions simulées alignées ;
+- contrat API conservé ;
+- SQLite conservée sans nouvelle table ;
+- runbook mis à jour.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode SFIA Fast Track.
