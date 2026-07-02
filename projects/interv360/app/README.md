@@ -98,7 +98,7 @@ Notes:
 - `requestedDate` is distinct from the existing creation date label.
 - `businessImpact` is distinct from the existing short impact label.
 - The frontend keeps the current navigation, local mode, and API opt-in mode.
-- Simulated roles are documented below; no real authentication, OAuth, JWT, SSO, backend user database, CRM integration, or real data is introduced.
+- Simulated roles are documented below via the demo user switcher; no real authentication, OAuth, JWT, SSO, backend user database, CRM integration, or real data is introduced.
 
 ### Workflow light extension
 
@@ -143,27 +143,37 @@ Role simulation applies:
 - `technician`, `manager`, and `admin` can requalify requests.
 - `requester` and `viewer` remain read-only for this action.
 
-### Simulated roles
+### Auth User Switcher
 
-The frontend includes a controlled simulated role mode.
+The frontend now exposes a demo user switcher.
 
-Default role:
+This is not real authentication.
 
-- `technician`
+The active role is derived from the selected demo user.
 
-Available roles:
+Demo users:
 
-- `requester`
-- `technician`
-- `manager`
-- `admin`
-- `viewer`
+| User | Role |
+|------|------|
+| Alice Demandeur | `requester` |
+| Théo Technicien | `technician` |
+| Maya Responsable | `manager` |
+| Amin Admin | `admin` |
+| Victor Lecteur | `viewer` |
 
-The active role is stored in local storage:
+Local session:
 
 ```text
-interv360:simulated-role
+interv360:current-user-id
 ```
+
+Default user:
+
+```text
+user-technician
+```
+
+The previous direct role simulation key (`interv360:simulated-role`) is no longer the primary source for the active role.
 
 The simulation controls existing workflow actions:
 
@@ -177,10 +187,20 @@ Unauthorized actions are blocked on the frontend and display a user message:
 
 `Action non autorisée pour le rôle simulé : <role label>.`
 
-The simulated role is preserved after a demo reset.
+The current demo user is preserved after a demo reset.
 
-This is not real authentication.
-No OAuth, JWT, SSO, backend user database, CRM integration, real data, or production security is introduced.
+Guardrails:
+
+- no real login;
+- no password;
+- no token;
+- no OAuth;
+- no JWT;
+- no SSO;
+- no Entra ID;
+- no backend users table;
+- no backend session;
+- no API contract change.
 
 ## Status
 

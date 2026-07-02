@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Auth User Switcher  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — AUTH-US-01 / AUTH-US-02 réalisés  
+**Statut** : Batch produit — AUTH-US-04 réalisé  
 **Branche** : `delivery/interv360-auth-user-switcher`
 
 ---
@@ -117,7 +117,7 @@ Règle :
 | AUTH-US-01 | Définir utilisateurs fictifs et session locale | Réalisé |
 | AUTH-US-02 | Remplacer le sélecteur de rôle par un sélecteur utilisateur | Réalisé |
 | AUTH-US-03 | Adapter permissions/tests | Réalisé |
-| AUTH-US-04 | Mettre à jour runbook/README | À faire |
+| AUTH-US-04 | Mettre à jour runbook/README | Réalisé |
 | AUTH-US-05 | Préparer PR unique | À venir |
 
 ---
@@ -136,7 +136,8 @@ Règle :
 | SQLite inchangée | OK |
 | Frontend testé | OK |
 | Backend non-régression | OK |
-| Runbook mis à jour | À faire |
+| Runbook mis à jour | OK |
+| README mis à jour | OK |
 | Auth réelle exclue | OK |
 | OAuth/JWT/SSO exclus | OK |
 | Données réelles exclues | OK |
@@ -232,12 +233,52 @@ Garde-fous confirmés :
 
 ---
 
+## 9.3. Changements AUTH-US-04
+
+AUTH-US-04 finalise la documentation du user switcher.
+
+Changements réalisés :
+
+- mise à jour du runbook E2E avec les scénarios par utilisateur ;
+- documentation de l'utilisateur par défaut `Théo Technicien` ;
+- documentation des profils `requester`, `technician`, `manager`, `admin`, `viewer` ;
+- documentation du reset réservé à `admin` ;
+- documentation de la persistance locale via `interv360:current-user-id` ;
+- mise à jour du README frontend ;
+- conservation du backend sans modification ;
+- conservation de l'API sans modification ;
+- conservation de SQLite sans modification.
+
+Scénarios documentés :
+
+| Scénario | Résultat attendu |
+|----------|------------------|
+| Utilisateur par défaut | `Théo Technicien` actif |
+| Responsable | `Maya Responsable` peut annuler |
+| Administrateur | `Amin Admin` peut reset |
+| Demandeur | `Alice Demandeur` lecture seule |
+| Lecteur | `Victor Lecteur` lecture seule |
+| Persistance locale | utilisateur conservé après remount/reload |
+
+Garde-fous confirmés :
+
+- aucune auth réelle ;
+- aucun login ;
+- aucun mot de passe ;
+- aucun token ;
+- aucun OAuth/JWT/SSO ;
+- aucune session backend ;
+- aucune table users backend ;
+- aucun changement API.
+
+---
+
 ## 10. Validations
 
 | Contrôle | Résultat |
 |----------|----------|
 | Frontend build | OK |
-| Frontend tests | OK — 140 tests |
+| Frontend tests | OK — 141 tests |
 | Backend build | OK |
 | Backend tests | OK — 67 tests |
 | Validation navigateur local | Non exécutée — validation automatisée OK |
@@ -245,6 +286,22 @@ Garde-fous confirmés :
 
 ---
 
-## 11. Prochaine étape
+## 11. Synthèse avant PR
 
-**AUTH-US-03** : aligner permissions/tests finaux et préparer runbook/README (AUTH-US-04).
+Le batch **Auth User Switcher** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- 5 utilisateurs fictifs frontend ;
+- session locale `interv360:current-user-id` ;
+- utilisateur par défaut `Théo Technicien` ;
+- sélecteur utilisateur ;
+- rôle actif dérivé depuis l'utilisateur courant ;
+- permissions existantes conservées ;
+- reset toujours réservé à `admin` ;
+- runbook mis à jour ;
+- README mis à jour.
+
+Le batch ne met pas en place une authentification réelle.
+
+La prochaine étape est **AUTH-US-05** : préparation de la PR unique du batch.
