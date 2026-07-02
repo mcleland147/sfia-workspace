@@ -260,7 +260,7 @@ Décision proposée pour rester Fast Track :
 | AT-01 | Cadrage opérationnel audit trail | Réalisé |
 | AT-02 | SQLite workflow_events enrichi | Réalisé |
 | AT-03 | Transitions API avec acteur | Réalisé |
-| AT-04 | Events API enrichis | À faire |
+| AT-04 | Events API enrichis | Réalisé |
 | AT-05 | Frontend historique enrichi | À faire |
 | AT-06 | Tests backend/frontend et non-régression | À faire |
 | AT-07 | Documentation runbook/README | À faire |
@@ -277,7 +277,7 @@ Décision proposée pour rester Fast Track :
 | SQLite audit enrichi | OK |
 | Transitions API compatibles | OK |
 | Validation acteur backend | OK |
-| Events API enrichis | À faire |
+| Events API enrichis | OK |
 | Frontend historique enrichi | À faire |
 | Permissions existantes conservées | À valider |
 | Mode local conservé | À valider |
@@ -434,8 +434,66 @@ Garde-fous confirmés :
 
 ---
 
+## 15.3. Changements AT-04
+
+AT-04 formalise l'API events enrichie.
+
+Changements réalisés :
+
+- confirmation de l'exposition de `action` dans `GET /api/v1/requests/:id/events` ;
+- confirmation de l'exposition de `fromStatus` et `toStatus` ;
+- confirmation de l'exposition du snapshot acteur quand disponible :
+  - `actorUserId`
+  - `actorDisplayName`
+  - `actorRole`
+- compatibilité confirmée avec les événements sans acteur ;
+- conservation du contrat existant des events (`items`) ;
+- tests API events enrichis ;
+- aucune modification frontend ;
+- aucune modification UI ;
+- aucune session backend réelle ;
+- aucun token ;
+- aucune auth réelle.
+
+Contrat events confirmé :
+
+```json
+{
+  "items": [
+    {
+      "id": "evt-...",
+      "requestId": "SAV-DEMO-001",
+      "type": "qualification.confirmed",
+      "label": "Demande qualifiée",
+      "action": "qualify",
+      "fromStatus": "STAT-01",
+      "toStatus": "STAT-02",
+      "actorUserId": "user-technician",
+      "actorDisplayName": "Théo Technicien",
+      "actorRole": "technician",
+      "createdAt": "..."
+    }
+  ]
+}
+```
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **AT-04** :
+Exécuter **AT-05** :
 
-Events API enrichis
+Frontend historique enrichi
