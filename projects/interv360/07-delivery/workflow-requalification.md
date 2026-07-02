@@ -3,7 +3,7 @@
 **Projet** : Interv360  
 **Cycle** : Workflow Requalification  
 **Mode** : SFIA Fast Track — Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-RQ-01 cadrage  
+**Statut** : Batch produit — INC-RQ-02 réalisé  
 **Branche** : `delivery/interv360-workflow-requalification`
 
 ---
@@ -221,7 +221,7 @@ Aucune nouvelle table.
 | Incrément | Objectif | Statut |
 |----------|----------|--------|
 | INC-RQ-01 | Cadrer le périmètre requalification | Réalisé |
-| INC-RQ-02 | Implémenter l’action backend `requalify` | À faire |
+| INC-RQ-02 | Implémenter l’action backend `requalify` | Réalisé |
 | INC-RQ-03 | Exposer `Requalifier` côté frontend | À faire |
 | INC-RQ-04 | Tests, permissions et runbook | À faire |
 | INC-RQ-05 | Préparer PR unique | À venir |
@@ -235,9 +235,9 @@ Aucune nouvelle table.
 | Action `requalify` définie | OK |
 | `STAT-08` différé | OK |
 | Retour vers `STAT-02` défini | OK |
-| API contract conservé | À valider |
-| SQLite sans nouvelle table | À valider |
-| Backend testé | À faire |
+| API contract conservé | OK |
+| SQLite sans nouvelle table | OK |
+| Backend testé | OK |
 | Frontend testé | À faire |
 | Runbook mis à jour | À faire |
 | Auth réelle exclue | OK |
@@ -245,6 +245,52 @@ Aucune nouvelle table.
 
 ---
 
-## 10. Prochaine étape
+## 9.1. Changements INC-RQ-02
 
-**INC-RQ-02** : implémenter l’action backend `requalify`, sans nouveau statut et sans changer le contrat API.
+INC-RQ-02 implémente côté backend l’action `requalify`.
+
+Changements réalisés :
+
+- ajout de l’action `requalify` ;
+- ajout de l’événement journal `request.requalified` ;
+- validation des transitions retenues ;
+- conservation du contrat `POST /api/v1/requests/:id/transitions` ;
+- conservation de SQLite sans nouvelle table ;
+- tests backend ajoutés.
+
+Règles confirmées :
+
+| Action | Depuis | Vers |
+|--------|--------|------|
+| `requalify` | `STAT-02` | `STAT-02` |
+| `requalify` | `STAT-03` | `STAT-02` |
+| `requalify` | `STAT-05` | `STAT-02` |
+
+Règles d’exclusion :
+
+- pas de requalification depuis `STAT-01` ;
+- pas de requalification depuis `STAT-04` ;
+- pas de requalification depuis `STAT-06` ;
+- pas de requalification depuis `STAT-07` ;
+- pas de `STAT-08` ;
+- pas de nouveau statut ;
+- pas de nouvelle table SQLite.
+
+---
+
+## 10. Validations
+
+| Contrôle | Résultat |
+|----------|----------|
+| Backend build | OK |
+| Backend tests | OK — 67 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 113 tests |
+| Validation navigateur local | Non exécutée — validation automatisée OK |
+| Validation navigateur API | Non exécutée — validation automatisée OK |
+
+---
+
+## 11. Prochaine étape
+
+**INC-RQ-03** : exposer l’action `Requalifier` côté frontend, sans nouveau statut et sans changer le contrat API.

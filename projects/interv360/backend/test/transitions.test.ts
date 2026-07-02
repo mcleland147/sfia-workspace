@@ -150,4 +150,67 @@ describe("resolveTransition", () => {
       code: "TRANSITION_NOT_ALLOWED",
     });
   });
+
+  it("requalifies from STAT-02 to STAT-02", () => {
+    const result = resolveTransition("STAT-02", "requalify");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.fromStatus).toBe("STAT-02");
+      expect(result.toStatus).toBe("STAT-02");
+      expect(result.type).toBe("request.requalified");
+      expect(result.label).toBe("Demande fictive requalifiée");
+    }
+  });
+
+  it("requalifies from STAT-03 to STAT-02", () => {
+    const result = resolveTransition("STAT-03", "requalify");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.fromStatus).toBe("STAT-03");
+      expect(result.toStatus).toBe("STAT-02");
+      expect(result.type).toBe("request.requalified");
+    }
+  });
+
+  it("requalifies from STAT-05 to STAT-02", () => {
+    const result = resolveTransition("STAT-05", "requalify");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.fromStatus).toBe("STAT-05");
+      expect(result.toStatus).toBe("STAT-02");
+      expect(result.type).toBe("request.requalified");
+    }
+  });
+
+  it("refuses requalify from STAT-01", () => {
+    const result = resolveTransition("STAT-01", "requalify");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
+
+  it("refuses requalify from STAT-04", () => {
+    const result = resolveTransition("STAT-04", "requalify");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
+
+  it("refuses requalify from STAT-06", () => {
+    const result = resolveTransition("STAT-06", "requalify");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
+
+  it("refuses requalify from STAT-07", () => {
+    const result = resolveTransition("STAT-07", "requalify");
+    expect(result).toEqual({
+      ok: false,
+      code: "TRANSITION_NOT_ALLOWED",
+    });
+  });
 });

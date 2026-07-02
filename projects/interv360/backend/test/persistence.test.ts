@@ -113,4 +113,19 @@ describe("SQLite persistence", () => {
     expect(events[0]?.type).toBe("request.cancelled");
     expect(events[0]?.toStatus).toBe("STAT-07");
   });
+
+  it("persists requalified request in STAT-02 with request.requalified event", () => {
+    applyTransition("SAV-DEMO-002", "requalify");
+
+    closeDatabase();
+
+    const { request } = getRequestWithDetail("SAV-DEMO-002");
+    expect(request.status).toBe("STAT-02");
+
+    const events = listEventsForRequest("SAV-DEMO-002");
+    expect(events).toHaveLength(1);
+    expect(events[0]?.type).toBe("request.requalified");
+    expect(events[0]?.fromStatus).toBe("STAT-03");
+    expect(events[0]?.toStatus).toBe("STAT-02");
+  });
 });
