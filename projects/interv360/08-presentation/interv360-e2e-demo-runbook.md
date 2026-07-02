@@ -782,14 +782,214 @@ Ce lot n'introduit pas :
 
 ---
 
+## Contrôle — API Product Hardening
+
+Interv360 dispose désormais d'un contrat API durci pour les usages MVP.
+
+Le durcissement API confirme :
+
+- les endpoints produit disponibles ;
+- les formats de réponse existants ;
+- le format d'erreur structuré ;
+- les validations de transition ;
+- la compatibilité frontend en mode API ;
+- l'absence de fallback silencieux vers le mode local.
+
+### Endpoints API consolidés
+
+| Endpoint | Méthode | Usage |
+|----------|---------|-------|
+| `/health` | GET | Santé backend |
+| `/api/v1/users` | GET | Liste des utilisateurs fictifs backend |
+| `/api/v1/requests` | GET | Liste des demandes enrichies |
+| `/api/v1/requests/:id` | GET | Détail d'une demande enrichie |
+| `/api/v1/requests/:id/transitions` | POST | Transition workflow |
+| `/api/v1/requests/:id/events` | GET | Journal enrichi |
+| `/api/v1/demo/reset` | POST | Reset démonstration |
+
+### Format d'erreur API
+
+Les erreurs API produit utilisent le format :
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+Le champ `code` est le contrat stable.
+
+Le champ `message` reste lisible pour l'interface et les contrôles.
+
+### Codes d'erreur consolidés
+
+| Code | HTTP | Cas |
+|------|------|-----|
+| `REQUEST_NOT_FOUND` | 404 | Demande inconnue |
+| `INVALID_TRANSITION_ACTION` | 400 | Action absente, vide, non string ou inconnue |
+| `TRANSITION_NOT_ALLOWED` | 409 | Transition métier impossible |
+| `INVALID_JSON_BODY` | 400 | Body JSON invalide |
+| `INVALID_ACTOR_USER` | 400 | Acteur inconnu, inactif ou invalide |
+| `USER_NOT_FOUND` | 404 | Utilisateur inconnu si cas exposé |
+| `DEMO_MODE_REQUIRED` | 403 | Reset indisponible hors mode démo |
+| `INTERNAL_ERROR` | 500 | Erreur interne maîtrisée |
+| `ROUTE_NOT_FOUND` | 404 | Route API inconnue |
+
+Décisions confirmées :
+
+- `METHOD_NOT_ALLOWED` est reporté ;
+- `DEMO_RESET_FAILED` n'est pas ajouté artificiellement ;
+- aucune stack trace n'est exposée dans les erreurs API testées.
+
+### Contrôles curl erreurs
+
+Route API inconnue :
+
+```bash
+curl -s http://localhost:3001/api/v1/unknown
+```
+
+Attendu :
+
+```json
+{
+  "error": {
+    "code": "ROUTE_NOT_FOUND",
+    "message": "API route not found."
+  }
+}
+```
+
+Action vide :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":""}'
+```
+
+Attendu :
+
+```json
+{
+  "error": {
+    "code": "INVALID_TRANSITION_ACTION",
+    "message": "Transition action is required."
+  }
+}
+```
+
+Acteur invalide :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"qualify","actorUserId":"unknown"}'
+```
+
+Attendu :
+
+```json
+{
+  "error": {
+    "code": "INVALID_ACTOR_USER",
+    "message": "Actor user is invalid or inactive."
+  }
+}
+```
+
+Transition métier interdite :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"close_report"}'
+```
+
+Attendu :
+
+```json
+{
+  "error": {
+    "code": "TRANSITION_NOT_ALLOWED",
+    "message": "..."
+  }
+}
+```
+
+JSON invalide :
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":'
+```
+
+Attendu :
+
+```json
+{
+  "error": {
+    "code": "INVALID_JSON_BODY",
+    "message": "Request body must be valid JSON."
+  }
+}
+```
+
+### Contrôle frontend
+
+En mode API :
+
+1. lancer backend + frontend ;
+2. vérifier le badge **Mode API local** ;
+3. arrêter le backend ;
+4. recharger le frontend ;
+5. vérifier qu'un message explicite est affiché ;
+6. vérifier qu'il n'y a pas de fallback silencieux vers le mode local.
+
+Le frontend consomme les erreurs structurées via :
+
+- `error.message` en priorité ;
+- `error.code` en fallback ;
+- un fallback générique si le payload n'est pas exploitable.
+
+### Limites confirmées
+
+Ce lot n'introduit pas :
+
+- CRUD complet ;
+- formulaire de création de demande ;
+- authentification réelle ;
+- login ;
+- logout ;
+- mot de passe ;
+- hash de mot de passe ;
+- token ;
+- OAuth ;
+- JWT ;
+- SSO ;
+- Entra ID ;
+- CRM ;
+- données réelles ;
+- nouveau statut ;
+- `STAT-08` ;
+- pagination avancée ;
+- tri avancé ;
+- versioning API complexe.
+
+---
+
 ## 8. Preuves techniques à présenter
 
 | Preuve | Commande / contrôle | Attendu |
 |--------|---------------------|---------|
 | Frontend build | `npm run build` dans `projects/interv360/app` | OK |
-| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 175 tests ou plus |
+| Frontend tests | `npm run test -- --run` dans `projects/interv360/app` | 187 tests ou plus |
 | Backend build | `npm run build` dans `projects/interv360/backend` | OK |
-| Backend tests | `npm run test` dans `projects/interv360/backend` | 121 tests ou plus |
+| Backend tests | `npm run test` dans `projects/interv360/backend` | 125 tests ou plus |
 | API health | `GET /health` | OK |
 | Liste demandes | `GET /api/v1/requests` | demandes fictives enrichies |
 | Détail demande | `GET /api/v1/requests/SAV-DEMO-001` | champs productisés et enrichis présents |
@@ -798,6 +998,8 @@ Ce lot n'introduit pas :
 | Erreur action invalide | action absente / inconnue | `400 INVALID_TRANSITION_ACTION` |
 | Erreur transition métier | transition non autorisée | `409 TRANSITION_NOT_ALLOWED` |
 | Erreur JSON invalide | body JSON invalide | `400 INVALID_JSON_BODY` |
+| Route API inconnue | `GET /api/v1/unknown` | `404 ROUTE_NOT_FOUND` |
+| Erreur structurée | cas API connu | `{ error: { code, message } }` sans `stack` |
 
 ---
 
@@ -912,13 +1114,32 @@ curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
   -d '{"action":'
 ```
 
+**Route API inconnue :**
+
+```bash
+curl -s http://localhost:3001/api/v1/unknown
+```
+
+Attendu : `404 ROUTE_NOT_FOUND`.
+
+**Action vide :**
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":""}'
+```
+
+Attendu : `400 INVALID_TRANSITION_ACTION`.
+
 **Attendus erreurs API :**
 
 - `REQUEST_NOT_FOUND` en `404` ;
 - `INVALID_TRANSITION_ACTION` en `400` ;
 - `INVALID_ACTOR_USER` en `400` (acteur inconnu ou inactif) ;
 - `TRANSITION_NOT_ALLOWED` en `409` ;
-- `INVALID_JSON_BODY` en `400`.
+- `INVALID_JSON_BODY` en `400` ;
+- `ROUTE_NOT_FOUND` en `404`.
 
 Réponse events : `{ "items": [...] }`.
 

@@ -160,6 +160,44 @@ Response shape:
 
 This does not introduce request creation, a full CRUD API, real CRM data, or real authentication.
 
+### API error contract
+
+The backend API uses a structured error format for product API errors:
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+The `code` field is the stable API contract.
+
+The `message` field is intended for readable feedback and diagnostics.
+
+Supported error codes include:
+
+| Code | HTTP | Description |
+|------|------|-------------|
+| `REQUEST_NOT_FOUND` | 404 | Unknown request |
+| `INVALID_TRANSITION_ACTION` | 400 | Missing, empty, invalid or unknown transition action |
+| `TRANSITION_NOT_ALLOWED` | 409 | Business transition not allowed |
+| `INVALID_JSON_BODY` | 400 | Invalid JSON body |
+| `INVALID_ACTOR_USER` | 400 | Unknown, inactive or invalid actor |
+| `USER_NOT_FOUND` | 404 | Unknown user when applicable |
+| `DEMO_MODE_REQUIRED` | 403 | Demo-only operation outside demo mode |
+| `INTERNAL_ERROR` | 500 | Controlled internal error |
+| `ROUTE_NOT_FOUND` | 404 | Unknown API route |
+
+Notes:
+
+- `METHOD_NOT_ALLOWED` is intentionally not implemented in this lot.
+- `DEMO_RESET_FAILED` was not introduced; the existing `DEMO_MODE_REQUIRED` contract is preserved.
+- Product API errors must not expose stack traces.
+- This lot does not introduce real authentication, tokens, OAuth/JWT/SSO, CRM data, request CRUD or new workflow statuses.
+
 ### API validation errors
 
 Transition endpoints return structured API errors with the existing format:

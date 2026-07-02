@@ -124,6 +124,33 @@ Search also includes enriched request fields such as requester, requester team, 
 
 Both local mode and API mode are supported.
 
+### API error compatibility
+
+In API mode, the frontend consumes the backend structured error format:
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message"
+  }
+}
+```
+
+The frontend reads:
+
+1. `error.message` when available ;
+2. `error.code` as fallback ;
+3. a generic fallback message when the response body is not usable.
+
+This applies to request API calls and users API calls.
+
+The API mode does not silently fall back to local mode when the backend is unavailable.
+
+A visible error state is kept instead.
+
+This does not introduce authentication, login, logout, password, token, OAuth/JWT/SSO or real sessions.
+
 ### Workflow light extension
 
 The frontend exposes the workflow light extension:

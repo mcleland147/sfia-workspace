@@ -252,7 +252,7 @@ Décision proposée pour rester Fast Track :
 | APH-03 | Backend API errors/validation hardening | Réalisé |
 | APH-04 | Frontend API compatibility hardening | Réalisé |
 | APH-05 | Tests backend/frontend et non-régression | Réalisé |
-| APH-06 | Documentation runbook/README | À faire |
+| APH-06 | Documentation runbook/README | Réalisé |
 | APH-07 | Préparation PR unique | À venir |
 
 ---
@@ -277,6 +277,9 @@ Décision proposée pour rester Fast Track :
 | Frontend tests | OK — 187 tests |
 | Backend build | OK |
 | Frontend build | OK |
+| Runbook mis à jour | OK |
+| README backend mis à jour | OK |
+| README frontend mis à jour | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -766,8 +769,113 @@ Garde-fous confirmés :
 
 ---
 
+## 15.6. Changements APH-06
+
+APH-06 finalise la documentation du lot API Product Hardening.
+
+Changements réalisés :
+
+- documentation des endpoints API consolidés ;
+- documentation du format d'erreur :
+  - `{ error: { code, message } }`
+- documentation des codes d'erreur :
+  - `REQUEST_NOT_FOUND`
+  - `INVALID_TRANSITION_ACTION`
+  - `TRANSITION_NOT_ALLOWED`
+  - `INVALID_JSON_BODY`
+  - `INVALID_ACTOR_USER`
+  - `USER_NOT_FOUND`
+  - `DEMO_MODE_REQUIRED`
+  - `INTERNAL_ERROR`
+  - `ROUTE_NOT_FOUND`
+- documentation du report de `METHOD_NOT_ALLOWED` ;
+- documentation de l'absence de `DEMO_RESET_FAILED` artificiel ;
+- documentation des validations transitions ;
+- documentation du parsing frontend des erreurs API ;
+- documentation de l'absence de fallback silencieux vers le mode local ;
+- mise à jour du runbook ;
+- mise à jour du README backend ;
+- mise à jour du README frontend.
+
+Synthèse :
+
+| Élément | Résultat |
+|---------|----------|
+| Endpoints API | Documentés |
+| Format erreur API | Documenté |
+| Codes erreur API | Documentés |
+| Validations transitions | Documentées |
+| `ROUTE_NOT_FOUND` | Documenté |
+| `METHOD_NOT_ALLOWED` | Report documenté |
+| Frontend parsing errors | Documenté |
+| Mode API | Conservé |
+| Mode local | Conservé |
+| Fallback silencieux | Non |
+| Auth réelle | Exclue |
+| CRM / données réelles | Exclus |
+| Nouveau statut | Exclu |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **APH-06** :
+Exécuter **APH-07** :
 
-Documentation runbook/README
+Préparation PR unique
+
+---
+
+## 17. Synthèse avant PR
+
+Le lot **API Product Hardening** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- contrat API clarifié ;
+- format d'erreur API centralisé :
+  - `{ error: { code, message } }`
+- codes d'erreur homogénéisés ;
+- validations transitions durcies ;
+- route API inconnue structurée via `ROUTE_NOT_FOUND` ;
+- parsing frontend requests aligné ;
+- parsing frontend users aligné ;
+- absence de fallback silencieux vers le mode local confirmée ;
+- tests backend/frontend renforcés ;
+- runbook/README mis à jour.
+
+Le lot préserve :
+
+- endpoints existants ;
+- formats OK existants ;
+- mode local ;
+- mode API ;
+- request model enrichi ;
+- audit trail enrichi ;
+- permissions existantes ;
+- reset admin.
+
+Le lot ne met pas en place :
+
+- CRUD complet ;
+- formulaire création demande ;
+- authentification réelle ;
+- token ;
+- OAuth/JWT/SSO ;
+- CRM ;
+- données réelles ;
+- nouveau statut.
+
+La prochaine étape est APH-07 : préparation de la PR unique du lot.
