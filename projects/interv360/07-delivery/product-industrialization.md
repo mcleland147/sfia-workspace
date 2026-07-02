@@ -1030,9 +1030,11 @@ Existing local mode, API mode, SQLite persistence, demo reset, request model, au
 
 | Élément | Valeur |
 |---------|--------|
-| Push | À compléter |
-| PR créée automatiquement | À compléter |
-| URL PR ou comparaison | À compléter |
+| Push | KO — PAT sans scope `workflow` (`.github/workflows/interv360-ci.yml`) |
+| PR créée automatiquement | Non — `gh` indisponible ; push requis avant création |
+| URL PR ou comparaison | https://github.com/mcleland147/sfia-workspace/compare/main...delivery/interv360-product-industrialization?expand=1 |
 | Cible | `main` |
 | Source | `delivery/interv360-product-industrialization` |
 | Merge automatique | Non |
+
+Action manuelle : pousser la branche avec un token disposant du scope `workflow`, puis créer la PR avec le titre `Industrialize Interv360 MVP delivery` et le corps documenté en §18.
