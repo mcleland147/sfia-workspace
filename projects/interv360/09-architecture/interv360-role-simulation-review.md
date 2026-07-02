@@ -343,3 +343,69 @@ No code, frontend, backend, SQLite, API, workflow extension, real authentication
 | Cible | `main` |
 | Source | `architecture/interv360-role-simulation-review` |
 | Merge automatique | Non |
+
+---
+
+## 12. Statut merge
+
+| Élément | Valeur |
+|--------|--------|
+| PR | [#60](https://github.com/mcleland147/sfia-workspace/pull/60) |
+| Source | `architecture/interv360-role-simulation-review` |
+| Cible | `main` |
+| Méthode | `Merge commit (GitHub PR merge)` |
+| Commit merge | `6ca5142` |
+| Main synchronisée | OK |
+| Outil de revue | OK |
+| Scénario de revue | OK — 6 étapes |
+| Grille de feedback | OK — 10 sujets |
+| Critères de décision | OK — Cas A à D |
+| Feedback humain exécuté | Non — à réaliser après merge |
+| Synthèse feedback produite | Non — à produire après revue |
+| Implémentation immédiate | Non |
+| Code modifié | Non |
+| Frontend modifié | Non |
+| Backend modifié | Non |
+| SQLite modifiée | Non |
+| API modifiée | Non |
+| Workflow modifié | Non |
+| Auth réelle introduite | Non |
+| OAuth introduit | Non |
+| JWT introduit | Non |
+| SSO introduit | Non |
+| Base users introduite | Non |
+| CRM introduit | Non |
+| Données réelles introduites | Non |
+| Nouveaux statuts introduits | Non |
+| PostgreSQL introduit | Non |
+| ORM lourd introduit | Non |
+| Publication Notion | Non |
+| Controlled Delivery modifié | Non |
+| sfia-notion-sync modifié | Non |
+| Exports Figma ajoutés | Non |
+
+### Décision post-merge
+
+Le document **Role Simulation Review** est mergé dans `main`.
+
+Il constitue l’outil de revue produit à utiliser pour exécuter le feedback humain sur la simulation de rôle.
+
+La prochaine étape recommandée n’est pas un chantier technique immédiat, mais l’exécution de la revue à partir de :
+
+- scénario de revue §4 ;
+- grille de feedback §5 ;
+- critères de décision §6 ;
+- livrable attendu §7.
+
+Le feedback humain n’a pas encore été exécuté dans ce cycle.
+
+Après revue, une synthèse courte devra permettre de décider entre :
+
+- `architecture/interv360-workflow-extension-framing` ;
+- `architecture/interv360-auth-real-framing` ;
+- `delivery/interv360-role-simulation-polish` ;
+- autre décision roadmap si les retours sont insuffisants ou contradictoires.
+
+Aucun code, frontend, backend, API, workflow, auth réelle, CRM ou donnée réelle n’a été introduit.
+
+Aucun document de merge séparé n’a été créé afin de respecter le mode Fast Delivery stratégique.
