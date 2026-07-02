@@ -263,7 +263,7 @@ Décision proposée pour rester Fast Track :
 | AT-04 | Events API enrichis | Réalisé |
 | AT-05 | Frontend historique enrichi | Réalisé |
 | AT-06 | Tests backend/frontend et non-régression | Réalisé |
-| AT-07 | Documentation runbook/README | À faire |
+| AT-07 | Documentation runbook/README | Réalisé |
 | AT-08 | Préparation PR unique | À venir |
 
 ---
@@ -285,6 +285,9 @@ Décision proposée pour rester Fast Track :
 | Frontend tests | OK — 167 tests |
 | Backend build | OK |
 | Frontend build | OK |
+| Runbook mis à jour | OK |
+| README frontend mis à jour | OK |
+| README backend mis à jour | OK |
 | Auth réelle exclue | OK |
 | Login/password exclus | OK |
 | OAuth/JWT/SSO exclus | OK |
@@ -615,8 +618,94 @@ Garde-fous confirmés :
 
 ---
 
+## 15.6. Changements AT-07
+
+AT-07 finalise la documentation du lot Audit Trail.
+
+Changements réalisés :
+
+- documentation du payload transition enrichi ;
+- documentation de `actorUserId` optionnel ;
+- documentation de l'erreur `INVALID_ACTOR_USER` ;
+- documentation du contrat `GET /api/v1/requests/:id/events` ;
+- documentation de la réponse events sous `{ items: [...] }` ;
+- documentation des champs audit :
+  - `action`
+  - `fromStatus`
+  - `toStatus`
+  - `actorUserId`
+  - `actorDisplayName`
+  - `actorRole`
+- documentation de l'affichage journal enrichi ;
+- documentation de la compatibilité des événements legacy ;
+- mise à jour du runbook ;
+- mise à jour du README frontend ;
+- mise à jour du README backend.
+
+Synthèse :
+
+| Élément | Résultat |
+|---------|----------|
+| Payload transition enrichi | Documenté |
+| `actorUserId` optionnel | Documenté |
+| Validation acteur backend | Documentée |
+| Events API enrichis | Documentés |
+| Réponse `{ items: [...] }` | Documentée |
+| Journal frontend enrichi | Documenté |
+| Events legacy | Compatibles |
+| Auth réelle | Exclue |
+| Token/session/password | Exclus |
+| Nouveau statut | Exclu |
+
+Garde-fous confirmés :
+
+- pas de login ;
+- pas de logout ;
+- pas de mot de passe ;
+- pas de hash de mot de passe ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas d'Entra ID ;
+- pas de CRM ;
+- pas de données réelles ;
+- pas de nouveau statut ;
+- pas de `STAT-08`.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **AT-07** :
+Exécuter **AT-08** :
 
-Documentation runbook/README
+Préparation PR unique
+
+---
+
+## 17. Synthèse avant PR
+
+Le lot **Audit Trail** est fonctionnellement prêt.
+
+Capacités ajoutées :
+
+- enrichissement SQLite de `workflow_events` ;
+- stockage de `action` ;
+- stockage de `fromStatus` / `toStatus` ;
+- stockage du snapshot acteur :
+  - `actorUserId`
+  - `actorDisplayName`
+  - `actorRole`
+- validation backend de l'acteur si fourni ;
+- transition API compatible avec `actorUserId` optionnel ;
+- events API enrichis ;
+- journal frontend enrichi ;
+- compatibilité avec les événements legacy ;
+- mode local conservé ;
+- mode API conservé ;
+- permissions existantes conservées ;
+- reset admin conservé ;
+- tests backend/frontend renforcés ;
+- runbook/README mis à jour.
+
+Le lot ne met pas en place une authentification réelle.
+
+La prochaine étape est AT-08 : préparation de la PR unique du lot.

@@ -488,9 +488,9 @@ user-technician
 
 ### Contrôle transitions
 
-Les transitions workflow restent inchangées.
+Les transitions workflow acceptent désormais un acteur optionnel en mode API.
 
-Le payload attendu reste :
+Le payload minimal reste compatible :
 
 ```json
 {
@@ -498,13 +498,15 @@ Le payload attendu reste :
 }
 ```
 
+En mode API, le frontend peut aussi envoyer `actorUserId` (voir [Contrôle — Audit Trail enrichi](#contrôle--audit-trail-enrichi)).
+
 Le frontend ne doit pas envoyer :
 
 - `userId`
 - `session`
 - `token`
-
-L'acteur métier sera traité dans le Lot 2 Audit Trail.
+- `password`
+- `passwordHash`
 
 ### Limites confirmées
 
@@ -523,6 +525,135 @@ Ce lot n'introduit pas :
 - audit trail complet ;
 - CRM ;
 - données réelles.
+
+---
+
+## Contrôle — Audit Trail enrichi
+
+Interv360 dispose désormais d'un audit trail enrichi.
+
+En mode API, le frontend envoie l'utilisateur courant lors des transitions workflow.
+
+Payload transition attendu :
+
+```json
+{
+  "action": "qualify",
+  "actorUserId": "user-technician"
+}
+```
+
+`actorUserId` reste optionnel côté backend afin de conserver la compatibilité avec les anciens appels.
+
+### Champs persistés
+
+Lorsqu'un acteur valide est fourni, l'événement workflow conserve :
+
+| Champ | Description |
+|-------|-------------|
+| `action` | Action workflow exécutée |
+| `fromStatus` | Statut avant transition |
+| `toStatus` | Statut après transition |
+| `actorUserId` | Identifiant utilisateur |
+| `actorDisplayName` | Nom affiché de l'utilisateur au moment de l'action |
+| `actorRole` | Rôle de l'utilisateur au moment de l'action |
+
+L'acteur est stocké sous forme de snapshot afin de rendre l'historique lisible même si l'affichage utilisateur évolue plus tard.
+
+### Contrôle API transitions avec acteur
+
+1. Lancer le backend.
+2. Lancer le frontend en mode API.
+3. Vérifier que l'utilisateur courant est **Théo Technicien** par défaut.
+4. Exécuter une transition, par exemple **Qualifier la demande**.
+5. Vérifier que la transition API envoie :
+   - `action`
+   - `actorUserId`
+6. Vérifier que la transition n'envoie pas :
+   - `token`
+   - `session`
+   - `password`
+   - `passwordHash`
+
+### Contrôle API events enrichis
+
+Appeler :
+
+```bash
+curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001/events
+```
+
+Réponse attendue :
+
+```json
+{
+  "items": [
+    {
+      "id": "evt-...",
+      "requestId": "SAV-DEMO-001",
+      "type": "qualification.confirmed",
+      "label": "Demande qualifiée",
+      "action": "qualify",
+      "fromStatus": "STAT-01",
+      "toStatus": "STAT-02",
+      "actorUserId": "user-technician",
+      "actorDisplayName": "Théo Technicien",
+      "actorRole": "technician",
+      "createdAt": "..."
+    }
+  ]
+}
+```
+
+Les événements historiques sans acteur restent compatibles.
+
+### Contrôle journal frontend
+
+Dans le journal, vérifier que l'événement affiche si disponible :
+
+- le message métier ;
+- l'acteur ;
+- le rôle ;
+- l'action ;
+- la transition de statut.
+
+Exemple attendu :
+
+```text
+Demande qualifiée
+Par Théo Technicien — technician
+Action : qualify
+STAT-01 → STAT-02
+```
+
+Si un ancien événement ne contient pas d'acteur, le journal reste lisible et ne doit pas afficher `undefined` ou `null`.
+
+### Contrôle changement utilisateur
+
+1. Sélectionner **Maya Responsable**.
+2. Exécuter une action autorisée.
+3. Vérifier que `actorUserId` vaut `user-manager`.
+4. Vérifier que le journal affiche **Maya Responsable**.
+
+### Limites confirmées
+
+Ce lot n'introduit pas :
+
+- authentification réelle ;
+- login ;
+- logout ;
+- mot de passe ;
+- hash de mot de passe ;
+- token ;
+- OAuth ;
+- JWT ;
+- SSO ;
+- Entra ID ;
+- session backend réelle ;
+- CRM ;
+- données réelles ;
+- nouveau statut ;
+- `STAT-08`.
 
 ---
 
@@ -575,10 +706,26 @@ curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
   -d '{"action":"qualify"}'
 ```
 
-**Journal :**
+**Transition avec acteur :**
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"qualify","actorUserId":"user-technician"}'
+```
+
+**Journal enrichi :**
 
 ```bash
 curl -s http://localhost:3001/api/v1/requests/SAV-DEMO-001/events
+```
+
+**Erreur acteur invalide :**
+
+```bash
+curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"qualify","actorUserId":"unknown"}'
 ```
 
 **Reset :**
@@ -632,8 +779,13 @@ curl -s -X POST http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions \
 
 - `REQUEST_NOT_FOUND` en `404` ;
 - `INVALID_TRANSITION_ACTION` en `400` ;
+- `INVALID_ACTOR_USER` en `400` (acteur inconnu ou inactif) ;
 - `TRANSITION_NOT_ALLOWED` en `409` ;
 - `INVALID_JSON_BODY` en `400`.
+
+Réponse events : `{ "items": [...] }`.
+
+Les transitions sans `actorUserId` restent compatibles.
 
 Format d’erreur :
 

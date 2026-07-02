@@ -211,15 +211,45 @@ User resolution rules:
 
 Local mode still uses the frontend `DEMO_USERS` list.
 
-Transition requests are unchanged and still send only:
+### Enriched audit trail in API mode
+
+When API mode is enabled, workflow transitions include the selected demo user as an optional actor:
 
 ```json
 {
-  "action": "<action>"
+  "action": "qualify",
+  "actorUserId": "user-technician"
 }
 ```
 
-The frontend does not send `userId`, `session`, or `token` in transition payloads.
+`actorUserId` remains optional. Transitions without an actor remain compatible.
+
+The frontend never sends authentication material in transition payloads.
+
+It does not send:
+
+- `token`
+- `session`
+- `password`
+- `passwordHash`
+- `actorDisplayName` or `actorRole` (the backend snapshots these from the user record)
+
+The selected user still comes from the local demo user session:
+
+```text
+interv360:current-user-id
+```
+
+The workflow journal displays enriched events when available:
+
+- actor display name;
+- actor role;
+- action;
+- status transition (`fromStatus → toStatus`).
+
+Legacy events without actor fields remain readable.
+
+In local mode, the journal is enriched from the selected demo user without calling the events API.
 
 This is still not real authentication.
 
@@ -235,7 +265,7 @@ Guardrails:
 - no SSO;
 - no Entra ID;
 - no backend auth session;
-- no API contract change for transitions.
+- `actorUserId` optional on transitions.
 
 ## Status
 
