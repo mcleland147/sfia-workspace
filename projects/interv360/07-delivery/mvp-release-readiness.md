@@ -936,14 +936,96 @@ Après merge, la prochaine action recommandée sera un post-merge léger, puis d
 
 ---
 
+## 11.4. Post-merge — MVP Release Readiness
+
+Le cycle **MVP Release Readiness** est mergé dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #71 — https://github.com/mcleland147/sfia-workspace/pull/71 |
+| Source | `release/interv360-mvp-release-readiness` |
+| Cible | `main` |
+| Méthode | Merge commit GitHub PR |
+| Commit merge | `5b3ac6c` |
+| Main synchronisée | OK |
+| Frontend build post-merge | OK |
+| Frontend tests post-merge | OK — 191 tests |
+| Backend build post-merge | OK |
+| Backend tests post-merge | OK — 125 tests |
+| CI minimale | OK |
+| Tag Git | Créé depuis `main` après ce commit post-merge |
+| GitHub Release | Non créée — décision reportée |
+| Working tree | Propre hors exports design non suivis éventuels |
+
+### Décision post-merge
+
+Le cycle **MVP Release Readiness** est clôturé.
+
+Décisions confirmées :
+
+- le MVP Final Roadmap est clos ;
+- les six lots MVP sont mergés ;
+- la release cible `v0.1.0-mvp` est documentée ;
+- la checklist Go / No-Go est documentée ;
+- les release notes documentaires sont prêtes ;
+- les limites connues sont explicites ;
+- les validations post-merge sont OK ;
+- la décision est **Go MVP avec release readiness documentaire**.
+
+### Décision tag Git
+
+Décision :
+
+> Créer le tag Git `v0.1.0-mvp` depuis `main` après le commit post-merge.
+
+Justification :
+
+- la PR Release Readiness est mergée ;
+- `main` porte désormais l'état documentaire final ;
+- les validations post-merge sont OK ;
+- le tag représente la borne officielle du MVP Interv360 local / pré-cloud.
+
+### Décision GitHub Release
+
+Décision :
+
+> Ne pas créer de GitHub Release automatiquement dans ce cycle.
+
+Justification :
+
+- le tag Git suffit à matérialiser la borne MVP ;
+- la GitHub Release pourra être créée ensuite si une décision produit formelle est prise ;
+- cela évite d'introduire une publication trop officielle avant choix de diffusion.
+
+### Synthèse finale
+
+Interv360 est désormais figé comme MVP local / pré-cloud :
+
+- installable ;
+- testable ;
+- documenté ;
+- validé ;
+- industrialisé ;
+- borné par un tag Git cible `v0.1.0-mvp`.
+
+Aucun nouveau périmètre fonctionnel n'a été introduit.
+
+Aucun document de merge séparé n'a été créé afin de respecter le mode SFIA Fast Track.
+
+---
+
 ## 12. Prochaine étape
 
-Créer la PR unique :
+Tag Git `v0.1.0-mvp` créé depuis `main` après commit du statut post-merge.
 
-`release/interv360-mvp-release-readiness` → `main`
+La GitHub Release n'est pas créée automatiquement.
 
-Après merge :
+Les prochains cycles possibles devront être cadrés séparément :
 
-- exécuter le post-merge léger ;
-- décider explicitement de créer ou non le tag `v0.1.0-mvp` depuis `main` ;
-- décider explicitement de créer ou non une GitHub Release.
+- déploiement cible ;
+- supervision / observabilité ;
+- authentification réelle ;
+- CRM / données réelles ;
+- CRUD complet ;
+- création demande ;
+- design system / Figma si besoin.
