@@ -254,7 +254,7 @@ Décision proposée pour rester Fast Track :
 | RM-02 | Audit modèle existant et décision champs cibles | Réalisé |
 | RM-03 | Backend SQLite/API Request finalisé | Réalisé |
 | RM-04 | Frontend fiche/liste Request alignées | Réalisé |
-| RM-05 | Tests backend/frontend et non-régression | À faire |
+| RM-05 | Tests backend/frontend et non-régression | Réalisé |
 | RM-06 | Documentation runbook/README | À faire |
 | RM-07 | Préparation PR unique | À venir |
 
@@ -272,12 +272,12 @@ Décision proposée pour rester Fast Track :
 | SQLite Request aligné | OK |
 | API Request alignée | OK |
 | Frontend fiche/liste alignés | OK |
-| Mode local conservé | À valider |
-| Mode API conservé | À valider |
-| Audit trail conservé | À valider |
-| Permissions conservées | À valider |
-| Backend tests | OK — 119 tests |
-| Frontend tests | OK — 173 tests |
+| Mode local conservé | OK |
+| Mode API conservé | OK |
+| Audit trail conservé | OK |
+| Permissions conservées | OK |
+| Backend tests | OK — 121 tests |
+| Frontend tests | OK — 175 tests |
 | Backend build | OK |
 | Frontend build | OK |
 | Auth réelle exclue | OK |
@@ -694,8 +694,83 @@ Garde-fous confirmés :
 
 ---
 
+## 15.5. Changements RM-05
+
+RM-05 stabilise le lot Request Model Finalization par les tests et la non-régression.
+
+Changements réalisés :
+
+- vérification des tests backend du modèle Request ;
+- vérification des tests frontend du modèle Request ;
+- confirmation des champs demandeur :
+  - `requesterName`
+  - `requesterTeam`
+- confirmation des champs affectation :
+  - `assignedToUserId`
+  - `assignedToDisplayName`
+- confirmation des champs legacy :
+  - `customerLabel`
+  - `assignedTechnicianLabel`
+- confirmation du mapping API liste et détail ;
+- confirmation du seed local aligné avec le backend ;
+- confirmation de l'affichage fiche demande ;
+- confirmation de l'affichage liste demande ;
+- confirmation de la recherche enrichie ;
+- confirmation du mode local ;
+- confirmation du mode API ;
+- confirmation de l'audit trail enrichi ;
+- confirmation des permissions existantes ;
+- confirmation du reset admin ;
+- confirmation de l'absence de nouveau workflow, nouveau statut, CRUD complet ou formulaire création.
+
+Contrat stabilisé :
+
+| Élément | Résultat |
+|---------|----------|
+| Backend Request | OK |
+| SQLite Request | OK |
+| API Request | OK |
+| Frontend Request | OK |
+| Seed local/backend | OK |
+| Fiche demande | OK |
+| Liste demandes | OK |
+| Recherche | OK |
+| Mode local | OK |
+| Mode API | OK |
+| Audit trail | OK |
+| Permissions | OK |
+| Reset admin | OK |
+| CRUD complet | Non |
+| Formulaire création | Non |
+| Auth réelle | Non |
+| Nouveau statut | Non |
+
+Validations :
+
+| Cible | Résultat |
+|-------|----------|
+| Backend build | OK |
+| Backend tests | OK — 121 tests |
+| Frontend build | OK |
+| Frontend tests | OK — 175 tests |
+
+Garde-fous confirmés :
+
+- pas de CRUD complet ;
+- pas de formulaire création demande ;
+- pas de nouveau statut ;
+- pas de `STAT-08` ;
+- pas d'auth réelle ;
+- pas de login/password ;
+- pas de token ;
+- pas d'OAuth/JWT/SSO ;
+- pas de CRM ;
+- pas de données réelles.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **RM-05** :
+Exécuter **RM-06** :
 
-Tests backend/frontend et non-régression
+Documentation runbook/README

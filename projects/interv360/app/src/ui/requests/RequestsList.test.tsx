@@ -52,6 +52,15 @@ describe("RequestsList", () => {
     expect(screen.getAllByText(/STAT-06/i).length).toBeGreaterThan(0);
   });
 
+  it("displays requester and assignment on request cards when available", () => {
+    renderRequestsList();
+
+    expect(screen.getAllByText("Alice Demandeur").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("Théo Technicien").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Maya Responsable")).toBeInTheDocument();
+    expect(screen.getByText("Paris Démo")).toBeInTheDocument();
+  });
+
   it("calls onSelectRequest when a request card is clicked", () => {
     const { onSelectRequest } = renderRequestsList();
 
