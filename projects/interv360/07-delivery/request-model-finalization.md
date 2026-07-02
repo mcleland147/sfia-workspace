@@ -251,7 +251,7 @@ Décision proposée pour rester Fast Track :
 | Incrément | Objectif | Statut |
 |-----------|----------|--------|
 | RM-01 | Cadrage opérationnel modèle Request | Réalisé |
-| RM-02 | Audit modèle existant et décision champs cibles | À faire |
+| RM-02 | Audit modèle existant et décision champs cibles | Réalisé |
 | RM-03 | Backend SQLite/API Request finalisé | À faire |
 | RM-04 | Frontend fiche/liste Request alignées | À faire |
 | RM-05 | Tests backend/frontend et non-régression | À faire |
@@ -266,8 +266,8 @@ Décision proposée pour rester Fast Track :
 |---------|----------|
 | Document delivery créé | OK |
 | Modèle Request cible cadré | OK |
-| Audit modèle existant réalisé | À faire |
-| Champs cibles décidés | À faire |
+| Audit modèle existant réalisé | OK |
+| Champs cibles décidés | OK |
 | Backend Request aligné | À faire |
 | SQLite Request aligné | À faire |
 | API Request alignée | À faire |
@@ -341,8 +341,224 @@ Décisions :
 
 ---
 
+## 15.1. Audit RM-02 — modèle existant
+
+RM-02 audite le modèle `Request` existant avant implémentation.
+
+### 15.1.1. Backend
+
+| Élément | État actuel |
+|---------|-------------|
+| Type liste | `DemoRequest` dans `backend/src/domain/types.ts` |
+| Type détail | `DemoRequestDetail` dans `backend/src/domain/types.ts` |
+| Table principale | `requests` — `id`, `title`, `status`, `priority`, `criticality`, `customer_label`, `site_label`, `assigned_technician_label`, `created_at`, `updated_at`, `detail_id`, `is_demo` |
+| Table détail | `request_details` — `id`, `request_id`, `category`, `channel`, `impact`, `requested_date`, `equipment_label`, `business_impact`, `demo_center`, `description`, `readonly_blocks_json` |
+| Seed demandes | `backend/src/seed/demoSeed.ts` — 3 demandes (`SAV-DEMO-001` à `003`) + détails associés |
+| Mapping API liste | `GET /api/v1/requests` → `{ items: DemoRequest[] }` via `listRequests()` / `rowToRequest()` |
+| Mapping API détail | `GET /api/v1/requests/:id` → `{ request: DemoRequest, detail: DemoRequestDetail }` via `getRequestWithDetail()` |
+
+Champs backend liste (`DemoRequest`) :
+
+- `id`, `title`, `status`, `priority`, `criticality`, `customerLabel`, `siteLabel`, `assignedTechnicianLabel`, `createdAt`, `updatedAt`, `detailId`, `isDemo`
+
+Champs backend détail (`DemoRequestDetail`) :
+
+- `id`, `requestId`, `category`, `channel`, `impact`, `requestedDate`, `equipmentLabel`, `businessImpact`, `demoCenter`, `description`, `readonlyBlocks`
+
+Enums actuels :
+
+- `priority` : `"low" | "medium" | "high"`
+- `criticality` : `"standard" | "sensitive" | "urgent"`
+
+Absents côté backend :
+
+- `requesterName`, `requesterTeam`
+- `assignedToUserId`, `assignedToDisplayName`
+- champs métier structurants dans la réponse liste (catégorie, équipement, impact métier, etc.)
+
+### 15.1.2. Frontend
+
+| Élément | État actuel |
+|---------|-------------|
+| Type demande frontend | `DemoRequest` aplati dans `app/src/domain/requestStatus.ts` |
+| Repository local | `localRequestsRepository.ts` + seed `app/src/seed/demoRequests.ts` |
+| Repository API | `apiRequestsRepository.ts` — mappe `{ request, detail }` vers `DemoRequest` aplati |
+| Liste demandes | `RequestsList.tsx` — `id`, `title`, `status`, badges priorité/criticité, `customerLabel`, `siteLabel`, `assignedTechnicianLabel` |
+| Fiche détail | `RequestDetail.tsx` — client, site, date demande, statut, priorité, criticité, catégorie, canal, impact, impact métier, équipement, technicien, description |
+| Recherche / filtres | `requestListFilters.ts` + `buildRequestSearchHaystack()` — filtre statut ; recherche sur id, titre, statut, priorité, criticité, labels, `customerLabel`, `siteLabel`, `categoryLabel`, `channelLabel`, `impactLabel` |
+
+Champs frontend (`DemoRequest`) :
+
+- obligatoires de base : `id`, `title`, `customerLabel`, `siteLabel`, `status`, `priority`, `criticality`
+- métier optionnels : `categoryLabel`, `channelLabel`, `impactLabel`, `requestedDate`, `equipmentLabel`, `businessImpact`, `siteDetailLabel`, `assignedTechnicianLabel`, `description`, `createdAtLabel`
+- parcours readonly embarqué : qualification, planning, intervention, report (hors périmètre modèle Request MVP)
+
+Mapping API :
+
+- liste : `mapListItemToDemoRequest()` — champs réduits (pas de catégorie/équipement tant que le détail n'est pas chargé)
+- détail : `mapApiDetailToDemoRequest()` — fusion `request` + `detail` + `readonlyBlocks`
+- naming frontend : suffixe `Label` (`categoryLabel`, `impactLabel`, `customerLabel`) vs noms backend (`category`, `impact`, `customerLabel`)
+
+### 15.1.3. Tests existants verrouillant le modèle
+
+| Zone | Tests | Champs couverts |
+|------|-------|-----------------|
+| Backend API | `api.test.ts` | `siteLabel`, `category`, `requestedDate`, `equipmentLabel`, `businessImpact`, `impact` |
+| Backend persistence | `persistence.test.ts` | migration et persistance `requestedDate`, `equipmentLabel`, `businessImpact` |
+| Frontend API repo | `apiRequestsRepository.test.ts` | mapping liste/détail, champs productisés |
+| Frontend intégration | `App.apiMode.test.tsx`, `App.smoke.test.tsx` | affichage et parcours avec champs métier |
+
+Tests à prévoir en RM-03/RM-04 :
+
+- `requesterName`, `requesterTeam` si ajoutés ;
+- `assignedToUserId` / `assignedToDisplayName` ;
+- alignement seed local/backend ;
+- non-régression liste, fiche, recherche, mode API/local.
+
+### 15.1.4. Écarts identifiés
+
+| Sujet | Écart | Décision |
+|-------|-------|----------|
+| Demandeur | `customerLabel` représente un client/organisation fictif, pas une personne demandeuse ; pas de `requesterName` ni `requesterTeam` | Ajouter `requesterName` et `requesterTeam?` ; conserver `customerLabel` en alias legacy |
+| Affectation | `assignedTechnicianLabel` est un libellé texte libre, sans lien `users` backend | Ajouter `assignedToUserId?` et `assignedToDisplayName?` ; conserver `assignedTechnicianLabel` en legacy |
+| Catégorie | Backend `category` vs frontend `categoryLabel` | Canon API : `category` ; mapping frontend inchangé via `categoryLabel` |
+| Canal / impact | Backend `channel` / `impact` vs frontend `channelLabel` / `impactLabel` | Conserver les noms backend ; mapping frontend inchangé |
+| Priorité | Enum existant `low/medium/high` ; pas de valeur `critical` | Conserver l'enum existant ; ne pas introduire `critical` |
+| Criticité | Enum existant `standard/sensitive/urgent` ; distinct de la priorité | Conserver l'enum existant ; ne pas le fusionner avec la priorité |
+| Request vs RequestDetail | Split SQLite et API `{ request, detail }` vs modèle frontend aplati | Conserver le split SQLite ; exposer un contrat API cohérent ; mapper côté frontend |
+| Backend vs frontend | Seed local et seed backend divergent sur certaines valeurs (`SAV-DEMO-002`, `SAV-DEMO-003`, équipement `SAV-DEMO-001`) | Réaligner les seeds en RM-03/RM-04 sans données réelles |
+| Liste API | `GET /requests` n'expose pas les champs détail utiles à la liste | Enrichir progressivement la liste si utile, sans rupture ; priorité au détail |
+
+---
+
+## 15.2. Décision RM-02 — champs cibles MVP
+
+RM-02 fixe les champs cibles du modèle `Request` pour le MVP.
+
+### Champs conservés
+
+| Champ API / domaine | Décision | Justification |
+|---------------------|----------|---------------|
+| `id` | Conservé | Identifiant stable de demande |
+| `title` | Conservé | Libellé court exploitable en liste |
+| `description` | Conservé | Description métier de la demande (`request_details.description`) |
+| `status` | Conservé | Cycle de vie workflow |
+| `customerLabel` | Conservé (legacy) | Organisation cliente fictive déjà affichée |
+| `siteLabel` | Conservé | Site concerné |
+| `equipmentLabel` | Conservé | Équipement ou objet concerné |
+| `category` | Conservé | Catégorie métier ; frontend via `categoryLabel` |
+| `channel` | Conservé | Canal de demande ; frontend via `channelLabel` |
+| `priority` | Conservé | Priorité opérationnelle `low/medium/high` |
+| `criticality` | Conservé | Criticité métier `standard/sensitive/urgent` |
+| `impact` | Conservé | Impact court / opérationnel |
+| `businessImpact` | Conservé | Impact métier |
+| `requestedDate` | Conservé | Date de demande |
+| `createdAt` | Conservé | Date technique de création |
+| `updatedAt` | Conservé | Date de dernière mise à jour (déjà persistée) |
+| `demoCenter` | Conservé | Centre démo ; frontend via `siteDetailLabel` |
+| `assignedTechnicianLabel` | Conservé (legacy) | Libellé technicien existant, maintenu pour compatibilité |
+
+### Champs à ajouter ou aligner
+
+| Champ cible | Décision | Justification |
+|-------------|----------|---------------|
+| `requesterName` | Retenu | Identifier qui demande ; absent aujourd'hui |
+| `requesterTeam` | Retenu optionnel | Équipe demandeuse simple ; absent aujourd'hui |
+| `assignedToUserId` | Retenu optionnel | Référence utilisateur backend (`users`) pour affectation produit |
+| `assignedToDisplayName` | Retenu optionnel | Snapshot d'affichage de l'affectation |
+
+### Champs ou concepts non retenus dans ce lot
+
+| Sujet | Décision |
+|-------|----------|
+| CRUD complet | Exclu |
+| Formulaire création demande | Exclu |
+| Données réelles | Exclues |
+| CRM | Exclu |
+| Multi-tenant | Exclu |
+| Nouveau statut | Exclu |
+| `STAT-08` | Exclu |
+| Moteur BPMN | Exclu |
+| Valeur `critical` sur `priority` | Reportée — enum existant suffisant |
+| Renommage massif `customerLabel` | Reporté — conservé en legacy |
+| Refonte `readonlyBlocks` | Hors périmètre Request MVP |
+
+### Décision de structure
+
+Décision :
+
+- conserver le split SQLite existant `requests` / `request_details` ;
+- ajouter les nouveaux champs métier au bon niveau (`requests` pour demandeur/affectation, `request_details` si plus cohérent pour `requesterTeam`) ;
+- conserver la réponse API détail `{ request, detail }` ;
+- enrichir les payloads sans rupture ;
+- mapper vers le modèle frontend aplati existant ;
+- éviter les renommages massifs non nécessaires ;
+- documenter les champs legacy maintenus pour compatibilité.
+
+### Décision affectation
+
+Décision :
+
+- ajouter une affectation optionnelle à un user backend ;
+- utiliser `assignedToUserId` pour la référence ;
+- utiliser `assignedToDisplayName` comme snapshot d'affichage ;
+- conserver `assignedTechnicianLabel` pour compatibilité et transition douce ;
+- ne pas créer de moteur d'assignation ;
+- ne pas modifier les permissions.
+
+### Décision priorité / criticité
+
+Décision :
+
+- conserver `priority` comme priorité opérationnelle `low/medium/high` ;
+- conserver `criticality` comme criticité métier `standard/sensitive/urgent` ;
+- ne pas fusionner priorité et criticité ;
+- ne pas créer de moteur de scoring ;
+- ne pas introduire WSJF ou scoring automatique dans ce lot.
+
+### Décision finale RM-02
+
+Le modèle cible à implémenter en RM-03/RM-04 est :
+
+```ts
+type Request = {
+  id: string;
+  title: string;
+  description: string;
+  requesterName: string;
+  requesterTeam?: string;
+  customerLabel: string;
+  siteLabel: string;
+  equipmentLabel: string;
+  category: string;
+  channel: string;
+  priority: "low" | "medium" | "high";
+  criticality: "standard" | "sensitive" | "urgent";
+  impact: string;
+  businessImpact: string;
+  assignedToUserId?: string;
+  assignedToDisplayName?: string;
+  assignedTechnicianLabel?: string;
+  status: RequestStatus;
+  requestedDate: string;
+  createdAt: string;
+  updatedAt: string;
+  demoCenter?: string;
+};
+```
+
+Notes d'implémentation RM-03 :
+
+- persister `requesterName` et `requesterTeam` via migration SQLite compatible ;
+- peupler le seed fictif avec des valeurs cohérentes ;
+- lier `assignedToUserId` à `user-technician` dans le seed si simple ;
+- exposer les nouveaux champs dans `GET /api/v1/requests` et `GET /api/v1/requests/:id` ;
+- conserver les champs legacy existants.
+
+---
+
 ## 16. Prochaine étape
 
-Exécuter **RM-02** :
+Exécuter **RM-03** :
 
-Audit modèle existant et décision champs cibles
+Backend SQLite/API Request finalisé
