@@ -72,6 +72,10 @@ export interface WorkflowEvent {
   fromStatus: RequestStatus;
   toStatus: RequestStatus;
   label: string;
+  action?: string;
+  actorUserId?: string;
+  actorDisplayName?: string;
+  actorRole?: string;
   createdAt: string;
   source: "demo";
   isDemo: true;
@@ -88,7 +92,8 @@ export type StoreErrorCode =
   | "REQUEST_NOT_FOUND"
   | "INVALID_TRANSITION_ACTION"
   | "TRANSITION_NOT_ALLOWED"
-  | "DEMO_MODE_REQUIRED";
+  | "DEMO_MODE_REQUIRED"
+  | "INVALID_ACTOR_USER";
 
 export class StoreError extends Error {
   constructor(

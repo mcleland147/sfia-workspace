@@ -43,12 +43,20 @@ function appendWorkflowEvent(event: DemoWorkflowEvent): void {
   writeStoredWorkflowEvents([...events, event]);
 }
 
+export type TransitionAuditContext = {
+  action?: string;
+  actorUserId?: string;
+  actorDisplayName?: string;
+  actorRole?: string;
+};
+
 function performTransition(
   requestId: string,
   fromStatus: RequestStatus,
   toStatus: RequestStatus,
   eventType: DemoWorkflowEventType,
   message: string,
+  audit?: TransitionAuditContext,
 ): DemoRequest | undefined {
   const requests = getRequests();
   const index = requests.findIndex((request) => request.id === requestId);
@@ -72,6 +80,12 @@ function performTransition(
     toStatus,
     message,
     createdAt: createLocalTimestamp(),
+    ...(audit?.action ? { action: audit.action } : {}),
+    ...(audit?.actorUserId ? { actorUserId: audit.actorUserId } : {}),
+    ...(audit?.actorDisplayName
+      ? { actorDisplayName: audit.actorDisplayName }
+      : {}),
+    ...(audit?.actorRole ? { actorRole: audit.actorRole } : {}),
   });
 
   return updated;
@@ -111,18 +125,23 @@ export function getDemoWorkflowEvents(requestId: string): DemoWorkflowEvent[] {
   );
 }
 
-export function qualifyDemoRequest(requestId: string): DemoRequest | undefined {
+export function qualifyDemoRequest(
+  requestId: string,
+  audit?: TransitionAuditContext,
+): DemoRequest | undefined {
   return performTransition(
     requestId,
     "STAT-01",
     "STAT-02",
     "qualification.confirmed",
     "Qualification fictive confirmée",
+    audit,
   );
 }
 
 export function planDemoIntervention(
   requestId: string,
+  audit?: TransitionAuditContext,
 ): DemoRequest | undefined {
   return performTransition(
     requestId,
@@ -130,11 +149,13 @@ export function planDemoIntervention(
     "STAT-03",
     "planning.confirmed",
     "Planification fictive confirmée",
+    audit,
   );
 }
 
 export function completeDemoIntervention(
   requestId: string,
+  audit?: TransitionAuditContext,
 ): DemoRequest | undefined {
   return performTransition(
     requestId,
@@ -142,21 +163,27 @@ export function completeDemoIntervention(
     "STAT-04",
     "intervention.completed",
     "Intervention fictive réalisée",
+    audit,
   );
 }
 
-export function closeDemoRequest(requestId: string): DemoRequest | undefined {
+export function closeDemoRequest(
+  requestId: string,
+  audit?: TransitionAuditContext,
+): DemoRequest | undefined {
   return performTransition(
     requestId,
     "STAT-04",
     "STAT-06",
     "report.closed",
     "Compte rendu fictif clôturé",
+    audit,
   );
 }
 
 export function putDemoRequestOnHold(
   requestId: string,
+  audit?: TransitionAuditContext,
 ): DemoRequest | undefined {
   return performTransition(
     requestId,
@@ -164,16 +191,21 @@ export function putDemoRequestOnHold(
     "STAT-05",
     "hold.placed",
     "Demande fictive mise en attente",
+    audit,
   );
 }
 
-export function resumeDemoRequest(requestId: string): DemoRequest | undefined {
+export function resumeDemoRequest(
+  requestId: string,
+  audit?: TransitionAuditContext,
+): DemoRequest | undefined {
   return performTransition(
     requestId,
     "STAT-05",
     "STAT-03",
     "hold.resumed",
     "Reprise fictive du traitement",
+    audit,
   );
 }
 
@@ -184,7 +216,10 @@ const CANCELLABLE_STATUSES: RequestStatus[] = [
   "STAT-05",
 ];
 
-export function cancelDemoRequest(requestId: string): DemoRequest | undefined {
+export function cancelDemoRequest(
+  requestId: string,
+  audit?: TransitionAuditContext,
+): DemoRequest | undefined {
   const request = getRequestById(requestId);
   if (!request || !CANCELLABLE_STATUSES.includes(request.status)) {
     return undefined;
@@ -196,6 +231,7 @@ export function cancelDemoRequest(requestId: string): DemoRequest | undefined {
     "STAT-07",
     "request.cancelled",
     "Demande fictive annulée",
+    audit,
   );
 }
 
@@ -207,6 +243,7 @@ const REQUALIFIABLE_STATUSES: RequestStatus[] = [
 
 export function requalifyDemoRequest(
   requestId: string,
+  audit?: TransitionAuditContext,
 ): DemoRequest | undefined {
   const request = getRequestById(requestId);
   if (!request || !REQUALIFIABLE_STATUSES.includes(request.status)) {
@@ -219,5 +256,6 @@ export function requalifyDemoRequest(
     "STAT-02",
     "request.requalified",
     "Demande fictive requalifiée",
+    audit,
   );
 }

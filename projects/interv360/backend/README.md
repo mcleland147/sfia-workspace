@@ -112,6 +112,7 @@ Main validation cases:
 | Non-string transition action | 400 | `INVALID_TRANSITION_ACTION` |
 | Unknown transition action | 400 | `INVALID_TRANSITION_ACTION` |
 | Business transition not allowed | 409 | `TRANSITION_NOT_ALLOWED` |
+| Unknown or inactive actor user | 400 | `INVALID_ACTOR_USER` |
 | Invalid JSON body | 400 | `INVALID_JSON_BODY` |
 
 The demo reset keeps a stable response:
@@ -150,6 +151,57 @@ GET /api/v1/users/:id
 These endpoints return active demo users without sensitive authentication fields.
 
 The backend does not provide login, logout, password, token, OAuth, JWT, SSO, or a real authentication session in this lot.
+
+### Enriched workflow events
+
+Workflow transitions can now receive an optional actor user id:
+
+```json
+{
+  "action": "qualify",
+  "actorUserId": "user-technician"
+}
+```
+
+Rules:
+
+- `action` is required;
+- `actorUserId` is optional;
+- when provided, `actorUserId` must match an active backend user;
+- invalid or inactive users are rejected with `INVALID_ACTOR_USER`;
+- no token, password, OAuth, JWT, SSO, or backend auth session is introduced.
+
+Workflow events expose enriched audit fields through:
+
+```text
+GET /api/v1/requests/:id/events
+```
+
+Response shape:
+
+```json
+{
+  "items": [
+    {
+      "id": "evt-...",
+      "requestId": "SAV-DEMO-001",
+      "type": "qualification.confirmed",
+      "label": "Demande qualifiée",
+      "action": "qualify",
+      "fromStatus": "STAT-01",
+      "toStatus": "STAT-02",
+      "actorUserId": "user-technician",
+      "actorDisplayName": "Théo Technicien",
+      "actorRole": "technician",
+      "createdAt": "..."
+    }
+  ]
+}
+```
+
+When an actor is provided, the backend stores a snapshot (`actorDisplayName`, `actorRole`) at transition time.
+
+Legacy events without actor fields remain compatible.
 
 ## Guardrails
 

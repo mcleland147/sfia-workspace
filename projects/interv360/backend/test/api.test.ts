@@ -199,6 +199,120 @@ describe("Interv360 API", () => {
     expect(Array.isArray(response.body.items)).toBe(true);
   });
 
+  it("GET /api/v1/requests/:id/events unknown returns REQUEST_NOT_FOUND", async () => {
+    const response = await request(app).get("/api/v1/requests/UNKNOWN/events");
+    expect(response.status).toBe(404);
+    expect(response.body.error.code).toBe("REQUEST_NOT_FOUND");
+  });
+
+  describe("GET /api/v1/requests/:id/events enriched contract", () => {
+    it("returns action, statuses and actor snapshot after transition with actor", async () => {
+      await request(app)
+        .post("/api/v1/requests/SAV-DEMO-001/transitions")
+        .send({ action: "qualify", actorUserId: "user-technician" });
+
+      const response = await request(app).get(
+        "/api/v1/requests/SAV-DEMO-001/events",
+      );
+
+      expect(response.status).toBe(200);
+      const event = response.body.items.at(-1);
+      expect(event).toMatchObject({
+        requestId: "SAV-DEMO-001",
+        type: "qualification.confirmed",
+        action: "qualify",
+        fromStatus: "STAT-01",
+        toStatus: "STAT-02",
+        actorUserId: "user-technician",
+        actorDisplayName: "Théo Technicien",
+        actorRole: "technician",
+        source: "demo",
+        isDemo: true,
+      });
+      expect(event.id).toEqual(expect.any(String));
+      expect(event.label).toEqual(expect.any(String));
+      expect(event.createdAt).toEqual(expect.any(String));
+    });
+
+    it("returns action and statuses without actor after transition without actor", async () => {
+      await request(app)
+        .post("/api/v1/requests/SAV-DEMO-001/transitions")
+        .send({ action: "qualify" });
+
+      const response = await request(app).get(
+        "/api/v1/requests/SAV-DEMO-001/events",
+      );
+
+      expect(response.status).toBe(200);
+      const event = response.body.items.at(-1);
+      expect(event).toMatchObject({
+        action: "qualify",
+        fromStatus: "STAT-01",
+        toStatus: "STAT-02",
+        type: "qualification.confirmed",
+      });
+      expect(event.actorUserId).toBeUndefined();
+      expect(event.actorDisplayName).toBeUndefined();
+      expect(event.actorRole).toBeUndefined();
+    });
+
+    it("keeps legacy events without actor readable", async () => {
+      const db = getDatabase();
+      db.prepare(
+        `
+        INSERT INTO workflow_events (
+          id, request_id, type, from_status, to_status,
+          label, created_at, source, is_demo
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+      `,
+      ).run(
+        "evt-legacy-api-001",
+        "SAV-DEMO-001",
+        "qualification.confirmed",
+        "STAT-01",
+        "STAT-02",
+        "Qualification fictive confirmée",
+        "2026-03-12T08:00:00.000Z",
+        "demo",
+      );
+
+      const response = await request(app).get(
+        "/api/v1/requests/SAV-DEMO-001/events",
+      );
+
+      expect(response.status).toBe(200);
+      const legacyEvent = response.body.items.find(
+        (item: { id: string }) => item.id === "evt-legacy-api-001",
+      );
+      expect(legacyEvent).toMatchObject({
+        fromStatus: "STAT-01",
+        toStatus: "STAT-02",
+        type: "qualification.confirmed",
+      });
+      expect(legacyEvent?.actorUserId).toBeUndefined();
+      expect(legacyEvent?.action).toBeUndefined();
+    });
+
+    it("never returns sensitive authentication fields", async () => {
+      await request(app)
+        .post("/api/v1/requests/SAV-DEMO-001/transitions")
+        .send({ action: "qualify", actorUserId: "user-technician" });
+
+      const response = await request(app).get(
+        "/api/v1/requests/SAV-DEMO-001/events",
+      );
+
+      for (const event of response.body.items) {
+        expect(event.password).toBeUndefined();
+        expect(event.passwordHash).toBeUndefined();
+        expect(event.token).toBeUndefined();
+        expect(event.session).toBeUndefined();
+        expect(event.provider).toBeUndefined();
+        expect(event.externalId).toBeUndefined();
+      }
+    });
+  });
+
   it("POST transition valid returns request and event", async () => {
     const response = await request(app)
       .post("/api/v1/requests/SAV-DEMO-001/transitions")
@@ -208,6 +322,127 @@ describe("Interv360 API", () => {
     expect(response.body.request.status).toBe("STAT-02");
     expect(response.body.event.type).toBe("qualification.confirmed");
     expect(response.body.event.isDemo).toBe(true);
+    expect(response.body.event.action).toBe("qualify");
+    expect(response.body.event.actorUserId).toBeUndefined();
+  });
+
+  it("POST transition without actor keeps legacy behavior", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify" });
+
+    expect(response.status).toBe(200);
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.status).toBe(200);
+    expect(eventsResponse.body.items).toHaveLength(1);
+    expect(eventsResponse.body.items[0]?.action).toBe("qualify");
+    expect(eventsResponse.body.items[0]?.actorUserId).toBeUndefined();
+  });
+
+  it("POST transition with valid actor stores action and actor snapshot", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-technician" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.event).toMatchObject({
+      action: "qualify",
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+      fromStatus: "STAT-01",
+      toStatus: "STAT-02",
+    });
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.body.items[0]).toMatchObject({
+      action: "qualify",
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+    });
+  });
+
+  it("POST transition with unknown actor returns INVALID_ACTOR_USER", async () => {
+    const before = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(before.status).toBe(200);
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "unknown" });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+    expect(response.body.error.message).toBe(
+      "Actor user is invalid or inactive.",
+    );
+
+    const after = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(after.body.request.status).toBe(before.body.request.status);
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.body.items).toHaveLength(0);
+  });
+
+  it("POST transition with inactive actor returns INVALID_ACTOR_USER", async () => {
+    getDatabase()
+      .prepare("UPDATE users SET is_active = 0 WHERE id = ?")
+      .run("user-viewer");
+
+    const before = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-viewer" });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+
+    const after = await request(app).get("/api/v1/requests/SAV-DEMO-001");
+    expect(after.body.request.status).toBe(before.body.request.status);
+
+    const eventsResponse = await request(app).get(
+      "/api/v1/requests/SAV-DEMO-001/events",
+    );
+    expect(eventsResponse.body.items).toHaveLength(0);
+  });
+
+  it("POST transition rejects non-string actorUserId", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: 42 });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+  });
+
+  it("POST transition rejects empty actorUserId", async () => {
+    const response = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "   " });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.code).toBe("INVALID_ACTOR_USER");
+  });
+
+  it("keeps users API available after transition with actor", async () => {
+    const transition = await request(app)
+      .post("/api/v1/requests/SAV-DEMO-001/transitions")
+      .send({ action: "qualify", actorUserId: "user-technician" });
+
+    expect(transition.status).toBe(200);
+
+    const usersResponse = await request(app).get("/api/v1/users");
+    expect(usersResponse.status).toBe(200);
+    expect(usersResponse.body.users).toHaveLength(5);
+    expect(usersResponse.body.users[0]?.password).toBeUndefined();
   });
 
   it("POST transition invalid returns TRANSITION_NOT_ALLOWED", async () => {

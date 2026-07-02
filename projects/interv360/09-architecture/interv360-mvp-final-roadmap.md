@@ -581,3 +581,28 @@ Objectif :
 - introduire l'acteur dans les événements ;
 - enrichir l'historique ;
 - rendre le journal exploitable côté produit.
+
+---
+
+## 19. Ouverture du Lot 2 — Audit Trail
+
+Le Lot 2 de la roadmap est ouvert dans la branche :
+
+`delivery/interv360-audit-trail`
+
+Objectif :
+
+- rattacher les actions métier à un acteur ;
+- enrichir les événements workflow ;
+- afficher un historique exploitable ;
+- conserver une approche simple sans OAuth/JWT/SSO.
+
+Document delivery associé :
+
+`../07-delivery/audit-trail.md`
+
+Décision :
+
+- pas de PR documentaire intermédiaire pour AT-01 ;
+- le cadrage opérationnel est intégré directement au lot delivery ;
+- PR unique prévue en fin de lot.

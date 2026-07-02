@@ -27,6 +27,12 @@ export const workflowActionLabels: Record<DemoTransitionAction, string> = {
   cancel: "Annuler la demande",
 };
 
+export interface ApplyTransitionOptions {
+  actorUserId?: string;
+  actorDisplayName?: string;
+  actorRole?: string;
+}
+
 export interface RequestsRepository {
   listRequests(): Promise<DemoRequest[]>;
   getRequestById(id: string): Promise<DemoRequest | undefined>;
@@ -34,6 +40,7 @@ export interface RequestsRepository {
   applyTransition(
     id: string,
     action: DemoTransitionAction,
+    options?: ApplyTransitionOptions,
   ): Promise<DemoRequest | undefined>;
   resetDemo(): Promise<void>;
 }

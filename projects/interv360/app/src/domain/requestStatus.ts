@@ -42,6 +42,10 @@ export interface DemoWorkflowEvent {
   toStatus: RequestStatus;
   message: string;
   createdAt: string;
+  action?: string;
+  actorUserId?: string;
+  actorDisplayName?: string;
+  actorRole?: string;
 }
 
 export interface DemoRequest {

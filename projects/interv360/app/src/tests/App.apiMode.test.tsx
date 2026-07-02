@@ -69,9 +69,11 @@ const apiUsersPayload = {
 function createFetchMock(options?: {
   usersPayload?: typeof apiUsersPayload;
   usersFail?: boolean;
+  eventsPayload?: Array<Record<string, unknown>>;
 }) {
   const calls: Array<{ url: string; method: string; body?: string }> = [];
   const usersPayload = options?.usersPayload ?? apiUsersPayload;
+  const eventsPayload = options?.eventsPayload ?? [];
 
   const mock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
@@ -109,7 +111,34 @@ function createFetchMock(options?: {
     if (url.includes("/requests/SAV-DEMO-001/events") && method === "GET") {
       return {
         ok: true,
-        json: async () => ({ items: [] }),
+        json: async () => ({ items: eventsPayload }),
+      };
+    }
+
+    if (url.includes("/transitions") && method === "POST") {
+      const payload = JSON.parse(String(init?.body ?? "{}")) as { action?: string };
+      const nextStatus = payload.action === "cancel" ? "STAT-07" : "STAT-02";
+
+      return {
+        ok: true,
+        json: async () => ({
+          request: { ...apiRequest, status: nextStatus },
+          event: {
+            id: "evt-demo-001",
+            requestId: "SAV-DEMO-001",
+            type:
+              payload.action === "cancel"
+                ? "request.cancelled"
+                : "qualification.confirmed",
+            fromStatus: "STAT-01",
+            toStatus: nextStatus,
+            label: "Qualification fictive confirmée",
+            createdAt: "2026-03-12T08:10:00.000Z",
+            source: "demo",
+            isDemo: true,
+            action: payload.action ?? "qualify",
+          },
+        }),
       };
     }
 
@@ -202,7 +231,7 @@ describe("App API mode", () => {
     expect(localStorage.getItem(CURRENT_USER_STORAGE_KEY)).toBe("user-manager");
   });
 
-  it("does not call login/logout/session endpoints and does not add user in transitions payload", async () => {
+  it("sends actorUserId in API transitions without token or session fields", async () => {
     const { mock, calls } = createFetchMock();
     vi.stubGlobal("fetch", mock);
 
@@ -231,13 +260,134 @@ describe("App API mode", () => {
     });
 
     expect(
-      calls.some((call) => /\/(login|logout|session)(\/|$)/.test(call.url)),
+      calls.some((call) => /\/(login|logout|session|auth|token)(\/|$)/.test(call.url)),
     ).toBe(false);
 
     const transitionCall = calls.find(
       (call) => call.url.endsWith("/transitions") && call.method === "POST",
     );
-    expect(transitionCall?.body).toBe(JSON.stringify({ action: "qualify" }));
+    expect(transitionCall?.body).toBe(
+      JSON.stringify({ action: "qualify", actorUserId: "user-technician" }),
+    );
+
+    const payload = JSON.parse(transitionCall?.body ?? "{}") as Record<string, unknown>;
+    expect(payload.token).toBeUndefined();
+    expect(payload.session).toBeUndefined();
+    expect(payload.password).toBeUndefined();
+    expect(payload.passwordHash).toBeUndefined();
+    expect(payload.actorDisplayName).toBeUndefined();
+    expect(payload.actorRole).toBeUndefined();
+  });
+
+  it("sends selected user as actorUserId in API transitions", async () => {
+    const { mock, calls } = createFetchMock();
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Changer d'utilisateur/i)).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByLabelText(/Changer d'utilisateur/i), {
+      target: { value: "user-manager" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Détail" }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: /Annuler la demande/i }),
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /Annuler la demande/i }));
+
+    await waitFor(() => {
+      expect(
+        calls.some(
+          (call) => call.url.endsWith("/transitions") && call.method === "POST",
+        ),
+      ).toBe(true);
+    });
+
+    const transitionCall = calls.find(
+      (call) => call.url.endsWith("/transitions") && call.method === "POST",
+    );
+    expect(JSON.parse(transitionCall?.body ?? "{}")).toMatchObject({
+      action: "cancel",
+      actorUserId: "user-manager",
+    });
+  });
+
+  it("displays enriched workflow events in API mode journal", async () => {
+    const { mock } = createFetchMock({
+      eventsPayload: [
+        {
+          id: "evt-demo-001",
+          requestId: "SAV-DEMO-001",
+          type: "qualification.confirmed",
+          fromStatus: "STAT-01",
+          toStatus: "STAT-02",
+          label: "Qualification fictive confirmée",
+          createdAt: "2026-03-12T08:10:00.000Z",
+          source: "demo",
+          isDemo: true,
+          action: "qualify",
+          actorUserId: "user-technician",
+          actorDisplayName: "Théo Technicien",
+          actorRole: "technician",
+        },
+      ],
+    });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Journal" })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Par Théo Technicien — technician/i)).toBeInTheDocument();
+    });
+    expect(screen.getByText(/Action : qualify/i)).toBeInTheDocument();
+    expect(screen.getByText(/STAT-01 → STAT-02/)).toBeInTheDocument();
+  });
+
+  it("keeps legacy API events readable in journal", async () => {
+    const { mock } = createFetchMock({
+      eventsPayload: [
+        {
+          id: "evt-legacy-001",
+          requestId: "SAV-DEMO-001",
+          type: "qualification.confirmed",
+          fromStatus: "STAT-01",
+          toStatus: "STAT-02",
+          label: "Qualification fictive confirmée",
+          createdAt: "2026-03-12T08:10:00.000Z",
+          source: "demo",
+          isDemo: true,
+        },
+      ],
+    });
+    vi.stubGlobal("fetch", mock);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Journal" })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Qualification fictive confirmée/i)).toBeInTheDocument();
+    });
+    expect(screen.queryByText(/Par /i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/undefined/i)).not.toBeInTheDocument();
   });
 
   it("shows backend unavailable message when API cannot be reached", async () => {

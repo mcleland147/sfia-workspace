@@ -63,6 +63,19 @@ describe("App simulated role", () => {
     ).toBe(false);
   });
 
+  it("does not call GET /api/v1/events in local mode", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<App />);
+    await waitForScreenNavigation();
+    goToDemoScreen("Journal");
+
+    expect(
+      fetchMock.mock.calls.some(([url]) => String(url).includes("/events")),
+    ).toBe(false);
+  });
+
   it("exposes all five local demo users in the switcher", async () => {
     render(<App />);
     await waitForScreenNavigation();
@@ -382,5 +395,18 @@ describe("App simulated role", () => {
         ),
       ).toBeInTheDocument();
     });
+  });
+
+  it("shows local journal with actor after workflow transition", async () => {
+    await renderAppOnDetailsScreen();
+
+    fireEvent.click(screen.getByRole("button", { name: /Qualifier la demande/i }));
+
+    goToDemoScreen("Journal");
+
+    await waitFor(() => {
+      expect(screen.getByText(/Par Théo Technicien — technician/i)).toBeInTheDocument();
+    });
+    expect(screen.getByText(/Action : qualify/i)).toBeInTheDocument();
   });
 });

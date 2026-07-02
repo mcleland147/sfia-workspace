@@ -57,6 +57,10 @@ export function applySqliteSchema(db: Database.Database): void {
       created_at TEXT NOT NULL,
       source TEXT NOT NULL,
       is_demo INTEGER NOT NULL DEFAULT 1,
+      action TEXT,
+      actor_user_id TEXT,
+      actor_display_name TEXT,
+      actor_role TEXT,
       FOREIGN KEY (request_id) REFERENCES requests(id)
     );
 
@@ -93,4 +97,8 @@ export function applySqliteSchema(db: Database.Database): void {
     "business_impact",
     "TEXT NOT NULL DEFAULT ''",
   );
+  addColumnIfMissing(db, "workflow_events", "action", "TEXT");
+  addColumnIfMissing(db, "workflow_events", "actor_user_id", "TEXT");
+  addColumnIfMissing(db, "workflow_events", "actor_display_name", "TEXT");
+  addColumnIfMissing(db, "workflow_events", "actor_role", "TEXT");
 }

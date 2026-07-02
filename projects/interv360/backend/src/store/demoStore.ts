@@ -55,7 +55,17 @@ interface EventRow {
   created_at: string;
   source: string;
   is_demo: number;
+  action?: string | null;
+  actor_user_id?: string | null;
+  actor_display_name?: string | null;
+  actor_role?: string | null;
 }
+
+export type TransitionActor = {
+  userId: string;
+  displayName: string;
+  role: string;
+};
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -95,7 +105,7 @@ function rowToDetail(row: DetailRow): DemoRequestDetail {
 }
 
 function rowToEvent(row: EventRow): WorkflowEvent {
-  return {
+  const event: WorkflowEvent = {
     id: row.id,
     requestId: row.request_id,
     type: row.type as WorkflowEventType,
@@ -106,6 +116,21 @@ function rowToEvent(row: EventRow): WorkflowEvent {
     source: "demo",
     isDemo: true,
   };
+
+  if (row.action != null) {
+    event.action = row.action;
+  }
+  if (row.actor_user_id != null) {
+    event.actorUserId = row.actor_user_id;
+  }
+  if (row.actor_display_name != null) {
+    event.actorDisplayName = row.actor_display_name;
+  }
+  if (row.actor_role != null) {
+    event.actorRole = row.actor_role;
+  }
+
+  return event;
 }
 
 function findRequestRow(id: string): RequestRow | undefined {
@@ -165,6 +190,7 @@ export function listEventsForRequest(id: string): WorkflowEvent[] {
 export function applyTransition(
   id: string,
   action: string,
+  actor?: TransitionActor,
 ): { request: DemoRequest; event: WorkflowEvent } {
   const requestRow = findRequestRow(id);
   if (!requestRow) {
@@ -197,17 +223,25 @@ export function applyTransition(
       fromStatus: result.fromStatus,
       toStatus: result.toStatus,
       label: result.label,
+      action,
       createdAt: updatedAt,
       source: "demo",
       isDemo: true,
     };
 
+    if (actor) {
+      event.actorUserId = actor.userId;
+      event.actorDisplayName = actor.displayName;
+      event.actorRole = actor.role;
+    }
+
     db.prepare(
       `
       INSERT INTO workflow_events (
         id, request_id, type, from_status, to_status,
-        label, created_at, source, is_demo
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+        label, created_at, source, is_demo,
+        action, actor_user_id, actor_display_name, actor_role
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)
     `,
     ).run(
       event.id,
@@ -218,6 +252,10 @@ export function applyTransition(
       event.label,
       event.createdAt,
       event.source,
+      action,
+      actor?.userId ?? null,
+      actor?.displayName ?? null,
+      actor?.role ?? null,
     );
 
     return event;

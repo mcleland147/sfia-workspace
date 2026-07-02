@@ -40,11 +40,22 @@ export function WorkflowJournalReadonly({
               key={`${event.type}-${event.createdAt}-${index}`}
               className="workflow-journal-readonly__item"
             >
+              <p className="workflow-journal-readonly__message">{event.message}</p>
+              {event.actorDisplayName ? (
+                <p className="workflow-journal-readonly__actor">
+                  Par {event.actorDisplayName}
+                  {event.actorRole ? ` — ${event.actorRole}` : ""}
+                </p>
+              ) : null}
+              {event.action ? (
+                <p className="workflow-journal-readonly__action">
+                  Action : {event.action}
+                </p>
+              ) : null}
               <p className="workflow-journal-readonly__type">{event.type}</p>
               <p>
                 {event.fromStatus} → {event.toStatus}
               </p>
-              <p>{event.message}</p>
               <p className="workflow-journal-readonly__timestamp">
                 {event.createdAt}
               </p>

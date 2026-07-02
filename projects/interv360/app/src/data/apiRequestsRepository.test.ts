@@ -105,31 +105,82 @@ describe("apiRequestsRepository", () => {
   });
 
   it("applies a transition via the API", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          request: { ...apiRequest, status: "STAT-02" },
-          event: {
-            id: "evt-demo-001",
-            requestId: "SAV-DEMO-001",
-            type: "qualification.confirmed",
-            fromStatus: "STAT-01",
-            toStatus: "STAT-02",
-            label: "Qualification fictive confirmée",
-            createdAt: "2026-03-12T08:10:00.000Z",
-            source: "demo",
-            isDemo: true,
-          },
-        }),
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        request: { ...apiRequest, status: "STAT-02" },
+        event: {
+          id: "evt-demo-001",
+          requestId: "SAV-DEMO-001",
+          type: "qualification.confirmed",
+          fromStatus: "STAT-01",
+          toStatus: "STAT-02",
+          label: "Qualification fictive confirmée",
+          createdAt: "2026-03-12T08:10:00.000Z",
+          source: "demo",
+          isDemo: true,
+        },
       }),
-    );
+    });
+    vi.stubGlobal("fetch", fetchMock);
 
     const repository = createApiRequestsRepository();
     const updated = await repository.applyTransition("SAV-DEMO-001", "qualify");
 
     expect(updated?.status).toBe("STAT-02");
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ action: "qualify" }),
+      }),
+    );
+  });
+
+  it("sends actorUserId when applying a transition with actor options", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        request: { ...apiRequest, status: "STAT-02" },
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const repository = createApiRequestsRepository();
+    await repository.applyTransition("SAV-DEMO-001", "qualify", {
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://localhost:3001/api/v1/requests/SAV-DEMO-001/transitions",
+      expect.objectContaining({
+        body: JSON.stringify({
+          action: "qualify",
+          actorUserId: "user-technician",
+        }),
+      }),
+    );
+  });
+
+  it("does not add Authorization header to transition requests", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        request: { ...apiRequest, status: "STAT-02" },
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const repository = createApiRequestsRepository();
+    await repository.applyTransition("SAV-DEMO-001", "qualify", {
+      actorUserId: "user-technician",
+    });
+
+    const [, init] = fetchMock.mock.calls[0] ?? [];
+    const headers = init?.headers as Record<string, string> | undefined;
+    expect(headers?.Authorization).toBeUndefined();
   });
 
   it("loads workflow events from the API", async () => {
@@ -160,6 +211,46 @@ describe("apiRequestsRepository", () => {
 
     expect(events).toHaveLength(1);
     expect(events[0]?.message).toBe("Qualification fictive confirmée");
+  });
+
+  it("maps enriched workflow events from the API", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          items: [
+            {
+              id: "evt-demo-002",
+              requestId: "SAV-DEMO-001",
+              type: "qualification.confirmed",
+              fromStatus: "STAT-01",
+              toStatus: "STAT-02",
+              label: "Qualification fictive confirmée",
+              createdAt: "2026-03-12T08:10:00.000Z",
+              source: "demo",
+              isDemo: true,
+              action: "qualify",
+              actorUserId: "user-technician",
+              actorDisplayName: "Théo Technicien",
+              actorRole: "technician",
+            },
+          ],
+        }),
+      }),
+    );
+
+    const repository = createApiRequestsRepository();
+    const events = await repository.listEventsForRequest("SAV-DEMO-001");
+
+    expect(events[0]).toMatchObject({
+      action: "qualify",
+      actorUserId: "user-technician",
+      actorDisplayName: "Théo Technicien",
+      actorRole: "technician",
+      fromStatus: "STAT-01",
+      toStatus: "STAT-02",
+    });
   });
 
   it("resets demo data via the API", async () => {

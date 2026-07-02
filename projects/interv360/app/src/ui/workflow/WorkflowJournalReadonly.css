@@ -52,7 +52,18 @@
 }
 
 .workflow-journal-readonly__type {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.workflow-journal-readonly__message {
   font-weight: 600;
+}
+
+.workflow-journal-readonly__actor,
+.workflow-journal-readonly__action {
+  color: #333;
+  font-size: 0.95rem;
 }
 
 .workflow-journal-readonly__timestamp {
