@@ -752,3 +752,33 @@ La PR doit préciser :
 - tests frontend 202/202 OK ;
 - build frontend OK ;
 - exports Figma non suivis.
+
+---
+
+## 12. Statut de merge
+
+La PR unique du cycle Premium Design System a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #73 — Add Interv360 premium design system |
+| Branche source | `ui/interv360-premium-design-system` |
+| Branche cible | `main` |
+| Merge commit | `107b466` |
+| Statut | Mergé |
+| Build frontend | OK |
+| Tests frontend | 202/202 OK |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> Le cycle `ui/interv360-premium-design-system` est clôturé et intégré à `main`.
+
+Suites possibles, hors présent cycle :
+
+- suppression de la branche après validation explicite ;
+- tag ou release UI si décidé ;
+- capitalisation méthodologique Figma Design-first pour les futurs projets UI ;
+- ouverture d'un nouveau cycle produit uniquement si un nouveau besoin est explicitement cadré.
