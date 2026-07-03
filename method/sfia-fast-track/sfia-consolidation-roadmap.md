@@ -253,7 +253,15 @@ Livrables possibles :
 
 ### Statut
 
-Amélioration SFIA ouverte sur la branche `consolidation/sfia-method-improvements`.
+Amélioration SFIA élargie à l'audit global du workspace sur la branche `consolidation/sfia-method-improvements`.
+
+Objectif :
+
+- analyser toute l'arborescence `sfia-workspace` ;
+- identifier la connaissance active, historique et obsolète ;
+- préparer une migration fichier par fichier ;
+- nettoyer physiquement l'arborescence après validation ;
+- préparer Notion comme IDE métier de la SFA.
 
 Livrables :
 
@@ -268,8 +276,11 @@ Livrables :
 - `method/sfia-fast-track/checklists/validation-checklist.md`
 - `method/sfia-fast-track/checklists/guardrails-checklist.md`
 - `method/sfia-fast-track/checklists/notion-publication-checklist.md`
+- `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md`
+- `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-migration-plan.md`
+- inventaires complets pré-nettoyage (`pre-cleanup-*.txt`)
 
-Ne pas passer le chantier en terminé tant que les améliorations SFIA ne sont pas validées et intégrées.
+Ne pas passer le chantier en terminé tant que le nettoyage global du workspace n'est pas validé et exécuté.
 
 ## 9. Ordre recommandé
 
