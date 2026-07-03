@@ -605,3 +605,45 @@ Remaining P1 automation engine specifications:
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`
+## Update — Repository Execution Engine Created
+
+The following P1 automation engine specification has been created:
+
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+
+It defines how SFIA executes a Cursor prompt in the repository in a controlled, traceable and validable way.
+
+The Repository Execution Engine applies:
+
+- Engineering Principles;
+- Prompt Generation Engine;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Knowledge Layer and Documentation Routing Matrix;
+- Repository Blueprint;
+- Delivery Pipeline;
+- Decision Engine;
+- automation architecture.
+
+It defines:
+
+- inputs;
+- outputs;
+- execution workflow;
+- mandatory pre-checks;
+- execution rules;
+- protected paths;
+- untracked files handling;
+- diff handling;
+- commit rules;
+- PR readiness;
+- post-merge readiness;
+- standard execution report;
+- validation criteria;
+- anti-patterns;
+- maturity model.
+
+Remaining P1 automation engine specifications:
+
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`

@@ -48,6 +48,7 @@ Normative reference: `docs/foundation/sfia-engineering-principles.md`
 
 - `sfia-automation-architecture.md`
 - `sfia-prompt-generation-engine.md` — specification for generating SFIA-compliant Cursor prompts (foundation v1.1)
+- `sfia-repository-execution-engine.md` — specification for executing SFIA-compliant Cursor prompts in the Git repository (foundation v1.1)
 
 ### Cycles (`cycles/`)
 
