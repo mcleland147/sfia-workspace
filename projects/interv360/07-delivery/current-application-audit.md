@@ -281,3 +281,27 @@ projects/interv360/backend/src/
 - **Chantier 5** — Amélioration SFIA (règles, architecture, standards).
 
 Aucune évolution fonctionnelle Interv360 ne doit être lancée avant validation de la consolidation.
+
+---
+
+## 14. Statut de merge
+
+La PR d'audit de l'application actuelle a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #77 — docs: audit current Interv360 application |
+| Branche source | `consolidation/interv360-current-app-audit` |
+| Branche cible | `main` |
+| Commit d'intégration | `c496bc3` |
+| Statut | Mergé |
+| Type | Documentation d'audit |
+| Décision d'audit | `APPLICATION_SAINE_AVEC_RESERVES` |
+| Code Interv360 | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> Le Chantier 1 — Audit de l'application actuelle est intégré à `main`. La consolidation peut passer au Chantier 2 — REX de l'application actuelle.

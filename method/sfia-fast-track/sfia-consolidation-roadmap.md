@@ -77,13 +77,19 @@ Décision attendue :
 
 ### Statut
 
-Audit ouvert sur la branche `consolidation/interv360-current-app-audit`.
+Audit réalisé et intégré à `main`.
 
 Livrable :
 
 `projects/interv360/07-delivery/current-application-audit.md`
 
-Ne pas passer le chantier en terminé tant que l'audit n'est pas validé.
+Décision :
+
+> `APPLICATION_SAINE_AVEC_RESERVES`
+
+Suite :
+
+> Chantier 2 — REX de l'application actuelle.
 
 ## 5. Chantier 2 — REX de l'application actuelle
 
