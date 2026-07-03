@@ -151,6 +151,16 @@ Livrable attendu :
 
 `method/sfia-fast-track/sfia-global-capitalization.md`
 
+### Statut
+
+Capitalisation SFIA globale ouverte sur la branche `consolidation/sfia-global-capitalization`.
+
+Livrable :
+
+`method/sfia-fast-track/sfia-global-capitalization.md`
+
+Ne pas passer le chantier en terminé tant que la capitalisation n'est pas validée et intégrée.
+
 ## 7. Chantier 4 — Mise à jour documentaire complète
 
 Objectif :
