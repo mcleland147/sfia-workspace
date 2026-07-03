@@ -37,32 +37,47 @@ cp -r tools/cmp-001/exports/* exports/notion/
 
 ```
 sfia-workspace/
-├── docs/              # Documentation méthodologique et gouvernance du produit SFIA
-│   └── methods/       # Méthodes SFIA réutilisables
-│       └── roles/     # Méthodes SFIA par rôle
-├── prompts/           # Prompts réutilisables
-├── templates/         # Modèles de livrables
-├── standards/         # Standards et règles communes
-├── projects/          # Projets pilotes alimentant SFIA
-├── tools/             # Outillage SFIA
-├── components/        # Composants réutilisables
-└── exports/           # Exports générés (ex. exports/notion/)
+├── docs/                      # Documentation plateforme SFIA
+│   ├── methods/               # Méthodes plateforme par rôle/discipline
+│   ├── templates/             # Templates plateforme
+│   └── standards/             # Standards plateforme
+├── method/sfia-fast-track/    # Méthode active de delivery SFIA
+├── methods/                   # Méthodes complémentaires (ex. controlled-delivery)
+├── prompts/                   # Familles de prompts
+├── projects/                  # Projets pilotes (ex. Interv360)
+├── tools/cmp-001/             # Connecteur Notion CMP
+├── components/                # Composants réutilisables
+└── exports/notion/            # Snapshots JSON Notion
 ```
 
 ### Référentiels réutilisables
 
 | Dossier | Contenu |
 |---------|---------|
-| **docs/** | Documentation méthodologique et gouvernance du produit SFIA |
-| **docs/methods/** | Méthodes SFIA — savoir-faire, savoir-être, postures par rôle |
-| **docs/methods/roles/** | Templates Role Method extraits des projets pilotes |
-| **prompts/** | Prompts réutilisables |
-| **templates/** | Modèles de livrables |
-| **standards/** | Standards et règles communes |
-| **projects/** | Projets pilotes (ex. Interv360) alimentant la capitalisation SFIA |
+| **docs/** | Documentation plateforme, architecture, standards, tooling |
+| **docs/methods/** | Méthodes plateforme — rôles, BPMN, archi fonctionnelle, UX |
+| **method/sfia-fast-track/** | Méthode active de delivery (cycles, templates, checklists) |
+| **methods/** | Méthodes delivery complémentaires |
+| **prompts/** | Prompts réutilisables et catalogue |
+| **projects/** | Projets pilotes (ex. Interv360) |
 | **tools/** | Outillage SFIA (ex. CMP-001) |
-| **components/** | Composants réutilisables |
-| **exports/** | Exports générés |
+| **exports/notion/** | Exports JSON Notion pour audit local |
+
+## Method Layers
+
+| Zone | Rôle |
+|------|------|
+| `method/sfia-fast-track/` | Méthode active de delivery |
+| `methods/controlled-delivery/` | Méthode complémentaire |
+| `docs/methods/` | Méthodes plateforme par rôle ou discipline |
+
+## Notion
+
+Notion est l'IDE métier cible de la SFA.
+
+La mise à jour Notion doit être faite dans un chantier dédié, à partir du repo nettoyé et d'un mapping éditorialisé (`method/sfia-fast-track/documentation/notion-target-content-map.md`).
+
+`sfia-notion-sync` est un repo séparé et n'est pas présent dans ce workspace.
 
 ## Projets réels
 
@@ -77,19 +92,3 @@ Voir dans Notion : **KNO-001 — SFIA Engineering Principles**.
 ## Version CMP-001 embarquée
 
 `tools/cmp-001/` — SFIA Notion Sync **v1.1.1**
-
-## SFIA Workspace Structure
-
-| Zone | Rôle |
-|------|------|
-| `docs/` | Documentation plateforme SFIA |
-| `method/sfia-fast-track/` | Méthode active SFIA Fast Track |
-| `methods/` | Méthodes complémentaires |
-| `projects/interv360/` | Projet de référence Interv360 |
-| `prompts/` | Familles de prompts |
-| `tools/cmp-001/` | Outillage CMP / Notion |
-| `exports/notion/` | Exports Notion préparés |
-
-Note :
-
-`sfia-notion-sync` est référencé comme dépendance externe, mais n'est pas présent dans ce workspace.
