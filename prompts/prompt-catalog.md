@@ -1,372 +1,1271 @@
-# SFIA — Prompt Catalog
+---
+status: candidate
+version: v1.1
+updated_after: SFIA prompt generation engine specification
+scope: prompt catalog
+---
 
-**Statut** : Draft  
-**Objet** : catalogue des prompts candidats et réutilisables du produit SFIA  
-**Source pilote** : PRJ-INTERV360  
-**Nature** : référentiel évolutif
+# SFIA Prompt Catalog v1.1
+
+**Version:** v1.1  
+**Status:** Candidate catalog  
+**Updated after:** SFIA prompt generation engine specification  
+**Scope:** Prompt catalog
+
+## 1. Objectif
+
+Le Prompt Catalog est la bibliothèque opérationnelle des prompts-types SFIA.
+
+Il sert à :
+
+- standardiser les prompts ;
+- accélérer les cycles ;
+- éviter les oublis ;
+- appliquer les garde-fous ;
+- préparer l'automation future ;
+- capitaliser les prompts utiles.
+
+Le Prompt Catalog ne remplace pas le Prompt Generation Engine.
+
+Il traduit la doctrine du Prompt Generation Engine en familles de prompts et prompt cards réutilisables dans les cycles SFIA.
+
+## 2. Documents de référence
+
+- `docs/foundation/sfia-engineering-principles.md`
+- `docs/architecture/sfia-decision-engine.md`
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+
+## 3. Existing Inputs Audit
+
+| Source | Finding | Decision |
+|--------|---------|----------|
+| `prompts/prompt-catalog.md` (v1.0 Draft) | Interv360 pilot catalog with 14+ candidate prompts, maturity model, role mapping | Preserve as historical reference in Annexe A ; v1.1 normative catalog built from P1 engines and recent foundation cycles |
+| `prompts/architecture/PROMPT-ARCH-001-*.md` | Draft prompt — architecture review | Keep as project pilot asset ; not part of v1.1 normative cards |
+| `prompts/security/PROMPT-SEC-001-*.md` | Draft prompt — security review | Keep as project pilot asset ; not part of v1.1 normative cards |
+| `prompts/ux-ui/`, `prompts/qa/`, `prompts/bpmn/` | Prompt family documents (15+10+7 candidates) | Reference in Annexe A ; future integration after full templates cycle |
+| `prompts/tooling/penpot/` | Design tooling prompt family | Out of scope v1.1 catalog ; Figma Design-first remains separate |
+| P1 engine specs + validation checklist | Doctrine for prompt structure, execution and validation | Primary source for v1.1 prompt cards |
+| Recent foundation v1.1 cycles | Proven patterns: create engine spec, update foundation, validation checklist | Informed the 26 v1.1 prompt cards |
+
+Few executable full prompt templates exist yet. The v1.1 catalog defines **prompt cards** first ; full templates follow in a dedicated cycle.
+
+## 4. Principes communs des prompts SFIA
+
+Tout prompt SFIA doit préciser :
+
+- objectif ;
+- repository ;
+- branche ;
+- dernier commit attendu ;
+- contexte ;
+- phase ou contexte SFIA ;
+- sources de référence ;
+- dossier cible ;
+- type de capitalisation attendu ;
+- périmètre ;
+- hors périmètre ;
+- fichiers à lire ;
+- fichiers à modifier ;
+- fichiers interdits ou chemins protégés ;
+- actions attendues ;
+- commandes de vérification ;
+- commit attendu si applicable ;
+- résultat attendu.
+
+Garde-fous communs :
+
+- no push ;
+- no PR ;
+- no merge ;
+- no raw Notion sync ;
+- no publication Notion ;
+- no code change in documentation cycles ;
+- protected paths respected ;
+- human validation required.
+
+## 5. Structure standard d'une prompt card
+
+```text
+Prompt Card — <Name>
+**Family:**
+**Purpose:**
+**Use when:**
+**Do not use when:**
+**Required inputs:**
+**Expected actions:**
+**Guardrails:**
+**Expected outputs:**
+**Validation:**
+**Related references:**
+```
+
+Les prompt cards de cette passe restent concises. Les templates complets longs seront produits dans un cycle suivant.
+
+## 6. Familles de prompts
+
+| Family | Role |
+|--------|------|
+| Framing prompts | Cadrer un cycle, une intention ou une correction |
+| Documentation creation prompts | Créer un nouveau document SFIA |
+| Documentation consolidation prompts | Mettre à jour ou harmoniser un document existant |
+| Repository execution prompts | Encadrer une exécution Git/documentaire |
+| Validation prompts | Valider un résultat Cursor, un diff, un commit ou un livrable |
+| PR and post-merge prompts | Préparer ou clôturer une PR |
+| Capitalization prompts | Transformer un cycle en actif méthode réutilisable |
+| Notion preparation prompts | Préparer une publication Notion sans sync brute |
+
+## 7. Prompt Cards
+
+### Prompt Card — Frame New SFIA Cycle
+
+**Family:** Framing prompts
+
+**Purpose:**
+Open or frame a new SFIA cycle with clear objective, scope and guardrails.
+
+**Use when:**
+A new cycle must be opened with explicit boundaries.
+
+**Do not use when:**
+The cycle is already fully defined in an existing prompt.
+
+**Required inputs:**
+- cycle objective;
+- repository path;
+- branch;
+- expected commit;
+- SFIA phase;
+- reference sources;
+- target folder;
+- capitalization type;
+
+**Expected actions:**
+1. verify git state;
+2. confirm scope and out of scope;
+3. identify protected paths;
+4. produce or select execution prompt;
+
+**Guardrails:**
+- no push;
+- no PR;
+- no merge;
+- human validation required;
+
+**Expected outputs:**
+- framed cycle scope;
+- recommended prompt family;
+- guardrails summary;
+
+**Validation:**
+GO / INCOMPLETE / NEEDS HUMAN VALIDATION
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Frame Documentation Cycle
+
+**Family:** Framing prompts
+
+**Purpose:**
+Frame a documentation-only cycle without code changes.
+
+**Use when:**
+A foundation, method or checklist document must be created or updated.
+
+**Do not use when:**
+The task requires application code changes.
+
+**Required inputs:**
+- document objective;
+- target file or folder;
+- reference sources;
+- branch;
+- expected commit;
+
+**Expected actions:**
+1. verify documentation routing;
+2. list files to read and modify;
+3. declare protected paths;
+4. define verification commands;
+
+**Guardrails:**
+- no code change;
+- no push;
+- no PR;
+- no Notion sync;
+
+**Expected outputs:**
+- cycle frame;
+- documentation routing decision;
+- execution prompt outline;
+
+**Validation:**
+COMPLETE / INCOMPLETE
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Frame Targeted Correction
+
+**Family:** Framing prompts
+
+**Purpose:**
+Frame a small correction cycle with minimal scope.
+
+**Use when:**
+A localized fix or harmonization is needed.
+
+**Do not use when:**
+The change affects multiple unrelated areas or requires restructuring.
+
+**Required inputs:**
+- correction objective;
+- target files;
+- expected commit;
+- out of scope;
+
+**Expected actions:**
+1. narrow scope to one useful result;
+2. identify protected paths;
+3. define validation criteria;
+
+**Guardrails:**
+- no scope creep;
+- no push without validation;
+
+**Expected outputs:**
+- correction frame;
+- minimal action list;
+
+**Validation:**
+GO / GO avec réserves
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Create Foundation Document
+
+**Family:** Documentation creation prompts
+
+**Purpose:**
+Create a new SFIA foundation document in the correct repository location.
+
+**Use when:**
+A new foundation-level reference document must be created.
+
+**Do not use when:**
+The task is only a minor correction to an existing document.
+
+**Required inputs:**
+- repository path;
+- branch;
+- expected commit;
+- document objective;
+- reference sources;
+- target file;
+- scope;
+- out of scope;
+- protected paths;
+- expected commit message;
+
+**Expected actions:**
+1. verify branch, status and expected commit;
+2. read reference sources;
+3. create target document;
+4. update index or tracking files if requested;
+5. run verification commands;
+6. create commit if requested;
+
+**Guardrails:**
+- no code change;
+- no push;
+- no PR;
+- no Notion sync;
+- protected paths respected;
+
+**Expected outputs:**
+- document created;
+- updated indexes if applicable;
+- execution report;
+- commit hash if committed;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Create Engine Specification
+
+**Family:** Documentation creation prompts
+
+**Purpose:**
+Create a new SFIA automation engine specification.
+
+**Use when:**
+A P1 or future engine spec must be documented.
+
+**Do not use when:**
+The engine is already fully specified.
+
+**Required inputs:**
+- engine name;
+- scope;
+- reference sources;
+- target file;
+- inputs and outputs outline;
+
+**Expected actions:**
+1. read automation architecture and related engines;
+2. create spec following engine template;
+3. update automation README and tracking docs;
+
+**Guardrails:**
+- no executable implementation;
+- no autonomous automation claims;
+
+**Expected outputs:**
+- engine spec document;
+- tracking update;
+- commit;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Create Operational Checklist
+
+**Family:** Documentation creation prompts
+
+**Purpose:**
+Create an operational checklist from an engine or method specification.
+
+**Use when:**
+A spec exists and needs an operational checklist.
+
+**Do not use when:**
+No underlying specification exists yet.
+
+**Required inputs:**
+- source specification;
+- target checklist path;
+- validation criteria;
+
+**Expected actions:**
+1. derive checklist from spec;
+2. add checkbox sections;
+3. link related references;
+
+**Guardrails:**
+- checklist must not replace human validation;
+
+**Expected outputs:**
+- checklist document;
+- README update if needed;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Create Reusable Template
+
+**Family:** Documentation creation prompts
+
+**Purpose:**
+Create a reusable SFIA template for cycles, PR, audit or REX.
+
+**Use when:**
+A repeatable pattern must be templated.
+
+**Do not use when:**
+The deliverable is a one-off document.
+
+**Required inputs:**
+- template type;
+- target folder;
+- structure requirements;
+
+**Expected actions:**
+1. create template with placeholders;
+2. document usage guidance;
+
+**Guardrails:**
+- template must align with Fast Track conventions;
+
+**Expected outputs:**
+- template file;
+- catalog or README reference;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Update Document to v1.1
+
+**Family:** Documentation consolidation prompts
+
+**Purpose:**
+Update an existing document to v1.1 while preserving historical content.
+
+**Use when:**
+A foundation or method document needs v1.1 enrichment.
+
+**Do not use when:**
+The document is already at v1.1.
+
+**Required inputs:**
+- target document;
+- v1.1 sections to add;
+- reference sources;
+- consistency rule;
+
+**Expected actions:**
+1. preserve v1.0 content;
+2. add v1.1 sections;
+3. update front matter;
+4. update tracking docs;
+
+**Guardrails:**
+- do not delete historical content without replacement;
+
+**Expected outputs:**
+- updated document;
+- tracking update;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Harmonize with Engineering Principles
+
+**Family:** Documentation consolidation prompts
+
+**Purpose:**
+Align a document with SFIA Engineering Principles.
+
+**Use when:**
+A document must reference or comply with engineering principles.
+
+**Do not use when:**
+The document is unrelated to execution principles.
+
+**Required inputs:**
+- target document;
+- engineering principles sections;
+
+**Expected actions:**
+1. add principles reference;
+2. verify no contradiction;
+3. add compliance anchor if missing;
+
+**Guardrails:**
+- principles prevail on tension;
+
+**Expected outputs:**
+- harmonized document;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Generalize Project-Specific Logic
+
+**Family:** Documentation consolidation prompts
+
+**Purpose:**
+Replace project-specific hardcoding with generic SFIA patterns.
+
+**Use when:**
+Project-specific paths or examples must become generic with project examples.
+
+**Do not use when:**
+The content is genuinely project-specific.
+
+**Required inputs:**
+- target sections;
+- project example to preserve;
+
+**Expected actions:**
+1. define generic categories;
+2. move project paths to examples;
+3. add prompt-declaration rule;
+
+**Guardrails:**
+- Interv360 is example not universal standard;
+
+**Expected outputs:**
+- generalized document;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Add Cross-References
+
+**Family:** Documentation consolidation prompts
+
+**Purpose:**
+Add lightweight cross-references between related SFIA documents.
+
+**Use when:**
+Documents need linking without duplication.
+
+**Do not use when:**
+Full content merge is required.
+
+**Required inputs:**
+- source and target documents;
+- reference type;
+
+**Expected actions:**
+1. add cross-ref sections;
+2. update README indexes;
+
+**Guardrails:**
+- do not duplicate full content;
+
+**Expected outputs:**
+- updated documents with cross-refs;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Execute Documentation Change
+
+**Family:** Repository execution prompts
+
+**Purpose:**
+Execute a controlled documentation change in Git.
+
+**Use when:**
+Documentation files must be created or modified per prompt contract.
+
+**Do not use when:**
+Code or infrastructure changes are required.
+
+**Required inputs:**
+- full prompt contract;
+- files to modify;
+- protected paths;
+
+**Expected actions:**
+1. pre-check git state;
+2. read sources;
+3. apply changes in scope;
+4. verify diff;
+5. commit if requested;
+6. produce execution report;
+
+**Guardrails:**
+- execute only the prompt;
+- no push;
+- no PR;
+- protected paths respected;
+
+**Expected outputs:**
+- files modified;
+- diff summary;
+- verification results;
+- commit if created;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Create File and Update Indexes
+
+**Family:** Repository execution prompts
+
+**Purpose:**
+Create a new file and update related README or index files.
+
+**Use when:**
+A new asset needs creation plus index update.
+
+**Do not use when:**
+Indexes do not need updating.
+
+**Required inputs:**
+- target file;
+- index files;
+- folder routing;
+
+**Expected actions:**
+1. create file;
+2. update README or catalog entries;
+3. verify paths;
+
+**Guardrails:**
+- target folder only;
+- no unrelated index changes;
+
+**Expected outputs:**
+- new file;
+- updated indexes;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Perform Safe Repository Cleanup
+
+**Family:** Repository execution prompts
+
+**Purpose:**
+Clean up or restructure repository content safely.
+
+**Use when:**
+Repository organization needs improvement.
+
+**Do not use when:**
+Changes are purely document content without moves.
+
+**Required inputs:**
+- cleanup scope;
+- forbidden paths;
+- git mv requirements;
+
+**Expected actions:**
+1. audit before action;
+2. use git mv for moves;
+3. no brutal deletion;
+4. verify diff;
+
+**Guardrails:**
+- no destructive cleanup;
+- no touch to protected paths;
+
+**Expected outputs:**
+- cleanup report;
+- diff;
+- reserves if any;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Validate Cursor Result
+
+**Family:** Validation prompts
+
+**Purpose:**
+Validate a Cursor execution result against the prompt contract.
+
+**Use when:**
+Cursor has returned an execution report to validate.
+
+**Do not use when:**
+Validation happens before execution.
+
+**Required inputs:**
+- original prompt;
+- execution report;
+- diff;
+- verification command outputs;
+
+**Expected actions:**
+1. apply validation checklist;
+2. classify reserves;
+3. produce SFIA decision;
+
+**Guardrails:**
+- validation does not replace human decision;
+
+**Expected outputs:**
+- validation report;
+- decision;
+- reserves;
+- next step;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Validate Documentation Deliverable
+
+**Family:** Validation prompts
+
+**Purpose:**
+Validate a documentation deliverable for routing, completeness and coherence.
+
+**Use when:**
+A document was produced and must be validated.
+
+**Do not use when:**
+The deliverable is code or binary.
+
+**Required inputs:**
+- deliverable path;
+- routing matrix;
+- reference sources;
+
+**Expected actions:**
+1. check location;
+2. check sources cited;
+3. check principles compliance;
+4. check status and role;
+
+**Guardrails:**
+- no GO without evidence;
+
+**Expected outputs:**
+- deliverable validation decision;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Validate Commit
+
+**Family:** Validation prompts
+
+**Purpose:**
+Validate a local commit against cycle scope and format.
+
+**Use when:**
+A commit was created and must be validated.
+
+**Do not use when:**
+No commit was requested.
+
+**Required inputs:**
+- commit hash;
+- commit message;
+- diff;
+- protected paths;
+
+**Expected actions:**
+1. verify message format;
+2. verify scope;
+3. verify no forbidden files;
+
+**Guardrails:**
+- commit too large is a reserve;
+
+**Expected outputs:**
+- commit validation decision;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Validate PR Readiness
+
+**Family:** Validation prompts
+
+**Purpose:**
+Assess whether a branch is ready for PR creation.
+
+**Use when:**
+A PR may be opened after human validation.
+
+**Do not use when:**
+No PR is planned.
+
+**Required inputs:**
+- branch;
+- commits;
+- diff;
+- reserves;
+- PR summary draft;
+
+**Expected actions:**
+1. apply PR readiness checklist;
+2. decide READY / NOT READY;
+
+**Guardrails:**
+- Validation Engine does not create PR;
+
+**Expected outputs:**
+- PR readiness decision;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Prepare PR Summary
+
+**Family:** PR and post-merge prompts
+
+**Purpose:**
+Prepare a structured PR summary for human review.
+
+**Use when:**
+A PR will be created after human validation.
+
+**Do not use when:**
+The cycle is not ready for PR.
+
+**Required inputs:**
+- branch;
+- commits;
+- diff stat;
+- reserves;
+- test results if applicable;
+
+**Expected actions:**
+1. summarize changes;
+2. list reserves;
+3. state validation status;
+4. do not create PR;
+
+**Guardrails:**
+- no automatic PR creation;
+
+**Expected outputs:**
+- PR summary text;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Review PR Readiness
+
+**Family:** PR and post-merge prompts
+
+**Purpose:**
+Review PR readiness with explicit decision.
+
+**Use when:**
+Human wants a second validation before PR.
+
+**Do not use when:**
+PR already merged.
+
+**Required inputs:**
+- PR summary;
+- diff;
+- checklist results;
+
+**Expected actions:**
+1. review against validation checklist;
+2. produce READY FOR PR decision;
+
+**Guardrails:**
+- human must approve PR creation;
+
+**Expected outputs:**
+- readiness review decision;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Write Post-Merge Status
+
+**Family:** PR and post-merge prompts
+
+**Purpose:**
+Document post-merge closure with reserves and next steps.
+
+**Use when:**
+A significant PR was merged and needs closure trace.
+
+**Do not use when:**
+No merge occurred.
+
+**Required inputs:**
+- PR number;
+- source and target branches;
+- merge commit;
+- reserves;
+
+**Expected actions:**
+1. create post-merge status document;
+2. list capitalized elements;
+3. propose next step;
+
+**Guardrails:**
+- PR not closed without this trace for significant PRs;
+
+**Expected outputs:**
+- post-merge status document;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Capitalize Project Cycle
+
+**Family:** Capitalization prompts
+
+**Purpose:**
+Transform a project cycle output into a reusable SFIA asset.
+
+**Use when:**
+A cycle produced learnings worth capitalizing.
+
+**Do not use when:**
+Nothing reusable was produced.
+
+**Required inputs:**
+- cycle outputs;
+- capitalization type;
+- target folder;
+- routing matrix;
+
+**Expected actions:**
+1. identify asset type;
+2. route to correct folder;
+3. update tracking docs;
+
+**Guardrails:**
+- capitalization by default;
+
+**Expected outputs:**
+- capitalization artifact;
+- tracking update;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Capitalize Method Asset
+
+**Family:** Capitalization prompts
+
+**Purpose:**
+Promote a validated practice into method, template or checklist.
+
+**Use when:**
+A method asset is stable enough to promote.
+
+**Do not use when:**
+Asset is still draft or project-specific.
+
+**Required inputs:**
+- source evidence;
+- target method path;
+- maturity level;
+
+**Expected actions:**
+1. create or update method asset;
+2. link from catalog;
+3. update indexes;
+
+**Guardrails:**
+- evidence required for promotion;
+
+**Expected outputs:**
+- method asset;
+- catalog reference;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Update Foundation Tracking Documents
+
+**Family:** Capitalization prompts
+
+**Purpose:**
+Update v1.1 foundation tracking inventory, impact matrix or consolidation plan.
+
+**Use when:**
+Foundation work must be tracked.
+
+**Do not use when:**
+No foundation change occurred.
+
+**Required inputs:**
+- changed documents;
+- tracking files to update;
+
+**Expected actions:**
+1. append Update section;
+2. list remaining work;
+
+**Guardrails:**
+- tracking must reflect actual state;
+
+**Expected outputs:**
+- updated tracking documents;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Prepare Notion Mapping
+
+**Family:** Notion preparation prompts
+
+**Purpose:**
+Prepare Notion content mapping from repository sources.
+
+**Use when:**
+Notion publication may be planned after human validation.
+
+**Do not use when:**
+Raw sync is requested.
+
+**Required inputs:**
+- source documents;
+- mapping target;
+- editorialization rules;
+
+**Expected actions:**
+1. define mapping;
+2. exclude non-publishable content;
+3. no sync;
+
+**Guardrails:**
+- no raw Notion sync;
+- human validation before publish;
+
+**Expected outputs:**
+- mapping document or plan;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md` — Notion section
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+### Prompt Card — Prepare Notion Dry-Run
+
+**Family:** Notion preparation prompts
+
+**Purpose:**
+Prepare a Notion publication dry-run without publishing.
+
+**Use when:**
+Mapping exists and dry-run is the next step.
+
+**Do not use when:**
+Mapping is incomplete.
+
+**Required inputs:**
+- mapping document;
+- dry-run scope;
+
+**Expected actions:**
+1. simulate publication structure;
+2. identify gaps;
+3. no publish;
+
+**Guardrails:**
+- no automatic publication;
+
+**Expected outputs:**
+- dry-run report;
+- reserves;
+- BLOCKED or READY decision;
+
+**Validation:**
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md` — Notion section
+
+**Related references:**
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+## 8. Garde-fous communs
+
+Toutes les prompt cards héritent des garde-fous SFIA v1.1 :
+
+- Engineering Principles first ;
+- prompt as contract ;
+- repository-first ;
+- human validation first ;
+- guardrails before execution ;
+- documentation routing by default ;
+- no push / PR / merge without human validation ;
+- no raw Notion sync ;
+- protected paths generic + project-specific declared in prompt ;
+- one cycle, one useful result ;
+- validation via `method/sfia-fast-track/checklists/sfia-validation-checklist.md`.
+
+## 9. Validation attendue
+
+Chaque exécution de prompt card doit être validée avec :
+
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+Décisions possibles :
+
+- GO / GO avec réserves / NO-GO ;
+- COMPLETE / COMPLETE AVEC RÉSERVES / INCOMPLETE ;
+- READY FOR PR / READY FOR PR WITH RESERVES / NOT READY FOR PR ;
+- POST-MERGE COMPLETE / INCOMPLETE ;
+- NOTION PREPARATION READY / WITH RESERVES / BLOCKED.
+
+## 10. Templates complets prioritaires à produire ensuite
+
+The following full prompt templates should be produced in a follow-up cycle:
+
+1. Create Foundation Document
+2. Update Document to v1.1
+3. Create Operational Checklist
+4. Validate Cursor Result
+5. Validate PR Readiness
+6. Prepare PR Summary
+7. Write Post-Merge Status
+8. Capitalize Method Asset
+9. Prepare Notion Mapping
+10. Perform Safe Repository Cleanup
+
+Cette passe ne crée pas les templates complets pour éviter un catalogue trop volumineux.
+
+## 11. Anti-patterns
+
+| Anti-pattern | Risk |
+|--------------|------|
+| Prompt without expected commit | Execution on wrong base |
+| Prompt without protected paths | Repository risk |
+| Prompt without sources | Ungrounded output |
+| Prompt without target folder | Documentation drift |
+| Prompt mixing several cycles | Diff too broad |
+| Prompt allowing push by default | Human validation bypassed |
+| Prompt allowing raw Notion sync | Knowledge governance bypassed |
+| Prompt without validation checklist | Result validated by feeling |
+| Prompt too generic | Cursor improvises |
+| Prompt too long without structure | Execution becomes ambiguous |
+
+## 12. Décision
+
+`prompts/prompt-catalog.md` is the SFIA v1.1 candidate catalog for reusable prompt families and prompt cards.
+
+It operationalizes the Prompt Generation Engine by providing reusable prompt patterns aligned with:
+
+- Engineering Principles ;
+- Repository Execution Engine ;
+- Validation Engine ;
+- Validation Checklist ;
+- Rules & Guardrails ;
+- Knowledge Layer.
+
+The catalog is not yet a complete prompt template library.
+
+Full prompt templates will be added in a dedicated follow-up cycle.
+
+## 13. Next Steps
+
+1. Use the catalog to select prompt families in upcoming SFIA cycles ;
+2. create full prompt templates for the highest-value prompt cards ;
+3. link future prompts to the Validation Checklist ;
+4. update the catalog after real usage ;
+5. prepare P2 cross-references after the prompt templates cycle.
 
 ---
 
-## 1. Objectif du catalogue
+## Annexe A — Catalogue pilote Interv360 (historique v1.0)
 
-Ce catalogue recense les **prompts candidats à la capitalisation SFIA**, identifiés à partir du projet pilote Interv360 et des méthodes stabilisées dans `docs/practices/roles/`.
+Le catalogue v1.0 Draft recensait les prompts candidats issus du projet pilote Interv360.
 
-Deux prompts sont **formalisés en Draft** (fichiers dédiés sous `prompts/<famille>/`) — voir §11. Pour les autres entrées, le catalogue documente :
+Contenu historique préservé via Git et résumé ci-dessous :
 
-- l'**objectif** ;
-- la **famille** ;
-- le **statut** et la **maturité** ;
-- la **source** pilote ;
-- le **livrable produit** ;
-- le **rôle SFIA** associé ;
-- la **priorité** de formalisation.
+| Élément | Contenu historique |
+|---------|-------------------|
+| Familles pilote | Cadrage, Arbitrages, UX/UI, Rôles, Architecture, Sécurité, Gouvernance, Notion/Sync |
+| Prompts candidats Interv360 | PROMPT-CAD-001 à PROMPT-GOV-002 (14 entrées) |
+| Prompts Draft formalisés | PROMPT-ARCH-001, PROMPT-SEC-001 |
+| Famille UX/UI V1 Governance | 15 prompts candidats (PROMPT-UXUI-001 à 015) |
+| Famille QA / Testeur | 10 prompts candidats (PROMPT-QA-001 à 010) |
+| Famille BPMN | 7 prompts Draft (PROMPT-BPMN-001 à 007) |
+| Maturité | Candidat → Draft → Tested → Validated → Deprecated |
 
-Les prompts détaillés seront créés **uniquement** lorsqu'ils seront éprouvés ou dérivés de livrables validés.
+Ces entrées restent des **actifs pilote** utiles pour les projets métier.
 
----
+Elles ne constituent pas la bibliothèque normative v1.1 des cycles foundation/automation.
 
-## 2. Règle de capitalisation d'un prompt
+Intégration future : après création des templates complets v1.1, réconcilier les familles pilote avec les 8 familles normatives v1.1.
 
-Un prompt peut être capitalisé si :
-
-- [ ] il a produit ou peut produire un **livrable stable** ;
-- [ ] il est **réutilisable au-delà d'Interv360** ;
-- [ ] il est lié à une **méthode, un template, une checklist ou un standard SFIA** ;
-- [ ] il précise les **entrées nécessaires** ;
-- [ ] il précise les **sorties attendues** ;
-- [ ] il contient des **garde-fous** (ce qu'il ne doit pas produire) ;
-- [ ] il inclut un **contrôle capitalisation SFIA** ;
-- [ ] il indique les **rôles mobilisés** ;
-- [ ] il peut être **amélioré par REX**.
-
----
-
-## 3. Familles de prompts
-
-| Famille | Dossier cible | Objectif |
-|---------|---------------|----------|
-| **Cadrage** | `prompts/cadrage/` | Produire ou enrichir des documents de cadrage métier |
-| **Arbitrages** | `prompts/arbitrages/` | Arbitrer le périmètre MVP et valider les décisions |
-| **UX/UI** | `prompts/ux-ui/` | Brief UX/UI, validation, revues dashboard/KPI |
-| **UX/UI V1 Governance** | `prompts/ux-ui/` *(famille catalogue)* | Cycle maquette V1 — ouverture, production, revue, clôture, gouvernance — voir §13 |
-| **Rôles** | `prompts/roles/` | Méthodes par rôle, revues, extractions Role Method |
-| **Architecture** | `prompts/architecture/` | Intégrations, erreurs, ADR candidates |
-| **Sécurité / RSSI** | `prompts/security/` | Revues SSI, canal email sécurisé, données sensibles |
-| **QA / Testeur** | `prompts/qa/` | Testabilité, revues qualité, risques, traçabilité — voir §14 |
-| **Process Modeling / BPMN** | `prompts/bpmn/` | Cadrage, modélisation, analyse et clôture cycle BPMN — voir §15 |
-| **Gouvernance** | `prompts/governance/` | Phase gate, capitalisation, contrôles structure |
-| **Notion / Sync** | `prompts/governance/notion/` | Synchronisation gouvernance Notion via CMP-001 |
-
----
-
-## 4. Prompts candidats issus d'Interv360
-
-| ID | Nom du prompt | Famille | Source Interv360 | Livrable produit | Rôle SFIA principal | Statut | Priorité |
-|----|---------------|---------|------------------|------------------|---------------------|--------|----------|
-| **PROMPT-CAD-001** | Cadrage métier projet | Cadrage | business-framing.md | Document de cadrage métier | Business Analyst | Candidat | Haute |
-| **PROMPT-CAD-002** | Revue cohérence cadrage | Cadrage | framing-review.md | Revue de cadrage | Business Analyst / Chef de projet | Candidat | Haute |
-| **PROMPT-ARB-001** | Arbitrages MVP | Arbitrages | mvp-arbitrations.md | Arbitrages MVP | Product Owner | Candidat | Haute |
-| **PROMPT-ARB-002** | Validation arbitrages MVP | Arbitrages | mvp-arbitration-validation.md | Validation d'arbitrages MVP | Product Owner / Chef de projet | Candidat | Haute |
-| **PROMPT-UX-001** | Brief UX/UI avant Figma | UX/UI | ux-ui-brief.md | Brief UX/UI | UX/UI Designer | Candidat | Haute |
-| **PROMPT-UX-002** | Validation brief UX/UI | UX/UI | ux-ui-brief-validation.md | Validation brief UX/UI | UX/UI Designer / Product Owner | Candidat | Haute |
-| **PROMPT-UX-003** | Revue dashboard KPI UX | UX/UI | dashboard-kpi-ux-review.md | Revue dashboard / KPI / UX | UX/UI Designer / Concepteur fonctionnel | Candidat | Moyenne |
-| **PROMPT-ROLE-001** | Méthode globale par rôle | Rôles | role-methods-framing.md | role-methods-framing.md | Chef de projet / tous rôles | Candidat | Haute |
-| **PROMPT-ROLE-002** | Revue méthode par rôle | Rôles | role-methods-review.md | role-methods-review.md | Chef de projet | Candidat | Haute |
-| **PROMPT-ROLE-003** | Extraction méthode rôle | Rôles | docs/practices/roles/ | Fichiers Role Method | Chef de projet / rôle concerné | Candidat | Haute |
-| **PROMPT-ARCH-001** | Revue intégrations et erreurs | Architecture | ADR-001 à ADR-004 + integration-error-arbitration-review.md | Revue intégrations / erreurs | Architecte | **Draft** | Haute |
-| **PROMPT-SEC-001** | Revue canal email sécurisé | Sécurité / RSSI | ADR-003 + secure-email-intake-review.md | Revue email sécurisé | RSSI / Architecte | **Draft** | Haute |
-| **PROMPT-GOV-001** | Synchronisation gouvernance Notion projet | Gouvernance / Notion | notion-sync-summary.md + notion-sync-payload.json + CMP-001 | Synthèse / payload gouvernance Notion | Chef de projet | Candidat | Haute |
-| **PROMPT-GOV-002** | Contrôle structure méthodes | Gouvernance | docs/practices/methods-structure-check.md | Rapport contrôle arborescence méthodes | Chef de projet | Candidat | Moyenne |
-
----
-
-## 5. Maturité des prompts
-
-| Statut | Définition |
-|--------|------------|
-| **Candidat** | Identifié à partir d'un livrable ou d'un prompt utilisé — non encore formalisé |
-| **Draft** | Prompt formalisé dans un fichier dédié sous `prompts/<famille>/` |
-| **Tested** | Prompt utilisé au moins une fois avec résultat satisfaisant |
-| **Validated** | Prompt revu, stable et réutilisable sur d'autres projets |
-| **Deprecated** | Prompt remplacé ou abandonné — conservé pour traçabilité |
-
----
-
-## 6. Structure cible d'un prompt SFIA
-
-Chaque fichier prompt formalisé suivra la structure type :
-
-| Section | Contenu |
-|---------|---------|
-| **ID** | Identifiant catalogue (ex. PROMPT-CAD-001) |
-| **Nom** | Intitulé du prompt |
-| **Famille** | Dossier cible dans `prompts/` |
-| **Phase SFIA** | Intake, cadrage, arbitrages, conception, architecture, delivery, QA, REX |
-| **Rôles mobilisés** | Rôles SFIA concernés |
-| **Objectif** | Ce que le prompt doit accomplir |
-| **Entrées nécessaires** | Documents, contexte, contraintes requis |
-| **Sortie attendue** | Livrable produit |
-| **Garde-fous** | Ce que le prompt ne doit pas produire |
-| **Instructions Cursor** | Corps du prompt exécutable |
-| **Contrôle capitalisation SFIA** | Valeur projet + valeur SFIA attendues |
-| **Critères de qualité** | Checklist de validation du résultat |
-| **Historique / REX** | Retours d'usage et améliorations |
-
----
-
-## 7. Liens avec les méthodes par rôle
-
-| Rôle SFIA | Méthode associée | Prompts candidats |
-|-----------|------------------|-------------------|
-| **Business Analyst** | docs/practices/roles/business-analyst-method.md | PROMPT-CAD-001, PROMPT-CAD-002 |
-| **Product Owner** | docs/practices/roles/product-owner-method.md | PROMPT-ARB-001, PROMPT-ARB-002, PROMPT-UX-002 |
-| **Chef de projet** | docs/practices/roles/project-manager-method.md | PROMPT-CAD-002, PROMPT-ROLE-001, PROMPT-ROLE-002, PROMPT-ROLE-003, PROMPT-GOV-001, PROMPT-GOV-002 |
-| **UX/UI Designer** | docs/practices/roles/ux-ui-designer-method.md | PROMPT-UX-001, PROMPT-UX-002, PROMPT-UX-003 |
-| **Architecte** | docs/practices/roles/architect-method.md | PROMPT-ARCH-001, PROMPT-SEC-001 |
-| **RSSI** | docs/practices/roles/rssi-method.md | PROMPT-SEC-001 |
-| **QA / Testeur** | docs/practices/roles/qa-tester-method.md | PROMPT-QA-001 à PROMPT-QA-010 — voir §14 |
-
----
-
-## 8. Prompts à créer en premier
-
-### Priorité 1
-
-- PROMPT-CAD-001 — Cadrage métier projet
-- PROMPT-ARB-001 — Arbitrages MVP
-- PROMPT-UX-001 — Brief UX/UI avant Figma
-- PROMPT-ROLE-003 — Extraction méthode rôle
-- PROMPT-GOV-001 — Synchronisation gouvernance Notion projet
-
-### Priorité 2
-
-- PROMPT-CAD-002 — Revue cohérence cadrage
-- PROMPT-ARB-002 — Validation arbitrages MVP
-- PROMPT-UX-002 — Validation brief UX/UI
-
-### Formalisés (Draft)
-
-- PROMPT-ARCH-001 — Revue intégrations et erreurs *(jalon Architecture P1)*
-- PROMPT-SEC-001 — Revue canal email sécurisé *(jalon Architecture P1)*
-
-### Priorité 3
-
-- PROMPT-ROLE-001 — Méthode globale par rôle
-- PROMPT-ROLE-002 — Revue méthode par rôle
-- PROMPT-UX-003 — Revue dashboard KPI UX
-- PROMPT-GOV-002 — Contrôle structure méthodes
-
----
-
-## 9. Règle d'évolution continue
-
-- Chaque **nouveau prompt formalisé** doit être lié à une méthode, un livrable ou un standard SFIA.
-- Chaque **utilisation** d'un prompt doit pouvoir produire un REX d'amélioration.
-- Chaque prompt peut **évoluer** avec les projets pilotes — mise à jour du catalogue et du fichier prompt.
-- Un prompt **validé** peut devenir un **standard d'exécution SFIA**.
-- Un prompt **ne remplace pas** la méthode — il l'**opérationnalise**.
-
----
-
-## 10. Contrôle capitalisation SFIA
-
-| Élément | Capitalisation | Type |
-|---------|----------------|------|
-| Prompt Catalog | Présent document | Template |
-| Prompt Capitalization Checklist | §2 — critères capitalisation | Checklist |
-| Prompt Status Model | §5 — maturité des prompts | Standard |
-| Prompt File Structure | §6 — structure type d'un prompt | Standard |
-| Prompt Family Taxonomy | §3 — familles et dossiers | Standard |
-| Prompt ↔ Role Method Mapping | §7 — lien rôles / prompts | Template |
-| Prompt Evolution Standard | §9 — règle d'évolution continue | Standard |
-
----
-
-## 11. Prompts formalisés (Draft)
-
-| ID | Famille | Statut | Chemin | Source pilote | Source de capitalisation | Usage principal |
-|----|---------|--------|--------|---------------|--------------------------|-----------------|
-| **PROMPT-ARCH-001** | Architecture | Draft | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | PRJ-INTERV360 | ADR-001 à ADR-004 + enrichissement méthodes rôle après ADR P1 | Revue intégrations, erreurs, Error Matrix, journalisation minimale, ADR candidates |
-| **PROMPT-SEC-001** | Sécurité / RSSI | Draft | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | PRJ-INTERV360 | secure-email-intake-review.md + ADR-003 + ADR-004 + rssi-method enrichie | Revue canal email / intake externe, rejets SSI, pièces jointes, logs sans données sensibles |
-
----
-
-## 12. Dernières mises à jour
-
-Le **jalon Architecture P1** du projet Interv360 a permis de passer **PROMPT-ARCH-001** et **PROMPT-SEC-001** au statut **Draft**.
-
-Ces prompts restent à **tester sur un projet hors pilote** avant passage au statut **Tested**.
-
-Le **standard officiel UX/UI V1** (`docs/standards/ux-ui-v1-governance-standard.md`) a alimenté la famille **UX/UI V1 Governance** (§13) — **15 prompts candidats** issus du cycle Figma V1 Interv360, référencés par modèle projet sans modification des prompts sources.
-
-La **méthode officielle QA / Testeur** (`docs/practices/roles/qa-tester-method.md`) a alimenté la famille **QA / Testeur** (§14) — **10 prompts candidats** — testabilité et qualité sans ouverture delivery.
-
----
-
-## 13. UX/UI V1 Governance
-
-Cette famille de prompts accompagne le **standard officiel** [`docs/standards/ux-ui-v1-governance-standard.md`](../docs/standards/ux-ui-v1-governance-standard.md).
-
-Elle couvre l'**ouverture**, la **production**, la **revue**, la **clôture**, la **gouvernance** et la **standardisation** d'une maquette **UX/UI V1** — sans déclencher prématurément delivery, backlog, user stories ou code.
-
-Les entrées ci-dessous sont des **prompts candidats** : modèles et livrables pilote documentés ; fichiers prompt dédiés sous `prompts/ux-ui/` à formaliser ultérieurement **sans modifier** les documents sources Interv360.
-
-| Prompt | Objectif | Source / modèle | Sortie attendue |
-|--------|----------|-----------------|-----------------|
-| **PROMPT-UXUI-001** — Ouverture jalon UX/UI V1 | Préparer l'ouverture d'un jalon UX/UI V1 post-ADR ou post-cadrage, sans lancer la production immédiate | `projects/interv360/02-architecture/ux-ui-figma-opening-note.md` | Note d'ouverture ; garde-fous rappelés ; design ≠ delivery |
-| **PROMPT-UXUI-002** — Recherche design / benchmark UX/UI | Produire une recherche design et benchmark avant génération ou production de maquette | `projects/interv360/02-architecture/ux-ui-design-research-and-benchmark.md` | Document recherche ; direction visuelle ; principes UI |
-| **PROMPT-UXUI-003** — Instructions UX/UI V1 | Transformer décisions ADR / garde-fous / MVP en consignes design exploitables | `projects/interv360/02-architecture/figma-design-instructions.md` | Instructions design ; écrans autorisés / interdits ; wording, états |
-| **PROMPT-UXUI-004** — Production maquette UX/UI V1 | Produire une maquette V1 via prompt structuré, avec garde-fous MVP et exclusions | `projects/interv360/02-architecture/figma-production-prompt.md` | Maquette V1 dans `{design_tool}` ; captures prévues ; pas d'IA / portail / BI / logs |
-| **PROMPT-UXUI-005** — Revue premier jet UX/UI V1 | Analyser une première maquette V1 ; points validés, écarts, ajustements P1/P2/P3 | `projects/interv360/02-architecture/figma-first-draft-review.md` | Revue V1 ; V1 présentable ou non ; bloquant vs polish |
-| **PROMPT-UXUI-006** — Préparation revue transverse UX/UI V1 | Préparer une revue PO / UX / RSSI / Architecte / Chef de projet / BA / QA candidat | `projects/interv360/02-architecture/figma-review-session-preparation.md` | Document préparation ; questions par rôle ; revue ≠ delivery |
-| **PROMPT-UXUI-007** — Template compte rendu revue UX/UI V1 | Créer un template de CR vide, à compléter après revue réelle ou simulée | `projects/interv360/02-architecture/figma-review-session-minutes-template.md` | Template CR ; pas de retours fictifs ; delivery bloqué par défaut |
-| **PROMPT-UXUI-008** — Enrichissement méthodes rôle après UX/UI V1 | Capitaliser apprentissages UX/UI V1 dans les méthodes rôle avant revue simulée | `projects/interv360/02-architecture/role-methods-enrichment-after-figma-v1.md` | Note enrichissement ; §14 méthodes rôle ; QA candidat identifié |
-| **PROMPT-UXUI-009** — Compte rendu revue simulée UX/UI V1 | Produire une revue simulée multi-rôles sans acteurs réels ni participants fictifs | `projects/interv360/02-architecture/figma-review-session-minutes.md` | CR simulé ; validation par rôles SFIA ; delivery bloqué sauf décision explicite |
-| **PROMPT-UXUI-010** — Clôture jalon UX/UI V1 | Clôturer le jalon ; décision, ajustements différés, hors MVP, suites possibles | `projects/interv360/02-architecture/figma-v1-closure-summary.md` | Synthèse clôture ; V1 présentable / non définitive ; V2 différée ; delivery bloqué |
-| **PROMPT-UXUI-011** — Sync gouvernance UX/UI V1 | Préparer sync Notion ou outil de gouvernance — informative, non publiée par défaut | `notion-sync-figma-v1-closure-summary.md` + `notion-sync-figma-v1-closure-payload.json` | Payload + synthèse ; `publish_to_notion: false` ; revue manuelle |
-| **PROMPT-UXUI-012** — Standard candidat UX/UI V1 | Capitaliser un cycle projet en standard candidat avant promotion officielle | `projects/interv360/02-architecture/sfia-figma-v1-standard-candidate.md` | Standard candidat projet ; pas de promotion auto |
-| **PROMPT-UXUI-013** — Revue standard candidat UX/UI V1 | Évaluer si un standard candidat est robuste et promotable | `projects/interv360/02-architecture/sfia-figma-v1-standard-candidate-review.md` | Décision revue ; promotable / à renforcer ; promotion différée si besoin |
-| **PROMPT-UXUI-014** — Préparation promotion standard officiel | Préparer promotion candidat → officiel sans créer le fichier officiel | `projects/interv360/02-architecture/sfia-figma-v1-standard-promotion-preparation.md` | Dossier promotion ; nom cible ; variables ; conditions |
-| **PROMPT-UXUI-015** — Promotion standard officiel UX/UI V1 | Créer un standard officiel générique à partir d'un candidat validé | `docs/standards/ux-ui-v1-governance-standard.md` | Standard officiel `docs/standards/` ; pilote en exemple non normatif |
-
-**Statut famille** : 15 prompts **Candidat** — modèles pilote documentés ; formalisation fichiers `prompts/ux-ui/` à planifier.
-
-**Standard lié** : [`ux-ui-v1-governance-standard.md`](../docs/standards/ux-ui-v1-governance-standard.md) v1.0.
-
-### Garde-fous communs (UX/UI V1 Governance)
-
-- ne pas confondre **maquette** et **spécification** ;
-- ne pas produire de **backlog** ;
-- ne pas produire de **user stories** ;
-- ne pas produire de **code** ;
-- ne pas **ouvrir delivery** sans jalon explicite ;
-- ne pas **publier automatiquement** dans Notion ou autre outil de gouvernance ;
-- ne pas **inventer de participants réels** en revue simulée ;
-- **distinguer** revue réelle et revue simulée ;
-- **documenter** les contraintes outil (`{design_tool}`, crédits, génératif) ;
-- conserver **Git** comme source détaillée.
-
-### Variables génériques recommandées
-
-| Variable | Description |
-|----------|-------------|
-| `{project_id}` | Identifiant projet (ex. PRJ-INTERV360) |
-| `{project_name}` | Nom projet |
-| `{phase}` | Phase courante (ex. 02-architecture) |
-| `{milestone}` | Jalon UX/UI V1 |
-| `{design_tool}` | Outil design (Figma, autre, génératif) |
-| `{review_mode}` | `real` ou `simulated` |
-| `{roles_involved}` | Rôles SFIA mobilisés |
-| `{screens_folder}` | Dossier captures versionnées Git |
-| `{governance_tool}` | Notion ou autre outil de pilotage |
-| `{delivery_status}` | `blocked` ou `authorized` (explicite) |
-| `{source_documents}` | Documents Git source de vérité |
-
----
-
-## 14. QA / Testeur
-
-Cette famille de prompts accompagne la **méthode officielle** [`docs/practices/roles/qa-tester-method.md`](../docs/practices/roles/qa-tester-method.md).
-
-Elle couvre la **testabilité**, les **revues qualité**, les **risques**, la **traçabilité** et la **préparation future** des tests — **sans déclencher** delivery, backlog, user stories ou code.
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Candidate prompt family |
-| **Méthode liée** | `docs/practices/roles/qa-tester-method.md` |
-| **Dossier** | `prompts/qa/` |
-| **Fichier principal** | `prompts/qa/qa-tester-prompt-family.md` |
-
-| Prompt | Objectif |
-|--------|----------|
-| **PROMPT-QA-001** — Analyse de testabilité d'un besoin | Clarifier testabilité, ambiguïtés et risques d'un besoin |
-| **PROMPT-QA-002** — Revue QA d'une maquette UX/UI | Testabilité maquette, parcours, états, erreurs métier |
-| **PROMPT-QA-003** — Questions réflexes QA en revue transverse | Préparer questions QA pour revue multi-rôles |
-| **PROMPT-QA-004** — Lecture happy path / non happy path | Chemins nominaux et dégradés pressentis |
-| **PROMPT-QA-005** — Grille de risques qualité | Zones à risque qualité sur un livrable |
-| **PROMPT-QA-006** — Préparation légère d'une stratégie de test | Orientation stratégie — pas recette complète |
-| **PROMPT-QA-007** — Revue d'anomalie métier | Exploitabilité et clarté d'une anomalie |
-| **PROMPT-QA-008** — Traçabilité besoin / critère / test futur / anomalie | Chaîne de traçabilité sans tests détaillés |
-| **PROMPT-QA-009** — Revue des critères d'acceptation futurs | Critères testables futurs — sans user stories |
-| **PROMPT-QA-010** — Vérification des garde-fous QA | Contrôle conformité garde-fous SFIA |
-
-**Statut famille** : 10 prompts **Candidat** — famille documentée ; fichiers prompt individuels à formaliser ultérieurement.
-
-### Garde-fous communs (QA / Testeur)
-
-- ne pas ouvrir delivery ;
-- ne pas produire backlog ;
-- ne pas produire user stories ;
-- ne pas produire code ;
-- ne pas transformer une maquette en recette ;
-- ne pas produire de cas de tests détaillés sans jalon dédié ;
-- ne pas remplacer PO, BA, RSSI, Architecte ou Chef de projet ;
-- ne pas automatiser sans stratégie validée.
-
-### Variables communes
-
-| Variable | Description |
-|----------|-------------|
-| `{project_name}` | Nom projet |
-| `{project_phase}` | Phase courante |
-| `{deliverable_type}` | Type de livrable revu |
-| `{maturity_level}` | Niveau de maturité projet |
-| `{user_roles}` | Rôles utilisateurs ou SFIA |
-| `{known_exclusions}` | Exclusions connues |
-| `{review_objective}` | Objectif de la revue |
-| `{delivery_allowed}` | `blocked` ou `authorized` |
-| `{expected_output_level}` | Niveau de sortie attendu |
-
----
-
-## 15. Process Modeling / BPMN
-
-Cette famille de prompts accompagne la **méthode officielle** [`docs/practices/process/bpmn-process-modeling-method.md`](../docs/practices/process/bpmn-process-modeling-method.md).
-
-Elle couvre la **readiness**, le **cadrage**, la **préparation des diagrammes**, la **revue de cohérence** et la **clôture de cycle BPMN** — **sans déclencher** delivery, backlog, user stories, tests, code ou publication Notion automatique.
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | Draft |
-| **Méthode liée** | `docs/practices/process/bpmn-process-modeling-method.md` |
-| **Standard lié** | `docs/practices/process/bpmn-deliverables-standard.md` |
-| **Checklist liée** | `docs/practices/process/bpmn-integration-checklist.md` |
-| **Dossier** | `prompts/bpmn/` |
-| **Fichier principal** | `prompts/bpmn/bpmn-prompt-family.md` |
-
-| ID | Nom | Statut | Emplacement |
-|----|-----|--------|-------------|
-| **PROMPT-BPMN-001** | Audit readiness BPMN | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-| **PROMPT-BPMN-002** | Définir périmètre BPMN | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-| **PROMPT-BPMN-003** | Préparer processus principal | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-| **PROMPT-BPMN-004** | Préparer exceptions métier | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-| **PROMPT-BPMN-005** | Préparer anomalies intégration | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-| **PROMPT-BPMN-006** | Relire BPMN vs règles/statuts | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-| **PROMPT-BPMN-007** | Clôturer cycle BPMN | Draft | `prompts/bpmn/bpmn-prompt-family.md` |
-
-### Garde-fous communs (BPMN)
-
-- ne pas produire backlog ;
-- ne pas produire user stories ;
-- ne pas produire cas de tests ;
-- ne pas produire scénarios de tests ;
-- ne pas produire code applicatif ;
-- ne pas publier dans Notion ;
-- ne pas appeler l'API Notion ;
-- ne pas modifier `.env` ;
-- ne pas créer de PR avant fin de cycle BPMN.
-
-### Variables communes
-
-| Variable | Description |
-|----------|-------------|
-| `{project_id}` | Identifiant projet |
-| `{project_name}` | Nom projet |
-| `{branch}` | Branche Git de travail |
-| `{phase}` | Phase courante (ex. 03-process) |
-| `{bpmn_folder}` | Dossier BPMN projet |
-| `{source_documents}` | Documents Git source de vérité |
-
----
-
-*Référentiel SFIA — Prompt Catalog — alimenté par PRJ-INTERV360.*
+*Référentiel SFIA — Prompt Catalog v1.1 — candidate catalog aligned with P1 automation engines.*

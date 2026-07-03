@@ -48,6 +48,8 @@ Normative reference: `docs/foundation/sfia-engineering-principles.md`
 
 Synthesis reference: `sfia-automation-architecture.md` (foundation v1.1)
 
+Prompt catalog: `prompts/prompt-catalog.md` (candidate v1.1)
+
 - `sfia-automation-architecture.md`
 - `sfia-prompt-generation-engine.md` — specification for generating SFIA-compliant Cursor prompts (foundation v1.1)
 - `sfia-repository-execution-engine.md` — specification for executing SFIA-compliant Cursor prompts in the Git repository (foundation v1.1)

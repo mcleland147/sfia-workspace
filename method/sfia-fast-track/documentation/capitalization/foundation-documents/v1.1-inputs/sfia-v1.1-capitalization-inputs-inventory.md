@@ -764,3 +764,41 @@ Remaining follow-up:
 - consolidate other checklists if necessary;
 - consolidate `prompts/prompt-catalog.md`;
 - prepare P2 cross-references.
+## Update — Prompt Catalog Created
+
+The following prompt catalog has been created or consolidated:
+
+- `prompts/prompt-catalog.md`
+
+It provides the first SFIA v1.1 candidate catalog of reusable prompt families and prompt cards.
+
+The catalog includes:
+
+- a mini audit of existing prompt inputs;
+- common SFIA prompt principles;
+- standard prompt card structure;
+- prompt families;
+- reusable prompt cards;
+- common guardrails;
+- expected validation;
+- priority full templates to create later;
+- anti-patterns;
+- next steps.
+
+The catalog operationalizes the Prompt Generation Engine and connects it with:
+
+- Engineering Principles;
+- Repository Execution Engine;
+- Validation Engine;
+- Validation Checklist;
+- Rules & Guardrails;
+- Knowledge Layer.
+
+This first version does not attempt to create every full prompt template.
+
+Remaining follow-up:
+
+- create full templates for priority prompt cards;
+- use the catalog on upcoming cycles;
+- update the catalog after real usage;
+- prepare P2 cross-references after the prompt templates cycle.
