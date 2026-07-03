@@ -151,6 +151,16 @@ Livrable attendu :
 
 `method/sfia-fast-track/sfia-global-capitalization.md`
 
+### Statut
+
+Capitalisation SFIA globale ouverte sur la branche `consolidation/sfia-global-capitalization`.
+
+Livrable :
+
+`method/sfia-fast-track/sfia-global-capitalization.md`
+
+Ne pas passer le chantier en terminé tant que la capitalisation n'est pas validée et intégrée.
+
 ## 7. Chantier 4 — Mise à jour documentaire complète
 
 Objectif :
@@ -200,12 +210,19 @@ Axes possibles :
 - règles Notion ;
 - templates ;
 - checklists ;
-- prompts standards Cursor.
+- prompts standards Cursor ;
+- architecture d'automatisation SFIA ;
+- orchestration IA ;
+- moteurs SFIA : intake, framing, architecture, prompt, validation, documentation, release ;
+- garde-fous exécutables ;
+- formulaires self-service ;
+- application factory assistée par IA.
 
 Livrables possibles :
 
 - `method/sfia-fast-track/sfia-rules-update.md`
 - `method/sfia-fast-track/sfia-architecture-standards.md`
+- `method/sfia-fast-track/sfia-automation-architecture.md`
 - `method/sfia-fast-track/templates/`
 - `method/sfia-fast-track/checklists/`
 
