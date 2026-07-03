@@ -846,3 +846,22 @@ Recommended follow-up:
 1. P2.1 Core and architecture cross-references;
 2. P2.2 Capitalization indexes and completeness matrix;
 3. final foundation v1.1 closure decision.
+## Update — P2.1 Cross-References Added
+
+The P2.1 cross-reference cycle has aligned the following documents with SFIA v1.1:
+
+- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-rules-update.md`
+- `docs/architecture/README.md`
+
+The update clarifies:
+
+- `sfia-global-capitalization.md` as operational evidence / capitalization proof;
+- `sfia-rules-update.md` as historical consolidation trace;
+- `sfia-rules-and-guardrails.md` as the current operational rules reference;
+- `docs/architecture/README.md` as the v1.1 architecture index connected to Fast Track references.
+
+Remaining follow-up:
+
+- P2.2 capitalization indexes and completeness matrix;
+- P2.3 foundation v1.1 closure decision.
