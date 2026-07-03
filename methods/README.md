@@ -2,15 +2,18 @@
 
 Ce dossier contient les méthodes complémentaires ou parallèles à la méthode active SFIA Fast Track.
 
-Méthode active :
+## Méthode active
+
+La méthode active de référence est :
 
 - `../method/sfia-fast-track/`
 
-Méthodes complémentaires :
+## Méthodes complémentaires
 
 - `controlled-delivery/`
 
-Décision :
+## Décision
 
-> Pour les prochains projets SFA, la référence active est `method/sfia-fast-track/`.
-> `controlled-delivery/` reste conservé comme méthode complémentaire tant qu'une fusion explicite n'a pas été décidée.
+`methods/` n'est pas la racine de la méthode active.
+
+Il conserve les méthodes complémentaires tant qu'elles n'ont pas été fusionnées, archivées ou remplacées explicitement.

@@ -1,11 +1,21 @@
 # Method
 
-Ce dossier contient la méthode active SFIA.
+Ce dossier contient la méthode active de livraison SFIA.
 
-Méthode active :
+## Méthode active
 
 - `sfia-fast-track/`
 
-Historique :
+## Rôle
 
-- les anciens documents `interv360-realization` sont archivés dans `sfia-fast-track/archive/interv360-realization/`.
+`method/` porte la méthode opérationnelle de référence utilisée pour piloter les cycles SFIA Fast Track.
+
+Les méthodes historiques ont été archivées dans :
+
+- `sfia-fast-track/archive/`
+
+Voir aussi :
+
+- `../methods/` pour les méthodes complémentaires ;
+- `../docs/methods/` pour les méthodes plateforme par rôle ou discipline ;
+- `../prompts/` pour les familles de prompts.
