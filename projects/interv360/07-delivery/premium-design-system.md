@@ -508,6 +508,47 @@ Objectif de correction :
 - corriger le niveau de finition visuelle ;
 - éviter une PR avec un rendu encore trop démonstrateur.
 
+### Correction stratégique — Figma Make comme source UI de vérité
+
+Une revue visuelle a montré que la transposition initiale restait trop éloignée du Figma Make validé.
+
+Décision :
+
+> Le prototype Figma Make devient la source UI de vérité pour les écrans premium.
+
+Conséquence :
+
+- portage fidèle de la structure visuelle Make ;
+- réduction des interprétations CSS approximatives ;
+- isolation d'une couche UI premium (`projects/interv360/app/src/ui/premium/`) ;
+- ajout de Tailwind CSS v4 (`@tailwindcss/vite`) pour reproduire les classes Make ;
+- conservation du métier existant (request model, workflow, audit trail, mode local/API) ;
+- suppression du chrome démo sur les écrans premium (bandeau démo, navigation « Écran X sur 5 », onglets démo) — conservé uniquement sur l'écran Scénario ;
+- couche présentation UI (`premiumPresentationData.ts`, `commandCenterPresentation.ts`) pour les références DEM-248x, clients et assignés Figma sans modifier le backend.
+
+Fichiers premium portés :
+
+| Composant | Rôle |
+|-----------|------|
+| `PremiumShell.tsx` | Layout principal (sidebar + topbar + contenu) |
+| `PremiumSidebar.tsx` | Navigation latérale SAV Command Center |
+| `PremiumTopbar.tsx` | Breadcrumb, mode local/API, profil |
+| `PremiumDashboard.tsx` | Centre de commande SAV |
+| `PremiumRequestsPage.tsx` | Page Demandes |
+| `PremiumRequestDetail.tsx` | Fiche demande |
+| `PremiumWorkflowPipeline.tsx` | Pipeline SAV |
+| `PremiumAuditTrail.tsx` | Historique / Audit Trail |
+| `PremiumBadges.tsx` | Badges statut / priorité |
+| `premiumPresentationData.ts` | Données présentation UI-only |
+
+Stratégie technique retenue :
+
+- **React 19 + Vite 6** inchangés ;
+- **Tailwind CSS v4** ajouté via plugin Vite pour porter les classes Make ;
+- pas de shadcn/Radix complet — composants premium isolés en Tailwind pur ;
+- anciens composants CSS custom (`DashboardCommandCenter`, `RequestsList`, etc.) conservés mais non utilisés par `App.tsx` ;
+- scripts npm, backend, API, SQLite, CI inchangés.
+
 ---
 
 ## 10.7. UI-05 — Polish final, validations et PR readiness (suspendu)

@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   createRequestsRepository,
   getDataSourceMode,
   getDataSourceModeDescription,
-  getDataSourceModeLabel,
 } from "../data/requestsRepositoryFactory";
 import { RequestsRepositoryError } from "../data/requestsRepository.types";
 import type { DemoTransitionAction } from "../data/requestsRepository.types";
@@ -30,8 +29,6 @@ import {
   simulatedRoleLabels,
 } from "../domain/simulatedRoles";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
-import { DashboardCommandCenter } from "../ui/dashboard/DashboardCommandCenter";
-import { COMMAND_CENTER_OPS_STATUS } from "../ui/dashboard/commandCenterPresentation";
 import { DemoOverview } from "../ui/demo/DemoOverview";
 import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
 import { DemoScenarioGuide } from "../ui/demo/DemoScenarioGuide";
@@ -51,221 +48,20 @@ import { InterventionReadonly } from "../ui/intervention/InterventionReadonly";
 import { QualificationReadonly } from "../ui/qualification/QualificationReadonly";
 import { PlanningReadonly } from "../ui/planning/PlanningReadonly";
 import { ReportReadonly } from "../ui/report/ReportReadonly";
-import { AuditTrailView } from "../ui/audit/AuditTrailView";
 import { DemoResetControl } from "../ui/requests/DemoResetControl";
-import { RequestDetail } from "../ui/requests/RequestDetail";
-import { RequestsList } from "../ui/requests/RequestsList";
+import {
+  PremiumAuditTrail,
+  PremiumDashboard,
+  PremiumRequestDetail,
+  PremiumRequestsPage,
+  PremiumShell,
+} from "../ui/premium";
 import {
   filterVisibleRequests,
   type StatusFilter,
 } from "../ui/requests/requestListFilters";
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
-import { DemoUserControl } from "../ui/roles/DemoUserControl";
 import "./App.css";
-
-const SIDEBAR_NAV_ITEMS = [
-  { label: "Dashboard", screenId: "overview" as DemoScreenId },
-  { label: "Demandes", screenId: "requests" as DemoScreenId },
-  { label: "Planning", screenId: "scenario" as DemoScreenId },
-  { label: "Interventions", screenId: "details" as DemoScreenId },
-  { label: "Clients", screenId: "journal" as DemoScreenId },
-  { label: "Catalogue", screenId: "overview" as DemoScreenId },
-] as const;
-
-const SCREEN_BREADCRUMB_LABELS: Record<DemoScreenId, string> = {
-  overview: "Dashboard",
-  scenario: "Scénario guidé",
-  requests: "Demandes",
-  details: "Détail demande",
-  journal: "Journal",
-};
-
-function getUserInitials(displayName: string): string {
-  return displayName
-    .split(/\s+/)
-    .map((part) => part[0] ?? "")
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
-
-type PremiumAppShellProps = {
-  users: DemoUser[];
-  currentUser: DemoUser;
-  onUserChange: (userId: string) => void;
-  dataSourceMode: ReturnType<typeof getDataSourceMode>;
-  dataModeBanner: ReactNode;
-  currentScreen: DemoScreenId;
-  onNavigateScreen: (screenId: DemoScreenId) => void;
-  contentLayout?: "default" | "command-center";
-  children: ReactNode;
-};
-
-function PremiumAppShell({
-  users,
-  currentUser,
-  onUserChange,
-  dataSourceMode,
-  dataModeBanner,
-  currentScreen,
-  onNavigateScreen,
-  contentLayout = "default",
-  children,
-}: PremiumAppShellProps) {
-  const roleLabel = simulatedRoleLabels[currentUser.role];
-  const breadcrumbLabel = SCREEN_BREADCRUMB_LABELS[currentScreen];
-
-  return (
-    <div className="app-shell">
-      <aside className="app-sidebar" aria-label="Navigation principale">
-        <div className="app-sidebar-brand">
-          <div className="app-sidebar-logo" aria-hidden="true">
-            I
-          </div>
-          <div className="app-sidebar-title">
-            <strong>Interv360</strong>
-            <span>SAV Command Center</span>
-          </div>
-        </div>
-
-        <nav className="app-sidebar-nav" aria-label="Sections produit">
-          <p className="app-sidebar-section">Pilotage</p>
-          {SIDEBAR_NAV_ITEMS.slice(0, 1).map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              className={
-                currentScreen === item.screenId &&
-                item.label === "Dashboard"
-                  ? "app-sidebar-link is-active"
-                  : "app-sidebar-link"
-              }
-              aria-label={`Navigation latérale ${item.label}`}
-              onClick={() => onNavigateScreen(item.screenId)}
-            >
-              {item.label}
-              {currentScreen === item.screenId && item.label === "Dashboard" ? (
-                <span className="app-sidebar-link-dot" aria-hidden="true" />
-              ) : null}
-            </button>
-          ))}
-          <p className="app-sidebar-section">Opérations</p>
-          {SIDEBAR_NAV_ITEMS.slice(1, 4).map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              className={
-                currentScreen === item.screenId
-                  ? "app-sidebar-link is-active"
-                  : "app-sidebar-link"
-              }
-              aria-label={`Navigation latérale ${item.label}`}
-              onClick={() => onNavigateScreen(item.screenId)}
-            >
-              {item.label}
-              {item.label === "Demandes" ? (
-                <span className="app-sidebar-link-badge" aria-label="3 demandes">
-                  3
-                </span>
-              ) : null}
-              {currentScreen === item.screenId ? (
-                <span className="app-sidebar-link-dot" aria-hidden="true" />
-              ) : null}
-            </button>
-          ))}
-          <p className="app-sidebar-section">Référentiel</p>
-          {SIDEBAR_NAV_ITEMS.slice(4).map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              className="app-sidebar-link"
-              aria-label={`Navigation latérale ${item.label}`}
-              onClick={() => onNavigateScreen(item.screenId)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="app-sidebar-ops" aria-label="Statut opérationnel">
-          <p className="app-sidebar-ops-title">Statut opérationnel</p>
-          <div className="app-sidebar-ops-grid">
-            <div className="app-sidebar-ops-item">
-              <strong>{COMMAND_CENTER_OPS_STATUS.toQualify}</strong>
-              <span>À qualifier</span>
-            </div>
-            <div className="app-sidebar-ops-item">
-              <strong>{COMMAND_CENTER_OPS_STATUS.late}</strong>
-              <span>En retard</span>
-            </div>
-            <div className="app-sidebar-ops-item">
-              <strong>{COMMAND_CENTER_OPS_STATUS.anomalies}</strong>
-              <span>Anomalies</span>
-            </div>
-          </div>
-          <div className="app-sidebar-ops-load">
-            <span>
-              <span>Charge qualification</span>
-              <span>{COMMAND_CENTER_OPS_STATUS.qualificationLoad}%</span>
-            </span>
-            <div className="app-sidebar-ops-load-bar">
-              <div
-                style={{
-                  width: `${COMMAND_CENTER_OPS_STATUS.qualificationLoad}%`,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="app-sidebar-footer">
-          <div className="app-sidebar-user">
-            <div className="app-sidebar-avatar" aria-hidden="true">
-              {getUserInitials(currentUser.displayName)}
-            </div>
-            <div>
-              <strong>{currentUser.displayName}</strong>
-              <span>{roleLabel}</span>
-              <span className="app-sidebar-user-status">En ligne</span>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <div className="app-main">
-        <header className="app-topbar">
-          <nav className="app-breadcrumb" aria-label="Fil d'Ariane">
-            <span>Accueil</span>
-            <span aria-hidden="true">/</span>
-            <strong>{breadcrumbLabel}</strong>
-          </nav>
-          <div className="app-topbar-actions">
-            <span className="app-topbar-pill">{getDataSourceModeLabel(dataSourceMode)}</span>
-            <div className="app-profile-strip">
-              <DemoUserControl
-                users={users}
-                currentUser={currentUser}
-                onUserChange={onUserChange}
-              />
-            </div>
-          </div>
-        </header>
-
-        {dataModeBanner}
-
-        <main
-          className={
-            contentLayout === "command-center"
-              ? "app-content app-content--flush"
-              : "app-content"
-          }
-        >
-          {children}
-        </main>
-      </div>
-    </div>
-  );
-}
 
 export function App() {
   const repository = useMemo(() => createRequestsRepository(), []);
@@ -570,33 +366,100 @@ export function App() {
     currentUser,
     onUserChange: handleDemoUserChange,
     dataSourceMode,
-    dataModeBanner,
     currentScreen: currentDemoScreen,
-    onNavigateScreen: goToDemoScreen,
+    onNavigate: goToDemoScreen,
   };
+
+  const showDemoChrome = currentDemoScreen === "scenario";
+
+  const demoChrome = (
+    <nav
+      className="app-screen-nav"
+      aria-label="Navigation par écran de démonstration"
+    >
+      <div className="app-screen-nav__header">
+        <p className="app-screen-nav__status" role="status">
+          Écran {currentScreenIndex + 1} sur {DEMO_SCREENS.length} —{" "}
+          {currentScreen.label}
+        </p>
+        <div
+          className="app-screen-nav__stepper"
+          aria-label="Navigation entre écrans"
+        >
+          <button
+            type="button"
+            className="app-screen-nav__step"
+            onClick={goToPreviousDemoScreen}
+            disabled={currentScreenIndex === 0}
+          >
+            Écran précédent
+          </button>
+          <button
+            type="button"
+            className="app-screen-nav__step"
+            onClick={goToNextDemoScreen}
+            disabled={currentScreenIndex === DEMO_SCREENS.length - 1}
+          >
+            Écran suivant
+          </button>
+        </div>
+      </div>
+      <ul className="app-screen-nav__list">
+        {DEMO_SCREENS.map((screen) => (
+          <li key={screen.id}>
+            <button
+              type="button"
+              className={
+                screen.id === currentDemoScreen
+                  ? "app-screen-nav__tab app-screen-nav__tab--active"
+                  : "app-screen-nav__tab"
+              }
+              aria-current={screen.id === currentDemoScreen ? "page" : undefined}
+              onClick={() => {
+                goToDemoScreen(screen.id);
+              }}
+            >
+              {screen.shortLabel}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
 
   if (isLoading && requests.length === 0 && !loadError) {
     return (
-      <PremiumAppShell {...shellProps} currentScreen={INITIAL_DEMO_SCREEN_ID}>
+      <PremiumShell
+        {...shellProps}
+        currentScreen={INITIAL_DEMO_SCREEN_ID}
+        flushContent
+      >
         <p className="app-loading">Chargement des données de démonstration…</p>
-      </PremiumAppShell>
+      </PremiumShell>
     );
   }
 
   if (loadError && requests.length === 0) {
     return (
-      <PremiumAppShell {...shellProps} currentScreen={INITIAL_DEMO_SCREEN_ID}>
+      <PremiumShell
+        {...shellProps}
+        currentScreen={INITIAL_DEMO_SCREEN_ID}
+        flushContent
+      >
         <p className="app-error" role="alert">
           {loadError}
         </p>
-      </PremiumAppShell>
+      </PremiumShell>
     );
   }
 
   return (
-    <PremiumAppShell
+    <PremiumShell
       {...shellProps}
-      contentLayout={currentDemoScreen === "overview" ? "command-center" : "default"}
+      flushContent={currentDemoScreen === "overview"}
+      showDemoChrome={showDemoChrome}
+      demoChrome={demoChrome}
+      dataModeBanner={dataModeBanner}
     >
       {loadError || usersLoadError ? (
         <p className="app-error app-error--inline" role="alert">
@@ -604,143 +467,74 @@ export function App() {
         </p>
       ) : null}
 
-      <nav
-        className="app-screen-nav"
-        aria-label="Navigation par écran de démonstration"
-      >
-        <div className="app-screen-nav__header">
-          <p className="app-screen-nav__status" role="status">
-            Écran {currentScreenIndex + 1} sur {DEMO_SCREENS.length} —{" "}
-            {currentScreen.label}
-          </p>
-          <div
-            className="app-screen-nav__stepper"
-            aria-label="Navigation entre écrans"
-          >
-            <button
-              type="button"
-              className="app-screen-nav__step"
-              onClick={goToPreviousDemoScreen}
-              disabled={currentScreenIndex === 0}
-            >
-              Écran précédent
-            </button>
-            <button
-              type="button"
-              className="app-screen-nav__step"
-              onClick={goToNextDemoScreen}
-              disabled={currentScreenIndex === DEMO_SCREENS.length - 1}
-            >
-              Écran suivant
-            </button>
-          </div>
-        </div>
-        <ul className="app-screen-nav__list">
-          {DEMO_SCREENS.map((screen) => (
-            <li key={screen.id}>
-              <button
-                type="button"
-                className={
-                  screen.id === currentDemoScreen
-                    ? "app-screen-nav__tab app-screen-nav__tab--active"
-                    : "app-screen-nav__tab"
-                }
-                aria-current={
-                  screen.id === currentDemoScreen ? "page" : undefined
-                }
-                onClick={() => {
-                  goToDemoScreen(screen.id);
-                }}
-              >
-                {screen.shortLabel}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {currentDemoScreen === "overview" ? (
+        <PremiumDashboard
+          requests={requests}
+          onNavigateToRequests={() => {
+            goToDemoScreen("requests");
+          }}
+          onOpenRequest={(requestId) => {
+            setSelectedRequestId(requestId);
+            goToDemoScreen("requests");
+          }}
+        />
+      ) : null}
 
-      <div
-        className={
-          currentDemoScreen === "overview"
-            ? "app-layout app-layout--screen app-layout--command-center"
-            : "app-layout app-layout--screen"
-        }
-      >
-        {currentDemoScreen === "overview" ? (
-          <div className="app-screen-panel">
-            <DashboardCommandCenter
-              requests={requests}
-              onNavigateToRequests={() => {
-                goToDemoScreen("requests");
-              }}
-              onOpenRequest={(requestId) => {
-                setSelectedRequestId(requestId);
-                goToDemoScreen("requests");
-              }}
-            />
-          </div>
-        ) : null}
-
-        {currentDemoScreen === "scenario" ? (
+      {currentDemoScreen === "scenario" ? (
+        <section
+          id="section-scenario"
+          className="app-section app-section--scenario app-screen-panel"
+          aria-label="Scénario guidé"
+        >
+          <DemoScenarioGuide
+            currentStepIndex={scenarioStepIndex}
+            onPreviousStep={handlePreviousScenarioStep}
+            onNextStep={handleNextScenarioStep}
+            onResetScenario={handleResetScenario}
+          />
+          <DemoOverview
+            requestId={selectedRequestId}
+            currentStatus={request?.status}
+            scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
+            scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
+          />
           <section
-            id="section-scenario"
-            className="app-section app-section--scenario app-screen-panel"
-            aria-label="Scénario guidé"
+            id="section-readiness"
+            className="app-section app-section--readiness"
+            aria-label="Demo readiness"
           >
-            <DemoScenarioGuide
-              currentStepIndex={scenarioStepIndex}
-              onPreviousStep={handlePreviousScenarioStep}
-              onNextStep={handleNextScenarioStep}
-              onResetScenario={handleResetScenario}
-            />
-            <DemoOverview
-              requestId={selectedRequestId}
-              currentStatus={request?.status}
-              scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
-              scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
-            />
-            <section
-              id="section-readiness"
-              className="app-section app-section--readiness"
-              aria-label="Demo readiness"
-            >
-              <DemoReadinessPanel />
-            </section>
+            <DemoReadinessPanel />
           </section>
-        ) : null}
+        </section>
+      ) : null}
 
-        {currentDemoScreen === "requests" ? (
-          <section
-            id="section-demande"
-            className="app-section app-section--request app-screen-panel"
-            aria-label="Demandes fictives"
-          >
-            <RequestsList
-              requests={requests}
-              selectedRequestId={selectedRequestId}
-              onSelectRequest={handleSelectRequest}
-              statusFilter={statusFilter}
-              onStatusFilterChange={setStatusFilter}
-              searchQuery={searchQuery}
-              onSearchQueryChange={setSearchQuery}
+      {currentDemoScreen === "requests" ? (
+        <section
+          id="section-demande"
+          aria-label="Demandes fictives"
+        >
+          <PremiumRequestsPage
+            requests={requests}
+            selectedRequestId={selectedRequestId}
+            onSelectRequest={handleSelectRequest}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
+          />
+        </section>
+      ) : null}
+
+      {currentDemoScreen === "details" && request ? (
+        <div className="space-y-6">
+          <section aria-label="Détail et workflow">
+            <PremiumRequestDetail
+              request={request}
+              workflowEvents={workflowEvents}
+              onBackToRequests={() => goToDemoScreen("requests")}
+              onViewFullHistory={() => goToDemoScreen("journal")}
             />
-          </section>
-        ) : null}
-
-        {currentDemoScreen === "details" ? (
-          <div className="app-screen-panel">
-            <section
-              className="app-section app-section--request-detail"
-              aria-label="Détail et workflow"
-            >
-              <RequestDetail
-                request={request}
-                requestId={selectedRequestId}
-                variant="premium"
-                workflowEvents={workflowEvents}
-                onBackToRequests={() => goToDemoScreen("requests")}
-                onViewFullHistory={() => goToDemoScreen("journal")}
-              />
+            <div className="mt-4">
               <WorkflowActionControl
                 request={request}
                 onAction={(action) => {
@@ -754,68 +548,68 @@ export function App() {
                   !canRolePerform(currentRole, action)
                 }
               />
-            </section>
-            <section
-              className="app-section app-section--journey"
-              aria-label="Parcours readonly"
-            >
-              <h2 className="app-section__title">
-                Parcours readonly — {selectedRequestId}
-              </h2>
-              <div className="app-journey-grid">
-                <div id="section-qualification" className="app-journey-card">
-                  <QualificationReadonly
-                    request={request}
-                    requestId={selectedRequestId}
-                  />
-                </div>
-                <div id="section-planification" className="app-journey-card">
-                  <PlanningReadonly
-                    request={request}
-                    requestId={selectedRequestId}
-                  />
-                </div>
-                <div id="section-intervention" className="app-journey-card">
-                  <InterventionReadonly
-                    request={request}
-                    requestId={selectedRequestId}
-                  />
-                </div>
-                <div id="section-compte-rendu" className="app-journey-card">
-                  <ReportReadonly
-                    request={request}
-                    requestId={selectedRequestId}
-                  />
-                </div>
-              </div>
-            </section>
-          </div>
-        ) : null}
-
-        {currentDemoScreen === "journal" ? (
-          <section
-            id="section-journal"
-            className="app-section app-section--journal app-screen-panel"
-            aria-label="Journal et reset"
-          >
-            <DemoResetControl
-              onReset={() => {
-                void handleDemoReset();
-              }}
-              lastResetLabel={lastResetLabel}
-              isResetDisabled={!canPerformDemoReset}
-              lastActionMessage={
-                currentDemoScreen === "journal" ? lastActionMessage : undefined
-              }
-            />
-            <AuditTrailView
-              request={request}
-              requestId={selectedRequestId}
-              events={workflowEvents}
-            />
+            </div>
           </section>
-        ) : null}
-      </div>
-    </PremiumAppShell>
+          <section
+            className="app-section app-section--journey"
+            aria-label="Parcours readonly"
+          >
+            <h2 className="app-section__title">
+              Parcours readonly — {selectedRequestId}
+            </h2>
+            <div className="app-journey-grid">
+              <div id="section-qualification" className="app-journey-card">
+                <QualificationReadonly
+                  request={request}
+                  requestId={selectedRequestId}
+                />
+              </div>
+              <div id="section-planification" className="app-journey-card">
+                <PlanningReadonly
+                  request={request}
+                  requestId={selectedRequestId}
+                />
+              </div>
+              <div id="section-intervention" className="app-journey-card">
+                <InterventionReadonly
+                  request={request}
+                  requestId={selectedRequestId}
+                />
+              </div>
+              <div id="section-compte-rendu" className="app-journey-card">
+                <ReportReadonly
+                  request={request}
+                  requestId={selectedRequestId}
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+      ) : null}
+
+      {currentDemoScreen === "journal" ? (
+        <section
+          id="section-journal"
+          className="space-y-4"
+          aria-label="Journal et reset"
+        >
+          <DemoResetControl
+            onReset={() => {
+              void handleDemoReset();
+            }}
+            lastResetLabel={lastResetLabel}
+            isResetDisabled={!canPerformDemoReset}
+            lastActionMessage={
+              currentDemoScreen === "journal" ? lastActionMessage : undefined
+            }
+          />
+          <PremiumAuditTrail
+            request={request}
+            requestId={selectedRequestId}
+            events={workflowEvents}
+          />
+        </section>
+      ) : null}
+    </PremiumShell>
   );
 }

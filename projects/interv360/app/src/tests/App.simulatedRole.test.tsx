@@ -2,20 +2,13 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CURRENT_USER_STORAGE_KEY, DEMO_USERS } from "../domain/demoUsers";
 import { App } from "../app/App";
+import { goToScreen, waitForAppNavigation } from "./navigationHelpers";
 
-async function waitForScreenNavigation() {
-  await waitFor(() => {
-    expect(
-      screen.getByRole("navigation", {
-        name: /Navigation par écran de démonstration/i,
-      }),
-    ).toBeInTheDocument();
-  });
-}
-
-function goToDemoScreen(shortLabel: string) {
-  fireEvent.click(screen.getByRole("button", { name: shortLabel }));
-}
+const PRESENTATION_REFS: Record<string, string> = {
+  "SAV-DEMO-001": "DEM-2481",
+  "SAV-DEMO-002": "DEM-2480",
+  "SAV-DEMO-003": "DEM-2475",
+};
 
 function switchDemoUser(userId: string) {
   fireEvent.change(screen.getByLabelText(/Changer de profil/i), {
@@ -25,15 +18,21 @@ function switchDemoUser(userId: string) {
 
 async function renderAppOnDetailsScreenForRequest(requestId: string) {
   render(<App />);
-  await waitForScreenNavigation();
-  goToDemoScreen("Demandes");
+  await waitForAppNavigation();
+  goToScreen("Demandes");
   await waitFor(() => {
     expect(
       screen.getByRole("heading", { name: /Demandes SAV/i }),
     ).toBeInTheDocument();
   });
-  fireEvent.click(screen.getByRole("button", { name: new RegExp(requestId) }));
-  goToDemoScreen("Détail");
+  const presentationRef = PRESENTATION_REFS[requestId] ?? requestId;
+  const refCells = screen.getAllByText(presentationRef);
+  const refCell =
+    refCells.find((element) => element.closest("tr")) ?? refCells[0];
+  const row = refCell.closest("tr");
+  expect(row).toBeTruthy();
+  fireEvent.click(within(row as HTMLElement).getByRole("button", { name: "Ouvrir" }));
+  goToScreen("Détail");
   await waitFor(() => {
     expect(screen.getAllByText(requestId).length).toBeGreaterThan(0);
   });
@@ -54,7 +53,7 @@ describe("App simulated role", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
 
     expect(
       fetchMock.mock.calls.some(([url]) => String(url).includes("/users")),
@@ -66,8 +65,8 @@ describe("App simulated role", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     render(<App />);
-    await waitForScreenNavigation();
-    goToDemoScreen("Journal");
+    await waitForAppNavigation();
+    goToScreen("Journal");
 
     expect(
       fetchMock.mock.calls.some(([url]) => String(url).includes("/events")),
@@ -76,7 +75,7 @@ describe("App simulated role", () => {
 
   it("exposes all five local demo users in the switcher", async () => {
     render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
 
     const userSelect = screen.getByLabelText(/Changer de profil/i);
     const options = Array.from(userSelect.querySelectorAll("option")).map(
@@ -88,7 +87,7 @@ describe("App simulated role", () => {
 
   it("shows Théo Technicien as the default demo user", async () => {
     render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
 
     expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Théo Technicien",
@@ -107,7 +106,7 @@ describe("App simulated role", () => {
     expect(screen.getByText("Alice Demandeur")).toBeInTheDocument();
     expect(screen.getByText("Demandeur")).toBeInTheDocument();
     expect(screen.getByText("Affectation")).toBeInTheDocument();
-    expect(screen.getAllByText("Théo Technicien").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("A. Moreau").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("Centre demandeur")).toBeInTheDocument();
   });
 
@@ -121,7 +120,7 @@ describe("App simulated role", () => {
 
   it("persists user changes in localStorage", async () => {
     render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
 
     switchDemoUser("user-viewer");
 
@@ -134,13 +133,13 @@ describe("App simulated role", () => {
 
   it("keeps selected user after remount", async () => {
     const { unmount } = render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
 
     switchDemoUser("user-manager");
     unmount();
 
     render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
 
     expect(screen.getByRole("region", { name: /Profil actif/i })).toHaveTextContent(
       "Maya Responsable",
@@ -176,8 +175,8 @@ describe("App simulated role", () => {
 
   it("blocks demo reset for technician with disabled button", async () => {
     render(<App />);
-    await waitForScreenNavigation();
-    goToDemoScreen("Journal");
+    await waitForAppNavigation();
+    goToScreen("Journal");
 
     const resetButton = screen.getByRole("button", {
       name: /Réinitialiser la démo/i,
@@ -197,10 +196,10 @@ describe("App simulated role", () => {
 
   it("allows demo reset for admin and keeps current user after reset", async () => {
     render(<App />);
-    await waitForScreenNavigation();
+    await waitForAppNavigation();
     switchDemoUser("user-admin");
 
-    goToDemoScreen("Journal");
+    goToScreen("Journal");
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -368,7 +367,7 @@ describe("App simulated role", () => {
       expect(screen.getByText(/Action enregistrée/i)).toBeInTheDocument();
     });
 
-    goToDemoScreen("Journal");
+    goToScreen("Journal");
 
     const journal = await screen.findByRole("region", {
       name: /Historique de la demande/i,
