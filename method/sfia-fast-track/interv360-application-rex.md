@@ -214,3 +214,26 @@ Ce REX clôture le Chantier 2 — REX de l'application actuelle.
 Décision :
 
 > Le REX confirme que l'application Interv360 est un cas de référence SFIA Fast Track, avec des réserves connues et assumées avant tout nouveau cycle produit.
+
+---
+
+## 11. Statut de merge
+
+La PR REX de l'application actuelle a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #78 — docs: add Interv360 application REX |
+| Branche source | `consolidation/interv360-application-rex` |
+| Branche cible | `main` |
+| Commit d'intégration | `fed8dc2` |
+| Statut | Mergé |
+| Type | Documentation REX |
+| Code Interv360 | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> Le Chantier 2 — REX de l'application actuelle est intégré à `main`. La consolidation peut passer au Chantier 3 — Capitalisation SFIA globale.
