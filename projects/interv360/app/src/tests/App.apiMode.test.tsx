@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../app/App";
 import { CURRENT_USER_STORAGE_KEY } from "../domain/demoUsers";
+import { goToScreen, waitForAppNavigation, expandMvpDemoPanel, goToDemoResetScreen } from "./navigationHelpers";
 
 const apiRequest = {
   id: "SAV-DEMO-001",
@@ -206,14 +207,16 @@ describe("App API mode", () => {
       expect(screen.getByText("Mode API")).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByRole("button", { name: "Demandes" }));
+    await waitForAppNavigation();
+
+    goToScreen("Demandes");
 
     await waitFor(() => {
       expect(
         screen.getByRole("heading", { name: /Demandes SAV/i }),
       ).toBeInTheDocument();
     });
-    expect(screen.getAllByText("SAV-DEMO-001").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("DEM-2481").length).toBeGreaterThan(0);
   });
 
   it("loads users from API and keeps technician as default", async () => {
@@ -231,11 +234,9 @@ describe("App API mode", () => {
   it("displays enriched request model fields from API in request detail", async () => {
     render(<App />);
 
-    await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Détail" })).toBeInTheDocument();
-    });
+    await waitForAppNavigation();
 
-    fireEvent.click(screen.getByRole("button", { name: "Détail" }));
+    goToScreen("Détail");
 
     await waitFor(() => {
       expect(
@@ -248,7 +249,7 @@ describe("App API mode", () => {
     expect(screen.getByText("Alice Demandeur")).toBeInTheDocument();
     expect(screen.getByText("Demandeur")).toBeInTheDocument();
     expect(screen.getByText("Affectation")).toBeInTheDocument();
-    expect(screen.getAllByText("Théo Technicien").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("A. Moreau").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("Centre demandeur")).toBeInTheDocument();
   });
 
@@ -278,11 +279,10 @@ describe("App API mode", () => {
 
     render(<App />);
 
-    await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Détail" })).toBeInTheDocument();
-    });
+    await waitForAppNavigation();
 
-    fireEvent.click(screen.getByRole("button", { name: "Détail" }));
+    goToScreen("Détail");
+    expandMvpDemoPanel();
 
     await waitFor(() => {
       expect(
@@ -334,7 +334,9 @@ describe("App API mode", () => {
       target: { value: "user-manager" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: "Détail" }));
+    await waitForAppNavigation();
+    goToScreen("Détail");
+    expandMvpDemoPanel();
 
     await waitFor(() => {
       expect(
@@ -385,11 +387,8 @@ describe("App API mode", () => {
 
     render(<App />);
 
-    await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Journal" })).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+    await waitForAppNavigation();
+    goToScreen("Journal");
 
     const journal = await screen.findByRole("region", {
       name: /Historique de la demande/i,
@@ -424,11 +423,8 @@ describe("App API mode", () => {
 
     render(<App />);
 
-    await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Journal" })).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+    await waitForAppNavigation();
+    goToScreen("Journal");
 
     await waitFor(() => {
       expect(screen.getByText(/Qualification fictive confirmée/i)).toBeInTheDocument();
@@ -591,7 +587,8 @@ describe("App API mode", () => {
       target: { value: "user-admin" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: "Journal" }));
+    await waitForAppNavigation();
+    goToDemoResetScreen();
 
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
