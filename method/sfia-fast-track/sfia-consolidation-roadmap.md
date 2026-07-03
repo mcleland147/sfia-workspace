@@ -199,7 +199,7 @@ Important :
 
 ### Statut
 
-Revue documentaire ouverte sur la branche `consolidation/sfia-documentation-review`.
+Revue documentaire réalisée et intégrée à `main`.
 
 Livrables :
 
@@ -207,7 +207,13 @@ Livrables :
 - `method/sfia-fast-track/documentation-structure-target.md`
 - `method/sfia-fast-track/notion-publication-plan.md`
 
-Ne pas passer le chantier en terminé tant que la revue documentaire n'est pas validée et intégrée.
+Décision :
+
+> La documentation SFIA est suffisamment riche pour capitaliser, mais elle doit être structurée avant publication Notion et avant automatisation avancée.
+
+Suite :
+
+> Chantier 5 — Amélioration SFIA : règles, architecture, standards, templates et checklists.
 
 ## 8. Chantier 5 — Amélioration SFIA
 

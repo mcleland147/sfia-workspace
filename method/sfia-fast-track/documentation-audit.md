@@ -303,3 +303,28 @@ Ce document alimente :
 - `documentation-structure-target.md`
 - `notion-publication-plan.md`
 - Chantier 5 — Amélioration SFIA
+
+---
+
+## 14. Statut de merge
+
+La PR de revue documentaire SFIA a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #80 — docs: audit SFIA documentation structure |
+| Branche source | `consolidation/sfia-documentation-review` |
+| Branche cible | `main` |
+| Commit d'intégration | `79e55a6` |
+| Statut | Mergé |
+| Type | Documentation audit / structure / plan Notion |
+| Livrables | `documentation-audit.md`, `documentation-structure-target.md`, `notion-publication-plan.md` |
+| Fichiers supprimés / déplacés | Aucun |
+| Code Interv360 | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non exécuté, non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> Le Chantier 4 — Mise à jour documentaire complète est intégré à `main`. La consolidation peut passer au Chantier 5 — Amélioration SFIA.
