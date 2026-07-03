@@ -114,6 +114,16 @@ Livrable attendu :
 
 `method/sfia-fast-track/interv360-application-rex.md`
 
+### Statut
+
+REX ouvert sur la branche `consolidation/interv360-application-rex`.
+
+Livrable :
+
+`method/sfia-fast-track/interv360-application-rex.md`
+
+Ne pas passer le chantier en terminé tant que le REX n'est pas validé et intégré.
+
 ## 6. Chantier 3 — Capitalisation SFIA globale
 
 Objectif :
