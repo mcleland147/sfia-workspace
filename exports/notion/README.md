@@ -1,18 +1,24 @@
-# Exports Notion
+# Notion Exports
 
-Snapshots JSON du référentiel SFIA exportés via CMP-001.
+Ce dossier contient des exports ou contenus préparés pour Notion.
 
-## Générer les exports
+## Statut
 
-```bash
-cd tools/cmp-001
-node src/cli.js export --yes
-cp exports/*.json ../../exports/notion/
-```
+Ces fichiers ne constituent pas la source active de vérité.
 
-## Fichiers attendus
+La source active est le repo SFIA nettoyé, notamment :
 
-- `experiments.json`, `components.json`, `prompts.json`, …
-- `export-manifest.json` — résumé de l'export
+- `method/sfia-fast-track/`
+- `docs/`
+- `projects/interv360/`
 
-Ces fichiers alimentent l'audit SFIA dans Cursor et ChatGPT.
+## Règle
+
+Ne pas publier ou synchroniser automatiquement ces exports.
+
+Toute mise à jour Notion doit passer par un chantier dédié avec :
+
+- sélection éditoriale ;
+- mapping des pages ;
+- validation humaine ;
+- dry-run si disponible.
