@@ -1,0 +1,11 @@
+docs/templates/README.md
+docs/templates/architecture/functional-architecture-cycle-closure-template.md
+docs/templates/architecture/functional-architecture-scope-template.md
+docs/templates/architecture/functional-architecture-summary-template.md
+docs/templates/process/bpmn-cycle-closure-template.md
+docs/templates/process/bpmn-process-analysis-template.md
+docs/templates/process/bpmn-process-scope-template.md
+docs/templates/tooling/penpot/README.md
+docs/templates/ux-ui/ux-ui-cycle-closure-template.md
+docs/templates/ux-ui/ux-ui-reprise-scope-template.md
+docs/templates/ux-ui/ux-ui-reprise-summary-template.md
