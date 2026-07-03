@@ -211,7 +211,7 @@ Palette à rapprocher de la maquette Figma :
 | FIGMA-02 | Maquettes Figma écrans clés | Réalisé |
 | UI-03 | Implémentation Dashboard + Page demandes premium | Réalisé |
 | UI-04 | Implémentation fiche demande + journal depuis Figma | Réalisé |
-| UI-05 | Validations, polish et PR unique | À venir |
+| UI-05 | Validations, polish et PR unique | Réalisé |
 
 ---
 
@@ -237,12 +237,12 @@ Palette à rapprocher de la maquette Figma :
 | Implémentation fiche demande | OK |
 | Implémentation pipeline SAV | OK |
 | Implémentation journal / timeline | OK |
-| Tests frontend OK | À faire |
-| Build frontend OK | À faire |
-| Backend inchangé | À valider |
-| API inchangée | À valider |
-| CI inchangée | À valider |
-| Garde-fous respectés | À valider |
+| Tests frontend OK | OK |
+| Build frontend OK | OK |
+| Backend inchangé | OK |
+| API inchangée | OK |
+| CI inchangée | OK |
+| Garde-fous respectés | OK |
 
 ---
 
@@ -493,8 +493,44 @@ Décision :
 
 ---
 
+## 10.6. UI-05 — Polish final, validations et PR readiness
+
+UI-05 finalise le cycle Premium Design System.
+
+Validations réalisées :
+
+- build frontend OK ;
+- tests frontend OK ;
+- cohérence visuelle Dashboard / Demandes / Fiche / Audit Trail ;
+- garde-fous backend/API/CI confirmés ;
+- absence de modification métier ;
+- absence de CRUD ;
+- absence d'auth réelle ;
+- absence d'export PDF fonctionnel ;
+- absence de modification du tag `v0.1.0-mvp`.
+
+Résultat :
+
+- Dashboard Command Center implémenté ;
+- Page Demandes premium implémentée ;
+- Fiche demande premium implémentée ;
+- Pipeline SAV premium implémentée ;
+- Historique / Audit Trail premium implémenté ;
+- documentation de cycle à jour ;
+- PR unique prête à être préparée.
+
+Décision :
+
+> Le cycle Premium Design System est prêt pour PR unique.
+
+---
+
 ## 11. Prochaine étape
 
-Exécuter **UI-05** :
+Préparer la PR unique :
 
-Polish final, validations, documentation et préparation PR unique.
+`ui/interv360-premium-design-system` → `main`
+
+Titre proposé :
+
+`Add Interv360 premium design system`
