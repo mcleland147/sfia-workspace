@@ -210,11 +210,11 @@ Précisions :
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/product-owner-method.md` | Enrichissement futur — ARB-MVP-02 formalisé |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement futur — badges notification, pas portail |
-| `docs/methods/roles/architect-method.md` | Contrat notification ADR-001 confirmé |
-| `docs/methods/roles/rssi-method.md` | Pas espace client MVP ; contenu notification |
-| `docs/methods/roles/project-manager-method.md` | Séquence ADR P2 avant Figma |
+| `docs/practices/roles/product-owner-method.md` | Enrichissement futur — ARB-MVP-02 formalisé |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement futur — badges notification, pas portail |
+| `docs/practices/roles/architect-method.md` | Contrat notification ADR-001 confirmé |
+| `docs/practices/roles/rssi-method.md` | Pas espace client MVP ; contenu notification |
+| `docs/practices/roles/project-manager-method.md` | Séquence ADR P2 avant Figma |
 | `prompts/prompt-catalog.md` | PROMPT-UX-001, PROMPT-ARCH-001 — pas modifié ici |
 | `prompts/ux-ui/` | Checklist notification sans portail |
 | `prompts/architecture/` | Événements notification dans revue intégrations |

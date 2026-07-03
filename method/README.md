@@ -1,21 +1,23 @@
 # Method
 
-Ce dossier contient la méthode active de livraison SFIA.
+Ce dossier contient les méthodes de delivery et d'exécution SFIA.
 
 ## Méthode active
 
 - `sfia-fast-track/`
 
-## Rôle
+## Méthodes complémentaires
 
-`method/` porte la méthode opérationnelle de référence utilisée pour piloter les cycles SFIA Fast Track.
+- `complementary/`
 
-Les méthodes historiques ont été archivées dans :
+## Distinction avec `docs/`
 
-- `sfia-fast-track/archive/`
+Les pratiques plateforme par rôle ou discipline sont dans :
 
-Voir aussi :
+- `../docs/practices/`
 
-- `../methods/` pour les méthodes complémentaires ;
-- `../docs/methods/` pour les méthodes plateforme par rôle ou discipline ;
-- `../prompts/` pour les familles de prompts.
+## Règle
+
+`method/` porte les méthodes d'exécution.
+
+`docs/practices/` porte les pratiques, rôles et disciplines plateforme.

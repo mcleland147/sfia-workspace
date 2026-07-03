@@ -80,9 +80,9 @@ Le projet Interv360 utilise actuellement `03-design/` pour la phase design (`pro
 
 | Zone | Chemin potentiel | Action recommandée | Priorité |
 |------|------------------|-------------------|----------|
-| **Documentation méthode** | `docs/methods/process/` | Créer méthode BPMN (`bpmn-process-modeling-method.md`) | Haute |
-| **Standards de livrables** | `docs/methods/process/bpmn-deliverables-standard.md` | Définir livrables standard d'un cycle BPMN | Haute |
-| **Checklist d'intégration** | `docs/methods/process/bpmn-integration-checklist.md` | Checklist avant lancement BPMN projet | Haute |
+| **Documentation méthode** | `docs/practices/process/` | Créer méthode BPMN (`bpmn-process-modeling-method.md`) | Haute |
+| **Standards de livrables** | `docs/practices/process/bpmn-deliverables-standard.md` | Définir livrables standard d'un cycle BPMN | Haute |
+| **Checklist d'intégration** | `docs/practices/process/bpmn-integration-checklist.md` | Checklist avant lancement BPMN projet | Haute |
 | **Templates** | `docs/templates/process/` | Créer templates BPMN (scope, analyse, clôture cycle) — `docs/templates/` existe, vide hors README | Haute |
 | **Templates racine** | `templates/` (racine) | Non présent — **ne pas dupliquer** ; utiliser `docs/templates/` (cohérent avec `methods-structure-check.md`) | — |
 | **Prompt Library** | `prompts/process/` ou `prompts/bpmn/` | Créer famille de prompts BPMN (`bpmn-prompt-family.md`) | Moyenne |
@@ -90,10 +90,10 @@ Le projet Interv360 utilise actuellement `03-design/` pour la phase design (`pro
 | **Standards SFIA** | `docs/standards/` | Éventuel standard BPMN transverse si besoin (après méthode) | Moyenne |
 | **Index racine** | `README.md` | Mentionner capacité BPMN dans structure / trajectoire | Moyenne |
 | **Index documentation** | `docs/README.md` | Ajouter `methods/process/` dans sous-dossiers | Moyenne |
-| **Index méthodes** | `docs/methods/README.md` | Ajouter ligne `process/` dans tableau sous-dossiers | Haute |
+| **Index méthodes** | `docs/practices/README.md` | Ajouter ligne `process/` dans tableau sous-dossiers | Haute |
 | **Index templates** | `docs/templates/README.md` | Référencer sous-dossier `process/` | Moyenne |
 | **Index prompts** | `prompts/README.md` | Ajouter `process/` ou `bpmn/` dans structure | Moyenne |
-| **Méthodes rôle** | `docs/methods/roles/` | Enrichir BA, architecte, PO selon usage BPMN | Moyenne |
+| **Méthodes rôle** | `docs/practices/roles/` | Enrichir BA, architecte, PO selon usage BPMN | Moyenne |
 | **Catalogue prompts** | `prompts/prompt-catalog.md` | Enregistrer famille PROMPT-BPMN-* | Moyenne |
 | **Application Interv360** | `projects/interv360/03-process/` | À créer **uniquement après** validation méthode (Phase D) | Future |
 | **Phase architecture Interv360** | `projects/interv360/02-architecture/README.md` | Référencer BPMN comme étape post-clarification | Moyenne |
@@ -106,14 +106,14 @@ Le projet Interv360 utilise actuellement `03-design/` pour la phase design (`pro
 
 | Livrable | Chemin recommandé | Rôle | Phase |
 |----------|-------------------|------|-------|
-| Méthode de modélisation BPMN | `docs/methods/process/bpmn-process-modeling-method.md` | Quand, comment, qui, garde-fous, outillage | B |
-| Standard des livrables BPMN | `docs/methods/process/bpmn-deliverables-standard.md` | Formats, nommage, structure projet | B |
-| Checklist d'intégration BPMN | `docs/methods/process/bpmn-integration-checklist.md` | Prérequis avant cycle BPMN projet | B |
+| Méthode de modélisation BPMN | `docs/practices/process/bpmn-process-modeling-method.md` | Quand, comment, qui, garde-fous, outillage | B |
+| Standard des livrables BPMN | `docs/practices/process/bpmn-deliverables-standard.md` | Formats, nommage, structure projet | B |
+| Checklist d'intégration BPMN | `docs/practices/process/bpmn-integration-checklist.md` | Prérequis avant cycle BPMN projet | B |
 | Template scope processus | `docs/templates/process/bpmn-process-scope-template.md` | Périmètre diagrammes, acteurs, hypothèses | C |
 | Template analyse processus | `docs/templates/process/bpmn-process-analysis-template.md` | Traçabilité RG, statuts, exceptions | C |
 | Template clôture cycle BPMN | `docs/templates/process/bpmn-cycle-closure-template.md` | Synthèse cycle, suites ADR / archi fonctionnelle | C |
 | Famille de prompts BPMN | `prompts/bpmn/bpmn-prompt-family.md` | Prompts réutilisables modélisation / revue | C |
-| Audit intégration (présent) | `docs/methods/process/bpmn-method-integration-audit.md` | Phase A — identification impacts | **A** |
+| Audit intégration (présent) | `docs/practices/process/bpmn-method-integration-audit.md` | Phase A — identification impacts | **A** |
 
 ---
 
@@ -235,9 +235,9 @@ projects/interv360/03-process/
 
 | Fichier | Existe ? | Action future | Priorité |
 |---------|----------|---------------|----------|
-| `README.md` | Oui | Mentionner `docs/methods/process/` et trajectoire BPMN dans structure | Moyenne |
+| `README.md` | Oui | Mentionner `docs/practices/process/` et trajectoire BPMN dans structure | Moyenne |
 | `docs/README.md` | Oui | Ajouter `methods/process/` dans tableau sous-dossiers | Moyenne |
-| `docs/methods/README.md` | Oui | Ajouter ligne **process/** — méthodes BPMN | Haute |
+| `docs/practices/README.md` | Oui | Ajouter ligne **process/** — méthodes BPMN | Haute |
 | `docs/templates/README.md` | Oui (seul README, pas de templates fichiers) | Référencer `process/` et templates BPMN Phase C | Moyenne |
 | `prompts/README.md` | Oui | Ajouter `bpmn/` ou `process/` dans structure | Moyenne |
 | `prompts/prompt-catalog.md` | Oui | Enregistrer famille PROMPT-BPMN-* | Moyenne |
@@ -246,10 +246,10 @@ projects/interv360/03-process/
 | `projects/README.md` | Oui | Mettre à jour phase Interv360 si nécessaire | Basse |
 | `docs/adr/README.md` | Oui | Mentionner alimentation par analyse BPMN | Moyenne |
 | `docs/standards/README.md` | Oui | Éventuel standard BPMN si créé | Basse |
-| `docs/methods/roles/README.md` | Oui | Référencer méthode process / BPMN | Moyenne |
-| `docs/methods/roles/business-analyst-method.md` | Oui | Enrichir posture BPMN / process | Moyenne |
-| `docs/methods/roles/architect-method.md` | Oui | Lien BPMN → ADR, archi fonctionnelle | Moyenne |
-| `docs/methods/methods-structure-check.md` | Oui | Ajouter `methods/process/` dans arborescence cible | Moyenne |
+| `docs/practices/roles/README.md` | Oui | Référencer méthode process / BPMN | Moyenne |
+| `docs/practices/roles/business-analyst-method.md` | Oui | Enrichir posture BPMN / process | Moyenne |
+| `docs/practices/roles/architect-method.md` | Oui | Lien BPMN → ADR, archi fonctionnelle | Moyenne |
+| `docs/practices/methods-structure-check.md` | Oui | Ajouter `methods/process/` dans arborescence cible | Moyenne |
 | `templates/` (racine) | **Non** | Ne pas créer en doublon — utiliser `docs/templates/` | — |
 | `standards/` (racine) | **Non** | Idem — utiliser `docs/standards/` | — |
 | `projects/interv360/03-process/` | **Non** | Créer en Phase D uniquement | Future |
@@ -257,7 +257,7 @@ projects/interv360/03-process/
 
 ### État actuel du référentiel (audit structure)
 
-**Méthodes** (`docs/methods/`) :
+**Méthodes** (`docs/practices/`) :
 
 - `README.md`, `methods-structure-check.md`
 - `roles/` — 6 Role Methods (PO, BA, architecte, PM, RSSI, UX/UI, QA)
@@ -297,7 +297,7 @@ projects/interv360/03-process/
 
 - BPMN doit être intégré comme **capacité SFIA réutilisable**, pas comme un livrable ponctuel Interv360.
 - L'intégration doit être faite **avant** les travaux de modélisation projet (Phases B → C → validation → D).
-- Le référentiel doit être mis à jour **proprement** : `docs/methods/process/` comme point d'entrée méthode, puis templates, prompts, index.
+- Le référentiel doit être mis à jour **proprement** : `docs/practices/process/` comme point d'entrée méthode, puis templates, prompts, index.
 - Les phases suivantes créeront la **méthode**, les **standards** et les **prompts** avant toute création de `projects/interv360/03-process/`.
 
 **Prochaine action recommandée** : valider cet audit, puis passer à la **Phase B — intégration méthodologique BPMN** sur la branche `method/bpmn-integration-audit` (ou branche dédiée Phase B).

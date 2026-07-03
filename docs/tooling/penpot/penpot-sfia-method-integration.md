@@ -19,7 +19,7 @@ Penpot intervient **après** la reprise UX/UI documentaire lorsque le cycle néc
 
 | Méthode / cycle | Rôle Penpot |
 |-----------------|-------------|
-| **Reprise UX/UI documentaire** (`docs/methods/ux-ui/`) | Source des specs — Penpot en aval, pas pendant la reprise doc |
+| **Reprise UX/UI documentaire** (`docs/practices/ux-ui/`) | Source des specs — Penpot en aval, pas pendant la reprise doc |
 | **Design V2** (`projects/<projet>/03-design/`) | Production maquettes et wireframes |
 | **Review design** | Audit cohérence Penpot vs specs Git |
 | **Prototypage** | Prototypes simples pour validation parcours |

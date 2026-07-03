@@ -35,9 +35,9 @@ Il vise à clarifier :
 | Summary hardening | `controlled-delivery-standard-hardening-summary.md` | Clôturé |
 | Index dossier | `README.md` | Créé dans ce cycle |
 
-**Emplacement repo :** `methods/controlled-delivery/`
+**Emplacement repo :** `method/complementary/controlled-delivery/`
 
-**Alignement arborescence existante :** le dépôt contient aussi `docs/methods/` pour d'autres méthodes SFIA (architecture, BPMN, rôles). Controlled Delivery peut y être référencé depuis l'index méthode global lors d'un cycle de publication ultérieur.
+**Alignement arborescence existante :** le dépôt contient aussi `docs/practices/` pour d'autres méthodes SFIA (architecture, BPMN, rôles). Controlled Delivery peut y être référencé depuis l'index méthode global lors d'un cycle de publication ultérieur.
 
 ---
 
@@ -166,7 +166,7 @@ Avant publication réelle, vérifier :
 - [ ] destination SFIA validée ;
 - [ ] décision explicite de publication obtenue.
 
-**Contrôle rapide effectué dans ce cycle :** les actifs `methods/controlled-delivery/` ne contiennent pas de secrets, coordonnées personnelles ni données client réelles ; Interv360 est cité comme exemple uniquement.
+**Contrôle rapide effectué dans ce cycle :** les actifs `method/complementary/controlled-delivery/` ne contiennent pas de secrets, coordonnées personnelles ni données client réelles ; Interv360 est cité comme exemple uniquement.
 
 ---
 

@@ -158,10 +158,10 @@ Actions principales cadrées (`ux-ui-brief.md` §5.7) : consulter détail ; lanc
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/architect-method.md` | Enrichissement après ADR-004 — lien contrats / erreurs / journalisation |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement après ADR-004 — écran anomalies, message métier vs log |
-| `docs/methods/roles/product-owner-method.md` | ARB-MVP-05 formalisé ; périmètre retry hors MVP confirmé |
-| `docs/methods/roles/project-manager-method.md` | Traçabilité ADR-002 ; sync Notion post-jalon |
+| `docs/practices/roles/architect-method.md` | Enrichissement après ADR-004 — lien contrats / erreurs / journalisation |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement après ADR-004 — écran anomalies, message métier vs log |
+| `docs/practices/roles/product-owner-method.md` | ARB-MVP-05 formalisé ; périmètre retry hors MVP confirmé |
+| `docs/practices/roles/project-manager-method.md` | Traçabilité ADR-002 ; sync Notion post-jalon |
 | `prompts/prompt-catalog.md` | PROMPT-ARCH-001, PROMPT-UX-001 candidats à formaliser |
 | `prompts/architecture/` | Accueil futur prompts Error Matrix et revue intégrations |
 | **Futur Template Error Matrix** | §5 + §8 + integration-error-arbitration-review §8 |
@@ -238,10 +238,10 @@ Actions principales cadrées (`ux-ui-brief.md` §5.7) : consulter détail ; lanc
 
 | Méthode | Enrichissement immédiat ? | Décision |
 |---------|---------------------------|----------|
-| `docs/methods/roles/architect-method.md` | Non | Enrichir après **ADR-004** — ensemble contrats / erreurs / journalisation |
-| `docs/methods/roles/ux-ui-designer-method.md` | Non | Enrichir après **ADR-004** — écran anomalies + journalisation |
-| `docs/methods/roles/product-owner-method.md` | Non | Enrichir après **ADR-004** — ARB-MVP-05 avec traçabilité complète |
-| `docs/methods/roles/project-manager-method.md` | Non | Enrichir après jalon architecture consolidé (ADR P1) |
+| `docs/practices/roles/architect-method.md` | Non | Enrichir après **ADR-004** — ensemble contrats / erreurs / journalisation |
+| `docs/practices/roles/ux-ui-designer-method.md` | Non | Enrichir après **ADR-004** — écran anomalies + journalisation |
+| `docs/practices/roles/product-owner-method.md` | Non | Enrichir après **ADR-004** — ARB-MVP-05 avec traçabilité complète |
+| `docs/practices/roles/project-manager-method.md` | Non | Enrichir après jalon architecture consolidé (ADR P1) |
 
 **Les méthodes rôle ne sont pas modifiées à cette étape.**
 

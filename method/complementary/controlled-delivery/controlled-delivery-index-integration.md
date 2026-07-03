@@ -40,9 +40,9 @@ La publication Notion reste conditionnée à une **demande explicite**.
 
 | Action | Fichier | Détail |
 |--------|---------|--------|
-| Création | `methods/README.md` | Index local des méthodes capitalisées au niveau repo |
+| Création | `method/complementary/README.md` | Index local des méthodes complémentaires au niveau repo |
 | Création | `controlled-delivery-index-integration.md` | Ce document |
-| Mise à jour | `docs/methods/README.md` | Entrée de renvoi vers `methods/controlled-delivery/` |
+| Mise à jour | `docs/practices/README.md` | Entrée de renvoi vers `method/complementary/controlled-delivery/` |
 
 **Fichiers volontairement non modifiés :**
 
@@ -53,7 +53,7 @@ La publication Notion reste conditionnée à une **demande explicite**.
 - `docs/README.md` ;
 - `docs/standards/README.md`.
 
-**Décision de périmètre :** cas B (création de `methods/README.md`) + entrée discrète dans l'index méthodes existant `docs/methods/README.md`, sans refonte du README racine.
+**Décision de périmètre :** cas B (création de `method/complementary/README.md`) + entrée discrète dans l'index pratiques existant `docs/practices/README.md`, sans refonte du README racine.
 
 ---
 
@@ -67,7 +67,7 @@ Entrée ajoutée ou confirmée :
 
 **Liens de navigation :**
 
-- [`methods/README.md`](../README.md)
+- [`method/complementary/README.md`](../README.md)
 - [`controlled-delivery/README.md`](README.md)
 
 ---

@@ -2,7 +2,7 @@
 
 **Famille** : QA / Testeur  
 **Statut** : Candidate prompt family  
-**Méthode liée** : [`docs/methods/roles/qa-tester-method.md`](../../docs/methods/roles/qa-tester-method.md)  
+**Méthode liée** : [`docs/practices/roles/qa-tester-method.md`](../../docs/practices/roles/qa-tester-method.md)  
 **Objet** : proposer les premiers prompts réutilisables associés au rôle QA / Testeur  
 **Garde-fou principal** : contribuer à la testabilité et à la qualité sans ouvrir delivery, backlog, user stories ou code
 
@@ -165,7 +165,7 @@ Ils orientent l'analyse de **testabilité**, les **revues qualité**, les **risq
 
 Cette famille de prompts **applique** la méthode officielle :
 
-[`docs/methods/roles/qa-tester-method.md`](../../docs/methods/roles/qa-tester-method.md)
+[`docs/practices/roles/qa-tester-method.md`](../../docs/practices/roles/qa-tester-method.md)
 
 Elle **ne remplace pas** la méthode officielle.
 

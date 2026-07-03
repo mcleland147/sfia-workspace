@@ -129,9 +129,9 @@ Précisions :
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/architect-method.md` | Enrichissement à prévoir après ADR P1 (001–004) — standard contrats API simulés |
-| `docs/methods/roles/product-owner-method.md` | Validation périmètre MVP maintenu ; lien ARB-MVP-04 formalisé |
-| `docs/methods/roles/project-manager-method.md` | Traçabilité jalon ADR-001 ; sync Notion post-consolidation |
+| `docs/practices/roles/architect-method.md` | Enrichissement à prévoir après ADR P1 (001–004) — standard contrats API simulés |
+| `docs/practices/roles/product-owner-method.md` | Validation périmètre MVP maintenu ; lien ARB-MVP-04 formalisé |
+| `docs/practices/roles/project-manager-method.md` | Traçabilité jalon ADR-001 ; sync Notion post-consolidation |
 | `prompts/prompt-catalog.md` | PROMPT-ARCH-001 candidat à formaliser en Draft |
 | `prompts/architecture/` | Accueil futur PROMPT-ARCH-001 formalisé |
 | **Futur Template API Contract Framing** | Matrice domaine / endpoint / statuts / erreurs — à extraire de cette ADR |
@@ -214,9 +214,9 @@ Précisions :
 
 | Méthode | Enrichissement immédiat ? | Décision |
 |---------|---------------------------|----------|
-| `docs/methods/roles/architect-method.md` | Non | Enrichir après ADR-002 / ADR-004 — standard contrats API simulés à consolider |
-| `docs/methods/roles/product-owner-method.md` | Non | Enrichir après ADR P1 — lien ARB-MVP-04 à intégrer avec erreurs et journalisation |
-| `docs/methods/roles/project-manager-method.md` | Non | Enrichir après jalon architecture consolidé — sync Notion et traçabilité ADR |
+| `docs/practices/roles/architect-method.md` | Non | Enrichir après ADR-002 / ADR-004 — standard contrats API simulés à consolider |
+| `docs/practices/roles/product-owner-method.md` | Non | Enrichir après ADR P1 — lien ARB-MVP-04 à intégrer avec erreurs et journalisation |
+| `docs/practices/roles/project-manager-method.md` | Non | Enrichir après jalon architecture consolidé — sync Notion et traçabilité ADR |
 
 **Les méthodes rôle ne sont pas modifiées à cette étape** — l'enrichissement est prévu après instruction d'ADR-002 et ADR-004.
 

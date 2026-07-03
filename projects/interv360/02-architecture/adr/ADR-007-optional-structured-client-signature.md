@@ -199,11 +199,11 @@ Précisions :
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/product-owner-method.md` | Enrichissement futur — ARB-MVP-03 formalisé |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement futur — zone signature optionnelle |
-| `docs/methods/roles/rssi-method.md` | Pas valeur probante complète ; RG-S04 |
-| `docs/methods/roles/architect-method.md` | Objet Signature ; statuts ; lien ADR-004/005 |
-| `docs/methods/roles/project-manager-method.md` | Séquence ADR P2 avant Figma |
+| `docs/practices/roles/product-owner-method.md` | Enrichissement futur — ARB-MVP-03 formalisé |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement futur — zone signature optionnelle |
+| `docs/practices/roles/rssi-method.md` | Pas valeur probante complète ; RG-S04 |
+| `docs/practices/roles/architect-method.md` | Objet Signature ; statuts ; lien ADR-004/005 |
+| `docs/practices/roles/project-manager-method.md` | Séquence ADR P2 avant Figma |
 | `prompts/prompt-catalog.md` | PROMPT-UX-001, PROMPT-SEC-001 — pas modifié ici |
 | `prompts/ux-ui/` | Checklist signature MVP |
 | `prompts/security/` | Revue exposition preuve signature |

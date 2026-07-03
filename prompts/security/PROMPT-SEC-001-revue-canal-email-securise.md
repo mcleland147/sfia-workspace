@@ -75,7 +75,7 @@ Il permet de :
 | **Règles de rejet** | Recommandé | Source, expéditeur, PJ, contenu |
 | **Exigences de journalisation** | Recommandé | ADR ou règles RG-I07 équivalent |
 | **ADR candidates ou ADR existantes** | Recommandé | Email, journalisation, conservation |
-| **Méthodes rôle applicables** | Recommandé | `docs/methods/roles/` concernées |
+| **Méthodes rôle applicables** | Recommandé | `docs/practices/roles/` concernées |
 
 ---
 

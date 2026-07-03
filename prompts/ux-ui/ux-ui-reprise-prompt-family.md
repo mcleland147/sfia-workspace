@@ -4,9 +4,9 @@
 **Domaine** : UX/UI — reprise documentaire  
 **Statut** : Draft  
 **Usage** : Réutilisable  
-**Méthode associée** : [`docs/methods/ux-ui/ux-ui-reprise-method.md`](../../docs/methods/ux-ui/ux-ui-reprise-method.md)  
-**Standard associé** : [`docs/methods/ux-ui/ux-ui-reprise-deliverables-standard.md`](../../docs/methods/ux-ui/ux-ui-reprise-deliverables-standard.md)  
-**Checklist associée** : [`docs/methods/ux-ui/ux-ui-reprise-checklist.md`](../../docs/methods/ux-ui/ux-ui-reprise-checklist.md)  
+**Méthode associée** : [`docs/practices/ux-ui/ux-ui-reprise-method.md`](../../docs/practices/ux-ui/ux-ui-reprise-method.md)  
+**Standard associé** : [`docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md`](../../docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md)  
+**Checklist associée** : [`docs/practices/ux-ui/ux-ui-reprise-checklist.md`](../../docs/practices/ux-ui/ux-ui-reprise-checklist.md)  
 **Templates associés** : `docs/templates/ux-ui/`  
 **Dossier** : `prompts/ux-ui/`
 
@@ -120,8 +120,8 @@ git log --oneline -8
 2. Relire les sources
 [UX_SOURCES]
 [FUNCTIONAL_SOURCES]
-docs/methods/ux-ui/ux-ui-reprise-method.md
-docs/methods/ux-ui/ux-ui-reprise-deliverables-standard.md
+docs/practices/ux-ui/ux-ui-reprise-method.md
+docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md
 docs/templates/ux-ui/ux-ui-reprise-scope-template.md
 
 3. Créer le fichier
@@ -174,7 +174,7 @@ cd [WORKSPACE_PATH] && git branch --show-current && git status
 2. Relire les sources
 [UX_SOURCES]
 [FUNCTIONAL_SOURCES]
-docs/methods/ux-ui/ux-ui-reprise-deliverables-standard.md
+docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md
 
 3. Créer le fichier
 Inventaire fichiers UX existants, synthèse brief, décisions acquises, alignement fonctionnel, écarts, proposition de cycle.
@@ -460,7 +460,7 @@ cd [WORKSPACE_PATH] && git status && git log --oneline -10
 2. Relire tous les livrables
 Tous les fichiers de [PROJECT_PHASE_PATH]/
 docs/templates/ux-ui/ux-ui-cycle-closure-template.md
-docs/methods/ux-ui/ux-ui-reprise-checklist.md
+docs/practices/ux-ui/ux-ui-reprise-checklist.md
 
 3. Créer le fichier
 Livrables, résultats, exclusions confirmées, points ouverts, préparation PR.
@@ -496,8 +496,8 @@ cd [WORKSPACE_PATH]
 git branch --show-current && git status
 
 2. Relire les 8 livrables attendus dans [PROJECT_PHASE_PATH]/
-docs/methods/ux-ui/ux-ui-reprise-checklist.md
-docs/methods/ux-ui/ux-ui-reprise-deliverables-standard.md
+docs/practices/ux-ui/ux-ui-reprise-checklist.md
+docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md
 
 3. Contrôler
 - Présence des 8 livrables

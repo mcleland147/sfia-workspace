@@ -38,11 +38,12 @@ cp -r tools/cmp-001/exports/* exports/notion/
 ```
 sfia-workspace/
 ├── docs/                      # Documentation plateforme SFIA
-│   ├── methods/               # Méthodes plateforme par rôle/discipline
+│   ├── practices/             # Pratiques plateforme par rôle/discipline
 │   ├── templates/             # Templates plateforme
 │   └── standards/             # Standards plateforme
-├── method/sfia-fast-track/    # Méthode active de delivery SFIA
-├── methods/                   # Méthodes complémentaires (ex. controlled-delivery)
+├── method/                    # Méthodes de delivery SFIA
+│   ├── sfia-fast-track/       # Méthode active
+│   └── complementary/         # Méthodes complémentaires
 ├── prompts/                   # Familles de prompts
 ├── projects/                  # Projets pilotes (ex. Interv360)
 ├── tools/cmp-001/             # Connecteur Notion CMP
@@ -55,9 +56,9 @@ sfia-workspace/
 | Dossier | Contenu |
 |---------|---------|
 | **docs/** | Documentation plateforme, architecture, standards, tooling |
-| **docs/methods/** | Méthodes plateforme — rôles, BPMN, archi fonctionnelle, UX |
+| **docs/practices/** | Pratiques plateforme — rôles, BPMN, archi fonctionnelle, UX |
 | **method/sfia-fast-track/** | Méthode active de delivery (cycles, templates, checklists) |
-| **methods/** | Méthodes delivery complémentaires |
+| **method/complementary/** | Méthodes delivery complémentaires |
 | **prompts/** | Prompts réutilisables et catalogue |
 | **projects/** | Projets pilotes (ex. Interv360) |
 | **tools/** | Outillage SFIA (ex. CMP-001) |
@@ -68,8 +69,9 @@ sfia-workspace/
 | Zone | Rôle |
 |------|------|
 | `method/sfia-fast-track/` | Méthode active de delivery |
-| `methods/controlled-delivery/` | Méthode complémentaire |
-| `docs/methods/` | Méthodes plateforme par rôle ou discipline |
+| `method/complementary/` | Méthodes complémentaires |
+| `docs/practices/` | Pratiques plateforme par rôle ou discipline |
+| `prompts/` | Assets de prompts |
 
 ## Notion
 

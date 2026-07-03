@@ -9,8 +9,8 @@ Il est distinct de la méthode active de delivery.
 | Zone | Rôle |
 |------|------|
 | `../method/sfia-fast-track/` | Méthode active de delivery SFIA |
-| `../methods/` | Méthodes complémentaires |
-| `docs/` | Documentation plateforme, standards, méthodes par rôle, connaissances et outillage |
+| `../method/complementary/` | Méthodes complémentaires |
+| `docs/` | Documentation plateforme, standards, pratiques, connaissances et outillage |
 
 ## Contenu
 
@@ -20,7 +20,7 @@ Il est distinct de la méthode active de delivery.
 | `architecture/` | Architecture plateforme SFIA |
 | `foundation/` | Principes fondateurs |
 | `knowledge/` | Connaissance réutilisable |
-| `methods/` | Méthodes plateforme par rôle ou discipline |
+| `practices/` | Pratiques plateforme par rôle, discipline ou domaine |
 | `rex/` | Retours d'expérience plateforme |
 | `roadmaps/` | Roadmaps plateforme |
 | `standards/` | Standards transverses |

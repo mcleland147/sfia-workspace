@@ -47,8 +47,8 @@ projects/interv360/
 | Zone | Rôle |
 |------|------|
 | `method/sfia-fast-track/` | Méthode active de delivery |
-| `methods/` | Méthodes complémentaires |
-| `docs/methods/` | Méthodes plateforme |
+| `method/complementary/` | Méthodes complémentaires |
+| `docs/practices/` | Pratiques plateforme |
 | `prompts/` | Assets de prompts |
 | `docs/templates/` | Templates plateforme |
 | `method/sfia-fast-track/templates/` | Templates opérationnels Fast Track |
@@ -102,7 +102,7 @@ Une passe finale a été réalisée pour traiter les points résiduels :
 | `qa-tester-role-candidate-review.md` | Revue maturité candidat QA | **Archivé** → `archive/role-enrichment/` |
 | `qa-tester-role-research-and-benchmark.md` | Benchmark méthodologique QA | **Archivé** → `archive/role-enrichment/` |
 
-Référence active du rôle : `docs/methods/roles/qa-tester-method.md`.
+Référence active du rôle : `docs/practices/roles/qa-tester-method.md`.
 
 ### Liens corrigés
 
@@ -111,7 +111,7 @@ Référence active du rôle : `docs/methods/roles/qa-tester-method.md`.
 | `07-presentation/` | `08-presentation/` | `04-delivery/`, `05-release/`, `08-presentation/` |
 | `08-roadmap/` | `09-roadmap/` | `04-delivery/`, `05-release/`, `09-roadmap/` |
 | `09-architecture/` | `09-roadmap/` | `04-delivery/`, `09-roadmap/` |
-| `07-delivery/` | `04-delivery/` | docs delivery, roadmap, `methods/controlled-delivery/` |
+| `07-delivery/` | `04-delivery/` | docs delivery, roadmap, `method/complementary/controlled-delivery/` |
 | `07-rex/` | `06-audit-rex/` | si présent |
 | Chemins archivés (`inc-01`, pre-delivery) | `archive/...` | `implementation-go-no-go.md` |
 
@@ -121,11 +121,26 @@ Décision :
 
 > Le workspace SFIA est prêt pour revue PR avant ouverture du chantier Notion.
 
-## 10. Inventaire post-Round 2
+## 10. Finition structure méthode
+
+Une passe finale a supprimé l'ambiguïté entre `method/`, `methods/` et `docs/methods/`.
+
+Décisions :
+
+- `methods/controlled-delivery/` a été déplacé vers `method/complementary/controlled-delivery/` ;
+- `docs/methods/` a été renommé en `docs/practices/` ;
+- `method/` devient la racine unique des méthodes de delivery ou complémentaires ;
+- `docs/practices/` devient la racine des pratiques plateforme par rôle ou discipline.
+
+Décision :
+
+> La structure méthode est désormais lisible sans coexistence ambiguë de `method/`, `methods/` et `docs/methods/`.
+
+## 11. Inventaire post-Round 2
 
 - `post-round-2-markdown-files.txt` — ~493 fichiers Markdown
 
-## 11. Décision
+## 12. Décision
 
 Le workspace SFIA est prêt pour revue PR.
 

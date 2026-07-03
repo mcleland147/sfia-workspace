@@ -71,7 +71,7 @@ Il permet de :
 | **Écrans concernés** | Recommandé | Anomalies, dashboards, intake |
 | **Risques connus** | Optionnel | Risques intégration, SSI, UX |
 | **ADR candidates existantes** | Recommandé | Liste priorisée si disponible |
-| **Méthodes rôle applicables** | Recommandé | `docs/methods/roles/` concernées |
+| **Méthodes rôle applicables** | Recommandé | `docs/practices/roles/` concernées |
 
 ---
 

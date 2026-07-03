@@ -30,9 +30,9 @@ L'objectif était de consolider :
 
 | Fichier | Action | Rôle |
 |---------|--------|------|
-| `methods/controlled-delivery/controlled-delivery-publication-package.md` | Créé | Package final de publication |
-| `methods/controlled-delivery/controlled-delivery-publication-checklist.md` | Créé | Checklist opérationnelle de publication |
-| `methods/controlled-delivery/README.md` | Mis à jour | Index du dossier Controlled Delivery |
+| `method/complementary/controlled-delivery/controlled-delivery-publication-package.md` | Créé | Package final de publication |
+| `method/complementary/controlled-delivery/controlled-delivery-publication-checklist.md` | Créé | Checklist opérationnelle de publication |
+| `method/complementary/controlled-delivery/README.md` | Mis à jour | Index du dossier Controlled Delivery |
 
 Les actifs hardened n'ont pas été modifiés.
 

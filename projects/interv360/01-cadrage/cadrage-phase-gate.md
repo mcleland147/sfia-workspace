@@ -32,7 +32,7 @@ Interv360 a traversé une phase de cadrage consolidée sur le contexte **ServiTe
 
 Les intégrations et erreurs sont cadrées (`integration-error-arbitration-review.md`), le **canal email sécurisé** est documenté (`secure-email-intake-review.md`), le **dashboard KPI / UX** est clarifié (`dashboard-kpi-ux-review.md`). Le **brief UX/UI est validé** avant toute maquette ; **9 ADR candidates** sont préparées (`adr-candidates.md`).
 
-La **gouvernance Notion** a été synchronisée (`notion-sync-summary.md`). La **capitalisation SFIA** est réalisée : 6 Role Methods extraits (`docs/methods/roles/`), revue méthodes rôle, catalogue prompts structuré (`prompts/prompt-catalog.md`), contrôle arborescence méthodes.
+La **gouvernance Notion** a été synchronisée (`notion-sync-summary.md`). La **capitalisation SFIA** est réalisée : 6 Role Methods extraits (`docs/practices/roles/`), revue méthodes rôle, catalogue prompts structuré (`prompts/prompt-catalog.md`), contrôle arborescence méthodes.
 
 ---
 
@@ -54,7 +54,7 @@ La **gouvernance Notion** a été synchronisée (`notion-sync-summary.md`). La *
 | role-methods-review.md | Draft | Chef de projet | Revue maturité rôles | Template Role Methods Review |
 | adr-candidates.md | Draft | Architecte / RSSI / PO | 9 ADR candidates P1–P3 | Template ADR Candidate |
 | prompts/prompt-catalog.md | Draft | Chef de projet | 14 prompts candidats, 9 familles | Prompt Catalog |
-| docs/methods/roles/*.md (6 fichiers) | Draft | Rôles extraits | Méthodes BA, PO, CP, UX, Arch, RSSI | Role Methods réutilisables |
+| docs/practices/roles/*.md (6 fichiers) | Draft | Rôles extraits | Méthodes BA, PO, CP, UX, Arch, RSSI | Role Methods réutilisables |
 
 ---
 
@@ -150,12 +150,12 @@ La **gouvernance Notion** a été synchronisée (`notion-sync-summary.md`). La *
 
 | Rôle | Impact phase gate | Méthode à enrichir après phase architecture |
 |------|-----------------|---------------------------------------------|
-| **Architecte** | Instruction ADR P1 — contrats, erreurs, journalisation | docs/methods/roles/architect-method.md |
-| **RSSI** | Instruction ADR P1 email + P2 conservation | docs/methods/roles/rssi-method.md |
-| **Product Owner** | Validation périmètre maintenu ; ADR P2 notifications, signature | docs/methods/roles/product-owner-method.md |
-| **Chef de projet** | Orchestration passage phase ; sync Notion jalon architecture | docs/methods/roles/project-manager-method.md |
-| **UX/UI Designer** | Figma possible post-décisions structurantes ; ADR-CAND-008 | docs/methods/roles/ux-ui-designer-method.md |
-| **Business Analyst** | Règles RG-* à détailler si ADR impactent métier | docs/methods/roles/business-analyst-method.md |
+| **Architecte** | Instruction ADR P1 — contrats, erreurs, journalisation | docs/practices/roles/architect-method.md |
+| **RSSI** | Instruction ADR P1 email + P2 conservation | docs/practices/roles/rssi-method.md |
+| **Product Owner** | Validation périmètre maintenu ; ADR P2 notifications, signature | docs/practices/roles/product-owner-method.md |
+| **Chef de projet** | Orchestration passage phase ; sync Notion jalon architecture | docs/practices/roles/project-manager-method.md |
+| **UX/UI Designer** | Figma possible post-décisions structurantes ; ADR-CAND-008 | docs/practices/roles/ux-ui-designer-method.md |
+| **Business Analyst** | Règles RG-* à détailler si ADR impactent métier | docs/practices/roles/business-analyst-method.md |
 | **QA / Testeur** | Scénarios erreurs/email à aligner sur ADR P1 | Méthode non encore extraite — à enrichir plus tard |
 | **GreenOps** | ADR-CAND-005 conservation — instruction P2 | Méthode non encore extraite — à enrichir plus tard |
 | **Data / IA** | ADR-CAND-009 reportée — pas d'action architecture immédiate | Méthode non encore extraite — à enrichir plus tard |

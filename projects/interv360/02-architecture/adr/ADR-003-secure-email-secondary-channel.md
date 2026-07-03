@@ -205,10 +205,10 @@ Les **rejets email** doivent être **visibles dans l'écran anomalies** (ADR-002
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/rssi-method.md` | Enrichissement après ADR-004 — bloc email + journalisation |
-| `docs/methods/roles/architect-method.md` | Enrichissement après ADR-004 — contrat intake + traçabilité |
-| `docs/methods/roles/product-owner-method.md` | ARB-MVP-01 formalisé ; CRM principal confirmé |
-| `docs/methods/roles/project-manager-method.md` | Traçabilité ADR-003 ; sync Notion post-jalon |
+| `docs/practices/roles/rssi-method.md` | Enrichissement après ADR-004 — bloc email + journalisation |
+| `docs/practices/roles/architect-method.md` | Enrichissement après ADR-004 — contrat intake + traçabilité |
+| `docs/practices/roles/product-owner-method.md` | ARB-MVP-01 formalisé ; CRM principal confirmé |
+| `docs/practices/roles/project-manager-method.md` | Traçabilité ADR-003 ; sync Notion post-jalon |
 | `prompts/prompt-catalog.md` | PROMPT-SEC-001, PROMPT-ARCH-001 candidats Draft |
 | `prompts/security/` | Accueil futur PROMPT-SEC-001 formalisé |
 | `prompts/architecture/` | Lien contrat email dans revue intégrations |
@@ -290,10 +290,10 @@ Les **rejets email** doivent être **visibles dans l'écran anomalies** (ADR-002
 
 | Méthode | Enrichissement immédiat ? | Décision |
 |---------|---------------------------|----------|
-| `docs/methods/roles/rssi-method.md` | Non | Enrichir après **ADR-004** — bloc email + journalisation + traçabilité |
-| `docs/methods/roles/architect-method.md` | Non | Enrichir après **ADR-004** — contrat intake + logs |
-| `docs/methods/roles/product-owner-method.md` | Non | Enrichir après **ADR-004** — ARB-MVP-01 avec traçabilité complète |
-| `docs/methods/roles/project-manager-method.md` | Non | Enrichir après jalon architecture consolidé (ADR P1) |
+| `docs/practices/roles/rssi-method.md` | Non | Enrichir après **ADR-004** — bloc email + journalisation + traçabilité |
+| `docs/practices/roles/architect-method.md` | Non | Enrichir après **ADR-004** — contrat intake + logs |
+| `docs/practices/roles/product-owner-method.md` | Non | Enrichir après **ADR-004** — ARB-MVP-01 avec traçabilité complète |
+| `docs/practices/roles/project-manager-method.md` | Non | Enrichir après jalon architecture consolidé (ADR P1) |
 
 **Les méthodes rôle ne sont pas modifiées à cette étape.**
 

@@ -474,12 +474,12 @@ Template AI Use Case Framing ; enrichissement data-ai-method.md (futur)
 
 | Rôle | Impact | Fichier méthode à enrichir plus tard |
 |------|--------|--------------------------------------|
-| **Architecte** | ADR-CAND-001, 002, 004, 006 — cœur architecture intégration | docs/methods/roles/architect-method.md |
-| **RSSI** | ADR-CAND-003, 004, 005 — SSI email, journalisation, conservation | docs/methods/roles/rssi-method.md |
-| **Product Owner** | ADR-CAND-006, 007, 009 — périmètre MVP, signature, IA | docs/methods/roles/product-owner-method.md |
-| **Chef de projet** | Priorisation instruction ADR, passage phase architecture | docs/methods/roles/project-manager-method.md |
-| **UX/UI Designer** | ADR-CAND-008 — séparation dashboards, représentation erreurs | docs/methods/roles/ux-ui-designer-method.md |
-| **Business Analyst** | ADR-CAND-007 — règles clôture, signature | docs/methods/roles/business-analyst-method.md |
+| **Architecte** | ADR-CAND-001, 002, 004, 006 — cœur architecture intégration | docs/practices/roles/architect-method.md |
+| **RSSI** | ADR-CAND-003, 004, 005 — SSI email, journalisation, conservation | docs/practices/roles/rssi-method.md |
+| **Product Owner** | ADR-CAND-006, 007, 009 — périmètre MVP, signature, IA | docs/practices/roles/product-owner-method.md |
+| **Chef de projet** | Priorisation instruction ADR, passage phase architecture | docs/practices/roles/project-manager-method.md |
+| **UX/UI Designer** | ADR-CAND-008 — séparation dashboards, représentation erreurs | docs/practices/roles/ux-ui-designer-method.md |
+| **Business Analyst** | ADR-CAND-007 — règles clôture, signature | docs/practices/roles/business-analyst-method.md |
 | **QA / Testeur** | ADR-CAND-002, 004 — scénarios erreurs, logs | Non extrait encore — à enrichir plus tard |
 | **GreenOps** | ADR-CAND-005 — conservation, sobriété logs/médias | Non extrait encore — à enrichir plus tard |
 | **Data / IA** | ADR-CAND-009 — gouvernance IA post-MVP | Non extrait encore — à enrichir plus tard |

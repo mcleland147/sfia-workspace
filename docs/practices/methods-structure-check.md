@@ -8,7 +8,7 @@
 
 ## 1. Objectif du contrôle
 
-Ce contrôle vérifie la **cohérence de l'arborescence SFIA** après le déplacement des méthodes par rôle vers `docs/methods/roles/`.
+Ce contrôle vérifie la **cohérence de l'arborescence SFIA** après le déplacement des méthodes par rôle vers `docs/practices/roles/`.
 
 Il confirme que :
 
@@ -44,9 +44,9 @@ sfia-workspace/
 | Dossier | Statut | Rôle attendu | Commentaire |
 |---------|--------|--------------|-------------|
 | **docs/** | Existe | Documentation méthodologique et gouvernance SFIA | Contient foundation, architecture, methods, adr, rex, etc. |
-| **docs/methods/** | Existe | Méthodes SFIA réutilisables | README présent |
-| **docs/methods/roles/** | Existe | Méthodes SFIA par rôle | 6 Role Methods + README |
-| **docs/methods/process/** | Existe | Modélisation processus / BPMN | Audit, méthode, standard livrables, checklist |
+| **docs/practices/** | Existe | Méthodes SFIA réutilisables | README présent |
+| **docs/practices/roles/** | Existe | Méthodes SFIA par rôle | 6 Role Methods + README |
+| **docs/practices/process/** | Existe | Modélisation processus / BPMN | Audit, méthode, standard livrables, checklist |
 | **prompts/** | Existe | Prompts réutilisables Cursor/ChatGPT | README présent ; registre officiel dans Notion |
 | **projects/** | Existe | Projets pilotes (ex. Interv360) | Alimentent la capitalisation SFIA |
 | **tools/** | Existe | Outillage SFIA (ex. CMP-001) | Connecteur Notion Sync embarqué |
@@ -69,11 +69,11 @@ sfia-workspace/
 | architect-method.md | Présent | Draft — source PRJ-INTERV360 |
 | business-analyst-method.md | Présent | Draft — source PRJ-INTERV360 |
 | product-owner-method.md | Présent | Draft — source PRJ-INTERV360 |
-| project-manager-method.md | Présent | Draft — chemins internes alignés sur docs/methods/roles/ |
+| project-manager-method.md | Présent | Draft — chemins internes alignés sur docs/practices/roles/ |
 | rssi-method.md | Présent | Draft — source PRJ-INTERV360 |
 | ux-ui-designer-method.md | Présent | Draft — source PRJ-INTERV360 |
 
-**Résultat :** 6/6 fichiers Role Method présents dans `docs/methods/roles/`.
+**Résultat :** 6/6 fichiers Role Method présents dans `docs/practices/roles/`.
 
 ---
 
@@ -96,14 +96,14 @@ Recherche workspace sur `sfia/methods/`, `methods/roles/` (racine) et `methods/`
 
 | Fichier contrôlé | Anciennes références trouvées | Action réalisée |
 |------------------|--------------------------------|-----------------|
-| README.md | Aucune référence active aux anciens chemins | Conforme — cible `docs/methods/roles/` |
-| docs/README.md | Chemins relatifs `methods/`, `methods/roles/` | Conforme — relatifs à docs/ (= docs/methods/) |
-| role-methods-framing.md | Aucune — déjà `docs/methods/roles/` | Conforme |
-| role-methods-review.md | Aucune — déjà `docs/methods/roles/` | Conforme |
-| project-manager-method.md | Aucune — déjà `docs/methods/roles/` | Conforme |
+| README.md | Aucune référence active aux anciens chemins | Conforme — cible `docs/practices/roles/` |
+| docs/README.md | Chemins relatifs `methods/`, `methods/roles/` | Conforme — relatifs à docs/ (= docs/practices/) |
+| role-methods-framing.md | Aucune — déjà `docs/practices/roles/` | Conforme |
+| role-methods-review.md | Aucune — déjà `docs/practices/roles/` | Conforme |
+| project-manager-method.md | Aucune — déjà `docs/practices/roles/` | Conforme |
 | Autres fichiers workspace | Aucune référence à `sfia/methods/` | Conforme |
 
-**Note :** les chemins `methods/` et `methods/roles/` dans `docs/README.md` sont des **chemins relatifs sous docs/** — ils désignent correctement `docs/methods/` et `docs/methods/roles/`, pas l'ancienne racine `methods/`.
+**Note :** les chemins `methods/` et `methods/roles/` dans `docs/README.md` sont des **chemins relatifs sous docs/** — ils désignent correctement `docs/practices/` et `docs/practices/roles/`, pas l'ancienne racine `methods/`.
 
 ---
 
@@ -111,10 +111,10 @@ Recherche workspace sur `sfia/methods/`, `methods/roles/` (racine) et `methods/`
 
 | README | Statut | Commentaire |
 |--------|--------|-------------|
-| **README.md** (racine) | Conforme | Arborescence cible avec docs/methods/roles/ ; séparation prompts/projects/tools |
+| **README.md** (racine) | Conforme | Arborescence cible avec docs/practices/roles/ ; séparation prompts/projects/tools |
 | **docs/README.md** | Conforme | methods/ et methods/roles/ listés comme sous-dossiers docs/ |
-| **docs/methods/README.md** | Conforme | Rôle, `roles/` et `process/` (BPMN) documentés |
-| **docs/methods/roles/README.md** | Conforme | Structure Role Method et templates vivants documentés |
+| **docs/practices/README.md** | Conforme | Rôle, `roles/` et `process/` (BPMN) documentés |
+| **docs/practices/roles/README.md** | Conforme | Structure Role Method et templates vivants documentés |
 | **prompts/README.md** | Conforme | Pas de référence aux anciens chemins ; distinction Notion/local |
 
 **Aucune correction README nécessaire** — incohérences de chemin non détectées.
@@ -128,15 +128,15 @@ Cette réorganisation améliore :
 | Dimension | Amélioration |
 |-----------|--------------|
 | **Lisibilité produit SFIA** | Méthodes regroupées sous docs/ avec foundation, architecture, adr |
-| **Séparation documentation / prompts / projets / outils** | docs/methods/ ≠ prompts/ ≠ projects/ ≠ tools/ |
-| **Traçabilité assets méthodologiques** | Emplacement unique et stable : docs/methods/roles/ |
+| **Séparation documentation / prompts / projets / outils** | docs/practices/ ≠ prompts/ ≠ projects/ ≠ tools/ |
+| **Traçabilité assets méthodologiques** | Emplacement unique et stable : docs/practices/roles/ |
 | **Documents vivants** | READMEs rappellent l'enrichissement continu par projets pilotes |
 
 ---
 
 ## 9. Décision
 
-**L'arborescence active des méthodes SFIA est désormais `docs/methods/`, avec les méthodes par rôle dans `docs/methods/roles/`.**
+**L'arborescence active des méthodes SFIA est désormais `docs/practices/`, avec les méthodes par rôle dans `docs/practices/roles/`.**
 
 Le contrôle est **conforme** : dossiers cibles présents, 6 Role Methods en place, anciens chemins absents, références actives alignées, README cohérents.
 
@@ -144,12 +144,12 @@ Le contrôle est **conforme** : dossiers cibles présents, 6 Role Methods en pla
 
 ## 10. Points d'attention
 
-- Les **futurs prompts Cursor** doivent utiliser `docs/methods/roles/` comme cible active.
+- Les **futurs prompts Cursor** doivent utiliser `docs/practices/roles/` comme cible active.
 - Les **futures références Notion** devront pointer vers cette cible (gouvernance, pas duplication de contenu).
 - **Ne pas recréer** `sfia/methods/` ou `methods/` à la racine du workspace.
 - Les dossiers **templates/** et **standards/** à la racine sont **à venir** — ne pas les confondre avec `docs/templates/` et `docs/standards/` déjà présents sous docs/.
-- Les **5 rôles non encore extraits** (Concepteur fonctionnel, QA, FinOps, GreenOps, Data/IA) devront être ajoutés dans `docs/methods/roles/` après enrichissement pilote.
-- Le dossier **`docs/methods/process/`** contient la capacité BPMN : méthode, standard livrables, checklist d'intégration — templates et prompts BPMN en Phase C.
+- Les **5 rôles non encore extraits** (Concepteur fonctionnel, QA, FinOps, GreenOps, Data/IA) devront être ajoutés dans `docs/practices/roles/` après enrichissement pilote.
+- Le dossier **`docs/practices/process/`** contient la capacité BPMN : méthode, standard livrables, checklist d'intégration — templates et prompts BPMN en Phase C.
 
 ---
 

@@ -29,8 +29,8 @@ Ce document **clôture le cycle d'intégration BPMN** dans SFIA.
 | **B** | `bpmn-process-modeling-method.md` | Méthode de modélisation BPMN | Draft — prêt revue PR unique |
 | **B** | `bpmn-deliverables-standard.md` | Standard des livrables BPMN projet | Draft — prêt revue PR unique |
 | **B** | `bpmn-integration-checklist.md` | Checklist readiness avant cycle BPMN | Draft — prêt revue PR unique |
-| **B** | `docs/methods/README.md` | Index méthodes — section `process/` | Draft — prêt revue PR unique |
-| **B** | `docs/methods/methods-structure-check.md` | Contrôle structure — référence BPMN | Draft — prêt revue PR unique |
+| **B** | `docs/practices/README.md` | Index méthodes — section `process/` | Draft — prêt revue PR unique |
+| **B** | `docs/practices/methods-structure-check.md` | Contrôle structure — référence BPMN | Draft — prêt revue PR unique |
 | **C** | `bpmn-process-scope-template.md` | Template cadrage phase BPMN | Draft — prêt revue PR unique |
 | **C** | `bpmn-process-analysis-template.md` | Template analyse BPMN | Draft — prêt revue PR unique |
 | **C** | `bpmn-cycle-closure-template.md` | Template clôture cycle BPMN projet | Draft — prêt revue PR unique |
@@ -66,7 +66,7 @@ Ce document **clôture le cycle d'intégration BPMN** dans SFIA.
 ## 4. Structure méthodologique ajoutée
 
 ```
-docs/methods/process/
+docs/practices/process/
 ├── bpmn-method-integration-audit.md
 ├── bpmn-process-modeling-method.md
 ├── bpmn-deliverables-standard.md
@@ -82,7 +82,7 @@ prompts/bpmn/
 └── bpmn-prompt-family.md
 ```
 
-Référentiels index mis à jour : `docs/methods/README.md`, `docs/templates/README.md`, `prompts/README.md`, `prompts/prompt-catalog.md` (§15).
+Référentiels index mis à jour : `docs/practices/README.md`, `docs/templates/README.md`, `prompts/README.md`, `prompts/prompt-catalog.md` (§15).
 
 ---
 

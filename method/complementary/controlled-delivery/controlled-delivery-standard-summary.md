@@ -40,10 +40,10 @@ Le REX a démontré que :
 
 | Fichier | Rôle |
 |---------|------|
-| `methods/controlled-delivery/controlled-delivery-standard.md` | Standard SFIA de delivery contrôlé |
-| `methods/controlled-delivery/controlled-delivery-checklist.md` | Checklists phase 1, phase 2, réalisation, validation et capitalisation |
-| `methods/controlled-delivery/controlled-delivery-template.md` | Template réutilisable pour les futurs cycles |
-| `methods/controlled-delivery/controlled-delivery-prompt-family.md` | Famille de prompts pour industrialiser les cycles |
+| `method/complementary/controlled-delivery/controlled-delivery-standard.md` | Standard SFIA de delivery contrôlé |
+| `method/complementary/controlled-delivery/controlled-delivery-checklist.md` | Checklists phase 1, phase 2, réalisation, validation et capitalisation |
+| `method/complementary/controlled-delivery/controlled-delivery-template.md` | Template réutilisable pour les futurs cycles |
+| `method/complementary/controlled-delivery/controlled-delivery-prompt-family.md` | Famille de prompts pour industrialiser les cycles |
 
 ---
 

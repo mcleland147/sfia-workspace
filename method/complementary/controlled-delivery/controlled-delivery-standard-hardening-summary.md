@@ -21,10 +21,10 @@ L'objectif était de stabiliser les actifs méthode pour les rendre plus durable
 
 | Fichier | Rôle |
 |---------|------|
-| `methods/controlled-delivery/controlled-delivery-standard.md` | Standard renforcé |
-| `methods/controlled-delivery/controlled-delivery-checklist.md` | Checklist enrichie |
-| `methods/controlled-delivery/controlled-delivery-template.md` | Template de cycle renforcé |
-| `methods/controlled-delivery/controlled-delivery-prompt-family.md` | Famille de prompts enrichie |
+| `method/complementary/controlled-delivery/controlled-delivery-standard.md` | Standard renforcé |
+| `method/complementary/controlled-delivery/controlled-delivery-checklist.md` | Checklist enrichie |
+| `method/complementary/controlled-delivery/controlled-delivery-template.md` | Template de cycle renforcé |
+| `method/complementary/controlled-delivery/controlled-delivery-prompt-family.md` | Famille de prompts enrichie |
 
 Aucun fichier applicatif Interv360 n'a été modifié.
 

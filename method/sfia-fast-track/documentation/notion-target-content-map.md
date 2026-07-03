@@ -63,3 +63,17 @@ Ne pas publier brut :
 Notion doit devenir l'IDE métier de la SFA sur la base du workspace nettoyé, et non un miroir complet du repo.
 
 Référence complémentaire : `notion-publication-plan.md`
+
+## 6. Méthodes et pratiques
+
+La base Notion doit distinguer :
+
+- la méthode active SFIA Fast Track ;
+- les méthodes complémentaires ;
+- les pratiques plateforme par rôle ou discipline.
+
+Sources :
+
+- `method/sfia-fast-track/`
+- `method/complementary/`
+- `docs/practices/`

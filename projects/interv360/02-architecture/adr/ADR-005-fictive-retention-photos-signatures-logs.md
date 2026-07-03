@@ -197,11 +197,11 @@ Précisions :
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/rssi-method.md` | Enrichissement futur — conservation fictive, garde-fous UI |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement futur — zones preuves, wording Figma |
-| `docs/methods/roles/product-owner-method.md` | ARB-MVP-06 formalisé ; limites MVP |
-| `docs/methods/roles/architect-method.md` | Lien ADR-004 ; métadonnées — pas stockage lourd |
-| `docs/methods/roles/project-manager-method.md` | Traçabilité ADR P2 ; Figma post-bloc |
+| `docs/practices/roles/rssi-method.md` | Enrichissement futur — conservation fictive, garde-fous UI |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement futur — zones preuves, wording Figma |
+| `docs/practices/roles/product-owner-method.md` | ARB-MVP-06 formalisé ; limites MVP |
+| `docs/practices/roles/architect-method.md` | Lien ADR-004 ; métadonnées — pas stockage lourd |
+| `docs/practices/roles/project-manager-method.md` | Traçabilité ADR P2 ; Figma post-bloc |
 | `prompts/prompt-catalog.md` | PROMPT-UX-001, PROMPT-SEC-001 impactés — pas modifié ici |
 | `prompts/security/` | Checklist conservation MVP |
 | `prompts/ux-ui/` | Checklist preuves avant Figma |
