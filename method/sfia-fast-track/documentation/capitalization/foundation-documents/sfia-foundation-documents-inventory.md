@@ -189,3 +189,26 @@ Les documents `method/sfia-fast-track/*` portent la méthode opérationnelle act
 
 - `v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
 - `v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+
+## Update — v1.1 Assets Created
+
+The foundation v1.1 consolidation created or updated the following operational assets:
+
+| Asset | Role |
+|-------|------|
+| `docs/foundation/sfia-engineering-principles.md` | Higher-order execution principles |
+| `docs/architecture/sfia-decision-engine.md` | Decision, reserves and GO / NO-GO logic |
+| `docs/architecture/sfia-repository-blueprint.md` | Repository structure and routing |
+| `docs/architecture/sfia-delivery-pipeline.md` | Delivery and post-merge workflow |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | ChatGPT ↔ Cursor execution loop |
+| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | Current operational rules |
+| `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Knowledge and documentation routing |
+| `method/sfia-fast-track/automation/sfia-automation-architecture.md` | Automation architecture v1.1 |
+| `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md` | Prompt generation |
+| `method/sfia-fast-track/automation/sfia-repository-execution-engine.md` | Repository execution |
+| `method/sfia-fast-track/automation/sfia-validation-engine.md` | Validation and decisions |
+| `method/sfia-fast-track/checklists/sfia-validation-checklist.md` | Operational validation checklist |
+| `prompts/prompt-catalog.md` | Prompt families and cards |
+| `prompts/templates/` | Full reusable prompt templates |
+
+This inventory remains a historical foundation identification document. The current completeness view is maintained in `../sfia-documentation-completeness-matrix.md`.

@@ -119,14 +119,20 @@ Les enrichir avec les apprentissages issus :
 
 Avant de considérer v1.1 terminée :
 
-- [ ] Les 6 référentiels architecture portent la mention v1.1 et reflètent la structure PR #81
-- [ ] Aucune référence active à `methods/` racine ou `docs/methods/` dans les docs v1.1
-- [ ] Operating model ChatGPT ↔ Cursor documenté et référencé depuis automation
-- [ ] Les 3 moteurs ont une spec autonome (même si non implémentés)
-- [ ] Knowledge layer distingue Notion IDE métier vs sync brut
-- [ ] Domain model inclut Practice et Role Method
-- [ ] Terminologie **SFIA** exclusive dans tous les nouveaux contenus v1.1
-- [ ] Documents v1.0 restent traçables via Git history
+- [x] Les 6 référentiels architecture portent la mention v1.1 et reflètent la structure PR #81
+- [x] Aucune référence active à `methods/` racine ou `docs/methods/` dans les docs v1.1
+- [x] Operating model ChatGPT ↔ Cursor documenté et référencé depuis automation
+- [x] Les 3 moteurs ont une spec autonome (même si non implémentés)
+- [x] Knowledge layer distingue Notion IDE métier vs sync brut
+- [x] Domain model inclut Practice et Role Method
+- [x] Terminologie **SFIA** exclusive dans tous les nouveaux contenus v1.1
+- [x] Documents v1.0 restent traçables via Git history
+
+**Status after P2.2:**
+
+- Structural foundation: complete;
+- Index and audit alignment: complete;
+- Formal closure decision: pending P2.3.
 
 ## 8. Garde-fous
 
@@ -599,3 +605,16 @@ Remaining follow-up:
 
 - P2.2 capitalization indexes and completeness matrix;
 - P2.3 foundation v1.1 closure decision.
+
+## Update — P2.2 Capitalization Indexes Updated
+
+The P2.2 cycle updates capitalization indexes and completeness tracking after:
+
+- Prompt Catalog creation;
+- Prompt Templates creation;
+- P2 Cross-Reference Audit;
+- P2.1 Core and Architecture Cross-References.
+
+The foundation v1.1 consolidation is structurally complete.
+
+Formal closure remains pending P2.3.

@@ -279,3 +279,20 @@ La clôture formelle reste **pending** tant que P2.1 et P2.2 ne sont pas exécut
 ---
 
 *Référentiel SFIA — P2 Cross-Reference Audit v1.1 — candidate audit before foundation closure.*
+## Update — P2.2 Capitalization Indexes Updated
+
+The P2.2 cycle has updated the capitalization indexes, completeness matrix and historical audits to reflect the current SFIA foundation v1.1 status.
+
+Updated references include:
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+
+Current status:
+
+- foundation v1.1 structurally complete;
+- capitalization indexes aligned;
+- formal closure pending P2.3.

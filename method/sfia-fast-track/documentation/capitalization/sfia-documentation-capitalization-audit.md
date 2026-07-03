@@ -291,3 +291,39 @@ Cette passe n'est **pas terminée** tant que les documents fondateurs n'ont pas 
 - Aucun déplacement de fichier
 - Aucune refonte d'arborescence
 - Pas de push / pas de PR
+
+## Update — Post Foundation v1.1 Consolidation
+
+This audit is preserved as a historical capitalization baseline.
+
+Since this audit, the SFIA foundation v1.1 consolidation has produced:
+
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Knowledge Layer;
+- Automation Architecture v1.1;
+- Prompt Generation Engine;
+- Repository Execution Engine;
+- Validation Engine;
+- Validation Checklist;
+- Prompt Catalog;
+- Prompt Templates;
+- P2 Cross-Reference Audit;
+- P2.1 Cross-References.
+
+The original findings remain useful as historical evidence, but the operational foundation status has changed.
+
+**Current decision:**
+
+- The SFIA foundation v1.1 is structurally complete.
+- Formal closure remains pending P2.3.
+
+**Related current references:**
+
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `prompts/prompt-catalog.md`
+- `prompts/templates/`

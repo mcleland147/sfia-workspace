@@ -1,14 +1,43 @@
-# SFIA/SFA Documentation Completeness Matrix
+# SFIA Documentation Completeness Matrix
 
 **Date** : 2026-07-03  
 **Branche** : `capitalization/sfia-documentation-completeness`  
-**Référence** : `main` @ `3b521c6`
+**Référence** : `main` @ `3b521c6`  
+**Dernière mise à jour** : foundation v1.1 — P2.2 (branche `capitalization/sfia-foundation-v1.1`)
+
+## Update — Foundation v1.1 Consolidation Status
+
+The SFIA foundation v1.1 consolidation has now produced the following operational assets:
+
+- Engineering Principles;
+- Decision Engine;
+- Repository Blueprint;
+- Delivery Pipeline;
+- Platform Architecture v1.1;
+- Domain Model v1.1;
+- Meta-Model v1.1;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Knowledge Layer;
+- Automation Architecture v1.1;
+- Prompt Generation Engine;
+- Repository Execution Engine;
+- Validation Engine;
+- Validation Checklist;
+- Prompt Catalog;
+- Prompt Templates;
+- P2 Cross-Reference Audit;
+- P2.1 Cross-References.
+
+The previous matrix sections are preserved as historical baseline where relevant.
+
+**Current decision:** SFIA foundation v1.1 is structurally complete. Formal closure remains pending P2.3.
 
 ## 1. Objectif
 
-Cette matrice vérifie que la documentation SFIA/SFA est complète avant toute publication ou synchronisation Notion.
+Cette matrice vérifie que la documentation SFIA est complète avant toute publication ou synchronisation Notion.
 
-L'objectif est de s'assurer que la méthode, les templates, les prompts, les pratiques, les standards et le cas de référence Interv360 sont suffisamment capitalisés pour servir de base à la SFA.
+L'objectif est de s'assurer que la méthode, les templates, les prompts, les pratiques, les standards et le cas de référence Interv360 sont suffisamment capitalisés pour servir de base à SFIA.
 
 **Inventaires associés** : `inventory-*.md-list.txt` (même dossier).
 
@@ -27,17 +56,20 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 
 | Domaine | Document attendu | Emplacement attendu | Statut | Commentaire |
 |---------|------------------|---------------------|--------|-------------|
-| Vision globale | Capitalisation globale SFA/SFIA | `method/sfia-fast-track/core/sfia-global-capitalization.md` | **OK** | Document substantiel, capitalise Interv360 |
-| Règles méthode | Règles et garde-fous | `method/sfia-fast-track/core/sfia-rules-update.md` | **OK** | Présent et structuré |
+| Vision globale | Capitalisation globale SFIA | `method/sfia-fast-track/core/sfia-global-capitalization.md` | **OK** | Preuve opérationnelle Interv360 — cross-réfs v1.1 ajoutées (P2.1) |
+| Règles méthode | Règles opérationnelles actuelles | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | **OK** | Référence opérationnelle v1.1 |
+| Règles historiques | Trace consolidation règles | `method/sfia-fast-track/core/sfia-rules-update.md` | **OK** | Trace historique — cross-réfs v1.1 ajoutées (P2.1) |
+| Operating Model | Boucle ChatGPT ↔ Cursor | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | **OK** | Foundation v1.1 |
+| Knowledge Layer | Routing documentation et knowledge | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | **OK** | Foundation v1.1 |
 | Standards architecture | Standards architecture | `method/sfia-fast-track/core/sfia-architecture-standards.md` | **OK** | Présent |
 | Roadmap consolidation | Roadmap amélioration SFIA | `method/sfia-fast-track/core/sfia-consolidation-roadmap.md` | **OK** | Pilote chantiers consolidation |
-| Automation | Architecture d'automatisation SFA | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | **OK** | Vision factory + niveaux |
+| Automation | Architecture + moteurs P1 | `method/sfia-fast-track/automation/` | **OK** | Automation Architecture v1.1 + Prompt Generation, Repository Execution, Validation engines |
 | Cycle type | Déroulé de cycle SFIA | `method/sfia-fast-track/cycles/` + `templates/cycle-template.md` | **À compléter** | 2 capitalisations Interv360 ; pas de doc cycle générique autonome hors template |
 | UI / UX | Méthode UI / Figma Design-first | `method/sfia-fast-track/ui/figma-design-first-ui-method.md` | **OK** | Référence active |
 | Audit / REX | Méthode audit et REX | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` | **À compléter** | REX Interv360 présent ; méthode audit/REX générique SFIA non formalisée |
 | Documentation | Plan documentaire et Notion | `method/sfia-fast-track/documentation/` | **À compléter** | Mapping Notion OK ; `documentation-audit.md` et `documentation-structure-target.md` pré-Round 3 |
 | Templates | Templates opérationnels Fast Track | `method/sfia-fast-track/templates/` (6 fichiers) | **OK** | Cycle, PR, post-merge, audit, REX, MVP pattern — pas de README dossier |
-| Checklists | Checklists de validation | `method/sfia-fast-track/checklists/` (3 fichiers) | **OK** | Validation, garde-fous, publication Notion — pas de README dossier |
+| Checklists | Checklists de validation | `method/sfia-fast-track/checklists/` | **OK** | `sfia-validation-checklist.md` = checklist canonique v1.1 ; 3 checklists legacy conservées |
 | README méthode | Point d'entrée Fast Track | `method/sfia-fast-track/README.md` | **OK** | Arborescence et liens documentés |
 | Archive méthode | Méthode historique | `method/sfia-fast-track/archive/interv360-realization/` | **OK** | Archivée, traçable |
 
@@ -83,7 +115,8 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 
 | Famille | Document attendu | Emplacement attendu | Statut | Commentaire |
 |---------|------------------|---------------------|--------|-------------|
-| Catalogue | Index prompts SFIA | `prompts/prompt-catalog.md` | **OK** | Catalogue riche (~15 familles référencées) |
+| Catalogue | Index prompts SFIA v1.1 | `prompts/prompt-catalog.md` | **OK** | 8 familles, 26 prompt cards |
+| Templates prompts | Templates opérationnels complets | `prompts/templates/` | **OK** | 10 templates prioritaires v1.1 |
 | Intake / Cadrage | Prompts cadrage | `prompts/cadrage/` | **À créer** | Dossier vide — entrées catalogue seulement |
 | Arbitrages | Prompts arbitrages MVP | `prompts/arbitrages/` | **À créer** | Dossier vide |
 | Architecture | Prompts architecture | `prompts/architecture/` (2 fichiers) | **OK** | PROMPT-ARCH-001 + famille archi fonctionnelle |
@@ -95,15 +128,15 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 | Rôles | Extraction Role Method | `prompts/roles/` | **À créer** | Dossier vide |
 | Gouvernance | Contrôles structure | `prompts/governance/` | **À créer** | Dossier vide |
 | Notion | Prompts sync gouvernance | `prompts/governance/notion/` | **À créer** | Dossier vide |
-| Automation | Prompts automation SFA | `prompts/` | **À arbitrer** | Non requis immédiatement — couvert par doc automation |
+| Automation | Prompts automation SFIA | `prompts/` + moteurs P1 | **OK** | Couvert par Prompt Catalog, Templates et Prompt Generation Engine |
 | Penpot | Agent design Penpot | `prompts/tooling/penpot/` | **OK** | |
 
 ## 8. Documentation plateforme (hors practices)
 
 | Domaine | Emplacement | Statut | Commentaire |
 |---------|-------------|--------|-------------|
-| Architecture plateforme | `docs/architecture/` (6 fichiers) | **OK** | Meta-modèle, pipeline, blueprint |
-| Principes fondateurs | `docs/foundation/` | **OK** | Engineering principles |
+| Architecture plateforme | `docs/architecture/` (6 fichiers v1.1 + README) | **OK** | 6 référentiels v1.1 + index connecté Fast Track (P2.1) |
+| Principes fondateurs | `docs/foundation/sfia-engineering-principles.md` | **OK** | Engineering Principles v1.1 — norme supérieure |
 | ADR plateforme | `docs/adr/` | **À compléter** | README seul — pas d'ADR actifs |
 | Knowledge | `docs/knowledge/` | **À compléter** | README placeholder |
 | REX plateforme | `docs/rex/` | **À compléter** | README placeholder |
@@ -173,6 +206,23 @@ Elle vise à identifier les documents portant :
 
 **Résultat** : six référentiels fondateurs identifiés dans `docs/architecture/` ; lacunes P0 sur operating model ChatGPT ↔ Cursor et specs moteurs autonomes.
 
-Cette passe de capitalisation globale n'est **pas terminée** tant que les documents fondateurs n'ont pas été consolidés.
+**Mise à jour P2.2** : ces lacunes ont été comblées par la consolidation foundation v1.1. Voir la section **Update — Foundation v1.1 Consolidation Status** en tête de document.
 
-**Priorité révisée** : consolidation fondations **avant** chantier Notion.
+**Priorité révisée (historique)** : consolidation fondations **avant** chantier Notion — **atteinte structurellement** ; clôture formelle pending P2.3.
+
+## Current Closure Status
+
+The foundation v1.1 consolidation is structurally complete.
+
+Remaining before formal closure:
+
+1. P2.2 capitalization indexes and completeness matrix update;
+2. P2.3 final closure decision and post-merge trace.
+
+Deferred P2 items:
+
+- Interv360 prompt family reconciliation;
+- Documentation Engine decision;
+- Notion mapping terminology review;
+- legacy checklist clarification or consolidation;
+- template language harmonization after real usage.

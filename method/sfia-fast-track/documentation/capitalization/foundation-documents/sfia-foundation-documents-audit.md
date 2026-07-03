@@ -241,3 +241,32 @@ Les documents `method/sfia-fast-track/*` portent la méthode opérationnelle act
 
 - `v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
 - `v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+
+## Update — Superseded by Foundation v1.1 Consolidation
+
+This audit is preserved as a historical pre-v1.1 foundation audit.
+
+The gaps identified at the time of this audit have been addressed by the SFIA foundation v1.1 consolidation, including:
+
+- Engineering Principles;
+- Decision Engine;
+- Repository Blueprint;
+- Delivery Pipeline;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Knowledge Layer;
+- Automation Architecture v1.1;
+- Prompt Generation Engine;
+- Repository Execution Engine;
+- Validation Engine;
+- Validation Checklist;
+- Prompt Catalog;
+- Prompt Templates.
+
+This document should no longer be used alone to assess the current SFIA foundation completeness.
+
+Use instead:
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
