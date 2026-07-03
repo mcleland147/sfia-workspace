@@ -703,3 +703,31 @@ Remaining follow-up:
 - consolidate validation checklists;
 - consolidate `prompts/prompt-catalog.md`;
 - prepare P2 cross-references.
+## Update — Automation Architecture Updated to v1.1
+
+`method/sfia-fast-track/automation/sfia-automation-architecture.md` has been updated to v1.1.
+
+The document now acts as the synthesis reference for SFIA automation architecture and points to the three P1 engine specifications:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+The updated architecture clarifies:
+
+- SFIA v1.1 automation remains non-autonomous;
+- the P1 engines are specifications, not executable autonomous components;
+- Engineering Principles are mandatory for automation initiatives;
+- human validation cannot be bypassed;
+- the v1.1 automation chain is:
+  - Prompt Generation Engine;
+  - Repository Execution Engine;
+  - Validation Engine;
+- `sfia-documentation-engine.md` remains optional and should only be created if a future cycle validates the need.
+
+Remaining follow-up:
+
+- consolidate validation checklists;
+- consolidate `prompts/prompt-catalog.md`;
+- prepare P2 cross-references;
+- prepare SFIA v2.0 automation trajectory after v1.1 stabilization.

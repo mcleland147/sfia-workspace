@@ -1,4 +1,45 @@
-# SFIA Fast Track — Automation Architecture Vision
+---
+status: foundation
+version: v1.1
+updated_after: SFIA foundation v1.1 consolidation
+scope: automation architecture
+---
+
+# SFIA Fast Track — Automation Architecture v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** SFIA foundation v1.1 consolidation  
+**Scope:** Automation architecture
+
+## v1.1 Consistency Rule
+
+SFIA v1.1 preserves the historical automation architecture vision while adding operational clarifications derived from SFIA Fast Track, the ChatGPT ↔ Cursor operating model, Engineering Principles, Rules & Guardrails, the Knowledge Layer and the three P1 automation engine specifications.
+
+When v1.0 and v1.1 formulations are in tension, the v1.1 operational clarification prevails for current SFIA execution.
+
+Historical automation concepts remain useful for target architecture, but current automation cycles must follow the v1.1 engine specifications and human validation rules.
+
+## v1.1 Engineering Principles Reference
+
+All SFIA automation initiatives must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+Automation must not bypass:
+
+- repository-first execution;
+- prompt-as-contract;
+- guardrails before execution;
+- documentation routing;
+- quality by evidence;
+- human validation;
+- controlled automation;
+- no raw Notion sync.
+
+Any automation exception must be explicit, justified, traceable and validated by a human according to:
+
+- `docs/architecture/sfia-decision-engine.md`
 
 ## 1. Objectif
 
@@ -229,6 +270,34 @@ Sorties :
 - prompt PR ;
 - prompt post-merge.
 
+#### v1.1 Status — Specified
+
+The Prompt Generation Engine is now specified in:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+
+In SFIA v1.1, this engine transforms a human intention or cycle need into a structured, compliant, routed and controllable Cursor prompt.
+
+It produces an execution contract including:
+
+- objective;
+- repository;
+- branch;
+- expected commit;
+- SFIA phase or context;
+- reference sources;
+- target folder;
+- capitalization type;
+- scope;
+- out of scope;
+- files to read;
+- files to modify;
+- forbidden files or paths;
+- expected actions;
+- verification commands;
+- expected commit;
+- expected result.
+
 ### 5.6. Repository Execution Engine
 
 Rôle :
@@ -254,6 +323,35 @@ Sorties :
 - PR prête ;
 - rapport d'exécution.
 
+#### v1.1 Status — Specified
+
+The Repository Execution Engine is now specified in:
+
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+
+In SFIA v1.1, this engine executes a Cursor prompt in Git in a controlled, traceable and validable way.
+
+It controls:
+
+- repository path;
+- branch;
+- expected commit;
+- `git status`;
+- sources;
+- target folders;
+- generic SFIA protected path categories;
+- project-specific protected paths;
+- diff;
+- checks;
+- local commit;
+- PR readiness;
+- post-merge readiness;
+- execution report.
+
+Protected paths are not hardcoded to a single project.
+
+The prompt must declare project-specific protected paths for each cycle.
+
 ### 5.7. Validation Engine
 
 Rôle :
@@ -276,6 +374,27 @@ Sorties :
 - rapport validation ;
 - go/no-go ;
 - corrections nécessaires.
+
+#### v1.1 Status — Specified
+
+The Validation Engine is now specified in:
+
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+In SFIA v1.1, this engine validates:
+
+- Cursor prompts;
+- repository execution;
+- diffs;
+- commits;
+- deliverables;
+- PR readiness;
+- post-merge traces;
+- capitalization;
+- Notion preparation;
+- automation readiness.
+
+It produces explicit SFIA decisions, classifies reserves and proposes next steps.
 
 ### 5.8. Documentation Engine
 
@@ -575,3 +694,107 @@ Décision :
 - Chantier 4 — inclure l'inventaire des documents nécessaires à l'automatisation ;
 - Chantier 5 — formaliser les règles exécutables, workflows, checklists et templates ;
 - nouveau projet — tester progressivement l'approche semi-automatisée.
+
+---
+
+## v1.1 Update — Automation Architecture
+
+SFIA automation v1.1 is based on three P1 engine specifications:
+
+1. `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+2. `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+3. `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+These engines are specifications, not autonomous executable components.
+
+They define how SFIA should:
+
+- generate Cursor prompts;
+- execute repository changes;
+- validate prompts, diffs, commits, deliverables and decisions.
+
+SFIA v1.1 remains:
+
+- human-validated;
+- prompt-driven;
+- repository-first;
+- non-autonomous;
+- controlled by evidence;
+- constrained by guardrails.
+
+The three engine specifications prepare a future SFIA v2.0 automation model, but do not activate autonomous automation by themselves.
+
+## v1.1 P1 Engine Chain
+
+The SFIA v1.1 automation chain is:
+
+```text
+Human intention
+→ Prompt Generation Engine
+→ Cursor prompt / execution contract
+→ Repository Execution Engine
+→ Controlled Git changes
+→ Validation Engine
+→ SFIA decision / reserves / next step
+→ Documentation / Knowledge capitalization
+```
+
+| Engine | Role | Canonical specification |
+|--------|------|-------------------------|
+| Prompt Generation Engine | Produces the Cursor execution contract | `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md` |
+| Repository Execution Engine | Executes the contract in Git with guardrails | `method/sfia-fast-track/automation/sfia-repository-execution-engine.md` |
+| Validation Engine | Validates prompt, execution, diff, commit, deliverables and decisions | `method/sfia-fast-track/automation/sfia-validation-engine.md` |
+
+This chain is the current operational automation reference for SFIA v1.1.
+
+## v1.1 Automation Boundaries
+
+In SFIA v1.1, no automation engine is autonomous.
+
+The P1 engine specifications must not be interpreted as permission to automate execution without human control.
+
+SFIA automation must not:
+
+- execute repository changes without a validated prompt;
+- push without human validation;
+- create PRs without human validation;
+- merge automatically;
+- publish to Notion automatically;
+- run raw Notion sync;
+- bypass Engineering Principles;
+- bypass Rules & Guardrails;
+- modify protected paths without explicit scope and validation;
+- treat generated outputs as validated without evidence.
+
+Any move toward executable automation must be handled in a dedicated cycle, validated by a human, traced in Git and controlled by the Validation Engine.
+
+## v1.1 Remaining Automation Work
+
+The three P1 automation engine specifications are now available.
+
+Remaining follow-up work:
+
+1. consolidate validation checklists;
+2. consolidate `prompts/prompt-catalog.md`;
+3. decide whether `sfia-documentation-engine.md` is necessary;
+4. prepare P2 cross-references;
+5. update older foundation documents that still reference automation only at conceptual level;
+6. prepare SFIA v2.0 automation trajectory only after v1.1 stabilization.
+
+`sfia-documentation-engine.md` remains optional.
+
+It should only be created if a future cycle proves that documentation production requires a dedicated engine beyond Prompt Generation, Repository Execution and Validation.
+
+## v1.1 Decision
+
+`method/sfia-fast-track/automation/sfia-automation-architecture.md` is the synthesis reference for SFIA automation architecture v1.1.
+
+The three P1 engine specifications are now the canonical operational references for automation-related cycles:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+SFIA v1.1 automation remains non-autonomous, human-validated, prompt-driven and repository-first.
+
+No automation engine may bypass the Engineering Principles, Rules & Guardrails, Decision Engine or human validation.

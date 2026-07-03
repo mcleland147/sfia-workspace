@@ -2,22 +2,17 @@
 
 This folder contains SFIA automation architecture and engine specifications.
 
-## Documents
+## Architecture and P1 Engine Specifications
 
 | Document | Role |
 |----------|------|
-| `sfia-automation-architecture.md` | Automation architecture and engine vision |
-
-## P1 Engine Specifications
-
-| Document | Role |
-|----------|------|
+| `sfia-automation-architecture.md` | Synthesis reference for SFIA automation architecture v1.1 |
 | `sfia-prompt-generation-engine.md` | Specification for generating SFIA-compliant Cursor prompts |
-| `sfia-repository-execution-engine.md` | Specification for executing SFIA-compliant Cursor prompts in the Git repository |
-| `sfia-validation-engine.md` | Specification for validating SFIA prompts, repository execution, diffs, commits, deliverables and decisions |
+| `sfia-repository-execution-engine.md` | Specification for executing SFIA-compliant Cursor prompts in Git |
+| `sfia-validation-engine.md` | Specification for validating prompts, repository execution, diffs, commits, deliverables and decisions |
 
-## Planned Engine Specifications
+## Optional / Future
 
 | Document | Role |
 |----------|------|
-| `sfia-documentation-engine.md` | Optional documentation engine specification |
+| `sfia-documentation-engine.md` | Optional future documentation engine, to be created only if a dedicated need is validated |
