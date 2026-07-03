@@ -299,7 +299,7 @@ Cette évolution vise à réduire les allers-retours manuels entre utilisateur, 
 
 Référence :
 
-`method/sfia-fast-track/sfia-automation-architecture.md`
+`method/sfia-fast-track/automation/sfia-automation-architecture.md`
 
 Décision :
 

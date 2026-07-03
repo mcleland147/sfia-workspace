@@ -27,7 +27,7 @@ L’objectif est de rendre démontrables :
 
 Le cadrage auth/users/rôles a été réalisé dans :
 
-[`projects/interv360/09-architecture/interv360-auth-and-user-framing.md`](../09-architecture/interv360-auth-and-user-framing.md)
+[`projects/interv360/08-roadmap/interv360-auth-and-user-framing.md`](../08-roadmap/interv360-auth-and-user-framing.md)
 
 Décision retenue :
 

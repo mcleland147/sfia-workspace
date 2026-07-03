@@ -307,13 +307,13 @@ The batch remains limited to local API demo hardening.
 
 | Fichier | Incrément |
 |---------|-----------|
-| `projects/interv360/07-delivery/api-demo-hardening.md` | Lot + batch |
+| `projects/interv360/04-delivery/api-demo-hardening.md` | Lot + batch |
 | `projects/interv360/backend/src/config/cors.ts` | INC-PROD-01 |
 | `projects/interv360/backend/test/cors.test.ts` | INC-PROD-01 |
 | `projects/interv360/backend/src/app.ts` | INC-PROD-01 |
 | `projects/interv360/backend/README.md` | INC-PROD-01 |
 | `projects/interv360/app/README.md` | INC-PROD-01 |
-| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-01 + INC-PROD-02 |
+| `projects/interv360/07-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-01 + INC-PROD-02 |
 
 ### Vérifications pré-PR
 

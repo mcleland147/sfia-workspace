@@ -144,7 +144,7 @@ Ce cycle ne doit pas :
 
 Livrable principal :
 
-`projects/interv360/07-delivery/implementation-go-no-go.md`
+`projects/interv360/04-delivery/implementation-go-no-go.md`
 
 Livrables possibles ensuite :
 

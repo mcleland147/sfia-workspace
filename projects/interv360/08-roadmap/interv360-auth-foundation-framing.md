@@ -443,5 +443,5 @@ Objectif :
 - conserver backend / API / SQLite inchangés.
 
 Le premier delivery recommandé devient :  
-`projects/interv360/07-delivery/auth-user-switcher.md`
+`projects/interv360/04-delivery/auth-user-switcher.md`
 

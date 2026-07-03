@@ -190,7 +190,7 @@ Aucun push, aucune PR et aucun merge ne sont effectués dans ce cycle.
 
 ## 11. Runbook produit
 
-Runbook : [`projects/interv360/08-presentation/interv360-e2e-demo-runbook.md`](../08-presentation/interv360-e2e-demo-runbook.md)
+Runbook : [`projects/interv360/07-presentation/interv360-e2e-demo-runbook.md`](../07-presentation/interv360-e2e-demo-runbook.md)
 
 ---
 

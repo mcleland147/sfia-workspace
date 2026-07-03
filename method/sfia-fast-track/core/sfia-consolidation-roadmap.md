@@ -67,7 +67,7 @@ Analyser l'état réel de l'application Interv360 après MVP + Premium UI.
 
 Livrable attendu :
 
-`projects/interv360/07-delivery/current-application-audit.md`
+`projects/interv360/04-delivery/current-application-audit.md`
 
 Décision attendue :
 
@@ -81,7 +81,7 @@ Audit réalisé et intégré à `main`.
 
 Livrable :
 
-`projects/interv360/07-delivery/current-application-audit.md`
+`projects/interv360/04-delivery/current-application-audit.md`
 
 Décision :
 
@@ -149,7 +149,7 @@ Capitaliser la méthode SFIA au-delà d'Interv360.
 
 Livrable attendu :
 
-`method/sfia-fast-track/sfia-global-capitalization.md`
+`method/sfia-fast-track/core/sfia-global-capitalization.md`
 
 ### Statut
 
@@ -157,8 +157,8 @@ Capitalisation SFIA globale réalisée et intégrée à `main`.
 
 Livrables :
 
-- `method/sfia-fast-track/sfia-global-capitalization.md`
-- `method/sfia-fast-track/sfia-automation-architecture.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 
 Décision :
 
@@ -247,7 +247,7 @@ Livrables possibles :
 
 - `method/sfia-fast-track/sfia-rules-update.md`
 - `method/sfia-fast-track/sfia-architecture-standards.md`
-- `method/sfia-fast-track/sfia-automation-architecture.md`
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 - `method/sfia-fast-track/templates/`
 - `method/sfia-fast-track/checklists/`
 

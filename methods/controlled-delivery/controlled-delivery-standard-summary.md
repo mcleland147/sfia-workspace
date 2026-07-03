@@ -22,7 +22,7 @@ L'objectif était de formaliser une méthode de delivery contrôlé permettant d
 
 La méthode est issue du REX Interv360 INC-01 phase 2.
 
-**Source :** [`inc-01-phase-2-rex.md`](../../projects/interv360/07-delivery/inc-01-phase-2-rex.md)
+**Source :** [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md)
 
 Le REX a démontré que :
 

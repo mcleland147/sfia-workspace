@@ -129,7 +129,7 @@ Le package doit permettre de présenter Interv360 en expliquant clairement :
 
 ## 9. Changements réalisés
 
-- Dossier `projects/interv360/08-presentation/` créé.
+- Dossier `projects/interv360/07-presentation/` créé.
 - `interv360-demo-presentation-package.md` — vision complète, capacités, limites, valeur SFIA, trajectoire.
 - `interv360-demo-script.md` — script pas à pas avec messages oraux.
 - `interv360-demo-one-page-summary.md` — synthèse courte partageable.
@@ -199,7 +199,7 @@ Aucun merge automatique n'est effectué.
 
 ## 5. Créer les livrables de présentation
 
-Dossier : `projects/interv360/08-presentation/`
+Dossier : `projects/interv360/07-presentation/`
 
 Fichiers :
 

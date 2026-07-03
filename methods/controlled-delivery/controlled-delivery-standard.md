@@ -5,7 +5,7 @@
 **Origine** : Retour d'expérience terrain (ex. Interv360 INC-01 phase 2)  
 **Objet** : Standardiser une méthode de **Controlled Delivery** (delivery contrôlé), combinant micro-cycles de sécurisation et réalisation groupée contrôlée.
 
-**Référence terrain (exemple) :** [`inc-01-phase-2-rex.md`](../../projects/interv360/07-delivery/inc-01-phase-2-rex.md)
+**Référence terrain (exemple) :** [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md)
 
 ---
 

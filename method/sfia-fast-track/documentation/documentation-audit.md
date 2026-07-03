@@ -121,9 +121,9 @@ Objectifs :
 
 ### 4.1. Méthode SFIA
 
-- `method/sfia-fast-track/sfia-global-capitalization.md`
-- `method/sfia-fast-track/sfia-consolidation-roadmap.md`
-- `method/sfia-fast-track/sfia-automation-architecture.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-consolidation-roadmap.md`
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 - `method/sfia-fast-track/figma-design-first-ui-method.md`
 - `methods/controlled-delivery/controlled-delivery-standard.md`
 - `docs/architecture/sfia-platform-architecture.md`
@@ -138,21 +138,21 @@ Objectifs :
 
 ### 4.3. Interv360 — Delivery
 
-- `projects/interv360/07-delivery/` (~111 fichiers)
-- `projects/interv360/09-architecture/interv360-mvp-final-roadmap.md`
+- `projects/interv360/04-delivery/` (~111 fichiers)
+- `projects/interv360/08-roadmap/interv360-mvp-final-roadmap.md`
 - `projects/interv360/06-release/` (release notes)
 - Familles `inc-01-*` à `inc-04-*` (historique)
 
 ### 4.4. Interv360 — Design
 
 - `projects/interv360/03-design/`
-- `projects/interv360/07-delivery/premium-design-system.md`
+- `projects/interv360/04-delivery/premium-design-system.md`
 - `projects/interv360/02-architecture/figma-*`
 
 ### 4.5. Interv360 — Release / Audit / REX
 
-- `projects/interv360/07-delivery/current-application-audit.md`
-- `projects/interv360/07-delivery/mvp-release-readiness.md`
+- `projects/interv360/04-delivery/current-application-audit.md`
+- `projects/interv360/04-delivery/mvp-release-readiness.md`
 - `method/sfia-fast-track/interv360-application-rex.md`
 - `projects/interv360/06-release/mvp-release-notes.md`
 

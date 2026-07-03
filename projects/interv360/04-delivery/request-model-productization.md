@@ -319,7 +319,7 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 
 | Fichier | Incrément |
 |---------|-----------|
-| `projects/interv360/07-delivery/request-model-productization.md` | Lot + batch |
+| `projects/interv360/04-delivery/request-model-productization.md` | Lot + batch |
 | `projects/interv360/backend/src/domain/types.ts` | INC-PROD-02 |
 | `projects/interv360/backend/src/seed/demoSeed.ts` | INC-PROD-02 |
 | `projects/interv360/backend/src/persistence/sqliteSchema.ts` | INC-PROD-02 |
@@ -328,8 +328,8 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 | `projects/interv360/backend/test/api.test.ts` | INC-PROD-02 |
 | `projects/interv360/backend/test/persistence.test.ts` | INC-PROD-02 |
 | `projects/interv360/backend/README.md` | INC-PROD-04 |
-| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-04 |
-| `projects/interv360/09-architecture/interv360-backend-api-contract-framing.md` | INC-PROD-04 |
+| `projects/interv360/07-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-04 |
+| `projects/interv360/08-roadmap/interv360-backend-api-contract-framing.md` | INC-PROD-04 |
 
 ### Vérifications pré-PR
 

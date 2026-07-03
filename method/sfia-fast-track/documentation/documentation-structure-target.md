@@ -104,9 +104,9 @@ projects/
 
 | Fichier / famille actuelle | Emplacement cible proposé | Action |
 |----------------------------|--------------------------|--------|
-| `method/sfia-fast-track/sfia-global-capitalization.md` | `core/` | Déplacer plus tard |
-| `method/sfia-fast-track/sfia-automation-architecture.md` | `core/` | Déplacer plus tard |
-| `method/sfia-fast-track/sfia-consolidation-roadmap.md` | `core/` | Déplacer plus tard |
+| `method/sfia-fast-track/core/sfia-global-capitalization.md` | `core/` | Déplacer plus tard |
+| `method/sfia-fast-track/automation/sfia-automation-architecture.md` | `core/` | Déplacer plus tard |
+| `method/sfia-fast-track/core/sfia-consolidation-roadmap.md` | `core/` | Déplacer plus tard |
 | `method/sfia-fast-track/figma-design-first-ui-method.md` | `ui/` | Déplacer plus tard |
 | `method/sfia-fast-track/interv360-application-rex.md` | `audit-rex/` | Déplacer plus tard |
 | `method/sfia-fast-track/interv360-mvp-delivery-capitalization.md` | `cycles/` | Déplacer plus tard |
@@ -114,13 +114,13 @@ projects/
 | `method/sfia-fast-track/templates/mvp-delivery-pattern-template.md` | `templates/` | Conserver emplacement actuel ou déplacer |
 | `method/sfia-fast-track/documentation-*.md`, `notion-publication-plan.md` | `documentation/` | Déplacer plus tard |
 | `method/interv360-realization/*` (8 fichiers) | `archive/interv360-realization/` | Archiver |
-| `projects/interv360/07-delivery/current-application-audit.md` | `07-audit-rex/` ou conserver | Déplacer plus tard (optionnel) |
-| `projects/interv360/07-delivery/inc-01-*` (~45) | `07-delivery/archive/inc-01/` | Archiver |
-| `projects/interv360/07-delivery/inc-02-*` à `inc-04-*` | `07-delivery/archive/inc-02-04/` | Archiver |
+| `projects/interv360/04-delivery/current-application-audit.md` | `07-audit-rex/` ou conserver | Déplacer plus tard (optionnel) |
+| `projects/interv360/archive/inc-01-*` (~45) | `07-delivery/archive/inc-01/` | Archiver |
+| `projects/interv360/archive/inc-02-*` à `inc-04-*` | `07-delivery/archive/inc-02-04/` | Archiver |
 | `projects/interv360/02-architecture/notion-sync-*` (~35) | `02-architecture/archive/notion-sync/` | Archiver |
 | `projects/interv360/02-architecture/clarification-*` | `02-architecture/archive/clarification/` | Archiver |
 | `projects/interv360/02-architecture/figma-*` | Conserver ou `archive/figma-v1/` | À revoir — partie encore utile |
-| `projects/interv360/07-delivery/premium-design-system.md` | `07-delivery/` | Conserver |
+| `projects/interv360/04-delivery/premium-design-system.md` | `07-delivery/` | Conserver |
 | `projects/interv360/ADR-001` à `008` | `02-architecture/adr/` | Conserver |
 | `docs/architecture/*` | `docs/architecture/` | Conserver |
 | `methods/controlled-delivery/*` | Inchangé | Conserver |
@@ -174,7 +174,7 @@ projects/
 ## 8. Stratégie d'archivage
 
 1. **Ne jamais supprimer** directement.
-2. Créer `archive/` par zone (`method/sfia-fast-track/archive/`, `projects/interv360/07-delivery/archive/`).
+2. Créer `archive/` par zone (`method/sfia-fast-track/archive/`, `projects/interv360/04-delivery/archive/`).
 3. Ajouter en tête du fichier archivé :
 
    ```markdown

@@ -199,6 +199,6 @@ Chaque prompt Controlled Delivery doit :
 
 ## Référence terrain (exemple)
 
-Cycle `method/controlled-delivery-standard` issu d'un REX projet (ex. [`inc-01-phase-2-rex.md`](../../projects/interv360/07-delivery/inc-01-phase-2-rex.md)).
+Cycle `method/controlled-delivery-standard` issu d'un REX projet (ex. [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md)).
 
 Les prompts restent applicables à tout projet piloté par SFIA.

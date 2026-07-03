@@ -378,9 +378,9 @@ Décision Go / No-Go :
 | `projects/interv360/README.md` | Point d'entrée MVP | OK |
 | `projects/interv360/app/README.md` | Référence frontend | OK |
 | `projects/interv360/backend/README.md` | Référence backend | OK |
-| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | Runbook E2E | OK |
-| `projects/interv360/09-architecture/interv360-mvp-final-roadmap.md` | Roadmap close + cycle release | OK |
-| `projects/interv360/07-delivery/mvp-release-readiness.md` | Release readiness | OK |
+| `projects/interv360/07-presentation/interv360-e2e-demo-runbook.md` | Runbook E2E | OK |
+| `projects/interv360/08-roadmap/interv360-mvp-final-roadmap.md` | Roadmap close + cycle release | OK |
+| `projects/interv360/04-delivery/mvp-release-readiness.md` | Release readiness | OK |
 | `.env.example` | Exemples sans secret | OK |
 | CI | Workflow documenté dans README/runbook | OK |
 

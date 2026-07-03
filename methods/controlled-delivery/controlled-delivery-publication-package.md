@@ -86,10 +86,10 @@ Il consolide :
 
 | Document | Usage recommandé |
 |----------|------------------|
-| [`inc-01-phase-2-rex.md`](../../projects/interv360/07-delivery/inc-01-phase-2-rex.md) | Annexe principale REX |
-| [`inc-01-demo-script.md`](../../projects/interv360/07-delivery/inc-01-demo-script.md) | Exemple de démonstration |
-| [`inc-01-controlled-workflow-validation.md`](../../projects/interv360/07-delivery/inc-01-controlled-workflow-validation.md) | Exemple de validation |
-| [`inc-01-controlled-workflow-skeleton-summary.md`](../../projects/interv360/07-delivery/inc-01-controlled-workflow-skeleton-summary.md) | Exemple de summary de livraison |
+| [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md) | Annexe principale REX |
+| [`inc-01-demo-script.md`](../../projects/interv360/archive/inc-01-demo-script.md) | Exemple de démonstration |
+| [`inc-01-controlled-workflow-validation.md`](../../projects/interv360/archive/inc-01-controlled-workflow-validation.md) | Exemple de validation |
+| [`inc-01-controlled-workflow-skeleton-summary.md`](../../projects/interv360/archive/inc-01-controlled-workflow-skeleton-summary.md) | Exemple de summary de livraison |
 
 **Règle :**
 
