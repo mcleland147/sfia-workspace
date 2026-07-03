@@ -153,13 +153,20 @@ Livrable attendu :
 
 ### Statut
 
-Capitalisation SFIA globale ouverte sur la branche `consolidation/sfia-global-capitalization`.
+Capitalisation SFIA globale réalisée et intégrée à `main`.
 
-Livrable :
+Livrables :
 
-`method/sfia-fast-track/sfia-global-capitalization.md`
+- `method/sfia-fast-track/sfia-global-capitalization.md`
+- `method/sfia-fast-track/sfia-automation-architecture.md`
 
-Ne pas passer le chantier en terminé tant que la capitalisation n'est pas validée et intégrée.
+Décision :
+
+> SFIA Fast Track devient la méthode de référence pour les prochains projets, avec une vision d'évolution vers une application factory assistée par IA.
+
+Suite :
+
+> Chantier 4 — Mise à jour documentaire complète.
 
 ## 7. Chantier 4 — Mise à jour documentaire complète
 

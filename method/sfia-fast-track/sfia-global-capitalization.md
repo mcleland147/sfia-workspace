@@ -314,3 +314,27 @@ Après cette capitalisation :
 3. préparation du nouveau projet ;
 4. formalisation de l'architecture d'automatisation SFIA ;
 5. expérimentation progressive d'un modèle semi-automatisé sur le prochain projet.
+
+---
+
+## 18. Statut de merge
+
+La PR de capitalisation SFIA globale et vision d'automatisation a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #79 — docs: add SFIA global capitalization and automation vision |
+| Branche source | `consolidation/sfia-global-capitalization` |
+| Branche cible | `main` |
+| Commit d'intégration | `254744f` |
+| Statut | Mergé |
+| Type | Documentation méthode / capitalisation globale |
+| Livrables | `sfia-global-capitalization.md`, `sfia-automation-architecture.md` |
+| Code Interv360 | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> Le Chantier 3 — Capitalisation SFIA globale est intégré à `main`. La consolidation peut passer au Chantier 4 — Mise à jour documentaire complète.
