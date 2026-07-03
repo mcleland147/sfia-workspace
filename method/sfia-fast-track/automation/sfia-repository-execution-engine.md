@@ -206,15 +206,93 @@ Si une anomalie bloquante est détectée, l'exécution doit s'arrêter ou demand
 
 ## 10. Chemins protégés standard
 
-Les chemins suivants sont protégés par défaut :
+Le Repository Execution Engine doit distinguer deux niveaux de chemins protégés :
 
-- `projects/interv360/app/`
-- `projects/interv360/backend/`
-- `.github/workflows/`
-- `tools/cmp-001/`
-- `projects/interv360/03-design/exports/`
+1. **Chemins protégés génériques SFIA** ;
+2. **Chemins protégés spécifiques au projet ou au cycle en cours**.
 
-Ces chemins ne peuvent être modifiés que si le prompt le demande explicitement et que la validation humaine a été obtenue.
+Cette distinction évite de figer le moteur sur un projet particulier.
+
+Le moteur définit les catégories de chemins sensibles.
+
+Le prompt Cursor du cycle définit les chemins exacts applicables au contexte courant.
+
+### 10.1 Chemins protégés génériques SFIA
+
+Les catégories suivantes sont protégées par défaut, sauf demande explicite, périmètre clair et validation humaine :
+
+- code applicatif ;
+- backend ;
+- API ;
+- authentification ;
+- CI/CD ;
+- workflows GitHub ;
+- outils internes sensibles ;
+- scripts de synchronisation ;
+- payloads générés ;
+- exports de design non suivis ;
+- fichiers temporaires ;
+- fichiers générés automatiquement ;
+- fichiers de configuration sensibles ;
+- secrets, clés ou variables d'environnement.
+
+Exemples de patterns génériques :
+
+```text
+<project>/app/
+<project>/backend/
+<project>/api/
+<project>/auth/
+.github/workflows/
+tools/<sensitive-tool>/
+<project>/design/exports/
+<project>/03-design/exports/
+exports/generated/
+*.env
+*.secret
+```
+
+Ces patterns sont indicatifs.
+
+Ils doivent être adaptés par le prompt au repository, au projet et au cycle concernés.
+
+### 10.2 Chemins protégés spécifiques au projet
+
+Chaque prompt Cursor doit déclarer les chemins protégés applicables au projet courant.
+
+Ces chemins spécifiques doivent être déduits :
+
+- du Repository Blueprint ;
+- du projet concerné ;
+- du type de cycle ;
+- du périmètre autorisé ;
+- des garde-fous applicables ;
+- des zones sensibles identifiées par l'humain.
+
+Exemple pour Interv360 :
+
+```text
+projects/interv360/app/
+projects/interv360/backend/
+.github/workflows/
+tools/cmp-001/
+projects/interv360/03-design/exports/
+```
+
+Ces chemins ne constituent pas un standard universel.
+
+Ils illustrent uniquement les chemins protégés du projet Interv360 dans le contexte actuel.
+
+### 10.3 Conditions de modification
+
+Un chemin protégé ne peut être modifié que si toutes les conditions suivantes sont réunies :
+
+1. le prompt le demande explicitement ;
+2. le chemin appartient au périmètre du cycle ;
+3. la modification est justifiée ;
+4. la validation humaine a été obtenue ;
+5. les contrôles demandés sont exécutés ;
+6. le diff est relu avant commit.
 
 Règle :
 
