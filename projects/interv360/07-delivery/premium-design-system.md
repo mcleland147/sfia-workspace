@@ -551,15 +551,128 @@ Stratégie technique retenue :
 
 ---
 
+### Retour d'expérience — Figma Make vers code
+
+La première transposition du design Figma Make vers l'application Interv360 a montré un écart important entre :
+
+- le rendu cible validé dans Figma Make ;
+- le rendu local produit par une implémentation CSS custom interprétée.
+
+Constat :
+
+> Une implémentation « inspirée de Figma » ne suffit pas pour obtenir un rendu premium fidèle.
+
+#### Causes identifiées
+
+1. **Figma Make n'est pas un fichier Figma Design classique**
+
+Le prototype Make fournit principalement un contexte de code React généré, et non une maquette Design classique avec frames, calques, auto-layouts, variables et contraintes directement exploitables comme source pixel-perfect.
+
+2. **Cursor tend à interpréter plutôt qu'à copier**
+
+Lorsqu'il reçoit une cible Figma et une application existante, Cursor cherche souvent à préserver l'architecture locale et à produire une intégration raisonnable.
+
+Cette approche est utile pour préserver le métier, mais elle peut produire une UI seulement approximative si la consigne ne demande pas explicitement un portage fidèle.
+
+3. **Différence de stack UI**
+
+Le prototype Make repose sur une approche proche de :
+
+- React ;
+- Vite ;
+- Tailwind ;
+- composants UI type shadcn/Radix ;
+- classes utilitaires ;
+- tokens visuels intégrés.
+
+L'application Interv360 disposait initialement d'un CSS custom historique.
+
+Cette différence de stack a limité la fidélité du premier rendu.
+
+4. **Comparaison visuelle insuffisante**
+
+Le code peut compiler et les tests peuvent passer, mais cela ne garantit pas la fidélité visuelle.
+
+La validation design nécessite une comparaison explicite :
+
+- Figma Make cible ;
+- rendu local `localhost` ;
+- captures ou revue visuelle humaine.
+
+#### Décision retenue
+
+Le prototype Figma Make devient la **source UI de vérité** pour les écrans premium.
+
+Conséquences :
+
+- ne plus demander une simple inspiration du design ;
+- porter la structure visuelle Make le plus fidèlement possible ;
+- isoler une couche UI premium dédiée ;
+- utiliser Tailwind lorsque nécessaire pour rapprocher la stack locale du prototype Make ;
+- conserver le métier existant en dehors de cette couche UI ;
+- valider visuellement chaque écran avant PR.
+
+#### Règle de portage pour les prochains cycles
+
+Pour tout futur écran premium :
+
+1. lire le contexte Figma Make ;
+2. identifier la structure UI cible ;
+3. porter la structure JSX / classes / tokens le plus fidèlement possible ;
+4. brancher uniquement les données et callbacks nécessaires ;
+5. ne pas remplacer la logique métier ;
+6. comparer visuellement Figma Make vs localhost ;
+7. corriger jusqu'à obtenir une proximité suffisante ;
+8. seulement ensuite valider l'incrément.
+
+#### Critère de validation
+
+Un écran premium ne doit pas être considéré comme terminé uniquement parce que :
+
+- le build passe ;
+- les tests passent ;
+- les composants sont présents.
+
+Il est terminé lorsque :
+
+- le rendu local est visuellement proche de Figma Make ;
+- le chrome démo n'est pas visible sur les écrans premium ;
+- la densité, les espacements, les cards, les badges, les ombres et la hiérarchie sont cohérents ;
+- le métier existant reste préservé ;
+- les garde-fous fonctionnels sont respectés.
+
+#### Formulation recommandée pour Cursor
+
+Pour les prochains prompts UI, utiliser une formulation explicite :
+
+> Figma Make is the UI source of truth.
+> Do not reinterpret the design.
+> Port the Make UI structure as faithfully as possible into the existing app, then connect the existing data and callbacks without changing backend, API, workflow, statuses or permissions.
+
+#### Limite assumée
+
+Le rendu local peut rester légèrement différent du prototype Make lorsque :
+
+- le code Make utilise des assets ou effets non disponibles localement ;
+- les mesures exactes ne sont pas exposées par MCP ;
+- les contraintes responsive doivent être adaptées ;
+- la stack locale impose des ajustements ;
+- certains éléments du prototype sont purement décoratifs ou hors scope MVP.
+
+Ces écarts doivent rester mineurs et être validés visuellement.
+
+---
+
 ## 10.7. UI-05 — Polish final, validations et PR readiness (suspendu)
 
-UI-05 finalise le cycle Premium Design System — **actuellement suspendu** (voir §10.6).
+UI-05 finalise le cycle Premium Design System — **actuellement suspendu** (voir §10.6 et §10.6 REX).
 
-Validations réalisées :
+Le portage Make fidèle (`d3af990`) a rapproché le rendu local, mais **UI-05 reste suspendu** tant que la revue visuelle finale (Figma Make vs `localhost`) n'est pas validée humainement.
+
+Validations techniques réalisées (nécessaires mais non suffisantes) :
 
 - build frontend OK ;
-- tests frontend OK ;
-- cohérence visuelle Dashboard / Demandes / Fiche / Audit Trail ;
+- tests frontend OK (191/191) ;
 - garde-fous backend/API/CI confirmés ;
 - absence de modification métier ;
 - absence de CRUD ;
@@ -567,19 +680,25 @@ Validations réalisées :
 - absence d'export PDF fonctionnel ;
 - absence de modification du tag `v0.1.0-mvp`.
 
-Résultat :
+Validations encore en attente pour clôturer UI-05 :
 
-- Dashboard Command Center implémenté ;
+- revue visuelle finale écran par écran (Dashboard, Demandes, Fiche, Audit Trail) ;
+- proximité suffisante avec Figma Make confirmée ;
+- absence de chrome démo sur les écrans premium confirmée.
+
+État actuel :
+
+- Dashboard Command Center implémenté (couche premium) ;
 - Page Demandes premium implémentée ;
 - Fiche demande premium implémentée ;
 - Pipeline SAV premium implémentée ;
 - Historique / Audit Trail premium implémenté ;
 - documentation de cycle à jour ;
-- PR unique prête à être préparée.
+- PR unique — **en attente validation visuelle finale**.
 
 Décision :
 
-> Le cycle Premium Design System n'est pas prêt pour PR unique tant que le réalignement Figma n'est pas validé visuellement.
+> Le cycle Premium Design System n'est pas prêt pour PR unique tant que la revue visuelle finale Figma Make n'est pas validée. UI-05 ne passe pas en « réalisé » avant cette étape.
 
 ---
 
