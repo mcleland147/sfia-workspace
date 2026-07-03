@@ -27,6 +27,7 @@ interface PremiumRequestsPageProps {
   requests: DemoRequest[];
   selectedRequestId: string;
   onSelectRequest: (requestId: string) => void;
+  onOpenRequest: (requestId: string) => void;
   statusFilter: StatusFilter;
   onStatusFilterChange: (filter: StatusFilter) => void;
   searchQuery: string;
@@ -37,6 +38,7 @@ export function PremiumRequestsPage({
   requests,
   selectedRequestId,
   onSelectRequest,
+  onOpenRequest,
   statusFilter,
   onStatusFilterChange,
   searchQuery,
@@ -87,7 +89,8 @@ export function PremiumRequestsPage({
           <button
             type="button"
             disabled
-            title="Création complète hors scope MVP"
+            title="Hors scope MVP"
+            aria-label="Nouvelle demande — Hors scope MVP"
             className="rounded-lg bg-gradient-to-br from-teal-600 to-teal-700 px-4 py-2 text-xs font-bold shadow-lg disabled:opacity-80"
           >
             + Nouvelle demande
@@ -127,7 +130,7 @@ export function PremiumRequestsPage({
               <button
                 type="button"
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 p-3 text-left hover:border-teal-500"
-                onClick={() => onSelectRequest(item.requestId)}
+                onClick={() => onOpenRequest(item.requestId)}
               >
                 <span className="font-mono text-[11px] font-bold text-teal-800">
                   {item.ref}
@@ -235,9 +238,10 @@ export function PremiumRequestsPage({
                     <tr
                       key={request.id}
                       className={cn(
-                        "border-t border-slate-100",
+                        "cursor-pointer border-t border-slate-100 hover:bg-slate-50/80",
                         isSelected && "bg-teal-50/60",
                       )}
+                      onClick={() => onSelectRequest(request.id)}
                     >
                       <td className="px-3 py-2.5 font-mono text-xs font-bold text-teal-800">
                         {row.ref}
@@ -267,7 +271,10 @@ export function PremiumRequestsPage({
                         <button
                           type="button"
                           className="rounded-md border border-slate-300 px-2 py-1 text-[10px] font-bold text-slate-600 hover:border-teal-600 hover:text-teal-800"
-                          onClick={() => onSelectRequest(request.id)}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            onOpenRequest(request.id);
+                          }}
                         >
                           Ouvrir
                         </button>

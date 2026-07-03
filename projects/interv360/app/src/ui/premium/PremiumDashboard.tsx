@@ -10,6 +10,7 @@ import {
   getCommandCenterKpis,
   getFocusPresentationItems,
   type CommandCenterKpi,
+  getRequestIdFromPresentationRef,
 } from "./premiumPresentationData";
 
 interface PremiumDashboardProps {
@@ -90,7 +91,8 @@ export function PremiumDashboard({
             <button
               type="button"
               disabled
-              title="Présentation UI — non fonctionnel"
+              title="Hors scope MVP"
+              aria-label="Nouvelle demande — Hors scope MVP"
               className="rounded-lg bg-gradient-to-br from-teal-600 to-teal-700 px-4 py-2 text-xs font-bold text-white shadow-[0_4px_16px_rgba(13,148,136,0.35)] disabled:opacity-85"
             >
               + Nouvelle demande
@@ -284,12 +286,31 @@ export function PremiumDashboard({
                     <p className="text-xs font-medium text-slate-800">
                       {entry.action}
                       {entry.ref ? (
-                        <span
-                          className="ml-1 font-mono font-bold"
-                          style={{ color: entry.refTone }}
-                        >
-                          {entry.ref}
-                        </span>
+                        onOpenRequest &&
+                        getRequestIdFromPresentationRef(entry.ref) ? (
+                          <button
+                            type="button"
+                            className="ml-1 font-mono font-bold underline decoration-teal-600/40 hover:decoration-teal-700"
+                            style={{ color: entry.refTone }}
+                            onClick={() => {
+                              const requestId = getRequestIdFromPresentationRef(
+                                entry.ref!,
+                              );
+                              if (requestId) {
+                                onOpenRequest(requestId);
+                              }
+                            }}
+                          >
+                            {entry.ref}
+                          </button>
+                        ) : (
+                          <span
+                            className="ml-1 font-mono font-bold"
+                            style={{ color: entry.refTone }}
+                          >
+                            {entry.ref}
+                          </span>
+                        )
                       ) : null}
                     </p>
                     <p className="text-[10px] text-slate-400">{entry.actor}</p>
@@ -406,7 +427,15 @@ export function PremiumDashboard({
               className="font-bold text-teal-800 underline"
               onClick={onNavigateToRequests}
             >
-              Voir toutes les demandes
+              Voir les demandes
+            </button>
+            {" · "}
+            <button
+              type="button"
+              className="font-bold text-teal-800 underline"
+              onClick={onNavigateToRequests}
+            >
+              Toutes les demandes
             </button>
             {" · "}
             Présentation UI premium — données de démonstration.

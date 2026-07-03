@@ -94,3 +94,10 @@ export function getPremiumClientName(requestId: string, fallback: string): strin
 export function getPremiumAssignee(requestId: string, fallback?: string): string {
   return PRESENTATION_ASSIGNEES[requestId] ?? fallback ?? "—";
 }
+
+export function getRequestIdFromPresentationRef(ref: string): string | undefined {
+  const entry = Object.entries(PRESENTATION_CLIENTS).find(
+    ([requestId]) => getPresentationRef(requestId) === ref,
+  );
+  return entry?.[0];
+}

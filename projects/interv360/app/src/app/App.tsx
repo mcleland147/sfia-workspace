@@ -339,6 +339,16 @@ export function App() {
     setCurrentDemoScreen(screenId);
   }, []);
 
+  const handleOpenRequest = useCallback(
+    (requestId: string) => {
+      setSelectedRequestId(requestId);
+      setLastActionMessage(undefined);
+      setLastActionMessageKind(undefined);
+      goToDemoScreen("details");
+    },
+    [goToDemoScreen],
+  );
+
   const goToPreviousDemoScreen = useCallback(() => {
     setCurrentDemoScreen(
       DEMO_SCREENS[Math.max(0, currentScreenIndex - 1)].id,
@@ -473,10 +483,7 @@ export function App() {
           onNavigateToRequests={() => {
             goToDemoScreen("requests");
           }}
-          onOpenRequest={(requestId) => {
-            setSelectedRequestId(requestId);
-            goToDemoScreen("requests");
-          }}
+          onOpenRequest={handleOpenRequest}
         />
       ) : null}
 
@@ -517,6 +524,7 @@ export function App() {
             requests={requests}
             selectedRequestId={selectedRequestId}
             onSelectRequest={handleSelectRequest}
+            onOpenRequest={handleOpenRequest}
             statusFilter={statusFilter}
             onStatusFilterChange={setStatusFilter}
             searchQuery={searchQuery}
@@ -607,6 +615,7 @@ export function App() {
             request={request}
             requestId={selectedRequestId}
             events={workflowEvents}
+            onBackToDetail={() => goToDemoScreen("details")}
           />
         </section>
       ) : null}

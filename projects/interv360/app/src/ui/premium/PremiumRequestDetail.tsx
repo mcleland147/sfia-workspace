@@ -152,7 +152,7 @@ export function PremiumRequestDetail({
                 className="mt-2 text-xs font-bold text-teal-800 underline"
                 onClick={onViewFullHistory}
               >
-                Voir l&apos;historique complet
+                Tout voir
               </button>
             ) : null}
           </section>

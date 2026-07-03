@@ -20,6 +20,7 @@ interface PremiumAuditTrailProps {
   request?: DemoRequest;
   requestId: string;
   events?: DemoWorkflowEvent[];
+  onBackToDetail?: () => void;
 }
 
 function formatActorRole(actorRole?: string): string | undefined {
@@ -33,6 +34,7 @@ export function PremiumAuditTrail({
   request,
   requestId,
   events = [],
+  onBackToDetail,
 }: PremiumAuditTrailProps) {
   const [activeFilter, setActiveFilter] = useState<AuditFilterId>("all");
   const filteredEvents = useMemo(
@@ -50,6 +52,15 @@ export function PremiumAuditTrail({
   return (
     <section aria-label="Historique de la demande" role="region" className="space-y-4">
       <header className="rounded-2xl bg-[linear-gradient(165deg,#070d18_0%,#0f1a2c_70%,#0a1019_100%)] px-6 py-5 text-white">
+        {onBackToDetail ? (
+          <button
+            type="button"
+            className="mb-2 text-xs font-semibold text-teal-300 hover:text-teal-200"
+            onClick={onBackToDetail}
+          >
+            ← Retour à la fiche demande
+          </button>
+        ) : null}
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-teal-400">
@@ -66,13 +77,15 @@ export function PremiumAuditTrail({
               ) : null}
             </div>
           </div>
-          <span
+          <button
+            type="button"
+            disabled
+            title="Hors scope MVP"
+            aria-label="Exporter PDF — Hors scope MVP"
             className="cursor-not-allowed rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold text-white/50"
-            title="Export PDF hors scope MVP"
-            aria-label="Exporter PDF — hors scope MVP"
           >
             Exporter PDF
-          </span>
+          </button>
         </div>
       </header>
 

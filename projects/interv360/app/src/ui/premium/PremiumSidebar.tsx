@@ -4,27 +4,64 @@ import type { DemoScreenId } from "../demo/demoScreens";
 import { COMMAND_CENTER_OPS_STATUS } from "./premiumPresentationData";
 import { cn } from "./cn";
 
-const NAV_SECTIONS = [
+type NavItem = {
+  label: string;
+  screenId?: DemoScreenId;
+  badge?: number;
+  disabled?: boolean;
+  title?: string;
+  isActive?: (screen: DemoScreenId) => boolean;
+};
+
+const NAV_SECTIONS: { title: string; items: NavItem[] }[] = [
   {
     title: "Pilotage",
-    items: [{ label: "Dashboard", screenId: "overview" as DemoScreenId }],
+    items: [
+      {
+        label: "Dashboard",
+        screenId: "overview",
+        isActive: (screen) => screen === "overview",
+      },
+    ],
   },
   {
     title: "Opérations",
     items: [
-      { label: "Demandes", screenId: "requests" as DemoScreenId, badge: 3 },
-      { label: "Planning", screenId: "scenario" as DemoScreenId },
-      { label: "Interventions", screenId: "details" as DemoScreenId },
+      {
+        label: "Demandes",
+        screenId: "requests",
+        badge: 3,
+        isActive: (screen) => screen === "requests",
+      },
+      {
+        label: "Planning",
+        screenId: "scenario",
+        isActive: (screen) => screen === "scenario",
+      },
+      {
+        label: "Interventions",
+        screenId: "details",
+        isActive: (screen) => screen === "details",
+      },
     ],
   },
   {
     title: "Référentiel",
     items: [
-      { label: "Clients", screenId: "journal" as DemoScreenId },
-      { label: "Catalogue", screenId: "overview" as DemoScreenId },
+      {
+        label: "Clients",
+        screenId: "journal",
+        isActive: (screen) => screen === "journal",
+      },
+      {
+        label: "Catalogue",
+        disabled: true,
+        title: "Hors scope MVP",
+        isActive: () => false,
+      },
     ],
   },
-] as const;
+];
 
 function getUserInitials(displayName: string): string {
   return displayName
@@ -76,7 +113,7 @@ export function PremiumSidebar({
             </p>
             <div className="space-y-0.5">
               {section.items.map((item) => {
-                const isActive = currentScreen === item.screenId;
+                const isActive = item.isActive?.(currentScreen) ?? false;
                 return (
                   <button
                     key={item.label}
@@ -86,13 +123,21 @@ export function PremiumSidebar({
                       isActive
                         ? "bg-gradient-to-r from-teal-500/20 to-teal-500/5 text-white shadow-[inset_3px_0_0_#2dd4bf]"
                         : "text-slate-400 hover:bg-white/5 hover:text-slate-200",
+                      item.disabled && "cursor-not-allowed opacity-50 hover:bg-transparent hover:text-slate-400",
                     )}
                     aria-label={`Navigation latérale ${item.label}`}
                     aria-current={isActive ? "page" : undefined}
-                    onClick={() => onNavigate(item.screenId)}
+                    aria-disabled={item.disabled ? true : undefined}
+                    title={item.title}
+                    disabled={item.disabled}
+                    onClick={() => {
+                      if (!item.disabled && item.screenId) {
+                        onNavigate(item.screenId);
+                      }
+                    }}
                   >
                     <span>{item.label}</span>
-                    {"badge" in item && item.badge ? (
+                    {item.badge ? (
                       <span className="ml-auto rounded-full border border-amber-500/35 bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-bold text-amber-300">
                         {item.badge}
                       </span>
@@ -119,14 +164,14 @@ export function PremiumSidebar({
             { value: COMMAND_CENTER_OPS_STATUS.toQualify, label: "À qualifier" },
             { value: COMMAND_CENTER_OPS_STATUS.late, label: "En retard" },
             { value: COMMAND_CENTER_OPS_STATUS.anomalies, label: "Anomalies" },
-          ].map((item) => (
+          ].map((stat) => (
             <div
-              key={item.label}
+              key={stat.label}
               className="rounded-md border border-white/5 bg-white/[0.04] px-1 py-1.5 text-center"
             >
-              <p className="text-sm font-black text-white">{item.value}</p>
+              <p className="text-sm font-black text-white">{stat.value}</p>
               <p className="text-[9px] font-semibold leading-tight text-slate-500">
-                {item.label}
+                {stat.label}
               </p>
             </div>
           ))}

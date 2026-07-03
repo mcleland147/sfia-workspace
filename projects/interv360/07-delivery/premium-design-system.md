@@ -663,6 +663,32 @@ Ces écarts doivent rester mineurs et être validés visuellement.
 
 ---
 
+### Correction fonctionnelle — reconnexion des interactions MVP
+
+Le portage Figma Make a amélioré la fidélité visuelle, mais a temporairement rendu certains écrans trop statiques.
+
+Décision :
+
+> La couche premium doit rester une UI produit, pas une simple maquette figée.
+
+Interactions restaurées :
+
+- navigation Dashboard / Demandes / Détail / Journal ;
+- ouverture d'une demande depuis le dashboard et la page demandes ;
+- retour aux demandes depuis la fiche ;
+- accès à l'historique complet ;
+- conservation du changement de profil et du mode local/API lorsque disponibles ;
+- actions hors scope explicitement visuelles ou désactivées.
+
+Garde-fou :
+
+- aucune action hors scope MVP ne doit devenir fonctionnelle ;
+- aucune mutation métier ne doit être créée côté UI premium sans cycle dédié.
+
+UI-05 reste suspendu tant que la revue visuelle + fonctionnelle finale n'est pas validée.
+
+---
+
 ## 10.7. UI-05 — Polish final, validations et PR readiness (suspendu)
 
 UI-05 finalise le cycle Premium Design System — **actuellement suspendu** (voir §10.6 et §10.6 REX).
