@@ -833,3 +833,16 @@ Remaining follow-up:
 - update templates after real usage;
 - reconcile pilot Interv360 prompt families with the v1.1 families;
 - prepare P2 cross-references.
+## Update — P2 Cross-Reference Audit Created
+
+The following audit has been created:
+
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md`
+
+It identifies the remaining P2 cross-reference and capitalization index updates required before SFIA foundation v1.1 closure.
+
+Recommended follow-up:
+
+1. P2.1 Core and architecture cross-references;
+2. P2.2 Capitalization indexes and completeness matrix;
+3. final foundation v1.1 closure decision.
