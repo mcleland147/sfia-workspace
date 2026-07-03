@@ -23,7 +23,7 @@ L'objectif n'est pas de corriger l'application, mais de comprendre son état ré
 | Mode local | Oui | Repository local + localStorage, cohérent avec la démo |
 | Mode API | Oui | Repository HTTP vers backend local |
 | Tests | Oui | 28 fichiers de test frontend, Vitest |
-| Documentation | Partiel | `07-delivery/`, `method/sfia-fast-track/`, consolidation ouverte |
+| Documentation | Partiel | `04-delivery/`, `method/sfia-fast-track/`, consolidation ouverte |
 | Notion | Non | Hors audit applicatif, traité dans chantier documentaire |
 
 ## 3. Synthèse exécutive

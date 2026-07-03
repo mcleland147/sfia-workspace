@@ -44,7 +44,7 @@ La revue produit du 2 juillet 2026 a confirmé :
 Références :
 
 - [`interv360-role-simulation-review.md`](./interv360-role-simulation-review.md) — §13
-- [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md)
+- [`../04-delivery/role-simulation.md`](../04-delivery/role-simulation.md)
 - [`interv360-product-roadmap-after-role-simulation.md`](./interv360-product-roadmap-after-role-simulation.md)
 
 ### 2.1. Intégration dans le batch Workflow Light Extension
@@ -70,7 +70,7 @@ Incréments prévus :
 | INC-WF-04 | Adapter rôles simulés, tests et runbook | À faire |
 | INC-WF-05 | Préparer PR unique du batch | À venir |
 
-Document delivery : [`../07-delivery/workflow-light-extension.md`](../07-delivery/workflow-light-extension.md)
+Document delivery : [`../04-delivery/workflow-light-extension.md`](../04-delivery/workflow-light-extension.md)
 
 ---
 

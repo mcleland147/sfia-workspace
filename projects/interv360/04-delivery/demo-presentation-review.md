@@ -285,7 +285,7 @@ No frontend change, backend change, new business scope, UX polish, SQL database,
 
 | Fichier | Rôle |
 |---------|------|
-| `07-delivery/demo-presentation-review.md` | Préparation revue présentation humaine |
+| `04-delivery/demo-presentation-review.md` | Préparation revue présentation humaine |
 
 Hors périmètre confirmé : code frontend/backend, polish UX, feedback inventé.
 

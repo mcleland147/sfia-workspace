@@ -224,7 +224,7 @@ No frontend change, backend change, new business scope, SQL database, CRM integr
 
 | Fichier | Rôle |
 |---------|------|
-| `07-delivery/demo-presentation-feedback.md` | Feedback humain post-présentation |
+| `04-delivery/demo-presentation-feedback.md` | Feedback humain post-présentation |
 
 Hors périmètre confirmé : code frontend/backend, polish UX, nouveau scope métier.
 

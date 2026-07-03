@@ -20,8 +20,8 @@ L'objectif est de faire évoluer Interv360 depuis un user switcher purement fron
 
 Documents de référence :
 
-- `../09-architecture/interv360-mvp-final-roadmap.md`
-- `../09-architecture/interv360-auth-foundation-framing.md`
+- `../09-roadmap/interv360-mvp-final-roadmap.md`
+- `../09-roadmap/interv360-auth-foundation-framing.md`
 - `./auth-user-switcher.md`
 
 Décision roadmap :

@@ -22,7 +22,7 @@ Le batch doit rester rapide, démontrable et contrôlé.
 
 Le cadrage workflow extension a été réalisé dans :
 
-[`../09-architecture/interv360-workflow-extension-framing.md`](../09-architecture/interv360-workflow-extension-framing.md)
+[`../09-roadmap/interv360-workflow-extension-framing.md`](../09-roadmap/interv360-workflow-extension-framing.md)
 
 Décision retenue :
 
@@ -34,7 +34,7 @@ Décision retenue :
 - pas de nouvelle table SQLite ;
 - conservation des rôles simulés.
 
-Référence revue rôle : [`../09-architecture/interv360-role-simulation-review.md`](../09-architecture/interv360-role-simulation-review.md) — §13
+Référence revue rôle : [`../09-roadmap/interv360-role-simulation-review.md`](../09-roadmap/interv360-role-simulation-review.md) — §13
 
 ---
 

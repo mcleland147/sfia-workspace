@@ -31,8 +31,8 @@ Le cadrage Auth Foundation recommande :
 
 Références :
 
-- `../09-architecture/interv360-next-product-axis.md`
-- `../09-architecture/interv360-auth-foundation-framing.md`
+- `../09-roadmap/interv360-next-product-axis.md`
+- `../09-roadmap/interv360-auth-foundation-framing.md`
 
 ---
 

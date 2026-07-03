@@ -267,8 +267,8 @@ No SQL database, CRM integration, authentication, multi-user logic, real data, S
 
 | Zone | Contenu |
 |------|---------|
-| Cadrage | `07-delivery/frontend-api-connection-framing.md` |
-| Livraison | `07-delivery/frontend-api-connection.md` |
+| Cadrage | `04-delivery/frontend-api-connection-framing.md` |
+| Livraison | `04-delivery/frontend-api-connection.md` |
 | Frontend | Repository dual, `App.tsx` async, composants UI, tests |
 | Docs | `app/README.md`, `backend/README.md` |
 

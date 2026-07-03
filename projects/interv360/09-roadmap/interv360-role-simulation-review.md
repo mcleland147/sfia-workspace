@@ -32,7 +32,7 @@ Référence :
 
 Documents associés :
 
-- [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md)
+- [`../04-delivery/role-simulation.md`](../04-delivery/role-simulation.md)
 - [`interv360-auth-and-user-framing.md`](./interv360-auth-and-user-framing.md)
 - [`../08-presentation/interv360-e2e-demo-runbook.md`](../08-presentation/interv360-e2e-demo-runbook.md)
 

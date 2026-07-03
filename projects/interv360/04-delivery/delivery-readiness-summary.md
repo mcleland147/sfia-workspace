@@ -2,7 +2,7 @@
 
 **Type** : Synthèse de préparation delivery  
 **Projet** : Interv360 (PRJ-INTERV360)  
-**Phase** : 07-delivery  
+**Phase** : 04-delivery  
 **Cycle** : Delivery preparation  
 **Statut** : Ready for closure  
 **Branche** : `delivery/interv360-preparation`  

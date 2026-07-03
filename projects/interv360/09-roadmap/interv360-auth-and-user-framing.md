@@ -63,7 +63,7 @@ Incréments prévus :
 | INC-PROD-04 | Tests et documentation | À faire |
 | INC-PROD-05 | Préparer PR du batch | À venir |
 
-Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md)
+Document delivery : [`../04-delivery/role-simulation.md`](../04-delivery/role-simulation.md)
 
 ---
 
@@ -281,7 +281,7 @@ Dans le cadre du batch `delivery/interv360-role-simulation`, le comportement sui
 
 Cette décision ne constitue pas une sécurité réelle. Elle sert uniquement à démontrer les responsabilités produit avant une éventuelle authentification réelle future.
 
-Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §7.1
+Document delivery : [`../04-delivery/role-simulation.md`](../04-delivery/role-simulation.md) — §7.1
 
 ---
 
@@ -327,7 +327,7 @@ La simulation de rôle reste conforme au cadrage :
 - aucune API modifiée ;
 - aucun workflow étendu.
 
-Document delivery : [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §11, §14
+Document delivery : [`../04-delivery/role-simulation.md`](../04-delivery/role-simulation.md) — §11, §14
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Type** : Plan de conception technique  
 **Projet** : Interv360 (PRJ-INTERV360)  
-**Phase** : 07-delivery  
+**Phase** : 04-delivery  
 **Cycle** : Technical design  
 **Cible** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Draft  

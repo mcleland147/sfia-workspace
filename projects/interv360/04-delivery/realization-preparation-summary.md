@@ -2,7 +2,7 @@
 
 **Type** : Synthèse de préparation réalisation  
 **Projet** : Interv360 (PRJ-INTERV360)  
-**Phase** : 07-delivery  
+**Phase** : 04-delivery  
 **Cycle** : Realization preparation  
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Ready for closure  

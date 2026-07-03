@@ -38,7 +38,7 @@ Le backend, SQLite, l’API `/api/v1` et le workflow nominal restent inchangés.
 
 Références :
 
-- [`../07-delivery/role-simulation.md`](../07-delivery/role-simulation.md) — §17
+- [`../04-delivery/role-simulation.md`](../04-delivery/role-simulation.md) — §17
 - [`interv360-auth-and-user-framing.md`](./interv360-auth-and-user-framing.md)
 
 ---

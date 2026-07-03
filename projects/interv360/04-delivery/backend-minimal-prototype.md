@@ -30,10 +30,10 @@ Le frontend n'est pas connecté au backend dans ce cycle.
 
 Les décisions documentaires précédentes ont cadré :
 
-- la trajectoire backend cible (`09-architecture/interv360-backend-target-framing.md`) ;
-- le modèle de données minimal (`09-architecture/interv360-backend-data-model-decision.md`) ;
-- la stack technique (`09-architecture/interv360-backend-technical-stack-decision.md`) ;
-- le contrat API (`09-architecture/interv360-backend-api-contract-framing.md`).
+- la trajectoire backend cible (`09-roadmap/interv360-backend-target-framing.md`) ;
+- le modèle de données minimal (`09-roadmap/interv360-backend-data-model-decision.md`) ;
+- la stack technique (`09-roadmap/interv360-backend-technical-stack-decision.md`) ;
+- le contrat API (`09-roadmap/interv360-backend-api-contract-framing.md`).
 
 Le contrat API retenu couvre :
 
@@ -269,8 +269,8 @@ No frontend connection, SQL database, SQLite, PostgreSQL, CRM integration, authe
 
 | Zone | Fichiers |
 |------|----------|
-| Architecture | `09-architecture/interv360-backend-*.md` (4 documents) |
-| Livraison | `07-delivery/backend-minimal-prototype.md` |
+| Architecture | `09-roadmap/interv360-backend-*.md` (4 documents) |
+| Livraison | `04-delivery/backend-minimal-prototype.md` |
 | Backend | `projects/interv360/backend/` (14 fichiers) |
 
 Hors périmètre confirmé : `app/src`, Controlled Delivery, sfia-notion-sync, exports Figma.

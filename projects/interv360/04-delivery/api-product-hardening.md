@@ -24,7 +24,7 @@ L'objectif est de consolider le contrat API après les lots :
 
 Documents de référence :
 
-- `../09-architecture/interv360-mvp-final-roadmap.md`
+- `../09-roadmap/interv360-mvp-final-roadmap.md`
 - `./backend-users-session.md`
 - `./audit-trail.md`
 - `./request-model-finalization.md`

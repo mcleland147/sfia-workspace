@@ -254,7 +254,7 @@ No frontend change, backend change, new business scope, UX polish, SQL database,
 
 | Fichier | Rôle |
 |---------|------|
-| `07-delivery/demo-feedback-review.md` | Document de revue feedback démo |
+| `04-delivery/demo-feedback-review.md` | Document de revue feedback démo |
 
 Hors périmètre confirmé : code frontend/backend, polish UX, nouveau scope métier.
 

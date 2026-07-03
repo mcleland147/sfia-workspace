@@ -20,7 +20,7 @@ L'objectif est de rendre le parcours utilisateur plus lisible, plus cohérent et
 
 Documents de référence :
 
-- `../09-architecture/interv360-mvp-final-roadmap.md`
+- `../09-roadmap/interv360-mvp-final-roadmap.md`
 - `./backend-users-session.md`
 - `./audit-trail.md`
 - `./request-model-finalization.md`

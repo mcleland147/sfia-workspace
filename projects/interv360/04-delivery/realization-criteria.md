@@ -2,7 +2,7 @@
 
 **Type** : Critères de préparation à la réalisation  
 **Projet** : Interv360 (PRJ-INTERV360)  
-**Phase** : 07-delivery  
+**Phase** : 04-delivery  
 **Cycle** : Delivery preparation  
 **Statut** : Draft  
 **Branche** : `delivery/interv360-preparation`  
@@ -111,7 +111,7 @@ L'objectif est de s'assurer que chaque élément à réaliser dispose d'un nivea
 | Élément post-MVP réintroduit | Surcharge MVP — hors `mvp-scope.md` |
 | Besoin d'une maquette Figma parfaite pour avancer | Décision design — Figma non bloquant |
 | User stories détaillées créées trop tôt | Hors cycle delivery preparation |
-| Choix technique imposé sans cadrage | Hors périmètre phase 07-delivery |
+| Choix technique imposé sans cadrage | Hors périmètre phase 04-delivery |
 
 ---
 

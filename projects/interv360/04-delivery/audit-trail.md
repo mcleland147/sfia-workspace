@@ -20,7 +20,7 @@ L'objectif est de rattacher les événements workflow à un acteur utilisateur, 
 
 Documents de référence :
 
-- `../09-architecture/interv360-mvp-final-roadmap.md`
+- `../09-roadmap/interv360-mvp-final-roadmap.md`
 - `./backend-users-session.md`
 - `../08-presentation/interv360-e2e-demo-runbook.md`
 

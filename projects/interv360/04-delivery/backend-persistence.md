@@ -7,7 +7,7 @@
 **Branche** : `delivery/interv360-backend-persistence`  
 **Base** : `main` @ `c2328d4`
 
-Référence décision : [`interv360-backend-persistence-decision.md`](../09-architecture/interv360-backend-persistence-decision.md)
+Référence décision : [`interv360-backend-persistence-decision.md`](../09-roadmap/interv360-backend-persistence-decision.md)
 
 ---
 

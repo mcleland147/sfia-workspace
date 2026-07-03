@@ -78,26 +78,58 @@ Aucun document supprimé définitivement.
 
 ## 8. Points restant à arbitrer
 
-| Fichier | Emplacement | Statut |
-|---------|-------------|--------|
-| `qa-transverse-analysis.md` | `02-architecture/` | Non déplacé — décision humaine |
-| `qa-transverse-analysis-summary.md` | `02-architecture/` | Idem |
-| `qa-tester-role-candidate-framing.md` | `02-architecture/` | Non déplacé — décision humaine |
-| `qa-tester-role-candidate-review.md` | `02-architecture/` | Idem |
-| `qa-tester-role-research-and-benchmark.md` | `02-architecture/` | Idem |
-| Liens `07-presentation/` / `08-roadmap/` | docs delivery actifs | Corriger en passe liens dédiée |
-| `06-audit-rex/README.md` | placeholder obsolète | Réécrire si souhaité |
+Aucun fichier QA en attente — tous archivés en finition (§9).
 
-## 9. Inventaire post-Round 2
+| Point | Statut |
+|-------|--------|
+| `06-audit-rex/README.md` | Placeholder obsolète — réécriture optionnelle post-PR |
 
-- `post-round-2-markdown-files.txt` — ~490 fichiers Markdown
+## 9. Finition avant PR
 
-## 10. Décision
+Une passe finale a été réalisée pour traiter les points résiduels :
 
-Le workspace SFIA est désormais suffisamment propre pour préparer le chantier Notion.
+- arbitrage des fichiers QA restants dans `02-architecture/` ;
+- correction ciblée des liens résiduels vers les anciens chemins Interv360 ;
+- confirmation que les documents actifs pointent vers la séquence finale `00` à `09`.
+
+### Fichiers QA
+
+| Fichier | Contenu réel | Décision |
+|---------|--------------|----------|
+| `qa-transverse-analysis.md` | Relecture QA transverse du cadrage (cycle clos) | **Archivé** → `archive/role-enrichment/` |
+| `qa-transverse-analysis-summary.md` | Synthèse de l'analyse ci-dessus | **Archivé** → `archive/role-enrichment/` |
+| `qa-tester-role-candidate-framing.md` | Cadrage rôle candidat QA (pré-`qa-tester-method.md`) | **Archivé** → `archive/role-enrichment/` |
+| `qa-tester-role-candidate-review.md` | Revue maturité candidat QA | **Archivé** → `archive/role-enrichment/` |
+| `qa-tester-role-research-and-benchmark.md` | Benchmark méthodologique QA | **Archivé** → `archive/role-enrichment/` |
+
+Référence active du rôle : `docs/methods/roles/qa-tester-method.md`.
+
+### Liens corrigés
+
+| Ancien chemin | Nouveau chemin | Zone |
+|--------------|----------------|------|
+| `07-presentation/` | `08-presentation/` | `04-delivery/`, `05-release/`, `08-presentation/` |
+| `08-roadmap/` | `09-roadmap/` | `04-delivery/`, `05-release/`, `09-roadmap/` |
+| `09-architecture/` | `09-roadmap/` | `04-delivery/`, `09-roadmap/` |
+| `07-delivery/` | `04-delivery/` | docs delivery, roadmap, `methods/controlled-delivery/` |
+| `07-rex/` | `06-audit-rex/` | si présent |
+| Chemins archivés (`inc-01`, pre-delivery) | `archive/...` | `implementation-go-no-go.md` |
+
+**Non modifié :** `projects/interv360/app/README.md` et sous-dossiers `app/`.
+
+Décision :
+
+> Le workspace SFIA est prêt pour revue PR avant ouverture du chantier Notion.
+
+## 10. Inventaire post-Round 2
+
+- `post-round-2-markdown-files.txt` — ~493 fichiers Markdown
+
+## 11. Décision
+
+Le workspace SFIA est prêt pour revue PR.
 
 **Suite recommandée :**
 
-1. Revue humaine finale (fichiers à arbitrer + liens résiduels) ;
-2. PR de nettoyage workspace sur `consolidation/sfia-method-improvements` ;
-3. Chantier Notion éditorialisé (sans sync brute).
+1. Ouvrir PR de nettoyage workspace sur `consolidation/sfia-method-improvements` ;
+2. Chantier Notion éditorialisé (sans sync brute).

@@ -171,7 +171,7 @@ Décision : voir §16 — **Go conditionnel sur INC-01** (formalisé).
 
 ## 11. Synthèse de maturité
 
-**Sources principales :** `01-cadrage/business-framing.md`, `01-cadrage/mvp-arbitration-validation.md`, `05-functional-architecture/functional-architecture-summary.md`, `06-ux-ui/user-journeys.md`, `07-delivery/mvp-scope.md`, `07-delivery/delivery-readiness-summary.md`, `07-delivery/inc-01-readiness-checklist.md`, `07-delivery/technical-design-summary.md`, `07-delivery/realization-start-summary.md`, `03-design/figma-first-screen-review.md`, `method/interv360-realization/capitalization-summary.md`.
+**Sources principales :** `01-cadrage/business-framing.md`, `01-cadrage/mvp-arbitration-validation.md`, `../archive/pre-delivery-phases/05-functional-architecture/functional-architecture-summary.md`, `../archive/pre-delivery-phases/06-ux-ui/user-journeys.md`, `04-delivery/mvp-scope.md`, `04-delivery/delivery-readiness-summary.md`, `../archive/inc-01/inc-01-readiness-checklist.md`, `04-delivery/technical-design-summary.md`, `04-delivery/realization-start-summary.md`, `03-design/figma-first-screen-review.md`, `../../method/sfia-fast-track/archive/interv360-realization/capitalization-summary.md`.
 
 | Axe | Niveau | Commentaire |
 |-----|--------|-------------|

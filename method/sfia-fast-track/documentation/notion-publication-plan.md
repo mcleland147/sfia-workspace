@@ -94,7 +94,7 @@ SFIA Fast Track
 | `documentation-structure-target.md` | Cible réorganisation interne |
 | `notion-publication-plan.md` | Méta-plan (ce document) |
 | Tous § « Statut de merge » | Traçabilité Git interne |
-| `07-delivery/inc-01-*` à `inc-04-*` | Historique incrémental obsolète |
+| `archive/inc-01-*` à `inc-04-*` | Historique incrémental obsolète |
 | `02-architecture/notion-sync-*` | Logs opérationnels sync |
 | `method/interv360-realization/*` | Méthode obsolète |
 | `push-and-pr.md`, `pr-preparation.md` | Opérationnel Cursor/Git |

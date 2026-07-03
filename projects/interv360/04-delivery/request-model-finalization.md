@@ -20,7 +20,7 @@ L'objectif est de sortir d'un modèle encore partiellement démonstratif et de c
 
 Documents de référence :
 
-- `../09-architecture/interv360-mvp-final-roadmap.md`
+- `../09-roadmap/interv360-mvp-final-roadmap.md`
 - `./backend-users-session.md`
 - `./audit-trail.md`
 - `../08-presentation/interv360-e2e-demo-runbook.md`

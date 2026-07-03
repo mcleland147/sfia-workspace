@@ -313,7 +313,7 @@ The batch remains limited to local API demo hardening.
 | `projects/interv360/backend/src/app.ts` | INC-PROD-01 |
 | `projects/interv360/backend/README.md` | INC-PROD-01 |
 | `projects/interv360/app/README.md` | INC-PROD-01 |
-| `projects/interv360/07-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-01 + INC-PROD-02 |
+| `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-01 + INC-PROD-02 |
 
 ### Vérifications pré-PR
 

@@ -127,7 +127,7 @@ Le cycle ne doit pas introduire :
 | Fichier | Changement |
 |---------|------------|
 | `08-presentation/interv360-e2e-demo-runbook.md` | **Créé** — procédures local/API, parcours, curl, dépannage |
-| `07-delivery/end-to-end-demo-hardening.md` | **Créé** — ce document |
+| `04-delivery/end-to-end-demo-hardening.md` | **Créé** — ce document |
 | `app/README.md` | Lien vers runbook E2E |
 | `backend/README.md` | Lien vers runbook E2E |
 
@@ -190,7 +190,7 @@ Aucun push, aucune PR et aucun merge ne sont effectués dans ce cycle.
 
 ## 11. Runbook produit
 
-Runbook : [`projects/interv360/07-presentation/interv360-e2e-demo-runbook.md`](../07-presentation/interv360-e2e-demo-runbook.md)
+Runbook : [`projects/interv360/08-presentation/interv360-e2e-demo-runbook.md`](../08-presentation/interv360-e2e-demo-runbook.md)
 
 ---
 
@@ -249,7 +249,7 @@ No new business scope, SQL database, CRM integration, authentication, real data,
 
 | Fichier | Rôle |
 |---------|------|
-| `07-delivery/end-to-end-demo-hardening.md` | Document de livraison |
+| `04-delivery/end-to-end-demo-hardening.md` | Document de livraison |
 | `08-presentation/interv360-e2e-demo-runbook.md` | Runbook E2E local/API |
 | `app/README.md` | Lien vers runbook |
 | `backend/README.md` | Lien vers runbook |

@@ -57,7 +57,7 @@ Il consolide :
 | 3 | `Controlled Delivery Template` | `controlled-delivery-template.md` | Modèle réutilisable |
 | 4 | `Controlled Delivery Prompt Family` | `controlled-delivery-prompt-family.md` | Prompts de cycles |
 | 5 | `Publication Notes` | `controlled-delivery-publication-prep.md` + ce package | Notes de diffusion |
-| 6 | `Reference Case — Interv360 INC-01` | documents Interv360 `07-delivery` | Annexe terrain facultative |
+| 6 | `Reference Case — Interv360 INC-01` | documents Interv360 `04-delivery` | Annexe terrain facultative |
 
 **Ordre de lecture recommandé :** 1 → 4 (normatif), puis 5 (notes), puis 6 (annexe terrain).
 

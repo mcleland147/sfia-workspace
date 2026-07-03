@@ -530,7 +530,7 @@ Objectif :
 
 Document delivery associé :
 
-`../07-delivery/backend-users-session.md`
+`../04-delivery/backend-users-session.md`
 
 Décision :
 
@@ -599,7 +599,7 @@ Objectif :
 
 Document delivery associé :
 
-`../07-delivery/audit-trail.md`
+`../04-delivery/audit-trail.md`
 
 Décision :
 
@@ -677,7 +677,7 @@ Objectif :
 
 Document delivery associé :
 
-`../07-delivery/request-model-finalization.md`
+`../04-delivery/request-model-finalization.md`
 
 Décision :
 
@@ -774,7 +774,7 @@ Objectif :
 
 Document delivery associé :
 
-`../07-delivery/api-product-hardening.md`
+`../04-delivery/api-product-hardening.md`
 
 Décision :
 
@@ -880,7 +880,7 @@ Objectif :
 
 Document delivery associé :
 
-`../07-delivery/product-ux-finalization.md`
+`../04-delivery/product-ux-finalization.md`
 
 Décision :
 
@@ -993,7 +993,7 @@ Objectif :
 
 Document delivery associé :
 
-`../07-delivery/product-industrialization.md`
+`../04-delivery/product-industrialization.md`
 
 Décision :
 
@@ -1115,7 +1115,7 @@ Décision :
 
 Document associé :
 
-`../07-delivery/mvp-release-readiness.md`
+`../04-delivery/mvp-release-readiness.md`
 
 Version cible proposée :
 
