@@ -251,6 +251,26 @@ Livrables possibles :
 - `method/sfia-fast-track/templates/`
 - `method/sfia-fast-track/checklists/`
 
+### Statut
+
+Amélioration SFIA ouverte sur la branche `consolidation/sfia-method-improvements`.
+
+Livrables :
+
+- `method/sfia-fast-track/sfia-rules-update.md`
+- `method/sfia-fast-track/sfia-architecture-standards.md`
+- `method/sfia-fast-track/README.md`
+- `method/sfia-fast-track/templates/cycle-template.md`
+- `method/sfia-fast-track/templates/pr-body-template.md`
+- `method/sfia-fast-track/templates/post-merge-template.md`
+- `method/sfia-fast-track/templates/audit-template.md`
+- `method/sfia-fast-track/templates/rex-template.md`
+- `method/sfia-fast-track/checklists/validation-checklist.md`
+- `method/sfia-fast-track/checklists/guardrails-checklist.md`
+- `method/sfia-fast-track/checklists/notion-publication-checklist.md`
+
+Ne pas passer le chantier en terminé tant que les améliorations SFIA ne sont pas validées et intégrées.
+
 ## 9. Ordre recommandé
 
 | Ordre | Chantier | Raison |
