@@ -50,6 +50,7 @@ import { InterventionReadonly } from "../ui/intervention/InterventionReadonly";
 import { QualificationReadonly } from "../ui/qualification/QualificationReadonly";
 import { PlanningReadonly } from "../ui/planning/PlanningReadonly";
 import { ReportReadonly } from "../ui/report/ReportReadonly";
+import { AuditTrailView } from "../ui/audit/AuditTrailView";
 import { DemoResetControl } from "../ui/requests/DemoResetControl";
 import { RequestDetail } from "../ui/requests/RequestDetail";
 import { RequestsList } from "../ui/requests/RequestsList";
@@ -58,7 +59,6 @@ import {
   type StatusFilter,
 } from "../ui/requests/requestListFilters";
 import { WorkflowActionControl } from "../ui/workflow/WorkflowActionControl";
-import { WorkflowJournalReadonly } from "../ui/workflow/WorkflowJournalReadonly";
 import { DemoUserControl } from "../ui/roles/DemoUserControl";
 import "./App.css";
 
@@ -676,7 +676,14 @@ export function App() {
               className="app-section app-section--request-detail"
               aria-label="Détail et workflow"
             >
-              <RequestDetail request={request} requestId={selectedRequestId} />
+              <RequestDetail
+                request={request}
+                requestId={selectedRequestId}
+                variant="premium"
+                workflowEvents={workflowEvents}
+                onBackToRequests={() => goToDemoScreen("requests")}
+                onViewFullHistory={() => goToDemoScreen("journal")}
+              />
               <WorkflowActionControl
                 request={request}
                 onAction={(action) => {
@@ -744,9 +751,10 @@ export function App() {
                 currentDemoScreen === "journal" ? lastActionMessage : undefined
               }
             />
-            <WorkflowJournalReadonly
-              events={workflowEvents}
+            <AuditTrailView
+              request={request}
               requestId={selectedRequestId}
+              events={workflowEvents}
             />
           </section>
         ) : null}

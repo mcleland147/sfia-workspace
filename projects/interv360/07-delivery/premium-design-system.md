@@ -210,7 +210,7 @@ Palette à rapprocher de la maquette Figma :
 | FIGMA-01 | Direction artistique Figma premium | Réalisé |
 | FIGMA-02 | Maquettes Figma écrans clés | Réalisé |
 | UI-03 | Implémentation Dashboard + Page demandes premium | Réalisé |
-| UI-04 | Implémentation fiche demande + journal depuis Figma | À faire |
+| UI-04 | Implémentation fiche demande + journal depuis Figma | Réalisé |
 | UI-05 | Validations, polish et PR unique | À venir |
 
 ---
@@ -234,8 +234,9 @@ Palette à rapprocher de la maquette Figma :
 | Maquette journal / timeline premium | OK |
 | Implémentation dashboard | OK |
 | Implémentation page demandes | OK |
-| Implémentation fiche demande | À faire |
-| Implémentation journal / timeline | À faire |
+| Implémentation fiche demande | OK |
+| Implémentation pipeline SAV | OK |
+| Implémentation journal / timeline | OK |
 | Tests frontend OK | À faire |
 | Build frontend OK | À faire |
 | Backend inchangé | À valider |
@@ -445,8 +446,55 @@ Décision :
 
 ---
 
+## 10.5. UI-04 — Fiche demande + Pipeline SAV + Historique premium
+
+UI-04 implémente les écrans détail issus de la direction Figma validée.
+
+Livré :
+
+- fiche demande premium ;
+- header demande ;
+- badges statut / priorité / retard / canal ;
+- Pipeline SAV ;
+- étape active visible ;
+- prochaine action ;
+- SLA dépassé ;
+- score d'urgence ;
+- panneau opérationnel ;
+- technicien affecté ;
+- vue d'ensemble ;
+- description ;
+- qualification ;
+- historique court ;
+- vue Historique / Audit Trail complète ;
+- timeline événementielle ;
+- événements critiques ;
+- filtres audit.
+
+Préservé :
+
+- backend ;
+- API ;
+- SQLite ;
+- mode local ;
+- mode API ;
+- request model ;
+- audit trail métier ;
+- workflow ;
+- statuts ;
+- transitions ;
+- permissions ;
+- scripts npm ;
+- CI.
+
+Décision :
+
+> UI-04 transforme la fiche demande et l'historique en interfaces premium conformes à la cible Figma, sans modification métier.
+
+---
+
 ## 11. Prochaine étape
 
-Exécuter **UI-04** :
+Exécuter **UI-05** :
 
-Implémenter Fiche demande + Pipeline SAV + Historique / Audit Trail premium à partir des maquettes Figma validées.
+Polish final, validations, documentation et préparation PR unique.
