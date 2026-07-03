@@ -221,3 +221,26 @@ La prochaine étape immédiate est :
 > Chantier 1 — Audit de l'application actuelle.
 
 Le nouveau projet sera lancé après consolidation SFIA.
+
+---
+
+## 13. Statut de merge
+
+La PR de roadmap consolidation SFIA a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #76 — docs: plan SFIA consolidation roadmap |
+| Branche source | `method/sfia-consolidation-roadmap` |
+| Branche cible | `main` |
+| Commit d'intégration | `055b9ca` |
+| Statut | Mergé |
+| Type | Documentation méthode / roadmap consolidation |
+| Code Interv360 | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> La roadmap consolidation SFIA est intégrée à `main`. Le Chantier 1 — Audit de l'application actuelle peut démarrer.
