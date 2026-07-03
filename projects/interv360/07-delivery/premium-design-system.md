@@ -211,7 +211,7 @@ Palette à rapprocher de la maquette Figma :
 | FIGMA-02 | Maquettes Figma écrans clés | Réalisé |
 | UI-03 | Implémentation Dashboard + Page demandes premium | Réalisé |
 | UI-04 | Implémentation fiche demande + journal depuis Figma | Réalisé |
-| UI-05 | Validations, polish et PR unique | Réalisé |
+| UI-05 | Validations, polish et PR unique | Suspendu |
 
 ---
 
@@ -493,9 +493,26 @@ Décision :
 
 ---
 
-## 10.6. UI-05 — Polish final, validations et PR readiness
+## 10.6. Correction UI — Réalignement Figma
 
-UI-05 finalise le cycle Premium Design System.
+Une revue visuelle du rendu local a montré que l'implémentation UI-03/UI-04 restait trop éloignée de la cible Figma Make validée.
+
+Décision :
+
+> Suspendre UI-05 tant que le rendu local Dashboard / Demandes / Fiche / Audit Trail n'est pas suffisamment fidèle à la direction Premium SAV Command Center.
+
+Objectif de correction :
+
+- renforcer la fidélité Figma ;
+- améliorer le dashboard local ;
+- corriger le niveau de finition visuelle ;
+- éviter une PR avec un rendu encore trop démonstrateur.
+
+---
+
+## 10.7. UI-05 — Polish final, validations et PR readiness (suspendu)
+
+UI-05 finalise le cycle Premium Design System — **actuellement suspendu** (voir §10.6).
 
 Validations réalisées :
 
@@ -521,7 +538,7 @@ Résultat :
 
 Décision :
 
-> Le cycle Premium Design System est prêt pour PR unique.
+> Le cycle Premium Design System n'est pas prêt pour PR unique tant que le réalignement Figma n'est pas validé visuellement.
 
 ---
 

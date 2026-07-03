@@ -77,6 +77,21 @@ describe("App smoke", () => {
     await renderAppAndWait();
 
     expect(
+      screen.getByRole("heading", { name: /Centre de commande SAV/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("region", { name: /Focus opérationnel/i }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText("DEM-2481").length).toBeGreaterThan(0);
+    expect(screen.getByText("Garage Martin")).toBeInTheDocument();
+
+    goToDemoScreen("Scénario");
+    expect(
+      screen.getByRole("region", { name: /Scénario guidé de démonstration/i }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Batch 02/i)).toBeInTheDocument();
+    expect(
       screen.getByRole("heading", { name: /Interv360 — flux SAV minimal/i }),
     ).toBeInTheDocument();
     expect(screen.getByText(/Démo prête/i)).toBeInTheDocument();
@@ -85,13 +100,6 @@ describe("App smoke", () => {
     expect(screen.getByText(/Limites assumées/i)).toBeInTheDocument();
     expect(screen.getByText(/Hors périmètre/i)).toBeInTheDocument();
     expect(screen.getAllByText(/Batch 03/i).length).toBeGreaterThan(0);
-
-    goToDemoScreen("Scénario");
-    expect(
-      screen.getByRole("region", { name: /Scénario guidé de démonstration/i }),
-    ).toBeInTheDocument();
-    expect(screen.getAllByText(/Étape 1 sur 6/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/Batch 02/i)).toBeInTheDocument();
 
     goToDemoScreen("Demandes");
     expect(screen.getByLabelText(/^Recherche$/i)).toBeInTheDocument();

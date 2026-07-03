@@ -37,7 +37,9 @@ describe("App demo screens", () => {
     render(<App />);
     await waitForScreenNavigation();
 
-    expect(screen.getByText(/Démo prête/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Centre de commande SAV/i }),
+    ).toBeInTheDocument();
 
     goToDemoScreen("Scénario");
     expect(screen.getByText(/Écran 2 sur 5/i)).toBeInTheDocument();
@@ -55,10 +57,13 @@ describe("App demo screens", () => {
     expect(screen.getByText(/Écran 2 sur 5/i)).toBeInTheDocument();
   });
 
-  it("keeps readiness on overview screen only", async () => {
+  it("keeps readiness on scenario screen only", async () => {
     render(<App />);
     await waitForScreenNavigation();
 
+    expect(screen.queryByText(/Démo prête/i)).not.toBeInTheDocument();
+
+    goToDemoScreen("Scénario");
     expect(screen.getByText(/Démo prête/i)).toBeInTheDocument();
 
     goToDemoScreen("Demandes");

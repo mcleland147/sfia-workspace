@@ -31,6 +31,7 @@ import {
 } from "../domain/simulatedRoles";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
 import { DashboardCommandCenter } from "../ui/dashboard/DashboardCommandCenter";
+import { COMMAND_CENTER_OPS_STATUS } from "../ui/dashboard/commandCenterPresentation";
 import { DemoOverview } from "../ui/demo/DemoOverview";
 import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
 import { DemoScenarioGuide } from "../ui/demo/DemoScenarioGuide";
@@ -96,6 +97,7 @@ type PremiumAppShellProps = {
   dataModeBanner: ReactNode;
   currentScreen: DemoScreenId;
   onNavigateScreen: (screenId: DemoScreenId) => void;
+  contentLayout?: "default" | "command-center";
   children: ReactNode;
 };
 
@@ -107,6 +109,7 @@ function PremiumAppShell({
   dataModeBanner,
   currentScreen,
   onNavigateScreen,
+  contentLayout = "default",
   children,
 }: PremiumAppShellProps) {
   const roleLabel = simulatedRoleLabels[currentUser.role];
@@ -121,7 +124,7 @@ function PremiumAppShell({
           </div>
           <div className="app-sidebar-title">
             <strong>Interv360</strong>
-            <span>SAV &amp; terrain</span>
+            <span>SAV Command Center</span>
           </div>
         </div>
 
@@ -160,6 +163,11 @@ function PremiumAppShell({
               onClick={() => onNavigateScreen(item.screenId)}
             >
               {item.label}
+              {item.label === "Demandes" ? (
+                <span className="app-sidebar-link-badge" aria-label="3 demandes">
+                  3
+                </span>
+              ) : null}
               {currentScreen === item.screenId ? (
                 <span className="app-sidebar-link-dot" aria-hidden="true" />
               ) : null}
@@ -179,6 +187,37 @@ function PremiumAppShell({
           ))}
         </nav>
 
+        <div className="app-sidebar-ops" aria-label="Statut opérationnel">
+          <p className="app-sidebar-ops-title">Statut opérationnel</p>
+          <div className="app-sidebar-ops-grid">
+            <div className="app-sidebar-ops-item">
+              <strong>{COMMAND_CENTER_OPS_STATUS.toQualify}</strong>
+              <span>À qualifier</span>
+            </div>
+            <div className="app-sidebar-ops-item">
+              <strong>{COMMAND_CENTER_OPS_STATUS.late}</strong>
+              <span>En retard</span>
+            </div>
+            <div className="app-sidebar-ops-item">
+              <strong>{COMMAND_CENTER_OPS_STATUS.anomalies}</strong>
+              <span>Anomalies</span>
+            </div>
+          </div>
+          <div className="app-sidebar-ops-load">
+            <span>
+              <span>Charge qualification</span>
+              <span>{COMMAND_CENTER_OPS_STATUS.qualificationLoad}%</span>
+            </span>
+            <div className="app-sidebar-ops-load-bar">
+              <div
+                style={{
+                  width: `${COMMAND_CENTER_OPS_STATUS.qualificationLoad}%`,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
         <div className="app-sidebar-footer">
           <div className="app-sidebar-user">
             <div className="app-sidebar-avatar" aria-hidden="true">
@@ -187,6 +226,7 @@ function PremiumAppShell({
             <div>
               <strong>{currentUser.displayName}</strong>
               <span>{roleLabel}</span>
+              <span className="app-sidebar-user-status">En ligne</span>
             </div>
           </div>
         </div>
@@ -213,7 +253,15 @@ function PremiumAppShell({
 
         {dataModeBanner}
 
-        <main className="app-content">{children}</main>
+        <main
+          className={
+            contentLayout === "command-center"
+              ? "app-content app-content--flush"
+              : "app-content"
+          }
+        >
+          {children}
+        </main>
       </div>
     </div>
   );
@@ -546,7 +594,10 @@ export function App() {
   }
 
   return (
-    <PremiumAppShell {...shellProps}>
+    <PremiumAppShell
+      {...shellProps}
+      contentLayout={currentDemoScreen === "overview" ? "command-center" : "default"}
+    >
       {loadError || usersLoadError ? (
         <p className="app-error app-error--inline" role="alert">
           {loadError ?? usersLoadError}
@@ -608,7 +659,13 @@ export function App() {
         </ul>
       </nav>
 
-      <div className="app-layout app-layout--screen">
+      <div
+        className={
+          currentDemoScreen === "overview"
+            ? "app-layout app-layout--screen app-layout--command-center"
+            : "app-layout app-layout--screen"
+        }
+      >
         {currentDemoScreen === "overview" ? (
           <div className="app-screen-panel">
             <DashboardCommandCenter
@@ -621,19 +678,6 @@ export function App() {
                 goToDemoScreen("requests");
               }}
             />
-            <DemoOverview
-              requestId={selectedRequestId}
-              currentStatus={request?.status}
-              scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
-              scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
-            />
-            <section
-              id="section-readiness"
-              className="app-section app-section--readiness"
-              aria-label="Demo readiness"
-            >
-              <DemoReadinessPanel />
-            </section>
           </div>
         ) : null}
 
@@ -649,6 +693,19 @@ export function App() {
               onNextStep={handleNextScenarioStep}
               onResetScenario={handleResetScenario}
             />
+            <DemoOverview
+              requestId={selectedRequestId}
+              currentStatus={request?.status}
+              scenarioStepTitle={DEMO_SCENARIO_STEPS[scenarioStepIndex]?.title}
+              scenarioProgressLabel={`Étape ${scenarioStepIndex + 1} sur ${getScenarioStepCount()}`}
+            />
+            <section
+              id="section-readiness"
+              className="app-section app-section--readiness"
+              aria-label="Demo readiness"
+            >
+              <DemoReadinessPanel />
+            </section>
           </section>
         ) : null}
 
