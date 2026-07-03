@@ -394,3 +394,36 @@ Remaining follow-up:
 - consolidate `prompts/prompt-catalog.md`;
 - prepare P2 cross-references;
 - prepare SFIA v2.0 automation trajectory after v1.1 stabilization.
+## Update — Validation Checklist Created
+
+The following operational checklist has been created:
+
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+
+It applies the SFIA Validation Engine v1.1 to real cycles.
+
+The checklist covers:
+
+- Cursor prompt validation;
+- Engineering Principles compliance;
+- repository execution validation;
+- protected path validation;
+- diff validation;
+- commit validation;
+- deliverable validation;
+- PR readiness;
+- post-merge validation;
+- capitalization validation;
+- Notion preparation validation;
+- reserve classification;
+- standard validation report;
+- anti-patterns.
+
+It is the operational bridge between the Validation Engine specification and day-to-day SFIA cycle validation.
+
+Remaining follow-up:
+
+- use the checklist on upcoming cycles;
+- consolidate other checklists if necessary;
+- consolidate `prompts/prompt-catalog.md`;
+- prepare P2 cross-references.

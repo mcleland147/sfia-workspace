@@ -84,6 +84,7 @@ Synthesis reference: `sfia-automation-architecture.md` (foundation v1.1)
 
 ### Checklists (`checklists/`)
 
+- `sfia-validation-checklist.md` — operational validation checklist aligned with Validation Engine v1.1
 - `validation-checklist.md`
 - `guardrails-checklist.md`
 - `notion-publication-checklist.md`
