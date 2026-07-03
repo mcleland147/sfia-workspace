@@ -34,6 +34,8 @@ method/sfia-fast-track/
 
 ### Core (`core/`)
 
+Normative reference: `docs/foundation/sfia-engineering-principles.md`
+
 - `sfia-global-capitalization.md`
 - `sfia-rules-update.md`
 - `sfia-architecture-standards.md`

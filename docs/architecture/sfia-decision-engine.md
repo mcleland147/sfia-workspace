@@ -1,14 +1,38 @@
 ---
 source: Notion / SFIA Architecture
-status: reference
+status: foundation
 sync: manual-export
+version: v1.1
+updated_after: SFIA foundation v1.1 consolidation
+scope: decision engine
 ---
 
-# SFIA Decision Engine v1.0
+# SFIA Decision Engine v1.1
 
-<callout icon="🏛️">**Document fondateur — Référentiel d’architecture d’entreprise**  
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** SFIA foundation v1.1 consolidation  
+**Scope:** Decision engine
 
-Ce document définit le moteur de décision officiel de la plateforme SFIA. Il constitue la référence de conception, d’orchestration, de gouvernance et d’amélioration continue des décisions prises par la plateforme.</callout>
+<callout icon="🏛️">**Document fondateur — Référentiel d'architecture d'entreprise**  
+
+Ce document définit le moteur de décision officiel de la plateforme SFIA. Le contenu v1.0 (export Notion) est conservé ci-dessous. Les sections **v1.1 Update** en fin de document formalisent le modèle décisionnel opérationnel.</callout>
+
+## v1.1 Consistency Rule
+
+SFIA v1.1 preserves the historical Decision Engine foundation while adding operational decision rules derived from Interv360, SFIA Fast Track, workspace consolidation, the ChatGPT ↔ Cursor operating model, Rules & Guardrails and the Knowledge Layer.
+
+When v1.0 and v1.1 formulations are in tension, the v1.1 operational clarification prevails for current SFIA execution.
+
+## v1.1 Engineering Principles Compliance
+
+All SFIA decisions must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+The Decision Engine applies these principles to explicit decisions, trade-offs, exceptions, ADRs, GO / NO-GO reviews, PR readiness, post-merge closure and capitalization choices.
+
+When a decision requires an exception to an Engineering Principle, the exception must be explicit, justified, traceable and validated by a human.
 
 # Objectif
 
@@ -1609,15 +1633,197 @@ Le Decision Engine n’est pas uniquement un mécanisme d’aide à la décision
 
 ---
 
+
+# v1.1 Update — Operational Decision Model
+
+SFIA decisions are explicit, traceable and capitalizable.
+
+The Decision Engine defines how SFIA decides, records and reuses decisions across:
+
+- cycle framing;
+- audits;
+- delivery validation;
+- PR readiness;
+- post-merge closure;
+- architecture decisions;
+- ADR creation;
+- capitalization;
+- Notion preparation;
+- automation readiness.
+
+## Decision Types
+
+| Decision type | Example | Expected trace |
+|---------------|---------|----------------|
+| Cycle framing decision | Open, reduce, postpone or cancel a cycle | Cycle scope, prompt, branch |
+| Audit decision | GO, GO with reserves, NO-GO | Audit report |
+| Delivery decision | Accept delivery, request correction, defer | Release readiness or delivery doc |
+| PR decision | Ready for review, needs correction, not acceptable | PR summary or PR prep |
+| Post-merge decision | Cycle closed, capitalization needed | Post-merge status |
+| Architecture decision | ADR required, existing ADR applies, no ADR needed | ADR or impact note |
+| Capitalization decision | Promote to method, practice, template, prompt, archive | Capitalization doc |
+| Notion decision | Prepare, dry-run, publish, block | Mapping / dry-run report |
+| Automation decision | Specify, validate, activate, block engine | Engine spec / validation report |
+
+## GO / NO-GO Model
+
+| Decision | Meaning | Follow-up |
+|----------|---------|-----------|
+| GO | Acceptable without major reserve | Continue or deliver |
+| GO with reserves | Acceptable with documented reserves | Continue with tracking |
+| NO-GO | Not acceptable | Rework required |
+| COMPLETE | Work complete | Close cycle or prepare PR |
+| COMPLETE WITH RESERVES | Usable but imperfect | Track reserves |
+| INCOMPLETE | Insufficient | Continue or reframe |
+| FOUNDATIONS IDENTIFIED | Foundation material exists | Consolidate |
+| PARTIAL FOUNDATIONS | Foundation material exists but has gaps | Consolidate with reserves |
+| INSUFFICIENT FOUNDATIONS | Foundation material is not enough | Create or recover foundations |
+
+## Reserve Classification
+
+| Reserve type | Meaning | Default handling |
+|--------------|---------|------------------|
+| Blocking | Prevents delivery or continuation | Treat before GO |
+| Minor | Should be addressed soon | Track in next cycle |
+| Residual | Known but non-blocking | Monitor |
+| P0 | Immediate priority | Current or next cycle |
+| P1 | Next structured pass | Planned follow-up |
+| P2 | Later improvement | Roadmap or backlog |
+
+## ADR vs Operational Decision
+
+Not every decision requires an ADR.
+
+| Decision | ADR required? |
+|----------|---------------|
+| Structural architecture choice | Yes |
+| Durable technical or governance choice | Yes |
+| Difficult-to-reverse decision | Yes |
+| Repository source-of-truth rule | Yes or foundation decision |
+| Notion as curated knowledge layer | Yes or foundation decision |
+| Minor README correction | No |
+| PR closure | No |
+| Documentation wording adjustment | No |
+| Cycle status decision | No |
+| Temporary execution tactic | Usually no |
+
+Rule:
+
+> Create an ADR when the decision is structural, durable, hard to reverse, architecture-impacting or governance-impacting.
+
+## Decisions in the ChatGPT ↔ Cursor Loop
+
+The operational loop follows this decision model:
+
+| Actor | Decision responsibility |
+|-------|-------------------------|
+| Human | Opens, validates, arbitrates, approves push / PR / merge / publication |
+| ChatGPT | Recommends, frames, analyzes, identifies reserves |
+| Cursor | Executes within the prompt contract |
+| Git | Records the decision through versioned changes |
+| GitHub PR | Materializes review and delivery decision |
+| Post-merge status | Records closure and remaining reserves |
+
+ChatGPT recommends. Cursor executes. The human decides. Git traces.
+
+## Pre-cycle and Post-cycle Audits
+
+A pre-cycle audit is required before major restructuring, foundation consolidation, product delivery, automation specification or Notion preparation.
+
+A post-cycle audit or post-merge status is required after significant delivery or merge.
+
+| Audit type | Purpose | Example |
+|------------|---------|---------|
+| Pre-cycle audit | Validate the existing base before action | Foundation inventory, workspace audit |
+| Post-cycle audit | Validate the result after delivery | Application audit, documentation audit |
+| Post-merge status | Record final merge outcome | PR #81 post-merge status |
+
+## PR and Post-merge Decisions
+
+A PR must carry an explicit decision state:
+
+- ready for review;
+- ready with reserves;
+- requires correction;
+- blocked;
+- merged;
+- merged with reserves;
+- closed by post-merge status.
+
+A significant PR is not fully closed until its post-merge status or equivalent trace is recorded.
+
+## Capitalization Decisions
+
+A project output can become:
+
+- a foundation document;
+- a method update;
+- a practice;
+- a role method;
+- a template;
+- a checklist;
+- a prompt;
+- a roadmap item;
+- an archive.
+
+Capitalization decisions must use the Documentation Routing Matrix defined in:
+
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+
+## Notion Decisions
+
+Notion-related decisions must follow the Knowledge Layer and Rules & Guardrails.
+
+Allowed decisions:
+
+| Decision | Meaning |
+|----------|---------|
+| Prepare mapping | Allowed after foundation validation |
+| Prepare dry-run | Allowed after mapping |
+| Publish | Requires explicit human validation |
+| Block publication | Required if sources, mapping or editorialization are insufficient |
+
+No raw Notion sync is allowed.
+
+## Decision Anti-patterns
+
+| Anti-pattern | Risk |
+|--------------|------|
+| Implicit decision | No traceability |
+| GO without reserves despite known issues | Hidden risk |
+| NO-GO without explanation | No actionable follow-up |
+| ADR for every minor choice | Decision noise |
+| No ADR for structural choice | Architecture debt |
+| PR merged without closure trace | Lost context |
+| Capitalization without routing | Knowledge fragmentation |
+| Notion publication without dry-run | Uncontrolled publication |
+
+## v1.1 Related Documents
+
+- `docs/foundation/sfia-engineering-principles.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- `docs/architecture/sfia-delivery-pipeline.md`
+- `docs/architecture/sfia-repository-blueprint.md`
+
+## v1.1 Decision
+
+The SFIA Decision Engine is the foundation for explicit, traceable and capitalizable decisions.
+
+It must be used to frame GO / NO-GO decisions, reserves, ADR requirements, PR readiness, post-merge closure, capitalization choices, Notion readiness and future validation engine behavior.
+
+---
+
 # Métadonnées
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Titre | SFIA Decision Engine v1.0 |
+| Titre | SFIA Decision Engine v1.1 |
 | Type de document | Référentiel d’architecture d’entreprise |
 | Domaine | Software Factory IA, architecture d’entreprise, gouvernance IT, IA générative |
-| Version | 1.0 |
-| Statut | Référence initiale |
+| Version | v1.1 (enrichi post-Fast Track — contenu v1.0 conservé) |
+| Statut | Foundation document |
 | Niveau de référence | Document fondateur |
 | Propriétaire | Enterprise Architecture / SFIA |
 | Audience exécutive | Sponsor, direction, gouvernance, comité d’architecture |

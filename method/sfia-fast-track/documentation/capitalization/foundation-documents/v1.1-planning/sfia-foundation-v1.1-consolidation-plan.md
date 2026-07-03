@@ -271,3 +271,34 @@ Remaining P1 documents:
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`
+## Update — Decision and Engineering Foundations Updated
+
+The following foundation documents have been updated to v1.1:
+
+- `docs/architecture/sfia-decision-engine.md`
+- `docs/foundation/sfia-engineering-principles.md`
+
+The Engineering Principles are now positioned as the normative execution reference for SFIA.
+
+All cycles, prompts, repository changes, documentation updates, project deliveries, knowledge publication activities, automation initiatives and ChatGPT ↔ Cursor interactions must comply with them when applicable.
+
+The Decision Engine now formalizes:
+
+- GO / NO-GO decisions;
+- reserve classification;
+- ADR vs operational decision rules;
+- ChatGPT ↔ Cursor decision responsibilities;
+- pre-cycle and post-cycle audits;
+- PR and post-merge decisions;
+- capitalization decisions;
+- Notion readiness decisions;
+- decision anti-patterns.
+
+Lightweight Engineering Principles references have also been added to key foundation documents.
+
+Remaining P1 documents:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`

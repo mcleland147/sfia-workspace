@@ -33,6 +33,15 @@ In SFIA v1.1:
 - archived material is preserved for traceability but is not an active source;
 - human validation remains mandatory before publishing, synchronizing or promoting content.
 
+## v1.1 Engineering Principles Reference
+
+All cycles, prompts, repository changes, documentation updates, knowledge publication activities and automation initiatives described or derived from this document must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+This reference acts as a lightweight compliance anchor. It does not duplicate the Engineering Principles, but requires that the document be interpreted and applied consistently with them.
+
+
 ## Objectif du document
 
 ### Objectif

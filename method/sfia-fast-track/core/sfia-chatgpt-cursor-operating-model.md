@@ -31,6 +31,18 @@ Ce document ne décrit pas uniquement l'usage de Cursor.
 
 Il formalise un modèle de travail SFIA contrôlé, traçable et capitalisable.
 
+## v1.1 Engineering Principles Reference
+
+All ChatGPT ↔ Cursor interactions, Cursor prompts, repository changes, validation decisions and capitalization activities described in this Operating Model must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+ChatGPT must frame and generate prompts according to these principles.
+
+Cursor must execute only within prompts that respect these principles.
+
+Human validation remains required for significant decisions.
+
 ## 2. Positionnement dans SFIA v1.1
 
 SFIA v1.1 repose sur une boucle opératoire assistée, mais non autonome.

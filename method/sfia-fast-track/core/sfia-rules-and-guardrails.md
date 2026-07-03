@@ -31,6 +31,14 @@ Ce document ne remplace pas les checklists opérationnelles.
 
 Il sert de référence canonique pour comprendre les règles qui doivent encadrer les cycles SFIA.
 
+## v1.1 Engineering Principles Reference
+
+The rules and guardrails defined in this document operationalize:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+They must be interpreted as implementation constraints derived from the Engineering Principles, not as a competing source of truth.
+
 ## 2. Positionnement
 
 | Document | Rôle |

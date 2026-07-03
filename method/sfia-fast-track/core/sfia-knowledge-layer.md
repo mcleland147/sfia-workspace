@@ -30,6 +30,14 @@ Ce document définit aussi la **Documentation Routing Matrix** utilisée pour d�
 - les dossiers à alimenter ;
 - les règles à appliquer dans les prompts ChatGPT ↔ Cursor.
 
+## v1.1 Engineering Principles Reference
+
+The Knowledge Layer, Documentation Routing Matrix, Notion preparation rules and publication constraints must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+The repository-first, curated knowledge and human validation principles apply to all knowledge publication activities.
+
 ## 2. Positionnement
 
 | Élément | Rôle |
