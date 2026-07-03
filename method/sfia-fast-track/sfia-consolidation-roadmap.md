@@ -75,6 +75,16 @@ Décision attendue :
 - application saine avec réserves ;
 - corrections nécessaires avant nouveau cycle produit.
 
+### Statut
+
+Audit ouvert sur la branche `consolidation/interv360-current-app-audit`.
+
+Livrable :
+
+`projects/interv360/07-delivery/current-application-audit.md`
+
+Ne pas passer le chantier en terminé tant que l'audit n'est pas validé.
+
 ## 5. Chantier 2 — REX de l'application actuelle
 
 Objectif :
