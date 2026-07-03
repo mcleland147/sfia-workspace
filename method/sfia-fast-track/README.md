@@ -14,47 +14,71 @@ Elle vise à combiner :
 - documentation continue ;
 - automatisation progressive.
 
-## 2. Documents principaux
+## 2. Arborescence
 
-### Core
+```text
+method/sfia-fast-track/
+├── README.md
+├── core/                  # Capitalisation, règles, standards, roadmap
+├── automation/              # Vision application factory
+├── cycles/                  # Capitalisations par cycle de livraison
+├── ui/                      # Méthode Figma Design-first
+├── audit-rex/               # Audits et REX projet
+├── documentation/           # Qualité doc, workspace, Notion
+├── templates/               # Modèles cycle, PR, audit, REX
+├── checklists/              # Validation, garde-fous, publication
+└── archive/                 # Documents historiques
+```
+
+## 3. Documents principaux
+
+### Core (`core/`)
 
 - `sfia-global-capitalization.md`
-- `sfia-automation-architecture.md`
 - `sfia-rules-update.md`
 - `sfia-architecture-standards.md`
+- `sfia-consolidation-roadmap.md`
 
-### Cycles et capitalisation
+### Automation (`automation/`)
+
+- `sfia-automation-architecture.md`
+
+### Cycles (`cycles/`)
 
 - `interv360-mvp-delivery-capitalization.md`
 - `interv360-final-capitalization.md`
-- `interv360-application-rex.md`
 
-### UI
+### UI (`ui/`)
 
 - `figma-design-first-ui-method.md`
 
-### Documentation
+### Audit & REX (`audit-rex/`)
+
+- `interv360-application-rex.md`
+
+### Documentation (`documentation/`)
 
 - `documentation-audit.md`
 - `documentation-structure-target.md`
 - `notion-publication-plan.md`
+- `workspace-audit/` — audits et inventaires du workspace
 
-### Templates
+### Templates (`templates/`)
 
-- `templates/cycle-template.md`
-- `templates/pr-body-template.md`
-- `templates/post-merge-template.md`
-- `templates/audit-template.md`
-- `templates/rex-template.md`
-- `templates/mvp-delivery-pattern-template.md`
+- `cycle-template.md`
+- `pr-body-template.md`
+- `post-merge-template.md`
+- `audit-template.md`
+- `rex-template.md`
+- `mvp-delivery-pattern-template.md`
 
-### Checklists
+### Checklists (`checklists/`)
 
-- `checklists/validation-checklist.md`
-- `checklists/guardrails-checklist.md`
-- `checklists/notion-publication-checklist.md`
+- `validation-checklist.md`
+- `guardrails-checklist.md`
+- `notion-publication-checklist.md`
 
-## 3. Règles clés
+## 4. Règles clés
 
 - un cycle = un objectif ;
 - PR unique par cycle ;
@@ -66,7 +90,7 @@ Elle vise à combiner :
 - backend/API dans cycle dédié ;
 - automatisation progressive.
 
-## 4. Workflow standard
+## 5. Workflow standard
 
 1. Cadrer le besoin ;
 2. Ouvrir une branche dédiée ;
@@ -79,14 +103,12 @@ Elle vise à combiner :
 9. Post-merge ;
 10. REX ou capitalisation si nécessaire.
 
-## 5. Vision d'automatisation
+## 6. Vision d'automatisation
 
 La cible long terme est de transformer SFIA Fast Track en application factory assistée par IA.
 
-Référence :
+Référence : `automation/sfia-automation-architecture.md`
 
-`sfia-automation-architecture.md`
-
-## 6. Statut
+## 7. Statut
 
 Ce README sert de point d'entrée à la méthode SFIA Fast Track.
