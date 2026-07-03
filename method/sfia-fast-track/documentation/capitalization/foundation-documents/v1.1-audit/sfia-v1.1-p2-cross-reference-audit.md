@@ -296,3 +296,16 @@ Current status:
 - foundation v1.1 structurally complete;
 - capitalization indexes aligned;
 - formal closure pending P2.3.
+## Update — Foundation v1.1 Closure Recorded
+
+The P2.3 cycle records the formal closure of SFIA foundation v1.1:
+
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
+
+The closure confirms:
+
+- foundation v1.1 structurally complete;
+- P2.1 cross-references completed;
+- P2.2 capitalization indexes completed;
+- deferred P2 items non-blocking;
+- PR readiness and merge remain separate human-validated steps.

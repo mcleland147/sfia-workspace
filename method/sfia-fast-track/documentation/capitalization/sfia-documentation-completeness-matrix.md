@@ -31,7 +31,20 @@ The SFIA foundation v1.1 consolidation has now produced the following operationa
 
 The previous matrix sections are preserved as historical baseline where relevant.
 
-**Current decision:** SFIA foundation v1.1 is structurally complete. Formal closure remains pending P2.3.
+**Current decision:** SFIA foundation v1.1 is formally closed at repository documentation level. PR readiness and merge remain pending.
+
+## Update — Foundation v1.1 Closure Recorded
+
+The SFIA foundation v1.1 closure decision is recorded in:
+
+- `foundation-documents/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
+
+Current status:
+
+- foundation v1.1: formally closed at repository documentation level;
+- PR readiness: pending;
+- merge: not performed;
+- deferred items: non-blocking and tracked.
 
 ## 1. Objectif
 
@@ -208,16 +221,13 @@ Elle vise à identifier les documents portant :
 
 **Mise à jour P2.2** : ces lacunes ont été comblées par la consolidation foundation v1.1. Voir la section **Update — Foundation v1.1 Consolidation Status** en tête de document.
 
-**Priorité révisée (historique)** : consolidation fondations **avant** chantier Notion — **atteinte structurellement** ; clôture formelle pending P2.3.
+**Priorité révisée (historique)** : consolidation fondations **avant** chantier Notion — **atteinte structurellement** ; clôture formelle enregistrée (P2.3).
 
 ## Current Closure Status
 
-The foundation v1.1 consolidation is structurally complete.
+The foundation v1.1 consolidation is formally closed at repository documentation level.
 
-Remaining before formal closure:
-
-1. P2.2 capitalization indexes and completeness matrix update;
-2. P2.3 final closure decision and post-merge trace.
+Formal closure recorded. PR readiness and merge remain pending.
 
 Deferred P2 items:
 

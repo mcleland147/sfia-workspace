@@ -132,7 +132,7 @@ Avant de considérer v1.1 terminée :
 
 - Structural foundation: complete;
 - Index and audit alignment: complete;
-- Formal closure decision: pending P2.3.
+- Formal closure decision: recorded in `../v1.1-closure/sfia-foundation-v1.1-closure-status.md`.
 
 ## 8. Garde-fous
 
@@ -617,4 +617,20 @@ The P2.2 cycle updates capitalization indexes and completeness tracking after:
 
 The foundation v1.1 consolidation is structurally complete.
 
-Formal closure remains pending P2.3.
+*(At P2.2 completion: formal closure remained pending P2.3 — see closure update below.)*
+
+## Update — Foundation v1.1 Closure Recorded
+
+The P2.3 cycle records the formal closure of the SFIA foundation v1.1 consolidation.
+
+Closure status:
+
+- structural foundation: complete;
+- capitalization indexes: aligned;
+- closure decision: GO;
+- PR readiness: pending separate validation;
+- merge: not performed in this cycle.
+
+Closure reference:
+
+- `../v1.1-closure/sfia-foundation-v1.1-closure-status.md`
