@@ -13,11 +13,12 @@ Projet de référence SFIA Fast Track.
 | `04-delivery/` | Livraison MVP et Premium UI |
 | `05-release/` | Readiness, tags et releases |
 | `06-audit-rex/` | Audit application et REX projet |
-| `07-presentation/` | Supports de démo et runbooks |
-| `08-roadmap/` | Roadmaps post-MVP et évolutions futures |
+| `07-documentation/` | Documentation projet transverse |
+| `08-presentation/` | Supports de démo et runbooks |
+| `09-roadmap/` | Roadmaps post-MVP et évolutions futures |
 | `app/` | Code frontend — ne pas déplacer sans cycle dédié |
 | `backend/` | Code backend — ne pas déplacer sans cycle dédié |
-| `archive/` | Documents historiques et logs archivés |
+| `archive/` | Documents historiques, placeholders et logs archivés |
 
 ## Références clés
 
@@ -25,3 +26,9 @@ Projet de référence SFIA Fast Track.
 - `04-delivery/premium-design-system.md`
 - `05-release/mvp-release-readiness.md`
 - `06-audit-rex/current-application-audit.md`
+
+## Règle
+
+Un numéro correspond à une seule phase active.
+
+Les anciens doublons ou placeholders sont archivés dans `archive/`.
