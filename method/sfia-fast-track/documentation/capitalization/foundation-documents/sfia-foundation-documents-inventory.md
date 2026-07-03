@@ -170,3 +170,22 @@ Cette étape ne modifie pas les documents existants.
 | Role Methods | 5/6 rôles encore Draft | **P2** |
 | Operating model unifié | Tension Notion=source vérité (docs architecture) vs Git=source détaillée (Fast Track) | **P1** — à arbitrer |
 | Moteurs exécutables | Aucun script/moteur implémenté — documentation seule | **P2** — attendu à ce stade |
+
+## Update — v1.1 Orientation
+
+**Décision d'orientation :**
+
+- conserver les documents fondateurs v1.0 ;
+- les faire évoluer vers une v1.1 ;
+- ne pas repartir de zéro ;
+- créer de nouveaux documents uniquement pour les lacunes transverses ;
+- réserver la v2.0 à une future SFIA automatisée avec moteurs actifs et intégration Notion opérationnelle.
+
+Les documents `docs/architecture/*` restent les sources fondatrices conceptuelles.
+
+Les documents `method/sfia-fast-track/*` portent la méthode opérationnelle active.
+
+**Livrables de planification v1.1 :**
+
+- `v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
+- `v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`

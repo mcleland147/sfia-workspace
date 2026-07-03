@@ -222,3 +222,22 @@ Couche preuve (Git — projects/interv360/)
 ```
 
 La consolidation doit **relier** ces couches — pas les fusionner brutalement.
+
+## Update — v1.1 Orientation
+
+**Décision d'orientation :**
+
+- conserver les documents fondateurs v1.0 ;
+- les faire évoluer vers une v1.1 ;
+- ne pas repartir de zéro ;
+- créer de nouveaux documents uniquement pour les lacunes transverses ;
+- réserver la v2.0 à une future SFIA automatisée avec moteurs actifs et intégration Notion opérationnelle.
+
+Les documents `docs/architecture/*` restent les sources fondatrices conceptuelles.
+
+Les documents `method/sfia-fast-track/*` portent la méthode opérationnelle active.
+
+**Livrables de planification v1.1 :**
+
+- `v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
+- `v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
