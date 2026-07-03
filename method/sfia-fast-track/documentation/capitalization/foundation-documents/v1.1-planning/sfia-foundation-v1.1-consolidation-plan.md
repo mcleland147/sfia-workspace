@@ -223,3 +223,24 @@ Clarifications added:
 - v1.1 Fast Track pipeline is the current operational model;
 - Domain Model and Meta Model use English canonical object names with French explanations allowed;
 - ChatGPT ↔ Cursor Operating Model remains the next required foundation document.
+
+## Update — ChatGPT Cursor Operating Model Created
+
+The SFIA ChatGPT ↔ Cursor Operating Model has been created as a v1.1 foundation document.
+
+Document:
+
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+
+It defines:
+
+- human / ChatGPT / Cursor / Git / GitHub PR / Notion responsibilities;
+- the operational loop;
+- prompt as contract;
+- prompt structure;
+- operating guardrails;
+- validation decisions;
+- maturity levels;
+- automation trajectory.
+
+This document is required before creating the automation engine specifications.

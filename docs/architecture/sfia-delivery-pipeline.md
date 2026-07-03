@@ -2022,32 +2022,15 @@ They operate at two levels:
 
 The Fast Track pipeline is the operational bridge toward the broader strategic pipeline.
 
-## v1.1 Pending Foundation — ChatGPT ↔ Cursor Operating Model
+## v1.1 Foundation — ChatGPT ↔ Cursor Operating Model
 
-SFIA v1.1 identifies the ChatGPT ↔ Cursor workflow as a foundational operating model.
+SFIA v1.1 formalizes the ChatGPT ↔ Cursor workflow in:
 
-At this stage, it is referenced but not yet fully specified.
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 
-Execution currently relies on a manual ChatGPT ↔ Cursor loop:
+This document defines the current level-0 operating model and acts as the bridge toward future automation engine specifications.
 
-- ChatGPT frames cycles and produces Cursor prompts;
-- Cursor executes changes in the repository;
-- Human validates diff, build/tests, and merge.
-
-No automation without human validation in v1.1.
-
-A dedicated foundation document must define:
-
-- the role of ChatGPT;
-- the role of Cursor;
-- the prompt handoff model;
-- the execution loop;
-- validation responsibilities;
-- repository guardrails;
-- limits of automation;
-- human decision points.
-
-Target document: `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` *(planned — not yet created)*
+Execution relies on a manual ChatGPT ↔ Cursor loop with mandatory human validation.
 
 This document is required before moving to automation engine specifications.
 
