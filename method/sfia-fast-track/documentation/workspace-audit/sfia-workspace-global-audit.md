@@ -273,6 +273,22 @@ Important : ne rien supprimer sans validation humaine.
 2. **Interv360 surchargé** : 111 fichiers dans `07-delivery/` dont ~50 historiques.
 3. **Logs Notion dans architecture** : 35 fichiers `notion-sync-*` noient les ADR.
 4. **Numérotation phases incohérente** : pas de `04-delivery`, `05-release`, `06-audit-rex` unifiés.
+
+### Doublons de phases Interv360
+
+L'audit complémentaire `interv360/interv360-folder-normalization-audit.md` confirme que l'arborescence Interv360 contient plusieurs doublons ou ambiguïtés de phases :
+
+- `02-architecture/` contient l'architecture active, les ADR, mais aussi des logs et documents historiques ;
+- `09-architecture/` porte plutôt des roadmaps ou évolutions futures et ne devrait pas rester nommé architecture ;
+- `07-delivery/` mélange delivery actif, readiness release, audit application et micro-incréments historiques ;
+- `07-rex/` existe comme dossier séparé mais le REX principal a été capitalisé côté méthode ;
+- `08-presentation/` doit être replacé dans une séquence logique après audit/rex ;
+- l'absence de `04-delivery`, `05-release`, `06-audit-rex` rend la lecture du projet confuse.
+
+Décision proposée :
+
+> Produire une normalisation dédiée de `projects/interv360/` avant tout nettoyage physique de cette zone.
+
 5. **Pas de README projet Interv360** opérationnel (seulement `projects/interv360/README.md` à vérifier).
 6. **sfia-notion-sync absent** du workspace mais référencé partout — clarifier dans README racine.
 7. **tools/cmp-001** volumineux (node_modules) — bien isolé mais peu documenté au niveau racine.

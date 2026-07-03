@@ -70,6 +70,21 @@ Aucun déplacement massif ne doit être réalisé sans validation humaine.
 
 ## 6. Déplacements proposés — Interv360
 
+### Validation complémentaire requise
+
+Avant toute réorganisation `projects/interv360/`, consulter :
+
+`interv360/interv360-folder-normalization-audit.md`
+
+Cet audit détaille les doublons de dossiers, notamment :
+
+- `02-architecture/` vs `09-architecture/` ;
+- `07-delivery/` vs future cible `04-delivery/` ;
+- `07-rex/` vs future cible `06-audit-rex/` ;
+- `08-presentation/` vs future cible `07-presentation/`.
+
+Aucun renommage de phase Interv360 ne doit être exécuté sans validation explicite.
+
 ### 6.1. Archives (priorité haute)
 
 | Actuel | Cible | Action | Justification |
