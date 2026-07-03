@@ -1,42 +1,16 @@
-# SFIA — Methods
+# Methods
 
-Ce dossier regroupe les **méthodes SFIA réutilisables** capitalisées comme actifs de repo.
+Ce dossier contient les méthodes complémentaires ou parallèles à la méthode active SFIA Fast Track.
 
-Les méthodes documentées ici sont des actifs de capitalisation destinés à structurer, guider ou standardiser des cycles de travail SFIA.
+Méthode active :
 
-**Complément :** les méthodes par rôle, processus, architecture et UX/UI documentées dans les projets pilotes restent aussi référencées dans [`docs/methods/README.md`](../docs/methods/README.md).
+- `../method/sfia-fast-track/`
 
----
+Méthodes complémentaires :
 
-## Méthodes disponibles
+- `controlled-delivery/`
 
-| Méthode | Domaine | Statut | Description |
-|---------|---------|--------|-------------|
-| [Controlled Delivery](controlled-delivery/README.md) | Delivery Method | Draft — Hardened / Publication package ready | Méthode de delivery contrôlé combinant phase 1 de cadrage fin et phase 2 de réalisation groupée contrôlée |
+Décision :
 
----
-
-## Controlled Delivery
-
-Controlled Delivery aide à adapter le niveau de contrôle au niveau de maturité d'un sujet :
-
-- **phase 1 — cadrage fin** : micro-cycles lorsque le périmètre est instable ;
-- **phase 2 — réalisation groupée contrôlée** : lot cohérent lorsque les règles sont stabilisées.
-
-**Destination SFIA proposée :**
-
-`SFIA Standards / Delivery Method / Controlled Delivery`
-
-La publication Notion n'est pas réalisée depuis cet index.
-
-**Actifs principaux :** [`controlled-delivery/`](controlled-delivery/)
-
-- Delivery Acceleration Level 3 REX — règles d'usage des micro-cycles, du Fast Delivery et du Batch Delivery.
-
----
-
-## Garde-fous
-
-Cet index **ne publie rien automatiquement**.
-
-Toute publication Notion, push ou PR doit faire l'objet d'une **demande explicite**.
+> Pour les prochains projets SFA, la référence active est `method/sfia-fast-track/`.
+> `controlled-delivery/` reste conservé comme méthode complémentaire tant qu'une fusion explicite n'a pas été décidée.

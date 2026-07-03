@@ -77,3 +77,19 @@ Voir dans Notion : **KNO-001 — SFIA Engineering Principles**.
 ## Version CMP-001 embarquée
 
 `tools/cmp-001/` — SFIA Notion Sync **v1.1.1**
+
+## SFIA Workspace Structure
+
+| Zone | Rôle |
+|------|------|
+| `docs/` | Documentation plateforme SFIA |
+| `method/sfia-fast-track/` | Méthode active SFIA Fast Track |
+| `methods/` | Méthodes complémentaires |
+| `projects/interv360/` | Projet de référence Interv360 |
+| `prompts/` | Familles de prompts |
+| `tools/cmp-001/` | Outillage CMP / Notion |
+| `exports/notion/` | Exports Notion préparés |
+
+Note :
+
+`sfia-notion-sync` est référencé comme dépendance externe, mais n'est pas présent dans ce workspace.
