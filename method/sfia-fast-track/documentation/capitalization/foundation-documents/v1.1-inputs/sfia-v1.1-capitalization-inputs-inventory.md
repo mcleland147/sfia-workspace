@@ -510,3 +510,30 @@ It defines:
 - automation trajectory.
 
 This document is required before creating the automation engine specifications.
+
+## Update — P1 Core Foundations Created
+
+The first P1 core foundation documents have been created:
+
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+
+They define:
+
+- canonical SFIA rules and guardrails;
+- repository, ChatGPT/Cursor, Notion and automation constraints;
+- the Documentation Routing Matrix;
+- required sources and target folders by phase or context;
+- Knowledge Layer principles;
+- repo → knowledge mapping;
+- Notion as a curated business knowledge layer;
+- publication rules and maturity criteria.
+
+The Operating Model has been updated to reference the Documentation Routing Matrix as an input for Prompt as Contract.
+
+Remaining P1 documents:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`

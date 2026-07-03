@@ -38,6 +38,9 @@ method/sfia-fast-track/
 - `sfia-rules-update.md`
 - `sfia-architecture-standards.md`
 - `sfia-consolidation-roadmap.md`
+- `sfia-chatgpt-cursor-operating-model.md` — ChatGPT ↔ Cursor operating model (foundation v1.1)
+- `sfia-rules-and-guardrails.md` — canonical rules and guardrails (foundation v1.1)
+- `sfia-knowledge-layer.md` — knowledge layer and Documentation Routing Matrix (foundation v1.1)
 
 ### Automation (`automation/`)
 

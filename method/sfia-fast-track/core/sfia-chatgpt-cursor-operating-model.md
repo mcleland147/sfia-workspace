@@ -188,6 +188,18 @@ Un prompt Cursor doit préciser :
 - résultat attendu ;
 - confirmations à remonter.
 
+Un prompt Cursor doit également s'appuyer sur la **Documentation Routing Matrix** définie dans :
+
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+
+Cette matrice permet de déterminer :
+
+- les documents sources à lire ;
+- les livrables attendus ;
+- les dossiers cibles à alimenter ;
+- le niveau de capitalisation attendu ;
+- les garde-fous documentaires applicables.
+
 Règle :
 
 > Cursor ne doit pas improviser hors du contrat d'exécution.
@@ -210,6 +222,18 @@ Dernier commit attendu :
 ...
 
 Contexte :
+...
+
+Phase / contexte SFIA :
+...
+
+Sources de référence :
+...
+
+Dossier cible :
+...
+
+Type de capitalisation attendu :
 ...
 
 Périmètre :
@@ -324,7 +348,8 @@ Les garde-fous suivants sont obligatoires dans les cycles SFIA :
 - ne pas publier dans Notion ;
 - ne pas régénérer de payloads JSON Notion/CMP sans cycle dédié ;
 - toujours vérifier `git status --short` ;
-- toujours vérifier les chemins interdits.
+- toujours vérifier les chemins interdits ;
+- toujours identifier les sources de référence et le dossier cible à partir de la Documentation Routing Matrix (`sfia-knowledge-layer.md` §6).
 
 Checklists associées :
 
@@ -472,9 +497,10 @@ Il constitue le pont entre :
 ## 20. Next Steps
 
 1. Valider ce document ;
-2. créer ou consolider les familles de prompts ;
-3. créer le Prompt Generation Engine ;
-4. créer le Repository Execution Engine ;
-5. créer le Validation Engine ;
-6. créer le Knowledge Layer ;
-7. préparer ensuite seulement le chantier Notion.
+2. valider `sfia-rules-and-guardrails.md` ;
+3. valider `sfia-knowledge-layer.md` et sa Documentation Routing Matrix ;
+4. consolider les familles de prompts ;
+5. créer le Prompt Generation Engine ;
+6. créer le Repository Execution Engine ;
+7. créer le Validation Engine ;
+8. préparer ensuite seulement le chantier Notion.
