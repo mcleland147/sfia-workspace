@@ -177,3 +177,26 @@ Le prochain projet devra appliquer dès le départ la méthode Figma Design-firs
 Décision :
 
 > Interv360 devient la référence de méthode pour lancer le prochain projet SFIA.
+
+---
+
+## 11. Statut de merge
+
+La PR de capitalisation finale Interv360/SFIA a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #75 — docs: add Interv360 final SFIA capitalization |
+| Branche source | `method/interv360-final-capitalization` |
+| Branche cible | `main` |
+| Commit d'intégration | `97582c3` |
+| Statut | Mergé |
+| Type | Documentation méthode / capitalisation finale |
+| Code Interv360 | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> La capitalisation finale Interv360/SFIA est intégrée à `main`. La séquence Interv360 peut être considérée comme clôturée et réutilisable comme référence pour le prochain projet SFIA.
