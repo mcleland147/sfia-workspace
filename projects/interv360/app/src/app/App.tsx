@@ -30,6 +30,7 @@ import {
   simulatedRoleLabels,
 } from "../domain/simulatedRoles";
 import { DEFAULT_SELECTED_REQUEST_ID } from "../seed/demoRequests";
+import { DashboardCommandCenter } from "../ui/dashboard/DashboardCommandCenter";
 import { DemoOverview } from "../ui/demo/DemoOverview";
 import { DemoReadinessPanel } from "../ui/demo/DemoReadinessPanel";
 import { DemoScenarioGuide } from "../ui/demo/DemoScenarioGuide";
@@ -62,11 +63,12 @@ import { DemoUserControl } from "../ui/roles/DemoUserControl";
 import "./App.css";
 
 const SIDEBAR_NAV_ITEMS = [
-  { label: "Dashboard", active: false },
-  { label: "Demandes", active: true },
-  { label: "Planning", active: false },
-  { label: "Interventions", active: false },
-  { label: "Intégrations", active: false },
+  { label: "Dashboard", screenId: "overview" as DemoScreenId },
+  { label: "Demandes", screenId: "requests" as DemoScreenId },
+  { label: "Planning", screenId: "scenario" as DemoScreenId },
+  { label: "Interventions", screenId: "details" as DemoScreenId },
+  { label: "Clients", screenId: "journal" as DemoScreenId },
+  { label: "Catalogue", screenId: "overview" as DemoScreenId },
 ] as const;
 
 const SCREEN_BREADCRUMB_LABELS: Record<DemoScreenId, string> = {
@@ -93,6 +95,7 @@ type PremiumAppShellProps = {
   dataSourceMode: ReturnType<typeof getDataSourceMode>;
   dataModeBanner: ReactNode;
   currentScreen: DemoScreenId;
+  onNavigateScreen: (screenId: DemoScreenId) => void;
   children: ReactNode;
 };
 
@@ -103,6 +106,7 @@ function PremiumAppShell({
   dataSourceMode,
   dataModeBanner,
   currentScreen,
+  onNavigateScreen,
   children,
 }: PremiumAppShellProps) {
   const roleLabel = simulatedRoleLabels[currentUser.role];
@@ -122,22 +126,56 @@ function PremiumAppShell({
         </div>
 
         <nav className="app-sidebar-nav" aria-label="Sections produit">
-          <p className="app-sidebar-section">Navigation</p>
-          {SIDEBAR_NAV_ITEMS.map((item) => (
-            <div
+          <p className="app-sidebar-section">Pilotage</p>
+          {SIDEBAR_NAV_ITEMS.slice(0, 1).map((item) => (
+            <button
               key={item.label}
+              type="button"
               className={
-                item.active
+                currentScreen === item.screenId &&
+                item.label === "Dashboard"
                   ? "app-sidebar-link is-active"
                   : "app-sidebar-link"
               }
-              aria-hidden="true"
+              aria-label={`Navigation latérale ${item.label}`}
+              onClick={() => onNavigateScreen(item.screenId)}
             >
               {item.label}
-              {item.active ? (
+              {currentScreen === item.screenId && item.label === "Dashboard" ? (
                 <span className="app-sidebar-link-dot" aria-hidden="true" />
               ) : null}
-            </div>
+            </button>
+          ))}
+          <p className="app-sidebar-section">Opérations</p>
+          {SIDEBAR_NAV_ITEMS.slice(1, 4).map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              className={
+                currentScreen === item.screenId
+                  ? "app-sidebar-link is-active"
+                  : "app-sidebar-link"
+              }
+              aria-label={`Navigation latérale ${item.label}`}
+              onClick={() => onNavigateScreen(item.screenId)}
+            >
+              {item.label}
+              {currentScreen === item.screenId ? (
+                <span className="app-sidebar-link-dot" aria-hidden="true" />
+              ) : null}
+            </button>
+          ))}
+          <p className="app-sidebar-section">Référentiel</p>
+          {SIDEBAR_NAV_ITEMS.slice(4).map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              className="app-sidebar-link"
+              aria-label={`Navigation latérale ${item.label}`}
+              onClick={() => onNavigateScreen(item.screenId)}
+            >
+              {item.label}
+            </button>
           ))}
         </nav>
 
@@ -486,6 +524,7 @@ export function App() {
     dataSourceMode,
     dataModeBanner,
     currentScreen: currentDemoScreen,
+    onNavigateScreen: goToDemoScreen,
   };
 
   if (isLoading && requests.length === 0 && !loadError) {
@@ -572,6 +611,16 @@ export function App() {
       <div className="app-layout app-layout--screen">
         {currentDemoScreen === "overview" ? (
           <div className="app-screen-panel">
+            <DashboardCommandCenter
+              requests={requests}
+              onNavigateToRequests={() => {
+                goToDemoScreen("requests");
+              }}
+              onOpenRequest={(requestId) => {
+                setSelectedRequestId(requestId);
+                goToDemoScreen("requests");
+              }}
+            />
             <DemoOverview
               requestId={selectedRequestId}
               currentStatus={request?.status}

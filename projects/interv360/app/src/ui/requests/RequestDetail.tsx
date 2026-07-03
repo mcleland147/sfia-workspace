@@ -89,7 +89,7 @@ export function RequestDetail({
           <span className="request-detail__status">{statusLabel}</span>
           <span className="request-detail__status-code">{request.status}</span>
         </div>
-        <RequestBadges request={request} />
+        <RequestBadges request={request} showChannel={false} showIndicators={false} />
         <p className="request-detail__notice">
           Contexte démonstration MVP — données simulées, sans authentification
           réelle.

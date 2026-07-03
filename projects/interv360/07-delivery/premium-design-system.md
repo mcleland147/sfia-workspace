@@ -207,11 +207,11 @@ Palette à rapprocher de la maquette Figma :
 |-----------|----------|--------|
 | UI-01 | Audit design et cadrage premium | Réalisé |
 | UI-02 | Shell applicatif + design tokens | Réalisé |
-| FIGMA-01 | Direction artistique Figma premium | En cours |
-| FIGMA-02 | Maquettes Figma écrans clés | À faire |
-| UI-03 | Implémentation page demandes depuis Figma | À faire |
+| FIGMA-01 | Direction artistique Figma premium | Réalisé |
+| FIGMA-02 | Maquettes Figma écrans clés | Réalisé |
+| UI-03 | Implémentation Dashboard + Page demandes premium | Réalisé |
 | UI-04 | Implémentation fiche demande + journal depuis Figma | À faire |
-| UI-05 | Polish, validations et PR unique | À venir |
+| UI-05 | Validations, polish et PR unique | À venir |
 
 ---
 
@@ -227,13 +227,15 @@ Palette à rapprocher de la maquette Figma :
 | Design tokens créés | OK |
 | Layout pleine largeur SaaS créé | OK |
 | Décision Figma-first prise | OK |
-| Maquette page demandes premium | À faire |
-| Maquette fiche demande premium | À faire |
-| Maquette journal / timeline premium | À faire |
-| Maquette dashboard léger | À faire |
-| Maquette création demande future | Optionnel |
-| Implémentation page demandes | Suspendue avant validation Figma |
-| Implémentation fiche demande | Suspendue avant validation Figma |
+| Maquette dashboard premium | OK |
+| Maquette page demandes premium | OK |
+| Maquette fiche demande premium | OK |
+| Maquette pipeline SAV | OK |
+| Maquette journal / timeline premium | OK |
+| Implémentation dashboard | OK |
+| Implémentation page demandes | OK |
+| Implémentation fiche demande | À faire |
+| Implémentation journal / timeline | À faire |
 | Tests frontend OK | À faire |
 | Build frontend OK | À faire |
 | Backend inchangé | À valider |
@@ -384,8 +386,67 @@ FIGMA-01 valide :
 
 ---
 
+## 10.3. FIGMA-02 — Maquettes Figma premium validées
+
+FIGMA-02 valide les maquettes Figma premium des écrans clés avant reprise de l'implémentation UI.
+
+Livré :
+
+- maquette dashboard / centre de commande SAV ;
+- maquette page demandes premium ;
+- maquette fiche demande premium ;
+- maquette pipeline SAV ;
+- maquette journal / timeline premium.
+
+Décision :
+
+> Les maquettes Figma premium sont validées. UI-03 peut reprendre l'implémentation frontend à partir de cette cible.
+
+---
+
+## 10.4. UI-03 — Dashboard Command Center + Page Demandes premium
+
+UI-03 implémente les deux premiers écrans issus de la direction Figma validée.
+
+Livré :
+
+- Dashboard / Centre de commande SAV ;
+- KPI command center ;
+- focus opérationnel ;
+- charge équipe ;
+- activité récente ;
+- interventions du jour ;
+- répartitions statut / canal ;
+- page Demandes premium ;
+- tableau demandes premium ;
+- badges harmonisés ;
+- filtres visuels ;
+- actions visuelles cohérentes.
+
+Préservé :
+
+- backend ;
+- API ;
+- SQLite ;
+- mode local ;
+- mode API ;
+- request model ;
+- audit trail ;
+- workflow ;
+- statuts ;
+- transitions ;
+- permissions ;
+- scripts npm ;
+- CI.
+
+Décision :
+
+> UI-03 transforme l'accueil et la liste des demandes en interface premium conforme à la cible Figma, sans modification métier.
+
+---
+
 ## 11. Prochaine étape
 
-Exécuter **FIGMA-02** :
+Exécuter **UI-04** :
 
-Produire les maquettes Figma premium des écrans clés avant de reprendre l'implémentation UI.
+Implémenter Fiche demande + Pipeline SAV + Historique / Audit Trail premium à partir des maquettes Figma validées.
