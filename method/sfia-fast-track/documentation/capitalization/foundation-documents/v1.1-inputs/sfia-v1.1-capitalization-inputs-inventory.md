@@ -802,3 +802,34 @@ Remaining follow-up:
 - use the catalog on upcoming cycles;
 - update the catalog after real usage;
 - prepare P2 cross-references after the prompt templates cycle.
+## Update — Prompt Templates Created
+
+The priority full prompt templates from the SFIA Prompt Catalog have been created in:
+
+- `prompts/templates/`
+
+The templates cover:
+
+- Create Foundation Document;
+- Update Document to v1.1;
+- Create Operational Checklist;
+- Validate Cursor Result;
+- Validate PR Readiness;
+- Prepare PR Summary;
+- Write Post-Merge Status;
+- Capitalize Method Asset;
+- Prepare Notion Mapping;
+- Perform Safe Repository Cleanup.
+
+This completes the first operational template layer of the SFIA Prompt Catalog v1.1.
+
+The Prompt Catalog remains the index of prompt families and prompt cards.
+
+The `prompts/templates/` folder now contains reusable operational skeletons that must be adapted before execution.
+
+Remaining follow-up:
+
+- use these templates in upcoming cycles;
+- update templates after real usage;
+- reconcile pilot Interv360 prompt families with the v1.1 families;
+- prepare P2 cross-references.

@@ -1187,22 +1187,30 @@ Décisions possibles :
 - POST-MERGE COMPLETE / INCOMPLETE ;
 - NOTION PREPARATION READY / WITH RESERVES / BLOCKED.
 
-## 10. Templates complets prioritaires à produire ensuite
+## 10. Full Prompt Templates
 
-The following full prompt templates should be produced in a follow-up cycle:
+The priority full prompt templates are maintained in:
 
-1. Create Foundation Document
-2. Update Document to v1.1
-3. Create Operational Checklist
-4. Validate Cursor Result
-5. Validate PR Readiness
-6. Prepare PR Summary
-7. Write Post-Merge Status
-8. Capitalize Method Asset
-9. Prepare Notion Mapping
-10. Perform Safe Repository Cleanup
+- `prompts/templates/`
 
-Cette passe ne crée pas les templates complets pour éviter un catalogue trop volumineux.
+| Template | Source prompt card | Status |
+|----------|--------------------|--------|
+| `prompts/templates/01-create-foundation-document.md` | Create Foundation Document | Candidate |
+| `prompts/templates/02-update-document-v1-1.md` | Update Document to v1.1 | Candidate |
+| `prompts/templates/03-create-operational-checklist.md` | Create Operational Checklist | Candidate |
+| `prompts/templates/04-validate-cursor-result.md` | Validate Cursor Result | Candidate |
+| `prompts/templates/05-validate-pr-readiness.md` | Validate PR Readiness | Candidate |
+| `prompts/templates/06-prepare-pr-summary.md` | Prepare PR Summary | Candidate |
+| `prompts/templates/07-write-post-merge-status.md` | Write Post-Merge Status | Candidate |
+| `prompts/templates/08-capitalize-method-asset.md` | Capitalize Method Asset | Candidate |
+| `prompts/templates/09-prepare-notion-mapping.md` | Prepare Notion Mapping | Candidate |
+| `prompts/templates/10-perform-safe-repository-cleanup.md` | Perform Safe Repository Cleanup | Candidate |
+
+These templates are operational skeletons derived from the v1.1 prompt cards.
+
+They must be adapted before execution.
+
+See also: `prompts/templates/README.md`
 
 ## 11. Anti-patterns
 
@@ -1232,17 +1240,16 @@ It operationalizes the Prompt Generation Engine by providing reusable prompt pat
 - Rules & Guardrails ;
 - Knowledge Layer.
 
-The catalog is not yet a complete prompt template library.
+The catalog is the index of prompt families and prompt cards.
 
-Full prompt templates will be added in a dedicated follow-up cycle.
+Full operational prompt templates are maintained separately in `prompts/templates/`.
 
 ## 13. Next Steps
 
-1. Use the catalog to select prompt families in upcoming SFIA cycles ;
-2. create full prompt templates for the highest-value prompt cards ;
-3. link future prompts to the Validation Checklist ;
-4. update the catalog after real usage ;
-5. prepare P2 cross-references after the prompt templates cycle.
+1. Use the templates on upcoming SFIA cycles ;
+2. update templates after real usage ;
+3. reconcile pilot Interv360 prompt families with v1.1 families ;
+4. prepare P2 cross-references.
 
 ---
 

@@ -8,6 +8,13 @@ This folder contains reusable SFIA prompt references, prompt catalogs and prompt
 |----------|------|
 | `prompt-catalog.md` | Candidate catalog of SFIA prompt families and reusable prompt cards (v1.1) |
 
+## Templates
+
+| Location | Role |
+|----------|------|
+| `templates/` | Full reusable prompt templates derived from the SFIA Prompt Catalog v1.1 |
+| `templates/README.md` | Index of priority full prompt templates |
+
 ## Prompt families (pilot assets)
 
 | Folder | Role |
