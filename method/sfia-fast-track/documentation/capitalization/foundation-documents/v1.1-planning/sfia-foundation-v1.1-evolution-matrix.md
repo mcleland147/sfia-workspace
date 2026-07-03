@@ -103,3 +103,30 @@ La **v2.0** reste réservée à l'implémentation des moteurs et à Notion opér
 | Domain model étendu | Objets CMP/Notion synchronisés |
 | Knowledge layer défini | Sync Notion opérationnelle sélective |
 | Enrichissement 6 référentiels architecture | Decision Engine actif en runtime |
+
+## Update — Capitalization Inputs Inventory
+
+Un inventaire détaillé des apports de capitalisation v1.1 a été produit avant mise à jour des documents fondateurs.
+
+**Livrables :**
+
+- `v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md`
+- `v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md`
+
+Il couvre :
+
+- Interv360 (00–09, ADR, audit, REX, MVP/Premium UI, roadmap post-MVP) ;
+- SFIA Fast Track (core, automation, cycles, UI, templates, checklists) ;
+- workspace cleanup PR #81 ;
+- audits et REX ;
+- prompts et catalogue ;
+- templates (FT + plateforme) ;
+- practices et Role Methods ;
+- Controlled Delivery complémentaire ;
+- automatisation ChatGPT ↔ Cursor ;
+- knowledge / Notion layer ;
+- sources additionnelles : consolidation roadmap, notion mapping, final architecture audit, exports/notion.
+
+**Décision inventaire :** apports suffisamment identifiés pour lancer consolidation v1.1.
+
+Cet inventaire doit servir de référence avant toute modification des documents fondateurs.

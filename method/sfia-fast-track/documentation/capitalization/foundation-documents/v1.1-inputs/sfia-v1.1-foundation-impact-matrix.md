@@ -1,0 +1,119 @@
+# SFIA v1.1 — Foundation Impact Matrix
+
+**Date** : 2026-07-03  
+**Branche** : `capitalization/sfia-documentation-completeness`  
+**Inventaire associé** : `sfia-v1.1-capitalization-inputs-inventory.md`  
+**Mode** : planification — aucun document fondateur source modifié
+
+## 1. Objectif
+
+Cette matrice indique précisément quels apports de capitalisation doivent être intégrés dans chaque document fondateur SFIA.
+
+Elle complète l'inventaire des apports par une évaluation d'impact, de risque et de priorité.
+
+## 2. Matrice — documents fondateurs existants
+
+| Document fondateur | Impacts v1.1 à intégrer | Niveau d'impact | Risque | Priorité |
+|--------------------|-------------------------|-----------------|--------|----------|
+| `sfia-platform-architecture.md` | Cartographie repo post-PR #81 ; couches `method/`, `docs/practices/`, `prompts/`, `projects/`, `exports/` ; distinction Git (détail) vs Notion (éditorial) ; module Projects ↔ Interv360 ; lien automation / application factory | **Fort** | Effacer vision Notion-native v1.0 sans section historique ; fichier ~2100 lignes | **P0** |
+| `sfia-decision-engine.md` | Décisions GO/NO-GO FT ; réserves non bloquantes (PR #81, audit Interv360) ; arbitrages MVP ; lien ADR-001–008 ; audit pré-cycle ; décision consolidation vs Notion | **Moyen** | Surcharge si import ADR complets — résumer patterns | **P1** |
+| `sfia-delivery-pipeline.md` | Cycle FT : un objectif, PR unique, post-merge, releases ; pattern lots MVP (6 lots) ; séquence Interv360 00–09 ; capitalisations cycles ; note Controlled Delivery complémentaire | **Fort** | Confusion pipeline théorique v1.0 vs opérationnel — clarifier deux niveaux | **P0** |
+| `sfia-domain-model.md` | Objets Cycle, Prompt, Template, Practice, Role Method, Reference Project, Knowledge Page, Audit, REX ; double référentiel présentation/métier ; statuts Draft/Official | **Fort** | Casser identifiants v1.0 — étendre, ne pas renommer | **P0** |
+| `sfia-meta-model.md` | Relations prompts ↔ templates ↔ practices ↔ FT ↔ Notion ; templates FT vs plateforme ; archives vs actif ; maturité Role Method | **Moyen** | Complexité relations — diagramme recommandé | **P1** |
+| `sfia-repository-blueprint.md` | Alignement PR #81 : `method/complementary/`, `docs/practices/`, suppression `methods/`, `docs/methods/` ; règle archives ; index README | **Fort** | Chemins obsolètes actifs dans v1.0 — correction prioritaire | **P0** |
+| `sfia-engineering-principles.md` | Garde-fous FT ; Cursor/ChatGPT ; Notion non auto ; validation humaine ; Figma Design-first ; séparation cycles UI/backend | **Moyen** | Dupliquer rules-update — renvoyer vers doc unifié P1 | **P1** |
+| `sfia-automation-architecture.md` | Version v1.1 ; renvois specs moteurs ; Niveau 0 actuel ; frontière v1.1 spec / v2.0 impl ; garde-fous exécutables §8 | **Moyen** | Document déjà récent — enrichissement ciblé | **P1** |
+| `sfia-global-capitalization.md` | Cross-références v1.1 architecture ; statut « preuve opérationnelle » vs « référentiel conceptuel » ; lien operating model | **Faible** | Redondance si recopie platform-architecture | **P2** |
+| `sfia-rules-update.md` | Cross-référence `sfia-rules-and-guardrails.md` ; statuts réserves audit ; pointer checklists | **Faible** | Fusion destructive — conserver jusqu'à P1 rules doc | **P2** |
+
+## 3. Matrice — nouveaux documents nécessaires
+
+| Nouveau document | Justification | Sources à utiliser | Niveau d'impact | Risque | Priorité |
+|------------------|---------------|--------------------|-----------------|--------|----------|
+| `sfia-chatgpt-cursor-operating-model.md` | Lacune P0 — boucle décrite mais dispersée dans 4+ docs | `automation` §2–3, `global-capitalization` §13, `figma-design-first-ui-method` §6, `prompt-catalog` §6, cycles Interv360 | **Fort** (création) | Sous-spécifier la boucle ; oublier garde-fous humains | **P0** |
+| `sfia-rules-and-guardrails.md` | 3 sources complémentaires sans doc unifié | `engineering-principles`, `rules-update`, 3 checklists | **Moyen** | Duplication si fusion destructive | **P1** |
+| `sfia-prompt-generation-engine.md` | Moteur décrit §5.5 sans spec autonome | `automation` §5.5, `prompt-catalog`, `cycle-template`, `global-capitalization` §13 | **Moyen** | Confondre spec et implémentation v2.0 | **P1** |
+| `sfia-validation-engine.md` | Checklists opérationnelles sans spec moteur | `automation` §5.7, `validation-checklist`, `guardrails-checklist`, audit templates | **Moyen** | Sur-promettre automatisation v1.1 | **P1** |
+| `sfia-repository-execution-engine.md` | Blueprint structure sans spec comportement | `automation` §5.6, `repository-blueprint`, `rules-update` §3–5, templates PR/post-merge | **Moyen** | Chevauchement Delivery Pipeline | **P1** |
+| `sfia-knowledge-layer.md` | Notion préparé mais pas de doc couche connaissance | `notion-target-content-map`, `notion-publication-plan`, `exports/notion/README`, PR #81 | **Moyen** | Déclencher sync Notion prématurée | **P1** |
+
+## 4. Synthèse d'impact par catégorie de capitalisation
+
+| Catégorie | Documents impactés (nb) | Impact global | Action v1.1 |
+|-----------|-------------------------|---------------|-------------|
+| Vision SFIA | 3 | Moyen | Enrichir platform-architecture + cross-ref capitalization |
+| Architecture plateforme | 2 | Fort | Repository Blueprint + Platform Architecture |
+| Decision Engine | 2 | Moyen | Decision Engine + nouveau operating model (arbitrages) |
+| Delivery Pipeline | 4 | Fort | Delivery Pipeline + templates/checklists référencés |
+| Domain Model | 3 | Fort | Domain Model + Metamodel + practices |
+| Metamodel | 2 | Moyen | Metamodel + Knowledge Layer |
+| Repository Blueprint | 2 | Fort | Repository Blueprint + Repository Execution Engine |
+| Rules & Guardrails | 3 | Moyen | Engineering Principles + nouveau rules doc |
+| ChatGPT ↔ Cursor | 1 (nouveau) | Fort | Operating model P0 |
+| Automation Engines | 4 (3 nouveaux + automation) | Moyen | Specs P1 + automation v1.1 renvois |
+| Knowledge / Notion | 2 | Moyen | Knowledge Layer P1 |
+| UX/UI | 3 | Moyen | Engineering Principles + Delivery Pipeline + figma method ref |
+| Audit / REX | 3 | Faible | Delivery Pipeline + Decision Engine patterns |
+| Role / Métier | 2 | Faible | Domain Model + Metamodel (modèle, pas contenu Draft) |
+| Reference Project | 6+ | Faible | Références ciblées Interv360 — pas import massif |
+
+## 5. Risques transverses v1.1
+
+| Risque | Mitigation |
+|--------|------------|
+| Effacement contenu v1.0 Notion exports | Section « Historique v1.0 » + Git history |
+| Terminologie SFA résiduelle | Revue terminologique SFIA exclusive dans nouveaux contenus |
+| Duplication rules / principles / checklists | Doc unifié P1 avec renvois — ne pas supprimer sources |
+| Confusion v1.1 spec vs v2.0 implémentation | Frontière explicite dans automation + moteurs |
+| Scope creep vers Notion sync | Garde-fous plan consolidation §8 |
+| Import massif Interv360 | Résumer patterns — citer chemins, pas copier |
+
+## 6. Ordre recommandé
+
+| Ordre | Action | Documents | Justification |
+|-------|--------|-----------|---------------|
+| **1** | Mettre à jour Repository Blueprint v1.1 | `sfia-repository-blueprint.md` | Fondation structurelle — débloque tous les autres ; chemins obsolètes P0 |
+| **2** | Mettre à jour Platform Architecture + Delivery Pipeline v1.1 | 2 docs architecture | Vision + cycle opérationnel — cœur v1.1 |
+| **3** | Mettre à jour Domain Model + Metamodel v1.1 | 2 docs architecture | Objets et relations — prérequis Knowledge Layer et practices |
+| **4** | Mettre à jour Decision Engine v1.1 | `sfia-decision-engine.md` | Patterns décisionnels prouvés Interv360 |
+| **5** | Mettre à jour Engineering Principles v1.1 | `sfia-engineering-principles.md` | Garde-fous transverses avant rules unifiées |
+| **6** | Créer ChatGPT ↔ Cursor Operating Model | **nouveau P0** | Lacune centrale — débloque moteurs et automation |
+| **7** | Créer Rules & Guardrails unifié | **nouveau P1** | Consolide 3 sources sans fusion destructive |
+| **8** | Créer specs 3 moteurs (Prompt, Validation, Repository Execution) | **3 nouveaux P1** | Extraction automation §5.5–5.7 |
+| **9** | Créer Knowledge Layer | **nouveau P1** | Prépare Notion sans sync |
+| **10** | Mettre à jour Automation Architecture v1.1 (renvois) | `sfia-automation-architecture.md` | Pivot — référencer specs créées |
+| **11** | Cross-références Global Capitalization + Rules Update | 2 docs core | Relier opérationnel ↔ conceptuel |
+| **12** | Mettre à jour index capitalisation + README architecture | README, audit | Clôture passe v1.1 |
+
+## 7. Estimation d'effort par ordre
+
+| Ordre | Commits suggérés | Complexité |
+|-------|------------------|------------|
+| 1–4 | 1–2 | Élevée (gros fichiers architecture) |
+| 5 | 1 | Faible |
+| 6 | 1 | Moyenne (doc nouveau structurant) |
+| 7–9 | 2–3 | Moyenne |
+| 10–12 | 2 | Faible |
+
+**Total estimé : 8–9 commits** sur branche `capitalization/sfia-foundation-v1.1`.
+
+## 8. Critères de complétude matrice
+
+- [ ] Chaque apport inventaire §3 a un document cible identifié
+- [ ] Chaque document fondateur a un niveau d'impact et une priorité
+- [ ] Les 6 nouveaux documents ont des sources listées
+- [ ] L'ordre recommandé respecte les dépendances (Blueprint → Platform → Domain → Operating Model → Moteurs)
+- [ ] Les risques transverses ont des mitigations
+- [ ] Aucun apport v2.0 (moteurs exécutables, Notion sync) n'est classé P0 v1.1
+
+## 9. Décision
+
+> La matrice d'impact confirme que la consolidation v1.1 peut démarrer après validation humaine de l'inventaire des apports.
+
+**Documents P0 v1.1 (impact fort, priorité immédiate) :**
+
+1. `sfia-repository-blueprint.md`
+2. `sfia-platform-architecture.md`
+3. `sfia-delivery-pipeline.md`
+4. `sfia-domain-model.md`
+5. **nouveau** `sfia-chatgpt-cursor-operating-model.md`

@@ -163,3 +163,28 @@ Avant de considérer v1.1 terminée :
 | 7–9 — Cross-ref + index | 2 | Faible |
 
 Total estimé : **8–9 commits** sur branche dédiée, sans refonte arborescence.
+
+## Update — Capitalization Inputs Inventory
+
+Un inventaire détaillé des apports de capitalisation v1.1 a été produit avant mise à jour des documents fondateurs.
+
+**Livrables :**
+
+- `v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` — 14 sections, classification par catégorie et par document cible
+- `v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` — impact, risque, priorité, ordre recommandé
+
+Il couvre :
+
+- Interv360 ;
+- SFIA Fast Track ;
+- workspace cleanup PR #81 ;
+- audits et REX ;
+- prompts ;
+- templates ;
+- practices ;
+- automatisation ChatGPT ↔ Cursor ;
+- knowledge / Notion layer.
+
+**Décision :** apports suffisamment identifiés — prêt pour consolidation v1.1.
+
+Cet inventaire doit servir de référence avant toute modification des documents fondateurs.
