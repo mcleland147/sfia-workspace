@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { beforeEach, describe, expect, it } from "vitest";
 import { STORAGE_KEY_REQUESTS } from "../data/localStorageKeys";
 import { App } from "../app/App";
-import { goToScreen, waitForAppNavigation } from "./navigationHelpers";
+import { goToScreen, waitForAppNavigation, expandMvpDemoPanel, goToDemoResetScreen } from "./navigationHelpers";
 
 const PRESENTATION_REFS: Record<string, string> = {
   "SAV-DEMO-001": "DEM-2481",
@@ -53,6 +53,7 @@ async function renderAppOnRequestsScreen() {
 async function renderAppOnDetailsScreen() {
   await renderAppOnRequestsScreen();
   goToScreen("Détail");
+  expandMvpDemoPanel();
   await waitFor(() => {
     expect(
       screen.getByRole("heading", {
@@ -113,6 +114,7 @@ describe("App smoke", () => {
     expect(screen.getAllByText("DEM-2475").length).toBeGreaterThan(0);
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
     expect(
       screen.getByRole("heading", {
         name: /Machine client en panne intermittente/i,
@@ -142,8 +144,8 @@ describe("App smoke", () => {
       screen.getByRole("heading", { name: /Historique de la demande/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Réinitialiser la démo/i }),
-    ).toBeInTheDocument();
+      screen.queryByRole("button", { name: /Réinitialiser la démo/i }),
+    ).not.toBeInTheDocument();
   });
 
   it("restores SAV-DEMO-001 after explicit demo reset", async () => {
@@ -167,8 +169,8 @@ describe("App smoke", () => {
       expect(screen.getAllByText("SAV-MUTATED").length).toBeGreaterThan(0);
     });
 
-    goToScreen("Journal");
     switchToAdminUser();
+    goToDemoResetScreen();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -191,6 +193,7 @@ describe("App smoke", () => {
     selectRequestInTable("SAV-DEMO-002");
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
     await waitFor(() => {
       expect(screen.getAllByText("SAV-DEMO-002").length).toBeGreaterThan(0);
       expect(
@@ -205,6 +208,7 @@ describe("App smoke", () => {
     selectRequestInTable("SAV-DEMO-003");
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
     await waitFor(() => {
       expect(
         screen.getByText(/Demande clôturée — aucune action supplémentaire/i),
@@ -227,6 +231,7 @@ describe("App smoke", () => {
     });
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
     await waitFor(() => {
       expect(
         screen.getByRole("button", { name: /Mettre en attente/i }),
@@ -247,8 +252,8 @@ describe("App smoke", () => {
       expect(within(table).getByText("DEM-2475")).toBeInTheDocument();
     });
 
-    goToScreen("Journal");
     switchToAdminUser();
+    goToDemoResetScreen();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -314,8 +319,8 @@ describe("App smoke", () => {
     fireEvent.click(screen.getByRole("button", { name: /Étape suivante/i }));
     expect(screen.getAllByText(/Étape 3 sur 6/i).length).toBeGreaterThan(0);
 
-    goToScreen("Journal");
     switchToAdminUser();
+    goToDemoResetScreen();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -346,6 +351,7 @@ describe("App smoke", () => {
     });
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
     fireEvent.click(
       screen.getByRole("button", { name: /Planifier l'intervention/i }),
     );
@@ -382,8 +388,8 @@ describe("App smoke", () => {
       expect(screen.queryByRole("button", { name: /Qualifier/i })).not.toBeInTheDocument();
     });
 
-    goToScreen("Journal");
     switchToAdminUser();
+    goToDemoResetScreen();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );
@@ -393,6 +399,7 @@ describe("App smoke", () => {
     });
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
     await waitFor(() => {
       expect(
         screen.getByRole("button", { name: /Qualifier la demande/i }),

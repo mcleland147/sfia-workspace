@@ -36,3 +36,24 @@ export function goToScreen(shortLabel: string) {
     }),
   );
 }
+
+export function expandMvpDemoPanel() {
+  const panel = screen.getByLabelText(/Parcours MVP et actions de démonstration/i);
+  if (!(panel as HTMLDetailsElement).open) {
+    fireEvent.click(
+      within(panel).getByText(/Parcours MVP et actions de démonstration/i),
+    );
+  }
+}
+
+export function expandDemoToolsPanel() {
+  const panel = screen.getByLabelText(/^Outils de démonstration$/i);
+  if (!(panel as HTMLDetailsElement).open) {
+    fireEvent.click(within(panel).getByText(/^Outils de démonstration$/i));
+  }
+}
+
+export function goToDemoResetScreen() {
+  goToScreen("Scénario");
+  expandDemoToolsPanel();
+}

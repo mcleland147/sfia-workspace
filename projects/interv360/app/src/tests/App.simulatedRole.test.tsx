@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CURRENT_USER_STORAGE_KEY, DEMO_USERS } from "../domain/demoUsers";
 import { App } from "../app/App";
-import { goToScreen, waitForAppNavigation } from "./navigationHelpers";
+import { goToScreen, waitForAppNavigation, expandMvpDemoPanel, goToDemoResetScreen } from "./navigationHelpers";
 
 const PRESENTATION_REFS: Record<string, string> = {
   "SAV-DEMO-001": "DEM-2481",
@@ -32,10 +32,10 @@ async function renderAppOnDetailsScreenForRequest(requestId: string) {
   const row = refCell.closest("tr");
   expect(row).toBeTruthy();
   fireEvent.click(within(row as HTMLElement).getByRole("button", { name: "Ouvrir" }));
-  goToScreen("Détail");
   await waitFor(() => {
     expect(screen.getAllByText(requestId).length).toBeGreaterThan(0);
   });
+  expandMvpDemoPanel();
 }
 
 async function renderAppOnDetailsScreen() {
@@ -176,7 +176,7 @@ describe("App simulated role", () => {
   it("blocks demo reset for technician with disabled button", async () => {
     render(<App />);
     await waitForAppNavigation();
-    goToScreen("Journal");
+    goToDemoResetScreen();
 
     const resetButton = screen.getByRole("button", {
       name: /Réinitialiser la démo/i,
@@ -199,7 +199,7 @@ describe("App simulated role", () => {
     await waitForAppNavigation();
     switchDemoUser("user-admin");
 
-    goToScreen("Journal");
+    goToDemoResetScreen();
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     );

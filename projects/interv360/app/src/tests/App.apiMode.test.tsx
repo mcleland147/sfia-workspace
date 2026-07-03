@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../app/App";
 import { CURRENT_USER_STORAGE_KEY } from "../domain/demoUsers";
-import { goToScreen, waitForAppNavigation } from "./navigationHelpers";
+import { goToScreen, waitForAppNavigation, expandMvpDemoPanel, goToDemoResetScreen } from "./navigationHelpers";
 
 const apiRequest = {
   id: "SAV-DEMO-001",
@@ -282,6 +282,7 @@ describe("App API mode", () => {
     await waitForAppNavigation();
 
     goToScreen("Détail");
+    expandMvpDemoPanel();
 
     await waitFor(() => {
       expect(
@@ -335,6 +336,7 @@ describe("App API mode", () => {
 
     await waitForAppNavigation();
     goToScreen("Détail");
+    expandMvpDemoPanel();
 
     await waitFor(() => {
       expect(
@@ -586,7 +588,7 @@ describe("App API mode", () => {
     });
 
     await waitForAppNavigation();
-    goToScreen("Journal");
+    goToDemoResetScreen();
 
     fireEvent.click(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),

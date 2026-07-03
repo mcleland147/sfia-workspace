@@ -52,6 +52,7 @@ import { DemoResetControl } from "../ui/requests/DemoResetControl";
 import {
   PremiumAuditTrail,
   PremiumDashboard,
+  PremiumMvpDemoPanel,
   PremiumRequestDetail,
   PremiumRequestsPage,
   PremiumShell,
@@ -512,6 +513,18 @@ export function App() {
           >
             <DemoReadinessPanel />
           </section>
+          <PremiumMvpDemoPanel label="Outils de démonstration">
+            <DemoResetControl
+              onReset={() => {
+                void handleDemoReset();
+              }}
+              lastResetLabel={lastResetLabel}
+              isResetDisabled={!canPerformDemoReset}
+              lastActionMessage={
+                currentDemoScreen === "scenario" ? lastActionMessage : undefined
+              }
+            />
+          </PremiumMvpDemoPanel>
         </section>
       ) : null}
 
@@ -534,15 +547,15 @@ export function App() {
       ) : null}
 
       {currentDemoScreen === "details" && request ? (
-        <div className="space-y-6">
-          <section aria-label="Détail et workflow">
-            <PremiumRequestDetail
-              request={request}
-              workflowEvents={workflowEvents}
-              onBackToRequests={() => goToDemoScreen("requests")}
-              onViewFullHistory={() => goToDemoScreen("journal")}
-            />
-            <div className="mt-4">
+        <div className="space-y-4">
+          <PremiumRequestDetail
+            request={request}
+            workflowEvents={workflowEvents}
+            onBackToRequests={() => goToDemoScreen("requests")}
+            onViewFullHistory={() => goToDemoScreen("journal")}
+          />
+          <PremiumMvpDemoPanel label="Parcours MVP et actions de démonstration">
+            <section aria-label="Actions workflow">
               <WorkflowActionControl
                 request={request}
                 onAction={(action) => {
@@ -556,61 +569,47 @@ export function App() {
                   !canRolePerform(currentRole, action)
                 }
               />
-            </div>
-          </section>
-          <section
-            className="app-section app-section--journey"
-            aria-label="Parcours readonly"
-          >
-            <h2 className="app-section__title">
-              Parcours readonly — {selectedRequestId}
-            </h2>
-            <div className="app-journey-grid">
-              <div id="section-qualification" className="app-journey-card">
-                <QualificationReadonly
-                  request={request}
-                  requestId={selectedRequestId}
-                />
+            </section>
+            <section
+              className="app-section app-section--journey"
+              aria-label="Parcours readonly"
+            >
+              <h2 className="app-section__title">
+                Parcours readonly — {selectedRequestId}
+              </h2>
+              <div className="app-journey-grid">
+                <div id="section-qualification" className="app-journey-card">
+                  <QualificationReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+                <div id="section-planification" className="app-journey-card">
+                  <PlanningReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+                <div id="section-intervention" className="app-journey-card">
+                  <InterventionReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
+                <div id="section-compte-rendu" className="app-journey-card">
+                  <ReportReadonly
+                    request={request}
+                    requestId={selectedRequestId}
+                  />
+                </div>
               </div>
-              <div id="section-planification" className="app-journey-card">
-                <PlanningReadonly
-                  request={request}
-                  requestId={selectedRequestId}
-                />
-              </div>
-              <div id="section-intervention" className="app-journey-card">
-                <InterventionReadonly
-                  request={request}
-                  requestId={selectedRequestId}
-                />
-              </div>
-              <div id="section-compte-rendu" className="app-journey-card">
-                <ReportReadonly
-                  request={request}
-                  requestId={selectedRequestId}
-                />
-              </div>
-            </div>
-          </section>
+            </section>
+          </PremiumMvpDemoPanel>
         </div>
       ) : null}
 
       {currentDemoScreen === "journal" ? (
-        <section
-          id="section-journal"
-          className="space-y-4"
-          aria-label="Journal et reset"
-        >
-          <DemoResetControl
-            onReset={() => {
-              void handleDemoReset();
-            }}
-            lastResetLabel={lastResetLabel}
-            isResetDisabled={!canPerformDemoReset}
-            lastActionMessage={
-              currentDemoScreen === "journal" ? lastActionMessage : undefined
-            }
-          />
+        <section id="section-journal" className="space-y-4">
           <PremiumAuditTrail
             request={request}
             requestId={selectedRequestId}

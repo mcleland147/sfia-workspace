@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "../app/App";
-import { goToScreen, waitForAppNavigation } from "./navigationHelpers";
+import { goToScreen, waitForAppNavigation, goToDemoResetScreen } from "./navigationHelpers";
 
 describe("App demo screens", () => {
   beforeEach(() => {
@@ -59,16 +59,21 @@ describe("App demo screens", () => {
     expect(screen.queryByText(/Démo prête/i)).not.toBeInTheDocument();
   });
 
-  it("keeps reset on journal screen", async () => {
+  it("keeps reset on scenario screen", async () => {
     render(<App />);
     await waitForAppNavigation();
 
-    goToScreen("Journal");
+    goToDemoResetScreen();
     expect(
       screen.getByRole("button", { name: /Réinitialiser la démo/i }),
     ).toBeInTheDocument();
 
     goToScreen("Demandes");
+    expect(
+      screen.queryByRole("button", { name: /Réinitialiser la démo/i }),
+    ).not.toBeInTheDocument();
+
+    goToScreen("Journal");
     expect(
       screen.queryByRole("button", { name: /Réinitialiser la démo/i }),
     ).not.toBeInTheDocument();

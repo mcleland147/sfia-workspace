@@ -726,6 +726,34 @@ Décision :
 
 > Le cycle Premium Design System n'est pas prêt pour PR unique tant que la revue visuelle finale Figma Make n'est pas validée. UI-05 ne passe pas en « réalisé » avant cette étape.
 
+### Polish ciblé — isolation du chrome MVP legacy
+
+La revue finale visuelle + fonctionnelle a autorisé la reprise de UI-05 avec réserves mineures.
+
+Réserves corrigées :
+
+- le bloc `Parcours readonly` et le panneau `Actions workflow` legacy ne doivent plus apparaître comme contenu principal sous la fiche premium ;
+- `DemoResetControl` ne doit plus apparaître dans l'écran Audit Trail premium.
+
+Décision :
+
+> Les éléments legacy MVP restent disponibles pour les tests et la démonstration, mais sont isolés du rendu Premium SAV Command Center.
+
+Règle retenue :
+
+- les écrans premium restent centrés sur la cible Figma Make ;
+- les outils de démonstration restent accessibles via le scénario ou une section repliée ;
+- aucun comportement métier n'est supprimé ;
+- aucun hors scope MVP ne devient fonctionnel.
+
+Implémentation :
+
+- accordéon fermé par défaut **« Parcours MVP et actions de démonstration »** sous la fiche premium (`PremiumMvpDemoPanel`) ;
+- accordéon **« Outils de démonstration »** sur l'écran Scénario pour `DemoResetControl` ;
+- écran Audit Trail premium : header, synthèse, filtres et timeline uniquement.
+
+UI-05 reste en cours — validation finale post-polish (build/tests + revue visuelle rapide) avant passage en « réalisé » et PR unique.
+
 ---
 
 ## 11. Prochaine étape

@@ -161,6 +161,10 @@ describe("App premium interactions", () => {
       ).toBeInTheDocument();
     });
 
+    expect(
+      screen.queryByRole("button", { name: /Réinitialiser la démo/i }),
+    ).not.toBeInTheDocument();
+
     const exportButton = screen.getByRole("button", {
       name: /Exporter PDF — Hors scope MVP/i,
     });
