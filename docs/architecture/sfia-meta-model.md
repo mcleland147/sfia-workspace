@@ -21,6 +21,19 @@ updated_after: Interv360 capitalization, SFIA Fast Track
 
 **Principe** : ce document ne décrit pas les processus ; il définit le langage commun des objets manipulés par la SFIA.</callout>
 
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
 ## Métadonnées
 
 | Champ | Valeur |
@@ -1709,6 +1722,36 @@ Les modules, scripts et automatisations doivent respecter :
 - Gouverner par ADR, evidence et KPI.
 
 # v1.1 Update — Operational Metamodel Relations
+
+## v1.1 Naming Convention
+
+SFIA v1.1 uses the following naming convention for domain and meta-model objects:
+
+| Usage | Convention |
+|-------|------------|
+| Canonical object names | English, singular form |
+| French explanations | Allowed in descriptive text |
+| Repository folders | Lowercase kebab-case |
+| Templates and prompts | Explicit functional names |
+| Notion labels | May be localized for readability |
+
+Examples:
+
+| Canonical object | French description |
+|------------------|--------------------|
+| Project | Projet de référence ou initiative de delivery |
+| Component | Composant réutilisable |
+| Prompt | Instruction réutilisable pour un workflow IA |
+| Template | Structure réutilisable de document ou livrable |
+| Practice | Pratique plateforme par rôle ou discipline |
+| Role Method | Méthode attachée à un rôle |
+| Artifact | Production issue d'un cycle |
+| Knowledge Page | Page Notion éditorialisée issue du repo |
+| Guardrail | Règle de contrainte ou de protection |
+
+Rule:
+
+> The canonical model uses English object names; French may be used to explain intent, responsibilities and business meaning.
 
 SFIA v1.1 introduces explicit relations between operational artifacts:
 

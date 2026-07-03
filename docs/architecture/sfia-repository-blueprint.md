@@ -22,6 +22,19 @@ Le contenu v1.0 (export Notion) est conservé ci-dessous. La section **v1.1 Upda
 
 </aside>
 
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
 # Objectif
 
 ## Finalité du Repository Blueprint
@@ -1290,7 +1303,7 @@ The active SFIA workspace structure is now:
 
 ## Source of Truth Rule
 
-The repository remains the source of truth.
+The repository remains the source of truth (see also **v1.1 Consistency Rule** at document introduction).
 
 Notion must be treated as a curated knowledge layer, not as a raw mirror of the repository.
 

@@ -32,6 +32,19 @@ updated_after: SFIA Fast Track operational validation (Interv360)
 
 </aside>
 
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
 # Objectif
 
 Le présent document définit le **pipeline officiel de delivery de la plateforme SFIA**.
@@ -1973,7 +1986,47 @@ The pipeline follows the rule:
 | REX after major milestone | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` |
 | Notion only after capitalization plan | `method/sfia-fast-track/checklists/notion-publication-checklist.md` |
 
-## ChatGPT ↔ Cursor loop (level 0)
+## v1.1 Pipeline Clarification
+
+The v1.0 pipeline describes the strategic target delivery model:
+
+1. Project Intake;
+2. Qualification;
+3. Design;
+4. Build;
+5. Validate;
+6. Release;
+7. Learn;
+8. Improve.
+
+The v1.1 Fast Track pipeline describes the current operational mode validated through Interv360:
+
+1. Scope and guardrails;
+2. Dedicated branch;
+3. Targeted implementation or documentation update;
+4. Validation and audit when needed;
+5. Pull request;
+6. Human review and merge;
+7. Post-merge status;
+8. Capitalization;
+9. Optional Notion preparation after capitalization.
+
+These two pipelines are not competing models.
+
+They operate at two levels:
+
+| Level | Pipeline | Role |
+|-------|----------|------|
+| Strategic | v1.0 Delivery Pipeline | Target end-to-end SFIA delivery model |
+| Operational | v1.1 Fast Track | Current working mode for controlled repository-based cycles |
+
+The Fast Track pipeline is the operational bridge toward the broader strategic pipeline.
+
+## v1.1 Pending Foundation — ChatGPT ↔ Cursor Operating Model
+
+SFIA v1.1 identifies the ChatGPT ↔ Cursor workflow as a foundational operating model.
+
+At this stage, it is referenced but not yet fully specified.
 
 Execution currently relies on a manual ChatGPT ↔ Cursor loop:
 
@@ -1983,7 +2036,20 @@ Execution currently relies on a manual ChatGPT ↔ Cursor loop:
 
 No automation without human validation in v1.1.
 
-A dedicated operating model will be documented separately *(planned pass)*.
+A dedicated foundation document must define:
+
+- the role of ChatGPT;
+- the role of Cursor;
+- the prompt handoff model;
+- the execution loop;
+- validation responsibilities;
+- repository guardrails;
+- limits of automation;
+- human decision points.
+
+Target document: `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` *(planned — not yet created)*
+
+This document is required before moving to automation engine specifications.
 
 ## Reference project
 

@@ -20,6 +20,19 @@ updated_after: PR #81 workspace cleanup, Interv360 capitalization
 
 </aside>
 
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
 ## Objectif du document
 
 ### Objectif
@@ -2143,18 +2156,54 @@ SFIA v1.1 is not yet the fully automated target.
 
 SFIA v2.0 is reserved for active engines and operational Notion integration.
 
-## ChatGPT ↔ Cursor operating model
+## v1.1 Source of Truth Clarification
 
-The ChatGPT ↔ Cursor workflow is currently at **automation level 0** (manual assisted execution).
+The original v1.0 architecture positioned Notion as the primary structured repository for SFIA documentation.
 
-A dedicated operating model document will be created in a subsequent consolidation pass:
+After the workspace cleanup and Interv360 capitalization, the v1.1 operating model clarifies the split:
 
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` *(planned — not yet created)*
+| Layer | Role |
+|-------|------|
+| Git repository | Operational source of truth for versioned SFIA documents, architecture, prompts, templates and project capitalisation |
+| Notion | Curated knowledge layer for navigation, reading, synthesis and business usage |
+| Exports | Prepared publication material, not authoritative sources |
+| Archives | Historical traceability, not active reference |
+
+This clarification does not invalidate the v1.0 vision.
+
+It updates the operating rule for v1.1:
+
+> SFIA is governed from the repository and published to Notion only through curated, validated and human-approved flows.
+
+Notion must not be synchronized as a raw mirror of the repository.
+
+## v1.1 Pending Foundation — ChatGPT ↔ Cursor Operating Model
+
+SFIA v1.1 identifies the ChatGPT ↔ Cursor workflow as a foundational operating model.
+
+At this stage, it is referenced but not yet fully specified.
+
+The workflow is currently at **automation level 0** (manual assisted execution).
+
+A dedicated foundation document must define:
+
+- the role of ChatGPT;
+- the role of Cursor;
+- the prompt handoff model;
+- the execution loop;
+- validation responsibilities;
+- repository guardrails;
+- limits of automation;
+- human decision points.
+
+Target document: `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` *(planned — not yet created)*
 
 Until then, refer to:
 
 - `method/sfia-fast-track/automation/sfia-automation-architecture.md` §2–3
 - `method/sfia-fast-track/core/sfia-global-capitalization.md` §13
+
+This document is required before moving to automation engine specifications.
 
 ## Conclusion
 

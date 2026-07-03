@@ -475,3 +475,17 @@ The P0 foundation consolidation has started on branch `capitalization/sfia-found
 - Rules & Guardrails;
 - Automation engine specifications;
 - Knowledge Layer.
+
+## Update — v1.1 Consistency Reserves Addressed
+
+The minor consistency reserves identified after the P0 consolidation have been addressed.
+
+Clarifications added:
+
+- v1.1 sections prevail over v1.0 content in case of tension;
+- Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror;
+- v1.0 delivery pipeline is the strategic model;
+- v1.1 Fast Track pipeline is the current operational model;
+- Domain Model and Meta Model use English canonical object names with French explanations allowed;
+- ChatGPT ↔ Cursor Operating Model remains the next required foundation document.

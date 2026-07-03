@@ -13,6 +13,19 @@ updated_after: Interv360 capitalization, SFIA Fast Track
 **Status:** Foundation document  
 **Updated after:** Interv360 capitalization, SFIA Fast Track
 
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
 ## Objectifs et portée
 
 Ce document définit le **modèle de domaine officiel** de la Software Factory IA (SFIA). Il constitue la **référence métier** préalable à toute création d’objets dans :
@@ -1113,6 +1126,36 @@ Cette roadmap indique les futures extensions du domaine. Elle n’autorise pas l
 ---
 
 # v1.1 Update — Operational Domain Objects
+
+## v1.1 Naming Convention
+
+SFIA v1.1 uses the following naming convention for domain and meta-model objects:
+
+| Usage | Convention |
+|-------|------------|
+| Canonical object names | English, singular form |
+| French explanations | Allowed in descriptive text |
+| Repository folders | Lowercase kebab-case |
+| Templates and prompts | Explicit functional names |
+| Notion labels | May be localized for readability |
+
+Examples:
+
+| Canonical object | French description |
+|------------------|--------------------|
+| Project | Projet de référence ou initiative de delivery |
+| Component | Composant réutilisable |
+| Prompt | Instruction réutilisable pour un workflow IA |
+| Template | Structure réutilisable de document ou livrable |
+| Practice | Pratique plateforme par rôle ou discipline |
+| Role Method | Méthode attachée à un rôle |
+| Artifact | Production issue d'un cycle |
+| Knowledge Page | Page Notion éditorialisée issue du repo |
+| Guardrail | Règle de contrainte ou de protection |
+
+Rule:
+
+> The canonical model uses English object names; French may be used to explain intent, responsibilities and business meaning.
 
 SFIA v1.1 adds the following operational domain objects:
 
