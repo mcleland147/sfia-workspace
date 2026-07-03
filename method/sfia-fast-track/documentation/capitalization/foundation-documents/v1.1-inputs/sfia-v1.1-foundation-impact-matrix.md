@@ -310,3 +310,59 @@ Remaining P1 automation engine specifications:
 
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`
+## Update — Validation Engine Created
+
+The following P1 automation engine specification has been created:
+
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+It defines how SFIA validates prompts, repository execution, diffs, commits, deliverables, PR readiness, post-merge traces, capitalization and Notion preparation.
+
+The Validation Engine applies:
+
+- Engineering Principles;
+- Decision Engine;
+- Prompt Generation Engine;
+- Repository Execution Engine;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Knowledge Layer and Documentation Routing Matrix;
+- Repository Blueprint;
+- Delivery Pipeline;
+- automation architecture;
+- validation and guardrail checklists.
+
+It defines:
+
+- inputs;
+- outputs;
+- validation scope;
+- validation workflow;
+- prompt validation;
+- repository execution validation;
+- generic and project-specific protected paths validation;
+- diff validation;
+- commit validation;
+- PR readiness validation;
+- post-merge validation;
+- capitalization validation;
+- Notion preparation validation;
+- SFIA decisions;
+- reserve classification;
+- standard validation report;
+- validation criteria;
+- anti-patterns;
+- maturity model.
+
+All three P1 automation engine specifications are now available:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+
+Remaining follow-up:
+
+- update `method/sfia-fast-track/automation/sfia-automation-architecture.md` to v1.1;
+- consolidate validation checklists;
+- consolidate `prompts/prompt-catalog.md`;
+- prepare P2 cross-references.
