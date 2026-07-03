@@ -128,3 +128,21 @@ Le workspace SFIA est nettoyé et prêt pour la phase de préparation Notion.
 2. PR de nettoyage opérationnel sur `consolidation/sfia-method-improvements` ;
 3. Archiver les stubs `05-tests/` et `06-documentation/` ;
 4. Chantier Notion (sans sync automatique avant validation).
+
+## Limites identifiées après revue visuelle
+
+Une revue visuelle post-nettoyage a identifié des incohérences restantes :
+
+- coexistence de `method/`, `methods/`, `docs/methods/` ;
+- doublons de numérotation dans `projects/interv360/` ;
+- présence de `05-release` et `05-tests` ;
+- présence de `06-audit-rex` et `06-documentation` ;
+- séparation encore perfectible entre plateforme, méthode, prompts, templates et Notion ;
+- `02-architecture/` encore surchargé (~31 fichiers racine hors ADR, dont logs non archivés) ;
+- `README.md` racine décrit des dossiers `templates/` et `standards/` inexistants à la racine.
+
+Décision :
+
+> Une deuxième passe de nettoyage est nécessaire avant mise à jour Notion.
+
+Audit et plan Round 2 : `round-2/sfia-workspace-cleanup-round-2-audit.md`, `round-2/sfia-workspace-cleanup-round-2-plan.md`.
