@@ -143,3 +143,26 @@ Le cycle Interv360 Premium Design System a permis de corriger la trajectoire apr
 - documentation des limites Figma Make.
 
 Pour les prochains projets, cette méthode doit être appliquée dès le départ afin d'éviter les corrections tardives.
+
+---
+
+## 10. Statut de merge
+
+La PR méthode a été mergée dans `main`.
+
+| Élément | Valeur |
+|---------|--------|
+| PR | #74 — docs: add Figma Design-first UI method |
+| Branche source | `method/figma-design-first-ui` |
+| Branche cible | `main` |
+| Merge commit | `b06398f` |
+| Statut | Mergé |
+| Type | Documentation méthode |
+| Code applicatif | Non modifié |
+| Backend / API / CI | Inchangés |
+| `sfia-notion-sync` | Non modifié |
+| Exports Figma | Non suivis |
+
+Décision :
+
+> La méthode `Figma Design-first UI` est intégrée à `main` et devient une référence SFIA Fast Track pour les futurs cycles UI premium.
