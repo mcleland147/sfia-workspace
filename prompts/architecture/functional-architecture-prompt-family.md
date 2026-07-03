@@ -4,9 +4,9 @@
 **Domaine** : Architecture fonctionnelle  
 **Statut** : Draft  
 **Usage** : Réutilisable  
-**Méthode associée** : [`docs/methods/architecture/functional-architecture-method.md`](../../docs/methods/architecture/functional-architecture-method.md)  
-**Standard associé** : [`docs/methods/architecture/functional-architecture-deliverables-standard.md`](../../docs/methods/architecture/functional-architecture-deliverables-standard.md)  
-**Checklist associée** : [`docs/methods/architecture/functional-architecture-checklist.md`](../../docs/methods/architecture/functional-architecture-checklist.md)  
+**Méthode associée** : [`docs/practices/architecture/functional-architecture-method.md`](../../docs/practices/architecture/functional-architecture-method.md)  
+**Standard associé** : [`docs/practices/architecture/functional-architecture-deliverables-standard.md`](../../docs/practices/architecture/functional-architecture-deliverables-standard.md)  
+**Checklist associée** : [`docs/practices/architecture/functional-architecture-checklist.md`](../../docs/practices/architecture/functional-architecture-checklist.md)  
 **Templates associés** : `docs/templates/architecture/`  
 **Dossier** : `prompts/architecture/`
 
@@ -114,8 +114,8 @@ git log --oneline -8
 
 2. Relire les sources
 [PREVIOUS_PHASE_FILES]
-docs/methods/architecture/functional-architecture-method.md
-docs/methods/architecture/functional-architecture-deliverables-standard.md
+docs/practices/architecture/functional-architecture-method.md
+docs/practices/architecture/functional-architecture-deliverables-standard.md
 docs/templates/architecture/functional-architecture-scope-template.md
 
 3. Créer le fichier
@@ -167,7 +167,7 @@ git branch --show-current && git status
 2. Relire les sources
 [PROJECT_PHASE_PATH]/functional-architecture-scope.md
 [PREVIOUS_PHASE_FILES]
-docs/methods/architecture/functional-architecture-deliverables-standard.md
+docs/practices/architecture/functional-architecture-deliverables-standard.md
 
 3. Créer le fichier
 Pour chaque domaine : responsabilité, fonctions, entrées/sorties, acteurs, limites, lien BPMN/ADR, règles structurantes.
@@ -430,7 +430,7 @@ cd [WORKSPACE_PATH] && git status && git log --oneline -10
 2. Relire tous les livrables
 Tous les fichiers de [PROJECT_PHASE_PATH]/
 docs/templates/architecture/functional-architecture-cycle-closure-template.md
-docs/methods/architecture/functional-architecture-checklist.md
+docs/practices/architecture/functional-architecture-checklist.md
 
 3. Créer le fichier
 - Livrables produits, résultats consolidés, ADR intégrées
@@ -469,8 +469,8 @@ cd [WORKSPACE_PATH]
 git branch --show-current && git status
 
 2. Relire les 8 livrables attendus dans [PROJECT_PHASE_PATH]/
-docs/methods/architecture/functional-architecture-checklist.md
-docs/methods/architecture/functional-architecture-deliverables-standard.md
+docs/practices/architecture/functional-architecture-checklist.md
+docs/practices/architecture/functional-architecture-deliverables-standard.md
 
 3. Contrôler
 - Présence des 8 livrables

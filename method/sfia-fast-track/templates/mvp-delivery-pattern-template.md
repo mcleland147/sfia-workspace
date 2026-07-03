@@ -250,7 +250,7 @@ Ne pas créer de document merge séparé si le statut peut être intégré au de
 
 Créer un document :
 
-`[projet]/07-delivery/mvp-release-readiness.md`
+`[projet]/05-release/mvp-release-readiness.md`
 
 Structure :
 

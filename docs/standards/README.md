@@ -1,5 +1,7 @@
-# Standards
+# SFIA Platform — Standards
 
-Standards SFIA applicables aux projets et composants.
+Ce dossier contient les standards transverses de la plateforme SFIA.
 
-Source Notion : base Standards (`exports/notion/standards.json`).
+Ils sont distincts des standards opérationnels de delivery situés dans :
+
+- `../../method/sfia-fast-track/core/sfia-architecture-standards.md`

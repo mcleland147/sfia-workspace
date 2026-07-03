@@ -1,13 +1,11 @@
-# Templates
+# SFIA Platform — Templates
 
-Modèles documentaires SFIA (Experiment, ADR, REX, etc.).
+Ce dossier contient les templates plateforme SFIA.
 
-Source Notion : base Templates (`exports/notion/templates.json`).
+Ils sont distincts des templates opérationnels Fast Track situés dans :
 
-## Structure
+- `../../method/sfia-fast-track/templates/`
 
-| Dossier | Contenu |
-|---------|---------|
-| **process/** | Templates BPMN — cadrage (`bpmn-process-scope-template.md`), analyse (`bpmn-process-analysis-template.md`), clôture cycle (`bpmn-cycle-closure-template.md`) |
+## Rôle
 
-Les templates BPMN s'appuient sur la méthode `docs/methods/process/bpmn-process-modeling-method.md` et le standard `docs/methods/process/bpmn-deliverables-standard.md`.
+Les templates plateforme servent aux méthodes, rôles, pratiques et standards transverses.

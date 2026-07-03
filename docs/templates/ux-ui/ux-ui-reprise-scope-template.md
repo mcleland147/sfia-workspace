@@ -5,8 +5,8 @@
 **Type** : Cadrage reprise UX/UI  
 **Statut** : Draft  
 **Branche** : [Nom de la branche Git]  
-**Méthode associée** : `docs/methods/ux-ui/ux-ui-reprise-method.md`  
-**Standard associé** : `docs/methods/ux-ui/ux-ui-reprise-deliverables-standard.md`
+**Méthode associée** : `docs/practices/ux-ui/ux-ui-reprise-method.md`  
+**Standard associé** : `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md`
 
 > **Note :** Le cycle Interv360 `projects/interv360/06-ux-ui/` est une référence d'application possible de ce template.
 

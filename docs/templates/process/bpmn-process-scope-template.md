@@ -4,8 +4,8 @@
 **Phase** : 03-process  
 **Type** : Cadrage BPMN  
 **Statut** : Draft  
-**Méthode associée** : `docs/methods/process/bpmn-process-modeling-method.md`  
-**Standard associé** : `docs/methods/process/bpmn-deliverables-standard.md`
+**Méthode associée** : `docs/practices/process/bpmn-process-modeling-method.md`  
+**Standard associé** : `docs/practices/process/bpmn-deliverables-standard.md`
 
 ---
 

@@ -9,7 +9,7 @@
 
 ## 1. Objectif du catalogue
 
-Ce catalogue recense les **prompts candidats à la capitalisation SFIA**, identifiés à partir du projet pilote Interv360 et des méthodes stabilisées dans `docs/methods/roles/`.
+Ce catalogue recense les **prompts candidats à la capitalisation SFIA**, identifiés à partir du projet pilote Interv360 et des méthodes stabilisées dans `docs/practices/roles/`.
 
 Deux prompts sont **formalisés en Draft** (fichiers dédiés sous `prompts/<famille>/`) — voir §11. Pour les autres entrées, le catalogue documente :
 
@@ -72,11 +72,11 @@ Un prompt peut être capitalisé si :
 | **PROMPT-UX-003** | Revue dashboard KPI UX | UX/UI | dashboard-kpi-ux-review.md | Revue dashboard / KPI / UX | UX/UI Designer / Concepteur fonctionnel | Candidat | Moyenne |
 | **PROMPT-ROLE-001** | Méthode globale par rôle | Rôles | role-methods-framing.md | role-methods-framing.md | Chef de projet / tous rôles | Candidat | Haute |
 | **PROMPT-ROLE-002** | Revue méthode par rôle | Rôles | role-methods-review.md | role-methods-review.md | Chef de projet | Candidat | Haute |
-| **PROMPT-ROLE-003** | Extraction méthode rôle | Rôles | docs/methods/roles/ | Fichiers Role Method | Chef de projet / rôle concerné | Candidat | Haute |
+| **PROMPT-ROLE-003** | Extraction méthode rôle | Rôles | docs/practices/roles/ | Fichiers Role Method | Chef de projet / rôle concerné | Candidat | Haute |
 | **PROMPT-ARCH-001** | Revue intégrations et erreurs | Architecture | ADR-001 à ADR-004 + integration-error-arbitration-review.md | Revue intégrations / erreurs | Architecte | **Draft** | Haute |
 | **PROMPT-SEC-001** | Revue canal email sécurisé | Sécurité / RSSI | ADR-003 + secure-email-intake-review.md | Revue email sécurisé | RSSI / Architecte | **Draft** | Haute |
 | **PROMPT-GOV-001** | Synchronisation gouvernance Notion projet | Gouvernance / Notion | notion-sync-summary.md + notion-sync-payload.json + CMP-001 | Synthèse / payload gouvernance Notion | Chef de projet | Candidat | Haute |
-| **PROMPT-GOV-002** | Contrôle structure méthodes | Gouvernance | docs/methods/methods-structure-check.md | Rapport contrôle arborescence méthodes | Chef de projet | Candidat | Moyenne |
+| **PROMPT-GOV-002** | Contrôle structure méthodes | Gouvernance | docs/practices/methods-structure-check.md | Rapport contrôle arborescence méthodes | Chef de projet | Candidat | Moyenne |
 
 ---
 
@@ -118,13 +118,13 @@ Chaque fichier prompt formalisé suivra la structure type :
 
 | Rôle SFIA | Méthode associée | Prompts candidats |
 |-----------|------------------|-------------------|
-| **Business Analyst** | docs/methods/roles/business-analyst-method.md | PROMPT-CAD-001, PROMPT-CAD-002 |
-| **Product Owner** | docs/methods/roles/product-owner-method.md | PROMPT-ARB-001, PROMPT-ARB-002, PROMPT-UX-002 |
-| **Chef de projet** | docs/methods/roles/project-manager-method.md | PROMPT-CAD-002, PROMPT-ROLE-001, PROMPT-ROLE-002, PROMPT-ROLE-003, PROMPT-GOV-001, PROMPT-GOV-002 |
-| **UX/UI Designer** | docs/methods/roles/ux-ui-designer-method.md | PROMPT-UX-001, PROMPT-UX-002, PROMPT-UX-003 |
-| **Architecte** | docs/methods/roles/architect-method.md | PROMPT-ARCH-001, PROMPT-SEC-001 |
-| **RSSI** | docs/methods/roles/rssi-method.md | PROMPT-SEC-001 |
-| **QA / Testeur** | docs/methods/roles/qa-tester-method.md | PROMPT-QA-001 à PROMPT-QA-010 — voir §14 |
+| **Business Analyst** | docs/practices/roles/business-analyst-method.md | PROMPT-CAD-001, PROMPT-CAD-002 |
+| **Product Owner** | docs/practices/roles/product-owner-method.md | PROMPT-ARB-001, PROMPT-ARB-002, PROMPT-UX-002 |
+| **Chef de projet** | docs/practices/roles/project-manager-method.md | PROMPT-CAD-002, PROMPT-ROLE-001, PROMPT-ROLE-002, PROMPT-ROLE-003, PROMPT-GOV-001, PROMPT-GOV-002 |
+| **UX/UI Designer** | docs/practices/roles/ux-ui-designer-method.md | PROMPT-UX-001, PROMPT-UX-002, PROMPT-UX-003 |
+| **Architecte** | docs/practices/roles/architect-method.md | PROMPT-ARCH-001, PROMPT-SEC-001 |
+| **RSSI** | docs/practices/roles/rssi-method.md | PROMPT-SEC-001 |
+| **QA / Testeur** | docs/practices/roles/qa-tester-method.md | PROMPT-QA-001 à PROMPT-QA-010 — voir §14 |
 
 ---
 
@@ -199,7 +199,7 @@ Ces prompts restent à **tester sur un projet hors pilote** avant passage au sta
 
 Le **standard officiel UX/UI V1** (`docs/standards/ux-ui-v1-governance-standard.md`) a alimenté la famille **UX/UI V1 Governance** (§13) — **15 prompts candidats** issus du cycle Figma V1 Interv360, référencés par modèle projet sans modification des prompts sources.
 
-La **méthode officielle QA / Testeur** (`docs/methods/roles/qa-tester-method.md`) a alimenté la famille **QA / Testeur** (§14) — **10 prompts candidats** — testabilité et qualité sans ouverture delivery.
+La **méthode officielle QA / Testeur** (`docs/practices/roles/qa-tester-method.md`) a alimenté la famille **QA / Testeur** (§14) — **10 prompts candidats** — testabilité et qualité sans ouverture delivery.
 
 ---
 
@@ -266,14 +266,14 @@ Les entrées ci-dessous sont des **prompts candidats** : modèles et livrables p
 
 ## 14. QA / Testeur
 
-Cette famille de prompts accompagne la **méthode officielle** [`docs/methods/roles/qa-tester-method.md`](../docs/methods/roles/qa-tester-method.md).
+Cette famille de prompts accompagne la **méthode officielle** [`docs/practices/roles/qa-tester-method.md`](../docs/practices/roles/qa-tester-method.md).
 
 Elle couvre la **testabilité**, les **revues qualité**, les **risques**, la **traçabilité** et la **préparation future** des tests — **sans déclencher** delivery, backlog, user stories ou code.
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | Candidate prompt family |
-| **Méthode liée** | `docs/methods/roles/qa-tester-method.md` |
+| **Méthode liée** | `docs/practices/roles/qa-tester-method.md` |
 | **Dossier** | `prompts/qa/` |
 | **Fichier principal** | `prompts/qa/qa-tester-prompt-family.md` |
 
@@ -321,16 +321,16 @@ Elle couvre la **testabilité**, les **revues qualité**, les **risques**, la **
 
 ## 15. Process Modeling / BPMN
 
-Cette famille de prompts accompagne la **méthode officielle** [`docs/methods/process/bpmn-process-modeling-method.md`](../docs/methods/process/bpmn-process-modeling-method.md).
+Cette famille de prompts accompagne la **méthode officielle** [`docs/practices/process/bpmn-process-modeling-method.md`](../docs/practices/process/bpmn-process-modeling-method.md).
 
 Elle couvre la **readiness**, le **cadrage**, la **préparation des diagrammes**, la **revue de cohérence** et la **clôture de cycle BPMN** — **sans déclencher** delivery, backlog, user stories, tests, code ou publication Notion automatique.
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | Draft |
-| **Méthode liée** | `docs/methods/process/bpmn-process-modeling-method.md` |
-| **Standard lié** | `docs/methods/process/bpmn-deliverables-standard.md` |
-| **Checklist liée** | `docs/methods/process/bpmn-integration-checklist.md` |
+| **Méthode liée** | `docs/practices/process/bpmn-process-modeling-method.md` |
+| **Standard lié** | `docs/practices/process/bpmn-deliverables-standard.md` |
+| **Checklist liée** | `docs/practices/process/bpmn-integration-checklist.md` |
 | **Dossier** | `prompts/bpmn/` |
 | **Fichier principal** | `prompts/bpmn/bpmn-prompt-family.md` |
 

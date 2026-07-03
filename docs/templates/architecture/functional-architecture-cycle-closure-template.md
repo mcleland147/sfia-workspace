@@ -5,8 +5,8 @@
 **Type** : Clôture de cycle  
 **Statut** : Draft  
 **Branche** : [Nom de la branche Git]  
-**Méthode associée** : `docs/methods/architecture/functional-architecture-method.md`  
-**Checklist associée** : `docs/methods/architecture/functional-architecture-checklist.md`
+**Méthode associée** : `docs/practices/architecture/functional-architecture-method.md`  
+**Checklist associée** : `docs/practices/architecture/functional-architecture-checklist.md`
 
 ---
 

@@ -154,10 +154,10 @@ Ces éléments **ne doivent pas être présentés comme de l'IA** — libellés 
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/product-owner-method.md` | Enrichissement futur — périmètre IA post-MVP |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement futur — garde-fous anti-surpromesse IA |
-| `docs/methods/roles/architect-method.md` | Extension future ; pas intégration IA MVP |
-| `docs/methods/roles/project-manager-method.md` | Séquence P2 → synthèse → Figma |
+| `docs/practices/roles/product-owner-method.md` | Enrichissement futur — périmètre IA post-MVP |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement futur — garde-fous anti-surpromesse IA |
+| `docs/practices/roles/architect-method.md` | Extension future ; pas intégration IA MVP |
+| `docs/practices/roles/project-manager-method.md` | Séquence P2 → synthèse → Figma |
 | `prompts/prompt-catalog.md` | PROMPT-UX-001/003 — pas modifié ici |
 | `prompts/ux-ui/` | Checklist anti-surpromesse IA |
 | `prompts/architecture/` | Pas domaine IA au MVP |

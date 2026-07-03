@@ -202,11 +202,11 @@ Le **message visible** dans l'écran anomalies (ADR-002) doit rester **compréhe
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/architect-method.md` | Enrichissement **recommandé** — bloc ADR P1 consolidé (tâche suivante) |
-| `docs/methods/roles/rssi-method.md` | Enrichissement **recommandé** — traçabilité rejets, logs sans données sensibles |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement **recommandé** — distinction message métier / log |
-| `docs/methods/roles/product-owner-method.md` | Enrichissement **recommandé** — périmètre MVP journalisation minimale |
-| `docs/methods/roles/project-manager-method.md` | Enrichissement **recommandé** — jalon architecture P1, sync Notion |
+| `docs/practices/roles/architect-method.md` | Enrichissement **recommandé** — bloc ADR P1 consolidé (tâche suivante) |
+| `docs/practices/roles/rssi-method.md` | Enrichissement **recommandé** — traçabilité rejets, logs sans données sensibles |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement **recommandé** — distinction message métier / log |
+| `docs/practices/roles/product-owner-method.md` | Enrichissement **recommandé** — périmètre MVP journalisation minimale |
+| `docs/practices/roles/project-manager-method.md` | Enrichissement **recommandé** — jalon architecture P1, sync Notion |
 | `prompts/prompt-catalog.md` | PROMPT-ARCH-001, PROMPT-SEC-001 candidats Draft |
 | `prompts/architecture/` | Standard journalisation intégration simulée |
 | `prompts/security/` | Checklist logs sans données sensibles |
@@ -290,11 +290,11 @@ Après **ADR-004**, le bloc **ADR-001 / ADR-002 / ADR-003 / ADR-004** est **cons
 
 | Méthode | Enrichissement immédiat ? | Décision |
 |---------|---------------------------|----------|
-| `docs/methods/roles/architect-method.md` | Non — **tâche suivante** | Enrichir : contrats API simulés, erreurs visibles, journalisation minimale |
-| `docs/methods/roles/rssi-method.md` | Non — **tâche suivante** | Enrichir : email sécurisé, rejets, logs sans données sensibles |
-| `docs/methods/roles/ux-ui-designer-method.md` | Non — **tâche suivante** | Enrichir : écran anomalies, message métier vs log |
-| `docs/methods/roles/product-owner-method.md` | Non — **tâche suivante** | Enrichir : périmètre MVP, ARB-MVP-04/05, canal email |
-| `docs/methods/roles/project-manager-method.md` | Non — **tâche suivante** | Enrichir : jalon ADR P1, gouvernance, sync Notion |
+| `docs/practices/roles/architect-method.md` | Non — **tâche suivante** | Enrichir : contrats API simulés, erreurs visibles, journalisation minimale |
+| `docs/practices/roles/rssi-method.md` | Non — **tâche suivante** | Enrichir : email sécurisé, rejets, logs sans données sensibles |
+| `docs/practices/roles/ux-ui-designer-method.md` | Non — **tâche suivante** | Enrichir : écran anomalies, message métier vs log |
+| `docs/practices/roles/product-owner-method.md` | Non — **tâche suivante** | Enrichir : périmètre MVP, ARB-MVP-04/05, canal email |
+| `docs/practices/roles/project-manager-method.md` | Non — **tâche suivante** | Enrichir : jalon ADR P1, gouvernance, sync Notion |
 
 **Les méthodes rôle ne sont pas modifiées dans cette tâche ADR-004.**
 

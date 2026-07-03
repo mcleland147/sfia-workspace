@@ -1,0 +1,15 @@
+methods/.DS_Store
+methods/README.md
+methods/controlled-delivery/README.md
+methods/controlled-delivery/controlled-delivery-checklist.md
+methods/controlled-delivery/controlled-delivery-index-integration.md
+methods/controlled-delivery/controlled-delivery-prompt-family.md
+methods/controlled-delivery/controlled-delivery-publication-checklist.md
+methods/controlled-delivery/controlled-delivery-publication-package-summary.md
+methods/controlled-delivery/controlled-delivery-publication-package.md
+methods/controlled-delivery/controlled-delivery-publication-prep.md
+methods/controlled-delivery/controlled-delivery-standard-hardening-summary.md
+methods/controlled-delivery/controlled-delivery-standard-summary.md
+methods/controlled-delivery/controlled-delivery-standard.md
+methods/controlled-delivery/controlled-delivery-template.md
+methods/controlled-delivery/delivery-acceleration-level-3-rex.md

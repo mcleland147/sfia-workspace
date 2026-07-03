@@ -197,7 +197,7 @@ Qualifier la V1 comme **exploitable**, **présentable**, **à corriger** ou **à
 
 ## 10. Enrichissement rôles
 
-Avant une **revue transverse**, les **méthodes rôle** (`docs/methods/roles/`) doivent être **vérifiées et enrichies** si la phase a produit de **nouveaux apprentissages** (production, revue premier jet, contraintes outil).
+Avant une **revue transverse**, les **méthodes rôle** (`docs/practices/roles/`) doivent être **vérifiées et enrichies** si la phase a produit de **nouveaux apprentissages** (production, revue premier jet, contraintes outil).
 
 ### Rôles possibles
 

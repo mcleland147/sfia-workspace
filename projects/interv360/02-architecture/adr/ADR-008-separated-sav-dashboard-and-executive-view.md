@@ -237,10 +237,10 @@ Précisions :
 
 | Asset SFIA | Impact |
 |------------|--------|
-| `docs/methods/roles/product-owner-method.md` | Enrichissement futur — ARB-MVP-07 ; KPI prioritaires |
-| `docs/methods/roles/ux-ui-designer-method.md` | Enrichissement futur — séparation dashboards ; sobriété |
-| `docs/methods/roles/architect-method.md` | Agrégations ; sources données communes |
-| `docs/methods/roles/project-manager-method.md` | Séquence ADR P2 avant Figma |
+| `docs/practices/roles/product-owner-method.md` | Enrichissement futur — ARB-MVP-07 ; KPI prioritaires |
+| `docs/practices/roles/ux-ui-designer-method.md` | Enrichissement futur — séparation dashboards ; sobriété |
+| `docs/practices/roles/architect-method.md` | Agrégations ; sources données communes |
+| `docs/practices/roles/project-manager-method.md` | Séquence ADR P2 avant Figma |
 | `prompts/prompt-catalog.md` | PROMPT-UX-003 — pas modifié ici |
 | `prompts/ux-ui/` | Dashboard Separation Matrix ; KPI above the fold |
 | `prompts/architecture/` | Agrégats anomalies, notifications |

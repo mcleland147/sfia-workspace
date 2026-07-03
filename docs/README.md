@@ -1,19 +1,34 @@
-# Documentation SFIA
+# SFIA Platform Documentation
 
-Documentation locale dérivée du référentiel Notion et des exports JSON.
+Ce dossier contient la documentation plateforme SFIA.
 
-## Sous-dossiers
+Il est distinct de la méthode active de delivery.
 
-| Dossier | Contenu |
-|---------|---------|
-| `foundation/` | Principes, gouvernance, fondations plateforme |
-| `architecture/` | Vues d'architecture, modèles, décisions techniques |
-| `methods/` | Méthodes SFIA réutilisables (savoir-faire, savoir-être, postures) |
-| `methods/roles/` | Méthodes SFIA par rôle (Role Methods) |
-| `standards/` | Standards SFIA |
-| `templates/` | Modèles documentaires |
-| `adr/` | Architecture Decision Records |
-| `rex/` | Retours d'expérience |
-| `knowledge/` | Articles de connaissance |
+## Distinction des zones
 
-Alimenter ces dossiers depuis `exports/notion/` après chaque export Notion.
+| Zone | Rôle |
+|------|------|
+| `../method/sfia-fast-track/` | Méthode active de delivery SFIA |
+| `../method/complementary/` | Méthodes complémentaires |
+| `docs/` | Documentation plateforme, standards, pratiques, connaissances et outillage |
+
+## Contenu
+
+| Dossier | Rôle |
+|---------|------|
+| `adr/` | Décisions d'architecture plateforme |
+| `architecture/` | Architecture plateforme SFIA |
+| `foundation/` | Principes fondateurs |
+| `knowledge/` | Connaissance réutilisable |
+| `practices/` | Pratiques plateforme par rôle, discipline ou domaine |
+| `rex/` | Retours d'expérience plateforme |
+| `roadmaps/` | Roadmaps plateforme |
+| `standards/` | Standards transverses |
+| `templates/` | Templates plateforme |
+| `tooling/` | Documentation outillage |
+
+## Notion
+
+Les contenus de `docs/` pourront alimenter Notion, mais uniquement après sélection éditoriale.
+
+Ce dossier ne doit pas être synchronisé brut dans Notion.

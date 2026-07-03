@@ -5,8 +5,8 @@
 **Type** : Cadrage architecture fonctionnelle  
 **Statut** : Draft  
 **Branche** : [Nom de la branche Git]  
-**Méthode associée** : `docs/methods/architecture/functional-architecture-method.md`  
-**Standard associé** : `docs/methods/architecture/functional-architecture-deliverables-standard.md`
+**Méthode associée** : `docs/practices/architecture/functional-architecture-method.md`  
+**Standard associé** : `docs/practices/architecture/functional-architecture-deliverables-standard.md`
 
 ---
 

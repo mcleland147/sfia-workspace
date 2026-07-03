@@ -3,9 +3,9 @@
 **Type** : Prompt Family  
 **Statut** : Draft  
 **Domaine** : Process Modeling / BPMN  
-**Méthode associée** : [`docs/methods/process/bpmn-process-modeling-method.md`](../../docs/methods/process/bpmn-process-modeling-method.md)  
-**Standard associé** : [`docs/methods/process/bpmn-deliverables-standard.md`](../../docs/methods/process/bpmn-deliverables-standard.md)  
-**Checklist associée** : [`docs/methods/process/bpmn-integration-checklist.md`](../../docs/methods/process/bpmn-integration-checklist.md)  
+**Méthode associée** : [`docs/practices/process/bpmn-process-modeling-method.md`](../../docs/practices/process/bpmn-process-modeling-method.md)  
+**Standard associé** : [`docs/practices/process/bpmn-deliverables-standard.md`](../../docs/practices/process/bpmn-deliverables-standard.md)  
+**Checklist associée** : [`docs/practices/process/bpmn-integration-checklist.md`](../../docs/practices/process/bpmn-integration-checklist.md)  
 **Templates associés** : `docs/templates/process/`  
 **Dossier** : `prompts/bpmn/`  
 **Catalogue** : `prompts/prompt-catalog.md` §15
@@ -65,8 +65,8 @@ Objectif : auditer la readiness BPMN du projet {project_name} ({project_id}).
 Contexte :
 - Branche : {branch}
 - Phase cible : 03-process
-- Méthode : docs/methods/process/bpmn-process-modeling-method.md
-- Checklist : docs/methods/process/bpmn-integration-checklist.md
+- Méthode : docs/practices/process/bpmn-process-modeling-method.md
+- Checklist : docs/practices/process/bpmn-integration-checklist.md
 
 Tâches :
 1. Vérifier les prérequis documentaires (cadrage, clarification, règles, statuts).
@@ -102,7 +102,7 @@ Objectif : définir le périmètre BPMN du projet {project_name} ({project_id}).
 Contexte :
 - Branche : {branch}
 - Template : docs/templates/process/bpmn-process-scope-template.md
-- Standard : docs/methods/process/bpmn-deliverables-standard.md
+- Standard : docs/practices/process/bpmn-deliverables-standard.md
 - Sources : {source_documents}
 
 Tâches :
@@ -136,7 +136,7 @@ Objectif : préparer le processus principal BPMN (happy path) pour {project_name
 
 Contexte :
 - process-scope.md du projet
-- Méthode : docs/methods/process/bpmn-process-modeling-method.md
+- Méthode : docs/practices/process/bpmn-process-modeling-method.md
 - Fichier cible prévu : {bpmn_folder}/{project}-main-process.bpmn
 
 Tâches :
