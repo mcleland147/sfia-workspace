@@ -2,9 +2,16 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: Interv360 capitalization, SFIA Fast Track
 ---
 
-# SFIA Domain Model
+# SFIA Domain Model v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** Interv360 capitalization, SFIA Fast Track
 
 ## Objectifs et portée
 
@@ -1102,3 +1109,50 @@ Règle d’architecture : la conception des bases (schémas Notion / API / SQL) 
 Cette roadmap indique les futures extensions du domaine. Elle n’autorise pas la création d’objets correspondants avant modélisation (principe de non-création hors modèle).
 
 </aside>
+
+---
+
+# v1.1 Update — Operational Domain Objects
+
+SFIA v1.1 adds the following operational domain objects:
+
+| Object | Definition |
+|--------|------------|
+| Cycle | Bounded unit of work delivering one useful result |
+| Phase | Structured part of a reference project lifecycle |
+| Artifact | Produced document, code change, template, prompt or report |
+| Template | Reusable document structure |
+| Prompt | Reusable instruction pattern for ChatGPT/Cursor workflows |
+| Checklist | Validation support |
+| Practice | Platform-level guidance by role or discipline |
+| Role Method | Method attached to a delivery role |
+| Reference Project | Project used as implementation and learning reference |
+| Audit | Structured analysis before or after a major cycle |
+| REX | Retrospective and learning artifact |
+| Decision | Explicit arbitration with rationale |
+| Guardrail | Constraint that prevents uncontrolled execution |
+| Knowledge Page | Curated Notion page derived from repository sources |
+| Notion Mapping | Editorial mapping from repository sources to Notion pages |
+| Archive | Preserved historical material, not active source |
+
+## Location in repository
+
+| Object | Primary location |
+|--------|------------------|
+| Cycle | `method/sfia-fast-track/cycles/`, cycle documents in projects |
+| Phase | `projects/interv360/00-intake/` … `09-roadmap/` |
+| Template | `method/sfia-fast-track/templates/`, `docs/templates/` |
+| Prompt | `prompts/` |
+| Checklist | `method/sfia-fast-track/checklists/` |
+| Practice | `docs/practices/` |
+| Role Method | `docs/practices/roles/` |
+| Reference Project | `projects/interv360/` |
+| Audit / REX | `projects/interv360/06-audit-rex/`, `method/sfia-fast-track/audit-rex/` |
+| Knowledge Page | Notion *(curated — not raw sync)* |
+| Archive | `*/archive/` folders |
+
+## v1.0 objects preserved
+
+All v1.0 domain objects (Experiment, Project, Component, Standard, etc.) remain valid.
+
+v1.1 extends the model with operational objects observed during Interv360 and SFIA Fast Track capitalization.
