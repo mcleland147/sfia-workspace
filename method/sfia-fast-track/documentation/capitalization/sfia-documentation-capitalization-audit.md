@@ -218,7 +218,7 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 | Prompts | **Partiel** | Catalogue utile ; familles vides à ne pas publier brut |
 | Interv360 | **Partiel** | Cas référence riche — résumer, pas miroir |
 | Archives | **Non brut** | Exclure inc-*, logs, payloads, inventaires |
-| Automation / vision SFA | **Partiel** | `sfia-automation-architecture.md` — résumer pour Notion |
+| Automation / vision SFIA | **Partiel** | `sfia-automation-architecture.md` — résumer pour Notion |
 
 **Verdict préparation Notion : PARTIELLE** — le repo est une **base source** fiable, pas un miroir Notion prêt à l'emploi.
 
@@ -226,16 +226,16 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 
 **Décision recommandée :**
 
-> **Faire une passe de complétion documentaire ciblée (P1), puis ouvrir le chantier Notion IDE métier SFA.**
+> **Consolider les documents fondateurs SFIA (P0 fondations), puis faire une passe de complétion documentaire ciblée (P1), puis ouvrir le chantier Notion.**
 
-La passe P1 peut être légère (README phases, rafraîchissement docs gouvernance, 1–2 prompts prioritaires) et ne nécessite pas une refonte d'arborescence.
-
-Il n'est **pas nécessaire** de bloquer le chantier Notion sur la formalisation exhaustive de tous les prompts catalogue.
+La consolidation fondations est prioritaire : six référentiels `docs/architecture/` existent mais doivent être alignés avec le repo nettoyé ; le operating model ChatGPT ↔ Cursor et les specs moteurs doivent être extraits en documents canoniques.
 
 ## 11. Plan d'action proposé
 
 | Priorité | Action | Commit suggéré |
 |----------|--------|----------------|
+| P0 | Consolider documents fondateurs SFIA | `docs: consolidate SFIA foundation documents` |
+| P0 | Créer `sfia-chatgpt-cursor-operating-model.md` | `docs: add SFIA ChatGPT Cursor operating model` |
 | P1 | Rafraîchir `documentation-audit.md` post-PR #81 | `docs: refresh SFIA documentation audit after workspace cleanup` |
 | P1 | Mettre à jour `notion-publication-plan.md` (practices, complementary) | `docs: align notion publication plan with practice layers` |
 | P1 | Corriger README `06-audit-rex/` + créer README phases 04, 05, 08, 09 | `docs: add interv360 phase README indexes` |
@@ -243,7 +243,7 @@ Il n'est **pas nécessaire** de bloquer le chantier Notion sur la formalisation 
 | P2 | Élever maturité Role Methods (revue Draft) | `docs: review SFIA role method maturity` |
 | P2 | Peupler ou arbitrer `07-documentation/` | `docs: define interv360 transverse documentation scope` |
 | P2 | README templates/checklists FT + docs/roadmaps/tooling | `docs: add missing documentation folder indexes` |
-| Chantier Notion | Ouvrir `notion/sfa-business-ide-preparation` | Branche dédiée — sélection éditoriale, pas sync brut |
+| Chantier Notion | Ouvrir `notion/sfia-business-ide-preparation` | **Après** consolidation fondations — sélection éditoriale, pas sync brut |
 
 ## 12. Inventaires produits
 
@@ -257,7 +257,33 @@ Il n'est **pas nécessaire** de bloquer le chantier Notion sur la formalisation 
 | `inventory-prompts.md-list.txt` | 9 |
 | `inventory-interv360-docs.md-list.txt` | 299 |
 
-## 13. Garde-fous de cette passe
+## 13. Update — SFIA Foundation Documents Identification
+
+Une passe d'identification des documents fondateurs SFIA a été ouverte.
+
+Elle vise à identifier les documents portant :
+
+- Platform Architecture ;
+- Decision Engine ;
+- Delivery Pipeline ;
+- Domain Model ;
+- Metamodel ;
+- Rules & Guardrails ;
+- Automation / Orchestration ;
+- ChatGPT ↔ Cursor workflow ;
+- Repository Execution ;
+- Validation Engine ;
+- Knowledge / Notion Layer ;
+- Role / Métier Modeling ;
+- Interv360 comme cas de référence.
+
+**Livrables** : `foundation-documents/sfia-foundation-documents-inventory.md`, `foundation-documents/sfia-foundation-documents-audit.md`.
+
+**Décision identification** : **FONDATIONS PARTIELLES** — noyau `docs/architecture/` fort ; consolidation moteurs et operating model ChatGPT ↔ Cursor requis avant Notion.
+
+Cette passe n'est **pas terminée** tant que les documents fondateurs n'ont pas été consolidés.
+
+## 14. Garde-fous de cette passe
 
 - Aucune sync Notion exécutée
 - Aucune publication Notion

@@ -133,7 +133,7 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 
 > **COMPLETE AVEC RÉSERVES**
 
-La base méthodologique SFA est **exploitable** : méthode Fast Track structurée, pratiques rôles présentes, cas Interv360 capitalisé, templates et checklists opérationnels, mapping Notion préparé.
+La base méthodologique SFIA est **exploitable** : méthode Fast Track structurée, pratiques rôles présentes, cas Interv360 capitalisé, templates et checklists opérationnels, mapping Notion préparé.
 
 Les réserves concernent surtout la **maturité** (Role Methods Draft, prompts non formalisés, README manquants, documentation transverse Interv360 vide) et quelques **documents de gouvernance** à rafraîchir post-cleanup — pas l'absence de fondation méthodologique.
 
@@ -150,3 +150,29 @@ Les réserves concernent surtout la **maturité** (Role Methods Draft, prompts n
 | P2 | Actualiser `methods-structure-check.md` §2 | `docs/practices/` | Diagramme obsolète |
 | P2 | Ajouter README `templates/`, `checklists/`, `docs/roadmaps/`, `docs/tooling/` | Divers | Index dossier manquants |
 | P2 | Régénérer payloads JSON CMP (chemins `docs/methods/`) | `02-architecture/` | Chantier Notion — pas sync brut |
+
+## 12. Update — SFIA Foundation Documents Identification
+
+Une passe d'identification des documents fondateurs SFIA a été ouverte en parallèle de cette matrice.
+
+Elle vise à identifier les documents portant :
+
+- Platform Architecture ;
+- Decision Engine ;
+- Delivery Pipeline ;
+- Domain Model ;
+- Metamodel ;
+- Rules & Guardrails ;
+- Automation / Orchestration ;
+- ChatGPT ↔ Cursor workflow ;
+- Repository Execution ;
+- Validation Engine ;
+- Knowledge / Notion Layer ;
+- Role / Métier Modeling ;
+- Interv360 comme cas de référence.
+
+**Résultat** : six référentiels fondateurs identifiés dans `docs/architecture/` ; lacunes P0 sur operating model ChatGPT ↔ Cursor et specs moteurs autonomes.
+
+Cette passe de capitalisation globale n'est **pas terminée** tant que les documents fondateurs n'ont pas été consolidés.
+
+**Priorité révisée** : consolidation fondations **avant** chantier Notion.
