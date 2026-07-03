@@ -289,10 +289,28 @@ Décision :
 
 > SFIA Fast Track devient la méthode de référence pour les prochains projets, sous réserve de respecter les garde-fous, l'audit préalable, la documentation post-merge et la règle Figma Design-first pour les UI premium.
 
-## 16. Suites
+## 16. Vers une architecture d'orchestration SFIA
+
+La capitalisation Interv360 montre que SFIA ne doit pas rester uniquement une méthode documentaire.
+
+La cible est de transformer SFIA Fast Track en architecture d'orchestration automatisable.
+
+Cette évolution vise à réduire les allers-retours manuels entre utilisateur, ChatGPT, Cursor, GitHub et documentation.
+
+Référence :
+
+`method/sfia-fast-track/sfia-automation-architecture.md`
+
+Décision :
+
+> SFIA doit évoluer vers une application factory assistée par IA, en commençant par automatiser les livrables méthode, les prompts, les validations et les rapports avant d'automatiser la génération applicative complète.
+
+## 17. Suites
 
 Après cette capitalisation :
 
 1. Chantier 4 — Mise à jour documentaire complète ;
 2. Chantier 5 — Amélioration SFIA : règles, architecture, standards ;
-3. préparation du nouveau projet.
+3. préparation du nouveau projet ;
+4. formalisation de l'architecture d'automatisation SFIA ;
+5. expérimentation progressive d'un modèle semi-automatisé sur le prochain projet.
