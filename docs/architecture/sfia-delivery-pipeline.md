@@ -2,14 +2,21 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: SFIA Fast Track operational validation (Interv360)
 ---
 
-# SFIA Delivery Pipeline v1.0
+# SFIA Delivery Pipeline v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** SFIA Fast Track operational validation (Interv360)
 
 <aside>
 🏛️
 
-**Statut du document** : Référentiel fondateur — version 1.0  
+**Statut du document** : Référentiel fondateur — version 1.1 (contenu v1.0 conservé, enrichi post-Fast Track)  
 
 **Domaine** : Software Factory IA / Delivery / Gouvernance / Capitalisation  
 
@@ -1936,9 +1943,55 @@ Transformer le pipeline en système auto-améliorant mature.
 
 Une plateforme SFIA capable d’apprendre de chaque projet et d’améliorer continuellement sa performance.
 
+# v1.1 Update — SFIA Fast Track Delivery Pipeline
+
+The SFIA Fast Track delivery pipeline is based on:
+
+1. Scope and guardrails;
+2. Dedicated branch;
+3. Targeted implementation or documentation update;
+4. Validation and audit when needed;
+5. Pull request;
+6. Human review and merge;
+7. Post-merge status;
+8. Capitalization;
+9. Optional Notion preparation after capitalization.
+
+The pipeline follows the rule:
+
+> One cycle = one useful result.
+
+## Operational constraints (v1.1)
+
+| Rule | Source |
+|------|--------|
+| One cycle = one objective | `method/sfia-fast-track/core/sfia-rules-update.md` |
+| Explicit guardrails per cycle | `method/sfia-fast-track/checklists/guardrails-checklist.md` |
+| Single PR per cycle | `method/sfia-fast-track/templates/pr-body-template.md` |
+| Mandatory post-merge documentation | `method/sfia-fast-track/templates/post-merge-template.md` |
+| Audit before major cycle | Interv360 audit (`projects/interv360/06-audit-rex/`) |
+| REX after major milestone | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` |
+| Notion only after capitalization plan | `method/sfia-fast-track/checklists/notion-publication-checklist.md` |
+
+## ChatGPT ↔ Cursor loop (level 0)
+
+Execution currently relies on a manual ChatGPT ↔ Cursor loop:
+
+- ChatGPT frames cycles and produces Cursor prompts;
+- Cursor executes changes in the repository;
+- Human validates diff, build/tests, and merge.
+
+No automation without human validation in v1.1.
+
+A dedicated operating model will be documented separately *(planned pass)*.
+
+## Reference project
+
+Interv360 (`projects/interv360/`, phases 00–09) validates this pipeline operationally.
+
 # Conclusion
 
-Le **SFIA Delivery Pipeline v1.0** constitue le référentiel fondateur du delivery au sein de la plateforme SFIA.
+Le **SFIA Delivery Pipeline v1.1** constitue le référentiel fondateur du delivery au sein de la plateforme SFIA.
 
 Il établit un modèle intégré dans lequel chaque besoin est cadré, conçu, construit, validé, livré, capitalisé puis transformé en amélioration de plateforme. Il dépasse la logique traditionnelle de gestion de projet pour instaurer un modèle de **Software Factory apprenante**, orienté flux, qualité, documentation, automatisation, capitalisation et gouvernance.
 

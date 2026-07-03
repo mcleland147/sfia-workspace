@@ -2,14 +2,21 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: PR #81 workspace cleanup, Interv360 capitalization
 ---
 
-# SFIA Platform Architecture v1.0
+# SFIA Platform Architecture v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** PR #81 workspace cleanup, Interv360 capitalization
 
 <aside>
 🏛️
 
-**Document fondateur SFIA** — Ce document définit l’architecture de référence de la plateforme SFIA. Notion constitue la source de vérité native ; Word, PDF et PowerPoint sont des formats d’export et de diffusion.
+**Document fondateur SFIA** — Ce document définit l’architecture de référence de la plateforme SFIA. Le contenu v1.0 (export Notion) est conservé ci-dessous. La section **v1.1 Update** en fin de document intègre la structure opérationnelle Git post-capitalisation.
 
 </aside>
 
@@ -2119,8 +2126,38 @@ SFIA Platform Architecture v1.0 définit une plateforme capable de concilier sta
 5. Déployer le pipeline sur un projet pilote.
 6. Consolider les enseignements dans Knowledge.
 
+# v1.1 Update — Operational Architecture
+
+SFIA v1.1 distinguishes between:
+
+| Layer | Role |
+|-------|------|
+| Foundation architecture | Conceptual architecture documents in `docs/architecture/` |
+| Active method | SFIA Fast Track in `method/sfia-fast-track/` |
+| Practices | Platform practices in `docs/practices/` |
+| Prompt assets | Prompt families in `prompts/` |
+| Reference projects | Interv360 in `projects/interv360/` |
+| Knowledge layer | Notion as a curated business knowledge layer |
+
+SFIA v1.1 is not yet the fully automated target.
+
+SFIA v2.0 is reserved for active engines and operational Notion integration.
+
+## ChatGPT ↔ Cursor operating model
+
+The ChatGPT ↔ Cursor workflow is currently at **automation level 0** (manual assisted execution).
+
+A dedicated operating model document will be created in a subsequent consolidation pass:
+
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` *(planned — not yet created)*
+
+Until then, refer to:
+
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md` §2–3
+- `method/sfia-fast-track/core/sfia-global-capitalization.md` §13
+
 ## Conclusion
 
-**SFIA Platform Architecture v1.0** constitue le socle d’une Software Factory IA modulaire, gouvernée, capitalisable et évolutive.  
+**SFIA Platform Architecture v1.1** constitue le socle d’une Software Factory IA modulaire, gouvernée, capitalisable et évolutive.  
 
 Elle ne décrit pas un projet métier ; elle définit la plateforme qui permettra de produire tous les projets futurs.
