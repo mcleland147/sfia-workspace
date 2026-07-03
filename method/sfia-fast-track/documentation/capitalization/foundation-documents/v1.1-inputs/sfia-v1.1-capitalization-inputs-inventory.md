@@ -454,3 +454,24 @@ Aucune source critique manquante identifiée au-delà des familles listées §2.
 4. Créer les nouveaux documents canoniques (operating model P0, moteurs P1, knowledge layer P1) ;
 5. Mettre à jour la capitalisation documentaire et cross-références ;
 6. Seulement ensuite ouvrir le chantier Notion `notion/sfia-business-ide-preparation`.
+
+## Update — P0 Foundation Consolidation Started
+
+The P0 foundation consolidation has started on branch `capitalization/sfia-foundation-v1.1`.
+
+**Updated documents:**
+
+- `docs/architecture/sfia-repository-blueprint.md`
+- `docs/architecture/sfia-platform-architecture.md`
+- `docs/architecture/sfia-delivery-pipeline.md`
+- `docs/architecture/sfia-domain-model.md`
+- `docs/architecture/sfia-meta-model.md`
+
+**Remaining next steps:**
+
+- Decision Engine v1.1;
+- Engineering Principles v1.1;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Automation engine specifications;
+- Knowledge Layer.

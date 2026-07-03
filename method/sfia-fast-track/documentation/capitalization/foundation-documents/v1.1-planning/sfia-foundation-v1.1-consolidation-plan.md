@@ -188,3 +188,24 @@ Il couvre :
 **Décision :** apports suffisamment identifiés — prêt pour consolidation v1.1.
 
 Cet inventaire doit servir de référence avant toute modification des documents fondateurs.
+
+## Update — P0 Foundation Consolidation Started
+
+The P0 foundation consolidation has started.
+
+**Updated documents:**
+
+- `docs/architecture/sfia-repository-blueprint.md`
+- `docs/architecture/sfia-platform-architecture.md`
+- `docs/architecture/sfia-delivery-pipeline.md`
+- `docs/architecture/sfia-domain-model.md`
+- `docs/architecture/sfia-meta-model.md`
+
+**Remaining next steps:**
+
+- Decision Engine v1.1;
+- Engineering Principles v1.1;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Automation engine specifications;
+- Knowledge Layer.

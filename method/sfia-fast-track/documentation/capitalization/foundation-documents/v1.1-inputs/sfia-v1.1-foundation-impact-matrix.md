@@ -117,3 +117,24 @@ Elle complète l'inventaire des apports par une évaluation d'impact, de risque 
 3. `sfia-delivery-pipeline.md`
 4. `sfia-domain-model.md`
 5. **nouveau** `sfia-chatgpt-cursor-operating-model.md`
+
+## Update — P0 Foundation Consolidation Started
+
+The P0 foundation consolidation has started on branch `capitalization/sfia-foundation-v1.1`.
+
+**Updated documents:**
+
+- `docs/architecture/sfia-repository-blueprint.md` — commit `dd01fcf`
+- `docs/architecture/sfia-platform-architecture.md` — commit `bea4609`
+- `docs/architecture/sfia-delivery-pipeline.md` — commit `bea4609`
+- `docs/architecture/sfia-domain-model.md` — commit `2c70485`
+- `docs/architecture/sfia-meta-model.md` — commit `2c70485`
+
+**Remaining next steps:**
+
+- Decision Engine v1.1;
+- Engineering Principles v1.1;
+- ChatGPT ↔ Cursor Operating Model *(dedicated pass — placeholder renvoi added in platform architecture)*;
+- Rules & Guardrails;
+- Automation engine specifications;
+- Knowledge Layer.
