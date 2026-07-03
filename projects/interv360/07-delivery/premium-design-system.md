@@ -211,7 +211,7 @@ Palette à rapprocher de la maquette Figma :
 | FIGMA-02 | Maquettes Figma écrans clés | Réalisé |
 | UI-03 | Implémentation Dashboard + Page demandes premium | Réalisé |
 | UI-04 | Implémentation fiche demande + journal depuis Figma | Réalisé |
-| UI-05 | Validations, polish et PR unique | Suspendu |
+| UI-05 | Validations, polish et PR unique | Réalisé |
 
 ---
 
@@ -243,6 +243,12 @@ Palette à rapprocher de la maquette Figma :
 | API inchangée | OK |
 | CI inchangée | OK |
 | Garde-fous respectés | OK |
+| Interactions MVP premium reconnectées | OK |
+| Chrome MVP legacy isolé | OK |
+| Revue finale visuelle post-polish | OK |
+| Revue fonctionnelle finale post-polish | OK |
+| Tests frontend 202/202 | OK |
+| PR body préparé | OK |
 
 ---
 
@@ -689,79 +695,60 @@ UI-05 reste suspendu tant que la revue visuelle + fonctionnelle finale n'est pas
 
 ---
 
-## 10.7. UI-05 — Polish final, validations et PR readiness (suspendu)
+## 10.7. UI-05 — Polish final, validations et PR readiness
 
-UI-05 finalise le cycle Premium Design System — **actuellement suspendu** (voir §10.6 et §10.6 REX).
+UI-05 clôture le cycle Premium Design System.
 
-Le portage Make fidèle (`d3af990`) a rapproché le rendu local, mais **UI-05 reste suspendu** tant que la revue visuelle finale (Figma Make vs `localhost`) n'est pas validée humainement.
+La validation finale post-polish a confirmé que les réserves mineures identifiées lors de la revue visuelle et fonctionnelle ont été traitées.
 
-Validations techniques réalisées (nécessaires mais non suffisantes) :
+Livré :
 
-- build frontend OK ;
-- tests frontend OK (191/191) ;
-- garde-fous backend/API/CI confirmés ;
-- absence de modification métier ;
-- absence de CRUD ;
-- absence d'auth réelle ;
-- absence d'export PDF fonctionnel ;
-- absence de modification du tag `v0.1.0-mvp`.
+- isolation du chrome MVP legacy ;
+- accordéon `Parcours MVP et actions de démonstration` fermé par défaut sur la fiche premium ;
+- déplacement de `DemoResetControl` vers l'écran Scénario ;
+- Audit Trail premium sans reset démo visible ;
+- navigation premium reconnectée ;
+- ouverture demande depuis dashboard et page demandes ;
+- accès historique complet ;
+- retour fiche / demandes ;
+- changement de profil conservé ;
+- actions hors scope explicitement désactivées.
 
-Validations encore en attente pour clôturer UI-05 :
+Validations finales :
 
-- revue visuelle finale écran par écran (Dashboard, Demandes, Fiche, Audit Trail) ;
-- proximité suffisante avec Figma Make confirmée ;
-- absence de chrome démo sur les écrans premium confirmée.
-
-État actuel :
-
-- Dashboard Command Center implémenté (couche premium) ;
-- Page Demandes premium implémentée ;
-- Fiche demande premium implémentée ;
-- Pipeline SAV premium implémentée ;
-- Historique / Audit Trail premium implémenté ;
-- documentation de cycle à jour ;
-- PR unique — **en attente validation visuelle finale**.
+- revue post-polish fiche demande : OK ;
+- revue post-polish Audit Trail : OK ;
+- revue post-polish scénario : OK ;
+- revue fonctionnelle rapide : OK ;
+- build frontend : OK ;
+- tests frontend : 202/202 OK ;
+- garde-fous backend/API/CI : OK ;
+- absence de CRUD/auth/export PDF fonctionnel : OK.
 
 Décision :
 
-> Le cycle Premium Design System n'est pas prêt pour PR unique tant que la revue visuelle finale Figma Make n'est pas validée. UI-05 ne passe pas en « réalisé » avant cette étape.
-
-### Polish ciblé — isolation du chrome MVP legacy
-
-La revue finale visuelle + fonctionnelle a autorisé la reprise de UI-05 avec réserves mineures.
-
-Réserves corrigées :
-
-- le bloc `Parcours readonly` et le panneau `Actions workflow` legacy ne doivent plus apparaître comme contenu principal sous la fiche premium ;
-- `DemoResetControl` ne doit plus apparaître dans l'écran Audit Trail premium.
-
-Décision :
-
-> Les éléments legacy MVP restent disponibles pour les tests et la démonstration, mais sont isolés du rendu Premium SAV Command Center.
-
-Règle retenue :
-
-- les écrans premium restent centrés sur la cible Figma Make ;
-- les outils de démonstration restent accessibles via le scénario ou une section repliée ;
-- aucun comportement métier n'est supprimé ;
-- aucun hors scope MVP ne devient fonctionnel.
-
-Implémentation :
-
-- accordéon fermé par défaut **« Parcours MVP et actions de démonstration »** sous la fiche premium (`PremiumMvpDemoPanel`) ;
-- accordéon **« Outils de démonstration »** sur l'écran Scénario pour `DemoResetControl` ;
-- écran Audit Trail premium : header, synthèse, filtres et timeline uniquement.
-
-UI-05 reste en cours — validation finale post-polish (build/tests + revue visuelle rapide) avant passage en « réalisé » et PR unique.
+> UI-05 est validé. Le cycle `ui/interv360-premium-design-system` est prêt pour PR unique vers `main`.
 
 ---
 
 ## 11. Prochaine étape
 
-Préparer la PR unique :
+Créer la PR unique :
 
 `ui/interv360-premium-design-system` → `main`
 
 Titre proposé :
 
 `Add Interv360 premium design system`
+
+La PR doit préciser :
+
+- cycle UI distinct du MVP fonctionnel ;
+- absence de modification backend/API/CI ;
+- ajout d'une couche premium isolée ;
+- Tailwind CSS v4 ajouté côté frontend ;
+- interactions MVP reconnectées ;
+- actions hors scope verrouillées ;
+- tests frontend 202/202 OK ;
+- build frontend OK ;
+- exports Figma non suivis.
