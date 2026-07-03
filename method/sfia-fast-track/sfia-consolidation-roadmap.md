@@ -197,6 +197,18 @@ Important :
 
 > La mise à jour Notion doit être préparée et validée avant publication effective.
 
+### Statut
+
+Revue documentaire ouverte sur la branche `consolidation/sfia-documentation-review`.
+
+Livrables :
+
+- `method/sfia-fast-track/documentation-audit.md`
+- `method/sfia-fast-track/documentation-structure-target.md`
+- `method/sfia-fast-track/notion-publication-plan.md`
+
+Ne pas passer le chantier en terminé tant que la revue documentaire n'est pas validée et intégrée.
+
 ## 8. Chantier 5 — Amélioration SFIA
 
 Objectif :
