@@ -568,3 +568,40 @@ Remaining P1 documents:
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`
+## Update — Prompt Generation Engine Created
+
+The following P1 automation engine specification has been created:
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+
+It defines how SFIA transforms a human intention or cycle need into a Cursor execution prompt.
+
+The Prompt Generation Engine applies:
+
+- Engineering Principles;
+- ChatGPT ↔ Cursor Operating Model;
+- Rules & Guardrails;
+- Knowledge Layer and Documentation Routing Matrix;
+- Decision Engine;
+- prompt catalog;
+- automation architecture.
+
+It defines:
+
+- inputs;
+- outputs;
+- mandatory prompt structure;
+- generation workflow;
+- prompt families;
+- generation rules;
+- guardrails;
+- decision and reserve handling;
+- validation criteria;
+- anti-patterns;
+- maturity model.
+
+Remaining P1 automation engine specifications:
+
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- optional: `method/sfia-fast-track/automation/sfia-documentation-engine.md`
