@@ -23,6 +23,21 @@ The templates in this folder are operational prompt skeletons intended to be ada
 | `09-prepare-notion-mapping.md` | Notion preparation | Prepare Notion mapping without publication |
 | `10-perform-safe-repository-cleanup.md` | Repository execution | Perform safe repository cleanup |
 
+## Template selection
+
+Prompt templates must be selected through the SFIA Cycle Routing Guide:
+
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+
+The guide maps each cycle type to:
+
+- mandatory references;
+- prompt template or prompt family;
+- validation controls;
+- expected decision.
+
+Templates should not be used in isolation. They must be selected according to the cycle type and completed with the relevant repository context, scope, guardrails and validation rules.
+
 ## Common Guardrails
 
 - no push without human validation;
@@ -41,3 +56,4 @@ The templates in this folder are operational prompt skeletons intended to be ada
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`

@@ -81,6 +81,20 @@ Ils forment une boucle opératoire contrôlée par l'humain.
 | Controlled automation | L'automatisation progresse par niveaux, sans supprimer la validation humaine |
 | Guardrails before execution | Les garde-fous sont posés avant exécution |
 
+## 3.1 Routage des cycles
+
+Avant de préparer ou d'exécuter un prompt Cursor, le type de cycle SFIA doit être identifié à l'aide de :
+
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+
+Le Guide de routage des cycles définit les références obligatoires, le template de prompt, les contrôles de validation et la décision attendue pour chaque type de cycle.
+
+Il évite que la boucle ChatGPT ↔ Cursor repose sur la mémoire implicite du modèle.
+
+Règle :
+
+> type de cycle → documents à lire → template → validation → décision
+
 ## 4. Rôles dans la boucle
 
 | Acteur | Rôle | Responsabilités |

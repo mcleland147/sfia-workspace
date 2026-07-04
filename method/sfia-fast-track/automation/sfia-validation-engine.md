@@ -100,6 +100,7 @@ Le Validation Engine s'appuie sur les documents suivants :
 | `docs/architecture/sfia-delivery-pipeline.md` | PR, post-merge et delivery |
 | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | Vision automation et moteur validation |
 | `method/sfia-fast-track/checklists/` | Checklists de contrôle |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Routage par type de cycle |
 
 ## 5. Inputs
 
@@ -184,6 +185,23 @@ Le Validation Engine suit le workflow suivant :
 18. produire une décision SFIA ;
 19. proposer la prochaine étape ;
 20. demander validation humaine si nécessaire.
+
+## 8.1 Validation du routage de cycle
+
+La validation doit vérifier que le cycle exécuté respecte le routage défini dans :
+
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+
+Un résultat n'est pas pleinement valide s'il ne déclare pas :
+
+- le type de cycle ;
+- la famille de cycle : méthode / fondation ou projet ;
+- les références obligatoires ;
+- le template ou la famille de prompt ;
+- les garde-fous ;
+- la décision attendue.
+
+Si le routage est absent ou incohérent, la validation doit produire une réserve ou un **NO-GO** selon l'impact.
 
 ## 9. Validation du prompt
 

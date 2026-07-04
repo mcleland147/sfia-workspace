@@ -48,6 +48,7 @@ Cette checklist s'appuie sur :
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 
 ## 3. Quand utiliser cette checklist ?
 
@@ -63,6 +64,20 @@ Utiliser cette checklist :
 - avant une préparation Notion ;
 - avant une capitalisation structurante ;
 - avant un post-merge status.
+
+## 3.1 Routage de cycle
+
+Vérifier que le cycle a été correctement routé :
+
+- [ ] Type de cycle déclaré ;
+- [ ] Famille de cycle déclarée : méthode / fondation ou projet ;
+- [ ] Références obligatoires sélectionnées à partir de `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` ;
+- [ ] Template ou famille de prompt correctement sélectionné ;
+- [ ] Garde-fous déclarés ;
+- [ ] Validation attendue déclarée ;
+- [ ] Décision attendue déclarée.
+
+Si un élément de routage manque, le cycle ne peut pas être considéré comme pleinement validé.
 
 ## 4. Décision cible
 

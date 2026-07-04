@@ -94,6 +94,7 @@ Le Prompt Generation Engine s'appuie sur les documents suivants :
 | `prompts/prompt-catalog.md` | Familles et prompts existants |
 | `method/sfia-fast-track/templates/` | Templates réutilisables |
 | `method/sfia-fast-track/checklists/` | Checklists de validation |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Routage par type de cycle |
 
 ## 5. Inputs
 
@@ -204,6 +205,22 @@ Le Prompt Generation Engine suit le workflow suivant :
 13. produire le prompt Cursor ;
 14. vérifier la conformité aux Engineering Principles ;
 15. soumettre le prompt à validation humaine si le cycle est sensible.
+
+## 8.1 Routage de cycle avant génération du prompt
+
+La génération d'un prompt doit commencer par l'identification du type de cycle SFIA à l'aide de :
+
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+
+Le type de cycle sélectionné détermine :
+
+- les références obligatoires ;
+- la famille ou le template de prompt ;
+- la validation attendue ;
+- la décision attendue ;
+- les validations humaines nécessaires.
+
+Un prompt généré est **incomplet** s'il ne déclare pas son type de cycle et ses références de routage.
 
 ## 9. Typologie des prompts générés
 
