@@ -14,6 +14,7 @@ This folder contains the operational foundation documents of the SFIA Fast Track
 | `sfia-chatgpt-cursor-operating-model.md` | ChatGPT ↔ Cursor operating model |
 | `sfia-rules-and-guardrails.md` | Canonical SFIA rules and guardrails |
 | `sfia-knowledge-layer.md` | SFIA knowledge layer, Documentation Routing Matrix and Notion positioning |
+| `sfia-cycle-routing-guide.md` | Guide de routage des cycles SFIA : sélection des références, templates, validations et décisions selon le type de cycle méthode ou projet |
 
 ## Reading order (foundation v1.1)
 
@@ -22,4 +23,5 @@ This folder contains the operational foundation documents of the SFIA Fast Track
 3. `sfia-chatgpt-cursor-operating-model.md` — ChatGPT ↔ Cursor loop
 4. `sfia-rules-and-guardrails.md` — canonical rules and guardrails
 5. `sfia-knowledge-layer.md` — knowledge layer and Documentation Routing Matrix
-6. `docs/architecture/` — conceptual foundations
+6. `sfia-cycle-routing-guide.md` — cycle routing before each new SFIA cycle
+7. `docs/architecture/` — conceptual foundations
