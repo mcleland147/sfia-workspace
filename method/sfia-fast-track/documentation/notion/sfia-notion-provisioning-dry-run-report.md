@@ -7,6 +7,8 @@ scope: Dry-run validation of SFIA v1.1 workspace provisioning plan
 
 # SFIA Notion Provisioning — Dry-run Report
 
+> **Status update (2026-07-04) :** Active Notion provisioning is paused. This dry-run report is retained as a dormant capability reference. Do not execute apply without a new explicit decision — see `sfia-notion-publication-track-pause-decision.md`.
+
 **Date :** 2026-07-04  
 **Branche :** `notion/provisioning-engine-design`  
 **Configuration :** `tools/cmp-001/config/sfia-v1-1-workspace.config.json`
