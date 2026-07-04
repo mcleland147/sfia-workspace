@@ -1,0 +1,915 @@
+{
+  "version": "1.0.0",
+  "schemaVersion": "sfia-provisioning-config-v1",
+  "workspace": {
+    "name": "SFIA v1.1 — Workspace",
+    "targetVersion": "v1.1",
+    "description": "Espace Notion éditorialisé — repo = source de vérité"
+  },
+  "strategy": {
+    "mode": "create-only",
+    "allowUpdate": false,
+    "allowDelete": false,
+    "importLegacyCsv": false,
+    "reuseLegacyPayloads": false
+  },
+  "environment": {
+    "parentPageId": "${NOTION_PARENT_PAGE_ID}",
+    "token": "${NOTION_TOKEN}"
+  },
+  "rootPage": {
+    "title": "SFIA v1.1 — Workspace",
+    "introBlocks": [
+      {
+        "type": "callout",
+        "text": "SFIA v1.1 — couche éditorialisée de lecture et navigation. Le repository Git reste la source de vérité versionnée."
+      },
+      {
+        "type": "paragraph",
+        "text": "Utilisez les sections ci-dessous selon votre besoin : cadrage, prompt, validation, capitalisation ou publication Notion."
+      }
+    ],
+    "repoLinks": [
+      {
+        "label": "Repository SFIA",
+        "url": "https://github.com/mcleland147/sfia-workspace"
+      },
+      {
+        "label": "Cycle Routing Guide",
+        "path": "method/sfia-fast-track/core/sfia-cycle-routing-guide.md"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "accueil-sfia",
+      "title": "Accueil SFIA",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Page d'entrée unique — orientation vers le cycle SFIA adapté."
+        }
+      ],
+      "repoLinks": [
+        {
+          "label": "Global Capitalization",
+          "path": "method/sfia-fast-track/core/sfia-global-capitalization.md"
+        }
+      ]
+    },
+    {
+      "id": "demarrer-avec-sfia",
+      "title": "1. Démarrer avec SFIA",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Guides de démarrage, operating model, routing, rules et validation."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "guide-demarrage",
+          "title": "Guide de démarrage SFIA",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/README.md"
+            }
+          ]
+        },
+        {
+          "id": "operating-model",
+          "title": "ChatGPT ↔ Cursor Operating Model",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md"
+            }
+          ]
+        },
+        {
+          "id": "cycle-routing-guide",
+          "title": "Cycle Routing Guide",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/core/sfia-cycle-routing-guide.md"
+            }
+          ]
+        },
+        {
+          "id": "rules-guardrails",
+          "title": "Rules & Guardrails",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/core/sfia-rules-and-guardrails.md"
+            }
+          ]
+        },
+        {
+          "id": "validation-checklist",
+          "title": "Validation Checklist",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/checklists/sfia-validation-checklist.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fondations-architecture",
+      "title": "2. Fondations & Architecture",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Principes, decision engine, delivery pipeline, platform, blueprint, domain et meta-model."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "engineering-principles",
+          "title": "Engineering Principles",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/foundation/sfia-engineering-principles.md"
+            }
+          ]
+        },
+        {
+          "id": "decision-engine",
+          "title": "Decision Engine",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/architecture/sfia-decision-engine.md"
+            }
+          ]
+        },
+        {
+          "id": "delivery-pipeline",
+          "title": "Delivery Pipeline",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/architecture/sfia-delivery-pipeline.md"
+            }
+          ]
+        },
+        {
+          "id": "platform-architecture",
+          "title": "Platform Architecture",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/architecture/sfia-platform-architecture.md"
+            }
+          ]
+        },
+        {
+          "id": "repository-blueprint",
+          "title": "Repository Blueprint",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/architecture/sfia-repository-blueprint.md"
+            }
+          ]
+        },
+        {
+          "id": "domain-model",
+          "title": "Domain Model",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/architecture/sfia-domain-model.md"
+            }
+          ]
+        },
+        {
+          "id": "meta-model",
+          "title": "Meta-Model",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "docs/architecture/sfia-meta-model.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operating-model",
+      "title": "3. Operating Model",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Usage quotidien ChatGPT ↔ Cursor, knowledge layer et capitalisation opérationnelle."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "knowledge-layer",
+          "title": "Knowledge Layer",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/core/sfia-knowledge-layer.md"
+            }
+          ]
+        },
+        {
+          "id": "global-capitalization",
+          "title": "Global Capitalization",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/core/sfia-global-capitalization.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "automation-execution",
+      "title": "4. Automation & Execution",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Architecture automation et engines — pages éditorialisées, pas specs brutes."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "automation-architecture",
+          "title": "Automation Architecture",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/automation/sfia-automation-architecture.md"
+            }
+          ]
+        },
+        {
+          "id": "prompt-generation-engine",
+          "title": "Prompt Generation Engine",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/automation/sfia-prompt-generation-engine.md"
+            }
+          ]
+        },
+        {
+          "id": "repository-execution-engine",
+          "title": "Repository Execution Engine",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/automation/sfia-repository-execution-engine.md"
+            }
+          ]
+        },
+        {
+          "id": "validation-engine",
+          "title": "Validation Engine",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/automation/sfia-validation-engine.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prompt-system",
+      "title": "5. Prompt System",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Hub prompts, templates et familles — création depuis repo, pas import CSV legacy."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "prompt-catalog",
+          "title": "Prompt Catalog",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "prompts/prompt-catalog.md"
+            }
+          ]
+        },
+        {
+          "id": "prompt-rules",
+          "title": "Règles d'utilisation des prompts",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "prompts/templates/README.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "projets-capitalisation",
+      "title": "6. Projets & Capitalisation",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Projets actifs, ADR, REX et assets capitalisés — profondeur conservative."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "hub-interv360",
+          "title": "Hub Interv360",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "projects/interv360/README.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "archives-references",
+      "title": "7. Archives / Références repo",
+      "introBlocks": [
+        {
+          "type": "paragraph",
+          "text": "Zone secondaire — liens repo, audits, closures. Pas de payloads JSON exposés."
+        }
+      ],
+      "subPages": [
+        {
+          "id": "archives-index",
+          "title": "Index archives repo",
+          "status": "planned",
+          "repoLinks": [
+            {
+              "path": "method/sfia-fast-track/documentation/notion/sfia-notion-live-export-audit.md"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "databases": [
+    {
+      "id": "documents",
+      "name": "SFIA — Documents",
+      "titleProperty": "Titre",
+      "parentSection": "accueil-sfia",
+      "properties": [
+        {
+          "name": "Domaine",
+          "type": "select",
+          "options": [
+            "Foundation",
+            "Architecture",
+            "Operating Model",
+            "Automation",
+            "Validation",
+            "Prompt",
+            "Capitalization",
+            "Projet"
+          ]
+        },
+        {
+          "name": "Type",
+          "type": "select",
+          "options": [
+            "Fondation",
+            "Guide",
+            "Engine",
+            "Checklist",
+            "Audit",
+            "Closure",
+            "REX"
+          ]
+        },
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "validated",
+            "candidate",
+            "draft",
+            "historical"
+          ]
+        },
+        {
+          "name": "Version",
+          "type": "rich_text"
+        },
+        {
+          "name": "Priorité",
+          "type": "select",
+          "options": [
+            "Haute",
+            "Moyenne",
+            "Faible"
+          ]
+        },
+        {
+          "name": "Public cible",
+          "type": "multi_select",
+          "options": [
+            "Mainteneur",
+            "Contributeur",
+            "Utilisateur méthode",
+            "Lecteur projet"
+          ]
+        },
+        {
+          "name": "Source repo",
+          "type": "url"
+        },
+        {
+          "name": "Catégorie Notion",
+          "type": "select",
+          "options": [
+            "PAGE_NOTION_DEDIEE",
+            "EDITORIALISER",
+            "INTEGRER_BASE",
+            "RESUMER",
+            "REPO_ONLY",
+            "ARCHIVER"
+          ]
+        },
+        {
+          "name": "Dernière revue",
+          "type": "date"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 0",
+            "Lot 1",
+            "Lot 2",
+            "Lot 3",
+            "Lot 4",
+            "Lot 5",
+            "Lot 6"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "Index des pages SFIA publiées — entrées créées depuis repo Lot 1+"
+    },
+    {
+      "id": "prompt-templates",
+      "name": "SFIA — Prompt Templates",
+      "titleProperty": "Nom",
+      "parentSection": "prompt-system",
+      "properties": [
+        {
+          "name": "Numéro",
+          "type": "number"
+        },
+        {
+          "name": "Famille",
+          "type": "select",
+          "options": [
+            "Foundation",
+            "Architecture",
+            "Prompt",
+            "Validation",
+            "Notion",
+            "Capitalization",
+            "Project"
+          ]
+        },
+        {
+          "name": "Type de cycle",
+          "type": "select",
+          "options": [
+            "Foundation",
+            "Architecture",
+            "Prompt",
+            "Validation",
+            "Notion",
+            "Capitalization",
+            "Project",
+            "PR readiness"
+          ]
+        },
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "validated",
+            "candidate",
+            "draft"
+          ]
+        },
+        {
+          "name": "Usage",
+          "type": "rich_text"
+        },
+        {
+          "name": "Entrées nécessaires",
+          "type": "rich_text"
+        },
+        {
+          "name": "Sortie attendue",
+          "type": "rich_text"
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Dernière version",
+          "type": "rich_text"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 3"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "10 templates repo prompts/templates/01–10 — Lot 3"
+    },
+    {
+      "id": "prompt-cards",
+      "name": "SFIA — Prompt Cards",
+      "titleProperty": "Nom",
+      "parentSection": "prompt-system",
+      "properties": [
+        {
+          "name": "Famille",
+          "type": "select",
+          "options": [
+            "Architecture",
+            "QA",
+            "BPMN",
+            "UX",
+            "Security",
+            "Penpot",
+            "Governance"
+          ]
+        },
+        {
+          "name": "Domaine",
+          "type": "select",
+          "options": [
+            "Foundation",
+            "Architecture",
+            "Automation",
+            "Prompt",
+            "Project"
+          ]
+        },
+        {
+          "name": "Type de cycle",
+          "type": "select",
+          "options": [
+            "Foundation",
+            "Architecture",
+            "Prompt",
+            "Validation",
+            "Project"
+          ]
+        },
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "validated",
+            "candidate",
+            "draft",
+            "historical"
+          ]
+        },
+        {
+          "name": "Usage",
+          "type": "rich_text"
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 3"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "~15 familles depuis prompt-catalog.md — sélectif, pas import 52 prompts legacy"
+    },
+    {
+      "id": "checklists",
+      "name": "SFIA — Checklists",
+      "titleProperty": "Nom",
+      "parentSection": "demarrer-avec-sfia",
+      "properties": [
+        {
+          "name": "Type",
+          "type": "select",
+          "options": [
+            "Validation",
+            "Publication",
+            "Guardrails",
+            "PR readiness"
+          ]
+        },
+        {
+          "name": "Cycle associé",
+          "type": "select",
+          "options": [
+            "Foundation",
+            "Architecture",
+            "Prompt",
+            "Validation",
+            "Notion",
+            "Capitalization",
+            "Project"
+          ]
+        },
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "validated",
+            "candidate",
+            "draft"
+          ]
+        },
+        {
+          "name": "Usage",
+          "type": "rich_text"
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 1"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "sfia-validation-checklist, notion-publication-checklist, guardrails-checklist"
+    },
+    {
+      "id": "adr-decisions",
+      "name": "SFIA — ADR / Décisions",
+      "titleProperty": "Titre",
+      "parentSection": "projets-capitalisation",
+      "properties": [
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "accepted",
+            "candidate",
+            "superseded"
+          ]
+        },
+        {
+          "name": "Date",
+          "type": "date"
+        },
+        {
+          "name": "Domaine",
+          "type": "select",
+          "options": [
+            "Architecture",
+            "Platform",
+            "Security",
+            "Delivery",
+            "Notion",
+            "CMP"
+          ]
+        },
+        {
+          "name": "Décision",
+          "type": "rich_text"
+        },
+        {
+          "name": "Impact",
+          "type": "rich_text"
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 4"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "ADR Interv360 repo — pas ADR-002 CMP legacy seul"
+    },
+    {
+      "id": "practices-templates",
+      "name": "SFIA — Practices & Templates",
+      "titleProperty": "Nom",
+      "parentSection": "prompt-system",
+      "properties": [
+        {
+          "name": "Discipline",
+          "type": "select",
+          "options": [
+            "Architecture",
+            "BPMN",
+            "UX",
+            "Security",
+            "Delivery",
+            "Platform"
+          ]
+        },
+        {
+          "name": "Type",
+          "type": "select",
+          "options": [
+            "Practice",
+            "Template",
+            "Standard"
+          ]
+        },
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "validated",
+            "draft",
+            "official"
+          ]
+        },
+        {
+          "name": "Public cible",
+          "type": "select",
+          "options": [
+            "Mainteneur",
+            "Contributeur",
+            "Utilisateur méthode"
+          ]
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 5"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "docs/practices/, docs/templates/, method/sfia-fast-track/templates/"
+    },
+    {
+      "id": "projets",
+      "name": "SFIA — Projets",
+      "titleProperty": "Projet",
+      "parentSection": "projets-capitalisation",
+      "properties": [
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "active",
+            "paused",
+            "completed",
+            "archived"
+          ]
+        },
+        {
+          "name": "Domaine",
+          "type": "rich_text"
+        },
+        {
+          "name": "Phase",
+          "type": "select",
+          "options": [
+            "Cadrage",
+            "Architecture",
+            "Design",
+            "Delivery",
+            "Capitalization",
+            "Release"
+          ]
+        },
+        {
+          "name": "Livrables clés",
+          "type": "rich_text"
+        },
+        {
+          "name": "REX",
+          "type": "url"
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 4"
+          ]
+        }
+      ],
+      "initialEntries": [
+        {
+          "title": "Interv360",
+          "sourceRepo": "projects/interv360/README.md",
+          "note": "Création depuis repo — pas reprise PRJ-INTERV360 legacy CSV"
+        }
+      ],
+      "notes": "Projets actifs — Interv360 en premier"
+    },
+    {
+      "id": "assets-capitalisation",
+      "name": "SFIA — Assets de capitalisation",
+      "titleProperty": "Nom",
+      "parentSection": "projets-capitalisation",
+      "properties": [
+        {
+          "name": "Origine",
+          "type": "select",
+          "options": [
+            "Projet",
+            "Audit",
+            "REX",
+            "Méthode",
+            "Plateforme"
+          ]
+        },
+        {
+          "name": "Type d'asset",
+          "type": "select",
+          "options": [
+            "REX",
+            "Audit",
+            "Template",
+            "Practice",
+            "Prompt",
+            "ADR",
+            "Closure"
+          ]
+        },
+        {
+          "name": "Statut",
+          "type": "select",
+          "options": [
+            "validated",
+            "candidate",
+            "draft",
+            "historical"
+          ]
+        },
+        {
+          "name": "Réutilisabilité",
+          "type": "select",
+          "options": [
+            "Haute",
+            "Moyenne",
+            "Faible",
+            "Projet-spécifique"
+          ]
+        },
+        {
+          "name": "Lien repo",
+          "type": "url"
+        },
+        {
+          "name": "Lot intégration",
+          "type": "select",
+          "options": [
+            "Lot 4",
+            "Lot 6"
+          ]
+        }
+      ],
+      "initialEntries": [],
+      "notes": "REX, audits résumés, closures — repo fait foi"
+    }
+  ]
+}
