@@ -137,6 +137,25 @@ Règle :
 
 > Si une phase ou un contexte n'est pas couvert par la matrice, le cycle doit commencer par une clarification documentaire avant production.
 
+## 6.1 Complémentarité avec le Cycle Routing Guide
+
+La Knowledge Layer définit **où** les livrables SFIA doivent être produits, rangés, capitalisés ou publiés.
+
+Elle est complétée par :
+
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+
+Le Cycle Routing Guide définit **quoi lire**, **quel template utiliser**, **quels contrôles appliquer** et **quelle décision produire** selon le type de cycle.
+
+Ensemble :
+
+| Document | Rôle |
+|----------|------|
+| Knowledge Layer | Où ranger / capitaliser |
+| Cycle Routing Guide | Quoi lire / quel template / quelle validation / quelle décision |
+
+La Documentation Routing Matrix n'est pas remplacée. Le Cycle Routing Guide la complète en amont de chaque cycle.
+
 ## 7. Notion comme IDE métier SFIA
 
 Notion doit devenir un IDE métier SFIA.
