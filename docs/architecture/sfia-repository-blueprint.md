@@ -2,16 +2,47 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: PR #81 workspace cleanup
 ---
 
-# SFIA Repository Blueprint v1.0
+# SFIA Repository Blueprint v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** PR #81 workspace cleanup
 
 <aside>
 🏛️
 
 **Statut du document** : Référence officielle du Repository Blueprint de la plateforme SFIA. Ce document définit le modèle cible d’organisation, de gouvernance, de versioning et d’évolution du patrimoine méthodologique et technique SFIA.
 
+Le contenu v1.0 (export Notion) est conservé ci-dessous. La section **v1.1 Update** en fin de document aligne le blueprint sur la structure Git validée post-PR #81.
+
 </aside>
+
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
+## v1.1 Engineering Principles Reference
+
+All cycles, prompts, repository changes, documentation updates, knowledge publication activities and automation initiatives described or derived from this document must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+This reference acts as a lightweight compliance anchor. It does not duplicate the Engineering Principles, but requires that the document be interpreted and applied consistently with them.
+
 
 # Objectif
 
@@ -1259,9 +1290,55 @@ Faire du repository SFIA une plateforme de référence durable.
 - mesure de la valeur ;
 - alignement avec les pratiques d’architecture d’entreprise.
 
+# v1.1 Update — Post Workspace Cleanup PR #81
+
+The repository blueprint has been updated after PR #81.
+
+The active SFIA workspace structure is now:
+
+| Zone | Role |
+|------|------|
+| `method/sfia-fast-track/` | Active SFIA Fast Track delivery method |
+| `method/complementary/` | Complementary methods |
+| `docs/practices/` | Platform practices by role, discipline or domain |
+| `docs/templates/` | Platform templates |
+| `docs/standards/` | Platform standards |
+| `prompts/` | Prompt assets |
+| `projects/interv360/` | Reference project |
+| `exports/notion/` | Prepared Notion exports, not source of truth |
+| `tools/cmp-001/` | Technical tooling |
+| `projects/interv360/archive/` | Project archives |
+| `method/sfia-fast-track/archive/` | Method archives |
+
+## Source of Truth Rule
+
+The repository remains the source of truth (see also **v1.1 Consistency Rule** at document introduction).
+
+Notion must be treated as a curated knowledge layer, not as a raw mirror of the repository.
+
+## Archive Rule
+
+Historical documents are preserved in archive folders.
+
+Archives must not be published or synchronized blindly.
+
+## Obsolete paths (post-PR #81)
+
+The following paths are no longer active in the SFIA workspace:
+
+| Former path | Current path |
+|-------------|----------------|
+| `methods/` (root) | `method/complementary/` |
+| `docs/methods/` | `docs/practices/` |
+
+## Reference
+
+- Workspace cleanup merge: PR #81 — commit `7c0e865`
+- Capitalization inputs: `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-inputs/`
+
 # Conclusion
 
-Le **SFIA Repository Blueprint v1.0** établit le modèle officiel d’organisation, de gouvernance, de versioning et d’évolution du repository SFIA.
+Le **SFIA Repository Blueprint v1.1** établit le modèle officiel d’organisation, de gouvernance, de versioning et d’évolution du repository SFIA.
 
 Il positionne Notion comme socle natif de documentation, connaissance, gouvernance et pilotage, tout en définissant clairement la frontière avec GitHub pour les actifs techniques exécutables.
 
@@ -1286,11 +1363,11 @@ La réussite du repository SFIA reposera sur trois conditions :
 
 | Champ | Valeur |
 | --- | --- |
-| Titre | SFIA Repository Blueprint v1.0 |
+| Titre | SFIA Repository Blueprint v1.1 |
 | Type de document | Référentiel d’architecture d’entreprise |
 | Domaine | SFIA, Software Factory, Knowledge Management, Gouvernance documentaire, Plateforme d’ingénierie |
-| Version | v1.0 |
-| Statut | Draft de référence |
+| Version | v1.1 (enrichi post-PR #81 — contenu v1.0 conservé) |
+| Statut | Foundation document |
 | Classification | Référence officielle SFIA |
 | Audience | Direction, Architecture d’entreprise, Gouvernance, Product Owners, Engineering, Knowledge Management, Contributeurs SFIA |
 | Propriétaire | Morris Cleland |

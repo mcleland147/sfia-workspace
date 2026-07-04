@@ -2,16 +2,45 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: PR #81 workspace cleanup, Interv360 capitalization
 ---
 
-# SFIA Platform Architecture v1.0
+# SFIA Platform Architecture v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** PR #81 workspace cleanup, Interv360 capitalization
 
 <aside>
 🏛️
 
-**Document fondateur SFIA** — Ce document définit l’architecture de référence de la plateforme SFIA. Notion constitue la source de vérité native ; Word, PDF et PowerPoint sont des formats d’export et de diffusion.
+**Document fondateur SFIA** — Ce document définit l’architecture de référence de la plateforme SFIA. Le contenu v1.0 (export Notion) est conservé ci-dessous. La section **v1.1 Update** en fin de document intègre la structure opérationnelle Git post-capitalisation.
 
 </aside>
+
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
+## v1.1 Engineering Principles Reference
+
+All cycles, prompts, repository changes, documentation updates, knowledge publication activities and automation initiatives described or derived from this document must comply with:
+
+- `docs/foundation/sfia-engineering-principles.md`
+
+This reference acts as a lightweight compliance anchor. It does not duplicate the Engineering Principles, but requires that the document be interpreted and applied consistently with them.
+
 
 ## Objectif du document
 
@@ -2119,8 +2148,58 @@ SFIA Platform Architecture v1.0 définit une plateforme capable de concilier sta
 5. Déployer le pipeline sur un projet pilote.
 6. Consolider les enseignements dans Knowledge.
 
+# v1.1 Update — Operational Architecture
+
+SFIA v1.1 distinguishes between:
+
+| Layer | Role |
+|-------|------|
+| Foundation architecture | Conceptual architecture documents in `docs/architecture/` |
+| Active method | SFIA Fast Track in `method/sfia-fast-track/` |
+| Practices | Platform practices in `docs/practices/` |
+| Prompt assets | Prompt families in `prompts/` |
+| Reference projects | Interv360 in `projects/interv360/` |
+| Knowledge layer | Notion as a curated business knowledge layer |
+
+SFIA v1.1 is not yet the fully automated target.
+
+SFIA v2.0 is reserved for active engines and operational Notion integration.
+
+## v1.1 Source of Truth Clarification
+
+The original v1.0 architecture positioned Notion as the primary structured repository for SFIA documentation.
+
+After the workspace cleanup and Interv360 capitalization, the v1.1 operating model clarifies the split:
+
+| Layer | Role |
+|-------|------|
+| Git repository | Operational source of truth for versioned SFIA documents, architecture, prompts, templates and project capitalisation |
+| Notion | Curated knowledge layer for navigation, reading, synthesis and business usage |
+| Exports | Prepared publication material, not authoritative sources |
+| Archives | Historical traceability, not active reference |
+
+This clarification does not invalidate the v1.0 vision.
+
+It updates the operating rule for v1.1:
+
+> SFIA is governed from the repository and published to Notion only through curated, validated and human-approved flows.
+
+Notion must not be synchronized as a raw mirror of the repository.
+
+## v1.1 Foundation — ChatGPT ↔ Cursor Operating Model
+
+SFIA v1.1 formalizes the ChatGPT ↔ Cursor workflow in:
+
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+
+This document defines the current level-0 operating model and acts as the bridge toward future automation engine specifications.
+
+The workflow is at **automation level 0** (manual assisted execution).
+
+This document is required before moving to automation engine specifications.
+
 ## Conclusion
 
-**SFIA Platform Architecture v1.0** constitue le socle d’une Software Factory IA modulaire, gouvernée, capitalisable et évolutive.  
+**SFIA Platform Architecture v1.1** constitue le socle d’une Software Factory IA modulaire, gouvernée, capitalisable et évolutive.  
 
 Elle ne décrit pas un projet métier ; elle définit la plateforme qui permettra de produire tous les projets futurs.

@@ -1,5 +1,32 @@
 # SFIA Fast Track — Global Capitalization
 
+## v1.1 Status and Cross-References
+
+Ce document est conservé comme **preuve opérationnelle** et trace de capitalisation issue du cycle Fast Track Interv360.
+
+Il n'est pas la référence normative vivante pour l'exécution SFIA v1.1.
+
+Les références d'exécution v1.1 actuelles sont :
+
+- `docs/foundation/sfia-engineering-principles.md`
+- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/sfia-repository-blueprint.md`
+- `docs/architecture/sfia-delivery-pipeline.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- `method/sfia-fast-track/automation/sfia-automation-architecture.md`
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `prompts/prompt-catalog.md`
+- `prompts/templates/`
+
+Le rôle de ce document est de préserver la preuve opérationnelle que le cycle Interv360 a produit des actifs méthode SFIA réutilisables.
+
+Le contenu historique ci-dessous reste inchangé à des fins de traçabilité.
+
 ## 1. Objectif
 
 Ce document capitalise la méthode SFIA Fast Track au-delà du seul cas Interv360.

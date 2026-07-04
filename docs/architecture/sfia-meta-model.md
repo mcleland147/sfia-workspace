@@ -2,11 +2,18 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: Interv360 capitalization, SFIA Fast Track
 ---
 
-# SFIA Meta Model v1.0
+# SFIA Meta Model v1.1
 
-<callout icon="🏛️">**Statut** : Référentiel fondateur — v1.0  
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** Interv360 capitalization, SFIA Fast Track
+
+<callout icon="🏛️">**Statut** : Référentiel fondateur — v1.1 (contenu v1.0 conservé, enrichi post-Fast Track)  
 
 **Périmètre** : SFIA Core, Studio, Runtime, Knowledge, Laboratory, Projects  
 
@@ -14,12 +21,25 @@ sync: manual-export
 
 **Principe** : ce document ne décrit pas les processus ; il définit le langage commun des objets manipulés par la SFIA.</callout>
 
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
+
 ## Métadonnées
 
 | Champ | Valeur |
 | --- | --- |
 | Nom | SFIA Meta Model |
-| Version | v1.0 |
+| Version | v1.1 |
 | Type | Référentiel d’architecture d’entreprise |
 | Domaine | Software Factory IA |
 | Niveau | Conceptuel / logique |
@@ -1701,9 +1721,77 @@ Les modules, scripts et automatisations doivent respecter :
 - Produire dashboards de couverture et maturité.
 - Gouverner par ADR, evidence et KPI.
 
+# v1.1 Update — Operational Metamodel Relations
+
+## v1.1 Naming Convention
+
+SFIA v1.1 uses the following naming convention for domain and meta-model objects:
+
+| Usage | Convention |
+|-------|------------|
+| Canonical object names | English, singular form |
+| French explanations | Allowed in descriptive text |
+| Repository folders | Lowercase kebab-case |
+| Templates and prompts | Explicit functional names |
+| Notion labels | May be localized for readability |
+
+Examples:
+
+| Canonical object | French description |
+|------------------|--------------------|
+| Project | Projet de référence ou initiative de delivery |
+| Component | Composant réutilisable |
+| Prompt | Instruction réutilisable pour un workflow IA |
+| Template | Structure réutilisable de document ou livrable |
+| Practice | Pratique plateforme par rôle ou discipline |
+| Role Method | Méthode attachée à un rôle |
+| Artifact | Production issue d'un cycle |
+| Knowledge Page | Page Notion éditorialisée issue du repo |
+| Guardrail | Règle de contrainte ou de protection |
+
+Rule:
+
+> The canonical model uses English object names; French may be used to explain intent, responsibilities and business meaning.
+
+SFIA v1.1 introduces explicit relations between operational artifacts:
+
+| Relation | Meaning |
+|----------|---------|
+| Cycle produces Artifact | Each cycle must produce a useful output |
+| Artifact uses Template | Reusable structures standardize delivery |
+| Prompt guides Cycle | Prompts drive ChatGPT/Cursor execution |
+| Checklist validates Artifact | Validation is explicit and traceable |
+| Practice informs Role Method | Practices define role-level expectations |
+| Reference Project validates Method | Interv360 acts as learning and validation base |
+| Audit evaluates Project or Method | Audits identify maturity and gaps |
+| REX feeds Capitalization | Lessons learned update the method |
+| Knowledge Page derives from Artifact | Notion content must be curated from repo sources |
+| Guardrail constrains Action | Execution is bounded by explicit constraints |
+| Archive preserves History | Historical material is retained but not active |
+
+## Template layers
+
+| Layer | Location | Relation |
+|-------|----------|----------|
+| Fast Track operational templates | `method/sfia-fast-track/templates/` | Used by Cycles |
+| Platform templates | `docs/templates/` | Used by Practices and Role Methods |
+
+## Maturity (Role Methods)
+
+| Status | Meaning |
+|--------|---------|
+| Draft | Under construction — not publication-ready |
+| Official | Validated role method (e.g. QA Tester) |
+
+## v1.0 metamodel preserved
+
+The six SFIA modules (Core, Studio, Runtime, Knowledge, Laboratory, Projects) and all v1.0 object relations remain valid.
+
+v1.1 adds operational relations observed during Interv360 and workspace consolidation.
+
 # Conclusion
 
-Le **SFIA Meta Model v1.0** établit le langage conceptuel commun de la plateforme SFIA.
+Le **SFIA Meta Model v1.1** établit le langage conceptuel commun de la plateforme SFIA.
 
 Il clarifie les objets fondamentaux, leurs responsabilités, leurs relations, leur cycle de vie et leurs règles de gouvernance. Il aligne architecture d’entreprise, delivery, connaissance, qualité, innovation et plateforme dans un référentiel unique, exploitable nativement dans Notion.
 

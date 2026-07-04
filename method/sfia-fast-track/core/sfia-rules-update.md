@@ -1,5 +1,29 @@
 # SFIA Fast Track — Rules Update
 
+## v1.1 Status
+
+Ce document est conservé comme **trace historique de consolidation** des règles identifiées après le cycle Fast Track Interv360.
+
+Il n'est pas la référence opérationnelle vivante des règles SFIA.
+
+La référence opérationnelle des règles SFIA v1.1 est :
+
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+Références d'exécution et de validation v1.1 associées :
+
+- `docs/foundation/sfia-engineering-principles.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+- `prompts/prompt-catalog.md`
+- `prompts/templates/`
+
+Le détail historique ci-dessous est préservé pour traçabilité.
+
 ## 1. Objectif
 
 Ce document formalise les règles mises à jour de SFIA Fast Track après la consolidation Interv360.

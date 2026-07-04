@@ -1,19 +1,34 @@
-# Prompts
+# SFIA Prompts
 
-Ce dossier contient les familles de prompts utilisées ou préparées pour SFIA.
+This folder contains reusable SFIA prompt references, prompt catalogs and prompt templates.
 
-## Rôle
+## Catalog
 
-Les prompts alimentent le futur Prompt Generation Engine de la SFA.
+| Document | Role |
+|----------|------|
+| `prompt-catalog.md` | Candidate catalog of SFIA prompt families and reusable prompt cards (v1.1) |
 
-Ils sont distincts :
+## Templates
 
-- des templates Fast Track dans `method/sfia-fast-track/templates/` ;
-- des templates plateforme dans `docs/templates/`.
+| Location | Role |
+|----------|------|
+| `templates/` | Full reusable prompt templates derived from the SFIA Prompt Catalog v1.1 |
+| `templates/README.md` | Index of priority full prompt templates |
 
-## Usage futur
+## Prompt families (pilot assets)
 
-- génération de prompts Cursor ;
-- cadrage de cycles ;
-- orchestration SFA ;
-- standardisation des livrables.
+| Folder | Role |
+|--------|------|
+| `architecture/` | Architecture review prompts |
+| `security/` | Security review prompts |
+| `ux-ui/` | UX/UI prompt family |
+| `qa/` | QA / Testeur prompt family |
+| `bpmn/` | BPMN process modeling prompt family |
+| `tooling/` | Design tooling prompts |
+
+## Related references
+
+- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
+- `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
+- `method/sfia-fast-track/automation/sfia-validation-engine.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`

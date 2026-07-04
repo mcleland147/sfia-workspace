@@ -2,9 +2,29 @@
 source: Notion / SFIA Architecture
 status: reference
 sync: manual-export
+version: v1.1
+previous: v1.0
+updated_after: Interv360 capitalization, SFIA Fast Track
 ---
 
-# SFIA Domain Model
+# SFIA Domain Model v1.1
+
+**Version:** v1.1  
+**Status:** Foundation document  
+**Updated after:** Interv360 capitalization, SFIA Fast Track
+
+## v1.1 Consistency Rule
+
+The v1.0 content is preserved for intellectual traceability.
+
+When a tension exists between the v1.0 content and the v1.1 update, the v1.1 update prevails.
+
+In SFIA v1.1:
+
+- the Git repository is the operational source of truth;
+- Notion is a curated knowledge layer, not a raw mirror of the repository;
+- archived material is preserved for traceability but is not an active source;
+- human validation remains mandatory before publishing, synchronizing or promoting content.
 
 ## Objectifs et portée
 
@@ -1102,3 +1122,80 @@ Règle d’architecture : la conception des bases (schémas Notion / API / SQL) 
 Cette roadmap indique les futures extensions du domaine. Elle n’autorise pas la création d’objets correspondants avant modélisation (principe de non-création hors modèle).
 
 </aside>
+
+---
+
+# v1.1 Update — Operational Domain Objects
+
+## v1.1 Naming Convention
+
+SFIA v1.1 uses the following naming convention for domain and meta-model objects:
+
+| Usage | Convention |
+|-------|------------|
+| Canonical object names | English, singular form |
+| French explanations | Allowed in descriptive text |
+| Repository folders | Lowercase kebab-case |
+| Templates and prompts | Explicit functional names |
+| Notion labels | May be localized for readability |
+
+Examples:
+
+| Canonical object | French description |
+|------------------|--------------------|
+| Project | Projet de référence ou initiative de delivery |
+| Component | Composant réutilisable |
+| Prompt | Instruction réutilisable pour un workflow IA |
+| Template | Structure réutilisable de document ou livrable |
+| Practice | Pratique plateforme par rôle ou discipline |
+| Role Method | Méthode attachée à un rôle |
+| Artifact | Production issue d'un cycle |
+| Knowledge Page | Page Notion éditorialisée issue du repo |
+| Guardrail | Règle de contrainte ou de protection |
+
+Rule:
+
+> The canonical model uses English object names; French may be used to explain intent, responsibilities and business meaning.
+
+SFIA v1.1 adds the following operational domain objects:
+
+| Object | Definition |
+|--------|------------|
+| Cycle | Bounded unit of work delivering one useful result |
+| Phase | Structured part of a reference project lifecycle |
+| Artifact | Produced document, code change, template, prompt or report |
+| Template | Reusable document structure |
+| Prompt | Reusable instruction pattern for ChatGPT/Cursor workflows |
+| Checklist | Validation support |
+| Practice | Platform-level guidance by role or discipline |
+| Role Method | Method attached to a delivery role |
+| Reference Project | Project used as implementation and learning reference |
+| Audit | Structured analysis before or after a major cycle |
+| REX | Retrospective and learning artifact |
+| Decision | Explicit arbitration with rationale |
+| Guardrail | Constraint that prevents uncontrolled execution |
+| Knowledge Page | Curated Notion page derived from repository sources |
+| Notion Mapping | Editorial mapping from repository sources to Notion pages |
+| Archive | Preserved historical material, not active source |
+
+## Location in repository
+
+| Object | Primary location |
+|--------|------------------|
+| Cycle | `method/sfia-fast-track/cycles/`, cycle documents in projects |
+| Phase | `projects/interv360/00-intake/` … `09-roadmap/` |
+| Template | `method/sfia-fast-track/templates/`, `docs/templates/` |
+| Prompt | `prompts/` |
+| Checklist | `method/sfia-fast-track/checklists/` |
+| Practice | `docs/practices/` |
+| Role Method | `docs/practices/roles/` |
+| Reference Project | `projects/interv360/` |
+| Audit / REX | `projects/interv360/06-audit-rex/`, `method/sfia-fast-track/audit-rex/` |
+| Knowledge Page | Notion *(curated — not raw sync)* |
+| Archive | `*/archive/` folders |
+
+## v1.0 objects preserved
+
+All v1.0 domain objects (Experiment, Project, Component, Standard, etc.) remain valid.
+
+v1.1 extends the model with operational objects observed during Interv360 and SFIA Fast Track capitalization.

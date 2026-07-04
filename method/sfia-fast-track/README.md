@@ -34,14 +34,28 @@ method/sfia-fast-track/
 
 ### Core (`core/`)
 
+Normative reference: `docs/foundation/sfia-engineering-principles.md`
+
 - `sfia-global-capitalization.md`
 - `sfia-rules-update.md`
 - `sfia-architecture-standards.md`
 - `sfia-consolidation-roadmap.md`
+- `sfia-chatgpt-cursor-operating-model.md` — ChatGPT ↔ Cursor operating model (foundation v1.1)
+- `sfia-rules-and-guardrails.md` — canonical rules and guardrails (foundation v1.1)
+- `sfia-knowledge-layer.md` — knowledge layer and Documentation Routing Matrix (foundation v1.1)
 
 ### Automation (`automation/`)
 
+Synthesis reference: `sfia-automation-architecture.md` (foundation v1.1)
+
+Prompt catalog: `prompts/prompt-catalog.md` (candidate v1.1)
+
+Prompt templates: `prompts/templates/` — full reusable SFIA prompt templates derived from the Prompt Catalog
+
 - `sfia-automation-architecture.md`
+- `sfia-prompt-generation-engine.md` — specification for generating SFIA-compliant Cursor prompts (foundation v1.1)
+- `sfia-repository-execution-engine.md` — specification for executing SFIA-compliant Cursor prompts in the Git repository (foundation v1.1)
+- `sfia-validation-engine.md` — specification for validating prompts, repository execution, diffs, commits and deliverables (foundation v1.1)
 
 ### Cycles (`cycles/`)
 
@@ -74,6 +88,7 @@ method/sfia-fast-track/
 
 ### Checklists (`checklists/`)
 
+- `sfia-validation-checklist.md` — operational validation checklist aligned with Validation Engine v1.1
 - `validation-checklist.md`
 - `guardrails-checklist.md`
 - `notion-publication-checklist.md`
