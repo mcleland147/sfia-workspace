@@ -8,14 +8,15 @@
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Initial framing / bootstrap |
+| **Statut** | Initial framing / bootstrap — MVP ajusté Morris |
+| **Nom projet** | `chantiers360-v2` — validé |
 | **Origine** | Projet créé **from scratch** |
 | **V0** | Aucun élément V0 utilisé |
-| **Enrichissement** | Cadrage à compléter dans cycle ultérieur |
+| **Enrichissement** | Cadrage détaillé — prochain cycle |
 
 ## 2. Initial intent
 
-Créer un **mini-produit de suivi de chantier** pour artisans ou petites entreprises du bâtiment, afin de centraliser les chantiers, les tâches, les réserves, les statuts et les comptes rendus rapides.
+Créer un **mini-produit de suivi de chantier** pour artisans ou petites entreprises du bâtiment, afin de centraliser les chantiers, les tâches, les réserves, les statuts, les **jalons simples** (planning simple) et les comptes rendus rapides.
 
 ## 3. Problem statement
 
@@ -29,46 +30,68 @@ Les petites structures du bâtiment peuvent avoir du mal à suivre clairement l'
 | **Petite entreprise du bâtiment** | Équipe légère — vue d'ensemble chantiers |
 | **Conducteur de travaux léger** | Coordination tâches et réserves |
 | **Responsable opérationnel** | Pilotage statuts et prochaines actions |
-| **Client final** | Consultation future — **hors MVP initial** |
+| **Client final** | Consultation future via espace dédié — **hors MVP initial** (futur espace consultation / validation) |
 
 ## 5. Initial scope
 
-Périmètre initial (bootstrap — à valider Morris) :
+Périmètre initial (MVP validé Morris) :
 
 - création / suivi d'un chantier ;
 - statut du chantier ;
 - tâches associées ;
 - réserves ;
+- **jalons simples / planning simple** (dates prévues, prochaine intervention, jalon à venir, retard, commentaire) ;
 - compte rendu rapide ;
 - prochaines actions.
 
+**Planning simple inclus ; planning avancé exclu** (pas de ressources, dépendances, charges, calendrier complet, multi-équipe).
+
 ## 6. Initial MVP hypothesis
 
-**Hypothèse MVP :**
+**MVP validé Morris :**
 
 ```
-chantier → tâches → réserves → statut → compte rendu rapide
+chantier → tâches → réserves → statut → jalons simples → compte rendu rapide
 ```
 
-Cette hypothèse devra être **validée par Morris** avant tout backlog détaillé ou cycle delivery.
+### Planning simple / jalons chantier
+
+Inclus au MVP — planning **simple** uniquement :
+
+- date de début / fin prévue ;
+- prochaine intervention ;
+- jalon à venir ;
+- retard éventuel ;
+- commentaire planning simple.
+
+**Hors MVP :** planning avancé (ressources, dépendances, charges, calendrier complet, multi-équipe).
 
 ## 7. Explicit out of scope
 
-Hors périmètre explicite (bootstrap et MVP initial) :
+### Hors MVP initial
 
-- devis ;
-- facturation ;
-- planning avancé ;
+- **planning avancé** ;
+- **accès client** — futur espace consultation / validation client final ; exclu pour centrer sur artisan / PME ;
 - gestion documentaire complète ;
 - photos avant / après détaillées *(idée future — hors MVP initial)* ;
-- accès client ;
 - application mobile native ;
-- intégrations comptables ;
 - IA générative avancée ;
 - reprise Chantiers360 V0 ;
-- comparaison V0 *(cycle final uniquement)* ;
+- comparaison V0 avant fin de pilote ;
 - code applicatif ;
 - architecture technique détaillée.
+
+### Extensions métier prioritaires (hors MVP — cadrage ultérieur)
+
+Repositionnées comme **priorité future** après validation du socle chantier — **non rejetées définitivement** :
+
+| Extension | Statut | Justification |
+|-----------|--------|---------------|
+| **Devis** | Extension métier prioritaire | Domaine gestion commerciale chantier — hors suivi opérationnel MVP |
+| **Facturation** | Extension métier prioritaire | Futur module facturation — compétence domaine intéressante |
+| **Intégrations comptables** | Extension métier prioritaire | Lié au cycle commercial — exclu pour éviter dette fonctionnelle |
+
+Ces fonctionnalités pourraient couvrir un futur projet ou module ; exclues du MVP initial pour **éviter dérive de scope**.
 
 ## 8. Assumptions
 
@@ -88,7 +111,8 @@ Hors périmètre explicite (bootstrap et MVP initial) :
 | Confusion comparaison vs cadrage | V0 = capitalisation finale, pas input |
 | Création trop rapide de code | Pas d'app/backend au bootstrap |
 | Backlog complet prématuré | Cycle dédié après cadrage Morris |
-| Surconception fonctionnelle | Cycles courts, documents bornés |
+| Surconception planning | Jalons simples only — planning avancé hors MVP |
+| Extension commerciale prématurée | Devis/facturation/compta = extension future prioritaire |
 | Automatisation prématurée | L3 max bootstrap — L5 global hors cible |
 
 ## 10. Guardrails
@@ -118,15 +142,28 @@ Le bootstrap est **valide** si :
 | Hors périmètre explicites | Oui |
 | Prochain cycle identifié | Oui |
 
-## 12. Next decision needed
+## 12. Decisions Morris
 
-**Décisions Morris à venir :**
+**Décisions prises :**
 
-1. **Confirmer** le nom `chantiers360-v2`
-2. **Confirmer ou ajuster** le MVP initial (chantier → tâches → réserves → statut → compte rendu)
-3. **Confirmer le prochain cycle** — cadrage détaillé ou architecture fonctionnelle
-4. **Décider** si une PR doit être ouverte après revue
-5. **Planifier** le cycle final comparaison V0 — **uniquement après pilote**
+| # | Décision | Statut |
+|---|----------|--------|
+| 1 | Nom `chantiers360-v2` | ✅ Validé |
+| 2 | Bootstrap minimal | ✅ Validé (réserve mineure commit local) |
+| 3 | MVP ajusté avec jalons simples / planning simple | ✅ Validé |
+| 4 | Devis / facturation / intégrations comptables | Hors MVP — **extension métier prioritaire future** |
+| 5 | Accès client | Hors MVP — futur espace consultation / validation |
+| 6 | Planning avancé | Hors MVP |
+| 7 | Prochain cycle après merge | **Cadrage détaillé** (pas architecture fonctionnelle) |
+| 8 | Nettoyage branches | Reporté |
+| 9 | PR readiness | En attente — après mise à jour documentaire MVP |
+
+**Décisions à venir :**
+
+1. **Valider** la mise à jour MVP (ce cycle)
+2. **Préparer PR readiness** du bootstrap
+3. **Lancer cadrage détaillé** après merge
+4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ---
 

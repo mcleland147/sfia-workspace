@@ -19,9 +19,10 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Bootstrap minimal |
+| **Statut** | Bootstrap minimal — MVP ajusté (Morris) |
 | **Cycle** | SFIA v2.0 real project bootstrap |
-| **Décision** | Candidate B validé par Morris — pilote v2.0 recommandé (PR #94) |
+| **Nom projet** | `chantiers360-v2` — **validé Morris** |
+| **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Delivery applicatif** | Non lancé |
 | **app / backend** | Non créés |
 | **Backlog produit détaillé** | Non créé dans ce cycle |
@@ -49,7 +50,7 @@ Idée produit initiale (non détaillée — cadrage ultérieur) :
 - statut du chantier ;
 - client ;
 - adresse ;
-- dates prévues ;
+- dates prévues et **jalons simples** (planning simple) ;
 - tâches à faire ;
 - réserves ;
 - compte rendu rapide ;
@@ -59,28 +60,62 @@ Pas d'écrans, pas d'architecture, pas de backlog dans ce bootstrap.
 
 ## 6. Initial MVP direction
 
-**MVP initial (provisoire) :**
+**MVP initial (validé Morris — ajusté) :**
 
 ```
-chantier → tâches → réserves → statut → compte rendu rapide
+chantier → tâches → réserves → statut → jalons simples → compte rendu rapide
 ```
 
-Ce MVP est **provisoire** et devra être **confirmé par Morris** dans un cycle de cadrage détaillé.
+### Planning simple / jalons chantier (inclus au MVP)
 
-## 7. Out of scope for bootstrap
+Le MVP intègre un **planning simple** — pas un planning avancé. Éléments possibles :
+
+- date de début prévue ;
+- date de fin prévue ;
+- prochaine intervention ;
+- jalon à venir ;
+- retard éventuel ;
+- commentaire planning simple.
+
+**Hors MVP :** planning avancé, gestion des ressources, dépendances, charges, calendrier complet, planification multi-équipe.
+
+### Extensions métier prioritaires (hors MVP initial)
+
+Les éléments suivants sont **hors MVP initial** mais repositionnés comme **extensions métier prioritaires** à cadrer après validation du socle chantier :
+
+- **devis** ;
+- **facturation** ;
+- **intégrations comptables**.
+
+Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantier — futur module possible autour de la **gestion commerciale chantier**. Exclus du MVP initial pour éviter dérive de scope et dette fonctionnelle prématurée ; intéressants pour monter en compétence sur ce domaine ultérieurement.
+
+### Accès client (hors MVP initial)
+
+- futur **espace de consultation ou de validation** pour le client final du chantier ;
+- potentiellement utile plus tard : avancement, réserves, comptes rendus ;
+- **exclu du MVP** pour conserver un produit centré sur l'usage artisan / petite entreprise.
+
+## 7. Out of scope for bootstrap and MVP initial
 
 - `app/` / `backend/` / `frontend` / API / base de données
 - design UI détaillé
 - backlog complet
 - architecture technique
+- **devis, facturation, intégrations comptables** *(extension métier prioritaire future — hors MVP)*
+- **accès client** *(futur espace consultation — hors MVP)*
+- **planning avancé** *(jalons simples OK — planning avancé hors MVP)*
+- application mobile native
+- IA générative avancée
 - reprise Chantiers360 V0
-- comparaison V0 (cycle final uniquement)
+- comparaison V0 avant fin de pilote
 - Notion / CMP
 - automatisation **L5 global**
 
 ## 8. Next SFIA cycles
 
-1. Cadrage détaillé
+**Prochain cycle après merge :** **cadrage détaillé** (pas architecture fonctionnelle).
+
+1. **Cadrage détaillé** ← prochain
 2. Architecture fonctionnelle
 3. UX/UI
 4. Backlog MVP
