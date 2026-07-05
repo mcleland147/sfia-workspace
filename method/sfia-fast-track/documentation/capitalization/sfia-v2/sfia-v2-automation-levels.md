@@ -200,6 +200,7 @@ Ce document ne modifie aucun document canonique v1.1.
 | Capitalization cycle | L2–L3 | L3 | Morris — routing matrix |
 | Safe cleanup | L3 | L3 | Morris — git mv only |
 | Project bootstrap | L3 | L3 | Morris — futur standard |
+| Design Figma MVP cycle | L2–L3 | L3 | Morris — gate design (validation visuelle) |
 | Project delivery cycle | L3–L4 | L4 | Morris aux gates |
 | Automation experiment | L5 ciblé | L5 ciblé | Morris — cas par cas |
 
@@ -305,9 +306,10 @@ SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le rep
 | Cadrage projet | L2–L3 | L3 | Morris valide le scope |
 | Décisions initiales | L0–L2 | L2 | Morris valide les décisions |
 | Architecture fonctionnelle | L2–L3 | L3 | Morris valide la structure |
-| Architecture technique | L0–L2 | L2 | Morris valide l'architecture |
-| UX/UI / design framing | L2–L3 | L3 | Morris valide la direction |
-| Backlog / découpage delivery | L2–L3 | L3 | Morris valide les priorités |
+| UX/UI fonctionnelle Markdown | L2–L3 | L3 | Morris valide wireframes repo-first |
+| Design Figma MVP | L2–L3 | L3 | Morris valide visuellement — **Git = source de vérité** ; Figma ≠ source unique |
+| Backlog MVP | L2–L3 | L3 | Morris valide les priorités — **idéalement après Figma** |
+| Architecture technique légère | L0–L2 | L2 | Morris valide l'architecture — **après Figma et backlog validés** |
 | Cycle d'implémentation | L3–L4 | L4 | Morris valide les gates |
 | Validation / tests | L2–L4 | L4 | Morris valide le GO/NO-GO |
 | PR readiness | L3–L4 | L4 | Morris valide la PR |
@@ -316,7 +318,9 @@ SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le rep
 | Capitalisation | L2–L3 | L3 | Morris valide l'actif à capitaliser |
 | Amélioration de la méthode | L2–L3 | L3 | Morris valide toute promotion vers document canonique |
 
-Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`) devra reprendre cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
+Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`) et le standard **Design Figma MVP** (`sfia-v2-design-figma-cycle-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
+
+**Rattrapage pilote :** si le backlog MVP a été produit avant Figma (ex. Chantiers360 v2), appliquer le cycle Design Figma MVP puis un micro-cycle **Backlog Alignment** si écarts — voir `sfia-v2-design-figma-cycle-standard.md` §8.
 
 Les niveaux L ne sont pas uniquement des **niveaux techniques** (contrôles Git, génération de prompts, exécution Cursor) — ce sont aussi des **niveaux de gouvernance projet**. L'ambition de SFIA v2.0 est de rendre la méthode capable de conduire progressivement un projet complet, de l'intention à la capitalisation, en automatisant l'exécution répétable à chaque étape tout en conservant Morris aux points de décision structurants.
 

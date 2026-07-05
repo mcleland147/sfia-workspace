@@ -102,10 +102,11 @@ Extensions possibles **uniquement après validation Morris** et lorsqu'un cycle 
 
 ```
 projects/<project-name>/
-├── 01-decisions/
-├── 02-functional/
-├── 03-design/
-├── 04-architecture/
+├── 00-framing/
+├── 01-functional-architecture/
+├── 02-ux-ui/
+├── 04-design/              ← cycle Design Figma MVP — voir sfia-v2-design-figma-cycle-standard.md
+├── 03-backlog/             ← idéalement après 04-design
 ├── 05-delivery/
 ├── 06-validation/
 └── 07-capitalization/
@@ -305,9 +306,12 @@ Ce standard **applique** `sfia-v2-automation-levels.md` au contexte bootstrap :
 Ce standard est la **première étape concrète** du cycle de vie projet décrit dans `sfia-v2-automation-levels.md` §12.
 
 ```
-Intention → Qualification → [BOOTSTRAP] → Cadrage → Décisions → Architecture
-→ Backlog → Implémentation → Validation → PR → Post-merge → Capitalisation
+Intention → Qualification → [BOOTSTRAP] → Cadrage → Architecture fonctionnelle
+→ UX/UI Markdown → Design Figma MVP → Backlog MVP → Architecture technique légère
+→ Delivery incrémental → Validation → PR → Post-merge → Capitalisation
 ```
+
+**Garde-fous design :** Git reste la source de vérité méthodologique ; Figma est un outil de validation visuelle, pas la source unique. Aucun code avant gate Morris design — voir `sfia-v2-design-figma-cycle-standard.md`.
 
 | Principe | Application |
 |----------|-------------|
@@ -367,6 +371,7 @@ Le bootstrap **ne remplace pas** le cadrage approfondi — il **initie** le proj
 
 - `sfia-v2-automation-and-delivery-vision.md`
 - `sfia-v2-automation-levels.md`
+- `sfia-v2-design-figma-cycle-standard.md`
 - `sfia-cycle-routing-guide.md`
 - `sfia-rules-and-guardrails.md`
 - `sfia-validation-checklist.md`

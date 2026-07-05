@@ -105,9 +105,10 @@ Le pilote doit permettre de **traverser progressivement** la chaîne de producti
 | Cadrage | Scope, utilisateurs, périmètre | L2–L3 |
 | Décision | Arbitrages structurants initiaux | L0–L2 |
 | Architecture fonctionnelle | Domaines, capacités, flux | L2–L3 |
-| UX/UI / parcours | Parcours, écrans ou logique d'usage | L2–L3 |
-| Architecture technique légère | Stack, contraintes, intégrations | L0–L2 |
-| Backlog / découpage delivery | Priorités, cycles Cursor | L2–L3 |
+| UX/UI fonctionnelle Markdown | Wireframes repo-first, parcours, screen map | L2–L3 |
+| Design Figma MVP | Validation visuelle écrans — Git source de vérité | L2–L3 |
+| Backlog MVP | Priorités, user stories — **idéalement après Figma** | L2–L3 |
+| Architecture technique légère | Stack, contraintes — **après Figma et backlog** | L0–L2 |
 | Implémentation bornée | Exécution Cursor contrôlée | L3–L4 |
 | Validation / tests | GO/NO-GO, conformité | L2–L4 |
 | PR readiness | Diff, guardrails, rapport | L3–L4 |
@@ -117,6 +118,8 @@ Le pilote doit permettre de **traverser progressivement** la chaîne de producti
 
 **Règle :** un candidat pilote faible sur plusieurs maillons de cette chaîne doit être reclassé ou rejeté, même s'il est fonctionnellement intéressant.
 
+**Rattrapage :** si le backlog a été produit avant Figma, le pilote peut appliquer le cycle Design Figma MVP en rattrapage puis un micro-cycle Backlog Alignment — voir `sfia-v2-design-figma-cycle-standard.md` §8.
+
 ## 6. Roles and methods to mobilize
 
 | Rôle / capacité | Méthode ou contribution SFIA à tester | Attendu dans le pilote |
@@ -125,8 +128,9 @@ Le pilote doit permettre de **traverser progressivement** la chaîne de producti
 | **Chef de projet / PMO** | Cycle routing, gates, risques | Étapes, risques, planning cycles |
 | **Business analyst** | Framing, besoins, règles | Besoins, règles métier, processus |
 | **Architecte fonctionnel** | Decision Engine, domaines | Domaines, capacités, flux |
-| **UX/UI** | Design framing, parcours | Parcours ou logique d'usage testable |
-| **Architecte technique** | Architecture légère, contraintes | Stack, contraintes, intégrations |
+| **UX/UI (Markdown)** | Wireframes repo-first, parcours | Screen map, wireframes textuels testables |
+| **Design Figma** | Validation visuelle MVP | Écrans Figma + docs `04-design/` — gate Morris |
+| **Architecte technique** | Architecture légère, contraintes | Stack, contraintes — **après Figma et backlog** |
 | **Delivery lead** | Backlog, découpage cycles | Découpage en cycles Cursor |
 | **Développeur Cursor** | Repository Execution Engine | Exécution bornée sous garde-fous |
 | **QA / validation** | Validation Checklist, Validation Engine | Tests, conformité, non-régression |
