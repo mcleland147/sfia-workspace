@@ -2,10 +2,11 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Architecture fonctionnelle en cours  
+**Statut :** UX/UI en cours  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
-**Cycle courant :** architecture fonctionnelle — documents créés ; aucune architecture technique ni code lancé  
+**Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
+**Cycle courant :** UX/UI — documents créés ; aucune architecture technique ni code lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -22,10 +23,11 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Architecture fonctionnelle — MVP confirmé (Morris) |
-| **Cycle** | Architecture fonctionnelle (post PR #96) |
+| **Statut** | UX/UI — MVP confirmé (Morris) |
+| **Cycle** | UX/UI (post PR #97) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
+| **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
 | **Nom projet** | `chantiers360-v2` — **validé Morris** |
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Delivery applicatif** | Non lancé |
@@ -136,14 +138,24 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `01-functional-architecture/state-model.md` | États métier chantier, tâche, réserve, retard |
 | `01-functional-architecture/functional-decisions.md` | Décisions Morris intégrées |
 
-## 10. Next SFIA cycles
+## 10. UX/UI documents
 
-**Cycle courant :** **architecture fonctionnelle** — en cours sur branche locale.
+| Document | Rôle |
+|----------|------|
+| `02-ux-ui/ux-ui-overview.md` | Objectif cycle, principes UX, critères validation |
+| `02-ux-ui/screen-map.md` | Carte des 8 écrans fonctionnels |
+| `02-ux-ui/wireframes-functional.md` | Wireframes textuels (sans design graphique) |
+| `02-ux-ui/user-flows.md` | 7 flux UX prioritaires (sans backlog) |
+| `02-ux-ui/ux-decisions.md` | Décisions UX/UI tracées |
+
+## 11. Next SFIA cycles
+
+**Cycle courant :** **UX/UI** — en cours sur branche locale.
 
 1. Cadrage détaillé — ✅ mergé PR #96
-2. **Architecture fonctionnelle** ← en cours
-3. UX/UI ← prochain (après validation Morris)
-4. Backlog MVP
+2. Architecture fonctionnelle — ✅ mergée PR #97
+3. **UX/UI** ← en cours
+4. Backlog MVP ← prochain (après validation Morris)
 5. Delivery incrémental
 6. Validation
 7. PR readiness
@@ -151,7 +163,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 9. Capitalisation
 10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
-## 11. Decision authority
+## 12. Decision authority
 
 | Rôle | Responsabilité |
 |------|----------------|

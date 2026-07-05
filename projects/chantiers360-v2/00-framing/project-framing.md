@@ -2,19 +2,20 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage détaillé (PR #96) + architecture fonctionnelle ouverte
+**Version :** Bootstrap + cadrage (PR #96) + architecture fonctionnelle (PR #97) + UX/UI ouverte
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Architecture fonctionnelle ouverte — MVP confirmé Morris |
+| **Statut** | UX/UI ouverte — MVP confirmé Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
+| **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
 | **Origine** | Projet créé **from scratch** |
 | **V0** | Aucun élément V0 utilisé |
-| **Cycle courant** | Architecture fonctionnelle |
+| **Cycle courant** | UX/UI |
 
 ## 2. Initial intent
 
@@ -160,11 +161,11 @@ Le bootstrap est **valide** si :
 | 8 | Nettoyage branches | Reporté |
 | 9 | PR readiness | En attente — après mise à jour documentaire MVP |
 
-**Décisions à venir (post architecture fonctionnelle) :**
+**Décisions à venir (post UX/UI) :**
 
-1. **Valider** l'architecture fonctionnelle (`01-functional-architecture/`)
-2. **Confirmer** arbitrages Morris intégrés — voir `functional-decisions.md`
-3. **Autoriser** le cycle UX/UI
+1. **Valider** la documentation UX/UI (`02-ux-ui/`)
+2. **Confirmer** wireframes textuels suffisants pour backlog MVP
+3. **Autoriser** le cycle backlog MVP
 4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
@@ -186,9 +187,19 @@ Le bootstrap est **valide** si :
 | `state-model.md` | États métier — statuts, retard, prochaines actions dérivées |
 | `functional-decisions.md` | Décisions Morris intégrées (P1/P2, statuts, CR, retard, multi-user) |
 
+## 15. UX/UI documents
+
+| Document | Contenu |
+|----------|---------|
+| `ux-ui-overview.md` | Principes UX, contraintes, critères validation |
+| `screen-map.md` | 8 écrans fonctionnels P1/P2 |
+| `wireframes-functional.md` | Wireframes textuels Markdown |
+| `user-flows.md` | 7 flux UX sans backlog |
+| `ux-decisions.md` | Décisions navigation, exclusions, limites cycle |
+
 ---
 
-**Automation level autorisé :** L2 (architecture fonctionnelle) — gate Morris avant UX/UI.
+**Automation level autorisé :** L2 (UX/UI) — gate Morris avant backlog MVP.
 
 **Références SFIA :**
 
