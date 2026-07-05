@@ -2,7 +2,9 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Bootstrap minimal  
+**Statut :** Cadrage détaillé en cours  
+**Bootstrap :** mergé via PR #95 (`c3ca02d`)  
+**Cycle courant :** cadrage détaillé — aucune architecture ni code lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -19,8 +21,9 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Bootstrap minimal — MVP ajusté (Morris) |
-| **Cycle** | SFIA v2.0 real project bootstrap |
+| **Statut** | Cadrage détaillé — MVP confirmé (Morris) |
+| **Cycle** | Cadrage détaillé (post PR #95) |
+| **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Nom projet** | `chantiers360-v2` — **validé Morris** |
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Delivery applicatif** | Non lancé |
@@ -111,12 +114,22 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 - Notion / CMP
 - automatisation **L5 global**
 
-## 8. Next SFIA cycles
+## 8. Framing documents
 
-**Prochain cycle après merge :** **cadrage détaillé** (pas architecture fonctionnelle).
+| Document | Rôle |
+|----------|------|
+| `00-framing/project-framing.md` | Framing initial bootstrap |
+| `00-framing/detailed-framing.md` | Cadrage détaillé — objectif, risques, critères succès |
+| `00-framing/use-cases.md` | Cas d'usage prioritaires (sans backlog) |
+| `00-framing/business-rules.md` | Règles métier simples MVP |
+| `00-framing/scope-boundaries.md` | Limites MVP / hors MVP |
 
-1. **Cadrage détaillé** ← prochain
-2. Architecture fonctionnelle
+## 9. Next SFIA cycles
+
+**Cycle courant :** **cadrage détaillé** — en cours sur branche locale.
+
+1. **Cadrage détaillé** ← en cours
+2. Architecture fonctionnelle ← prochain (après validation Morris)
 3. UX/UI
 4. Backlog MVP
 5. Delivery incrémental
@@ -126,7 +139,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 9. Capitalisation
 10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
-## 9. Decision authority
+## 10. Decision authority
 
 | Rôle | Responsabilité |
 |------|----------------|

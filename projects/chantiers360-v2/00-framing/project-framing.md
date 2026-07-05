@@ -2,17 +2,18 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap initial
+**Version :** Bootstrap + cadrage détaillé ouvert (post PR #95)
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Initial framing / bootstrap — MVP ajusté Morris |
+| **Statut** | Cadrage détaillé ouvert — MVP confirmé Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
+| **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Origine** | Projet créé **from scratch** |
 | **V0** | Aucun élément V0 utilisé |
-| **Enrichissement** | Cadrage détaillé — prochain cycle |
+| **Cycle courant** | Cadrage détaillé |
 
 ## 2. Initial intent
 
@@ -158,16 +159,25 @@ Le bootstrap est **valide** si :
 | 8 | Nettoyage branches | Reporté |
 | 9 | PR readiness | En attente — après mise à jour documentaire MVP |
 
-**Décisions à venir :**
+**Décisions à venir (post cadrage détaillé) :**
 
-1. **Valider** la mise à jour MVP (ce cycle)
-2. **Préparer PR readiness** du bootstrap
-3. **Lancer cadrage détaillé** après merge
+1. **Valider** le cadrage détaillé (`detailed-framing.md`, `use-cases.md`, `business-rules.md`, `scope-boundaries.md`)
+2. **Trancher** les questions ouvertes — voir `detailed-framing.md` §9
+3. **Autoriser** le cycle architecture fonctionnelle
 4. **Planifier** comparaison V0 — fin de pilote uniquement
+
+## 13. Detailed framing documents
+
+| Document | Contenu |
+|----------|---------|
+| `detailed-framing.md` | Objectif, problème, utilisateurs, hypothèses, risques, critères succès |
+| `use-cases.md` | 9 cas d'usage prioritaires — sans user stories ni backlog |
+| `business-rules.md` | Statuts, jalons, retard, compte rendu, données minimales |
+| `scope-boundaries.md` | Limites MVP / hors MVP, extensions métier futures |
 
 ---
 
-**Automation level autorisé :** L3 (bootstrap) — gate Morris avant cycle suivant.
+**Automation level autorisé :** L2 (cadrage détaillé) — gate Morris avant architecture fonctionnelle.
 
 **Références SFIA :**
 
