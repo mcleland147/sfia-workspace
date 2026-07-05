@@ -143,7 +143,6 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 1. Cadrage détaillé — ✅ mergé PR #96
 2. **Architecture fonctionnelle** ← en cours
 3. UX/UI ← prochain (après validation Morris)
-3. UX/UI
 4. Backlog MVP
 5. Delivery incrémental
 6. Validation
