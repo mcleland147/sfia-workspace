@@ -2,20 +2,21 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage (PR #96) + architecture fonctionnelle (PR #97) + UX/UI ouverte
+**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP ouvert
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | UX/UI ouverte — MVP confirmé Morris |
+| **Statut** | Backlog MVP ouvert — MVP confirmé Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
+| **UX/UI** | PR #98 mergée — `1d9feb9` |
 | **Origine** | Projet créé **from scratch** |
 | **V0** | Aucun élément V0 utilisé |
-| **Cycle courant** | UX/UI |
+| **Cycle courant** | Backlog MVP |
 
 ## 2. Initial intent
 
@@ -161,11 +162,11 @@ Le bootstrap est **valide** si :
 | 8 | Nettoyage branches | Reporté |
 | 9 | PR readiness | En attente — après mise à jour documentaire MVP |
 
-**Décisions à venir (post UX/UI) :**
+**Décisions à venir (post backlog MVP) :**
 
-1. **Valider** la documentation UX/UI (`02-ux-ui/`)
-2. **Confirmer** wireframes textuels suffisants pour backlog MVP
-3. **Autoriser** le cycle backlog MVP
+1. **Valider** le backlog MVP (`03-backlog/`)
+2. **Confirmer** ordre incréments INC-01 → INC-05
+3. **Autoriser** le delivery incrémental (code)
 4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
@@ -197,9 +198,21 @@ Le bootstrap est **valide** si :
 | `user-flows.md` | 7 flux UX sans backlog |
 | `ux-decisions.md` | Décisions navigation, exclusions, limites cycle |
 
+## 16. Backlog MVP documents
+
+| Document | Contenu |
+|----------|---------|
+| `mvp-backlog-overview.md` | Vue d'ensemble cycle backlog |
+| `epics.md` | 7 epics EPIC-01 à EPIC-07 |
+| `user-stories.md` | 13 user stories US-01 à US-13 |
+| `acceptance-criteria.md` | Critères d'acceptation par story |
+| `delivery-increments.md` | 5 incréments INC-01 à INC-05 |
+| `backlog-traceability.md` | Matrice traçabilité |
+| `backlog-decisions.md` | Décisions backlog — gate delivery |
+
 ---
 
-**Automation level autorisé :** L2 (UX/UI) — gate Morris avant backlog MVP.
+**Automation level autorisé :** L2 (backlog MVP) — gate Morris avant delivery incrémental.
 
 **Références SFIA :**
 
