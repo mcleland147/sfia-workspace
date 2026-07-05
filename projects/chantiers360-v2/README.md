@@ -2,11 +2,12 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** UX/UI en cours  
+**Statut :** Backlog MVP en cours  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
-**Cycle courant :** UX/UI — documents créés ; aucune architecture technique ni code lancé  
+**UX/UI :** mergée via PR #98 (`1d9feb9`)  
+**Cycle courant :** Backlog MVP — documents créés ; aucun code ni architecture technique lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -23,16 +24,17 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | UX/UI — MVP confirmé (Morris) |
-| **Cycle** | UX/UI (post PR #97) |
+| **Statut** | Backlog MVP — MVP confirmé (Morris) |
+| **Cycle** | Backlog MVP (post PR #98) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
+| **UX/UI** | Mergée PR #98 — `1d9feb9` |
 | **Nom projet** | `chantiers360-v2` — **validé Morris** |
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Delivery applicatif** | Non lancé |
 | **app / backend** | Non créés |
-| **Backlog produit détaillé** | Non créé dans ce cycle |
+| **Backlog produit détaillé** | En cours — cycle Backlog MVP |
 
 ## 3. SFIA v2.0 pilot rationale
 
@@ -148,22 +150,34 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `02-ux-ui/user-flows.md` | 7 flux UX prioritaires (sans backlog) |
 | `02-ux-ui/ux-decisions.md` | Décisions UX/UI tracées |
 
-## 11. Next SFIA cycles
+## 11. Backlog MVP documents
 
-**Cycle courant :** **UX/UI** — en cours sur branche locale.
+| Document | Rôle |
+|----------|------|
+| `03-backlog/mvp-backlog-overview.md` | Objectif cycle, périmètre, critères validation |
+| `03-backlog/epics.md` | 7 epics fonctionnels EPIC-01 à EPIC-07 |
+| `03-backlog/user-stories.md` | 13 user stories US-01 à US-13 |
+| `03-backlog/acceptance-criteria.md` | Critères d'acceptation fonctionnels |
+| `03-backlog/delivery-increments.md` | 5 incréments INC-01 à INC-05 |
+| `03-backlog/backlog-traceability.md` | Matrice traçabilité cadrage → backlog |
+| `03-backlog/backlog-decisions.md` | Décisions backlog tracées |
+
+## 12. Next SFIA cycles
+
+**Cycle courant :** **Backlog MVP** — en cours sur branche locale.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
-3. **UX/UI** ← en cours
-4. Backlog MVP ← prochain (après validation Morris)
-5. Delivery incrémental
+3. UX/UI — ✅ mergée PR #98
+4. **Backlog MVP** ← en cours
+5. Delivery incrémental ← prochain (après validation Morris)
 6. Validation
 7. PR readiness
 8. Post-merge
 9. Capitalisation
 10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
-## 12. Decision authority
+## 13. Decision authority
 
 | Rôle | Responsabilité |
 |------|----------------|
