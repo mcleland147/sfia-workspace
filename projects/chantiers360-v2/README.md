@@ -2,9 +2,10 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Cadrage détaillé en cours  
+**Statut :** Architecture fonctionnelle en cours  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
-**Cycle courant :** cadrage détaillé — aucune architecture ni code lancé  
+**Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
+**Cycle courant :** architecture fonctionnelle — documents créés ; aucune architecture technique ni code lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -21,9 +22,10 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Cadrage détaillé — MVP confirmé (Morris) |
-| **Cycle** | Cadrage détaillé (post PR #95) |
+| **Statut** | Architecture fonctionnelle — MVP confirmé (Morris) |
+| **Cycle** | Architecture fonctionnelle (post PR #96) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
+| **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Nom projet** | `chantiers360-v2` — **validé Morris** |
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Delivery applicatif** | Non lancé |
@@ -124,13 +126,23 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `00-framing/business-rules.md` | Règles métier simples MVP |
 | `00-framing/scope-boundaries.md` | Limites MVP / hors MVP |
 
-## 9. Next SFIA cycles
+## 9. Functional architecture documents
 
-**Cycle courant :** **cadrage détaillé** — en cours sur branche locale.
+| Document | Rôle |
+|----------|------|
+| `01-functional-architecture/functional-architecture.md` | Vue globale architecture fonctionnelle MVP |
+| `01-functional-architecture/functional-domains.md` | 8 domaines fonctionnels |
+| `01-functional-architecture/navigation-model.md` | Navigation fonctionnelle (sans UI) |
+| `01-functional-architecture/state-model.md` | États métier chantier, tâche, réserve, retard |
+| `01-functional-architecture/functional-decisions.md` | Décisions Morris intégrées |
 
-1. **Cadrage détaillé** ← en cours
-2. Architecture fonctionnelle ← prochain (après validation Morris)
-3. UX/UI
+## 10. Next SFIA cycles
+
+**Cycle courant :** **architecture fonctionnelle** — en cours sur branche locale.
+
+1. Cadrage détaillé — ✅ mergé PR #96
+2. **Architecture fonctionnelle** ← en cours
+3. UX/UI ← prochain (après validation Morris)
 4. Backlog MVP
 5. Delivery incrémental
 6. Validation
@@ -139,7 +151,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 9. Capitalisation
 10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
-## 10. Decision authority
+## 11. Decision authority
 
 | Rôle | Responsabilité |
 |------|----------------|

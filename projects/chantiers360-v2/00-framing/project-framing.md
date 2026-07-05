@@ -2,18 +2,19 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage détaillé ouvert (post PR #95)
+**Version :** Bootstrap + cadrage détaillé (PR #96) + architecture fonctionnelle ouverte
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Cadrage détaillé ouvert — MVP confirmé Morris |
+| **Statut** | Architecture fonctionnelle ouverte — MVP confirmé Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
+| **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Origine** | Projet créé **from scratch** |
 | **V0** | Aucun élément V0 utilisé |
-| **Cycle courant** | Cadrage détaillé |
+| **Cycle courant** | Architecture fonctionnelle |
 
 ## 2. Initial intent
 
@@ -159,11 +160,11 @@ Le bootstrap est **valide** si :
 | 8 | Nettoyage branches | Reporté |
 | 9 | PR readiness | En attente — après mise à jour documentaire MVP |
 
-**Décisions à venir (post cadrage détaillé) :**
+**Décisions à venir (post architecture fonctionnelle) :**
 
-1. **Valider** le cadrage détaillé (`detailed-framing.md`, `use-cases.md`, `business-rules.md`, `scope-boundaries.md`)
-2. **Trancher** les questions ouvertes — voir `detailed-framing.md` §9
-3. **Autoriser** le cycle architecture fonctionnelle
+1. **Valider** l'architecture fonctionnelle (`01-functional-architecture/`)
+2. **Confirmer** arbitrages Morris intégrés — voir `functional-decisions.md`
+3. **Autoriser** le cycle UX/UI
 4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
@@ -175,9 +176,19 @@ Le bootstrap est **valide** si :
 | `business-rules.md` | Statuts, jalons, retard, compte rendu, données minimales |
 | `scope-boundaries.md` | Limites MVP / hors MVP, extensions métier futures |
 
+## 14. Functional architecture documents
+
+| Document | Contenu |
+|----------|---------|
+| `functional-architecture.md` | Vue globale — modules, parcours, relations |
+| `functional-domains.md` | 8 domaines fonctionnels MVP |
+| `navigation-model.md` | Navigation fonctionnelle sans design UI |
+| `state-model.md` | États métier — statuts, retard, prochaines actions dérivées |
+| `functional-decisions.md` | Décisions Morris intégrées (P1/P2, statuts, CR, retard, multi-user) |
+
 ---
 
-**Automation level autorisé :** L2 (cadrage détaillé) — gate Morris avant architecture fonctionnelle.
+**Automation level autorisé :** L2 (architecture fonctionnelle) — gate Morris avant UX/UI.
 
 **Références SFIA :**
 
