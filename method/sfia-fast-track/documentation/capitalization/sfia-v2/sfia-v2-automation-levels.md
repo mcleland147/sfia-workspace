@@ -283,9 +283,44 @@ Les niveaux L0–L5 serviront le futur **Project Bootstrap v2.0** et les cycles 
 
 **Objectif :** rendre la boucle delivery (vision §8) **plus courte et plus fiable** sans retirer Morris des décisions structurantes.
 
-**Prochain grand chantier après ce document :** standard de démarrage projet — `sfia-v2-project-bootstrap-standard.md` (étape 3 de l'ordre validé).
+**Prochain grand chantier après ce document :** standard de démarrage projet — `sfia-v2-project-bootstrap-standard.md` (étape 3 de l'ordre validé). Voir **§12** pour la trajectoire détaillée du cycle de vie projet (*project lifecycle*).
 
-## 12. Next recommended cycle
+## 12. Trajectoire d'automatisation du cycle de vie projet
+
+SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le repo ; elle prépare l'automatisation progressive du cycle de vie projet, de l'intention initiale à la capitalisation post-merge.
+
+**Principes :**
+
+- SFIA v2.0 prépare la conduite **de bout en bout** d'un projet réel, avec des niveaux d'automatisation adaptés à chaque étape ;
+- cette trajectoire **n'implique pas** que tout soit automatisé dès v2.0 — certaines étapes restent en L0 ou L2 pendant longtemps ;
+- pour chaque étape projet, le document fixe : le **niveau cible** v2.0, le **niveau maximum autorisé aujourd'hui**, et le **gate Morris** obligatoire ;
+- la conduite projet orchestrée par SFIA doit devenir **progressivement plus automatisable**, de l'intention initiale à la capitalisation, sans supprimer les arbitrages structurants.
+
+**Trajectoire projet (intention → capitalisation) :**
+
+| Étape du cycle de vie projet | Cible d'automatisation v2.0 | Niveau maximum actuel | Gate Morris |
+|------------------------------|------------------------------|----------------------|-------------|
+| Idée / opportunité projet | L2 | L2 | Morris valide l'intérêt |
+| Qualification initiale | L2 | L2 | Morris valide le GO cadrage |
+| Cadrage projet | L2–L3 | L3 | Morris valide le scope |
+| Décisions initiales | L0–L2 | L2 | Morris valide les décisions |
+| Architecture fonctionnelle | L2–L3 | L3 | Morris valide la structure |
+| Architecture technique | L0–L2 | L2 | Morris valide l'architecture |
+| UX/UI / design framing | L2–L3 | L3 | Morris valide la direction |
+| Backlog / découpage delivery | L2–L3 | L3 | Morris valide les priorités |
+| Cycle d'implémentation | L3–L4 | L4 | Morris valide les gates |
+| Validation / tests | L2–L4 | L4 | Morris valide le GO/NO-GO |
+| PR readiness | L3–L4 | L4 | Morris valide la PR |
+| PR / merge | L0 | L0 | Morris uniquement |
+| Post-merge check | L4 / L5 ciblé | L5 ciblé | Morris intervient si anomalie |
+| Capitalisation | L2–L3 | L3 | Morris valide l'actif à capitaliser |
+| Amélioration de la méthode | L2–L3 | L3 | Morris valide toute promotion vers document canonique |
+
+Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`) devra reprendre cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
+
+Les niveaux L ne sont pas uniquement des **niveaux techniques** (contrôles Git, génération de prompts, exécution Cursor) — ce sont aussi des **niveaux de gouvernance projet**. L'ambition de SFIA v2.0 est de rendre la méthode capable de conduire progressivement un projet complet, de l'intention à la capitalisation, en automatisant l'exécution répétable à chaque étape tout en conservant Morris aux points de décision structurants.
+
+## 13. Prochain cycle recommandé
 
 **Document proposé :**
 
