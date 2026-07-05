@@ -215,7 +215,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 
 | Priorité | User stories |
 |----------|--------------|
-| **P1** | US-01 à US-04, US-06 à US-09, US-03 |
+| **P1** | US-01 à US-04, US-06 à US-09 |
 | **P2** | US-05, US-10 à US-13 |
 
 **Total :** 13 user stories — couverture MVP complète.

@@ -20,7 +20,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 |----------|--------|
 | **Objectif** | Livrer le socle navigation et gestion chantier |
 | **Priorité** | P1 |
-| **User stories** | US-01, US-02, US-03, US-04, US-13 (navigation base) |
+| **User stories** | US-01, US-02, US-03, US-04 |
 | **Epics** | EPIC-01, EPIC-07 (partiel) |
 | **Valeur utilisateur** | Créer et piloter des chantiers — point d'entrée opérationnel |
 | **Dépendances** | Aucune |
