@@ -37,7 +37,7 @@
 | # | Décision | Détail | Statut |
 |---|----------|--------|--------|
 | 12 | Prototype simple | Recommandé si utile — parcours P1 minimum | ⏳ Morris |
-| 13 | Lien Figma | À renseigner par Morris dans `figma-brief.md` | ⏳ En attente |
+| 13 | Lien Figma | Fichier créé — lien renseigné dans `figma-brief.md` §3 ; écrans MVP à produire | ✅ Fichier Figma créé / lien renseigné |
 
 ## 5. Exclusions confirmées
 

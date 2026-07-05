@@ -23,13 +23,16 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 
 | Élément | Valeur |
 |---------|--------|
-| **Fichier Figma** | À renseigner par Morris |
-| **Prototype** | Optionnel — parcours P1 recommandé si utile |
+| **Fichier Figma** | ✅ Créé — lien renseigné |
+| **Production écrans** | ⏳ À faire — maquettes non produites à ce stade |
+| **Prototype** | Optionnel — parcours P1 recommandé si utile ; décision Morris en attente |
 | **Accès** | Équipe projet / Morris |
 
 **Lien Figma :**
 
-- À renseigner par Morris
+- https://www.figma.com/design/9sxmnPQjMN34kXb4JE2nmz/Chantiers360-v2-%E2%80%94-Design-Figma-MVP?node-id=0-1&t=nht2irsBbrCIUamM-1
+
+**Note :** le fichier Figma est ouvert et référencé dans le repo ; la **production des écrans MVP** (§4) reste à réaliser selon `screen-design-spec.md`.
 
 ## 4. Écrans MVP à produire
 
@@ -113,7 +116,7 @@ Le cycle est **validé** si Morris confirme :
 3. Impacts backlog documentés (`design-to-backlog-alignment.md`)
 4. GO avant **architecture technique** et **delivery code**
 
-**Statut gate :** ⏳ En attente — lien Figma et revue visuelle Morris
+**Statut gate :** ⏳ En attente — production écrans Figma + revue visuelle Morris
 
 ---
 
