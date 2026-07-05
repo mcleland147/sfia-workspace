@@ -24,30 +24,43 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 | Élément | Valeur |
 |---------|--------|
 | **Fichier Figma** | ✅ Créé — lien renseigné |
-| **Production écrans** | ⏳ À faire — maquettes non produites à ce stade |
-| **Prototype** | Optionnel — parcours P1 recommandé si utile ; décision Morris en attente |
+| **Page de référence** | ✅ **MVP P1 — Validé Morris** |
+| **Production écrans P1** | ✅ Produits et validés — réserves mineures de polish |
+| **Production écrans P2** | ⏳ Non produits — à valider ultérieurement si nécessaire |
+| **Prototype** | P1 uniquement ou à confirmer selon statut Figma — décision Morris en cours |
 | **Accès** | Équipe projet / Morris |
 
 **Lien Figma :**
 
 - https://www.figma.com/design/9sxmnPQjMN34kXb4JE2nmz/Chantiers360-v2-%E2%80%94-Design-Figma-MVP?node-id=0-1&t=nht2irsBbrCIUamM-1
 
-**Note :** le fichier Figma est ouvert et référencé dans le repo ; la **production des écrans MVP** (§4) reste à réaliser selon `screen-design-spec.md`.
+### Frames validées (page ✅ MVP P1 — Validé Morris)
 
-## 4. Écrans MVP à produire
+| Frame Figma | Couverture écran P1 |
+|-------------|---------------------|
+| **01 — Dashboard cockpit premium** | Liste chantiers / dashboard (US-02) |
+| **02 — Fiche chantier — Tâches** | Fiche chantier pivot + section tâches (US-03, US-06, US-07) |
+| **03 — Fiche chantier — Réserves** | Fiche chantier pivot + section réserves (US-03, US-08, US-09) |
+| **04 — Création chantier** | Formulaire création chantier (US-01) |
 
-| # | Écran | Priorité | Source UX |
-|---|-------|----------|-----------|
-| 1 | Liste chantiers | P1 | `screen-map.md` §1, `wireframes-functional.md` §1 |
-| 2 | Création / édition chantier | P1 | `screen-map.md` §2, `wireframes-functional.md` §8 |
-| 3 | Fiche chantier (pivot) | P1 | `screen-map.md` §3, `wireframes-functional.md` §2 |
-| 4 | Section tâches | P1 | `screen-map.md` §4, `wireframes-functional.md` §3 |
-| 5 | Section réserves | P1 | `screen-map.md` §5, `wireframes-functional.md` §4 |
-| 6 | Section jalons / planning simple | P2 | `screen-map.md` §6, `wireframes-functional.md` §5 |
-| 7 | Section comptes rendus | P2 | `screen-map.md` §7, `wireframes-functional.md` §6 |
-| 8 | Vue prochaines actions | P2 | `screen-map.md` §8, `wireframes-functional.md` §7 |
+### Frames non retenues
 
-**Ordre de production recommandé :** P1 d'abord (écrans 1–5), puis P2 (écrans 6–8).
+Toutes les **autres frames** du fichier Figma sont considérées comme **explorations / archives** — **ne pas utiliser** comme référence de design pour architecture technique ou delivery.
+
+## 4. Écrans MVP — statut production
+
+| # | Écran | Priorité | Statut Figma | Frame de référence |
+|---|-------|----------|--------------|-------------------|
+| 1 | Liste chantiers / dashboard | P1 | ✅ Validé Morris | 01 — Dashboard cockpit premium |
+| 2 | Création chantier | P1 | ✅ Validé Morris | 04 — Création chantier |
+| 3 | Fiche chantier (pivot) | P1 | ✅ Validé Morris | 02 / 03 — Fiche chantier |
+| 4 | Section tâches | P1 | ✅ Validé Morris | 02 — Fiche chantier — Tâches |
+| 5 | Section réserves | P1 | ✅ Validé Morris | 03 — Fiche chantier — Réserves |
+| 6 | Section jalons / planning simple | P2 | ⏳ Non produit | — |
+| 7 | Section comptes rendus | P2 | ⏳ Non produit | — |
+| 8 | Vue prochaines actions | P2 | ⏳ Non produit | — |
+
+**Source UX détaillée :** `screen-map.md`, `wireframes-functional.md`, `screen-design-spec.md`
 
 ## 5. Niveau de fidélité attendu
 
@@ -116,7 +129,9 @@ Le cycle est **validé** si Morris confirme :
 3. Impacts backlog documentés (`design-to-backlog-alignment.md`)
 4. GO avant **architecture technique** et **delivery code**
 
-**Statut gate :** ⏳ En attente — production écrans Figma + revue visuelle Morris
+**Statut gate P1 :** ✅ **OK avec réserves mineures de polish** — validation Morris 2026-07-06
+
+**Architecture technique et delivery code :** ⏳ Non lancés — GO architecture soumis au merge de ce cycle design + décision Morris explicite
 
 ---
 

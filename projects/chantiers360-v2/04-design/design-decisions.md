@@ -22,66 +22,86 @@
 | 5 | **Figma ≠ source unique** | Validation visuelle externe — arbitrages scope/backlog dans repo | ✅ Confirmé |
 | 6 | Automatiser la doc, pas la validation visuelle | Cursor L2–L3 docs ; Morris L0 validation design | ✅ Confirmé |
 
-## 3. Fidélité et périmètre visuel
+## 3. Direction visuelle premium retenue (Morris)
+
+| # | Élément | Détail | Statut |
+|---|---------|--------|--------|
+| 7 | **Dashboard cockpit premium** | Frame 01 — liste chantiers / entrée principale | ✅ Validé Morris |
+| 8 | **Hero sombre** | En-tête fiche chantier — identité + statut | ✅ Validé Morris |
+| 9 | **Sidebar compacte** | Navigation latérale — structure app | ✅ Validé Morris |
+| 10 | **Accent violet** | Couleur d'accent direction premium | ✅ Validé Morris |
+| 11 | **Cartes chantier premium** | Liste dashboard — statut + retard visibles | ✅ Validé Morris |
+| 12 | **Fiche tâches / réserves controlled premium** | Frames 02/03 — onglets, sections distinctes | ✅ Validé Morris |
+| 13 | **Formulaire création chantier sobre et stable** | Frame 04 — champs minimaux, layout stable | ✅ Validé Morris |
+
+**Frames non retenues :** toutes les autres frames Figma = explorations / archives — **exclues** de la référence design.
+
+## 4. Fidélité et périmètre visuel
 
 | # | Décision | Détail | Statut |
 |---|----------|--------|--------|
-| 7 | Niveau fidélité cible | **Moyenne fidélité** recommandée — basse autorisée | ✅ Documenté |
-| 8 | Haute fidélité | Optionnelle — non requise MVP | ✅ Confirmé |
-| 9 | Design system complet | **Hors cible** initiale — composants minimaux | ✅ Confirmé |
-| 10 | Écrans P1 prioritaires | Liste, création/édition, fiche, tâches, réserves | ✅ Hérité UX PR #98 |
-| 11 | Écrans P2 secondaires | Jalons, comptes rendus, prochaines actions | ✅ Hérité UX PR #98 |
+| 14 | Niveau fidélité atteint | Moyenne fidélité — polish mineur possible | ✅ Validé Morris |
+| 15 | Design system complet | **Hors cible** — direction premium sans bibliothèque exhaustive | ✅ Confirmé |
+| 16 | Écrans P1 | Dashboard, création, fiche, tâches, réserves — **produits et validés** | ✅ Validé Morris |
+| 17 | Écrans P2 | Jalons, comptes rendus, prochaines actions — **non produits** | ⏳ Ultérieur |
 
-## 4. Prototype et lien Figma
+## 5. Prototype et lien Figma
 
 | # | Décision | Détail | Statut |
 |---|----------|--------|--------|
-| 12 | Prototype simple | Recommandé si utile — parcours P1 minimum | ⏳ Morris |
-| 13 | Lien Figma | Fichier créé — lien renseigné dans `figma-brief.md` §3 ; écrans MVP à produire | ✅ Fichier Figma créé / lien renseigné |
+| 18 | Lien Figma | Fichier + page ✅ MVP P1 — Validé Morris | ✅ Renseigné |
+| 19 | Prototype simple | P1 uniquement ou à confirmer selon statut Figma | ⏳ Morris |
 
-## 5. Exclusions confirmées
+## 6. Apprentissage méthode (capitalisation pilote)
+
+| # | Apprentissage | Détail |
+|---|---------------|--------|
+| 20 | **Figma AI + direction validée** | Figma AI fonctionne mieux avec une **direction visuelle validée** puis déclinaison **écran par écran** |
+| 21 | **Génération multi-écrans rejetée** | Génération multi-écrans **non contrôlée** rejetée — frames exploratoires archivées, non retenues comme référence |
+
+## 7. Arbitrages Morris tranchés
+
+| # | Arbitrage | Décision retenue | Statut |
+|---|-----------|------------------|--------|
+| 22 | Navigation sections fiche | **Onglets** horizontaux | ✅ Morris |
+| 23 | Placement retard | **Badge visible** dans hero / fiche | ✅ Morris |
+| 24 | Densité liste chantiers | **Cartes premium** (dashboard cockpit) | ✅ Morris |
+| 25 | Prototype Figma | **P1 uniquement** ou à confirmer selon statut Figma | ⏳ Morris |
+
+## 8. Exclusions confirmées
 
 | # | Exclusion | Statut |
 |---|-----------|--------|
-| 14 | Devis | ❌ Hors MVP |
-| 15 | Facturation | ❌ Hors MVP |
-| 16 | Intégrations comptables | ❌ Hors MVP |
-| 17 | Accès client | ❌ Hors MVP |
-| 18 | Planning avancé / Gantt | ❌ Hors MVP |
-| 19 | V0 | ❌ Non consultée — from scratch |
-| 20 | Code / app / backend | ❌ Hors cycle |
+| 26 | Devis | ❌ Hors MVP |
+| 27 | Facturation | ❌ Hors MVP |
+| 28 | Intégrations comptables | ❌ Hors MVP |
+| 29 | Accès client | ❌ Hors MVP |
+| 30 | Planning avancé / Gantt | ❌ Hors MVP |
+| 31 | V0 | ❌ Non consultée — from scratch |
+| 32 | Code / app / backend | ❌ Hors cycle |
 
-## 6. Arbitrages Morris en attente
-
-| # | Arbitrage | Options | Statut |
-|---|-----------|---------|--------|
-| 21 | Pattern navigation sections fiche | Onglets horizontaux vs liste latérale vs autre | ⏳ Morris |
-| 22 | Placement toggle retard | En-tête fiche vs formulaire édition | ⏳ Morris |
-| 23 | Densité visuelle liste chantiers | Cartes vs lignes compactes | ⏳ Morris |
-| 24 | Production prototype Figma | Oui / Non / P1 only | ⏳ Morris |
-
-## 7. Décision requise avant architecture technique
+## 9. Gates et cycles suivants
 
 | # | Gate | Prérequis | Statut |
 |---|------|-----------|--------|
-| 25 | **Gate Morris design** | Validation visuelle P1 + checklist complétée | ⏳ En attente |
-| 26 | Alignement backlog | `design-to-backlog-alignment.md` — écarts traités ou confirmés absents | ⏳ En attente |
-| 27 | **GO architecture technique** | Après gate design + pas d'écart backlog bloquant | ⏳ Non autorisé |
-| 28 | **GO delivery code** | Après architecture technique validée | ⏳ Non autorisé |
+| 33 | **Gate Morris design P1** | Validation visuelle P1 + checklist | ✅ **OK avec réserves mineures** |
+| 34 | Alignement backlog | Aucun écart bloquant | ✅ Confirmé |
+| 35 | **GO architecture technique** | Merge cycle design + décision Morris explicite | ⏳ **Non autorisé** avant merge |
+| 36 | **GO delivery code** | Après architecture technique validée | ❌ **Non autorisé** |
 
-## 8. Héritage UX/UI (non remis en cause)
+## 10. Héritage UX/UI (non remis en cause)
 
 Décisions héritées `ux-decisions.md` — maintenues pour Figma :
 
-- Entrée principale = liste chantiers
+- Entrée principale = liste chantiers / dashboard
 - Fiche chantier = pivot
-- Prochaines actions = vue transverse dérivée
-- Retard manuel — pas de calcul auto MVP
-- Planning simple visible mais non dominant
-- Compte rendu : date auto + contenu libre
+- Prochaines actions = vue transverse dérivée (P2 — non produite)
+- Retard manuel — badge visible, pas de calcul auto MVP
+- Planning simple visible mais non dominant (P2 — non produit)
+- Compte rendu : date auto + contenu libre (P2 — non produit)
 
 ---
 
-**Automation level :** L2 — gate Morris avant cycles suivants.
+**Automation level :** L2 — gate Morris P1 validé ; architecture/delivery différés.
 
 **Documents liés :** `figma-brief.md`, `figma-review-checklist.md`, `design-to-backlog-alignment.md`
