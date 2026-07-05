@@ -1,0 +1,175 @@
+# Chantiers360 v2 — Project Framing
+
+**Projet :** Chantiers360 v2  
+**Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
+**Version :** Bootstrap initial
+
+## 1. Framing status
+
+| Élément | Valeur |
+|---------|--------|
+| **Statut** | Initial framing / bootstrap — MVP ajusté Morris |
+| **Nom projet** | `chantiers360-v2` — validé |
+| **Origine** | Projet créé **from scratch** |
+| **V0** | Aucun élément V0 utilisé |
+| **Enrichissement** | Cadrage détaillé — prochain cycle |
+
+## 2. Initial intent
+
+Créer un **mini-produit de suivi de chantier** pour artisans ou petites entreprises du bâtiment, afin de centraliser les chantiers, les tâches, les réserves, les statuts, les **jalons simples** (planning simple) et les comptes rendus rapides.
+
+## 3. Problem statement
+
+Les petites structures du bâtiment peuvent avoir du mal à suivre clairement l'état de leurs chantiers, les tâches restantes, les réserves clients, les prochaines actions et les informations opérationnelles dispersées (carnets, messages, fichiers éparpillés).
+
+## 4. Target users
+
+| Utilisateur | Rôle |
+|-------------|------|
+| **Artisan indépendant** | Utilisateur principal — suivi de ses chantiers |
+| **Petite entreprise du bâtiment** | Équipe légère — vue d'ensemble chantiers |
+| **Conducteur de travaux léger** | Coordination tâches et réserves |
+| **Responsable opérationnel** | Pilotage statuts et prochaines actions |
+| **Client final** | Consultation future via espace dédié — **hors MVP initial** (futur espace consultation / validation) |
+
+## 5. Initial scope
+
+Périmètre initial (MVP validé Morris) :
+
+- création / suivi d'un chantier ;
+- statut du chantier ;
+- tâches associées ;
+- réserves ;
+- **jalons simples / planning simple** (dates prévues, prochaine intervention, jalon à venir, retard, commentaire) ;
+- compte rendu rapide ;
+- prochaines actions.
+
+**Planning simple inclus ; planning avancé exclu** (pas de ressources, dépendances, charges, calendrier complet, multi-équipe).
+
+## 6. Initial MVP hypothesis
+
+**MVP validé Morris :**
+
+```
+chantier → tâches → réserves → statut → jalons simples → compte rendu rapide
+```
+
+### Planning simple / jalons chantier
+
+Inclus au MVP — planning **simple** uniquement :
+
+- date de début / fin prévue ;
+- prochaine intervention ;
+- jalon à venir ;
+- retard éventuel ;
+- commentaire planning simple.
+
+**Hors MVP :** planning avancé (ressources, dépendances, charges, calendrier complet, multi-équipe).
+
+## 7. Explicit out of scope
+
+### Hors MVP initial
+
+- **planning avancé** ;
+- **accès client** — futur espace consultation / validation client final ; exclu pour centrer sur artisan / PME ;
+- gestion documentaire complète ;
+- photos avant / après détaillées *(idée future — hors MVP initial)* ;
+- application mobile native ;
+- IA générative avancée ;
+- reprise Chantiers360 V0 ;
+- comparaison V0 avant fin de pilote ;
+- code applicatif ;
+- architecture technique détaillée.
+
+### Extensions métier prioritaires (hors MVP — cadrage ultérieur)
+
+Repositionnées comme **priorité future** après validation du socle chantier — **non rejetées définitivement** :
+
+| Extension | Statut | Justification |
+|-----------|--------|---------------|
+| **Devis** | Extension métier prioritaire | Domaine gestion commerciale chantier — hors suivi opérationnel MVP |
+| **Facturation** | Extension métier prioritaire | Futur module facturation — compétence domaine intéressante |
+| **Intégrations comptables** | Extension métier prioritaire | Lié au cycle commercial — exclu pour éviter dette fonctionnelle |
+
+Ces fonctionnalités pourraient couvrir un futur projet ou module ; exclues du MVP initial pour **éviter dérive de scope**.
+
+## 8. Assumptions
+
+- Projet **générique**, non rattaché à un client réel ;
+- **Données fictives** uniquement dans les phases initiales ;
+- Objectif principal = **tester SFIA v2.0** sur un produit métier réel ;
+- Le MVP doit rester **simple et borné** ;
+- L'exécution applicative viendra **plus tard** ;
+- **Pas d'usage de V0** avant le cycle final de comparaison et capitalisation.
+
+## 9. Risks
+
+| Risque | Mitigation |
+|--------|------------|
+| Dérive de scope | MVP figé, gate Morris avant extension |
+| Réintroduction implicite V0 | Règle from scratch — V0 fin pilote only |
+| Confusion comparaison vs cadrage | V0 = capitalisation finale, pas input |
+| Création trop rapide de code | Pas d'app/backend au bootstrap |
+| Backlog complet prématuré | Cycle dédié après cadrage Morris |
+| Surconception planning | Jalons simples only — planning avancé hors MVP |
+| Extension commerciale prématurée | Devis/facturation/compta = extension future prioritaire |
+| Automatisation prématurée | L3 max bootstrap — L5 global hors cible |
+
+## 10. Guardrails
+
+- **Git** = source de vérité
+- **Pas de V0** — cadrage, docs, backlog, code, structure
+- **Pas d'app/backend** au bootstrap
+- **Pas de Notion/CMP**
+- **Pas de L5 global**
+- **Gate Morris** avant extension de scope
+- **Cycles courts** — diff borné
+- **Documents bornés** — pas de surproduction
+- **Validation** avant PR / merge
+
+## 11. Validation criteria for this bootstrap
+
+Le bootstrap est **valide** si :
+
+| Critère | Attendu |
+|---------|---------|
+| Structure minimale | `README.md` + `00-framing/project-framing.md` |
+| Autres fichiers projet | Aucun |
+| V0 utilisée | Non |
+| Code créé | Non |
+| Backlog détaillé | Non |
+| MVP initial formulé | Oui |
+| Hors périmètre explicites | Oui |
+| Prochain cycle identifié | Oui |
+
+## 12. Decisions Morris
+
+**Décisions prises :**
+
+| # | Décision | Statut |
+|---|----------|--------|
+| 1 | Nom `chantiers360-v2` | ✅ Validé |
+| 2 | Bootstrap minimal | ✅ Validé (réserve mineure commit local) |
+| 3 | MVP ajusté avec jalons simples / planning simple | ✅ Validé |
+| 4 | Devis / facturation / intégrations comptables | Hors MVP — **extension métier prioritaire future** |
+| 5 | Accès client | Hors MVP — futur espace consultation / validation |
+| 6 | Planning avancé | Hors MVP |
+| 7 | Prochain cycle après merge | **Cadrage détaillé** (pas architecture fonctionnelle) |
+| 8 | Nettoyage branches | Reporté |
+| 9 | PR readiness | En attente — après mise à jour documentaire MVP |
+
+**Décisions à venir :**
+
+1. **Valider** la mise à jour MVP (ce cycle)
+2. **Préparer PR readiness** du bootstrap
+3. **Lancer cadrage détaillé** après merge
+4. **Planifier** comparaison V0 — fin de pilote uniquement
+
+---
+
+**Automation level autorisé :** L3 (bootstrap) — gate Morris avant cycle suivant.
+
+**Références SFIA :**
+
+- `sfia-v2-project-bootstrap-standard.md`
+- `sfia-v2-pilot-selection-scoring.md`
