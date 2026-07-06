@@ -249,7 +249,7 @@ Le bootstrap est **valide** si :
 |----------|---------|
 | `05-technical-architecture/technical-architecture-overview.md` | Vue d'ensemble cycle architecture légère |
 | `05-technical-architecture/stack-options.md` | Comparaison options stack |
-| `05-technical-architecture/stack-decision.md` | Décision stack — en attente Morris |
+| `05-technical-architecture/stack-decision.md` | Décision stack — validée Morris (Option B + Drizzle + Tailwind) |
 | `05-technical-architecture/application-structure.md` | Structure applicative cible |
 | `05-technical-architecture/data-model-light.md` | Modèle de données documentaire |
 | `05-technical-architecture/frontend-architecture.md` | Architecture frontend P1 |
