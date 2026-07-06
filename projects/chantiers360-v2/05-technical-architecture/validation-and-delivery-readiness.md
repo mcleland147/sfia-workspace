@@ -4,7 +4,7 @@
 **Chemin :** `projects/chantiers360-v2/05-technical-architecture/validation-and-delivery-readiness.md`  
 **Cycle :** Architecture technique légère
 
-> Conditions **avant autorisation delivery code** — INC-01 reste interdit sans GO Morris.
+> INC-01 **autorisé** — GO Morris M7 accordé (2026-07-06). Delivery en cours branche `delivery/chantiers360-v2-inc-01`.
 
 ## 1. Conditions avant INC-01
 
@@ -19,7 +19,7 @@
 | 7 | **GO architecture technique Morris** | ✅ Validé (M6) |
 | 8 | Stratégie fidélité Figma documentée | ✅ |
 | 9 | **Figma Fidelity Spike** (M8) — Frame Dashboard `38:502` | ✅ Réalisé et validé Morris — PR #104 (`87de625`) |
-| 10 | **GO delivery INC-01 Morris** | ❌ **Non accordé** (M7) |
+| 10 | **GO delivery INC-01 Morris** | ✅ **Accordé** (M7) — delivery en cours |
 
 ## 2. Critères pour autoriser delivery code
 
@@ -95,7 +95,7 @@ Alignés sur `acceptance-criteria.md` :
 | **G2 — Périmètre INC-01** | Le scope US-01 à US-04 est-il confirmé ? | ⏳ À confirmer au GO delivery |
 | **G3 — Design** | Les captures P1 suffisent-elles pour INC-01 ? | ✅ PR #101 |
 | **G4 — Fidélité Figma** | Spike pixel-close requis avant INC-01 complet | ✅ **Satisfait** — PR #104 — M8/M9 |
-| **G5 — Delivery** | Autorise-t-on le premier commit code INC-01 ? | ❌ **Non accordé** (M7) |
+| **G5 — Delivery** | Autorise-t-on le premier commit code INC-01 ? | ✅ **Accordé** (M7) — périmètre US-01 à US-04 |
 
 **Sans GO explicite sur G5 :** delivery code **interdit**.
 
@@ -105,7 +105,7 @@ Alignés sur `acceptance-criteria.md` :
 2. **Figma Fidelity Spike réalisé** — frame **01 — Dashboard cockpit premium** (`38:502`) — mergé PR #104 — validé Morris (D1/D2)
 3. **Revue Morris** — comparaison avec `04-design/captures/01-dashboard-cockpit-premium.png` — ✅ validée
 
-> Le spike est **réalisé et mergé** (PR #104). Le **GO delivery INC-01 (M7)** reste **non accordé** — aucun delivery ne démarre sans décision Morris explicite. Aucune DB / Drizzle / auth requise à ce stade.
+> Le spike est **réalisé et mergé** (PR #104). Le **GO delivery INC-01 (M7)** est **accordé** — delivery INC-01 limité à US-01 à US-04. Auth différée ; PostgreSQL local/dev.
 
 ## 7. Ordre post-validation architecture
 
@@ -119,10 +119,10 @@ Figma Fidelity Spike — Frame 01 Dashboard (`38:502`) — MERGÉ PR #104 ✅
 Revue Morris — fidélité pixel-close (D1/D2) ✅
         │
         ▼
-GO delivery INC-01 (M7) — non accordé pour l'instant ❌
+GO delivery INC-01 (M7) — accordé ✅
         │
         ▼
-Capitalisation SFIA v2.0 — ou branche delivery + setup stack validée (Option B + Drizzle + Tailwind)
+Branche delivery + setup stack validée (Option B + Drizzle + Tailwind) — EN COURS
         │
         ▼
 Implémentation US-01 → US-04 (fidélité pixel-close desktop de référence)

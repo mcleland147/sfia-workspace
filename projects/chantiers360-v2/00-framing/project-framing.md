@@ -8,9 +8,9 @@
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Figma Fidelity Spike mergé — gate M8/M9 satisfait ; delivery INC-01 non lancé |
+| **Statut** | Delivery INC-01 en cours — M7 accordé |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Post-spike — capitalisation SFIA v2.0 ou décision GO delivery INC-01 (M7) séparée |
+| **Cycle courant** | Delivery INC-01 — branche `delivery/chantiers360-v2-inc-01` — US-01 à US-04 |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -22,6 +22,7 @@
 | **Design Figma P1** | PR #101 mergée — `7e37b58` |
 | **Architecture technique** | PR #102 mergée — `57308aa` — arbitrages Morris validés |
 | **Figma Fidelity Spike** | PR #104 mergée — `87de625` — D1/D2 validés Morris ; gate M8/M9 satisfait |
+| **Delivery INC-01** | M7 accordé — implémentation en cours |
 
 ## 2. Initial intent
 
@@ -182,14 +183,16 @@ Le bootstrap est **valide** si :
 - **GO architecture technique** — ✅ validé (M6)
 - **Figma Fidelity Spike** — ✅ mergé PR #104 — validé Morris (D1/D2) — frame Dashboard `38:502` (M9) — gate M8/M9 satisfait
 - **App spike** — `projects/chantiers360-v2/app/` — dashboard mocké uniquement ; pas de backend / DB / auth
-- Delivery INC-01 — **GO non accordé** (M7/D3) — décision Morris séparée post-merge spike
+- Delivery INC-01 — **GO accordé** (M7/D-INC01) — branche `delivery/chantiers360-v2-inc-01`
+- **App spike** étendue — PostgreSQL + Drizzle ; auth différée
 
 **Décisions à venir :**
 
 1. ~~**Valider** architecture technique légère~~ — ✅ arbitrages Morris documentés
 2. ~~**Réaliser** Figma Fidelity Spike~~ — ✅ mergé PR #104 — validé Morris (D1/D2)
-3. **Capitaliser** méthode SFIA v2.0 post-spike — ou **autoriser** delivery INC-01 — GO Morris explicite (M7)
-4. **Planifier** comparaison V0 — fin de pilote uniquement
+3. ~~**Capitaliser** Figma Fidelity Gate~~ — ✅ mergé PR #106
+4. **Valider** delivery INC-01 — revue Morris puis PR
+5. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
 

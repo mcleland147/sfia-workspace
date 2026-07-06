@@ -1,24 +1,31 @@
 {
-  "name": "chantiers360-v2-figma-fidelity-spike",
+  "name": "chantiers360-v2",
   "private": true,
-  "version": "0.1.0",
-  "description": "Chantiers360 v2 — Figma Fidelity Spike (Dashboard frame 38:502)",
+  "version": "0.2.0-inc01",
+  "description": "Chantiers360 v2 — delivery INC-01 (socle chantier)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "drizzle-orm": "^0.44.2",
     "next": "^15.3.3",
+    "pg": "^8.16.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
+    "@types/pg": "^8.15.4",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "autoprefixer": "^10.4.21",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.27.0",
     "eslint-config-next": "^15.3.3",
     "postcss": "^8.5.3",

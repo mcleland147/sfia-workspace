@@ -1,19 +1,24 @@
-import { Sidebar } from "./Sidebar";
 import { DashboardHero } from "./DashboardHero";
 import { ChantiersGrid } from "./ChantiersGrid";
 import { RightPanels } from "./RightPanels";
+import type { ChantierCardData, DashboardStats } from "@/lib/chantiers/types";
 
-export function DashboardPage() {
+export function DashboardPage({
+  chantiers,
+  stats,
+  subtitle,
+}: {
+  chantiers: ChantierCardData[];
+  stats: DashboardStats;
+  subtitle: string;
+}) {
   return (
-    <div className="flex min-h-screen bg-surface">
-      <Sidebar />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <DashboardHero />
-        <main className="flex flex-1 gap-6 px-8 py-8">
-          <ChantiersGrid />
-          <RightPanels />
-        </main>
-      </div>
-    </div>
+    <>
+      <DashboardHero stats={stats} subtitle={subtitle} />
+      <main className="flex flex-1 gap-6 px-8 py-8">
+        <ChantiersGrid chantiers={chantiers} />
+        <RightPanels />
+      </main>
+    </>
   );
 }

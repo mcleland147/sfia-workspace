@@ -1,20 +1,25 @@
-import { heroStats, heroSubtitle } from "@/data/mockChantiers";
+import Link from "next/link";
+import type { DashboardStats } from "@/lib/chantiers/types";
 
 const topNav = [
-  { label: "Tableau de bord", active: true },
-  { label: "Chantiers", active: false },
-  { label: "Réserves", active: false },
-  { label: "Jalons", active: false },
+  { label: "Tableau de bord", href: "/", active: true },
+  { label: "Chantiers", href: "/", active: false },
 ];
 
-const statCards = [
-  { value: heroStats.actifs, label: "CHANTIERS ACTIFS", color: "text-accent-blue" },
-  { value: heroStats.enRetard, label: "EN RETARD", color: "text-accent-red" },
-  { value: heroStats.tachesOuvertes, label: "TÂCHES OUVERTES", color: "text-accent-yellow" },
-  { value: heroStats.reservesOuvertes, label: "RÉSERVES OUVERTES", color: "text-accent-orange" },
-];
+export function DashboardHero({
+  stats,
+  subtitle,
+}: {
+  stats: DashboardStats;
+  subtitle: string;
+}) {
+  const statCards = [
+    { value: stats.actifs, label: "CHANTIERS ACTIFS", color: "text-accent-blue" },
+    { value: stats.enRetard, label: "EN RETARD", color: "text-accent-red" },
+    { value: stats.tachesOuvertes, label: "TÂCHES OUVERTES", color: "text-accent-yellow" },
+    { value: stats.reservesOuvertes, label: "RÉSERVES OUVERTES", color: "text-accent-orange" },
+  ];
 
-export function DashboardHero() {
   return (
     <section className="bg-navy-hero px-8 pb-10 pt-6 text-white">
       <div className="mb-8 flex items-center justify-between">
@@ -26,9 +31,9 @@ export function DashboardHero() {
         </div>
         <nav className="flex items-center gap-1">
           {topNav.map((item) => (
-            <button
+            <Link
               key={item.label}
-              type="button"
+              href={item.href}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 item.active
                   ? "bg-navy-card text-white"
@@ -36,7 +41,7 @@ export function DashboardHero() {
               }`}
             >
               {item.label}
-            </button>
+            </Link>
           ))}
         </nav>
       </div>
@@ -46,13 +51,13 @@ export function DashboardHero() {
           <h1 className="text-[2rem] font-bold leading-tight tracking-tight">
             Votre chantier du jour.
           </h1>
-          <p className="mt-3 text-sm text-slate-400">{heroSubtitle}</p>
-          <button
-            type="button"
-            className="mt-6 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy shadow-sm transition hover:bg-slate-100"
+          <p className="mt-3 text-sm text-slate-400">{subtitle}</p>
+          <Link
+            href="/chantiers/nouveau"
+            className="mt-6 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy shadow-sm transition hover:bg-slate-100"
           >
             + Nouveau chantier
-          </button>
+          </Link>
         </div>
 
         <div className="grid shrink-0 grid-cols-2 gap-3">
