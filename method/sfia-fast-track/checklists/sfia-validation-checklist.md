@@ -299,6 +299,15 @@ Décision possible :
 - READY FOR PR WITH RESERVES ;
 - NOT READY FOR PR.
 
+### 12.1 Supplément SFIA v2.0 — delivery incrément (pilote)
+
+Utiliser pour un **delivery INC-n** avec standard QA v2.0 :
+
+- [ ] QA-G3 validé (Morris) **avant** PR readiness delivery ;
+- [ ] rapports `08-qa-test/inc-<nn>/` présents ;
+- [ ] réserves QA documentées (bloquante / majeure / mineure / environnementale) ;
+- [ ] référence `sfia-v2-delivery-qa-test-standard.md` et `sfia-v2-incremental-delivery-closure-standard.md`.
+
 ## 13. Checklist — Post-merge
 
 Utiliser cette section uniquement après merge ou pour préparer une trace post-merge.
@@ -318,6 +327,15 @@ Décision possible :
 - POST-MERGE COMPLETE ;
 - POST-MERGE COMPLETE WITH RESERVES ;
 - POST-MERGE INCOMPLETE.
+
+### 13.1 Supplément SFIA v2.0 — QA-G4 et clôture incrément (pilote)
+
+Utiliser après merge **delivery** ou **closure/capitalization** d'un INC-n :
+
+- [ ] QA-G4 post-merge documenté si delivery INC-n ;
+- [ ] périmètre INC-n confirmé sur `main` ;
+- [ ] **clôture incrément ≠ GO incrément suivant** ;
+- [ ] GO INC-(n+1) = décision Morris séparée (L0) — non implicite après clôture.
 
 ## 14. Checklist — Capitalisation
 

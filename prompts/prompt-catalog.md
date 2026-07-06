@@ -1249,7 +1249,22 @@ Full operational prompt templates are maintained separately in `prompts/template
 1. Use the templates on upcoming SFIA cycles ;
 2. update templates after real usage ;
 3. reconcile pilot Interv360 prompt families with v1.1 families ;
-4. prepare P2 cross-references.
+4. prepare P2 cross-references ;
+5. index SFIA v2.0 delivery QA/Test family — voir §14 ci-dessous.
+
+## 14. Supplément SFIA v2.0 — Delivery QA/Test (pilote)
+
+> Entrée minimale hors catalogue v1.1 normatif — capitalisation pilote Chantiers360 v2 INC-01 (PR #111).
+
+| Élément | Valeur |
+|---------|--------|
+| **Famille** | Delivery QA/Test — incrément delivery |
+| **Fichier** | `prompts/qa/delivery-qa-test-prompt-family.md` |
+| **IDs** | `PROMPT-QA-D-001` à `PROMPT-QA-D-008` |
+| **Distinct de** | `PROMPT-QA-001` à `010` — famille amont `qa-tester-prompt-family.md` |
+| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` |
+| **Usage** | QA-G0…G4 ; stratégie/scénarios ; tests ; rapports ; réserves ; QA readiness (QA-G3) ; post-merge (QA-G4) ; PR readiness delivery |
+| **Closure / capitalisation** | `sfia-v2-incremental-delivery-closure-standard.md` |
 
 ---
 

@@ -375,6 +375,8 @@ Les niveaux L ne sont pas uniquement des **niveaux techniques** (contrôles Git,
 
 - `sfia-v2-automation-and-delivery-vision.md`
 - `sfia-v2-incremental-delivery-closure-standard.md`
+- `prompts/prompt-catalog.md` — §14
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` — §6.12–6.14
 - `sfia-v2-figma-fidelity-gate-standard.md`
 - `sfia-cycle-routing-guide.md`
 - `sfia-validation-checklist.md`
