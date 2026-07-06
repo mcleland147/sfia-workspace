@@ -8,9 +8,9 @@
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | **INC-01 CLOSED WITH RESERVES** — capitalisation post-INC-01 intégrée (PR #111 — `ff32170`) |
+| **Statut** | **INC-02 CLOSED WITH RESERVES** — Morris (2026-07-06) |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Post-capitalisation INC-01 — GO INC-02 non accordé |
+| **Cycle courant** | Post-clôture INC-02 — GO INC-03 non accordé ; INC-03 non lancé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -24,6 +24,7 @@
 | **Figma Fidelity Spike** | PR #104 mergée — `87de625` — D1/D2 validés Morris ; gate M8/M9 satisfait |
 | **Delivery INC-01** | **Clôturé** — PR #108–#110 — CLOSED WITH RESERVES |
 | **Capitalisation INC-01** | Mergée PR #111 — `ff32170` — `09-capitalization/inc-01-capitalization-report.md` |
+| **Delivery INC-02** | **Clôturé** — PR #115–#116 — CLOSED WITH RESERVES — `inc-02-closure-report.md` |
 
 ## 2. Initial intent
 
@@ -185,7 +186,8 @@ Le bootstrap est **valide** si :
 - **Figma Fidelity Spike** — ✅ mergé PR #104 — validé Morris (D1/D2) — frame Dashboard `38:502` (M9) — gate M8/M9 satisfait
 - **App spike** — `projects/chantiers360-v2/app/` — dashboard mocké uniquement ; pas de backend / DB / auth
 - Delivery INC-01 — **clôturé** — `inc-01-closure-report.md`
-- **App** — PostgreSQL + Drizzle ; auth différée
+- Delivery INC-02 — **clôturé** — `inc-02-closure-report.md`
+- **App** — PostgreSQL + Drizzle ; auth différée ; tâches/réserves INC-02 livrées
 
 **Décisions à venir :**
 
@@ -195,8 +197,9 @@ Le bootstrap est **valide** si :
 4. ~~**PR readiness INC-01**~~ — ✅ PR #108 mergée
 5. ~~**Clôture INC-01**~~ — ✅ CLOSED WITH RESERVES — PR #110
 6. ~~**Capitalisation post-INC-01**~~ — ✅ mergée PR #111 — `ff32170`
-7. **GO INC-02** — décision Morris explicite requise
-8. **Planifier** comparaison V0 — fin de pilote uniquement
+7. ~~**GO INC-02**~~ — ✅ livré et clôturé — PR #115–#116 — CLOSED WITH RESERVES
+8. **GO INC-03** — décision Morris explicite requise — non accordé
+9. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
 
