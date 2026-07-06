@@ -29,11 +29,12 @@
 |---|----------|--------|
 | V1 | INC-01 validé pour PR ? | ✅ **PR #108 mergée** — `1b9e41f` sur `main` |
 | V2 | Aligner statuts avec backlog (En pause) ? | ⏳ Optionnel — réserve R-QA-02 acceptée |
-| V3 | GO INC-02 ? | ❌ Non — décision séparée post-clôture INC-01 |
-| V4 | GO QA INC-01 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
-| V5 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
-| V6 | Clôture INC-01 ? | ⏳ En attente Morris |
+| V3 | GO QA INC-01 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
+| V4 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — PR #109 `128d6fc` |
+| V5 | Clôture INC-01 ? | ✅ **CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-01-closure-report.md` |
+| V6 | GO INC-02 ? | ❌ Non accordé — décision Morris séparée |
+| V7 | Capitalisation post-INC-01 ? | ⏳ Cycle séparé — non lancé |
 
 ---
 
-**Documents liés :** `delivery-inc-01-overview.md`, `../03-backlog/acceptance-criteria.md`
+**Documents liés :** `delivery-inc-01-overview.md`, `inc-01-closure-report.md`, `../03-backlog/acceptance-criteria.md`

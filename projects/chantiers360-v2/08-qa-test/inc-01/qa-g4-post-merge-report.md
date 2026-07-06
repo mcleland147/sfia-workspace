@@ -2,9 +2,11 @@
 
 **Date :** 2026-07-06  
 **Branche :** `main`  
-**Commit main :** `1b9e41f` — feat: deliver Chantiers360 v2 INC-01 foundation (US-01 to US-04) (#108)  
-**PR :** [#108](https://github.com/mcleland147/sfia-workspace/pull/108)  
-**Date merge :** 2026-07-06 08:42 UTC  
+**Commit main :** `128d6fc` — docs: add QA-G4 post-merge report (#109)  
+**PR delivery :** [#108](https://github.com/mcleland147/sfia-workspace/pull/108) — `1b9e41f`  
+**PR QA-G4 :** [#109](https://github.com/mcleland147/sfia-workspace/pull/109) — `128d6fc`  
+**Date merge PR #108 :** 2026-07-06 08:42 UTC  
+**Date merge PR #109 :** 2026-07-06 08:54 UTC  
 **Standard :** SFIA v2.0 Delivery QA/Test (PR #107)  
 **Type de cycle :** Contrôle post-merge — pas de nouveau delivery
 
@@ -15,7 +17,7 @@
 | Élément | Valeur |
 |---------|--------|
 | Branche | `main` |
-| HEAD | `1b9e41f` |
+| HEAD | `128d6fc` (PR #109) — delivery INC-01 `1b9e41f` (PR #108) |
 | Synchronisation | `git pull` — fast-forward depuis `cadf25a` |
 | Artefacts INC-01 | `app/`, `07-delivery-inc-01/`, `08-qa-test/inc-01/` — présents |
 
@@ -137,13 +139,13 @@ Exit code: 0
 | Réserves mineures R-QA-02 à R-QA-04 | Acceptées — inchangées |
 | Aucune régression bloquante | ✅ |
 
-## 10. Décision Morris attendue
+## 10. Décision Morris
 
-| # | Question | Recommandation |
-|---|----------|----------------|
-| D1 | Clôture INC-01 ? | **À valider Morris** — QA-G4 OK WITH RESERVES |
-| D2 | Capitalisation post-INC-01 ? | Cycle séparé — hors scope QA-G4 |
-| D3 | GO INC-02 ? | **Décision séparée** — non lancé dans ce cycle |
+| # | Question | Statut |
+|---|----------|--------|
+| D1 | Clôture INC-01 ? | ✅ **CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-01-closure-report.md` |
+| D2 | Capitalisation post-INC-01 ? | Cycle séparé — non lancé |
+| D3 | GO INC-02 ? | **Décision séparée** — non accordé |
 
 ---
 

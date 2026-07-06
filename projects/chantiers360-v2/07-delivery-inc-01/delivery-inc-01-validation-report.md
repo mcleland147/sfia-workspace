@@ -46,19 +46,21 @@
 | QA-G2 — tests implémentés | ✅ Playwright `app/e2e/inc-01.spec.ts` |
 | QA-G3 — QA readiness | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
 | PR #108 mergée | ✅ `1b9e41f` sur `main` (2026-07-06 08:42 UTC) |
-| QA-G4 — post-merge | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
+| PR #109 mergée | ✅ `128d6fc` — QA-G4 post-merge (2026-07-06 08:54 UTC) |
+| Clôture INC-01 | ✅ **CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-01-closure-report.md` |
 
 **Artefacts :** `08-qa-test/inc-01/`
 
 ## Verdict technique
 
-**INC-01 livré sur `main`** — QA-G3 et QA-G4 validés avec réserves mineures documentées.
+**INC-01 CLOSED WITH RESERVES** — livré, testé, mergé, QA-G3/G4 validés, clôturé documentairement.
 
 ## Décisions Morris
 
 - ✅ GO QA WITH RESERVES — INC-01 (QA-G3)
 - ✅ GO PR readiness INC-01 — PR #108 mergée
-- ✅ QA-G4 post-merge — OK WITH RESERVES
-- R-QA-02 à R-QA-04 — mineures acceptées
-- Clôture INC-01 — en attente Morris
-- GO INC-02 — séparé post-clôture INC-01
+- ✅ QA-G4 post-merge — OK WITH RESERVES — PR #109 mergée
+- ✅ **Clôture INC-01** — CLOSED WITH RESERVES (2026-07-06)
+- R-QA-02 à R-QA-05 — mineures acceptées, conservées
+- GO INC-02 — non accordé — décision séparée
+- Capitalisation post-INC-01 — cycle séparé
