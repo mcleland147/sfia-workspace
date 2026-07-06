@@ -251,7 +251,15 @@ Voir : `sfia-v2-automation-levels.md`.
 
 ## 17. Prompt family
 
-`prompts/qa/delivery-qa-test-prompt-family.md` — QA-001 à QA-008.
+`prompts/qa/delivery-qa-test-prompt-family.md` — **PROMPT-QA-D-001** à **PROMPT-QA-D-008** (famille delivery — distincte de `PROMPT-QA-001` à `010` amont).
+
+### Réserves capitalisation (suivi)
+
+| # | Réserve | Statut |
+|---|---------|--------|
+| R-CAP-01 | IDs prompts delivery | **Levée** — §17 ci-dessus |
+| R-CAP-02 | `prompts/prompt-catalog.md` — index famille delivery QA | **Ouverte** — cycle séparé |
+| R-CAP-03 | `sfia-cycle-routing-guide.md` / checklist v1.1 | **Ouverte** — cycle séparé |
 
 ## 18. Explicitement hors scope
 

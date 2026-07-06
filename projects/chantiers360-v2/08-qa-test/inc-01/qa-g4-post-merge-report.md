@@ -144,8 +144,16 @@ Exit code: 0
 | # | Question | Statut |
 |---|----------|--------|
 | D1 | Clôture INC-01 ? | ✅ **CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-01-closure-report.md` |
-| D2 | Capitalisation post-INC-01 ? | 🔄 En cours — `09-capitalization/inc-01-capitalization-report.md` |
+| D2 | Capitalisation post-INC-01 ? | ✅ **Intégrée** — PR #111 `ff32170` — `09-capitalization/inc-01-capitalization-report.md` |
 | D3 | GO INC-02 ? | **Décision séparée** — non accordé |
+
+## 11. Réserves capitalisation (post-merge PR #111)
+
+| # | Réserve | Statut |
+|---|---------|--------|
+| R-CAP-01 | IDs prompts delivery | **Levée** — `sfia-v2-delivery-qa-test-standard.md` §17 aligné `PROMPT-QA-D-001` à `008` |
+| R-CAP-02 | prompt-catalog | **Ouverte** — index `delivery-qa-test` — cycle séparé |
+| R-CAP-03 | routing/checklist v1.1 | **Ouverte** — cycle séparé (hors scope micro-alignement) |
 
 ---
 
