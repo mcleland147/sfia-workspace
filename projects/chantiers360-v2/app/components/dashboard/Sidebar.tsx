@@ -1,14 +1,21 @@
-const navItems = [
-  { id: "dashboard", label: "Tableau de bord", active: true },
-  { id: "grid", icon: "grid" },
-  { id: "building", icon: "building" },
-  { id: "flag", icon: "flag" },
-  { id: "compass", icon: "compass" },
-  { id: "doc", icon: "doc" },
+import Link from "next/link";
+
+const navItems: Array<{
+  id: string;
+  href: string;
+  label: string;
+  icon: string;
+  disabled?: boolean;
+}> = [
+  { id: "dashboard", href: "/", label: "Tableau de bord", icon: "grid" },
+  { id: "building", href: "/", label: "Chantiers", icon: "building" },
+  { id: "flag", href: "#", label: "Réserves (INC-02)", icon: "flag", disabled: true },
+  { id: "compass", href: "#", label: "Jalons (INC-03)", icon: "compass", disabled: true },
+  { id: "doc", href: "#", label: "Comptes rendus (INC-04)", icon: "doc", disabled: true },
 ];
 
 function NavIcon({ type }: { type: string }) {
-  const className = "h-5 w-5 text-slate-400";
+  const className = "h-5 w-5";
   switch (type) {
     case "grid":
       return (
@@ -43,27 +50,49 @@ function NavIcon({ type }: { type: string }) {
   }
 }
 
-export function Sidebar() {
+export function Sidebar({
+  activeNav = "dashboard",
+}: {
+  activeNav?: "dashboard" | "chantier";
+}) {
   return (
     <aside className="flex w-[72px] shrink-0 flex-col items-center bg-navy py-6">
-      <div className="mb-8 flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-sm font-bold text-white">
+      <Link
+        href="/"
+        className="mb-8 flex h-10 w-10 items-center justify-center rounded-xl bg-accent-purple text-sm font-bold text-white"
+        aria-label="Accueil"
+      >
         C
-      </div>
+      </Link>
       <nav className="flex flex-1 flex-col items-center gap-4">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className={`flex h-11 w-11 items-center justify-center rounded-xl transition-colors ${
-              item.active
-                ? "bg-white/10 text-white"
+        {navItems.map((item) => {
+          const isActive =
+            item.id === "dashboard"
+              ? activeNav === "dashboard"
+              : item.id === "building" && activeNav === "chantier";
+
+          const className = `flex h-11 w-11 items-center justify-center rounded-xl transition-colors ${
+            isActive
+              ? "bg-white/10 text-white"
+              : item.disabled
+                ? "cursor-not-allowed text-slate-600 opacity-40"
                 : "text-slate-500 hover:bg-white/5 hover:text-slate-300"
-            }`}
-            aria-label={item.label ?? item.id}
-          >
-            {item.icon ? <NavIcon type={item.icon} /> : <NavIcon type="grid" />}
-          </button>
-        ))}
+          }`;
+
+          if (item.disabled) {
+            return (
+              <span key={item.id} className={className} aria-label={item.label} title={item.label}>
+                <NavIcon type={item.icon} />
+              </span>
+            );
+          }
+
+          return (
+            <Link key={item.id} href={item.href} className={className} aria-label={item.label}>
+              <NavIcon type={item.icon} />
+            </Link>
+          );
+        })}
       </nav>
       <div className="mt-auto flex h-10 w-10 items-center justify-center rounded-full bg-accent-purple text-xs font-semibold text-white">
         AL

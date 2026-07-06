@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function ProgressRing({ progress, color }: { progress: number; color: string }) {
   const radius = 22;
   const circumference = 2 * Math.PI * radius;
@@ -42,6 +44,7 @@ export function RetardBadge({ days }: { days: number }) {
 }
 
 export function ChantierCard({
+  href,
   title,
   client,
   location,
@@ -51,7 +54,9 @@ export function ChantierCard({
   tasks,
   reserves,
   dateLabel,
+  statut,
 }: {
+  href?: string;
   title: string;
   client: string;
   location: string;
@@ -61,13 +66,21 @@ export function ChantierCard({
   tasks: number;
   reserves: number;
   dateLabel: string;
+  statut?: string;
 }) {
-  return (
-    <article className="overflow-hidden rounded-2xl bg-white shadow-card">
+  const content = (
+    <article className="overflow-hidden rounded-2xl bg-white shadow-card transition hover:shadow-md">
       <div className="h-1" style={{ backgroundColor: accentColor }} />
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
+            <div className="mb-1 flex items-center gap-2">
+              {statut && (
+                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
+                  {statut}
+                </span>
+              )}
+            </div>
             <h3 className="truncate text-[15px] font-semibold text-slate-900">{title}</h3>
             <p className="mt-1 text-sm text-slate-500">{client}</p>
             <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-400">
@@ -101,4 +114,14 @@ export function ChantierCard({
       </div>
     </article>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="block">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }
