@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import type { Reserve, Tache } from "@/lib/db/schema";
+import type { SimplePlanningData } from "@/lib/planning/types";
 import { TasksSection } from "./TasksSection";
 import { ReservesSection } from "./ReservesSection";
+import { MilestonesSection } from "./MilestonesSection";
 
 type TabId = "taches" | "reserves" | "jalons" | "comptes-rendus";
 
 const tabs: { id: TabId; label: string; hint?: string; disabled?: boolean }[] = [
   { id: "taches", label: "Tâches" },
   { id: "reserves", label: "Réserves" },
-  { id: "jalons", label: "Jalons", hint: "INC-03", disabled: true },
+  { id: "jalons", label: "Jalons" },
   { id: "comptes-rendus", label: "Comptes rendus", hint: "INC-04", disabled: true },
 ];
 
@@ -18,10 +20,12 @@ export function ChantierOperationalTabs({
   chantierId,
   taches,
   reserves,
+  planning,
 }: {
   chantierId: string;
   taches: Tache[];
   reserves: Reserve[];
+  planning: SimplePlanningData;
 }) {
   const [activeTab, setActiveTab] = useState<TabId>("taches");
 
@@ -41,7 +45,7 @@ export function ChantierOperationalTabs({
                   ? "rounded-t-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-card"
                   : "rounded-t-lg px-4 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50"
             }
-            title={tab.disabled ? `${tab.hint} — hors périmètre INC-02` : undefined}
+            title={tab.disabled ? `${tab.hint} — hors périmètre INC-03` : undefined}
           >
             {tab.label}
             {tab.hint && <span className="ml-2 text-[10px] uppercase">{tab.hint}</span>}
@@ -55,6 +59,9 @@ export function ChantierOperationalTabs({
         )}
         {activeTab === "reserves" && (
           <ReservesSection chantierId={chantierId} reserves={reserves} />
+        )}
+        {activeTab === "jalons" && (
+          <MilestonesSection chantierId={chantierId} planning={planning} />
         )}
       </div>
     </section>
