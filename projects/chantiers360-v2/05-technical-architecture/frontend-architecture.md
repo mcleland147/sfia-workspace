@@ -148,7 +148,7 @@ Valider que la **stack front retenue**, les **captures Figma** et les **node IDs
 
 > **Ce gate ne garantit pas un pixel-perfect strict.** L'objectif est une reproduction **pixel-close** sur viewport desktop de référence. Le **responsive** et les **données réelles** peuvent nécessiter des **adaptations contrôlées** — documentées et validées par Morris. Ce gate **ne remplace pas** la validation Morris finale.
 
-### Frame de référence recommandée (spike)
+### Frame de référence spike (validée Morris M9)
 
 | Élément | Valeur |
 |---------|--------|
@@ -157,7 +157,7 @@ Valider que la **stack front retenue**, les **captures Figma** et les **node IDs
 | **Capture repo** | `04-design/captures/01-dashboard-cockpit-premium.png` |
 | **Lien Figma** | `04-design/figma-brief.md` — frame Dashboard |
 
-Un **micro-cycle « Figma Fidelity Spike »** pourra être ouvert **après validation architecture**, si Morris l'autorise — spike borné à une frame, sans livrer INC-01 complet.
+Le **micro-cycle « Figma Fidelity Spike »** est **validé Morris (M8)** — prochain cycle recommandé avant delivery INC-01 complet. Spike borné à cette frame.
 
 ### Éléments visuels à reproduire (Frame 01)
 
@@ -180,15 +180,17 @@ Un **micro-cycle « Figma Fidelity Spike »** pourra être ouvert **après valid
 | **Node IDs Figma** | Référence structurelle — hiérarchie, nommage frames |
 | **Fichier Figma** | Source détaillée espacements et tokens si exportés |
 
-### Styling — Tailwind recommandé
+### Styling — Tailwind CSS validé Morris
 
-**Tailwind CSS** est proposé comme **option de styling recommandée** pour faciliter la reproduction pixel-close :
+**Tailwind CSS** est **validé Morris (M10)** pour faciliter la reproduction pixel-close :
 
 - utilitaires d'espacement et de couleur proches des valeurs Figma ;
-- itération rapide sur la frame spike ;
-- pas de configuration Tailwind réelle dans ce cycle documentaire.
+- itération rapide sur la frame spike Dashboard `38:502` ;
+- cohérence UI sur les écrans P1 INC-01.
 
-**Alternative :** CSS Modules — si Morris préfère moins de dépendance utilitaire. Décision liée à T8 et à la décision Morris M10.
+> Aucune configuration Tailwind réelle n'est créée dans ce cycle documentaire. L'implémentation Tailwind interviendra au spike ou au delivery, après GO Morris.
+
+**Décision liée :** T8 — Tailwind validé ; arbitrage Morris M10.
 
 ### Revue Morris
 

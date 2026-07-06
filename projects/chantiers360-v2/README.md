@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Architecture technique légère — en cours  
+**Statut :** Arbitrages architecture validés Morris — spike Figma Fidelity à venir  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
@@ -10,7 +10,8 @@
 **Backlog MVP :** mergé via PR #99 (`93d6810`)  
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
-**Cycle courant :** Architecture technique légère — dossier `05-technical-architecture/` ; aucun code lancé  
+**Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
+**Cycle courant :** Figma Fidelity Spike recommandé — delivery INC-01 non lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -27,19 +28,19 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Architecture technique légère — en cours (Morris) |
-| **Cycle** | Architecture technique légère (post PR #101) |
+| **Statut** | Arbitrages architecture validés Morris |
+| **Cycle** | Figma Fidelity Spike recommandé (post PR #102) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
 | **UX/UI** | Mergée PR #98 — `1d9feb9` |
 | **Nom projet** | `chantiers360-v2` — **validé Morris** |
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
-| **Delivery applicatif** | Non lancé |
+| **Architecture technique** | Mergée PR #102 — arbitrages Morris validés |
+| **Delivery applicatif** | Non lancé — GO INC-01 non accordé (M7) |
 | **app / backend** | Non créés |
 | **Backlog produit détaillé** | Mergé PR #99 |
 | **Design Figma MVP** | Mergé PR #101 — `04-design/` |
-| **Architecture technique** | En cours — `05-technical-architecture/` |
 
 ## 3. SFIA v2.0 pilot rationale
 
@@ -192,17 +193,18 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** **Architecture technique légère** (post PR #101).
+**Cycle courant :** **Figma Fidelity Spike** (post arbitrages architecture PR #102).
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
 3. UX/UI Markdown — ✅ mergée PR #98
 4. Backlog MVP — ✅ mergé PR #99
 5. Design Figma MVP — ✅ mergé PR #101
-6. **Architecture technique légère** ← en cours
-7. Delivery incrémental ← après validation architecture + GO Morris
-8. Validation / PR readiness / post-merge / capitalisation
-9. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
+6. Architecture technique légère — ✅ mergée PR #102 — arbitrages Morris validés
+7. **Figma Fidelity Spike** ← prochain cycle (Frame Dashboard `38:502`)
+8. Delivery incrémental INC-01 ← après spike + GO delivery Morris (M7)
+9. Validation / PR readiness / post-merge / capitalisation
+10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
 ## 15. Decision authority
 

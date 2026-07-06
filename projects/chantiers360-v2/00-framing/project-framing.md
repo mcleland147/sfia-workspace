@@ -2,14 +2,15 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (PR #101) + architecture technique légère
+**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (PR #101) + architecture technique légère (PR #102) + arbitrages Morris
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Architecture technique légère — en cours |
+| **Statut** | Arbitrages architecture validés Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
+| **Cycle courant** | Figma Fidelity Spike recommandé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -19,7 +20,7 @@
 | **Backlog MVP** | PR #99 mergée — `93d6810` |
 | **Standard Design Figma** | PR #100 mergée — `7ee45bb` |
 | **Design Figma P1** | PR #101 mergée — `7e37b58` |
-| **Cycle courant** | Architecture technique légère |
+| **Architecture technique** | PR #102 mergée — `57308aa` — arbitrages Morris validés |
 
 ## 2. Initial intent
 
@@ -172,22 +173,22 @@ Le bootstrap est **valide** si :
 - Dossier `04-design/` — brief, spec, checklist, décisions, alignement backlog
 - **Gate Morris design P1** — ✅ validé PR #101
 
-**Architecture technique légère (post PR #101) :**
+**Architecture technique légère (post PR #101, mergée PR #102) :**
 
-- Cycle ouvert — dossier `05-technical-architecture/`
-- Stack proposée — **non validée** sans GO Morris
-- Delivery INC-01 **soumis** à validation architecture + GO Morris explicite
-- Gate fidélité Figma documenté — faisabilité pixel-close frame P1 avant clôture INC-01 complet
-- Aucun code créé dans ce cycle
+- Dossier `05-technical-architecture/` — cycle documentaire terminé
+- **Stack validée Morris** — Option B : Next.js App Router + PostgreSQL + **Drizzle** + **Tailwind**
+- **Auth différée** après INC-01 (M3) — hébergement DB local/dev d'abord (M4)
+- **GO architecture technique** — ✅ validé (M6)
+- **Figma Fidelity Spike** — ✅ validé (M8) — frame Dashboard `38:502` (M9) — **avant INC-01 complet**
+- Delivery INC-01 — **GO non accordé** (M7) — soumis à GO Morris explicite post-spike
+- Aucun code créé
 
-**Décisions à venir (post gate design) :**
+**Décisions à venir :**
 
-1. ~~**Renseigner** lien Figma et valider écrans P1 (minimum)~~ — ✅ PR #101
-2. ~~**Compléter** checklist revue Morris~~ — ✅ PR #101
-3. ~~**Confirmer** alignement backlog~~ — ✅ aucun écart bloquant
-4. **Valider** architecture technique légère (stack, modèle, structure)
-5. **Autoriser** delivery incrémental INC-01 — après GO architecture Morris
-6. **Planifier** comparaison V0 — fin de pilote uniquement
+1. ~~**Valider** architecture technique légère~~ — ✅ arbitrages Morris documentés
+2. **Réaliser** Figma Fidelity Spike — Frame Dashboard `38:502`
+3. **Autoriser** delivery INC-01 — GO Morris explicite (M7) après spike
+4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
 
@@ -257,7 +258,7 @@ Le bootstrap est **valide** si :
 
 ---
 
-**Automation level autorisé :** L2–L3 (Architecture technique légère) — gate Morris avant delivery INC-01.
+**Automation level autorisé :** L2–L3 — gate Morris avant spike Figma Fidelity et delivery INC-01.
 
 **Références SFIA :**
 

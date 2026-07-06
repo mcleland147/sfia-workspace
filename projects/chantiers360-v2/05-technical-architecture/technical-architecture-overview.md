@@ -2,8 +2,8 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/05-technical-architecture/technical-architecture-overview.md`  
-**Cycle :** Architecture technique légère (post PR #101 Design Figma P1 validé Morris)  
-**Commit main de référence :** `7e37b58`
+**Cycle :** Architecture technique légère — **validée Morris** (post PR #102)  
+**Commit main de référence :** `57308aa`
 
 > **Niveau document :** architecture technique **documentaire** — pas de code, pas de schéma exécutable, pas de déploiement.
 
@@ -27,6 +27,8 @@ Définir une **architecture technique légère** suffisante pour préparer le de
 | **Écrans P2** | ⏳ Non produits en Figma — jalons, comptes rendus, prochaines actions |
 | **Alignement backlog** | ✅ Aucun écart bloquant (`design-to-backlog-alignment.md`) |
 | **Backlog PR #99** | Inchangé — source de vérité fonctionnelle |
+| **Architecture technique** | ✅ Validée Morris (M6) — PR #102 + arbitrages |
+| **Prochain cycle** | **Figma Fidelity Spike** — Frame Dashboard `38:502` (M8/M9) |
 
 L'architecture technique doit **couvrir l'ensemble du MVP backlog** (P1 + P2), tout en priorisant le delivery **INC-01** aligné sur les écrans Figma P1.
 
@@ -83,28 +85,34 @@ INC-02 (tâches, réserves) et incréments P2 s'appuient sur le socle INC-01 —
 
 | # | Critère | Statut cycle |
 |---|---------|--------------|
-| 1 | Stack comparée — options documentées | ⏳ Proposé |
-| 2 | Recommandation argumentée — non actée | ⏳ Proposé |
-| 3 | Structure applicative cible décrite | ⏳ Proposé |
-| 4 | Modèle de données léger couvrant le MVP | ⏳ Proposé |
-| 5 | Frontend aligné écrans P1 Figma | ⏳ Proposé |
-| 6 | Conditions INC-01 explicites | ⏳ Proposé |
-| 7 | Stratégie de reproduction Figma P1 documentée | ⏳ Proposé |
-| 8 | Gate de fidélité Figma avant delivery INC-01 complet | ⏳ Proposé |
-| 9 | Frame Dashboard cockpit premium candidate spike | ⏳ Proposé — node `38:502` |
-| 10 | **Validation Morris explicite** | ❌ **En attente** |
+| 1 | Stack comparée — options documentées | ✅ PR #102 |
+| 2 | Recommandation argumentée — actée Morris | ✅ Option B |
+| 3 | Structure applicative cible décrite | ✅ Validé M6 |
+| 4 | Modèle de données léger couvrant le MVP | ✅ Validé M6 |
+| 5 | Frontend aligné écrans P1 Figma | ✅ Validé M6 |
+| 6 | Conditions INC-01 explicites | ✅ |
+| 7 | Stratégie de reproduction Figma P1 documentée | ✅ |
+| 8 | Gate de fidélité Figma avant delivery INC-01 complet | ✅ Validé M8 — spike requis |
+| 9 | Frame Dashboard cockpit premium spike | ✅ Validé M9 — node `38:502` |
+| 10 | **Validation Morris architecture** | ✅ **M6** |
 | 11 | Aucun code créé | ✅ Confirmé |
 
-## 8. Décision Morris requise avant delivery
+## 8. Statut post-arbitrages Morris
 
 | Décision | Statut |
 |----------|--------|
-| Choix de stack | ⏳ En attente Morris |
-| Structure applicative retenue | ⏳ En attente Morris |
-| Modèle de données validé | ⏳ En attente Morris |
-| GO architecture technique | ⏳ En attente Morris |
-| Gate fidélité Figma (faisabilité pixel-close) | ⏳ En attente Morris |
-| GO delivery INC-01 | ❌ **Non autorisé** — après GO architecture + gate fidélité si requis |
+| Stack Option B + Drizzle + Tailwind | ✅ Validé |
+| Auth MVP | Différée après INC-01 |
+| Hébergement DB | Local/dev d'abord |
+| GO architecture technique (M6) | ✅ Validé |
+| Figma Fidelity Spike (M8/M9) | ✅ Validé — **prochain cycle** |
+| GO delivery INC-01 (M7) | ❌ **Non accordé** |
+
+## 9. Prochain cycle recommandé
+
+**Figma Fidelity Spike** — reproduction pixel-close de la frame **01 — Dashboard cockpit premium** (`38:502`), avant delivery INC-01 complet.
+
+Le **delivery INC-01** reste **non autorisé** sans GO delivery Morris explicite (M7) et sans validation du spike fidélité.
 
 ---
 
