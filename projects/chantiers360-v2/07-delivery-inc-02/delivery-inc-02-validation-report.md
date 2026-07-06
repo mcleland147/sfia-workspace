@@ -31,8 +31,8 @@
 
 ## Verdict delivery
 
-**INC-02 implémenté — en attente QA-G3 Morris**
+**INC-02 livré et mergé** — PR #115 `c1c00b7`. **QA-G3** GO WITH RESERVES Morris. **QA-G4 OK WITH RESERVES** post-merge — en attente clôture Morris.
 
 ---
 
-**Documents liés :** `../08-qa-test/inc-02/qa-readiness.md`
+**Documents liés :** `../08-qa-test/inc-02/qa-readiness.md`, `../08-qa-test/inc-02/qa-g4-post-merge-report.md`

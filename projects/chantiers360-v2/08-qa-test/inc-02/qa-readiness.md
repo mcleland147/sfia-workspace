@@ -14,7 +14,16 @@
 | 4 | Tests exécutés — résultat documenté | ✅ **8 passed** |
 | 5 | Scénarios US-06 à US-09 | ✅ |
 | 6 | Réserves documentées | ✅ |
-| 7 | Morris valide GO QA | ⏳ **En attente** |
+| 7 | Morris valide GO QA | ✅ **GO QA WITH RESERVES** (2026-07-06) |
+
+## QA-G4 post-merge (PR #115 — `main` @ `c1c00b7`)
+
+| Critère | Statut |
+|---------|--------|
+| Merge PR #115 sur `main` | ✅ `c1c00b7` (2026-07-06 15:26 UTC) |
+| lint / build post-merge | ✅ PASS |
+| E2E post-merge | ✅ **8 passed** — voir `qa-g4-post-merge-report.md` |
+| Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
 
 ## Couverture US
 
@@ -31,17 +40,20 @@ R-QA-03 à R-QA-05 — héritées INC-01, ouvertes, acceptées, non bloquantes p
 
 ## Verdict proposé
 
-### **GO QA WITH RESERVES** (proposition — validation Morris requise)
+### **GO QA WITH RESERVES** — acté Morris (QA-G3)
 
 - Aucune réserve bloquante INC-02
 - Réserves héritées documentées
 - Régression INC-01 OK
+- **QA-G4 OK WITH RESERVES** post-merge — PR #115
 
 ## Décision Morris
 
-- [ ] **GO QA** / **GO QA WITH RESERVES**
+- [x] **GO QA WITH RESERVES** (QA-G3)
 - [ ] **NO-GO QA**
 - [ ] Corrections requises
+- [ ] **Clôture INC-02** — décision séparée
+- [ ] **GO INC-03** — non accordé
 
 ---
 
