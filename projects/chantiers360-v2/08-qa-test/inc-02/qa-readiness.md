@@ -47,14 +47,21 @@ R-QA-03 à R-QA-05 — héritées INC-01, ouvertes, acceptées, non bloquantes p
 - Régression INC-01 OK
 - **QA-G4 OK WITH RESERVES** post-merge — PR #115
 
+## Clôture INC-02
+
+| Critère | Statut |
+|---------|--------|
+| Post-merge check PR #116 | ✅ POST-MERGE OK WITH RESERVES |
+| Clôture Morris | ✅ **INC-02 CLOSED WITH RESERVES** (2026-07-06) |
+| Rapport | `../../07-delivery-inc-02/inc-02-closure-report.md` |
+| GO INC-03 | ❌ **Non accordé** |
+
 ## Décision Morris
 
 - [x] **GO QA WITH RESERVES** (QA-G3)
-- [ ] **NO-GO QA**
-- [ ] Corrections requises
-- [ ] **Clôture INC-02** — décision séparée
+- [x] **Clôture INC-02** — **CLOSED WITH RESERVES** (2026-07-06)
 - [ ] **GO INC-03** — non accordé
 
 ---
 
-**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `../../07-delivery-inc-02/delivery-inc-02-validation-report.md`
+**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `../../07-delivery-inc-02/inc-02-closure-report.md`, `../../07-delivery-inc-02/delivery-inc-02-validation-report.md`

@@ -30,8 +30,8 @@
 | V2 | GO QA INC-02 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
 | V3 | GO PR readiness INC-02 ? | ✅ PR #115 mergée — `c1c00b7` |
 | V4 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
-| V5 | Clôture INC-02 ? | ⏳ Cycle séparé — décision Morris |
-| V6 | GO INC-03 ? | ❌ Non accordé — décision séparée |
+| V5 | Clôture INC-02 ? | ✅ **Accordée** — INC-02 CLOSED WITH RESERVES (2026-07-06) — `inc-02-closure-report.md` |
+| V6 | GO INC-03 ? | ❌ **Non accordé** — décision L0 séparée |
 
 ---
 
