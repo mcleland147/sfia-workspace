@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Delivery INC-01 ouvert — M7 accordé ; branche `delivery/chantiers360-v2-inc-01`  
+**Statut :** INC-01 livré sur `main` — PR #108 mergée ; QA-G4 OK WITH RESERVES  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
@@ -11,8 +11,8 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Delivery INC-01 — **PR readiness** (GO Morris QA-G3 WITH RESERVES)  
-**QA INC-01 :** `08-qa-test/inc-01/` — GO QA WITH RESERVES ; `pr-readiness-inc-01.md`
+**Cycle courant :** INC-01 livré — PR #108 mergée (`1b9e41f`) ; QA-G4 post-merge OK WITH RESERVES  
+**QA INC-01 :** `08-qa-test/inc-01/` — `qa-g4-post-merge-report.md`
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -29,8 +29,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Delivery INC-01 en cours — M7 accordé |
-| **Cycle** | Delivery INC-01 — US-01 à US-04 |
+| **Statut** | INC-01 livré sur `main` — PR #108 mergée |
+| **Cycle** | INC-01 clôture en attente Morris — GO INC-02 séparé |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -39,7 +39,7 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Architecture technique** | Mergée PR #102 — arbitrages Morris validés |
 | **Figma Fidelity Spike** | Mergé PR #104 — `87de625` — D1/D2 validés Morris |
-| **Delivery applicatif** | INC-01 ouvert — GO M7 accordé — branche `delivery/chantiers360-v2-inc-01` |
+| **Delivery applicatif** | INC-01 livré — PR #108 mergée `1b9e41f` — QA-G4 OK WITH RESERVES |
 | **app** | Next.js + Drizzle + PostgreSQL local/dev — socle chantier INC-01 |
 | **Backlog produit détaillé** | Mergé PR #99 |
 | **Design Figma MVP** | Mergé PR #101 — `04-design/` |
@@ -195,7 +195,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** Delivery INC-01 — PR readiness (GO Morris).
+**Cycle courant :** INC-01 livré — clôture Morris en attente ; GO INC-02 séparé.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
@@ -205,7 +205,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 6. Architecture technique légère — ✅ mergée PR #102 — arbitrages Morris validés
 7. **Figma Fidelity Spike** — ✅ mergé PR #104 — gate M8/M9 satisfait
 8. **Capitalisation Figma Fidelity Gate** — ✅ mergé PR #106
-9. **Delivery INC-01** — 🔄 en cours — M7 accordé
+9. **Delivery INC-01** — ✅ mergé PR #108 — QA-G4 OK WITH RESERVES
 10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
 ## 15. Decision authority

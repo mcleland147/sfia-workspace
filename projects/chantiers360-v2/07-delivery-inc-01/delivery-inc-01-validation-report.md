@@ -45,17 +45,20 @@
 |------|--------|
 | QA-G2 — tests implémentés | ✅ Playwright `app/e2e/inc-01.spec.ts` |
 | QA-G3 — QA readiness | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
-| PR readiness INC-01 | ✅ **GO Morris** — `pr-readiness-inc-01.md` |
+| PR #108 mergée | ✅ `1b9e41f` sur `main` (2026-07-06 08:42 UTC) |
+| QA-G4 — post-merge | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
 
 **Artefacts :** `08-qa-test/inc-01/`
 
 ## Verdict technique
 
-**READY FOR PR** — QA-G3 validé avec réserves mineures ; PR readiness documentée.
+**INC-01 livré sur `main`** — QA-G3 et QA-G4 validés avec réserves mineures documentées.
 
 ## Décisions Morris
 
-- ✅ GO QA WITH RESERVES — INC-01
-- ✅ GO PR readiness INC-01
+- ✅ GO QA WITH RESERVES — INC-01 (QA-G3)
+- ✅ GO PR readiness INC-01 — PR #108 mergée
+- ✅ QA-G4 post-merge — OK WITH RESERVES
 - R-QA-02 à R-QA-04 — mineures acceptées
-- GO INC-02 — séparé post-merge
+- Clôture INC-01 — en attente Morris
+- GO INC-02 — séparé post-clôture INC-01
