@@ -32,8 +32,8 @@
 
 ## Verdict delivery
 
-**INC-04 livré sur branche** — US-11 validée par E2E. **QA-G3** GO WITH RESERVES Morris. **PR readiness READY WITH RESERVES** — `pr-readiness-inc-04.md`. Push / PR = décision Morris séparée.
+**INC-04 livré et mergé** — PR #122 `9e9c124`. **QA-G3** GO WITH RESERVES Morris. **QA-G4 OK WITH RESERVES** post-merge — en attente clôture Morris.
 
 ---
 
-**Documents liés :** `pr-readiness-inc-04.md`, `../08-qa-test/inc-04/qa-readiness.md`
+**Documents liés :** `pr-readiness-inc-04.md`, `../08-qa-test/inc-04/qa-readiness.md`, `../08-qa-test/inc-04/qa-g4-post-merge-report.md`
