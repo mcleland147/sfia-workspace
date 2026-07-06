@@ -154,6 +154,17 @@ Le cycle Design Figma MVP est **validé** si Morris confirme :
 
 **Référence :** `sfia-v2-figma-fidelity-gate-standard.md` — pilote Chantiers360 v2 PR #104.
 
+## 10ter. Lien avec QA / Test delivery
+
+| Principe | Application |
+|----------|-------------|
+| **Scénarios UX/design** | Parcours Figma et maquettes peuvent **alimenter** la recette métier (QA-003) |
+| **Figma ≠ tests** | Design validé visuellement **ne remplace pas** tests fonctionnels delivery |
+| **Support QA visuel** | Captures repo (`04-design/captures/`) et parcours cliquables = preuves visuelles complémentaires |
+| **Gate design ≠ QA-G3** | GO design Morris ≠ QA readiness incrément |
+
+**Référence :** `sfia-v2-delivery-qa-test-standard.md`.
+
 ## 10. Template livrables projet
 
 ```
