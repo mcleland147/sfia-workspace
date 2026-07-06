@@ -188,7 +188,7 @@ Un **micro-cycle « Figma Fidelity Spike »** pourra être ouvert **après valid
 - itération rapide sur la frame spike ;
 - pas de configuration Tailwind réelle dans ce cycle documentaire.
 
-**Alternative :** CSS Modules — si Morris préfère moins de dépendance utilitaire. Décision liée à T8 / M2.
+**Alternative :** CSS Modules — si Morris préfère moins de dépendance utilitaire. Décision liée à T8 et à la décision Morris M10.
 
 ### Revue Morris
 

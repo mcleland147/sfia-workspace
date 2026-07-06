@@ -2,13 +2,13 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (rattrapage)
+**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (PR #101) + architecture technique légère
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Design Figma MVP — rattrapage ; MVP confirmé Morris |
+| **Statut** | Architecture technique légère — en cours |
 | **Nom projet** | `chantiers360-v2` — validé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
@@ -18,7 +18,8 @@
 | **V0** | Aucun élément V0 utilisé |
 | **Backlog MVP** | PR #99 mergée — `93d6810` |
 | **Standard Design Figma** | PR #100 mergée — `7ee45bb` |
-| **Cycle courant** | Design Figma MVP (rattrapage) |
+| **Design Figma P1** | PR #101 mergée — `7e37b58` |
+| **Cycle courant** | Architecture technique légère |
 
 ## 2. Initial intent
 
@@ -176,6 +177,7 @@ Le bootstrap est **valide** si :
 - Cycle ouvert — dossier `05-technical-architecture/`
 - Stack proposée — **non validée** sans GO Morris
 - Delivery INC-01 **soumis** à validation architecture + GO Morris explicite
+- Gate fidélité Figma documenté — faisabilité pixel-close frame P1 avant clôture INC-01 complet
 - Aucun code créé dans ce cycle
 
 **Décisions à venir (post gate design) :**

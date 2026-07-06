@@ -17,7 +17,7 @@
 | T5 | Navigation fiche | Onglets client (aligné Figma P1) | ⏳ En attente Morris |
 | T6 | Client métier | Champ texte sur Chantier — pas de table Client | ⏳ En attente Morris |
 | T7 | Retard | Booléen manuel — pas de calcul auto | ⏳ En attente Morris |
-| T8 | Styling | Tailwind ou CSS Modules — selon préférence Morris | ⏳ En attente Morris |
+| T8 | Styling | Tailwind (recommandé, non acté) ou CSS Modules — selon Morris M10 | ⏳ En attente Morris |
 | T9 | TypeScript | Oui — typage fort sur entités métier | ⏳ En attente Morris |
 | T10 | Ordre delivery | INC-01 strict avant INC-02 | ⏳ En attente Morris |
 | T11 | Gate fidélité Figma | Valider faisabilité pixel-close sur une frame P1 avant clôture INC-01 complet | ⏳ En attente Morris |
@@ -35,6 +35,7 @@
 | M7 | GO delivery INC-01 | GO / NO-GO | Premier code |
 | M8 | Micro-cycle Figma Fidelity Spike | Oui / Non / Différé | Spike frame P1 avant INC-01 complet |
 | M9 | Frame de référence spike | Dashboard `38:502` (défaut) / autre frame P1 | Périmètre spike |
+| M10 | Styling front | Tailwind / CSS Modules / autre | Capacité reproduction Figma pixel-close, vitesse d'itération, cohérence UI |
 
 ## 3. Exclusions explicites
 
