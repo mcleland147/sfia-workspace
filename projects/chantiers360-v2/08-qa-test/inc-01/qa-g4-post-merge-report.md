@@ -151,9 +151,9 @@ Exit code: 0
 
 | # | Réserve | Statut |
 |---|---------|--------|
-| R-CAP-01 | IDs prompts delivery | **Levée** — `sfia-v2-delivery-qa-test-standard.md` §17 aligné `PROMPT-QA-D-001` à `008` |
-| R-CAP-02 | prompt-catalog | **Ouverte** — index `delivery-qa-test` — cycle séparé |
-| R-CAP-03 | routing/checklist v1.1 | **Ouverte** — cycle séparé (hors scope micro-alignement) |
+| R-CAP-01 | IDs prompts delivery | **Levée** — PR #112 |
+| R-CAP-02 | `prompts/prompt-catalog.md` — §14 | **Levée** |
+| R-CAP-03 | routing §6.12–6.14 ; checklist §12.1, §13.1 | **Levée** |
 
 ---
 

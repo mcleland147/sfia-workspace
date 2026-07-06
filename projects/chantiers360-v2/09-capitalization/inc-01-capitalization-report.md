@@ -185,19 +185,20 @@ Chantiers360 v2 est le **premier delivery code complet** du pilote SFIA v2.0. IN
 
 | # | Question | Statut |
 |---|----------|--------|
-| D1 | Valider capitalisation INC-01 ? | ⏳ En attente — ce cycle |
-| D2 | Promouvoir standard closure en méthode v2.0 ? | ⏳ `sfia-v2-incremental-delivery-closure-standard.md` |
+| D1 | Valider capitalisation INC-01 ? | ✅ **Validée** — intégrée PR #111 `ff32170` |
+| D2 | Promouvoir standard closure en méthode v2.0 ? | ✅ **Intégré** — PR #111 — `sfia-v2-incremental-delivery-closure-standard.md` |
 | D3 | GO INC-02 ? | ❌ Non accordé — décision séparée |
 | D4 | Micro-alignement R-QA-02 (backlog) ? | ⏳ Optionnel |
 | D5 | Comparaison V0 | Fin de pilote uniquement |
+| D6 | R-CAP-02 / R-CAP-03 (prompt-catalog / routing) ? | ✅ **Levées** — alignement prompt/routing post-#112 |
 
 ---
 
 ## 15. Verdict capitalisation
 
-### **Capitalisation INC-01 documentée — READY FOR REVIEW**
+### **Capitalisation INC-01 intégrée — CLOSED WITH RESERVES inchangé**
 
-Premier delivery SFIA v2.0 capitalisé. INC-01 reste **CLOSED WITH RESERVES**. INC-02 non lancé.
+Premier delivery SFIA v2.0 capitalisé et aligné (PR #111, #112, prompt/routing). INC-01 reste **CLOSED WITH RESERVES**. INC-02 non lancé.
 
 ---
 

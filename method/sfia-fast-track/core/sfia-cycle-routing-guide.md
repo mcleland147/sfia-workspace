@@ -518,6 +518,50 @@ Ils doivent toujours déclarer :
 
 **Décision attendue :** ROADMAP READY | ROADMAP READY WITH RESERVES | NEEDS ARBITRATION
 
+### 6.12 Delivery QA/Test incrément (SFIA v2.0 — pilote)
+
+> Complète §6.6 pour un **incrément delivery** (INC-n) avec gates QA-G3/G4. Référence pilote : Chantiers360 v2 INC-01.
+
+**Références obligatoires :**
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
+- `prompts/qa/delivery-qa-test-prompt-family.md` — `PROMPT-QA-D-001` à `008`
+- `prompts/prompt-catalog.md` — §14 Supplément SFIA v2.0
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md` — §12.1, §13.1
+- rapports `projects/<project>/08-qa-test/inc-<nn>/`
+
+**Livrables attendus :** stratégie QA, scénarios, tests, rapports d'exécution, réserves, QA readiness (QA-G3).
+
+**Décision attendue :** GO QA | GO QA WITH RESERVES | NO-GO QA
+
+### 6.13 Clôture incrément delivery (SFIA v2.0 — pilote)
+
+**Références obligatoires :**
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`
+- rapport QA-G4 post-merge — `qa-g4-post-merge-report.md`
+- `07-delivery-inc-<nn>/inc-<nn>-closure-report.md`
+
+**Livrables attendus :** statut CLOSED ou CLOSED WITH RESERVES ; réserves documentées.
+
+**Décision attendue :** INC-n CLOSED | CLOSED WITH RESERVES
+
+> **Clôture ≠ GO incrément suivant** — GO INC-(n+1) = décision Morris séparée (L0).
+
+### 6.14 Capitalisation post-incrément (SFIA v2.0 — pilote)
+
+**Références obligatoires :**
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`
+- `prompts/templates/08-capitalize-method-asset.md`
+- `projects/<project>/09-capitalization/inc-<nn>-capitalization-report.md`
+
+**Livrables attendus :** retour d'expérience incrément ; actif méthode si généralisable.
+
+**Décision attendue :** CAPITALIZATION COMPLETE | COMPLETE WITH RESERVES | INCOMPLETE
+
+> Recommandée après **premier incrément pilote** — distincte du GO INC-(n+1).
+
 ## 7. Contrat minimal d'un prompt SFIA
 
 Tout prompt d'exécution SFIA doit contenir au minimum :

@@ -257,9 +257,9 @@ Voir : `sfia-v2-automation-levels.md`.
 
 | # | Réserve | Statut |
 |---|---------|--------|
-| R-CAP-01 | IDs prompts delivery | **Levée** — §17 ci-dessus |
-| R-CAP-02 | `prompts/prompt-catalog.md` — index famille delivery QA | **Ouverte** — cycle séparé |
-| R-CAP-03 | `sfia-cycle-routing-guide.md` / checklist v1.1 | **Ouverte** — cycle séparé |
+| R-CAP-01 | IDs prompts delivery | **Levée** — §17 ci-dessus ; PR #112 |
+| R-CAP-02 | `prompts/prompt-catalog.md` — §14 Supplément Delivery QA/Test | **Levée** — ce cycle |
+| R-CAP-03 | `sfia-cycle-routing-guide.md` §6.12–6.14 ; checklist §12.1, §13.1 | **Levée** — ce cycle |
 
 ## 18. Explicitement hors scope
 

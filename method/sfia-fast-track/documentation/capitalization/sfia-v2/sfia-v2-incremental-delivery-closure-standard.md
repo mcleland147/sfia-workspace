@@ -226,6 +226,9 @@ Rapport projet : `projects/chantiers360-v2/09-capitalization/inc-01-capitalizati
 
 - `sfia-v2-delivery-qa-test-standard.md`
 - `sfia-v2-automation-levels.md`
+- `prompts/prompt-catalog.md` — §14 Supplément Delivery QA/Test
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` — §6.12–6.14
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md` — §12.1, §13.1
 - `sfia-v2-figma-fidelity-gate-standard.md`
 - `sfia-v2-project-bootstrap-standard.md`
 - `projects/chantiers360-v2/09-capitalization/inc-01-capitalization-report.md`
