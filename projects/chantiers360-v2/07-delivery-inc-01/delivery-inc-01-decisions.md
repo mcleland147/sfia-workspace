@@ -27,10 +27,12 @@
 
 | # | Question | Statut |
 |---|----------|--------|
-| V1 | INC-01 validé pour PR ? | ✅ **GO PR readiness** — Morris (2026-07-06) — voir `pr-readiness-inc-01.md` |
+| V1 | INC-01 validé pour PR ? | ✅ **PR #108 mergée** — `1b9e41f` sur `main` |
 | V2 | Aligner statuts avec backlog (En pause) ? | ⏳ Optionnel — réserve R-QA-02 acceptée |
-| V3 | GO INC-02 ? | ❌ Non — décision séparée post-merge INC-01 |
+| V3 | GO INC-02 ? | ❌ Non — décision séparée post-clôture INC-01 |
 | V4 | GO QA INC-01 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
+| V5 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
+| V6 | Clôture INC-01 ? | ⏳ En attente Morris |
 
 ---
 
