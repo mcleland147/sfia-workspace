@@ -2,15 +2,15 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (PR #101) + architecture technique légère (PR #102) + arbitrages Morris
+**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (PR #101) + architecture technique légère (PR #102) + arbitrages Morris + Figma Fidelity Spike (PR #104)
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Arbitrages architecture validés Morris |
+| **Statut** | Figma Fidelity Spike mergé — gate M8/M9 satisfait ; delivery INC-01 non lancé |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Figma Fidelity Spike — validation Morris, PR readiness à préparer |
+| **Cycle courant** | Post-spike — capitalisation SFIA v2.0 ou décision GO delivery INC-01 (M7) séparée |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -21,6 +21,7 @@
 | **Standard Design Figma** | PR #100 mergée — `7ee45bb` |
 | **Design Figma P1** | PR #101 mergée — `7e37b58` |
 | **Architecture technique** | PR #102 mergée — `57308aa` — arbitrages Morris validés |
+| **Figma Fidelity Spike** | PR #104 mergée — `87de625` — D1/D2 validés Morris ; gate M8/M9 satisfait |
 
 ## 2. Initial intent
 
@@ -179,14 +180,15 @@ Le bootstrap est **valide** si :
 - **Stack validée Morris** — Option B : Next.js App Router + PostgreSQL + **Drizzle** + **Tailwind**
 - **Auth différée** après INC-01 (M3) — hébergement DB local/dev d'abord (M4)
 - **GO architecture technique** — ✅ validé (M6)
-- **Figma Fidelity Spike** — ✅ réalisé et **validé Morris** (D1/D2) — frame Dashboard `38:502` (M9)
-- Delivery INC-01 — **GO non accordé** (M7) — décision Morris séparée post-merge spike
+- **Figma Fidelity Spike** — ✅ mergé PR #104 — validé Morris (D1/D2) — frame Dashboard `38:502` (M9) — gate M8/M9 satisfait
+- **App spike** — `projects/chantiers360-v2/app/` — dashboard mocké uniquement ; pas de backend / DB / auth
+- Delivery INC-01 — **GO non accordé** (M7/D3) — décision Morris séparée post-merge spike
 
 **Décisions à venir :**
 
 1. ~~**Valider** architecture technique légère~~ — ✅ arbitrages Morris documentés
-2. ~~**Réaliser** Figma Fidelity Spike~~ — ✅ validé Morris (D1/D2)
-3. **Merger** PR spike — puis **autoriser** delivery INC-01 — GO Morris explicite (M7)
+2. ~~**Réaliser** Figma Fidelity Spike~~ — ✅ mergé PR #104 — validé Morris (D1/D2)
+3. **Capitaliser** méthode SFIA v2.0 post-spike — ou **autoriser** delivery INC-01 — GO Morris explicite (M7)
 4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
