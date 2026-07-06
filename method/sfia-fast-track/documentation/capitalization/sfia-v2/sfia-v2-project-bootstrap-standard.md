@@ -301,6 +301,19 @@ Ce standard **applique** `sfia-v2-automation-levels.md` au contexte bootstrap :
 | PR / merge | L0 | Morris uniquement |
 | Post-merge | L4 / L5 ciblé | Si anomalie |
 
+## 14bis. Qualification QA initiale
+
+Dès le bootstrap, préparer la **testabilité** du projet — sans produire de tests.
+
+| Action bootstrap | Détail |
+|------------------|--------|
+| **Qualifier testabilité** | Le besoin est-il vérifiable ? (gate QA-G0 pressenti) |
+| **QA renforcée ?** | Projet pilote delivery, données persistantes, parcours critiques → noter besoin QA renforcée |
+| **Ne pas produire de tests** | Bootstrap = structure et documentation ; tests au delivery INC-n |
+| **Préparer testabilité** | Prévoir dossier futur `08-qa-test/` ; lier framing aux critères vérifiables |
+
+**Référence :** `sfia-v2-delivery-qa-test-standard.md` — prompt QA-001.
+
 ## 15. Relationship with project lifecycle
 
 Ce standard est la **première étape concrète** du cycle de vie projet décrit dans `sfia-v2-automation-levels.md` §12.
@@ -372,6 +385,7 @@ Le bootstrap **ne remplace pas** le cadrage approfondi — il **initie** le proj
 - `sfia-v2-automation-and-delivery-vision.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-design-figma-cycle-standard.md`
+- `sfia-v2-delivery-qa-test-standard.md`
 - `sfia-cycle-routing-guide.md`
 - `sfia-rules-and-guardrails.md`
 - `sfia-validation-checklist.md`
