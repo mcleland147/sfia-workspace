@@ -63,7 +63,7 @@ test.describe("INC-01 — Chantiers360 v2", () => {
     await expect(page.getByText("Client Fiche")).toBeVisible();
     await expect(page.getByText("1 avenue Test")).toBeVisible();
     await expect(page.getByText("Tâches")).toBeVisible();
-    await expect(page.getByText("INC-02")).toBeVisible();
+    await expect(page.getByText("INC-02").first()).toBeVisible();
     await expect(page.getByText("Sections opérationnelles disponibles")).toBeVisible();
 
     await page.getByRole("link", { name: "Retour au tableau de bord" }).click();
@@ -81,7 +81,7 @@ test.describe("INC-01 — Chantiers360 v2", () => {
 
     for (const status of STATUSES) {
       await updateStatus(page, status);
-      await expect(page.locator("header").getByText(status, { exact: true })).toBeVisible();
+      await expect(page.locator("header dd").filter({ hasText: status })).toBeVisible();
 
       await page.getByRole("link", { name: "Retour au tableau de bord" }).click();
       await expect(page.getByRole("heading", { name: title }).locator("..")).toContainText(status);

@@ -35,13 +35,14 @@ Valider par preuves automatisées et documentées que le socle chantier INC-01 r
 | Recette métier automatisée | **Playwright** E2E (`e2e/inc-01.spec.ts`) |
 | App | Next.js 15 App Router + server actions |
 | DB test | PostgreSQL — `TEST_DATABASE_URL` (voir `.env.test.example`) |
+| Infra reproductible | `docker-compose.test.yml` — `npm run db:test:up` (port **5433**) |
 
 ## DB test
 
 - URL recommandée : `postgresql://postgres:postgres@localhost:5432/chantiers360_v2_test`
 - Reset avant chaque test : `TRUNCATE chantiers`
 - Migrations : `DATABASE_URL=$TEST_DATABASE_URL npm run db:migrate`
-- **Contrainte locale :** PostgreSQL doit être disponible sur la machine d'exécution
+- **Contrainte locale :** Docker recommandé — `npm run test:e2e:full`
 
 ## Niveaux de validation
 
