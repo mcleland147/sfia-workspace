@@ -134,13 +134,71 @@ Pas d'app native — web responsive suffit (`ux-ui-overview.md`).
 
 | Dépendance | Traitement |
 |------------|------------|
-| Direction premium Frame 01 | Reproduire hiérarchie visuelle — pas pixel-perfect obligatoire |
+| Direction premium Frame 01 | Reproduire hiérarchie visuelle — objectif pixel-close desktop (voir §9) |
 | Onglets Frame 02/03 | Pattern navigation fiche validé Morris |
 | Polish mineur réservé | Non bloquant delivery INC-01 |
 | Écrans P2 absents Figma | Wireframes Markdown comme fallback |
 | Tokens / DS complet | Non requis — couleurs et espacements cohérents suffisent |
 
-## 9. Limites
+## 9. Fidélité Figma / pixel-close
+
+### Objectif
+
+Valider que la **stack front retenue**, les **captures Figma** et les **node IDs** permettent de reproduire au moins une frame P1 avec une **fidélité visuelle élevée / pixel-close** sur un **desktop de référence**.
+
+> **Ce gate ne garantit pas un pixel-perfect strict.** L'objectif est une reproduction **pixel-close** sur viewport desktop de référence. Le **responsive** et les **données réelles** peuvent nécessiter des **adaptations contrôlées** — documentées et validées par Morris. Ce gate **ne remplace pas** la validation Morris finale.
+
+### Frame de référence recommandée (spike)
+
+| Élément | Valeur |
+|---------|--------|
+| **Frame** | 01 — Dashboard cockpit premium |
+| **Node ID** | `38:502` |
+| **Capture repo** | `04-design/captures/01-dashboard-cockpit-premium.png` |
+| **Lien Figma** | `04-design/figma-brief.md` — frame Dashboard |
+
+Un **micro-cycle « Figma Fidelity Spike »** pourra être ouvert **après validation architecture**, si Morris l'autorise — spike borné à une frame, sans livrer INC-01 complet.
+
+### Éléments visuels à reproduire (Frame 01)
+
+| Zone | Éléments |
+|------|----------|
+| **Sidebar** | Navigation latérale, icônes, états actif/inactif, largeur et espacements |
+| **Hero / en-tête zone principale** | Titre, sous-titre ou métriques, hiérarchie typographique |
+| **Cartes chantier** | Layout grille, ombres/bordures, padding, hover si présent |
+| **Badges statut** | Couleurs, rayon, typographie par statut chantier |
+| **Indicateur retard** | Badge ou icône discret — visible sans ouvrir fiche |
+| **Typographie** | Familles, tailles, graisses, interlignage — alignés capture |
+| **Couleurs** | Fond, surfaces, texte primaire/secondaire, accents |
+| **Espacements** | Marges, gaps grille, padding cartes — cohérence globale |
+
+### Références de travail
+
+| Référence | Usage |
+|-----------|--------|
+| **Captures repo** (`04-design/captures/`) | Référence visuelle principale — comparaison côte à côte |
+| **Node IDs Figma** | Référence structurelle — hiérarchie, nommage frames |
+| **Fichier Figma** | Source détaillée espacements et tokens si exportés |
+
+### Styling — Tailwind recommandé
+
+**Tailwind CSS** est proposé comme **option de styling recommandée** pour faciliter la reproduction pixel-close :
+
+- utilitaires d'espacement et de couleur proches des valeurs Figma ;
+- itération rapide sur la frame spike ;
+- pas de configuration Tailwind réelle dans ce cycle documentaire.
+
+**Alternative :** CSS Modules — si Morris préfère moins de dépendance utilitaire. Décision liée à T8 / M2.
+
+### Revue Morris
+
+| Étape | Responsable |
+|-------|-------------|
+| Comparaison capture vs implémentation spike | Cursor / équipe |
+| Validation fidélité pixel-close acceptable | **Morris** — obligatoire |
+| Arbitrage adaptations responsive / données réelles | **Morris** |
+
+## 10. Limites
 
 - Pas de prototype Figma cliquable requis pour INC-01
 - Pas d'animations complexes

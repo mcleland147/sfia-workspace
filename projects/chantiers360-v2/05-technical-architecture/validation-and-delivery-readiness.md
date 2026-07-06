@@ -17,7 +17,9 @@
 | 5 | Modèle de données validé par Morris | ❌ En attente |
 | 6 | Structure applicative validée par Morris | ❌ En attente |
 | 7 | **GO architecture technique Morris** | ❌ En attente |
-| 8 | **GO delivery INC-01 Morris** | ❌ En attente |
+| 8 | Stratégie fidélité Figma documentée | ⏳ Ce cycle |
+| 9 | Gate fidélité Figma validé ou spike planifié (si Morris le demande) | ❌ En attente |
+| 10 | **GO delivery INC-01 Morris** | ❌ En attente |
 
 ## 2. Critères pour autoriser delivery code
 
@@ -30,6 +32,8 @@
 | **Hors scope respecté** | Pas de devis, facturation, client, planning avancé, V0 |
 | **Branche delivery** | Nouvelle branche dédiée — ex. `delivery/chantiers360-v2-inc-01` |
 | **Pas de modification backlog/design** | Sauf micro-cycle alignment si écart bloquant |
+| **Fidélité Figma** | Stratégie pixel-close documentée ; spike frame P1 si Morris le demande |
+| **Anti-dérive UI** | L'implémentation ne doit pas dériver vers une UI générique type admin dashboard |
 
 ## 3. Risques avant delivery
 
@@ -38,7 +42,8 @@
 | Stack non validée | Refonte possible | Gate Morris avant premier commit code |
 | Auth non décidée | Blocage déploiement | Pilote local ou décision auth explicite |
 | Surconception formulaire | Retard INC-01 | Champs minimaux US-01 |
-| Écart Figma / code | UX dégradée | Revue visuelle Morris sur INC-01 |
+| Écart Figma / code | UX dégradée | Gate fidélité + revue visuelle Morris |
+| Dérive UI générique | Perte direction premium | Spike Frame 01 + comparaison capture |
 | Confusion tâche/réserve (INC-02) | UX confuse | Livrer INC-01 d'abord — INC-02 séparé |
 | Prochaines actions prématurées (INC-05) | Complexité | Strict ordre incréments |
 
@@ -89,14 +94,26 @@ Alignés sur `acceptance-criteria.md` :
 | **G1 — Architecture** | La stack et le modèle proposés sont-ils validés ? | GO / NO-GO |
 | **G2 — Périmètre INC-01** | Le scope US-01 à US-04 est-il confirmé ? | GO / NO-GO |
 | **G3 — Design** | Les captures P1 suffisent-elles pour INC-01 ? | GO / NO-GO |
-| **G4 — Delivery** | Autorise-t-on le premier commit code INC-01 ? | GO / NO-GO |
+| **G4 — Fidélité Figma** | La stack front permet-elle une reproduction pixel-close ? Spike requis ? | GO / NO-GO / Planifier spike |
+| **G5 — Delivery** | Autorise-t-on le premier commit code INC-01 ? | GO / NO-GO |
 
-**Sans GO explicite sur G1 et G4 :** delivery code **interdit**.
+**Sans GO explicite sur G1 et G5 :** delivery code **interdit**.
+
+**Gate fidélité Figma (G4) — conditions avant GO delivery INC-01 complet :**
+
+1. **Confirmer** la stratégie de fidélité Figma documentée (`frontend-architecture.md` §9)
+2. **Réaliser ou planifier** un spike sur une frame P1 si Morris le demande — frame par défaut : **01 — Dashboard cockpit premium** (`38:502`)
+3. **Valider** que l'implémentation INC-01 ne dérive pas vers une UI générique — comparaison systématique avec `04-design/captures/01-dashboard-cockpit-premium.png`
+
+> Le spike peut être un **micro-cycle séparé** post-merge architecture — non bloquant pour un setup technique initial si Morris l'autorise, mais **bloquant pour clôturer INC-01** sans revue fidélité.
 
 ## 7. Ordre post-validation architecture
 
 ```
 Validation Morris architecture
+        │
+        ▼
+[Optionnel si Morris] Micro-cycle Figma Fidelity Spike — Frame 01 Dashboard
         │
         ▼
 GO delivery INC-01
@@ -105,10 +122,10 @@ GO delivery INC-01
 Branche delivery + setup stack validée
         │
         ▼
-Implémentation US-01 → US-04
+Implémentation US-01 → US-04 (fidélité pixel-close desktop de référence)
         │
         ▼
-Revue Morris + tests acceptance
+Revue Morris — gate fidélité Figma + tests acceptance
         │
         ▼
 PR delivery INC-01

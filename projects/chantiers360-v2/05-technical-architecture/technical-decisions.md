@@ -20,6 +20,7 @@
 | T8 | Styling | Tailwind ou CSS Modules — selon préférence Morris | ⏳ En attente Morris |
 | T9 | TypeScript | Oui — typage fort sur entités métier | ⏳ En attente Morris |
 | T10 | Ordre delivery | INC-01 strict avant INC-02 | ⏳ En attente Morris |
+| T11 | Gate fidélité Figma | Valider faisabilité pixel-close sur une frame P1 avant clôture INC-01 complet | ⏳ En attente Morris |
 
 ## 2. Décisions en attente Morris
 
@@ -32,6 +33,8 @@
 | M5 | Onglets vs routes | Onglets SPA / routes distinctes | Routing, URLs |
 | M6 | GO architecture technique | GO / NO-GO / ajustements | Déblocage delivery |
 | M7 | GO delivery INC-01 | GO / NO-GO | Premier code |
+| M8 | Micro-cycle Figma Fidelity Spike | Oui / Non / Différé | Spike frame P1 avant INC-01 complet |
+| M9 | Frame de référence spike | Dashboard `38:502` (défaut) / autre frame P1 | Périmètre spike |
 
 ## 3. Exclusions explicites
 
@@ -56,6 +59,7 @@
 | Auth reportée — dette déploiement | Moyenne | Décision M3 avant prod |
 | Écart onglets Figma / routes | Faible | Arbitrage M5 |
 | Scope creep INC-01 | Moyenne | US-01 à US-04 strict |
+| Écart Figma / code — UI générique | Moyenne | Gate T11 + spike Frame 01 |
 | Référence V0 involontaire | Faible | Règle V0 rappelée — non consultée |
 
 ## 5. Gates
@@ -64,7 +68,8 @@
 |------|-----------|--------|
 | **Gate design P1** | Figma P1 validé Morris | ✅ PR #101 |
 | **Gate architecture** | Stack + modèle + structure validés Morris | ❌ En attente |
-| **Gate delivery INC-01** | GO Morris explicite post-architecture | ❌ Non autorisé |
+| **Gate fidélité Figma** | Faisabilité pixel-close frame P1 — revue Morris | ❌ En attente |
+| **Gate delivery INC-01** | GO Morris explicite post-architecture (+ fidélité si requis) | ❌ Non autorisé |
 | **Gate delivery INC-02+** | INC-01 mergé + GO Morris | ❌ Non applicable |
 
 ## 6. Confirmations cycle
@@ -83,9 +88,10 @@
 |-------|-------|-----------|
 | 1 | **Validation Morris architecture** | Revue documents `05-technical-architecture/` |
 | 2 | **PR architecture technique** | GO Morris + commit local → PR |
-| 3 | **Delivery INC-01** | Merge PR architecture + GO delivery Morris |
-| 4 | **Delivery INC-02** | Merge INC-01 + GO Morris |
-| 5 | Écrans P2 + prototype Figma | Optionnel — parallélisable |
+| 3 | **Figma Fidelity Spike** (optionnel) | GO Morris M8 — frame Dashboard `38:502` |
+| 4 | **Delivery INC-01** | Merge PR architecture + GO delivery Morris |
+| 5 | **Delivery INC-02** | Merge INC-01 + GO Morris |
+| 6 | Écrans P2 + prototype Figma | Optionnel — parallélisable |
 
 ---
 

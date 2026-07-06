@@ -41,6 +41,7 @@ L'architecture technique doit **couvrir l'ensemble du MVP backlog** (P1 + P2), t
 | **Architecture frontend** | Écrans P1, composants probables, navigation, états UI |
 | **Readiness delivery** | Conditions avant INC-01, critères GO code |
 | **Décisions techniques** | Proposées / en attente Morris |
+| **Gate fidélité Figma** | Stratégie reproduction P1 pixel-close — avant INC-01 complet |
 
 ## 4. Hors périmètre
 
@@ -88,8 +89,11 @@ INC-02 (tâches, réserves) et incréments P2 s'appuient sur le socle INC-01 —
 | 4 | Modèle de données léger couvrant le MVP | ⏳ Proposé |
 | 5 | Frontend aligné écrans P1 Figma | ⏳ Proposé |
 | 6 | Conditions INC-01 explicites | ⏳ Proposé |
-| 7 | **Validation Morris explicite** | ❌ **En attente** |
-| 8 | Aucun code créé | ✅ Confirmé |
+| 7 | Stratégie de reproduction Figma P1 documentée | ⏳ Proposé |
+| 8 | Gate de fidélité Figma avant delivery INC-01 complet | ⏳ Proposé |
+| 9 | Frame Dashboard cockpit premium candidate spike | ⏳ Proposé — node `38:502` |
+| 10 | **Validation Morris explicite** | ❌ **En attente** |
+| 11 | Aucun code créé | ✅ Confirmé |
 
 ## 8. Décision Morris requise avant delivery
 
@@ -99,7 +103,8 @@ INC-02 (tâches, réserves) et incréments P2 s'appuient sur le socle INC-01 —
 | Structure applicative retenue | ⏳ En attente Morris |
 | Modèle de données validé | ⏳ En attente Morris |
 | GO architecture technique | ⏳ En attente Morris |
-| GO delivery INC-01 | ❌ **Non autorisé** — après GO architecture |
+| Gate fidélité Figma (faisabilité pixel-close) | ⏳ En attente Morris |
+| GO delivery INC-01 | ❌ **Non autorisé** — après GO architecture + gate fidélité si requis |
 
 ---
 
