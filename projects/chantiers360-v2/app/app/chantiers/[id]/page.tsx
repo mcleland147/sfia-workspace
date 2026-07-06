@@ -4,6 +4,7 @@ import { ChantierFiche } from "@/components/chantier/ChantierFiche";
 import { getChantierById } from "@/lib/chantiers/queries";
 import { listReservesByChantierId } from "@/lib/reserves/queries";
 import { listTachesByChantierId } from "@/lib/taches/queries";
+import { listComptesRendusByChantierId } from "@/lib/comptes-rendus/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -19,14 +20,20 @@ export default async function ChantierDetailPage({
     notFound();
   }
 
-  const [taches, reserves] = await Promise.all([
+  const [taches, reserves, comptesRendus] = await Promise.all([
     listTachesByChantierId(id),
     listReservesByChantierId(id),
+    listComptesRendusByChantierId(id),
   ]);
 
   return (
     <AppShell activeNav="chantier">
-      <ChantierFiche chantier={chantier} taches={taches} reserves={reserves} />
+      <ChantierFiche
+        chantier={chantier}
+        taches={taches}
+        reserves={reserves}
+        comptesRendus={comptesRendus}
+      />
     </AppShell>
   );
 }

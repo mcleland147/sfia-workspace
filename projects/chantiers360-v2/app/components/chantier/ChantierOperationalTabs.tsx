@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import type { Reserve, Tache } from "@/lib/db/schema";
+import type { CompteRendu, Reserve, Tache } from "@/lib/db/schema";
 import type { SimplePlanningData } from "@/lib/planning/types";
 import { TasksSection } from "./TasksSection";
 import { ReservesSection } from "./ReservesSection";
 import { MilestonesSection } from "./MilestonesSection";
+import { ComptesRendusSection } from "./ComptesRendusSection";
 
 type TabId = "taches" | "reserves" | "jalons" | "comptes-rendus";
 
-const tabs: { id: TabId; label: string; hint?: string; disabled?: boolean }[] = [
+const tabs: { id: TabId; label: string }[] = [
   { id: "taches", label: "Tâches" },
   { id: "reserves", label: "Réserves" },
   { id: "jalons", label: "Jalons" },
-  { id: "comptes-rendus", label: "Comptes rendus", hint: "INC-04", disabled: true },
+  { id: "comptes-rendus", label: "Comptes rendus" },
 ];
 
 export function ChantierOperationalTabs({
@@ -21,11 +22,13 @@ export function ChantierOperationalTabs({
   taches,
   reserves,
   planning,
+  comptesRendus,
 }: {
   chantierId: string;
   taches: Tache[];
   reserves: Reserve[];
   planning: SimplePlanningData;
+  comptesRendus: CompteRendu[];
 }) {
   const [activeTab, setActiveTab] = useState<TabId>("taches");
 
@@ -36,19 +39,14 @@ export function ChantierOperationalTabs({
           <button
             key={tab.id}
             type="button"
-            disabled={tab.disabled}
-            onClick={() => !tab.disabled && setActiveTab(tab.id)}
+            onClick={() => setActiveTab(tab.id)}
             className={
-              tab.disabled
-                ? "cursor-not-allowed rounded-t-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-400"
-                : activeTab === tab.id
-                  ? "rounded-t-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-card"
-                  : "rounded-t-lg px-4 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50"
+              activeTab === tab.id
+                ? "rounded-t-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-card"
+                : "rounded-t-lg px-4 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50"
             }
-            title={tab.disabled ? `${tab.hint} — hors périmètre INC-03` : undefined}
           >
             {tab.label}
-            {tab.hint && <span className="ml-2 text-[10px] uppercase">{tab.hint}</span>}
           </button>
         ))}
       </div>
@@ -62,6 +60,9 @@ export function ChantierOperationalTabs({
         )}
         {activeTab === "jalons" && (
           <MilestonesSection chantierId={chantierId} planning={planning} />
+        )}
+        {activeTab === "comptes-rendus" && (
+          <ComptesRendusSection chantierId={chantierId} comptesRendus={comptesRendus} />
         )}
       </div>
     </section>

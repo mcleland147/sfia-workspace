@@ -1,4 +1,4 @@
-import type { Chantier, Reserve, Tache } from "@/lib/db/schema";
+import type { Chantier, CompteRendu, Reserve, Tache } from "@/lib/db/schema";
 import type { ChantierStatus } from "@/lib/chantiers/types";
 import { formatDisplayDate } from "@/lib/planning/format";
 import type { SimplePlanningData } from "@/lib/planning/types";
@@ -20,10 +20,12 @@ export function ChantierFiche({
   chantier,
   taches,
   reserves,
+  comptesRendus,
 }: {
   chantier: Chantier;
   taches: Tache[];
   reserves: Reserve[];
+  comptesRendus: CompteRendu[];
 }) {
   const status = chantier.status as ChantierStatus;
   const planning = toPlanningData(chantier);
@@ -93,6 +95,7 @@ export function ChantierFiche({
         taches={taches}
         reserves={reserves}
         planning={planning}
+        comptesRendus={comptesRendus}
       />
     </div>
   );

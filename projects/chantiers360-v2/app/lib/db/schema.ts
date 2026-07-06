@@ -44,9 +44,21 @@ export const reserves = pgTable("reserves", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const comptesRendus = pgTable("comptes_rendus", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  chantierId: uuid("chantier_id")
+    .notNull()
+    .references(() => chantiers.id, { onDelete: "cascade" }),
+  contenu: text("contenu").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type Chantier = typeof chantiers.$inferSelect;
 export type NewChantier = typeof chantiers.$inferInsert;
 export type Tache = typeof taches.$inferSelect;
 export type NewTache = typeof taches.$inferInsert;
 export type Reserve = typeof reserves.$inferSelect;
 export type NewReserve = typeof reserves.$inferInsert;
+export type CompteRendu = typeof comptesRendus.$inferSelect;
+export type NewCompteRendu = typeof comptesRendus.$inferInsert;
