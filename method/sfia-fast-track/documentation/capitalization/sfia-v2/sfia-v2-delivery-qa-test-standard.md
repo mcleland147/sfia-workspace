@@ -58,7 +58,8 @@ Bootstrap → Cadrage → Archi fonctionnelle → UX/UI → Design Figma → Bac
 | **Delivery INC-n** | Tests automatisés + recette métier (QA-G2/G3) | Code tests, rapport QA |
 | **PR readiness** | QA readiness obligatoire avant PR | Rapport QA-G3, réserves |
 | **Post-merge** | Non-régression (QA-G4) | Rapport post-merge QA |
-| **Capitalisation** | Retour d'expérience QA méthode | Amélioration standard / prompts |
+| **Closure** | Clôture incrément — statut CLOSED / CLOSED WITH RESERVES | `inc-0n-closure-report.md` |
+| **Capitalisation** | Retour d'expérience delivery + QA + closure | `09-capitalization/`, amélioration standard |
 
 ## 5. Rôles
 
@@ -145,8 +146,12 @@ Sous `projects/<project>/app/` (ou racine app documentée) :
 | Type | Traitement |
 |------|------------|
 | **Bloquante** | NO-GO QA — pas de PR readiness |
+| **Majeure** | NO-GO QA sans acceptation Morris explicite |
 | **Majeure acceptée** | GO QA avec réserves — documentées dans PR |
-| **Mineure** | GO QA — suivi post-merge ou incrément suivant |
+| **Mineure** | GO QA — peut rester ouverte après clôture |
+| **Environnementale** | GO QA si workaround documenté — non bloquante clôture |
+
+Voir typologie détaillée : `sfia-v2-incremental-delivery-closure-standard.md` §4.
 
 Morris arbitre l'acceptation des réserves — QA propose, Morris décide.
 
@@ -157,6 +162,8 @@ Morris arbitre l'acceptation des réserves — QA propose, Morris décide.
 | **GO QA** | Preuves suffisantes — PR readiness autorisée |
 | **GO QA WITH RESERVES** | PR readiness possible — réserves dans PR body |
 | **NO-GO QA** | Preuves insuffisantes — retour delivery |
+| **QA-G4 OK WITH RESERVES** | Post-merge validé — réserves documentées |
+| **CLOSED WITH RESERVES** | Incrément clôturé — réserves mineures acceptées |
 
 ## 12. Articulation avec PR readiness
 
@@ -183,7 +190,18 @@ PR → merge Morris
         │
         ▼
 QA-G4 — non-régression post-merge
+        │
+        ▼
+Closure INC-n (documentaire)
+        │
+        ▼
+Capitalization INC-n
+        │
+        ▼
+Morris — GO INC-(n+1) ? (L0 — séparé)
 ```
+
+Voir : `sfia-v2-incremental-delivery-closure-standard.md` — chaîne complète, statuts, typologie réserves.
 
 **PR readiness sans QA-G3 = NOT READY** pour tout incrément delivery.
 
@@ -228,6 +246,7 @@ Voir : `sfia-v2-automation-levels.md`.
 - GO PR et merge
 - Arbitrage écarts backlog vs implémentation (ex. statuts)
 - GO incrément suivant (INC-02+)
+- Clôture incrément (CLOSED / CLOSED WITH RESERVES)
 - Promotion tests en non-régression permanente
 
 ## 17. Prompt family
@@ -246,6 +265,7 @@ Voir : `sfia-v2-automation-levels.md`.
 
 **Références :**
 
+- `sfia-v2-incremental-delivery-closure-standard.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-project-bootstrap-standard.md`
 - `sfia-v2-design-figma-cycle-standard.md`

@@ -144,11 +144,11 @@ Exit code: 0
 | # | Question | Statut |
 |---|----------|--------|
 | D1 | Clôture INC-01 ? | ✅ **CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-01-closure-report.md` |
-| D2 | Capitalisation post-INC-01 ? | Cycle séparé — non lancé |
+| D2 | Capitalisation post-INC-01 ? | 🔄 En cours — `09-capitalization/inc-01-capitalization-report.md` |
 | D3 | GO INC-02 ? | **Décision séparée** — non accordé |
 
 ---
 
-**Documents liés :** `qa-readiness.md`, `qa-reserves.md`, `qa-execution-report.md`, `local-e2e-runbook.md`, `07-delivery-inc-01/delivery-inc-01-validation-report.md`
+**Documents liés :** `qa-readiness.md`, `qa-reserves.md`, `qa-execution-report.md`, `local-e2e-runbook.md`, `07-delivery-inc-01/delivery-inc-01-validation-report.md`, `09-capitalization/inc-01-capitalization-report.md`
 
 **INC-02 :** non lancé — aucune implémentation ajoutée dans ce cycle.
