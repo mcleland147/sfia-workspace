@@ -49,7 +49,7 @@
 
 | # | Décision | Détail | Statut |
 |---|----------|--------|--------|
-| 18 | Lien Figma | Fichier + page ✅ MVP P1 — Validé Morris | ✅ Renseigné |
+| 18 | Lien Figma | Page `38:2` MVP P1 — 4 frames node-ids documentés `figma-brief.md` §3 | ✅ Renseigné |
 | 19 | Prototype simple | P1 uniquement ou à confirmer selon statut Figma | ⏳ Morris |
 
 ## 6. Apprentissage méthode (capitalisation pilote)
