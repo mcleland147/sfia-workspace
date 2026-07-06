@@ -27,10 +27,10 @@
 
 | # | Question | Statut |
 |---|----------|--------|
-| V1 | INC-01 validé pour PR ? | ⏳ **Bloqué QA-G3** — PR readiness interdite avant validation Morris |
-| V2 | Aligner statuts avec backlog (En pause) ? | ⏳ Optionnel — réserve R-QA-02 |
+| V1 | INC-01 validé pour PR ? | ✅ **GO PR readiness** — Morris (2026-07-06) — voir `pr-readiness-inc-01.md` |
+| V2 | Aligner statuts avec backlog (En pause) ? | ⏳ Optionnel — réserve R-QA-02 acceptée |
 | V3 | GO INC-02 ? | ❌ Non — décision séparée post-merge INC-01 |
-| V4 | GO QA INC-01 (QA-G3) ? | ⏳ En attente — voir `08-qa-test/inc-01/qa-readiness.md` |
+| V4 | GO QA INC-01 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
 
 ---
 

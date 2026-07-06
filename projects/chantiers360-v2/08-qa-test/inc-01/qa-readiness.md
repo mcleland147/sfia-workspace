@@ -12,10 +12,10 @@
 | 1 | `npm run lint` OK | ✅ |
 | 2 | `npm run build` OK | ✅ |
 | 3 | Tests automatisés INC-01 implémentés (QA-G2) | ✅ |
-| 4 | Tests exécutés — résultat documenté | ✅ **4 passed** |
+| 4 | Tests exécutés — résultat documenté | ✅ **4 passed** (`qa-execution-report.md`) |
 | 5 | Scénarios recette métier US-01 à US-04 | ✅ |
-| 6 | Réserves documentées | ✅ R-QA-01 levée ; mineures R-QA-02 à 04 |
-| 7 | Morris valide GO QA | ⏳ **En attente** |
+| 6 | Réserves documentées | ✅ |
+| 7 | Morris valide GO QA | ✅ **GO QA WITH RESERVES** (2026-07-06) |
 
 ## Couverture US
 
@@ -36,23 +36,20 @@ PostgreSQL reproductible : `docker-compose.test.yml` + `npm run test:e2e:full`
 - build : PASS
 - test:e2e : **4 passed** (PostgreSQL Docker port 5433)
 
-## Verdict proposé
+## Verdict Morris
 
-### **GO QA**
+### **GO QA WITH RESERVES**
 
-Réserves mineures R-QA-02 à R-QA-04 documentées — non bloquantes.
-
-Alternative Morris : **GO QA WITH RESERVES** si les mineures doivent figurer explicitement dans la PR.
+Réserves mineures R-QA-02, R-QA-03, R-QA-04 conservées — documentées dans PR body.
 
 ## PR readiness INC-01
 
-**INTERDITE** tant que Morris n'a pas validé QA-G3.
+✅ **GO PR readiness INC-01** — Morris (2026-07-06). Voir `07-delivery-inc-01/pr-readiness-inc-01.md`.
 
-## Décision Morris attendue
+## Décisions Morris
 
-- [ ] **GO QA**
-- [ ] **GO QA WITH RESERVES**
+- [x] **GO QA WITH RESERVES**
 - [ ] **NO-GO QA**
-- [ ] **GO PR readiness INC-01** — uniquement après GO QA
+- [x] **GO PR readiness INC-01**
 
-> Tests passants ≠ validation Morris. Morris valide les **preuves**.
+> Morris valide les preuves — validation manuelle complémentaire effectuée sur instance test locale.

@@ -83,8 +83,8 @@ Alignés sur `acceptance-criteria.md` :
 |------|--------|
 | QA-G0 / G1 | ✅ Testabilité et stack validées |
 | QA-G2 | ✅ Tests Playwright implémentés — `app/e2e/inc-01.spec.ts` |
-| QA-G3 | ⏳ **En attente Morris** — `08-qa-test/inc-01/qa-readiness.md` |
-| PR readiness INC-01 | ❌ **Interdite** sans GO QA-G3 Morris |
+| QA-G3 | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
+| PR readiness INC-01 | ✅ **Éligible** — GO Morris — `07-delivery-inc-01/pr-readiness-inc-01.md` |
 
 **Référence :** `sfia-v2-delivery-qa-test-standard.md` (main `cadf25a` / PR #107)
 
