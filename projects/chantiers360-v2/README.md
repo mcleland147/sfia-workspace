@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** **INC-02 CLOSED WITH RESERVES** — clôture documentaire en cours (PR closure à venir)  
+**Statut :** **INC-02 CLOSED WITH RESERVES** — post-clôture INC-02 — GO INC-03 non accordé  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
