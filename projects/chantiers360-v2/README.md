@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** **INC-02 CLOSED WITH RESERVES** — post-clôture INC-02 — GO INC-03 non accordé  
+**Statut :** **INC-03 CLOSED WITH RESERVES** — post-clôture INC-03 — GO INC-04 non accordé  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
@@ -11,7 +11,8 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Post-clôture INC-02 — GO INC-03 non accordé  
+**Cycle courant :** Post-clôture INC-03 — GO INC-04 non accordé  
+**QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`  
 **QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`  
 **Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
@@ -30,8 +31,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | **INC-02 CLOSED WITH RESERVES** — Morris (2026-07-06) |
-| **Cycle** | Post-clôture INC-02 — GO INC-03 non accordé |
+| **Statut** | **INC-03 CLOSED WITH RESERVES** — Morris (2026-07-06) |
+| **Cycle** | Post-clôture INC-03 — GO INC-04 non accordé |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -40,8 +41,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Architecture technique** | Mergée PR #102 — arbitrages Morris validés |
 | **Figma Fidelity Spike** | Mergé PR #104 — `87de625` — D1/D2 validés Morris |
-| **Delivery applicatif** | INC-01 clôturé PR #108–#110 ; INC-02 clôturé PR #115–#116 ; capitalisation INC-01 PR #111 (`ff32170`) |
-| **app** | Next.js + Drizzle + PostgreSQL — socle chantier INC-01 + tâches/réserves INC-02 |
+| **Delivery applicatif** | INC-01 clôturé PR #108–#110 ; INC-02 clôturé PR #115–#116 ; INC-03 clôturé PR #119–#120 ; capitalisation INC-01 PR #111 (`ff32170`) |
+| **app** | Next.js + Drizzle + PostgreSQL — socle chantier INC-01 + tâches/réserves INC-02 + jalons simples INC-03 |
 | **Backlog produit détaillé** | Mergé PR #99 |
 | **Design Figma MVP** | Mergé PR #101 — `04-design/` |
 
@@ -196,7 +197,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** Post-clôture INC-02 — GO INC-03 non accordé ; INC-03 non lancé.
+**Cycle courant :** Post-clôture INC-03 — GO INC-04 non accordé ; INC-04 non lancé.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
@@ -209,7 +210,8 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 9. **Delivery INC-01** — ✅ clôturé — PR #108–#110 — CLOSED WITH RESERVES
 10. **Capitalisation INC-01** — ✅ mergée PR #111 — `ff32170` — standard Incremental Delivery Closure
 11. **Delivery INC-02** — ✅ clôturé — PR #115–#116 — CLOSED WITH RESERVES
-12. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
+12. **Delivery INC-03** — ✅ clôturé — PR #119–#120 — CLOSED WITH RESERVES
+13. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
 ## 15. Decision authority
 
