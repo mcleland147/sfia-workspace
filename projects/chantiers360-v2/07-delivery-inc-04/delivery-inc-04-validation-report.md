@@ -32,8 +32,8 @@
 
 ## Verdict delivery
 
-**INC-04 livré et mergé** — PR #122 `9e9c124`. **QA-G3** GO WITH RESERVES Morris. **QA-G4 OK WITH RESERVES** post-merge — en attente clôture Morris.
+**INC-04 CLOSED WITH RESERVES** — PR #122 `9e9c124`, PR #123 `e124323`. **QA-G3** GO WITH RESERVES Morris. **QA-G4 OK WITH RESERVES** post-merge. Clôture Morris (2026-07-06) — `inc-04-closure-report.md`. GO INC-05 non accordé.
 
 ---
 
-**Documents liés :** `pr-readiness-inc-04.md`, `../08-qa-test/inc-04/qa-readiness.md`, `../08-qa-test/inc-04/qa-g4-post-merge-report.md`
+**Documents liés :** `inc-04-closure-report.md`, `pr-readiness-inc-04.md`, `../08-qa-test/inc-04/qa-readiness.md`, `../08-qa-test/inc-04/qa-g4-post-merge-report.md`
