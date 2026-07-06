@@ -10,10 +10,13 @@ export const dynamic = "force-dynamic";
 
 export default async function ChantierDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ tab?: string }>;
 }) {
   const { id } = await params;
+  const { tab } = await searchParams;
   const chantier = await getChantierById(id);
 
   if (!chantier) {
@@ -33,6 +36,7 @@ export default async function ChantierDetailPage({
         taches={taches}
         reserves={reserves}
         comptesRendus={comptesRendus}
+        initialTab={tab}
       />
     </AppShell>
   );
