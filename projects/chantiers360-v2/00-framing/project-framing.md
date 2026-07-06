@@ -169,15 +169,22 @@ Le bootstrap est **valide** si :
 - Backlog déjà mergé PR #99 — **non remis en cause**
 - Design Figma requis **avant** architecture technique et delivery code
 - Dossier `04-design/` — brief, spec, checklist, décisions, alignement backlog
-- **Gate Morris design** avant suite (validation visuelle + parcours)
+- **Gate Morris design P1** — ✅ validé PR #101
+
+**Architecture technique légère (post PR #101) :**
+
+- Cycle ouvert — dossier `05-technical-architecture/`
+- Stack proposée — **non validée** sans GO Morris
+- Delivery INC-01 **soumis** à validation architecture + GO Morris explicite
+- Aucun code créé dans ce cycle
 
 **Décisions à venir (post gate design) :**
 
-1. **Renseigner** lien Figma et valider écrans P1 (minimum)
-2. **Compléter** checklist revue Morris
-3. **Confirmer** alignement backlog ou ouvrir micro-cycle Backlog Alignment si écarts
-4. **Autoriser** architecture technique légère
-5. **Autoriser** delivery incrémental (code) — après architecture technique
+1. ~~**Renseigner** lien Figma et valider écrans P1 (minimum)~~ — ✅ PR #101
+2. ~~**Compléter** checklist revue Morris~~ — ✅ PR #101
+3. ~~**Confirmer** alignement backlog~~ — ✅ aucun écart bloquant
+4. **Valider** architecture technique légère (stack, modèle, structure)
+5. **Autoriser** delivery incrémental INC-01 — après GO architecture Morris
 6. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
@@ -233,9 +240,22 @@ Le bootstrap est **valide** si :
 | `04-design/design-decisions.md` | Décisions design |
 | `04-design/design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
 
+## 18. Technical architecture documents
+
+| Document | Contenu |
+|----------|---------|
+| `05-technical-architecture/technical-architecture-overview.md` | Vue d'ensemble cycle architecture légère |
+| `05-technical-architecture/stack-options.md` | Comparaison options stack |
+| `05-technical-architecture/stack-decision.md` | Décision stack — en attente Morris |
+| `05-technical-architecture/application-structure.md` | Structure applicative cible |
+| `05-technical-architecture/data-model-light.md` | Modèle de données documentaire |
+| `05-technical-architecture/frontend-architecture.md` | Architecture frontend P1 |
+| `05-technical-architecture/validation-and-delivery-readiness.md` | Readiness INC-01 |
+| `05-technical-architecture/technical-decisions.md` | Décisions techniques tracées |
+
 ---
 
-**Automation level autorisé :** L2–L3 (Design Figma MVP) — gate Morris design avant architecture technique.
+**Automation level autorisé :** L2–L3 (Architecture technique légère) — gate Morris avant delivery INC-01.
 
 **Références SFIA :**
 
