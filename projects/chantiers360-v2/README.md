@@ -11,7 +11,8 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Delivery INC-01 — socle chantier (US-01 à US-04)  
+**Cycle courant :** Delivery INC-01 — QA/Test appliqué (QA-G2) ; QA-G3 en attente Morris  
+**QA INC-01 :** `08-qa-test/inc-01/` — Playwright E2E ; PR readiness interdite sans GO QA-G3
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -194,7 +195,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** Delivery INC-01 — socle chantier US-01 à US-04.
+**Cycle courant :** Delivery INC-01 — QA/Test (QA-G2) ; QA-G3 Morris ; PR readiness interdite sans GO QA.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97

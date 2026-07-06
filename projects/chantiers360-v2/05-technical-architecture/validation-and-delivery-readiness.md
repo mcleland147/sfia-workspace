@@ -75,7 +75,18 @@ Alignés sur `acceptance-criteria.md` :
 - [ ] Statut visible fiche + liste
 - [ ] Chantier Terminé consultable
 
-**Type de tests au delivery :** manuels + tests automatisés ciblés si Morris l'autorise — pas imposé dans ce cycle architecture.
+**Type de tests au delivery :** tests automatisés Playwright E2E (INC-01) + validation Morris des preuves QA (QA-G3).
+
+## 4bis. QA / Test INC-01 (SFIA v2.0)
+
+| Gate | Statut |
+|------|--------|
+| QA-G0 / G1 | ✅ Testabilité et stack validées |
+| QA-G2 | ✅ Tests Playwright implémentés — `app/e2e/inc-01.spec.ts` |
+| QA-G3 | ⏳ **En attente Morris** — `08-qa-test/inc-01/qa-readiness.md` |
+| PR readiness INC-01 | ❌ **Interdite** sans GO QA-G3 Morris |
+
+**Référence :** `sfia-v2-delivery-qa-test-standard.md` (main `cadf25a` / PR #107)
 
 ## 5. Lien avec acceptance criteria
 

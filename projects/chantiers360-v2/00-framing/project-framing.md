@@ -191,7 +191,7 @@ Le bootstrap est **valide** si :
 1. ~~**Valider** architecture technique légère~~ — ✅ arbitrages Morris documentés
 2. ~~**Réaliser** Figma Fidelity Spike~~ — ✅ mergé PR #104 — validé Morris (D1/D2)
 3. ~~**Capitaliser** Figma Fidelity Gate~~ — ✅ mergé PR #106
-4. **Valider** delivery INC-01 — revue Morris puis PR
+4. **Valider** delivery INC-01 — QA-G3 Morris puis PR readiness
 5. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents

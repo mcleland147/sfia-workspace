@@ -37,10 +37,21 @@
 |----------|----------|
 | `npm run lint` | ✅ |
 | `npm run build` | ✅ |
+| `npm run test:e2e` | ⏳ 4 tests implémentés — exécution locale PostgreSQL requise (voir `08-qa-test/inc-01/`) |
+
+## QA / Test INC-01 (SFIA v2.0 — PR #107)
+
+| Gate | Statut |
+|------|--------|
+| QA-G2 — tests implémentés | ✅ Playwright `app/e2e/inc-01.spec.ts` |
+| QA-G3 — QA readiness | ⏳ **GO QA WITH RESERVES proposé** — décision Morris |
+| PR readiness INC-01 | ❌ **Interdite** tant que QA-G3 non validé Morris |
+
+**Artefacts :** `08-qa-test/inc-01/`
 
 ## Verdict technique
 
-**READY FOR MORRIS REVIEW** — validation fonctionnelle Morris requise sur parcours réel avec PostgreSQL local.
+**QA READY WITH RESERVES FOR MORRIS REVIEW** — validation Morris requise sur preuves QA (exécution E2E locale recommandée).
 
 ## Décision attendue Morris
 

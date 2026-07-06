@@ -41,6 +41,16 @@ Statuts INC-01 : **À démarrer**, **En cours**, **En retard**, **Terminé**.
 | `npm run build` | ✅ (avec `DATABASE_URL` défini) |
 | `npm run db:migrate` | ⏳ À exécuter localement après création DB |
 | `npm run dev` | ⏳ Test manuel Morris documenté ci-dessous |
+| `npm run test:e2e` | ⏳ Playwright — voir `08-qa-test/inc-01/qa-execution-report.md` |
+
+## QA / Test (cycle INC-01)
+
+| Élément | Détail |
+|---------|--------|
+| Dossier | `08-qa-test/inc-01/` |
+| Outillage | Playwright E2E |
+| Standard | SFIA v2.0 Delivery QA/Test — PR #107 |
+| QA-G3 | ⏳ GO QA WITH RESERVES proposé — Morris |
 
 ## Setup local
 
