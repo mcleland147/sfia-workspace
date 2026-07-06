@@ -168,6 +168,9 @@ Ce document ne modifie aucun document canonique v1.1.
 | Prompt generation | **L2 / L3** | Avant exécution Cursor | Templates + routing |
 | Cursor execution report | **L2** | Analyse Morris | Génération rapport |
 | PR readiness analysis | **L3 / L4** | Avant PR | Pas de création PR auto |
+| Figma Fidelity Spike — exécution bornée | **L3** | Avant push | Frame unique, mock data, pas delivery |
+| Figma Fidelity Spike — PR readiness / post-merge | **L4** | Avant PR / après merge | Orchestration contrôlée |
+| Comparaison visuelle automatisée (future) | **L5 ciblé** | Avant généralisation | Read-only ; pas de GO delivery auto |
 | Post-merge check | **L4 / L5 ciblé** | Si écart | Read-only après merge |
 | Capitalization detection | **L2 / L5 ciblé** | Avant capitalisation | Suggestion seulement |
 | Create one documentation file | **L3** | Avant push/PR | Scope strict |
@@ -201,6 +204,7 @@ Ce document ne modifie aucun document canonique v1.1.
 | Safe cleanup | L3 | L3 | Morris — git mv only |
 | Project bootstrap | L3 | L3 | Morris — futur standard |
 | Design Figma MVP cycle | L2–L3 | L3 | Morris — gate design (validation visuelle) |
+| Figma Fidelity Gate / Spike | L2–L3 | L3 | Morris — D1/D2 spike ; D3/GO delivery séparé |
 | Project delivery cycle | L3–L4 | L4 | Morris aux gates |
 | Automation experiment | L5 ciblé | L5 ciblé | Morris — cas par cas |
 
@@ -308,6 +312,7 @@ SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le rep
 | Architecture fonctionnelle | L2–L3 | L3 | Morris valide la structure |
 | UX/UI fonctionnelle Markdown | L2–L3 | L3 | Morris valide wireframes repo-first |
 | Design Figma MVP | L2–L3 | L3 | Morris valide visuellement — **Git = source de vérité** ; Figma ≠ source unique |
+| Figma Fidelity Gate / Spike | L2–L3 | L3 | Morris valide D1/D2 fidélité code — **GO delivery séparé (D3/M7)** |
 | Backlog MVP | L2–L3 | L3 | Morris valide les priorités — **idéalement après Figma** |
 | Architecture technique légère | L0–L2 | L2 | Morris valide l'architecture — **après Figma et backlog validés** |
 | Cycle d'implémentation | L3–L4 | L4 | Morris valide les gates |
@@ -318,7 +323,7 @@ SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le rep
 | Capitalisation | L2–L3 | L3 | Morris valide l'actif à capitaliser |
 | Amélioration de la méthode | L2–L3 | L3 | Morris valide toute promotion vers document canonique |
 
-Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`) et le standard **Design Figma MVP** (`sfia-v2-design-figma-cycle-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
+Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`), le standard **Design Figma MVP** (`sfia-v2-design-figma-cycle-standard.md`) et le standard **Figma Fidelity Gate** (`sfia-v2-figma-fidelity-gate-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
 
 **Rattrapage pilote :** si le backlog MVP a été produit avant Figma (ex. Chantiers360 v2), appliquer le cycle Design Figma MVP puis un micro-cycle **Backlog Alignment** si écarts — voir `sfia-v2-design-figma-cycle-standard.md` §8.
 
@@ -352,6 +357,7 @@ Les niveaux L ne sont pas uniquement des **niveaux techniques** (contrôles Git,
 **Références :**
 
 - `sfia-v2-automation-and-delivery-vision.md`
+- `sfia-v2-figma-fidelity-gate-standard.md`
 - `sfia-cycle-routing-guide.md`
 - `sfia-validation-checklist.md`
 - `prompts/templates/` (01–10)

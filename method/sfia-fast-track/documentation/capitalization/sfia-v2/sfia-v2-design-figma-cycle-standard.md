@@ -26,6 +26,7 @@ Permettre la **validation visuelle** des écrans MVP avant backlog final, archit
 | 6 | **Design Figma MVP** ← ce standard |
 | 7 | Backlog MVP |
 | 8 | Architecture technique légère |
+| 8b | **Figma Fidelity Gate / Spike** — optionnel si gate M8 ou risque UI |
 | 9 | Delivery incrémental |
 | 10 | Validation |
 | 11 | PR readiness |
@@ -141,6 +142,18 @@ Le cycle Design Figma MVP est **validé** si Morris confirme :
 
 **Automatiser** la production documentaire repo-first ; **ne jamais automatiser** la validation visuelle ou l'arbitrage produit design.
 
+## 10bis. Lien avec Figma Fidelity Gate
+
+| Cycle | Rôle |
+|-------|------|
+| **Design Figma MVP** (ce standard) | Valide une **direction visuelle** — écrans P1, parcours, impacts backlog |
+| **Figma Fidelity Spike** | Valide la **capacité à reproduire** une frame P1 en code (pixel-close) |
+| **GO delivery** | Décision Morris **séparée** — spike validé ≠ autorisation delivery |
+
+**Quand ouvrir un spike :** après design P1 validé et architecture technique documentée — si gate fidélité requis (ex. M8) ou risque de dérive UI générique.
+
+**Référence :** `sfia-v2-figma-fidelity-gate-standard.md` — pilote Chantiers360 v2 PR #104.
+
 ## 10. Template livrables projet
 
 ```
@@ -197,6 +210,7 @@ projects/<project-name>/
 **Références :**
 
 - `sfia-v2-automation-levels.md` — §12 trajectoire cycle de vie
+- `sfia-v2-figma-fidelity-gate-standard.md` — gate fidélité design-to-code
 - `sfia-v2-project-bootstrap-standard.md` — structure projet
 - `sfia-v2-automation-and-delivery-vision.md` — vision delivery
 - `sfia-v2-pilot-selection-decision.md` — chaîne de production
