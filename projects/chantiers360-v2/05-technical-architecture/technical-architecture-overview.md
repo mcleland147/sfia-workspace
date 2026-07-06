@@ -37,7 +37,7 @@ L'architecture technique doit **couvrir l'ensemble du MVP backlog** (P1 + P2), t
 | Inclus | Détail |
 |--------|--------|
 | **Comparaison stack** | 2–3 options réalistes pour MVP web |
-| **Recommandation argumentée** | Proposition Cursor — **non actée** sans Morris |
+| **Stack validée Morris** | Option B + Drizzle + Tailwind |
 | **Structure applicative cible** | Organisation logique — sans créer les dossiers |
 | **Modèle de données léger** | Entités, champs, relations — documentaire |
 | **Architecture frontend** | Écrans P1, composants probables, navigation, états UI |

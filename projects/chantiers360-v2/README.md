@@ -172,7 +172,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 |----------|------|
 | `05-technical-architecture/technical-architecture-overview.md` | Objectif cycle, périmètre, lien INC-01 |
 | `05-technical-architecture/stack-options.md` | Comparaison options stack MVP |
-| `05-technical-architecture/stack-decision.md` | Décision stack — en attente Morris |
+| `05-technical-architecture/stack-decision.md` | Décision stack — validée Morris |
 | `05-technical-architecture/application-structure.md` | Structure applicative cible |
 | `05-technical-architecture/data-model-light.md` | Modèle de données léger |
 | `05-technical-architecture/frontend-architecture.md` | Architecture frontend P1 |
