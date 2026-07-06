@@ -34,22 +34,21 @@ R-QA-03 à R-QA-05 — héritées, ouvertes, acceptées, non bloquantes pour INC
 - Réserves héritées documentées
 - Régression INC-01 + INC-02 + INC-03 OK — **12 passed**
 
-## PR readiness (post QA-G3)
+## QA-G4 post-merge (PR #122 — `main` @ `9e9c124`)
 
 | Critère | Statut |
 |---------|--------|
-| Rapport PR readiness | ✅ `../../07-delivery-inc-04/pr-readiness-inc-04.md` |
-| Verdict proposé | **READY WITH RESERVES** |
-| Push / PR | ⏳ Décision Morris séparée |
+| Merge PR #122 sur `main` | ✅ `9e9c124` (2026-07-06 19:06 UTC) |
+| lint / build post-merge | ✅ PASS |
+| E2E post-merge | ✅ **12 passed** — voir `qa-g4-post-merge-report.md` |
+| Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
 
 ## Décision Morris
 
 - [x] **GO QA WITH RESERVES** (QA-G3) — 2026-07-06
-- [ ] **NO-GO QA**
-- [ ] Corrections requises
-- [ ] **GO push + PR** — non accordé dans ce cycle
+- [ ] **Clôture INC-04** — décision séparée
 - [ ] **GO INC-05** — non accordé
 
 ---
 
-**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `../../07-delivery-inc-04/pr-readiness-inc-04.md`, `../../07-delivery-inc-04/delivery-inc-04-validation-report.md`
+**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `qa-g4-post-merge-report.md`, `../../07-delivery-inc-04/delivery-inc-04-validation-report.md`
