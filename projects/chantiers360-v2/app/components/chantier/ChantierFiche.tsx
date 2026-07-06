@@ -1,7 +1,8 @@
-import type { Chantier } from "@/lib/db/schema";
+import type { Chantier, Reserve, Tache } from "@/lib/db/schema";
 import type { ChantierStatus } from "@/lib/chantiers/types";
 import { BackToDashboardLink } from "@/components/layout/AppShell";
 import { StatusSelector } from "./StatusSelector";
+import { ChantierOperationalTabs } from "./ChantierOperationalTabs";
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
@@ -14,14 +15,15 @@ function formatDate(value: string | null): string {
   }).format(date);
 }
 
-const placeholderTabs = [
-  { label: "Tâches", hint: "INC-02" },
-  { label: "Réserves", hint: "INC-02" },
-  { label: "Jalons", hint: "INC-03" },
-  { label: "Comptes rendus", hint: "INC-04" },
-];
-
-export function ChantierFiche({ chantier }: { chantier: Chantier }) {
+export function ChantierFiche({
+  chantier,
+  taches,
+  reserves,
+}: {
+  chantier: Chantier;
+  taches: Tache[];
+  reserves: Reserve[];
+}) {
   const status = chantier.status as ChantierStatus;
 
   return (
@@ -77,23 +79,11 @@ export function ChantierFiche({ chantier }: { chantier: Chantier }) {
         </dl>
       </section>
 
-      <section className="mt-6">
-        <div className="flex flex-wrap gap-2 border-b border-slate-200">
-          {placeholderTabs.map((tab) => (
-            <span
-              key={tab.label}
-              className="cursor-not-allowed rounded-t-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-400"
-              title={`${tab.hint} — hors périmètre INC-01`}
-            >
-              {tab.label}
-              <span className="ml-2 text-[10px] uppercase">{tab.hint}</span>
-            </span>
-          ))}
-        </div>
-        <div className="rounded-b-2xl rounded-tr-2xl bg-white p-8 text-sm text-slate-500 shadow-card">
-          Sections opérationnelles disponibles à partir de l&apos;incrément suivant.
-        </div>
-      </section>
+      <ChantierOperationalTabs
+        chantierId={chantier.id}
+        taches={taches}
+        reserves={reserves}
+      />
     </div>
   );
 }
