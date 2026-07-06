@@ -8,9 +8,9 @@
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | **INC-01 CLOSED WITH RESERVES** — capitalisation post-INC-01 en cours |
+| **Statut** | **INC-01 CLOSED WITH RESERVES** — capitalisation post-INC-01 intégrée (PR #111 — `ff32170`) |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Capitalisation post-INC-01 — GO INC-02 non accordé |
+| **Cycle courant** | Post-capitalisation INC-01 — GO INC-02 non accordé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -23,7 +23,7 @@
 | **Architecture technique** | PR #102 mergée — `57308aa` — arbitrages Morris validés |
 | **Figma Fidelity Spike** | PR #104 mergée — `87de625` — D1/D2 validés Morris ; gate M8/M9 satisfait |
 | **Delivery INC-01** | **Clôturé** — PR #108–#110 — CLOSED WITH RESERVES |
-| **Capitalisation INC-01** | En cours — `09-capitalization/inc-01-capitalization-report.md` |
+| **Capitalisation INC-01** | Mergée PR #111 — `ff32170` — `09-capitalization/inc-01-capitalization-report.md` |
 
 ## 2. Initial intent
 
@@ -194,7 +194,7 @@ Le bootstrap est **valide** si :
 3. ~~**Capitaliser** Figma Fidelity Gate~~ — ✅ mergé PR #106
 4. ~~**PR readiness INC-01**~~ — ✅ PR #108 mergée
 5. ~~**Clôture INC-01**~~ — ✅ CLOSED WITH RESERVES — PR #110
-6. **Capitalisation post-INC-01** — 🔄 en cours — premier delivery SFIA v2.0
+6. ~~**Capitalisation post-INC-01**~~ — ✅ mergée PR #111 — `ff32170`
 7. **GO INC-02** — décision Morris explicite requise
 8. **Planifier** comparaison V0 — fin de pilote uniquement
 
