@@ -2,13 +2,13 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
-**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP ouvert
+**Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (rattrapage)
 
 ## 1. Framing status
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Backlog MVP ouvert — MVP confirmé Morris |
+| **Statut** | Design Figma MVP — rattrapage ; MVP confirmé Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
@@ -16,7 +16,9 @@
 | **UX/UI** | PR #98 mergée — `1d9feb9` |
 | **Origine** | Projet créé **from scratch** |
 | **V0** | Aucun élément V0 utilisé |
-| **Cycle courant** | Backlog MVP |
+| **Backlog MVP** | PR #99 mergée — `93d6810` |
+| **Standard Design Figma** | PR #100 mergée — `7ee45bb` |
+| **Cycle courant** | Design Figma MVP (rattrapage) |
 
 ## 2. Initial intent
 
@@ -162,12 +164,21 @@ Le bootstrap est **valide** si :
 | 8 | Nettoyage branches | Reporté |
 | 9 | PR readiness | En attente — après mise à jour documentaire MVP |
 
-**Décisions à venir (post backlog MVP) :**
+**Design Figma MVP (rattrapage — standard SFIA v2.0 PR #100) :**
 
-1. **Valider** le backlog MVP (`03-backlog/`)
-2. **Confirmer** ordre incréments INC-01 → INC-05
-3. **Autoriser** le delivery incrémental (code)
-4. **Planifier** comparaison V0 — fin de pilote uniquement
+- Backlog déjà mergé PR #99 — **non remis en cause**
+- Design Figma requis **avant** architecture technique et delivery code
+- Dossier `04-design/` — brief, spec, checklist, décisions, alignement backlog
+- **Gate Morris design** avant suite (validation visuelle + parcours)
+
+**Décisions à venir (post gate design) :**
+
+1. **Renseigner** lien Figma et valider écrans P1 (minimum)
+2. **Compléter** checklist revue Morris
+3. **Confirmer** alignement backlog ou ouvrir micro-cycle Backlog Alignment si écarts
+4. **Autoriser** architecture technique légère
+5. **Autoriser** delivery incrémental (code) — après architecture technique
+6. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
 
@@ -212,9 +223,22 @@ Le bootstrap est **valide** si :
 
 ---
 
-**Automation level autorisé :** L2 (backlog MVP) — gate Morris avant delivery incrémental.
+## 17. Design Figma MVP documents
+
+| Document | Contenu |
+|----------|---------|
+| `04-design/figma-brief.md` | Brief design, lien Figma, périmètre écrans |
+| `04-design/screen-design-spec.md` | Spec écran par écran |
+| `04-design/figma-review-checklist.md` | Checklist revue Morris |
+| `04-design/design-decisions.md` | Décisions design |
+| `04-design/design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
+
+---
+
+**Automation level autorisé :** L2–L3 (Design Figma MVP) — gate Morris design avant architecture technique.
 
 **Références SFIA :**
 
 - `sfia-v2-project-bootstrap-standard.md`
+- `sfia-v2-design-figma-cycle-standard.md`
 - `sfia-v2-pilot-selection-scoring.md`

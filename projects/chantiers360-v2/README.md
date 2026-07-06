@@ -2,12 +2,14 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Backlog MVP en cours  
+**Statut :** Design Figma MVP — rattrapage  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
 **UX/UI :** mergée via PR #98 (`1d9feb9`)  
-**Cycle courant :** Backlog MVP — documents créés ; aucun code ni architecture technique lancé  
+**Backlog MVP :** mergé via PR #99 (`93d6810`)  
+**Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
+**Cycle courant :** Design Figma MVP — dossier `04-design/` ; architecture technique et delivery non lancés  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -24,8 +26,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Backlog MVP — MVP confirmé (Morris) |
-| **Cycle** | Backlog MVP (post PR #98) |
+| **Statut** | Design Figma MVP — rattrapage (Morris) |
+| **Cycle** | Design Figma MVP (post PR #100) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -34,7 +36,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Delivery applicatif** | Non lancé |
 | **app / backend** | Non créés |
-| **Backlog produit détaillé** | En cours — cycle Backlog MVP |
+| **Backlog produit détaillé** | Mergé PR #99 |
+| **Design Figma MVP** | En cours — `04-design/` |
 
 ## 3. SFIA v2.0 pilot rationale
 
@@ -150,7 +153,17 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `02-ux-ui/user-flows.md` | 7 flux UX prioritaires (sans backlog) |
 | `02-ux-ui/ux-decisions.md` | Décisions UX/UI tracées |
 
-## 11. Backlog MVP documents
+## 11. Design Figma MVP documents
+
+| Document | Rôle |
+|----------|------|
+| `04-design/figma-brief.md` | Brief design — périmètre écrans, fidélité, lien Figma |
+| `04-design/screen-design-spec.md` | Spécification écran par écran pour Figma |
+| `04-design/figma-review-checklist.md` | Checklist revue Morris |
+| `04-design/design-decisions.md` | Décisions design tracées |
+| `04-design/design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
+
+## 12. Backlog MVP documents
 
 | Document | Rôle |
 |----------|------|
@@ -162,22 +175,21 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `03-backlog/backlog-traceability.md` | Matrice traçabilité cadrage → backlog |
 | `03-backlog/backlog-decisions.md` | Décisions backlog tracées |
 
-## 12. Next SFIA cycles
+## 13. Next SFIA cycles
 
-**Cycle courant :** **Backlog MVP** — en cours sur branche locale.
+**Cycle courant :** **Design Figma MVP** — rattrapage (post backlog PR #99).
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
-3. UX/UI — ✅ mergée PR #98
-4. **Backlog MVP** ← en cours
-5. Delivery incrémental ← prochain (après validation Morris)
-6. Validation
-7. PR readiness
-8. Post-merge
-9. Capitalisation
-10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
+3. UX/UI Markdown — ✅ mergée PR #98
+4. Backlog MVP — ✅ mergé PR #99
+5. **Design Figma MVP** ← en cours (rattrapage — standard PR #100)
+6. Architecture technique légère ← après gate Morris design
+7. Delivery incrémental ← après architecture technique
+8. Validation / PR readiness / post-merge / capitalisation
+9. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
-## 13. Decision authority
+## 14. Decision authority
 
 | Rôle | Responsabilité |
 |------|----------------|
@@ -191,3 +203,4 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-pilot-selection-scoring.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md`
