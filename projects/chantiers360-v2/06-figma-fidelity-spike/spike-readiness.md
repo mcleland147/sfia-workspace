@@ -53,4 +53,4 @@
 
 ---
 
-**Verdict spike :** READY FOR MORRIS REVIEW (réserves mineures)
+**Verdict spike :** READY FOR PR READINESS — validation Morris D1/D2 ✅ ; D3 (GO INC-01) ❌

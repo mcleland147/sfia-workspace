@@ -31,13 +31,47 @@
 - Filtres non persistés — spike UI only
 - Boutons non cliquables (pas de navigation)
 
+## Décision Morris — revue spike
+
+**Date :** 2026-07-06  
+**Frame :** 01 — Dashboard cockpit premium (`38:502`)  
+**Référence :** `04-design/captures/01-dashboard-cockpit-premium.png`
+
+| # | Question | Décision Morris | Statut |
+|---|----------|-----------------|--------|
+| **D1** | Fidélité pixel-close acceptable ? | **Oui** | ✅ Validé |
+| **D2** | Corrections requises avant PR ? | **Aucune correction bloquante** | ✅ Validé |
+| **D3** | GO delivery INC-01 ? | **Non accordé** à ce stade | ❌ En attente |
+
+### Réserves acceptées (D2)
+
+| Réserve | Statut Morris |
+|---------|---------------|
+| Icônes SVG génériques | ✅ Acceptée — non bloquante |
+| Progress ring légèrement différent | ✅ Acceptée — non bloquante |
+| Espacements hero à quelques px près | ✅ Acceptée — non bloquante |
+| Responsive non traité | ✅ Acceptée — hors scope spike |
+
+### Synthèse décision
+
+| Élément | Verdict |
+|---------|---------|
+| **Spike validé pour PR** | ✅ Oui |
+| **Passage Figma → Cursor → Next.js/Tailwind** | ✅ Jugé viable |
+| **Gate fidélité Figma (M8/M9)** | ✅ Satisfait pour la frame Dashboard |
+| **GO delivery INC-01 (M7)** | ❌ **Non accordé** — décision Morris séparée après merge du spike |
+
+> La validation du spike **ne constitue pas** un GO delivery INC-01. Le delivery reste soumis à une décision Morris explicite post-merge.
+
 ## Décisions Morris attendues
 
-| # | Question | Options |
-|---|----------|---------|
-| D1 | Fidélité pixel-close acceptable ? | Oui / Corrections mineures / Non |
-| D2 | Corrections requises avant delivery ? | Liste ou aucune |
-| D3 | GO delivery INC-01 possible après corrections ? | GO / NO-GO — M7 toujours requis |
+_Section historique — décisions tranchées le 2026-07-06 (voir section ci-dessus)._
+
+| # | Question | Résultat |
+|---|----------|----------|
+| D1 | Fidélité pixel-close acceptable ? | ✅ Oui |
+| D2 | Corrections requises avant PR ? | ✅ Aucune bloquante |
+| D3 | GO delivery INC-01 ? | ❌ Non accordé |
 
 > **M7 non accordé** — validation spike ≠ GO delivery INC-01.
 

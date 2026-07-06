@@ -31,12 +31,10 @@
 4. **Responsive** — non implémenté (desktop référence uniquement)
 5. **Polish micro** — espacements ±2–4px possibles vs Figma
 
-## Verdict provisoire
+## Verdict
 
-**READY FOR MORRIS REVIEW** — avec réserves mineures acceptables pour un spike.
+**VALIDATED FOR PR — minor reserves accepted by Morris**
 
-Fidélité globale **pixel-close** sur desktop : sidebar, hero, cartes, badges retard, panneaux droits reconnaissables vs capture.
+Fidélité globale **pixel-close** sur desktop validée Morris (D1). Réserves mineures acceptées (D2) — aucune correction bloquante requise avant PR.
 
----
-
-**Décision Morris attendue :** voir `spike-decisions.md`
+> **D3 — GO delivery INC-01 : non accordé.** Merge du spike ≠ autorisation delivery.
