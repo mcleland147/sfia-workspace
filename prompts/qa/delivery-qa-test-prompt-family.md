@@ -9,6 +9,8 @@
 
 > **Référence d'application :** Chantiers360 v2 — delivery INC-01+ ; gates QA-G0 à QA-G4.
 
+**Convention d'identifiants :** préfixe `PROMPT-QA-D-` (delivery) — distinct de la famille amont `qa-tester-prompt-family.md` (`PROMPT-QA-001` à `010`).
+
 ---
 
 ## 1. Objectif
@@ -43,7 +45,18 @@ Ces prompts **ne doivent pas** :
 
 ## 3. Prompts de la famille
 
-### PROMPT-QA-001 — Qualifier testabilité projet
+| ID | Intitulé | Gate |
+|----|----------|------|
+| `PROMPT-QA-D-001` | Qualifier testabilité projet | QA-G0 |
+| `PROMPT-QA-D-002` | Préparer stratégie QA incrément | QA-G1 |
+| `PROMPT-QA-D-003` | Générer scénarios recette métier | — |
+| `PROMPT-QA-D-004` | Implémenter tests automatisés incrément | QA-G2 |
+| `PROMPT-QA-D-005` | Exécuter tests et produire rapport QA | — |
+| `PROMPT-QA-D-006` | Analyser réserves QA | — |
+| `PROMPT-QA-D-007` | Valider QA readiness avant PR readiness | QA-G3 |
+| `PROMPT-QA-D-008` | Post-merge non-régression | QA-G4 |
+
+### PROMPT-QA-D-001 — Qualifier testabilité projet
 
 **Usage :** Bootstrap ou cadrage — QA-G0.
 
@@ -55,7 +68,7 @@ Ces prompts **ne doivent pas** :
 
 ---
 
-### PROMPT-QA-002 — Préparer stratégie QA incrément
+### PROMPT-QA-D-002 — Préparer stratégie QA incrément
 
 **Usage :** Début delivery INC-n — après archi technique (QA-G1).
 
@@ -67,7 +80,7 @@ Ces prompts **ne doivent pas** :
 
 ---
 
-### PROMPT-QA-003 — Générer scénarios recette métier
+### PROMPT-QA-D-003 — Générer scénarios recette métier
 
 **Usage :** Avant ou pendant implémentation tests — alignement AC.
 
@@ -75,11 +88,11 @@ Ces prompts **ne doivent pas** :
 
 **Sortie :** `test-scenarios.md` — scénarios happy/non-happy, données, résultats attendus, lien AC.
 
-**Garde-fous :** scénarios documentaires ; pas d'exécution sans QA-004/005.
+**Garde-fous :** scénarios documentaires ; pas d'exécution sans `PROMPT-QA-D-004` / `PROMPT-QA-D-005`.
 
 ---
 
-### PROMPT-QA-004 — Implémenter tests automatisés incrément
+### PROMPT-QA-D-004 — Implémenter tests automatisés incrément
 
 **Usage :** Delivery INC-n — QA-G2.
 
@@ -91,7 +104,7 @@ Ces prompts **ne doivent pas** :
 
 ---
 
-### PROMPT-QA-005 — Exécuter tests et produire rapport QA
+### PROMPT-QA-D-005 — Exécuter tests et produire rapport QA
 
 **Usage :** Fin delivery INC-n — avant QA readiness.
 
@@ -103,7 +116,7 @@ Ces prompts **ne doivent pas** :
 
 ---
 
-### PROMPT-QA-006 — Analyser réserves QA
+### PROMPT-QA-D-006 — Analyser réserves QA
 
 **Usage :** Après exécution — préparation décision Morris.
 
@@ -115,7 +128,7 @@ Ces prompts **ne doivent pas** :
 
 ---
 
-### PROMPT-QA-007 — Valider QA readiness avant PR readiness
+### PROMPT-QA-D-007 — Valider QA readiness avant PR readiness
 
 **Usage :** QA-G3 — gate obligatoire avant PR readiness.
 
@@ -127,7 +140,7 @@ Ces prompts **ne doivent pas** :
 
 ---
 
-### PROMPT-QA-008 — Post-merge non-régression
+### PROMPT-QA-D-008 — Post-merge non-régression
 
 **Usage :** Après merge incrément — QA-G4.
 
@@ -142,16 +155,16 @@ Ces prompts **ne doivent pas** :
 ## 4. Séquence recommandée par incrément
 
 ```
-QA-001 (bootstrap/cadrage, une fois)
-    → QA-002 (début INC-n)
-    → QA-003 (scénarios)
+PROMPT-QA-D-001 (bootstrap/cadrage, une fois)
+    → PROMPT-QA-D-002 (début INC-n)
+    → PROMPT-QA-D-003 (scénarios)
     → [delivery code]
-    → QA-004 (implémentation tests)
-    → QA-005 (exécution)
-    → QA-006 (réserves)
-    → QA-007 (QA readiness → Morris)
+    → PROMPT-QA-D-004 (implémentation tests)
+    → PROMPT-QA-D-005 (exécution)
+    → PROMPT-QA-D-006 (réserves)
+    → PROMPT-QA-D-007 (QA readiness → Morris)
     → [PR readiness → PR → merge Morris]
-    → QA-008 (post-merge)
+    → PROMPT-QA-D-008 (post-merge)
 ```
 
 ---
@@ -160,4 +173,4 @@ QA-001 (bootstrap/cadrage, une fois)
 
 - `sfia-v2-delivery-qa-test-standard.md`
 - `sfia-v2-automation-levels.md`
-- `qa-tester-prompt-family.md` (revues amont — complémentaire, pas substitut)
+- `qa-tester-prompt-family.md` (revues amont — `PROMPT-QA-001` à `010` ; complémentaire, pas substitut)
