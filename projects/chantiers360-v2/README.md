@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Arbitrages architecture validés Morris — spike Figma Fidelity à venir  
+**Statut :** Figma Fidelity Spike — validation Morris réalisée, PR readiness à préparer  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
@@ -11,7 +11,7 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Figma Fidelity Spike recommandé — delivery INC-01 non lancé  
+**Cycle courant :** Figma Fidelity Spike — validation Morris réalisée, PR readiness à préparer ; delivery INC-01 non lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -29,7 +29,7 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | Élément | Valeur |
 |---------|--------|
 | **Statut** | Arbitrages architecture validés Morris |
-| **Cycle** | Figma Fidelity Spike recommandé (post PR #102) |
+| **Cycle** | Figma Fidelity Spike — validation Morris (post PR #102) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -193,7 +193,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** **Figma Fidelity Spike** (post arbitrages architecture PR #102).
+**Cycle courant :** **Figma Fidelity Spike** — validation Morris réalisée ; PR readiness à préparer.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
@@ -201,7 +201,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 4. Backlog MVP — ✅ mergé PR #99
 5. Design Figma MVP — ✅ mergé PR #101
 6. Architecture technique légère — ✅ mergée PR #102 — arbitrages Morris validés
-7. **Figma Fidelity Spike** ← prochain cycle (Frame Dashboard `38:502`)
+7. **Figma Fidelity Spike** ← validation Morris ✅ — PR readiness à préparer
 8. Delivery incrémental INC-01 ← après spike + GO delivery Morris (M7)
 9. Validation / PR readiness / post-merge / capitalisation
 10. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**

@@ -10,7 +10,7 @@
 |---------|--------|
 | **Statut** | Arbitrages architecture validés Morris |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Figma Fidelity Spike recommandé |
+| **Cycle courant** | Figma Fidelity Spike — validation Morris, PR readiness à préparer |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -179,15 +179,14 @@ Le bootstrap est **valide** si :
 - **Stack validée Morris** — Option B : Next.js App Router + PostgreSQL + **Drizzle** + **Tailwind**
 - **Auth différée** après INC-01 (M3) — hébergement DB local/dev d'abord (M4)
 - **GO architecture technique** — ✅ validé (M6)
-- **Figma Fidelity Spike** — ✅ validé (M8) — frame Dashboard `38:502` (M9) — **avant INC-01 complet**
-- Delivery INC-01 — **GO non accordé** (M7) — soumis à GO Morris explicite post-spike
-- Aucun code créé
+- **Figma Fidelity Spike** — ✅ réalisé et **validé Morris** (D1/D2) — frame Dashboard `38:502` (M9)
+- Delivery INC-01 — **GO non accordé** (M7) — décision Morris séparée post-merge spike
 
 **Décisions à venir :**
 
 1. ~~**Valider** architecture technique légère~~ — ✅ arbitrages Morris documentés
-2. **Réaliser** Figma Fidelity Spike — Frame Dashboard `38:502`
-3. **Autoriser** delivery INC-01 — GO Morris explicite (M7) après spike
+2. ~~**Réaliser** Figma Fidelity Spike~~ — ✅ validé Morris (D1/D2)
+3. **Merger** PR spike — puis **autoriser** delivery INC-01 — GO Morris explicite (M7)
 4. **Planifier** comparaison V0 — fin de pilote uniquement
 
 ## 13. Detailed framing documents
