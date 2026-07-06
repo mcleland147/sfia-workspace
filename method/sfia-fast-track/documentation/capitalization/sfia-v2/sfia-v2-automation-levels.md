@@ -170,6 +170,14 @@ Ce document ne modifie aucun document canonique v1.1.
 | PR readiness analysis | **L3 / L4** | Avant PR | Pas de création PR auto |
 | Figma Fidelity Spike — exécution bornée | **L3** | Avant push | Frame unique, mock data, pas delivery |
 | Figma Fidelity Spike — PR readiness / post-merge | **L4** | Avant PR / après merge | Orchestration contrôlée |
+| QA strategy generation | **L2** | Avant exécution | ChatGPT / Cursor — stratégie incrément |
+| QA test scenario generation | **L2** | Avant exécution | Alignement AC — pas d'exécution auto |
+| QA test implementation | **L3** | Avant push | Tests dans périmètre incrément |
+| QA execution / reporting | **L3 / L4** | QA-G3 — Morris | Rapport factuel ; pas de GO auto |
+| Regression testing (CI / post-merge) | **L4** | QA-G4 — Morris si écart | Non-régression automatisée |
+| Automated business acceptance execution | **L4** | Morris — preuves | Recette métier automatisée |
+| Final acceptance (QA) | **L0** | **Morris** | Valide preuves — ne déroule pas tests |
+| GO PR / merge | **L0** | **Morris** | Distinct de tests passants |
 | Comparaison visuelle automatisée (future) | **L5 ciblé** | Avant généralisation | Read-only ; pas de GO delivery auto |
 | Post-merge check | **L4 / L5 ciblé** | Si écart | Read-only après merge |
 | Capitalization detection | **L2 / L5 ciblé** | Avant capitalisation | Suggestion seulement |
@@ -205,7 +213,8 @@ Ce document ne modifie aucun document canonique v1.1.
 | Project bootstrap | L3 | L3 | Morris — futur standard |
 | Design Figma MVP cycle | L2–L3 | L3 | Morris — gate design (validation visuelle) |
 | Figma Fidelity Gate / Spike | L2–L3 | L3 | Morris — D1/D2 spike ; D3/GO delivery séparé |
-| Project delivery cycle | L3–L4 | L4 | Morris aux gates |
+| Delivery QA / Test cycle | L2–L4 | L4 | Morris — QA-G0…G4 ; final acceptance L0 |
+| Project delivery cycle | L3–L4 | L4 | Morris aux gates ; QA-G3 avant PR readiness |
 | Automation experiment | L5 ciblé | L5 ciblé | Morris — cas par cas |
 
 **Référence routing :** `sfia-cycle-routing-guide.md` (v1.1) reste l'index des types de cycle — v2.0 ajoute le **niveau d'automation** recommandé par type.
@@ -316,14 +325,15 @@ SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le rep
 | Backlog MVP | L2–L3 | L3 | Morris valide les priorités — **idéalement après Figma** |
 | Architecture technique légère | L0–L2 | L2 | Morris valide l'architecture — **après Figma et backlog validés** |
 | Cycle d'implémentation | L3–L4 | L4 | Morris valide les gates |
-| Validation / tests | L2–L4 | L4 | Morris valide le GO/NO-GO |
+| Delivery QA / Test (par incrément) | L2–L4 | L4 | Morris valide QA-G3 avant PR readiness — **final acceptance L0** |
+| Validation / tests | L2–L4 | L4 | Morris valide GO/NO-GO — preuves QA, pas exécution Morris |
 | PR readiness | L3–L4 | L4 | Morris valide la PR |
 | PR / merge | L0 | L0 | Morris uniquement |
 | Post-merge check | L4 / L5 ciblé | L5 ciblé | Morris intervient si anomalie |
 | Capitalisation | L2–L3 | L3 | Morris valide l'actif à capitaliser |
 | Amélioration de la méthode | L2–L3 | L3 | Morris valide toute promotion vers document canonique |
 
-Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`), le standard **Design Figma MVP** (`sfia-v2-design-figma-cycle-standard.md`) et le standard **Figma Fidelity Gate** (`sfia-v2-figma-fidelity-gate-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
+Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`), le standard **Design Figma MVP** (`sfia-v2-design-figma-cycle-standard.md`), le standard **Figma Fidelity Gate** (`sfia-v2-figma-fidelity-gate-standard.md`) et le standard **Delivery QA / Test** (`sfia-v2-delivery-qa-test-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
 
 **Rattrapage pilote :** si le backlog MVP a été produit avant Figma (ex. Chantiers360 v2), appliquer le cycle Design Figma MVP puis un micro-cycle **Backlog Alignment** si écarts — voir `sfia-v2-design-figma-cycle-standard.md` §8.
 

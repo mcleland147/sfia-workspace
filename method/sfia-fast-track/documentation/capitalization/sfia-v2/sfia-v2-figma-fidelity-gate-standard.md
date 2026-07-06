@@ -263,6 +263,18 @@ projects/<project-name>/
 - Comparaison V0
 - Promotion automatique vers GO delivery
 
+## 17. Lien avec QA / Test delivery
+
+| Cycle | Rapport QA |
+|-------|------------|
+| **Figma Fidelity Spike** | Valide **fidélité visuelle** code ↔ frame — **pas** un test fonctionnel complet |
+| **Spike validé (D2)** | N'autorise **pas** PR readiness delivery sans QA-G3 sur l'incrément |
+| **Delivery INC-n** | QA/Test **requis** pour chaque incrément — tests automatisés + recette métier |
+
+Le spike peut fournir des **captures comparatives** utiles au rapport QA visuel ; il ne couvre pas les US, AC ni persistance métier du delivery.
+
+**Référence :** `sfia-v2-delivery-qa-test-standard.md` §13.
+
 ---
 
 **Références :**
@@ -270,6 +282,7 @@ projects/<project-name>/
 - `sfia-v2-design-figma-cycle-standard.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-project-bootstrap-standard.md`
+- `sfia-v2-delivery-qa-test-standard.md`
 - `prompts/ux-ui/figma-fidelity-gate-prompt-family.md`
 - Pilote : `projects/chantiers360-v2/06-figma-fidelity-spike/`
 
