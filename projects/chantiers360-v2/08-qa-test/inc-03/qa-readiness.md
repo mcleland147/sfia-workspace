@@ -34,13 +34,23 @@ R-QA-03 à R-QA-05 — héritées, ouvertes, acceptées, non bloquantes pour INC
 - Réserves héritées documentées
 - Régression INC-01 + INC-02 OK — **10 passed**
 
+## QA-G4 post-merge (PR #119 — `main` @ `ebece11`)
+
+| Critère | Statut |
+|---------|--------|
+| Merge PR #119 sur `main` | ✅ `ebece11` (2026-07-06 16:49 UTC) |
+| lint / build post-merge | ✅ PASS |
+| E2E post-merge | ✅ **10 passed** — voir `qa-g4-post-merge-report.md` |
+| Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
+
 ## Décision Morris
 
 - [x] **GO QA WITH RESERVES** (QA-G3)
 - [ ] **NO-GO QA**
 - [ ] Corrections requises
+- [ ] **Clôture INC-03** — décision séparée
 - [ ] **GO INC-04** — non accordé
 
 ---
 
-**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `../../07-delivery-inc-03/delivery-inc-03-validation-report.md`
+**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `qa-g4-post-merge-report.md`, `../../07-delivery-inc-03/delivery-inc-03-validation-report.md`

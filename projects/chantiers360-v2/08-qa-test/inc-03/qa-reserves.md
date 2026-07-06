@@ -18,3 +18,10 @@
 ## Note
 
 INC-03 n'adresse pas R-QA-03 / R-QA-04 / R-QA-05 — hors périmètre sauf impact direct documenté (aucun).
+
+## Post-merge QA-G4 (PR #119 — `main` @ `ebece11`)
+
+| # | Réserve | Statut post-merge |
+|---|---------|-------------------|
+| R-QA-03 à R-QA-04 | Mineures | **Ouvertes** — inchangées, acceptées |
+| R-QA-05 | Port 3000 / `test:e2e:full` | **Environnementale** — `test:e2e` 10 passed ce cycle |
