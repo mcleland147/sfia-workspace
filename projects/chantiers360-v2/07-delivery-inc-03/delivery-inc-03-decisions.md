@@ -25,9 +25,9 @@
 
 | # | Question | Statut |
 |---|----------|--------|
-| V1 | INC-03 validé pour QA-G3 ? | ⏳ En attente |
-| V2 | GO QA INC-03 (QA-G3) ? | ⏳ Décision Morris |
-| V3 | GO PR readiness INC-03 ? | ⏳ Après QA-G3 |
+| V1 | INC-03 validé pour QA-G3 ? | ✅ Validé |
+| V2 | GO QA INC-03 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
+| V3 | GO PR readiness INC-03 ? | ✅ Documenté — `pr-readiness-inc-03.md` |
 | V4 | Clôture INC-03 ? | ⏳ Cycle séparé |
 | V5 | GO INC-04 ? | ❌ Non accordé — décision séparée |
 

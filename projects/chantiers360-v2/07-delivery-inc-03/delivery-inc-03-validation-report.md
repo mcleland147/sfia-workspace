@@ -30,7 +30,7 @@
 
 ## Verdict delivery
 
-**INC-03 livré localement** — US-10 implémentée. En attente QA-G3 Morris.
+**INC-03 livré localement** — US-10 implémentée. **QA-G3 GO WITH RESERVES** Morris. PR readiness documentée.
 
 ---
 

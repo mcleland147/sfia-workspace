@@ -14,7 +14,7 @@
 | 4 | Tests exécutés — résultat documenté | ✅ **10 passed** |
 | 5 | Scénario US-10 | ✅ |
 | 6 | Réserves documentées | ✅ |
-| 7 | Morris valide GO QA | ⏳ **En attente** |
+| 7 | Morris valide GO QA | ✅ **GO QA WITH RESERVES** (2026-07-06) |
 
 ## Couverture US
 
@@ -28,7 +28,7 @@ R-QA-03 à R-QA-05 — héritées, ouvertes, acceptées, non bloquantes pour INC
 
 ## Verdict proposé
 
-### **GO QA WITH RESERVES** — proposition QA
+### **GO QA WITH RESERVES** — acté Morris (QA-G3)
 
 - Aucune réserve bloquante INC-03
 - Réserves héritées documentées
@@ -36,7 +36,7 @@ R-QA-03 à R-QA-05 — héritées, ouvertes, acceptées, non bloquantes pour INC
 
 ## Décision Morris
 
-- [ ] **GO QA WITH RESERVES** (QA-G3)
+- [x] **GO QA WITH RESERVES** (QA-G3)
 - [ ] **NO-GO QA**
 - [ ] Corrections requises
 - [ ] **GO INC-04** — non accordé
