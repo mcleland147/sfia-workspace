@@ -16,6 +16,7 @@ export const chantiers = pgTable("chantiers", {
   plannedStartDate: date("planned_start_date"),
   plannedEndDate: date("planned_end_date"),
   nextInterventionDate: date("next_intervention_date"),
+  upcomingMilestone: varchar("upcoming_milestone", { length: 500 }),
   simplePlanningComment: text("simple_planning_comment"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),

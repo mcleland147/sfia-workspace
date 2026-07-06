@@ -65,7 +65,7 @@ test.describe("INC-01 — Chantiers360 v2", () => {
     await expect(page.getByRole("heading", { name: "Tâches" })).toBeVisible();
     await expect(page.getByLabel("Ajouter une tâche")).toBeVisible();
     await expect(page.getByRole("button", { name: "Réserves" })).toBeVisible();
-    await expect(page.getByRole("button", { name: /Jalons/ })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Jalons", exact: true })).toBeEnabled();
     await expect(page.getByRole("button", { name: /Comptes rendus/ })).toBeDisabled();
 
     await page.getByRole("link", { name: "Retour au tableau de bord" }).click();

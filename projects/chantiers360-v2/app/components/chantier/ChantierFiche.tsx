@@ -1,18 +1,19 @@
 import type { Chantier, Reserve, Tache } from "@/lib/db/schema";
 import type { ChantierStatus } from "@/lib/chantiers/types";
+import { formatDisplayDate } from "@/lib/planning/format";
+import type { SimplePlanningData } from "@/lib/planning/types";
 import { BackToDashboardLink } from "@/components/layout/AppShell";
 import { StatusSelector } from "./StatusSelector";
 import { ChantierOperationalTabs } from "./ChantierOperationalTabs";
 
-function formatDate(value: string | null): string {
-  if (!value) return "—";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "—";
-  return new Intl.DateTimeFormat("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(date);
+function toPlanningData(chantier: Chantier): SimplePlanningData {
+  return {
+    plannedStartDate: chantier.plannedStartDate,
+    plannedEndDate: chantier.plannedEndDate,
+    nextInterventionDate: chantier.nextInterventionDate,
+    upcomingMilestone: chantier.upcomingMilestone,
+    simplePlanningComment: chantier.simplePlanningComment,
+  };
 }
 
 export function ChantierFiche({
@@ -25,6 +26,7 @@ export function ChantierFiche({
   reserves: Reserve[];
 }) {
   const status = chantier.status as ChantierStatus;
+  const planning = toPlanningData(chantier);
 
   return (
     <div className="flex-1 bg-surface px-8 py-8">
@@ -55,26 +57,33 @@ export function ChantierFiche({
         </div>
       </header>
 
-      <section className="mt-6 rounded-2xl bg-white p-8 shadow-card">
+      <section
+        className="mt-6 rounded-2xl bg-white p-8 shadow-card"
+        aria-label="Résumé planning simple"
+      >
         <h2 className="text-sm font-semibold text-slate-900">Planning simple</h2>
         <dl className="mt-4 grid gap-4 sm:grid-cols-2">
           <div>
             <dt className="text-xs text-slate-400">Début prévu</dt>
-            <dd className="text-sm text-slate-700">{formatDate(chantier.plannedStartDate)}</dd>
+            <dd className="text-sm text-slate-700">{formatDisplayDate(planning.plannedStartDate)}</dd>
           </div>
           <div>
             <dt className="text-xs text-slate-400">Fin prévue</dt>
-            <dd className="text-sm text-slate-700">{formatDate(chantier.plannedEndDate)}</dd>
+            <dd className="text-sm text-slate-700">{formatDisplayDate(planning.plannedEndDate)}</dd>
           </div>
           <div>
             <dt className="text-xs text-slate-400">Prochaine intervention</dt>
-            <dd className="text-sm text-slate-700">{formatDate(chantier.nextInterventionDate)}</dd>
+            <dd className="text-sm text-slate-700">
+              {formatDisplayDate(planning.nextInterventionDate)}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-xs text-slate-400">Jalon à venir</dt>
+            <dd className="text-sm text-slate-700">{planning.upcomingMilestone || "—"}</dd>
           </div>
           <div className="sm:col-span-2">
             <dt className="text-xs text-slate-400">Commentaire</dt>
-            <dd className="text-sm text-slate-700">
-              {chantier.simplePlanningComment || "—"}
-            </dd>
+            <dd className="text-sm text-slate-700">{planning.simplePlanningComment || "—"}</dd>
           </div>
         </dl>
       </section>
@@ -83,6 +92,7 @@ export function ChantierFiche({
         chantierId={chantier.id}
         taches={taches}
         reserves={reserves}
+        planning={planning}
       />
     </div>
   );

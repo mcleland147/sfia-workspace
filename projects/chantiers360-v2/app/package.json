@@ -1,8 +1,8 @@
 {
   "name": "chantiers360-v2",
   "private": true,
-  "version": "0.3.0-inc02",
-  "description": "Chantiers360 v2 — delivery INC-02 (tâches et réserves)",
+  "version": "0.4.0-inc03",
+  "description": "Chantiers360 v2 — delivery INC-03 (jalons simples)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

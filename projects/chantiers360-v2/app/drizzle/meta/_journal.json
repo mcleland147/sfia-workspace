@@ -15,6 +15,13 @@
       "when": 1751787600000,
       "tag": "0001_tasks_reserves",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751791200000,
+      "tag": "0002_simple_milestones",
+      "breakpoints": true
     }
   ]
 }
