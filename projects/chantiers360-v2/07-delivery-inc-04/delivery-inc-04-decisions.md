@@ -30,7 +30,7 @@
 | V2 | GO QA INC-04 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
 | V3 | GO PR readiness INC-04 ? | ✅ PR #122 mergée — `9e9c124` |
 | V4 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
-| V5 | Clôture INC-04 ? | ⏳ Cycle séparé — décision Morris |
+| V5 | Clôture INC-04 ? | ✅ **INC-04 CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-04-closure-report.md` |
 | V6 | GO INC-05 ? | ❌ **Non accordé** — décision L0 séparée |
 
 ---

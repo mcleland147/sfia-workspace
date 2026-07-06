@@ -43,12 +43,21 @@ R-QA-03 à R-QA-05 — héritées, ouvertes, acceptées, non bloquantes pour INC
 | E2E post-merge | ✅ **12 passed** — voir `qa-g4-post-merge-report.md` |
 | Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
 
+## Clôture INC-04
+
+| Critère | Statut |
+|---------|--------|
+| Post-merge check PR #123 | ✅ POST-MERGE OK WITH RESERVES |
+| Clôture Morris | ✅ **INC-04 CLOSED WITH RESERVES** (2026-07-06) |
+| Rapport | `../../07-delivery-inc-04/inc-04-closure-report.md` |
+| GO INC-05 | ❌ **Non accordé** |
+
 ## Décision Morris
 
 - [x] **GO QA WITH RESERVES** (QA-G3) — 2026-07-06
-- [ ] **Clôture INC-04** — décision séparée
+- [x] **Clôture INC-04** — **CLOSED WITH RESERVES** (2026-07-06)
 - [ ] **GO INC-05** — non accordé
 
 ---
 
-**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `qa-g4-post-merge-report.md`, `../../07-delivery-inc-04/delivery-inc-04-validation-report.md`
+**Documents liés :** `qa-execution-report.md`, `qa-reserves.md`, `qa-g4-post-merge-report.md`, `../../07-delivery-inc-04/inc-04-closure-report.md`, `../../07-delivery-inc-04/delivery-inc-04-validation-report.md`
