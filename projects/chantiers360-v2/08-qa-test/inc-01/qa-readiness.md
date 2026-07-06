@@ -64,7 +64,8 @@ Réserves mineures R-QA-02, R-QA-03, R-QA-04 conservées — documentées dans P
 |---------|--------|
 | Décision Morris | ✅ **INC-01 CLOSED WITH RESERVES** (2026-07-06) |
 | Rapport | `inc-01-closure-report.md` |
-| Réserves R-QA-02 à R-QA-05 | Conservées — non bloquantes |
+| Réserves R-QA-03 à R-QA-05 | Conservées — non bloquantes |
+| R-QA-02 | **Levée** — micro-cycle post-clôture (backlog aligné) |
 | GO INC-02 | ❌ Non accordé |
 
 ## Décisions Morris

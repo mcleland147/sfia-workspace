@@ -100,3 +100,16 @@ Prérequis :
 | `backlog-decisions.md` | Ce document |
 
 **Automation level :** L2 — gate Morris avant delivery.
+
+---
+
+## 9. Micro-alignement R-QA-02 (post INC-01)
+
+| # | Décision | Statut |
+|---|----------|--------|
+| D-RQA02-1 | Statut chantier cible INC-01 | **En retard** (aligné code — `CHANTIER_STATUSES`) |
+| D-RQA02-2 | Backlog US-04 / AC US-04 | Alignés sur **En retard** — remplace « En pause » |
+| D-RQA02-3 | Réserve R-QA-02 | **Levée** — backlog aligné sur décision Morris / livraison INC-01 |
+| D-RQA02-4 | Impact INC-02 | Aucun — micro-cycle documentaire uniquement |
+
+> **Note :** « En pause » reste documenté dans les cycles amont (cadrage, design) — hors périmètre de ce micro-alignement backlog INC-01.
