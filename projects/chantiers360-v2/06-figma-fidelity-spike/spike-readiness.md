@@ -3,14 +3,25 @@
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/06-figma-fidelity-spike/spike-readiness.md`
 
+## Post-merge
+
+| Élément | Valeur |
+|---------|--------|
+| **PR** | #104 mergée sur `main` |
+| **Commit main** | `87de625` |
+| **Gate M8/M9** | ✅ Satisfait — frame Dashboard `38:502` |
+| **D1 / D2** | ✅ Validés Morris |
+| **D3 / M7** | ❌ GO delivery INC-01 non accordé |
+| **Delivery INC-01** | Non lancé |
+
 ## Commandes exécutées
 
 | Commande | Résultat |
 |----------|----------|
-| `npm install` | Voir rapport cycle — exécuté dans `app/` |
-| `npm run lint` | Voir rapport cycle |
-| `npm run build` | Voir rapport cycle |
-| `npm run dev` | Non requis si build OK |
+| `npm install` | Exécuté dans `app/` |
+| `npm run lint` | ✅ OK |
+| `npm run build` | ✅ OK |
+| `npm run dev` | Revue Morris réalisée |
 
 ## Fichiers créés
 
@@ -46,11 +57,10 @@
 
 ## Prochaines étapes
 
-1. **Revue Morris** — comparaison visuelle capture vs `npm run dev`
-2. Arbitrage D1–D3 (`spike-decisions.md`)
-3. Si fidélité OK → décision **GO delivery INC-01** (M7) séparée
-4. Delivery INC-01 — setup projet complet + US-01 à US-04
+1. **Capitalisation SFIA v2.0** — post-spike (méthode Figma → Cursor → Next.js/Tailwind)
+2. Décision Morris **GO delivery INC-01** (M7) — séparée
+3. Si GO → branche `delivery/chantiers360-v2-inc-01` — setup complet + US-01 à US-04
 
 ---
 
-**Verdict spike :** READY FOR PR READINESS — validation Morris D1/D2 ✅ ; D3 (GO INC-01) ❌
+**Verdict spike :** MERGED — PR #104 ; POST-MERGE OK WITH DOCUMENTARY ALIGNMENT — D1/D2 ✅ ; D3 (GO INC-01) ❌

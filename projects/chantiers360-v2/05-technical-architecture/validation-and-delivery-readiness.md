@@ -18,7 +18,7 @@
 | 6 | Structure applicative validée par Morris | ✅ Validé (M6) |
 | 7 | **GO architecture technique Morris** | ✅ Validé (M6) |
 | 8 | Stratégie fidélité Figma documentée | ✅ |
-| 9 | **Figma Fidelity Spike requis** (M8) — Frame Dashboard `38:502` | ⏳ À réaliser |
+| 9 | **Figma Fidelity Spike** (M8) — Frame Dashboard `38:502` | ✅ Réalisé et validé Morris — PR #104 (`87de625`) |
 | 10 | **GO delivery INC-01 Morris** | ❌ **Non accordé** (M7) |
 
 ## 2. Critères pour autoriser delivery code
@@ -32,7 +32,7 @@
 | **Hors scope respecté** | Pas de devis, facturation, client, planning avancé, V0 |
 | **Branche delivery** | Nouvelle branche dédiée — ex. `delivery/chantiers360-v2-inc-01` |
 | **Pas de modification backlog/design** | Sauf micro-cycle alignment si écart bloquant |
-| **Fidélité Figma** | Spike Frame Dashboard `38:502` **requis** (M8) avant INC-01 complet |
+| **Fidélité Figma** | Spike Frame Dashboard `38:502` **réalisé** (M8) — PR #104 — avant INC-01 complet |
 | **Anti-dérive UI** | L'implémentation ne doit pas dériver vers une UI générique type admin dashboard |
 
 ## 3. Risques avant delivery
@@ -94,18 +94,18 @@ Alignés sur `acceptance-criteria.md` :
 | **G1 — Architecture** | La stack et le modèle proposés sont-ils validés ? | ✅ **GO** (M6) |
 | **G2 — Périmètre INC-01** | Le scope US-01 à US-04 est-il confirmé ? | ⏳ À confirmer au GO delivery |
 | **G3 — Design** | Les captures P1 suffisent-elles pour INC-01 ? | ✅ PR #101 |
-| **G4 — Fidélité Figma** | Spike pixel-close requis avant INC-01 complet | ⏳ **Requis** — M8 validé |
+| **G4 — Fidélité Figma** | Spike pixel-close requis avant INC-01 complet | ✅ **Satisfait** — PR #104 — M8/M9 |
 | **G5 — Delivery** | Autorise-t-on le premier commit code INC-01 ? | ❌ **Non accordé** (M7) |
 
 **Sans GO explicite sur G5 :** delivery code **interdit**.
 
-**Gate fidélité Figma (G4) — requis avant GO delivery INC-01 complet :**
+**Gate fidélité Figma (G4) — satisfait ; GO delivery INC-01 (G5) toujours requis :**
 
 1. **Stratégie validée** — `frontend-architecture.md` §9 ; stack Tailwind validée M10
-2. **Réaliser** le micro-cycle **Figma Fidelity Spike** — frame **01 — Dashboard cockpit premium** (`38:502`) — validé M8/M9
-3. **Revue Morris** — comparaison avec `04-design/captures/01-dashboard-cockpit-premium.png` ; pas de dérive UI générique
+2. **Figma Fidelity Spike réalisé** — frame **01 — Dashboard cockpit premium** (`38:502`) — mergé PR #104 — validé Morris (D1/D2)
+3. **Revue Morris** — comparaison avec `04-design/captures/01-dashboard-cockpit-premium.png` — ✅ validée
 
-> Le spike est **obligatoire** avant clôture INC-01 complet. Le **GO delivery INC-01 (M7)** reste **non accordé** — aucun delivery ne démarre sans décision Morris explicite.
+> Le spike est **réalisé et mergé** (PR #104). Le **GO delivery INC-01 (M7)** reste **non accordé** — aucun delivery ne démarre sans décision Morris explicite. Aucune DB / Drizzle / auth requise à ce stade.
 
 ## 7. Ordre post-validation architecture
 
@@ -113,16 +113,16 @@ Alignés sur `acceptance-criteria.md` :
 Architecture validée Morris (M6) ✅
         │
         ▼
-Figma Fidelity Spike — Frame 01 Dashboard (`38:502`) — REQUIS (M8)
+Figma Fidelity Spike — Frame 01 Dashboard (`38:502`) — MERGÉ PR #104 ✅
         │
         ▼
-Revue Morris — fidélité pixel-close
+Revue Morris — fidélité pixel-close (D1/D2) ✅
         │
         ▼
-GO delivery INC-01 (M7) — non accordé pour l'instant
+GO delivery INC-01 (M7) — non accordé pour l'instant ❌
         │
         ▼
-Branche delivery + setup stack validée (Option B + Drizzle + Tailwind)
+Capitalisation SFIA v2.0 — ou branche delivery + setup stack validée (Option B + Drizzle + Tailwind)
         │
         ▼
 Implémentation US-01 → US-04 (fidélité pixel-close desktop de référence)
