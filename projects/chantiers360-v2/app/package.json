@@ -1,8 +1,8 @@
 {
   "name": "chantiers360-v2",
   "private": true,
-  "version": "0.2.0-inc01",
-  "description": "Chantiers360 v2 — delivery INC-01 (socle chantier)",
+  "version": "0.3.0-inc02",
+  "description": "Chantiers360 v2 — delivery INC-02 (tâches et réserves)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

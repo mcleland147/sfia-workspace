@@ -52,7 +52,7 @@ test.describe("INC-01 — Chantiers360 v2", () => {
     await expect(page.getByText("À démarrer").first()).toBeVisible();
   });
 
-  test("US-03 — fiche chantier, retour dashboard, placeholders INC-02+", async ({ page }) => {
+  test("US-03 — fiche chantier, retour dashboard, sections INC-02 actives", async ({ page }) => {
     const title = `Fiche QA ${Date.now()}`;
     await createChantier(page, {
       title,
@@ -62,9 +62,11 @@ test.describe("INC-01 — Chantiers360 v2", () => {
 
     await expect(page.getByText("Client Fiche")).toBeVisible();
     await expect(page.getByText("1 avenue Test")).toBeVisible();
-    await expect(page.getByText("Tâches")).toBeVisible();
-    await expect(page.getByText("INC-02").first()).toBeVisible();
-    await expect(page.getByText("Sections opérationnelles disponibles")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Tâches" })).toBeVisible();
+    await expect(page.getByLabel("Ajouter une tâche")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Réserves" })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Jalons/ })).toBeDisabled();
+    await expect(page.getByRole("button", { name: /Comptes rendus/ })).toBeDisabled();
 
     await page.getByRole("link", { name: "Retour au tableau de bord" }).click();
     await expect(page).toHaveURL("/");
