@@ -1,10 +1,11 @@
 # QA Readiness — INC-01 (QA-G3 / QA-G4)
 
 **Date :** 2026-07-06  
-**Branche :** `main` @ `1b9e41f` (PR #108 mergée)  
+**Branche :** `main` @ `128d6fc` (PR #108 + PR #109 mergées)  
 **Standard :** SFIA v2.0 Delivery QA/Test (PR #107)  
 **Runbook E2E local :** `local-e2e-runbook.md`  
-**QA-G4 post-merge :** `qa-g4-post-merge-report.md`
+**QA-G4 post-merge :** `qa-g4-post-merge-report.md`  
+**Clôture INC-01 :** `../07-delivery-inc-01/inc-01-closure-report.md`
 
 ## Checklist QA-G3
 
@@ -47,21 +48,32 @@ Réserves mineures R-QA-02, R-QA-03, R-QA-04 conservées — documentées dans P
 
 ✅ **GO PR readiness INC-01** — Morris (2026-07-06). Voir `07-delivery-inc-01/pr-readiness-inc-01.md`.
 
-## QA-G4 post-merge (PR #108)
+## QA-G4 post-merge (PR #109)
 
 | Critère | Statut |
 |---------|--------|
 | Merge PR #108 sur `main` | ✅ `1b9e41f` (2026-07-06 08:42 UTC) |
+| Merge PR #109 sur `main` | ✅ `128d6fc` (2026-07-06 08:54 UTC) |
 | lint / build post-merge | ✅ PASS |
 | E2E post-merge | ✅ **4 passed** — voir `qa-g4-post-merge-report.md` |
 | Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
+
+## Clôture INC-01
+
+| Critère | Statut |
+|---------|--------|
+| Décision Morris | ✅ **INC-01 CLOSED WITH RESERVES** (2026-07-06) |
+| Rapport | `inc-01-closure-report.md` |
+| Réserves R-QA-02 à R-QA-05 | Conservées — non bloquantes |
+| GO INC-02 | ❌ Non accordé |
 
 ## Décisions Morris
 
 - [x] **GO QA WITH RESERVES** (QA-G3)
 - [ ] **NO-GO QA**
 - [x] **GO PR readiness INC-01**
-- [ ] **Clôture INC-01** — en attente Morris post QA-G4
+- [x] **Clôture INC-01** — CLOSED WITH RESERVES
 - [ ] **GO INC-02** — décision séparée
+- [ ] **Capitalisation post-INC-01** — cycle séparé
 
 > Morris valide les preuves — validation manuelle complémentaire effectuée sur instance test locale.
