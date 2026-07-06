@@ -30,8 +30,8 @@
 
 ## Verdict delivery
 
-**INC-03 livré localement** — US-10 implémentée. **QA-G3 GO WITH RESERVES** Morris. PR readiness documentée.
+**INC-03 livré et mergé** — PR #119 `ebece11`. **QA-G3** GO WITH RESERVES Morris. **QA-G4 OK WITH RESERVES** post-merge — en attente clôture Morris.
 
 ---
 
-**Documents liés :** `../08-qa-test/inc-03/qa-readiness.md`
+**Documents liés :** `../08-qa-test/inc-03/qa-readiness.md`, `../08-qa-test/inc-03/qa-g4-post-merge-report.md`

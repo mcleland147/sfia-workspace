@@ -27,9 +27,10 @@
 |---|----------|--------|
 | V1 | INC-03 validé pour QA-G3 ? | ✅ Validé |
 | V2 | GO QA INC-03 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
-| V3 | GO PR readiness INC-03 ? | ✅ Documenté — `pr-readiness-inc-03.md` |
-| V4 | Clôture INC-03 ? | ⏳ Cycle séparé |
-| V5 | GO INC-04 ? | ❌ Non accordé — décision séparée |
+| V3 | GO PR readiness INC-03 ? | ✅ PR #119 mergée — `ebece11` |
+| V4 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — `qa-g4-post-merge-report.md` |
+| V5 | Clôture INC-03 ? | ⏳ Cycle séparé — décision Morris |
+| V6 | GO INC-04 ? | ❌ **Non accordé** — décision L0 séparée |
 
 ---
 
