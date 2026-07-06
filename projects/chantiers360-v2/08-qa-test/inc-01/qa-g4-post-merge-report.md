@@ -113,7 +113,7 @@ Exit code: 0
 | # | Réserve | Gravité | Statut post-merge |
 |---|---------|---------|-------------------|
 | R-QA-01 | E2E Playwright exécutés | — | **Levée** — confirmée (4 passed post-merge) |
-| R-QA-02 | Backlog « En pause » vs code « En retard » | Mineure | **Ouverte** — inchangée |
+| R-QA-02 | Backlog « En pause » vs code « En retard » | Mineure | **Levée** — backlog US-04 / AC alignés sur « En retard » (micro-cycle R-QA-02) |
 | R-QA-03 | Validation formulaire vide — HTML5 `required` | Mineure | **Ouverte** — inchangée |
 | R-QA-04 | Panneaux dashboard droite mockés | Mineure | **Ouverte** — inchangée |
 
@@ -136,7 +136,8 @@ Exit code: 0
 | Hors scope respecté | ✅ |
 | lint / build post-merge | ✅ PASS |
 | E2E US-01 à US-04 | ✅ **4 passed** (fallback documenté) |
-| Réserves mineures R-QA-02 à R-QA-04 | Acceptées — inchangées |
+| Réserves mineures R-QA-03 à R-QA-04 | Acceptées — inchangées |
+| R-QA-02 | **Levée** — micro-cycle backlog (post-#113) |
 | Aucune régression bloquante | ✅ |
 
 ## 10. Décision Morris
@@ -160,3 +161,14 @@ Exit code: 0
 **Documents liés :** `qa-readiness.md`, `qa-reserves.md`, `qa-execution-report.md`, `local-e2e-runbook.md`, `07-delivery-inc-01/delivery-inc-01-validation-report.md`, `09-capitalization/inc-01-capitalization-report.md`
 
 **INC-02 :** non lancé — aucune implémentation ajoutée dans ce cycle.
+
+## 12. Micro-alignement R-QA-02 (post-#113)
+
+| # | Élément | Statut |
+|---|---------|--------|
+| Décision Morris | Retenir statut chantier **En retard** (code INC-01 inchangé) |
+| Backlog US-04 / AC | Alignés sur « En retard » |
+| R-QA-02 | **Levée** |
+| R-QA-03 à R-QA-05 | **Ouvertes** — inchangées |
+| INC-01 | **CLOSED WITH RESERVES** — inchangé |
+| GO INC-02 | Non accordé |

@@ -89,7 +89,7 @@
 | # | Réserve | Gravité | Statut à clôture |
 |---|---------|---------|------------------|
 | R-QA-01 | E2E exécutés | — | **Levée** |
-| R-QA-02 | Backlog « En pause » vs code « En retard » | Mineure | **Ouverte** — acceptée |
+| R-QA-02 | Backlog « En pause » vs code « En retard » | Mineure | **Levée** — backlog aligné (micro-cycle R-QA-02) |
 | R-QA-03 | Validation formulaire vide — HTML5 `required` | Mineure | **Ouverte** — acceptée |
 | R-QA-04 | Panneaux dashboard droite mockés | Mineure | **Ouverte** — acceptée |
 | R-QA-05 | Port 3000 occupé bloque `test:e2e:full` | Environnementale | **Ouverte** — workaround documenté |
@@ -103,7 +103,7 @@
 | # | Décision | Statut |
 |---|----------|--------|
 | C1 | Clôture INC-01 | ✅ **Accordée** — INC-01 CLOSED WITH RESERVES (2026-07-06) |
-| C2 | Réserves R-QA-02 à R-QA-05 | Acceptées — pas de correction dans ce cycle |
+| C2 | Réserves R-QA-03 à R-QA-05 | Acceptées — R-QA-02 levée en micro-cycle post-clôture |
 | C3 | GO INC-02 | ❌ Non accordé — arbitrage séparé requis |
 | C4 | Capitalisation post-INC-01 | Cycle séparé — non lancé |
 
@@ -124,7 +124,7 @@
 | Option | Description | Gate |
 |--------|-------------|------|
 | **Capitalisation post-INC-01** | Retour d'expérience pilote SFIA v2.0 sur premier delivery code | Morris — cycle séparé |
-| **Micro-alignement R-QA-02** | Harmoniser backlog « En pause » vs code « En retard » | Optionnel — Morris |
+| **Micro-alignement R-QA-02** | Harmoniser backlog « En pause » vs code « En retard » | ✅ **Fait** — R-QA-02 levée |
 | **GO INC-02** | Tâches chantier (US suivantes backlog) | **GO Morris explicite requis** |
 
 ---
@@ -133,7 +133,19 @@
 
 ### **INC-01 CLOSED WITH RESERVES**
 
-INC-01 est livré, testé, mergé, validé QA-G4 et clôturé documentairement. Les réserves mineures R-QA-02 à R-QA-05 restent ouvertes et acceptées. INC-02 n'est pas lancé.
+INC-01 est livré, testé, mergé, validé QA-G4 et clôturé documentairement. **R-QA-02 levée** (backlog aligné sur « En retard »). Les réserves R-QA-03 à R-QA-05 restent ouvertes et acceptées. INC-02 n'est pas lancé.
+
+---
+
+## 11. Addendum — micro-alignement R-QA-02
+
+| # | Élément | Statut |
+|---|---------|--------|
+| Décision Morris | Statut cible **En retard** — cohérent avec `app/lib/chantiers/types.ts` |
+| Backlog | `user-stories.md` US-04 + `acceptance-criteria.md` US-04 alignés |
+| R-QA-02 | **Levée** |
+| INC-01 | **CLOSED WITH RESERVES** — R-QA-03 à R-QA-05 ouvertes |
+| GO INC-02 | Non accordé |
 
 ---
 

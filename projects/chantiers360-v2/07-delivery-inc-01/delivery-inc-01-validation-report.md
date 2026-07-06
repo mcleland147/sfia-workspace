@@ -61,6 +61,7 @@
 - ✅ GO PR readiness INC-01 — PR #108 mergée
 - ✅ QA-G4 post-merge — OK WITH RESERVES — PR #109 mergée
 - ✅ **Clôture INC-01** — CLOSED WITH RESERVES (2026-07-06)
-- R-QA-02 à R-QA-05 — mineures acceptées, conservées
+- R-QA-02 — **levée** (backlog aligné sur « En retard » — décision Morris)
+- R-QA-03 à R-QA-05 — mineures acceptées, conservées
 - GO INC-02 — non accordé — décision séparée
 - Capitalisation post-INC-01 — cycle séparé

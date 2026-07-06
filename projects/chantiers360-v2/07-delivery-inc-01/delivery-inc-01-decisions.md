@@ -19,7 +19,7 @@
 | D-INC01-1 | Réutilisation spike | Dashboard spike conservé et branché DB |
 | D-INC01-2 | ORM | Drizzle + migration `0000_initial.sql` |
 | D-INC01-3 | Statuts chantier | À démarrer, En cours, **En retard**, Terminé |
-| D-INC01-4 | Écart backlog US-04 | Backlog mentionne « En pause » — livraison Morris utilise « En retard » comme statut explicite ; micro-alignement backlog possible si Morris le demande |
+| D-INC01-4 | Écart backlog US-04 | **Résolu** — backlog US-04 / AC alignés sur « En retard » (décision Morris — micro-cycle R-QA-02) |
 | D-INC01-5 | Sections fiche | Placeholders désactivés tâches/réserves/jalons/CR |
 | D-INC01-6 | Panneaux dashboard droite | Mock spike conservés — INC-05+ |
 
@@ -28,7 +28,7 @@
 | # | Question | Statut |
 |---|----------|--------|
 | V1 | INC-01 validé pour PR ? | ✅ **PR #108 mergée** — `1b9e41f` sur `main` |
-| V2 | Aligner statuts avec backlog (En pause) ? | ⏳ Optionnel — réserve R-QA-02 acceptée |
+| V2 | Aligner backlog sur statut « En retard » (R-QA-02) ? | ✅ **Fait** — micro-cycle documentaire ; R-QA-02 levée |
 | V3 | GO QA INC-01 (QA-G3) ? | ✅ **GO QA WITH RESERVES** — Morris (2026-07-06) |
 | V4 | QA-G4 post-merge ? | ✅ **QA-G4 OK WITH RESERVES** — PR #109 `128d6fc` |
 | V5 | Clôture INC-01 ? | ✅ **CLOSED WITH RESERVES** — Morris (2026-07-06) — `inc-01-closure-report.md` |

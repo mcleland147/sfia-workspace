@@ -66,7 +66,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 | **Epic** | EPIC-01 |
 | **Priorité** | P1 |
 | **En tant que** | responsable opérationnel |
-| **Je veux** | modifier le statut d'un chantier (À démarrer, En cours, En pause, Terminé) |
+| **Je veux** | modifier le statut d'un chantier (À démarrer, En cours, En retard, Terminé) |
 | **Afin de** | refléter l'état réel du projet |
 | **Écrans** | Fiche chantier (en-tête) |
 | **Source** | UC-03, `state-model.md` §2 |

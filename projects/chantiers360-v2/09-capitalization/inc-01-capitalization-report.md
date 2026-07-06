@@ -69,7 +69,7 @@ Chantiers360 v2 est le **premier delivery code complet** du pilote SFIA v2.0. IN
 | # | Friction | Impact | Mitigation capitalisée |
 |---|----------|--------|------------------------|
 | F1 | **Port 3000 occupé** | `test:e2e:full` échoue si instance dev locale | R-QA-05 ; fallback port 3001 documenté |
-| F2 | **Écart backlog / code** | « En pause » vs « En retard » | R-QA-02 ; décision Morris explicite D-INC01-4 |
+| F2 | **Écart backlog / code** | « En pause » vs « En retard » | **Résolu** — R-QA-02 levée ; backlog aligné sur « En retard » |
 | F3 | **Validation HTML5 seule** | Formulaire vide non couvert E2E serveur | R-QA-03 ; acceptable INC-01 |
 | F4 | **Panneaux mock spike** | Dashboard droite hors assertions INC-01 | R-QA-04 ; reporté INC-05+ |
 | F5 | **Multiples PRs docs post-delivery** | #109 QA-G4 + #110 clôture séparées | Standard closure chain (actif méthode) |
@@ -148,7 +148,7 @@ Chantiers360 v2 est le **premier delivery code complet** du pilote SFIA v2.0. IN
 | # | Réserve | Type | Statut |
 |---|---------|------|--------|
 | R-QA-01 | E2E exécutés | — | Levée |
-| R-QA-02 | En pause vs En retard | Mineure | Ouverte — acceptée |
+| R-QA-02 | En pause vs En retard | Mineure | **Levée** — backlog aligné |
 | R-QA-03 | HTML5 `required` | Mineure | Ouverte — acceptée |
 | R-QA-04 | Panneaux mock | Mineure | Ouverte — acceptée |
 | R-QA-05 | Port 3000 / fallback 3001 | Environnementale | Ouverte — documentée |
@@ -163,7 +163,7 @@ Chantiers360 v2 est le **premier delivery code complet** du pilote SFIA v2.0. IN
 | E2 | Un rapport QA par incrément | `08-qa-test/inc-02/` |
 | E3 | E2E par US livrées | Étendre `e2e/inc-02.spec.ts` |
 | E4 | PR readiness avant PR | Document `07-delivery-inc-02/pr-readiness-inc-02.md` |
-| E5 | Ne pas corriger R-QA-02 sans GO Morris | Micro-alignement backlog optionnel |
+| E5 | R-QA-02 levée — backlog aligné sur « En retard » | Micro-cycle documentaire — sans impact INC-02 |
 | E6 | GO INC-02 = décision séparée | Pas implicite après clôture INC-01 |
 
 ---
@@ -188,7 +188,7 @@ Chantiers360 v2 est le **premier delivery code complet** du pilote SFIA v2.0. IN
 | D1 | Valider capitalisation INC-01 ? | ✅ **Validée** — intégrée PR #111 `ff32170` |
 | D2 | Promouvoir standard closure en méthode v2.0 ? | ✅ **Intégré** — PR #111 — `sfia-v2-incremental-delivery-closure-standard.md` |
 | D3 | GO INC-02 ? | ❌ Non accordé — décision séparée |
-| D4 | Micro-alignement R-QA-02 (backlog) ? | ⏳ Optionnel |
+| D4 | Micro-alignement R-QA-02 (backlog) ? | ✅ **Fait** — R-QA-02 levée |
 | D5 | Comparaison V0 | Fin de pilote uniquement |
 | D6 | R-CAP-02 / R-CAP-03 (prompt-catalog / routing) ? | ✅ **Levées** — alignement prompt/routing post-#112 |
 
@@ -198,7 +198,7 @@ Chantiers360 v2 est le **premier delivery code complet** du pilote SFIA v2.0. IN
 
 ### **Capitalisation INC-01 intégrée — CLOSED WITH RESERVES inchangé**
 
-Premier delivery SFIA v2.0 capitalisé et aligné (PR #111, #112, prompt/routing). INC-01 reste **CLOSED WITH RESERVES**. INC-02 non lancé.
+Premier delivery SFIA v2.0 capitalisé et aligné (PR #111, #112, #113, R-QA-02). INC-01 reste **CLOSED WITH RESERVES** (R-QA-03 à R-QA-05 ouvertes). INC-02 non lancé.
 
 ---
 

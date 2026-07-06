@@ -49,7 +49,7 @@
 ## US-04 — Modifier le statut d'un chantier
 
 - **Given** je suis sur une fiche chantier  
-- **When** je change le statut (À démarrer / En cours / En pause / Terminé)  
+- **When** je change le statut (À démarrer / En cours / En retard / Terminé)  
 - **Then** le nouveau statut est visible sur la fiche et en liste
 
 **Checklist :**
