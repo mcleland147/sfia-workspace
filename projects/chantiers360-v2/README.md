@@ -2,14 +2,15 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** Design Figma MVP — rattrapage  
+**Statut :** Architecture technique légère — en cours  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
 **UX/UI :** mergée via PR #98 (`1d9feb9`)  
 **Backlog MVP :** mergé via PR #99 (`93d6810`)  
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
-**Cycle courant :** Design Figma MVP — dossier `04-design/` ; architecture technique et delivery non lancés  
+**Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
+**Cycle courant :** Architecture technique légère — dossier `05-technical-architecture/` ; aucun code lancé  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -26,8 +27,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | Design Figma MVP — rattrapage (Morris) |
-| **Cycle** | Design Figma MVP (post PR #100) |
+| **Statut** | Architecture technique légère — en cours (Morris) |
+| **Cycle** | Architecture technique légère (post PR #101) |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -37,7 +38,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | **Delivery applicatif** | Non lancé |
 | **app / backend** | Non créés |
 | **Backlog produit détaillé** | Mergé PR #99 |
-| **Design Figma MVP** | En cours — `04-design/` |
+| **Design Figma MVP** | Mergé PR #101 — `04-design/` |
+| **Architecture technique** | En cours — `05-technical-architecture/` |
 
 ## 3. SFIA v2.0 pilot rationale
 
@@ -163,7 +165,20 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `04-design/design-decisions.md` | Décisions design tracées |
 | `04-design/design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
 
-## 12. Backlog MVP documents
+## 12. Technical architecture documents
+
+| Document | Rôle |
+|----------|------|
+| `05-technical-architecture/technical-architecture-overview.md` | Objectif cycle, périmètre, lien INC-01 |
+| `05-technical-architecture/stack-options.md` | Comparaison options stack MVP |
+| `05-technical-architecture/stack-decision.md` | Décision stack — en attente Morris |
+| `05-technical-architecture/application-structure.md` | Structure applicative cible |
+| `05-technical-architecture/data-model-light.md` | Modèle de données léger |
+| `05-technical-architecture/frontend-architecture.md` | Architecture frontend P1 |
+| `05-technical-architecture/validation-and-delivery-readiness.md` | Conditions avant INC-01 |
+| `05-technical-architecture/technical-decisions.md` | Registre décisions techniques |
+
+## 13. Backlog MVP documents
 
 | Document | Rôle |
 |----------|------|
@@ -175,21 +190,21 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `03-backlog/backlog-traceability.md` | Matrice traçabilité cadrage → backlog |
 | `03-backlog/backlog-decisions.md` | Décisions backlog tracées |
 
-## 13. Next SFIA cycles
+## 14. Next SFIA cycles
 
-**Cycle courant :** **Design Figma MVP** — rattrapage (post backlog PR #99).
+**Cycle courant :** **Architecture technique légère** (post PR #101).
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
 3. UX/UI Markdown — ✅ mergée PR #98
 4. Backlog MVP — ✅ mergé PR #99
-5. **Design Figma MVP** ← en cours (rattrapage — standard PR #100)
-6. Architecture technique légère ← après gate Morris design
-7. Delivery incrémental ← après architecture technique
+5. Design Figma MVP — ✅ mergé PR #101
+6. **Architecture technique légère** ← en cours
+7. Delivery incrémental ← après validation architecture + GO Morris
 8. Validation / PR readiness / post-merge / capitalisation
 9. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement**
 
-## 14. Decision authority
+## 15. Decision authority
 
 | Rôle | Responsabilité |
 |------|----------------|
