@@ -28,6 +28,7 @@
 | D6 | Navigation US-13 | `/chantiers/[id]?tab=taches|reserves|jalons` |
 | D7 | Sources agrégées | Tâches (À faire/En cours), réserves (Ouverte/En cours de traitement), jalons (intervention/jalon), statut En retard |
 | D8 | Retard | Via statut chantier `En retard` (INC-01) — pas de champ booléen séparé |
+| D9 | R-UX-01 — frame Figma `/prochaines-actions` | **Accepté sans maquette dédiée** — extrapolation patterns UI existants ; pas de rattrapage design ce cycle |
 
 ## Décisions de sortie
 
@@ -37,6 +38,7 @@
 | V2 | QA-G3 requis avant PR | ⏳ En attente Morris |
 | V3 | Clôture INC-05 | ⏳ Hors ce cycle |
 | V4 | GO post-MVP | ⏳ Hors scope |
+| V5 | R-UX-01 | ✅ Acceptée — non bloquante — capitalisation SFIA v2.0 couverture design hors scope INC-05 |
 
 ---
 

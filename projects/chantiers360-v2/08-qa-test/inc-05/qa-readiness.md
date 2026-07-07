@@ -25,7 +25,14 @@
 
 ## Réserves
 
-R-QA-03 à R-QA-05 — héritées, ouvertes, acceptées, non bloquantes pour INC-05.
+| # | Réserve | Statut |
+|---|---------|--------|
+| R-UX-01 | Écran `/prochaines-actions` sans frame Figma dédiée | **Ouverte** — acceptée — non bloquante |
+| R-QA-03 | HTML5 `required` formulaire chantier | **Ouverte** — acceptée — héritée |
+| R-QA-04 | Panneaux dashboard droite mockés | **Ouverte** — acceptée — héritée |
+| R-QA-05 | Port 3000 occupé | **Ouverte** — environnementale — héritée |
+
+Aucune réserve bloquante INC-05 — PR readiness non bloquée par R-UX-01.
 
 ## Verdict proposé
 

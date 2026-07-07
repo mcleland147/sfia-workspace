@@ -22,7 +22,7 @@
 | Zone | Fichiers |
 |------|----------|
 | Domaine | `lib/prochaines-actions/types.ts`, `queries.ts`, `format.ts` |
-| UI | `components/prochaines-actions/ProchainesActionsList.tsx`, `app/prochaines-actions/page.tsx` |
+| UI | `components/prochaines-actions/ProchainesActionsList.tsx`, `app/prochaines-actions/page.tsx` — **R-UX-01** : sans frame Figma dédiée, patterns existants |
 | Navigation | `ChantierFiche`, `ChantierOperationalTabs` (`initialTab`), `app/chantiers/[id]/page.tsx` (`?tab=`) |
 | Accès | `DashboardHero` — lien Prochaines actions |
 | Tests | `e2e/inc-05.spec.ts` |

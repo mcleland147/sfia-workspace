@@ -21,6 +21,13 @@
 | `npm run build` | ✅ PASS |
 | `npm run test:e2e` | ✅ **16 passed** |
 
+## Réserves
+
+| # | Réserve | Statut |
+|---|---------|--------|
+| R-UX-01 | Écran `/prochaines-actions` sans frame Figma dédiée | **Ouverte** — acceptée — non bloquante |
+| R-QA-03 à R-QA-05 | Héritées INC-01→04 | **Ouvertes** — acceptées |
+
 ## Verdict proposé
 
 ### **READY WITH RESERVES**
