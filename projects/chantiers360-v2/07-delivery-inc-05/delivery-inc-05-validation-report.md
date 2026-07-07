@@ -1,8 +1,7 @@
 # Chantiers360 v2 — Delivery INC-05 — Rapport de validation
 
-**Branche :** `delivery/chantiers360-v2-inc-05`  
-**Base :** `3f7acfe`  
-**Date :** 2026-07-07 (QA-G4 post-merge)
+**Branche :** `main` @ `6e5ec82`  
+**Date :** 2026-07-07 (clôture INC-05)
 
 ## Couverture US
 
@@ -28,9 +27,11 @@
 | R-UX-01 | Écran `/prochaines-actions` sans frame Figma dédiée | **Ouverte** — acceptée — non bloquante |
 | R-QA-03 à R-QA-05 | Héritées INC-01→04 | **Ouvertes** — acceptées |
 
-## Verdict proposé
+## Verdict
 
-### **READY WITH RESERVES**
+### **INC-05 CLOSED WITH RESERVES**
+
+**INC-05 CLOSED WITH RESERVES** — PR #125 `6fe91df`, PR #126 `6e5ec82`. **QA-G3** GO WITH RESERVES Morris. **PR readiness READY WITH RESERVES**. **QA-G4 OK WITH RESERVES** post-merge. Clôture Morris (2026-07-07) — `inc-05-closure-report.md`. MVP fonctionnellement bouclé avec réserves. GO post-MVP non accordé.
 
 ## PR readiness
 
@@ -50,6 +51,15 @@
 | Verdict | **QA-G4 OK WITH RESERVES** |
 | Rapport | `../08-qa-test/inc-05/qa-g4-post-merge-report.md` |
 
+## Clôture INC-05
+
+| Élément | Statut |
+|---------|--------|
+| Clôture Morris | ✅ **INC-05 CLOSED WITH RESERVES** (2026-07-07) |
+| Rapport | `inc-05-closure-report.md` |
+| MVP | Fonctionnellement bouclé avec réserves |
+| GO post-MVP | ❌ Non accordé |
+
 ---
 
-**Documents liés :** `../08-qa-test/inc-05/qa-readiness.md`, `pr-readiness-inc-05.md`, `../08-qa-test/inc-05/qa-g4-post-merge-report.md`
+**Documents liés :** `../08-qa-test/inc-05/qa-readiness.md`, `pr-readiness-inc-05.md`, `inc-05-closure-report.md`, `../08-qa-test/inc-05/qa-g4-post-merge-report.md`
