@@ -275,11 +275,22 @@ Le spike peut fournir des **captures comparatives** utiles au rapport QA visuel 
 
 **Référence :** `sfia-v2-delivery-qa-test-standard.md` §13.
 
+## 13bis. Lien avec Design Coverage
+
+| Principe | Application |
+|----------|-------------|
+| **Spike ≠ couverture complète** | Le spike valide une **frame de référence** — les écrans delivery ultérieurs peuvent être extrapolés selon `sfia-v2-design-coverage-standard.md` |
+| **Patterns issus du spike** | Composants et tokens du spike deviennent **sources de cohérence** pour écrans sans frame dédiée |
+| **R-UX-XX** | Toute extrapolation post-spike sans frame dédiée suit la matrice design coverage |
+
+**Référence pilote :** Chantiers360 v2 — spike Dashboard `38:502` ; R-UX-01 `/prochaines-actions`.
+
 ---
 
 **Références :**
 
 - `sfia-v2-design-figma-cycle-standard.md`
+- `sfia-v2-design-coverage-standard.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-project-bootstrap-standard.md`
 - `sfia-v2-delivery-qa-test-standard.md`

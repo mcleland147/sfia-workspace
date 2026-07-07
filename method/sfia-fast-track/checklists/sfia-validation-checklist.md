@@ -308,6 +308,17 @@ Utiliser pour un **delivery INC-n** avec standard QA v2.0 :
 - [ ] réserves QA documentées (bloquante / majeure / mineure / environnementale) ;
 - [ ] référence `sfia-v2-delivery-qa-test-standard.md` et `sfia-v2-incremental-delivery-closure-standard.md`.
 
+### 12.2 Supplément SFIA v2.0 — design coverage (pilote)
+
+Utiliser pour un **écran sans frame Figma dédiée** ou un cycle méthode design coverage :
+
+- [ ] type d'écran identifié (structurant / dérivé / secondaire — `sfia-v2-design-coverage-standard.md` §3) ;
+- [ ] source de cohérence design explicite (frame, composant, pattern, tokens) ;
+- [ ] extrapolation Cursor conforme §6 — pas de nouvelle DA implicite ;
+- [ ] réserve R-UX-XX documentée si pas de frame dédiée ;
+- [ ] pas de modification Figma / captures / code dans un cycle méthode documentaire ;
+- [ ] gate Morris si écran structurant sans Figma ou nouvelle DA.
+
 ## 13. Checklist — Post-merge
 
 Utiliser cette section uniquement après merge ou pour préparer une trace post-merge.

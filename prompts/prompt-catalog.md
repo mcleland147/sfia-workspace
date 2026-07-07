@@ -1266,6 +1266,22 @@ Full operational prompt templates are maintained separately in `prompts/template
 | **Usage** | QA-G0…G4 ; stratégie/scénarios ; tests ; rapports ; réserves ; QA readiness (QA-G3) ; post-merge (QA-G4) ; PR readiness delivery |
 | **Closure / capitalisation** | `sfia-v2-incremental-delivery-closure-standard.md` |
 
+## 15. Supplément SFIA v2.0 — Design coverage (pilote)
+
+> Entrée minimale — capitalisation pilote Chantiers360 v2 R-UX-01 (INC-05 `/prochaines-actions`).
+
+| Élément | Valeur |
+|---------|--------|
+| **Famille** | Design coverage — extrapolation UI Cursor |
+| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-coverage-standard.md` |
+| **Bloc prompt type** | §9 — « Écran sans frame Figma dédiée — extrapolation DA existante » |
+| **Réserve type** | R-UX-XX — §8 |
+| **Routing** | `sfia-cycle-routing-guide.md` — §6.15 |
+| **Checklist** | `sfia-validation-checklist.md` — §12.2 |
+| **Usage** | Matrice Figma vs extrapolation ; sources cohérence ; gates Morris ; delivery écrans dérivés |
+| **Liens** | `sfia-v2-design-figma-cycle-standard.md` ; `sfia-v2-figma-fidelity-gate-standard.md` |
+| **Exemple pilote** | Chantiers360 v2 — R-UX-01 acceptée, non bloquante |
+
 ---
 
 ## Annexe A — Catalogue pilote Interv360 (historique v1.0)
