@@ -38,6 +38,22 @@ The guide maps each cycle type to:
 
 Templates should not be used in isolation. They must be selected according to the cycle type and completed with the relevant repository context, scope, guardrails and validation rules.
 
+## SFIA v2.4 — complément templates
+
+Tout template adapté pour un cycle post-v2.4 doit intégrer les champs du contrat prompt v2.4 (`sfia-prompt-generation-engine.md` §7.1) :
+
+- type de cycle (INC / EVOL / RUN / CAPA / DOC ou méthode / projet) ;
+- profil projet si applicable ;
+- niveau QA attendu ;
+- gate Morris requis ;
+- périmètre / hors périmètre ;
+- garde-fous v2.4 ;
+- statut attendu : READY FOR REVIEW / READY WITH RESERVES / NOT READY.
+
+Référence : `sfia-v2.4-consolidation-operating-efficiency-standard.md` — ne pas recopier intégralement.
+
+Handoff = **documentaire uniquement** — pas d'agent autonome. v3.0 = immediate NO-GO.
+
 ## Common Guardrails
 
 - no push without human validation;
@@ -57,3 +73,4 @@ Templates should not be used in isolation. They must be selected according to th
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`

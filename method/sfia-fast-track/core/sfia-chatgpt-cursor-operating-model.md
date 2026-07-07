@@ -509,6 +509,34 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
 
 > Validated through Interv360 and SFIA foundation consolidation cycles.
 
+### 18.1 Complément SFIA v2.4 — rôles et handoff documentaire
+
+> **Référence :** `sfia-v2.4-consolidation-operating-efficiency-standard.md` §4, §10 — **aucun agent autonome implémenté**.
+
+| Acteur | Rôle v2.4 |
+|--------|-----------|
+| **ChatGPT** | Cadre, challenge, route, prépare prompts, analyse rapports |
+| **Cursor** | Exécute périmètre borné — L3 contrôlé |
+| **Git** | Trace — source de vérité |
+| **Morris (L0)** | Arbitrages structurants, merge, clôture, gates |
+
+**Handoff documentaire minimal :**
+
+| Phase | Livrable |
+|-------|----------|
+| Cadrage ChatGPT | Type cycle, profil, QA, gate Morris, périmètre, garde-fous |
+| Exécution Cursor | Modifications bornées + rapport §23.3 repository engine |
+| Validation | Checklist v2.4 §3.2 — décision Morris si structurant |
+| Trace Git | Commit(s), branche, diff |
+
+**Limites v2.4 :**
+
+- pas d'automatisation de décision ;
+- pas de push / PR / merge sans demande explicite Morris ;
+- pas de v3.0 — immediate NO-GO ;
+- pas de L5 global ;
+- handoff agent = **trajectoire future**, non implémentée.
+
 ## 19. Décision
 
 Le modèle ChatGPT ↔ Cursor est reconnu comme **fondation opérationnelle SFIA v1.1**.

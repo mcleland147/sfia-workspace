@@ -1318,6 +1318,24 @@ Full operational prompt templates are maintained separately in `prompts/template
 
 ---
 
+## 18. Supplément SFIA v2.4 — Consolidation & Operating Efficiency
+
+> Entrée minimale — standard v2.4 acté PR #139 ; alignement documentaire v2.4.1 en cours.
+
+| Élément | Valeur |
+|---------|--------|
+| **Famille** | SFIA v2.4 consolidation |
+| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md` |
+| **Routing** | `sfia-cycle-routing-guide.md` — §4.3 |
+| **Checklist** | `sfia-validation-checklist.md` — §3.2, §3.3, §12.5 |
+| **Engines** | `sfia-prompt-generation-engine.md` §7.1 ; `sfia-repository-execution-engine.md` §23 |
+| **Usage** | Tout **nouveau prompt** post-v2.4 doit intégrer : type cycle ; profil projet ; niveau QA ; gate Morris ; périmètre / hors périmètre ; garde-fous v2.4 ; PR readiness adaptée |
+| **Handoff** | Documentaire ChatGPT ↔ Cursor ↔ Git — **non agent autonome** |
+| **Interdit** | v3.0 ; `.sfia/` ; agent handoff réel ; L5 global ; prompts d'orchestration autonome |
+| **v3.0** | Immediate NO-GO |
+
+---
+
 ## Annexe A — Catalogue pilote Interv360 (historique v1.0)
 
 Le catalogue v1.0 Draft recensait les prompts candidats issus du projet pilote Interv360.
