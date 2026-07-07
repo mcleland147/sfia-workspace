@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
 **Chemin :** `projects/chantiers360-v2/`  
-**Statut :** **INC-05 CLOSED WITH RESERVES** — MVP fonctionnellement bouclé avec réserves — post-MVP non lancé  
+**Statut :** **MVP CAPITALIZED WITH RESERVES** — INC-01 à INC-05 clôturés — décisions post-MVP séparées  
 **Bootstrap :** mergé via PR #95 (`c3ca02d`)  
 **Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
 **Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
@@ -11,11 +11,12 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Post-clôture INC-05 — MVP bouclé avec réserves — décisions post-MVP séparées  
+**Cycle courant :** Capitalisation MVP — `09-capitalization/mvp-capitalization-report.md` — décisions post-MVP séparées  
 **QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`  
 **QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`  
 **QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`  
-**Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`
+**Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`  
+**Capitalisation MVP :** `09-capitalization/mvp-capitalization-report.md`
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -32,8 +33,8 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | **INC-05 CLOSED WITH RESERVES** — Morris (2026-07-07) |
-| **Cycle** | Post-clôture INC-05 — MVP bouclé avec réserves — post-MVP non lancé |
+| **Statut** | **MVP CAPITALIZED WITH RESERVES** — Morris (2026-07-07) |
+| **Cycle** | Capitalisation MVP — décisions post-MVP séparées |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -42,7 +43,7 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Architecture technique** | Mergée PR #102 — arbitrages Morris validés |
 | **Figma Fidelity Spike** | Mergé PR #104 — `87de625` — D1/D2 validés Morris |
-| **Delivery applicatif** | INC-01 clôturé PR #108–#110 ; INC-02 clôturé PR #115–#116 ; INC-03 clôturé PR #119–#120 ; INC-04 clôturé PR #122–#123 ; INC-05 clôturé PR #125–#126 ; capitalisation INC-01 PR #111 (`ff32170`) |
+| **Delivery applicatif** | INC-01 clôturé PR #108–#110 ; INC-02 clôturé PR #115–#117 ; INC-03 clôturé PR #119–#121 ; INC-04 clôturé PR #122–#124 ; INC-05 clôturé PR #125–#127 ; capitalisation INC-01 PR #111 ; capitalisation MVP `mvp-capitalization-report.md` |
 | **app** | Next.js + Drizzle + PostgreSQL — socle chantier INC-01 + tâches/réserves INC-02 + jalons INC-03 + comptes rendus INC-04 + prochaines actions dérivées INC-05 |
 | **Backlog produit détaillé** | Mergé PR #99 |
 | **Design Figma MVP** | Mergé PR #101 — `04-design/` |
@@ -198,7 +199,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** Post-clôture INC-05 — MVP bouclé avec réserves — décisions post-MVP séparées.
+**Cycle courant :** Capitalisation MVP — décisions post-MVP séparées.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
@@ -210,11 +211,12 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 8. **Capitalisation Figma Fidelity Gate** — ✅ mergé PR #106
 9. **Delivery INC-01** — ✅ clôturé — PR #108–#110 — CLOSED WITH RESERVES
 10. **Capitalisation INC-01** — ✅ mergée PR #111 — `ff32170` — standard Incremental Delivery Closure
-11. **Delivery INC-02** — ✅ clôturé — PR #115–#116 — CLOSED WITH RESERVES
-12. **Delivery INC-03** — ✅ clôturé — PR #119–#120 — CLOSED WITH RESERVES
-13. **Delivery INC-04** — ✅ clôturé — PR #122–#123 — CLOSED WITH RESERVES
-14. **Delivery INC-05** — ✅ clôturé — PR #125–#126 — CLOSED WITH RESERVES — MVP bouclé avec réserves
-15. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement** — non lancée
+11. **Delivery INC-02** — ✅ clôturé — PR #115–#117 — CLOSED WITH RESERVES
+12. **Delivery INC-03** — ✅ clôturé — PR #119–#121 — CLOSED WITH RESERVES
+13. **Delivery INC-04** — ✅ clôturé — PR #122–#124 — CLOSED WITH RESERVES
+14. **Delivery INC-05** — ✅ clôturé — PR #125–#127 — CLOSED WITH RESERVES — MVP bouclé avec réserves
+15. **Capitalisation MVP** — ✅ `mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES
+16. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement** — non lancée
 
 ## 15. Decision authority
 
