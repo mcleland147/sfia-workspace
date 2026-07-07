@@ -562,6 +562,24 @@ Ils doivent toujours déclarer :
 
 > Recommandée après **premier incrément pilote** — distincte du GO INC-(n+1).
 
+### 6.15 Design coverage / extrapolation UI (SFIA v2.0 — pilote)
+
+> Formalise quand Figma est obligatoire vs quand Cursor peut extrapoler depuis une DA existante. Source : Chantiers360 v2 R-UX-01.
+
+**Références obligatoires :**
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-coverage-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md`
+- `projects/<project>/04-design/` — brief, spec, décisions
+- `projects/<project>/08-qa-test/inc-<nn>/qa-reserves.md` — réserves R-UX-XX
+
+**Livrables attendus :** matrice couverture par écran ; sources de cohérence ; réserves UX ; prompt extrapolation si applicable.
+
+**Décision attendue :** DESIGN COVERAGE DOCUMENTED | ACCEPTED WITH RESERVES | NEEDS DESIGN ARBITRATION
+
+> **Extrapolation acceptée ≠ polish design** — rattrapage Figma = cycle Morris séparé.
+
 ## 7. Contrat minimal d'un prompt SFIA
 
 Tout prompt d'exécution SFIA doit contenir au minimum :

@@ -165,6 +165,17 @@ Le cycle Design Figma MVP est **validé** si Morris confirme :
 
 **Référence :** `sfia-v2-delivery-qa-test-standard.md`.
 
+## 10quater. Lien avec Design Coverage
+
+| Principe | Application |
+|----------|-------------|
+| **Figma P1 ≠ chaque écran** | Le cycle Design Figma MVP valide les **écrans structurants** — pas l'intégralité des écrans delivery |
+| **Extrapolation contrôlée** | Écrans dérivés / secondaires peuvent être livrés sans frame dédiée si patterns validés |
+| **Réserve UX** | R-UX-XX documente toute extrapolation sans frame Figma dédiée |
+| **Pas de rattrapage implicite** | Acceptation réserve ≠ obligation polish design |
+
+**Référence :** `sfia-v2-design-coverage-standard.md` — pilote Chantiers360 v2 R-UX-01 (INC-05 `/prochaines-actions`).
+
 ## 10. Template livrables projet
 
 ```
@@ -220,6 +231,8 @@ projects/<project-name>/
 
 **Références :**
 
+- `sfia-v2-design-figma-cycle-standard.md` — cycle Design Figma MVP
+- `sfia-v2-design-coverage-standard.md` — couverture design / extrapolation Cursor
 - `sfia-v2-automation-levels.md` — §12 trajectoire cycle de vie
 - `sfia-v2-figma-fidelity-gate-standard.md` — gate fidélité design-to-code
 - `sfia-v2-project-bootstrap-standard.md` — structure projet

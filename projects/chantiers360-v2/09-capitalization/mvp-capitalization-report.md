@@ -182,7 +182,7 @@ Aucune réserve bloquante à la capitalisation MVP.
 |---|-------|--------|
 | 1 | **Comparaison V0** | Non lancée — fin de pilote uniquement |
 | 2 | **Micro-cycle réserves** R-QA-03 / R-QA-04 / R-QA-05 | Non lancé |
-| 3 | **Design coverage / R-UX-01** | Non lancé — règles SFIA v2.0 à formaliser |
+| 3 | **Design coverage / R-UX-01** | Cycle ouvert — `sfia-v2-design-coverage-standard.md` — réserve **non levée** |
 | 4 | **ADR / DAA / DAT** | Non lancé — cycle méthode séparé |
 | 5 | **Trajectoire produit suivante** | Non décidée — extensions métier, auth, déploiement, etc. |
 
