@@ -24,9 +24,9 @@
 | **Figma Fidelity Spike** | PR #104 mergée — `87de625` — D1/D2 validés Morris ; gate M8/M9 satisfait |
 | **Delivery INC-01** | **Clôturé** — PR #108–#110 — CLOSED WITH RESERVES |
 | **Capitalisation INC-01** | Mergée PR #111 — `ff32170` — `09-capitalization/inc-01-capitalization-report.md` |
-| **Delivery INC-02** | **Clôturé** — PR #115–#116 — CLOSED WITH RESERVES — `inc-02-closure-report.md` |
-| **Delivery INC-03** | **Clôturé** — PR #119–#120 — CLOSED WITH RESERVES — `inc-03-closure-report.md` |
-| **Delivery INC-04** | **Clôturé** — PR #122–#123 — CLOSED WITH RESERVES — `inc-04-closure-report.md` |
+| **Delivery INC-02** | **Clôturé** — PR #115–#117 — CLOSED WITH RESERVES — `inc-02-closure-report.md` |
+| **Delivery INC-03** | **Clôturé** — PR #119–#121 — CLOSED WITH RESERVES — `inc-03-closure-report.md` |
+| **Delivery INC-04** | **Clôturé** — PR #122–#124 — CLOSED WITH RESERVES — `inc-04-closure-report.md` |
 | **Delivery INC-05** | **Clôturé** — PR #125–#127 — CLOSED WITH RESERVES — `inc-05-closure-report.md` |
 | **MVP delivery** | **Bouclé avec réserves** — INC-01 à INC-05 clôturés |
 | **Capitalisation MVP** | `09-capitalization/mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES |
@@ -204,9 +204,9 @@ Le bootstrap est **valide** si :
 4. ~~**PR readiness INC-01**~~ — ✅ PR #108 mergée
 5. ~~**Clôture INC-01**~~ — ✅ CLOSED WITH RESERVES — PR #110
 6. ~~**Capitalisation post-INC-01**~~ — ✅ mergée PR #111 — `ff32170`
-7. ~~**GO INC-02**~~ — ✅ livré et clôturé — PR #115–#116 — CLOSED WITH RESERVES
-8. ~~**GO INC-03**~~ — ✅ livré et clôturé — PR #119–#120 — CLOSED WITH RESERVES
-9. ~~**GO INC-04**~~ — ✅ livré et clôturé — PR #122–#123 — CLOSED WITH RESERVES
+7. ~~**GO INC-02**~~ — ✅ livré et clôturé — PR #115–#117 — CLOSED WITH RESERVES
+8. ~~**GO INC-03**~~ — ✅ livré et clôturé — PR #119–#121 — CLOSED WITH RESERVES
+9. ~~**GO INC-04**~~ — ✅ livré et clôturé — PR #122–#124 — CLOSED WITH RESERVES
 10. ~~**GO INC-05**~~ — ✅ livré et clôturé — PR #125–#127 — CLOSED WITH RESERVES — MVP bouclé avec réserves
 11. ~~**Capitalisation MVP**~~ — ✅ `mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES
 12. **Planifier** comparaison V0 — fin de pilote uniquement — non lancée

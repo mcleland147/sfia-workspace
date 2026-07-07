@@ -79,7 +79,7 @@ Chantiers360 v2 a traversé le **cycle de vie projet complet** du pilote SFIA v2
 | **INC-04** | Comptes rendus rapides | US-11 | Migration `0003_comptes_rendus` | 12 passed |
 | **INC-05** | Prochaines actions dérivées | US-12, US-13 | `/prochaines-actions`, agrégation sans table dédiée | **16 passed** |
 
-**Note INC-05 :** arbitrage backlog vs prompt — le backlog mentionnait une table `prochaines_actions` ; le delivery a retenu une **agrégation 100 % dérivée** (tâches, réserves, jalons, retards) conforme aux règles fonctionnelles et sans migration INC-05. Décision validée par la chaîne QA et clôture.
+**Note INC-05 :** arbitrage prompt delivery vs repo — le **prompt delivery initial** proposait une table `prochaines_actions` ; le **repo / backlog / décisions fonctionnelles** indiquaient une logique de prochaines actions **dérivées**. Le delivery a donc retenu une **agrégation depuis les sources existantes** (tâches, réserves, jalons, retards). **Aucune table dédiée ni migration INC-05** n'a été créée. Décision validée par la chaîne QA et clôture.
 
 ---
 
@@ -92,7 +92,7 @@ Chantiers360 v2 a traversé le **cycle de vie projet complet** du pilote SFIA v2
 | S3 | **PR readiness** | Rapports `pr-readiness-inc-0n.md` — périmètre, réserves, test plan avant chaque PR delivery |
 | S4 | **Clôture documentaire séparée** | PR closure distincte de delivery et QA-G4 — statut CLOSED WITH RESERVES traçable |
 | S5 | **Séparation delivery / validation / clôture** | Morris GO explicite à chaque étape L0 |
-| S6 | **Arbitrage backlog vs prompt (INC-05)** | Repo et backlog = source de vérité ; écart table dédiée résolu par agrégation dérivée documentée |
+| S6 | **Arbitrage prompt vs repo (INC-05)** | Prompt delivery = table dédiée ; repo/backlog = logique dérivée — agrégation depuis sources existantes retenue |
 | S7 | **Réserves acceptées sans blocage artificiel** | CLOSED WITH RESERVES = statut valide — pas de masquage des écarts |
 | S8 | **Réutilisation spike Figma** | Dashboard INC-01 branché DB sans refonte UI complète |
 | S9 | **Infra test reproductible** | Docker PostgreSQL 5433 + `test:e2e:full` dès INC-01 |
@@ -113,7 +113,7 @@ Chantiers360 v2 a traversé le **cycle de vie projet complet** du pilote SFIA v2
 | F5 | **Besoin règles ADR / DAA / DAT** | Décisions techniques dispersées dans docs projet | Cycle méthode séparé — non lancé |
 | F6 | **Documentation volumineuse** | Multiples PRs docs par incrément (delivery + QA-G4 + closure) | Lisibilité maintenue par dossiers `07-delivery-inc-0n/` et `08-qa-test/inc-0n/` |
 | F7 | **Multiples PRs par incrément** | Charge review Morris | Contrepartie : traçabilité forte — chaîne standard validée |
-| F8 | **Écart prompt initial / backlog (INC-05)** | Risque table ou migration inutile | Arbitrage repo — agrégation dérivée retenue |
+| F8 | **Écart prompt delivery initial / repo (INC-05)** | Prompt proposait table `prochaines_actions` — repo/backlog indiquaient dérivation | Agrégation depuis sources existantes — pas de table ni migration INC-05 |
 
 ---
 
