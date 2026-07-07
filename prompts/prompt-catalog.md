@@ -1320,7 +1320,7 @@ Full operational prompt templates are maintained separately in `prompts/template
 
 ## 18. Supplément SFIA v2.4 — Consolidation & Operating Efficiency
 
-> Entrée minimale — standard v2.4 acté PR #139 ; alignement documentaire v2.4.1 en cours.
+> Entrée minimale — standard v2.4 acté PR #139 ; alignement documentaire v2.4.1 acté PR #140. **Catalogue maintenu Candidate** — maturation prompt cards v2.4 à confirmer par usage réel.
 
 | Élément | Valeur |
 |---------|--------|

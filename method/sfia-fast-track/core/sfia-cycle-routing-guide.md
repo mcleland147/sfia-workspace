@@ -1,14 +1,14 @@
 ---
-status: candidate
+status: validated
 version: v1.2
-updated_after: SFIA v2.4.1 patch 1 — routing & versioning alignment
+updated_after: SFIA v2.4.1 documentation status promotion — PR #140
 scope: cycle routing and reference selection
 ---
 
 # Guide de routage des cycles SFIA
 
 **Version:** v1.2  
-**Status:** Candidate — **non promu Validated** tant que l'alignement v2.4.1 n'est pas terminé (patchs 2 QA/validation/closure et 3 prompt/knowledge en attente)  
+**Status:** Validated — promotion micro-cycle Morris post-PR #140 ; alignement v2.4.1 complet  
 **Scope:** Routage des cycles, sélection des références, templates et validations  
 **Standard consolidation actif :** SFIA v2.4 — voir §4.3
 
@@ -883,7 +883,7 @@ Référence : `method/sfia-fast-track/automation/sfia-repository-execution-engin
 
 ## 13. Décision
 
-`sfia-cycle-routing-guide.md` est le **guide candidat SFIA v1.1** pour sélectionner les références, templates et contrôles de validation selon le type de cycle.
+`sfia-cycle-routing-guide.md` est le **guide validé SFIA v1.2** pour sélectionner les références, templates et contrôles de validation selon le type de cycle — aligné SFIA v2.4 / v2.4.1 (PR #139, #140).
 
 Il fournit le mécanisme opérationnel permettant de s'assurer que la documentation SFIA est appliquée au bon moment.
 
@@ -901,4 +901,4 @@ Il rend la sélection documentaire **explicite, auditable et validable**.
 
 ---
 
-*Référentiel SFIA — Guide de routage des cycles v1.2 — candidate document — aligné SFIA v2.4 (patch 1 v2.4.1).*
+*Référentiel SFIA — Guide de routage des cycles v1.2 — validated document — aligné SFIA v2.4 / v2.4.1.*

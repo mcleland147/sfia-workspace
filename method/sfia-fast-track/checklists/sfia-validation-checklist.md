@@ -1,15 +1,15 @@
 ---
-status: candidate
+status: validated
 version: v1.2
-updated_after: SFIA v2.4.1 patch 2 — QA, validation & closure alignment
+updated_after: SFIA v2.4.1 documentation status promotion — PR #140
 scope: validation checklist
 ---
 
 # SFIA Validation Checklist v1.2
 
 **Version:** v1.2  
-**Status:** Candidate checklist  
-**Updated after:** SFIA v2.4.1 patch 2 — QA, validation & closure alignment  
+**Status:** Validated checklist — promotion micro-cycle Morris post-PR #140 ; alignement v2.4.1 complet  
+**Updated after:** SFIA v2.4.1 documentation status promotion — PR #140  
 **Scope:** Validation checklist  
 **Standard consolidation :** SFIA v2.4 — `sfia-v2.4-consolidation-operating-efficiency-standard.md`
 
@@ -579,7 +579,7 @@ Prochaine étape :
 
 ## 19. Décision
 
-`method/sfia-fast-track/checklists/sfia-validation-checklist.md` est la checklist opérationnelle de validation SFIA v1.2 — alignée v2.4 (patch 2 v2.4.1).
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md` est la checklist opérationnelle de validation SFIA v1.2 — **validée** — alignée v2.4 / v2.4.1 (PR #139, #140).
 
 Elle applique le Validation Engine aux cycles réels.
 
