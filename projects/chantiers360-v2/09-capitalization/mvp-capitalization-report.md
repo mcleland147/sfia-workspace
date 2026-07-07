@@ -180,7 +180,7 @@ Aucune réserve bloquante à la capitalisation MVP.
 
 | # | Cycle | Statut |
 |---|-------|--------|
-| 1 | **Comparaison V0** | Non lancée — fin de pilote uniquement |
+| 1 | **Comparaison V0** | En PR — `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION |
 | 2 | **Micro-cycle réserves** R-QA-03 / R-QA-04 / R-QA-05 | Non lancé |
 | 3 | **Design coverage / R-UX-01** | Mergé PR #129 — aligné PR #130 — `sfia-v2-design-coverage-standard.md` — réserve **non levée** |
 | 4 | **ADR / DAA / DAT** | Mergé PR #131 — aligné PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |

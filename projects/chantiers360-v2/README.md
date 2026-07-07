@@ -11,12 +11,13 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Post-merge versioning PR #133 — aligné PR #134 — SFIA v2.3 / v2.3.1 actées — décisions post-MVP séparées  
+**Cycle courant :** Comparaison méthodologique V0 vs SFIA v2 — en PR — SFIA v2.3.1 baseline opérationnelle  
 **QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`  
 **QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`  
 **QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`  
 **Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`  
-**Capitalisation MVP :** `09-capitalization/mvp-capitalization-report.md`
+**Capitalisation MVP :** `09-capitalization/mvp-capitalization-report.md`  
+**Comparaison V0 vs SFIA v2 :** `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — en PR  
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -218,7 +219,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 15. **Capitalisation MVP** — ✅ mergée PR #128 — `mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES
 16. **Design coverage SFIA v2.0** — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
 17. **Technical Architecture & Decision Documentation** — ✅ mergé PR #131 — aligné PR #132 — ADR/DAA/DAT projet non produits
-18. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement** — non lancée
+18. Comparaison V0 vs SFIA v2 — **en PR** — `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION
 19. **SFIA v2.x Method Versioning** — ✅ mergé PR #133 — `sfia-v2-method-versioning-standard.md` — v2.3 actée
 20. **Alignement v2.3.1** — ✅ mergé PR #134 — post-merge Method Versioning
 
