@@ -1,15 +1,16 @@
 ---
 status: candidate
-version: v1.1
-updated_after: SFIA foundation v1.1 closure
+version: v1.2
+updated_after: SFIA v2.4.1 patch 1 — routing & versioning alignment
 scope: cycle routing and reference selection
 ---
 
 # Guide de routage des cycles SFIA
 
-**Version:** v1.1  
-**Status:** Candidate  
-**Scope:** Routage des cycles, sélection des références, templates et validations
+**Version:** v1.2  
+**Status:** Candidate — **non promu Validated** tant que l'alignement v2.4.1 n'est pas terminé (patchs 2 QA/validation/closure et 3 prompt/knowledge en attente)  
+**Scope:** Routage des cycles, sélection des références, templates et validations  
+**Standard consolidation actif :** SFIA v2.4 — voir §4.3
 
 ## 1. Objectif
 
@@ -129,6 +130,100 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
 | REX projet | Formaliser les apprentissages, réussites, irritants, réserves et recommandations |
 | Capitalisation projet | Transformer un résultat projet en actif SFIA réutilisable |
 | Roadmap projet | Structurer les prochaines étapes, jalons, dépendances et priorités |
+
+### 4.3 Routage SFIA v2.4 — consolidation & operating efficiency
+
+> **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`  
+> **Baseline méthode :** SFIA v2.3.1 — **standard actif v2.4** depuis PR #139.  
+> **v3.0 :** immediate NO-GO — toute discussion v3.0 = décision Morris dédiée.
+
+SFIA v2.4 est le **standard de consolidation** pour les cycles futurs. Il couvre notamment :
+
+- profils projet et méthode adaptative ;
+- typologie INC / EVOL / RUN / CAPA / DOC ;
+- operating efficiency et réduction de friction PR ;
+- gates Morris (structurants uniquement) ;
+- QA et PR readiness adaptées au risque.
+
+Ce guide **ne recopie pas** le standard v2.4 — il en expose le **routage opérationnel**.
+
+#### 4.3.1 Typologie de cycle v2.4
+
+| Type | Définition | Usage typique |
+|------|------------|---------------|
+| **INC** | Incrément borné | Delivery INC-n, feature ciblée |
+| **EVOL** | Évolution structurée | Post-MVP, impact transverse |
+| **RUN** | Maintien / correction / support | Hotfix, maintenance, correction |
+| **CAPA** | Capitalisation méthode | REX, standards, métriques |
+| **DOC** | Documentation-only | Alignement, standard, doc sans code |
+
+Qualifier le type **avant** de sélectionner profil, standards et gates.
+
+#### 4.3.2 Profils projet (synthèse)
+
+| Profil | Rôle | Détail |
+|--------|------|--------|
+| **Light** | Faible risque, doc minimale | Standard v2.4 §5 |
+| **Standard** | MVP, INC, cycle méthode courant | Standard v2.4 §5 |
+| **Critical** | Archi, sécurité, go-live | Standard v2.4 §5 |
+| **Exploratory** | Spike, POC | Standard v2.4 §5 |
+| **Capitalization** | REX, métriques, standards | Standard v2.4 §5 |
+| **RUN / Support** | Correction, maintenance | Standard v2.4 §5 |
+| **EVOL / Evolution** | Évolution structurée | Standard v2.4 §5 |
+| **INC / Increment** | Livraison incrémentale | Standard v2.4 §5 + §6.12–6.14 |
+
+Morris valide le profil si **Critical** ou changement de doctrine.
+
+#### 4.3.3 Gate Morris v2.4
+
+**Gate Morris obligatoire** pour :
+
+- changement de doctrine ;
+- arbitrage structurant ;
+- passage vers v2.5+ ;
+- toute discussion **v3.0** ;
+- automatisation L3 structurante, L4, tout L5 ;
+- merge et clôture structurante ;
+- dette méthode ou projet importante.
+
+**Sans gate Morris dédié** (contrôles L1 ou validations techniques non structurantes) :
+
+- vérifications read-only de cohérence documentaire ;
+- PR readiness technique sans arbitrage ;
+- post-merge L1 (statut, liens, registre) ;
+- contrôles répétables automatisables (L1/L2).
+
+> Règle v2.4 : *réserver Morris aux arbitrages structurants — pas à chaque micro-alignement.*
+
+#### 4.3.4 Séquence de routage cible v2.4
+
+```text
+Intention
+→ qualification type cycle (INC / EVOL / RUN / CAPA / DOC)
+→ sélection profil projet
+→ identification standards applicables (v2.0–v2.4 + guides existants)
+→ gate Morris si structurant
+→ handoff Cursor borné (périmètre explicite)
+→ QA adaptée au profil
+→ PR readiness adaptée
+→ GO Morris si requis (merge, clôture, scope)
+→ merge manuel
+→ post-merge L1
+→ closure / capitalisation si requis
+```
+
+Handoff ChatGPT ↔ Cursor ↔ Git : **cadre documentaire** v2.4 §10 — **non implémenté** en v2.4.
+
+#### 4.3.5 Anti-dispersion documentaire
+
+| Interdit | À faire |
+|----------|---------|
+| Registre parallèle hors Git | Pointer vers documents existants |
+| Dossier `.sfia/` | `method/sfia-fast-track/documentation/capitalization/sfia-v2/` |
+| Dupliquer les standards | Référencer `sfia-v2.4-consolidation-operating-efficiency-standard.md` |
+| Nouveau moteur d'index | Index méthode = vision repo-first (v2.4 §12) |
+
+**Git reste la source de vérité.**
 
 ## 5. Références obligatoires par type de cycle (méthode / fondation)
 
@@ -690,6 +785,8 @@ SFIA **ne doit pas** automatiser la décision finale.
 - arbitrage projet ;
 - décision de delivery impactante.
 
+**Complément SFIA v2.4 (§4.3.3) :** les contrôles L1 read-only, validations techniques non structurantes et post-merge documentaire **ne nécessitent pas** un gate Morris dédié. Morris reste L0 pour tout arbitrage structurant, passage v2.5+, discussion v3.0, L3 structurant / L4 / L5, merge et clôture structurante.
+
 ## 10. Règle d'exécution Cursor
 
 Cursor doit exécuter **uniquement** le contrat du prompt.
@@ -804,4 +901,4 @@ Il rend la sélection documentaire **explicite, auditable et validable**.
 
 ---
 
-*Référentiel SFIA — Guide de routage des cycles v1.1 — candidate document.*
+*Référentiel SFIA — Guide de routage des cycles v1.2 — candidate document — aligné SFIA v2.4 (patch 1 v2.4.1).*

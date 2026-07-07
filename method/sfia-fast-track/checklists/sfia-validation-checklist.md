@@ -1,16 +1,17 @@
 ---
 status: candidate
-version: v1.1
-updated_after: SFIA validation engine specification
+version: v1.2
+updated_after: SFIA v2.4.1 patch 2 — QA, validation & closure alignment
 scope: validation checklist
 ---
 
-# SFIA Validation Checklist v1.1
+# SFIA Validation Checklist v1.2
 
-**Version:** v1.1  
+**Version:** v1.2  
 **Status:** Candidate checklist  
-**Updated after:** SFIA validation engine specification  
-**Scope:** Validation checklist
+**Updated after:** SFIA v2.4.1 patch 2 — QA, validation & closure alignment  
+**Scope:** Validation checklist  
+**Standard consolidation :** SFIA v2.4 — `sfia-v2.4-consolidation-operating-efficiency-standard.md`
 
 ## 1. Objectif
 
@@ -49,6 +50,9 @@ Cette checklist s'appuie sur :
 - `docs/architecture/sfia-repository-blueprint.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`
 
 ## 3. Quand utiliser cette checklist ?
 
@@ -79,6 +83,32 @@ Vérifier que le cycle a été correctement routé :
 
 Si un élément de routage manque, le cycle ne peut pas être considéré comme pleinement validé.
 
+### 3.2 Contrôle v2.4 — profil, QA et gate Morris
+
+Utiliser pour tout cycle post-v2.4 (référence : `sfia-v2.4-consolidation-operating-efficiency-standard.md`) :
+
+- [ ] Le type de cycle est-il qualifié ? (INC / EVOL / RUN / CAPA / DOC ou cycle méthode/projet §4) ;
+- [ ] Le profil projet est-il identifié ? (Light / Standard / Critical / Exploratory / Capitalization / RUN / EVOL / INC) ;
+- [ ] Le niveau QA est-il proportionné au risque ? (`sfia-v2-delivery-qa-test-standard.md` §19) ;
+- [ ] Le gate Morris est-il requis ou non ? (structurant vs contrôle L1) ;
+- [ ] La PR readiness est-elle adaptée au profil ? ;
+- [ ] Le cycle est-il documentation-only, delivery, RUN, EVOL, INC ou CAPA ? ;
+- [ ] Les réserves sont-elles classées ? (bloquante / majeure / mineure / environnementale / structurante) ;
+- [ ] Les contrôles L1 sont-ils distingués des décisions Morris ? ;
+- [ ] Le périmètre est-il borné ? ;
+- [ ] Le hors périmètre est-il explicite ?
+
+### 3.3 Contrôle documentation-only (patch v2.4.1)
+
+Pour un cycle ou patch **documentation-only** :
+
+- [ ] Aucun code applicatif modifié ;
+- [ ] Aucun script ajouté ;
+- [ ] Aucun dossier `.sfia/` créé ;
+- [ ] Aucun agent handoff réel implémenté ;
+- [ ] Aucune nouvelle doctrine si patch d'alignement documentaire ;
+- [ ] v3.0 non présenté comme GO — immediate NO-GO maintenu.
+
 ## 4. Décision cible
 
 La checklist doit aboutir à une des décisions suivantes :
@@ -93,9 +123,15 @@ La checklist doit aboutir à une des décisions suivantes :
 | INCOMPLETE | Travail insuffisant ou partiel |
 | BLOCKED | Action impossible sans arbitrage |
 | NEEDS HUMAN VALIDATION | Action prête mais validation humaine requise |
+| READY FOR REVIEW | Livrable prêt pour revue ChatGPT / Morris |
+| READY WITH RESERVES | Revue possible — réserves documentées |
+| NOT READY | Livrable non prêt |
 | READY FOR PR | PR prête |
 | READY FOR PR WITH RESERVES | PR prête avec réserves |
 | NOT READY FOR PR | PR non prête |
+| CLOSED | Incrément officiellement terminé |
+| CLOSED WITH RESERVES | Incrément terminé — réserves acceptées |
+| NOT CLOSED | Clôture non satisfaite |
 
 ## 5. Checklist — Prompt Cursor
 
@@ -344,6 +380,27 @@ Utiliser pour un cycle **versioning SFIA v2.x** ou mise à jour du registre :
 - [ ] pas de renaming massif des dossiers `sfia-v2/` ;
 - [ ] pas de confusion version méthode / version projet / version app.
 
+### 12.5 Supplément SFIA v2.4 — QA adaptative et PR readiness
+
+Utiliser pour tout cycle post-v2.4 avec profil et QA proportionnée :
+
+- [ ] profil projet identifié — `sfia-v2.4-consolidation-operating-efficiency-standard.md` §5 ;
+- [ ] niveau QA adapté (light / standard / critical / documentation-only / post-merge) — `sfia-v2-delivery-qa-test-standard.md` §19 ;
+- [ ] recette MOA évaluée — obligatoire go-live ; non requise DOC/CAPA/RUN sans impact UX ;
+- [ ] gate Morris distingué des contrôles L1 read-only ;
+- [ ] PR readiness adaptée au profil — pas de surcharge gates non structurants ;
+- [ ] simplification QA-G4 + closure évaluée si INC mineur — **optionnelle**, GO Morris requis — `sfia-v2-incremental-delivery-closure-standard.md` §14.1 ;
+- [ ] v3.0 non lancé — immediate NO-GO.
+
+Décision possible :
+
+- READY FOR PR ;
+- READY FOR PR WITH RESERVES ;
+- NOT READY FOR PR ;
+- READY FOR REVIEW ;
+- READY WITH RESERVES ;
+- NOT READY.
+
 ## 13. Checklist — Post-merge
 
 Utiliser cette section uniquement après merge ou pour préparer une trace post-merge.
@@ -372,6 +429,12 @@ Utiliser après merge **delivery** ou **closure/capitalization** d'un INC-n :
 - [ ] périmètre INC-n confirmé sur `main` ;
 - [ ] **clôture incrément ≠ GO incrément suivant** ;
 - [ ] GO INC-(n+1) = décision Morris séparée (L0) — non implicite après clôture.
+
+### 13.2 Supplément SFIA v2.4 — post-merge L1
+
+- [ ] post-merge check = contrôle L1 read-only par défaut — PR alignement seulement si écart statut bloquant ;
+- [ ] QA post-merge (documentation-only) suffisante pour patch v2.4.1 ;
+- [ ] statuts CLOSED / CLOSED WITH RESERVES / NOT CLOSED alignés v2.4.
 
 ## 14. Checklist — Capitalisation
 
@@ -516,7 +579,7 @@ Prochaine étape :
 
 ## 19. Décision
 
-`method/sfia-fast-track/checklists/sfia-validation-checklist.md` est la checklist opérationnelle de validation SFIA v1.1.
+`method/sfia-fast-track/checklists/sfia-validation-checklist.md` est la checklist opérationnelle de validation SFIA v1.2 — alignée v2.4 (patch 2 v2.4.1).
 
 Elle applique le Validation Engine aux cycles réels.
 

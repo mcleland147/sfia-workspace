@@ -95,6 +95,24 @@ Le Prompt Generation Engine s'appuie sur les documents suivants :
 | `method/sfia-fast-track/templates/` | Templates réutilisables |
 | `method/sfia-fast-track/checklists/` | Checklists de validation |
 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Routage par type de cycle |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md` | Consolidation v2.4 — profils, QA, gates |
+
+## 5.1 Inputs v2.4 (complément)
+
+En plus des inputs §5, tout prompt post-v2.4 doit qualifier :
+
+| Champ | Valeurs / règle |
+|-------|-----------------|
+| **Type de cycle** | INC / EVOL / RUN / CAPA / DOC — ou cycle méthode / projet (routing guide §4) |
+| **Profil projet** | Light / Standard / Critical / Exploratory / Capitalization / RUN / EVOL / INC — si applicable |
+| **Niveau QA attendu** | light / standard / critical / documentation-only / post-merge |
+| **Gate Morris** | oui / non / conditionnel — structurant vs L1 |
+| **Niveau automation cible** | L0 / L1 / L2 / L3 borné — L4 hors cible courante ; L5 global interdit |
+| **Documentation-only** | oui / non — si oui : garde-fous doc explicites |
+| **PR** | finale / intermédiaire / aucune — selon trajectoire Morris |
+| **Statut attendu** | READY FOR REVIEW / READY WITH RESERVES / NOT READY |
+
+Référence détaillée : `sfia-v2.4-consolidation-operating-efficiency-standard.md` — ne pas recopier intégralement.
 
 ## 5. Inputs
 
@@ -185,6 +203,37 @@ Cette structure est dérivée de :
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+### 7.1 Complément SFIA v2.4 — champs obligatoires
+
+Tout prompt post-v2.4 doit **inclure explicitement** (en plus de la structure §7) :
+
+```text
+Type de cycle :
+Profil projet :
+Niveau QA attendu :
+Gate Morris requis :
+Niveau d'automatisation cible :
+Garde-fous v2.4 :
+Hors périmètre :
+PR finale ou intermédiaire :
+Statut attendu :
+```
+
+**Prompt = contrat — Cursor ne déduit pas :**
+
+- le profil projet ;
+- le niveau QA ;
+- le périmètre ni les chemins à modifier ;
+- le droit de push / PR / merge.
+
+Si un élément **structurant** manque, Cursor doit répondre :
+
+```text
+INCOMPLETE PROMPT — missing required input.
+```
+
+Référence : `sfia-v2.4-consolidation-operating-efficiency-standard.md` §4, §8, §10.
 
 ## 8. Workflow de génération
 

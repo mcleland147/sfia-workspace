@@ -99,6 +99,7 @@ Le Repository Execution Engine s'appuie sur les documents suivants :
 | `docs/architecture/sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
 | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | Vision automation et moteur repository execution |
 | `method/sfia-fast-track/checklists/` | Checklists de validation et garde-fous |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md` | Handoff documentaire v2.4 — non implémenté comme agent |
 
 ## 5. Inputs
 
@@ -557,7 +558,58 @@ Prompt Generation Engine
 | Post-merge absent | Perte de traçabilité | Post-merge readiness |
 | Notion déclenché trop tôt | Publication non contrôlée | No raw Notion sync |
 
-## 23. Related Documents
+## 23. Complément SFIA v2.4 — handoff documentaire et exécution
+
+> **Référence :** `sfia-v2.4-consolidation-operating-efficiency-standard.md` §10 — handoff **documentaire uniquement** ; **aucun agent handoff réel** ; v3.0 immediate NO-GO.
+
+### 23.1 Handoff ChatGPT ↔ Cursor ↔ Git
+
+| Acteur | Rôle v2.4 |
+|--------|-----------|
+| **ChatGPT** | Cadre, challenge, route, prépare le prompt, analyse les rapports |
+| **Cursor** | Exécute le périmètre **borné** du prompt |
+| **Git** | Trace commits, branches, historique — source de vérité |
+| **Morris** | Décide gates structurants, merge, clôture, élargissement périmètre |
+
+Le handoff est **borné**, **repo-first**, **non autonome** — trajectoire agent future **non implémentée**.
+
+### 23.2 Rôle Cursor (rappel v2.4)
+
+| Autorisé | Interdit |
+|----------|----------|
+| Exécuter le périmètre du prompt | Déduire profil, QA ou périmètre manquant |
+| Produire un rapport structuré | Push sans demande explicite |
+| Commit local si explicitement demandé | Créer PR / merge |
+| Contrôles L1 read-only | Décider d'un gate Morris |
+| | Modifier statut documentaire structurant sans Morris |
+
+### 23.3 Rapport Cursor standardisé v2.4
+
+Format minimal attendu :
+
+1. **Branche / HEAD**
+2. **Base** (commit de référence)
+3. **Fichiers modifiés**
+4. **Périmètre / hors périmètre**
+5. **Garde-fous respectés**
+6. **Validations locales**
+7. **Réserves / alertes**
+8. **PR readiness** (READY FOR REVIEW / READY WITH RESERVES / NOT READY)
+9. **Décision Morris attendue**
+
+### 23.4 Niveaux L1 / L2 / L3 borné
+
+| Niveau | Rôle exécution | Gate Morris |
+|--------|----------------|-------------|
+| **L1** | Contrôle read-only — diff, liens, statuts | Non — sauf écart bloquant |
+| **L2** | Génération guidée — rapports, synthèses | Non — sauf structurant |
+| **L3** | Exécution **bornée** — périmètre explicite uniquement | Si structurant ou élargissement |
+| **L4** | Orchestration — **hors patch courant** | Obligatoire |
+| **L5 global** | **Interdit** | — |
+
+Cursor **ne décide pas seul** d'une mise à jour documentaire L3 ni d'un élargissement de périmètre.
+
+## 24. Related Documents
 
 - `docs/foundation/sfia-engineering-principles.md`
 - `docs/architecture/sfia-decision-engine.md`
@@ -570,7 +622,7 @@ Prompt Generation Engine
 - `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 - `method/sfia-fast-track/checklists/`
 
-## 24. Décision
+## 25. Décision
 
 Le SFIA Repository Execution Engine v1.1 est défini comme la spécification du moteur chargé d'exécuter un prompt Cursor dans le repository de manière contrôlée, traçable et validable.
 
@@ -585,7 +637,7 @@ Il devient la référence pour encadrer :
 - les statuts post-merge ;
 - les comptes rendus d'exécution Cursor.
 
-## 25. Next Steps
+## 26. Next Steps
 
 1. Valider ce document ;
 2. utiliser ce moteur pour encadrer les prochains cycles repository ;

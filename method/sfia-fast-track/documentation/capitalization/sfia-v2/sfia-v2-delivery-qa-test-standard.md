@@ -268,11 +268,65 @@ Voir : `sfia-v2-automation-levels.md`.
 - Modification delivery en cours dans un cycle méthode
 - Notion / CMP
 - V0
+- SFIA v3.0 — immediate NO-GO
+
+## 19. Complément SFIA v2.4 — QA adaptative
+
+> **Référence détaillée :** `sfia-v2.4-consolidation-operating-efficiency-standard.md` §6, §8 — ce standard v2.0 **conserve** la chaîne QA-G0…G4 ; v2.4 **adapte** le niveau de QA au risque et au profil.
+
+SFIA v2.4 complète ce standard avec :
+
+- QA **proportionnée au risque** (light / standard / critical / documentation-only / post-merge) ;
+- recette **MOA** selon profil et situation ;
+- distinction QA documentaire · QA delivery · QA critical ;
+- réduction des validations **non structurantes** — contrôles L1 ≠ décision Morris.
+
+### 19.1 Niveaux QA v2.4 (synthèse)
+
+| Niveau | Usage | Preuves | Profil | Gate Morris |
+|--------|-------|---------|--------|-------------|
+| **QA light** | Cohérence doc, liens, statuts | Checklist L1 | Light, Exploratory | Non — sauf réserve structurante |
+| **QA standard** | Tests auto + scénarios métier | Rapport QA-G3, E2E ciblés | Standard, INC, EVOL | GO QA (L0) avant PR delivery |
+| **QA critical** | Sécurité, prod, données, régression large | Rapport complet + MOA si requis | Critical, go-live | **Obligatoire** — chaque gate |
+| **QA documentation-only** | Périmètre, garde-fous, diff borné | PR readiness doc, contrôle L1 | DOC, CAPA | GO merge si doc-only Morris |
+| **QA post-merge** | `main` = attente documentée | Rapport read-only L1 | Tous cycles mergés | Non — sauf écart bloquant |
+
+Détail profils et budgets : standard v2.4 §5–§6.
+
+### 19.2 Recette MOA
+
+| Situation | Recette MOA |
+|-----------|-------------|
+| INC livrant parcours métier **visible** | **Recommandée** — scénarios REC-* ou équivalent |
+| **Go-live / production readiness** | **Obligatoire** — campagne MOA signée Morris |
+| DOC / CAPA / alignement documentaire | **Non requise** |
+| RUN sans impact UX ou métier visible | **Non requise** — non-régression auto suffisante |
+
+### 19.3 Réserves et statuts (alignement v2.4)
+
+| Type | PR readiness | Clôture | Morris |
+|------|--------------|---------|--------|
+| **Bloquante** | NOT READY | NOT CLOSED | Arbitrage **obligatoire** |
+| **Majeure** | NOT READY sans acceptation | Bloquante si non arbitrée | Arbitrage si structurante |
+| **Mineure / environnementale** | READY WITH RESERVES possible | CLOSED WITH RESERVES possible | Si structurante |
+
+**Réserves structurantes** (architecture, sécurité, doctrine, scope) → **arbitrage Morris obligatoire**.
+
+Statuts alignés v2.4 : **READY FOR PR** · **READY FOR PR WITH RESERVES** · **NOT READY FOR PR** · **CLOSED** · **CLOSED WITH RESERVES**.
+
+### 19.4 Contrôles L1 vs décision Morris
+
+| Activité | Niveau | Gate Morris |
+|----------|--------|-------------|
+| Lint, tests CI, diff stat, liens, cohérence statuts | L1 | Non |
+| QA-G3 GO, GO PR delivery, merge, clôture INC | L0 | **Oui** |
+| Post-merge check read-only | L1 | Non — sauf écart bloquant |
 
 ---
 
 **Références :**
 
+- `sfia-v2.4-consolidation-operating-efficiency-standard.md`
 - `sfia-v2-incremental-delivery-closure-standard.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-project-bootstrap-standard.md`

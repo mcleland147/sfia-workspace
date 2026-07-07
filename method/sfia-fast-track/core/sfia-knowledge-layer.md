@@ -156,6 +156,46 @@ Ensemble :
 
 La Documentation Routing Matrix n'est pas remplacée. Le Cycle Routing Guide la complète en amont de chaque cycle.
 
+### 6.2 Complément SFIA v2.4 — index méthode unique
+
+> **Référence consolidation :** `sfia-v2.4-consolidation-operating-efficiency-standard.md` §11–§12.
+
+SFIA v2.4 est la référence pour operating efficiency, profils projet, routage adaptatif, QA proportionnée, PR readiness adaptée, handoff documentaire, capitalisation et métriques.
+
+**Index méthode unique — règles repo-first :**
+
+| Interdit | À faire |
+|----------|---------|
+| Registre parallèle hors Git | Références croisées entre documents existants |
+| Dossier `.sfia/` | `method/sfia-fast-track/documentation/capitalization/sfia-v2/` |
+| Moteur d'index technique | `sfia-cycle-routing-guide.md` §4.3 — point d'entrée opérationnel |
+| Duplication de standards | `sfia-v2.4-consolidation-operating-efficiency-standard.md` — standard consolidation |
+
+**Git reste la source de vérité.**
+
+### 6.3 Capitalisation post-v2.4
+
+Distinguer dans la capitalisation :
+
+| Élément | Objet |
+|---------|-------|
+| **Décision** | GO / NO-GO Morris |
+| **Prompt Cursor** | Contrat d'exécution |
+| **Validation** | Checklist, réserves |
+| **PR readiness** | Adaptée au profil |
+| **Post-merge** | Contrôle L1 par défaut |
+| **Capitalisation** | REX, métriques, standards |
+| **Métriques** | PR, gates, charge doc, dette |
+| **Réserves** | Bloquante / structurante / mineure |
+| **Dette documentaire** | Écarts, promotions en attente |
+
+### 6.4 Anti-dispersion
+
+- **Référencer** plutôt que dupliquer le standard v2.4 ;
+- **Ne pas** créer un nouveau standard si un patch d'alignement suffit ;
+- **Ne pas** créer un index technique ni déplacer massivement les documents ;
+- **Ne pas** implémenter d'agent handoff réel.
+
 ## 7. Notion comme IDE métier SFIA
 
 Notion doit devenir un IDE métier SFIA.
