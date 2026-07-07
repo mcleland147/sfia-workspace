@@ -2,7 +2,7 @@
 
 **Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-method-versioning-standard.md`  
 **Cycle :** Capitalisation méthode SFIA v2.x — Method Versioning  
-**Version SFIA :** v2.3 — standard structurant acté PR #133  
+**Version SFIA :** v2.4 — standard de consolidation actif PR #139 ; v2.4.1 — patch d'alignement documentaire (en cours)  
 **Source pilote :** Chantiers360 v2 — chaîne post-MVP PR #129 à #133
 
 > **Standard méthode** — définit les règles de versioning SFIA v2.x. Ne renomme pas massivement les dossiers ni ne modifie les décisions passées.
@@ -43,7 +43,8 @@ Définir la **règle de versioning** des standards SFIA v2.x :
 
 - `sfia-v2-automation-levels.md` — L0–L5
 - `sfia-v2-incremental-delivery-closure-standard.md` — baseline delivery v2.0
-- `sfia-cycle-routing-guide.md` — cycles méthode
+- `sfia-v2.4-consolidation-operating-efficiency-standard.md` — consolidation operating model v2.4
+- `sfia-cycle-routing-guide.md` — cycles méthode (§4.3 v2.4)
 
 ## 3. Définitions
 
@@ -57,11 +58,39 @@ Incrément **v2.1, v2.2, v2.3…** — nouvelle **capacité méthode** structura
 
 ### Version patch — v2.x.y
 
-Incrément **v2.1.1, v2.2.1…** — alignement post-merge, clarification, correction documentaire **sans** nouvelle capacité.
+Incrément **v2.1.1, v2.2.1, v2.4.1…** — alignement post-merge, clarification, correction documentaire **sans** nouvelle capacité.
+
+**Règle patch :** un patch **ne crée pas** de doctrine concurrente et **n'élargit pas** le périmètre sans validation Morris.
+
+### SFIA v2.4 — minor de consolidation
+
+**v2.4** = version **mineure** — standard structurant de consolidation & operating efficiency (PR #139).
+
+| Propriété | Règle |
+|-----------|-------|
+| Nature | Nouvelle capacité méthode — profils adaptatifs, friction réduite, handoff documentaire |
+| Doctrine | **Inchangée** — arbitrage humain L0, Git source de vérité |
+| v3.0 | **Ne lance pas** v3.0 — immediate NO-GO post-pilote Chantiers360 v2 |
+| Référence | `sfia-v2.4-consolidation-operating-efficiency-standard.md` |
+
+### SFIA v2.4.1 — patch d'alignement documentaire
+
+**v2.4.1** = version **patch** — aligner les documents de référence avec le standard v2.4 **sans** nouvelle doctrine.
+
+| Propriété | Règle |
+|-----------|-------|
+| Objectif | Routage, versioning, QA, validation, prompts, knowledge layer |
+| Nature | Documentation-only — **pas** de nouveau standard |
+| Trajectoire Morris | **3 patchs maximum** sur branche `method/sfia-v2.4-reference-documentation-alignment` |
+| Patch 1 | Routage & versioning (ce cycle) |
+| Patch 2 | QA, validation & closure — hors périmètre patch 1 |
+| Patch 3 | Prompt, handoff & knowledge layer — hors périmètre patch 1 |
 
 ### Version majeure future — v3.0
 
-Réservée à une **rupture de doctrine** ou refonte complète de la méthode — hors périmètre actuel.
+Réservée à une **rupture de doctrine** ou refonte complète de la méthode — **immediate NO-GO** après pilote Chantiers360 v2 (REX final PR #138).
+
+Toute discussion v3.0 nécessite une **décision Morris dédiée** — distincte de toute évolution v2.4 / v2.4.1 / v2.5+.
 
 ### Standard structurant
 
@@ -98,6 +127,7 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | Design Coverage Standard — PR #129 | **v2.1** |
 | Technical Architecture & Decision Documentation — PR #131 | **v2.2** |
 | Method Versioning Standard (ce document) | **v2.3** |
+| Consolidation & Operating Efficiency — PR #139 | **v2.4** |
 
 ### Patch version — v2.1.1, v2.2.1
 
@@ -117,6 +147,7 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | Alignement Design Coverage — PR #130 | **v2.1.1** |
 | Alignement Technical Architecture — PR #132 | **v2.2.1** |
 | Alignement Method Versioning — PR #134 | **v2.3.1** |
+| Alignement documentaire v2.4 — patch 1 routing/versioning | **v2.4.1** (en cours) |
 
 ### Major version — v3.0
 
@@ -128,7 +159,7 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 - rupture avec SFIA v1.1 / v2.x ;
 - nouvelle **architecture méthode** complète.
 
-**Règle :** v3.0 = décision stratégique Morris — pas d'incrément implicite.
+**Règle :** v3.0 = rupture doctrine — **immediate NO-GO** post-pilote — décision stratégique Morris dédiée — pas d'incrément implicite.
 
 ## 5. Matrice de versioning
 
@@ -158,6 +189,8 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | **v2.2.1** | PR #132 `e807c1a` | Alignement post-merge Technical Architecture | Actée |
 | **v2.3** | PR #133 `796bfe8` | Method Versioning Standard | Actée |
 | **v2.3.1** | PR #134 `44fd56d` | Alignement post-merge Method Versioning | Actée |
+| **v2.4** | PR #139 `c4419df` | Consolidation & Operating Efficiency Standard | Actée |
+| **v2.4.1** | patch 1 (en cours) | Alignement documentaire — routage & versioning ; patchs 2–3 : QA/validation, prompt/knowledge | En cours |
 
 **Règles du registre :**
 
@@ -190,7 +223,7 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 |---------|------|
 | **Minor** v2.x | Morris **obligatoire** — nouveau standard ou capacité |
 | **Patch** v2.x.y | Morris **requis** si statut projet ou méthode change |
-| **Major** v3.0 | Décision **stratégique** Morris obligatoire |
+| **Major** v3.0 | Décision **stratégique** Morris obligatoire — **immediate NO-GO** sauf décision dédiée |
 | **Automatisation** | Aucun versioning automatique par Cursor |
 
 **Invariant :** le versioning documente une décision déjà actée — il ne la remplace pas.
@@ -232,6 +265,8 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | **Alignement Technical Architecture** | Patch → **v2.2.1** — PR #132 |
 | **Versioning** | Standard structurant → **v2.3** — mergé PR #133 |
 | **Alignement Versioning** | Patch → **v2.3.1** — alignement acté PR #134 |
+| **Consolidation v2.4** | Standard structurant → **v2.4** — mergé PR #139 |
+| **Alignement v2.4** | Patch → **v2.4.1** — trajectoire 3 patchs (patch 1 : routing/versioning) |
 | **Réserves** | R-UX-01, R-QA-03/04/05 — **inchangées**, non levées |
 | **ADR / DAA / DAT projet** | **Non produits** — cycles séparés |
 | **Comparaison V0** | **Non lancée** |
@@ -246,7 +281,9 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | 3 | Comparaison V0 | Non lancée — fin pilote |
 | 4 | Micro-cycle R-QA | Non lancé |
 | 5 | Trajectoire produit | Non décidée |
-| 6 | **SFIA v2.4+** si nouveau standard structurant | Futur — gate Morris |
+| 6 | **SFIA v2.4** consolidation operating efficiency | **Actée** — PR #139 |
+| 7 | **SFIA v2.4.1** alignement documentaire | **En cours** — patch 1 routing/versioning ; patchs 2–3 à venir |
+| 8 | **SFIA v3.0** | **Immediate NO-GO** — décision Morris dédiée requise |
 
 > Chaque décision = **cycle séparé** avec gate Morris.
 
