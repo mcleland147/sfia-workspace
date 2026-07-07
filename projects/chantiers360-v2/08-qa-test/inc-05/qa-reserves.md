@@ -1,6 +1,7 @@
 # QA Reserves — INC-05
 
-**Branche :** `delivery/chantiers360-v2-inc-05`
+**Branche :** `delivery/chantiers360-v2-inc-05`  
+**Cycle PR readiness :** 2026-07-07 — GO QA WITH RESERVES Morris
 
 ## Nouvelles réserves INC-05
 

@@ -2,7 +2,7 @@
 
 **Branche :** `delivery/chantiers360-v2-inc-05`  
 **Base :** `3f7acfe`  
-**Date :** 2026-07-06
+**Date :** 2026-07-07
 
 ## Couverture US
 
@@ -32,6 +32,15 @@
 
 ### **READY WITH RESERVES**
 
+## PR readiness
+
+| Élément | Statut |
+|---------|--------|
+| Document | `pr-readiness-inc-05.md` |
+| QA-G3 Morris | ✅ GO QA WITH RESERVES (2026-07-07) |
+| E2E cycle PR readiness | ✅ 16 passed |
+| Verdict | **READY WITH RESERVES** |
+
 ---
 
-**Documents liés :** `../08-qa-test/inc-05/qa-readiness.md`
+**Documents liés :** `../08-qa-test/inc-05/qa-readiness.md`, `pr-readiness-inc-05.md`

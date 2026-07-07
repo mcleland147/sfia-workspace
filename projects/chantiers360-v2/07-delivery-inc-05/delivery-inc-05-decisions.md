@@ -35,11 +35,11 @@
 | # | Décision | Statut |
 |---|----------|--------|
 | V1 | Livraison INC-05 complète | ✅ |
-| V2 | QA-G3 requis avant PR | ⏳ En attente Morris |
+| V2 | QA-G3 + PR readiness | ✅ **GO QA WITH RESERVES** Morris (2026-07-07) — `pr-readiness-inc-05.md` |
 | V3 | Clôture INC-05 | ⏳ Hors ce cycle |
 | V4 | GO post-MVP | ⏳ Hors scope |
 | V5 | R-UX-01 | ✅ Acceptée — non bloquante — capitalisation SFIA v2.0 couverture design hors scope INC-05 |
 
 ---
 
-**Documents liés :** `delivery-inc-05-implementation-report.md`, `../../03-backlog/delivery-increments.md`
+**Documents liés :** `delivery-inc-05-implementation-report.md`, `pr-readiness-inc-05.md`, `../../03-backlog/delivery-increments.md`

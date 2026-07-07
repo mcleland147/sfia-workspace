@@ -1,6 +1,6 @@
 # QA Readiness — INC-05 (QA-G3)
 
-**Date :** 2026-07-06  
+**Date :** 2026-07-07  
 **Branche :** `delivery/chantiers360-v2-inc-05`  
 **Standard :** SFIA v2.0 Delivery QA/Test — §6.12
 
@@ -14,7 +14,7 @@
 | 4 | Tests exécutés — résultat documenté | ✅ **16 passed** |
 | 5 | Scénarios US-12 / US-13 | ✅ |
 | 6 | Réserves documentées | ✅ |
-| 7 | Morris valide GO QA | ⏳ **En attente** |
+| 7 | Morris valide GO QA | ✅ **GO QA WITH RESERVES** (2026-07-07) |
 
 ## Couverture US
 
@@ -36,9 +36,19 @@ Aucune réserve bloquante INC-05 — PR readiness non bloquée par R-UX-01.
 
 ## Verdict proposé
 
-### **READY WITH RESERVES** — sous réserve exécution tests verte
+### **READY WITH RESERVES**
+
+## PR readiness
+
+| Critère | Statut |
+|---------|--------|
+| Document | `../../07-delivery-inc-05/pr-readiness-inc-05.md` |
+| Verdict | **READY WITH RESERVES** |
+| Push / PR | ⏳ Décision Morris séparée |
 
 ## Décision Morris
 
-- [ ] **GO QA-G3** / **GO QA WITH RESERVES**
+- [x] **GO QA WITH RESERVES** — INC-05 (2026-07-07)
+- [x] **PR readiness INC-05** documentée
+- [ ] **GO push + PR**
 - [ ] Corrections requises

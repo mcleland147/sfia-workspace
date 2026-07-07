@@ -1,7 +1,7 @@
 # QA Execution Report — INC-05
 
 **Branche :** `delivery/chantiers360-v2-inc-05`  
-**Date :** 2026-07-06
+**Date :** 2026-07-07 (cycle PR readiness)
 
 ## Commandes
 
@@ -11,7 +11,7 @@
 | `npm run build` | ✅ PASS |
 | `npm run db:test:up` | ✅ PASS |
 | `npm run db:test:migrate` | ✅ PASS |
-| `npm run test:e2e` | ✅ **16 passed** |
+| `npm run test:e2e` | ✅ **16 passed** (15.4s — cycle PR readiness) |
 
 ## Détail E2E
 
