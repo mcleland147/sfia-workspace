@@ -8,9 +8,9 @@
 
 | Élément | Valeur |
 |---------|--------|
-| **Statut** | **INC-04 CLOSED WITH RESERVES** — Morris (2026-07-06) |
+| **Statut** | **INC-05 CLOSED WITH RESERVES** — Morris (2026-07-07) |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Post-clôture INC-04 — GO INC-05 non accordé ; INC-05 non lancé |
+| **Cycle courant** | Post-clôture INC-05 — MVP bouclé avec réserves — décisions post-MVP séparées |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -27,6 +27,8 @@
 | **Delivery INC-02** | **Clôturé** — PR #115–#116 — CLOSED WITH RESERVES — `inc-02-closure-report.md` |
 | **Delivery INC-03** | **Clôturé** — PR #119–#120 — CLOSED WITH RESERVES — `inc-03-closure-report.md` |
 | **Delivery INC-04** | **Clôturé** — PR #122–#123 — CLOSED WITH RESERVES — `inc-04-closure-report.md` |
+| **Delivery INC-05** | **Clôturé** — PR #125–#126 — CLOSED WITH RESERVES — `inc-05-closure-report.md` |
+| **MVP delivery** | **Bouclé avec réserves** — INC-01 à INC-05 clôturés — post-MVP non lancé |
 
 ## 2. Initial intent
 
@@ -204,8 +206,9 @@ Le bootstrap est **valide** si :
 7. ~~**GO INC-02**~~ — ✅ livré et clôturé — PR #115–#116 — CLOSED WITH RESERVES
 8. ~~**GO INC-03**~~ — ✅ livré et clôturé — PR #119–#120 — CLOSED WITH RESERVES
 9. ~~**GO INC-04**~~ — ✅ livré et clôturé — PR #122–#123 — CLOSED WITH RESERVES
-10. **GO INC-05** — décision Morris explicite requise — non accordé
-11. **Planifier** comparaison V0 — fin de pilote uniquement
+10. ~~**GO INC-05**~~ — ✅ livré et clôturé — PR #125–#126 — CLOSED WITH RESERVES — MVP bouclé avec réserves
+11. **Capitalisation MVP** — décision Morris — cycle séparé — non lancée
+12. **Planifier** comparaison V0 — fin de pilote uniquement — non lancée
 
 ## 13. Detailed framing documents
 

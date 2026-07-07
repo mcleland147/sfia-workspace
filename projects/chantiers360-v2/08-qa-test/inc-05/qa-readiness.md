@@ -46,20 +46,32 @@ Aucune réserve bloquante INC-05 — PR readiness non bloquée par R-UX-01.
 | Verdict | **READY WITH RESERVES** |
 | Push / PR | ✅ PR #125 mergée — `6fe91df` (2026-07-07) |
 
-## QA-G4 post-merge (PR #125 — `main` @ `6fe91df`)
+## QA-G4 post-merge (PR #125 / #126 — `main` @ `6e5ec82`)
 
 | Critère | Statut |
 |---------|--------|
 | Merge PR #125 sur `main` | ✅ `6fe91df` (2026-07-07 04:10 UTC) |
+| Merge PR #126 (QA-G4) | ✅ `6e5ec82` (2026-07-07 04:19 UTC) |
 | lint / build post-merge | ✅ PASS |
 | E2E post-merge | ✅ **16 passed** — voir `qa-g4-post-merge-report.md` |
 | Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
+
+## Clôture INC-05
+
+| Critère | Statut |
+|---------|--------|
+| Clôture Morris | ✅ **INC-05 CLOSED WITH RESERVES** (2026-07-07) |
+| Rapport | `../../07-delivery-inc-05/inc-05-closure-report.md` |
+| MVP | Fonctionnellement bouclé avec réserves — post-MVP non lancé |
 
 ## Décision Morris
 
 - [x] **GO QA WITH RESERVES** — INC-05 (2026-07-07)
 - [x] **PR readiness INC-05** documentée
 - [x] **PR #125** mergée sur `main`
-- [ ] **GO push + PR QA-G4**
-- [ ] **Clôture INC-05** — cycle séparé
+- [x] **PR #126** (QA-G4) mergée sur `main`
+- [x] **Clôture INC-05** — **CLOSED WITH RESERVES** (2026-07-07)
+- [ ] **GO push + PR clôture INC-05**
+- [ ] **Capitalisation MVP** — cycle séparé
+- [ ] **Comparaison V0** — cycle séparé
 - [ ] Corrections requises

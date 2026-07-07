@@ -1,8 +1,9 @@
 # QA Reserves — INC-05
 
-**Branche :** `main` @ `6fe91df` (post-merge PR #125)  
+**Branche :** `main` @ `6e5ec82` (post-merge PR #125 / #126)  
 **Cycle PR readiness :** 2026-07-07 — GO QA WITH RESERVES Morris  
-**Cycle QA-G4 :** 2026-07-07 — **QA-G4 OK WITH RESERVES** — 16 E2E passed
+**Cycle QA-G4 :** 2026-07-07 — **QA-G4 OK WITH RESERVES** — 16 E2E passed  
+**Clôture INC-05 :** 2026-07-07 — **INC-05 CLOSED WITH RESERVES**
 
 ## Nouvelles réserves INC-05
 
@@ -33,4 +34,4 @@ INC-05 n'adresse pas R-QA-03 / R-QA-04 / R-QA-05 — aucun impact direct documen
 
 ## Verdict réserves
 
-**READY WITH RESERVES** — R-UX-01 et réserves héritées acceptées, non bloquantes pour PR readiness.
+**INC-05 CLOSED WITH RESERVES** — R-UX-01 et réserves héritées acceptées, non bloquantes à la clôture.
