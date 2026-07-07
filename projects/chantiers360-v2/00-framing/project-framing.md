@@ -10,7 +10,7 @@
 |---------|--------|
 | **Statut** | **MVP CAPITALIZED WITH RESERVES** — Morris (2026-07-07) |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Post-merge versioning PR #133 — aligné PR #134 — SFIA v2.3 / v2.3.1 actées — décisions post-MVP séparées |
+| **Cycle courant** | Comparaison méthodologique V0 vs SFIA v2 — en PR — SFIA v2.3.1 baseline opérationnelle |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -33,6 +33,7 @@
 | **Design coverage SFIA v2.0** | Mergée PR #129 — alignée PR #130 — R-UX-01 ouverte, acceptée, non levée |
 | **Technical Architecture & Decision Documentation** | Mergée PR #131 — alignée PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
 | **SFIA v2.x Method Versioning** | Mergée PR #133 — alignée PR #134 — v2.3 / v2.3.1 actées — `sfia-v2-method-versioning-standard.md` |
+| **Comparaison V0 vs SFIA v2** | En PR — `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION |
 
 ## 2. Initial intent
 
@@ -214,7 +215,7 @@ Le bootstrap est **valide** si :
 11. ~~**Capitalisation MVP**~~ — ✅ mergée PR #128 — MVP CAPITALIZED WITH RESERVES
 12. ~~**Design coverage SFIA v2.0**~~ — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
 13. ~~**Technical Architecture & Decision Documentation**~~ — ✅ mergé PR #131 — aligné PR #132 — ADR/DAA/DAT projet non produits
-14. **Planifier** comparaison V0 — fin de pilote uniquement — non lancée
+14. **Comparaison V0 vs SFIA v2** — en PR — `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION
 15. ~~**SFIA v2.x Method Versioning**~~ — ✅ mergé PR #133 — v2.3 actée — `sfia-v2-method-versioning-standard.md`
 16. ~~**Alignement v2.3.1**~~ — ✅ mergé PR #134 — post-merge Method Versioning
 
