@@ -598,6 +598,22 @@ Ils doivent toujours déclarer :
 
 > **Standard ≠ ADR projet** — adoption du standard ne produit pas les ADR Chantiers360 complets.
 
+### 6.17 SFIA v2.x Method Versioning (pilote)
+
+> Formalise minor / patch / major future, registre v2.x et règles repository-first. Source : chaîne post-MVP PR #129–#132.
+
+**Références obligatoires :**
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-method-versioning-standard.md`
+- `sfia-v2-automation-levels.md` — L0–L5
+- Registre §6 du standard versioning
+
+**Livrables attendus :** registre v2.x à jour ; routing / checklist / prompt catalog si nouveau minor ; alignement post-merge si patch.
+
+**Décision attendue :** VERSIONING STANDARD DOCUMENTED | DOCUMENTED WITH RESERVES | NEEDS ARBITRATION
+
+> **Versioning ≠ renommage** — les dossiers `sfia-v2/` restent stables.
+
 ## 7. Contrat minimal d'un prompt SFIA
 
 Tout prompt d'exécution SFIA doit contenir au minimum :

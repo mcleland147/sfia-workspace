@@ -10,7 +10,7 @@
 |---------|--------|
 | **Statut** | **MVP CAPITALIZED WITH RESERVES** — Morris (2026-07-07) |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Post-merge technical architecture PR #131 — décisions post-MVP séparées |
+| **Cycle courant** | SFIA v2.x Method Versioning — décisions post-MVP séparées |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -31,7 +31,8 @@
 | **MVP delivery** | **Bouclé avec réserves** — INC-01 à INC-05 clôturés |
 | **Capitalisation MVP** | Mergée PR #128 — `09-capitalization/mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES |
 | **Design coverage SFIA v2.0** | Mergée PR #129 — alignée PR #130 — R-UX-01 ouverte, acceptée, non levée |
-| **Technical Architecture & Decision Documentation** | Mergée PR #131 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — standard SFIA v2.0 documenté — ADR/DAA/DAT projet non produits |
+| **Technical Architecture & Decision Documentation** | Mergée PR #131 — alignée PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
+| **SFIA v2.x Method Versioning** | Cycle ouvert — `sfia-v2-method-versioning-standard.md` |
 
 ## 2. Initial intent
 
@@ -212,8 +213,9 @@ Le bootstrap est **valide** si :
 10. ~~**GO INC-05**~~ — ✅ livré et clôturé — PR #125–#127 — CLOSED WITH RESERVES — MVP bouclé avec réserves
 11. ~~**Capitalisation MVP**~~ — ✅ mergée PR #128 — MVP CAPITALIZED WITH RESERVES
 12. ~~**Design coverage SFIA v2.0**~~ — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
-13. ~~**Technical Architecture & Decision Documentation**~~ — ✅ mergé PR #131 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — standard SFIA v2.0 documenté — ADR/DAA/DAT projet non produits
+13. ~~**Technical Architecture & Decision Documentation**~~ — ✅ mergé PR #131 — aligné PR #132 — ADR/DAA/DAT projet non produits
 14. **Planifier** comparaison V0 — fin de pilote uniquement — non lancée
+15. **SFIA v2.x Method Versioning** — cycle ouvert — `sfia-v2-method-versioning-standard.md`
 
 ## 13. Detailed framing documents
 

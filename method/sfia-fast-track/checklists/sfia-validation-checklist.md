@@ -332,6 +332,18 @@ Utiliser pour un cycle **register / ADR / DAA / DAT** ou adoption du standard :
 - [ ] pas de DAT sans cible d'exploitation ;
 - [ ] lien QA si migration ou impact testabilité — `sfia-v2-delivery-qa-test-standard.md`.
 
+### 12.4 Supplément SFIA v2.x — method versioning (pilote)
+
+Utiliser pour un cycle **versioning SFIA v2.x** ou mise à jour du registre :
+
+- [ ] type de changement identifié dans la matrice §5 — `sfia-v2-method-versioning-standard.md` ;
+- [ ] minor uniquement si nouveau standard structurant ou capacité méthode ;
+- [ ] patch uniquement si alignement post-merge ou correction documentaire ;
+- [ ] registre §6 mis à jour si version actée ;
+- [ ] gate Morris pour minor et major future ;
+- [ ] pas de renaming massif des dossiers `sfia-v2/` ;
+- [ ] pas de confusion version méthode / version projet / version app.
+
 ## 13. Checklist — Post-merge
 
 Utiliser cette section uniquement après merge ou pour préparer une trace post-merge.
