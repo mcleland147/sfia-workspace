@@ -1301,6 +1301,23 @@ Full operational prompt templates are maintained separately in `prompts/template
 
 ---
 
+## 17. Supplément SFIA v2.x — Method Versioning (pilote)
+
+> Entrée minimale — registre v2.0 à v2.2.1 capitalisé depuis Chantiers360 v2 post-MVP.
+
+| Élément | Valeur |
+|---------|--------|
+| **Famille** | SFIA v2.x method versioning |
+| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-method-versioning-standard.md` |
+| **Registre** | §6 — v2.0 baseline → v2.2.1 patches |
+| **Routing** | `sfia-cycle-routing-guide.md` — §6.17 |
+| **Checklist** | `sfia-validation-checklist.md` — §12.4 |
+| **Usage** | Minor vs patch vs major ; registre ; repository-first ; gates Morris |
+| **Liens** | `sfia-v2-automation-levels.md` ; standards v2.1 / v2.2 |
+| **Exemple pilote** | PR #129 v2.1 ; #130 v2.1.1 ; #131 v2.2 ; #132 v2.2.1 |
+
+---
+
 ## Annexe A — Catalogue pilote Interv360 (historique v1.0)
 
 Le catalogue v1.0 Draft recensait les prompts candidats issus du projet pilote Interv360.

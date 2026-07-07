@@ -183,8 +183,9 @@ Aucune réserve bloquante à la capitalisation MVP.
 | 1 | **Comparaison V0** | Non lancée — fin de pilote uniquement |
 | 2 | **Micro-cycle réserves** R-QA-03 / R-QA-04 / R-QA-05 | Non lancé |
 | 3 | **Design coverage / R-UX-01** | Mergé PR #129 — aligné PR #130 — `sfia-v2-design-coverage-standard.md` — réserve **non levée** |
-| 4 | **ADR / DAA / DAT** | Mergé PR #131 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — standard SFIA v2.0 documenté — ADR/DAA/DAT projet non produits |
-| 5 | **Trajectoire produit suivante** | Non décidée — extensions métier, auth, déploiement, etc. |
+| 4 | **ADR / DAA / DAT** | Mergé PR #131 — aligné PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
+| 5 | **SFIA v2.x Method Versioning** | Cycle ouvert — `sfia-v2-method-versioning-standard.md` |
+| 6 | **Trajectoire produit suivante** | Non décidée — extensions métier, auth, déploiement, etc. |
 
 > **Invariant :** la capitalisation MVP **ne remplace pas** un GO produit post-MVP.
 
@@ -213,7 +214,7 @@ Aucune réserve bloquante à la capitalisation MVP.
 | Clôtures | `07-delivery-inc-01/` à `07-delivery-inc-05/inc-0n-closure-report.md` |
 | QA-G4 | `08-qa-test/inc-01/` à `inc-05/qa-g4-post-merge-report.md` |
 | Capitalisation INC-01 | `09-capitalization/inc-01-capitalization-report.md` |
-| Méthode | `sfia-v2-incremental-delivery-closure-standard.md`, `sfia-v2-delivery-qa-test-standard.md`, `sfia-v2-design-coverage-standard.md`, `sfia-v2-technical-architecture-decision-documentation-standard.md` |
+| Méthode | `sfia-v2-incremental-delivery-closure-standard.md`, `sfia-v2-delivery-qa-test-standard.md`, `sfia-v2-design-coverage-standard.md`, `sfia-v2-technical-architecture-decision-documentation-standard.md`, `sfia-v2-method-versioning-standard.md` |
 
 ---
 
