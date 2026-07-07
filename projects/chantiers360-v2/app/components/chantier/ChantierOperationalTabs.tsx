@@ -10,6 +10,8 @@ import { ComptesRendusSection } from "./ComptesRendusSection";
 
 type TabId = "taches" | "reserves" | "jalons" | "comptes-rendus";
 
+export type ChantierOperationalTabId = TabId;
+
 const tabs: { id: TabId; label: string }[] = [
   { id: "taches", label: "Tâches" },
   { id: "reserves", label: "Réserves" },
@@ -23,14 +25,16 @@ export function ChantierOperationalTabs({
   reserves,
   planning,
   comptesRendus,
+  initialTab = "taches",
 }: {
   chantierId: string;
   taches: Tache[];
   reserves: Reserve[];
   planning: SimplePlanningData;
   comptesRendus: CompteRendu[];
+  initialTab?: TabId;
 }) {
-  const [activeTab, setActiveTab] = useState<TabId>("taches");
+  const [activeTab, setActiveTab] = useState<TabId>(initialTab);
 
   return (
     <section className="mt-6">

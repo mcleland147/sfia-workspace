@@ -16,8 +16,14 @@ async function createChantier(
 }
 
 async function updateStatus(page: Page, status: string) {
-  await page.locator("#status").selectOption(status);
-  await page.getByRole("button", { name: "Mettre à jour" }).click();
+  const statusSelect = page.locator("#status");
+  await statusSelect.selectOption(status);
+  const submitButton = page
+    .locator("form")
+    .filter({ has: statusSelect })
+    .getByRole("button", { name: /Mettre à jour/ });
+  await submitButton.click();
+  await expect(page.locator("header dd").filter({ hasText: status })).toBeVisible();
 }
 
 test.describe("INC-01 — Chantiers360 v2", () => {
@@ -83,7 +89,6 @@ test.describe("INC-01 — Chantiers360 v2", () => {
 
     for (const status of STATUSES) {
       await updateStatus(page, status);
-      await expect(page.locator("header dd").filter({ hasText: status })).toBeVisible();
 
       await page.getByRole("link", { name: "Retour au tableau de bord" }).click();
       await expect(page.getByRole("heading", { name: title }).locator("..")).toContainText(status);

@@ -4,7 +4,11 @@ import { formatDisplayDate } from "@/lib/planning/format";
 import type { SimplePlanningData } from "@/lib/planning/types";
 import { BackToDashboardLink } from "@/components/layout/AppShell";
 import { StatusSelector } from "./StatusSelector";
-import { ChantierOperationalTabs } from "./ChantierOperationalTabs";
+import {
+  ChantierOperationalTabs,
+  type ChantierOperationalTabId,
+} from "./ChantierOperationalTabs";
+import { isChantierSectionTab } from "@/lib/prochaines-actions/types";
 
 function toPlanningData(chantier: Chantier): SimplePlanningData {
   return {
@@ -16,16 +20,26 @@ function toPlanningData(chantier: Chantier): SimplePlanningData {
   };
 }
 
+function resolveInitialTab(tab?: string): ChantierOperationalTabId {
+  if (tab && isChantierSectionTab(tab)) {
+    return tab;
+  }
+
+  return "taches";
+}
+
 export function ChantierFiche({
   chantier,
   taches,
   reserves,
   comptesRendus,
+  initialTab,
 }: {
   chantier: Chantier;
   taches: Tache[];
   reserves: Reserve[];
   comptesRendus: CompteRendu[];
+  initialTab?: string;
 }) {
   const status = chantier.status as ChantierStatus;
   const planning = toPlanningData(chantier);
@@ -96,6 +110,7 @@ export function ChantierFiche({
         reserves={reserves}
         planning={planning}
         comptesRendus={comptesRendus}
+        initialTab={resolveInitialTab(initialTab)}
       />
     </div>
   );

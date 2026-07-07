@@ -4,6 +4,7 @@ import type { DashboardStats } from "@/lib/chantiers/types";
 const topNav = [
   { label: "Tableau de bord", href: "/", active: true },
   { label: "Chantiers", href: "/", active: false },
+  { label: "Prochaines actions", href: "/prochaines-actions", active: false },
 ];
 
 export function DashboardHero({
