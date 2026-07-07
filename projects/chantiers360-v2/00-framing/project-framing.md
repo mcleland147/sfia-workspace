@@ -10,7 +10,7 @@
 |---------|--------|
 | **Statut** | **MVP CAPITALIZED WITH RESERVES** — Morris (2026-07-07) |
 | **Nom projet** | `chantiers360-v2` — validé |
-| **Cycle courant** | Comparaison méthodologique V0 vs SFIA v2 — en PR — SFIA v2.3.1 baseline opérationnelle |
+| **Cycle courant** | Comparaison V0 vs SFIA v2 bouclée (PR #136) — décision suivante séparée — SFIA v2.3.1 baseline opérationnelle — v2.4 / v3.0 non lancés |
 | **Bootstrap** | PR #95 mergée — `c3ca02d` |
 | **Cadrage détaillé** | PR #96 mergée — `e90e824` |
 | **Architecture fonctionnelle** | PR #97 mergée — `4a5b2fa` |
@@ -33,7 +33,7 @@
 | **Design coverage SFIA v2.0** | Mergée PR #129 — alignée PR #130 — R-UX-01 ouverte, acceptée, non levée |
 | **Technical Architecture & Decision Documentation** | Mergée PR #131 — alignée PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
 | **SFIA v2.x Method Versioning** | Mergée PR #133 — alignée PR #134 — v2.3 / v2.3.1 actées — `sfia-v2-method-versioning-standard.md` |
-| **Comparaison V0 vs SFIA v2** | En PR — `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION |
+| **Comparaison V0 vs SFIA v2** | ✅ Mergée PR #136 — `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION — v2.4 / v3.0 non lancés |
 
 ## 2. Initial intent
 
@@ -215,9 +215,10 @@ Le bootstrap est **valide** si :
 11. ~~**Capitalisation MVP**~~ — ✅ mergée PR #128 — MVP CAPITALIZED WITH RESERVES
 12. ~~**Design coverage SFIA v2.0**~~ — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
 13. ~~**Technical Architecture & Decision Documentation**~~ — ✅ mergé PR #131 — aligné PR #132 — ADR/DAA/DAT projet non produits
-14. **Comparaison V0 vs SFIA v2** — en PR — `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION
+14. ~~**Comparaison V0 vs SFIA v2**~~ — ✅ mergée PR #136 — `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION
 15. ~~**SFIA v2.x Method Versioning**~~ — ✅ mergé PR #133 — v2.3 actée — `sfia-v2-method-versioning-standard.md`
 16. ~~**Alignement v2.3.1**~~ — ✅ mergé PR #134 — post-merge Method Versioning
+17. **Décision méthode suivante** — GO SFIA v2.4 consolidation ou maintien baseline v2.3.1 — **non actée** — v3.0 immédiate non recommandée
 
 ## 13. Detailed framing documents
 
