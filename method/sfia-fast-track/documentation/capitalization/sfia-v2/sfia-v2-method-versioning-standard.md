@@ -2,8 +2,8 @@
 
 **Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-method-versioning-standard.md`  
 **Cycle :** Capitalisation méthode SFIA v2.x — Method Versioning  
-**Version SFIA :** v2.3 — standard structurant (draft revue Morris)  
-**Source pilote :** Chantiers360 v2 — chaîne post-MVP PR #129 à #132
+**Version SFIA :** v2.3 — standard structurant acté PR #133  
+**Source pilote :** Chantiers360 v2 — chaîne post-MVP PR #129 à #133
 
 > **Standard méthode** — définit les règles de versioning SFIA v2.x. Ne renomme pas massivement les dossiers ni ne modifie les décisions passées.
 
@@ -116,6 +116,7 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 |-----------|---------|
 | Alignement Design Coverage — PR #130 | **v2.1.1** |
 | Alignement Technical Architecture — PR #132 | **v2.2.1** |
+| Alignement Method Versioning — *cycle en cours* | **v2.3.1** |
 
 ### Major version — v3.0
 
@@ -136,7 +137,7 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | Nouveau standard structurant | Design Coverage, Tech Architecture, Versioning | **Minor** v2.x | **Obligatoire** | PR dédiée + merge |
 | Nouveau prompt catalog majeur | §15–§17 supplements | Minor ou inclus dans minor du standard | Recommandé | PR méthode |
 | Nouvelle checklist structurante | §12.2–§12.4 | Minor ou inclus | Recommandé | PR méthode |
-| Alignement post-merge | PR #130, #132 | **Patch** v2.x.y | Requis si statut projet change | PR alignement |
+| Alignement post-merge | PR #130, #132, alignement v2.3.1 | **Patch** v2.x.y | Requis si statut projet change | PR alignement |
 | Correction typo | Lien, coquille | Patch ou aucun si trivial | Non si sans impact statut | PR docs |
 | Refonte doctrine | Nouveau modèle L0–L5 global | **Major future** v3.0 | **Obligatoire** | Cycle dédié |
 | Création ADR projet | ADR Chantiers360 stack | **Aucun** — versioning projet | Morris | Cycle ADR séparé |
@@ -155,7 +156,8 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | **v2.1.1** | PR #130 `dab3a94` | Alignement post-merge Design Coverage | Actée |
 | **v2.2** | PR #131 `a7710a5` | Technical Architecture & Decision Documentation Standard | Actée |
 | **v2.2.1** | PR #132 `e807c1a` | Alignement post-merge Technical Architecture | Actée |
-| **v2.3** | *cycle en cours* | Method Versioning Standard (ce document) | Draft — revue Morris |
+| **v2.3** | PR #133 `796bfe8` | Method Versioning Standard | Actée |
+| **v2.3.1** | *cycle en cours* | Alignement post-merge Method Versioning | Draft — revue Morris |
 
 **Règles du registre :**
 
@@ -228,7 +230,8 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | **Alignement Design Coverage** | Patch → **v2.1.1** — PR #130 |
 | **Technical Architecture** | Standard structurant post-MVP → **v2.2** — mergé PR #131 |
 | **Alignement Technical Architecture** | Patch → **v2.2.1** — PR #132 |
-| **Versioning** | Standard structurant → **v2.3** — cycle en cours |
+| **Versioning** | Standard structurant → **v2.3** — mergé PR #133 |
+| **Alignement Versioning** | Patch → **v2.3.1** — cycle en cours |
 | **Réserves** | R-UX-01, R-QA-03/04/05 — **inchangées**, non levées |
 | **ADR / DAA / DAT projet** | **Non produits** — cycles séparés |
 | **Comparaison V0** | **Non lancée** |

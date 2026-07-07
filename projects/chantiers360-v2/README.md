@@ -11,7 +11,7 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** SFIA v2.x Method Versioning — `sfia-v2-method-versioning-standard.md` — décisions post-MVP séparées  
+**Cycle courant :** Post-merge versioning PR #133 — SFIA v2.3 actée — alignement v2.3.1 en cours — décisions post-MVP séparées  
 **QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`  
 **QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`  
 **QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`  
@@ -34,7 +34,7 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | Élément | Valeur |
 |---------|--------|
 | **Statut** | **MVP CAPITALIZED WITH RESERVES** — Morris (2026-07-07) |
-| **Cycle** | SFIA v2.x Method Versioning — `sfia-v2-method-versioning-standard.md` — décisions post-MVP séparées |
+| **Cycle** | Post-merge versioning PR #133 — SFIA v2.3 actée — alignement v2.3.1 en cours — décisions post-MVP séparées |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -199,7 +199,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** SFIA v2.x Method Versioning — décisions post-MVP séparées.
+**Cycle courant :** Post-merge versioning PR #133 — SFIA v2.3 actée — alignement v2.3.1 en cours — décisions post-MVP séparées.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
@@ -219,7 +219,8 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 16. **Design coverage SFIA v2.0** — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
 17. **Technical Architecture & Decision Documentation** — ✅ mergé PR #131 — aligné PR #132 — ADR/DAA/DAT projet non produits
 18. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement** — non lancée
-19. **SFIA v2.x Method Versioning** — cycle ouvert — `sfia-v2-method-versioning-standard.md`
+19. **SFIA v2.x Method Versioning** — ✅ mergé PR #133 — `sfia-v2-method-versioning-standard.md` — v2.3 actée
+20. **Alignement v2.3.1** — cycle courant — post-merge Method Versioning
 
 ## 15. Decision authority
 
