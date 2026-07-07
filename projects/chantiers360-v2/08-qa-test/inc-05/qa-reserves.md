@@ -1,7 +1,8 @@
 # QA Reserves — INC-05
 
-**Branche :** `delivery/chantiers360-v2-inc-05`  
-**Cycle PR readiness :** 2026-07-07 — GO QA WITH RESERVES Morris
+**Branche :** `main` @ `6fe91df` (post-merge PR #125)  
+**Cycle PR readiness :** 2026-07-07 — GO QA WITH RESERVES Morris  
+**Cycle QA-G4 :** 2026-07-07 — **QA-G4 OK WITH RESERVES** — 16 E2E passed
 
 ## Nouvelles réserves INC-05
 

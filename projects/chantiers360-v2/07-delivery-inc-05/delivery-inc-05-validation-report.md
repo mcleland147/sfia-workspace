@@ -2,7 +2,7 @@
 
 **Branche :** `delivery/chantiers360-v2-inc-05`  
 **Base :** `3f7acfe`  
-**Date :** 2026-07-07
+**Date :** 2026-07-07 (QA-G4 post-merge)
 
 ## Couverture US
 
@@ -41,6 +41,15 @@
 | E2E cycle PR readiness | ✅ 16 passed |
 | Verdict | **READY WITH RESERVES** |
 
+## QA-G4 post-merge
+
+| Élément | Statut |
+|---------|--------|
+| PR #125 merge | ✅ `6fe91df` (2026-07-07) |
+| E2E post-merge | ✅ **16 passed** |
+| Verdict | **QA-G4 OK WITH RESERVES** |
+| Rapport | `../08-qa-test/inc-05/qa-g4-post-merge-report.md` |
+
 ---
 
-**Documents liés :** `../08-qa-test/inc-05/qa-readiness.md`, `pr-readiness-inc-05.md`
+**Documents liés :** `../08-qa-test/inc-05/qa-readiness.md`, `pr-readiness-inc-05.md`, `../08-qa-test/inc-05/qa-g4-post-merge-report.md`

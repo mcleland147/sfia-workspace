@@ -44,11 +44,22 @@ Aucune réserve bloquante INC-05 — PR readiness non bloquée par R-UX-01.
 |---------|--------|
 | Document | `../../07-delivery-inc-05/pr-readiness-inc-05.md` |
 | Verdict | **READY WITH RESERVES** |
-| Push / PR | ⏳ Décision Morris séparée |
+| Push / PR | ✅ PR #125 mergée — `6fe91df` (2026-07-07) |
+
+## QA-G4 post-merge (PR #125 — `main` @ `6fe91df`)
+
+| Critère | Statut |
+|---------|--------|
+| Merge PR #125 sur `main` | ✅ `6fe91df` (2026-07-07 04:10 UTC) |
+| lint / build post-merge | ✅ PASS |
+| E2E post-merge | ✅ **16 passed** — voir `qa-g4-post-merge-report.md` |
+| Verdict QA-G4 | **QA-G4 OK WITH RESERVES** |
 
 ## Décision Morris
 
 - [x] **GO QA WITH RESERVES** — INC-05 (2026-07-07)
 - [x] **PR readiness INC-05** documentée
-- [ ] **GO push + PR**
+- [x] **PR #125** mergée sur `main`
+- [ ] **GO push + PR QA-G4**
+- [ ] **Clôture INC-05** — cycle séparé
 - [ ] Corrections requises
