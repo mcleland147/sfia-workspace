@@ -184,7 +184,7 @@ Aucune réserve bloquante à la capitalisation MVP.
 | 2 | **Micro-cycle réserves** R-QA-03 / R-QA-04 / R-QA-05 | Non lancé |
 | 3 | **Design coverage / R-UX-01** | Mergé PR #129 — aligné PR #130 — `sfia-v2-design-coverage-standard.md` — réserve **non levée** |
 | 4 | **ADR / DAA / DAT** | Mergé PR #131 — aligné PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
-| 5 | **SFIA v2.x Method Versioning** | Mergé PR #133 — SFIA v2.3 actée — alignement v2.3.1 en cours — `sfia-v2-method-versioning-standard.md` |
+| 5 | **SFIA v2.x Method Versioning** | Mergé PR #133 — aligné PR #134 — SFIA v2.3 / v2.3.1 actées — `sfia-v2-method-versioning-standard.md` |
 | 6 | **Trajectoire produit suivante** | Non décidée — extensions métier, auth, déploiement, etc. |
 
 > **Invariant :** la capitalisation MVP **ne remplace pas** un GO produit post-MVP.
