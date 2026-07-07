@@ -1284,6 +1284,23 @@ Full operational prompt templates are maintained separately in `prompts/template
 
 ---
 
+## 16. Supplément SFIA v2.0 — Technical Architecture & Decision Documentation (pilote)
+
+> Entrée minimale — capitalisation pilote Chantiers360 v2 `05-technical-architecture/`.
+
+| Élément | Valeur |
+|---------|--------|
+| **Famille** | Technical architecture & decision documentation |
+| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md` |
+| **Templates** | §18 — ADR light, DAA light, DAT light |
+| **Routing** | `sfia-cycle-routing-guide.md` — §6.16 |
+| **Checklist** | `sfia-validation-checklist.md` — §12.3 |
+| **Usage** | Register vs ADR vs DAA vs DAT ; gates Morris ; NFR ; QA linkage |
+| **Liens** | `sfia-v2-delivery-qa-test-standard.md` ; `sfia-v2-design-coverage-standard.md` |
+| **Exemple pilote** | Chantiers360 v2 — stack/Drizzle/auth différée — ADR futurs recommandés, non produits dans cycle standard |
+
+---
+
 ## Annexe A — Catalogue pilote Interv360 (historique v1.0)
 
 Le catalogue v1.0 Draft recensait les prompts candidats issus du projet pilote Interv360.
