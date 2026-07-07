@@ -11,7 +11,7 @@
 **Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Post-merge design coverage PR #129 — standard SFIA v2.0 documenté — R-UX-01 ouverte, acceptée, non levée — décisions post-MVP séparées  
+**Cycle courant :** Technical Architecture & Decision Documentation SFIA v2.0 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — décisions post-MVP séparées  
 **QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`  
 **QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`  
 **QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`  
@@ -34,7 +34,7 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | Élément | Valeur |
 |---------|--------|
 | **Statut** | **MVP CAPITALIZED WITH RESERVES** — Morris (2026-07-07) |
-| **Cycle** | Post-merge design coverage PR #129 — standard SFIA v2.0 documenté — R-UX-01 ouverte, acceptée, non levée — décisions post-MVP séparées |
+| **Cycle** | Technical Architecture & Decision Documentation SFIA v2.0 — décisions post-MVP séparées |
 | **Bootstrap** | Mergé PR #95 — `c3ca02d` |
 | **Cadrage détaillé** | Mergé PR #96 — `e90e824` |
 | **Architecture fonctionnelle** | Mergée PR #97 — `4a5b2fa` |
@@ -199,7 +199,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 ## 14. Next SFIA cycles
 
-**Cycle courant :** Post-merge design coverage PR #129 — décisions post-MVP séparées.
+**Cycle courant :** Technical Architecture & Decision Documentation SFIA v2.0 — décisions post-MVP séparées.
 
 1. Cadrage détaillé — ✅ mergé PR #96
 2. Architecture fonctionnelle — ✅ mergée PR #97
@@ -216,8 +216,9 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 13. **Delivery INC-04** — ✅ clôturé — PR #122–#124 — CLOSED WITH RESERVES
 14. **Delivery INC-05** — ✅ clôturé — PR #125–#127 — CLOSED WITH RESERVES — MVP bouclé avec réserves
 15. **Capitalisation MVP** — ✅ mergée PR #128 — `mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES
-16. **Design coverage SFIA v2.0** — ✅ mergé PR #129 — `sfia-v2-design-coverage-standard.md` — R-UX-01 ouverte, acceptée, non levée
-17. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement** — non lancée
+16. **Design coverage SFIA v2.0** — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
+17. **Technical Architecture & Decision Documentation** — cycle ouvert — `sfia-v2-technical-architecture-decision-documentation-standard.md`
+18. Comparaison V0 vs SFIA v2 — **fin de pilote uniquement** — non lancée
 
 ## 15. Decision authority
 
@@ -235,3 +236,4 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-coverage-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md`

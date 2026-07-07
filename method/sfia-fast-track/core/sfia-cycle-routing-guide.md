@@ -580,6 +580,24 @@ Ils doivent toujours déclarer :
 
 > **Extrapolation acceptée ≠ polish design** — rattrapage Figma = cycle Morris séparé.
 
+### 6.16 Technical Architecture & Decision Documentation (SFIA v2.0 — pilote)
+
+> Formalise quand produire registre technique, ADR, DAA light, DAT light. Source : Chantiers360 v2 `05-technical-architecture/`.
+
+**Références obligatoires :**
+
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md`
+- `projects/<project>/05-technical-architecture/` — overview, stack, decisions, data model
+- `projects/<project>/07-delivery-inc-<nn>/delivery-inc-<nn>-decisions.md`
+- `sfia-v2-delivery-qa-test-standard.md` — lien QA
+- `sfia-v2-design-coverage-standard.md` — frontend / R-UX-XX
+
+**Livrables attendus :** matrice doc technique ; register ; ADR/DAA/DAT si déclenchés ; gates Morris.
+
+**Décision attendue :** TECH DOC STANDARD DOCUMENTED | DOCUMENTED WITH RESERVES | NEEDS ARBITRATION
+
+> **Standard ≠ ADR projet** — adoption du standard ne produit pas les ADR Chantiers360 complets.
+
 ## 7. Contrat minimal d'un prompt SFIA
 
 Tout prompt d'exécution SFIA doit contenir au minimum :

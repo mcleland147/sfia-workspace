@@ -110,7 +110,7 @@ Chantiers360 v2 a traversé le **cycle de vie projet complet** du pilote SFIA v2
 | F2 | **Réserves héritées** | R-QA-03 à R-QA-05 portées INC-01 → INC-05 | Acceptées — non bloquantes à la clôture |
 | F3 | **Port 3000 / environnement** | R-QA-05 — `test:e2e:full` vs instance dev | Fallback port 3001 documenté ; E2E passent sur cycles QA |
 | F4 | **Couverture design non systématique** | R-UX-01 — `/prochaines-actions` sans frame Figma | Acceptée INC-05 — extrapolation patterns UI |
-| F5 | **Besoin règles ADR / DAA / DAT** | Décisions techniques dispersées dans docs projet | Cycle méthode séparé — non lancé |
+| F5 | **Besoin règles ADR / DAA / DAT** | Décisions techniques dispersées dans docs projet | Cycle méthode ouvert — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
 | F6 | **Documentation volumineuse** | Multiples PRs docs par incrément (delivery + QA-G4 + closure) | Lisibilité maintenue par dossiers `07-delivery-inc-0n/` et `08-qa-test/inc-0n/` |
 | F7 | **Multiples PRs par incrément** | Charge review Morris | Contrepartie : traçabilité forte — chaîne standard validée |
 | F8 | **Écart prompt delivery initial / repo (INC-05)** | Prompt proposait table `prochaines_actions` — repo/backlog indiquaient dérivation | Agrégation depuis sources existantes — pas de table ni migration INC-05 |
@@ -182,8 +182,8 @@ Aucune réserve bloquante à la capitalisation MVP.
 |---|-------|--------|
 | 1 | **Comparaison V0** | Non lancée — fin de pilote uniquement |
 | 2 | **Micro-cycle réserves** R-QA-03 / R-QA-04 / R-QA-05 | Non lancé |
-| 3 | **Design coverage / R-UX-01** | Mergé PR #129 — `sfia-v2-design-coverage-standard.md` — standard SFIA v2.0 documenté — réserve **non levée** |
-| 4 | **ADR / DAA / DAT** | Non lancé — cycle méthode séparé |
+| 3 | **Design coverage / R-UX-01** | Mergé PR #129 — aligné PR #130 — `sfia-v2-design-coverage-standard.md` — réserve **non levée** |
+| 4 | **ADR / DAA / DAT** | Cycle ouvert — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
 | 5 | **Trajectoire produit suivante** | Non décidée — extensions métier, auth, déploiement, etc. |
 
 > **Invariant :** la capitalisation MVP **ne remplace pas** un GO produit post-MVP.
@@ -199,7 +199,7 @@ Aucune réserve bloquante à la capitalisation MVP.
    - comparaison V0 si fin de pilote SFIA v2.0 sur Chantiers360 ;
    - ou micro-cycle réserves si objectif qualité opérationnelle ;
    - ou formalisation design coverage si objectif méthode SFIA v2.0 ;
-   - ou ADR/DAA/DAT si objectif gouvernance technique transverse.
+   - ou ADR/DAA/DAT projet si objectif gouvernance technique Chantiers360 — **standard méthode documenté** (`sfia-v2-technical-architecture-decision-documentation-standard.md`).
 3. **Git reste la source de vérité** — toute décision post-MVP = cycle documentaire ou delivery borné avec PR Morris.
 
 ---
@@ -213,7 +213,7 @@ Aucune réserve bloquante à la capitalisation MVP.
 | Clôtures | `07-delivery-inc-01/` à `07-delivery-inc-05/inc-0n-closure-report.md` |
 | QA-G4 | `08-qa-test/inc-01/` à `inc-05/qa-g4-post-merge-report.md` |
 | Capitalisation INC-01 | `09-capitalization/inc-01-capitalization-report.md` |
-| Méthode | `sfia-v2-incremental-delivery-closure-standard.md`, `sfia-v2-delivery-qa-test-standard.md` |
+| Méthode | `sfia-v2-incremental-delivery-closure-standard.md`, `sfia-v2-delivery-qa-test-standard.md`, `sfia-v2-design-coverage-standard.md`, `sfia-v2-technical-architecture-decision-documentation-standard.md` |
 
 ---
 

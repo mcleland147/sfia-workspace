@@ -319,6 +319,19 @@ Utiliser pour un **écran sans frame Figma dédiée** ou un cycle méthode desig
 - [ ] pas de modification Figma / captures / code dans un cycle méthode documentaire ;
 - [ ] gate Morris si écran structurant sans Figma ou nouvelle DA.
 
+### 12.3 Supplément SFIA v2.0 — technical architecture & decision documentation (pilote)
+
+Utiliser pour un cycle **register / ADR / DAA / DAT** ou adoption du standard :
+
+- [ ] situation identifiée dans la matrice §4 — `sfia-v2-technical-architecture-decision-documentation-standard.md` ;
+- [ ] register technique à jour ou décision delivery tracée ;
+- [ ] ADR requis uniquement si décision structurante ou difficilement réversible ;
+- [ ] DAA light uniquement si extension / refactor / industrialisation ;
+- [ ] DAT light uniquement si exploitation / déploiement cible ;
+- [ ] gate Morris pour auth, sécurité, stack, hébergement, CI/CD prod ;
+- [ ] pas de DAT sans cible d'exploitation ;
+- [ ] lien QA si migration ou impact testabilité — `sfia-v2-delivery-qa-test-standard.md`.
+
 ## 13. Checklist — Post-merge
 
 Utiliser cette section uniquement après merge ou pour préparer une trace post-merge.
