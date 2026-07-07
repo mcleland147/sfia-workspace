@@ -228,6 +228,8 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 
 **Invariant :** le versioning documente une décision déjà actée — il ne la remplace pas.
 
+**Morris L0 (rappel v2.4.1) :** versioning, changements de doctrine, gates structurants, élargissement de périmètre, L3 structurant, L4, tout L5 — **hors décision Cursor**.
+
 ## 10. Niveaux d'automatisation
 
 | Niveau | Rôle versioning |
@@ -235,8 +237,8 @@ Table centrale §6 — référence déclarative des versions actées ; ne modifi
 | **L0** | Morris valide version cible (minor / patch / major future) |
 | **L1** | Contrôle registre / PR / commit cohérents |
 | **L2** | Génération guidée de ligne registre |
-| **L3** | Mise à jour documentaire bornée (registre, routing, README) |
-| **L4** | Orchestration contrôlée versioning + post-merge alignement |
+| **L3** | Mise à jour documentaire **bornée** — registre, routing, README — **uniquement** sur périmètre explicitement validé par Morris ou prompt contractuel ; Cursor **ne décide pas seul** d'une mise à jour L3 ni d'un élargissement de périmètre |
+| **L4** | Orchestration contrôlée versioning + post-merge alignement — gate Morris |
 | **L5 ciblé** | Audit read-only registre vs `main` |
 | **L5 global** | **Interdit** — pas d'incrément version sans gate Morris |
 

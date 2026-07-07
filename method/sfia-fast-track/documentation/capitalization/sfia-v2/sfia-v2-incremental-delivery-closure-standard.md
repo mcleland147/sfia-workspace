@@ -219,12 +219,57 @@ Rapport projet : `projects/chantiers360-v2/09-capitalization/inc-01-capitalizati
 - Notion / CMP
 - Chantiers360 V0
 - L5 global
+- SFIA v3.0 — immediate NO-GO
+
+## 14. Complément SFIA v2.4 — clôture adaptative
+
+> **Référence détaillée :** `sfia-v2.4-consolidation-operating-efficiency-standard.md` §6–§8 — baseline v2.0 **conservée** ; v2.4 ajoute méthode adaptative, friction réduite, simplification **optionnelle**.
+
+SFIA v2.4 complète ce standard avec :
+
+- QA **proportionnée** au profil ;
+- PR readiness **adaptée** au risque ;
+- simplification possible pour **INC mineur** ;
+- réduction friction PR — sans affaiblir les garde-fous structurants.
+
+### 14.1 Simplification QA-G4 + closure (optionnelle)
+
+Pour un **INC mineur**, QA-G4 et closure **peuvent être regroupés** en une seule PR documentaire **si et seulement si** :
+
+| Condition | Requis |
+|-----------|--------|
+| Périmètre limité | Oui |
+| Aucune réserve bloquante **nouvelle** | Oui |
+| Aucun impact architecture | Oui |
+| Aucun impact sécurité | Oui |
+| Aucun changement de doctrine | Oui |
+| **GO Morris explicite** | **Oui** |
+
+> **Règle :** option **non automatique** — Morris décide ; profil Critical ou réserve structurante → chaîne complète (PR delivery + PR closure séparées).
+
+### 14.2 Clôture ≠ GO incrément suivant
+
+| Règle | Détail |
+|-------|--------|
+| **Clôture INC-n** | Statut CLOSED / CLOSED WITH RESERVES — fin officielle de l'incrément |
+| **GO INC-(n+1)** | Décision Morris **L0 séparée** — jamais implicite après clôture |
+| **Capitalisation** | Distincte du GO incrément suivant |
+
+### 14.3 Statuts alignés v2.4
+
+| Statut | Usage |
+|--------|-------|
+| **CLOSED** | Incrément terminé sans réserve ouverte |
+| **CLOSED WITH RESERVES** | Incrément terminé — réserves mineures/environnementales acceptées |
+| **NOT CLOSED** | Gate non satisfait — retour QA ou delivery |
+| **READY WITH RESERVES** | PR readiness ou QA avec réserves documentées — avant merge |
 
 ---
 
 **Références :**
 
-- `sfia-v2-delivery-qa-test-standard.md`
+- `sfia-v2.4-consolidation-operating-efficiency-standard.md`
+- `sfia-v2-delivery-qa-test-standard.md` — §19 v2.4
 - `sfia-v2-automation-levels.md`
 - `prompts/prompt-catalog.md` — §14 Supplément Delivery QA/Test
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` — §6.12–6.14

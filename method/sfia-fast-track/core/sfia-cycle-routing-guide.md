@@ -8,7 +8,7 @@ scope: cycle routing and reference selection
 # Guide de routage des cycles SFIA
 
 **Version:** v1.2  
-**Status:** Candidate  
+**Status:** Candidate — **non promu Validated** tant que l'alignement v2.4.1 n'est pas terminé (patchs 2 QA/validation/closure et 3 prompt/knowledge en attente)  
 **Scope:** Routage des cycles, sélection des références, templates et validations  
 **Standard consolidation actif :** SFIA v2.4 — voir §4.3
 
