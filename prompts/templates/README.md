@@ -8,6 +8,8 @@ The catalog remains the index of prompt families and cards:
 
 The templates in this folder are operational prompt skeletons intended to be adapted before use.
 
+> **Alignement v2.4.1** — PR #140 ; complément contrat prompt v2.4 §7.1 documenté ci-dessous. Pas de statut documentaire formel — index opérationnel des templates.
+
 ## Templates
 
 | Template | Family | Use |
