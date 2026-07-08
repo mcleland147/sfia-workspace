@@ -1,16 +1,16 @@
 ---
 status: validated
-version: v1.2
-updated_after: SFIA v2.4.1 documentation status promotion — PR #140
+version: v1.3
+updated_after: SFIA v2.5 candidate Cycle 1 — MVP méthode proportionnée
 scope: cycle routing and reference selection
 ---
 
 # Guide de routage des cycles SFIA
 
-**Version:** v1.2  
-**Status:** Validated — promotion micro-cycle Morris post-PR #140 ; alignement v2.4.1 complet  
+**Version:** v1.3  
+**Status:** Validated — complément SFIA v2.5 candidate Cycle 1 (hypothèse candidate)  
 **Scope:** Routage des cycles, sélection des références, templates et validations  
-**Standard consolidation actif :** SFIA v2.4 — voir §4.3
+**Standard consolidation actif :** SFIA v2.4 — voir §4.3 ; complément v2.5 candidate §4.4
 
 ## 1. Objectif
 
@@ -224,6 +224,75 @@ Handoff ChatGPT ↔ Cursor ↔ Git : **cadre documentaire** v2.4 §10 — **non 
 | Nouveau moteur d'index | Index méthode = vision repo-first (v2.4 §12) |
 
 **Git reste la source de vérité.**
+
+### 4.4 Routage SFIA v2.5 candidate — profils transverses
+
+> **Référence :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1  
+> **Statut :** hypothèse **candidate** — ne valide pas v2.5 ; preuve Cycle 3 ; Morris décide  
+> **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2
+
+Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables.
+
+#### 4.4.1 Type de cycle projet vs profil SFIA
+
+Deux dimensions **orthogonales** à déclarer dans chaque prompt :
+
+| Dimension | Question | Exemples |
+|-----------|----------|----------|
+| **Type de cycle** | Quel travail ? | Cadrage, conception, UX/UI, architecture, delivery, QA, post-merge, REX… |
+| **Profil SFIA** | Quel niveau de contrôle ? | Light, Standard, Critical, Capitalization |
+
+> Les profils Light / Standard / Critical / Capitalization ne remplacent pas les cycles projet. Ils définissent le niveau de profondeur, de contrôle et de validation applicable à chaque cycle projet SFIA, qu'il s'agisse de cadrage, conception, UX/UI, architecture, delivery, QA, post-merge ou capitalisation.
+
+**Exemples de combinaison :**
+
+| Combinaison | Lecture |
+|-------------|---------|
+| UX/UI — Standard | Cycle design courant, traçabilité normale |
+| Architecture fonctionnelle — Critical | Arbitrage structurant, gates Morris |
+| Correction documentaire — Light | Mono-fichier, faible impact |
+| REX projet — Capitalization Standard | Capitalisation avec traçabilité normale |
+
+#### 4.4.2 Qualification du profil — règles de routage
+
+| Étape | Règle |
+|-------|-------|
+| 1 | Identifier le **type de cycle** (§4.1, §4.2 ou §6) |
+| 2 | Qualifier le **profil SFIA** selon risque et impact |
+| 3 | En cas de doute : Light **seulement** si aucun risque structurant — sinon **Standard** |
+| 4 | Critical : justification explicite par facteur de criticité (§18.2.2 operating model) |
+| 5 | Capitalization : intention de capitaliser — profil de risque séparé |
+
+> **Ne pas confondre** le profil SFIA **Capitalization** (niveau de traitement / intention de capitaliser) avec le type de cycle v2.4 **CAPA** (§4.3.1). Les deux dimensions sont distinctes et peuvent coexister — ex. type `CAPA` + profil `Standard`.
+
+**Anti-pattern :** Critical par défaut — traiter un cycle Light comme Standard ou Critical par confort.
+
+#### 4.4.3 Séquence de routage v2.5 candidate
+
+```text
+Intention Morris
+→ type de cycle (nature du travail)
+→ profil SFIA (Light / Standard / Critical / Capitalization)
+→ qualification type v2.4 si applicable (INC / EVOL / RUN / CAPA / DOC)
+→ références obligatoires (matrice profil → lecture minimale)
+→ prompt contractuel (profil + type explicites)
+→ gate Morris si structurant (liste fermée)
+→ exécution Cursor bornée
+→ readiness unique (proportionnée au profil)
+→ post-merge (court Light / Standard ; complet Critical)
+→ capitalisation si profil Capitalization ou cycle dédié
+```
+
+**Hors périmètre Cycle 1 :** templates profil (Cycle 2) ; cartographie exhaustive cycles projet ; promotion Prompt Catalog ; relance SFIA 3.0.
+
+#### 4.4.4 Matrice profil → contrôles (synthèse)
+
+| Profil | Lecture doc | Rapport Cursor | Readiness | Post-merge | Morris |
+|--------|-------------|----------------|-----------|------------|--------|
+| **Light** | Minimale | Court | Allégée, unique | Court ou skip | Merge si doc-only ; gates si protected |
+| **Standard** | Ciblée | Structuré | Unique | Court | Scope + merge |
+| **Critical** | Complète | Complet | Renforcée | Complet | Chaque gate listé |
+| **Capitalization** | Adaptée aux sources REX / méthode | Traçabilité apprentissage | Adaptée promotion doc / méthode | Standard ou selon portée | Si promotion méthode ou décision structurante |
 
 ## 5. Références obligatoires par type de cycle (méthode / fondation)
 
@@ -720,6 +789,7 @@ Tout prompt d'exécution SFIA doit contenir au minimum :
 | Branche | Branche de travail |
 | Commit attendu | Base de référence |
 | Type de cycle | Voir §4 |
+| Profil SFIA | Light \| Standard \| Critical \| Capitalization — voir §4.4 |
 | Famille de cycle | méthode / fondation ou projet |
 | Références obligatoires | Liste explicite des documents |
 | Dossier cible | Où produire le livrable |
@@ -901,4 +971,4 @@ Il rend la sélection documentaire **explicite, auditable et validable**.
 
 ---
 
-*Référentiel SFIA — Guide de routage des cycles v1.2 — validated document — aligné SFIA v2.4 / v2.4.1.*
+*Référentiel SFIA — Guide de routage des cycles v1.3 — validated document — aligné SFIA v2.4 / v2.4.1 / v2.5 candidate Cycle 1.*

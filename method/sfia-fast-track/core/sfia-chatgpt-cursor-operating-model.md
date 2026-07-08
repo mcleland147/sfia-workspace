@@ -537,6 +537,128 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
 - pas de L5 global ;
 - handoff agent = **trajectoire future**, non implémentée.
 
+### 18.2 Complément SFIA v2.5 candidate — MVP méthode proportionnée
+
+> **Référence :** `sfia-v2.5-project-plan.md` — Cycle 1 — **hypothèse candidate** ; preuve attendue au Cycle 3 ; Morris décide.  
+> **Ne remplace pas** v2.4 — **opérationnalise** la proportionnalité. **Ne valide pas** SFIA v2.5.
+
+Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables (voir `sfia-cycle-routing-guide.md` §4.3.1).
+
+#### 18.2.1 Distinction type de cycle projet et profil SFIA
+
+| Dimension | Rôle |
+|-----------|------|
+| **Type de cycle projet** | Nature du travail : cadrage, conception, architecture fonctionnelle, UX/UI, backlog, delivery, QA, release, post-merge, REX, capitalisation, etc. |
+| **Profil SFIA** | Niveau de profondeur, contrôle, validation, rapport et readiness applicable au cycle |
+
+**Règle :** les profils Light / Standard / Critical / Capitalization sont **transverses**. Ils ne remplacent pas la cartographie des cycles projet.
+
+> Les profils Light / Standard / Critical / Capitalization ne remplacent pas les cycles projet. Ils définissent le niveau de profondeur, de contrôle et de validation applicable à chaque cycle projet SFIA, qu'il s'agisse de cadrage, conception, UX/UI, architecture, delivery, QA, post-merge ou capitalisation.
+
+**Exemples :**
+
+| Type de cycle | Profils possibles |
+|---------------|-------------------|
+| UX/UI | Light, Standard ou Critical selon impact |
+| Cadrage | Standard ou Critical selon arbitrages |
+| Architecture | Standard ou Critical selon risque |
+| Correction documentaire | Light si mono-fichier, sans impact structurant |
+| QA | Standard ou Critical selon risque produit |
+| REX | Capitalization — profil Light, Standard ou Critical selon portée |
+
+Notation recommandée : `UX/UI — Standard`, `Architecture fonctionnelle — Critical`, `Correction documentaire — Light`, `REX projet — Capitalization Standard`.
+
+La cartographie détaillée des cycles projet reste hors périmètre Cycle 1 — cycle dédié ultérieur dans la roadmap v2.5.
+
+#### 18.2.2 Profils SFIA — niveaux de traitement transverses
+
+##### Light
+
+Cycle simple, faible risque, faible impact.
+
+**Critères indicatifs :** correction doc simple ; mono-fichier ou ≤ 3 fichiers ; pas de code applicatif ; pas de chemin protégé ; pas de décision doctrine ; pas de décision produit structurante ; pas de risque sécurité ; pas de relance tooling ou architecture.
+
+**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; pas de `chatgpt-review.md` obligatoire sauf besoin explicite.
+
+##### Standard
+
+Cycle courant, utile, borné, traçabilité requise.
+
+**Critères indicatifs :** cycle documentaire ou méthode courant ; plusieurs fichiers, périmètre clair ; impact maîtrisé ; pas de doctrine majeure ; pas de chemin protégé ; pas de risque bloquant ; rapport structuré requis.
+
+**Exécution :** prompt contractuel ; rapport structuré ; readiness **unique** ; post-merge court obligatoire ; Morris sur gates utiles — pas micro-validation.
+
+##### Critical
+
+Cycle à risque structurant — **indépendamment du type projet**.
+
+Critical **n'est pas** un type de cycle projet. Un cycle cadrage, conception, UX/UI, architecture, delivery, QA ou capitalisation peut être Critical si impact ou risque le justifie.
+
+**Facteurs de criticité :** décision d'architecture structurante ; sécurité / conformité ; chemins protégés ; impact fort méthode / produit / delivery ; gros diff ; dette technique ou méthodologique ; décision difficilement réversible ; réserve bloquante possible ; changement de doctrine ; promotion implicite version ou standard ; relance trajectoire clôturée (ex. SFIA 3.0).
+
+**Exécution :** prompt renforcé ; rapport complet ; `chatgpt-review.md` recommandé ; readiness renforcée ; gates Morris explicites ; aucune hypothèse structurante non validée.
+
+**Règle :** Critical ne doit **jamais** être implicite — justification par facteur(s) de criticité obligatoire.
+
+##### Capitalization
+
+Cycle visant à transformer apprentissage, REX, pratique ou décision en actif méthodologique réutilisable.
+
+**Critères indicatifs :** REX ; standardisation ; promotion méthode ; synthèse post-cycle ; capitalisation réutilisable ; documentation doctrine ou pattern ; clôture cycle projet ou méthode.
+
+**Important :** Capitalization n'est **pas** automatiquement Critical. Portée Light, Standard ou Critical selon impact.
+
+**Exécution :** traçabilité apprentissage ; distinction observation / recommandation / décision ; validation Morris si promotion méthode ; readiness adaptée à la portée.
+
+#### 18.2.3 Règles de qualification du profil
+
+| Règle | Détail |
+|-------|--------|
+| Doute sans risque structurant | Light **uniquement** si aucun facteur de criticité |
+| Sinon | **Standard** par défaut |
+| Critical | Jamais implicite — justification explicite |
+| Capitalization | Décrit l'**intention** de capitaliser — pas le niveau de risque |
+| Combinaison | Type projet + profil SFIA — les deux sont déclarés dans le prompt |
+
+> **Ne pas confondre** le profil SFIA **Capitalization** avec le type de cycle v2.4 **CAPA** : le profil qualifie le niveau de contrôle ; le type `CAPA` qualifie la nature capitalisation méthode (routing guide §4.3.1). Ex. : `CAPA` + profil `Standard`.
+
+#### 18.2.4 Responsabilité bornée (v2.5 candidate)
+
+| Acteur | Responsabilités | Limites |
+|--------|-----------------|---------|
+| **ChatGPT** | Qualifie le profil ; distingue type cycle et profil ; cadre ; sélectionne références ; produit prompt contractuel ; identifie risques ; recommande décision ; limite sollicitations Morris aux gates listés | **Recommande — ne décide pas** ; pas push / PR / merge / actation version |
+| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite |
+| **Morris** | Gates structurants ; doctrine, scope, version, PR, merge, pilote | Autorité L0 — arbitrage structurant jamais automatisé |
+
+#### 18.2.5 Stop conditions (v2.5 candidate)
+
+| Situation | Comportement Cursor |
+|-----------|---------------------|
+| Prompt complet, périmètre clair, type + profil cohérents, aucun stop | **Continue** jusqu'au rapport final |
+| Ambiguïté mineure, wording non structurant, sans impact doctrine / scope / protected path | **Hypothèse conservatrice** documentée dans le rapport |
+| Dépassement scope ; conflit canonique ; incohérence type / profil ; doctrine ; chemin protégé ; action Git distante ; suppression ; v3.0 ; promotion v2.5 implicite ; Bridge / Runner / Git Reader ; réserve bloquante | **Stoppe** — demande Morris |
+
+#### 18.2.6 Readiness proportionnée
+
+| Profil | Readiness |
+|--------|-----------|
+| Light | Courte — périmètre, diff, garde-fous |
+| Standard | Normale — **unique** |
+| Critical | Renforcée |
+| Capitalization | Adaptée promotion doc / méthode |
+
+**Règle centrale :** **une seule readiness par cycle**, sauf réserve bloquante ou demande Morris explicite.
+
+#### 18.2.7 Réduction des interruptions Morris
+
+> « Moins d'interruptions Morris » signifie **plus de cadrage amont**, pas moins de rigueur.
+
+> Un cycle SFIA doit être suffisamment cadré en amont pour permettre une exécution autonome dans le périmètre, avec escalade Morris uniquement sur arbitrage structurant, dépassement de scope ou réserve bloquante.
+
+Morris n'est pas sollicité pour : choix de wording non structurant ; post-merge Light trivial ; qualification Light évidente (sauf contestation).
+
+**Templates Light / Standard / Critical :** prévus au **Cycle 2** — non créés en Cycle 1.
+
 ## 19. Décision
 
 Le modèle ChatGPT ↔ Cursor est reconnu comme **fondation opérationnelle SFIA v1.1**.
