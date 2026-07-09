@@ -2,7 +2,7 @@
 
 **Projet :** Chantiers360 v2  
 **Chemin :** `projects/chantiers360-v2/08-qa-test/r-qa-04-dashboard-real-data-report.md`  
-**Date et heure :** 2026-07-09 18:35 CEST (UTC+0200)  
+**Date et heure :** 2026-07-09 19:36 CEST (UTC+0200)  
 **Branche :** `delivery/chantiers360-r-qa-04-dashboard-real-data`  
 **Cycle :** Delivery ciblé + QA Light — Option A2 (Morris)  
 **Méthode :** SFIA v2.5 **candidate** — SFIA v2.4 baseline opérationnelle
@@ -58,7 +58,7 @@
 - Alimenté par décompte **réel** des statuts chantier (`À démarrer`, `En cours`, `En retard`, `Terminé`)
 - Barres proportionnelles au max des comptes — pas de données inventées
 
-### 4.3 Fichiers modifiés / créés
+### 4.3 Fichiers modifiés / créés (commit `88bb630`)
 
 | Fichier | Action |
 |---------|--------|
@@ -70,6 +70,15 @@
 
 **Non modifié :** `mockChantiers.ts` (spike — plus importé par RightPanels), schema DB, R-UX-01, Option B/C.
 
+### 4.4 Correction E2E (non commitée — GO Morris requis)
+
+| Fichier | Action |
+|---------|--------|
+| `app/e2e/r-qa-04-dashboard-panels.spec.ts` | **Modifié** — assertion compteur scopée au panneau Répartition |
+
+**Avant :** `getByText("1", { exact: true })` — strict mode violation (hero + répartition).  
+**Après :** `repartition.locator("li").filter({ hasText: "À démarrer" })` + `toContainText("1")`.
+
 ---
 
 ## 5. Validations exécutées
@@ -78,28 +87,60 @@
 |------------|----------|
 | `npm run lint` | ✅ PASS — warnings préexistants (hooks INC-02) |
 | `npm run build` | ✅ PASS |
-| `npm run test:e2e` (R-QA-04 spec) | ⚠️ **Non exécuté** — DB test indisponible (`ECONNREFUSED`) |
+| `npm run test:e2e` (R-QA-04 spec) — 2026-07-09 18:35 | ⚠️ **Non exécuté** — DB test indisponible (`ECONNREFUSED`) |
+| `npm run test:e2e` (R-QA-04 spec) — 2026-07-09 19:29 | ❌ **FAIL** — assertion E2E non scopée (voir §5.1) |
+| `npm run test:e2e` (R-QA-04 spec) — 2026-07-09 19:36 | ✅ **PASS** — après correction assertion (voir §5.2) |
 | Absence schema / package / lockfile | ✅ |
 | Périmètre R-QA-04 seul | ✅ |
 
-**Validation manuelle minimale proposée :** avec DB locale, créer chantier + tâche → vérifier panneau droit sur `/` et lien Ouvrir.
+### 5.1 Validation E2E — relance 2026-07-09 19:29 CEST (échec initial)
+
+| Étape | Commande | Résultat |
+|-------|----------|----------|
+| DB test | `npm run db:test:up` | ✅ Container `chantiers360-v2-test-db` healthy |
+| Migrations | `npm run db:test:migrate` | ✅ Migrations appliquées |
+| E2E ciblé | `TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5433/chantiers360_v2_test npm run test:e2e -- e2e/r-qa-04-dashboard-panels.spec.ts` | ❌ **1 failed** |
+
+**Détail échec :** `strict mode violation` — `getByText("1", { exact: true })` résout **2 éléments** (hero stat `1` + répartition `À démarrer: 1`). Les assertions précédentes ont **passé** :
+
+- tâche réelle visible dans `Actions dérivées du dashboard` ✅
+- libellé `À démarrer` présent dans répartition ✅
+- échec sur compteur `1` non scopé au panneau répartition ❌
+
+**Interprétation :** correction fonctionnelle opérationnelle ; échec relève de l'assertion E2E uniquement.
+
+### 5.2 Validation E2E — relance 2026-07-09 19:36 CEST (après correction test)
+
+| Étape | Commande | Résultat |
+|-------|----------|----------|
+| DB test | `npm run db:test:up` | ✅ Container `chantiers360-v2-test-db` healthy |
+| Migrations | `npm run db:test:migrate` | ✅ Migrations appliquées |
+| E2E ciblé | `TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5433/chantiers360_v2_test npm run test:e2e -- e2e/r-qa-04-dashboard-panels.spec.ts` | ✅ **1 passed** (5.4s) |
+
+**Assertions validées :**
+
+- tâche réelle visible dans `Actions dérivées du dashboard` ✅
+- libellé `À démarrer` présent dans répartition ✅
+- compteur `1` scopé à la ligne `À démarrer` du panneau répartition ✅
+- absence de libellé mock `Compte rendu à rédiger` ✅
 
 ---
 
 ## 6. Statut proposé de R-QA-04
 
-### **IMPLEMENTED — QA VALIDATION PENDING**
+### **READY FOR CLOSURE REVIEW**
 
 | Élément | Statut |
 |---------|--------|
 | **Correction fonctionnelle** | ✅ Implémentée — panneaux droits branchés sur données réelles |
+| **Correction E2E** | ✅ Appliquée (non commitée) |
 | **`npm run lint`** | ✅ OK |
 | **`npm run build`** | ✅ OK |
-| **E2E ciblé** (`r-qa-04-dashboard-panels.spec.ts`) | ⚠️ **Non exécuté** — DB test indisponible (`ECONNREFUSED`) |
-| **R-QA-04** | **Ouverte** — jusqu'à validation E2E ou validation manuelle documentée |
-| **Clôture définitive** | ❌ Réservée à décision Morris **après** validation |
+| **E2E ciblé** — relance 2026-07-09 19:36 | ✅ **PASS** |
+| **R-QA-04** | **Prête pour revue de clôture** — décision Morris requise |
+| **Clôture définitive** | ❌ Réservée à décision Morris |
 
-> **Capitalization :** la réserve **ne doit pas** être présentée comme clôturable tant que l'E2E ou une validation manuelle équivalente n'a pas été réalisée. Statut **proposé** — pas une décision validée.
+> **Capitalization :** la réserve **ne doit pas** être présentée comme clôturée sans GO Morris explicite. Statut **proposé** — pas une décision validée.
 
 ---
 
@@ -107,7 +148,7 @@
 
 | Réserve | Statut |
 |---------|--------|
-| **R-QA-04** | **Ouverte** — correction implémentée ; validation QA en attente (E2E ou manuelle) |
+| **R-QA-04** | **Prête pour revue de clôture** — E2E PASS ; GO Morris pour clôture définitive |
 | **R-UX-01** | Ouverte — hors périmètre ce cycle |
 | **R-QA-03** | Ouverte — hors périmètre |
 | **R-QA-05** | Ouverte — hors périmètre |
@@ -116,17 +157,15 @@
 
 ## 8. Décisions Morris requises
 
-1. **GO revue** correction R-QA-04
-2. **GO validation QA** — E2E avec DB test ou validation manuelle documentée
-3. **GO clôture** R-QA-04 — uniquement **après** validation QA
-4. **GO commit** sur `delivery/chantiers360-r-qa-04-dashboard-real-data`
-5. **GO push / PR** vers `main`
+1. **GO commit** — correction E2E + mise à jour rapport QA
+2. **GO clôture** R-QA-04 — décision définitive après revue
+3. **GO push / PR** vers `main`
 
 ---
 
 ## 9. Verdict cycle
 
-### **READY FOR MORRIS REVIEW**
+### **QA VALIDATION PASSED — READY FOR MORRIS CLOSURE REVIEW**
 
 ---
 

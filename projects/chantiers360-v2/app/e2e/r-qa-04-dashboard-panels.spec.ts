@@ -36,10 +36,9 @@ test.describe("R-QA-04 — Dashboard panneaux droits", () => {
 
     await page.goto("/");
     await expect(page.getByLabel("Actions dérivées du dashboard")).toContainText(taskLabel);
-    await expect(page.getByLabel("Répartition des chantiers par statut")).toContainText(
-      "À démarrer"
-    );
-    await expect(page.getByText("1", { exact: true })).toBeVisible();
+    const repartition = page.getByLabel("Répartition des chantiers par statut");
+    await expect(repartition).toContainText("À démarrer");
+    await expect(repartition.locator("li").filter({ hasText: "À démarrer" })).toContainText("1");
     await expect(page.getByText("Compte rendu à rédiger")).not.toBeVisible();
   });
 });
