@@ -228,8 +228,9 @@ Handoff ChatGPT ↔ Cursor ↔ Git : **cadre documentaire** v2.4 §10 — **non 
 ### 4.4 Routage SFIA v2.5 candidate — profils transverses
 
 > **Référence :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1  
-> **Statut :** hypothèse **candidate** — ne valide pas v2.5 ; preuve Cycle 3 ; Morris décide  
-> **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2
+> **Statut :** hypothèse **candidate** — ne valide pas v2.5 ; preuve Cycle 4 ; Morris décide  
+> **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2  
+> **Cartographie cycles projet (Cycle 2) :** le routage type de cycle projet × profil SFIA s'appuie, en v2.5 candidate, sur `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`.
 
 Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables.
 

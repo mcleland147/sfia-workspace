@@ -539,7 +539,7 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
 
 ### 18.2 Complément SFIA v2.5 candidate — MVP méthode proportionnée
 
-> **Référence :** `sfia-v2.5-project-plan.md` — Cycle 1 — **hypothèse candidate** ; preuve attendue au Cycle 3 ; Morris décide.  
+> **Référence :** `sfia-v2.5-project-plan.md` — Cycle 1 — **hypothèse candidate** ; preuve attendue au Cycle 4 ; Morris décide.  
 > **Ne remplace pas** v2.4 — **opérationnalise** la proportionnalité. **Ne valide pas** SFIA v2.5.
 
 Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables (voir `sfia-cycle-routing-guide.md` §4.3.1).
@@ -569,6 +569,8 @@ Ce complément v2.5 candidate clarifie la séparation entre type de cycle et pro
 Notation recommandée : `UX/UI — Standard`, `Architecture fonctionnelle — Critical`, `Correction documentaire — Light`, `REX projet — Capitalization Standard`.
 
 La cartographie détaillée des cycles projet reste hors périmètre Cycle 1 — cycle dédié ultérieur dans la roadmap v2.5.
+
+> Pour la cartographie et la méthodologie candidate des cycles projet SFIA v2.5, se référer à `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`.
 
 #### 18.2.2 Profils SFIA — niveaux de traitement transverses
 
