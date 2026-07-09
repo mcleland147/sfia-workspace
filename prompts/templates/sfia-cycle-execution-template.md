@@ -239,12 +239,13 @@ Stop conditions :
 
 Étapes d'exécution :
 1. Local Git Truth Check
-2. Lire les sources listées
-3. [Étapes spécifiques au cycle]
-4. Validations (git diff, lints, tests si applicable)
-5. Review pack si obligatoire (§7)
-6. Rapport final (§9)
-7. Ouvrir chatgpt-review.md si review pack (best effort)
+2. Réinitialiser `.tmp-sfia-review/chatgpt-review.md` si review pack obligatoire (§7.1) — créer le dossier si absent ; **écraser entièrement** le fichier existant ; aucun append historique
+3. Lire les sources listées
+4. [Étapes spécifiques au cycle]
+5. Validations (git diff, lints, tests si applicable)
+6. Review pack si obligatoire (§7) — contenu **mono-cycle uniquement**
+7. Rapport final (§9)
+8. Ouvrir chatgpt-review.md si review pack (best effort)
 
 Validations attendues :
 - git status --short
@@ -252,7 +253,7 @@ Validations attendues :
 - [Contrôles spécifiques]
 
 Review pack obligatoire :
-[oui / non — si oui, référencer §7]
+[oui / non — si oui, référencer §7 — réinitialiser le fichier en début de cycle (étape 2) avant toute écriture ; mono-cycle uniquement]
 
 Rapport final attendu :
 [Format selon profil §9 — inclure date et heure du rapport]
@@ -429,13 +430,26 @@ Activer uniquement les blocs pertinents. Injecter le texte du bloc dans le promp
 
 ## 7. Review pack obligatoire
 
-### 7.1 Règle structurante
+### 7.1 Règle structurante — artefact temporaire mono-cycle
 
-Tout prompt Cursor impliquant **consultation**, **modification** ou **création** documentaire doit créer ou mettre à jour :
+Le review pack `.tmp-sfia-review/chatgpt-review.md` est un **artefact temporaire mono-cycle**.
 
-`.tmp-sfia-review/chatgpt-review.md`
+Tout prompt Cursor impliquant **consultation**, **modification** ou **création** documentaire doit créer ou mettre à jour ce fichier — **uniquement pour le cycle en cours**.
 
 > Pour les cycles Light triviaux, le review pack peut être exempté uniquement si aucun document n'est **consulté**, **créé** ou **modifié** et si Morris ne demande pas de revue. Toute consultation documentaire utilisée comme base de décision, modification, création ou PR readiness reste soumise au review pack.
+
+**Au démarrage de chaque cycle Cursor (avant toute écriture du review pack) :**
+
+1. Créer le dossier `.tmp-sfia-review/` si absent.
+2. Si `.tmp-sfia-review/chatgpt-review.md` existe, **l'écraser entièrement**.
+3. **Ne pas** conserver les sections des cycles précédents.
+4. **Ne pas** append l'historique — sauf instruction explicite Morris.
+5. Le fichier doit contenir **uniquement** la revue du cycle courant.
+6. Inclure la **date et l'heure** du rapport ou de la section de revue.
+7. Le fichier reste **hors commit** par défaut.
+8. `.tmp-sfia-review/` ne doit **jamais** être staged ni commit sans GO Morris explicite.
+
+**Après analyse ChatGPT / Morris :** le fichier peut rester présent temporairement ; il sera **réinitialisé au cycle suivant**. Tout apprentissage durable doit être capitalisé dans un **document versionné dédié**, pas dans `.tmp-sfia-review/`.
 
 ### 7.2 Contenu obligatoire du review pack
 
@@ -485,6 +499,9 @@ Si un document source dépasse un seuil raisonnable :
 
 - **Ne jamais** `git add` / commit / stage `.tmp-sfia-review/` sauf décision explicite Morris
 - Le review pack est **hors commit** par défaut
+- **Ne jamais** append un nouveau cycle à un `chatgpt-review.md` existant **sans l'écraser** — sauf instruction explicite Morris
+- **Ne jamais** laisser le review pack **mélanger plusieurs cycles** sans instruction explicite Morris
+- **Ne jamais** utiliser `.tmp-sfia-review/` comme journal cumulatif ou doctrine permanente
 
 ---
 
@@ -511,6 +528,8 @@ Cursor doit **stopper** et demander Morris si :
 17. Contenu créé/modifié **absent** du review pack
 18. **Divergence** entre fichier réel et contenu présenté dans le review pack
 19. Figma : fidélité visuelle requise sans source design validée
+20. **Append** d'un nouveau cycle à un `chatgpt-review.md` existant **sans écrasement** préalable
+21. Review pack **mélangeant plusieurs cycles** sans instruction explicite Morris
 
 ---
 
@@ -528,11 +547,13 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
 6. Diff stat (si applicable)
 7. Validations exécutées
 8. Garde-fous confirmés
-9. Review pack créé / mis à jour (oui/non)
-10. Ouverture review pack (confirmé / best effort)
-11. Réserves
-12. Décisions Morris requises (oui/non + liste)
-13. Verdict
+9. Review pack réinitialisé au début du cycle (oui/non)
+10. Review pack créé / mis à jour (oui/non) — **mono-cycle uniquement**
+11. Review pack ne contient que le cycle courant (confirmé / non)
+12. Ouverture review pack (confirmé / best effort)
+13. Réserves
+14. Décisions Morris requises (oui/non + liste)
+15. Verdict
 
 ### 9.2 Variantes par profil
 
@@ -567,7 +588,7 @@ Avant tout prompt Cursor :
 2. Utiliser le template canonique : prompts/templates/sfia-cycle-execution-template.md (Git main).
 3. Si ajouté aux sources projet ChatGPT : aide d'instanciation — en cas d'écart, Git main > sources projet.
 4. Critical : toujours justifier. Standard par défaut si doute.
-5. Tout prompt Cursor impliquant consultation, modification ou création documentaire : review pack obligatoire dans .tmp-sfia-review/chatgpt-review.md — hors commit. Chaque section de revue doit inclure la date et l'heure.
+5. Tout prompt Cursor impliquant consultation, modification ou création documentaire : review pack obligatoire dans .tmp-sfia-review/chatgpt-review.md — artefact temporaire mono-cycle, réinitialisé (écrasé) en début de cycle, hors commit, append interdit sauf instruction Morris. Chaque revue doit inclure la date et l'heure.
 6. v2.5 = candidate, non baseline. v2.4 reste baseline opérationnelle tant que Morris n'a pas validé v2.5.
 7. Morris décide push, PR, merge, gates structurants. Cursor exécute le contrat — ne décide pas.
 ```

@@ -46,8 +46,8 @@ Il vise à éviter :
 | 5 | **Garde-fous et gates** | `sfia-rules-and-guardrails.md` — actions interdites, chemins protégés, push/PR/merge |
 | 6 | **Détail des 15 cycles** | `sfia-v2.5-project-cycles-method-candidate.md` — cartographie, méthodologie par cycle, blocs activables |
 | 7 | **Trajectoire chantier** | `sfia-v2.5-project-plan.md` — **uniquement** pour contexte Cycles 0–5, critères, roadmap |
-| 8 | **Review pack temporaire** | `.tmp-sfia-review/chatgpt-review.md` — revue du cycle en cours, **hors commit** par défaut |
-| 9 | **Pas de doctrine temporaire** | Ne pas utiliser `.tmp-sfia-review/` comme source permanente |
+| 8 | **Review pack temporaire mono-cycle** | `.tmp-sfia-review/chatgpt-review.md` — revue du **cycle en cours uniquement** ; **réinitialisé (écrasé) au démarrage** de chaque cycle ; **hors commit** par défaut |
+| 9 | **Pas de doctrine temporaire** | Ne pas utiliser `.tmp-sfia-review/` comme source permanente ni journal cumulatif |
 | 10 | **Hors trajectoire** | SFIA v3.0, MCP, Bridge, Runner, `.sfia/` — **pas** sources opérationnelles v2.5 sauf réouverture explicite Morris |
 
 ---
@@ -63,7 +63,7 @@ Il vise à éviter :
 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | 15 cycles projet ; méthodologie par cycle ; transverses FinOps/GreenOps/etc. ; Figma 4 cas | Détail cycle projet ; blocs activables ; critères entrée/sortie ; impact templates | Trajectoire globale Cycles 0–5 (→ project plan) ; validation baseline v2.5 | ChatGPT | Git only — candidate |
 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-plan.md` | Roadmap Cycles 0–5 ; critères C1–C10 ; décisions D0–D7 ; vision chantier v2.5 | Contexte chantier ; positionnement cycle dans la trajectoire ; arbitrage Morris structurant | Exécution opérationnelle d'un cycle courant ; génération prompt Cursor | Morris, ChatGPT (cadrage macro) | Git only — candidate |
 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-source-routing-map-candidate.md` | **Ce document** — matrice de routage sources × cycles × profils | Préparation Cycle 4 ; clarification « quoi lire quand » ; capitalisation routing | Remplacement du template ou du routing guide ; doctrine baseline | ChatGPT, Morris | Git only — candidate |
-| `.tmp-sfia-review/chatgpt-review.md` | Review pack du cycle en cours ; traçabilité consultation/modification/création | Cycle avec consultation/modification/création documentaire ; validation ChatGPT immédiate | Source de vérité permanente ; doctrine ; commit sans GO Morris | Cursor (production), ChatGPT (revue), Morris | **Temporaire** — hors commit |
+| `.tmp-sfia-review/chatgpt-review.md` | Review pack **mono-cycle** du cycle en cours ; réinitialisé (écrasé) au démarrage ; traçabilité consultation/modification/création | Cycle avec consultation/modification/création documentaire ; validation ChatGPT immédiate | Source de vérité permanente ; doctrine ; journal cumulatif ; commit sans GO Morris ; append historique sans instruction Morris | Cursor (production), ChatGPT (revue), Morris | **Temporaire** — hors commit — mono-cycle |
 | `prompts/templates/README.md` | Conventions dossier templates ; statuts candidate/validated | Ajout ou promotion d'un template ; compréhension statuts | Routage cycle courant (sauf gestion templates) | Morris, ChatGPT | Git only |
 | `prompts/prompt-catalog.md` | Catalogue prompts SFIA validés / historiques | Référence prompts existants ; **ne pas modifier** sans GO Morris | Génération nouveau prompt v2.5 (→ template Cycle 3) ; source opérationnelle par défaut v2.5 candidate | ChatGPT (lecture), Morris | Git only — protégé |
 | `docs/tooling/mcp/*` | Doctrine et tooling SFIA 3.0 / MCP | **Jamais** en trajectoire v2.5 courante | Tout cycle v2.5 sans réouverture explicite Morris | — | **Hors trajectoire** |
@@ -121,7 +121,7 @@ Il vise à éviter :
 | **Cursor** | Lit le repo **uniquement** après Local Git Truth Check et selon périmètre du prompt | Ne décide pas ; n'élargit pas le périmètre documentaire ; exécuteur contrôlé |
 | **Morris** | Valide gates, push, PR, merge, baseline | Autorité de décision — pas d'automatisation des arbitrages |
 
-**Règle review pack :** tout prompt Cursor impliquant **consultation**, **modification** ou **création** documentaire déclenche mise à jour de `.tmp-sfia-review/chatgpt-review.md` — hors commit par défaut, avec **date et heure** du rapport / de la section de revue.
+**Règle review pack :** tout prompt Cursor impliquant **consultation**, **modification** ou **création** documentaire déclenche la **réinitialisation puis l'écriture** de `.tmp-sfia-review/chatgpt-review.md` — artefact **mono-cycle**, **écrasé au démarrage** du cycle, hors commit par défaut, **append historique interdit** sauf instruction Morris, avec **date et heure** du rapport.
 
 ---
 
@@ -129,7 +129,7 @@ Il vise à éviter :
 
 | Document | Usage | Interdictions |
 |----------|-------|---------------|
-| `.tmp-sfia-review/chatgpt-review.md` | Revue du cycle en cours ; preuve pour ChatGPT ; horodatage obligatoire | Remplacer un livrable versionné ; commit/stage sans GO Morris ; doctrine stable |
+| `.tmp-sfia-review/chatgpt-review.md` | Revue **mono-cycle** en cours ; preuve pour ChatGPT ; horodatage obligatoire ; réinitialisé au démarrage de chaque cycle | Remplacer un livrable versionné ; commit/stage sans GO Morris ; doctrine stable ; journal cumulatif ; append sans écrasement |
 | `.tmp-figma-captures/` et autres `.tmp-*` | Captures ponctuelles | Source de vérité design |
 
 ---
@@ -160,7 +160,9 @@ Cursor ou ChatGPT doit **stopper** et solliciter Morris si :
 6. Modification **hors périmètre** (catalog, core/, automation, v3)
 7. Action Git distante (push / PR / merge) **sans GO Morris**
 8. Absence de **review pack** alors que documents consultés / modifiés / créés
-9. Tentative d'utiliser `.tmp-sfia-review/` comme **doctrine permanente**
+9. Tentative d'utiliser `.tmp-sfia-review/` comme **doctrine permanente** ou **journal cumulatif**
+10. **Append** d'un cycle à `chatgpt-review.md` **sans écrasement** préalable — sauf instruction Morris
+11. Review pack **mélangeant plusieurs cycles** sans instruction explicite Morris
 
 ---
 
