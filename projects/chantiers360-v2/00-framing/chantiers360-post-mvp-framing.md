@@ -69,7 +69,7 @@
 |----|----------------|-------------|------------------|---------------------|----------------------|-----------------|
 | **R-UX-01** | Ouverte — acceptée | Écran `/prochaines-actions` sans frame Figma dédiée — extrapolation patterns UI INC-05 | Dette design ; risque fidélité visuelle si évolution UI sans source validée | Rattrapage design Figma ; ou maintien accepté ; ou refonte UI guidée | **UX/UI** (si reprise design) ; **Capitalization** (si capitalisation méthode design coverage) | **Oui** — accepter, lever ou planifier rattrapage |
 | **R-QA-03** | Ouverte — acceptée | Validation formulaire chantier vide — HTML5 `required` uniquement, pas de message serveur E2E | UX formulaire faible ; risque données incomplètes si contournement client | Micro-cycle QA : validation serveur + E2E | **QA / validation** (Light) | **Oui** — GO micro-cycle ou maintien accepté |
-| **R-QA-04** | Ouverte — acceptée | Panneaux dashboard droite mockés (héritage spike Figma) | Dashboard partiellement fictif ; dette UX produit | Remplacer mocks par données réelles ou redesign panneaux | **Delivery** + **UX/UI** (si redesign) | **Oui** — priorité produit vs dette technique |
+| **R-QA-04** | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) | Panneaux dashboard droite — données réelles (Option A2) | Dette levée | Branché sur `lib/prochaines-actions/` + statuts chantiers | **Delivery** — livré | ✅ Clôturée Morris |
 | **R-QA-05** | Ouverte — environnementale | Port 3000 occupé bloque `test:e2e:full` — fallback port 3001 documenté | Friction développement local ; CI/local non harmonisé | Script port dédié ; doc runbook ; config Playwright | **QA / validation** (Light) ou **Intégration / DevOps** (Light) | **Optionnelle** — GO si objectif qualité opérationnelle |
 
 **Rappel :** aucune réserve n'était bloquante à la capitalisation MVP. Leur traitement post-MVP est un **choix de qualité / produit**, pas une obligation de clôture MVP.
@@ -83,7 +83,7 @@
 | Élément | Détail |
 |---------|--------|
 | **R-UX-01** | Frame Figma `/prochaines-actions` |
-| **R-QA-04** | Panneaux dashboard droite — données réelles vs mock |
+| **R-QA-04** | ~~Panneaux dashboard droite — données réelles vs mock~~ **CLOSED** — PR #151 |
 | **Fidélité design** | 4 frames P1 Figma validées — écrans post-INC-05 partiellement hors couverture |
 | **Accessibilité** | Non évaluée au MVP — à traiter si évolution UI publique |
 
