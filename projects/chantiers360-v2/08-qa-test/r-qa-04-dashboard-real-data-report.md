@@ -126,21 +126,23 @@
 
 ---
 
-## 6. Statut proposé de R-QA-04
+## 6. Statut de R-QA-04
 
-### **READY FOR CLOSURE REVIEW**
+### **CLOSED**
 
-| Élément | Statut |
+| Élément | Valeur |
 |---------|--------|
 | **Correction fonctionnelle** | ✅ Implémentée — panneaux droits branchés sur données réelles |
 | **Correction E2E** | ✅ Commitée dans `79388f0` — test ciblé PASS |
 | **`npm run lint`** | ✅ OK |
 | **`npm run build`** | ✅ OK |
 | **E2E ciblé** — relance 2026-07-09 19:36 | ✅ **PASS** |
-| **R-QA-04** | **Prête pour revue de clôture** — décision Morris requise |
-| **Clôture définitive** | ❌ Réservée à décision Morris |
+| **PR** | #151 mergée sur `main` |
+| **Merge commit** | `2aa68f4` |
+| **Date clôture** | 2026-07-09 |
+| **Décision** | Clôture documentaire Morris |
 
-> **Capitalization :** la réserve **ne doit pas** être présentée comme clôturée sans GO Morris explicite. Statut **proposé** — pas une décision validée.
+> **Capitalization :** réserve **clôturée** — GO Morris accordé post-merge PR #151.
 
 ---
 
@@ -148,25 +150,25 @@
 
 | Réserve | Statut |
 |---------|--------|
-| **R-QA-04** | **Prête pour revue de clôture** — E2E PASS ; GO Morris pour clôture définitive |
+| **R-QA-04** | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) |
 | **R-UX-01** | Ouverte — hors périmètre ce cycle |
 | **R-QA-03** | Ouverte — hors périmètre |
 | **R-QA-05** | Ouverte — hors périmètre |
 
 ---
 
-## 8. Décisions Morris requises
+## 8. Décisions Morris
 
-1. **GO commit** — correction E2E + mise à jour rapport QA
-2. **GO clôture** R-QA-04 — décision définitive après revue
-3. **GO push / PR** vers `main`
+1. ~~**GO commit** — correction E2E + mise à jour rapport QA~~ ✅
+2. ~~**GO clôture** R-QA-04~~ ✅ — clôture documentaire 2026-07-09
+3. ~~**GO push / PR** vers `main`~~ ✅ — PR #151 mergée
 
 ---
 
 ## 9. Verdict cycle
 
-### **QA VALIDATION PASSED — READY FOR MORRIS CLOSURE REVIEW**
+### **R-QA-04 CLOSED — PR #151 MERGED**
 
 ---
 
-*Chantiers360 v2 — R-QA-04 — SFIA v2.5 candidate — Morris décide clôture.*
+*Chantiers360 v2 — R-QA-04 — CLOSED — PR #151 @ `2aa68f4` — 2026-07-09.*

@@ -139,7 +139,7 @@ L'écran **Prochaines actions** (US-12, US-13) a été livré par **extrapolatio
 |---------|--------|
 | **ID** | R-QA-04 |
 | **Zone concernée** | Panneaux droite du dashboard (`/`) |
-| **Statut** | **Ouverte — acceptée** — héritée INC-01 → INC-05 |
+| **Statut** | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) — Option A2 livrée |
 | **Origine** | INC-01 — spike Figma fidelity |
 | **Sévérité** | Mineure — non bloquante |
 
@@ -213,6 +213,18 @@ Les panneaux **« À faire aujourd'hui »** et **« Répartition »** affichent 
 
 - **GO traitement R-QA-04** (brancher, redesigner ou retirer) **ou**
 - **GO maintien en réserve acceptée** — dette dashboard assumée
+
+### 5.10 Clôture (2026-07-09)
+
+| Élément | Valeur |
+|---------|--------|
+| **Statut** | **CLOSED** |
+| **Traitement** | T1 — branchement données réelles (`lib/prochaines-actions/` + statuts chantiers) |
+| **PR** | #151 |
+| **Merge commit** | `2aa68f4` |
+| **E2E** | `r-qa-04-dashboard-panels.spec.ts` — PASS |
+| **Rapport** | `08-qa-test/r-qa-04-dashboard-real-data-report.md` |
+| **Décision** | Clôture documentaire Morris |
 
 ---
 

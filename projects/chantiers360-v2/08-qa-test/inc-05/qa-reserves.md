@@ -27,11 +27,11 @@
 | # | Réserve | Statut INC-05 |
 |---|---------|---------------|
 | R-QA-03 | HTML5 `required` formulaire chantier | **Ouverte** — acceptée — hors périmètre |
-| R-QA-04 | Panneaux dashboard droite mockés | **Ouverte** — acceptée — hors périmètre |
+| R-QA-04 | Panneaux dashboard droite mockés | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) — hors périmètre INC-05 |
 | R-QA-05 | Port 3000 occupé | **Ouverte** — environnementale |
 
-INC-05 n'adresse pas R-QA-03 / R-QA-04 / R-QA-05 — aucun impact direct documenté.
+INC-05 n'adresse pas R-QA-03 / R-QA-05 — aucun impact direct documenté. **R-QA-04 clôturée** post-MVP — cycle Option A2, PR #151 (2026-07-09).
 
 ## Verdict réserves
 
-**INC-05 CLOSED WITH RESERVES** — R-UX-01 et réserves héritées acceptées, non bloquantes à la clôture.
+**INC-05 CLOSED WITH RESERVES** — R-UX-01 et réserves héritées acceptées, non bloquantes à la clôture. **R-QA-04** clôturée post-MVP (PR #151, 2026-07-09).
