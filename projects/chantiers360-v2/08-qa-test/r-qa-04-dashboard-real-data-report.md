@@ -70,7 +70,7 @@
 
 **Non modifié :** `mockChantiers.ts` (spike — plus importé par RightPanels), schema DB, R-UX-01, Option B/C.
 
-### 4.4 Correction E2E (non commitée — GO Morris requis)
+### 4.4 Correction E2E (commitée dans `79388f0` — test ciblé PASS)
 
 | Fichier | Action |
 |---------|--------|
@@ -133,7 +133,7 @@
 | Élément | Statut |
 |---------|--------|
 | **Correction fonctionnelle** | ✅ Implémentée — panneaux droits branchés sur données réelles |
-| **Correction E2E** | ✅ Appliquée (non commitée) |
+| **Correction E2E** | ✅ Commitée dans `79388f0` — test ciblé PASS |
 | **`npm run lint`** | ✅ OK |
 | **`npm run build`** | ✅ OK |
 | **E2E ciblé** — relance 2026-07-09 19:36 | ✅ **PASS** |
