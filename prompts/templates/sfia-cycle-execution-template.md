@@ -425,11 +425,13 @@ Activer uniquement les blocs pertinents. Injecter le texte du bloc dans le promp
 | **Gates Morris** | GO arbitrage performance/coût/délai |
 | **Stop** | SLA structurant sans gate |
 
-### 6.6 UX/UI + Figma
+### 6.6 UX/UI + Figma — Figma visual contract / Figma-to-code
+
+> **Candidate v2.5 — capitalisation PR 3.** Standard transverse pour cycles UX/UI et delivery UI avec fidélité Figma attendue. Ancrage REX : Chantiers360 R-UX-01 — verdict `NO DELIVERY REQUIRED` révoqué sans capture runtime.
 
 | Élément | Contenu |
 |---------|---------|
-| **Activer si** | Cycle UX/UI ou delivery avec composant UI |
+| **Activer si** | Cycle UX/UI ou delivery avec composant UI ; fidélité visuelle attendue ; gap review Figma-to-code ; PR readiness avec conformité visuelle ; correction UI après écart runtime |
 | **Qualification source design** | Choisir **un** des 4 cas ci-dessous |
 
 | Cas | Comportement |
@@ -439,8 +441,154 @@ Activer uniquement les blocs pertinents. Injecter le texte du bloc dans le promp
 | **Figma absent + fidélité visuelle attendue** | **Stop** ou GO arbitrage Morris — pas d'interprétation Cursor |
 | **Figma disponible non validé** | Exploration OK ; **pas** source d'exécution tant que non validé |
 
-| **Livrables** | Référence Figma, specs UI, écarts design/code, handoff delivery |
-| **Stop** | Fidélité visuelle requise sans source design validée |
+#### A. Cas d'usage
+
+Le standard s'applique **au minimum** dans les cas suivants :
+
+- cycle UX/UI avec source Figma validée ;
+- delivery UI avec fidélité visuelle attendue ;
+- gap review Figma-to-code ;
+- PR readiness impliquant conformité visuelle ;
+- correction UI après écart runtime.
+
+#### B. Gate simple Review UX/Figma
+
+Cursor applique ce gate avant tout verdict visuel fort :
+
+| Niveau | Question |
+|--------|----------|
+| **Structure** | Les bons éléments existent-ils ? |
+| **Fonctionnel** | Le comportement est-il conforme ? |
+| **Visuel** | L'écran ressemble-t-il réellement à la frame ? |
+| **Runtime** | A-t-on une capture navigateur ? |
+| **Verdict** | Peut-on conclure sans capture ? |
+
+**Règle dure :** si aucune capture runtime n'est comparée à la frame Figma, le verdict **ne peut pas** être `NO DELIVERY REQUIRED`. Le maximum autorisé est :
+
+```text
+REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED
+```
+
+#### C. Règles Cursor obligatoires
+
+Cursor doit :
+
+- utiliser **MCP Figma** si disponible ;
+- **confirmer explicitement** les frames lues via MCP ;
+- **lister** les dimensions / layout observés ;
+- produire une **comparaison visuelle runtime vs Figma** ;
+- **ne pas** conclure « aligné » uniquement parce que les composants existent ;
+- **ne pas** conclure `READY` si un élément visible Figma manque ;
+- appliquer le verdict maximum `REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED` si capture runtime ou Figma absente.
+
+#### D. Design extraction contract — avant code
+
+**Avant toute modification code** Figma-to-code, Cursor produit le tableau :
+
+**Contrat visuel Figma extrait**
+
+| Élément | Observation Figma | Valeur / détail | Incertitude | Impact delivery |
+|---------|---------------------|-----------------|:-----------:|-----------------|
+| dimensions principales | | | | |
+| couleurs | | | | |
+| spacing | | | | |
+| colonnes | | | | |
+| styles badges | | | | |
+| styles statuts | | | | |
+| style CTA | | | | |
+| structure état vide | | | | |
+
+**Règle :** ne coder **qu'après** production de ce contrat. Si le contrat ne peut pas être produit :
+
+```text
+FIGMA CONTRACT INCOMPLETE — MORRIS DECISION REQUIRED
+```
+
+#### E. Contenu minimal du contrat visuel
+
+Le contrat visuel inclut **au minimum** :
+
+- lien Figma / fileKey si disponible ;
+- page / frame / node-id ;
+- statut validation Figma : validé / non validé / à produire ;
+- dimensions de frame ou viewport cible ;
+- structure principale ; grille / colonnes / layout ;
+- spacing / paddings / gaps clés ;
+- typographies observables ;
+- couleurs / tokens / états visuels ;
+- composants visibles ; badges / statuts / CTA ;
+- états nominal / vide / erreur / loading si disponibles ;
+- écarts déjà connus ; hypothèses si données manquantes.
+
+#### F. Règle MCP Figma
+
+MCP Figma peut servir à lire la **structure** et les **propriétés design**, mais **ne suffit pas** à conclure une fidélité visuelle sans comparaison runtime.
+
+Cursor liste dans le rapport / review pack :
+
+- frames lues ; node-id utilisés ;
+- dimensions / layout observés ;
+- limites de lecture MCP ;
+- éléments non vérifiables depuis MCP.
+
+#### G. Runtime screenshot obligatoire
+
+Pour conclure une **conformité visuelle**, Cursor produit ou demande une **capture runtime**.
+
+Sans capture runtime, le verdict maximum est :
+
+```text
+REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED
+```
+
+#### H. Comparaison Figma vs Runtime — après code ou gap review
+
+Après codage ou gap review, Cursor produit le tableau :
+
+**Figma vs Runtime**
+
+| Élément | Attendu Figma | Observé runtime | Statut | Preuve / réserve |
+|---------|---------------|-----------------|--------|------------------|
+
+Statuts autorisés : **Conforme** ; **Partiellement conforme** ; **Non conforme** ; **Capture/runtime requise**.
+
+**Règles :**
+
+- ne pas conclure `READY` si un élément visible Figma manque ;
+- ne pas conclure « aligné » sans comparaison capture Figma vs capture runtime ;
+- ne pas conclure `NO DELIVERY REQUIRED` si la comparaison n'a pas été faite.
+
+#### I. Verdicts autorisés
+
+| Verdict | Usage |
+|---------|-------|
+| `FIGMA CONTRACT READY — READY FOR DELIVERY` | Contrat extrait complet — code autorisé |
+| `FIGMA CONTRACT INCOMPLETE — MORRIS DECISION REQUIRED` | Contrat impossible ou incomplet |
+| `FIGMA TO RUNTIME ALIGNED — READY` | Comparaison faite — conformité visuelle |
+| `FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED` | Écarts visuels — delivery requis |
+| `REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED` | Capture runtime ou comparaison absente |
+| `NO DELIVERY REQUIRED` | **Uniquement si** : source Figma validée ; frames lues explicitement ; contrat visuel produit ; runtime screenshot disponible ; comparaison Figma vs Runtime effectuée ; aucun écart visible bloquant |
+
+#### J. Règle dure à capitaliser
+
+> Pour un cycle Figma-to-code, **MCP Figma ne suffit pas**. Il faut imposer une **extraction visuelle contractuelle avant modification code**, puis une **revue runtime obligatoire après modification**. Aucun verdict « aligné » sans comparaison capture Figma vs capture runtime.
+
+#### K. Stop conditions (Figma visual contract)
+
+Cursor stoppe ou demande décision Morris si :
+
+- fidélité visuelle attendue mais Figma absent ou non validé ;
+- frame Figma introuvable ;
+- MCP Figma indisponible alors que le prompt le rend obligatoire ;
+- capture runtime impossible mais verdict fort demandé ;
+- écart visuel majeur détecté sans GO arbitrage ;
+- ambiguïté entre design exploration et source d'exécution ;
+- demande de conclure pixel-perfect sans preuve runtime ;
+- contrat visuel Figma non produit avant code ;
+- comparaison Figma vs Runtime absente après code ou gap review.
+
+| **Livrables** | Référence Figma ; contrat visuel extrait ; comparaison Figma vs Runtime ; captures ; specs UI ; écarts design/code ; handoff delivery |
+| **Stop** | Fidélité visuelle requise sans source design validée ; contrat absent ; comparaison absente ; verdict fort sans capture |
 
 ### 6.7 Sécurité / RSSI
 
@@ -570,6 +718,42 @@ Formulation attendue :
 | Fichier **modifié** | Sections complètes modifiées obligatoires **ou** diff utile complet |
 | Contenu complet non inclus (taille) | Chemin, sections concernées, raison, extrait/diff suffisant pour revue |
 
+#### 7.2.1 Contenu obligatoire des fichiers créés/modifiés
+
+> **Règle générale** — s'applique à **tout** review pack **light** ou **full** impliquant création ou modification de fichiers.
+
+Pour toute génération de `.tmp-sfia-review/chatgpt-review.md`, dès qu'un cycle **crée** ou **modifie** des fichiers, Cursor doit inclure le **contenu exploitable** des fichiers créés/modifiés — pas uniquement une synthèse.
+
+| Exigence | Application |
+|----------|-------------|
+| **Fichier créé** | Contenu complet obligatoire — sauf seuil explicite (§7.6) |
+| **Fichier modifié** | Section complète modifiée **ou** diff utile complet obligatoire |
+| **Fichier long** | Sections exactes modifiées + diff utile + justification de non-inclusion complète |
+| **Fichier volumineux généré** | Chemin, taille, rôle, extrait utile, justification |
+| **Documents consultés non modifiés** | Références, rôle, sections consultées, extraits courts **seulement** |
+| **Fichiers créés/modifiés** | **Jamais** uniquement une synthèse |
+
+Le review pack final **ne peut pas** être considéré complet si le contenu des fichiers créés/modifiés est absent.
+
+Cursor doit signaler explicitement toute impossibilité de fournir ce contenu (volume, chemin, sections, extrait/diff de repli).
+
+#### 7.2.2 Règle anti-faux-complet / anti-synthèse-only
+
+Si le review pack ne contient **que** :
+
+- une liste de fichiers ;
+- une synthèse des changements ;
+- un diff stat ;
+- ou une checklist,
+
+alors Cursor doit marquer dans le review pack et le rapport final :
+
+```text
+REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING
+```
+
+Le review pack **ne peut pas** être considéré complet dans ce cas.
+
 ### 7.3 Niveaux de review pack
 
 #### none
@@ -628,7 +812,15 @@ Le rapport final Cursor doit confirmer :
 - review pack réinitialisé au début : oui / non ;
 - review pack complété avant rapport final : oui / non ;
 - niveau appliqué : none / light / full ;
-- absence de stub final : confirmé / non.
+- absence de stub final : confirmé / non ;
+- **Review pack content coverage** (§7.2.1) :
+  - created files full content : yes / no / not applicable ;
+  - modified sections complete : yes / no / not applicable ;
+  - useful diff included : yes / no / not applicable ;
+  - synthesis only : yes / no ;
+  - review pack verdict : complete / incomplete.
+
+Si `synthesis only = yes`, le verdict Cursor **ne peut pas** être `READY` (ou variante READY FOR …).
 
 ### 7.6 Règle de taille / suppression / purge
 
@@ -788,6 +980,11 @@ Cursor doit **stopper** et demander Morris si :
 24. **Review Handoff** : push vers autre branche que `sfia/review-handoff` ou fichier autre que `sfia-review-handoff/latest-chatgpt-review.md`
 25. **Review Handoff** : mode non activé par Morris mais push handoff demandé ou tenté
 26. **Review Handoff** : merge ou PR de `sfia/review-handoff` vers `main`
+27. **Figma visual contract** : code UI modifié sans contrat visuel extrait préalable (§6.6.D)
+28. **Figma visual contract** : verdict `NO DELIVERY REQUIRED` ou « aligné Figma » sans comparaison capture Figma vs runtime (§6.6.G–H)
+29. **Figma visual contract** : verdict visuel fort sans capture runtime (§6.6.G)
+30. **Review pack** : contenu créé/modifié absent alors que light/full requis (§7.2.1)
+31. **Review pack** : synthèse seule sans contenu exploitable — `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` (§7.2.2)
 
 ---
 
@@ -813,7 +1010,17 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
 14. Ouverture review pack (confirmé / best effort)
 15. Réserves
 16. Décisions Morris requises (oui/non + liste)
-17. Verdict
+17. **Review pack content coverage** (§7.5 — created/modified/diff/synthesis only/verdict)
+18. Verdict
+
+Si `synthesis only = yes` → verdict **ne peut pas** être READY.
+
+**Instruction handoff ChatGPT (si review pack ou handoff mentionné) :**
+
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :  
+> branche : `sfia/review-handoff`  
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`  
+> puis vérifier sa cohérence avec le rapport Cursor, notamment la présence du contenu des fichiers créés/modifiés.
 
 ### 9.2 Variantes par profil
 
