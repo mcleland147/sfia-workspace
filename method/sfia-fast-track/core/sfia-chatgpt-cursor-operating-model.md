@@ -580,7 +580,7 @@ Cycle simple, faible risque, faible impact.
 
 **Critères indicatifs :** correction doc simple ; mono-fichier ou ≤ 3 fichiers ; pas de code applicatif ; pas de chemin protégé ; pas de décision doctrine ; pas de décision produit structurante ; pas de risque sécurité ; pas de relance tooling ou architecture.
 
-**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; pas de `chatgpt-review.md` obligatoire sauf besoin explicite.
+**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; review pack **none** par défaut — **light** si consultation documentaire (template §7).
 
 ##### Standard
 
@@ -598,7 +598,7 @@ Critical **n'est pas** un type de cycle projet. Un cycle cadrage, conception, UX
 
 **Facteurs de criticité :** décision d'architecture structurante ; sécurité / conformité ; chemins protégés ; impact fort méthode / produit / delivery ; gros diff ; dette technique ou méthodologique ; décision difficilement réversible ; réserve bloquante possible ; changement de doctrine ; promotion implicite version ou standard ; relance trajectoire clôturée (ex. SFIA 3.0).
 
-**Exécution :** prompt renforcé ; rapport complet ; `chatgpt-review.md` recommandé ; readiness renforcée ; gates Morris explicites ; aucune hypothèse structurante non validée.
+**Exécution :** prompt renforcé ; rapport complet ; review pack **full** recommandé si auditabilité forte — **light** minimum si cycle borné (template §7) ; readiness renforcée ; gates Morris explicites ; aucune hypothèse structurante non validée.
 
 **Règle :** Critical ne doit **jamais** être implicite — justification par facteur(s) de criticité obligatoire.
 
@@ -660,6 +660,135 @@ Cycle visant à transformer apprentissage, REX, pratique ou décision en actif m
 Morris n'est pas sollicité pour : choix de wording non structurant ; post-merge Light trivial ; qualification Light évidente (sauf contestation).
 
 **Templates Light / Standard / Critical :** prévus au **Cycle 2** — non créés en Cycle 1.
+
+#### 18.2.8 Repo-informed ChatGPT + review pack proportionné (candidate — capitalisation v2.5 PR 2)
+
+> **Référence détaillée :** `prompts/templates/sfia-cycle-execution-template.md` §2.0, §7 — **candidate** ; ne valide pas v2.5 ; Morris décide.
+
+Ce complément formalise le circuit validé post-MVP Chantiers360 : ChatGPT pré-analyse via Git ; Cursor exécute localement ; review pack proportionné.
+
+##### A. Rôle ChatGPT
+
+ChatGPT :
+
+- **déclenche** le Repo-informed pre-check (§2.0 template) avant génération d'un prompt Cursor repo-based ;
+- **consulte Git** lorsque disponible — `main` prime sur les sources projet ChatGPT ;
+- **applique** la matrice de routage documentaire :
+
+```text
+routing guide → méthode cycles v2.5 → template d'exécution → operating model → guardrails → contexte projet → prompt Cursor
+```
+
+- **prépare** le contrat Cursor (prompt d'exécution) ;
+- **distingue** observations, options, recommandations et décisions validées ;
+- **recommande** le niveau review pack : none / light / full ;
+- **ne décide pas** à la place de Morris.
+
+Si Git n'est pas accessible : signaler explicitement et générer un prompt prudent — Cursor renforce la découverte locale.
+
+##### B. Rôle Cursor
+
+Cursor :
+
+- **exécute** localement le contrat du prompt ;
+- **commence toujours** par Local Git Truth Check ;
+- **vérifie** que le workspace local correspond au contrat généré ;
+- **stoppe** si divergence ;
+- **ne découvre pas** un scope large si ChatGPT a déjà cadré le repo ;
+- **remplit** le review pack selon le niveau demandé (none / light / full) ;
+- **ne laisse pas** de stub final si review pack light/full requis ;
+- **ne push / PR / merge jamais** sans GO Morris.
+
+##### C. Rôle Git
+
+Git :
+
+- **reste** source de vérité opérationnelle ;
+- **supporte** la revue via diff, commits, PR, fichiers versionnés ;
+- **peut réduire** la duplication dans le review pack quand ChatGPT y a accès ;
+- **remplace** la copie intégrale des documents consultés accessibles Git par des références précises (rôle, sections, extraits courts si utiles).
+
+##### D. Rôle Morris
+
+Morris :
+
+- **valide** les gates structurants ;
+- **décide** les arbitrages structurants ;
+- **valide** promotion méthode / baseline ;
+- **garde** l'autorité sur push / PR / merge quand requis ;
+- **peut autoriser** suppression ou purge de `.tmp-sfia-review/chatgpt-review.md` après validation du cycle.
+
+##### E. Trois niveaux persistants
+
+| Niveau | Rôle |
+|--------|------|
+| **1. Instructions projet ChatGPT** | Déclencheur dans un **nouveau chat** — évite la dépendance à la mémoire conversationnelle |
+| **2. Template Git** | Source canonique versionnée — `prompts/templates/sfia-cycle-execution-template.md` |
+| **3. Prompt Cursor généré** | Contrat d'exécution — vérifié localement par Local Git Truth Check |
+
+##### F. Review pack proportionné
+
+| Contenu | Règle |
+|---------|-------|
+| **Documents consultés** | Références, rôles, sections — **pas** de duplication intégrale si accessibles Git |
+| **Extraits courts** | Uniquement si utiles à une décision, réserve ou arbitrage |
+| **Fichiers créés** | Contenu complet obligatoire — sauf dépassement seuil (~500 light / ~1200 full) |
+| **Fichiers modifiés** | Sections complètes modifiées ou diff utile complet |
+| **Review pack temporaire** | Hors commit ; purge/suppression possible après validation Morris/ChatGPT |
+| **Apprentissages durables** | Document versionné dédié — jamais `.tmp-sfia-review/` comme doctrine permanente |
+
+**Niveaux :**
+
+| Niveau | Quand |
+|--------|-------|
+| **none** | Micro-cycle technique sans doc consulté/modifié/créé |
+| **light** | Cycle standard borné ; Git accessible ; diff suffisant |
+| **full** | Capitalisation ; modification méthode/template ; décision structurante ; sources non accessibles Git |
+
+**Anti-stub final :** si light ou full requis, le review pack doit être complété avant le rapport final Cursor — jamais un stub minimal en clôture.
+
+##### G. Instruction projet ChatGPT recommandée
+
+Proposition d'instruction (à ajouter aux projets ChatGPT — hors modification directe Git) :
+
+> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push, PR, merge et promotions de baseline. Le review pack est proportionné : les documents consultés accessibles Git sont référencés sans duplication intégrale ; les fichiers créés ou modifiés doivent rester traçables par contenu complet, sections complètes modifiées ou diff utile ; le fichier `.tmp-sfia-review/chatgpt-review.md` reste temporaire, hors commit, et peut être supprimé ou purgé après validation.
+
+Détail opérationnel : template §10.
+
+##### H. Review Handoff Git Branch (optionnel)
+
+> **Référence détaillée :** template §7.10 — **candidate** ; mode optionnel ; GO Morris requis pour activation.
+
+Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, sans extension ni copier-coller.
+
+**ChatGPT :**
+
+- **peut lire** `sfia-review-handoff/latest-chatgpt-review.md` depuis Git (branche `sfia/review-handoff`) ;
+- **utilise** ce fichier comme **contexte de revue** — dernier handoff Cursor ;
+- **ne traite pas** ce fichier comme source de vérité canonique ;
+- **vérifie toujours** Git `main` / branche projet pour les faits durables, décisions validées et doctrine.
+
+**Cursor :**
+
+- **génère** le review pack local `.tmp-sfia-review/chatgpt-review.md` ;
+- **si mode activé** (GO Morris), copie le contenu vers `sfia-review-handoff/latest-chatgpt-review.md` ;
+- **met à jour uniquement** la branche `sfia/review-handoff` ;
+- **ne merge jamais** cette branche ;
+- **ne push rien d'autre** sans GO Morris.
+
+**Git :**
+
+- **`main`** reste source de vérité ;
+- **`sfia/review-handoff`** = branche de transport temporaire — non canonique, non mergée ;
+- **`latest-chatgpt-review.md`** = overwrite-only — pas d'append infini.
+
+**Morris :**
+
+- **valide** l'activation du mode ;
+- **conserve** l'autorité sur push / PR / merge structurants ;
+- **peut demander** purge ou désactivation du handoff.
+
+**Automatisation :** L3 bornée — push limité à une branche dédiée, un fichier unique, sans PR, sans merge, sans impact `main`.
 
 ## 19. Décision
 
