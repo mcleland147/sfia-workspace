@@ -62,6 +62,8 @@ Chaque cycle doit déclarer explicitement les références qu'il utilise.
 
 La documentation SFIA est appliquée par le **routage des cycles**, pas uniquement par la mémoire du modèle.
 
+**Complément Repo-informed (candidate v2.5 — PR 2) :** avant génération d'un prompt Cursor repo-based, ChatGPT consulte Git si accessible et applique la matrice de routage documentaire. Le détail de la procédure Repo-informed pre-check et du review pack proportionné (none / light / full) est dans `prompts/templates/sfia-cycle-execution-template.md` §2.0 et §7. Les documents consultés accessibles Git **ne doivent pas** être recopiés intégralement dans le review pack — références, rôles et sections suffisent. Le mode **Review Handoff Git Branch** est optionnel et documenté dans le template §7.10 et l'operating model §18.2.8.H ; il ne remplace pas le routage documentaire ni Git `main`.
+
 ## 3. Positionnement dans SFIA
 
 Ce guide sert de **couche d'orchestration opérationnelle** pour les cycles SFIA.
