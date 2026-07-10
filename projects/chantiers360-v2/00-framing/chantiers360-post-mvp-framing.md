@@ -50,7 +50,7 @@
 |-------|--------|-----------|
 | Capitalisation MVP | ✅ Mergé PR #128 | `09-capitalization/mvp-capitalization-report.md` |
 | Comparaison V0 vs SFIA v2 | ✅ Mergé PR #136 | `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION |
-| Design coverage SFIA v2.0 | ✅ Mergé PR #129–#130 | R-UX-01 **non levée** |
+| Design coverage SFIA v2.0 | ✅ Mergé PR #129–#130 | R-UX-01 **levée** — clôture 2026-07-10 |
 | Standard ADR/DAA/DAT | ✅ Mergé PR #131–#132 | ADR/DAA/DAT **projet non produits** |
 | REX pilote final | ✅ Documenté | `chantiers360-v2-final-pilot-rex-report.md` |
 
@@ -67,7 +67,7 @@
 
 | ID | Statut observé | Description | Impact potentiel | Traitement possible | Cycle SFIA recommandé | Décision Morris |
 |----|----------------|-------------|------------------|---------------------|----------------------|-----------------|
-| **R-UX-01** | Ouverte — acceptée | Écran `/prochaines-actions` sans frame Figma dédiée — extrapolation patterns UI INC-05 | Dette design ; risque fidélité visuelle si évolution UI sans source validée | Rattrapage design Figma ; ou maintien accepté ; ou refonte UI guidée | **UX/UI** (si reprise design) ; **Capitalization** (si capitalisation méthode design coverage) | **Oui** — accepter, lever ou planifier rattrapage |
+| **R-UX-01** | **CLOSED** — 2026-07-10 | Frame Figma P2 `/prochaines-actions` produite ; alignement UI ciblé ; validation Morris acceptable | Dette design levée pour ce périmètre | — | **Capitalization** (REX Figma-to-code) | ✅ Clôturée Morris |
 | **R-QA-03** | Ouverte — acceptée | Validation formulaire chantier vide — HTML5 `required` uniquement, pas de message serveur E2E | UX formulaire faible ; risque données incomplètes si contournement client | Micro-cycle QA : validation serveur + E2E | **QA / validation** (Light) | **Oui** — GO micro-cycle ou maintien accepté |
 | **R-QA-04** | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) | Panneaux dashboard droite — données réelles (Option A2) | Dette levée | Branché sur `lib/prochaines-actions/` + statuts chantiers | **Delivery** — livré | ✅ Clôturée Morris |
 | **R-QA-05** | Ouverte — environnementale | Port 3000 occupé bloque `test:e2e:full` — fallback port 3001 documenté | Friction développement local ; CI/local non harmonisé | Script port dédié ; doc runbook ; config Playwright | **QA / validation** (Light) ou **Intégration / DevOps** (Light) | **Optionnelle** — GO si objectif qualité opérationnelle |
@@ -82,7 +82,7 @@
 
 | Élément | Détail |
 |---------|--------|
-| **R-UX-01** | Frame Figma `/prochaines-actions` |
+| **R-UX-01** | Frame Figma P2 `/prochaines-actions` — **CLOSED** 2026-07-10 |
 | **R-QA-04** | ~~Panneaux dashboard droite — données réelles vs mock~~ **CLOSED** — PR #151 |
 | **Fidélité design** | 4 frames P1 Figma validées — écrans post-INC-05 partiellement hors couverture |
 | **Accessibilité** | Non évaluée au MVP — à traiter si évolution UI publique |

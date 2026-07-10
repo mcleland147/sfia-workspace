@@ -15,6 +15,7 @@
     "db:test:down": "docker compose -f docker-compose.test.yml down",
     "db:test:down:clean": "docker compose -f docker-compose.test.yml down -v",
     "db:test:migrate": "DATABASE_URL=postgresql://postgres:postgres@localhost:5433/chantiers360_v2_test drizzle-kit migrate",
+    "db:seed:prochaines-demo": "DATABASE_URL=postgresql://postgres:postgres@localhost:5433/chantiers360_v2_test node scripts/seed-prochaines-actions-demo.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:full": "npm run db:test:up && npm run db:test:migrate && npm run test:e2e"

@@ -18,6 +18,13 @@ async function openProchainesActions(page: Page) {
   await expect(page.getByRole("heading", { name: "Prochaines actions" })).toBeVisible();
 }
 
+function prochainesActionRow(page: Page, actionLabel: string) {
+  return page
+    .getByLabel("Liste des prochaines actions")
+    .locator("li")
+    .filter({ hasText: actionLabel });
+}
+
 test.describe("INC-05 — Chantiers360 v2", () => {
   test.beforeEach(async () => {
     test.skip(!hasDatabaseUrl(), "TEST_DATABASE_URL or DATABASE_URL required");
@@ -39,10 +46,12 @@ test.describe("INC-05 — Chantiers360 v2", () => {
 
     await openProchainesActions(page);
 
-    const list = page.getByLabel("Liste des prochaines actions");
-    await expect(list.getByText(taskLabel)).toBeVisible();
-    await expect(list.getByText(title)).toBeVisible();
-    await expect(list.getByText("Tâche")).toBeVisible();
+    const row = prochainesActionRow(page, taskLabel);
+    await expect(row).toBeVisible();
+    await expect(row.getByText("Tâche")).toBeVisible();
+    await expect(
+      row.getByRole("link", { name: `Ouvrir ${title} — ${taskLabel}` })
+    ).toBeVisible();
   });
 
   test("US-12 — item dérivé disparaît quand la tâche est terminée", async ({ page }) => {
@@ -114,8 +123,12 @@ test.describe("INC-05 — Chantiers360 v2", () => {
     await expect(page.getByRole("definition").filter({ hasText: "En retard" })).toBeVisible();
 
     await openProchainesActions(page);
-    const list = page.getByLabel("Liste des prochaines actions");
-    await expect(list.getByText("Chantier marqué en retard")).toBeVisible();
-    await expect(list.getByText(title)).toBeVisible();
+
+    const retardLabel = "Chantier marqué en retard";
+    const row = prochainesActionRow(page, retardLabel);
+    await expect(row).toBeVisible();
+    await expect(
+      row.getByRole("link", { name: `Ouvrir ${title} — ${retardLabel}` })
+    ).toBeVisible();
   });
 });

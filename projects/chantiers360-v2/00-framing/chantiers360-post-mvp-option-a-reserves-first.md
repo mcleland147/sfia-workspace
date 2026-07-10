@@ -19,6 +19,9 @@
 | **Nature** | Proposition de cadrage — documentaire uniquement |
 | **Statut** | **Proposition** — non validée par Morris |
 | **Périmètre** | R-UX-01 et R-QA-04 uniquement |
+| **R-QA-04** | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) |
+| **R-UX-01 — revue UX/UI** | [`06-ux-ui/r-ux-01-prochaines-actions-ux-review.md`](../06-ux-ui/r-ux-01-prochaines-actions-ux-review.md) — **R-UX-01 — CLOSED** (2026-07-10) |
+| **R-UX-01 — brief Figma P2** | [`06-ux-ui/r-ux-01-prochaines-actions-figma-brief.md`](../06-ux-ui/r-ux-01-prochaines-actions-figma-brief.md) — GO Morris UX-1 complet |
 | **Correction applicative** | **Aucune** — ce cycle qualifie, ne corrige pas |
 | **Baseline méthode** | SFIA v2.4 opérationnelle |
 | **Méthode testée** | SFIA v2.5 **candidate** — ne valide pas v2.5 comme baseline |
@@ -62,7 +65,7 @@ Qualifier **R-UX-01** et **R-QA-04** avant toute nouvelle évolution produit (Op
 |---------|--------|
 | **ID** | R-UX-01 |
 | **Écran concerné** | `/prochaines-actions` |
-| **Statut** | **Ouverte — acceptée** |
+| **Statut** | **CLOSED** — clôture documentaire 2026-07-10 |
 | **Origine** | INC-05 (nouvelle réserve) |
 | **Sévérité** | UX / méthode — non bloquante |
 
@@ -77,7 +80,9 @@ L'écran **Prochaines actions** (US-12, US-13) a été livré par **extrapolatio
 | `07-delivery-inc-05/inc-05-closure-report.md` | R-UX-01 ouverte — non bloquante |
 | `04-design/figma-brief.md` | Frame P2 « Vue prochaines actions » — **⏳ Non produit** |
 | `09-capitalization/mvp-capitalization-report.md` | F4 — couverture design non systématique |
-| Design coverage SFIA v2.0 | PR #129–#130 — R-UX-01 **non levée** |
+| Design coverage SFIA v2.0 | PR #129–#130 — R-UX-01 **levée** (clôture 2026-07-10) |
+
+> **Clôture R-UX-01 (2026-07-10) :** production Figma P2, alignement UI ciblé et validation Morris acceptable ; enseignements Figma-to-code à capitaliser dans le REX post-MVP Chantiers360.
 
 ### 4.3 Impact utilisateur
 

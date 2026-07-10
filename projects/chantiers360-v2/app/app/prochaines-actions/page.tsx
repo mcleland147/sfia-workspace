@@ -10,44 +10,30 @@ export default async function ProchainesActionsPage() {
 
   return (
     <AppShell activeNav="dashboard">
-      <div className="flex-1 bg-surface px-8 py-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900"
-        >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+      <div className="flex min-h-full flex-1 flex-col bg-surface">
+        <header className="flex h-[200px] shrink-0 flex-col justify-center gap-2 bg-navy-hero px-8 pb-6 pt-8 text-white">
+          <Link
+            href="/"
+            className="inline-flex w-fit items-center gap-1.5 text-[13px] text-slate-400 transition hover:text-slate-200"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            />
-          </svg>
-          Retour au tableau de bord
-        </Link>
-
-        <header className="mt-6 rounded-2xl bg-white p-8 shadow-card">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Vue transverse
+            <span aria-hidden="true">←</span>
+            Tableau de bord
+          </Link>
+          <div className="flex flex-col gap-1">
+            <p className="text-xs text-slate-400">Vue transverse</p>
+            <h1 className="text-[26px] font-bold leading-tight tracking-tight">Prochaines actions</h1>
+          </div>
+          <p className="text-sm text-slate-400">
+            Actions dérivées automatiquement des tâches, réserves, jalons et retards.
           </p>
-          <h1 className="mt-2 text-2xl font-bold text-slate-900">Prochaines actions</h1>
-          <p className="mt-3 max-w-2xl text-sm text-slate-600">
-            Liste synthétique dérivée des tâches ouvertes, réserves ouvertes, jalons renseignés
-            et chantiers en retard — sans saisie manuelle.
-          </p>
+          <span className="inline-flex w-fit rounded-full bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-400">
+            100 % dérivé — pas de saisie manuelle
+          </span>
         </header>
 
-        <section
-          className="mt-6 rounded-2xl bg-white p-8 shadow-card"
-          aria-label="Prochaines actions dérivées"
-        >
+        <div className="flex-1 px-8 pb-10 pt-8">
           <ProchainesActionsList items={items} />
-        </section>
+        </div>
       </div>
     </AppShell>
   );

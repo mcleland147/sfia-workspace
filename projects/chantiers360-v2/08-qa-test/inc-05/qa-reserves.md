@@ -9,18 +9,16 @@
 
 | # | Réserve | Sévérité | Statut |
 |---|---------|----------|--------|
-| R-UX-01 | Écran Prochaines actions sans frame Figma dédiée | UX / méthode | **Ouverte** — acceptée |
+| R-UX-01 | Écran Prochaines actions — frame Figma P2 + alignement UI | UX / méthode | **CLOSED** — 2026-07-10 |
 | — | Aucune nouvelle réserve bloquante identifiée | — | — |
 
-### R-UX-01 — Écran Prochaines actions sans frame Figma dédiée
+### R-UX-01 — Écran Prochaines actions
 
-**Constat :** l'écran `/prochaines-actions` a été livré par extrapolation depuis les patterns UI existants, sans maquette Figma dédiée.
+**Constat initial :** l'écran `/prochaines-actions` avait été livré par extrapolation depuis les patterns UI existants, sans maquette Figma dédiée.
 
-**Décision :** accepté pour INC-05. Aucun rattrapage design demandé dans ce cycle.
+**Traitement post-MVP :** frames Figma P2 (nominal + vide), delivery UI d'alignement, validation Morris acceptable (2026-07-10).
 
-**Impact :** pas de blocage fonctionnel ni QA. Sujet à capitaliser dans les règles SFIA v2.0 de couverture design.
-
-**Garde-fous :** pas de modification code UI, pas de frame Figma, pas de cycle polish, pas de blocage PR readiness INC-05 pour ce sujet.
+**Statut :** **CLOSED** — clôture documentaire 2026-07-10. Enseignements Figma-to-code à capitaliser REX post-MVP.
 
 ## Réserves héritées
 
@@ -34,4 +32,4 @@ INC-05 n'adresse pas R-QA-03 / R-QA-05 — aucun impact direct documenté. **R-Q
 
 ## Verdict réserves
 
-**INC-05 CLOSED WITH RESERVES** — R-UX-01 et réserves héritées acceptées, non bloquantes à la clôture. **R-QA-04** clôturée post-MVP (PR #151, 2026-07-09).
+**INC-05 CLOSED WITH RESERVES** — **R-UX-01 CLOSED** post-MVP (2026-07-10). Réserves héritées R-QA-03 / R-QA-05 ouvertes. **R-QA-04** clôturée post-MVP (PR #151, 2026-07-09).
