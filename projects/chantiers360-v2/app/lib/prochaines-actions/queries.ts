@@ -95,6 +95,7 @@ export async function listProchainesActions(): Promise<ProchaineActionItem[]> {
         label: chantier.upcomingMilestone.trim(),
         statusLabel: "Jalon",
         targetTab: "jalons",
+        dueDate: chantier.plannedEndDate,
         sortKey: `${chantier.title}-4-jalon-milestone-${chantier.upcomingMilestone}`,
       });
     }
