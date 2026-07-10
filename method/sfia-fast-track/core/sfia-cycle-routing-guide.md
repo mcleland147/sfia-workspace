@@ -64,6 +64,10 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
 
 **Complément Repo-informed (candidate v2.5 — PR 2) :** avant génération d'un prompt Cursor repo-based, ChatGPT consulte Git si accessible et applique la matrice de routage documentaire. Le détail de la procédure Repo-informed pre-check et du review pack proportionné (none / light / full) est dans `prompts/templates/sfia-cycle-execution-template.md` §2.0 et §7. Les documents consultés accessibles Git **ne doivent pas** être recopiés intégralement dans le review pack — références, rôles et sections suffisent. Le mode **Review Handoff Git Branch** est optionnel et documenté dans le template §7.10 et l'operating model §18.2.8.H ; il ne remplace pas le routage documentaire ni Git `main`.
 
+**Complément Figma visual contract (candidate v2.5 — PR 3) :** pour les cycles UX/UI ou delivery UI avec fidélité Figma attendue, appliquer le standard Figma visual contract du template d'exécution §6.6 ; **aucun verdict visuel fort** sans contrat visuel extrait et sans comparaison runtime.
+
+**Complément review pack completeness :** pour tout cycle documentaire, capitalisation ou delivery avec fichiers créés/modifiés, le review pack doit contenir le **contenu exploitable** des fichiers créés/modifiés selon le template d'exécution §7.2.1. Une synthèse seule ne suffit pas pour une revue ChatGPT détaillée.
+
 ## 3. Positionnement dans SFIA
 
 Ce guide sert de **couche d'orchestration opérationnelle** pour les cycles SFIA.

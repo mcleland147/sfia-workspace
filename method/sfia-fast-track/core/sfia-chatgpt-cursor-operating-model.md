@@ -629,7 +629,7 @@ Cycle visant à transformer apprentissage, REX, pratique ou décision en actif m
 | Acteur | Responsabilités | Limites |
 |--------|-----------------|---------|
 | **ChatGPT** | Qualifie le profil ; distingue type cycle et profil ; cadre ; sélectionne références ; produit prompt contractuel ; identifie risques ; recommande décision ; limite sollicitations Morris aux gates listés | **Recommande — ne décide pas** ; pas push / PR / merge / actation version |
-| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite |
+| **Cursor** | Local Git Truth Check ; exécute périmètre ; contrôle fichiers touchés ; rapport structuré ; PR-ready si demandé ; signale écarts profil / type incohérents ; **review pack exploitable** — contenu complet créés, sections/diff modifiés (§7.2.1 template) | **Exécute — ne change pas le scope** ; pas d'arbitrage implicite ; **pas de synthèse-only** dans review pack si fichiers créés/modifiés |
 | **Morris** | Gates structurants ; doctrine, scope, version, PR, merge, pilote | Autorité L0 — arbitrage structurant jamais automatisé |
 
 #### 18.2.5 Stop conditions (v2.5 candidate)
@@ -764,13 +764,19 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
 **ChatGPT :**
 
 - **peut lire** `sfia-review-handoff/latest-chatgpt-review.md` depuis Git (branche `sfia/review-handoff`) ;
+- **doit consulter** ce handoff **avant** de répondre à Morris sur le fond d'un rapport Cursor mentionnant review pack ou handoff ;
 - **utilise** ce fichier comme **contexte de revue** — dernier handoff Cursor ;
 - **ne traite pas** ce fichier comme source de vérité canonique ;
-- **vérifie toujours** Git `main` / branche projet pour les faits durables, décisions validées et doctrine.
+- **vérifie toujours** Git `main` / branche projet pour les faits durables, décisions validées et doctrine ;
+- **vérifie** que le handoff contient : cycle ; branche projet ; base HEAD ; fichiers créés/modifiés ; contenu complet des fichiers créés ; sections complètes modifiées ou diff utile ; réserves ; décisions Morris ; verdict ;
+- **signale** `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` si le handoff ne contient qu'une synthèse sans contenus créés/modifiés exploitables.
 
 **Cursor :**
 
 - **génère** le review pack local `.tmp-sfia-review/chatgpt-review.md` ;
+- **produit** un review pack **réellement exploitable** par ChatGPT (template §7.2.1) ;
+- pour fichiers créés/modifiés : **ne se limite pas** à une synthèse — contenu complet, sections complètes modifiées ou diff utile complet ;
+- **signale explicitement** toute impossibilité de fournir ce contenu ;
 - **si mode activé** (GO Morris), copie le contenu vers `sfia-review-handoff/latest-chatgpt-review.md` ;
 - **met à jour uniquement** la branche `sfia/review-handoff` ;
 - **ne merge jamais** cette branche ;
@@ -789,6 +795,47 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
 - **peut demander** purge ou désactivation du handoff.
 
 **Automatisation :** L3 bornée — push limité à une branche dédiée, un fichier unique, sans PR, sans merge, sans impact `main`.
+
+##### I. Figma visual contract / Figma-to-code (candidate — capitalisation v2.5 PR 3)
+
+> **Référence détaillée :** template §6.6 — **candidate** ; ne valide pas v2.5 ; Morris décide.
+
+Standard transverse pour sécuriser les cycles UX/UI et Figma-to-code — ancrage REX Chantiers360 R-UX-01.
+
+**ChatGPT :**
+
+- **préqualifie** la source Figma si disponible ;
+- **exige** un contrat visuel avant prompt delivery UI ;
+- **ne valide pas** un alignement visuel sans preuve runtime ;
+- **distingue** structure présente vs fidélité visuelle ;
+- **refuse** de recommander `NO DELIVERY REQUIRED` sans capture runtime comparée à la frame.
+
+**Cursor :**
+
+- **utilise** MCP Figma si disponible ;
+- **confirme explicitement** les frames lues via MCP ;
+- **liste** les dimensions / layout observés ;
+- **extrait** un contrat visuel **avant** code (§6.6.D) ;
+- **applique** le contrat dans le code uniquement dans le périmètre autorisé ;
+- **produit** une comparaison runtime **après** modification (§6.6.H) ;
+- **ne conclut pas** « aligné » uniquement parce que les composants existent ;
+- **ne conclut pas** `READY` si un élément visible Figma manque ;
+- **ne conclut pas** `NO DELIVERY REQUIRED` sans comparaison capture Figma vs capture runtime.
+
+**Git :**
+
+- **conserve** docs, diffs, commits et PR ;
+- **ne remplace pas** les preuves visuelles ;
+- **doit référencer** captures ou observations runtime dans review pack / rapport Cursor.
+
+**Morris :**
+
+- **valide** la source Figma si nécessaire ;
+- **arbitre** les écarts visuels ;
+- **décide** si un écart est acceptable ou doit être corrigé ;
+- **reste autorité** sur tout verdict qualitatif sensible.
+
+**Règle dure :** MCP Figma ne suffit pas — contrat visuel extrait avant code ; revue runtime obligatoire après modification ; aucun verdict « aligné » sans comparaison capture Figma vs capture runtime.
 
 ## 19. Décision
 
