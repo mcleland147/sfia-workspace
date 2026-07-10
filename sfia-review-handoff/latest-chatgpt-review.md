@@ -65,6 +65,14 @@ Quand le mode Review Handoff Git Branch est activé :
 
 **Handoff remote before (cycle) :** `b18b71d` (`b18b71da3f1a0a8602717e9851f47accaf48217c`)
 
+**Handoff local commit (final) :** `2548e36` (`2548e360daccd64c5679a42dc255704bcdd75c32`)
+
+**Handoff remote commit after push :** `2548e36` — remote verification : **yes**
+
+**Push handoff :** done
+
+**Branche `sfia/review-handoff` :** un seul fichier — `sfia-review-handoff/latest-chatgpt-review.md`
+
 ---
 
 ## Contenu exploitable — diff complet PR 4
@@ -482,7 +490,5 @@ index 0be0352..cea92a7 100644
 
 ## Verdict cycle (review pack)
 
-**PR 4 HANDOFF RULE ADDED — HANDOFF PUSH PENDING REMOTE UPDATE IN THIS SECTION**
-
-*(Handoff push/remote fields complétés dans rapport Cursor final)*
+**PR 4 HANDOFF RULE ADDED — HANDOFF PUSHED AND REMOTE VERIFIED — READY FOR CHATGPT REVIEW / MORRIS COMMIT DECISION**
 
