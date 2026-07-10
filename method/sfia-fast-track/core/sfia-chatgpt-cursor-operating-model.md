@@ -765,6 +765,8 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
 
 - **peut lire** `sfia-review-handoff/latest-chatgpt-review.md` depuis Git (branche `sfia/review-handoff`) ;
 - **doit consulter** ce handoff **avant** de répondre à Morris sur le fond d'un rapport Cursor mentionnant review pack ou handoff ;
+- **lit** le handoff depuis **`origin/sfia/review-handoff`** (remote) — pas uniquement un commit local non pushé ;
+- **signale** si le rapport Cursor indique `HANDOFF UPDATED` mais remote verification = no ou push handoff = not done ;
 - **utilise** ce fichier comme **contexte de revue** — dernier handoff Cursor ;
 - **ne traite pas** ce fichier comme source de vérité canonique ;
 - **vérifie toujours** Git `main` / branche projet pour les faits durables, décisions validées et doctrine ;
@@ -779,6 +781,10 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
 - **signale explicitement** toute impossibilité de fournir ce contenu ;
 - **si mode activé** (GO Morris), copie le contenu vers `sfia-review-handoff/latest-chatgpt-review.md` ;
 - **met à jour uniquement** la branche `sfia/review-handoff` ;
+- **commit + push obligatoires** vers `origin/sfia/review-handoff` — push autorisé dans le cycle même si push branche projet interdit (template §7.10) ;
+- **vérifie remote** après push : `git ls-remote origin refs/heads/sfia/review-handoff` — SHA remote = commit local ;
+- **ne déclare pas** `HANDOFF UPDATED` si push absent — verdict **`HANDOFF LOCAL ONLY — PUSH MISSING`** ;
+- **rapporte** : handoff local SHA ; remote before/after ; push done/not done ; remote verification yes/no ;
 - **ne merge jamais** cette branche ;
 - **ne push rien d'autre** sans GO Morris.
 
@@ -836,6 +842,39 @@ Standard transverse pour sécuriser les cycles UX/UI et Figma-to-code — ancrag
 - **reste autorité** sur tout verdict qualitatif sensible.
 
 **Règle dure :** MCP Figma ne suffit pas — contrat visuel extrait avant code ; revue runtime obligatoire après modification ; aucun verdict « aligné » sans comparaison capture Figma vs capture runtime.
+
+##### J. Git granularity, post-MVP stop rules et post-merge cleanup (candidate — capitalisation v2.5 PR 4)
+
+> **Référence détaillée :** template §6.12.1, §6.14, §6.15 — **candidate** ; ne valide pas v2.5 ; Morris décide.
+
+**ChatGPT :**
+
+- **recommande** le regroupement Git (commits/PR par livrable cohérent) ;
+- **signale** la fatigue de gouvernance (micro-PR, micro-cycles répétés) ;
+- **distingue** gate décisionnel Morris vs opération Git routinière ;
+- **qualifie** les réserves ouvertes : bloquante / acceptée / reportée ;
+- **ne lance pas** Option B/C sans GO Morris ;
+- **recommande** l'arrêt post-MVP quand conditions §6.15 remplies — Morris tranche.
+
+**Cursor :**
+
+- **ne multiplie pas** commits/PR sans contrat explicite ;
+- **regroupe** quand périmètre stable et prompt l'autorise ;
+- **post-merge** : exécute vérification intégration **+** cleanup branche PR dans le **même cycle** si conditions §6.12.1 OK ;
+- **stoppe** cleanup si `git branch -d` refuse — ne force pas avec `-D` sans GO Morris ;
+- **ne supprime jamais** `main`, `sfia/review-handoff`, ou branche non liée à la PR mergée.
+
+**Morris :**
+
+- **décide** arrêt post-MVP, report de réserves, lancement Option B/C ;
+- **GO post-merge** inclut cleanup branche PR **si** conditions de sécurité OK ;
+- **conserve** autorité sur gates structurants, scope, baseline.
+
+**Git :**
+
+- **`main`** reste source de vérité ;
+- **granularité proportionnée** — pas une PR par micro-ajustement sans justification ;
+- **post-merge check simple** ne génère pas de nouvelle PR sauf anomalie.
 
 ## 19. Décision
 

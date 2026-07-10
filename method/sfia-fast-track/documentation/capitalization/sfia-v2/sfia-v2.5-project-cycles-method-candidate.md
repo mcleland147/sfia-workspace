@@ -340,7 +340,7 @@ Chaque cycle est documenté au niveau **méthodologique exploitable** — pas de
 | **Gates Morris** | GO PR si demandé — pas d'ouverture PR sans GO |
 | **ChatGPT** | Revue readiness ; challenge réserves |
 | **Cursor** | Exécute checks ; ne push pas ; ne ouvre pas PR sans GO |
-| **Validations** | Budget fichiers ; fichiers interdits ; single readiness |
+| **Validations** | Budget fichiers ; fichiers interdits ; single readiness ; **granularité Git proportionnée** (template §6.14 — livrable cohérent, pas micro-PR non justifiée) |
 | **Risques** | PR prématurée ; scope caché |
 | **Stop conditions** | Push/PR sans GO |
 | **Amont / aval** | Amont : delivery/QA — Aval : merge (gate Morris) |
@@ -350,21 +350,21 @@ Chaque cycle est documenté au niveau **méthodologique exploitable** — pas de
 
 | Champ | Contenu |
 |-------|---------|
-| **Objectif** | Clôturer le cycle après merge : sync, réserves, suite, capitalisation si besoin |
-| **Déclenchement** | Merge effectué par Morris |
-| **Entrée** | PR mergée ; commit merge ; réserves éventuelles |
-| **Déroulé** | Sync main → vérif intégration → rapport court → suite recommandée |
-| **Livrables** | Rapport post-merge ; réserves tracées |
-| **Critères sortie** | Main aligné ; réserves classées ; suite identifiée |
-| **Profils possibles** | **Light** (trivial, skip possible) ; Standard ; Critical (complet) |
-| **Gates Morris** | Aucun si trivial ; escalade si réserve bloquante |
-| **ChatGPT** | Recommandation suite |
-| **Cursor** | Sync ; vérif ; rapport — pas de commit hors scope |
-| **Validations** | HEAD = origin/main ; fichiers intégrés |
-| **Risques** | Oublier réserves ; relancer cycle sans clôture |
-| **Stop conditions** | Main désaligné non expliqué |
+| **Objectif** | Clôturer le cycle après merge : sync, réserves, suite, capitalisation si besoin ; **cleanup branche PR** si post-merge check OK (PR 4 candidate §6.12.1) |
+| **Déclenchement** | Merge effectué par Morris ; post-merge check demandé |
+| **Entrée** | PR mergée ; commit merge ; branche source identifiée ; réserves éventuelles |
+| **Déroulé** | Sync main → vérif merge commit + commit PR → rapport post-merge → **cleanup branche PR si conditions OK** → suite recommandée |
+| **Livrables** | Rapport post-merge ; rapport cleanup (done/skipped/blocked) ; réserves tracées |
+| **Critères sortie** | Main aligné ; réserves classées ; branche PR nettoyée ou blocage documenté ; suite identifiée |
+| **Profils possibles** | **Light** (trivial, skip cleanup possible) ; Standard ; Critical (complet) |
+| **Gates Morris** | GO post-merge inclut cleanup si conditions OK ; escalade si réserve bloquante |
+| **ChatGPT** | Recommandation suite ; signale si cleanup requis ou bloqué |
+| **Cursor** | Sync ; vérif ; rapport ; **cleanup branche PR dans le même cycle** si §6.12.1 OK — pas de `-D` sans GO |
+| **Validations** | HEAD = origin/main ; merge commit + commit PR présents ; branche ≠ main/handoff |
+| **Risques** | Oublier réserves ; cleanup branche ambigu ; micro-cycle cleanup séparé inutile |
+| **Stop conditions** | Main désaligné ; branche non mergée ; `git branch -d` refuse ; branche handoff ciblée |
 | **Amont / aval** | Amont : merge — Aval : capitalisation, cycle suivant |
-| **Impact Cycle 3** | Profondeur rapport selon profil ; template `07-write-post-merge-status` |
+| **Impact Cycle 3** | Template §6.12 — post-merge + cleanup intégré |
 
 ### 4.15 Capitalisation / REX
 
@@ -382,9 +382,22 @@ Chaque cycle est documenté au niveau **méthodologique exploitable** — pas de
 | **Cursor** | Rédaction doc si périmètre ; pas d'actation version |
 | **Validations** | Ne pas confondre Capitalization (profil) et CAPA (type v2.4) |
 | **Risques** | Promotion prématurée ; brouillage candidate/validé |
-| **Stop conditions** | Promotion v2.5 implicite ; modification doctrine sans gate |
+| **Stop conditions** | Promotion v2.5 implicite ; modification doctrine sans gate ; **confondre Capitalization avec obligation de clore toutes les réserves** (voir §4.15 bis) |
 | **Amont / aval** | Amont : post-merge, épreuves — Aval : cycles méthode futurs |
 | **Impact Cycle 3** | Section Capitalization activable ; template `08-capitalize-method-asset` |
+
+### 4.15 bis Post-MVP stop rules (candidate — PR 4)
+
+> **Référence :** template §6.15 ; roadmap REX Chantiers360 — **candidate** ; Morris décide l'arrêt.
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Permettre l'arrêt d'une phase post-MVP sans clore toutes les réserves |
+| **Déclenchement** | Phase post-MVP ; réserves structurantes ciblées traitées ou report explicite |
+| **Conditions** | Réserves ciblées closed ; restantes acceptées/reportées ; Option B/C non lancées ; REX suffisant ; risques documentés ; GO Morris arrêt |
+| **Exemple** | Chantiers360 : R-QA-04/R-UX-01 closed ; R-QA-03/R-QA-05 acceptées ; Option B/C non lancées |
+| **Profil Capitalization** | Capitaliser l'apprentissage — **ne pas** confondre avec obligation de traiter chaque réserve ouverte |
+| **SFIA v2.5** | Reste **candidate** — cette règle ne promeut pas la baseline |
 
 ### 4.16 Méthodologie des transverses activables
 

@@ -68,6 +68,10 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
 
 **Complément review pack completeness :** pour tout cycle documentaire, capitalisation ou delivery avec fichiers créés/modifiés, le review pack doit contenir le **contenu exploitable** des fichiers créés/modifiés selon le template d'exécution §7.2.1. Une synthèse seule ne suffit pas pour une revue ChatGPT détaillée.
 
+**Complément Git granularity + post-MVP stop rules + post-merge cleanup (candidate v2.5 — PR 4) :** granularité Git proportionnée, règles d'arrêt post-MVP avec réserves acceptées, cleanup branche PR intégré au post-merge — template §6.12.1, §6.14, §6.15 ; operating model §18.2.8.J.
+
+**Complément Review Handoff commit + push + remote verification (candidate v2.5 — PR 4) :** mode handoff activé = commit + push `origin/sfia/review-handoff` + vérification remote obligatoires — template §7.10 ; operating model §18.2.8.H. Verdict `HANDOFF LOCAL ONLY — PUSH MISSING` si push absent.
+
 ## 3. Positionnement dans SFIA
 
 Ce guide sert de **couche d'orchestration opérationnelle** pour les cycles SFIA.

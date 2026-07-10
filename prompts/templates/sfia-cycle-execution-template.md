@@ -640,15 +640,66 @@ Cursor stoppe ou demande décision Morris si :
 | **Gates Morris** | GO PR si demandé |
 | **Stop** | Fichier interdit dans diff ; staged inattendu |
 
-### 6.12 Post-merge
+### 6.12 Post-merge — check intégration + cleanup branche PR
+
+> **Candidate v2.5 — capitalisation PR 4.** Post-merge check = vérification intégration **+** cleanup branche PR si toutes les conditions de sécurité sont remplies. Le cleanup devient **automatique** dans le cadre du GO post-merge Morris, sauf stop condition.
 
 | Élément | Contenu |
 |---------|---------|
-| **Activer si** | Après merge PR |
-| **Consignes** | `git checkout main` ; `git pull --ff-only` ; vérifier intégration ; log ; réserves |
-| **Livrables** | Rapport post-merge ; réserves documentées |
-| **Gates Morris** | Si réserve bloquante |
-| **Stop** | Main non aligné ; réserve bloquante non traitée |
+| **Activer si** | Après merge PR — post-merge check explicitement demandé par Morris |
+| **Consignes** | `git checkout main` ; `git pull --ff-only` ; vérifier merge commit + commit PR sur main ; log ; réserves ; **cleanup branche PR si conditions OK** (§6.12.1) |
+| **Livrables** | Rapport post-merge ; réserves documentées ; rapport cleanup branche (done / skipped / blocked) |
+| **Gates Morris** | GO post-merge inclut cleanup branche **si conditions OK** ; escalade si réserve bloquante |
+| **Stop** | Main non aligné ; réserve bloquante non traitée ; cleanup ambigu (§6.12.1) |
+
+#### 6.12.1 Post-merge branch cleanup (intégré)
+
+Lorsqu'un **post-merge check** est demandé par Morris après une PR mergée, le nettoyage de la branche associée fait partie du **même cycle post-merge** — pas de second GO Morris, sous conditions.
+
+**Conditions obligatoires (toutes) :**
+
+| # | Condition |
+|---|-----------|
+| 1 | PR confirmée **merged** |
+| 2 | `main` local et `origin/main` alignés |
+| 3 | Merge commit présent sur `main` |
+| 4 | Commit de la PR présent sur `main` |
+| 5 | Working tree tracked propre |
+| 6 | Branche à supprimer = branche de la PR mergée (identifiée explicitement) |
+| 7 | Branche locale et/ou distante non protégée |
+| 8 | Aucune divergence non mergée détectée |
+| 9 | Branche **≠** `main`, **≠** `sfia/review-handoff`, **≠** branche spéciale/handoff |
+
+**Actions autorisées automatiquement (post-merge) :**
+
+- `git branch -d <branche-pr>` si merge confirmé ;
+- `git push origin --delete <branche-pr>` si branche distante présente ;
+- `git fetch origin --prune` ;
+- rapport final incluant post-merge **+** cleanup.
+
+**Actions interdites sans GO Morris distinct :**
+
+- supprimer `main` ;
+- supprimer `sfia/review-handoff` ;
+- supprimer une branche non liée à la PR ;
+- `git branch -D` si `git branch -d` refuse ;
+- supprimer branche avec commits non mergés ;
+- supprimer branche protégée ou ambiguë.
+
+**Stop conditions cleanup :**
+
+- PR non mergée ; main non aligné ; merge commit absent ; branche PR ambiguë ; branche non mergée ; `git branch -d` refuse ; fichiers tracked modifiés ; doute sur la branche cible.
+
+**Séquence Cursor (post-merge + cleanup) :**
+
+```text
+1. Local Git Truth Check sur main
+2. Vérifier merge commit + commit PR sur main
+3. Rapport post-merge (intégration, réserves, suite)
+4. Si conditions §6.12.1 OK → git branch -d <branche-pr>
+5. Si branche distante présente → git push origin --delete <branche-pr>
+6. fetch/prune + rapport cleanup (done / skipped / blocked)
+```
 
 ### 6.13 Capitalisation / REX
 
@@ -659,6 +710,48 @@ Cursor stoppe ou demande décision Morris si :
 | **Livrables** | REX ; proposition doc ; traçabilité |
 | **Gates Morris** | GO capitalisation ou promotion méthode |
 | **Stop** | Promotion v2.5 ou doctrine sans gate |
+
+### 6.14 Git granularity / commit strategy
+
+> **Candidate v2.5 — capitalisation PR 4.** Réduire la fatigue de gouvernance — regrouper les opérations Git quand le périmètre est stable.
+
+| Règle | Application |
+|-------|-------------|
+| **Gates Morris** | Fréquents sur **arbitrages structurants** — pas sur chaque micro-alignement |
+| **Commits / PR** | Regroupés par **livrable cohérent** quand périmètre stable |
+| **Éviter** | Une PR par micro-ajustement si risque faible, périmètre stable, validation locale suffisante |
+| **Micro-commit autorisé** | Correction isolée ; risque régression ; traçabilité requise ; séparation fonctionnelle claire |
+| **PR séparée obligatoire** | Changement de scope ; risque accru ; fichiers protégés ; décision structurante ; dette potentielle ; changement baseline |
+| **Post-merge checks simples** | Ne génèrent **pas** de nouvelle PR sauf anomalie détectée |
+
+**ChatGPT** recommande le regroupement ; **Cursor** ne multiplie pas commits/PR sans contrat explicite ; **Morris** tranche scope et gates structurants.
+
+### 6.15 Post-MVP stop rules
+
+> **Candidate v2.5 — capitalisation PR 4.** Un cycle post-MVP peut s'arrêter sans traiter toutes les réserves si conditions remplies et Morris valide.
+
+**Conditions d'arrêt post-MVP (candidate) :**
+
+| # | Condition |
+|---|-----------|
+| 1 | Réserves **structurantes ciblées** traitées |
+| 2 | Réserves restantes **explicitement** acceptées, reportées ou classées non bloquantes |
+| 3 | Options d'évolution produit (ex. Option B/C) **non lancées** sans GO Morris distinct |
+| 4 | Matière REX **suffisante** pour capitalisation |
+| 5 | Risques restants **documentés** |
+| 6 | **Morris valide** l'arrêt |
+
+**Exemple Chantiers360 post-MVP (REX validé) :**
+
+| Élément | Statut |
+|---------|--------|
+| R-QA-04 | CLOSED |
+| R-UX-01 | CLOSED |
+| R-QA-03 / R-QA-05 | Ouvertes — **acceptées** / reportées |
+| Option B / C | Non lancées |
+| Arrêt | Décision Morris — capitalisation méthode |
+
+> **Capitalization ≠ poursuivre toutes les réserves.** Le profil Capitalization qualifie l'intention de capitaliser — pas l'obligation de clore chaque réserve ouverte.
 
 ---
 
@@ -916,6 +1009,42 @@ Permettre à ChatGPT de **lire directement** le dernier rapport Cursor via Git, 
 - **push autorisé** uniquement vers `sfia/review-handoff` et uniquement pour `sfia-review-handoff/latest-chatgpt-review.md` ;
 - toute autre action Git distante reste **interdite** sans GO explicite.
 
+#### Règle pérenne — commit + push + vérification remote obligatoire (PR 4 candidate)
+
+> Quand le mode Review Handoff Git Branch est **activé**, le handoff n'est **pas complet** sans publication remote.
+
+| Étape | Obligation |
+|-------|------------|
+| 1. Review pack local | `.tmp-sfia-review/chatgpt-review.md` complété (niveau light/full) |
+| 2. Copie handoff | Overwrite `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` |
+| 3. Commit | Commit local sur `sfia/review-handoff` — **fichier handoff uniquement** |
+| 4. Push | **`git push origin sfia/review-handoff`** — autorisé dans le cycle même si push branche projet interdit |
+| 5. Vérification remote | `git ls-remote origin refs/heads/sfia/review-handoff` — SHA remote = SHA local attendu |
+
+**Push strictement limité à :**
+
+- branche : `sfia/review-handoff`
+- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+- aucun autre fichier ; aucune PR ; aucun merge ; aucun impact `main`
+
+**Verdicts handoff :**
+
+| Situation | Verdict obligatoire |
+|-----------|---------------------|
+| Commit local + push OK + remote vérifié | `HANDOFF UPDATED` (ou variante explicite push + remote verified) |
+| Commit local **sans** push | **`HANDOFF LOCAL ONLY — PUSH MISSING`** — **pas** `HANDOFF UPDATED` |
+| Rapport demande lecture handoff Git mais remote non à jour | **Cycle incomplet** — stop condition |
+
+**Rapport final Cursor — champs obligatoires si handoff activé :**
+
+- handoff local commit : SHA / none
+- handoff remote commit before : SHA / none
+- handoff remote commit after : SHA / none
+- push handoff : done / not done
+- remote verification : yes / no
+
+**Stop condition :** si le rapport Cursor demande à ChatGPT de lire le handoff Git, mais que le handoff n'a **pas** été pushé sur `origin/sfia/review-handoff`, le cycle est **incomplet**.
+
 #### Niveau d'automatisation
 
 **L3 — exécution bornée.**
@@ -944,8 +1073,9 @@ Cursor doit **stopper** si :
 2. Vérifier absence de secrets / données sensibles
 3. Copier (overwrite) vers sfia-review-handoff/latest-chatgpt-review.md
 4. Commit sur sfia/review-handoff — fichier handoff uniquement
-5. Push vers origin sfia/review-handoff — pas d'autre push
-6. Confirmer dans le rapport Cursor : handoff effectué / refusé / stop condition
+5. git push origin sfia/review-handoff — push obligatoire, pas d'autre push
+6. git ls-remote origin refs/heads/sfia/review-handoff — vérifier SHA remote = commit local
+7. Confirmer dans le rapport Cursor : handoff local SHA ; remote before/after ; push done ; remote verification yes/no
 ```
 
 ---
@@ -985,6 +1115,11 @@ Cursor doit **stopper** et demander Morris si :
 29. **Figma visual contract** : verdict visuel fort sans capture runtime (§6.6.G)
 30. **Review pack** : contenu créé/modifié absent alors que light/full requis (§7.2.1)
 31. **Review pack** : synthèse seule sans contenu exploitable — `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` (§7.2.2)
+32. **Git granularity** : micro-PR non justifiée ; commit/PR dispersé sans livrable cohérent
+33. **Post-MVP stop** : arrêt post-MVP sans décision Morris ; réserve ouverte non qualifiée ; Option B/C lancée sans GO Morris
+34. **Post-merge cleanup** : branche ambiguë ; branche non mergée ; `git branch -d` refuse ; branche spéciale/handoff ciblée ; cleanup sans GO post-merge
+35. **Review Handoff** : handoff commité localement mais **non pushé** sur `origin/sfia/review-handoff` — verdict `HANDOFF LOCAL ONLY — PUSH MISSING` ; cycle incomplet si ChatGPT doit lire handoff distant
+36. **Review Handoff** : rapport demande lecture handoff Git sans vérification remote (`git ls-remote`) — SHA remote ≠ SHA local attendu
 
 ---
 
