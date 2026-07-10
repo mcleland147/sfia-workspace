@@ -1,9 +1,9 @@
-# SFIA Review Pack — PR 4 draft (Git granularity + post-MVP stop rules + post-merge cleanup)
+# SFIA Review Pack — PR 4 draft (Git granularity + post-MVP stop + post-merge cleanup + handoff push rule)
 
-**Date/heure :** 2026-07-11 00:08 UTC+2  
-**Cycle :** Capitalisation / REX — PR 4 draft  
+**Date/heure :** 2026-07-11 00:31 UTC+2  
+**Cycle :** Capitalisation / REX — PR 4 draft (correction handoff)  
 **Profil :** Capitalization — Standard  
-**Branche :** `capitalization/sfia-v2.5-git-granularity-stop-rules`  
+**Branche projet :** `capitalization/sfia-v2.5-git-granularity-stop-rules`  
 **Review pack level :** full  
 **Statut SFIA :** v2.4 baseline opérationnelle ; v2.5 candidate — **aucune promotion baseline**
 
@@ -15,12 +15,12 @@
 |----------|----------|
 | pwd | `/Users/morris/Projects/sfia-workspace` |
 | git branch --show-current | `capitalization/sfia-v2.5-git-granularity-stop-rules` |
-| git status --short (tracked) | Aucun fichier tracked modifié au démarrage ; modifications PR 4 en working tree non commitées |
-| git fetch origin --prune | OK |
-| git checkout main + pull --ff-only | OK — main @ `91e568a` |
-| git rev-parse --short HEAD | `91e568a` |
+| git rev-parse --short HEAD | `91e568a` (base main — draft PR 4 non commité) |
 | git rev-parse --short origin/main | `91e568a` |
-| merge-base 91e568a | `PR 3 present on main` |
+| merge-base 91e568a origin/main | `PR 3 present on origin/main` |
+| Fichiers tracked modifiés | 5 fichiers méthode PR 4 uniquement — périmètre OK |
+| sfia-review-handoff/ sur branche PR 4 | absent — OK |
+| Fichiers applicatif / v3 / MCP / .sfia | non modifiés — OK |
 
 ---
 
@@ -28,36 +28,72 @@
 
 | Source | Rôle |
 |--------|------|
-| `method/sfia-fast-track/documentation/capitalization/sfia-v2.5/2026-07-10-sfia-v2.5-chantiers360-post-mvp-rex-roadmap.md` | REX source PR 1 ; cadrage PR 4 ; décisions Morris validées |
-| `prompts/templates/sfia-cycle-execution-template.md` | Template d'exécution — sections post-merge, granularité, stop rules |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Rôles ChatGPT/Cursor/Morris |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Pointeurs routage candidate v2.5 |
-| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | Cycles §4.13–4.15 bis |
-| `projects/chantiers360-v2/08-qa-test/inc-05/qa-reserves.md` | Ancrage REX réserves (lecture seule) |
-| `projects/chantiers360-v2/00-framing/chantiers360-post-mvp-framing.md` | Ancrage post-MVP (lecture seule) |
-| `projects/chantiers360-v2/00-framing/chantiers360-post-mvp-option-a-reserves-first.md` | Ancrage Option A / arrêt (lecture seule) |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.5/2026-07-10-sfia-v2.5-chantiers360-post-mvp-rex-roadmap.md` | REX PR 1 ; cadrage PR 4 |
+| `prompts/templates/sfia-cycle-execution-template.md` | §6.12–6.15 ; §7.10 handoff ; stop conditions |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | §18.2.8.H handoff ; §18.2.8.J PR 4 |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Pointeurs candidate v2.5 PR 2–4 |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` | §4.13–4.15 bis |
 
 ---
 
-## Fichiers modifiés
+## Fichiers modifiés (branche PR 4 — non commités)
 
-1. `prompts/templates/sfia-cycle-execution-template.md` (+108/-7 lignes approx.)
-2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` (+33)
-3. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (+2)
-4. `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` (+45/-4)
-5. `method/sfia-fast-track/documentation/capitalization/sfia-v2.5/2026-07-10-sfia-v2.5-chantiers360-post-mvp-rex-roadmap.md` (+1)
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+3. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+4. `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
+5. `method/sfia-fast-track/documentation/capitalization/sfia-v2.5/2026-07-10-sfia-v2.5-chantiers360-post-mvp-rex-roadmap.md`
 
-**Diff stat :** 5 files changed, 167 insertions(+), 22 deletions(-)
+**Diff stat :** 5 files changed, 216 insertions(+), 24 deletions(-)
 
 ---
 
-## Contenu exploitable — diff complet
+## Règle handoff — commit + push + vérification remote obligatoire
+
+Quand le mode Review Handoff Git Branch est activé :
+
+| Étape | Obligation |
+|-------|------------|
+| Commit local | `sfia/review-handoff` — fichier `sfia-review-handoff/latest-chatgpt-review.md` uniquement |
+| Push | `git push origin sfia/review-handoff` — autorisé même si push branche projet interdit |
+| Vérification remote | `git ls-remote origin refs/heads/sfia/review-handoff` — SHA remote = SHA local |
+
+**Verdicts :**
+- Commit + push + remote OK → `HANDOFF UPDATED` / push verified
+- Commit local sans push → `**HANDOFF LOCAL ONLY — PUSH MISSING**` — pas `HANDOFF UPDATED`
+- Rapport demande lecture handoff Git sans push → cycle incomplet
+
+**Handoff remote before (cycle) :** `b18b71d` (`b18b71da3f1a0a8602717e9851f47accaf48217c`)
+
+---
+
+## Contenu exploitable — diff complet PR 4
 
 diff --git a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-index e4b2f09..ce736ad 100644
+index e4b2f09..c7dba19 100644
 --- a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
 +++ b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-@@ -837,6 +837,39 @@ Standard transverse pour sécuriser les cycles UX/UI et Figma-to-code — ancrag
+@@ -765,6 +765,8 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
+ 
+ - **peut lire** `sfia-review-handoff/latest-chatgpt-review.md` depuis Git (branche `sfia/review-handoff`) ;
+ - **doit consulter** ce handoff **avant** de répondre à Morris sur le fond d'un rapport Cursor mentionnant review pack ou handoff ;
++- **lit** le handoff depuis **`origin/sfia/review-handoff`** (remote) — pas uniquement un commit local non pushé ;
++- **signale** si le rapport Cursor indique `HANDOFF UPDATED` mais remote verification = no ou push handoff = not done ;
+ - **utilise** ce fichier comme **contexte de revue** — dernier handoff Cursor ;
+ - **ne traite pas** ce fichier comme source de vérité canonique ;
+ - **vérifie toujours** Git `main` / branche projet pour les faits durables, décisions validées et doctrine ;
+@@ -779,6 +781,10 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
+ - **signale explicitement** toute impossibilité de fournir ce contenu ;
+ - **si mode activé** (GO Morris), copie le contenu vers `sfia-review-handoff/latest-chatgpt-review.md` ;
+ - **met à jour uniquement** la branche `sfia/review-handoff` ;
++- **commit + push obligatoires** vers `origin/sfia/review-handoff` — push autorisé dans le cycle même si push branche projet interdit (template §7.10) ;
++- **vérifie remote** après push : `git ls-remote origin refs/heads/sfia/review-handoff` — SHA remote = commit local ;
++- **ne déclare pas** `HANDOFF UPDATED` si push absent — verdict **`HANDOFF LOCAL ONLY — PUSH MISSING`** ;
++- **rapporte** : handoff local SHA ; remote before/after ; push done/not done ; remote verification yes/no ;
+ - **ne merge jamais** cette branche ;
+ - **ne push rien d'autre** sans GO Morris.
+ 
+@@ -837,6 +843,39 @@ Standard transverse pour sécuriser les cycles UX/UI et Figma-to-code — ancrag
  
  **Règle dure :** MCP Figma ne suffit pas — contrat visuel extrait avant code ; revue runtime obligatoire après modification ; aucun verdict « aligné » sans comparaison capture Figma vs capture runtime.
  
@@ -98,14 +134,16 @@ index e4b2f09..ce736ad 100644
  
  Le modèle ChatGPT ↔ Cursor est reconnu comme **fondation opérationnelle SFIA v1.1**.
 diff --git a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-index a80538d..b2c398c 100644
+index a80538d..bafcda8 100644
 --- a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 +++ b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-@@ -68,6 +68,8 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
+@@ -68,6 +68,10 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
  
  **Complément review pack completeness :** pour tout cycle documentaire, capitalisation ou delivery avec fichiers créés/modifiés, le review pack doit contenir le **contenu exploitable** des fichiers créés/modifiés selon le template d'exécution §7.2.1. Une synthèse seule ne suffit pas pour une revue ChatGPT détaillée.
  
 +**Complément Git granularity + post-MVP stop rules + post-merge cleanup (candidate v2.5 — PR 4) :** granularité Git proportionnée, règles d'arrêt post-MVP avec réserves acceptées, cleanup branche PR intégré au post-merge — template §6.12.1, §6.14, §6.15 ; operating model §18.2.8.J.
++
++**Complément Review Handoff commit + push + remote verification (candidate v2.5 — PR 4) :** mode handoff activé = commit + push `origin/sfia/review-handoff` + vérification remote obligatoires — template §7.10 ; operating model §18.2.8.H. Verdict `HANDOFF LOCAL ONLY — PUSH MISSING` si push absent.
 +
  ## 3. Positionnement dans SFIA
  
@@ -197,7 +235,7 @@ index 5b394c5..d28fb15 100644
  
  > Sections activables par contexte, risque ou profil — **pas des cycles cœur obligatoires**. Voir aussi §3.2 et §5.C.
 diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
-index 0be0352..f168af2 100644
+index 0be0352..cea92a7 100644
 --- a/prompts/templates/sfia-cycle-execution-template.md
 +++ b/prompts/templates/sfia-cycle-execution-template.md
 @@ -640,15 +640,66 @@ Cursor stoppe ou demande décision Morris si :
@@ -322,13 +360,70 @@ index 0be0352..f168af2 100644
  ---
  
  ## 7. Review pack proportionné
-@@ -985,6 +1078,9 @@ Cursor doit **stopper** et demander Morris si :
+@@ -916,6 +1009,42 @@ Permettre à ChatGPT de **lire directement** le dernier rapport Cursor via Git,
+ - **push autorisé** uniquement vers `sfia/review-handoff` et uniquement pour `sfia-review-handoff/latest-chatgpt-review.md` ;
+ - toute autre action Git distante reste **interdite** sans GO explicite.
+ 
++#### Règle pérenne — commit + push + vérification remote obligatoire (PR 4 candidate)
++
++> Quand le mode Review Handoff Git Branch est **activé**, le handoff n'est **pas complet** sans publication remote.
++
++| Étape | Obligation |
++|-------|------------|
++| 1. Review pack local | `.tmp-sfia-review/chatgpt-review.md` complété (niveau light/full) |
++| 2. Copie handoff | Overwrite `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` |
++| 3. Commit | Commit local sur `sfia/review-handoff` — **fichier handoff uniquement** |
++| 4. Push | **`git push origin sfia/review-handoff`** — autorisé dans le cycle même si push branche projet interdit |
++| 5. Vérification remote | `git ls-remote origin refs/heads/sfia/review-handoff` — SHA remote = SHA local attendu |
++
++**Push strictement limité à :**
++
++- branche : `sfia/review-handoff`
++- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
++- aucun autre fichier ; aucune PR ; aucun merge ; aucun impact `main`
++
++**Verdicts handoff :**
++
++| Situation | Verdict obligatoire |
++|-----------|---------------------|
++| Commit local + push OK + remote vérifié | `HANDOFF UPDATED` (ou variante explicite push + remote verified) |
++| Commit local **sans** push | **`HANDOFF LOCAL ONLY — PUSH MISSING`** — **pas** `HANDOFF UPDATED` |
++| Rapport demande lecture handoff Git mais remote non à jour | **Cycle incomplet** — stop condition |
++
++**Rapport final Cursor — champs obligatoires si handoff activé :**
++
++- handoff local commit : SHA / none
++- handoff remote commit before : SHA / none
++- handoff remote commit after : SHA / none
++- push handoff : done / not done
++- remote verification : yes / no
++
++**Stop condition :** si le rapport Cursor demande à ChatGPT de lire le handoff Git, mais que le handoff n'a **pas** été pushé sur `origin/sfia/review-handoff`, le cycle est **incomplet**.
++
+ #### Niveau d'automatisation
+ 
+ **L3 — exécution bornée.**
+@@ -944,8 +1073,9 @@ Cursor doit **stopper** si :
+ 2. Vérifier absence de secrets / données sensibles
+ 3. Copier (overwrite) vers sfia-review-handoff/latest-chatgpt-review.md
+ 4. Commit sur sfia/review-handoff — fichier handoff uniquement
+-5. Push vers origin sfia/review-handoff — pas d'autre push
+-6. Confirmer dans le rapport Cursor : handoff effectué / refusé / stop condition
++5. git push origin sfia/review-handoff — push obligatoire, pas d'autre push
++6. git ls-remote origin refs/heads/sfia/review-handoff — vérifier SHA remote = commit local
++7. Confirmer dans le rapport Cursor : handoff local SHA ; remote before/after ; push done ; remote verification yes/no
+ ```
+ 
+ ---
+@@ -985,6 +1115,11 @@ Cursor doit **stopper** et demander Morris si :
  29. **Figma visual contract** : verdict visuel fort sans capture runtime (§6.6.G)
  30. **Review pack** : contenu créé/modifié absent alors que light/full requis (§7.2.1)
  31. **Review pack** : synthèse seule sans contenu exploitable — `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` (§7.2.2)
 +32. **Git granularity** : micro-PR non justifiée ; commit/PR dispersé sans livrable cohérent
 +33. **Post-MVP stop** : arrêt post-MVP sans décision Morris ; réserve ouverte non qualifiée ; Option B/C lancée sans GO Morris
 +34. **Post-merge cleanup** : branche ambiguë ; branche non mergée ; `git branch -d` refuse ; branche spéciale/handoff ciblée ; cleanup sans GO post-merge
++35. **Review Handoff** : handoff commité localement mais **non pushé** sur `origin/sfia/review-handoff` — verdict `HANDOFF LOCAL ONLY — PUSH MISSING` ; cycle incomplet si ChatGPT doit lire handoff distant
++36. **Review Handoff** : rapport demande lecture handoff Git sans vérification remote (`git ls-remote`) — SHA remote ≠ SHA local attendu
  
  ---
  
@@ -339,11 +434,10 @@ index 0be0352..f168af2 100644
 
 - SFIA v2.5 reste **candidate** — aucune promotion baseline
 - SFIA v2.4 reste baseline opérationnelle
-- Aucune modification SFIA v3 / MCP / `.sfia` / `.cursor` / applicatif Chantiers360
-- Aucun commit sur branche PR 4 (draft local uniquement)
-- Aucun push PR 4 ; aucune PR ; aucun merge
-- `.tmp-sfia-review/` non commité sur branche PR 4
-- Branche `sfia/review-handoff` : handoff uniquement — jamais merge vers main
+- Aucune modification applicatif Chantiers360 / SFIA v3 / MCP / `.sfia`
+- Aucun commit ni push sur branche PR 4
+- Push autorisé **uniquement** `origin/sfia/review-handoff`
+- Branche `sfia/review-handoff` : un seul fichier — jamais merge vers `main`
 
 ---
 
@@ -351,20 +445,17 @@ index 0be0352..f168af2 100644
 
 | # | Réserve |
 |---|---------|
-| R1 | Draft non commité — revue Morris requise avant commit/push PR 4 |
-| R2 | Numérotation template §6.14/§6.15 ajoutée après §6.13 — cohérente mais à valider en revue |
-| R3 | §4.15 bis dans cycles method — sous-section « bis » candidate, pas renumérotation globale |
-| R4 | Cleanup branche distante (`git push origin --delete`) suppose accès réseau et branche non protégée — stop si refus |
-| R5 | Évaluation promotion v2.5 baseline hors scope PR 4 |
+| R1 | Draft PR 4 non commité — GO Morris requis pour commit/push PR 4 |
+| R2 | Handoff précédent (PR 3) restait sur remote `b18b71d` jusqu'à push correction |
+| R3 | Évaluation promotion v2.5 baseline hors scope PR 4 |
 
 ---
 
 ## Décisions Morris requises
 
-1. **Valider le contenu candidate** PR 4 (granularité Git, stop rules post-MVP, post-merge cleanup intégré)
-2. **GO commit** sur branche `capitalization/sfia-v2.5-git-granularity-stop-rules` (non demandé dans ce cycle)
-3. **GO push + PR** PR 4 (non demandé)
-4. **Évaluation promotion SFIA v2.5 baseline** (hors scope automatique — décision distincte post-série capitalisation)
+1. Valider contenu candidate PR 4 (granularité, stop rules, post-merge cleanup, handoff push rule)
+2. GO commit branche PR 4 (non demandé)
+3. GO push + PR PR 4 (non demandé)
 
 ---
 
@@ -372,33 +463,26 @@ index 0be0352..f168af2 100644
 
 | Critère | Valeur |
 |---------|--------|
-| created files full content | not applicable (aucun fichier créé versionné) |
-| modified sections complete | yes — diff git complet inclus ci-dessus |
-| useful diff included | yes |
-| synthesis only | no |
+| created files full content | not applicable |
+| modified sections complete | **yes** — diff git complet inclus |
+| useful diff included | **yes** |
+| synthesis only | **no** |
 | **review pack verdict** | **complete** |
 
 ---
 
-## Synthèse des règles ajoutées
+## Synthèse règles PR 4
 
-### A. Granularité Git proportionnée (template §6.14 ; operating model §18.2.8.J)
-- Gates Morris sur arbitrages structurants ; commits/PR par livrable cohérent
-- Micro-commit/PR autorisés si justification ; PR séparée si scope/risque/baseline
-- Post-merge checks simples ne génèrent pas de nouvelle PR sauf anomalie
-
-### B. Post-MVP stop rules (template §6.15 ; cycles §4.15 bis)
-- Arrêt possible si réserves ciblées closed, restantes acceptées/reportées, Option B/C non lancées, REX suffisant, Morris valide
-- Exemple Chantiers360 : R-QA-04/R-UX-01 closed ; R-QA-03/R-QA-05 acceptées
-
-### C. Post-merge cleanup intégré (template §6.12.1 ; cycles §4.14)
-- Cleanup branche PR dans le même cycle post-merge si 9 conditions OK
-- GO post-merge Morris inclut cleanup ; pas de second GO ; stop conditions explicites
-- Interdit : `-D` sans GO, suppression main/handoff/branche non liée
+1. **Granularité Git proportionnée** — template §6.14
+2. **Post-MVP stop rules** — template §6.15 ; cycles §4.15 bis
+3. **Post-merge cleanup intégré** — template §6.12.1 ; cycles §4.14
+4. **Handoff commit + push + remote verification** — template §7.10 ; operating model §18.2.8.H
 
 ---
 
-## Verdict cycle
+## Verdict cycle (review pack)
 
-**PR 4 GIT GRANULARITY, POST-MVP STOP RULES AND POST-MERGE CLEANUP DRAFT READY — HANDOFF UPDATED — AWAITING MORRIS REVIEW / COMMIT DECISION**
+**PR 4 HANDOFF RULE ADDED — HANDOFF PUSH PENDING REMOTE UPDATE IN THIS SECTION**
+
+*(Handoff push/remote fields complétés dans rapport Cursor final)*
 
