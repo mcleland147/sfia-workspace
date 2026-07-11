@@ -1,183 +1,124 @@
 # SFIA Review Pack — ChatGPT
 
-**Date/heure :** 2026-07-11 12:05 Europe/Paris
+**Date/heure :** 2026-07-11 12:48 Europe/Paris
 **Repository :** mcleland147/sfia-workspace
-**Cycle :** Cadrage décisionnel — arbitrage D1–D12
-**Profil SFIA :** Critical
-**Justification Critical :** décisions gouvernance repository-wide ; impact cartographie/G3/migration ; erreurs difficiles à corriger ; décision humaine traçable obligatoire
+**Cycle :** Validation décisionnelle — inscription Morris D1–D12
+**Profil :** Critical
 **Branche :** method/sfia-v2.6-repository-standard-decisions
-**HEAD initial :** 688832d90e613959fbfdf53530f86aea36e23538
-**HEAD final :** 8bf811a5a378557d8dc3b943798fd3ebef8f90b6
+**HEAD initial :** 8bf811a5a378557d8dc3b943798fd3ebef8f90b6
+**HEAD final :** 7e16fe66a458f3f28d4d0792c0eacf67190ac114
 **Base main :** 688832d90e613959fbfdf53530f86aea36e23538
-**PR :** #164 (expected)
-**Review pack :** full
-**Handoff :** required
+**PR :** #164
 
 ---
 
-## Local Git Truth Check
+## Matrice avant (registre)
 
-| Élément | Valeur |
-|---------|--------|
-| main @ start | 688832d |
-| Worktree | Propre — 1 fichier créé |
-| PR #163 intégrée | Oui |
-| Untracked | .sfia/, .tmp-sfia-review/ intacts |
+Toutes lignes NON DÉCIDÉ
 
----
+## Matrice après (Morris 2026-07-11 12:45)
 
-## Sources consultées
+| ID | Décision |
+|----|----------|
+| D1 | GO |
+| D2 | GO WITH RESERVE |
+| D3 | ADJUSTMENT REQUIRED |
+| D4 | DEFERRED |
+| D5 | GO WITH RESERVE |
+| D6 | GO WITH RESERVE |
+| D7 | GO |
+| D8 | GO WITH RESERVE |
+| D9 | GO |
+| D10 | DEFERRED |
+| D11 | DEFERRED |
+| D12 | GO WITH RESERVE |
 
-- principes v2.6 (PR #163)
-- cadrage v2.6, audit v2.6
-- core SFIA (réf.)
+## Points clés
 
----
-
-## Synthèse D1–D12 (recommandations candidate — NON décisions)
-
-| ID | Recommandation |
-|----|----------------|
-| D1 | ADOPT AS CANDIDATE FRAMEWORK |
-| D2 | ADOPT WITH TARGETED ADJUSTMENT |
-| D3 | ADOPT WITH TARGETED ADJUSTMENT (active vs usage) |
-| D4 | ADOPT AS CANDIDATE FRAMEWORK — différable |
-| D5 | ADOPT WITH TARGETED ADJUSTMENT — cartographie |
-| D6 | ADOPT WITH TARGETED ADJUSTMENT — vocab minimal |
-| D7 | ADOPT AS CANDIDATE FRAMEWORK |
-| D8 | ADOPT WITH TARGETED ADJUSTMENT — principe seul |
-| D9 | ADOPT AS CANDIDATE FRAMEWORK — pilote vs G3 |
-| D10 | DEFER WITH EXPLICIT CONDITION |
-| D11 | DEFER WITH EXPLICIT CONDITION |
-| D12 | ADOPT WITH TARGETED ADJUSTMENT — nouveaux docs |
-
-**Option globale recommandée :** Option 2 — Fondation + POC read-only futur
-
-**Registre Morris :** D1–D12 = NON DÉCIDÉ
+- D3: retrait active lifecycle; usage operational séparé; principes PR #163 non modifiés
+- POC: NON RETENU PAR MORRIS
+- Trajectoire: cartographie progressive par lots — non ouverte
+- G3: fermé
 
 ---
 
-## Diff utile
+## Diff
 
- ...7-11-sfia-v2.6-repository-standard-decisions.md | 685 +++++++++++++++++++++
- 1 file changed, 685 insertions(+)
-
-```diff
-diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md
-new file mode 100644
-index 0000000..4fe0423
---- /dev/null
-+++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md
-@@ -0,0 +1,685 @@
-+# SFIA v2.6 — Repository Standard Decisions
-+
-+*Dossier de décision borné — arbitrage D1–D12 du cadre candidat des principes repository*
-+
-+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md`
-+**Date et heure :** 2026-07-11 12:00 Europe/Paris
-+**Statut :** **Candidate** — dossier d'arbitrage Morris
-+**Cycle projet :** Cadrage décisionnel — arbitrage D1–D12 du standard repository v2.6
-+**Profil SFIA :** **Critical**
-+**Typologie v2.4 :** DOC
-+**Repository :** mcleland147/sfia-workspace
-+**Branche :** method/sfia-v2.6-repository-standard-decisions
-+**Base Git :** `main` @ `688832d90e613959fbfdf53530f86aea36e23538`
-+**Autorité de décision :** Morris (L0)
-+**Baseline opérationnelle :** SFIA v2.4
-+**Trajectoires :** v2.5 candidate capitalisée ; v2.6 candidate
-+**Input structurant :** principes repository v2.6 (PR #163)
-+
-+### Justification Critical
-+
-+- Décisions de gouvernance **repository-wide**
-+- Effet futur sur cartographie, classification G3, migrations et automatisations
-+- Erreurs difficiles à corriger une fois le standard appliqué
-+- Aucune décision implicite ou déduite du merge PR #163
-+- Décision humaine explicite et traçable requise
-+
-+### Limites du cycle
-+
-+- **Support d'arbitrage uniquement** — aucune décision Morris préremplie
-+- Registre initialisé à **NON DÉCIDÉ** pour D1–D12
-+- Recommandations ≠ décisions validées
-+- Merge futur de ce dossier **ne valide pas** automatiquement les options
-+- Aucune application du modèle aux fichiers
-+- Aucune cartographie, POC, classification G3 ou migration
-+
-+---
-+
-+## 1. Executive summary
-+
-+Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candidat intégré par PR #163 en un **support d'arbitrage compact** : objet, options, bénéfices, risques, dette, réversibilité, recommandation argumentée et **case de décision Morris** pour chaque point.
-+
-+**Lot A (fondations)** — D1–D9 : nécessaires ou fortement recommandées avant cartographie pilote ou G3.
-+**Lot B (compléments)** — D10–D12 : arbitrages logiques ou conventions — **différables** sous conditions explicites.
-+
-+**Recommandation globale candidate (Cursor/ChatGPT — non décision Morris) :** **Option 2 — Validation fondation + POC read-only futur** : valider un noyau minimal (D1, D7, D9 + principes D2/D3/D5/D6/D8), différer ou ajuster le reste, **sans exécuter le POC dans ce cycle**.
-+
-+**Décision Morris attendue :** arbitrer explicitement chaque ligne du registre §20 — ou choisir une option globale (§19, Annexe D).
-+
-+---
-+
-+## 2. Objet du cycle
-+
-+| Objectif | Description |
-+|----------|-------------|
-...
-```
+ ...7-11-sfia-v2.6-repository-standard-decisions.md | 738 +++++++++------------
+ 1 file changed, 302 insertions(+), 436 deletions(-)
 
 ---
 
-## Contenu complet du dossier de décision
+## Contenu complet document final
 
 ```markdown
 # SFIA v2.6 — Repository Standard Decisions
 
-*Dossier de décision borné — arbitrage D1–D12 du cadre candidat des principes repository*
+*Dossier de décision — arbitrages Morris D1–D12 du cadre candidat des principes repository*
 
 **Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md`
-**Date et heure :** 2026-07-11 12:00 Europe/Paris
-**Statut :** **Candidate** — dossier d'arbitrage Morris
-**Cycle projet :** Cadrage décisionnel — arbitrage D1–D12 du standard repository v2.6
+**Date et heure :** 2026-07-11 12:45 Europe/Paris
+**Statut :** **Candidate** — décisions Morris inscrites ; dossier à intégrer sur `main`
+**Cycle projet :** Validation décisionnelle — inscription des arbitrages Morris D1–D12
 **Profil SFIA :** **Critical**
 **Typologie v2.4 :** DOC
 **Repository :** mcleland147/sfia-workspace
 **Branche :** method/sfia-v2.6-repository-standard-decisions
 **Base Git :** `main` @ `688832d90e613959fbfdf53530f86aea36e23538`
 **Autorité de décision :** Morris (L0)
+**Date/heure décision Morris :** 2026-07-11 12:45 Europe/Paris
 **Baseline opérationnelle :** SFIA v2.4
 **Trajectoires :** v2.5 candidate capitalisée ; v2.6 candidate
-**Input structurant :** principes repository v2.6 (PR #163)
+**Inputs structurants :** principes repository v2.6 (PR #163) ; dossier arbitrage initial (PR #164)
 
 ### Justification Critical
 
-- Décisions de gouvernance **repository-wide**
-- Effet futur sur cartographie, classification G3, migrations et automatisations
-- Erreurs difficiles à corriger une fois le standard appliqué
-- Aucune décision implicite ou déduite du merge PR #163
-- Décision humaine explicite et traçable requise
+- Décisions repository-wide **validées par Morris** et inscrites dans ce dossier
+- Impact futur sur cartographie, G3, migrations et automatisations
+- Traçabilité complète obligatoire
+- Écart documentaire D3 vs principes PR #163 — alignement futur requis
 
 ### Limites du cycle
 
-- **Support d'arbitrage uniquement** — aucune décision Morris préremplie
-- Registre initialisé à **NON DÉCIDÉ** pour D1–D12
-- Recommandations ≠ décisions validées
-- Merge futur de ce dossier **ne valide pas** automatiquement les options
-- Aucune application du modèle aux fichiers
-- Aucune cartographie, POC, classification G3 ou migration
+- **Décisions inscrites** — pas encore appliquées aux fichiers du repository
+- **Document de principes non modifié** dans ce cycle (écart D3 tracé)
+- Aucune cartographie, classification G3 ou migration ouverte
+- **POC non retenu par Morris** — trajectoire = cartographie progressive par lots (futur GO distinct)
+- SFIA v2.6 reste **candidate**
 
 ---
 
 ## 1. Executive summary
 
-Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candidat intégré par PR #163 en un **support d'arbitrage compact** : objet, options, bénéfices, risques, dette, réversibilité, recommandation argumentée et **case de décision Morris** pour chaque point.
+Morris a arbitré explicitement les **12 décisions D1–D12** du cadre candidat intégré par PR #163. Ce dossier enregistre la matrice validée, les réserves, les différés et la trajectoire aval.
 
-**Lot A (fondations)** — D1–D9 : nécessaires ou fortement recommandées avant cartographie pilote ou G3.
-**Lot B (compléments)** — D10–D12 : arbitrages logiques ou conventions — **différables** sous conditions explicites.
+**Matrice Morris validée :**
 
-**Recommandation globale candidate (Cursor/ChatGPT — non décision Morris) :** **Option 2 — Validation fondation + POC read-only futur** : valider un noyau minimal (D1, D7, D9 + principes D2/D3/D5/D6/D8), différer ou ajuster le reste, **sans exécuter le POC dans ce cycle**.
+| ID | Décision Morris |
+|----|-----------------|
+| D1 | **GO** |
+| D2 | **GO WITH RESERVE** |
+| D3 | **ADJUSTMENT REQUIRED** |
+| D4 | **DEFERRED** |
+| D5 | **GO WITH RESERVE** |
+| D6 | **GO WITH RESERVE** |
+| D7 | **GO** |
+| D8 | **GO WITH RESERVE** |
+| D9 | **GO** |
+| D10 | **DEFERRED** |
+| D11 | **DEFERRED** |
+| D12 | **GO WITH RESERVE** |
 
-**Décision Morris attendue :** arbitrer explicitement chaque ligne du registre §20 — ou choisir une option globale (§19, Annexe D).
+**Points structurants :**
+
+- **D1 + D7 + D9** : fondations adoptées — modèle multidimensionnel, trajectoires, principes avant G3
+- **D3** : retrait de `active` du cycle de vie — usage `operational` séparé ; **alignement futur du document de principes requis**
+- **D4, D10, D11** : différés avec conditions de réouverture
+- **POC read-only : NON RETENU PAR MORRIS**
+- **Trajectoire candidate :** VALIDATION DES DÉCISIONS → INTÉGRATION DU DOSSIER → CARTOGRAPHIE PROGRESSIVE PAR LOTS (nouveau GO Morris requis — **non ouverte**)
+
+**Gate actuel :** D1–D12 arbitrées — dossier prêt à intégrer après merge PR #164 (GO merge distinct).
+**Gate suivant :** GO Morris pour ouvrir un **premier lot de cartographie read-only borné**.
 
 ---
 
@@ -185,13 +126,10 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Objectif | Description |
 |----------|-------------|
-| Clarifier | Ce que Morris doit trancher pour chaque D1–D12 |
-| Structurer | Options réalistes, pas de fausses certitudes |
-| Recommander | Position argumentée — sans décider à sa place |
-| Tracer | Registre prêt à recevoir GO / DEFER / NO-GO |
-| Borner | Distinction fondation / différable / bloquant |
-
-**Non-objectif :** réécrire les 880 lignes des principes ; appliquer le standard ; classifier des fichiers.
+| Inscrire | Décisions Morris D1–D12 avec réserves et effets |
+| Tracer | Registre complet §19 ; écart D3 vs principes |
+| Orienter | Trajectoire cartographie par lots sans POC |
+| Borner | Aucune application, cartographie ou G3 dans ce cycle |
 
 ---
 
@@ -199,12 +137,12 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Source | Rôle |
 |--------|------|
-| PR #159 — cadrage v2.6 | Chantier, gates, conservation |
-| PR #162 — audit read-only | Homogénéité moyenne-faible ; 1042 fichiers |
-| PR #163 — principes repository | Modèle multidimensionnel D1–D7 ; D1–D12 ouvertes |
-| Handoff @ `296736d` | Revue dimensions séparées |
+| PR #163 — principes | Modèle multidimensionnel candidate |
+| PR #164 — dossier initial | Analyse et recommandations (registre était NON DÉCIDÉ) |
+| Handoff @ `21a2364` | Revue dossier arbitrage |
+| Audit PR #162 | Contexte homogénéité |
 
-**État repository :** principes **candidate** sur `main` @ `688832d` ; **aucune** D1–D12 validée.
+**État :** principes candidate @ `688832d` ; **D1–D12 arbitrées par Morris** dans ce correctif.
 
 ---
 
@@ -212,78 +150,66 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 ### 4.1 Portée
 
-- Analyse et fiches D1–D12
-- Matrices synthèse, dépendances, gates
-- Options globales et séquence recommandée
-- Registre Morris (NON DÉCIDÉ)
+- Inscription décisions Morris D1–D12
+- Registre, matrices, gates, trajectoire cartographie par lots
+- Trace écart D3 / document principes
 
 ### 4.2 Hors périmètre
 
 | Exclu | Confirmation |
 |-------|--------------|
-| Modification document principes | **Non** |
+| Modification document principes | **Non** — alignement futur |
 | Application modèle aux fichiers | **Non** |
-| Matrice fichier × dimensions réelle | **Non** |
-| Cartographie / POC / G3 / migration | **Non** |
+| Cartographie / lots cartographie | **Non ouverte** |
+| POC | **Non retenu** |
+| G3 / classification / migration | **Non** |
 | Promotion v2.6 baseline | **Non** |
-| v3 / MCP / Bridge / Runner / `.sfia` | **Non** |
 
 ---
 
 ## 5. Méthode d'analyse décisionnelle
 
-1. **Cursor analyse et recommande** — jamais décide
-2. Extraction de l'objet exact depuis principes §22
-3. Options limitées au **standard minimal** (PD13)
-4. Évaluation : bénéfice / risque / dette / réversibilité
-5. Verdict recommandé parmi : ADOPT AS CANDIDATE FRAMEWORK | ADOPT WITH TARGETED ADJUSTMENT | DEFER WITH EXPLICIT CONDITION | REJECT AND REDESIGN
-6. Case Morris : GO | GO WITH RESERVE | ADJUSTMENT REQUIRED | DEFERRED | NO-GO | **NON DÉCIDÉ** (initial)
+1. Phase initiale (commit `8bf811a`) : Cursor analyse et recommande — registre NON DÉCIDÉ
+2. Phase présente : Morris arbitre — décisions inscrites avec date, autorité, réserves
+3. Recommandations historiques conservées en contexte — **supplantées** par décisions Morris
+4. Merge PR #164 **intègre le dossier** — n'ouvre pas cartographie ni G3 automatiquement
 
 ---
 
-## 6. Vue d'ensemble D1–D12
+## 6. Vue d'ensemble D1–D12 — décisions Morris
 
-| ID | Intitulé | Lot | Urgence | Recommandation candidate | Bloque carto. pilote | Bloque G3 | Différable |
-|----|----------|-----|---------|--------------------------|----------------------|-----------|------------|
-| D1 | Modèle multidimensionnel | A | Haute | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Non |
-| D2 | Familles F01–F17 | A | Haute | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel |
-| D3 | Cycle de vie (7 états) | A | Haute | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Non |
-| D4 | Niveaux autorité | A | Moyenne | ADOPT AS CANDIDATE FRAMEWORK | Non | Partiel | Oui |
-| D5 | Modèle usage | A | Moyenne | ADOPT WITH TARGETED ADJUSTMENT | Oui | Partiel | Partiel |
-| D6 | Périmètres | A | Moyenne | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel |
-| D7 | Trajectoire / baseline | A | Haute | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Non |
-| D8 | Profils métadonnées | A | Moyenne | ADOPT WITH TARGETED ADJUSTMENT | Partiel | Oui | Partiel |
-| D9 | Principes avant cartographie | A | Haute | ADOPT AS CANDIDATE FRAMEWORK | — | Oui | Non |
-| D10 | docs/ vs method/documentation | B | Moyenne | DEFER WITH EXPLICIT CONDITION | Non | Partiel | Oui |
-| D11 | Traitement v3 tracked | B | Basse | DEFER WITH EXPLICIT CONDITION | Non | Non | Oui |
-| D12 | Dates et langue nommage | B | Basse | ADOPT WITH TARGETED ADJUSTMENT | Non | Non | Oui |
-
-> Colonne « Recommandation candidate » = analyse Cursor — **pas décision Morris**.
+| ID | Intitulé | Décision Morris | Bloque carto. lot 1 | Bloque G3 | Différable |
+|----|----------|-----------------|---------------------|-----------|------------|
+| D1 | Modèle multidimensionnel | **GO** | Non (prérequis validé) | Oui si absent | Non |
+| D2 | Familles F01–F17 | **GO WITH RESERVE** | Non | Partiel | Partiel |
+| D3 | Cycle de vie | **ADJUSTMENT REQUIRED** | Non | Oui si non aligné | Non |
+| D4 | Autorité | **DEFERRED** | Non | Partiel | Oui |
+| D5 | Usage | **GO WITH RESERVE** | Non | Partiel | Partiel |
+| D6 | Périmètres | **GO WITH RESERVE** | Non | Partiel | Partiel |
+| D7 | Trajectoire / baseline | **GO** | Non | Oui si absent | Non |
+| D8 | Profils métadonnées | **GO WITH RESERVE** | Non | Oui (détails) | Partiel |
+| D9 | Principes avant cartographie | **GO** | — | Oui | Non |
+| D10 | docs/ vs method/documentation | **DEFERRED** | Non | Partiel | Oui |
+| D11 | v3 tracked | **DEFERRED** | Non | Non | Oui |
+| D12 | Nommage | **GO WITH RESERVE** | Non | Non | Oui |
 
 ---
 
-## 7. Lot A — Décisions fondation
+## 7. Lot A — Décisions fondation (Morris)
 
 ### D1 — Adoption du modèle multidimensionnel
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Mélange famille / statut / trajectoire / usage / emplacement dans le repository actuel |
-| **Observation source** | Audit PR #162 ; correctif PR #163 ; handoff ChatGPT |
-| **Décision exacte attendue** | Morris valide-t-il les 7 dimensions (famille, cycle de vie, autorité, usage, périmètre, trajectoire, emplacement) comme **cadre candidate** de description ? |
-| **Options** | (1) Adopter tel quel ; (2) Adopter avec ajustements nommés ; (3) Reporter après approfondissement ; (4) Rejeter et reprendre modèle plat |
-| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** |
-| **Justification** | Résout le mélange conceptuel ; cartographie exploitable ; contrôles déterministes ; reste non appliqué |
-| **Bénéfices** | Clarté ; parsabilité ChatGPT/Cursor ; base gates automatisables |
-| **Risques** | Complexité perçue ; courbe d'apprentissage |
-| **Dette** | Faible si candidate explicite |
-| **Réversibilité** | Haute — cadre documentaire, pas appliqué |
-| **Dépendances** | Aucune amont ; D2–D8 en aval |
-| **Gate concerné** | Gate A fondations |
-| **Impact si report** | Cartographie et G3 **bloquées** |
-| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
+| **Décision Morris** | **GO** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Décision validée** | Modèle multidimensionnel adopté comme **cadre candidate SFIA v2.6** |
+| **Dimensions validées** | Famille ; cycle de vie ; autorité ; usage ; périmètre ; trajectoire/version ; emplacement logique |
+| **Effet immédiat** | Référence pour préparer la future cartographie — **non appliqué** aux fichiers |
+| **Effet futur** | Base descriptive cartographie par lots |
+| **Réserves** | Aucune |
+| **Gate suivant** | Intégration dossier ; cartographie (GO distinct) |
+| **Contexte historique** | Recommandation candidate : ADOPT AS CANDIDATE FRAMEWORK — **confirmée par Morris** |
 
 ---
 
@@ -291,25 +217,12 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Absence de taxonomie fonctionnelle stable pour classifier descriptivement |
-| **Observation source** | Principes §5 ; audit familles hétérogènes |
-| **Décision exacte attendue** | La liste F01–F17 est-elle **validée comme cadre candidate** ? Ajustements ciblés ? |
-| **Options** | (1) Valider F01–F17 ; (2) Fusionner paires (ex. F11/F12) ; (3) Clarifier sous-familles F01/F07, F02/F11 ; (4) Réduire liste ; (5) Reporter |
-| **Points à challenger** | F01 vs F07 ; F02 vs F11 ; F03 vs F12 ; F06 vs F15 ; F16/F17 hors MD |
-| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** |
-| **Justification** | Liste minimale et utilisable ; réserves sur chevauchements F02/F11 et F06/F15 — documenter critères de frontière sans élargir |
-| **Bénéfices** | Vocabulaire partagé cartographie |
-| **Risques** | Frontières floues si non clarifiées ; sur-segmentation |
-| **Dette** | Moyenne si ambiguïtés non tranchées |
-| **Réversibilité** | Haute — ajustement documentaire |
-| **Dépendances** | D1 ; amont D8, D10 |
-| **Gate concerné** | Gate B schéma cartographie |
-| **Impact si report** | Cartographie pilote **difficile** sans vocabulaire famille |
-| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
-
-**Réserve candidate :** valider F01–F17 avec **note explicative** sur frontières F02/F11 (gouvernance normative vs décision/cadrage cycle) et F06/F15 (doc transverse vs tooling doc).
+| **Décision Morris** | **GO WITH RESERVE** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Décision validée** | F01–F17 adoptées comme **taxonomie candidate** |
+| **Réserves obligatoires** | Clarifier frontière **F02 vs F11** ; **F06 vs F15** ; F16/F17 = familles techniques hors profil MD complet ; pas de familles supplémentaires sans besoin démontré ; ajustement ultérieur autorisé depuis cartographie réelle |
+| **Effet** | Taxonomie exploitable cartographie — **aucune classification actuelle validée** |
+| **Gate suivant** | Cartographie lot documentaire |
 
 ---
 
@@ -317,22 +230,17 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Statuts hétérogènes ; confusion baseline/candidate/operational |
-| **Observation source** | Principes §8 ; audit 42+ hits « candidate » |
-| **Décision exacte attendue** | Valider les 7 états ? Traiter le chevauchement **`active` (lifecycle) vs `operational` (usage)** ? |
-| **Options** | **A.** Conserver `active` dans cycle de vie ; **B.** Retirer `active`, usage=operational ; **C.** `active` réservé profils A/B ; **D.** Approfondissement requis |
-| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **C** ou **B** préférable à status quo |
-| **Justification** | D4 usage existe déjà ; `active` + `operational` redondants pour la plupart des docs ; Option C limite `active` aux docs normatifs |
-| **Bénéfices** | Cycle de vie plus net ; moins de double saisie |
-| **Risques** | Option B = changement modèle ; migration sémantique future |
-| **Dette** | Moyenne si `active` conservé sans règle |
-| **Réversibilité** | Moyenne — vocabulaire central |
-| **Dépendances** | D1, D5 ; D8 |
-| **Gate concerné** | Gate A |
-| **Impact si report** | Cartographie **bloquée** sur maturité document |
-| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
+| **Décision Morris** | **ADJUSTMENT REQUIRED** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Ajustement cible décidé** | **Retirer `active` du cycle de vie** — éviter doublon avec `usage = operational` |
+| **Cycle de vie candidat ajusté (Morris)** | draft ; candidate ; validated ; deprecated ; superseded ; archived |
+| **Usage séparé** | operational ; non-operational ; unknown |
+| **Règles validées** | `validated + operational` possible ; `validated + non-operational` possible ; usage indépendant du cycle de vie ; **`active` ne doit plus figurer comme lifecycle_status** |
+| **Écart documentaire** | Document principes PR #163 conserve encore `active` en §8 — **mise à jour future nécessaire** ; **non modifié dans ce cycle** |
+| **Effet immédiat** | Cadre décisionnel pour cartographie et alignement futur principes |
+| **Gate suivant** | Alignement document principes (cycle futur) ; cartographie |
+
+**Contexte historique :** Options A/B/C analysées — Morris choisit **équivalent Option B** (retrait `active`).
 
 ---
 
@@ -340,22 +248,12 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Autorité normative vs informative non systématique |
-| **Observation source** | Principes §9 ; audit 5 hits « canonique » |
-| **Décision exacte attendue** | Valider canonical / reference / supporting / informational ? Ajouter `normative` ? Unicité canonical par sujet ? |
-| **Options** | (1) Quatre niveaux actuels ; (2) Ajouter normative ; (3) canonical unique par sujet obligatoire ; (4) Reporter |
-| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** — **sans** niveau supplémentaire |
-| **Justification** | Modèle simple suffisant ; canonical = gate Morris déjà prévu |
-| **Bénéfices** | Gouvernance claire core vs supporting |
-| **Risques** | canonical sur-utilisé sans gate |
-| **Dette** | Faible |
-| **Réversibilité** | Haute |
-| **Dépendances** | D1 ; D3 pour cohérence candidate+canonical |
-| **Gate concerné** | Gate C gouvernance avancée |
-| **Impact si report** | Cartographie pilote **possible** ; G3 partiellement impactée |
-| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
+| **Décision Morris** | **DEFERRED** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Position temporaire** | Modèle canonical / reference / supporting / informational = **hypothèse candidate en lecture** — **non validée définitivement** |
+| **Conditions réouverture** | Premiers résultats cartographie ; ambiguïté autorité réelle ; préparation G3 ; unicité canonical par sujet |
+| **Effet** | Cartographie lot 1 **autorisée** sans validation D4 |
+| **Gate suivant** | Gate C — après cartographie |
 
 ---
 
@@ -363,22 +261,11 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Distinction doc utilisé vs conservé |
-| **Observation source** | Principes §10 ; plans migration non-operational |
-| **Décision exacte attendue** | Usage comme dimension ? Obligatoire ou **attribut cartographie** uniquement ? |
-| **Options** | (1) Dimension obligatoire profils A–D ; (2) Attribut cartographie POC ; (3) Optionnel partout ; (4) Supprimer dimension |
-| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **2** |
-| **Justification** | Utile en cartographie ; volatile en métadonnée permanente ; `unknown` risque de devenir permanent |
-| **Bénéfices** | Signale dette sans surcharger en-têtes |
-| **Risques** | Omission si non obligatoire |
-| **Dette** | Faible si cartographie seule |
-| **Réversibilité** | Haute |
-| **Dépendances** | D1, D3 (si Option B D3) |
-| **Gate concerné** | Gate B |
-| **Impact si report** | Cartographie moins riche, pas bloquante |
-| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
+| **Décision Morris** | **GO WITH RESERVE** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Décision validée** | Usage conservé comme **dimension de cartographie** |
+| **Réserves** | Pas métadonnée obligatoire partout ; usage d'abord dans livrables cartographie ; valeurs limitées operational / non-operational / unknown ; unknown durable = réserve signalée ; vérification par références et contenu, pas emplacement seul |
+| **Effet** | Dimension D4 usage active en cartographie |
 
 ---
 
@@ -386,22 +273,11 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | `project` était statut — doit devenir périmètre |
-| **Observation source** | Principes §11 ; 688 fichiers projects/ |
-| **Décision exacte attendue** | Valider les 6 périmètres ? **`product` nécessaire ?** `repository` vs `method` ? |
-| **Options** | (1) Six valeurs ; (2) Retirer product initialement ; (3) Fusionner repository+method ; (4) Reporter |
-| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — vocabulaire **minimal** : repository, method, project, tooling, external-publication ; **product** différé |
-| **Justification** | Standard minimal ; product peu utilisé aujourd'hui |
-| **Bénéfices** | scope=project + attribut project clair |
-| **Risques** | Réintroduction product plus tard |
-| **Dette** | Faible |
-| **Réversibilité** | Haute |
-| **Dépendances** | D1, D2 |
-| **Gate concerné** | Gate B |
-| **Impact si report** | Cartographie **bloquée** sur domaine |
-| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
+| **Décision Morris** | **GO WITH RESERVE** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Vocabulaire validé** | repository ; method ; project ; tooling ; external-publication |
+| **Réserves** | `product` **différé** ; scope=project exige attribut project ; phase/domaine optionnels ; pas d'élargissement sans cas réel |
+| **Effet** | Périmètre minimal pour cartographie |
 
 ---
 
@@ -409,24 +285,12 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Confusion baseline trajectoire vs statut document |
-| **Observation source** | Principes §12 ; PD7 |
-| **Décision exacte attendue** | Valider trajectory + trajectory_role ? Distinction historical / suspended ? **Confirmer v2.4 baseline, v2.5/v2.6 candidate, v3 hors trajectoire** |
-| **Options** | (1) Modèle actuel ; (2) Fusionner historical+suspended ; (3) Renommer suspended → out-of-current-trajectory ; (4) Reporter |
-| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** |
-| **Justification** | Structurant et aligné chantier ; v3 signalé sans réactivation |
-| **Bénéfices** | Trajectoires explicites ; pas de promotion implicite |
-| **Risques** | Confusion lifecycle candidate / trajectory candidate |
-| **Dette** | Faible si libellés clairs |
-| **Réversibilité** | Moyenne |
-| **Dépendances** | D1, D9 |
-| **Gate concerné** | Gate A — **bloquant** |
-| **Impact si report** | Cartographie et G3 **bloquées** |
-| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
-
-**Confirmation candidate (non promotion) :** v2.4 baseline · v2.5 candidate capitalisée · v2.6 candidate · v3.0 hors trajectoire courante.
+| **Décision Morris** | **GO** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Décision validée** | Modèle trajectory / trajectory_role adopté comme cadre candidate |
+| **Trajectoires confirmées** | v1.1 = historique stable ; **v2.4 = baseline opérationnelle** ; **v2.5 = candidate capitalisée** ; **v2.6 = candidate** ; **v3.0 = hors trajectoire courante** |
+| **Règles** | baseline = propriété trajectoire ; lifecycle candidate ≠ trajectory candidate ; aucune promotion automatique ; v3.0 non réactivée |
+| **Effet** | Référence trajectoire pour cartographie et G3 futur |
 
 ---
 
@@ -434,22 +298,12 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Métadonnées disproportionnées ou absentes |
-| **Observation source** | Principes §13 ; profils A–F |
-| **Décision exacte attendue** | Valider **principe** profils proportionnés ? Valider **champs obligatoires** par profil ? |
-| **Options** | (1) Principe seul ; (2) Principe + champs candidats ; (3) POC avant champs ; (4) Reporter |
-| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **1** maintenant, champs précis après POC |
-| **Justification** | Profil F = mode allégé, pas famille ; champs trop tôt = sur-contrainte |
-| **Bénéfices** | Homogénéiser sans uniformiser |
-| **Risques** | Champs flous jusqu'au POC |
-| **Dette** | Moyenne |
-| **Réversibilité** | Haute |
-| **Dépendances** | D1, D2, D3 |
-| **Gate concerné** | Gate B/C |
-| **Impact si report** | G3 **impactée** ; cartographie pilote possible avec profils indicatifs |
-| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
+| **Décision Morris** | **GO WITH RESERVE** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Décision validée** | **Principe** des profils proportionnés A–F validé |
+| **Profils** | A Core ; B Capitalisation/Audit/Décision ; C Projet ; D Prompt/Template ; E README ; F Léger (mode allégé) |
+| **Réserves** | Champs obligatoires **non** validés définitivement ; champs précis ajustés lors cartographie par lots ; pas de généralisation profil complet partout |
+| **Effet** | Principe opérationnel ; détails lors lots cartographie |
 
 ---
 
@@ -457,41 +311,25 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Risque cartographie/classification sans cadre validé |
-| **Observation source** | Principes §22 ; PD14 ; audit Q22 |
-| **Décision exacte attendue** | Quels D1–D8 **indispensables** avant cartographie pilote read-only ? G3 interdit avant quoi ? |
-| **Options** | (1) Tout D1–D8 avant toute carto ; (2) Noyau D1,D2,D3,D5,D6,D7 puis pilote ; (3) Carto libre ; (4) G3 après validation complète uniquement |
-| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** — Option **2** + **G3 interdit** sans validation explicite modèle |
-| **Justification** | Équilibre gouvernance / apprentissage ; classification consolidée trop tôt = dette |
-| **Bénéfices** | Séquence contrôlée |
-| **Risques** | Interprétations divergentes du « noyau » |
-| **Dette** | Faible si gates écrites |
-| **Réversibilité** | Haute |
-| **Dépendances** | D1–D8 |
-| **Gate concerné** | Gate A — **méta-décision** |
-| **Impact si report** | Risque cartographie prématurée |
-| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
-| **Décision Morris** | **NON DÉCIDÉ** |
-| **Date / autorité** | _À renseigner par Morris_ |
-
-**Noyau minimal candidate pour cartographie pilote (recommandation — non validé) :** D1, D2, D3, D5, D6, D7 validés ou GO WITH RESERVE ; D8 principe ; D4/D10–D12 différables.
+| **Décision Morris** | **GO** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Décision validée** | Principes **doivent précéder** toute classification G3 |
+| **Clarifications Morris** | Aucune G3 avant validation et intégration du cadre ; cartographie descriptive read-only **par lots** ouvrable après merge dossier + **nouveau GO Morris** ; **aucun POC séparé** ; cartographie progressive = apprentissage ; **aucune cartographie ouverte dans ce cycle** |
+| **Effet** | Gate G3 fermée ; cartographie = gate distincte post-merge |
 
 ---
 
-## 8. Lot B — Arbitrages complémentaires
+## 8. Lot B — Arbitrages complémentaires (Morris)
 
 ### D10 — `docs/` versus `method/.../documentation/`
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Documentation transverse vs méthode SFIA — zones concurrentes (audit) |
-| **Décision exacte attendue** | Adopter critère logique ? POC échantillon ? Reporter ? |
-| **Options** | (1) Critère : method/documentation = méthode SFIA + capitalisation ; docs/ = plateforme transverse ; (2) POC 20 fichiers ; (3) Reporter à cartographie complète |
-| **Recommandation candidate** | **DEFER WITH EXPLICIT CONDITION** — critère **candidate** documenté + POC read-only **cycle futur** |
-| **Condition réouverture** | Après validation D1–D2–D9 et GO cartographie pilote |
-| **Blocage** | Non bloquant cartographie pilote ; partiel G3 |
-| **Verdict recommandé** | DEFER WITH EXPLICIT CONDITION |
-| **Décision Morris** | **NON DÉCIDÉ** |
+| **Décision Morris** | **DEFERRED** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Hypothèse logique conservée** | method/.../documentation/ = méthode SFIA, gouvernance, trajectoires, capitalisation ; docs/ = transverse, plateforme, produit, pratiques |
+| **Condition réouverture** | Analyse cas réels lors du **lot documentaire** concerné |
+| **Effet** | Aucun déplacement ; aucun arbre cible |
 
 ---
 
@@ -499,14 +337,11 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | 15 fichiers v3 visibles — hors trajectoire |
-| **Contraintes** | Pas réactivation ; pas déplacement/archivage/suppression |
-| **Options** | (1) Maintenir visible, trajectory_role hors-trajectoire ; (2) Isolation logique cartographie ; (3) Cycle futur dédié ; (4) Reporter |
-| **Recommandation candidate** | **DEFER WITH EXPLICIT CONDITION** — Option **1** en attendant cycle Morris dédié |
-| **Condition réouverture** | Après cartographie pilote ou décision Morris v3 |
-| **Blocage** | Non bloquant |
-| **Verdict recommandé** | DEFER WITH EXPLICIT CONDITION |
-| **Décision Morris** | **NON DÉCIDÉ** |
+| **Décision Morris** | **DEFERRED** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Position** | v3.0 **hors trajectoire courante** maintenu |
+| **Conditions** | Pas réactivation ; pas déplacement/archivage/suppression ; pas MCP/Bridge/Runner/`.sfia` ; réouverture = décision Morris explicite |
+| **Condition réouverture** | Cycle Morris dédié v3 |
 
 ---
 
@@ -514,289 +349,241 @@ Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candida
 
 | Champ | Contenu |
 |-------|---------|
-| **Problème résolu** | Incohérence FR/EN ; dates seulement capitalisation récente |
-| **Décision exacte attendue** | Règles pour **nouveaux** documents structurants ? Rétroactivité ? |
-| **Options** | (1) kebab-case ; EN noms ; titres FR OK ; dates événementiels only ; legacy toléré ; (2) Dates obligatoires capitalisation ; (3) Reporter |
-| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **1** pour **nouveaux** docs ; **pas** renommage rétroactif auto |
-| **Blocage** | Non bloquant cartographie/G3 |
-| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
-| **Décision Morris** | **NON DÉCIDÉ** |
+| **Décision Morris** | **GO WITH RESERVE** |
+| **Date / autorité** | 2026-07-11 12:45 Europe/Paris — Morris |
+| **Règles validées (nouveaux docs structurants)** | kebab-case ; noms fichiers **EN** par défaut ; titres **FR** autorisés ; dates `YYYY-MM-DD` pour événementiels, audits, décisions, capitalisations ; pas de date sur core stables sauf nécessité ; préfixe `sfia-` si valeur contexte ; **pas** renommage rétroactif obligatoire |
+| **Réserve** | Conventions legacy tolérées jusqu'à migration gouvernée |
 
 ---
 
 ## 9. Dépendances entre décisions
 
 ```text
-D1 (modèle) ──┬── D2 (familles) ──┬── D8 (profils)
-              ├── D3 (lifecycle) ─┼── D5 (usage)
-              ├── D4 (autorité)   │
-              ├── D6 (périmètre) ─┘
-              └── D7 (trajectoire) ── D9 (gates carto/G3)
+D1 (GO) ──┬── D2 (GO WR) ──┬── D8 (GO WR)
+          ├── D3 (ADJ) ────┼── D5 (GO WR)
+          ├── D4 (DEFER)   │
+          ├── D6 (GO WR) ──┘
+          └── D7 (GO) ── D9 (GO) ──► cartographie par lots (GO futur)
 
-D9 ──► autorise cartographie pilote (si noyau validé)
-D10, D11, D12 ──► indépendants ou aval cartographie partielle
+D10, D11 (DEFER) ──► lots cartographie documentaires
+D12 (GO WR) ──► nouveaux docs ; migration future
 ```
 
-Voir **Annexe B**.
+---
+
+## 10. Trajectoire candidate après décisions Morris
+
+**POC read-only : NON RETENU PAR MORRIS**
+
+**Trajectoire retenue :**
+
+```text
+VALIDATION DES DÉCISIONS (ce dossier)
+  → INTÉGRATION DU DOSSIER (merge PR #164 — GO merge distinct)
+  → ALIGNEMENT FUTUR DOCUMENT PRINCIPES (D3 — cycle séparé)
+  → CARTOGRAPHIE PROGRESSIVE PAR LOTS (GO Morris distinct par lot)
+  → ANALYSE DES RÉSULTATS
+  → DÉCISION TRANSFORMATIONS
+  → MIGRATION PAR LOTS VALIDÉS UNIQUEMENT
+```
+
+**Règles cartographie (non ouverte) :**
+
+- Chaque lot = read-only ; cartographie descriptive + réserves
+- Aucun lot ne déplace, renomme, fusionne, archive ou supprime
+- Pas de mega-cartographie ; pas de mega-migration
+- Premier lot = **GO Morris distinct** après merge dossier
+
+**Étape alignement principes :** peut précéder ou accompagner cadrage lot 1 — **hors périmètre** de ce correctif.
 
 ---
 
-## 10. Séquence de validation recommandée
+## 11. Séquence et gates
 
-| Gate | Décisions | Objectif |
-|------|-----------|----------|
-| **Gate A — Fondations conceptuelles** | D1, D3, D7, D9 | Modèle, maturité, trajectoires, règles carto/G3 |
-| **Gate B — Schéma cartographie** | D2, D5, D6, principe D8 | Vocabulaire descriptive |
-| **Gate C — Gouvernance avancée** | D4, détails D8 | Autorité et champs obligatoires |
-| **Gate D — Compléments** | D10, D11, D12 | Arbitrages et conventions |
+| Gate | Statut | Contenu |
+|------|--------|---------|
+| **Gate actuel** | **Atteint** | D1–D12 arbitrées — dossier à intégrer |
+| **Gate merge PR #164** | En attente | GO Morris merge distinct |
+| **Gate cartographie lot 1** | **Fermé** | GO Morris futur requis |
+| **Gate G3** | **Fermé** | Classification interdite |
+| **Gate migration** | **Fermé** | Interdite |
 
-**Alternative plus simple (recommandation candidate) :** Gate A complet → GO cartographie pilote → Gates B/C/D en parallèle partiel.
+**Séquence Morris retenue (remplace Option 2 + POC) :**
 
----
-
-## 11. Conséquences sur la cartographie
-
-| Si Morris… | Conséquence |
-|------------|-------------|
-| GO D1+D7+D9 (noyau) | Cartographie pilote read-only **autorisable** (cycle séparé) |
-| DEFER D2 | Cartographie avec vocabulaire provisoire — dette |
-| DEFER D3 | Cartographie **non recommandée** |
-| GO complet D1–D9 | Cartographie descriptive robuste |
-| Aucune décision | **Aucune cartographie** — statu quo |
+1. Gate A fondations : D1 GO, D3 ADJ, D7 GO, D9 GO — **validé**
+2. Gate B schéma : D2, D5, D6, D8 principe — **validé avec réserves**
+3. Gate C : D4 différé — **reporté**
+4. Gate D : D10, D11 différés ; D12 GO WR — **validé/partiel**
 
 ---
 
-## 12. Conséquences sur G3 et la classification
+## 12. Conséquences sur la cartographie
 
-- **G3 interdit** sans validation explicite D1, D3, D7, D9 minimum (recommandation candidate)
-- Classification garder/archiver/supprimer = **L3 Morris** — hors ce dossier
-- Merge de ce PR **ne déclenche pas** G3
-
----
-
-## 13. Conséquences sur les migrations futures
-
-| Décision | Impact migration |
-|----------|------------------|
-| D12 GO | Conventions nouveaux fichiers ; pas renommage masse |
-| D8 détails | Champs cibles par lot migration |
-| D10 | Critère déplacement futur docs/ ↔ method/ |
-| Validation incomplète | Migration **interdite** (PD9, cadrage) |
+| Élément | Conséquence |
+|---------|-------------|
+| D1, D7, D9 GO | Cadre prêt pour cartographie **après merge + GO lot** |
+| D3 ADJ | Utiliser cycle sans `active` en cartographie ; signaler écart principes |
+| D4, D10, D11 DEFER | Cartographie possible avec hypothèses et réserves |
+| POC | **Non retenu** — cartographie par lots joue le rôle d'apprentissage |
+| Ce cycle | **Aucune cartographie ouverte** |
 
 ---
 
-## 14. Risques de validation prématurée
+## 13. Conséquences sur G3 et la classification
 
-- Valider D1–D12 d'un bloc sans POC → décisions sur sujets non testés (D10, D3 active)
-- Confondre merge dossier décision = standard opérationnel
-- Préremplir GO par déduction du merge PR #163
-
----
-
-## 15. Risques du report
-
-- Dette d'ambiguïté persistante (audit moyen-faible)
-- Tentation cartographie « informelle » sans gates
-- Blocage chantier v2.6 si NO-GO global
+- **G3 fermé** — D9 GO : aucune classification consolidée avant cadre intégré et décisions appliquées en cartographie
+- Merge PR #164 **n'ouvre pas** G3
+- D4 différé : autorité en hypothèse jusqu'à réouverture
 
 ---
 
-## 16. Dette potentielle
+## 14. Conséquences sur les migrations futures
 
-| Source | Dette si non tranché |
-|--------|---------------------|
-| D3 active vs usage | Double métadonnée permanente |
-| D10 | docs/method gris zone |
-| D11 | v3 visible sans politique |
-| D2 frontières | Classifications familles incohérentes |
+- Migration **interdite** tant que cartographie et G3 non validés
+- D12 : conventions **nouveaux** docs ; legacy toléré
+- D10 différé : pas de déplacement docs/ ↔ method/ sans arbitrage lot
 
 ---
 
-## 17. Réversibilité
+## 15. Risques et dette
 
-| Niveau | Décisions |
-|--------|-----------|
-| **Haute** | D1, D4, D5, D6, D12 (cadre documentaire) |
-| **Moyenne** | D2, D3, D7, D8 (vocabulaire central) |
-| **Conditionnelle** | D9 (change gates aval) |
-
-Aucune décision ici ne modifie les fichiers — réversibilité **maximale** tant que non appliqué.
-
----
-
-## 18. Proposition de décision globale
-
-| Option | Description | Avantage | Risque |
-|--------|-------------|----------|--------|
-| **1 — Validation complète D1–D12** | Tout trancher maintenant | Cadre complet | Décisions prématurées D10/D11/D3 |
-| **2 — Fondation + POC** ⭐ | Noyau Gate A+B ; POC read-only futur | Équilibre | Décisions partielles ouvertes |
-| **3 — Approfondissement** | Cycle ciblé D3, D10 avant validation | Moins d'ambiguïté | Délai |
-| **4 — NO-GO temporaire** | Pause chantier | Zéro décision prématurée | Blocage v2.6 |
-
-**Recommandation globale candidate :** **Option 2 — Validation fondation + POC read-only futur**
-
-**Noyau candidate à soumettre à Morris (recommandations — non décisions) :**
-
-| ID | Recommandation candidate |
-|----|-------------------------|
-| D1 | GO recommandé |
-| D2 | GO WITH RESERVE |
-| D3 | ADJUSTMENT REQUIRED (`active`) |
-| D4 | Différable avant POC |
-| D5 | GO WITH RESERVE (cartographie) |
-| D6 | GO WITH RESERVE (vocabulaire minimal) |
-| D7 | GO recommandé |
-| D8 | Valider principe ; champs après POC |
-| D9 | GO avec distinction pilote / G3 |
-| D10 | DEFER + POC futur |
-| D11 | DEFER explicite |
-| D12 | GO WITH RESERVE (nouveaux docs) |
+| Risque / dette | Mitigation |
+|----------------|------------|
+| Écart D3 principes vs décisions | Cycle alignement principes planifié |
+| D4/D10/D11 différés | Réserves explicites en cartographie |
+| F02/F11, F06/F15 frontières | Réserves D2 ; affinage cartographie |
+| Confusion merge = cartographie ouverte | Gates explicites §11 |
 
 ---
 
-## 19. Registre des décisions Morris
+## 16. Options globales — historique et choix Morris
 
-> **Toutes les lignes initialisées NON DÉCIDÉ.** Morris doit renseigner explicitement.
+| Option | Statut |
+|--------|--------|
+| 1 — Validation complète D1–D12 | Non retenue intégralement (D4, D10, D11 différés) |
+| 2 — Fondation + POC | **NON RETENU PAR MORRIS** (POC supprimé) |
+| 3 — Approfondissement | Partiellement couvert par réserves et différés |
+| 4 — NO-GO | Non retenu |
 
-| ID | Décision Morris | Réserves | Date/heure | Autorité | Effet | Gate suivant |
-|----|-----------------|----------|------------|----------|-------|--------------|
-| D1 | **NON DÉCIDÉ** | | | Morris | | Gate A |
-| D2 | **NON DÉCIDÉ** | | | Morris | | Gate B |
-| D3 | **NON DÉCIDÉ** | | | Morris | | Gate A |
-| D4 | **NON DÉCIDÉ** | | | Morris | | Gate C |
-| D5 | **NON DÉCIDÉ** | | | Morris | | Gate B |
-| D6 | **NON DÉCIDÉ** | | | Morris | | Gate B |
-| D7 | **NON DÉCIDÉ** | | | Morris | | Gate A |
-| D8 | **NON DÉCIDÉ** | | | Morris | | Gate B/C |
-| D9 | **NON DÉCIDÉ** | | | Morris | | Gate A |
-| D10 | **NON DÉCIDÉ** | | | Morris | | Gate D |
-| D11 | **NON DÉCIDÉ** | | | Morris | | Gate D |
-| D12 | **NON DÉCIDÉ** | | | Morris | | Gate D |
+**Choix Morris :** avancement sur matrice proposée avec **trajectoire cartographie progressive par lots** — **aucune option globale reste à arbitrer pour D1–D12**.
 
-**Ce registre vide de décisions validées :** le dossier reste **candidate** jusqu'à arbitrage Morris explicite (édition registre ou cycle dédié).
+**Prochaine décision distincte :** GO merge PR #164 ; puis GO ouverture **premier lot cartographie read-only**.
 
 ---
 
-## 20. Conditions d'ouverture de l'étape suivante
+## 17. Registre des décisions Morris
 
-| Étape | Condition candidate |
-|-------|---------------------|
-| Merge ce dossier | GO Morris merge PR — **ne valide pas** D1–D12 |
-| Arbitrage Morris | Registre §19 renseigné ou option globale choisie |
-| Cartographie pilote read-only | D1, D3, D7, D9 minimum + D2/D6 GO ou GO WITH RESERVE |
-| POC read-only | GO Morris cycle séparé |
-| G3 classification | Validation explicite modèle ; **pas** implicite |
-| Migration | Validation + arborescence + lots — hors scope |
+| ID | Décision Morris | Réserves synthétiques | Date/heure | Autorité | Effet | Condition réouverture | Gate suivant |
+|----|-----------------|----------------------|------------|----------|-------|----------------------|--------------|
+| D1 | **GO** | — | 2026-07-11 12:45 | Morris | Cadre 7 dimensions candidate | — | Merge dossier ; carto |
+| D2 | **GO WITH RESERVE** | F02/F11 ; F06/F15 ; F16/F17 ; pas +familles | 2026-07-11 12:45 | Morris | Taxonomie F01–F17 candidate | Cartographie réelle | Carto lot |
+| D3 | **ADJUSTMENT REQUIRED** | Retrait `active` ; alignement principes futur | 2026-07-11 12:45 | Morris | Lifecycle 6 états + usage séparé | — | Alignement principes |
+| D4 | **DEFERRED** | Hypothèse lecture seule | 2026-07-11 12:45 | Morris | Non bloquant carto | Carto ; G3 prep | Gate C |
+| D5 | **GO WITH RESERVE** | Cartographie d'abord ; pas obligatoire partout | 2026-07-11 12:45 | Morris | Usage en carto | — | Carto lot |
+| D6 | **GO WITH RESERVE** | product différé ; project requis | 2026-07-11 12:45 | Morris | 5 périmètres | Cas réel product | Carto lot |
+| D7 | **GO** | v3 hors trajectoire | 2026-07-11 12:45 | Morris | Trajectory/baseline candidate | — | Carto ; G3 |
+| D8 | **GO WITH RESERVE** | Principe seul ; champs après carto | 2026-07-11 12:45 | Morris | Profils A–F principe | Cartographie lots | Gate C |
+| D9 | **GO** | Pas POC ; carto par lots ; G3 fermé | 2026-07-11 12:45 | Morris | Gates carto/G3 | — | GO carto lot |
+| D10 | **DEFERRED** | Hypothèse logique conservée | 2026-07-11 12:45 | Morris | Pas d'arbre cible | Lot documentaire | Gate D |
+| D11 | **DEFERRED** | Hors trajectoire ; pas toucher v3 | 2026-07-11 12:45 | Morris | Statu quo v3 | Décision Morris v3 | Gate D |
+| D12 | **GO WITH RESERVE** | Nouveaux docs ; legacy toléré | 2026-07-11 12:45 | Morris | Conventions création | Migration gouvernée | Migration future |
+
+> **Aucune ligne NON DÉCIDÉ.**
 
 ---
 
-## 21. Points non couverts
+## 18. Points non couverts
 
 - Matrice fichier × dimensions réelle
-- Arbitrage contenu doublons sémantiques (§15 audit)
-- Correction ~23 liens cassés
-- Politique Notion vs Git (audit export)
+- Alignement document principes (D3) — cycle futur
+- Correction liens cassés ; Notion vs Git
 - Automatisation / linter
 
 ---
 
-## 22. Risques et réserves
-
-| Risque | Niveau |
-|--------|--------|
-| Recommandations lues comme décisions | Élevé |
-| Option 2 interprétée comme GO POC automatique | Moyen |
-| Validation partielle insuffisante pour G3 | Moyen |
-
-**Réserves :** analyse basée sur principes candidate @ `688832d` ; pas de test empirique repository dans ce cycle.
-
----
-
-## 23. Conclusion
+## 19. Conclusion
 
 | Élément | Statut |
 |---------|--------|
-| D1–D12 analysées | **Oui** |
-| Fiches complètes | **Oui** §7–8 |
-| Recommandations formulées | **Oui** — distinctes décisions |
-| Registre NON DÉCIDÉ | **Oui** §19 |
-| Décisions Morris validées | **Non** |
-| Application / cartographie / G3 | **Non** |
+| D1–D12 arbitrées par Morris | **Oui** |
+| Réserves tracées | **Oui** |
+| D3 retrait `active` décidé | **Oui** — alignement principes **futur** |
+| D4, D10, D11 différés | **Oui** — conditions documentées |
+| POC | **Non retenu** |
+| Cartographie | **Non ouverte** |
+| G3 / classification / migration | **Non** |
+| Document principes modifié | **Non** |
+| SFIA v2.6 | **Candidate** |
 
 ---
 
-## 24. Gate Morris
+## 20. Gate Morris
 
-| Action Morris | Description |
-|---------------|-------------|
-| **A** | Arbitrer registre D1–D12 (édition explicite) |
-| **B** | Choisir option globale §18 (1–4) |
-| **C** | Demander ajustements dossier (cycle revision) |
-| **D** | Merge PR dossier **sans** valider D1–D12 |
-| **E** | NO-GO temporaire chantier |
+| Gate | Description |
+|------|-------------|
+| **Actuel** | Décisions inscrites — **merge PR #164** soumis à GO Morris distinct |
+| **Suivant** | GO Morris **premier lot cartographie read-only borné** |
+| **G3** | Fermé |
+| **Migration** | Fermée |
 
-**Non automatique :** POC, cartographie, G3, migration, merge sans GO.
+**Non automatique :** merge PR ; cartographie ; G3 ; migration ; alignement principes.
 
 ---
 
-## Annexe A — Matrice D1–D12
+## Annexe A — Matrice D1–D12 (post-décision Morris)
 
-| ID | Lot | Recommandation | Bloque carto. pilote | Bloque G3 | Bloque migration | Différable |
-|----|-----|----------------|----------------------|-----------|------------------|------------|
-| D1 | A | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Oui | Non |
-| D2 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel | Partiel |
-| D3 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Oui | Non |
-| D4 | A | ADOPT AS CANDIDATE FRAMEWORK | Non | Partiel | Non | Oui |
-| D5 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Partiel | Non | Partiel |
-| D6 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel | Partiel |
-| D7 | A | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Oui | Non |
-| D8 | A | ADOPT WITH TARGETED ADJUSTMENT | Partiel | Oui | Oui | Partiel |
-| D9 | A | ADOPT AS CANDIDATE FRAMEWORK | — | Oui | Oui | Non |
-| D10 | B | DEFER WITH EXPLICIT CONDITION | Non | Partiel | Partiel | Oui |
-| D11 | B | DEFER WITH EXPLICIT CONDITION | Non | Non | Non | Oui |
-| D12 | B | ADOPT WITH TARGETED ADJUSTMENT | Non | Non | Partiel | Oui |
+| ID | Décision Morris | Bloque carto. lot 1 | Bloque G3 | Bloque migration | Différable |
+|----|-----------------|---------------------|-----------|------------------|------------|
+| D1 | GO | Non | Oui* | Oui* | Non |
+| D2 | GO WITH RESERVE | Non | Partiel | Partiel | Partiel |
+| D3 | ADJUSTMENT REQUIRED | Non | Oui* | Oui* | Non |
+| D4 | DEFERRED | Non | Partiel | Non | Oui |
+| D5 | GO WITH RESERVE | Non | Partiel | Non | Partiel |
+| D6 | GO WITH RESERVE | Non | Partiel | Partiel | Partiel |
+| D7 | GO | Non | Oui* | Oui* | Non |
+| D8 | GO WITH RESERVE | Non | Oui | Oui | Partiel |
+| D9 | GO | — | Oui | Oui | Non |
+| D10 | DEFERRED | Non | Partiel | Partiel | Oui |
+| D11 | DEFERRED | Non | Non | Non | Oui |
+| D12 | GO WITH RESERVE | Non | Non | Partiel | Oui |
+
+*Prérequis satisfaits par décisions Morris — G3/migration restent fermés par D9.
 
 ---
 
 ## Annexe B — Dépendances décisionnelles
 
+(Inchangée structurellement — D3 ADJ impacte alignement principes et cartographie lifecycle.)
+
 | Décision | Amont | Aval |
 |----------|-------|------|
-| D1 | — | D2–D8, D9 |
-| D2 | D1 | D8, D10, cartographie |
-| D3 | D1 | D5, D8, cartographie |
-| D4 | D1, D3 | G3 partiel |
-| D5 | D1, D3 | cartographie |
-| D6 | D1, D2 | cartographie |
-| D7 | D1 | D9, cartographie |
-| D8 | D1–D3 | migration, G3 |
-| D9 | D1–D8 | cartographie, G3 |
-| D10 | D2, D9 | migration docs |
-| D11 | D7 | cycle v3 futur |
-| D12 | — | migration nommage |
+| D3 ADJ | D1 | Alignement principes ; D5 ; cartographie |
+| D9 GO | D1–D8 | Cartographie lots ; blocage G3 |
+| D10 DEFER | D2, D9 | Lot cartographie documentaire |
 
 ---
 
 ## Annexe C — Décision × gate futur
 
-| Gate futur | Décisions minimales candidate |
-|------------|------------------------------|
-| Cartographie pilote read-only | D1, D2, D3, D6, D7, D9 (+ D5 recommandé) |
-| POC read-only | Idem + GO Morris cycle POC |
-| Classification G3 | D1–D9 validées ou GO WITH RESERVE explicite |
-| Migration lot 1 | G3 + D8 détails + D12 |
-| Automatisation L2 | D8 champs + D3/D4 stabilisés |
+| Gate futur | Condition post-décision Morris |
+|------------|-------------------------------|
+| Merge PR #164 | D1–D12 inscrites — GO merge Morris |
+| Cartographie lot 1 read-only | Merge dossier + **GO Morris lot** ; D1,D7,D9 satisfaits |
+| Alignement principes D3 | Cycle séparé — retrait `active` |
+| Classification G3 | Fermé — réouverture Morris explicite après cartographie |
+| Migration lot 1 | G3 + D8 détails + D12 — fermé |
+| POC | **NON RETENU — gate supprimée** |
 
 ---
 
-## Annexe D — Options globales de validation
+## Annexe D — Options globales
 
-| Option | D1–D12 | Carto. pilote | POC | G3 |
-|--------|--------|---------------|-----|-----|
-| 1 — Complète | Tout valider | Après | Optionnel | Après validation |
-| 2 — Fondation + POC ⭐ | Noyau Gate A+B | Après noyau | GO Morris séparé | Après POC + reste |
-| 3 — Approfondissement | Reporter partiel | Retardée | Après | Retardée |
-| 4 — NO-GO | Rien | Interdite | Interdit | Interdit |
+| Option | Statut Morris |
+|--------|-------------|
+| 1 — Complète | Non (différés D4,D10,D11) |
+| 2 — Fondation + POC | **NON RETENU** |
+| 3 — Approfondissement | Partiel via réserves |
+| Trajectoire retenue | **Décisions → merge → cartographie par lots** |
 
 ---
 
@@ -807,15 +594,15 @@ Aucune décision ici ne modifie les fichiers — réversibilité **maximale** ta
 | Repository | mcleland147/sfia-workspace |
 | Branche projet | method/sfia-v2.6-repository-standard-decisions |
 | Base `main` | `688832d90e613959fbfdf53530f86aea36e23538` |
-| HEAD initial | `688832d90e613959fbfdf53530f86aea36e23538` |
-| Fichier créé | `2026-07-11-sfia-v2.6-repository-standard-decisions.md` |
-| Fichiers modifiés | Aucun |
+| HEAD initial (correctif) | `8bf811a5a378557d8dc3b943798fd3ebef8f90b6` |
+| Cycle | Validation décisionnelle — inscription Morris D1–D12 |
 | Profil | Critical |
-| Commit attendu | `docs: prepare bounded decisions for SFIA v2.6 repository standard` |
+| Fichier modifié | `2026-07-11-sfia-v2.6-repository-standard-decisions.md` |
+| Commit attendu | `docs: record Morris decisions for SFIA v2.6 repository standard` |
 
 ---
 
-*Dossier candidate SFIA v2.6 — arbitrage D1–D12 — registre NON DÉCIDÉ — Morris arbitre — aucune application sans GO explicite.*
+*Dossier candidate SFIA v2.6 — décisions Morris D1–D12 inscrites — POC non retenu — cartographie par lots non ouverte — SFIA v2.6 reste candidate.*
 ```
 
 
@@ -823,19 +610,12 @@ Aucune décision ici ne modifie les fichiers — réversibilité **maximale** ta
 
 ## Validations
 
-| Validation | OK |
-|------------|-----|
-| D1–D12 couvertes | ✓ |
-| Registre NON DÉCIDÉ | ✓ |
-| Recommandation ≠ décision | ✓ |
-| Aucune cartographie/POC/G3 | ✓ |
-| created files full content | yes |
-| useful diff included | yes |
-| synthesis only | no |
+- D1-D12 inscrites: yes
+- Registre sans NON DÉCIDÉ: yes
+- POC non retenu: yes
+- modified sections complete: yes
+- useful diff included: yes
+- synthesis only: no
 
----
-
-## Verdict review pack
-
-**complete**
+## Verdict: complete
 
