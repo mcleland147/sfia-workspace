@@ -1,16 +1,14 @@
-# SFIA Review Pack — PR #159 reprise v2.6 cadrage
+# SFIA Review Pack — Global summary after review handoff
 
-**Date/heure :** 2026-07-11 05:15 Europe/Paris
+**Date/heure :** 2026-07-11 05:38 Europe/Paris
 **Repository :** mcleland147/sfia-workspace
-**Cycle :** 13 — PR readiness
-**Profil :** Standard
+**Cycle :** 15 — Capitalisation / REX
+**Profil :** Capitalization — Light
 **Review pack level :** full
-**Branche projet :** method/sfia-v2.6-repository-cleanup-framing
-**HEAD initial :** 993634bd7b49ddc4d037c8199ec0ea4665cdd6a0
-**HEAD final :** 993634bd7b49ddc4d037c8199ec0ea4665cdd6a0 (inchangé — pas de sync)
-**origin/main :** e608f5908a2f63831716a2c4ec3bb95c957046a1
-**merge-base initial :** fed2e2cdeb094ee9c0651def54ef48d9a2dc8766
-**merge-base final :** fed2e2cdeb094ee9c0651def54ef48d9a2dc8766
+**Branche :** method/sfia-chatgpt-handoff-global-summary
+**HEAD initial :** 2d393dfc239bf7fcb770b673f7fa1eaf4051907c
+**HEAD final : 439a3a8f52c32b4a85707e6ba14e5fff9a4ad0c5
+**origin/main :** 2d393dfc239bf7fcb770b673f7fa1eaf4051907c
 
 ---
 
@@ -20,65 +18,26 @@
 |---------|--------|
 | Workspace | /Users/morris/Projects/sfia-workspace |
 | Remote | mcleland147/sfia-workspace |
-| Branche départ | main @ e608f59 |
-| Tracked modifiés | aucun |
+| main | 2d393df = origin/main |
+| Tracked modifiés avant cycle | aucun |
 | Untracked | présents — non stagés |
-| PR #159 | OPEN, head 993634b |
 
 ---
 
-## Raison de la reprise
-
-Après merge PR #160 (Review Handoff routing fix), la PR #159 nécessite :
-- review pack full mono-cycle ;
-- publication handoff distant ;
-- revue ChatGPT avant décision merge Morris.
-
-Incident initial : handoff non publié lors de l'ouverture PR #159.
-
----
-
-## État initial PR #159
-
-| Champ | Valeur |
-|-------|--------|
-| Numéro | #159 |
-| Titre | Frame SFIA v2.6 repository cleanup |
-| État | OPEN |
-| Draft | false |
-| Mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN |
-| Base | main @ fed2e2c (GitHub) — main actuel e608f59 |
-| Head | method/sfia-v2.6-repository-cleanup-framing @ 993634b |
-| Fichiers PR | 1 seul (cadrage v2.6) |
-| Checks | aucun bloquant |
-
----
-
-## Synchronisation avec main
+## Challenge obligatoire
 
 | Question | Réponse |
 |----------|---------|
-| Nécessaire ? | **Non** |
-| Raison | PR déjà MERGEABLE / CLEAN sur GitHub |
-| Commit sync | aucun |
-| Conflits | aucun |
-| Push branche | non requis |
-
-> Note : `git diff origin/main..HEAD` affiche 6 fichiers car la branche est basée sur fed2e2c (avant PR #160). Le diff **utile** PR (merge-base → head) reste **mono-fichier**. GitHub merge intégrera main + commit 993634b sans régression documentaire.
+| Utile maintenant ? | **Oui** — handoff vérifié mais restitution parfois trop technique pour Morris |
+| Dette / duplication ? | **Faible** — ajout ciblé dans template canonique §9.1 |
+| Formulation plus simple ? | **Oui** — extension de l'instruction existante suffit |
+| Autres documents ? | **Non** — pas d'incohérence bloquante démontrée |
 
 ---
 
-## Hash document v2.6
+## Justification micro-évolution
 
-| Mesure | Valeur |
-|--------|--------|
-| Git blob hash (avant) | 70b9647e51a4adacf6539db9f37b95a8cd34666f |
-| SHA-256 contenu (avant) | 0e7e361012f17a72237e5e32b0c63da8ecbedfef1671ce2e07f2e3fc26633298 |
-| Git blob hash (après) | 70b9647e51a4adacf6539db9f37b95a8cd34666f |
-| SHA-256 contenu (après) | 0e7e361012f17a72237e5e32b0c63da8ecbedfef1671ce2e07f2e3fc26633298 |
-| Lignes | 283 |
-| **Document inchangé** | **oui** |
+Après vérification du handoff Git, ChatGPT doit produire une synthèse globale du cycle (7 éléments minimum) compréhensible sans relire le rapport Cursor intégral.
 
 ---
 
@@ -86,670 +45,190 @@ Incident initial : handoff non publié lors de l'ouverture PR #159.
 
 | Source | Rôle |
 |--------|------|
-| main — sfia-cycle-execution-template.md §7.10–§7.11 | Règles handoff post-PR #160 |
-| main — operating model §18.2.8.H | Responsabilités |
-| main — routing guide §2.1 | Matrice handoff |
-| main — rules §13.1 | Règle transverse |
-| main — REX handoff routing fix | Contexte correctif |
-| branche PR #159 — document cadrage v2.6 | Contenu PR |
-| gh pr view 159 | Métadonnées PR |
+| prompts/templates/sfia-cycle-execution-template.md §9.1 | Section modifiée |
+| sfia-chatgpt-cursor-operating-model.md | Responsabilités ChatGPT (lecture) |
+| sfia-cycle-routing-guide.md | Matrice handoff (lecture) |
+| sfia-rules-and-guardrails.md §13.1 | Règle transverse (lecture) |
+| REX handoff routing fix v2.5 | Contexte handoff |
+| Cadrage v2.6 | Contexte candidate (lecture) |
 
 ---
 
-## Fichier créé dans la PR
+## Fichier modifié
 
-`method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md`
-
----
-
-## Contenu complet du document v2.6
-
-# SFIA v2.6 — Repository Cleanup — Cadrage du chantier
-
-**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md`  
-**Date et heure :** 2026-07-11 04:41 Europe/Paris  
-**Statut :** **Candidate** — cadrage du chantier SFIA v2.6  
-**Cycle projet :** Cycle 1 — Cadrage  
-**Profil SFIA :** Standard  
-**Typologie v2.4 :** DOC  
-**Autorité de décision :** Morris (L0)  
-**Baseline opérationnelle :** SFIA v2.4 — Consolidation & Operating Efficiency  
-**Trajectoire précédente reprise :** SFIA v2.5 **candidate** — validée et capitalisée (Chantiers360 post-MVP, PR #154–#158)  
-**HEAD `main` de référence :** `fed2e2c` — merge PR #158 (clôture capitalisation v2.5)
+- `prompts/templates/sfia-cycle-execution-template.md` — §9.1 Instruction ChatGPT obligatoire
 
 ---
 
-## 1. Contexte
-
-### 1.1 Raison d'ouverture de SFIA v2.6 candidate
-
-Le repository `mcleland147/sfia-workspace` a accumulé, au fil des cycles SFIA v2.0–v2.5, une documentation riche mais hétérogène : méthode, projets, audits, REX, plans de migration, trajectoires candidate, archives et artefacts locaux. La capitalisation v2.5 (Chantiers360 post-MVP) a renforcé la gouvernance Git, le review pack proportionné, le handoff et les règles post-merge — sans résoudre la **lisibilité structurelle** du dépôt lui-même.
-
-SFIA v2.6 candidate ouvre un chantier de **consolidation, rationalisation documentaire et nettoyage du repository** — distinct de la promotion méthode v2.5 en baseline.
-
-### 1.2 Continuité avec v2.5 — absence de remise à zéro
-
-| Élément | Position |
-|---------|----------|
-| **SFIA v2.4** | Reste **baseline opérationnelle** — inchangée par ce cadrage |
-| **SFIA v2.5** | Trajectoire **candidate capitalisée** — acquis à préserver et réutiliser |
-| **SFIA v2.6** | Nouvelle trajectoire **candidate** — consolidation repo, pas remplacement de v2.4/v2.5 |
-| **Git `main`** | **Source de vérité** — faits durables, méthode versionnée, décisions validées |
-
-**Acquis v2.5 à préserver dans v2.6 :**
-
-- Repo-informed prompt generation (Local Git Truth Check, Git Review Index)
-- Review pack proportionné (none / light / full) et completeness
-- Review Handoff Git Branch (commit + push + remote verification)
-- Figma visual contract (hors périmètre direct v2.6 sauf docs concernées)
-- Granularité Git proportionnée
-- Post-MVP stop rules et post-merge cleanup intégré
-- Distinction baseline / candidate / profil Capitalization
-
-### 1.3 Documents antérieurs repérés (non repris dans ce cadrage)
-
-Les travaux suivants existent déjà dans `main` et **ne doivent pas être dupliqués** par v2.6 — ils seront **réconciliés** lors de l'audit futur :
-
-| Document repéré | Rôle antérieur | Traitement v2.6 |
-|-----------------|----------------|-----------------|
-| `method/sfia-fast-track/documentation/documentation-structure-target.md` | Arborescence cible proposée | Input audit — pas remplacement immédiat |
-| `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-migration-plan.md` | Plan migration physique | Input audit — révision requise |
-| `method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-plan.md` | Cleanup round 2 | Input audit — éviter doublon de plan |
-| `method/sfia-fast-track/documentation/notion/sfia-notion-live-export-audit.md` | Audit export Notion | Périmètre distinct — référence croisée |
-
-> **Ce cadrage ne réalise aucun audit, aucune cartographie exhaustive ni aucune classification effective de ces documents.**
-
----
-
-## 2. Objectifs du chantier SFIA v2.6
-
-| # | Objectif |
-|---|----------|
-| O1 | **Consolider** la documentation SFIA dans une structure lisible et cohérente |
-| O2 | **Rationaliser** — réduire doublons, ambiguïtés et zones grises (canonique / candidate / historique / projet) |
-| O3 | **Améliorer la lisibilité** du repository pour ChatGPT, Cursor et Morris |
-| O4 | **Préparer** une arborescence cible v2.6 — sans l'imposer dans ce cadrage |
-| O5 | **Préserver** les acquis utiles v2.5 et toute documentation encore référencée ou opérationnelle |
-| O6 | **Préparer** des migrations documentaires futures par lots bornés, réversibles et gate Morris |
-
----
-
-## 3. Non-objectifs de ce cadrage (PR de cadrage)
-
-| Non-objectif | Confirmation |
-|--------------|--------------|
-| Audit complet du repository | **Non réalisé** |
-| Cartographie exhaustive | **Non réalisée** |
-| Classification effective de fichiers | **Non réalisée** |
-| Proposition d'arborescence définitive | **Non produite** |
-| Migration, déplacement, renommage | **Non réalisés** |
-| Archivage ou suppression | **Non réalisés** |
-| Promotion SFIA v2.6 en baseline | **Non actée** |
-| Modification immédiate docs v2.4 ou v2.5 | **Non actée** |
-| Réouverture SFIA v3.0 / MCP / Bridge / Runner / `.sfia` | **Hors périmètre** |
-
----
-
-## 4. Principes directeurs
-
-| # | Principe | Application |
-|---|----------|-------------|
-| P1 | **Repo-first** | Git `main` prime ; contenu et rôle réel du document à examiner |
-| P2 | **Conservation par défaut** | Tant qu'aucune reprise, remplacement ou justification validée n'est démontrée |
-| P3 | **Aucune archive sans reprise** | Remplacement explicite ou justification Morris avant archivage |
-| P4 | **Distinction documentaire** | Obsolète / redondant / historique / canonique / encore utile — cadre candidat uniquement |
-| P5 | **Arbitrage Morris** | Décisions structurantes, archivage, suppression, arborescence cible |
-| P6 | **Migration par lots** | Bornée, réversible, PR readiness stricte, un lot à la fois |
-| P7 | **Pas de suppression définitive** | Pendant audit, cartographie et premières phases de migration |
-| P8 | **Reprise v2.5** | Règles capitalisées conservées — pas d'effacement de la trajectoire candidate |
-| P9 | **Pas de décision par métadonnée seule** | Nom de fichier ou date Git insuffisants — contenu et références à analyser |
-
----
-
-## 5. Étapes cibles du chantier
-
-| Étape | Intitulé | Nature | Réalisée dans ce cadrage ? |
-|-------|----------|--------|----------------------------|
-| **1** | Audit read-only complet du repo | Inventaire structuré, sans modification | **Non** — cycle futur |
-| **2** | Cartographie des documents | Familles, rôles, liens, doublons potentiels | **Non** — cycle futur |
-| **3** | Classification candidate consolidée | Garder / mettre à jour / fusionner / archiver / supprimer plus tard | **Non** — cadre défini §7 uniquement |
-| **4** | Proposition d'arborescence cible v2.6 | Synthèse des étapes 1–3 + reprise docs existants | **Non** — cycle futur |
-| **5** | **GO Morris** | Validation périmètre, classification, arborescence | **Non** — gate future |
-| **6** | Migration documentaire par lots | `git mv`, PRs strictes, pas de mega-PR | **Non** — cycle futur |
-| **7** | PR readiness stricte | Garde-fous v2.5 appliqués à chaque lot | **Non** — cycle futur |
-| **8** | Capitalisation finale | REX v2.6, mise à jour méthode si GO | **Non** — cycle futur |
-
----
-
-## 6. Livrables prévisionnels par étape
-
-> **Types de livrables attendus uniquement** — aucun produit dans cette PR.
-
-| Étape | Livrables prévisionnels (types) |
-|-------|--------------------------------|
-| **1 — Audit** | Rapport audit read-only ; inventaire par grandes familles ; liste docs repérés non analysés ; risques initiaux |
-| **2 — Cartographie** | Matrice document × rôle × statut (canonique/candidate/projet/historique) ; cartographie des liens cassés potentiels |
-| **3 — Classification** | Table candidate consolidée (sans exécution) ; réserves par document ; doublons signalés |
-| **4 — Arborescence cible** | Proposition v2.6 ; delta vs `documentation-structure-target.md` ; plan de réconciliation |
-| **5 — GO Morris** | Décisions actées ; périmètre lots ; gates suivants |
-| **6 — Migration** | PR(s) par lot ; diff `git mv` ; README de zone si requis ; traçabilité commit |
-| **7 — PR readiness** | Rapport readiness ; review pack proportionné ; post-merge check + cleanup |
-| **8 — Capitalisation** | Document clôture v2.6 candidate ; REX ; recommandation baseline (hors actation automatique) |
-
----
-
-## 7. Modèle de classification candidat
-
-> **Cadre de travail candidate — aucun fichier classé effectivement dans cette PR.**
-
-| Catégorie | Définition candidate | Exécution |
-|-----------|---------------------|-----------|
-| **Garder** | Document canonique ou opérationnel — emplacement actuel ou cible sans changement de statut | Cycle futur |
-| **Mettre à jour** | Contenu utile — obsolescence partielle, liens, statut, métadonnées | Cycle futur |
-| **Fusionner** | Doublons ou fragments — consolidation en document de référence unique | Cycle futur |
-| **Archiver** | Valeur historique — reprise ou remplacement démontré avant déplacement archive | Cycle futur — GO Morris |
-| **Supprimer plus tard** | Redondance avérée post-audit — jamais en première intention ; suppression différée et gate Morris | Cycle futur — GO Morris |
-
----
-
-## 8. Gates Morris
-
-| # | Gate | Moment |
-|---|------|--------|
-| G1 | **GO cadrage v2.6** | Validation présent document — merge PR cadrage |
-| G2 | **GO audit complet** | Ajustement périmètre audit si nécessaire |
-| G3 | **GO classification consolidée** | Après étapes 1–2 — avant arborescence cible |
-| G4 | **GO arborescence cible v2.6** | Avant tout lot de migration structurant |
-| G5 | **GO lot de migration** | Avant chaque PR de déplacement / renommage / fusion |
-| G6 | **GO archivage** | Avant tout déplacement vers zone archive |
-| G7 | **GO suppression** | Avant toute suppression — jamais en audit/cartographie |
-| G8 | **GO PR** | Ouverture PR migration / capitalisation |
-| G9 | **GO merge** | Merge vers `main` |
-| G10 | **GO promotion v2.6** | Éventuelle promotion baseline — **hors scope automatique** |
-
----
-
-## 9. Garde-fous
-
-| Garde-fou | Application |
-|-----------|-------------|
-| Aucun document utile archivé sans reprise, remplacement ou justification | Obligatoire |
-| Aucune suppression pendant audit et cartographie | Obligatoire |
-| Décision basée sur contenu et rôle — pas nom/date seuls | Obligatoire |
-| Git `main` prime sur sources projet ChatGPT | Obligatoire |
-| SFIA v2.4 reste baseline opérationnelle | Obligatoire |
-| SFIA v2.6 reste candidate | Obligatoire |
-| SFIA v3.0, MCP, Bridge, Runner, `.sfia` hors périmètre | Obligatoire |
-| Chemins protégés non modifiés sans GO Morris | Voir §10 |
-| Reprise acquis v2.5 — pas d'effacement règles capitalisées | Obligatoire |
-| Review pack / handoff v2.5 applicables aux cycles v2.6 documentaires | Reprise candidate |
-| Pas de mega-PR migration | Lots bornés |
-| `git mv` préféré aux suppressions | Migration future |
-
----
-
-## 10. Périmètre prévisionnel de l'audit futur (grandes familles)
-
-> **Description des familles à examiner — pas d'inventaire complet.**
-
-| Famille | Exemples de zones (indicatif) | Notes audit futur |
-|---------|------------------------------|-------------------|
-| **Méthode Fast Track core** | `method/sfia-fast-track/core/` | Canonique v2.4 + compléments v2.5 candidate |
-| **Capitalization / trajectoires** | `method/.../capitalization/sfia-v2/`, `sfia-v2.5/`, `sfia-v2.6/` | Distinction candidate / validé |
-| **Templates & prompts** | `prompts/templates/`, `prompts/prompt-catalog.md` | Références croisées routing guide |
-| **Checklists & automation** | `method/sfia-fast-track/checklists/`, `automation/` | Cohérence profils |
-| **Documentation transverse** | `docs/`, `method/complementary/` | vs `method/sfia-fast-track/` |
-| **Projets** | `projects/*/` | Méthode ≠ projet — pas de fusion |
-| **Audits & workspace** | `method/.../workspace-audit/`, `documentation/` | Réconciliation plans antérieurs |
-| **Notion & publication** | `method/.../notion/` | Périmètre publication distinct |
-| **Archives & historique** | zones archive existantes | Conservation par défaut |
-| **Artefacts locaux / non versionnés** | `.tmp-*`, `.sfia/`, etc. | Hors Git — politique locale, pas migration |
-
-**Chemins protégés (non modifiables sans GO Morris explicite) :**
-
-- `prompts/templates/sfia-cycle-execution-template.md` — modification uniquement par cycle méthode dédié
-- Documents baseline v2.4 actés — pas de réécriture dans v2.6 cleanup
-- Fichiers applicatifs sous `projects/*/app/`, backends, migrations, tests
-- `.github/workflows/`
-- Branche `sfia/review-handoff` — transport handoff, non merge `main`
-
----
-
-## 11. Risques à traiter dans les cycles suivants
-
-| # | Risque | Mitigation candidate |
-|---|--------|---------------------|
-| R1 | Perte d'information utile | Conservation par défaut ; audit read-only d'abord |
-| R2 | Suppression d'une source encore référencée | Cartographie liens ; grep références avant archivage |
-| R3 | Doublons canoniques | Fusionner avec trace ; un document de référence |
-| R4 | Liens Markdown cassés | Phase liens post-migration ; tests doc si disponibles |
-| R5 | Confusion baseline / candidate | Métadonnées statut ; pas de promotion implicite |
-| R6 | Mélange méthode / projet / historique | Familles documentaires strictes |
-| R7 | Migration trop large | Lots bornés ; une PR par lot |
-| R8 | Arborescence plus complexe que l'existant | Simplicité explicite ; validation Morris arborescence |
-| R9 | Dette documentaire créée par le nettoyage | REX par lot ; capitalisation finale |
-| R10 | Réactivation involontaire v3 / MCP / `.sfia` | Garde-fou explicite ; périmètre audit |
-
----
-
-## 12. Critères de sortie du cadrage (présent document)
-
-| Critère | Statut dans ce document |
-|---------|-------------------------|
-| Périmètre du chantier compris | ✅ Défini §2–3 |
-| Étapes validables séparément | ✅ §5 |
-| Catégories candidates définies | ✅ §7 |
-| Gates identifiés | ✅ §8 |
-| Aucun audit ou changement anticipé | ✅ Confirmé |
-| Décision Morris requise avant cycle suivant | ✅ §13 |
-
----
-
-## 13. Décision attendue de Morris
-
-Morris peut :
-
-1. **Valider le cadrage** — merge PR cadrage → autorise préparation cycle audit (étape 1) sous GO distinct ;
-2. **Demander des ajustements** — périmètre, étapes, gates, familles audit ;
-3. **Refuser ou différer** — clôture ou report du chantier v2.6.
-
-> **Merge de cette PR ≠ autorisation d'audit, migration, archivage ou suppression.**
-
----
-
-## 14. Reprise capitalisation v2.5 (bloc activé)
-
-La capitalisation Chantiers360 post-MVP (PR #154–#158) est **close** sur `main`. Les règles v2.5 candidate capitalisées **s'appliquent aux cycles documentaires v2.6** :
-
-- Local Git Truth Check obligatoire
-- Review pack proportionné et completeness
-- Handoff commit + push + remote verification si mode activé
-- Granularité Git ; post-merge cleanup
-- Capitalization ≠ clore toutes les réserves (transposable : cleanup ≠ supprimer sans justification)
-
-**Document de clôture v2.5 :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.5/2026-07-11-sfia-v2.5-chantiers360-post-mvp-capitalization-close.md`
-
----
-
-## 15. Statut final
-
-### SFIA v2.6 remains a candidate trajectory.
-
-### This document does not promote SFIA v2.6 to the operational baseline.
-
-| Élément | Valeur |
-|---------|--------|
-| **SFIA v2.4** | Baseline opérationnelle |
-| **SFIA v2.5** | Candidate — capitalisée — acquis repris |
-| **SFIA v2.6** | Candidate — cadrage ouvert — audit non autorisé sans GO Morris post-merge |
-| **Verdict document** | **FRAMING DRAFT — CANDIDATE — AWAITING MORRIS REVIEW** |
-
----
-
-*SFIA v2.6 candidate — Repository cleanup — Cycle 1 Cadrage — Morris décide.*
-
-
----
-
-## Diff utile (fed2e2c..993634b — fichier cadrage uniquement)
+## Section complète AVANT
 
 ```
-diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md
-new file mode 100644
-index 0000000..70b9647
---- /dev/null
-+++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md
-@@ -0,0 +1,283 @@
-+# SFIA v2.6 — Repository Cleanup — Cadrage du chantier
-+
-+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md`  
-+**Date et heure :** 2026-07-11 04:41 Europe/Paris  
-+**Statut :** **Candidate** — cadrage du chantier SFIA v2.6  
-+**Cycle projet :** Cycle 1 — Cadrage  
-+**Profil SFIA :** Standard  
-+**Typologie v2.4 :** DOC  
-+**Autorité de décision :** Morris (L0)  
-+**Baseline opérationnelle :** SFIA v2.4 — Consolidation & Operating Efficiency  
-+**Trajectoire précédente reprise :** SFIA v2.5 **candidate** — validée et capitalisée (Chantiers360 post-MVP, PR #154–#158)  
-+**HEAD `main` de référence :** `fed2e2c` — merge PR #158 (clôture capitalisation v2.5)
-+
-+---
-+
-+## 1. Contexte
-+
-+### 1.1 Raison d'ouverture de SFIA v2.6 candidate
-+
-+Le repository `mcleland147/sfia-workspace` a accumulé, au fil des cycles SFIA v2.0–v2.5, une documentation riche mais hétérogène : méthode, projets, audits, REX, plans de migration, trajectoires candidate, archives et artefacts locaux. La capitalisation v2.5 (Chantiers360 post-MVP) a renforcé la gouvernance Git, le review pack proportionné, le handoff et les règles post-merge — sans résoudre la **lisibilité structurelle** du dépôt lui-même.
-+
-+SFIA v2.6 candidate ouvre un chantier de **consolidation, rationalisation documentaire et nettoyage du repository** — distinct de la promotion méthode v2.5 en baseline.
-+
-+### 1.2 Continuité avec v2.5 — absence de remise à zéro
-+
-+| Élément | Position |
-+|---------|----------|
-+| **SFIA v2.4** | Reste **baseline opérationnelle** — inchangée par ce cadrage |
-+| **SFIA v2.5** | Trajectoire **candidate capitalisée** — acquis à préserver et réutiliser |
-+| **SFIA v2.6** | Nouvelle trajectoire **candidate** — consolidation repo, pas remplacement de v2.4/v2.5 |
-+| **Git `main`** | **Source de vérité** — faits durables, méthode versionnée, décisions validées |
-+
-+**Acquis v2.5 à préserver dans v2.6 :**
-+
-+- Repo-informed prompt generation (Local Git Truth Check, Git Review Index)
-+- Review pack proportionné (none / light / full) et completeness
-+- Review Handoff Git Branch (commit + push + remote verification)
-+- Figma visual contract (hors périmètre direct v2.6 sauf docs concernées)
-+- Granularité Git proportionnée
-+- Post-MVP stop rules et post-merge cleanup intégré
-+- Distinction baseline / candidate / profil Capitalization
-+
-+### 1.3 Documents antérieurs repérés (non repris dans ce cadrage)
-+
-+Les travaux suivants existent déjà dans `main` et **ne doivent pas être dupliqués** par v2.6 — ils seront **réconciliés** lors de l'audit futur :
-+
-+| Document repéré | Rôle antérieur | Traitement v2.6 |
-+|-----------------|----------------|-----------------|
-+| `method/sfia-fast-track/documentation/documentation-structure-target.md` | Arborescence cible proposée | Input audit — pas remplacement immédiat |
-+| `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-migration-plan.md` | Plan migration physique | Input audit — révision requise |
-+| `method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-plan.md` | Cleanup round 2 | Input audit — éviter doublon de plan |
-+| `method/sfia-fast-track/documentation/notion/sfia-notion-live-export-audit.md` | Audit export Notion | Périmètre distinct — référence croisée |
-+
-+> **Ce cadrage ne réalise aucun audit, aucune cartographie exhaustive ni aucune classification effective de ces documents.**
-+
-+---
-+
-+## 2. Objectifs du chantier SFIA v2.6
-+
-+| # | Objectif |
-+|---|----------|
-+| O1 | **Consolider** la documentation SFIA dans une structure lisible et cohérente |
-+| O2 | **Rationaliser** — réduire doublons, ambiguïtés et zones grises (canonique / candidate / historique / projet) |
-+| O3 | **Améliorer la lisibilité** du repository pour ChatGPT, Cursor et Morris |
-+| O4 | **Préparer** une arborescence cible v2.6 — sans l'imposer dans ce cadrage |
-+| O5 | **Préserver** les acquis utiles v2.5 et toute documentation encore référencée ou opérationnelle |
-+| O6 | **Préparer** des migrations documentaires futures par lots bornés, réversibles et gate Morris |
-+
-+---
-+
-+## 3. Non-objectifs de ce cadrage (PR de cadrage)
-+
-+| Non-objectif | Confirmation |
-+|--------------|--------------|
-+| Audit complet du repository | **Non réalisé** |
-+| Cartographie exhaustive | **Non réalisée** |
-+| Classification effective de fichiers | **Non réalisée** |
-+| Proposition d'arborescence définitive | **Non produite** |
-+| Migration, déplacement, renommage | **Non réalisés** |
-+| Archivage ou suppression | **Non réalisés** |
-+| Promotion SFIA v2.6 en baseline | **Non actée** |
-+| Modification immédiate docs v2.4 ou v2.5 | **Non actée** |
-+| Réouverture SFIA v3.0 / MCP / Bridge / Runner / `.sfia` | **Hors périmètre** |
-+
-+---
-+
-+## 4. Principes directeurs
-+
-+| # | Principe | Application |
-+|---|----------|-------------|
-+| P1 | **Repo-first** | Git `main` prime ; contenu et rôle réel du document à examiner |
-+| P2 | **Conservation par défaut** | Tant qu'aucune reprise, remplacement ou justification validée n'est démontrée |
-+| P3 | **Aucune archive sans reprise** | Remplacement explicite ou justification Morris avant archivage |
-+| P4 | **Distinction documentaire** | Obsolète / redondant / historique / canonique / encore utile — cadre candidat uniquement |
-+| P5 | **Arbitrage Morris** | Décisions structurantes, archivage, suppression, arborescence cible |
-+| P6 | **Migration par lots** | Bornée, réversible, PR readiness stricte, un lot à la fois |
-+| P7 | **Pas de suppression définitive** | Pendant audit, cartographie et premières phases de migration |
-+| P8 | **Reprise v2.5** | Règles capitalisées conservées — pas d'effacement de la trajectoire candidate |
-+| P9 | **Pas de décision par métadonnée seule** | Nom de fichier ou date Git insuffisants — contenu et références à analyser |
-+
-+---
-+
-+## 5. Étapes cibles du chantier
-+
-+| Étape | Intitulé | Nature | Réalisée dans ce cadrage ? |
-+|-------|----------|--------|----------------------------|
-+| **1** | Audit read-only complet du repo | Inventaire structuré, sans modification | **Non** — cycle futur |
-+| **2** | Cartographie des documents | Familles, rôles, liens, doublons potentiels | **Non** — cycle futur |
-+| **3** | Classification candidate consolidée | Garder / mettre à jour / fusionner / archiver / supprimer plus tard | **Non** — cadre défini §7 uniquement |
-+| **4** | Proposition d'arborescence cible v2.6 | Synthèse des étapes 1–3 + reprise docs existants | **Non** — cycle futur |
-+| **5** | **GO Morris** | Validation périmètre, classification, arborescence | **Non** — gate future |
-+| **6** | Migration documentaire par lots | `git mv`, PRs strictes, pas de mega-PR | **Non** — cycle futur |
-+| **7** | PR readiness stricte | Garde-fous v2.5 appliqués à chaque lot | **Non** — cycle futur |
-+| **8** | Capitalisation finale | REX v2.6, mise à jour méthode si GO | **Non** — cycle futur |
-+
-+---
-+
-+## 6. Livrables prévisionnels par étape
-+
-+> **Types de livrables attendus uniquement** — aucun produit dans cette PR.
-+
-+| Étape | Livrables prévisionnels (types) |
-+|-------|--------------------------------|
-+| **1 — Audit** | Rapport audit read-only ; inventaire par grandes familles ; liste docs repérés non analysés ; risques initiaux |
-+| **2 — Cartographie** | Matrice document × rôle × statut (canonique/candidate/projet/historique) ; cartographie des liens cassés potentiels |
-+| **3 — Classification** | Table candidate consolidée (sans exécution) ; réserves par document ; doublons signalés |
-+| **4 — Arborescence cible** | Proposition v2.6 ; delta vs `documentation-structure-target.md` ; plan de réconciliation |
-+| **5 — GO Morris** | Décisions actées ; périmètre lots ; gates suivants |
-+| **6 — Migration** | PR(s) par lot ; diff `git mv` ; README de zone si requis ; traçabilité commit |
-+| **7 — PR readiness** | Rapport readiness ; review pack proportionné ; post-merge check + cleanup |
-+| **8 — Capitalisation** | Document clôture v2.6 candidate ; REX ; recommandation baseline (hors actation automatique) |
-+
-+---
-+
-+## 7. Modèle de classification candidat
-+
-+> **Cadre de travail candidate — aucun fichier classé effectivement dans cette PR.**
-+
-+| Catégorie | Définition candidate | Exécution |
-+|-----------|---------------------|-----------|
-+| **Garder** | Document canonique ou opérationnel — emplacement actuel ou cible sans changement de statut | Cycle futur |
-+| **Mettre à jour** | Contenu utile — obsolescence partielle, liens, statut, métadonnées | Cycle futur |
-+| **Fusionner** | Doublons ou fragments — consolidation en document de référence unique | Cycle futur |
-+| **Archiver** | Valeur historique — reprise ou remplacement démontré avant déplacement archive | Cycle futur — GO Morris |
-+| **Supprimer plus tard** | Redondance avérée post-audit — jamais en première intention ; suppression différée et gate Morris | Cycle futur — GO Morris |
-+
-+---
-+
-+## 8. Gates Morris
-+
-+| # | Gate | Moment |
-+|---|------|--------|
-+| G1 | **GO cadrage v2.6** | Validation présent document — merge PR cadrage |
-+| G2 | **GO audit complet** | Ajustement périmètre audit si nécessaire |
-+| G3 | **GO classification consolidée** | Après étapes 1–2 — avant arborescence cible |
-+| G4 | **GO arborescence cible v2.6** | Avant tout lot de migration structurant |
-+| G5 | **GO lot de migration** | Avant chaque PR de déplacement / renommage / fusion |
-+| G6 | **GO archivage** | Avant tout déplacement vers zone archive |
-+| G7 | **GO suppression** | Avant toute suppression — jamais en audit/cartographie |
-+| G8 | **GO PR** | Ouverture PR migration / capitalisation |
-+| G9 | **GO merge** | Merge vers `main` |
-+| G10 | **GO promotion v2.6** | Éventuelle promotion baseline — **hors scope automatique** |
-+
-+---
-+
-+## 9. Garde-fous
-+
-+| Garde-fou | Application |
-+|-----------|-------------|
-+| Aucun document utile archivé sans reprise, remplacement ou justification | Obligatoire |
-+| Aucune suppression pendant audit et cartographie | Obligatoire |
-+| Décision basée sur contenu et rôle — pas nom/date seuls | Obligatoire |
-+| Git `main` prime sur sources projet ChatGPT | Obligatoire |
-+| SFIA v2.4 reste baseline opérationnelle | Obligatoire |
-+| SFIA v2.6 reste candidate | Obligatoire |
-+| SFIA v3.0, MCP, Bridge, Runner, `.sfia` hors périmètre | Obligatoire |
-+| Chemins protégés non modifiés sans GO Morris | Voir §10 |
-+| Reprise acquis v2.5 — pas d'effacement règles capitalisées | Obligatoire |
-+| Review pack / handoff v2.5 applicables aux cycles v2.6 documentaires | Reprise candidate |
-+| Pas de mega-PR migration | Lots bornés |
-+| `git mv` préféré aux suppressions | Migration future |
-+
-+---
-+
-+## 10. Périmètre prévisionnel de l'audit futur (grandes familles)
-+
-+> **Description des familles à examiner — pas d'inventaire complet.**
-+
-+| Famille | Exemples de zones (indicatif) | Notes audit futur |
-+|---------|------------------------------|-------------------|
-+| **Méthode Fast Track core** | `method/sfia-fast-track/core/` | Canonique v2.4 + compléments v2.5 candidate |
-+| **Capitalization / trajectoires** | `method/.../capitalization/sfia-v2/`, `sfia-v2.5/`, `sfia-v2.6/` | Distinction candidate / validé |
-+| **Templates & prompts** | `prompts/templates/`, `prompts/prompt-catalog.md` | Références croisées routing guide |
-+| **Checklists & automation** | `method/sfia-fast-track/checklists/`, `automation/` | Cohérence profils |
-+| **Documentation transverse** | `docs/`, `method/complementary/` | vs `method/sfia-fast-track/` |
-+| **Projets** | `projects/*/` | Méthode ≠ projet — pas de fusion |
-+| **Audits & workspace** | `method/.../workspace-audit/`, `documentation/` | Réconciliation plans antérieurs |
-+| **Notion & publication** | `method/.../notion/` | Périmètre publication distinct |
-+| **Archives & historique** | zones archive existantes | Conservation par défaut |
-+| **Artefacts locaux / non versionnés** | `.tmp-*`, `.sfia/`, etc. | Hors Git — politique locale, pas migration |
-+
-+**Chemins protégés (non modifiables sans GO Morris explicite) :**
-+
-+- `prompts/templates/sfia-cycle-execution-template.md` — modification uniquement par cycle méthode dédié
-+- Documents baseline v2.4 actés — pas de réécriture dans v2.6 cleanup
-+- Fichiers applicatifs sous `projects/*/app/`, backends, migrations, tests
-+- `.github/workflows/`
-+- Branche `sfia/review-handoff` — transport handoff, non merge `main`
-+
-+---
-+
-+## 11. Risques à traiter dans les cycles suivants
-+
-+| # | Risque | Mitigation candidate |
-+|---|--------|---------------------|
-+| R1 | Perte d'information utile | Conservation par défaut ; audit read-only d'abord |
-+| R2 | Suppression d'une source encore référencée | Cartographie liens ; grep références avant archivage |
-+| R3 | Doublons canoniques | Fusionner avec trace ; un document de référence |
-+| R4 | Liens Markdown cassés | Phase liens post-migration ; tests doc si disponibles |
-+| R5 | Confusion baseline / candidate | Métadonnées statut ; pas de promotion implicite |
-+| R6 | Mélange méthode / projet / historique | Familles documentaires strictes |
-+| R7 | Migration trop large | Lots bornés ; une PR par lot |
-+| R8 | Arborescence plus complexe que l'existant | Simplicité explicite ; validation Morris arborescence |
-+| R9 | Dette documentaire créée par le nettoyage | REX par lot ; capitalisation finale |
-+| R10 | Réactivation involontaire v3 / MCP / `.sfia` | Garde-fou explicite ; périmètre audit |
-+
-+---
-+
-+## 12. Critères de sortie du cadrage (présent document)
-+
-+| Critère | Statut dans ce document |
-+|---------|-------------------------|
-+| Périmètre du chantier compris | ✅ Défini §2–3 |
-+| Étapes validables séparément | ✅ §5 |
-+| Catégories candidates définies | ✅ §7 |
-+| Gates identifiés | ✅ §8 |
-+| Aucun audit ou changement anticipé | ✅ Confirmé |
-+| Décision Morris requise avant cycle suivant | ✅ §13 |
-+
-+---
-+
-+## 13. Décision attendue de Morris
-+
-+Morris peut :
-+
-+1. **Valider le cadrage** — merge PR cadrage → autorise préparation cycle audit (étape 1) sous GO distinct ;
-+2. **Demander des ajustements** — périmètre, étapes, gates, familles audit ;
-+3. **Refuser ou différer** — clôture ou report du chantier v2.6.
-+
-+> **Merge de cette PR ≠ autorisation d'audit, migration, archivage ou suppression.**
-+
-+---
-+
-+## 14. Reprise capitalisation v2.5 (bloc activé)
-+
-+La capitalisation Chantiers360 post-MVP (PR #154–#158) est **close** sur `main`. Les règles v2.5 candidate capitalisées **s'appliquent aux cycles documentaires v2.6** :
-+
-+- Local Git Truth Check obligatoire
-+- Review pack proportionné et completeness
-+- Handoff commit + push + remote verification si mode activé
-+- Granularité Git ; post-merge cleanup
-+- Capitalization ≠ clore toutes les réserves (transposable : cleanup ≠ supprimer sans justification)
-+
-+**Document de clôture v2.5 :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.5/2026-07-11-sfia-v2.5-chantiers360-post-mvp-capitalization-close.md`
-+
-+---
-+
-+## 15. Statut final
-+
-+### SFIA v2.6 remains a candidate trajectory.
-+
-+### This document does not promote SFIA v2.6 to the operational baseline.
-+
-+| Élément | Valeur |
-+|---------|--------|
-+| **SFIA v2.4** | Baseline opérationnelle |
-+| **SFIA v2.5** | Candidate — capitalisée — acquis repris |
-+| **SFIA v2.6** | Candidate — cadrage ouvert — audit non autorisé sans GO Morris post-merge |
-+| **Verdict document** | **FRAMING DRAFT — CANDIDATE — AWAITING MORRIS REVIEW** |
-+
-+---
-+
-+*SFIA v2.6 candidate — Repository cleanup — Cycle 1 Cadrage — Morris décide.*
+**Instruction ChatGPT obligatoire** — **afficher ce bloc visiblement** lorsque handoff = **required** :
+
+> **Instruction ChatGPT obligatoire :**
+>
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
+>
+> branche : `sfia/review-handoff`  
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+>
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
+> - le cycle ;
+> - le profil ;
+> - la branche projet ;
+> - le HEAD et la base ;
+> - les fichiers créés ou modifiés ;
+> - le contenu complet des fichiers créés ;
+> - les sections complètes modifiées ou le diff utile ;
+> - les réserves ;
+> - les décisions Morris ;
+> - le verdict du review pack ;
+> - le commit et la vérification distante du handoff.
+>
+> Si le handoff est absent, obsolète, incohérent ou synthesis-only, ChatGPT doit répondre :
+>
+> **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+```
+
+---
+
+## Section complète APRÈS
+
+```
+**Instruction ChatGPT obligatoire** — **afficher ce bloc visiblement** lorsque handoff = **required** :
+
+> **Instruction ChatGPT obligatoire :**
+>
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
+>
+> branche : `sfia/review-handoff`  
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+>
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
+> - le cycle et le profil ;
+> - la branche projet ;
+> - le HEAD initial et final ;
+> - la base main ;
+> - les sources consultées ;
+> - les fichiers créés ou modifiés ;
+> - le contenu complet des fichiers créés ;
+> - les sections complètes modifiées ou le diff utile ;
+> - l'identité du contenu avant et après synchronisation, si applicable ;
+> - les validations réalisées ;
+> - la mergeabilité ou le statut Git attendu ;
+> - les risques, réserves et écarts ;
+> - les décisions Morris ;
+> - le verdict du review pack ;
+> - le commit et la vérification distante du handoff.
+>
+> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
+> 1. l'objectif et le périmètre du cycle ;
+> 2. les actions et changements réellement réalisés ;
+> 3. les principaux résultats et validations ;
+> 4. les risques, réserves, écarts ou éléments non couverts ;
+> 5. la distinction entre observations, recommandations et décisions déjà validées ;
+> 6. le verdict ChatGPT ;
+> 7. la prochaine décision ou action attendue de Morris.
+>
+> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
+>
+> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
+>
+> Si le handoff est absent, obsolète, incohérent, incomplet ou synthesis-only, ChatGPT doit répondre :
+>
+> **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+```
+
+---
+
+## Diff utile complet
+
+```diff
+diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
+index 2b93b9b..742549d 100644
+--- a/prompts/templates/sfia-cycle-execution-template.md
++++ b/prompts/templates/sfia-cycle-execution-template.md
+@@ -1263,19 +1263,36 @@ Si `synthesis only = yes` → verdict **ne peut pas** être READY.
+ > fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+ >
+ > ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
+-> - le cycle ;
+-> - le profil ;
++> - le cycle et le profil ;
+ > - la branche projet ;
+-> - le HEAD et la base ;
++> - le HEAD initial et final ;
++> - la base main ;
++> - les sources consultées ;
+ > - les fichiers créés ou modifiés ;
+ > - le contenu complet des fichiers créés ;
+ > - les sections complètes modifiées ou le diff utile ;
+-> - les réserves ;
++> - l'identité du contenu avant et après synchronisation, si applicable ;
++> - les validations réalisées ;
++> - la mergeabilité ou le statut Git attendu ;
++> - les risques, réserves et écarts ;
+ > - les décisions Morris ;
+ > - le verdict du review pack ;
+ > - le commit et la vérification distante du handoff.
+ >
+-> Si le handoff est absent, obsolète, incohérent ou synthesis-only, ChatGPT doit répondre :
++> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
++> 1. l'objectif et le périmètre du cycle ;
++> 2. les actions et changements réellement réalisés ;
++> 3. les principaux résultats et validations ;
++> 4. les risques, réserves, écarts ou éléments non couverts ;
++> 5. la distinction entre observations, recommandations et décisions déjà validées ;
++> 6. le verdict ChatGPT ;
++> 7. la prochaine décision ou action attendue de Morris.
++>
++> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
++>
++> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
++>
++> Si le handoff est absent, obsolète, incohérent, incomplet ou synthesis-only, ChatGPT doit répondre :
+ >
+ > **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+ 
 
 ```
 
 ---
 
-## Contrôles contenu cadrage
+## Couverture obligations existantes
 
-| Contrôle | Résultat |
-|----------|----------|
-| 8 étapes chantier (§5) | **présentes** |
-| 10 gates Morris G1–G10 (§8) | **présentes** |
-| Aucun audit exécuté | **confirmé** |
-| Aucune classification effective | **confirmé** (§7 cadre candidate uniquement) |
-| Aucune migration | **confirmé** |
-| SFIA v2.4 baseline | **confirmé** §1.2, §9 |
-| SFIA v2.5 candidate reprise | **confirmé** §1.2, §12 |
-| SFIA v2.6 candidate | **confirmé** — pas promotion baseline |
-| v3/MCP/.sfia réactivation | **interdite** §9 |
+| Obligation | Préservée |
+|------------|-----------|
+| Lecture handoff sfia/review-handoff | **yes** |
+| Chemin latest-chatgpt-review.md | **yes** |
+| Contrôles cohérence rapport/handoff | **yes** (+ enrichis) |
+| Verdict REVIEW HANDOFF INCOMPLETE | **yes** |
+| Distinction observation/recommandation/décision | **yes** (§5 synthèse) |
+| Pas de décision sans GO Morris | **yes** |
 
 ---
 
-## État final PR #159
+## Sept éléments synthèse — présents
 
-| Champ | Valeur |
-|-------|--------|
-| État | OPEN |
-| Mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN |
-| Scope | 1 fichier |
-| Document modifié | non |
-| Sync commit | aucun |
+1. objectif et périmètre — **yes**
+2. actions réalisées — **yes**
+3. résultats et validations — **yes**
+4. risques, réserves, écarts — **yes**
+5. observations / recommandations / décisions validées — **yes**
+6. verdict ChatGPT — **yes**
+7. prochaine décision Morris — **yes**
+
+Synthèse globale : **obligatoire** (non optionnelle).
 
 ---
 
 ## Garde-fous
 
+- Un seul fichier modifié
+- Pas de changement mécanisme handoff
+- Pas audit v2.6
+- v2.4 baseline ; v2.5/v2.6 candidate
 - PR non mergée
-- Audit v2.6 non démarré
-- Aucun fichier interdit
-- Handoff required — publication cycle courant
-
----
-
-## Réserves
-
-- Base GitHub PR encore fed2e2c — merge GitHub créera merge commit incluant PR #160 déjà sur main
-- Documents antérieurs (structure-target, migration-plan, cleanup round 2) à réconcilier lors audit futur — §1.3
-- Untracked locaux hors PR
-
----
-
-## Décisions Morris
-
-- **Déjà donné :** GO reprise PR #159, handoff, review pack
-- **Attendu :** décision merge PR #159 (distincte)
-- **Non donné :** GO audit v2.6, migration, promotion baseline
-
----
-
-## Git Review Index
-
-| Réf | SHA |
-|-----|-----|
-| origin/main | e608f59 |
-| PR #159 head | 993634b |
-| merge-base | fed2e2c |
-| handoff remote before | 1b6db5c |
 
 ---
 
@@ -757,15 +236,8 @@ index 0000000..70b9647
 
 | Critère | Valeur |
 |---------|--------|
-| created files full content | **yes** |
-| modified sections complete | n/a (fichier créé) |
+| modified sections complete | **yes** |
 | useful diff included | **yes** |
 | synthesis only | **no** |
-| **review pack verdict** | **complete** |
+| **verdict** | **complete** |
 
----
-
-## Verdict
-
-PR #159 techniquement prête pour revue ChatGPT et décision merge Morris.
-Document cadrage inchangé. Audit non démarré.
