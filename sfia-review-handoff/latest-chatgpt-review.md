@@ -1,13 +1,14 @@
-# SFIA Review Pack — Repository Cartography Cycle
+# SFIA Review Pack — Repository Cartography Corrective Cycle
 
-**Date/heure :** 2026-07-11 14:43 Europe/Paris
+**Date/heure :** 2026-07-11 15:03 Europe/Paris
 **Repository :** mcleland147/sfia-workspace
-**Cycle :** Cadrage et audit repository — cartographie exhaustive et planification de la mise en conformité
+**Cycle :** Validation corrective de cartographie repository
 **Profil :** Critical
-**Justification :** Périmètre repository-wide ; qualification 1045 fichiers tracked ; préparation migrations ; gates Morris ; traçabilité avant action physique
+**PR :** #165 — Map repository for SFIA v2.6 compliance
 **Branche :** audit/sfia-v2.6-repository-cartography
-**HEAD base :** 072058a1e3eea7a7647b638be4b8512df6b84ea6
-**HEAD final :** 33eb067d1bb3758ed4c49ec038a31ff6b5c3331b
+**HEAD initial :** 33eb067d1bb3758ed4c49ec038a31ff6b5c3331b
+**HEAD final :** 6e3fa647fbc3098f87ae428845e7be80ca74f99b
+**Base main :** 072058a1e3eea7a7647b638be4b8512df6b84ea6
 
 ---
 
@@ -15,134 +16,49 @@
 
 | Élément | Valeur |
 |---------|--------|
-| Workspace | /Users/morris/Projects/sfia-workspace |
-| Repository | mcleland147/sfia-workspace |
-| Remote | origin |
-| Branche active | audit/sfia-v2.6-repository-cartography |
-| HEAD local | 33eb067d1bb3758ed4c49ec038a31ff6b5c3331b |
-| origin/main | 072058a1e3eea7a7647b638be4b8512df6b84ea6 |
-| PR #164 merge | Présent (ancêtre) |
+| Branche | audit/sfia-v2.6-repository-cartography |
+| HEAD initial | 33eb067 |
+| PR #165 | OPEN, non draft, non mergée |
+| Fichiers modifiés autorisés | 3 livrables cartographie uniquement |
 | Worktree tracked/staged | Propre |
-| Untracked | Préservés (.sfia/, .tmp-sfia-review/, etc.) |
 
 ---
 
-## Sources consultées
+## Correctifs appliqués
 
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md
-- README.md racine et index pertinents
-
----
-
-## Méthode d'inventaire
-
-- Commande : git ls-files
-- Fichiers tracked : **1045**
-- Qualification : heuristiques path + échantillon contenu (≤12 KB) + liens Markdown relatifs
-- 34 champs par fichier selon D1–D12
+1. **D12** — séparation documentary / technical-convention / unknown
+2. **D10** — cohérence current vs target ; docs/architecture = docs
+3. **Qualification partielle** — verdict honnête
+4. **Lot 0** — qualification manuelle préalable
+5. **Delete-candidate** — 11 fichiers avec preuve
+6. **Séquence lots** — alignée unique
 
 ---
 
-## Fichiers créés
+## Statistiques avant / après
 
-1. method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.csv
-2. method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md
-3. method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-
-**Aucun fichier existant modifié.**
-
----
-
-## Statistiques de couverture
-
-| Métrique | Valeur |
-|----------|--------|
-| Total fichiers | 1045 |
-| confidence high | 690 |
-| confidence medium | 355 |
-| confidence low | 0 |
-| usage unknown | 401 |
-| authority unknown | 534 |
-| naming non-compliant | 326 |
-| location non-compliant | 24 |
-| location ambiguous | 10 |
-| archive candidates | 61 |
-| delete candidates | 0 |
-| canonical conflicts | 4 |
-| morris_gate yes | 24 |
-| disposition keep | 625 |
-| disposition rename | 321 |
-| disposition archive | 61 |
-| disposition investigate | 37 |
+| Métrique | Avant | Après |
+|----------|------:|------:|
+| Fichiers tracked | 1045 (main) / 1048 (branche) | 1048 |
+| Champs CSV | 34 | 35 |
+| SHA-256 CSV | `116183d8e0f917259d2eba8c0ae7a4d1f489feb9f4e2633d045e030c130a7d1b` | `bd78e8744e07347f5ec0e25d28da12ac63d0c6aec42f1f2632daca8e8bef2735` |
+| D10 contradictions | 187 | 0 |
+| D12 non-compliant | 326 | 161 |
+| Rename disposition | 321 | 150 |
+| Lot D volume | 319 | 132 |
+| delete-candidate | 0 | 11 |
+| archive | 61 | 60 |
+| lot-0 | 0 | 227 |
+| morris_gate yes | 24 | 43 |
 
 ---
 
-## Contrôles d'exhaustivité
+## Exemples techniques corrigés
 
-| Contrôle | Résultat |
-|----------|----------|
-| git ls-files | 1045 |
-| Lignes CSV données | 1045 |
-| Chemins uniques | 1045 |
-| Doublons current_path | 0 |
-| lifecycle active | 0 |
-| scope product | 0 |
-| Untracked inclus | 0 |
-
----
-
-## Conflits canonical (D4)
-
-- 3 canonical identifiés (core SFIA v2.4)
-- 4 conflits canonical candidats — gate Morris requis
-
----
-
-## Cas D10
-
-- 24 non-compliant ; 10 ambiguous
-- Exemples : docs SFIA v3/MCP sous docs/tooling/mcp/ ; architecture SFIA sous docs/
-
----
-
-## Périmètre D11 / v3
-
-- 23 fichiers trajectory SFIA v3.0
-- 61 propositions archive
-- MCP/Bridge/Runner/.sfia identifiés — non réactivés
-
----
-
-## Non-conformités D12
-
-- 326 fichiers naming non-compliant
-- Principaux écarts : dates manquantes, casse, noms FR/mixtes
-
----
-
-## Gates Morris
-
-24 fichiers morris_gate_required: yes — canonical, core, v3 archive, suppressions futures
-
----
-
-## Risques
-
-- Renommages massifs (321) sans Lot E = liens cassés
-- Usage unknown (401) = qualification incomplète avant migration
-- Authority unknown (534) = revue manuelle requise
-
----
-
-## Réserves
-
-- Qualification heuristique — revue ChatGPT/Morris recommandée
-- Lots F/J sans fichiers exclusifs initialement — réévaluation post-lots antérieurs
+- `.env.example` → keep, technical-convention, compliant
+- `docker-compose.override.example.yml` → keep, technical-convention, compliant
+- `penpot-mcp.example.json` → keep, technical-convention, compliant
+- `docs/architecture/sfia-delivery-pipeline.md` → docs/docs compliant (was method target)
 
 ---
 
@@ -150,141 +66,161 @@
 
 **large created artifact = yes**
 **synthesis only = no**
-**Chemin Git exact :** method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.csv
-**SHA-256 :** 116183d8e0f917259d2eba8c0ae7a4d1f489feb9f4e2633d045e030c130a7d1b
-**Lignes totales (header + data) :** 1046
-**Lignes données :** 1045
+**Chemin :** method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.csv
+**SHA-256 :** bd78e8744e07347f5ec0e25d28da12ac63d0c6aec42f1f2632daca8e8bef2735
+**Lignes données :** 1048
+**Champs :** 35
 
-**Instruction ChatGPT :** Lire le CSV complet depuis la branche audit/sfia-v2.6-repository-cartography avant de conclure.
+**Instruction ChatGPT :** Lire le CSV complet depuis la branche projet.
 
-### En-tête CSV
-
-```
-current_path,filename,extension,size_bytes,primary_family,subfamily,lifecycle_status,authority,usage,scope,project,phase,trajectory,trajectory_role,logical_location_current,logical_location_target,naming_compliance,location_compliance,metadata_profile,content_summary,incoming_references,outgoing_references,duplicate_or_overlap,canonical_candidate,proposed_disposition,proposed_target_path,proposed_target_filename,rationale,risk_level,morris_gate_required,confidence,evidence,reserve_or_question,migration_lot_candidate
-```
-
-### 20 premières lignes de données
+### En-tête
 
 ```
-.cursor/mcp-templates/README.md,README.md,md,3733,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,compliant,unknown,E,# Cursor MCP templates — Penpot **Dossier** : `.cursor/mcp-templates/` **Statut** : Exemples non secrets — configurat,docs/tooling/penpot/penpot-cursor-agent-rules.md; docs/tooling/penpot/penpot-self-host-docker-guide.md,](../docs/tooling/penpot/penpot-mcp-self-host-rex.md); ](../docs/tooling/penpot/penpot-design-agent-architecture.md); ](../docs/tooling/penpot/penpot-self-host-docker-guide.md); ](../docs/tooling/penpot/penpot-mcp-self-host-rex.md); ](../docs/tooling/penpot/penpot-cursor-agent-rules.md),no,no,keep,.cursor/mcp-templates/README.md,README.md,Family F13 from path/content heuristics; D10 location unknown; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently.,lot-E
-.cursor/mcp-templates/penpot-mcp.example.json,penpot-mcp.example.json,json,265,F17,,validated,informational,operational,repository,,,SFIA v2.4,baseline,repository,repository,non-compliant,not-applicable,N/A,"{ ""mcpServers"": { ""penpot-self-host"": { ""type"": ""http"", ""url"": ""http://localhost:9001/mcp/stream?userT",.cursor/mcp-templates/README.md; .cursor/mcp-templates/README.md; docs/tooling/penpot/penpot-mcp-self-host-rex.md; docs/tooling/penpot/penpot-self-host-docker-guide.md,,no,no,rename,.cursor/mcp-templates/penpot-mcp.example.json,penpot-mcp-example.json,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,medium,no,high,path+content-sample+incoming-link-count,,lot-D
-.github/workflows/interv360-ci.yml,interv360-ci.yml,yml,1225,F16,,unknown,informational,unknown,tooling,,,SFIA v2.4,baseline,repository,repository,compliant,unknown,N/A,"name: Interv360 CI on: pull_request: paths: - ""projects/interv360/**"" - "".github/workflows/interv360-",,,no,no,keep,.github/workflows/interv360-ci.yml,interv360-ci.yml,Family F16 from path/content heuristics; D10 location unknown; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently.,lot-I
-.gitignore,.gitignore,none,262,F17,,validated,informational,unknown,repository,,,SFIA v2.4,baseline,repository,repository,compliant,unknown,N/A,Binary or non-text artifact (none),,,no,no,keep,.gitignore,.gitignore,Family F17 from path/content heuristics; D10 location unknown; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-E
-README.md,README.md,md,3571,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,compliant,unknown,E,# SFIA Workspace Workspace local officiel de la **SFIA** (Software Factory & Intelligence Architecture). Ce dépôt est,,,no,no,keep,README.md,README.md,Family F13 from path/content heuristics; D10 location unknown; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently.,lot-E
-components/README.md,README.md,md,224,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,compliant,unknown,E,# Components Espace local pour les notes et artefacts liés aux composants SFIA. Le registre officiel des composants re,,,no,no,keep,components/README.md,README.md,Family F13 from path/content heuristics; D10 location unknown; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently.,lot-E
-docker/penpot/.env.example,.env.example,example,400,F17,,validated,informational,unknown,repository,,,SFIA v2.4,baseline,repository,repository,non-compliant,unknown,N/A,Binary or non-text artifact (example),,,no,no,rename,docker/penpot/.env.example,env.example,Family F17 from path/content heuristics; D10 location unknown; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-docker/penpot/README.md,README.md,md,2792,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,compliant,unknown,E,# Penpot Docker — Templates SFIA **Dossier** : `docker/penpot/` **Statut** : Templates sûrs — pas d'installation stan,,](https://help.penpot.app/technical-guide/getting-started/docker/); ](https://help.penpot.app/technical-guide/getting-started/); ](https://help.penpot.app/technical-guide/getting-started/docker/); ](../../docs/tooling/penpot/penpot-self-host-docker-guide.md); ](../.cursor/mcp-templates/penpot-mcp.example.json),no,no,keep,docker/penpot/README.md,README.md,Family F13 from path/content heuristics; D10 location unknown; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently.,lot-E
-docker/penpot/docker-compose.override.example.yml,docker-compose.override.example.yml,yml,378,F17,,validated,informational,unknown,repository,,,SFIA v2.4,baseline,repository,repository,non-compliant,unknown,N/A,# Example override for a local SFIA Penpot setup. # Use only with the official Penpot docker-compose.yml. # Do not treat,docker/penpot/README.md; docker/penpot/README.md,,no,no,rename,docker/penpot/docker-compose.override.example.yml,docker-compose-override-example.yml,Family F17 from path/content heuristics; D10 location unknown; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-docs/README.md,README.md,md,1104,F13,,unknown,reference,unknown,tooling,,,N/A,N/A,docs,docs,compliant,ambiguous,E,# SFIA Platform Documentation Ce dossier contient la documentation plateforme SFIA. Il est distinct de la méthode acti,,,no,no,investigate,docs/README.md,README.md,Family F13 from path/content heuristics; D10 location ambiguous; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. D10 placement ambiguous — manual review. Lifecycle inferred insufficiently.,lot-E
-docs/adr/README.md,README.md,md,131,F13,,unknown,reference,unknown,tooling,,,N/A,N/A,docs,docs,compliant,ambiguous,E,# ADR Architecture Decision Records — décisions structurantes tracées. Source Notion : base ADR (`exports/notion/adr.j,,,no,no,investigate,docs/adr/README.md,README.md,Family F13 from path/content heuristics; D10 location ambiguous; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. D10 placement ambiguous — manual review. Lifecycle inferred insufficiently.,lot-E
-docs/architecture/README.md,README.md,md,1966,F13,,unknown,reference,unknown,tooling,,,N/A,N/A,docs,docs,compliant,compliant,E,"# SFIA Architecture Documentation d'architecture SFIA : Domain Model, composants, flux et vues. Source Notion : Compon",,,no,no,keep,docs/architecture/README.md,README.md,Family F13 from path/content heuristics; D10 location compliant; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently.,lot-E
-docs/architecture/sfia-decision-engine.md,sfia-decision-engine.md,md,56513,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,method,non-compliant,compliant,F,--- source: Notion / SFIA Architecture status: foundation sync: manual-export version: v1.1 updated_after: SFIA foundati,docs/architecture/README.md,,no,no,rename,docs/architecture/sfia-decision-engine.md,2026-07-11-sfia-decision-engine.md,Family F06 from path/content heuristics; D10 location compliant; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
-docs/architecture/sfia-delivery-pipeline.md,sfia-delivery-pipeline.md,md,57907,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,method,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-delivery-pipeline.md,sfia-delivery-pipeline.md,Family F06 from path/content heuristics; D10 location compliant; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
-docs/architecture/sfia-domain-model.md,sfia-domain-model.md,md,26327,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,method,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-domain-model.md,sfia-domain-model.md,Family F06 from path/content heuristics; D10 location compliant; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
-docs/architecture/sfia-meta-model.md,sfia-meta-model.md,md,45992,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,method,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-meta-model.md,sfia-meta-model.md,Family F06 from path/content heuristics; D10 location compliant; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
-docs/architecture/sfia-platform-architecture.md,sfia-platform-architecture.md,md,63116,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,method,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-platform-architecture.md,sfia-platform-architecture.md,Family F06 from path/content heuristics; D10 location compliant; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
-docs/architecture/sfia-repository-blueprint.md,sfia-repository-blueprint.md,md,41225,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,method,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-repository-blueprint.md,sfia-repository-blueprint.md,Family F06 from path/content heuristics; D10 location compliant; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
-docs/foundation/README.md,README.md,md,208,F13,,unknown,reference,unknown,tooling,,,SFIA v1.1,historical,docs,docs,compliant,ambiguous,E,"# Foundation Principes fondateurs, gouvernance et cadre de la plateforme SFIA. Source Notion : Knowledge Articles, Sta",,,no,no,investigate,docs/foundation/README.md,README.md,Family F13 from path/content heuristics; D10 location ambiguous; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. D10 placement ambiguous — manual review. Lifecycle inferred insufficiently.,lot-E
-docs/foundation/sfia-engineering-principles.md,sfia-engineering-principles.md,md,10488,F06,,unknown,unknown,unknown,tooling,,,SFIA v1.1,historical,docs,method,compliant,ambiguous,F,--- source: Notion / SFIA Architecture status: foundation sync: manual-export version: v1.1 updated_after: SFIA foundati,docs/architecture/README.md,,no,no,investigate,docs/foundation/sfia-engineering-principles.md,sfia-engineering-principles.md,Family F06 from path/content heuristics; D10 location ambiguous; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. D10 placement ambiguous — manual review. Authority not established from content sample. Lifecycle inferred insufficiently.,lot-B
+current_path,filename,extension,size_bytes,primary_family,subfamily,lifecycle_status,authority,usage,scope,project,phase,trajectory,trajectory_role,logical_location_current,logical_location_target,naming_rule_regime,naming_compliance,location_compliance,metadata_profile,content_summary,incoming_references,outgoing_references,duplicate_or_overlap,canonical_candidate,proposed_disposition,proposed_target_path,proposed_target_filename,rationale,risk_level,morris_gate_required,confidence,evidence,reserve_or_question,migration_lot_candidate
 ```
 
-### 20 dernières lignes de données
+### 20 premières lignes
 
 ```
-tools/cmp-001/src/schemas/template.schema.json,template.schema.json,json,642,F15,,draft,unknown,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,F,"{ ""$schema"": ""https://json-schema.org/draft/2020-12/schema"", ""title"": ""Template"", ""type"": ""object"", ""properties""",,,no,no,rename,tools/cmp-001/src/schemas/template.schema.json,template-schema.json,Family F15 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,high,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role. Authority not established from content sample.,lot-D
-tools/cmp-001/src/services/createADR.js,createADR.js,js,111,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createADR.js,create-adr.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createComponent.js,createComponent.js,js,123,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createComponent.js,create-component.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createExperiment.js,createExperiment.js,js,125,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createExperiment.js,create-experiment.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createKPI.js,createKPI.js,js,111,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createKPI.js,create-kpi.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createKnowledgeArticle.js,createKnowledgeArticle.js,js,130,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createKnowledgeArticle.js,create-knowledge-article.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createObject.js,createObject.js,js,826,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createObject.js,create-object.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createProject.js,createProject.js,js,119,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createProject.js,create-project.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createPrompt.js,createPrompt.js,js,117,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createPrompt.js,create-prompt.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createREX.js,createREX.js,js,111,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createREX.js,2026-07-11-create-rex.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createReferencePage.js,createReferencePage.js,js,132,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createReferencePage.js,create-reference-page.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createStandard.js,createStandard.js,js,121,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createStandard.js,create-standard.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/createTemplate.js,createTemplate.js,js,121,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/createTemplate.js,create-template.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/discover.js,discover.js,js,5562,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/discover.js,discover.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-I
-tools/cmp-001/src/services/export.js,export.js,js,7318,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/export.js,export.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-I
-tools/cmp-001/src/services/updateKnowledgeArticle.js,updateKnowledgeArticle.js,js,130,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/updateKnowledgeArticle.js,update-knowledge-article.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/updateObject.js,updateObject.js,js,735,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/updateObject.js,update-object.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/services/updateProject.js,updateProject.js,js,119,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,non-compliant,not-applicable,N/A,Binary or non-text artifact (js),,,no,no,rename,tools/cmp-001/src/services/updateProject.js,update-project.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming non-compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-D
-tools/cmp-001/src/validate.js,validate.js,js,3691,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,compliant,not-applicable,N/A,Binary or non-text artifact (js),tools/cmp-001/CHANGELOG.md,,no,no,keep,tools/cmp-001/src/validate.js,validate.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-I
-tools/cmp-001/tests/run-all-tests.js,run-all-tests.js,js,4453,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,compliant,not-applicable,N/A,Binary or non-text artifact (js),tools/cmp-001/CHANGELOG.md,,no,no,keep,tools/cmp-001/tests/run-all-tests.js,run-all-tests.js,Family F17 from path/content heuristics; D10 location not-applicable; D12 naming compliant.,low,no,medium,path+content-sample+incoming-link-count,Usage unknown — verify references and operational role.,lot-I
+.cursor/mcp-templates/README.md,README.md,md,3733,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,documentary,compliant,compliant,E,# Cursor MCP templates — Penpot **Dossier** : `.cursor/mcp-templates/` **Statut** : Exemples non secrets — configurat,docs/tooling/penpot/penpot-cursor-agent-rules.md; docs/tooling/penpot/penpot-self-host-docker-guide.md,](../docs/tooling/penpot/penpot-mcp-self-host-rex.md); ](../docs/tooling/penpot/penpot-design-agent-architecture.md); ](../docs/tooling/penpot/penpot-self-host-docker-guide.md); ](../docs/tooling/penpot/penpot-mcp-self-host-rex.md); ](../docs/tooling/penpot/penpot-cursor-agent-rules.md),no,no,keep,.cursor/mcp-templates/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=repository, target=repository); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=2,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+.cursor/mcp-templates/penpot-mcp.example.json,penpot-mcp.example.json,json,265,F17,,validated,informational,operational,repository,,,SFIA v2.4,baseline,repository,repository,technical-convention,compliant,compliant,N/A,"{ ""mcpServers"": { ""penpot-self-host"": { ""type"": ""http"", ""url"": ""http://localhost:9001/mcp/stream?userT",.cursor/mcp-templates/README.md; docs/tooling/penpot/penpot-mcp-self-host-rex.md; docs/tooling/penpot/penpot-self-host-docker-guide.md,,no,no,keep,.cursor/mcp-templates/penpot-mcp.example.json,penpot-mcp.example.json,"Regime technical-convention; family F17; D10 compliant (current=repository, target=repository); D12 compliant. Technical naming convention preserved.",low,no,high,path+content-sample+regime=technical-convention+incoming=3; convention=dot-separated tool convention,,lot-E
+.github/workflows/interv360-ci.yml,interv360-ci.yml,yml,1225,F16,,unknown,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,"name: Interv360 CI on: pull_request: paths: - ""projects/interv360/**"" - "".github/workflows/interv360-",,,no,no,keep,.github/workflows/interv360-ci.yml,interv360-ci.yml,"Regime technical-convention; family F16; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-I
+.gitignore,.gitignore,none,262,F17,,validated,informational,unknown,repository,,,SFIA v2.4,baseline,repository,repository,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (none),,,no,no,keep,.gitignore,.gitignore,"Regime technical-convention; family F17; D10 compliant (current=repository, target=repository); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-E
+README.md,README.md,md,3571,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,documentary,compliant,compliant,E,# SFIA Workspace Workspace local officiel de la **SFIA** (Software Factory & Intelligence Architecture). Ce dépôt est,,,no,no,keep,README.md,README.md,"Regime documentary; family F13; D10 compliant (current=repository, target=repository); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+components/README.md,README.md,md,224,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,repository,repository,documentary,compliant,compliant,E,# Components Espace local pour les notes et artefacts liés aux composants SFIA. Le registre officiel des composants re,,,no,no,keep,components/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=repository, target=repository); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docker/penpot/.env.example,.env.example,example,400,F17,,validated,informational,unknown,repository,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (example),,,no,no,keep,docker/penpot/.env.example,.env.example,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-E
+docker/penpot/README.md,README.md,md,2792,F13,,unknown,reference,unknown,repository,,,SFIA v2.4,baseline,tools,tools,documentary,compliant,compliant,E,# Penpot Docker — Templates SFIA **Dossier** : `docker/penpot/` **Statut** : Templates sûrs — pas d'installation stan,,](https://help.penpot.app/technical-guide/getting-started/docker/); ](https://help.penpot.app/technical-guide/getting-started/); ](https://help.penpot.app/technical-guide/getting-started/docker/); ](../../docs/tooling/penpot/penpot-self-host-docker-guide.md); ](../.cursor/mcp-templates/penpot-mcp.example.json),no,no,keep,docker/penpot/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=tools, target=tools); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docker/penpot/docker-compose.override.example.yml,docker-compose.override.example.yml,yml,378,F17,,validated,informational,unknown,repository,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,# Example override for a local SFIA Penpot setup. # Use only with the official Penpot docker-compose.yml. # Do not treat,docker/penpot/README.md,,no,no,keep,docker/penpot/docker-compose.override.example.yml,docker-compose.override.example.yml,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=1; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-E
+docs/README.md,README.md,md,1104,F13,,unknown,reference,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,E,# SFIA Platform Documentation Ce dossier contient la documentation plateforme SFIA. Il est distinct de la méthode acti,,,no,no,keep,docs/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/adr/README.md,README.md,md,131,F13,,unknown,reference,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,E,# ADR Architecture Decision Records — décisions structurantes tracées. Source Notion : base ADR (`exports/notion/adr.j,,,no,no,keep,docs/adr/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/architecture/README.md,README.md,md,1966,F13,,unknown,reference,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,E,"# SFIA Architecture Documentation d'architecture SFIA : Domain Model, composants, flux et vues. Source Notion : Compon",,,no,no,keep,docs/architecture/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/architecture/sfia-decision-engine.md,sfia-decision-engine.md,md,56513,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,docs,documentary,non-compliant,compliant,F,--- source: Notion / SFIA Architecture status: foundation sync: manual-export version: v1.1 updated_after: SFIA foundati,docs/architecture/README.md,,no,no,rename,docs/architecture/sfia-decision-engine.md,YYYY-MM-DD-sfia-decision-engine.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 non-compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-D
+docs/architecture/sfia-delivery-pipeline.md,sfia-delivery-pipeline.md,md,57907,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-delivery-pipeline.md,sfia-delivery-pipeline.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/architecture/sfia-domain-model.md,sfia-domain-model.md,md,26327,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-domain-model.md,sfia-domain-model.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/architecture/sfia-meta-model.md,sfia-meta-model.md,md,45992,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-meta-model.md,sfia-meta-model.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/architecture/sfia-platform-architecture.md,sfia-platform-architecture.md,md,63116,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-platform-architecture.md,sfia-platform-architecture.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/architecture/sfia-repository-blueprint.md,sfia-repository-blueprint.md,md,41225,F06,,unknown,unknown,unknown,tooling,,,N/A,N/A,docs,docs,documentary,compliant,compliant,F,--- source: Notion / SFIA Architecture status: reference sync: manual-export version: v1.1 previous: v1.0 updated_after:,docs/architecture/README.md,,no,no,keep,docs/architecture/sfia-repository-blueprint.md,sfia-repository-blueprint.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/foundation/README.md,README.md,md,208,F13,,unknown,reference,unknown,tooling,,,SFIA v1.1,historical,docs,docs,documentary,compliant,compliant,E,"# Foundation Principes fondateurs, gouvernance et cadre de la plateforme SFIA. Source Notion : Knowledge Articles, Sta",,,no,no,keep,docs/foundation/README.md,README.md,"Regime documentary; family F13; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=0,Usage unknown — verify references and operational role. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+docs/foundation/sfia-engineering-principles.md,sfia-engineering-principles.md,md,10488,F06,,unknown,unknown,unknown,tooling,,,SFIA v1.1,historical,docs,docs,documentary,compliant,compliant,F,--- source: Notion / SFIA Architecture status: foundation sync: manual-export version: v1.1 updated_after: SFIA foundati,docs/architecture/README.md,,no,no,keep,docs/foundation/sfia-engineering-principles.md,sfia-engineering-principles.md,"Regime documentary; family F06; D10 compliant (current=docs, target=docs); D12 compliant.",low,no,medium,path+content-sample+regime=documentary+incoming=1,Usage unknown — verify references and operational role. Authority not established from content sample. Lifecycle inferred insufficiently. Heuristic qualification only — not validated.,lot-E
+```
+
+### 20 dernières lignes
+
+```
+tools/cmp-001/src/schemas/template.schema.json,template.schema.json,json,642,F15,,draft,unknown,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,unknown,unknown,compliant,F,"{ ""$schema"": ""https://json-schema.org/draft/2020-12/schema"", ""title"": ""Template"", ""type"": ""object"", ""properties""",,,no,no,investigate,tools/cmp-001/src/schemas/template.schema.json,template.schema.json,"Regime unknown; family F15; D10 compliant (current=tools, target=tools); D12 unknown.",low,no,medium,path+content-sample+regime=unknown+incoming=0,Usage unknown — verify references and operational role. Naming rule regime uncertain — investigate before rename. Documentary naming status uncertain. Heuristic qualification only — not validated.,lot-0
+tools/cmp-001/src/services/createADR.js,createADR.js,js,111,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createADR.js,createADR.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createComponent.js,createComponent.js,js,123,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createComponent.js,createComponent.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createExperiment.js,createExperiment.js,js,125,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createExperiment.js,createExperiment.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createKPI.js,createKPI.js,js,111,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createKPI.js,createKPI.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createKnowledgeArticle.js,createKnowledgeArticle.js,js,130,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createKnowledgeArticle.js,createKnowledgeArticle.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createObject.js,createObject.js,js,826,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createObject.js,createObject.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createProject.js,createProject.js,js,119,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createProject.js,createProject.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createPrompt.js,createPrompt.js,js,117,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createPrompt.js,createPrompt.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createREX.js,createREX.js,js,111,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createREX.js,createREX.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createReferencePage.js,createReferencePage.js,js,132,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createReferencePage.js,createReferencePage.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createStandard.js,createStandard.js,js,121,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createStandard.js,createStandard.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/createTemplate.js,createTemplate.js,js,121,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/createTemplate.js,createTemplate.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/discover.js,discover.js,js,5562,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/discover.js,discover.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/export.js,export.js,js,7318,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/export.js,export.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/updateKnowledgeArticle.js,updateKnowledgeArticle.js,js,130,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/updateKnowledgeArticle.js,updateKnowledgeArticle.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/updateObject.js,updateObject.js,js,735,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/updateObject.js,updateObject.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/services/updateProject.js,updateProject.js,js,119,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),,,no,no,keep,tools/cmp-001/src/services/updateProject.js,updateProject.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=0; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/src/validate.js,validate.js,js,3691,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),tools/cmp-001/CHANGELOG.md,,no,no,keep,tools/cmp-001/src/validate.js,validate.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=1; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
+tools/cmp-001/tests/run-all-tests.js,run-all-tests.js,js,4453,F17,,validated,informational,unknown,tooling,,,SFIA v2.4,baseline,tools,tools,technical-convention,compliant,compliant,N/A,Binary or non-text artifact (js),tools/cmp-001/CHANGELOG.md,,no,no,keep,tools/cmp-001/tests/run-all-tests.js,run-all-tests.js,"Regime technical-convention; family F17; D10 compliant (current=tools, target=tools); D12 compliant. Technical naming convention preserved.",low,no,medium,path+content-sample+regime=technical-convention+incoming=1; convention=dot-separated tool convention,Usage unknown — verify references and operational role. Heuristic qualification only — not validated.,lot-I
 ```
 
 ---
 
 ## Contenu complet — Cartography Report
 
-# SFIA v2.6 — Repository Cartography Report
+# SFIA v2.6 — Repository Cartography Report (Corrected)
 
-*Cartographie exhaustive read-only du repository — qualification D1–D12*
+*Cartographie exhaustive read-only — qualification D1–D12 — correctif PR #165*
 
 **Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
-**Date et heure :** 2026-07-11 14:43 Europe/Paris
-**Statut :** **Candidate** — livrable de cartographie read-only
-**Cycle projet :** Cadrage et audit repository — cartographie exhaustive et planification de la mise en conformité
+**Date et heure :** 2026-07-11 15:03 Europe/Paris
+**Statut :** **Candidate** — livrable de cartographie read-only (correctif)
+**Cycle projet :** Validation corrective de cartographie repository
 **Profil SFIA :** **Critical**
-**Typologie v2.4 :** DOC / audit read-only
+**Typologie v2.4 :** DOC / audit correctif
 **Repository :** mcleland147/sfia-workspace
 **Branche :** audit/sfia-v2.6-repository-cartography
+**PR :** #165 — Map repository for SFIA v2.6 compliance
 **Base Git :** `main` @ `072058a1e3eea7a7647b638be4b8512df6b84ea6`
-**Autorité de décision :** Morris (L0)
-**Décision Morris :** GO cartographie exhaustive (2026-07-11)
-**Baseline opérationnelle :** SFIA v2.4
-**Trajectoire :** SFIA v2.6 candidate
-**Machine-readable :** `2026-07-11-sfia-v2.6-repository-cartography.csv` (SHA-256: `116183d8e0f917259d2eba8c0ae7a4d1f489feb9f4e2633d045e030c130a7d1b`)
+**HEAD correctif :** (post-commit correctif)
+**Machine-readable :** `2026-07-11-sfia-v2.6-repository-cartography.csv` (35 champs, SHA-256: `bd78e8744e07347f5ec0e25d28da12ac63d0c6aec42f1f2632daca8e8bef2735`)
 
 ### Limites du cycle
 
-- **Read-only** — aucune modification, déplacement, renommage, archivage ou suppression exécutés
-- Qualification selon principes et décisions D1–D12 intégrés sur `main` (PR #164)
-- Propositions de traitement = **recommandations** — non autorisations d'exécution
-- SFIA v2.6 reste **candidate** — ne remplace pas v2.4 baseline
+- **Read-only** — aucune modification physique des fichiers existants hors livrables PR
+- Qualification **partielle** — inconnues structurantes explicitement tracées
+- Propositions = **recommandations** — non autorisations d'exécution
+- SFIA v2.6 reste **candidate** — v2.4 reste baseline
 
 ---
 
 ## 1. Executive summary
 
-Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked** du repository, qualifiés selon les dimensions D1–D12. Chaque fichier possède une ligne dans le CSV machine-readable (34 champs).
+Cartographie **corrective** de **1048 fichiers Git tracked** (`git ls-files` sur branche PR #165 = 1045 fichiers `main` + 3 livrables cartographie).
 
-**Synthèse des écarts majeurs :**
+**Correctifs appliqués :**
 
-| Domaine | Constat |
-|---------|---------|
-| Nommage D12 | **326** fichiers `non-compliant` |
-| Emplacement D10 | **24** `non-compliant` ; **10** `ambiguous` |
-| SFIA v3.0 D11 | **23** fichiers trajectory v3.0 — **61** propositions `archive` |
-| Autorité D4 | **3** canonical identifiés ; **4** conflits canonical candidats |
-| Usage D5 | **401** usage `unknown` — réserves requises |
-| Gates Morris | **24** fichiers avec gate `yes` |
+| Correctif | Avant | Après |
+|-----------|------:|------:|
+| Champs CSV | 34 | **35** (+ `naming_rule_regime`) |
+| Contradictions D10 (compliant si current≠target) | 187 | **0** |
+| Renommages techniques erronés | ~150+ | **0** |
+| Non-conformités D12 (toutes familles) | 326 | **161** (documentaire uniquement) |
+| Non-conformités D12 documentaire | — | **161** |
+| Régime `technical-convention` | non distingué | **308** fichiers |
+| Emplacements D10 non conformes | 24 | **23** (v3/MCP principalement) |
+| Suppressions candidates | 0 | **11** (avec preuve + gate) |
+| Candidats archive | 61 | **60** |
 
-**Confirmation :** aucune migration physique exécutée dans ce cycle.
+**Verdict qualification :**
+
+```
+D1-D12 INVENTORY COVERAGE COMPLETE
+QUALIFICATION PARTIAL — UNKNOWN VALUES REMAIN
+```
 
 ---
 
-## 2. Méthode d'inventaire
+## 2. Méthode d'inventaire (corrigée)
 
 | Élément | Détail |
 |---------|--------|
-| Commande source | `git ls-files` |
-| Fichiers tracked | **1045** |
-| Lignes CSV données | **1045** |
-| Chemins uniques | **1045** |
+| Commande | `git ls-files` |
+| Fichiers tracked | **1048** |
+| Lignes CSV | **1048** |
+| Champs | **35** (ajout `naming_rule_regime`) |
 | Ordre | `current_path` alphabétique |
-| Qualification | Heuristiques path + échantillon contenu (≤12 KB) + analyse liens Markdown relatifs |
-| Exclusions | Untracked (`.tmp-sfia-review/`, `.sfia/`, etc.) |
 
-**Garde-fous d'interprétation :** observation / hypothèse / recommandation / gate Morris distingués. Cursor ne décide pas de suppressions ni promotions canonical.
+**Régimes de nommage D12 :**
+
+| Régime | Règle | Fichiers |
+|--------|-------|--------:|
+| `documentary` | kebab-case EN ; dates événementielles | 701 |
+| `technical-convention` | conventions outil/framework conservées | 308 |
+| `unknown` | investigate — pas de rename automatique | 39 |
+| `not-applicable` | (inclus dans technical pour F16/F17) | — |
+
+**D10 corrigé :** la cible logique est déterminée par **fonction réelle** (contenu + chemin), pas par la présence de `sfia` dans le nom. `docs/architecture/sfia-*` = documentation plateforme → zone `docs`. Prompts opérationnels → zone `prompts`.
+
+**Garde-fou D10 :** si `logical_location_current ≠ logical_location_target` → `location_compliance` ≠ `compliant`.
 
 ---
 
-## 3. Périmètre et exclusions
+## 3. Exemples techniques corrigés
 
-**Inclus :** tous fichiers suivis par Git (MD, code, config, assets, prompts, projets, v3 tracked, `.github`).
-
-**Exclus :** `.git/`, untracked, caches locaux, dépendances non tracked.
+| Fichier | Avant (erroné) | Après (correct) |
+|---------|----------------|-----------------|
+| `docker/penpot/.env.example` | rename → `env.example` | `technical-convention`, compliant, keep |
+| `docker/penpot/docker-compose.override.example.yml` | rename mécanique | `technical-convention`, compliant, keep |
+| `.cursor/mcp-templates/penpot-mcp.example.json` | rename | `technical-convention`, compliant, keep |
+| `.github/workflows/*.yml` | parfois rename | `technical-convention`, compliant, keep |
+| `docs/architecture/sfia-delivery-pipeline.md` | target=method, non-compliant | target=docs, **compliant** |
+| `README.md` (racine) | target=docs, non-compliant | target=repository, **compliant** |
 
 ---
 
@@ -292,9 +228,9 @@ Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked
 
 | Famille | Count | % |
 |---------|------:|--:|
-| F08 Document projet | 399 | 38.2% |
-| F17 Code / artefact | 290 | 27.8% |
-| F09 Audit | 103 | 9.9% |
+| F08 Document projet | 399 | 38.1% |
+| F17 Code / artefact | 290 | 27.7% |
+| F09 Audit | 106 | 10.1% |
 | F13 README / index | 67 | 6.4% |
 | F15 Tooling doc | 40 | 3.8% |
 | F06 Doc transverse | 36 | 3.4% |
@@ -319,11 +255,11 @@ Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked
 | validated | 292 |
 | archived | 255 |
 | draft | 109 |
-| candidate | 30 |
+| candidate | 33 |
 | deprecated | 0 |
 | superseded | 0 |
 
-> Aucun `lifecycle_status: active` — conforme D3.
+> Aucun `lifecycle_status: active`.
 
 ---
 
@@ -333,13 +269,11 @@ Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked
 |--------|------:|
 | unknown | 534 |
 | informational | 298 |
-| supporting | 136 |
+| supporting | 139 |
 | reference | 74 |
 | canonical | 3 |
 
-**Canonical identifiés (gate Morris) :** operating model, routing guide, rules and guardrails (`method/sfia-fast-track/core/`).
-
-**Conflits canonical candidats :** 4 lignes marquées `canonical-candidate-conflict` — arbitrage Morris requis avant promotion.
+**Conflits canonical candidats :** 3 lignes — gate Morris requis.
 
 ---
 
@@ -347,11 +281,11 @@ Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked
 
 | Usage | Count |
 |-------|------:|
-| unknown | 401 |
-| operational | 389 |
-| non-operational | 255 |
+| unknown | 484 |
+| operational | 353 |
+| non-operational | 211 |
 
-**Réserve D5 :** 401 fichiers `unknown` — vérification contenu/références requise avant migration.
+> Tout `unknown` accompagné d'une réserve dans le CSV.
 
 ---
 
@@ -359,12 +293,12 @@ Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked
 
 | Scope | Count |
 |-------|------:|
-| project | 688 |
-| method | 175 |
+| project | 687 |
+| method | 178 |
 | tooling | 125 |
-| repository | 57 |
+| repository | 58 |
 
-> Aucun `scope: product` — conforme D6.
+> Aucun `scope: product`.
 
 ---
 
@@ -376,132 +310,137 @@ Ce cycle produit une **cartographie exhaustive** des **1045 fichiers Git tracked
 | SFIA v2.4 | 254 |
 | SFIA v3.0 | 23 |
 | SFIA v1.1 | 19 |
+| SFIA v2.6 | 7 |
 | SFIA v2.5 | 6 |
-| SFIA v2.6 | 4 |
 
 ---
 
-## 10. Conformité nommage (D12)
+## 10. Conformité nommage D12 (recalculée)
+
+### Par régime
+
+| Régime | Count |
+|--------|------:|
+| documentary | 701 |
+| technical-convention | 308 |
+| unknown | 39 |
+
+### Par compliance
+
+| Statut | Count | Note |
+|--------|------:|------|
+| compliant | 820 | incl. 308 conventions techniques |
+| non-compliant | 161 | **documentaire uniquement** |
+| unknown | 67 | régime ou règle incertaine |
+
+**Avant correctif :** 326 non-conformités (D12 appliqué mécaniquement au code et aux configs).
+
+---
+
+## 11. Conformité emplacement D10 (recalculée)
 
 | Statut | Count |
 |--------|------:|
-| compliant | 691 |
-| non-compliant | 326 |
-| unknown | 28 |
-| not-applicable | 0* |
+| compliant | 1025 |
+| non-compliant | 23 |
+| ambiguous | 0 |
+| unknown | 0 |
 
-*Non-applicable comptabilisé séparément dans location (69 fichiers binaires/code sans règle MD).
+**Cas D10 non conformes :** 23 fichiers — **périmètre v3.0/MCP** (docs/tooling/mcp/sfia-3-*, capitalization/sfia-v3/*, prompts v3).
 
-**Principaux écarts :** absence préfixe date sur capitalisations/audits ; casse non kebab-case ; noms FR ou mixtes.
-
----
-
-## 11. Conformité emplacement (D10)
-
-| Statut | Count |
-|--------|------:|
-| compliant | 876 |
-| non-compliant | 24 |
-| ambiguous | 10 |
-| unknown | 66 |
-| not-applicable | 69 |
-
-**Cas D10 non conformes (échantillon) :** documentation SFIA v3/MCP sous `docs/tooling/mcp/` ; artefacts v3 sous `prompts/tooling/mcp/` ; capitalisations SFIA mal placées.
-
-**Règle appliquée :** SFIA lui-même → `method/.../documentation/` ; systèmes/produits/pratiques → `docs/` ou projet.
+**Contradictions D10 éliminées :** 187 → 0.
 
 ---
 
-## 12. Conflits canonical (D4)
+## 12. Tableau de qualité de qualification
 
-- **3** documents authority `canonical` (core SFIA v2.4)
-- **4** lignes en conflit canonical candidat (même sujet/périmètre)
-- Promotion canonical = **gate Morris** — aucune promotion exécutée
+| Métrique | Count | Interprétation |
+|----------|------:|----------------|
+| Total fichiers | 1048 | Inventaire exhaustif |
+| confidence high | 657 | Heuristique forte — **non validation Morris** |
+| confidence medium | 370 | Heuristique — réserve obligatoire |
+| confidence low | 21 | Qualification fragile |
+| lifecycle unknown | 359 | Lot 0 si structurant |
+| authority unknown | 534 | Lot 0 si méthode/gouvernance |
+| usage unknown | 484 | Lot 0 si impact migration |
+| location unknown | 0 | — |
+| naming unknown | 67 | investigate |
+| investigate | 39 | Lot 0 |
+| morris_gate yes | 43 | Décision Morris |
+| delete-candidate | 11 | Gate Morris + preuve |
+| archive | 60 | Lot 0 puis Lot C |
+| canonical conflict | 3 | Lot 0 puis Lot A |
 
----
-
-## 13. Périmètre SFIA v3.0 (D11)
-
-| Métrique | Valeur |
-|----------|--------|
-| Fichiers trajectory SFIA v3.0 | 23 |
-| Propositions disposition `archive` | 61 |
-| MCP/Bridge/Runner/`.sfia` | Identifiés dans périmètre v3 — **non réactivés** |
-
-**Cible D11 :** regroupement zone archive gouvernée — archivage physique = cycle futur distinct.
-
----
-
-## 14. Doublons et chevauchements
-
-- Conflits canonical candidats : **4**
-- Documents workspace-audit historiques vs capitalisation v2.6 : chevauchement thématique — pas fusion proposée
-- Prompts MCP v2/v3 : redondance potentielle — `investigate` / `archive`
+> **`confidence medium` ≠ qualification validée.**
 
 ---
 
-## 15. Propositions de traitement (disposition)
+## 13. Suppressions candidates (recherche read-only)
 
-| Disposition | Count | Nature |
-|-------------|------:|--------|
-| keep | 625 | Recommandation |
-| rename | 321 | Recommandation |
-| investigate | 37 | Recommandation |
-| archive | 61 | Recommandation |
-| move | 1 | Recommandation |
-| delete-candidate | 0 | Recommandation |
-| merge-candidate | 0 | Recommandation |
+**11 fichiers** identifiés avec preuve et `morris_gate_required: yes` :
 
-> **Aucune exécution** — valeurs = cartographie uniquement.
+- Documents marqués superseded (foundation v1.1, documentation-audit, structure-target)
+- Audits workspace round-2 remplacés par capitalisation v2.6
+- Audit interv360 transitoire superseded
+
+**Exclus de delete-candidate :** `.gitkeep` (rôle structurel), exports workspace-audit `.txt` (inventaires historiques → Lot 0).
+
+**Si aucune suppression fiable supplémentaire :** Lot 0 doit poursuivre la qualification — cela ne signifie pas l'absence future de fichiers supprimables.
 
 ---
 
-## 16. Inconnues et réserves
+## 14. Lot 0 — qualification manuelle
 
-| Type | Count |
-|------|------:|
-| usage unknown | 401 |
-| authority unknown | 534 |
-| lifecycle unknown | 359 |
-| confidence low | 0 |
-| confidence medium | 355 |
-| confidence high | 690 |
+**227 fichiers** tagués `lot-0` incluant :
 
----
+- 39 `investigate`
+- 60 `archive` (validation avant archivage physique)
+- 11 `delete-candidate`
+- Gates Morris, conflits canonical, inconnues structurantes
 
-## 17. Gates Morris identifiés
-
-**24 fichiers** avec `morris_gate_required: yes` — suppressions candidates, canonical, core, archivage v3 structurant.
+**Aucun lot A–J ne démarre avant résolution Lot 0 des cas structurants.**
 
 ---
 
-## 18. Matrice décisions Morris nécessaires (post-cartographie)
+## 15. Propositions de traitement
 
-| Sujet | Gate |
-|-------|------|
-| Promotion canonical | Morris explicite par sujet |
-| Archivage physique v3.0 | GO lot C |
-| Déplacements D10 | GO lot B |
-| Renommages massifs D12 | GO lot D |
-| Suppressions futures | GO Morris par fichier |
-| Ouverture lots migration | GO Morris distinct par lot |
+| Disposition | Count |
+|-------------|------:|
+| keep | 788 |
+| rename | 150 |
+| archive | 60 |
+| investigate | 39 |
+| delete-candidate | 11 |
+| move | 0 |
+| rename-and-move | 0 |
 
----
-
-## 19. Limites de confiance
-
-Qualification automatisée avec heuristiques path + échantillon contenu. Les fichiers code (F17) et assets ont une confiance authority/usage plus faible. Revue manuelle recommandée pour gates `yes` et disposition `investigate`.
+> Recommandations uniquement — aucune exécution.
 
 ---
 
-## 20. Confirmation hors périmètre
+## 16. Gates Morris
+
+**43 fichiers** avec `morris_gate_required: yes` — canonical, delete-candidate, archive v3, core, cas structurants.
+
+---
+
+## 17. Limites de confiance
+
+- Qualification heuristique path + échantillon contenu (≤12 KB)
+- Volume élevé d'`unknown` sur authority/usage/lifecycle
+- Revue ChatGPT/Morris requise avant tout GO migration
+- Correctif améliore fiabilité D10/D12 — ne clôt pas l'arbitrage documentaire
+
+---
+
+## 18. Confirmation hors périmètre
 
 | Élément | Statut |
 |---------|--------|
-| Fichiers existants modifiés | **Aucun** |
+| Fichiers existants modifiés (hors 3 livrables) | **Aucun** |
 | Migration exécutée | **Non** |
 | Archivage v3 physique | **Non** |
-| G3 exécution | **Non** |
+| Suppression exécutée | **Non** |
 | SFIA v2.6 promue baseline | **Non** |
 
 ---
@@ -510,287 +449,296 @@ Qualification automatisée avec heuristiques path + échantillon contenu. Les fi
 
 | Contrôle | Résultat |
 |----------|----------|
-| git ls-files | 1045 |
-| Lignes CSV données | 1045 |
-| Chemins uniques | 1045 |
+| git ls-files | 1048 |
+| Lignes CSV données | 1048 |
+| Chemins uniques | 1048 |
+| Champs CSV | 35 |
 | Doublons current_path | 0 |
 | lifecycle active | 0 |
 | scope product | 0 |
-| Fichiers untracked inclus | 0 |
+| D10 contradictions | 0 |
+| Technical rename erroné | 0 |
+| SHA-256 CSV | `bd78e8744e07347f5ec0e25d28da12ac63d0c6aec42f1f2632daca8e8bef2735` |
 
 ---
 
-*Cartographie candidate SFIA v2.6 — read-only — recommandations non exécutables sans GO Morris par lot.*
+*Cartographie candidate SFIA v2.6 — correctif PR #165 — qualification partielle explicitement tracée.*
 
 
 ---
 
 ## Contenu complet — Migration Lots Plan
 
-# SFIA v2.6 — Repository Migration Lots Plan
+# SFIA v2.6 — Repository Migration Lots Plan (Corrected)
 
-*Plan de mise en conformité par lots — dérivé de la cartographie read-only*
+*Plan de mise en conformité par lots — correctif PR #165*
 
 **Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md`
-**Date et heure :** 2026-07-11 14:43 Europe/Paris
+**Date et heure :** 2026-07-11 15:03 Europe/Paris
 **Statut :** **Candidate** — planification — aucune exécution
-**Cycle projet :** Cadrage et audit repository — cartographie exhaustive et planification
+**Cycle :** Validation corrective de cartographie repository
 **Profil SFIA :** **Critical**
 **Repository :** mcleland147/sfia-workspace
 **Branche :** audit/sfia-v2.6-repository-cartography
-**Base Git :** `main` @ `072058a1e3eea7a7647b638be4b8512df6b84ea6`
-**Source cartographie :** `2026-07-11-sfia-v2.6-repository-cartography.csv` (1045 fichiers)
+**PR :** #165
+**Source cartographie :** CSV 35 champs @ SHA-256 `bd78e8744e07347f5ec0e25d28da12ac63d0c6aec42f1f2632daca8e8bef2735`
 **Autorité :** Morris (L0)
 
 ### Limites
 
-- Plan **dérivé de la cartographie réelle** — non prédéfini
-- **Aucun lot autorisé à démarrer** sans GO Morris distinct
+- Plan dérivé de la **cartographie corrigée**
+- **Lot 0 obligatoire** avant migrations structurantes
+- Aucun lot autorisé sans GO Morris distinct
 - Aucune action physique dans ce cycle
 
 ---
 
 ## 1. Executive summary
 
-Dix lots proposés (A–J), ordonnés par dépendances. Volume total : **1045 fichiers** cartographiés. Priorité recommandée : **Lot C (v3)** et **Lot A (canonical)** avant renommages massifs **Lot D**.
-
-| Lot | Fichiers | Action dominante | Gate |
-|-----|----------|------------------|------|
-| A | 9 | Canonical / core / gouvernance | Critical — Morris |
-| B | 10 | Emplacements D10 | Critical — Morris |
-| C | 23 | Archivage SFIA v3.0 | Critical — Morris |
-| D | 319 | Nommage D12 | Standard — Morris |
-| E | 173 | Liens / README / index | Standard |
-| F | 0* | Doublons / superseded | Morris si fusion |
-| G | 435 | Documents projets | Project-scoped |
-| H | 45 | Prompts / templates | Standard |
-| I | 31 | Tooling / CI | Standard |
-| J | 0* | Suppressions candidates | Critical — Morris |
-
-*Lot F/J : aucun fichier exclusivement tagué merge-candidate/delete-candidate dans cette cartographie — surveillance lors exécution lots antérieurs.
+| Lot | Fichiers (tag CSV) | Volume exécution estimé | Gate |
+|-----|-------------------:|-------------------------:|------|
+| **0** | 227 | Qualification manuelle | Critical — Morris |
+| A | 3 canonical | ~9 core/gouvernance | Critical |
+| B | — | **23** emplacements v3 D10 | Critical |
+| C | — | **60** archivages | Critical |
+| D | 132 | **132** renames documentaires | Standard (sous-lots) |
+| E | 75 | Contrôles globaux résiduels | Standard |
+| F | — | Doublons/superseded post-Lot 0 | Critical si fusion |
+| G | 562 scope | **126** actions projet (rename+investigate+delete) | Par projet |
+| H | 9 | Prompts/templates | Standard |
+| I | 43 | Tooling/CI | Standard |
+| J | — | **11** suppressions candidates | Critical |
 
 ---
 
-## 2. Lot A — Canonical, core et gouvernance
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Stabiliser autorité canonical D4 ; valider core SFIA v2.4 |
-| **Fichiers** | 9 (`migration_lot_candidate: lot-A`) |
-| **Volume** | Faible — impact structurant maximal |
-| **Actions proposées** | Valider canonical unique ; documenter remplaçants ; pas de déplacement sans gate |
-| **Dépendances** | Aucune amont ; bloque promotions canonical ailleurs |
-| **Ordre** | **1** |
-| **Risques** | Confusion baseline v2.4 vs candidate v2.6 |
-| **Fichiers protégés** | `method/sfia-fast-track/core/*` |
-| **Tests** | Vérifier références entrantes core ; liens prompts |
-| **Rollback** | Git revert PR lot |
-| **Gate Morris** | **GO Critical obligatoire** |
-| **Review pack** | full |
-| **PR envisagée** | `migration/lot-a-canonical-core` |
-| **Critères entrée** | Merge cartographie PR ; D4 validé en revue |
-| **Critères sortie** | Un canonical actif par sujet ; conflits résolus ou tracés |
-| **Réserves** | 4 conflits canonical candidats à arbitrer |
-
----
-
-## 3. Lot B — Emplacements D10 (docs/ vs method/documentation)
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Corriger non-conformités emplacement D10 |
-| **Fichiers** | 10 (+ 24 non-compliant partagés avec autres lots) |
-| **Volume** | Faible à moyen |
-| **Actions proposées** | `move` / `rename-and-move` vers `method/.../documentation/` ou `docs/` selon fonction |
-| **Dépendances** | Lot A (canonical refs) ; avant Lot D si chemin change |
-| **Ordre** | **2** |
-| **Risques** | Liens cassés ; README obsolètes |
-| **Fichiers protégés** | Core docs |
-| **Tests** | Scan liens relatifs ; grep références chemins |
-| **Rollback** | git revert ; restore links |
-| **Gate Morris** | **GO Critical** |
-| **Review pack** | full |
-| **PR envisagée** | `migration/lot-b-d10-locations` |
-| **Critères entrée** | Liste chemins source→cible validée |
-| **Critères sortie** | 0 non-compliant D10 restant |
-| **Réserves** | 10 emplacements `ambiguous` — revue manuelle |
-
-**Cas types :** `docs/tooling/mcp/sfia-3-*` → archive v3 sous method ; docs SFIA gouvernance → method/documentation.
-
----
-
-## 4. Lot C — Archivage SFIA v3.0 (D11)
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Regrouper artefacts v3.0 en zone archive gouvernée |
-| **Fichiers** | 23 trajectory v3.0 ; 61 disposition `archive` |
-| **Volume** | Moyen |
-| **Actions proposées** | `git mv` vers `method/.../documentation/archive/sfia-v3/` ; lifecycle archived ; trajectory_role archived |
-| **Dépendances** | Lot B (chemins MCP) ; avant suppression |
-| **Ordre** | **3** |
-| **Risques** | Références opérationnelles résiduelles ; MCP mentions |
-| **Fichiers protégés** | Aucun v3 réactivé |
-| **Tests** | grep v3/MCP/Bridge/Runner ; vérifier prompts |
-| **Rollback** | revert PR |
-| **Gate Morris** | **GO Critical** |
-| **Review pack** | full |
-| **PR envisagée** | `migration/lot-c-v3-archive` |
-| **Critères entrée** | Périmètre v3 validé ; dépendances listées |
-| **Critères sortie** | v3.0 hors trajectoires actives ; zone archive cohérente |
-| **Réserves** | Suppressions éventuelles = lot J ultérieur |
-
-**Interdit :** réactivation MCP, Bridge, Runner, `.sfia`.
-
----
-
-## 5. Lot D — Nommage et chemins (D12)
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Aligner nommage kebab-case EN ; dates événementielles |
-| **Fichiers** | 319 |
-| **Volume** | **Élevé** |
-| **Actions proposées** | `rename` ; mise à jour liens dans même PR ou Lot E |
-| **Dépendances** | Lots A–C stabilisés ; chemins finaux connus |
-| **Ordre** | **4** |
-| **Risques** | **326** non-conformités — liens cassés massifs si sans Lot E |
-| **Fichiers protégés** | Core stables (pas date forcée) |
-| **Tests** | Lien checker ; diff stat |
-| **Rollback** | revert par sous-lot |
-| **Gate Morris** | **GO Standard** — sous-lots recommandés |
-| **Review pack** | full par sous-lot |
-| **PR envisagée** | `migration/lot-d-naming-*` (plusieurs PR) |
-| **Critères entrée** | Liste rename validée ; refs entrantes identifiées |
-| **Critères sortie** | 0 non-compliant naming sur périmètre lot |
-| **Réserves** | Exécuter par sous-lots ≤50 fichiers |
-
----
-
-## 6. Lot E — Liens, README et index
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Mettre à jour liens, README, index après lots B–D |
-| **Fichiers** | 173 |
-| **Volume** | Moyen |
-| **Actions proposées** | `update` contenu uniquement — pas restructuration |
-| **Dépendances** | Lots B, C, D |
-| **Ordre** | **5** |
-| **Risques** | Liens cassés audit PR #162 (~23) |
-| **Gate Morris** | GO Standard |
-| **PR envisagée** | `migration/lot-e-links-readme` |
-
----
-
-## 7. Lot F — Doublons, superseded, fusion candidates
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Traiter chevauchements et superseded sans fusion automatique |
-| **Fichiers** | 0 exclusifs — surveillance continue |
-| **Actions proposées** | `merge-candidate` uniquement après analyse Morris |
-| **Gate Morris** | **GO Critical** par fusion |
-| **Ordre** | **6** — après E |
-| **Réserves** | 4 conflits canonical ; workspace-audit vs capitalization |
-
----
-
-## 8. Lot G — Documents projets
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Conformité périmètre project (688 fichiers scope project) |
-| **Fichiers** | 435 |
-| **Volume** | **Très élevé** — majoritairement F08/F17 |
-| **Actions proposées** | rename ciblé ; keep si conforme |
-| **Dépendances** | Lots D/E partiels par projet |
-| **Ordre** | **7** — par projet (`chantiers360-v2`, `interv360`, etc.) |
-| **Gate Morris** | GO par projet |
-| **PR envisagée** | `migration/lot-g-project-{name}` |
-
----
-
-## 9. Lot H — Prompts, templates, checklists
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Aligner prompts/templates avec trajectoire v2.4 baseline |
-| **Fichiers** | 45 |
-| **Actions proposées** | rename ; retirer refs v3 ; update refs core |
-| **Dépendances** | Lot C (v3 prompts) |
-| **Ordre** | **8** |
-| **Gate Morris** | GO Standard |
-
----
-
-## 10. Lot I — Tooling et artefacts techniques
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Conformité F15/F16 ; CI, Docker, tools |
-| **Fichiers** | 31 |
-| **Actions proposées** | keep / investigate |
-| **Ordre** | **9** |
-| **Gate Morris** | GO Standard |
-
----
-
-## 11. Lot J — Suppressions candidates finales
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Supprimer fichiers sans valeur après vérification dépendances |
-| **Fichiers** | 0 identifiés initialement — réévaluation post-lots C, G |
-| **Actions proposées** | `delete-candidate` → suppression après GO Morris |
-| **Ordre** | **10** — dernier |
-| **Gate Morris** | **GO Critical par fichier** |
-| **Réserves** | Aucune suppression sans preuve dépendances vides |
-
----
-
-## 12. Séquence globale recommandée
+## 2. Séquence globale (unique)
 
 ```text
-Cartographie merge (PR actuelle)
-  → GO Morris Lot A (canonical)
-  → GO Morris Lot B (D10)
-  → GO Morris Lot C (v3 archive)
-  → GO Morris Lot D sous-lots (naming)
-  → GO Morris Lot E (links)
-  → GO Morris Lot F si needed
-  → GO Morris Lot G par projet
-  → GO Morris Lot H, I
-  → GO Morris Lot J (suppressions)
+Cartographie corrigée (PR #165)
+  → merge PR #165
+  → Lot 0 — qualification manuelle (read-only puis décisions)
+  → Lot A — canonical / core
+  → Lot B — emplacements D10 (v3/MCP)
+  → Lot C — archivage physique v3
+  → Lot D — nommage documentaire (sous-lots 20–50 fichiers)
+  → Lot E — contrôles globaux README/index (résiduel)
+  → Lot F — doublons / superseded
+  → Lot G — projets (par projet, sous-lots)
+  → Lot H — prompts / templates / checklists
+  → Lot I — tooling / CI
+  → Lot J — suppressions finales
 ```
+
+### Nuance Lot E (articulation)
+
+Chaque lot **B, C, D, G, H** impliquant un changement de chemin doit :
+
+- mettre à jour ses **références directes dans la même PR** ;
+- réserver **Lot E** aux contrôles globaux, README racine et index résiduels post-migration.
+
+Lot E **n'est pas** une correction tardive unique de tous les liens.
 
 ---
 
-## 13. Distinction types de lots
+## 3. Lot 0 — Qualification manuelle et décisions de disposition
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Résoudre les cas susceptibles de modifier fortement les lots A–J |
+| **Fichiers tagués CSV** | **227** |
+| **Périmètre prioritaire** | investigate (39) ; gates Morris (43) ; archive (60) ; delete-candidate (11) ; conflits canonical (3) ; authority/usage/lifecycle unknown sur méthode, prompts, gouvernance |
+| **Actions** | **Read-only** — revue contenu, preuves, remplaçants, refs entrantes/sortantes |
+| **Sortie attendue** | Décision proposée par fichier : keep / update / archive / delete-candidate / merge-candidate / investigate |
+| **Gate Morris** | **GO Critical** pour ouvrir Lot 0 |
+| **Critères entrée** | Merge PR #165 corrigée |
+| **Critères sortie** | Cas structurants tranchés ou explicitement réservés ; preuves documentées |
+| **Réserves** | Inconnues non structurantes reportables aux lots projet |
+
+**Règle :** aucune migration A–J avant clôture Lot 0 sur les cas structurants.
+
+---
+
+## 4. Lot A — Canonical, core et gouvernance
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Stabiliser autorité D4 |
+| **Volume** | 3 canonical ; ~9 fichiers core/gouvernance |
+| **Gate** | Critical — Morris |
+| **Ordre** | 1 (après Lot 0) |
+| **PR envisagée** | `migration/lot-a-canonical-core` |
+
+---
+
+## 5. Lot B — Emplacements D10
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Corriger 23 emplacements v3/MCP non conformes |
+| **Volume exécution** | **23** (docs/tooling/mcp/sfia-3-*, capitalization/sfia-v3/*, prompts v3) |
+| **Actions** | `git mv` vers zone archive gouvernée |
+| **Dépendances** | Lot 0 validation périmètre v3 ; Lot A si refs canonical |
+| **Gate** | Critical — Morris |
+| **Ordre** | 2 |
+| **Liens** | Mise à jour refs directes **dans la même PR** |
+
+---
+
+## 6. Lot C — Archivage SFIA v3.0 (D11)
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Archivage physique post-validation Lot 0 |
+| **Volume** | **60** candidats archive |
+| **Cible** | `method/sfia-fast-track/documentation/archive/sfia-v3/` |
+| **Gate** | Critical — Morris |
+| **Ordre** | 3 |
+| **Interdit** | Réactivation MCP, Bridge, Runner, `.sfia` |
+
+---
+
+## 7. Lot D — Nommage documentaire (D12)
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Renommer **uniquement** fichiers régime `documentary` non conformes |
+| **Volume CSV tag** | **132** |
+| **Volume rename réel** | **150** dispositions rename (dont chevauchements lot-G) |
+| **Exclus** | **308** fichiers `technical-convention` — **aucun rename D12** |
+| **Gate** | Standard — Morris par sous-lot |
+| **Ordre** | 4 |
+
+### Sous-lots D (max 20–50 fichiers)
+
+| Sous-lot | Volume | Périmètre |
+|----------|-------:|-----------|
+| D-1 method-capitalization-audits | 4 | Audits/capitalisations méthode |
+| D-2 docs-practices | 2 | Pratiques plateforme |
+| D-3 projects-docs | 117 | Markdown projet (kebab-case, dates) |
+| D-4 prompts-templates | 3 | Templates prompts |
+| D-5 other | 6 | Divers documentaire |
+
+**Règle découpage :** un domaine cohérent ; chemins source/cible fermés ; refs mises à jour dans la même PR ; rollback par PR.
+
+---
+
+## 8. Lot E — Liens, README et index (résiduel)
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Contrôles globaux après lots de chemins |
+| **Volume tag CSV** | 75 |
+| **Gate** | Standard |
+| **Ordre** | 5 |
+| **Note** | Complète les mises à jour locales des lots B–D–G–H |
+
+---
+
+## 9. Lot F — Doublons, superseded, fusion candidates
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Traiter chevauchements post-Lot 0 |
+| **Volume initial** | À déterminer depuis Lot 0 |
+| **Gate** | Critical par fusion |
+| **Ordre** | 6 |
+
+---
+
+## 10. Lot G — Documents projets
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectif** | Conformité par projet |
+| **Scope total** | 687 fichiers scope project |
+| **Actions identifiées** | rename 117 ; investigate 8 ; delete-candidate 1 |
+
+### Sous-lots G par projet
+
+| Projet | Fichiers scope | Actions rename | Sous-lot suggéré |
+|--------|---------------:|---------------:|------------------|
+| interv360 | 427 | ~80 | `migration/lot-g-interv360-{n}` (≤50 fichiers) |
+| chantiers360-v2 | 134 | ~35 | `migration/lot-g-chantiers360-v2-{n}` |
+| index/other | 1 | 0 | Lot E si README index |
+
+**Règle :** ne pas mélanger code F17 et documentation sans justification ; sous-lots ≤50 fichiers.
+
+---
+
+## 11. Lot H — Prompts, templates, checklists
+
+| Champ | Contenu |
+|-------|---------|
+| **Volume tag** | 9 |
+| **Ordre** | 8 |
+| **Gate** | Standard |
+
+---
+
+## 12. Lot I — Tooling et CI
+
+| Champ | Contenu |
+|-------|---------|
+| **Volume tag** | 43 |
+| **Ordre** | 9 |
+| **Note** | F16/F17 en `technical-convention` — pas de rename D12 |
+
+---
+
+## 13. Lot J — Suppressions candidates finales
+
+| Champ | Contenu |
+|-------|---------|
+| **Volume identifié** | **11** (preuve + gate Morris) |
+| **Ordre** | 10 — **dernier** |
+| **Gate** | Critical — **par fichier** |
+| **Réserves** | Lot 0 peut en identifier d'autres ; aucune suppression sans dépendances vides prouvées |
+
+**Fichiers identifiés (échantillon) :** audits foundation v1.1 superseded ; documentation-audit/structure-target ; workspace-audit round-2 ; global-audit ; interv360 current-application-audit.
+
+---
+
+## 14. Distinction types de lots
 
 | Type | Lots |
 |------|------|
-| Read-only complémentaire | Cartographie (ce cycle) |
+| Read-only qualification | **0**, cartographie |
 | Mise à jour documentaire | E |
-| Renommage / déplacement | B, C, D, G |
-| Archivage | C |
+| Renommage documentaire | D, G (partiel) |
+| Déplacement / archivage | B, C |
 | Suppressions | J |
-| Critical gate | A, B, C, J |
+| Critical gate | 0, A, B, C, J, F (fusion) |
 
 ---
 
-## 14. Confirmation
+## 15. Statistiques avant/après correctif (référence)
+
+| Métrique | Avant PR correctif | Après correctif |
+|----------|-------------------:|----------------:|
+| Champs CSV | 34 | 35 |
+| D10 contradictions | 187 | 0 |
+| D12 non-compliant (tous) | 326 | 161 |
+| Rename proposé | 321 | 150 |
+| Lot D volume | 319 | 132 |
+| delete-candidate | 0 | 11 |
+| archive | 61 | 60 |
+
+---
+
+## 16. Confirmation
 
 | Élément | Statut |
 |---------|--------|
-| Plan dérivé cartographie CSV | **Oui** |
+| Lot 0 ajouté | **Oui** |
+| Séquence unique | **Oui** |
+| Sous-lots D/G définis | **Oui** |
+| Articulation Lot E | **Documentée** |
 | Lots exécutés | **Aucun** |
-| GO Morris lots | **Non accordés** |
-| SFIA v2.6 | **Candidate** |
+| GO Morris | **Non accordés** |
 
 ---
 
-*Plan candidate — aucune migration sans GO Morris par lot.*
+*Plan candidate — correctif PR #165 — Morris décide.*
 
 
 ---
@@ -798,27 +746,14 @@ Cartographie merge (PR actuelle)
 ## Useful Diff
 
 ```diff
-+ method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.csv (new, 1045 data rows)
-+ method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md (new)
-+ method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md (new)
+M method/.../2026-07-11-sfia-v2.6-repository-cartography.csv (35 fields, recalculated)
+M method/.../2026-07-11-sfia-v2.6-repository-cartography.md (corrective report)
+M method/.../2026-07-11-sfia-v2.6-repository-migration-lots-plan.md (Lot 0, sequence)
 ```
 
-**modified sections complete :** n/a
+**modified sections complete :** yes
 **useful diff included :** yes
-
----
-
-## Git Review Index
-
-| Item | Value |
-|------|-------|
-| Branch | audit/sfia-v2.6-repository-cartography |
-| Base | main @ 072058a |
-| Commit | 33eb067d1bb3758ed4c49ec038a31ff6b5c3331b |
-| Commit message | docs: map repository for sfia v2.6 compliance |
-| PR | #165 (not merged) |
-| Files added | 3 |
-| Files modified | 0 |
+**synthesis only :** no
 
 ---
 
@@ -828,33 +763,27 @@ Cartographie merge (PR actuelle)
 |----------|-------------|
 | cartography.md | yes |
 | migration-lots-plan.md | yes |
-| cartography.csv | large artifact protocol (hash + first/last 20 + stats) |
-| modified sections | n/a |
-| useful diff | yes |
-| synthesis only | no |
+| cartography.csv | large artifact protocol |
+| modified sections | yes |
 
 ---
 
 ## Verdict
 
-**REPOSITORY INVENTORY COMPLETE**
-**ALL TRACKED FILES MAPPED**
-**D1-D12 QUALIFICATION COMPLETE**
-**CANONICAL CONFLICTS IDENTIFIED**
-**D10 LOCATION CASES IDENTIFIED**
-**SFIA V3 ARCHIVE SCOPE IDENTIFIED**
-**CURRENT REPOSITORY NAMING GAPS IDENTIFIED**
-**LINKS AND DEPENDENCIES MAPPED**
-**FILE DISPOSITIONS PROPOSED**
-**MIGRATION LOTS PLANNED**
-**MORRIS GATES IDENTIFIED**
-**NO EXISTING FILE MODIFIED**
+**REPOSITORY INVENTORY REMAINS COMPLETE**
+**D1-D12 INVENTORY COVERAGE COMPLETE**
+**QUALIFICATION PARTIAL — UNKNOWN VALUES REMAIN**
+**DOCUMENTARY AND TECHNICAL NAMING RULES SEPARATED**
+**D12 STATISTICS RECALCULATED**
+**D10 CLASSIFICATIONS CORRECTED**
+**DELETE CANDIDATES ASSESSED**
+**LOT 0 QUALIFICATION PHASE ADDED**
+**MIGRATION LOT SEQUENCE ALIGNED**
+**D AND G SUBLOTS DEFINED**
+**NO EXISTING REPOSITORY FILE MODIFIED**
 **NO PHYSICAL MIGRATION EXECUTED**
-**CARTOGRAPHY PR OPEN (#165)**
-**PR NOT MERGED**
 **REVIEW PACK COMPLETE**
-**REVIEW HANDOFF COMPLETE — REMOTE VERIFIED**
-**READY FOR CHATGPT CARTOGRAPHY REVIEW**
+**READY FOR CHATGPT RE-REVIEW**
 **SFIA v2.4 REMAINS BASELINE**
 **SFIA v2.6 REMAINS CANDIDATE**
 
