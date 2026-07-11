@@ -1263,19 +1263,36 @@ Si `synthesis only = yes` → verdict **ne peut pas** être READY.
 > fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 >
 > ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
-> - le cycle ;
-> - le profil ;
+> - le cycle et le profil ;
 > - la branche projet ;
-> - le HEAD et la base ;
+> - le HEAD initial et final ;
+> - la base main ;
+> - les sources consultées ;
 > - les fichiers créés ou modifiés ;
 > - le contenu complet des fichiers créés ;
 > - les sections complètes modifiées ou le diff utile ;
-> - les réserves ;
+> - l'identité du contenu avant et après synchronisation, si applicable ;
+> - les validations réalisées ;
+> - la mergeabilité ou le statut Git attendu ;
+> - les risques, réserves et écarts ;
 > - les décisions Morris ;
 > - le verdict du review pack ;
 > - le commit et la vérification distante du handoff.
 >
-> Si le handoff est absent, obsolète, incohérent ou synthesis-only, ChatGPT doit répondre :
+> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
+> 1. l'objectif et le périmètre du cycle ;
+> 2. les actions et changements réellement réalisés ;
+> 3. les principaux résultats et validations ;
+> 4. les risques, réserves, écarts ou éléments non couverts ;
+> 5. la distinction entre observations, recommandations et décisions déjà validées ;
+> 6. le verdict ChatGPT ;
+> 7. la prochaine décision ou action attendue de Morris.
+>
+> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
+>
+> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
+>
+> Si le handoff est absent, obsolète, incohérent, incomplet ou synthesis-only, ChatGPT doit répondre :
 >
 > **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
 
