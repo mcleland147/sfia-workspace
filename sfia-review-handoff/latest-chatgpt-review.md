@@ -7,7 +7,7 @@
 **PR :** #165
 **Branche :** audit/sfia-v2.6-repository-cartography
 **HEAD initial :** 7e60935f4f506218ed3331ebb704f8e27f64a355
-**HEAD final :** f9483bf3dda81e5ce3b078ce9bcc731e4165bb23
+**HEAD final :** bde680c32ae0aa36497a3c8dcde913ea530279a7
 **Base inventaire :** main @ 072058a1e3eea7a7647b638be4b8512df6b84ea6
 **Remote sync :** local HEAD = origin/audit/sfia-v2.6-repository-cartography
 
@@ -20,7 +20,7 @@
 | Repository | mcleland147/sfia-workspace |
 | Branche | audit/sfia-v2.6-repository-cartography |
 | HEAD initial | `7e60935f4f506218ed3331ebb704f8e27f64a355` |
-| HEAD final | `f9483bf3dda81e5ce3b078ce9bcc731e4165bb23` |
+| HEAD final | `bde680c32ae0aa36497a3c8dcde913ea530279a7` |
 | PR #165 | OPEN — non mergée |
 | Worktree | Propre |
 | Fichiers versionnés modifiés | 3 livrables |
@@ -285,7 +285,7 @@ Exemples : .gitignore, .env.example, CI workflows, code source, exports Notion, 
 
 **Horodatage :** 2026-07-11 15:38 Europe/Paris
 **HEAD initial :** `7e60935f4f506218ed3331ebb704f8e27f64a355`
-**HEAD final :** `297caee3c3e21554a4d280ae789b4dd66e6ef0f0`
+**HEAD final :** `352825bbd5c23fe986809a7ff9ccf8529f4b8248`
 **CSV :** 1045 × **36** champs (+ `lifecycle_applicability`)
 
 ### Distribution lifecycle_applicability
