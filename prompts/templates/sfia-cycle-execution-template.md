@@ -94,6 +94,8 @@ Repo-informed pre-check ChatGPT
 - fichiers interdits :
 - gates Morris :
 - niveau review pack recommandé : none / light / full
+- review handoff Git : required / not required — obligatoire
+- justification handoff :
 - limites / incertitudes :
 - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
 ```
@@ -133,7 +135,8 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 6. **Identifier les gates Morris** — liste fermée ; pas de gate implicite
 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
 8. **Décider review pack** — §7 : niveau none / light / full
-9. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite
+9. **Décider Review Handoff Git** — §7.10–§7.11 : **required** ou **not required** — **obligatoire, pas de valeur vide** ; verdict `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` si absent
+10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite
 
 ### 2.2 Nouveau chat et sources projet
 
@@ -151,6 +154,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 - Critical sans justification
 - Prompt sans périmètre / hors périmètre
 - Oublier review pack sur cycle documentaire
+- Omettre la décision Review Handoff Git (required / not required)
 - Présenter v2.5 comme baseline validée
 
 ---
@@ -184,6 +188,14 @@ Blocs désactivés :
 
 Gates Morris :                  [liste explicite ou « aucun sauf merge si demandé »]
 Review pack :                   [none / light / full — voir §7]
+
+Review Handoff Git :            [required / not required — OBLIGATOIRE — pas de valeur vide]
+Justification handoff :         [obligatoire dans les deux cas]
+Branche handoff (si required) : sfia/review-handoff
+Fichier handoff (si required) : sfia-review-handoff/latest-chatgpt-review.md
+Push handoff autorisé :         [oui — L3 borné si required / non si not required]
+Vérification remote :           [obligatoire si required]
+Instruction ChatGPT finale :  [bloc §9.1 si required / N/A si not required]
 
 Stop conditions spécifiques :
 Rapport Cursor attendu :        [Light / Standard / Critical / Capitalization — §9]
@@ -330,8 +342,9 @@ Stop conditions :
 4. [Étapes spécifiques au cycle]
 5. Validations (git diff, lints, tests si applicable)
 6. Review pack si obligatoire (§7) — contenu **mono-cycle uniquement**
-7. Rapport final (§9)
-8. Ouvrir chatgpt-review.md si review pack (best effort)
+7. Review Handoff Git si **required** (§7.10–§7.11) — copie, commit, push, vérification remote
+8. Rapport final (§9) — inclure champs handoff si required + bloc Instruction ChatGPT obligatoire
+9. Ouvrir chatgpt-review.md si review pack (best effort)
 
 Validations attendues :
 - git status --short
@@ -340,6 +353,23 @@ Validations attendues :
 
 Review pack :
 [none / light / full — si light ou full, référencer §7 — réinitialiser le fichier en début de cycle (étape 2) avant toute écriture ; mono-cycle uniquement ; anti-stub final obligatoire]
+
+Review Handoff Git :
+- décision : [required / not required — obligatoire]
+- justification : [obligatoire]
+- branche : sfia/review-handoff
+- fichier : sfia-review-handoff/latest-chatgpt-review.md
+- review pack source : .tmp-sfia-review/chatgpt-review.md
+- overwrite : obligatoire si required
+- commit : obligatoire si required
+- push : obligatoire si required (origin/sfia/review-handoff — seul push distant autorisé dans le cycle)
+- remote verification : obligatoire si required (git ls-remote)
+- verdicts handoff :
+  - HANDOFF UPDATED — REMOTE VERIFIED
+  - HANDOFF LOCAL ONLY — PUSH MISSING
+  - REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING
+  - HANDOFF NOT REQUIRED — JUSTIFIED
+- instruction ChatGPT finale : inclure bloc §9.1 si required
 
 Rapport final attendu :
 [Format selon profil §9 — inclure date et heure du rapport]
@@ -964,9 +994,17 @@ Cursor doit :
 - **Ne jamais** recopier intégralement des documents consultés accessibles dans Git — sauf extrait court justifiant une décision
 - **Ne jamais** laisser un stub final si light ou full est requis (§7.5)
 
-### 7.10 Review Handoff Git Branch optionnel
+### 7.10 Review Handoff Git Branch — décision required / not required
 
-> **Mode optionnel** — activable uniquement après **GO Morris** ou règle explicitement validée. Ne remplace pas `.tmp-sfia-review/chatgpt-review.md` ni Git `main`.
+> **Candidate v2.5 — correctif routing PR handoff.** Tout prompt Cursor SFIA doit **qualifier explicitement** le Review Handoff Git : **required** ou **not required**. Aucune omission silencieuse. Le handoff n'est plus « optionnel par défaut » lorsque review pack light/full est destiné à ChatGPT.
+
+#### Décision obligatoire (fiche d'instanciation §3 et squelette §5)
+
+| Champ | Règle |
+|-------|-------|
+| **Review Handoff Git** | **required** ou **not required** — valeur **obligatoire** |
+| **Justification** | Obligatoire dans les deux cas |
+| **Valeur vide / implicite** | Interdite — verdict ChatGPT : **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** |
 
 #### Objectif
 
@@ -975,7 +1013,7 @@ Permettre à ChatGPT de **lire directement** le dernier rapport Cursor via Git, 
 #### Principe
 
 1. Cursor produit d'abord `.tmp-sfia-review/chatgpt-review.md` **localement** (artefact temporaire mono-cycle — §7.1).
-2. Si le mode est **activé par GO Morris**, Cursor copie ensuite ce contenu vers :
+2. Si **required** (§7.11), Cursor copie ensuite ce contenu vers :
 
    `sfia-review-handoff/latest-chatgpt-review.md`
 
@@ -1005,9 +1043,25 @@ Permettre à ChatGPT de **lire directement** le dernier rapport Cursor via Git, 
 - **aucun** secret ;
 - **aucune** décision Morris déduite automatiquement du contenu ;
 - `main` reste source de vérité ;
-- usage activable uniquement après GO Morris ou règle explicitement validée ;
+- **décision required / not required obligatoire** dans chaque prompt (§3, §5) ;
+- lorsque **required** : exécution L3 bornée **sans micro-GO Morris supplémentaire** (§7.10.1) ;
 - **push autorisé** uniquement vers `sfia/review-handoff` et uniquement pour `sfia-review-handoff/latest-chatgpt-review.md` ;
 - toute autre action Git distante reste **interdite** sans GO explicite.
+
+#### 7.10.1 Autorisation permanente bornée (L3) — lorsque required
+
+> **Règle candidate v2.5 — correctif routing.** Lorsqu'un prompt Cursor SFIA conforme qualifie le handoff **required**, les actions suivantes sont **autorisées dans le cycle** sans nouveau micro-GO Morris :
+
+| Action | Condition |
+|--------|-----------|
+| Copie review pack → handoff | Contenu mono-cycle, exploitable (§7.2.1) |
+| Commit sur `sfia/review-handoff` | Fichier `sfia-review-handoff/latest-chatgpt-review.md` **uniquement** |
+| Push `origin/sfia/review-handoff` | Même si push branche projet interdit |
+| Vérification remote | `git ls-remote` — SHA remote = commit local |
+
+**Garde-fous L3 :** branche unique ; fichier unique ; aucun secret ; aucune PR ; aucun merge ; aucun impact `main` ; aucun autre push distant.
+
+**Exceptions not required** (justification obligatoire) : review pack **none** ; revue locale sans analyse ChatGPT ; absence d'action documentaire ; **GO Morris explicite** de ne pas utiliser le handoff.
 
 #### Règle pérenne — commit + push + vérification remote obligatoire (PR 4 candidate)
 
@@ -1076,7 +1130,37 @@ Cursor doit **stopper** si :
 5. git push origin sfia/review-handoff — push obligatoire, pas d'autre push
 6. git ls-remote origin refs/heads/sfia/review-handoff — vérifier SHA remote = commit local
 7. Confirmer dans le rapport Cursor : handoff local SHA ; remote before/after ; push done ; remote verification yes/no
+8. Afficher le bloc **Instruction ChatGPT obligatoire** (§9.1) si required
 ```
+
+### 7.11 Matrice d'activation Review Handoff Git
+
+> **Règle non ambiguë.** Le Review Handoff Git est **required** lorsqu'un review pack **light** ou **full** doit être utilisé par ChatGPT pour analyser, valider ou décider à partir du rapport Cursor et que Git est le canal de transmission disponible.
+
+| Situation | Handoff | Justification type |
+|-----------|---------|-------------------|
+| Review pack **none** | **not required** | Pas de matière review pack à transmettre |
+| Review pack light/full **sans** analyse ChatGPT ultérieure | **not required** | Revue locale uniquement — justification explicite |
+| Review pack light/full **destiné à ChatGPT** | **required** | Canal Git — publication remote obligatoire |
+| PR readiness documentaire analysée par ChatGPT | **required** | Contrôle contenu avant GO PR |
+| Capitalisation / REX | **required** | Contrôle contenu et diff |
+| Modification méthode / template / règle / garde-fou | **required** | Contrôle sections modifiées |
+| Audit documentaire | **required** | Contrôle livrables |
+| Décision structurante | **required** | Traçabilité Morris |
+| Fichier créé ou modifié — ChatGPT doit contrôler contenu complet ou diff | **required** | Review pack completeness |
+| Rapport final demande lecture handoff / review pack par ChatGPT | **required** | Cohérence cycle courant |
+| Décision Morris contraire | **not required** | GO Morris explicite + traçabilité |
+
+**Verdicts handoff (Cursor) :**
+
+| Verdict | Condition |
+|---------|-----------|
+| `HANDOFF UPDATED — REMOTE VERIFIED` | Commit + push + remote OK |
+| `HANDOFF LOCAL ONLY — PUSH MISSING` | Commit local sans push |
+| `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` | Handoff synthesis-only ou contenu manquant |
+| `HANDOFF NOT REQUIRED — JUSTIFIED` | not required avec justification |
+
+**Verdict prompt (ChatGPT) :** `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` si décision absente.
 
 ---
 
@@ -1120,6 +1204,10 @@ Cursor doit **stopper** et demander Morris si :
 34. **Post-merge cleanup** : branche ambiguë ; branche non mergée ; `git branch -d` refuse ; branche spéciale/handoff ciblée ; cleanup sans GO post-merge
 35. **Review Handoff** : handoff commité localement mais **non pushé** sur `origin/sfia/review-handoff` — verdict `HANDOFF LOCAL ONLY — PUSH MISSING` ; cycle incomplet si ChatGPT doit lire handoff distant
 36. **Review Handoff** : rapport demande lecture handoff Git sans vérification remote (`git ls-remote`) — SHA remote ≠ SHA local attendu
+37. **Review Handoff** : décision required / not required **absente** du prompt — `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`
+38. **Review Handoff** : handoff **required** mais non publié (commit/push/remote) — cycle incomplet
+39. **Review Handoff** : rapport final sans bloc **Instruction ChatGPT obligatoire** alors que handoff required
+40. **Review Handoff** : handoff distant **obsolète** (cycle / branche / HEAD incohérents avec rapport Cursor)
 
 ---
 
@@ -1146,11 +1234,54 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
 15. Réserves
 16. Décisions Morris requises (oui/non + liste)
 17. **Review pack content coverage** (§7.5 — created/modified/diff/synthesis only/verdict)
-18. Verdict
+18. **Review Handoff Git** (§7.10–§7.11) :
+    - handoff decision : required / not required
+    - handoff justification
+    - source review pack : `.tmp-sfia-review/chatgpt-review.md`
+    - handoff branch : `sfia/review-handoff` (si required)
+    - handoff file : `sfia-review-handoff/latest-chatgpt-review.md` (si required)
+    - handoff local commit : SHA / none
+    - handoff remote commit before : SHA / none
+    - handoff remote commit after : SHA / none
+    - push handoff : done / not done / N/A
+    - remote verification : yes / no / N/A
+    - cohérence cycle / branche projet / HEAD : yes / no
+    - contenu créé couvert : yes / no / N/A
+    - contenu modifié couvert : yes / no / N/A
+    - verdict handoff : HANDOFF UPDATED — REMOTE VERIFIED / HANDOFF LOCAL ONLY — PUSH MISSING / REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING / HANDOFF NOT REQUIRED — JUSTIFIED
+19. Verdict
 
 Si `synthesis only = yes` → verdict **ne peut pas** être READY.
 
-**Instruction handoff ChatGPT (si review pack ou handoff mentionné) :**
+**Instruction ChatGPT obligatoire** — **afficher ce bloc visiblement** lorsque handoff = **required** :
+
+> **Instruction ChatGPT obligatoire :**
+>
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
+>
+> branche : `sfia/review-handoff`  
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+>
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
+> - le cycle ;
+> - le profil ;
+> - la branche projet ;
+> - le HEAD et la base ;
+> - les fichiers créés ou modifiés ;
+> - le contenu complet des fichiers créés ;
+> - les sections complètes modifiées ou le diff utile ;
+> - les réserves ;
+> - les décisions Morris ;
+> - le verdict du review pack ;
+> - le commit et la vérification distante du handoff.
+>
+> Si le handoff est absent, obsolète, incohérent ou synthesis-only, ChatGPT doit répondre :
+>
+> **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
+
+Si handoff = **not required** : indiquer `HANDOFF NOT REQUIRED — JUSTIFIED` + justification — **ne pas** afficher le bloc ci-dessus.
+
+**Instruction handoff ChatGPT (legacy — si review pack mentionné sans qualification explicite) :**
 
 > Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :  
 > branche : `sfia/review-handoff`  
@@ -1175,6 +1306,11 @@ Si `synthesis only = yes` → verdict **ne peut pas** être READY.
 | `READY FOR MORRIS GO PUSH / PR` | À utiliser uniquement si le prompt mentionne explicitement qu'un GO Morris préalable ou attendu couvre cette étape. Sinon utiliser READY FOR PR READINESS. |
 | `STOP — MORRIS DECISION REQUIRED` | Gate ou arbitrage requis |
 | `NOT READY` | Écart bloquant documenté |
+| `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` | Prompt sans décision handoff required/not required |
+| `HANDOFF UPDATED — REMOTE VERIFIED` | Handoff publié et vérifié |
+| `HANDOFF LOCAL ONLY — PUSH MISSING` | Handoff commité non pushé |
+| `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` | Handoff absent, obsolète ou synthesis-only |
+| `HANDOFF NOT REQUIRED — JUSTIFIED` | Handoff not required avec justification |
 
 ---
 
@@ -1194,8 +1330,9 @@ Procédure détaillée :
 4. Si ajouté aux sources projet ChatGPT : aide d'instanciation — en cas d'écart, Git main > sources projet.
 5. Critical : toujours justifier. Standard par défaut si doute.
 6. Review pack proportionné : none / light / full — voir template §7. Jamais de stub final si light ou full requis.
-7. v2.5 = candidate, non baseline. v2.4 reste baseline opérationnelle tant que Morris n'a pas validé v2.5.
-8. Morris décide push, PR, merge, gates structurants. Cursor exécute le contrat — ne décide pas.
+7. Review Handoff Git : décision required / not required obligatoire dans chaque prompt (template §3, §5, §7.10–§7.11). Lorsque required : copie, commit, push origin/sfia/review-handoff, vérification remote, instruction ChatGPT §9.1 dans le rapport final. Verdict PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING si absent.
+8. v2.5 = candidate, non baseline. v2.4 reste baseline opérationnelle tant que Morris n'a pas validé v2.5.
+9. Morris décide push branche projet, PR, merge, gates structurants. Cursor exécute le contrat — ne décide pas. Push handoff required = L3 borné sans micro-GO Morris.
 ```
 
 ---

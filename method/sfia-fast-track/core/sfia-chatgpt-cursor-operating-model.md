@@ -751,56 +751,40 @@ Morris :
 
 Proposition d'instruction (à ajouter aux projets ChatGPT — hors modification directe Git) :
 
-> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push, PR, merge et promotions de baseline. Le review pack est proportionné : les documents consultés accessibles Git sont référencés sans duplication intégrale ; les fichiers créés ou modifiés doivent rester traçables par contenu complet, sections complètes modifiées ou diff utile ; le fichier `.tmp-sfia-review/chatgpt-review.md` reste temporaire, hors commit, et peut être supprimé ou purgé après validation.
+> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push branche projet, PR, merge et promotions de baseline. Le review pack est proportionné. **Tout prompt nécessitant review pack light/full et analyse ChatGPT doit inclure une décision Review Handoff Git required / not required (template §7.10–§7.11). Lorsque required : copie, commit, push et vérification remote du handoff, plus instruction ChatGPT §9.1 dans le rapport final.**
 
 Détail opérationnel : template §10.
 
-##### H. Review Handoff Git Branch (optionnel)
+##### H. Review Handoff Git Branch — décision required / not required
 
-> **Référence détaillée :** template §7.10 — **candidate** ; mode optionnel ; GO Morris requis pour activation.
+> **Référence détaillée :** template §7.10–§7.11 — **candidate** ; décision **obligatoire** ; plus « optionnel par omission ».
 
 Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, sans extension ni copier-coller.
 
 **ChatGPT :**
 
-- **peut lire** `sfia-review-handoff/latest-chatgpt-review.md` depuis Git (branche `sfia/review-handoff`) ;
-- **doit consulter** ce handoff **avant** de répondre à Morris sur le fond d'un rapport Cursor mentionnant review pack ou handoff ;
-- **lit** le handoff depuis **`origin/sfia/review-handoff`** (remote) — pas uniquement un commit local non pushé ;
-- **signale** si le rapport Cursor indique `HANDOFF UPDATED` mais remote verification = no ou push handoff = not done ;
-- **utilise** ce fichier comme **contexte de revue** — dernier handoff Cursor ;
-- **ne traite pas** ce fichier comme source de vérité canonique ;
-- **vérifie toujours** Git `main` / branche projet pour les faits durables, décisions validées et doctrine ;
-- **vérifie** que le handoff contient : cycle ; branche projet ; base HEAD ; fichiers créés/modifiés ; contenu complet des fichiers créés ; sections complètes modifiées ou diff utile ; réserves ; décisions Morris ; verdict ;
-- **signale** `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` si le handoff ne contient qu'une synthèse sans contenus créés/modifiés exploitables.
+- **qualifie explicitement** required / not required dans chaque prompt ;
+- **injecte** la section Review Handoff Git complète (template §5) ;
+- **refuse** un prompt sans décision — **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** ;
+- **doit consulter** le handoff remote **avant** de répondre lorsque handoff = required ;
+- **refuse** un verdict READY si handoff required absent, obsolète ou synthesis-only ;
+- **signale** `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` si incohérent.
 
 **Cursor :**
 
-- **génère** le review pack local `.tmp-sfia-review/chatgpt-review.md` ;
-- **produit** un review pack **réellement exploitable** par ChatGPT (template §7.2.1) ;
-- pour fichiers créés/modifiés : **ne se limite pas** à une synthèse — contenu complet, sections complètes modifiées ou diff utile complet ;
-- **signale explicitement** toute impossibilité de fournir ce contenu ;
-- **si mode activé** (GO Morris), copie le contenu vers `sfia-review-handoff/latest-chatgpt-review.md` ;
-- **met à jour uniquement** la branche `sfia/review-handoff` ;
-- **commit + push obligatoires** vers `origin/sfia/review-handoff` — push autorisé dans le cycle même si push branche projet interdit (template §7.10) ;
-- **vérifie remote** après push : `git ls-remote origin refs/heads/sfia/review-handoff` — SHA remote = commit local ;
-- **ne déclare pas** `HANDOFF UPDATED` si push absent — verdict **`HANDOFF LOCAL ONLY — PUSH MISSING`** ;
-- **rapporte** : handoff local SHA ; remote before/after ; push done/not done ; remote verification yes/no ;
-- **ne merge jamais** cette branche ;
-- **ne push rien d'autre** sans GO Morris.
-
-**Git :**
-
-- **`main`** reste source de vérité ;
-- **`sfia/review-handoff`** = branche de transport temporaire — non canonique, non mergée ;
-- **`latest-chatgpt-review.md`** = overwrite-only — pas d'append infini.
+- **publie le handoff** lorsque prompt qualifie **required** — ne désactive pas un handoff required ;
+- **copie, commit, push, vérifie remote** — L3 borné (template §7.10.1) ;
+- **affiche** le bloc Instruction ChatGPT obligatoire (template §9.1) si required ;
+- **rapporte** tous les champs handoff §9.1 ;
+- **ne merge jamais** `sfia/review-handoff`.
 
 **Morris :**
 
-- **valide** l'activation du mode ;
-- **conserve** l'autorité sur push / PR / merge structurants ;
-- **peut demander** purge ou désactivation du handoff.
+- **valide** la règle candidate ;
+- **décide** des exceptions not required ;
+- **n'a pas** à répéter un micro-GO handoff lorsque required est conforme à §7.11.
 
-**Automatisation :** L3 bornée — push limité à une branche dédiée, un fichier unique, sans PR, sans merge, sans impact `main`.
+**Automatisation :** L3 bornée lorsque handoff = required.
 
 ##### I. Figma visual contract / Figma-to-code (candidate — capitalisation v2.5 PR 3)
 
