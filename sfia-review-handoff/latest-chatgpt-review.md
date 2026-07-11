@@ -4,34 +4,40 @@ branch: sfia/review-handoff
 source: .tmp-sfia-review/chatgpt-review.md
 canonical: false
 merge_to_main: forbidden
-updated_for: PR 165 Lot Verdict Wording Alignment
-cycle: Lot Verdict Wording Alignment
-head_initial: 730ea41db8544b6cd724ca871a478a2a0d0429b3
-commit_substantif: 2c80a64629c7b6a7d2fc7823c5fce19e08814936
-head_pr: 2c80a64629c7b6a7d2fc7823c5fce19e08814936
+updated_for: PR 165 PR Readiness
+cycle: PR Readiness PR #165
+profile: Critical
+head_initial: 2c80a64629c7b6a7d2fc7823c5fce19e08814936
+commit_substantif: fc75e9dea4c7693f89b061cf4e9b6789d351b95d
+head_pr: 4ae75a9d590d397456ba2e3de3815555a5b57ddf
+base: 072058a1e3eea7a7647b638be4b8512df6b84ea6
+pr_state: OPEN
+mergeable: true
 csv_sha: 00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275
-lot_plan_documentation_clarification: completed
-lot_structure: confirmed_after_documentation_clarification
-authority: canonical=3,reference=75,supporting=192,informational=775,unknown=0
+csv: 1045x36
 usage: 469/545/31
-usage_dimension: frozen
-authority_dimension: frozen
+authority: 3/75/192/775/0
 lifecycle: frozen
+lot_structure: confirmed_after_documentation_clarification
 migrations: not_started
-pr_readiness: not_started
+blockers: 0
+readiness_verdict: READY_WITH_NON_BLOCKING_RESERVES_FOR_MORRIS_MERGE_DECISION
+merge: pending_morris_decision
 pr_merged: false
 synthesis_only: no
 ---
 
-# SFIA v2.6 — Review Pack (Full borné)
+# SFIA v2.6 — Review Pack (Full)
 
-**Date/heure :** 2026-07-11 20:50 Europe/Paris
-**Cycle :** Validation corrective finale — Lot Verdict Wording Alignment
+**Date/heure :** 2026-07-11 20:58 Europe/Paris
+**Cycle :** PR readiness — PR #165
 **Profil :** Critical
 **Branche :** audit/sfia-v2.6-repository-cartography
-**HEAD initial :** `730ea41db8544b6cd724ca871a478a2a0d0429b3`
-**Commit substantif :** `2c80a64629c7b6a7d2fc7823c5fce19e08814936`
-**HEAD courant PR :** `2c80a64629c7b6a7d2fc7823c5fce19e08814936`
+**HEAD initial :** `2c80a64629c7b6a7d2fc7823c5fce19e08814936`
+**Commit substantif :** `fc75e9dea4c7693f89b061cf4e9b6789d351b95d`
+**HEAD courant PR :** `4ae75a9d590d397456ba2e3de3815555a5b57ddf`
+**Base :** `main` @ `072058a1e3eea7a7647b638be4b8512df6b84ea6`
+**PR :** #165 — OPEN, non-draft, **MERGEABLE**, **non mergée**
 **synthesis only = no**
 
 ---
@@ -41,158 +47,159 @@ synthesis_only: no
 | Contrôle | Résultat |
 |----------|----------|
 | Branche | audit/sfia-v2.6-repository-cartography |
-| HEAD initial | `730ea41db8544b6cd724ca871a478a2a0d0429b3` |
-| HEAD local = remote | oui (avant commit) |
-| PR #165 | OPEN, non-draft, non mergée |
-| Worktree tracked/staged | propre |
-| CSV modifié | **non** |
+| HEAD initial | `2c80a64629c7b6a7d2fc7823c5fce19e08814936` |
+| HEAD local = remote | oui |
+| Merge-base | `072058a1e3eea7a7647b638be4b8512df6b84ea6` |
+| Commits depuis base | **25** |
+| Worktree | propre (untracked préservés) |
 
 ---
 
-## 2. SHA CSV — preuve byte-for-byte inchangé
+## 2. Fichiers PR (exhaustif)
 
-| | SHA-256 |
-|---|---------|
-| **Avant** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` |
-| **Après** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` |
+| Fichier | Statut | +/- |
+|---------|--------|----:|
+| `2026-07-11-sfia-v2.6-repository-cartography.csv` | ADD | +1046 |
+| `2026-07-11-sfia-v2.6-repository-cartography.md` | ADD | +1300+ |
+| `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` | ADD | +300+ |
 
-- Lignes : **1045** × **36 champs**
-- Usage : 469 / 545 / 31 — **frozen**
-- Authority : 3 / 75 / 192 / 775 / 0 — **frozen**
-- Lifecycle unknown : **0**
-- migration_lot_candidate : **inchangé**
-- proposed_disposition : **inchangé**
+**3 fichiers — 2544+ insertions — 0 suppression — périmètre exact validé.**
 
 ---
 
-## 3. Verdict — ancien → nouveau
+## 3. CSV SHA et intégrité
 
-| | Libellé |
-|---|---------|
-| **Ancien verdict** | LOT PLAN DOCUMENTATION CLARIFICATION REQUIRED |
-| **Nouveau verdict 1** | **LOT PLAN DOCUMENTATION CLARIFICATION COMPLETED** |
-| **Nouveau verdict 2** | **LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION** |
+| | Valeur |
+|---|--------|
+| SHA avant readiness | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` |
+| SHA après readiness | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` |
+| Lignes | 1045 |
+| Champs | 36 |
+| Chemins uniques | 1045 |
 
-**Justification :** Les clarifications documentaires (Lot 0, Lot F, Lot G, Lot D, sous-lots) ont déjà été intégrées dans le cycle Lot Structure Final Review. Le libellé reflète l'état actuel sans modifier le fond.
+### En-tête CSV (36 champs)
 
----
-
-## 4. Sections modifiées — rapport
-
-Fichier : `2026-07-11-sfia-v2.6-repository-cartography.md`
-
-**§19 Lot Structure Final Review — Verdict global** uniquement :
-
-```markdown
-### Verdict global
-
-**LOT PLAN DOCUMENTATION CLARIFICATION COMPLETED**
-
-**LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION**
-
-Les clarifications documentaires requises ont été intégrées dans le plan sans modification du CSV ni des affectations de lots.
-
-- NO CSV RECLASSIFICATION REQUIRED
-- CARTOGRAPHY CONTRACT REMAINS FROZEN
-- CSV UNCHANGED
-- USAGE DIMENSION REMAINS FROZEN
-- AUTHORITY DIMENSION REMAINS FROZEN
-- LIFECYCLE DIMENSION REMAINS FROZEN
-- MIGRATIONS NOT STARTED
-- PR READINESS NOT STARTED
-- PR #165 NOT MERGED
-```
-
-**Matrices, volumes, statistiques :** **inchangés**
+`current_path, filename, extension, size_bytes, primary_family, subfamily, lifecycle_status, lifecycle_applicability, authority, usage, scope, project, phase, trajectory, trajectory_role, logical_location_current, logical_location_target, naming_rule_regime, naming_compliance, location_compliance, metadata_profile, content_summary, incoming_references, outgoing_references, duplicate_or_overlap, canonical_candidate, proposed_disposition, proposed_target_path, proposed_target_filename, rationale, risk_level, morris_gate_required, confidence, evidence, reserve_or_question, migration_lot_candidate`
 
 ---
 
-## 5. Sections modifiées — plan
+## 4. Statistiques recalculées (CSV)
 
-Fichier : `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md`
-
-**§16 Lot Structure Final Review — Verdict et Statut** uniquement :
-
-```markdown
-### Verdict
-
-**LOT PLAN DOCUMENTATION CLARIFICATION COMPLETED**
-
-**LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION**
-
-Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégrées §3–§12. **Aucune reclassification CSV n'est nécessaire.** La structure est prête pour une **PR readiness séparée**. **Aucune migration n'est autorisée.**
-
-### Statut
-
-**LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION** — clarifications intégrées ; structure prête pour **PR readiness séparée** — **PR READINESS NOT STARTED** — **migrations not started** — aucune migration autorisée.
-```
-
-**Définitions, volumes, dépendances, sous-lots :** **inchangés**
+| Dimension | Valeur |
+|-----------|--------|
+| Usage | 469 / 545 / 31 |
+| Authority | 3 / 75 / 192 / 775 / 0 |
+| Lifecycle unknown | 0 |
+| Lots | 0:103, A:6, B:0, C:23, D:149, E:75, F:0tag, G:570, H:40, I:68, J:11 |
+| scope project | 687 |
+| morris_gate | 43 |
+| investigate | 38 |
+| delete-candidate | 11 |
+| superseded | 5 |
+| confidence | high:693, medium:339, low:13 |
+| B/C overlap | 0 |
+| v3 outside lot-C | 0 |
+| delete outside lot-J | 0 |
 
 ---
 
-## 6. Preuve matrices et volumes inchangés
+## 5. Comparaison rapport / plan / CSV
 
-- Aucune ligne de matrice modifiée dans le diff (`git diff` — 0 changement sur lignes `| lot-`)
-- Volumes par lot inchangés : lot-G=570, lot-D=149, lot-0=103, lot-E=75, lot-I=68, lot-H=40, lot-C=23, lot-J=11, lot-A=6, lot-B=0, lot-F=0
+**Aligné** sur Usage, Authority, Lifecycle, lots, gates, dispositions, volumes.
 
----
+**Correction readiness :** rapport §6 confidence high/low 691/15 → **693/13** (aligné CSV).
 
-## 7. Diff utile complet
-
-```diff
-diff --git a/.../2026-07-11-sfia-v2.6-repository-cartography.md
-@@ -1173,9 +1173,21 @@
--**LOT PLAN DOCUMENTATION CLARIFICATION REQUIRED**
-+**LOT PLAN DOCUMENTATION CLARIFICATION COMPLETED**
-+**LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION**
-+[statuts complémentaires]
-
-diff --git a/.../2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-@@ -241,9 +241,11 @@
--**LOT PLAN DOCUMENTATION CLARIFICATION REQUIRED**
-+**LOT PLAN DOCUMENTATION CLARIFICATION COMPLETED**
-+**LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION**
-+[clarifications intégrées ; PR readiness séparée]
-```
+**Matrices et volumes :** inchangés pendant readiness.
 
 ---
 
-## 8. Risques et réserves
+## 6. Marqueurs temporaires
 
-| Risque | Mitigation |
-|--------|------------|
-| Confusion verdict ancien/nouveau | Ancien libellé supprimé comme statut courant |
-| Interprétation comme GO migration | Statut explicite : migrations not started |
-| Interprétation comme GO merge | PR #165 NOT MERGED ; PR readiness not started |
+Recherche TODO/FIXME/TBD/review pack placeholder dans les **3 livrables PR** : **aucun restant**.
 
-**Réserves :** aucune reclassification ; aucune modification de fond.
+Traçabilité commits §16–§18 complétée.
 
 ---
 
-## 9. Verdict
+## 7. Risques
 
-**LOT VERDICT WORDING ALIGNMENT COMPLETE**
+| Risque | Niveau | Gate |
+|--------|--------|------|
+| Obsolescence base `072058a` | Medium | Post-merge Morris |
+| 31 Usage unknown | Medium | Morris Lot 0+ |
+| 43 gates Morris | Medium | Par lot Critical |
+| 11 delete-candidate | High | Lot J last |
+| Merge = GO migration | High | Statut explicite |
+| v2.6 → baseline | High | Morris séparé |
 
-- LOT PLAN DOCUMENTATION CLARIFICATION COMPLETED
-- LOT STRUCTURE CONFIRMED AFTER DOCUMENTATION CLARIFICATION
-- NO CSV RECLASSIFICATION REQUIRED
-- CARTOGRAPHY CONTRACT REMAINS FROZEN
-- CSV UNCHANGED
-- USAGE / AUTHORITY / LIFECYCLE DIMENSION REMAIN FROZEN
-- MATRICES AND VOLUMES UNCHANGED
-- MIGRATIONS NOT STARTED
-- PR READINESS NOT STARTED
-- PR #165 NOT MERGED
+---
+
+## 8. Réserves
+
+### Bloquantes au merge cartographie
+
+**Aucune**
+
+### Non bloquantes (bloquantes aux migrations)
+
+- Lot 0 Morris (103, 3 canonical)
+- 31 Usage unknown
+- 11 suppressions gated
+- Sous-lots G/D/I
+- Inventaire figé post-merge
+
+---
+
+## 9. Fichiers modifiés pendant readiness
+
+| Fichier | Nature |
+|---------|--------|
+| `2026-07-11-sfia-v2.6-repository-cartography.md` | §20 PR Readiness, confidence fix, traceability |
+| `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` | §17 PR Readiness Status |
+
+CSV : **inchangé byte-for-byte**
+
+---
+
+## 10. Section complète ajoutée — rapport §20
+
+Voir `2026-07-11-sfia-v2.6-repository-cartography.md` §20 PR Readiness — PR #165
+
+Verdict : **READY WITH NON-BLOCKING RESERVES FOR MORRIS MERGE DECISION**
+
+---
+
+## 11. Section complète ajoutée — plan §17
+
+Voir `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` §17 PR Readiness Status
+
+---
+
+## 12. Verdict
+
+**READY WITH NON-BLOCKING RESERVES FOR MORRIS MERGE DECISION**
+
+- PR #165 SCOPE VALIDATED
+- PR #165 MERGEABLE
+- CARTOGRAPHY CSV VALIDATED — 1045 × 36
+- CSV SHA VALIDATED
+- REPORT AND PLAN CONSISTENT WITH CSV
+- LIFECYCLE / USAGE / AUTHORITY DIMENSIONS FROZEN
+- LOT STRUCTURE CONFIRMED
+- NO CSV RECLASSIFICATION
+- NO PHYSICAL MIGRATION EXECUTED
+- LOT 0 NOT STARTED
 - SFIA v2.4 REMAINS BASELINE
 - SFIA v2.6 REMAINS CANDIDATE
+- PR NOT MERGED
+- **MERGE PENDING MORRIS DECISION**
 
 ---
 
-## 10. Instruction ChatGPT
+## 13. Instruction ChatGPT
 
-Lire : handoff → rapport §19 Verdict global → plan §16 Verdict → PR #165.
+Lire : handoff → rapport §20 → plan §17 → PR #165.
 
-Vérifier : ancien verdict absent ; nouveaux verdicts présents ; CSV/matrices/volumes inchangés ; PR readiness not started ; PR non mergée.
+Vérifier : HEAD `4ae75a9`; CSV SHA; verdict readiness; PR mergeable non mergée; migrations not started.
 
 Morris décide.
