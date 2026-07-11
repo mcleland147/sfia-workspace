@@ -1,16 +1,17 @@
 # SFIA Review Pack — ChatGPT
 
-**Date/heure :** 2026-07-11 11:35 Europe/Paris
+**Date/heure :** 2026-07-11 12:05 Europe/Paris
 **Repository :** mcleland147/sfia-workspace
-**Cycle :** Correctif de conception — séparation des dimensions documentaires
-**Profil SFIA :** Standard
-**Branche projet :** method/sfia-v2.6-repository-standard-principles
-**HEAD initial :** afb65e4e57a2fe2b39768974822d56c902a0d6c3
-**HEAD final :** 77a78a781edfe95f2023fac9428cd767b439b271
-**Base main :** 942f5353166b8dac02dab4b84229afb582e934df
-**PR :** #163
-**Review pack level :** full
-**Review Handoff Git :** required
+**Cycle :** Cadrage décisionnel — arbitrage D1–D12
+**Profil SFIA :** Critical
+**Justification Critical :** décisions gouvernance repository-wide ; impact cartographie/G3/migration ; erreurs difficiles à corriger ; décision humaine traçable obligatoire
+**Branche :** method/sfia-v2.6-repository-standard-decisions
+**HEAD initial :** 688832d90e613959fbfdf53530f86aea36e23538
+**HEAD final :** 8bf811a5a378557d8dc3b943798fd3ebef8f90b6
+**Base main :** 688832d90e613959fbfdf53530f86aea36e23538
+**PR :** #164 (expected)
+**Review pack :** full
+**Handoff :** required
 
 ---
 
@@ -18,1084 +19,803 @@
 
 | Élément | Valeur |
 |---------|--------|
-| Branche | method/sfia-v2.6-repository-standard-principles |
-| HEAD initial correctif | afb65e4 |
-| HEAD final | 77a78a7 |
-| main | 942f535 |
-| Worktree | Propre (1 fichier modifié commité) |
-| PR #163 | OPEN, MERGEABLE |
+| main @ start | 688832d |
+| Worktree | Propre — 1 fichier créé |
+| PR #163 intégrée | Oui |
+| Untracked | .sfia/, .tmp-sfia-review/ intacts |
 
 ---
 
-## Réserve ChatGPT traitée
+## Sources consultées
 
-**Verdict initial :** PR #163 NOT YET READY — DOCUMENT DIMENSIONS MUST BE SEPARATED
-
-**Écart :** taxonomie F01–F18 et table « statuts » mélangeaient famille, cycle de vie, autorité, usage, périmètre, trajectoire et emplacement.
-
-**Correctif :** modèle multidimensionnel 7 dimensions (D1–D7) ; familles primaires F01–F17 ; cycle de vie isolé (§8) ; tables séparées autorité (§9), usage (§10), périmètre (§11), trajectoire (§12).
+- principes v2.6 (PR #163)
+- cadrage v2.6, audit v2.6
+- core SFIA (réf.)
 
 ---
 
-## Modèle avant (afb65e4)
+## Synthèse D1–D12 (recommandations candidate — NON décisions)
 
-- Taxonomie plate F01–F18 incluant trajectoires candidates, historique, archives, projets actifs/clôturés
-- Table unique « statuts » mélangeant baseline, canonical, candidate, operational, project, historical, archived
-- Règle « un seul statut primaire » insuffisante
-- baseline et canonical confondus avec cycle de vie
+| ID | Recommandation |
+|----|----------------|
+| D1 | ADOPT AS CANDIDATE FRAMEWORK |
+| D2 | ADOPT WITH TARGETED ADJUSTMENT |
+| D3 | ADOPT WITH TARGETED ADJUSTMENT (active vs usage) |
+| D4 | ADOPT AS CANDIDATE FRAMEWORK — différable |
+| D5 | ADOPT WITH TARGETED ADJUSTMENT — cartographie |
+| D6 | ADOPT WITH TARGETED ADJUSTMENT — vocab minimal |
+| D7 | ADOPT AS CANDIDATE FRAMEWORK |
+| D8 | ADOPT WITH TARGETED ADJUSTMENT — principe seul |
+| D9 | ADOPT AS CANDIDATE FRAMEWORK — pilote vs G3 |
+| D10 | DEFER WITH EXPLICIT CONDITION |
+| D11 | DEFER WITH EXPLICIT CONDITION |
+| D12 | ADOPT WITH TARGETED ADJUSTMENT — nouveaux docs |
 
----
+**Option globale recommandée :** Option 2 — Fondation + POC read-only futur
 
-## Modèle après (77a78a7)
-
-| Dimension | Section | Valeurs candidates |
-|-----------|---------|-------------------|
-| D1 Famille | §5, §6.2 | F01–F17 (fonction) |
-| D2 Cycle de vie | §8 | draft, candidate, validated, active, deprecated, superseded, archived |
-| D3 Autorité | §9 | canonical, reference, supporting, informational |
-| D4 Usage | §10 | operational, non-operational, unknown |
-| D5 Périmètre | §11 | repository, method, project, product, tooling, external-publication |
-| D6 Trajectoire | §12 | v1.1–v3.0 + trajectory_role (baseline, candidate, historical, suspended) |
-| D7 Emplacement | §6.8, §15 | method, prompts, docs, projects, tools, exports, archive |
-
-Schéma §6.1 : primary_family, lifecycle_status, authority, usage, scope, trajectory, trajectory_role, logical_location, etc.
-
-PD15 ajouté : séparer les dimensions.
-
----
-
-## Sections modifiées (complete)
-
-- §1 Executive summary — multidimensionnel
-- §4 Principes — PD7 révisé, PD15 ajouté
-- §5 Taxonomie — F01–F17 familles primaires uniquement
-- §6 NOUVEAU — Modèle multidimensionnel D1–D7
-- §8 Cycle de vie — 7 états isolés
-- §9–§12 NOUVEAU — Autorité, usage, périmètre, trajectoire
-- §13 Profils — alignés dimensions
-- §15 Zones — emplacement ≠ famille
-- §19 Exceptions — par dimension
-- §20 Automatisation — par dimension
-- §21 Critères — dimensions indépendantes
-- §22 Décisions — D1–D12
-- Annexes A–F — refaites (exemples fictifs Annexe D)
+**Registre Morris :** D1–D12 = NON DÉCIDÉ
 
 ---
 
 ## Diff utile
 
- ...-11-sfia-v2.6-repository-standard-principles.md | 1201 +++++++++++---------
- 1 file changed, 685 insertions(+), 516 deletions(-)
+ ...7-11-sfia-v2.6-repository-standard-decisions.md | 685 +++++++++++++++++++++
+ 1 file changed, 685 insertions(+)
 
 ```diff
-diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md
-index 218561d..4e27261 100644
---- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md
-+++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md
-@@ -2,44 +2,49 @@
- 
- *Cadre candidat de principes pour standardiser et homogénéiser progressivement le repository SFIA*
- 
--**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`  
--**Date et heure :** 2026-07-11 10:35 Europe/Paris  
--**Statut :** **Candidate** — principes du standard repository v2.6  
--**Cycle projet :** Cadrage — principes du standard repository v2.6  
--**Profil SFIA :** Standard  
--**Typologie v2.4 :** DOC  
--**Repository :** mcleland147/sfia-workspace  
--**Branche :** method/sfia-v2.6-repository-standard-principles  
--**Base Git :** `main` @ `942f5353166b8dac02dab4b84229afb582e934df`  
--**Autorité de décision :** Morris (L0)  
--**Baseline opérationnelle :** SFIA v2.4  
--**Trajectoires :** v2.5 candidate capitalisée ; v2.6 candidate  
--**Inputs structurants :** cadrage v2.6 (PR #159) ; audit read-only v2.6 (PR #162)
-+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
-+**Date et heure :** 2026-07-11 11:30 Europe/Paris
-+**Statut :** **Candidate** — principes du standard repository v2.6
-+**Cycle projet :** Correctif de conception — séparation des dimensions documentaires
-+**Profil SFIA :** Standard
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md
+new file mode 100644
+index 0000000..4fe0423
+--- /dev/null
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md
+@@ -0,0 +1,685 @@
++# SFIA v2.6 — Repository Standard Decisions
++
++*Dossier de décision borné — arbitrage D1–D12 du cadre candidat des principes repository*
++
++**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md`
++**Date et heure :** 2026-07-11 12:00 Europe/Paris
++**Statut :** **Candidate** — dossier d'arbitrage Morris
++**Cycle projet :** Cadrage décisionnel — arbitrage D1–D12 du standard repository v2.6
++**Profil SFIA :** **Critical**
 +**Typologie v2.4 :** DOC
 +**Repository :** mcleland147/sfia-workspace
-+**Branche :** method/sfia-v2.6-repository-standard-principles
-+**Base Git :** `main` @ `942f5353166b8dac02dab4b84229afb582e934df`
++**Branche :** method/sfia-v2.6-repository-standard-decisions
++**Base Git :** `main` @ `688832d90e613959fbfdf53530f86aea36e23538`
 +**Autorité de décision :** Morris (L0)
 +**Baseline opérationnelle :** SFIA v2.4
 +**Trajectoires :** v2.5 candidate capitalisée ; v2.6 candidate
-+**Inputs structurants :** cadrage v2.6 (PR #159) ; audit read-only v2.6 (PR #162) ; revue ChatGPT PR #163
- 
- ### Limites du cycle
- 
--- **Principes candidats uniquement** — aucun principe présenté comme décision validée  
--- Aucune classification individuelle de fichiers  
--- Aucune matrice garder / mettre à jour / fusionner / archiver / supprimer appliquée  
--- Aucune arborescence physique finale validée  
--- Aucun déplacement, renommage, migration, archivage ou suppression  
--- Aucune modification de document existant  
--- Aucune automatisation implémentée  
--- SFIA v3.0, MCP, Bridge, Runner et `.sfia` restent hors trajectoire courante  
-+- **Principes candidats uniquement** — aucun principe présenté comme décision validée
-+- **Modèle multidimensionnel candidate** — non appliqué aux fichiers existants
-+- Aucune classification individuelle de fichiers
-+- Aucune matrice garder / mettre à jour / fusionner / archiver / supprimer
-+- Aucune arborescence physique finale validée
-+- Aucun déplacement, renommage, migration, archivage ou suppression
-+- Aucune modification d'un autre document existant
-+- Aucune automatisation implémentée
-+- SFIA v3.0, MCP, Bridge, Runner et `.sfia` restent hors trajectoire courante
- 
- ---
- 
- ## 1. Executive summary
- 
--Ce document propose un **cadre candidat de principes** permettant, dans des cycles futurs, de décider où placer chaque type de contenu, comment nommer fichiers et répertoires, quelles métadonnées utiliser selon la famille documentaire, comment déclarer les statuts, distinguer baseline / candidate / projet / historique / archive, structurer les documents, organiser README et références, gérer versions et trajectoires, identifier variantes légitimes, préparer contrôles automatisables futurs et réserver les arbitrages structurants à Morris.
-+Ce document propose un **cadre candidat de principes** pour standardiser et homogénéiser progressivement le repository SFIA. Il repose sur un **modèle multidimensionnel candidate** : chaque document est décrit par des **axes indépendants** — famille documentaire, cycle de vie, autorité, usage, périmètre, trajectoire/version et emplacement logique — et non par une taxonomie plate ou un statut unique mélangeant des concepts de nature différente.
- 
--**Observation (audit PR #162) :** homogénéité globale **moyenne à faible** ; noyau méthode v2.4/v2.5 récent homogène ; zones projet, plans antérieurs et trajectoires multiples hétérogènes.
-+**Observation (audit PR #162) :** homogénéité globale **moyenne à faible** ; vocabulaire actuel du repository mélange fréquemment famille, statut, trajectoire, usage et emplacement.
- 
--**Principe candidat central :** homogénéiser **sans uniformiser** — règles communes repository-wide + profils proportionnés par famille + variantes légitimes explicites.
-+**Écart ChatGPT traité (PR #163) :** la version antérieure confondait audit, capitalisation, trajectoire, historique, archive, projet, canonique, opérationnel et baseline dans une même table de « statuts ». Le correctif sépare explicitement ces dimensions.
- 
--**Recommandation candidate ChatGPT/Cursor :** valider les principes avant la cartographie détaillée (G3) et toute migration — réduit le risque de classification prématurée.
-+**Principe candidat central :** homogénéiser **sans uniformiser** — règles communes + profils proportionnés + **dimensions indépendantes** + variantes légitimes explicites.
- 
--**Décision Morris requise :** adopter, corriger, approfondir ou rejeter temporairement ce cadre candidat avant toute application au repository.
-+**Principe candidat structurant (PD15) :** séparer **fonction** (famille), **maturité** (cycle de vie), **référence** (autorité), **utilisation effective** (usage), **domaine** (périmètre), **rattachement versionnel** (trajectoire) et **zone Git** (emplacement logique).
++**Input structurant :** principes repository v2.6 (PR #163)
 +
-+**Recommandation candidate :** valider le modèle multidimensionnel avant cartographie (G3) et toute migration.
++### Justification Critical
 +
-+**Décision Morris requise :** adopter, corriger ou rejeter temporairement ce cadre avant toute application au repository.
- 
- ---
- 
-@@ -49,18 +54,16 @@ Le chantier SFIA v2.6 vise un repository :
- 
- | Qualité | Description candidate |
- |---------|----------------------|
--| Cohérent | Rôles documentaires identifiables ; zones logiques distinctes |
-+| Cohérent | Dimensions documentaires identifiables sans contradiction |
- | Standardisé | Conventions partagées là où elles réduisent l'ambiguïté |
--| Homogène sans uniformisation aveugle | Profils proportionnés ; pas de métadonnées complètes partout |
--| Lisible par Morris | Navigation, statuts et autorité explicites |
--| Exploitable par ChatGPT | Familles, profils et statuts parsables |
--| Exécutable par Cursor | Conventions vérifiables ; périmètres Git clairs |
--| Maintenable | Cycle de vie, remplacement et historique tracés |
--| Compatible contrôles automatisés futurs | Règles contrôlables identifiées |
-+| Homogène sans uniformisation aveugle | Profils proportionnés ; pas de bloc métadonnées complet partout |
-+| Lisible par Morris | Famille, cycle de vie, autorité et trajectoire explicites |
-+| Exploitable par ChatGPT | Schéma multidimensionnel parsable |
-+| Exécutable par Cursor | Règles déterministes par dimension |
-+| Maintenable | Cycle de vie et remplacement tracés |
-+| Compatible contrôles automatisés futurs | Contrôles par dimension indépendante |
- | Gouverné par Git | `main` = source de vérité |
- 
--Le nettoyage et la migration restent des **moyens** — pas la finalité de ce document.
--
- ---
- 
- ## 3. Portée et hors périmètre
-@@ -69,643 +72,809 @@ Le nettoyage et la migration restent des **moyens** — pas la finalité de ce d
- 
- | Élément | Couverture |
- |---------|------------|
--| Principes transverses repository-wide | Oui — candidats |
--| Taxonomie minimale des familles documentaires | Oui — candidate, non appliquée |
--| Vocabulaire des statuts | Oui — candidate |
--| Profils de métadonnées proportionnés | Oui — candidats |
--| Conventions de nommage | Oui — principes, pas liste de renommages |
--| Responsabilités logiques des grandes zones | Oui — modèle logique, pas arbre physique validé |
--| Structures documentaires par famille | Oui — candidates |
--| README, index, navigation | Oui — principes |
--| Références et liens | Oui — principes |
--| Versions et trajectoires | Oui — principes |
-... (685 insertions, 516 suppressions — voir contenu complet ci-dessous) ...
++- Décisions de gouvernance **repository-wide**
++- Effet futur sur cartographie, classification G3, migrations et automatisations
++- Erreurs difficiles à corriger une fois le standard appliqué
++- Aucune décision implicite ou déduite du merge PR #163
++- Décision humaine explicite et traçable requise
++
++### Limites du cycle
++
++- **Support d'arbitrage uniquement** — aucune décision Morris préremplie
++- Registre initialisé à **NON DÉCIDÉ** pour D1–D12
++- Recommandations ≠ décisions validées
++- Merge futur de ce dossier **ne valide pas** automatiquement les options
++- Aucune application du modèle aux fichiers
++- Aucune cartographie, POC, classification G3 ou migration
++
++---
++
++## 1. Executive summary
++
++Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candidat intégré par PR #163 en un **support d'arbitrage compact** : objet, options, bénéfices, risques, dette, réversibilité, recommandation argumentée et **case de décision Morris** pour chaque point.
++
++**Lot A (fondations)** — D1–D9 : nécessaires ou fortement recommandées avant cartographie pilote ou G3.
++**Lot B (compléments)** — D10–D12 : arbitrages logiques ou conventions — **différables** sous conditions explicites.
++
++**Recommandation globale candidate (Cursor/ChatGPT — non décision Morris) :** **Option 2 — Validation fondation + POC read-only futur** : valider un noyau minimal (D1, D7, D9 + principes D2/D3/D5/D6/D8), différer ou ajuster le reste, **sans exécuter le POC dans ce cycle**.
++
++**Décision Morris attendue :** arbitrer explicitement chaque ligne du registre §20 — ou choisir une option globale (§19, Annexe D).
++
++---
++
++## 2. Objet du cycle
++
++| Objectif | Description |
++|----------|-------------|
+...
 ```
 
 ---
 
-## Contenu complet du document final
+## Contenu complet du dossier de décision
 
 ```markdown
-# SFIA v2.6 — Repository Standard Principles
+# SFIA v2.6 — Repository Standard Decisions
 
-*Cadre candidat de principes pour standardiser et homogénéiser progressivement le repository SFIA*
+*Dossier de décision borné — arbitrage D1–D12 du cadre candidat des principes repository*
 
-**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
-**Date et heure :** 2026-07-11 11:30 Europe/Paris
-**Statut :** **Candidate** — principes du standard repository v2.6
-**Cycle projet :** Correctif de conception — séparation des dimensions documentaires
-**Profil SFIA :** Standard
+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-decisions.md`
+**Date et heure :** 2026-07-11 12:00 Europe/Paris
+**Statut :** **Candidate** — dossier d'arbitrage Morris
+**Cycle projet :** Cadrage décisionnel — arbitrage D1–D12 du standard repository v2.6
+**Profil SFIA :** **Critical**
 **Typologie v2.4 :** DOC
 **Repository :** mcleland147/sfia-workspace
-**Branche :** method/sfia-v2.6-repository-standard-principles
-**Base Git :** `main` @ `942f5353166b8dac02dab4b84229afb582e934df`
+**Branche :** method/sfia-v2.6-repository-standard-decisions
+**Base Git :** `main` @ `688832d90e613959fbfdf53530f86aea36e23538`
 **Autorité de décision :** Morris (L0)
 **Baseline opérationnelle :** SFIA v2.4
 **Trajectoires :** v2.5 candidate capitalisée ; v2.6 candidate
-**Inputs structurants :** cadrage v2.6 (PR #159) ; audit read-only v2.6 (PR #162) ; revue ChatGPT PR #163
+**Input structurant :** principes repository v2.6 (PR #163)
+
+### Justification Critical
+
+- Décisions de gouvernance **repository-wide**
+- Effet futur sur cartographie, classification G3, migrations et automatisations
+- Erreurs difficiles à corriger une fois le standard appliqué
+- Aucune décision implicite ou déduite du merge PR #163
+- Décision humaine explicite et traçable requise
 
 ### Limites du cycle
 
-- **Principes candidats uniquement** — aucun principe présenté comme décision validée
-- **Modèle multidimensionnel candidate** — non appliqué aux fichiers existants
-- Aucune classification individuelle de fichiers
-- Aucune matrice garder / mettre à jour / fusionner / archiver / supprimer
-- Aucune arborescence physique finale validée
-- Aucun déplacement, renommage, migration, archivage ou suppression
-- Aucune modification d'un autre document existant
-- Aucune automatisation implémentée
-- SFIA v3.0, MCP, Bridge, Runner et `.sfia` restent hors trajectoire courante
+- **Support d'arbitrage uniquement** — aucune décision Morris préremplie
+- Registre initialisé à **NON DÉCIDÉ** pour D1–D12
+- Recommandations ≠ décisions validées
+- Merge futur de ce dossier **ne valide pas** automatiquement les options
+- Aucune application du modèle aux fichiers
+- Aucune cartographie, POC, classification G3 ou migration
 
 ---
 
 ## 1. Executive summary
 
-Ce document propose un **cadre candidat de principes** pour standardiser et homogénéiser progressivement le repository SFIA. Il repose sur un **modèle multidimensionnel candidate** : chaque document est décrit par des **axes indépendants** — famille documentaire, cycle de vie, autorité, usage, périmètre, trajectoire/version et emplacement logique — et non par une taxonomie plate ou un statut unique mélangeant des concepts de nature différente.
+Ce dossier transforme les **12 décisions ouvertes (D1–D12)** du cadre candidat intégré par PR #163 en un **support d'arbitrage compact** : objet, options, bénéfices, risques, dette, réversibilité, recommandation argumentée et **case de décision Morris** pour chaque point.
 
-**Observation (audit PR #162) :** homogénéité globale **moyenne à faible** ; vocabulaire actuel du repository mélange fréquemment famille, statut, trajectoire, usage et emplacement.
+**Lot A (fondations)** — D1–D9 : nécessaires ou fortement recommandées avant cartographie pilote ou G3.
+**Lot B (compléments)** — D10–D12 : arbitrages logiques ou conventions — **différables** sous conditions explicites.
 
-**Écart ChatGPT traité (PR #163) :** la version antérieure confondait audit, capitalisation, trajectoire, historique, archive, projet, canonique, opérationnel et baseline dans une même table de « statuts ». Le correctif sépare explicitement ces dimensions.
+**Recommandation globale candidate (Cursor/ChatGPT — non décision Morris) :** **Option 2 — Validation fondation + POC read-only futur** : valider un noyau minimal (D1, D7, D9 + principes D2/D3/D5/D6/D8), différer ou ajuster le reste, **sans exécuter le POC dans ce cycle**.
 
-**Principe candidat central :** homogénéiser **sans uniformiser** — règles communes + profils proportionnés + **dimensions indépendantes** + variantes légitimes explicites.
-
-**Principe candidat structurant (PD15) :** séparer **fonction** (famille), **maturité** (cycle de vie), **référence** (autorité), **utilisation effective** (usage), **domaine** (périmètre), **rattachement versionnel** (trajectoire) et **zone Git** (emplacement logique).
-
-**Recommandation candidate :** valider le modèle multidimensionnel avant cartographie (G3) et toute migration.
-
-**Décision Morris requise :** adopter, corriger ou rejeter temporairement ce cadre avant toute application au repository.
+**Décision Morris attendue :** arbitrer explicitement chaque ligne du registre §20 — ou choisir une option globale (§19, Annexe D).
 
 ---
 
-## 2. Finalité
+## 2. Objet du cycle
 
-Le chantier SFIA v2.6 vise un repository :
+| Objectif | Description |
+|----------|-------------|
+| Clarifier | Ce que Morris doit trancher pour chaque D1–D12 |
+| Structurer | Options réalistes, pas de fausses certitudes |
+| Recommander | Position argumentée — sans décider à sa place |
+| Tracer | Registre prêt à recevoir GO / DEFER / NO-GO |
+| Borner | Distinction fondation / différable / bloquant |
 
-| Qualité | Description candidate |
-|---------|----------------------|
-| Cohérent | Dimensions documentaires identifiables sans contradiction |
-| Standardisé | Conventions partagées là où elles réduisent l'ambiguïté |
-| Homogène sans uniformisation aveugle | Profils proportionnés ; pas de bloc métadonnées complet partout |
-| Lisible par Morris | Famille, cycle de vie, autorité et trajectoire explicites |
-| Exploitable par ChatGPT | Schéma multidimensionnel parsable |
-| Exécutable par Cursor | Règles déterministes par dimension |
-| Maintenable | Cycle de vie et remplacement tracés |
-| Compatible contrôles automatisés futurs | Contrôles par dimension indépendante |
-| Gouverné par Git | `main` = source de vérité |
+**Non-objectif :** réécrire les 880 lignes des principes ; appliquer le standard ; classifier des fichiers.
 
 ---
 
-## 3. Portée et hors périmètre
+## 3. Contexte et sources
 
-### 3.1 Portée
+| Source | Rôle |
+|--------|------|
+| PR #159 — cadrage v2.6 | Chantier, gates, conservation |
+| PR #162 — audit read-only | Homogénéité moyenne-faible ; 1042 fichiers |
+| PR #163 — principes repository | Modèle multidimensionnel D1–D7 ; D1–D12 ouvertes |
+| Handoff @ `296736d` | Revue dimensions séparées |
 
-| Élément | Couverture |
-|---------|------------|
-| Modèle multidimensionnel candidate (7 dimensions) | Oui |
-| Taxonomie familles documentaires **primaires** | Oui — candidate, non appliquée |
-| Cycle de vie documentaire (états distincts) | Oui — candidate |
-| Autorité, usage, périmètre, trajectoire | Oui — tables séparées |
-| Emplacement logique | Oui — distinct de famille et statut |
-| Profils métadonnées alignés | Oui — candidats |
-| Conventions nommage, zones, structures, README, liens | Oui — principes |
-| Exceptions, automatisation future, critères acceptation | Oui — candidats |
-
-### 3.2 Hors périmètre explicite
-
-| Hors périmètre | Confirmation |
-|----------------|--------------|
-| Classification individuelle des 1042 fichiers | **Non** |
-| Matrice fichier × dimensions | **Non** |
-| Application du modèle aux fichiers existants | **Non** |
-| Arborescence physique finale validée | **Non** |
-| Migration, archivage effectif, suppression | **Non** |
-| G3 / cartographie détaillée | **Non ouverte** |
-| Promotion SFIA v2.6 en baseline | **Non** |
-| Réactivation v3 / MCP / Bridge / Runner / `.sfia` | **Non** |
+**État repository :** principes **candidate** sur `main` @ `688832d` ; **aucune** D1–D12 validée.
 
 ---
 
-## 4. Principes directeurs
+## 4. Portée et hors périmètre
 
-| # | Principe candidat | Justification | Type |
-|---|-------------------|---------------|------|
-| PD1 | **Git `main` prime** | Source de vérité | Principe candidat |
-| PD2 | **Homogénéiser sans uniformiser** | Profils proportionnés | Principe candidat |
-| PD3 | **Profils proportionnés par famille** | Audit §8 | Principe candidat |
-| PD4 | **Conservation par défaut** | Cadrage v2.6 P2 | Principe candidat |
-| PD5 | **Aucune archive sans reprise** | Cadrage v2.6 P3 | Principe candidat |
-| PD6 | **Aucune suppression pendant audit et cartographie** | Cadrage v2.6 P7 | Principe candidat |
-| PD7 | **Baseline = propriété trajectoire, pas cycle de vie générique** | Écart PR #163 | Principe candidat |
-| PD8 | **Décision structurante = Morris** | Classification, migration, promotion | Principe candidat |
-| PD9 | **Application future par lots** | Pas de mega-migration | Principe candidat |
-| PD10 | **Règle contrôlable ou justifiée** | Automatisation future | Principe candidat |
-| PD11 | **Variante légitime explicite** | Projet vs méthode | Principe candidat |
-| PD12 | **Observation ≠ décision** | Distinction stricte | Principe candidat |
-| PD13 | **Standard minimal avant exhaustif** | Itération Morris | Recommandation candidate |
-| PD14 | **Principes avant classification G3** | Audit Q22.1 | Recommandation candidate |
-| PD15 | **Séparer fonction, cycle de vie, autorité, usage, périmètre, trajectoire et emplacement** | Écart ChatGPT PR #163 | **Principe candidat structurant** |
+### 4.1 Portée
 
-> **Aucune dimension ne remplace une autre.** Un document possède **un état principal de cycle de vie** à un instant donné, mais peut simultanément porter une famille, une autorité, un usage, un périmètre, une trajectoire et un emplacement logique **indépendants**.
+- Analyse et fiches D1–D12
+- Matrices synthèse, dépendances, gates
+- Options globales et séquence recommandée
+- Registre Morris (NON DÉCIDÉ)
+
+### 4.2 Hors périmètre
+
+| Exclu | Confirmation |
+|-------|--------------|
+| Modification document principes | **Non** |
+| Application modèle aux fichiers | **Non** |
+| Matrice fichier × dimensions réelle | **Non** |
+| Cartographie / POC / G3 / migration | **Non** |
+| Promotion v2.6 baseline | **Non** |
+| v3 / MCP / Bridge / Runner / `.sfia` | **Non** |
 
 ---
 
-## 5. Taxonomie candidate — familles documentaires primaires
+## 5. Méthode d'analyse décisionnelle
 
-> **Nature :** familles **primaires** décrivant la **fonction** du document — ne classe aucun fichier existant.
-
-> **Exclus des familles primaires :** trajectoire candidate, historique, archive, statut opérationnel, baseline, périmètre projet, emplacement physique.
-
-| Code | Famille primaire candidate | Fonction principale | Emplacement(s) typique(s) — indicatif |
-|------|----------------------------|---------------------|---------------------------------------|
-| F01 | Méthode | Doctrine et contenu méthodologique SFIA | `method/sfia-fast-track/core/`, `cycles/` |
-| F02 | Gouvernance et règles | Garde-fous, operating model, routing | `core/`, `prompts/templates/` (contrat) |
-| F03 | Cycle et checklist | Exécution et contrôles opérationnels | `checklists/`, `cycles/` |
-| F04 | Template | Modèle reproductible | `templates/`, `docs/templates/` |
-| F05 | Prompt | Contrat d'interaction ChatGPT/Cursor | `prompts/` |
-| F06 | Documentation transverse | Vision plateforme, pratiques transverses | `docs/` |
-| F07 | Pratique spécialisée | Méthode parallèle ou complémentaire | `method/complementary/`, `methods/` |
-| F08 | Document projet | Documentation propre à un projet | `projects/{projet}/` |
-| F09 | Audit | Inventaire, écarts, read-only | `capitalization/`, `workspace-audit/`, `projects/*/06-audit-rex/` |
-| F10 | Capitalisation / REX | Retour d'expérience, synthèse cycle | `capitalization/`, `projects/*/09-capitalization/` |
-| F11 | Décision / cadrage | Framing, gates, orientation chantier | `capitalization/sfia-v2.x/` |
-| F12 | Rapport de validation | Post-merge, QA cycle, clôture | `capitalization/` |
-| F13 | README / index | Navigation et orientation | README à tous niveaux |
-| F14 | Publication / export | Artefact externe ou export | `exports/`, docs Notion |
-| F15 | Tooling documentation | Documentation outillage | `tools/`, `method/.../automation/` |
-| F16 | Configuration / artefact technique | CI, Docker, config repo | `.github/`, `docker/` |
-| F17 | Code / artefact non documentaire | TS/TSX, binaires — hors standard MD | `projects/*/app/` |
-
-**Règles candidates :**
-
-- **Une seule famille primaire** par document ; sous-famille optionnelle si utile
-- **Audit**, **capitalisation** et **décision** sont des familles — pas des statuts de cycle de vie
-- **Archive** = état de cycle de vie + emplacement — pas une famille
-- **Projet actif vs clôturé** = distinction par **cycle de vie** et **usage**, pas deux familles
-
-**Décision Morris requise (D2) :** valider ou ajuster cette liste avant cartographie.
+1. **Cursor analyse et recommande** — jamais décide
+2. Extraction de l'objet exact depuis principes §22
+3. Options limitées au **standard minimal** (PD13)
+4. Évaluation : bénéfice / risque / dette / réversibilité
+5. Verdict recommandé parmi : ADOPT AS CANDIDATE FRAMEWORK | ADOPT WITH TARGETED ADJUSTMENT | DEFER WITH EXPLICIT CONDITION | REJECT AND REDESIGN
+6. Case Morris : GO | GO WITH RESERVE | ADJUSTMENT REQUIRED | DEFERRED | NO-GO | **NON DÉCIDÉ** (initial)
 
 ---
 
-## 6. Modèle multidimensionnel candidate
+## 6. Vue d'ensemble D1–D12
 
-### 6.1 Schéma minimal de description documentaire
+| ID | Intitulé | Lot | Urgence | Recommandation candidate | Bloque carto. pilote | Bloque G3 | Différable |
+|----|----------|-----|---------|--------------------------|----------------------|-----------|------------|
+| D1 | Modèle multidimensionnel | A | Haute | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Non |
+| D2 | Familles F01–F17 | A | Haute | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel |
+| D3 | Cycle de vie (7 états) | A | Haute | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Non |
+| D4 | Niveaux autorité | A | Moyenne | ADOPT AS CANDIDATE FRAMEWORK | Non | Partiel | Oui |
+| D5 | Modèle usage | A | Moyenne | ADOPT WITH TARGETED ADJUSTMENT | Oui | Partiel | Partiel |
+| D6 | Périmètres | A | Moyenne | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel |
+| D7 | Trajectoire / baseline | A | Haute | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Non |
+| D8 | Profils métadonnées | A | Moyenne | ADOPT WITH TARGETED ADJUSTMENT | Partiel | Oui | Partiel |
+| D9 | Principes avant cartographie | A | Haute | ADOPT AS CANDIDATE FRAMEWORK | — | Oui | Non |
+| D10 | docs/ vs method/documentation | B | Moyenne | DEFER WITH EXPLICIT CONDITION | Non | Partiel | Oui |
+| D11 | Traitement v3 tracked | B | Basse | DEFER WITH EXPLICIT CONDITION | Non | Non | Oui |
+| D12 | Dates et langue nommage | B | Basse | ADOPT WITH TARGETED ADJUSTMENT | Non | Non | Oui |
 
-Schéma **candidate** — non appliqué aux fichiers dans ce cycle :
-
-| Attribut candidate | Dimension | Obligatoire selon profil |
-|--------------------|-----------|--------------------------|
-| `primary_family` | D1 — Famille | Oui (sauf F17) |
-| `subfamily` | D1 — Famille | Optionnel |
-| `lifecycle_status` | D2 — Cycle de vie | Oui si non évident |
-| `authority` | D3 — Autorité | Oui profils A, B, D |
-| `usage` | D4 — Usage | Recommandé |
-| `scope` | D5 — Périmètre | Oui |
-| `project` | D5 — Périmètre | Si scope = project |
-| `phase` | D5 — Périmètre | Si applicable |
-| `trajectory` | D6 — Trajectoire | Si applicable |
-| `trajectory_role` | D6 — Trajectoire | Si trajectory renseignée |
-| `logical_location` | D7 — Emplacement | Recommandé |
-| `canonical_replacement` | D2/D3 | Si superseded ou deprecated |
-| `decision_authority` | Gouvernance | Morris si structurant |
-| `exception` | Exceptions | Si dérogation explicite |
-
-### 6.2 D1 — Famille documentaire primaire
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Décrire la **fonction principale** du document |
-| **Valeurs** | F01–F17 (§5) |
-| **Règles** | Une famille primaire ; sous-famille optionnelle |
-| **Exemple** | Rapport d'audit v2.6 → famille **Audit** (F09), pas « candidate » |
-| **Autorité** | Cycle + Morris pour arbitrages limites familles |
-| **Automatisable** | Présence `primary_family` ; cohérence nom suffixe — partiel |
-| **Risque ambiguïté** | Confondre famille avec emplacement (`capitalization/` contient Audit, Capitalisation, Décision) |
-
-### 6.3 D2 — Cycle de vie documentaire
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Décrire **maturité et état** du document |
-| **Valeurs** | draft, candidate, validated, active, deprecated, superseded, archived |
-| **Règles** | **Un seul état principal** à un instant ; indépendant autorité et usage |
-| **Exemple** | Rapport audit v2.6 → `lifecycle_status: candidate` |
-| **Autorité** | Auteur (draft) ; cycle + Morris (validated+) |
-| **Automatisable** | Valeur dans vocabulaire fermé — oui |
-| **Risque** | Confondre `candidate` (cycle) avec trajectoire candidate v2.6 |
-
-Voir **§8** pour table complète et transitions.
-
-### 6.4 D3 — Autorité documentaire
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Décrire le **niveau de référence** normative |
-| **Valeurs** | canonical, reference, supporting, informational |
-| **Règles** | Indépendante du cycle de vie ; `canonical` = gate Morris |
-| **Exemple** | Operating model → `authority: canonical` ; rapport audit → `supporting` |
-| **Automatisable** | Cohérence canonical + lifecycle — partiel |
-| **Risque** | Confondre canonical (autorité) avec baseline (trajectoire) |
-
-Voir **§9**.
-
-### 6.5 D4 — Usage
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Décrire si le document est **effectivement utilisé** |
-| **Valeurs** | operational, non-operational, unknown |
-| **Règles** | **Pas un statut de cycle de vie** ; vérifiable par contenu et références |
-| **Exemple** | Plan migration antérieur → `usage: non-operational` ; `lifecycle: archived` possible |
-| **Automatisable** | Faible — observationnel |
-| **Risque** | Inférer usage uniquement depuis chemin |
-
-Voir **§10**.
-
-### 6.6 D5 — Périmètre
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Décrire le **domaine d'application** |
-| **Valeurs** | repository, method, project, product, tooling, external-publication |
-| **Attributs** | project, phase, domaine, équipe |
-| **Règles** | **`project` n'est plus un statut documentaire** |
-| **Exemple** | Doc Chantiers360 → `scope: project`, `project: chantiers360-v2` |
-| **Automatisable** | scope=project implique project renseigné — oui |
-| **Risque** | Confondre périmètre project avec famille Document projet |
-
-Voir **§11**.
-
-### 6.7 D6 — Trajectoire / version
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Rattachement **méthodologique ou versionnel** |
-| **Valeurs trajectory** | SFIA v1.1, v2.4, v2.5, v2.6, v3.0, N/A |
-| **Valeurs trajectory_role** | baseline, candidate, historical, suspended, hors-trajectoire |
-| **Règles** | **Baseline = propriété trajectoire**, pas cycle de vie ; promotion = GO Morris |
-| **Confirmé** | v2.4 baseline ; v2.5 candidate capitalisée ; v2.6 candidate ; v3.0 hors trajectoire courante |
-| **Automatisable** | trajectory_role=baseline sans GO — signal L2 |
-| **Risque** | Mélanger « document Candidate » et « trajectoire v2.6 candidate » |
-
-Voir **§12**.
-
-### 6.8 D7 — Emplacement logique
-
-| Élément | Contenu candidate |
-|---------|-------------------|
-| **Objectif** | Zone Git **actuelle ou cible** |
-| **Valeurs** | method, prompts, docs, projects, tools, exports, archive |
-| **Règles** | Ni famille ni statut ; une zone contient plusieurs familles |
-| **Exemple** | `method/.../capitalization/sfia-v2.6/` → logical_location: method ; familles possibles: Audit, Capitalisation, Décision |
-| **Automatisable** | Cohérence scope ↔ emplacement — partiel |
-| **Risque** | `/archive/` impliquant automatiquement famille Archive |
+> Colonne « Recommandation candidate » = analyse Cursor — **pas décision Morris**.
 
 ---
 
-## 7. Gouvernance et source de vérité
+## 7. Lot A — Décisions fondation
 
-| Principe candidat | Définition | Autorité |
-|-------------------|------------|----------|
-| Git `main` = source de vérité | Faits durables versionnés | Fondamental |
-| Description multidimensionnelle | Famille + cycle + autorité + usage + scope + trajectoire + emplacement | Cycles + Morris |
-| Autorité canonical | Norme sur un sujet — gate Morris | Morris |
-| Trajectoire candidate ≠ baseline | v2.5/v2.6 jusqu'à GO promotion | Morris |
-| ChatGPT / Cursor | Structuration / exécution — non canon sans merge | N/A |
-| Notion / exports | Couche knowledge — non miroir Git | Morris |
-| `.sfia/`, `.tmp-sfia-review/` | Local non canon | Confirmé audit |
-| Plans antérieurs | Inputs historiques — pas standard actuel | Observation audit |
+### D1 — Adoption du modèle multidimensionnel
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Mélange famille / statut / trajectoire / usage / emplacement dans le repository actuel |
+| **Observation source** | Audit PR #162 ; correctif PR #163 ; handoff ChatGPT |
+| **Décision exacte attendue** | Morris valide-t-il les 7 dimensions (famille, cycle de vie, autorité, usage, périmètre, trajectoire, emplacement) comme **cadre candidate** de description ? |
+| **Options** | (1) Adopter tel quel ; (2) Adopter avec ajustements nommés ; (3) Reporter après approfondissement ; (4) Rejeter et reprendre modèle plat |
+| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** |
+| **Justification** | Résout le mélange conceptuel ; cartographie exploitable ; contrôles déterministes ; reste non appliqué |
+| **Bénéfices** | Clarté ; parsabilité ChatGPT/Cursor ; base gates automatisables |
+| **Risques** | Complexité perçue ; courbe d'apprentissage |
+| **Dette** | Faible si candidate explicite |
+| **Réversibilité** | Haute — cadre documentaire, pas appliqué |
+| **Dépendances** | Aucune amont ; D2–D8 en aval |
+| **Gate concerné** | Gate A fondations |
+| **Impact si report** | Cartographie et G3 **bloquées** |
+| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
 
 ---
 
-## 8. Cycle de vie documentaire
+### D2 — Familles primaires F01–F17
 
-> **Uniquement les états de cycle de vie** — pas baseline, canonical, operational, project, historical (déplacés vers autres dimensions).
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Absence de taxonomie fonctionnelle stable pour classifier descriptivement |
+| **Observation source** | Principes §5 ; audit familles hétérogènes |
+| **Décision exacte attendue** | La liste F01–F17 est-elle **validée comme cadre candidate** ? Ajustements ciblés ? |
+| **Options** | (1) Valider F01–F17 ; (2) Fusionner paires (ex. F11/F12) ; (3) Clarifier sous-familles F01/F07, F02/F11 ; (4) Réduire liste ; (5) Reporter |
+| **Points à challenger** | F01 vs F07 ; F02 vs F11 ; F03 vs F12 ; F06 vs F15 ; F16/F17 hors MD |
+| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** |
+| **Justification** | Liste minimale et utilisable ; réserves sur chevauchements F02/F11 et F06/F15 — documenter critères de frontière sans élargir |
+| **Bénéfices** | Vocabulaire partagé cartographie |
+| **Risques** | Frontières floues si non clarifiées ; sur-segmentation |
+| **Dette** | Moyenne si ambiguïtés non tranchées |
+| **Réversibilité** | Haute — ajustement documentaire |
+| **Dépendances** | D1 ; amont D8, D10 |
+| **Gate concerné** | Gate B schéma cartographie |
+| **Impact si report** | Cartographie pilote **difficile** sans vocabulaire famille |
+| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
 
-| État candidate | Définition | Entrée | Sortie | Autorité | Remplaçant requis | Transitions | Réversibilité | Garde-fous |
-|----------------|------------|--------|--------|----------|-------------------|-------------|---------------|------------|
-| **draft** | Travail non validé | création | candidate, deprecated | Auteur | Non | → candidate | Oui | Pas merge main sans review |
-| **candidate** | Proposé, non validé périmètre | draft, cycle | validated, deprecated | Cycle + Morris | Non | → validated | Oui | Distinct trajectoire candidate |
-| **validated** | Validé pour son périmètre | candidate, review | active, deprecated | Morris | Non | → active | Oui | **≠ baseline trajectoire** |
-| **active** | Référence active dans son périmètre | validated | deprecated, superseded | Morris / cycle | Non | → deprecated | Oui | Peut coexister validated non-active |
-| **deprecated** | Déconseillé ; remplaçant attendu | active, validated | superseded, archived | Morris | Oui (annoncé) | → superseded | Oui | Lien remplaçant |
-| **superseded** | Remplacé ; successeur nommé | deprecated, active | archived | Morris | **Oui** | → archived | Oui | `canonical_replacement` |
-| **archived** | Conservé, non actif | superseded, deprecated, validated | — | Morris + reprise | Reprise ou justification | — | Oui | Aucune archive sans reprise |
+**Réserve candidate :** valider F01–F17 avec **note explicative** sur frontières F02/F11 (gouvernance normative vs décision/cadrage cycle) et F06/F15 (doc transverse vs tooling doc).
 
-**Chaîne candidate principale :**
+---
+
+### D3 — Cycle de vie documentaire
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Statuts hétérogènes ; confusion baseline/candidate/operational |
+| **Observation source** | Principes §8 ; audit 42+ hits « candidate » |
+| **Décision exacte attendue** | Valider les 7 états ? Traiter le chevauchement **`active` (lifecycle) vs `operational` (usage)** ? |
+| **Options** | **A.** Conserver `active` dans cycle de vie ; **B.** Retirer `active`, usage=operational ; **C.** `active` réservé profils A/B ; **D.** Approfondissement requis |
+| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **C** ou **B** préférable à status quo |
+| **Justification** | D4 usage existe déjà ; `active` + `operational` redondants pour la plupart des docs ; Option C limite `active` aux docs normatifs |
+| **Bénéfices** | Cycle de vie plus net ; moins de double saisie |
+| **Risques** | Option B = changement modèle ; migration sémantique future |
+| **Dette** | Moyenne si `active` conservé sans règle |
+| **Réversibilité** | Moyenne — vocabulaire central |
+| **Dépendances** | D1, D5 ; D8 |
+| **Gate concerné** | Gate A |
+| **Impact si report** | Cartographie **bloquée** sur maturité document |
+| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+---
+
+### D4 — Niveaux d'autorité documentaire
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Autorité normative vs informative non systématique |
+| **Observation source** | Principes §9 ; audit 5 hits « canonique » |
+| **Décision exacte attendue** | Valider canonical / reference / supporting / informational ? Ajouter `normative` ? Unicité canonical par sujet ? |
+| **Options** | (1) Quatre niveaux actuels ; (2) Ajouter normative ; (3) canonical unique par sujet obligatoire ; (4) Reporter |
+| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** — **sans** niveau supplémentaire |
+| **Justification** | Modèle simple suffisant ; canonical = gate Morris déjà prévu |
+| **Bénéfices** | Gouvernance claire core vs supporting |
+| **Risques** | canonical sur-utilisé sans gate |
+| **Dette** | Faible |
+| **Réversibilité** | Haute |
+| **Dépendances** | D1 ; D3 pour cohérence candidate+canonical |
+| **Gate concerné** | Gate C gouvernance avancée |
+| **Impact si report** | Cartographie pilote **possible** ; G3 partiellement impactée |
+| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+---
+
+### D5 — Modèle d'usage
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Distinction doc utilisé vs conservé |
+| **Observation source** | Principes §10 ; plans migration non-operational |
+| **Décision exacte attendue** | Usage comme dimension ? Obligatoire ou **attribut cartographie** uniquement ? |
+| **Options** | (1) Dimension obligatoire profils A–D ; (2) Attribut cartographie POC ; (3) Optionnel partout ; (4) Supprimer dimension |
+| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **2** |
+| **Justification** | Utile en cartographie ; volatile en métadonnée permanente ; `unknown` risque de devenir permanent |
+| **Bénéfices** | Signale dette sans surcharger en-têtes |
+| **Risques** | Omission si non obligatoire |
+| **Dette** | Faible si cartographie seule |
+| **Réversibilité** | Haute |
+| **Dépendances** | D1, D3 (si Option B D3) |
+| **Gate concerné** | Gate B |
+| **Impact si report** | Cartographie moins riche, pas bloquante |
+| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+---
+
+### D6 — Périmètres documentaires
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | `project` était statut — doit devenir périmètre |
+| **Observation source** | Principes §11 ; 688 fichiers projects/ |
+| **Décision exacte attendue** | Valider les 6 périmètres ? **`product` nécessaire ?** `repository` vs `method` ? |
+| **Options** | (1) Six valeurs ; (2) Retirer product initialement ; (3) Fusionner repository+method ; (4) Reporter |
+| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — vocabulaire **minimal** : repository, method, project, tooling, external-publication ; **product** différé |
+| **Justification** | Standard minimal ; product peu utilisé aujourd'hui |
+| **Bénéfices** | scope=project + attribut project clair |
+| **Risques** | Réintroduction product plus tard |
+| **Dette** | Faible |
+| **Réversibilité** | Haute |
+| **Dépendances** | D1, D2 |
+| **Gate concerné** | Gate B |
+| **Impact si report** | Cartographie **bloquée** sur domaine |
+| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+---
+
+### D7 — Trajectoire et baseline
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Confusion baseline trajectoire vs statut document |
+| **Observation source** | Principes §12 ; PD7 |
+| **Décision exacte attendue** | Valider trajectory + trajectory_role ? Distinction historical / suspended ? **Confirmer v2.4 baseline, v2.5/v2.6 candidate, v3 hors trajectoire** |
+| **Options** | (1) Modèle actuel ; (2) Fusionner historical+suspended ; (3) Renommer suspended → out-of-current-trajectory ; (4) Reporter |
+| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** |
+| **Justification** | Structurant et aligné chantier ; v3 signalé sans réactivation |
+| **Bénéfices** | Trajectoires explicites ; pas de promotion implicite |
+| **Risques** | Confusion lifecycle candidate / trajectory candidate |
+| **Dette** | Faible si libellés clairs |
+| **Réversibilité** | Moyenne |
+| **Dépendances** | D1, D9 |
+| **Gate concerné** | Gate A — **bloquant** |
+| **Impact si report** | Cartographie et G3 **bloquées** |
+| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+**Confirmation candidate (non promotion) :** v2.4 baseline · v2.5 candidate capitalisée · v2.6 candidate · v3.0 hors trajectoire courante.
+
+---
+
+### D8 — Profils de métadonnées
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Métadonnées disproportionnées ou absentes |
+| **Observation source** | Principes §13 ; profils A–F |
+| **Décision exacte attendue** | Valider **principe** profils proportionnés ? Valider **champs obligatoires** par profil ? |
+| **Options** | (1) Principe seul ; (2) Principe + champs candidats ; (3) POC avant champs ; (4) Reporter |
+| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **1** maintenant, champs précis après POC |
+| **Justification** | Profil F = mode allégé, pas famille ; champs trop tôt = sur-contrainte |
+| **Bénéfices** | Homogénéiser sans uniformiser |
+| **Risques** | Champs flous jusqu'au POC |
+| **Dette** | Moyenne |
+| **Réversibilité** | Haute |
+| **Dépendances** | D1, D2, D3 |
+| **Gate concerné** | Gate B/C |
+| **Impact si report** | G3 **impactée** ; cartographie pilote possible avec profils indicatifs |
+| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+---
+
+### D9 — Principes avant cartographie et G3
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Risque cartographie/classification sans cadre validé |
+| **Observation source** | Principes §22 ; PD14 ; audit Q22 |
+| **Décision exacte attendue** | Quels D1–D8 **indispensables** avant cartographie pilote read-only ? G3 interdit avant quoi ? |
+| **Options** | (1) Tout D1–D8 avant toute carto ; (2) Noyau D1,D2,D3,D5,D6,D7 puis pilote ; (3) Carto libre ; (4) G3 après validation complète uniquement |
+| **Recommandation candidate** | **ADOPT AS CANDIDATE FRAMEWORK** — Option **2** + **G3 interdit** sans validation explicite modèle |
+| **Justification** | Équilibre gouvernance / apprentissage ; classification consolidée trop tôt = dette |
+| **Bénéfices** | Séquence contrôlée |
+| **Risques** | Interprétations divergentes du « noyau » |
+| **Dette** | Faible si gates écrites |
+| **Réversibilité** | Haute |
+| **Dépendances** | D1–D8 |
+| **Gate concerné** | Gate A — **méta-décision** |
+| **Impact si report** | Risque cartographie prématurée |
+| **Verdict recommandé** | ADOPT AS CANDIDATE FRAMEWORK |
+| **Décision Morris** | **NON DÉCIDÉ** |
+| **Date / autorité** | _À renseigner par Morris_ |
+
+**Noyau minimal candidate pour cartographie pilote (recommandation — non validé) :** D1, D2, D3, D5, D6, D7 validés ou GO WITH RESERVE ; D8 principe ; D4/D10–D12 différables.
+
+---
+
+## 8. Lot B — Arbitrages complémentaires
+
+### D10 — `docs/` versus `method/.../documentation/`
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Documentation transverse vs méthode SFIA — zones concurrentes (audit) |
+| **Décision exacte attendue** | Adopter critère logique ? POC échantillon ? Reporter ? |
+| **Options** | (1) Critère : method/documentation = méthode SFIA + capitalisation ; docs/ = plateforme transverse ; (2) POC 20 fichiers ; (3) Reporter à cartographie complète |
+| **Recommandation candidate** | **DEFER WITH EXPLICIT CONDITION** — critère **candidate** documenté + POC read-only **cycle futur** |
+| **Condition réouverture** | Après validation D1–D2–D9 et GO cartographie pilote |
+| **Blocage** | Non bloquant cartographie pilote ; partiel G3 |
+| **Verdict recommandé** | DEFER WITH EXPLICIT CONDITION |
+| **Décision Morris** | **NON DÉCIDÉ** |
+
+---
+
+### D11 — Traitement SFIA v3.0 tracked
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | 15 fichiers v3 visibles — hors trajectoire |
+| **Contraintes** | Pas réactivation ; pas déplacement/archivage/suppression |
+| **Options** | (1) Maintenir visible, trajectory_role hors-trajectoire ; (2) Isolation logique cartographie ; (3) Cycle futur dédié ; (4) Reporter |
+| **Recommandation candidate** | **DEFER WITH EXPLICIT CONDITION** — Option **1** en attendant cycle Morris dédié |
+| **Condition réouverture** | Après cartographie pilote ou décision Morris v3 |
+| **Blocage** | Non bloquant |
+| **Verdict recommandé** | DEFER WITH EXPLICIT CONDITION |
+| **Décision Morris** | **NON DÉCIDÉ** |
+
+---
+
+### D12 — Politique dates et langue de nommage
+
+| Champ | Contenu |
+|-------|---------|
+| **Problème résolu** | Incohérence FR/EN ; dates seulement capitalisation récente |
+| **Décision exacte attendue** | Règles pour **nouveaux** documents structurants ? Rétroactivité ? |
+| **Options** | (1) kebab-case ; EN noms ; titres FR OK ; dates événementiels only ; legacy toléré ; (2) Dates obligatoires capitalisation ; (3) Reporter |
+| **Recommandation candidate** | **ADOPT WITH TARGETED ADJUSTMENT** — Option **1** pour **nouveaux** docs ; **pas** renommage rétroactif auto |
+| **Blocage** | Non bloquant cartographie/G3 |
+| **Verdict recommandé** | ADOPT WITH TARGETED ADJUSTMENT |
+| **Décision Morris** | **NON DÉCIDÉ** |
+
+---
+
+## 9. Dépendances entre décisions
 
 ```text
-draft → candidate → validated → active → deprecated | superseded → archived
+D1 (modèle) ──┬── D2 (familles) ──┬── D8 (profils)
+              ├── D3 (lifecycle) ─┼── D5 (usage)
+              ├── D4 (autorité)   │
+              ├── D6 (périmètre) ─┘
+              └── D7 (trajectoire) ── D9 (gates carto/G3)
+
+D9 ──► autorise cartographie pilote (si noyau validé)
+D10, D11, D12 ──► indépendants ou aval cartographie partielle
 ```
 
-**Précisions candidates :**
-
-- `validated` et `active` **peuvent être séparés** : un doc validated n'est pas forcément active
-- Promotion **baseline trajectoire** (v2.6 → baseline) = dimension D6 + GO Morris — **pas** transition automatique de chaque document
-- **Suppression** = gate distincte, hors cycle courant, GO Morris explicite
-
-**Processus opérationnel (review / merge) :**
-
-| Phase | Trace Git | Gate |
-|-------|-----------|------|
-| Création | Branche + commit | Cycle |
-| Review | Handoff si requis | ChatGPT + Morris |
-| Validation merge | Merge commit | Morris GO merge |
-| Mise à jour | PR | Selon impact |
-| Remplacement | PR + superseded | Morris si structurant |
-| Archivage lot | `git mv` + archived | Morris + reprise |
+Voir **Annexe B**.
 
 ---
 
-## 9. Autorité documentaire
+## 10. Séquence de validation recommandée
 
-> Dimension **D3** — indépendante du cycle de vie.
+| Gate | Décisions | Objectif |
+|------|-----------|----------|
+| **Gate A — Fondations conceptuelles** | D1, D3, D7, D9 | Modèle, maturité, trajectoires, règles carto/G3 |
+| **Gate B — Schéma cartographie** | D2, D5, D6, principe D8 | Vocabulaire descriptive |
+| **Gate C — Gouvernance avancée** | D4, détails D8 | Autorité et champs obligatoires |
+| **Gate D — Compléments** | D10, D11, D12 | Arbitrages et conventions |
 
-| Niveau candidate | Définition | Usage typique | Compatible lifecycle | Gate Morris |
-|------------------|------------|---------------|----------------------|-------------|
-| **canonical** | Source normative **unique** sur un sujet | Rules, operating model | validated, active | **Oui — obligatoire** |
-| **reference** | Référence utile, non norme unique | Architecture docs, guides | validated, active, candidate | Recommandé |
-| **supporting** | Support d'un cycle ou d'une décision | Audits, rapports, REX | candidate, validated | Non |
-| **informational** | Explicatif sans autorité structurante | Notes, brouillons, exports | draft, archived | Non |
-
-**Règles candidates :**
-
-- Document `candidate` + `canonical` = **anomalie** sans décision Morris explicite
-- Document `validated + canonical + active` = configuration normale core baseline
-- Autorité **≠** trajectoire baseline
-
-**Décision Morris requise (D4).**
+**Alternative plus simple (recommandation candidate) :** Gate A complet → GO cartographie pilote → Gates B/C/D en parallèle partiel.
 
 ---
 
-## 10. Usage documentaire
+## 11. Conséquences sur la cartographie
 
-> Dimension **D4** — observationnelle, évolutive sans changement de contenu.
-
-| Valeur candidate | Définition | Critère indicatif |
-|------------------|------------|-------------------|
-| **operational** | Utilisé activement | Références entrantes, cycles actifs, prompts actifs |
-| **non-operational** | Conservé, non utilisé | Plans remplacés, archives, trajectoires suspendues |
-| **unknown** | Usage non établi | Legacy, single-file, absence analyse |
-
-**Règles candidates :**
-
-- `operational` **≠** cycle de vie `active` — un doc candidate peut être operational (ex. prompt en test)
-- Un doc `validated` peut être `non-operational` (ex. plan historique validé mais remplacé)
-- Vérification par **contenu et références**, pas chemin seul
-
-**Décision Morris requise (D5).**
+| Si Morris… | Conséquence |
+|------------|-------------|
+| GO D1+D7+D9 (noyau) | Cartographie pilote read-only **autorisable** (cycle séparé) |
+| DEFER D2 | Cartographie avec vocabulaire provisoire — dette |
+| DEFER D3 | Cartographie **non recommandée** |
+| GO complet D1–D9 | Cartographie descriptive robuste |
+| Aucune décision | **Aucune cartographie** — statu quo |
 
 ---
 
-## 11. Périmètre documentaire
+## 12. Conséquences sur G3 et la classification
 
-> Dimension **D5** — **`project` n'est plus un statut documentaire.**
-
-| Périmètre candidate | Définition | Attributs complémentaires |
-|-----------------------|------------|---------------------------|
-| **repository** | Transverse à tout le dépôt | — |
-| **method** | Méthode SFIA | trajectoire, domaine |
-| **project** | Projet spécifique | `project`, `phase` |
-| **product** | Produit ou plateforme | nom produit |
-| **tooling** | Outillage et automation | outil cible |
-| **external-publication** | Publication hors Git canon | Notion, export |
-
-**Règles candidates :**
-
-- `scope: project` → attribut `project` **obligatoire**
-- Famille F08 Document projet ↔ scope project **souvent** corrélés, pas automatiquement
-- Code F17 : scope project typique ; famille F17, pas F08
-
-**Décision Morris requise (D6).**
+- **G3 interdit** sans validation explicite D1, D3, D7, D9 minimum (recommandation candidate)
+- Classification garder/archiver/supprimer = **L3 Morris** — hors ce dossier
+- Merge de ce PR **ne déclenche pas** G3
 
 ---
 
-## 12. Trajectoire, version et baseline
+## 13. Conséquences sur les migrations futures
 
-> Dimension **D6** — distincte du cycle de vie et de l'autorité.
-
-| Trajectory candidate | trajectory_role candidate | Statut chantier |
-|---------------------|---------------------------|-----------------|
-| SFIA v1.1 | historical | Héritage foundation |
-| SFIA v2.4 | **baseline** | **Baseline opérationnelle** |
-| SFIA v2.5 | **candidate** (capitalisée) | Trajectoire candidate capitalisée |
-| SFIA v2.6 | **candidate** | Trajectoire candidate — chantier en cours |
-| SFIA v3.0 | **suspended** / hors-trajectoire | **Hors trajectoire courante** — non réactivée |
-| N/A | — | Docs sans rattachement trajectoire |
-
-**Règles candidates :**
-
-- **baseline** = propriété `trajectory_role` de la trajectoire v2.4 — **pas** un `lifecycle_status`
-- Promotion v2.6 → baseline trajectoire = **GO Morris** + capitalisation — pas automatique à la merge PR
-- Document sur trajectoire v2.6 peut avoir `lifecycle_status: candidate` **et** `trajectory: SFIA v2.6` **et** `trajectory_role: candidate` — dimensions distinctes
-- v3.0 : visible, signalé, non réactivé
-
-**Décision Morris requise (D7).**
+| Décision | Impact migration |
+|----------|------------------|
+| D12 GO | Conventions nouveaux fichiers ; pas renommage masse |
+| D8 détails | Champs cibles par lot migration |
+| D10 | Critère déplacement futur docs/ ↔ method/ |
+| Validation incomplète | Migration **interdite** (PD9, cadrage) |
 
 ---
 
-## 13. Profils de métadonnées par famille
+## 14. Risques de validation prématurée
 
-> Profils alignés sur le modèle multidimensionnel — **non imposés partout**.
-
-### A. Profil Core / Gouvernance (F01, F02)
-
-| Champ candidate | Dimension |
-|-----------------|-----------|
-| family | D1 |
-| lifecycle_status | D2 |
-| authority | D3 |
-| usage | D4 |
-| scope | D5 |
-| trajectory | D6 |
-| trajectory_role | D6 |
-| version | D6 (doc) |
-| decision_authority | Gouvernance |
-| source_of_truth | Gouvernance |
-| updated_at | — |
-
-### B. Profil Capitalisation / Audit / Décision / Validation (F09–F12)
-
-| Champ candidate | Dimension |
-|-----------------|-----------|
-| family | D1 |
-| lifecycle_status | D2 |
-| authority | D3 |
-| scope | D5 |
-| trajectory | D6 |
-| trajectory_role | D6 |
-| cycle, profil SFIA, repository | Contexte |
-| base Git (si pertinent) | Trace |
-| decision_authority | Morris |
-| réserves, verdict | Si applicable |
-
-### C. Profil Projet (F08)
-
-| Champ candidate | Dimension |
-|-----------------|-----------|
-| family | D1 |
-| lifecycle_status | D2 |
-| usage | D4 |
-| scope = project | D5 |
-| project, phase | D5 |
-| trajectory | D6 si applicable |
-| décision de référence | Optionnel |
-
-### D. Profil Prompt / Template (F04, F05)
-
-| Champ candidate | Dimension |
-|-----------------|-----------|
-| family | D1 |
-| lifecycle_status | D2 |
-| authority | D3 |
-| usage | D4 |
-| scope | D5 |
-| audience, objective | Contexte |
-| source / template parent | Lien |
-| trajectory | D6 |
-
-### E. Profil README / Index (F13)
-
-| Champ candidate | Dimension |
-|-----------------|-----------|
-| family = README / index | D1 |
-| lifecycle_status | D2 |
-| authority | D3 |
-| scope | D5 |
-| logical_location | D7 |
-| sources canoniques, contenu attendu | Navigation |
-
-### F. Profil Léger
-
-| Champ candidate | Dimension |
-|-----------------|-----------|
-| title | — |
-| family ou rôle identifiable | D1 |
-| lifecycle_status | D2 si non évident |
-| scope identifiable | D5 |
-
-**Principe candidat :** absence de profil complet ≠ non-conformité si famille Léger et dimensions déductibles sans contradiction.
-
-Voir **Annexe A**.
+- Valider D1–D12 d'un bloc sans POC → décisions sur sujets non testés (D10, D3 active)
+- Confondre merge dossier décision = standard opérationnel
+- Préremplir GO par déduction du merge PR #163
 
 ---
 
-## 14. Conventions de nommage
+## 15. Risques du report
 
-> Principes candidats — **aucune liste de renommages**.
-
-| Sujet | Principe candidat | Variante légitime |
-|-------|-------------------|-------------------|
-| Casse | kebab-case MD et dossiers | ADR, REX |
-| Langue | EN nom fichier ; titre FR autorisé | Legacy FR |
-| Explicite | Suffixes `-audit`, `-framing`, `-rex`, `-report` | Basename par increment |
-| Dates | `YYYY-MM-DD-` préfixe capitalisation / audits | Core sans date |
-| Versions | Trajectoire dans **chemin** (`sfia-v2.6/`) | v2.4 implicite core |
-| README | `README.md` exact | — |
-
-**Décision Morris requise (D12) :** dates obligatoires ; langue noms.
+- Dette d'ambiguïté persistante (audit moyen-faible)
+- Tentation cartographie « informelle » sans gates
+- Blocage chantier v2.6 si NO-GO global
 
 ---
 
-## 15. Responsabilités logiques des grandes zones
+## 16. Dette potentielle
 
-> **Emplacement logique (D7)** — une zone **n'est pas une famille**.
-
-| Zone | Responsabilité logique | Familles possibles | Précision |
-|------|------------------------|-------------------|-----------|
-| `method/sfia-fast-track/` | Méthode et gouvernance SFIA | F01–F03, F11, F13 | — |
-| `method/.../capitalization/` | Capitalisation trajectoire | F09–F12 | **Plusieurs familles** |
-| `method/.../workspace-audit/` | Audits/plans **historiques** | F09, F11 | lifecycle souvent archived/historical trajectory |
-| `prompts/` | Contrats exécution | F05, F04 | — |
-| `docs/` | Transverse plateforme | F06, F07 | Arbitrage vs method/documentation |
-| `projects/{projet}/` | Périmètre projet | F08, F09, F10, F17 | scope project ; code ≠ famille F08 auto |
-| `*/archive/` | Emplacement archived | Toute famille | lifecycle `archived` typique |
-| `tools/` | Outillage | F15, F16 | — |
-
-**Règles candidates :**
-
-- `/archive/` → emplacement associé à `lifecycle_status: archived` — pas une famille
-- `projects/` → scope project fréquent ; code = F17
-- `capitalization/` → Audit + Capitalisation + Décision coexistent
-
-**Décision Morris requise (D10) :** docs/ vs method/.../documentation/.
-
----
-
-## 16. Structures documentaires candidates
-
-| Famille | Sections obligatoires candidates | Verdict | Décisions |
-|---------|----------------------------------|---------|-----------|
-| Gouvernance (F02) | Objectif, principes, garde-fous | Non | Non |
-| Méthode (F01) | Objectif, sections numérotées | Non | Morris implicite |
-| Audit (F09) | Executive summary, méthode, limites, gate | Oui | Morris listées |
-| Décision (F11) | Contexte, non-objectifs, gates | Oui | Morris |
-| README (F13) | Rôle, index, canoniques | Non | Non |
-
-**Principe candidat :** colonne « Type » (observation / principe / recommandation / décision requise) dans capitalisation et audits.
-
----
-
-## 17. README, index et navigation
-
-| Sujet | Principe candidat |
-|-------|-------------------|
-| README requis | Zone ≥ 3 fichiers ou rôle non évident ; racines method, prompts, docs, chaque projet |
-| Rôle | Orientation ; dimensions clés si zone mixte (familles multiples) |
-| Index concurrents | Un index canonique ; plans antérieurs = historique |
-| Sources canoniques | Core docs — pas handoff ni `.tmp-*` |
-| Zone fichier unique | README parent suffit |
-
----
-
-## 18. Références et liens
-
-| Sujet | Principe candidat |
-|-------|-------------------|
-| Liens relatifs | Préférés ; vérification existence — L1 |
-| Document superseded | Lien `canonical_replacement` |
-| Archive | Lien explicite ; pas canon |
-| Liens cassés (~23 audit) | Correction en **lot** — non ce cycle |
-
----
-
-## 19. Gouvernance des exceptions
-
-Une exception peut cibler **une dimension spécifique** :
-
-| Dimension | Exemple exception |
-|-----------|-------------------|
-| Nommage | Legacy kebab-case non conforme |
-| Métadonnées | Profil Léger accepté |
-| Emplacement | F08 temporairement hors projects/ |
-| lifecycle_status | validated sans active |
-| authority | reference traité comme canonical localement |
-| usage | unknown prolongé |
-| trajectory | v3 visible sans réactivation |
-
-**Règles :** justification, portée, durée, Morris, trace Git, réévaluation — **pas de contournement gates Morris**.
-
----
-
-## 20. Contrôles automatisables futurs
-
-> **Aucune implémentation** — alignés sur dimensions. Voir **Annexe C**.
-
-| Niveau | Contrôles candidates |
+| Source | Dette si non tranché |
 |--------|---------------------|
-| L1 | primary_family présente ; lifecycle valide ; liens ; kebab-case |
-| L2 | authority compatible lifecycle ; trajectory_role cohérent ; scope project + project ; profil cohérent famille |
-| L3 | classification ; fusion ; promotion baseline ; canonical sans Morris |
-| Jamais auto | déplacement, archivage, statut structurant, suppression |
-
-**Principe candidat :** aucune correction automatique structurante.
+| D3 active vs usage | Double métadonnée permanente |
+| D10 | docs/method gris zone |
+| D11 | v3 visible sans politique |
+| D2 frontières | Classifications familles incohérentes |
 
 ---
 
-## 21. Critères d'acceptation du futur standard
+## 17. Réversibilité
 
-| Critère candidate | Mesure |
-|-------------------|--------|
-| Dimensions indépendantes | Aucune dimension ne remplace une autre |
-| Description sans contradiction | Schéma §6.1 applicable |
-| Cartographie sans classement artificiel | Famille ≠ emplacement ≠ lifecycle |
-| Contrôles déterministes | Règles par dimension — Annexe C |
-| Décisions Morris identifiées | D1–D12 |
-| Profils proportionnés | A–F + Léger |
-| Migration par lots | Réversible |
-| Variantes légitimes | Annexe E |
+| Niveau | Décisions |
+|--------|-----------|
+| **Haute** | D1, D4, D5, D6, D12 (cadre documentaire) |
+| **Moyenne** | D2, D3, D7, D8 (vocabulaire central) |
+| **Conditionnelle** | D9 (change gates aval) |
+
+Aucune décision ici ne modifie les fichiers — réversibilité **maximale** tant que non appliqué.
 
 ---
 
-## 22. Points nécessitant décision Morris
+## 18. Proposition de décision globale
 
-| # | Sujet | Urgence |
-|---|-------|---------|
-| D1 | Adoption modèle multidimensionnel | Haute |
-| D2 | Validation familles primaires F01–F17 | Haute |
-| D3 | Validation cycle de vie (7 états) | Haute |
-| D4 | Validation niveaux autorité | Moyenne |
-| D5 | Validation modèle usage | Moyenne |
-| D6 | Validation périmètres | Moyenne |
-| D7 | Validation trajectoire / baseline | Haute |
-| D8 | Validation profils métadonnées | Moyenne |
-| D9 | Principes avant cartographie G3 | Haute |
-| D10 | Arbitrage docs/ vs method/documentation | Moyenne |
-| D11 | Traitement v3 tracked | Basse |
-| D12 | Politique dates et langue nommage | Basse |
+| Option | Description | Avantage | Risque |
+|--------|-------------|----------|--------|
+| **1 — Validation complète D1–D12** | Tout trancher maintenant | Cadre complet | Décisions prématurées D10/D11/D3 |
+| **2 — Fondation + POC** ⭐ | Noyau Gate A+B ; POC read-only futur | Équilibre | Décisions partielles ouvertes |
+| **3 — Approfondissement** | Cycle ciblé D3, D10 avant validation | Moins d'ambiguïté | Délai |
+| **4 — NO-GO temporaire** | Pause chantier | Zéro décision prématurée | Blocage v2.6 |
 
-> **Aucune décision validée** sans GO Morris explicite.
+**Recommandation globale candidate :** **Option 2 — Validation fondation + POC read-only futur**
 
----
+**Noyau candidate à soumettre à Morris (recommandations — non décisions) :**
 
-## 23. Impacts sur les étapes futures
-
-| Étape | Impact |
-|-------|--------|
-| Cartographie | Matrice descriptive fichier × dimensions — **sans G3** |
-| Classification G3 | Après validation modèle Morris |
-| Arborescence cible | Compare logical_location vs rôle réel |
-| Migration par lots | Mise à jour métadonnées par dimension |
-| Automatisation | Contrôles Annexe C |
+| ID | Recommandation candidate |
+|----|-------------------------|
+| D1 | GO recommandé |
+| D2 | GO WITH RESERVE |
+| D3 | ADJUSTMENT REQUIRED (`active`) |
+| D4 | Différable avant POC |
+| D5 | GO WITH RESERVE (cartographie) |
+| D6 | GO WITH RESERVE (vocabulaire minimal) |
+| D7 | GO recommandé |
+| D8 | Valider principe ; champs après POC |
+| D9 | GO avec distinction pilote / G3 |
+| D10 | DEFER + POC futur |
+| D11 | DEFER explicite |
+| D12 | GO WITH RESERVE (nouveaux docs) |
 
 ---
 
-## 24. Challenge obligatoire
+## 19. Registre des décisions Morris
 
-| Question | Réponse |
-|----------|---------|
-| Modèle multidimensionnel utile ? | **Oui** — corrige mélange PR #163 ; prépare cartographie |
-| Plus complexe ? | **Légèrement** — mais moins ambigu qu'un statut unique |
-| Métadonnées proportionnées ? | **Oui** — profils par famille |
-| Dimensions distinguées ? | **Oui** — PD15, §6 |
-| Contrôles déterministes ? | **Oui** — par dimension |
-| Application progressive ? | **Oui** — lots |
-| Principes avant cartographie ? | **Recommandation — oui (D9)** |
+> **Toutes les lignes initialisées NON DÉCIDÉ.** Morris doit renseigner explicitement.
 
----
+| ID | Décision Morris | Réserves | Date/heure | Autorité | Effet | Gate suivant |
+|----|-----------------|----------|------------|----------|-------|--------------|
+| D1 | **NON DÉCIDÉ** | | | Morris | | Gate A |
+| D2 | **NON DÉCIDÉ** | | | Morris | | Gate B |
+| D3 | **NON DÉCIDÉ** | | | Morris | | Gate A |
+| D4 | **NON DÉCIDÉ** | | | Morris | | Gate C |
+| D5 | **NON DÉCIDÉ** | | | Morris | | Gate B |
+| D6 | **NON DÉCIDÉ** | | | Morris | | Gate B |
+| D7 | **NON DÉCIDÉ** | | | Morris | | Gate A |
+| D8 | **NON DÉCIDÉ** | | | Morris | | Gate B/C |
+| D9 | **NON DÉCIDÉ** | | | Morris | | Gate A |
+| D10 | **NON DÉCIDÉ** | | | Morris | | Gate D |
+| D11 | **NON DÉCIDÉ** | | | Morris | | Gate D |
+| D12 | **NON DÉCIDÉ** | | | Morris | | Gate D |
 
-## 25. Risques et réserves
-
-| Risque | Mitigation |
-|--------|------------|
-| Complexité perçue | Schéma §6.1 ; exemples Annexe D |
-| Sur-interprétation validé | Candidate ; gates |
-| Confusion candidate lifecycle / trajectory | Libellés explicites §6.3, §12 |
-| Exemples pris pour classification | Marqués illustratifs |
-
-**Réserves :** modèle candidate ; aucun fichier classé ; audit @ 30fb8e7.
+**Ce registre vide de décisions validées :** le dossier reste **candidate** jusqu'à arbitrage Morris explicite (édition registre ou cycle dédié).
 
 ---
 
-## 26. Conclusion
+## 20. Conditions d'ouverture de l'étape suivante
+
+| Étape | Condition candidate |
+|-------|---------------------|
+| Merge ce dossier | GO Morris merge PR — **ne valide pas** D1–D12 |
+| Arbitrage Morris | Registre §19 renseigné ou option globale choisie |
+| Cartographie pilote read-only | D1, D3, D7, D9 minimum + D2/D6 GO ou GO WITH RESERVE |
+| POC read-only | GO Morris cycle séparé |
+| G3 classification | Validation explicite modèle ; **pas** implicite |
+| Migration | Validation + arborescence + lots — hors scope |
+
+---
+
+## 21. Points non couverts
+
+- Matrice fichier × dimensions réelle
+- Arbitrage contenu doublons sémantiques (§15 audit)
+- Correction ~23 liens cassés
+- Politique Notion vs Git (audit export)
+- Automatisation / linter
+
+---
+
+## 22. Risques et réserves
+
+| Risque | Niveau |
+|--------|--------|
+| Recommandations lues comme décisions | Élevé |
+| Option 2 interprétée comme GO POC automatique | Moyen |
+| Validation partielle insuffisante pour G3 | Moyen |
+
+**Réserves :** analyse basée sur principes candidate @ `688832d` ; pas de test empirique repository dans ce cycle.
+
+---
+
+## 23. Conclusion
 
 | Élément | Statut |
 |---------|--------|
-| Modèle multidimensionnel candidate | **Oui** — §6 |
-| Familles primaires | **Oui** — §5, F01–F17 |
-| Cycle de vie séparé | **Oui** — §8 |
-| Autorité, usage, périmètre, trajectoire séparés | **Oui** — §9–12 |
-| Profils alignés | **Oui** — §13 |
-| Classification fichiers | **Non** |
-| Standard validé Morris | **Non** |
+| D1–D12 analysées | **Oui** |
+| Fiches complètes | **Oui** §7–8 |
+| Recommandations formulées | **Oui** — distinctes décisions |
+| Registre NON DÉCIDÉ | **Oui** §19 |
+| Décisions Morris validées | **Non** |
+| Application / cartographie / G3 | **Non** |
 
 ---
 
-## 27. Gate Morris suivant
+## 24. Gate Morris
 
-| Option | Description |
-|--------|-------------|
-| **A** | Corrections du modèle candidate |
-| **B** | Validation partielle ou complète (sans application) |
-| **C** | Approfondissement ciblé (ex. validated vs active) |
-| **D** | Cartographie étape 2 — **après validation si GO** |
-| **E** | NO-GO temporaire |
+| Action Morris | Description |
+|---------------|-------------|
+| **A** | Arbitrer registre D1–D12 (édition explicite) |
+| **B** | Choisir option globale §18 (1–4) |
+| **C** | Demander ajustements dossier (cycle revision) |
+| **D** | Merge PR dossier **sans** valider D1–D12 |
+| **E** | NO-GO temporaire chantier |
 
-**Non automatique :** merge PR #163, G3, migration, promotion v2.6.
-
----
-
-## Annexe A — Famille primaire × profil documentaire recommandé
-
-| Famille | Profil principal | Profil alternatif |
-|---------|------------------|-------------------|
-| F01 Méthode | A — Core/Gouvernance | |
-| F02 Gouvernance | A | |
-| F03 Cycle / checklist | F — Léger | A si structurant |
-| F04 Template | D | |
-| F05 Prompt | D | F — Léger |
-| F06 Doc transverse | A ou F | E |
-| F07 Pratique spécialisée | F | A si normatif |
-| F08 Document projet | C — Projet | |
-| F09 Audit | B — Capitalisation | |
-| F10 Capitalisation / REX | B | |
-| F11 Décision / cadrage | B | |
-| F12 Rapport validation | B | |
-| F13 README / index | E | |
-| F14 Publication / export | F | |
-| F15 Tooling doc | F | E |
-| F16 Config technique | (hors profil MD) | |
-| F17 Code / artefact | (hors profil MD) | |
+**Non automatique :** POC, cartographie, G3, migration, merge sans GO.
 
 ---
 
-## Annexe B — Cycle de vie × transition × autorité × garde-fou
+## Annexe A — Matrice D1–D12
 
-| lifecycle_status | Entrée | Sortie | Autorité transition | Gate | Garde-fou |
-|------------------|--------|--------|---------------------|------|-----------|
-| draft | création | candidate | Auteur | Review | — |
-| candidate | draft | validated | Cycle + Morris | Review + merge | ≠ trajectory_role seul |
-| validated | candidate | active, deprecated | Morris | Validation | ≠ baseline auto |
-| active | validated | deprecated, superseded | Morris | Impact | — |
-| deprecated | active, validated | superseded, archived | Morris | Remplaçant | Lien requis |
-| superseded | deprecated, active | archived | Morris | Successeur nommé | canonical_replacement |
-| archived | superseded, deprecated | — | Morris + reprise | Archivage lot | Reprise obligatoire |
-
-> **Autorité documentaire (D3)** et **trajectory_role (D6)** ne figurent pas dans cette matrice — dimensions parallèles.
-
----
-
-## Annexe C — Dimension × valeurs × automatisabilité × arbitrage humain
-
-| Dimension | Contrôle candidate | Automatisable | Niveau | Humain requis |
-|-----------|-------------------|---------------|--------|---------------|
-| D1 Famille | primary_family présente | Partiel | L1–L2 | Arbitrage limites familles |
-| D2 Cycle | lifecycle dans vocabulaire fermé | Oui | L1 | validated, archived |
-| D3 Autorité | canonical + gate Morris | Partiel | L2 | canonical, promotion |
-| D4 Usage | Cohérence refs vs usage | Faible | L3 | unknown → operational |
-| D5 Périmètre | scope=project → project | Oui | L2 | scope arbitrage |
-| D6 Trajectoire | trajectory_role cohérent | Partiel | L2 | baseline promotion |
-| D7 Emplacement | logical_location vs scope | Partiel | L2 | déplacement futur |
-| Transversal | Liens internes valides | Oui | L1 | Lot migration |
-| Transversal | Profil cohérent famille | Partiel | L2 | Legacy exempt |
-| Transversal | Classification G3 | Non | L3 | **Morris G3** |
-| Transversal | Fusion sémantique | Non | L3 | **Morris** |
+| ID | Lot | Recommandation | Bloque carto. pilote | Bloque G3 | Bloque migration | Différable |
+|----|-----|----------------|----------------------|-----------|------------------|------------|
+| D1 | A | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Oui | Non |
+| D2 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel | Partiel |
+| D3 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Oui | Non |
+| D4 | A | ADOPT AS CANDIDATE FRAMEWORK | Non | Partiel | Non | Oui |
+| D5 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Partiel | Non | Partiel |
+| D6 | A | ADOPT WITH TARGETED ADJUSTMENT | Oui | Oui | Partiel | Partiel |
+| D7 | A | ADOPT AS CANDIDATE FRAMEWORK | Oui | Oui | Oui | Non |
+| D8 | A | ADOPT WITH TARGETED ADJUSTMENT | Partiel | Oui | Oui | Partiel |
+| D9 | A | ADOPT AS CANDIDATE FRAMEWORK | — | Oui | Oui | Non |
+| D10 | B | DEFER WITH EXPLICIT CONDITION | Non | Partiel | Partiel | Oui |
+| D11 | B | DEFER WITH EXPLICIT CONDITION | Non | Non | Non | Oui |
+| D12 | B | ADOPT WITH TARGETED ADJUSTMENT | Non | Non | Partiel | Oui |
 
 ---
 
-## Annexe D — Exemples multidimensionnels fictifs
+## Annexe B — Dépendances décisionnelles
 
-> **Exemples illustratifs — non constitutifs d'une classification validée.**
-
-### Exemple 1 — Operating model (fictif)
-
-| Attribut | Valeur illustrative |
-|----------|---------------------|
-| primary_family | Gouvernance et règles (F02) |
-| lifecycle_status | active |
-| authority | canonical |
-| usage | operational |
-| scope | method |
-| trajectory | SFIA v2.4 |
-| trajectory_role | baseline |
-| logical_location | method/sfia-fast-track/core/ |
-
-### Exemple 2 — Rapport audit v2.6 (fictif)
-
-| Attribut | Valeur illustrative |
-|----------|---------------------|
-| primary_family | Audit (F09) |
-| lifecycle_status | candidate |
-| authority | supporting |
-| usage | operational |
-| scope | method |
-| trajectory | SFIA v2.6 |
-| trajectory_role | candidate |
-| logical_location | method/.../capitalization/sfia-v2.6/ |
-| decision_authority | Morris |
-
-### Exemple 3 — Prompt template cycle (fictif)
-
-| Attribut | Valeur illustrative |
-|----------|---------------------|
-| primary_family | Prompt (F05) |
-| lifecycle_status | active |
-| authority | reference |
-| usage | operational |
-| scope | repository |
-| trajectory | SFIA v2.4 |
-| trajectory_role | baseline |
-| logical_location | prompts/templates/ |
-
-### Exemple 4 — Document projet phase delivery (fictif)
-
-| Attribut | Valeur illustrative |
-|----------|---------------------|
-| primary_family | Document projet (F08) |
-| lifecycle_status | active |
-| authority | supporting |
-| usage | operational |
-| scope | project |
-| project | chantiers360-v2 |
-| phase | 07-delivery |
-| trajectory | N/A |
-| logical_location | projects/chantiers360-v2/07-delivery/ |
-
-### Exemple 5 — Plan migration antérieur (fictif)
-
-| Attribut | Valeur illustrative |
-|----------|---------------------|
-| primary_family | Audit (F09) ou Décision (F11) |
-| lifecycle_status | archived |
-| authority | informational |
-| usage | non-operational |
-| scope | repository |
-| trajectory | N/A |
-| trajectory_role | historical |
-| logical_location | method/.../workspace-audit/ |
+| Décision | Amont | Aval |
+|----------|-------|------|
+| D1 | — | D2–D8, D9 |
+| D2 | D1 | D8, D10, cartographie |
+| D3 | D1 | D5, D8, cartographie |
+| D4 | D1, D3 | G3 partiel |
+| D5 | D1, D3 | cartographie |
+| D6 | D1, D2 | cartographie |
+| D7 | D1 | D9, cartographie |
+| D8 | D1–D3 | migration, G3 |
+| D9 | D1–D8 | cartographie, G3 |
+| D10 | D2, D9 | migration docs |
+| D11 | D7 | cycle v3 futur |
+| D12 | — | migration nommage |
 
 ---
 
-## Annexe E — Principes communs vs variantes légitimes
+## Annexe C — Décision × gate futur
 
-| Principe commun | Variante légitime | Écart injustifié |
-|-----------------|-------------------|-----------------|
-| 7 dimensions indépendantes | Profil Léger réduit | Statut unique fourre-tout |
-| primary_family obligatoire | F17 hors MD | Absence famille capitalisation récente |
-| lifecycle un état principal | validated sans active | Mélange baseline dans lifecycle |
-| authority séparée | reference locale | canonical implicite |
-| scope project + project | Code F17 scope project | project comme statut |
-| trajectory_role baseline v2.4 | v2.6 candidate | Promotion silencieuse |
-| logical_location ≠ famille | capitalization multi-familles | Archive comme famille |
-| Conservation par défaut | archived avec reprise | Suppression sans GO |
+| Gate futur | Décisions minimales candidate |
+|------------|------------------------------|
+| Cartographie pilote read-only | D1, D2, D3, D6, D7, D9 (+ D5 recommandé) |
+| POC read-only | Idem + GO Morris cycle POC |
+| Classification G3 | D1–D9 validées ou GO WITH RESERVE explicite |
+| Migration lot 1 | G3 + D8 détails + D12 |
+| Automatisation L2 | D8 champs + D3/D4 stabilisés |
 
 ---
 
-## Annexe F — Git Review Index
+## Annexe D — Options globales de validation
+
+| Option | D1–D12 | Carto. pilote | POC | G3 |
+|--------|--------|---------------|-----|-----|
+| 1 — Complète | Tout valider | Après | Optionnel | Après validation |
+| 2 — Fondation + POC ⭐ | Noyau Gate A+B | Après noyau | GO Morris séparé | Après POC + reste |
+| 3 — Approfondissement | Reporter partiel | Retardée | Après | Retardée |
+| 4 — NO-GO | Rien | Interdite | Interdit | Interdit |
+
+---
+
+## Annexe E — Git Review Index
 
 | Élément | Valeur |
 |---------|--------|
 | Repository | mcleland147/sfia-workspace |
-| Branche projet | method/sfia-v2.6-repository-standard-principles |
-| Base `main` | `942f5353166b8dac02dab4b84229afb582e934df` |
-| HEAD initial (avant correctif) | `afb65e4e57a2fe2b39768974822d56c902a0d6c3` |
-| Cycle | Correctif séparation dimensions documentaires |
-| Fichier modifié | `2026-07-11-sfia-v2.6-repository-standard-principles.md` |
-| Fichiers créés / supprimés | Aucun |
-| Commit attendu | `docs: separate repository document dimensions for SFIA v2.6` |
+| Branche projet | method/sfia-v2.6-repository-standard-decisions |
+| Base `main` | `688832d90e613959fbfdf53530f86aea36e23538` |
+| HEAD initial | `688832d90e613959fbfdf53530f86aea36e23538` |
+| Fichier créé | `2026-07-11-sfia-v2.6-repository-standard-decisions.md` |
+| Fichiers modifiés | Aucun |
+| Profil | Critical |
+| Commit attendu | `docs: prepare bounded decisions for SFIA v2.6 repository standard` |
 
 ---
 
-*Document candidate SFIA v2.6 — modèle multidimensionnel — soumis validation Morris — aucune application au repository sans GO explicite.*
+*Dossier candidate SFIA v2.6 — arbitrage D1–D12 — registre NON DÉCIDÉ — Morris arbitre — aucune application sans GO explicite.*
 ```
 
 
@@ -1105,25 +825,13 @@ Une exception peut cibler **une dimension spécifique** :
 
 | Validation | OK |
 |------------|-----|
-| Un seul fichier modifié | ✓ |
-| Aucun fichier créé/supprimé | ✓ |
-| Dimensions séparées | ✓ |
-| Aucune classification fichiers | ✓ |
-| Exemples illustratifs (Annexe D) | ✓ |
-| SFIA v2.4 baseline / v2.6 candidate | ✓ |
-| git diff --check | ✓ |
-| modified sections complete | yes |
+| D1–D12 couvertes | ✓ |
+| Registre NON DÉCIDÉ | ✓ |
+| Recommandation ≠ décision | ✓ |
+| Aucune cartographie/POC/G3 | ✓ |
+| created files full content | yes |
 | useful diff included | yes |
 | synthesis only | no |
-
----
-
-## Git Review Index
-
-| Élément | Valeur |
-|---------|--------|
-| Commit correctif | 77a78a7 |
-| Fichier | 2026-07-11-sfia-v2.6-repository-standard-principles.md |
 
 ---
 
