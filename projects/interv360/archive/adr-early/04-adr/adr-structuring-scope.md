@@ -1,9 +1,9 @@
 # Interv360 — Cadrage des ADR structurantes
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 04-adr  
-**Type** : Cadrage ADR  
-**Statut** : Draft  
+**Projet** : PRJ-INTERV360
+**Phase** : 04-adr
+**Type** : Cadrage ADR
+**Statut** : Draft
 **Branche** : `adr/interv360-structurantes`
 
 ---
@@ -34,7 +34,7 @@ Ce document **ne crée pas** encore les ADR formelles.
 | `projects/interv360/01-cadrage/business-framing.md` | Contexte métier |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règles RG priorisées |
 | `projects/interv360/02-architecture/status-mapping.md` | Statuts MVP |
-| `projects/interv360/02-architecture/closure-without-signature.md` | Règles de clôture |
+| `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Règles de clôture |
 | `projects/interv360/02-architecture/clarification-cycle-closure.md` | Synthèse du cycle clarification |
 | `projects/interv360/03-process/process-analysis.md` | Analyse BPMN |
 | `projects/interv360/03-process/process-cycle-closure.md` | Clôture BPMN |

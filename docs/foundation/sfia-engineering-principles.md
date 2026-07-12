@@ -9,9 +9,9 @@ scope: engineering principles
 
 # SFIA Engineering Principles v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Engineering principles
 
 ## Préambule
@@ -42,7 +42,7 @@ In case of tension:
 2. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` defines operational constraints;
 3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` defines ChatGPT ↔ Cursor execution;
 4. `method/sfia-fast-track/core/sfia-knowledge-layer.md` defines documentation routing and knowledge publication;
-5. `docs/architecture/sfia-decision-engine.md` arbitrates exceptions, trade-offs and explicit decisions.
+5. `docs/architecture/2026-06-27-sfia-decision-engine.md` arbitrates exceptions, trade-offs and explicit decisions.
 
 # 1. Les besoins réels avant les idées
 
@@ -335,7 +335,7 @@ Evidence can include:
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `docs/architecture/sfia-platform-architecture.md`

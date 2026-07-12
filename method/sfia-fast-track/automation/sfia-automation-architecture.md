@@ -7,9 +7,9 @@ scope: automation architecture
 
 # SFIA Fast Track — Automation Architecture v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Automation architecture
 
 ## v1.1 Consistency Rule
@@ -39,7 +39,7 @@ Automation must not bypass:
 
 Any automation exception must be explicit, justified, traceable and validated by a human according to:
 
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 
 ## 1. Objectif
 
@@ -53,7 +53,7 @@ L'objectif est de transformer SFIA Fast Track :
 
 Vision cible :
 
-> Un utilisateur exprime son besoin dans un formulaire.  
+> Un utilisateur exprime son besoin dans un formulaire.
 > SFIA qualifie, cadre, conçoit, génère, teste, documente et prépare la livraison d'une application adaptée.
 
 ## 2. Constat issu d'Interv360

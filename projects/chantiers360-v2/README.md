@@ -1,23 +1,23 @@
 # Chantiers360 v2
 
-**Projet :** Chantiers360 v2 — premier pilote SFIA v2.0  
-**Chemin :** `projects/chantiers360-v2/`  
-**Statut :** **MVP CAPITALIZED WITH RESERVES** — INC-01 à INC-05 clôturés — décisions post-MVP séparées  
-**Bootstrap :** mergé via PR #95 (`c3ca02d`)  
-**Cadrage détaillé :** mergé via PR #96 (`e90e824`)  
-**Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)  
-**UX/UI :** mergée via PR #98 (`1d9feb9`)  
-**Backlog MVP :** mergé via PR #99 (`93d6810`)  
-**Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)  
-**Design Figma P1 :** mergé via PR #101 (`7e37b58`)  
-**Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés  
-**Cycle courant :** Comparaison V0 vs SFIA v2 bouclée (PR #136) — décision suivante séparée — SFIA v2.3.1 baseline opérationnelle — v2.4 / v3.0 non lancés  
-**QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`  
-**QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`  
-**QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`  
-**Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`  
-**Capitalisation MVP :** `09-capitalization/mvp-capitalization-report.md`  
-**Comparaison V0 vs SFIA v2 :** ✅ mergée PR #136 — `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION  
+**Projet :** Chantiers360 v2 — premier pilote SFIA v2.0
+**Chemin :** `projects/chantiers360-v2/`
+**Statut :** **MVP CAPITALIZED WITH RESERVES** — INC-01 à INC-05 clôturés — décisions post-MVP séparées
+**Bootstrap :** mergé via PR #95 (`c3ca02d`)
+**Cadrage détaillé :** mergé via PR #96 (`e90e824`)
+**Architecture fonctionnelle :** mergée via PR #97 (`4a5b2fa`)
+**UX/UI :** mergée via PR #98 (`1d9feb9`)
+**Backlog MVP :** mergé via PR #99 (`93d6810`)
+**Méthode Design Figma :** standard mergé via PR #100 (`7ee45bb`)
+**Design Figma P1 :** mergé via PR #101 (`7e37b58`)
+**Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés
+**Cycle courant :** Comparaison V0 vs SFIA v2 bouclée (PR #136) — décision suivante séparée — SFIA v2.3.1 baseline opérationnelle — v2.4 / v3.0 non lancés
+**QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`
+**QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`
+**QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`
+**Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`
+**Capitalisation MVP :** `09-capitalization/mvp-capitalization-report.md`
+**Comparaison V0 vs SFIA v2 :** ✅ mergée PR #136 — `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
 ## 1. Purpose
@@ -240,5 +240,5 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-coverage-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-method-versioning-standard.md`

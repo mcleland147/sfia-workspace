@@ -52,7 +52,7 @@ Référence audit : `sfia-workspace-cleanup-round-2-audit.md`
 
 | Sujet | Décision proposée |
 |-------|-------------------|
-| `docs/workspace-readiness-report.md` | Archiver → `docs/archive/workspace-readiness-report.md` |
+| `docs/2026-06-27-workspace-readiness-report.md` | Archiver → `docs/archive/2026-06-27-workspace-readiness-report.md` |
 | `docs/methods/methods-structure-check.md` | Mettre à jour ou archiver (cible obsolète) |
 | `docs/foundation/` + `docs/architecture/` | Conserver ; option future `docs/platform/` |
 | `docs/knowledge/`, `docs/rex/`, `docs/adr/` | Conserver stubs ; enrichir README |
@@ -110,7 +110,7 @@ Référence audit : `sfia-workspace-cleanup-round-2-audit.md`
 
 | Actuel | Cible | Action |
 |--------|-------|--------|
-| `docs/workspace-readiness-report.md` | `docs/archive/workspace-readiness-report.md` | Archiver |
+| `docs/2026-06-27-workspace-readiness-report.md` | `docs/archive/2026-06-27-workspace-readiness-report.md` | Archiver |
 | `docs/methods/methods-structure-check.md` | Mettre à jour | Corriger cible arborescence |
 | `docs/README.md` | idem | Lien vers content map + Fast Track |
 
@@ -137,7 +137,7 @@ Corriger grep résiduel :
 
 - Inventaires `round-2/post-cleanup-*` après exécution ;
 - Rapport `operational-cleanup-round-2-report.md` ;
-- Mise à jour `operational-cleanup-report.md`.
+- Mise à jour `2026-07-03-operational-cleanup-report.md`.
 
 ## 5. Zones interdites
 

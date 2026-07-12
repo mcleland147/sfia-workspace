@@ -1,14 +1,14 @@
 # Interv360 — Revue finale payload CMP Prompt Library Lot 1 — Architecture & Sécurité
 
-**Projet** : PRJ-INTERV360  
-**Cible Notion** : SFIA Prompt Library  
-**Lot** : 1 — Architecture & Sécurité  
-**Type** : Revue manuelle finale avant publication  
-**Statut** : Reviewed — Ready for Prompt Library publication  
-**Objet revu** : `notion-sync-prompt-library-lot1-architecture-security-cmp-payload.json`  
-**Décision** : Payload CMP Lot 1 validé — publication des 2 prompts autorisée ensuite  
-**Publication Notion** : non exécutée  
-**API Notion** : non appelée  
+**Projet** : PRJ-INTERV360
+**Cible Notion** : SFIA Prompt Library
+**Lot** : 1 — Architecture & Sécurité
+**Type** : Revue manuelle finale avant publication
+**Statut** : Reviewed — Ready for Prompt Library publication
+**Objet revu** : `notion-sync-prompt-library-lot1-architecture-security-cmp-payload.json`
+**Décision** : Payload CMP Lot 1 validé — publication des 2 prompts autorisée ensuite
+**Publication Notion** : non exécutée
+**API Notion** : non appelée
 **CMP-001 create prompt** : non exécuté
 
 ---
@@ -32,8 +32,8 @@ Cette note **valide manuellement** le payload CMP **Lot 1** avant publication da
 | `cmp-prompt-schema-extension-for-architecture-security.md` | Décision technique — catégories Architecture et Security |
 | `notion-sync-prompt-library-lot1-architecture-security-preparation.md` | Préparation Lot 1 — sources et vigilance |
 | `notion-sync-prompt-library-lot1-architecture-security-cmp-payload.json` | **Objet principal** — 2 items CMP enrichis |
-| `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | Source détaillée Architecture — Draft formalisé |
-| `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | Source détaillée Sécurité / RSSI — Draft formalisé |
+| `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | Source détaillée Architecture — Draft formalisé |
+| `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | Source détaillée Sécurité / RSSI — Draft formalisé |
 | `prompts/prompt-catalog.md` | Catalogue §4 et §8 — référencement et statut Draft |
 | `notion-sync-existing-prompt-library-inventory.md` | Inventaire global — Lot 1 recommandé hors QA |
 

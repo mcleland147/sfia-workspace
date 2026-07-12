@@ -9,7 +9,7 @@ Il n'est pas la référence normative vivante pour l'exécution SFIA v1.1.
 Les références d'exécution v1.1 actuelles sont :
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`

@@ -1,16 +1,16 @@
 # Interv360 — Instructions MCP Penpot — Premier écran pilote
 
-**Type** : Instructions MCP design  
-**Projet** : Interv360 (PRJ-INTERV360)  
-**Phase** : 03-design  
-**Outil cible** : Penpot self-host  
-**Écran pilote** : Liste demandes (E2)  
-**Frame cible** : `Liste demandes — V1 pilote`  
-**Page Penpot cible** : `03 — Screens`  
-**Statut** : Draft  
-**Branche** : `design/interv360-penpot-first-screen-instructions`  
-**Source documentaire** : Git / sfia-workspace  
-**Source visuelle cible** : Penpot  
+**Type** : Instructions MCP design
+**Projet** : Interv360 (PRJ-INTERV360)
+**Phase** : 03-design
+**Outil cible** : Penpot self-host
+**Écran pilote** : Liste demandes (E2)
+**Frame cible** : `Liste demandes — V1 pilote`
+**Page Penpot cible** : `03 — Screens`
+**Statut** : Draft
+**Branche** : `design/interv360-penpot-first-screen-instructions`
+**Source documentaire** : Git / sfia-workspace
+**Source visuelle cible** : Penpot
 **Documents associés** : [`penpot-project-reference.md`](penpot-project-reference.md), [`penpot-screen-prioritization.md`](penpot-screen-prioritization.md)
 
 ---
@@ -83,7 +83,7 @@ Checklist **obligatoire** avant la session de création :
 
 **Sécurité :** l'endpoint MCP self-host local contient un `userToken` dans la configuration Cursor. Ce token **ne doit jamais** être copié dans Git, dans ce document, ni dans un prompt versionné.
 
-Voir : [`docs/tooling/penpot/penpot-mcp-self-host-rex.md`](../../../docs/tooling/penpot/penpot-mcp-self-host-rex.md).
+Voir : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md`](../../../docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md).
 
 ---
 

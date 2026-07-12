@@ -1,10 +1,10 @@
 # Famille de prompts — Figma Fidelity Gate / Spike
 
-**Type :** Prompts Cursor / IA  
-**Domaine :** UX/UI — fidélité Figma design-to-code  
-**Statut :** Draft — capitalisé depuis Chantiers360 v2 (PR #104, #105)  
-**Usage :** Réutilisable  
-**Standard associé :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md`  
+**Type :** Prompts Cursor / IA
+**Domaine :** UX/UI — fidélité Figma design-to-code
+**Statut :** Draft — capitalisé depuis Chantiers360 v2 (PR #104, #105)
+**Usage :** Réutilisable
+**Standard associé :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md`
 **Dossier :** `prompts/ux-ui/`
 
 > **Référence d'application :** Chantiers360 v2 — `projects/chantiers360-v2/06-figma-fidelity-spike/`, PR #104 (spike), PR #105 (alignement post-spike).
@@ -110,7 +110,7 @@ Ces prompts **ne doivent pas** :
 | FFG-005 | Execute Documentation Change |
 | Capitalisation | Capitalize Method Asset |
 
-Templates : `prompts/templates/05-validate-pr-readiness.md`, `07-write-post-merge-status.md`, `08-capitalize-method-asset.md`.
+Templates : `prompts/templates/2026-07-04-05-validate-pr-readiness.md`, `07-write-post-merge-status.md`, `08-capitalize-method-asset.md`.
 
 **Templates FFG dédiés longs :** cycle ultérieur — cette famille documente les intentions opérationnelles.
 

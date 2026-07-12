@@ -11,10 +11,10 @@ references:
 
 # SFIA v2.0 — Project Bootstrap Standard
 
-**Version :** v2.0 (candidate)  
-**Statut :** Candidate — validation Morris requise  
-**Branche :** `method/sfia-v2-project-bootstrap-standard`  
-**Base :** `main` @ `4dcb070` (post PR #91)  
+**Version :** v2.0 (candidate)
+**Statut :** Candidate — validation Morris requise
+**Branche :** `method/sfia-v2-project-bootstrap-standard`
+**Base :** `main` @ `4dcb070` (post PR #91)
 **Zone :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/`
 
 > **Ce document est un standard méthode.** Il ne crée aucun projet réel dans `projects/`. Le bootstrap concret sera exécuté dans un cycle ultérieur, après choix du projet pilote.
@@ -340,7 +340,7 @@ Le bootstrap **ne remplace pas** le cadrage approfondi — il **initie** le proj
 
 **Document proposé :**
 
-`method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-pilot-selection-decision.md`
+`method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-05-sfia-v2-pilot-selection-decision.md`
 
 **But :**
 
@@ -356,7 +356,7 @@ Le bootstrap **ne remplace pas** le cadrage approfondi — il **initie** le proj
 1. Vision automation + delivery — ✅ PR #90
 2. Automation levels L0–L5 — ✅ PR #91
 3. **Project bootstrap standard — ce document**
-4. Choix projet pilote — `sfia-v2-pilot-selection-decision.md`
+4. Choix projet pilote — `2026-07-05-sfia-v2-pilot-selection-decision.md`
 5. Bootstrap minimal du projet — exécution réelle sous `projects/`
 6. Cycles projet semi-automatisés
 7. Validation / PR readiness
@@ -389,4 +389,4 @@ Le bootstrap **ne remplace pas** le cadrage approfondi — il **initie** le proj
 - `sfia-cycle-routing-guide.md`
 - `sfia-rules-and-guardrails.md`
 - `sfia-validation-checklist.md`
-- `sfia-notion-publication-track-pause-decision.md`
+- `2026-07-04-sfia-notion-publication-track-pause-decision.md`

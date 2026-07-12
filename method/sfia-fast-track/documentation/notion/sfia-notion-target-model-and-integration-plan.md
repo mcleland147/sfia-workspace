@@ -7,10 +7,10 @@ scope: Notion target model, databases, mapping and integration plan
 
 # SFIA Notion Target Model and Integration Plan
 
-**Version :** v1.1  
-**Statut :** Candidate  
-**Cycle :** Préparation Notion — Cycle 2 (modèle cible + plan d'intégration)  
-**Branche :** `notion/sfia-target-model-integration-plan`  
+**Version :** v1.1
+**Statut :** Candidate
+**Cycle :** Préparation Notion — Cycle 2 (modèle cible + plan d'intégration)
+**Branche :** `notion/sfia-target-model-integration-plan`
 **Base :** `main` @ `72c87c0` (post PR #85)
 
 ## 1. Objectif
@@ -135,7 +135,7 @@ Page d'entrée unique. Répond à :
 | Page Notion | Source repo | Traitement |
 |-------------|-------------|------------|
 | Engineering Principles | `docs/foundation/sfia-engineering-principles.md` | PAGE — légère éditorialisation |
-| Decision Engine | `docs/architecture/sfia-decision-engine.md` | PAGE |
+| Decision Engine | `docs/architecture/2026-06-27-sfia-decision-engine.md` | PAGE |
 | Delivery Pipeline | `docs/architecture/sfia-delivery-pipeline.md` | EDITORIALISER — simplifier Git |
 | Platform Architecture | `docs/architecture/sfia-platform-architecture.md` | EDITORIALISER |
 | Repository Blueprint | `docs/architecture/sfia-repository-blueprint.md` | EDITORIALISER — schéma visuel |
@@ -192,7 +192,7 @@ Page d'entrée unique. Répond à :
 | Pages synthèse | 4–6 max : cadrage, architecture, audit, REX, demo, release |
 | Base ADR | 8 ADR actifs + 1 candidate |
 | Base Roadmap / décisions | `09-roadmap/` |
-| REX capitalisé | `interv360-application-rex.md` — éditorialisé |
+| REX capitalisé | `2026-07-03-interv360-application-rex.md` — éditorialisé |
 | Futurs projets | Entrées base Projets |
 
 ### 4.8 Archives / Références repo

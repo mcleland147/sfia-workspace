@@ -7,10 +7,10 @@ scope: SFIA and project content audit for Notion categorization
 
 # SFIA Notion Content Categorization
 
-**Version :** v1.1  
-**Statut :** Candidate  
-**Cycle :** Préparation Notion — Cycle 1 (audit + inventaire + catégorisation)  
-**Branche :** `notion/sfia-content-audit-categorization`  
+**Version :** v1.1
+**Statut :** Candidate
+**Cycle :** Préparation Notion — Cycle 1 (audit + inventaire + catégorisation)
+**Branche :** `notion/sfia-content-audit-categorization`
 **Base :** `main` @ `388e892` (post PR #84)
 
 ## 1. Objectif
@@ -122,7 +122,7 @@ Références appliquées :
 |-------------|-------------|---------|------|--------|----------------|-----------|----------|--------|--------|---------------|----------|
 | `docs/foundation/sfia-engineering-principles.md` | SFIA Engineering Principles | SFIA Foundation | Fondation | validated | Haute | PAGE_NOTION_DEDIEE | Haute | Contributeur SFIA | Créer page Notion dédiée | Norme supérieure — référence transversale | Versionner les mises à jour |
 | `docs/foundation/README.md` | Foundation README | SFIA Foundation | README / Index | validated | Faible | RESUMER_DANS_NOTION_AVEC_LIEN_REPO | Faible | Contributeur SFIA | Résumer et lier au repo | Index local | — |
-| `docs/architecture/sfia-decision-engine.md` | SFIA Decision Engine | SFIA Architecture | Architecture | validated | Haute | PAGE_NOTION_DEDIEE | Haute | Contributeur SFIA | Créer page Notion dédiée | Décisions GO/NO-GO, réserves | — |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | SFIA Decision Engine | SFIA Architecture | Architecture | validated | Haute | PAGE_NOTION_DEDIEE | Haute | Contributeur SFIA | Créer page Notion dédiée | Décisions GO/NO-GO, réserves | — |
 | `docs/architecture/sfia-delivery-pipeline.md` | SFIA Delivery Pipeline | SFIA Architecture | Architecture | validated | Haute | EDITORIALISER_AVANT_PUBLICATION | Haute | Contributeur SFIA | Éditorialiser | Pipeline PR/merge — simplifier pour lecteur métier | — |
 | `docs/architecture/sfia-repository-blueprint.md` | SFIA Repository Blueprint | SFIA Architecture | Architecture | validated | Moyenne | EDITORIALISER_AVANT_PUBLICATION | Moyenne | Contributeur SFIA | Éditorialiser | Structure repo — utile mais technique | — |
 | `docs/architecture/sfia-platform-architecture.md` | SFIA Platform Architecture | SFIA Architecture | Architecture | validated | Haute | EDITORIALISER_AVANT_PUBLICATION | Haute | Contributeur SFIA | Éditorialiser | Vision plateforme v1.1 | — |
@@ -133,7 +133,7 @@ Références appliquées :
 | `docs/knowledge/README.md` | Knowledge README | SFIA Foundation | README / Index | candidate | Faible | A_REVOIR_PLUS_TARD | Faible | Repo-only | Arbitrer plus tard | Placeholder | Contenu à définir |
 | `docs/rex/README.md` | REX README | SFIA Capitalization | README / Index | candidate | Faible | A_REVOIR_PLUS_TARD | Faible | Repo-only | Arbitrer plus tard | Placeholder | — |
 | `docs/roadmaps/cmp-technical-roadmap.md` | CMP Technical Roadmap | SFIA Architecture | Roadmap | historical | Moyenne | RESUMER_DANS_NOTION_AVEC_LIEN_REPO | Moyenne | Morris / mainteneur | Résumer et lier au repo | Roadmap outillage — lien CMP | Ne pas republier payload associé |
-| `docs/workspace-readiness-report.md` | Workspace Readiness Report | Historique / Audit | Audit | historical | Faible | ARCHIVER_OU_NE_PAS_PUBLIER | Faible | Repo-only | Archiver | Rapport ponctuel pré-consolidation | — |
+| `docs/2026-06-27-workspace-readiness-report.md` | Workspace Readiness Report | Historique / Audit | Audit | historical | Faible | ARCHIVER_OU_NE_PAS_PUBLIER | Faible | Repo-only | Archiver | Rapport ponctuel pré-consolidation | — |
 | `docs/README.md` | Docs README | SFIA Foundation | README / Index | validated | Moyenne | RESUMER_DANS_NOTION_AVEC_LIEN_REPO | Moyenne | Contributeur SFIA | Résumer et lier au repo | Point d'entrée docs | — |
 
 ### 5.2 SFIA Operating Model
@@ -183,7 +183,7 @@ Références appliquées :
 | `prompts/templates/02-update-document-v1-1.md` | Template 02 — Update v1.1 | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | Template consolidation | — |
 | `prompts/templates/03-create-operational-checklist.md` | Template 03 — Checklist | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
 | `prompts/templates/04-validate-cursor-result.md` | Template 04 — Validate Cursor | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
-| `prompts/templates/05-validate-pr-readiness.md` | Template 05 — PR Readiness | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
+| `prompts/templates/2026-07-04-05-validate-pr-readiness.md` | Template 05 — PR Readiness | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
 | `prompts/templates/06-prepare-pr-summary.md` | Template 06 — PR Summary | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
 | `prompts/templates/07-write-post-merge-status.md` | Template 07 — Post-merge | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
 | `prompts/templates/08-capitalize-method-asset.md` | Template 08 — Capitalize | SFIA Prompt System | Prompt template | validated | Haute | INTEGRER_DANS_BASE_NOTION | Haute | Utilisateur méthode | Créer entrée base Notion | — | — |
@@ -204,7 +204,7 @@ Références appliquées :
 | Chemin repo | Titre / nom | Domaine | Type | Statut | Utilité Notion | Catégorie | Priorité | Public | Action | Justification | Réserves |
 |-------------|-------------|---------|------|--------|----------------|-----------|----------|--------|--------|---------------|----------|
 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | Documentation Completeness Matrix | SFIA Capitalization | Audit | validated | Moyenne | RESUMER_DANS_NOTION_AVEC_LIEN_REPO | Moyenne | Morris / mainteneur | Résumer et lier au repo | Matrice complétude — utile pilotage | Sections historiques |
-| `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md` | Capitalization Audit | SFIA Capitalization | Audit | validated | Faible | GARDER_REPO_ONLY | Faible | Repo-only | Conserver repo-only | Audit interne | — |
+| `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md` | Capitalization Audit | SFIA Capitalization | Audit | validated | Faible | GARDER_REPO_ONLY | Faible | Repo-only | Conserver repo-only | Audit interne | — |
 | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md` | Foundation v1.1 Closure | SFIA Capitalization | Closure | validated | Moyenne | RESUMER_DANS_NOTION_AVEC_LIEN_REPO | Moyenne | Morris / mainteneur | Résumer et lier au repo | Trace clôture fondation | — |
 | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-post-merge-status.md` | Foundation v1.1 Post-merge | SFIA Capitalization | Closure | validated | Faible | GARDER_REPO_ONLY | Faible | Repo-only | Conserver repo-only | Trace merge — détail Git | — |
 | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md` | P2 Cross-reference Audit | SFIA Capitalization | Audit | validated | Faible | GARDER_REPO_ONLY | Faible | Repo-only | Conserver repo-only | Audit technique cross-réfs | — |
@@ -216,7 +216,7 @@ Références appliquées :
 | `method/sfia-fast-track/documentation/documentation-audit.md` | Documentation Audit | SFIA Capitalization | Audit | historical | Faible | ARCHIVER_OU_NE_PAS_PUBLIER | Faible | Repo-only | Archiver | Pré-Round 3 | — |
 | `method/sfia-fast-track/documentation/documentation-structure-target.md` | Documentation Structure Target | SFIA Capitalization | Guide opérationnel | historical | Faible | ARCHIVER_OU_NE_PAS_PUBLIER | Faible | Repo-only | Archiver | Cible pré-consolidation | — |
 | `method/sfia-fast-track/templates/*.md` | Fast Track Templates (6) | SFIA Operating Model | Template | validated | Moyenne | INTEGRER_DANS_BASE_NOTION | Moyenne | Utilisateur méthode | Créer entrée base Notion | Cycle, PR, post-merge, audit, REX, MVP | — |
-| `method/sfia-fast-track/audit-rex/interv360-application-rex.md` | Interv360 Application REX | SFIA Capitalization | REX | validated | Haute | EDITORIALISER_AVANT_PUBLICATION | Haute | Lecteur projet | Éditorialiser | REX capitalisé — preuve méthode | Fusionner avec synthèse projet |
+| `method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md` | Interv360 Application REX | SFIA Capitalization | REX | validated | Haute | EDITORIALISER_AVANT_PUBLICATION | Haute | Lecteur projet | Éditorialiser | REX capitalisé — preuve méthode | Fusionner avec synthèse projet |
 | `method/sfia-fast-track/documentation/archive/interv360-realization/` | Archive realization (9) | Historique / Audit | Archive | archive | Faible | ARCHIVER_OU_NE_PAS_PUBLIER | Faible | Repo-only | Archiver | Méthode historique Interv360 | — |
 
 ### 5.7 Notion / CMP / Publication
@@ -283,7 +283,7 @@ Documents recommandés en **page Notion autonome** (priorité haute) :
 | # | Document source | Public cible | Action cycle 2 |
 |---|---------------|--------------|----------------|
 | 1 | `docs/foundation/sfia-engineering-principles.md` | Contributeur SFIA | Éditorialiser légèrement |
-| 2 | `docs/architecture/sfia-decision-engine.md` | Contributeur SFIA | Publier |
+| 2 | `docs/architecture/2026-06-27-sfia-decision-engine.md` | Contributeur SFIA | Publier |
 | 3 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Utilisateur méthode | Éditorialiser |
 | 4 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Utilisateur méthode | Valider statut puis publier |
 | 5 | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Contributeur SFIA | Éditorialiser |
@@ -296,7 +296,7 @@ Documents recommandés en **page Notion autonome** (priorité haute) :
 | 12 | `projects/interv360/README.md` + synthèse | Lecteur projet | Page hub Interv360 |
 | 13 | `projects/interv360/06-audit-rex/current-application-audit.md` | Lecteur projet | Synthèse audit |
 | 14 | `projects/interv360/08-presentation/interv360-demo-one-page-summary.md` | Lecteur externe | Showcase |
-| 15 | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` | Lecteur projet | REX éditorialisé |
+| 15 | `method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md` | Lecteur projet | REX éditorialisé |
 | 16 | `docs/architecture/sfia-delivery-pipeline.md` | Contributeur SFIA | Éditorialiser |
 | 17 | `docs/architecture/sfia-platform-architecture.md` | Contributeur SFIA | Éditorialiser |
 | 18 | `method/sfia-fast-track/documentation/archive/notion/notion-target-content-map.md` | Morris / mainteneur | Actualiser SFIA — input cycle 2 |

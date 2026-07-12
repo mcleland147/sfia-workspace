@@ -145,7 +145,7 @@
           "status": "planned",
           "repoLinks": [
             {
-              "path": "docs/architecture/sfia-decision-engine.md"
+              "path": "docs/architecture/2026-06-27-sfia-decision-engine.md"
             }
           ]
         },
@@ -355,7 +355,7 @@
           "status": "planned",
           "repoLinks": [
             {
-              "path": "method/sfia-fast-track/documentation/notion/sfia-notion-live-export-audit.md"
+              "path": "method/sfia-fast-track/documentation/notion/2026-07-04-sfia-notion-live-export-audit.md"
             }
           ]
         }

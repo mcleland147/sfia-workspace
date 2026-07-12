@@ -7,9 +7,9 @@ scope: cycle routing and reference selection
 
 # Guide de routage des cycles SFIA
 
-**Version:** v1.3  
-**Status:** Validated — complément SFIA v2.5 candidate Cycle 1 (hypothèse candidate)  
-**Scope:** Routage des cycles, sélection des références, templates et validations  
+**Version:** v1.3
+**Status:** Validated — complément SFIA v2.5 candidate Cycle 1 (hypothèse candidate)
+**Scope:** Routage des cycles, sélection des références, templates et validations
 **Standard consolidation actif :** SFIA v2.4 — voir §4.3 ; complément v2.5 candidate §4.4
 
 ## 1. Objectif
@@ -55,9 +55,9 @@ SFIA ne doit pas supposer que ChatGPT ou Cursor se souviennent automatiquement d
 
 Chaque cycle doit déclarer explicitement les références qu'il utilise.
 
-> Pas de mémoire implicite.  
-> Pas de routage documentaire non déclaré.  
-> Pas d'exécution sans références obligatoires.  
+> Pas de mémoire implicite.
+> Pas de routage documentaire non déclaré.
+> Pas d'exécution sans références obligatoires.
 > Pas de clôture sans validation.
 
 La documentation SFIA est appliquée par le **routage des cycles**, pas uniquement par la mémoire du modèle.
@@ -161,8 +161,8 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
 
 ### 4.3 Routage SFIA v2.4 — consolidation & operating efficiency
 
-> **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`  
-> **Baseline méthode :** SFIA v2.3.1 — **standard actif v2.4** depuis PR #139.  
+> **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
+> **Baseline méthode :** SFIA v2.3.1 — **standard actif v2.4** depuis PR #139.
 > **v3.0 :** immediate NO-GO — toute discussion v3.0 = décision Morris dédiée.
 
 SFIA v2.4 est le **standard de consolidation** pour les cycles futurs. Il couvre notamment :
@@ -255,9 +255,9 @@ Handoff ChatGPT ↔ Cursor ↔ Git : **cadre documentaire** v2.4 §10 — **non 
 
 ### 4.4 Routage SFIA v2.5 candidate — profils transverses
 
-> **Référence :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1  
-> **Statut :** hypothèse **candidate** — ne valide pas v2.5 ; preuve Cycle 4 ; Morris décide  
-> **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2  
+> **Référence :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1
+> **Statut :** hypothèse **candidate** — ne valide pas v2.5 ; preuve Cycle 4 ; Morris décide
+> **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2
 > **Cartographie cycles projet (Cycle 2) :** le routage type de cycle projet × profil SFIA s'appuie, en v2.5 candidate, sur `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`.
 
 Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables.
@@ -332,7 +332,7 @@ Intention Morris
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
@@ -348,7 +348,7 @@ Intention Morris
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
@@ -365,7 +365,7 @@ Intention Morris
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
@@ -380,7 +380,7 @@ Intention Morris
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
@@ -448,7 +448,7 @@ Sinon utiliser le template de création ou consolidation adapté.
 - diff ou informations de commit
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 
 **Template :** `prompts/templates/04-validate-cursor-result.md`
 
@@ -459,12 +459,12 @@ Sinon utiliser le template de création ou consolidation adapté.
 **Références obligatoires :**
 
 - `docs/architecture/sfia-delivery-pipeline.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `prompts/templates/05-validate-pr-readiness.md`
+- `prompts/templates/2026-07-04-05-validate-pr-readiness.md`
 - documents de clôture ou de validation de la branche
 
-**Template :** `prompts/templates/05-validate-pr-readiness.md`
+**Template :** `prompts/templates/2026-07-04-05-validate-pr-readiness.md`
 
 **Décision attendue :** READY FOR PR | READY FOR PR WITH RESERVES | NOT READY FOR PR
 
@@ -537,7 +537,7 @@ Sinon utiliser le template de création ou consolidation adapté.
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 - documents audités
 - catalogues, index ou matrices concernés
@@ -566,7 +566,7 @@ Ils doivent toujours déclarer :
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - documents projet disponibles
@@ -580,7 +580,7 @@ Ils doivent toujours déclarer :
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
@@ -597,7 +597,7 @@ Ils doivent toujours déclarer :
 - `docs/foundation/sfia-engineering-principles.md`
 - `docs/architecture/sfia-domain-model.md`
 - `docs/architecture/sfia-meta-model.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - documents projet disponibles
 
@@ -611,7 +611,7 @@ Ils doivent toujours déclarer :
 
 - `docs/foundation/sfia-engineering-principles.md`
 - `docs/architecture/sfia-repository-blueprint.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - documents techniques projet disponibles
 
@@ -637,7 +637,7 @@ Ils doivent toujours déclarer :
 **Références obligatoires :**
 
 - `docs/architecture/sfia-delivery-pipeline.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - documents projet disponibles
 
@@ -649,7 +649,7 @@ Ils doivent toujours déclarer :
 
 **Références obligatoires :**
 
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - documents projet disponibles
@@ -663,7 +663,7 @@ Ils doivent toujours déclarer :
 **Références obligatoires :**
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 - documents projet audités
 
@@ -703,7 +703,7 @@ Ils doivent toujours déclarer :
 **Références obligatoires :**
 
 - `docs/architecture/sfia-delivery-pipeline.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - documents projet disponibles
 
@@ -731,7 +731,7 @@ Ils doivent toujours déclarer :
 
 **Références obligatoires :**
 
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 - rapport QA-G4 post-merge — `qa-g4-post-merge-report.md`
 - `07-delivery-inc-<nn>/inc-<nn>-closure-report.md`
 
@@ -745,7 +745,7 @@ Ils doivent toujours déclarer :
 
 **Références obligatoires :**
 
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 - `prompts/templates/08-capitalize-method-asset.md`
 - `projects/<project>/09-capitalization/inc-<nn>-capitalization-report.md`
 
@@ -779,7 +779,7 @@ Ils doivent toujours déclarer :
 
 **Références obligatoires :**
 
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md`
 - `projects/<project>/05-technical-architecture/` — overview, stack, decisions, data model
 - `projects/<project>/07-delivery-inc-<nn>/delivery-inc-<nn>-decisions.md`
 - `sfia-v2-delivery-qa-test-standard.md` — lien QA
@@ -937,7 +937,7 @@ Référence : `method/sfia-fast-track/automation/sfia-repository-execution-engin
 |---------|--------|
 | Type de cycle | PR readiness |
 | Famille | méthode / fondation |
-| Template | `05-validate-pr-readiness.md` |
+| Template | `2026-07-04-05-validate-pr-readiness.md` |
 | Références | Delivery Pipeline, Decision Engine, Validation Checklist, documents de clôture de la branche |
 | Décision attendue | READY FOR PR \| READY FOR PR WITH RESERVES \| NOT READY FOR PR |
 

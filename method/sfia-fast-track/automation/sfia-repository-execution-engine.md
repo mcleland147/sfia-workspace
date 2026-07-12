@@ -8,9 +8,9 @@ scope: repository execution engine
 
 # SFIA Repository Execution Engine v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Repository execution engine
 
 ## 1. Objectif
@@ -96,7 +96,7 @@ Le Repository Execution Engine s'appuie sur les documents suivants :
 | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Dossier cible et routage documentaire |
 | `docs/architecture/sfia-repository-blueprint.md` | Structure repository et source de vérité |
 | `docs/architecture/sfia-delivery-pipeline.md` | Cycle, PR, post-merge et delivery |
-| `docs/architecture/sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
 | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | Vision automation et moteur repository execution |
 | `method/sfia-fast-track/checklists/` | Checklists de validation et garde-fous |
 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md` | Handoff documentaire v2.4 — non implémenté comme agent |
@@ -612,7 +612,7 @@ Cursor **ne décide pas seul** d'une mise à jour documentaire L3 ni d'un élarg
 ## 24. Related Documents
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`

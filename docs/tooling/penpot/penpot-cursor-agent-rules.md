@@ -1,9 +1,9 @@
 # Penpot Cursor Agent — Règles d'usage SFIA
 
-**Type** : Doctrine agent  
-**Domaine** : UX/UI — Design tooling  
-**Statut** : Draft  
-**Branche** : `tooling/penpot-design-agent`  
+**Type** : Doctrine agent
+**Domaine** : UX/UI — Design tooling
+**Statut** : Draft
+**Branche** : `tooling/penpot-design-agent`
 **Documents associés** : [`penpot-design-agent-architecture.md`](penpot-design-agent-architecture.md), [`penpot-sfia-method-integration.md`](penpot-sfia-method-integration.md)
 
 ---
@@ -114,7 +114,7 @@ Avant toute action sur un fichier Penpot :
 
 Si le test de lecture échoue (`No userToken found`, `No plugin instance connected for user token`), corriger la config ou le plugin — **ne pas** lancer de modifications.
 
-Voir : [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md), [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md).
+Voir : [`2026-06-28-penpot-mcp-self-host-rex.md`](2026-06-28-penpot-mcp-self-host-rex.md), [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md).
 
 ---
 
@@ -130,7 +130,7 @@ Voir : [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md), [`.cursor/m
 
 - Architecture : [`penpot-design-agent-architecture.md`](penpot-design-agent-architecture.md)
 - Intégration méthodes : [`penpot-sfia-method-integration.md`](penpot-sfia-method-integration.md)
-- REX MCP self-host : [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md)
+- REX MCP self-host : [`2026-06-28-penpot-mcp-self-host-rex.md`](2026-06-28-penpot-mcp-self-host-rex.md)
 - Prompts : [`../../../prompts/tooling/penpot/penpot-design-agent-prompt-family.md`](../../../prompts/tooling/penpot/penpot-design-agent-prompt-family.md)
 - MCP template : [`.cursor/mcp-templates/`](../../../.cursor/mcp-templates/)
 

@@ -1,8 +1,8 @@
 # Penpot self-host — Guide Docker SFIA
 
-**Type** : Guide outillage  
-**Domaine** : UX/UI — Design tooling  
-**Statut** : Draft  
+**Type** : Guide outillage
+**Domaine** : UX/UI — Design tooling
+**Statut** : Draft
 **Branche** : `tooling/penpot-design-agent`
 
 ---
@@ -140,7 +140,7 @@ Le MCP Penpot peut être activé **après** :
 - Choisir l'URL MCP selon le **mode d'installation** retenu (self-host vs standalone — voir §9.1).
 - **Aucune clé** ni token dans Git.
 
-Voir [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md) et le REX [`penpot-mcp-self-host-rex.md`](penpot-mcp-self-host-rex.md).
+Voir [`.cursor/mcp-templates/README.md`](../../../.cursor/mcp-templates/README.md) et le REX [`2026-06-28-penpot-mcp-self-host-rex.md`](2026-06-28-penpot-mcp-self-host-rex.md).
 
 ### 9.1 MCP Cursor — retour d'expérience self-host
 

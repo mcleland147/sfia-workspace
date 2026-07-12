@@ -8,9 +8,9 @@ scope: validation engine
 
 # SFIA Validation Engine v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Validation engine
 
 ## 1. Objectif
@@ -90,7 +90,7 @@ Le Validation Engine s'appuie sur les documents suivants :
 | Document | Rôle |
 |----------|------|
 | `docs/foundation/sfia-engineering-principles.md` | Norme supérieure d'exécution |
-| `docs/architecture/sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
 | `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md` | Structure du prompt attendu |
 | `method/sfia-fast-track/automation/sfia-repository-execution-engine.md` | Exécution repository attendue |
 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Boucle ChatGPT ↔ Cursor |
@@ -602,7 +602,7 @@ Il contribue à :
 
 - `method/sfia-fast-track/automation/sfia-documentation-engine.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 
 Relation logique :
 
@@ -628,7 +628,7 @@ Prompt Generation Engine
 ## 26. Related Documents
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`

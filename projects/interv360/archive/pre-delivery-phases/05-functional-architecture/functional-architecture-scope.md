@@ -1,9 +1,9 @@
 # Interv360 — Cadrage architecture fonctionnelle détaillée
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 05-functional-architecture  
-**Type** : Cadrage architecture fonctionnelle  
-**Statut** : Draft  
+**Projet** : PRJ-INTERV360
+**Phase** : 05-functional-architecture
+**Type** : Cadrage architecture fonctionnelle
+**Statut** : Draft
 **Branche** : `arch/interv360-functional-detail`
 
 ---
@@ -34,7 +34,7 @@ Ce document **ne produit pas** de backlog, de user stories, de tests, de code ou
 | `projects/interv360/02-architecture/clarification-cycle-closure.md` | Synthèse clarification |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règles RG priorisées |
 | `projects/interv360/02-architecture/status-mapping.md` | Statuts MVP |
-| `projects/interv360/02-architecture/closure-without-signature.md` | Règles de clôture |
+| `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Règles de clôture |
 | `projects/interv360/03-process/process-analysis.md` | Analyse BPMN |
 | `projects/interv360/03-process/process-cycle-closure.md` | Synthèse BPMN |
 | `projects/interv360/04-adr/ADR-001-status-mapping.md` | Mapping durable des statuts |

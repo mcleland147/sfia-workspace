@@ -1,8 +1,8 @@
 # SFIA v1.1 — Foundation Impact Matrix
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
-**Inventaire associé** : `sfia-v1.1-capitalization-inputs-inventory.md`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
+**Inventaire associé** : `sfia-v1.1-capitalization-inputs-inventory.md`
 **Mode** : planification — aucun document fondateur source modifié
 
 ## 1. Objectif
@@ -16,7 +16,7 @@ Elle complète l'inventaire des apports par une évaluation d'impact, de risque 
 | Document fondateur | Impacts v1.1 à intégrer | Niveau d'impact | Risque | Priorité |
 |--------------------|-------------------------|-----------------|--------|----------|
 | `sfia-platform-architecture.md` | Cartographie repo post-PR #81 ; couches `method/`, `docs/practices/`, `prompts/`, `projects/`, `exports/` ; distinction Git (détail) vs Notion (éditorial) ; module Projects ↔ Interv360 ; lien automation / application factory | **Fort** | Effacer vision Notion-native v1.0 sans section historique ; fichier ~2100 lignes | **P0** |
-| `sfia-decision-engine.md` | Décisions GO/NO-GO FT ; réserves non bloquantes (PR #81, audit Interv360) ; arbitrages MVP ; lien ADR-001–008 ; audit pré-cycle ; décision consolidation vs Notion | **Moyen** | Surcharge si import ADR complets — résumer patterns | **P1** |
+| `2026-06-27-sfia-decision-engine.md` | Décisions GO/NO-GO FT ; réserves non bloquantes (PR #81, audit Interv360) ; arbitrages MVP ; lien ADR-001–008 ; audit pré-cycle ; décision consolidation vs Notion | **Moyen** | Surcharge si import ADR complets — résumer patterns | **P1** |
 | `sfia-delivery-pipeline.md` | Cycle FT : un objectif, PR unique, post-merge, releases ; pattern lots MVP (6 lots) ; séquence Interv360 00–09 ; capitalisations cycles ; note Controlled Delivery complémentaire | **Fort** | Confusion pipeline théorique v1.0 vs opérationnel — clarifier deux niveaux | **P0** |
 | `sfia-domain-model.md` | Objets Cycle, Prompt, Template, Practice, Role Method, Reference Project, Knowledge Page, Audit, REX ; double référentiel présentation/métier ; statuts Draft/Official | **Fort** | Casser identifiants v1.0 — étendre, ne pas renommer | **P0** |
 | `sfia-meta-model.md` | Relations prompts ↔ templates ↔ practices ↔ FT ↔ Notion ; templates FT vs plateforme ; archives vs actif ; maturité Role Method | **Moyen** | Complexité relations — diagramme recommandé | **P1** |
@@ -75,7 +75,7 @@ Elle complète l'inventaire des apports par une évaluation d'impact, de risque 
 | **1** | Mettre à jour Repository Blueprint v1.1 | `sfia-repository-blueprint.md` | Fondation structurelle — débloque tous les autres ; chemins obsolètes P0 |
 | **2** | Mettre à jour Platform Architecture + Delivery Pipeline v1.1 | 2 docs architecture | Vision + cycle opérationnel — cœur v1.1 |
 | **3** | Mettre à jour Domain Model + Metamodel v1.1 | 2 docs architecture | Objets et relations — prérequis Knowledge Layer et practices |
-| **4** | Mettre à jour Decision Engine v1.1 | `sfia-decision-engine.md` | Patterns décisionnels prouvés Interv360 |
+| **4** | Mettre à jour Decision Engine v1.1 | `2026-06-27-sfia-decision-engine.md` | Patterns décisionnels prouvés Interv360 |
 | **5** | Mettre à jour Engineering Principles v1.1 | `sfia-engineering-principles.md` | Garde-fous transverses avant rules unifiées |
 | **6** | Créer ChatGPT ↔ Cursor Operating Model | **nouveau P0** | Lacune centrale — débloque moteurs et automation |
 | **7** | Créer Rules & Guardrails unifié | **nouveau P1** | Consolide 3 sources sans fusion destructive |
@@ -204,7 +204,7 @@ Remaining P1 documents:
 
 The following foundation documents have been updated to v1.1:
 
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/foundation/sfia-engineering-principles.md`
 
 The Engineering Principles are now positioned as the normative execution reference for SFIA.
@@ -535,8 +535,8 @@ The P2.2 cycle has updated the capitalization indexes, completeness matrix and h
 Updated references include:
 
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
 

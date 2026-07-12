@@ -9,9 +9,9 @@ scope: create foundation document
 
 # Create Foundation Document
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Documentation creation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Documentation creation prompts
 **Scope:** Create a new SFIA foundation document
 
 ## 1. Purpose
@@ -73,7 +73,7 @@ Phase / contexte SFIA :
 
 Sources de référence :
 - docs/foundation/sfia-engineering-principles.md
-- docs/architecture/sfia-decision-engine.md
+- docs/architecture/2026-06-27-sfia-decision-engine.md
 - <REFERENCE_SOURCES>
 
 Dossier cible :
@@ -98,7 +98,7 @@ Hors périmètre :
 
 Fichiers à lire :
 - docs/foundation/sfia-engineering-principles.md
-- docs/architecture/sfia-decision-engine.md
+- docs/architecture/2026-06-27-sfia-decision-engine.md
 - <REFERENCE_SOURCES>
 
 Fichiers à modifier :

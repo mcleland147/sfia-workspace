@@ -1,7 +1,7 @@
 # SFIA Foundation Documents — Inventory
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
 **Mode** : identification uniquement — aucun document source modifié
 
 **Inventaires bruts** (archivés M0-DEC-008, 2026-07-12) : [`foundation-candidate-files.txt`](../capitalization-inventories/foundation-candidate-files.txt) (462 fichiers), [`foundation-priority-files.txt`](../capitalization-inventories/foundation-priority-files.txt) (102 fichiers).
@@ -40,7 +40,7 @@ Cette étape ne modifie pas les documents existants.
 | Document | Emplacement actuel | Domaine principal | Domaines secondaires | Statut | Commentaire |
 |----------|--------------------|------------------|----------------------|--------|-------------|
 | `sfia-platform-architecture.md` | `docs/architecture/` | Platform Architecture | Vision SFIA, Automation, Knowledge | **Actif** | ~2100 lignes ; se déclare « Document fondateur SFIA » ; export Notion |
-| `sfia-decision-engine.md` | `docs/architecture/` | Decision Engine | Automation, Validation | **Actif** | ~1600 lignes ; moteur décisionnel officiel v1.0 |
+| `2026-06-27-sfia-decision-engine.md` | `docs/architecture/` | Decision Engine | Automation, Validation | **Actif** | ~1600 lignes ; moteur décisionnel officiel v1.0 |
 | `sfia-delivery-pipeline.md` | `docs/architecture/` | Delivery Pipeline | Validation, Repository Execution | **Actif** | ~1900 lignes ; pipeline officiel avec quality gates |
 | `sfia-domain-model.md` | `docs/architecture/` | Domain Model | Metamodel | **Actif** | Objets métier v1 (Experiment, Project, etc.) |
 | `sfia-meta-model.md` | `docs/architecture/` | Metamodel | Domain Model, Role / Métier | **Actif** | ~1700 lignes ; modules Core/Studio/Runtime/Knowledge/Lab/Projects |
@@ -95,9 +95,9 @@ Cette étape ne modifie pas les documents existants.
 
 | Document | Emplacement actuel | Domaine principal | Domaines secondaires | Statut | Commentaire |
 |----------|--------------------|------------------|----------------------|--------|-------------|
-| `interv360-mvp-delivery-capitalization.md` | `method/sfia-fast-track/cycles/` | Reference Project | Delivery Pipeline | **Actif** | Pattern lots MVP |
-| `interv360-final-capitalization.md` | `method/sfia-fast-track/cycles/` | Reference Project | Vision SFIA | **Actif** | Clôture séquence pilote |
-| `interv360-application-rex.md` | `method/sfia-fast-track/audit-rex/` | Reference Project | Rules & Guardrails | **Actif** | REX structurant |
+| `2026-07-02-interv360-mvp-delivery-capitalization.md` | `method/sfia-fast-track/cycles/` | Reference Project | Delivery Pipeline | **Actif** | Pattern lots MVP |
+| `2026-07-03-interv360-final-capitalization.md` | `method/sfia-fast-track/cycles/` | Reference Project | Vision SFIA | **Actif** | Clôture séquence pilote |
+| `2026-07-03-interv360-application-rex.md` | `method/sfia-fast-track/audit-rex/` | Reference Project | Rules & Guardrails | **Actif** | REX structurant |
 | `projects/interv360/README.md` | `projects/interv360/` | Reference Project | Delivery Pipeline | **Actif** | Index phases 00–09 |
 | `projects/interv360/00-intake/` … `09-roadmap/` | `projects/interv360/` | Reference Project | Tous domaines opérationnels | **Actif** | ~299 docs ; capitalisation terrain |
 | `current-application-audit.md` | `projects/interv360/06-audit-rex/` | Reference Project | Validation Engine | **Actif** | Audit application |
@@ -117,7 +117,7 @@ Cette étape ne modifie pas les documents existants.
 | Document | Pourquoi il est fondateur |
 |----------|---------------------------|
 | `docs/architecture/sfia-platform-architecture.md` | Document fondateur explicite — vision plateforme, modules, principes |
-| `docs/architecture/sfia-decision-engine.md` | Moteur de décision officiel v1.0 — cerveau de la plateforme |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Moteur de décision officiel v1.0 — cerveau de la plateforme |
 | `docs/architecture/sfia-delivery-pipeline.md` | Pipeline delivery officiel — phases, gates, capitalisation |
 | `docs/architecture/sfia-domain-model.md` | Modèle de domaine officiel — objets métier avant toute implémentation |
 | `docs/architecture/sfia-meta-model.md` | Méta-modèle conceptuel — langage commun artefacts et cycles |
@@ -143,7 +143,7 @@ Cette étape ne modifie pas les documents existants.
 | Domaine | Document candidat | Action proposée |
 |---------|------------------|----------------|
 | Platform Architecture | `docs/architecture/sfia-platform-architecture.md` | **Promouvoir** — aligner avec état repo post-cleanup |
-| Decision Engine | `docs/architecture/sfia-decision-engine.md` | **Promouvoir** — relier à Fast Track opérationnel |
+| Decision Engine | `docs/architecture/2026-06-27-sfia-decision-engine.md` | **Promouvoir** — relier à Fast Track opérationnel |
 | Delivery Pipeline | `docs/architecture/sfia-delivery-pipeline.md` + `sfia-global-capitalization.md` | **Consolider** — fusion conceptuel / opérationnel |
 | Domain Model | `docs/architecture/sfia-domain-model.md` | **Promouvoir** — vérifier objets vs repo actuel |
 | Metamodel | `docs/architecture/sfia-meta-model.md` | **Promouvoir** — mapper artefacts repo (method/, docs/, prompts/) |
@@ -197,7 +197,7 @@ The foundation v1.1 consolidation created or updated the following operational a
 | Asset | Role |
 |-------|------|
 | `docs/foundation/sfia-engineering-principles.md` | Higher-order execution principles |
-| `docs/architecture/sfia-decision-engine.md` | Decision, reserves and GO / NO-GO logic |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Decision, reserves and GO / NO-GO logic |
 | `docs/architecture/sfia-repository-blueprint.md` | Repository structure and routing |
 | `docs/architecture/sfia-delivery-pipeline.md` | Delivery and post-merge workflow |
 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | ChatGPT ↔ Cursor execution loop |

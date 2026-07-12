@@ -112,7 +112,7 @@ Produire un retour d'expérience honnête sur la trajectoire Interv360.
 
 Livrable attendu :
 
-`method/sfia-fast-track/audit-rex/interv360-application-rex.md`
+`method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md`
 
 ### Statut
 
@@ -120,7 +120,7 @@ REX réalisé et intégré à `main`.
 
 Livrable :
 
-`method/sfia-fast-track/audit-rex/interv360-application-rex.md`
+`method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md`
 
 Décision :
 
@@ -271,8 +271,8 @@ Livrables :
 - `method/sfia-fast-track/templates/cycle-template.md`
 - `method/sfia-fast-track/templates/pr-body-template.md`
 - `method/sfia-fast-track/templates/post-merge-template.md`
-- `method/sfia-fast-track/templates/audit-template.md`
-- `method/sfia-fast-track/templates/rex-template.md`
+- `method/sfia-fast-track/templates/2026-07-03-audit-template.md`
+- `method/sfia-fast-track/templates/2026-07-03-rex-template.md`
 - `method/sfia-fast-track/documentation/archive/checklists/validation-checklist.md`
 - `method/sfia-fast-track/checklists/guardrails-checklist.md`
 - `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md`

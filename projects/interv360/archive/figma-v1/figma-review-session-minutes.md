@@ -1,11 +1,11 @@
 # Interv360 — Compte rendu revue simulée Figma V1
 
-**Projet** : PRJ-INTERV360  
-**Phase source** : 02-architecture  
-**Jalon** : Revue Figma V1  
-**Statut** : Reviewed — Simulated  
-**Type** : Compte rendu de revue transverse simulée  
-**Source** : `figma-review-session-preparation.md` + `figma-review-session-minutes-template.md` + `role-methods-enrichment-after-figma-v1.md` + méthodes rôle SFIA  
+**Projet** : PRJ-INTERV360
+**Phase source** : 02-architecture
+**Jalon** : Revue Figma V1
+**Statut** : Reviewed — Simulated
+**Type** : Compte rendu de revue transverse simulée
+**Source** : `figma-review-session-preparation.md` + `figma-review-session-minutes-template.md` + `role-methods-enrichment-after-figma-v1.md` + méthodes rôle SFIA
 **Objet** : documenter la validation simulée Figma V1 par les rôles SFIA enrichis
 
 ---
@@ -53,7 +53,7 @@ La revue s'appuie explicitement sur **`role-methods-enrichment-after-figma-v1.md
 | `figma-design-instructions.md` | Garde-fous design ; direction visuelle |
 | `architecture-p1-summary.md` | ADR P1 ; intégrations simulées |
 | `architecture-p2-design-impact-summary.md` | ADR P2 design-impact |
-| `adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` | IA hors MVP |
+| `adr/adr-cand-009-ai-light-post-mvp-confirmation.md` | IA hors MVP |
 
 **Captures analysées**
 
