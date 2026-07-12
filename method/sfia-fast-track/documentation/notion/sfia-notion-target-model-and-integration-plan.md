@@ -118,7 +118,7 @@ Page d'entrée unique. Répond à :
 | Je veux capitaliser un projet | §6 Capitalisation | Capitalisation |
 | Je veux préparer une publication Notion | §7 Archives + checklist | Préparation Notion |
 
-**Sources repo :** `sfia-global-capitalization.md`, Fast Track README, `sfia-cycle-routing-guide.md`
+**Sources repo :** `sfia-global-capitalization-reference.md`, Fast Track README, `sfia-cycle-routing-guide.md`
 
 ### 4.2 Démarrer avec SFIA
 

@@ -36,7 +36,7 @@ method/sfia-fast-track/
 
 Normative reference: `docs/foundation/sfia-engineering-principles.md`
 
-- `sfia-global-capitalization.md`
+- `sfia-global-capitalization-reference.md`
 - `sfia-rules-update.md`
 - `sfia-architecture-standards.md`
 - `sfia-consolidation-roadmap.md`

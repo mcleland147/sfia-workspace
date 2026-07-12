@@ -53,7 +53,7 @@
       "repoLinks": [
         {
           "label": "Global Capitalization",
-          "path": "method/sfia-fast-track/core/sfia-global-capitalization.md"
+          "path": "method/sfia-fast-track/core/sfia-global-capitalization-reference.md"
         }
       ]
     },
@@ -227,7 +227,7 @@
           "status": "planned",
           "repoLinks": [
             {
-              "path": "method/sfia-fast-track/core/sfia-global-capitalization.md"
+              "path": "method/sfia-fast-track/core/sfia-global-capitalization-reference.md"
             }
           ]
         }

@@ -144,7 +144,7 @@ Références appliquées :
 | `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Cycle Routing Guide | SFIA Operating Model | Guide opérationnel | candidate | Haute | PAGE_NOTION_DEDIEE | Haute | Utilisateur méthode | Créer page Notion dédiée | Routage cycles — nouveau asset v1.1 | Statut candidate — valider après usage |
 | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Knowledge Layer | SFIA Operating Model | Guide opérationnel | validated | Haute | PAGE_NOTION_DEDIEE | Haute | Contributeur SFIA | Créer page Notion dédiée | Routing Matrix + règles Notion | — |
 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | Rules & Guardrails | SFIA Operating Model | Guide opérationnel | validated | Haute | PAGE_NOTION_DEDIEE | Haute | Utilisateur méthode | Créer page Notion dédiée | Garde-fous canoniques | — |
-| `method/sfia-fast-track/core/sfia-global-capitalization.md` | Global Capitalization | SFIA Operating Model | Capitalisation | validated | Haute | EDITORIALISER_AVANT_PUBLICATION | Haute | Utilisateur méthode | Éditorialiser | Preuve opérationnelle — long, traces merge | Retirer détails Git bruts |
+| `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` | Global Capitalization | SFIA Operating Model | Capitalisation | validated | Haute | EDITORIALISER_AVANT_PUBLICATION | Haute | Utilisateur méthode | Éditorialiser | Preuve opérationnelle — long, traces merge | Retirer détails Git bruts |
 | `method/sfia-fast-track/core/sfia-rules-update.md` | Rules Update | SFIA Operating Model | Guide opérationnel | historical | Moyenne | RESUMER_DANS_NOTION_AVEC_LIEN_REPO | Faible | Contributeur SFIA | Résumer et lier au repo | Trace historique règles | Supplanté par rules-and-guardrails |
 | `method/sfia-fast-track/core/sfia-architecture-standards.md` | Architecture Standards | SFIA Operating Model | Guide opérationnel | validated | Moyenne | EDITORIALISER_AVANT_PUBLICATION | Moyenne | Contributeur SFIA | Éditorialiser | Standards méthode | — |
 | `method/sfia-fast-track/core/sfia-consolidation-roadmap.md` | Consolidation Roadmap | SFIA Operating Model | Roadmap | validated | Moyenne | EDITORIALISER_AVANT_PUBLICATION | Moyenne | Morris / mainteneur | Éditorialiser | Roadmap amélioration SFIA | — |
@@ -292,7 +292,7 @@ Documents recommandés en **page Notion autonome** (priorité haute) :
 | 8 | `prompts/prompt-catalog.md` | Utilisateur méthode | Page hub + lien bases |
 | 9 | `method/sfia-fast-track/ui/figma-design-first-ui-method.md` | Utilisateur méthode | Publier |
 | 10 | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | Contributeur SFIA | Résumer vision niveaux |
-| 11 | `method/sfia-fast-track/core/sfia-global-capitalization.md` | Utilisateur méthode | Forte éditorialisation |
+| 11 | `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` | Utilisateur méthode | Forte éditorialisation |
 | 12 | `projects/interv360/README.md` + synthèse | Lecteur projet | Page hub Interv360 |
 | 13 | `projects/interv360/06-audit-rex/current-application-audit.md` | Lecteur projet | Synthèse audit |
 | 14 | `projects/interv360/08-presentation/interv360-demo-one-page-summary.md` | Lecteur externe | Showcase |
@@ -306,7 +306,7 @@ Documents recommandés en **page Notion autonome** (priorité haute) :
 | Document | Raison | Priorité |
 |----------|--------|----------|
 | Engines (Prompt Generation, Repository Execution, Validation) | Specs techniques — extraire règles opérationnelles | Moyenne |
-| `sfia-global-capitalization.md` | Long, traces Git/merge | Haute |
+| `sfia-global-capitalization-reference.md` | Long, traces Git/merge | Haute |
 | `sfia-delivery-pipeline.md` | Pipeline technique | Haute |
 | `sfia-repository-blueprint.md` | Arborescence repo | Moyenne |
 | `sfia-platform-architecture.md`, domain/meta-model | Dense architecture | Moyenne |

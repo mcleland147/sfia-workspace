@@ -60,7 +60,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 
 | Statut | Documents sources | Commentaire |
 |--------|-------------------|-------------|
-| **Partiel** | `docs/architecture/sfia-platform-architecture.md` (vision plateforme) ; `method/sfia-fast-track/core/sfia-global-capitalization.md` (vision Fast Track opérationnelle) ; `docs/foundation/sfia-engineering-principles.md` | Deux couches : vision plateforme (Notion) vs vision méthode pilote (Git). Cohérentes mais non fusionnées |
+| **Partiel** | `docs/architecture/sfia-platform-architecture.md` (vision plateforme) ; `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` (vision Fast Track opérationnelle) ; `docs/foundation/sfia-engineering-principles.md` | Deux couches : vision plateforme (Notion) vs vision méthode pilote (Git). Cohérentes mais non fusionnées |
 
 ### 5.2. Platform Architecture
 
@@ -78,7 +78,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 
 | Statut | Documents sources | Commentaire |
 |--------|-------------------|-------------|
-| **OK** | `docs/architecture/sfia-delivery-pipeline.md` ; `method/sfia-fast-track/core/sfia-global-capitalization.md` ; `method/sfia-fast-track/cycles/` ; templates `cycle-template.md`, `mvp-delivery-pattern-template.md` | Pipeline conceptuel + preuve opérationnelle Interv360 |
+| **OK** | `docs/architecture/sfia-delivery-pipeline.md` ; `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` ; `method/sfia-fast-track/cycles/` ; templates `cycle-template.md`, `mvp-delivery-pattern-template.md` | Pipeline conceptuel + preuve opérationnelle Interv360 |
 
 ### 5.5. Domain Model
 
@@ -108,7 +108,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 
 | Statut | Documents sources | Commentaire |
 |--------|-------------------|-------------|
-| **Partiel** | `sfia-automation-architecture.md` §2–3, §13 ; `sfia-global-capitalization.md` §13 ; `ui/figma-design-first-ui-method.md` (prompt Cursor UI) ; `archive/interv360-realization/realization-prompt-family.md` | Boucle décrite mais **pas de document canonique** `sfia-chatgpt-cursor-operating-model.md` |
+| **Partiel** | `sfia-automation-architecture.md` §2–3, §13 ; `sfia-global-capitalization-reference.md` §13 ; `ui/figma-design-first-ui-method.md` (prompt Cursor UI) ; `archive/interv360-realization/realization-prompt-family.md` | Boucle décrite mais **pas de document canonique** `sfia-chatgpt-cursor-operating-model.md` |
 
 ### 5.10. Repository Execution
 
@@ -163,7 +163,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 | `sfia-domain-model.md` | Concepts métier | **Existe** — vérifier objets CMP |
 | `sfia-metamodel.md` | Modèle artefacts, cycles, rôles | **Existe** — mapper repo |
 | `sfia-rules-and-guardrails.md` | Règles fondamentales unifiées | `sfia-engineering-principles.md` + `sfia-rules-update.md` + `guardrails-checklist.md` |
-| `sfia-chatgpt-cursor-operating-model.md` | Modèle d'échange ChatGPT ↔ Cursor | `sfia-automation-architecture.md` §2–3, `sfia-global-capitalization.md` §13 |
+| `sfia-chatgpt-cursor-operating-model.md` | Modèle d'échange ChatGPT ↔ Cursor | `sfia-automation-architecture.md` §2–3, `sfia-global-capitalization-reference.md` §13 |
 | `sfia-prompt-generation-engine.md` | Spec moteur prompts | `sfia-automation-architecture.md` §5.5 + `prompt-catalog.md` |
 | `sfia-repository-execution-engine.md` | Spec exécution repo | `sfia-repository-blueprint.md` + règles PR/post-merge |
 | `sfia-validation-engine.md` | Spec contrôles GO/NO-GO | `sfia-automation-architecture.md` §5.7 + checklists |

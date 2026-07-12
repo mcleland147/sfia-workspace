@@ -69,7 +69,7 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 
 | Domaine | Document attendu | Emplacement attendu | Statut | Commentaire |
 |---------|------------------|---------------------|--------|-------------|
-| Vision globale | Capitalisation globale SFIA | `method/sfia-fast-track/core/sfia-global-capitalization.md` | **OK** | Preuve opérationnelle Interv360 — cross-réfs v1.1 ajoutées (P2.1) |
+| Vision globale | Capitalisation globale SFIA | `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` | **OK** | Preuve opérationnelle Interv360 — cross-réfs v1.1 ajoutées (P2.1) |
 | Règles méthode | Règles opérationnelles actuelles | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | **OK** | Référence opérationnelle v1.1 |
 | Règles historiques | Trace consolidation règles | `method/sfia-fast-track/core/sfia-rules-update.md` | **OK** | Trace historique — cross-réfs v1.1 ajoutées (P2.1) |
 | Operating Model | Boucle ChatGPT ↔ Cursor | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | **OK** | Foundation v1.1 |

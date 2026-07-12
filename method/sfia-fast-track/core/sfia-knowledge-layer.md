@@ -13,6 +13,17 @@ scope: knowledge layer
 **Updated after:** SFIA foundation v1.1 consolidation  
 **Scope:** Knowledge layer
 
+## SFIA v2.6 cartography status
+
+| Élément | Statut |
+|---------|--------|
+| Cartography tag | `lot-A` |
+| Authority | **reference** — active Documentation Routing Matrix |
+| Usage (cartography) | Clarified: **non-operational reference** for routing and Notion preparation rules |
+| SFIA v2.4 | **Baseline** opérationnelle |
+| SFIA v2.6 | **Candidate** — ne remplace pas v2.4 |
+| Canonical promotion | **none** — complements `sfia-rules-and-guardrails.md` and operating model |
+
 ## 1. Objectif
 
 Ce document définit la couche knowledge SFIA v1.1.

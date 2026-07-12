@@ -67,7 +67,7 @@ Analyser l'état réel de l'application Interv360 après MVP + Premium UI.
 
 Livrable attendu :
 
-`projects/interv360/04-delivery/current-application-audit.md`
+`projects/interv360/06-audit-rex/current-application-audit.md`
 
 Décision attendue :
 
@@ -81,7 +81,7 @@ Audit réalisé et intégré à `main`.
 
 Livrable :
 
-`projects/interv360/04-delivery/current-application-audit.md`
+`projects/interv360/06-audit-rex/current-application-audit.md`
 
 Décision :
 
@@ -112,7 +112,7 @@ Produire un retour d'expérience honnête sur la trajectoire Interv360.
 
 Livrable attendu :
 
-`method/sfia-fast-track/interv360-application-rex.md`
+`method/sfia-fast-track/audit-rex/interv360-application-rex.md`
 
 ### Statut
 
@@ -120,7 +120,7 @@ REX réalisé et intégré à `main`.
 
 Livrable :
 
-`method/sfia-fast-track/interv360-application-rex.md`
+`method/sfia-fast-track/audit-rex/interv360-application-rex.md`
 
 Décision :
 
@@ -149,7 +149,7 @@ Capitaliser la méthode SFIA au-delà d'Interv360.
 
 Livrable attendu :
 
-`method/sfia-fast-track/core/sfia-global-capitalization.md`
+`method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 
 ### Statut
 
@@ -157,7 +157,7 @@ Capitalisation SFIA globale réalisée et intégrée à `main`.
 
 Livrables :
 
-- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 - `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 
 Décision :
@@ -189,9 +189,9 @@ Analyser toute la documentation existante et améliorer sa cohérence.
 
 Livrables attendus :
 
-- `method/sfia-fast-track/documentation-audit.md`
-- `method/sfia-fast-track/documentation-structure-target.md`
-- `method/sfia-fast-track/notion-publication-plan.md`
+- `method/sfia-fast-track/documentation/documentation-audit.md`
+- `method/sfia-fast-track/documentation/documentation-structure-target.md`
+- `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`
 
 Important :
 
@@ -203,9 +203,9 @@ Revue documentaire réalisée et intégrée à `main`.
 
 Livrables :
 
-- `method/sfia-fast-track/documentation-audit.md`
-- `method/sfia-fast-track/documentation-structure-target.md`
-- `method/sfia-fast-track/notion-publication-plan.md`
+- `method/sfia-fast-track/documentation/documentation-audit.md`
+- `method/sfia-fast-track/documentation/documentation-structure-target.md`
+- `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`
 
 Décision :
 
@@ -245,8 +245,8 @@ Axes possibles :
 
 Livrables possibles :
 
-- `method/sfia-fast-track/sfia-rules-update.md`
-- `method/sfia-fast-track/sfia-architecture-standards.md`
+- `method/sfia-fast-track/core/sfia-rules-update.md`
+- `method/sfia-fast-track/core/sfia-architecture-standards.md`
 - `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 - `method/sfia-fast-track/templates/`
 - `method/sfia-fast-track/checklists/`
@@ -265,8 +265,8 @@ Objectif :
 
 Livrables :
 
-- `method/sfia-fast-track/sfia-rules-update.md`
-- `method/sfia-fast-track/sfia-architecture-standards.md`
+- `method/sfia-fast-track/core/sfia-rules-update.md`
+- `method/sfia-fast-track/core/sfia-architecture-standards.md`
 - `method/sfia-fast-track/README.md`
 - `method/sfia-fast-track/templates/cycle-template.md`
 - `method/sfia-fast-track/templates/pr-body-template.md`

@@ -292,7 +292,7 @@ Résultat attendu :
 
 ### 8.1. Prompts types (référence)
 
-Extraits de `sfia-global-capitalization.md` §13 :
+Extraits de `sfia-global-capitalization-reference.md` §13 :
 
 **Début de cycle :**
 
