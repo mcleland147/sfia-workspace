@@ -14,7 +14,7 @@
 | Repository | `mcleland147/sfia-workspace` |
 | Base `main` | `1ab67d3a53a85e84a0effcf3a6746c6f0f809fd6` (merge PR #176) |
 | Branche | `docs/close-lot-d2-status` |
-| HEAD | `c0fc4b2e8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8` |
+| HEAD | `c0fc4b26af701a97ebec7b75c54247ab775ab4c1` |
 | PR | [#177](https://github.com/mcleland147/sfia-workspace/pull/177) — **OPEN, NOT MERGED** |
 
 ---
