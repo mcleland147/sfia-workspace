@@ -124,7 +124,7 @@ Morris — GO INC-(n+1) ? (L0 — séparé)
 | Artefact | Chemin typique |
 |----------|----------------|
 | QA dossier | `08-qa-test/inc-0n/` |
-| QA-G4 post-merge | `08-qa-test/inc-0n/qa-g4-post-merge-report.md` |
+| QA-G4 post-merge | `08-qa-test/inc-0n/2026-07-07-qa-g4-post-merge-report.md` |
 
 ### Clôture et capitalisation
 
@@ -209,7 +209,7 @@ Voir : `sfia-v2-automation-levels.md`, `sfia-v2-delivery-qa-test-standard.md`.
 | Closure | #110 | `2bbb699` | CLOSED WITH RESERVES |
 | Capitalization | *(ce cycle)* | — | Documentaire |
 
-Rapport projet : `projects/chantiers360-v2/09-capitalization/inc-01-capitalization-report.md`
+Rapport projet : `projects/chantiers360-v2/09-capitalization/2026-07-06-inc-01-capitalization-report.md`
 
 ## 13. Explicitement hors scope
 
@@ -276,6 +276,6 @@ Pour un **INC mineur**, QA-G4 et closure **peuvent être regroupés** en une seu
 - `method/sfia-fast-track/checklists/sfia-validation-checklist.md` — §12.1, §13.1
 - `sfia-v2-figma-fidelity-gate-standard.md`
 - `sfia-v2-project-bootstrap-standard.md`
-- `projects/chantiers360-v2/09-capitalization/inc-01-capitalization-report.md`
+- `projects/chantiers360-v2/09-capitalization/2026-07-06-inc-01-capitalization-report.md`
 
 **Decision (provisional) :** SFIA V2.0 INCREMENTAL DELIVERY CLOSURE STANDARD DOCUMENTED — PENDING MORRIS VALIDATION

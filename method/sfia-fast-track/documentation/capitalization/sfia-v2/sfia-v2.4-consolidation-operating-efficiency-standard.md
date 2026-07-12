@@ -18,7 +18,7 @@
 | **Version** | SFIA v2.4 |
 | **Statut** | Standard de consolidation — en attente validation Morris post-rédaction |
 | **Baseline précédente** | SFIA v2.3.1 (opérationnelle) |
-| **Déclencheur** | `chantiers360-v2-final-pilot-rex-report.md` — pilote fondateur bouclé |
+| **Déclencheur** | `2026-07-07-chantiers360-v2-final-pilot-rex-report.md` — pilote fondateur bouclé |
 | **Décision Morris** | GO SFIA v2.4 — consolidation operating model |
 | **v3.0** | **Immediate NO-GO** — hors périmètre v2.4 |
 | **Nature** | Decision-driven · repo-first · documentation-only |
@@ -51,7 +51,7 @@ SFIA v2.4 consolide la méthode **après le pilote Chantiers360 v2** en réduisa
 
 ## 3. Verdict REX fondateur
 
-Verdict capitalisé du pilote Chantiers360 v2 (`chantiers360-v2-final-pilot-rex-report.md`) :
+Verdict capitalisé du pilote Chantiers360 v2 (`2026-07-07-chantiers360-v2-final-pilot-rex-report.md`) :
 
 | Verdict | Lecture v2.4 |
 |---------|--------------|
@@ -61,7 +61,7 @@ Verdict capitalisé du pilote Chantiers360 v2 (`chantiers360-v2-final-pilot-rex-
 | **V2.4 CONSOLIDATION RECOMMENDED** | Ce standard répond à ce verdict |
 | **V3.0 IMMEDIATE NO-GO** | v2.4 ≠ v3.0 — consolidation uniquement |
 
-**Métriques pilote de référence** (`chantiers360-v2-pilot-metrics-capitalization-report.md`) :
+**Métriques pilote de référence** (`2026-07-07-chantiers360-v2-pilot-metrics-capitalization-report.md`) :
 
 - ~3 jours / ~44 h — 44 PR — 6 code / 38 docs — 8 micro-alignements (18 %)
 
@@ -480,10 +480,10 @@ Le pilote Chantiers360 v2 a **prouvé** la méthode et **révélé** un operatin
 
 | Document | Chemin |
 |----------|--------|
-| REX final pilote | `projects/chantiers360-v2/09-capitalization/chantiers360-v2-final-pilot-rex-report.md` |
-| Métriques pilote | `projects/chantiers360-v2/09-capitalization/chantiers360-v2-pilot-metrics-capitalization-report.md` |
+| REX final pilote | `projects/chantiers360-v2/09-capitalization/2026-07-07-chantiers360-v2-final-pilot-rex-report.md` |
+| Métriques pilote | `projects/chantiers360-v2/09-capitalization/2026-07-07-chantiers360-v2-pilot-metrics-capitalization-report.md` |
 | Comparaison V0 | `projects/chantiers360-v2/09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` |
-| Capitalisation MVP | `projects/chantiers360-v2/09-capitalization/mvp-capitalization-report.md` |
+| Capitalisation MVP | `projects/chantiers360-v2/09-capitalization/2026-07-07-mvp-capitalization-report.md` |
 
 ---
 

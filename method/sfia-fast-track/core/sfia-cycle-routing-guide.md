@@ -732,7 +732,7 @@ Ils doivent toujours déclarer :
 **Références obligatoires :**
 
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
-- rapport QA-G4 post-merge — `qa-g4-post-merge-report.md`
+- rapport QA-G4 post-merge — `2026-07-07-qa-g4-post-merge-report.md`
 - `07-delivery-inc-<nn>/inc-<nn>-closure-report.md`
 
 **Livrables attendus :** statut CLOSED ou CLOSED WITH RESERVES ; réserves documentées.

@@ -98,7 +98,7 @@ Ces prompts **ne doivent pas** :
 
 **Entrées :** `test-scenarios.md`, `qa-strategy.md`, code incrément, commandes projet.
 
-**Sortie :** tests dans `app/` (ou chemin documenté), `qa-implementation-report.md`.
+**Sortie :** tests dans `app/` (ou chemin documenté), `2026-07-06-qa-implementation-report.md`.
 
 **Garde-fous :** périmètre US incrément ; pas de refactor hors scope ; pas de PR.
 
@@ -110,7 +110,7 @@ Ces prompts **ne doivent pas** :
 
 **Entrées :** branche delivery, scripts `lint`/`build`/`test`, scénarios, commit.
 
-**Sortie :** `qa-execution-report.md` — commandes, pass/fail, US couvertes, logs, verdict proposé.
+**Sortie :** `2026-07-06-qa-execution-report.md` — commandes, pass/fail, US couvertes, logs, verdict proposé.
 
 **Garde-fous :** rapport factuel ; pas de GO Morris implicite.
 
@@ -120,7 +120,7 @@ Ces prompts **ne doivent pas** :
 
 **Usage :** Après exécution — préparation décision Morris.
 
-**Entrées :** `qa-execution-report.md`, écarts backlog/code, AC non couverts.
+**Entrées :** `2026-07-06-qa-execution-report.md`, écarts backlog/code, AC non couverts.
 
 **Sortie :** `qa-reserves.md` — bloquante / majeure / mineure, impact, recommandation GO/NO-GO.
 
@@ -134,7 +134,7 @@ Ces prompts **ne doivent pas** :
 
 **Entrées :** tous artefacts `08-qa-test/inc-<nn>/`, rapport exécution, réserves.
 
-**Sortie :** `qa-readiness.md` — checklist QA-G3, verdict GO / GO WITH RESERVES / NO-GO, preuves pour Morris.
+**Sortie :** `2026-07-06-qa-readiness.md` — checklist QA-G3, verdict GO / GO WITH RESERVES / NO-GO, preuves pour Morris.
 
 **Garde-fous :** pas de PR readiness sans QA-G3 ; pas de création PR.
 

@@ -61,7 +61,7 @@ Ces prompts **ne doivent pas** :
 
 **Usage :** Après revue visuelle capture vs `npm run dev`.
 
-**Actions :** documenter D1 (fidélité pixel-close), D2 (corrections bloquantes), D3 (GO delivery — séparé) dans `spike-decisions.md` ; mettre à jour `visual-comparison-report.md`.
+**Actions :** documenter D1 (fidélité pixel-close), D2 (corrections bloquantes), D3 (GO delivery — séparé) dans `2026-07-06-spike-decisions.md` ; mettre à jour `2026-07-06-visual-comparison-report.md`.
 
 **Invariant :** D3 non accordé par défaut si Morris n'a pas explicitement donné GO delivery.
 
