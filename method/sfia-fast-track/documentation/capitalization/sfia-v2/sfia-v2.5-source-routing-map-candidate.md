@@ -68,7 +68,7 @@ Il vise à éviter :
 | `prompts/prompt-catalog.md` | Catalogue prompts SFIA validés / historiques | Référence prompts existants ; **ne pas modifier** sans GO Morris | Génération nouveau prompt v2.5 (→ template Cycle 3) ; source opérationnelle par défaut v2.5 candidate | ChatGPT (lecture), Morris | Git only — protégé |
 | `docs/tooling/mcp/*` | Doctrine et tooling SFIA 3.0 / MCP | **Jamais** en trajectoire v2.5 courante | Tout cycle v2.5 sans réouverture explicite Morris | — | **Hors trajectoire** |
 | `.sfia/*` | Bridge, Runner, gates, tasks, reports automation | **Jamais** en trajectoire v2.5 courante | Tout cycle v2.5 sans réouverture explicite Morris | — | **Hors trajectoire** |
-| `method/sfia-fast-track/documentation/capitalization/sfia-v3/*` | Clôture et historique exploration SFIA 3.0 | Confirmation que v3 est gelé ; contexte décisionnel | Routage opérationnel v2.5 ; relance automation | Morris (lecture ponctuelle) | **Hors trajectoire** |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/*` | Clôture et historique exploration SFIA 3.0 | Confirmation que v3 est gelé ; contexte décisionnel | Routage opérationnel v2.5 ; relance automation | Morris (lecture ponctuelle) | **Hors trajectoire** |
 
 ---
 
@@ -138,7 +138,7 @@ Il vise à éviter :
 
 Les éléments suivants sont **hors trajectoire courante SFIA v2.5** :
 
-- SFIA 3.0 — doctrine, exploration, clôture (`method/.../sfia-v3/`, `docs/tooling/mcp/`)
+- SFIA 3.0 — doctrine, exploration, clôture (`method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/`, `docs/tooling/mcp/`)
 - MCP Bridge / Runner / automation (`.sfia/`)
 - Templates JSON SFIA 3.0 (`docs/templates/sfia-3-*`)
 
