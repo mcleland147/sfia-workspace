@@ -4,7 +4,7 @@
 **Branche** : `capitalization/sfia-documentation-completeness`  
 **Mode** : identification uniquement — aucun document source modifié
 
-**Inventaires bruts** (archivés M0-DEC-008, 2026-07-12) : [`foundation-candidate-files.txt`](../archive/capitalization-inventories/foundation-candidate-files.txt) (462 fichiers), [`foundation-priority-files.txt`](../archive/capitalization-inventories/foundation-priority-files.txt) (102 fichiers).
+**Inventaires bruts** (archivés M0-DEC-008, 2026-07-12) : [`foundation-candidate-files.txt`](../../archive/capitalization-inventories/foundation-candidate-files.txt) (462 fichiers), [`foundation-priority-files.txt`](../../archive/capitalization-inventories/foundation-priority-files.txt) (102 fichiers).
 
 ## 1. Objectif
 
