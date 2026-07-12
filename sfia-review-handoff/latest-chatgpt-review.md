@@ -1,142 +1,500 @@
-# SFIA Review Pack — Light
+# SFIA Review Pack — Lot E Qualification
 
-**Date/heure :** 2026-07-12 19:30 Europe/Paris
-**Cycle :** Capitalisation documentaire / correction statut post-merge D3 et clôture Lot D
-**Profil :** Light
-**Décision Morris :** GO explicite micro-PR clôture statut D3 et Lot D
-**Base Git :** `main` @ `d2472e9c7973b23450577001688972a7fbd9ad7d`
-**Branche :** `docs/close-lot-d3-status`
-**HEAD :** `6cdda92f2354effd93213f971051c22df76c05d2`
-**PR :** https://github.com/mcleland147/sfia-workspace/pull/179
+**Date/heure :** 2026-07-12 20:05 Europe/Paris
+**Cycle :** QA documentaire / qualification Lot E global controls
+**Profil :** Standard
+**Décision Morris :** GO explicite qualification Lot E read-only
+**Base Git :** `main` @ `688ab7fb4a74844969a794f80065c9761fdf3893`
+**Branche :** `qualification/sfia-v2.6-lot-e-global-controls`
+**HEAD :** `de48503d7af4b8c021cfe13a914056ffa91a2144`
+**PR :** https://github.com/mcleland147/sfia-workspace/pull/180
 
 ## synthesis only
 
 **no**
 
-## Fichier modifié
+## Manifeste 75/75 — statistiques
 
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md`
-
-## Anciennes sections complètes
-
-### Lot 0 — Next gate (avant)
+```json
+{
+  "lot": "E",
+  "file_count": 75,
+  "csv_sha256": "00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275",
+  "classifications": {
+    "fix-links": 31,
+    "no-action": 42,
+    "historical-keep": 2
+  },
+  "file_types": {
+    "README": 20,
+    "other": 55
+  },
+  "exists_in_git": 75,
+  "link_totals": {
+    "outgoing": 486,
+    "valid_internal": 290,
+    "broken_internal": 196,
+    "anchors": 0,
+    "external": 0,
+    "old_lot_d_refs": 10,
+    "incoming_refs_csv": 123
+  },
+  "top_10_most_broken": [
+    {
+      "current_path": "method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md",
+      "broken_internal_links": 19,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "docs/tooling/penpot/penpot-sfia-method-integration.md",
+      "broken_internal_links": 12,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md",
+      "broken_internal_links": 12,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md",
+      "broken_internal_links": 12,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "docs/practices/ux-ui/ux-ui-reprise-checklist.md",
+      "broken_internal_links": 9,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md",
+      "broken_internal_links": 9,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "docs/practices/architecture/functional-architecture-checklist.md",
+      "broken_internal_links": 8,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "docs/practices/architecture/functional-architecture-deliverables-standard.md",
+      "broken_internal_links": 8,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md",
+      "broken_internal_links": 8,
+      "classification": "fix-links"
+    },
+    {
+      "current_path": "docs/practices/ux-ui/ux-ui-reprise-method.md",
+      "broken_internal_links": 8,
+      "classification": "fix-links"
+    }
+  ],
+  "proposed_sub_lots_summary": {
+    "E1": 31,
+    "E2": 6,
+    "E3": 2
+  }
+}
 
 ```
-| **Next gate** | D3 merge — separate Morris GO required |
+
+## Rapport de qualification — contenu complet
+
+# SFIA v2.6 — Lot E Global Controls — Qualification
+
+**Horodatage :** 2026-07-12 20:00 Europe/Paris
+**Cycle :** QA documentaire / qualification Lot E — contrôles globaux README/index
+**Profil :** Standard
+**Décision Morris :** GO explicite — qualification Lot E read-only — **aucune exécution corrective**
+**Branche :** `qualification/sfia-v2.6-lot-e-global-controls`
+**Base Git :** `main` @ `688ab7fb4a74844969a794f80065c9761fdf3893`
+**CSV SHA-256 :** `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged**
+
+---
+
+## 1. Local Git Truth Check
+
+| Contrôle | Résultat |
+|----------|----------|
+| Repository | `/Users/morris/Projects/sfia-workspace` |
+| Base | `main` @ `688ab7fb4a74844969a794f80065c9761fdf3893` — PR #179 intégrée |
+| Lot D | closed 149/149 |
+| Lots E–J | not opened (pre-qualification) |
+| Worktree tracked | propre — corpus Lot E non modifié |
+
+## 2. Sources consultées
+
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+3. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+5. CSV cartography frozen (SHA ci-dessus)
+6. `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` §8
+7. Rapports Lots 0, A, C, D1/D2/D3 execution
+8. Manifestes rename D1/D2/D3 (`.tmp-sfia-review/`)
+9. Analyse read-only des 75 fichiers tagués `lot-E`
+
+## 3. Méthodologie
+
+- Extraction CSV `migration_lot_candidate=lot-E` — volume attendu **75**
+- Vérification présence Git pour chaque chemin
+- Typologie : **README** (basename `README.md`), **index** (basename contient `index`), **other**
+- Parse Markdown `[text](url)` et chemins backtick internes
+- Résolution chemins relatifs vs racine repository
+- Détection liens cassés, cibles Lot D renommées (carte 172 renames D1+D2+D3)
+- Classification unique par fichier (9 catégories)
+- **Aucune modification** du corpus Lot E ni consommateurs
+
+## 4. Manifeste Lot E (75/75)
+
+| Contrôle | Résultat |
+|----------|----------|
+| Volume CSV Lot E | **75** |
+| Manifeste | **75/75** |
+| Doublons | **0** |
+| Absents Git | **0** |
+| Fichiers hors CSV ajoutés | **0** |
+
+## 5. Typologie fichiers
+
+| Type | Count |
+|------|------:|
+| README | 20 |
+| index | 0 |
+| other (navigation / hub / checklist / standard index-like) | 55 |
+
+**Note :** aucun basename `*index*` dans le tag CSV Lot E ; les hubs de navigation non-README sont classés **other** (matrices, checklists, standards à rôle index).
+
+## 6. Classifications (somme = 75)
+
+| Classification | Count | Description |
+|----------------|------:|-------------|
+| **no-action** | 42 | Liens actifs valides — navigation OK |
+| **fix-links** | 31 | Liens internes cassés — correction mécanique bornée |
+| **refresh-index** | 0 | Index incomplet / obsolète |
+| **historical-keep** | 2 | Références historiques intentionnelles |
+| **route-lot-g** | 0 | Dépendance restructuration projet |
+| **route-lot-h** | 0 | Dépendance prompts/templates |
+| **route-lot-i** | 0 | Dépendance tooling/CI |
+| **investigate** | 0 | Ambiguïté autorité / intention |
+| **morris-gate** | 0 | Arbitrage structurant requis |
+
+## 7. Métriques liens
+
+| Métrique | Valeur |
+|----------|--------|
+| Liens sortants analysés | **486** |
+| Liens internes valides | **290** |
+| Liens internes cassés | **196** |
+| Ancres locales cassées | **0** |
+| Références anciens chemins Lot D | **10** |
+| Liens externes | **0** (non comptabilisés séparément — liens http/https absents du parse) |
+| Références entrantes (CSV) | **123** |
+
+### Top 10 — liens cassés
+
+| Chemin | Cassés | Classification |
+|--------|-------:|----------------|
+| `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 19 | fix-links |
+| `docs/tooling/penpot/penpot-sfia-method-integration.md` | 12 | fix-links |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 12 | fix-links |
+| `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 12 | fix-links |
+| `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 9 | fix-links |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 9 | fix-links |
+| `docs/practices/architecture/functional-architecture-checklist.md` | 8 | fix-links |
+| `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 8 | fix-links |
+| `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 8 | fix-links |
+| `docs/practices/ux-ui/ux-ui-reprise-method.md` | 8 | fix-links |
+
+## 8. Autorité / lifecycle / usage (CSV)
+
+| Authority | Count |
+|-----------|------:|
+| informational | 35 |
+| reference | 20 |
+| supporting | 20 |
+
+| Usage | Count |
+|-------|------:|
+| non-operational | 56 |
+| operational | 19 |
+
+| Lifecycle | Count |
+|-----------|------:|
+| candidate | 26 |
+| draft | 23 |
+| not-applicable | 13 |
+| validated | 11 |
+| archived | 2 |
+
+| Risk (CSV) | Count |
+|------------|------:|
+| low | 75 |
+
+| Operational (usage) | **19** |
+| Non-operational | **56** |
+
+## 9. Répartition familiale (CSV primary_family)
+
+| Famille | Count |
+|---------|------:|
+| F06 | 30 |
+| F13 | 20 |
+| F17 | 15 |
+| F09 | 7 |
+| F01 | 3 |
+
+## 10. Chevauchements Lots G / H / I / J (heuristique chemins)
+
+| Lot | Fichiers Lot E dans périmètre path | Note |
+|-----|-----------------------------------:|------|
+| Lot G (projects/) | **0** | Aucun fichier Lot E tagué sous `projects/` |
+| Lot H (prompts/) | **0** | Aucun fichier Lot E tagué sous `prompts/` |
+| Lot I (tools/CI/docker/.cursor) | **5** | Sous-ensemble tooling — corrections link-only possibles en Lot E |
+| Lot J | **0** | Aucun delete-candidate dans Lot E |
+
+**Réserve :** plusieurs fichiers Lot E sont des standards/checklists `docs/practices/` ou `method/` — corrections link-only restent en Lot E ; restructuration éventuelle = Lots G/H/I futurs.
+
+## 11. Proposition sous-lots d'exécution (non approuvés)
+
+| Sous-lot | Volume | Profil recommandé | Périmètre |
+|----------|-------:|-------------------|-----------|
+| **E1** | **31** | **Standard** | `fix-links` — réparation mécanique liens cassés |
+| **E2** | **6** | **Standard** | README hubs (sous-ensemble E1) — refresh navigation |
+| **E3** | **2** | **Light** | `historical-keep` — archive interv360-realization + foundation README |
+
+**Ordre recommandé :** E1 → E2 → E3 (E2 peut fusionner avec E1 si PR ≤50 fichiers).
+
+**Contrainte :** ≤50 fichiers modifiés par PR — E1 seul (31) respecte la borne.
+
+## 12. Gates Morris attendues
+
+1. Validation du découpage E1/E2/E3
+2. GO exécution séparé par sous-lot (ou fusion E1+E2)
+3. Arbitrage sur `historical-keep` (E3) — correction ou préservation
+4. Merge PR qualification — GO séparé
+
+## 13. Classification complète (75/75)
+
+| ID | Chemin | Type | Famille | Usage | Authority | Lifecycle | Cassés | Old D | Entrantes | Classification | Risque | Recommandation |
+|----|--------|------|---------|-------|-----------|-----------|-------:|------:|----------:|----------------|--------|----------------|
+| E-001 | `.cursor/mcp-templates/README.md` | README | F13 | non-operational | reference | candidate | 4 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 3 | **no-action** | low | No corrective action — navigation valid |
+| E-003 | `.gitignore` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-004 | `README.md` | README | F13 | non-operational | reference | candidate | 1 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-005 | `components/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-006 | `docker/penpot/.env.example` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-007 | `docker/penpot/README.md` | README | F13 | operational | reference | candidate | 3 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-008 | `docker/penpot/docker-compose.override.example.yml` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-009 | `docs/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-010 | `docs/adr/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-011 | `docs/architecture/README.md` | README | F13 | non-operational | reference | candidate | 1 | 1 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-012 | `docs/architecture/sfia-delivery-pipeline.md` | other | F06 | non-operational | supporting | validated | 1 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-013 | `docs/architecture/sfia-domain-model.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-014 | `docs/architecture/sfia-meta-model.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-015 | `docs/architecture/sfia-platform-architecture.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-016 | `docs/architecture/sfia-repository-blueprint.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-017 | `docs/foundation/README.md` | README | F13 | non-operational | reference | archived | 0 | 0 | 0 | **historical-keep** | low | Preserve historical navigation — no Lot E correction |
+| E-018 | `docs/foundation/sfia-engineering-principles.md` | other | F06 | operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-019 | `docs/knowledge/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-020 | `docs/practices/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-021 | `docs/practices/architecture/functional-architecture-checklist.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-022 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-023 | `docs/practices/architecture/functional-architecture-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 2 | **no-action** | low | No corrective action — navigation valid |
+| E-024 | `docs/practices/methods-structure-check.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-025 | `docs/practices/process/bpmn-deliverables-standard.md` | other | F06 | non-operational | supporting | candidate | 4 | 1 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-026 | `docs/practices/process/bpmn-integration-checklist.md` | other | F06 | non-operational | informational | draft | 3 | 1 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-027 | `docs/practices/process/bpmn-process-modeling-method.md` | other | F06 | non-operational | supporting | candidate | 2 | 1 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-028 | `docs/practices/roles/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-029 | `docs/practices/roles/architect-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-030 | `docs/practices/roles/business-analyst-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-031 | `docs/practices/roles/product-owner-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-032 | `docs/practices/roles/project-manager-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-033 | `docs/practices/roles/qa-tester-method.md` | other | F06 | non-operational | supporting | validated | 4 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-034 | `docs/practices/roles/rssi-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-036 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | other | F06 | non-operational | informational | draft | 9 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-037 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-038 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-039 | `docs/rex/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-041 | `docs/standards/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-043 | `docs/templates/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-044 | `docs/templates/tooling/penpot/README.md` | README | F13 | operational | reference | candidate | 5 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-045 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | other | F06 | non-operational | informational | draft | 6 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-046 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | other | F06 | operational | informational | draft | 5 | 0 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-047 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | other | F06 | operational | informational | draft | 8 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-048 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | other | F06 | operational | informational | draft | 2 | 0 | 4 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-049 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | other | F06 | operational | informational | draft | 12 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-050 | `exports/notion/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-051 | `exports/notion/adr.json` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-052 | `exports/notion/components.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-053 | `exports/notion/experiments.json` | other | F17 | operational | informational | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-054 | `exports/notion/export-manifest.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-055 | `exports/notion/knowledge.json` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-056 | `exports/notion/kpi.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-057 | `exports/notion/projects.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-058 | `exports/notion/prompts.json` | other | F17 | non-operational | informational | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-059 | `exports/notion/rex.json` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-060 | `exports/notion/standards.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-061 | `exports/notion/templates.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-062 | `method/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
+| E-063 | `method/complementary/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
+| E-064 | `method/complementary/controlled-delivery/README.md` | README | F13 | non-operational | reference | candidate | 8 | 3 | 4 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-065 | `method/sfia-fast-track/archive/interv360-realization/README.md` | README | F13 | non-operational | reference | archived | 0 | 0 | 0 | **historical-keep** | low | Preserve historical navigation — no Lot E correction |
+| E-066 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | other | F09 | non-operational | supporting | validated | 8 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-067 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-and-delivery-vision.md` | other | F09 | non-operational | supporting | candidate | 2 | 0 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-068 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` | other | F09 | non-operational | supporting | candidate | 4 | 1 | 10 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-069 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | other | F09 | operational | supporting | draft | 12 | 1 | 9 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-070 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | other | F09 | operational | supporting | draft | 6 | 1 | 7 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-071 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | other | F09 | operational | supporting | draft | 9 | 0 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-072 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | other | F09 | non-operational | supporting | candidate | 6 | 0 | 7 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-073 | `method/sfia-fast-track/documentation/notion/sfia-notion-content-categorization.md` | other | F01 | non-operational | supporting | candidate | 8 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-074 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | other | F01 | non-operational | supporting | candidate | 19 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
+| E-075 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | other | F01 | non-operational | supporting | candidate | 12 | 0 | 4 | **fix-links** | low | Correct broken internal links mechanically at execution |
+
+## 14. Garde-fous
+
+| Contrôle | Résultat |
+|----------|----------|
+| Corpus Lot E modifié | **0** fichier |
+| CSV in diff | **no** |
+| Doctrine changed | **no** |
+| Canonical changed | **no** |
+| Lots F–J opened | **no** |
+| Exécution Lot E | **not authorized** |
+
+## 15. Limites
+
+- Parse Markdown uniquement — JSON example sans liens markdown non audités en profondeur
+- Liens externes http(s) non vérifiés en ligne
+- Glob patterns ignorés
+- Certains liens cassés = chemins relatifs incorrects depuis sous-répertoires (ex. `.cursor/mcp-templates/README.md` → `../docs/...`)
+
+## 16. Réserves
+
+- Volume Lot E inclut fichiers non-README (`.gitignore`, `.json` example) — conforme CSV frozen, rôle navigation/tooling
+- Forte concentration liens cassés sur inventaires Notion et intégration Penpot
+- 10 références anciens chemins Lot D résiduelles — mécaniquement corrigeables en E1
+- Aucun fichier classé `route-lot-g/h/i` — chevauchements path-only qualifiés, exécution link-fix reste Lot E
+
+## 17. Décisions Morris attendues
+
+- Valider manifeste 75/75 et classifications
+- Approuver découpage E1/E2/E3 (ou variante)
+- GO exécution Lot E — **séparé**
+- Merge PR qualification — **séparé**
+- Routing Lots F–J — **non couvert**
+
+## 18. Verdict
+
+```
+LOT E QUALIFICATION COMPLETED
+LOT E MANIFEST VERIFIED 75/75
+README AND INDEX CONTROLS COMPLETED
+ALL FILES CLASSIFIED
+BROKEN LINKS QUALIFIED
+HISTORICAL REFERENCES QUALIFIED
+CROSS-LOT DEPENDENCIES IDENTIFIED
+EXECUTION SUBLOTS PROPOSED E1/E2/E3
+LOT E CORPUS UNCHANGED
+CSV UNCHANGED
+NO DOCTRINE CHANGE
+CANONICAL AUTHORITY UNCHANGED
+LOTS F–J NOT OPENED
+QUALIFICATION PR OPEN — NOT MERGED
+LOT E EXECUTION REQUIRES SEPARATE MORRIS GO
+MERGE REQUIRES SEPARATE MORRIS GO
 ```
 
-### Lot D — section opérationnelle (avant)
+
+## Plan de migration — section Lot E modifiée (complète)
 
 ```markdown
-## 7. Lot D — Nommage documentaire
+## 8. Lot E — Contrôles globaux
 
 | Champ | Contenu |
 |-------|---------|
-| **Volume tag CSV** | **149** |
-| **Familles cartographie** | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
-| **Qualification** | **completed** — 2026-07-12 |
-| **Manifeste** | **149/149** vérifié — CSV frozen inchangé |
-| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-d-naming-qualification.md` |
-| **Branche qualification** | `qualification/sfia-v2.6-lot-d-naming` — **merged via PR #172** (`9045c5535999ebfc1e1ed9b8e8aa3a1ff35e765e`) |
-| **Exclus** | 308 technical-convention |
+| **Volume tag CSV** | **75** |
+| **Rôle** | README/index résiduels post-lots de chemins |
+| **Qualification** | **completed on branch** `qualification/sfia-v2.6-lot-e-global-controls` — **PR ouverte, non mergée** |
+| **Manifeste** | **75/75** vérifié — CSV frozen inchangé |
+| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md` |
+| **Classifications** | no-action **42** ; fix-links **31** ; historical-keep **2** ; refresh-index **0** ; route-lot-g/h/i **0** ; investigate **0** ; morris-gate **0** |
+| **Liens cassés qualifiés** | **196** internes / **10** anciens chemins Lot D |
+| **Sous-lots proposés (non approuvés)** | **E1** fix-links (31) ; **E2** README refresh (6) ; **E3** historical-keep (2) |
+| **Statut exécution** | **not started** |
+| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
 
-### Découpage validé Morris
+## 9. Lot F — Doublons / superseded
+```
 
-| Sous-lot | Volume | Profil | Périmètre |
-|----------|--------|--------|-----------|
-| **D1** | **50** | **Critical** | method/docs/prompts/tools transversal + interv360 `02-architecture/` et `09-roadmap/` |
-| **D2** | **46** | **Standard** | interv360 delivery/archive/cadrage + chantiers360 phases 00–05 |
-| **D3** | **53** | **Standard** | chantiers360 phases 06–09, increments delivery, capitalization |
+## Plan — section avant (Lot E)
 
-| Règle | Contenu |
-|-------|---------|
-| **Ordre d'exécution** | **D1 → D2 → D3** |
-| **PR / merge** | **Une PR et un GO merge Morris séparé par sous-lot** |
-| **Dates événementielles** | date explicite document **prioritaire** ; métadonnée/contexte fiable ensuite ; `git log` **fallback uniquement** ; **aucune date métier inventée** ; **STOP si ambiguïté sémantique** |
-| **ADR lowercase** | rename **obligatoire en deux temps** via cible temporaire unique (FS case-insensitive) |
-| **Prompts/templates** | **basename uniquement** dans D1 ; **aucune restructuration** contenu/famille ; évolution structurelle → **Lot H** |
-| **Collisions casse** | **16** qualifiées (ADR + PROMPT + cmp-001) |
-| **Refs actives** | **111** rename-and-fix-refs ; **38** rename simple |
-| **Statut exécution D1** | **closed** — merged via PR #174 (`8d5757c139d48d766239e8e7c1f1a2e49db4c48a`) |
-| **Statut exécution D2** | **closed** — merged via PR #176 (`1ab67d3a53a85e84a0effcf3a6746c6f0f809fd6`) |
-| **Statut exécution D3** | **executed** on branch `migration/sfia-v2.6-lot-d3-naming` — **PR ouverte, non mergée** |
-| **D3 renames** | **53/53** `git mv` — refs directes corrigées |
-| **Rapport exécution D3** | `2026-07-12-sfia-v2.6-lot-d3-naming-execution.md` |
-| **D2 renames** | **46/46** `git mv` — refs directes corrigées |
-| **Rapport exécution D2** | `2026-07-12-sfia-v2.6-lot-d2-naming-execution.md` |
-| **D1 renames** | **50/50** `git mv` — refs directes corrigées |
-| **Rapport exécution D1** | `2026-07-12-sfia-v2.6-lot-d1-naming-execution.md` |
-| **Qualification merge** | **completed via PR #172** — D1 execution merged via PR #174 — D2 execution merged via PR #176 |
-| **Next gate** | D3 merge — separate Morris GO required |
+```markdown
+## 8. Lot E — Contrôles globaux
+
+| Volume tag | 75 |
+| Rôle | README/index résiduels post-lots de chemins |
 
 ---
 ```
 
-### Footer (avant)
+## Diff plan
 
-```
-
-```
-
-## Nouvelles sections complètes
-
-### Lot 0 — Next gate (après)
-
-```
-| **Next gate** | Lots E–J routing decision — separate Morris GO required |
-```
-
-### Lot D — section opérationnelle (après)
-
-```markdown
-## 7. Lot D — Nommage documentaire
-
-| Champ | Contenu |
-|-------|---------|
-| **Volume tag CSV** | **149** |
-| **Familles cartographie** | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
-| **Qualification** | **completed** — 2026-07-12 |
-| **Manifeste** | **149/149** vérifié — CSV frozen inchangé |
-| **Statut exécution Lot D** | **closed** — D1, D2 and D3 integrated — **149/149** |
-| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-d-naming-qualification.md` |
-| **Branche qualification** | `qualification/sfia-v2.6-lot-d-naming` — **merged via PR #172** (`9045c5535999ebfc1e1ed9b8e8aa3a1ff35e765e`) |
-| **Exclus** | 308 technical-convention |
-
-### Découpage validé Morris
-
-| Sous-lot | Volume | Profil | Périmètre |
-|----------|--------|--------|-----------|
-| **D1** | **50** | **Critical** | method/docs/prompts/tools transversal + interv360 `02-architecture/` et `09-roadmap/` |
-| **D2** | **46** | **Standard** | interv360 delivery/archive/cadrage + chantiers360 phases 00–05 |
-| **D3** | **53** | **Standard** | chantiers360 phases 06–09, increments delivery, capitalization |
-
-| Règle | Contenu |
-|-------|---------|
-| **Ordre d'exécution** | **D1 → D2 → D3** |
-| **PR / merge** | **Une PR et un GO merge Morris séparé par sous-lot** |
-| **Dates événementielles** | date explicite document **prioritaire** ; métadonnée/contexte fiable ensuite ; `git log` **fallback uniquement** ; **aucune date métier inventée** ; **STOP si ambiguïté sémantique** |
-| **ADR lowercase** | rename **obligatoire en deux temps** via cible temporaire unique (FS case-insensitive) |
-| **Prompts/templates** | **basename uniquement** dans D1 ; **aucune restructuration** contenu/famille ; évolution structurelle → **Lot H** |
-| **Collisions casse** | **16** qualifiées (ADR + PROMPT + cmp-001) |
-| **Refs actives** | **111** rename-and-fix-refs ; **38** rename simple |
-| **Statut exécution D1** | **closed** — merged via PR #174 (`8d5757c139d48d766239e8e7c1f1a2e49db4c48a`) |
-| **Statut exécution D2** | **closed** — merged via PR #176 (`1ab67d3a53a85e84a0effcf3a6746c6f0f809fd6`) |
-| **Statut exécution D3** | **closed** — merged via PR #178 (`d2472e9c7973b23450577001688972a7fbd9ad7d`) |
-| **D3 renames** | **53/53** `git mv` — refs directes corrigées |
-| **Rapport exécution D3** | `2026-07-12-sfia-v2.6-lot-d3-naming-execution.md` |
-| **D2 renames** | **46/46** `git mv` — refs directes corrigées |
-| **Rapport exécution D2** | `2026-07-12-sfia-v2.6-lot-d2-naming-execution.md` |
-| **D1 renames** | **50/50** `git mv` — refs directes corrigées |
-| **Rapport exécution D1** | `2026-07-12-sfia-v2.6-lot-d1-naming-execution.md` |
-| **Qualification merge** | **completed via PR #172** — D1 execution merged via PR #174 — D2 execution merged via PR #176 — D3 execution merged via PR #178 |
-| **Next gate** | Lots E–J routing decision — separate Morris GO required |
-
----
-```
-
-### Footer (après)
-
-```
+```diff
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+index c417ce0..2e55b07 100644
+--- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+@@ -95,7 +95,7 @@ Cartographie finale (PR #165)
+ | **Rapport exécution M0-DEC-008** | `2026-07-12-sfia-v2.6-lot-0-archive-inventories-execution.md` |
+ | **Rapport exécution completion** | `2026-07-12-sfia-v2.6-lot-0-archive-completion-execution.md` |
+ | **Migration exécutée (autres lots)** | **non** |
+-| **Next gate** | Lots E–J routing decision — separate Morris GO required |
++| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
+ | **Lot A** | **closed** — merged via PR #169 |
+ | **Volume Lot A** | **6** fichiers core reference |
+ | **Canonical promotion Lot A** | **none** |
+@@ -190,16 +190,24 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
+ | **D1 renames** | **50/50** `git mv` — refs directes corrigées |
+ | **Rapport exécution D1** | `2026-07-12-sfia-v2.6-lot-d1-naming-execution.md` |
+ | **Qualification merge** | **completed via PR #172** — D1 execution merged via PR #174 — D2 execution merged via PR #176 — D3 execution merged via PR #178 |
+-| **Next gate** | Lots E–J routing decision — separate Morris GO required |
++| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
+ 
+ ---
+ 
+ ## 8. Lot E — Contrôles globaux
+ 
+-| Volume tag | 75 |
+-| Rôle | README/index résiduels post-lots de chemins |
+-
+----
++| Champ | Contenu |
++|-------|---------|
++| **Volume tag CSV** | **75** |
++| **Rôle** | README/index résiduels post-lots de chemins |
++| **Qualification** | **completed on branch** `qualification/sfia-v2.6-lot-e-global-controls` — **PR ouverte, non mergée** |
++| **Manifeste** | **75/75** vérifié — CSV frozen inchangé |
++| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md` |
++| **Classifications** | no-action **42** ; fix-links **31** ; historical-keep **2** ; refresh-index **0** ; route-lot-g/h/i **0** ; investigate **0** ; morris-gate **0** |
++| **Liens cassés qualifiés** | **196** internes / **10** anciens chemins Lot D |
++| **Sous-lots proposés (non approuvés)** | **E1** fix-links (31) ; **E2** README refresh (6) ; **E3** historical-keep (2) |
++| **Statut exécution** | **not started** |
++| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
+ 
+ ## 9. Lot F — Doublons / superseded
+ 
+@@ -371,4 +379,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
+ 
+ ---
+ 
+-*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lots E–J not opened**.*
++*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E qualification completed on branch — PR open** — **Lots F–J not opened**.*
 
 ```
 
@@ -144,100 +502,393 @@
 
 ```diff
 diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-index 1e6e805..c417ce0 100644
+index c417ce0..2e55b07 100644
 --- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
 +++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
 @@ -95,7 +95,7 @@ Cartographie finale (PR #165)
  | **Rapport exécution M0-DEC-008** | `2026-07-12-sfia-v2.6-lot-0-archive-inventories-execution.md` |
  | **Rapport exécution completion** | `2026-07-12-sfia-v2.6-lot-0-archive-completion-execution.md` |
  | **Migration exécutée (autres lots)** | **non** |
--| **Next gate** | D3 merge — separate Morris GO required |
-+| **Next gate** | Lots E–J routing decision — separate Morris GO required |
+-| **Next gate** | Lots E–J routing decision — separate Morris GO required |
++| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
  | **Lot A** | **closed** — merged via PR #169 |
  | **Volume Lot A** | **6** fichiers core reference |
  | **Canonical promotion Lot A** | **none** |
-@@ -158,6 +158,7 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
- | **Familles cartographie** | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
- | **Qualification** | **completed** — 2026-07-12 |
- | **Manifeste** | **149/149** vérifié — CSV frozen inchangé |
-+| **Statut exécution Lot D** | **closed** — D1, D2 and D3 integrated — **149/149** |
- | **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-d-naming-qualification.md` |
- | **Branche qualification** | `qualification/sfia-v2.6-lot-d-naming` — **merged via PR #172** (`9045c5535999ebfc1e1ed9b8e8aa3a1ff35e765e`) |
- | **Exclus** | 308 technical-convention |
-@@ -181,15 +182,15 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
- | **Refs actives** | **111** rename-and-fix-refs ; **38** rename simple |
- | **Statut exécution D1** | **closed** — merged via PR #174 (`8d5757c139d48d766239e8e7c1f1a2e49db4c48a`) |
- | **Statut exécution D2** | **closed** — merged via PR #176 (`1ab67d3a53a85e84a0effcf3a6746c6f0f809fd6`) |
--| **Statut exécution D3** | **executed** on branch `migration/sfia-v2.6-lot-d3-naming` — **PR ouverte, non mergée** |
-+| **Statut exécution D3** | **closed** — merged via PR #178 (`d2472e9c7973b23450577001688972a7fbd9ad7d`) |
- | **D3 renames** | **53/53** `git mv` — refs directes corrigées |
- | **Rapport exécution D3** | `2026-07-12-sfia-v2.6-lot-d3-naming-execution.md` |
- | **D2 renames** | **46/46** `git mv` — refs directes corrigées |
- | **Rapport exécution D2** | `2026-07-12-sfia-v2.6-lot-d2-naming-execution.md` |
+@@ -190,16 +190,24 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
  | **D1 renames** | **50/50** `git mv` — refs directes corrigées |
  | **Rapport exécution D1** | `2026-07-12-sfia-v2.6-lot-d1-naming-execution.md` |
--| **Qualification merge** | **completed via PR #172** — D1 execution merged via PR #174 — D2 execution merged via PR #176 |
--| **Next gate** | D3 merge — separate Morris GO required |
-+| **Qualification merge** | **completed via PR #172** — D1 execution merged via PR #174 — D2 execution merged via PR #176 — D3 execution merged via PR #178 |
-+| **Next gate** | Lots E–J routing decision — separate Morris GO required |
+ | **Qualification merge** | **completed via PR #172** — D1 execution merged via PR #174 — D2 execution merged via PR #176 — D3 execution merged via PR #178 |
+-| **Next gate** | Lots E–J routing decision — separate Morris GO required |
++| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
  
  ---
  
-@@ -370,4 +371,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
+ ## 8. Lot E — Contrôles globaux
+ 
+-| Volume tag | 75 |
+-| Rôle | README/index résiduels post-lots de chemins |
+-
+----
++| Champ | Contenu |
++|-------|---------|
++| **Volume tag CSV** | **75** |
++| **Rôle** | README/index résiduels post-lots de chemins |
++| **Qualification** | **completed on branch** `qualification/sfia-v2.6-lot-e-global-controls` — **PR ouverte, non mergée** |
++| **Manifeste** | **75/75** vérifié — CSV frozen inchangé |
++| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md` |
++| **Classifications** | no-action **42** ; fix-links **31** ; historical-keep **2** ; refresh-index **0** ; route-lot-g/h/i **0** ; investigate **0** ; morris-gate **0** |
++| **Liens cassés qualifiés** | **196** internes / **10** anciens chemins Lot D |
++| **Sous-lots proposés (non approuvés)** | **E1** fix-links (31) ; **E2** README refresh (6) ; **E3** historical-keep (2) |
++| **Statut exécution** | **not started** |
++| **Next gate** | Lot E qualification merge + Morris validation of E1/E2/E3 — separate GO required |
+ 
+ ## 9. Lot F — Doublons / superseded
+ 
+@@ -371,4 +379,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
  
  ---
  
--*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D qualification completed** — **D1 closed** — **D2 closed** — **D3 executed on branch — PR open** — **Lots E–J not opened**.*
-+*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lots E–J not opened**.*
+-*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lots E–J not opened**.*
++*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E qualification completed on branch — PR open** — **Lots F–J not opened**.*
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md
+new file mode 100644
+index 0000000..59098ad
+--- /dev/null
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md
+@@ -0,0 +1,307 @@
++# SFIA v2.6 — Lot E Global Controls — Qualification
++
++**Horodatage :** 2026-07-12 20:00 Europe/Paris
++**Cycle :** QA documentaire / qualification Lot E — contrôles globaux README/index
++**Profil :** Standard
++**Décision Morris :** GO explicite — qualification Lot E read-only — **aucune exécution corrective**
++**Branche :** `qualification/sfia-v2.6-lot-e-global-controls`
++**Base Git :** `main` @ `688ab7fb4a74844969a794f80065c9761fdf3893`
++**CSV SHA-256 :** `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged**
++
++---
++
++## 1. Local Git Truth Check
++
++| Contrôle | Résultat |
++|----------|----------|
++| Repository | `/Users/morris/Projects/sfia-workspace` |
++| Base | `main` @ `688ab7fb4a74844969a794f80065c9761fdf3893` — PR #179 intégrée |
++| Lot D | closed 149/149 |
++| Lots E–J | not opened (pre-qualification) |
++| Worktree tracked | propre — corpus Lot E non modifié |
++
++## 2. Sources consultées
++
++1. `prompts/templates/sfia-cycle-execution-template.md`
++2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
++3. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
++4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
++5. CSV cartography frozen (SHA ci-dessus)
++6. `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` §8
++7. Rapports Lots 0, A, C, D1/D2/D3 execution
++8. Manifestes rename D1/D2/D3 (`.tmp-sfia-review/`)
++9. Analyse read-only des 75 fichiers tagués `lot-E`
++
++## 3. Méthodologie
++
++- Extraction CSV `migration_lot_candidate=lot-E` — volume attendu **75**
++- Vérification présence Git pour chaque chemin
++- Typologie : **README** (basename `README.md`), **index** (basename contient `index`), **other**
++- Parse Markdown `[text](url)` et chemins backtick internes
++- Résolution chemins relatifs vs racine repository
++- Détection liens cassés, cibles Lot D renommées (carte 172 renames D1+D2+D3)
++- Classification unique par fichier (9 catégories)
++- **Aucune modification** du corpus Lot E ni consommateurs
++
++## 4. Manifeste Lot E (75/75)
++
++| Contrôle | Résultat |
++|----------|----------|
++| Volume CSV Lot E | **75** |
++| Manifeste | **75/75** |
++| Doublons | **0** |
++| Absents Git | **0** |
++| Fichiers hors CSV ajoutés | **0** |
++
++## 5. Typologie fichiers
++
++| Type | Count |
++|------|------:|
++| README | 20 |
++| index | 0 |
++| other (navigation / hub / checklist / standard index-like) | 55 |
++
++**Note :** aucun basename `*index*` dans le tag CSV Lot E ; les hubs de navigation non-README sont classés **other** (matrices, checklists, standards à rôle index).
++
++## 6. Classifications (somme = 75)
++
++| Classification | Count | Description |
++|----------------|------:|-------------|
++| **no-action** | 42 | Liens actifs valides — navigation OK |
++| **fix-links** | 31 | Liens internes cassés — correction mécanique bornée |
++| **refresh-index** | 0 | Index incomplet / obsolète |
++| **historical-keep** | 2 | Références historiques intentionnelles |
++| **route-lot-g** | 0 | Dépendance restructuration projet |
++| **route-lot-h** | 0 | Dépendance prompts/templates |
++| **route-lot-i** | 0 | Dépendance tooling/CI |
++| **investigate** | 0 | Ambiguïté autorité / intention |
++| **morris-gate** | 0 | Arbitrage structurant requis |
++
++## 7. Métriques liens
++
++| Métrique | Valeur |
++|----------|--------|
++| Liens sortants analysés | **486** |
++| Liens internes valides | **290** |
++| Liens internes cassés | **196** |
++| Ancres locales cassées | **0** |
++| Références anciens chemins Lot D | **10** |
++| Liens externes | **0** (non comptabilisés séparément — liens http/https absents du parse) |
++| Références entrantes (CSV) | **123** |
++
++### Top 10 — liens cassés
++
++| Chemin | Cassés | Classification |
++|--------|-------:|----------------|
++| `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 19 | fix-links |
++| `docs/tooling/penpot/penpot-sfia-method-integration.md` | 12 | fix-links |
++| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 12 | fix-links |
++| `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 12 | fix-links |
++| `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 9 | fix-links |
++| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 9 | fix-links |
++| `docs/practices/architecture/functional-architecture-checklist.md` | 8 | fix-links |
++| `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 8 | fix-links |
++| `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 8 | fix-links |
++| `docs/practices/ux-ui/ux-ui-reprise-method.md` | 8 | fix-links |
++
++## 8. Autorité / lifecycle / usage (CSV)
++
++| Authority | Count |
++|-----------|------:|
++| informational | 35 |
++| reference | 20 |
++| supporting | 20 |
++
++| Usage | Count |
++|-------|------:|
++| non-operational | 56 |
++| operational | 19 |
++
++| Lifecycle | Count |
++|-----------|------:|
++| candidate | 26 |
++| draft | 23 |
++| not-applicable | 13 |
++| validated | 11 |
++| archived | 2 |
++
++| Risk (CSV) | Count |
++|------------|------:|
++| low | 75 |
++
++| Operational (usage) | **19** |
++| Non-operational | **56** |
++
++## 9. Répartition familiale (CSV primary_family)
++
++| Famille | Count |
++|---------|------:|
++| F06 | 30 |
++| F13 | 20 |
++| F17 | 15 |
++| F09 | 7 |
++| F01 | 3 |
++
++## 10. Chevauchements Lots G / H / I / J (heuristique chemins)
++
++| Lot | Fichiers Lot E dans périmètre path | Note |
++|-----|-----------------------------------:|------|
++| Lot G (projects/) | **0** | Aucun fichier Lot E tagué sous `projects/` |
++| Lot H (prompts/) | **0** | Aucun fichier Lot E tagué sous `prompts/` |
++| Lot I (tools/CI/docker/.cursor) | **5** | Sous-ensemble tooling — corrections link-only possibles en Lot E |
++| Lot J | **0** | Aucun delete-candidate dans Lot E |
++
++**Réserve :** plusieurs fichiers Lot E sont des standards/checklists `docs/practices/` ou `method/` — corrections link-only restent en Lot E ; restructuration éventuelle = Lots G/H/I futurs.
++
++## 11. Proposition sous-lots d'exécution (non approuvés)
++
++| Sous-lot | Volume | Profil recommandé | Périmètre |
++|----------|-------:|-------------------|-----------|
++| **E1** | **31** | **Standard** | `fix-links` — réparation mécanique liens cassés |
++| **E2** | **6** | **Standard** | README hubs (sous-ensemble E1) — refresh navigation |
++| **E3** | **2** | **Light** | `historical-keep` — archive interv360-realization + foundation README |
++
++**Ordre recommandé :** E1 → E2 → E3 (E2 peut fusionner avec E1 si PR ≤50 fichiers).
++
++**Contrainte :** ≤50 fichiers modifiés par PR — E1 seul (31) respecte la borne.
++
++## 12. Gates Morris attendues
++
++1. Validation du découpage E1/E2/E3
++2. GO exécution séparé par sous-lot (ou fusion E1+E2)
++3. Arbitrage sur `historical-keep` (E3) — correction ou préservation
++4. Merge PR qualification — GO séparé
++
++## 13. Classification complète (75/75)
++
++| ID | Chemin | Type | Famille | Usage | Authority | Lifecycle | Cassés | Old D | Entrantes | Classification | Risque | Recommandation |
++|----|--------|------|---------|-------|-----------|-----------|-------:|------:|----------:|----------------|--------|----------------|
++| E-001 | `.cursor/mcp-templates/README.md` | README | F13 | non-operational | reference | candidate | 4 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 3 | **no-action** | low | No corrective action — navigation valid |
++| E-003 | `.gitignore` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-004 | `README.md` | README | F13 | non-operational | reference | candidate | 1 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-005 | `components/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-006 | `docker/penpot/.env.example` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-007 | `docker/penpot/README.md` | README | F13 | operational | reference | candidate | 3 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-008 | `docker/penpot/docker-compose.override.example.yml` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-009 | `docs/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-010 | `docs/adr/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-011 | `docs/architecture/README.md` | README | F13 | non-operational | reference | candidate | 1 | 1 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-012 | `docs/architecture/sfia-delivery-pipeline.md` | other | F06 | non-operational | supporting | validated | 1 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-013 | `docs/architecture/sfia-domain-model.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-014 | `docs/architecture/sfia-meta-model.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-015 | `docs/architecture/sfia-platform-architecture.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-016 | `docs/architecture/sfia-repository-blueprint.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-017 | `docs/foundation/README.md` | README | F13 | non-operational | reference | archived | 0 | 0 | 0 | **historical-keep** | low | Preserve historical navigation — no Lot E correction |
++| E-018 | `docs/foundation/sfia-engineering-principles.md` | other | F06 | operational | supporting | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-019 | `docs/knowledge/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-020 | `docs/practices/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-021 | `docs/practices/architecture/functional-architecture-checklist.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-022 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-023 | `docs/practices/architecture/functional-architecture-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 2 | **no-action** | low | No corrective action — navigation valid |
++| E-024 | `docs/practices/methods-structure-check.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-025 | `docs/practices/process/bpmn-deliverables-standard.md` | other | F06 | non-operational | supporting | candidate | 4 | 1 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-026 | `docs/practices/process/bpmn-integration-checklist.md` | other | F06 | non-operational | informational | draft | 3 | 1 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-027 | `docs/practices/process/bpmn-process-modeling-method.md` | other | F06 | non-operational | supporting | candidate | 2 | 1 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-028 | `docs/practices/roles/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-029 | `docs/practices/roles/architect-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-030 | `docs/practices/roles/business-analyst-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-031 | `docs/practices/roles/product-owner-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-032 | `docs/practices/roles/project-manager-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-033 | `docs/practices/roles/qa-tester-method.md` | other | F06 | non-operational | supporting | validated | 4 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-034 | `docs/practices/roles/rssi-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-036 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | other | F06 | non-operational | informational | draft | 9 | 0 | 1 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-037 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-038 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | other | F06 | non-operational | informational | draft | 8 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-039 | `docs/rex/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | other | F06 | non-operational | informational | draft | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-041 | `docs/standards/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | other | F06 | non-operational | supporting | validated | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-043 | `docs/templates/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-044 | `docs/templates/tooling/penpot/README.md` | README | F13 | operational | reference | candidate | 5 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-045 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | other | F06 | non-operational | informational | draft | 6 | 0 | 0 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-046 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | other | F06 | operational | informational | draft | 5 | 0 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-047 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | other | F06 | operational | informational | draft | 8 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-048 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | other | F06 | operational | informational | draft | 2 | 0 | 4 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-049 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | other | F06 | operational | informational | draft | 12 | 0 | 2 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-050 | `exports/notion/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-051 | `exports/notion/adr.json` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-052 | `exports/notion/components.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-053 | `exports/notion/experiments.json` | other | F17 | operational | informational | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-054 | `exports/notion/export-manifest.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-055 | `exports/notion/knowledge.json` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-056 | `exports/notion/kpi.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-057 | `exports/notion/projects.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-058 | `exports/notion/prompts.json` | other | F17 | non-operational | informational | validated | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-059 | `exports/notion/rex.json` | other | F17 | non-operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-060 | `exports/notion/standards.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-061 | `exports/notion/templates.json` | other | F17 | operational | informational | not-applicable | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-062 | `method/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 0 | **no-action** | low | No corrective action — navigation valid |
++| E-063 | `method/complementary/README.md` | README | F13 | non-operational | reference | candidate | 0 | 0 | 1 | **no-action** | low | No corrective action — navigation valid |
++| E-064 | `method/complementary/controlled-delivery/README.md` | README | F13 | non-operational | reference | candidate | 8 | 3 | 4 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-065 | `method/sfia-fast-track/archive/interv360-realization/README.md` | README | F13 | non-operational | reference | archived | 0 | 0 | 0 | **historical-keep** | low | Preserve historical navigation — no Lot E correction |
++| E-066 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | other | F09 | non-operational | supporting | validated | 8 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-067 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-and-delivery-vision.md` | other | F09 | non-operational | supporting | candidate | 2 | 0 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-068 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` | other | F09 | non-operational | supporting | candidate | 4 | 1 | 10 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-069 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | other | F09 | operational | supporting | draft | 12 | 1 | 9 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-070 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | other | F09 | operational | supporting | draft | 6 | 1 | 7 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-071 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | other | F09 | operational | supporting | draft | 9 | 0 | 5 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-072 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | other | F09 | non-operational | supporting | candidate | 6 | 0 | 7 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-073 | `method/sfia-fast-track/documentation/notion/sfia-notion-content-categorization.md` | other | F01 | non-operational | supporting | candidate | 8 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-074 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | other | F01 | non-operational | supporting | candidate | 19 | 0 | 3 | **fix-links** | low | Correct broken internal links mechanically at execution |
++| E-075 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | other | F01 | non-operational | supporting | candidate | 12 | 0 | 4 | **fix-links** | low | Correct broken internal links mechanically at execution |
++
++## 14. Garde-fous
++
++| Contrôle | Résultat |
++|----------|----------|
++| Corpus Lot E modifié | **0** fichier |
++| CSV in diff | **no** |
++| Doctrine changed | **no** |
++| Canonical changed | **no** |
++| Lots F–J opened | **no** |
++| Exécution Lot E | **not authorized** |
++
++## 15. Limites
++
++- Parse Markdown uniquement — JSON example sans liens markdown non audités en profondeur
++- Liens externes http(s) non vérifiés en ligne
++- Glob patterns ignorés
++- Certains liens cassés = chemins relatifs incorrects depuis sous-répertoires (ex. `.cursor/mcp-templates/README.md` → `../docs/...`)
++
++## 16. Réserves
++
++- Volume Lot E inclut fichiers non-README (`.gitignore`, `.json` example) — conforme CSV frozen, rôle navigation/tooling
++- Forte concentration liens cassés sur inventaires Notion et intégration Penpot
++- 10 références anciens chemins Lot D résiduelles — mécaniquement corrigeables en E1
++- Aucun fichier classé `route-lot-g/h/i` — chevauchements path-only qualifiés, exécution link-fix reste Lot E
++
++## 17. Décisions Morris attendues
++
++- Valider manifeste 75/75 et classifications
++- Approuver découpage E1/E2/E3 (ou variante)
++- GO exécution Lot E — **séparé**
++- Merge PR qualification — **séparé**
++- Routing Lots F–J — **non couvert**
++
++## 18. Verdict
++
++```
++LOT E QUALIFICATION COMPLETED
++LOT E MANIFEST VERIFIED 75/75
++README AND INDEX CONTROLS COMPLETED
++ALL FILES CLASSIFIED
++BROKEN LINKS QUALIFIED
++HISTORICAL REFERENCES QUALIFIED
++CROSS-LOT DEPENDENCIES IDENTIFIED
++EXECUTION SUBLOTS PROPOSED E1/E2/E3
++LOT E CORPUS UNCHANGED
++CSV UNCHANGED
++NO DOCTRINE CHANGE
++CANONICAL AUTHORITY UNCHANGED
++LOTS F–J NOT OPENED
++QUALIFICATION PR OPEN — NOT MERGED
++LOT E EXECUTION REQUIRES SEPARATE MORRIS GO
++MERGE REQUIRES SEPARATE MORRIS GO
++```
 
 ```
 
-## Statuts Lots
+## Preuve corpus Lot E unchanged
 
-| Lot | Statut |
-|-----|--------|
-| Lot 0 | closed 76/76 |
-| Lot A | closed |
-| Lot B | not required |
-| Lot C | closed |
-| Lot D | **closed 149/149** |
-| D1 | closed — PR #174 |
-| D2 | closed — PR #176 |
-| D3 | **closed — PR #178** (`d2472e9…`) |
-| Lots E–J | not opened |
+Fichiers modifiés tracked (2 uniquement):
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md` (créé)
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` (section Lot E + next gate + footer)
+
+Aucun des 75 fichiers `lot-E` du CSV n'apparaît dans le diff.
 
 ## Garde-fous
 
 | Contrôle | Résultat |
 |----------|----------|
-| Fichiers modifiés | **1** |
-| Rename | **none** |
-| CSV in diff | **no** |
-| Volumes 149/50/46/53 | unchanged |
-| M-D-DEC-001 à 007 | preserved |
-| Doctrine changed | no |
-| Canonical changed | no |
-| Lots E–J opened | no |
-
-## CSV unchanged
-
-SHA-256 : `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275`
-
-## Réserves
-
-- Header historique `Migrations: Not started` conservé (snapshot initial)
-- Snapshots PR Readiness historiques non modifiés
-
-## Décision Morris restante
-
-- Merge micro-PR — GO séparé requis
-- Lots E–J routing decision — GO séparé requis (aucun lot sélectionné)
+| Manifeste | 75/75 |
+| Classifications sum | 75 |
+| Corpus Lot E modified | 0 |
+| CSV in diff | no |
+| Lots F–J opened | no |
 
 ## Coverage
 
 | Item | Status |
 |------|--------|
-| created files full content | n/a |
+| created files full content | yes |
 | modified sections complete | yes |
 | useful diff included | yes |
 | synthesis only | no |
@@ -246,23 +897,15 @@ SHA-256 : `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275`
 ## Verdict
 
 ```
-LOT D3 STATUS CLOSED
-PR #178 MERGE RECORDED
-D1 CLOSED
-D2 CLOSED
-D3 CLOSED
-LOT D CLOSED 149/149
-LOTS E–J NOT OPENED
-NEXT GATE LOTS E–J ROUTING REQUIRES MORRIS GO
-VOLUMES UNCHANGED 149/50/46/53
-MORRIS DECISIONS PRESERVED
-NO RENAME EXECUTED
+LOT E QUALIFICATION COMPLETED
+LOT E MANIFEST VERIFIED 75/75
+ALL FILES CLASSIFIED
+EXECUTION SUBLOTS PROPOSED
+LOT E CORPUS UNCHANGED
 CSV UNCHANGED
-NO DOCTRINE CHANGE
-CANONICAL AUTHORITY UNCHANGED
-ONE FILE MODIFIED
+TWO TRACKED FILES CHANGED
 PR OPEN — NOT MERGED
 REVIEW PACK COMPLETE
-READY FOR CHATGPT PR READINESS
+LOT E EXECUTION REQUIRES SEPARATE MORRIS GO
 MERGE REQUIRES SEPARATE MORRIS GO
 ```
