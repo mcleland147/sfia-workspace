@@ -5,7 +5,7 @@
 **Référence** : SFIA delivery / realization method  
 **Statut** : Draft  
 **Branche** : `method/interv360-realization-capitalization`  
-**Document associé** : [`capitalization-plan.md`](capitalization-plan.md)
+**Document associé** : [`capitalization-plan.md`](../../../archive/interv360-realization/capitalization-plan.md)
 
 ---
 

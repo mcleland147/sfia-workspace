@@ -36,15 +36,15 @@ Il prépare la décision de stratégie pour le Cycle 2 : **ne pas supprimer brut
 | Source | Chemin | Rôle |
 |--------|--------|------|
 | Catégorisation Cycle 1 | `method/sfia-fast-track/documentation/notion/sfia-notion-content-categorization.md` | Inventaire contenus repo |
-| Ancien mapping cible | `method/sfia-fast-track/documentation/notion-target-content-map.md` | Structure SFA/SFIA pré-v1.1 |
-| Ancien plan publication | `method/sfia-fast-track/documentation/notion-publication-plan.md` | Pages proposées, ordre publication |
+| Ancien mapping cible | `method/sfia-fast-track/documentation/archive/notion/notion-target-content-map.md` | Structure SFA/SFIA pré-v1.1 |
+| Ancien plan publication | `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md` | Pages proposées, ordre publication |
 | Exports Notion | `exports/notion/` | 11 JSON + manifest + README |
 | Archives notion-sync Interv360 | `projects/interv360/archive/notion-sync/` | 30 fichiers Markdown |
 | Payloads notion-sync actifs | `projects/interv360/**/notion-sync-*.json` | 15 fichiers JSON |
 | Outillage CMP | `tools/cmp-001/` | Client Notion, scripts, exemples (référencé, non modifié) |
-| Checklist publication | `method/sfia-fast-track/checklists/notion-publication-checklist.md` | Contrôles publication |
+| Checklist publication | `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md` | Contrôles publication |
 | Knowledge Layer | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Principes knowledge Notion |
-| Archive méthode | `method/sfia-fast-track/archive/interv360-realization/notion-integration-plan.md` | Plan historique |
+| Archive méthode | `method/sfia-fast-track/documentation/archive/interv360-realization/notion-integration-plan.md` | Plan historique |
 
 ## 3. Limites de l'audit
 

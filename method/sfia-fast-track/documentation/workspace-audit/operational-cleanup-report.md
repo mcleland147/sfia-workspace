@@ -67,7 +67,7 @@ projects/interv360/
 
 | Archive | Contenu |
 |---------|---------|
-| `method/sfia-fast-track/archive/interv360-realization/` | 8 documents méthode pré-Fast Track |
+| `method/sfia-fast-track/documentation/archive/interv360-realization/` | 8 documents méthode pré-Fast Track |
 
 ### Interv360
 
@@ -101,7 +101,7 @@ Aucun document supprimé définitivement.
 
 Le workspace est désormais plus propre pour préparer la mise à jour Notion comme IDE métier SFA.
 
-Les logs `notion-sync-*` sont archivés ; la publication Notion reste à planifier via `method/sfia-fast-track/documentation/notion-publication-plan.md`.
+Les logs `notion-sync-*` sont archivés ; la publication Notion reste à planifier via `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`.
 
 ## 8. Inventaires post-nettoyage
 

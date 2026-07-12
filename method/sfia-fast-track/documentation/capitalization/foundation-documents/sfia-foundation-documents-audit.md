@@ -147,8 +147,8 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 | **P0** | *(à créer)* `sfia-chatgpt-cursor-operating-model.md` | Extraire et formaliser la boucle ChatGPT ↔ Cursor depuis automation + capitalization |
 | **P1** | `docs/architecture/sfia-platform-architecture.md` | Réconcilier avec structure repo post-PR #81 (`docs/practices/`, `method/complementary/`) |
 | **P1** | `docs/architecture/sfia-repository-blueprint.md` | Aligner arborescence cible avec workspace nettoyé |
-| **P1** | `method/sfia-fast-track/documentation/notion-target-content-map.md` | Remplacer terminologie SFA par SFIA ; citer `docs/practices/` |
-| **P1** | `method/sfia-fast-track/documentation/notion-publication-plan.md` | Idem + layers méthode/pratiques |
+| **P1** | `method/sfia-fast-track/documentation/archive/notion/notion-target-content-map.md` | Remplacer terminologie SFA par SFIA ; citer `docs/practices/` |
+| **P1** | `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md` | Idem + layers méthode/pratiques |
 | **P1** | `method/sfia-fast-track/documentation/documentation-audit.md` | Rafraîchir ou archiver comme baseline historique |
 | **P2** | `docs/practices/roles/*.md` (5 Draft) | Revue maturité avant publication Notion |
 | **P2** | `sfia-automation-architecture.md` | Référencer documents canoniques moteurs une fois créés |

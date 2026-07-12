@@ -222,7 +222,7 @@ Documents structurants actifs :
 | Document / famille | Emplacement actuel | Emplacement cible | Justification |
 |--------------------|-------------------|-------------------|---------------|
 | `sfia-fast-track/*.md` core | racine fast-track | `core/`, `automation/`, `documentation/` | Séparation familles |
-| `interv360-realization/*` | `method/interv360-realization/` | `method/sfia-fast-track/archive/interv360-realization/` | Pré-Fast Track |
+| `interv360-realization/*` | `method/interv360-realization/` | `method/sfia-fast-track/documentation/archive/interv360-realization/` | Pré-Fast Track |
 | `inc-01-*` à `inc-04-*` (~57) | `07-delivery/` | `projects/interv360/archive/inc/` | Historique pré-MVP |
 | `notion-sync-*` (~35) | `02-architecture/` | `projects/interv360/archive/notion-sync/` | Logs opérationnels |
 | `clarification-*` (~10) | `02-architecture/` | `projects/interv360/archive/clarification/` | Ateliers clos |
@@ -234,7 +234,7 @@ Documents structurants actifs :
 
 | Document ou famille | Emplacement actuel | Archive cible | Raison |
 |---------------------|-------------------|---------------|--------|
-| `method/interv360-realization/*` | `method/` | `method/sfia-fast-track/archive/interv360-realization/` | Remplacé par Fast Track |
+| `method/interv360-realization/*` | `method/` | `method/sfia-fast-track/documentation/archive/interv360-realization/` | Remplacé par Fast Track |
 | `inc-01-*` (~45) | `07-delivery/` | `projects/interv360/archive/inc-01/` | Micro-incréments clos |
 | `inc-02-*`, `inc-03-*`, `inc-04-*` | `07-delivery/` | `projects/interv360/archive/inc-02-04/` | Idem |
 | `notion-sync-*` (~35) | `02-architecture/` | `projects/interv360/archive/notion-sync/` | Logs, pas référence |

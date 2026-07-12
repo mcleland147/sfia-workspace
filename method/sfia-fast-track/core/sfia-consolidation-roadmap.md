@@ -273,11 +273,11 @@ Livrables :
 - `method/sfia-fast-track/templates/post-merge-template.md`
 - `method/sfia-fast-track/templates/audit-template.md`
 - `method/sfia-fast-track/templates/rex-template.md`
-- `method/sfia-fast-track/checklists/validation-checklist.md`
+- `method/sfia-fast-track/documentation/archive/checklists/validation-checklist.md`
 - `method/sfia-fast-track/checklists/guardrails-checklist.md`
-- `method/sfia-fast-track/checklists/notion-publication-checklist.md`
+- `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md`
 - `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md`
-- `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-migration-plan.md`
+- `method/sfia-fast-track/documentation/archive/workspace-audits/sfia-workspace-migration-plan.md`
 - inventaires complets pré-nettoyage (`pre-cleanup-*.txt`)
 
 Ne pas passer le chantier en terminé tant que le nettoyage global du workspace n'est pas validé et exécuté.

@@ -139,9 +139,9 @@ Avec les sous-pages ou blocs suivants :
 
 **Documents terrain (annexe, non normatifs) :**
 
-- [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md)
-- [`inc-01-demo-script.md`](../../projects/interv360/archive/inc-01-demo-script.md)
-- [`inc-01-controlled-workflow-validation.md`](../../projects/interv360/archive/inc-01-controlled-workflow-validation.md)
+- [`inc-01-phase-2-rex.md`](../../../../projects/interv360/archive/inc-01-phase-2-rex.md)
+- [`inc-01-demo-script.md`](../../../../projects/interv360/archive/inc-01-demo-script.md)
+- [`inc-01-controlled-workflow-validation.md`](../../../../projects/interv360/archive/inc-01-controlled-workflow-validation.md)
 
 **Usage recommandé :**
 

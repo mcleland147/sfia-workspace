@@ -40,12 +40,12 @@ Il produit une recommandation d'action claire pour les cycles P2.1 et P2.2.
 | Document | Chemin |
 |----------|--------|
 | Foundation Documents Audit | `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md` |
-| Foundation Documents Inventory | `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md` |
+| Foundation Documents Inventory | `method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md` |
 | Documentation Capitalization Audit | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md` |
-| v1.1 Capitalization Inputs Inventory | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` |
-| v1.1 Foundation Impact Matrix | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` |
+| v1.1 Capitalization Inputs Inventory | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` |
+| v1.1 Foundation Impact Matrix | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` |
 | v1.1 Consolidation Plan | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` |
-| v1.1 Evolution Matrix | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md` |
+| v1.1 Evolution Matrix | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md` |
 
 ### README et index déjà partiellement alignés v1.1
 
@@ -208,7 +208,7 @@ docs: add SFIA v1.1 cross-references
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md`
+- `method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` (critères §7)
 
 **Actions :**
@@ -288,7 +288,7 @@ Updated references include:
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md`
+- `method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
 
 Current status:
@@ -300,7 +300,7 @@ Current status:
 
 The P2.3 cycle records the formal closure of SFIA foundation v1.1:
 
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
+- `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
 
 The closure confirms:
 

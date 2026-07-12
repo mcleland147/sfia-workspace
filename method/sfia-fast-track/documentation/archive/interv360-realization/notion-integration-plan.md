@@ -5,7 +5,7 @@
 **Référence** : SFIA delivery / realization method  
 **Statut** : Draft  
 **Branche** : `method/interv360-realization-capitalization`  
-**Documents associés** : [`capitalization-plan.md`](capitalization-plan.md), [`realization-method.md`](realization-method.md), [`realization-deliverables-standard.md`](realization-deliverables-standard.md), [`realization-checklists.md`](realization-checklists.md), [`realization-templates.md`](realization-templates.md), [`realization-prompt-family.md`](realization-prompt-family.md)
+**Documents associés** : [`capitalization-plan.md`](../../../archive/interv360-realization/capitalization-plan.md), [`realization-method.md`](realization-method.md), [`realization-deliverables-standard.md`](realization-deliverables-standard.md), [`realization-checklists.md`](realization-checklists.md), [`realization-templates.md`](realization-templates.md), [`realization-prompt-family.md`](realization-prompt-family.md)
 
 ---
 
@@ -435,7 +435,7 @@ Elle documente l'origine sans imposer les choix Interv360 (mono-app, flux métie
 
 **Avant PR de clôture :**
 
-1. Mettre à jour [`capitalization-summary.md`](capitalization-summary.md) pour référencer ce plan d'intégration Notion dans les livrables produits et la recommandation de suite (sync Notion post-merge, manuelle).
+1. Mettre à jour [`capitalization-summary.md`](../../../archive/interv360-realization/capitalization-summary.md) pour référencer ce plan d'intégration Notion dans les livrables produits et la recommandation de suite (sync Notion post-merge, manuelle).
 2. Préparer la **PR documentaire** vers `main` — titre recommandé : `Capitalize Interv360 realization method`.
 3. **Après merge** — intégration Notion manuelle selon ce plan (hors périmètre de la PR Git).
 
