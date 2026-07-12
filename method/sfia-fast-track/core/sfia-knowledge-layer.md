@@ -54,8 +54,8 @@ The repository-first, curated knowledge and human validation principles apply to
 
 **Documents associés :**
 
-- `method/sfia-fast-track/documentation/notion-target-content-map.md` — mapping cible (à actualiser terminologie SFIA)
-- `method/sfia-fast-track/documentation/notion-publication-plan.md` — plan publication
+- `method/sfia-fast-track/documentation/archive/notion/notion-target-content-map.md` — mapping cible (à actualiser terminologie SFIA)
+- `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md` — plan publication
 - `exports/notion/README.md` — exports préparés, non source de vérité
 
 ## 3. Principes

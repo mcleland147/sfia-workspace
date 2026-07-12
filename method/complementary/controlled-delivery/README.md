@@ -17,11 +17,11 @@ Il permet d'adapter le niveau de contrôle au niveau de maturité d'un sujet :
 | Checklist | [`controlled-delivery-checklist.md`](controlled-delivery-checklist.md) |
 | Template | [`controlled-delivery-template.md`](controlled-delivery-template.md) |
 | Prompt family | [`controlled-delivery-prompt-family.md`](controlled-delivery-prompt-family.md) |
-| Standard summary | [`controlled-delivery-standard-summary.md`](controlled-delivery-standard-summary.md) |
-| Hardening summary | [`controlled-delivery-standard-hardening-summary.md`](controlled-delivery-standard-hardening-summary.md) |
-| Publication prep | [`controlled-delivery-publication-prep.md`](controlled-delivery-publication-prep.md) |
-| Publication package | [`controlled-delivery-publication-package.md`](controlled-delivery-publication-package.md) |
-| Publication checklist | [`controlled-delivery-publication-checklist.md`](controlled-delivery-publication-checklist.md) |
+| Standard summary | [`controlled-delivery-standard-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-summary.md) *(archivé)* |
+| Hardening summary | [`controlled-delivery-standard-hardening-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-hardening-summary.md) *(archivé)* |
+| Publication prep | [`controlled-delivery-publication-prep.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-prep.md) *(archivé)* |
+| Publication package | [`controlled-delivery-publication-package.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-package.md) *(archivé)* |
+| Publication checklist | [`controlled-delivery-publication-checklist.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-checklist.md) *(archivé)* |
 | Delivery Acceleration Level 3 REX | [`delivery-acceleration-level-3-rex.md`](delivery-acceleration-level-3-rex.md) |
 
 ---

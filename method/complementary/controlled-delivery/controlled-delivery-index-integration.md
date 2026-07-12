@@ -32,7 +32,7 @@ Le standard Controlled Delivery dispose désormais :
 
 La publication Notion reste conditionnée à une **demande explicite**.
 
-**Référence :** [`controlled-delivery-publication-package-summary.md`](controlled-delivery-publication-package-summary.md)
+**Référence :** [`controlled-delivery-publication-package-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-package-summary.md)
 
 ---
 

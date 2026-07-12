@@ -238,8 +238,8 @@ SFIA utilise les décisions suivantes :
 - `docs/architecture/sfia-delivery-pipeline.md`
 - `docs/architecture/sfia-repository-blueprint.md`
 - `method/sfia-fast-track/checklists/guardrails-checklist.md`
-- `method/sfia-fast-track/checklists/validation-checklist.md`
-- `method/sfia-fast-track/checklists/notion-publication-checklist.md`
+- `method/sfia-fast-track/documentation/archive/checklists/validation-checklist.md`
+- `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md`
 
 ## 15. Décision
 
