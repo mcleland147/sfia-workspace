@@ -141,7 +141,7 @@ projects/
 | `notion-publication-plan.md` | Non | Méta-document |
 | `current-application-audit.md` | Oui (résumé) | Synthèse décision + réserves |
 | `premium-design-system.md` | Oui (résumé) | Extraire critères et garde-fous |
-| `mvp-release-readiness.md` | Oui (résumé) | Pattern release |
+| `2026-07-02-mvp-release-readiness.md` | Oui (résumé) | Pattern release |
 | `ADR-001` à `008` | Oui (sélection) | Publier ADR clés seulement |
 | `inc-01-*`, `notion-sync-*` | Non | Historique opérationnel |
 | Sections « Statut de merge » | Non | Interne repo |

@@ -69,7 +69,7 @@ Définir les règles SFIA v2.0 de **documentation technique** :
 | Consolider | Vue d'ensemble projet |
 | Arbitrer | Décider si promotion en ADR |
 
-**Emplacement recommandé :** `05-technical-architecture/technical-decisions.md` ou `delivery-inc-0n-decisions.md` selon périmètre.
+**Emplacement recommandé :** `05-technical-architecture/2026-07-06-technical-decisions.md` ou `delivery-inc-0n-decisions.md` selon périmètre.
 
 ### ADR — Architecture Decision Record
 
@@ -99,7 +99,7 @@ Vue **technique exploitable** — déploiement, hébergement, environnements, s�
 
 | Situation | Register | ADR | DAA light | DAT light | Gate Morris | Exemple Chantiers360 |
 |-----------|----------|-----|-----------|-----------|-------------|----------------------|
-| Choix stack applicative | ✅ | ✅ **Requis** | ⚠️ Recommandé | ❌ | ✅ | Next.js + PG + Drizzle + Tailwind — `technical-decisions.md` T1/M1 |
+| Choix stack applicative | ✅ | ✅ **Requis** | ⚠️ Recommandé | ❌ | ✅ | Next.js + PG + Drizzle + Tailwind — `2026-07-06-technical-decisions.md` T1/M1 |
 | Choix ORM / persistance | ✅ | ✅ **Requis** | ⚠️ | ❌ | ✅ | Drizzle — M2 |
 | Auth différée | ✅ | ✅ **Recommandé** | ⚠️ Avant auth | ❌ | ✅ | M3 — auth après INC-01 |
 | DB local/dev first | ✅ | ✅ **Recommandé** | ❌ | ❌ | ✅ | M4 — docker test 5433 |
@@ -125,11 +125,11 @@ Vue **technique exploitable** — déploiement, hébergement, environnements, s�
 | **Rôle** | Traçabilité continue — filet de sécurité avant ADR |
 | **Contenu minimal** | ID, date, décision, contexte, impact, statut, source/PR, besoin ADR ? |
 | **vs ADR** | Register = toutes décisions utiles ; ADR = structurantes uniquement |
-| **Emplacement** | `technical-decisions.md`, `delivery-inc-0n-decisions.md` |
+| **Emplacement** | `2026-07-06-technical-decisions.md`, `delivery-inc-0n-decisions.md` |
 | **Reste au register** | Décision réversible, périmètre incrément, pas d'impact transverse |
 | **Promotion ADR** | Stack, persistance, auth, modèle central, intégration, sécurité, dette volontaire |
 
-**Exemple Chantiers360 :** `technical-decisions.md` T1–T11 + arbitrages M1–M10 — registre existant, **candidats promotion ADR** non produits dans le cycle standard.
+**Exemple Chantiers360 :** `2026-07-06-technical-decisions.md` T1–T11 + arbitrages M1–M10 — registre existant, **candidats promotion ADR** non produits dans le cycle standard.
 
 ## 6. Quand produire un ADR
 
@@ -147,7 +147,7 @@ ADR **requis ou fortement recommandé** si la décision concerne :
 
 | Décision | Documentation actuelle | Standard futur |
 |----------|------------------------|----------------|
-| Next.js + PostgreSQL + Drizzle + Tailwind | `technical-decisions.md` T1/M1 | **ADR recommandé** — cycle séparé |
+| Next.js + PostgreSQL + Drizzle + Tailwind | `2026-07-06-technical-decisions.md` T1/M1 | **ADR recommandé** — cycle séparé |
 | Drizzle vs autre ORM | M2 | **ADR recommandé** |
 | Auth différée | M3 | **ADR recommandé** |
 | DB local/dev first | M4 | **ADR recommandé** |
@@ -417,7 +417,7 @@ Logs, monitoring, alerting, healthcheck, backup, restore, support, runbook, inci
 
 | Décision / aspect | Documentation existante | Standard futur | Action ce cycle |
 |-------------------|-------------------------|----------------|-----------------|
-| Stack Next.js + PG + Drizzle + Tailwind | `technical-decisions.md` T1/M1 | ADR recommandé | Standard seulement |
+| Stack Next.js + PG + Drizzle + Tailwind | `2026-07-06-technical-decisions.md` T1/M1 | ADR recommandé | Standard seulement |
 | Drizzle ORM | M2 | ADR recommandé | Standard seulement |
 | Auth différée | M3 | ADR recommandé | Standard seulement |
 | DB local/dev first | M4 | ADR recommandé | Standard seulement |
@@ -451,6 +451,6 @@ Chaque item = **cycle séparé** avec gate Morris.
 - `sfia-v2-delivery-qa-test-standard.md`
 - `sfia-v2-design-coverage-standard.md`
 - `sfia-v2-design-figma-cycle-standard.md`
-- `projects/chantiers360-v2/05-technical-architecture/technical-decisions.md`
+- `projects/chantiers360-v2/05-technical-architecture/2026-07-06-technical-decisions.md`
 
 **Decision (provisional) :** SFIA V2.0 TECHNICAL ARCHITECTURE & DECISION DOCUMENTATION STANDARD DOCUMENTED — PENDING MORRIS VALIDATION

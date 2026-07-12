@@ -80,7 +80,7 @@ Le cycle UX/UI est **valide** si :
 1. Tous les écrans P1 et P2 de l'architecture fonctionnelle ont une description UX.
 2. Les wireframes textuels couvrent les 7 zones attendues.
 3. Les flux UX prioritaires sont documentés sans backlog ni user stories.
-4. Les décisions UX sont tracées dans `ux-decisions.md`.
+4. Les décisions UX sont tracées dans `2026-07-05-ux-decisions.md`.
 5. Le MVP et les exclusions Morris restent inchangés.
 6. Aucun code, design system complet ou maquette haute fidélité n'est produit.
 
@@ -88,7 +88,7 @@ Le cycle UX/UI est **valide** si :
 
 ---
 
-**Documents liés :** `screen-map.md`, `wireframes-functional.md`, `user-flows.md`, `ux-decisions.md`
+**Documents liés :** `screen-map.md`, `wireframes-functional.md`, `user-flows.md`, `2026-07-05-ux-decisions.md`
 
 **Sources :** `01-functional-architecture/` — navigation-model, functional-decisions
 

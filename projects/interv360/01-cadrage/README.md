@@ -18,4 +18,4 @@ Phase active — premières sections métier du cadrage en cours de rédaction (
 
 | Document | Statut |
 |----------|--------|
-| [business-framing.md](business-framing.md) | Draft — §2, §4, §6 rédigés ; sections suivantes à compléter |
+| [2026-06-27-business-framing.md](2026-06-27-business-framing.md) | Draft — §2, §4, §6 rédigés ; sections suivantes à compléter |

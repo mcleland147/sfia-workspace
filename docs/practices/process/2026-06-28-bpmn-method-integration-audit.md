@@ -134,7 +134,7 @@ Le projet Interv360 utilise actuellement `03-design/` pour la phase design (`pro
 │   ├── <project>-exceptions.svg
 │   └── <project>-integration-errors.svg
 ├── process-analysis.md
-└── process-cycle-closure.md
+└── 2026-06-28-process-cycle-closure.md
 ```
 
 ### Règles de format
@@ -218,8 +218,8 @@ projects/interv360/03-process/
 | `02-architecture/status-mapping.md` | Statuts et transitions |
 | `02-architecture/2026-06-28-closure-without-signature.md` | Clôture, signature optionnelle |
 | `02-architecture/geo-ai-arbitration.md` | Hors périmètre diagrammes MVP |
-| `02-architecture/clarification-cycle-closure.md` | Clôture cycle clarification |
-| `01-cadrage/business-framing.md` | Parcours SAV §6, objets métier |
+| `02-architecture/2026-06-28-clarification-cycle-closure.md` | Clôture cycle clarification |
+| `01-cadrage/2026-06-27-business-framing.md` | Parcours SAV §6, objets métier |
 
 **Précisions :**
 

@@ -38,7 +38,7 @@ Ce document **formalise les conditions MVP de clôture** d'une intervention lors
 | `mvp-clarifications.md` | CR web seul, clôture sans signature, hors périmètre PDF |
 | `clarification-workshop-minutes.md` | Décisions atelier simulé §7 clôture, champs CR minimaux |
 | `qa-transverse-analysis.md` | Ambiguïtés signature / clôture, testabilité amont |
-| `business-framing.md` | Cycle SAV §6, RG-R01/R02/R05, risques R-M05/R-M06 |
+| `2026-06-27-business-framing.md` | Cycle SAV §6, RG-R01/R02/R05, risques R-M05/R-M06 |
 | `mvp-arbitration-validation.md` | ARB-MVP-03 signature optionnelle, ARB-MVP-04 sync CRM |
 | `ux-ui-brief.md` | Parcours technicien, compte rendu intervention, clôture |
 | `ux-ui-brief-validation.md` | Format CR web seul ; points ouverts tranchés |

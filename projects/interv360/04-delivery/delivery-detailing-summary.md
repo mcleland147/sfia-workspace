@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Ready for closure  
 **Branche** : `delivery/interv360-detailing`  
-**Documents associés** : [`delivery-detailing-plan.md`](delivery-detailing-plan.md), [`inc-01-detailed-backlog.md`](inc-01-detailed-backlog.md), [`inc-01-user-stories.md`](inc-01-user-stories.md), [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md), [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md)
+**Documents associés** : [`delivery-detailing-plan.md`](delivery-detailing-plan.md), [`inc-01-detailed-backlog.md`](inc-01-detailed-backlog.md), [`inc-01-user-stories.md`](inc-01-user-stories.md), [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md), [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md)
 
 ---
 
@@ -54,7 +54,7 @@ Cela signifie que INC-01 est prêt pour un **futur cycle de préparation réalis
 | [`inc-01-detailed-backlog.md`](inc-01-detailed-backlog.md) | ✅ | 16 MB P0-A détaillés |
 | [`inc-01-user-stories.md`](inc-01-user-stories.md) | ✅ | 16 user stories métier |
 | [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md) | ✅ | 68 critères d'acceptation métier |
-| [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md) | ✅ | Décision readiness INC-01 |
+| [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md) | ✅ | Décision readiness INC-01 |
 | [`delivery-detailing-summary.md`](delivery-detailing-summary.md) | ✅ | Synthèse et décision de clôture |
 
 ---

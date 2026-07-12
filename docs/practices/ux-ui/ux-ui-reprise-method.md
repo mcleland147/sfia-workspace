@@ -117,7 +117,7 @@ Livrables d'un cycle de reprise UX/UI documentaire :
 | 5 | `screen-functional-specs.md` | Spécifications fonctionnelles par écran |
 | 6 | `dashboard-ux-view.md` | Vues dashboard par profil ; KPI ; alertes |
 | 7 | `ux-ui-summary.md` | Synthèse consolidée sans nouvelle décision |
-| 8 | `ux-ui-cycle-closure.md` | Clôture du cycle ; garde-fous ; suites possibles |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture du cycle ; garde-fous ; suites possibles |
 
 **Emplacement recommandé projet :** `projects/<projet>/06-ux-ui/` (ou équivalent selon la numérotation du projet).
 
@@ -175,7 +175,7 @@ Ces livrables **ne constituent pas** un backlog ni une maquette finale.
 
 **Objectif :** acter livrables, exclusions, points ouverts, suites possibles.
 
-**À produire :** `ux-ui-cycle-closure.md`
+**À produire :** `2026-06-28-ux-ui-cycle-closure.md`
 
 ### 6.9 Préparer PR ou capitalisation
 

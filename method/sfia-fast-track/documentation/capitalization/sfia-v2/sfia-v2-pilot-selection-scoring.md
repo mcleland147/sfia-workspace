@@ -208,7 +208,7 @@ Ce document **compare les trois candidats pilotes présélectionnés par Morris*
 - pas de reprise de la **structure projet** V0 ;
 - pas de reprise comme **modèle fonctionnel** pendant les cycles initiaux.
 
-**Point de départ :** bootstrap standard SFIA v2.0 — `README.md` + `00-framing/project-framing.md` neufs, intention et scope reformulés from scratch.
+**Point de départ :** bootstrap standard SFIA v2.0 — `README.md` + `00-framing/2026-07-07-project-framing.md` neufs, intention et scope reformulés from scratch.
 
 ### Forces
 

@@ -116,4 +116,4 @@ Le **delivery INC-01** reste **non autorisé** sans GO delivery Morris explicite
 
 ---
 
-**Documents liés :** `stack-options.md`, `stack-decision.md`, `application-structure.md`, `data-model-light.md`, `frontend-architecture.md`, `validation-and-delivery-readiness.md`, `technical-decisions.md`
+**Documents liés :** `stack-options.md`, `2026-07-06-stack-decision.md`, `application-structure.md`, `data-model-light.md`, `frontend-architecture.md`, `2026-07-06-validation-and-delivery-readiness.md`, `2026-07-06-technical-decisions.md`

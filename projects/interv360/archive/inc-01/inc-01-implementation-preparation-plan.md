@@ -55,7 +55,7 @@ Ce cycle **ne lance pas** le développement tant que l'autorisation finale n'est
 | Écrans | Liste, fiche, planning, intervention mobile, compte rendu mobile |
 | Hors scope | CRM réel, dashboard, STAT-07/08, sync bloquante, auth avancée |
 
-Sources : `mvp-scope.md`, `inc-01-readiness-checklist.md`, `delivery-slicing-strategy.md`.
+Sources : `mvp-scope.md`, `2026-06-29-inc-01-readiness-checklist.md`, `delivery-slicing-strategy.md`.
 
 ---
 

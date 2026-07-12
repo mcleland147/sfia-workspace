@@ -8,7 +8,7 @@
 **Payload concerné (non modifié)** :
 
 - `notion-sync-figma-v1-closure-payload.json` — `publish_to_notion: false`, `notion_publication_mode: manual_review_required`
-- `notion-sync-figma-v1-closure-summary.md`
+- `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md`
 
 ---
 
@@ -95,7 +95,7 @@ Si publication via CMP-001 :
 5. **Décision explicite** de publication — lever conceptuellement `publish_to_notion: false` après revue manuelle.
 6. **Exécution manuelle** de la commande `update` depuis le terminal (Cursor ou shell) — **aucune automatisation** liée au flag payload.
 
-**Alternative** : publication **manuelle** dans Notion (copier le message §9 de `notion-sync-figma-v1-closure-summary.md`) sans CMP-001.
+**Alternative** : publication **manuelle** dans Notion (copier le message §9 de `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md`) sans CMP-001.
 
 ---
 

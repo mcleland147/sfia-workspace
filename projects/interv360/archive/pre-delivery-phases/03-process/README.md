@@ -56,7 +56,7 @@ Elle intervient **avant** :
 | `bpmn/interv360-integration-errors.bpmn` | Anomalies d'intégration | À venir |
 | `exports/*.svg` | Exports de lecture | À venir |
 | `process-analysis.md` | Analyse règles / statuts / ADR candidates | À venir |
-| `process-cycle-closure.md` | Clôture du cycle BPMN projet | À venir |
+| `2026-06-28-process-cycle-closure.md` | Clôture du cycle BPMN projet | À venir |
 
 ---
 

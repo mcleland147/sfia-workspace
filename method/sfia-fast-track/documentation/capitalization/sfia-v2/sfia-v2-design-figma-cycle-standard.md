@@ -66,7 +66,7 @@ Dossier recommandé : `projects/<project-name>/04-design/`
 | `figma-brief.md` | Brief design repo-first — objectif, périmètre écrans, contraintes |
 | `screen-design-spec.md` | Spécification écran par écran — états, contenu, actions |
 | `figma-review-checklist.md` | Checklist revue design Morris |
-| `design-decisions.md` | Décisions design structurantes tracées |
+| `2026-07-06-design-decisions.md` | Décisions design structurantes tracées |
 | `design-to-backlog-alignment.md` | Impacts backlog — écarts vs UX/UI Markdown, ajustements US |
 
 **Principe :** Figma porte la **validation visuelle** ; Git porte les **décisions, briefs, checklists et impacts** documentés.
@@ -187,7 +187,7 @@ projects/<project-name>/
 │   ├── figma-brief.md
 │   ├── screen-design-spec.md
 │   ├── figma-review-checklist.md
-│   ├── design-decisions.md
+│   ├── 2026-07-06-design-decisions.md
 │   └── design-to-backlog-alignment.md
 ├── 03-backlog/                   ← idéalement après 04-design ; rattrapage possible
 └── README.md

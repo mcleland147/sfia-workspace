@@ -15,10 +15,10 @@
 
 | Source | Position |
 |--------|----------|
-| Backlog / `functional-decisions.md` §5 | Prochaines actions **100 % dérivées** — pas de saisie manuelle |
+| Backlog / `2026-07-05-functional-decisions.md` §5 | Prochaines actions **100 % dérivées** — pas de saisie manuelle |
 | Prompt delivery (modèle `prochaines_actions`) | Table + formulaire manuel — **non retenu** |
 
-**Décision D4 :** suivre le backlog et `functional-decisions.md` — **pas de migration ni table `prochaines_actions`**. Agrégation depuis `taches`, `reserves`, `chantiers` (jalons + retard).
+**Décision D4 :** suivre le backlog et `2026-07-05-functional-decisions.md` — **pas de migration ni table `prochaines_actions`**. Agrégation depuis `taches`, `reserves`, `chantiers` (jalons + retard).
 
 ## Décisions techniques
 

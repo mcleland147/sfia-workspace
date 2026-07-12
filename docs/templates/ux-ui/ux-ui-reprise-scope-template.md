@@ -116,7 +116,7 @@ Ce cycle **ne produit pas** de backlog, user stories, tests, code, API, modèle 
 | 5 | `screen-functional-specs.md` | Specs fonctionnelles écran |
 | 6 | `dashboard-ux-view.md` | Vues dashboard |
 | 7 | `ux-ui-summary.md` | Synthèse |
-| 8 | `ux-ui-cycle-closure.md` | Clôture |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture |
 
 ---
 

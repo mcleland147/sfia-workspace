@@ -149,4 +149,4 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 
 ---
 
-**Documents liés :** `functional-architecture.md`, `navigation-model.md`, `state-model.md`, `functional-decisions.md`
+**Documents liés :** `functional-architecture.md`, `navigation-model.md`, `state-model.md`, `2026-07-05-functional-decisions.md`

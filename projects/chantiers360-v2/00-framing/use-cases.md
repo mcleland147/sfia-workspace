@@ -129,7 +129,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 3. L'utilisateur peut ajuster le statut ou planifier une prochaine intervention.
 
 **Résultat attendu :** Retard identifiable sans analyse manuelle lourde.  
-**Question ouverte :** calcul automatique vs marquage manuel — voir `detailed-framing.md` §9.
+**Question ouverte :** calcul automatique vs marquage manuel — voir `2026-07-05-detailed-framing.md` §9.
 
 ---
 
@@ -161,7 +161,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 3. Il peut naviguer vers le chantier concerné.
 
 **Résultat attendu :** Réduction de la charge cognitive — focus sur l'action.  
-**Question ouverte :** agrégation automatique vs saisie manuelle — voir `detailed-framing.md` §9.
+**Question ouverte :** agrégation automatique vs saisie manuelle — voir `2026-07-05-detailed-framing.md` §9.
 
 ---
 
@@ -187,4 +187,4 @@ Ordre de delivery incrémental : **décision Morris** après validation de ce ca
 
 ---
 
-**Documents liés :** `detailed-framing.md`, `business-rules.md`, `scope-boundaries.md`
+**Documents liés :** `2026-07-05-detailed-framing.md`, `business-rules.md`, `scope-boundaries.md`

@@ -79,7 +79,7 @@
 | `EmptyState` | Message liste vide + CTA | Listes |
 | `ProchaineActionRow` | Ligne vue transverse | INC-05 |
 
-**Pas de design system package** — composants locaux suffisants au MVP (`design-decisions.md`).
+**Pas de design system package** — composants locaux suffisants au MVP (`2026-07-06-design-decisions.md`).
 
 ## 4. Navigation
 

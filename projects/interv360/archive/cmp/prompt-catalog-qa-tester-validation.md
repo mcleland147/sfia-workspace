@@ -37,7 +37,7 @@ Elle acte la **robustesse candidate** de la famille et **autorise** la préparat
 | `prompts/prompt-catalog.md` | Référencement §14 ; cohérence catalogue SFIA |
 | `docs/methods/roles/qa-tester-method.md` | Méthode officielle liée — alignement attendu |
 | `qa-tester-role-candidate-review.md` | Décision candidat mature ; autorisation méthode officielle |
-| `qa-tester-role-candidate-framing.md` | Périmètre rôle ; garde-fous candidat |
+| `2026-06-28-qa-tester-role-candidate-framing.md` | Périmètre rôle ; garde-fous candidat |
 | `qa-tester-role-research-and-benchmark.md` | Fondement méthodologique ; bonnes pratiques |
 | `docs/standards/ux-ui-v1-governance-standard.md` | Lien revue UX/UI V1 ; QA en revue transverse |
 

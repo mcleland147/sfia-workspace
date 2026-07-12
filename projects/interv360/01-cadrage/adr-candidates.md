@@ -48,7 +48,7 @@ Une décision devient ADR candidate si :
 | **ADR-CAND-006** | Notifications client sans portail client au MVP | ARB-MVP-02 | Product Owner / Architecte | Moyenne | Candidate |
 | **ADR-CAND-007** | Signature client optionnelle structurée | ARB-MVP-03 | Product Owner / Business Analyst | Moyenne | Candidate |
 | **ADR-CAND-008** | Dashboard SAV et vue dirigeant séparés | ARB-MVP-07 / dashboard-kpi-ux-review.md | UX/UI Designer / Product Owner | Moyenne | Candidate |
-| **ADR-CAND-009** | IA légère reportée post-MVP | framing-review.md / business-framing.md | Data / IA / Product Owner | Basse | Candidate |
+| **ADR-CAND-009** | IA légère reportée post-MVP | 2026-06-27-framing-review.md / 2026-06-27-business-framing.md | Data / IA / Product Owner | Basse | Candidate |
 
 ---
 
@@ -412,7 +412,7 @@ Template Dashboard KPI Matrix ; PROMPT-UX-003 ; enrichissement ux-ui-designer-me
 **Priorité** : Basse  
 **Rôle principal** : Data / IA  
 **Rôles contributeurs** : Product Owner, FinOps, Architecte  
-**Source(s)** : framing-review.md §4, business-framing Q7/Q15/A-IA01
+**Source(s)** : 2026-06-27-framing-review.md §4, business-framing Q7/Q15/A-IA01
 
 **Question à instruire**  
 Quels cas d'usage IA légère (résumé CR, classification demandes, aide priorisation) retenir pour une phase post-MVP, et quelle gouvernance données associer ?
@@ -443,7 +443,7 @@ IA légère **reportée post-MVP** (priorité moyenne framing-review). Pas de pr
 R-FG05, R-S07 (surcomplexification, gouvernance IA) ; promesse IA sans cas d'usage.
 
 **Livrables liés**  
-business-framing §11 Q7/Q15 ; framing-review.md ; role-methods-framing §4.11
+business-framing §11 Q7/Q15 ; 2026-06-27-framing-review.md ; role-methods-framing §4.11
 
 **Capitalisation SFIA possible**  
 Template AI Use Case Framing ; enrichissement data-ai-method.md (futur)

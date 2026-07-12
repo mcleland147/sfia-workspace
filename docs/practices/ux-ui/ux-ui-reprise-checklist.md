@@ -118,7 +118,7 @@ Elle **ne remplace pas** la relecture métier ni la validation humaine.
 
 ## 9. Contrôle clôture
 
-- [ ] `ux-ui-cycle-closure.md` produit
+- [ ] `2026-06-28-ux-ui-cycle-closure.md` produit
 - [ ] Les 8 livrables listés avec statut
 - [ ] Résultats obtenus récapitulés
 - [ ] Exclusions confirmées (cases cochées)

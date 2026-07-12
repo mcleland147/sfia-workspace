@@ -38,10 +38,10 @@ Les sources principales sont :
 - [`realization-preparation-summary.md`](realization-preparation-summary.md)
 - [`inc-01-effort-estimation.md`](inc-01-effort-estimation.md)
 - [`inc-01-qa-strategy.md`](inc-01-qa-strategy.md)
-- [`inc-01-technical-framing.md`](inc-01-technical-framing.md)
+- [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md)
 - [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md)
 - [`delivery-detailing-summary.md`](delivery-detailing-summary.md)
-- [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md)
+- [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md)
 
 ### Décision héritée
 
@@ -99,7 +99,7 @@ Le cycle s'appuie sur les séquences de réalisation suivantes :
 | Livrable | Objectif |
 |----------|----------|
 | [`inc-01-application-architecture.md`](inc-01-application-architecture.md) | Définir l'architecture applicative cible au niveau conception |
-| [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md) | Formaliser les choix front / back / data |
+| [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md) | Formaliser les choix front / back / data |
 | [`inc-01-data-model.md`](inc-01-data-model.md) | Décrire le modèle de données conceptuel / logique sans SQL exécutable |
 | [`inc-01-api-strategy.md`](inc-01-api-strategy.md) | Définir la stratégie API ou l'absence d'API pour INC-01 |
 | [`inc-01-status-rules.md`](inc-01-status-rules.md) | Formaliser les règles de transition STAT-01 à STAT-06 |

@@ -24,7 +24,7 @@ Projet de référence SFIA Fast Track.
 
 - `02-architecture/adr/`
 - `04-delivery/premium-design-system.md`
-- `05-release/mvp-release-readiness.md`
+- `05-release/2026-07-02-mvp-release-readiness.md`
 - `06-audit-rex/current-application-audit.md`
 
 ## Règle

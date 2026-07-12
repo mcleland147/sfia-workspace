@@ -34,7 +34,7 @@ L'objectif est de transformer le cadrage métier détaillé en éléments prépa
 Les sources principales sont :
 
 - [`delivery-detailing-summary.md`](delivery-detailing-summary.md)
-- [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md)
+- [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md)
 - [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md)
 - [`inc-01-user-stories.md`](inc-01-user-stories.md)
 - [`inc-01-detailed-backlog.md`](inc-01-detailed-backlog.md)
@@ -82,7 +82,7 @@ INC-01 couvre le flux SAV minimal :
 | Livrable | Objectif |
 |----------|----------|
 | [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md) | Découper INC-01 en séquences de réalisation |
-| [`inc-01-technical-framing.md`](inc-01-technical-framing.md) | Identifier les cadrages techniques nécessaires sans choisir trop tôt |
+| [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md) | Identifier les cadrages techniques nécessaires sans choisir trop tôt |
 | [`inc-01-qa-strategy.md`](inc-01-qa-strategy.md) | Préparer l'approche QA métier et fonctionnelle |
 | [`inc-01-effort-estimation.md`](inc-01-effort-estimation.md) | Produire une estimation macro de charge / complexité |
 | [`realization-preparation-summary.md`](realization-preparation-summary.md) | Synthétiser le cycle et décider de la suite |

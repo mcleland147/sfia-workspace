@@ -22,7 +22,7 @@ Le batch doit rester rapide, démontrable et contrôlé.
 
 Le cadrage workflow extension a été réalisé dans :
 
-[`../09-roadmap/interv360-workflow-extension-framing.md`](../09-roadmap/interv360-workflow-extension-framing.md)
+[`../09-roadmap/2026-07-02-interv360-workflow-extension-framing.md`](../09-roadmap/2026-07-02-interv360-workflow-extension-framing.md)
 
 Décision retenue :
 

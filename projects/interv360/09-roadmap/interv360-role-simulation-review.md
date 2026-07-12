@@ -485,4 +485,4 @@ Décision :
 
 Cette synthèse est volontairement intégrée au cycle workflow extension afin d’éviter une PR documentaire intermédiaire.
 
-Document de cadrage : [`interv360-workflow-extension-framing.md`](./interv360-workflow-extension-framing.md)
+Document de cadrage : [`2026-07-02-interv360-workflow-extension-framing.md`](./2026-07-02-interv360-workflow-extension-framing.md)

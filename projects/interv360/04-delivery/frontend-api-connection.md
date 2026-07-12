@@ -28,7 +28,7 @@ Le **mode API** est activable explicitement par configuration.
 
 ## 2. Point de départ
 
-Le cadrage précédent ([`frontend-api-connection-framing.md`](./frontend-api-connection-framing.md)) a retenu :
+Le cadrage précédent ([`2026-07-01-frontend-api-connection-framing.md`](./2026-07-01-frontend-api-connection-framing.md)) a retenu :
 
 - mode dual local/API ;
 - abstraction repository async ;
@@ -267,7 +267,7 @@ No SQL database, CRM integration, authentication, multi-user logic, real data, S
 
 | Zone | Contenu |
 |------|---------|
-| Cadrage | `04-delivery/frontend-api-connection-framing.md` |
+| Cadrage | `04-delivery/2026-07-01-frontend-api-connection-framing.md` |
 | Livraison | `04-delivery/frontend-api-connection.md` |
 | Frontend | Repository dual, `App.tsx` async, composants UI, tests |
 | Docs | `app/README.md`, `backend/README.md` |

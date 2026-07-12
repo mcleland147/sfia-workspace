@@ -14,7 +14,7 @@ Ce document **formalise l'arbitrage MVP** concernant la **géolocalisation** et 
 
 **Précisions :**
 
-- ces deux sujets étaient **identifiés comme ouverts / sensibles** dans le cadrage (`business-framing.md`, `qa-transverse-analysis.md`) ;
+- ces deux sujets étaient **identifiés comme ouverts / sensibles** dans le cadrage (`2026-06-27-business-framing.md`, `qa-transverse-analysis.md`) ;
 - l'objectif est d'**éviter des critères flottants** dans le MVP ;
 - le document **fixe une décision de cadrage** — hors MVP pour les deux ;
 - il **conserve une trajectoire future** documentée sans engagement delivery ;
@@ -33,7 +33,7 @@ Ce document **formalise l'arbitrage MVP** concernant la **géolocalisation** et 
 | `mvp-clarifications-summary.md` | Synthèse géoloc / IA hors MVP |
 | `clarification-workshop-minutes.md` | Décisions atelier simulé §8, ADR candidates |
 | `qa-transverse-analysis.md` | Recommandation prudente hors MVP ; testabilité géoloc/IA |
-| `business-framing.md` | RG-T04 géolocalisation, Q7/Q15 IA, arbitrages A-FG06, A-IA01 |
+| `2026-06-27-business-framing.md` | RG-T04 géolocalisation, Q7/Q15 IA, arbitrages A-FG06, A-IA01 |
 | `mvp-arbitration-validation.md` | Limites MVP validées — pas BI, pas prédictif IA |
 | `mvp-arbitrations.md` | Recommandations arbitrages et impacts |
 | `ux-ui-brief.md` | Limites MVP §7 — sobriété, pas personnalisation avancée |
@@ -62,7 +62,7 @@ Ce document **formalise l'arbitrage MVP** concernant la **géolocalisation** et 
 > La **géolocalisation est exclue du MVP** Interv360.
 > Elle **ne doit pas** être utilisée comme **critère de validation** du MVP, ni comme **dépendance** du parcours technicien.
 
-Références cadrage : mention RG-T04, arbitrage A-FG06 (`business-framing.md`) — **non validé MVP** ; aligné atelier simulé et `qa-transverse-analysis.md`.
+Références cadrage : mention RG-T04, arbitrage A-FG06 (`2026-06-27-business-framing.md`) — **non validé MVP** ; aligné atelier simulé et `qa-transverse-analysis.md`.
 
 ### 4.2 Justification
 
@@ -108,7 +108,7 @@ Trajectoire **prudente** — sans engagement delivery :
 > - prioriser une demande ;
 > - générer une décision métier au MVP.
 
-Références : Q7, Q15, A-IA01 (`business-framing.md`) — **non validés MVP** ; limites brief UX (pas prédictif IA).
+Références : Q7, Q15, A-IA01 (`2026-06-27-business-framing.md`) — **non validés MVP** ; limites brief UX (pas prédictif IA).
 
 ### 5.2 Justification
 

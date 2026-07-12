@@ -31,7 +31,7 @@ Le cycle respecte les décisions précédentes :
 - pas de base serveur ;
 - pas de CRM.
 
-**Sources :** [`inc-01-local-persistence-decision.md`](inc-01-local-persistence-decision.md), [`inc-01-app-foundation-summary.md`](inc-01-app-foundation-summary.md)
+**Sources :** [`2026-06-30-inc-01-local-persistence-decision.md`](2026-06-30-inc-01-local-persistence-decision.md), [`inc-01-app-foundation-summary.md`](inc-01-app-foundation-summary.md)
 
 **Commit applicatif :** `d1dbee9` — `feat: add INC-01 requests list skeleton`
 

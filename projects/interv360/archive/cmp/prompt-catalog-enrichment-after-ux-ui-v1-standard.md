@@ -51,8 +51,8 @@ Aucun nouveau fichier catalogue créé — `prompts/catalog.md` n'existe pas ; l
 | 7 | PROMPT-UXUI-007 — Template CR revue | `figma-review-session-minutes-template.md` | Structure CR vide ; pas de retours fictifs |
 | 8 | PROMPT-UXUI-008 — Enrichissement méthodes rôle | `role-methods-enrichment-after-figma-v1.md` | Capitaliser avant revue simulée |
 | 9 | PROMPT-UXUI-009 — CR revue simulée | `figma-review-session-minutes.md` | Validation par rôles ; simulation explicite |
-| 10 | PROMPT-UXUI-010 — Clôture jalon UX/UI V1 | `figma-v1-closure-summary.md` | Acter clôture ; V2 ; delivery bloqué |
-| 11 | PROMPT-UXUI-011 — Sync gouvernance | `notion-sync-figma-v1-closure-summary.md` + payload JSON | Payload ; non publié par défaut |
+| 10 | PROMPT-UXUI-010 — Clôture jalon UX/UI V1 | `2026-06-28-figma-v1-closure-summary.md` | Acter clôture ; V2 ; delivery bloqué |
+| 11 | PROMPT-UXUI-011 — Sync gouvernance | `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md` + payload JSON | Payload ; non publié par défaut |
 | 12 | PROMPT-UXUI-012 — Standard candidat | `sfia-figma-v1-standard-candidate.md` | Candidat projet ; pas promotion auto |
 | 13 | PROMPT-UXUI-013 — Revue standard candidat | `sfia-figma-v1-standard-candidate-review.md` | Robustesse ; promotable / différé |
 | 14 | PROMPT-UXUI-014 — Préparation promotion | `sfia-figma-v1-standard-promotion-preparation.md` | Nom cible ; variables ; conditions |

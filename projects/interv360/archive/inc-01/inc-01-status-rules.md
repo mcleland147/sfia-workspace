@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Draft  
 **Branche** : `delivery/interv360-technical-design`  
-**Documents associés** : [`technical-design-plan.md`](technical-design-plan.md), [`inc-01-application-architecture.md`](inc-01-application-architecture.md), [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md), [`inc-01-data-model.md`](inc-01-data-model.md), [`inc-01-api-strategy.md`](inc-01-api-strategy.md)
+**Documents associés** : [`technical-design-plan.md`](technical-design-plan.md), [`inc-01-application-architecture.md`](inc-01-application-architecture.md), [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md), [`inc-01-data-model.md`](inc-01-data-model.md), [`inc-01-api-strategy.md`](inc-01-api-strategy.md)
 
 ---
 

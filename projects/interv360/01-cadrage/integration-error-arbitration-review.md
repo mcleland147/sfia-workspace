@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : `business-framing.md` + `framing-review.md` + `mvp-arbitrations.md`  
+**Source** : `2026-06-27-business-framing.md` + `2026-06-27-framing-review.md` + `mvp-arbitrations.md`  
 **Objet** : réinstruction ARB-MVP-04 et ARB-MVP-05
 
 ---
@@ -146,13 +146,13 @@ Retenir le **niveau 3 : erreur visible dans un écran anomalies, avec reprise ma
 
 | Document | Section concernée | Impact attendu |
 |----------|-------------------|----------------|
-| `business-framing.md` | §8 Intégrations simulées | Préciser niveau « contrats documentés, implémentation simulée » par intégration |
-| `business-framing.md` | §10 Règles d'intégration (RG-I01 à RG-I09) | Affiner règles erreurs, journalisation, reprise manuelle, mapping statuts |
-| `business-framing.md` | §12 Arbitrages (A-I05, A-I07, A-I08) | Orientations candidates pour A-I05 (simulation) et A-I07 (erreurs) |
-| `business-framing.md` | §15 Risques (R-I01 à R-I05, R-UX06) | Réduction risques si réinstruction validée ; mise à jour statuts risques |
+| `2026-06-27-business-framing.md` | §8 Intégrations simulées | Préciser niveau « contrats documentés, implémentation simulée » par intégration |
+| `2026-06-27-business-framing.md` | §10 Règles d'intégration (RG-I01 à RG-I09) | Affiner règles erreurs, journalisation, reprise manuelle, mapping statuts |
+| `2026-06-27-business-framing.md` | §12 Arbitrages (A-I05, A-I07, A-I08) | Orientations candidates pour A-I05 (simulation) et A-I07 (erreurs) |
+| `2026-06-27-business-framing.md` | §15 Risques (R-I01 à R-I05, R-UX06) | Réduction risques si réinstruction validée ; mise à jour statuts risques |
 | `mvp-arbitrations.md` | ARB-MVP-04 | Évolution statut « À réinstruire » → recommandation candidate option C |
 | `mvp-arbitrations.md` | ARB-MVP-05 | Évolution statut « À réinstruire » → recommandation candidate niveau 3 |
-| `framing-review.md` | §5 ADR candidates | Enrichissement liste ADR (contrats API, erreurs, email, journalisation) |
+| `2026-06-27-framing-review.md` | §5 ADR candidates | Enrichissement liste ADR (contrats API, erreurs, email, journalisation) |
 
 *Ces impacts seront répercutés lors de la validation finale — **aucune modification automatique** à ce stade.*
 

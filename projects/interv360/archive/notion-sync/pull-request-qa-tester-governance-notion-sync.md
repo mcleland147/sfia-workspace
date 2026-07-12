@@ -45,7 +45,7 @@ Elle couvre :
 | **Lot 1 Architecture & Sécurité** | préparation, payload, revue, publication |
 | **Lot 2 UX/UI V1 Governance** | préparation, payload, revue, publication |
 | **Lot final** | préparation, payload, revue, publication |
-| **Clôture** | `notion-sync-prompt-library-closure-summary.md` |
+| **Clôture** | `2026-06-28-notion-sync-prompt-library-closure-summary.md` |
 
 ### `tools/cmp-001/src/schemas/prompt.schema.json`
 
@@ -64,7 +64,7 @@ Elle couvre :
 | Lot final | Prompts restants | 12 | Publié |
 | **Total** | **SFIA Prompt Library** | **39** | **Publié** |
 
-Traces Git : `notion-sync-qa-prompt-library-publication-log.md`, `...-lot1-...`, `...-lot2-...`, `...-final-lot-publication-log.md`, `notion-sync-prompt-library-closure-summary.md`.
+Traces Git : `notion-sync-qa-prompt-library-publication-log.md`, `...-lot1-...`, `...-lot2-...`, `...-final-lot-publication-log.md`, `2026-06-28-notion-sync-prompt-library-closure-summary.md`.
 
 ---
 

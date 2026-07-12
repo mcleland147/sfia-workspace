@@ -55,14 +55,14 @@ Cette note **prépare tous les prompts restants** du catalogue SFIA en **un seul
 
 | ID | Nom | Famille | Catégorie CMP envisagée | Source | Qualité source | Action |
 |----|-----|---------|-------------------------|--------|----------------|--------|
-| PROMPT-CAD-001 | Cadrage métier projet | Cadrage | Framing | `business-framing.md` + catalogue §4 | Suffisante (livrable pilote) | Publier après revue payload |
-| PROMPT-CAD-002 | Revue cohérence cadrage | Cadrage | Framing | `framing-review.md` + catalogue §4 | Suffisante | Publier après revue payload |
+| PROMPT-CAD-001 | Cadrage métier projet | Cadrage | Framing | `2026-06-27-business-framing.md` + catalogue §4 | Suffisante (livrable pilote) | Publier après revue payload |
+| PROMPT-CAD-002 | Revue cohérence cadrage | Cadrage | Framing | `2026-06-27-framing-review.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-ARB-001 | Arbitrages MVP | Arbitrages | Arbitration | `mvp-arbitrations.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-ARB-002 | Validation arbitrages MVP | Arbitrages | Arbitration | `mvp-arbitration-validation.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-UX-001 | Brief UX/UI avant Figma | UX/UI classique | UX/UI | `ux-ui-brief.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-UX-002 | Validation brief UX/UI | UX/UI classique | UX/UI | `ux-ui-brief-validation.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-UX-003 | Revue dashboard KPI UX | UX/UI classique | UX/UI | `dashboard-kpi-ux-review.md` + catalogue §4 | Suffisante | Publier après revue payload |
-| PROMPT-ROLE-001 | Méthode globale par rôle | Rôles | Role | `role-methods-framing.md` + catalogue §4 | Suffisante | Publier après revue payload |
+| PROMPT-ROLE-001 | Méthode globale par rôle | Rôles | Role | `2026-06-28-role-methods-framing.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-ROLE-002 | Revue méthode par rôle | Rôles | Role | `role-methods-review.md` + catalogue §4 | Suffisante | Publier après revue payload |
 | PROMPT-ROLE-003 | Extraction méthode rôle | Rôles | Role | `docs/methods/roles/` + catalogue §4 | Partielle | Formaliser avant statut Tested |
 | PROMPT-GOV-001 | Synchronisation gouvernance Notion projet | Gouvernance | Governance | `notion-sync-summary.md` + payload + CMP-001 | Partielle — ambiguë | Arbitrage requis |
@@ -76,14 +76,14 @@ Cette note **prépare tous les prompts restants** du catalogue SFIA en **un seul
 
 | Prompt | Fichier source dédié `prompts/` | Source projet suffisante | Corps exécutable complet | Décision |
 |--------|--------------------------------|--------------------------|--------------------------|----------|
-| PROMPT-CAD-001 | Non | Oui — `business-framing.md` | Non — livrable, pas prompt formalisé | Publier en synthèse Draft v0.1 |
-| PROMPT-CAD-002 | Non | Oui — `framing-review.md` | Non | Publier en synthèse Draft v0.1 |
+| PROMPT-CAD-001 | Non | Oui — `2026-06-27-business-framing.md` | Non — livrable, pas prompt formalisé | Publier en synthèse Draft v0.1 |
+| PROMPT-CAD-002 | Non | Oui — `2026-06-27-framing-review.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-ARB-001 | Non | Oui — `mvp-arbitrations.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-ARB-002 | Non | Oui — `mvp-arbitration-validation.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-UX-001 | Non | Oui — `ux-ui-brief.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-UX-002 | Non | Oui — `ux-ui-brief-validation.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-UX-003 | Non | Oui — `dashboard-kpi-ux-review.md` | Non | Publier en synthèse Draft v0.1 |
-| PROMPT-ROLE-001 | Non | Oui — `role-methods-framing.md` | Non | Publier en synthèse Draft v0.1 |
+| PROMPT-ROLE-001 | Non | Oui — `2026-06-28-role-methods-framing.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-ROLE-002 | Non | Oui — `role-methods-review.md` | Non | Publier en synthèse Draft v0.1 |
 | PROMPT-ROLE-003 | Non | Partielle — méthodes existantes | Non — workflow extraction non formalisé | Créer fichier `prompts/roles/` avant Tested |
 | PROMPT-GOV-001 | Non | Partielle — synthèse courte | Non — méta-sync outillage | Arbitrage requis avant publication |

@@ -37,7 +37,7 @@ Cette note **prépare la publication Notion** de la clôture Figma V1 via **CMP-
 
 **Dérivé de**
 
-- `notion-sync-figma-v1-closure-summary.md`
+- `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md`
 - `notion-sync-figma-v1-closure-payload.json` (payload initial **non modifié**)
 - `prompt-catalog-ux-ui-v1-validation.md`
 - `docs/standards/ux-ui-v1-governance-standard.md`

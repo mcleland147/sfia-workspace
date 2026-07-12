@@ -137,8 +137,8 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 
 | Document | Rôle |
 |----------|------|
-| `00-framing/project-framing.md` | Framing initial bootstrap |
-| `00-framing/detailed-framing.md` | Cadrage détaillé — objectif, risques, critères succès |
+| `00-framing/2026-07-07-project-framing.md` | Framing initial bootstrap |
+| `00-framing/2026-07-05-detailed-framing.md` | Cadrage détaillé — objectif, risques, critères succès |
 | `00-framing/use-cases.md` | Cas d'usage prioritaires (sans backlog) |
 | `00-framing/business-rules.md` | Règles métier simples MVP |
 | `00-framing/scope-boundaries.md` | Limites MVP / hors MVP |
@@ -151,7 +151,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `01-functional-architecture/functional-domains.md` | 8 domaines fonctionnels |
 | `01-functional-architecture/navigation-model.md` | Navigation fonctionnelle (sans UI) |
 | `01-functional-architecture/state-model.md` | États métier chantier, tâche, réserve, retard |
-| `01-functional-architecture/functional-decisions.md` | Décisions Morris intégrées |
+| `01-functional-architecture/2026-07-05-functional-decisions.md` | Décisions Morris intégrées |
 
 ## 10. UX/UI documents
 
@@ -161,7 +161,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `02-ux-ui/screen-map.md` | Carte des 8 écrans fonctionnels |
 | `02-ux-ui/wireframes-functional.md` | Wireframes textuels (sans design graphique) |
 | `02-ux-ui/user-flows.md` | 7 flux UX prioritaires (sans backlog) |
-| `02-ux-ui/ux-decisions.md` | Décisions UX/UI tracées |
+| `02-ux-ui/2026-07-05-ux-decisions.md` | Décisions UX/UI tracées |
 
 ## 11. Design Figma MVP documents
 
@@ -170,7 +170,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `04-design/figma-brief.md` | Brief design — périmètre écrans, fidélité, lien Figma |
 | `04-design/screen-design-spec.md` | Spécification écran par écran pour Figma |
 | `04-design/figma-review-checklist.md` | Checklist revue Morris |
-| `04-design/design-decisions.md` | Décisions design tracées |
+| `04-design/2026-07-06-design-decisions.md` | Décisions design tracées |
 | `04-design/design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
 
 ## 12. Technical architecture documents
@@ -179,12 +179,12 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 |----------|------|
 | `05-technical-architecture/technical-architecture-overview.md` | Objectif cycle, périmètre, lien INC-01 |
 | `05-technical-architecture/stack-options.md` | Comparaison options stack MVP |
-| `05-technical-architecture/stack-decision.md` | Décision stack — validée Morris |
+| `05-technical-architecture/2026-07-06-stack-decision.md` | Décision stack — validée Morris |
 | `05-technical-architecture/application-structure.md` | Structure applicative cible |
 | `05-technical-architecture/data-model-light.md` | Modèle de données léger |
 | `05-technical-architecture/frontend-architecture.md` | Architecture frontend P1 |
-| `05-technical-architecture/validation-and-delivery-readiness.md` | Conditions avant INC-01 |
-| `05-technical-architecture/technical-decisions.md` | Registre décisions techniques |
+| `05-technical-architecture/2026-07-06-validation-and-delivery-readiness.md` | Conditions avant INC-01 |
+| `05-technical-architecture/2026-07-06-technical-decisions.md` | Registre décisions techniques |
 
 ## 13. Backlog MVP documents
 
@@ -196,7 +196,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 | `03-backlog/acceptance-criteria.md` | Critères d'acceptation fonctionnels |
 | `03-backlog/delivery-increments.md` | 5 incréments INC-01 à INC-05 |
 | `03-backlog/backlog-traceability.md` | Matrice traçabilité cadrage → backlog |
-| `03-backlog/backlog-decisions.md` | Décisions backlog tracées |
+| `03-backlog/2026-07-05-backlog-decisions.md` | Décisions backlog tracées |
 
 ## 14. Next SFIA cycles
 

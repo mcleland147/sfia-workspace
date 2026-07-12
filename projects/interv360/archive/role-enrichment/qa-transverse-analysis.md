@@ -26,8 +26,8 @@ Cette analyse intègre le **rôle QA / Testeur** dans la réflexion Interv360 af
 
 | Source | Rôle dans l'analyse QA |
 |--------|------------------------|
-| `projects/interv360/01-cadrage/business-framing.md` | Référence principale : parcours SAV, objets métier, 56 règles RG-*, arbitrages, risques, critères de passage de phase |
-| `projects/interv360/01-cadrage/framing-review.md` | Maturité du cadrage, cohérences à vérifier, points à clarifier avant arbitrages |
+| `projects/interv360/01-cadrage/2026-06-27-business-framing.md` | Référence principale : parcours SAV, objets métier, 56 règles RG-*, arbitrages, risques, critères de passage de phase |
+| `projects/interv360/01-cadrage/2026-06-27-framing-review.md` | Maturité du cadrage, cohérences à vérifier, points à clarifier avant arbitrages |
 | `projects/interv360/01-cadrage/mvp-arbitrations.md` | Recommandations et impacts des 7 arbitrages MVP sur règles, parcours, écrans |
 | `projects/interv360/01-cadrage/mvp-arbitration-validation.md` | Périmètre MVP validé : canaux, écrans, erreurs, conservation, signature |
 | `projects/interv360/01-cadrage/ux-ui-brief.md` | Brief UX/UI validé : 8 écrans, 10 parcours critiques, KPI, principes UX |
@@ -43,7 +43,7 @@ Cette analyse intègre le **rôle QA / Testeur** dans la réflexion Interv360 af
 
 | Axe QA | Question posée | Constat | Niveau de risque |
 |--------|----------------|---------|------------------|
-| **Clarté du besoin** | Le besoin métier et la vision sont-ils compréhensibles et stables ? | Vision Interv360 + pilote SFIA claire (`business-framing.md` §2). Périmètre MVP **validé** via 7 arbitrages (`mvp-arbitration-validation.md`). | **Faible** |
+| **Clarté du besoin** | Le besoin métier et la vision sont-ils compréhensibles et stables ? | Vision Interv360 + pilote SFIA claire (`2026-06-27-business-framing.md` §2). Périmètre MVP **validé** via 7 arbitrages (`mvp-arbitration-validation.md`). | **Faible** |
 | **Cohérence du périmètre MVP** | Le MVP est-il borné et non contradictoire ? | Noyau **8 écrans**, CRM principal, notifications sans portail, signature optionnelle, retry hors MVP — cohérent entre arbitrages, brief UX et validation. | **Faible** |
 | **Testabilité future** | Les livrables permettent-ils une future vérification ? | Parcours §6, objets §9, matrice RG-* et cas CF1–CF9 posent une base traçable ; **56 règles** encore majoritairement « À définir / À arbitrer » au niveau détail. | **Moyen** |
 | **Ambiguïtés métier** | Reste-t-il des zones floues bloquantes ? | **8 points ouverts** avant maquette (`ux-ui-brief-validation.md` §4) : format CR, planning, alertes, mobile, wording statuts, etc. | **Moyen** |
@@ -103,7 +103,7 @@ Cette analyse intègre le **rôle QA / Testeur** dans la réflexion Interv360 af
 | Risque | Origine | Impact | Prévention recommandée |
 |--------|---------|--------|------------------------|
 | **MVP fonctionnellement large (8 écrans + 2 dashboards riches)** | ARB-MVP-07, `dashboard-kpi-ux-review.md` §7, R-UX03 | Effort delivery, démonstrateur difficile à valider bout en bout | Maintenir limites MVP §6 dashboard ; prioriser top KPI ; reporter personnalisation |
-| **Règles métier non détaillées** | `business-framing.md` §10 — majorité RG « À définir » | Comportements implémentés ou testés sans référence commune | Détailler en priorité RG-C04, RG-C05, RG-P03, RG-R02, RG-R05, RG-I05, RG-I06 |
+| **Règles métier non détaillées** | `2026-06-27-business-framing.md` §10 — majorité RG « À définir » | Comportements implémentés ou testés sans référence commune | Détailler en priorité RG-C04, RG-C05, RG-P03, RG-R02, RG-R05, RG-I05, RG-I06 |
 | **Doublon dashboard SAV / vue dirigeant** | `ux-ui-brief.md` §5.1/§5.8, R-M08 | Confusion utilisateur ; indicateurs redondants | Valider différenciation opérationnel vs consolidé avant Figma |
 | **Parcours technicien mobile non cadré** | `ux-ui-brief-validation.md` §4, R-UX05 | CR tardifs, adoption terrain faible | Arbitrer priorité mobile ; critères « ≤ 3 actions » à ancrer sur device cible |
 | **Erreurs intégration mal lisibles** | ARB-MVP-05, point ouvert représentation erreurs | Anomalies non traitées (R-UX06) | Définir message métier + action reprise avant maquette écran anomalies |

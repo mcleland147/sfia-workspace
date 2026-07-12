@@ -31,7 +31,7 @@ Il s'applique à tout projet utilisant la capacité BPMN — premier cas d'usage
 │   ├── <project>-exceptions.svg
 │   └── <project>-integration-errors.svg
 ├── process-analysis.md
-└── process-cycle-closure.md
+└── 2026-06-28-process-cycle-closure.md
 ```
 
 **Note** : le dossier projet est `<project>/03-process/` — à créer en Phase D uniquement. Ne pas confondre avec `03-design/` (UX / maquettes) sur les projets existants.
@@ -47,7 +47,7 @@ Il s'applique à tout projet utilisant la capacité BPMN — premier cas d'usage
 | `bpmn/` | Sources BPMN versionnées (`.bpmn`) | Oui |
 | `exports/` | Exports SVG/PNG de lecture | Oui (SVG recommandé) |
 | `process-analysis.md` | Traçabilité : règles RG, statuts, ADR candidates, écrans, limites | Oui |
-| `process-cycle-closure.md` | Synthèse fin de cycle, suites recommandées | Oui (fin de cycle) |
+| `2026-06-28-process-cycle-closure.md` | Synthèse fin de cycle, suites recommandées | Oui (fin de cycle) |
 
 ---
 
@@ -104,7 +104,7 @@ Exports correspondants : `interv360-sav-mvp.svg`, etc., dans `exports/`.
 |----------|-----------------|
 | `process-scope.md` | Périmètre, acteurs, diagrammes listés, sources amont, hors périmètre |
 | `process-analysis.md` | Pour chaque diagramme : éléments BPMN ↔ règles RG ↔ statuts ↔ écrans ; hypothèses ; limites ; ADR candidates identifiées |
-| `process-cycle-closure.md` | Synthèse cycle, décisions, suites (ADR, archi fonctionnelle, design) |
+| `2026-06-28-process-cycle-closure.md` | Synthèse cycle, décisions, suites (ADR, archi fonctionnelle, design) |
 
 **Règle** : un fichier `.bpmn` **doit** être accompagné d'une section d'analyse dans `process-analysis.md`.
 

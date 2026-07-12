@@ -109,8 +109,8 @@ Chemin nominal :
 | Livrable | Objectif |
 |----------|----------|
 | `inc-01-stack-options.md` | Comparer les options de stack possibles |
-| `inc-01-project-structure-decision.md` | Définir la structure projet cible sans créer le projet |
-| `inc-01-front-back-start-decision.md` | Décider du niveau de séparation front / back |
+| `2026-06-29-inc-01-project-structure-decision.md` | Définir la structure projet cible sans créer le projet |
+| `2026-06-29-inc-01-front-back-start-decision.md` | Décider du niveau de séparation front / back |
 | `inc-01-realization-start-checklist.md` | Lister les conditions avant autorisation de code |
 | `realization-start-summary.md` | Synthétiser le cycle et décider de la suite |
 

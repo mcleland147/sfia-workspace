@@ -2,7 +2,7 @@
 
 **Statut** : Draft  
 **Source pilote** : PRJ-INTERV360  
-**Origine** : role-methods-framing.md + role-methods-review.md  
+**Origine** : 2026-06-28-role-methods-framing.md + role-methods-review.md  
 **Type** : Role Method  
 **Nature** : Template évolutif
 

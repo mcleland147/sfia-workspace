@@ -35,7 +35,7 @@ Ce standard est **générique** : il s'applique à tout projet SFIA. Le cycle In
 | 5 | `screen-functional-specs.md` | Specs fonctionnelles écran | Comportements, états, actions par écran | Code, maquette, API |
 | 6 | `dashboard-ux-view.md` | Vues dashboard | KPI, alertes, vues par profil | Maquette UI, composants front |
 | 7 | `ux-ui-summary.md` | Synthèse | Vision consolidée alignée fonctionnel | Nouvelles décisions structurantes |
-| 8 | `ux-ui-cycle-closure.md` | Clôture | Livrables, garde-fous, suites | Backlog, delivery, tests |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture | Livrables, garde-fous, suites | Backlog, delivery, tests |
 
 **Emplacement recommandé projet :** `projects/<projet>/06-ux-ui/` (ou équivalent).
 
@@ -148,7 +148,7 @@ Ce standard est **générique** : il s'applique à tout projet SFIA. Le cycle In
 
 ## 10. Clôture cycle UX/UI
 
-**Fichier :** `ux-ui-cycle-closure.md`
+**Fichier :** `2026-06-28-ux-ui-cycle-closure.md`
 
 | Aspect | Attendu |
 |--------|---------|

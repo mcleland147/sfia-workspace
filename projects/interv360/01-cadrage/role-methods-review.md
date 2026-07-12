@@ -3,14 +3,14 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : role-methods-framing.md  
+**Source** : 2026-06-28-role-methods-framing.md  
 **Objet** : revue qualité de la capitalisation méthodologique par rôle avant découpage en templates SFIA
 
 ---
 
 ## 1. Objectif de la revue
 
-Cette revue vise à déterminer si `role-methods-framing.md` est **suffisamment robuste** pour alimenter les futurs templates SFIA par rôle dans `docs/practices/roles/`.
+Cette revue vise à déterminer si `2026-06-28-role-methods-framing.md` est **suffisamment robuste** pour alimenter les futurs templates SFIA par rôle dans `docs/practices/roles/`.
 
 Elle s'inscrit dans la logique SFIA **produit dynamique et évolutif** : chaque projet pilote doit enrichir la méthode SFIA non seulement sur les livrables et le savoir-faire, mais aussi sur le **savoir-être projet** — posture, réflexes, vigilance, arbitrage, collaboration, capacité à challenger sans bloquer, erreurs à éviter.
 
@@ -31,7 +31,7 @@ La revue évalue :
 
 ## 2. Critères de revue
 
-Chaque rôle documenté dans `role-methods-framing.md` est évalué selon la checklist suivante :
+Chaque rôle documenté dans `2026-06-28-role-methods-framing.md` est évalué selon la checklist suivante :
 
 - [ ] rôle clairement positionné dans SFIA ;
 - [ ] valeur projet explicite ;
@@ -72,7 +72,7 @@ Chaque rôle documenté dans `role-methods-framing.md` est évalué selon la che
 
 | Rôle | Savoir-faire identifié | Réutilisable en template ? | Commentaire |
 |------|------------------------|---------------------------|-------------|
-| **Business Analyst** | Cadrage métier : parcours 9 étapes, objets, 56 RG-*, Q1–Q24 | **Oui — Haute priorité** | Matière première solide via business-framing.md ; Template Business Framing prêt à extraire |
+| **Business Analyst** | Cadrage métier : parcours 9 étapes, objets, 56 RG-*, Q1–Q24 | **Oui — Haute priorité** | Matière première solide via 2026-06-27-business-framing.md ; Template Business Framing prêt à extraire |
 | **Product Owner** | Arbitrage MVP : 7 ARB-MVP validés, principes, format option/recommandation/impacts | **Oui — Haute priorité** | mvp-arbitrations.md et validation.md directement réutilisables |
 | **Chef de projet** | Gouvernance projet : jalons, Notion/Git, validations fictives, enrichissement continu | **Oui — Haute priorité** | §2.1 et notion-sync-summary alimentent project-manager-method.md |
 | **Concepteur fonctionnel** | Conception fonctionnelle : parcours cibles, écrans candidats, comportements, pont UX | **Oui — Moyenne priorité** | Contenu riche mais partiellement mélangé avec UX ; extraction après phase design |
@@ -102,7 +102,7 @@ Chaque rôle documenté dans `role-methods-framing.md` est évalué selon la che
 | **GreenOps** | Challenger la sobriété sans appauvrir la valeur métier | Sobriété alignée valeur démo ; évite l'écologie performative | Standard sobriété pragmatique ; checklist GreenOps cadrage |
 | **Data / IA** | Ne pas mettre de l'IA par défaut ; privilégier la valeur métier et la gouvernance | Évite la surcomplexification ; position SFIA réaliste sur l'IA légère | Checklist IA légère MVP/option/post-MVP ; standard « no AI by default » |
 
-**Constat :** le savoir-être est **inféré** dans role-methods-framing.md (erreurs à éviter, limites, décisions) mais **pas encore structuré en section dédiée** par rôle. Les futurs templates extraits devront ajouter un bloc **« Posture SFIA »** explicite.
+**Constat :** le savoir-être est **inféré** dans 2026-06-28-role-methods-framing.md (erreurs à éviter, limites, décisions) mais **pas encore structuré en section dédiée** par rôle. Les futurs templates extraits devront ajouter un bloc **« Posture SFIA »** explicite.
 
 ---
 
@@ -153,14 +153,14 @@ Chaque rôle documenté dans `role-methods-framing.md` est évalué selon la che
 
 **Décision candidate :**
 
-Le document `role-methods-framing.md` est **suffisamment structuré** pour servir de base au découpage en templates SFIA par rôle, **sous réserve** d'intégrer progressivement les enrichissements issus des prochaines phases Interv360 (architecture, Figma, delivery, QA, recette, REX).
+Le document `2026-06-28-role-methods-framing.md` est **suffisamment structuré** pour servir de base au découpage en templates SFIA par rôle, **sous réserve** d'intégrer progressivement les enrichissements issus des prochaines phases Interv360 (architecture, Figma, delivery, QA, recette, REX).
 
 **Précisions :**
 
 - Les **6 rôles à maturité Fort** (Business Analyst, Product Owner, Chef de projet, UX/UI Designer, Architecte, RSSI) peuvent être **extraits en priorité**.
 - Les **3 rôles Correct** (Concepteur fonctionnel, QA / Testeur, GreenOps) devront être **enrichis** avant extraction définitive.
 - Les **2 rôles À renforcer** (FinOps, Data / IA) peuvent produire des **checklists** en priorité, pas des méthodes complètes immédiatement.
-- Les templates extraits **ne devront pas être figés** : ils resteront **évolutifs** et enrichis au fil des phases projet, conformément à la règle §2.1 de role-methods-framing.md.
+- Les templates extraits **ne devront pas être figés** : ils resteront **évolutifs** et enrichis au fil des phases projet, conformément à la règle §2.1 de 2026-06-28-role-methods-framing.md.
 - Le **savoir-être** devra être **explicité** dans chaque template extrait (bloc « Posture SFIA »), en complément du savoir-faire déjà documenté.
 
 ---
@@ -176,8 +176,8 @@ Chaque prochaine étape Interv360 devra contenir un **contrôle de capitalisatio
 | Valeur SFIA produite | Quel template, checklist, prompt ou standard candidat ? |
 | Savoir-faire ajouté | Quelle méthode, question type ou matrice à mettre à jour ? |
 | Savoir-être ajouté | Quelle posture, réflexe ou erreur à éviter à formaliser ? |
-| Templates / checklists / prompts impactés | Quels fichiers `docs/practices/roles/` ou role-methods-framing.md §4.x ? |
-| Mise à jour documentaire | `role-methods-framing.md` et/ou futurs fichiers `docs/practices/roles/` à enrichir ? |
+| Templates / checklists / prompts impactés | Quels fichiers `docs/practices/roles/` ou 2026-06-28-role-methods-framing.md §4.x ? |
+| Mise à jour documentaire | `2026-06-28-role-methods-framing.md` et/ou futurs fichiers `docs/practices/roles/` à enrichir ? |
 
 **Moments déclencheurs** (reprise §2.1 role-methods-framing) : fin de cadrage ✓ · validation MVP ✓ · brief UX/UI ✓ · préparation Figma · architecture · ADR · conception fonctionnelle · delivery · QA / tests · recette · REX · synchronisation Notion.
 
@@ -198,7 +198,7 @@ Chaque prochaine étape Interv360 devra contenir un **contrôle de capitalisatio
 
 ## 11. Conclusion
 
-La revue confirme que la **capitalisation par rôle** constitue une **brique structurante de SFIA**. Le document `role-methods-framing.md` offre une base **robuste et traçable** pour le découpage en templates, avec une couverture **Fort** sur 6 rôles sur 11 au stade cadrage.
+La revue confirme que la **capitalisation par rôle** constitue une **brique structurante de SFIA**. Le document `2026-06-28-role-methods-framing.md` offre une base **robuste et traçable** pour le découpage en templates, avec une couverture **Fort** sur 6 rôles sur 11 au stade cadrage.
 
 Les rôles doivent rester **évolutifs** et être **enrichis à chaque phase Interv360** — savoir-faire et savoir-être — avant toute extraction définitive. Le savoir-être, aujourd'hui implicite, devra devenir **explicite** dans les futurs fichiers `docs/practices/roles/`.
 

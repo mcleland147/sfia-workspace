@@ -30,18 +30,18 @@ Ce document **ne produit pas** de backlog, de user stories, de tests, de code ou
 
 | Source | Rôle |
 |--------|------|
-| `projects/interv360/01-cadrage/business-framing.md` | Contexte métier |
-| `projects/interv360/02-architecture/clarification-cycle-closure.md` | Synthèse clarification |
+| `projects/interv360/01-cadrage/2026-06-27-business-framing.md` | Contexte métier |
+| `projects/interv360/02-architecture/2026-06-28-clarification-cycle-closure.md` | Synthèse clarification |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règles RG priorisées |
 | `projects/interv360/02-architecture/status-mapping.md` | Statuts MVP |
 | `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Règles de clôture |
 | `projects/interv360/03-process/process-analysis.md` | Analyse BPMN |
-| `projects/interv360/03-process/process-cycle-closure.md` | Synthèse BPMN |
-| `projects/interv360/04-adr/ADR-001-status-mapping.md` | Mapping durable des statuts |
-| `projects/interv360/04-adr/ADR-002-simulated-crm-sync.md` | Synchronisation CRM simulée |
-| `projects/interv360/04-adr/ADR-003-integration-error-management.md` | Gestion erreurs intégration |
-| `projects/interv360/04-adr/ADR-004-local-closure-vs-external-sync.md` | Clôture locale vs sync externe |
-| `projects/interv360/04-adr/adr-cycle-closure.md` | Synthèse ADR |
+| `projects/interv360/03-process/2026-06-28-process-cycle-closure.md` | Synthèse BPMN |
+| `projects/interv360/04-adr/adr-001-status-mapping.md` | Mapping durable des statuts |
+| `projects/interv360/04-adr/adr-002-simulated-crm-sync.md` | Synchronisation CRM simulée |
+| `projects/interv360/04-adr/adr-003-integration-error-management.md` | Gestion erreurs intégration |
+| `projects/interv360/04-adr/2026-06-28-adr-004-local-closure-vs-external-sync.md` | Clôture locale vs sync externe |
+| `projects/interv360/04-adr/2026-06-28-adr-cycle-closure.md` | Synthèse ADR |
 
 ---
 
@@ -71,7 +71,7 @@ Le cycle architecture fonctionnelle détaillée doit produire une vision structu
 | `integration-functional-view.md` | Vue fonctionnelle de la synchronisation CRM simulée |
 | `dashboard-and-alerts.md` | Pilotage, retards, anomalies, alertes |
 | `functional-architecture-summary.md` | Synthèse consolidée |
-| `functional-architecture-cycle-closure.md` | Clôture du cycle |
+| `2026-06-28-functional-architecture-cycle-closure.md` | Clôture du cycle |
 
 ---
 

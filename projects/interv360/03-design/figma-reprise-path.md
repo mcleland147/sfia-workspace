@@ -47,7 +47,7 @@ Voir : [`penpot-first-screen-cycle-summary.md`](penpot-first-screen-cycle-summar
 
 | Motivation | Détail |
 |------------|--------|
-| **Qualité visuelle** | Figma V1 déjà à un niveau présentable (indicatif 8,3/10 — `figma-v1-closure-summary.md`) ; Penpot V2 n'atteint pas ce standard |
+| **Qualité visuelle** | Figma V1 déjà à un niveau présentable (indicatif 8,3/10 — `2026-06-28-figma-v1-closure-summary.md`) ; Penpot V2 n'atteint pas ce standard |
 | **Écosystème design** | Composants, styles, variants, bibliothèques — capitalisation plus mature |
 | **Productivité** | Maquettes présentables plus rapidement qu'avec MCP Penpot cadré en détail |
 | **Rendu export** | Exports PNG/PDF fiables pour revue et démonstration |
@@ -76,7 +76,7 @@ Voir : [`penpot-first-screen-cycle-summary.md`](penpot-first-screen-cycle-summar
 | [`penpot-screen-prioritization.md`](penpot-screen-prioritization.md) | Ordre de production, écran pilote, vagues |
 | [`penpot-first-screen-cycle-summary.md`](penpot-first-screen-cycle-summary.md) | Synthèse cycle Penpot, décision outillage |
 | [`penpot-visual-quality-benchmark.md`](penpot-visual-quality-benchmark.md) | Benchmark qualité, critères V2, décision §12 |
-| [`figma-v1-closure-summary.md`](../02-architecture/figma-v1-closure-summary.md) | Clôture jalon Figma V1, qualité indicative, exclusions |
+| [`2026-06-28-figma-v1-closure-summary.md`](../02-architecture/2026-06-28-figma-v1-closure-summary.md) | Clôture jalon Figma V1, qualité indicative, exclusions |
 
 **Règle :** en cas d'écart entre capture Figma V1 et spec Git, **la spec Git prime** pour le contenu fonctionnel.
 

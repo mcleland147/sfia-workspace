@@ -33,7 +33,7 @@ Le cycle respecte les décisions précédentes :
 - pas de CRM ;
 - pas de transition métier.
 
-**Sources :** [`inc-01-list-skeleton-summary.md`](inc-01-list-skeleton-summary.md), [`inc-01-local-persistence-decision.md`](inc-01-local-persistence-decision.md)
+**Sources :** [`inc-01-list-skeleton-summary.md`](inc-01-list-skeleton-summary.md), [`2026-06-30-inc-01-local-persistence-decision.md`](2026-06-30-inc-01-local-persistence-decision.md)
 
 **Commit applicatif :** `71a092f` — `feat: add INC-01 request detail skeleton`
 

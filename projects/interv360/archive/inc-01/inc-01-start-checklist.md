@@ -33,7 +33,7 @@ Elle sert de point de contrôle avant :
 | `inc-01-implementation-preparation-plan.md` | Disponible | Plan du cycle courant |
 | `inc-01-technical-scope.md` | Disponible | Périmètre technique proposé |
 | `inc-01-data-scope.md` | Disponible | Périmètre data proposé |
-| `inc-01-readiness-checklist.md` | Disponible | Readiness métier / livraison |
+| `2026-06-29-inc-01-readiness-checklist.md` | Disponible | Readiness métier / livraison |
 | `inc-01-qa-scenarios.md` | Disponible | Scénarios QA disponibles |
 
 ---

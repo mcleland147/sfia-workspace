@@ -224,4 +224,4 @@
 
 ---
 
-**Documents liés :** `wireframes-functional.md`, `user-flows.md`, `ux-decisions.md`
+**Documents liés :** `wireframes-functional.md`, `user-flows.md`, `2026-07-05-ux-decisions.md`

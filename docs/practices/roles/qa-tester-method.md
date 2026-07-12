@@ -6,7 +6,7 @@
 **Objet** : définir la contribution du rôle QA / Testeur dans SFIA  
 **Garde-fou principal** : contribuer à la qualité et à la testabilité sans déclencher seul delivery, backlog, user stories ou code
 
-**Origine documentaire** : `qa-tester-role-research-and-benchmark.md` ; `qa-tester-role-candidate-framing.md` ; `qa-tester-role-candidate-review.md`  
+**Origine documentaire** : `qa-tester-role-research-and-benchmark.md` ; `2026-06-28-qa-tester-role-candidate-framing.md` ; `qa-tester-role-candidate-review.md`  
 **Type** : Role Method  
 **Nature** : Template évolutif
 
@@ -274,7 +274,7 @@ Lorsqu'un jalon **delivery / recette** est **ouvert et autorisé**, le QA / Test
 | Non-régression | Identification périmètre critique |
 | Automatisation | Si stratégie validée — en lien Dev |
 
-**Interv360** : delivery **toujours bloqué** (`figma-v1-closure-summary.md`) — cette section ne s'applique pas au projet pilote à ce stade.
+**Interv360** : delivery **toujours bloqué** (`2026-06-28-figma-v1-closure-summary.md`) — cette section ne s'applique pas au projet pilote à ce stade.
 
 ---
 

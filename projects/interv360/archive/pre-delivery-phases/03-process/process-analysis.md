@@ -134,7 +134,7 @@ Le diagramme intégration détaille le flux post-clôture : préparation → env
 | RG-R02 | Signature optionnelle, motif si absente | Principal + exceptions |
 | RG-R05 | CR obligatoire, motif absence, clôture traçable | Principal + exceptions + intégration |
 
-Les **six règles RG MVP prioritaires** sont couvertes par l'ensemble des trois diagrammes (`rules-rg-prioritization.md`, `clarification-cycle-closure.md`).
+Les **six règles RG MVP prioritaires** sont couvertes par l'ensemble des trois diagrammes (`rules-rg-prioritization.md`, `2026-06-28-clarification-cycle-closure.md`).
 
 ---
 
@@ -229,7 +229,7 @@ Les trois diagrammes BPMN Interv360 couvrent le niveau nécessaire pour alimente
 - **design UX/UI** ;
 - **écrans et parcours**.
 
-Le cycle BPMN peut être clôturé après **revue finale des exports** et création de `process-cycle-closure.md`.
+Le cycle BPMN peut être clôturé après **revue finale des exports** et création de `2026-06-28-process-cycle-closure.md`.
 
 ---
 

@@ -210,7 +210,7 @@ Aucune réserve bloquante à la capitalisation MVP.
 
 | Zone | Documents |
 |------|-----------|
-| Framing | `README.md`, `00-framing/project-framing.md` |
+| Framing | `README.md`, `00-framing/2026-07-07-project-framing.md` |
 | Backlog | `03-backlog/delivery-increments.md` |
 | Clôtures | `07-delivery-inc-01/` à `07-delivery-inc-05/inc-0n-closure-report.md` |
 | QA-G4 | `08-qa-test/inc-01/` à `inc-05/qa-g4-post-merge-report.md` |

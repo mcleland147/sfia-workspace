@@ -57,22 +57,22 @@ Sources principales à relire :
 - prioritization.md
 - delivery-slicing-strategy.md
 - realization-criteria.md
-- delivery-readiness-summary.md
+- 2026-06-29-delivery-readiness-summary.md
 - delivery-detailing-plan.md
 - inc-01-detailed-backlog.md
 - inc-01-user-stories.md
 - inc-01-acceptance-criteria.md
-- inc-01-readiness-checklist.md
+- 2026-06-29-inc-01-readiness-checklist.md
 - delivery-detailing-summary.md
 - realization-preparation-plan.md
 - inc-01-realization-slicing.md
-- inc-01-technical-framing.md
+- 2026-06-29-inc-01-technical-framing.md
 - inc-01-qa-strategy.md
 - inc-01-effort-estimation.md
 - realization-preparation-summary.md
 - technical-design-plan.md
 - inc-01-application-architecture.md
-- inc-01-front-back-data-decisions.md
+- 2026-06-29-inc-01-front-back-data-decisions.md
 - inc-01-data-model.md
 - inc-01-api-strategy.md
 - inc-01-status-rules.md
@@ -88,8 +88,8 @@ Sources principales à relire :
 - implementation-planning-summary.md
 - realization-start-plan.md
 - inc-01-stack-options.md
-- inc-01-project-structure-decision.md
-- inc-01-front-back-start-decision.md
+- 2026-06-29-inc-01-project-structure-decision.md
+- 2026-06-29-inc-01-front-back-start-decision.md
 - inc-01-realization-start-checklist.md
 - realization-start-summary.md
 

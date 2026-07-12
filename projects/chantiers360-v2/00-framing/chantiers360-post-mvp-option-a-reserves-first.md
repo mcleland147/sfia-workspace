@@ -8,7 +8,7 @@
 **Profil SFIA :** Standard  
 **Méthode appliquée :** SFIA v2.5 **candidate** — SFIA v2.4 baseline opérationnelle
 
-**Document parent :** [`chantiers360-post-mvp-framing.md`](chantiers360-post-mvp-framing.md)
+**Document parent :** [`2026-07-10-chantiers360-post-mvp-framing.md`](2026-07-10-chantiers360-post-mvp-framing.md)
 
 ---
 

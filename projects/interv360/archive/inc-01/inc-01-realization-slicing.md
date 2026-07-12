@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Draft  
 **Branche** : `delivery/interv360-realization-preparation`  
-**Documents associés** : [`realization-preparation-plan.md`](realization-preparation-plan.md), [`delivery-detailing-summary.md`](delivery-detailing-summary.md), [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md), [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md), [`inc-01-user-stories.md`](inc-01-user-stories.md)
+**Documents associés** : [`realization-preparation-plan.md`](realization-preparation-plan.md), [`delivery-detailing-summary.md`](delivery-detailing-summary.md), [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md), [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md), [`inc-01-user-stories.md`](inc-01-user-stories.md)
 
 ---
 
@@ -321,12 +321,12 @@ Le chemin recommandé est **strictement séquentiel** pour préserver la démons
 
 | Point | Pourquoi | À traiter dans |
 |-------|----------|----------------|
-| Structure des données fonctionnelles minimales | Nécessaire à la cohérence du flux | [`inc-01-technical-framing.md`](inc-01-technical-framing.md) |
-| Stratégie de persistance | Nécessaire à la démo bout en bout | [`inc-01-technical-framing.md`](inc-01-technical-framing.md) |
-| Règles minimales de transition statut | Nécessaire pour STAT-01 à STAT-06 | [`inc-01-technical-framing.md`](inc-01-technical-framing.md) |
+| Structure des données fonctionnelles minimales | Nécessaire à la cohérence du flux | [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md) |
+| Stratégie de persistance | Nécessaire à la démo bout en bout | [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md) |
+| Règles minimales de transition statut | Nécessaire pour STAT-01 à STAT-06 | [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md) |
 | Approche QA par séquence | Nécessaire pour vérifier le flux | [`inc-01-qa-strategy.md`](inc-01-qa-strategy.md) |
 | Effort par séquence | Nécessaire pour planifier | [`inc-01-effort-estimation.md`](inc-01-effort-estimation.md) |
-| Dépendances design restantes | À traiter au fil de l'eau | [`inc-01-technical-framing.md`](inc-01-technical-framing.md) |
+| Dépendances design restantes | À traiter au fil de l'eau | [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md) |
 
 ---
 
@@ -361,7 +361,7 @@ Le chemin recommandé est **strictement séquentiel** pour préserver la démons
 
 Le prochain livrable est :
 
-**[`inc-01-technical-framing.md`](inc-01-technical-framing.md)**
+**[`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md)**
 
 **Objectif :** identifier les cadrages techniques nécessaires à INC-01 sans figer prématurément les choix de mise en œuvre.
 

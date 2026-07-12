@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Ready for closure  
 **Branche** : `delivery/interv360-realization-preparation`  
-**Documents associés** : [`realization-preparation-plan.md`](realization-preparation-plan.md), [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md), [`inc-01-technical-framing.md`](inc-01-technical-framing.md), [`inc-01-qa-strategy.md`](inc-01-qa-strategy.md), [`inc-01-effort-estimation.md`](inc-01-effort-estimation.md)
+**Documents associés** : [`realization-preparation-plan.md`](realization-preparation-plan.md), [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md), [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md), [`inc-01-qa-strategy.md`](inc-01-qa-strategy.md), [`inc-01-effort-estimation.md`](inc-01-effort-estimation.md)
 
 ---
 
@@ -53,7 +53,7 @@ Cela signifie que INC-01 est prêt pour un **futur cycle de conception technique
 |----------|:------:|------|
 | [`realization-preparation-plan.md`](realization-preparation-plan.md) | ✅ | Plan du cycle |
 | [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md) | ✅ | 5 séquences RS-01 à RS-05 |
-| [`inc-01-technical-framing.md`](inc-01-technical-framing.md) | ✅ | Cadrages techniques préparatoires |
+| [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md) | ✅ | Cadrages techniques préparatoires |
 | [`inc-01-qa-strategy.md`](inc-01-qa-strategy.md) | ✅ | Stratégie QA métier / fonctionnelle |
 | [`inc-01-effort-estimation.md`](inc-01-effort-estimation.md) | ✅ | Estimation macro charge / complexité |
 | [`realization-preparation-summary.md`](realization-preparation-summary.md) | ✅ | Synthèse et décision de clôture |

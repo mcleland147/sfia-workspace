@@ -62,7 +62,7 @@ Le standard documentaire repose sur les principes suivants :
 | **Plan de cycle** | Ouvrir et cadrer la phase | `delivery-preparation-plan.md`, `technical-design-plan.md` |
 | **Livrable de fond** | Produire une décision ou un contenu structurant | `mvp-scope.md`, `[increment]-data-model.md` |
 | **Checklist** | Vérifier readiness ou conditions bloquantes | `[increment]-readiness-checklist.md`, `[increment]-go-no-go-checklist.md` |
-| **Synthèse de cycle** | Clôturer et recommander la suite | `delivery-readiness-summary.md`, `realization-start-summary.md` |
+| **Synthèse de cycle** | Clôturer et recommander la suite | `2026-06-29-delivery-readiness-summary.md`, `realization-start-summary.md` |
 | **Template** | Réutiliser un format standard | Voir `realization-templates.md` |
 | **Prompt** | Guider la production assistée par IA | Voir `realization-prompt-family.md` |
 
@@ -85,7 +85,7 @@ Cadrer le MVP et préparer la stratégie de livraison.
 | `prioritization.md` | Priorisation | Critères de priorisation, niveaux (ex. P0 / P1 / P2), justification, séquences indicatives |
 | `delivery-slicing-strategy.md` | Stratégie de slicing | Incréments proposés, ordre de livraison, dépendances, valeur démontrable par incrément |
 | `realization-criteria.md` | Critères de réalisation | Conditions de passage vers réalisation, DoR / DoD macro, critères par incrément ou famille |
-| `delivery-readiness-summary.md` | Synthèse | Livrables produits, décision de clôture, statut recommandé, prochaine étape |
+| `2026-06-29-delivery-readiness-summary.md` | Synthèse | Livrables produits, décision de clôture, statut recommandé, prochaine étape |
 
 ### Critères de sortie
 
@@ -340,9 +340,9 @@ Formuler la décision explicite avant démarrage réalisation.
 | Élément | Convention |
 |---------|------------|
 | Plan de cycle | `[cycle]-plan.md` — ex. `delivery-preparation-plan.md`, `technical-design-plan.md` |
-| Synthèse de cycle | `[cycle]-summary.md` — ex. `delivery-readiness-summary.md`, `realization-start-summary.md` |
+| Synthèse de cycle | `[cycle]-summary.md` — ex. `2026-06-29-delivery-readiness-summary.md`, `realization-start-summary.md` |
 | Livrable incrément | `[increment]-[topic].md` — ex. `inc-01-user-stories.md`, `mvp-a-data-model.md` |
-| Checklist incrément | `[increment]-[topic]-checklist.md` — ex. `inc-01-readiness-checklist.md` |
+| Checklist incrément | `[increment]-[topic]-checklist.md` — ex. `2026-06-29-inc-01-readiness-checklist.md` |
 | Décision incrément | `[increment]-[topic]-decision.md` — ex. `inc-01-stack-final-decision.md` |
 | Estimation | `[increment]-[topic]-estimate.md` ou `[increment]-effort-estimation.md` |
 | Backlog | `[increment]-[topic]-backlog.md` — ex. `inc-01-realization-backlog.md` |

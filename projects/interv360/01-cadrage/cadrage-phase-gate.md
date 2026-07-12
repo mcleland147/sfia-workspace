@@ -40,8 +40,8 @@ La **gouvernance Notion** a été synchronisée (`notion-sync-summary.md`). La *
 
 | Livrable | Statut | Rôle principal | Valeur projet | Valeur SFIA |
 |----------|--------|----------------|---------------|-------------|
-| business-framing.md | Consolidated | Business Analyst | Cadrage métier, parcours, RG-*, objets | Template Business Framing |
-| framing-review.md | Done | Chef de projet / BA | Revue cohérence pré-arbitrages | Template Framing Review |
+| 2026-06-27-business-framing.md | Consolidated | Business Analyst | Cadrage métier, parcours, RG-*, objets | Template Business Framing |
+| 2026-06-27-framing-review.md | Done | Chef de projet / BA | Revue cohérence pré-arbitrages | Template Framing Review |
 | mvp-arbitrations.md | Validated (7/7) | Product Owner | 7 arbitrages MVP documentés | Template MVP Arbitration |
 | mvp-arbitration-validation.md | Validated | Product Owner / CP | Validation formelle arbitrages | Template MVP Arbitration Validation |
 | integration-error-arbitration-review.md | Done | Architecte / QA | Option C contrats API ; erreurs niveau 3 | Standard intégration simulée |
@@ -50,7 +50,7 @@ La **gouvernance Notion** a été synchronisée (`notion-sync-summary.md`). La *
 | ux-ui-brief.md | Validated | UX/UI Designer | 8 écrans, parcours, checklist Figma | Template UX/UI Brief |
 | ux-ui-brief-validation.md | Validated | UX/UI / PO / CF | Validation fictive brief | Checklist entrée Figma |
 | notion-sync-summary.md | Published (Notion) | Chef de projet | Gouvernance jalons cadrage | Workflow Notion projet |
-| role-methods-framing.md | Draft | Chef de projet / tous rôles | Capitalisation 11 rôles | Template Role Method |
+| 2026-06-28-role-methods-framing.md | Draft | Chef de projet / tous rôles | Capitalisation 11 rôles | Template Role Method |
 | role-methods-review.md | Draft | Chef de projet | Revue maturité rôles | Template Role Methods Review |
 | adr-candidates.md | Draft | Architecte / RSSI / PO | 9 ADR candidates P1–P3 | Template ADR Candidate |
 | prompts/prompt-catalog.md | Draft | Chef de projet | 14 prompts candidats, 9 familles | Prompt Catalog |

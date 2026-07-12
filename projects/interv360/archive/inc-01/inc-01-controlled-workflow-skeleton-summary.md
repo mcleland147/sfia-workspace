@@ -23,7 +23,7 @@ L'objectif était d'implémenter le flux nominal local sur données fictives, sa
 
 Le cycle s'inscrit dans la décision de passage en phase 2 :
 
-[`inc-01-phase-2-delivery-decision.md`](inc-01-phase-2-delivery-decision.md)
+[`2026-06-30-inc-01-phase-2-delivery-decision.md`](2026-06-30-inc-01-phase-2-delivery-decision.md)
 
 La phase 2 autorise une réalisation groupée contrôlée lorsque les règles sont suffisamment stabilisées.
 

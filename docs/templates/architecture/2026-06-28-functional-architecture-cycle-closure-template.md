@@ -51,7 +51,7 @@ Il **ne produit pas** de backlog, user stories, tests, code, API, modèle techni
 | `integration-functional-view.md` | Vue fonctionnelle des intégrations | [Statut] |
 | `dashboard-and-alerts.md` | Dashboard et alertes | [Statut] |
 | `functional-architecture-summary.md` | Synthèse consolidée | [Statut] |
-| `functional-architecture-cycle-closure.md` | Clôture du cycle | [Statut] |
+| `2026-06-28-functional-architecture-cycle-closure.md` | Clôture du cycle | [Statut] |
 
 ---
 

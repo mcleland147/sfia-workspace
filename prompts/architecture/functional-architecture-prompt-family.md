@@ -407,7 +407,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 11. Prompt 8 — Clôturer le cycle d'architecture fonctionnelle
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-cycle-closure.md`
+**Objectif :** créer `[PROJECT_PHASE_PATH]/2026-06-28-functional-architecture-cycle-closure.md`
 **Commit recommandé :** `docs: close [PROJECT_NAME] functional architecture cycle`
 
 ```
@@ -418,7 +418,7 @@ Branche courante attendue :
 [BRANCH_NAME]
 
 Fichier cible :
-[PROJECT_PHASE_PATH]/functional-architecture-cycle-closure.md
+[PROJECT_PHASE_PATH]/2026-06-28-functional-architecture-cycle-closure.md
 
 Important :
 La clôture ACTE le cycle — pas de nouveau contenu fonctionnel structurant, pas de backlog, pas de PR sauf demande explicite.

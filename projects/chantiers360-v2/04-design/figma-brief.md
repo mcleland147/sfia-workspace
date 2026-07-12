@@ -133,7 +133,7 @@ Toutes les frames de la page **Explorations / Archives** (`0:1`) et toute autre 
 | `figma-brief.md` | Ce document |
 | `screen-design-spec.md` | Spécification écran par écran |
 | `figma-review-checklist.md` | Checklist revue Morris |
-| `design-decisions.md` | Décisions design tracées |
+| `2026-07-06-design-decisions.md` | Décisions design tracées |
 | `design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
 | `captures/` | Exports PNG des 4 frames P1 validées (MCP Figma) |
 

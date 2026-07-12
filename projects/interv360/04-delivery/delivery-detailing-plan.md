@@ -7,7 +7,7 @@
 **Cible** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Draft  
 **Branche** : `delivery/interv360-detailing`  
-**Documents associés** : [`delivery-readiness-summary.md`](delivery-readiness-summary.md), [`delivery-slicing-strategy.md`](delivery-slicing-strategy.md), [`prioritization.md`](prioritization.md), [`macro-backlog.md`](macro-backlog.md)
+**Documents associés** : [`2026-06-29-delivery-readiness-summary.md`](2026-06-29-delivery-readiness-summary.md), [`delivery-slicing-strategy.md`](delivery-slicing-strategy.md), [`prioritization.md`](prioritization.md), [`macro-backlog.md`](macro-backlog.md)
 
 ---
 
@@ -29,7 +29,7 @@ Les sources principales sont :
 
 | Document | Usage |
 |----------|-------|
-| [`delivery-readiness-summary.md`](delivery-readiness-summary.md) | Décision de clôture preparation — statut `Ready for delivery detailing` |
+| [`2026-06-29-delivery-readiness-summary.md`](2026-06-29-delivery-readiness-summary.md) | Décision de clôture preparation — statut `Ready for delivery detailing` |
 | [`delivery-slicing-strategy.md`](delivery-slicing-strategy.md) | Définition INC-01 — MB, garde-fous, démos |
 | [`prioritization.md`](prioritization.md) | P0-A — sous-priorité stricte minimum |
 | [`macro-backlog.md`](macro-backlog.md) | Détail des 16 MB INC-01 |
@@ -80,7 +80,7 @@ INC-01 doit permettre de démontrer un **flux SAV minimal** :
 | [`inc-01-detailed-backlog.md`](inc-01-detailed-backlog.md) | Détailler les MB de INC-01 en backlog détaillé |
 | [`inc-01-user-stories.md`](inc-01-user-stories.md) | Créer les user stories nécessaires au flux minimal |
 | [`inc-01-acceptance-criteria.md`](inc-01-acceptance-criteria.md) | Définir les critères d'acceptation métier |
-| [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md) | Vérifier que INC-01 est prêt pour préparation réalisation |
+| [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md) | Vérifier que INC-01 est prêt pour préparation réalisation |
 | [`delivery-detailing-summary.md`](delivery-detailing-summary.md) | Synthétiser le cycle et décider de la suite |
 
 ---

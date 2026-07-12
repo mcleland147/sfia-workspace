@@ -3,14 +3,14 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : `business-framing.md` + `framing-review.md`  
+**Source** : `2026-06-27-business-framing.md` + `2026-06-27-framing-review.md`  
 **Objectif** : première passe d'arbitrages MVP sans définition finale du MVP
 
 ---
 
 ## 1. Objectif du document
 
-Ce document prépare les **arbitrages MVP** à partir du cadrage Interv360 (`business-framing.md`) et de la revue de cohérence (`framing-review.md`).
+Ce document prépare les **arbitrages MVP** à partir du cadrage Interv360 (`2026-06-27-business-framing.md`) et de la revue de cohérence (`2026-06-27-framing-review.md`).
 
 Il formalise les **recommandations candidates** sur les points de clarification prioritaires identifiés en revue, sans :
 

@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Draft  
 **Branche** : `delivery/interv360-realization-start`  
-**Documents associés** : [`realization-start-plan.md`](realization-start-plan.md), [`inc-01-stack-options.md`](inc-01-stack-options.md), [`inc-01-project-structure-decision.md`](inc-01-project-structure-decision.md), [`inc-01-front-back-start-decision.md`](inc-01-front-back-start-decision.md), [`implementation-planning-summary.md`](implementation-planning-summary.md)
+**Documents associés** : [`realization-start-plan.md`](realization-start-plan.md), [`inc-01-stack-options.md`](inc-01-stack-options.md), [`2026-06-29-inc-01-project-structure-decision.md`](2026-06-29-inc-01-project-structure-decision.md), [`2026-06-29-inc-01-front-back-start-decision.md`](2026-06-29-inc-01-front-back-start-decision.md), [`implementation-planning-summary.md`](implementation-planning-summary.md)
 
 ---
 

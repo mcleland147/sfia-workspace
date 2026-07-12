@@ -599,7 +599,7 @@ Objectif :
 
 Document delivery associé :
 
-`../04-delivery/audit-trail.md`
+`../04-delivery/2026-07-02-audit-trail.md`
 
 Décision :
 
@@ -1115,7 +1115,7 @@ Décision :
 
 Document associé :
 
-`../04-delivery/mvp-release-readiness.md`
+`../04-delivery/2026-07-02-mvp-release-readiness.md`
 
 Version cible proposée :
 
