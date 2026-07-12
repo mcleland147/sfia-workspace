@@ -27,6 +27,16 @@ Le rôle de ce document est de préserver la preuve opérationnelle que le cycle
 
 Le contenu historique ci-dessous reste inchangé à des fins de traçabilité.
 
+## SFIA v2.6 cartography status
+
+| Élément | Statut |
+|---------|--------|
+| Cartography tag | `lot-A` |
+| Authority | **reference** — operational proof, not canonical |
+| Proposed disposition (CSV) | `rename` — **not executed** in Lot A ; stabilization only |
+| SFIA v2.4 | **Baseline** opérationnelle |
+| SFIA v2.6 | **Candidate** — ne remplace pas v2.4 |
+
 ## 1. Objectif
 
 Ce document capitalise la méthode SFIA Fast Track au-delà du seul cas Interv360.

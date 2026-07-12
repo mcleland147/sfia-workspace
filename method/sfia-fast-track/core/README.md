@@ -2,19 +2,33 @@
 
 This folder contains the operational foundation documents of the SFIA Fast Track method.
 
+## SFIA version context
+
+| Version | Role |
+|---------|------|
+| **SFIA v2.4** | **Baseline** opérationnelle actuelle |
+| **SFIA v2.6** | **Candidate** — cartographie et trajectoire capitalisation ; ne remplace pas v2.4 |
+
+## Document authority
+
+| Tier | Documents | Lot cartography | Physical change |
+|------|-----------|-----------------|-----------------|
+| **Canonical** | `sfia-chatgpt-cursor-operating-model.md`, `sfia-rules-and-guardrails.md`, `sfia-cycle-routing-guide.md` | lot-0 | Lot 0 — confirmed, unchanged |
+| **Core reference** | Six documents Lot A (table below, excluding canonical trio) | lot-A | Stabilisation — **no canonical promotion** |
+
 ## Documents
 
-| Document | Role |
-|----------|------|
-| `docs/foundation/sfia-engineering-principles.md` | Normative SFIA engineering principles (foundation v1.1) |
-| `sfia-global-capitalization.md` | Global capitalization of SFIA Fast Track |
-| `sfia-rules-update.md` | Historical rules and Fast Track refinements |
-| `sfia-architecture-standards.md` | Architecture standards |
-| `sfia-consolidation-roadmap.md` | Consolidation roadmap post-Interv360 |
-| `sfia-chatgpt-cursor-operating-model.md` | ChatGPT ↔ Cursor operating model |
-| `sfia-rules-and-guardrails.md` | Canonical SFIA rules and guardrails |
-| `sfia-knowledge-layer.md` | SFIA knowledge layer, Documentation Routing Matrix and Notion positioning |
-| `sfia-cycle-routing-guide.md` | Guide de routage des cycles SFIA : sélection des références, templates, validations et décisions selon le type de cycle méthode ou projet |
+| Document | Role | Authority |
+|----------|------|-----------|
+| `docs/foundation/sfia-engineering-principles.md` | Normative SFIA engineering principles (foundation v1.1) | foundation |
+| `sfia-global-capitalization.md` | Global capitalization — operational proof (historical trace) | reference |
+| `sfia-rules-update.md` | Historical rules and Fast Track refinements — superseded by `sfia-rules-and-guardrails.md` for live rules | reference |
+| `sfia-architecture-standards.md` | Architecture standards | reference |
+| `sfia-consolidation-roadmap.md` | Consolidation roadmap post-Interv360 | reference |
+| `sfia-chatgpt-cursor-operating-model.md` | ChatGPT ↔ Cursor operating model | **canonical** |
+| `sfia-rules-and-guardrails.md` | Canonical SFIA rules and guardrails | **canonical** |
+| `sfia-knowledge-layer.md` | SFIA knowledge layer, Documentation Routing Matrix and Notion positioning | reference |
+| `sfia-cycle-routing-guide.md` | Guide de routage des cycles SFIA : sélection des références, templates, validations et décisions selon le type de cycle méthode ou projet | **canonical** |
 
 ## Reading order (foundation v1.1)
 
