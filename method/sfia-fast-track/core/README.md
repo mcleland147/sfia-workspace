@@ -21,7 +21,7 @@ This folder contains the operational foundation documents of the SFIA Fast Track
 | Document | Role | Authority |
 |----------|------|-----------|
 | `docs/foundation/sfia-engineering-principles.md` | Normative SFIA engineering principles (foundation v1.1) | foundation |
-| `sfia-global-capitalization.md` | Global capitalization — operational proof (historical trace) | reference |
+| `sfia-global-capitalization-reference.md` | Global capitalization — operational proof (historical trace) | reference |
 | `sfia-rules-update.md` | Historical rules and Fast Track refinements — superseded by `sfia-rules-and-guardrails.md` for live rules | reference |
 | `sfia-architecture-standards.md` | Architecture standards | reference |
 | `sfia-consolidation-roadmap.md` | Consolidation roadmap post-Interv360 | reference |
@@ -33,7 +33,7 @@ This folder contains the operational foundation documents of the SFIA Fast Track
 ## Reading order (foundation v1.1)
 
 1. `docs/foundation/sfia-engineering-principles.md` — normative execution principles
-2. `sfia-global-capitalization.md` — operational proof and principles
+2. `sfia-global-capitalization-reference.md` — operational proof and principles
 3. `sfia-chatgpt-cursor-operating-model.md` — ChatGPT ↔ Cursor loop
 4. `sfia-rules-and-guardrails.md` — canonical rules and guardrails
 5. `sfia-knowledge-layer.md` — knowledge layer and Documentation Routing Matrix

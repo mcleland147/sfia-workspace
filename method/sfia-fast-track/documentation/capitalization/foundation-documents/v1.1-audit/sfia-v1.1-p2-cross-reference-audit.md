@@ -28,7 +28,7 @@ Il produit une recommandation d'action claire pour les cycles P2.1 et P2.2.
 
 | Document | Chemin réel |
 |----------|-------------|
-| Global Capitalization | `method/sfia-fast-track/core/sfia-global-capitalization.md` |
+| Global Capitalization | `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` |
 | Rules Update | `method/sfia-fast-track/core/sfia-rules-update.md` |
 | Architecture README | `docs/architecture/README.md` |
 | Completeness Matrix | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` |
@@ -85,7 +85,7 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 
 | Document | Current role | Current state | v1.1 gap | Recommended action | Priority |
 |----------|--------------|---------------|----------|--------------------|----------|
-| `sfia-global-capitalization.md` | Preuve opérationnelle Interv360 ; synthèse Fast Track pré-v1.1 | Substantiel (~340 lignes) ; merge status PR #79 ; §16 pointe uniquement vers Automation Architecture | Aucune mention v1.1 ; pas de cross-réfs Operating Model, Knowledge Layer, Rules & Guardrails, moteurs P1, Validation Checklist, Prompt Catalog, Prompt Templates, Engineering Principles, Decision Engine ; rôle normatif vs preuve opérationnelle non clarifié | Ajouter section **v1.1 Cross-References** + note de statut : *operational evidence / capitalization proof* — référence normative vivante = fondations v1.1 | **P1** |
+| `sfia-global-capitalization-reference.md` | Preuve opérationnelle Interv360 ; synthèse Fast Track pré-v1.1 | Substantiel (~340 lignes) ; merge status PR #79 ; §16 pointe uniquement vers Automation Architecture | Aucune mention v1.1 ; pas de cross-réfs Operating Model, Knowledge Layer, Rules & Guardrails, moteurs P1, Validation Checklist, Prompt Catalog, Prompt Templates, Engineering Principles, Decision Engine ; rôle normatif vs preuve opérationnelle non clarifié | Ajouter section **v1.1 Cross-References** + note de statut : *operational evidence / capitalization proof* — référence normative vivante = fondations v1.1 | **P1** |
 | `sfia-rules-update.md` | Trace historique des règles post-Interv360 | Substantiel (~167 lignes) ; §8 annonce règles exécutables pour futurs prompts/moteurs | Aucune mention v1.1 ; pas de renvoi vers `sfia-rules-and-guardrails.md` comme référence opérationnelle actuelle ; pas de renvoi vers Validation Checklist | Ajouter note de statut : *historical consolidation trace* ; pointer `sfia-rules-and-guardrails.md` comme référence opérationnelle ; cross-réf légère vers checklists v1.1 | **P1** |
 | `docs/architecture/README.md` | Index des 6 documents fondateurs architecture | 17 lignes ; liste les 6 fichiers sans versions | Pas de mention v1.1 ; pas de renvois Fast Track (Operating Model, moteurs P1, Validation Checklist, Prompt Catalog, Prompt Templates, Knowledge Layer) ; pas de lien Engineering Principles | Ajouter section **SFIA v1.1 Architecture References** ou **Related Fast Track References** | **P1** |
 | `sfia-documentation-completeness-matrix.md` | Matrice globale complétude documentaire | Datée 2026-07-03 ; branche `capitalization/sfia-documentation-completeness` ; terminologie SFA/SFIA mixte | Ne couvre pas les actifs v1.1 (Operating Model, Rules & Guardrails, Knowledge Layer, 3 moteurs P1, Validation Checklist, Prompt Catalog, Prompt Templates) ; §12 indique consolidation non terminée ; automation = 1 doc ; checklists = 3 legacy ; prompts = catalogue seul sans templates | Mettre à jour après P2.1 ; ajouter lignes v1.1 ; corriger statuts ; ajouter référence à cet audit ; §12 clôture v1.1 | **P1** |
@@ -103,14 +103,14 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 
 ### Cross-reference gaps
 
-- `sfia-global-capitalization.md` ne référence que `sfia-automation-architecture.md` (§16) parmi les actifs v1.1.
+- `sfia-global-capitalization-reference.md` ne référence que `sfia-automation-architecture.md` (§16) parmi les actifs v1.1.
 - `sfia-rules-update.md` n'a aucun renvoi vers `sfia-rules-and-guardrails.md`.
 - `docs/architecture/README.md` isole les 6 référentiels sans lien vers la couche opérationnelle Fast Track v1.1.
 - Les 6 référentiels architecture eux-mêmes incluent déjà des sections v1.1 et des renvois Operating Model — l'écart est concentré sur l'index README et les docs core historiques.
 
 ### Status clarification gaps
 
-- `sfia-global-capitalization.md` peut être lu comme norme vivante alors qu'il documente une **preuve opérationnelle** Interv360 et une vision pré-consolidation.
+- `sfia-global-capitalization-reference.md` peut être lu comme norme vivante alors qu'il documente une **preuve opérationnelle** Interv360 et une vision pré-consolidation.
 - `sfia-rules-update.md` peut être lu comme référence opérationnelle actuelle alors que `sfia-rules-and-guardrails.md` est le document canonique v1.1.
 - Trois checklists legacy (`validation-checklist.md`, `guardrails-checklist.md`, `notion-publication-checklist.md`) coexistent avec `sfia-validation-checklist.md` sans statut explicite.
 
@@ -139,7 +139,7 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 
 | Action | Files | Goal | Priority | Suggested commit |
 |--------|-------|------|----------|------------------|
-| Cross-références core historiques | `sfia-global-capitalization.md`, `sfia-rules-update.md` | Clarifier rôle historique ; pointer référentiel v1.1 | **P1** | `docs: add SFIA v1.1 cross-references` |
+| Cross-références core historiques | `sfia-global-capitalization-reference.md`, `sfia-rules-update.md` | Clarifier rôle historique ; pointer référentiel v1.1 | **P1** | `docs: add SFIA v1.1 cross-references` |
 | Index architecture v1.1 | `docs/architecture/README.md` | Relier référentiels architecture et couche Fast Track v1.1 | **P1** | (même commit P2.1) |
 | Mise à jour matrice complétude | `sfia-documentation-completeness-matrix.md` | Refléter actifs v1.1 ; corriger statuts ; terminologie SFIA | **P1** | `docs: update SFIA v1.1 capitalization indexes` |
 | Mise à jour audits capitalisation | `sfia-foundation-documents-audit.md`, `sfia-documentation-capitalization-audit.md` | Ajouter sections Update post-v1.1 ; repositionner décisions historiques | **P1** | (même commit P2.2) |
@@ -180,7 +180,7 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 
 **Files :**
 
-- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 - `method/sfia-fast-track/core/sfia-rules-update.md`
 - `docs/architecture/README.md`
 
@@ -244,7 +244,7 @@ docs: record SFIA foundation v1.1 closure
 ## 9. Réserves
 
 - Ne pas réécrire les documents historiques — ajouter cross-références et clarifications de rôle uniquement.
-- Conserver le détail historique de consolidation dans `sfia-rules-update.md` et `sfia-global-capitalization.md`.
+- Conserver le détail historique de consolidation dans `sfia-rules-update.md` et `sfia-global-capitalization-reference.md`.
 - Ne pas fusionner destructivement les checklists legacy dans P2 — clarification de statut suffit.
 - Ne pas créer `sfia-documentation-engine.md` en P2 sauf décision dédiée validée humainement.
 - Ne pas lancer de sync Notion ni publication Notion.

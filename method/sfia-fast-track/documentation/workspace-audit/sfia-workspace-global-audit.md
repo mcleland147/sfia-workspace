@@ -118,7 +118,7 @@ Documents de référence actuels sous `method/sfia-fast-track/` :
 | Document | Rôle |
 |----------|------|
 | `README.md` | Point d'entrée méthode |
-| `sfia-global-capitalization.md` | Règles globales validées |
+| `sfia-global-capitalization-reference.md` | Règles globales validées |
 | `sfia-automation-architecture.md` | Vision orchestration IA |
 | `sfia-rules-update.md` | Règles opérationnelles |
 | `sfia-architecture-standards.md` | Standards architecture |
@@ -205,7 +205,7 @@ Documents structurants actifs :
 
 | Document | Zone actuelle | Rôle | Zone cible proposée |
 |----------|---------------|------|---------------------|
-| `sfia-global-capitalization.md` | `method/sfia-fast-track/` | Méthode référence | `method/sfia-fast-track/core/` |
+| `sfia-global-capitalization-reference.md` | `method/sfia-fast-track/` | Méthode référence | `method/sfia-fast-track/core/` |
 | `sfia-automation-architecture.md` | idem | Vision automation | `method/sfia-fast-track/automation/` |
 | `sfia-rules-update.md` | idem | Règles | `method/sfia-fast-track/core/` |
 | `sfia-architecture-standards.md` | idem | Standards | `method/sfia-fast-track/core/` |

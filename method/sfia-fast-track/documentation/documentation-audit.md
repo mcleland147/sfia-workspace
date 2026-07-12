@@ -48,7 +48,7 @@ Objectifs :
 | Fichier | Famille | Statut | Rôle | Commentaire |
 |---------|---------|--------|------|-------------|
 | `sfia-consolidation-roadmap.md` | Méthode | Actif | Roadmap consolidation | Pilote les chantiers 1–5 |
-| `sfia-global-capitalization.md` | Capitalisation | Actif | Règles SFIA globales | Référence méthode post-Interv360 |
+| `sfia-global-capitalization-reference.md` | Capitalisation | Actif | Règles SFIA globales | Référence méthode post-Interv360 |
 | `sfia-automation-architecture.md` | Méthode / Automation | Actif | Vision orchestration IA | Cible long terme |
 | `interv360-application-rex.md` | REX | Actif | Retour d'expérience Interv360 | Chantier 2 clôturé |
 | `interv360-final-capitalization.md` | Capitalisation | Actif | Clôture séquence Interv360 | Complète le REX, pré-consolidation |
@@ -121,7 +121,7 @@ Objectifs :
 
 ### 4.1. Méthode SFIA
 
-- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 - `method/sfia-fast-track/core/sfia-consolidation-roadmap.md`
 - `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 - `method/sfia-fast-track/figma-design-first-ui-method.md`
@@ -175,7 +175,7 @@ Objectifs :
 
 | Document | Pourquoi le conserver | Usage futur |
 |----------|----------------------|-------------|
-| `sfia-global-capitalization.md` | Règles SFIA validées | Référence tous projets Fast Track |
+| `sfia-global-capitalization-reference.md` | Règles SFIA validées | Référence tous projets Fast Track |
 | `sfia-automation-architecture.md` | Vision orchestration | Chantier 5 + plateforme SFIA |
 | `sfia-consolidation-roadmap.md` | Pilotage consolidation | Suivi chantiers |
 | `figma-design-first-ui-method.md` | Règle UI premium | Cycles UI futurs |

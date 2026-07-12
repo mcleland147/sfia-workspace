@@ -149,7 +149,7 @@ Capitaliser la méthode SFIA au-delà d'Interv360.
 
 Livrable attendu :
 
-`method/sfia-fast-track/core/sfia-global-capitalization.md`
+`method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 
 ### Statut
 
@@ -157,7 +157,7 @@ Capitalisation SFIA globale réalisée et intégrée à `main`.
 
 Livrables :
 
-- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 - `method/sfia-fast-track/automation/sfia-automation-architecture.md`
 
 Décision :

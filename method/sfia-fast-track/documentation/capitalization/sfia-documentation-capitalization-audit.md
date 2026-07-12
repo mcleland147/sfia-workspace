@@ -63,7 +63,7 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 | `checklists/` | Validation, garde-fous, Notion | **OK** | 3 checklists — manque README index |
 | `archive/` | Méthode interv360-realization | **OK** | 8 fichiers historiques bien isolés |
 
-**Documents structurants lus** : `sfia-global-capitalization.md`, `sfia-rules-update.md`, `sfia-architecture-standards.md`, `sfia-automation-architecture.md`, `figma-design-first-ui-method.md`, `notion-target-content-map.md` — tous présents et cohérents avec la vision SFA.
+**Documents structurants lus** : `sfia-global-capitalization-reference.md`, `sfia-rules-update.md`, `sfia-architecture-standards.md`, `sfia-automation-architecture.md`, `figma-design-first-ui-method.md`, `notion-target-content-map.md` — tous présents et cohérents avec la vision SFA.
 
 ### 4.2. Méthodes complémentaires
 

@@ -38,7 +38,7 @@ method/
   sfia-fast-track/
     README.md                          # Index méthode Fast Track
     core/
-      sfia-global-capitalization.md    # ← existant
+      sfia-global-capitalization-reference.md    # ← existant
       sfia-automation-architecture.md  # ← existant
       sfia-consolidation-roadmap.md    # ← existant
       sfia-rules-update.md             # Chantier 5
@@ -104,7 +104,7 @@ projects/
 
 | Fichier / famille actuelle | Emplacement cible proposé | Action |
 |----------------------------|--------------------------|--------|
-| `method/sfia-fast-track/core/sfia-global-capitalization.md` | `core/` | Déplacer plus tard |
+| `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` | `core/` | Déplacer plus tard |
 | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | `core/` | Déplacer plus tard |
 | `method/sfia-fast-track/core/sfia-consolidation-roadmap.md` | `core/` | Déplacer plus tard |
 | `method/sfia-fast-track/figma-design-first-ui-method.md` | `ui/` | Déplacer plus tard |
@@ -129,7 +129,7 @@ projects/
 
 | Document | Publiable Notion | Commentaire |
 |----------|------------------|-------------|
-| `sfia-global-capitalization.md` | Oui | Adapter — retirer références Git internes |
+| `sfia-global-capitalization-reference.md` | Oui | Adapter — retirer références Git internes |
 | `figma-design-first-ui-method.md` | Oui | Publier tel quel |
 | `sfia-automation-architecture.md` | Oui | Résumer vision — détail moteurs optionnel |
 | `interv360-mvp-delivery-capitalization.md` | Oui | Cas de référence MVP |

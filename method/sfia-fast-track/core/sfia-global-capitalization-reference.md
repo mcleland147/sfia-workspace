@@ -33,7 +33,8 @@ Le contenu historique ci-dessous reste inchangé à des fins de traçabilité.
 |---------|--------|
 | Cartography tag | `lot-A` |
 | Authority | **reference** — operational proof, not canonical |
-| Proposed disposition (CSV) | `rename` — **not executed** in Lot A ; stabilization only |
+| Proposed disposition (CSV) | `rename` — **executed** Lot A → `sfia-global-capitalization-reference.md` |
+| Physical path | `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` |
 | SFIA v2.4 | **Baseline** opérationnelle |
 | SFIA v2.6 | **Candidate** — ne remplace pas v2.4 |
 
@@ -366,7 +367,7 @@ La PR de capitalisation SFIA globale et vision d'automatisation a été mergée 
 | Commit d'intégration | `254744f` |
 | Statut | Mergé |
 | Type | Documentation méthode / capitalisation globale |
-| Livrables | `sfia-global-capitalization.md`, `sfia-automation-architecture.md` |
+| Livrables | `sfia-global-capitalization-reference.md`, `sfia-automation-architecture.md` |
 | Code Interv360 | Non modifié |
 | Backend / API / CI | Inchangés |
 | `sfia-notion-sync` | Non modifié |

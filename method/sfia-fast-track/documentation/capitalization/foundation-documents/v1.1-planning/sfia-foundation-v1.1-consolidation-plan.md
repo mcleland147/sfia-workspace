@@ -64,7 +64,7 @@ Les enrichir avec les apprentissages issus :
 | Document | Version cible | Mise à jour attendue |
 |----------|---------------|----------------------|
 | `automation/sfia-automation-architecture.md` | **v1.1** | Marquer version ; renvoyer vers specs moteurs ; frontière v1.1 / v2.0 ; mettre à jour boucle ChatGPT ↔ Cursor |
-| `core/sfia-global-capitalization.md` | **v1.1** (cross-ref) | Ajouter renvois vers référentiels architecture v1.1 ; statut « preuve opérationnelle » |
+| `core/sfia-global-capitalization-reference.md` | **v1.1** (cross-ref) | Ajouter renvois vers référentiels architecture v1.1 ; statut « preuve opérationnelle » |
 | `core/sfia-rules-update.md` | **v1.1** (cross-ref) | Ajouter renvoi vers `sfia-rules-and-guardrails.md` ; conserver règles détaillées jusqu'à fusion P1 |
 
 **Convention de versionnement v1.1 :**
@@ -76,7 +76,7 @@ Les enrichir avec les apprentissages issus :
 
 | Document | Priorité | Objectif | Sources à consolider |
 |----------|----------|----------|----------------------|
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | **P0** | Décrire le mode opératoire ChatGPT ↔ Cursor | `sfia-automation-architecture.md` §2–3 ; `sfia-global-capitalization.md` §13 ; `figma-design-first-ui-method.md` |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | **P0** | Décrire le mode opératoire ChatGPT ↔ Cursor | `sfia-automation-architecture.md` §2–3 ; `sfia-global-capitalization-reference.md` §13 ; `figma-design-first-ui-method.md` |
 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | **P1** | Consolider règles et garde-fous unifiées | `engineering-principles` + `rules-update` + `guardrails-checklist` |
 | `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md` | **P1** | Spec moteur génération prompts | `automation` §5.5 ; `prompt-catalog.md` |
 | `method/sfia-fast-track/automation/sfia-validation-engine.md` | **P1** | Spec moteur validation | `automation` §5.7 ; `validation-checklist` ; `guardrails-checklist` |
@@ -590,13 +590,13 @@ Recommended follow-up:
 
 The P2.1 cross-reference cycle has aligned the following documents with SFIA v1.1:
 
-- `method/sfia-fast-track/core/sfia-global-capitalization.md`
+- `method/sfia-fast-track/core/sfia-global-capitalization-reference.md`
 - `method/sfia-fast-track/core/sfia-rules-update.md`
 - `docs/architecture/README.md`
 
 The update clarifies:
 
-- `sfia-global-capitalization.md` as operational evidence / capitalization proof;
+- `sfia-global-capitalization-reference.md` as operational evidence / capitalization proof;
 - `sfia-rules-update.md` as historical consolidation trace;
 - `sfia-rules-and-guardrails.md` as the current operational rules reference;
 - `docs/architecture/README.md` as the v1.1 architecture index connected to Fast Track references.
