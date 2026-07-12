@@ -1,11 +1,11 @@
 # [Nom du projet] — Clôture du cycle de reprise UX/UI
 
-**Projet** : [Code ou nom du projet]  
-**Phase** : [Phase documentaire — ex. 06-ux-ui]  
-**Type** : Clôture cycle UX/UI  
-**Statut** : Draft  
-**Branche** : [Nom de la branche Git]  
-**Méthode associée** : `docs/practices/ux-ui/ux-ui-reprise-method.md`  
+**Projet** : [Code ou nom du projet]
+**Phase** : [Phase documentaire — ex. 06-ux-ui]
+**Type** : Clôture cycle UX/UI
+**Statut** : Draft
+**Branche** : [Nom de la branche Git]
+**Méthode associée** : `docs/practices/ux-ui/ux-ui-reprise-method.md`
 **Checklist associée** : `docs/practices/ux-ui/ux-ui-reprise-checklist.md`
 
 > **Note :** Le cycle Interv360 `projects/interv360/06-ux-ui/ux-ui-cycle-closure.md` est une référence d'application possible de ce template.

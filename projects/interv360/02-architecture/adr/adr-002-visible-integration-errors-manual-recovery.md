@@ -1,12 +1,12 @@
 # ADR-002 — Gestion visible des erreurs d'intégration avec reprise manuelle
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-002  
-**ADR liée** : ADR-001  
-**Rôles principaux** : Architecte, QA / Testeur  
-**Rôles contributeurs** : Product Owner, UX/UI Designer, Chef de projet, RSSI  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-002
+**ADR liée** : ADR-001
+**Rôles principaux** : Architecte, QA / Testeur
+**Rôles contributeurs** : Product Owner, UX/UI Designer, Chef de projet, RSSI
 **Type** : Architecture Decision Record
 
 ---

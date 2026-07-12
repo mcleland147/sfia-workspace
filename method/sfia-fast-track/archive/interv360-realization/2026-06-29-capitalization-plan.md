@@ -1,9 +1,9 @@
 # SFIA — Interv360 realization capitalization plan
 
-**Type** : Plan de capitalisation méthode  
-**Référence projet** : Interv360 (PRJ-INTERV360)  
-**Objet** : Capitalisation des cycles de préparation réalisation  
-**Statut** : Draft  
+**Type** : Plan de capitalisation méthode
+**Référence projet** : Interv360 (PRJ-INTERV360)
+**Objet** : Capitalisation des cycles de préparation réalisation
+**Statut** : Draft
 **Branche** : `method/interv360-realization-capitalization`
 
 ---

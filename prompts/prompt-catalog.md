@@ -7,9 +7,9 @@ scope: prompt catalog
 
 # SFIA Prompt Catalog v1.1
 
-**Version:** v1.1  
-**Status:** Candidate catalog  
-**Updated after:** SFIA prompt generation engine specification  
+**Version:** v1.1
+**Status:** Candidate catalog
+**Updated after:** SFIA prompt generation engine specification
 **Scope:** Prompt catalog
 
 ## 1. Objectif
@@ -32,7 +32,7 @@ Il traduit la doctrine du Prompt Generation Engine en familles de prompts et pro
 ## 2. Documents de référence
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
@@ -1199,7 +1199,7 @@ The priority full prompt templates are maintained in:
 | `prompts/templates/02-update-document-v1-1.md` | Update Document to v1.1 | Candidate |
 | `prompts/templates/03-create-operational-checklist.md` | Create Operational Checklist | Candidate |
 | `prompts/templates/04-validate-cursor-result.md` | Validate Cursor Result | Candidate |
-| `prompts/templates/05-validate-pr-readiness.md` | Validate PR Readiness | Candidate |
+| `prompts/templates/2026-07-04-05-validate-pr-readiness.md` | Validate PR Readiness | Candidate |
 | `prompts/templates/06-prepare-pr-summary.md` | Prepare PR Summary | Candidate |
 | `prompts/templates/07-write-post-merge-status.md` | Write Post-Merge Status | Candidate |
 | `prompts/templates/08-capitalize-method-asset.md` | Capitalize Method Asset | Candidate |
@@ -1264,7 +1264,7 @@ Full operational prompt templates are maintained separately in `prompts/template
 | **Distinct de** | `PROMPT-QA-001` à `010` — famille amont `qa-tester-prompt-family.md` |
 | **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` |
 | **Usage** | QA-G0…G4 ; stratégie/scénarios ; tests ; rapports ; réserves ; QA readiness (QA-G3) ; post-merge (QA-G4) ; PR readiness delivery |
-| **Closure / capitalisation** | `sfia-v2-incremental-delivery-closure-standard.md` |
+| **Closure / capitalisation** | `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md` |
 
 ## 15. Supplément SFIA v2.0 — Design coverage (pilote)
 
@@ -1291,7 +1291,7 @@ Full operational prompt templates are maintained separately in `prompts/template
 | Élément | Valeur |
 |---------|--------|
 | **Famille** | Technical architecture & decision documentation |
-| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md` |
+| **Standard** | `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md` |
 | **Templates** | §18 — ADR light, DAA light, DAT light |
 | **Routing** | `sfia-cycle-routing-guide.md` — §6.16 |
 | **Checklist** | `sfia-validation-checklist.md` — §12.3 |

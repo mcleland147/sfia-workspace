@@ -1,8 +1,8 @@
 # SFIA — Clôture du cycle méthode BPMN
 
-**Type** : Synthèse de clôture méthodologique  
-**Statut** : Draft — prêt pour PR unique  
-**Domaine** : Process Modeling / BPMN  
+**Type** : Synthèse de clôture méthodologique
+**Statut** : Draft — prêt pour PR unique
+**Domaine** : Process Modeling / BPMN
 **Branche** : `method/bpmn-integration-audit`
 
 ---

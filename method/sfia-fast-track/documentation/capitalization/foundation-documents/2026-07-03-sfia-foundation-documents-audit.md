@@ -1,7 +1,7 @@
 # SFIA Foundation Documents — Audit
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
 **Inventaire associé** : `sfia-foundation-documents-inventory.md`
 
 ## 1. Objectif
@@ -72,7 +72,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 
 | Statut | Documents sources | Commentaire |
 |--------|-------------------|-------------|
-| **OK** | `docs/architecture/sfia-decision-engine.md` | Document fondateur v1.0 substantiel (~1600 lignes). Non relié explicitement aux ADR Interv360 ni aux arbitrages MVP |
+| **OK** | `docs/architecture/2026-06-27-sfia-decision-engine.md` | Document fondateur v1.0 substantiel (~1600 lignes). Non relié explicitement aux ADR Interv360 ni aux arbitrages MVP |
 
 ### 5.4. Delivery Pipeline
 
@@ -102,7 +102,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 
 | Statut | Documents sources | Commentaire |
 |--------|-------------------|-------------|
-| **Partiel** | `method/sfia-fast-track/automation/sfia-automation-architecture.md` ; `docs/architecture/sfia-platform-architecture.md` (modules) ; `docs/architecture/sfia-decision-engine.md` (orchestration décisionnelle) | Vision forte dans automation doc ; pas d'implémentation moteur |
+| **Partiel** | `method/sfia-fast-track/automation/sfia-automation-architecture.md` ; `docs/architecture/sfia-platform-architecture.md` (modules) ; `docs/architecture/2026-06-27-sfia-decision-engine.md` (orchestration décisionnelle) | Vision forte dans automation doc ; pas d'implémentation moteur |
 
 ### 5.9. ChatGPT ↔ Cursor workflow
 
@@ -138,7 +138,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 
 | Statut | Documents sources | Commentaire |
 |--------|-------------------|-------------|
-| **OK** | `projects/interv360/` (00–09) ; `cycles/interv360-*` ; `audit-rex/interv360-application-rex.md` ; ADR actifs | Cas référence le plus capitalisé du workspace — à résumer pour Notion, pas publier brut |
+| **OK** | `projects/interv360/` (00–09) ; `cycles/interv360-*` ; `audit-rex/2026-07-03-interv360-application-rex.md` ; ADR actifs | Cas référence le plus capitalisé du workspace — à résumer pour Notion, pas publier brut |
 
 ## 6. Documents à mettre à jour ensuite
 
@@ -158,7 +158,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 | Document canonique cible | Objectif | Source(s) à consolider |
 |--------------------------|----------|------------------------|
 | `sfia-platform-architecture.md` | Architecture globale SFIA | **Existe** — `docs/architecture/` — aligner |
-| `sfia-decision-engine.md` | Moteur de décision | **Existe** — `docs/architecture/` — relier opérationnel |
+| `2026-06-27-sfia-decision-engine.md` | Moteur de décision | **Existe** — `docs/architecture/` — relier opérationnel |
 | `sfia-delivery-pipeline.md` | Pipeline de livraison | **Existe** — fusionner avec Fast Track cycles |
 | `sfia-domain-model.md` | Concepts métier | **Existe** — vérifier objets CMP |
 | `sfia-metamodel.md` | Modèle artefacts, cycles, rôles | **Existe** — mapper repo |
@@ -201,7 +201,7 @@ Priorité immédiate :
 ```text
 Couche conceptuelle (Notion exports — docs/architecture/)
 ├── sfia-platform-architecture.md
-├── sfia-decision-engine.md
+├── 2026-06-27-sfia-decision-engine.md
 ├── sfia-delivery-pipeline.md
 ├── sfia-domain-model.md
 ├── sfia-meta-model.md

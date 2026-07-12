@@ -1,13 +1,13 @@
 # ADR-CAND-009 — Confirmation report IA légère post-MVP
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Bloc** : ADR P2 — impacts design / MVP  
-**Statut** : Confirmed — Post-MVP  
-**Source candidate** : ADR-CAND-009  
-**Décision** : pas d'ADR MVP formelle à ce stade  
-**Rôles principaux** : Product Owner, UX/UI Designer, Architecte  
-**Rôles contributeurs** : Chef de projet, QA / Testeur  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Bloc** : ADR P2 — impacts design / MVP
+**Statut** : Confirmed — Post-MVP
+**Source candidate** : ADR-CAND-009
+**Décision** : pas d'ADR MVP formelle à ce stade
+**Rôles principaux** : Product Owner, UX/UI Designer, Architecte
+**Rôles contributeurs** : Chef de projet, QA / Testeur
 **Type** : Confirmation de décision hors MVP
 
 ---

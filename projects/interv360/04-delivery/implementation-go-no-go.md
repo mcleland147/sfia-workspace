@@ -1,8 +1,8 @@
 # Interv360 — Implementation go/no-go
 
-**Projet** : Interv360  
-**Cycle** : Préparation passage en réalisation  
-**Statut** : Go conditionnel — INC-01  
+**Projet** : Interv360
+**Cycle** : Préparation passage en réalisation
+**Statut** : Go conditionnel — INC-01
 **Branche** : `delivery/interv360-implementation-go-no-go`
 
 ---
@@ -171,7 +171,7 @@ Décision : voir §16 — **Go conditionnel sur INC-01** (formalisé).
 
 ## 11. Synthèse de maturité
 
-**Sources principales :** `01-cadrage/business-framing.md`, `01-cadrage/mvp-arbitration-validation.md`, `../archive/pre-delivery-phases/05-functional-architecture/functional-architecture-summary.md`, `../archive/pre-delivery-phases/06-ux-ui/user-journeys.md`, `04-delivery/mvp-scope.md`, `04-delivery/delivery-readiness-summary.md`, `../archive/inc-01/inc-01-readiness-checklist.md`, `04-delivery/technical-design-summary.md`, `04-delivery/realization-start-summary.md`, `03-design/figma-first-screen-review.md`, `../../method/sfia-fast-track/archive/interv360-realization/capitalization-summary.md`.
+**Sources principales :** `01-cadrage/business-framing.md`, `01-cadrage/mvp-arbitration-validation.md`, `../archive/pre-delivery-phases/05-functional-architecture/functional-architecture-summary.md`, `../archive/pre-delivery-phases/06-ux-ui/user-journeys.md`, `04-delivery/mvp-scope.md`, `04-delivery/delivery-readiness-summary.md`, `../archive/inc-01/inc-01-readiness-checklist.md`, `04-delivery/technical-design-summary.md`, `04-delivery/realization-start-summary.md`, `03-design/figma-first-screen-review.md`, `../../method/sfia-fast-track/archive/interv360-realization/2026-06-30-capitalization-summary.md`.
 
 | Axe | Niveau | Commentaire |
 |-----|--------|-------------|

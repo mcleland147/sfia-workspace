@@ -1,11 +1,11 @@
 # Interv360 — Enrichissement méthodes rôle après ADR P2 design-impact
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Jalon** : ADR P2 design-impact  
-**Statut** : Done  
-**Type** : Synthèse de capitalisation méthodes rôle  
-**Source** : ADR-005 à ADR-008 + confirmation ADR-CAND-009 + synthèse P2  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Jalon** : ADR P2 design-impact
+**Statut** : Done
+**Type** : Synthèse de capitalisation méthodes rôle
+**Source** : ADR-005 à ADR-008 + confirmation ADR-CAND-009 + synthèse P2
 **Objet** : capitalisation des apprentissages P2 dans les méthodes rôle SFIA
 
 ---
@@ -29,7 +29,7 @@ Les apprentissages sont intégrés de manière **générique et réutilisable** 
 | `ADR-006` — Notifications client sans portail client | Notifications simulées ; exclusions portail |
 | `ADR-007` — Signature client optionnelle structurée | Signature non bloquante ; pas e-signature |
 | `ADR-008` — Dashboard SAV et vue dirigeant séparés | Séparation dashboards ; KPI déterministes |
-| `ADR-CAND-009-ai-light-post-mvp-confirmation.md` | IA hors MVP ; anti-surpromesse |
+| `adr-cand-009-ai-light-post-mvp-confirmation.md` | IA hors MVP ; anti-surpromesse |
 | `architecture-p1-summary.md` | Continuité séquence P1 → P2 |
 | Méthodes rôle existantes (§14 P1) | Structure d'enrichissement réutilisée |
 

@@ -113,7 +113,7 @@
     "ux-ui-design-research-and-benchmark.md",
     "architecture-p1-summary.md",
     "architecture-p2-design-impact-summary.md",
-    "ADR-CAND-009-ai-light-post-mvp-confirmation.md"
+    "adr-cand-009-ai-light-post-mvp-confirmation.md"
   ],
   "constraints": {
     "no_delivery_opening": true,

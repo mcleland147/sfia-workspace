@@ -1,7 +1,7 @@
 # Évolution proposée — Base Components
 
-**Composant** : CMP-001 — SFIA Notion Sync  
-**Date** : 2026-06-27  
+**Composant** : CMP-001 — SFIA Notion Sync
+**Date** : 2026-06-27
 **Statut** : Proposition — **non implémentée dans Notion**
 
 ## Contexte
@@ -34,7 +34,7 @@ La fiche **CMP-001** concentre aujourd'hui de nombreuses métadonnées dans le c
 | **Repository** | url | Existant | Conserver — lien vers le code source |
 | **Documentation** | url | Existant | Conserver — README principal |
 | **Changelog** | url | Non | Lien vers CHANGELOG.md ou page dédiée |
-| **Roadmap** | url | Non | Lien vers ROADMAP.md ou page dédiée |
+| **Roadmap** | url | Non | Lien vers roadmap.md ou page dédiée |
 
 ## Schéma cible proposé
 

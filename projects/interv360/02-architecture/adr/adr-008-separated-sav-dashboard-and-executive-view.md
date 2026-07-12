@@ -1,13 +1,13 @@
 # ADR-008 — Dashboard SAV et vue dirigeant séparés
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Bloc** : ADR P2 — impacts design / MVP  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-008  
-**ADR liées** : ADR-002, ADR-004, ADR-005, ADR-006, ADR-007  
-**Rôles principaux** : Product Owner, UX/UI Designer  
-**Rôles contributeurs** : Architecte, QA / Testeur, Chef de projet  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Bloc** : ADR P2 — impacts design / MVP
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-008
+**ADR liées** : ADR-002, ADR-004, ADR-005, ADR-006, ADR-007
+**Rôles principaux** : Product Owner, UX/UI Designer
+**Rôles contributeurs** : Architecte, QA / Testeur, Chef de projet
 **Type** : Architecture Decision Record
 
 ---

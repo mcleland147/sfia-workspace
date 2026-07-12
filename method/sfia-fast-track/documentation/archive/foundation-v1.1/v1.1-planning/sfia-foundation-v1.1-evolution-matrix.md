@@ -1,7 +1,7 @@
 # SFIA Foundation v1.1 — Evolution Matrix
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
 **Mode** : planification uniquement — aucun document fondateur source modifié
 
 ## 1. Objectif
@@ -29,7 +29,7 @@ L'objectif est de conserver les documents fondateurs existants comme base, puis 
 | Document | Statut actuel | À conserver | À enrichir en v1.1 | À ne pas intégrer | Commentaire |
 |----------|---------------|-------------|--------------------|-------------------|-------------|
 | `docs/architecture/sfia-platform-architecture.md` | v1.0 — ~2100 lignes, export Notion | Vision modulaire Core/Studio/Runtime/Knowledge/Lab/Projects ; principes fondateurs ; rôle Notion natif | Cartographie repo Git post-PR #81 ; couche `method/sfia-fast-track/` opérationnelle ; `docs/practices/` ; distinction Git détaillé vs Notion éditorialisé ; référence Interv360 | Implémentation moteurs (v2.0) ; sync Notion brute | Base conceptuelle intacte — ajouter couche exécution repo |
-| `docs/architecture/sfia-decision-engine.md` | v1.0 — moteur décisionnel officiel | Qualification demande, orchestration modules, capitalisation décisions | Décisions GO/NO-GO Fast Track ; réserves non bloquantes ; arbitrage PR/post-merge ; lien ADR Interv360 ; décision « consolidation vs Notion » | Logique métier applicative Interv360 | Enrichir avec patterns décisionnels prouvés |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | v1.0 — moteur décisionnel officiel | Qualification demande, orchestration modules, capitalisation décisions | Décisions GO/NO-GO Fast Track ; réserves non bloquantes ; arbitrage PR/post-merge ; lien ADR Interv360 ; décision « consolidation vs Notion » | Logique métier applicative Interv360 | Enrichir avec patterns décisionnels prouvés |
 | `docs/architecture/sfia-delivery-pipeline.md` | v1.0 — pipeline officiel | Phases, quality gates, capitalisation projet → plateforme | Cycle Fast Track réel (1 cycle = 1 objectif) ; conventions branches ; PR unique ; post-merge ; releases/tags ; séquence Interv360 00–09 ; capitalisations cycles | Micro-incréments `inc-*` (archivés) ; détail fichiers delivery | Relier pipeline théorique à preuve opérationnelle |
 | `docs/architecture/sfia-domain-model.md` | v1.0 — objets métier v1 | Experiment, Project, Component, Standard, etc. | Objets **Cycle**, **Prompt**, **Template**, **Practice**, **Role Method**, **Reference Project**, **Knowledge Page**, **Audit Report**, **REX** ; mapping `docs/practices/roles/` | Objets code applicatif | Étendre sans casser identifiants v1 |
 | `docs/architecture/sfia-meta-model.md` | v1.0 — langage commun artefacts | Modules Core/Studio/Runtime/Knowledge/Laboratory/Projects ; cycles de vie ; maturité | Relations prompts ↔ templates ↔ practices ↔ méthode FT ↔ Notion cible ; statuts Draft/Official Role Method ; archives vs actif | Arborescence fichier par fichier | Modéliser relations post-cleanup |

@@ -1,12 +1,12 @@
 # Interv360 — Préparation sync Notion Architecture P1
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Jalon** : Architecture P1  
-**Statut jalon** : Done  
-**Type** : préparation synchronisation Notion  
-**Source détaillée** : Git  
-**Mode Notion** : gouvernance uniquement  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Jalon** : Architecture P1
+**Statut jalon** : Done
+**Type** : préparation synchronisation Notion
+**Source détaillée** : Git
+**Mode Notion** : gouvernance uniquement
 **Publication Notion** : Non réalisée dans cette tâche
 
 ---
@@ -53,13 +53,13 @@ La **suite est à arbitrer** : voie **UX/UI/Figma** ou voie **ADR P2**. Delivery
 
 | Décision | Statut | Source Git |
 |----------|--------|------------|
-| **ADR-001** — Contrats API simulés | Accepted | `adr/ADR-001-api-contracts-simulated-implementation.md` |
-| **ADR-002** — Erreurs visibles + reprise manuelle | Accepted | `adr/ADR-002-visible-integration-errors-manual-recovery.md` |
-| **ADR-003** — Email sécurisé secondaire | Accepted | `adr/ADR-003-secure-email-secondary-channel.md` |
-| **ADR-004** — Journalisation minimale | Accepted | `adr/ADR-004-minimal-flow-rejection-logging.md` |
+| **ADR-001** — Contrats API simulés | Accepted | `adr/adr-001-api-contracts-simulated-implementation.md` |
+| **ADR-002** — Erreurs visibles + reprise manuelle | Accepted | `adr/adr-002-visible-integration-errors-manual-recovery.md` |
+| **ADR-003** — Email sécurisé secondaire | Accepted | `adr/adr-003-secure-email-secondary-channel.md` |
+| **ADR-004** — Journalisation minimale | Accepted | `adr/adr-004-minimal-flow-rejection-logging.md` |
 | **Méthodes rôle enrichies** | Done | `role-methods-enrichment-after-adr-p1.md` + `docs/methods/roles/` |
-| **PROMPT-ARCH-001** | Draft | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` |
-| **PROMPT-SEC-001** | Draft | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` |
+| **PROMPT-ARCH-001** | Draft | `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` |
+| **PROMPT-SEC-001** | Draft | `prompts/security/prompt-sec-001-revue-canal-email-securise.md` |
 | **Architecture P1 Summary** | Done | `architecture-p1-summary.md` |
 
 *Chemins relatifs à `projects/interv360/02-architecture/` sauf prompts et méthodes rôle.*

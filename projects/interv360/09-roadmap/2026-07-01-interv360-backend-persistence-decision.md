@@ -1,10 +1,10 @@
 # Interv360 — Backend Persistence Decision
 
-**Projet** : Interv360  
-**Cycle** : Backend Persistence Decision  
-**Mode** : SFIA Fast Delivery architecture  
-**Statut** : Décision persistance backend  
-**Branche** : `architecture/interv360-backend-persistence-decision`  
+**Projet** : Interv360
+**Cycle** : Backend Persistence Decision
+**Mode** : SFIA Fast Delivery architecture
+**Statut** : Décision persistance backend
+**Branche** : `architecture/interv360-backend-persistence-decision`
 **Base** : `main` @ `f8dd576`
 
 Documents de référence : [`interv360-product-industrialization-framing.md`](./interv360-product-industrialization-framing.md), [`backend-minimal-prototype.md`](../04-delivery/backend-minimal-prototype.md), [`interv360-backend-target-framing.md`](./interv360-backend-target-framing.md), [`interv360-backend-data-model-decision.md`](./interv360-backend-data-model-decision.md), [`interv360-backend-technical-stack-decision.md`](./interv360-backend-technical-stack-decision.md), [`interv360-backend-api-contract-framing.md`](./interv360-backend-api-contract-framing.md)

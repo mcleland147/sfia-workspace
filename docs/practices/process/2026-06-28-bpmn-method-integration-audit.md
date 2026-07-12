@@ -1,10 +1,10 @@
 # SFIA — Audit d'intégration BPMN dans la méthodologie
 
-**Type** : Audit méthodologique  
-**Statut** : Draft  
-**Phase** : Phase A — Audit BPMN  
-**Objectif** : Identifier les impacts de l'introduction de BPMN dans le processus SFIA  
-**Périmètre** : Méthode, standards, templates, prompts, gouvernance, projets  
+**Type** : Audit méthodologique
+**Statut** : Draft
+**Phase** : Phase A — Audit BPMN
+**Objectif** : Identifier les impacts de l'introduction de BPMN dans le processus SFIA
+**Périmètre** : Méthode, standards, templates, prompts, gouvernance, projets
 **Branche** : `method/bpmn-integration-audit`
 
 ---
@@ -111,9 +111,9 @@ Le projet Interv360 utilise actuellement `03-design/` pour la phase design (`pro
 | Checklist d'intégration BPMN | `docs/practices/process/bpmn-integration-checklist.md` | Prérequis avant cycle BPMN projet | B |
 | Template scope processus | `docs/templates/process/bpmn-process-scope-template.md` | Périmètre diagrammes, acteurs, hypothèses | C |
 | Template analyse processus | `docs/templates/process/bpmn-process-analysis-template.md` | Traçabilité RG, statuts, exceptions | C |
-| Template clôture cycle BPMN | `docs/templates/process/bpmn-cycle-closure-template.md` | Synthèse cycle, suites ADR / archi fonctionnelle | C |
+| Template clôture cycle BPMN | `docs/templates/process/2026-06-28-bpmn-cycle-closure-template.md` | Synthèse cycle, suites ADR / archi fonctionnelle | C |
 | Famille de prompts BPMN | `prompts/bpmn/bpmn-prompt-family.md` | Prompts réutilisables modélisation / revue | C |
-| Audit intégration (présent) | `docs/practices/process/bpmn-method-integration-audit.md` | Phase A — identification impacts | **A** |
+| Audit intégration (présent) | `docs/practices/process/2026-06-28-bpmn-method-integration-audit.md` | Phase A — identification impacts | **A** |
 
 ---
 
@@ -216,7 +216,7 @@ projects/interv360/03-process/
 | `02-architecture/mvp-clarifications.md` | Consolidation MVP |
 | `02-architecture/rules-rg-prioritization.md` | Règles RG prioritaires |
 | `02-architecture/status-mapping.md` | Statuts et transitions |
-| `02-architecture/closure-without-signature.md` | Clôture, signature optionnelle |
+| `02-architecture/2026-06-28-closure-without-signature.md` | Clôture, signature optionnelle |
 | `02-architecture/geo-ai-arbitration.md` | Hors périmètre diagrammes MVP |
 | `02-architecture/clarification-cycle-closure.md` | Clôture cycle clarification |
 | `01-cadrage/business-framing.md` | Parcours SAV §6, objets métier |

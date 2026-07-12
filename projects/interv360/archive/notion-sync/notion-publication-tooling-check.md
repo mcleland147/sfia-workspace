@@ -1,8 +1,8 @@
 # Interv360 — Vérification outillage publication Notion
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Date diagnostic** : 2026-06-27  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Date diagnostic** : 2026-06-27
 **Objet** : vérifier si une publication Notion peut être réalisée depuis Cursor à partir des outils existants du repo — **sans publication effectuée**
 
 **Payload concerné (non modifié)** :
@@ -37,7 +37,7 @@ Motifs : `notion`, `sync`, `governance`, `CMP-001`, `publish_to_notion`, `NOTION
 |---------------------|--------|
 | `tools/cmp-001/` | Connecteur officiel **CMP-001 — SFIA Notion Sync** (CLI Node.js, `@notionhq/client`) |
 | `tools/cmp-001/README.md` | Documentation installation, configuration, commandes |
-| `tools/cmp-001/WORKSPACE.md` | Point d'entrée workspace (`npm install`, `.env`) |
+| `tools/cmp-001/workspace.md` | Point d'entrée workspace (`npm install`, `.env`) |
 | `tools/cmp-001/.env.example` | Modèle variables `NOTION_TOKEN`, `NOTION_DATABASE_*` |
 | `tools/cmp-001/src/cli.js` | CLI : `create`, `update`, `discover`, `export`, `types` |
 | `tools/cmp-001/src/notionClient.js` | Client API Notion |
@@ -66,7 +66,7 @@ Motifs : `notion`, `sync`, `governance`, `CMP-001`, `publish_to_notion`, `NOTION
 | Élément | Trouvé | Commentaire |
 |---------|--------|-------------|
 | **Script Notion** | Oui | `tools/cmp-001/src/cli.js` — commandes `create`, `update`, `discover`, `export` |
-| **Documentation Notion** | Oui | `tools/cmp-001/README.md`, `WORKSPACE.md`, `CHANGELOG.md` ; `README.md` workspace |
+| **Documentation Notion** | Oui | `tools/cmp-001/README.md`, `workspace.md`, `CHANGELOG.md` ; `README.md` workspace |
 | **CMP-001** | Oui | Connecteur officiel v1.1.2 ; `update project` ajouté en 1.1.2 |
 | **Payload governance** | Oui (préparé) | Payloads `notion-sync-*-payload.json` — dont Figma V1 closure |
 | **Variable NOTION_TOKEN** | Oui (documentée) | `.env.example` ; requis par `config.js` — **présence locale non vérifiée** (`.env` non lu) |

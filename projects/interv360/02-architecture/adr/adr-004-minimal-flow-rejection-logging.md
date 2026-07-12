@@ -1,12 +1,12 @@
 # ADR-004 — Journalisation minimale des flux et rejets
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-004  
-**ADR liées** : ADR-001, ADR-002, ADR-003  
-**Rôles principaux** : Architecte, RSSI  
-**Rôles contributeurs** : QA / Testeur, Product Owner, UX/UI Designer, Chef de projet  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-004
+**ADR liées** : ADR-001, ADR-002, ADR-003
+**Rôles principaux** : Architecte, RSSI
+**Rôles contributeurs** : QA / Testeur, Product Owner, UX/UI Designer, Chef de projet
 **Type** : Architecture Decision Record
 
 ---

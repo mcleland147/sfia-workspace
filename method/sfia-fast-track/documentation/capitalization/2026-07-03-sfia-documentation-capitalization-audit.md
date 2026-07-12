@@ -1,8 +1,8 @@
 # SFIA/SFA Documentation Capitalization Audit
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
-**Point de départ** : `main` @ `3b521c6`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
+**Point de départ** : `main` @ `3b521c6`
 **Matrice associée** : `sfia-documentation-completeness-matrix.md`
 
 ## 1. Objectif

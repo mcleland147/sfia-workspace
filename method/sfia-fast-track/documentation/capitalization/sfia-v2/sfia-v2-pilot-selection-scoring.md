@@ -5,7 +5,7 @@ cycle_type: SFIA v2.0 capitalization / pilot selection scoring
 scope: Comparative scoring of three SFIA v2.0 pilot candidates — decision aid only
 baseline: SFIA foundation v1.1 (closed)
 references:
-  - method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-pilot-selection-decision.md
+  - method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-05-sfia-v2-pilot-selection-decision.md
   - method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md
   - method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md
   - method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-and-delivery-vision.md
@@ -13,10 +13,10 @@ references:
 
 # SFIA v2.0 — Pilot Selection Scoring
 
-**Version :** v2.0 (candidate)  
-**Statut :** Candidate — décision Morris requise  
-**Branche :** `method/sfia-v2-pilot-selection-scoring`  
-**Base :** `main` @ `22ddc78` (post PR #93)  
+**Version :** v2.0 (candidate)
+**Statut :** Candidate — décision Morris requise
+**Branche :** `method/sfia-v2-pilot-selection-scoring`
+**Base :** `main` @ `22ddc78` (post PR #93)
 **Zone :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/`
 
 > **Ce document est un cycle de scoring et d'aide à la décision.** Il ne sélectionne aucun pilote définitivement, ne crée aucun projet sous `projects/` et ne lance aucun bootstrap réel.
@@ -64,7 +64,7 @@ Ce document **compare les trois candidats pilotes présélectionnés par Morris*
 
 ## 4. Scoring method
 
-**Référence :** `sfia-v2-pilot-selection-decision.md` §11–§12.
+**Référence :** `2026-07-05-sfia-v2-pilot-selection-decision.md` §11–§12.
 
 | Paramètre | Valeur |
 |-----------|--------|
@@ -371,7 +371,7 @@ Ce document **compare les trois candidats pilotes présélectionnés par Morris*
 
 **Références :**
 
-- `sfia-v2-pilot-selection-decision.md`
+- `2026-07-05-sfia-v2-pilot-selection-decision.md`
 - `sfia-v2-project-bootstrap-standard.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-automation-and-delivery-vision.md`

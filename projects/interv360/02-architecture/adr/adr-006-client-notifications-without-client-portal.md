@@ -1,13 +1,13 @@
 # ADR-006 — Notifications client sans portail client
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Bloc** : ADR P2 — impacts design / MVP  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-006  
-**ADR liées** : ADR-001, ADR-002, ADR-004, ADR-005  
-**Rôles principaux** : Product Owner, UX/UI Designer, Architecte  
-**Rôles contributeurs** : RSSI, QA / Testeur, Chef de projet  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Bloc** : ADR P2 — impacts design / MVP
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-006
+**ADR liées** : ADR-001, ADR-002, ADR-004, ADR-005
+**Rôles principaux** : Product Owner, UX/UI Designer, Architecte
+**Rôles contributeurs** : RSSI, QA / Testeur, Chef de projet
 **Type** : Architecture Decision Record
 
 ---

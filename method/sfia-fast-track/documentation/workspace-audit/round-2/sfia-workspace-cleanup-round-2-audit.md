@@ -82,7 +82,7 @@ Après archivage Notion/Figma v1, **31 fichiers Markdown** subsistent à la raci
 | `adr/` (9 ADR) | Décisions architecture MVP | **Actif** | Conserver |
 | `status-mapping.md`, `status-mapping-summary.md` | Mapping statuts métier | **Actif** | Conserver |
 | `geo-ai-arbitration.md`, `rules-rg-prioritization.md` | Arbitrages métier structurants | **Actif** | Conserver |
-| `mvp-clarifications.md`, `closure-without-signature.md` | Clarifications MVP / règles clôture | **Actif** (référence cadrage) | Conserver ou `01-cadrage/` si relecture |
+| `mvp-clarifications.md`, `2026-06-28-closure-without-signature.md` | Clarifications MVP / règles clôture | **Actif** (référence cadrage) | Conserver ou `01-cadrage/` si relecture |
 | `notion-publication-tooling-check.md` | Diagnostic outillage Notion (2026-06-27), sans publication | **Log / historique** | `archive/notion-sync/` |
 | `merge-closure-prompt-library-sync.md` | Clôture PR #1 Prompt Library | **Log / historique** | `archive/cmp/` ou `archive/notion-sync/` |
 | `prompt-catalog-enrichment-after-ux-ui-v1-standard.md` | Log enrichissement catalogue | **Log** | `archive/cmp/` |
@@ -110,7 +110,7 @@ Après archivage Notion/Figma v1, **31 fichiers Markdown** subsistent à la raci
 | `docs/adr/` | README seul | Stub ADR plateforme | Conserver |
 | `docs/roadmaps/` | `cmp-technical-roadmap.md` | Roadmap outillage CMP — **actif** | Conserver ; lier à `tools/cmp-001/` via README |
 | `docs/tooling/penpot/` | 5 docs actifs | Méthode/outillage design Penpot | Conserver |
-| `docs/workspace-readiness-report.md` | Rapport readiness **2026-06-27** pré-Interv360 | **Historique** | `docs/archive/` |
+| `docs/2026-06-27-workspace-readiness-report.md` | Rapport readiness **2026-06-27** pré-Interv360 | **Historique** | `docs/archive/` |
 | `docs/methods/` | 44 fichiers méthodes rôles/process/arch/ux | **Actif plateforme** | Conserver ; ne pas fusionner avec `method/` |
 | `docs/templates/` | 12 templates BPMN/arch/ux | **Actif plateforme** | Conserver ; distinguer des templates Fast Track |
 
@@ -199,7 +199,7 @@ sfia-workspace/
 - [ ] Conserver `methods/` comme **méthodes complémentaires** (Controlled Delivery)
 - [ ] Conserver `docs/methods/` comme **méthodes plateforme SFIA** — ne pas déplacer vers `methods/`
 - [ ] Créer `docs/SFIA-CONTENT-MAP.md` ou enrichir README racine expliquant les 4 couches
-- [ ] Archiver `docs/workspace-readiness-report.md` et mettre à jour `docs/methods/methods-structure-check.md`
+- [ ] Archiver `docs/2026-06-27-workspace-readiness-report.md` et mettre à jour `docs/methods/methods-structure-check.md`
 - [ ] Corriger `README.md` racine (supprimer références `templates/` et `standards/` racine inexistants)
 
 ### Interv360

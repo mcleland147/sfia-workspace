@@ -1,9 +1,9 @@
 # Interv360 — Backend API Contract Framing
 
-**Projet** : Interv360  
-**Cycle** : Backend API Contract Framing  
-**Mode** : SFIA Fast Delivery documentaire  
-**Statut** : Cadrage contrat API  
+**Projet** : Interv360
+**Cycle** : Backend API Contract Framing
+**Mode** : SFIA Fast Delivery documentaire
+**Statut** : Cadrage contrat API
 **Branche** : `architecture/interv360-backend-api-contract-framing`
 
 ---

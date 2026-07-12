@@ -1,9 +1,9 @@
 # Interv360 — Auth and User Framing
 
-**Projet** : Interv360  
-**Cycle** : Role Simulation  
-**Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-01 réalisé  
+**Projet** : Interv360
+**Cycle** : Role Simulation
+**Mode** : SFIA Batch Delivery produit contrôlé
+**Statut** : Batch produit — INC-PROD-01 réalisé
 **Branche** : `delivery/interv360-role-simulation`
 
 ---

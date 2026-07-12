@@ -1,14 +1,14 @@
 # PROMPT-ARCH-001 — Revue intégrations et erreurs
 
-**ID** : PROMPT-ARCH-001  
-**Nom** : Revue intégrations et erreurs  
-**Famille** : Architecture  
-**Dossier** : `prompts/architecture/`  
-**Statut** : Draft  
-**Source pilote** : PRJ-INTERV360  
-**Phase SFIA** : Architecture  
-**Rôles mobilisés** : Architecte, QA / Testeur, RSSI, UX/UI Designer, Product Owner, Chef de projet  
-**Livrables sources** : ADR-001, ADR-002, ADR-003, ADR-004  
+**ID** : PROMPT-ARCH-001
+**Nom** : Revue intégrations et erreurs
+**Famille** : Architecture
+**Dossier** : `prompts/architecture/`
+**Statut** : Draft
+**Source pilote** : PRJ-INTERV360
+**Phase SFIA** : Architecture
+**Rôles mobilisés** : Architecte, QA / Testeur, RSSI, UX/UI Designer, Product Owner, Chef de projet
+**Livrables sources** : ADR-001, ADR-002, ADR-003, ADR-004
 **Type** : Prompt SFIA réutilisable
 
 ---

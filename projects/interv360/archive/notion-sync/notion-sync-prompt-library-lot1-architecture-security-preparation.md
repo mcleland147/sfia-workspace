@@ -1,13 +1,13 @@
 # Interv360 — Préparation Prompt Library Lot 1 — Architecture & Sécurité
 
-**Projet** : PRJ-INTERV360  
-**Cible Notion** : SFIA Prompt Library  
-**Lot** : 1 — Architecture & Sécurité  
-**Type** : Préparation sync Prompt Library  
-**Statut** : Prepared — Not published  
-**Publication Notion** : non exécutée  
-**API Notion** : non appelée  
-**CMP-001 create prompt** : non exécuté  
+**Projet** : PRJ-INTERV360
+**Cible Notion** : SFIA Prompt Library
+**Lot** : 1 — Architecture & Sécurité
+**Type** : Préparation sync Prompt Library
+**Statut** : Prepared — Not published
+**Publication Notion** : non exécutée
+**API Notion** : non appelée
+**CMP-001 create prompt** : non exécuté
 **Objet** : préparer la publication de PROMPT-ARCH-001 et PROMPT-SEC-001 dans la Prompt Library
 
 ---
@@ -25,8 +25,8 @@ Cette note **prépare le Lot 1** (Architecture & Sécurité) pour publication da
 
 | Source | Rôle |
 |--------|------|
-| `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | Prompt Architecture — fichier Draft formalisé |
-| `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | Prompt Sécurité / RSSI — fichier Draft formalisé |
+| `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | Prompt Architecture — fichier Draft formalisé |
+| `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | Prompt Sécurité / RSSI — fichier Draft formalisé |
 | `prompts/prompt-catalog.md` | Référencement §4 et §8 — statut Draft |
 | `notion-sync-existing-prompt-library-inventory.md` | Inventaire — Lot 1 recommandé |
 | `tools/cmp-001/src/schemas/prompt.schema.json` | Schéma CMP — catégories étendues |
@@ -40,8 +40,8 @@ Cette note **prépare le Lot 1** (Architecture & Sécurité) pour publication da
 
 | ID | Nom | Catégorie CMP | Statut | Source | Action |
 |----|-----|---------------|--------|--------|--------|
-| PROMPT-ARCH-001 | Revue intégrations et erreurs | **Architecture** | Draft | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | Publier après revue payload |
-| PROMPT-SEC-001 | Revue canal email sécurisé | **Security** | Draft | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | Publier après revue payload |
+| PROMPT-ARCH-001 | Revue intégrations et erreurs | **Architecture** | Draft | `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | Publier après revue payload |
+| PROMPT-SEC-001 | Revue canal email sécurisé | **Security** | Draft | `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | Publier après revue payload |
 
 **Doublons** : aucun PROMPT-ARCH-001 ni PROMPT-SEC-001 dans `exports/notion/prompts.json` au moment de la préparation.
 

@@ -7,10 +7,10 @@ scope: Pause active Notion integration and keep Notion as optional publication c
 
 # SFIA Notion Publication Track Pause Decision
 
-**Version :** v1.1  
-**Statut :** Validated  
-**Cycle :** Décision d'architecture — arrêt trajectoire Notion active  
-**Branche :** `notion/pause-notion-publication-track`  
+**Version :** v1.1
+**Statut :** Validated
+**Cycle :** Décision d'architecture — arrêt trajectoire Notion active
+**Branche :** `notion/pause-notion-publication-track`
 **Base :** `main` @ `3497266` (post PR #87)
 
 ## 1. Décision

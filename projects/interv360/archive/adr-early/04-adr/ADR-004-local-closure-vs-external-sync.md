@@ -1,10 +1,10 @@
 # ADR-004 — Clôture locale vs synchronisation externe Interv360
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 04-adr  
-**Statut** : Accepted  
-**Date** : 2026-06-28  
-**Décision** : Dissocier la clôture locale de la synchronisation externe  
+**Projet** : PRJ-INTERV360
+**Phase** : 04-adr
+**Statut** : Accepted
+**Date** : 2026-06-28
+**Décision** : Dissocier la clôture locale de la synchronisation externe
 **Branche** : `adr/interv360-structurantes`
 
 ---
@@ -201,7 +201,7 @@ Elle alimente directement :
 | `projects/interv360/04-adr/ADR-001-status-mapping.md` | STAT-06 / STAT-08 et séparation statuts / indicateurs |
 | `projects/interv360/04-adr/ADR-002-simulated-crm-sync.md` | Interv360 source de vérité locale, CRM simulé cible |
 | `projects/interv360/04-adr/ADR-003-integration-error-management.md` | STAT-08 et gestion des erreurs d'intégration |
-| `projects/interv360/02-architecture/closure-without-signature.md` | Conditions de clôture, signature optionnelle |
+| `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Conditions de clôture, signature optionnelle |
 | `projects/interv360/03-process/process-analysis.md` | Analyse BPMN clôture / intégration |
 | `projects/interv360/03-process/process-cycle-closure.md` | Synthèse BPMN |
 | `projects/interv360/04-adr/adr-structuring-scope.md` | Cadrage ADR |

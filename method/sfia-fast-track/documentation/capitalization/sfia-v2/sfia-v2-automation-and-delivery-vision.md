@@ -9,10 +9,10 @@ baseline: SFIA foundation v1.1 (closed)
 
 # SFIA v2.0 — Automation and Delivery Vision
 
-**Version :** v2.0 (candidate)  
-**Statut :** Candidate — validation Morris requise  
-**Branche :** `method/sfia-v2-automation-vision`  
-**Base :** `main` @ `34615da` (post PR #89)  
+**Version :** v2.0 (candidate)
+**Statut :** Candidate — validation Morris requise
+**Branche :** `method/sfia-v2-automation-vision`
+**Base :** `main` @ `34615da` (post PR #89)
 **Zone :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/`
 
 ## 1. Purpose
@@ -206,7 +206,7 @@ SFIA peut permettre à Morris de piloter une capacité de production proche d'un
 | Pas de méthode parallèle | v2.0 capitalise et étend, ne duplique pas |
 | Progression document par document | Pas de création massive de fichiers v2.0 |
 
-**Notion :** reste dormant — voir `sfia-notion-publication-track-pause-decision.md`. Aucune dépendance v2.0.
+**Notion :** reste dormant — voir `2026-07-04-sfia-notion-publication-track-pause-decision.md`. Aucune dépendance v2.0.
 
 ## 11. Validated implementation order
 
@@ -274,5 +274,5 @@ Sujets **explicitement différés** — hors scope v2.0 phase initiale :
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
-- `method/sfia-fast-track/documentation/notion/sfia-notion-publication-track-pause-decision.md`
+- `method/sfia-fast-track/documentation/notion/2026-07-04-sfia-notion-publication-track-pause-decision.md`
 - `prompts/templates/sfia-prompt-templates-context-pack.md`

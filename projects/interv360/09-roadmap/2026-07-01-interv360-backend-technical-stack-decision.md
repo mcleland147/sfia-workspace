@@ -1,9 +1,9 @@
 # Interv360 — Backend Technical Stack Decision
 
-**Projet** : Interv360  
-**Cycle** : Backend Technical Stack Decision  
-**Mode** : SFIA Fast Delivery documentaire  
-**Statut** : Décision architecture technique  
+**Projet** : Interv360
+**Cycle** : Backend Technical Stack Decision
+**Mode** : SFIA Fast Delivery documentaire
+**Statut** : Décision architecture technique
 **Branche** : `architecture/interv360-backend-technical-stack-decision`
 
 ---

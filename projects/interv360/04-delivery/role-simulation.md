@@ -1,9 +1,9 @@
 # Interv360 — Role Simulation
 
-**Projet** : Interv360  
-**Cycle** : Role Simulation  
-**Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-05 réalisé  
+**Projet** : Interv360
+**Cycle** : Role Simulation
+**Mode** : SFIA Batch Delivery produit contrôlé
+**Statut** : Batch produit — INC-PROD-05 réalisé
 **Branche** : `delivery/interv360-role-simulation`
 
 ---
@@ -27,7 +27,7 @@ L’objectif est de rendre démontrables :
 
 Le cadrage auth/users/rôles a été réalisé dans :
 
-[`projects/interv360/09-roadmap/interv360-auth-and-user-framing.md`](../09-roadmap/interv360-auth-and-user-framing.md)
+[`projects/interv360/09-roadmap/2026-07-02-interv360-auth-and-user-framing.md`](../09-roadmap/2026-07-02-interv360-auth-and-user-framing.md)
 
 Décision retenue :
 

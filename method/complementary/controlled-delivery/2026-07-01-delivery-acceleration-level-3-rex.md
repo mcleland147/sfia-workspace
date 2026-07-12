@@ -1,8 +1,8 @@
 # SFIA — Delivery Acceleration Level 3 REX
 
-**Méthode** : Controlled Delivery  
-**Cycle** : Delivery Acceleration Level 3 REX  
-**Statut** : Capitalisation compacte  
+**Méthode** : Controlled Delivery
+**Cycle** : Delivery Acceleration Level 3 REX
+**Statut** : Capitalisation compacte
 **Branche** : `method/delivery-acceleration-level-3-rex`
 
 ---

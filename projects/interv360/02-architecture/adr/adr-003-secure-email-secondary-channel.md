@@ -1,12 +1,12 @@
 # ADR-003 — Canal email sécurisé non principal
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-003  
-**ADR liées** : ADR-001, ADR-002  
-**Rôles principaux** : RSSI, Architecte  
-**Rôles contributeurs** : Product Owner, Business Analyst, QA / Testeur, Chef de projet  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-003
+**ADR liées** : ADR-001, ADR-002
+**Rôles principaux** : RSSI, Architecte
+**Rôles contributeurs** : Product Owner, Business Analyst, QA / Testeur, Chef de projet
 **Type** : Architecture Decision Record
 
 ---

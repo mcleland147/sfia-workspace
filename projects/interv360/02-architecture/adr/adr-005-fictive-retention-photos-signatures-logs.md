@@ -1,13 +1,13 @@
 # ADR-005 — Conservation fictive photos, signatures et logs
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Bloc** : ADR P2 — impacts design / MVP  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-005  
-**ADR liées** : ADR-002, ADR-003, ADR-004  
-**Rôles principaux** : RSSI, Product Owner, UX/UI Designer  
-**Rôles contributeurs** : Architecte, QA / Testeur, Chef de projet  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Bloc** : ADR P2 — impacts design / MVP
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-005
+**ADR liées** : ADR-002, ADR-003, ADR-004
+**Rôles principaux** : RSSI, Product Owner, UX/UI Designer
+**Rôles contributeurs** : Architecte, QA / Testeur, Chef de projet
 **Type** : Architecture Decision Record
 
 ---

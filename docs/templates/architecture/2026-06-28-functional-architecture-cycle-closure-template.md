@@ -1,11 +1,11 @@
 # [Nom du projet] — Clôture du cycle d'architecture fonctionnelle
 
-**Projet** : [Code ou nom du projet]  
-**Phase** : [Phase documentaire — ex. 05-functional-architecture]  
-**Type** : Clôture de cycle  
-**Statut** : Draft  
-**Branche** : [Nom de la branche Git]  
-**Méthode associée** : `docs/practices/architecture/functional-architecture-method.md`  
+**Projet** : [Code ou nom du projet]
+**Phase** : [Phase documentaire — ex. 05-functional-architecture]
+**Type** : Clôture de cycle
+**Statut** : Draft
+**Branche** : [Nom de la branche Git]
+**Méthode associée** : `docs/practices/architecture/functional-architecture-method.md`
 **Checklist associée** : `docs/practices/architecture/functional-architecture-checklist.md`
 
 ---

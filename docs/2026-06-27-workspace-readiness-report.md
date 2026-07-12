@@ -1,7 +1,7 @@
 # SFIA Workspace Readiness Report
 
-**Date** : 2026-06-27  
-**Workspace** : `/Users/morris/Projects/sfia-workspace`  
+**Date** : 2026-06-27
+**Workspace** : `/Users/morris/Projects/sfia-workspace`
 **Objectif** : Valider la readiness avant démarrage du projet Interv360
 
 ---

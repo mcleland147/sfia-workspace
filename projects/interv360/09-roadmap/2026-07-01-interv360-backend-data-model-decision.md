@@ -1,9 +1,9 @@
 # Interv360 — Backend Data Model Decision
 
-**Projet** : Interv360  
-**Cycle** : Backend Data Model Decision  
-**Mode** : SFIA Fast Delivery documentaire  
-**Statut** : Décision architecture data  
+**Projet** : Interv360
+**Cycle** : Backend Data Model Decision
+**Mode** : SFIA Fast Delivery documentaire
+**Statut** : Décision architecture data
 **Branche** : `architecture/interv360-backend-data-model-decision`
 
 ---

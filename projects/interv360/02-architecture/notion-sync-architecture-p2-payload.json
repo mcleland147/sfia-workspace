@@ -19,31 +19,31 @@
       "id": "ADR-005",
       "title": "Conservation fictive photos, signatures et logs",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-005-fictive-retention-photos-signatures-logs.md"
+      "source": "projects/interv360/02-architecture/adr/adr-005-fictive-retention-photos-signatures-logs.md"
     },
     {
       "id": "ADR-006",
       "title": "Notifications client sans portail client",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-006-client-notifications-without-client-portal.md"
+      "source": "projects/interv360/02-architecture/adr/adr-006-client-notifications-without-client-portal.md"
     },
     {
       "id": "ADR-007",
       "title": "Signature client optionnelle structurée",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-007-optional-structured-client-signature.md"
+      "source": "projects/interv360/02-architecture/adr/adr-007-optional-structured-client-signature.md"
     },
     {
       "id": "ADR-008",
       "title": "Dashboard SAV et vue dirigeant séparés",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-008-separated-sav-dashboard-and-executive-view.md"
+      "source": "projects/interv360/02-architecture/adr/adr-008-separated-sav-dashboard-and-executive-view.md"
     },
     {
       "id": "ADR-CAND-009",
       "title": "IA légère reportée post-MVP",
       "status": "Confirmed - Post-MVP",
-      "source": "projects/interv360/02-architecture/adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md"
+      "source": "projects/interv360/02-architecture/adr/adr-cand-009-ai-light-post-mvp-confirmation.md"
     }
   ],
   "summaries": [

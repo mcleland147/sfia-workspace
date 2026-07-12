@@ -1,10 +1,10 @@
 # SFIA — Interv360 realization capitalization summary
 
-**Type** : Synthèse de capitalisation méthode  
-**Origine de capitalisation** : Interv360  
-**Référence** : SFIA delivery / realization method  
-**Statut** : Ready for closure  
-**Branche** : `method/interv360-realization-capitalization`  
+**Type** : Synthèse de capitalisation méthode
+**Origine de capitalisation** : Interv360
+**Référence** : SFIA delivery / realization method
+**Statut** : Ready for closure
+**Branche** : `method/interv360-realization-capitalization`
 **Documents associés** : [`capitalization-plan.md`](capitalization-plan.md), [`realization-method.md`](realization-method.md), [`realization-deliverables-standard.md`](realization-deliverables-standard.md), [`realization-checklists.md`](realization-checklists.md), [`realization-templates.md`](realization-templates.md), [`realization-prompt-family.md`](realization-prompt-family.md), [`notion-integration-plan.md`](notion-integration-plan.md)
 
 ---

@@ -1,9 +1,9 @@
 # Interv360 — Request Model Productization
 
-**Projet** : Interv360  
-**Cycle** : Request Model Productization  
-**Mode** : SFIA Batch Delivery produit contrôlé  
-**Statut** : Batch produit — INC-PROD-05 réalisé  
+**Projet** : Interv360
+**Cycle** : Request Model Productization
+**Mode** : SFIA Batch Delivery produit contrôlé
+**Statut** : Batch produit — INC-PROD-05 réalisé
 **Branche** : `delivery/interv360-request-model-productization`
 
 ---
@@ -329,7 +329,7 @@ No authentication, users, roles, CRM integration, real data, new workflow status
 | `projects/interv360/backend/test/persistence.test.ts` | INC-PROD-02 |
 | `projects/interv360/backend/README.md` | INC-PROD-04 |
 | `projects/interv360/08-presentation/interv360-e2e-demo-runbook.md` | INC-PROD-04 |
-| `projects/interv360/09-roadmap/interv360-backend-api-contract-framing.md` | INC-PROD-04 |
+| `projects/interv360/09-roadmap/2026-03-12-interv360-backend-api-contract-framing.md` | INC-PROD-04 |
 
 ### Vérifications pré-PR
 

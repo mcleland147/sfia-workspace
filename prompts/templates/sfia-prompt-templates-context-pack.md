@@ -7,7 +7,7 @@ source_files:
   - prompts/templates/02-update-document-v1-1.md
   - prompts/templates/03-create-operational-checklist.md
   - prompts/templates/04-validate-cursor-result.md
-  - prompts/templates/05-validate-pr-readiness.md
+  - prompts/templates/2026-07-04-05-validate-pr-readiness.md
   - prompts/templates/06-prepare-pr-summary.md
   - prompts/templates/07-write-post-merge-status.md
   - prompts/templates/08-capitalize-method-asset.md
@@ -33,7 +33,7 @@ Canonical files remain:
 - `prompts/templates/02-update-document-v1-1.md`
 - `prompts/templates/03-create-operational-checklist.md`
 - `prompts/templates/04-validate-cursor-result.md`
-- `prompts/templates/05-validate-pr-readiness.md`
+- `prompts/templates/2026-07-04-05-validate-pr-readiness.md`
 - `prompts/templates/06-prepare-pr-summary.md`
 - `prompts/templates/07-write-post-merge-status.md`
 - `prompts/templates/08-capitalize-method-asset.md`
@@ -62,9 +62,9 @@ scope: create foundation document
 
 # Create Foundation Document
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Documentation creation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Documentation creation prompts
 **Scope:** Create a new SFIA foundation document
 
 ## 1. Purpose
@@ -126,7 +126,7 @@ Phase / contexte SFIA :
 
 Sources de référence :
 - docs/foundation/sfia-engineering-principles.md
-- docs/architecture/sfia-decision-engine.md
+- docs/architecture/2026-06-27-sfia-decision-engine.md
 - <REFERENCE_SOURCES>
 
 Dossier cible :
@@ -151,7 +151,7 @@ Hors périmètre :
 
 Fichiers à lire :
 - docs/foundation/sfia-engineering-principles.md
-- docs/architecture/sfia-decision-engine.md
+- docs/architecture/2026-06-27-sfia-decision-engine.md
 - <REFERENCE_SOURCES>
 
 Fichiers à modifier :
@@ -256,9 +256,9 @@ scope: update document to v1.1
 
 # Update Document to v1.1
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Documentation consolidation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Documentation consolidation prompts
 **Scope:** Update an existing document to v1.1
 
 ## 1. Purpose
@@ -430,9 +430,9 @@ scope: create operational checklist
 
 # Create Operational Checklist
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Documentation creation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Documentation creation prompts
 **Scope:** Create an operational checklist from a specification
 
 ## 1. Purpose
@@ -590,9 +590,9 @@ scope: validate cursor result
 
 # Validate Cursor Result
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Validation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Validation prompts
 **Scope:** Validate a Cursor execution result
 
 ## 1. Purpose
@@ -736,7 +736,7 @@ This template is analysis-only unless explicitly extended to fix issues.
 
 # Template 05 — Validate PR Readiness
 
-Source: `prompts/templates/05-validate-pr-readiness.md`
+Source: `prompts/templates/2026-07-04-05-validate-pr-readiness.md`
 
 ---
 status: candidate
@@ -749,9 +749,9 @@ scope: validate pr readiness
 
 # Validate PR Readiness
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Validation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Validation prompts
 **Scope:** Assess whether a branch is ready for PR
 
 ## 1. Purpose
@@ -903,9 +903,9 @@ scope: prepare pr summary
 
 # Prepare PR Summary
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** PR and post-merge prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** PR and post-merge prompts
 **Scope:** Prepare a structured PR summary
 
 ## 1. Purpose
@@ -1060,9 +1060,9 @@ scope: write post-merge status
 
 # Write Post-Merge Status
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** PR and post-merge prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** PR and post-merge prompts
 **Scope:** Document post-merge closure
 
 ## 1. Purpose
@@ -1213,9 +1213,9 @@ scope: capitalize method asset
 
 # Capitalize Method Asset
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Capitalization prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Capitalization prompts
 **Scope:** Promote a validated asset into method capitalization
 
 ## 1. Purpose
@@ -1369,9 +1369,9 @@ scope: prepare notion mapping
 
 # Prepare Notion Mapping
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Notion preparation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Notion preparation prompts
 **Scope:** Prepare Notion mapping without publication
 
 ## 1. Purpose
@@ -1532,9 +1532,9 @@ scope: perform safe repository cleanup
 
 # Perform Safe Repository Cleanup
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Repository execution prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Repository execution prompts
 **Scope:** Perform safe repository cleanup
 
 ## 1. Purpose

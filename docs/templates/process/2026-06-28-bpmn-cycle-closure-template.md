@@ -1,9 +1,9 @@
 # [PROJECT] — Clôture du cycle BPMN
 
-**Projet** : [PROJECT_ID]  
-**Phase** : 03-process  
-**Type** : Synthèse de clôture cycle BPMN  
-**Statut** : Draft  
+**Projet** : [PROJECT_ID]
+**Phase** : 03-process
+**Type** : Synthèse de clôture cycle BPMN
+**Statut** : Draft
 **Branche** : [BRANCH_NAME]
 
 ---

@@ -7,9 +7,9 @@ scope: p2 cross-reference audit
 
 # SFIA v1.1 P2 Cross-Reference Audit
 
-**Version:** v1.1  
-**Status:** Candidate audit  
-**Scope:** P2 cross-reference and capitalization index alignment before foundation v1.1 closure  
+**Version:** v1.1
+**Status:** Candidate audit
+**Scope:** P2 cross-reference and capitalization index alignment before foundation v1.1 closure
 **Branch audited from:** `capitalization/sfia-foundation-v1.1` @ `683ed4f`
 
 ## 1. Objectif
@@ -39,9 +39,9 @@ Il produit une recommandation d'action claire pour les cycles P2.1 et P2.2.
 
 | Document | Chemin |
 |----------|--------|
-| Foundation Documents Audit | `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md` |
+| Foundation Documents Audit | `method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md` |
 | Foundation Documents Inventory | `method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md` |
-| Documentation Capitalization Audit | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md` |
+| Documentation Capitalization Audit | `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md` |
 | v1.1 Capitalization Inputs Inventory | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` |
 | v1.1 Foundation Impact Matrix | `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` |
 | v1.1 Consolidation Plan | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` |
@@ -64,7 +64,7 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 | Asset | Expected role |
 |-------|---------------|
 | `docs/foundation/sfia-engineering-principles.md` | Norme supérieure d'exécution |
-| `docs/architecture/sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
 | `docs/architecture/sfia-repository-blueprint.md` | Source de vérité repository |
 | `docs/architecture/sfia-delivery-pipeline.md` | PR, post-merge, delivery |
 | `docs/architecture/sfia-platform-architecture.md` | Architecture plateforme v1.1 |
@@ -89,8 +89,8 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 | `sfia-rules-update.md` | Trace historique des règles post-Interv360 | Substantiel (~167 lignes) ; §8 annonce règles exécutables pour futurs prompts/moteurs | Aucune mention v1.1 ; pas de renvoi vers `sfia-rules-and-guardrails.md` comme référence opérationnelle actuelle ; pas de renvoi vers Validation Checklist | Ajouter note de statut : *historical consolidation trace* ; pointer `sfia-rules-and-guardrails.md` comme référence opérationnelle ; cross-réf légère vers checklists v1.1 | **P1** |
 | `docs/architecture/README.md` | Index des 6 documents fondateurs architecture | 17 lignes ; liste les 6 fichiers sans versions | Pas de mention v1.1 ; pas de renvois Fast Track (Operating Model, moteurs P1, Validation Checklist, Prompt Catalog, Prompt Templates, Knowledge Layer) ; pas de lien Engineering Principles | Ajouter section **SFIA v1.1 Architecture References** ou **Related Fast Track References** | **P1** |
 | `sfia-documentation-completeness-matrix.md` | Matrice globale complétude documentaire | Datée 2026-07-03 ; branche `capitalization/sfia-documentation-completeness` ; terminologie SFA/SFIA mixte | Ne couvre pas les actifs v1.1 (Operating Model, Rules & Guardrails, Knowledge Layer, 3 moteurs P1, Validation Checklist, Prompt Catalog, Prompt Templates) ; §12 indique consolidation non terminée ; automation = 1 doc ; checklists = 3 legacy ; prompts = catalogue seul sans templates | Mettre à jour après P2.1 ; ajouter lignes v1.1 ; corriger statuts ; ajouter référence à cet audit ; §12 clôture v1.1 | **P1** |
-| `sfia-foundation-documents-audit.md` | Audit pré-consolidation fondateurs | Décision **FONDATIONS PARTIELLES** ; lacunes P0 sur engines autonomes | Obsolète post-v1.1 — engines, Operating Model, Knowledge Layer existent | Ajouter section **Update — superseded by v1.1 consolidation** ou mettre à jour en P2.2 ; ne pas réécrire l'audit historique | **P1** |
-| `sfia-documentation-capitalization-audit.md` | Audit complétude globale pré-v1.1 | Décision **COMPLETE AVEC RÉSERVES** ; terminologie SFA | Ne reflète pas foundation v1.1 ; automation = 1 doc ; core = 4 docs | Mettre à jour synthèse post-v1.1 en P2.2 ; conserver analyse historique | **P1** |
+| `2026-07-03-sfia-foundation-documents-audit.md` | Audit pré-consolidation fondateurs | Décision **FONDATIONS PARTIELLES** ; lacunes P0 sur engines autonomes | Obsolète post-v1.1 — engines, Operating Model, Knowledge Layer existent | Ajouter section **Update — superseded by v1.1 consolidation** ou mettre à jour en P2.2 ; ne pas réécrire l'audit historique | **P1** |
+| `2026-07-03-sfia-documentation-capitalization-audit.md` | Audit complétude globale pré-v1.1 | Décision **COMPLETE AVEC RÉSERVES** ; terminologie SFA | Ne reflète pas foundation v1.1 ; automation = 1 doc ; core = 4 docs | Mettre à jour synthèse post-v1.1 en P2.2 ; conserver analyse historique | **P1** |
 | `sfia-foundation-documents-inventory.md` | Inventaire identification fondateurs | Mode identification uniquement ; docs architecture v1.0 | Ne liste pas les nouveaux docs v1.1 Fast Track ; README architecture sans v1.1 | Ajouter section **Update — v1.1 assets created** en P2.2 | **P2** |
 | `sfia-v1.1-capitalization-inputs-inventory.md` | Inventaire apports v1.1 | À jour jusqu'aux Prompt Templates | Complet pour la passe foundation ; follow-up P2 identifié | Ajouter référence à cet audit ; pas de réécriture | **P2** |
 | `sfia-v1.1-foundation-impact-matrix.md` | Matrice impact v1.1 | global-capitalization et rules-update classés **P2** | Confirmé — actions P2.1 ciblées | Référencer cet audit ; cocher après exécution P2 | **P2** |
@@ -131,8 +131,8 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 
 ### Historical document positioning gaps
 
-- `sfia-foundation-documents-audit.md` : lacunes P0 (engines autonomes, Operating Model) **comblées** — audit historique à repositionner.
-- `sfia-documentation-capitalization-audit.md` : même constat — base SFA substantielle mais périmètre automation incomplet au regard v1.1.
+- `2026-07-03-sfia-foundation-documents-audit.md` : lacunes P0 (engines autonomes, Operating Model) **comblées** — audit historique à repositionner.
+- `2026-07-03-sfia-documentation-capitalization-audit.md` : même constat — base SFA substantielle mais périmètre automation incomplet au regard v1.1.
 - `sfia-foundation-documents-inventory.md` : snapshot identification v1.0 — pas de trace des créations v1.1.
 
 ## 6. Actions recommandées
@@ -142,7 +142,7 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 | Cross-références core historiques | `sfia-global-capitalization-reference.md`, `sfia-rules-update.md` | Clarifier rôle historique ; pointer référentiel v1.1 | **P1** | `docs: add SFIA v1.1 cross-references` |
 | Index architecture v1.1 | `docs/architecture/README.md` | Relier référentiels architecture et couche Fast Track v1.1 | **P1** | (même commit P2.1) |
 | Mise à jour matrice complétude | `sfia-documentation-completeness-matrix.md` | Refléter actifs v1.1 ; corriger statuts ; terminologie SFIA | **P1** | `docs: update SFIA v1.1 capitalization indexes` |
-| Mise à jour audits capitalisation | `sfia-foundation-documents-audit.md`, `sfia-documentation-capitalization-audit.md` | Ajouter sections Update post-v1.1 ; repositionner décisions historiques | **P1** | (même commit P2.2) |
+| Mise à jour audits capitalisation | `2026-07-03-sfia-foundation-documents-audit.md`, `2026-07-03-sfia-documentation-capitalization-audit.md` | Ajouter sections Update post-v1.1 ; repositionner décisions historiques | **P1** | (même commit P2.2) |
 | Mise à jour inventaire fondateurs | `sfia-foundation-documents-inventory.md` | Tracer créations v1.1 | **P2** | (P2.2 ou inclus) |
 | Clarification checklists legacy | `checklists/README.md`, éventuellement headers legacy | Distinguer canonique v1.1 vs legacy | **P2** | Optionnel P2.2 |
 | Réconciliation familles prompts Interv360 | `prompts/prompt-catalog.md` Annexe A | Mapper familles pilote → 8 familles v1.1 | **P2** | Cycle séparé |
@@ -197,7 +197,7 @@ Les actifs suivants constituent le référentiel opérationnel v1.1 que les docu
 docs: add SFIA v1.1 cross-references
 ```
 
-**Validation :** utiliser `prompts/templates/04-validate-cursor-result.md` puis `05-validate-pr-readiness.md`.
+**Validation :** utiliser `prompts/templates/04-validate-cursor-result.md` puis `2026-07-04-05-validate-pr-readiness.md`.
 
 ### Cycle P2.2 — Capitalization Index and Completeness Matrix
 
@@ -206,8 +206,8 @@ docs: add SFIA v1.1 cross-references
 **Files :**
 
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md`
 - `method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` (critères §7)
 
@@ -286,8 +286,8 @@ The P2.2 cycle has updated the capitalization indexes, completeness matrix and h
 Updated references include:
 
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md`
 - `method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
 

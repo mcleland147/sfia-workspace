@@ -1,11 +1,11 @@
 # Interv360 — Enrichissement méthodes rôle après Figma V1
 
-**Projet** : PRJ-INTERV360  
-**Phase source** : 02-architecture  
-**Jalon** : Figma V1  
-**Statut** : Completed  
-**Type** : Capitalisation méthodes rôle  
-**Source** : Figma V1 + revue Figma + préparation revue + template CR  
+**Projet** : PRJ-INTERV360
+**Phase source** : 02-architecture
+**Jalon** : Figma V1
+**Statut** : Completed
+**Type** : Capitalisation méthodes rôle
+**Source** : Figma V1 + revue Figma + préparation revue + template CR
 **Objet** : capitaliser les apprentissages Figma V1 dans les méthodes rôle SFIA
 
 ---
@@ -45,7 +45,7 @@ Ces enrichissements sont réalisés **avant** la production du **compte rendu de
 | `ux-ui-design-research-and-benchmark.md` | Recherche design |
 | `architecture-p1-summary.md` | ADR P1 ; intégrations simulées ; anomalies |
 | `architecture-p2-design-impact-summary.md` | ADR P2 design-impact ; exclusions Figma |
-| `adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` | IA hors MVP |
+| `adr/adr-cand-009-ai-light-post-mvp-confirmation.md` | IA hors MVP |
 | `figma-first-draft-screens/` | 11 captures versionnées |
 | Méthodes rôle existantes (§14 P1/P2) | Structure d'enrichissement réutilisée |
 

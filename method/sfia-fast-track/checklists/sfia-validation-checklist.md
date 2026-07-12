@@ -7,10 +7,10 @@ scope: validation checklist
 
 # SFIA Validation Checklist v1.2
 
-**Version:** v1.2  
-**Status:** Validated checklist — promotion micro-cycle Morris post-PR #140 ; alignement v2.4.1 complet  
-**Updated after:** SFIA v2.4.1 documentation status promotion — PR #140  
-**Scope:** Validation checklist  
+**Version:** v1.2
+**Status:** Validated checklist — promotion micro-cycle Morris post-PR #140 ; alignement v2.4.1 complet
+**Updated after:** SFIA v2.4.1 documentation status promotion — PR #140
+**Scope:** Validation checklist
 **Standard consolidation :** SFIA v2.4 — `sfia-v2.4-consolidation-operating-efficiency-standard.md`
 
 ## 1. Objectif
@@ -40,7 +40,7 @@ Elle aide à produire une décision structurée, traçable et exploitable.
 Cette checklist s'appuie sur :
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/automation/sfia-validation-engine.md`
 - `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
 - `method/sfia-fast-track/automation/sfia-repository-execution-engine.md`
@@ -52,7 +52,7 @@ Cette checklist s'appuie sur :
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 
 ## 3. Quand utiliser cette checklist ?
 
@@ -342,7 +342,7 @@ Utiliser pour un **delivery INC-n** avec standard QA v2.0 :
 - [ ] QA-G3 validé (Morris) **avant** PR readiness delivery ;
 - [ ] rapports `08-qa-test/inc-<nn>/` présents ;
 - [ ] réserves QA documentées (bloquante / majeure / mineure / environnementale) ;
-- [ ] référence `sfia-v2-delivery-qa-test-standard.md` et `sfia-v2-incremental-delivery-closure-standard.md`.
+- [ ] référence `sfia-v2-delivery-qa-test-standard.md` et `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`.
 
 ### 12.2 Supplément SFIA v2.0 — design coverage (pilote)
 
@@ -359,7 +359,7 @@ Utiliser pour un **écran sans frame Figma dédiée** ou un cycle méthode desig
 
 Utiliser pour un cycle **register / ADR / DAA / DAT** ou adoption du standard :
 
-- [ ] situation identifiée dans la matrice §4 — `sfia-v2-technical-architecture-decision-documentation-standard.md` ;
+- [ ] situation identifiée dans la matrice §4 — `2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md` ;
 - [ ] register technique à jour ou décision delivery tracée ;
 - [ ] ADR requis uniquement si décision structurante ou difficilement réversible ;
 - [ ] DAA light uniquement si extension / refactor / industrialisation ;
@@ -389,7 +389,7 @@ Utiliser pour tout cycle post-v2.4 avec profil et QA proportionnée :
 - [ ] recette MOA évaluée — obligatoire go-live ; non requise DOC/CAPA/RUN sans impact UX ;
 - [ ] gate Morris distingué des contrôles L1 read-only ;
 - [ ] PR readiness adaptée au profil — pas de surcharge gates non structurants ;
-- [ ] simplification QA-G4 + closure évaluée si INC mineur — **optionnelle**, GO Morris requis — `sfia-v2-incremental-delivery-closure-standard.md` §14.1 ;
+- [ ] simplification QA-G4 + closure évaluée si INC mineur — **optionnelle**, GO Morris requis — `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md` §14.1 ;
 - [ ] v3.0 non lancé — immediate NO-GO.
 
 Décision possible :

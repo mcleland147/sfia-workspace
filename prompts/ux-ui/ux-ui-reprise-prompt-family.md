@@ -1,13 +1,13 @@
 # Famille de prompts — Reprise UX/UI documentaire
 
-**Type** : Prompts Cursor / IA  
-**Domaine** : UX/UI — reprise documentaire  
-**Statut** : Draft  
-**Usage** : Réutilisable  
-**Méthode associée** : [`docs/practices/ux-ui/ux-ui-reprise-method.md`](../../docs/practices/ux-ui/ux-ui-reprise-method.md)  
-**Standard associé** : [`docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md`](../../docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md)  
-**Checklist associée** : [`docs/practices/ux-ui/ux-ui-reprise-checklist.md`](../../docs/practices/ux-ui/ux-ui-reprise-checklist.md)  
-**Templates associés** : `docs/templates/ux-ui/`  
+**Type** : Prompts Cursor / IA
+**Domaine** : UX/UI — reprise documentaire
+**Statut** : Draft
+**Usage** : Réutilisable
+**Méthode associée** : [`docs/practices/ux-ui/ux-ui-reprise-method.md`](../../docs/practices/ux-ui/ux-ui-reprise-method.md)
+**Standard associé** : [`docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md`](../../docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md)
+**Checklist associée** : [`docs/practices/ux-ui/ux-ui-reprise-checklist.md`](../../docs/practices/ux-ui/ux-ui-reprise-checklist.md)
+**Templates associés** : `docs/templates/ux-ui/`
 **Dossier** : `prompts/ux-ui/`
 
 > **Référence d'application :** le cycle Interv360 `projects/interv360/06-ux-ui/` illustre l'application de cette famille de prompts.
@@ -85,7 +85,7 @@ Remplacer ces variables **avant** exécution dans Cursor :
 
 ## 4. Prompt 1 — Ouvrir le cycle reprise UX/UI
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-reprise-scope.md` (après analyse si séparée)  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-reprise-scope.md` (après analyse si séparée)
 **Commit recommandé :** `docs: open [PROJECT_NAME] UX UI reprise cycle`
 
 ```
@@ -150,7 +150,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 5. Prompt 2 — Produire état des lieux
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-reprise-analysis.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-reprise-analysis.md`
 **Commit recommandé :** `docs: analyze [PROJECT_NAME] UX UI reprise`
 
 ```
@@ -193,7 +193,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 6. Prompt 3 — Produire cadrage
 
-**Objectif :** créer ou compléter `[PROJECT_PHASE_PATH]/ux-ui-reprise-scope.md`  
+**Objectif :** créer ou compléter `[PROJECT_PHASE_PATH]/ux-ui-reprise-scope.md`
 **Commit recommandé :** `docs: scope [PROJECT_NAME] UX UI reprise`
 
 ```
@@ -236,7 +236,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 7. Prompt 4 — Produire parcours utilisateurs
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/user-journeys.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/user-journeys.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] UX UI user journeys`
 
 ```
@@ -276,7 +276,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 8. Prompt 5 — Produire inventaire écrans
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/screen-inventory.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/screen-inventory.md`
 **Commit recommandé :** `docs: inventory [PROJECT_NAME] UX UI screens`
 
 ```
@@ -317,7 +317,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 9. Prompt 6 — Produire specs écran
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/screen-functional-specs.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/screen-functional-specs.md`
 **Commit recommandé :** `docs: specify [PROJECT_NAME] UX UI screens`
 
 ```
@@ -358,7 +358,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 10. Prompt 7 — Produire dashboard views
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/dashboard-ux-view.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/dashboard-ux-view.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] UX UI dashboard views`
 
 ```
@@ -398,7 +398,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 11. Prompt 8 — Produire synthèse
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-summary.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-summary.md`
 **Commit recommandé :** `docs: summarize [PROJECT_NAME] UX UI reprise`
 
 ```
@@ -437,7 +437,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 12. Prompt 9 — Produire clôture
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-cycle-closure.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-cycle-closure.md`
 **Commit recommandé :** `docs: close [PROJECT_NAME] UX UI reprise cycle`
 
 ```
@@ -459,7 +459,7 @@ cd [WORKSPACE_PATH] && git status && git log --oneline -10
 
 2. Relire tous les livrables
 Tous les fichiers de [PROJECT_PHASE_PATH]/
-docs/templates/ux-ui/ux-ui-cycle-closure-template.md
+docs/templates/ux-ui/2026-06-28-ux-ui-cycle-closure-template.md
 docs/practices/ux-ui/ux-ui-reprise-checklist.md
 
 3. Créer le fichier
@@ -477,7 +477,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 13. Prompt 10 — Contrôle qualité global
 
-**Objectif :** contrôler un cycle existant **sans modifier** les fichiers sauf demande explicite.  
+**Objectif :** contrôler un cycle existant **sans modifier** les fichiers sauf demande explicite.
 **Commit par défaut :** aucun.
 
 ```
@@ -521,7 +521,7 @@ docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md
 
 ## 14. Prompt 11 — Préparation PR
 
-**Objectif :** préparer une PR vers `[BASE_BRANCH]` **sans merge automatique**.  
+**Objectif :** préparer une PR vers `[BASE_BRANCH]` **sans merge automatique**.
 **Titre PR recommandé :** `Add [PROJECT_NAME] UX UI reprise documentation`
 
 ```

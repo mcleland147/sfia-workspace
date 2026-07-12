@@ -8,9 +8,9 @@ scope: prompt generation engine
 
 # SFIA Prompt Generation Engine v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Prompt generation engine
 
 ## 1. Objectif
@@ -89,7 +89,7 @@ Le Prompt Generation Engine s'appuie sur les documents suivants :
 | `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Structure du prompt et boucle ChatGPT ↔ Cursor |
 | `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | Règles et garde-fous opérationnels |
 | `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Documentation Routing Matrix |
-| `docs/architecture/sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Décisions, réserves, GO / NO-GO |
 | `method/sfia-fast-track/automation/sfia-automation-architecture.md` | Vision automation et moteur prompt generation |
 | `prompts/prompt-catalog.md` | Familles et prompts existants |
 | `method/sfia-fast-track/templates/` | Templates réutilisables |
@@ -521,7 +521,7 @@ Le Validation Engine contrôlera :
 ## 19. Related Documents
 
 - `docs/foundation/sfia-engineering-principles.md`
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/core/sfia-knowledge-layer.md`

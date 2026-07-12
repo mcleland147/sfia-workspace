@@ -1,14 +1,14 @@
 # PROMPT-SEC-001 — Revue canal email sécurisé
 
-**ID** : PROMPT-SEC-001  
-**Nom** : Revue canal email sécurisé  
-**Famille** : Sécurité / RSSI  
-**Dossier** : `prompts/security/`  
-**Statut** : Draft  
-**Source pilote** : PRJ-INTERV360  
-**Phase SFIA** : Cadrage / Architecture  
-**Rôles mobilisés** : RSSI, Architecte, Product Owner, Business Analyst, QA / Testeur, UX/UI Designer, Chef de projet  
-**Livrables sources** : `secure-email-intake-review.md`, ADR-003, ADR-004  
+**ID** : PROMPT-SEC-001
+**Nom** : Revue canal email sécurisé
+**Famille** : Sécurité / RSSI
+**Dossier** : `prompts/security/`
+**Statut** : Draft
+**Source pilote** : PRJ-INTERV360
+**Phase SFIA** : Cadrage / Architecture
+**Rôles mobilisés** : RSSI, Architecte, Product Owner, Business Analyst, QA / Testeur, UX/UI Designer, Chef de projet
+**Livrables sources** : `secure-email-intake-review.md`, ADR-003, ADR-004
 **Type** : Prompt SFIA réutilisable
 
 ---

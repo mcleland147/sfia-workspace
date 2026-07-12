@@ -1,8 +1,8 @@
 # SFIA Documentation Completeness Matrix
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
-**Référence** : `main` @ `3b521c6`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
+**Référence** : `main` @ `3b521c6`
 **Dernière mise à jour** : foundation v1.1 — P2.2 (branche `capitalization/sfia-foundation-v1.1`)
 
 ## Update — Foundation v1.1 Consolidation Status
@@ -79,7 +79,7 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 | Automation | Architecture + moteurs P1 | `method/sfia-fast-track/automation/` | **OK** | Automation Architecture v1.1 + Prompt Generation, Repository Execution, Validation engines |
 | Cycle type | Déroulé de cycle SFIA | `method/sfia-fast-track/cycles/` + `templates/cycle-template.md` | **À compléter** | 2 capitalisations Interv360 ; pas de doc cycle générique autonome hors template |
 | UI / UX | Méthode UI / Figma Design-first | `method/sfia-fast-track/ui/figma-design-first-ui-method.md` | **OK** | Référence active |
-| Audit / REX | Méthode audit et REX | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` | **À compléter** | REX Interv360 présent ; méthode audit/REX générique SFIA non formalisée |
+| Audit / REX | Méthode audit et REX | `method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md` | **À compléter** | REX Interv360 présent ; méthode audit/REX générique SFIA non formalisée |
 | Documentation | Plan documentaire et Notion | `method/sfia-fast-track/documentation/` | **À compléter** | Mapping Notion OK ; `documentation-audit.md` et `documentation-structure-target.md` pré-Round 3 |
 | Templates | Templates opérationnels Fast Track | `method/sfia-fast-track/templates/` (6 fichiers) | **OK** | Cycle, PR, post-merge, audit, REX, MVP pattern — pas de README dossier |
 | Checklists | Checklists de validation | `method/sfia-fast-track/checklists/` | **OK** | `sfia-validation-checklist.md` = checklist canonique v1.1 ; 3 checklists legacy conservées |
@@ -116,8 +116,8 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 | Cycle | Template cycle | `method/sfia-fast-track/templates/cycle-template.md` | **OK** | |
 | PR | Template PR | `method/sfia-fast-track/templates/pr-body-template.md` | **OK** | |
 | Post-merge | Template post-merge | `method/sfia-fast-track/templates/post-merge-template.md` | **OK** | |
-| Audit | Template audit | `method/sfia-fast-track/templates/audit-template.md` | **OK** | |
-| REX | Template REX | `method/sfia-fast-track/templates/rex-template.md` | **OK** | |
+| Audit | Template audit | `method/sfia-fast-track/templates/2026-07-03-audit-template.md` | **OK** | |
+| REX | Template REX | `method/sfia-fast-track/templates/2026-07-03-rex-template.md` | **OK** | |
 | MVP delivery | Pattern lots MVP | `method/sfia-fast-track/templates/mvp-delivery-pattern-template.md` | **OK** | |
 | Architecture plateforme | Templates archi fonctionnelle | `docs/templates/architecture/` (3 fichiers) | **OK** | |
 | BPMN plateforme | Templates process | `docs/templates/process/` (3 fichiers) | **OK** | |

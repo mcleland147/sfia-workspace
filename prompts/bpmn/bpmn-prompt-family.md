@@ -1,13 +1,13 @@
 # SFIA — Famille de prompts BPMN
 
-**Type** : Prompt Family  
-**Statut** : Draft  
-**Domaine** : Process Modeling / BPMN  
-**Méthode associée** : [`docs/practices/process/bpmn-process-modeling-method.md`](../../docs/practices/process/bpmn-process-modeling-method.md)  
-**Standard associé** : [`docs/practices/process/bpmn-deliverables-standard.md`](../../docs/practices/process/bpmn-deliverables-standard.md)  
-**Checklist associée** : [`docs/practices/process/bpmn-integration-checklist.md`](../../docs/practices/process/bpmn-integration-checklist.md)  
-**Templates associés** : `docs/templates/process/`  
-**Dossier** : `prompts/bpmn/`  
+**Type** : Prompt Family
+**Statut** : Draft
+**Domaine** : Process Modeling / BPMN
+**Méthode associée** : [`docs/practices/process/bpmn-process-modeling-method.md`](../../docs/practices/process/bpmn-process-modeling-method.md)
+**Standard associé** : [`docs/practices/process/bpmn-deliverables-standard.md`](../../docs/practices/process/bpmn-deliverables-standard.md)
+**Checklist associée** : [`docs/practices/process/bpmn-integration-checklist.md`](../../docs/practices/process/bpmn-integration-checklist.md)
+**Templates associés** : `docs/templates/process/`
+**Dossier** : `prompts/bpmn/`
 **Catalogue** : `prompts/prompt-catalog.md` §15
 
 ---
@@ -257,7 +257,7 @@ Garde-fous :
 | Élément | Contenu |
 |---------|---------|
 | **Objectif** | Produire la synthèse de clôture et préparer la PR unique |
-| **Entrées** | Tous les livrables 03-process ; template `bpmn-cycle-closure-template.md` |
+| **Entrées** | Tous les livrables 03-process ; template `2026-06-28-bpmn-cycle-closure-template.md` |
 | **Sortie attendue** | `process-cycle-closure.md` ; tableau PR ; recommandations post-merge |
 | **Garde-fous** | Ne pas merger automatiquement ; ne pas créer la PR sans demande explicite |
 
@@ -268,7 +268,7 @@ Objectif : clôturer le cycle BPMN du projet {project_name} ({project_id}).
 
 Contexte :
 - Branche : {branch}
-- Template : docs/templates/process/bpmn-cycle-closure-template.md
+- Template : docs/templates/process/2026-06-28-bpmn-cycle-closure-template.md
 - Livrables : bpmn/, exports/, process-scope.md, process-analysis.md
 
 Tâches :

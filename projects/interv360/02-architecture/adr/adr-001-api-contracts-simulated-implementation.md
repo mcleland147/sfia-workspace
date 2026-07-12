@@ -1,11 +1,11 @@
 # ADR-001 — Contrats API documentés avec implémentation simulée
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-001  
-**Rôles principaux** : Architecte, Product Owner  
-**Rôles contributeurs** : QA / Testeur, Chef de projet, RSSI  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-001
+**Rôles principaux** : Architecte, Product Owner
+**Rôles contributeurs** : QA / Testeur, Chef de projet, RSSI
 **Type** : Architecture Decision Record
 
 ---

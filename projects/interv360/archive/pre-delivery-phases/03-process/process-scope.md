@@ -1,10 +1,10 @@
 # Interv360 — Cadrage de la phase processus BPMN
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 03-process  
-**Type** : Cadrage BPMN  
-**Statut** : Draft  
-**Méthode associée** : `docs/methods/process/bpmn-process-modeling-method.md`  
+**Projet** : PRJ-INTERV360
+**Phase** : 03-process
+**Type** : Cadrage BPMN
+**Statut** : Draft
+**Méthode associée** : `docs/methods/process/bpmn-process-modeling-method.md`
 **Standard associé** : `docs/methods/process/bpmn-deliverables-standard.md`
 
 ---
@@ -44,7 +44,7 @@ Le BPMN **ne doit pas** produire :
 | `projects/interv360/02-architecture/mvp-clarifications.md` | Clarifications MVP consolidées |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règles RG prioritaires |
 | `projects/interv360/02-architecture/status-mapping.md` | Statuts MVP et transitions |
-| `projects/interv360/02-architecture/closure-without-signature.md` | Clôture sans signature |
+| `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Clôture sans signature |
 | `projects/interv360/02-architecture/geo-ai-arbitration.md` | Hors périmètre MVP géoloc / IA |
 | `projects/interv360/02-architecture/clarification-cycle-closure.md` | Synthèse de clôture clarification |
 

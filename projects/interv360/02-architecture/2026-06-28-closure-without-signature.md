@@ -1,11 +1,11 @@
 # Interv360 — Clôture sans signature client
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Type** : Règle fonctionnelle MVP — clôture intervention  
-**Statut** : Draft — clarification issue du cycle de clarification  
-**Règles liées** : RG-R02, RG-R05  
-**Statut lié** : STAT-06 — Clôturée  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Type** : Règle fonctionnelle MVP — clôture intervention
+**Statut** : Draft — clarification issue du cycle de clarification
+**Règles liées** : RG-R02, RG-R05
+**Statut lié** : STAT-06 — Clôturée
 **Source principale** : `rules-rg-prioritization.md`
 
 ---

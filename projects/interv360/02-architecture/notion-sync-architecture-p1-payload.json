@@ -19,25 +19,25 @@
       "id": "ADR-001",
       "title": "Contrats API documentés avec implémentation simulée",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-001-api-contracts-simulated-implementation.md"
+      "source": "projects/interv360/02-architecture/adr/adr-001-api-contracts-simulated-implementation.md"
     },
     {
       "id": "ADR-002",
       "title": "Gestion visible des erreurs avec reprise manuelle",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-002-visible-integration-errors-manual-recovery.md"
+      "source": "projects/interv360/02-architecture/adr/adr-002-visible-integration-errors-manual-recovery.md"
     },
     {
       "id": "ADR-003",
       "title": "Canal email sécurisé non principal",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-003-secure-email-secondary-channel.md"
+      "source": "projects/interv360/02-architecture/adr/adr-003-secure-email-secondary-channel.md"
     },
     {
       "id": "ADR-004",
       "title": "Journalisation minimale des flux et rejets",
       "status": "Accepted",
-      "source": "projects/interv360/02-architecture/adr/ADR-004-minimal-flow-rejection-logging.md"
+      "source": "projects/interv360/02-architecture/adr/adr-004-minimal-flow-rejection-logging.md"
     }
   ],
   "role_methods": {
@@ -56,13 +56,13 @@
       "id": "PROMPT-ARCH-001",
       "title": "Revue intégrations et erreurs",
       "status": "Draft",
-      "source": "prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md"
+      "source": "prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md"
     },
     {
       "id": "PROMPT-SEC-001",
       "title": "Revue canal email sécurisé",
       "status": "Draft",
-      "source": "prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md"
+      "source": "prompts/security/prompt-sec-001-revue-canal-email-securise.md"
     }
   ],
   "out_of_scope": [

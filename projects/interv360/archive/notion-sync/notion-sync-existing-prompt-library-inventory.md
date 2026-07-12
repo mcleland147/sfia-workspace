@@ -1,12 +1,12 @@
 # Interv360 — Inventaire prompts SFIA existants pour Prompt Library
 
-**Projet** : PRJ-INTERV360  
-**Cible Notion** : SFIA Prompt Library  
-**Type** : Inventaire avant publication  
-**Statut** : Prepared — Not published  
-**Publication Notion** : non exécutée  
-**API Notion** : non appelée  
-**CMP-001 create prompt** : non exécuté  
+**Projet** : PRJ-INTERV360
+**Cible Notion** : SFIA Prompt Library
+**Type** : Inventaire avant publication
+**Statut** : Prepared — Not published
+**Publication Notion** : non exécutée
+**API Notion** : non appelée
+**CMP-001 create prompt** : non exécuté
 **Objet** : inventorier les prompts SFIA existants dans Git avant publication Notion
 
 ---
@@ -63,8 +63,8 @@ Ce document **prépare la publication** des autres prompts SFIA déjà créés d
 
 | ID | Nom | Famille | Fichier source | Catégorie souhaitée | Statut proposé | Action recommandée |
 |----|-----|---------|----------------|---------------------|----------------|-------------------|
-| PROMPT-ARCH-001 | Revue intégrations et erreurs | Architecture | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | Architecture | Draft | **À publier** — 1er lot prioritaire après revue payload |
-| PROMPT-SEC-001 | Revue canal email sécurisé | Sécurité / RSSI | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | Sécurité | Draft | **À publier** — 1er lot prioritaire après revue payload |
+| PROMPT-ARCH-001 | Revue intégrations et erreurs | Architecture | `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | Architecture | Draft | **À publier** — 1er lot prioritaire après revue payload |
+| PROMPT-SEC-001 | Revue canal email sécurisé | Sécurité / RSSI | `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | Sécurité | Draft | **À publier** — 1er lot prioritaire après revue payload |
 
 ### 4.2 UX/UI V1 Governance — catalogue §13
 

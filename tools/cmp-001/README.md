@@ -1,8 +1,8 @@
 # SFIA Notion Sync
 
-**Composant** : CMP-001 — SFIA Notion Sync  
-**Version** : v1.1.0  
-**Status** : Stable  
+**Composant** : CMP-001 — SFIA Notion Sync
+**Version** : v1.1.0
+**Status** : Stable
 **Production Ready** : Yes
 
 Connecteur local pour alimenter Notion avec les objets structurés du Domain Model SFIA, et les exporter en JSON pour audit (ChatGPT, Cursor).
@@ -235,7 +235,7 @@ Chaque schéma définit :
 ## Documentation projet
 
 - [CHANGELOG.md](CHANGELOG.md) — historique des versions
-- [ROADMAP.md](ROADMAP.md) — orientations futures (v1.1, v2)
+- [roadmap.md](roadmap.md) — orientations futures (v1.1, v2)
 
 ## Licence
 

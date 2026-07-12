@@ -9,24 +9,24 @@ updated_after: SFIA Fast Track operational validation (Interv360)
 
 # SFIA Delivery Pipeline v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
+**Version:** v1.1
+**Status:** Foundation document
 **Updated after:** SFIA Fast Track operational validation (Interv360)
 
 <aside>
 🏛️
 
-**Statut du document** : Référentiel fondateur — version 1.1 (contenu v1.0 conservé, enrichi post-Fast Track)  
+**Statut du document** : Référentiel fondateur — version 1.1 (contenu v1.0 conservé, enrichi post-Fast Track)
 
-**Domaine** : Software Factory IA / Delivery / Gouvernance / Capitalisation  
+**Domaine** : Software Factory IA / Delivery / Gouvernance / Capitalisation
 
-**Portée** : Plateforme SFIA, projets livrés via SFIA, assets méthodologiques, composants, prompts, templates, REX et amélioration continue  
+**Portée** : Plateforme SFIA, projets livrés via SFIA, assets méthodologiques, composants, prompts, templates, REX et amélioration continue
 
-**Audience** : Direction, architecture d’entreprise, product owners, tech leads, équipes delivery, gouvernance IT, responsables qualité, responsables plateforme  
+**Audience** : Direction, architecture d’entreprise, product owners, tech leads, équipes delivery, gouvernance IT, responsables qualité, responsables plateforme
 
-**Propriétaire** : Gouvernance SFIA  
+**Propriétaire** : Gouvernance SFIA
 
-**Cycle de revue recommandé** : mensuel en phase de structuration, trimestriel en régime nominal  
+**Cycle de revue recommandé** : mensuel en phase de structuration, trimestriel en régime nominal
 
 **Niveau de référence** : officiel
 
@@ -1992,7 +1992,7 @@ The pipeline follows the rule:
 | Single PR per cycle | `method/sfia-fast-track/templates/pr-body-template.md` |
 | Mandatory post-merge documentation | `method/sfia-fast-track/templates/post-merge-template.md` |
 | Audit before major cycle | Interv360 audit (`projects/interv360/06-audit-rex/`) |
-| REX after major milestone | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` |
+| REX after major milestone | `method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md` |
 | Notion only after capitalization plan | `method/sfia-fast-track/checklists/notion-publication-checklist.md` |
 
 ## v1.1 Pipeline Clarification

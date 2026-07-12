@@ -7,9 +7,9 @@ scope: foundation v1.1 closure
 
 # SFIA Foundation v1.1 Closure Status
 
-**Version:** v1.1  
-**Status:** Closed  
-**Branch:** `capitalization/sfia-foundation-v1.1`  
+**Version:** v1.1
+**Status:** Closed
+**Branch:** `capitalization/sfia-foundation-v1.1`
 **Scope:** Formal closure of SFIA foundation v1.1 consolidation
 
 ## 1. Objectif
@@ -64,7 +64,7 @@ The following scope is closed:
 | Asset | Role | Status |
 |-------|------|--------|
 | `docs/foundation/sfia-engineering-principles.md` | Higher-order execution principles | Closed v1.1 |
-| `docs/architecture/sfia-decision-engine.md` | Decision and reserve model | Closed v1.1 |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | Decision and reserve model | Closed v1.1 |
 | `docs/architecture/sfia-repository-blueprint.md` | Repository structure and routing | Closed v1.1 |
 | `docs/architecture/sfia-delivery-pipeline.md` | Delivery and post-merge workflow | Closed v1.1 |
 | `docs/architecture/sfia-platform-architecture.md` | Platform architecture | Closed v1.1 |

@@ -9,12 +9,12 @@ scope: decision engine
 
 # SFIA Decision Engine v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Decision engine
 
-<callout icon="🏛️">**Document fondateur — Référentiel d'architecture d'entreprise**  
+<callout icon="🏛️">**Document fondateur — Référentiel d'architecture d'entreprise**
 
 Ce document définit le moteur de décision officiel de la plateforme SFIA. Le contenu v1.0 (export Notion) est conservé ci-dessous. Les sections **v1.1 Update** en fin de document formalisent le modèle décisionnel opérationnel.</callout>
 
@@ -1514,38 +1514,38 @@ Responsable de l’analyse périodique du référentiel de règles, de la suppre
 
 ## Recommandations structurantes
 
-1. **Créer un référentiel dédié des règles de décision**  
-    
+1. **Créer un référentiel dédié des règles de décision**
+
     Chaque règle doit être versionnée, qualifiée, reliée à des preuves et gouvernée.
-    
-2. **Mettre en place un modèle de scoring standardisé**  
-    
+
+2. **Mettre en place un modèle de scoring standardisé**
+
     Les scores doivent être calculés selon des critères partagés et audités régulièrement.
-    
-3. **Formaliser les parcours SFIA types**  
-    
+
+3. **Formaliser les parcours SFIA types**
+
     Les parcours expérimentation, standardisation, industrialisation et amélioration continue doivent être explicites.
-    
-4. **Relier systématiquement décisions, composants, standards et preuves**  
-    
+
+4. **Relier systématiquement décisions, composants, standards et preuves**
+
     Toute décision structurante doit pouvoir être retracée jusqu’à son contexte et ses justifications.
-    
-5. **Définir un seuil minimal de preuve avant promotion**  
-    
+
+5. **Définir un seuil minimal de preuve avant promotion**
+
     Aucun composant, prompt, standard ou règle ne doit devenir officiel sans preuve suffisante.
-    
-6. **Industrialiser la capitalisation**  
-    
+
+6. **Industrialiser la capitalisation**
+
     Les REX, KPI, audits et expérimentations doivent alimenter le Learning Engine de manière régulière.
-    
-7. **Séparer clairement règles candidates et règles officielles**  
-    
+
+7. **Séparer clairement règles candidates et règles officielles**
+
     La plateforme doit distinguer les hypothèses, expérimentations, règles validées et règles promues.
-    
-8. **Mettre en place une revue périodique du moteur**  
-    
+
+8. **Mettre en place une revue périodique du moteur**
+
     Le Decision Engine doit être révisé selon un cycle défini, par exemple trimestriel.
-    
+
 
 # Roadmap d’évolution
 

@@ -1,8 +1,8 @@
 # SFIA v2.0 — Incremental Delivery Closure Standard
 
-**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md`  
-**Cycle :** Capitalisation méthode SFIA v2.0  
-**Version :** 1.0 — draft revue Morris  
+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
+**Cycle :** Capitalisation méthode SFIA v2.0
+**Version :** 1.0 — draft revue Morris
 **Source pilote :** Chantiers360 v2 — INC-01 (PR #108, #109, #110)
 
 > **Standard méthode** — cycle documentaire uniquement. Ne modifie pas le code projet ni ne lance l'incrément suivant.

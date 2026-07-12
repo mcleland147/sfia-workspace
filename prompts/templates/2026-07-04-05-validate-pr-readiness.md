@@ -9,9 +9,9 @@ scope: validate pr readiness
 
 # Validate PR Readiness
 
-**Version:** v1.1  
-**Status:** Candidate template  
-**Family:** Validation prompts  
+**Version:** v1.1
+**Status:** Candidate template
+**Family:** Validation prompts
 **Scope:** Assess whether a branch is ready for PR
 
 ## 1. Purpose

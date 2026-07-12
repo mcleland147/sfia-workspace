@@ -1,8 +1,8 @@
 # Penpot MCP self-host — REX d'installation locale
 
-**Type** : Retour d'expérience outillage  
-**Domaine** : UX/UI — Design tooling  
-**Statut** : Draft  
+**Type** : Retour d'expérience outillage
+**Domaine** : UX/UI — Design tooling
+**Statut** : Draft
 **Branche** : `tooling/penpot-mcp-self-host-feedback`
 
 ---

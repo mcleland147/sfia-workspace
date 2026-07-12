@@ -1,9 +1,9 @@
 # Interv360 — Auth Foundation Framing
 
-**Projet** : Interv360  
-**Cycle** : Auth Foundation Framing  
-**Mode** : SFIA Fast Track — cadrage architecture produit  
-**Statut** : Cadrage intégré au batch Auth User Switcher  
+**Projet** : Interv360
+**Cycle** : Auth Foundation Framing
+**Mode** : SFIA Fast Track — cadrage architecture produit
+**Statut** : Cadrage intégré au batch Auth User Switcher
 **Branche** : `delivery/interv360-auth-user-switcher`
 
 ---
@@ -430,8 +430,8 @@ Incréments possibles :
 
 ## 16. Intégration au batch Auth User Switcher
 
-Ce cadrage n'est pas mergé via une PR documentaire dédiée.  
-Il est intégré directement au batch :  
+Ce cadrage n'est pas mergé via une PR documentaire dédiée.
+Il est intégré directement au batch :
 `delivery/interv360-auth-user-switcher`
 
 Objectif :
@@ -442,6 +442,6 @@ Objectif :
 - rattacher les utilisateurs fictifs aux rôles existants ;
 - conserver backend / API / SQLite inchangés.
 
-Le premier delivery recommandé devient :  
+Le premier delivery recommandé devient :
 `projects/interv360/04-delivery/auth-user-switcher.md`
 

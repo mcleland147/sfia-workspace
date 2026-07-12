@@ -1,8 +1,8 @@
 # SFA Workspace — Final Architecture Audit
 
-**Date** : 2026-07-03  
-**Branche** : `consolidation/sfia-method-improvements`  
-**Commit de référence** : `2cec1d8` — `docs: clarify sfia method and practice structure`  
+**Date** : 2026-07-03
+**Branche** : `consolidation/sfia-method-improvements`
+**Commit de référence** : `2cec1d8` — `docs: clarify sfia method and practice structure`
 **Mode** : Final SFA Workspace Architecture Audit (lecture seule — aucun déplacement)
 
 ---
@@ -193,7 +193,7 @@ Les réserves identifiées sont **mineures** : README manquants sur quelques pha
 | Élément | Diagnostic |
 |---------|------------|
 | `docs/practices/methods-structure-check.md` §2 | Arborescence cible affiche encore `docs/methods/` — document de contrôle daté 2026-06-28, partiellement mis à jour |
-| `docs/practices/process/bpmn-method-integration-audit.md` | Recommandations mentionnent `methods/process/` — à actualiser vers `docs/practices/process/` |
+| `docs/practices/process/2026-06-28-bpmn-method-integration-audit.md` | Recommandations mentionnent `methods/process/` — à actualiser vers `docs/practices/process/` |
 | `method/sfia-fast-track/documentation/documentation-audit.md` | Références `methods/controlled-delivery/`, `docs/methods/` — audit pré-Round 3 |
 | `method/sfia-fast-track/documentation/documentation-structure-target.md` | Idem — cible historique |
 | `exports/notion/README.md` | Ne cite pas `docs/practices/` dans la liste des sources actives |

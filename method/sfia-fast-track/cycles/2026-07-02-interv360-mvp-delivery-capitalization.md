@@ -1,10 +1,10 @@
 # SFIA Fast Track — MVP Delivery Capitalization
 
-**Projet source** : Interv360  
-**Version source** : `v0.1.0-mvp`  
-**Cycle source** : Interv360 MVP Final Roadmap + MVP Release Readiness  
-**Mode** : SFIA Fast Track — Capitalisation méthode  
-**Branche** : `method/interv360-mvp-delivery-capitalization`  
+**Projet source** : Interv360
+**Version source** : `v0.1.0-mvp`
+**Cycle source** : Interv360 MVP Final Roadmap + MVP Release Readiness
+**Mode** : SFIA Fast Track — Capitalisation méthode
+**Branche** : `method/interv360-mvp-delivery-capitalization`
 **Statut** : Cadrage opérationnel
 
 ---

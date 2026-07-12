@@ -1,13 +1,13 @@
 # Famille de prompts — Architecture fonctionnelle détaillée
 
-**Type** : Prompts Cursor / IA  
-**Domaine** : Architecture fonctionnelle  
-**Statut** : Draft  
-**Usage** : Réutilisable  
-**Méthode associée** : [`docs/practices/architecture/functional-architecture-method.md`](../../docs/practices/architecture/functional-architecture-method.md)  
-**Standard associé** : [`docs/practices/architecture/functional-architecture-deliverables-standard.md`](../../docs/practices/architecture/functional-architecture-deliverables-standard.md)  
-**Checklist associée** : [`docs/practices/architecture/functional-architecture-checklist.md`](../../docs/practices/architecture/functional-architecture-checklist.md)  
-**Templates associés** : `docs/templates/architecture/`  
+**Type** : Prompts Cursor / IA
+**Domaine** : Architecture fonctionnelle
+**Statut** : Draft
+**Usage** : Réutilisable
+**Méthode associée** : [`docs/practices/architecture/functional-architecture-method.md`](../../docs/practices/architecture/functional-architecture-method.md)
+**Standard associé** : [`docs/practices/architecture/functional-architecture-deliverables-standard.md`](../../docs/practices/architecture/functional-architecture-deliverables-standard.md)
+**Checklist associée** : [`docs/practices/architecture/functional-architecture-checklist.md`](../../docs/practices/architecture/functional-architecture-checklist.md)
+**Templates associés** : `docs/templates/architecture/`
 **Dossier** : `prompts/architecture/`
 
 ---
@@ -81,7 +81,7 @@ Remplacer ces variables **avant** exécution dans Cursor :
 
 ## 4. Prompt 1 — Ouvrir le cycle d'architecture fonctionnelle
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-scope.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-scope.md`
 **Commit recommandé :** `docs: open [PROJECT_NAME] functional architecture cycle`
 
 ```
@@ -144,7 +144,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 5. Prompt 2 — Définir les domaines fonctionnels
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-domains.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-domains.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] functional domains`
 
 ```
@@ -187,7 +187,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 6. Prompt 3 — Définir les objets métier
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/business-objects.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/business-objects.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] business objects`
 
 ```
@@ -230,7 +230,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 7. Prompt 4 — Définir les statuts et transitions
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/status-and-transitions.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/status-and-transitions.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] statuses and transitions`
 
 ```
@@ -274,7 +274,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 8. Prompt 5 — Décrire la vue fonctionnelle des intégrations
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/integration-functional-view.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/integration-functional-view.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] functional integration view`
 
 ```
@@ -318,7 +318,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 9. Prompt 6 — Décrire dashboard, alertes et pilotage
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/dashboard-and-alerts.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/dashboard-and-alerts.md`
 **Commit recommandé :** `docs: define [PROJECT_NAME] dashboard and alerts`
 
 ```
@@ -362,7 +362,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 10. Prompt 7 — Consolider la synthèse d'architecture fonctionnelle
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-summary.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-summary.md`
 **Commit recommandé :** `docs: summarize [PROJECT_NAME] functional architecture`
 
 ```
@@ -407,7 +407,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 11. Prompt 8 — Clôturer le cycle d'architecture fonctionnelle
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-cycle-closure.md`  
+**Objectif :** créer `[PROJECT_PHASE_PATH]/functional-architecture-cycle-closure.md`
 **Commit recommandé :** `docs: close [PROJECT_NAME] functional architecture cycle`
 
 ```
@@ -429,7 +429,7 @@ cd [WORKSPACE_PATH] && git status && git log --oneline -10
 
 2. Relire tous les livrables
 Tous les fichiers de [PROJECT_PHASE_PATH]/
-docs/templates/architecture/functional-architecture-cycle-closure-template.md
+docs/templates/architecture/2026-06-28-functional-architecture-cycle-closure-template.md
 docs/practices/architecture/functional-architecture-checklist.md
 
 3. Créer le fichier
@@ -450,7 +450,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 12. Prompt 9 — Contrôle qualité du cycle
 
-**Objectif :** contrôler un cycle existant **sans modifier** les fichiers sauf demande explicite.  
+**Objectif :** contrôler un cycle existant **sans modifier** les fichiers sauf demande explicite.
 **Commit par défaut :** aucun.
 
 ```
@@ -494,7 +494,7 @@ docs/practices/architecture/functional-architecture-deliverables-standard.md
 
 ## 13. Prompt 10 — Préparer la PR du cycle
 
-**Objectif :** préparer une PR vers `[BASE_BRANCH]` **sans merge automatique**.  
+**Objectif :** préparer une PR vers `[BASE_BRANCH]` **sans merge automatique**.
 **Titre PR recommandé :** `Add [PROJECT_NAME] functional architecture`
 
 ```

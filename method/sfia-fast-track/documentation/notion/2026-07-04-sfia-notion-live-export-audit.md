@@ -7,10 +7,10 @@ scope: Notion legacy export audit before Lot 0B
 
 # SFIA Notion Live Export Audit
 
-**Version :** v1.1  
-**Statut :** Candidate  
-**Cycle :** Lot 0A — Audit export Notion legacy  
-**Branche :** `notion/sfia-live-export-audit`  
+**Version :** v1.1
+**Statut :** Candidate
+**Cycle :** Lot 0A — Audit export Notion legacy
+**Branche :** `notion/sfia-live-export-audit`
 **Base :** `main` @ `0ac751e` (post PR #86)
 
 ## 1. Objectif
@@ -234,7 +234,7 @@ SFIA Home
 | SFIA Prompt Library | Page | SFIA Home/SFIA Prompt Library | SFIA Prompt System | active | Haute | INTEGRER_DANS_BASE_CIBLE | Prompt System | prompts/ | 52 prompts — sélection ~15–20 | Volume legacy |
 | SFIA Projects | Page | SFIA Home/SFIA Projects | Interv360 | active | Haute | REPRENDRE_DANS_SFIA_V1_1 | Projets & Capitalisation | projects/interv360/ | Hub projet Interv360 | Synthèse depuis repo |
 | SFIA Roadmap | Page | SFIA Home/SFIA Roadmap | SFIA Architecture | active | Moyenne | RESUMER_ET_LIER | Projets & Capitalisation | docs/roadmaps/ | Roadmap board | Lien repo |
-| SFIA Governance | Page | SFIA Home/SFIA Governance | SFIA Architecture | active | Moyenne | INTEGRER_DANS_BASE_CIBLE | Fondations & Architecture | docs/architecture/sfia-decision-engine.md | ADR + KPI | ADR-002 historique CMP |
+| SFIA Governance | Page | SFIA Home/SFIA Governance | SFIA Architecture | active | Moyenne | INTEGRER_DANS_BASE_CIBLE | Fondations & Architecture | docs/architecture/2026-06-27-sfia-decision-engine.md | ADR + KPI | ADR-002 historique CMP |
 | SFIA Runtime | Page | SFIA Home/SFIA Runtime | Legacy / SFA | legacy | Faible | ARCHIVER_LEGACY | Archives / Références repo | — | Runbooks — hors scope v1.1 | — |
 | SFIA Knowledge | Page | SFIA Home/SFIA Knowledge | SFIA Notion | mixed | Moyenne | EDITORIALISER_AVANT_REPRISE | Démarrer avec SFIA | sfia-knowledge-layer.md | FAQ, glossary, articles | Subtree temp à archiver |
 
@@ -248,7 +248,7 @@ SFIA Home
 | Components | Base CSV | SFIA Components/Components*.csv | CMP | active | Faible | ARCHIVER_LEGACY | Archives / Références repo | tools/cmp-001/ | CMP registry | Repo-only |
 | Experiments | Base CSV | SFIA Laboratory/Experiments*.csv | Legacy / SFA | legacy | Faible | ARCHIVER_LEGACY | Archives / Références repo | — | Ontologie lab | — |
 | Knowledge Articles | Base CSV | SFIA Knowledge/Knowledge Articles*.csv | Interv360 | mixed | Moyenne | EDITORIALISER_AVANT_REPRISE | Projets & Capitalisation | projects/interv360/ | Articles Interv360 + KNO-001 | KNO-001 = snapshot ancien |
-| REX | Base CSV | SFIA Knowledge/REX*.csv | REX | active | Moyenne | INTEGRER_DANS_BASE_CIBLE | Projets & Capitalisation — Assets | audit-rex/interv360-application-rex.md | REX-001 CMP — pas REX repo | Reprendre REX repo |
+| REX | Base CSV | SFIA Knowledge/REX*.csv | REX | active | Moyenne | INTEGRER_DANS_BASE_CIBLE | Projets & Capitalisation — Assets | audit-rex/2026-07-03-interv360-application-rex.md | REX-001 CMP — pas REX repo | Reprendre REX repo |
 | ADR | Base CSV | SFIA Governance/ADR*.csv | ADR | active | Moyenne | INTEGRER_DANS_BASE_CIBLE | Projets & Capitalisation — ADR | 02-architecture/adr/ | ADR-002 CMP + Interv360 ADR repo | Deux familles ADR |
 | Projects | Base CSV | SFIA Projects/Projects*.csv | Interv360 | active | Haute | INTEGRER_DANS_BASE_CIBLE | Projets & Capitalisation — Projets | projects/interv360/ | PRJ-INTERV360 | — |
 | KPI | Base CSV | SFIA Governance/KPI*.csv | Legacy / SFA | obsolete | Faible | IGNORER | — | — | Vide sauf test | — |
@@ -257,7 +257,7 @@ SFIA Home
 
 | Nom exporté | Type | Domaine | Catégorie | Destination | Lien repo | Réserve |
 |-------------|------|---------|-----------|-------------|-----------|---------|
-| SFIA Decision Engine v1.0 | Page | SFIA Architecture | EDITORIALISER_AVANT_REPRISE | Fondations & Architecture | sfia-decision-engine.md | Repo v1.1 — version différente |
+| SFIA Decision Engine v1.0 | Page | SFIA Architecture | EDITORIALISER_AVANT_REPRISE | Fondations & Architecture | 2026-06-27-sfia-decision-engine.md | Repo v1.1 — version différente |
 | SFIA Delivery Pipeline v1.0 | Page | SFIA Architecture | EDITORIALISER_AVANT_REPRISE | Fondations & Architecture | sfia-delivery-pipeline.md | Idem |
 | SFIA Platform Architecture v1.0 | Page | SFIA Architecture | EDITORIALISER_AVANT_REPRISE | Fondations & Architecture | sfia-platform-architecture.md | Idem |
 | SFIA Repository Blueprint v1.0 | Page | SFIA Architecture | EDITORIALISER_AVANT_REPRISE | Fondations & Architecture | sfia-repository-blueprint.md | Idem |
@@ -322,7 +322,7 @@ Reprise = **réédition depuis repo v1.1**, pas copie export.
 | SFIA Home hub | Structure legacy vs 7 sections | Modèle cible §4 |
 | SFIA Knowledge hub | Mélange FAQ + temp | sfia-knowledge-layer.md |
 | PROMPT-UXUI-* (15) | Contexte jalon UX V1 Interv360 | Éditorialiser ou archiver |
-| Governance Model | Non aligné repo | sfia-decision-engine.md |
+| Governance Model | Non aligné repo | 2026-06-27-sfia-decision-engine.md |
 
 **~28 éléments.**
 
@@ -336,7 +336,7 @@ Reprise = **réédition depuis repo v1.1**, pas copie export.
 | Projets | Projects CSV | 1 (Interv360) | Enrichir depuis repo |
 | Checklists | Standards partiel | 2–3 | Depuis checklists repo |
 | Practices & Templates | Templates/Standards legacy partiel | Sélectif | Repo practices |
-| Assets capitalisation | REX-001 | 1 | Préférer interv360-application-rex.md repo |
+| Assets capitalisation | REX-001 | 1 | Préférer 2026-07-03-interv360-application-rex.md repo |
 
 **~35 entrées** — création manuelle éditorialisée, **pas import CSV brut**.
 
@@ -377,7 +377,7 @@ Reprise = **réédition depuis repo v1.1**, pas copie export.
 | 7 | KNO-001 snapshot vs Engineering Principles repo | Repo v1.1 fait foi — réédition |
 | 8 | Import CSV vs création manuelle bases | **Création manuelle** — no raw import |
 | 9 | Getting Started / FAQ / Glossary legacy | Rééditer depuis modèle cible Accueil |
-| 10 | REX-001 CMP vs interv360-application-rex.md | Repo REX fait foi |
+| 10 | REX-001 CMP vs 2026-07-03-interv360-application-rex.md | Repo REX fait foi |
 | 11 | Governance Model page | Arbitrer — probablement archive |
 | 12 | STD-001 Object Lifecycle | Vérifier alignement repo standards |
 | 13 | Timing suppression legacy | Uniquement après validation explicite post-Lot 6 |

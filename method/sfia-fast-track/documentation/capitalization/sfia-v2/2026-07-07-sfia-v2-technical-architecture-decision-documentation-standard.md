@@ -1,8 +1,8 @@
 # SFIA v2.0 — Technical Architecture & Decision Documentation Standard
 
-**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md`  
-**Cycle :** Capitalisation méthode SFIA v2.0 — Technical Architecture & Decision Documentation  
-**Version :** 1.0 — draft revue Morris  
+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md`
+**Cycle :** Capitalisation méthode SFIA v2.0 — Technical Architecture & Decision Documentation
+**Version :** 1.0 — draft revue Morris
 **Source pilote :** Chantiers360 v2 — `05-technical-architecture/`, delivery INC-01 à INC-05
 
 > **Standard méthode** — définit règles et modèles. **Ne produit pas** les ADR / DAA / DAT complets d'un projet dans le cycle d'adoption du standard.
@@ -52,7 +52,7 @@ Définir les règles SFIA v2.0 de **documentation technique** :
 
 **Standards liés :**
 
-- `sfia-v2-incremental-delivery-closure-standard.md` — chaîne INC-n
+- `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md` — chaîne INC-n
 - `sfia-v2-delivery-qa-test-standard.md` — QA-G3/G4
 - `sfia-v2-design-coverage-standard.md` — frontend / extrapolation UI
 - `sfia-v2-automation-levels.md` — L0–L5
@@ -447,7 +447,7 @@ Chaque item = **cycle séparé** avec gate Morris.
 
 **Références :**
 
-- `sfia-v2-incremental-delivery-closure-standard.md`
+- `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 - `sfia-v2-delivery-qa-test-standard.md`
 - `sfia-v2-design-coverage-standard.md`
 - `sfia-v2-design-figma-cycle-standard.md`

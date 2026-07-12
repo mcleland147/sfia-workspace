@@ -1,7 +1,7 @@
 # Rapport de consolidation SFIA — Notion
 
-**Date** : 2026-06-27  
-**Composant** : CMP-001 — SFIA Notion Sync  
+**Date** : 2026-06-27
+**Composant** : CMP-001 — SFIA Notion Sync
 **Action** : Consolidation du référentiel post-audit global
 
 ---

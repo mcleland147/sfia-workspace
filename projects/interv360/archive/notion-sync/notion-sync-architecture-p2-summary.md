@@ -1,12 +1,12 @@
 # Interv360 — Préparation sync Notion ADR P2 design-impact
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Jalon** : ADR P2 design-impact  
-**Statut jalon** : Done  
-**Type** : préparation synchronisation Notion  
-**Source détaillée** : Git  
-**Mode Notion** : gouvernance uniquement  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Jalon** : ADR P2 design-impact
+**Statut jalon** : Done
+**Type** : préparation synchronisation Notion
+**Source détaillée** : Git
+**Mode Notion** : gouvernance uniquement
 **Publication Notion** : Non réalisée dans cette tâche
 
 ---
@@ -55,11 +55,11 @@ Les **méthodes rôle** (Product Owner, UX/UI Designer, RSSI, Architecte, Chef d
 
 | Décision | Statut | Source Git |
 |----------|--------|------------|
-| **ADR-005** — Conservation fictive photos, signatures et logs | Accepted | `adr/ADR-005-fictive-retention-photos-signatures-logs.md` |
-| **ADR-006** — Notifications client sans portail client | Accepted | `adr/ADR-006-client-notifications-without-client-portal.md` |
-| **ADR-007** — Signature client optionnelle structurée | Accepted | `adr/ADR-007-optional-structured-client-signature.md` |
-| **ADR-008** — Dashboard SAV et vue dirigeant séparés | Accepted | `adr/ADR-008-separated-sav-dashboard-and-executive-view.md` |
-| **ADR-CAND-009** — IA légère reportée post-MVP | Confirmed — Post-MVP | `adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` |
+| **ADR-005** — Conservation fictive photos, signatures et logs | Accepted | `adr/adr-005-fictive-retention-photos-signatures-logs.md` |
+| **ADR-006** — Notifications client sans portail client | Accepted | `adr/adr-006-client-notifications-without-client-portal.md` |
+| **ADR-007** — Signature client optionnelle structurée | Accepted | `adr/adr-007-optional-structured-client-signature.md` |
+| **ADR-008** — Dashboard SAV et vue dirigeant séparés | Accepted | `adr/adr-008-separated-sav-dashboard-and-executive-view.md` |
+| **ADR-CAND-009** — IA légère reportée post-MVP | Confirmed — Post-MVP | `adr/adr-cand-009-ai-light-post-mvp-confirmation.md` |
 | **Synthèse ADR P2 design-impact** | Done | `architecture-p2-design-impact-summary.md` |
 | **Enrichissement méthodes rôle post-P2** | Done | `role-methods-enrichment-after-adr-p2.md` |
 

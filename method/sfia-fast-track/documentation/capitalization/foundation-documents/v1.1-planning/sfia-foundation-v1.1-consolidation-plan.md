@@ -1,8 +1,8 @@
 # SFIA Foundation v1.1 — Consolidation Plan
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
-**Matrice associée** : `sfia-foundation-v1.1-evolution-matrix.md`  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
+**Matrice associée** : `sfia-foundation-v1.1-evolution-matrix.md`
 **Mode** : planification uniquement — validation humaine requise avant exécution
 
 ## 1. Objectif
@@ -47,7 +47,7 @@ Les enrichir avec les apprentissages issus :
 | Document | Version cible | Mise à jour attendue |
 |----------|---------------|----------------------|
 | `sfia-platform-architecture.md` | **v1.1** | Ajouter cartographie repo post-cleanup ; couches `method/`, `docs/practices/`, `prompts/`, `projects/` ; relation Git ↔ Notion ; module Projects ↔ Interv360 |
-| `sfia-decision-engine.md` | **v1.1** | Ajouter décisions GO/NO-GO, réserves, arbitrage PR/post-merge, capitalisation vs delivery |
+| `2026-06-27-sfia-decision-engine.md` | **v1.1** | Ajouter décisions GO/NO-GO, réserves, arbitrage PR/post-merge, capitalisation vs delivery |
 | `sfia-delivery-pipeline.md` | **v1.1** | Ajouter cycle Fast Track (branches, PR, post-merge, releases) ; séquence projet 00–09 ; lien capitalisations cycles |
 | `sfia-domain-model.md` | **v1.1** | Ajouter Cycle, Prompt, Template, Practice, Role Method, Reference Project, Knowledge Page, Audit, REX |
 | `sfia-meta-model.md` | **v1.1** | Ajouter relations artefacts/prompts/templates/practices/Notion/audits ; statuts maturité Role Method |
@@ -281,7 +281,7 @@ Remaining P1 documents:
 
 The following foundation documents have been updated to v1.1:
 
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/foundation/sfia-engineering-principles.md`
 
 The Engineering Principles are now positioned as the normative execution reference for SFIA.

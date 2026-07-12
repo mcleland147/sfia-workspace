@@ -1,13 +1,13 @@
 # ADR-007 — Signature client optionnelle structurée
 
-**Projet** : PRJ-INTERV360  
-**Phase** : 02-architecture  
-**Bloc** : ADR P2 — impacts design / MVP  
-**Statut** : Accepted  
-**Source candidate** : ADR-CAND-007  
-**ADR liées** : ADR-005, ADR-006, ADR-004  
-**Rôles principaux** : Product Owner, UX/UI Designer, RSSI  
-**Rôles contributeurs** : Architecte, QA / Testeur, Chef de projet  
+**Projet** : PRJ-INTERV360
+**Phase** : 02-architecture
+**Bloc** : ADR P2 — impacts design / MVP
+**Statut** : Accepted
+**Source candidate** : ADR-CAND-007
+**ADR liées** : ADR-005, ADR-006, ADR-004
+**Rôles principaux** : Product Owner, UX/UI Designer, RSSI
+**Rôles contributeurs** : Architecte, QA / Testeur, Chef de projet
 **Type** : Architecture Decision Record
 
 ---

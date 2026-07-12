@@ -1,12 +1,12 @@
 # Interv360 — Référence projet Penpot Design V2
 
-**Type** : Référence outillage design  
-**Projet** : Interv360 (PRJ-INTERV360)  
-**Phase** : 03-design  
-**Outil cible** : Penpot self-host  
-**Statut** : Draft  
-**Branche** : `design/interv360-penpot-reference`  
-**Source documentaire** : Git / sfia-workspace  
+**Type** : Référence outillage design
+**Projet** : Interv360 (PRJ-INTERV360)
+**Phase** : 03-design
+**Outil cible** : Penpot self-host
+**Statut** : Draft
+**Branche** : `design/interv360-penpot-reference`
+**Source documentaire** : Git / sfia-workspace
 **Source visuelle** : Penpot
 
 ---
@@ -48,7 +48,7 @@ Il **ne contient pas de maquette** ni d'écran produit. Il cadre le lien entre :
 - Ne **jamais** committer de `userToken`, clé MCP, mot de passe ou URL MCP complète avec token réel.
 - Le renommage du fichier Penpot (`Interv360 — Design V2`) reste **manuel** si nécessaire — `file.name` est en lecture seule côté API MCP.
 
-Voir aussi : [`docs/tooling/penpot/penpot-mcp-self-host-rex.md`](../../../docs/tooling/penpot/penpot-mcp-self-host-rex.md).
+Voir aussi : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md`](../../../docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md).
 
 ---
 
@@ -86,7 +86,7 @@ Sources **obligatoires** avant toute production visuelle Interv360 :
 | Revue KPI dashboard | `projects/interv360/01-cadrage/dashboard-kpi-ux-review.md` |
 | Clôture Figma V1 | `projects/interv360/02-architecture/figma-v1-closure-summary.md` |
 
-**Référence visuelle V1 (lecture seule, non modifiable dans ce cycle) :**  
+**Référence visuelle V1 (lecture seule, non modifiable dans ce cycle) :**
 `projects/interv360/02-architecture/figma-first-draft-screens/`
 
 ---

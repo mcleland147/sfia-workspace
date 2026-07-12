@@ -1,10 +1,10 @@
 # Interv360 — Synthèse clôture sans signature
 
-**Projet** : PRJ-INTERV360  
-**Document source** : `closure-without-signature.md`  
-**Type** : Synthèse gouvernance  
-**Branche** : `analysis/interv360-clarification-cycle`  
-**Règles liées** : RG-R02, RG-R05  
+**Projet** : PRJ-INTERV360
+**Document source** : `closure-without-signature.md`
+**Type** : Synthèse gouvernance
+**Branche** : `analysis/interv360-clarification-cycle`
+**Règles liées** : RG-R02, RG-R05
 **Statut lié** : STAT-06 — Clôturée
 
 ---

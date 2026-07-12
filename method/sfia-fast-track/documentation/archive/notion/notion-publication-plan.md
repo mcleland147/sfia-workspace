@@ -75,9 +75,9 @@ SFIA Fast Track
 | `sfia-global-capitalization.md` | Méthode de livraison + Règles | Adapter — retirer § merge, simplifier tableaux |
 | `figma-design-first-ui-method.md` | UI & Figma Design-first | Publier — léger polish |
 | `sfia-automation-architecture.md` | Automatisation SFIA | Résumer — vision + niveaux + MVP plateforme |
-| `interv360-mvp-delivery-capitalization.md` | Cas Interv360 — MVP | Publier — focus pattern lots |
-| `interv360-application-rex.md` | Cas Interv360 — REX | Adapter — enseignements, pas détails techniques |
-| `interv360-final-capitalization.md` | Cas Interv360 — clôture | Fusionner avec REX en une page |
+| `2026-07-02-interv360-mvp-delivery-capitalization.md` | Cas Interv360 — MVP | Publier — focus pattern lots |
+| `2026-07-03-interv360-application-rex.md` | Cas Interv360 — REX | Adapter — enseignements, pas détails techniques |
+| `2026-07-03-interv360-final-capitalization.md` | Cas Interv360 — clôture | Fusionner avec REX en une page |
 | `premium-design-system.md` | Cas Interv360 — Premium UI | Résumer — objectif, garde-fous, critères |
 | `current-application-audit.md` | Cas Interv360 — état actuel | Résumer — décision + réserves |
 | `mvp-release-readiness.md` | Méthode — Releases | Extraire pattern release |
@@ -99,18 +99,18 @@ SFIA Fast Track
 | `method/interv360-realization/*` | Méthode obsolète |
 | `push-and-pr.md`, `pr-preparation.md` | Opérationnel Cursor/Git |
 | `02-architecture/cmp-prompt-schema-extension-*` | Technique outillage CMP |
-| `docs/workspace-readiness-report.md` | Rapport interne |
+| `docs/2026-06-27-workspace-readiness-report.md` | Rapport interne |
 
 ## 7. Documents à adapter avant publication
 
 | Document | Adaptation nécessaire |
 |----------|----------------------|
 | `sfia-global-capitalization.md` | Retirer références commits/PR ; ton contributeur |
-| `interv360-application-rex.md` | Moins Interv360-specific dans titres si page générique |
+| `2026-07-03-interv360-application-rex.md` | Moins Interv360-specific dans titres si page générique |
 | `current-application-audit.md` | Synthèse 1 page : décision + 5 réserves max |
 | `premium-design-system.md` | Retirer historique branches ; garder critères |
 | `sfia-automation-architecture.md` | 10 moteurs → schéma visuel ; texte allégé |
-| `interv360-final-capitalization.md` | Fusionner avec REX — éviter double lecture |
+| `2026-07-03-interv360-final-capitalization.md` | Fusionner avec REX — éviter double lecture |
 | ADR Interv360 | Sélection 3–5 ADR représentatifs, pas les 8 + candidat |
 
 ## 8. Ordre de publication recommandé

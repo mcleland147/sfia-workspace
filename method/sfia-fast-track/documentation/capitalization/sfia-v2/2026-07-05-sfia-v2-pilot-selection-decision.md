@@ -12,10 +12,10 @@ references:
 
 # SFIA v2.0 — Pilot Selection Decision
 
-**Version :** v2.0 (candidate)  
-**Statut :** Candidate — validation Morris requise  
-**Branche :** `method/sfia-v2-pilot-selection-decision`  
-**Base :** `main` @ `daef5d7` (post PR #92)  
+**Version :** v2.0 (candidate)
+**Statut :** Candidate — validation Morris requise
+**Branche :** `method/sfia-v2-pilot-selection-decision`
+**Base :** `main` @ `daef5d7` (post PR #92)
 **Zone :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/`
 
 > **Ce document est un framework de décision.** Il ne crée aucun projet dans `projects/`, ne lance aucun bootstrap réel et ne sélectionne aucun pilote sans validation Morris.

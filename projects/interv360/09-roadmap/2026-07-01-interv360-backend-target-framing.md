@@ -1,9 +1,9 @@
 # Interv360 — Backend Target Framing
 
-**Projet** : Interv360  
-**Cycle** : Backend Target Framing  
-**Mode** : SFIA Fast Delivery documentaire  
-**Statut** : Cadrage architecture  
+**Projet** : Interv360
+**Cycle** : Backend Target Framing
+**Mode** : SFIA Fast Delivery documentaire
+**Statut** : Cadrage architecture
 **Branche** : `architecture/interv360-backend-target-framing`
 
 ---

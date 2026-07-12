@@ -1,8 +1,8 @@
 # SFIA v1.1 — Capitalization Inputs Inventory
 
-**Date** : 2026-07-03  
-**Branche** : `capitalization/sfia-documentation-completeness`  
-**Mode** : inventaire uniquement — aucun document fondateur source modifié  
+**Date** : 2026-07-03
+**Branche** : `capitalization/sfia-documentation-completeness`
+**Mode** : inventaire uniquement — aucun document fondateur source modifié
 **Plans associés** : `../v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`, `../v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
 
 ## 1. Objectif
@@ -45,9 +45,9 @@ Il sert de base de travail pour enrichir :
 |---------|----------|-------------------|
 | Core | `sfia-global-capitalization.md`, `sfia-rules-update.md`, `sfia-architecture-standards.md`, `sfia-consolidation-roadmap.md` | 10 règles FT, prompts Cursor §13, standards frontend/backend/data, chantiers consolidation |
 | Automation | `sfia-automation-architecture.md` | 10 moteurs conceptuels, 5 niveaux automatisation, garde-fous exécutables, boucle ChatGPT ↔ Cursor |
-| Cycles | `interv360-mvp-delivery-capitalization.md`, `interv360-final-capitalization.md` | Pattern lot produit, post-merge léger, releases `v0.1.0-mvp` / `v0.2.0-premium-ui` |
+| Cycles | `2026-07-02-interv360-mvp-delivery-capitalization.md`, `2026-07-03-interv360-final-capitalization.md` | Pattern lot produit, post-merge léger, releases `v0.1.0-mvp` / `v0.2.0-premium-ui` |
 | UI | `figma-design-first-ui-method.md` | Figma Design vs Make, prompt Cursor UI standard, séquence 8 étapes |
-| Audit / REX | `audit-rex/interv360-application-rex.md` | Enseignements réutilisables, anti-patterns Figma Make |
+| Audit / REX | `audit-rex/2026-07-03-interv360-application-rex.md` | Enseignements réutilisables, anti-patterns Figma Make |
 | Templates | 6 templates (`cycle`, `pr-body`, `post-merge`, `audit`, `rex`, `mvp-delivery-pattern`) | Structures réutilisables pour industrialiser cycles |
 | Checklists | `validation-checklist.md`, `guardrails-checklist.md`, `notion-publication-checklist.md` | Contrôles Git, code, docs, PR, post-merge |
 
@@ -56,17 +56,17 @@ Il sert de base de travail pour enrichir :
 | Source | Apports |
 |--------|---------|
 | `pr-81-post-merge-status.md` | Structure repo validée, merge `7c0e865`, réserves non bloquantes |
-| `final-architecture-review/sfa-workspace-final-architecture-audit.md` | Décision `GO AVEC RÉSERVES NON BLOQUANTES`, 494 fichiers md, séparation method/practices |
-| `round-2/*`, `operational-cleanup-report.md`, `interv360-folder-normalization-audit.md` | Historique cleanup, normalisation phases Interv360 |
+| `final-architecture-review/2026-07-03-sfa-workspace-final-architecture-audit.md` | Décision `GO AVEC RÉSERVES NON BLOQUANTES`, 494 fichiers md, séparation method/practices |
+| `round-2/*`, `2026-07-03-operational-cleanup-report.md`, `interv360-folder-normalization-audit.md` | Historique cleanup, normalisation phases Interv360 |
 | `sfia-workspace-migration-plan.md`, `sfia-workspace-global-audit.md` | Trajectoire migration, état pré/post cleanup |
 
 ### 2.4. Audits et capitalisation documentaire
 
 | Source | Apports |
 |--------|---------|
-| `sfia-documentation-capitalization-audit.md` | Décision `COMPLETE AVEC RÉSERVES`, maturité par domaine |
+| `2026-07-03-sfia-documentation-capitalization-audit.md` | Décision `COMPLETE AVEC RÉSERVES`, maturité par domaine |
 | `sfia-documentation-completeness-matrix.md` | Grille complétude par zone |
-| `sfia-foundation-documents-audit.md` | Décision `FONDATIONS PARTIELLES`, 10 sources fondateurs fortes |
+| `2026-07-03-sfia-foundation-documents-audit.md` | Décision `FONDATIONS PARTIELLES`, 10 sources fondateurs fortes |
 | `sfia-foundation-documents-inventory.md` | Inventaire 462 candidats, 102 prioritaires |
 | `documentation-audit.md` | Baseline historique pré-Round 3 — à référencer, pas fusionner |
 | `documentation-structure-target.md` | Cible structure documentaire |
@@ -131,8 +131,8 @@ Il sert de base de travail pour enrichir :
 |-----------|------------|-------------------|---------------------|
 | Vision SFIA | SFIA Fast Track validée ; cible application factory assistée IA ; deux couches conceptuelle (docs/architecture) + opérationnelle (method/) | `sfia-global-capitalization.md`, `sfia-automation-architecture.md` | `sfia-platform-architecture.md`, `sfia-global-capitalization.md` |
 | Architecture de plateforme | Modules Core/Studio/Runtime/Knowledge/Lab/Projects + couches repo Git post-PR #81 | `sfia-platform-architecture.md`, `pr-81-post-merge-status.md` | `sfia-platform-architecture.md` |
-| Decision Engine | GO/NO-GO, réserves non bloquantes, arbitrages MVP, ADR structurants | `current-application-audit.md`, ADR Interv360, `sfia-rules-update.md` | `sfia-decision-engine.md` |
-| Delivery Pipeline | Un cycle = un objectif ; lots produit ; PR unique ; post-merge ; releases jalons | `interv360-mvp-delivery-capitalization.md`, `sfia-rules-update.md` | `sfia-delivery-pipeline.md` |
+| Decision Engine | GO/NO-GO, réserves non bloquantes, arbitrages MVP, ADR structurants | `current-application-audit.md`, ADR Interv360, `sfia-rules-update.md` | `2026-06-27-sfia-decision-engine.md` |
+| Delivery Pipeline | Un cycle = un objectif ; lots produit ; PR unique ; post-merge ; releases jalons | `2026-07-02-interv360-mvp-delivery-capitalization.md`, `sfia-rules-update.md` | `sfia-delivery-pipeline.md` |
 | Domain Model | Cycle, Prompt, Template, Practice, Role Method, Reference Project, Knowledge Page, Audit, REX | `prompt-catalog.md`, `docs/practices/`, cycles Interv360 | `sfia-domain-model.md` |
 | Metamodel | Relations prompts ↔ templates ↔ practices ↔ méthode FT ↔ Notion ; statuts Draft/Official | `sfia-meta-model.md`, `docs/practices/roles/` | `sfia-meta-model.md` |
 | Repository Blueprint | `method/`, `docs/practices/`, `prompts/`, `projects/`, `exports/` ; archives ; pas de `methods/` racine | `pr-81-post-merge-status.md`, final architecture audit | `sfia-repository-blueprint.md` |
@@ -141,8 +141,8 @@ Il sert de base de travail pour enrichir :
 | Automation Engines | 10 moteurs conceptuels ; 3 prioritaires v1.1 (Prompt, Validation, Repository Execution) | `sfia-automation-architecture.md` §5 | Specs moteurs dédiées + `sfia-automation-architecture.md` v1.1 |
 | Knowledge / Notion | Notion = IDE métier éditorialisé ; repo = source vérité ; pas miroir brut | `notion-target-content-map.md`, `exports/notion/README.md` | **nouveau** `sfia-knowledge-layer.md` |
 | UX/UI | Figma Design-first ; Make = exploration ; prompt Cursor UI ; tokens/composants avant code | `figma-design-first-ui-method.md`, `premium-design-system.md` | `sfia-engineering-principles.md`, `sfia-delivery-pipeline.md` |
-| Architecture applicative | Séparation frontend/backend/data ; ADR ; double référentiel présentation/métier | `sfia-architecture-standards.md`, ADR-001 à ADR-008, audit Interv360 | `sfia-domain-model.md`, `sfia-decision-engine.md` |
-| Audit / REX | Audit pré-cycle majeur ; REX post-jalon ; décision `APPLICATION_SAINE_AVEC_RESERVES` | `current-application-audit.md`, `interv360-application-rex.md`, templates audit/rex | `sfia-delivery-pipeline.md`, `sfia-decision-engine.md` |
+| Architecture applicative | Séparation frontend/backend/data ; ADR ; double référentiel présentation/métier | `sfia-architecture-standards.md`, ADR-001 à ADR-008, audit Interv360 | `sfia-domain-model.md`, `2026-06-27-sfia-decision-engine.md` |
+| Audit / REX | Audit pré-cycle majeur ; REX post-jalon ; décision `APPLICATION_SAINE_AVEC_RESERVES` | `current-application-audit.md`, `2026-07-03-interv360-application-rex.md`, templates audit/rex | `sfia-delivery-pipeline.md`, `2026-06-27-sfia-decision-engine.md` |
 | Role / Métier Modeling | 6 Role Methods (1 Official QA) ; practices vs role methods vs prompts | `docs/practices/roles/`, `prompt-catalog.md` §4–7 | `sfia-domain-model.md`, `sfia-meta-model.md` |
 | Templates / Checklists | 6 templates FT + 11 templates plateforme + 3 checklists FT | `templates/`, `checklists/`, `docs/templates/` | Delivery Pipeline, Validation Engine, Rules & Guardrails |
 | Reference Project | Interv360 = preuve opérationnelle ; 299 docs projet ; tags v0.1.0 / v0.2.0 | `projects/interv360/`, cycles, audit-rex | Tous documents concernés (références ciblées) |
@@ -231,8 +231,8 @@ Il sert de base de travail pour enrichir :
 | Garde-fous explicites (autorisé/interdit/validations) | Règle 2, `guardrails-checklist.md` | Rules & Guardrails |
 | PR unique par cycle | Règle 3, templates `pr-body-template.md` | Delivery Pipeline, Repository Execution |
 | Post-merge obligatoire | Règle 4, `post-merge-template.md` | Delivery Pipeline |
-| Audit avant cycle majeur | Règle 5, `audit-template.md` | Decision Engine |
-| REX après jalon majeur | Règle 6, `rex-template.md` | Delivery Pipeline |
+| Audit avant cycle majeur | Règle 5, `2026-07-03-audit-template.md` | Decision Engine |
+| REX après jalon majeur | Règle 6, `2026-07-03-rex-template.md` | Delivery Pipeline |
 | Figma Design-first | Règle 7, `figma-design-first-ui-method.md` | Engineering Principles |
 | Notion jamais automatique | Règle 8, `notion-publication-checklist.md` | Knowledge Layer |
 | Backend/API cycle dédié | Règle 9, `sfia-architecture-standards.md` | Delivery Pipeline, Decision Engine |
@@ -398,7 +398,7 @@ Besoin → ChatGPT (cadrage + prompt) → Cursor (exécution) → Résultat
 | Document cible | Apports à intégrer | Sources |
 |----------------|-------------------|---------|
 | `docs/architecture/sfia-platform-architecture.md` | Cartographie repo post-PR #81 ; couches method/practices/prompts/projects/exports ; relation Git détaillé vs Notion éditorialisé ; module Projects ↔ Interv360 ; vision application factory | PR #81, final architecture audit, automation vision, global-capitalization §16 |
-| `docs/architecture/sfia-decision-engine.md` | GO/NO-GO Fast Track ; réserves non bloquantes ; arbitrages MVP ; ADR Interv360 ; audit pré-cycle ; décision consolidation vs Notion | Audit Interv360, ADR-001–008, rules-update Règles 5–6, pr-81 |
+| `docs/architecture/2026-06-27-sfia-decision-engine.md` | GO/NO-GO Fast Track ; réserves non bloquantes ; arbitrages MVP ; ADR Interv360 ; audit pré-cycle ; décision consolidation vs Notion | Audit Interv360, ADR-001–008, rules-update Règles 5–6, pr-81 |
 | `docs/architecture/sfia-delivery-pipeline.md` | Cycle FT réel ; conventions branches ; PR unique ; post-merge ; releases/tags ; séquence 00–09 ; pattern lots MVP ; capitalisations cycles ; Controlled Delivery note | cycles Interv360, rules-update, mvp-delivery-capitalization, templates |
 | `docs/architecture/sfia-domain-model.md` | Objets Cycle, Prompt, Template, Practice, Role Method, Reference Project, Knowledge Page, Audit Report, REX ; double référentiel données ; statuts maturité | prompt-catalog, practices/roles, audit Interv360, metamodel v1 |
 | `docs/architecture/sfia-meta-model.md` | Relations artefacts/prompts/templates/practices/Notion/audits ; statuts Draft/Official ; archives vs actif ; templates FT vs plateforme | practices/, templates/, notion-target-content-map, PR #81 |
@@ -541,7 +541,7 @@ Remaining P1 documents:
 
 The following foundation documents have been updated to v1.1:
 
-- `docs/architecture/sfia-decision-engine.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 - `docs/foundation/sfia-engineering-principles.md`
 
 The Engineering Principles are now positioned as the normative execution reference for SFIA.
@@ -872,8 +872,8 @@ The P2.2 cycle has updated the capitalization indexes, completeness matrix and h
 Updated references include:
 
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
 
