@@ -23,13 +23,13 @@
 | **Architecture technique** | PR #102 mergée — `57308aa` — arbitrages Morris validés |
 | **Figma Fidelity Spike** | PR #104 mergée — `87de625` — D1/D2 validés Morris ; gate M8/M9 satisfait |
 | **Delivery INC-01** | **Clôturé** — PR #108–#110 — CLOSED WITH RESERVES |
-| **Capitalisation INC-01** | Mergée PR #111 — `ff32170` — `09-capitalization/inc-01-capitalization-report.md` |
-| **Delivery INC-02** | **Clôturé** — PR #115–#117 — CLOSED WITH RESERVES — `inc-02-closure-report.md` |
-| **Delivery INC-03** | **Clôturé** — PR #119–#121 — CLOSED WITH RESERVES — `inc-03-closure-report.md` |
-| **Delivery INC-04** | **Clôturé** — PR #122–#124 — CLOSED WITH RESERVES — `inc-04-closure-report.md` |
-| **Delivery INC-05** | **Clôturé** — PR #125–#127 — CLOSED WITH RESERVES — `inc-05-closure-report.md` |
+| **Capitalisation INC-01** | Mergée PR #111 — `ff32170` — `09-capitalization/2026-07-06-inc-01-capitalization-report.md` |
+| **Delivery INC-02** | **Clôturé** — PR #115–#117 — CLOSED WITH RESERVES — `2026-07-06-inc-02-closure-report.md` |
+| **Delivery INC-03** | **Clôturé** — PR #119–#121 — CLOSED WITH RESERVES — `2026-07-06-inc-03-closure-report.md` |
+| **Delivery INC-04** | **Clôturé** — PR #122–#124 — CLOSED WITH RESERVES — `2026-07-06-inc-04-closure-report.md` |
+| **Delivery INC-05** | **Clôturé** — PR #125–#127 — CLOSED WITH RESERVES — `2026-07-07-inc-05-closure-report.md` |
 | **MVP delivery** | **Bouclé avec réserves** — INC-01 à INC-05 clôturés |
-| **Capitalisation MVP** | Mergée PR #128 — `09-capitalization/mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES |
+| **Capitalisation MVP** | Mergée PR #128 — `09-capitalization/2026-07-07-mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES |
 | **Design coverage SFIA v2.0** | Mergée PR #129 — alignée PR #130 — R-UX-01 ouverte, acceptée, non levée |
 | **Technical Architecture & Decision Documentation** | Mergée PR #131 — alignée PR #132 — `sfia-v2-technical-architecture-decision-documentation-standard.md` — ADR/DAA/DAT projet non produits |
 | **SFIA v2.x Method Versioning** | Mergée PR #133 — alignée PR #134 — v2.3 / v2.3.1 actées — `sfia-v2-method-versioning-standard.md` |
@@ -194,10 +194,10 @@ Le bootstrap est **valide** si :
 - **GO architecture technique** — ✅ validé (M6)
 - **Figma Fidelity Spike** — ✅ mergé PR #104 — validé Morris (D1/D2) — frame Dashboard `38:502` (M9) — gate M8/M9 satisfait
 - **App spike** — `projects/chantiers360-v2/app/` — dashboard mocké uniquement ; pas de backend / DB / auth
-- Delivery INC-01 — **clôturé** — `inc-01-closure-report.md`
-- Delivery INC-02 — **clôturé** — `inc-02-closure-report.md`
-- Delivery INC-03 — **clôturé** — `inc-03-closure-report.md`
-- Delivery INC-04 — **clôturé** — `inc-04-closure-report.md`
+- Delivery INC-01 — **clôturé** — `2026-07-06-inc-01-closure-report.md`
+- Delivery INC-02 — **clôturé** — `2026-07-06-inc-02-closure-report.md`
+- Delivery INC-03 — **clôturé** — `2026-07-06-inc-03-closure-report.md`
+- Delivery INC-04 — **clôturé** — `2026-07-06-inc-04-closure-report.md`
 - **App** — PostgreSQL + Drizzle ; auth différée ; tâches/réserves INC-02 ; jalons simples INC-03 ; comptes rendus INC-04 livrés
 
 **Décisions à venir :**

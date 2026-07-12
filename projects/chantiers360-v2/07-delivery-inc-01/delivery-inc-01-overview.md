@@ -45,4 +45,4 @@ Tâches, réserves, jalons avancés, comptes rendus, prochaines actions, auth, r
 
 ---
 
-**Documents liés :** `delivery-inc-01-implementation-report.md`, `delivery-inc-01-validation-report.md`, `delivery-inc-01-decisions.md`
+**Documents liés :** `2026-07-06-delivery-inc-01-implementation-report.md`, `2026-07-06-delivery-inc-01-validation-report.md`, `2026-07-06-delivery-inc-01-decisions.md`

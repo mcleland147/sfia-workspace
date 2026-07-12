@@ -49,4 +49,4 @@ INC-04 comptes rendus, INC-05 prochaines actions, planning avancé, Gantt, dépe
 
 ---
 
-**Documents liés :** `delivery-inc-03-implementation-report.md`, `delivery-inc-03-validation-report.md`, `delivery-inc-03-decisions.md`
+**Documents liés :** `2026-07-06-delivery-inc-03-implementation-report.md`, `2026-07-06-delivery-inc-03-validation-report.md`, `2026-07-06-delivery-inc-03-decisions.md`

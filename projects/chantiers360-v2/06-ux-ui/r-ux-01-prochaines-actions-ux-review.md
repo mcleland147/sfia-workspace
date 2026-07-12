@@ -45,8 +45,8 @@
 | `00-framing/2026-07-10-chantiers360-post-mvp-framing.md` | Roadmap post-MVP, registre réserves |
 | `00-framing/chantiers360-post-mvp-option-a-reserves-first.md` | Cadrage Option A2, §4 R-UX-01 |
 | `08-qa-test/inc-05/qa-reserves.md` | Constat, garde-fous R-UX-01 |
-| `07-delivery-inc-05/inc-05-closure-report.md` | Clôture INC-05 WITH RESERVES |
-| `07-delivery-inc-05/delivery-inc-05-decisions.md` | D9 — accepté sans maquette dédiée |
+| `07-delivery-inc-05/2026-07-07-inc-05-closure-report.md` | Clôture INC-05 WITH RESERVES |
+| `07-delivery-inc-05/2026-07-06-delivery-inc-05-decisions.md` | D9 — accepté sans maquette dédiée |
 | `04-design/figma-brief.md` | Frame P2 « Vue prochaines actions » — ⏳ Non produit |
 | `app/app/prochaines-actions/page.tsx` | Implémentation actuelle (lecture seule) |
 

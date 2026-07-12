@@ -12,11 +12,11 @@
 **Design Figma P1 :** mergé via PR #101 (`7e37b58`)
 **Architecture technique légère :** mergée via PR #102 (`57308aa`) — arbitrages Morris documentés
 **Cycle courant :** Comparaison V0 vs SFIA v2 bouclée (PR #136) — décision suivante séparée — SFIA v2.3.1 baseline opérationnelle — v2.4 / v3.0 non lancés
-**QA INC-05 :** `08-qa-test/inc-05/` — clôture `inc-05-closure-report.md`
-**QA INC-03 :** `08-qa-test/inc-03/` — clôture `inc-03-closure-report.md`
-**QA INC-02 :** `08-qa-test/inc-02/` — clôture `inc-02-closure-report.md`
-**Capitalisation INC-01 :** `09-capitalization/inc-01-capitalization-report.md`
-**Capitalisation MVP :** `09-capitalization/mvp-capitalization-report.md`
+**QA INC-05 :** `08-qa-test/inc-05/` — clôture `2026-07-07-inc-05-closure-report.md`
+**QA INC-03 :** `08-qa-test/inc-03/` — clôture `2026-07-06-inc-03-closure-report.md`
+**QA INC-02 :** `08-qa-test/inc-02/` — clôture `2026-07-06-inc-02-closure-report.md`
+**Capitalisation INC-01 :** `09-capitalization/2026-07-06-inc-01-capitalization-report.md`
+**Capitalisation MVP :** `09-capitalization/2026-07-07-mvp-capitalization-report.md`
 **Comparaison V0 vs SFIA v2 :** ✅ mergée PR #136 — `09-capitalization/v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION
 **Méthode :** SFIA v1.1 (baseline) + SFIA v2.0 (delivery progressif)
 
@@ -44,7 +44,7 @@ Chantiers360 v2 est le **premier projet pilote SFIA v2.0**, destiné à tester l
 | **Décision** | Candidate B validé — pilote v2.0 (PR #94) ; bootstrap validé avec réserve mineure sur commit local |
 | **Architecture technique** | Mergée PR #102 — arbitrages Morris validés |
 | **Figma Fidelity Spike** | Mergé PR #104 — `87de625` — D1/D2 validés Morris |
-| **Delivery applicatif** | INC-01 clôturé PR #108–#110 ; INC-02 clôturé PR #115–#117 ; INC-03 clôturé PR #119–#121 ; INC-04 clôturé PR #122–#124 ; INC-05 clôturé PR #125–#127 ; capitalisation INC-01 PR #111 ; capitalisation MVP `mvp-capitalization-report.md` |
+| **Delivery applicatif** | INC-01 clôturé PR #108–#110 ; INC-02 clôturé PR #115–#117 ; INC-03 clôturé PR #119–#121 ; INC-04 clôturé PR #122–#124 ; INC-05 clôturé PR #125–#127 ; capitalisation INC-01 PR #111 ; capitalisation MVP `2026-07-07-mvp-capitalization-report.md` |
 | **app** | Next.js + Drizzle + PostgreSQL — socle chantier INC-01 + tâches/réserves INC-02 + jalons INC-03 + comptes rendus INC-04 + prochaines actions dérivées INC-05 |
 | **Backlog produit détaillé** | Mergé PR #99 |
 | **Design Figma MVP** | Mergé PR #101 — `04-design/` |
@@ -216,7 +216,7 @@ Ils relèvent d'un domaine métier plus large que le suivi opérationnel chantie
 12. **Delivery INC-03** — ✅ clôturé — PR #119–#121 — CLOSED WITH RESERVES
 13. **Delivery INC-04** — ✅ clôturé — PR #122–#124 — CLOSED WITH RESERVES
 14. **Delivery INC-05** — ✅ clôturé — PR #125–#127 — CLOSED WITH RESERVES — MVP bouclé avec réserves
-15. **Capitalisation MVP** — ✅ mergée PR #128 — `mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES
+15. **Capitalisation MVP** — ✅ mergée PR #128 — `2026-07-07-mvp-capitalization-report.md` — MVP CAPITALIZED WITH RESERVES
 16. **Design coverage SFIA v2.0** — ✅ mergé PR #129 — aligné PR #130 — R-UX-01 ouverte, acceptée, non levée
 17. **Technical Architecture & Decision Documentation** — ✅ mergé PR #131 — aligné PR #132 — ADR/DAA/DAT projet non produits
 18. ~~**Comparaison V0 vs SFIA v2**~~ — ✅ mergée PR #136 — `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION

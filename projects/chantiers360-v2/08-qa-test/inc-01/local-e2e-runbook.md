@@ -7,7 +7,7 @@
 
 > Morris valide les **preuves** (logs, rapport) — pas besoin de dérouler chaque test manuellement si `npm run test:e2e` affiche **4 passed**.
 
-**Références :** `qa-execution-report.md`, `qa-readiness.md`, `test-scenarios.md`
+**Références :** `2026-07-06-qa-execution-report.md`, `2026-07-06-qa-readiness.md`, `test-scenarios.md`
 
 ---
 
@@ -147,7 +147,7 @@ Exit code **0**.
 
 Morris ou Cursor (cycle dédié) met à jour :
 
-### 6.1 `qa-execution-report.md`
+### 6.1 `2026-07-06-qa-execution-report.md`
 
 Remplacer / compléter :
 
@@ -166,7 +166,7 @@ Remplacer / compléter :
 
 Conserver R-QA-02 / R-QA-03 si toujours pertinentes (mineures).
 
-### 6.3 `qa-readiness.md`
+### 6.3 `2026-07-06-qa-readiness.md`
 
 | Si résultat | Verdict proposé |
 |-------------|-----------------|
@@ -181,7 +181,7 @@ Cocher la décision Morris :
 - [ ] NO-GO QA
 - [ ] GO PR readiness INC-01 — **uniquement après GO QA**
 
-### 6.4 Modèle à coller dans `qa-execution-report.md`
+### 6.4 Modèle à coller dans `2026-07-06-qa-execution-report.md`
 
 ```markdown
 ## Exécution locale Morris — YYYY-MM-DD

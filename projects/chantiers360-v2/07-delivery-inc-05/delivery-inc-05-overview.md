@@ -45,4 +45,4 @@ Saisie manuelle d'actions, IA générative, notifications, agenda avancé, workf
 
 ---
 
-**Documents liés :** `delivery-inc-05-implementation-report.md`, `delivery-inc-05-validation-report.md`, `delivery-inc-05-decisions.md`
+**Documents liés :** `2026-07-07-delivery-inc-05-implementation-report.md`, `2026-07-07-delivery-inc-05-validation-report.md`, `2026-07-06-delivery-inc-05-decisions.md`
