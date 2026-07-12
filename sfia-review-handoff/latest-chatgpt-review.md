@@ -1,394 +1,286 @@
-# SFIA Review Pack — Lot E1 Residual Reclassification
+# SFIA Review Pack — Lot E2 Validation
 
-**Date/heure :** 2026-07-12 20:46 Europe/Paris
-**Cycle :** QA / validation documentaire corrective — Lot E1
+**Date/heure :** 2026-07-12 20:53 Europe/Paris
+**Cycle :** QA / validation documentaire — Lot E2
 **Profil :** Standard
-**Décision Morris :** GO correction analytique PR #181
-**Base :** `2658502a4526dc2d30a89f3bd3ffacaffc0d7d05`
-**HEAD exécution initiale E1 :** `af3e3160da52c919bbd554e7709e3de98a761e2a`
-**HEAD correction reclassification :** `9c31ab6287030556d9336b1cf73d75a5da6d1a89`
-**HEAD tip branche PR #181 :** `78859034e769c449901835a1b9431deb56dc0c3c`
-**PR :** https://github.com/mcleland147/sfia-workspace/pull/181
+**Décision Morris :** GO explicite — exécution Lot E2 validation 44 fichiers
+**Base :** `f279d85217129b515f1d3caf6c8ce6492a75e123`
+**Branche :** `validation/sfia-v2.6-lot-e2-validation`
+**HEAD :** `04a2a259563040489019cd393e32db9f86a1d204`
+**PR :** https://github.com/mcleland147/sfia-workspace/pull/182
 
 ---
 
-## Métriques catégories (somme = 125)
+## Manifestes
 
-| Catégorie | Count |
+| Manifeste | Count |
 |-----------|------:|
-| conventional-deliverable-reference | 94 |
-| template-or-example-reference | 4 |
-| optional-project-local-reference | 8 |
-| false-positive-parser | 19 |
-| real-broken-link | 0 |
-| ambiguous-reference | 0 |
-| **Somme** | **125** |
+| Global Lot E | 75/75 |
+| E1 (merged PR #181) | 31/31 |
+| E2 validation | 44/44 |
+| no-action validés | 42/42 |
+| historical-keep validés | 2/2 |
 
-- Vrais liens cassés restants : **0**
-- Cas ambigus restants : **0**
-- Corrections certaines validées : **71**
+## Métriques liens E2
 
----
-
-## Table complète 125 références
-
-| ID | Fichier | Ligne | Référence | Catégorie | Gate |
-|----|---------|------:|-----------|-----------|:----:|
-| R-001 | `docker/penpot/README.md` | 13 | `docker-compose.yml` | template-or-example-reference | non |
-| R-002 | `docs/practices/architecture/functional-architecture-checklist.md` | 44 | `functional-architecture-scope.md` | conventional-deliverable-reference | non |
-| R-003 | `docs/practices/architecture/functional-architecture-checklist.md` | 45 | `functional-domains.md` | conventional-deliverable-reference | non |
-| R-004 | `docs/practices/architecture/functional-architecture-checklist.md` | 46 | `business-objects.md` | conventional-deliverable-reference | non |
-| R-005 | `docs/practices/architecture/functional-architecture-checklist.md` | 47 | `status-and-transitions.md` | conventional-deliverable-reference | non |
-| R-006 | `docs/practices/architecture/functional-architecture-checklist.md` | 49 | `integration-functional-view.md` | conventional-deliverable-reference | non |
-| R-007 | `docs/practices/architecture/functional-architecture-checklist.md` | 51 | `dashboard-and-alerts.md` | conventional-deliverable-reference | non |
-| R-008 | `docs/practices/architecture/functional-architecture-checklist.md` | 73 | `functional-architecture-summary.md` | conventional-deliverable-reference | non |
-| R-009 | `docs/practices/architecture/functional-architecture-checklist.md` | 74 | `2026-06-28-functional-architecture-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-010 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 32 | `functional-architecture-scope.md` | conventional-deliverable-reference | non |
-| R-011 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 33 | `functional-domains.md` | conventional-deliverable-reference | non |
-| R-012 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 34 | `business-objects.md` | conventional-deliverable-reference | non |
-| R-013 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 35 | `status-and-transitions.md` | conventional-deliverable-reference | non |
-| R-014 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 36 | `integration-functional-view.md` | conventional-deliverable-reference | non |
-| R-015 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 37 | `dashboard-and-alerts.md` | conventional-deliverable-reference | non |
-| R-016 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 38 | `functional-architecture-summary.md` | conventional-deliverable-reference | non |
-| R-017 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 39 | `2026-06-28-functional-architecture-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-018 | `docs/practices/process/bpmn-deliverables-standard.md` | 24 | `process-scope.md` | conventional-deliverable-reference | non |
-| R-019 | `docs/practices/process/bpmn-deliverables-standard.md` | 33 | `process-analysis.md` | conventional-deliverable-reference | non |
-| R-020 | `docs/practices/process/bpmn-deliverables-standard.md` | 34 | `2026-06-28-process-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-021 | `docs/practices/process/bpmn-integration-checklist.md` | 93 | `status-mapping.md` | conventional-deliverable-reference | non |
-| R-022 | `docs/practices/process/bpmn-integration-checklist.md` | 98 | `2026-06-28-clarification-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-023 | `docs/practices/process/bpmn-process-modeling-method.md` | 153 | `process-analysis.md` | conventional-deliverable-reference | non |
-| R-024 | `docs/practices/roles/qa-tester-method.md` | 9 | `qa-tester-role-research-and-benchmark.md` | optional-project-local-reference | non |
-| R-025 | `docs/practices/roles/qa-tester-method.md` | 9 | `2026-06-28-qa-tester-role-candidate-framing.md` | optional-project-local-reference | non |
-| R-026 | `docs/practices/roles/qa-tester-method.md` | 9 | `qa-tester-role-candidate-review.md` | optional-project-local-reference | non |
-| R-027 | `docs/practices/roles/qa-tester-method.md` | 277 | `2026-06-28-figma-v1-closure-summary.md` | optional-project-local-reference | non |
-| R-028 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 43 | `ux-ui-reprise-analysis.md` | conventional-deliverable-reference | non |
-| R-029 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 56 | `ux-ui-reprise-scope.md` | conventional-deliverable-reference | non |
-| R-030 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 70 | `user-journeys.md` | conventional-deliverable-reference | non |
-| R-031 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 82 | `screen-inventory.md` | conventional-deliverable-reference | non |
-| R-032 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 83 | `screen-functional-specs.md` | conventional-deliverable-reference | non |
-| R-033 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 96 | `dashboard-ux-view.md` | conventional-deliverable-reference | non |
-| R-034 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 101 | `dashboard-and-alerts.md` | conventional-deliverable-reference | non |
-| R-035 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 108 | `ux-ui-summary.md` | conventional-deliverable-reference | non |
-| R-036 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 121 | `2026-06-28-ux-ui-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-037 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 31 | `ux-ui-reprise-analysis.md` | conventional-deliverable-reference | non |
-| R-038 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 32 | `ux-ui-reprise-scope.md` | conventional-deliverable-reference | non |
-| R-039 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 33 | `user-journeys.md` | conventional-deliverable-reference | non |
-| R-040 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 34 | `screen-inventory.md` | conventional-deliverable-reference | non |
-| R-041 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 35 | `screen-functional-specs.md` | conventional-deliverable-reference | non |
-| R-042 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 36 | `dashboard-ux-view.md` | conventional-deliverable-reference | non |
-| R-043 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 37 | `ux-ui-summary.md` | conventional-deliverable-reference | non |
-| R-044 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 38 | `2026-06-28-ux-ui-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-045 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 113 | `ux-ui-reprise-analysis.md` | conventional-deliverable-reference | non |
-| R-046 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 114 | `ux-ui-reprise-scope.md` | conventional-deliverable-reference | non |
-| R-047 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 115 | `user-journeys.md` | conventional-deliverable-reference | non |
-| R-048 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 116 | `screen-inventory.md` | conventional-deliverable-reference | non |
-| R-049 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 117 | `screen-functional-specs.md` | conventional-deliverable-reference | non |
-| R-050 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 118 | `dashboard-ux-view.md` | conventional-deliverable-reference | non |
-| R-051 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 119 | `ux-ui-summary.md` | conventional-deliverable-reference | non |
-| R-052 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 120 | `2026-06-28-ux-ui-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-053 | `docs/templates/tooling/penpot/README.md` | 22 | `design-v2-tooling-scope-template.md` | template-or-example-reference | non |
-| R-054 | `docs/templates/tooling/penpot/README.md` | 23 | `penpot-project-reference-template.md` | template-or-example-reference | non |
-| R-055 | `docs/templates/tooling/penpot/README.md` | 24 | `penpot-review-checklist-template.md` | template-or-example-reference | non |
-| R-056 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 204 | `CHANGELOG.md` | false-positive-parser | non |
-| R-057 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 224 | `package-lock.json` | false-positive-parser | non |
-| R-058 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 225 | `.cursor/mcp.json` | false-positive-parser | non |
-| R-059 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 28 | `user-journeys.md` | conventional-deliverable-reference | non |
-| R-060 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 29 | `status-and-transitions.md` | conventional-deliverable-reference | non |
-| R-061 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 64 | `screen-inventory.md` | conventional-deliverable-reference | non |
-| R-062 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 72 | `screen-functional-specs.md` | conventional-deliverable-reference | non |
-| R-063 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 84 | `penpot-review-checklist.md` | conventional-deliverable-reference | non |
-| R-064 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 55 | `screen-functional-specs.md` | conventional-deliverable-reference | non |
-| R-065 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 56 | `user-journeys.md` | conventional-deliverable-reference | non |
-| R-066 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 94 | `penpot-project-reference.md` | conventional-deliverable-reference | non |
-| R-067 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 179 | `design-v2-tooling-scope.md` | conventional-deliverable-reference | non |
-| R-068 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 181 | `penpot-wireframe-instructions.md` | conventional-deliverable-reference | non |
-| R-069 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 182 | `penpot-review-checklist.md` | conventional-deliverable-reference | non |
-| R-070 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 183 | `design-v2-summary.md` | conventional-deliverable-reference | non |
-| R-071 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 184 | `design-v2-cycle-closure.md` | conventional-deliverable-reference | non |
-| R-072 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | 46 | `docker-compose.yml` | false-positive-parser | non |
-| R-073 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | 53 | `docker-compose.override.example.yml` | false-positive-parser | non |
-| R-074 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 34 | `ux-ui-reprise-scope.md` | conventional-deliverable-reference | non |
-| R-075 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 34 | `penpot-project-reference.md` | conventional-deliverable-reference | non |
-| R-076 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 35 | `user-journeys.md` | conventional-deliverable-reference | non |
-| R-077 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 36 | `screen-inventory.md` | conventional-deliverable-reference | non |
-| R-078 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 37 | `screen-functional-specs.md` | conventional-deliverable-reference | non |
-| R-079 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 38 | `dashboard-ux-view.md` | conventional-deliverable-reference | non |
-| R-080 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 39 | `penpot-review-checklist.md` | conventional-deliverable-reference | non |
-| R-081 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 40 | `design-v2-summary.md` | conventional-deliverable-reference | non |
-| R-082 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 115 | `ux-ui-reprise-prompt-family.md` | conventional-deliverable-reference | non |
-| R-083 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | 170 | `current-application-audit.md` | false-positive-parser | non |
-| R-084 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-and-delivery-vision.md` | 209 | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | false-positive-parser | non |
-| R-085 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 61 | `inc-0n-closure-report.md` | conventional-deliverable-reference | non |
-| R-086 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 111 | `qa-strategy.md` | conventional-deliverable-reference | non |
-| R-087 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 112 | `test-scenarios.md` | conventional-deliverable-reference | non |
-| R-088 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 113 | `2026-07-06-qa-implementation-report.md` | conventional-deliverable-reference | non |
-| R-089 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 114 | `2026-07-06-qa-execution-report.md` | conventional-deliverable-reference | non |
-| R-090 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 115 | `qa-reserves.md` | conventional-deliverable-reference | non |
-| R-091 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 116 | `2026-07-06-qa-readiness.md` | conventional-deliverable-reference | non |
-| R-092 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 221 | `acceptance-criteria.md` | conventional-deliverable-reference | non |
-| R-093 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 222 | `user-stories.md` | conventional-deliverable-reference | non |
-| R-094 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 223 | `delivery-increments.md` | conventional-deliverable-reference | non |
-| R-095 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 66 | `figma-brief.md` | conventional-deliverable-reference | non |
-| R-096 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 67 | `screen-design-spec.md` | conventional-deliverable-reference | non |
-| R-097 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 68 | `figma-review-checklist.md` | conventional-deliverable-reference | non |
-| R-098 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 69 | `2026-07-06-design-decisions.md` | conventional-deliverable-reference | non |
-| R-099 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 70 | `design-to-backlog-alignment.md` | conventional-deliverable-reference | non |
-| R-100 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 66 | `figma-reference.md` | conventional-deliverable-reference | non |
-| R-101 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 68 | `frontend-architecture.md` | conventional-deliverable-reference | non |
-| R-102 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 95 | `package.json` | false-positive-parser | non |
-| R-103 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 122 | `04-design/figma-brief.md` | conventional-deliverable-reference | non |
-| R-104 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 122 | `screen-design-spec.md` | conventional-deliverable-reference | non |
-| R-105 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 126 | `spike-overview.md` | conventional-deliverable-reference | non |
-| R-106 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 143 | `2026-07-06-visual-comparison-report.md` | conventional-deliverable-reference | non |
-| R-107 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 144 | `2026-07-06-spike-decisions.md` | conventional-deliverable-reference | non |
-| R-108 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 145 | `2026-07-06-spike-readiness.md` | conventional-deliverable-reference | non |
-| R-109 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 95 | `00-framing/2026-07-07-project-framing.md` | conventional-deliverable-reference | non |
-| R-110 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 89 | `2026-07-07-project-framing.md` | conventional-deliverable-reference | non |
-| R-111 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 390 | `sfia-rules-and-guardrails.md` | false-positive-parser | non |
-| R-112 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 392 | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | false-positive-parser | non |
-| R-113 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 145 | `01-cadrage/notion-sync-payload.json` | optional-project-local-reference | non |
-| R-114 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 146 | `02-architecture/notion-sync-architecture-p1-payload.json` | optional-project-local-reference | non |
-| R-115 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 147 | `02-architecture/notion-sync-architecture-p2-payload.json` | optional-project-local-reference | non |
-| R-116 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 149 | `02-architecture/notion-sync-existing-prompt-library-inventory.json` | optional-project-local-reference | non |
-| R-117 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 27 | `sfia-cycle-routing-guide.md` | false-positive-parser | non |
-| R-118 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 128 | `sfia-chatgpt-cursor-operating-model.md` | false-positive-parser | non |
-| R-119 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 130 | `sfia-rules-and-guardrails.md` | false-positive-parser | non |
-| R-120 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 131 | `sfia-validation-checklist.md` | false-positive-parser | non |
-| R-121 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 168 | `sfia-automation-architecture.md` | false-positive-parser | non |
-| R-122 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 169 | `sfia-prompt-generation-engine.md` | false-positive-parser | non |
-| R-123 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 170 | `sfia-repository-execution-engine.md` | false-positive-parser | non |
-| R-124 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 171 | `sfia-validation-engine.md` | false-positive-parser | non |
-| R-125 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 195 | `2026-07-03-interv360-application-rex.md` | false-positive-parser | non |
+- Références analysées : 17
+- Liens valides : 17
+- Vrais liens cassés : 0
+- Ambiguïtés : 0
+- Anciennes refs Lot D actives : 0
 
 ---
 
-## Rapport exécution E1 (complet corrigé)
+## Table complète 44 fichiers E2
 
-# SFIA v2.6 — Lot E1 Link Fixes — Execution
+| ID | Chemin | Classification | Statut | Liens valides | Real broken |
+|----|--------|----------------|--------|:-------------:|:-----------:|
+| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-003 | `.gitignore` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-005 | `components/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-006 | `docker/penpot/.env.example` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-008 | `docker/penpot/docker-compose.override.example.yml` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-009 | `docs/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-010 | `docs/adr/README.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-013 | `docs/architecture/sfia-domain-model.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-014 | `docs/architecture/sfia-meta-model.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-015 | `docs/architecture/sfia-platform-architecture.md` | no-action | VALIDATED — NO ACTION | 2 | 0 |
+| E-016 | `docs/architecture/sfia-repository-blueprint.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-017 | `docs/foundation/README.md` | historical-keep | VALIDATED — HISTORICAL KEEP | 0 | 0 |
+| E-018 | `docs/foundation/sfia-engineering-principles.md` | no-action | VALIDATED — NO ACTION | 8 | 0 |
+| E-019 | `docs/knowledge/README.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-020 | `docs/practices/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-023 | `docs/practices/architecture/functional-architecture-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-024 | `docs/practices/methods-structure-check.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-028 | `docs/practices/roles/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-029 | `docs/practices/roles/architect-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-030 | `docs/practices/roles/business-analyst-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-031 | `docs/practices/roles/product-owner-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-032 | `docs/practices/roles/project-manager-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-034 | `docs/practices/roles/rssi-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-039 | `docs/rex/README.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-041 | `docs/standards/README.md` | no-action | VALIDATED — NO ACTION | 1 | 0 |
+| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-043 | `docs/templates/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-050 | `exports/notion/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-051 | `exports/notion/adr.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-052 | `exports/notion/components.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-053 | `exports/notion/experiments.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-054 | `exports/notion/export-manifest.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-055 | `exports/notion/knowledge.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-056 | `exports/notion/kpi.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-057 | `exports/notion/projects.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-058 | `exports/notion/prompts.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-059 | `exports/notion/rex.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-060 | `exports/notion/standards.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-061 | `exports/notion/templates.json` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-062 | `method/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-063 | `method/complementary/README.md` | no-action | VALIDATED — NO ACTION | 0 | 0 |
+| E-065 | `method/sfia-fast-track/archive/interv360-realization/README.md` | historical-keep | VALIDATED — HISTORICAL KEEP | 0 | 0 |
 
-**Horodatage initial :** 2026-07-12 20:35 Europe/Paris
-**Horodatage correction analytique :** 2026-07-12 20:45 Europe/Paris
-**Cycle :** Delivery documentaire — Lot E1 (correction analytique résidus)
+---
+
+## Rapport E2 (contenu complet)
+
+# SFIA v2.6 — Lot E2 Validation — Remaining Files
+
+**Horodatage :** 2026-07-12 20:52 Europe/Paris
+**Cycle :** QA / validation documentaire — Lot E2
 **Profil :** Standard
-**Décision Morris :** GO explicite — E1 correctif 31 ; GO correction analytique résidus PR #181
+**Décision Morris :** GO explicite — exécution Lot E2 validation 44 fichiers
 
 ## Identité Git
 
-| Champ | SHA / valeur |
-|-------|--------------|
-| **Base** | `2658502a4526dc2d30a89f3bd3ffacaffc0d7d05` |
-| **HEAD exécution initiale E1** | `af3e3160da52c919bbd554e7709e3de98a761e2a` |
-| **HEAD correction analytique (reclassification)** | `9c31ab6287030556d9336b1cf73d75a5da6d1a89` |
-| **HEAD tip branche PR #181** | Dernier commit sur `delivery/sfia-v2.6-lot-e1-link-fixes` — voir PR #181 `headRefOid` |
-| **Branche** | `delivery/sfia-v2.6-lot-e1-link-fixes` |
-| **PR** | [#181](https://github.com/mcleland147/sfia-workspace/pull/181) — OPEN, non mergée |
+| Champ | Valeur |
+|-------|--------|
+| **Base** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
+| **Branche** | `validation/sfia-v2.6-lot-e2-validation` |
+| **HEAD** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
 | **CSV SHA-256** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged** |
+| **PR #181** | MERGED — Lot E1 intégré à `main` |
 
 ---
 
-## 1. Manifeste E1 (31/31)
+## 1. Manifestes Lot E
 
-Option Morris : **E1 correctif 31** + **E2 validation 44**.
-
-| Contrôle | Résultat |
-|----------|----------|
-| Manifeste exécution | **31/31** |
-| E1a README hubs | **6** |
-| E1b autres fix-links | **25** |
-| Fichiers modifiés (exécution initiale) | **21** |
-| Fichiers sans correction certaine | **10** |
-
----
-
-## 2. Métriques liens — lecture corrigée
-
-| Métrique | Avant E1 | Après 71 corrections | Interprétation corrigée |
-|----------|:--------:|:--------------------:|-------------------------|
-| Détections parseur (31 fichiers) | **196** | **125** détections résiduelles | 196 = détections, pas 196 liens navigables confirmés |
-| Vrais liens corrigés | — | **71** | Chemins repo navigables corrigés mécaniquement |
-| Références résiduelles analysées | — | **125/125** | Reclassifiées — voir §4 |
-| Vrais liens cassés restants | — | **0** | Aucun après reclassification |
-| Anciennes références Lot D | **10** | **0** | **10/10** corrigées |
-| Liens internes valides (31 fichiers) | 290 | 343 | +53 |
-
-**Formulation interdite corrigée :** ne plus écrire « 125 liens cassés résiduels » — écrire « 125 références résiduelles analysées ».
+| Manifeste | Count |
+|-----------|------:|
+| Global Lot E | **75/75** |
+| E1 fix-links (intégré PR #181) | **31/31** |
+| E2 validation (ce cycle) | **44/44** |
+| E2 no-action | **42** |
+| E2 historical-keep | **2** |
+| E1 ∩ E2 | **∅** |
 
 ---
 
-## 3. Typologie des 125 références résiduelles
+## 2. Métriques liens (recalcul post-E1 sur 44 fichiers)
 
-| Catégorie | Count | Gate Morris |
-|-----------|------:|:-----------:|
-| conventional-deliverable-reference | **94** | non |
-| template-or-example-reference | **4** | non |
-| optional-project-local-reference | **8** | non |
-| false-positive-parser | **19** | non |
-| real-broken-link | **0** | — |
-| ambiguous-reference | **0** | — |
-| **Somme** | **125** | |
+| Métrique | Valeur |
+|----------|-------:|
+| Références analysées (parseur) | **17** |
+| Liens Markdown navigables | **0** |
+| Chemins backtick analysés | **17** |
+| Liens internes valides | **17** |
+| Détections parseur « cassées » | **0** |
+| Vrais liens cassés | **0** |
+| Références conventionnelles | **0** |
+| Exemples / templates | **0** |
+| Références projet-locales | **0** |
+| Faux positifs parseur | **0** |
+| Anciennes références Lot D actives | **0** |
+| Ambiguïtés | **0** |
 
----
-
-## 4. Manifeste résiduel complet (125/125)
-
-| ID | Fichier | Ligne | Section | Référence | Syntaxe | Catégorie | Cible repo | Correction | Gate |
-|----|---------|------:|---------|-----------|---------|-----------|:----------:|:----------:|:----:|
-| R-001 | `docker/penpot/README.md` | 13 | 1. Objectif | `docker-compose.yml` | backtick | template-example | non | non | non |
-| R-002 | `docs/practices/architecture/functional-architecture-checklist.md` | 44 | 3. Pendant la production | `functional-architecture-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-003 | `docs/practices/architecture/functional-architecture-checklist.md` | 45 | 3. Pendant la production | `functional-domains.md` | backtick | conv-deliverable | non | non | non |
-| R-004 | `docs/practices/architecture/functional-architecture-checklist.md` | 46 | 3. Pendant la production | `business-objects.md` | backtick | conv-deliverable | non | non | non |
-| R-005 | `docs/practices/architecture/functional-architecture-checklist.md` | 47 | 3. Pendant la production | `status-and-transitions.md` | backtick | conv-deliverable | non | non | non |
-| R-006 | `docs/practices/architecture/functional-architecture-checklist.md` | 49 | 3. Pendant la production | `integration-functional-view.md` | backtick | conv-deliverable | non | non | non |
-| R-007 | `docs/practices/architecture/functional-architecture-checklist.md` | 51 | 3. Pendant la production | `dashboard-and-alerts.md` | backtick | conv-deliverable | non | non | non |
-| R-008 | `docs/practices/architecture/functional-architecture-checklist.md` | 73 | 5. Avant clôture | `functional-architecture-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-009 | `docs/practices/architecture/functional-architecture-checklist.md` | 74 | 5. Avant clôture | `2026-06-28-functional-architecture-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-010 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 32 | 2. Vue d'ensemble des livrables | `functional-architecture-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-011 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 33 | 2. Vue d'ensemble des livrables | `functional-domains.md` | backtick | conv-deliverable | non | non | non |
-| R-012 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 34 | 2. Vue d'ensemble des livrables | `business-objects.md` | backtick | conv-deliverable | non | non | non |
-| R-013 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 35 | 2. Vue d'ensemble des livrables | `status-and-transitions.md` | backtick | conv-deliverable | non | non | non |
-| R-014 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 36 | 2. Vue d'ensemble des livrables | `integration-functional-view.md` | backtick | conv-deliverable | non | non | non |
-| R-015 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 37 | 2. Vue d'ensemble des livrables | `dashboard-and-alerts.md` | backtick | conv-deliverable | non | non | non |
-| R-016 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 38 | 2. Vue d'ensemble des livrables | `functional-architecture-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-017 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 39 | 2. Vue d'ensemble des livrables | `2026-06-28-functional-architecture-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-018 | `docs/practices/process/bpmn-deliverables-standard.md` | 24 | 2. Structure projet standard | `process-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-019 | `docs/practices/process/bpmn-deliverables-standard.md` | 33 | 2. Structure projet standard | `process-analysis.md` | backtick | conv-deliverable | non | non | non |
-| R-020 | `docs/practices/process/bpmn-deliverables-standard.md` | 34 | 2. Structure projet standard | `2026-06-28-process-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-021 | `docs/practices/process/bpmn-integration-checklist.md` | 93 | Interv360 est candidat à BPMN car | `status-mapping.md` | backtick | conv-deliverable | non | non | non |
-| R-022 | `docs/practices/process/bpmn-integration-checklist.md` | 98 | Interv360 est candidat à BPMN car | `2026-06-28-clarification-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-023 | `docs/practices/process/bpmn-process-modeling-method.md` | 153 | 9. Outillage | `process-analysis.md` | backtick | conv-deliverable | non | non | non |
-| R-024 | `docs/practices/roles/qa-tester-method.md` | 9 | Méthode rôle — QA / Testeur | `qa-tester-role-research-and-benchmark.md` | backtick | project-local | non | non | non |
-| R-025 | `docs/practices/roles/qa-tester-method.md` | 9 | Méthode rôle — QA / Testeur | `2026-06-28-qa-tester-role-candidate-framing.md` | backtick | project-local | non | non | non |
-| R-026 | `docs/practices/roles/qa-tester-method.md` | 9 | Méthode rôle — QA / Testeur | `qa-tester-role-candidate-review.md` | backtick | project-local | non | non | non |
-| R-027 | `docs/practices/roles/qa-tester-method.md` | 277 | 12. Usage en phase delivery | `2026-06-28-figma-v1-closure-summary.md` | backtick | project-local | non | non | non |
-| R-028 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 43 | 3. Contrôle état des lieux | `ux-ui-reprise-analysis.md` | backtick | conv-deliverable | non | non | non |
-| R-029 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 56 | 4. Contrôle cadrage | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-030 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 70 | 5. Contrôle parcours | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-| R-031 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 82 | 6. Contrôle écrans | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-| R-032 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 83 | 6. Contrôle écrans | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-| R-033 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 96 | 7. Contrôle dashboard | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-| R-034 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 101 | 7. Contrôle dashboard | `dashboard-and-alerts.md` | backtick | conv-deliverable | non | non | non |
-| R-035 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 108 | 8. Contrôle synthèse | `ux-ui-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-036 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 121 | 9. Contrôle clôture | `2026-06-28-ux-ui-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-037 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 31 | 2. Vue d'ensemble des livrables | `ux-ui-reprise-analysis.md` | backtick | conv-deliverable | non | non | non |
-| R-038 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 32 | 2. Vue d'ensemble des livrables | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-039 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 33 | 2. Vue d'ensemble des livrables | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-| R-040 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 34 | 2. Vue d'ensemble des livrables | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-| R-041 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 35 | 2. Vue d'ensemble des livrables | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-| R-042 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 36 | 2. Vue d'ensemble des livrables | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-| R-043 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 37 | 2. Vue d'ensemble des livrables | `ux-ui-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-044 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 38 | 2. Vue d'ensemble des livrables | `2026-06-28-ux-ui-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-045 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 113 | 5. Livrables standard | `ux-ui-reprise-analysis.md` | backtick | conv-deliverable | non | non | non |
-| R-046 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 114 | 5. Livrables standard | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-047 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 115 | 5. Livrables standard | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-| R-048 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 116 | 5. Livrables standard | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-| R-049 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 117 | 5. Livrables standard | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-| R-050 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 118 | 5. Livrables standard | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-| R-051 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 119 | 5. Livrables standard | `ux-ui-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-052 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 120 | 5. Livrables standard | `2026-06-28-ux-ui-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-053 | `docs/templates/tooling/penpot/README.md` | 22 | Templates prévus (futures PR) | `design-v2-tooling-scope-template.md` | backtick | template-example | non | non | non |
-| R-054 | `docs/templates/tooling/penpot/README.md` | 23 | Templates prévus (futures PR) | `penpot-project-reference-template.md` | backtick | template-example | non | non | non |
-| R-055 | `docs/templates/tooling/penpot/README.md` | 24 | Templates prévus (futures PR) | `penpot-review-checklist-template.md` | backtick | template-example | non | non | non |
-| R-056 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 204 | 4.2 Chemins autorisés (MVP) | `CHANGELOG.md` | backtick | false-positive | non | non | non |
-| R-057 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 224 | 4.3 Chemins protégés (écriture toujours interdite via M | `package-lock.json` | backtick | false-positive | non | non | non |
-| R-058 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 225 | 4.3 Chemins protégés (écriture toujours interdite via M | `.cursor/mcp.json` | backtick | false-positive | non | non | non |
-| R-059 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 28 | 2. Règles impératives | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-| R-060 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 29 | 2. Règles impératives | `status-and-transitions.md` | backtick | conv-deliverable | non | non | non |
-| R-061 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 64 | Inspecter un fichier Penpot | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-| R-062 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 72 | Créer un écran depuis une spec | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-| R-063 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 84 | Préparer une revue | `penpot-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-| R-064 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 55 | 3. Cas d'usage | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-| R-065 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 56 | 3. Cas d'usage | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-| R-066 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 94 | Flux de travail cible | `penpot-project-reference.md` | backtick | conv-deliverable | non | non | non |
-| R-067 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 179 | 9. Convention Git | `design-v2-tooling-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-068 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 181 | 9. Convention Git | `penpot-wireframe-instructions.md` | backtick | conv-deliverable | non | non | non |
-| R-069 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 182 | 9. Convention Git | `penpot-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-| R-070 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 183 | 9. Convention Git | `design-v2-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-071 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 184 | 9. Convention Git | `design-v2-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-| R-072 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | 46 | Documentation officielle (à consulter avant déploiement | `docker-compose.yml` | backtick | false-positive | non | non | non |
-| R-073 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | 53 | Étapes recommandées (hors repo) | `docker-compose.override.example.yml` | backtick | false-positive | non | non | non |
-| R-074 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 34 | 3. Où Penpot intervient | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-| R-075 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 34 | 3. Où Penpot intervient | `penpot-project-reference.md` | backtick | conv-deliverable | non | non | non |
-| R-076 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 35 | 3. Où Penpot intervient | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-| R-077 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 36 | 3. Où Penpot intervient | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-| R-078 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 37 | 3. Où Penpot intervient | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-| R-079 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 38 | 3. Où Penpot intervient | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-| R-080 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 39 | 3. Où Penpot intervient | `penpot-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-| R-081 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 40 | 3. Où Penpot intervient | `design-v2-summary.md` | backtick | conv-deliverable | non | non | non |
-| R-082 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 115 | 7. Liens méthode UX/UI reprise | `ux-ui-reprise-prompt-family.md` | backtick | conv-deliverable | non | non | non |
-| R-083 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | 170 | 9. Projet de référence Interv360 | `current-application-audit.md` | backtick | false-positive | non | non | non |
-| R-084 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-and-delivery-vision.md` | 209 | 10. Repository strategy | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | backtick | false-positive | non | non | non |
-| R-085 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 61 | 4. Place de QA dans le cycle projet | `inc-0n-closure-report.md` | backtick | conv-deliverable | non | non | non |
-| R-086 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 111 | 8. Artefacts attendus par incrément delivery | `qa-strategy.md` | backtick | conv-deliverable | non | non | non |
-| R-087 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 112 | 8. Artefacts attendus par incrément delivery | `test-scenarios.md` | backtick | conv-deliverable | non | non | non |
-| R-088 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 113 | 8. Artefacts attendus par incrément delivery | `2026-07-06-qa-implementation-report.md` | backtick | conv-deliverable | non | non | non |
-| R-089 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 114 | 8. Artefacts attendus par incrément delivery | `2026-07-06-qa-execution-report.md` | backtick | conv-deliverable | non | non | non |
-| R-090 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 115 | 8. Artefacts attendus par incrément delivery | `qa-reserves.md` | backtick | conv-deliverable | non | non | non |
-| R-091 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 116 | 8. Artefacts attendus par incrément delivery | `2026-07-06-qa-readiness.md` | backtick | conv-deliverable | non | non | non |
-| R-092 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 221 | 14. Articulation avec acceptance criteria | `acceptance-criteria.md` | backtick | conv-deliverable | non | non | non |
-| R-093 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 222 | 14. Articulation avec acceptance criteria | `user-stories.md` | backtick | conv-deliverable | non | non | non |
-| R-094 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 223 | 14. Articulation avec acceptance criteria | `delivery-increments.md` | backtick | conv-deliverable | non | non | non |
-| R-095 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 66 | 4.2 Dans Git (source de vérité méthodologique) | `figma-brief.md` | backtick | conv-deliverable | non | non | non |
-| R-096 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 67 | 4.2 Dans Git (source de vérité méthodologique) | `screen-design-spec.md` | backtick | conv-deliverable | non | non | non |
-| R-097 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 68 | 4.2 Dans Git (source de vérité méthodologique) | `figma-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-| R-098 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 69 | 4.2 Dans Git (source de vérité méthodologique) | `2026-07-06-design-decisions.md` | backtick | conv-deliverable | non | non | non |
-| R-099 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 70 | 4.2 Dans Git (source de vérité méthodologique) | `design-to-backlog-alignment.md` | backtick | conv-deliverable | non | non | non |
-| R-100 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 66 | 5. Conditions d'entrée | `figma-reference.md` | backtick | conv-deliverable | non | non | non |
-| R-101 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 68 | 5. Conditions d'entrée | `frontend-architecture.md` | backtick | conv-deliverable | non | non | non |
-| R-102 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 95 | 7. Périmètre autorisé d'un spike | `package.json` | backtick | false-positive | non | non | non |
-| R-103 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 122 | 9.1 Références design (existantes — non recréées dans l | `04-design/figma-brief.md` | backtick | conv-deliverable | non | non | non |
-| R-104 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 122 | 9.1 Références design (existantes — non recréées dans l | `screen-design-spec.md` | backtick | conv-deliverable | non | non | non |
-| R-105 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 126 | 9.2 Implémentation spike | `spike-overview.md` | backtick | conv-deliverable | non | non | non |
-| R-106 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 143 | 9.3 Documentation spike | `2026-07-06-visual-comparison-report.md` | backtick | conv-deliverable | non | non | non |
-| R-107 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 144 | 9.3 Documentation spike | `2026-07-06-spike-decisions.md` | backtick | conv-deliverable | non | non | non |
-| R-108 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 145 | 9.3 Documentation spike | `2026-07-06-spike-readiness.md` | backtick | conv-deliverable | non | non | non |
-| R-109 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 95 | 5. Minimal project structure | `00-framing/2026-07-07-project-framing.md` | backtick | conv-deliverable | non | non | non |
-| R-110 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 89 | 5. Minimal project structure | `2026-07-07-project-framing.md` | backtick | conv-deliverable | non | non | non |
-| R-111 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 390 | Decision (provisional) | `sfia-rules-and-guardrails.md` | backtick | false-positive | non | non | non |
-| R-112 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 392 | Decision (provisional) | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | backtick | false-positive | non | non | non |
-| R-113 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 145 | 5.5 Payloads notion-sync Interv360 | `01-cadrage/notion-sync-payload.json` | backtick | project-local | non | non | non |
-| R-114 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 146 | 5.5 Payloads notion-sync Interv360 | `02-architecture/notion-sync-architecture-p1-payload.json` | backtick | project-local | non | non | non |
-| R-115 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 147 | 5.5 Payloads notion-sync Interv360 | `02-architecture/notion-sync-architecture-p2-payload.json` | backtick | project-local | non | non | non |
-| R-116 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 149 | 5.5 Payloads notion-sync Interv360 | `02-architecture/notion-sync-existing-prompt-library-inventory.json` | backtick | project-local | non | non | non |
-| R-117 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 27 | 1. Objectif | `sfia-cycle-routing-guide.md` | backtick | false-positive | non | non | non |
-| R-118 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 128 | 4.2 Démarrer avec SFIA | `sfia-chatgpt-cursor-operating-model.md` | backtick | false-positive | non | non | non |
-| R-119 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 130 | 4.2 Démarrer avec SFIA | `sfia-rules-and-guardrails.md` | backtick | false-positive | non | non | non |
-| R-120 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 131 | 4.2 Démarrer avec SFIA | `sfia-validation-checklist.md` | backtick | false-positive | non | non | non |
-| R-121 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 168 | 4.5 Automation & Execution | `sfia-automation-architecture.md` | backtick | false-positive | non | non | non |
-| R-122 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 169 | 4.5 Automation & Execution | `sfia-prompt-generation-engine.md` | backtick | false-positive | non | non | non |
-| R-123 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 170 | 4.5 Automation & Execution | `sfia-repository-execution-engine.md` | backtick | false-positive | non | non | non |
-| R-124 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 171 | 4.5 Automation & Execution | `sfia-validation-engine.md` | backtick | false-positive | non | non | non |
-| R-125 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 195 | 4.7 Projets & Capitalisation | `2026-07-03-interv360-application-rex.md` | backtick | false-positive | non | non | non |
+**Note :** les 44 fichiers E2 sont majoritairement des hubs README, fichiers config/example (`.json`, `.yml`, `.gitignore`) ou documents sans liens internes sortants. Les **17** références backtick détectées résolvent toutes vers des cibles Git valides.
 
 ---
 
-## 5. Corrections certaines appliquées (71)
+## 3. Liste complète E2 (44/44)
 
-Exécution initiale @ HEAD `af3e316` — **10** Lot D + **61** chemins + **3** profondeurs Markdown relatives.
-
-### Lot D (10/10)
-- `docs/architecture/README.md` : `sfia-decision-engine.md` → `2026-06-27-sfia-decision-engine.md`
-- `docs/practices/process/bpmn-deliverables-standard.md` : `bpmn-method-integration-audit.md` → `2026-06-28-bpmn-method-integration-audit.md`
-- `docs/practices/process/bpmn-integration-checklist.md` : `bpmn-method-integration-audit.md` → `2026-06-28-bpmn-method-integration-audit.md`
-- `docs/practices/process/bpmn-process-modeling-method.md` : `bpmn-method-integration-audit.md` → `2026-06-28-bpmn-method-integration-audit.md`
-- `method/complementary/controlled-delivery/README.md` : `delivery-acceleration-level-3-rex.md` → `2026-07-01-delivery-acceleration-level-3-rex.md`
-- `method/complementary/controlled-delivery/README.md` : `./delivery-acceleration-level-3-rex.md` → `2026-07-01-delivery-acceleration-level-3-rex.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` : `sfia-v2-incremental-delivery-closure-standard.md` → `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` : `sfia-v2-incremental-delivery-closure-standard.md` → `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` : `sfia-v2-pilot-selection-decision.md` → `2026-07-05-sfia-v2-pilot-selection-decision.md`
-
-### Profondeurs Markdown (3)
-
-- `.cursor/mcp-templates/README.md` : `../docs/tooling/penpot/` → `../../docs/tooling/penpot/`
-- `docker/penpot/README.md` : `../.cursor/` → `../../.cursor/`
-- `docs/templates/tooling/penpot/README.md` : `../../tooling/penpot/` → `../../../tooling/penpot/`
+| ID | Chemin | Classification | Usage | Authority | Lifecycle | Rôle | Statut validation |
+|----|--------|----------------|-------|-----------|-----------|------|-------------------|
+| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-003 | `.gitignore` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-005 | `components/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-006 | `docker/penpot/.env.example` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-008 | `docker/penpot/docker-compose.override.example.yml` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-009 | `docs/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-010 | `docs/adr/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-013 | `docs/architecture/sfia-domain-model.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
+| E-014 | `docs/architecture/sfia-meta-model.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
+| E-015 | `docs/architecture/sfia-platform-architecture.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
+| E-016 | `docs/architecture/sfia-repository-blueprint.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
+| E-017 | `docs/foundation/README.md` | historical-keep | non-operational | reference | archived | F13 | **VALIDATED — HISTORICAL KEEP** |
+| E-018 | `docs/foundation/sfia-engineering-principles.md` | no-action | operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
+| E-019 | `docs/knowledge/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-020 | `docs/practices/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-023 | `docs/practices/architecture/functional-architecture-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-024 | `docs/practices/methods-structure-check.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-028 | `docs/practices/roles/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-029 | `docs/practices/roles/architect-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-030 | `docs/practices/roles/business-analyst-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-031 | `docs/practices/roles/product-owner-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-032 | `docs/practices/roles/project-manager-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-034 | `docs/practices/roles/rssi-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-039 | `docs/rex/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
+| E-041 | `docs/standards/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
+| E-043 | `docs/templates/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-050 | `exports/notion/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-051 | `exports/notion/adr.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-052 | `exports/notion/components.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-053 | `exports/notion/experiments.json` | no-action | operational | informational | validated | F17 | **VALIDATED — NO ACTION** |
+| E-054 | `exports/notion/export-manifest.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-055 | `exports/notion/knowledge.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-056 | `exports/notion/kpi.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-057 | `exports/notion/projects.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-058 | `exports/notion/prompts.json` | no-action | non-operational | informational | validated | F17 | **VALIDATED — NO ACTION** |
+| E-059 | `exports/notion/rex.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-060 | `exports/notion/standards.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-061 | `exports/notion/templates.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
+| E-062 | `method/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-063 | `method/complementary/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
+| E-065 | `method/sfia-fast-track/archive/interv360-realization/README.md` | historical-keep | non-operational | reference | archived | F13 | **VALIDATED — HISTORICAL KEEP** |
 
 ---
 
-## 6. Gates Morris
+## 4. Validation individuelle — no-action (42/42)
 
-- **Aucune gate** pour conventional / template / project-local / false-positive (121 références).
-- **Aucune gate** pour real-broken-link ou ambiguous-reference — **0** cas restants.
-- E1 considéré **fonctionnellement complet** pour les liens navigables repo.
+Chaque fichier `no-action` a été vérifié read-only sur `main` post-merge E1 :
+
+- existence Git confirmée ;
+- liens Markdown et backtick navigables valides (0 cassé réel) ;
+- aucune ancienne référence Lot D stale active ;
+- classification `no-action` confirmée — aucune modification requise.
+
+| ID | Chemin | Liens valides | Parser broken | Real broken | Old D |
+|----|--------|:-------------:|:-------------:|:-----------:|:-----:|
+| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | 0 | 0 | 0 | 0 |
+| E-003 | `.gitignore` | 0 | 0 | 0 | 0 |
+| E-005 | `components/README.md` | 0 | 0 | 0 | 0 |
+| E-006 | `docker/penpot/.env.example` | 0 | 0 | 0 | 0 |
+| E-008 | `docker/penpot/docker-compose.override.example.yml` | 0 | 0 | 0 | 0 |
+| E-009 | `docs/README.md` | 0 | 0 | 0 | 0 |
+| E-010 | `docs/adr/README.md` | 1 | 0 | 0 | 0 |
+| E-013 | `docs/architecture/sfia-domain-model.md` | 0 | 0 | 0 | 0 |
+| E-014 | `docs/architecture/sfia-meta-model.md` | 0 | 0 | 0 | 0 |
+| E-015 | `docs/architecture/sfia-platform-architecture.md` | 2 | 0 | 0 | 0 |
+| E-016 | `docs/architecture/sfia-repository-blueprint.md` | 1 | 0 | 0 | 0 |
+| E-018 | `docs/foundation/sfia-engineering-principles.md` | 8 | 0 | 0 | 0 |
+| E-019 | `docs/knowledge/README.md` | 1 | 0 | 0 | 0 |
+| E-020 | `docs/practices/README.md` | 0 | 0 | 0 | 0 |
+| E-023 | `docs/practices/architecture/functional-architecture-method.md` | 0 | 0 | 0 | 0 |
+| E-024 | `docs/practices/methods-structure-check.md` | 1 | 0 | 0 | 0 |
+| E-028 | `docs/practices/roles/README.md` | 0 | 0 | 0 | 0 |
+| E-029 | `docs/practices/roles/architect-method.md` | 0 | 0 | 0 | 0 |
+| E-030 | `docs/practices/roles/business-analyst-method.md` | 0 | 0 | 0 | 0 |
+| E-031 | `docs/practices/roles/product-owner-method.md` | 0 | 0 | 0 | 0 |
+| E-032 | `docs/practices/roles/project-manager-method.md` | 0 | 0 | 0 | 0 |
+| E-034 | `docs/practices/roles/rssi-method.md` | 0 | 0 | 0 | 0 |
+| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | 0 | 0 | 0 | 0 |
+| E-039 | `docs/rex/README.md` | 1 | 0 | 0 | 0 |
+| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | 1 | 0 | 0 | 0 |
+| E-041 | `docs/standards/README.md` | 1 | 0 | 0 | 0 |
+| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | 0 | 0 | 0 | 0 |
+| E-043 | `docs/templates/README.md` | 0 | 0 | 0 | 0 |
+| E-050 | `exports/notion/README.md` | 0 | 0 | 0 | 0 |
+| E-051 | `exports/notion/adr.json` | 0 | 0 | 0 | 0 |
+| E-052 | `exports/notion/components.json` | 0 | 0 | 0 | 0 |
+| E-053 | `exports/notion/experiments.json` | 0 | 0 | 0 | 0 |
+| E-054 | `exports/notion/export-manifest.json` | 0 | 0 | 0 | 0 |
+| E-055 | `exports/notion/knowledge.json` | 0 | 0 | 0 | 0 |
+| E-056 | `exports/notion/kpi.json` | 0 | 0 | 0 | 0 |
+| E-057 | `exports/notion/projects.json` | 0 | 0 | 0 | 0 |
+| E-058 | `exports/notion/prompts.json` | 0 | 0 | 0 | 0 |
+| E-059 | `exports/notion/rex.json` | 0 | 0 | 0 | 0 |
+| E-060 | `exports/notion/standards.json` | 0 | 0 | 0 | 0 |
+| E-061 | `exports/notion/templates.json` | 0 | 0 | 0 | 0 |
+| E-062 | `method/README.md` | 0 | 0 | 0 | 0 |
+| E-063 | `method/complementary/README.md` | 0 | 0 | 0 | 0 |
+
+**Résultat no-action :** **42/42** → `VALIDATED — NO ACTION`
+
+---
+
+## 5. Validation historical-keep (2/2)
+
+### E-017 — `docs/foundation/README.md`
+
+| Champ | Détail |
+|-------|--------|
+| Classification | historical-keep |
+| Lifecycle CSV | archived |
+| Référence historique | Mention textuelle **KNO-001 — SFIA Engineering Principles** (Notion legacy) |
+| Présentation | Hub foundation archivé — pas de lien navigable cassé |
+| Intention | Préservation navigation historique foundation pré-v2.6 |
+| Cible opérationnelle | Non — `docs/foundation/` hors référence active |
+| Correction requise | Non |
+| Statut | **VALIDATED — HISTORICAL KEEP** |
+
+### E-065 — `method/sfia-fast-track/archive/interv360-realization/README.md`
+
+| Champ | Détail |
+|-------|--------|
+| Classification | historical-keep |
+| Lifecycle CSV | archived |
+| Référence historique | Index archive Interv360 Realization |
+| Présentation | Avertissement explicite : documents conservés pour mémoire, non référence active |
+| Intention | Préservation traçabilité réalisation Interv360 pré-stabilisation SFIA Fast Track |
+| Cible opérationnelle | Non — zone archive read-only |
+| Correction requise | Non |
+| Statut | **VALIDATED — HISTORICAL KEEP** |
+
+**Résultat historical-keep :** **2/2** → `VALIDATED — HISTORICAL KEEP`
+
+---
+
+## 6. Fichiers nécessitant correction
+
+**Aucun.** Corpus E2 inchangé (0 modification).
 
 ---
 
@@ -396,46 +288,64 @@ Exécution initiale @ HEAD `af3e316` — **10** Lot D + **61** chemins + **3** p
 
 | Contrôle | Résultat |
 |----------|----------|
-| Corpus E1 modifié (correction analytique) | **0** — rapport + plan uniquement |
-| Fichiers E2 modifiés | **0** |
+| Corpus E2 modifié | **0** |
+| Corpus E1 modifié | **0** |
 | CSV in diff | **no** |
 | Doctrine / canonical | **unchanged** |
 | Lots F–J | **not opened** |
 
 ---
 
-## 8. Décisions Morris restantes
+## 8. Limites
 
-1. Merge PR #181 — GO séparé
-2. Lot E2 — validation 44 fichiers (non démarré)
+- Parse Markdown uniquement — fichiers JSON example sans liens markdown audités en surface
+- Liens externes http(s) non vérifiés en ligne
+- Glob patterns ignorés
 
 ---
 
-## 9. Verdict
+## 9. Réserves
+
+- Lot E non clos tant que cette PR E2 n'est pas mergée et validée post-merge
+- Clôture définitive Lot E = merge PR E2 + contrôle post-merge
+
+---
+
+## 10. Décisions Morris restantes
+
+1. Merge PR E2 validation — GO séparé
+2. Clôture Lot E — après merge E2 et contrôle post-merge
+
+---
+
+## 11. Verdict
 
 ```
-LOT E1 RESIDUAL REFERENCES RECLASSIFIED
+LOT E2 VALIDATION COMPLETED
+LOT E GLOBAL MANIFEST VERIFIED 75/75
 LOT E1 MANIFEST VERIFIED 31/31
-CERTAIN LINK FIXES VALIDATED 71
-RESIDUAL REFERENCES ANALYZED 125/125
+LOT E2 MANIFEST VERIFIED 44/44
+NO-ACTION FILES VALIDATED 42/42
+HISTORICAL-KEEP FILES VALIDATED 2/2
+ALL 44 FILES INDIVIDUALLY REVIEWED
 NO REAL BROKEN LINKS REMAIN
 NO AMBIGUOUS REFERENCES REMAIN
-CONVENTIONAL REFERENCES QUALIFIED 94
-TEMPLATE AND EXAMPLE REFERENCES QUALIFIED 4
-PROJECT-LOCAL REFERENCES QUALIFIED 8
-FALSE POSITIVES QUALIFIED 19
-VERSIONED REPORT HEAD CORRECTED
-LOT E1 FUNCTIONALLY COMPLETE FOR NAVIGABLE LINKS
+NO RECLASSIFICATION REQUIRED
 LOT E2 CORPUS UNCHANGED
+LOT E1 CORPUS UNCHANGED
 CSV UNCHANGED
-PR #181 OPEN — NOT MERGED
+NO DOCTRINE CHANGE
+CANONICAL AUTHORITY UNCHANGED
+LOTS F–J NOT OPENED
+PR OPEN — NOT MERGED
+LOT E NOT CLOSED BEFORE MERGE
 MERGE REQUIRES SEPARATE MORRIS GO
 ```
 
 
 ---
 
-## Plan migration — section Lot E
+## Plan Lot E (section modifiée)
 
 ## 8. Lot E — Contrôles globaux
 
@@ -452,7 +362,7 @@ MERGE REQUIRES SEPARATE MORRIS GO
 | **Chevauchement path Lot I** | **5** — link-only Lot E |
 | **Liens cassés qualifiés (pré-E1)** | **196** internes / **10** anciens chemins Lot D |
 | **Option Morris retenue** | **E1 correctif 31** + **E2 validation 44** |
-| **E1 exécution** | **completed on branch** `delivery/sfia-v2.6-lot-e1-link-fixes` — **PR ouverte, non mergée** |
+| **E1 exécution** | **merged via PR #181** (`f279d85217129b515f1d3caf6c8ce6492a75e123`) — intégré à `main` |
 | **E1 manifeste** | **31/31** |
 | **Rapport exécution E1** | `2026-07-12-sfia-v2.6-lot-e1-link-fixes-execution.md` |
 | **E1 liens corrigés (certains)** | **71** |
@@ -464,296 +374,262 @@ MERGE REQUIRES SEPARATE MORRIS GO
 | **E1 real-broken-link restants** | **0** |
 | **E1 ambiguous-reference restants** | **0** |
 | **E1 Lot D corrigés** | **10/10** |
-| **E2 statut** | **not started** (42 no-action + 2 historical-keep) |
-| **Statut exécution Lot E** | **E1 functionally complete — not closed** |
-| **Next gate** | PR #181 readiness + merge E1 — GO Morris séparé ; puis E2 |
-
-
+| **E2 statut** | **validation completed on branch** `validation/sfia-v2.6-lot-e2-validation` — **PR ouverte, non mergée** |
+| **E2 manifeste** | **44/44** — no-action **42** ; historical-keep **2** |
+| **Rapport validation E2** | `2026-07-12-sfia-v2.6-lot-e2-validation.md` |
+| **E2 no-action validés** | **42/42** |
+| **E2 historical-keep validés** | **2/2** |
+| **E2 vrais liens cassés** | **0** |
+| **E2 ambiguïtés** | **0** |
+| **Statut exécution Lot E** | **E1 merged + E2 validated on branch — not closed** |
+| **Next gate** | PR E2 readiness + merge — GO Morris séparé ; clôture Lot E post-merge |
 
 ---
 
-## Diff utile (rapport + plan)
+## Diff utile complet
 
 ```diff
 diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-index 82cfbb1..8987a53 100644
+index 8987a53..fe2626c 100644
 --- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
 +++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-@@ -200,19 +200,30 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
- |-------|---------|
- | **Volume tag CSV** | **75** |
- | **Rôle** | README/index résiduels post-lots de chemins |
--| **Qualification** | **completed on branch** `qualification/sfia-v2.6-lot-e-global-controls` — **PR ouverte, non mergée** |
-+| **Qualification** | **merged via PR #180** (`2658502a4526dc2d30a89f3bd3ffacaffc0d7d05`) |
- | **Manifeste** | **75/75** vérifié — CSV frozen inchangé |
- | **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-e-global-controls-qualification.md` |
- | **Classifications** | no-action **42** ; fix-links **31** ; historical-keep **2** ; refresh-index **0** ; route-lot-g/h/i **0** ; investigate **0** ; morris-gate **0** |
- | **Usage (CSV)** | operational **19** ; non-operational **56** |
- | **Authority (CSV)** | reference **20** ; informational **35** ; supporting **20** |
+@@ -209,7 +209,7 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
  | **Chevauchement path Lot I** | **5** — link-only Lot E |
--| **Liens cassés qualifiés** | **196** internes / **10** anciens chemins Lot D |
--| **Sous-lots proposés disjoints (non approuvés)** | **E1a** README hubs (**6**) ; **E1b** autres fix-links (**25**) ; E1a+E1b=**31** |
--| **historical-keep** | **2** — hors exécution corrective |
--| **Options exécution** | **A** PR E1 unique (31) ; **B** E1a (6) puis E1b (25) — décision Morris requise |
--| **Statut exécution** | **not started** |
--| **Next gate** | Lot E qualification merge + Morris validation E1a/E1b (or E1 unified) — separate GO required |
-+| **Liens cassés qualifiés (pré-E1)** | **196** internes / **10** anciens chemins Lot D |
-+| **Option Morris retenue** | **E1 correctif 31** + **E2 validation 44** |
-+| **E1 exécution** | **completed on branch** `delivery/sfia-v2.6-lot-e1-link-fixes` — **PR ouverte, non mergée** |
-+| **E1 manifeste** | **31/31** |
-+| **Rapport exécution E1** | `2026-07-12-sfia-v2.6-lot-e1-link-fixes-execution.md` |
-+| **E1 liens corrigés (certains)** | **71** |
-+| **E1 références résiduelles analysées** | **125/125** reclassifiées |
-+| **E1 conventional-deliverable-reference** | **94** |
-+| **E1 template-or-example-reference** | **4** |
-+| **E1 optional-project-local-reference** | **8** |
-+| **E1 false-positive-parser** | **19** |
-+| **E1 real-broken-link restants** | **0** |
-+| **E1 ambiguous-reference restants** | **0** |
-+| **E1 Lot D corrigés** | **10/10** |
-+| **E2 statut** | **not started** (42 no-action + 2 historical-keep) |
-+| **Statut exécution Lot E** | **E1 functionally complete — not closed** |
-+| **Next gate** | PR #181 readiness + merge E1 — GO Morris séparé ; puis E2 |
+ | **Liens cassés qualifiés (pré-E1)** | **196** internes / **10** anciens chemins Lot D |
+ | **Option Morris retenue** | **E1 correctif 31** + **E2 validation 44** |
+-| **E1 exécution** | **completed on branch** `delivery/sfia-v2.6-lot-e1-link-fixes` — **PR ouverte, non mergée** |
++| **E1 exécution** | **merged via PR #181** (`f279d85217129b515f1d3caf6c8ce6492a75e123`) — intégré à `main` |
+ | **E1 manifeste** | **31/31** |
+ | **Rapport exécution E1** | `2026-07-12-sfia-v2.6-lot-e1-link-fixes-execution.md` |
+ | **E1 liens corrigés (certains)** | **71** |
+@@ -221,9 +221,15 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
+ | **E1 real-broken-link restants** | **0** |
+ | **E1 ambiguous-reference restants** | **0** |
+ | **E1 Lot D corrigés** | **10/10** |
+-| **E2 statut** | **not started** (42 no-action + 2 historical-keep) |
+-| **Statut exécution Lot E** | **E1 functionally complete — not closed** |
+-| **Next gate** | PR #181 readiness + merge E1 — GO Morris séparé ; puis E2 |
++| **E2 statut** | **validation completed on branch** `validation/sfia-v2.6-lot-e2-validation` — **PR ouverte, non mergée** |
++| **E2 manifeste** | **44/44** — no-action **42** ; historical-keep **2** |
++| **Rapport validation E2** | `2026-07-12-sfia-v2.6-lot-e2-validation.md` |
++| **E2 no-action validés** | **42/42** |
++| **E2 historical-keep validés** | **2/2** |
++| **E2 vrais liens cassés** | **0** |
++| **E2 ambiguïtés** | **0** |
++| **Statut exécution Lot E** | **E1 merged + E2 validated on branch — not closed** |
++| **Next gate** | PR E2 readiness + merge — GO Morris séparé ; clôture Lot E post-merge |
  
  ## 9. Lot F — Doublons / superseded
  
-@@ -384,4 +395,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
+@@ -395,4 +401,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
  
  ---
  
--*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E qualification completed on branch — PR open** — **Lots F–J not opened**.*
-+*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E qualification merged (PR #180)** — **Lot E1 execution completed on branch — PR open** — **Lot E2 not started** — **Lot E not closed** — **Lots F–J not opened**.*
-diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e1-link-fixes-execution.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e1-link-fixes-execution.md
+-*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E qualification merged (PR #180)** — **Lot E1 execution completed on branch — PR open** — **Lot E2 not started** — **Lot E not closed** — **Lots F–J not opened**.*
++*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E qualification merged (PR #180)** — **Lot E1 merged (PR #181)** — **Lot E2 validation completed on branch — PR open** — **Lot E not closed** — **Lots F–J not opened**.*
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md
 new file mode 100644
-index 0000000..ed06891
+index 0000000..cd5b205
 --- /dev/null
-+++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e1-link-fixes-execution.md
-@@ -0,0 +1,267 @@
-+# SFIA v2.6 — Lot E1 Link Fixes — Execution
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md
+@@ -0,0 +1,257 @@
++# SFIA v2.6 — Lot E2 Validation — Remaining Files
 +
-+**Horodatage initial :** 2026-07-12 20:35 Europe/Paris
-+**Horodatage correction analytique :** 2026-07-12 20:45 Europe/Paris
-+**Cycle :** Delivery documentaire — Lot E1 (correction analytique résidus)
++**Horodatage :** 2026-07-12 20:52 Europe/Paris
++**Cycle :** QA / validation documentaire — Lot E2
 +**Profil :** Standard
-+**Décision Morris :** GO explicite — E1 correctif 31 ; GO correction analytique résidus PR #181
++**Décision Morris :** GO explicite — exécution Lot E2 validation 44 fichiers
 +
 +## Identité Git
 +
-+| Champ | SHA / valeur |
-+|-------|--------------|
-+| **Base** | `2658502a4526dc2d30a89f3bd3ffacaffc0d7d05` |
-+| **HEAD exécution initiale E1** | `af3e3160da52c919bbd554e7709e3de98a761e2a` |
-+| **HEAD correction analytique (reclassification)** | `9c31ab6287030556d9336b1cf73d75a5da6d1a89` |
-+| **HEAD tip branche PR #181** | Dernier commit sur `delivery/sfia-v2.6-lot-e1-link-fixes` — voir PR #181 `headRefOid` |
-+| **Branche** | `delivery/sfia-v2.6-lot-e1-link-fixes` |
-+| **PR** | [#181](https://github.com/mcleland147/sfia-workspace/pull/181) — OPEN, non mergée |
++| Champ | Valeur |
++|-------|--------|
++| **Base** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
++| **Branche** | `validation/sfia-v2.6-lot-e2-validation` |
++| **HEAD** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
 +| **CSV SHA-256** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged** |
++| **PR #181** | MERGED — Lot E1 intégré à `main` |
 +
 +---
 +
-+## 1. Manifeste E1 (31/31)
++## 1. Manifestes Lot E
 +
-+Option Morris : **E1 correctif 31** + **E2 validation 44**.
-+
-+| Contrôle | Résultat |
-+|----------|----------|
-+| Manifeste exécution | **31/31** |
-+| E1a README hubs | **6** |
-+| E1b autres fix-links | **25** |
-+| Fichiers modifiés (exécution initiale) | **21** |
-+| Fichiers sans correction certaine | **10** |
-+
-+---
-+
-+## 2. Métriques liens — lecture corrigée
-+
-+| Métrique | Avant E1 | Après 71 corrections | Interprétation corrigée |
-+|----------|:--------:|:--------------------:|-------------------------|
-+| Détections parseur (31 fichiers) | **196** | **125** détections résiduelles | 196 = détections, pas 196 liens navigables confirmés |
-+| Vrais liens corrigés | — | **71** | Chemins repo navigables corrigés mécaniquement |
-+| Références résiduelles analysées | — | **125/125** | Reclassifiées — voir §4 |
-+| Vrais liens cassés restants | — | **0** | Aucun après reclassification |
-+| Anciennes références Lot D | **10** | **0** | **10/10** corrigées |
-+| Liens internes valides (31 fichiers) | 290 | 343 | +53 |
-+
-+**Formulation interdite corrigée :** ne plus écrire « 125 liens cassés résiduels » — écrire « 125 références résiduelles analysées ».
++| Manifeste | Count |
++|-----------|------:|
++| Global Lot E | **75/75** |
++| E1 fix-links (intégré PR #181) | **31/31** |
++| E2 validation (ce cycle) | **44/44** |
++| E2 no-action | **42** |
++| E2 historical-keep | **2** |
++| E1 ∩ E2 | **∅** |
 +
 +---
 +
-+## 3. Typologie des 125 références résiduelles
++## 2. Métriques liens (recalcul post-E1 sur 44 fichiers)
 +
-+| Catégorie | Count | Gate Morris |
-+|-----------|------:|:-----------:|
-+| conventional-deliverable-reference | **94** | non |
-+| template-or-example-reference | **4** | non |
-+| optional-project-local-reference | **8** | non |
-+| false-positive-parser | **19** | non |
-+| real-broken-link | **0** | — |
-+| ambiguous-reference | **0** | — |
-+| **Somme** | **125** | |
++| Métrique | Valeur |
++|----------|-------:|
++| Références analysées (parseur) | **17** |
++| Liens Markdown navigables | **0** |
++| Chemins backtick analysés | **17** |
++| Liens internes valides | **17** |
++| Détections parseur « cassées » | **0** |
++| Vrais liens cassés | **0** |
++| Références conventionnelles | **0** |
++| Exemples / templates | **0** |
++| Références projet-locales | **0** |
++| Faux positifs parseur | **0** |
++| Anciennes références Lot D actives | **0** |
++| Ambiguïtés | **0** |
 +
-+---
-+
-+## 4. Manifeste résiduel complet (125/125)
-+
-+| ID | Fichier | Ligne | Section | Référence | Syntaxe | Catégorie | Cible repo | Correction | Gate |
-+|----|---------|------:|---------|-----------|---------|-----------|:----------:|:----------:|:----:|
-+| R-001 | `docker/penpot/README.md` | 13 | 1. Objectif | `docker-compose.yml` | backtick | template-example | non | non | non |
-+| R-002 | `docs/practices/architecture/functional-architecture-checklist.md` | 44 | 3. Pendant la production | `functional-architecture-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-003 | `docs/practices/architecture/functional-architecture-checklist.md` | 45 | 3. Pendant la production | `functional-domains.md` | backtick | conv-deliverable | non | non | non |
-+| R-004 | `docs/practices/architecture/functional-architecture-checklist.md` | 46 | 3. Pendant la production | `business-objects.md` | backtick | conv-deliverable | non | non | non |
-+| R-005 | `docs/practices/architecture/functional-architecture-checklist.md` | 47 | 3. Pendant la production | `status-and-transitions.md` | backtick | conv-deliverable | non | non | non |
-+| R-006 | `docs/practices/architecture/functional-architecture-checklist.md` | 49 | 3. Pendant la production | `integration-functional-view.md` | backtick | conv-deliverable | non | non | non |
-+| R-007 | `docs/practices/architecture/functional-architecture-checklist.md` | 51 | 3. Pendant la production | `dashboard-and-alerts.md` | backtick | conv-deliverable | non | non | non |
-+| R-008 | `docs/practices/architecture/functional-architecture-checklist.md` | 73 | 5. Avant clôture | `functional-architecture-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-009 | `docs/practices/architecture/functional-architecture-checklist.md` | 74 | 5. Avant clôture | `2026-06-28-functional-architecture-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-010 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 32 | 2. Vue d'ensemble des livrables | `functional-architecture-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-011 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 33 | 2. Vue d'ensemble des livrables | `functional-domains.md` | backtick | conv-deliverable | non | non | non |
-+| R-012 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 34 | 2. Vue d'ensemble des livrables | `business-objects.md` | backtick | conv-deliverable | non | non | non |
-+| R-013 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 35 | 2. Vue d'ensemble des livrables | `status-and-transitions.md` | backtick | conv-deliverable | non | non | non |
-+| R-014 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 36 | 2. Vue d'ensemble des livrables | `integration-functional-view.md` | backtick | conv-deliverable | non | non | non |
-+| R-015 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 37 | 2. Vue d'ensemble des livrables | `dashboard-and-alerts.md` | backtick | conv-deliverable | non | non | non |
-+| R-016 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 38 | 2. Vue d'ensemble des livrables | `functional-architecture-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-017 | `docs/practices/architecture/functional-architecture-deliverables-standard.md` | 39 | 2. Vue d'ensemble des livrables | `2026-06-28-functional-architecture-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-018 | `docs/practices/process/bpmn-deliverables-standard.md` | 24 | 2. Structure projet standard | `process-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-019 | `docs/practices/process/bpmn-deliverables-standard.md` | 33 | 2. Structure projet standard | `process-analysis.md` | backtick | conv-deliverable | non | non | non |
-+| R-020 | `docs/practices/process/bpmn-deliverables-standard.md` | 34 | 2. Structure projet standard | `2026-06-28-process-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-021 | `docs/practices/process/bpmn-integration-checklist.md` | 93 | Interv360 est candidat à BPMN car | `status-mapping.md` | backtick | conv-deliverable | non | non | non |
-+| R-022 | `docs/practices/process/bpmn-integration-checklist.md` | 98 | Interv360 est candidat à BPMN car | `2026-06-28-clarification-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-023 | `docs/practices/process/bpmn-process-modeling-method.md` | 153 | 9. Outillage | `process-analysis.md` | backtick | conv-deliverable | non | non | non |
-+| R-024 | `docs/practices/roles/qa-tester-method.md` | 9 | Méthode rôle — QA / Testeur | `qa-tester-role-research-and-benchmark.md` | backtick | project-local | non | non | non |
-+| R-025 | `docs/practices/roles/qa-tester-method.md` | 9 | Méthode rôle — QA / Testeur | `2026-06-28-qa-tester-role-candidate-framing.md` | backtick | project-local | non | non | non |
-+| R-026 | `docs/practices/roles/qa-tester-method.md` | 9 | Méthode rôle — QA / Testeur | `qa-tester-role-candidate-review.md` | backtick | project-local | non | non | non |
-+| R-027 | `docs/practices/roles/qa-tester-method.md` | 277 | 12. Usage en phase delivery | `2026-06-28-figma-v1-closure-summary.md` | backtick | project-local | non | non | non |
-+| R-028 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 43 | 3. Contrôle état des lieux | `ux-ui-reprise-analysis.md` | backtick | conv-deliverable | non | non | non |
-+| R-029 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 56 | 4. Contrôle cadrage | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-030 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 70 | 5. Contrôle parcours | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-+| R-031 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 82 | 6. Contrôle écrans | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-+| R-032 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 83 | 6. Contrôle écrans | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-+| R-033 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 96 | 7. Contrôle dashboard | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-+| R-034 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 101 | 7. Contrôle dashboard | `dashboard-and-alerts.md` | backtick | conv-deliverable | non | non | non |
-+| R-035 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 108 | 8. Contrôle synthèse | `ux-ui-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-036 | `docs/practices/ux-ui/ux-ui-reprise-checklist.md` | 121 | 9. Contrôle clôture | `2026-06-28-ux-ui-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-037 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 31 | 2. Vue d'ensemble des livrables | `ux-ui-reprise-analysis.md` | backtick | conv-deliverable | non | non | non |
-+| R-038 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 32 | 2. Vue d'ensemble des livrables | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-039 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 33 | 2. Vue d'ensemble des livrables | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-+| R-040 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 34 | 2. Vue d'ensemble des livrables | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-+| R-041 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 35 | 2. Vue d'ensemble des livrables | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-+| R-042 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 36 | 2. Vue d'ensemble des livrables | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-+| R-043 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 37 | 2. Vue d'ensemble des livrables | `ux-ui-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-044 | `docs/practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | 38 | 2. Vue d'ensemble des livrables | `2026-06-28-ux-ui-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-045 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 113 | 5. Livrables standard | `ux-ui-reprise-analysis.md` | backtick | conv-deliverable | non | non | non |
-+| R-046 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 114 | 5. Livrables standard | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-047 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 115 | 5. Livrables standard | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-+| R-048 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 116 | 5. Livrables standard | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-+| R-049 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 117 | 5. Livrables standard | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-+| R-050 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 118 | 5. Livrables standard | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-+| R-051 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 119 | 5. Livrables standard | `ux-ui-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-052 | `docs/practices/ux-ui/ux-ui-reprise-method.md` | 120 | 5. Livrables standard | `2026-06-28-ux-ui-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-053 | `docs/templates/tooling/penpot/README.md` | 22 | Templates prévus (futures PR) | `design-v2-tooling-scope-template.md` | backtick | template-example | non | non | non |
-+| R-054 | `docs/templates/tooling/penpot/README.md` | 23 | Templates prévus (futures PR) | `penpot-project-reference-template.md` | backtick | template-example | non | non | non |
-+| R-055 | `docs/templates/tooling/penpot/README.md` | 24 | Templates prévus (futures PR) | `penpot-review-checklist-template.md` | backtick | template-example | non | non | non |
-+| R-056 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 204 | 4.2 Chemins autorisés (MVP) | `CHANGELOG.md` | backtick | false-positive | non | non | non |
-+| R-057 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 224 | 4.3 Chemins protégés (écriture toujours interdite via M | `package-lock.json` | backtick | false-positive | non | non | non |
-+| R-058 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | 225 | 4.3 Chemins protégés (écriture toujours interdite via M | `.cursor/mcp.json` | backtick | false-positive | non | non | non |
-+| R-059 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 28 | 2. Règles impératives | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-+| R-060 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 29 | 2. Règles impératives | `status-and-transitions.md` | backtick | conv-deliverable | non | non | non |
-+| R-061 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 64 | Inspecter un fichier Penpot | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-+| R-062 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 72 | Créer un écran depuis une spec | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-+| R-063 | `docs/tooling/penpot/penpot-cursor-agent-rules.md` | 84 | Préparer une revue | `penpot-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-+| R-064 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 55 | 3. Cas d'usage | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-+| R-065 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 56 | 3. Cas d'usage | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-+| R-066 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 94 | Flux de travail cible | `penpot-project-reference.md` | backtick | conv-deliverable | non | non | non |
-+| R-067 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 179 | 9. Convention Git | `design-v2-tooling-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-068 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 181 | 9. Convention Git | `penpot-wireframe-instructions.md` | backtick | conv-deliverable | non | non | non |
-+| R-069 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 182 | 9. Convention Git | `penpot-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-+| R-070 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 183 | 9. Convention Git | `design-v2-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-071 | `docs/tooling/penpot/penpot-design-agent-architecture.md` | 184 | 9. Convention Git | `design-v2-cycle-closure.md` | backtick | conv-deliverable | non | non | non |
-+| R-072 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | 46 | Documentation officielle (à consulter avant déploiement | `docker-compose.yml` | backtick | false-positive | non | non | non |
-+| R-073 | `docs/tooling/penpot/penpot-self-host-docker-guide.md` | 53 | Étapes recommandées (hors repo) | `docker-compose.override.example.yml` | backtick | false-positive | non | non | non |
-+| R-074 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 34 | 3. Où Penpot intervient | `ux-ui-reprise-scope.md` | backtick | conv-deliverable | non | non | non |
-+| R-075 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 34 | 3. Où Penpot intervient | `penpot-project-reference.md` | backtick | conv-deliverable | non | non | non |
-+| R-076 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 35 | 3. Où Penpot intervient | `user-journeys.md` | backtick | conv-deliverable | non | non | non |
-+| R-077 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 36 | 3. Où Penpot intervient | `screen-inventory.md` | backtick | conv-deliverable | non | non | non |
-+| R-078 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 37 | 3. Où Penpot intervient | `screen-functional-specs.md` | backtick | conv-deliverable | non | non | non |
-+| R-079 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 38 | 3. Où Penpot intervient | `dashboard-ux-view.md` | backtick | conv-deliverable | non | non | non |
-+| R-080 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 39 | 3. Où Penpot intervient | `penpot-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-+| R-081 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 40 | 3. Où Penpot intervient | `design-v2-summary.md` | backtick | conv-deliverable | non | non | non |
-+| R-082 | `docs/tooling/penpot/penpot-sfia-method-integration.md` | 115 | 7. Liens méthode UX/UI reprise | `ux-ui-reprise-prompt-family.md` | backtick | conv-deliverable | non | non | non |
-+| R-083 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | 170 | 9. Projet de référence Interv360 | `current-application-audit.md` | backtick | false-positive | non | non | non |
-+| R-084 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-and-delivery-vision.md` | 209 | 10. Repository strategy | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | backtick | false-positive | non | non | non |
-+| R-085 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 61 | 4. Place de QA dans le cycle projet | `inc-0n-closure-report.md` | backtick | conv-deliverable | non | non | non |
-+| R-086 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 111 | 8. Artefacts attendus par incrément delivery | `qa-strategy.md` | backtick | conv-deliverable | non | non | non |
-+| R-087 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 112 | 8. Artefacts attendus par incrément delivery | `test-scenarios.md` | backtick | conv-deliverable | non | non | non |
-+| R-088 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 113 | 8. Artefacts attendus par incrément delivery | `2026-07-06-qa-implementation-report.md` | backtick | conv-deliverable | non | non | non |
-+| R-089 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 114 | 8. Artefacts attendus par incrément delivery | `2026-07-06-qa-execution-report.md` | backtick | conv-deliverable | non | non | non |
-+| R-090 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 115 | 8. Artefacts attendus par incrément delivery | `qa-reserves.md` | backtick | conv-deliverable | non | non | non |
-+| R-091 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 116 | 8. Artefacts attendus par incrément delivery | `2026-07-06-qa-readiness.md` | backtick | conv-deliverable | non | non | non |
-+| R-092 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 221 | 14. Articulation avec acceptance criteria | `acceptance-criteria.md` | backtick | conv-deliverable | non | non | non |
-+| R-093 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 222 | 14. Articulation avec acceptance criteria | `user-stories.md` | backtick | conv-deliverable | non | non | non |
-+| R-094 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` | 223 | 14. Articulation avec acceptance criteria | `delivery-increments.md` | backtick | conv-deliverable | non | non | non |
-+| R-095 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 66 | 4.2 Dans Git (source de vérité méthodologique) | `figma-brief.md` | backtick | conv-deliverable | non | non | non |
-+| R-096 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 67 | 4.2 Dans Git (source de vérité méthodologique) | `screen-design-spec.md` | backtick | conv-deliverable | non | non | non |
-+| R-097 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 68 | 4.2 Dans Git (source de vérité méthodologique) | `figma-review-checklist.md` | backtick | conv-deliverable | non | non | non |
-+| R-098 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 69 | 4.2 Dans Git (source de vérité méthodologique) | `2026-07-06-design-decisions.md` | backtick | conv-deliverable | non | non | non |
-+| R-099 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` | 70 | 4.2 Dans Git (source de vérité méthodologique) | `design-to-backlog-alignment.md` | backtick | conv-deliverable | non | non | non |
-+| R-100 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 66 | 5. Conditions d'entrée | `figma-reference.md` | backtick | conv-deliverable | non | non | non |
-+| R-101 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 68 | 5. Conditions d'entrée | `frontend-architecture.md` | backtick | conv-deliverable | non | non | non |
-+| R-102 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 95 | 7. Périmètre autorisé d'un spike | `package.json` | backtick | false-positive | non | non | non |
-+| R-103 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 122 | 9.1 Références design (existantes — non recréées dans l | `04-design/figma-brief.md` | backtick | conv-deliverable | non | non | non |
-+| R-104 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 122 | 9.1 Références design (existantes — non recréées dans l | `screen-design-spec.md` | backtick | conv-deliverable | non | non | non |
-+| R-105 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 126 | 9.2 Implémentation spike | `spike-overview.md` | backtick | conv-deliverable | non | non | non |
-+| R-106 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 143 | 9.3 Documentation spike | `2026-07-06-visual-comparison-report.md` | backtick | conv-deliverable | non | non | non |
-+| R-107 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 144 | 9.3 Documentation spike | `2026-07-06-spike-decisions.md` | backtick | conv-deliverable | non | non | non |
-+| R-108 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-figma-fidelity-gate-standard.md` | 145 | 9.3 Documentation spike | `2026-07-06-spike-readiness.md` | backtick | conv-deliverable | non | non | non |
-+| R-109 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 95 | 5. Minimal project structure | `00-framing/2026-07-07-project-framing.md` | backtick | conv-deliverable | non | non | non |
-+| R-110 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 89 | 5. Minimal project structure | `2026-07-07-project-framing.md` | backtick | conv-deliverable | non | non | non |
-+| R-111 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 390 | Decision (provisional) | `sfia-rules-and-guardrails.md` | backtick | false-positive | non | non | non |
-+| R-112 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-project-bootstrap-standard.md` | 392 | Decision (provisional) | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | backtick | false-positive | non | non | non |
-+| R-113 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 145 | 5.5 Payloads notion-sync Interv360 | `01-cadrage/notion-sync-payload.json` | backtick | project-local | non | non | non |
-+| R-114 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 146 | 5.5 Payloads notion-sync Interv360 | `02-architecture/notion-sync-architecture-p1-payload.json` | backtick | project-local | non | non | non |
-+| R-115 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 147 | 5.5 Payloads notion-sync Interv360 | `02-architecture/notion-sync-architecture-p2-payload.json` | backtick | project-local | non | non | non |
-+| R-116 | `method/sfia-fast-track/documentation/notion/sfia-notion-current-space-inventory.md` | 149 | 5.5 Payloads notion-sync Interv360 | `02-architecture/notion-sync-existing-prompt-library-inventory.json` | backtick | project-local | non | non | non |
-+| R-117 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 27 | 1. Objectif | `sfia-cycle-routing-guide.md` | backtick | false-positive | non | non | non |
-+| R-118 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 128 | 4.2 Démarrer avec SFIA | `sfia-chatgpt-cursor-operating-model.md` | backtick | false-positive | non | non | non |
-+| R-119 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 130 | 4.2 Démarrer avec SFIA | `sfia-rules-and-guardrails.md` | backtick | false-positive | non | non | non |
-+| R-120 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 131 | 4.2 Démarrer avec SFIA | `sfia-validation-checklist.md` | backtick | false-positive | non | non | non |
-+| R-121 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 168 | 4.5 Automation & Execution | `sfia-automation-architecture.md` | backtick | false-positive | non | non | non |
-+| R-122 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 169 | 4.5 Automation & Execution | `sfia-prompt-generation-engine.md` | backtick | false-positive | non | non | non |
-+| R-123 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 170 | 4.5 Automation & Execution | `sfia-repository-execution-engine.md` | backtick | false-positive | non | non | non |
-+| R-124 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 171 | 4.5 Automation & Execution | `sfia-validation-engine.md` | backtick | false-positive | non | non | non |
-+| R-125 | `method/sfia-fast-track/documentation/notion/sfia-notion-target-model-and-integration-plan.md` | 195 | 4.7 Projets & Capitalisation | `2026-07-03-interv360-application-rex.md` | backtick | false-positive | non | non | non |
++**Note :** les 44 fichiers E2 sont majoritairement des hubs README, fichiers config/example (`.json`, `.yml`, `.gitignore`) ou documents sans liens internes sortants. Les **17** références backtick détectées résolvent toutes vers des cibles Git valides.
 +
 +---
 +
-+## 5. Corrections certaines appliquées (71)
++## 3. Liste complète E2 (44/44)
 +
-+Exécution initiale @ HEAD `af3e316` — **10** Lot D + **61** chemins + **3** profondeurs Markdown relatives.
-+
-+### Lot D (10/10)
-+- `docs/architecture/README.md` : `sfia-decision-engine.md` → `2026-06-27-sfia-decision-engine.md`
-+- `docs/practices/process/bpmn-deliverables-standard.md` : `bpmn-method-integration-audit.md` → `2026-06-28-bpmn-method-integration-audit.md`
-+- `docs/practices/process/bpmn-integration-checklist.md` : `bpmn-method-integration-audit.md` → `2026-06-28-bpmn-method-integration-audit.md`
-+- `docs/practices/process/bpmn-process-modeling-method.md` : `bpmn-method-integration-audit.md` → `2026-06-28-bpmn-method-integration-audit.md`
-+- `method/complementary/controlled-delivery/README.md` : `delivery-acceleration-level-3-rex.md` → `2026-07-01-delivery-acceleration-level-3-rex.md`
-+- `method/complementary/controlled-delivery/README.md` : `./delivery-acceleration-level-3-rex.md` → `2026-07-01-delivery-acceleration-level-3-rex.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` : `sfia-v2-incremental-delivery-closure-standard.md` → `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md` : `sfia-v2-incremental-delivery-closure-standard.md` → `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-figma-cycle-standard.md` : `sfia-v2-pilot-selection-decision.md` → `2026-07-05-sfia-v2-pilot-selection-decision.md`
-+
-+### Profondeurs Markdown (3)
-+
-+- `.cursor/mcp-templates/README.md` : `../docs/tooling/penpot/` → `../../docs/tooling/penpot/`
-+- `docker/penpot/README.md` : `../.cursor/` → `../../.cursor/`
-+- `docs/templates/tooling/penpot/README.md` : `../../tooling/penpot/` → `../../../tooling/penpot/`
++| ID | Chemin | Classification | Usage | Authority | Lifecycle | Rôle | Statut validation |
++|----|--------|----------------|-------|-----------|-----------|------|-------------------|
++| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-003 | `.gitignore` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-005 | `components/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-006 | `docker/penpot/.env.example` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-008 | `docker/penpot/docker-compose.override.example.yml` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-009 | `docs/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-010 | `docs/adr/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-013 | `docs/architecture/sfia-domain-model.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
++| E-014 | `docs/architecture/sfia-meta-model.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
++| E-015 | `docs/architecture/sfia-platform-architecture.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
++| E-016 | `docs/architecture/sfia-repository-blueprint.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
++| E-017 | `docs/foundation/README.md` | historical-keep | non-operational | reference | archived | F13 | **VALIDATED — HISTORICAL KEEP** |
++| E-018 | `docs/foundation/sfia-engineering-principles.md` | no-action | operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
++| E-019 | `docs/knowledge/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-020 | `docs/practices/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-023 | `docs/practices/architecture/functional-architecture-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-024 | `docs/practices/methods-structure-check.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-028 | `docs/practices/roles/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-029 | `docs/practices/roles/architect-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-030 | `docs/practices/roles/business-analyst-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-031 | `docs/practices/roles/product-owner-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-032 | `docs/practices/roles/project-manager-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-034 | `docs/practices/roles/rssi-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-039 | `docs/rex/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
++| E-041 | `docs/standards/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
++| E-043 | `docs/templates/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-050 | `exports/notion/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-051 | `exports/notion/adr.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-052 | `exports/notion/components.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-053 | `exports/notion/experiments.json` | no-action | operational | informational | validated | F17 | **VALIDATED — NO ACTION** |
++| E-054 | `exports/notion/export-manifest.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-055 | `exports/notion/knowledge.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-056 | `exports/notion/kpi.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-057 | `exports/notion/projects.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-058 | `exports/notion/prompts.json` | no-action | non-operational | informational | validated | F17 | **VALIDATED — NO ACTION** |
++| E-059 | `exports/notion/rex.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-060 | `exports/notion/standards.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-061 | `exports/notion/templates.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
++| E-062 | `method/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-063 | `method/complementary/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
++| E-065 | `method/sfia-fast-track/archive/interv360-realization/README.md` | historical-keep | non-operational | reference | archived | F13 | **VALIDATED — HISTORICAL KEEP** |
 +
 +---
 +
-+## 6. Gates Morris
++## 4. Validation individuelle — no-action (42/42)
 +
-+- **Aucune gate** pour conventional / template / project-local / false-positive (121 références).
-+- **Aucune gate** pour real-broken-link ou ambiguous-reference — **0** cas restants.
-+- E1 considéré **fonctionnellement complet** pour les liens navigables repo.
++Chaque fichier `no-action` a été vérifié read-only sur `main` post-merge E1 :
++
++- existence Git confirmée ;
++- liens Markdown et backtick navigables valides (0 cassé réel) ;
++- aucune ancienne référence Lot D stale active ;
++- classification `no-action` confirmée — aucune modification requise.
++
++| ID | Chemin | Liens valides | Parser broken | Real broken | Old D |
++|----|--------|:-------------:|:-------------:|:-----------:|:-----:|
++| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | 0 | 0 | 0 | 0 |
++| E-003 | `.gitignore` | 0 | 0 | 0 | 0 |
++| E-005 | `components/README.md` | 0 | 0 | 0 | 0 |
++| E-006 | `docker/penpot/.env.example` | 0 | 0 | 0 | 0 |
++| E-008 | `docker/penpot/docker-compose.override.example.yml` | 0 | 0 | 0 | 0 |
++| E-009 | `docs/README.md` | 0 | 0 | 0 | 0 |
++| E-010 | `docs/adr/README.md` | 1 | 0 | 0 | 0 |
++| E-013 | `docs/architecture/sfia-domain-model.md` | 0 | 0 | 0 | 0 |
++| E-014 | `docs/architecture/sfia-meta-model.md` | 0 | 0 | 0 | 0 |
++| E-015 | `docs/architecture/sfia-platform-architecture.md` | 2 | 0 | 0 | 0 |
++| E-016 | `docs/architecture/sfia-repository-blueprint.md` | 1 | 0 | 0 | 0 |
++| E-018 | `docs/foundation/sfia-engineering-principles.md` | 8 | 0 | 0 | 0 |
++| E-019 | `docs/knowledge/README.md` | 1 | 0 | 0 | 0 |
++| E-020 | `docs/practices/README.md` | 0 | 0 | 0 | 0 |
++| E-023 | `docs/practices/architecture/functional-architecture-method.md` | 0 | 0 | 0 | 0 |
++| E-024 | `docs/practices/methods-structure-check.md` | 1 | 0 | 0 | 0 |
++| E-028 | `docs/practices/roles/README.md` | 0 | 0 | 0 | 0 |
++| E-029 | `docs/practices/roles/architect-method.md` | 0 | 0 | 0 | 0 |
++| E-030 | `docs/practices/roles/business-analyst-method.md` | 0 | 0 | 0 | 0 |
++| E-031 | `docs/practices/roles/product-owner-method.md` | 0 | 0 | 0 | 0 |
++| E-032 | `docs/practices/roles/project-manager-method.md` | 0 | 0 | 0 | 0 |
++| E-034 | `docs/practices/roles/rssi-method.md` | 0 | 0 | 0 | 0 |
++| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | 0 | 0 | 0 | 0 |
++| E-039 | `docs/rex/README.md` | 1 | 0 | 0 | 0 |
++| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | 1 | 0 | 0 | 0 |
++| E-041 | `docs/standards/README.md` | 1 | 0 | 0 | 0 |
++| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | 0 | 0 | 0 | 0 |
++| E-043 | `docs/templates/README.md` | 0 | 0 | 0 | 0 |
++| E-050 | `exports/notion/README.md` | 0 | 0 | 0 | 0 |
++| E-051 | `exports/notion/adr.json` | 0 | 0 | 0 | 0 |
++| E-052 | `exports/notion/components.json` | 0 | 0 | 0 | 0 |
++| E-053 | `exports/notion/experiments.json` | 0 | 0 | 0 | 0 |
++| E-054 | `exports/notion/export-manifest.json` | 0 | 0 | 0 | 0 |
++| E-055 | `exports/notion/knowledge.json` | 0 | 0 | 0 | 0 |
++| E-056 | `exports/notion/kpi.json` | 0 | 0 | 0 | 0 |
++| E-057 | `exports/notion/projects.json` | 0 | 0 | 0 | 0 |
++| E-058 | `exports/notion/prompts.json` | 0 | 0 | 0 | 0 |
++| E-059 | `exports/notion/rex.json` | 0 | 0 | 0 | 0 |
++| E-060 | `exports/notion/standards.json` | 0 | 0 | 0 | 0 |
++| E-061 | `exports/notion/templates.json` | 0 | 0 | 0 | 0 |
++| E-062 | `method/README.md` | 0 | 0 | 0 | 0 |
++| E-063 | `method/complementary/README.md` | 0 | 0 | 0 | 0 |
++
++**Résultat no-action :** **42/42** → `VALIDATED — NO ACTION`
++
++---
++
++## 5. Validation historical-keep (2/2)
++
++### E-017 — `docs/foundation/README.md`
++
++| Champ | Détail |
++|-------|--------|
++| Classification | historical-keep |
++| Lifecycle CSV | archived |
++| Référence historique | Mention textuelle **KNO-001 — SFIA Engineering Principles** (Notion legacy) |
++| Présentation | Hub foundation archivé — pas de lien navigable cassé |
++| Intention | Préservation navigation historique foundation pré-v2.6 |
++| Cible opérationnelle | Non — `docs/foundation/` hors référence active |
++| Correction requise | Non |
++| Statut | **VALIDATED — HISTORICAL KEEP** |
++
++### E-065 — `method/sfia-fast-track/archive/interv360-realization/README.md`
++
++| Champ | Détail |
++|-------|--------|
++| Classification | historical-keep |
++| Lifecycle CSV | archived |
++| Référence historique | Index archive Interv360 Realization |
++| Présentation | Avertissement explicite : documents conservés pour mémoire, non référence active |
++| Intention | Préservation traçabilité réalisation Interv360 pré-stabilisation SFIA Fast Track |
++| Cible opérationnelle | Non — zone archive read-only |
++| Correction requise | Non |
++| Statut | **VALIDATED — HISTORICAL KEEP** |
++
++**Résultat historical-keep :** **2/2** → `VALIDATED — HISTORICAL KEEP`
++
++---
++
++## 6. Fichiers nécessitant correction
++
++**Aucun.** Corpus E2 inchangé (0 modification).
 +
 +---
 +
@@ -761,39 +637,57 @@ index 0000000..ed06891
 +
 +| Contrôle | Résultat |
 +|----------|----------|
-+| Corpus E1 modifié (correction analytique) | **0** — rapport + plan uniquement |
-+| Fichiers E2 modifiés | **0** |
++| Corpus E2 modifié | **0** |
++| Corpus E1 modifié | **0** |
 +| CSV in diff | **no** |
 +| Doctrine / canonical | **unchanged** |
 +| Lots F–J | **not opened** |
 +
 +---
 +
-+## 8. Décisions Morris restantes
++## 8. Limites
 +
-+1. Merge PR #181 — GO séparé
-+2. Lot E2 — validation 44 fichiers (non démarré)
++- Parse Markdown uniquement — fichiers JSON example sans liens markdown audités en surface
++- Liens externes http(s) non vérifiés en ligne
++- Glob patterns ignorés
 +
 +---
 +
-+## 9. Verdict
++## 9. Réserves
++
++- Lot E non clos tant que cette PR E2 n'est pas mergée et validée post-merge
++- Clôture définitive Lot E = merge PR E2 + contrôle post-merge
++
++---
++
++## 10. Décisions Morris restantes
++
++1. Merge PR E2 validation — GO séparé
++2. Clôture Lot E — après merge E2 et contrôle post-merge
++
++---
++
++## 11. Verdict
 +
 +```
-+LOT E1 RESIDUAL REFERENCES RECLASSIFIED
++LOT E2 VALIDATION COMPLETED
++LOT E GLOBAL MANIFEST VERIFIED 75/75
 +LOT E1 MANIFEST VERIFIED 31/31
-+CERTAIN LINK FIXES VALIDATED 71
-+RESIDUAL REFERENCES ANALYZED 125/125
++LOT E2 MANIFEST VERIFIED 44/44
++NO-ACTION FILES VALIDATED 42/42
++HISTORICAL-KEEP FILES VALIDATED 2/2
++ALL 44 FILES INDIVIDUALLY REVIEWED
 +NO REAL BROKEN LINKS REMAIN
 +NO AMBIGUOUS REFERENCES REMAIN
-+CONVENTIONAL REFERENCES QUALIFIED 94
-+TEMPLATE AND EXAMPLE REFERENCES QUALIFIED 4
-+PROJECT-LOCAL REFERENCES QUALIFIED 8
-+FALSE POSITIVES QUALIFIED 19
-+VERSIONED REPORT HEAD CORRECTED
-+LOT E1 FUNCTIONALLY COMPLETE FOR NAVIGABLE LINKS
++NO RECLASSIFICATION REQUIRED
 +LOT E2 CORPUS UNCHANGED
++LOT E1 CORPUS UNCHANGED
 +CSV UNCHANGED
-+PR #181 OPEN — NOT MERGED
++NO DOCTRINE CHANGE
++CANONICAL AUTHORITY UNCHANGED
++LOTS F–J NOT OPENED
++PR OPEN — NOT MERGED
++LOT E NOT CLOSED BEFORE MERGE
 +MERGE REQUIRES SEPARATE MORRIS GO
 +```
 
@@ -803,38 +697,33 @@ index 0000000..ed06891
 
 ## Preuves
 
-- Corpus E1 (21 fichiers liens) : **unchanged during correction**
-- E2 (44 fichiers) : **unchanged**
+- Corpus E2 modifié : **0**
+- Corpus E1 modifié : **0**
 - CSV SHA : `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — unchanged
-- Doctrine / canonical : unchanged
-- Lots F–J : not opened
-
----
+- CSV dans diff : **no**
+- Doctrine / canonical : **unchanged**
+- Lots F–J : **not opened**
 
 ## Coverage
 
-- created files full content : n/a
+- created files full content : **yes**
 - modified sections complete : **yes**
 - useful diff included : **yes**
 - synthesis only : **no**
 - review pack verdict : **COMPLETE**
 
----
-
 ## Verdict
 
 ```
-LOT E1 RESIDUAL REFERENCES RECLASSIFIED
-LOT E1 MANIFEST VERIFIED 31/31
-CERTAIN LINK FIXES VALIDATED 71
-RESIDUAL REFERENCES ANALYZED 125/125
+LOT E2 VALIDATION COMPLETED
+LOT E GLOBAL MANIFEST VERIFIED 75/75
+LOT E2 MANIFEST VERIFIED 44/44
+NO-ACTION FILES VALIDATED 42/42
+HISTORICAL-KEEP FILES VALIDATED 2/2
 NO REAL BROKEN LINKS REMAIN
-NO AMBIGUOUS REFERENCES REMAIN
-VERSIONED REPORT HEAD CORRECTED
-LOT E1 CORPUS UNCHANGED DURING CORRECTION
 LOT E2 CORPUS UNCHANGED
-CSV UNCHANGED
-PR #181 OPEN — NOT MERGED
+PR OPEN — NOT MERGED
+LOT E NOT CLOSED BEFORE MERGE
 REVIEW PACK COMPLETE
 READY FOR CHATGPT PR READINESS
 MERGE REQUIRES SEPARATE MORRIS GO
