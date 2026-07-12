@@ -8,7 +8,7 @@ Source Notion : Components, ADR, Reference Pages.
 
 | Document | Role | Status |
 |----------|------|--------|
-| `sfia-decision-engine.md` | Decision model, reserves and GO / NO-GO logic | v1.1 |
+| `2026-06-27-sfia-decision-engine.md` | Decision model, reserves and GO / NO-GO logic | v1.1 |
 | `sfia-repository-blueprint.md` | Repository structure and routing source of truth | v1.1 |
 | `sfia-delivery-pipeline.md` | Delivery, PR and post-merge workflow | v1.1 |
 | `sfia-platform-architecture.md` | SFIA platform architecture | v1.1 |

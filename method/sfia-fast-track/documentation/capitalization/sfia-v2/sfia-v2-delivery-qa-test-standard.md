@@ -151,7 +151,7 @@ Sous `projects/<project>/app/` (ou racine app documentée) :
 | **Mineure** | GO QA — peut rester ouverte après clôture |
 | **Environnementale** | GO QA si workaround documenté — non bloquante clôture |
 
-Voir typologie détaillée : `sfia-v2-incremental-delivery-closure-standard.md` §4.
+Voir typologie détaillée : `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md` §4.
 
 Morris arbitre l'acceptation des réserves — QA propose, Morris décide.
 
@@ -201,7 +201,7 @@ Capitalization INC-n
 Morris — GO INC-(n+1) ? (L0 — séparé)
 ```
 
-Voir : `sfia-v2-incremental-delivery-closure-standard.md` — chaîne complète, statuts, typologie réserves.
+Voir : `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md` — chaîne complète, statuts, typologie réserves.
 
 **PR readiness sans QA-G3 = NOT READY** pour tout incrément delivery.
 
@@ -259,7 +259,7 @@ Voir : `sfia-v2-automation-levels.md`.
 |---|---------|--------|
 | R-CAP-01 | IDs prompts delivery | **Levée** — §17 ci-dessus ; PR #112 |
 | R-CAP-02 | `prompts/prompt-catalog.md` — §14 Supplément Delivery QA/Test | **Levée** — ce cycle |
-| R-CAP-03 | `sfia-cycle-routing-guide.md` §6.12–6.14 ; checklist §12.1, §13.1 | **Levée** — ce cycle |
+| R-CAP-03 | `../../../core/sfia-cycle-routing-guide.md` §6.12–6.14 ; checklist §12.1, §13.1 | **Levée** — ce cycle |
 
 ## 18. Explicitement hors scope
 
@@ -327,7 +327,7 @@ Statuts alignés v2.4 : **READY FOR PR** · **READY FOR PR WITH RESERVES** · **
 **Références :**
 
 - `sfia-v2.4-consolidation-operating-efficiency-standard.md`
-- `sfia-v2-incremental-delivery-closure-standard.md`
+- `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-project-bootstrap-standard.md`
 - `sfia-v2-design-figma-cycle-standard.md`

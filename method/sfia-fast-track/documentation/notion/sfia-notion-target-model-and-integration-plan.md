@@ -23,9 +23,9 @@ Il s'appuie sur :
 
 - `sfia-notion-content-categorization.md` (Cycle 1)
 - `sfia-notion-current-space-inventory.md` (Cycle 2 — inventaire espace actuel)
-- `sfia-knowledge-layer.md`
+- `../../core/sfia-knowledge-layer.md`
 - `sfia-cycle-routing-guide.md`
-- `notion-publication-checklist.md`
+- `../archive/checklists/notion-publication-checklist.md`
 
 **Principe cible :**
 
@@ -118,7 +118,7 @@ Page d'entrée unique. Répond à :
 | Je veux capitaliser un projet | §6 Capitalisation | Capitalisation |
 | Je veux préparer une publication Notion | §7 Archives + checklist | Préparation Notion |
 
-**Sources repo :** `sfia-global-capitalization-reference.md`, Fast Track README, `sfia-cycle-routing-guide.md`
+**Sources repo :** `../../core/sfia-global-capitalization-reference.md`, Fast Track README, `sfia-cycle-routing-guide.md`
 
 ### 4.2 Démarrer avec SFIA
 
@@ -527,7 +527,7 @@ Avant toute publication réelle (tout lot) :
 - [ ] No raw sync confirmé
 - [ ] No publication sans validation humaine
 - [ ] `tools/cmp-001/` non modifié (sauf cycle dédié)
-- [ ] `notion-publication-checklist.md` appliquée
+- [ ] `../archive/checklists/notion-publication-checklist.md` appliquée
 - [ ] Dry-run si outillage disponible (cycle CMP dédié futur)
 
 ## 16. Points d'arbitrage humain

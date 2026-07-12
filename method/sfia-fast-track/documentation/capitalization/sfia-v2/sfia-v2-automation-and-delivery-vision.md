@@ -273,6 +273,6 @@ Sujets **explicitement différés** — hors scope v2.0 phase initiale :
 
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
+- `method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
 - `method/sfia-fast-track/documentation/notion/2026-07-04-sfia-notion-publication-track-pause-decision.md`
 - `prompts/templates/sfia-prompt-templates-context-pack.md`

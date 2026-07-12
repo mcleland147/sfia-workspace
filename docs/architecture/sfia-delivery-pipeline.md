@@ -1993,7 +1993,7 @@ The pipeline follows the rule:
 | Mandatory post-merge documentation | `method/sfia-fast-track/templates/post-merge-template.md` |
 | Audit before major cycle | Interv360 audit (`projects/interv360/06-audit-rex/`) |
 | REX after major milestone | `method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md` |
-| Notion only after capitalization plan | `method/sfia-fast-track/checklists/notion-publication-checklist.md` |
+| Notion only after capitalization plan | `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md` |
 
 ## v1.1 Pipeline Clarification
 

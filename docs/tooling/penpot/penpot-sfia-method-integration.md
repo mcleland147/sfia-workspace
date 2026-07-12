@@ -109,9 +109,9 @@ Ces assets seront enrichis **après** retours d'expérience sur le premier cycle
 
 | Livrable méthode | Usage Penpot |
 |------------------|--------------|
-| `ux-ui-reprise-method.md` | Garde-fous — Penpot = phase après reprise doc |
-| `ux-ui-reprise-deliverables-standard.md` | Entrées pour design V2 |
-| `ux-ui-reprise-checklist.md` | Préconditions avant ouverture Penpot |
+| `../../practices/ux-ui/ux-ui-reprise-method.md` | Garde-fous — Penpot = phase après reprise doc |
+| `../../practices/ux-ui/ux-ui-reprise-deliverables-standard.md` | Entrées pour design V2 |
+| `../../practices/ux-ui/ux-ui-reprise-checklist.md` | Préconditions avant ouverture Penpot |
 | `ux-ui-reprise-prompt-family.md` | Complété par prompts Penpot — pas de remplacement |
 
 ---

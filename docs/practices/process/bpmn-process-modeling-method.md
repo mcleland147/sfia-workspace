@@ -4,7 +4,7 @@
 **Statut** : Draft  
 **Domaine** : Process Modeling / BPMN  
 **Phase** : Phase B — Intégration méthodologique BPMN  
-**Source** : `bpmn-method-integration-audit.md`
+**Source** : `2026-06-28-bpmn-method-integration-audit.md`
 
 ---
 

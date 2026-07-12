@@ -77,7 +77,7 @@ sfia-workspace/
 
 Notion est l'IDE métier cible de la SFA.
 
-La mise à jour Notion doit être faite dans un chantier dédié, à partir du repo nettoyé et d'un mapping éditorialisé (`method/sfia-fast-track/documentation/notion-target-content-map.md`).
+La mise à jour Notion doit être faite dans un chantier dédié, à partir du repo nettoyé et d'un mapping éditorialisé (`method/sfia-fast-track/documentation/archive/notion/notion-target-content-map.md`).
 
 `sfia-notion-sync` est un repo séparé et n'est pas présent dans ce workspace.
 

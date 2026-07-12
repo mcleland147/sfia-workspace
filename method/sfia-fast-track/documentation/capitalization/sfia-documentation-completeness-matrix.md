@@ -37,7 +37,7 @@ The previous matrix sections are preserved as historical baseline where relevant
 
 The SFIA foundation v1.1 closure decision is recorded in:
 
-- `foundation-documents/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
+- `../archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md`
 
 Current status:
 
@@ -77,12 +77,12 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 | Standards architecture | Standards architecture | `method/sfia-fast-track/core/sfia-architecture-standards.md` | **OK** | Présent |
 | Roadmap consolidation | Roadmap amélioration SFIA | `method/sfia-fast-track/core/sfia-consolidation-roadmap.md` | **OK** | Pilote chantiers consolidation |
 | Automation | Architecture + moteurs P1 | `method/sfia-fast-track/automation/` | **OK** | Automation Architecture v1.1 + Prompt Generation, Repository Execution, Validation engines |
-| Cycle type | Déroulé de cycle SFIA | `method/sfia-fast-track/cycles/` + `templates/cycle-template.md` | **À compléter** | 2 capitalisations Interv360 ; pas de doc cycle générique autonome hors template |
+| Cycle type | Déroulé de cycle SFIA | `method/sfia-fast-track/cycles/` + `../../templates/cycle-template.md` | **À compléter** | 2 capitalisations Interv360 ; pas de doc cycle générique autonome hors template |
 | UI / UX | Méthode UI / Figma Design-first | `method/sfia-fast-track/ui/figma-design-first-ui-method.md` | **OK** | Référence active |
 | Audit / REX | Méthode audit et REX | `method/sfia-fast-track/audit-rex/2026-07-03-interv360-application-rex.md` | **À compléter** | REX Interv360 présent ; méthode audit/REX générique SFIA non formalisée |
-| Documentation | Plan documentaire et Notion | `method/sfia-fast-track/documentation/` | **À compléter** | Mapping Notion OK ; `documentation-audit.md` et `documentation-structure-target.md` pré-Round 3 |
+| Documentation | Plan documentaire et Notion | `method/sfia-fast-track/documentation/` | **À compléter** | Mapping Notion OK ; `../documentation-audit.md` et `../documentation-structure-target.md` pré-Round 3 |
 | Templates | Templates opérationnels Fast Track | `method/sfia-fast-track/templates/` (6 fichiers) | **OK** | Cycle, PR, post-merge, audit, REX, MVP pattern — pas de README dossier |
-| Checklists | Checklists de validation | `method/sfia-fast-track/checklists/` | **OK** | `sfia-validation-checklist.md` = checklist canonique v1.1 ; 3 checklists legacy conservées |
+| Checklists | Checklists de validation | `method/sfia-fast-track/checklists/` | **OK** | `../../checklists/sfia-validation-checklist.md` = checklist canonique v1.1 ; 3 checklists legacy conservées |
 | README méthode | Point d'entrée Fast Track | `method/sfia-fast-track/README.md` | **OK** | Arborescence et liens documentés |
 | Archive méthode | Méthode historique | `method/sfia-fast-track/archive/interv360-realization/` | **OK** | Archivée, traçable |
 
@@ -188,12 +188,12 @@ Les réserves concernent surtout la **maturité** (Role Methods Draft, prompts n
 | Priorité | Action | Zone | Justification |
 |----------|--------|------|---------------|
 | P0 | Aucune action bloquante identifiée | — | La base documentaire existe et est positionnée |
-| P1 | Rafraîchir `documentation-audit.md` et `notion-publication-plan.md` | `method/sfia-fast-track/documentation/` | Références pré-Round 3 ; préparation Notion |
+| P1 | Rafraîchir `../documentation-audit.md` et `../archive/notion/notion-publication-plan.md` | `method/sfia-fast-track/documentation/` | Références pré-Round 3 ; préparation Notion |
 | P1 | Créer README phases Interv360 04, 05, 06 (corriger), 08, 09 | `projects/interv360/` | Points d'entrée phase manquants ou obsolètes |
 | P1 | Formaliser prompts cadrage, arbitrages, gouvernance, rôles | `prompts/` | Dossiers vides malgré catalogue riche |
 | P1 | Peupler `07-documentation/` ou arbitrer son rôle | `projects/interv360/07-documentation/` | Placeholder sans contenu |
 | P2 | Élever maturité Role Methods Draft → revue officielle | `docs/practices/roles/` | 5/6 rôles encore Draft |
-| P2 | Actualiser `methods-structure-check.md` §2 | `docs/practices/` | Diagramme obsolète |
+| P2 | Actualiser `../../../../docs/practices/methods-structure-check.md` §2 | `docs/practices/` | Diagramme obsolète |
 | P2 | Ajouter README `templates/`, `checklists/`, `docs/roadmaps/`, `docs/tooling/` | Divers | Index dossier manquants |
 | P2 | Régénérer payloads JSON CMP (chemins `docs/methods/`) | `02-architecture/` | Chantier Notion — pas sync brut |
 

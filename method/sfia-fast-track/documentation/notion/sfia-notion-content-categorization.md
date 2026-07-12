@@ -79,7 +79,7 @@ Références appliquées :
 2. **No raw mirror** — pas de reproduction brute de l'arborescence repo.
 3. **Curated knowledge** — publier par lots validés, pas en masse.
 4. **Ne pas tout publier** — la majorité des documents Interv360 delivery/design restent repo-only.
-5. **Réutiliser l'existant avec prudence** — `notion-target-content-map.md`, `notion-publication-plan.md` et `exports/notion/*.json` sont des traces antérieures à actualiser, pas des sources directes de sync.
+5. **Réutiliser l'existant avec prudence** — `../archive/notion/notion-target-content-map.md`, `../archive/notion/notion-publication-plan.md` et `exports/notion/*.json` sont des traces antérieures à actualiser, pas des sources directes de sync.
 
 ## 4. Synthèse exécutive
 
@@ -105,7 +105,7 @@ Références appliquées :
 
 **Points d'attention avant le cycle 2 :**
 
-- Terminologie résiduelle **SFA** dans `notion-target-content-map.md` et `notion-publication-plan.md` — à harmoniser SFIA
+- Terminologie résiduelle **SFA** dans `../archive/notion/notion-target-content-map.md` et `../archive/notion/notion-publication-plan.md` — à harmoniser SFIA
 - Payloads JSON et logs Notion-sync Interv360 **obsolètes** — ne pas republier sans régénération
 - `exports/notion/*.json` — préparation historique, à remplacer par mapping v1.1
 - Role Methods en statut **Draft** — décider du niveau de publication
@@ -306,14 +306,14 @@ Documents recommandés en **page Notion autonome** (priorité haute) :
 | Document | Raison | Priorité |
 |----------|--------|----------|
 | Engines (Prompt Generation, Repository Execution, Validation) | Specs techniques — extraire règles opérationnelles | Moyenne |
-| `sfia-global-capitalization-reference.md` | Long, traces Git/merge | Haute |
-| `sfia-delivery-pipeline.md` | Pipeline technique | Haute |
-| `sfia-repository-blueprint.md` | Arborescence repo | Moyenne |
-| `sfia-platform-architecture.md`, domain/meta-model | Dense architecture | Moyenne |
+| `../../core/sfia-global-capitalization-reference.md` | Long, traces Git/merge | Haute |
+| `../../../../docs/architecture/sfia-delivery-pipeline.md` | Pipeline technique | Haute |
+| `../../../../docs/architecture/sfia-repository-blueprint.md` | Arborescence repo | Moyenne |
+| `../../../../docs/architecture/sfia-platform-architecture.md`, domain/meta-model | Dense architecture | Moyenne |
 | Summaries Interv360 architecture | Bon contenu — polish métier | Haute |
 | Role Methods (Draft) | Compléter ou marquer Draft dans Notion | Moyenne |
 | Controlled Delivery pack | Méthode complémentaire — clarifier relation Fast Track | Moyenne |
-| `notion-target-content-map.md` + `notion-publication-plan.md` | Terminologie SFA, pré v1.1 | Haute |
+| `../archive/notion/notion-target-content-map.md` + `../archive/notion/notion-publication-plan.md` | Terminologie SFA, pré v1.1 | Haute |
 
 ## 8. Contenus à intégrer dans une base Notion
 
@@ -357,7 +357,7 @@ Documents recommandés en **page Notion autonome** (priorité haute) :
 - Payloads JSON Notion-sync Interv360
 - `exports/notion/*.json` — sans régénération
 - `archive/pre-delivery-phases/`, `inc-*`, stubs
-- `validation-checklist.md` legacy
+- `../../checklists/sfia-validation-checklist.md` legacy
 - Plans foundation v1.1 planning/inputs (clos)
 
 ## 11. Points d'arbitrage humain
@@ -411,9 +411,9 @@ Le cycle 2 devra définir :
 **Inputs cycle 2 :**
 
 - Ce document (`sfia-notion-content-categorization.md`)
-- `sfia-knowledge-layer.md` §10 structure cible Notion
-- `notion-target-content-map.md` (actualisé)
-- `notion-publication-plan.md` (actualisé)
+- `../../core/sfia-knowledge-layer.md` §10 structure cible Notion
+- `../archive/notion/notion-target-content-map.md` (actualisé)
+- `../archive/notion/notion-publication-plan.md` (actualisé)
 - `prompts/templates/09-prepare-notion-mapping.md`
 
 ## 14. Décision
