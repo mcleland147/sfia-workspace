@@ -48,11 +48,11 @@
 
 | Cycle | Statut | Référence |
 |-------|--------|-----------|
-| Capitalisation MVP | ✅ Mergé PR #128 | `09-capitalization/mvp-capitalization-report.md` |
+| Capitalisation MVP | ✅ Mergé PR #128 | `09-capitalization/2026-07-07-mvp-capitalization-report.md` |
 | Comparaison V0 vs SFIA v2 | ✅ Mergé PR #136 | `v0-vs-sfia-v2-methodological-comparison.md` — verdict : V2 NEEDS LIGHT CONSOLIDATION |
 | Design coverage SFIA v2.0 | ✅ Mergé PR #129–#130 | R-UX-01 **levée** — clôture 2026-07-10 |
 | Standard ADR/DAA/DAT | ✅ Mergé PR #131–#132 | ADR/DAA/DAT **projet non produits** |
-| REX pilote final | ✅ Documenté | `chantiers360-v2-final-pilot-rex-report.md` |
+| REX pilote final | ✅ Documenté | `2026-07-07-chantiers360-v2-final-pilot-rex-report.md` |
 
 ### 2.3 Limites de l'analyse
 

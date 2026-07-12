@@ -225,6 +225,6 @@ Voir : `sfia-v2-automation-levels.md`.
 - `sfia-v2-figma-fidelity-gate-standard.md`
 - `sfia-v2-automation-levels.md`
 - `projects/chantiers360-v2/08-qa-test/inc-05/qa-reserves.md` — R-UX-01
-- `projects/chantiers360-v2/09-capitalization/mvp-capitalization-report.md` — enseignement F4
+- `projects/chantiers360-v2/09-capitalization/2026-07-07-mvp-capitalization-report.md` — enseignement F4
 
 **Decision (provisional) :** SFIA V2.0 DESIGN COVERAGE STANDARD DOCUMENTED — PENDING MORRIS VALIDATION

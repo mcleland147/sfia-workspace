@@ -60,4 +60,4 @@ Valider par preuves automatisées et documentées que le socle chantier INC-01 r
 | QA-G0 — besoin testable | ✅ Pressenti au bootstrap |
 | QA-G1 — architecture testable | ✅ Next.js + PostgreSQL + Drizzle |
 | QA-G2 — tests implémentés | ✅ Playwright `e2e/inc-01.spec.ts` |
-| QA-G3 — QA readiness | ⏳ Verdict proposé dans `qa-readiness.md` — décision Morris |
+| QA-G3 — QA readiness | ⏳ Verdict proposé dans `2026-07-06-qa-readiness.md` — décision Morris |

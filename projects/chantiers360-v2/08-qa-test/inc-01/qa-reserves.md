@@ -23,7 +23,7 @@
 | R-QA-02 | Écart backlog / code | **Levée** — micro-cycle R-QA-02 |
 | R-QA-03 | Mineure | **Ouverte** — acceptée |
 | R-QA-04 | Panneaux dashboard mockés | **CLOSED** — PR #151 @ `2aa68f4` (2026-07-09) |
-| R-QA-05 | Port 3000 occupé bloque `test:e2e:full` | **Environnementale** — workaround port 3001 documenté dans `qa-g4-post-merge-report.md` |
+| R-QA-05 | Port 3000 occupé bloque `test:e2e:full` | **Environnementale** — workaround port 3001 documenté dans `2026-07-07-qa-g4-post-merge-report.md` |
 
 ## Clôture R-QA-04 (post-merge PR #151 — 2026-07-09)
 
@@ -38,7 +38,7 @@
 | **Périmètre** | Dashboard panneaux droits — « À faire aujourd'hui » + « Répartition » |
 | **Décision** | Clôture documentaire Morris |
 
-**Rapport cycle :** `08-qa-test/r-qa-04-dashboard-real-data-report.md`
+**Rapport cycle :** `08-qa-test/2026-07-09-r-qa-04-dashboard-real-data-report.md`
 
 ## Recommandation QA
 

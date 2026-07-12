@@ -110,10 +110,10 @@ Dossier recommandé : `projects/<project>/08-qa-test/inc-<nn>/`
 |---------|------|
 | `qa-strategy.md` | Stratégie QA de l'incrément — périmètre, outillage, niveaux |
 | `test-scenarios.md` | Scénarios recette métier — traçabilité US / AC |
-| `qa-implementation-report.md` | Tests implémentés, commandes, couverture ciblée |
-| `qa-execution-report.md` | Résultats dernière exécution — pass/fail, logs |
+| `2026-07-06-qa-implementation-report.md` | Tests implémentés, commandes, couverture ciblée |
+| `2026-07-06-qa-execution-report.md` | Résultats dernière exécution — pass/fail, logs |
 | `qa-reserves.md` | Réserves ouvertes / acceptées / bloquantes |
-| `qa-readiness.md` | Verdict QA-G3 — GO / GO avec réserves / NO-GO |
+| `2026-07-06-qa-readiness.md` | Verdict QA-G3 — GO / GO avec réserves / NO-GO |
 
 ### Scripts attendus (projet applicatif)
 

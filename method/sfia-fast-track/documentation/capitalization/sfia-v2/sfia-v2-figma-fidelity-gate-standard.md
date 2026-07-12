@@ -140,9 +140,9 @@ Dossier : `projects/<project>/06-figma-fidelity-spike/`
 |---------|------|
 | `spike-overview.md` | Objectif, périmètre strict, frame cible |
 | `figma-reference.md` | Lien Figma, node ID, capture repo |
-| `visual-comparison-report.md` | Comparaison capture vs implémentation |
-| `spike-decisions.md` | Décisions spike + **D1/D2/D3 Morris** |
-| `spike-readiness.md` | Commandes, verdict, post-merge |
+| `2026-07-06-visual-comparison-report.md` | Comparaison capture vs implémentation |
+| `2026-07-06-spike-decisions.md` | Décisions spike + **D1/D2/D3 Morris** |
+| `2026-07-06-spike-readiness.md` | Commandes, verdict, post-merge |
 
 ### 9.4 Cycle PR / post-merge
 
@@ -208,7 +208,7 @@ Ouvrir branche cycle/<project>-figma-fidelity-spike
 Implémenter spike borné (1 frame, mock data, lint/build)
         │
         ▼
-Revue Morris — D1/D2/D3 (spike-decisions.md)
+Revue Morris — D1/D2/D3 (2026-07-06-spike-decisions.md)
         │
         ▼
 PR readiness → PR → merge (Morris)
@@ -249,9 +249,9 @@ projects/<project-name>/
 ├── 06-figma-fidelity-spike/      ← docs spike
 │   ├── spike-overview.md
 │   ├── figma-reference.md
-│   ├── visual-comparison-report.md
-│   ├── spike-decisions.md
-│   └── spike-readiness.md
+│   ├── 2026-07-06-visual-comparison-report.md
+│   ├── 2026-07-06-spike-decisions.md
+│   └── 2026-07-06-spike-readiness.md
 └── app/                          ← implémentation spike (routes minimales)
 ```
 

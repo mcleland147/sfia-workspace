@@ -46,4 +46,4 @@ Valider que la **stack front validée Morris** (Next.js App Router + React + Typ
 
 ---
 
-**Documents liés :** `figma-reference.md`, `visual-comparison-report.md`, `spike-decisions.md`, `spike-readiness.md`
+**Documents liés :** `figma-reference.md`, `2026-07-06-visual-comparison-report.md`, `2026-07-06-spike-decisions.md`, `2026-07-06-spike-readiness.md`

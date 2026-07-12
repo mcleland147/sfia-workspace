@@ -9,7 +9,7 @@
 - V0 : `/Users/morris/Downloads/BatiNova /Cadrage/`
 - SFIA v2 : `projects/chantiers360-v2/` + `method/sfia-fast-track/`
 
-> Ce document répond au cycle de comparaison V0 vs SFIA v2 prévu en fin de pilote (`2026-07-07-project-framing.md` §8, `mvp-capitalization-report.md` §11).
+> Ce document répond au cycle de comparaison V0 vs SFIA v2 prévu en fin de pilote (`2026-07-07-project-framing.md` §8, `2026-07-07-mvp-capitalization-report.md` §11).
 
 ---
 
@@ -50,7 +50,7 @@ SFIA v2 n'a pas encore absorbé les forces V0 (profondeur QA, framework recette 
 |----------|----------------|
 | `README.md` | Lu |
 | `00-framing/2026-07-07-project-framing.md` | Lu |
-| `09-capitalization/mvp-capitalization-report.md` | Lu intégralement |
+| `09-capitalization/2026-07-07-mvp-capitalization-report.md` | Lu intégralement |
 | `sfia-v2-method-versioning-standard.md` | Lu |
 | `sfia-v2-incremental-delivery-closure-standard.md` | Lu |
 | `sfia-v2-delivery-qa-test-standard.md` | Lu |
@@ -86,7 +86,7 @@ SFIA v2 n'a pas encore absorbé les forces V0 (profondeur QA, framework recette 
 | **Post-merge** | Absent | Check read-only systématique post QA-G4/closure | Absent côté V0 | v2 ajoute contrôle `main` vs attente | Utile mais micro-alignements nombreux (PR #130, #132, #134) |
 | **Capitalisation** | `30-Bilan-Exhaustif`, `35-REX` (fin projet) | `inc-01-capitalization` + `mvp-capitalization-report` | Partielle | V0 = bilan terminal riche ; v2 = incrémental + MVP | Combiner : capitalisation INC + bilan terminal |
 | **Versioning méthode** | Absent (DoD Cursor seule) | `sfia-v2-method-versioning-standard.md` v2.3.1 | Absent côté V0 | v2 versionne la méthode elle-même | Innovation v2 — à conserver |
-| **REX** | `35-Retour-Experience-Projet.md` — 500+ lignes, auto-critique | `mvp-capitalization-report.md` §5–§9 — frictions + enseignements | Forte | V0 plus profond produit/IA ; v2 plus structuré méthode | Fusionner formats en v3.0 |
+| **REX** | `35-Retour-Experience-Projet.md` — 500+ lignes, auto-critique | `2026-07-07-mvp-capitalization-report.md` §5–§9 — frictions + enseignements | Forte | V0 plus profond produit/IA ; v2 plus structuré méthode | Fusionner formats en v3.0 |
 | **Évolutions post-MVP** | EVOL-001/002/003 + processus RUN (docs 23–28) | Non lancé — décisions post-MVP séparées (§11 capitalisation) | Partielle | V0 a livré 1.1 ; v2 s'arrête au MVP capitalisé | Le cadre EVOL V0 est réutilisable post-pilote v2 |
 
 ---

@@ -48,4 +48,4 @@ INC-05 prochaines actions, IA générative, export PDF, signature, validation cl
 
 ---
 
-**Documents liés :** `delivery-inc-04-implementation-report.md`, `delivery-inc-04-validation-report.md`, `delivery-inc-04-decisions.md`
+**Documents liés :** `2026-07-06-delivery-inc-04-implementation-report.md`, `2026-07-06-delivery-inc-04-validation-report.md`, `2026-07-06-delivery-inc-04-decisions.md`

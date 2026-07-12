@@ -75,11 +75,11 @@ L'écran **Prochaines actions** (US-12, US-13) a été livré par **extrapolatio
 
 | Document | Section / contenu |
 |----------|-------------------|
-| `07-delivery-inc-05/delivery-inc-05-decisions.md` | D9 — accepté sans maquette dédiée |
+| `07-delivery-inc-05/2026-07-06-delivery-inc-05-decisions.md` | D9 — accepté sans maquette dédiée |
 | `08-qa-test/inc-05/qa-reserves.md` | Constat, décision, garde-fous |
-| `07-delivery-inc-05/inc-05-closure-report.md` | R-UX-01 ouverte — non bloquante |
+| `07-delivery-inc-05/2026-07-07-inc-05-closure-report.md` | R-UX-01 ouverte — non bloquante |
 | `04-design/figma-brief.md` | Frame P2 « Vue prochaines actions » — **⏳ Non produit** |
-| `09-capitalization/mvp-capitalization-report.md` | F4 — couverture design non systématique |
+| `09-capitalization/2026-07-07-mvp-capitalization-report.md` | F4 — couverture design non systématique |
 | Design coverage SFIA v2.0 | PR #129–#130 — R-UX-01 **levée** (clôture 2026-07-10) |
 
 > **Clôture R-UX-01 (2026-07-10) :** production Figma P2, alignement UI ciblé et validation Morris acceptable ; enseignements Figma-to-code à capitaliser dans le REX post-MVP Chantiers360.
@@ -154,12 +154,12 @@ Les panneaux **« À faire aujourd'hui »** et **« Répartition »** affichent 
 
 | Document | Section / contenu |
 |----------|-------------------|
-| `07-delivery-inc-01/delivery-inc-01-decisions.md` | D-INC01-6 — mock conservés, report INC-05+ |
+| `07-delivery-inc-01/2026-07-06-delivery-inc-01-decisions.md` | D-INC01-6 — mock conservés, report INC-05+ |
 | `08-qa-test/inc-01/qa-reserves.md` | R-QA-04 ouverte — hors périmètre US INC-01 |
-| `09-capitalization/inc-01-capitalization-report.md` | F4 — panneaux mock spike — reporté INC-05+ |
-| `07-delivery-inc-01/pr-readiness-inc-01.md` | Prochaines actions réelles ❌ — mock panneaux droite |
+| `09-capitalization/2026-07-06-inc-01-capitalization-report.md` | F4 — panneaux mock spike — reporté INC-05+ |
+| `07-delivery-inc-01/2026-07-06-pr-readiness-inc-01.md` | Prochaines actions réelles ❌ — mock panneaux droite |
 | `08-qa-test/inc-01/test-scenarios.md` | Hors scope E2E — panneaux droite mockés |
-| `06-figma-fidelity-spike/visual-comparison-report.md` | Panneau droit — statut OK visuel spike |
+| `06-figma-fidelity-spike/2026-07-06-visual-comparison-report.md` | Panneau droit — statut OK visuel spike |
 | INC-02 à INC-05 | R-QA-04 **inchangée** — hors périmètre chaque cycle |
 
 ### 5.3 Impact utilisateur
@@ -228,7 +228,7 @@ Les panneaux **« À faire aujourd'hui »** et **« Répartition »** affichent 
 | **PR** | #151 |
 | **Merge commit** | `2aa68f4` |
 | **E2E** | `r-qa-04-dashboard-panels.spec.ts` — PASS |
-| **Rapport** | `08-qa-test/r-qa-04-dashboard-real-data-report.md` |
+| **Rapport** | `08-qa-test/2026-07-09-r-qa-04-dashboard-real-data-report.md` |
 | **Décision** | Clôture documentaire Morris |
 
 ---
