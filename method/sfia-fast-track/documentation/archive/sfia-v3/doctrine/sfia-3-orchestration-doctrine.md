@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Doctrine d'orchestration contrôlée
 
 **Type :** Doctrine outillage
@@ -96,7 +98,7 @@ SFIA v2.0 a **préparé les garde-fous**. SFIA 3.0 **ferme la boucle opérationn
 |-------------------|----------------------|----------------|
 | **SFIA Orchestrator Bridge** | `.sfia/mcp/bridge/` (code) + `docs/tooling/mcp/` (doctrine) | L2/L4 boundary |
 | **SFIA Cursor Task Runner** | `.sfia/mcp/runner/` (code) | L4 expérimental |
-| **Prompts cycle** | `prompts/tooling/mcp/`, `prompts/governance/sfia-3-morris-gate.md` | L2 |
+| **Prompts cycle** | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)`, `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` | L2 |
 | **Templates (contrats JSON)** | `docs/templates/sfia-3-task-template.json`, `docs/templates/sfia-3-report-template.json` | L2 |
 
 ### 5.3 Cycle projet orchestré
@@ -171,15 +173,15 @@ Tout événement suivant **ouvre ou maintient** un gate — voir `sfia-3-gates-a
 ## 10. Références
 
 - `docs/tooling/mcp/sfia-mcp-v2-architecture.md`
-- `docs/tooling/mcp/sfia-3-cycle-engine.md`
-- `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md`
 - `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md`
 - `docs/tooling/mcp/sfia-mcp-v2-architecture.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v3/experiments/2026-07-07-sfia-orchestrator-bridge-architecture-and-mvp.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v3/experiments/2026-07-07-sfia-cursor-task-runner-experiment.md`
-- `prompts/tooling/mcp/sfia-3-cycle-router.md`
-- `prompts/tooling/mcp/sfia-3-task-builder.md`
-- `prompts/tooling/mcp/sfia-3-report-analyzer.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/2026-07-07-sfia-orchestrator-bridge-architecture-and-mvp.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/2026-07-07-sfia-cursor-task-runner-experiment.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md`
 - `docs/templates/sfia-3-task-template.json` *(contrat JSON — référence documentaire)*
 - `docs/templates/sfia-3-report-template.json` *(contrat JSON — référence documentaire)*
 

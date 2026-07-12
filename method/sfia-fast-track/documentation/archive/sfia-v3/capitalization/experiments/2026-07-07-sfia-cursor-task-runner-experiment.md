@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA Cursor Task Runner — Experiment Report
 
 **Date :** 2026-07-07

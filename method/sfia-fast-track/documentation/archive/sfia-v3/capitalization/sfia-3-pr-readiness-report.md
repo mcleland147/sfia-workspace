@@ -1,9 +1,11 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Rapport PR readiness (documentation / MCP)
 
 **Date :** 2026-07-08
 **Agent :** préparation PR readiness — **aucun commit, push ou PR créée**
 **Références :**
-- `method/.../sfia-3-documentation-routing-audit.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md`
 - `method/.../sfia-3-documentation-realignment-report.md`
 - `method/.../sfia-3-documentation-links-correction-report.md`
 
@@ -68,12 +70,12 @@ La trajectoire SFIA 3.0 est **complète en local** mais **non indexée** :
 ?? docs/templates/sfia-3-report-template.json
 ?? docs/templates/sfia-3-task-template.json
 ?? docs/tooling/mcp/
-?? method/sfia-fast-track/documentation/capitalization/sfia-3-documentation-routing-audit.md
-?? method/sfia-fast-track/documentation/capitalization/sfia-v3/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/
 ?? projects/chantiers360-v2/app/test-results/
 ?? projects/interv360/03-design/exports/
-?? prompts/governance/sfia-3-morris-gate.md
-?? prompts/tooling/mcp/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)
 ```
 
 ---
@@ -123,9 +125,9 @@ M	prompts/ux-ui/.gitkeep
 
 | Fichier | Statut |
 |---------|--------|
-| `docs/tooling/mcp/sfia-3-orchestration-doctrine.md` | untracked ✅ |
-| `docs/tooling/mcp/sfia-3-cycle-engine.md` | untracked ✅ |
-| `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md` | untracked ✅ |
 | `docs/tooling/mcp/sfia-mcp-v2-architecture.md` | untracked ✅ *(référence v2)* |
 | `docs/templates/sfia-3-task-template.json` | untracked ✅ *(contrat durable)* |
 | `docs/templates/sfia-3-report-template.json` | untracked ✅ *(contrat durable)* |
@@ -134,21 +136,21 @@ M	prompts/ux-ui/.gitkeep
 
 | Fichier | Statut |
 |---------|--------|
-| `prompts/tooling/mcp/sfia-3-cycle-router.md` | untracked ✅ |
-| `prompts/tooling/mcp/sfia-3-task-builder.md` | untracked ✅ |
-| `prompts/tooling/mcp/sfia-3-report-analyzer.md` | untracked ✅ |
-| `prompts/governance/sfia-3-morris-gate.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` | untracked ✅ |
 
 ### 6.3 Capitalisation SFIA v3 (`method/.../capitalization/`)
 
 | Fichier | Statut |
 |---------|--------|
-| `method/.../sfia-3-documentation-routing-audit.md` | untracked ✅ |
-| `method/.../sfia-v3/2026-07-07-sfia-3-opening-report.md` | untracked ✅ |
-| `method/.../sfia-v3/sfia-3-documentation-realignment-report.md` | untracked ✅ |
-| `method/.../sfia-v3/sfia-3-documentation-links-correction-report.md` | untracked ✅ |
-| `method/.../sfia-v3/sfia-3-pr-readiness-report.md` | untracked ✅ *(ce rapport)* |
-| `method/.../sfia-v3/experiments/*.md` (9 fichiers) | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/2026-07-07-sfia-3-opening-report.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-realignment-report.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-links-correction-report.md` | untracked ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-pr-readiness-report.md` | untracked ✅ *(ce rapport)* |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/*.md` (9 fichiers) | untracked ✅ |
 
 ### 6.4 Runtime `.sfia/mcp/` — à traiter avec prudence
 
@@ -232,10 +234,10 @@ M	prompts/ux-ui/.gitkeep
 
 | Emplacement attendu | Présent |
 |---------------------|---------|
-| `docs/tooling/mcp/sfia-3-*.md` | ✅ 3 fichiers |
-| `prompts/tooling/mcp/sfia-3-*.md` | ✅ 3 fichiers |
-| `prompts/governance/sfia-3-morris-gate.md` | ✅ |
-| `method/.../capitalization/sfia-v3/` | ✅ 13 fichiers `.md` |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/ (archived)` | ✅ 3 fichiers |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)sfia-3-*.md` | ✅ 3 fichiers |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` | ✅ |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` | ✅ 13 fichiers `.md` |
 | `.sfia/mcp/prompts/` | ✅ Absent |
 | `.sfia/mcp/templates/` | ✅ Absent |
 
@@ -248,18 +250,18 @@ M	prompts/ux-ui/.gitkeep
 **23 fichiers** — documentation durable + contrats templates :
 
 ```text
-docs/tooling/mcp/sfia-3-orchestration-doctrine.md
-docs/tooling/mcp/sfia-3-cycle-engine.md
-docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md
+method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md
+method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md
+method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md
 docs/tooling/mcp/sfia-mcp-v2-architecture.md
 docs/templates/sfia-3-task-template.json
 docs/templates/sfia-3-report-template.json
-prompts/tooling/mcp/sfia-3-cycle-router.md
-prompts/tooling/mcp/sfia-3-task-builder.md
-prompts/tooling/mcp/sfia-3-report-analyzer.md
-prompts/governance/sfia-3-morris-gate.md
-method/sfia-fast-track/documentation/capitalization/sfia-3-documentation-routing-audit.md
-method/sfia-fast-track/documentation/capitalization/sfia-v3/**  (13 .md)
+method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md
+method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md
+method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md
+method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md
+method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md
+method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/**  (13 .md)
 ```
 
 > **Note Morris :** les 2 templates JSON dans `docs/templates/` sont des **contrats durables** (déplacés depuis `.sfia/mcp/templates/` lors du réalignement). Ils ne sont pas des artefacts runtime — inclusion légitime dans la PR documentation.
@@ -415,10 +417,10 @@ feat(sfia-3): add orchestration docs, MCP bridge/server/runner, and prompts
 ```markdown
 ## Summary
 
-- Open SFIA 3.0 orchestration doctrine (`docs/tooling/mcp/sfia-3-*.md`)
-- Add reusable cycle prompts (`prompts/tooling/mcp/`, `prompts/governance/sfia-3-morris-gate.md`)
+- Open SFIA 3.0 orchestration doctrine (`method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/ (archived)`)
+- Add reusable cycle prompts (`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)`, `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md`)
 - Add task/report JSON templates (`docs/templates/sfia-3-*.json`)
-- Capitalize routing audit, realignment, link correction, and experiment reports (`method/.../sfia-v3/`)
+- Capitalize routing audit, realignment, link correction, and experiment reports (`method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/`)
 
 ## Architecture rule
 
@@ -430,7 +432,7 @@ feat(sfia-3): add orchestration docs, MCP bridge/server/runner, and prompts
 - [ ] Verify all Markdown links resolve to canonical paths
 - [ ] Confirm no secrets in versioned files
 - [ ] Confirm `.sfia/mcp/reports/*.md` absent from repo
-- [ ] Git Reader can locate prompts under `prompts/tooling/mcp/`
+- [ ] Git Reader can locate prompts under `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)`
 - [ ] Morris review doctrine + gates before operational E2E
 ```
 

@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Task Builder (prompt générique)
 
 **Usage :** ChatGPT — construction task avant `POST /tasks`
@@ -76,4 +78,4 @@ Content-Type: application/json
 
 - `docs/templates/sfia-3-task-template.json`
 - `.sfia/mcp/bridge/README.md`
-- `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md`

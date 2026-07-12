@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Morris Gate (prompt générique)
 
 **Usage :** Morris — résolution manuelle gate ; ChatGPT — préparation escalade
@@ -105,5 +107,5 @@ Résolution manuelle Morris pour permettre le test ChatGPT ↔ Cursor via bridge
 
 ## Références
 
-- `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §4.3.3

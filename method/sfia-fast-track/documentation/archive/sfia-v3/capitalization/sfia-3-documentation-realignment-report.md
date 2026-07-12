@@ -1,7 +1,9 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Rapport de réalignement documentaire
 
 **Date :** 2026-07-07
-**Référence :** `method/sfia-fast-track/documentation/capitalization/sfia-3-documentation-routing-audit.md`
+**Référence :** `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md`
 **Décision Morris :** GO déplacement documentaire uniquement — pas de modification de fond
 **Action Git :** aucun commit, push ou PR
 
@@ -21,7 +23,7 @@
 ?? .cursor/mcp.json
 ?? .sfia/
 ?? docs/tooling/mcp/
-?? method/.../sfia-3-documentation-routing-audit.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md
 ?? (autres untracked hors périmètre)
 ```
 
@@ -32,9 +34,9 @@
 ?? docs/templates/sfia-3-task-template.json
 ?? docs/tooling/mcp/
 ?? method/.../capitalization/sfia-3-documentation-routing-audit.md
-?? method/.../capitalization/sfia-v3/
-?? prompts/governance/sfia-3-morris-gate.md
-?? prompts/tooling/mcp/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)
 ?? .sfia/                    (runtime bus — prompts/templates/reports .md retirés)
 ```
 
@@ -46,10 +48,10 @@
 
 | Source | Destination |
 |--------|-------------|
-| `.sfia/mcp/prompts/cycle-router.md` | `prompts/tooling/mcp/sfia-3-cycle-router.md` |
-| `.sfia/mcp/prompts/task-builder.md` | `prompts/tooling/mcp/sfia-3-task-builder.md` |
-| `.sfia/mcp/prompts/report-analyzer.md` | `prompts/tooling/mcp/sfia-3-report-analyzer.md` |
-| `.sfia/mcp/prompts/morris-gate.md` | `prompts/governance/sfia-3-morris-gate.md` |
+| `.sfia/mcp/prompts/cycle-router.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` |
+| `.sfia/mcp/prompts/task-builder.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` |
+| `.sfia/mcp/prompts/report-analyzer.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` |
+| `.sfia/mcp/prompts/morris-gate.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` |
 
 ### Templates (2)
 
@@ -62,21 +64,21 @@
 
 | Source | Destination | Motif |
 |--------|-------------|-------|
-| `.sfia/mcp/reports/2026-07-07-sfia-3-opening-report.md` | `method/.../capitalization/sfia-v3/2026-07-07-sfia-3-opening-report.md` | Rapport d'ouverture méthode |
+| `.sfia/mcp/reports/2026-07-07-sfia-3-opening-report.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/2026-07-07-sfia-3-opening-report.md` | Rapport d'ouverture méthode |
 
 ### Rapports Markdown — expérimentation (9)
 
 | Source | Destination |
 |--------|-------------|
-| `.sfia/mcp/reports/2026-07-07-sfia-orchestrator-bridge-architecture-and-mvp.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-sfia-cursor-task-runner-experiment.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-mcp-cursor-interactive-validation.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-mcp-e2e-v040-flow.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-mcp-l3-cycle-report-experiment.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-mcp-l3-confined-handoff-experiment.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-mcp-l2-handoff-experiment.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-cursor-integration-flow.md` | `method/.../capitalization/sfia-v3/experiments/` |
-| `.sfia/mcp/reports/2026-07-07-mcp-mvp-l1-experiment.md` | `method/.../capitalization/sfia-v3/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-sfia-orchestrator-bridge-architecture-and-mvp.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-sfia-cursor-task-runner-experiment.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-mcp-cursor-interactive-validation.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-mcp-e2e-v040-flow.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-mcp-l3-cycle-report-experiment.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-mcp-l3-confined-handoff-experiment.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-mcp-l2-handoff-experiment.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-cursor-integration-flow.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
+| `.sfia/mcp/reports/2026-07-07-mcp-mvp-l1-experiment.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
 
 **Dossiers supprimés (vides) :** `.sfia/mcp/prompts/`, `.sfia/mcp/templates/`
 
@@ -88,7 +90,7 @@ Liens internes mis à jour **uniquement** dans les prompts déplacés (chemins c
 
 | Fichier | Changement |
 |---------|------------|
-| `sfia-3-cycle-router.md` | Référence task-builder → `prompts/tooling/mcp/sfia-3-task-builder.md` |
+| `sfia-3-cycle-router.md` | Référence task-builder → `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` |
 | `sfia-3-task-builder.md` | Template → `docs/templates/sfia-3-task-template.json` |
 | `sfia-3-report-analyzer.md` | Template + morris-gate → chemins canoniques |
 
@@ -125,9 +127,9 @@ Références runtime `.sfia/mcp/` (bus, gates, reports JSON) **inchangées** —
 
 Restent à leur emplacement actuel (non déplacés) :
 
-- `docs/tooling/mcp/sfia-3-orchestration-doctrine.md`
-- `docs/tooling/mcp/sfia-3-cycle-engine.md`
-- `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md`
 - `docs/tooling/mcp/sfia-mcp-v2-architecture.md`
 
 ---
@@ -175,10 +177,10 @@ Restent à leur emplacement actuel (non déplacés) :
 
 | # | Action | Bloquant ? |
 |---|--------|------------|
-| 1 | ~~Patch liens dans `docs/tooling/mcp/sfia-3-*.md`~~ | **Fait** (2026-07-08 — voir `sfia-3-documentation-links-correction-report.md`) |
+| 1 | ~~Patch liens dans `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/ (archived)`~~ | **Fait** (2026-07-08 — voir `sfia-3-documentation-links-correction-report.md`) |
 | 2 | Entrées SFIA 3.0 dans `prompts/prompt-catalog.md` | Non — souhaitable |
 | 3 | Hub `docs/tooling/mcp/README.md` | Non |
-| 4 | **Reprise test** ChatGPT → Bridge → Runner avec chemins `prompts/tooling/mcp/` | **GO opérationnel** |
+| 4 | **Reprise test** ChatGPT → Bridge → Runner avec chemins `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)` | **GO opérationnel** |
 
 **Morris peut reprendre l'orchestrateur et Git Reader** dès maintenant — le bus runtime est propre ; les assets durables sont aux emplacements canoniques.
 
@@ -190,7 +192,7 @@ Restent à leur emplacement actuel (non déplacés) :
 Déplacements : 16 fichiers
 Liens corrigés : 5 références (prompts déplacés uniquement)
 .sfia/mcp/ : runtime uniquement
-Capitalisation : method/.../capitalization/sfia-v3/
+Capitalisation : method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/
 Statut : REALIGNEMENT OK
 ```
 

@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Report Analyzer (prompt générique)
 
 **Usage :** ChatGPT — après lecture rapport via bridge ou MCP
@@ -77,5 +79,5 @@ Sinon : `cycle_closed: false` + action recommandée.
 ## Références
 
 - `docs/templates/sfia-3-report-template.json`
-- `docs/tooling/mcp/sfia-3-cycle-engine.md` §6
-- `prompts/governance/sfia-3-morris-gate.md` (si escalade)
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md` §6
+- `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` (si escalade)

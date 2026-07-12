@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Audit de cartographie documentaire
 
 **Date :** 2026-07-07
@@ -110,10 +112,10 @@ Tous les livrables SFIA 3.0 et le bus `.sfia/mcp/` sont **non suivis** (`??`) à
 
 | Fichier | Emplacement au moment de l'audit |
 |---------|----------------------------------|
-| `cycle-router.md` | `.sfia/mcp/prompts/` → **`prompts/tooling/mcp/sfia-3-cycle-router.md`** |
-| `task-builder.md` | `.sfia/mcp/prompts/` → **`prompts/tooling/mcp/sfia-3-task-builder.md`** |
-| `report-analyzer.md` | `.sfia/mcp/prompts/` → **`prompts/tooling/mcp/sfia-3-report-analyzer.md`** |
-| `morris-gate.md` | `.sfia/mcp/prompts/` → **`prompts/governance/sfia-3-morris-gate.md`** |
+| `cycle-router.md` | `.sfia/mcp/prompts/` → **`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md`** |
+| `task-builder.md` | `.sfia/mcp/prompts/` → **`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md`** |
+| `report-analyzer.md` | `.sfia/mcp/prompts/` → **`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md`** |
+| `morris-gate.md` | `.sfia/mcp/prompts/` → **`method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md`** |
 
 ### 4.3 Templates (état audit — avant réalignement)
 
@@ -166,20 +168,20 @@ Tous les livrables SFIA 3.0 et le bus `.sfia/mcp/` sont **non suivis** (`??`) à
 
 | Fichier | Emplacement actuel | Classification | Emplacement cible recommandé | Justification |
 |---------|-------------------|----------------|----------------------------|---------------|
-| `sfia-3-orchestration-doctrine.md` | `docs/tooling/mcp/` | Doctrine durable | **Conserver** `docs/tooling/mcp/` *(court terme)* → `method/.../capitalization/sfia-v3/` *(promotion)* | Aligné précédent `docs/tooling/penpot/` ; promotion méthode si statut Candidate |
+| `sfia-3-orchestration-doctrine.md` | `docs/tooling/mcp/` | Doctrine durable | **Conserver** `docs/tooling/mcp/` *(court terme)* → `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` *(promotion)* | Aligné précédent `docs/tooling/penpot/` ; promotion méthode si statut Candidate |
 | `sfia-3-cycle-engine.md` | `docs/tooling/mcp/` | Architecture outillage | **Conserver** `docs/tooling/mcp/` | Doc moteur cycle = outillage orchestrateur |
 | `sfia-3-gates-and-stop-conditions.md` | `docs/tooling/mcp/` | Architecture outillage / normatif | **Conserver** `docs/tooling/mcp/` *(court terme)* → référence croisée `method/.../core/` si norme | Gates opérationnels MCP ; pas core v1.1 |
 | `sfia-mcp-v2-architecture.md` | `docs/tooling/mcp/` | Architecture outillage | **Conserver** | Déjà conforme |
-| `cycle-router.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `prompts/tooling/mcp/sfia-3-cycle-router.md` | Matrix : prompts → `prompts/` ; précédent `prompts/tooling/penpot/` |
-| `task-builder.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `prompts/tooling/mcp/sfia-3-task-builder.md` | Idem |
-| `report-analyzer.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `prompts/tooling/mcp/sfia-3-report-analyzer.md` | Idem |
-| `morris-gate.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `prompts/governance/sfia-3-morris-gate.md` ou `prompts/arbitrages/` | Thème gouvernance / arbitrage |
+| `cycle-router.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` | Matrix : prompts → `prompts/` ; précédent `prompts/tooling/penpot/` |
+| `task-builder.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` | Idem |
+| `report-analyzer.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` | Idem |
+| `morris-gate.md` | `.sfia/mcp/prompts/` | Prompt réutilisable | `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` ou `prompts/arbitrages/` | Thème gouvernance / arbitrage |
 | `task-template.json` | `.sfia/mcp/templates/` | Template technique | `docs/templates/sfia-3-task-template.json` | Matrix : templates plateforme → `docs/templates/` |
 | `report-template.json` | `.sfia/mcp/templates/` | Template technique | `docs/templates/sfia-3-report-template.json` | Idem |
 | `2026-07-07-sfia-3-opening-report.md` | `.sfia/mcp/reports/` | Rapport temporaire | `method/.../capitalization/sfia-3-opening-report.md` | Capitalisation méthode — pas runtime |
-| `2026-07-07-sfia-orchestrator-bridge-*.md` | `.sfia/mcp/reports/` | Rapport temporaire | `method/.../capitalization/sfia-v3/` ou `docs/tooling/mcp/reports/` | REX outillage ; extraire durable vers README bridge |
-| `2026-07-07-sfia-cursor-task-runner-*.md` | `.sfia/mcp/reports/` | Rapport temporaire | `method/.../capitalization/sfia-v3/` | Idem |
-| `2026-07-07-mcp-*.md` (expériences) | `.sfia/mcp/reports/` | Rapport temporaire | `method/.../capitalization/sfia-v3/experiments/` | Evidence cycles ; pas bus |
+| `2026-07-07-sfia-orchestrator-bridge-*.md` | `.sfia/mcp/reports/` | Rapport temporaire | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` ou `docs/tooling/mcp/reports/` | REX outillage ; extraire durable vers README bridge |
+| `2026-07-07-sfia-cursor-task-runner-*.md` | `.sfia/mcp/reports/` | Rapport temporaire | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` | Idem |
+| `2026-07-07-mcp-*.md` (expériences) | `.sfia/mcp/reports/` | Rapport temporaire | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` | Evidence cycles ; pas bus |
 | `bridge/README.md` | `.sfia/mcp/bridge/` | Architecture outillage | **Conserver** à côté du code *(court terme)* → lien depuis `docs/tooling/mcp/` | README co-localisé acceptable pour outillage exécutable |
 | `tasks/*.json` | `.sfia/mcp/tasks/` | Artefact runtime | **Conserver** `.sfia/mcp/tasks/` | Bus orchestrateur |
 | `reports/report-*.json` | `.sfia/mcp/reports/` | Artefact runtime | **Conserver** `.sfia/mcp/reports/` | Consommables ChatGPT |
@@ -194,16 +196,16 @@ Tous les livrables SFIA 3.0 et le bus `.sfia/mcp/` sont **non suivis** (`??`) à
 
 | Fichier / dossier | Raison | Cible recommandée |
 |-------------------|--------|-------------------|
-| `prompts/cycle-router.md` | Prompt réutilisable — Matrix → `prompts/` | `prompts/tooling/mcp/` |
-| `prompts/task-builder.md` | Idem | `prompts/tooling/mcp/` |
-| `prompts/report-analyzer.md` | Idem | `prompts/tooling/mcp/` |
+| `prompts/cycle-router.md` | Prompt réutilisable — Matrix → `prompts/` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)` |
+| `prompts/task-builder.md` | Idem | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)` |
+| `prompts/report-analyzer.md` | Idem | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)` |
 | `prompts/morris-gate.md` | Idem | `prompts/governance/` |
 | `templates/task-template.json` | Template plateforme | `docs/templates/` |
 | `templates/report-template.json` | Idem | `docs/templates/` |
 | `reports/2026-07-07-sfia-3-opening-report.md` | Capitalisation méthode | `method/.../capitalization/` |
-| `reports/2026-07-07-sfia-orchestrator-bridge-*.md` | REX — pas artefact cycle | `method/.../capitalization/sfia-v3/` |
-| `reports/2026-07-07-sfia-cursor-task-runner-*.md` | Idem | `method/.../capitalization/sfia-v3/` |
-| `reports/2026-07-07-mcp-*.md` | Rapports expérimentation | `method/.../capitalization/sfia-v3/experiments/` |
+| `reports/2026-07-07-sfia-orchestrator-bridge-*.md` | REX — pas artefact cycle | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` |
+| `reports/2026-07-07-sfia-cursor-task-runner-*.md` | Idem | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` |
+| `reports/2026-07-07-mcp-*.md` | Rapports expérimentation | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` |
 | `reports/2026-07-07-cursor-integration-flow.md` | Idem | Idem |
 
 **Total : 13 fichiers / groupes à déplacer** (sur ~20 livrables documentaires hors runtime JSON).
@@ -235,7 +237,7 @@ docs/tooling/mcp/                          ← Hub architecture outillage MCP / 
   sfia-3-gates-and-stop-conditions.md
   README.md                                ← (à créer) index hub → bus runtime
 
-prompts/tooling/mcp/                       ← Prompts cycle SFIA 3.0
+method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)                       ← Prompts cycle SFIA 3.0
   sfia-3-cycle-router.md
   sfia-3-task-builder.md
   sfia-3-report-analyzer.md
@@ -297,9 +299,9 @@ method/sfia-fast-track/documentation/capitalization/
 | # | Décision |
 |---|----------|
 | 1 | Valider la cartographie cible §8 |
-| 2 | Autoriser le déplacement des 4 prompts vers `prompts/tooling/mcp/` (+ morris-gate → governance) |
+| 2 | Autoriser le déplacement des 4 prompts vers `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)` (+ morris-gate → governance) |
 | 3 | Autoriser le déplacement des 2 templates vers `docs/templates/` |
-| 4 | Autoriser le déplacement des rapports `.md` vers `method/.../capitalization/sfia-v3/` |
+| 4 | Autoriser le déplacement des rapports `.md` vers `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/` |
 | 5 | Créer le hub `docs/tooling/mcp/README.md` (index) |
 | 6 | Décider si `sfia-3-orchestration-doctrine.md` reste `docs/tooling/mcp/` ou migre vers `capitalization/sfia-v3/` |
 | 7 | Autoriser la PR de consolidation (hors scope immédiat) |
@@ -316,9 +318,9 @@ method/sfia-fast-track/documentation/capitalization/
 
 1. **Morris valide** cette cartographie (GO / ajustements).
 2. **Cycle DOC dédié** — déplacements uniquement (pas de code applicatif) :
-   - prompts → `prompts/tooling/mcp/`
+   - prompts → `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)`
    - templates → `docs/templates/`
-   - rapports `.md` → `method/.../capitalization/sfia-v3/`
+   - rapports `.md` → `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/`
 3. **Créer hub** `docs/tooling/mcp/README.md` liant doctrine, bus runtime, bridge, runner.
 4. **Mettre à jour** `prompts/prompt-catalog.md` (entrées SFIA 3.0).
 5. **Puis** reprendre test E2E ChatGPT ↔ Bridge ↔ Runner avec chemins canoniques.
