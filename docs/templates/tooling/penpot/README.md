@@ -12,8 +12,8 @@ Ce dossier accueillera les **templates documentaires Penpot** réutilisables pou
 
 Les conventions et chemins Git sont définis dans :
 
-- [`docs/tooling/penpot/penpot-design-agent-architecture.md`](../../tooling/penpot/penpot-design-agent-architecture.md) §9
-- [`docs/tooling/penpot/penpot-sfia-method-integration.md`](../../tooling/penpot/penpot-sfia-method-integration.md)
+- [`docs/tooling/penpot/penpot-design-agent-architecture.md`](../../../tooling/penpot/penpot-design-agent-architecture.md) §9
+- [`docs/tooling/penpot/penpot-sfia-method-integration.md`](../../../tooling/penpot/penpot-sfia-method-integration.md)
 
 ## Templates prévus (futures PR)
 

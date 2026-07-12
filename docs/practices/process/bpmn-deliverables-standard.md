@@ -1,9 +1,9 @@
 # SFIA — Standard des livrables BPMN
 
-**Type** : Standard méthodologique  
-**Statut** : Draft  
-**Domaine** : Process Modeling / BPMN  
-**Source** : `bpmn-method-integration-audit.md`  
+**Type** : Standard méthodologique
+**Statut** : Draft
+**Domaine** : Process Modeling / BPMN
+**Source** : `2026-06-28-bpmn-method-integration-audit.md`
 **Méthode associée** : `bpmn-process-modeling-method.md`
 
 ---
@@ -143,7 +143,7 @@ Ce standard doit être **appliqué à tout projet SFIA** utilisant BPMN.
 
 - `bpmn-process-modeling-method.md` — quand et comment modéliser ;
 - `bpmn-integration-checklist.md` — prérequis avant ouverture cycle ;
-- `bpmn-method-integration-audit.md` — audit Phase A.
+- `2026-06-28-bpmn-method-integration-audit.md` — audit Phase A.
 
 **Phase suivante** : Phase C — templates (`docs/templates/process/`) et prompts (`prompts/bpmn/`).
 

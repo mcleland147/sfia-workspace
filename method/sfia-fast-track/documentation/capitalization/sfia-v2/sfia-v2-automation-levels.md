@@ -222,7 +222,7 @@ Ce document ne modifie aucun document canonique v1.1.
 | Project delivery cycle | L3–L4 | L4 | Morris aux gates ; QA-G3 avant PR readiness |
 | Automation experiment | L5 ciblé | L5 ciblé | Morris — cas par cas |
 
-**Référence routing :** `sfia-cycle-routing-guide.md` (v1.1) reste l'index des types de cycle — v2.0 ajoute le **niveau d'automation** recommandé par type.
+**Référence routing :** `../../../core/sfia-cycle-routing-guide.md` (v1.1) reste l'index des types de cycle — v2.0 ajoute le **niveau d'automation** recommandé par type.
 
 ## 8. Promotion rules
 
@@ -340,7 +340,7 @@ SFIA v2.0 ne vise pas uniquement l'automatisation d'actions isolées dans le rep
 | Capitalisation | L2–L3 | L3 | Morris valide l'actif à capitaliser |
 | Amélioration de la méthode | L2–L3 | L3 | Morris valide toute promotion vers document canonique |
 
-Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard **Delivery QA / Test** (`sfia-v2-delivery-qa-test-standard.md`), le standard **Incremental Delivery Closure** (`sfia-v2-incremental-delivery-closure-standard.md`) et le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
+Cette trajectoire sera **testée concrètement** via le futur **Project Bootstrap v2.0** et le projet pilote neuf. Le standard **Delivery QA / Test** (`sfia-v2-delivery-qa-test-standard.md`), le standard **Incremental Delivery Closure** (`2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`) et le standard de démarrage projet (`sfia-v2-project-bootstrap-standard.md`) reprennent cette logique étape par étape : niveau cible, niveau autorisé, gate Morris, livrables attendus.
 
 **Rattrapage pilote :** si le backlog MVP a été produit avant Figma (ex. Chantiers360 v2), appliquer le cycle Design Figma MVP puis un micro-cycle **Backlog Alignment** si écarts — voir `sfia-v2-design-figma-cycle-standard.md` §8.
 
@@ -374,11 +374,11 @@ Les niveaux L ne sont pas uniquement des **niveaux techniques** (contrôles Git,
 **Références :**
 
 - `sfia-v2-automation-and-delivery-vision.md`
-- `sfia-v2-incremental-delivery-closure-standard.md`
+- `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md`
 - `prompts/prompt-catalog.md` — §14
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` — §6.12–6.14
 - `sfia-v2-figma-fidelity-gate-standard.md`
-- `sfia-cycle-routing-guide.md`
-- `sfia-validation-checklist.md`
+- `../../../core/sfia-cycle-routing-guide.md`
+- `../../../checklists/sfia-validation-checklist.md`
 - `prompts/templates/` (01–10)
-- `sfia-notion-publication-track-pause-decision.md`
+- `../../notion/2026-07-04-sfia-notion-publication-track-pause-decision.md`

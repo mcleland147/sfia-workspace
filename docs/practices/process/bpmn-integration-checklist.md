@@ -1,10 +1,10 @@
 # SFIA — Checklist d'intégration BPMN
 
-**Type** : Checklist méthodologique  
-**Statut** : Draft  
-**Domaine** : Process Modeling / BPMN  
-**Source** : `bpmn-method-integration-audit.md`  
-**Méthode associée** : `bpmn-process-modeling-method.md`  
+**Type** : Checklist méthodologique
+**Statut** : Draft
+**Domaine** : Process Modeling / BPMN
+**Source** : `2026-06-28-bpmn-method-integration-audit.md`
+**Méthode associée** : `bpmn-process-modeling-method.md`
 **Standard associé** : `bpmn-deliverables-standard.md`
 
 ---

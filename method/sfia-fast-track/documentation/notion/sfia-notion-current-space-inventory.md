@@ -60,22 +60,22 @@ Contraintes appliquées :
 - aucune modification des payloads JSON historiques ;
 - inventaire basé uniquement sur les artefacts repository.
 
-**Inférence espace Notion live (depuis `export-manifest.json`, juin 2026) :**
+**Inférence espace Notion live (depuis `../../../../exports/notion/export-manifest.json`, juin 2026) :**
 
 L'espace Notion actif semble contenir au minimum ces bases (IDs Notion présents dans le manifest) :
 
 | Base inférée | databaseId (extrait manifest) | Fichier export |
 |--------------|-------------------------------|----------------|
-| Experiments | `05bc96b1-5793-...` | `experiments.json` |
-| Components | `056fa8ce-bfab-...` | `components.json` |
-| Prompts | `ceee9b1d-5a7f-...` | `prompts.json` |
-| SFIA — Templates | `2bb3717a-3fbd-...` | `templates.json` |
-| SFIA — Standards | `20fa398e-00e2-...` | `standards.json` |
-| Knowledge | (manifest) | `knowledge.json` |
-| KPI | (manifest) | `kpi.json` |
-| Projects | (manifest) | `projects.json` |
-| REX | (manifest) | `rex.json` |
-| ADR | (manifest) | `adr.json` |
+| Experiments | `05bc96b1-5793-...` | `../../../../exports/notion/experiments.json` |
+| Components | `056fa8ce-bfab-...` | `../../../../exports/notion/components.json` |
+| Prompts | `ceee9b1d-5a7f-...` | `../../../../exports/notion/prompts.json` |
+| SFIA — Templates | `2bb3717a-3fbd-...` | `../../../../exports/notion/templates.json` |
+| SFIA — Standards | `20fa398e-00e2-...` | `../../../../exports/notion/standards.json` |
+| Knowledge | (manifest) | `../../../../exports/notion/knowledge.json` |
+| KPI | (manifest) | `../../../../exports/notion/kpi.json` |
+| Projects | (manifest) | `../../../../exports/notion/projects.json` |
+| REX | (manifest) | `../../../../exports/notion/rex.json` |
+| ADR | (manifest) | `../../../../exports/notion/adr.json` |
 
 Structure inférée de l'ancien espace : orientée **CMP / composants / expérimentations**, pas alignée sur la structure SFIA v1.1 (Operating Model, Cycle Routing, engines, etc.).
 
@@ -108,16 +108,16 @@ Structure inférée de l'ancien espace : orientée **CMP / composants / expérim
 
 | Fichier | Date / version | Contenu | Action |
 |---------|----------------|---------|--------|
-| `notion-target-content-map.md` | Pré-v1.1 | Structure 11 sections SFA/SFIA Fast Track | **Remplacer** — input historique pour Cycle 2 |
-| `notion-publication-plan.md` | Pré-v1.1 | ~12 pages cibles, ordre publication | **Remplacer** — principes conservables |
-| `archive/interv360-realization/notion-integration-plan.md` | Archive | Plan intégration historique | **Archiver** — ne pas réutiliser |
+| `../archive/notion/notion-target-content-map.md` | Pré-v1.1 | Structure 11 sections SFA/SFIA Fast Track | **Remplacer** — input historique pour Cycle 2 |
+| `../archive/notion/notion-publication-plan.md` | Pré-v1.1 | ~12 pages cibles, ordre publication | **Remplacer** — principes conservables |
+| `../archive/interv360-realization/notion-integration-plan.md` | Archive | Plan intégration historique | **Archiver** — ne pas réutiliser |
 
 ### 5.3 Plans de publication Notion
 
 | Document | Éléments utiles à conserver | Éléments obsolètes |
 |----------|----------------------------|-------------------|
-| `notion-publication-plan.md` | Principes no raw sync, validation humaine, ~12 pages cibles | Références documents déplacés/renommés, terminologie SFA |
-| `notion-publication-checklist.md` | Contrôles préparation / qualité / validation | À enrichir avec modèle v1.1 |
+| `../archive/notion/notion-publication-plan.md` | Principes no raw sync, validation humaine, ~12 pages cibles | Références documents déplacés/renommés, terminologie SFA |
+| `../archive/checklists/notion-publication-checklist.md` | Contrôles préparation / qualité / validation | À enrichir avec modèle v1.1 |
 
 ### 5.4 Exports Notion JSON
 
@@ -183,8 +183,8 @@ Structure inférée de l'ancien espace : orientée **CMP / composants / expérim
 |----------------|----------|
 | Espace Notion live actuel | Archiver — renommer legacy, bannière avertissement |
 | Nouvel espace cible | Créer **SFIA v1.1 — Workspace** |
-| `notion-target-content-map.md` | Remplacer par modèle Cycle 2 — conserver en archive repo |
-| `notion-publication-plan.md` | Remplacer — extraire principes utiles |
+| `../archive/notion/notion-target-content-map.md` | Remplacer par modèle Cycle 2 — conserver en archive repo |
+| `../archive/notion/notion-publication-plan.md` | Remplacer — extraire principes utiles |
 | `exports/notion/*.json` | Ne pas réutiliser directement |
 | Payloads notion-sync Interv360 | Ne pas republier — archive repo |
 | Logs notion-sync | Repo-only + liens archive Notion |
@@ -193,16 +193,16 @@ Structure inférée de l'ancien espace : orientée **CMP / composants / expérim
 
 ## 7. Éléments à conserver
 
-- Principes de `notion-publication-plan.md` : no raw sync, validation humaine, éditorialisation
+- Principes de `../archive/notion/notion-publication-plan.md` : no raw sync, validation humaine, éditorialisation
 - `exports/notion/README.md` — règle no auto-sync
-- `notion-publication-checklist.md` — base contrôles (à enrichir)
+- `../archive/checklists/notion-publication-checklist.md` — base contrôles (à enrichir)
 - Logs notion-sync comme preuve d'audit (repo)
 - Contenus Notion live utiles identifiés lors d'une revue live future (à reprendre sélectivement)
 
 ## 8. Éléments à remplacer
 
 - Structure navigation Notion legacy (11 sections SFA) → structure v1.1 (7 sections)
-- `notion-target-content-map.md` → `sfia-notion-target-model-and-integration-plan.md`
+- `../archive/notion/notion-target-content-map.md` → `sfia-notion-target-model-and-integration-plan.md`
 - Exports JSON juin 2026 → futurs exports régénérés post-modèle v1.1
 - Terminologie SFA → SFIA uniforme
 - Mapping pages basé sur docs pré-consolidation → mapping basé catégorisation Cycle 1
@@ -212,7 +212,7 @@ Structure inférée de l'ancien espace : orientée **CMP / composants / expérim
 - Espace Notion actuel → **SFIA Legacy — Archive ancienne version**
 - `projects/interv360/archive/notion-sync/` — déjà archivé repo
 - Payloads JSON historiques — ne pas exposer navigation principale
-- `archive/interv360-realization/notion-integration-plan.md`
+- `../archive/interv360-realization/notion-integration-plan.md`
 - Documents foundation v1.1 planning/inputs (clos)
 
 ## 10. Éléments à ne pas réutiliser directement
@@ -221,7 +221,7 @@ Structure inférée de l'ancien espace : orientée **CMP / composants / expérim
 |---------|--------|
 | `exports/notion/*.json` | Datés juin 2026, IDs legacy, contenu partiel |
 | Payloads `notion-sync-*.json` | Générés pour ancienne structure, lots CMP |
-| `export-manifest.json` databaseIds | Peuvent ne plus correspondre au live |
+| `../../../../exports/notion/export-manifest.json` databaseIds | Peuvent ne plus correspondre au live |
 | Structure 11 sections SFA | Non alignée foundation v1.1 |
 | Raw sync depuis repo | Violation Knowledge Layer |
 | Documentation Engine | Non existant — ne pas créer sans décision |

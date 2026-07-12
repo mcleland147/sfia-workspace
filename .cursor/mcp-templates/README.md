@@ -68,7 +68,7 @@ Une fois la config MCP et le plugin connectés, exécuter dans Cursor :
 
 Succès attendu : liste des pages du fichier ouvert (ex. `Page 1`).
 
-Voir le REX détaillé : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md`](../docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md).
+Voir le REX détaillé : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md`](../../docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md).
 
 ---
 
@@ -84,10 +84,10 @@ Voir le REX détaillé : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-r
 
 ## 5. Documentation associée
 
-- Architecture : [`docs/tooling/penpot/penpot-design-agent-architecture.md`](../docs/tooling/penpot/penpot-design-agent-architecture.md)
-- Guide Docker : [`docs/tooling/penpot/penpot-self-host-docker-guide.md`](../docs/tooling/penpot/penpot-self-host-docker-guide.md)
-- REX self-host MCP : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md`](../docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md)
-- Règles agent : [`docs/tooling/penpot/penpot-cursor-agent-rules.md`](../docs/tooling/penpot/penpot-cursor-agent-rules.md)
+- Architecture : [`docs/tooling/penpot/penpot-design-agent-architecture.md`](../../docs/tooling/penpot/penpot-design-agent-architecture.md)
+- Guide Docker : [`docs/tooling/penpot/penpot-self-host-docker-guide.md`](../../docs/tooling/penpot/penpot-self-host-docker-guide.md)
+- REX self-host MCP : [`docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md`](../../docs/tooling/penpot/2026-06-28-penpot-mcp-self-host-rex.md)
+- Règles agent : [`docs/tooling/penpot/penpot-cursor-agent-rules.md`](../../docs/tooling/penpot/penpot-cursor-agent-rules.md)
 - Penpot MCP : documentation officielle Penpot
 
 ---

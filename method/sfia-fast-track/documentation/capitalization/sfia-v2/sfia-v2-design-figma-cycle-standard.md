@@ -237,6 +237,6 @@ projects/<project-name>/
 - `sfia-v2-figma-fidelity-gate-standard.md` — gate fidélité design-to-code
 - `sfia-v2-project-bootstrap-standard.md` — structure projet
 - `sfia-v2-automation-and-delivery-vision.md` — vision delivery
-- `sfia-v2-pilot-selection-decision.md` — chaîne de production
+- `2026-07-05-sfia-v2-pilot-selection-decision.md` — chaîne de production
 
 **Decision (provisional) :** SFIA V2.0 DESIGN FIGMA CYCLE STANDARD DOCUMENTED — PENDING MORRIS VALIDATION

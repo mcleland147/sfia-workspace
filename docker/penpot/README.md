@@ -62,8 +62,8 @@ Adapter si conflit avec un autre service local.
 Après installation :
 
 1. Valider l'accès UI Penpot.
-2. Configurer MCP dans Cursor via [`.cursor/mcp-templates/penpot-mcp.example.json`](../.cursor/mcp-templates/penpot-mcp.example.json).
-3. Lire [`.cursor/mcp-templates/README.md`](../.cursor/mcp-templates/README.md).
+2. Configurer MCP dans Cursor via [`.cursor/mcp-templates/penpot-mcp.example.json`](../../.cursor/mcp-templates/penpot-mcp.example.json).
+3. Lire [`.cursor/mcp-templates/README.md`](../../.cursor/mcp-templates/README.md).
 
 Aucune clé MCP dans ce dossier.
 

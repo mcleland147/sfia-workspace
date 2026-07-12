@@ -93,7 +93,7 @@ Le Git Reader couvre la **lecture distante** pour ChatGPT. Le MCP SFIA v2.0 couv
 | I5 | **Le MCP Server expose uniquement des tools bornés** — pas d'API générique Git |
 | I6 | **Toute décision humaine requise crée un gate Morris** et **bloque** le cycle |
 | I7 | **Aucun secret** dans prompts versionnés, schémas MCP publics ou documentation |
-| I8 | **L5 global interdit** — voir `sfia-v2-automation-levels.md` |
+| I8 | **L5 global interdit** — voir `../../../method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` |
 
 ### 2.4 Principes de conception MCP
 
@@ -201,7 +201,7 @@ Ces capacités **ne doivent jamais** apparaître comme tools MCP SFIA :
 - `docs/`
 - `prompts/`
 - `projects/` — sous-arbres explicitement déclarés dans le handoff
-- `README.md`, `ROADMAP.md`, `CHANGELOG.md`
+- `README.md`, `../../roadmaps/cmp-technical-roadmap.md`, `CHANGELOG.md`
 
 **Écriture (L3) — périmètre MVP restreint :**
 
@@ -212,7 +212,7 @@ Ces capacités **ne doivent jamais** apparaître comme tools MCP SFIA :
 
 ### 4.3 Chemins protégés (écriture toujours interdite via MCP)
 
-Aligné sur `sfia-v2-automation-levels.md` et le Cycle Routing Guide :
+Aligné sur `../../../method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` et le Cycle Routing Guide :
 
 | Zone protégée | Exemples | Niveau max |
 |---------------|----------|------------|
@@ -234,7 +234,7 @@ Chaque appel tool MCP doit passer **toutes** les vérifications suivantes :
 4. **Chemins** dans périmètre autorisé et hors liste protégée.
 5. **Handoff valide** présent pour tout tool L3 (référence `handoff_id`, scope explicite).
 6. **Type de cycle** identifié via `sfia_routing_lookup` pour L2/L3.
-7. **Stop conditions** (`sfia-v2-automation-levels.md` §9) — arrêt immédiat si déclenchées.
+7. **Stop conditions** (`../../../method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` §9) — arrêt immédiat si déclenchées.
 
 **En cas d'échec :** réponse structurée `permission_denied` ou `gate_blocked` — **pas** de retry automatique.
 
@@ -274,7 +274,7 @@ Un **gate Morris** est un point d'arrêt formel qui **bloque** la progression du
 
 ### 5.3 Sans gate Morris dédié
 
-Conforme à `sfia-cycle-routing-guide.md` §4.3.3 :
+Conforme à `../../../method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §4.3.3 :
 
 - vérifications read-only L1 ;
 - PR readiness technique sans arbitrage ;
@@ -358,7 +358,7 @@ Conforme à `sfia-cycle-routing-guide.md` §4.3.3 :
 
 ### 6.3 Format minimal du rapport Cursor (L3)
 
-Conforme à `sfia-v2-automation-levels.md` §10 :
+Conforme à `../../../method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` §10 :
 
 ```text
 Branch status

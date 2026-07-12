@@ -386,7 +386,7 @@ Le bootstrap **ne remplace pas** le cadrage approfondi — il **initie** le proj
 - `sfia-v2-automation-levels.md`
 - `sfia-v2-design-figma-cycle-standard.md`
 - `sfia-v2-delivery-qa-test-standard.md`
-- `sfia-cycle-routing-guide.md`
+- `../../../core/sfia-cycle-routing-guide.md`
 - `sfia-rules-and-guardrails.md`
-- `sfia-validation-checklist.md`
+- `../../../checklists/sfia-validation-checklist.md`
 - `2026-07-04-sfia-notion-publication-track-pause-decision.md`

@@ -17,18 +17,18 @@ Il permet d'adapter le niveau de contrôle au niveau de maturité d'un sujet :
 | Checklist | [`controlled-delivery-checklist.md`](controlled-delivery-checklist.md) |
 | Template | [`controlled-delivery-template.md`](controlled-delivery-template.md) |
 | Prompt family | [`controlled-delivery-prompt-family.md`](controlled-delivery-prompt-family.md) |
-| Standard summary | [`controlled-delivery-standard-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-summary.md) *(archivé)* |
-| Hardening summary | [`controlled-delivery-standard-hardening-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-hardening-summary.md) *(archivé)* |
-| Publication prep | [`controlled-delivery-publication-prep.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-prep.md) *(archivé)* |
-| Publication package | [`controlled-delivery-publication-package.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-package.md) *(archivé)* |
-| Publication checklist | [`controlled-delivery-publication-checklist.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-checklist.md) *(archivé)* |
-| Delivery Acceleration Level 3 REX | [`delivery-acceleration-level-3-rex.md`](delivery-acceleration-level-3-rex.md) |
+| Standard summary | [`../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-summary.md) *(archivé)* |
+| Hardening summary | [`../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-hardening-summary.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-standard-hardening-summary.md) *(archivé)* |
+| Publication prep | [`../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-prep.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-prep.md) *(archivé)* |
+| Publication package | [`../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-package.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-package.md) *(archivé)* |
+| Publication checklist | [`../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-checklist.md`](../../sfia-fast-track/documentation/archive/controlled-delivery/controlled-delivery-publication-checklist.md) *(archivé)* |
+| Delivery Acceleration Level 3 REX | [`2026-07-01-delivery-acceleration-level-3-rex.md`](2026-07-01-delivery-acceleration-level-3-rex.md) |
 
 ---
 
 ## Références méthode
 
-- [Delivery Acceleration Level 3 REX](./delivery-acceleration-level-3-rex.md) — retour d'expérience compact sur le passage des micro-cycles au Fast Delivery puis au Batch Delivery.
+- [Delivery Acceleration Level 3 REX](2026-07-01-delivery-acceleration-level-3-rex.md) — retour d'expérience compact sur le passage des micro-cycles au Fast Delivery puis au Batch Delivery.
 
 ---
 
