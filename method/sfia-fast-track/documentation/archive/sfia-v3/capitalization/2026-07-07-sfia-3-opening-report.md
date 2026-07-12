@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Opening Report
 
 **Date :** 2026-07-07
@@ -17,14 +19,14 @@
 | `sfia-3-cycle-engine.md` | Moteur cycle, états, cycle validable, rapport consommable |
 | `sfia-3-gates-and-stop-conditions.md` | Gates Morris, conditions d'arrêt, escalade |
 
-### Prompts cycle (`prompts/tooling/mcp/` + `prompts/governance/`)
+### Prompts cycle (`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)` + `prompts/governance/`)
 
 | Fichier | Rôle |
 |---------|------|
-| `prompts/tooling/mcp/sfia-3-cycle-router.md` | Routage cycle_type avant task |
-| `prompts/tooling/mcp/sfia-3-task-builder.md` | Construction task pour bridge |
-| `prompts/tooling/mcp/sfia-3-report-analyzer.md` | Analyse rapport post-cycle |
-| `prompts/governance/sfia-3-morris-gate.md` | Escalade et résolution gate |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` | Routage cycle_type avant task |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` | Construction task pour bridge |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` | Analyse rapport post-cycle |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` | Escalade et résolution gate |
 
 ### Templates (`docs/templates/` — contrats JSON)
 
@@ -137,8 +139,8 @@ ChatGPT → Bridge → tasks/ → Runner → reports/ → Bridge → ChatGPT
 
 ## 8. Prochaine étape recommandée
 
-1. **Test E2E ChatGPT réel** — Custom GPT Action → bridge tunnel → task → `npm run watch` → `GET /reports/latest` → `prompts/tooling/mcp/sfia-3-report-analyzer.md`
-2. **Documenter le flux** dans `method/sfia-fast-track/documentation/capitalization/sfia-v3/experiments/` (rapport E2E daté — capitalisation, pas bus runtime)
+1. **Test E2E ChatGPT réel** — Custom GPT Action → bridge tunnel → task → `npm run watch` → `GET /reports/latest` → `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md`
+2. **Documenter le flux** dans `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` (rapport E2E daté — capitalisation, pas bus runtime)
 3. **Revue Morris** des 3 docs doctrine + 4 prompts
 4. **Décider** date promotion PR (hors scope immédiat)
 
@@ -152,7 +154,7 @@ docs/tooling/mcp/
   sfia-3-cycle-engine.md
   sfia-3-gates-and-stop-conditions.md
 
-prompts/tooling/mcp/
+method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)
   sfia-3-cycle-router.md
   sfia-3-task-builder.md
   sfia-3-report-analyzer.md
@@ -164,7 +166,7 @@ docs/templates/
   sfia-3-task-template.json
   sfia-3-report-template.json
 
-method/.../capitalization/sfia-v3/
+method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/
   2026-07-07-sfia-3-opening-report.md
 
 .sfia/mcp/                    ← runtime bus uniquement (tasks/, reports/*.json, gates/, logs/, code)

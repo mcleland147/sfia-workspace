@@ -1,12 +1,14 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Rapport de correction liens Markdown
 
 **Date :** 2026-07-08
 **Références :**
-- `method/sfia-fast-track/documentation/capitalization/sfia-3-documentation-routing-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v3/sfia-3-documentation-realignment-report.md`
-- `docs/tooling/mcp/sfia-3-orchestration-doctrine.md`
-- `docs/tooling/mcp/sfia-3-cycle-engine.md`
-- `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-realignment-report.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md`
 
 **Décision Morris :** cycle DOC uniquement — fichiers `.md` ; aucun `.json` touché
 **Action Git :** aucun commit, push ou PR
@@ -23,20 +25,20 @@ Corriger les références obsolètes vers `.sfia/mcp/prompts/`, `.sfia/mcp/templ
 
 | Fichier | Nature des corrections |
 |---------|------------------------|
-| `docs/tooling/mcp/sfia-3-orchestration-doctrine.md` | §5.1 règle runtime ; §5.2 chemins canoniques prompts/templates ; §10 références |
-| `docs/tooling/mcp/sfia-3-cycle-engine.md` | Template report ; séquence §8 ; §11 références |
-| `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md` | Chemin prompt Morris gate |
-| `method/.../sfia-3-documentation-routing-audit.md` | Note historique §4 ; §13 synthèse post-réalignement |
-| `method/.../sfia-v3/sfia-3-documentation-realignment-report.md` | Réserves §6 ; risques §7 ; action §9 |
-| `method/.../sfia-v3/2026-07-07-sfia-3-opening-report.md` | §8 prochaines étapes (chemins canoniques) |
-| `method/.../sfia-v3/sfia-3-documentation-links-correction-report.md` | Ce rapport |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md` | §5.1 règle runtime ; §5.2 chemins canoniques prompts/templates ; §10 références |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md` | Template report ; séquence §8 ; §11 références |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md` | Chemin prompt Morris gate |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md` | Note historique §4 ; §13 synthèse post-réalignement |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-realignment-report.md` | Réserves §6 ; risques §7 ; action §9 |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/2026-07-07-sfia-3-opening-report.md` | §8 prochaines étapes (chemins canoniques) |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-links-correction-report.md` | Ce rapport |
 
 **Non modifiés (déjà conformes après réalignement 2026-07-07) :**
 
-- `prompts/tooling/mcp/sfia-3-cycle-router.md`
-- `prompts/tooling/mcp/sfia-3-task-builder.md`
-- `prompts/tooling/mcp/sfia-3-report-analyzer.md`
-- `prompts/governance/sfia-3-morris-gate.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md`
 - `prompts/prompt-catalog.md` *(hors scope — réserve)*
 
 ---
@@ -45,15 +47,15 @@ Corriger les références obsolètes vers `.sfia/mcp/prompts/`, `.sfia/mcp/templ
 
 | Ancien chemin (obsolète) | Nouveau chemin (canonique) | Fichiers impactés |
 |--------------------------|----------------------------|-------------------|
-| `.sfia/mcp/prompts/cycle-router.md` | `prompts/tooling/mcp/sfia-3-cycle-router.md` | doctrine, cycle-engine |
-| `.sfia/mcp/prompts/task-builder.md` | `prompts/tooling/mcp/sfia-3-task-builder.md` | doctrine, cycle-engine |
-| `.sfia/mcp/prompts/report-analyzer.md` | `prompts/tooling/mcp/sfia-3-report-analyzer.md` | doctrine, cycle-engine, opening-report |
-| `.sfia/mcp/prompts/morris-gate.md` | `prompts/governance/sfia-3-morris-gate.md` | gates-and-stop-conditions |
+| `.sfia/mcp/prompts/cycle-router.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` | doctrine, cycle-engine |
+| `.sfia/mcp/prompts/task-builder.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` | doctrine, cycle-engine |
+| `.sfia/mcp/prompts/report-analyzer.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` | doctrine, cycle-engine, opening-report |
+| `.sfia/mcp/prompts/morris-gate.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` | gates-and-stop-conditions |
 | `.sfia/mcp/templates/task-template.json` | `docs/templates/sfia-3-task-template.json` *(réf. documentaire)* | doctrine, cycle-engine |
 | `.sfia/mcp/templates/report-template.json` | `docs/templates/sfia-3-report-template.json` *(réf. documentaire)* | doctrine, cycle-engine |
-| `.sfia/mcp/reports/2026-07-07-sfia-orchestrator-bridge-*.md` | `method/.../sfia-v3/experiments/...` | doctrine §10 |
-| `.sfia/mcp/reports/2026-07-07-sfia-cursor-task-runner-experiment.md` | `method/.../sfia-v3/experiments/...` | doctrine §10 |
-| `.sfia/mcp/reports/` *(capitalisation E2E)* | `method/.../sfia-v3/experiments/` | opening-report §8 |
+| `.sfia/mcp/reports/2026-07-07-sfia-orchestrator-bridge-*.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/...` | doctrine §10 |
+| `.sfia/mcp/reports/2026-07-07-sfia-cursor-task-runner-experiment.md` | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/...` | doctrine §10 |
+| `.sfia/mcp/reports/` *(capitalisation E2E)* | `method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/experiments/` | opening-report §8 |
 
 **Total :** ~15 références mises à jour dans la doctrine et les rapports de capitalisation.
 
@@ -96,10 +98,10 @@ Seuls des fichiers `.md` ont été édités.
 ?? docs/templates/sfia-3-report-template.json
 ?? docs/templates/sfia-3-task-template.json
 ?? docs/tooling/mcp/
-?? method/.../sfia-3-documentation-routing-audit.md
-?? method/.../capitalization/sfia-v3/
-?? prompts/governance/sfia-3-morris-gate.md
-?? prompts/tooling/mcp/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)
 ?? (autres untracked hors périmètre SFIA 3.0)
 ```
 
@@ -112,10 +114,10 @@ Seuls des fichiers `.md` ont été édités.
 ?? docs/templates/sfia-3-report-template.json
 ?? docs/templates/sfia-3-task-template.json
 ?? docs/tooling/mcp/
-?? method/.../sfia-3-documentation-routing-audit.md
-?? method/.../capitalization/sfia-v3/    (+ sfia-3-documentation-links-correction-report.md)
-?? prompts/governance/sfia-3-morris-gate.md
-?? prompts/tooling/mcp/
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/sfia-3-documentation-routing-audit.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/    (+ sfia-3-documentation-links-correction-report.md)
+?? method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md
+?? method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)
 ?? (autres untracked hors périmètre SFIA 3.0)
 ```
 

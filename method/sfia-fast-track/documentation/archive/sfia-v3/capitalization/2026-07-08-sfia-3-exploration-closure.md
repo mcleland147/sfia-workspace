@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Clôture d'exploration et retour trajectoire v2.4
 
 **Date :** 2026-07-08  
@@ -45,9 +47,9 @@ ChatGPT Custom GPT
 
 **Livrables documentaires** intégrés via PR #142 :
 
-- doctrine outillage (`docs/tooling/mcp/sfia-3-*.md`) ;
-- prompts cycle (`prompts/tooling/mcp/`, `prompts/governance/sfia-3-morris-gate.md`) ;
-- capitalisation (`method/.../capitalization/sfia-v3/`).
+- doctrine outillage (`method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/ (archived)`) ;
+- prompts cycle (`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)`, `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md`) ;
+- capitalisation (`method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/`).
 
 Voir : `2026-07-07-sfia-3-opening-report.md`.
 
@@ -265,9 +267,9 @@ Morris (validation, commit, push, PR, merge — L0)
 
 ### Doctrine (gelée — exploration clôturée)
 
-- `docs/tooling/mcp/sfia-3-orchestration-doctrine.md`
-- `docs/tooling/mcp/sfia-3-cycle-engine.md`
-- `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md`
 
 ### Baseline retenue
 

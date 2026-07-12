@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Gates Morris et conditions d'arrêt
 
 **Type :** Politique gouvernance
@@ -116,7 +118,7 @@ Aligné sur handoffs MCP L2 :
 - Résolution via API (bridge n'expose pas `POST /gates/resolve`)
 - Suppression du gate sans trace dans `resolved/`
 
-Prompt de référence : `prompts/governance/sfia-3-morris-gate.md`
+Prompt de référence : `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md`
 
 ---
 

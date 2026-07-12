@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Validation de la boucle runtime post-PR #142
 
 **Date :** 2026-07-08  
@@ -12,9 +14,9 @@
 
 La trajectoire documentaire SFIA 3.0 a été intégrée dans `main` via PR #142 (22 fichiers Markdown) :
 
-- doctrine outillage (`docs/tooling/mcp/sfia-3-*.md`) ;
-- prompts canoniques (`prompts/tooling/mcp/`, `prompts/governance/sfia-3-morris-gate.md`) ;
-- capitalisation méthode (`method/.../capitalization/sfia-v3/`).
+- doctrine outillage (`method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/ (archived)`) ;
+- prompts canoniques (`method/sfia-fast-track/documentation/archive/sfia-v3/prompts/ (archived)`, `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md`) ;
+- capitalisation méthode (`method/sfia-fast-track/documentation/archive/sfia-v3/capitalization/`).
 
 La règle architecturale validée reste :
 
@@ -61,13 +63,13 @@ Git Reader a permis à ChatGPT de **lire `main` à distance** sans dépendre du 
 
 | Fichier | Statut |
 |---------|--------|
-| `docs/tooling/mcp/sfia-3-orchestration-doctrine.md` | ✅ Lu |
-| `docs/tooling/mcp/sfia-3-cycle-engine.md` | ✅ Lu |
-| `docs/tooling/mcp/sfia-3-gates-and-stop-conditions.md` | ✅ Lu |
-| `prompts/tooling/mcp/sfia-3-cycle-router.md` | ✅ Lu |
-| `prompts/tooling/mcp/sfia-3-task-builder.md` | ✅ Lu |
-| `prompts/tooling/mcp/sfia-3-report-analyzer.md` | ✅ Lu |
-| `prompts/governance/sfia-3-morris-gate.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-orchestration-doctrine.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-gates-and-stop-conditions.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` | ✅ Lu |
+| `method/sfia-fast-track/documentation/archive/sfia-v3/governance/sfia-3-morris-gate.md` | ✅ Lu |
 
 ### Réserve documentaire observée
 

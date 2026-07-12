@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Cycle Engine (moteur de cycle orchestré)
 
 **Type :** Architecture cycle
@@ -149,13 +151,13 @@ Extension future : sous GO Morris et mise à jour cycle-router.
 
 | Étape | Action | Artefact |
 |-------|--------|----------|
-| 1 | ChatGPT applique `prompts/tooling/mcp/sfia-3-cycle-router.md` | Choix DOC/MCP |
-| 2 | ChatGPT applique `prompts/tooling/mcp/sfia-3-task-builder.md` | JSON task |
+| 1 | ChatGPT applique `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md` | Choix DOC/MCP |
+| 2 | ChatGPT applique `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` | JSON task |
 | 3 | Bridge `POST /tasks` | `tasks/<id>.json` |
 | 4 | Morris lance `npm run once` ou `watch` | — |
 | 5 | Runner consomme | `reports/<id>.json` |
 | 6 | ChatGPT `GET /reports/latest` | Analyse |
-| 7 | ChatGPT applique `prompts/tooling/mcp/sfia-3-report-analyzer.md` | Décision cycle |
+| 7 | ChatGPT applique `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md` | Décision cycle |
 
 ---
 
@@ -191,8 +193,8 @@ Voir `sfia-3-gates-and-stop-conditions.md` pour le détail.
 ## 11. Références
 
 - `sfia-3-orchestration-doctrine.md`
-- `prompts/tooling/mcp/sfia-3-cycle-router.md`
-- `prompts/tooling/mcp/sfia-3-task-builder.md`
-- `prompts/tooling/mcp/sfia-3-report-analyzer.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-cycle-router.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md`
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-report-analyzer.md`
 - `docs/templates/sfia-3-task-template.json` *(contrat JSON — référence documentaire)*
 - `docs/templates/sfia-3-report-template.json` *(contrat JSON — référence documentaire)*

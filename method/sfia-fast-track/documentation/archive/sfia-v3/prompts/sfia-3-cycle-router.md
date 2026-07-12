@@ -1,3 +1,5 @@
+> **Archive status (Lot C — SFIA v2.6):** lifecycle archived — trajectory SFIA v3.0 hors trajectoire courante. Usage : consultation historique uniquement ; non-operational. SFIA v2.4 = baseline ; SFIA v2.6 = candidate. Réouverture = GO Morris explicite.
+
 # SFIA 3.0 — Cycle Router (prompt générique)
 
 **Usage :** ChatGPT — début de cycle orchestré
@@ -53,6 +55,6 @@ next_prompt: task-builder
 
 ## Références
 
-- `docs/tooling/mcp/sfia-3-cycle-engine.md` §7
+- `method/sfia-fast-track/documentation/archive/sfia-v3/doctrine/sfia-3-cycle-engine.md` §7
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `prompts/tooling/mcp/sfia-3-task-builder.md` (étape suivante)
+- `method/sfia-fast-track/documentation/archive/sfia-v3/prompts/sfia-3-task-builder.md` (étape suivante)
