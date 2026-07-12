@@ -17,7 +17,7 @@ Il relie chaque écran aux **parcours utilisateurs**, **acteurs**, **objets mét
 Il s'appuie sur :
 
 - le **brief UX/UI validé** (`ux-ui-brief.md`, `ux-ui-brief-validation.md`) ;
-- les **captures Figma V1** (`figma-first-draft-screens/`, `figma-v1-closure-summary.md`) ;
+- les **captures Figma V1** (`figma-first-draft-screens/`, `2026-06-28-figma-v1-closure-summary.md`) ;
 - le **cadrage** `ux-ui-reprise-scope.md` et l'**état des lieux** `ux-ui-reprise-analysis.md` ;
 - les **parcours** `user-journeys.md` ;
 - l'**architecture fonctionnelle détaillée** (`05-functional-architecture/`) ;

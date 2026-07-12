@@ -412,7 +412,7 @@ No frontend change, backend change, new business scope, new UX polish, SQL datab
 
 | Contrôle | Résultat |
 |----------|----------|
-| Diff limité à `demo-mvp-closure.md` | OK |
+| Diff limité à `2026-07-01-demo-mvp-closure.md` | OK |
 | Frontend modifié | Non |
 | Backend modifié | Non |
 | Frontend build | OK |

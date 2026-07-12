@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Cadrage évolutions post-MVP
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/00-framing/chantiers360-post-mvp-framing.md`  
+**Chemin :** `projects/chantiers360-v2/00-framing/2026-07-10-chantiers360-post-mvp-framing.md`  
 **Date de création :** 2026-07-09  
 **Cycle :** Cadrage — évolutions post-MVP  
 **Type de cycle projet :** Cadrage (1)  

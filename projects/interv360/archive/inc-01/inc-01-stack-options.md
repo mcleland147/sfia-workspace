@@ -312,6 +312,6 @@ Cette recommandation est **indicative** et doit être confirmée dans les livrab
 
 Le prochain livrable est :
 
-`inc-01-project-structure-decision.md`
+`2026-06-29-inc-01-project-structure-decision.md`
 
 **Objectif :** définir la structure projet cible sans créer le projet applicatif.

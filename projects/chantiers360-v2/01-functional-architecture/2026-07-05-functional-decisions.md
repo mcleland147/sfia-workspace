@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Décisions fonctionnelles
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/01-functional-architecture/functional-decisions.md`  
+**Chemin :** `projects/chantiers360-v2/01-functional-architecture/2026-07-05-functional-decisions.md`  
 **Cycle :** Architecture fonctionnelle (post PR #96)
 
 > Trace des décisions fonctionnelles prises ou intégrées dans ce cycle.  
@@ -197,6 +197,6 @@ Prérequis :
 | `functional-domains.md` | 8 domaines fonctionnels |
 | `navigation-model.md` | Navigation fonctionnelle |
 | `state-model.md` | États métier |
-| `functional-decisions.md` | Ce document |
+| `2026-07-05-functional-decisions.md` | Ce document |
 
 **Automation level :** L2 — gate Morris avant UX/UI.

@@ -50,8 +50,8 @@ Cette note **prépare le Lot 2** (UX/UI V1 Governance) pour publication dans **S
 | PROMPT-UXUI-007 | Template compte rendu revue UX/UI V1 | UX/UI | Draft | `figma-review-session-minutes-template.md` | Publier après revue payload |
 | PROMPT-UXUI-008 | Enrichissement méthodes rôle après UX/UI V1 | UX/UI | Draft | `role-methods-enrichment-after-figma-v1.md` | Publier après revue payload |
 | PROMPT-UXUI-009 | Compte rendu revue simulée UX/UI V1 | UX/UI | Draft | `figma-review-session-minutes.md` | Publier — vigilance participants |
-| PROMPT-UXUI-010 | Clôture jalon UX/UI V1 | UX/UI | Draft | `figma-v1-closure-summary.md` | Publier après revue payload |
-| PROMPT-UXUI-011 | Sync gouvernance UX/UI V1 | UX/UI | Draft | `notion-sync-figma-v1-closure-summary.md` + payload | Publier — vigilance méta-sync |
+| PROMPT-UXUI-010 | Clôture jalon UX/UI V1 | UX/UI | Draft | `2026-06-28-figma-v1-closure-summary.md` | Publier après revue payload |
+| PROMPT-UXUI-011 | Sync gouvernance UX/UI V1 | UX/UI | Draft | `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md` + payload | Publier — vigilance méta-sync |
 | PROMPT-UXUI-012 | Standard candidat UX/UI V1 | UX/UI | Draft | `sfia-figma-v1-standard-candidate.md` | Publier après revue payload |
 | PROMPT-UXUI-013 | Revue standard candidat UX/UI V1 | UX/UI | Draft | `sfia-figma-v1-standard-candidate-review.md` | Publier après revue payload |
 | PROMPT-UXUI-014 | Préparation promotion standard officiel | UX/UI | Draft | `sfia-figma-v1-standard-promotion-preparation.md` | Publier après revue payload |

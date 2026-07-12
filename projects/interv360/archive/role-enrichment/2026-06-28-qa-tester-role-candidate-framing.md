@@ -35,7 +35,7 @@ Le rôle QA / Testeur est apparu **progressivement** pendant le cycle UX/UI V1 I
 | Revue premier jet | `figma-first-draft-review.md` | Lecture qualité V1 ; parcours, états, garde-fous visuels |
 | Préparation revue transverse | `figma-review-session-preparation.md` | Questions par rôle ; checklist transverse |
 | Revue simulée multi-rôles | `figma-review-session-minutes.md` | QA / Testeur mobilisé comme **candidat** — testabilité, happy / non happy path |
-| Clôture Figma V1 | `figma-v1-closure-summary.md` | Jalon UX/UI clôturé ; delivery bloqué ; besoin QA confirmé pour la suite |
+| Clôture Figma V1 | `2026-06-28-figma-v1-closure-summary.md` | Jalon UX/UI clôturé ; delivery bloqué ; besoin QA confirmé pour la suite |
 | Standard UX/UI V1 Governance | `docs/standards/ux-ui-v1-governance-standard.md` | Rôle QA / Testeur cité dans les revues transverses |
 | Catalogue prompts UX/UI V1 | `prompts/prompt-catalog.md` §13 | PROMPT-UXUI-006, 008 — QA candidat en revue |
 | Validation catalogue | `prompt-catalog-ux-ui-v1-validation.md` | Autorisation du chantier QA / Testeur (étape dédiée) |
@@ -86,7 +86,7 @@ Sources externes synthétisées : ISTQB CTFL v4, Atlassian Agile Testing, Google
 | Recherche QA / Testeur | **Réalisée** | `qa-tester-role-research-and-benchmark.md` |
 | Fichier `qa-tester-method.md` | **Non créé** | Décision ultérieure explicite requise |
 | Validation officielle du rôle | **Non** | Cadrage candidat en cours — présente note |
-| Delivery / recette projet | **Bloqués** | `figma-v1-closure-summary.md` |
+| Delivery / recette projet | **Bloqués** | `2026-06-28-figma-v1-closure-summary.md` |
 
 ---
 
@@ -227,7 +227,7 @@ Lecture **testabilité candidate** uniquement — **aucun scénario détaillé**
 | **Absence portail** | Hors périmètre client — pas de fausse attente |
 | **Absence logs techniques** | Tests futurs orientés métier ; traçabilité ADR-004 |
 
-*Sources : `figma-first-draft-review.md`, `figma-v1-closure-summary.md`, `architecture-p1-summary.md`, `architecture-p2-design-impact-summary.md`.*
+*Sources : `figma-first-draft-review.md`, `2026-06-28-figma-v1-closure-summary.md`, `architecture-p1-summary.md`, `architecture-p2-design-impact-summary.md`.*
 
 ---
 

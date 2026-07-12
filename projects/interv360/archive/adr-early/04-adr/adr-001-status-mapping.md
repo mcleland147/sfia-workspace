@@ -186,7 +186,7 @@ Cette ADR alimente directement :
 | `projects/interv360/02-architecture/status-mapping.md` | Source principale du mapping statuts |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règles RG liées aux statuts |
 | `projects/interv360/03-process/process-analysis.md` | Correspondance BPMN / statuts |
-| `projects/interv360/03-process/process-cycle-closure.md` | Synthèse des décisions BPMN |
+| `projects/interv360/03-process/2026-06-28-process-cycle-closure.md` | Synthèse des décisions BPMN |
 | `projects/interv360/04-adr/adr-structuring-scope.md` | Cadrage de la phase ADR |
 
 ---

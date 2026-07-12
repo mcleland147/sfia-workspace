@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Décision stack
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/05-technical-architecture/stack-decision.md`  
+**Chemin :** `projects/chantiers360-v2/05-technical-architecture/2026-07-06-stack-decision.md`  
 **Cycle :** Architecture technique légère — arbitrages Morris post PR #102
 
 > **Stack validée Morris** — 2026-07-06. Delivery INC-01 reste **non autorisé** sans GO delivery dédié et sans spike fidélité Figma si requis.
@@ -84,4 +84,4 @@
 
 ---
 
-**Documents liés :** `stack-options.md`, `technical-decisions.md`, `validation-and-delivery-readiness.md`
+**Documents liés :** `stack-options.md`, `2026-07-06-technical-decisions.md`, `2026-07-06-validation-and-delivery-readiness.md`

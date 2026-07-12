@@ -116,8 +116,8 @@ projects/interv360/
 | `current-application-audit.md` | `07-delivery/` | **Audit application** — ne devrait pas être en delivery |
 | `07-rex/README.md` | `07-rex/` | Placeholder « à venir » — **vide de contenu** |
 | `interv360-application-rex.md` | `method/sfia-fast-track/` | **REX réel** — capitalisé côté méthode SFIA |
-| `inc-01-phase-2-rex.md` | `07-delivery/` | REX micro-cycle — historique |
-| `audit-trail.md` | `07-delivery/` | Doc **fonctionnelle** audit trail MVP — reste delivery |
+| `2026-07-01-inc-01-phase-2-rex.md` | `07-delivery/` | REX micro-cycle — historique |
+| `2026-07-02-audit-trail.md` | `07-delivery/` | Doc **fonctionnelle** audit trail MVP — reste delivery |
 
 **Décision proposée :**
 
@@ -125,21 +125,21 @@ projects/interv360/
 - Y déplacer `current-application-audit.md` ;
 - Fusionner `07-rex/` dans `06-audit-rex/` (README + lien vers REX méthode) ;
 - Conserver `interv360-application-rex.md` dans `method/sfia-fast-track/audit-rex/` avec lien croisé projet ;
-- Archiver `inc-01-phase-2-rex.md`.
+- Archiver `2026-07-01-inc-01-phase-2-rex.md`.
 
 ### 4.4. Release dispersée
 
 | Élément | Emplacement | Diagnostic |
 |---------|-------------|------------|
-| `mvp-release-readiness.md` | `07-delivery/` | **Release readiness** — devrait être en release |
+| `2026-07-02-mvp-release-readiness.md` | `07-delivery/` | **Release readiness** — devrait être en release |
 | Notes release GitHub | Non trouvées dans `projects/interv360/` | Probablement uniquement sur GitHub Releases |
 | Tags `v0.1.0-mvp`, `v0.2.0-premium-ui` | Documentés dans `method/` | Référence release côté méthode, pas projet |
-| `demo-mvp-closure.md`, `product-industrialization.md` | `07-delivery/` | Clôture delivery — reste delivery ou release selon lecture |
+| `2026-07-01-demo-mvp-closure.md`, `product-industrialization.md` | `07-delivery/` | Clôture delivery — reste delivery ou release selon lecture |
 
 **Décision proposée :**
 
 - Créer `05-release/` ;
-- Y déplacer `mvp-release-readiness.md` ;
+- Y déplacer `2026-07-02-mvp-release-readiness.md` ;
 - Y ajouter futures release notes si créées dans le repo.
 
 ### 4.5. Présentation / démo
@@ -251,16 +251,16 @@ Documents **actifs** prioritaires (hors `inc-*`, hors logs Notion) :
 |----------------|-------|--------|---------------|
 | `07-delivery/current-application-audit.md` | `06-audit-rex/current-application-audit.md` | Déplacer | Audit ≠ delivery |
 | `07-delivery/premium-design-system.md` | `04-delivery/premium-design-system.md` | Déplacer | Cycle UI livré |
-| `07-delivery/mvp-release-readiness.md` | `05-release/mvp-release-readiness.md` | Déplacer | Release readiness |
+| `07-delivery/2026-07-02-mvp-release-readiness.md` | `05-release/2026-07-02-mvp-release-readiness.md` | Déplacer | Release readiness |
 | `09-architecture/interv360-mvp-final-roadmap.md` | `08-roadmap/interv360-mvp-final-roadmap.md` | Déplacer | Roadmap lots MVP |
 | `09-architecture/interv360-product-roadmap-next.md` | `08-roadmap/` | Déplacer | Roadmap produit |
 | `09-architecture/interv360-product-roadmap-after-role-simulation.md` | `08-roadmap/` | Déplacer | Idem |
 | `09-architecture/interv360-next-product-axis.md` | `08-roadmap/` | Déplacer | Axes futurs |
 | `09-architecture/interv360-auth-*.md` (3 fichiers) | `08-roadmap/` | Déplacer | Cadrage futur auth |
 | `09-architecture/interv360-backend-*.md` (4 fichiers) | `08-roadmap/` | Déplacer | Cadrage backend futur |
-| `09-architecture/interv360-workflow-extension-framing.md` | `08-roadmap/` | Déplacer | Extension future |
+| `09-architecture/2026-07-02-interv360-workflow-extension-framing.md` | `08-roadmap/` | Déplacer | Extension future |
 | `09-architecture/interv360-role-simulation-review.md` | `08-roadmap/` ou `04-delivery/` | À valider | Revue rôles — lié MVP |
-| `09-architecture/interv360-product-industrialization-framing.md` | `04-delivery/` ou `08-roadmap/` | À valider | Industrialisation |
+| `09-architecture/2026-07-01-interv360-product-industrialization-framing.md` | `04-delivery/` ou `08-roadmap/` | À valider | Industrialisation |
 | `08-presentation/*` (4 fichiers) | `07-presentation/*` | Renommer dossier | Présentation |
 | `02-architecture/adr/ADR-001` à `008` | `02-architecture/adr/` | Conserver | ADR actifs |
 | `07-rex/README.md` | `06-audit-rex/README.md` | Fusionner + enrichir | Lien REX méthode |
@@ -307,7 +307,7 @@ Décisions à valider humainement :
 - [ ] `08-presentation/` devient `07-presentation/`
 - [ ] `09-architecture/` devient `08-roadmap/`
 - [ ] `current-application-audit.md` sort de delivery
-- [ ] `mvp-release-readiness.md` va en `05-release/`
+- [ ] `2026-07-02-mvp-release-readiness.md` va en `05-release/`
 - [ ] `premium-design-system.md` reste en delivery (`04-delivery/`)
 - [ ] `04-adr/` archivé (ADR précoces)
 - [ ] `03-process/`, `05-functional-architecture/`, `06-ux-ui/` archivés (phases pré-delivery)

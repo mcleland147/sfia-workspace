@@ -89,7 +89,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 | **Valeur utilisateur** | Priorisation quotidienne — réduction charge cognitive |
 | **Dépendances** | INC-01, INC-02, INC-03 (sources dérivées) |
 | **Critères de sortie** | Prochaines actions 100 % dérivées ; navigation vers source ; pas de saisie manuelle |
-| **Risques** | Agrégation incomplète — mitiger par règles `functional-decisions.md` §5 |
+| **Risques** | Agrégation incomplète — mitiger par règles `2026-07-05-functional-decisions.md` §5 |
 | **Validation Morris** | ⏳ GO après INC-02 minimum ; idéalement INC-03 |
 
 ---
@@ -112,4 +112,4 @@ INC-01 → INC-02 → INC-03 → INC-04 → INC-05
 
 ---
 
-**Documents liés :** `user-stories.md`, `backlog-decisions.md`, `backlog-traceability.md`
+**Documents liés :** `user-stories.md`, `2026-07-05-backlog-decisions.md`, `backlog-traceability.md`

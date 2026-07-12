@@ -174,7 +174,7 @@ Documents structurants actifs :
 
 - `07-delivery/current-application-audit.md`
 - `07-delivery/premium-design-system.md`
-- `07-delivery/mvp-release-readiness.md`
+- `07-delivery/2026-07-02-mvp-release-readiness.md`
 - `09-architecture/interv360-mvp-final-roadmap.md`
 - `02-architecture/adr/ADR-001` à `ADR-008`
 

@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Décisions backlog MVP
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/03-backlog/backlog-decisions.md`  
+**Chemin :** `projects/chantiers360-v2/03-backlog/2026-07-05-backlog-decisions.md`  
 **Cycle :** Backlog MVP (post PR #98)
 
 > Trace des décisions backlog. Arbitrages structurants = **Morris**.
@@ -97,7 +97,7 @@ Prérequis :
 | `acceptance-criteria.md` | Critères par user story |
 | `delivery-increments.md` | 5 incréments INC-01 à INC-05 |
 | `backlog-traceability.md` | Matrice traçabilité |
-| `backlog-decisions.md` | Ce document |
+| `2026-07-05-backlog-decisions.md` | Ce document |
 
 **Automation level :** L2 — gate Morris avant delivery.
 

@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : `business-framing.md` + `mvp-arbitrations.md` + `framing-review.md`  
+**Source** : `2026-06-27-business-framing.md` + `mvp-arbitrations.md` + `2026-06-27-framing-review.md`  
 **Objet** : clarification ARB-MVP-07 — dashboard, KPI, vue dirigeant et impacts UX
 
 ---
@@ -150,10 +150,10 @@ Inclure au MVP un **noyau de 8 écrans**, avec **tableau de bord SAV complet** e
 | Document / arbitrage | Impact |
 |----------------------|--------|
 | `mvp-arbitrations.md` — **ARB-MVP-07** | Stabilisation noyau 8 écrans ; KPI minimum ; statut évolutif « Validable après clarification dashboard/KPI/UX » |
-| `business-framing.md` — **§14.3** | Précision tableau de bord SAV complet vs vue dirigeant ; différenciation écrans |
-| `business-framing.md` — **§14.4** | Critères utilisabilité : lisibilité, sobriété, alertes, cohérence terminologique |
-| `business-framing.md` — **§14.6** | Règle Figma : brief UX/UI avant maquette dashboard/dirigeant |
-| `business-framing.md` — **§17** | Critères sortie : écrans candidats, KPI, critères utilisabilité |
+| `2026-06-27-business-framing.md` — **§14.3** | Précision tableau de bord SAV complet vs vue dirigeant ; différenciation écrans |
+| `2026-06-27-business-framing.md` — **§14.4** | Critères utilisabilité : lisibilité, sobriété, alertes, cohérence terminologique |
+| `2026-06-27-business-framing.md` — **§14.6** | Règle Figma : brief UX/UI avant maquette dashboard/dirigeant |
+| `2026-06-27-business-framing.md` — **§17** | Critères sortie : écrans candidats, KPI, critères utilisabilité |
 | **Brief UX/UI futur** | Document préalable obligatoire pour dashboard + vue dirigeant |
 | **Checklist entrée Figma** | Validation KPI, différenciation écrans, garde-fous §7 avant Figma |
 | **Critères QA dashboard** | KPI §4–§5 testables ; alertes ; filtres simples |

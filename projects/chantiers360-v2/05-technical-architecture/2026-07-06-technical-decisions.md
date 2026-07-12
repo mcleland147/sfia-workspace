@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Décisions techniques
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/05-technical-architecture/technical-decisions.md`  
+**Chemin :** `projects/chantiers360-v2/05-technical-architecture/2026-07-06-technical-decisions.md`  
 **Cycle :** Architecture technique légère — arbitrages Morris post PR #102
 
 > Registre des décisions techniques — **arbitrages Morris documentés** le 2026-07-06.
@@ -96,4 +96,4 @@
 
 ---
 
-**Documents liés :** `stack-decision.md`, `validation-and-delivery-readiness.md`, `technical-architecture-overview.md`
+**Documents liés :** `2026-07-06-stack-decision.md`, `2026-07-06-validation-and-delivery-readiness.md`, `technical-architecture-overview.md`

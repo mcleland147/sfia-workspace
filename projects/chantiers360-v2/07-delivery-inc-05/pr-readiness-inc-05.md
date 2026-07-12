@@ -37,7 +37,7 @@
 
 | Point | Décision |
 |-------|----------|
-| Prochaines actions | **100 % dérivées** — `delivery-increments.md`, `functional-decisions.md` §5 |
+| Prochaines actions | **100 % dérivées** — `delivery-increments.md`, `2026-07-05-functional-decisions.md` §5 |
 | Table `prochaines_actions` | **Non créée** — lecture agrégée sur tables existantes |
 | Saisie manuelle | **Exclue** — hors scope MVP |
 | Migration INC-05 | **Aucune** — conforme critères de sortie INC-05 |

@@ -57,7 +57,7 @@ Le premier nettoyage (`c89aa30` → `74b420e`, 8 commits) a produit :
 
 | Dossier | Contenu réel (lu) | Problème | Décision proposée |
 |---------|-------------------|----------|-------------------|
-| `05-release/` | `mvp-release-readiness.md` — document actif post-MVP | OK | Conserver `05-release/` |
+| `05-release/` | `2026-07-02-mvp-release-readiness.md` — document actif post-MVP | OK | Conserver `05-release/` |
 | `05-tests/` | README stub « À venir » — stratégie tests jamais peuplée | **Collision numéro 05** avec `05-release/` | Archiver vers `archive/stubs/05-tests-readme.md` ; créer `04-delivery/tests/` si stratégie tests projet nécessaire |
 | `06-audit-rex/` | `current-application-audit.md` (actif, audit 2026) + README hérité de `07-rex` (« À venir », titre obsolète « 07 — REX ») | **README incohérent** avec contenu réel | Réécrire README ; conserver `06-audit-rex/` |
 | `06-documentation/` | README stub « À venir » — documentation projet jamais peuplée | **Collision numéro 06** avec `06-audit-rex/` | Archiver stub ; créer `07-documentation/` pour docs projet futures |
@@ -84,7 +84,7 @@ Après archivage Notion/Figma v1, **31 fichiers Markdown** subsistent à la raci
 | `geo-ai-arbitration.md`, `rules-rg-prioritization.md` | Arbitrages métier structurants | **Actif** | Conserver |
 | `mvp-clarifications.md`, `2026-06-28-closure-without-signature.md` | Clarifications MVP / règles clôture | **Actif** (référence cadrage) | Conserver ou `01-cadrage/` si relecture |
 | `notion-publication-tooling-check.md` | Diagnostic outillage Notion (2026-06-27), sans publication | **Log / historique** | `archive/notion-sync/` |
-| `merge-closure-prompt-library-sync.md` | Clôture PR #1 Prompt Library | **Log / historique** | `archive/cmp/` ou `archive/notion-sync/` |
+| `2026-06-28-merge-closure-prompt-library-sync.md` | Clôture PR #1 Prompt Library | **Log / historique** | `archive/cmp/` ou `archive/notion-sync/` |
 | `prompt-catalog-enrichment-after-ux-ui-v1-standard.md` | Log enrichissement catalogue | **Log** | `archive/cmp/` |
 | `prompt-catalog-qa-tester-validation.md`, `prompt-catalog-ux-ui-v1-validation.md` | Logs validation prompts | **Log** | `archive/cmp/` |
 | `pull-request-qa-tester-governance-notion-sync.md` | Log PR governance | **Log** | `archive/notion-sync/` |

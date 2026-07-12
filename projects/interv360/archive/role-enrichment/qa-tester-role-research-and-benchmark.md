@@ -35,7 +35,7 @@ Points structurants :
 | Rôle QA ≠ exécution de tests seule | Contribution à la qualité, à la testabilité et à la maîtrise des risques |
 | Intervention amont | Dès exigences, maquettes, revues transverses (shift-left) |
 | Distinctions nécessaires | QA, test, recette, automatisation, contrôle qualité, stratégie de test |
-| Garde-fou SFIA | Éviter d’ouvrir le delivery trop tôt — Figma V1 clôturée, delivery toujours bloqué (`figma-v1-closure-summary.md`) |
+| Garde-fou SFIA | Éviter d’ouvrir le delivery trop tôt — Figma V1 clôturée, delivery toujours bloqué (`2026-06-28-figma-v1-closure-summary.md`) |
 
 Le standard UX/UI V1 Governance (`docs/standards/ux-ui-v1-governance-standard.md`) cadre déjà les revues UX/UI ; le QA apporte une **lecture complémentaire** orientée testabilité, risque et parcours — sans remplacer les autres rôles.
 
@@ -196,7 +196,7 @@ Lecture **testabilité uniquement** — **aucun scénario détaillé** produit d
 | **Absence portail** | Périmètre client hors scope — pas de fausse attente |
 | **Absence logs techniques** | Tests orientés métier ; pas de validation infra par QA seul |
 
-*Sources internes : `figma-first-draft-review.md`, `figma-v1-closure-summary.md`, `figma-review-session-minutes.md`.*
+*Sources internes : `figma-first-draft-review.md`, `2026-06-28-figma-v1-closure-summary.md`, `figma-review-session-minutes.md`.*
 
 ---
 

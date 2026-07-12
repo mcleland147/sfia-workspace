@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : `business-framing.md` + `mvp-arbitrations.md` + `integration-error-arbitration-review.md`  
+**Source** : `2026-06-27-business-framing.md` + `mvp-arbitrations.md` + `integration-error-arbitration-review.md`  
 **Objet** : clarification du canal email sécurisé pour ARB-MVP-01
 
 ---
@@ -110,10 +110,10 @@ L'email doit disposer de :
 |----------------------|--------|
 | `mvp-arbitrations.md` — **ARB-MVP-01** | Stabilisation recommandation : CRM principal + saisie secours + email sécurisé cadré ; statut évolutif vers « Validable après clarification email » |
 | `integration-error-arbitration-review.md` — **§5, §8** | Enrichissement contrat `POST /email/intake` ; cas d'erreur email (non authentifié, PJ invalide) |
-| `business-framing.md` — **§8** | Précision intégration Email : canal sécurisé, pas mock simpliste |
-| `business-framing.md` — **§10** | Affinage RG-C02, RG-C04, RG-S01, RG-S06, RG-I07 |
-| `business-framing.md` — **§12** | Orientation A-F01, A-I02 ; ADR candidate email |
-| `business-framing.md` — **§15** | Réduction risque email sous-cadré ; lien R-M01 |
+| `2026-06-27-business-framing.md` — **§8** | Précision intégration Email : canal sécurisé, pas mock simpliste |
+| `2026-06-27-business-framing.md` — **§10** | Affinage RG-C02, RG-C04, RG-S01, RG-S06, RG-I07 |
+| `2026-06-27-business-framing.md` — **§12** | Orientation A-F01, A-I02 ; ADR candidate email |
+| `2026-06-27-business-framing.md` — **§15** | Réduction risque email sous-cadré ; lien R-M01 |
 | **ADR candidates futures** | Email sécurisé ; journalisation flux email ; gestion pièces jointes |
 | **Critères QA futurs** | Scénarios §5 testables ; non happy path email |
 

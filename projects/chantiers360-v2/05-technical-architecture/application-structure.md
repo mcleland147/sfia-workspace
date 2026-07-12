@@ -92,7 +92,7 @@ chantiers360-v2-app/          # racine future — NON CRÉÉE dans ce cycle
 | **Repositories** | Persistance CRUD | `chantierRepository.create()`, `tacheRepository.updateStatut()` |
 | **Types** | Contrats données | `Chantier`, `StatutChantier`, `ProchaineAction` |
 
-**Règle :** la logique **prochaines actions** reste en couche service — jamais en saisie UI (`functional-decisions.md` §5).
+**Règle :** la logique **prochaines actions** reste en couche service — jamais en saisie UI (`2026-07-05-functional-decisions.md` §5).
 
 ## 6. Conventions de nommage (proposition)
 

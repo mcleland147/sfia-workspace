@@ -4,7 +4,7 @@
 **Chemin :** `projects/chantiers360-v2/05-technical-architecture/stack-options.md`  
 **Cycle :** Architecture technique légère
 
-> Comparaison **documentaire** — aucune stack n'est actée sans validation Morris (`stack-decision.md`).
+> Comparaison **documentaire** — aucune stack n'est actée sans validation Morris (`2026-07-06-stack-decision.md`).
 
 ## Contexte de choix
 
@@ -83,8 +83,8 @@
 
 **Alternative si Morris privilégie la vitesse absolue :** Option A (Supabase).
 
-**Décision finale :** ⏳ **Morris** — voir `stack-decision.md`.
+**Décision finale :** ⏳ **Morris** — voir `2026-07-06-stack-decision.md`.
 
 ---
 
-**Documents liés :** `stack-decision.md`, `technical-decisions.md`
+**Documents liés :** `2026-07-06-stack-decision.md`, `2026-07-06-technical-decisions.md`

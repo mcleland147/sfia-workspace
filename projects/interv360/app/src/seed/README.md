@@ -28,4 +28,4 @@ Reset strategy (localStorage):
 
 Reset will be triggered explicitly (e.g. demo reset control) — not on every page load.
 
-See [`inc-01-local-persistence-decision.md`](../../../07-delivery/inc-01-local-persistence-decision.md).
+See [`2026-06-30-inc-01-local-persistence-decision.md`](../../../07-delivery/2026-06-30-inc-01-local-persistence-decision.md).

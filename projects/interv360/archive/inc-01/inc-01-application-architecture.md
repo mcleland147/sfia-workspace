@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Draft  
 **Branche** : `delivery/interv360-technical-design`  
-**Documents associés** : [`technical-design-plan.md`](technical-design-plan.md), [`realization-preparation-summary.md`](realization-preparation-summary.md), [`inc-01-technical-framing.md`](inc-01-technical-framing.md), [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md)
+**Documents associés** : [`technical-design-plan.md`](technical-design-plan.md), [`realization-preparation-summary.md`](realization-preparation-summary.md), [`2026-06-29-inc-01-technical-framing.md`](2026-06-29-inc-01-technical-framing.md), [`inc-01-realization-slicing.md`](inc-01-realization-slicing.md)
 
 ---
 
@@ -243,7 +243,7 @@ Figma **n'est pas bloquant** pour l'architecture INC-01.
 
 | Point | Livrable cible |
 |-------|----------------|
-| Choix front / back / data | [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md) |
+| Choix front / back / data | [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md) |
 | Modèle conceptuel / logique | [`inc-01-data-model.md`](inc-01-data-model.md) |
 | Stratégie API ou absence d'API | [`inc-01-api-strategy.md`](inc-01-api-strategy.md) |
 | Règles détaillées de statuts | [`inc-01-status-rules.md`](inc-01-status-rules.md) |
@@ -286,7 +286,7 @@ Figma **n'est pas bloquant** pour l'architecture INC-01.
 
 Le prochain livrable est :
 
-**[`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md)**
+**[`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md)**
 
 **Objectif :** formaliser les choix front / back / data pour INC-01, sans produire de code.
 

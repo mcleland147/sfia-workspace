@@ -29,7 +29,7 @@ Il **ne produit pas** de backlog, de user stories, de tests, de code, de maquett
 | `integration-functional-view.md` | Vue fonctionnelle de la sync CRM simulée |
 | `dashboard-and-alerts.md` | Dashboard, indicateurs et alertes |
 | `functional-architecture-summary.md` | Synthèse consolidée |
-| `functional-architecture-cycle-closure.md` | Clôture du cycle |
+| `2026-06-28-functional-architecture-cycle-closure.md` | Clôture du cycle |
 
 ---
 

@@ -69,7 +69,7 @@ La valeur du projet se déplace maintenant vers :
 | [`03-design/figma-reprise-path.md`](../03-design/figma-reprise-path.md) | Décision outillage design |
 | [`03-design/figma-fresh-start-instructions.md`](../03-design/figma-fresh-start-instructions.md) | Contexte nouveau fichier Figma |
 | [`03-design/figma-first-screen-reprise-instructions.md`](../03-design/figma-first-screen-reprise-instructions.md) | Référence écran pilote |
-| [`02-architecture/figma-v1-closure-summary.md`](../02-architecture/figma-v1-closure-summary.md) | Référence historique Figma V1 |
+| [`02-architecture/2026-06-28-figma-v1-closure-summary.md`](../02-architecture/2026-06-28-figma-v1-closure-summary.md) | Référence historique Figma V1 |
 
 ---
 

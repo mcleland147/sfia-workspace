@@ -31,9 +31,9 @@ Il sert à cadrer :
 - [`inc-01-technical-scope.md`](inc-01-technical-scope.md)
 - [`inc-01-data-model.md`](inc-01-data-model.md)
 - [`inc-01-demo-data.md`](inc-01-demo-data.md)
-- [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md)
+- [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md)
 - [`inc-01-api-strategy.md`](inc-01-api-strategy.md)
-- [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md)
+- [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md)
 
 **Décisions reprises :**
 
@@ -150,7 +150,7 @@ Ce document ne crée **aucun** schéma exécutable ni fichier de seed JSON/CSV.
 | **Seed** | Initialise le jeu de démonstration (SAV-DEMO-001, INT-DEMO-001, etc.) |
 | **Journal fonctionnel** | Trace les événements fonctionnels clés (5 étapes minimales) |
 
-**Règle importante :** la data conserve l'état, mais **ne décide pas seule** des transitions métier (`inc-01-front-back-data-decisions.md`).
+**Règle importante :** la data conserve l'état, mais **ne décide pas seule** des transitions métier (`2026-06-29-inc-01-front-back-data-decisions.md`).
 
 ---
 

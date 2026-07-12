@@ -182,7 +182,7 @@ Le parcours reste limité à :
 | [`inc-01-demo-script.md`](inc-01-demo-script.md) | Script de présentation |
 | [`inc-01-controlled-workflow-validation.md`](inc-01-controlled-workflow-validation.md) | Validation fonctionnelle |
 | [`inc-01-controlled-workflow-skeleton-summary.md`](inc-01-controlled-workflow-skeleton-summary.md) | Summary de livraison workflow |
-| [`inc-01-phase-2-rex.md`](inc-01-phase-2-rex.md) | Retour d'expérience phase 2 |
+| [`2026-07-01-inc-01-phase-2-rex.md`](2026-07-01-inc-01-phase-2-rex.md) | Retour d'expérience phase 2 |
 | [`inc-01-readonly-demo-summary.md`](inc-01-readonly-demo-summary.md) | Consolidation parcours readonly |
 | [`../../app/README.md`](../../app/README.md) | Documentation applicative |
 

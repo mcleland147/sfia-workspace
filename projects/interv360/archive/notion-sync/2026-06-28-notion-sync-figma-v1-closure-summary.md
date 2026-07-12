@@ -5,7 +5,7 @@
 **Jalon** : Figma V1  
 **Statut** : Prepared — Not published  
 **Type** : Préparation synchronisation Notion  
-**Source** : `figma-v1-closure-summary.md`  
+**Source** : `2026-06-28-figma-v1-closure-summary.md`  
 **Objet** : préparer une mise à jour Notion de gouvernance pour la clôture du jalon Figma V1
 
 ---

@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Validation et readiness delivery
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/05-technical-architecture/validation-and-delivery-readiness.md`  
+**Chemin :** `projects/chantiers360-v2/05-technical-architecture/2026-07-06-validation-and-delivery-readiness.md`  
 **Cycle :** Architecture technique légère
 
 > INC-01 **autorisé** — GO Morris M7 accordé (2026-07-06). Delivery en cours branche `delivery/chantiers360-v2-inc-01`.
@@ -150,4 +150,4 @@ GO INC-02 (après merge INC-01)
 
 ---
 
-**Documents liés :** `technical-decisions.md`, `../03-backlog/delivery-increments.md`, `../03-backlog/acceptance-criteria.md`
+**Documents liés :** `2026-07-06-technical-decisions.md`, `../03-backlog/delivery-increments.md`, `../03-backlog/acceptance-criteria.md`

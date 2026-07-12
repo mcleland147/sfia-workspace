@@ -35,7 +35,7 @@ Il sert de base de travail pour enrichir :
 | Architecture | `02-architecture/` — 8 ADR (ADR-001 à ADR-008 + candidat ADR-009) | Contrats API simulés, erreurs intégration, email sécurisé, notifications, signatures, rétention, dashboard séparé |
 | Design | `03-design/` | Instructions Figma, design system (exports Figma non suivis — hors sync) |
 | Delivery | `04-delivery/premium-design-system.md` | Cycle UI premium, garde-fous backend/API, Figma Design-first opérationnel |
-| Release | `05-release/mvp-release-readiness.md` | Pattern release readiness, tag `v0.1.0-mvp`, checklist Go/No-Go |
+| Release | `05-release/2026-07-02-mvp-release-readiness.md` | Pattern release readiness, tag `v0.1.0-mvp`, checklist Go/No-Go |
 | Audit / REX | `06-audit-rex/current-application-audit.md`, `README.md` | Décision `APPLICATION_SAINE_AVEC_RESERVES`, dette premium/legacy, mapping DEM-248x / SAV-DEMO |
 | Roadmap | `09-roadmap/` — 14 documents | MVP Final Roadmap, backend/auth/API framing, évolutions post-MVP (CRUD, auth, CRM — P2) |
 
@@ -172,7 +172,7 @@ Il sert de base de travail pour enrichir :
 - **MVP** : 6 lots produit (Users, Audit Trail, Request Model, API Hardening, UX Finalization, Industrialization) → tag `v0.1.0-mvp`.
 - **Premium UI** : cycle UI distinct `ui/interv360-premium-design-system` — zéro modification backend.
 - Pattern : `Décision → Roadmap → Lots → PR/lot → Post-merge léger → Release readiness → Tag → Capitalisation`.
-- Release readiness documentée (`mvp-release-readiness.md`) — template réutilisable.
+- Release readiness documentée (`2026-07-02-mvp-release-readiness.md`) — template réutilisable.
 
 ### 4.4. UX / UI / Figma Design-first
 
@@ -333,7 +333,7 @@ Besoin → ChatGPT (cadrage + prompt) → Cursor (exécution) → Résultat
 | Contrôles Git | `validation-checklist.md` |
 | Build/tests si code | `global-capitalization` §10 |
 | Vérification hors scope | `guardrails-checklist.md` |
-| GO/NO-GO par type cycle | `mvp-release-readiness.md`, audit templates |
+| GO/NO-GO par type cycle | `2026-07-02-mvp-release-readiness.md`, audit templates |
 | Rapport validation | `automation` §5.7 |
 | **v1.1** : spec + mapping checklists ; **v2.0** : exécution auto |
 
@@ -343,7 +343,7 @@ Besoin → ChatGPT (cadrage + prompt) → Cursor (exécution) → Résultat
 |---------|--------|
 | Templates cycle, audit, rex, post-merge | `templates/` |
 | Mise à jour roadmap | `sfia-consolidation-roadmap.md` |
-| Release notes | `mvp-release-readiness.md` |
+| Release notes | `2026-07-02-mvp-release-readiness.md` |
 | **Priorité P2 v1.1** — peut attendre v2.0 |
 
 ### Knowledge / Notion Layer

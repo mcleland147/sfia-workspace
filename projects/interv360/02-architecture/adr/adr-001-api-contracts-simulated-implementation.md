@@ -14,7 +14,7 @@
 
 Interv360 (ServiTech Pro) doit **simuler plusieurs intégrations externes** pour orchestrer le parcours SAV sur 9 étapes : **CRM**, **calendrier / planning**, **notifications**, **facturation**, et **email sécurisé** (canal non principal).
 
-Le **MVP ne doit pas dépendre d'intégrations réelles** : l'objectif est un démonstrateur crédible, testable et découplé des systèmes externes réels, conformément au périmètre cadré (`business-framing.md` §8, `mvp-arbitrations.md`).
+Le **MVP ne doit pas dépendre d'intégrations réelles** : l'objectif est un démonstrateur crédible, testable et découplé des systèmes externes réels, conformément au périmètre cadré (`2026-06-27-business-framing.md` §8, `mvp-arbitrations.md`).
 
 Le cadrage a validé **ARB-MVP-04** : retenir l'**option C — vrais contrats API documentés avec implémentation simulée** (`mvp-arbitration-validation.md`, `integration-error-arbitration-review.md` §4).
 

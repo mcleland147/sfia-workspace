@@ -171,11 +171,11 @@ Décision : voir §16 — **Go conditionnel sur INC-01** (formalisé).
 
 ## 11. Synthèse de maturité
 
-**Sources principales :** `01-cadrage/business-framing.md`, `01-cadrage/mvp-arbitration-validation.md`, `../archive/pre-delivery-phases/05-functional-architecture/functional-architecture-summary.md`, `../archive/pre-delivery-phases/06-ux-ui/user-journeys.md`, `04-delivery/mvp-scope.md`, `04-delivery/delivery-readiness-summary.md`, `../archive/inc-01/inc-01-readiness-checklist.md`, `04-delivery/technical-design-summary.md`, `04-delivery/realization-start-summary.md`, `03-design/figma-first-screen-review.md`, `../../method/sfia-fast-track/archive/interv360-realization/2026-06-30-capitalization-summary.md`.
+**Sources principales :** `01-cadrage/2026-06-27-business-framing.md`, `01-cadrage/mvp-arbitration-validation.md`, `../archive/pre-delivery-phases/05-functional-architecture/functional-architecture-summary.md`, `../archive/pre-delivery-phases/06-ux-ui/user-journeys.md`, `04-delivery/mvp-scope.md`, `04-delivery/2026-06-29-delivery-readiness-summary.md`, `../archive/inc-01/2026-06-29-inc-01-readiness-checklist.md`, `04-delivery/technical-design-summary.md`, `04-delivery/realization-start-summary.md`, `03-design/figma-first-screen-review.md`, `../../method/sfia-fast-track/archive/interv360-realization/2026-06-30-capitalization-summary.md`.
 
 | Axe | Niveau | Commentaire |
 |-----|--------|-------------|
-| Cadrage produit | **Solide** | Intake validé (v1.3), cadrage métier et arbitrages MVP stabilisés (`business-framing.md`, `mvp-arbitrations.md`). Vision SAV + intégrations simulées claire. |
+| Cadrage produit | **Solide** | Intake validé (v1.3), cadrage métier et arbitrages MVP stabilisés (`2026-06-27-business-framing.md`, `mvp-arbitrations.md`). Vision SAV + intégrations simulées claire. |
 | Périmètre MVP | **Solide** | `mvp-scope.md` définit la chaîne SAV bout en bout, 8 écrans, hors MVP et garde-fous. Découpage en 9 lots, 51 MB, 6 incréments (INC-01 à INC-06). |
 | Parcours utilisateurs | **Suffisant pour MVP** | 9 parcours consolidés dans `user-journeys.md` (qualification, planification, terrain, clôture, anomalies, pilotage). |
 | Objets métier | **Solide** | Objets structurants documentés (`business-objects.md`, `functional-architecture-summary.md`) : Demande SAV, Intervention, Client, Technicien, CR, Signature, Sync CRM simulée, Anomalie. |
@@ -184,7 +184,7 @@ Décision : voir §16 — **Go conditionnel sur INC-01** (formalisé).
 | Architecture fonctionnelle | **Solide** | 7 domaines fonctionnels, vision source de vérité locale, CRM simulé, clôture autonome (ADR-004). Synthèse consolidée disponible. |
 | Sécurité / données | **À compléter** | Cadrage fonctionnel présent (conservation fictive ADR-005, erreurs intégration ADR-003). **Stack concrète, stratégie data physique et habilitations avancées non arbitrées** (`realization-start-summary.md` §5–7). |
 | Préparation réalisation | **Solide** | Méthode capitalisée Git + Notion (28 assets). INC-01 détaillé : 16 US, 68 CA, backlog préparatoire, QA, estimation, conception technique documentaire. |
-| Risques / dépendances | **Suffisant pour MVP** | Risques identifiés dans `delivery-readiness-summary.md` et `realization-start-summary.md`. **Autorisation de code non donnée** ; BPMN exécutable non produit (`03-process/` — fichiers `.bpmn` à venir). |
+| Risques / dépendances | **Suffisant pour MVP** | Risques identifiés dans `2026-06-29-delivery-readiness-summary.md` et `realization-start-summary.md`. **Autorisation de code non donnée** ; BPMN exécutable non produit (`03-process/` — fichiers `.bpmn` à venir). |
 
 Niveaux utilisés : Solide · Suffisant pour MVP · À compléter · Bloquant.
 
@@ -243,7 +243,7 @@ Niveaux utilisés : Solide · Suffisant pour MVP · À compléter · Bloquant.
 - automatisation complète des reprises d'anomalies ;
 - multi-entités, audit avancé, SLA complexes.
 
-*(Aligné sur `mvp-scope.md` §6 et `delivery-readiness-summary.md` §10.)*
+*(Aligné sur `mvp-scope.md` §6 et `2026-06-29-delivery-readiness-summary.md` §10.)*
 
 ### 13.3 Hypothèses MVP à confirmer
 

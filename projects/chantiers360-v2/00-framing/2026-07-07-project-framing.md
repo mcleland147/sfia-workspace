@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Project Framing
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/00-framing/project-framing.md`  
+**Chemin :** `projects/chantiers360-v2/00-framing/2026-07-07-project-framing.md`  
 **Version :** Bootstrap + cadrage (PR #96) + archi fonctionnelle (PR #97) + UX/UI (PR #98) + backlog MVP (PR #99) + Design Figma MVP (PR #101) + architecture technique légère (PR #102) + arbitrages Morris + Figma Fidelity Spike (PR #104)
 
 ## 1. Framing status
@@ -154,7 +154,7 @@ Le bootstrap est **valide** si :
 
 | Critère | Attendu |
 |---------|---------|
-| Structure minimale | `README.md` + `00-framing/project-framing.md` |
+| Structure minimale | `README.md` + `00-framing/2026-07-07-project-framing.md` |
 | Autres fichiers projet | Aucun |
 | V0 utilisée | Non |
 | Code créé | Non |
@@ -224,7 +224,7 @@ Le bootstrap est **valide** si :
 
 | Document | Contenu |
 |----------|---------|
-| `detailed-framing.md` | Objectif, problème, utilisateurs, hypothèses, risques, critères succès |
+| `2026-07-05-detailed-framing.md` | Objectif, problème, utilisateurs, hypothèses, risques, critères succès |
 | `use-cases.md` | 9 cas d'usage prioritaires — sans user stories ni backlog |
 | `business-rules.md` | Statuts, jalons, retard, compte rendu, données minimales |
 | `scope-boundaries.md` | Limites MVP / hors MVP, extensions métier futures |
@@ -237,7 +237,7 @@ Le bootstrap est **valide** si :
 | `functional-domains.md` | 8 domaines fonctionnels MVP |
 | `navigation-model.md` | Navigation fonctionnelle sans design UI |
 | `state-model.md` | États métier — statuts, retard, prochaines actions dérivées |
-| `functional-decisions.md` | Décisions Morris intégrées (P1/P2, statuts, CR, retard, multi-user) |
+| `2026-07-05-functional-decisions.md` | Décisions Morris intégrées (P1/P2, statuts, CR, retard, multi-user) |
 
 ## 15. UX/UI documents
 
@@ -247,7 +247,7 @@ Le bootstrap est **valide** si :
 | `screen-map.md` | 8 écrans fonctionnels P1/P2 |
 | `wireframes-functional.md` | Wireframes textuels Markdown |
 | `user-flows.md` | 7 flux UX sans backlog |
-| `ux-decisions.md` | Décisions navigation, exclusions, limites cycle |
+| `2026-07-05-ux-decisions.md` | Décisions navigation, exclusions, limites cycle |
 
 ## 16. Backlog MVP documents
 
@@ -259,7 +259,7 @@ Le bootstrap est **valide** si :
 | `acceptance-criteria.md` | Critères d'acceptation par story |
 | `delivery-increments.md` | 5 incréments INC-01 à INC-05 |
 | `backlog-traceability.md` | Matrice traçabilité |
-| `backlog-decisions.md` | Décisions backlog — gate delivery |
+| `2026-07-05-backlog-decisions.md` | Décisions backlog — gate delivery |
 
 ---
 
@@ -270,7 +270,7 @@ Le bootstrap est **valide** si :
 | `04-design/figma-brief.md` | Brief design, lien Figma, périmètre écrans |
 | `04-design/screen-design-spec.md` | Spec écran par écran |
 | `04-design/figma-review-checklist.md` | Checklist revue Morris |
-| `04-design/design-decisions.md` | Décisions design |
+| `04-design/2026-07-06-design-decisions.md` | Décisions design |
 | `04-design/design-to-backlog-alignment.md` | Alignement backlog — écarts éventuels |
 
 ## 18. Technical architecture documents
@@ -279,12 +279,12 @@ Le bootstrap est **valide** si :
 |----------|---------|
 | `05-technical-architecture/technical-architecture-overview.md` | Vue d'ensemble cycle architecture légère |
 | `05-technical-architecture/stack-options.md` | Comparaison options stack |
-| `05-technical-architecture/stack-decision.md` | Décision stack — validée Morris (Option B + Drizzle + Tailwind) |
+| `05-technical-architecture/2026-07-06-stack-decision.md` | Décision stack — validée Morris (Option B + Drizzle + Tailwind) |
 | `05-technical-architecture/application-structure.md` | Structure applicative cible |
 | `05-technical-architecture/data-model-light.md` | Modèle de données documentaire |
 | `05-technical-architecture/frontend-architecture.md` | Architecture frontend P1 |
-| `05-technical-architecture/validation-and-delivery-readiness.md` | Readiness INC-01 |
-| `05-technical-architecture/technical-decisions.md` | Décisions techniques tracées |
+| `05-technical-architecture/2026-07-06-validation-and-delivery-readiness.md` | Readiness INC-01 |
+| `05-technical-architecture/2026-07-06-technical-decisions.md` | Décisions techniques tracées |
 
 ---
 

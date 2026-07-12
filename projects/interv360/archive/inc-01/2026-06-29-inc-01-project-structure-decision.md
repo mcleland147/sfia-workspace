@@ -279,6 +279,6 @@ Cette décision reste **documentaire** et devra être confirmée avant création
 
 Le prochain livrable est :
 
-`inc-01-front-back-start-decision.md`
+`2026-06-29-inc-01-front-back-start-decision.md`
 
 **Objectif :** décider du niveau de séparation front / back pour INC-01, sans créer d'architecture applicative réelle.

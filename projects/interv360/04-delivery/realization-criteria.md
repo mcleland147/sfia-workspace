@@ -202,7 +202,7 @@ Checklist indicative à la **fin de réalisation** d'un incrément ou lot — **
 
 Le prochain livrable est :
 
-**[`delivery-readiness-summary.md`](delivery-readiness-summary.md)**
+**[`2026-06-29-delivery-readiness-summary.md`](2026-06-29-delivery-readiness-summary.md)**
 
 **Objectif :** synthétiser le niveau de préparation du delivery Interv360 et décider si le **cycle delivery preparation** peut être clôturé.
 

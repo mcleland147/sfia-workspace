@@ -258,7 +258,7 @@ Garde-fous :
 |---------|---------|
 | **Objectif** | Produire la synthèse de clôture et préparer la PR unique |
 | **Entrées** | Tous les livrables 03-process ; template `2026-06-28-bpmn-cycle-closure-template.md` |
-| **Sortie attendue** | `process-cycle-closure.md` ; tableau PR ; recommandations post-merge |
+| **Sortie attendue** | `2026-06-28-process-cycle-closure.md` ; tableau PR ; recommandations post-merge |
 | **Garde-fous** | Ne pas merger automatiquement ; ne pas créer la PR sans demande explicite |
 
 ### Instructions Cursor
@@ -272,7 +272,7 @@ Contexte :
 - Livrables : bpmn/, exports/, process-scope.md, process-analysis.md
 
 Tâches :
-1. Créer projects/{project}/03-process/process-cycle-closure.md à partir du template.
+1. Créer projects/{project}/03-process/2026-06-28-process-cycle-closure.md à partir du template.
 2. Inventorier les livrables produits (.bpmn, .svg, analyses) et leur statut.
 3. Consolider les décisions et ADR candidates.
 4. Lister les points restant à préciser et suites recommandées.

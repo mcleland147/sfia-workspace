@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Ready for closure  
 **Branche** : `delivery/interv360-technical-design`  
-**Documents associés** : [`technical-design-plan.md`](technical-design-plan.md), [`inc-01-application-architecture.md`](inc-01-application-architecture.md), [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md), [`inc-01-data-model.md`](inc-01-data-model.md), [`inc-01-api-strategy.md`](inc-01-api-strategy.md), [`inc-01-status-rules.md`](inc-01-status-rules.md), [`inc-01-technical-qa-planning.md`](inc-01-technical-qa-planning.md)
+**Documents associés** : [`technical-design-plan.md`](technical-design-plan.md), [`inc-01-application-architecture.md`](inc-01-application-architecture.md), [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md), [`inc-01-data-model.md`](inc-01-data-model.md), [`inc-01-api-strategy.md`](inc-01-api-strategy.md), [`inc-01-status-rules.md`](inc-01-status-rules.md), [`inc-01-technical-qa-planning.md`](inc-01-technical-qa-planning.md)
 
 ---
 
@@ -54,7 +54,7 @@ Cela signifie que INC-01 est prêt pour un **futur cycle de planification de ré
 |----------|:------:|------|
 | [`technical-design-plan.md`](technical-design-plan.md) | ✅ | Plan du cycle |
 | [`inc-01-application-architecture.md`](inc-01-application-architecture.md) | ✅ | Architecture applicative cible |
-| [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md) | ✅ | Décisions front / back / data |
+| [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md) | ✅ | Décisions front / back / data |
 | [`inc-01-data-model.md`](inc-01-data-model.md) | ✅ | Modèle conceptuel / logique |
 | [`inc-01-api-strategy.md`](inc-01-api-strategy.md) | ✅ | Stratégie API ou absence d'API externe requise |
 | [`inc-01-status-rules.md`](inc-01-status-rules.md) | ✅ | Règles de transition STAT-01 à STAT-06 |

@@ -31,7 +31,7 @@ Cet atelier vise à **clarifier les points encore ambigus** avant toute **concep
 
 | Élément | État |
 |---------|------|
-| **Cadrage métier** | Produit — `business-framing.md` (parcours, objets, 56 RG-*, risques) |
+| **Cadrage métier** | Produit — `2026-06-27-business-framing.md` (parcours, objets, 56 RG-*, risques) |
 | **Arbitrages MVP** | **7 validés** — `mvp-arbitration-validation.md` |
 | **Brief UX/UI** | **Validé** — `ux-ui-brief.md` + `ux-ui-brief-validation.md` |
 | **Analyse QA transverse** | **Intégrée** — `qa-transverse-analysis.md` |

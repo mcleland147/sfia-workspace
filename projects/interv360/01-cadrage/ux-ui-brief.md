@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Validated  
-**Source** : `business-framing.md` + `mvp-arbitration-validation.md` + `dashboard-kpi-ux-review.md`  
+**Source** : `2026-06-27-business-framing.md` + `mvp-arbitration-validation.md` + `dashboard-kpi-ux-review.md`  
 **Objet** : brief UX/UI préalable à toute maquette ou travail Figma
 
 ---
@@ -27,7 +27,7 @@ Il **prépare** les écrans, parcours, priorités UX, critères d'utilisabilité
 
 ## 2. Règle de déclenchement Figma
 
-Règle validée dans `business-framing.md` §14.6 :
+Règle validée dans `2026-06-27-business-framing.md` §14.6 :
 
 **Figma intervient uniquement après** :
 

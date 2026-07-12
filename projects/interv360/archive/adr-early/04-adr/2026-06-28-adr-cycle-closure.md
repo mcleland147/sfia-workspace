@@ -36,12 +36,12 @@ Ce document **ne produit pas** de backlog, de user stories, de tests, de code ou
 
 **Fichiers :**
 
-- `ADR-001-status-mapping.md`
-- `ADR-002-simulated-crm-sync.md`
-- `ADR-003-integration-error-management.md`
-- `ADR-004-local-closure-vs-external-sync.md`
+- `adr-001-status-mapping.md`
+- `adr-002-simulated-crm-sync.md`
+- `adr-003-integration-error-management.md`
+- `2026-06-28-adr-004-local-closure-vs-external-sync.md`
 
-**Documents de cadrage :** `adr-structuring-scope.md`, `adr-cycle-closure.md` (ce document).
+**Documents de cadrage :** `adr-structuring-scope.md`, `2026-06-28-adr-cycle-closure.md` (ce document).
 
 ---
 

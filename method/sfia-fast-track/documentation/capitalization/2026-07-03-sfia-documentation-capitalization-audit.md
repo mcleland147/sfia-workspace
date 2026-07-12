@@ -144,7 +144,7 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 | `02-architecture/` | 13 + 9 ADR | **OK** | ADR actifs ; ~14 JSON CMP historiques (chemins anciens) |
 | `03-design/` | 16 | **OK** | Figma + Penpot + design cycles |
 | `04-delivery/` | 50 | **À compléter** | Très riche (MVP, premium UI, batches) ; pas de README |
-| `05-release/` | 1 | **À compléter** | `mvp-release-readiness.md` présent ; pas de README |
+| `05-release/` | 1 | **À compléter** | `2026-07-02-mvp-release-readiness.md` présent ; pas de README |
 | `06-audit-rex/` | 2 | **À compléter** | Audit app OK ; README obsolète (titre « 07 REX », statut « à venir ») |
 | `07-documentation/` | 1 | **À créer** | README seul — aucun document transverse |
 | `08-presentation/` | 4 | **À compléter** | Demo package, script, runbook ; pas de README |
@@ -153,7 +153,7 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 **Documents clés validés** :
 
 - `04-delivery/premium-design-system.md` — présent
-- `05-release/mvp-release-readiness.md` — présent
+- `05-release/2026-07-02-mvp-release-readiness.md` — présent
 - `06-audit-rex/current-application-audit.md` — présent
 - `02-architecture/adr/` — 9 ADR actifs
 

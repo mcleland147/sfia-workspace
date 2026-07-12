@@ -42,7 +42,7 @@
 
 | Document | Rôle |
 |----------|------|
-| `00-framing/chantiers360-post-mvp-framing.md` | Roadmap post-MVP, registre réserves |
+| `00-framing/2026-07-10-chantiers360-post-mvp-framing.md` | Roadmap post-MVP, registre réserves |
 | `00-framing/chantiers360-post-mvp-option-a-reserves-first.md` | Cadrage Option A2, §4 R-UX-01 |
 | `08-qa-test/inc-05/qa-reserves.md` | Constat, garde-fous R-UX-01 |
 | `07-delivery-inc-05/inc-05-closure-report.md` | Clôture INC-05 WITH RESERVES |

@@ -172,7 +172,7 @@ Ces limites sont assumées et cohérentes avec INC-01.
 | [`inc-01-controlled-workflow-skeleton-summary.md`](inc-01-controlled-workflow-skeleton-summary.md) | Summary workflow local contrôlé |
 | [`inc-01-controlled-workflow-validation.md`](inc-01-controlled-workflow-validation.md) | Validation fonctionnelle |
 | [`inc-01-demo-script.md`](inc-01-demo-script.md) | Script de démonstration |
-| [`inc-01-phase-2-rex.md`](inc-01-phase-2-rex.md) | Retour d'expérience phase 2 |
+| [`2026-07-01-inc-01-phase-2-rex.md`](2026-07-01-inc-01-phase-2-rex.md) | Retour d'expérience phase 2 |
 | [`inc-01-final-demo-package.md`](inc-01-final-demo-package.md) | Package final de démonstration |
 
 **Documentation applicative :** [`../../app/README.md`](../../app/README.md)

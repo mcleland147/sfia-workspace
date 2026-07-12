@@ -16,7 +16,7 @@ Il s'appuie sur :
 
 - le **brief UX/UI validé** (`ux-ui-brief.md`, `ux-ui-brief-validation.md`) ;
 - les **décisions atelier** (`clarification-workshop-minutes.md`) ;
-- **Figma V1** comme référence visuelle **non définitive** (`figma-v1-closure-summary.md`) ;
+- **Figma V1** comme référence visuelle **non définitive** (`2026-06-28-figma-v1-closure-summary.md`) ;
 - l'**architecture fonctionnelle détaillée** (`05-functional-architecture/`) ;
 - les **ADR structurantes** (ADR-001 à ADR-004) ;
 - le **cadrage** `ux-ui-reprise-scope.md` et l'**état des lieux** `ux-ui-reprise-analysis.md`.

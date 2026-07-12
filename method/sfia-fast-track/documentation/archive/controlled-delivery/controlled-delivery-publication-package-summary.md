@@ -95,7 +95,7 @@ La référence terrain proposée reste :
 
 **Documents utilisables en annexe :**
 
-- [`inc-01-phase-2-rex.md`](../../../../projects/interv360/archive/inc-01-phase-2-rex.md)
+- [`2026-07-01-inc-01-phase-2-rex.md`](../../../../projects/interv360/archive/2026-07-01-inc-01-phase-2-rex.md)
 - [`inc-01-demo-script.md`](../../../../projects/interv360/archive/inc-01-demo-script.md)
 - [`inc-01-controlled-workflow-validation.md`](../../../../projects/interv360/archive/inc-01-controlled-workflow-validation.md)
 - [`inc-01-controlled-workflow-skeleton-summary.md`](../../../../projects/interv360/archive/inc-01-controlled-workflow-skeleton-summary.md)

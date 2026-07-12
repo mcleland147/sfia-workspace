@@ -27,7 +27,7 @@ Ce benchmark permet de décider si Penpot peut devenir :
 | **Outil de documentation visuelle / preuve MCP** | Preuve technique, pas maquette finale |
 
 **Sources fonctionnelles** : `06-ux-ui/` (specs Git).  
-**Sources visuelles de référence** : captures Figma V1 (niveau visuel uniquement — **non définitives**, qualité indicative 8,3/10 selon `figma-v1-closure-summary.md`).
+**Sources visuelles de référence** : captures Figma V1 (niveau visuel uniquement — **non définitives**, qualité indicative 8,3/10 selon `2026-06-28-figma-v1-closure-summary.md`).
 
 ---
 

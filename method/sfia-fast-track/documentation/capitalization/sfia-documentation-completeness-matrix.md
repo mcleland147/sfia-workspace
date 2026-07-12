@@ -166,7 +166,7 @@ L'objectif est de s'assurer que la méthode, les templates, les prompts, les pra
 | 02 Architecture | ADR, synthèses architecture | `projects/interv360/02-architecture/` (13 md + 9 ADR) | **OK** | Actif propre ; payloads JSON CMP historiques à part |
 | 03 Design | Design, UX, Figma, Penpot | `projects/interv360/03-design/` (16 md) | **OK** | Design system et cycles documentés |
 | 04 Delivery | Livraison MVP/Premium UI | `projects/interv360/04-delivery/` (50 md) | **À compléter** | Contenu riche ; **pas de README** phase |
-| 05 Release | Release readiness | `projects/interv360/05-release/mvp-release-readiness.md` | **À compléter** | 1 doc clé ; **pas de README** |
+| 05 Release | Release readiness | `projects/interv360/05-release/2026-07-02-mvp-release-readiness.md` | **À compléter** | 1 doc clé ; **pas de README** |
 | 06 Audit/REX | Audit application, REX | `projects/interv360/06-audit-rex/` | **À compléter** | `current-application-audit.md` OK ; README obsolète (« 07 REX », « à venir ») |
 | 07 Documentation | Documentation transverse projet | `projects/interv360/07-documentation/` | **À créer** | README placeholder seul — aucun document transverse |
 | 08 Présentation | Démo, support, runbook | `projects/interv360/08-presentation/` (4 md) | **À compléter** | Contenu présent ; **pas de README** |

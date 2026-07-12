@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : `business-framing.md` (Draft)  
+**Source** : `2026-06-27-business-framing.md` (Draft)  
 **Date de revue** : 2026-06-27
 
 ---
@@ -127,7 +127,7 @@ Décisions structurantes identifiées dans §12 et §15, à documenter en ADR lo
 
 | Critère | Statut | Commentaire |
 |---------|--------|-------------|
-| Cadrage suffisamment structuré | **Go** | 18 sections produites dans `business-framing.md` ; parcours, objets, règles, UX et risques formalisés |
+| Cadrage suffisamment structuré | **Go** | 18 sections produites dans `2026-06-27-business-framing.md` ; parcours, objets, règles, UX et risques formalisés |
 | Questions ouvertes identifiées | **Go** | Q1–Q24 regroupées et reliées aux arbitrages |
 | Arbitrages identifiés | **Go** | 40 arbitrages A-* listés, non tranchés |
 | Risques identifiés | **Go** | 47 risques R-* qualifiés en 6 catégories |

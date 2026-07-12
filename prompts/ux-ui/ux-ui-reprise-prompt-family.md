@@ -437,7 +437,7 @@ git push [REMOTE_NAME] [BRANCH_NAME]
 
 ## 12. Prompt 9 — Produire clôture
 
-**Objectif :** créer `[PROJECT_PHASE_PATH]/ux-ui-cycle-closure.md`
+**Objectif :** créer `[PROJECT_PHASE_PATH]/2026-06-28-ux-ui-cycle-closure.md`
 **Commit recommandé :** `docs: close [PROJECT_NAME] UX UI reprise cycle`
 
 ```
@@ -448,7 +448,7 @@ Branche courante attendue :
 [BRANCH_NAME]
 
 Fichier cible :
-[PROJECT_PHASE_PATH]/ux-ui-cycle-closure.md
+[PROJECT_PHASE_PATH]/2026-06-28-ux-ui-cycle-closure.md
 
 Important :
 La clôture ACTE le cycle — pas de nouveau contenu métier, pas de merge automatique.

@@ -23,7 +23,7 @@ Il vise à vérifier que le lot applicatif groupé est cohérent, testable, rejo
 
 Le workflow validé couvre uniquement le flux nominal INC-01 sur `SAV-DEMO-001`.
 
-**Sources :** [`inc-01-controlled-workflow-skeleton-summary.md`](inc-01-controlled-workflow-skeleton-summary.md), [`inc-01-phase-2-delivery-decision.md`](inc-01-phase-2-delivery-decision.md)
+**Sources :** [`inc-01-controlled-workflow-skeleton-summary.md`](inc-01-controlled-workflow-skeleton-summary.md), [`2026-06-30-inc-01-phase-2-delivery-decision.md`](2026-06-30-inc-01-phase-2-delivery-decision.md)
 
 | Étape | Action | Transition | Événement journal |
 |------|--------|------------|-------------------|

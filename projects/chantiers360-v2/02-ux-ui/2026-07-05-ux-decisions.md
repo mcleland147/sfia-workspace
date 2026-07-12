@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Décisions UX/UI
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/02-ux-ui/ux-decisions.md`  
+**Chemin :** `projects/chantiers360-v2/02-ux-ui/2026-07-05-ux-decisions.md`  
 **Cycle :** UX/UI (post PR #97)
 
 > Trace des décisions UX/UI prises dans ce cycle.  
@@ -119,6 +119,6 @@ Prérequis :
 | `screen-map.md` | Carte 8 écrans fonctionnels |
 | `wireframes-functional.md` | 8 wireframes textuels |
 | `user-flows.md` | 7 flux UX prioritaires |
-| `ux-decisions.md` | Ce document |
+| `2026-07-05-ux-decisions.md` | Ce document |
 
 **Automation level :** L2 — gate Morris avant backlog MVP.

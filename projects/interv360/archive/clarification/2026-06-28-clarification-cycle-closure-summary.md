@@ -1,7 +1,7 @@
 # Interv360 — Synthèse clôture cycle clarification
 
 **Projet** : PRJ-INTERV360  
-**Document source** : `clarification-cycle-closure.md`  
+**Document source** : `2026-06-28-clarification-cycle-closure.md`  
 **Type** : Synthèse gouvernance  
 **Branche** : `analysis/interv360-clarification-cycle`
 

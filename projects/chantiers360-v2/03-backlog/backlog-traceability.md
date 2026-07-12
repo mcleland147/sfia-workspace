@@ -38,13 +38,13 @@
 
 | Élément cadrage | Document source | Couverture backlog |
 |-----------------|-----------------|-------------------|
-| MVP confirmé | `detailed-framing.md`, tous cycles | 13 US — MVP complet |
+| MVP confirmé | `2026-07-05-detailed-framing.md`, tous cycles | 13 US — MVP complet |
 | Statuts chantier/tâche/réserve | `business-rules.md` | US-04, US-07, US-09 + AC |
-| Retard manuel | `functional-decisions.md` | US-05 |
-| CR date auto + contenu libre | `functional-decisions.md` | US-11 |
-| Prochaines actions dérivées | `functional-decisions.md` | US-12, US-13 |
-| P1 UC-01–05 | `functional-decisions.md` | INC-01, INC-02 |
-| P2 UC-06–09 | `functional-decisions.md` | INC-03, INC-04, INC-05 |
+| Retard manuel | `2026-07-05-functional-decisions.md` | US-05 |
+| CR date auto + contenu libre | `2026-07-05-functional-decisions.md` | US-11 |
+| Prochaines actions dérivées | `2026-07-05-functional-decisions.md` | US-12, US-13 |
+| P1 UC-01–05 | `2026-07-05-functional-decisions.md` | INC-01, INC-02 |
+| P2 UC-06–09 | `2026-07-05-functional-decisions.md` | INC-03, INC-04, INC-05 |
 
 ---
 
@@ -79,4 +79,4 @@
 
 ---
 
-**Documents liés :** `user-stories.md`, `epics.md`, `backlog-decisions.md`
+**Documents liés :** `user-stories.md`, `epics.md`, `2026-07-05-backlog-decisions.md`

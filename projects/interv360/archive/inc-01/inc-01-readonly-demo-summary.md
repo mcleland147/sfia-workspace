@@ -118,7 +118,7 @@ Ce bouton ne constitue pas une action métier.
 
 La couche UI ne doit pas accéder directement au stockage local.
 
-**Sources de cycles précédents :** [`inc-01-report-readonly-skeleton-summary.md`](inc-01-report-readonly-skeleton-summary.md), [`inc-01-demo-reset-summary.md`](inc-01-demo-reset-summary.md), [`inc-01-list-skeleton-summary.md`](inc-01-list-skeleton-summary.md)
+**Sources de cycles précédents :** [`2026-06-30-inc-01-report-readonly-skeleton-summary.md`](2026-06-30-inc-01-report-readonly-skeleton-summary.md), [`inc-01-demo-reset-summary.md`](inc-01-demo-reset-summary.md), [`inc-01-list-skeleton-summary.md`](inc-01-list-skeleton-summary.md)
 
 ---
 

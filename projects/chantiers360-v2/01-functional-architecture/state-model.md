@@ -202,4 +202,4 @@ Les comptes rendus n'ont **pas de statut workflow** au MVP.
 
 ---
 
-**Documents liés :** `functional-domains.md`, `functional-decisions.md`, `../00-framing/business-rules.md`
+**Documents liés :** `functional-domains.md`, `2026-07-05-functional-decisions.md`, `../00-framing/business-rules.md`

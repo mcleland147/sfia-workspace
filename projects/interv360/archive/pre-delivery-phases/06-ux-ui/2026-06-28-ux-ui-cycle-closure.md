@@ -52,7 +52,7 @@ La clôture **ne produit pas** :
 | 5 | `screen-functional-specs.md` | Spécifications fonctionnelles par écran | **Clôturé** |
 | 6 | `dashboard-ux-view.md` | Vues Manager SAV, Technicien, Pilotage ; KPI et alertes | **Clôturé** |
 | 7 | `ux-ui-summary.md` | Synthèse consolidée du cycle | **Clôturé** |
-| 8 | `ux-ui-cycle-closure.md` | Clôture formelle du cycle (ce document) | **Clôturé** |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture formelle du cycle (ce document) | **Clôturé** |
 
 **Dossier** : `projects/interv360/06-ux-ui/` — 8 livrables documentaires du cycle reprise UX/UI.
 

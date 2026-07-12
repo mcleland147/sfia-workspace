@@ -208,8 +208,8 @@ Elle alimente directement :
 
 | Source | Rôle |
 |--------|------|
-| `projects/interv360/04-adr/ADR-001-status-mapping.md` | STAT-08 comme indicateur interne |
-| `projects/interv360/04-adr/ADR-002-simulated-crm-sync.md` | CRM simulé et résultats de synchronisation |
+| `projects/interv360/04-adr/adr-001-status-mapping.md` | STAT-08 comme indicateur interne |
+| `projects/interv360/04-adr/adr-002-simulated-crm-sync.md` | CRM simulé et résultats de synchronisation |
 | `projects/interv360/03-process/interv360-integration-errors-preparation.md` | Flux anomalies d'intégration |
 | `projects/interv360/03-process/process-analysis.md` | Correspondance BPMN / statuts / RG-I06 |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règle RG-I06 |

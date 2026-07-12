@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase** : 01-cadrage  
 **Statut** : Draft  
-**Source** : business-framing.md + livrables de cadrage Interv360  
+**Source** : 2026-06-27-business-framing.md + livrables de cadrage Interv360  
 **Objet** : capitalisation méthodologique des rôles mobilisés pendant le cadrage
 
 ---
@@ -80,7 +80,7 @@ Les méthodes par rôle SFIA **ne se clôsent pas** à la fin du cadrage Interv3
 
 #### Consigne permanente pour les futures itérations
 
-À chaque nouveau livrable Interv360, il faut vérifier si `role-methods-framing.md` ou les futurs fichiers `docs/practices/roles/` doivent être mis à jour. Si un rôle a produit une **valeur projet** ou une **valeur SFIA** nouvelle, cette contribution doit être capitalisée.
+À chaque nouveau livrable Interv360, il faut vérifier si `2026-06-28-role-methods-framing.md` ou les futurs fichiers `docs/practices/roles/` doivent être mis à jour. Si un rôle a produit une **valeur projet** ou une **valeur SFIA** nouvelle, cette contribution doit être capitalisée.
 
 ---
 
@@ -88,7 +88,7 @@ Les méthodes par rôle SFIA **ne se clôsent pas** à la fin du cadrage Interv3
 
 | Rôle | Moment d'intervention | Livrables concernés | Décisions / validations associées |
 |------|----------------------|---------------------|-----------------------------------|
-| **Business Analyst** | Intake → cadrage ; revue cohérence ; arbitrages métier | business-framing.md (§4–§11) ; framing-review.md | Q1, Q4, Q5 ; RG-C*, RG-R* ; validation métier fictive §13 |
+| **Business Analyst** | Intake → cadrage ; revue cohérence ; arbitrages métier | 2026-06-27-business-framing.md (§4–§11) ; 2026-06-27-framing-review.md | Q1, Q4, Q5 ; RG-C*, RG-R* ; validation métier fictive §13 |
 | **Product Owner** | Cadrage ; arbitrages MVP ; validation périmètre | mvp-arbitrations.md ; mvp-arbitration-validation.md ; business-framing §12 | ARB-MVP-01 à 07 ; limites MVP ; report portail / IA |
 | **Chef de projet** | Toutes étapes cadrage ; sync Notion ; validations fictives | notion-sync-summary.md ; validations §13 business-framing | Jalons cadrage consolidé ; passage vers Figma / ADR candidates |
 | **Concepteur fonctionnel** | Cadrage ; clarifications intégration / dashboard ; brief UX | business-framing §6, §14 ; dashboard-kpi-ux-review.md ; ux-ui-brief.md | ARB-MVP-07 ; parcours critiques ; validation fonctionnelle fictive |
@@ -110,7 +110,7 @@ Les méthodes par rôle SFIA **ne se clôsent pas** à la fin du cadrage Interv3
 Transformer un besoin métier en cadrage structuré : parcours, objets, règles, questions ouvertes et critères de validation — sans présumer de la solution technique.
 
 **Intervention dans Interv360**  
-Le Business Analyst a structuré le socle métier dans `business-framing.md` : vision ServiTech Pro, parcours SAV 9 étapes (§6), 9 cas métier obligatoires (§7), 15 objets métier (§9), 56 règles RG-* (§10), questions Q1–Q24 (§11). Il a alimenté la revue de cohérence (`framing-review.md`) et les arbitrages métier (canal création, signature, KPI dirigeant).
+Le Business Analyst a structuré le socle métier dans `2026-06-27-business-framing.md` : vision ServiTech Pro, parcours SAV 9 étapes (§6), 9 cas métier obligatoires (§7), 15 objets métier (§9), 56 règles RG-* (§10), questions Q1–Q24 (§11). Il a alimenté la revue de cohérence (`2026-06-27-framing-review.md`) et les arbitrages métier (canal création, signature, KPI dirigeant).
 
 **Questions clés portées par le rôle**
 
@@ -123,8 +123,8 @@ Le Business Analyst a structuré le socle métier dans `business-framing.md` : v
 
 **Livrables produits ou alimentés**
 
-- `business-framing.md` (§4, §6, §7, §9, §10, §11)
-- `framing-review.md` (cohérence parcours ↔ règles)
+- `2026-06-27-business-framing.md` (§4, §6, §7, §9, §10, §11)
+- `2026-06-27-framing-review.md` (cohérence parcours ↔ règles)
 - Contributions à ARB-MVP-01 (canal), ARB-MVP-03 (signature), ARB-MVP-07 (KPI)
 
 **Décisions ou validations associées**
@@ -177,7 +177,7 @@ Le Product Owner a piloté la première passe d'arbitrages (`mvp-arbitrations.md
 
 - `mvp-arbitrations.md`
 - `mvp-arbitration-validation.md`
-- `business-framing.md` §12 (arbitrages A-*)
+- `2026-06-27-business-framing.md` §12 (arbitrages A-*)
 - Contributions PO dans `ux-ui-brief-validation.md`
 
 **Décisions ou validations associées**
@@ -230,7 +230,7 @@ Le Chef de projet a orchestré la trajectoire intake → cadrage consolidé → 
 
 - Suivi transversal de tous les livrables §16 business-framing
 - `notion-sync-summary.md`
-- `role-methods-framing.md` (présent document)
+- `2026-06-28-role-methods-framing.md` (présent document)
 - Validations fictives orchestrées (MVP, UX/UI)
 
 **Décisions ou validations associées**
@@ -281,7 +281,7 @@ Le Concepteur fonctionnel a détaillé les 9 écrans candidats (§14 business-fr
 
 **Livrables produits ou alimentés**
 
-- `business-framing.md` §6, §14
+- `2026-06-27-business-framing.md` §6, §14
 - `dashboard-kpi-ux-review.md`
 - `ux-ui-brief.md` (§4 parcours critiques, §5 fiches écran)
 - `ux-ui-brief-validation.md`
@@ -387,7 +387,7 @@ L'Architecte a réinstruit ARB-MVP-04 et ARB-MVP-05 (`integration-error-arbitrat
 
 - `integration-error-arbitration-review.md`
 - `secure-email-intake-review.md` (contrat `POST /email/intake`)
-- `business-framing.md` §8 (intégrations simulées)
+- `2026-06-27-business-framing.md` §8 (intégrations simulées)
 - ADR candidates §5 mvp-arbitration-validation.md
 
 **Décisions ou validations associées**
@@ -489,7 +489,7 @@ Le RSSI a structuré les exigences SSI du canal email (`secure-email-intake-revi
 **Livrables produits ou alimentés**
 
 - `secure-email-intake-review.md` §3 (exigences SSI)
-- `business-framing.md` §9.3 (données sensibles)
+- `2026-06-27-business-framing.md` §9.3 (données sensibles)
 - ARB-MVP-06 (conservation photos / signatures / logs)
 - Checklist SSI email (capitalisation mvp-arbitration-validation §7)
 
@@ -671,8 +671,8 @@ Le Data / IA a traité les questions Q7, Q15, arbitrage A-IA01 (business-framing
 
 | Livrable | Rôles principaux | Rôles contributeurs | Capitalisation SFIA |
 |----------|------------------|----------------------|---------------------|
-| business-framing.md | Business Analyst, Concepteur fonctionnel | Product Owner, Architecte, RSSI, FinOps, GreenOps, Data/IA, Chef de projet | Template Business Framing ; Role Matrix §5 ; Business Rules Matrix |
-| framing-review.md | Chef de projet, Business Analyst | Product Owner, Tous rôles transverses | Template Framing Review ; checklist cohérence cadrage |
+| 2026-06-27-business-framing.md | Business Analyst, Concepteur fonctionnel | Product Owner, Architecte, RSSI, FinOps, GreenOps, Data/IA, Chef de projet | Template Business Framing ; Role Matrix §5 ; Business Rules Matrix |
+| 2026-06-27-framing-review.md | Chef de projet, Business Analyst | Product Owner, Tous rôles transverses | Template Framing Review ; checklist cohérence cadrage |
 | mvp-arbitrations.md | Product Owner | Business Analyst, Architecte, Concepteur fonctionnel, RSSI, GreenOps | Template MVP Arbitration |
 | mvp-arbitration-validation.md | Product Owner, Chef de projet | Business Analyst, UX/UI Designer, Architecte, QA | Template MVP Arbitration Validation |
 | integration-error-arbitration-review.md | Architecte, QA / Testeur | Product Owner, RSSI | Standard contrats API simulés ; Template Error Matrix |

@@ -39,7 +39,7 @@ Les sources principales sont :
 - [`inc-01-status-rules.md`](inc-01-status-rules.md)
 - [`inc-01-api-strategy.md`](inc-01-api-strategy.md)
 - [`inc-01-data-model.md`](inc-01-data-model.md)
-- [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md)
+- [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md)
 - [`inc-01-application-architecture.md`](inc-01-application-architecture.md)
 - [`realization-preparation-summary.md`](realization-preparation-summary.md)
 

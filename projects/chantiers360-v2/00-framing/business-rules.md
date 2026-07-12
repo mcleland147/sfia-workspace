@@ -118,7 +118,7 @@ Les prochaines actions peuvent agréger :
 
 - Vue **synthétique** — l'utilisateur identifie quoi traiter en priorité.
 - Pas de moteur de priorisation complexe au MVP.
-- Saisie manuelle d'actions additionnelles : **question ouverte** Morris (voir `detailed-framing.md` §9).
+- Saisie manuelle d'actions additionnelles : **question ouverte** Morris (voir `2026-07-05-detailed-framing.md` §9).
 
 ## 8. Données obligatoires minimales
 
@@ -167,6 +167,6 @@ Les prochaines actions peuvent agréger :
 
 ---
 
-**Documents liés :** `use-cases.md`, `scope-boundaries.md`, `detailed-framing.md`
+**Documents liés :** `use-cases.md`, `scope-boundaries.md`, `2026-07-05-detailed-framing.md`
 
 **Décisions Morris requises :** validation des statuts, champs obligatoires, règles retard et prochaines actions.

@@ -68,7 +68,7 @@ Ce document **ne produit pas encore** :
 | `02-architecture/figma-production-prompt.md` | Prompt production maquette | Done |
 | `02-architecture/figma-first-draft-review.md` | Revue premier jet | Done |
 | `02-architecture/figma-review-session-minutes.md` | Revue simulée multi-rôles | Done |
-| `02-architecture/figma-v1-closure-summary.md` | Clôture jalon Figma V1 — présentable, non définitive | Closed |
+| `02-architecture/2026-06-28-figma-v1-closure-summary.md` | Clôture jalon Figma V1 — présentable, non définitive | Closed |
 | `02-architecture/figma-first-draft-screens/*.png` | 11 captures écrans MVP (référence visuelle V1) | Versionnées Git |
 | `02-architecture/sfia-figma-v1-standard-candidate.md` | Candidat standard SFIA Figma V1 | Draft |
 
@@ -250,7 +250,7 @@ Cycle proposé — **documentation UX fonctionnelle**, pas maquettes finales :
 | `screen-functional-specs.md` | Spécifications fonctionnelles par écran (pas maquette) |
 | `dashboard-ux-view.md` | Vues dashboard Manager / Technicien / Pilotage |
 | `ux-ui-summary.md` | Synthèse consolidée reprise |
-| `ux-ui-cycle-closure.md` | Clôture cycle reprise |
+| `2026-06-28-ux-ui-cycle-closure.md` | Clôture cycle reprise |
 
 **Hors périmètre** de ce cycle proposé : backlog, user stories, tests, code, composants front, maquettes Figma finales, delivery.
 

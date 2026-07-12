@@ -84,7 +84,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 | **Je veux** | marquer manuellement un chantier en retard ou retirer ce marquage |
 | **Afin de** | signaler qu'un chantier nécessite une attention particulière |
 | **Écrans** | Fiche chantier, liste chantiers |
-| **Source** | UC-07, `functional-decisions.md` §6 |
+| **Source** | UC-07, `2026-07-05-functional-decisions.md` §6 |
 | **Hors scope** | calcul automatique de retard |
 
 ---
@@ -174,7 +174,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 | **Je veux** | rédiger un compte rendu textuel sur un chantier |
 | **Afin de** | consigner ce qui s'est passé sur le terrain |
 | **Écrans** | Section comptes rendus |
-| **Source** | UC-08, `functional-decisions.md` §4 |
+| **Source** | UC-08, `2026-07-05-functional-decisions.md` §4 |
 | **Hors scope** | modèle documentaire, signature client |
 
 **Note :** date enregistrée automatiquement à la création.
@@ -191,7 +191,7 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 | **Je veux** | voir une liste synthétique des actions dérivées (tâches, réserves, jalons, retards) |
 | **Afin de** | savoir quoi traiter en priorité sans reconstituer l'information |
 | **Écrans** | Vue prochaines actions |
-| **Source** | UC-09, `functional-decisions.md` §5 |
+| **Source** | UC-09, `2026-07-05-functional-decisions.md` §5 |
 | **Hors scope** | saisie manuelle d'actions |
 
 ---

@@ -44,7 +44,7 @@ Ce document **ne produit pas** :
 
 - L'UX/UI Interv360 **n'a pas été reprise depuis zéro** — un **brief UX/UI validé**, une **validation du brief**, des **captures Figma V1** et des **décisions atelier** existaient déjà.
 - Les **8 points UX ouverts** du brief avaient été **tranchés** à l'atelier de clarification (`clarification-workshop-minutes.md` §4).
-- **Figma V1** était **clôturée** comme **présentable mais non définitive** (`figma-v1-closure-summary.md`).
+- **Figma V1** était **clôturée** comme **présentable mais non définitive** (`2026-06-28-figma-v1-closure-summary.md`).
 - L'**architecture fonctionnelle détaillée** mergée (`05-functional-architecture/`) et les **ADR structurantes** (ADR-001 à ADR-004) ont fourni le **cadre final** : domaines, objets, STAT-01 à STAT-08, clôture locale, sync post-clôture, anomalies, dashboard.
 - La reprise a consisté à **aligner** parcours, écrans, dashboard et **garde-fous fonctionnels** sur ce cadre — en **documentation UX fonctionnelle**, sans maquette finale ni delivery.
 
@@ -61,7 +61,7 @@ Ce document **ne produit pas** :
 | 5 | `screen-functional-specs.md` | Spécifications fonctionnelles par écran | **Produit** |
 | 6 | `dashboard-ux-view.md` | Vues Manager SAV, Technicien, Pilotage ; KPI et alertes | **Produit** |
 | 7 | `ux-ui-summary.md` | Synthèse consolidée (ce document) | **Produit** |
-| 8 | `ux-ui-cycle-closure.md` | Clôture formelle du cycle | **Produit** |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture formelle du cycle | **Produit** |
 
 ---
 
@@ -79,7 +79,7 @@ Ce document **ne produit pas** :
 | Message **métier d'abord** (erreurs intégration) | Atelier §4 / ADR-003 | `screen-functional-specs.md` §11–12 ; `dashboard-ux-view.md` |
 | Signature **optionnelle** ; motif si absence | Atelier §7 / `closure-without-signature.md` | `screen-functional-specs.md` §10 ; RG-R02/R05 |
 | Dashboards **SAV / dirigeant séparés** | Brief / Figma V1 | `screen-inventory.md` ; `dashboard-ux-view.md` §4 vs §6 |
-| Figma V1 **présentable, non définitive** | `figma-v1-closure-summary.md` | Écarts documentés ; pas de refonte maquette ce cycle |
+| Figma V1 **présentable, non définitive** | `2026-06-28-figma-v1-closure-summary.md` | Écarts documentés ; pas de refonte maquette ce cycle |
 
 ---
 
@@ -223,7 +223,7 @@ Ce document **ne produit pas** :
 
 ## 14. Prochaine action recommandée
 
-Le cycle est **clôturé** via `ux-ui-cycle-closure.md`.
+Le cycle est **clôturé** via `2026-06-28-ux-ui-cycle-closure.md`.
 
 **Suite** : contrôle qualité de la branche `ux/interv360-reprise-ui-detail`, puis **préparation PR** vers `main` — sans merge automatique.
 
@@ -241,7 +241,7 @@ La **reprise UX/UI Interv360** est **consolidée** et **alignée** avec :
 
 Le cycle documentaire a produit **8 livrables** dans `projects/interv360/06-ux-ui/` — état des lieux, cadrage, parcours, inventaire, specs écran, vues dashboard, synthèse et clôture — **sans** maquette finale, backlog, tests ni delivery.
 
-La **clôture formelle** (`ux-ui-cycle-closure.md`) confirme le cycle ; toute phase ultérieure (maquette, implémentation, recette) reste **non engagée**.
+La **clôture formelle** (`2026-06-28-ux-ui-cycle-closure.md`) confirme le cycle ; toute phase ultérieure (maquette, implémentation, recette) reste **non engagée**.
 
 ---
 

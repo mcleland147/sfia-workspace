@@ -40,14 +40,14 @@ Modèle de référence : `notion-sync-figma-v1-cmp-publication-log.md` (publicat
 | Élément | Statut | Source |
 |---------|--------|--------|
 | Recherche QA / Testeur | Terminée | `qa-tester-role-research-and-benchmark.md` |
-| Cadrage rôle candidat | Terminé | `qa-tester-role-candidate-framing.md` |
+| Cadrage rôle candidat | Terminé | `2026-06-28-qa-tester-role-candidate-framing.md` |
 | Revue manuelle rôle | Terminée | `qa-tester-role-candidate-review.md` |
 | Rôle candidat mature | Validé | Décision revue — méthode officielle autorisée |
 | Méthode officielle | Créée | `docs/methods/roles/qa-tester-method.md` |
 | Famille prompts QA | Créée | `prompts/qa/qa-tester-prompt-family.md` |
 | Validation famille prompts | Terminée | `prompt-catalog-qa-tester-validation.md` |
 | Sync Notion | **Préparée** (cette tâche) | Présent document + payload JSON |
-| Delivery | **Toujours bloqué** | `figma-v1-closure-summary.md` ; garde-fous QA |
+| Delivery | **Toujours bloqué** | `2026-06-28-figma-v1-closure-summary.md` ; garde-fous QA |
 
 ---
 

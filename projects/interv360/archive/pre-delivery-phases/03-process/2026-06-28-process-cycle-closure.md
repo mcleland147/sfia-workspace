@@ -43,7 +43,7 @@ Ce document **ne produit pas** de backlog, de user stories, de tests, de code ou
 | `exports/interv360-sav-exceptions.svg` | Export lecture — exceptions métier | Draft |
 | `exports/interv360-integration-errors.svg` | Export lecture — anomalies d'intégration | Draft |
 | `process-analysis.md` | Analyse règles / statuts / ADR candidates | Draft |
-| `process-cycle-closure.md` | Clôture du cycle BPMN | Draft |
+| `2026-06-28-process-cycle-closure.md` | Clôture du cycle BPMN | Draft |
 
 **Total : 14 livrables** documentaires et diagrammes (hors `.gitkeep`).
 

@@ -71,7 +71,7 @@ Elle **ne remplace pas** la relecture métier ni la validation humaine.
 ## 5. Avant clôture
 
 - [ ] La synthèse consolide sans ajouter de décision structurante (`functional-architecture-summary.md`)
-- [ ] La clôture liste les livrables produits (`functional-architecture-cycle-closure.md`)
+- [ ] La clôture liste les livrables produits (`2026-06-28-functional-architecture-cycle-closure.md`)
 - [ ] La clôture distingue acquis et points ouverts
 - [ ] La phase suivante est identifiée
 - [ ] Les exclusions sont confirmées

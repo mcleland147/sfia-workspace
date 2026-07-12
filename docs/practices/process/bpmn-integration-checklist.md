@@ -95,7 +95,7 @@ Elle conditionne le **Go / No-Go** d'un cycle BPMN — pas de modélisation sans
 - **sync CRM simulée** (ARB-MVP-04, clôture) ;
 - **erreurs d'intégration** (RG-I06, reprise manuelle) ;
 - **clôture sans signature** (RG-R02, RG-R05) ;
-- cycle de **clarification** terminé (`clarification-cycle-closure.md`).
+- cycle de **clarification** terminé (`2026-06-28-clarification-cycle-closure.md`).
 
 ### Diagrammes prévus (Phase D)
 

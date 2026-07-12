@@ -31,13 +31,13 @@ Ce document **ne crée pas** encore les ADR formelles.
 
 | Source | Rôle |
 |--------|------|
-| `projects/interv360/01-cadrage/business-framing.md` | Contexte métier |
+| `projects/interv360/01-cadrage/2026-06-27-business-framing.md` | Contexte métier |
 | `projects/interv360/02-architecture/rules-rg-prioritization.md` | Règles RG priorisées |
 | `projects/interv360/02-architecture/status-mapping.md` | Statuts MVP |
 | `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Règles de clôture |
-| `projects/interv360/02-architecture/clarification-cycle-closure.md` | Synthèse du cycle clarification |
+| `projects/interv360/02-architecture/2026-06-28-clarification-cycle-closure.md` | Synthèse du cycle clarification |
 | `projects/interv360/03-process/process-analysis.md` | Analyse BPMN |
-| `projects/interv360/03-process/process-cycle-closure.md` | Clôture BPMN |
+| `projects/interv360/03-process/2026-06-28-process-cycle-closure.md` | Clôture BPMN |
 
 ---
 
@@ -114,10 +114,10 @@ Les ADR doivent rester des **décisions d'architecture documentées**, reliées 
 
 | ADR | Sujet | Statut | Fichier |
 |-----|-------|--------|---------|
-| ADR-001 | Mapping durable des statuts | Accepted | `ADR-001-status-mapping.md` |
-| ADR-002 | Synchronisation CRM simulée | Accepted | `ADR-002-simulated-crm-sync.md` |
-| ADR-003 | Gestion des erreurs d'intégration | Accepted | `ADR-003-integration-error-management.md` |
-| ADR-004 | Clôture locale vs synchronisation externe | Accepted | `ADR-004-local-closure-vs-external-sync.md` |
+| ADR-001 | Mapping durable des statuts | Accepted | `adr-001-status-mapping.md` |
+| ADR-002 | Synchronisation CRM simulée | Accepted | `adr-002-simulated-crm-sync.md` |
+| ADR-003 | Gestion des erreurs d'intégration | Accepted | `adr-003-integration-error-management.md` |
+| ADR-004 | Clôture locale vs synchronisation externe | Accepted | `2026-06-28-adr-004-local-closure-vs-external-sync.md` |
 
 ---
 

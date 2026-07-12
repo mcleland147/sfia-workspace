@@ -32,7 +32,7 @@ Les décisions documentaires précédentes ont cadré :
 
 - la trajectoire backend cible (`09-roadmap/interv360-backend-target-framing.md`) ;
 - le modèle de données minimal (`09-roadmap/interv360-backend-data-model-decision.md`) ;
-- la stack technique (`09-roadmap/interv360-backend-technical-stack-decision.md`) ;
+- la stack technique (`09-roadmap/interv360-backend-technical-2026-07-06-stack-decision.md`) ;
 - le contrat API (`09-roadmap/interv360-backend-api-contract-framing.md`).
 
 Le contrat API retenu couvre :

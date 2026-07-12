@@ -86,13 +86,13 @@ Structure minimale **recommandée** pour un projet pilote neuf — **cible du pr
 projects/<project-name>/
 ├── README.md
 └── 00-framing/
-    └── project-framing.md
+    └── 2026-07-07-project-framing.md
 ```
 
 | Fichier | Rôle |
 |---------|------|
 | **README.md** | Identité projet, objectif, statut, références SFIA, prochaines étapes |
-| **00-framing/project-framing.md** | Intention, problème, utilisateurs, périmètre, hors périmètre, hypothèses, décisions ouvertes, risques, prochain cycle |
+| **00-framing/2026-07-07-project-framing.md** | Intention, problème, utilisateurs, périmètre, hors périmètre, hypothèses, décisions ouvertes, risques, prochain cycle |
 
 **Règle :** cette structure est le **maximum autorisé** au premier bootstrap réel, sauf décision Morris explicite documentée.
 
@@ -147,7 +147,7 @@ Interv360 illustre une structure complète ; le pilote v2.0 **n'a pas à la repr
 | Action | Niveau max | Condition |
 |--------|------------|-----------|
 | Créer `README.md` | L3 | Scope bootstrap validé |
-| Créer `00-framing/project-framing.md` | L3 | Scope bootstrap validé |
+| Créer `00-framing/2026-07-07-project-framing.md` | L3 | Scope bootstrap validé |
 | Créer le dossier `00-framing/` | L3 | Avec fichier à l'intérieur |
 | Proposer des extensions sans les créer | L2 | Rapport ou prompt uniquement |
 | Générer un rapport structuré | L2–L3 | Sans modification repo si L2 |
@@ -185,7 +185,7 @@ Interv360 illustre une structure complète ; le pilote v2.0 **n'a pas à la repr
 | Référence projet existant | Optionnel | Repo | Ex. Interv360 — lecture seule |
 | Décision Morris GO bootstrap | **Oui** | Morris | Gate obligatoire avant exécution |
 
-**Règle :** un bootstrap peut démarrer avec des informations **incomplètes**, mais les inconnues doivent être listées explicitement dans `project-framing.md` (section *Open decisions* / *Décisions ouvertes*).
+**Règle :** un bootstrap peut démarrer avec des informations **incomplètes**, mais les inconnues doivent être listées explicitement dans `2026-07-07-project-framing.md` (section *Open decisions* / *Décisions ouvertes*).
 
 ## 10. Project naming rules
 
@@ -225,7 +225,7 @@ Sections attendues (titres courts en anglais acceptables) :
 | **Next steps** | Prochain cycle ou gate Morris |
 | **SFIA references** | Liens vers docs v2.0, automation levels, méthode |
 
-### project-framing.md minimal
+### 2026-07-07-project-framing.md minimal
 
 | Section | Contenu attendu |
 |---------|-----------------|
@@ -251,7 +251,7 @@ Checklist de garde-fous — **obligatoire** avant, pendant et après un bootstra
 | 1 | Repo propre | `git status` — pas de modifications tracked inattendues |
 | 2 | Branche dédiée | Branche bootstrap dédiée, pas de travail direct sur main |
 | 3 | Pas de conflit projet | `projects/<project-name>/` inexistant |
-| 4 | Structure minimale uniquement | README + 00-framing/project-framing.md |
+| 4 | Structure minimale uniquement | README + 00-framing/2026-07-07-project-framing.md |
 | 5 | Pas de dossiers vides | Chaque dossier contient un fichier |
 | 6 | Pas de chemins protégés | app/, backend/, workflows/, cmp-001/, exports/ |
 | 7 | Pas de Notion/CMP | Trajectoire dormant |

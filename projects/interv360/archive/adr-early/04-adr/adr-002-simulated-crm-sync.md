@@ -192,10 +192,10 @@ Elle dépend de :
 
 | Source | Rôle |
 |--------|------|
-| `projects/interv360/04-adr/ADR-001-status-mapping.md` | Mapping statuts et indicateurs non synchronisables |
+| `projects/interv360/04-adr/adr-001-status-mapping.md` | Mapping statuts et indicateurs non synchronisables |
 | `projects/interv360/03-process/process-analysis.md` | Analyse BPMN du flux de synchronisation |
 | `projects/interv360/03-process/interv360-integration-errors-preparation.md` | Préparation du diagramme anomalies d'intégration |
-| `projects/interv360/03-process/process-cycle-closure.md` | Clôture du cycle BPMN |
+| `projects/interv360/03-process/2026-06-28-process-cycle-closure.md` | Clôture du cycle BPMN |
 | `projects/interv360/04-adr/adr-structuring-scope.md` | Cadrage ADR |
 
 ---

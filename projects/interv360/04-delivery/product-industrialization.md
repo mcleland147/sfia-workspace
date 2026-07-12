@@ -22,7 +22,7 @@ Documents de référence :
 
 - `../09-roadmap/interv360-mvp-final-roadmap.md`
 - `./backend-users-session.md`
-- `./audit-trail.md`
+- `./2026-07-02-audit-trail.md`
 - `./request-model-finalization.md`
 - `./api-product-hardening.md`
 - `./product-ux-finalization.md`

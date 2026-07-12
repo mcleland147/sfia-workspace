@@ -96,7 +96,7 @@ Référentiels index mis à jour : `docs/practices/README.md`, `docs/templates/R
 | **PROMPT-BPMN-004** | Préparer exceptions métier | Identifier et structurer les branches d'exception |
 | **PROMPT-BPMN-005** | Préparer anomalies intégration | Flux d'erreur, reprises, ADR candidates |
 | **PROMPT-BPMN-006** | Relire BPMN vs règles/statuts | Produire `process-analysis.md` |
-| **PROMPT-BPMN-007** | Clôturer cycle BPMN | Produire `process-cycle-closure.md` ; préparer PR unique |
+| **PROMPT-BPMN-007** | Clôturer cycle BPMN | Produire `2026-06-28-process-cycle-closure.md` ; préparer PR unique |
 
 **Précisions :**
 
@@ -138,7 +138,7 @@ Référentiels index mis à jour : `docs/practices/README.md`, `docs/templates/R
 | Intégration | Produire `interv360-integration-errors.bpmn` | D |
 | Exports | Créer exports SVG | D |
 | Analyse | Créer `process-analysis.md` | D |
-| Clôture projet | Créer `process-cycle-closure.md` | D |
+| Clôture projet | Créer `2026-06-28-process-cycle-closure.md` | D |
 | PR projet | Ouvrir PR unique du cycle BPMN Interv360 | D |
 
 ---

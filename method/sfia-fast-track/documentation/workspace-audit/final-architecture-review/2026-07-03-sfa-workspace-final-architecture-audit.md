@@ -142,7 +142,7 @@ Les réserves identifiées sont **mineures** : README manquants sur quelques pha
 | Archives distinctes | **OK** | `archive/` riche et structuré (stubs, inc-*, notion-sync, cmp, figma-v1, role-enrichment…) |
 | Code isolé | **OK** | `app/`, `backend/` — non modifiés sur la branche |
 | README projet | **OK** | Table 00–09 alignée avec l'état réel |
-| Documents majeurs | **OK** | `premium-design-system.md`, `mvp-release-readiness.md`, `current-application-audit.md`, `adr/` |
+| Documents majeurs | **OK** | `premium-design-system.md`, `2026-07-02-mvp-release-readiness.md`, `current-application-audit.md`, `adr/` |
 
 **README par phase** :
 

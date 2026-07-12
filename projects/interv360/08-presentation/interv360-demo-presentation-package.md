@@ -153,7 +153,7 @@ Référence applicative : `projects/interv360/app/README.md`
 | [`interv360-demo-script.md`](./interv360-demo-script.md) | Script de démonstration pas à pas |
 | [`interv360-demo-one-page-summary.md`](./interv360-demo-one-page-summary.md) | Synthèse courte partageable |
 | [`../app/README.md`](../app/README.md) | Documentation technique applicative |
-| [`../04-delivery/batch-03-demo-readiness-package.md`](../04-delivery/batch-03-demo-readiness-package.md) | Traçabilité Batch 03 |
+| [`../04-delivery/2026-07-01-batch-03-demo-readiness-package.md`](../04-delivery/2026-07-01-batch-03-demo-readiness-package.md) | Traçabilité Batch 03 |
 
 ---
 

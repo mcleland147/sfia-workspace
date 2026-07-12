@@ -63,7 +63,7 @@ Il **synthétise** les décisions et capitalisations réalisées depuis l'ouvert
 | Template CR | `figma-review-session-minutes-template.md` | Done |
 | Enrichissement méthodes rôle | `role-methods-enrichment-after-figma-v1.md` + `docs/methods/roles/` §14 | Done |
 | Revue simulée multi-rôles | `figma-review-session-minutes.md` | Done |
-| Clôture jalon | `figma-v1-closure-summary.md` (ce document) | **Closed** |
+| Clôture jalon | `2026-06-28-figma-v1-closure-summary.md` (ce document) | **Closed** |
 
 ---
 

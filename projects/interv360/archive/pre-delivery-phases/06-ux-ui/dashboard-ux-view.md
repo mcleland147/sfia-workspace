@@ -409,7 +409,7 @@ Ces vues alimentent :
 | Livrable | Apport |
 |----------|--------|
 | `ux-ui-summary.md` | Synthèse consolidée reprise UX/UI |
-| `ux-ui-cycle-closure.md` | Clôture cycle documentaire |
+| `2026-06-28-ux-ui-cycle-closure.md` | Clôture cycle documentaire |
 | Phase ultérieure maquette / backlog | **Non déclenchée** |
 
 ### Prochaine action recommandée

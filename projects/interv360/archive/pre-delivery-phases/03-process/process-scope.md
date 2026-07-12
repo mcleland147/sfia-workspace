@@ -38,7 +38,7 @@ Le BPMN **ne doit pas** produire :
 
 | Source | Apport |
 |--------|--------|
-| `projects/interv360/01-cadrage/business-framing.md` | Vision métier, parcours SAV, objets métier |
+| `projects/interv360/01-cadrage/2026-06-27-business-framing.md` | Vision métier, parcours SAV, objets métier |
 | `projects/interv360/02-architecture/qa-transverse-analysis.md` | Analyse QA amont, testabilité, ambiguïtés |
 | `projects/interv360/02-architecture/clarification-workshop-minutes.md` | Décisions issues du cycle de clarification |
 | `projects/interv360/02-architecture/mvp-clarifications.md` | Clarifications MVP consolidées |
@@ -46,7 +46,7 @@ Le BPMN **ne doit pas** produire :
 | `projects/interv360/02-architecture/status-mapping.md` | Statuts MVP et transitions |
 | `projects/interv360/02-architecture/2026-06-28-closure-without-signature.md` | Clôture sans signature |
 | `projects/interv360/02-architecture/geo-ai-arbitration.md` | Hors périmètre MVP géoloc / IA |
-| `projects/interv360/02-architecture/clarification-cycle-closure.md` | Synthèse de clôture clarification |
+| `projects/interv360/02-architecture/2026-06-28-clarification-cycle-closure.md` | Synthèse de clôture clarification |
 
 ---
 

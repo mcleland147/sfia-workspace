@@ -7,7 +7,7 @@
 **Branche** : `architecture/interv360-backend-persistence-decision`
 **Base** : `main` @ `f8dd576`
 
-Documents de référence : [`interv360-product-industrialization-framing.md`](./interv360-product-industrialization-framing.md), [`backend-minimal-prototype.md`](../04-delivery/backend-minimal-prototype.md), [`interv360-backend-target-framing.md`](./interv360-backend-target-framing.md), [`interv360-backend-data-model-decision.md`](./interv360-backend-data-model-decision.md), [`interv360-backend-technical-stack-decision.md`](./interv360-backend-technical-stack-decision.md), [`interv360-backend-api-contract-framing.md`](./interv360-backend-api-contract-framing.md)
+Documents de référence : [`2026-07-01-interv360-product-industrialization-framing.md`](./2026-07-01-interv360-product-industrialization-framing.md), [`backend-minimal-prototype.md`](../04-delivery/backend-minimal-prototype.md), [`interv360-backend-target-framing.md`](./interv360-backend-target-framing.md), [`interv360-backend-data-model-decision.md`](./interv360-backend-data-model-decision.md), [`interv360-backend-technical-2026-07-06-stack-decision.md`](./interv360-backend-technical-2026-07-06-stack-decision.md), [`interv360-backend-api-contract-framing.md`](./interv360-backend-api-contract-framing.md)
 
 Backend actuel : `demoStore.ts` (mémoire), `demoSeed.ts`, `routes.ts`, `domain/types.ts`, `domain/transitions.ts`.
 
@@ -17,7 +17,7 @@ Backend actuel : `demoStore.ts` (mémoire), `demoSeed.ts`, `routes.ts`, `domain/
 
 Ce document décide la stratégie de persistance backend pour Interv360.
 
-La phase **Demo MVP** est clôturée et la trajectoire produit est actée (PR #49, [`interv360-product-industrialization-framing.md`](./interv360-product-industrialization-framing.md) §16).
+La phase **Demo MVP** est clôturée et la trajectoire produit est actée (PR #49, [`2026-07-01-interv360-product-industrialization-framing.md`](./2026-07-01-interv360-product-industrialization-framing.md) §16).
 
 L'objectif est de remplacer progressivement le backend démonstrateur en mémoire par une première brique de persistance durable, sans basculer trop vite dans une industrialisation complète.
 

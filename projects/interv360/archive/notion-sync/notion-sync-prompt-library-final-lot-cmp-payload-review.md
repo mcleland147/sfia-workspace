@@ -93,14 +93,14 @@ Validation technique exécutée localement — **sans publication**.
 
 | Prompt | Category | Source | Content riche | Vigilance | Évaluation |
 |--------|----------|--------|---------------|-----------|------------|
-| PROMPT-CAD-001 — Cadrage métier projet | Framing | `business-framing.md` | Oui | Non | **Validé** |
-| PROMPT-CAD-002 — Revue cohérence cadrage | Framing | `framing-review.md` | Oui | Non | **Validé** |
+| PROMPT-CAD-001 — Cadrage métier projet | Framing | `2026-06-27-business-framing.md` | Oui | Non | **Validé** |
+| PROMPT-CAD-002 — Revue cohérence cadrage | Framing | `2026-06-27-framing-review.md` | Oui | Non | **Validé** |
 | PROMPT-ARB-001 — Arbitrages MVP | Arbitration | `mvp-arbitrations.md` | Oui | Non | **Validé** |
 | PROMPT-ARB-002 — Validation arbitrages MVP | Arbitration | `mvp-arbitration-validation.md` | Oui | Non | **Validé** |
 | PROMPT-UX-001 — Brief UX/UI avant Figma | UX/UI | `ux-ui-brief.md` | Oui | Non | **Validé** |
 | PROMPT-UX-002 — Validation brief UX/UI | UX/UI | `ux-ui-brief-validation.md` | Oui | Non | **Validé** |
 | PROMPT-UX-003 — Revue dashboard KPI UX | UX/UI | `dashboard-kpi-ux-review.md` | Oui | Non | **Validé** |
-| PROMPT-ROLE-001 — Méthode globale par rôle | Role | `role-methods-framing.md` | Oui | Non | **Validé** |
+| PROMPT-ROLE-001 — Méthode globale par rôle | Role | `2026-06-28-role-methods-framing.md` | Oui | Non | **Validé** |
 | PROMPT-ROLE-002 — Revue méthode par rôle | Role | `role-methods-review.md` | Oui | Non | **Validé** |
 | PROMPT-ROLE-003 — Extraction méthode rôle | Role | `docs/methods/roles/` | Oui | Oui — formalisation fichier recommandée | **Validé avec vigilance** |
 | PROMPT-GOV-001 — Synchronisation gouvernance Notion projet | Governance | `notion-sync-summary.md` + payload | Oui | Oui — méta-sync Notion | **Validé avec vigilance** |

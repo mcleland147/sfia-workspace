@@ -50,4 +50,4 @@
 
 ---
 
-**Documents liés :** `figma-brief.md`, `design-decisions.md`, `design-to-backlog-alignment.md`
+**Documents liés :** `figma-brief.md`, `2026-07-06-design-decisions.md`, `design-to-backlog-alignment.md`

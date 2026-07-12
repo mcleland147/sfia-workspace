@@ -31,11 +31,11 @@ Il sert à cadrer :
 - [`implementation-go-no-go.md`](implementation-go-no-go.md)
 - [`technical-arbitration.md`](technical-arbitration.md)
 - [`inc-01-stack-options.md`](inc-01-stack-options.md)
-- [`inc-01-front-back-data-decisions.md`](inc-01-front-back-data-decisions.md)
+- [`2026-06-29-inc-01-front-back-data-decisions.md`](2026-06-29-inc-01-front-back-data-decisions.md)
 - [`inc-01-api-strategy.md`](inc-01-api-strategy.md)
 - [`inc-01-data-model.md`](inc-01-data-model.md)
 - [`inc-01-demo-data.md`](inc-01-demo-data.md)
-- [`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md)
+- [`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md)
 
 **Décisions reprises :**
 
@@ -121,7 +121,7 @@ Même en mono-app, le code futur devra distinguer :
 | **Data locale** | Lecture / écriture des objets conceptuels (`inc-01-data-model.md`) | Pas d'appel CRM / API externe |
 | **Seed de démo** | Données SAV fictives initiales (ex. SAV-DEMO-001) | Aucune donnée réelle |
 
-**Règles reprises de `inc-01-front-back-data-decisions.md` :**
+**Règles reprises de `2026-06-29-inc-01-front-back-data-decisions.md` :**
 
 - le front déclenche les actions mais ne décide pas les transitions ;
 - le back (couche orchestration) décide et contrôle les transitions ;

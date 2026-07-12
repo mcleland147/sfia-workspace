@@ -101,13 +101,13 @@ Le cycle doit répondre aux questions suivantes :
 
 ## 5. Options stack à comparer
 
-**Sources :** `inc-01-stack-options.md`, `inc-01-front-back-data-decisions.md`, `technical-design-summary.md`, `inc-01-api-strategy.md`, `realization-start-summary.md`.
+**Sources :** `inc-01-stack-options.md`, `2026-06-29-inc-01-front-back-data-decisions.md`, `technical-design-summary.md`, `inc-01-api-strategy.md`, `realization-start-summary.md`.
 
 Les options ci-dessous reformulent les choix documentés sous un angle **minimal pour INC-01**. Elles ne figent **aucun framework** ni langage.
 
 | Option | Description | Avantages | Limites | Risque | Recommandation |
 |--------|-------------|-----------|---------|--------|----------------|
-| **Option A — Front-only / état local** | Interface web unique ; logique et état en mémoire ou state local (équivalent partiel de l'option C « prototype local » documentée). | Setup très faible ; démo rapide des écrans ; faible coût cognitif. | Persistance fragile ; règles métier difficiles à isoler ; rechargement = perte d'état ; QA du flux complet limitée. | Dette si promu produit ; logique métier dans l'UI (`inc-01-front-back-data-decisions.md`). | **Non retenue** comme cible INC-01 — insuffisante pour démontrer STAT-01 → STAT-06 de façon fiable. |
+| **Option A — Front-only / état local** | Interface web unique ; logique et état en mémoire ou state local (équivalent partiel de l'option C « prototype local » documentée). | Setup très faible ; démo rapide des écrans ; faible coût cognitif. | Persistance fragile ; règles métier difficiles à isoler ; rechargement = perte d'état ; QA du flux complet limitée. | Dette si promu produit ; logique métier dans l'UI (`2026-06-29-inc-01-front-back-data-decisions.md`). | **Non retenue** comme cible INC-01 — insuffisante pour démontrer STAT-01 → STAT-06 de façon fiable. |
 | **Option B — Front + couche data locale structurée** | **Mono-app web** avec séparation **logique interne** front / orchestration métier / persistance locale (aligné sur l'option A « mono-app web simple » de `inc-01-stack-options.md`). Pas de séparation physique front/back obligatoire ; **pas d'API externe** requise (`inc-01-api-strategy.md`). | Couvre les 5 écrans INC-01 ; statuts gouvernés hors UI ; persistance locale pour démo ; setup modéré ; évite surdimensionnement ; réversible vers séparation physique ultérieure. | Nécessite de cadrer la couche data et l'orchestration ; risque de monolithe mal découpé si non structuré. | Élargissement prématuré (CRM, dashboard) si garde-fous non respectés. | **Recommandée** pour INC-01 — meilleur compromis simplicité / démontrabilité / trajectoire. |
 | **Option C — Full-stack / backend + base réelle** | Front et back séparés physiquement ; persistance via base de données ; API formalisée (aligné sur l'option B « front/back séparés » documentée). | Séparation claire ; évolutivité forte ; QA structurée. | Setup plus lourd ; surdimensionnement INC-01 ; API/SQL prématurés alors que l'orchestration interne suffit (`inc-01-api-strategy.md`). | Retard et complexité avant première valeur (STAT-06). | **Non retenue** pour le démarrage INC-01 — réserver à INC-02+ ou besoin multi-utilisateur partagé documenté. |
 
@@ -128,7 +128,7 @@ Cette recommandation :
 
 ## 6. Stratégie data à comparer
 
-**Sources :** `inc-01-data-model.md`, `inc-01-front-back-data-decisions.md`, `inc-01-demo-data.md`, `mvp-scope.md`.
+**Sources :** `inc-01-data-model.md`, `2026-06-29-inc-01-front-back-data-decisions.md`, `inc-01-demo-data.md`, `mvp-scope.md`.
 
 Objets minimaux à persister : Demande SAV, Qualification, Intervention, Créneau, Technicien, Compte rendu, Résultat, Statut courant, Journal fonctionnel minimal (modèle conceptuel — pas de tables imposées).
 
@@ -201,7 +201,7 @@ Ces livrables ne sont pas créés automatiquement dans ce premier commit.
 |----------------|------------------|--------|-------------|
 | Décision produit INC-01 | Équipe projet Interv360 / SFIA | **À confirmer** | Go conditionnel acté dans `implementation-go-no-go.md` ; pas de nom de décideur formalisé dans les livrables. |
 | Décision technique minimale | Équipe technique / delivery | **À confirmer** | Arbitrage stack/data de ce document — choix concrets encore ouverts. |
-| Validation périmètre INC-01 | Product + delivery | **À confirmer** | Périmètre documenté (`mvp-scope.md`, `inc-01-readiness-checklist.md`) ; gel explicite à acter. |
+| Validation périmètre INC-01 | Product + delivery | **À confirmer** | Périmètre documenté (`mvp-scope.md`, `2026-06-29-inc-01-readiness-checklist.md`) ; gel explicite à acter. |
 | Validation UX/UI suffisante | Product + UX | **Suffisant documentairement** | Figma liste demandes V2 validé ; autres écrans en specs Git — règle « non bloquant » maintenue. |
 | Autorisation premier commit applicatif | Décideur projet (non nommé) | **Non donnée** | `realization-start-summary.md` : « autorisation de code non donnée » — inchangé jusqu'au cycle suivant. |
 

@@ -40,7 +40,7 @@ La phase 1 a couvert :
 
 La phase 1 a volontairement avancé par micro-cycles afin de stabiliser le cadre SFIA de réalisation.
 
-**Sources :** [`inc-01-readonly-demo-summary.md`](inc-01-readonly-demo-summary.md), [`inc-01-action-transition-decision.md`](inc-01-action-transition-decision.md)
+**Sources :** [`inc-01-readonly-demo-summary.md`](inc-01-readonly-demo-summary.md), [`2026-06-30-inc-01-action-transition-decision.md`](2026-06-30-inc-01-action-transition-decision.md)
 
 ---
 

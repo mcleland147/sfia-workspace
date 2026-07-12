@@ -59,7 +59,7 @@ Voir : [`penpot-screen-prioritization.md`](penpot-screen-prioritization.md) §6.
 | [`../06-ux-ui/screen-functional-specs.md`](../06-ux-ui/screen-functional-specs.md) | §6 Spécification Liste demandes — colonnes, actions, états, règles |
 | [`../06-ux-ui/user-journeys.md`](../06-ux-ui/user-journeys.md) | P1 Qualification, P9 Multi-canal — contexte parcours |
 | [`../06-ux-ui/ux-ui-summary.md`](../06-ux-ui/ux-ui-summary.md) | Synthèse cycle UX/UI ; décisions transposées |
-| [`../06-ux-ui/ux-ui-cycle-closure.md`](../06-ux-ui/ux-ui-cycle-closure.md) | Clôture reprise doc — périmètre validé, pas de nouvelle règle |
+| [`../06-ux-ui/2026-06-28-ux-ui-cycle-closure.md`](../06-ux-ui/2026-06-28-ux-ui-cycle-closure.md) | Clôture reprise doc — périmètre validé, pas de nouvelle règle |
 
 **Référence visuelle V1 (lecture seule) :** `02-architecture/figma-first-draft-screens/06-liste-demandes.png`
 

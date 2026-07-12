@@ -57,7 +57,7 @@ Cela signifie que le projet est **prêt pour un futur cycle de delivery détaill
 | [`prioritization.md`](prioritization.md) | Créé | Priorisation P0 / P1 / P2 — sous-priorités, séquences |
 | [`delivery-slicing-strategy.md`](delivery-slicing-strategy.md) | Créé | 6 incréments (INC-01 à INC-06) — démos progressives |
 | [`realization-criteria.md`](realization-criteria.md) | Créé | DoR / DoD macro — critères par incrément et famille |
-| [`delivery-readiness-summary.md`](delivery-readiness-summary.md) | Créé | Synthèse et décision de clôture (ce document) |
+| [`2026-06-29-delivery-readiness-summary.md`](2026-06-29-delivery-readiness-summary.md) | Créé | Synthèse et décision de clôture (ce document) |
 
 **Sources amont utilisées :** `05-functional-architecture/`, `06-ux-ui/`, `03-design/figma-first-screen-review.md`, ADR-001 à ADR-004.
 

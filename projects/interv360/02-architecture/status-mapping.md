@@ -35,7 +35,7 @@ Ce document **formalise les statuts MVP Interv360** en lien avec la règle **RG-
 | `mvp-clarifications.md` | Décision statuts unifiés, alertes, hors périmètre |
 | `clarification-workshop-minutes.md` | Première table statuts atelier simulé (origine, visibilité, alertes) |
 | `qa-transverse-analysis.md` | Ambiguïtés mapping, distinction retard / anomalie, RG-I05 |
-| `business-framing.md` | Cycle SAV §6, inventaire RG-I05, parcours et objets |
+| `2026-06-27-business-framing.md` | Cycle SAV §6, inventaire RG-I05, parcours et objets |
 | `mvp-arbitration-validation.md` | ARB-MVP-04 sync CRM, ARB-MVP-05 erreurs intégration |
 | `ux-ui-brief.md` | Écrans MVP, filtres, dashboard, parcours technicien / manager |
 | `ux-ui-brief-validation.md` | Décision wording statuts unifiés |

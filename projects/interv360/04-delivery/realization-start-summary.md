@@ -7,7 +7,7 @@
 **Incrément** : INC-01 — Flux SAV minimal démontrable  
 **Statut** : Ready for closure  
 **Branche** : `delivery/interv360-realization-start`  
-**Documents associés** : [`realization-start-plan.md`](realization-start-plan.md), [`inc-01-stack-options.md`](inc-01-stack-options.md), [`inc-01-project-structure-decision.md`](inc-01-project-structure-decision.md), [`inc-01-front-back-start-decision.md`](inc-01-front-back-start-decision.md), [`inc-01-realization-start-checklist.md`](inc-01-realization-start-checklist.md), [`implementation-planning-summary.md`](implementation-planning-summary.md)
+**Documents associés** : [`realization-start-plan.md`](realization-start-plan.md), [`inc-01-stack-options.md`](inc-01-stack-options.md), [`2026-06-29-inc-01-project-structure-decision.md`](2026-06-29-inc-01-project-structure-decision.md), [`2026-06-29-inc-01-front-back-start-decision.md`](2026-06-29-inc-01-front-back-start-decision.md), [`inc-01-realization-start-checklist.md`](inc-01-realization-start-checklist.md), [`implementation-planning-summary.md`](implementation-planning-summary.md)
 
 ---
 
@@ -65,8 +65,8 @@ Ce statut signifie que le dossier est prêt pour une **décision explicite** de 
 |----------|:------:|------|
 | [`realization-start-plan.md`](realization-start-plan.md) | ✅ | Ouverture du cycle |
 | [`inc-01-stack-options.md`](inc-01-stack-options.md) | ✅ | Comparaison des options de stack |
-| [`inc-01-project-structure-decision.md`](inc-01-project-structure-decision.md) | ✅ | Structure projet cible documentaire |
-| [`inc-01-front-back-start-decision.md`](inc-01-front-back-start-decision.md) | ✅ | Décision de séparation logique |
+| [`2026-06-29-inc-01-project-structure-decision.md`](2026-06-29-inc-01-project-structure-decision.md) | ✅ | Structure projet cible documentaire |
+| [`2026-06-29-inc-01-front-back-start-decision.md`](2026-06-29-inc-01-front-back-start-decision.md) | ✅ | Décision de séparation logique |
 | [`inc-01-realization-start-checklist.md`](inc-01-realization-start-checklist.md) | ✅ | Checklist avant autorisation code |
 | [`realization-start-summary.md`](realization-start-summary.md) | ✅ | Synthèse et clôture |
 

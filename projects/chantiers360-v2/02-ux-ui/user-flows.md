@@ -197,4 +197,4 @@ chantier → tâches → réserves → statut → jalons simples → compte rend
 
 ---
 
-**Documents liés :** `screen-map.md`, `wireframes-functional.md`, `ux-decisions.md`
+**Documents liés :** `screen-map.md`, `wireframes-functional.md`, `2026-07-05-ux-decisions.md`

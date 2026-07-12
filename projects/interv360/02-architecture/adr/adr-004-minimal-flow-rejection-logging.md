@@ -21,7 +21,7 @@
 
 Ces trois décisions créent un **besoin minimal de journalisation** : chaque flux simulé, erreur visible, rejet email et reprise manuelle doit laisser une **trace structurée** suffisante pour la démonstration, la QA, la SSI et la gouvernance — sans produire un outil complet de supervision.
 
-Le MVP doit garder une trace des **flux, erreurs, rejets et reprises** conforme à RG-I07 et A-I08 (`business-framing.md`), tout en respectant les limites FinOps/GreenOps (RG-FG02, A-FG02). La journalisation doit être **utile pour QA, SSI, exploitation, gouvernance et démonstration** — pas pour l'ops avancée.
+Le MVP doit garder une trace des **flux, erreurs, rejets et reprises** conforme à RG-I07 et A-I08 (`2026-06-27-business-framing.md`), tout en respectant les limites FinOps/GreenOps (RG-FG02, A-FG02). La journalisation doit être **utile pour QA, SSI, exploitation, gouvernance et démonstration** — pas pour l'ops avancée.
 
 ---
 

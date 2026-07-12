@@ -100,7 +100,7 @@ Les références Figma servent à **atteindre un niveau visuel comparable**, pas
 
 ## 6. Standard visuel attendu
 
-Niveau cible : **enterprise clean**, comparable à Figma V1 présentable (qualité indicative 8,3/10 — `figma-v1-closure-summary.md`).
+Niveau cible : **enterprise clean**, comparable à Figma V1 présentable (qualité indicative 8,3/10 — `2026-06-28-figma-v1-closure-summary.md`).
 
 | Dimension | Attendu V2 |
 |-----------|------------|

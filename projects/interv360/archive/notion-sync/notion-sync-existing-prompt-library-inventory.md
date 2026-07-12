@@ -79,8 +79,8 @@ Ce document **prépare la publication** des autres prompts SFIA déjà créés d
 | PROMPT-UXUI-007 | Template compte rendu revue UX/UI V1 | UX/UI V1 Governance | §13 → `figma-review-session-minutes-template.md` | UX/UI | Candidat | **À revoir** — lot 2 |
 | PROMPT-UXUI-008 | Enrichissement méthodes rôle après UX/UI V1 | UX/UI V1 Governance | §13 → `role-methods-enrichment-after-figma-v1.md` | UX/UI / Rôles | Candidat | **À revoir** — lot 2 |
 | PROMPT-UXUI-009 | Compte rendu revue simulée UX/UI V1 | UX/UI V1 Governance | §13 → `figma-review-session-minutes.md` | UX/UI | Candidat | **À revoir** — lot 2 — vigilance participants |
-| PROMPT-UXUI-010 | Clôture jalon UX/UI V1 | UX/UI V1 Governance | §13 → `figma-v1-closure-summary.md` | UX/UI | Candidat | **À revoir** — lot 2 |
-| PROMPT-UXUI-011 | Sync gouvernance UX/UI V1 | UX/UI V1 Governance | §13 → `notion-sync-figma-v1-closure-summary.md` | Gouvernance | Candidat | **Ambigu** — proche workflow Notion sync ; arbitrage avant publication |
+| PROMPT-UXUI-010 | Clôture jalon UX/UI V1 | UX/UI V1 Governance | §13 → `2026-06-28-figma-v1-closure-summary.md` | UX/UI | Candidat | **À revoir** — lot 2 |
+| PROMPT-UXUI-011 | Sync gouvernance UX/UI V1 | UX/UI V1 Governance | §13 → `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md` | Gouvernance | Candidat | **Ambigu** — proche workflow Notion sync ; arbitrage avant publication |
 | PROMPT-UXUI-012 | Standard candidat UX/UI V1 | UX/UI V1 Governance | §13 → `sfia-figma-v1-standard-candidate.md` | UX/UI | Candidat | **À revoir** — lot 2 |
 | PROMPT-UXUI-013 | Revue standard candidat UX/UI V1 | UX/UI V1 Governance | §13 → `sfia-figma-v1-standard-candidate-review.md` | UX/UI | Candidat | **À revoir** — lot 2 |
 | PROMPT-UXUI-014 | Préparation promotion standard officiel | UX/UI V1 Governance | §13 → `sfia-figma-v1-standard-promotion-preparation.md` | UX/UI | Candidat | **À revoir** — lot 2 |

@@ -118,6 +118,6 @@ Le scope reste **conforme** si :
 
 ---
 
-**Documents liés :** `detailed-framing.md`, `use-cases.md`, `business-rules.md`, `project-framing.md`
+**Documents liés :** `2026-07-05-detailed-framing.md`, `use-cases.md`, `business-rules.md`, `2026-07-07-project-framing.md`
 
 **Gate :** validation Morris requise avant architecture fonctionnelle.

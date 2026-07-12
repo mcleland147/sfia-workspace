@@ -22,7 +22,7 @@ Ce document **formalise un standard candidat SFIA** issu du **cycle Figma V1** m
 - il **pourra être promu** plus tard dans `docs/standards/` après revue et validation manuelle ;
 - il **ne déclenche pas** delivery, backlog, user stories ou code.
 
-**Référence de clôture** : `figma-v1-closure-summary.md` — V1 validée présentable avec ajustements mineurs (8,3/10), V2 différée, delivery bloqué.
+**Référence de clôture** : `2026-06-28-figma-v1-closure-summary.md` — V1 validée présentable avec ajustements mineurs (8,3/10), V2 différée, delivery bloqué.
 
 ---
 
@@ -244,7 +244,7 @@ La clôture doit **acter** :
 
 ### Livrable type
 
-`figma-v1-closure-summary.md`
+`2026-06-28-figma-v1-closure-summary.md`
 
 ---
 
@@ -275,7 +275,7 @@ La synchronisation Notion doit être :
 ### Livrables types
 
 - `notion-sync-figma-v1-closure-payload.json`
-- `notion-sync-figma-v1-closure-summary.md`
+- `2026-06-28-notion-sync-2026-06-28-figma-v1-closure-summary.md`
 
 ---
 

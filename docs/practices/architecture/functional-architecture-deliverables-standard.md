@@ -36,7 +36,7 @@ Ce standard est **générique** : il s'applique à tout projet SFIA, pas à un c
 | 5 | `integration-functional-view.md` | Décrire les échanges externes | Sync, erreurs, reprise, source de vérité | Contrats API, mapping technique |
 | 6 | `dashboard-and-alerts.md` | Décrire le pilotage | Indicateurs, alertes, vues, priorisation | Maquettes UI, composants front |
 | 7 | `functional-architecture-summary.md` | Consolider | Vision synthétique alignée ADR | Nouvelles décisions structurantes |
-| 8 | `functional-architecture-cycle-closure.md` | Clôturer | Livrables, garde-fous, suites | Backlog, delivery, tests |
+| 8 | `2026-06-28-functional-architecture-cycle-closure.md` | Clôturer | Livrables, garde-fous, suites | Backlog, delivery, tests |
 
 **Emplacement recommandé projet :** `projects/<projet>/05-functional-architecture/` (ou équivalent selon la numérotation du projet).
 
@@ -149,7 +149,7 @@ Ce standard est **générique** : il s'applique à tout projet SFIA, pas à un c
 
 ## 10. Clôture du cycle
 
-**Fichier :** `functional-architecture-cycle-closure.md`
+**Fichier :** `2026-06-28-functional-architecture-cycle-closure.md`
 
 | Aspect | Attendu |
 |--------|---------|

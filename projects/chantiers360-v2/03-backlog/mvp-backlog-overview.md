@@ -43,8 +43,8 @@ Inchangé depuis bootstrap (PR #95) — validé à chaque cycle.
 
 | Priorité | Contenu | Source |
 |----------|---------|--------|
-| **P1** | UC-01 à UC-05 — chantier, liste, statut, tâches, réserves | `functional-decisions.md` |
-| **P2** | UC-06 à UC-09 — jalons, retard, compte rendu, prochaines actions | `functional-decisions.md` |
+| **P1** | UC-01 à UC-05 — chantier, liste, statut, tâches, réserves | `2026-07-05-functional-decisions.md` |
+| **P2** | UC-06 à UC-09 — jalons, retard, compte rendu, prochaines actions | `2026-07-05-functional-decisions.md` |
 
 **Delivery :** P1 d'abord (INC-01, INC-02) ; P2 ensuite (INC-03 à INC-05).
 
@@ -83,6 +83,6 @@ Ce cycle **arrête** le backlog documentaire. Le cycle suivant **Delivery incré
 
 ---
 
-**Documents liés :** `epics.md`, `user-stories.md`, `acceptance-criteria.md`, `delivery-increments.md`, `backlog-traceability.md`, `backlog-decisions.md`
+**Documents liés :** `epics.md`, `user-stories.md`, `acceptance-criteria.md`, `delivery-increments.md`, `backlog-traceability.md`, `2026-07-05-backlog-decisions.md`
 
 **Automation level :** L2 — gate Morris avant delivery.

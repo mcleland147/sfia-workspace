@@ -94,7 +94,7 @@ Référence audit : `sfia-workspace-cleanup-round-2-audit.md`
 | Fichier | Cible | Action |
 |---------|-------|--------|
 | `02-architecture/notion-publication-tooling-check.md` | `archive/notion-sync/` | Archiver |
-| `02-architecture/merge-closure-prompt-library-sync.md` | `archive/cmp/` | Archiver |
+| `02-architecture/2026-06-28-merge-closure-prompt-library-sync.md` | `archive/cmp/` | Archiver |
 | `02-architecture/prompt-catalog-*.md` (3) | `archive/cmp/` | Archiver |
 | `02-architecture/pull-request-qa-tester-governance-notion-sync.md` | `archive/notion-sync/` | Archiver |
 | `02-architecture/role-methods-enrichment-after-*.md` (3) | `archive/clarification/` | Archiver |

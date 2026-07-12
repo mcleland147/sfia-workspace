@@ -76,7 +76,7 @@ Sources **obligatoires** avant toute production visuelle Interv360 :
 | Source | Chemin |
 |--------|--------|
 | Synthèse UX/UI | `projects/interv360/06-ux-ui/ux-ui-summary.md` |
-| Clôture cycle UX/UI | `projects/interv360/06-ux-ui/ux-ui-cycle-closure.md` |
+| Clôture cycle UX/UI | `projects/interv360/06-ux-ui/2026-06-28-ux-ui-cycle-closure.md` |
 | Inventaire écrans | `projects/interv360/06-ux-ui/screen-inventory.md` |
 | Specs fonctionnelles écran | `projects/interv360/06-ux-ui/screen-functional-specs.md` |
 | Vues dashboard | `projects/interv360/06-ux-ui/dashboard-ux-view.md` |
@@ -84,7 +84,7 @@ Sources **obligatoires** avant toute production visuelle Interv360 :
 | Brief UX/UI | `projects/interv360/01-cadrage/ux-ui-brief.md` |
 | Validation brief | `projects/interv360/01-cadrage/ux-ui-brief-validation.md` |
 | Revue KPI dashboard | `projects/interv360/01-cadrage/dashboard-kpi-ux-review.md` |
-| Clôture Figma V1 | `projects/interv360/02-architecture/figma-v1-closure-summary.md` |
+| Clôture Figma V1 | `projects/interv360/02-architecture/2026-06-28-figma-v1-closure-summary.md` |
 
 **Référence visuelle V1 (lecture seule, non modifiable dans ce cycle) :**
 `projects/interv360/02-architecture/figma-first-draft-screens/`

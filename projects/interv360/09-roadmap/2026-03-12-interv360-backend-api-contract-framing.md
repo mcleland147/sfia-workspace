@@ -34,7 +34,7 @@ Les décisions précédentes ont retenu :
 |----------|--------------|
 | [`interv360-backend-target-framing.md`](./interv360-backend-target-framing.md) | Prototype connecté minimal |
 | [`interv360-backend-data-model-decision.md`](./interv360-backend-data-model-decision.md) | `Request`, `RequestDetail`, `WorkflowEvent`, enums nominales |
-| [`interv360-backend-technical-stack-decision.md`](./interv360-backend-technical-stack-decision.md) | Node.js / TypeScript, Express, REST, JSON fichier serveur |
+| [`interv360-backend-technical-2026-07-06-stack-decision.md`](./interv360-backend-technical-2026-07-06-stack-decision.md) | Node.js / TypeScript, Express, REST, JSON fichier serveur |
 
 Contraintes transverses :
 

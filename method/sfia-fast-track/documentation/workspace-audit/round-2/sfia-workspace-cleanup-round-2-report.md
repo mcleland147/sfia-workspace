@@ -98,7 +98,7 @@ Une passe finale a été réalisée pour traiter les points résiduels :
 |---------|--------------|----------|
 | `qa-transverse-analysis.md` | Relecture QA transverse du cadrage (cycle clos) | **Archivé** → `archive/role-enrichment/` |
 | `qa-transverse-analysis-summary.md` | Synthèse de l'analyse ci-dessus | **Archivé** → `archive/role-enrichment/` |
-| `qa-tester-role-candidate-framing.md` | Cadrage rôle candidat QA (pré-`qa-tester-method.md`) | **Archivé** → `archive/role-enrichment/` |
+| `2026-06-28-qa-tester-role-candidate-framing.md` | Cadrage rôle candidat QA (pré-`qa-tester-method.md`) | **Archivé** → `archive/role-enrichment/` |
 | `qa-tester-role-candidate-review.md` | Revue maturité candidat QA | **Archivé** → `archive/role-enrichment/` |
 | `qa-tester-role-research-and-benchmark.md` | Benchmark méthodologique QA | **Archivé** → `archive/role-enrichment/` |
 

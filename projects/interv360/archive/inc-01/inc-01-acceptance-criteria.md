@@ -510,7 +510,7 @@ Chaque story suit le format :
 | 5 | Aucun dashboard requis | ✅ |
 | 6 | Aucun test détaillé créé | ✅ |
 | 7 | Aucun choix technique ajouté | ✅ |
-| 8 | Base prête pour `inc-01-readiness-checklist.md` | ✅ |
+| 8 | Base prête pour `2026-06-29-inc-01-readiness-checklist.md` | ✅ |
 
 ---
 
@@ -518,7 +518,7 @@ Chaque story suit le format :
 
 Le prochain livrable est :
 
-**[`inc-01-readiness-checklist.md`](inc-01-readiness-checklist.md)**
+**[`2026-06-29-inc-01-readiness-checklist.md`](2026-06-29-inc-01-readiness-checklist.md)**
 
 **Objectif :** vérifier que INC-01 est suffisamment cadré pour être préparé en **réalisation future**.
 

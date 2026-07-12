@@ -32,7 +32,7 @@ Ce document **formalise les règles RG prioritaires du MVP Interv360**, en tradu
 | `clarification-workshop-minutes.md` | Orientations macro des 6 règles RG en atelier simulé |
 | `clarification-workshop-minutes-summary.md` | Vue d'ensemble atelier et garde-fous |
 | `qa-transverse-analysis.md` | Règles prioritaires, ambiguïtés, testabilité amont |
-| `business-framing.md` | Inventaire RG-*, parcours SAV, risques, objets métier |
+| `2026-06-27-business-framing.md` | Inventaire RG-*, parcours SAV, risques, objets métier |
 | `mvp-arbitration-validation.md` | ARB-MVP-01 à 07 — canaux, signature, erreurs, sync |
 | `mvp-arbitrations.md` | Détail arbitrages et impacts sur règles |
 | `ux-ui-brief.md` | Écrans MVP, parcours, représentation erreurs, personas |
@@ -65,7 +65,7 @@ Le MVP Interv360 accepte plusieurs **canaux d'entrée** (ARB-MVP-01) :
 - **email sécurisé** ;
 - **saisie manuelle** par le manager SAV.
 
-Le **risque principal** est la **double création** d'une demande pour un même besoin client, notamment lors d'arrivées quasi simultanées sur canaux différents (risque R-UX04, `business-framing.md`).
+Le **risque principal** est la **double création** d'une demande pour un même besoin client, notamment lors d'arrivées quasi simultanées sur canaux différents (risque R-UX04, `2026-06-27-business-framing.md`).
 
 Le MVP **ne doit pas bloquer automatiquement** une création légitime à tort — la détection doit **signaler** sans imposer une fusion automatique risquée.
 
@@ -311,7 +311,7 @@ Il faut conserver une **trace exploitable** pour le manager SAV, la facturation 
 
 ### 9.1 Enjeu
 
-La **clôture** est un **point structurant** du cycle SAV (parcours §6, `business-framing.md`).
+La **clôture** est un **point structurant** du cycle SAV (parcours §6, `2026-06-27-business-framing.md`).
 
 Elle doit être **possible sans signature** (RG-R02, ARB-MVP-03) tout en restant **suffisamment sécurisée** pour éviter une clôture vide ou non traçable.
 

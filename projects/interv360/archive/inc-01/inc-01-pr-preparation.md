@@ -118,7 +118,7 @@ La PR devrait consolider :
 | [`inc-01-final-demo-package.md`](inc-01-final-demo-package.md) | Package final de démonstration |
 | [`inc-01-demo-script.md`](inc-01-demo-script.md) | Script de démonstration |
 | [`inc-01-controlled-workflow-validation.md`](inc-01-controlled-workflow-validation.md) | Validation fonctionnelle |
-| [`inc-01-phase-2-rex.md`](inc-01-phase-2-rex.md) | REX phase 2 |
+| [`2026-07-01-inc-01-phase-2-rex.md`](2026-07-01-inc-01-phase-2-rex.md) | REX phase 2 |
 | [`../../../methods/controlled-delivery/`](../../../methods/controlled-delivery/) | Standard SFIA Controlled Delivery |
 | [`../../../methods/README.md`](../../../methods/README.md) | Index markdown local des méthodes |
 

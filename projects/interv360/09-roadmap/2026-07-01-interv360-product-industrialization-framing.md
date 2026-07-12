@@ -7,7 +7,7 @@
 **Branche** : `architecture/interv360-product-industrialization-framing`  
 **Base** : `main` @ `ca083de`
 
-Documents de référence : [`demo-mvp-closure.md`](../04-delivery/demo-mvp-closure.md), [`backend-minimal-prototype.md`](../04-delivery/backend-minimal-prototype.md), [`frontend-api-connection.md`](../04-delivery/frontend-api-connection.md), [`interv360-backend-target-framing.md`](./interv360-backend-target-framing.md), [`interv360-backend-data-model-decision.md`](./interv360-backend-data-model-decision.md), [`interv360-backend-technical-stack-decision.md`](./interv360-backend-technical-stack-decision.md), [`interv360-backend-api-contract-framing.md`](./interv360-backend-api-contract-framing.md)
+Documents de référence : [`2026-07-01-demo-mvp-closure.md`](../04-delivery/2026-07-01-demo-mvp-closure.md), [`backend-minimal-prototype.md`](../04-delivery/backend-minimal-prototype.md), [`frontend-api-connection.md`](../04-delivery/frontend-api-connection.md), [`interv360-backend-target-framing.md`](./interv360-backend-target-framing.md), [`interv360-backend-data-model-decision.md`](./interv360-backend-data-model-decision.md), [`interv360-backend-technical-2026-07-06-stack-decision.md`](./interv360-backend-technical-2026-07-06-stack-decision.md), [`interv360-backend-api-contract-framing.md`](./interv360-backend-api-contract-framing.md)
 
 ---
 
@@ -15,7 +15,7 @@ Documents de référence : [`demo-mvp-closure.md`](../04-delivery/demo-mvp-closu
 
 Ce document cadre la sortie du mode démonstrateur Interv360.
 
-La version **Interv360 Demo MVP** est clôturée dans `main` (PR #48, §17 de [`demo-mvp-closure.md`](../04-delivery/demo-mvp-closure.md)).
+La version **Interv360 Demo MVP** est clôturée dans `main` (PR #48, §17 de [`2026-07-01-demo-mvp-closure.md`](../04-delivery/2026-07-01-demo-mvp-closure.md)).
 
 L'objectif de ce cycle est de définir comment transformer Interv360 en produit réel, sans prolonger artificiellement la démo.
 

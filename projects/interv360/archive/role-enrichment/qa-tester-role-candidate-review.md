@@ -3,7 +3,7 @@
 **Projet** : PRJ-INTERV360  
 **Phase source** : 02-architecture  
 **Chantier** : QA / Testeur  
-**Objet revu** : `qa-tester-role-candidate-framing.md`  
+**Objet revu** : `2026-06-28-qa-tester-role-candidate-framing.md`  
 **Statut** : Reviewed — Candidate mature  
 **Type** : Revue manuelle rôle candidat  
 **Décision** : Validé comme candidat mature — méthode officielle autorisée ensuite, sans ouverture delivery  
@@ -32,12 +32,12 @@ Elle **acte** la maturité du rôle candidat et **autorise** la prochaine étape
 | Document | Rôle dans la revue |
 |----------|-------------------|
 | `qa-tester-role-research-and-benchmark.md` | Benchmark pratiques QA reconnues ; définitions ; bonnes pratiques ; garde-fous SFIA |
-| `qa-tester-role-candidate-framing.md` | **Objet principal** — définition provisoire, périmètre, savoir-faire/être, décision candidat |
+| `2026-06-28-qa-tester-role-candidate-framing.md` | **Objet principal** — définition provisoire, périmètre, savoir-faire/être, décision candidat |
 | `docs/standards/ux-ui-v1-governance-standard.md` | Cohérence revue transverse ; QA cité ; parcours testables |
 | `prompts/prompt-catalog.md` | PROMPT-UXUI-006, 008 ; famille QA / Tests planifiée |
 | `prompt-catalog-ux-ui-v1-validation.md` | Autorisation chantier QA ; garde-fous catalogue |
 | `figma-review-session-minutes.md` | Mobilisation QA candidat en revue simulée Figma V1 |
-| `figma-v1-closure-summary.md` | Clôture UX/UI ; delivery bloqué ; suite QA méthodologique |
+| `2026-06-28-figma-v1-closure-summary.md` | Clôture UX/UI ; delivery bloqué ; suite QA méthodologique |
 | `role-methods-enrichment-after-figma-v1.md` | QA identifié ; testabilité ; happy / non happy path |
 
 ---
@@ -49,9 +49,9 @@ Elle **acte** la maturité du rôle candidat et **autorise** la prochaine étape
 | Apparition du rôle | Pendant le **cycle UX/UI V1** Interv360 (revue → clôture) |
 | Mobilisation | **Candidat** en revue simulée multi-rôles (`figma-review-session-minutes.md`) |
 | Documentation benchmark | **Réalisée** (`qa-tester-role-research-and-benchmark.md`) |
-| Cadrage méthodologique | **Réalisé** (`qa-tester-role-candidate-framing.md`) |
+| Cadrage méthodologique | **Réalisé** (`2026-06-28-qa-tester-role-candidate-framing.md`) |
 | Méthode officielle | **Absente** — `qa-tester-method.md` non créé |
-| Delivery | **Toujours bloqué** (`figma-v1-closure-summary.md`) |
+| Delivery | **Toujours bloqué** (`2026-06-28-figma-v1-closure-summary.md`) |
 | Backlog, user stories, code | **Non produits** par le chantier QA |
 
 Le rôle apporte une lecture **testabilité, risque, parcours, anomalies et états visibles** — sans se confondre avec recette projet ou delivery.
@@ -132,7 +132,7 @@ Le rôle apporte une lecture **testabilité, risque, parcours, anomalies et éta
 Le rôle dispose désormais :
 
 - d'une **recherche méthodologique** (`qa-tester-role-research-and-benchmark.md`) ;
-- d'un **cadrage candidat** (`qa-tester-role-candidate-framing.md`) ;
+- d'un **cadrage candidat** (`2026-06-28-qa-tester-role-candidate-framing.md`) ;
 - d'un **périmètre clair** et hors périmètre documentés ;
 - de **savoir-faire et savoir-être** pressentis ;
 - de **garde-fous** documentés ;

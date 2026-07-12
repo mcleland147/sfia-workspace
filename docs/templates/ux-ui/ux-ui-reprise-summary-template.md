@@ -50,7 +50,7 @@ Ce document **ne produit pas** de backlog, user stories, tests, code, API, modè
 | 5 | `screen-functional-specs.md` | Specs écran | [Statut] |
 | 6 | `dashboard-ux-view.md` | Vues dashboard | [Statut] |
 | 7 | `ux-ui-summary.md` | Synthèse (ce document) | [Statut] |
-| 8 | `ux-ui-cycle-closure.md` | Clôture | [Statut] |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture | [Statut] |
 
 ---
 

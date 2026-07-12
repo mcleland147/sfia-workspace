@@ -33,7 +33,7 @@ Ce document **consolide les décisions MVP** issues de l'**atelier de clarificat
 | `qa-transverse-analysis.md` | Ambiguïtés identifiées, règles prioritaires, recommandation géoloc/IA hors MVP |
 | `ux-ui-brief.md` | 8 écrans MVP, personas, parcours, limites MVP, écrans hors périmètre |
 | `ux-ui-brief-validation.md` | 8 points UX ouverts avant maquette — base des décisions §4 |
-| `business-framing.md` | Parcours SAV, objets métier, inventaire RG-*, risques, arbitrages |
+| `2026-06-27-business-framing.md` | Parcours SAV, objets métier, inventaire RG-*, risques, arbitrages |
 | `mvp-arbitration-validation.md` | 7 arbitrages MVP validés — canaux, signature, erreurs, écrans, conservation |
 
 ---
@@ -177,7 +177,7 @@ Liste consolidée — **uniquement éléments soutenus par les sources** :
 | Élément hors MVP | Source / justification |
 |------------------|------------------------|
 | **Export PDF du compte rendu** | Atelier simulé §4 ; `ux-ui-brief-validation.md` §4 |
-| **Géolocalisation** | Atelier simulé §8 ; `qa-transverse-analysis.md` ; `business-framing.md` RG-T04 |
+| **Géolocalisation** | Atelier simulé §8 ; `qa-transverse-analysis.md` ; `2026-06-27-business-framing.md` RG-T04 |
 | **IA légère** | Atelier simulé §8 ; `qa-transverse-analysis.md` ; `ux-ui-brief-validation.md` (limites MVP) |
 | **Retry automatique intégration** | ARB-MVP-05 — `mvp-arbitration-validation.md` ; reprise manuelle seule au MVP |
 | **Portail client** | ARB-MVP-02 — notifications uniquement ; portail en évolution ultérieure |

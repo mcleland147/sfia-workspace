@@ -22,4 +22,4 @@ Convention :
 
 This choice is limited to the demo foundation and mono-session use. It can be revisited later (e.g. IndexedDB) if volume or query needs grow.
 
-See [`inc-01-local-persistence-decision.md`](../../../07-delivery/inc-01-local-persistence-decision.md).
+See [`2026-06-30-inc-01-local-persistence-decision.md`](../../../07-delivery/2026-06-30-inc-01-local-persistence-decision.md).

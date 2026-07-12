@@ -80,7 +80,7 @@ SFIA Fast Track
 | `2026-07-03-interv360-final-capitalization.md` | Cas Interv360 — clôture | Fusionner avec REX en une page |
 | `premium-design-system.md` | Cas Interv360 — Premium UI | Résumer — objectif, garde-fous, critères |
 | `current-application-audit.md` | Cas Interv360 — état actuel | Résumer — décision + réserves |
-| `mvp-release-readiness.md` | Méthode — Releases | Extraire pattern release |
+| `2026-07-02-mvp-release-readiness.md` | Méthode — Releases | Extraire pattern release |
 | `docs/architecture/sfia-platform-architecture.md` | Vision générale | Publier ou lier |
 | `controlled-delivery-standard.md` | Relation méthodes | Page dédiée Controlled Delivery |
 | `templates/mvp-delivery-pattern-template.md` | Templates | Publier quand Chantier 5 complété |

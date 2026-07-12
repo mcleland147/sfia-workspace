@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Décisions design
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/04-design/design-decisions.md`  
+**Chemin :** `projects/chantiers360-v2/04-design/2026-07-06-design-decisions.md`  
 **Cycle :** Design Figma MVP — rattrapage
 
 > Trace des décisions design. Arbitrages structurants = **Morris**.
@@ -91,7 +91,7 @@
 
 ## 10. Héritage UX/UI (non remis en cause)
 
-Décisions héritées `ux-decisions.md` — maintenues pour Figma :
+Décisions héritées `2026-07-05-ux-decisions.md` — maintenues pour Figma :
 
 - Entrée principale = liste chantiers / dashboard
 - Fiche chantier = pivot

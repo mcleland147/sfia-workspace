@@ -50,7 +50,7 @@ La reprise Design V2 doit donc être possible **sans dépendre de l'historique F
 | [`10-compte-rendu-mobile.png`](../02-architecture/figma-first-draft-screens/10-compte-rendu-mobile.png) | Référence CR mobile |
 | [`11-suivi-erreurs-integration.png`](../02-architecture/figma-first-draft-screens/11-suivi-erreurs-integration.png) | Référence erreurs intégration |
 | [`12-vue-dirigeant.png`](../02-architecture/figma-first-draft-screens/12-vue-dirigeant.png) | Référence vue dirigeant |
-| [`figma-v1-closure-summary.md`](../02-architecture/figma-v1-closure-summary.md) | Synthèse jalon V1 — qualité indicative, périmètre |
+| [`2026-06-28-figma-v1-closure-summary.md`](../02-architecture/2026-06-28-figma-v1-closure-summary.md) | Synthèse jalon V1 — qualité indicative, périmètre |
 | [`screen-functional-specs.md`](../06-ux-ui/screen-functional-specs.md) | **Source fonctionnelle** — §6 Liste demandes |
 | [`screen-inventory.md`](../06-ux-ui/screen-inventory.md) | Inventaire écrans, parcours, écarts |
 | [`ux-ui-summary.md`](../06-ux-ui/ux-ui-summary.md) | Décisions UX transposées |
@@ -197,7 +197,7 @@ Composants minimum à créer dans le fichier (page `06 — Components` ou inline
 | Critère | Attendu |
 |---------|---------|
 | Fidélité | High fidelity raisonnable |
-| Niveau | **Au moins équivalent** à `06-liste-demandes.png` (indicatif 8,3/10 — `figma-v1-closure-summary.md`) |
+| Niveau | **Au moins équivalent** à `06-liste-demandes.png` (indicatif 8,3/10 — `2026-06-28-figma-v1-closure-summary.md`) |
 | Style | Enterprise clean — palette teal/gris, professionnel |
 | Densité | Professionnelle — tableau lisible sans surcharge |
 | Badges | Pills colorées sémantiques |

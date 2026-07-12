@@ -159,7 +159,7 @@ Ce cycle **arrête** l'architecture fonctionnelle. Les cycles suivants couvriron
 - `functional-domains.md` — domaines fonctionnels détaillés
 - `navigation-model.md` — navigation fonctionnelle
 - `state-model.md` — états et transitions métier
-- `functional-decisions.md` — trace des décisions
+- `2026-07-05-functional-decisions.md` — trace des décisions
 
 **Sources cadrage :** `00-framing/` — detailed-framing, use-cases, business-rules, scope-boundaries
 

@@ -1,7 +1,7 @@
 # Chantiers360 v2 — Cadrage détaillé
 
 **Projet :** Chantiers360 v2  
-**Chemin :** `projects/chantiers360-v2/00-framing/detailed-framing.md`  
+**Chemin :** `projects/chantiers360-v2/00-framing/2026-07-05-detailed-framing.md`  
 **Cycle :** Cadrage détaillé (post PR #95)  
 **Version :** 1.0 — draft revue Morris
 
@@ -152,6 +152,6 @@ Critères méthode SFIA v2.0 (pilote) :
 - `use-cases.md` — cas d'usage prioritaires
 - `business-rules.md` — règles métier simples
 - `scope-boundaries.md` — limites MVP / hors MVP
-- `project-framing.md` — framing initial bootstrap
+- `2026-07-07-project-framing.md` — framing initial bootstrap
 
 **Automation level autorisé :** L2 — génération guidée. Gate Morris avant cycle suivant.

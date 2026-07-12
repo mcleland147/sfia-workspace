@@ -14,7 +14,7 @@ Ce cycle vise à **reprendre l'UX/UI Interv360** à partir de :
 
 - le **brief UX/UI validé** (`ux-ui-brief.md`, `ux-ui-brief-validation.md`) ;
 - les **8 points UX ouverts** du brief, **tranchés** à l'atelier de clarification (`clarification-workshop-minutes.md` §4) ;
-- **Figma V1** — jalon clôturé comme **présentable mais non définitif** (`figma-v1-closure-summary.md`, captures `figma-first-draft-screens/`) ;
+- **Figma V1** — jalon clôturé comme **présentable mais non définitif** (`2026-06-28-figma-v1-closure-summary.md`, captures `figma-first-draft-screens/`) ;
 - l'**architecture fonctionnelle détaillée** mergée (`05-functional-architecture/`) ;
 - les **ADR structurantes** (`ADR-001` à `ADR-004`).
 
@@ -54,7 +54,7 @@ Le cycle **ne doit pas produire** :
 | `02-architecture/qa-transverse-analysis.md` | Analyse transverse | Ambiguïtés UX/statuts ayant motivé l'atelier |
 | `02-architecture/status-mapping.md` | Wording statuts | Libellés FR unifiés (RG-I05) |
 | `02-architecture/closure-without-signature.md` | Clôture sans signature | RG-R02, RG-R05 — impact parcours CR |
-| `02-architecture/figma-v1-closure-summary.md` | Clôture Figma V1 | Référence visuelle V1 non définitive ; 8 écrans + captures |
+| `02-architecture/2026-06-28-figma-v1-closure-summary.md` | Clôture Figma V1 | Référence visuelle V1 non définitive ; 8 écrans + captures |
 | `02-architecture/figma-first-draft-screens/*.png` | Captures Figma V1 | Référence visuelle versionnée — non modifiée dans ce cycle |
 | `05-functional-architecture/functional-architecture-scope.md` | Périmètre fonctionnel | Cadre du cycle aligné archi fonctionnelle |
 | `05-functional-architecture/functional-domains.md` | Domaines | Structuration parcours et responsabilités écran |
@@ -63,12 +63,12 @@ Le cycle **ne doit pas produire** :
 | `05-functional-architecture/integration-functional-view.md` | Sync et anomalies | STAT-08 ; sync post-clôture ; reprise manuelle |
 | `05-functional-architecture/dashboard-and-alerts.md` | Pilotage | Dashboard non source de vérité ; vues Manager / Technicien / Pilotage |
 | `05-functional-architecture/functional-architecture-summary.md` | Synthèse fonctionnelle | Fil conducteur ; alignement domaines / objets / statuts |
-| `05-functional-architecture/functional-architecture-cycle-closure.md` | Clôture archi fonctionnelle | Garde-fous et périmètre stabilisé |
-| `04-adr/ADR-001-status-mapping.md` | ADR statuts | Garde-fous wording et indicateurs |
-| `04-adr/ADR-002-simulated-crm-sync.md` | ADR sync CRM simulée | Sync post-clôture ; CRM non source de vérité |
-| `04-adr/ADR-003-integration-error-management.md` | ADR erreurs intégration | Gravités ; message métier ; reprise manuelle |
-| `04-adr/ADR-004-local-closure-vs-external-sync.md` | ADR clôture locale | STAT-06 indépendant de la sync |
-| `04-adr/adr-cycle-closure.md` | Clôture ADR | Décisions structurantes intégrées |
+| `05-functional-architecture/2026-06-28-functional-architecture-cycle-closure.md` | Clôture archi fonctionnelle | Garde-fous et périmètre stabilisé |
+| `04-adr/adr-001-status-mapping.md` | ADR statuts | Garde-fous wording et indicateurs |
+| `04-adr/adr-002-simulated-crm-sync.md` | ADR sync CRM simulée | Sync post-clôture ; CRM non source de vérité |
+| `04-adr/adr-003-integration-error-management.md` | ADR erreurs intégration | Gravités ; message métier ; reprise manuelle |
+| `04-adr/2026-06-28-adr-004-local-closure-vs-external-sync.md` | ADR clôture locale | STAT-06 indépendant de la sync |
+| `04-adr/2026-06-28-adr-cycle-closure.md` | Clôture ADR | Décisions structurantes intégrées |
 
 ---
 
@@ -120,7 +120,7 @@ Le cycle **ne doit pas produire** :
 | Erreurs intégration : **message métier d'abord** | Atelier / ADR-003 | Spécifier anomalies lisibles métier ; détail technique secondaire |
 | Signature : **optionnelle**, clôture sans signature possible | Atelier §7 / `closure-without-signature.md` | Motif obligatoire si absence de signature |
 | Dashboard SAV et vue dirigeant : **séparés** | `dashboard-kpi-ux-review.md`, Figma V1 | Maintenir deux lectures distinctes |
-| Figma V1 : **présentable, non définitive** | `figma-v1-closure-summary.md` | Référence visuelle ; V2 différée |
+| Figma V1 : **présentable, non définitive** | `2026-06-28-figma-v1-closure-summary.md` | Référence visuelle ; V2 différée |
 
 ---
 
@@ -134,7 +134,7 @@ Le cycle **ne doit pas produire** :
 | 4 | `screen-functional-specs.md` | Spécifier fonctionnellement les écrans | Code, composants front |
 | 5 | `dashboard-ux-view.md` | Détailler les vues dashboard | BI technique, maquette finale |
 | 6 | `ux-ui-summary.md` | Consolider la reprise UX/UI | Nouvelles décisions structurantes |
-| 7 | `ux-ui-cycle-closure.md` | Clôturer le cycle | Delivery, backlog |
+| 7 | `2026-06-28-ux-ui-cycle-closure.md` | Clôturer le cycle | Delivery, backlog |
 
 ---
 
@@ -231,7 +231,7 @@ Ces vues ne sont **pas** des maquettes finales : elles seront décrites en **sp�
 - [ ] `screen-functional-specs.md` produit
 - [ ] `dashboard-ux-view.md` produit
 - [ ] `ux-ui-summary.md` produit
-- [ ] `ux-ui-cycle-closure.md` produit
+- [ ] `2026-06-28-ux-ui-cycle-closure.md` produit
 - [ ] Les garde-fous fonctionnels sont confirmés
 - [ ] Les exclusions sont respectées
 - [ ] La phase suivante (maquette finale, delivery, etc.) est identifiable sans être engagée

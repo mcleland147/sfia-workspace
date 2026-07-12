@@ -9,7 +9,7 @@
 - V0 : `/Users/morris/Downloads/BatiNova /Cadrage/`
 - SFIA v2 : `projects/chantiers360-v2/` + `method/sfia-fast-track/`
 
-> Ce document répond au cycle de comparaison V0 vs SFIA v2 prévu en fin de pilote (`project-framing.md` §8, `mvp-capitalization-report.md` §11).
+> Ce document répond au cycle de comparaison V0 vs SFIA v2 prévu en fin de pilote (`2026-07-07-project-framing.md` §8, `mvp-capitalization-report.md` §11).
 
 ---
 
@@ -49,7 +49,7 @@ SFIA v2 n'a pas encore absorbé les forces V0 (profondeur QA, framework recette 
 | Document | Statut lecture |
 |----------|----------------|
 | `README.md` | Lu |
-| `00-framing/project-framing.md` | Lu |
+| `00-framing/2026-07-07-project-framing.md` | Lu |
 | `09-capitalization/mvp-capitalization-report.md` | Lu intégralement |
 | `sfia-v2-method-versioning-standard.md` | Lu |
 | `sfia-v2-incremental-delivery-closure-standard.md` | Lu |
@@ -72,7 +72,7 @@ SFIA v2 n'a pas encore absorbé les forces V0 (profondeur QA, framework recette 
 
 | Dimension | Artefact V0 | Artefact SFIA v2 | Équivalence | Écart | Enseignement méthode |
 |-----------|-------------|------------------|-------------|-------|---------------------|
-| **Cadrage** | `SFG - Projet Chantiers360.txt`, comptes rendus ateliers | `00-framing/project-framing.md` (PR #96) | Partielle | V0 = ateliers humains amont ; v2 = framing Git dès bootstrap | Le cadrage humain V0 a canalisé l'IA ; v2 formalise en cycles PR |
+| **Cadrage** | `SFG - Projet Chantiers360.txt`, comptes rendus ateliers | `00-framing/2026-07-07-project-framing.md` (PR #96) | Partielle | V0 = ateliers humains amont ; v2 = framing Git dès bootstrap | Le cadrage humain V0 a canalisé l'IA ; v2 formalise en cycles PR |
 | **Fonctionnel** | SFG + `Cartographie des workflows.txt` + DAA | `02-functional-architecture/` (PR #97) | Forte | V0 plus dense métier ; v2 plus structuré par dossiers numérotés | Conserver la densité métier V0 dans le template v2 |
 | **UX/UI** | `SPEC-UI-MVP.md` | `03-ux-ui/` (PR #98) | Forte | V0 lie Figma Make ; v2 = wireframes Markdown puis Figma | v2 sépare UX Markdown et Design Figma en cycles distincts |
 | **Design** | Figma Make + SPEC-UI | `04-design/` + standard PR #100 + PR #101 | Partielle | v2 ajoute gate fidélité (PR #104) et design coverage (PR #129) | v2 industrialise le lien design→code ; V0 plus opportuniste |

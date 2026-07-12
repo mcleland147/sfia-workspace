@@ -14,7 +14,7 @@
 
 ## 1. Contexte
 
-Le cadrage a identifié l'**IA légère** comme une **possibilité post-MVP** — priorité basse, instruction différée (`adr-candidates.md` ADR-CAND-009, `framing-review.md` §4, `business-framing.md` Q7/Q15).
+Le cadrage a identifié l'**IA légère** comme une **possibilité post-MVP** — priorité basse, instruction différée (`adr-candidates.md` ADR-CAND-009, `2026-06-27-framing-review.md` §4, `2026-06-27-business-framing.md` Q7/Q15).
 
 Le **MVP est déjà riche** : demandes, interventions, planning, anomalies, notifications, signature optionnelle, dashboards SAV et vue dirigeant séparés (noyau 8 écrans, ARB-MVP-07).
 
@@ -118,7 +118,7 @@ Ces éléments **ne doivent pas être présentés comme de l'IA** — libellés 
 - **analyse satisfaction client** — NLP ou scoring sentiment ;
 - **recommandations dirigeant** — insights automatisés vue consolidée.
 
-*Cas candidats issus `adr-candidates.md` ADR-CAND-009 et `business-framing.md` Q7/Q15 — à instruire avec gouvernance données post-validation démonstrateur.*
+*Cas candidats issus `adr-candidates.md` ADR-CAND-009 et `2026-06-27-business-framing.md` Q7/Q15 — à instruire avec gouvernance données post-validation démonstrateur.*
 
 ---
 

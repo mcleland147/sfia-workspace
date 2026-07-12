@@ -8,7 +8,7 @@
 **Méthode associée** : `docs/practices/ux-ui/ux-ui-reprise-method.md`
 **Checklist associée** : `docs/practices/ux-ui/ux-ui-reprise-checklist.md`
 
-> **Note :** Le cycle Interv360 `projects/interv360/06-ux-ui/ux-ui-cycle-closure.md` est une référence d'application possible de ce template.
+> **Note :** Le cycle Interv360 `projects/interv360/06-ux-ui/2026-06-28-ux-ui-cycle-closure.md` est une référence d'application possible de ce template.
 
 ---
 
@@ -53,7 +53,7 @@ Il **ne produit pas** de backlog, user stories, tests, code, API, modèle techni
 | 5 | `screen-functional-specs.md` | Specs écran | [Statut] |
 | 6 | `dashboard-ux-view.md` | Vues dashboard | [Statut] |
 | 7 | `ux-ui-summary.md` | Synthèse | [Statut] |
-| 8 | `ux-ui-cycle-closure.md` | Clôture (ce document) | [Statut] |
+| 8 | `2026-06-28-ux-ui-cycle-closure.md` | Clôture (ce document) | [Statut] |
 
 **Dossier :** `[PROJECT_PHASE_PATH]/` — 8 livrables documentaires du cycle reprise UX/UI.
 

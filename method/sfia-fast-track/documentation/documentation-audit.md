@@ -75,12 +75,12 @@ Objectifs :
 |---------|---------|--------|------|-------------|
 | `07-delivery/current-application-audit.md` | Audit | Actif | Audit application | Chantier 1 — décision `APPLICATION_SAINE_AVEC_RESERVES` |
 | `07-delivery/premium-design-system.md` | Delivery / UI | Actif | Cycle Premium UI | Référence design + critères UI-05 |
-| `07-delivery/mvp-release-readiness.md` | Release | Actif | Release readiness MVP | Borne `v0.1.0-mvp` |
+| `07-delivery/2026-07-02-mvp-release-readiness.md` | Release | Actif | Release readiness MVP | Borne `v0.1.0-mvp` |
 | `07-delivery/mvp-validation-checklist.md` | Checklist | Actif | Validation MVP | Si présent — checklist release |
 | `06-release/mvp-release-notes.md` | Release | Actif | Notes release MVP | Publication GitHub |
 | `09-architecture/interv360-mvp-final-roadmap.md` | Delivery | Actif | Roadmap MVP final | Lots 1–6 |
 | `00-intake/project-intake.md` | Framing | Actif | Intake projet | Origine Interv360 |
-| `01-cadrage/business-framing.md` | Framing | Actif | Cadrage métier | Référence produit |
+| `01-cadrage/2026-06-27-business-framing.md` | Framing | Actif | Cadrage métier | Référence produit |
 | `02-architecture/adr/ADR-001` à `ADR-008` | Architecture | Actif | Décisions architecture | ADR formelles MVP |
 | `08-presentation/interv360-e2e-demo-runbook.md` | Delivery | Actif | Runbook démo | Usage démo contrôlée |
 
@@ -152,7 +152,7 @@ Objectifs :
 ### 4.5. Interv360 — Release / Audit / REX
 
 - `projects/interv360/04-delivery/current-application-audit.md`
-- `projects/interv360/04-delivery/mvp-release-readiness.md`
+- `projects/interv360/04-delivery/2026-07-02-mvp-release-readiness.md`
 - `method/sfia-fast-track/interv360-application-rex.md`
 - `projects/interv360/06-release/mvp-release-notes.md`
 
@@ -183,7 +183,7 @@ Objectifs :
 | `current-application-audit.md` | État réel application | Avant nouveau cycle produit |
 | `premium-design-system.md` | Cycle UI livré | Référence design Interv360 |
 | `interv360-mvp-final-roadmap.md` | Trajectoire MVP | Modèle lots produit |
-| `mvp-release-readiness.md` | Pattern release | Template release futur |
+| `2026-07-02-mvp-release-readiness.md` | Pattern release | Template release futur |
 | `ADR-001` à `ADR-008` | Décisions architecture MVP | Contrat technique |
 | `docs/architecture/sfia-platform-architecture.md` | Vision plateforme | Complément méthode |
 

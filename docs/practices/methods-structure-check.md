@@ -98,7 +98,7 @@ Recherche workspace sur `sfia/methods/`, `methods/roles/` (racine) et `methods/`
 |------------------|--------------------------------|-----------------|
 | README.md | Aucune référence active aux anciens chemins | Conforme — cible `docs/practices/roles/` |
 | docs/README.md | Chemins relatifs `methods/`, `methods/roles/` | Conforme — relatifs à docs/ (= docs/practices/) |
-| role-methods-framing.md | Aucune — déjà `docs/practices/roles/` | Conforme |
+| 2026-06-28-role-methods-framing.md | Aucune — déjà `docs/practices/roles/` | Conforme |
 | role-methods-review.md | Aucune — déjà `docs/practices/roles/` | Conforme |
 | project-manager-method.md | Aucune — déjà `docs/practices/roles/` | Conforme |
 | Autres fichiers workspace | Aucune référence à `sfia/methods/` | Conforme |
