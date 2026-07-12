@@ -38,10 +38,6 @@ Le standard est issu d'un retour d'expérience terrain, notamment **Interv360 IN
 
 Cette référence sert d'exemple d'origine, mais la méthode est conçue pour être réutilisable au-delà d'Interv360.
 
-**Exemples terrain :**
-
-- [`inc-01-phase-2-rex.md`](../../../projects/interv360/archive/inc-01-phase-2-rex.md)
-
 ---
 
 ## Destination proposée
