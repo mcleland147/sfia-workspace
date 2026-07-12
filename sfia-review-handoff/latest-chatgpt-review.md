@@ -1,26 +1,616 @@
-# SFIA Review Pack — Lot D Qualification
+# SFIA Review Pack — Lot D Qualification Recording
 
-**Date/heure :** 2026-07-12 17:45 Europe/Paris
-**Cycle :** Lot D — Nommage documentaire (qualification)
+**Date/heure :** 2026-07-12 17:37 Europe/Paris
+**Cycle :** Capitalisation documentaire / validation de cadrage Lot D
 **Profil :** Critical
-**Décision Morris :** GO qualification read-only
-**Base Git :** main @ 5c8abc175379f81f974e2e9f0afee8241ae3fe8a
-**CSV SHA :** 00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275
+**Décision Morris :** GO enregistrement qualification — pas d'exécution rename
+**Base Git :** main @ 5c8abc1 — branche `qualification/sfia-v2.6-lot-d-naming` @ `3a6d1e7bc0a94eb7ead71269f9ffe8b8d3043c99`
+**CSV SHA :** 00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275 — unchanged
+
+## Fichiers modifiés
+
+1. `method/.../2026-07-12-sfia-v2.6-lot-d-naming-qualification.md` (créé)
+2. `method/.../2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` (§7 Lot D)
+
+## Décisions Morris enregistrées
+
+| ID | Décision |
+|----|----------|
+| M-D-DEC-001 | D1=50, D2=46, D3=53 |
+| M-D-DEC-002 | Ordre D1 → D2 → D3 |
+| M-D-DEC-003 | Profils Critical / Standard / Standard |
+| M-D-DEC-004 | Dates : explicite > contexte > git fallback ; STOP si ambiguïté |
+| M-D-DEC-005 | ADR lowercase : rename deux temps via cible temporaire unique |
+| M-D-DEC-006 | Prompts/templates : basename D1 uniquement ; structure → Lot H |
+| M-D-DEC-007 | Une PR + GO merge Morris séparé par sous-lot |
+
+## Garde-fous
+
+- Manifeste 149/149
+- Aucun rename exécuté
+- CSV absent du diff
+- Doctrine/canonical inchangés
+- Exécution D1/D2/D3 not started
 
 ## Coverage
 
 - created files full content: **yes**
 - modified sections complete: **yes**
-- useful diff included: **n/a (read-only)**
+- useful diff included: **yes**
 - synthesis only: **no**
 - review pack verdict: **COMPLETE**
 
-## Synthèse exécutive
+---
 
-- Manifeste **149/149** vérifié depuis CSV frozen
-- Répartition proposée : **D1=50**, **D2=46**, **D3=53**
-- Renames : 149 ; collisions : 16
-- Aucune exécution ; CSV inchangé
+## Diff stat
+
+```
+...-11-sfia-v2.6-repository-migration-lots-plan.md |  33 +-
+ ...6-07-12-sfia-v2.6-lot-d-naming-qualification.md | 454 +++++++++++++++++++++
+ 2 files changed, 483 insertions(+), 4 deletions(-)
+```
+
+## Diff complet
+
+```diff
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+index 5e84b52..916859c 100644
+--- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+@@ -152,10 +152,35 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
+ 
+ ## 7. Lot D — Nommage documentaire
+ 
+-| Volume tag | **149** |
+-| Sous-lots | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
+-| Max par sous-lot | 20–50 fichiers |
+-| Exclus | 308 technical-convention |
++| Champ | Contenu |
++|-------|---------|
++| **Volume tag CSV** | **149** |
++| **Familles cartographie** | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
++| **Qualification** | **completed** — 2026-07-12 |
++| **Manifeste** | **149/149** vérifié — CSV frozen inchangé |
++| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-d-naming-qualification.md` |
++| **Branche qualification** | `qualification/sfia-v2.6-lot-d-naming` — **pending PR merge** |
++| **Exclus** | 308 technical-convention |
++
++### Découpage validé Morris
++
++| Sous-lot | Volume | Profil | Périmètre |
++|----------|--------|--------|-----------|
++| **D1** | **50** | **Critical** | method/docs/prompts/tools transversal + interv360 `02-architecture/` et `09-roadmap/` |
++| **D2** | **46** | **Standard** | interv360 delivery/archive/cadrage + chantiers360 phases 00–05 |
++| **D3** | **53** | **Standard** | chantiers360 phases 06–09, increments delivery, capitalization |
++
++| Règle | Contenu |
++|-------|---------|
++| **Ordre d'exécution** | **D1 → D2 → D3** |
++| **PR / merge** | **Une PR et un GO merge Morris séparé par sous-lot** |
++| **Dates événementielles** | date explicite document **prioritaire** ; métadonnée/contexte fiable ensuite ; `git log` **fallback uniquement** ; **aucune date métier inventée** ; **STOP si ambiguïté sémantique** |
++| **ADR lowercase** | rename **obligatoire en deux temps** via cible temporaire unique (FS case-insensitive) |
++| **Prompts/templates** | **basename uniquement** dans D1 ; **aucune restructuration** contenu/famille ; évolution structurelle → **Lot H** |
++| **Collisions casse** | **16** qualifiées (ADR + PROMPT + cmp-001) |
++| **Refs actives** | **111** rename-and-fix-refs ; **38** rename simple |
++| **Statut exécution** | **not started** |
++| **Gate merge qualification** | Morris GO séparé — PR qualification avant exécution D1 |
+ 
+ ---
+ 
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-d-naming-qualification.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-d-naming-qualification.md
+new file mode 100644
+index 0000000..b34716a
+--- /dev/null
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-d-naming-qualification.md
+@@ -0,0 +1,454 @@
++# SFIA v2.6 — Lot D Nommage documentaire — Qualification
++
++**Horodatage :** 2026-07-12 17:37 Europe/Paris
++**Cycle :** Capitalisation documentaire / validation de cadrage Lot D
++**Profil :** Critical
++**Décision Morris :** GO explicite — qualification validée et enregistrée — **pas d'exécution rename**
++**Branche :** `qualification/sfia-v2.6-lot-d-naming`
++**Base Git :** `main` @ `5c8abc175379f81f974e2e9f0afee8241ae3fe8a` (`5c8abc1`) — inclut PR #171 (Lot C)
++**CSV SHA-256 :** `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged**
++
++---
++
++## 1. Local Git Truth Check
++
++| Contrôle | Résultat |
++|----------|----------|
++| Repository | `/Users/morris/Projects/sfia-workspace` |
++| Branche active | `main` |
++| HEAD local | `5c8abc175379f81f974e2e9f0afee8241ae3fe8a` |
++| HEAD origin/main | `5c8abc175379f81f974e2e9f0afee8241ae3fe8a` — aligné |
++| Dernier commit origin/main | `5c8abc1` Merge PR #171 (Lot C) |
++| Worktree tracked | propre |
++| Staged | aucun |
++| Untracked autorisés | `.sfia/`, `.tmp-sfia-review/` |
++| Branches lot-d | aucune |
++| PR Lot D ouvertes | aucune |
++
++## 2. Sources consultées
++
++1. `prompts/templates/sfia-cycle-execution-template.md`
++2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
++3. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
++4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
++5. CSV cartography frozen (SHA ci-dessus)
++6. `2026-07-11-sfia-v2.6-repository-cartography.md`
++7. `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` §7
++8. Rapports Lot 0, Lot A, Lot C mergés
++9. Contenu des 149 fichiers + refs CSV + grep complémentaire
++
++## 3. Manifeste Lot D (149/149)
++
++| Contrôle | Résultat |
++|----------|----------|
++| Total brut CSV `lot-D` | **149** |
++| Doublons | **0** |
++| Absents Git | **0** |
++| Déjà déplacés Lots 0/A/C | **0** |
++| Lot B/C inclus par erreur | **0** |
++| Delete-candidates Lot J | **0** |
++
++## 4. Statistiques globales
++
++| Métrique | Valeur |
++|----------|--------|
++| `naming_compliance` CSV | 149/149 non-compliant |
++| Actions proposées — rename | 38 |
++| Actions — rename-and-fix-refs | 111 |
++| Actions — keep-name | 0 |
++| Actions — investigate | 0 |
++| Actions — route-other-lot | 0 |
++| Références entrantes actives (CSV filtré) | 314 |
++| Fichiers sans ref entrante active | 38 |
++| Fichiers >10 refs actives | 0 |
++| Collisions cibles qualifiées | 16 |
++
++## 5. Statistiques de nommage (typologie écarts)
++
++| Catégorie | Count |
++|-----------|-------|
++| date absente (placeholder CSV) | 133 |
++| date à positionner en préfixe | 133 |
++| majuscules incohérentes | 19 |
++| suffixe final/latest/new | 3 |
++| préfixe incohérent | 2 |
++
++## 6. Répartition familiale
++
++- **projects-docs** : 117
++- **method-transversal** : 14
++- **docs-practices** : 8
++- **method-capitalization** : 5
++- **prompts-templates** : 5
++
++## 7. Répartition projet
++
++- **chantiers360-v2** : 63
++- **interv360** : 54
++- **transversal** : 32
++
++## 8. Découpage D1 / D2 / D3 — **validé Morris**
++
++| Sous-lot | Volume | Écart vs cible 50 | Profil |
++|----------|--------|-------------------|--------|
++| **D1** | **50** | +0 | **Critical** |
++| **D2** | **46** | -4 | **Standard** |
++| **D3** | **53** | +4 vs 49 | **Standard** |
++
++**Ordre d'exécution validé :** **D1 → D2 → D3**
++
++**Gate merge :** une PR et un GO Morris séparé par sous-lot (D1, D2, D3).
++
++### Principes de découpage
++
++- **D1** : method/capitalization, docs/practices, prompts/templates naming-only, tools — + interv360 `02-architecture/` et `09-roadmap/` (ADR + framing) pour cohérence refs.
++- **D2** : reste interv360 (delivery, archive, cadrage) + chantiers360 phases 00–05.
++- **D3** : chantiers360 phases 06–09, increments delivery, capitalization — bloc projet homogène.
++- Variation D3 (+4 vs 49) : regroupement intact des increments `07-delivery-inc-*` — **réserve signalée**, acceptable (<5 par sous-lot vs 50).
++
++## 9. Évaluation par sous-lot
++
++### D1 (50 fichiers)
++
++- Renames simples : 27
++- Renames + refs : 23
++- Keep-name : 0
++- Investigate : 0
++- Route-other-lot : 0
++- Refs entrantes actives : 63
++- Authority canonical/reference : 0/0
++- Usage operational/unknown : 12/1
++- Chevauchements H : 8
++- Collisions impliquées : 13
++- Familles : {'docs-practices': 8, 'method-transversal': 14, 'method-capitalization': 5, 'prompts-templates': 5, 'projects-docs': 18}
++- Projets : {'transversal': 32, 'interv360': 18}
++- **Ordre d'exécution recommandé :** 1er — D1 pose conventions transversales ; D2/D3 projets.
++- **Profil :** Critical
++
++### D2 (46 fichiers)
++
++- Renames simples : 3
++- Renames + refs : 43
++- Keep-name : 0
++- Investigate : 0
++- Route-other-lot : 0
++- Refs entrantes actives : 127
++- Authority canonical/reference : 0/0
++- Usage operational/unknown : 15/0
++- Chevauchements H : 0
++- Collisions impliquées : 3
++- Familles : {'projects-docs': 46}
++- Projets : {'interv360': 36, 'chantiers360-v2': 10}
++- **Ordre d'exécution recommandé :** 2ème — D1 pose conventions transversales ; D2/D3 projets.
++- **Profil :** Standard
++
++### D3 (53 fichiers)
++
++- Renames simples : 8
++- Renames + refs : 45
++- Keep-name : 0
++- Investigate : 0
++- Route-other-lot : 0
++- Refs entrantes actives : 124
++- Authority canonical/reference : 0/0
++- Usage operational/unknown : 36/0
++- Chevauchements H : 0
++- Collisions impliquées : 0
++- Familles : {'projects-docs': 53}
++- Projets : {'chantiers360-v2': 53}
++- **Ordre d'exécution recommandé :** 3ème — D1 pose conventions transversales ; D2/D3 projets.
++- **Profil :** Standard
++
++## 10. Top 20 fichiers les plus référencés (actifs)
++
++| # | Fichier | Refs actives | Sous-lot |
++|---|---------|--------------|----------|
++| 1 | `projects/interv360/01-cadrage/business-framing.md` | 8 | D2 |
++| 2 | `projects/interv360/archive/inc-01/inc-01-readiness-checklist.md` | 8 | D2 |
++| 3 | `method/sfia-fast-track/archive/interv360-realization/capitalization-plan.md` | 7 | D1 |
++| 4 | `projects/interv360/02-architecture/closure-without-signature.md` | 7 | D1 |
++| 5 | `projects/interv360/archive/inc-01/inc-01-front-back-data-decisions.md` | 7 | D2 |
++| 6 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md` | 6 | D1 |
++| 7 | `projects/interv360/archive/inc-01/inc-01-technical-framing.md` | 6 | D2 |
++| 8 | `projects/chantiers360-v2/00-framing/detailed-framing.md` | 5 | D2 |
++| 9 | `projects/chantiers360-v2/02-ux-ui/ux-decisions.md` | 5 | D2 |
++| 10 | `projects/chantiers360-v2/05-technical-architecture/technical-decisions.md` | 5 | D2 |
++| 11 | `projects/chantiers360-v2/07-delivery-inc-02/delivery-inc-02-validation-report.md` | 5 | D3 |
++| 12 | `projects/chantiers360-v2/07-delivery-inc-03/delivery-inc-03-validation-report.md` | 5 | D3 |
++| 13 | `projects/chantiers360-v2/07-delivery-inc-04/delivery-inc-04-validation-report.md` | 5 | D3 |
++| 14 | `projects/chantiers360-v2/09-capitalization/inc-01-capitalization-report.md` | 5 | D3 |
++| 15 | `projects/chantiers360-v2/09-capitalization/mvp-capitalization-report.md` | 5 | D3 |
++| 16 | `projects/interv360/04-delivery/audit-trail.md` | 5 | D2 |
++| 17 | `projects/interv360/09-roadmap/interv360-backend-target-framing.md` | 5 | D1 |
++| 18 | `docs/practices/process/bpmn-method-integration-audit.md` | 4 | D1 |
++| 19 | `docs/tooling/penpot/penpot-mcp-self-host-rex.md` | 4 | D1 |
++| 20 | `projects/chantiers360-v2/01-functional-architecture/functional-decisions.md` | 4 | D2 |
++
++## 11. Collisions et ambiguïtés
++
++**Total collisions qualifiées : 16**
++
++| Cible | Source(s) | Cause | Recommandation | Gate Morris |
++|-------|-----------|-------|----------------|-------------|
++| `projects/interv360/02-architecture/adr/adr-001-api-contracts-simulated-implementation.md` | `projects/interv360/02-architecture/adr/ADR-001-api-contracts-simulated-implementation.md` | collision casse macOS (ADR/PROMPT) | **rename en deux temps via cible temporaire unique** (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-002-visible-integration-errors-manual-recovery.md` | `projects/interv360/02-architecture/adr/ADR-002-visible-integration-errors-manual-recovery.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-003-secure-email-secondary-channel.md` | `projects/interv360/02-architecture/adr/ADR-003-secure-email-secondary-channel.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-004-minimal-flow-rejection-logging.md` | `projects/interv360/02-architecture/adr/ADR-004-minimal-flow-rejection-logging.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-005-fictive-retention-photos-signatures-logs.md` | `projects/interv360/02-architecture/adr/ADR-005-fictive-retention-photos-signatures-logs.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-006-client-notifications-without-client-portal.md` | `projects/interv360/02-architecture/adr/ADR-006-client-notifications-without-client-portal.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-007-optional-structured-client-signature.md` | `projects/interv360/02-architecture/adr/ADR-007-optional-structured-client-signature.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-008-separated-sav-dashboard-and-executive-view.md` | `projects/interv360/02-architecture/adr/ADR-008-separated-sav-dashboard-and-executive-view.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/02-architecture/adr/adr-cand-009-ai-light-post-mvp-confirmation.md` | `projects/interv360/02-architecture/adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/archive/adr-early/04-adr/adr-001-status-mapping.md` | `projects/interv360/archive/adr-early/04-adr/ADR-001-status-mapping.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/archive/adr-early/04-adr/adr-002-simulated-crm-sync.md` | `projects/interv360/archive/adr-early/04-adr/ADR-002-simulated-crm-sync.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `projects/interv360/archive/adr-early/04-adr/adr-003-integration-error-management.md` | `projects/interv360/archive/adr-early/04-adr/ADR-003-integration-error-management.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `tools/cmp-001/roadmap.md` | `tools/cmp-001/ROADMAP.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++| `tools/cmp-001/workspace.md` | `tools/cmp-001/WORKSPACE.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
++
++### Ambiguïtés résiduelles — règles Morris enregistrées
++
++- **Dates événementielles (133 fichiers) :** priorité **date explicite du document** ; puis métadonnée/contexte fiable ; `git log --follow` **fallback uniquement** ; **aucune date métier inventée** ; **STOP si ambiguïté sémantique**.
++- **Prompts Lot H (3 fichiers) :** **basename uniquement dans D1** ; aucune restructuration contenu/famille ; évolution structurelle réservée au **Lot H**.
++- **tools/cmp-001/ROADMAP.md, WORKSPACE.md** — rename casse en deux temps ; vérifier index parent avant exécution D1.
++
++## 12.1 Décisions Morris enregistrées
++
++| # | Décision | Statut |
++|---|----------|--------|
++| M-D-DEC-001 | Découpage définitif D1=50, D2=46, D3=53 | **validé** |
++| M-D-DEC-002 | Ordre D1 → D2 → D3 | **validé** |
++| M-D-DEC-003 | Profils D1 Critical / D2 Standard / D3 Standard | **validé** |
++| M-D-DEC-004 | Règles dates (explicite > contexte > git fallback ; STOP si ambiguïté) | **validé** |
++| M-D-DEC-005 | ADR lowercase : rename deux temps via cible temporaire unique | **validé** |
++| M-D-DEC-006 | Prompts/templates : basename D1 uniquement ; structure → Lot H | **validé** |
++| M-D-DEC-007 | Une PR + GO merge Morris séparé par sous-lot | **validé** |
++
++## 12. Chevauchements G / H / J
++
++| Lot | Count | Nature |
++|-----|-------|--------|
++| G (restructuration projet) | 0 | nommage seul — pas de déplacement |
++| H (prompts/templates structure) | 8 | rename basename autorisé Lot D ; structure → H |
++| J (suppression) | 0 | aucun delete-candidate |
++
++## 13. Manifeste complet par sous-lot
++
++### D1 — 50 fichiers
++
++| ID | Chemin actuel | Nom cible | Action | Refs in | Risque |
++|----|---------------|-----------|--------|---------|--------|
++| D-001 | `docs/architecture/sfia-decision-engine.md` | `2026-06-27-sfia-decision-engine.md` | rename-and-fix-refs | 1 | low |
++| D-002 | `docs/practices/process/bpmn-method-cycle-closure.md` | `2026-06-28-bpmn-method-cycle-closure.md` | rename | 0 | low |
++| D-003 | `docs/practices/process/bpmn-method-integration-audit.md` | `2026-06-28-bpmn-method-integration-audit.md` | rename-and-fix-refs | 4 | medium |
++| D-004 | `docs/templates/architecture/functional-architecture-cycle-closure-template.md` | `2026-06-28-functional-architecture-cycle-closure-template.md` | rename | 0 | low |
++| D-005 | `docs/templates/process/bpmn-cycle-closure-template.md` | `2026-06-28-bpmn-cycle-closure-template.md` | rename | 0 | low |
++| D-006 | `docs/templates/ux-ui/ux-ui-cycle-closure-template.md` | `2026-06-28-ux-ui-cycle-closure-template.md` | rename | 0 | low |
++| D-007 | `docs/tooling/penpot/penpot-mcp-self-host-rex.md` | `2026-06-28-penpot-mcp-self-host-rex.md` | rename-and-fix-refs | 4 | medium |
++| D-008 | `docs/workspace-readiness-report.md` | `2026-06-27-workspace-readiness-report.md` | rename | 0 | low |
++| D-009 | `method/complementary/controlled-delivery/delivery-acceleration-level-3-rex.md` | `2026-07-01-delivery-acceleration-level-3-rex.md` | rename-and-fix-refs | 1 | low |
++| D-010 | `method/sfia-fast-track/archive/interv360-realization/capitalization-plan.md` | `2026-06-29-capitalization-plan.md` | rename-and-fix-refs | 7 | medium |
++| D-011 | `method/sfia-fast-track/archive/interv360-realization/capitalization-summary.md` | `2026-06-30-capitalization-summary.md` | rename-and-fix-refs | 2 | low |
++| D-012 | `method/sfia-fast-track/audit-rex/interv360-application-rex.md` | `2026-07-03-interv360-application-rex.md` | rename | 0 | low |
++| D-013 | `method/sfia-fast-track/cycles/interv360-final-capitalization.md` | `2026-07-03-interv360-final-capitalization.md` | rename | 0 | low |
++| D-014 | `method/sfia-fast-track/cycles/interv360-mvp-delivery-capitalization.md` | `2026-07-02-interv360-mvp-delivery-capitalization.md` | rename | 0 | low |
++| D-015 | `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-audit.md` | `2026-07-03-sfia-foundation-documents-audit.md` | rename-and-fix-refs | 1 | low |
++| D-016 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-capitalization-audit.md` | `2026-07-03-sfia-documentation-capitalization-audit.md` | rename | 0 | low |
++| D-017 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-incremental-delivery-closure-standard.md` | `2026-07-06-sfia-v2-incremental-delivery-closure-standard.md` | rename-and-fix-refs | 6 | medium |
++| D-018 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-pilot-selection-decision.md` | `2026-07-05-sfia-v2-pilot-selection-decision.md` | rename-and-fix-refs | 3 | low |
++| D-019 | `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-technical-architecture-decision-documentation-standard.md` | `2026-07-07-sfia-v2-technical-architecture-decision-documentation-standard.md` | rename-and-fix-refs | 1 | low |
++| D-020 | `method/sfia-fast-track/documentation/notion/sfia-notion-live-export-audit.md` | `2026-07-04-sfia-notion-live-export-audit.md` | rename-and-fix-refs | 1 | low |
++| D-021 | `method/sfia-fast-track/documentation/notion/sfia-notion-provisioning-dry-run-report.md` | `2026-07-04-sfia-notion-provisioning-dry-run-report.md` | rename-and-fix-refs | 1 | low |
++| D-022 | `method/sfia-fast-track/documentation/notion/sfia-notion-publication-track-pause-decision.md` | `2026-07-04-sfia-notion-publication-track-pause-decision.md` | rename-and-fix-refs | 1 | low |
++| D-023 | `method/sfia-fast-track/documentation/workspace-audit/final-architecture-review/sfa-workspace-final-architecture-audit.md` | `2026-07-03-sfa-workspace-final-architecture-audit.md` | rename | 0 | low |
++| D-024 | `method/sfia-fast-track/documentation/workspace-audit/operational-cleanup-report.md` | `2026-07-03-operational-cleanup-report.md` | rename | 0 | low |
++| D-025 | `method/sfia-fast-track/templates/audit-template.md` | `2026-07-03-audit-template.md` | rename | 0 | low |
++| D-026 | `method/sfia-fast-track/templates/rex-template.md` | `2026-07-03-rex-template.md` | rename | 0 | low |
++| D-144 | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | `prompt-arch-001-revue-integrations-et-erreurs.md` | rename | 0 | low |
++| D-145 | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | `prompt-sec-001-revue-canal-email-securise.md` | rename | 0 | low |
++| D-146 | `prompts/templates/05-validate-pr-readiness.md` | `2026-07-04-05-validate-pr-readiness.md` | rename-and-fix-refs | 1 | low |
++| D-147 | `tools/cmp-001/ROADMAP.md` | `roadmap.md` | rename-and-fix-refs | 1 | low |
++| D-148 | `tools/cmp-001/WORKSPACE.md` | `workspace.md` | rename | 0 | low |
++| D-149 | `tools/cmp-001/docs/consolidation-report.md` | `2026-06-27-consolidation-report.md` | rename | 0 | low |
++| D-093 | `projects/interv360/02-architecture/adr/ADR-001-api-contracts-simulated-implementation.md` | `adr-001-api-contracts-simulated-implementation.md` | rename | 0 | low |
++| D-094 | `projects/interv360/02-architecture/adr/ADR-002-visible-integration-errors-manual-recovery.md` | `adr-002-visible-integration-errors-manual-recovery.md` | rename | 0 | low |
++| D-095 | `projects/interv360/02-architecture/adr/ADR-003-secure-email-secondary-channel.md` | `adr-003-secure-email-secondary-channel.md` | rename | 0 | low |
++| D-096 | `projects/interv360/02-architecture/adr/ADR-004-minimal-flow-rejection-logging.md` | `adr-004-minimal-flow-rejection-logging.md` | rename | 0 | low |
++| D-097 | `projects/interv360/02-architecture/adr/ADR-005-fictive-retention-photos-signatures-logs.md` | `adr-005-fictive-retention-photos-signatures-logs.md` | rename | 0 | low |
++| D-098 | `projects/interv360/02-architecture/adr/ADR-006-client-notifications-without-client-portal.md` | `adr-006-client-notifications-without-client-portal.md` | rename | 0 | low |
++| D-099 | `projects/interv360/02-architecture/adr/ADR-007-optional-structured-client-signature.md` | `adr-007-optional-structured-client-signature.md` | rename | 0 | low |
++| D-100 | `projects/interv360/02-architecture/adr/ADR-008-separated-sav-dashboard-and-executive-view.md` | `adr-008-separated-sav-dashboard-and-executive-view.md` | rename | 0 | low |
++| D-101 | `projects/interv360/02-architecture/adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` | `adr-cand-009-ai-light-post-mvp-confirmation.md` | rename | 0 | low |
++| D-102 | `projects/interv360/02-architecture/closure-without-signature-summary.md` | `2026-06-28-closure-without-signature-summary.md` | rename | 0 | low |
++| D-103 | `projects/interv360/02-architecture/closure-without-signature.md` | `2026-06-28-closure-without-signature.md` | rename-and-fix-refs | 7 | medium |
++| D-110 | `projects/interv360/09-roadmap/interv360-auth-and-user-framing.md` | `2026-07-02-interv360-auth-and-user-framing.md` | rename-and-fix-refs | 3 | low |
++| D-111 | `projects/interv360/09-roadmap/interv360-auth-foundation-framing.md` | `2026-07-02-interv360-auth-foundation-framing.md` | rename-and-fix-refs | 3 | low |
++| D-112 | `projects/interv360/09-roadmap/interv360-backend-api-contract-framing.md` | `2026-03-12-interv360-backend-api-contract-framing.md` | rename-and-fix-refs | 2 | low |
++| D-113 | `projects/interv360/09-roadmap/interv360-backend-data-model-decision.md` | `2026-07-01-interv360-backend-data-model-decision.md` | rename-and-fix-refs | 4 | medium |
++| D-114 | `projects/interv360/09-roadmap/interv360-backend-persistence-decision.md` | `2026-07-01-interv360-backend-persistence-decision.md` | rename-and-fix-refs | 1 | low |
++| D-115 | `projects/interv360/09-roadmap/interv360-backend-target-framing.md` | `2026-07-01-interv360-backend-target-framing.md` | rename-and-fix-refs | 5 | medium |
++| D-116 | `projects/interv360/09-roadmap/interv360-backend-technical-stack-decision.md` | `2026-07-01-interv360-backend-technical-stack-decision.md` | rename-and-fix-refs | 3 | low |
++
++### D2 — 46 fichiers
++
++| ID | Chemin actuel | Nom cible | Action | Refs in | Risque |
++|----|---------------|-----------|--------|---------|--------|
++| D-090 | `projects/interv360/01-cadrage/business-framing.md` | `2026-06-27-business-framing.md` | rename-and-fix-refs | 8 | medium |
++| D-091 | `projects/interv360/01-cadrage/framing-review.md` | `2026-06-27-framing-review.md` | rename-and-fix-refs | 4 | medium |
++| D-092 | `projects/interv360/01-cadrage/role-methods-framing.md` | `2026-06-28-role-methods-framing.md` | rename-and-fix-refs | 1 | low |
++| D-104 | `projects/interv360/04-delivery/audit-trail.md` | `2026-07-02-audit-trail.md` | rename-and-fix-refs | 5 | medium |
++| D-105 | `projects/interv360/04-delivery/batch-03-demo-readiness-package.md` | `2026-07-01-batch-03-demo-readiness-package.md` | rename-and-fix-refs | 1 | low |
++| D-106 | `projects/interv360/04-delivery/delivery-readiness-summary.md` | `2026-06-29-delivery-readiness-summary.md` | rename-and-fix-refs | 3 | low |
++| D-107 | `projects/interv360/04-delivery/demo-mvp-closure.md` | `2026-07-01-demo-mvp-closure.md` | rename-and-fix-refs | 1 | low |
++| D-108 | `projects/interv360/04-delivery/frontend-api-connection-framing.md` | `2026-07-01-frontend-api-connection-framing.md` | rename-and-fix-refs | 1 | low |
++| D-109 | `projects/interv360/05-release/mvp-release-readiness.md` | `2026-07-02-mvp-release-readiness.md` | rename-and-fix-refs | 1 | low |
++| D-117 | `projects/interv360/09-roadmap/interv360-product-industrialization-framing.md` | `2026-07-01-interv360-product-industrialization-framing.md` | rename-and-fix-refs | 1 | low |
++| D-118 | `projects/interv360/09-roadmap/interv360-workflow-extension-framing.md` | `2026-07-02-interv360-workflow-extension-framing.md` | rename-and-fix-refs | 2 | low |
++| D-119 | `projects/interv360/archive/adr-early/04-adr/ADR-001-status-mapping.md` | `adr-001-status-mapping.md` | rename-and-fix-refs | 2 | low |
++| D-120 | `projects/interv360/archive/adr-early/04-adr/ADR-002-simulated-crm-sync.md` | `adr-002-simulated-crm-sync.md` | rename-and-fix-refs | 2 | low |
++| D-121 | `projects/interv360/archive/adr-early/04-adr/ADR-003-integration-error-management.md` | `adr-003-integration-error-management.md` | rename-and-fix-refs | 2 | low |
++| D-122 | `projects/interv360/archive/adr-early/04-adr/ADR-004-local-closure-vs-external-sync.md` | `2026-06-28-adr-004-local-closure-vs-external-sync.md` | rename-and-fix-refs | 2 | low |
++| D-123 | `projects/interv360/archive/adr-early/04-adr/adr-cycle-closure.md` | `2026-06-28-adr-cycle-closure.md` | rename | 0 | low |
++| D-124 | `projects/interv360/archive/clarification/clarification-cycle-closure-summary.md` | `2026-06-28-clarification-cycle-closure-summary.md` | rename | 0 | low |
++| D-125 | `projects/interv360/archive/clarification/clarification-cycle-closure.md` | `2026-06-28-clarification-cycle-closure.md` | rename-and-fix-refs | 1 | low |
++| D-126 | `projects/interv360/archive/cmp/merge-closure-prompt-library-sync.md` | `2026-06-28-merge-closure-prompt-library-sync.md` | rename | 0 | low |
++| D-127 | `projects/interv360/archive/figma-v1/figma-v1-closure-summary.md` | `2026-06-28-figma-v1-closure-summary.md` | rename-and-fix-refs | 1 | low |
++| D-128 | `projects/interv360/archive/inc-01/inc-01-action-transition-decision.md` | `2026-06-30-inc-01-action-transition-decision.md` | rename-and-fix-refs | 1 | low |
++| D-129 | `projects/interv360/archive/inc-01/inc-01-front-back-data-decisions.md` | `2026-06-29-inc-01-front-back-data-decisions.md` | rename-and-fix-refs | 7 | medium |
++| D-130 | `projects/interv360/archive/inc-01/inc-01-front-back-start-decision.md` | `2026-06-29-inc-01-front-back-start-decision.md` | rename-and-fix-refs | 2 | low |
++| D-131 | `projects/interv360/archive/inc-01/inc-01-local-persistence-decision.md` | `2026-06-30-inc-01-local-persistence-decision.md` | rename-and-fix-refs | 3 | low |
++| D-132 | `projects/interv360/archive/inc-01/inc-01-phase-2-delivery-decision.md` | `2026-06-30-inc-01-phase-2-delivery-decision.md` | rename-and-fix-refs | 3 | low |
++| D-133 | `projects/interv360/archive/inc-01/inc-01-phase-2-rex.md` | `2026-07-01-inc-01-phase-2-rex.md` | rename-and-fix-refs | 3 | low |
++| D-134 | `projects/interv360/archive/inc-01/inc-01-project-structure-decision.md` | `2026-06-29-inc-01-project-structure-decision.md` | rename-and-fix-refs | 3 | low |
++| D-135 | `projects/interv360/archive/inc-01/inc-01-readiness-checklist.md` | `2026-06-29-inc-01-readiness-checklist.md` | rename-and-fix-refs | 8 | medium |
++| D-136 | `projects/interv360/archive/inc-01/inc-01-report-readonly-skeleton-summary.md` | `2026-06-30-inc-01-report-readonly-skeleton-summary.md` | rename-and-fix-refs | 1 | low |
++| D-137 | `projects/interv360/archive/inc-01/inc-01-technical-framing.md` | `2026-06-29-inc-01-technical-framing.md` | rename-and-fix-refs | 6 | medium |
++| D-138 | `projects/interv360/archive/notion-sync/notion-sync-figma-v1-closure-summary.md` | `2026-06-28-notion-sync-figma-v1-closure-summary.md` | rename-and-fix-refs | 4 | medium |
++| D-139 | `projects/interv360/archive/notion-sync/notion-sync-prompt-library-closure-summary.md` | `2026-06-28-notion-sync-prompt-library-closure-summary.md` | rename-and-fix-refs | 1 | low |
++| D-140 | `projects/interv360/archive/pre-delivery-phases/03-process/process-cycle-closure.md` | `2026-06-28-process-cycle-closure.md` | rename-and-fix-refs | 2 | low |
++| D-141 | `projects/interv360/archive/pre-delivery-phases/05-functional-architecture/functional-architecture-cycle-closure.md` | `2026-06-28-functional-architecture-cycle-closure.md` | rename-and-fix-refs | 1 | low |
++| D-142 | `projects/interv360/archive/pre-delivery-phases/06-ux-ui/ux-ui-cycle-closure.md` | `2026-06-28-ux-ui-cycle-closure.md` | rename-and-fix-refs | 4 | medium |
++| D-143 | `projects/interv360/archive/role-enrichment/qa-tester-role-candidate-framing.md` | `2026-06-28-qa-tester-role-candidate-framing.md` | rename-and-fix-refs | 1 | low |
++| D-027 | `projects/chantiers360-v2/00-framing/chantiers360-post-mvp-framing.md` | `2026-07-10-chantiers360-post-mvp-framing.md` | rename-and-fix-refs | 1 | low |
++| D-028 | `projects/chantiers360-v2/00-framing/detailed-framing.md` | `2026-07-05-detailed-framing.md` | rename-and-fix-refs | 5 | medium |
++| D-029 | `projects/chantiers360-v2/00-framing/project-framing.md` | `2026-07-07-project-framing.md` | rename-and-fix-refs | 3 | low |
++| D-030 | `projects/chantiers360-v2/01-functional-architecture/functional-decisions.md` | `2026-07-05-functional-decisions.md` | rename-and-fix-refs | 4 | medium |
++| D-031 | `projects/chantiers360-v2/02-ux-ui/ux-decisions.md` | `2026-07-05-ux-decisions.md` | rename-and-fix-refs | 5 | medium |
++| D-032 | `projects/chantiers360-v2/03-backlog/backlog-decisions.md` | `2026-07-05-backlog-decisions.md` | rename-and-fix-refs | 4 | medium |
++| D-033 | `projects/chantiers360-v2/04-design/design-decisions.md` | `2026-07-06-design-decisions.md` | rename-and-fix-refs | 4 | medium |
++| D-034 | `projects/chantiers360-v2/05-technical-architecture/stack-decision.md` | `2026-07-06-stack-decision.md` | rename-and-fix-refs | 4 | medium |
++| D-035 | `projects/chantiers360-v2/05-technical-architecture/technical-decisions.md` | `2026-07-06-technical-decisions.md` | rename-and-fix-refs | 5 | medium |
++| D-036 | `projects/chantiers360-v2/05-technical-architecture/validation-and-delivery-readiness.md` | `2026-07-06-validation-and-delivery-readiness.md` | rename-and-fix-refs | 4 | medium |
++
++### D3 — 53 fichiers
++
++| ID | Chemin actuel | Nom cible | Action | Refs in | Risque |
++|----|---------------|-----------|--------|---------|--------|
++| D-037 | `projects/chantiers360-v2/06-figma-fidelity-spike/spike-decisions.md` | `2026-07-06-spike-decisions.md` | rename-and-fix-refs | 2 | low |
++| D-038 | `projects/chantiers360-v2/06-figma-fidelity-spike/spike-readiness.md` | `2026-07-06-spike-readiness.md` | rename-and-fix-refs | 2 | low |
++| D-039 | `projects/chantiers360-v2/06-figma-fidelity-spike/visual-comparison-report.md` | `2026-07-06-visual-comparison-report.md` | rename-and-fix-refs | 3 | low |
++| D-040 | `projects/chantiers360-v2/07-delivery-inc-01/delivery-inc-01-decisions.md` | `2026-07-06-delivery-inc-01-decisions.md` | rename-and-fix-refs | 3 | low |
++| D-041 | `projects/chantiers360-v2/07-delivery-inc-01/delivery-inc-01-implementation-report.md` | `2026-07-06-delivery-inc-01-implementation-report.md` | rename-and-fix-refs | 1 | low |
++| D-042 | `projects/chantiers360-v2/07-delivery-inc-01/delivery-inc-01-validation-report.md` | `2026-07-06-delivery-inc-01-validation-report.md` | rename-and-fix-refs | 2 | low |
++| D-043 | `projects/chantiers360-v2/07-delivery-inc-01/inc-01-closure-report.md` | `2026-07-06-inc-01-closure-report.md` | rename-and-fix-refs | 2 | low |
++| D-044 | `projects/chantiers360-v2/07-delivery-inc-01/pr-readiness-inc-01.md` | `2026-07-06-pr-readiness-inc-01.md` | rename-and-fix-refs | 1 | low |
++| D-045 | `projects/chantiers360-v2/07-delivery-inc-02/delivery-inc-02-decisions.md` | `2026-07-06-delivery-inc-02-decisions.md` | rename-and-fix-refs | 2 | low |
++| D-046 | `projects/chantiers360-v2/07-delivery-inc-02/delivery-inc-02-implementation-report.md` | `2026-07-06-delivery-inc-02-implementation-report.md` | rename-and-fix-refs | 2 | low |
++| D-047 | `projects/chantiers360-v2/07-delivery-inc-02/delivery-inc-02-validation-report.md` | `2026-07-06-delivery-inc-02-validation-report.md` | rename-and-fix-refs | 5 | medium |
++| D-048 | `projects/chantiers360-v2/07-delivery-inc-02/inc-02-closure-report.md` | `2026-07-06-inc-02-closure-report.md` | rename-and-fix-refs | 3 | low |
++| D-049 | `projects/chantiers360-v2/07-delivery-inc-02/pr-readiness-inc-02.md` | `2026-07-06-pr-readiness-inc-02.md` | rename-and-fix-refs | 1 | low |
++| D-050 | `projects/chantiers360-v2/07-delivery-inc-03/delivery-inc-03-decisions.md` | `2026-07-06-delivery-inc-03-decisions.md` | rename-and-fix-refs | 2 | low |
++| D-051 | `projects/chantiers360-v2/07-delivery-inc-03/delivery-inc-03-implementation-report.md` | `2026-07-06-delivery-inc-03-implementation-report.md` | rename-and-fix-refs | 2 | low |
++| D-052 | `projects/chantiers360-v2/07-delivery-inc-03/delivery-inc-03-validation-report.md` | `2026-07-06-delivery-inc-03-validation-report.md` | rename-and-fix-refs | 5 | medium |
++| D-053 | `projects/chantiers360-v2/07-delivery-inc-03/inc-03-closure-report.md` | `2026-07-06-inc-03-closure-report.md` | rename-and-fix-refs | 3 | low |
++| D-054 | `projects/chantiers360-v2/07-delivery-inc-03/pr-readiness-inc-03.md` | `2026-07-06-pr-readiness-inc-03.md` | rename-and-fix-refs | 1 | low |
++| D-055 | `projects/chantiers360-v2/07-delivery-inc-04/delivery-inc-04-decisions.md` | `2026-07-06-delivery-inc-04-decisions.md` | rename-and-fix-refs | 3 | low |
++| D-056 | `projects/chantiers360-v2/07-delivery-inc-04/delivery-inc-04-implementation-report.md` | `2026-07-06-delivery-inc-04-implementation-report.md` | rename-and-fix-refs | 2 | low |
++| D-057 | `projects/chantiers360-v2/07-delivery-inc-04/delivery-inc-04-validation-report.md` | `2026-07-06-delivery-inc-04-validation-report.md` | rename-and-fix-refs | 5 | medium |
++| D-058 | `projects/chantiers360-v2/07-delivery-inc-04/inc-04-closure-report.md` | `2026-07-06-inc-04-closure-report.md` | rename-and-fix-refs | 3 | low |
++| D-059 | `projects/chantiers360-v2/07-delivery-inc-04/pr-readiness-inc-04.md` | `2026-07-06-pr-readiness-inc-04.md` | rename-and-fix-refs | 2 | low |
++| D-060 | `projects/chantiers360-v2/07-delivery-inc-05/delivery-inc-05-decisions.md` | `2026-07-06-delivery-inc-05-decisions.md` | rename-and-fix-refs | 2 | low |
++| D-061 | `projects/chantiers360-v2/07-delivery-inc-05/delivery-inc-05-implementation-report.md` | `2026-07-07-delivery-inc-05-implementation-report.md` | rename-and-fix-refs | 3 | low |
++| D-062 | `projects/chantiers360-v2/07-delivery-inc-05/delivery-inc-05-validation-report.md` | `2026-07-07-delivery-inc-05-validation-report.md` | rename-and-fix-refs | 4 | medium |
++| D-063 | `projects/chantiers360-v2/07-delivery-inc-05/inc-05-closure-report.md` | `2026-07-07-inc-05-closure-report.md` | rename-and-fix-refs | 3 | low |
++| D-064 | `projects/chantiers360-v2/07-delivery-inc-05/pr-readiness-inc-05.md` | `2026-07-07-pr-readiness-inc-05.md` | rename-and-fix-refs | 4 | medium |
++| D-065 | `projects/chantiers360-v2/08-qa-test/inc-01/qa-execution-report.md` | `2026-07-06-qa-execution-report.md` | rename-and-fix-refs | 3 | low |
++| D-066 | `projects/chantiers360-v2/08-qa-test/inc-01/qa-g4-post-merge-report.md` | `2026-07-06-qa-g4-post-merge-report.md` | rename-and-fix-refs | 3 | low |
++| D-067 | `projects/chantiers360-v2/08-qa-test/inc-01/qa-implementation-report.md` | `2026-07-06-qa-implementation-report.md` | rename | 0 | low |
++| D-068 | `projects/chantiers360-v2/08-qa-test/inc-01/qa-readiness.md` | `2026-07-06-qa-readiness.md` | rename-and-fix-refs | 3 | low |
++| D-069 | `projects/chantiers360-v2/08-qa-test/inc-02/qa-execution-report.md` | `2026-07-06-qa-execution-report.md` | rename-and-fix-refs | 1 | low |
++| D-070 | `projects/chantiers360-v2/08-qa-test/inc-02/qa-g4-post-merge-report.md` | `2026-07-06-qa-g4-post-merge-report.md` | rename-and-fix-refs | 3 | low |
++| D-071 | `projects/chantiers360-v2/08-qa-test/inc-02/qa-implementation-report.md` | `2026-07-06-qa-implementation-report.md` | rename | 0 | low |
++| D-072 | `projects/chantiers360-v2/08-qa-test/inc-02/qa-readiness.md` | `2026-07-06-qa-readiness.md` | rename-and-fix-refs | 4 | medium |
++| D-073 | `projects/chantiers360-v2/08-qa-test/inc-03/qa-execution-report.md` | `2026-07-06-qa-execution-report.md` | rename-and-fix-refs | 2 | low |
++| D-074 | `projects/chantiers360-v2/08-qa-test/inc-03/qa-g4-post-merge-report.md` | `2026-07-06-qa-g4-post-merge-report.md` | rename-and-fix-refs | 3 | low |
++| D-075 | `projects/chantiers360-v2/08-qa-test/inc-03/qa-implementation-report.md` | `2026-07-06-qa-implementation-report.md` | rename | 0 | low |
++| D-076 | `projects/chantiers360-v2/08-qa-test/inc-03/qa-readiness.md` | `2026-07-06-qa-readiness.md` | rename-and-fix-refs | 4 | medium |
++| D-077 | `projects/chantiers360-v2/08-qa-test/inc-04/qa-execution-report.md` | `2026-07-06-qa-execution-report.md` | rename-and-fix-refs | 1 | low |
++| D-078 | `projects/chantiers360-v2/08-qa-test/inc-04/qa-g4-post-merge-report.md` | `2026-07-06-qa-g4-post-merge-report.md` | rename-and-fix-refs | 3 | low |
++| D-079 | `projects/chantiers360-v2/08-qa-test/inc-04/qa-implementation-report.md` | `2026-07-06-qa-implementation-report.md` | rename | 0 | low |
++| D-080 | `projects/chantiers360-v2/08-qa-test/inc-04/qa-readiness.md` | `2026-07-06-qa-readiness.md` | rename-and-fix-refs | 4 | medium |
++| D-081 | `projects/chantiers360-v2/08-qa-test/inc-05/qa-execution-report.md` | `2026-07-07-qa-execution-report.md` | rename | 0 | low |
++| D-082 | `projects/chantiers360-v2/08-qa-test/inc-05/qa-g4-post-merge-report.md` | `2026-07-07-qa-g4-post-merge-report.md` | rename-and-fix-refs | 3 | low |
++| D-083 | `projects/chantiers360-v2/08-qa-test/inc-05/qa-implementation-report.md` | `2026-07-06-qa-implementation-report.md` | rename | 0 | low |
++| D-084 | `projects/chantiers360-v2/08-qa-test/inc-05/qa-readiness.md` | `2026-07-07-qa-readiness.md` | rename-and-fix-refs | 3 | low |
++| D-085 | `projects/chantiers360-v2/08-qa-test/r-qa-04-dashboard-real-data-report.md` | `2026-07-09-r-qa-04-dashboard-real-data-report.md` | rename | 0 | low |
++| D-086 | `projects/chantiers360-v2/09-capitalization/chantiers360-v2-final-pilot-rex-report.md` | `2026-07-07-chantiers360-v2-final-pilot-rex-report.md` | rename | 0 | low |
++| D-087 | `projects/chantiers360-v2/09-capitalization/chantiers360-v2-pilot-metrics-capitalization-report.md` | `2026-07-07-chantiers360-v2-pilot-metrics-capitalization-report.md` | rename-and-fix-refs | 1 | low |
++| D-088 | `projects/chantiers360-v2/09-capitalization/inc-01-capitalization-report.md` | `2026-07-06-inc-01-capitalization-report.md` | rename-and-fix-refs | 5 | medium |
++| D-089 | `projects/chantiers360-v2/09-capitalization/mvp-capitalization-report.md` | `2026-07-07-mvp-capitalization-report.md` | rename-and-fix-refs | 5 | medium |
++
++## 14. Dépendances inter sous-lots
++
++- D1 contient docs method transverses référencés par D2/D3 (ex. standards v2, templates).
++- ADR interv360 en D1 référencés par prompts architecture (D1) et delivery interv360 (D2).
++- Chantiers360 D2 (framing) → D3 (increments) : dépendance séquentielle projet.
++
++## 15. Risques
++
++1. **Refs actives** — 53 fichiers rename-and-fix-refs ; PR doit inclure correction liens.
++2. **Collisions casse ADR** — 16 paires macOS case-insensitive ; rename en 2 temps requis.
++3. **Dates fallback git** — appliquer règle M-D-DEC-004 ; STOP si ambiguïté sémantique à l'exécution.
++4. **README/index** — non inclus Lot D (Lot E) ; liens cassés post-rename si E retardé.
++
++## 16. Garde-fous
++
++| Contrôle | Statut |
++|----------|--------|
++| Rename exécuté | **non** |
++| CSV modifié | **non** |
++| Doctrine modifiée | **non** |
++| Branches D1/D2/D3 | **non créées** |
++| Lot 0/A/C | closed |
++
++## 17. Gates Morris restantes (post-qualification)
++
++| Gate | Objet | Statut |
++|------|-------|--------|
++| Merge PR qualification | Enregistrement cadrage Lot D | **pending Morris GO** |
++| Exécution D1 | 50 renames + refs | **not started** — GO séparé requis |
++| Exécution D2 | 46 renames + refs | **not started** — GO séparé requis |
++| Exécution D3 | 53 renames + refs | **not started** — GO séparé requis |
++
++## 18. Verdict
++
++```
++LOT D QUALIFICATION RECORDED
++MANIFEST VERIFIED 149/149
++SUB-LOTS VALIDATED 50/46/53
++MORRIS DECISIONS RECORDED (M-D-DEC-001 à 007)
++ORDER D1 → D2 → D3 CONFIRMED
++NAMING TARGETS QUALIFIED
++DIRECT REFERENCE IMPACTS MAPPED
++COLLISIONS IDENTIFIED (16 CASE — TWO-STEP REQUIRED)
++G/H/J OVERLAPS QUALIFIED
++NO RENAME EXECUTED
++NO FILE MOVED
++NO DOCTRINE CHANGE
++NO AUTHORITY CHANGE
++CSV UNCHANGED
++PR OPEN — NOT MERGED
++READY FOR CHATGPT PR READINESS
++EXECUTION NOT STARTED
++```
+
+```
+
+---
+
+## Section modifiée — plan de lots (§7 Lot D)
+
+```diff
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+index 5e84b52..916859c 100644
+--- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+@@ -152,10 +152,35 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
+ 
+ ## 7. Lot D — Nommage documentaire
+ 
+-| Volume tag | **149** |
+-| Sous-lots | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
+-| Max par sous-lot | 20–50 fichiers |
+-| Exclus | 308 technical-convention |
++| Champ | Contenu |
++|-------|---------|
++| **Volume tag CSV** | **149** |
++| **Familles cartographie** | method-capitalization (14) ; projects-docs (117) ; prompts-templates (8) ; docs-practices (2) ; other (8) |
++| **Qualification** | **completed** — 2026-07-12 |
++| **Manifeste** | **149/149** vérifié — CSV frozen inchangé |
++| **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-d-naming-qualification.md` |
++| **Branche qualification** | `qualification/sfia-v2.6-lot-d-naming` — **pending PR merge** |
++| **Exclus** | 308 technical-convention |
++
++### Découpage validé Morris
++
++| Sous-lot | Volume | Profil | Périmètre |
++|----------|--------|--------|-----------|
++| **D1** | **50** | **Critical** | method/docs/prompts/tools transversal + interv360 `02-architecture/` et `09-roadmap/` |
++| **D2** | **46** | **Standard** | interv360 delivery/archive/cadrage + chantiers360 phases 00–05 |
++| **D3** | **53** | **Standard** | chantiers360 phases 06–09, increments delivery, capitalization |
++
++| Règle | Contenu |
++|-------|---------|
++| **Ordre d'exécution** | **D1 → D2 → D3** |
++| **PR / merge** | **Une PR et un GO merge Morris séparé par sous-lot** |
++| **Dates événementielles** | date explicite document **prioritaire** ; métadonnée/contexte fiable ensuite ; `git log` **fallback uniquement** ; **aucune date métier inventée** ; **STOP si ambiguïté sémantique** |
++| **ADR lowercase** | rename **obligatoire en deux temps** via cible temporaire unique (FS case-insensitive) |
++| **Prompts/templates** | **basename uniquement** dans D1 ; **aucune restructuration** contenu/famille ; évolution structurelle → **Lot H** |
++| **Collisions casse** | **16** qualifiées (ADR + PROMPT + cmp-001) |
++| **Refs actives** | **111** rename-and-fix-refs ; **38** rename simple |
++| **Statut exécution** | **not started** |
++| **Gate merge qualification** | Morris GO séparé — PR qualification avant exécution D1 |
+ 
+ ---
+ 
+
+```
 
 ---
 
@@ -28,11 +618,12 @@
 
 # SFIA v2.6 — Lot D Nommage documentaire — Qualification
 
-**Horodatage :** 2026-07-12 17:45 Europe/Paris  
-**Cycle :** Cadrage / qualification exhaustive Lot D  
-**Profil :** Critical  
-**Décision Morris :** GO explicite qualification read-only — pas d'exécution rename  
-**Base Git :** `main` @ `5c8abc175379f81f974e2e9f0afee8241ae3fe8a` (`5c8abc1`) — inclut PR #171 (Lot C)  
+**Horodatage :** 2026-07-12 17:37 Europe/Paris
+**Cycle :** Capitalisation documentaire / validation de cadrage Lot D
+**Profil :** Critical
+**Décision Morris :** GO explicite — qualification validée et enregistrée — **pas d'exécution rename**
+**Branche :** `qualification/sfia-v2.6-lot-d-naming`
+**Base Git :** `main` @ `5c8abc175379f81f974e2e9f0afee8241ae3fe8a` (`5c8abc1`) — inclut PR #171 (Lot C)
 **CSV SHA-256 :** `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged**
 
 ---
@@ -114,13 +705,17 @@
 - **interv360** : 54
 - **transversal** : 32
 
-## 8. Proposition D1 / D2 / D3
+## 8. Découpage D1 / D2 / D3 — **validé Morris**
 
-| Sous-lot | Volume | Écart vs cible 50 | Profil recommandé |
-|----------|--------|-------------------|-------------------|
-| **D1** | 50 | +0 | Critical (transversal + ADR interv360) |
-| **D2** | 46 | -4 | Standard |
-| **D3** | 53 | +4 | Standard — réserve +4 vs 49 |
+| Sous-lot | Volume | Écart vs cible 50 | Profil |
+|----------|--------|-------------------|--------|
+| **D1** | **50** | +0 | **Critical** |
+| **D2** | **46** | -4 | **Standard** |
+| **D3** | **53** | +4 vs 49 | **Standard** |
+
+**Ordre d'exécution validé :** **D1 → D2 → D3**
+
+**Gate merge :** une PR et un GO Morris séparé par sous-lot (D1, D2, D3).
 
 ### Principes de découpage
 
@@ -213,28 +808,40 @@
 
 | Cible | Source(s) | Cause | Recommandation | Gate Morris |
 |-------|-----------|-------|----------------|-------------|
-| `projects/interv360/02-architecture/adr/adr-001-api-contracts-simulated-implementation.md` | `projects/interv360/02-architecture/adr/ADR-001-api-contracts-simulated-implementation.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-002-visible-integration-errors-manual-recovery.md` | `projects/interv360/02-architecture/adr/ADR-002-visible-integration-errors-manual-recovery.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-003-secure-email-secondary-channel.md` | `projects/interv360/02-architecture/adr/ADR-003-secure-email-secondary-channel.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-004-minimal-flow-rejection-logging.md` | `projects/interv360/02-architecture/adr/ADR-004-minimal-flow-rejection-logging.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-005-fictive-retention-photos-signatures-logs.md` | `projects/interv360/02-architecture/adr/ADR-005-fictive-retention-photos-signatures-logs.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-006-client-notifications-without-client-portal.md` | `projects/interv360/02-architecture/adr/ADR-006-client-notifications-without-client-portal.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-007-optional-structured-client-signature.md` | `projects/interv360/02-architecture/adr/ADR-007-optional-structured-client-signature.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-008-separated-sav-dashboard-and-executive-view.md` | `projects/interv360/02-architecture/adr/ADR-008-separated-sav-dashboard-and-executive-view.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/02-architecture/adr/adr-cand-009-ai-light-post-mvp-confirmation.md` | `projects/interv360/02-architecture/adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/archive/adr-early/04-adr/adr-001-status-mapping.md` | `projects/interv360/archive/adr-early/04-adr/ADR-001-status-mapping.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/archive/adr-early/04-adr/adr-002-simulated-crm-sync.md` | `projects/interv360/archive/adr-early/04-adr/ADR-002-simulated-crm-sync.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `projects/interv360/archive/adr-early/04-adr/adr-003-integration-error-management.md` | `projects/interv360/archive/adr-early/04-adr/ADR-003-integration-error-management.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `tools/cmp-001/roadmap.md` | `tools/cmp-001/ROADMAP.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
-| `tools/cmp-001/workspace.md` | `tools/cmp-001/WORKSPACE.md` | collision casse macOS (ADR/PROMPT) | rename intermédiaire via suffixe temporaire | oui (ADR casse) |
+| `projects/interv360/02-architecture/adr/adr-001-api-contracts-simulated-implementation.md` | `projects/interv360/02-architecture/adr/ADR-001-api-contracts-simulated-implementation.md` | collision casse macOS (ADR/PROMPT) | **rename en deux temps via cible temporaire unique** (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-002-visible-integration-errors-manual-recovery.md` | `projects/interv360/02-architecture/adr/ADR-002-visible-integration-errors-manual-recovery.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-003-secure-email-secondary-channel.md` | `projects/interv360/02-architecture/adr/ADR-003-secure-email-secondary-channel.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-004-minimal-flow-rejection-logging.md` | `projects/interv360/02-architecture/adr/ADR-004-minimal-flow-rejection-logging.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-005-fictive-retention-photos-signatures-logs.md` | `projects/interv360/02-architecture/adr/ADR-005-fictive-retention-photos-signatures-logs.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-006-client-notifications-without-client-portal.md` | `projects/interv360/02-architecture/adr/ADR-006-client-notifications-without-client-portal.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-007-optional-structured-client-signature.md` | `projects/interv360/02-architecture/adr/ADR-007-optional-structured-client-signature.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-008-separated-sav-dashboard-and-executive-view.md` | `projects/interv360/02-architecture/adr/ADR-008-separated-sav-dashboard-and-executive-view.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/02-architecture/adr/adr-cand-009-ai-light-post-mvp-confirmation.md` | `projects/interv360/02-architecture/adr/ADR-CAND-009-ai-light-post-mvp-confirmation.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/archive/adr-early/04-adr/adr-001-status-mapping.md` | `projects/interv360/archive/adr-early/04-adr/ADR-001-status-mapping.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/archive/adr-early/04-adr/adr-002-simulated-crm-sync.md` | `projects/interv360/archive/adr-early/04-adr/ADR-002-simulated-crm-sync.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `projects/interv360/archive/adr-early/04-adr/adr-003-integration-error-management.md` | `projects/interv360/archive/adr-early/04-adr/ADR-003-integration-error-management.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `prompts/architecture/prompt-arch-001-revue-integrations-et-erreurs.md` | `prompts/architecture/PROMPT-ARCH-001-revue-integrations-et-erreurs.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `prompts/security/prompt-sec-001-revue-canal-email-securise.md` | `prompts/security/PROMPT-SEC-001-revue-canal-email-securise.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `tools/cmp-001/roadmap.md` | `tools/cmp-001/ROADMAP.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
+| `tools/cmp-001/workspace.md` | `tools/cmp-001/WORKSPACE.md` | collision casse macOS (ADR/PROMPT) | rename en deux temps via cible temporaire unique (obligatoire) | enregistré |
 
-### Ambiguïtés résiduelles
+### Ambiguïtés résiduelles — règles Morris enregistrées
 
-- **Dates événementielles :** 133 fichiers avec placeholder `YYYY-MM-DD` CSV — dates proposées depuis contenu ou `git log --follow` (fallback). Gate Morris si date métier ≠ date commit.
-- **Prompts Lot H :** 3 prompts (`prompts/architecture`, `prompts/security`, `prompts/templates/05-*`) — chevauchement structure Lot H possible ; **routage Lot D** pour rename basename uniquement, contenu/template → gate H si restructuration.
-- **tools/cmp-001/ROADMAP.md, WORKSPACE.md** — majuscules ; cible `roadmap.md`/`workspace.md` — vérifier index parent avant exécution.
+- **Dates événementielles (133 fichiers) :** priorité **date explicite du document** ; puis métadonnée/contexte fiable ; `git log --follow` **fallback uniquement** ; **aucune date métier inventée** ; **STOP si ambiguïté sémantique**.
+- **Prompts Lot H (3 fichiers) :** **basename uniquement dans D1** ; aucune restructuration contenu/famille ; évolution structurelle réservée au **Lot H**.
+- **tools/cmp-001/ROADMAP.md, WORKSPACE.md** — rename casse en deux temps ; vérifier index parent avant exécution D1.
+
+## 12.1 Décisions Morris enregistrées
+
+| # | Décision | Statut |
+|---|----------|--------|
+| M-D-DEC-001 | Découpage définitif D1=50, D2=46, D3=53 | **validé** |
+| M-D-DEC-002 | Ordre D1 → D2 → D3 | **validé** |
+| M-D-DEC-003 | Profils D1 Critical / D2 Standard / D3 Standard | **validé** |
+| M-D-DEC-004 | Règles dates (explicite > contexte > git fallback ; STOP si ambiguïté) | **validé** |
+| M-D-DEC-005 | ADR lowercase : rename deux temps via cible temporaire unique | **validé** |
+| M-D-DEC-006 | Prompts/templates : basename D1 uniquement ; structure → Lot H | **validé** |
+| M-D-DEC-007 | Une PR + GO merge Morris séparé par sous-lot | **validé** |
 
 ## 12. Chevauchements G / H / J
 
@@ -420,7 +1027,7 @@
 
 1. **Refs actives** — 53 fichiers rename-and-fix-refs ; PR doit inclure correction liens.
 2. **Collisions casse ADR** — 16 paires macOS case-insensitive ; rename en 2 temps requis.
-3. **Dates fallback git** — fichiers sans horodatage explicite : valider date métier Morris.
+3. **Dates fallback git** — appliquer règle M-D-DEC-004 ; STOP si ambiguïté sémantique à l'exécution.
 4. **README/index** — non inclus Lot D (Lot E) ; liens cassés post-rename si E retardé.
 
 ## 16. Garde-fous
@@ -433,29 +1040,33 @@
 | Branches D1/D2/D3 | **non créées** |
 | Lot 0/A/C | closed |
 
-## 17. Décisions Morris restantes
+## 17. Gates Morris restantes (post-qualification)
 
-1. Valider découpage D1=50 / D2=46 / D3=53.
-2. Valider dates proposées (133) — notamment fallback git-first-commit.
-3. Valider stratégie rename ADR casse (intermédiaire vs direct).
-4. Arbitrer chevauchement prompts Lot H (3 fichiers).
-5. GO exécution par sous-lot (gates séparés).
+| Gate | Objet | Statut |
+|------|-------|--------|
+| Merge PR qualification | Enregistrement cadrage Lot D | **pending Morris GO** |
+| Exécution D1 | 50 renames + refs | **not started** — GO séparé requis |
+| Exécution D2 | 46 renames + refs | **not started** — GO séparé requis |
+| Exécution D3 | 53 renames + refs | **not started** — GO séparé requis |
 
 ## 18. Verdict
 
 ```
-LOT D MANIFEST VERIFIED 149/149
-THREE SUB-LOTS PROPOSED
-TARGET DISTRIBUTION APPROXIMATELY 50/46/53 (RESERVE D3 +4)
+LOT D QUALIFICATION RECORDED
+MANIFEST VERIFIED 149/149
+SUB-LOTS VALIDATED 50/46/53
+MORRIS DECISIONS RECORDED (M-D-DEC-001 à 007)
+ORDER D1 → D2 → D3 CONFIRMED
 NAMING TARGETS QUALIFIED
 DIRECT REFERENCE IMPACTS MAPPED
-COLLISIONS IDENTIFIED (16 CASE ADR)
+COLLISIONS IDENTIFIED (16 CASE — TWO-STEP REQUIRED)
 G/H/J OVERLAPS QUALIFIED
 NO RENAME EXECUTED
 NO FILE MOVED
 NO DOCTRINE CHANGE
 NO AUTHORITY CHANGE
 CSV UNCHANGED
-READY FOR MORRIS SUB-LOT VALIDATION
+PR OPEN — NOT MERGED
+READY FOR CHATGPT PR READINESS
 EXECUTION NOT STARTED
 ```
