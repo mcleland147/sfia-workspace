@@ -40,7 +40,7 @@ Cette référence sert d'exemple d'origine, mais la méthode est conçue pour ê
 
 **Exemples terrain :**
 
-- [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md)
+- [`inc-01-phase-2-rex.md`](../../../projects/interv360/archive/inc-01-phase-2-rex.md)
 
 ---
 

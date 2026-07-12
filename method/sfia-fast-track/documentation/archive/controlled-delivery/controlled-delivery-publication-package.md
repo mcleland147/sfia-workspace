@@ -5,7 +5,7 @@
 **Statut** : Package prêt à publier  
 **Branche** : `method/controlled-delivery-publication-package`
 
-**Références :** [`controlled-delivery-publication-prep.md`](controlled-delivery-publication-prep.md), [`README.md`](README.md)
+**Références :** [`controlled-delivery-publication-prep.md`](controlled-delivery-publication-prep.md), [`README.md`](../../../../complementary/controlled-delivery/README.md)
 
 ---
 
@@ -86,10 +86,10 @@ Il consolide :
 
 | Document | Usage recommandé |
 |----------|------------------|
-| [`inc-01-phase-2-rex.md`](../../projects/interv360/archive/inc-01-phase-2-rex.md) | Annexe principale REX |
-| [`inc-01-demo-script.md`](../../projects/interv360/archive/inc-01-demo-script.md) | Exemple de démonstration |
-| [`inc-01-controlled-workflow-validation.md`](../../projects/interv360/archive/inc-01-controlled-workflow-validation.md) | Exemple de validation |
-| [`inc-01-controlled-workflow-skeleton-summary.md`](../../projects/interv360/archive/inc-01-controlled-workflow-skeleton-summary.md) | Exemple de summary de livraison |
+| [`inc-01-phase-2-rex.md`](../../../../projects/interv360/archive/inc-01-phase-2-rex.md) | Annexe principale REX |
+| [`inc-01-demo-script.md`](../../../../projects/interv360/archive/inc-01-demo-script.md) | Exemple de démonstration |
+| [`inc-01-controlled-workflow-validation.md`](../../../../projects/interv360/archive/inc-01-controlled-workflow-validation.md) | Exemple de validation |
+| [`inc-01-controlled-workflow-skeleton-summary.md`](../../../../projects/interv360/archive/inc-01-controlled-workflow-skeleton-summary.md) | Exemple de summary de livraison |
 
 **Règle :**
 
