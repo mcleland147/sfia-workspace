@@ -1383,9 +1383,11 @@ _(à compléter par Morris / ChatGPT)_
 - **Branche :** sfia/review-handoff
 - **Fichier :** sfia-review-handoff/latest-chatgpt-review.md
 - **SHA avant :** 338c23609ed5eb39280eac3a9460ada9bb60f3eb
-- **SHA commit handoff :** _(à renseigner post-push)_
-- **Push :** _(à renseigner)_
-- **git ls-remote :** _(à renseigner)_
+- **SHA commit handoff :** d570366d1b8309fe48a32e12123bc0b819e099e3
+- **Push :** success — `git push origin HEAD:refs/heads/sfia/review-handoff`
+- **git ls-remote :** d570366d1b8309fe48a32e12123bc0b819e099e3 — correspond au commit local
+- **Relecture distante :** origin/sfia/review-handoff — 1401 lignes, 12 fichiers `# FICHIER`, cycle 2 confirmé
+- **Comparaison local/distant :** identique (`diff -q` PASS)
 
 ## Content coverage
 
@@ -1398,4 +1400,4 @@ _(à compléter par Morris / ChatGPT)_
 
 ## Verdict
 
-READY FOR REVIEW — handoff publication en cours
+**HANDOFF UPDATED — REMOTE VERIFIED**
