@@ -1,7 +1,7 @@
-# SFIA v2.6 — Lot H Cadrage — Review Pack (full)
+# SFIA v2.6 — Lot H Execution Strategy Alignment — Review Pack (full)
 
-**Horodatage :** 2026-07-13 06:27 Europe/Paris (CEST)
-**Verdict :** `LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION`
+**Horodatage :** 2026-07-13 06:37 Europe/Paris (CEST)
+**Verdict :** `LOT H EXECUTION STRATEGY ALIGNED — READY FOR COMMIT`
 
 ---
 
@@ -9,11 +9,8 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| toplevel | `/Users/morris/Projects/sfia-workspace` |
-| branch | `cadrage/sfia-v2.6-lot-h` |
+| branche | `cadrage/sfia-v2.6-lot-h` |
 | HEAD | `2883e37aac29b1a59646be37a33fec0a3e349f6a` |
-| origin/main | `2883e37aac29b1a59646be37a33fec0a3e349f6a` |
-| merge-base | `2883e37aac29b1a59646be37a33fec0a3e349f6a` |
 
 ```
 M method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
@@ -27,8 +24,8 @@ M method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-
 ## 2. Git Review Index
 
 ```
-...7-11-sfia-v2.6-repository-migration-lots-plan.md | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+...-11-sfia-v2.6-repository-migration-lots-plan.md | 26 ++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 ```
 
 ```
@@ -37,62 +34,73 @@ M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-
 
 ---
 
-## 3. Manifeste Lot H — 40 fichiers
+## 3. Décision Morris — simplification stratégique
 
-Volume CSV = Git = **40/40**. Operational = **13**. `.gitkeep` investigate = **9**.
+**Décision (2026-07-13) :** abandon des quatre sous-lots Git H1/H2/H3/H4.
 
-Sous-lots : H1 (16) · H2 (7) · H3 (9) · H4 (8)
+**Stratégie officielle :**
+- **Lot H = 1 cycle d'exécution unique**
+- **H3 → H4 → H2 → H1** = quatre **phases internes** (ordre obligatoire)
+- Un seul GO Morris pour l'ouverture du cycle
+- Trajectoire : F → **H (cycle unique)** → J
 
-Fichiers protégés : **12**
+**Justification :** réduire la fragmentation Git, conserver la séquence de risque du cadrage, aligner plan et rapport sur une trajectoire d'exécution cohérente.
+
+**Inchangé :** manifeste 40/40, métriques, fichiers protégés (12), conclusions techniques, corpus Lot H.
 
 ---
 
-## 4. Diff plan des lots (Lot H section)
+## 4. Diff plan des lots (sections modifiées)
 
 ```diff
 diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-index 3943b01..b6b9428 100644
+index 3943b01..626dec9 100644
 --- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
 +++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-@@ -275,9 +275,26 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
+@@ -273,11 +273,29 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
  
- | Lot | Volume tag | Sous-lots exécution | Note |
- |-----|----------:|---------------------|------|
+ ## 11. Lot H / I
+ 
+-| Lot | Volume tag | Sous-lots exécution | Note |
+-|-----|----------:|---------------------|------|
 -| H (prompts/templates) | 40 | templates (6) ; prompts families (4) ; .gitkeep investigate (9) | 13 operational |
-+| H (prompts/templates) | 40 | **H1** templates canoniques (16) ; **H2** familles prompts (7) ; **H3** `.gitkeep` investigate (9) ; **H4** docs templates + index (8) | 13 operational ; **cadrage completed 2026-07-13** |
++| Lot | Volume tag | Exécution | Note |
++|-----|----------:|-----------|------|
++| H (prompts/templates) | 40 | **1 cycle unique** — phases internes H3 (9) → H4 (8) → H2 (7) → H1 (16) | 13 operational ; **cadrage completed 2026-07-13** ; **strategy aligned 2026-07-13** |
  | I (tooling/CI) | 68 | `.github/workflows` ; `tools/cmp-001` ; `docker/penpot` ; automation (4) | 45 operational ; 21 investigate (cmp schemas) |
  
-+### Lot H — statut cadrage (2026-07-13)
++### Lot H — statut cadrage et stratégie (2026-07-13)
 +
 +| Champ | Contenu |
 +|-------|---------|
 +| **Qualification** | **cadrage completed — execution not opened** |
++| **Stratégie exécution** | **1 cycle unique Lot H** — phases internes H3 → H4 → H2 → H1 (Morris 2026-07-13) |
 +| **Rapport cadrage** | `2026-07-13-sfia-v2.6-lot-h-cadrage.md` |
 +| **Branche cadrage** | `cadrage/sfia-v2.6-lot-h` @ `2883e37` |
 +| **Manifeste CSV** | **40/40** confirmé Git |
-+| **Sous-lots proposés** | H3 (9) → H4 (8) → H2 (7) → H1 (16) |
++| **Phases internes** | H3 (9) → H4 (8) → H2 (7) → H1 (16) — **pas de sous-lots Git séparés** |
 +| **Fichiers protégés** | **12** — spine routing guide / catalog / templates opérationnels |
 +| **Operational** | **13** |
 +| **`.gitkeep` investigate** | **9** |
 +| **Templates canoniques** | **16** (12 `prompts/templates/` + 4 `method/.../templates/`) |
-+| **Familles prompts** | **7** (plan initial : 4 — sous-comptage corrigé) |
-+| **Statut exécution Lot H** | **not opened** — GO Morris par sous-lot requis |
-+| **Next gate** | Validation Morris cadrage ; puis GO exécution **H3** (investigation) ou sous-lot choisi |
++| **Familles prompts** | **7** |
++| **Statut exécution Lot H** | **not opened** — GO Morris cycle unique requis |
++| **Next gate** | **GO ouverture exécution cycle unique Lot H** |
 +
  **Règle Lot I :** ne pas appliquer logique documentaire aux artefacts `not-applicable`. **338** fichiers `lifecycle not-applicable` au total — dont **52** tagués lot-I.
  
  ---
-@@ -416,4 +433,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
+@@ -416,4 +434,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
  
  ---
  
 -*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F qualification merged via PR #184** (`997f1ff`) — **Lot F1a/F1b merged via PR #185** (`4a7f857`) — **Lot F2 closed — Morris Option B** — **Lot F closed** — **Lots G/I excluded** — **Lots H/J not opened** — **Next gate: Lot H opening (Morris GO separate)**.*
-+*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F closed** (PR #186) — **Lot H cadrage completed — execution not opened** — **Lots G/I excluded** — **Lot J not opened** — **Next gate: Morris validation Lot H cadrage / GO sous-lot H***.*
++*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F closed** (PR #186) — **Lot H cadrage completed — strategy aligned — execution not opened** — **Lots G/I excluded** — **Lot J not opened** — **Next gate: GO Morris cycle unique Lot H***.*
 ```
 
 ---
 
-## 5. Rapport de cadrage complet
+## 5. Rapport de cadrage complet (aligné)
 
 # SFIA v2.6 — Lot H Cadrage
 
@@ -102,7 +110,8 @@ index 3943b01..b6b9428 100644
 **Branche :** `cadrage/sfia-v2.6-lot-h`
 **Base / HEAD :** `main` @ `2883e37aac29b1a59646be37a33fec0a3e349f6a`
 **CSV frozen SHA-256 :** `2a72757c6af186f2cb8aba5d488613be974cb12eed2d33b2d391edba5989f066`
-**Statut cycle :** **LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION**
+**Statut cycle :** **LOT H EXECUTION STRATEGY ALIGNED — READY FOR COMMIT**
+**Addendum :** 2026-07-13 06:37 Europe/Paris — alignement stratégie exécution (Morris)
 
 ---
 
@@ -113,8 +122,11 @@ index 3943b01..b6b9428 100644
 | Trajectoire F → H → J | **Validée** |
 | Lot F / F2 closed (PR #186) | **Merged** |
 | Lots G / I exclus | **Confirmé** |
-| Ouverture cadrage Lot H | **GO donné** (présent cycle) |
-| Exécution sous-lot H | **Non autorisée** — GO séparé requis |
+| Ouverture cadrage Lot H | **GO donné** (cycle cadrage) |
+| Cadrage Lot H validé | **Validé** — manifeste 40/40 |
+| **Lot H = 1 cycle d'exécution unique** | **Validé** (Morris 2026-07-13) |
+| **H1/H2/H3/H4 = phases internes** (pas sous-lots Git) | **Validé** (Morris 2026-07-13) |
+| Exécution Lot H (cycle unique) | **Non autorisée** — GO séparé requis |
 | Modification corpus Lot H | **Non autorisée** |
 | Reclassification CSV | **Non autorisée** |
 | Ouverture Lot J | **Non autorisée** |
@@ -138,7 +150,7 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 ## 4. Périmètre / hors périmètre
 
-**Périmètre :** 40 fichiers `migration_lot_candidate = lot-H` — lecture, qualification, sous-lots, stratégie future.
+**Périmètre :** 40 fichiers `migration_lot_candidate = lot-H` — lecture, qualification, phases internes, stratégie future.
 
 **Hors périmètre respecté :** migration, déplacement, renommage, suppression, modification prompts/templates, CSV, Lot J, tooling/CI, Interv360.
 
@@ -178,7 +190,7 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 | **`.gitkeep` investigate** | 9 | **9** | ✓ aligné |
 | **Templates** | 6 | **16** (H1) | Plan comptait uniquement `prompts/templates/` numérotés ; cadrage inclut **12** `prompts/templates/` + **4** `method/sfia-fast-track/templates/` |
 | **Prompt families** | 4 | **7** | Plan sous-comptait ; CSV compte 7 fichiers `*-prompt-family.md` |
-| **docs/templates/** | — | **6** | Regroupés sous-lot H4 (non comptés séparément dans plan) |
+| **docs/templates/** | — | **6** | Regroupés phase H4 (non comptés séparément dans plan) |
 
 **Observation :** les 40 fichiers ne sont pas tous des prompts/templates au sens strict — le lot couvre aussi des templates `docs/` et `method/`, des index de navigation et des placeholders structurels.
 
@@ -235,8 +247,8 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 ## 9. Classification par famille
 
-| Famille CSV | Volume | Rôle dominant | Sous-lot |
-|-------------|-------:|---------------|----------|
+| Famille CSV | Volume | Rôle dominant | Phase interne |
+|-------------|-------:|---------------|---------------|
 | F04 | 21 | Templates opérationnels / squelettes | H1, H4 |
 | F05 | 17 | Familles de prompts + placeholders | H2, H3 |
 | F13 | 2 | Index / navigation (`README`) | H1, H4 |
@@ -245,7 +257,7 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 ## 10. Analyse templates
 
-### H1 — Templates canoniques (16 fichiers)
+### Phase H1 — Templates canoniques (16 fichiers)
 
 **`prompts/templates/` (12)** — colonne vertébrale opérationnelle SFIA :
 - **11 templates numérotés** (01–04, 06–10) : `usage=operational`, référencés par `sfia-cycle-routing-guide.md`.
@@ -257,14 +269,14 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 - Référencés par `method/sfia-fast-track/README.md`, `sfia-consolidation-roadmap.md`, `sfia-delivery-pipeline.md`.
 - **Recommandation :** conserver en place ; toute migration exige mise à jour simultanée des docs architecture/method.
 
-### H4 — Templates docs (6 fichiers)
+### Phase H4 — Templates docs (6 fichiers)
 
 - **BPMN (2)** : consommés par `docs/practices/process/2026-06-28-bpmn-method-cycle-closure.md` — couplage actif.
 - **Architecture / UX-UI (4)** : consommés surtout par les familles de prompts correspondantes ; **aucun consommateur actif hors `prompts/`**.
 
 ---
 
-## 11. Analyse familles de prompts (H2 — 7 fichiers)
+## 11. Analyse familles de prompts (phase H2 — 7 fichiers)
 
 | Fichier | Usage | Couplage externe | Recommandation |
 |---------|-------|------------------|----------------|
@@ -278,7 +290,7 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 ---
 
-## 12. Analyse `.gitkeep` (H3 — 9 fichiers)
+## 12. Analyse `.gitkeep` (phase H3 — 9 fichiers)
 
 | Chemin | Disposition CSV | Consommateur actif | Recommandation |
 |--------|-----------------|-------------------|----------------|
@@ -296,16 +308,20 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 ---
 
-## 13. Sous-lots proposés
+## 13. Phases internes du cycle unique Lot H
 
-| Sous-lot | Périmètre | Volume | Profil futur | Risque | Gate Morris | Ordre |
-|----------|-----------|-------:|--------------|--------|-------------|------:|
-| **H3** | `.gitkeep` structurels | 9 | Light | Faible | Investigation only | **1** |
-| **H4** | `docs/templates/` + index `prompts/README.md` + `prompt-catalog.md` | 8 | Standard | Modéré | GO exécution H4 | **2** |
-| **H2** | Familles de prompts (`*-prompt-family.md`) | 7 | Standard | Modéré | GO exécution H2 | **3** |
-| **H1** | Templates canoniques (`prompts/templates/` + `method/.../templates/`) | 16 | Standard → **Critical** pour H1-protected | **Élevé** | GO exécution H1 + gate fichier protégé | **4** |
+> **Décision Morris (2026-07-13) :** le Lot H constitue **un seul cycle d'exécution**. H1, H2, H3 et H4 ne sont **pas** des sous-lots Git indépendants — ce sont **quatre phases internes** séquencées au sein du même cycle.
 
-**Note :** l’ordre privilégie les zones sans consommateurs actifs (H3), puis docs templates isolés (H4), puis familles, enfin la colonne vertébrale opérationnelle (H1).
+| Phase | Périmètre | Volume | Profil (interne) | Risque | Ordre |
+|-------|-----------|-------:|------------------|--------|------:|
+| **H3** | `.gitkeep` structurels | 9 | Light | Faible | **1** |
+| **H4** | `docs/templates/` + index `prompts/README.md` + `prompt-catalog.md` | 8 | Standard | Modéré | **2** |
+| **H2** | Familles de prompts (`*-prompt-family.md`) | 7 | Standard | Modéré | **3** |
+| **H1** | Templates canoniques (`prompts/templates/` + `method/.../templates/`) | 16 | Standard → **Critical** (fichiers protégés) | **Élevé** | **4** |
+
+**Ordre officiel :** H3 → H4 → H2 → H1
+
+**Note :** l’ordre privilégie les zones sans consommateurs actifs (H3), puis docs templates isolés (H4), puis familles, enfin la colonne vertébrale opérationnelle (H1). Toutes les phases s’exécutent **dans le cadre d’un unique cycle Lot H** — une branche, une trajectoire, un GO Morris d’ouverture d’exécution.
 
 ---
 
@@ -351,14 +367,18 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 ## 17. Stratégie d’exécution future (non exécutée)
 
+> **Lot H = 1 cycle d'exécution unique** — les phases H3 → H4 → H2 → H1 structurent la séquence interne ; elles ne constituent pas des cycles Git séparés.
+
 | Paramètre | Recommandation |
 |-----------|----------------|
-| Taille max PR | **≤ 5 fichiers** contenu Lot H + refs associées |
-| Profil H3 | Light — rapport investigation |
-| Profil H4/H2 | Standard |
-| Profil H1 protected | **Critical** si touché |
-| Review pack | **full** par sous-lot exécution |
-| Review Handoff | **required** par sous-lot exécution |
+| **Cycle** | **Unique** — une branche Lot H, un GO Morris d’ouverture |
+| **Phases internes** | H3 → H4 → H2 → H1 (ordre obligatoire) |
+| Taille max PR | **≤ 5 fichiers** contenu Lot H + refs associées (par PR au sein du cycle) |
+| Profil phase H3 | Light — rapport investigation |
+| Profil phases H4/H2 | Standard |
+| Profil phase H1 (protégés) | **Critical** si touché |
+| Review pack | **full** — cycle Lot H (par PR significative) |
+| Review Handoff | **required** — cycle Lot H |
 | Ref sync | Même PR que tout move/rename Lot H |
 | CSV | Reclassification = cycle séparé Morris GO |
 
@@ -369,8 +389,9 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 3. CMP config (`tools/cmp-001/`) non synchronisé après move catalog/README.
 4. Référence opérationnelle cassée non résolue.
 5. Reclassification CSV requise mais non autorisée.
-6. Périmètre > sous-lot validé.
+6. Périmètre > phase validée **sans** clôture de phase précédente dans le cycle unique.
 7. Lot J delete implicite ou fichier delete-candidate créé.
+8. Ouverture d’un second cycle Git Lot H parallèle (interdit — cycle unique).
 
 ---
 
@@ -378,14 +399,13 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 
 | # | Décision | Recommandation | Impact | Bloquante |
 |---|----------|----------------|--------|-----------|
-| 1 | Valider manifeste 40/40 et sous-lots H1–H4 | **Accepter** structure proposée | Base exécution | Oui |
-| 2 | Valider ordre H3 → H4 → H2 → H1 | **Accepter** | Séquence risque | Oui |
-| 3 | GO exécution sous-lot H3 (investigation `.gitkeep`) | Cycle Light séparé | Structure prompts/ | Non |
-| 4 | GO exécution sous-lots H4/H2/H1 | **Un GO par sous-lot** | Migration | Oui chacun |
-| 5 | Autoriser modification fichier protégé (12) | **Refus par défaut** ; exception Morris Critical | Spine opérationnelle | Oui |
-| 6 | Traiter `05-validate-pr-readiness.md` (hors lot-H) | Cycle séparé — alignement README | Cohérence index | Non |
-| 7 | Reclassification CSV post-move | GO séparé | Contrat cartographie | Si paths changent |
-| 8 | Ouverture Lot J | **Reporter** après H | Trajectoire F→H→J | Oui |
+| 1 | Valider manifeste 40/40 | **Acquis** (cadrage) | Base exécution | — |
+| 2 | Valider **cycle unique Lot H** + phases H3 → H4 → H2 → H1 | **Acquis** (Morris 2026-07-13) | Stratégie exécution | — |
+| 3 | **GO ouverture exécution Lot H** (cycle unique) | **En attente** | Migration | Oui |
+| 4 | Autoriser modification fichier protégé (12) | **Refus par défaut** ; exception Morris Critical | Spine opérationnelle | Oui |
+| 5 | Traiter `05-validate-pr-readiness.md` (hors lot-H) | Cycle séparé — alignement README | Cohérence index | Non |
+| 6 | Reclassification CSV post-move | GO séparé | Contrat cartographie | Si paths changent |
+| 7 | Ouverture Lot J | **Reporter** après clôture cycle H | Trajectoire F→H→J | Oui |
 
 ---
 
@@ -415,18 +435,18 @@ Produire un cadrage repo-first du Lot H — prompts, templates et artefacts stru
 ## 21. Verdict
 
 ```
-LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION
+LOT H EXECUTION STRATEGY ALIGNED — READY FOR COMMIT
 ```
 
 **Signification :**
-- Manifeste **40/40** vérifié CSV + Git
-- Sous-lots **H1–H4** proposés avec ordre et profils
-- **12 fichiers protégés** identifiés
+- Manifeste **40/40** vérifié CSV + Git (inchangé)
+- **Cycle unique Lot H** — phases internes **H3 → H4 → H2 → H1** (Morris 2026-07-13)
+- **12 fichiers protégés** identifiés (inchangé)
 - **Aucune migration** exécutée
 - **Lot J** non ouvert
-- Prochaine gate : **GO Morris exécution sous-lot H3** (investigation) ou validation structure globale
+- Prochaine gate : **GO Morris ouverture exécution cycle unique Lot H**
 
-**Non autorisé :** `LOT H EXECUTION OPENED` · `LOT H MIGRATION READY` · `LOT J OPENED`
+**Non autorisé :** `LOT H EXECUTION OPENED` · `LOT H MIGRATION READY` · `LOT J OPENED` · cycles Git H1/H2/H3/H4 séparés
 
 ---
 
@@ -439,9 +459,8 @@ LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION
 
 | Contrôle | Résultat |
 |----------|----------|
-| Corpus Lot H modifié | Non |
-| CSV modifié | Non |
-| Fichiers versionnés | 1 créé + 1 plan modifié |
+| Fichiers modifiés | 2 uniquement |
+| CSV / corpus Lot H | Non modifiés |
 | Commit exécution | Non |
 
 ---
@@ -450,7 +469,7 @@ LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION
 
 | Item | Statut |
 |------|--------|
-| created files full content | yes |
+| created files full content | yes (rapport aligné) |
 | modified sections complete | yes |
 | useful diff included | yes |
 | synthesis only | no |
@@ -460,23 +479,4 @@ LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION
 
 ## 8. Verdict
 
-`LOT H CADRAGE COMPLETED — READY FOR MORRIS DECISION`
-
----
-
-## Instruction ChatGPT obligatoire
-
-Lire obligatoirement depuis Git :
-`sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier :
-- cycle cadrage Lot H
-- manifeste 40 fichiers
-- sous-lots H1–H4
-- 12 fichiers protégés
-- 13 operational
-- stratégie future
-- contenu complet du rapport
-- diff plan Lot H
-- Lot J non ouvert
-- conformité handoff
+`LOT H EXECUTION STRATEGY ALIGNED — READY FOR COMMIT`
