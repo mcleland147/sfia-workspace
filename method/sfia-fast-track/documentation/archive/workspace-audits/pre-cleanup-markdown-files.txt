@@ -69,8 +69,8 @@
 ./method/sfia-fast-track/checklists/guardrails-checklist.md
 ./method/sfia-fast-track/checklists/notion-publication-checklist.md
 ./method/sfia-fast-track/checklists/validation-checklist.md
-./method/sfia-fast-track/documentation-audit.md
-./method/sfia-fast-track/documentation-structure-target.md
+./method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md
+./method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md
 ./method/sfia-fast-track/figma-design-first-ui-method.md
 ./method/sfia-fast-track/interv360-application-rex.md
 ./method/sfia-fast-track/interv360-final-capitalization.md

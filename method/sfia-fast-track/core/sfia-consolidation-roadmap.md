@@ -189,8 +189,8 @@ Analyser toute la documentation existante et améliorer sa cohérence.
 
 Livrables attendus :
 
-- `method/sfia-fast-track/documentation/documentation-audit.md`
-- `method/sfia-fast-track/documentation/documentation-structure-target.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 - `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`
 
 Important :
@@ -203,8 +203,8 @@ Revue documentaire réalisée et intégrée à `main`.
 
 Livrables :
 
-- `method/sfia-fast-track/documentation/documentation-audit.md`
-- `method/sfia-fast-track/documentation/documentation-structure-target.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 - `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`
 
 Décision :
@@ -276,7 +276,7 @@ Livrables :
 - `method/sfia-fast-track/documentation/archive/checklists/validation-checklist.md`
 - `method/sfia-fast-track/checklists/guardrails-checklist.md`
 - `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md`
-- `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
 - `method/sfia-fast-track/documentation/archive/workspace-audits/sfia-workspace-migration-plan.md`
 - inventaires complets pré-nettoyage (`pre-cleanup-*.txt`)
 

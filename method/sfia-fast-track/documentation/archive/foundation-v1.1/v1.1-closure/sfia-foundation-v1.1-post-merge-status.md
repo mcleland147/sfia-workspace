@@ -115,6 +115,6 @@ La foundation v1.1 est désormais la référence documentaire active sur `main` 
 ## 9. Related References
 
 - `sfia-foundation-v1.1-closure-status.md` — clôture pré-merge
-- `../v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md`
+- `../../capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 - `../../sfia-documentation-completeness-matrix.md`
-- `../v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+- `../v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
