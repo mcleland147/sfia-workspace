@@ -145,4 +145,4 @@ Décision :
 
 > Une deuxième passe de nettoyage est nécessaire avant mise à jour Notion.
 
-Audit et plan Round 2 : `round-2/sfia-workspace-cleanup-round-2-audit.md`, `round-2/sfia-workspace-cleanup-round-2-plan.md`.
+Audit et plan Round 2 : `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md` (cadrage v2.6 ; remplace cluster round-2).

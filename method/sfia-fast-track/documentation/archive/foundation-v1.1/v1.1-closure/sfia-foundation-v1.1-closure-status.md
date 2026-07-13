@@ -88,9 +88,9 @@ The following scope is closed:
 
 | Evidence | Role |
 |----------|------|
-| `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md` | Confirmed no P0 blocker before P2 cycles |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | Confirmed no P0 blocker before P2 cycles (remplace audit P2 cross-réfs v1.1) |
 | `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md` | Confirms structural completeness and remaining deferred items |
-| `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` | Consolidation plan and closure criteria |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | Repository standard principles v2.6 (remplace consolidation plan v1.1) |
 | `method/sfia-fast-track/checklists/sfia-validation-checklist.md` | Operational validation reference |
 
 ## 6. P2 Cycles Completed

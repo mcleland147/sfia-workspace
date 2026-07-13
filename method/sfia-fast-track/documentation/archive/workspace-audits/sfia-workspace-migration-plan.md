@@ -8,7 +8,7 @@ Il liste les déplacements proposés avant exécution.
 
 Aucun déplacement massif ne doit être réalisé sans validation humaine.
 
-**Référence audit :** `sfia-workspace-global-audit.md`  
+**Référence audit :** `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` (remplace `sfia-workspace-global-audit.md`)  
 **Inventaires :** `pre-cleanup-*.txt`
 
 ## 2. Principes
@@ -38,8 +38,8 @@ Aucun déplacement massif ne doit être réalisé sans validation humaine.
 | `method/sfia-fast-track/interv360-final-capitalization.md` | `method/sfia-fast-track/cycles/` | Déplacer | Clôture Interv360 |
 | `method/sfia-fast-track/figma-design-first-ui-method.md` | `method/sfia-fast-track/ui/` | Déplacer | Règle UI |
 | `method/sfia-fast-track/interv360-application-rex.md` | `method/sfia-fast-track/audit-rex/` | Déplacer | REX référence |
-| `method/sfia-fast-track/documentation-audit.md` | `method/sfia-fast-track/documentation/` | Déplacer | Audit Chantier 4 |
-| `method/sfia-fast-track/documentation-structure-target.md` | `method/sfia-fast-track/documentation/` | Déplacer | Cible structure |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/` | Référence | Cartographie repo v2.6 (remplace audit Chantier 4) |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/` | Référence | Principes structure (remplace cible structure) |
 | `method/sfia-fast-track/notion-publication-plan.md` | `method/sfia-fast-track/documentation/` | Déplacer | Plan Notion |
 | `method/sfia-fast-track/documentation/workspace-audit/` | `method/sfia-fast-track/documentation/workspace-audit/` | Conserver | Déjà bien placé |
 | `method/sfia-fast-track/templates/*` | `method/sfia-fast-track/templates/` | Conserver | Déjà bien placé |
@@ -74,7 +74,7 @@ Aucun déplacement massif ne doit être réalisé sans validation humaine.
 
 Avant toute réorganisation `projects/interv360/`, consulter :
 
-`interv360/interv360-folder-normalization-audit.md`
+`capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` (historique Interv360 intégré en cartographie v2.6)
 
 Cet audit détaille les doublons de dossiers, notamment :
 

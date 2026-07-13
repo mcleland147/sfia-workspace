@@ -72,8 +72,8 @@ Prompt templates: `prompts/templates/` — full reusable SFIA prompt templates d
 
 ### Documentation (`documentation/`)
 
-- `documentation-audit.md`
-- `documentation-structure-target.md`
+- `documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
+- `documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 - `notion-publication-plan.md`
 - `workspace-audit/` — audits et inventaires du workspace
 

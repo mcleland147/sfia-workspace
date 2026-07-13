@@ -149,7 +149,7 @@ Les fondations sont **identifiées** et **localisables** — elles ne sont pas e
 | **P1** | `docs/architecture/sfia-repository-blueprint.md` | Aligner arborescence cible avec workspace nettoyé |
 | **P1** | `method/sfia-fast-track/documentation/archive/notion/notion-target-content-map.md` | Remplacer terminologie SFA par SFIA ; citer `docs/practices/` |
 | **P1** | `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md` | Idem + layers méthode/pratiques |
-| **P1** | `method/sfia-fast-track/documentation/documentation-audit.md` | Rafraîchir ou archiver comme baseline historique |
+| **P1** | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Référence cartographie repo v2.6 (remplace audit doc pré-Round 3) |
 | **P2** | `docs/practices/roles/*.md` (5 Draft) | Revue maturité avant publication Notion |
 | **P2** | `sfia-automation-architecture.md` | Référencer documents canoniques moteurs une fois créés |
 
@@ -240,7 +240,7 @@ Les documents `method/sfia-fast-track/*` portent la méthode opérationnelle act
 **Livrables de planification v1.1 :**
 
 - `v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
-- `v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+- `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` (remplace `sfia-foundation-v1.1-consolidation-plan.md`)
 
 ## Update — Superseded by Foundation v1.1 Consolidation
 
@@ -268,5 +268,4 @@ This document should no longer be used alone to assess the current SFIA foundati
 Use instead:
 
 - `method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`

@@ -108,8 +108,8 @@ Cette étape ne modifie pas les documents existants.
 | Document | Emplacement actuel | Domaine principal | Statut | Commentaire |
 |----------|--------------------|------------------|--------|-------------|
 | `archive/interv360-realization/*` | `method/sfia-fast-track/archive/` | Delivery Pipeline, Prompt Generation | **Historique** | Méthode réalisation pré-Fast Track ; prompts Cursor/ChatGPT détaillés |
-| `documentation-audit.md` | `method/sfia-fast-track/documentation/` | Knowledge / Notion Layer | **Historique** | Audit pré-PR #81 ; chemins obsolètes |
-| `documentation-structure-target.md` | `method/sfia-fast-track/documentation/` | Repository Execution | **Historique** | Cible pré-cleanup |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/` | Knowledge / Notion Layer | **Actif** | Cartographie repo v2.6 (remplace audit pré-PR #81) |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/` | Repository Execution | **Actif** | Principes structure repo v2.6 |
 | `method/complementary/controlled-delivery/*` | `method/complementary/` | Delivery Pipeline | **Actif complémentaire** | Méthode parallèle capitalisée |
 
 ## 4. Documents fondateurs évidents
@@ -134,8 +134,8 @@ Cette étape ne modifie pas les documents existants.
 | `archive/interv360-realization/realization-prompt-family.md` | Famille prompts Cursor/ChatGPT détaillée pour réalisation |
 | `archive/interv360-realization/realization-method.md` | Méthode réalisation pré-Fast Track — traçabilité évolution |
 | `archive/interv360-realization/notion-integration-plan.md` | Plan intégration Notion historique |
-| `documentation-audit.md` | Inventaire qualitatif pré-cleanup — utile comme baseline |
-| `workspace-audit/sfia-workspace-global-audit.md` | Cartographie moteurs ↔ documents (Validation, Prompt Gen, Repo Exec) |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Cartographie repo v2.6 — remplace inventaire qualitatif pré-cleanup |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Cartographie moteurs ↔ documents (Validation, Prompt Gen, Repo Exec) |
 | `method/complementary/controlled-delivery/controlled-delivery-standard.md` | Méthode delivery alternative — complément Controlled Delivery |
 
 ## 6. Documents à promouvoir comme sources canoniques
@@ -188,7 +188,7 @@ Les documents `method/sfia-fast-track/*` portent la méthode opérationnelle act
 **Livrables de planification v1.1 :**
 
 - `v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`
-- `v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+- `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 
 ## Update — v1.1 Assets Created
 

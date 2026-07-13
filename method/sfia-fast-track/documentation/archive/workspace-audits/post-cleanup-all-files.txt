@@ -110,12 +110,12 @@
 ./method/sfia-fast-track/cycles/interv360-mvp-delivery-capitalization.md
 ./method/sfia-fast-track/documentation/.DS_Store
 ./method/sfia-fast-track/documentation/README.md
-./method/sfia-fast-track/documentation/documentation-audit.md
-./method/sfia-fast-track/documentation/documentation-structure-target.md
+./method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md
+./method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md
 ./method/sfia-fast-track/documentation/notion-publication-plan.md
 ./method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-all-files.txt
 ./method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-directory-map.txt
-./method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-folder-normalization-audit.md
+./method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md
 ./method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-folder-volume.txt
 ./method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-markdown-files.txt
 ./method/sfia-fast-track/documentation/workspace-audit/post-cleanup-all-files.txt
@@ -129,7 +129,7 @@
 ./method/sfia-fast-track/documentation/workspace-audit/pre-cleanup-projects-files.txt
 ./method/sfia-fast-track/documentation/workspace-audit/pre-cleanup-scripts-files.txt
 ./method/sfia-fast-track/documentation/workspace-audit/pre-cleanup-sfia-notion-sync-files.txt
-./method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md
+./method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md
 ./method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-migration-plan.md
 ./method/sfia-fast-track/templates/audit-template.md
 ./method/sfia-fast-track/templates/cycle-template.md

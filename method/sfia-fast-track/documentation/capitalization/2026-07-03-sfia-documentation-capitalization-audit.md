@@ -58,7 +58,7 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 | `cycles/` | Capitalisations par cycle | **À compléter** | 2 docs Interv360 (MVP + final) ; pas de guide cycle générique hors template |
 | `ui/` | Figma Design-first | **OK** | Méthode UI complète |
 | `audit-rex/` | Audit et REX méthode | **À compléter** | REX Interv360 présent ; pas de méthode audit/REX transverse SFIA |
-| `documentation/` | Qualité doc, audits workspace, Notion | **À compléter** | Riche en audits post-cleanup ; `documentation-audit.md` obsolète (pré-R3) |
+| `documentation/` | Qualité doc, audits workspace, Notion | **OK** | Cartographie et principes repo v2.6 (`sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`, `sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`) |
 | `templates/` | Modèles opérationnels FT | **OK** | 6 templates — manque README index |
 | `checklists/` | Validation, garde-fous, Notion | **OK** | 3 checklists — manque README index |
 | `archive/` | Méthode interv360-realization | **OK** | 8 fichiers historiques bien isolés |
@@ -177,9 +177,9 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 
 | Priorité | Document | Complément attendu |
 |----------|----------|-------------------|
-| P1 | `documentation-audit.md` | Mettre à jour périmètre post-PR #81 (`docs/practices/`, `method/complementary/`) |
+| P1 | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Référence cartographie repo v2.6 (remplace audit doc pré-PR #81) |
 | P1 | `notion-publication-plan.md` | Citer explicitement `docs/practices/` et `method/complementary/` |
-| P1 | `documentation-structure-target.md` | Aligner sur structure actuelle |
+| P1 | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | Principes structure repo v2.6 (remplace cible structure pré-consolidation) |
 | P1 | `06-audit-rex/README.md` | Corriger titre phase, statut, références |
 | P1 | 5 Role Methods Draft | Revue maturité avant publication Notion |
 | P2 | `methods-structure-check.md` §2 | Diagramme `docs/practices/` |
@@ -203,7 +203,7 @@ Aucun manque structurel bloquant n'empêche d'ouvrir le chantier Notion — à c
 | Templates FT vs plateforme | Deux couches intentionnelles | Conserver — documenté |
 | REX méthode vs REX projet | `audit-rex/` FT vs `06-audit-rex/` Interv360 | Conserver — rôles distincts |
 | `06-audit-rex/README.md` vs contenu | README dit « à venir » mais audit présent | Corriger README (P1) |
-| `documentation-audit.md` vs état réel | Compteurs et chemins pré-cleanup | Rafraîchir (P1) |
+| Audit doc pré-cartography vs état réel | Compteurs et chemins pré-cleanup | Superseded par cartographie v2.6 |
 | Prompts catalogue vs fichiers | 15 familles catalogue, 6 familles fichiers | Formaliser progressivement (P1) |
 | QA Official vs autres rôles Draft | Maturité inégale | Arbitrer élévation statut (P2) |
 
@@ -236,7 +236,7 @@ La consolidation fondations est prioritaire : six référentiels `docs/architect
 |----------|--------|----------------|
 | P0 | Consolider documents fondateurs SFIA | `docs: consolidate SFIA foundation documents` |
 | P0 | Créer `sfia-chatgpt-cursor-operating-model.md` | `docs: add SFIA ChatGPT Cursor operating model` |
-| P1 | Rafraîchir `documentation-audit.md` post-PR #81 | `docs: refresh SFIA documentation audit after workspace cleanup` |
+| P1 | Référencer cartographie repo v2.6 | `docs: align documentation references with SFIA v2.6 repository cartography` |
 | P1 | Mettre à jour `notion-publication-plan.md` (practices, complementary) | `docs: align notion publication plan with practice layers` |
 | P1 | Corriger README `06-audit-rex/` + créer README phases 04, 05, 08, 09 | `docs: add interv360 phase README indexes` |
 | P1 | Formaliser 2–4 prompts prioritaires (cadrage, arbitrages, gouvernance) | `docs: formalize priority SFIA prompt families` |

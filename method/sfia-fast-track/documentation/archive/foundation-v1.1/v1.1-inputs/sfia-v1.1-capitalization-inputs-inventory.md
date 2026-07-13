@@ -3,7 +3,7 @@
 **Date** : 2026-07-03
 **Branche** : `capitalization/sfia-documentation-completeness`
 **Mode** : inventaire uniquement — aucun document fondateur source modifié
-**Plans associés** : `../v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`, `../v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+**Plans associés** : `../v1.1-planning/sfia-foundation-v1.1-evolution-matrix.md`, `../../capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 
 ## 1. Objectif
 
@@ -57,8 +57,8 @@ Il sert de base de travail pour enrichir :
 |--------|---------|
 | `pr-81-post-merge-status.md` | Structure repo validée, merge `7c0e865`, réserves non bloquantes |
 | `final-architecture-review/2026-07-03-sfa-workspace-final-architecture-audit.md` | Décision `GO AVEC RÉSERVES NON BLOQUANTES`, 494 fichiers md, séparation method/practices |
-| `round-2/*`, `2026-07-03-operational-cleanup-report.md`, `interv360-folder-normalization-audit.md` | Historique cleanup, normalisation phases Interv360 |
-| `sfia-workspace-migration-plan.md`, `sfia-workspace-global-audit.md` | Trajectoire migration, état pré/post cleanup |
+| `round-2/*`, `2026-07-03-operational-cleanup-report.md` (historique) | Historique cleanup — voir `../../capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` |
+| `sfia-workspace-migration-plan.md` | Trajectoire migration, état pré/post cleanup |
 
 ### 2.4. Audits et capitalisation documentaire
 
@@ -68,8 +68,8 @@ Il sert de base de travail pour enrichir :
 | `sfia-documentation-completeness-matrix.md` | Grille complétude par zone |
 | `2026-07-03-sfia-foundation-documents-audit.md` | Décision `FONDATIONS PARTIELLES`, 10 sources fondateurs fortes |
 | `sfia-foundation-documents-inventory.md` | Inventaire 462 candidats, 102 prioritaires |
-| `documentation-audit.md` | Baseline historique pré-Round 3 — à référencer, pas fusionner |
-| `documentation-structure-target.md` | Cible structure documentaire |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Cartographie repo v2.6 (remplace audit doc pré-Round 3) |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | Principes structure repo v2.6 |
 
 ### 2.5. Templates et checklists
 
@@ -442,7 +442,7 @@ Besoin → ChatGPT (cadrage + prompt) → Cursor (exécution) → Résultat
 
 - Terminologie « SFA » résiduelle dans `notion-target-content-map.md` et final architecture audit — à corriger lors exécution v1.1.
 - 5 Role Methods encore Draft — intégrer le modèle, pas le contenu détaillé.
-- `documentation-audit.md` obsolète — baseline historique, pas source v1.1.
+- Cartographie repo v2.6 en vigueur — remplace baseline historique pré-Round 3, pas source v1.1.
 
 Aucune source critique manquante identifiée au-delà des familles listées §2.
 
@@ -837,7 +837,7 @@ Remaining follow-up:
 
 The following audit has been created:
 
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 
 It identifies the remaining P2 cross-reference and capitalization index updates required before SFIA foundation v1.1 closure.
 
@@ -875,7 +875,7 @@ Updated references include:
 - `method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md`
 - `method/sfia-fast-track/documentation/capitalization/foundation-documents/sfia-foundation-documents-inventory.md`
-- `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
 
 Current status:
 

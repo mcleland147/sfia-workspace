@@ -194,8 +194,8 @@ Les réserves identifiées sont **mineures** : README manquants sur quelques pha
 |---------|------------|
 | `docs/practices/methods-structure-check.md` §2 | Arborescence cible affiche encore `docs/methods/` — document de contrôle daté 2026-06-28, partiellement mis à jour |
 | `docs/practices/process/2026-06-28-bpmn-method-integration-audit.md` | Recommandations mentionnent `methods/process/` — à actualiser vers `docs/practices/process/` |
-| `method/sfia-fast-track/documentation/documentation-audit.md` | Références `methods/controlled-delivery/`, `docs/methods/` — audit pré-Round 3 |
-| `method/sfia-fast-track/documentation/documentation-structure-target.md` | Idem — cible historique |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Références `methods/controlled-delivery/`, `docs/methods/` — contenu historique intégré en cartographie v2.6 |
+| `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | Principes structure repo v2.6 (remplace cible historique) |
 | `exports/notion/README.md` | Ne cite pas `docs/practices/` dans la liste des sources actives |
 
 > Aucun doublon structurel bloquant identifié.
@@ -244,7 +244,7 @@ Aucun dossier structurel vide bloquant dans l'arborescence documentaire.
 | `docs/methods/` | `projects/interv360/02-architecture/notion-sync-*.json` (14 fichiers) | Payloads CMP historiques | **Mineur** — artefacts Notion pré-Round 3 ; ne pas republier tels quels |
 | `docs/methods/` | `docs/practices/methods-structure-check.md` §2 (arborescence cible) | Doc de contrôle | **Mineur** — actualiser le diagramme |
 | `methods/` (racine) | `docs/practices/methods-structure-check.md` | Mention historique / contrôle | **OK** — contexte de vérification |
-| `methods/controlled-delivery/` | `method/sfia-fast-track/documentation/documentation-audit.md` | Audit pré-Round 3 | **OK** — historique documentaire |
+| `methods/controlled-delivery/` | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Cartographie v2.6 | **OK** — historique documentaire intégré |
 | `07-delivery/` | `projects/interv360/app/src/data/README.md` | Lien interne app | **Mineur** — hors périmètre volontaire ; lien cassé vers archive |
 | `07-delivery/` | `projects/interv360/app/src/seed/README.md` | Idem | **Mineur** — idem |
 | `docs/methods/`, `07-delivery/`, `methods/` | `projects/interv360/archive/**` | Archive | **OK** — historique |
@@ -271,7 +271,7 @@ Aucune réserve bloquante identifiée.
 2. **`docs/practices/methods-structure-check.md`** — diagramme §2 obsolète (`docs/methods/`).
 3. **Payloads JSON** dans `02-architecture/` — 14 fichiers avec `docs/methods/` embarqué.
 4. **Liens `07-delivery/`** dans `app/src/data/README.md` et `app/src/seed/README.md` — liens probablement cassés (fichier archivé).
-5. **`documentation-audit.md` / `documentation-structure-target.md`** — non rafraîchis post-Round 3.
+5. **Cartographie repo v2.6** — `2026-07-11-sfia-v2.6-repository-cartography.md` et `2026-07-11-sfia-v2.6-repository-standard-principles.md` remplacent les audits doc pré-Round 3.
 6. **Exports Figma non suivis** — `projects/interv360/03-design/exports/` en `??`.
 7. **`method/sfia-fast-track/README.md`** — pourrait renvoyer explicitement vers `docs/practices/`.
 

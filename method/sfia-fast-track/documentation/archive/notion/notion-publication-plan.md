@@ -13,7 +13,7 @@ Il définit ce qui peut être publié, adapté, exclu ou différé.
 La publication Notion doit respecter les principes suivants :
 
 - pas de publication automatique ;
-- pas de publication sans audit documentaire (cf. `documentation-audit.md`) ;
+- pas de publication sans audit documentaire (cf. `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`) ;
 - pas de publication des documents internes repo ;
 - pas de publication des statuts de merge bruts ;
 - adaptation éditoriale avant publication ;
@@ -90,8 +90,8 @@ SFIA Fast Track
 | Document / famille | Raison |
 |--------------------|--------|
 | `sfia-consolidation-roadmap.md` | Pilotage interne consolidation |
-| `documentation-audit.md` | Audit interne repo |
-| `documentation-structure-target.md` | Cible réorganisation interne |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | Cartographie repo v2.6 (remplace audit interne) |
+| `capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | Principes structure repo v2.6 |
 | `notion-publication-plan.md` | Méta-plan (ce document) |
 | Tous § « Statut de merge » | Traçabilité Git interne |
 | `archive/inc-01-*` à `inc-04-*` | Historique incrémental obsolète |
@@ -128,7 +128,7 @@ SFIA Fast Track
 
 Avant toute exécution `sfia-notion-sync` :
 
-- [ ] valider arborescence cible (`documentation-structure-target.md`) ;
+- [ ] valider principes structure repo (`capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`) ;
 - [ ] valider liste documents publiables (§5) ;
 - [ ] adapter les documents (§7) — versions « Notion-ready » si besoin ;
 - [ ] exclure documents internes (§6) ;

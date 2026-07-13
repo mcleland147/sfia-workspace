@@ -55,7 +55,7 @@ Les réserves suivantes restent identifiées :
 - README manquants dans quelques phases Interv360 ;
 - `notion-publication-plan.md` à actualiser avec `docs/practices/` ;
 - payloads JSON Notion/CMP à régénérer depuis sources à jour ;
-- `documentation-audit.md` reflète encore certains états pré-Round 3 ;
+- cartographie repo v2.6 en vigueur (`capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`) ;
 - exports Figma toujours non suivis.
 
 Ces points ne bloquent pas la clôture du chantier workspace cleanup.
