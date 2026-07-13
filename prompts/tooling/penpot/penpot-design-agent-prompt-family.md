@@ -4,9 +4,9 @@
 **Domaine** : UX/UI — Design tooling  
 **Statut** : Draft  
 **Usage** : Réutilisable  
-**Architecture** : [`docs/tooling/penpot/penpot-design-agent-architecture.md`](../../docs/tooling/penpot/penpot-design-agent-architecture.md)  
-**Règles agent** : [`docs/tooling/penpot/penpot-cursor-agent-rules.md`](../../docs/tooling/penpot/penpot-cursor-agent-rules.md)  
-**Intégration méthodes** : [`docs/tooling/penpot/penpot-sfia-method-integration.md`](../../docs/tooling/penpot/penpot-sfia-method-integration.md)  
+**Architecture** : [`docs/tooling/penpot/penpot-design-agent-architecture.md`](../../../docs/tooling/penpot/penpot-design-agent-architecture.md)  
+**Règles agent** : [`docs/tooling/penpot/penpot-cursor-agent-rules.md`](../../../docs/tooling/penpot/penpot-cursor-agent-rules.md)  
+**Intégration méthodes** : [`docs/tooling/penpot/penpot-sfia-method-integration.md`](../../../docs/tooling/penpot/penpot-sfia-method-integration.md)  
 **Dossier** : `prompts/tooling/penpot/`
 
 ---

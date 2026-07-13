@@ -171,6 +171,6 @@ PROMPT-QA-D-001 (bootstrap/cadrage, une fois)
 
 ## 5. Références
 
-- `sfia-v2-delivery-qa-test-standard.md`
-- `sfia-v2-automation-levels.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-delivery-qa-test-standard.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md`
 - `qa-tester-prompt-family.md` (revues amont — `PROMPT-QA-001` à `010` ; complémentaire, pas substitut)
