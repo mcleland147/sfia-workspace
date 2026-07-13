@@ -1,411 +1,579 @@
-# SFIA Review Pack — Lot E2 Git Identity Correction
+# SFIA Review Pack — Lot F1a/F1b Validation
 
-**Date/heure :** 2026-07-12 20:59 Europe/Paris
-**Cycle :** QA / validation documentaire corrective — Lot E2
-**Profil :** Light
-**Décision Morris :** GO correction identité Git PR #182
-**Base :** `f279d85217129b515f1d3caf6c8ce6492a75e123`
-**HEAD validation E2 initiale :** `04a2a259563040489019cd393e32db9f86a1d204`
-**HEAD correction identité :** `63af7bef7e2cad16c5b618bda66d5bbf410832cd`
-**HEAD tip PR #182 :** `477fe5508a5bce8d396ee8214c4f03b97f9f0ad1`
-**PR :** https://github.com/mcleland147/sfia-workspace/pull/182
+**Horodatage :** 2026-07-13 04:55 Europe/Paris (CEST)
+**Cycle :** 9 — QA / validation documentaire — Lot F1a/F1b
+**Niveau :** light (contenu complet inclus)
+**Branche exécution :** validation/sfia-v2.6-lot-f1a-f1b
+**Base / HEAD :** 997f1ff2bd702d7441cd25896c7f49659094dfdc
 
 ---
 
-## Correction effectuée
+## Git Review Index
 
-- Rapport E2 : distinction explicite base / HEAD validation initiale / HEAD correction / HEAD tip PR
-- Plan : **non modifié** (aucune incohérence HEAD détectée)
-- Corpus E1 : **unchanged**
-- Corpus E2 (44 fichiers) : **unchanged**
-
-## Métriques préservées (inchangées)
-
-| Métrique | Valeur |
-|----------|-------:|
-| Manifeste global | 75/75 |
-| E1 | 31/31 |
-| E2 | 44/44 |
-| no-action | 42/42 |
-| historical-keep | 2/2 |
-| Vrais liens cassés | 0 |
-| Ambiguïtés | 0 |
-
----
-
-## Rapport E2 corrigé (contenu complet)
-
-# SFIA v2.6 — Lot E2 Validation — Remaining Files
-
-**Horodatage initial :** 2026-07-12 20:52 Europe/Paris
-**Horodatage correction identité Git :** 2026-07-12 20:59 Europe/Paris
-**Cycle :** QA / validation documentaire — Lot E2 (+ correction identité Git PR #182)
-**Profil :** Light (correction documentaire)
-**Décision Morris :** GO explicite — exécution Lot E2 validation 44 fichiers ; GO correction identité Git PR #182
-
-## Identité Git
-
-| Champ | SHA / valeur |
-|-------|--------------|
-| **Base de branche (`main`)** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
-| **HEAD validation E2 initiale** | `04a2a259563040489019cd393e32db9f86a1d204` |
-| **HEAD correction identité Git** | `63af7bef7e2cad16c5b618bda66d5bbf410832cd` |
-| **HEAD tip branche PR #182** | Dernier commit sur `validation/sfia-v2.6-lot-e2-validation` — voir PR #182 `headRefOid` |
-| **Branche** | `validation/sfia-v2.6-lot-e2-validation` |
-| **PR #181** | MERGED — Lot E1 intégré à `main` |
-| **PR #182** | OPEN — validation E2, non mergée |
-| **CSV SHA-256** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged** |
-
-### Historique Git (branche E2)
-
-| Étape | Commit | Description |
-|-------|--------|-------------|
-| Base | `f279d852…` | `main` post-merge PR #181 |
-| Validation E2 initiale | `04a2a259…` | `docs: validate sfia v2.6 lot e2 remaining files` |
-| Correction identité Git | `63af7bef…` | `docs: correct lot e2 validation git identity` |
-| HEAD tip PR #182 | _après commit alignement_ | Tip branche — voir PR #182 `headRefOid` |
-
-**Formulation interdite corrigée :** ne jamais présenter la base (`f279d852…`) comme HEAD d'exécution ou de validation.
-
----
-
-## 1. Manifestes Lot E
-
-| Manifeste | Count |
-|-----------|------:|
-| Global Lot E | **75/75** |
-| E1 fix-links (intégré PR #181) | **31/31** |
-| E2 validation (ce cycle) | **44/44** |
-| E2 no-action | **42** |
-| E2 historical-keep | **2** |
-| E1 ∩ E2 | **∅** |
-
----
-
-## 2. Métriques liens (recalcul post-E1 sur 44 fichiers)
-
-| Métrique | Valeur |
-|----------|-------:|
-| Références analysées (parseur) | **17** |
-| Liens Markdown navigables | **0** |
-| Chemins backtick analysés | **17** |
-| Liens internes valides | **17** |
-| Détections parseur « cassées » | **0** |
-| Vrais liens cassés | **0** |
-| Références conventionnelles | **0** |
-| Exemples / templates | **0** |
-| Références projet-locales | **0** |
-| Faux positifs parseur | **0** |
-| Anciennes références Lot D actives | **0** |
-| Ambiguïtés | **0** |
-
-**Note :** les 44 fichiers E2 sont majoritairement des hubs README, fichiers config/example (`.json`, `.yml`, `.gitignore`) ou documents sans liens internes sortants. Les **17** références backtick détectées résolvent toutes vers des cibles Git valides.
-
----
-
-## 3. Liste complète E2 (44/44)
-
-| ID | Chemin | Classification | Usage | Authority | Lifecycle | Rôle | Statut validation |
-|----|--------|----------------|-------|-----------|-----------|------|-------------------|
-| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-003 | `.gitignore` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-005 | `components/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-006 | `docker/penpot/.env.example` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-008 | `docker/penpot/docker-compose.override.example.yml` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-009 | `docs/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-010 | `docs/adr/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-013 | `docs/architecture/sfia-domain-model.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
-| E-014 | `docs/architecture/sfia-meta-model.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
-| E-015 | `docs/architecture/sfia-platform-architecture.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
-| E-016 | `docs/architecture/sfia-repository-blueprint.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
-| E-017 | `docs/foundation/README.md` | historical-keep | non-operational | reference | archived | F13 | **VALIDATED — HISTORICAL KEEP** |
-| E-018 | `docs/foundation/sfia-engineering-principles.md` | no-action | operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
-| E-019 | `docs/knowledge/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-020 | `docs/practices/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-023 | `docs/practices/architecture/functional-architecture-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-024 | `docs/practices/methods-structure-check.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-028 | `docs/practices/roles/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-029 | `docs/practices/roles/architect-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-030 | `docs/practices/roles/business-analyst-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-031 | `docs/practices/roles/product-owner-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-032 | `docs/practices/roles/project-manager-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-034 | `docs/practices/roles/rssi-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-039 | `docs/rex/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | no-action | non-operational | informational | draft | F06 | **VALIDATED — NO ACTION** |
-| E-041 | `docs/standards/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | no-action | non-operational | supporting | validated | F06 | **VALIDATED — NO ACTION** |
-| E-043 | `docs/templates/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-050 | `exports/notion/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-051 | `exports/notion/adr.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-052 | `exports/notion/components.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-053 | `exports/notion/experiments.json` | no-action | operational | informational | validated | F17 | **VALIDATED — NO ACTION** |
-| E-054 | `exports/notion/export-manifest.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-055 | `exports/notion/knowledge.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-056 | `exports/notion/kpi.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-057 | `exports/notion/projects.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-058 | `exports/notion/prompts.json` | no-action | non-operational | informational | validated | F17 | **VALIDATED — NO ACTION** |
-| E-059 | `exports/notion/rex.json` | no-action | non-operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-060 | `exports/notion/standards.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-061 | `exports/notion/templates.json` | no-action | operational | informational | not-applicable | F17 | **VALIDATED — NO ACTION** |
-| E-062 | `method/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-063 | `method/complementary/README.md` | no-action | non-operational | reference | candidate | F13 | **VALIDATED — NO ACTION** |
-| E-065 | `method/sfia-fast-track/archive/interv360-realization/README.md` | historical-keep | non-operational | reference | archived | F13 | **VALIDATED — HISTORICAL KEEP** |
-
----
-
-## 4. Validation individuelle — no-action (42/42)
-
-Chaque fichier `no-action` a été vérifié read-only sur `main` post-merge E1 :
-
-- existence Git confirmée ;
-- liens Markdown et backtick navigables valides (0 cassé réel) ;
-- aucune ancienne référence Lot D stale active ;
-- classification `no-action` confirmée — aucune modification requise.
-
-| ID | Chemin | Liens valides | Parser broken | Real broken | Old D |
-|----|--------|:-------------:|:-------------:|:-----------:|:-----:|
-| E-002 | `.cursor/mcp-templates/penpot-mcp.example.json` | 0 | 0 | 0 | 0 |
-| E-003 | `.gitignore` | 0 | 0 | 0 | 0 |
-| E-005 | `components/README.md` | 0 | 0 | 0 | 0 |
-| E-006 | `docker/penpot/.env.example` | 0 | 0 | 0 | 0 |
-| E-008 | `docker/penpot/docker-compose.override.example.yml` | 0 | 0 | 0 | 0 |
-| E-009 | `docs/README.md` | 0 | 0 | 0 | 0 |
-| E-010 | `docs/adr/README.md` | 1 | 0 | 0 | 0 |
-| E-013 | `docs/architecture/sfia-domain-model.md` | 0 | 0 | 0 | 0 |
-| E-014 | `docs/architecture/sfia-meta-model.md` | 0 | 0 | 0 | 0 |
-| E-015 | `docs/architecture/sfia-platform-architecture.md` | 2 | 0 | 0 | 0 |
-| E-016 | `docs/architecture/sfia-repository-blueprint.md` | 1 | 0 | 0 | 0 |
-| E-018 | `docs/foundation/sfia-engineering-principles.md` | 8 | 0 | 0 | 0 |
-| E-019 | `docs/knowledge/README.md` | 1 | 0 | 0 | 0 |
-| E-020 | `docs/practices/README.md` | 0 | 0 | 0 | 0 |
-| E-023 | `docs/practices/architecture/functional-architecture-method.md` | 0 | 0 | 0 | 0 |
-| E-024 | `docs/practices/methods-structure-check.md` | 1 | 0 | 0 | 0 |
-| E-028 | `docs/practices/roles/README.md` | 0 | 0 | 0 | 0 |
-| E-029 | `docs/practices/roles/architect-method.md` | 0 | 0 | 0 | 0 |
-| E-030 | `docs/practices/roles/business-analyst-method.md` | 0 | 0 | 0 | 0 |
-| E-031 | `docs/practices/roles/product-owner-method.md` | 0 | 0 | 0 | 0 |
-| E-032 | `docs/practices/roles/project-manager-method.md` | 0 | 0 | 0 | 0 |
-| E-034 | `docs/practices/roles/rssi-method.md` | 0 | 0 | 0 | 0 |
-| E-035 | `docs/practices/roles/ux-ui-designer-method.md` | 0 | 0 | 0 | 0 |
-| E-039 | `docs/rex/README.md` | 1 | 0 | 0 | 0 |
-| E-040 | `docs/roadmaps/cmp-technical-roadmap.md` | 1 | 0 | 0 | 0 |
-| E-041 | `docs/standards/README.md` | 1 | 0 | 0 | 0 |
-| E-042 | `docs/standards/ux-ui-v1-governance-standard.md` | 0 | 0 | 0 | 0 |
-| E-043 | `docs/templates/README.md` | 0 | 0 | 0 | 0 |
-| E-050 | `exports/notion/README.md` | 0 | 0 | 0 | 0 |
-| E-051 | `exports/notion/adr.json` | 0 | 0 | 0 | 0 |
-| E-052 | `exports/notion/components.json` | 0 | 0 | 0 | 0 |
-| E-053 | `exports/notion/experiments.json` | 0 | 0 | 0 | 0 |
-| E-054 | `exports/notion/export-manifest.json` | 0 | 0 | 0 | 0 |
-| E-055 | `exports/notion/knowledge.json` | 0 | 0 | 0 | 0 |
-| E-056 | `exports/notion/kpi.json` | 0 | 0 | 0 | 0 |
-| E-057 | `exports/notion/projects.json` | 0 | 0 | 0 | 0 |
-| E-058 | `exports/notion/prompts.json` | 0 | 0 | 0 | 0 |
-| E-059 | `exports/notion/rex.json` | 0 | 0 | 0 | 0 |
-| E-060 | `exports/notion/standards.json` | 0 | 0 | 0 | 0 |
-| E-061 | `exports/notion/templates.json` | 0 | 0 | 0 | 0 |
-| E-062 | `method/README.md` | 0 | 0 | 0 | 0 |
-| E-063 | `method/complementary/README.md` | 0 | 0 | 0 | 0 |
-
-**Résultat no-action :** **42/42** → `VALIDATED — NO ACTION`
-
----
-
-## 5. Validation historical-keep (2/2)
-
-### E-017 — `docs/foundation/README.md`
-
-| Champ | Détail |
+| Champ | Valeur |
 |-------|--------|
-| Classification | historical-keep |
-| Lifecycle CSV | archived |
-| Référence historique | Mention textuelle **KNO-001 — SFIA Engineering Principles** (Notion legacy) |
-| Présentation | Hub foundation archivé — pas de lien navigable cassé |
-| Intention | Préservation navigation historique foundation pré-v2.6 |
-| Cible opérationnelle | Non — `docs/foundation/` hors référence active |
-| Correction requise | Non |
-| Statut | **VALIDATED — HISTORICAL KEEP** |
+| base branch | main @ 997f1ff2bd702d7441cd25896c7f49659094dfdc |
+| HEAD avant | 997f1ff2bd702d7441cd25896c7f49659094dfdc |
+| HEAD après | 997f1ff2bd702d7441cd25896c7f49659094dfdc (inchangé) |
+| fichiers modifiés | 2026-07-11-sfia-v2.6-repository-migration-lots-plan.md (§9 + footer) |
+| fichiers créés | 2026-07-13-sfia-v2.6-lot-f1a-f1b-validation.md |
+| commits créés | 0 (branche exécution — non committé) |
+| tests / validations | git status, diff --stat, diff --name-status, diff --check, ls-files |
+| diff stat | 1 file changed, 5 insertions(+), 4 deletions(-) + 1 new report (untracked) |
+| diff name-status | M plan ; ?? rapport validation |
+| décisions Morris requises | Review F1a/F1b ; GO commit/PR ; gate F-005 ; Lot H ; Lot J delete |
+| review pack | light |
+| réserves | Incoming refs cleanup Lot J ; chemins CSV obsolètes ; README actif ; F-005 bloqué |
 
-### E-065 — `method/sfia-fast-track/archive/interv360-realization/README.md`
+## Review pack content coverage
 
-| Champ | Détail |
+| Champ | Valeur |
 |-------|--------|
-| Classification | historical-keep |
-| Lifecycle CSV | archived |
-| Référence historique | Index archive Interv360 Realization |
-| Présentation | Avertissement explicite : documents conservés pour mémoire, non référence active |
-| Intention | Préservation traçabilité réalisation Interv360 pré-stabilisation SFIA Fast Track |
-| Cible opérationnelle | Non — zone archive read-only |
-| Correction requise | Non |
-| Statut | **VALIDATED — HISTORICAL KEEP** |
-
-**Résultat historical-keep :** **2/2** → `VALIDATED — HISTORICAL KEEP`
+| created files full content | yes |
+| modified sections complete | yes |
+| useful diff included | yes |
+| synthesis only | no |
+| review pack verdict | complete |
 
 ---
 
-## 6. Fichiers nécessitant correction
+## Sources consultées
 
-**Aucun.** Corpus E2 inchangé (0 modification).
-
----
-
-## 7. Garde-fous
-
-| Contrôle | Résultat |
-|----------|----------|
-| Corpus E2 modifié | **0** |
-| Corpus E1 modifié | **0** |
-| CSV in diff | **no** |
-| Doctrine / canonical | **unchanged** |
-| Lots F–J | **not opened** |
+| Source | Rôle |
+|--------|------|
+| sfia-cycle-execution-template.md | Cadre cycle |
+| sfia-chatgpt-cursor-operating-model.md | Modèle opératoire |
+| sfia-cycle-routing-guide.md | Routage cycle type 9 |
+| sfia-rules-and-guardrails.md | Garde-fous |
+| 2026-07-11-sfia-v2.6-repository-cartography.csv | Manifeste frozen F-001–F-005 |
+| 2026-07-11-sfia-v2.6-repository-cartography.md | Superseded map |
+| 2026-07-11-sfia-v2.6-repository-migration-lots-plan.md | Trajectoire lots |
+| 2026-07-12-sfia-v2.6-lot-f-superseded-qualification.md | Qualification Lot F |
+| F-001 à F-004 + remplaçants + consommateurs | Analyse read-only |
 
 ---
 
-## 8. Limites
+## Commandes recherche références
 
-- Parse Markdown uniquement — fichiers JSON example sans liens markdown audités en surface
-- Liens externes http(s) non vérifiés en ligne
-- Glob patterns ignorés
-
----
-
-## 9. Réserves
-
-- Lot E non clos tant que cette PR E2 n'est pas mergée et validée post-merge
-- Clôture définitive Lot E = merge PR E2 + contrôle post-merge
-
----
-
-## 10. Décisions Morris restantes
-
-1. Merge PR E2 validation — GO séparé
-2. Clôture Lot E — après merge E2 et contrôle post-merge
-
----
-
-## 11. Verdict
-
-```
-LOT E2 VALIDATION COMPLETED
-LOT E GLOBAL MANIFEST VERIFIED 75/75
-LOT E1 MANIFEST VERIFIED 31/31
-LOT E2 MANIFEST VERIFIED 44/44
-NO-ACTION FILES VALIDATED 42/42
-HISTORICAL-KEEP FILES VALIDATED 2/2
-ALL 44 FILES INDIVIDUALLY REVIEWED
-NO REAL BROKEN LINKS REMAIN
-NO AMBIGUOUS REFERENCES REMAIN
-NO RECLASSIFICATION REQUIRED
-VERSIONED REPORT HEAD CORRECTED
-LOT E2 CORPUS UNCHANGED
-LOT E1 CORPUS UNCHANGED
-CSV UNCHANGED
-NO DOCTRINE CHANGE
-CANONICAL AUTHORITY UNCHANGED
-LOTS F–J NOT OPENED
-PR OPEN — NOT MERGED
-LOT E NOT CLOSED BEFORE MERGE
-MERGE REQUIRES SEPARATE MORRIS GO
+```bash
+git grep -l "capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit" -- '*.md'
+git grep -l "capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan" -- '*.md'
+git grep -l "documentation/documentation-audit.md" -- '*.md'
+git grep -l "documentation/documentation-structure-target.md" -- '*.md'
+git ls-files --error-unmatch <path>
 ```
 
+---
+
+## Verdict global
+
+```
+LOT F1A/F1B VALIDATED WITH LOT J CLEANUP RESERVES
+```
+
+| ID | Verdict |
+|----|---------|
+| F-001 | VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED |
+| F-002 | VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED |
+| F-003 | VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED |
+| F-004 | VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED |
+| F-005 | Hors périmètre — bloqué F2 |
 
 ---
 
-## Diff correction (`04a2a25..477fe55`)
+## Diff plan des lots (§9 + footer)
 
 ```diff
-diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md
-index cd5b205..17928e8 100644
---- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md
-+++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-e2-validation.md
-@@ -1,19 +1,34 @@
- # SFIA v2.6 — Lot E2 Validation — Remaining Files
- 
--**Horodatage :** 2026-07-12 20:52 Europe/Paris
--**Cycle :** QA / validation documentaire — Lot E2
--**Profil :** Standard
--**Décision Morris :** GO explicite — exécution Lot E2 validation 44 fichiers
-+**Horodatage initial :** 2026-07-12 20:52 Europe/Paris
-+**Horodatage correction identité Git :** 2026-07-12 20:59 Europe/Paris
-+**Cycle :** QA / validation documentaire — Lot E2 (+ correction identité Git PR #182)
-+**Profil :** Light (correction documentaire)
-+**Décision Morris :** GO explicite — exécution Lot E2 validation 44 fichiers ; GO correction identité Git PR #182
- 
- ## Identité Git
- 
--| Champ | Valeur |
--|-------|--------|
--| **Base** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
-+| Champ | SHA / valeur |
-+|-------|--------------|
-+| **Base de branche (`main`)** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
-+| **HEAD validation E2 initiale** | `04a2a259563040489019cd393e32db9f86a1d204` |
-+| **HEAD correction identité Git** | `63af7bef7e2cad16c5b618bda66d5bbf410832cd` |
-+| **HEAD tip branche PR #182** | Dernier commit sur `validation/sfia-v2.6-lot-e2-validation` — voir PR #182 `headRefOid` |
- | **Branche** | `validation/sfia-v2.6-lot-e2-validation` |
--| **HEAD** | `f279d85217129b515f1d3caf6c8ce6492a75e123` |
--| **CSV SHA-256** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged** |
- | **PR #181** | MERGED — Lot E1 intégré à `main` |
-+| **PR #182** | OPEN — validation E2, non mergée |
-+| **CSV SHA-256** | `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **unchanged** |
-+
-+### Historique Git (branche E2)
-+
-+| Étape | Commit | Description |
-+|-------|--------|-------------|
-+| Base | `f279d852…` | `main` post-merge PR #181 |
-+| Validation E2 initiale | `04a2a259…` | `docs: validate sfia v2.6 lot e2 remaining files` |
-+| Correction identité Git | `63af7bef…` | `docs: correct lot e2 validation git identity` |
-+| HEAD tip PR #182 | _après commit alignement_ | Tip branche — voir PR #182 `headRefOid` |
-+
-+**Formulation interdite corrigée :** ne jamais présenter la base (`f279d852…`) comme HEAD d'exécution ou de validation.
+diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+index 3246b85..41512b0 100644
+--- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
++++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
+@@ -239,16 +239,17 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
+ | **Tag CSV** | **0** — Lot F = **phase process**, pas tag d'exécution |
+ | **Volume identifié** | **5** fichiers `lifecycle_status = superseded` |
+ | **Manifeste qualification** | **5/5** vérifié |
+-| **Qualification** | **completed on branch** `qualification/sfia-v2.6-lot-f-superseded` — PR ouverte, non mergée |
++| **Qualification** | **merged via PR #184** (`997f1ff2bd702d7441cd25896c7f49659094dfdc`) |
+ | **Rapport qualification** | `2026-07-12-sfia-v2.6-lot-f-superseded-qualification.md` |
++| **Rapport validation F1a/F1b** | `2026-07-13-sfia-v2.6-lot-f1a-f1b-validation.md` |
+ | **Classifications** | superseded-validate-delete **4** ; morris-gate-replacement-missing **1** |
+ | **Remplaçants Git présents** | **4/5** |
+ | **Sous-lots proposés** | **F1a** (2) foundation v1.1 ; **F1b** (2) documentation pair ; **F2** (1) Interv360 Critical |
+ | **Profil recommandé** | **Standard** (+ Critical reserve F-005) |
+ | **Routage CSV** | **5/5** en **lot-J** (`delete-candidate`) avec remplaçants documentés |
+ | **Trajectoire** | **F → H → J** (Lots G, I exclus) |
+-| **Statut exécution Lot F** | **not started** — qualification only |
+-| **Next gate** | PR qualification merge + GO exécution Lot F — séparé ; puis Lot H |
++| **Statut exécution Lot F** | **F1a/F1b executed** — validation read-only ; **F2 blocked** |
++| **Next gate** | Morris review F1a/F1b ; gate F-005 séparé ; puis Lot H |
  
  ---
  
-@@ -245,6 +260,7 @@ ALL 44 FILES INDIVIDUALLY REVIEWED
- NO REAL BROKEN LINKS REMAIN
- NO AMBIGUOUS REFERENCES REMAIN
- NO RECLASSIFICATION REQUIRED
-+VERSIONED REPORT HEAD CORRECTED
- LOT E2 CORPUS UNCHANGED
- LOT E1 CORPUS UNCHANGED
- CSV UNCHANGED
-
+@@ -410,4 +411,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
+ 
+ ---
+ 
+-*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F qualification completed on branch — PR open** — **Lot F execution not started** — **Lots G/I excluded** — **Lots H/J not opened**.*
++*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F qualification merged via PR #184** (`997f1ff`) — **Lot F1a/F1b validation executed** — **Lot F2 blocked** — **Lots G/I excluded** — **Lots H/J not opened**.*
 ```
 
 ---
 
-## Preuves
+## Rapport validation complet
 
-- Fichiers tracked modifiés (correction) : **1** (rapport E2 uniquement)
-- Corpus E1 modifié : **0**
-- Corpus E2 modifié : **0**
-- CSV SHA : `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — unchanged
-- CSV dans diff correction : **no**
-- Doctrine / canonical : **unchanged**
-- Lots F–J : **not opened**
+# SFIA v2.6 — Lot F1a/F1b Validation
 
-## Coverage
+**Horodatage :** 2026-07-13 04:55 Europe/Paris (CEST)
+**Cycle :** 9 — QA / validation documentaire
+**Profil SFIA :** Standard
+**Branche d'exécution :** `validation/sfia-v2.6-lot-f1a-f1b`
+**Base Git :** `main` @ `997f1ff2bd702d7441cd25896c7f49659094dfdc`
+**HEAD :** `997f1ff2bd702d7441cd25896c7f49659094dfdc` (inchangé — cycle read-only sur corpus Lot F)
+**PR #184 :** **MERGED** — merge commit `997f1ff2bd702d7441cd25896c7f49659094dfdc` — titre : *Qualify SFIA v2.6 Lot F superseded files*
+**CSV frozen SHA-256 :** `00a6902fbdd10bbac3951866679f3ea91ae8e2c1585b89868daef73764510275` — **non modifié**
+**Trajectoire validée :** F → H → J (Lots G, I exclus)
+**Baseline opérationnelle :** SFIA v2.4
+**Statut cycle :** **READY FOR MORRIS REVIEW**
 
-- created files full content : **n/a**
-- modified sections complete : **yes**
-- useful diff included : **yes**
-- synthesis only : **no**
-- review pack verdict : **COMPLETE**
+---
 
-## Verdict
+## 1. Décisions Morris déjà acquises
+
+| Décision | Statut |
+|----------|--------|
+| Trajectoire F → H → J | **Validée** |
+| Lots G et I exclus | **Validé** |
+| Qualification Lot F read-only (PR #184) | **Merged** |
+| GO exécution F1a/F1b | **Donné** (présent cycle) |
+| Suppression physique Lot F / Lot J | **Non autorisée** — gate Morris futur obligatoire |
+| Gate F-005 séparé | **Requis** — hors périmètre F1a/F1b |
+| Promotion SFIA v2.5/v2.6 baseline | **Non acquise** |
+
+---
+
+## 2. Objectif et périmètre
+
+**Objectif :** validation documentée et vérifiable de F-001 à F-004 — remplaçants, références entrantes, couverture fonctionnelle, éligibilité future `delete-candidate` Lot J.
+
+**Périmètre exécuté :**
+- F1a : F-001, F-002
+- F1b : F-003, F-004 (paire couplée)
+- Confirmation métadonnées F-005 hors périmètre
+
+**Hors périmètre respecté :** aucune suppression, déplacement, renommage ou modification du corpus Lot F, remplaçants, consommateurs, CSV frozen, Interv360, Lots H/J.
+
+---
+
+## 3. Sources consultées
+
+### Méthode
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+3. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+### Cartographie et trajectoire
+5. `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.csv`
+6. `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
+7. `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md`
+8. `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-f-superseded-qualification.md`
+
+### Corpus et remplaçants (lecture seule)
+9. F-001 à F-004 (fichiers superseded)
+10. Remplaçants déclarés (standard-principles, cartography)
+11. Consommateurs directs identifiés (CSV + `git grep`)
+
+---
+
+## 4. Local Git Truth Check
+
+| Contrôle | Résultat |
+|----------|----------|
+| `git rev-parse --show-toplevel` | `/Users/morris/Projects/sfia-workspace` |
+| Branche initiale | `main` |
+| `git rev-parse HEAD` | `997f1ff2bd702d7441cd25896c7f49659094dfdc` |
+| `git rev-parse origin/main` | `997f1ff2bd702d7441cd25896c7f49659094dfdc` |
+| Working tree initial | **propre** (untracked `.sfia/`, `.tmp-sfia-review/` uniquement) |
+| PR #184 merge confirmé | **oui** — `gh pr view 184` → MERGED @ `997f1ff` |
+| Branche créée | `validation/sfia-v2.6-lot-f1a-f1b` |
+| merge-base avec `main` | `997f1ff2bd702d7441cd25896c7f49659094dfdc` |
+
+**Verdict :** Local Git Truth Check **PASSED**
+
+---
+
+## 5. Méthode de recherche des références
+
+1. Extraction champs `incoming_references` et `evidence` depuis CSV frozen (lignes `lifecycle_status = superseded`).
+2. `git ls-files` — confirmation présence corpus et remplaçants.
+3. `git grep` sur chemin complet de chaque fichier F-001 à F-004.
+4. `git grep` sur basename et liens Markdown relatifs.
+5. `rg` complémentaire sur mentions textuelles.
+6. Lecture des consommateurs directs — qualification individuelle de chaque référence.
+7. Réconciliation CSV ↔ qualification ↔ recherche Git indépendante.
+
+**Commandes clés :**
+
+```bash
+git grep -l "capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit" -- '*.md'
+git grep -l "capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan" -- '*.md'
+git grep -l "documentation/documentation-audit.md" -- '*.md'
+git grep -l "documentation/documentation-structure-target.md" -- '*.md'
+git ls-files --error-unmatch <path>
+```
+
+---
+
+## 6. Manifeste Lot F — correspondance CSV exacte
+
+Critère : `lifecycle_status = superseded` — **5/5** lignes (manifeste qualification confirmé).
+
+| ID | Chemin exact (CSV + `git ls-files`) | Lifecycle | Authority | Usage | Disposition | Remplaçant déclaré | Incoming CSV | Risque | Morris gate | Lot cible |
+|----|--------------------------------------|-----------|-----------|-------|-------------|-------------------|--------------|--------|-------------|-----------|
+| **F-001** | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md` | superseded | supporting | non-operational | delete-candidate | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | 2 | high | yes | lot-J |
+| **F-002** | `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` | superseded | supporting | operational* | delete-candidate | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | 4 | high | yes | lot-J |
+| **F-003** | `method/sfia-fast-track/documentation/documentation-audit.md` | superseded | supporting | non-operational | delete-candidate | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md` | 2 | high | yes | lot-J |
+| **F-004** | `method/sfia-fast-track/documentation/documentation-structure-target.md` | superseded | informational | non-operational | delete-candidate | `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md` | 2 | high | yes | lot-J |
+| **F-005** | `projects/interv360/06-audit-rex/current-application-audit.md` | superseded | supporting | non-operational | delete-candidate | `projects/interv360/06-audit-rex/post-mvp-application-audit.md` | 1 | high | yes | lot-J |
+
+\*F-002 : usage CSV `operational` — **traité non-operational** car `lifecycle_status = superseded` et `explicit-retired` (qualification Lot F).
+
+**Présence Git :** F-001 à F-004 **OK** ; remplaçants F-001/F-002/F-004 **OK** ; remplaçant F-003 **OK** ; remplaçant F-005 **ABSENT**.
+
+---
+
+## 7. Confirmation F-005 hors périmètre
+
+| Champ | Valeur |
+|-------|--------|
+| Exclusion cycle F1a/F1b | **Confirmée** |
+| Classification | `morris-gate-replacement-missing` |
+| Remplaçant déclaré | `projects/interv360/06-audit-rex/post-mvp-application-audit.md` |
+| Remplaçant Git | **ABSENT** (`git ls-files` → MISSING) |
+| Incoming CSV | `projects/interv360/README.md` |
+| Statut | **Bloqué F2** — gate Morris séparé requis |
+| Action cycle | **Aucune** — métadonnées uniquement |
+
+---
+
+## 8. Analyse F1a — Foundation v1.1 (F-001, F-002)
+
+### 8.1 F-001 — `sfia-v1.1-p2-cross-reference-audit.md`
+
+| Dimension | Observation | Preuve |
+|-----------|-------------|--------|
+| **Rôle actuel** | Audit P2 cross-références Foundation v1.1 — historique, candidat audit v1.1 | Frontmatter `status: candidate` ; §1 objectif clôture v1.1 |
+| **Autorité / usage** | supporting / non-operational | CSV ; contenu auto-décrit comme audit pré-clôture |
+| **Remplaçant** | `2026-07-11-sfia-v2.6-repository-standard-principles.md` | CSV `evidence` ; cartography § superseded map |
+| **Remplaçant présent** | **Oui** | `git ls-files` OK |
+| **Couverture** | Cadre multidimensionnel v2.6 (D1–D12), principes repository — **remplace le rôle normatif** ; détail checklist P2 v1.1 **non repris** (acceptable historique) | Comparaison § objectifs F-001 vs executive summary standard-principles |
+| **Incoming CSV (2)** | Chemins CSV pré-Lot A — fichiers **déplacés archive** mais références **toujours actives** | Voir §8.3 |
+
+**Références entrantes qualifiées (recherche Git — chemin complet, hors self + rapports v2.6 cycle) :**
+
+| Consommateur | Chemin réel Git | Nature ref | Cleanup Lot J |
+|--------------|-----------------|------------|---------------|
+| v1.1-audit README | `method/.../archive/foundation-v1.1/v1.1-audit/README.md` | Navigation index archive | Oui — retirer ou pointer standard-principles |
+| post-merge-status | `method/.../archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-post-merge-status.md` | Référence historique clôture v1.1 | Oui |
+| closure-status | `method/.../archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md` | Snapshot clôture | Oui |
+| capitalization-inputs-inventory | `method/.../archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` | Inventaire historique | Oui |
+| foundation-impact-matrix | `method/.../archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` | Matrice impact v1.1 | Oui |
+| foundation-documents-audit | `method/.../capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md` | **Référence « use instead »** — traite F-001 comme source active | **Oui — prioritaire** |
+| F-002 (mutual) | `sfia-foundation-v1.1-consolidation-plan.md` | Référence circulaire interne superseded | Oui (avec F-002) |
+| notion-content-categorization | `method/.../notion/sfia-notion-content-categorization.md` | Table inventaire Notion — mention repo-only | Oui |
+| read-only-audit v2.6 | `2026-07-11-sfia-v2.6-repository-read-only-audit.md` | Snapshot audit — citation inventaire | Non — métadonnée cycle |
+| lot-0 / lot-a execution | Rapports exécution v2.6 | Traçabilité migration | Non — snapshot audit |
+
+**Comptage :** CSV déclaré **2** ; Git chemin complet **9** fichiers ; consommateurs nécessitant cleanup Lot J **7** (hors snapshots v2.6 et référence circulaire F-002).
+
+**Écarts historiques non repris :** liste documents P2 à modifier ; statut branches auditées ; recommandations P2.1/P2.2 — **acceptables** (valeur historique uniquement).
+
+**Verdict F-001 :** `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED`
+
+---
+
+### 8.2 F-002 — `sfia-foundation-v1.1-consolidation-plan.md`
+
+| Dimension | Observation | Preuve |
+|-----------|-------------|--------|
+| **Rôle actuel** | Plan consolidation Foundation v1.1 — phases 1–10, critères clôture §7 | §1–2 ; date 2026-07-03 |
+| **Remplaçant** | `2026-07-11-sfia-v2.6-repository-standard-principles.md` | CSV ; cartography |
+| **Remplaçant présent** | **Oui** | `git ls-files` OK |
+| **Couverture** | Principes v2.6 remplacent le **cadre de consolidation** ; statut d'exécution phases v1.1 et critères §7 **non repris** | Comparaison plan vs principes D1–D12 |
+| **Incoming CSV (4)** | Chemins CSV partiellement obsolètes post-Lot A | Voir tableau |
+
+**Références entrantes qualifiées :**
+
+| Consommateur | Chemin réel Git | Nature ref | Cleanup Lot J |
+|--------------|-----------------|------------|---------------|
+| foundation-documents-audit | `2026-07-03-sfia-foundation-documents-audit.md` | Livrables planification v1.1 + « use instead » | **Oui — prioritaire** |
+| foundation-documents-inventory | `archive/foundation-v1.1/sfia-foundation-documents-inventory.md` | Inventaire historique | Oui |
+| post-merge-status | `archive/.../v1.1-closure/sfia-foundation-v1.1-post-merge-status.md` | Related references | Oui |
+| capitalization-inputs-inventory | `archive/.../v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` | Plans associés | Oui |
+| closure-status | `archive/.../v1.1-closure/sfia-foundation-v1.1-closure-status.md` | Table clôture | Oui |
+| foundation-impact-matrix | `archive/.../v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` | Citation plan | Oui |
+| F-001 (mutual) | `sfia-v1.1-p2-cross-reference-audit.md` | Référence circulaire interne | Oui |
+| read-only-audit / lot-a | Rapports v2.6 | Snapshot | Non |
+
+**Comptage :** CSV déclaré **4** ; Git chemin complet **6** ; cleanup Lot J **6** (+ mutual F-001).
+
+**Verdict F-002 :** `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED`
+
+---
+
+### 8.3 Observation — chemins CSV incoming obsolètes (F-001, F-002)
+
+**Observation :** le CSV frozen référence des chemins pré-Lot A (`foundation-documents/v1.1-audit/README.md`, `foundation-documents/v1.1-closure/...`) alors que Lot A a archivé ces fichiers sous `documentation/archive/foundation-v1.1/`.
+
+**Preuve :** `git ls-files` → MISSING sur chemins CSV ; EXISTS sur chemins archive.
+
+**Recommandation :** ne pas modifier le CSV frozen ; documenter dans Lot J le mapping chemin CSV → chemin archive réel pour cleanup.
+
+**Décision Morris future :** aucune reclassification CSV requise pour valider F1a.
+
+---
+
+### 8.4 Couplage F-001 ↔ F-002
+
+| Type | Détail |
+|------|--------|
+| Références mutuelles | F-001 cite F-002 (plan consolidation) ; F-002 cité dans post-merge-status avec F-001 |
+| Impact Lot J | Suppression coordonnée — les deux fichiers se référencent ; cleanup consommateurs archive + foundation-documents-audit |
+| Blocage opérationnel | **Aucun** — aucun consommateur ne traite F-001/F-002 comme source normative v2.6 |
+
+---
+
+## 9. Analyse F1b — Paire documentation legacy (F-003, F-004)
+
+### 9.1 F-003 — `documentation-audit.md`
+
+| Dimension | Observation | Preuve |
+|-----------|-------------|--------|
+| **Rôle actuel** | Audit documentation repo post-Interv360 / pré-Round 3 — inventaire qualitatif | §1 objectif ; périmètre pré-PR #81 |
+| **Remplaçant** | `2026-07-11-sfia-v2.6-repository-cartography.md` | CSV `evidence` |
+| **Remplaçant présent** | **Oui** | `git ls-files` OK |
+| **Couverture** | Cartographie 1045 fichiers, dimensions frozen — **remplace inventaire/qualification documentaire** ; compteurs qualitatifs F-003 **obsolètes** | cartography header « BASE INVENTORY COMPLETE » |
+| **Incoming CSV (2)** | F-004 (mutual) ; notion-publication-plan | CSV |
+
+**Références entrantes qualifiées :**
+
+| Consommateur | Chemin réel Git | Nature ref | Cleanup Lot J |
+|--------------|-----------------|------------|---------------|
+| F-004 (mutual) | `documentation-structure-target.md` | Circulaire interne superseded | Oui (paire) |
+| notion-publication-plan | `archive/notion/notion-publication-plan.md` | Prérequis publication + table §6 | Oui |
+| sfia-consolidation-roadmap | `method/sfia-fast-track/core/sfia-consolidation-roadmap.md` | Livrables Chantier 4 — statut « réalisé » | Oui |
+| method README | `method/sfia-fast-track/README.md` | Index navigation — basename | Oui |
+| completeness-matrix | `sfia-documentation-completeness-matrix.md` | Mention pré-Round 3 | Oui |
+| foundation-documents-audit | `2026-07-03-sfia-foundation-documents-audit.md` | P1 refresh recommandé | Oui |
+| notion-content-categorization | `sfia-notion-content-categorization.md` | Table ARCHIVER | Oui |
+| final-architecture-audit | `workspace-audit/final-architecture-review/...` | Snapshot pré-Round 3 | Non — historique |
+| workspace-audits divers | global-audit, migration-plan, etc. | Mentions basename historiques | Lot J si liens navigables |
+| read-only-audit / lot-a / qualification F | Rapports v2.6 | Snapshot | Non |
+
+**Comptage :** CSV déclaré **2** ; Git chemin complet **7** + **2** basename (README, completeness-matrix) = **9** points de référence ; cleanup Lot J **7** prioritaires.
+
+**Verdict F-003 :** `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED`
+
+---
+
+### 9.2 F-004 — `documentation-structure-target.md`
+
+| Dimension | Observation | Preuve |
+|-----------|-------------|--------|
+| **Rôle actuel** | Proposition arborescence cible — sans autorité normative | §1 « ne déplace aucun fichier » ; CSV authority informational |
+| **Remplaçant** | `2026-07-11-sfia-v2.6-repository-standard-principles.md` | CSV ; gate Morris informational résolu |
+| **Remplaçant présent** | **Oui** | `git ls-files` OK |
+| **Couverture** | Principes v2.6 remplacent le **cadre structurel** (modèle multidimensionnel) ; **arborescence physique proposée F-004 non reprise** — aligné D6/D12 (pas d'arbre final validé) | read-only-audit : « structure proposée ≠ standard validé » |
+| **Incoming CSV (2)** | F-003 (mutual) ; notion-publication-plan | CSV |
+
+**Références entrantes qualifiées :**
+
+| Consommateur | Chemin réel Git | Nature ref | Cleanup Lot J |
+|--------------|-----------------|------------|---------------|
+| F-003 (mutual) | `documentation-audit.md` | Circulaire interne | Oui |
+| notion-publication-plan | `archive/notion/notion-publication-plan.md` | Checklist arborescence | Oui |
+| sfia-consolidation-roadmap | `core/sfia-consolidation-roadmap.md` | Livrable Chantier 4 | Oui |
+| method README | `method/sfia-fast-track/README.md` | Index navigation | Oui |
+| completeness-matrix | `sfia-documentation-completeness-matrix.md` | Mention pré-Round 3 | Oui |
+| cleanup-framing v2.6 | `2026-07-11-sfia-v2.6-repository-cleanup-framing.md` | Input historique cité | Non — métadonnée |
+| cartography | `2026-07-11-sfia-v2.6-repository-cartography.md` | Superseded map + gate résolu | Non |
+| notion-content-categorization | `sfia-notion-content-categorization.md` | Table ARCHIVER | Oui |
+| final-architecture-audit | workspace-audit | Snapshot | Non |
+| read-only-audit / lot-a / qualification F | Rapports v2.6 | Snapshot | Non |
+
+**Comptage :** CSV déclaré **2** ; Git **8** chemin complet + README basename ; cleanup Lot J **6** prioritaires.
+
+**Verdict F-004 :** `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED`
+
+---
+
+### 9.3 Couplage F-003 ↔ F-004
+
+| Référence | Fichier | Nature |
+|-----------|---------|--------|
+| F-003 → F-004 | `documentation-audit.md` L303, L321 | Circulaire interne |
+| F-004 → F-003 | `documentation-structure-target.md` L60–61, L139, L157 | Circulaire interne |
+| notion-publication-plan | Archive — cite les deux | Prérequis Notion historique |
+
+**Impact Lot J :** traiter la paire comme unité de suppression ; références mutuelles disparaissent avec les fichiers ; cleanup consommateurs externes requis.
+
+---
+
+## 10. Tableau des consommateurs directs
+
+| Consommateur | Rôle / statut | Réfère à | Authority consommateur | Cleanup Lot J |
+|--------------|---------------|----------|------------------------|---------------|
+| `archive/foundation-v1.1/v1.1-audit/README.md` | Index archive v1.1 | F-001 | supporting / archive | Oui |
+| `archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-post-merge-status.md` | Clôture v1.1 post-merge | F-001, F-002 | historical | Oui |
+| `archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md` | Statut clôture | F-001, F-002 | historical | Oui |
+| `archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md` | Inputs v1.1 | F-001, F-002 | historical | Oui |
+| `archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md` | Impact matrix | F-001, F-002 | historical | Oui |
+| `archive/foundation-v1.1/sfia-foundation-documents-inventory.md` | Inventaire fondateurs | F-002 | historical | Oui |
+| `capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md` | Audit fondateurs — section « use instead » | F-001, F-002, F-003 | supporting | **Oui — prioritaire** |
+| `archive/notion/notion-publication-plan.md` | Méta-plan Notion archivé | F-003, F-004 | historical | Oui |
+| `method/sfia-fast-track/README.md` | Index méthode actif | F-003, F-004 (basename) | reference | **Oui — prioritaire** |
+| `core/sfia-consolidation-roadmap.md` | Roadmap consolidation | F-003, F-004 | operational roadmap | Oui |
+| `capitalization/sfia-documentation-completeness-matrix.md` | Matrice complétude | F-003, F-004 | reference | Oui |
+| `notion/sfia-notion-content-categorization.md` | Catégorisation Notion | F-001–F-004 | informational | Oui |
+
+---
+
+## 11. Tableau README / index associés
+
+| Document | Type | Liens vers F1a/F1b | Action Lot J |
+|----------|------|-------------------|--------------|
+| `method/sfia-fast-track/README.md` | Index navigation actif | F-003, F-004 listés § Documentation | Retirer ou remplacer par cartography + standard-principles |
+| `archive/foundation-v1.1/v1.1-audit/README.md` | Index archive | F-001 | Retirer entrée ou note historique |
+| `projects/interv360/README.md` | Index projet | F-005 uniquement | **Hors F1b** — F2 |
+
+---
+
+## 12. Comparaison couverture remplaçants
+
+### F-001 / F-002 → standard-principles
+
+| Élément superseded | Repris dans remplaçant | Statut |
+|--------------------|------------------------|--------|
+| Cadre consolidation / standard repository | Modèle multidimensionnel D1–D12 | **Couvert** |
+| Checklist P2 documents v1.1 | Non | Historique acceptable |
+| Phases exécution plan v1.1 | Non | Historique acceptable |
+| Critères clôture §7 consolidation | Non | Historique acceptable |
+
+### F-003 → cartography
+
+| Élément superseded | Repris dans remplaçant | Statut |
+|--------------------|------------------------|--------|
+| Inventaire documents repo | 1045 fichiers catalogués | **Couvert** |
+| Familles documentaires | Colonnes family/regime CSV | **Couvert** |
+| Compteurs qualitatifs pré-Round 3 | Non — obsolètes | Acceptable |
+| Plan publication Notion | Non — hors cartography | Couvert par `sfia-notion-content-categorization.md` |
+
+### F-004 → standard-principles
+
+| Élément superseded | Repris dans remplaçant | Statut |
+|--------------------|------------------------|--------|
+| Principes structuration documentaire | Axes multidimensionnels | **Couvert** |
+| Arborescence physique proposée | Explicitement non validée (D6/D12) | **Écart intentionnel** — pas bloquant |
+| Distinction méthode/projet/audit | Repris dans principes | **Couvert** |
+
+**Conclusion couverture :** aucune lacune **opérationnelle bloquante** ; pertes **historiques** documentées et acceptables.
+
+---
+
+## 13. Plan cleanup futur Lot J (sans exécution)
+
+| Priorité | Action | Fichiers consommateurs |
+|----------|--------|------------------------|
+| P0 | Retirer F-003/F-004 de `method/sfia-fast-track/README.md` ; pointer cartography + standard-principles | README |
+| P0 | Mettre à jour section « use instead » `2026-07-03-sfia-foundation-documents-audit.md` | foundation-documents-audit |
+| P1 | Cleanup références archive v1.1 (post-merge, closure, inputs, inventory) | 6 fichiers archive |
+| P1 | Cleanup `sfia-consolidation-roadmap.md` livrables Chantier 4 | consolidation-roadmap |
+| P1 | Cleanup `sfia-documentation-completeness-matrix.md` | completeness-matrix |
+| P2 | Cleanup `sfia-notion-content-categorization.md` lignes F-001–F-004 | notion categorization |
+| P2 | Cleanup `archive/notion/notion-publication-plan.md` | notion-publication-plan |
+| — | Suppression physique F-001 à F-004 | **Gate Morris Lot J obligatoire** |
+
+**Ordre recommandé :** cleanup références **avant** delete physique (qualification Lot F §7).
+
+---
+
+## 14. Matrice synthèse F1a/F1b
+
+| ID | Fichier exact | Rôle actuel | Remplaçant | Présent | Couverture | Incoming refs (CSV / Git) | Nature refs | Cleanup Lot J | Réserve | Verdict futur |
+|----|---------------|-------------|------------|---------|------------|---------------------------|-------------|---------------|---------|---------------|
+| F-001 | `.../v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md` | Audit P2 v1.1 historique | standard-principles | ✓ | Opérationnelle OK ; détail P2 historique | 2 / 9 | Archive + audit fondateurs + circulaire | Oui | Chemins CSV incoming obsolètes | **VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED** |
+| F-002 | `.../v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md` | Plan consolidation v1.1 | standard-principles | ✓ | Cadre OK ; phases v1.1 historiques | 4 / 6 | Archive + audit fondateurs + circulaire | Oui | Idem chemins CSV | **VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED** |
+| F-003 | `.../documentation/documentation-audit.md` | Audit doc pré-cartography | cartography | ✓ | Inventaire OK ; compteurs obsolètes | 2 / 9 | Mutual + README actif + roadmap | Oui | README index actif | **VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED** |
+| F-004 | `.../documentation/documentation-structure-target.md` | Proposition structure | standard-principles | ✓ | Principes OK ; arbre proposé non repris (intentionnel) | 2 / 8+ | Mutual + README actif | Oui | Arbre cible non migré — acceptable | **VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED** |
+
+---
+
+## 15. Réserves
+
+1. **Chemins incoming CSV obsolètes** pour F-001/F-002 (post-Lot A archive) — ne bloque pas validation ; cleanup Lot J sur chemins réels.
+2. **`method/sfia-fast-track/README.md`** référence encore F-003/F-004 — index actif à mettre à jour en Lot J.
+3. **`2026-07-03-sfia-foundation-documents-audit.md`** section « use instead » pointe vers F-001/F-002/F-003 — chaîne de supersession à réorienter vers v2.6.
+4. **Références mutuelles F-003↔F-004** — résolues par suppression coordonnée ; pas de correction en F1.
+5. **F-005 bloqué** — manifeste Lot F incomplet pour exécution delete globale (4/5 remplaçants).
+6. **Aucune suppression autorisée** par ce verdict — `delete-candidate` = éligibilité future uniquement.
+
+---
+
+## 16. Décisions Morris futures requises
+
+| # | Sujet | Quand |
+|---|-------|-------|
+| 1 | Review et acceptation rapport F1a/F1b | **Maintenant** |
+| 2 | GO commit/PR merge rapport validation | Après review |
+| 3 | Gate F-005 — remplaçant `post-mvp-application-audit.md` | Lot F2 — séparé |
+| 4 | GO ouverture Lot H | Après clôture Lot F |
+| 5 | GO suppression physique Lot J | **Séparé** — après cleanup refs |
+
+---
+
+## 17. Validations Git (post-modifications)
+
+| Commande | Résultat attendu |
+|----------|------------------|
+| `git status --short` | 2 fichiers versionnés modifiés/créés ; `.tmp-sfia-review/` untracked |
+| `git diff --name-status` | `A` rapport validation ; `M` plan lots (footer §9 uniquement) |
+| CSV frozen absent du diff | **Confirmé** |
+| F-001 à F-005 absents du diff | **Confirmé** |
+| Remplaçants absents du diff | **Confirmé** |
+| Consommateurs absents du diff | **Confirmé** |
+| `projects/interv360/` absent du diff | **Confirmé** |
+| Aucun commit sur branche exécution | **Confirmé** |
+| Aucun push/PR/merge exécution | **Confirmé** |
+
+---
+
+## 18. Verdicts individuels
+
+| ID | Verdict |
+|----|---------|
+| **F-001** | `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED` |
+| **F-002** | `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED` |
+| **F-003** | `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED` |
+| **F-004** | `VALIDATED WITH LOT J INCOMING-REF CLEANUP REQUIRED` |
+
+---
+
+## 19. Verdict global
 
 ```
-LOT E2 GIT IDENTITY CORRECTED
-LOT E GLOBAL MANIFEST VERIFIED 75/75
-LOT E2 MANIFEST VERIFIED 44/44
-VERSIONED REPORT HEAD CORRECTED
-LOT E1 CORPUS UNCHANGED
-LOT E2 CORPUS UNCHANGED
-CSV UNCHANGED
-PR #182 OPEN — NOT MERGED
-REVIEW PACK COMPLETE
-READY FOR CHATGPT PR READINESS
-MERGE REQUIRES SEPARATE MORRIS GO
+LOT F1A/F1B VALIDATED WITH LOT J CLEANUP RESERVES
 ```
+
+**Signification :**
+- Remplaçants F-001 à F-004 **validés** et **présents** dans Git
+- Couverture opérationnelle **suffisante** — pertes historiques **acceptables**
+- Références entrantes **qualifiées** — cleanup **reporté Lot J**
+- Statut futur `delete-candidate` **confirmé** pour les quatre fichiers — **aucune suppression autorisée** dans ce cycle
+- F-005 **hors périmètre** — F2 **bloqué**
+- Lots H et J **non ouverts**
+
+**Non autorisé :** `LOT J READY FOR EXECUTION` · `FILES READY FOR DELETION` · `DELETE APPROVED`
+
+---
+
+*Rapport produit par cycle Cursor — validation read-only — Morris décideur — SFIA v2.4 baseline — v2.6 candidate.*
