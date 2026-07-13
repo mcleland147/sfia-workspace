@@ -1,0 +1,286 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --border: #d8dee4;
+  --text: #1f2933;
+  --muted: #5f6c7b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --focus: #2563eb;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --radius: 12px;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+body {
+  padding: var(--space-md);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+button {
+  cursor: pointer;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.55rem 0.9rem;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.app-header {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.app-header h1 {
+  font-size: 1.75rem;
+}
+
+.app-header p {
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+
+.panel h2 {
+  font-size: 1.125rem;
+}
+
+.filters-row,
+.form-grid,
+.task-actions,
+.task-meta,
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.filters-row label,
+.form-grid label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  flex: 1 1 180px;
+}
+
+.filters-row input,
+.filters-row select,
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  background: #fff;
+  color: var(--text);
+}
+
+.form-grid textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.primary-button {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.primary-button:hover {
+  background: var(--primary-hover);
+}
+
+.secondary-button:hover {
+  background: #eef2f7;
+}
+
+.danger-button {
+  color: var(--danger);
+  border-color: #f3c7c7;
+}
+
+.danger-button:hover {
+  background: #fef2f2;
+  border-color: var(--danger);
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.task-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+  background: #fbfcfd;
+}
+
+.task-card h3 {
+  font-size: 1.05rem;
+}
+
+.task-description {
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.badge-status-todo {
+  border-color: #cbd5e1;
+}
+
+.badge-status-in_progress {
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.badge-status-done {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.badge-priority-high {
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+.badge-priority-low {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.empty-state,
+.error-text,
+.counter-text,
+.due-date-text {
+  color: var(--muted);
+}
+
+.error-text {
+  color: var(--danger);
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: grid;
+  place-items: center;
+  padding: var(--space-md);
+  z-index: 20;
+}
+
+.dialog {
+  width: min(100%, 420px);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: var(--space-sm);
+  }
+
+  .panel {
+    padding: var(--space-md);
+  }
+
+  .task-actions,
+  .inline-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-actions button,
+  .inline-actions button,
+  .task-actions select {
+    width: 100%;
+  }
+}
