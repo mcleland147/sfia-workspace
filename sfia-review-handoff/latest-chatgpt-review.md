@@ -1,439 +1,588 @@
-# SFIA Review Pack — Lot J Execution (Critical)
+# SFIA Review Pack — Repository Rationalization Capitalization
 
-**Horodatage :** 2026-07-13 11:15:28 CEST
-**Cycle :** 8 — Critical — Lot J
-**Branche :** `cleanup/sfia-v2.6-lot-j`
-**Base :** `main` @ `2a527b550c9b14fee2f1d8fc34bc2ce06219fb23`
-**Verdict :** LOT J EXECUTION COMPLETED — READY FOR MORRIS REVIEW
-
-## Instruction ChatGPT
-
-Lire depuis Git : `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier : manifeste initial 10 ; Morris 9 delete + 1 keep ; 9 suppressions ; design coverage reclassé ; cleanup refs ; CSV 1045→1036 ; SHA ; métriques ; rapport complet ; handoff conforme.
+**Horodatage :** 2026-07-13 11:55 Europe/Paris (CEST)
+**Cycle :** 15 — Capitalisation / REX
+**Profil SFIA :** Capitalization
+**Branche :** `capitalization/sfia-v2.6-repository-rationalization`
+**Base HEAD :** `0c29624e4398623c9417ed49e2eb8caa78093b9f`
+**Review pack :** full
+**Verdict cycle :** CAPITALIZATION COMPLETE WITH RESERVES
 
 ---
 
 ## Local Git Truth Check
 
-- Workspace : `/Users/morris/Projects/sfia-workspace`
-- Branche : `cleanup/sfia-v2.6-lot-j` @ `2a527b550c9b14fee2f1d8fc34bc2ce06219fb23`
-- État initial : clean
+| Élément | Valeur |
+|---------|--------|
+| Workspace | `/Users/morris/Projects/sfia-workspace` |
+| Branche | `capitalization/sfia-v2.6-repository-rationalization` |
+| HEAD | `0c29624e4398623c9417ed49e2eb8caa78093b9f` |
+| origin/main | `0c29624e4398623c9417ed49e2eb8caa78093b9f` |
+| Working tree | 2 fichiers modifiés/créés cycle ; untracked `.sfia/`, `.tmp-sfia-review/` |
+| Commits cycle | **aucun** (conforme prompt) |
+| Push branche projet | **non** (conforme prompt) |
+
+**Verdict :** PASS
 
 ---
 
 ## Git Review Index
 
-| Métrique | Valeur |
-|----------|--------|
-| Suppressions | 9 |
-| Conservé | design-coverage-standard |
-| Consommateurs modifiés | ~32 |
-| CSV lignes | 1045 → 1036 |
-| SHA | 2a72757c → 3a02dcb2 |
-| Commit | non |
-| Push exécution | non |
+- base branch : `main`
+- HEAD avant : `0c29624e4398623c9417ed49e2eb8caa78093b9f`
+- HEAD après : `0c29624e4398623c9417ed49e2eb8caa78093b9f` (pas de commit)
+- fichiers créés : `2026-07-13-sfia-v2.6-repository-rationalization-capitalization.md`
+- fichiers modifiés : `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md`
+- commits créés : none
+- tests / validations : git diff --stat ; wc CSV 1037 lignes ; interdictions respectées
+- diff stat : 1 file changed in tracked diff only for plan (+ new untracked capitalization until commit)
+- décisions Morris requises : commit/PR capitalisation — **future gate** ; pas dans ce cycle
+- review pack : full
+- réserves : 5 `.gitkeep` ; Lots G/I ; v2.6 candidate
 
 ---
 
-## Rapport d'exécution complet
+## Sources consultées (rôle — pas de copie intégrale)
 
-```markdown
-# SFIA v2.6 — Lot J Execution
-
-**Horodatage :** 2026-07-13 11:15:28 CEST
-**Cycle :** 8 — Delivery / implémentation (Critical)
-**Profil SFIA :** Critical
-**Branche :** `cleanup/sfia-v2.6-lot-j`
-**Base / HEAD :** `main` @ `2a527b550c9b14fee2f1d8fc34bc2ce06219fb23`
-**Décision Morris :** 9 suppressions + 1 conservation (design coverage standard)
-**Statut cycle :** **LOT J EXECUTION COMPLETED — READY FOR MORRIS REVIEW**
-
----
-
-## 1. Décision Morris
-
-| Élément | Décision |
-|---------|----------|
-| Manifeste initial | 10 delete-candidate / lot-J |
-| Suppressions autorisées | **9** fichiers (liste fermée) |
-| Conservé | `sfia-v2-design-coverage-standard.md` |
-| Reclassification | `keep` / `migration_lot_candidate` *(vide)* |
-| `.gitkeep` Lot H (5) | **hors périmètre** — non supprimés |
-| F-005 | **exclu** — inchangé |
+| Source | Rôle |
+|--------|------|
+| `prompts/templates/08-capitalize-method-asset.md` | Template capitalisation |
+| `prompts/templates/sfia-cycle-execution-template.md` | Procédure cycle §7 review/handoff |
+| `sfia-chatgpt-cursor-operating-model.md` | Gouvernance Morris/Cursor |
+| `sfia-cycle-routing-guide.md` | Routage documentaire |
+| `sfia-rules-and-guardrails.md` | Garde-fous |
+| `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` | Plan lots — mis à jour |
+| `2026-07-11-sfia-v2.6-repository-cartography.md` | Contexte cartographie |
+| `2026-07-11-sfia-v2.6-repository-cartography.csv` | Métriques post-J (lecture) |
+| Rapports Lot F (qualification, F1a/F1b, F2) | Preuves trajectoire F |
+| Rapports Lot H (cadrage, exécution) | Preuves trajectoire H |
+| `2026-07-13-sfia-v2.6-lot-j-execution.md` | Preuves trajectoire J |
+| `2026-07-11-sfia-v2.6-repository-cleanup-framing.md` | Contexte initial chantier |
 
 ---
 
-## 2. Manifeste initial (10/10)
+## Garde-fous confirmés
 
-| # | Chemin | Décision Morris |
-|---|--------|-----------------|
-| 1 | F-001 `sfia-v1.1-p2-cross-reference-audit.md` | **DELETE** |
-| 2 | F-002 `sfia-foundation-v1.1-consolidation-plan.md` | **DELETE** |
-| 3 | `sfia-v2-design-coverage-standard.md` | **KEEP** — retiré du Lot J |
-| 4 | F-003 `documentation-audit.md` | **DELETE** |
-| 5 | F-004 `documentation-structure-target.md` | **DELETE** |
-| 6 | `interv360-folder-normalization-audit.md` | **DELETE** |
-| 7 | `sfia-workspace-cleanup-round-2-audit.md` | **DELETE** |
-| 8 | `sfia-workspace-cleanup-round-2-plan.md` | **DELETE** |
-| 9 | `sfia-workspace-cleanup-round-2-report.md` | **DELETE** |
-| 10 | `sfia-workspace-global-audit.md` | **DELETE** |
+- CSV : **non modifié** ✓
+- Cartographie md : **non modifiée** ✓
+- Aucune suppression ✓
+- Prompts/templates : **non modifiés** ✓
+- Assets F/H/J : **non modifiés** ✓
+- Aucun commit cycle ✓
+- Aucun push branche projet ✓
+- Aucune PR ✓
 
 ---
 
-## 3. Phase 2 — Cleanup références
+## Décisions Morris (capitalisation)
 
-**Remplaçants appliqués :**
-- F-001, F-002, F-004 → `2026-07-11-sfia-v2.6-repository-standard-principles.md`
-- F-003 → `2026-07-11-sfia-v2.6-repository-cartography.md`
-- Workspace-audit → cartography / cleanup-framing
-
-**Consommateurs modifiés :** ~32 fichiers (README, roadmap, matrices, archive, read-only-audit, etc.)
-
-**Fichiers protégés modifiés :** **aucun** (routing-guide, prompt-catalog, cycle-execution-template intacts)
+| Type | Contenu |
+|------|---------|
+| **Décisions validées reprises** | Trajectoire F→H→J ; F-005 Option B ; 9 deletes J ; design coverage keep ; 12 protégés H |
+| **Décisions requises (hors cycle)** | GO commit/PR capitalisation ; `.gitkeep` suppression ; Lots G/I |
 
 ---
 
-## 4. Phase 3 — Reclassification design coverage (CSV)
+## Réserves
 
-| Champ | Avant | Après |
-|-------|-------|-------|
+1. 5 `.gitkeep` DELETE CANDIDATE Lot H — gate future
+2. Lots G (570) et I (68) — hors périmètre rationalization
+3. SFIA v2.6 candidate — pas baseline
+4. Rapports exécution = photographs — non réécrits
+
+---
+
+## Fichier créé — contenu complet
+
+# SFIA v2.6 — Repository Rationalization — Capitalisation méthode
+
+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-13-sfia-v2.6-repository-rationalization-capitalization.md`
+**Horodatage :** 2026-07-13 11:55 Europe/Paris (CEST)
+**Cycle :** 15 — Capitalisation / REX
+**Profil SFIA :** Capitalization (profondeur Standard)
+**Typologie v2.4 :** CAPA
+**Branche :** `capitalization/sfia-v2.6-repository-rationalization`
+**Base Git :** `main` @ `0c29624e4398623c9417ed49e2eb8caa78093b9f` (post-merge PR #189)
+**Périmètre capitalisé :** trajectoire **Repository Rationalization v2.6** — Lots **F → H → J** (Lots G et I exclus)
+**Baseline opérationnelle :** SFIA v2.4 — SFIA v2.6 reste **candidate**
+**Statut :** **CAPITALIZATION COMPLETE WITH RESERVES**
+
+---
+
+## 1. Objet de la capitalisation
+
+Promouvoir en actif méthodologique SFIA la trajectoire **F → H → J** du chantier Repository Rationalization v2.6 : qualification des superseded, stabilisation prompts/templates, suppressions finales contrôlées.
+
+**Ce document capitalise — il ne migre pas, ne supprime pas, ne modifie pas le CSV ni la cartographie.**
+
+| Dimension | Contenu capitalisé |
+|-----------|-------------------|
+| **Observation** | Faits vérifiés Git, métriques post-merge, preuves des rapports d'exécution |
+| **Recommandation** | Pratiques réutilisables pour cycles cleanup / rationalization futurs |
+| **Décision proposée** | Options documentées non encore tranchées (ex. `.gitkeep`) |
+| **Décision validée** | Arbitrages Morris explicitement acquis (trajectoire, F-005, design coverage, 9 deletes) |
+
+---
+
+## 2. Contexte initial
+
+### 2.1 Ouverture du chantier v2.6
+
+Le cadrage `2026-07-11-sfia-v2.6-repository-cleanup-framing.md` a ouvert un chantier de **consolidation et rationalisation documentaire** du repository `mcleland147/sfia-workspace`, en continuité avec les acquis v2.5 (review pack, handoff Git, Local Git Truth Check) sans remplacer la baseline SFIA v2.4.
+
+**Prérequis structurels déjà clos avant F/H/J :**
+
+| Lot | Rôle | Statut (pré-F) |
+|-----|------|----------------|
+| Cartographie PR #165 | Inventaire frozen 1045 fichiers | Merged |
+| Lots 0, A, C, D, E | Qualification, rename, archivage v3, contrôles globaux | Closed |
+| Lot B | D10 hors v3 | Not required (volume 0) |
+| Lots G, I | Projets / tooling-CI | **Exclus** de la trajectoire F→H→J |
+
+### 2.2 Problème adressé par F → H → J
+
+Après cartographie et lots structurels, il restait :
+
+1. **5 fichiers `lifecycle_status = superseded`** (Lot F) — doublons documentaires à qualifier avant suppression.
+2. **40 fichiers `migration_lot_candidate = lot-H`** — prompts, templates, placeholders — à examiner sans toucher la spine opérationnelle.
+3. **10 `delete-candidate` / `lot-J`** — suppressions finales après validation remplaçants et nettoyage références.
+
+**Observation :** Lot F est une **phase process** (tag CSV = 0), pas un tag d'exécution. Les manifestes opérationnels sont dérivés de `lifecycle_status`, `proposed_disposition` et décisions Morris.
+
+### 2.3 Contrat cartographie au départ de la trajectoire F
+
+| Élément | Valeur initiale trajectoire F |
+|---------|------------------------------|
+| CSV SHA (pré-Lot J exécution) | `2a72757c6af186f2cb8aba5d488613be974cb12eed2d33b2d391edba5989f066` |
+| Lignes inventaire | 1045 |
+| `lifecycle_status = superseded` | 5 (F-001 à F-005) |
+| `delete-candidate` / `lot-J` | 10 |
+| `migration_lot_candidate = lot-H` | 40 |
+
+**Règle capitalisée :** le CSV frozen est la **seule source statistique** ; Git est la **source de vérité contenu**. Toute exécution irréversible (delete) exige réconciliation CSV ↔ Git post-opération.
+
+---
+
+## 3. Stratégie F → H → J
+
+### 3.1 Décision Morris structurante — trajectoire
+
+| Décision | Statut | Preuve |
+|----------|--------|--------|
+| Trajectoire **F → H → J** | **Validée** | Rapports Lot F qualification ; cadrage Lot H §1 |
+| Lots **G et I exclus** | **Confirmé** | Plan migration §9–§11 ; rapports F/H/J |
+| Lot H **avant** Lot J | **Validé** | Cadrage Lot H §16 — refs cassées en H bloquent delete J |
+| Lot F **avant** Lot H | **Validé** | Qualification F — remplaçants avant delete |
+
+**Schéma :**
+
+```text
+Lot F (qualification superseded)
+  → F1a/F1b (validation F-001–F-004)
+  → F2 Critical (F-005 — Option B)
+  → Lot H (cadrage + exécution unique — phases H3→H4→H2→H1)
+  → Lot J (9 deletes + 1 keep design coverage)
+```
+
+### 3.2 Articulation des lots
+
+| Lot | Manifeste | Exécution | PR / merge |
+|-----|-----------|-----------|------------|
+| **F** | 5 superseded | Qualification + validation + F2 | #184, #185, #186 |
+| **H** | 40 lot-H | 1 cycle — 3 corrections lien/chemin | #187 (cadrage), #188 (exécution) |
+| **J** | 10 delete-candidate initiaux | 9 suppressions + reclass design coverage | #189 |
+
+### 3.3 Résultat intégré sur `main` @ `0c29624`
+
+| Métrique | Avant Lot J | Après Lot J (main) |
+|----------|------------:|-------------------:|
+| Lignes CSV | 1045 | **1036** |
+| CSV SHA-256 | `2a72757c…` | `3a02dcb2…` |
+| `delete-candidate` | 10 | **0** |
+| `lot-J` tag | 10 | **0** |
+| `keep` | 620 | **621** |
+| Fichiers supprimés (trajectoire J) | 0 | **9** |
+| F-005 | présent | **présent** (inchangé) |
+| Design coverage standard | delete-candidate | **keep** (conservé) |
+
+---
+
+## 4. Décisions Morris structurantes
+
+### 4.1 Table des décisions validées
+
+| # | Décision | Date / cycle | Impact |
+|---|----------|--------------|--------|
+| D1 | Trajectoire F → H → J ; G/I exclus | Pré-F | Périmètre rationalization borné |
+| D2 | Lot H = **1 cycle unique** ; H1–H4 = phases internes | 2026-07-13 cadrage H | Pas de sous-lots Git H parallèles |
+| D3 | F-005 **Option B** — conserver ; remplaçant `post-mvp-application-audit.md` **invalidé** | 2026-07-13 F2 | F-005 hors Lot J ; CSV routé `keep` / lot vide |
+| D4 | Lot J : **9 suppressions** + **1 conservation** (design coverage) | 2026-07-13 | Manifeste J réduit avant exécution |
+| D5 | 5 `.gitkeep` Lot H — **DELETE CANDIDATE** reportés | Exécution H | Hors périmètre Lot J |
+| D6 | 12 fichiers protégés Lot H — **lecture seule** en exécution | Cadrage + exécution H | Spine prompts/templates intacte |
+
+### 4.2 F-005 — Option B (Critical)
+
+**Observation :** F-005 (`projects/interv360/06-audit-rex/current-application-audit.md`) était tagué `superseded` / `lot-J` avec remplaçant déclaré **absent** du repo.
+
+**Décision validée :** maintenir F-005 ; invalider le remplaçant ; corriger le routage CSV (`migration_lot_candidate` vide, `keep`).
+
+**Leçon capitalisée :** un `lifecycle_status = superseded` **ne suffit pas** pour autoriser delete — exiger **remplaçant présent Git** + **couverture fonctionnelle** + gate Morris Critical si usage navigation actif.
+
+### 4.3 Design coverage standard — conservation Lot J
+
+**Observation :** `sfia-v2-design-coverage-standard.md` figurait dans le manifeste J initial (10/10) mais était **référencé opérationnellement** (routing guide) sans remplaçant équivalent.
+
+**Décision validée :** conserver ; reclassifier CSV (`keep`, lot vide, `duplicate_or_overlap` → `no`).
+
+**Leçon capitalisée :** blocker manifest Lot J = fichier **operational** + **incoming refs actives** + **pas de remplaçant** — requalifier avant delete, pas forcer suppression.
+
+---
+
+## 5. Méthode de qualification des suppressions
+
+### 5.1 Chaîne qualification → validation → exécution
+
+```text
+1. Extraire manifeste fermé (critère CSV explicite + confirmation Git ls-files)
+2. Pour chaque candidat delete :
+   a. lifecycle / disposition / lot tag
+   b. remplaçant déclaré (CSV evidence) — présence Git
+   c. incoming references (CSV + git grep)
+   d. couverture fonctionnelle remplaçant vs source
+   e. morris_gate_required / risk_level
+3. Classifier : superseded-validate-delete | morris-gate-* | keep | investigate
+4. Validation Morris par sous-lot (F1a/F1b) ou Critical unitaire (F2)
+5. Nettoyage références consommateurs AVANT delete physique
+6. Delete physique (manifeste fermé post-décision)
+7. Réconciliation CSV (retrait lignes fichiers supprimés)
+```
+
+### 5.2 Typologie Lot F appliquée
+
+| Catégorie | Count final | Description |
+|-----------|------------:|-------------|
+| superseded-validate-delete | 4 | F-001–F-004 — remplaçant Git OK — delete Lot J |
+| morris-gate-replacement-missing → **keep** | 1 | F-005 — Option B |
+| delete-candidate workspace-audit | 5 | Audits round-2 / global — remplaçants cartography/framing |
+| delete-candidate design → **keep** | 1 | Design coverage — blocker résolu Morris |
+
+### 5.3 Contrôles manifeste fermé
+
+| Contrôle | Lot F | Lot H | Lot J |
+|----------|------:|------:|------:|
+| Lignes CSV = fichiers Git | 5/5 | 40/40 | 10→9 exec |
+| Doublons manifeste | 0 | 0 | 0 |
+| Absences Git | 0 | 0 | 0 |
+| Hors périmètre touché | 0 | 0 | 0 |
+
+**Règle réutilisable :** verdict `MANIFEST VALID` obligatoire avant toute exécution ; écart = STOP.
+
+---
+
+## 6. Validation des remplaçants
+
+### 6.1 Mapping remplaçants F-001 à F-004 (exécuté Lot J)
+
+| ID | Source supprimée | Remplaçant validé |
+|----|------------------|-------------------|
+| F-001 | `sfia-v1.1-p2-cross-reference-audit.md` | `2026-07-11-sfia-v2.6-repository-standard-principles.md` |
+| F-002 | `sfia-foundation-v1.1-consolidation-plan.md` | `2026-07-11-sfia-v2.6-repository-standard-principles.md` |
+| F-003 | `documentation-audit.md` | `2026-07-11-sfia-v2.6-repository-cartography.md` |
+| F-004 | `documentation-structure-target.md` | `2026-07-11-sfia-v2.6-repository-standard-principles.md` |
+
+### 6.2 Workspace-audit cluster (5 deletes Lot J)
+
+| Source supprimée | Remplaçant / cible référence |
+|------------------|------------------------------|
+| `sfia-workspace-global-audit.md` | cartography + cleanup-framing |
+| `interv360-folder-normalization-audit.md` | cartography |
+| Round-2 audit / plan / report (3) | cartography + cleanup-framing |
+
+### 6.3 Critères de validation remplaçant (checklist réutilisable)
+
+1. **Présence Git** du chemin remplaçant (`git ls-files`).
+2. **Autorité** ≥ source ou rôle explicitement assumé dans evidence.
+3. **Couverture** des sections / décisions encore citées par consommateurs.
+4. **Incoming refs** recensées — plan cleanup avant delete.
+5. **Gate Morris** si `risk_level = high` ou usage operational divergent.
+
+**Erreur évitée :** supprimer F-005 sur la seule base CSV `superseded` sans remplaçant réel — bloqué par F2 Critical.
+
+---
+
+## 7. Nettoyage des références
+
+### 7.1 Séquence Lot J
+
+1. **Phase références** (~32 consommateurs) : README, consolidation-roadmap, inventaires archive, matrices, read-only-audit, etc.
+2. **Phase reclassification** design coverage (CSV seulement — exécution Lot J).
+3. **Phase suppressions** 9 fichiers (manifeste fermé).
+4. **Phase CSV** — retrait 9 lignes ; métriques dérivées cartography.md.
+
+### 7.2 Principes capitalisés
+
+| Principe | Application F/H/J |
+|----------|-------------------|
+| Refs **avant** delete | Lot J — ~32 fichiers consommateurs |
+| Fichiers **protégés** intouchables | Lot H — routing-guide, prompt-catalog, cycle-execution-template |
+| Corrections **déterministes** seulement | Lot H — 3 path/link fixes prouvés |
+| Pas de ref sync implicite cross-lot | Lot H n'a pas ouvert Lot J |
+
+### 7.3 Lot H — corrections sans élargissement
+
+| Fichier | Anomalie | Correction |
+|---------|----------|------------|
+| `bpmn-process-scope-template.md` | chemin bare checklist | chemin complet `docs/practices/process/…` |
+| `delivery-qa-test-prompt-family.md` | noms bare standards v2 | chemins complets sous `method/.../sfia-v2/` |
+| `penpot-design-agent-prompt-family.md` | profondeur `../../docs/` incorrecte | `../../../docs/tooling/penpot/…` |
+
+**Observation :** aucun consommateur externe au corpus H modifié — corrections locales à faible blast radius.
+
+---
+
+## 8. Usage des manifestes fermés
+
+### 8.1 Définition
+
+Un **manifeste fermé** est une liste exhaustive de fichiers issue d'un **critère CSV unique** (ou décision Morris explicite), confirmée par `git ls-files`, sans élargissement mid-cycle.
+
+### 8.2 Manifestes de la trajectoire
+
+| Lot | Critère extraction | Cardinalité | Fermeture |
+|-----|-------------------|------------:|-----------|
+| F | `lifecycle_status = superseded` | 5 | Qualification PR #184 |
+| H | `migration_lot_candidate = lot-H` | 40 | Cadrage PR #187 |
+| J (initial) | `delete-candidate` + `lot-J` | 10 | Cadrage read-only pré-exécution |
+| J (exécution) | 9 deletes Morris + 1 keep | 9 | Décision Morris 2026-07-13 |
+
+### 8.3 Règles anti-dérive
+
+- **Interdit :** ajouter un fichier au manifeste sans re-qualification CSV ou GO Morris.
+- **Interdit :** delete hors liste fermée post-décision.
+- **Obligatoire :** table d'exécution fichier par fichier (cadrage H, exécution H/J).
+- **Lot H :** manifeste ≠ sous-ensemble prompts seuls — inclut `docs/templates/`, `method/templates/`, `.gitkeep`, README.
+
+---
+
+## 9. Gestion des fichiers protégés
+
+### 9.1 Lot H — 12 fichiers protégés
+
+| Groupe | Fichiers | Motif |
+|--------|----------|-------|
+| Hub navigation | `prompts/prompt-catalog.md`, `prompts/templates/README.md` | Spine opérationnelle ; CMP config |
+| Template cycle | `sfia-cycle-execution-template.md` | Workflow actif SFIA |
+| Templates 01–10 (9 op.) | `prompts/templates/0*.md`, `06`–`10` | Routing guide + delivery pipeline |
+
+**Décision validée :** exclusion par défaut de toute modification en exécution Lot H — **12/12 inchangés** dans le diff PR #188.
+
+### 9.2 Fichiers protégés Lot J
+
+Lot J a **explicitement exclu** : routing-guide, prompt-catalog, cycle-execution-template, assets F/H/J antérieurs.
+
+**Règle réutilisable :** déclarer protected paths **avant** cycle ; STOP si diff touche un protégé sans GO Critical.
+
+---
+
+## 10. Fichiers conservés — F-005 et Design Coverage
+
+### 10.1 F-005 — `current-application-audit.md`
+
+| Champ | Valeur post-trajectoire |
+|-------|-------------------------|
+| Chemin | `projects/interv360/06-audit-rex/current-application-audit.md` |
+| Disposition CSV | `keep` |
+| `migration_lot_candidate` | *(vide)* |
+| Lot J | **exclu** |
+| Rôle | Audit technique Interv360 — référence navigation README |
+
+### 10.2 Design coverage — `sfia-v2-design-coverage-standard.md`
+
+| Champ | Avant Lot J | Après Lot J |
+|-------|-------------|-------------|
 | `proposed_disposition` | delete-candidate | **keep** |
 | `migration_lot_candidate` | lot-J | **(vide)** |
-| `duplicate_or_overlap` | superseded-by-newer | **no** |
 | `morris_gate_required` | yes | **no** |
-| `risk_level` | high | **low** |
-| lifecycle / authority / usage | draft / supporting / operational | **inchangés** |
+| Présence Git | oui | **oui** |
+
+**Recommandation :** tout futur cleanup « design / standards » doit traiter ce fichier comme **référence opérationnelle** jusqu'à remplaçant explicite validé.
 
 ---
 
-## 5. Phase 4 — Suppressions (9 exactes)
+## 11. Règles réutilisables
 
-1. `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md`
-2. `method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md`
-3. `method/sfia-fast-track/documentation/documentation-audit.md`
-4. `method/sfia-fast-track/documentation/documentation-structure-target.md`
-5. `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md`
-6. `method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-folder-normalization-audit.md`
-7. `method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-audit.md`
-8. `method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-plan.md`
-9. `method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-report.md`
+### 11.1 Gouvernance cycle
 
-**Staged deletions :** 9/9
+| # | Règle |
+|---|-------|
+| R1 | **Local Git Truth Check** en tête — branche, HEAD, origin/main, working tree |
+| R2 | **Une trajectoire Morris** — F→H→J documentée avant exécution parallèle |
+| R3 | **Qualification read-only** séparée de **delivery** — PR distinctes si risque |
+| R4 | **Critical** justifié — F2 F-005, Lot J delete — jamais implicite |
+| R5 | **Review pack full** + **handoff Git required** sur capitalisation et exécutions structurantes |
+| R6 | **Pas de commit** sur branche exécution tant que revue Morris non acquise (H, J — pratique observée) |
 
-**Conservé :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-design-coverage-standard.md` — présent Git ✓
+### 11.2 Rationalization repository
 
----
+| # | Règle |
+|---|-------|
+| R7 | Superseded → valider remplaçant **Git-present** avant delete-candidate |
+| R8 | Ref cleanup **before** delete — compter consommateurs (~32 pour Lot J) |
+| R9 | CSV post-delete = **retrait lignes** fichiers absents — pas de ligne fantôme |
+| R10 | Fichier operational + refs actives sans remplaçant = **blocker** manifest delete |
+| R11 | `.gitkeep` redondants = **investigate** — pas delete implicite dans lot voisin |
+| R12 | Phases internes (H3→H4→H2→H1) dans **un seul cycle Git** si Morris valide |
 
-## 6. Phase 5 — Convention CSV post-delete
+### 11.3 Périmètre et exclusions
 
-**Convention appliquée :** retrait des 9 lignes supprimées — inventaire CSV aligné sur fichiers Git courants (symétrique F-005 : fichier conservé = ligne conservée).
-
-| Métrique | Avant | Après |
-|----------|------:|------:|
-| Lignes CSV | 1045 | **1036** |
-| Colonnes | 36 | 36 |
-| SHA-256 | `2a72757c…` | `3a02dcb2…` |
-| delete-candidate | 10 | **0** |
-| lot-J | 10 | **0** |
-| keep | 620 | **621** |
-| superseded (lifecycle) | 4 | **0** |
-| morris_gate yes | 42 | **32** |
-| usage operational | 470 | **469** |
+| # | Règle |
+|---|-------|
+| R13 | Lots G (570) et I (68) — **famille à part** — ne pas mélanger avec cleanup méthode |
+| R14 | Ne pas reclassifier CSV pendant cadrage read-only |
+| R15 | Rapports d'exécution = photographs — ne pas réécrire rétroactivement sauf addendum |
 
 ---
 
-## 7. Documents dérivés mis à jour
+## 12. Erreurs évitées
 
-1. `2026-07-11-sfia-v2.6-repository-cartography.csv`
-2. `2026-07-11-sfia-v2.6-repository-cartography.md` (§24 + métriques finales)
-3. `2026-07-11-sfia-v2.6-repository-migration-lots-plan.md` (§12 Lot J)
-4. `2026-07-12-sfia-v2.6-lot-f-superseded-qualification.md` (addendum §17)
-5. `2026-07-13-sfia-v2.6-lot-f1a-f1b-validation.md` (addendum)
-
----
-
-## 8. Validations
-
-| Contrôle | Résultat |
-|----------|----------|
-| 9 suppressions exactes | ✓ |
-| design coverage présent | ✓ |
-| F-005 présent | ✓ |
-| 9 `.gitkeep` présents | ✓ |
-| Aucun fichier protégé modifié | ✓ |
-| Aucun commit branche exécution | ✓ |
-| Aucun push branche exécution | ✓ |
+| Risque | Mitigation appliquée | Preuve |
+|--------|---------------------|--------|
+| Delete F-005 sans remplaçant | F2 Critical + Option B | `lot-f2-f005-critical-review.md` |
+| Delete design coverage operational | Morris 9+1 ; reclass CSV | `lot-j-execution.md` §4 |
+| Casse spine prompts | 12 protégés Lot H | `lot-h-execution.md` §9 |
+| Delete `.gitkeep` dans Lot J | Hors périmètre explicite | `lot-j-execution.md` §1 |
+| Ouverture Lot J avant H | Trajectoire F→H→J | Cadrage H §16 |
+| Modification CSV en cadrage H | Hors périmètre respecté | `lot-h-cadrage.md` §4 |
+| Lien cassé post-rename D | Lot E E1 préalable (10/10 Lot D) | Plan §8 |
+| Interprétation parser links superseded comme ops | Classés snapshots historiques Lot F | Qualification F §5 |
+| Promotion v2.6 baseline implicite | Non acquise — documenté chaque cycle | Tous rapports F/H/J |
+| Double cycle Git Lot H | 1 cycle unique Morris | Cadrage H §13 |
 
 ---
 
-## 9. Réserves
+## 13. Recommandations pour les prochains cycles
 
-- 5 `.gitkeep` Lot H — delete-candidates reportés (gate Morris future)
-- Références historiques dans rapports v2.6 lot-*-execution (photographies — non modifiées)
-- Mentions « remplace X » dans archives — traçabilité conservée
+### 13.1 Suite immédiate (hors périmètre capitalisation)
+
+| Item | Type | Gate |
+|------|------|------|
+| 5 `.gitkeep` DELETE CANDIDATE (Lot H) | Nettoyage structure | Morris GO suppression |
+| `05-validate-pr-readiness.md` hors manifeste H | Alignement index README | Cycle séparé Light |
+| Lots G / I | Migration projets / tooling | GO Morris par famille ≤50/PR |
+
+### 13.2 Cycles futurs — pattern recommandé
+
+1. **Cadrage read-only** → manifeste fermé → PR qualification.
+2. **Validation** sous-lots si volume ou Critical (modèle F1a/F1b).
+3. **Exécution unique** par lot avec phases internes si besoin (modèle H).
+4. **Delete cluster** seulement après refs + décision Morris fichier par fichier (modèle J).
+5. **Capitalisation** post-merge — actif méthode (présent document).
+6. **CSV reconcile** dans PR exécution delete — jamais en capitalisation seule.
+
+### 13.3 Maturité actif
+
+| Niveau | Statut |
+|--------|--------|
+| Candidate | **oui** — première capitalisation trajectoire F→H→J |
+| Tested | partiel — 1 exécution complète sur `main` |
+| Validated | **non** — SFIA v2.6 candidate ; Morris n'a pas promu baseline |
 
 ---
 
-## 10. Statut Lot J
+## 14. Traçabilité PR et rapports sources
 
-**execution completed — review pending**
+| Étape | Rapport | PR | Merge commit (indicatif) |
+|-------|---------|-----|--------------------------|
+| Lot F qualification | `2026-07-12-sfia-v2.6-lot-f-superseded-qualification.md` | #184 | `997f1ff` |
+| F1a/F1b validation | `2026-07-13-sfia-v2.6-lot-f1a-f1b-validation.md` | #185 | — |
+| F2 F-005 Critical | `2026-07-13-sfia-v2.6-lot-f2-f005-critical-review.md` | #186 | — |
+| Lot H cadrage | `2026-07-13-sfia-v2.6-lot-h-cadrage.md` | #187 | `8267433` |
+| Lot H exécution | `2026-07-13-sfia-v2.6-lot-h-execution.md` | #188 | `2a527b5` |
+| Lot J exécution | `2026-07-13-sfia-v2.6-lot-j-execution.md` | #189 | `0c29624` |
+| **Capitalisation** | *présent document* | — | — |
 
-**Prochaine gate :** GO Morris revue + commit/PR
+**Sources méthode consultées :** `08-capitalize-method-asset.md`, `sfia-cycle-execution-template.md`, operating model, routing guide, rules-and-guardrails, cartography.md/csv, migration-lots-plan.
 
 ---
 
-## 11. Verdict
+## 15. Réserves
 
-**`LOT J EXECUTION COMPLETED — READY FOR MORRIS REVIEW`**
+| # | Réserve | Bloquante | Qualification |
+|---|---------|:---------:|---------------|
+| RV1 | 5 `.gitkeep` Lot H non supprimés | non | Décision Morris future |
+| RV2 | Lots G (570) et I (68) non traités | non | Hors trajectoire F→H→J |
+| RV3 | SFIA v2.6 reste candidate — v2.4 baseline | non | Doctrine inchangée |
+| RV4 | Références historiques dans rapports lot-* (photographies) | non | Traçabilité intentionnelle |
+| RV5 | `05-validate-pr-readiness.md` listé README templates hors manifeste H | non | Cycle alignement séparé |
+| RV6 | Mentions « remplace X » dans archives post-delete | non | Traçabilité archive |
+
+---
+
+## 16. Verdict capitalisation
 
 ```
+CAPITALIZATION COMPLETE WITH RESERVES
+```
+
+**Signification :**
+
+- Trajectoire **Repository Rationalization v2.6 (F → H → J)** documentée comme actif méthode **candidate**.
+- Décisions Morris, méthode manifestes, remplaçants, refs, protégés et conservés **capitalisés**.
+- Exécution intégrée `main` @ `0c29624` — **9 suppressions**, **0 delete-candidate** résiduel.
+- Réserves **non bloquantes** — `.gitkeep`, Lots G/I, maturité baseline.
+
+**Non autorisé par ce document :** nouvelle suppression, modification CSV/cartographie, promotion v2.6 baseline, ouverture Lot G/I.
 
 ---
 
-## Suppressions (staged)
-
-```name-status
-D	method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-audit/sfia-v1.1-p2-cross-reference-audit.md
-D	method/sfia-fast-track/documentation/capitalization/foundation-documents/v1.1-planning/sfia-foundation-v1.1-consolidation-plan.md
-D	method/sfia-fast-track/documentation/documentation-audit.md
-D	method/sfia-fast-track/documentation/documentation-structure-target.md
-D	method/sfia-fast-track/documentation/workspace-audit/interv360/interv360-folder-normalization-audit.md
-D	method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-audit.md
-D	method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-plan.md
-D	method/sfia-fast-track/documentation/workspace-audit/round-2/sfia-workspace-cleanup-round-2-report.md
-D	method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md
-
-```
+*Capitalisation produite par cycle Cursor — profil Capitalization — aucun commit cycle — SFIA v2.4 baseline — v2.6 candidate.*
 
 ---
 
-## Diff stat global
+## Fichier modifié — sections complètes
 
-```
- method/sfia-fast-track/README.md                   |  4 +-
- .../core/sfia-consolidation-roadmap.md             | 10 ++---
- .../foundation-candidate-files.txt                 | 14 +++----
- .../foundation-priority-files.txt                  | 14 +++----
- .../inventory-sfia-fast-track.md-list.txt          | 14 +++----
- .../sfia-foundation-documents-inventory.md         | 10 ++---
- .../archive/foundation-v1.1/v1.1-audit/README.md   |  2 +-
- .../sfia-foundation-v1.1-closure-status.md         |  4 +-
- .../sfia-foundation-v1.1-post-merge-status.md      |  4 +-
- .../sfia-v1.1-capitalization-inputs-inventory.md   | 16 ++++----
- .../sfia-v1.1-foundation-impact-matrix.md          |  4 +-
- .../archive/notion/notion-publication-plan.md      |  8 ++--
- .../final-markdown-files.txt                       | 14 +++----
- .../final-method-files.txt                         | 14 +++----
- .../workspace-audits/post-cleanup-all-files.txt    |  8 ++--
- .../post-cleanup-markdown-files.txt                |  8 ++--
- .../workspace-audits/pr-81-post-merge-status.md    |  2 +-
- .../workspace-audits/pre-cleanup-all-files.txt     |  4 +-
- .../pre-cleanup-markdown-files.txt                 |  4 +-
- .../workspace-audits/pre-cleanup-method-files.txt  |  4 +-
- .../round-2/markdown-files-all.txt                 |  8 ++--
- .../workspace-audits/round-2/method-files.txt      |  8 ++--
- .../round-2/post-round-2-markdown-files.txt        | 12 +++---
- .../sfia-workspace-migration-plan.md               |  8 ++--
- ...7-03-sfia-documentation-capitalization-audit.md | 10 ++---
- .../2026-07-03-sfia-foundation-documents-audit.md  |  7 ++--
- .../sfia-documentation-completeness-matrix.md      |  4 +-
- ...2026-07-11-sfia-v2.6-repository-cartography.csv | 11 +-----
- .../2026-07-11-sfia-v2.6-repository-cartography.md | 46 +++++++++++++++++-----
- ...6-07-11-sfia-v2.6-repository-cleanup-framing.md |  6 +--
- ...-11-sfia-v2.6-repository-migration-lots-plan.md | 17 +++++---
- ...6-07-11-sfia-v2.6-repository-read-only-audit.md | 34 ++++++++--------
- ...-12-sfia-v2.6-lot-f-superseded-qualification.md | 17 ++++++++
- .../2026-07-13-sfia-v2.6-lot-f1a-f1b-validation.md | 10 +++++
- .../notion/sfia-notion-content-categorization.md   |  8 ++--
- .../2026-07-03-operational-cleanup-report.md       |  2 +-
- ...07-03-sfa-workspace-final-architecture-audit.md |  8 ++--
- 37 files changed, 212 insertions(+), 166 deletions(-)
+### §11 Lot H — next gate (modifié)
 
-```
+| **Statut exécution Lot H** | **closed** (PR #188 merged) |
+| **Next gate** | — (intégré trajectoire F→H→J) |
+
+### §12 Lot J — statut (modifié)
+
+| Statut | **closed** (PR #189 merged @ `0c29624`) |
+| Next gate | — (intégré trajectoire F→H→J) |
+
+### §12.1 Repository Rationalization v2.6 — trajectoire F → H → J (ajouté)
+
+| Champ | Contenu |
+|-------|---------|
+| **Périmètre** | Lots F, H, J — Lots G et I **exclus** |
+| **Statut** | **COMPLETED** |
+| **Merge final** | PR #189 — `main` @ `0c29624e4398623c9417ed49e2eb8caa78093b9f` |
+| **Suppressions intégrées** | **9** (F-001–F-004 + 5 workspace-audit) |
+| **Conservés structurants** | F-005 ; `sfia-v2-design-coverage-standard.md` |
+| **CSV post-trajectoire** | 1036 lignes — SHA `3a02dcb2467d84c5a512f22f8895b09f673f1f95a8e8d4393fd39d5ee4897abb` |
+| **Rapport capitalisation** | `2026-07-13-sfia-v2.6-repository-rationalization-capitalization.md` |
+| **Réserves ouvertes** | 5 `.gitkeep` Lot H (gate Morris future) ; Lots G/I hors périmètre |
+
+### Footer plan (modifié)
+
+*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F closed** (PR #186) — **Lot H closed** (PR #188) — **Lot J closed** (PR #189 — 9 deleted, design coverage retained) — **Repository Rationalization v2.6 (F→H→J) COMPLETED** — capitalisation `2026-07-13-sfia-v2.6-repository-rationalization-capitalization.md` — **Lots G/I excluded** — **Next gate: Lots G/I ou `.gitkeep` Lot H — GO Morris séparé***.*
 
 ---
 
-## Diff name-status global
+## Review pack content coverage
 
-```
-M	method/sfia-fast-track/README.md
-M	method/sfia-fast-track/core/sfia-consolidation-roadmap.md
-M	method/sfia-fast-track/documentation/archive/capitalization-inventories/foundation-candidate-files.txt
-M	method/sfia-fast-track/documentation/archive/capitalization-inventories/foundation-priority-files.txt
-M	method/sfia-fast-track/documentation/archive/capitalization-inventories/inventory-sfia-fast-track.md-list.txt
-M	method/sfia-fast-track/documentation/archive/foundation-v1.1/sfia-foundation-documents-inventory.md
-M	method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-audit/README.md
-M	method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-closure-status.md
-M	method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-closure/sfia-foundation-v1.1-post-merge-status.md
-M	method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-capitalization-inputs-inventory.md
-M	method/sfia-fast-track/documentation/archive/foundation-v1.1/v1.1-inputs/sfia-v1.1-foundation-impact-matrix.md
-M	method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md
-M	method/sfia-fast-track/documentation/archive/workspace-audits/final-architecture-review/final-markdown-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/final-architecture-review/final-method-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/post-cleanup-all-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/post-cleanup-markdown-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/pr-81-post-merge-status.md
-M	method/sfia-fast-track/documentation/archive/workspace-audits/pre-cleanup-all-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/pre-cleanup-markdown-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/pre-cleanup-method-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/round-2/markdown-files-all.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/round-2/method-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/round-2/post-round-2-markdown-files.txt
-M	method/sfia-fast-track/documentation/archive/workspace-audits/sfia-workspace-migration-plan.md
-M	method/sfia-fast-track/documentation/capitalization/2026-07-03-sfia-documentation-capitalization-audit.md
-M	method/sfia-fast-track/documentation/capitalization/foundation-documents/2026-07-03-sfia-foundation-documents-audit.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-documentation-completeness-matrix.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.csv
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cleanup-framing.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-read-only-audit.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-12-sfia-v2.6-lot-f-superseded-qualification.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-13-sfia-v2.6-lot-f1a-f1b-validation.md
-M	method/sfia-fast-track/documentation/notion/sfia-notion-content-categorization.md
-M	method/sfia-fast-track/documentation/workspace-audit/2026-07-03-operational-cleanup-report.md
-M	method/sfia-fast-track/documentation/workspace-audit/final-architecture-review/2026-07-03-sfa-workspace-final-architecture-audit.md
-
-```
+| Champ | Valeur |
+|-------|--------|
+| created files full content | yes |
+| modified sections complete | yes |
+| useful diff included | yes |
+| synthesis only | no |
+| review pack verdict | complete |
 
 ---
 
-## Consommateurs clés — diffs
+## Verdict
 
-### `method/sfia-fast-track/README.md`
+**CAPITALIZATION COMPLETE WITH RESERVES**
 
-```diff
-diff --git a/method/sfia-fast-track/README.md b/method/sfia-fast-track/README.md
-index 3354a4e..1d80c05 100644
---- a/method/sfia-fast-track/README.md
-+++ b/method/sfia-fast-track/README.md
-@@ -72,8 +72,8 @@ Prompt templates: `prompts/templates/` — full reusable SFIA prompt templates d
- 
- ### Documentation (`documentation/`)
- 
--- `documentation-audit.md`
--- `documentation-structure-target.md`
-+- `documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
-+- `documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
- - `notion-publication-plan.md`
- - `workspace-audit/` — audits et inventaires du workspace
- 
-
-```
-### `method/sfia-fast-track/core/sfia-consolidation-roadmap.md`
-
-```diff
-diff --git a/method/sfia-fast-track/core/sfia-consolidation-roadmap.md b/method/sfia-fast-track/core/sfia-consolidation-roadmap.md
-index b4bc93f..29433ec 100644
---- a/method/sfia-fast-track/core/sfia-consolidation-roadmap.md
-+++ b/method/sfia-fast-track/core/sfia-consolidation-roadmap.md
-@@ -189,8 +189,8 @@ Analyser toute la documentation existante et améliorer sa cohérence.
- 
- Livrables attendus :
- 
--- `method/sfia-fast-track/documentation/documentation-audit.md`
--- `method/sfia-fast-track/documentation/documentation-structure-target.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
- - `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`
- 
- Important :
-@@ -203,8 +203,8 @@ Revue documentaire réalisée et intégrée à `main`.
- 
- Livrables :
- 
--- `method/sfia-fast-track/documentation/documentation-audit.md`
--- `method/sfia-fast-track/documentation/documentation-structure-target.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-standard-principles.md`
- - `method/sfia-fast-track/documentation/archive/notion/notion-publication-plan.md`
- 
- Décision :
-@@ -276,7 +276,7 @@ Livrables :
- - `method/sfia-fast-track/documentation/archive/checklists/validation-checklist.md`
- - `method/sfia-fast-track/checklists/guardrails-checklist.md`
- - `method/sfia-fast-track/documentation/archive/checklists/notion-publication-checklist.md`
--- `method/sfia-fast-track/documentation/workspace-audit/sfia-workspace-global-audit.md`
-+- `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-cartography.md`
- - `method/sfia-fast-track/documentation/archive/workspace-audits/sfia-workspace-migration-plan.md`
- - inventaires complets pré-nettoyage (`pre-cleanup-*.txt`)
- 
-
-```
-### `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md`
-
-```diff
-diff --git a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-index 3a96adc..3e8a7f2 100644
---- a/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-+++ b/method/sfia-fast-track/documentation/capitalization/sfia-v2.6/2026-07-11-sfia-v2.6-repository-migration-lots-plan.md
-@@ -295,7 +295,7 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
- | **`.gitkeep`** | **9** qualifiés — **0** supprimé ; **5** DELETE CANDIDATE (gate Morris futur) |
- | **Operational** | **13** |
- | **Réserves** | `.gitkeep` redondants (5) ; template `05-validate-pr-readiness.md` hors manifeste |
--| **Statut exécution Lot H** | **completed — review pending** |
-+| **Statut exécution Lot H** | **closed** (PR #188 merged) |
- | **Next gate** | **GO Morris revue exécution + commit/PR** |
- 
- **Règle Lot I :** ne pas appliquer logique documentaire aux artefacts `not-applicable`. **338** fichiers `lifecycle not-applicable` au total — dont **52** tagués lot-I.
-@@ -304,11 +304,16 @@ Lot B reste **documenté** comme lot conditionnel — ne pas inventer de fichier
- 
- ## 12. Lot J — Suppressions
- 
--| Volume | **10** delete-candidate |
-+| Volume initial | **10** delete-candidate |
-+| Décision Morris 2026-07-13 | **9** suppressions + **1** conservé (`sfia-v2-design-coverage-standard.md`) |
-+| Exécution | **9** fichiers supprimés — design coverage reclassé `keep` / *(vide)* |
- | Exclusions | **F-005** (`current-application-audit.md`) — Morris Option B 2026-07-13 |
--| Manifeste | F-001–F-004 (4) + 6 autres delete-candidates hors Lot F |
--| Gate | Critical — par fichier |
--| Ordre | Dernier — après Lot 0 validation |
-+| Manifeste exécuté | F-001–F-004 (4) + 5 workspace-audit ; design coverage **retiré** |
-+| `.gitkeep` Lot H | **5** delete-candidates — **hors périmètre** — reportés |
-+| Rapport exécution | `2026-07-13-sfia-v2.6-lot-j-execution.md` |
-+| Branche exécution | `cleanup/sfia-v2.6-lot-j` @ `2a527b5` |
-+| Statut | **execution completed — review pending** |
-+| Next gate | **GO Morris revue + commit/PR** |
- 
- ---
- 
-@@ -436,4 +441,4 @@ Les clarifications des lots (Lot 0, Lot F, Lot G, Lot D, sous-lots) sont intégr
- 
- ---
- 
--*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F closed** (PR #186) — **Lot H execution completed — review pending** (3/40 modified) — **Lots G/I excluded** — **Lot J not opened** — **Next gate: GO Morris revue exécution Lot H + commit/PR***.*
-+*Plan candidate — **Lot 0 closed (76/76)** — **Lot A closed** — **Lot B not required** — **Lot C closed** — **Lot D closed (149/149)** — **D1 closed** — **D2 closed** — **D3 closed** — **Lot E closed (75/75)** — **Lot F closed** (PR #186) — **Lot H closed** (PR #188) — **Lot J execution completed — review pending** (9 deleted, design coverage retained) — **Lots G/I excluded** — **Next gate: GO Morris revue Lot J + commit/PR***.*
-
-```
-
-
----
-
-## Design coverage CSV — après reclassification
-
-- `proposed_disposition`: keep
-- `migration_lot_candidate`: (vide)
-- `duplicate_or_overlap`: no
-- `morris_gate_required`: no
-- `risk_level`: low
-
----
-
-## Convention CSV post-delete
-
-Retrait des 9 lignes des fichiers supprimés. Inventaire courant 1036 lignes.
-
----
-
-## Content coverage
-
-| Critère | Statut |
-|---------|--------|
-| created report full content | **yes** |
-| modified consumers | **yes** (diffs + 32 files) |
-| modified derived documents | **yes** |
-| deleted files evidence | **yes** |
-| CSV before/after | **yes** |
-| synthesis only | **no** |
-| review pack verdict | **complete** |
