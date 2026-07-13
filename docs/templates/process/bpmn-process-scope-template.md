@@ -125,7 +125,7 @@ Le BPMN ne couvre pas :
 
 ## 12. Conclusion
 
-[Résumer si le projet est prêt pour la modélisation BPMN — Go / No-Go selon `bpmn-integration-checklist.md`.]
+[Résumer si le projet est prêt pour la modélisation BPMN — Go / No-Go selon `docs/practices/process/bpmn-integration-checklist.md`.]
 
 ---
 
