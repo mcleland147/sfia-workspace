@@ -5,9 +5,10 @@
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-product-design` |
-| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
+| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-act-02-editorial` |
+| **HEAD** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---
 
@@ -15,143 +16,151 @@
 
 | Phase | Contenu |
 |-------|---------|
-| **PD-01** | Product Design Candidate — corpus présent |
-| **PD-nA** | Préparation éditoriale Git (brouillons complets) |
-| **PD-nB** | Implémentation Notion L0 (après validation source Git) |
-| **PD-07** | QA narrative et métier |
-| **PD-08** | Décision capitalisation — GO Morris |
+| **PD-01** | Product Design Candidate — mergé ✓ |
+| **PD-nA** | Préparation éditoriale Git |
+| **PD-nB** | Implémentation Notion L0 |
+| **PD-08** | QA narrative et métier |
+| **PD-09** | Décision capitalisation — GO Morris |
+
+**Ordre narratif obligatoire :** Hub + Acte I → **Acte II** → Acte III (NovaBuild) → Actes IV–V → Actes VI–VII → migration → QA → capitalisation.
 
 **Règle structurante :** chaque incrément de contenu suit **deux cycles distincts** — préparation Git (A) puis implémentation Notion (B).
 
-> La source éditoriale Git doit être validée avant toute implémentation Notion. Le merge préalable est **recommandé** pour les incréments structurants ; toute exception exige une décision Morris explicite et une source Git stable identifiable.
-
-**Aucune action Notion dans PD-01 ni dans les cycles A.**
+> La source éditoriale Git doit être validée avant toute implémentation Notion. Le merge préalable est **recommandé** pour les incréments structurants.
 
 ---
 
 ## 2. Modèle A / B
 
-| Cycle | Périmètre | Livrables | Gate |
-|-------|-----------|-----------|------|
-| **A — Git** | Brouillons Markdown complets dans `discovery/` ou équivalent | Review pack, handoff si requis | GO Morris commit/PR/merge |
-| **B — Notion** | Lecture version Git validée ; action L0 manuelle | Pages Notion, revue visuelle | GO Morris implémentation ; rollback possible |
-
-Chaque **B** exige : source Git stable · aucune écriture Git pendant B · pas d'automatisation · revue Morris.
+| Cycle | Périmètre | Gate |
+|-------|-----------|------|
+| **A — Git** | Brouillons Markdown complets | GO Morris commit/PR/merge |
+| **B — Notion** | Matérialisation L0 manuelle | GO Morris implémentation |
 
 ---
 
 ## 3. Incréments
 
-### PD-01 — Product Design Candidate ✓ (présent)
+### PD-01 — Product Design Candidate ✓
 
-Contrat Product Design — 9 fichiers — gate GO commit/PR corpus.
+Corpus PD-01 — mergé (PR #195).
 
-### PD-02A — Préparation éditoriale Git : Hub + Acte I
+### PD-02A — Hub + Acte I — préparation Git ✓
 
-| Champ | Valeur |
-|-------|--------|
-| Objectif | Brouillons Hub Discovery + Acte I complets |
-| Git | Création fichiers editorial Discovery |
-| Review pack | Full ou light selon profil |
-| Gate Morris | Validation narrative Acte I |
-| Notion | **Aucune** |
+Brouillons Hub + Acte I — mergé (PR #196).
 
-### PD-02B — Implémentation Notion : Hub + Acte I
+### PD-02B — Hub + Acte I — implémentation Notion ✓
 
-| Champ | Valeur |
-|-------|--------|
-| Objectif | Matérialiser Hub + Acte I dans Notion |
-| Prérequis | PD-02A validé ; merge Git **recommandé** |
-| Notion | Création pages L0 — manuel |
-| Git | Lecture seule |
-| Rollback | Restaurer depuis editorial Git |
-| Gate | Revue visuelle Morris |
+| Prérequis | PD-02A mergé (PR #196) ✓ |
+| Notion | Hub Discovery créé · Acte I créé |
+| Source Git | Corpus PD-02A mergé via PR #196 |
+| Statut | **Finalisé** |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
-### PD-03A — Préparation éditoriale Git : fil rouge NovaBuild
+Git reste la **source de vérité** — Notion = couche métier et pédagogique.
 
-| Champ | Valeur |
-|-------|--------|
-| Objectif | Brouillons Acte III (III.1–III.4) — cas composite NovaBuild |
-| Preuve | Catégories livrables SFIA vérifiables — pas export projet brut |
-| Gate | Test PO + distinction fiction/preuve |
+### PD-03A — Acte II — préparation Git
 
-### PD-03B — Implémentation Notion : Acte III
+| Objectif | Brouillon **Acte II** — contraste tripartite, rôles, cycles, gates |
+| Prérequis | Acte I editorial disponible ✓ |
+| Gate | M1–M3 Morris · validation contraste et confidentialité |
 
-| Prérequis | PD-03A validé |
-| Notion | Pages fil rouge |
-| Gate | Confidentialité + crédibilité narrative |
+*Cycle présent — brouillon en cours de revue.*
 
-### PD-04A — Préparation Git : Actes II, IV, V
+### PD-03B — Acte II — implémentation Notion
 
-Brouillons contraste tripartite, galerie livrables, garanties/limites.
+Matérialisation Acte II après validation PD-03A + merge recommandé.
 
-### PD-04B — Implémentation Notion : Actes II, IV, V
+### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
 
-Matérialisation L0 après validation 04A.
+| Objectif | Brouillons III.1–III.4 — cas composite NovaBuild |
+| Prérequis | **PD-03A validé** — Acte II avant fil rouge |
+| Gate | Distinction fiction / preuves |
 
-### PD-05A — Préparation Git : Actes VI et VII
+### PD-04B — Acte III — implémentation Notion
 
-Brouillons personas + annexes méthode simplifiées.
+Pages fil rouge NovaBuild.
 
-### PD-05B — Implémentation Notion : Actes VI et VII
+### PD-05A — Actes IV et V — préparation Git
 
-Pages persona + portail annexes ; mapping P0 legacy documenté.
+Galerie livrables · garanties et limites.
 
-### PD-06A — Préparation Git : plan migration legacy
+### PD-05B — Actes IV et V — implémentation Notion
 
-Plan redirections §00–11 → architecture Discovery — pas de suppression Notion dans A.
+Matérialisation L0.
 
-### PD-06B — Migration contrôlée Notion
+### PD-06A — Actes VI et VII — préparation Git
 
-Redirections, archivage parcours legacy — gate Morris GO migration.
+Personas · annexes méthode simplifiées.
 
-### PD-07 — QA narrative et métier
+### PD-06B — Actes VI et VII — implémentation Notion
 
-Framework §08 · dépend PD-02B–06B · verdict acceptation.
+Pages persona + portail annexes.
 
-### PD-08 — Décision capitalisation
+### PD-07A — Migration legacy — préparation Git
 
-Évaluer promotion method/core — GO Morris explicite.
+Plan redirections §00–11 → architecture Discovery.
+
+### PD-07B — Migration legacy — Notion
+
+Redirections · archivage — gate Morris GO migration.
+
+### PD-08 — QA narrative et métier
+
+Framework §08 · dépend PD-02B–07B.
+
+### PD-09 — Décision capitalisation
+
+Évaluer promotion method/core — GO Morris.
 
 ---
 
 ## 4. Dépendances globales
 
 ```text
-PD-01
-├── PD-02A → PD-02B
-├── PD-03A → PD-03B  (peut chevaucher 02A après gate Morris)
-├── PD-04A → PD-04B  (après 03A recommandé)
+PD-01 ✓
+├── PD-02A ✓ → PD-02B ✓
+├── PD-03A → PD-03B     ← Acte II (avant III)
+├── PD-04A → PD-04B     ← NovaBuild (après II)
 ├── PD-05A → PD-05B
-├── PD-06A → PD-06B  (après 05B)
-├── PD-07 (après 06B)
-└── PD-08 (après PD-07)
+├── PD-06A → PD-06B
+├── PD-07A → PD-07B
+├── PD-08 (après 07B)
+└── PD-09 (après PD-08)
 ```
 
-**Parallélisme autorisé en préparation (A)** — pas en implémentation (B) sans source Git validée par incrément.
+**Séquence éditoriale Git recommandée :** 03A → 04A → 05A → 06A → 07A (parallélisme A possible avec gates par incrément).
 
 ---
 
 ## 5. Distinction phases (synthèse)
 
 ```text
-Conception (PD-01)
-  → Préparation éditoriale Git (PD-nA)
-    → Implémentation Notion (PD-nB)
-      → QA (PD-07)
-        → Capitalisation? (PD-08)
+Conception (PD-01) ✓
+  → Hub + I (02A ✓ / 02B)
+    → Acte II (03A / 03B)
+      → Acte III NovaBuild (04A / 04B)
+        → IV–V (05) → VI–VII (06) → Migration (07)
+          → QA (08) → Capitalisation? (09)
 ```
 
 ---
 
-## 6. Quick wins post-PD-01
+## 6. Mapping renumérotation (référence)
 
-- GO commit/PR corpus PD-01
-- Lancement PD-02A (Hub + Acte I editorial Git)
+| Ancien ID | Nouveau ID | Contenu |
+|-----------|------------|---------|
+| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
+| PD-04A/B | **PD-05A/B** | Actes IV et V |
+| PD-05A/B | **PD-06A/B** | Actes VI et VII |
+| PD-06A/B | **PD-07A/B** | Migration legacy |
+| PD-07 | **PD-08** | QA |
+| PD-08 | **PD-09** | Capitalisation |
+| — | **PD-03A/B** | **Acte II** (nouveau slot) |
 
 ---
 
-## 7. Critères capitalisation (PD-08)
+## 7. Critères capitalisation (PD-09)
 
 Itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
 

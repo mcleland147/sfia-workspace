@@ -13,7 +13,7 @@
 | **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
 | **Niveau lecture** | L0 |
 | **Durée cible** | 30 secondes à 3 minutes (hero + orientation) |
-| **Implémentation Notion** | Non — PD-02B gate Morris |
+| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) — document source Git PD-02A |
 | **Audience** | Tous personas — orientation |
 
 ---
@@ -141,7 +141,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
 | **Contenu** | Hub complet · **Acte I** intégral |
 | **Pages / actes** | Hub → Acte I |
 | **Résultat** | « Je comprends pourquoi ChatGPT ou Cursor seuls ne suffisent pas » |
-| **CTA** | Acte II (futur PD-04A) ou porte persona |
+| **CTA** | Acte II *(PD-03A)* ou porte persona |
 
 ---
 
@@ -212,12 +212,12 @@ Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigati
 | Acte | Question | Statut éditorial |
 |------|----------|------------------|
 | **I** | Pourquoi SFIA existe ? | **PD-02A** — brouillon présent |
-| **II** | En quoi SFIA diffère-t-elle ? | Futur PD-04A |
-| **III** | À quoi ressemble un projet ? | Futur PD-03A (NovaBuild) |
-| **IV** | Que produit-on ? | Futur PD-04A |
-| **V** | Pourquoi ça tient ? | Futur PD-04A |
-| **VI** | Comment me projeter ? | Futur PD-05A |
-| **VII** | Où approfondir la méthode ? | Futur PD-05A |
+| **II** | En quoi SFIA diffère-t-elle ? | **PD-03A** — brouillon en revue |
+| **III** | À quoi ressemble un projet ? | Futur **PD-04A** (NovaBuild) |
+| **IV** | Que produit-on ? | Futur **PD-05A** |
+| **V** | Pourquoi ça tient ? | Futur **PD-05A** |
+| **VI** | Comment me projeter ? | Futur **PD-06A** |
+| **VII** | Où approfondir la méthode ? | Futur **PD-06A** |
 
 Le Hub **annonce** le voyage — il ne livre pas la méthode complète.
 

@@ -13,7 +13,7 @@
 
 ## 1. Objectif
 
-Définir les **critères de jugement** de la future expérience Discovery — avant et après implémentation Notion (PD-07).
+Définir les **critères de jugement** de la future expérience Discovery — avant et après implémentation Notion (PD-08).
 
 ---
 
@@ -116,7 +116,7 @@ Définir les **critères de jugement** de la future expérience Discovery — av
 
 ## 6. Application cycle présent (PD-01)
 
-Ce framework s'applique **pleinement** à PD-07 (QA Notion). Pour PD-01 :
+Ce framework s'applique **pleinement** à PD-08 (QA Notion). Pour PD-01 :
 
 - Revue Morris sur **documents Git** via critères C1–C8 en **lecture simulée**
 - C10–C13 à l'implémentation

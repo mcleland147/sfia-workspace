@@ -47,7 +47,7 @@ Ce cycle **ne modifie pas Notion** — il conçoit la transformation narrative c
 | 4 | [04-sfia-discovery-personas-and-reading-journeys.md](04-sfia-discovery-personas-and-reading-journeys.md) | 6 personas, 5 niveaux de lecture |
 | 5 | [05-sfia-discovery-editorial-contract.md](05-sfia-discovery-editorial-contract.md) | Voix, confidentialité, matrice d'information |
 | 6 | [06-sfia-discovery-target-information-architecture.md](06-sfia-discovery-target-information-architecture.md) | Nouvelle arborescence, mapping ancien → cible |
-| 7 | [07-sfia-discovery-transformation-roadmap.md](07-sfia-discovery-transformation-roadmap.md) | Incréments PD-01, PD-nA/B, PD-07–08 |
+| 7 | [07-sfia-discovery-transformation-roadmap.md](07-sfia-discovery-transformation-roadmap.md) | Incréments PD-01, PD-nA/B, PD-08–09 |
 | 8 | [08-sfia-discovery-acceptance-framework.md](08-sfia-discovery-acceptance-framework.md) | Critères d'acceptation, grilles de test |
 
 ---
@@ -73,7 +73,7 @@ Ce cycle **ne modifie pas Notion** — il conçoit la transformation narrative c
 
 ```text
 Product Design (présent) → validation Morris → préparation éditoriale Git
-  → préparation éditoriale Git (PD-nA) → implémentation Notion (PD-nB) → QA (PD-07) → capitalisation (PD-08)
+  → préparation éditoriale Git (PD-nA) → implémentation Notion (PD-nB) → QA (PD-08) → capitalisation (PD-09)
 ```
 
 **Gates futurs :** GO commit/PR corpus · GO PD-02A editorial · GO PD-nB Notion · GO capitalisation.

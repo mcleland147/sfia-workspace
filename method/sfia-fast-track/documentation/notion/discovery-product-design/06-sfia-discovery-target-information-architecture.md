@@ -138,7 +138,7 @@ SFIA Discovery — Accueil (Hub)
 | … | … | … |
 | Acte VII | VI | Hub / Git |
 
-*(Détail complet en implémentation PD-03B+)*
+*(Détail complet en implémentation PD-04B+)*
 
 ---
 
@@ -177,7 +177,7 @@ SFIA Discovery — Accueil (Hub)
 
 ## 12. Hypothèses
 
-- Anciennes pages P0 **archivées** ou **redirigées** en PD-06B — pas supprimées sans GO
+- Anciennes pages P0 **archivées** ou **redirigées** en PD-07B — pas supprimées sans GO
 - Numérotation §00–11 **retirée du parcours principal** — conservée en métadonnées Git
 
 ---
