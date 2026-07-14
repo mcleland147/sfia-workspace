@@ -1,21 +1,46 @@
-# SFIA Review Pack — Discovery Editorial PD-03A (Acte II)
+# SFIA Review Pack — Discovery Editorial PD-03A corrective (Acte II) R1–R4
 
-**Horodatage :** 2026-07-14 20:25 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 ~20:45 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
 **Cycle :** PD-03A — Préparation éditoriale Git (Acte II — nouvelle façon de conduire un projet)
+**Sous-cycle :** Correctif ChatGPT R1–R4 (borné)
 **Type de cycle :** Product Design — couche éditoriale lecteur
 **Profil SFIA :** Standard
 **Typologie v2.4 :** DOC
 **Statut livrables :** Candidate — brouillons éditoriaux non commités
 **Branche projet :** `documentation/sfia-discovery-act-02-editorial`
 **HEAD / base / origin/main :** `4994954f195169a3262910439fcd2455955c38f5`
-**Ancestor 4994954 :** ✓ (main @ `4994954f195169a3262910439fcd2455955c38f5`)
-**Implémentation Notion :** Non — gate PD-03B futur
+**Implémentation Notion :** PD-02B ✓ (Hub + Acte I) · PD-03B futur
 **Capitalisation méthode :** Non
-**Niveau review pack :** full (contenu intégral 1 NEW + 5 MOD)
-**Handoff avant :** `origin/sfia/review-handoff` @ `dd965bc148d15ab5194ea46637ef9ecd6ba09e52`
-**Verdict :** ACT II EDITORIAL READY FOR CHATGPT REVIEW
+**Niveau review pack :** full (1 NEW + 7 MOD + diffs Hub/I)
+**Handoff avant :** `origin/sfia/review-handoff` @ `3af3c8a243be65c047444e40ed57bb776062bd08`
+**Verdict :** **ACT II EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
+
+---
+
+## Décision Morris — GO correction R1–R4 (borné)
+
+| Élément | Décision |
+|---------|----------|
+| **Périmètre** | R1–R4 uniquement — pas d'extension Acte II hors réserves |
+| **Corpus mergé** | Hub + Acte I — alignement références PD autorisé |
+| **Acte II** | §2 · §3 · §6 — formulations qualitatives (R3 · R4) |
+| **Commit projet** | **Non** — branche `documentation/sfia-discovery-act-02-editorial` reste non commitée |
+| **Handoff** | Publication `sfia/review-handoff` autorisée |
+
+---
+
+## Réserves ChatGPT R1–R4 — levées (corrections exactes)
+
+| Réserve | Objet | Avant (revue initiale) | Après (correctif) | Fichiers |
+|---------|-------|------------------------|-------------------|----------|
+| **R1** | Continuité Acte I → II / III — cycles PD | NovaBuild teaser : Acte III = cycle PD-03A ; suite Acte II = cycle PD-04A ; grisé Notion PD-04B | Acte III = **PD-04A** ; Acte II = **PD-03A** ; grisé **PD-03B** | `sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` |
+| **R2** | Table navigation Hub — slots PD par acte | II futur PD-04A · III futur PD-03A (NovaBuild) · IV–V PD-04A · VI–VII PD-05A ; CTA « futur PD-04A » | II **PD-03A** en revue · III **PD-04A** (NovaBuild) · IV–V **PD-05A** · VI–VII **PD-06A** ; CTA Acte II *(PD-03A)* | `sfia-discovery-hub-editorial-draft.md` |
+| **R3** | Contraste tripartite — ton non absolutiste | §2 fragilité classique « Lourdeur, lenteur, coût… » ; §3 Vitesse « Souvent lente au démarrage » ; Capitalisation « Difficile sans REX formalisé » ; Limites « Coût, lenteur, rigidité possible » | §2 « Coordination potentiellement lourde selon l'organisation » ; Vitesse « Démarrage parfois plus long selon le cadre et les validations » ; Capitalisation « Dépend des pratiques de documentation et de REX » ; Limites « Rigidité possible selon le cadre et la gouvernance » | `sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` |
+| **R4** | Gates Morris — formulation sponsor | §6 clôture « décisions qui **coûtent cher** » | « décisions qui **engagent durablement le projet** » | `sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` |
+
+**Hors R1–R4 (déjà dans cycle initial) :** roadmap Product Design · README editorial · 06/08 — renumérotation PD-03 slot Acte II · PD-08/09 QA/capitalisation.
 
 ---
 
@@ -23,13 +48,12 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| pwd | `/Users/morris/Projects/sfia-workspace` |
+| toplevel | `/Users/morris/Projects/sfia-workspace` |
 | Branche | `documentation/sfia-discovery-act-02-editorial` |
-| HEAD | `4994954f195169a3262910439fcd2455955c38f5` |
+| HEAD | `4994954f195169a3262910439fcd2455955c38f5` ✓ |
 | origin/main | `4994954f195169a3262910439fcd2455955c38f5` |
-| Fichiers scope (6) | 1 NEW + 5 MOD — voir statut ci-dessous |
-| staged / commit projet | aucun (mandat) |
-| Push branche projet | interdit (mandat) |
+| Commits ahead of main (projet) | **0** — aucun commit sur branche projet |
+| staged (scope projet) | **aucun** |
 | **Verdict** | **PASS** |
 
 ### git status --porcelain (workspace)
@@ -40,61 +64,41 @@
  M method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md
  M method/sfia-fast-track/documentation/notion/discovery-product-design/README.md
  M method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
+ M method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
+ M method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
 ?? .sfia/
 ?? .tmp-sfia-review/
 ?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md
 ?? sfia-review-handoff/
 ```
 
-**Note :** seuls les 6 fichiers `method/sfia-fast-track/documentation/notion/...` ci-dessous constituent le périmètre PD-03A ; autres entrées untracked (.sfia/, .tmp-sfia-review/, sfia-review-handoff/) hors commit projet.
+**Périmètre PD-03A corrective :** 1 NEW + 7 MOD sous `method/sfia-fast-track/documentation/notion/…` (Hub + Acte I inclus pour R1–R2).
 
 ---
 
-## Décision Morris — Acte II avant Acte III
+## Fichiers livrables (corrective)
 
-Séquence narrative obligatoire : **Hub + Acte I → Acte II → Acte III (NovaBuild) → Actes IV–V → VI–VII**.
-
-Le contraste tripartite et le modèle de conduite SFIA (Acte II) précèdent le fil rouge composite NovaBuild (Acte III).
-
-Roadmap PD et README editorial alignés sur cette décision (metadata + §3 incréments + ordre de lecture).
-
----
-
-## Mapping renumérotation roadmap (PD-03→PD-04, etc.)
-
-| Ancien ID | Nouveau ID | Contenu |
-|-----------|------------|---------|
-| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
-| PD-04A/B | **PD-05A/B** | Actes IV et V |
-| PD-05A/B | **PD-06A/B** | Actes VI et VII |
-| PD-06A/B | **PD-07A/B** | Migration legacy |
-| PD-07 | **PD-08** | QA narrative et métier |
-| PD-08 | **PD-09** | Capitalisation |
-| — | **PD-03A/B** | **Acte II** (nouveau slot) |
-
-**Cycle présent :** PD-03A (Acte II editorial Git) · PD-03B Notion futur · Acte III = PD-04A/B.
-
----
-
-## Fichiers livrables
-
-| # | Fichier | Rôle | Lignes |
-|---|---------|------|-------:|
-| NEW | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` | Acte II — brouillon lecteur | 238 |
-| MOD 1 | `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md` | Alignement PD-03A / roadmap | 113 |
-| MOD 2 | `method/sfia-fast-track/documentation/notion/discovery-product-design/06-sfia-discovery-target-information-architecture.md` | Alignement PD-03A / roadmap | 187 |
-| MOD 3 | `method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md` | Alignement PD-03A / roadmap | 167 |
-| MOD 4 | `method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md` | Alignement PD-03A / roadmap | 143 |
-| MOD 5 | `method/sfia-fast-track/documentation/notion/discovery-product-design/README.md` | Alignement PD-03A / roadmap | 119 |
+| # | Fichier | Rôle |
+|---|---------|------|
+| NEW | `discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` | Acte II (R3 · R4) |
+| MOD | `discovery/editorial/sfia-discovery-hub-editorial-draft.md` | R2 |
+| MOD | `discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` | R1 |
+| MOD | `discovery/editorial/README.md` | PD-03A · PD-02B ✓ · séquence |
+| MOD | `discovery-product-design/06-sfia-discovery-target-information-architecture.md` | PD-04B+ · PD-07B |
+| MOD | `discovery-product-design/07-sfia-discovery-transformation-roadmap.md` | PD-02B · incréments · séquence |
+| MOD | `discovery-product-design/08-sfia-discovery-acceptance-framework.md` | PD-08 QA |
+| MOD | `discovery-product-design/README.md` | PD-08–09 |
 
 **Lignes Acte II (NEW) :** 238
 
 ---
 
-## Validation grep (14 patterns + réserve hero)
+## QA — grep forbidden + références PD
 
-| Pattern | Résultat (6 fichiers scope) |
-|---------|------------------------------|
+### 14 patterns interdits (8 fichiers scope)
+
+| Pattern | Résultat |
+|---------|----------|
 | `Morris tranchera` | PASS (absent) |
 | `à valider` | PASS (absent) |
 | `BatiNova` | PASS (absent) |
@@ -103,42 +107,377 @@ Roadmap PD et README editorial alignés sur cette décision (metadata + §3 incr
 | `cas générique inspiré Chantiers360` | PASS (absent) |
 | `fil rouge alternatif` | PASS (absent) |
 | `fil rouge définitif` | PASS (absent) |
-| `TODO` | PASS (absent) |
-| `TBD` | PASS (absent) |
-| `FIXME` | PASS (absent) |
-| `PLACEHOLDER` | PASS (absent) |
-| `WIP` | PASS (absent) |
-| `Lorem ipsum` | PASS (absent) |
+| `TODO` / `TBD` / `FIXME` / `PLACEHOLDER` / `WIP` / `Lorem ipsum` | PASS (absent) |
 | `équipe IA qui accélère` | PASS (absent) |
+
+### Cohérence PD (échantillon)
 
 | Contrôle | Résultat |
 |----------|----------|
+| Acte III NovaBuild → PD-04A (editorial) | PASS |
+| Acte II cycle → PD-03A (Acte I teaser) | PASS |
+| Permutation II/III Hub table | PASS (post R2) |
 | QA corpus scope | **PASS** |
 
 ---
 
-## git diff --stat (MOD — tracked)
+## git diff --stat (tracked — corrective)
 
 ```
-...ia-discovery-target-information-architecture.md |   4 +-
- .../07-sfia-discovery-transformation-roadmap.md    | 163 +++++++++++----------
+ ...ia-discovery-target-information-architecture.md |   4 +-
+ .../07-sfia-discovery-transformation-roadmap.md    | 167 +++++++++++----------
  .../08-sfia-discovery-acceptance-framework.md      |   4 +-
  .../notion/discovery-product-design/README.md      |   4 +-
- .../notion/discovery/editorial/README.md           | 119 +++++++--------
- 5 files changed, 139 insertions(+), 155 deletions(-)
+ .../notion/discovery/editorial/README.md           | 124 +++++++--------
+ ...overy-act-01-why-sfia-exists-editorial-draft.md |   6 +-
+ .../sfia-discovery-hub-editorial-draft.md          |  14 +-
+ 7 files changed, 156 insertions(+), 167 deletions(-)
 ```
 
 **NEW (untracked) :**
 
 ```
- .../sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md | 238 +++++
+ .../sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md | 238 +++
 ```
 
 ---
 
-## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md`
+## git diff — Hub + Acte I (corrections PD R1–R2)
 
-<!-- lines: 238 -->
+```diff
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
+index 46de9d9..56239a6 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
+@@ -215,7 +215,7 @@ Le dirigeant de NovaBuild — PME BTP fictive — veut piloter chantiers et rés
+ 
+ Il ouvre Cursor sur un dossier local. L'IA avance vite sur des écrans. Mais **qui a validé** la règle de clôture des réserves ? **Où est la trace** de la décision sur les rôles utilisateurs ?
+ 
+-NovaBuild n'est **pas** un client réel. C'est une **situation reconnaissable** — pour introduire le problème avant le fil rouge complet (Acte III, cycle PD-03A).
++NovaBuild n'est **pas** un client réel. C'est une **situation reconnaissable** — pour introduire le problème avant le fil rouge complet (Acte III, cycle **PD-04A**).
+ 
+ ---
+ 
+@@ -311,7 +311,7 @@ La question suivante :
+ 
+ > **« En quoi SFIA diffère-t-elle concrètement d'un projet classique — ou d'une utilisation libre de ChatGPT et Cursor ? »**
+ 
+-C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle PD-04A)*.
++C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle **PD-03A**)*.
+ 
+ **→ Continuer : ACTE II**
+ 
+@@ -334,7 +334,7 @@ C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle PD-04A)
+ - Callout NovaBuild « fiction pédagogique » sur §13
+ - Callout non-promesses sur §18
+ - Badge durée « ~10 min »
+-- Acte II grisé jusqu'à PD-04B
++- Acte II grisé jusqu'à PD-03B
+ - Aucun prompt · commande · routing détaillé
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
+index 8ea42e0..54ebee4 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
+@@ -141,7 +141,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
+ | **Contenu** | Hub complet · **Acte I** intégral |
+ | **Pages / actes** | Hub → Acte I |
+ | **Résultat** | « Je comprends pourquoi ChatGPT ou Cursor seuls ne suffisent pas » |
+-| **CTA** | Acte II (futur PD-04A) ou porte persona |
++| **CTA** | Acte II *(PD-03A)* ou porte persona |
+ 
+ ---
+ 
+@@ -212,12 +212,12 @@ Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigati
+ | Acte | Question | Statut éditorial |
+ |------|----------|------------------|
+ | **I** | Pourquoi SFIA existe ? | **PD-02A** — brouillon présent |
+-| **II** | En quoi SFIA diffère-t-elle ? | Futur PD-04A |
+-| **III** | À quoi ressemble un projet ? | Futur PD-03A (NovaBuild) |
+-| **IV** | Que produit-on ? | Futur PD-04A |
+-| **V** | Pourquoi ça tient ? | Futur PD-04A |
+-| **VI** | Comment me projeter ? | Futur PD-05A |
+-| **VII** | Où approfondir la méthode ? | Futur PD-05A |
++| **II** | En quoi SFIA diffère-t-elle ? | **PD-03A** — brouillon en revue |
++| **III** | À quoi ressemble un projet ? | Futur **PD-04A** (NovaBuild) |
++| **IV** | Que produit-on ? | Futur **PD-05A** |
++| **V** | Pourquoi ça tient ? | Futur **PD-05A** |
++| **VI** | Comment me projeter ? | Futur **PD-06A** |
++| **VII** | Où approfondir la méthode ? | Futur **PD-06A** |
+ 
+ Le Hub **annonce** le voyage — il ne livre pas la méthode complète.
+```
+
+---
+
+## Acte II — sections 2 · 3 · 6 (après correctif R3–R4)
+
+```markdown
+## 2. Trois façons de conduire le projet
+
+En pratique, trois postures reviennent souvent :
+
+| Posture | Idée dominante | Force | Fragilité typique |
+|---------|----------------|-------|-------------------|
+| **Projet classique** | Cadre, rôles, documents, comités | Expertise reconnue, gouvernance structurée | Coordination potentiellement lourde selon l'organisation |
+| **IA libre** (ChatGPT, Cursor seuls) | Vitesse, réactivité, « on avance tout de suite » | Accélération locale, idées, code | Contexte volatile, décisions implicites, trace faible |
+| **SFIA** | Cycles courts + IA assistée + décision humaine + trace Git | Vitesse **et** gouvernance visible | Exige discipline et gates — pas une baguette magique |
+
+SFIA ne nie pas la valeur du projet classique ni la puissance de l'IA. Elle **organise** les deux dans une chaîne lisible.
+
+---
+
+
+## 3. Contraste tripartite
+
+Comparaison **pédagogique qualitative** — pas de benchmark chiffré.
+
+| Dimension | Projet classique | IA libre | SFIA |
+|-----------|------------------|----------|------|
+| **Cadre** | Cahier des charges, comité, planning | Ad hoc, session par session | **Cycles** bornés avec intention claire |
+| **Vitesse** | Démarrage parfois plus long selon le cadre et les validations | Très rapide en local | Rapide **avec** périmètre et validation |
+| **Traçabilité** | Variable selon maturité doc | Faible entre sessions | **Git** — source de vérité |
+| **Décision** | Comité, sponsor, MOA | Utilisateur seul | **Morris** aux gates structurants + vous sur le métier |
+| **Livrables** | Documents projet, livrables contractuels | Fragments, brouillons, code isolé | **Artefacts par cycle** — vérifiables |
+| **Continuité du contexte** | Dépend des outils et des personnes | Perdue entre conversations | Reprise via repo et cycles |
+| **Capitalisation** | Dépend des pratiques de documentation et de REX | Rare | Retours d'expérience intégrés à la méthode |
+| **Limites** | Rigidité possible selon le cadre et la gouvernance | Chaos, sur-confiance, rework | Discipline requise ; pas de garantie absolue |
+
+---
+
+
+## 6. Le rôle des gates Morris
+
+Certaines décisions ne doivent **pas** être déléguées à l'IA :
+
+- **Périmètre** — que couvre vraiment cette version ?
+- **Architecture** — choix structurants qui engagent la suite
+- **Publication** — merge, release, visibilité externe
+- **Déploiement** — mise en production ou environnement sensible
+
+Une **gate** est un point d'arrêt explicite : le livrable est prêt · Morris (ou le décideur désigné) **tranche** · la trace est conservée.
+
+Cela ne signifie pas que Morris micro-manage chaque ligne de code. Cela signifie que **les décisions qui engagent durablement le projet** restent humaines et documentées.
+
+---
+
+```
+
+---
+
+## Editorial README — séquence narrative · PD-02B · cycles A/B
+
+```markdown
+## 2. Séquence narrative (decision Morris)
+
+```text
+Hub + Acte I ✓ → Acte II (en cours) → Acte III NovaBuild → IV–V → VI–VII
+```
+
+**Acte II avant Acte III** — le contraste et le modèle SFIA précèdent le fil rouge composite.
+
+---
+
+## 3. Inventaire des brouillons
+
+| # | Fichier | Acte | Statut editorial Git |
+|---|---------|------|----------------------|
+| 1 | [sfia-discovery-hub-editorial-draft.md](sfia-discovery-hub-editorial-draft.md) | Hub | ✓ mergé (PD-02A) |
+| 2 | [sfia-discovery-act-01-why-sfia-exists-editorial-draft.md](sfia-discovery-act-01-why-sfia-exists-editorial-draft.md) | I | ✓ mergé (PD-02A) |
+| 3 | [sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md](sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md) | II | **PD-03A — revue** |
+
+---
+
+## 4. Ordre de lecture
+
+1. **Hub** — orientation · parcours · portes persona  
+2. **Acte I** — pourquoi SFIA existe  
+3. **Acte II** — comment SFIA organise le projet  
+4. **Acte III** *(futur PD-04A)* — fil rouge NovaBuild  
+
+---
+
+## 5. Positionnement cycles A / B
+
+| Incrément | Editorial Git (A) | Notion (B) |
+|-----------|-------------------|------------|
+| Hub + I | PD-02A ✓ | **PD-02B ✓** — Hub + Acte I Notion finalisés |
+| Acte II | **PD-03A** (présent) | PD-03B — futur |
+| Acte III | PD-04A — futur | PD-04B |
+
+Référence roadmap : [07-sfia-discovery-transformation-roadmap.md](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)
+
+---
+
+## 6. Règles éditoriales
+
+Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contract.md`
+
+- 80 % métier / valeur · 20 % fonctionnel (Actes I–II)
+- NovaBuild = cas composite · aucun chiffre non sourcé
+- Opacité méthodologique sélective
+
+---
+
+## 7. Garde-fous
+
+- Aucune page Notion · aucun prompt catalog · aucune capitalisation baseline
+
+---
+
+## 8. Décisions Morris validées
+
+- PD-01 · PD-02A mergés ✓
+- **PD-02B finalisé** (Hub + Acte I Notion) ✓
+- **Acte II avant Acte III** ✓
+- NovaBuild composite ✓
+- Aucune action Notion dans PD-03A ✓
+
+---
+
+## 9. Décisions restantes (Acte II)
+
+| Gate | Objet | Statut |
+|------|-------|--------|
+| **M1** | Structure Acte II | Validée |
+| **M2** | Contraste tripartite | Validée (R3) |
+| **M3** | Niveau exposition méthode | Validée |
+| **M4** | Roadmap renumérotée | Validée (R1–R2) |
+| **M5** | GO commit / push / PR | En attente |
+| **M6** | GO PD-03B Notion (distinct) | Hors cycle |
+
+---
+
+## 10. Critères d'entrée PD-03B
+
+- Acte II validé Morris · merge Git recommandé · GO implémentation Notion L0
+
+---
+
+```
+
+---
+
+## Roadmap — PD-02B · dépendances · séquence · mapping
+
+```markdown
+### PD-02B — Hub + Acte I — implémentation Notion ✓
+
+| Prérequis | PD-02A mergé (PR #196) ✓ |
+| Notion | Hub Discovery créé · Acte I créé |
+| Source Git | Corpus PD-02A mergé via PR #196 |
+| Statut | **Finalisé** |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
+
+Git reste la **source de vérité** — Notion = couche métier et pédagogique.
+
+### PD-03A — Acte II — préparation Git
+
+| Objectif | Brouillon **Acte II** — contraste tripartite, rôles, cycles, gates |
+| Prérequis | Acte I editorial disponible ✓ |
+| Gate | M1–M3 Morris · validation contraste et confidentialité |
+
+*Cycle présent — brouillon en cours de revue.*
+
+### PD-03B — Acte II — implémentation Notion
+
+Matérialisation Acte II après validation PD-03A + merge recommandé.
+
+### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
+
+| Objectif | Brouillons III.1–III.4 — cas composite NovaBuild |
+| Prérequis | **PD-03A validé** — Acte II avant fil rouge |
+| Gate | Distinction fiction / preuves |
+
+### PD-04B — Acte III — implémentation Notion
+
+Pages fil rouge NovaBuild.
+
+### PD-05A — Actes IV et V — préparation Git
+
+Galerie livrables · garanties et limites.
+
+### PD-05B — Actes IV et V — implémentation Notion
+
+Matérialisation L0.
+
+### PD-06A — Actes VI et VII — préparation Git
+
+Personas · annexes méthode simplifiées.
+
+### PD-06B — Actes VI et VII — implémentation Notion
+
+Pages persona + portail annexes.
+
+### PD-07A — Migration legacy — préparation Git
+
+Plan redirections §00–11 → architecture Discovery.
+
+### PD-07B — Migration legacy — Notion
+
+Redirections · archivage — gate Morris GO migration.
+
+### PD-08 — QA narrative et métier
+
+Framework §08 · dépend PD-02B–07B.
+
+### PD-09 — Décision capitalisation
+
+Évaluer promotion method/core — GO Morris.
+
+---
+
+## 4. Dépendances globales
+
+```text
+PD-01 ✓
+├── PD-02A ✓ → PD-02B ✓
+├── PD-03A → PD-03B     ← Acte II (avant III)
+├── PD-04A → PD-04B     ← NovaBuild (après II)
+├── PD-05A → PD-05B
+├── PD-06A → PD-06B
+├── PD-07A → PD-07B
+├── PD-08 (après 07B)
+└── PD-09 (après PD-08)
+```
+
+**Séquence éditoriale Git recommandée :** 03A → 04A → 05A → 06A → 07A (parallélisme A possible avec gates par incrément).
+
+---
+
+## 5. Distinction phases (synthèse)
+
+```text
+Conception (PD-01) ✓
+  → Hub + I (02A ✓ / 02B)
+    → Acte II (03A / 03B)
+      → Acte III NovaBuild (04A / 04B)
+        → IV–V (05) → VI–VII (06) → Migration (07)
+          → QA (08) → Capitalisation? (09)
+```
+
+---
+
+## 6. Mapping renumérotation (référence)
+
+| Ancien ID | Nouveau ID | Contenu |
+|-----------|------------|---------|
+| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
+| PD-04A/B | **PD-05A/B** | Actes IV et V |
+| PD-05A/B | **PD-06A/B** | Actes VI et VII |
+| PD-06A/B | **PD-07A/B** | Migration legacy |
+| PD-07 | **PD-08** | QA |
+| PD-08 | **PD-09** | Capitalisation |
+| — | **PD-03A/B** | **Acte II** (nouveau slot) |
+
+---
+
+```
+
+---
+
+## FULL CONTENT — Acte II (intégral)
 
 ```markdown
 # ACTE II — Une nouvelle façon de conduire un projet
@@ -180,7 +519,7 @@ En pratique, trois postures reviennent souvent :
 
 | Posture | Idée dominante | Force | Fragilité typique |
 |---------|----------------|-------|-------------------|
-| **Projet classique** | Cadre, rôles, documents, comités | Expertise reconnue, gouvernance structurée | Lourdeur, lenteur, coût de coordination |
+| **Projet classique** | Cadre, rôles, documents, comités | Expertise reconnue, gouvernance structurée | Coordination potentiellement lourde selon l'organisation |
 | **IA libre** (ChatGPT, Cursor seuls) | Vitesse, réactivité, « on avance tout de suite » | Accélération locale, idées, code | Contexte volatile, décisions implicites, trace faible |
 | **SFIA** | Cycles courts + IA assistée + décision humaine + trace Git | Vitesse **et** gouvernance visible | Exige discipline et gates — pas une baguette magique |
 
@@ -195,13 +534,13 @@ Comparaison **pédagogique qualitative** — pas de benchmark chiffré.
 | Dimension | Projet classique | IA libre | SFIA |
 |-----------|------------------|----------|------|
 | **Cadre** | Cahier des charges, comité, planning | Ad hoc, session par session | **Cycles** bornés avec intention claire |
-| **Vitesse** | Souvent lente au démarrage | Très rapide en local | Rapide **avec** périmètre et validation |
+| **Vitesse** | Démarrage parfois plus long selon le cadre et les validations | Très rapide en local | Rapide **avec** périmètre et validation |
 | **Traçabilité** | Variable selon maturité doc | Faible entre sessions | **Git** — source de vérité |
 | **Décision** | Comité, sponsor, MOA | Utilisateur seul | **Morris** aux gates structurants + vous sur le métier |
 | **Livrables** | Documents projet, livrables contractuels | Fragments, brouillons, code isolé | **Artefacts par cycle** — vérifiables |
 | **Continuité du contexte** | Dépend des outils et des personnes | Perdue entre conversations | Reprise via repo et cycles |
-| **Capitalisation** | Difficile sans REX formalisé | Rare | Retours d'expérience intégrés à la méthode |
-| **Limites** | Coût, lenteur, rigidité possible | Chaos, sur-confiance, rework | Discipline requise ; pas de garantie absolue |
+| **Capitalisation** | Dépend des pratiques de documentation et de REX | Rare | Retours d'expérience intégrés à la méthode |
+| **Limites** | Rigidité possible selon le cadre et la gouvernance | Chaos, sur-confiance, rework | Discipline requise ; pas de garantie absolue |
 
 ---
 
@@ -257,7 +596,7 @@ Certaines décisions ne doivent **pas** être déléguées à l'IA :
 
 Une **gate** est un point d'arrêt explicite : le livrable est prêt · Morris (ou le décideur désigné) **tranche** · la trace est conservée.
 
-Cela ne signifie pas que Morris micro-manage chaque ligne de code. Cela signifie que **les décisions qui coûtent cher** restent humaines et documentées.
+Cela ne signifie pas que Morris micro-manage chaque ligne de code. Cela signifie que **les décisions qui engagent durablement le projet** restent humaines et documentées.
 
 ---
 
@@ -383,9 +722,7 @@ Il reste à le **voir en mouvement** sur un projet concret.
 
 ---
 
-## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md`
-
-<!-- lines: 113 -->
+## FULL CONTENT — `discovery/editorial/README.md`
 
 ```markdown
 # SFIA Discovery — Editorial (brouillons lecteur)
@@ -399,8 +736,8 @@ Il reste à le **voir en mouvement** sur un projet concret.
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
 | **Branche projet** | `documentation/sfia-discovery-act-02-editorial` |
 | **HEAD / base** | `4994954f195169a3262910439fcd2455955c38f5` |
-| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
-| **Implémentation Notion** | **Non réalisée** — gates PD-nB futurs |
+| **Horodatage** | 2026-07-14 20:45 Europe/Paris (CEST) |
+| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) · PD-03B+ futurs |
 | **Capitalisation méthode** | Non |
 
 ---
@@ -446,7 +783,7 @@ Hub + Acte I ✓ → Acte II (en cours) → Acte III NovaBuild → IV–V → VI
 
 | Incrément | Editorial Git (A) | Notion (B) |
 |-----------|-------------------|------------|
-| Hub + I | PD-02A ✓ | PD-02B — gate Morris |
+| Hub + I | PD-02A ✓ | **PD-02B ✓** — Hub + Acte I Notion finalisés |
 | Acte II | **PD-03A** (présent) | PD-03B — futur |
 | Acte III | PD-04A — futur | PD-04B |
 
@@ -473,6 +810,7 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 ## 8. Décisions Morris validées
 
 - PD-01 · PD-02A mergés ✓
+- **PD-02B finalisé** (Hub + Acte I Notion) ✓
 - **Acte II avant Acte III** ✓
 - NovaBuild composite ✓
 - Aucune action Notion dans PD-03A ✓
@@ -481,14 +819,14 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 
 ## 9. Décisions restantes (Acte II)
 
-| Gate | Objet |
-|------|-------|
-| **M1** | Structure Acte II |
-| **M2** | Contraste tripartite |
-| **M3** | Niveau exposition méthode |
-| **M4** | Roadmap renumérotée |
-| **M5** | GO commit / push / PR |
-| **M6** | GO PD-03B Notion (distinct) |
+| Gate | Objet | Statut |
+|------|-------|--------|
+| **M1** | Structure Acte II | Validée |
+| **M2** | Contraste tripartite | Validée (R3) |
+| **M3** | Niveau exposition méthode | Validée |
+| **M4** | Roadmap renumérotée | Validée (R1–R2) |
+| **M5** | GO commit / push / PR | En attente |
+| **M6** | GO PD-03B Notion (distinct) | Hors cycle |
 
 ---
 
@@ -505,9 +843,185 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 
 ---
 
-## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/06-sfia-discovery-target-information-architecture.md`
+## FULL CONTENT — `discovery-product-design/07-sfia-discovery-transformation-roadmap.md`
 
-<!-- lines: 187 -->
+```markdown
+# 07 — Roadmap de transformation — SFIA Discovery Experience
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-act-02-editorial` |
+| **HEAD** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
+
+---
+
+## 1. Positionnement
+
+| Phase | Contenu |
+|-------|---------|
+| **PD-01** | Product Design Candidate — mergé ✓ |
+| **PD-nA** | Préparation éditoriale Git |
+| **PD-nB** | Implémentation Notion L0 |
+| **PD-08** | QA narrative et métier |
+| **PD-09** | Décision capitalisation — GO Morris |
+
+**Ordre narratif obligatoire :** Hub + Acte I → **Acte II** → Acte III (NovaBuild) → Actes IV–V → Actes VI–VII → migration → QA → capitalisation.
+
+**Règle structurante :** chaque incrément de contenu suit **deux cycles distincts** — préparation Git (A) puis implémentation Notion (B).
+
+> La source éditoriale Git doit être validée avant toute implémentation Notion. Le merge préalable est **recommandé** pour les incréments structurants.
+
+---
+
+## 2. Modèle A / B
+
+| Cycle | Périmètre | Gate |
+|-------|-----------|------|
+| **A — Git** | Brouillons Markdown complets | GO Morris commit/PR/merge |
+| **B — Notion** | Matérialisation L0 manuelle | GO Morris implémentation |
+
+---
+
+## 3. Incréments
+
+### PD-01 — Product Design Candidate ✓
+
+Corpus PD-01 — mergé (PR #195).
+
+### PD-02A — Hub + Acte I — préparation Git ✓
+
+Brouillons Hub + Acte I — mergé (PR #196).
+
+### PD-02B — Hub + Acte I — implémentation Notion ✓
+
+| Prérequis | PD-02A mergé (PR #196) ✓ |
+| Notion | Hub Discovery créé · Acte I créé |
+| Source Git | Corpus PD-02A mergé via PR #196 |
+| Statut | **Finalisé** |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
+
+Git reste la **source de vérité** — Notion = couche métier et pédagogique.
+
+### PD-03A — Acte II — préparation Git
+
+| Objectif | Brouillon **Acte II** — contraste tripartite, rôles, cycles, gates |
+| Prérequis | Acte I editorial disponible ✓ |
+| Gate | M1–M3 Morris · validation contraste et confidentialité |
+
+*Cycle présent — brouillon en cours de revue.*
+
+### PD-03B — Acte II — implémentation Notion
+
+Matérialisation Acte II après validation PD-03A + merge recommandé.
+
+### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
+
+| Objectif | Brouillons III.1–III.4 — cas composite NovaBuild |
+| Prérequis | **PD-03A validé** — Acte II avant fil rouge |
+| Gate | Distinction fiction / preuves |
+
+### PD-04B — Acte III — implémentation Notion
+
+Pages fil rouge NovaBuild.
+
+### PD-05A — Actes IV et V — préparation Git
+
+Galerie livrables · garanties et limites.
+
+### PD-05B — Actes IV et V — implémentation Notion
+
+Matérialisation L0.
+
+### PD-06A — Actes VI et VII — préparation Git
+
+Personas · annexes méthode simplifiées.
+
+### PD-06B — Actes VI et VII — implémentation Notion
+
+Pages persona + portail annexes.
+
+### PD-07A — Migration legacy — préparation Git
+
+Plan redirections §00–11 → architecture Discovery.
+
+### PD-07B — Migration legacy — Notion
+
+Redirections · archivage — gate Morris GO migration.
+
+### PD-08 — QA narrative et métier
+
+Framework §08 · dépend PD-02B–07B.
+
+### PD-09 — Décision capitalisation
+
+Évaluer promotion method/core — GO Morris.
+
+---
+
+## 4. Dépendances globales
+
+```text
+PD-01 ✓
+├── PD-02A ✓ → PD-02B ✓
+├── PD-03A → PD-03B     ← Acte II (avant III)
+├── PD-04A → PD-04B     ← NovaBuild (après II)
+├── PD-05A → PD-05B
+├── PD-06A → PD-06B
+├── PD-07A → PD-07B
+├── PD-08 (après 07B)
+└── PD-09 (après PD-08)
+```
+
+**Séquence éditoriale Git recommandée :** 03A → 04A → 05A → 06A → 07A (parallélisme A possible avec gates par incrément).
+
+---
+
+## 5. Distinction phases (synthèse)
+
+```text
+Conception (PD-01) ✓
+  → Hub + I (02A ✓ / 02B)
+    → Acte II (03A / 03B)
+      → Acte III NovaBuild (04A / 04B)
+        → IV–V (05) → VI–VII (06) → Migration (07)
+          → QA (08) → Capitalisation? (09)
+```
+
+---
+
+## 6. Mapping renumérotation (référence)
+
+| Ancien ID | Nouveau ID | Contenu |
+|-----------|------------|---------|
+| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
+| PD-04A/B | **PD-05A/B** | Actes IV et V |
+| PD-05A/B | **PD-06A/B** | Actes VI et VII |
+| PD-06A/B | **PD-07A/B** | Migration legacy |
+| PD-07 | **PD-08** | QA |
+| PD-08 | **PD-09** | Capitalisation |
+| — | **PD-03A/B** | **Acte II** (nouveau slot) |
+
+---
+
+## 7. Critères capitalisation (PD-09)
+
+Itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
+
+---
+
+## Liens
+
+→ [08 Acceptation](08-sfia-discovery-acceptance-framework.md) · [README](README.md)
+```
+
+---
+
+## FULL CONTENT — `discovery-product-design/06-sfia-discovery-target-information-architecture.md`
 
 ```markdown
 # 06 — Architecture cible de l'information — SFIA Discovery Experience
@@ -701,185 +1215,7 @@ SFIA Discovery — Accueil (Hub)
 
 ---
 
-## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md`
-
-<!-- lines: 167 -->
-
-```markdown
-# 07 — Roadmap de transformation — SFIA Discovery Experience
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | **Candidate** |
-| **Propriétaire** | Morris |
-| **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-act-02-editorial` |
-| **HEAD** | `4994954f195169a3262910439fcd2455955c38f5` |
-| **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
-
----
-
-## 1. Positionnement
-
-| Phase | Contenu |
-|-------|---------|
-| **PD-01** | Product Design Candidate — mergé ✓ |
-| **PD-nA** | Préparation éditoriale Git |
-| **PD-nB** | Implémentation Notion L0 |
-| **PD-08** | QA narrative et métier |
-| **PD-09** | Décision capitalisation — GO Morris |
-
-**Ordre narratif obligatoire :** Hub + Acte I → **Acte II** → Acte III (NovaBuild) → Actes IV–V → Actes VI–VII → migration → QA → capitalisation.
-
-**Règle structurante :** chaque incrément de contenu suit **deux cycles distincts** — préparation Git (A) puis implémentation Notion (B).
-
-> La source éditoriale Git doit être validée avant toute implémentation Notion. Le merge préalable est **recommandé** pour les incréments structurants.
-
----
-
-## 2. Modèle A / B
-
-| Cycle | Périmètre | Gate |
-|-------|-----------|------|
-| **A — Git** | Brouillons Markdown complets | GO Morris commit/PR/merge |
-| **B — Notion** | Matérialisation L0 manuelle | GO Morris implémentation |
-
----
-
-## 3. Incréments
-
-### PD-01 — Product Design Candidate ✓
-
-Corpus PD-01 — mergé (PR #195).
-
-### PD-02A — Hub + Acte I — préparation Git ✓
-
-Brouillons Hub + Acte I — mergé (PR #196).
-
-### PD-02B — Hub + Acte I — implémentation Notion
-
-| Prérequis | PD-02A mergé ✓ |
-| Notion | Pages Hub + Acte I L0 |
-| Gate | GO Morris distinct |
-
-### PD-03A — Acte II — préparation Git
-
-| Objectif | Brouillon **Acte II** — contraste tripartite, rôles, cycles, gates |
-| Prérequis | Acte I editorial disponible ✓ |
-| Gate | M1–M3 Morris · validation contraste et confidentialité |
-
-*Cycle présent — brouillon en cours de revue.*
-
-### PD-03B — Acte II — implémentation Notion
-
-Matérialisation Acte II après validation PD-03A + merge recommandé.
-
-### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
-
-| Objectif | Brouillons III.1–III.4 — cas composite NovaBuild |
-| Prérequis | **PD-03A validé** — Acte II avant fil rouge |
-| Gate | Distinction fiction / preuves |
-
-### PD-04B — Acte III — implémentation Notion
-
-Pages fil rouge NovaBuild.
-
-### PD-05A — Actes IV et V — préparation Git
-
-Galerie livrables · garanties et limites.
-
-### PD-05B — Actes IV et V — implémentation Notion
-
-Matérialisation L0.
-
-### PD-06A — Actes VI et VII — préparation Git
-
-Personas · annexes méthode simplifiées.
-
-### PD-06B — Actes VI et VII — implémentation Notion
-
-Pages persona + portail annexes.
-
-### PD-07A — Migration legacy — préparation Git
-
-Plan redirections §00–11 → architecture Discovery.
-
-### PD-07B — Migration legacy — Notion
-
-Redirections · archivage — gate Morris GO migration.
-
-### PD-08 — QA narrative et métier
-
-Framework §08 · dépend PD-02B–07B.
-
-### PD-09 — Décision capitalisation
-
-Évaluer promotion method/core — GO Morris.
-
----
-
-## 4. Dépendances globales
-
-```text
-PD-01 ✓
-├── PD-02A ✓ → PD-02B
-├── PD-03A → PD-03B     ← Acte II (avant III)
-├── PD-04A → PD-04B     ← NovaBuild (après II)
-├── PD-05A → PD-05B
-├── PD-06A → PD-06B
-├── PD-07A → PD-07B
-├── PD-08 (après 07B)
-└── PD-09 (après PD-08)
-```
-
-**Séquence éditoriale Git recommandée :** 03A → 04A → 05A → 06A → 07A (parallélisme A possible avec gates par incrément).
-
----
-
-## 5. Distinction phases (synthèse)
-
-```text
-Conception (PD-01) ✓
-  → Hub + I (02A ✓ / 02B)
-    → Acte II (03A / 03B)
-      → Acte III NovaBuild (04A / 04B)
-        → IV–V (05) → VI–VII (06) → Migration (07)
-          → QA (08) → Capitalisation? (09)
-```
-
----
-
-## 6. Mapping renumérotation (référence)
-
-| Ancien ID | Nouveau ID | Contenu |
-|-----------|------------|---------|
-| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
-| PD-04A/B | **PD-05A/B** | Actes IV et V |
-| PD-05A/B | **PD-06A/B** | Actes VI et VII |
-| PD-06A/B | **PD-07A/B** | Migration legacy |
-| PD-07 | **PD-08** | QA |
-| PD-08 | **PD-09** | Capitalisation |
-| — | **PD-03A/B** | **Acte II** (nouveau slot) |
-
----
-
-## 7. Critères capitalisation (PD-09)
-
-Itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
-
----
-
-## Liens
-
-→ [08 Acceptation](08-sfia-discovery-acceptance-framework.md) · [README](README.md)
-```
-
----
-
-## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md`
-
-<!-- lines: 143 -->
+## FULL CONTENT — `discovery-product-design/08-sfia-discovery-acceptance-framework.md`
 
 ```markdown
 # 08 — Framework d'acceptation — SFIA Discovery Experience
@@ -1029,9 +1365,7 @@ Ce framework s'applique **pleinement** à PD-08 (QA Notion). Pour PD-01 :
 
 ---
 
-## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/README.md`
-
-<!-- lines: 119 -->
+## FULL CONTENT — `discovery-product-design/README.md`
 
 ```markdown
 # SFIA Discovery Experience — Product Design (Cycle 2 fonctionnel)
@@ -1157,8 +1491,6 @@ Product Design (présent) → validation Morris → préparation éditoriale Git
 
 ---
 
-
 ## Verdict final
 
-**ACT II EDITORIAL READY FOR CHATGPT REVIEW**
-
+**ACT II EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
