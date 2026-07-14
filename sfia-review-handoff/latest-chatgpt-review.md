@@ -935,7 +935,7 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 ## Correctif PD-05A — Réserves ChatGPT R1–R3
 
 **Horodatage correctif :** 2026-07-15 ~00:35 Europe/Paris (CEST)
-**Déclencheur :** Retours ChatGPT sur formulations R1 (Famille 1) · R2 (Famille 5 Acte IV) · R3 (Mécanisme 4 Acte V)
+**Déclencheur :** Retours ChatGPT sur formulations R1 (Famille 5 Acte IV — post-MVP) · R2 (Famille 1 Acte IV — cadrage) · R3 (Mécanisme 4 Acte V — validation proportionnée)
 **Périmètre correctif :** **uniquement** les deux brouillons Acte IV–V — **pas** `README.md` · **pas** `07-sfia-discovery-transformation-roadmap.md`
 **Branche projet :** `documentation/sfia-discovery-acts-04-05-editorial` @ `7932fcb45d82ceacca2faa745764743b7c6f2806` — **non commitée**
 **Handoff avant ce correctif :** `a53b1128fd38b245450b173dc68599981d4fb473`
@@ -950,28 +950,7 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 
 *Note :* les 2 MOD tracked (README · roadmap) relèvent du cycle PD-05A initial — **hors** diff correctif R1–R3.
 
-### R1 — Famille 1 (Acte IV) — Valeur métier
-
-| | Texte |
-|--|-------|
-| **Avant** | Alignement sponsor · scope explicite · **moins de rework flou** |
-| **Après** | Alignement sponsor · scope explicite · **réduction du risque de reprises liées à un périmètre ambigu** |
-
-#### Section complète — Famille 1 — Cadrer (après correctif)
-
-```markdown
-### Famille 1 — Cadrer
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Sur quoi travaille-t-on vraiment ? |
-| **Artefacts** | Note de cadrage · périmètre in/out · backlog initial · incréments planifiés |
-| **Valeur métier** | Alignement sponsor · scope explicite · réduction du risque de reprises liées à un périmètre ambigu |
-| **Trace Git** | Documents de framing · limites MVP · epics et user stories |
-| **Réserve** | Le cadrage ne remplace pas l'expertise métier terrain |
-```
-
-### R2 — Famille 5 (Acte IV) — Réserve release / RUN
+### R1 — Famille 5 (Acte IV) — Réserve release / RUN
 
 | | Texte |
 |--|-------|
@@ -990,6 +969,27 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 | **Valeur métier** | Reprise · leçons exploitables · amélioration méthode **candidate** |
 | **Trace Git** | Rapports capitalization · REX pilote · readiness pré-delivery |
 | **Réserve** | Release production complète et observabilité RUN **ne sont pas** démontrées par les sources consultées ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
+```
+
+### R2 — Famille 1 (Acte IV) — Valeur métier
+
+| | Texte |
+|--|-------|
+| **Avant** | Alignement sponsor · scope explicite · **moins de rework flou** |
+| **Après** | Alignement sponsor · scope explicite · **réduction du risque de reprises liées à un périmètre ambigu** |
+
+#### Section complète — Famille 1 — Cadrer (après correctif)
+
+```markdown
+### Famille 1 — Cadrer
+
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Sur quoi travaille-t-on vraiment ? |
+| **Artefacts** | Note de cadrage · périmètre in/out · backlog initial · incréments planifiés |
+| **Valeur métier** | Alignement sponsor · scope explicite · réduction du risque de reprises liées à un périmètre ambigu |
+| **Trace Git** | Documents de framing · limites MVP · epics et user stories |
+| **Réserve** | Le cadrage ne remplace pas l'expertise métier terrain |
 ```
 
 ### R3 — Mécanisme 4 (Acte V) — Ce que cela apporte
@@ -1027,9 +1027,9 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 | Q10 | `sur-documentation` absent (Actes IV–V) | **PASS** |
 | Q11 | `parfois` absent zones R1–R3 | **PASS** |
 | Q12 | `souvent` absent zones R1–R3 | **PASS** |
-| Q13 | R1 — formulation réduction du risque de reprises (Famille 1) | **PASS** |
-| Q14 | R2 — formulation catégories méthodologiques cibles (Famille 5) | **PASS** |
-| Q15 | R2 — « sources consultées » (Famille 5 réserve) | **PASS** |
+| Q13 | R1 — formulation catégories méthodologiques cibles (Famille 5) | **PASS** |
+| Q14 | R1 — « sources consultées » (Famille 5 réserve) | **PASS** |
+| Q15 | R2 — formulation réduction du risque de reprises (Famille 1) | **PASS** |
 | Q16 | R3 — profondeur documentation/validation (Mécanisme 4) | **PASS** |
 | Q17 | Famille 1 section intacte (Question + Réserve expertise) | **PASS** |
 | Q18 | Famille 5 section intacte (artefacts RUN/REX) | **PASS** |
