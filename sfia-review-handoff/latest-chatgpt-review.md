@@ -1,6 +1,6 @@
 # SFIA Review Pack — Discovery Editorial PD-05A (Actes IV–V)
 
-**Horodatage :** 2026-07-15 00:30 Europe/Paris (CEST)
+**Horodatage :** 2026-07-15 00:35 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
 **Cycle :** PD-05A — Préparation éditoriale Git (Actes IV–V)
@@ -13,8 +13,8 @@
 **Implémentation Notion :** PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B futur
 **Capitalisation méthode :** Non
 **Niveau review pack :** full (2 NEW + 2 MOD + contenu intégral)
-**Handoff avant :** `origin/sfia/review-handoff` @ `ff52ac56edd9f34bfe22637ef7309a9b9e8f8164`
-**Verdict :** **ACTS IV-V EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
+**Handoff avant :** `origin/sfia/review-handoff` @ `a53b1128fd38b245450b173dc68599981d4fb473`
+**Verdict :** **ACTS IV-V EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
 
 ---
 
@@ -225,7 +225,7 @@ Cinq familles visibles — chacune répond à une question métier. Les exemples
 |-------|---------|
 | **Question** | Sur quoi travaille-t-on vraiment ? |
 | **Artefacts** | Note de cadrage · périmètre in/out · backlog initial · incréments planifiés |
-| **Valeur métier** | Alignement sponsor · scope explicite · moins de rework flou |
+| **Valeur métier** | Alignement sponsor · scope explicite · réduction du risque de reprises liées à un périmètre ambigu |
 | **Trace Git** | Documents de framing · limites MVP · epics et user stories |
 | **Réserve** | Le cadrage ne remplace pas l'expertise métier terrain |
 
@@ -267,7 +267,7 @@ Cinq familles visibles — chacune répond à une question métier. Les exemples
 | **Artefacts** | Release readiness · runbook · REX · rapport de capitalisation |
 | **Valeur métier** | Reprise · leçons exploitables · amélioration méthode **candidate** |
 | **Trace Git** | Rapports capitalization · REX pilote · readiness pré-delivery |
-| **Réserve** | Release production complète et observabilité RUN **ne sont pas** démontrées dans tous les pilotes — catégories parfois **cadrées en post-MVP** |
+| **Réserve** | Release production complète et observabilité RUN **ne sont pas** démontrées par les sources consultées ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
 
 ---
 
@@ -470,7 +470,7 @@ Ce n'est **pas** une garantie de succès commercial ou technique absolu.
 | Élément | Contenu |
 |---------|---------|
 | **Principe** | Contrôles automatisés · QA · review pack · preuves visuelles **selon le profil et le risque** |
-| **Ce que cela apporte** | Pas de sur-documentation systématique · pas de sous-validation sur l'essentiel |
+| **Ce que cela apporte** | Une profondeur de documentation et de validation adaptée au profil et au risque |
 | **Limite** | Un review pack ne remplace pas l'**expertise** métier ou sécurité si requise |
 
 ### Mécanisme 5 — Capitalisation contrôlée
@@ -929,6 +929,123 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 
 ---
 
+
+---
+
+## Correctif PD-05A — Réserves ChatGPT R1–R3
+
+**Horodatage correctif :** 2026-07-15 ~00:35 Europe/Paris (CEST)
+**Déclencheur :** Retours ChatGPT sur formulations R1 (Famille 1) · R2 (Famille 5 Acte IV) · R3 (Mécanisme 4 Acte V)
+**Périmètre correctif :** **uniquement** les deux brouillons Acte IV–V — **pas** `README.md` · **pas** `07-sfia-discovery-transformation-roadmap.md`
+**Branche projet :** `documentation/sfia-discovery-acts-04-05-editorial` @ `7932fcb45d82ceacca2faa745764743b7c6f2806` — **non commitée**
+**Handoff avant ce correctif :** `a53b1128fd38b245450b173dc68599981d4fb473`
+
+### git diff --stat (correctif — Actes IV–V seulement)
+
+```
+ .../sfia-discovery-act-04-what-sfia-produces-editorial-draft.md | 2 +-
+ .../sfia-discovery-act-05-why-it-works-editorial-draft.md       | 1 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+```
+
+*Note :* les 2 MOD tracked (README · roadmap) relèvent du cycle PD-05A initial — **hors** diff correctif R1–R3.
+
+### R1 — Famille 1 (Acte IV) — Valeur métier
+
+| | Texte |
+|--|-------|
+| **Avant** | Alignement sponsor · scope explicite · **moins de rework flou** |
+| **Après** | Alignement sponsor · scope explicite · **réduction du risque de reprises liées à un périmètre ambigu** |
+
+#### Section complète — Famille 1 — Cadrer (après correctif)
+
+```markdown
+### Famille 1 — Cadrer
+
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Sur quoi travaille-t-on vraiment ? |
+| **Artefacts** | Note de cadrage · périmètre in/out · backlog initial · incréments planifiés |
+| **Valeur métier** | Alignement sponsor · scope explicite · réduction du risque de reprises liées à un périmètre ambigu |
+| **Trace Git** | Documents de framing · limites MVP · epics et user stories |
+| **Réserve** | Le cadrage ne remplace pas l'expertise métier terrain |
+```
+
+### R2 — Famille 5 (Acte IV) — Réserve release / RUN
+
+| | Texte |
+|--|-------|
+| **Avant** | Release production complète et observabilité RUN **ne sont pas** démontrées dans tous les pilotes — catégories **parfois** **cadrées en post-MVP** |
+| **Après** | Release production complète et observabilité RUN **ne sont pas** démontrées par les **sources consultées** ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
+
+#### Section complète — Famille 5 — Exploiter et apprendre (après correctif)
+
+```markdown
+### Famille 5 — Exploiter et apprendre
+
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Comment le projet survit-il à la livraison et s'améliore-t-il ? |
+| **Artefacts** | Release readiness · runbook · REX · rapport de capitalisation |
+| **Valeur métier** | Reprise · leçons exploitables · amélioration méthode **candidate** |
+| **Trace Git** | Rapports capitalization · REX pilote · readiness pré-delivery |
+| **Réserve** | Release production complète et observabilité RUN **ne sont pas** démontrées par les sources consultées ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
+```
+
+### R3 — Mécanisme 4 (Acte V) — Ce que cela apporte
+
+| | Texte |
+|--|-------|
+| **Avant** | **Pas de sur-documentation systématique** · pas de sous-validation sur l'essentiel |
+| **Après** | **Une profondeur de documentation et de validation adaptée au profil et au risque** |
+
+#### Section complète — Mécanisme 4 — Validation proportionnée (après correctif)
+
+```markdown
+### Mécanisme 4 — Validation proportionnée
+
+| Élément | Contenu |
+|---------|---------|
+| **Principe** | Contrôles automatisés · QA · review pack · preuves visuelles **selon le profil et le risque** |
+| **Ce que cela apporte** | Une profondeur de documentation et de validation adaptée au profil et au risque |
+| **Limite** | Un review pack ne remplace pas l'**expertise** métier ou sécurité si requise |
+```
+
+### QA correctif — 26 contrôles
+
+| # | Contrôle | Résultat |
+|---|----------|----------|
+| Q1 | HEAD = `7932fcb45d82ceacca2faa745764743b7c6f2806` | **PASS** |
+| Q2 | Branche = `documentation/sfia-discovery-acts-04-05-editorial` | **PASS** |
+| Q3 | 0 commit ahead of `origin/main` (projet) | **PASS** |
+| Q4 | Aucun fichier staged | **PASS** |
+| Q5 | Correctif limité aux drafts Acte IV–V (pas README/roadmap) | **PASS** |
+| Q6 | Acte IV NEW untracked présent | **PASS** |
+| Q7 | Acte V NEW untracked présent | **PASS** |
+| Q8 | `post-MVP` absent (Actes IV–V) | **PASS** |
+| Q9 | `moins de rework` absent (Actes IV–V) | **PASS** |
+| Q10 | `sur-documentation` absent (Actes IV–V) | **PASS** |
+| Q11 | `parfois` absent zones R1–R3 | **PASS** |
+| Q12 | `souvent` absent zones R1–R3 | **PASS** |
+| Q13 | R1 — formulation réduction du risque de reprises (Famille 1) | **PASS** |
+| Q14 | R2 — formulation catégories méthodologiques cibles (Famille 5) | **PASS** |
+| Q15 | R2 — « sources consultées » (Famille 5 réserve) | **PASS** |
+| Q16 | R3 — profondeur documentation/validation (Mécanisme 4) | **PASS** |
+| Q17 | Famille 1 section intacte (Question + Réserve expertise) | **PASS** |
+| Q18 | Famille 5 section intacte (artefacts RUN/REX) | **PASS** |
+| Q19 | Mécanisme 4 principe proportionné conservé | **PASS** |
+| Q20 | `Morris tranchera` absent | **PASS** |
+| Q21 | `BatiNova` absent | **PASS** |
+| Q22 | TODO/TBD/PLACEHOLDER absent | **PASS** |
+| Q23 | Cinq familles Acte IV présentes | **PASS** |
+| Q24 | Cinq mécanismes Acte V présents | **PASS** |
+| Q25 | README/roadmap hors diff correctif (tracked MOD séparés) | **PASS** |
+| Q26 | Verdict correctif documenté | **PASS** |
+
+**Verdict QA correctif :** **PASS** (26/26)
+
+**Verdict pack (post-correctif) :** **ACTS IV-V EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
+
 ## Fin du review pack PD-05A
 
-**Verdict :** **ACTS IV-V EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
+**Verdict :** **ACTS IV-V EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
