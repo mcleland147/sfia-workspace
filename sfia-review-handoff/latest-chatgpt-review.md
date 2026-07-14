@@ -1,21 +1,21 @@
-# SFIA Review Pack — Discovery Editorial PD-02A (Hub + Acte I)
+# SFIA Review Pack — Discovery Editorial PD-03A (Acte II)
 
-**Horodatage :** 2026-07-14 19:05 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 20:25 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
-**Cycle :** PD-02A — Préparation éditoriale Git (Hub + Acte I)
+**Cycle :** PD-03A — Préparation éditoriale Git (Acte II — nouvelle façon de conduire un projet)
 **Type de cycle :** Product Design — couche éditoriale lecteur
 **Profil SFIA :** Standard
 **Typologie v2.4 :** DOC
 **Statut livrables :** Candidate — brouillons éditoriaux non commités
-**Branche projet :** `documentation/sfia-discovery-pd-02a-hub-acte-i`
-**HEAD / base / origin/main :** `c1d96de132035bf0ef0e855620b2322600bc5aa8`
-**Ancestor c1d96de :** ✓ (main @ `c1d96de132035bf0ef0e855620b2322600bc5aa8`)
-**Implémentation Notion :** Non — gate PD-02B futur
+**Branche projet :** `documentation/sfia-discovery-act-02-editorial`
+**HEAD / base / origin/main :** `4994954f195169a3262910439fcd2455955c38f5`
+**Ancestor 4994954 :** ✓ (main @ `4994954f195169a3262910439fcd2455955c38f5`)
+**Implémentation Notion :** Non — gate PD-03B futur
 **Capitalisation méthode :** Non
-**Niveau review pack :** full (contenu intégral 3 fichiers)
-**Handoff avant :** `origin/sfia/review-handoff` @ `67a2fdce03da31330c708d8e9cdd90442ca4ebfa`
-**Verdict :** PD-02A EDITORIAL READY FOR MORRIS REVIEW
+**Niveau review pack :** full (contenu intégral 1 NEW + 5 MOD)
+**Handoff avant :** `origin/sfia/review-handoff` @ `dd965bc148d15ab5194ea46637ef9ecd6ba09e52`
+**Verdict :** ACT II EDITORIAL READY FOR CHATGPT REVIEW
 
 ---
 
@@ -24,85 +24,77 @@
 | Contrôle | Résultat |
 |----------|----------|
 | pwd | `/Users/morris/Projects/sfia-workspace` |
-| Branche initiale | `main` |
-| Branche créée | `documentation/sfia-discovery-pd-02a-hub-acte-i` |
-| HEAD | `c1d96de132035bf0ef0e855620b2322600bc5aa8` |
-| origin/main | `c1d96de132035bf0ef0e855620b2322600bc5aa8` |
-| merge --ff-only origin/main | ✓ Already up to date |
-| c1d96de ancestor of main | ✓ |
-| Fichiers editorial/ (md) | 3 untracked |
-| Fichiers existants modifiés | 0 |
-| staged / commit projet | aucun |
+| Branche | `documentation/sfia-discovery-act-02-editorial` |
+| HEAD | `4994954f195169a3262910439fcd2455955c38f5` |
+| origin/main | `4994954f195169a3262910439fcd2455955c38f5` |
+| Fichiers scope (6) | 1 NEW + 5 MOD — voir statut ci-dessous |
+| staged / commit projet | aucun (mandat) |
 | Push branche projet | interdit (mandat) |
 | **Verdict** | **PASS** |
 
-## Sources consultées
+### git status --porcelain (workspace)
 
-### Product Design PD-01 (mergé)
-- `method/sfia-fast-track/documentation/notion/discovery-product-design/` — vision, actes, contrat éditorial, IA, roadmap, acceptation
+```
+ M method/sfia-fast-track/documentation/notion/discovery-product-design/06-sfia-discovery-target-information-architecture.md
+ M method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md
+ M method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md
+ M method/sfia-fast-track/documentation/notion/discovery-product-design/README.md
+ M method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
+?? .sfia/
+?? .tmp-sfia-review/
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md
+?? sfia-review-handoff/
+```
 
-### Méthode (lecture)
-- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+**Note :** seuls les 6 fichiers `method/sfia-fast-track/documentation/notion/...` ci-dessous constituent le périmètre PD-03A ; autres entrées untracked (.sfia/, .tmp-sfia-review/, sfia-review-handoff/) hors commit projet.
 
-### Matière P0 (inspiration, pas copie)
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-00-home-editorial-draft.md`
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-01-understand-sfia-editorial-draft.md`
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-02-value-proposition-editorial-draft.md`
+---
 
-## Qualification
+## Décision Morris — Acte II avant Acte III
 
-- Cycle PD-02A — rédaction Markdown complète Hub + Acte I
-- Profil Standard · Typologie DOC · Statut Candidate
-- Git source de vérité · aucune page Notion dans PD-02A
-- NovaBuild = cas pédagogique composite (Acte I)
-- Hero Hub = options Candidate (M1 Morris)
+Séquence narrative obligatoire : **Hub + Acte I → Acte II → Acte III (NovaBuild) → Actes IV–V → VI–VII**.
 
-## Décisions Morris appliquées
+Le contraste tripartite et le modèle de conduite SFIA (Acte II) précèdent le fil rouge composite NovaBuild (Acte III).
 
-- PD-01 mergé et clôturé ✓
-- GO PD-02A ✓
-- Hub + Acte I = premiers contenus éditoriaux Discovery ✓
-- Notion = IDE métier SFIA (vision Candidate) ✓
-- Aucune action Notion dans PD-02A ✓
-- Aucune capitalisation method/core ✓
+Roadmap PD et README editorial alignés sur cette décision (metadata + §3 incréments + ordre de lecture).
 
-## Fichiers créés (3)
+---
+
+## Mapping renumérotation roadmap (PD-03→PD-04, etc.)
+
+| Ancien ID | Nouveau ID | Contenu |
+|-----------|------------|---------|
+| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
+| PD-04A/B | **PD-05A/B** | Actes IV et V |
+| PD-05A/B | **PD-06A/B** | Actes VI et VII |
+| PD-06A/B | **PD-07A/B** | Migration legacy |
+| PD-07 | **PD-08** | QA narrative et métier |
+| PD-08 | **PD-09** | Capitalisation |
+| — | **PD-03A/B** | **Acte II** (nouveau slot) |
+
+**Cycle présent :** PD-03A (Acte II editorial Git) · PD-03B Notion futur · Acte III = PD-04A/B.
+
+---
+
+## Fichiers livrables
 
 | # | Fichier | Rôle | Lignes |
 |---|---------|------|-------:|
-| 1 | `README.md` | Gouvernance PD-02A / inventaire | 134 |
-| 2 | `sfia-discovery-hub-editorial-draft.md` | Hub Discovery (hero + orientation) | 380 |
-| 3 | `sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` | Acte I — Pourquoi SFIA existe | 364 |
+| NEW | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` | Acte II — brouillon lecteur | 238 |
+| MOD 1 | `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md` | Alignement PD-03A / roadmap | 113 |
+| MOD 2 | `method/sfia-fast-track/documentation/notion/discovery-product-design/06-sfia-discovery-target-information-architecture.md` | Alignement PD-03A / roadmap | 187 |
+| MOD 3 | `method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md` | Alignement PD-03A / roadmap | 167 |
+| MOD 4 | `method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md` | Alignement PD-03A / roadmap | 143 |
+| MOD 5 | `method/sfia-fast-track/documentation/notion/discovery-product-design/README.md` | Alignement PD-03A / roadmap | 119 |
 
-**Lignes totales corpus editorial :** 878
+**Lignes Acte II (NEW) :** 238
 
-## Fichiers modifiés
+---
 
-**Aucun** fichier existant modifié.
+## Validation grep (14 patterns + réserve hero)
 
-## Contrôles structurels
-
-- 3 fichiers `.md` exactement dans `discovery/editorial/` ✓
-- README gouverne · Hub + Acte I = contenu lecteur ✓
-- HEAD / base metadata = `c1d96de132035bf0ef0e855620b2322600bc5aa8` dans les 3 fichiers ✓
-- Branche metadata = `documentation/sfia-discovery-pd-02a-hub-acte-i` ✓
-- Statut Candidate documenté ✓
-- Gate PD-02B explicité ✓
-
-## Contrôles de garde-fous
-
-- Aucune modification corpus PD-01 ✓
-- Aucune modification drafts P0 / UX / method/core ✓
-- Aucune création page Notion ✓
-- Aucun commit branche projet ✓
-- Aucune capitalisation baseline ✓
-
-## Validation grep (réserves R1/R2 — 14 patterns)
-
-| Pattern | Résultat |
-|---------|----------|
+| Pattern | Résultat (6 fichiers scope) |
+|---------|------------------------------|
 | `Morris tranchera` | PASS (absent) |
 | `à valider` | PASS (absent) |
 | `BatiNova` | PASS (absent) |
@@ -117,933 +109,1056 @@
 | `PLACEHOLDER` | PASS (absent) |
 | `WIP` | PASS (absent) |
 | `Lorem ipsum` | PASS (absent) |
+| `équipe IA qui accélère` | PASS (absent) |
 
-**Synthèse grep :** **PASS** — aucune occurrence bloquante
-
-## Réserves
-
-- Hero recommandé (M1) : décision Morris requise
-- Commit / PR branche projet (M5) : GO Morris requis — non réalisé dans ce mandat
-- PD-02B Notion L0 : après merge Git recommandé + GO M6
-
-## Décisions Morris requises
-
-| Gate | Objet |
-|------|-------|
-| **M1** | Valider ou corriger le Hero recommandé |
-| **M2** | Valider ou corriger le Hub |
-| **M3** | Valider ou corriger l'Acte I |
-| **M4** | Valider équilibre valeur / pédagogie / confidentialité |
-| **M5** | GO commit, push, PR PD-02A |
-| **M6** | GO PD-02B (après merge recommandé) |
-
-## Contenu complet — 3 fichiers
+| Contrôle | Résultat |
+|----------|----------|
+| QA corpus scope | **PASS** |
 
 ---
 
-# FICHIER 1 — README.md
+## git diff --stat (MOD — tracked)
 
-# SFIA Discovery — Editorial PD-02A (Hub + Acte I)
+```
+...ia-discovery-target-information-architecture.md |   4 +-
+ .../07-sfia-discovery-transformation-roadmap.md    | 163 +++++++++++----------
+ .../08-sfia-discovery-acceptance-framework.md      |   4 +-
+ .../notion/discovery-product-design/README.md      |   4 +-
+ .../notion/discovery/editorial/README.md           | 119 +++++++--------
+ 5 files changed, 139 insertions(+), 155 deletions(-)
+```
+
+**NEW (untracked) :**
+
+```
+ .../sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md | 238 +++++
+```
+
+---
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md`
+
+<!-- lines: 238 -->
+
+```markdown
+# ACTE II — Une nouvelle façon de conduire un projet
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — brouillon éditorial Discovery |
+| **Cycle** | PD-03A (préparation éditoriale Git — Acte II) |
+| **Acte** | II — Une nouvelle façon de conduire un projet |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Source de vérité** | Git |
+| **Branche** | `documentation/sfia-discovery-act-02-editorial` |
+| **HEAD / base** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
+| **Niveau lecture** | L1 |
+| **Durée cible** | 8–10 minutes |
+| **Question lecteur** | En quoi SFIA est-elle différente d'une conduite classique ou d'un usage libre de ChatGPT et Cursor ? |
+| **Implémentation Notion** | Non — gate PD-03B futur |
+| **Réaction recherchée** | « Je comprends comment SFIA organise le projet — je suis prêt à suivre NovaBuild. » |
+
+---
+
+## 1. Ouverture et continuité avec l'Acte I
+
+Dans l'**Acte I**, vous avez reconnu un problème familier : une intention métier simple devient une chaîne complexe de responsabilités, de livrables et de décisions — et les outils IA utilisés sans cadre n'y suffisent pas.
+
+La question qui suit est naturelle :
+
+> **Comment construire un système cohérent — sans reconstruire une usine à processus ?**
+
+L'**Acte II** répond à cette question. Il ne répète pas la douleur du flou : il présente **le modèle visible** de SFIA — assez concret pour vous projeter, assez sobre pour rester crédible.
+
+---
+
+## 2. Trois façons de conduire le projet
+
+En pratique, trois postures reviennent souvent :
+
+| Posture | Idée dominante | Force | Fragilité typique |
+|---------|----------------|-------|-------------------|
+| **Projet classique** | Cadre, rôles, documents, comités | Expertise reconnue, gouvernance structurée | Lourdeur, lenteur, coût de coordination |
+| **IA libre** (ChatGPT, Cursor seuls) | Vitesse, réactivité, « on avance tout de suite » | Accélération locale, idées, code | Contexte volatile, décisions implicites, trace faible |
+| **SFIA** | Cycles courts + IA assistée + décision humaine + trace Git | Vitesse **et** gouvernance visible | Exige discipline et gates — pas une baguette magique |
+
+SFIA ne nie pas la valeur du projet classique ni la puissance de l'IA. Elle **organise** les deux dans une chaîne lisible.
+
+---
+
+## 3. Contraste tripartite
+
+Comparaison **pédagogique qualitative** — pas de benchmark chiffré.
+
+| Dimension | Projet classique | IA libre | SFIA |
+|-----------|------------------|----------|------|
+| **Cadre** | Cahier des charges, comité, planning | Ad hoc, session par session | **Cycles** bornés avec intention claire |
+| **Vitesse** | Souvent lente au démarrage | Très rapide en local | Rapide **avec** périmètre et validation |
+| **Traçabilité** | Variable selon maturité doc | Faible entre sessions | **Git** — source de vérité |
+| **Décision** | Comité, sponsor, MOA | Utilisateur seul | **Morris** aux gates structurants + vous sur le métier |
+| **Livrables** | Documents projet, livrables contractuels | Fragments, brouillons, code isolé | **Artefacts par cycle** — vérifiables |
+| **Continuité du contexte** | Dépend des outils et des personnes | Perdue entre conversations | Reprise via repo et cycles |
+| **Capitalisation** | Difficile sans REX formalisé | Rare | Retours d'expérience intégrés à la méthode |
+| **Limites** | Coût, lenteur, rigidité possible | Chaos, sur-confiance, rework | Discipline requise ; pas de garantie absolue |
+
+---
+
+## 4. Le modèle visible de SFIA
+
+SFIA distribue les responsabilités entre **cinq acteurs visibles** :
+
+| Acteur | Rôle visible | Ce qu'il ne fait pas seul |
+|--------|--------------|---------------------------|
+| **Morris** | Décide et arbitre aux **gates** structurants (périmètre, architecture, publication, merge, déploiement…) | Remplacer votre métier |
+| **ChatGPT** | Qualifie, structure, challenge, prépare documents et analyses | Exécuter dans le repository |
+| **Cursor** | Exécute localement dans un **périmètre borné** — code, docs, commandes | Décider du scope ou valider seul |
+| **Git** | Conserve la **source de vérité** — historique, PR, preuves | Expliquer la valeur au lecteur métier |
+| **Notion Discovery** | Couche **métier et pédagogique** — comprendre avant d'entrer dans Git | Miroir intégral de la méthode |
+
+**Trois mouvements à distinguer :**
+
+1. **Proposition** — IA et équipe produisent, structurent, suggèrent
+2. **Exécution** — Cursor (et humains) matérialisent dans le repo
+3. **Décision** — Morris (ou votre sponsor) tranche aux points structurants
+
+Sans cette séparation, la vitesse de l'IA devient du bruit.
+
+---
+
+## 5. Le rôle des cycles
+
+Un **cycle SFIA** est une unité de travail **bornée** — compréhensible en langage métier :
+
+| Élément | Sens pour le lecteur |
+|---------|---------------------|
+| **Intention** | Pourquoi ce cycle maintenant ? |
+| **Sources** | Sur quoi s'appuie-t-on ? (docs, décisions, repo) |
+| **Périmètre** | Ce qui est in / out pour cette étape |
+| **Livrable** | Ce qui doit exister à la fin (document, code, rapport…) |
+| **Validation** | Qui relit, qui teste, quels critères |
+| **Décision** | Go / no-go / ajustement avant la suite |
+
+Exemples métier (sans catalogue exhaustif) : cadrage fonctionnel, conception UX, delivery d'un incrément, QA, release.
+
+> SFIA comporte **plusieurs types de cycles** — leur matrice détaillée reste dans Git, pas dans cette page Discovery.
+
+---
+
+## 6. Le rôle des gates Morris
+
+Certaines décisions ne doivent **pas** être déléguées à l'IA :
+
+- **Périmètre** — que couvre vraiment cette version ?
+- **Architecture** — choix structurants qui engagent la suite
+- **Publication** — merge, release, visibilité externe
+- **Déploiement** — mise en production ou environnement sensible
+
+Une **gate** est un point d'arrêt explicite : le livrable est prêt · Morris (ou le décideur désigné) **tranche** · la trace est conservée.
+
+Cela ne signifie pas que Morris micro-manage chaque ligne de code. Cela signifie que **les décisions qui coûtent cher** restent humaines et documentées.
+
+---
+
+## 7. Une chaîne de travail traçable
+
+Schéma textuel — chaîne métier SFIA :
+
+```text
+Besoin métier
+    → Qualification (ChatGPT + équipe)
+        → Préparation (spec, plan, périmètre)
+            → Exécution (Cursor + dev / rédaction)
+                → Revue (pair, QA, Morris selon gate)
+                    → Décision (gate)
+                        → Trace Git (commit, PR, merge)
+                            → Cycle suivant
+```
+
+Chaque maillon produit un **artefact identifiable**. Vous pouvez reprendre le projet sans reconstruire le contexte dans une conversation IA.
+
+---
+
+## 8. Ce que cette approche change
+
+Lorsque la méthode est **correctement appliquée**, SFIA peut :
+
+- **maintenir** la continuité du contexte entre sessions et intervenants ;
+- **séparer** clairement proposition, exécution et décision ;
+- **rendre visibles** les livrables — pas seulement l'activité ;
+- **faciliter** la reprise après changement d'équipe ou de prestataire ;
+- **donner** au dirigeant ou sponsor des points de contrôle lisibles ;
+- **améliorer** progressivement la méthode via retours d'expérience.
+
+Formulations **conditionnelles** : le gain dépend du respect du cadre et de l'engagement métier.
+
+---
+
+## 9. Ce que SFIA ne change pas
+
+| Réalité | Précision |
+|---------|-----------|
+| Comprendre le métier | SFIA structure — elle ne devine pas votre contexte |
+| Risques projet | Ils existent toujours — le cadre les rend plus visibles |
+| Expertises | Métier, architecture, QA, sécurité restent nécessaires |
+| Tests | Indispensables — SFIA les intègre, ne les supprime pas |
+| Responsabilité | Votre organisation reste responsable du produit livré |
+| Garantie | Aucune promesse de succès automatique |
+
+---
+
+## 10. Transition vers l'Acte III
+
+Vous disposez maintenant d'un **cadre** : contrastes, rôles, cycles, gates, traçabilité.
+
+Il reste à le **voir en mouvement** sur un projet concret.
+
+**NovaBuild** — cas **pédagogique composite** (entreprise fictive, récit scénarisé, catégories de livrables inspirées d'actifs SFIA vérifiables) — servira de fil rouge dans l'**Acte III**. Ce n'est ni un client réel ni un témoignage chiffré.
+
+> **Voyons maintenant comment ce cadre accompagne un projet concret, de l'intention à la mise en service.**
+
+**→ Continuer : ACTE III — Suivons NovaBuild** *(cycle PD-04A)*
+
+---
+
+## 11. Navigation cible
+
+| Élément | Valeur |
+|---------|--------|
+| **Précédent** | Acte I — Pourquoi SFIA existe |
+| **Suivant** | Acte III — Suivons NovaBuild |
+| **Fil d'Ariane** | Discovery · Acte II · Une nouvelle façon de conduire un projet |
+| **Parcours 20 min** | Hub → Acte I → **Acte II** → teaser Acte III |
+
+---
+
+## 12. Notes d'implémentation Notion PD-03B
+
+| Élément | Recommandation |
+|---------|----------------|
+| **Layout** | Tableau tripartite en colonnes Notion · schéma chaîne en callout |
+| **Toggles** | Rôles Morris/ChatGPT/Cursor · cycles · gates |
+| **Callout** | « Candidate » · « Pas de matrice routing ici » |
+| **Liens** | Acte I ← → Acte III (Acte III grisé jusqu'à PD-04B) |
+| **Interdit** | Prompt catalog · routing exhaustif · commandes Git |
+
+---
+
+## 13. Sources Git
+
+| Source | Usage |
+|--------|-------|
+| `discovery-product-design/02-sfia-discovery-narrative-architecture.md` | Cadrage Acte II |
+| `discovery-product-design/03-sfia-discovery-storyline.md` | Contraste tripartite |
+| `discovery-product-design/05-sfia-discovery-editorial-contract.md` | Ton · promesses |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Rôles IA |
+| `discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` | Continuité Acte I |
+
+---
+
+## 14. Critères d'acceptation de l'Acte II
+
+| # | Critère | Statut brouillon |
+|---|---------|------------------|
+| B1 | Continuité Acte I sans répétition | ✓ |
+| B2 | Contraste tripartite qualitatif | ✓ |
+| B3 | Rôles Morris / ChatGPT / Cursor / Git / Notion | ✓ |
+| B4 | Proposition / exécution / décision séparées | ✓ |
+| B5 | Cycles en langage métier — pas catalogue 15 cycles | ✓ |
+| B6 | Gates Morris — exemples, pas liste exhaustive | ✓ |
+| B7 | Aucune statistique non sourcée | ✓ |
+| B8 | Non-promesses explicites | ✓ |
+| B9 | NovaBuild annoncé comme composite — pas récit III | ✓ |
+| B10 | Transition Acte III naturelle | ✓ |
+
+**Verdict brouillon :** soumis à revue Morris (gates M1–M3).
+
+---
+
+## Contenu lecteur — corps principal (PD-03B)
+
+*Les sections 1–10 constituent le contenu lecteur. Métadonnées §11–14 réservées gouvernance et implémentation.*
+```
+
+---
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md`
+
+<!-- lines: 113 -->
+
+```markdown
+# SFIA Discovery — Editorial (brouillons lecteur)
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | **Candidate** — brouillons éditoriaux Discovery |
-| **Cycle** | PD-02A — Préparation éditoriale Git |
+| **Cycle courant** | PD-03A — Acte II (préparation Git) |
 | **Propriétaire** | Morris |
 | **Baseline opérationnelle** | SFIA v2.4 |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
-| **Branche projet** | `documentation/sfia-discovery-pd-02a-hub-acte-i` |
-| **HEAD / base** | `c1d96de132035bf0ef0e855620b2322600bc5aa8` |
-| **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
-| **Implémentation Notion** | **Non réalisée** — gate PD-02B futur |
+| **Branche projet** | `documentation/sfia-discovery-act-02-editorial` |
+| **HEAD / base** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
+| **Implémentation Notion** | **Non réalisée** — gates PD-nB futurs |
 | **Capitalisation méthode** | Non |
 
 ---
 
 ## 1. Rôle du dossier
 
-Ce répertoire contient les **brouillons éditoriaux complets** destinés au lecteur final de l'expérience SFIA Discovery — phase PD-02A du Product Design.
+Brouillons **destinés au lecteur final** de SFIA Discovery — source Git stable avant implémentation Notion (cycles PD-nB).
 
-Ces fichiers sont la **source Git stable** pour une future implémentation Notion (PD-02B). Ils ne sont **pas** le contrat Product Design (PD-01) ni les anciens drafts P0 §00–11.
+Non substituts au Product Design PD-01 ni aux drafts P0 §00–11.
 
 ---
 
-## 2. Positionnement PD-02A / PD-02B
+## 2. Séquence narrative (decision Morris)
 
-| Phase | Périmètre | Notion |
-|-------|-----------|--------|
-| **PD-02A (présent)** | Rédaction Markdown complète Hub + Acte I | Aucune action |
-| **PD-02B (futur)** | Matérialisation L0 après validation Morris + merge Git recommandé | Création pages manuelle |
+```text
+Hub + Acte I ✓ → Acte II (en cours) → Acte III NovaBuild → IV–V → VI–VII
+```
 
-> La source éditoriale Git doit être validée avant toute implémentation Notion.
+**Acte II avant Acte III** — le contraste et le modèle SFIA précèdent le fil rouge composite.
 
 ---
 
 ## 3. Inventaire des brouillons
 
-| # | Fichier | Rôle |
-|---|---------|------|
-| 1 | [sfia-discovery-hub-editorial-draft.md](sfia-discovery-hub-editorial-draft.md) | Future page d'accueil Discovery |
-| 2 | [sfia-discovery-act-01-why-sfia-exists-editorial-draft.md](sfia-discovery-act-01-why-sfia-exists-editorial-draft.md) | Acte I — Pourquoi SFIA existe |
+| # | Fichier | Acte | Statut editorial Git |
+|---|---------|------|----------------------|
+| 1 | [sfia-discovery-hub-editorial-draft.md](sfia-discovery-hub-editorial-draft.md) | Hub | ✓ mergé (PD-02A) |
+| 2 | [sfia-discovery-act-01-why-sfia-exists-editorial-draft.md](sfia-discovery-act-01-why-sfia-exists-editorial-draft.md) | I | ✓ mergé (PD-02A) |
+| 3 | [sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md](sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md) | II | **PD-03A — revue** |
 
 ---
 
 ## 4. Ordre de lecture
 
-1. **Hub** — orientation, promesse, parcours temps, portes d'entrée
-2. **Acte I** — reconnaissance du problème, transition vers Acte II
-
-Le README gouverne ; il n'est **pas** un contenu lecteur final.
-
----
-
-## 5. Sources canoniques
-
-### Product Design PD-01
-
-- `../discovery-product-design/` — vision, actes, personas, contrat, IA cible, roadmap, acceptation
-
-### Méthode (lecture, pas recopie)
-
-- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-
-### Matière P0 (inspiration, pas copie)
-
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-00-home-editorial-draft.md`
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-01-understand-sfia-editorial-draft.md`
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-02-value-proposition-editorial-draft.md`
+1. **Hub** — orientation · parcours · portes persona  
+2. **Acte I** — pourquoi SFIA existe  
+3. **Acte II** — comment SFIA organise le projet  
+4. **Acte III** *(futur PD-04A)* — fil rouge NovaBuild  
 
 ---
 
-## 6. Règles éditoriales applicables
+## 5. Positionnement cycles A / B
 
-- Ton confiant, concret, pédagogique — jamais sensationnaliste
-- **80 % métier / valeur** — 20 % fonctionnel sur Hub et Acte I
-- Preuve avant promesse · NovaBuild = cas composite · aucun chiffre non sourcé
-- Transparence fonctionnelle · opacité méthodologique sélective
-- Phrases courtes · paragraphes scannables · termes SFIA définis au premier usage
+| Incrément | Editorial Git (A) | Notion (B) |
+|-----------|-------------------|------------|
+| Hub + I | PD-02A ✓ | PD-02B — gate Morris |
+| Acte II | **PD-03A** (présent) | PD-03B — futur |
+| Acte III | PD-04A — futur | PD-04B |
 
-Référence complète : `../discovery-product-design/05-sfia-discovery-editorial-contract.md`
+Référence roadmap : [07-sfia-discovery-transformation-roadmap.md](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)
+
+---
+
+## 6. Règles éditoriales
+
+Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contract.md`
+
+- 80 % métier / valeur · 20 % fonctionnel (Actes I–II)
+- NovaBuild = cas composite · aucun chiffre non sourcé
+- Opacité méthodologique sélective
 
 ---
 
 ## 7. Garde-fous
 
-- Ne pas modifier le corpus Product Design PD-01
-- Ne pas modifier les drafts P0, UX ou method/core
-- Ne pas créer ou modifier de page Notion
-- Ne pas exposer prompts canoniques, routing exhaustif, protected paths
-- Ne pas promettre autonomie totale, zéro risque, succès garanti
-- Ne pas capitaliser en baseline sans GO Morris explicite
+- Aucune page Notion · aucun prompt catalog · aucune capitalisation baseline
 
 ---
 
 ## 8. Décisions Morris validées
 
-- PD-01 mergé et clôturé ✓
-- GO PD-02A ✓
-- Notion = IDE métier SFIA (vision Candidate) ✓
-- Hub + Acte I = premiers contenus éditoriaux ✓
-- NovaBuild = cas pédagogique composite ✓
-- Aucune action Notion dans PD-02A ✓
+- PD-01 · PD-02A mergés ✓
+- **Acte II avant Acte III** ✓
+- NovaBuild composite ✓
+- Aucune action Notion dans PD-03A ✓
 
 ---
 
-## 9. Décisions restantes
+## 9. Décisions restantes (Acte II)
 
 | Gate | Objet |
 |------|-------|
-| **M1** | Valider ou corriger le Hero recommandé |
-| **M2** | Valider ou corriger le Hub |
-| **M3** | Valider ou corriger l'Acte I |
-| **M4** | Valider équilibre valeur / pédagogie / confidentialité |
-| **M5** | GO commit, push, PR PD-02A |
-| **M6** | GO PD-02B (après merge recommandé) |
+| **M1** | Structure Acte II |
+| **M2** | Contraste tripartite |
+| **M3** | Niveau exposition méthode |
+| **M4** | Roadmap renumérotée |
+| **M5** | GO commit / push / PR |
+| **M6** | GO PD-03B Notion (distinct) |
 
 ---
 
-## 10. Critères d'entrée PD-02B
+## 10. Critères d'entrée PD-03B
 
-- Brouillons Hub + Acte I validés Morris
-- Commit / merge Git recommandé
-- Review pack et handoff vérifiés
-- Aucune réserve bloquante (confidentialité, promesses, claims)
-- GO Morris explicite pour implémentation Notion L0
+- Acte II validé Morris · merge Git recommandé · GO implémentation Notion L0
 
 ---
 
 ## 11. Liens
 
-→ [Product Design README](../discovery-product-design/README.md) · [Roadmap PD-02A](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)
+→ [Product Design](../discovery-product-design/README.md) · [Roadmap](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)
+```
 
 ---
 
-# FICHIER 2 — sfia-discovery-hub-editorial-draft.md
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/06-sfia-discovery-target-information-architecture.md`
 
-# SFIA Discovery — Hub (brouillon éditorial)
+<!-- lines: 187 -->
+
+```markdown
+# 06 — Architecture cible de l'information — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — brouillon éditorial Discovery |
-| **Cycle** | PD-02A |
-| **Page cible** | Hub Discovery (remplace hero P0 §00) |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Source de vérité** | Git |
-| **Branche** | `documentation/sfia-discovery-pd-02a-hub-acte-i` |
-| **HEAD / base** | `c1d96de132035bf0ef0e855620b2322600bc5aa8` |
-| **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
-| **Niveau lecture** | L0 |
-| **Durée cible** | 30 secondes à 3 minutes (hero + orientation) |
-| **Implémentation Notion** | Non — PD-02B gate Morris |
-| **Audience** | Tous personas — orientation |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
-## 1. Hero — options Candidate
+## 1. Objectif
 
-### Option A — Transformation maîtrisée
-
-**Titre :** Pilotez vos projets numériques sans perdre le contrôle
-
-**Phrase de transformation :** Passez du flou et de l'improvisation à une conduite de projet lisible — avec une équipe IA qui accélère, pas qui décide à votre place.
-
-**Sous-titre :** SFIA combine orchestration humaine, assistants IA et traçabilité dans Git. Vous gardez la main sur les décisions qui comptent.
-
-**CTA principal :** Comprendre pourquoi SFIA existe → Acte I
-
-**CTA secondaire :** Choisir mon parcours selon mon temps
+Proposer une **nouvelle architecture de pages** orientée Discovery — sans supprimer réellement les pages Notion existantes. Mapping ancien → cible pour migration future.
 
 ---
 
-### Option B — Équipe virtuelle gouvernée
-
-**Titre :** Une équipe projet assistée par IA — sous votre gouvernance
-
-**Phrase de transformation :** Structurez intention, livrables et décisions comme une organisation mature, sans recruter une armée de consultants.
-
-**Sous-titre :** Morris tranche aux points structurants. ChatGPT et Cursor exécutent dans un cadre. Git conserve la preuve.
-
-**CTA principal :** Découvrir le problème que SFIA traite → Acte I
-
-**CTA secondaire :** Voir les parcours par profil
-
----
-
-### Option C — De l'idée à l'application
-
-**Titre :** De l'intention métier à l'application livrée — avec un fil conducteur
-
-**Phrase de transformation :** SFIA transforme Notion en porte d'entrée métier et Git en atelier traçable. Vous comprenez la valeur avant d'entrer dans la méthode.
-
-**Sous-titre :** Ni chatbot magique, ni usine à prompts : un système de cycles courts, gates humaines et livrables vérifiables.
-
-**CTA principal :** Commencer par le pourquoi → Acte I
-
-**CTA secondaire :** Parcours 3 minutes
-
----
-
-### Recommandation Candidate (validation Morris — M1)
-
-**Option retenue pour PD-02B : Option A**
-
-**Justification :** Langage accessible au dirigeant PME et au prospect non technique. Met le contrôle humain en avant sans jargon SFIA. La transformation « flou → cadre » prépare naturellement l'Acte I.
-
-**Variante de titre si Morris préfère plus concret :** « Vos projets numériques méritent mieux que le chaos » — à trancher en revue.
-
----
-
-## 2. Proposition de valeur en une phrase
-
-> **SFIA aide les organisations à conduire des projets numériques avec clarté, traçabilité et assistance IA — en gardant un décideur humain responsable à chaque étape structurante.**
-
----
-
-## 3. Le problème auquel SFIA répond
-
-Beaucoup d'équipes — surtout les PME et les structures sans grande DSI — vivent la même tension :
-
-- une **demande métier** qui paraît simple (« une app pour suivre nos chantiers ») ;
-- une **réalité projet** qui mobilise des dizaines de compétences ;
-- des **outils IA** puissants mais utilisés sans cadre persistant ;
-- une **perte de fil** entre décisions, documents, code et déploiement.
-
-Le problème n'est pas l'absence d'outils. C'est l'absence d'un **système cohérent** qui relie intention, responsabilités, livrables et preuves.
-
-SFIA existe pour combler cet écart — sans promettre l'impossible.
-
----
-
-## 4. Ce qu'est SFIA
-
-**SFIA** (Software Factory Intelligence Approach) est une approche de **Software Factory** : une façon de produire des applications et des livrables numériques en **cycles courts**, avec :
-
-- une **équipe projet assistée par IA** (ChatGPT pour la réflexion structurée, Cursor pour l'exécution dans le repository) ;
-- un **décideur humain** (Morris) aux points de gate structurants ;
-- une **traçabilité** dans Git — source de vérité opérationnelle ;
-- une **expérience Discovery** dans Notion — pour comprendre la valeur avant d'entrer dans le détail.
-
-SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **façon de travailler** que vous découvrez ici, puis que vous exécutez dans Git.
-
----
-
-## 5. Ce que SFIA n'est pas
-
-| SFIA n'est pas… | Pourquoi |
-|-----------------|----------|
-| Un chatbot autonome | L'IA assiste ; elle ne remplace pas la décision humaine |
-| Une bibliothèque de prompts | Les prompts servent l'exécution — ils ne sont pas le produit |
-| Un remplacement de toutes les expertises | Les rôles métier, architecture, QA restent nécessaires |
-| Un miroir de Git dans Notion | Notion explique et oriente ; Git conserve la méthode détaillée |
-| Une garantie de succès | SFIA améliore le cadre — le contexte et l'engagement comptent |
-| SFIA 3.0 ou une baseline future | Le contenu Discovery est **Candidate** ; la baseline opérationnelle reste **v2.4** |
-
----
-
-## 6. Parcours de lecture par durée
-
-### 6.1 — 3 minutes · Découvrir
-
-| Champ | Contenu |
-|-------|---------|
-| **Promesse** | Saisir l'essentiel sans jargon |
-| **Contenu** | Hero · Proposition une phrase · Ce qu'est / n'est pas SFIA |
-| **Pages / actes** | Hub (sections 2–5) |
-| **Résultat** | « SFIA traite un vrai problème de conduite de projet » |
-| **CTA** | Acte I (aperçu) ou parcours 10 min |
-
----
-
-### 6.2 — 10 minutes · Comprendre
-
-| Champ | Contenu |
-|-------|---------|
-| **Promesse** | Reconnaître sa situation et le contraste IA libre / gouverné |
-| **Contenu** | Hub complet · **Acte I** intégral |
-| **Pages / actes** | Hub → Acte I |
-| **Résultat** | « Je comprends pourquoi ChatGPT ou Cursor seuls ne suffisent pas » |
-| **CTA** | Acte II (futur PD-04A) ou porte persona |
-
----
-
-### 6.3 — 20 minutes · Se convaincre
-
-| Champ | Contenu |
-|-------|---------|
-| **Promesse** | Voir la différence SFIA et les premières preuves |
-| **Contenu** | Acte I · Acte II (contraste tripartite) · extrait Acte IV (galerie) |
-| **Pages / actes** | I → II → IV (teaser) |
-| **Résultat** | « Je vois des livrables concrets et un cadre crédible » |
-| **CTA** | Acte III (extrait) ou contact Morris |
-
-*Actes II et IV : cycles éditoriaux futurs — liens de navigation à compléter.*
-
----
-
-### 6.4 — 30 à 45 minutes · Suivre la démonstration
-
-| Champ | Contenu |
-|-------|---------|
-| **Promesse** | Parcours narratif complet jusqu'aux garanties |
-| **Contenu** | Actes I → II → III (extrait fil rouge) → IV → V |
-| **Pages / actes** | Parcours conviction Product Design |
-| **Résultat** | « Je peux raconter SFIA avec mes propres mots » |
-| **CTA** | Acte VI (projection persona) |
-
----
-
-### 6.5 — Exploration libre · Approfondir
-
-| Champ | Contenu |
-|-------|---------|
-| **Promesse** | Aller au bon niveau de détail selon son profil |
-| **Contenu** | Hub portes persona · Acte VII · renvois Git |
-| **Pages / actes** | Navigation libre · annexes |
-| **Résultat** | « Je sais où approfondir sans noyer l'équipe » |
-| **CTA** | Git repository · Acte VII setup |
-
----
-
-## 7. Portes d'entrée par persona
-
-Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigation primaire Discovery.
-
-| Persona | Question | Entrée recommandée | Parcours | CTA |
-|---------|----------|-------------------|----------|-----|
-| **Dirigeant PME** | « Pourquoi investir dans une méthode ? » | Parcours 10 min | Hub → Acte I → Acte VI.1 (futur) | Comprendre le risque maîtrisé |
-| **Chef de projet / PO** | « Comment structurer sans surcharger ? » | Parcours 20 min | Acte I → II → III (extrait) | Voir cycles et livrables |
-| **Équipe technique** | « Où sont les garde-fous ? » | Porte « Livrables & traçabilité » | Acte IV → VII (orientation) | Lien Git |
-| **ESN / partenaire** | « Puis-je reproduire cette offre ? » | Porte « Partenaire » | Acte II → V → VI.4 (futur) | Gouvernance Morris |
-| **Prospect non technique** | « C'est quoi concrètement ? » | Parcours 3 min | Hero + Acte I (ouverture) | Acte I complet |
-
-**Bloc navigation cible (PD-02B) :**
+## 2. Arborescence cible (narrative)
 
 ```text
-┌─────────────────────────────────────────────────────────────┐
-│  [3 min]  [10 min]  [20 min]  [45 min]  [Par profil ▾]      │
-├─────────────────────────────────────────────────────────────┤
-│  Dirigeant · Chef de projet · Technique · ESN · Prospect    │
-└─────────────────────────────────────────────────────────────┘
+SFIA Discovery — Accueil (Hub)
+├── ACTE I — Pourquoi SFIA existe
+├── ACTE II — Une nouvelle façon de piloter un projet
+├── ACTE III — Suivons NovaBuild (fil rouge)
+│   ├── III.1 Intention et cadrage
+│   ├── III.2 Conception et UX
+│   ├── III.3 Delivery et QA
+│   └── III.4 Release et RUN
+├── ACTE IV — Ce que SFIA produit (galerie livrables)
+├── ACTE V — Pourquoi cela fonctionne (garanties et limites)
+├── ACTE VI — Se projeter (par persona)
+│   ├── VI.1 Dirigeant PME
+│   ├── VI.2 Chef de projet
+│   ├── VI.3 Équipe technique
+│   └── VI.4 ESN partenaire
+├── ACTE VII — Explorer la méthode (annexes)
+│   ├── Cycles et profils (simplifié)
+│   ├── Routage (orientation)
+│   ├── Templates et assets (index)
+│   ├── Gouvernance (résumé)
+│   ├── Mettre SFIA en place
+│   ├── Documents de référence (vue base)
+│   └── Glossaire
+└── Meta — Gouvernance espace · Sources Git · Statut Candidate
 ```
 
----
+**Bases (position inchangée conceptuellement) :**
 
-## 8. Aperçu des sept actes
-
-| Acte | Question | Statut éditorial |
-|------|----------|------------------|
-| **I** | Pourquoi SFIA existe ? | **PD-02A** — brouillon présent |
-| **II** | En quoi SFIA diffère-t-elle ? | Futur PD-04A |
-| **III** | À quoi ressemble un projet ? | Futur PD-03A (NovaBuild) |
-| **IV** | Que produit-on ? | Futur PD-04A |
-| **V** | Pourquoi ça tient ? | Futur PD-04A |
-| **VI** | Comment me projeter ? | Futur PD-05A |
-| **VII** | Où approfondir la méthode ? | Futur PD-05A |
-
-Le Hub **annonce** le voyage — il ne livre pas la méthode complète.
+- **Référentiel SFIA** — embed Acte IV + VII
+- **Cycles SFIA** — embed Acte VII
 
 ---
 
-## 9. Ce que le lecteur découvrira
+## 3. Table page actuelle → page cible
 
-En suivant l'expérience Discovery, vous verrez :
+| Page P0 actuelle | Action cible | Destination narrative |
+|------------------|--------------|---------------------|
+| 00 Accueil | **Remplacer** | Hub Discovery (nouveau hero + parcours temps) |
+| 01 Comprendre SFIA | **Fusionner** | Acte II + extrait Acte V |
+| 02 Proposition de valeur | **Fusionner** | Acte I + Acte VI |
+| 03 Comment fonctionne un cycle | **Déplacer** | Acte III (schéma) + Acte VII |
+| 04 Cycles, profils, gates | **Renommer + simplifier** | Acte VII — Cycles (Candidate badge) |
+| 05 Routage | **Réduire** | Acte VII — orientation uniquement |
+| 06 Templates, prompts | **Index** | Acte VII — liens Référentiel |
+| 07 Gouvernance | **Fusionner** | Acte V + Meta |
+| 08 Mise en place | **Conserver annexe** | Acte VII |
+| 10 Documents référence | **Conserver** | Acte VII — vue base |
+| 11 Glossaire | **Conserver annexe** | Acte VII |
 
-- **Pourquoi** les projets numériques dérapent — même avec de bons outils ;
-- **Comment** SFIA combine humain, IA et traçabilité sans autonomie totale ;
-- **Quels** types de livrables apparaissent cycle après cycle ;
-- **Où** Morris intervient — et où il ne remplace pas votre métier ;
-- **Comment** Git et Notion se complètent : valeur ici, exécution et méthode détaillée dans le repository ;
-- **Si** SFIA correspond à **votre** contexte — via des portes persona et des limites explicites.
-
----
-
-## 10. Preuves et résultats observables
-
-Sans chiffres inventés, SFIA s'appuie sur des **observations qualitatives** vérifiables dans le workspace Git :
-
-| Type de preuve | Ce que le lecteur peut constater |
-|----------------|----------------------------------|
-| **Traçabilité** | Historique de commits, PR et review packs sur des cycles réels |
-| **Livrables par cycle** | Documents, maquettes, rapports QA, notes de release — catégories reproductibles |
-| **Gouvernance** | Gates Morris documentés · décisions explicites avant merge |
-| **Capitalisation** | Retours d'expérience intégrés à la méthode — sans promesse de succès automatique |
-| **Fil rouge pédagogique** | NovaBuild (fiction composite) illustre les mécanismes — distinct des preuves projet réelles |
-
-> Les projets documentés dans Git (ex. catégories de livrables produites dans des cycles type Chantiers360) **inspirent** les récits — ils ne sont pas présentés comme témoignages clients du Hub.
+**§09 Cas d'usage :** création future P1 — hors parcours principal Discovery.
 
 ---
 
-## 11. Limites et gouvernance humaine
+## 4. Table chapitre → question lecteur
 
-SFIA **améliore** le cadre, la traçabilité, la cohérence et la capacité d'exécution **lorsque la méthode est correctement appliquée**.
-
-SFIA **ne promet pas** :
-
-- l'autonomie totale de l'IA ;
-- l'absence de rework, de bugs ou de risque ;
-- un délai ou un coût fixe ;
-- le remplacement de toutes les expertises métier ;
-- la conformité réglementaire sans validation dédiée.
-
-**Morris** reste le décideur aux gates structurants. Votre organisation reste responsable du périmètre, du budget et de l'adoption.
-
----
-
-## 12. CTA principal
-
-**→ Commencer : ACTE I — Pourquoi SFIA existe**
-
-*Vous reconnaîtrez peut-être votre situation avant même de connaître les cycles.*
-
-Lien cible PD-02B : page Acte I en enfant direct du Hub.
+| Chapitre | Question |
+|----------|----------|
+| Hub | Par où commencer selon mon temps ? |
+| Acte I | Pourquoi SFIA ? |
+| Acte II | En quoi est-ce différent ? |
+| Acte III | Comment se déroule un vrai projet ? |
+| Acte IV | Que produit-on ? |
+| Acte V | Pourquoi faire confiance ? |
+| Acte VI | Qu'est-ce que j'y gagne ? |
+| Acte VII | Comment approfondir ? |
 
 ---
 
-## 13. CTA secondaires
+## 5. Table chapitre → source Git
 
-| CTA | Destination | Profil |
-|-----|-------------|--------|
-| Choisir mon parcours (10 min) | Acte I | Dirigeant, prospect |
-| Voir ce que SFIA produit | Acte IV (futur) | PO, technique |
-| Comprendre la gouvernance | Acte V (futur) | ESN, contributeur |
-| Aller à la méthode détaillée | Acte VII + Git | Technique, méthode |
-| Statut Candidate · Sources Git | Meta footer | Tous |
-
----
-
-## 14. Navigation cible
-
-```text
-Hub Discovery
-├── ACTE I — Pourquoi SFIA existe          ← PD-02A
-├── ACTE II — Une nouvelle façon…           (futur)
-├── ACTE III — Suivons NovaBuild            (futur)
-├── ACTE IV — Ce que SFIA produit           (futur)
-├── ACTE V — Pourquoi cela fonctionne       (futur)
-├── ACTE VI — Se projeter                   (futur)
-├── ACTE VII — Explorer la méthode          (futur)
-└── Meta — Candidate · Git · Morris
-```
-
-**Fil d'Ariane :** `Discovery · Hub` → `Discovery · Acte I · …`
-
-**Footer obligatoire PD-02B :** Git prime · Candidate · Propriétaire Morris · date sync editorial.
+| Chapitre | Sources principales |
+|----------|---------------------|
+| Acte I | engineering-principles, platform-architecture (résumé) |
+| Acte II | operating-model, product-vision |
+| Acte III | delivery-pipeline, projects/chantiers360 (synthèse) |
+| Acte IV | bpmn-deliverables-standard, review pack examples |
+| Acte V | rules-and-guardrails, publication-governance |
+| Acte VI | product-vision personas, capitalization |
+| Acte VII | editorial P0 existant, routing-guide (index) |
 
 ---
 
-## 15. Notes d'implémentation Notion PD-02B
+## 6. Table chapitre → preuve métier
 
-| Élément | Recommandation Notion |
-|---------|----------------------|
-| **Layout** | Full-width hero · colonnes 2–3 pour portes persona |
-| **Callouts** | « Candidate » · « Git = source de vérité » · « NovaBuild = fiction pédagogique » |
-| **Toggles** | Parcours 3/10/20/45 min · détail sept actes |
-| **Boutons** | CTA Acte I en bouton primaire · secondaires en outline |
-| **Sidebar** | Désactivée comme nav primaire — menu intégré Hub |
-| **Mobile** | Hero ≤ 4 lignes · parcours en accordéon |
-| **Pas de** | Embed Git brut · liste prompts · matrice routing |
-
-Aucune page Notion ne doit être créée dans PD-02A.
+| Chapitre | Preuve |
+|----------|--------|
+| Acte I | Anti-patterns documentés |
+| Acte II | Tableau comparatif |
+| Acte III | Fil rouge NovaBuild |
+| Acte IV | Captures livrables |
+| Acte V | Gates Morris, Git prime |
+| Acte VI | Fiches persona |
+| Acte VII | Bases peuplées |
 
 ---
 
-## 16. Sources Git
+## 7. Table chapitre → confidentialité
 
-| Source | Usage |
+| Chapitre | Niveau max |
+|----------|------------|
+| I–VI | Public / pédagogique |
+| VII cycles/routage | Pédagogique — pas catalog |
+| VII templates | Index → Git |
+| Meta | Gouvernance résumée |
+
+---
+
+## 8. Transitions précédent / suivant (extrait)
+
+| Page | Précédent | Suivant |
+|------|-----------|---------|
+| Hub | — | Acte I ou parcours choisi |
+| Acte I | Hub | Acte II |
+| Acte II | I | III |
+| Acte III.1 | II | III.2 |
+| … | … | … |
+| Acte VII | VI | Hub / Git |
+
+*(Détail complet en implémentation PD-04B+)*
+
+---
+
+## 9. Portes d'entrée par persona
+
+| Persona | Entrée | Parcours défaut |
+|---------|--------|-----------------|
+| Dirigeant PME | Hub → « 10 min » | I → II → VI.1 |
+| PO | Hub → « Projet » | I → III |
+| Technique | Hub → « Livrables » | IV → VII |
+| ESN | Hub → « Partenaire » | II → VI.4 |
+| Prospect | Hub → « 3 min » | I teaser |
+
+---
+
+## 10. Navigation globale
+
+- **Hub central** — jamais sidebar Notion comme navigation primaire
+- **Fil d'Ariane narratif** — Acte · Section
+- **Parcours temps** — badges 3/10/20/45 min
+- **Footer** — Git prime · Candidate · Morris · date sync
+
+---
+
+## 11. Niveaux de lecture L0–L4
+
+| Niveau | Pages |
 |--------|-------|
-| `discovery-product-design/01-sfia-discovery-product-vision.md` | Vision IDE métier |
-| `discovery-product-design/06-sfia-discovery-target-information-architecture.md` | Arborescence cible |
-| `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` | Parcours persona |
-| `method/sfia-fast-track/core/sfia-knowledge-layer.md` | Git / Notion |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Rôles IA |
+| L0 | Hub, Acte I teaser |
+| L1 | I, II, VI |
+| L2 | III, IV, V |
+| L3 | VII setup, templates index |
+| L4 | VII référence, glossaire complet |
 
 ---
 
-## 17. Critères d'acceptation du Hub
+## 12. Hypothèses
 
-| # | Critère | Statut brouillon |
-|---|---------|------------------|
-| H1 | Promesse centrale en < 30 s sans connaître SFIA | ✓ |
-| H2 | Envie d'explorer · pas impression catalogue | ✓ |
-| H3 | Ne commence pas par la méthode interne | ✓ |
-| H4 | CTA Acte I évident | ✓ |
-| H5 | Gouvernance humaine visible | ✓ |
-| H6 | Différence Git / Notion compréhensible | ✓ |
-| H7 | Cinq parcours temps documentés | ✓ |
-| H8 | Cinq portes persona | ✓ |
-| H9 | Trois options Hero + recommandation Candidate | ✓ |
-| H10 | Aucune promesse absolue · aucun chiffre non sourcé | ✓ |
-
-**Verdict brouillon :** soumis à revue Morris (M2).
+- Anciennes pages P0 **archivées** ou **redirigées** en PD-07B — pas supprimées sans GO
+- Numérotation §00–11 **retirée du parcours principal** — conservée en métadonnées Git
 
 ---
 
-## Contenu lecteur — bloc PD-02B (corps principal page)
+## Liens
 
-*Le texte ci-dessous est le contenu destiné au lecteur final une fois matérialisé dans Notion. Les sections 1–17 ci-dessus incluent gouvernance et notes implémentation.*
-
----
-
-### Bienvenue dans SFIA Discovery
-
-Vous cherchez à comprendre **comment mener un projet numérique** sans vous noyer dans les outils, les documents contradictoires ou les réponses IA impossibles à retrouver deux semaines plus tard.
-
-Vous êtes au bon endroit.
-
-**SFIA** structure la conduite et la réalisation de projets numériques avec une équipe assistée par IA — **sous gouvernance humaine** et avec une trace vérifiable dans Git.
-
-Ce n'est pas un chatbot. Ce n'est pas une usine à prompts. C'est une **façon de piloter** où chaque étape produit des livrables, où les décisions structurantes restent humaines, et où Notion vous aide à **comprendre** avant d'entrer dans le repository.
-
-**→ Commencer : pourquoi SFIA existe** (Acte I)
+→ [07 Roadmap](07-sfia-discovery-transformation-roadmap.md) · [03 Storyline](03-sfia-discovery-storyline.md)
+```
 
 ---
 
-*Fin du corps principal Hub — suite via navigation parcours et Acte I.*
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md`
 
----
+<!-- lines: 167 -->
 
-# FICHIER 3 — sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
-
-# ACTE I — Pourquoi SFIA existe
+```markdown
+# 07 — Roadmap de transformation — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — brouillon éditorial Discovery |
-| **Cycle** | PD-02A |
-| **Acte** | I — Pourquoi SFIA existe |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Source de vérité** | Git |
-| **Branche** | `documentation/sfia-discovery-pd-02a-hub-acte-i` |
-| **HEAD / base** | `c1d96de132035bf0ef0e855620b2322600bc5aa8` |
-| **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
-| **Niveau lecture** | L0–L1 |
-| **Durée cible** | 8–12 minutes |
-| **Question lecteur** | Pourquoi une autre façon de conduire un projet numérique est-elle nécessaire ? |
-| **Implémentation Notion** | Non — PD-02B gate Morris |
-| **Réaction recherchée** | « C'est exactement notre situation. » |
+| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-act-02-editorial` |
+| **HEAD** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---
 
-## 1. Ouverture narrative
+## 1. Positionnement
 
-Imaginez une PME du bâtiment. Les équipes gèrent plusieurs chantiers en parallèle. Les réserves s'accumulent. Les informations circulent entre le terrain, le bureau et les sous-traitants.
+| Phase | Contenu |
+|-------|---------|
+| **PD-01** | Product Design Candidate — mergé ✓ |
+| **PD-nA** | Préparation éditoriale Git |
+| **PD-nB** | Implémentation Notion L0 |
+| **PD-08** | QA narrative et métier |
+| **PD-09** | Décision capitalisation — GO Morris |
 
-Le dirigeant formule une intention apparemment simple :
+**Ordre narratif obligatoire :** Hub + Acte I → **Acte II** → Acte III (NovaBuild) → Actes IV–V → Actes VI–VII → migration → QA → capitalisation.
 
-> « Je veux une application pour mieux suivre mes chantiers, mes interventions et mes réserves. »
+**Règle structurante :** chaque incrément de contenu suit **deux cycles distincts** — préparation Git (A) puis implémentation Notion (B).
 
-Personne ne conteste le besoin. Pourtant, six mois plus tard, le projet patine. Les versions se contredisent. Personne ne sait quelle décision a été prise sur les droits d'accès. Un développement freelance a laissé du code que personne ne maintient.
-
-Ce n'est pas une fable rare. C'est le point de départ de **l'Acte I**.
-
----
-
-## 2. Une intention métier apparemment simple
-
-Derrière la phrase « une application pour suivre… » se cachent déjà des questions :
-
-- Qui utilise l'outil sur le terrain ? Sur mobile ? Hors connexion ?
-- Qu'est-ce qu'une « réserve » dans votre métier — et comment la clôturer ?
-- Quelles données sont sensibles ? Qui peut les voir ?
-- Faut-il s'intégrer à un logiciel comptable existant ?
-- Que se passe-t-il si un chef de chantier quitte l'entreprise ?
-
-Une intention métier **simple à formuler** devient vite un **ensemble de règles, de rôles et de contraintes** que quelqu'un doit clarifier, documenter et faire respecter.
+> La source éditoriale Git doit être validée avant toute implémentation Notion. Le merge préalable est **recommandé** pour les incréments structurants.
 
 ---
 
-## 3. La réalité d'un projet numérique
+## 2. Modèle A / B
 
-Un projet numérique ne se réduit pas à « écrire du code ». Il enchaîne typiquement :
-
-1. **Comprendre** le besoin et le contexte organisationnel
-2. **Cadrer** le périmètre — ce qui est dans la première version, ce qui attend
-3. **Concevoir** l'architecture fonctionnelle et les parcours utilisateur
-4. **Spécifier** les écrans, les données, les règles métier
-5. **Développer** et intégrer
-6. **Tester** — fonctionnel, régression, acceptation métier
-7. **Déployer** — environnements, sécurité, disponibilité
-8. **Exploiter** — support, évolutions, documentation à jour
-9. **Décider** — à chaque étape, arbitrer entre options, délais et coûts
-
-Chaque étape produit des **livrables**. Chaque livrable suppose une **responsabilité**. Chaque responsabilité suppose une **coordination**.
+| Cycle | Périmètre | Gate |
+|-------|-----------|------|
+| **A — Git** | Brouillons Markdown complets | GO Morris commit/PR/merge |
+| **B — Notion** | Matérialisation L0 manuelle | GO Morris implémentation |
 
 ---
 
-## 4. Les expertises et rôles habituellement mobilisés
+## 3. Incréments
 
-Dans une organisation mature, on mobilise — selon le contexte — des compétences comme :
+### PD-01 — Product Design Candidate ✓
 
-| Rôle | Contribution typique |
-|------|---------------------|
-| **Sponsor / décideur** | Arbitrage budget, priorité, go/no-go |
-| **Chef de projet** | Planning, coordination, risques |
-| **Analyste métier** | Règles métier, processus, cas limites |
-| **Architecte** | Structure technique, choix structurants |
-| **UX / UI designer** | Parcours, ergonomie, cohérence visuelle |
-| **Développeur** | Implémentation, qualité code |
-| **Testeur / QA** | Scénarios, non-régression, preuves |
-| **DevOps** | Pipelines, environnements, déploiement |
-| **Sécurité** | Accès, données sensibles, conformité |
-| **Exploitation / RUN** | Disponibilité, incidents, continuité |
+Corpus PD-01 — mergé (PR #195).
 
-Cette liste n'est **ni exhaustive ni identique** dans toutes les entreprises. Elle montre une chose : **la valeur de ces rôles est réelle** — mais leur **coordination** coûte cher, surtout quand l'organisation est petite.
+### PD-02A — Hub + Acte I — préparation Git ✓
 
----
+Brouillons Hub + Acte I — mergé (PR #196).
 
-## 5. Le coût de la coordination
+### PD-02B — Hub + Acte I — implémentation Notion
 
-Quand plusieurs personnes — internes ou prestataires — interviennent sans cadre partagé :
+| Prérequis | PD-02A mergé ✓ |
+| Notion | Pages Hub + Acte I L0 |
+| Gate | GO Morris distinct |
 
-- les **réunions** multiplient les allers-retours ;
-- les **documents** se dupliquent ou divergent ;
-- les **décisions** orales ne laissent pas de trace exploitable ;
-- les **changements de périmètre** arrivent sans mise à jour systématique des specs ;
-- les **experts clés** deviennent des goulets d'étranglement.
+### PD-03A — Acte II — préparation Git
 
-Ce n'est pas que les équipes projet traditionnelles seraient « inutiles ». Au contraire : **leur expertise est précieuse**. Le problème, pour une PME ou une équipe réduite, c'est d'**accéder à cette discipline** sans recruter une usine à gaz.
+| Objectif | Brouillon **Acte II** — contraste tripartite, rôles, cycles, gates |
+| Prérequis | Acte I editorial disponible ✓ |
+| Gate | M1–M3 Morris · validation contraste et confidentialité |
 
----
+*Cycle présent — brouillon en cours de revue.*
 
-## 6. Quand l'information se fragmente
+### PD-03B — Acte II — implémentation Notion
 
-Fragmentation typique :
+Matérialisation Acte II après validation PD-03A + merge recommandé.
 
-- le métier décrit le besoin dans un mail ;
-- le prestataire résume dans un autre format ;
-- le designer travaille sur une maquette non alignée avec la dernière règle métier ;
-- le développeur implémente une version intermédiaire du backlog ;
-- la documentation utilisateur n'a jamais été mise à jour.
+### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
 
-Chacun travaille « dans son coin » avec de bonnes intentions. **Personne ne ment.** Mais **personne ne voit l'ensemble** en permanence.
+| Objectif | Brouillons III.1–III.4 — cas composite NovaBuild |
+| Prérequis | **PD-03A validé** — Acte II avant fil rouge |
+| Gate | Distinction fiction / preuves |
 
----
+### PD-04B — Acte III — implémentation Notion
 
-## 7. Quand les décisions disparaissent
+Pages fil rouge NovaBuild.
 
-« On avait dit que seuls les chefs de chantier valident la clôture des réserves. »
+### PD-05A — Actes IV et V — préparation Git
 
-« Non, c'était l'administratif. »
+Galerie livrables · garanties et limites.
 
-« Le développeur a codé l'autre option parce qu'il n'était pas dans la réunion. »
+### PD-05B — Actes IV et V — implémentation Notion
 
-Sans trace versionnée, les décisions **s'évaporent**. Le rework naît souvent **là** — pas dans la complexité technique.
+Matérialisation L0.
 
----
+### PD-06A — Actes VI et VII — préparation Git
 
-## 8. Quand les livrables se contredisent
+Personas · annexes méthode simplifiées.
 
-Un même projet peut produire simultanément :
+### PD-06B — Actes VI et VII — implémentation Notion
 
-- un cahier des charges de 40 pages ;
-- un backlog partiel ;
-- des maquettes d'une version antérieure ;
-- du code qui ne correspond ni aux maquettes ni au backlog ;
-- des tests basés sur une hypothèse abandonnée.
+Pages persona + portail annexes.
 
-Le livrable **le plus récent** n'est pas toujours le livrable **faisant foi**. Sans source de vérité, l'équipe reconstruit le contexte à chaque sprint.
+### PD-07A — Migration legacy — préparation Git
+
+Plan redirections §00–11 → architecture Discovery.
+
+### PD-07B — Migration legacy — Notion
+
+Redirections · archivage — gate Morris GO migration.
+
+### PD-08 — QA narrative et métier
+
+Framework §08 · dépend PD-02B–07B.
+
+### PD-09 — Décision capitalisation
+
+Évaluer promotion method/core — GO Morris.
 
 ---
 
-## 9. Quand l'IA est utilisée librement
+## 4. Dépendances globales
 
-Face à cette complexité, beaucoup d'équipes — à juste titre — se tournent vers **ChatGPT** ou **Cursor**.
+```text
+PD-01 ✓
+├── PD-02A ✓ → PD-02B
+├── PD-03A → PD-03B     ← Acte II (avant III)
+├── PD-04A → PD-04B     ← NovaBuild (après II)
+├── PD-05A → PD-05B
+├── PD-06A → PD-06B
+├── PD-07A → PD-07B
+├── PD-08 (après 07B)
+└── PD-09 (après PD-08)
+```
 
-C'est une réponse naturelle : l'IA **accélère** la rédaction, l'analyse, le code, la documentation.
-
-Mais « utiliser l'IA » sans cadre persistant reproduit souvent les mêmes fragilités — **plus vite**.
-
----
-
-## 10. Pourquoi ChatGPT seul ne suffit pas
-
-**ChatGPT** peut excellemment :
-
-- analyser un texte ou un besoin ;
-- proposer des structures, des user stories, des specs ;
-- rédiger des mails, des documents, des scénarios de test ;
-- expliquer des concepts techniques en langage métier.
-
-**Sans cadre persistant**, il peut aussi :
-
-- **perdre le contexte** d'une session à l'autre ;
-- produire des réponses **difficiles à relier** entre elles dans le temps ;
-- transformer une **hypothèse** en affirmation qui sonne définitive ;
-- proposer une solution **sans vérifier** l'état réel du projet dans le repository ;
-- ne laisser **aucune preuve versionnée** utilisable par une autre personne six mois plus tard.
-
-ChatGPT est un **assistant de réflexion**. Ce n'est pas un **système de conduite de projet**.
+**Séquence éditoriale Git recommandée :** 03A → 04A → 05A → 06A → 07A (parallélisme A possible avec gates par incrément).
 
 ---
 
-## 11. Pourquoi Cursor seul ne suffit pas
+## 5. Distinction phases (synthèse)
 
-**Cursor** peut remarquablement :
-
-- lire et modifier un repository ;
-- produire rapidement du code ou de la documentation ;
-- exécuter des commandes dans l'environnement de développement ;
-- accélérer des tâches répétitives de delivery.
-
-**Sans contrat d'exécution et gouvernance**, il peut aussi :
-
-- travailler sur un **périmètre mal défini** ;
-- **implémenter avant arbitrage** métier ou architecture ;
-- optimiser **localement** sans vision globale du produit ;
-- produire un résultat **techniquement plausible** mais **non validé** par le métier ;
-- laisser des changements **sans fil conducteur** explicite pour le reste de l'équipe.
-
-Cursor est un **outil d'exécution assistée**. Ce n'est pas un **substitut** au cadrage, aux gates et à la traçabilité.
+```text
+Conception (PD-01) ✓
+  → Hub + I (02A ✓ / 02B)
+    → Acte II (03A / 03B)
+      → Acte III NovaBuild (04A / 04B)
+        → IV–V (05) → VI–VII (06) → Migration (07)
+          → QA (08) → Capitalisation? (09)
+```
 
 ---
 
-## 12. Pourquoi accumuler les outils ne résout pas le problème
+## 6. Mapping renumérotation (référence)
 
-Ajouter ChatGPT **plus** Cursor **plus** Notion **plus** Jira **plus** Figma **plus** un prestataire **sans** système cohérent ne fait qu'**empiler des vitesses**.
-
-Chaque outil apporte une capacité. Aucun ne garantit seul :
-
-- la **continuité du contexte** ;
-- la **séparation** entre proposition, exécution et décision ;
-- la **responsabilité humaine** aux bons moments ;
-- la **preuve** exploitable pour reprendre le projet.
-
-Le problème n'est pas le manque d'outils. C'est le manque de **fil conducteur**.
-
----
-
-## 13. Illustration NovaBuild
-
-> **NovaBuild** est un **cas pédagogique composite** : entreprise fictive, récit scénarisé. Les besoins et catégories de livrables s'inspirent de situations réalistes et d'actifs SFIA vérifiables dans Git — **sans** témoignage client ni chiffres inventés.
-
-Le dirigeant de NovaBuild — PME BTP fictive — veut piloter chantiers et réserves. Il teste ChatGPT pour « faire une app ». Il obtient des idées, des bouts de texte, parfois du code isolé. Rien n'est relié. Personne dans l'équipe ne sait **quelle version fait foi**.
-
-Il ouvre Cursor sur un dossier local. L'IA avance vite sur des écrans. Mais **qui a validé** la règle de clôture des réserves ? **Où est la trace** de la décision sur les rôles utilisateurs ?
-
-NovaBuild n'est **pas** un client réel. C'est une **situation reconnaissable** — pour introduire le problème avant le fil rouge complet (Acte III, cycle PD-03A).
+| Ancien ID | Nouveau ID | Contenu |
+|-----------|------------|---------|
+| PD-03A/B | **PD-04A/B** | Acte III NovaBuild |
+| PD-04A/B | **PD-05A/B** | Actes IV et V |
+| PD-05A/B | **PD-06A/B** | Actes VI et VII |
+| PD-06A/B | **PD-07A/B** | Migration legacy |
+| PD-07 | **PD-08** | QA |
+| PD-08 | **PD-09** | Capitalisation |
+| — | **PD-03A/B** | **Acte II** (nouveau slot) |
 
 ---
 
-## 14. Les conséquences visibles
+## 7. Critères capitalisation (PD-09)
 
-Sans système cohérent, les équipes observent souvent — qualitativement :
-
-- des **délais** allongés par incompréhensions et allers-retours ;
-- du **rework** : refaire ce qu'on croyait acquis ;
-- une **dépendance** à quelques personnes qui « tiennent le projet dans leur tête » ;
-- une **perte de décisions** non consignées ;
-- des **spécifications contradictoires** ;
-- des **fonctionnalités** non alignées avec le besoin initial ;
-- des **tests tardifs** qui révèlent des écarts coûteux ;
-- un **déploiement** mal anticipé ;
-- une **documentation** obsolète dès la livraison ;
-- une **difficulté à reprendre** le projet après un changement d'intervenant ;
-- un **usage IA non reproductible** — chaque session repart de zéro.
-
-Ce sont des **patterns** observables dans la pratique projet — **sans** statistique sectorielle non sourcée.
+Itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
 
 ---
 
-## 15. Le véritable problème à résoudre
+## Liens
 
-Reformulons.
-
-Le problème principal **n'est pas** l'absence d'outils — y compris d'outils IA.
-
-Le problème est l'absence d'un **système cohérent** qui :
-
-| Capacité | Pourquoi c'est essentiel |
-|----------|-------------------------|
-| Transforme l'**intention** en étapes | Évite le tout-en-un impossible |
-| Attribue les **responsabilités** | Chacun sait ce qu'il produit |
-| **Conserve le contexte** | Le projet survit aux sessions IA |
-| Produit des **livrables vérifiables** | On sait ce qui existe vraiment |
-| **Sépare** proposition, exécution, décision | L'IA propose ; l'humain tranche |
-| Garde un **humain responsable** | Pas de bot décideur |
-| Conserve une **trace exploitable** | Reprise, audit, capitalisation |
-
-C'est **ce vide** que SFIA cherche à combler.
+→ [08 Acceptation](08-sfia-discovery-acceptance-framework.md) · [README](README.md)
+```
 
 ---
 
-## 16. Première révélation de SFIA
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md`
 
-**SFIA** (Software Factory Intelligence Approach) orchestre une **équipe projet assistée par IA** — sous le contrôle d'un **décideur humain** aux points structurants.
+<!-- lines: 143 -->
 
-Concrètement, sans entrer encore dans le détail des cycles :
+```markdown
+# 08 — Framework d'acceptation — SFIA Discovery Experience
 
-- **ChatGPT** aide à structurer, rédiger, analyser — dans un cadre de cycle ;
-- **Cursor** exécute dans le repository — avec garde-fous et traçabilité ;
-- **Git** conserve la source de vérité — livrables, historique, preuves ;
-- **Morris** tranche aux **gates** où une décision structurante est requise ;
-- **Notion Discovery** (cet espace) montre **la valeur et le fonctionnement visible** — pas la recette complète de la méthode.
-
-SFIA n'est pas une IA autonome. C'est une **usine logicielle gouvernée** : rapide **et** traçable.
-
----
-
-## 17. Ce que SFIA promet raisonnablement
-
-Lorsque la méthode est **correctement appliquée**, SFIA vise à :
-
-- **clarifier** le passage du besoin aux livrables par cycles bornés ;
-- **accélérer** la production grâce à l'IA assistée — sans confondre vitesse et flou ;
-- **tracer** décisions, documents et incréments dans Git ;
-- **séparer** ce qui relève de la proposition IA et ce qui relève de la validation humaine ;
-- **capitaliser** les retours pour améliorer la méthode ;
-- **rendre visible** rôles, livrables et limites — avant le détail technique.
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
-## 18. Ce que SFIA ne promet pas
+## 1. Objectif
 
-| Non-promesse | Précision |
-|--------------|-----------|
-| Autonomie totale de l'IA | L'IA assiste ; Morris et votre organisation décident |
-| Remplacement de toutes les expertises | Métier, QA, sécurité restent nécessaires |
-| Zéro bug · zéro risque · zéro rework | Le cadre réduit le flou — pas la complexité |
-| Délai ou coût garanti | Dépend du périmètre et de l'engagement |
-| Succès garanti | SFIA améliore les conditions — pas une assurance résultat |
-| Conformité automatique | Validation dédiée si exigence réglementaire |
+Définir les **critères de jugement** de la future expérience Discovery — avant et après implémentation Notion (PD-08).
 
 ---
 
-## 19. Transition vers l'Acte II
+## 2. Critères minimum (18)
 
-Vous venez de reconnaître **le problème** : intention simple, chaîne complexe, coordination coûteuse, IA libre insuffisante.
-
-La question suivante :
-
-> **« En quoi SFIA diffère-t-elle concrètement d'un projet classique — ou d'une utilisation libre de ChatGPT et Cursor ? »**
-
-C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle PD-04A)*.
-
-**→ Continuer : ACTE II**
-
----
-
-## 20. Navigation cible
-
-| Élément | Valeur |
-|---------|--------|
-| **Précédent** | Hub Discovery |
-| **Suivant** | Acte II |
-| **Fil d'Ariane** | Discovery · Acte I · Pourquoi SFIA existe |
-| **Parcours 10 min** | Hub → Acte I → teaser Acte II |
-
----
-
-## 21. Notes d'implémentation Notion PD-02B
-
-- Sections en toggles ou H2 scannables
-- Callout NovaBuild « fiction pédagogique » sur §13
-- Callout non-promesses sur §18
-- Badge durée « ~10 min »
-- Acte II grisé jusqu'à PD-04B
-- Aucun prompt · commande · routing détaillé
-
----
-
-## 22. Sources Git
-
-- `discovery-product-design/02-sfia-discovery-narrative-architecture.md`
-- `discovery-product-design/03-sfia-discovery-storyline.md`
-- `discovery-product-design/05-sfia-discovery-editorial-contract.md`
-- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-
----
-
-## 23. Critères d'acceptation de l'Acte I
-
-| # | Critère | Statut |
+| # | Critère | Mesure |
 |---|---------|--------|
-| A1 | Situation reconnaissable | ✓ |
-| A2 | Coordination comprise | ✓ |
-| A3–A4 | Limites ChatGPT / Cursor | ✓ |
-| A5 | Problème racine sans méthode interne | ✓ |
-| A6 | NovaBuild composite | ✓ |
-| A7 | Aucune statistique non sourcée | ✓ |
-| A8–A10 | Révélation · non-promesses · transition | ✓ |
-
-**Verdict brouillon :** revue Morris (M3).
+| C1 | Compréhension immédiate valeur | Reformulation 2 min post 10 min |
+| C2 | Distinction classique / IA libre / SFIA | Quiz 3 items |
+| C3 | Raconter SFIA avec ses mots | Entretien 5 min |
+| C4 | Rôles Morris/ChatGPT/Cursor/Git/Notion | Schéma annoté |
+| C5 | Projet bout en bout | Récit 5 phases minimum |
+| C6 | Livrables concrets identifiés | ≥ 5 types cités |
+| C7 | Garanties et limites | 2 garanties + 2 limites |
+| C8 | Projection persona | « Mon cas » articulé |
+| C9 | Envie poursuivre | Score ≥ 4/5 |
+| C10 | Absence fuite méthodologique | Audit prompts/catalog |
+| C11 | Absence promesse excessive | Revue éditoriale §05 |
+| C12 | Cohérence Git | Métadonnées SHA |
+| C13 | Navigation sans impasse | Walkthrough 4 parcours |
+| C14 | Temps lecture maîtrisé | Parcours dans budget |
+| C15 | Métier > méthode | Ratio contenu Actes I–VI |
+| C16 | Mobile lisible | Test 2 pages |
+| C17 | Accessibilité | Pas couleur seule |
+| C18 | Candidate visible | Badge v2.5 |
+| C19 | Distinction fiction NovaBuild / preuves SFIA | Test explicite post Acte III |
+| C20 | Absence statistiques non sourcées | Revue Acte I + corpus — aucun chiffre sans source |
 
 ---
 
-## Review Handoff Git
+## 3. Grille revue Morris
 
-- **Décision :** required
-- **SHA avant :** `67a2fdce03da31330c708d8e9cdd90442ca4ebfa`
-- **Branche :** `sfia/review-handoff`
-- **Fichier :** `sfia-review-handoff/latest-chatgpt-review.md`
-- **Overwrite :** obligatoire
-- **SHA commit handoff :** _(post-push)_
-- **Verdict handoff :** _(post-push)_
+| Domaine | Question | ☐ |
+|---------|----------|---|
+| Vision | IDE métier clair ? | |
+| Narration | Actes cohérents ? | |
+| Fil rouge | NovaBuild composite distingué des preuves réelles ? | |
+| Chiffres | Aucune statistique non sourcée (Acte I) ? | |
+| Confidentialité | Pas de fuite ? | |
+| Promesses | Sobres ? | |
+| Migration | Mapping P0 acceptable ? | |
+| Roadmap | Cycles Git (A) / Notion (B) séparés ? | |
+| GO PD-02A | Editorial Hub + Acte I autorisé ? | |
 
-## Verdict
+---
 
-**PD-02A EDITORIAL READY FOR MORRIS REVIEW**
+## 4. Tests utilisateurs
+
+### 4.1 Lecteur non technique
+
+- Parcours 10 min · Reformulation · Score C1, C3, C9
+
+### 4.2 Chef de projet
+
+- Parcours 30 min · Identification livrables · C5, C6
+
+### 4.3 Développeur
+
+- Acte VII + lien Git · Pas de frustration « manque détail » si renvoi clair · C4
+
+### 4.4 Prospect PME
+
+- Teaser 3 min + conviction partielle · C1, C8
+
+### 4.5 Test confidentialité
+
+- Chercher prompt catalog, routing exhaustif, automation — **doit échouer** sur Notion · C10
+
+### 4.6 Test valeur
+
+- « Qu'achète-on avec SFIA ? » — réponse métier sans jargon · C15
+
+### 4.7 Test storytelling
+
+- Récit NovaBuild fluide · C5
+
+### 4.8 Test NovaBuild / preuves
+
+- Après Acte III : le lecteur distingue fiction NovaBuild et preuves SFIA réelles · C19
+
+### 4.9 Test statistiques
+
+- Revue Acte I : aucun taux, économie ou gain chiffré sans source · C20
+
+---
+
+## 5. Verdicts possibles
+
+| Verdict | Signification |
+|---------|---------------|
+| **DISCOVERY PRODUCT DESIGN CORRECTED — READY FOR COMMIT** | Réserves R1–R3 traitées ; corpus PD-01 prêt pour commit/PR |
+| **DISCOVERY PRODUCT DESIGN READY** | Corpus PD-01 validé pour commit/PR |
+| **READY WITH EDITORIAL RESERVES** | Corrections mineures documentées |
+| **NARRATIVE INSUFFICIENT** | Actes ou fil rouge à retravailler |
+| **VALUE PROPOSITION INSUFFICIENT** | Actes I–II faibles |
+| **METHODOLOGY OVEREXPOSED** | Confidentialité violée |
+| **MORRIS DECISION REQUIRED** | Arbitrage positioning |
+
+---
+
+## 6. Application cycle présent (PD-01)
+
+Ce framework s'applique **pleinement** à PD-08 (QA Notion). Pour PD-01 :
+
+- Revue Morris sur **documents Git** via critères C1–C8 en **lecture simulée**
+- C10–C13 à l'implémentation
+- Verdict attendu post-revue : **DISCOVERY PRODUCT DESIGN READY** ou réserves
+
+---
+
+## 7. Seuils GO / NO-GO implémentation
+
+| Condition | GO PD-02A (Git) | GO PD-02B (Notion) |
+|-----------|-----------------|---------------------|
+| PD-01 merged | Requis | Requis |
+| Fil rouge NovaBuild composite documenté | Requis | Requis |
+| Brouillons Hub + Acte I validés Morris | Requis | Requis |
+| Source Git stable (merge recommandé) | — | Requis |
+| Contrat éditorial validé | Requis | Requis |
+| Statistique non sourcée détectée | **NO-GO** | **NO-GO** |
+| METHODOLOGY OVEREXPOSED | **NO-GO** | **NO-GO** |
+
+---
+
+## Liens
+
+→ [05 Contrat éditorial](05-sfia-discovery-editorial-contract.md) · [07 Roadmap](07-sfia-discovery-transformation-roadmap.md)
+```
+
+---
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/README.md`
+
+<!-- lines: 119 -->
+
+```markdown
+# SFIA Discovery Experience — Product Design (Cycle 2 fonctionnel)
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — conception produit documentaire |
+| **Usage** | Contrat Product Design « SFIA Discovery Experience » |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycles PD-nB distincts (après PD-nA Git) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD source** | `14446b91019c1e320c12533124201b9a3dd4863d` |
+
+---
+
+## Rôle du dossier
+
+Ce répertoire formalise le **contrat de Product Design** pour transformer l'espace Notion SFIA en **IDE métier** et **expérience de découverte du produit** — fondée sur une narration métier, fonctionnelle et orientée valeur.
+
+| Principe | Application |
+|----------|-------------|
+| **Repartir du lecteur** | Parcours mental du non-initié — pas de l'arborescence §00–11 |
+| **Storytelling** | Sept actes narratifs + fil rouge **NovaBuild** (cas composite validé) |
+| **Transparence sélective** | Valeur et capacités visibles ; recettes internes masquées |
+| **Git prime** | Conception dans Git ; Notion = couche d'expérience future |
+| **Candidate** | Aucune baseline ; revue Morris avant implémentation |
+
+---
+
+## Constat de départ (UX-06)
+
+L'espace Notion actuel (11 pages P0, bases Référentiel et Cycles) est **propre, structuré et cohérent visuellement** (contrat UX-01, UX-02–06). Toutefois la **profondeur éditoriale de valeur** reste insuffisante : le lecteur comprend les composants, cycles et acteurs, mais pas suffisamment **pourquoi SFIA existe**, **ce qu'elle transforme** et **comment se projeter**.
+
+Ce cycle **ne modifie pas Notion** — il conçoit la transformation narrative cible.
+
+---
+
+## Inventaire des livrables (9)
+
+| # | Fichier | Responsabilité |
+|---|---------|----------------|
+| 1 | [01-sfia-discovery-product-vision.md](01-sfia-discovery-product-vision.md) | Vision produit, promesse, anti-objectifs |
+| 2 | [02-sfia-discovery-narrative-architecture.md](02-sfia-discovery-narrative-architecture.md) | Architecture en 7 actes |
+| 3 | [03-sfia-discovery-storyline.md](03-sfia-discovery-storyline.md) | Scénario, fil rouge projet PME |
+| 4 | [04-sfia-discovery-personas-and-reading-journeys.md](04-sfia-discovery-personas-and-reading-journeys.md) | 6 personas, 5 niveaux de lecture |
+| 5 | [05-sfia-discovery-editorial-contract.md](05-sfia-discovery-editorial-contract.md) | Voix, confidentialité, matrice d'information |
+| 6 | [06-sfia-discovery-target-information-architecture.md](06-sfia-discovery-target-information-architecture.md) | Nouvelle arborescence, mapping ancien → cible |
+| 7 | [07-sfia-discovery-transformation-roadmap.md](07-sfia-discovery-transformation-roadmap.md) | Incréments PD-01, PD-nA/B, PD-08–09 |
+| 8 | [08-sfia-discovery-acceptance-framework.md](08-sfia-discovery-acceptance-framework.md) | Critères d'acceptation, grilles de test |
+
+---
+
+## Ordre de lecture
+
+1. Vision → 2. Architecture narrative → 3. Storyline → 4. Personas → 5. Contrat éditorial → 6. IA cible → 7. Roadmap → 8. Acceptation
+
+---
+
+## Relation avec les cycles antérieurs
+
+| Cycle | Apport | Limite pour Discovery |
+|-------|--------|------------------------|
+| Notion cycle 1 | Vision produit, IA §01–11 | Trop structurée par numérotation |
+| Editorial P0 (PR #193) | Contenu pages actuelles | Trop méthodologique, peu narratif |
+| UX-01 (PR #194) | Navigation, design system | UX correcte, valeur métier insuffisante |
+| **Discovery (présent)** | Narration, storytelling, IA cible | Conception uniquement |
+
+---
+
+## Trajectoire vers l'implémentation
+
+```text
+Product Design (présent) → validation Morris → préparation éditoriale Git
+  → préparation éditoriale Git (PD-nA) → implémentation Notion (PD-nB) → QA (PD-08) → capitalisation (PD-09)
+```
+
+**Gates futurs :** GO commit/PR corpus · GO PD-02A editorial · GO PD-nB Notion · GO capitalisation.
+
+---
+
+## Fil rouge NovaBuild (décision Morris — R1)
+
+> **NovaBuild** est un **cas pédagogique composite**. L'entreprise et le déroulé narratif sont **fictifs**. Les besoins, catégories de livrables, contrôles et mécanismes visibles sont **inspirés** de situations réalistes et d'actifs SFIA vérifiables (ex. catégories produites dans des cycles Chantiers360 documentés dans Git). Le récit **ne constitue ni un témoignage client ni la reproduction exacte** d'un projet réel.
+
+| Type | NovaBuild |
+|------|-----------|
+| Entreprise | Fiction narrative |
+| Enchaînement projet | Scénarisé pédagogiquement |
+| Catégories de livrables | Inspirées d'actifs SFIA réels |
+| Résultats chiffrés | **Interdits** sans source |
+
+---
+
+## Décisions Morris validées
+
+- GO cycle Product Design Discovery
+- GO nouvelle architecture narrative
+- GO remise en question structure pages actuelles (proposition, pas exécution)
+- GO storytelling orienté valeur
+- GO fil rouge **NovaBuild** (cas composite) — R1
+- Aucune modification Notion dans ce cycle
+
+## Décisions non prises
+
+- Validation architecture cible pages (implémentation)
+- GO premier cycle PD-02A editorial
+- GO implémentation Notion (PD-nB)
+- Promotion baseline ou capitalisation méthode
+
+---
+
+## Garde-fous
+
+- Ne pas modifier pages Notion, editorial, ux ou method/core
+- Ne pas exposer prompts/templates complets
+- Ne pas promouvoir v2.5/v2.6 baseline
+- Ne pas committer ce cycle sans GO Morris
+```
+
+---
+
+
+## Verdict final
+
+**ACT II EDITORIAL READY FOR CHATGPT REVIEW**
+
