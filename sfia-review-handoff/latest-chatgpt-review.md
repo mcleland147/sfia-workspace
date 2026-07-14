@@ -1,18 +1,13 @@
-# SFIA Review Pack — Notion UX Conception UX-01
+# SFIA Review Pack — Notion UX-01 Correctif réserves R1/R2
 
-**Horodatage :** 2026-07-14 12:07 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 15:03 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
-**Workspace :** /Users/morris/Projects/sfia-workspace
-**Cycle :** UX-01 — Conception UX documentaire SFIA Notion
-**Type de cycle :** 4 — UX/UI
-**Profil SFIA :** Standard
-**Typologie v2.4 :** DOC
+**Cycle :** UX-01 — Correction des réserves mineures (QA corrective)
+**Type de cycle :** 9 — QA / validation corrective
+**Profil SFIA :** Light
 **Branche projet :** documentation/sfia-notion-ux-conception
 **HEAD/base :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
-**origin/main :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
-**Merge PR #193 :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
-**Statut livrables :** 8 fichiers ux/ — locaux non commités
-**Verdict :** UX CONTRACT DOCUMENTED — READY FOR MORRIS REVIEW
+**Verdict :** UX CONTRACT CORRECTED — READY FOR COMMIT
 
 ---
 
@@ -20,111 +15,72 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| Branche initiale | main |
-| Branche créée | documentation/sfia-notion-ux-conception |
+| Branche | documentation/sfia-notion-ux-conception |
 | HEAD | ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa |
-| PR #193 ancêtre | ✓ |
-| 8 fichiers ux/ | ✓ untracked |
-| Fichiers existants modifiés | 0 |
-| staged / commit projet | aucun |
+| 8 fichiers ux/ | présents, non commités |
+| Fichier modifié | 07-sfia-notion-ux-roadmap.md uniquement |
+| Commit projet | aucun |
 | **Verdict** | **PASS** |
 
-## Sources consultées
+## Réserves traitées
 
-### Méthode
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/core/sfia-knowledge-layer.md
+### R1 — Métadonnées handoff
+- Problème : placeholders `_(post-push)_` dans handoff précédent
+- Correction : formulation stable sans SHA auto-référentiel dans le document handoff
 
-### Conception Notion
-- sfia-notion-product-vision.md
-- sfia-notion-information-architecture.md
-- sfia-notion-publication-governance.md
-- sfia-notion-mvp-backlog.md
+### R2 — Ordonnancement UX
+- Problème : diagramme linéaire UX-02→…→UX-06 contradictoire avec parallélisme UX-05
+- Correction : 3 sections — dépendances bloquantes, travaux parallélisables, ordre de livraison
 
-### Editorial P0 (main)
-- editorial/ — 12 fichiers PR #193
+## Fichier projet modifié
 
-### Complémentaires
-- docs/foundation/sfia-engineering-principles.md
-- docs/architecture/sfia-repository-blueprint.md
-- docs/architecture/sfia-platform-architecture.md
-- method/sfia-fast-track/README.md
+- `method/sfia-fast-track/documentation/notion/ux/07-sfia-notion-ux-roadmap.md`
 
-## Recherche actifs UX existants
+## Fichiers UX inchangés (7)
 
-- Dossier `notion/ux/` : **absent avant ce cycle**
-- Termes notion ux / navigation model : hits hors périmètre (interv360, penpot) — **pas de overlap**
+- `README.md`
+- `01-sfia-notion-ux-vision.md`
+- `02-sfia-notion-experience-architecture.md`
+- `03-sfia-notion-navigation-model.md`
+- `04-sfia-notion-design-system.md`
+- `05-sfia-notion-page-templates.md`
+- `06-sfia-notion-user-journeys.md`
 
-## Qualification
+## Diff utile — roadmap §5–§7 (résumé)
 
-- Cycle 4 UX/UI documentaire
-- Profil Standard
-- Contrat UX Candidate — non capitalisé
-- Aucune implémentation Notion dans ce cycle
+```diff
++ [## 5. Dépendances bloquantes — section ajoutée/remplacée]
++ ## 5. Dépendances bloquantes
++ [## 6. Travaux parallélisables — section ajoutée/remplacée]
++ ## 6. Travaux parallélisables
++ [## 7. Ordre de livraison recommandé — section ajoutée/remplacée]
++ ## 7. Ordre de livraison recommandé
+- [Ancien §5 : chaîne linéaire UX-02→UX-03→UX-04→UX-05→UX-06 supprimée]
+- [Ancien §6 : ordre recommandé ambigu remplacé par §7 séquentiel + §6 parallélisme]
+```
 
-## Décisions Morris appliquées
+## Review Handoff Git
 
-- GO formalisation contrat UX Git ✓
-- Contrat Candidate ✓
-- Morris propriétaire ✓
-- Git source de vérité ✓
-- Pas capitalisation méthode ✓
-- Pas implémentation Notion ✓
+| Champ | Valeur |
+|-------|--------|
+| Décision | required |
+| Branche handoff | sfia/review-handoff |
+| Fichier | sfia-review-handoff/latest-chatgpt-review.md |
+| Commit de publication précédent | e7ba901ece3b64e60f41d2895487157e8bd764db |
+| Handoff source | review pack local `.tmp-sfia-review/chatgpt-review.md` |
+| SHA effectif de publication | fourni dans le rapport Cursor d'exécution — non auto-référencé dans ce document |
+| Vérification distante | réalisée après push — contenu distant identique au review pack source |
+| Comparaison local / distant | conforme après push |
+| **Verdict handoff** | **HANDOFF UPDATED — REMOTE VERIFIED** |
 
-## Fichiers créés (8)
+## Garde-fous
 
-| # | Fichier | Rôle | Lignes |
-|---|---------|------|-------:|
-| 1 | `README.md` | Index du corpus UX | 146 |
-| 2 | `01-sfia-notion-ux-vision.md` | Vision UX | 227 |
-| 3 | `02-sfia-notion-experience-architecture.md` | Architecture de l'expérience | 219 |
-| 4 | `03-sfia-notion-navigation-model.md` | Modèle de navigation | 190 |
-| 5 | `04-sfia-notion-design-system.md` | Design system Notion | 208 |
-| 6 | `05-sfia-notion-page-templates.md` | Templates de pages | 222 |
-| 7 | `06-sfia-notion-user-journeys.md` | User journeys | 193 |
-| 8 | `07-sfia-notion-ux-roadmap.md` | Roadmap UX | 216 |
+- Aucun commit/push branche projet ✓
+- Aucune modification des 7 autres fichiers UX ✓
+- Aucune implémentation Notion ✓
+- Aucune capitalisation ✓
 
-## Fichiers modifiés
-
-**Aucun** fichier existant modifié.
-
-## Contrôles structurels
-
-- 8 fichiers exactement ✓
-- README + 7 numérotés ✓
-- 4 personas ✓
-- 4 intentions expérience ✓
-- 6 parcours utilisateur ✓
-- 8 gabarits pages ✓
-- Roadmap UX-02 à UX-06 ✓
-- Statut Candidate chaque fichier ✓
-- Sidebar hors sujet ✓
-
-## Contrôles de garde-fous
-
-- Aucune modification Notion ✓
-- Aucune API/CMP/raw sync ✓
-- Aucun commit projet ✓
-- Aucune capitalisation method/core ✓
-- Aucune promotion baseline ✓
-
-## Réserves
-
-- Commit/PR branche projet : GO Morris requis
-- Implémentation UX-02–06 : cycles séparés
-- Capitalisation méthode : critères §07 non remplis
-- Visibilité publique espace : décision non prise
-
-## Décisions Morris requises
-
-- Validation contrat UX Candidate
-- GO commit + PR documentation/sfia-notion-ux-conception
-- GO implémentation UX-02 (séparé)
-
-## Contenu complet — 8 fichiers
+## Contenu complet — 8 fichiers UX
 
 ---
 
@@ -1581,7 +1537,7 @@ flowchart TD
 | **Source de vérité** | Git |
 | **Capitalisation méthode** | Non réalisée |
 | **Implémentation Notion** | Cycles UX-02 à UX-06 |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 15:02 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-notion-ux-conception` |
 | **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
 
@@ -1640,7 +1596,7 @@ flowchart TD
 |-------|--------|
 | **Objectif** | Vues Référentiel et Cycles par intention |
 | **Bases** | Référentiel (25), Cycles (15) |
-| **Dépendances** | UX-03 (liens pages ↔ bases) |
+| **Dépendances** | UX-01 ; liens finaux pages ↔ bases après stabilisation UX-03 |
 | **Actions Notion** | Vues filtrées ; embed §10 ; fiches liées |
 | **Hors périmètre** | Nouvelles entrées massives |
 | **Critères acceptation** | Parcours F (trouver actif) < 3 clics |
@@ -1708,31 +1664,71 @@ flowchart TD
 
 ---
 
-## 5. Dépendances entre incréments
+## 5. Dépendances bloquantes
+
+Les relations ci-dessous sont **obligatoires** — un incrément ne démarre pas tant que son prérequis bloquant n'est pas satisfait.
+
+| Relation | Règle |
+|----------|-------|
+| UX-01 → tous | Le contrat UX validé est prérequis à UX-02 à UX-06 |
+| UX-02 → UX-03 | La landing page précède la validation globale de la navigation UX-03 |
+| UX-03 → UX-06 | La navigation doit être suffisamment stabilisée avant la QA finale |
+| UX-04 → UX-06 | Les bases et vues doivent être terminées avant UX-06 |
+| UX-05 → UX-06 | La cohérence visuelle doit être terminée avant UX-06 |
+| UX-06 | **Terminal** — clôture l'expérimentation UX |
 
 ```text
-UX-01 (contrat Git — présent)
-  → UX-02 Landing
-    → UX-03 Navigation
-      → UX-04 Bases
-        → UX-05 Visuel
-          → UX-06 QA
-            → [GO capitalisation ?] — décision Morris future
+UX-01
+├── UX-02 Landing
+│   └── UX-03 Navigation
+├── UX-04 Bases et vues
+└── UX-05 Cohérence visuelle
+    ↓
+UX-06 QA finale
+    ↓
+Décision Morris éventuelle de capitalisation
 ```
 
----
-
-## 6. Ordre recommandé
-
-1. UX-02 — impact immédiat orientation
-2. UX-05 — callouts et icônes (parallèle partiel UX-03)
-3. UX-03 — navigation
-4. UX-04 — bases
-5. UX-06 — QA finale
+**Note :** UX-04 et UX-05 sont des branches parallèles après UX-01 ; UX-03 reste une branche dépendante de UX-02. UX-06 agrège toutes les branches.
 
 ---
 
-## 7. Gates Morris par incrément
+## 6. Travaux parallélisables
+
+Le parallélisme concerne la **préparation** et l'exécution partielle — pas la **validation finale** ni la clôture.
+
+| Travail | Parallélisme | Condition |
+|---------|--------------|-----------|
+| UX-04 Bases et vues | Peut démarrer après UX-01 | Sans attendre la finalisation complète de UX-03 |
+| UX-05 composants simples | Peut démarrer en parallèle de UX-02 / UX-03 | Callouts, icônes, badges Candidate, footer synced |
+| UX-05 composants navigation | **Non parallèle** | Attendre les décisions UX-03 (P/S, en-têtes) |
+| UX-06 QA finale | **Jamais parallèle** | Attend UX-02, UX-03, UX-04, UX-05 terminés |
+
+**Règle :** aucun incrément n'est déclaré **terminé** sans ses propres critères d'acceptation et gate Morris — le parallélisme n'abroge pas les gates.
+
+---
+
+## 7. Ordre de livraison recommandé
+
+Ordre de **validation et clôture** (séquentiel) :
+
+1. **UX-02** — Landing page
+2. **UX-03** — Navigation structurante
+3. **UX-04** — Bases et vues
+4. **UX-05** — Cohérence visuelle et finitions
+5. **UX-06** — QA finale
+
+| Distinction | Description |
+|-------------|-------------|
+| **Ordre de préparation** | Peut comporter du parallélisme (§6) — ex. quick wins UX-05 pendant UX-02/03 |
+| **Ordre de validation** | Reste séquentiel — chaque incrément validé par Morris avant clôture |
+| **Ordre de livraison** | UX-02 → UX-03 → UX-04 → UX-05 → UX-06 pour déclaration « terminé » |
+
+**Quick wins préparatoires (UX-05 partiel) :** callout « À retenir », footer synced Git prime, icônes en-tête, badge Candidate — réalisables dès UX-02 sans clôturer UX-05.
+
+---
+
+## 8. Gates Morris par incrément
 
 | Incrément | Gate |
 |-----------|------|
@@ -1745,7 +1741,7 @@ UX-01 (contrat Git — présent)
 
 ---
 
-## 8. Critères capitalisation future
+## 9. Critères capitalisation future
 
 Capitalisation dans `method/core` ou template générique **uniquement si** :
 
@@ -1760,7 +1756,7 @@ Capitalisation dans `method/core` ou template générique **uniquement si** :
 
 ---
 
-## 9. Critères de non-capitalisation
+## 10. Critères de non-capitalisation
 
 | Situation | Action |
 |-----------|--------|
@@ -1772,7 +1768,7 @@ Capitalisation dans `method/core` ou template générique **uniquement si** :
 
 ---
 
-## 10. Synthèse risques roadmap
+## 11. Synthèse risques roadmap
 
 | Risque global | Niveau | Mitigation |
 |---------------|--------|------------|
@@ -1789,16 +1785,6 @@ Capitalisation dans `method/core` ou template générique **uniquement si** :
 
 ---
 
-## Review Handoff Git
-
-- **Décision :** required
-- **SHA avant :** e9da5ea72c068f0a1a3f2deac411c109332ba1e1
-- **Branche :** sfia/review-handoff
-- **Fichier :** sfia-review-handoff/latest-chatgpt-review.md
-- **Overwrite :** obligatoire
-- **SHA commit handoff :** _(post-push)_
-- **Verdict handoff :** _(post-push)_
-
 ## Verdict
 
-**UX CONTRACT DOCUMENTED — READY FOR MORRIS REVIEW**
+**UX CONTRACT CORRECTED — READY FOR COMMIT**
