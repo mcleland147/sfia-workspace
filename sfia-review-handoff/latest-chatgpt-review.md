@@ -1,2347 +1,1804 @@
-# SFIA Review Pack — Task Tracker Delivery (correctif handoff)
+# SFIA Review Pack — Notion UX Conception UX-01
 
-**Horodatage :** 2026-07-13 17:38 CEST
-
----
-
-## 1. Métadonnées
-
-| Élément | Valeur |
-|---------|--------|
-| Cycle | Cycle 9 — QA / validation (correctif handoff) |
-| Profil SFIA | Light |
-| Typologie v2.4 | DOC |
-| Repository | sfia-workspace |
-| Worktree | `/Users/morris/Projects/sfia-task-tracker` |
-| Branche projet | `cadrage/task-tracker-light` |
-| HEAD | `6407913689b14e84e0a487a3137ff290bb6e2ff8` |
-| origin/main | `6407913689b14e84e0a487a3137ff290bb6e2ff8` |
-| Verdict attendu | HANDOFF UPDATED — REMOTE VERIFIED |
+**Horodatage :** 2026-07-14 12:07 Europe/Paris (CEST)
+**Repository :** mcleland147/sfia-workspace
+**Workspace :** /Users/morris/Projects/sfia-workspace
+**Cycle :** UX-01 — Conception UX documentaire SFIA Notion
+**Type de cycle :** 4 — UX/UI
+**Profil SFIA :** Standard
+**Typologie v2.4 :** DOC
+**Branche projet :** documentation/sfia-notion-ux-conception
+**HEAD/base :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
+**origin/main :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
+**Merge PR #193 :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
+**Statut livrables :** 8 fichiers ux/ — locaux non commités
+**Verdict :** UX CONTRACT DOCUMENTED — READY FOR MORRIS REVIEW
 
 ---
 
-## 2. Cause du cycle correctif
+## Local Git Truth Check
 
-| Élément | Détail |
-|---------|--------|
-| Verdict ChatGPT précédent | REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING |
-| Troncature constatée | Le handoff distant `aa4d7ac` se terminait après le dernier fichier de test, sans sections 13–21 (validations finales, captures détaillées, accessibilité, performance, dépendances, garde-fous, réserves, handoff, verdict) |
-| Objectif | Reconstruire un review pack complet et republier `sfia-review-handoff/latest-chatgpt-review.md` |
-| Fichiers projet modifiés | Aucun — cycle correctif documentaire uniquement |
+| Contrôle | Résultat |
+|----------|----------|
+| Branche initiale | main |
+| Branche créée | documentation/sfia-notion-ux-conception |
+| HEAD | ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa |
+| PR #193 ancêtre | ✓ |
+| 8 fichiers ux/ | ✓ untracked |
+| Fichiers existants modifiés | 0 |
+| staged / commit projet | aucun |
+| **Verdict** | **PASS** |
 
----
+## Sources consultées
 
-## 3. Local Git Truth Check
+### Méthode
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- method/sfia-fast-track/core/sfia-knowledge-layer.md
 
-### Worktree task-tracker
+### Conception Notion
+- sfia-notion-product-vision.md
+- sfia-notion-information-architecture.md
+- sfia-notion-publication-governance.md
+- sfia-notion-mvp-backlog.md
 
-```bash
-git rev-parse --show-toplevel  # /Users/morris/Projects/sfia-task-tracker
-git branch --show-current      # cadrage/task-tracker-light
-git rev-parse HEAD             # 6407913689b14e84e0a487a3137ff290bb6e2ff8
-git rev-parse origin/main      # 6407913689b14e84e0a487a3137ff290bb6e2ff8
-```
+### Editorial P0 (main)
+- editorial/ — 12 fichiers PR #193
 
-**État Git initial et final (identique) :**
-```
-?? .tmp-sfia-review/
-?? projects/task-tracker/
-```
+### Complémentaires
+- docs/foundation/sfia-engineering-principles.md
+- docs/architecture/sfia-repository-blueprint.md
+- docs/architecture/sfia-platform-architecture.md
+- method/sfia-fast-track/README.md
 
-- Fichiers staged : aucun
-- Commit projet : aucun
-- `git diff --stat` : vide (fichiers untracked uniquement)
+## Recherche actifs UX existants
 
-### Workspace principal (inchangé)
+- Dossier `notion/ux/` : **absent avant ce cycle**
+- Termes notion ux / navigation model : hits hors périmètre (interv360, penpot) — **pas de overlap**
 
-| Élément | Valeur |
-|---------|--------|
-| Chemin | `/Users/morris/Projects/sfia-workspace` |
-| Branche | `documentation/sfia-notion-editorial-p0` |
-| git status | `?? .sfia/` ; `?? .tmp-sfia-review/` ; `?? method/sfia-fast-track/documentation/notion/editorial/` |
+## Qualification
 
----
+- Cycle 4 UX/UI documentaire
+- Profil Standard
+- Contrat UX Candidate — non capitalisé
+- Aucune implémentation Notion dans ce cycle
 
-## 4. Sources consultées
+## Décisions Morris appliquées
 
-### Méthode SFIA
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- GO formalisation contrat UX Git ✓
+- Contrat Candidate ✓
+- Morris propriétaire ✓
+- Git source de vérité ✓
+- Pas capitalisation méthode ✓
+- Pas implémentation Notion ✓
 
-### Fichiers task-tracker lus intégralement
-- `projects/task-tracker/00-framing/task-tracker-cadrage.md`
-- `projects/task-tracker/app/package.json`
-- `projects/task-tracker/app/package-lock.json`
-- `projects/task-tracker/app/tsconfig.json`
-- `projects/task-tracker/app/next.config.ts`
-- `projects/task-tracker/app/vitest.config.ts`
-- `projects/task-tracker/app/.eslintrc.json`
-- `projects/task-tracker/app/.gitignore`
-- `projects/task-tracker/app/README.md`
-- `projects/task-tracker/app/next-env.d.ts`
-- `projects/task-tracker/app/app/layout.tsx`
-- `projects/task-tracker/app/app/page.tsx`
-- `projects/task-tracker/app/app/globals.css`
-- `projects/task-tracker/app/components/DeleteConfirmDialog.tsx`
-- `projects/task-tracker/app/components/TaskForm.tsx`
-- `projects/task-tracker/app/components/TaskItem.tsx`
-- `projects/task-tracker/app/components/TaskTrackerApp.tsx`
-- `projects/task-tracker/app/lib/tasks/constants.ts`
-- `projects/task-tracker/app/lib/tasks/filters.ts`
-- `projects/task-tracker/app/lib/tasks/storage.ts`
-- `projects/task-tracker/app/lib/tasks/taskService.ts`
-- `projects/task-tracker/app/lib/tasks/types.ts`
-- `projects/task-tracker/app/lib/tasks/validation.ts`
-- `projects/task-tracker/app/__tests__/filters.test.ts`
-- `projects/task-tracker/app/__tests__/storage.test.ts`
-- `projects/task-tracker/app/__tests__/taskService.test.ts`
-- `projects/task-tracker/app/__tests__/validation.test.ts`
-- `projects/task-tracker/08-qa-test/runtime-screenshots/desktop-empty-state.png`
-- `projects/task-tracker/08-qa-test/runtime-screenshots/desktop-with-task.png`
-- `projects/task-tracker/08-qa-test/runtime-screenshots/desktop-delete-confirmation.png`
-- `projects/task-tracker/08-qa-test/runtime-screenshots/mobile-with-task.png`
+## Fichiers créés (8)
 
-### Handoff précédent analysé
-- `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (commit `aa4d7ac`)
+| # | Fichier | Rôle | Lignes |
+|---|---------|------|-------:|
+| 1 | `README.md` | Index du corpus UX | 146 |
+| 2 | `01-sfia-notion-ux-vision.md` | Vision UX | 227 |
+| 3 | `02-sfia-notion-experience-architecture.md` | Architecture de l'expérience | 219 |
+| 4 | `03-sfia-notion-navigation-model.md` | Modèle de navigation | 190 |
+| 5 | `04-sfia-notion-design-system.md` | Design system Notion | 208 |
+| 6 | `05-sfia-notion-page-templates.md` | Templates de pages | 222 |
+| 7 | `06-sfia-notion-user-journeys.md` | User journeys | 193 |
+| 8 | `07-sfia-notion-ux-roadmap.md` | Roadmap UX | 216 |
 
----
+## Fichiers modifiés
 
-## 5. Qualification SFIA
+**Aucun** fichier existant modifié.
 
-| Élément | Valeur |
-|---------|--------|
-| Cycle | QA / validation — correctif handoff |
-| Profil | Light |
-| Blocs activés | Aucun transverse |
-| Périmètre | Review pack + handoff Git uniquement |
-| Exclusions | Code, cadrage, tests, captures, dépendances |
-| Gate Morris | Aucun si correctif borné |
-| Stop conditions | Modification applicative requise → STOP |
+## Contrôles structurels
 
----
+- 8 fichiers exactement ✓
+- README + 7 numérotés ✓
+- 4 personas ✓
+- 4 intentions expérience ✓
+- 6 parcours utilisateur ✓
+- 8 gabarits pages ✓
+- Roadmap UX-02 à UX-06 ✓
+- Statut Candidate chaque fichier ✓
+- Sidebar hors sujet ✓
 
-## 6. Inventaire exhaustif
+## Contrôles de garde-fous
 
-| Chemin | Type | Taille (octets) | Lignes | Statut Git | Rôle | SHA-256 |
-|--------|------|-----------------|--------|------------|------|---------|
-| `projects/task-tracker/00-framing/task-tracker-cadrage.md` | markdown | 12888 | 258 | untracked | Document de cadrage validé | `6fba9ecd0df2ec0c…` |
-| `projects/task-tracker/app/package.json` | json | 728 | 29 | untracked | Configuration applicative | `ba50b867002c2b4f…` |
-| `projects/task-tracker/app/package-lock.json` | json-lock | 242862 | 7157 | untracked | Configuration applicative | `9f8b2fd9c495ab28…` |
-| `projects/task-tracker/app/tsconfig.json` | json | 572 | 23 | untracked | Configuration applicative | `f376074b41f9ea59…` |
-| `projects/task-tracker/app/next.config.ts` | typescript | 130 | 7 | untracked | Configuration applicative | `c5efcdb15ee66db5…` |
-| `projects/task-tracker/app/vitest.config.ts` | typescript | 266 | 14 | untracked | Configuration applicative | `8205fe646af9431c…` |
-| `projects/task-tracker/app/.eslintrc.json` | json | 40 | 3 | untracked | Configuration applicative | `1589a15e55fbebc6…` |
-| `projects/task-tracker/app/.gitignore` | gitignore | 66 | 6 | untracked | Configuration applicative | `961c979e360d89c2…` |
-| `projects/task-tracker/app/README.md` | markdown | 1036 | 45 | untracked | Documentation locale | `e1d19d37c3c67163…` |
-| `projects/task-tracker/app/next-env.d.ts` | typescript | 262 | 6 | untracked | Types Next.js générés | `85ae5aee75f01196…` |
-| `projects/task-tracker/app/app/layout.tsx` | tsx | 378 | 19 | untracked | Routes et styles Next.js | `4deca4a462f65a65…` |
-| `projects/task-tracker/app/app/page.tsx` | tsx | 131 | 5 | untracked | Routes et styles Next.js | `158651f4a3916237…` |
-| `projects/task-tracker/app/app/globals.css` | css | 4331 | 286 | untracked | Routes et styles Next.js | `0175dd32a25558ef…` |
-| `projects/task-tracker/app/components/DeleteConfirmDialog.tsx` | tsx | 971 | 36 | untracked | Composant React UI | `2ee44f0bdeb22fe4…` |
-| `projects/task-tracker/app/components/TaskForm.tsx` | tsx | 3211 | 126 | untracked | Composant React UI | `f3462523c80f7fbd…` |
-| `projects/task-tracker/app/components/TaskItem.tsx` | tsx | 2056 | 83 | untracked | Composant React UI | `d2723f3f0947d962…` |
-| `projects/task-tracker/app/components/TaskTrackerApp.tsx` | tsx | 7646 | 270 | untracked | Composant React UI | `e83c59bb942324d8…` |
-| `projects/task-tracker/app/lib/tasks/constants.ts` | typescript | 545 | 19 | untracked | Logique métier / persistance | `a78b37a3e1d28032…` |
-| `projects/task-tracker/app/lib/tasks/filters.ts` | typescript | 531 | 21 | untracked | Logique métier / persistance | `e25c52766109a17c…` |
-| `projects/task-tracker/app/lib/tasks/storage.ts` | typescript | 1232 | 60 | untracked | Logique métier / persistance | `22d285ec376b8f42…` |
-| `projects/task-tracker/app/lib/tasks/taskService.ts` | typescript | 2713 | 106 | untracked | Logique métier / persistance | `a8aae0c511844ecd…` |
-| `projects/task-tracker/app/lib/tasks/types.ts` | typescript | 790 | 37 | untracked | Logique métier / persistance | `ee138186dffc6aee…` |
-| `projects/task-tracker/app/lib/tasks/validation.ts` | typescript | 710 | 28 | untracked | Logique métier / persistance | `c7bb285b5adac02f…` |
-| `projects/task-tracker/app/__tests__/filters.test.ts` | typescript | 1737 | 74 | untracked | Test unitaire Vitest | `5600ce7e6b875c61…` |
-| `projects/task-tracker/app/__tests__/storage.test.ts` | typescript | 1555 | 56 | untracked | Test unitaire Vitest | `a4f1197dd6677c17…` |
-| `projects/task-tracker/app/__tests__/taskService.test.ts` | typescript | 2713 | 106 | untracked | Test unitaire Vitest | `07ac19c6f875f311…` |
-| `projects/task-tracker/app/__tests__/validation.test.ts` | typescript | 595 | 17 | untracked | Test unitaire Vitest | `72777209a24b2c19…` |
-| `projects/task-tracker/08-qa-test/runtime-screenshots/desktop-empty-state.png` | png | 154650 | N/A | untracked | Capture runtime QA | `d8f89dab32f43734…` |
-| `projects/task-tracker/08-qa-test/runtime-screenshots/desktop-with-task.png` | png | 169100 | N/A | untracked | Capture runtime QA | `6214c4d835f3df10…` |
-| `projects/task-tracker/08-qa-test/runtime-screenshots/desktop-delete-confirmation.png` | png | 201961 | N/A | untracked | Capture runtime QA | `2f32dbc9b2fa0fb8…` |
-| `projects/task-tracker/08-qa-test/runtime-screenshots/mobile-with-task.png` | png | 151515 | N/A | untracked | Capture runtime QA | `6a053466ed998842…` |
+- Aucune modification Notion ✓
+- Aucune API/CMP/raw sync ✓
+- Aucun commit projet ✓
+- Aucune capitalisation method/core ✓
+- Aucune promotion baseline ✓
 
-**Exclus de l'inventaire :** `node_modules/**`, `.next/**`, `coverage/**`, `tsconfig.tsbuildinfo`
+## Réserves
+
+- Commit/PR branche projet : GO Morris requis
+- Implémentation UX-02–06 : cycles séparés
+- Capitalisation méthode : critères §07 non remplis
+- Visibilité publique espace : décision non prise
+
+## Décisions Morris requises
+
+- Validation contrat UX Candidate
+- GO commit + PR documentation/sfia-notion-ux-conception
+- GO implémentation UX-02 (séparé)
+
+## Contenu complet — 8 fichiers
 
 ---
 
-## 7. Décisions Morris validées
+# FICHIER 1 — README.md
 
-| # | Décision | Date | Statut | Source |
-|---|----------|------|--------|--------|
-| D1 | Mono-utilisateur | 2026-07-13 | VALIDATED — Morris | `projects/task-tracker/00-framing/task-tracker-cadrage.md` §14 |
-| D2 | Périmètre MVP | 2026-07-13 | VALIDATED — Morris | `projects/task-tracker/00-framing/task-tracker-cadrage.md` §14 |
-| D3 | Statuts À faire / En cours / Terminée | 2026-07-13 | VALIDATED — Morris | `projects/task-tracker/00-framing/task-tracker-cadrage.md` §14 |
-| D4 | Priorités Basse / Normale / Haute | 2026-07-13 | VALIDATED — Morris | `projects/task-tracker/00-framing/task-tracker-cadrage.md` §14 |
-| D5 | Suppression définitive avec confirmation | 2026-07-13 | VALIDATED — Morris | `projects/task-tracker/00-framing/task-tracker-cadrage.md` §14 |
-| D6 | Delivery Standard borné | 2026-07-13 | VALIDATED — Morris | `projects/task-tracker/00-framing/task-tracker-cadrage.md` §14 |
+# SFIA Notion — Corpus de conception UX documentaire
 
----
-
-## 8. Stack et architecture
-
-### Stack
-| Composant | Version | Justification |
-|-----------|---------|---------------|
-| Next.js | ^15.3.3 (résolu 15.5.20) | Convention `chantiers360-v2/app` |
-| React | ^19.1.0 | Standard repository |
-| TypeScript | ^5.8.3 | Typage strict |
-| Vitest | ^3.1.2 | Tests légers, aligné `interv360` |
-| Persistance | localStorage | Mono-utilisateur, pas de backend |
-
-### Structure applicative
-```text
-projects/task-tracker/app/
-  app/           # layout, page, globals.css
-  components/    # TaskTrackerApp, TaskForm, TaskItem, DeleteConfirmDialog
-  lib/tasks/     # types, validation, taskService, filters, storage
-  __tests__/     # 4 fichiers, 14 tests
-```
-
-### Modèle de données
-```typescript
-Task { id, title, description?, status, priority, dueDate?, createdAt, updatedAt }
-status: todo | in_progress | done
-priority: low | normal | high
-```
-
-### Flux principaux
-1. Hydratation depuis localStorage au montage client
-2. CRUD via taskService (logique pure)
-3. Filtrage via filterTasks (recherche + statut + priorité)
-4. Sauvegarde automatique à chaque modification
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Contrat UX pour implémentation future — non capitalisé dans la méthode |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur (UX-02 à UX-06) |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
 
 ---
 
-## 9. Contrat visuel léger
+## Rôle du dossier
 
-| Élément | Valeur |
-|---------|--------|
-| Viewport desktop | 1280×800 minimum |
-| Viewport mobile | 390×844 |
-| Structure | En-tête + 3 panneaux (Création, Filtres, Liste) |
-| Hiérarchie | h1 → h2 → h3 |
-| Espacement | 0.75–2rem via variables CSS |
-| Responsive | Colonne unique ; actions empilées < 640px |
-| État nominal | Liste avec badges statut/priorité |
-| État vide | Message explicite |
-| Erreur validation | Texte rouge `role="alert"` |
-| Accessibilité base | Labels, focus visible, dialogues modaux |
-| Limite | Pas de baseline design, pas de Figma |
+Ce répertoire formalise le **contrat UX documentaire** validé par Morris pour l'espace Notion SFIA existant (11 pages P0 publiées, bases Référentiel et Cycles peuplées, visibilité privée Morris).
+
+Il ne modifie pas Notion. Il ne crée pas un nouveau type de cycle SFIA. Il prépare les futurs cycles d'implémentation UX.
+
+| Couche | Rôle |
+|--------|------|
+| **Git** | Source de vérité — méthode, prompts, décisions |
+| **Notion (actuel)** | Espace privé Morris — contenus P0 publiés manuellement |
+| **Ce corpus UX** | Contrat Candidate — gabarits, navigation, design system, parcours |
 
 ---
 
-## 10. Fichier cadrage complet
+## Contexte des cycles précédents
 
-### Fichier : `projects/task-tracker/00-framing/task-tracker-cadrage.md`
-
-```markdown
-# Cadrage — Application de suivi de tâches
-
-**Projet :** task-tracker  
-**Chemin :** `projects/task-tracker/00-framing/task-tracker-cadrage.md`
-
----
-
-## 1. Statut du document
-
-| Élément | Valeur |
-|---------|--------|
-| **Statut** | Cadrage validé — Delivery en cours |
-| **Cycle** | Cadrage (Cycle 1) — clôturé ; Delivery (Cycle 8) — en cours |
-| **Profil SFIA** | Light (cadrage) ; Standard (delivery) |
-| **Date et heure cadrage** | 2026-07-13 17:19 CEST (Europe/Paris) |
-| **Date validation Morris** | 2026-07-13 — Morris |
-| **Auteur d'exécution** | Cursor |
-| **Décideur** | Morris |
-| **Branche** | `cadrage/task-tracker-light` |
-| **Worktree** | `/Users/morris/Projects/sfia-task-tracker` |
-
-> **Décisions Morris validées le 2026-07-13.**  
-> Les éléments fonctionnels listés ci-dessous constituent le périmètre MVP approuvé pour le cycle Delivery Standard borné.
+| Cycle | Livrable | Statut |
+|-------|----------|--------|
+| Cycle 1 | Conception produit (vision, IA, gouvernance, backlog) | Mergé PR #191 |
+| Cycle 2 | Brouillons éditoriaux P0 (12 fichiers) | Mergé PR #193 |
+| Cycle 3 | Publication Notion P0 + bases (25 + 15 entrées) | Réalisé — espace privé Morris |
+| **UX-01 (présent)** | Contrat UX documentaire (8 fichiers) | Candidate — non commité |
 
 ---
 
-## 2. Vision
+## Inventaire des documents
 
-Les utilisateurs individuels ont souvent besoin d'un endroit simple pour noter ce qu'ils doivent faire, sans la complexité d'outils de gestion de projet ou de collaboration d'équipe.
+| # | Fichier | Responsabilité |
+|---|---------|----------------|
+| 1 | [01-sfia-notion-ux-vision.md](01-sfia-notion-ux-vision.md) | Vision, principes, personas, critères de réussite |
+| 2 | [02-sfia-notion-experience-architecture.md](02-sfia-notion-experience-architecture.md) | Architecture par intentions (Découvrir, Utiliser, Exécuter, Gouverner) |
+| 3 | [03-sfia-notion-navigation-model.md](03-sfia-notion-navigation-model.md) | Navigation, parcours, transitions entre pages P0 |
+| 4 | [04-sfia-notion-design-system.md](04-sfia-notion-design-system.md) | Design system Notion — typographie, callouts, icônes, QA |
+| 5 | [05-sfia-notion-page-templates.md](05-sfia-notion-page-templates.md) | Gabarits de pages (8 types) |
+| 6 | [06-sfia-notion-user-journeys.md](06-sfia-notion-user-journeys.md) | Parcours utilisateur détaillés (6 minimum) |
+| 7 | [07-sfia-notion-ux-roadmap.md](07-sfia-notion-ux-roadmap.md) | Roadmap implémentation UX-02 à UX-06 |
 
-L'application vise à offrir un suivi de tâches personnel, immédiat et lisible : créer une tâche en quelques secondes, voir l'ensemble de ce qui reste à faire, et marquer une tâche comme terminée sans friction.
-
-Le positionnement est volontairement minimal : pas de comptes, pas de partage, pas de paramétrage avancé. L'objectif est la clarté et la rapidité d'usage, pour un usage personnel ou démonstrateur.
-
-**Vision candidate :** permettre à un utilisateur de créer, organiser, suivre et terminer ses tâches quotidiennes depuis une interface simple, sans mécanisme collaboratif ni paramétrage complexe.
-
----
-
-## 3. Utilisateur cible
-
-**Profil principal — utilisateur individuel**
-
-- Utilise l'application pour son propre suivi de tâches ;
-- souhaite visualiser rapidement ce qu'il doit faire ;
-- ne souhaite pas administrer un outil complexe ;
-- accepte un périmètre fonctionnel réduit en échange de simplicité.
-
-Aucun persona détaillé n'est défini à ce stade.
+**Total :** 8 fichiers (README + 7 documents numérotés).
 
 ---
 
-## 4. Objectifs du MVP
+## Ordre de lecture recommandé
 
-| # | Objectif | Vérification |
-|---|----------|--------------|
-| 1 | Créer une tâche rapidement | Une tâche peut être créée avec un titre seul |
-| 2 | Consulter les tâches | La liste affiche toutes les tâches existantes |
-| 3 | Modifier une tâche | Le titre, la description, la priorité et l'échéance sont modifiables |
-| 4 | Faire évoluer son statut | Une tâche peut passer entre les trois statuts candidats |
-| 5 | Supprimer ou archiver une tâche | Selon décision Morris (voir §14) |
-
----
-
-## 5. Périmètre fonctionnel MVP
-
-### Fonctions candidates
-
-| Fonction | Description |
-|----------|-------------|
-| Créer une tâche | Saisie d'un titre obligatoire et champs facultatifs |
-| Afficher les tâches | Liste consultable de l'ensemble des tâches |
-| Modifier une tâche | Édition des champs d'une tâche existante |
-| Changer son statut | Transition entre les statuts candidats |
-| Définir une priorité | Attribution d'une priorité parmi les trois niveaux candidats |
-| Définir une échéance facultative | Date optionnelle associée à la tâche |
-| Rechercher les tâches | Recherche textuelle sur le titre (minimum) |
-| Filtrer par statut et priorité | Filtres limités à ces deux dimensions |
-| Supprimer une tâche | Suppression avec confirmation utilisateur |
-
-### Données minimales d'une tâche
-
-| Champ | Obligatoire | Remarque |
-|-------|-------------|----------|
-| Identifiant | Oui (technique) | Généré automatiquement |
-| Titre | Oui | Champ principal visible |
-| Description | Non | Texte libre facultatif |
-| Statut | Oui | Valeur parmi les statuts candidats |
-| Priorité | Oui | Valeur parmi les priorités candidates |
-| Échéance | Non | Date facultative |
-| Date de création | Oui (technique) | Enregistrée automatiquement |
-| Date de modification | Oui (technique) | Mise à jour automatiquement |
-
-### Statuts candidats
-
-| Statut | Signification candidate |
-|--------|----------------------|
-| À faire | Tâche créée, non démarrée |
-| En cours | Tâche en cours de réalisation |
-| Terminée | Tâche achevée |
-
-> Recommandation candidate — soumise au GO Morris.
-
-### Priorités candidates
-
-| Priorité | Signification candidate |
-|----------|------------------------|
-| Basse | Peut attendre |
-| Normale | Priorité par défaut |
-| Haute | À traiter en priorité |
-
-> Recommandation candidate — soumise au GO Morris.
+1. **01 Vision** — comprendre le problème et les principes
+2. **02 Architecture de l'expérience** — intentions et carte logique
+3. **03 Modèle de navigation** — parcours et transitions
+4. **05 Templates de pages** — gabarits concrets
+5. **04 Design system** — règles visuelles et composants Notion
+6. **06 User journeys** — scénarios par persona
+7. **07 Roadmap** — séquence d'implémentation
 
 ---
 
-## 6. Hors périmètre
+## Règles de gouvernance
 
-Les éléments suivants sont explicitement exclus du MVP :
-
-- comptes utilisateurs ;
-- authentification ;
-- rôles et permissions ;
-- partage de tâches ;
-- commentaires ;
-- pièces jointes ;
-- sous-tâches ;
-- récurrence ;
-- notifications (email, push, etc.) ;
-- synchronisation calendrier ;
-- intelligence artificielle ;
-- application mobile native ;
-- mode hors ligne avancé ;
-- import/export ;
-- reporting avancé ;
-- tableaux de bord ;
-- administration ;
-- internationalisation.
-
-Un cadrage complémentaire serait requis si des comptes utilisateurs, des données personnelles sensibles ou un usage collaboratif sont ajoutés ultérieurement.
+| Règle | Application |
+|-------|-------------|
+| **Candidate** | Ce corpus n'est pas baseline SFIA ni méthode validée |
+| **Git prime** | En cas de divergence Notion ↔ Git → Git prime |
+| **Pas de capitalisation** | Aucune promotion dans `method/core` avant expérimentation réelle |
+| **Pas de nouveau cycle SFIA** | UX-01 est un cycle documentaire type 4 — pas une extension du catalogue cycles |
+| **Espace privé** | Visibilité Morris maintenue jusqu'à décision distincte |
+| **Sidebar hors sujet** | La sidebar Notion native n'est pas un levier UX de ce contrat |
+| **L0 manuel assisté** | Implémentation Notion sans API, CMP ni raw sync |
 
 ---
 
-## 7. Règles fonctionnelles essentielles
-
-| # | Règle | Détail |
-|---|-------|--------|
-| R1 | Titre obligatoire | Une tâche ne peut pas être créée sans titre |
-| R2 | Statut initial | Une tâche nouvellement créée a le statut **À faire** |
-| R3 | Priorité initiale | La priorité par défaut est **Normale** |
-| R4 | Échéance facultative | L'échéance n'est pas requise à la création |
-| R5 | Transitions de statut | Une tâche peut passer entre les trois statuts candidats |
-| R6 | Confirmation de suppression | Toute suppression exige une confirmation explicite |
-| R7 | Tâche terminée consultable | Une tâche au statut Terminée reste visible et consultable |
-| R8 | Dates techniques automatiques | Les dates de création et de modification sont gérées par le système |
-| R9 | Recherche minimale | La recherche porte au minimum sur le titre |
-| R10 | Filtres limités | Les filtres disponibles concernent uniquement le statut et la priorité |
-
-Toute règle non listée ci-dessus reste hors décision à ce stade.
-
----
-
-## 8. Parcours nominal
-
-Parcours de bout en bout — scénario principal :
-
-1. L'utilisateur ouvre l'application ;
-2. il consulte la liste de ses tâches ;
-3. il crée une nouvelle tâche ;
-4. il renseigne un titre et, facultativement, une description, une priorité et une échéance ;
-5. la tâche apparaît dans la liste avec le statut **À faire** ;
-6. il la passe au statut **En cours** ;
-7. il la passe au statut **Terminée**.
-
----
-
-## 9. Écrans minimaux
-
-| Écran | Contenu |
-|-------|---------|
-| **Liste principale** | Affichage des tâches, recherche textuelle, filtres par statut et priorité |
-| **Formulaire création / modification** | Saisie et édition des champs d'une tâche |
-| **Confirmation de suppression** | Dialogue de confirmation avant suppression définitive ou archivage |
-
-Aucune maquette n'est produite à ce stade.  
-Aucun design system n'est imposé.
-
----
-
-## 10. Backlog MVP initial
-
-| ID | User story | Priorité backlog | Critères d'acceptation | Statut de décision |
-|----|------------|------------------|------------------------|-------------------|
-| US-01 | En tant qu'utilisateur, je consulte la liste de mes tâches pour voir ce que j'ai à faire | Must | La liste affiche toutes les tâches ; chaque tâche montre au minimum titre, statut et priorité ; la liste est consultable dès l'ouverture | Candidate — GO Morris requis |
-| US-02 | En tant qu'utilisateur, je crée une tâche pour noter quelque chose à faire | Must | Je peux saisir un titre obligatoire ; la tâche est créée avec le statut À faire et la priorité Normale ; la tâche apparaît immédiatement dans la liste | Candidate — GO Morris requis |
-| US-03 | En tant qu'utilisateur, je modifie une tâche pour corriger ou compléter ses informations | Must | Je peux modifier le titre, la description, la priorité et l'échéance ; la date de modification est mise à jour ; les changements sont visibles dans la liste | Candidate — GO Morris requis |
-| US-04 | En tant qu'utilisateur, je change le statut d'une tâche pour suivre son avancement | Must | Je peux passer une tâche de À faire à En cours puis à Terminée ; le nouveau statut est visible immédiatement ; une tâche terminée reste consultable | Candidate — GO Morris requis |
-| US-05 | En tant qu'utilisateur, je définis la priorité et l'échéance d'une tâche pour organiser mon travail | Should | Je peux choisir parmi Basse, Normale et Haute ; je peux définir ou retirer une échéance ; la priorité par défaut à la création est Normale | Candidate — GO Morris requis |
-| US-06 | En tant qu'utilisateur, je recherche et filtre mes tâches pour trouver rapidement ce qui m'intéresse | Should | La recherche fonctionne au minimum sur le titre ; je peux filtrer par statut ; je peux filtrer par priorité | Candidate — GO Morris requis |
-| US-07 | En tant qu'utilisateur, je supprime une tâche pour retirer ce qui n'est plus pertinent | Should | Une confirmation est demandée avant suppression ; après confirmation, la tâche disparaît de la liste ; l'action est irréversible si suppression définitive retenue | Candidate — GO Morris requis |
-
----
-
-## 11. Hypothèses techniques non engageantes
-
-Les points suivants sont des hypothèses de travail — **non des décisions techniques validées** :
-
-- application web responsive, utilisable sur desktop et mobile via navigateur ;
-- frontend et backend potentiellement regroupés dans une seule application ;
-- stockage local simple (fichier, mémoire) ou petite base relationnelle ;
-- exécution locale possible pour le développement et la démonstration ;
-- choix de stack définitif reporté au cycle d'architecture technique ou de delivery.
-
-Aucun ADR n'est créé à ce stade.  
-Aucune technologie n'est sélectionnée de manière définitive.
-
----
-
-## 12. Risques et réserves
-
-| Risque / réserve | Description |
-|------------------|-------------|
-| Croissance du périmètre | Ajout progressif de fonctions collaboratives, de notifications ou de sous-tâches pouvant diluer la simplicité initiale |
-| Cadrage RGPD | Nécessaire si des comptes utilisateurs ou des données personnelles identifiables sont introduits |
-| Cycle UX/UI | Requis si une fidélité visuelle particulière ou une charte graphique est attendue |
-| Architecture formelle | Recommandée avant exposition publique, montée en charge ou persistance distribuée |
-
----
-
-## 13. Critères de réussite du cadrage
-
-Le cadrage est réussi si Morris peut :
-
-- comprendre le produit en moins de cinq minutes ;
-- valider ou corriger le périmètre MVP proposé ;
-- choisir le prochain cycle (delivery, UX/UI, ou autre) ;
-- identifier clairement les fonctions non incluses.
-
----
-
-## 14. Décisions Morris attendues
-
-| # | Décision | Proposition initiale | Décision Morris | Date | Statut |
-|---|----------|-------------------|-----------------|------|--------|
-| D1 | Principe mono-utilisateur | Application sans compte, usage personnel ou démonstrateur | **Validé** — mono-utilisateur, sans authentification | 2026-07-13 | VALIDATED — Morris |
-| D2 | Périmètre MVP | Sept user stories, neuf fonctions, dix règles | **Validé** — périmètre MVP sans extension | 2026-07-13 | VALIDATED — Morris |
-| D3 | Trois statuts | À faire, En cours, Terminée | **Validé** — À faire, En cours, Terminée | 2026-07-13 | VALIDATED — Morris |
-| D4 | Trois priorités | Basse, Normale, Haute | **Validé** — Basse, Normale, Haute | 2026-07-13 | VALIDATED — Morris |
-| D5 | Suppression ou archivage | Suppression définitive vs archivage | **Validé** — suppression définitive avec confirmation | 2026-07-13 | VALIDATED — Morris |
-| D6 | Prochain cycle | Delivery Standard borné vs UX/UI Light | **Validé** — Delivery Standard borné, conception technique minimale intégrée, sans phase UX/UI séparée | 2026-07-13 | VALIDATED — Morris |
-
----
-
-## 15. Recommandation de trajectoire
-
-| Option | Description | Avantage | Limite |
-|--------|-------------|----------|--------|
-| **A — Delivery Standard borné** | Enchaîner directement sur un cycle de delivery avec périmètre strict | Rapidité d'exécution, livrable fonctionnel rapide | Moins de validation visuelle préalable |
-| **B — UX/UI Light avant delivery** | Réaliser d'abord un cycle UX/UI Light pour valider l'écran principal | Meilleure adhésion visuelle avant développement | Ajoute un micro-cycle |
-| **Décision Morris (D6)** | **Option A retenue** — Delivery Standard borné, conception technique minimale intégrée | Évite des micro-cycles inutiles pour un périmètre aussi réduit | Validé 2026-07-13 |
-
-```
-
----
-
-## 11. Fichiers applicatifs complets
-
-### Métadonnées : `projects/task-tracker/app/package-lock.json`
-
-| Attribut | Valeur |
-|----------|--------|
-| lockfileVersion | 3 |
-| Dépendances racine | next, react, react-dom |
-| Taille | 242862 octets |
-| Lignes | 7157 |
-| SHA-256 | `9f8b2fd9c495ab28a9ef7d24831ae2d007b4803ffc5b15eb1a7b22da6571726e` |
-| Contenu intégral | Exclu (taille disproportionnée) — cohérent avec package.json |
-
----
-
-### Fichier : `projects/task-tracker/app/package.json`
-
-```json
-{
-  "name": "task-tracker",
-  "private": true,
-  "version": "0.1.0",
-  "description": "Task Tracker — MVP mono-utilisateur avec persistance localStorage",
-  "scripts": {
-    "dev": "next dev --port 3010",
-    "build": "next build",
-    "start": "next start --port 3010",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "dependencies": {
-    "next": "^15.3.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.15.21",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "eslint": "^9.27.0",
-    "eslint-config-next": "^15.3.3",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
-  }
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [{ "name": "next" }],
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/next.config.ts`
-
-```typescript
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  reactStrictMode: true,
-};
-
-export default nextConfig;
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/vitest.config.ts`
-
-```typescript
-import { defineConfig } from "vitest/config";
-import path from "path";
-
-export default defineConfig({
-  test: {
-    environment: "node",
-    include: ["__tests__/**/*.test.ts"],
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "."),
-    },
-  },
-});
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/.eslintrc.json`
-
-```json
-{
-  "extends": "next/core-web-vitals"
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/.gitignore`
+## Distinction conception / implémentation / capitalisation
 
 ```text
-node_modules/
-.next/
-out/
-.env*.local
-*.tsbuildinfo
-next-env.d.ts
-
+1. Conception UX (UX-01 — présent)     → contrat Candidate dans Git
+2. Validation Morris                   → GO commit/PR puis revue contrat
+3. Implémentation Notion (UX-02–06)    → application manuelle L0
+4. QA par l'usage                      → friction réelle, parcours testés
+5. Capitalisation éventuelle           → GO Morris explicite + critères §07
 ```
 
 ---
 
-### Fichier : `projects/task-tracker/app/README.md`
+## Sources Git principales
 
-```markdown
-# Task Tracker — Application MVP
+- `method/sfia-fast-track/documentation/notion/sfia-notion-product-vision.md`
+- `method/sfia-fast-track/documentation/notion/sfia-notion-information-architecture.md`
+- `method/sfia-fast-track/documentation/notion/sfia-notion-publication-governance.md`
+- `method/sfia-fast-track/documentation/notion/sfia-notion-mvp-backlog.md`
+- `method/sfia-fast-track/documentation/notion/editorial/` (pack P0 PR #193)
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 
-Application web mono-utilisateur de suivi de tâches, livrée dans le cadre du cycle Delivery Standard borné SFIA.
-
-## Périmètre
-
-- Consultation, création, modification, changement de statut, priorité, échéance facultative
-- Recherche par titre et filtres par statut / priorité
-- Suppression définitive avec confirmation
-- Persistance locale via `localStorage`
-
-## Stack
-
-- Next.js 15 (App Router)
-- React 19
-- TypeScript
-- CSS simple (globals.css)
-- Vitest pour les tests métier et persistance
-
-## Commandes
-
-```bash
-npm install
-npm run dev
-npm run lint
-npm run typecheck
-npm test
-npm run build
-npm start
-```
-
-L'application de développement écoute par défaut sur `http://localhost:3010`.
-
-## Structure
-
-```text
-app/                 # routes Next.js
-components/          # interface utilisateur
-lib/tasks/           # modèle, règles métier, persistance, filtres
-__tests__/           # tests unitaires
-```
+---
 
 ## Décisions Morris validées
 
-Voir `../00-framing/task-tracker-cadrage.md`.
+- GO formalisation du contrat UX complet dans Git
+- Contrat UX = base de conception **Candidate**
+- Aucune implémentation Notion dans UX-01
+- Aucune capitalisation méthode avant expérimentation réelle
+- Morris reste propriétaire éditorial
+- Git reste la source de vérité
 
+## Décisions non prises
+
+- Visibilité externe de l'espace Notion
+- Promotion du contrat UX en baseline SFIA
+- Capitalisation dans `method/core` ou templates génériques
+- Automatisation L1+ (métadonnées, publication assistée)
+- §09 Cas d'usage (P1)
+- Stratégie legacy Notion (archive vs nouveau workspace)
+
+---
+
+## Critères pour envisager une future capitalisation
+
+Capitalisation envisageable **uniquement si** (voir [07-sfia-notion-ux-roadmap.md](07-sfia-notion-ux-roadmap.md)) :
+
+- Plusieurs itérations réelles UX-02 à UX-06 menées
+- Navigation améliore effectivement l'usage constaté
+- Gabarits réutilisables hors seul workspace Morris
+- Règles non spécifiques à un cas unique
+- Dette de maintenance synced blocks acceptable
+- **GO Morris explicite** pour capitalisation
+
+---
+
+## Garde-fous
+
+- Ne pas présenter ce corpus comme méthode validée ou standard SFIA officiel
+- Ne pas modifier l'espace Notion depuis ce cycle
+- Ne pas modifier les brouillons éditoriaux P0
+- Ne pas utiliser API Notion, CMP ou raw sync
+
+---
+
+# FICHIER 2 — 01-sfia-notion-ux-vision.md
+
+# 01 — Vision UX — SFIA Notion
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Contrat vision UX — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+
+---
+
+## 1. Problème traité
+
+L'espace Notion SFIA contient 11 pages P0, deux bases (Référentiel 25 entrées, Cycles 15 entrées) et une visibilité privée Morris. Le contenu éditorial est présent mais l'**expérience** n'est pas encore structurée par un contrat UX explicite :
+
+| Friction | Manifestation |
+|----------|---------------|
+| Orientation | Visiteur ne sait pas quel parcours choisir en < 30 s |
+| Exhaustivité vs synthèse | Risque de reproduire la densité Git dans Notion |
+| Navigation | Liens contextuels, précédent/suivant, retour accueil non standardisés |
+| Statut documentaire | Candidate vs validated peu visible sans règles UX |
+| Cohérence visuelle | Callouts, icônes, hero non unifiés |
+| Mobile | Lecture longue non optimisée |
+
+**Principe central :** l'espace Notion SFIA doit fonctionner comme un **portail de connaissance orienté parcours**, et non comme une copie du repository.
+
+---
+
+## 2. Vision cible
+
+> **SFIA Notion UX** = une expérience de lecture guidée, sobre et traçable, qui oriente vers la bonne page ou la bonne base, expose le statut documentaire, et renvoie vers Git quand le détail technique est nécessaire.
+
+| Dimension | Cible |
+|-----------|-------|
+| **Orientation** | Une intention principale par page ; parcours nommés |
+| **Profondeur** | L0–L4 avec progressive disclosure |
+| **Confiance** | Git source de vérité visible sans envahir |
+| **Gouvernance** | Candidate explicite ; aucune décision structurante dans Notion |
+| **Sobriété** | Aucun contenu décoratif sans fonction |
+
+---
+
+## 3. Proposition d'expérience
+
+```text
+Visiteur arrive → Accueil (hero + 3 parcours)
+       │
+       ├─ Découvrir (5 min)  → Valeur → Cycle (schéma) → Glossaire
+       ├─ Comprendre (30 min) → Comprendre → Cycle → Profils → Gouvernance
+       └─ Exécuter            → Mise en place → Routage → Templates
 ```
 
+L'utilisateur ne parcourt pas une arborescence §01–11 : il suit une **intention** et des **liens contextuels** dans le corps des pages.
+
 ---
 
-### Fichier : `projects/task-tracker/app/next-env.d.ts`
+## 4. Principes UX obligatoires
 
-```typescript
-/// <reference types="next" />
-/// <reference types="next/image-types/global" />
-/// <reference path="./.next/types/routes.d.ts" />
+| # | Principe | Règle |
+|---|----------|-------|
+| P1 | Orientation avant exhaustivité | Toujours proposer un prochain pas |
+| P2 | Parcours avant arborescence | Navigation par intention, pas par numéro seul |
+| P3 | Synthèse avant détail | Détail technique → lien Git |
+| P4 | Une intention par page | Une question principale par page P0 |
+| P5 | Navigation sans impasse | Accueil, précédent, suivant, ressources |
+| P6 | Statut visible | Candidate, baseline v2.4, date sync |
+| P7 | Git accessible, non envahissant | Callout source + lien ; pas de dump repo |
+| P8 | Sobriété visuelle | Pas de décoration sans fonction |
+| P9 | Aucune décision structurante dans Notion | Gates Morris restent hors Notion |
+| P10 | Mobile pris en compte | Blocs courts, tables scannables, pas de dépendance couleur |
 
-// NOTE: This file should not be edited
-// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+---
 
+## 5. Objectifs mesurables
+
+| ID | Objectif | Indicateur |
+|----|----------|------------|
+| O1 | Orientation < 30 s | Utilisateur identifie un parcours depuis l'accueil |
+| O2 | Parcours 5 min complétable | 4 pages max sans impasse |
+| O3 | Parcours 30 min complétable | 5 pages + sortie claire |
+| O4 | Zéro impasse | Chaque page a retour accueil + lien suivant |
+| O5 | Statut Candidate visible | Badge sur pages concernées |
+| O6 | Lien Git présent | 100 % pages P0 avec source Git |
+| O7 | Cohérence visuelle | Design system appliqué UX-05 |
+
+---
+
+## 6. Anti-objectifs
+
+| Anti-objectif | Confirmation |
+|---------------|--------------|
+| Miroir du repository | **Non** |
+| Remplacer Git pour exécution | **Non** |
+| Sidebar comme navigation principale | **Non** — hors périmètre UX |
+| Publication automatique | **Non** |
+| API Notion / CMP / raw sync | **Non** |
+| Nouveau cycle SFIA validé | **Non** |
+| Baseline UX officielle | **Non** — Candidate uniquement |
+| Décisions Morris dans Notion | **Non** |
+
+---
+
+## 7. Personas
+
+### 7.1 Nouveau visiteur
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Besoin** | Comprendre SFIA en quelques minutes |
+| **Frustration** | Jargon Git, trop de pages, pas de point d'entrée |
+| **Expérience recherchée** | Parcours 5 min, hero clair, glossaire rapide |
+| **Sortie Git** | Rare — reste dans Notion pour découverte |
+
+### 7.2 Chef de projet / PO
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Besoin** | Savoir comment lancer un cycle, quel profil, quels livrables |
+| **Frustration** | Confusion cycles v2.4 vs v2.5 Candidate |
+| **Expérience recherchée** | Parcours 30 min + routage + mise en place |
+| **Sortie Git** | Vers routing-guide, templates — après qualification Notion |
+
+### 7.3 Contributeur technique
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Besoin** | Trouver template, prompt, garde-fou, checklist |
+| **Frustration** | Duplication catalog dans Notion |
+| **Expérience recherchée** | Base Référentiel + page Templates + lien Git direct |
+| **Sortie Git** | Fréquente — exécution Cursor |
+
+### 7.4 Morris
+
+| Dimension | Contenu |
+|-----------|---------|
+| **Besoin** | Vérifier cohérence, statuts, gouvernance, QA espace |
+| **Frustration** | Divergence Notion/Git non signalée |
+| **Expérience recherchée** | Métadonnées, callouts Décision Morris, checklist QA |
+| **Sortie Git** | Pour validation, merge, handoff |
+
+---
+
+## 8. Relation Git ↔ Notion
+
+```text
+GIT (vérité)                    NOTION (expérience)
+─────────────                   ───────────────────
+docs/ foundation                Synthèse L1 pages 01–02
+method/ core                    Gouvernance résumée page 07
+prompts/ catalog                Index + liens page 06
+editorial/ drafts               Contenu publié P0 (manuel L0)
+decisions validées              Mention — pas d'autorité Notion
 ```
 
----
-
-### Fichier : `projects/task-tracker/app/app/layout.tsx`
-
-```typescript
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Suivi de tâches",
-  description: "Application mono-utilisateur de suivi de tâches",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="fr">
-      <body>{children}</body>
-    </html>
-  );
-}
-
-```
+**Règle :** Notion explique et oriente ; Git exécute et tranche.
 
 ---
 
-### Fichier : `projects/task-tracker/app/app/page.tsx`
+## 9. Critères de réussite
 
-```typescript
-import { TaskTrackerApp } from "@/components/TaskTrackerApp";
-
-export default function HomePage() {
-  return <TaskTrackerApp />;
-}
-
-```
+- Un visiteur complète le parcours 5 min sans aide externe
+- Un PO identifie le cycle adapté via page Routage
+- Un contributeur trouve un template via Référentiel sans copie intégrale
+- Morris valide la cohérence visuelle et documentaire en QA UX-06
+- Aucune régression : Git reste source de vérité
 
 ---
 
-### Fichier : `projects/task-tracker/app/app/globals.css`
+## 10. Risques UX
 
-```css
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-:root {
-  color-scheme: light;
-  --bg: #f4f6f8;
-  --surface: #ffffff;
-  --border: #d8dee4;
-  --text: #1f2933;
-  --muted: #5f6c7b;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --danger: #dc2626;
-  --danger-hover: #b91c1c;
-  --focus: #2563eb;
-  --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  --radius: 12px;
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-}
-
-body {
-  padding: var(--space-md);
-}
-
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button,
-input,
-select,
-textarea {
-  border-radius: 8px;
-  border: 1px solid var(--border);
-}
-
-button {
-  cursor: pointer;
-  background: var(--surface);
-  color: var(--text);
-  padding: 0.55rem 0.9rem;
-}
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-}
-
-.app-shell {
-  max-width: 960px;
-  margin: 0 auto;
-  display: grid;
-  gap: var(--space-lg);
-}
-
-.app-header {
-  display: grid;
-  gap: var(--space-xs);
-}
-
-.app-header h1 {
-  font-size: 1.75rem;
-}
-
-.app-header p {
-  color: var(--muted);
-}
-
-.panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: var(--space-lg);
-  display: grid;
-  gap: var(--space-md);
-}
-
-.panel h2 {
-  font-size: 1.125rem;
-}
-
-.filters-row,
-.form-grid,
-.task-actions,
-.task-meta,
-.inline-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  align-items: center;
-}
-
-.filters-row label,
-.form-grid label {
-  display: grid;
-  gap: 0.35rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-  flex: 1 1 180px;
-}
-
-.filters-row input,
-.filters-row select,
-.form-grid input,
-.form-grid select,
-.form-grid textarea {
-  width: 100%;
-  padding: 0.55rem 0.7rem;
-  background: #fff;
-  color: var(--text);
-}
-
-.form-grid textarea {
-  min-height: 96px;
-  resize: vertical;
-}
-
-.primary-button {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-.primary-button:hover {
-  background: var(--primary-hover);
-}
-
-.secondary-button:hover {
-  background: #eef2f7;
-}
-
-.danger-button {
-  color: var(--danger);
-  border-color: #f3c7c7;
-}
-
-.danger-button:hover {
-  background: #fef2f2;
-  border-color: var(--danger);
-}
-
-.task-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-md);
-}
-
-.task-card {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: var(--space-md);
-  display: grid;
-  gap: var(--space-sm);
-  background: #fbfcfd;
-}
-
-.task-card h3 {
-  font-size: 1.05rem;
-}
-
-.task-description {
-  color: var(--muted);
-  white-space: pre-wrap;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 0.15rem 0.6rem;
-  font-size: 0.8rem;
-  border: 1px solid var(--border);
-  background: #fff;
-}
-
-.badge-status-todo {
-  border-color: #cbd5e1;
-}
-
-.badge-status-in_progress {
-  border-color: #93c5fd;
-  background: #eff6ff;
-}
-
-.badge-status-done {
-  border-color: #86efac;
-  background: #f0fdf4;
-}
-
-.badge-priority-high {
-  border-color: #fca5a5;
-  background: #fef2f2;
-}
-
-.badge-priority-low {
-  border-color: #cbd5e1;
-  background: #f8fafc;
-}
-
-.empty-state,
-.error-text,
-.counter-text,
-.due-date-text {
-  color: var(--muted);
-}
-
-.error-text {
-  color: var(--danger);
-}
-
-.dialog-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.45);
-  display: grid;
-  place-items: center;
-  padding: var(--space-md);
-  z-index: 20;
-}
-
-.dialog {
-  width: min(100%, 420px);
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: var(--space-lg);
-  display: grid;
-  gap: var(--space-md);
-}
-
-@media (max-width: 640px) {
-  body {
-    padding: var(--space-sm);
-  }
-
-  .panel {
-    padding: var(--space-md);
-  }
-
-  .task-actions,
-  .inline-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .task-actions button,
-  .inline-actions button,
-  .task-actions select {
-    width: 100%;
-  }
-}
-
-```
+| Risque | Mitigation |
+|--------|------------|
+| Surcharge informationnelle | Progressive disclosure L0–L4 |
+| Confusion v2.5 Candidate | Badge Candidate systématique |
+| Dette synced blocks | Usage limité (4 blocs max) — voir design system |
+| Divergence contenu | Métadonnées commit + alerte Git prime |
+| Mobile illisible | Tables courtes, toggles, pas de wide tables |
+| Impasses navigation | Modèle navigation §03 |
 
 ---
 
-### Fichier : `projects/task-tracker/app/components/DeleteConfirmDialog.tsx`
+## 11. Hypothèses à tester (implémentation)
 
-```typescript
-interface DeleteConfirmDialogProps {
-  taskTitle: string;
-  onConfirm: () => void;
-  onCancel: () => void;
-}
-
-export function DeleteConfirmDialog({
-  taskTitle,
-  onConfirm,
-  onCancel,
-}: DeleteConfirmDialogProps) {
-  return (
-    <div className="dialog-backdrop" role="presentation">
-      <div
-        className="dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="delete-dialog-title"
-      >
-        <h2 id="delete-dialog-title">Confirmer la suppression</h2>
-        <p>
-          Supprimer définitivement la tâche « {taskTitle} » ? Cette action est
-          irréversible.
-        </p>
-        <div className="inline-actions">
-          <button type="button" className="danger-button" onClick={onConfirm}>
-            Supprimer définitivement
-          </button>
-          <button type="button" className="secondary-button" onClick={onCancel}>
-            Annuler
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-```
+| Hypothèse | Test |
+|-----------|------|
+| 3 parcours accueil suffisent | Observation usage Morris + 1 contributeur |
+| Précédent/suivant améliore le flux | A/B manuel avant/après UX-03 |
+| Base Référentiel remplace page §10 longue | Parcours « trouver un actif » |
+| Callouts fonctionnels suffisent sans couleur seule | Test accessibilité lecture |
 
 ---
 
-### Fichier : `projects/task-tracker/app/components/TaskForm.tsx`
+## 12. Décisions Morris
 
-```typescript
-import type { Task, TaskPriority, TaskStatus } from "@/lib/tasks/types";
-import {
-  ALL_PRIORITIES,
-  ALL_STATUSES,
-  PRIORITY_LABELS,
-  STATUS_LABELS,
-} from "@/lib/tasks/constants";
+### Validées
 
-interface TaskFormValues {
-  title: string;
-  description?: string;
-  status?: TaskStatus;
-  priority?: TaskPriority;
-  dueDate?: string;
-}
+- Contrat UX Candidate dans Git
+- Portail parcours, pas miroir repo
+- Morris propriétaire éditorial
+- Espace privé maintenu
+- Pas de capitalisation méthode dans UX-01
 
-interface TaskFormProps {
-  mode: "create" | "edit";
-  initialTask?: Task;
-  error?: string | null;
-  onSubmit: (values: TaskFormValues) => void;
-  onCancel: () => void;
-}
+### Non prises
 
-export function TaskForm({
-  mode,
-  initialTask,
-  error,
-  onSubmit,
-  onCancel,
-}: TaskFormProps) {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-
-    onSubmit({
-      title: String(formData.get("title") ?? ""),
-      description: String(formData.get("description") ?? ""),
-      status: String(formData.get("status") ?? "todo") as TaskStatus,
-      priority: String(formData.get("priority") ?? "normal") as TaskPriority,
-      dueDate: String(formData.get("dueDate") ?? ""),
-    });
-  }
-
-  return (
-    <form className="form-grid" onSubmit={handleSubmit}>
-      <label htmlFor={`${mode}-title`}>
-        Titre *
-        <input
-          id={`${mode}-title`}
-          name="title"
-          type="text"
-          required
-          maxLength={120}
-          defaultValue={initialTask?.title ?? ""}
-        />
-      </label>
-
-      <label htmlFor={`${mode}-description`}>
-        Description
-        <textarea
-          id={`${mode}-description`}
-          name="description"
-          defaultValue={initialTask?.description ?? ""}
-        />
-      </label>
-
-      {mode === "edit" && (
-        <label htmlFor={`${mode}-status`}>
-          Statut
-          <select
-            id={`${mode}-status`}
-            name="status"
-            defaultValue={initialTask?.status ?? "todo"}
-          >
-            {ALL_STATUSES.map((status) => (
-              <option key={status} value={status}>
-                {STATUS_LABELS[status]}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
-
-      <label htmlFor={`${mode}-priority`}>
-        Priorité
-        <select
-          id={`${mode}-priority`}
-          name="priority"
-          defaultValue={initialTask?.priority ?? "normal"}
-        >
-          {ALL_PRIORITIES.map((priority) => (
-            <option key={priority} value={priority}>
-              {PRIORITY_LABELS[priority]}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label htmlFor={`${mode}-dueDate`}>
-        Échéance
-        <input
-          id={`${mode}-dueDate`}
-          name="dueDate"
-          type="date"
-          defaultValue={initialTask?.dueDate ?? ""}
-        />
-      </label>
-
-      {error && (
-        <p className="error-text" role="alert">
-          {error}
-        </p>
-      )}
-
-      <div className="inline-actions">
-        <button type="submit" className="primary-button">
-          {mode === "create" ? "Créer la tâche" : "Enregistrer"}
-        </button>
-        <button type="button" className="secondary-button" onClick={onCancel}>
-          Annuler
-        </button>
-      </div>
-    </form>
-  );
-}
-
-```
+- Visibilité publique espace
+- Promotion baseline UX
+- Automatisation publication
 
 ---
 
-### Fichier : `projects/task-tracker/app/components/TaskItem.tsx`
+## 13. Éléments Candidate
 
-```typescript
-import type { Task, TaskStatus } from "@/lib/tasks/types";
-import {
-  ALL_STATUSES,
-  PRIORITY_LABELS,
-  STATUS_LABELS,
-} from "@/lib/tasks/constants";
-
-interface TaskItemProps {
-  task: Task;
-  onEdit: () => void;
-  onDelete: () => void;
-  onStatusChange: (status: TaskStatus) => void;
-}
-
-function formatDueDate(value?: string): string | null {
-  if (!value) {
-    return null;
-  }
-
-  const date = new Date(`${value}T00:00:00`);
-  if (Number.isNaN(date.getTime())) {
-    return value;
-  }
-
-  return date.toLocaleDateString("fr-FR");
-}
-
-export function TaskItem({
-  task,
-  onEdit,
-  onDelete,
-  onStatusChange,
-}: TaskItemProps) {
-  const dueDateLabel = formatDueDate(task.dueDate);
-
-  return (
-    <li className="task-card">
-      <h3>{task.title}</h3>
-
-      {task.description && (
-        <p className="task-description">{task.description}</p>
-      )}
-
-      <div className="task-meta">
-        <span className={`badge badge-status-${task.status}`}>
-          {STATUS_LABELS[task.status]}
-        </span>
-        <span className={`badge badge-priority-${task.priority}`}>
-          {PRIORITY_LABELS[task.priority]}
-        </span>
-        {dueDateLabel && (
-          <span className="due-date-text">Échéance : {dueDateLabel}</span>
-        )}
-      </div>
-
-      <div className="task-actions">
-        <label htmlFor={`status-${task.id}`}>
-          Changer le statut
-          <select
-            id={`status-${task.id}`}
-            value={task.status}
-            onChange={(event) =>
-              onStatusChange(event.target.value as TaskStatus)
-            }
-          >
-            {ALL_STATUSES.map((status) => (
-              <option key={status} value={status}>
-                {STATUS_LABELS[status]}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <button type="button" className="secondary-button" onClick={onEdit}>
-          Modifier
-        </button>
-        <button type="button" className="danger-button" onClick={onDelete}>
-          Supprimer
-        </button>
-      </div>
-    </li>
-  );
-}
-
-```
+- Catalogue 15 cycles v2.5 (pages 03–04) — **Candidate — non baseline**
+- Template cycle-execution v2.5 — mention explicite
+- Ce document entier — **Candidate**
 
 ---
 
-### Fichier : `projects/task-tracker/app/components/TaskTrackerApp.tsx`
+## Liens
 
-```typescript
-"use client";
-
-import { useEffect, useMemo, useState } from "react";
-import type {
-  CreateTaskInput,
-  Task,
-  TaskFilters,
-  TaskPriority,
-  TaskStatus,
-  UpdateTaskInput,
-} from "@/lib/tasks/types";
-import { filterTasks } from "@/lib/tasks/filters";
-import { loadTasks, saveTasks } from "@/lib/tasks/storage";
-import {
-  changeTaskStatus,
-  createTask,
-  deleteTask,
-  updateTask,
-} from "@/lib/tasks/taskService";
-import { ALL_PRIORITIES, ALL_STATUSES, PRIORITY_LABELS, STATUS_LABELS } from "@/lib/tasks/constants";
-import { DeleteConfirmDialog } from "./DeleteConfirmDialog";
-import { TaskForm } from "./TaskForm";
-import { TaskItem } from "./TaskItem";
-
-const EMPTY_FILTERS: TaskFilters = {
-  search: "",
-  status: "all",
-  priority: "all",
-};
-
-export function TaskTrackerApp() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [filters, setFilters] = useState<TaskFilters>(EMPTY_FILTERS);
-  const [hydrated, setHydrated] = useState(false);
-  const [formMode, setFormMode] = useState<"create" | "edit" | null>("create");
-  const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<Task | null>(null);
-
-  useEffect(() => {
-    setTasks(loadTasks());
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (hydrated) {
-      saveTasks(tasks);
-    }
-  }, [tasks, hydrated]);
-
-  const visibleTasks = useMemo(
-    () => filterTasks(tasks, filters),
-    [tasks, filters],
-  );
-
-  function handleCreate(input: CreateTaskInput) {
-    const result = createTask(tasks, input);
-    if (!result.ok) {
-      setFormError(result.error);
-      return;
-    }
-
-    setTasks(result.data.tasks);
-    setFormError(null);
-    setFormMode(null);
-  }
-
-  function handleUpdate(input: UpdateTaskInput) {
-    if (!editingTask) {
-      return;
-    }
-
-    const result = updateTask(tasks, editingTask.id, input);
-    if (!result.ok) {
-      setFormError(result.error);
-      return;
-    }
-
-    setTasks(result.data.tasks);
-    setFormError(null);
-    setEditingTask(null);
-    setFormMode(null);
-  }
-
-  function handleStatusChange(id: string, status: TaskStatus) {
-    const result = changeTaskStatus(tasks, id, status);
-    if (result.ok) {
-      setTasks(result.data.tasks);
-    }
-  }
-
-  function handleDeleteConfirm() {
-    if (!deleteTarget) {
-      return;
-    }
-
-    setTasks(deleteTask(tasks, deleteTarget.id));
-    setDeleteTarget(null);
-  }
-
-  function openEdit(task: Task) {
-    setEditingTask(task);
-    setFormMode("edit");
-    setFormError(null);
-  }
-
-  return (
-    <main className="app-shell">
-      <header className="app-header">
-        <h1>Suivi de tâches</h1>
-        <p>Gérez vos tâches personnelles — mono-utilisateur, sans compte.</p>
-      </header>
-
-      <section className="panel" aria-labelledby="create-heading">
-        <div className="inline-actions">
-          <h2 id="create-heading">Création</h2>
-          {formMode !== "create" && (
-            <button
-              type="button"
-              className="primary-button"
-              onClick={() => {
-                setFormMode("create");
-                setEditingTask(null);
-                setFormError(null);
-              }}
-            >
-              Nouvelle tâche
-            </button>
-          )}
-        </div>
-
-        {formMode === "create" && (
-          <TaskForm
-            mode="create"
-            error={formError}
-            onSubmit={(values) => handleCreate(values)}
-            onCancel={() => {
-              setFormMode(null);
-              setFormError(null);
-            }}
-          />
-        )}
-      </section>
-
-      <section className="panel" aria-labelledby="filters-heading">
-        <h2 id="filters-heading">Recherche et filtres</h2>
-        <div className="filters-row">
-          <label htmlFor="search">
-            Rechercher
-            <input
-              id="search"
-              type="search"
-              placeholder="Rechercher par titre"
-              value={filters.search}
-              onChange={(event) =>
-                setFilters((current) => ({
-                  ...current,
-                  search: event.target.value,
-                }))
-              }
-            />
-          </label>
-
-          <label htmlFor="status-filter">
-            Statut
-            <select
-              id="status-filter"
-              value={filters.status}
-              onChange={(event) =>
-                setFilters((current) => ({
-                  ...current,
-                  status: event.target.value as TaskFilters["status"],
-                }))
-              }
-            >
-              <option value="all">Tous les statuts</option>
-              {ALL_STATUSES.map((status) => (
-                <option key={status} value={status}>
-                  {STATUS_LABELS[status]}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label htmlFor="priority-filter">
-            Priorité
-            <select
-              id="priority-filter"
-              value={filters.priority}
-              onChange={(event) =>
-                setFilters((current) => ({
-                  ...current,
-                  priority: event.target.value as TaskFilters["priority"],
-                }))
-              }
-            >
-              <option value="all">Toutes les priorités</option>
-              {ALL_PRIORITIES.map((priority) => (
-                <option key={priority} value={priority}>
-                  {PRIORITY_LABELS[priority]}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
-        <p className="counter-text" aria-live="polite">
-          {visibleTasks.length} tâche{visibleTasks.length !== 1 ? "s" : ""}{" "}
-          visible{visibleTasks.length !== 1 ? "s" : ""}
-        </p>
-      </section>
-
-      <section className="panel" aria-labelledby="list-heading">
-        <h2 id="list-heading">Liste des tâches</h2>
-
-        {!hydrated ? (
-          <p className="empty-state">Chargement des tâches…</p>
-        ) : visibleTasks.length === 0 ? (
-          <p className="empty-state">
-            Aucune tâche à afficher. Créez une tâche ou ajustez vos filtres.
-          </p>
-        ) : (
-          <ul className="task-list">
-            {visibleTasks.map((task) => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                onEdit={() => openEdit(task)}
-                onDelete={() => setDeleteTarget(task)}
-                onStatusChange={(status) => handleStatusChange(task.id, status)}
-              />
-            ))}
-          </ul>
-        )}
-      </section>
-
-      {formMode === "edit" && editingTask && (
-        <div className="dialog-backdrop" role="presentation">
-          <div
-            className="dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="edit-dialog-title"
-          >
-            <h2 id="edit-dialog-title">Modifier la tâche</h2>
-            <TaskForm
-              mode="edit"
-              initialTask={editingTask}
-              error={formError}
-              onSubmit={(values) => handleUpdate(values)}
-              onCancel={() => {
-                setEditingTask(null);
-                setFormMode(null);
-                setFormError(null);
-              }}
-            />
-          </div>
-        </div>
-      )}
-
-      {deleteTarget && (
-        <DeleteConfirmDialog
-          taskTitle={deleteTarget.title}
-          onConfirm={handleDeleteConfirm}
-          onCancel={() => setDeleteTarget(null)}
-        />
-      )}
-    </main>
-  );
-}
-
-```
+→ [02 Architecture de l'expérience](02-sfia-notion-experience-architecture.md) · [03 Modèle de navigation](03-sfia-notion-navigation-model.md) · [README](README.md)
 
 ---
 
-### Fichier : `projects/task-tracker/app/lib/tasks/constants.ts`
+# FICHIER 3 — 02-sfia-notion-experience-architecture.md
 
-```typescript
-import type { TaskPriority, TaskStatus } from "./types";
+# 02 — Architecture de l'expérience — SFIA Notion
 
-export const STORAGE_KEY = "task-tracker-tasks";
-export const MAX_TITLE_LENGTH = 120;
-
-export const STATUS_LABELS: Record<TaskStatus, string> = {
-  todo: "À faire",
-  in_progress: "En cours",
-  done: "Terminée",
-};
-
-export const PRIORITY_LABELS: Record<TaskPriority, string> = {
-  low: "Basse",
-  normal: "Normale",
-  high: "Haute",
-};
-
-export const ALL_STATUSES: TaskStatus[] = ["todo", "in_progress", "done"];
-export const ALL_PRIORITIES: TaskPriority[] = ["low", "normal", "high"];
-
-```
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Architecture par intentions — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
 
 ---
 
-### Fichier : `projects/task-tracker/app/lib/tasks/filters.ts`
+## 1. Objectif
 
-```typescript
-import type { Task, TaskFilters } from "./types";
-
-export function filterTasks(tasks: Task[], filters: TaskFilters): Task[] {
-  const search = filters.search.trim().toLowerCase();
-
-  return tasks.filter((task) => {
-    if (filters.status !== "all" && task.status !== filters.status) {
-      return false;
-    }
-
-    if (filters.priority !== "all" && task.priority !== filters.priority) {
-      return false;
-    }
-
-    if (search && !task.title.toLowerCase().includes(search)) {
-      return false;
-    }
-
-    return true;
-  });
-}
-
-```
+Définir l'architecture de l'expérience **par intentions**, sans dupliquer l'Information Architecture cycle 1. L'IA décrit *quoi* publier ; ce document décrit *comment l'utilisateur vit l'espace*.
 
 ---
 
-### Fichier : `projects/task-tracker/app/lib/tasks/storage.ts`
+## 2. Quatre intentions d'expérience
 
-```typescript
-import type { Task } from "./types";
-import { STORAGE_KEY } from "./constants";
+### 2.1 Découvrir
 
-export function loadTasks(storage: Storage | null = getBrowserStorage()): Task[] {
-  if (!storage) {
-    return [];
-  }
-
-  try {
-    const raw = storage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return [];
-    }
-
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) {
-      return [];
-    }
-
-    return parsed.filter(isValidTask);
-  } catch {
-    return [];
-  }
-}
-
-export function saveTasks(
-  tasks: Task[],
-  storage: Storage | null = getBrowserStorage(),
-): void {
-  if (!storage) {
-    return;
-  }
-
-  storage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-}
-
-export function getBrowserStorage(): Storage | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  return window.localStorage;
-}
-
-function isValidTask(value: unknown): value is Task {
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
-  const task = value as Partial<Task>;
-
-  return (
-    typeof task.id === "string" &&
-    typeof task.title === "string" &&
-    typeof task.status === "string" &&
-    typeof task.priority === "string" &&
-    typeof task.createdAt === "string" &&
-    typeof task.updatedAt === "string"
-  );
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/lib/tasks/taskService.ts`
-
-```typescript
-import type {
-  CreateTaskInput,
-  Task,
-  TaskStatus,
-  UpdateTaskInput,
-} from "./types";
-import {
-  normalizeDescription,
-  normalizeDueDate,
-  validateTitle,
-} from "./validation";
-
-export type TaskServiceResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: string };
-
-export function createTask(
-  tasks: Task[],
-  input: CreateTaskInput,
-  now: () => string = isoNow,
-  idFactory: () => string = createId,
-): TaskServiceResult<{ tasks: Task[]; task: Task }> {
-  const titleError = validateTitle(input.title);
-  if (titleError) {
-    return { ok: false, error: titleError };
-  }
-
-  const timestamp = now();
-  const task: Task = {
-    id: idFactory(),
-    title: input.title.trim(),
-    description: normalizeDescription(input.description),
-    status: "todo",
-    priority: input.priority ?? "normal",
-    dueDate: normalizeDueDate(input.dueDate),
-    createdAt: timestamp,
-    updatedAt: timestamp,
-  };
-
-  return { ok: true, data: { tasks: [task, ...tasks], task } };
-}
-
-export function updateTask(
-  tasks: Task[],
-  id: string,
-  input: UpdateTaskInput,
-  now: () => string = isoNow,
-): TaskServiceResult<{ tasks: Task[]; task: Task }> {
-  const index = tasks.findIndex((task) => task.id === id);
-  if (index === -1) {
-    return { ok: false, error: "Tâche introuvable." };
-  }
-
-  const current = tasks[index];
-  const nextTitle = input.title !== undefined ? input.title : current.title;
-  const titleError = validateTitle(nextTitle);
-  if (titleError) {
-    return { ok: false, error: titleError };
-  }
-
-  const updated: Task = {
-    ...current,
-    title: nextTitle.trim(),
-    description:
-      input.description !== undefined
-        ? normalizeDescription(input.description)
-        : current.description,
-    status: input.status ?? current.status,
-    priority: input.priority ?? current.priority,
-    dueDate:
-      input.dueDate !== undefined
-        ? normalizeDueDate(input.dueDate)
-        : current.dueDate,
-    updatedAt: now(),
-  };
-
-  const nextTasks = [...tasks];
-  nextTasks[index] = updated;
-
-  return { ok: true, data: { tasks: nextTasks, task: updated } };
-}
-
-export function changeTaskStatus(
-  tasks: Task[],
-  id: string,
-  status: TaskStatus,
-  now: () => string = isoNow,
-): TaskServiceResult<{ tasks: Task[]; task: Task }> {
-  return updateTask(tasks, id, { status }, now);
-}
-
-export function deleteTask(tasks: Task[], id: string): Task[] {
-  return tasks.filter((task) => task.id !== id);
-}
-
-function isoNow(): string {
-  return new Date().toISOString();
-}
-
-function createId(): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-
-  return `task-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/lib/tasks/types.ts`
-
-```typescript
-export type TaskStatus = "todo" | "in_progress" | "done";
-export type TaskPriority = "low" | "normal" | "high";
-
-export interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  dueDate?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface CreateTaskInput {
-  title: string;
-  description?: string;
-  priority?: TaskPriority;
-  dueDate?: string;
-}
-
-export interface UpdateTaskInput {
-  title?: string;
-  description?: string;
-  status?: TaskStatus;
-  priority?: TaskPriority;
-  dueDate?: string | null;
-}
-
-export type StatusFilter = TaskStatus | "all";
-export type PriorityFilter = TaskPriority | "all";
-
-export interface TaskFilters {
-  search: string;
-  status: StatusFilter;
-  priority: PriorityFilter;
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/lib/tasks/validation.ts`
-
-```typescript
-import { MAX_TITLE_LENGTH } from "./constants";
-
-export function validateTitle(title: string): string | null {
-  const trimmed = title.trim();
-
-  if (!trimmed) {
-    return "Le titre est obligatoire.";
-  }
-
-  if (trimmed.length > MAX_TITLE_LENGTH) {
-    return `Le titre ne peut pas dépasser ${MAX_TITLE_LENGTH} caractères.`;
-  }
-
-  return null;
-}
-
-export function normalizeDescription(description?: string): string | undefined {
-  const trimmed = description?.trim();
-  return trimmed ? trimmed : undefined;
-}
-
-export function normalizeDueDate(dueDate?: string | null): string | undefined {
-  if (dueDate === null || dueDate === undefined || dueDate === "") {
-    return undefined;
-  }
-
-  return dueDate;
-}
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/__tests__/filters.test.ts`
-
-```typescript
-import { describe, expect, it } from "vitest";
-import { filterTasks } from "@/lib/tasks/filters";
-import type { Task } from "@/lib/tasks/types";
-
-const tasks: Task[] = [
-  {
-    id: "1",
-    title: "Préparer la démo",
-    status: "todo",
-    priority: "high",
-    createdAt: "2026-07-13T10:00:00.000Z",
-    updatedAt: "2026-07-13T10:00:00.000Z",
-  },
-  {
-    id: "2",
-    title: "Répondre aux emails",
-    status: "in_progress",
-    priority: "normal",
-    createdAt: "2026-07-13T10:00:00.000Z",
-    updatedAt: "2026-07-13T10:00:00.000Z",
-  },
-  {
-    id: "3",
-    title: "Archiver les documents",
-    status: "done",
-    priority: "low",
-    createdAt: "2026-07-13T10:00:00.000Z",
-    updatedAt: "2026-07-13T10:00:00.000Z",
-  },
-];
-
-describe("filterTasks", () => {
-  it("filters by case-insensitive title search", () => {
-    const result = filterTasks(tasks, {
-      search: "DÉMO",
-      status: "all",
-      priority: "all",
-    });
-
-    expect(result).toHaveLength(1);
-    expect(result[0].id).toBe("1");
-  });
-
-  it("filters by status", () => {
-    const result = filterTasks(tasks, {
-      search: "",
-      status: "done",
-      priority: "all",
-    });
-
-    expect(result.map((task) => task.id)).toEqual(["3"]);
-  });
-
-  it("filters by priority", () => {
-    const result = filterTasks(tasks, {
-      search: "",
-      status: "all",
-      priority: "high",
-    });
-
-    expect(result.map((task) => task.id)).toEqual(["1"]);
-  });
-
-  it("combines search, status and priority filters", () => {
-    const result = filterTasks(tasks, {
-      search: "email",
-      status: "in_progress",
-      priority: "normal",
-    });
-
-    expect(result).toHaveLength(1);
-    expect(result[0].title).toBe("Répondre aux emails");
-  });
-});
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/__tests__/storage.test.ts`
-
-```typescript
-import { beforeEach, describe, expect, it } from "vitest";
-import { STORAGE_KEY } from "@/lib/tasks/constants";
-import { loadTasks, saveTasks } from "@/lib/tasks/storage";
-import type { Task } from "@/lib/tasks/types";
-
-class MemoryStorage {
-  private store = new Map<string, string>();
-
-  getItem(key: string): string | null {
-    return this.store.get(key) ?? null;
-  }
-
-  setItem(key: string, value: string): void {
-    this.store.set(key, value);
-  }
-
-  clear(): void {
-    this.store.clear();
-  }
-}
-
-const sampleTask: Task = {
-  id: "task-1",
-  title: "Tester la persistance",
-  status: "todo",
-  priority: "normal",
-  createdAt: "2026-07-13T10:00:00.000Z",
-  updatedAt: "2026-07-13T10:00:00.000Z",
-};
-
-describe("storage", () => {
-  let storage: MemoryStorage;
-
-  beforeEach(() => {
-    storage = new MemoryStorage();
-  });
-
-  it("returns an empty list when storage is empty", () => {
-    expect(loadTasks(storage as unknown as Storage)).toEqual([]);
-  });
-
-  it("persists and reloads tasks", () => {
-    saveTasks([sampleTask], storage as unknown as Storage);
-    expect(loadTasks(storage as unknown as Storage)).toEqual([sampleTask]);
-    expect(storage.getItem(STORAGE_KEY)).toContain("Tester la persistance");
-  });
-
-  it("simulates persistence after reload", () => {
-    saveTasks([sampleTask], storage as unknown as Storage);
-
-    const reloadedStorage = new MemoryStorage();
-    reloadedStorage.setItem(STORAGE_KEY, storage.getItem(STORAGE_KEY)!);
-
-    expect(loadTasks(reloadedStorage as unknown as Storage)).toEqual([sampleTask]);
-  });
-});
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/__tests__/taskService.test.ts`
-
-```typescript
-import { describe, expect, it } from "vitest";
-import {
-  changeTaskStatus,
-  createTask,
-  deleteTask,
-  updateTask,
-} from "@/lib/tasks/taskService";
-import type { Task } from "@/lib/tasks/types";
-
-const fixedNow = "2026-07-13T10:00:00.000Z";
-const fixedId = () => "task-1";
-
-describe("taskService", () => {
-  it("creates a task with required title and defaults", () => {
-    const result = createTask([], { title: "  Acheter du lait  " }, () => fixedNow, fixedId);
-
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-
-    expect(result.data.task).toMatchObject({
-      id: "task-1",
-      title: "Acheter du lait",
-      status: "todo",
-      priority: "normal",
-      createdAt: fixedNow,
-      updatedAt: fixedNow,
-    });
-    expect(result.data.tasks).toHaveLength(1);
-  });
-
-  it("rejects creation without title", () => {
-    const result = createTask([], { title: "   " }, () => fixedNow, fixedId);
-    expect(result).toEqual({ ok: false, error: "Le titre est obligatoire." });
-  });
-
-  it("updates a task and refreshes updatedAt", () => {
-    const seed: Task = {
-      id: "task-1",
-      title: "Ancien titre",
-      status: "todo",
-      priority: "normal",
-      createdAt: fixedNow,
-      updatedAt: fixedNow,
-    };
-
-    const result = updateTask(
-      [seed],
-      "task-1",
-      {
-        title: "Nouveau titre",
-        description: "Détail",
-        priority: "high",
-        dueDate: "2026-07-20",
-      },
-      () => "2026-07-13T11:00:00.000Z",
-    );
-
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-
-    expect(result.data.task.title).toBe("Nouveau titre");
-    expect(result.data.task.priority).toBe("high");
-    expect(result.data.task.updatedAt).toBe("2026-07-13T11:00:00.000Z");
-  });
-
-  it("changes task status", () => {
-    const seed: Task = {
-      id: "task-1",
-      title: "Tâche",
-      status: "todo",
-      priority: "normal",
-      createdAt: fixedNow,
-      updatedAt: fixedNow,
-    };
-
-    const result = changeTaskStatus([seed], "task-1", "in_progress", () => fixedNow);
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-
-    expect(result.data.task.status).toBe("in_progress");
-  });
-
-  it("deletes a task permanently", () => {
-    const tasks: Task[] = [
-      {
-        id: "task-1",
-        title: "A",
-        status: "todo",
-        priority: "normal",
-        createdAt: fixedNow,
-        updatedAt: fixedNow,
-      },
-      {
-        id: "task-2",
-        title: "B",
-        status: "done",
-        priority: "low",
-        createdAt: fixedNow,
-        updatedAt: fixedNow,
-      },
-    ];
-
-    expect(deleteTask(tasks, "task-1")).toHaveLength(1);
-    expect(deleteTask(tasks, "task-1")[0].id).toBe("task-2");
-  });
-});
-
-```
-
----
-
-### Fichier : `projects/task-tracker/app/__tests__/validation.test.ts`
-
-```typescript
-import { describe, expect, it } from "vitest";
-import { validateTitle } from "@/lib/tasks/validation";
-import { MAX_TITLE_LENGTH } from "@/lib/tasks/constants";
-
-describe("validation", () => {
-  it("requires a non-empty trimmed title", () => {
-    expect(validateTitle("   ")).toBe("Le titre est obligatoire.");
-    expect(validateTitle("Tâche valide")).toBeNull();
-  });
-
-  it("limits title length", () => {
-    const tooLong = "a".repeat(MAX_TITLE_LENGTH + 1);
-    expect(validateTitle(tooLong)).toBe(
-      `Le titre ne peut pas dépasser ${MAX_TITLE_LENGTH} caractères.`,
-    );
-  });
-});
-
-```
-
----
-
-## 12. Tests
-
-### Inventaire
-| Fichier | Tests | Scénarios |
-|---------|-------|-----------|
-| `__tests__/taskService.test.ts` | 5 | création, titre obligatoire, modification, statut, suppression |
-| `__tests__/filters.test.ts` | 4 | recherche, filtre statut, filtre priorité, combinaison |
-| `__tests__/storage.test.ts` | 3 | vide, persistance, rechargement |
-| `__tests__/validation.test.ts` | 2 | titre obligatoire, limite 120 caractères |
-| **Total** | **14** | |
-
-### Résultat exécution (2026-07-13 17:37 CEST)
-```
-Test Files  4 passed (4)
-Tests  14 passed (14)
-```
-
-### Réserve couverture
-- Pas de tests E2E navigateur (hors scope MVP)
-- Logique UI testée indirectement via services purs
-
----
-
-## 13. Validations
-
-| Commande | Heure | Code retour | Résultat |
-|----------|-------|-------------|----------|
-| `npm run lint` | 17:37 CEST | 0 | PASS — aucune erreur |
-| `npm run typecheck` | 17:37 CEST | 0 | PASS |
-| `npm test` | 17:37 CEST | 0 | PASS — 14/14 |
-| `npm run build` | 17:37 CEST | 0 | PASS — build production Next.js |
-
-`npm install` non exécuté — `node_modules` déjà présent et exploitable.
-
----
-
-## 14. Captures runtime
-
-| Fichier | Dimensions | Taille | SHA-256 | Parcours | Contrat visuel |
-|---------|------------|--------|---------|----------|----------------|
-| `08-qa-test/runtime-screenshots/desktop-empty-state.png` | 3840x2160 | 154650 B | `d8f89dab32f43734a5727c190b476ce07de1b85bdcf7bf1967d090ce4f6bc522` | État vide + formulaire de création | Conforme |
-| `08-qa-test/runtime-screenshots/desktop-with-task.png` | 3840x2160 | 169100 B | `6214c4d835f3df10234f2c3a29db4613900aa02f4551faefa0c18f5f1e3a1f23` | Tâche créée avec badges et actions | Conforme |
-| `08-qa-test/runtime-screenshots/desktop-delete-confirmation.png` | 3840x2160 | 201961 B | `2f32dbc9b2fa0fb80add0c0c6dcecde162dd843c77bcf943adeba2a3abeacd60` | Dialogue confirmation suppression | Conforme |
-| `08-qa-test/runtime-screenshots/mobile-with-task.png` | 3840x2160 | 151515 B | `6a053466ed9988425ac302a621f8b7338954aeead3527e3241ffb10e96689c17` | Vue mobile 390×844 émulée — tâche visible | Conforme |
-
-Contenu binaire non inclus — métadonnées et hashes uniquement.
-
----
-
-## 15. Accessibilité
-
-| Élément | Preuve dans le code |
-|---------|---------------------|
-| Labels formulaires | `htmlFor` + `<label>` dans TaskForm, filtres |
-| Boutons explicites | Libellés textuels (« Créer la tâche », « Supprimer définitivement ») |
-| Focus visible | `:focus-visible` dans globals.css |
-| Structure titres | h1/h2/h3 hiérarchisés |
-| Erreurs formulaire | `role="alert"` |
-| Dialogue suppression | `role="dialog"`, `aria-modal`, `aria-labelledby` |
-| Compteur live | `aria-live="polite"` |
-| Limite | Pas d'audit RGAA complet |
-
----
-
-## 16. Performance
-
-| Point | Statut |
+| Champ | Valeur |
 |-------|--------|
-| Appels réseau | Aucun en runtime (hors assets statiques Next) |
-| localStorage | Lecture/écriture JSON simple |
-| Volume cible | < 100 tâches — filtrage en mémoire |
-| Build | 106 kB First Load JS page principale |
-| Dépendances lourdes | Aucune bibliothèque UI complète |
+| **Objectif** | Comprendre SFIA en 5–30 minutes sans ouvrir Git |
+| **Audience** | Nouveau visiteur, dirigeant, prospect |
+| **Pages** | 00 Accueil, 02 Valeur, 03 Cycle (schéma), 11 Glossaire |
+| **Point d'entrée** | Accueil — parcours « 5 minutes » |
+| **Sortie attendue** | Décision « aller plus loin » ou sortie |
+| **Liens transverses** | → Comprendre (30 min) |
+| **Risque confusion** | Trop de détail cycle v2.5 — mitiger par badge Candidate |
+| **Retour Git** | Optionnel — lien platform-architecture si curiosité |
+
+### 2.2 Utiliser
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Comprendre comment appliquer SFIA au quotidien |
+| **Audience** | Chef de projet, PO, PMO |
+| **Pages** | 01 Comprendre, 03 Cycle, 04 Profils/gates, 05 Routage |
+| **Point d'entrée** | Accueil — parcours « 30 minutes » |
+| **Sortie attendue** | Identifier cycle + profil pour une demande |
+| **Liens transverses** | → Mise en place, Base Cycles |
+| **Risque confusion** | 15 cycles v2.5 présentés comme baseline |
+| **Retour Git** | routing-guide, cycle-execution-template (extrait) |
+
+### 2.3 Exécuter
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Préparer et lancer un cycle concret |
+| **Audience** | PO, tech lead, contributeur |
+| **Pages** | 08 Mise en place, 05 Routage, 06 Templates, Bases |
+| **Point d'entrée** | Accueil — parcours « Mise en œuvre » |
+| **Sortie attendue** | Workspace prêt + cycle identifié + assets trouvés |
+| **Liens transverses** | → Référentiel, Glossaire |
+| **Risque confusion** | Croire que Notion lance Cursor |
+| **Retour Git** | **Obligatoire** — exécution hors Notion |
+
+### 2.4 Gouverner
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Comprendre règles, garde-fous, statuts, divergence Git |
+| **Audience** | Morris, responsable méthode, qualité |
+| **Pages** | 07 Gouvernance, 10 Documents (vue base), 07 + governance doc Git |
+| **Point d'entrée** | Footer global, lien depuis toute page |
+| **Sortie attendue** | Règles claires ; pas d'action structurante dans Notion |
+| **Liens transverses** | → Accueil, Comprendre |
+| **Risque confusion** | Modifier méthode dans Notion |
+| **Retour Git** | rules-and-guardrails, publication-governance |
 
 ---
 
-## 17. Dépendances et vulnérabilités
+## 3. Carte logique de l'expérience
 
-### Dépendances directes
-| Package | Version déclarée | Rôle |
-|---------|------------------|------|
-| next | ^15.3.3 | Framework web |
-| react | ^19.1.0 | UI |
-| react-dom | ^19.1.0 | Rendu |
-| typescript | ^5.8.3 (dev) | Typage |
-| vitest | ^3.1.2 (dev) | Tests |
-| eslint-config-next | ^15.3.3 (dev) | Lint |
-
-### npm audit (read-only, non modifié)
-| Sévérité | Nombre |
-|----------|--------|
-| moderate | 2 |
-| high/critical | 0 |
-
-**Détail :**
-1. `postcss` < 8.5.10 — XSS via CSS stringify (transitive via next)
-2. `next` — impacté via postcss
-
-**Bloquant MVP local :** Non. Correction reportée hors cycle correctif.
+```text
+                    ┌─────────────┐
+                    │ 00 ACCUEIL  │
+                    └──────┬──────┘
+           ┌───────────────┼───────────────┐
+           ▼               ▼               ▼
+    ┌────────────┐  ┌────────────┐  ┌────────────┐
+    │ DÉCOUVRIR  │  │  UTILISER  │  │  EXÉCUTER  │
+    │ 02,03,11   │  │ 01,03,04,05│  │ 08,05,06   │
+    └────────────┘  └────────────┘  └─────┬──────┘
+                                            │
+                    ┌────────────┐          │
+                    │ GOUVERNER  │◄─────────┘
+                    │ 07, 10     │
+                    └────────────┘
+           Bases transverses : Référentiel · Cycles · Glossaire
+```
 
 ---
 
-## 18. Garde-fous
+## 4. Correspondance pages P0 actuelles
 
-### Autorisé
-- Reconstruction review pack
-- Commit/push `sfia/review-handoff` uniquement
-- Revalidation technique read-only
+| Page P0 | Intention(s) | Niveau | Rôle UX |
+|---------|--------------|--------|---------|
+| 00 Accueil | Toutes (hub) | L0–L1 | Point d'entrée unique |
+| 01 Comprendre | Utiliser | L1–L2 | Cadre méthode |
+| 02 Valeur | Découvrir | L1 | Pitch et bénéfices |
+| 03 Cycle | Découvrir, Utiliser | L2 | Séquence cycle |
+| 04 Profils/gates | Utiliser | L2 | Qualification |
+| 05 Routage | Utiliser, Exécuter | L2 | Matrice demandes |
+| 06 Templates | Exécuter | L3 | Index assets |
+| 07 Gouvernance | Gouverner | L2–L3 | Garde-fous |
+| 08 Mise en place | Exécuter | L3 | Onboarding pratique |
+| 10 Documents | Gouverner | L4 | Vue Base Référentiel |
+| 11 Glossaire | Découvrir, transversal | L1–L4 | Vocabulaire |
 
-### Interdit et non réalisé
-- Modification code, cadrage, tests, captures, dépendances
-- Commit/push branche projet
-- Modification workspace principal
-
----
-
-## 19. Réserves
-
-- Absence tests E2E
-- 2 vulnérabilités modérées npm audit
-- Persistance localStorage uniquement (pas de sync)
-- Pas de backend
-- Limites MVP volontaires
+**Hors P0 publié :** §09 Cas d'usage (P1) — non couvert UX-01.
 
 ---
 
-## 20. Review Handoff Git
+## 5. Rôle des bases
 
-| Élément | Valeur |
-|---------|--------|
-| Décision | required |
-| Branche | `sfia/review-handoff` |
-| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Source locale | `.tmp-sfia-review/chatgpt-review.md` |
-| Push autorisé | `origin/sfia/review-handoff` uniquement |
-| Message commit | `docs: complete task tracker delivery review handoff` |
+### Base Référentiel SFIA (25 entrées)
 
-*(Section complétée après publication — voir rapport final pour SHA et hashes)*
+| Dimension | Règle UX |
+|-----------|----------|
+| **Rôle** | Trouver prompts, templates, docs fondateurs |
+| **Intention** | Exécuter, Gouverner |
+| **Entrée** | Page 06, page 10 (vue filtrée), liens contextuels |
+| **Sortie** | Lien Git ou page Notion liée |
+| **Risque** | Devenir miroir catalog — **interdit** |
+
+### Base Cycles SFIA (15 entrées)
+
+| Dimension | Règle UX |
+|-----------|----------|
+| **Rôle** | Explorer cycles projet, profils, gates |
+| **Intention** | Utiliser |
+| **Entrée** | Page 04, 05, liens depuis Routage |
+| **Sortie** | Page 03 ou Git routing-guide |
+| **Risque** | Confusion v2.5 baseline — badge Candidate |
 
 ---
 
-## 21. Verdict
+## 6. Page Documents de référence (§10)
 
-**HANDOFF UPDATED — REMOTE VERIFIED**
+- **Pas** une longue page statique
+- **Vue filtrée** Base Référentiel (`visibilité=publique` ou équivalent)
+- Intention **Gouverner** + support **Exécuter** (L4)
+- Lien depuis page 07 et footer
 
-Review pack reconstruit avec inventaire exhaustif, contenu intégral des fichiers source et tests, validations, captures documentées, et sections 1–21 complètes.
+---
 
-**Statut :** READY FOR CHATGPT REVIEW
+## 7. Place du Glossaire
 
-**Instruction ChatGPT :** Lire depuis Git : `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
+- Accessible depuis **toute page** (footer + liens inline)
+- Intention **Découvrir** (5 termes clés) + support transversal
+- Termes liés depuis corps des pages (progressive disclosure)
 
-**Actions interdites sans GO Morris :** modification code, commit branche projet, push branche projet, PR, merge, déploiement.
+---
+
+## 8. Profondeur L0 à L4
+
+| Niveau | Contenu Notion | Détail technique |
+|--------|----------------|------------------|
+| L0 | Hero, 30 secondes, CTA | — |
+| L1 | Synthèse métier | Lien Git optionnel |
+| L2 | Cycle, routage, profils | routing-guide |
+| L3 | Templates, setup, garde-fous | prompts/, method/ |
+| L4 | Référentiel, glossaire complet | docs/ foundation |
+
+**Règle :** ne jamais monter de niveau sans signal explicite (« détail technique → Git »).
+
+---
+
+## 9. Numérotation stable vs navigation par intention
+
+| Mécanisme | Usage |
+|-----------|-------|
+| **Numérotation §00–11** | Stable pour traçabilité Git ↔ Notion, métadonnées |
+| **Navigation par intention** | Primaire pour l'utilisateur — parcours nommés |
+| **Sidebar Notion** | **Hors sujet UX** — ne pas optimiser ; parcours in-page prioritaire |
+
+---
+
+## 10. Architecture cible desktop
+
+- Largeur lecture confortable (colonnes Notion standard)
+- Hero pleine largeur sur accueil
+- Tables ≤ 5 colonnes ; toggles pour détail
+- Footer synced global en bas de chaque page
+
+---
+
+## 11. Comportement mobile attendu
+
+- Blocs empilés — pas de colonnes multi-sur mobile
+- Tables converties en listes ou toggles si > 3 colonnes
+- Navigation footer : liens texte courts (Accueil · Suivant)
+- Callouts lisibles sans zoom
+- Pas de dépendance survol ou sidebar
+
+---
+
+## 12. Zones non couvertes P0
+
+| Zone | Priorité | Cycle |
+|------|----------|-------|
+| §09 Cas d'usage | P1 | Post UX-06 |
+| Parcours personas dédiés | P1 | UX-06+ |
+| Visibilité publique | Décision Morris | Hors UX-01 |
+| Automatisation L1+ | P2 | Post-MVP |
+
+---
+
+## Liens
+
+→ [01 Vision UX](01-sfia-notion-ux-vision.md) · [03 Navigation](03-sfia-notion-navigation-model.md) · [05 Templates](05-sfia-notion-page-templates.md)
+
+---
+
+# FICHIER 4 — 03-sfia-notion-navigation-model.md
+
+# 03 — Modèle de navigation — SFIA Notion
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Contrat navigation — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur (UX-03) |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+
+---
+
+## 1. Principes de navigation
+
+| Principe | Règle |
+|----------|-------|
+| Point d'entrée unique | **00 Accueil** — toute session commence ou y revient |
+| Retour accueil | Lien visible en-tête et footer de chaque page |
+| Précédent / suivant | Séquence logique par intention — pas numérotation seule |
+| Liens contextuels | Dans le corps — vers pages, bases, Git |
+| Navigation par parcours | 4 parcours nommés depuis accueil |
+| Sorties Git | Lien explicite quand détail technique requis |
+| Bases ↔ pages | Entrée base depuis page ; sortie page depuis fiche base |
+| Impasses | **Interdites** — minimum 2 sorties par page |
+| Sidebar Notion | **Hors sujet** — non optimisée par ce contrat |
+
+---
+
+## 2. En-tête de page (obligatoire)
+
+Chaque page P0 affiche en tête :
+
+| Élément | Exemple |
+|---------|---------|
+| Retour accueil | `← Accueil` |
+| Catégorie parcours | `Parcours : Comprendre en 30 min` |
+| Statut documentaire | `Draft éditorial · Candidate v2.5` |
+| Niveau de lecture | `L2` |
+
+---
+
+## 3. Corps de page (obligatoire)
+
+| Bloc | Règle |
+|------|-------|
+| À retenir en 30 secondes | Toujours en premier après en-tête |
+| Contenu principal | Une intention principale |
+| Liens contextuels | Inline vers pages liées |
+| Renvoi Git | Callout « Source Git » si L3+ |
+
+---
+
+## 4. Pied de page (obligatoire)
+
+| Élément | Règle |
+|---------|-------|
+| Précédent | Page logique dans parcours courant |
+| Suivant | Page logique dans parcours courant |
+| Retour accueil | Répété |
+| Ressources complémentaires | Glossaire, Gouvernance, Référentiel |
+| Footer synced | Git prime · baseline v2.4 · Candidate · date sync |
+
+---
+
+## 5. Parcours nommés
+
+### 5.1 Découvrir SFIA en 5 minutes
+
+`00 Accueil` → `02 Valeur` → `03 Cycle` (schéma) → `11 Glossaire` (5 termes)
+
+### 5.2 Comprendre SFIA en 30 minutes
+
+`00` → `01 Comprendre` → `03 Cycle` → `04 Profils` → `07 Gouvernance` (résumé)
+
+### 5.3 Lancer un premier cycle
+
+`00` → `08 Mise en place` → `05 Routage` → `06 Templates` → sortie Git
+
+### 5.4 Contribuer à la méthode
+
+`00` → `07 Gouvernance` → `06 Templates` → `10 Documents` → sortie Git PR
+
+---
+
+## 6. Règles de nommage
+
+| Contexte | Règle |
+|----------|-------|
+| Titre page Notion | `§NN — Titre court` (ex. `§03 — Comment fonctionne un cycle`) |
+| Liens internes | Texte descriptif — pas « cliquez ici » |
+| Liens Git | Chemin relatif repo + commit SHA si page P0 |
+| Parcours | Verbe + durée : « Découvrir en 5 minutes » |
+| Menus contextuels | ≤ 7 liens par bloc |
+
+---
+
+## 7. Règles d'icônes
+
+Voir [04 Design system](04-sfia-notion-design-system.md). En navigation : icône page dans en-tête uniquement — pas dans chaque lien.
+
+| Page | Icône |
+|------|-------|
+| 00 Accueil | 🏠 |
+| 01 Comprendre | 📖 |
+| 02 Valeur | 💡 |
+| 03 Cycle | 🔄 |
+| 04 Profils | 📋 |
+| 05 Routage | 🧭 |
+| 06 Templates | 🧩 |
+| 07 Gouvernance | 🛡️ |
+| 08 Mise en place | 🚀 |
+| 10 Référentiel | 📁 |
+| 11 Glossaire | 📚 |
+
+---
+
+## 8. Navigation bases ↔ pages
+
+| Depuis | Vers | Action |
+|--------|------|--------|
+| Page 04 | Base Cycles | Lien « Voir tous les cycles » |
+| Fiche cycle (base) | Page 03 | Lien « Comment fonctionne un cycle » |
+| Page 06 | Base Référentiel | Lien filtré type=template |
+| Page 10 | Base Référentiel | Vue embedded ou lien |
+| Base Référentiel | Git | Propriété URL Git sur fiche |
+
+---
+
+## 9. Traitement des impasses
+
+| Situation | Récupération |
+|-----------|--------------|
+| Fin de parcours | CTA « Retour accueil » + « Autre parcours » |
+| Page isolée | Footer précédent/suivant + accueil |
+| Lien mort | QA UX-06 — correction manuelle |
+| Besoin technique | Callout « Continuer dans Git » |
+
+---
+
+## 10. Comportement mobile
+
+- En-tête : une ligne — `← Accueil · L2`
+- Footer : liens empilés — `Précédent` / `Suivant` / `Accueil`
+- Pas de menu hamburger custom — navigation in-page
+- Tables navigation : liste verticale
+
+---
+
+## 11. Tableau des transitions — 11 pages P0
+
+Légende : **P** = précédent suggéré · **S** = suivant suggéré · **A** = accueil toujours accessible
+
+| Page | P (défaut) | S (défaut) | Parcours 5 min | Parcours 30 min | Parcours 1er cycle | Liens transverses |
+|------|------------|------------|----------------|-----------------|-------------------|-------------------|
+| **00 Accueil** | — | 02 ou 01 | → 02 | → 01 | → 08 | 11, 07 |
+| **01 Comprendre** | 00 | 03 | — | 00→**01**→03 | — | 07, 11 |
+| **02 Valeur** | 00 | 03 | 00→**02**→03 | — | — | 11 |
+| **03 Cycle** | 02 ou 01 | 04 ou 11 | 02→**03**→11 | 01→**03**→04 | 08→05 | Base Cycles |
+| **04 Profils** | 03 | 05 | — | 03→**04**→05 | 05 | Base Cycles |
+| **05 Routage** | 04 | 06 ou 08 | — | 04→**05**→06 | 08→**05**→06 | Base Cycles |
+| **06 Templates** | 05 | 08 ou 10 | — | 05→**06** | 05→**06**→Git | Référentiel |
+| **07 Gouvernance** | 04 ou 06 | 10 ou 00 | — | 04→**07**→00 | — | Git governance |
+| **08 Mise en place** | 00 ou 06 | 05 | — | — | 00→**08**→05 | 03, 11 |
+| **10 Documents** | 07 | 06 ou 00 | — | — | 06→**10** | Référentiel |
+| **11 Glossaire** | 03 ou 02 | 00 | 03→**11**→00 | — | — | Toutes pages |
+
+**Note :** les transitions par défaut (P/S) suivent la séquence numérique **modulo parcours** — l'implémentation UX-03 matérialise les footers.
+
+---
+
+## 12. Navigation transversale (toujours disponible)
+
+| Lien | Position |
+|------|----------|
+| Glossaire | Footer + inline termes |
+| Gouvernance | Footer |
+| Accueil | En-tête + footer |
+| Base Référentiel | Footer contributeurs |
+| Base Cycles | Footer PMO |
+
+---
+
+## Liens
+
+→ [02 Architecture](02-sfia-notion-experience-architecture.md) · [04 Design system](04-sfia-notion-design-system.md) · [06 User journeys](06-sfia-notion-user-journeys.md)
+
+---
+
+# FICHIER 5 — 04-sfia-notion-design-system.md
+
+# 04 — Design system Notion — SFIA
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Design system Notion — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur (UX-05) |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+
+---
+
+## 1. Principes visuels
+
+| Principe | Application |
+|----------|-------------|
+| Sobriété | Fond clair, peu de couleurs |
+| Fonction avant décoration | Chaque callout a un rôle |
+| Lisibilité | Interlignage confortable, paragraphes courts |
+| Cohérence | Mêmes callouts sur toutes les pages P0 |
+| Accessibilité | Sens compréhensible sans couleur seule |
+| Git discret | Callout dédié — pas de blocs code massifs |
+
+---
+
+## 2. Hiérarchie typographique
+
+| Niveau Notion | Usage | Règle |
+|---------------|-------|-------|
+| **Titre page** | Titre unique H1 | `§NN — Titre` — une seule fois |
+| **Heading 1** | Sections principales (1–10) | Numérotation optionnelle |
+| **Heading 2** | Sous-sections | Max 2 niveaux sous H1 |
+| **Heading 3** | Détail ponctuel | Éviter H3 sous H3 |
+| **Paragraphe** | Corps | ≤ 4 lignes avant liste/table |
+| **Liste** | Énumération | Puces pour < 7 items ; table si plus |
+
+---
+
+## 3. Système d'icônes minimal
+
+| Page / concept | Icône | Emoji fallback |
+|----------------|-------|----------------|
+| Accueil | maison | 🏠 |
+| Comprendre | livre | 📖 |
+| Valeur | ampoule | 💡 |
+| Cycle | flèches circulaires | 🔄 |
+| Routage | boussole | 🧭 |
+| Templates | puzzle | 🧩 |
+| Gouvernance | bouclier | 🛡️ |
+| Mise en place | fusée | 🚀 |
+| Référentiel | dossiers | 📁 |
+| Glossaire | livres | 📚 |
+
+**Règle :** une icône par page dans l'en-tête — pas d'emojis décoratifs dans le corps.
+
+---
+
+## 4. Callouts fonctionnels
+
+| Type | Couleur Notion | Usage | Texte type |
+|------|----------------|-------|------------|
+| **Information** | Bleu | Contexte neutre | « Cette page résume… » |
+| **À retenir** | Jaune | Synthèse 30 secondes | Bullet points clés |
+| **Attention** | Orange | Vigilance, risque | « Ne pas confondre… » |
+| **Candidate** | Gris | Contenu v2.5 non baseline | « Candidate — non baseline » |
+| **Décision Morris** | Violet | Décision validée ou requise | « GO requis pour… » |
+| **Source Git** | Vert | Lien vers vérité | `path/to/file.md` @ SHA |
+
+**Règle :** les couleurs ne sont jamais purement décoratives. Chaque callout inclut un **libellé textuel** du type (ex. « Candidate »).
+
+---
+
+## 5. Couleurs fonctionnelles
+
+| Sémantique | Usage | Interdit |
+|------------|-------|----------|
+| Bleu | Information | Branding décoratif |
+| Jaune | Retenir | Surligner tout le paragraphe |
+| Orange | Attention | Alarme sans texte |
+| Gris | Candidate / neutre | Texte illisible |
+| Vert | Git / validation source | « Succès » décoratif |
+| Violet | Décision Morris | Promotion baseline |
+
+**Accessibilité :** le sens doit rester compréhensible en niveaux de gris ou sans emoji.
+
+---
+
+## 6. Composants Notion
+
+| Composant | Usage | Règle |
+|-----------|-------|-------|
+| **Séparateur** | Entre sections majeures | Max 1 par 3 sections |
+| **Tableau** | Matrices, métadonnées | ≤ 5 colonnes desktop ; toggle mobile |
+| **Colonnes** | Hero accueil uniquement | 2 colonnes max |
+| **Toggle** | Détail optionnel L3+ | Titre explicite |
+| **Citation** | Citation operating model | Source Git sous citation |
+| **Code** | Schémas ASCII uniquement | Pas de code exécutable |
+| **Bases / vues** | Référentiel, Cycles | Vues nommées par intention |
+| **Synced blocks** | Footer + 3 rappels globaux | Voir §8 |
+| **Lien** | Navigation, Git | Texte descriptif |
+
+---
+
+## 7. Hero (Accueil uniquement)
+
+| Bloc | Contenu |
+|------|---------|
+| Titre | SFIA — Software Factory Intelligence Approach |
+| Sous-titre | Guide de compréhension — Git source de vérité |
+| Callout Git/Notion | Schéma dualité |
+| 3 CTA parcours | Boutons ou liens callout |
+| Statut méthode | v2.4 baseline · éléments Candidate |
+
+---
+
+## 8. Footer global (synced block)
+
+**Usage limité synced blocks à :**
+
+1. **Git source de vérité** — une ligne + lien repo
+2. **Baseline actuelle** — SFIA v2.4
+3. **Statut Candidate** — mention si page concernée
+4. **Footer navigation** — Accueil · Glossaire · Gouvernance · date sync
+
+### Risques maintenance synced blocks
+
+| Risque | Mitigation |
+|--------|------------|
+| Mise à jour oubliée sur une page | Max 4 synced blocks ; QA UX-06 checklist |
+| Divergence partielle | Audit mensuel Morris |
+| Casse mobile | Footer texte court |
+| Propagation erreur | Contenu minimal dans synced |
+
+---
+
+## 9. Métadonnées visuelles
+
+Table en haut de page (page éditoriale standard) :
+
+| Champ | Affichage |
+|-------|-----------|
+| Page P0 | §NN |
+| Statut | Draft / Publié |
+| Niveau | L0–L4 |
+| Propriétaire | Morris |
+| Commit source | SHA court |
+| Date sync | Europe/Paris |
+
+---
+
+## 10. Navigation visuelle
+
+| Élément | Style |
+|---------|-------|
+| Retour accueil | `← Accueil` — lien en tête |
+| Précédent / suivant | Footer — `← Précédent · Suivant →` |
+| Liens Git | Callout vert + monospace path |
+| Bases | Bouton callout bleu |
+
+---
+
+## 11. Comportement mobile
+
+- Colonnes hero → empilées
+- Tables larges → toggle « Voir tableau »
+- Callouts pleine largeur
+- Footer liens verticaux
+- Pas de hover-only
+
+---
+
+## 12. Accessibilité
+
+| Critère | Règle |
+|---------|-------|
+| Contraste | Texte Notion par défaut — pas de texte gris clair custom |
+| Couleur seule | Interdit pour statut — toujours libellé |
+| Emojis | Complément icône — pas seul vecteur de sens |
+| Structure | H1 unique ; hiérarchie H2 logique |
+| Liens | Texte explicite |
+
+---
+
+## 13. Matrice QA — élément / usage / règle / interdit / test
+
+| Élément | Usage | Règle | Interdit | Test QA |
+|---------|-------|-------|----------|---------|
+| Callout À retenir | Synthèse page | En tête corps | > 7 bullets | Lecture 30 s |
+| Callout Candidate | v2.5 | Si mention v2.5 | Sans libellé | Badge visible |
+| Callout Source Git | L3+ | Path + SHA | Dump fichier | Lien cliquable |
+| Tableau | Matrice routage | ≤ 5 col. | Scroll horizontal mobile | Toggle mobile |
+| Synced footer | Toutes pages | 4 blocs max | Contenu long | Cohérence 11 pages |
+| Hero | Accueil | 2 colonnes max | Vidéo, image lourde | Mobile empilé |
+| Icône page | En-tête | 1 par page | Emojis corps | Cohérence liste §03 |
+| Toggle | Détail L3 | Titre clair | Contenu critique caché | Ouverture intuitive |
+| Base embed | §10 | Vue filtrée | Liste complète repo | ≤ 25 entrées visibles |
+| Lien Git externe | Exécution | github.com path | Token, secret | 404 check |
+
+---
+
+## Liens
+
+→ [03 Navigation](03-sfia-notion-navigation-model.md) · [05 Templates](05-sfia-notion-page-templates.md) · [07 Roadmap](07-sfia-notion-ux-roadmap.md)
+
+---
+
+# FICHIER 6 — 05-sfia-notion-page-templates.md
+
+# 05 — Templates de pages — SFIA Notion
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Gabarits pages Notion — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur (UX-02, UX-03) |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+
+---
+
+## 1. Inventaire des gabarits (8)
+
+| # | Gabarit | Pages P0 |
+|---|---------|----------|
+| 1 | Landing / Accueil | 00 |
+| 2 | Page éditoriale standard | 01, 02, 03, 04, 05, 07 |
+| 3 | Page de parcours | Accueil (section parcours) |
+| 4 | Page Référentiel | 10 |
+| 5 | Page Cycles | 04 (section base) |
+| 6 | Page Glossaire | 11 |
+| 7 | Page Gouvernance | 07 |
+| 8 | Page pratique / onboarding | 08, 06 |
+
+---
+
+## 2. Gabarit 1 — Landing page / Accueil
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Orienter < 30 s ; proposer 3 parcours |
+| **Audience** | Tous |
+| **Structure** | Hero · Git/Notion · 3 parcours · accès rapides · choix par besoin · statut · sources · footer |
+| **Blocs obligatoires** | Hero, callout Git, 3 CTA parcours, schéma dualité, footer synced |
+| **Blocs optionnels** | Choix par besoin (table), accès rapides bases |
+| **Navigation** | Sorties vers 01, 02, 08, 11 |
+| **Métadonnées** | L0–L1, Morris, commit source |
+| **Callouts** | Information, À retenir, Source Git |
+| **Longueur** | ≤ 2 écrans desktop sans scroll excessif |
+| **Liens Git** | README, method README, knowledge-layer |
+| **Pièges** | Liste exhaustive pages ; miroir sidebar |
+| **Critères acceptation** | 3 parcours cliquables ; retour N/A ; schéma visible mobile |
+
+---
+
+## 3. Gabarit 2 — Page éditoriale standard
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Une intention ; synthèse pédagogique |
+| **Audience** | Selon page |
+| **Structure** | En-tête nav · métadonnées · 30 secondes · corps 10 sections · exemple · vigilance · ressources · nav · sources Git · footer |
+| **Blocs obligatoires** | À retenir, corps, points vigilance, précédent/suivant, Source Git |
+| **Blocs optionnels** | Exemple pédagogique, toggle détail |
+| **Navigation** | En-tête + footer §03 |
+| **Métadonnées** | Table 8 champs minimum |
+| **Callouts** | À retenir, Attention, Candidate, Source Git |
+| **Longueur** | 1–3 écrans ; L2 max sans toggle |
+| **Liens Git** | 2–5 paths par page |
+| **Pièges** | Copie intégrale doc Git ; jargon sans glossaire |
+| **Critères acceptation** | 30 s lisible ; 2 sorties min ; commit SHA présent |
+
+**Pages :** 01, 02, 03, 04, 05, 07 (base) ; 06 hybride avec gabarit 8.
+
+---
+
+## 4. Gabarit 3 — Page de parcours
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Décrire une séquence nommée |
+| **Audience** | Selon parcours |
+| **Structure** | Titre parcours · durée · étapes numérotées · liens pages · résultat attendu |
+| **Blocs obligatoires** | Liste étapes, durée cible, CTA départ |
+| **Blocs optionnels** | Diagramme Mermaid/texte |
+| **Navigation** | Liens vers chaque étape |
+| **Métadonnées** | Parcours ID, durée |
+| **Callouts** | Information |
+| **Longueur** | ≤ 1 écran |
+| **Liens Git** | Optionnel fin parcours |
+| **Pièges** | Parcours sans fin |
+| **Critères acceptation** | Chaque étape a lien page existante |
+
+**Emplacement :** section dans 00 Accueil + référence dans 06 user journeys.
+
+---
+
+## 5. Gabarit 4 — Page Référentiel
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Index curé — pas liste repo |
+| **Audience** | Contributeur, architecte |
+| **Structure** | Intro · vue base embedded · filtres · lien Git par entrée |
+| **Blocs obligatoires** | Vue Base Référentiel, callout liste fermée |
+| **Blocs optionnels** | Filtres par type |
+| **Navigation** | ← 06 Templates · → Accueil |
+| **Métadonnées** | L4 |
+| **Callouts** | Source Git, Information |
+| **Longueur** | Court — détail dans base |
+| **Liens Git** | Propriété URL sur chaque fiche base |
+| **Pièges** | 720 docs listés |
+| **Critères acceptation** | Vue filtrée ; ≤ 25 entrées P0 visibles |
+
+**Page :** 10 Documents de référence.
+
+---
+
+## 6. Gabarit 5 — Page Cycles
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Synthèse + accès Base Cycles |
+| **Audience** | PMO, PO |
+| **Structure** | Résumé 15 cycles · badge Candidate · embed base · lien routing |
+| **Blocs obligatoires** | Table synthèse, callout Candidate, lien base |
+| **Blocs optionnels** | Exemples gates |
+| **Navigation** | ↔ 03, 05, Base Cycles |
+| **Métadonnées** | L2, v2.5 Candidate |
+| **Callouts** | Candidate, Attention |
+| **Longueur** | 2 écrans + base |
+| **Liens Git** | routing-guide, cycle-execution-template |
+| **Pièges** | Présenter v2.5 comme baseline |
+| **Critères acceptation** | 15 entrées base ; badge visible |
+
+**Page :** 04 (section dédiée + base).
+
+---
+
+## 7. Gabarit 6 — Page Glossaire
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Vocabulaire partagé ≥ 20 termes |
+| **Audience** | Tous |
+| **Structure** | Intro · table termes · liens croisés pages |
+| **Blocs obligatoires** | ≥ 27 termes, liens internes |
+| **Blocs optionnels** | Toggle par lettre |
+| **Navigation** | Footer toutes pages → 11 |
+| **Métadonnées** | L1–L4 |
+| **Callouts** | Information |
+| **Longueur** | Référence — scannable |
+| **Liens Git** | operating-model, routing-guide |
+| **Pièges** | Redéfinition contradictoire |
+| **Critères acceptation** | Termes alignés editorial draft 11 |
+
+**Page :** 11 Glossaire.
+
+---
+
+## 8. Gabarit 7 — Page Gouvernance
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Garde-fous, Git prime, workflow sync |
+| **Audience** | Morris, qualité, méthode |
+| **Structure** | Table interdictions · rôles · workflow · lien governance Git |
+| **Blocs obligatoires** | Table garde-fous, callout Décision Morris |
+| **Blocs optionnels** | Niveaux automation L0–L3 |
+| **Navigation** | → 10, Git governance doc |
+| **Métadonnées** | L2–L3 |
+| **Callouts** | Attention, Décision Morris, Source Git |
+| **Longueur** | 2 écrans |
+| **Liens Git** | rules-and-guardrails, publication-governance |
+| **Pièges** | Procédure CMP/API |
+| **Critères acceptation** | Interdictions raw sync/API explicites |
+
+**Page :** 07 Gouvernance.
+
+---
+
+## 9. Gabarit 8 — Page pratique / onboarding
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Actions concrètes — checklist |
+| **Audience** | Tech lead, PO |
+| **Structure** | Prérequis · checklist ≥ 12 étapes · liens outils · premier cycle |
+| **Blocs obligatoires** | Checklist actionnable, CTA Git |
+| **Blocs optionnels** | Captures (post UX-05) |
+| **Navigation** | → 05, 06, sortie Git |
+| **Métadonnées** | L3 |
+| **Callouts** | À retenir, Source Git |
+| **Longueur** | Checklist scannable |
+| **Liens Git** | repository-blueprint, checklists |
+| **Pièges** | Promettre exécution dans Notion |
+| **Critères acceptation** | 12 étapes ; chaque étape actionnable |
+
+**Pages :** 08 Mise en place, 06 Templates (index).
+
+---
+
+## 10. Structure commune page éditoriale (référence)
+
+```text
+[En-tête navigation]
+[Métadonnées table]
+[Callout À retenir en 30 secondes]
+## 1. Objectif
+## 2. Contenu principal
+## 3. Fonctionnement / parcours
+## 4. Exemple pédagogique
+## 5. Points de vigilance
+## 6. Liens
+## 7. Sources Git
+## 8. Métadonnées publication
+## 9. Réserves / décisions Morris
+[Navigation précédent · suivant · accueil]
+[Footer synced]
+```
+
+---
+
+## Liens
+
+→ [04 Design system](04-sfia-notion-design-system.md) · [06 User journeys](06-sfia-notion-user-journeys.md) · [07 Roadmap](07-sfia-notion-ux-roadmap.md)
+
+---
+
+# FICHIER 7 — 06-sfia-notion-user-journeys.md
+
+# 06 — User journeys — SFIA Notion
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Parcours utilisateur — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycle ultérieur |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+
+---
+
+## A. Découvrir SFIA en 5 minutes
+
+| Champ | Valeur |
+|-------|--------|
+| **Persona** | Nouveau visiteur / dirigeant |
+| **Contexte** | Première visite espace Notion privé Morris |
+| **Déclencheur** | Lien partagé ou exploration |
+| **Objectif** | Savoir ce qu'est SFIA et si ça vaut la peine d'aller plus loin |
+| **Durée cible** | 5 minutes |
+| **Étapes** | Accueil → Valeur → Cycle (schéma) → Glossaire (5 termes) |
+| **Décisions** | Continuer 30 min ou sortir |
+| **Friction** | Jargon, trop de pages |
+| **Résultat** | Vision claire : Git exécute, Notion explique |
+| **Sortie Git** | Non requise |
+| **Indicateur réussite** | Utilisateur cite 2 bénéfices SFIA |
+| **Desktop** | Hero + 3 CTA visibles sans scroll |
+| **Mobile** | Parcours empilé, callout 30 s lisible |
+| **Échec / récupération** | Perdu → footer Accueil ; glossaire |
+
+```mermaid
+flowchart LR
+  A[00 Accueil] --> B[02 Valeur]
+  B --> C[03 Cycle schéma]
+  C --> D[11 Glossaire 5 termes]
+  D --> E{Continuer?}
+  E -->|Oui| F[Parcours 30 min]
+  E -->|Non| G[Sortie]
+```
+
+---
+
+## B. Comprendre SFIA en 30 minutes
+
+| Champ | Valeur |
+|-------|--------|
+| **Persona** | Chef de projet / PO |
+| **Contexte** | Doit évaluer SFIA pour un futur projet |
+| **Déclencheur** | Après parcours 5 min ou accès direct |
+| **Objectif** | Comprendre acteurs, cycles, gates, gouvernance |
+| **Durée cible** | 30 minutes |
+| **Étapes** | Accueil → Comprendre → Cycle → Profils → Gouvernance |
+| **Décisions** | Quel profil pour quel type de demande |
+| **Friction** | v2.5 Candidate vs v2.4 baseline |
+| **Résultat** | Carte mentale cycles + gates Morris |
+| **Sortie Git** | Optionnelle — operating-model |
+| **Indicateur réussite** | Identifie 3 gates et rôle Morris |
+| **Desktop** | Tables profils lisibles |
+| **Mobile** | Toggles pour tables longues |
+| **Échec / récupération** | Confusion v2.5 → callout Candidate |
+
+```mermaid
+flowchart LR
+  A[00 Accueil] --> B[01 Comprendre]
+  B --> C[03 Cycle]
+  C --> D[04 Profils]
+  D --> E[07 Gouvernance]
+  E --> F[Prêt mise en œuvre]
+```
+
+---
+
+## C. Lancer un premier cycle
+
+| Champ | Valeur |
+|-------|--------|
+| **Persona** | PO / tech lead |
+| **Contexte** | Workspace SFIA disponible, demande métier formulée |
+| **Déclencheur** | « Je veux lancer un cycle documentation » |
+| **Objectif** | Identifier cycle, profil, template ; préparer exécution Git |
+| **Durée cible** | 20–40 minutes |
+| **Étapes** | Accueil → Mise en place → Routage → Templates → **Git** |
+| **Décisions** | Cycle type, profil Light/Standard/Critical |
+| **Friction** | Croire que Notion exécute Cursor |
+| **Résultat** | Prompt prêt à copier dans Cursor depuis Git |
+| **Sortie Git** | **Obligatoire** — routing-guide, prompt-catalog |
+| **Indicateur réussite** | Branche créée dans Git |
+| **Desktop** | Matrice routage + lien template |
+| **Mobile** | Checklist mise en place scannable |
+| **Échec / récupération** | Mauvais cycle → retour 05 Routage |
+
+```text
+Accueil → 08 Mise en place (checklist)
+       → 05 Routage (matrice 8 demandes)
+       → 06 Templates (index)
+       → GIT : ouvrir Cursor, cycle-execution-template
+```
+
+---
+
+## D. Contribuer à la méthode
+
+| Champ | Valeur |
+|-------|--------|
+| **Persona** | Contributeur technique / responsable méthode |
+| **Contexte** | Propose amélioration méthode SFIA |
+| **Déclencheur** | « Je veux modifier un garde-fou » |
+| **Objectif** | Comprendre chemins protégés, process PR, gates |
+| **Durée cible** | 15–25 minutes |
+| **Étapes** | Accueil → Gouvernance → Templates → Documents → Git PR |
+| **Décisions** | Fichier cible, profil Critical ou non |
+| **Friction** | Modifier Notion au lieu de Git |
+| **Résultat** | PR sur branche dédiée — pas changement Notion seul |
+| **Sortie Git** | **Obligatoire** — rules-and-guardrails, protected paths |
+| **Indicateur réussite** | PR créée sur method/ ou docs/ |
+| **Desktop** | Table garde-fous complète |
+| **Mobile** | Callout « Git uniquement » visible |
+| **Échec / récupération** | Tentative edit Notion → callout Attention |
+
+---
+
+## E. Vérifier une règle ou un statut documentaire
+
+| Champ | Valeur |
+|-------|--------|
+| **Persona** | Morris / qualité |
+| **Contexte** | Doute sur statut Candidate ou divergence |
+| **Déclencheur** | « Ce contenu est-il baseline ? » |
+| **Objectif** | Confirmer statut, source Git, règle divergence |
+| **Durée cible** | 5–10 minutes |
+| **Étapes** | Page concernée → Gouvernance → Git source → comparaison |
+| **Décisions** | Resync éditorial nécessaire ou non |
+| **Friction** | Métadonnées commit obsolètes |
+| **Résultat** | Verdict Git prime documenté |
+| **Sortie Git** | Commit SHA sur page vs main actuel |
+| **Indicateur réussite** | Écart identifié ou confirmé aligné |
+| **Desktop** | Métadonnées + callout Candidate |
+| **Mobile** | Même flux |
+| **Échec / récupération** | SHA absent → QA UX-06 backlog |
+
+---
+
+## F. Trouver un actif dans le Référentiel
+
+| Champ | Valeur |
+|-------|--------|
+| **Persona** | Développeur / contributeur |
+| **Contexte** | Besoin d'un template ou prompt précis |
+| **Déclencheur** | « Où est le template cycle execution ? » |
+| **Objectif** | Localiser asset sans parcourir repo |
+| **Durée cible** | 2–5 minutes |
+| **Étapes** | 06 Templates → Base Référentiel (filtre) → lien Git |
+| **Décisions** | Ouvrir Git ou rester Notion |
+| **Friction** | Catalog intégral dupliqué |
+| **Résultat** | Chemin Git identifié |
+| **Sortie Git** | prompts/templates/... |
+| **Indicateur réussite** | Fichier ouvert en < 3 clics depuis accueil |
+| **Desktop** | Vue base filtrée type=template |
+| **Mobile** | Lien direct depuis 06 |
+| **Échec / récupération** | Asset absent base → lien catalog Git |
+
+```mermaid
+flowchart TD
+  A[06 Templates] --> B[Base Référentiel]
+  B --> C{Fiche trouvée?}
+  C -->|Oui| D[Lien Git]
+  C -->|Non| E[prompt-catalog Git]
+```
+
+---
+
+## Synthèse parcours
+
+| ID | Parcours | Durée | Sortie Git |
+|----|----------|-------|------------|
+| A | Découvrir 5 min | 5 min | Non |
+| B | Comprendre 30 min | 30 min | Optionnel |
+| C | Premier cycle | 20–40 min | **Oui** |
+| D | Contribuer méthode | 15–25 min | **Oui** |
+| E | Vérifier statut | 5–10 min | **Oui** |
+| F | Trouver actif | 2–5 min | **Oui** |
+
+---
+
+## Liens
+
+→ [03 Navigation](03-sfia-notion-navigation-model.md) · [05 Templates](05-sfia-notion-page-templates.md) · [07 Roadmap](07-sfia-notion-ux-roadmap.md)
+
+---
+
+# FICHIER 8 — 07-sfia-notion-ux-roadmap.md
+
+# 07 — Roadmap UX — SFIA Notion
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
+| **Usage** | Roadmap implémentation — non capitalisé |
+| **Baseline opérationnelle** | SFIA v2.4 |
+| **Propriétaire** | Morris |
+| **Source de vérité** | Git |
+| **Capitalisation méthode** | Non réalisée |
+| **Implémentation Notion** | Cycles UX-02 à UX-06 |
+| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-notion-ux-conception` |
+| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+
+---
+
+## 1. Positionnement
+
+| Dimension | Valeur |
+|-----------|--------|
+| **Niveau automatisation** | **L0 — manuel assisté** |
+| **Périmètre** | Espace Notion privé Morris — 11 pages P0 + 2 bases |
+| **Hors périmètre** | API, CMP, raw sync, capitalisation method/core |
+| **Prérequis** | UX-01 contrat validé + GO Morris commit/PR |
+
+---
+
+## 2. Incréments UX-02 à UX-06
+
+### UX-02 — Landing page
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Appliquer gabarit landing sur 00 Accueil |
+| **Pages** | 00 Accueil |
+| **Dépendances** | UX-01 validé, design system §04 |
+| **Actions Notion** | Hero, 3 parcours, callout Git, schéma, footer synced |
+| **Hors périmètre** | §09, visibilité publique |
+| **Critères acceptation** | 3 CTA ; mobile empilé ; QA checklist §04 |
+| **Preuves** | Capture desktop + mobile ; lien pages parcours |
+| **Gate Morris** | Revue visuelle accueil |
+| **Rollback** | Restaurer version éditoriale cycle 3 |
+| **Risque** | Surcharge hero — **moyen** |
+| **Dette** | Synced block footer à maintenir |
+| **Priorité** | **P0** — quick win |
+
+### UX-03 — Navigation des pages
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | En-têtes, précédent/suivant, liens transverses |
+| **Pages** | 01–08, 11 (10 pages éditoriales) |
+| **Dépendances** | UX-02 (footer synced) |
+| **Actions Notion** | Blocs navigation en-tête/pied ; tableau transitions §03 |
+| **Hors périmètre** | Sidebar optimisation |
+| **Critères acceptation** | Zéro impasse ; P/S cohérents §03 |
+| **Preuves** | Walkthrough 4 parcours |
+| **Gate Morris** | Test parcours 5 min + 30 min |
+| **Rollback** | Retirer blocs nav — contenu intact |
+| **Risque** | Incohérence P/S — **faible** |
+| **Dette** | Mise à jour manuelle si nouvelle page |
+| **Priorité** | **P0** |
+
+### UX-04 — Bases et vues
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Vues Référentiel et Cycles par intention |
+| **Bases** | Référentiel (25), Cycles (15) |
+| **Dépendances** | UX-03 (liens pages ↔ bases) |
+| **Actions Notion** | Vues filtrées ; embed §10 ; fiches liées |
+| **Hors périmètre** | Nouvelles entrées massives |
+| **Critères acceptation** | Parcours F (trouver actif) < 3 clics |
+| **Preuves** | Test parcours F + E |
+| **Gate Morris** | Validation liste fermée Référentiel |
+| **Rollback** | Revenir vues cycle 3 |
+| **Risque** | Miroir catalog — **moyen** |
+| **Dette** | Sync métadonnées Git manuel |
+| **Priorité** | **P0** |
+
+### UX-05 — Cohérence visuelle
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Design system §04 sur 11 pages |
+| **Pages** | Toutes P0 |
+| **Dépendances** | UX-02, UX-03 |
+| **Actions Notion** | Callouts, icônes, métadonnées, toggles mobile |
+| **Hors périmètre** | Rebrand complet |
+| **Critères acceptation** | Matrice QA §04 — 100 % pages |
+| **Preuves** | Checklist design system par page |
+| **Gate Morris** | Revue sobriété + accessibilité |
+| **Rollback** | Page par page |
+| **Risque** | Synced blocks divergence — **moyen** |
+| **Dette** | 4 synced blocks à auditer |
+| **Priorité** | **P0** |
+
+### UX-06 — QA de l'espace
+
+| Champ | Valeur |
+|-------|--------|
+| **Objectif** | Validation globale parcours + cohérence |
+| **Pages** | Espace complet |
+| **Dépendances** | UX-02 à UX-05 |
+| **Actions Notion** | Corrections liens, métadonnées, impasses |
+| **Hors périmètre** | §09 P1, public launch |
+| **Critères acceptation** | 6 parcours §06 passent ; 0 lien mort |
+| **Preuves** | Rapport QA Morris ; captures |
+| **Gate Morris** | GO clôture UX ou réserves |
+| **Rollback** | Backlog corrections |
+| **Risque** | Dette non résolue — **faible** |
+| **Dette** | Process QA manuel récurrent |
+| **Priorité** | **P0** |
+
+---
+
+## 3. Priorisation P0 / P1 / P2
+
+| Priorité | Incréments | Éléments |
+|----------|------------|----------|
+| **P0** | UX-02 à UX-06 | Contrat UX appliqué espace existant |
+| **P1** | Post UX-06 | §09 Cas d'usage ; parcours personas ; captures |
+| **P2** | Post-MVP | L1 métadonnées ; visibilité publique ; capitalisation |
+
+---
+
+## 4. Quick wins
+
+| Quick win | Incrément | Effort |
+|-----------|-----------|--------|
+| Callout « À retenir » standardisé | UX-05 | Faible |
+| Footer synced Git prime | UX-02 | Faible |
+| Icônes en-tête pages | UX-05 | Faible |
+| Badge Candidate pages 03–04 | UX-05 | Faible |
+
+---
+
+## 5. Dépendances entre incréments
+
+```text
+UX-01 (contrat Git — présent)
+  → UX-02 Landing
+    → UX-03 Navigation
+      → UX-04 Bases
+        → UX-05 Visuel
+          → UX-06 QA
+            → [GO capitalisation ?] — décision Morris future
+```
+
+---
+
+## 6. Ordre recommandé
+
+1. UX-02 — impact immédiat orientation
+2. UX-05 — callouts et icônes (parallèle partiel UX-03)
+3. UX-03 — navigation
+4. UX-04 — bases
+5. UX-06 — QA finale
+
+---
+
+## 7. Gates Morris par incrément
+
+| Incrément | Gate |
+|-----------|------|
+| UX-01 | GO commit/PR contrat (présent cycle) |
+| UX-02 | Revue accueil |
+| UX-03 | Test 4 parcours |
+| UX-04 | Liste fermée Référentiel |
+| UX-05 | Checklist design system |
+| UX-06 | GO clôture UX ou réserves documentées |
+
+---
+
+## 8. Critères capitalisation future
+
+Capitalisation dans `method/core` ou template générique **uniquement si** :
+
+| # | Critère |
+|---|---------|
+| 1 | ≥ 2 itérations réelles UX-02–06 menées |
+| 2 | Navigation améliore usage constaté (preuve QA) |
+| 3 | Gabarits réutilisables hors workspace Morris |
+| 4 | Règles non spécifiques à un seul espace |
+| 5 | Dette synced blocks acceptable |
+| 6 | **GO Morris explicite** capitalisation |
+
+---
+
+## 9. Critères de non-capitalisation
+
+| Situation | Action |
+|-----------|--------|
+| Règles trop spécifiques Notion Morris | Rester dans `documentation/notion/ux/` |
+| Dette synced blocks excessive | Simplifier avant capitalisation |
+| Usage faible constaté | Ne pas promouvoir baseline |
+| Conflit doctrine SFIA | **STOP** — revue Morris |
+| Tentative promotion baseline UX | **Interdit** sans GO |
+
+---
+
+## 10. Synthèse risques roadmap
+
+| Risque global | Niveau | Mitigation |
+|---------------|--------|------------|
+| Scope creep §09 | Moyen | P1 explicite |
+| Automatisation prématurée | Faible | L0 only |
+| Capitalisation hâtive | Moyen | Critères §8 stricts |
+| Divergence Git/Notion | Moyen | Métadonnées + QA E |
+
+---
+
+## Liens
+
+→ [README](README.md) · [01 Vision](01-sfia-notion-ux-vision.md) · [06 User journeys](06-sfia-notion-user-journeys.md)
+
+---
+
+## Review Handoff Git
+
+- **Décision :** required
+- **SHA avant :** e9da5ea72c068f0a1a3f2deac411c109332ba1e1
+- **Branche :** sfia/review-handoff
+- **Fichier :** sfia-review-handoff/latest-chatgpt-review.md
+- **Overwrite :** obligatoire
+- **SHA commit handoff :** _(post-push)_
+- **Verdict handoff :** _(post-push)_
+
+## Verdict
+
+**UX CONTRACT DOCUMENTED — READY FOR MORRIS REVIEW**
