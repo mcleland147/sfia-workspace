@@ -1,6 +1,6 @@
 # SFIA Review Pack — Discovery Editorial PD-03A corrective (Acte II) R1–R4
 
-**Horodatage :** 2026-07-14 ~20:45 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 ~21:00 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
 **Cycle :** PD-03A — Préparation éditoriale Git (Acte II — nouvelle façon de conduire un projet)
@@ -14,7 +14,7 @@
 **Implémentation Notion :** PD-02B ✓ (Hub + Acte I) · PD-03B futur
 **Capitalisation méthode :** Non
 **Niveau review pack :** full (1 NEW + 7 MOD + diffs Hub/I)
-**Handoff avant :** `origin/sfia/review-handoff` @ `3af3c8a243be65c047444e40ed57bb776062bd08`
+**Handoff avant :** `origin/sfia/review-handoff` @ `83c15a744108f4d406055a7580fedec1029ed41c`
 **Verdict :** **ACT II EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
 
 ---
@@ -36,7 +36,7 @@
 | Réserve | Objet | Avant (revue initiale) | Après (correctif) | Fichiers |
 |---------|-------|------------------------|-------------------|----------|
 | **R1** | Continuité Acte I → II / III — cycles PD | NovaBuild teaser : Acte III = cycle PD-03A ; suite Acte II = cycle PD-04A ; grisé Notion PD-04B | Acte III = **PD-04A** ; Acte II = **PD-03A** ; grisé **PD-03B** | `sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` |
-| **R2** | Table navigation Hub — slots PD par acte | II futur PD-04A · III futur PD-03A (NovaBuild) · IV–V PD-04A · VI–VII PD-05A ; CTA « futur PD-04A » | II **PD-03A** en revue · III **PD-04A** (NovaBuild) · IV–V **PD-05A** · VI–VII **PD-06A** ; CTA Acte II *(PD-03A)* | `sfia-discovery-hub-editorial-draft.md` |
+| **R2** | Table navigation Hub — slots PD · métadonnées **Implémentation Notion** (Hub + Acte I) | Table II/III permutée · IV–VII décalés ; CTA « futur PD-04A » · **Impl. Notion** « Non — PD-02B gate Morris » | II **PD-03A** en revue · III **PD-04A** (NovaBuild) · IV–V **PD-05A** · VI–VII **PD-06A** ; CTA Acte II *(PD-03A)* · **Impl. Notion** **PD-02B ✓** (Hub + Acte I) — source Git PD-02A | `sfia-discovery-hub-editorial-draft.md` · `sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` |
 | **R3** | Contraste tripartite — ton non absolutiste | §2 fragilité classique « Lourdeur, lenteur, coût… » ; §3 Vitesse « Souvent lente au démarrage » ; Capitalisation « Difficile sans REX formalisé » ; Limites « Coût, lenteur, rigidité possible » | §2 « Coordination potentiellement lourde selon l'organisation » ; Vitesse « Démarrage parfois plus long selon le cadre et les validations » ; Capitalisation « Dépend des pratiques de documentation et de REX » ; Limites « Rigidité possible selon le cadre et la gouvernance » | `sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` |
 | **R4** | Gates Morris — formulation sponsor | §6 clôture « décisions qui **coûtent cher** » | « décisions qui **engagent durablement le projet** » | `sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` |
 
@@ -146,9 +146,18 @@
 
 ```diff
 diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
-index 46de9d9..56239a6 100644
+index 46de9d9..800ab93 100644
 --- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
 +++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md
+@@ -14,7 +14,7 @@
+ | **Niveau lecture** | L0–L1 |
+ | **Durée cible** | 8–12 minutes |
+ | **Question lecteur** | Pourquoi une autre façon de conduire un projet numérique est-elle nécessaire ? |
+-| **Implémentation Notion** | Non — PD-02B gate Morris |
++| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) — document source Git PD-02A |
+ | **Réaction recherchée** | « C'est exactement notre situation. » |
+ 
+ ---
 @@ -215,7 +215,7 @@ Le dirigeant de NovaBuild — PME BTP fictive — veut piloter chantiers et rés
  
  Il ouvre Cursor sur un dossier local. L'IA avance vite sur des écrans. Mais **qui a validé** la règle de clôture des réserves ? **Où est la trace** de la décision sur les rôles utilisateurs ?
@@ -177,9 +186,18 @@ index 46de9d9..56239a6 100644
  
  ---
 diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
-index 8ea42e0..54ebee4 100644
+index 8ea42e0..1b5a298 100644
 --- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
 +++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
+ | **Niveau lecture** | L0 |
+ | **Durée cible** | 30 secondes à 3 minutes (hero + orientation) |
+-| **Implémentation Notion** | Non — PD-02B gate Morris |
++| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) — document source Git PD-02A |
+ | **Audience** | Tous personas — orientation |
+ 
+ ---
 @@ -141,7 +141,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
  | **Contenu** | Hub complet · **Acte I** intégral |
  | **Pages / actes** | Hub → Acte I |
