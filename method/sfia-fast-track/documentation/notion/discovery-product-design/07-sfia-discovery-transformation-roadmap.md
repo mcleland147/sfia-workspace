@@ -5,9 +5,9 @@
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 20:25 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-act-02-editorial` |
-| **HEAD** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Horodatage** | 2026-07-14 22:50 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-act-03-novabuild-editorial` |
+| **HEAD** | `a3b42d9c1bfcec2645ca6202e3c460ba75e294f8` |
 | **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---
@@ -59,27 +59,28 @@ Brouillons Hub + Acte I — mergé (PR #196).
 
 Git reste la **source de vérité** — Notion = couche métier et pédagogique.
 
-### PD-03A — Acte II — préparation Git
+### PD-03A — Acte II — préparation Git ✓
 
-| Objectif | Brouillon **Acte II** — contraste tripartite, rôles, cycles, gates |
-| Prérequis | Acte I editorial disponible ✓ |
-| Gate | M1–M3 Morris · validation contraste et confidentialité |
+Brouillon Acte II — mergé (PR #197).
 
-*Cycle présent — brouillon en cours de revue.*
+### PD-03B — Acte II — implémentation Notion ✓
 
-### PD-03B — Acte II — implémentation Notion
-
-Matérialisation Acte II après validation PD-03A + merge recommandé.
+| Prérequis | PD-03A mergé ✓ |
+| Notion | Acte II créé |
+| Statut | **Finalisé** — validé Morris |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
 ### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
 
-| Objectif | Brouillons III.1–III.4 — cas composite NovaBuild |
-| Prérequis | **PD-03A validé** — Acte II avant fil rouge |
-| Gate | Distinction fiction / preuves |
+| Objectif | Brouillons Acte III + III.1–III.4 — cas composite NovaBuild |
+| Prérequis | PD-03A/B ✓ — Acte II avant fil rouge |
+| Gate | M1–M5 Morris · distinction fiction / preuves |
+
+*Cycle présent — brouillons en revue.*
 
 ### PD-04B — Acte III — implémentation Notion
 
-Pages fil rouge NovaBuild.
+Pages fil rouge NovaBuild — gate M7 Morris futur.
 
 ### PD-05A — Actes IV et V — préparation Git
 
@@ -120,8 +121,8 @@ Framework §08 · dépend PD-02B–07B.
 ```text
 PD-01 ✓
 ├── PD-02A ✓ → PD-02B ✓
-├── PD-03A → PD-03B     ← Acte II (avant III)
-├── PD-04A → PD-04B     ← NovaBuild (après II)
+├── PD-03A ✓ → PD-03B ✓  ← Acte II
+├── PD-04A → PD-04B     ← NovaBuild (cycle courant)
 ├── PD-05A → PD-05B
 ├── PD-06A → PD-06B
 ├── PD-07A → PD-07B
@@ -138,8 +139,8 @@ PD-01 ✓
 ```text
 Conception (PD-01) ✓
   → Hub + I (02A ✓ / 02B)
-    → Acte II (03A / 03B)
-      → Acte III NovaBuild (04A / 04B)
+    → Acte II (03A ✓ / 03B ✓)
+      → Acte III NovaBuild (04A en cours / 04B)
         → IV–V (05) → VI–VII (06) → Migration (07)
           → QA (08) → Capitalisation? (09)
 ```
