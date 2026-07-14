@@ -1,134 +1,114 @@
-# SFIA Discovery — Editorial PD-02A (Hub + Acte I)
+# SFIA Discovery — Editorial (brouillons lecteur)
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | **Candidate** — brouillons éditoriaux Discovery |
-| **Cycle** | PD-02A — Préparation éditoriale Git |
+| **Cycle courant** | PD-03A — Acte II (préparation Git) |
 | **Propriétaire** | Morris |
 | **Baseline opérationnelle** | SFIA v2.4 |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
-| **Branche projet** | `documentation/sfia-discovery-pd-02a-hub-acte-i` |
-| **HEAD / base** | `c1d96de132035bf0ef0e855620b2322600bc5aa8` |
-| **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
-| **Implémentation Notion** | **Non réalisée** — gate PD-02B futur |
+| **Branche projet** | `documentation/sfia-discovery-act-02-editorial` |
+| **HEAD / base** | `4994954f195169a3262910439fcd2455955c38f5` |
+| **Horodatage** | 2026-07-14 20:45 Europe/Paris (CEST) |
+| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) · PD-03B+ futurs |
 | **Capitalisation méthode** | Non |
 
 ---
 
 ## 1. Rôle du dossier
 
-Ce répertoire contient les **brouillons éditoriaux complets** destinés au lecteur final de l'expérience SFIA Discovery — phase PD-02A du Product Design.
+Brouillons **destinés au lecteur final** de SFIA Discovery — source Git stable avant implémentation Notion (cycles PD-nB).
 
-Ces fichiers sont la **source Git stable** pour une future implémentation Notion (PD-02B). Ils ne sont **pas** le contrat Product Design (PD-01) ni les anciens drafts P0 §00–11.
+Non substituts au Product Design PD-01 ni aux drafts P0 §00–11.
 
 ---
 
-## 2. Positionnement PD-02A / PD-02B
+## 2. Séquence narrative (decision Morris)
 
-| Phase | Périmètre | Notion |
-|-------|-----------|--------|
-| **PD-02A (présent)** | Rédaction Markdown complète Hub + Acte I | Aucune action |
-| **PD-02B (futur)** | Matérialisation L0 après validation Morris + merge Git recommandé | Création pages manuelle |
+```text
+Hub + Acte I ✓ → Acte II (en cours) → Acte III NovaBuild → IV–V → VI–VII
+```
 
-> La source éditoriale Git doit être validée avant toute implémentation Notion.
+**Acte II avant Acte III** — le contraste et le modèle SFIA précèdent le fil rouge composite.
 
 ---
 
 ## 3. Inventaire des brouillons
 
-| # | Fichier | Rôle |
-|---|---------|------|
-| 1 | [sfia-discovery-hub-editorial-draft.md](sfia-discovery-hub-editorial-draft.md) | Future page d'accueil Discovery |
-| 2 | [sfia-discovery-act-01-why-sfia-exists-editorial-draft.md](sfia-discovery-act-01-why-sfia-exists-editorial-draft.md) | Acte I — Pourquoi SFIA existe |
+| # | Fichier | Acte | Statut editorial Git |
+|---|---------|------|----------------------|
+| 1 | [sfia-discovery-hub-editorial-draft.md](sfia-discovery-hub-editorial-draft.md) | Hub | ✓ mergé (PD-02A) |
+| 2 | [sfia-discovery-act-01-why-sfia-exists-editorial-draft.md](sfia-discovery-act-01-why-sfia-exists-editorial-draft.md) | I | ✓ mergé (PD-02A) |
+| 3 | [sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md](sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md) | II | **PD-03A — revue** |
 
 ---
 
 ## 4. Ordre de lecture
 
-1. **Hub** — orientation, promesse, parcours temps, portes d'entrée
-2. **Acte I** — reconnaissance du problème, transition vers Acte II
-
-Le README gouverne ; il n'est **pas** un contenu lecteur final.
-
----
-
-## 5. Sources canoniques
-
-### Product Design PD-01
-
-- `../discovery-product-design/` — vision, actes, personas, contrat, IA cible, roadmap, acceptation
-
-### Méthode (lecture, pas recopie)
-
-- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-
-### Matière P0 (inspiration, pas copie)
-
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-00-home-editorial-draft.md`
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-01-understand-sfia-editorial-draft.md`
-- `method/sfia-fast-track/documentation/notion/editorial/sfia-notion-02-value-proposition-editorial-draft.md`
+1. **Hub** — orientation · parcours · portes persona
+2. **Acte I** — pourquoi SFIA existe
+3. **Acte II** — comment SFIA organise le projet
+4. **Acte III** *(futur PD-04A)* — fil rouge NovaBuild
 
 ---
 
-## 6. Règles éditoriales applicables
+## 5. Positionnement cycles A / B
 
-- Ton confiant, concret, pédagogique — jamais sensationnaliste
-- **80 % métier / valeur** — 20 % fonctionnel sur Hub et Acte I
-- Preuve avant promesse · NovaBuild = cas composite · aucun chiffre non sourcé
-- Transparence fonctionnelle · opacité méthodologique sélective
-- Phrases courtes · paragraphes scannables · termes SFIA définis au premier usage
+| Incrément | Editorial Git (A) | Notion (B) |
+|-----------|-------------------|------------|
+| Hub + I | PD-02A ✓ | **PD-02B ✓** — Hub + Acte I Notion finalisés |
+| Acte II | **PD-03A** (présent) | PD-03B — futur |
+| Acte III | PD-04A — futur | PD-04B |
 
-Référence complète : `../discovery-product-design/05-sfia-discovery-editorial-contract.md`
+Référence roadmap : [07-sfia-discovery-transformation-roadmap.md](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)
+
+---
+
+## 6. Règles éditoriales
+
+Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contract.md`
+
+- 80 % métier / valeur · 20 % fonctionnel (Actes I–II)
+- NovaBuild = cas composite · aucun chiffre non sourcé
+- Opacité méthodologique sélective
 
 ---
 
 ## 7. Garde-fous
 
-- Ne pas modifier le corpus Product Design PD-01
-- Ne pas modifier les drafts P0, UX ou method/core
-- Ne pas créer ou modifier de page Notion
-- Ne pas exposer prompts canoniques, routing exhaustif, protected paths
-- Ne pas promettre autonomie totale, zéro risque, succès garanti
-- Ne pas capitaliser en baseline sans GO Morris explicite
+- Aucune page Notion · aucun prompt catalog · aucune capitalisation baseline
 
 ---
 
 ## 8. Décisions Morris validées
 
-- PD-01 mergé et clôturé ✓
-- GO PD-02A ✓
-- Notion = IDE métier SFIA (vision Candidate) ✓
-- Hub + Acte I = premiers contenus éditoriaux ✓
-- NovaBuild = cas pédagogique composite ✓
-- Aucune action Notion dans PD-02A ✓
+- PD-01 · PD-02A mergés ✓
+- **PD-02B finalisé** (Hub + Acte I Notion) ✓
+- **Acte II avant Acte III** ✓
+- NovaBuild composite ✓
+- Aucune action Notion dans PD-03A ✓
 
 ---
 
-## 9. Décisions restantes
+## 9. Décisions restantes (Acte II)
 
-| Gate | Objet |
-|------|-------|
-| **M1** | Valider ou corriger le Hero recommandé |
-| **M2** | Valider ou corriger le Hub |
-| **M3** | Valider ou corriger l'Acte I |
-| **M4** | Valider équilibre valeur / pédagogie / confidentialité |
-| **M5** | GO commit, push, PR PD-02A |
-| **M6** | GO PD-02B (après merge recommandé) |
+| Gate | Objet | Statut |
+|------|-------|--------|
+| **M1** | Structure Acte II | Validée |
+| **M2** | Contraste tripartite | Validée (R3) |
+| **M3** | Niveau exposition méthode | Validée |
+| **M4** | Roadmap renumérotée | Validée (R1–R2) |
+| **M5** | GO commit / push / PR | En attente |
+| **M6** | GO PD-03B Notion (distinct) | Hors cycle |
 
 ---
 
-## 10. Critères d'entrée PD-02B
+## 10. Critères d'entrée PD-03B
 
-- Brouillons Hub + Acte I validés Morris
-- Commit / merge Git recommandé
-- Review pack et handoff vérifiés
-- Aucune réserve bloquante (confidentialité, promesses, claims)
-- GO Morris explicite pour implémentation Notion L0
+- Acte II validé Morris · merge Git recommandé · GO implémentation Notion L0
 
 ---
 
 ## 11. Liens
 
-→ [Product Design README](../discovery-product-design/README.md) · [Roadmap PD-02A](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)
+→ [Product Design](../discovery-product-design/README.md) · [Roadmap](../discovery-product-design/07-sfia-discovery-transformation-roadmap.md)

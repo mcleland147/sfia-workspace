@@ -14,7 +14,7 @@
 | **Niveau lecture** | L0–L1 |
 | **Durée cible** | 8–12 minutes |
 | **Question lecteur** | Pourquoi une autre façon de conduire un projet numérique est-elle nécessaire ? |
-| **Implémentation Notion** | Non — PD-02B gate Morris |
+| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) — document source Git PD-02A |
 | **Réaction recherchée** | « C'est exactement notre situation. » |
 
 ---
@@ -215,7 +215,7 @@ Le dirigeant de NovaBuild — PME BTP fictive — veut piloter chantiers et rés
 
 Il ouvre Cursor sur un dossier local. L'IA avance vite sur des écrans. Mais **qui a validé** la règle de clôture des réserves ? **Où est la trace** de la décision sur les rôles utilisateurs ?
 
-NovaBuild n'est **pas** un client réel. C'est une **situation reconnaissable** — pour introduire le problème avant le fil rouge complet (Acte III, cycle PD-03A).
+NovaBuild n'est **pas** un client réel. C'est une **situation reconnaissable** — pour introduire le problème avant le fil rouge complet (Acte III, cycle **PD-04A**).
 
 ---
 
@@ -311,7 +311,7 @@ La question suivante :
 
 > **« En quoi SFIA diffère-t-elle concrètement d'un projet classique — ou d'une utilisation libre de ChatGPT et Cursor ? »**
 
-C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle PD-04A)*.
+C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle **PD-03A**)*.
 
 **→ Continuer : ACTE II**
 
@@ -334,7 +334,7 @@ C'est l'**Acte II — Une nouvelle façon de piloter un projet** *(cycle PD-04A)
 - Callout NovaBuild « fiction pédagogique » sur §13
 - Callout non-promesses sur §18
 - Badge durée « ~10 min »
-- Acte II grisé jusqu'à PD-04B
+- Acte II grisé jusqu'à PD-03B
 - Aucun prompt · commande · routing détaillé
 
 ---
