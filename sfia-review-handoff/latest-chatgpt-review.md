@@ -1,13 +1,15 @@
-# SFIA Review Pack — Notion UX-01 Correctif réserves R1/R2
+# SFIA Review Pack — Discovery Experience Product Design
 
-**Horodatage :** 2026-07-14 15:03 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 17:58 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
-**Cycle :** UX-01 — Correction des réserves mineures (QA corrective)
-**Type de cycle :** 9 — QA / validation corrective
-**Profil SFIA :** Light
-**Branche projet :** documentation/sfia-notion-ux-conception
-**HEAD/base :** ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa
-**Verdict :** UX CONTRACT CORRECTED — READY FOR COMMIT
+**Cycle :** SFIA Discovery Experience — Product Design (type 2)
+**Profil SFIA :** Standard
+**Typologie v2.4 :** DOC
+**Branche projet :** documentation/sfia-discovery-product-design
+**HEAD/base :** 14446b91019c1e320c12533124201b9a3dd4863d
+**origin/main :** 14446b91019c1e320c12533124201b9a3dd4863d
+**Statut :** Candidate — non baseline
+**Verdict :** DISCOVERY PRODUCT DESIGN DOCUMENTED — READY FOR MORRIS REVIEW
 
 ---
 
@@ -15,49 +17,67 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| Branche | documentation/sfia-notion-ux-conception |
-| HEAD | ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa |
-| 8 fichiers ux/ | présents, non commités |
-| Fichier modifié | 07-sfia-notion-ux-roadmap.md uniquement |
+| Branche initiale | main → documentation/sfia-discovery-product-design |
+| HEAD | 14446b91019c1e320c12533124201b9a3dd4863d |
+| 9 fichiers discovery-product-design/ | ✓ untracked |
+| Fichiers existants modifiés | 0 |
 | Commit projet | aucun |
 | **Verdict** | **PASS** |
 
-## Réserves traitées
+## Sources consultées
 
-### R1 — Métadonnées handoff
-- Problème : placeholders `_(post-push)_` dans handoff précédent
-- Correction : formulation stable sans SHA auto-référentiel dans le document handoff
+- sfia-cycle-execution-template, routing-guide, operating-model, rules-and-guardrails, knowledge-layer
+- sfia-notion-product-vision, information-architecture, publication-governance, mvp-backlog
+- editorial/ pack P0 (12 fichiers)
+- ux/ contrat Candidate (8 fichiers)
+- engineering-principles, platform-architecture, delivery-pipeline, repository-blueprint
+- grep PME, Interv360, Chantiers360, Software Factory, review pack
 
-### R2 — Ordonnancement UX
-- Problème : diagramme linéaire UX-02→…→UX-06 contradictoire avec parallélisme UX-05
-- Correction : 3 sections — dépendances bloquantes, travaux parallélisables, ordre de livraison
+## Recherche overlap
 
-## Fichier projet modifié
+- Dossier discovery-product-design : **absent avant cycle**
+- Pas de corpus Discovery équivalent — **pas de STOP overlap**
 
-- `method/sfia-fast-track/documentation/notion/ux/07-sfia-notion-ux-roadmap.md`
+## Qualification
 
-## Fichiers UX inchangés (7)
+- Cycle 2 Conception fonctionnelle · Profil Standard · DOC · Candidate
 
-- `README.md`
-- `01-sfia-notion-ux-vision.md`
-- `02-sfia-notion-experience-architecture.md`
-- `03-sfia-notion-navigation-model.md`
-- `04-sfia-notion-design-system.md`
-- `05-sfia-notion-page-templates.md`
-- `06-sfia-notion-user-journeys.md`
+## Décisions Morris appliquées
 
-## Diff utile — roadmap §5–§7 (résumé)
+- GO Product Design Discovery ✓
+- GO architecture narrative ✓
+- GO remise en question structure (proposition) ✓
+- GO storytelling valeur ✓
+- Aucune implémentation Notion ✓
 
-```diff
-+ [## 5. Dépendances bloquantes — section ajoutée/remplacée]
-+ ## 5. Dépendances bloquantes
-+ [## 6. Travaux parallélisables — section ajoutée/remplacée]
-+ ## 6. Travaux parallélisables
-+ [## 7. Ordre de livraison recommandé — section ajoutée/remplacée]
-+ ## 7. Ordre de livraison recommandé
-- [Ancien §5 : chaîne linéaire UX-02→UX-03→UX-04→UX-05→UX-06 supprimée]
-- [Ancien §6 : ordre recommandé ambigu remplacé par §7 séquentiel + §6 parallélisme]
-```
+## Fichiers créés (9)
+
+| # | Fichier | Lignes |
+|---|---------|-------:|
+| 1 | `README.md` | 106 |
+| 2 | `01-sfia-discovery-product-vision.md` | 195 |
+| 3 | `02-sfia-discovery-narrative-architecture.md` | 181 |
+| 4 | `03-sfia-discovery-storyline.md` | 138 |
+| 5 | `04-sfia-discovery-personas-and-reading-journeys.md` | 160 |
+| 6 | `05-sfia-discovery-editorial-contract.md` | 162 |
+| 7 | `06-sfia-discovery-target-information-architecture.md` | 187 |
+| 8 | `07-sfia-discovery-transformation-roadmap.md` | 138 |
+| 9 | `08-sfia-discovery-acceptance-framework.md` | 127 |
+
+## Fichiers modifiés
+
+**Aucun**
+
+## Synthèse architecture
+
+- 7 actes narratifs · Fil rouge NovaBuild · 6 personas · 5 niveaux lecture
+- IA cible narrative (remplace parcours §00–11 comme structure primaire)
+- Roadmap PD-01 à PD-08 · Framework acceptation 18 critères
+
+## Garde-fous
+
+- Aucun commit/push projet ✓ · Aucune modification Notion ✓
+- Opacité méthodologique sélective ✓ · Pas promotion baseline ✓
 
 ## Review Handoff Git
 
@@ -65,1726 +85,1456 @@
 |-------|--------|
 | Décision | required |
 | Branche handoff | sfia/review-handoff |
-| Fichier | sfia-review-handoff/latest-chatgpt-review.md |
-| Commit de publication précédent | e7ba901ece3b64e60f41d2895487157e8bd764db |
-| Handoff source | review pack local `.tmp-sfia-review/chatgpt-review.md` |
-| SHA effectif de publication | fourni dans le rapport Cursor d'exécution — non auto-référencé dans ce document |
-| Vérification distante | réalisée après push — contenu distant identique au review pack source |
-| Comparaison local / distant | conforme après push |
-| **Verdict handoff** | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit publication précédent | 5a15479c66f1331c3b88b133096f9c26212c498f |
+| Handoff source | review pack local |
+| SHA effectif publication | rapport Cursor post-push |
+| Vérification distante | réalisée après push |
+| Comparaison local/distant | conforme après push |
+| Verdict handoff | HANDOFF UPDATED — REMOTE VERIFIED |
 
-## Garde-fous
-
-- Aucun commit/push branche projet ✓
-- Aucune modification des 7 autres fichiers UX ✓
-- Aucune implémentation Notion ✓
-- Aucune capitalisation ✓
-
-## Contenu complet — 8 fichiers UX
+## Contenu complet — 9 fichiers
 
 ---
 
 # FICHIER 1 — README.md
 
-# SFIA Notion — Corpus de conception UX documentaire
+# SFIA Discovery Experience — Product Design (Cycle 2 fonctionnel)
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Contrat UX pour implémentation future — non capitalisé dans la méthode |
+| **Statut** | **Candidate** — conception produit documentaire |
+| **Usage** | Contrat Product Design « SFIA Discovery Experience » |
 | **Baseline opérationnelle** | SFIA v2.4 |
 | **Propriétaire** | Morris |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
 | **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur (UX-02 à UX-06) |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| **Implémentation Notion** | Cycles futurs distincts (PD-02+) |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD source** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
 ## Rôle du dossier
 
-Ce répertoire formalise le **contrat UX documentaire** validé par Morris pour l'espace Notion SFIA existant (11 pages P0 publiées, bases Référentiel et Cycles peuplées, visibilité privée Morris).
+Ce répertoire formalise le **contrat de Product Design** pour transformer l'espace Notion SFIA en **IDE métier** et **expérience de découverte du produit** — fondée sur une narration métier, fonctionnelle et orientée valeur.
 
-Il ne modifie pas Notion. Il ne crée pas un nouveau type de cycle SFIA. Il prépare les futurs cycles d'implémentation UX.
-
-| Couche | Rôle |
-|--------|------|
-| **Git** | Source de vérité — méthode, prompts, décisions |
-| **Notion (actuel)** | Espace privé Morris — contenus P0 publiés manuellement |
-| **Ce corpus UX** | Contrat Candidate — gabarits, navigation, design system, parcours |
-
----
-
-## Contexte des cycles précédents
-
-| Cycle | Livrable | Statut |
-|-------|----------|--------|
-| Cycle 1 | Conception produit (vision, IA, gouvernance, backlog) | Mergé PR #191 |
-| Cycle 2 | Brouillons éditoriaux P0 (12 fichiers) | Mergé PR #193 |
-| Cycle 3 | Publication Notion P0 + bases (25 + 15 entrées) | Réalisé — espace privé Morris |
-| **UX-01 (présent)** | Contrat UX documentaire (8 fichiers) | Candidate — non commité |
+| Principe | Application |
+|----------|-------------|
+| **Repartir du lecteur** | Parcours mental du non-initié — pas de l'arborescence §00–11 |
+| **Storytelling** | Sept actes narratifs + fil rouge projet |
+| **Transparence sélective** | Valeur et capacités visibles ; recettes internes masquées |
+| **Git prime** | Conception dans Git ; Notion = couche d'expérience future |
+| **Candidate** | Aucune baseline ; revue Morris avant implémentation |
 
 ---
 
-## Inventaire des documents
+## Constat de départ (UX-06)
+
+L'espace Notion actuel (11 pages P0, bases Référentiel et Cycles) est **propre, structuré et cohérent visuellement** (contrat UX-01, UX-02–06). Toutefois la **profondeur éditoriale de valeur** reste insuffisante : le lecteur comprend les composants, cycles et acteurs, mais pas suffisamment **pourquoi SFIA existe**, **ce qu'elle transforme** et **comment se projeter**.
+
+Ce cycle **ne modifie pas Notion** — il conçoit la transformation narrative cible.
+
+---
+
+## Inventaire des livrables (9)
 
 | # | Fichier | Responsabilité |
 |---|---------|----------------|
-| 1 | [01-sfia-notion-ux-vision.md](01-sfia-notion-ux-vision.md) | Vision, principes, personas, critères de réussite |
-| 2 | [02-sfia-notion-experience-architecture.md](02-sfia-notion-experience-architecture.md) | Architecture par intentions (Découvrir, Utiliser, Exécuter, Gouverner) |
-| 3 | [03-sfia-notion-navigation-model.md](03-sfia-notion-navigation-model.md) | Navigation, parcours, transitions entre pages P0 |
-| 4 | [04-sfia-notion-design-system.md](04-sfia-notion-design-system.md) | Design system Notion — typographie, callouts, icônes, QA |
-| 5 | [05-sfia-notion-page-templates.md](05-sfia-notion-page-templates.md) | Gabarits de pages (8 types) |
-| 6 | [06-sfia-notion-user-journeys.md](06-sfia-notion-user-journeys.md) | Parcours utilisateur détaillés (6 minimum) |
-| 7 | [07-sfia-notion-ux-roadmap.md](07-sfia-notion-ux-roadmap.md) | Roadmap implémentation UX-02 à UX-06 |
-
-**Total :** 8 fichiers (README + 7 documents numérotés).
-
----
-
-## Ordre de lecture recommandé
-
-1. **01 Vision** — comprendre le problème et les principes
-2. **02 Architecture de l'expérience** — intentions et carte logique
-3. **03 Modèle de navigation** — parcours et transitions
-4. **05 Templates de pages** — gabarits concrets
-5. **04 Design system** — règles visuelles et composants Notion
-6. **06 User journeys** — scénarios par persona
-7. **07 Roadmap** — séquence d'implémentation
+| 1 | [01-sfia-discovery-product-vision.md](01-sfia-discovery-product-vision.md) | Vision produit, promesse, anti-objectifs |
+| 2 | [02-sfia-discovery-narrative-architecture.md](02-sfia-discovery-narrative-architecture.md) | Architecture en 7 actes |
+| 3 | [03-sfia-discovery-storyline.md](03-sfia-discovery-storyline.md) | Scénario, fil rouge projet PME |
+| 4 | [04-sfia-discovery-personas-and-reading-journeys.md](04-sfia-discovery-personas-and-reading-journeys.md) | 6 personas, 5 niveaux de lecture |
+| 5 | [05-sfia-discovery-editorial-contract.md](05-sfia-discovery-editorial-contract.md) | Voix, confidentialité, matrice d'information |
+| 6 | [06-sfia-discovery-target-information-architecture.md](06-sfia-discovery-target-information-architecture.md) | Nouvelle arborescence, mapping ancien → cible |
+| 7 | [07-sfia-discovery-transformation-roadmap.md](07-sfia-discovery-transformation-roadmap.md) | Incréments PD-01 à PD-08 |
+| 8 | [08-sfia-discovery-acceptance-framework.md](08-sfia-discovery-acceptance-framework.md) | Critères d'acceptation, grilles de test |
 
 ---
 
-## Règles de gouvernance
+## Ordre de lecture
 
-| Règle | Application |
-|-------|-------------|
-| **Candidate** | Ce corpus n'est pas baseline SFIA ni méthode validée |
-| **Git prime** | En cas de divergence Notion ↔ Git → Git prime |
-| **Pas de capitalisation** | Aucune promotion dans `method/core` avant expérimentation réelle |
-| **Pas de nouveau cycle SFIA** | UX-01 est un cycle documentaire type 4 — pas une extension du catalogue cycles |
-| **Espace privé** | Visibilité Morris maintenue jusqu'à décision distincte |
-| **Sidebar hors sujet** | La sidebar Notion native n'est pas un levier UX de ce contrat |
-| **L0 manuel assisté** | Implémentation Notion sans API, CMP ni raw sync |
+1. Vision → 2. Architecture narrative → 3. Storyline → 4. Personas → 5. Contrat éditorial → 6. IA cible → 7. Roadmap → 8. Acceptation
 
 ---
 
-## Distinction conception / implémentation / capitalisation
+## Relation avec les cycles antérieurs
+
+| Cycle | Apport | Limite pour Discovery |
+|-------|--------|------------------------|
+| Notion cycle 1 | Vision produit, IA §01–11 | Trop structurée par numérotation |
+| Editorial P0 (PR #193) | Contenu pages actuelles | Trop méthodologique, peu narratif |
+| UX-01 (PR #194) | Navigation, design system | UX correcte, valeur métier insuffisante |
+| **Discovery (présent)** | Narration, storytelling, IA cible | Conception uniquement |
+
+---
+
+## Trajectoire vers l'implémentation
 
 ```text
-1. Conception UX (UX-01 — présent)     → contrat Candidate dans Git
-2. Validation Morris                   → GO commit/PR puis revue contrat
-3. Implémentation Notion (UX-02–06)    → application manuelle L0
-4. QA par l'usage                      → friction réelle, parcours testés
-5. Capitalisation éventuelle           → GO Morris explicite + critères §07
+Product Design (présent) → validation Morris → préparation éditoriale Git
+  → implémentation Notion (PD-02+) → QA narrative (PD-07) → capitalisation éventuelle (PD-08)
 ```
 
----
-
-## Sources Git principales
-
-- `method/sfia-fast-track/documentation/notion/sfia-notion-product-vision.md`
-- `method/sfia-fast-track/documentation/notion/sfia-notion-information-architecture.md`
-- `method/sfia-fast-track/documentation/notion/sfia-notion-publication-governance.md`
-- `method/sfia-fast-track/documentation/notion/sfia-notion-mvp-backlog.md`
-- `method/sfia-fast-track/documentation/notion/editorial/` (pack P0 PR #193)
-- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+**Gates futurs :** GO commit/PR corpus · GO fil rouge projet · GO implémentation Notion · GO capitalisation.
 
 ---
 
 ## Décisions Morris validées
 
-- GO formalisation du contrat UX complet dans Git
-- Contrat UX = base de conception **Candidate**
-- Aucune implémentation Notion dans UX-01
-- Aucune capitalisation méthode avant expérimentation réelle
-- Morris reste propriétaire éditorial
-- Git reste la source de vérité
+- GO cycle Product Design Discovery
+- GO nouvelle architecture narrative
+- GO remise en question structure pages actuelles (proposition, pas exécution)
+- GO storytelling orienté valeur
+- GO SFIA comme cas d'usage démonstratif
+- Aucune modification Notion dans ce cycle
 
 ## Décisions non prises
 
-- Visibilité externe de l'espace Notion
-- Promotion du contrat UX en baseline SFIA
-- Capitalisation dans `method/core` ou templates génériques
-- Automatisation L1+ (métadonnées, publication assistée)
-- §09 Cas d'usage (P1)
-- Stratégie legacy Notion (archive vs nouveau workspace)
-
----
-
-## Critères pour envisager une future capitalisation
-
-Capitalisation envisageable **uniquement si** (voir [07-sfia-notion-ux-roadmap.md](07-sfia-notion-ux-roadmap.md)) :
-
-- Plusieurs itérations réelles UX-02 à UX-06 menées
-- Navigation améliore effectivement l'usage constaté
-- Gabarits réutilisables hors seul workspace Morris
-- Règles non spécifiques à un cas unique
-- Dette de maintenance synced blocks acceptable
-- **GO Morris explicite** pour capitalisation
+- Sélection définitive du fil rouge (BatiNova vs Chantiers360 vs générique)
+- Validation architecture cible pages
+- GO implémentation Notion
+- Promotion baseline ou capitalisation méthode
 
 ---
 
 ## Garde-fous
 
-- Ne pas présenter ce corpus comme méthode validée ou standard SFIA officiel
-- Ne pas modifier l'espace Notion depuis ce cycle
-- Ne pas modifier les brouillons éditoriaux P0
-- Ne pas utiliser API Notion, CMP ou raw sync
+- Ne pas modifier pages Notion, editorial, ux ou method/core
+- Ne pas exposer prompts/templates complets
+- Ne pas promouvoir v2.5/v2.6 baseline
+- Ne pas committer ce cycle sans GO Morris
 
 ---
 
-# FICHIER 2 — 01-sfia-notion-ux-vision.md
+# FICHIER 2 — 01-sfia-discovery-product-vision.md
 
-# 01 — Vision UX — SFIA Notion
+# 01 — Vision produit — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Contrat vision UX — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
 | **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
-## 1. Problème traité
+## 1. Problème produit
 
-L'espace Notion SFIA contient 11 pages P0, deux bases (Référentiel 25 entrées, Cycles 15 entrées) et une visibilité privée Morris. Le contenu éditorial est présent mais l'**expérience** n'est pas encore structurée par un contrat UX explicite :
+Un dirigeant de PME, un chef de projet ou un prospect technique découvre SFIA via Notion ou une présentation. Aujourd'hui il obtient :
 
-| Friction | Manifestation |
-|----------|---------------|
-| Orientation | Visiteur ne sait pas quel parcours choisir en < 30 s |
-| Exhaustivité vs synthèse | Risque de reproduire la densité Git dans Notion |
-| Navigation | Liens contextuels, précédent/suivant, retour accueil non standardisés |
-| Statut documentaire | Candidate vs validated peu visible sans règles UX |
-| Cohérence visuelle | Callouts, icônes, hero non unifiés |
-| Mobile | Lecture longue non optimisée |
+- une description **correcte** des cycles, profils, gates et acteurs ;
+- une séparation Git/Notion **claire** ;
+- une navigation **fonctionnelle**.
 
-**Principe central :** l'espace Notion SFIA doit fonctionner comme un **portail de connaissance orienté parcours**, et non comme une copie du repository.
+Il n'obtient pas suffisamment :
 
----
+- la **raison d'être** de SFIA face aux projets classiques ;
+- la **différenciation** face à ChatGPT + Cursor utilisés librement ;
+- une **projection** sur un projet réel de bout en bout ;
+- la **valeur économique et organisationnelle** pour une PME, une ESN ou une équipe interne ;
+- la **confiance** que la méthode apporte des garanties sans promettre l'impossible.
 
-## 2. Vision cible
-
-> **SFIA Notion UX** = une expérience de lecture guidée, sobre et traçable, qui oriente vers la bonne page ou la bonne base, expose le statut documentaire, et renvoie vers Git quand le détail technique est nécessaire.
-
-| Dimension | Cible |
-|-----------|-------|
-| **Orientation** | Une intention principale par page ; parcours nommés |
-| **Profondeur** | L0–L4 avec progressive disclosure |
-| **Confiance** | Git source de vérité visible sans envahir |
-| **Gouvernance** | Candidate explicite ; aucune décision structurante dans Notion |
-| **Sobriété** | Aucun contenu décoratif sans fonction |
+**Observation (constat UX-06) :** l'espace décrit la méthode ; il ne **raconte** pas encore le produit SFIA.
 
 ---
 
-## 3. Proposition d'expérience
+## 2. Vision
 
-```text
-Visiteur arrive → Accueil (hero + 3 parcours)
-       │
-       ├─ Découvrir (5 min)  → Valeur → Cycle (schéma) → Glossaire
-       ├─ Comprendre (30 min) → Comprendre → Cycle → Profils → Gouvernance
-       └─ Exécuter            → Mise en place → Routage → Templates
-```
+> **SFIA Discovery Experience** transforme Notion en **IDE métier SFIA** : un environnement de découverte où l'on comprend la valeur, la transformation, les rôles, les livrables et les garanties — avant d'entrer dans Git pour exécuter.
 
-L'utilisateur ne parcourt pas une arborescence §01–11 : il suit une **intention** et des **liens contextuels** dans le corps des pages.
+**Formulation produit (à challenger par Morris) :**
 
----
+> SFIA est une **équipe projet virtuelle industrialisée et gouvernée**, qui transforme une intention métier en produit applicatif traçable, sous le contrôle d'un décideur humain.
 
-## 4. Principes UX obligatoires
+**Formulation grand public :**
 
-| # | Principe | Règle |
-|---|----------|-------|
-| P1 | Orientation avant exhaustivité | Toujours proposer un prochain pas |
-| P2 | Parcours avant arborescence | Navigation par intention, pas par numéro seul |
-| P3 | Synthèse avant détail | Détail technique → lien Git |
-| P4 | Une intention par page | Une question principale par page P0 |
-| P5 | Navigation sans impasse | Accueil, précédent, suivant, ressources |
-| P6 | Statut visible | Candidate, baseline v2.4, date sync |
-| P7 | Git accessible, non envahissant | Callout source + lien ; pas de dump repo |
-| P8 | Sobriété visuelle | Pas de décoration sans fonction |
-| P9 | Aucune décision structurante dans Notion | Gates Morris restent hors Notion |
-| P10 | Mobile pris en compte | Blocs courts, tables scannables, pas de dépendance couleur |
+> SFIA structure la création de logiciels avec l'IA comme **assistant contrôlé** — pas comme pilote autonome.
 
 ---
 
-## 5. Objectifs mesurables
+## 3. Rôle de Notion
 
-| ID | Objectif | Indicateur |
-|----|----------|------------|
-| O1 | Orientation < 30 s | Utilisateur identifie un parcours depuis l'accueil |
-| O2 | Parcours 5 min complétable | 4 pages max sans impasse |
-| O3 | Parcours 30 min complétable | 5 pages + sortie claire |
-| O4 | Zéro impasse | Chaque page a retour accueil + lien suivant |
-| O5 | Statut Candidate visible | Badge sur pages concernées |
-| O6 | Lien Git présent | 100 % pages P0 avec source Git |
-| O7 | Cohérence visuelle | Design system appliqué UX-05 |
+| Couche | Rôle |
+|--------|------|
+| **Git** | Vérité — méthode, exécution, prompts, historique, preuves |
+| **Notion (cible Discovery)** | Expérience — narration, valeur, démonstration, projection |
+| **Morris** | Autorité — gates, merge, validation baseline |
+
+Notion devient : point d'entrée métier, storytelling, preuves sélectionnées, parcours par persona — **sans** miroir repo ni catalogue brut.
 
 ---
 
-## 6. Anti-objectifs
+## 4. Notion « IDE métier » — signification
 
-| Anti-objectif | Confirmation |
-|---------------|--------------|
-| Miroir du repository | **Non** |
-| Remplacer Git pour exécution | **Non** |
-| Sidebar comme navigation principale | **Non** — hors périmètre UX |
-| Publication automatique | **Non** |
-| API Notion / CMP / raw sync | **Non** |
-| Nouveau cycle SFIA validé | **Non** |
-| Baseline UX officielle | **Non** — Candidate uniquement |
-| Décisions Morris dans Notion | **Non** |
+| Dimension | IDE métier SFIA |
+|-----------|-----------------|
+| Entrée | Question métier (« pourquoi », « combien ça change », « pour qui ») |
+| Navigation | Par actes narratifs et parcours temps — pas par numéro § |
+| Preuve | Livrables visibles, extrait projet, témoignages structurés |
+| Sortie | Décision d'approfondir, contact, ou passage Git pour exécution |
+| Interdit | Terminal d'exécution, éditeur de prompts, sync Git |
 
 ---
 
-## 7. Personas
+## 5. Différence Git / Notion
 
-### 7.1 Nouveau visiteur
+| Question | Notion | Git |
+|----------|--------|-----|
+| Pourquoi SFIA ? | ✓ Acte I | Résumé foundation |
+| Comment router un cycle ? | Orientation L2 | routing-guide complet |
+| Quel prompt exact ? | **Non** | prompts/ |
+| Preuve projet Chantiers360 | Synthèse narrative | projects/ complet |
 
-| Dimension | Contenu |
-|-----------|---------|
-| **Besoin** | Comprendre SFIA en quelques minutes |
-| **Frustration** | Jargon Git, trop de pages, pas de point d'entrée |
-| **Expérience recherchée** | Parcours 5 min, hero clair, glossaire rapide |
-| **Sortie Git** | Rare — reste dans Notion pour découverte |
-
-### 7.2 Chef de projet / PO
-
-| Dimension | Contenu |
-|-----------|---------|
-| **Besoin** | Savoir comment lancer un cycle, quel profil, quels livrables |
-| **Frustration** | Confusion cycles v2.4 vs v2.5 Candidate |
-| **Expérience recherchée** | Parcours 30 min + routage + mise en place |
-| **Sortie Git** | Vers routing-guide, templates — après qualification Notion |
-
-### 7.3 Contributeur technique
-
-| Dimension | Contenu |
-|-----------|---------|
-| **Besoin** | Trouver template, prompt, garde-fou, checklist |
-| **Frustration** | Duplication catalog dans Notion |
-| **Expérience recherchée** | Base Référentiel + page Templates + lien Git direct |
-| **Sortie Git** | Fréquente — exécution Cursor |
-
-### 7.4 Morris
-
-| Dimension | Contenu |
-|-----------|---------|
-| **Besoin** | Vérifier cohérence, statuts, gouvernance, QA espace |
-| **Frustration** | Divergence Notion/Git non signalée |
-| **Expérience recherchée** | Métadonnées, callouts Décision Morris, checklist QA |
-| **Sortie Git** | Pour validation, merge, handoff |
+**Principe :** transparence fonctionnelle, opacité méthodologique sélective.
 
 ---
 
-## 8. Relation Git ↔ Notion
+## 6. Promesse fonctionnelle
 
-```text
-GIT (vérité)                    NOTION (expérience)
-─────────────                   ───────────────────
-docs/ foundation                Synthèse L1 pages 01–02
-method/ core                    Gouvernance résumée page 07
-prompts/ catalog                Index + liens page 06
-editorial/ drafts               Contenu publié P0 (manuel L0)
-decisions validées              Mention — pas d'autorité Notion
-```
-
-**Règle :** Notion explique et oriente ; Git exécute et tranche.
+| Promesse | Démontrable | Non promis |
+|----------|-------------|------------|
+| Cycles courts et traçables | ✓ Exemples Git | Zéro dette technique |
+| IA assistée sous contrôle humain | ✓ Operating model | Autonomie totale |
+| Livrables identifiés par cycle | ✓ Fil rouge | Livrables sans effort |
+| Gouvernance Morris sur gates | ✓ Schéma rôles | Décisions automatiques |
+| Capitalisation des acquis | ✓ REX Chantiers360 | Succès garanti |
 
 ---
 
-## 9. Critères de réussite
+## 7. Utilisateurs visés
 
-- Un visiteur complète le parcours 5 min sans aide externe
-- Un PO identifie le cycle adapté via page Routage
-- Un contributeur trouve un template via Référentiel sans copie intégrale
-- Morris valide la cohérence visuelle et documentaire en QA UX-06
-- Aucune régression : Git reste source de vérité
+Dirigeant PME · Chef de projet / PO · Équipe technique · ESN / partenaire · Contributeur méthode · Prospect non technique.
 
 ---
 
-## 10. Risques UX
+## 8. Transformation attendue
+
+| Avant (lecteur) | Après (Discovery) |
+|-----------------|-------------------|
+| « SFIA = docs + IA » | « SFIA = usine logicielle gouvernée » |
+| « Encore une méthode » | « Réponse au chaos projet + IA libre » |
+| « Trop technique » | « Je vois mon rôle et mes gains » |
+| « Où est la preuve ? » | « J'ai suivi un projet réel » |
+
+---
+
+## 9. Bénéfices par audience
+
+| Audience | Bénéfice clé |
+|----------|--------------|
+| PME | Visibilité, cadence, maîtrise des coûts de delivery |
+| Chef de projet | Enchaînement clair, livrables, moins de rework |
+| Technique | Moins de flou spec, garde-fous, traçabilité PR |
+| ESN | Méthode reproductible, démonstration crédible client |
+| Morris | Décisions structurantes préservées |
+
+---
+
+## 10. Anti-objectifs
+
+- Miroir Git · Catalogue prompts · Doc méthode pure · Secrets d'exécution exposés
+- Projet 100 % autonome IA · Remplacement total experts · Garantie succès · Zéro risque
+- Promotion v2.5/v2.6 baseline · SFIA 3.0 · Modification Notion dans ce cycle
+
+---
+
+## 11. Principes d'expérience
+
+1. **Lecteur d'abord** — questions métier avant structure
+2. **Story avant spec** — actes narratifs avant §01–11
+3. **Preuve avant promesse** — livrables et REX sourcés
+4. **Progressive disclosure** — 3 min → 45 min
+5. **Humain visible** — Morris, gates, limites
+6. **Comparaison explicite** — classique / IA libre / SFIA
+7. **Opacité sélective** — pas de recette complète
+
+---
+
+## 12. Indicateurs de réussite
+
+| ID | Indicateur |
+|----|------------|
+| I1 | Non-technique reformule SFIA en < 2 min après parcours 10 min |
+| I2 | Distinction IA libre vs SFIA articulée sans aide |
+| I3 | ≥ 5 livrables concrets cités après Acte IV |
+| I4 | Persona identifie « son » parcours en < 30 s |
+| I5 | Aucune fuite prompt catalog en test confidentialité |
+| I6 | Envie de poursuivre (score ≥ 4/5) sur test prospect PME |
+
+---
+
+## 13. Risques
 
 | Risque | Mitigation |
 |--------|------------|
-| Surcharge informationnelle | Progressive disclosure L0–L4 |
-| Confusion v2.5 Candidate | Badge Candidate systématique |
-| Dette synced blocks | Usage limité (4 blocs max) — voir design system |
-| Divergence contenu | Métadonnées commit + alerte Git prime |
-| Mobile illisible | Tables courtes, toggles, pas de wide tables |
-| Impasses navigation | Modèle navigation §03 |
+| Sur-promesse commerciale | Contrat éditorial §05, framework §08 |
+| Exposition méthode | Matrice confidentialité |
+| Fil rouge non crédible | Sources Chantiers360 / générique PME BTP |
+| Trop long | Parcours temps bornés |
+| Conflit avec P0 existant | Mapping migration §06, pas suppression immédiate |
 
 ---
 
-## 11. Hypothèses à tester (implémentation)
+## 14. Frontière pédagogie / marketing / secret
 
-| Hypothèse | Test |
-|-----------|------|
-| 3 parcours accueil suffisent | Observation usage Morris + 1 contributeur |
-| Précédent/suivant améliore le flux | A/B manuel avant/après UX-03 |
-| Base Référentiel remplace page §10 longue | Parcours « trouver un actif » |
-| Callouts fonctionnels suffisent sans couleur seule | Test accessibilité lecture |
-
----
-
-## 12. Décisions Morris
-
-### Validées
-
-- Contrat UX Candidate dans Git
-- Portail parcours, pas miroir repo
-- Morris propriétaire éditorial
-- Espace privé maintenu
-- Pas de capitalisation méthode dans UX-01
-
-### Non prises
-
-- Visibilité publique espace
-- Promotion baseline UX
-- Automatisation publication
+| Type | Notion Discovery | Git |
+|------|------------------|-----|
+| Pédagogie | Capacités, rôles, cycles simplifiés | Détail |
+| Marketing | Valeur, différenciation, projection | — |
+| Documentation | Synthèse gouvernance | Canonique |
+| Secret méthodologique | **Masqué** | Prompts, routing détaillé, automation |
 
 ---
 
-## 13. Éléments Candidate
+## 15. Décisions Morris
 
-- Catalogue 15 cycles v2.5 (pages 03–04) — **Candidate — non baseline**
-- Template cycle-execution v2.5 — mention explicite
-- Ce document entier — **Candidate**
+**Validées :** GO Product Design · IDE métier · narration · remise en question structure (proposition).
 
----
-
-## Liens
-
-→ [02 Architecture de l'expérience](02-sfia-notion-experience-architecture.md) · [03 Modèle de navigation](03-sfia-notion-navigation-model.md) · [README](README.md)
+**Futures :** validation vision · fil rouge · GO implémentation · capitalisation.
 
 ---
 
-# FICHIER 3 — 02-sfia-notion-experience-architecture.md
+## Sources Git
 
-# 02 — Architecture de l'expérience — SFIA Notion
+- `sfia-notion-product-vision.md` · `ux/01-sfia-notion-ux-vision.md`
+- `sfia-chatgpt-cursor-operating-model.md` · `sfia-engineering-principles.md`
+- `sfia-platform-architecture.md` · capitalisations Chantiers360
+
+---
+
+# FICHIER 3 — 02-sfia-discovery-narrative-architecture.md
+
+# 02 — Architecture narrative — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Architecture par intentions — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
-| **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
 ## 1. Objectif
 
-Définir l'architecture de l'expérience **par intentions**, sans dupliquer l'Information Architecture cycle 1. L'IA décrit *quoi* publier ; ce document décrit *comment l'utilisateur vit l'espace*.
+Concevoir le **récit produit** en sept actes — indépendamment de la numérotation Notion §00–11. Chaque acte répond à une question du lecteur et prépare l'acte suivant.
 
 ---
 
-## 2. Quatre intentions d'expérience
-
-### 2.1 Découvrir
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Comprendre SFIA en 5–30 minutes sans ouvrir Git |
-| **Audience** | Nouveau visiteur, dirigeant, prospect |
-| **Pages** | 00 Accueil, 02 Valeur, 03 Cycle (schéma), 11 Glossaire |
-| **Point d'entrée** | Accueil — parcours « 5 minutes » |
-| **Sortie attendue** | Décision « aller plus loin » ou sortie |
-| **Liens transverses** | → Comprendre (30 min) |
-| **Risque confusion** | Trop de détail cycle v2.5 — mitiger par badge Candidate |
-| **Retour Git** | Optionnel — lien platform-architecture si curiosité |
-
-### 2.2 Utiliser
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Comprendre comment appliquer SFIA au quotidien |
-| **Audience** | Chef de projet, PO, PMO |
-| **Pages** | 01 Comprendre, 03 Cycle, 04 Profils/gates, 05 Routage |
-| **Point d'entrée** | Accueil — parcours « 30 minutes » |
-| **Sortie attendue** | Identifier cycle + profil pour une demande |
-| **Liens transverses** | → Mise en place, Base Cycles |
-| **Risque confusion** | 15 cycles v2.5 présentés comme baseline |
-| **Retour Git** | routing-guide, cycle-execution-template (extrait) |
-
-### 2.3 Exécuter
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Préparer et lancer un cycle concret |
-| **Audience** | PO, tech lead, contributeur |
-| **Pages** | 08 Mise en place, 05 Routage, 06 Templates, Bases |
-| **Point d'entrée** | Accueil — parcours « Mise en œuvre » |
-| **Sortie attendue** | Workspace prêt + cycle identifié + assets trouvés |
-| **Liens transverses** | → Référentiel, Glossaire |
-| **Risque confusion** | Croire que Notion lance Cursor |
-| **Retour Git** | **Obligatoire** — exécution hors Notion |
-
-### 2.4 Gouverner
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Comprendre règles, garde-fous, statuts, divergence Git |
-| **Audience** | Morris, responsable méthode, qualité |
-| **Pages** | 07 Gouvernance, 10 Documents (vue base), 07 + governance doc Git |
-| **Point d'entrée** | Footer global, lien depuis toute page |
-| **Sortie attendue** | Règles claires ; pas d'action structurante dans Notion |
-| **Liens transverses** | → Accueil, Comprendre |
-| **Risque confusion** | Modifier méthode dans Notion |
-| **Retour Git** | rules-and-guardrails, publication-governance |
-
----
-
-## 3. Carte logique de l'expérience
+## 2. Vue d'ensemble
 
 ```text
-                    ┌─────────────┐
-                    │ 00 ACCUEIL  │
-                    └──────┬──────┘
-           ┌───────────────┼───────────────┐
-           ▼               ▼               ▼
-    ┌────────────┐  ┌────────────┐  ┌────────────┐
-    │ DÉCOUVRIR  │  │  UTILISER  │  │  EXÉCUTER  │
-    │ 02,03,11   │  │ 01,03,04,05│  │ 08,05,06   │
-    └────────────┘  └────────────┘  └─────┬──────┘
-                                            │
-                    ┌────────────┐          │
-                    │ GOUVERNER  │◄─────────┘
-                    │ 07, 10     │
-                    └────────────┘
-           Bases transverses : Référentiel · Cycles · Glossaire
+ACTE I   Pourquoi SFIA existe
+ACTE II  Une nouvelle façon de conduire un projet
+ACTE III Suivons un vrai projet
+ACTE IV  Ce que SFIA produit
+ACTE V   Pourquoi cela fonctionne
+ACTE VI  Se projeter avec SFIA
+ACTE VII Explorer la méthode (annexes)
 ```
 
 ---
 
-## 4. Correspondance pages P0 actuelles
+## 3. ACTE I — Pourquoi SFIA existe
 
-| Page P0 | Intention(s) | Niveau | Rôle UX |
-|---------|--------------|--------|---------|
-| 00 Accueil | Toutes (hub) | L0–L1 | Point d'entrée unique |
-| 01 Comprendre | Utiliser | L1–L2 | Cadre méthode |
-| 02 Valeur | Découvrir | L1 | Pitch et bénéfices |
-| 03 Cycle | Découvrir, Utiliser | L2 | Séquence cycle |
-| 04 Profils/gates | Utiliser | L2 | Qualification |
-| 05 Routage | Utiliser, Exécuter | L2 | Matrice demandes |
-| 06 Templates | Exécuter | L3 | Index assets |
-| 07 Gouvernance | Gouverner | L2–L3 | Garde-fous |
-| 08 Mise en place | Exécuter | L3 | Onboarding pratique |
-| 10 Documents | Gouverner | L4 | Vue Base Référentiel |
-| 11 Glossaire | Découvrir, transversal | L1–L4 | Vocabulaire |
-
-**Hors P0 publié :** §09 Cas d'usage (P1) — non couvert UX-01.
+| Champ | Contenu |
+|-------|---------|
+| **Question lecteur** | Pourquoi une autre méthode ? Quel problème concret ? |
+| **Objectif** | Créer l'urgence et la reconnaissance du problème |
+| **Message** | Les projets numériques échouent par manque de cadre, pas par manque d'outils IA |
+| **Émotion** | « C'est notre situation » |
+| **Preuve** | Statistiques génériques, anti-patterns (hypothèse documentée) |
+| **Niveau détail** | L0–L1 |
+| **Révélé** | Douleur PME, chaos IA libre, coût du flou |
+| **Masqué** | Architecture SFIA interne |
+| **Transition** | « Et si une autre voie existait ? » |
+| **Durée** | 3–5 min |
+| **Personas** | Dirigeant PME, prospect |
 
 ---
 
-## 5. Rôle des bases
+## 4. ACTE II — Une nouvelle façon de conduire un projet
 
-### Base Référentiel SFIA (25 entrées)
-
-| Dimension | Règle UX |
-|-----------|----------|
-| **Rôle** | Trouver prompts, templates, docs fondateurs |
-| **Intention** | Exécuter, Gouverner |
-| **Entrée** | Page 06, page 10 (vue filtrée), liens contextuels |
-| **Sortie** | Lien Git ou page Notion liée |
-| **Risque** | Devenir miroir catalog — **interdit** |
-
-### Base Cycles SFIA (15 entrées)
-
-| Dimension | Règle UX |
-|-----------|----------|
-| **Rôle** | Explorer cycles projet, profils, gates |
-| **Intention** | Utiliser |
-| **Entrée** | Page 04, 05, liens depuis Routage |
-| **Sortie** | Page 03 ou Git routing-guide |
-| **Risque** | Confusion v2.5 baseline — badge Candidate |
+| Champ | Contenu |
+|-------|---------|
+| **Question** | En quoi SFIA diffère-t-elle de ChatGPT/Cursor libres et d'une ESN classique ? |
+| **Objectif** | Poser le contraste tripartite |
+| **Message** | SFIA = cycles + gouvernance + IA assistée + traçabilité Git |
+| **Émotion** | « Enfin un cadre » |
+| **Preuve** | Tableau comparatif (projet classique / IA libre / SFIA) |
+| **Niveau** | L1 |
+| **Révélé** | Rôles Morris / ChatGPT / Cursor / Git / Notion |
+| **Masqué** | Prompt catalog, routing détaillé |
+| **Transition** | « Voyons concrètement sur un projet » |
+| **Durée** | 8–10 min |
+| **Personas** | Chef de projet, ESN, technique |
 
 ---
 
-## 6. Page Documents de référence (§10)
+## 5. ACTE III — Suivons un vrai projet
 
-- **Pas** une longue page statique
-- **Vue filtrée** Base Référentiel (`visibilité=publique` ou équivalent)
-- Intention **Gouverner** + support **Exécuter** (L4)
-- Lien depuis page 07 et footer
-
----
-
-## 7. Place du Glossaire
-
-- Accessible depuis **toute page** (footer + liens inline)
-- Intention **Découvrir** (5 termes clés) + support transversal
-- Termes liés depuis corps des pages (progressive disclosure)
-
----
-
-## 8. Profondeur L0 à L4
-
-| Niveau | Contenu Notion | Détail technique |
-|--------|----------------|------------------|
-| L0 | Hero, 30 secondes, CTA | — |
-| L1 | Synthèse métier | Lien Git optionnel |
-| L2 | Cycle, routage, profils | routing-guide |
-| L3 | Templates, setup, garde-fous | prompts/, method/ |
-| L4 | Référentiel, glossaire complet | docs/ foundation |
-
-**Règle :** ne jamais monter de niveau sans signal explicite (« détail technique → Git »).
+| Champ | Contenu |
+|-------|---------|
+| **Question** | À quoi ressemble un projet piloté avec SFIA ? |
+| **Objectif** | Fil rouge narratif bout en bout |
+| **Message** | De l'intention métier à la mise en service — avec gates humaines |
+| **Émotion** | « Je me projette » |
+| **Preuve** | Fil rouge PME BTP / Chantiers360 (synthèse — sources Git) |
+| **Niveau** | L1–L2 |
+| **Révélé** | Étapes cadrage → RUN, livrables par phase |
+| **Masqué** | Contenu brut projects/, prompts exécutés |
+| **Transition** | « Que produit-on exactement ? » |
+| **Durée** | 15–20 min |
+| **Personas** | Tous — cœur Discovery |
 
 ---
 
-## 9. Numérotation stable vs navigation par intention
+## 6. ACTE IV — Ce que SFIA produit
 
-| Mécanisme | Usage |
-|-----------|-------|
-| **Numérotation §00–11** | Stable pour traçabilité Git ↔ Notion, métadonnées |
-| **Navigation par intention** | Primaire pour l'utilisateur — parcours nommés |
-| **Sidebar Notion** | **Hors sujet UX** — ne pas optimiser ; parcours in-page prioritaire |
-
----
-
-## 10. Architecture cible desktop
-
-- Largeur lecture confortable (colonnes Notion standard)
-- Hero pleine largeur sur accueil
-- Tables ≤ 5 colonnes ; toggles pour détail
-- Footer synced global en bas de chaque page
-
----
-
-## 11. Comportement mobile attendu
-
-- Blocs empilés — pas de colonnes multi-sur mobile
-- Tables converties en listes ou toggles si > 3 colonnes
-- Navigation footer : liens texte courts (Accueil · Suivant)
-- Callouts lisibles sans zoom
-- Pas de dépendance survol ou sidebar
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Quels livrables et résultats concrets ? |
+| **Objectif** | Matérialiser la valeur |
+| **Message** | Chaque cycle produit un artefact identifiable et traçable |
+| **Émotion** | « C'est tangible » |
+| **Preuve** | Galerie livrables (ADR, BPMN, backlog, review pack, QA…) |
+| **Niveau** | L2 |
+| **Révélé** | Types livrables, exemples visuels autorisés |
+| **Masqué** | Templates complets |
+| **Transition** | « Pourquoi ça tient la route ? » |
+| **Durée** | 10 min |
+| **Personas** | PO, PMO, ESN |
 
 ---
 
-## 12. Zones non couvertes P0
+## 7. ACTE V — Pourquoi cela fonctionne
 
-| Zone | Priorité | Cycle |
-|------|----------|-------|
-| §09 Cas d'usage | P1 | Post UX-06 |
-| Parcours personas dédiés | P1 | UX-06+ |
-| Visibilité publique | Décision Morris | Hors UX-01 |
-| Automatisation L1+ | P2 | Post-MVP |
-
----
-
-## Liens
-
-→ [01 Vision UX](01-sfia-notion-ux-vision.md) · [03 Navigation](03-sfia-notion-navigation-model.md) · [05 Templates](05-sfia-notion-page-templates.md)
-
----
-
-# FICHIER 4 — 03-sfia-notion-navigation-model.md
-
-# 03 — Modèle de navigation — SFIA Notion
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Contrat navigation — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
-| **Propriétaire** | Morris |
-| **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur (UX-03) |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Quelles garanties et limites ? |
+| **Objectif** | Crédibilité — pas sur-promesse |
+| **Message** | Garde-fous, gates Morris, Git prime, capitalisation |
+| **Émotion** | « Confiance raisonnée » |
+| **Preuve** | Gouvernance résumée, limites explicites |
+| **Niveau** | L2 |
+| **Révélé** | Ce qui est garanti vs ce qui ne l'est pas |
+| **Masqué** | Protected paths, rules complètes |
+| **Transition** | « Et pour mon contexte ? » |
+| **Durée** | 8 min |
+| **Personas** | Dirigeant, responsable méthode |
 
 ---
 
-## 1. Principes de navigation
+## 8. ACTE VI — Se projeter avec SFIA
 
-| Principe | Règle |
-|----------|-------|
-| Point d'entrée unique | **00 Accueil** — toute session commence ou y revient |
-| Retour accueil | Lien visible en-tête et footer de chaque page |
-| Précédent / suivant | Séquence logique par intention — pas numérotation seule |
-| Liens contextuels | Dans le corps — vers pages, bases, Git |
-| Navigation par parcours | 4 parcours nommés depuis accueil |
-| Sorties Git | Lien explicite quand détail technique requis |
-| Bases ↔ pages | Entrée base depuis page ; sortie page depuis fiche base |
-| Impasses | **Interdites** — minimum 2 sorties par page |
-| Sidebar Notion | **Hors sujet** — non optimisée par ce contrat |
-
----
-
-## 2. En-tête de page (obligatoire)
-
-Chaque page P0 affiche en tête :
-
-| Élément | Exemple |
-|---------|---------|
-| Retour accueil | `← Accueil` |
-| Catégorie parcours | `Parcours : Comprendre en 30 min` |
-| Statut documentaire | `Draft éditorial · Candidate v2.5` |
-| Niveau de lecture | `L2` |
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Quelle valeur pour moi (PME, ESN, tech) ? |
+| **Objectif** | Personnalisation par persona |
+| **Message** | Parcours et gains spécifiques |
+| **Émotion** | « C'est pour nous » |
+| **Preuve** | Fiches persona + CTA |
+| **Niveau** | L1 |
+| **Révélé** | Bénéfices par segment |
+| **Masqué** | Pricing, contrats commerciaux (hors scope) |
+| **Transition** | « Approfondir la méthode ? » |
+| **Durée** | 5–10 min |
+| **Personas** | Ciblés |
 
 ---
 
-## 3. Corps de page (obligatoire)
+## 9. ACTE VII — Explorer la méthode
 
-| Bloc | Règle |
-|------|-------|
-| À retenir en 30 secondes | Toujours en premier après en-tête |
-| Contenu principal | Une intention principale |
-| Liens contextuels | Inline vers pages liées |
-| Renvoi Git | Callout « Source Git » si L3+ |
-
----
-
-## 4. Pied de page (obligatoire)
-
-| Élément | Règle |
-|---------|-------|
-| Précédent | Page logique dans parcours courant |
-| Suivant | Page logique dans parcours courant |
-| Retour accueil | Répété |
-| Ressources complémentaires | Glossaire, Gouvernance, Référentiel |
-| Footer synced | Git prime · baseline v2.4 · Candidate · date sync |
+| Champ | Contenu |
+|-------|---------|
+| **Question** | Comment approfondir / exécuter ? |
+| **Objectif** | Porte vers annexes et Git |
+| **Message** | Méthode disponible — exécution dans Git |
+| **Émotion** | « Je sais où aller » |
+| **Preuve** | Liens Référentiel, glossaire, setup |
+| **Niveau** | L2–L4 |
+| **Révélé** | Index méthode simplifié |
+| **Masqué** | — (renvoi Git pour détail) |
+| **Transition** | Sortie ou boucle approfondissement |
+| **Durée** | Libre |
+| **Personas** | Contributeur, architecte |
 
 ---
 
-## 5. Parcours nommés
+## 10. Règles transversales actes
 
-### 5.1 Découvrir SFIA en 5 minutes
-
-`00 Accueil` → `02 Valeur` → `03 Cycle` (schéma) → `11 Glossaire` (5 termes)
-
-### 5.2 Comprendre SFIA en 30 minutes
-
-`00` → `01 Comprendre` → `03 Cycle` → `04 Profils` → `07 Gouvernance` (résumé)
-
-### 5.3 Lancer un premier cycle
-
-`00` → `08 Mise en place` → `05 Routage` → `06 Templates` → sortie Git
-
-### 5.4 Contribuer à la méthode
-
-`00` → `07 Gouvernance` → `06 Templates` → `10 Documents` → sortie Git PR
+- Un acte = une intention principale
+- Chaque acte se termine par une **question** ou **CTA** vers le suivant
+- Les pages P0 actuelles (§01–08) deviennent **matière** des actes VII ou annexes — pas structure primaire
+- Durée totale parcours complet : 45–60 min (lecture active)
 
 ---
 
-## 6. Règles de nommage
+## 11. Hypothèses et options
 
-| Contexte | Règle |
-|----------|-------|
-| Titre page Notion | `§NN — Titre court` (ex. `§03 — Comment fonctionne un cycle`) |
-| Liens internes | Texte descriptif — pas « cliquez ici » |
-| Liens Git | Chemin relatif repo + commit SHA si page P0 |
-| Parcours | Verbe + durée : « Découvrir en 5 minutes » |
-| Menus contextuels | ≤ 7 liens par bloc |
-
----
-
-## 7. Règles d'icônes
-
-Voir [04 Design system](04-sfia-notion-design-system.md). En navigation : icône page dans en-tête uniquement — pas dans chaque lien.
-
-| Page | Icône |
-|------|-------|
-| 00 Accueil | 🏠 |
-| 01 Comprendre | 📖 |
-| 02 Valeur | 💡 |
-| 03 Cycle | 🔄 |
-| 04 Profils | 📋 |
-| 05 Routage | 🧭 |
-| 06 Templates | 🧩 |
-| 07 Gouvernance | 🛡️ |
-| 08 Mise en place | 🚀 |
-| 10 Référentiel | 📁 |
-| 11 Glossaire | 📚 |
-
----
-
-## 8. Navigation bases ↔ pages
-
-| Depuis | Vers | Action |
-|--------|------|--------|
-| Page 04 | Base Cycles | Lien « Voir tous les cycles » |
-| Fiche cycle (base) | Page 03 | Lien « Comment fonctionne un cycle » |
-| Page 06 | Base Référentiel | Lien filtré type=template |
-| Page 10 | Base Référentiel | Vue embedded ou lien |
-| Base Référentiel | Git | Propriété URL Git sur fiche |
-
----
-
-## 9. Traitement des impasses
-
-| Situation | Récupération |
-|-----------|--------------|
-| Fin de parcours | CTA « Retour accueil » + « Autre parcours » |
-| Page isolée | Footer précédent/suivant + accueil |
-| Lien mort | QA UX-06 — correction manuelle |
-| Besoin technique | Callout « Continuer dans Git » |
-
----
-
-## 10. Comportement mobile
-
-- En-tête : une ligne — `← Accueil · L2`
-- Footer : liens empilés — `Précédent` / `Suivant` / `Accueil`
-- Pas de menu hamburger custom — navigation in-page
-- Tables navigation : liste verticale
-
----
-
-## 11. Tableau des transitions — 11 pages P0
-
-Légende : **P** = précédent suggéré · **S** = suivant suggéré · **A** = accueil toujours accessible
-
-| Page | P (défaut) | S (défaut) | Parcours 5 min | Parcours 30 min | Parcours 1er cycle | Liens transverses |
-|------|------------|------------|----------------|-----------------|-------------------|-------------------|
-| **00 Accueil** | — | 02 ou 01 | → 02 | → 01 | → 08 | 11, 07 |
-| **01 Comprendre** | 00 | 03 | — | 00→**01**→03 | — | 07, 11 |
-| **02 Valeur** | 00 | 03 | 00→**02**→03 | — | — | 11 |
-| **03 Cycle** | 02 ou 01 | 04 ou 11 | 02→**03**→11 | 01→**03**→04 | 08→05 | Base Cycles |
-| **04 Profils** | 03 | 05 | — | 03→**04**→05 | 05 | Base Cycles |
-| **05 Routage** | 04 | 06 ou 08 | — | 04→**05**→06 | 08→**05**→06 | Base Cycles |
-| **06 Templates** | 05 | 08 ou 10 | — | 05→**06** | 05→**06**→Git | Référentiel |
-| **07 Gouvernance** | 04 ou 06 | 10 ou 00 | — | 04→**07**→00 | — | Git governance |
-| **08 Mise en place** | 00 ou 06 | 05 | — | — | 00→**08**→05 | 03, 11 |
-| **10 Documents** | 07 | 06 ou 00 | — | — | 06→**10** | Référentiel |
-| **11 Glossaire** | 03 ou 02 | 00 | 03→**11**→00 | — | — | Toutes pages |
-
-**Note :** les transitions par défaut (P/S) suivent la séquence numérique **modulo parcours** — l'implémentation UX-03 matérialise les footers.
-
----
-
-## 12. Navigation transversale (toujours disponible)
-
-| Lien | Position |
-|------|----------|
-| Glossaire | Footer + inline termes |
-| Gouvernance | Footer |
-| Accueil | En-tête + footer |
-| Base Référentiel | Footer contributeurs |
-| Base Cycles | Footer PMO |
+| Élément | Statut |
+|---------|--------|
+| 7 actes | **Recommandation** — à valider Morris |
+| Fil rouge Chantiers360 | **Option** — générique PME BTP si préféré |
+| Acte VII reprend glossaire/routage | **Hypothèse** — contenu P0 recyclé en annexe |
 
 ---
 
 ## Liens
 
-→ [02 Architecture](02-sfia-notion-experience-architecture.md) · [04 Design system](04-sfia-notion-design-system.md) · [06 User journeys](06-sfia-notion-user-journeys.md)
+→ [03 Storyline](03-sfia-discovery-storyline.md) · [06 IA cible](06-sfia-discovery-target-information-architecture.md)
 
 ---
 
-# FICHIER 5 — 04-sfia-notion-design-system.md
+# FICHIER 4 — 03-sfia-discovery-storyline.md
 
-# 04 — Design system Notion — SFIA
+# 03 — Storyline — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Design system Notion — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
-| **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur (UX-05) |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
-## 1. Principes visuels
-
-| Principe | Application |
-|----------|-------------|
-| Sobriété | Fond clair, peu de couleurs |
-| Fonction avant décoration | Chaque callout a un rôle |
-| Lisibilité | Interlignage confortable, paragraphes courts |
-| Cohérence | Mêmes callouts sur toutes les pages P0 |
-| Accessibilité | Sens compréhensible sans couleur seule |
-| Git discret | Callout dédié — pas de blocs code massifs |
-
----
-
-## 2. Hiérarchie typographique
-
-| Niveau Notion | Usage | Règle |
-|---------------|-------|-------|
-| **Titre page** | Titre unique H1 | `§NN — Titre` — une seule fois |
-| **Heading 1** | Sections principales (1–10) | Numérotation optionnelle |
-| **Heading 2** | Sous-sections | Max 2 niveaux sous H1 |
-| **Heading 3** | Détail ponctuel | Éviter H3 sous H3 |
-| **Paragraphe** | Corps | ≤ 4 lignes avant liste/table |
-| **Liste** | Énumération | Puces pour < 7 items ; table si plus |
-
----
-
-## 3. Système d'icônes minimal
-
-| Page / concept | Icône | Emoji fallback |
-|----------------|-------|----------------|
-| Accueil | maison | 🏠 |
-| Comprendre | livre | 📖 |
-| Valeur | ampoule | 💡 |
-| Cycle | flèches circulaires | 🔄 |
-| Routage | boussole | 🧭 |
-| Templates | puzzle | 🧩 |
-| Gouvernance | bouclier | 🛡️ |
-| Mise en place | fusée | 🚀 |
-| Référentiel | dossiers | 📁 |
-| Glossaire | livres | 📚 |
-
-**Règle :** une icône par page dans l'en-tête — pas d'emojis décoratifs dans le corps.
-
----
-
-## 4. Callouts fonctionnels
-
-| Type | Couleur Notion | Usage | Texte type |
-|------|----------------|-------|------------|
-| **Information** | Bleu | Contexte neutre | « Cette page résume… » |
-| **À retenir** | Jaune | Synthèse 30 secondes | Bullet points clés |
-| **Attention** | Orange | Vigilance, risque | « Ne pas confondre… » |
-| **Candidate** | Gris | Contenu v2.5 non baseline | « Candidate — non baseline » |
-| **Décision Morris** | Violet | Décision validée ou requise | « GO requis pour… » |
-| **Source Git** | Vert | Lien vers vérité | `path/to/file.md` @ SHA |
-
-**Règle :** les couleurs ne sont jamais purement décoratives. Chaque callout inclut un **libellé textuel** du type (ex. « Candidate »).
-
----
-
-## 5. Couleurs fonctionnelles
-
-| Sémantique | Usage | Interdit |
-|------------|-------|----------|
-| Bleu | Information | Branding décoratif |
-| Jaune | Retenir | Surligner tout le paragraphe |
-| Orange | Attention | Alarme sans texte |
-| Gris | Candidate / neutre | Texte illisible |
-| Vert | Git / validation source | « Succès » décoratif |
-| Violet | Décision Morris | Promotion baseline |
-
-**Accessibilité :** le sens doit rester compréhensible en niveaux de gris ou sans emoji.
-
----
-
-## 6. Composants Notion
-
-| Composant | Usage | Règle |
-|-----------|-------|-------|
-| **Séparateur** | Entre sections majeures | Max 1 par 3 sections |
-| **Tableau** | Matrices, métadonnées | ≤ 5 colonnes desktop ; toggle mobile |
-| **Colonnes** | Hero accueil uniquement | 2 colonnes max |
-| **Toggle** | Détail optionnel L3+ | Titre explicite |
-| **Citation** | Citation operating model | Source Git sous citation |
-| **Code** | Schémas ASCII uniquement | Pas de code exécutable |
-| **Bases / vues** | Référentiel, Cycles | Vues nommées par intention |
-| **Synced blocks** | Footer + 3 rappels globaux | Voir §8 |
-| **Lien** | Navigation, Git | Texte descriptif |
-
----
-
-## 7. Hero (Accueil uniquement)
-
-| Bloc | Contenu |
-|------|---------|
-| Titre | SFIA — Software Factory Intelligence Approach |
-| Sous-titre | Guide de compréhension — Git source de vérité |
-| Callout Git/Notion | Schéma dualité |
-| 3 CTA parcours | Boutons ou liens callout |
-| Statut méthode | v2.4 baseline · éléments Candidate |
-
----
-
-## 8. Footer global (synced block)
-
-**Usage limité synced blocks à :**
-
-1. **Git source de vérité** — une ligne + lien repo
-2. **Baseline actuelle** — SFIA v2.4
-3. **Statut Candidate** — mention si page concernée
-4. **Footer navigation** — Accueil · Glossaire · Gouvernance · date sync
-
-### Risques maintenance synced blocks
-
-| Risque | Mitigation |
-|--------|------------|
-| Mise à jour oubliée sur une page | Max 4 synced blocks ; QA UX-06 checklist |
-| Divergence partielle | Audit mensuel Morris |
-| Casse mobile | Footer texte court |
-| Propagation erreur | Contenu minimal dans synced |
-
----
-
-## 9. Métadonnées visuelles
-
-Table en haut de page (page éditoriale standard) :
-
-| Champ | Affichage |
-|-------|-----------|
-| Page P0 | §NN |
-| Statut | Draft / Publié |
-| Niveau | L0–L4 |
-| Propriétaire | Morris |
-| Commit source | SHA court |
-| Date sync | Europe/Paris |
-
----
-
-## 10. Navigation visuelle
-
-| Élément | Style |
-|---------|-------|
-| Retour accueil | `← Accueil` — lien en tête |
-| Précédent / suivant | Footer — `← Précédent · Suivant →` |
-| Liens Git | Callout vert + monospace path |
-| Bases | Bouton callout bleu |
-
----
-
-## 11. Comportement mobile
-
-- Colonnes hero → empilées
-- Tables larges → toggle « Voir tableau »
-- Callouts pleine largeur
-- Footer liens verticaux
-- Pas de hover-only
-
----
-
-## 12. Accessibilité
-
-| Critère | Règle |
-|---------|-------|
-| Contraste | Texte Notion par défaut — pas de texte gris clair custom |
-| Couleur seule | Interdit pour statut — toujours libellé |
-| Emojis | Complément icône — pas seul vecteur de sens |
-| Structure | H1 unique ; hiérarchie H2 logique |
-| Liens | Texte explicite |
-
----
-
-## 13. Matrice QA — élément / usage / règle / interdit / test
-
-| Élément | Usage | Règle | Interdit | Test QA |
-|---------|-------|-------|----------|---------|
-| Callout À retenir | Synthèse page | En tête corps | > 7 bullets | Lecture 30 s |
-| Callout Candidate | v2.5 | Si mention v2.5 | Sans libellé | Badge visible |
-| Callout Source Git | L3+ | Path + SHA | Dump fichier | Lien cliquable |
-| Tableau | Matrice routage | ≤ 5 col. | Scroll horizontal mobile | Toggle mobile |
-| Synced footer | Toutes pages | 4 blocs max | Contenu long | Cohérence 11 pages |
-| Hero | Accueil | 2 colonnes max | Vidéo, image lourde | Mobile empilé |
-| Icône page | En-tête | 1 par page | Emojis corps | Cohérence liste §03 |
-| Toggle | Détail L3 | Titre clair | Contenu critique caché | Ouverture intuitive |
-| Base embed | §10 | Vue filtrée | Liste complète repo | ≤ 25 entrées visibles |
-| Lien Git externe | Exécution | github.com path | Token, secret | 404 check |
-
----
-
-## Liens
-
-→ [03 Navigation](03-sfia-notion-navigation-model.md) · [05 Templates](05-sfia-notion-page-templates.md) · [07 Roadmap](07-sfia-notion-ux-roadmap.md)
-
----
-
-# FICHIER 6 — 05-sfia-notion-page-templates.md
-
-# 05 — Templates de pages — SFIA Notion
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Gabarits pages Notion — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
-| **Propriétaire** | Morris |
-| **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur (UX-02, UX-03) |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
-
----
-
-## 1. Inventaire des gabarits (8)
-
-| # | Gabarit | Pages P0 |
-|---|---------|----------|
-| 1 | Landing / Accueil | 00 |
-| 2 | Page éditoriale standard | 01, 02, 03, 04, 05, 07 |
-| 3 | Page de parcours | Accueil (section parcours) |
-| 4 | Page Référentiel | 10 |
-| 5 | Page Cycles | 04 (section base) |
-| 6 | Page Glossaire | 11 |
-| 7 | Page Gouvernance | 07 |
-| 8 | Page pratique / onboarding | 08, 06 |
-
----
-
-## 2. Gabarit 1 — Landing page / Accueil
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Orienter < 30 s ; proposer 3 parcours |
-| **Audience** | Tous |
-| **Structure** | Hero · Git/Notion · 3 parcours · accès rapides · choix par besoin · statut · sources · footer |
-| **Blocs obligatoires** | Hero, callout Git, 3 CTA parcours, schéma dualité, footer synced |
-| **Blocs optionnels** | Choix par besoin (table), accès rapides bases |
-| **Navigation** | Sorties vers 01, 02, 08, 11 |
-| **Métadonnées** | L0–L1, Morris, commit source |
-| **Callouts** | Information, À retenir, Source Git |
-| **Longueur** | ≤ 2 écrans desktop sans scroll excessif |
-| **Liens Git** | README, method README, knowledge-layer |
-| **Pièges** | Liste exhaustive pages ; miroir sidebar |
-| **Critères acceptation** | 3 parcours cliquables ; retour N/A ; schéma visible mobile |
-
----
-
-## 3. Gabarit 2 — Page éditoriale standard
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Une intention ; synthèse pédagogique |
-| **Audience** | Selon page |
-| **Structure** | En-tête nav · métadonnées · 30 secondes · corps 10 sections · exemple · vigilance · ressources · nav · sources Git · footer |
-| **Blocs obligatoires** | À retenir, corps, points vigilance, précédent/suivant, Source Git |
-| **Blocs optionnels** | Exemple pédagogique, toggle détail |
-| **Navigation** | En-tête + footer §03 |
-| **Métadonnées** | Table 8 champs minimum |
-| **Callouts** | À retenir, Attention, Candidate, Source Git |
-| **Longueur** | 1–3 écrans ; L2 max sans toggle |
-| **Liens Git** | 2–5 paths par page |
-| **Pièges** | Copie intégrale doc Git ; jargon sans glossaire |
-| **Critères acceptation** | 30 s lisible ; 2 sorties min ; commit SHA présent |
-
-**Pages :** 01, 02, 03, 04, 05, 07 (base) ; 06 hybride avec gabarit 8.
-
----
-
-## 4. Gabarit 3 — Page de parcours
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Décrire une séquence nommée |
-| **Audience** | Selon parcours |
-| **Structure** | Titre parcours · durée · étapes numérotées · liens pages · résultat attendu |
-| **Blocs obligatoires** | Liste étapes, durée cible, CTA départ |
-| **Blocs optionnels** | Diagramme Mermaid/texte |
-| **Navigation** | Liens vers chaque étape |
-| **Métadonnées** | Parcours ID, durée |
-| **Callouts** | Information |
-| **Longueur** | ≤ 1 écran |
-| **Liens Git** | Optionnel fin parcours |
-| **Pièges** | Parcours sans fin |
-| **Critères acceptation** | Chaque étape a lien page existante |
-
-**Emplacement :** section dans 00 Accueil + référence dans 06 user journeys.
-
----
-
-## 5. Gabarit 4 — Page Référentiel
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Index curé — pas liste repo |
-| **Audience** | Contributeur, architecte |
-| **Structure** | Intro · vue base embedded · filtres · lien Git par entrée |
-| **Blocs obligatoires** | Vue Base Référentiel, callout liste fermée |
-| **Blocs optionnels** | Filtres par type |
-| **Navigation** | ← 06 Templates · → Accueil |
-| **Métadonnées** | L4 |
-| **Callouts** | Source Git, Information |
-| **Longueur** | Court — détail dans base |
-| **Liens Git** | Propriété URL sur chaque fiche base |
-| **Pièges** | 720 docs listés |
-| **Critères acceptation** | Vue filtrée ; ≤ 25 entrées P0 visibles |
-
-**Page :** 10 Documents de référence.
-
----
-
-## 6. Gabarit 5 — Page Cycles
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Synthèse + accès Base Cycles |
-| **Audience** | PMO, PO |
-| **Structure** | Résumé 15 cycles · badge Candidate · embed base · lien routing |
-| **Blocs obligatoires** | Table synthèse, callout Candidate, lien base |
-| **Blocs optionnels** | Exemples gates |
-| **Navigation** | ↔ 03, 05, Base Cycles |
-| **Métadonnées** | L2, v2.5 Candidate |
-| **Callouts** | Candidate, Attention |
-| **Longueur** | 2 écrans + base |
-| **Liens Git** | routing-guide, cycle-execution-template |
-| **Pièges** | Présenter v2.5 comme baseline |
-| **Critères acceptation** | 15 entrées base ; badge visible |
-
-**Page :** 04 (section dédiée + base).
-
----
-
-## 7. Gabarit 6 — Page Glossaire
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Vocabulaire partagé ≥ 20 termes |
-| **Audience** | Tous |
-| **Structure** | Intro · table termes · liens croisés pages |
-| **Blocs obligatoires** | ≥ 27 termes, liens internes |
-| **Blocs optionnels** | Toggle par lettre |
-| **Navigation** | Footer toutes pages → 11 |
-| **Métadonnées** | L1–L4 |
-| **Callouts** | Information |
-| **Longueur** | Référence — scannable |
-| **Liens Git** | operating-model, routing-guide |
-| **Pièges** | Redéfinition contradictoire |
-| **Critères acceptation** | Termes alignés editorial draft 11 |
-
-**Page :** 11 Glossaire.
-
----
-
-## 8. Gabarit 7 — Page Gouvernance
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Garde-fous, Git prime, workflow sync |
-| **Audience** | Morris, qualité, méthode |
-| **Structure** | Table interdictions · rôles · workflow · lien governance Git |
-| **Blocs obligatoires** | Table garde-fous, callout Décision Morris |
-| **Blocs optionnels** | Niveaux automation L0–L3 |
-| **Navigation** | → 10, Git governance doc |
-| **Métadonnées** | L2–L3 |
-| **Callouts** | Attention, Décision Morris, Source Git |
-| **Longueur** | 2 écrans |
-| **Liens Git** | rules-and-guardrails, publication-governance |
-| **Pièges** | Procédure CMP/API |
-| **Critères acceptation** | Interdictions raw sync/API explicites |
-
-**Page :** 07 Gouvernance.
-
----
-
-## 9. Gabarit 8 — Page pratique / onboarding
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Actions concrètes — checklist |
-| **Audience** | Tech lead, PO |
-| **Structure** | Prérequis · checklist ≥ 12 étapes · liens outils · premier cycle |
-| **Blocs obligatoires** | Checklist actionnable, CTA Git |
-| **Blocs optionnels** | Captures (post UX-05) |
-| **Navigation** | → 05, 06, sortie Git |
-| **Métadonnées** | L3 |
-| **Callouts** | À retenir, Source Git |
-| **Longueur** | Checklist scannable |
-| **Liens Git** | repository-blueprint, checklists |
-| **Pièges** | Promettre exécution dans Notion |
-| **Critères acceptation** | 12 étapes ; chaque étape actionnable |
-
-**Pages :** 08 Mise en place, 06 Templates (index).
-
----
-
-## 10. Structure commune page éditoriale (référence)
-
-```text
-[En-tête navigation]
-[Métadonnées table]
-[Callout À retenir en 30 secondes]
 ## 1. Objectif
-## 2. Contenu principal
-## 3. Fonctionnement / parcours
-## 4. Exemple pédagogique
-## 5. Points de vigilance
-## 6. Liens
-## 7. Sources Git
-## 8. Métadonnées publication
-## 9. Réserves / décisions Morris
-[Navigation précédent · suivant · accueil]
-[Footer synced]
+
+Écrire le **scénario produit** — fil rouge, contrastes, moments de preuve, climax et sorties.
+
+---
+
+## 2. Ouverture narrative
+
+> **Scène :** Un dirigeant de PME du BTP — appelons l'entreprise **NovaBuild** (cas générique inspiré des trajectoires Chantiers360 documentées dans Git). Il a besoin d'une application pour piloter ses chantiers et réserves. Il a testé ChatGPT pour « faire une app ». Résultat : des bouts de code, des idées, aucune traçabilité, personne pour maintenir.
+
+**Question du lecteur :** « Et SFIA, concrètement, ça change quoi ? »
+
+---
+
+## 3. Contraste tripartite
+
+| Dimension | Projet classique | IA libre (ChatGPT/Cursor) | SFIA |
+|-----------|------------------|---------------------------|------|
+| Cadre | Cahier des charges lourd | Aucun | Cycles bornés |
+| Traçabilité | Variable | Faible | Git + PR |
+| Vitesse | Lente | Rapide mais chaotique | Rapide **et** gouverné |
+| Décision | Comité | Utilisateur seul | Morris (gates) |
+| Livrables | Documents projet | Fragments code | Artefacts par cycle |
+| Capitalisation | Difficile | Absente | REX, méthode |
+
+**Note :** comparaison **pédagogique** — pas claim benchmark chiffré non sourcé.
+
+---
+
+## 4. Révélation progressive de SFIA
+
+1. **Acte I** — NovaBuild reconnaît le chaos (retards, rework, IA non maîtrisée)
+2. **Acte II** — SFIA introduite comme **usine logicielle gouvernée**
+3. **Acte III** — On suit le projet NovaBuild cycle par cycle
+4. **Acte IV** — On voit les livrables s'accumuler
+5. **Acte V** — On comprend pourquoi ça tient (gates, Git, review)
+6. **Acte VI** — NovaBuild (PME) et l'ESN partenaire se projettent
+7. **Acte VII** — Accès méthode pour qui veut approfondir
+
+---
+
+## 5. Fil rouge projet NovaBuild
+
+**Sources vérifiables :** trajectoire Chantiers360 (`projects/chantiers360/`, capitalisations v2.5) — **synthèse narrative**, pas export brut.
+
+| Phase | Problème projet | Action SFIA visible | Rôles | Livrable observable | Gate Morris | Valeur | Preuve Git | Masqué |
+|-------|-----------------|---------------------|-------|---------------------|-------------|--------|------------|--------|
+| **Intention** | Besoin métier flou | Cycle cadrage | Morris, ChatGPT | Note cadrage | GO scope | Alignement | framing docs | Prompts |
+| **Cadrage** | Périmètre | Cycle fonctionnel | PO, ChatGPT | Backlog initial | Validation | Clarté | backlog samples | Catalog |
+| **Conception** | Spec incomplète | Archi fonctionnelle | Architecte, Cursor | Diagrammes, ADR | GO archi | Réduction rework | functional-architecture-method | Templates intégraux |
+| **UX** | UI incohérente | Cycle UX/UI | Designer, Cursor | Maquettes / Penpot | Revue Morris | UX alignée | ux deliverables | Figma raw |
+| **Delivery** | Code non tracé | Cycles delivery | Dev, Cursor | PR, code | Merge GO | Incréments | PR history | CI secrets |
+| **QA** | Régressions | Cycle QA | QA, Cursor | Rapport QA, captures | GO release | Qualité | qa reports | Test scripts complets |
+| **Release** | Mise en prod | Cycle release | Morris | Release notes | GO deploy | Disponibilité | release docs | Infra |
+| **RUN** | Exploitation | Cycle RUN readiness | Ops | Runbook | GO | Continuité | run readiness | — |
+| **Capitalisation** | Perte REX | Cycle cap. | Morris | REX, méthode | GO cap. | Amélioration continue | capitalization docs | — |
+
+**Hypothèse :** NovaBuild = **cas générique dérivé** — Morris tranchera fil rouge définitif (Chantiers360 nominal vs générique).
+
+---
+
+## 6. Moments de preuve (climax)
+
+| # | Moment | Contenu |
+|---|--------|---------|
+| M1 | Premier cycle terminé avec PR merge | « Quelque chose de concret existe dans Git » |
+| M2 | Review pack lu par Morris | « La qualité est contrôlée » |
+| M3 | Capture runtime QA | « L'application fonctionne » |
+| M4 | REX capitalisation | « La méthode s'améliore » |
+
+**Climax narratif recommandé :** M3 — démonstration visuelle application NovaBuild (capture ou schéma — **pas** code source intégral).
+
+---
+
+## 7. Transitions et sorties
+
+| Sortie | Condition | Destination |
+|--------|-----------|-------------|
+| Teaser 3 min | Dirigeant pressé | Acte I + II résumé |
+| Conviction 20 min | PO intéressé | Acte III + IV |
+| Approfondissement | Architecte | Acte VII + Git |
+| Contact / GO Morris | Prospect qualifié | Hors Notion — process commercial Morris |
+
+---
+
+## 8. Points de projection utilisateur
+
+- « Mon équipe ressemble à NovaBuild »
+- « Mon ESN pourrait livrer ainsi »
+- « Je vois où Morris intervient »
+- « Je ne veux pas reconstruire SFIA — je veux l'utiliser »
+
+---
+
+## 9. Crédibilité et limites
+
+| Affirmation | Statut |
+|-------------|--------|
+| Chantiers360 a produit des livrables réels | **Observation** — sources Git |
+| NovaBuild est un client réel | **Fiction pédagogique** — sauf décision Morris contraire |
+| SFIA garantit succès projet | **Interdit** |
+| IA exécute seule | **Interdit** |
+
+---
+
+## 10. Diagramme fil rouge (Mermaid)
+
+```mermaid
+flowchart LR
+  A[Intention NovaBuild] --> B[Cadrage]
+  B --> C[Conception]
+  C --> D[UX]
+  D --> E[Delivery]
+  E --> F[QA]
+  F --> G[Release]
+  G --> H[RUN]
+  H --> I[Capitalisation]
+  M[Morris gates] -.-> B & C & F & G
 ```
 
 ---
 
 ## Liens
 
-→ [04 Design system](04-sfia-notion-design-system.md) · [06 User journeys](06-sfia-notion-user-journeys.md) · [07 Roadmap](07-sfia-notion-ux-roadmap.md)
+→ [02 Architecture narrative](02-sfia-discovery-narrative-architecture.md) · [04 Personas](04-sfia-discovery-personas-and-reading-journeys.md)
 
 ---
 
-# FICHIER 7 — 06-sfia-notion-user-journeys.md
+# FICHIER 5 — 04-sfia-discovery-personas-and-reading-journeys.md
 
-# 06 — User journeys — SFIA Notion
+# 04 — Personas et parcours de lecture — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Parcours utilisateur — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
-| **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycle ultérieur |
-| **Horodatage** | 2026-07-14 12:06 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
-## A. Découvrir SFIA en 5 minutes
+## 1. Personas (6 minimum)
 
-| Champ | Valeur |
-|-------|--------|
-| **Persona** | Nouveau visiteur / dirigeant |
-| **Contexte** | Première visite espace Notion privé Morris |
-| **Déclencheur** | Lien partagé ou exploration |
-| **Objectif** | Savoir ce qu'est SFIA et si ça vaut la peine d'aller plus loin |
-| **Durée cible** | 5 minutes |
-| **Étapes** | Accueil → Valeur → Cycle (schéma) → Glossaire (5 termes) |
-| **Décisions** | Continuer 30 min ou sortir |
-| **Friction** | Jargon, trop de pages |
-| **Résultat** | Vision claire : Git exécute, Notion explique |
-| **Sortie Git** | Non requise |
-| **Indicateur réussite** | Utilisateur cite 2 bénéfices SFIA |
-| **Desktop** | Hero + 3 CTA visibles sans scroll |
-| **Mobile** | Parcours empilé, callout 30 s lisible |
-| **Échec / récupération** | Perdu → footer Accueil ; glossaire |
+### 1.1 Dirigeant de PME
 
-```mermaid
-flowchart LR
-  A[00 Accueil] --> B[02 Valeur]
-  B --> C[03 Cycle schéma]
-  C --> D[11 Glossaire 5 termes]
-  D --> E{Continuer?}
-  E -->|Oui| F[Parcours 30 min]
-  E -->|Non| G[Sortie]
-```
+| Champ | Contenu |
+|-------|---------|
+| Problème | Coût, délais, dépendance prestataires, IA non maîtrisée |
+| Maturité | Faible technique |
+| Question initiale | « Pourquoi payer une méthode ? » |
+| Attente | ROI, risque maîtrisé, simplicité |
+| Objection | « Encore du consulting » |
+| Preuve | Fil rouge NovaBuild, témoignage synthétique, livrables visibles |
+| Vocabulaire | Business, pas Git |
+| Profondeur max | L1 |
+| CTA | Parcours 10 min → contact Morris |
+| Parcours | Acte I → II → VI |
+
+### 1.2 Chef de projet / PO
+
+| Champ | Contenu |
+|-------|---------|
+| Problème | Flou scope, rework, coordination IA/équipe |
+| Maturité | Moyenne |
+| Question | « Comment structurer un projet avec SFIA ? » |
+| Attente | Cycles, livrables, gates |
+| Objection | « Trop lourd ? » |
+| Preuve | Acte III complet, galerie livrables |
+| Vocabulaire | Cycle, backlog, gate |
+| Profondeur | L2 |
+| CTA | Parcours 30 min → setup |
+| Parcours | I → II → III → IV → VII (setup) |
+
+### 1.3 Équipe technique
+
+| Champ | Contenu |
+|-------|---------|
+| Problème | Specs instables, dette, prompts ad hoc |
+| Maturité | Élevée |
+| Question | « Qu'est-ce que Cursor fait vraiment ? » |
+| Attente | Garde-fous, PR, templates (orientation) |
+| Objection | « Je préfère coder seul » |
+| Preuve | Delivery + QA du fil rouge |
+| Vocabulaire | PR, branch, review pack |
+| Profondeur | L3 |
+| CTA | Acte VII → Git |
+| Parcours | II → III → IV → VII |
+
+### 1.4 ESN / partenaire
+
+| Champ | Contenu |
+|-------|---------|
+| Problème | Différenciation offre, reproductibilité |
+| Maturité | Variable |
+| Question | « Puis-je vendre / appliquer SFIA chez mes clients ? » |
+| Attente | Méthode reproductible, preuves |
+| Objection | « Propriétaire Morris ? » |
+| Preuve | Chantiers360 REX, capitalisation |
+| Vocabulaire | Delivery, gouvernance |
+| Profondeur | L2 |
+| CTA | Acte VI (ESN) → Morris |
+| Parcours | I → II → III → V → VI |
+
+### 1.5 Contributeur méthode
+
+| Champ | Contenu |
+|-------|---------|
+| Problème | Comprendre sans exposer secrets |
+| Maturité | Élevée |
+| Question | « Où est la frontière Notion/Git ? » |
+| Attente | Gouvernance claire |
+| Objection | « Notion va diverger » |
+| Preuve | Acte V + VII |
+| Profondeur | L3–L4 |
+| CTA | Git contribution |
+| Parcours | V → VII |
+
+### 1.6 Prospect non technique
+
+| Champ | Contenu |
+|-------|---------|
+| Problème | Peur IA, incompréhension |
+| Maturité | Très faible |
+| Question | « C'est quoi SFIA en une phrase ? » |
+| Attente | Simplicité, confiance |
+| Objection | « Trop compliqué » |
+| Preuve | Acte I teaser, analogie équipe virtuelle |
+| Profondeur | L0 |
+| CTA | 3 min ou sortie |
+| Parcours | I (résumé) → II (schéma) |
 
 ---
 
-## B. Comprendre SFIA en 30 minutes
+## 2. Niveaux de lecture
 
-| Champ | Valeur |
-|-------|--------|
-| **Persona** | Chef de projet / PO |
-| **Contexte** | Doit évaluer SFIA pour un futur projet |
-| **Déclencheur** | Après parcours 5 min ou accès direct |
-| **Objectif** | Comprendre acteurs, cycles, gates, gouvernance |
-| **Durée cible** | 30 minutes |
-| **Étapes** | Accueil → Comprendre → Cycle → Profils → Gouvernance |
-| **Décisions** | Quel profil pour quel type de demande |
-| **Friction** | v2.5 Candidate vs v2.4 baseline |
-| **Résultat** | Carte mentale cycles + gates Morris |
-| **Sortie Git** | Optionnelle — operating-model |
-| **Indicateur réussite** | Identifie 3 gates et rôle Morris |
-| **Desktop** | Tables profils lisibles |
-| **Mobile** | Toggles pour tables longues |
-| **Échec / récupération** | Confusion v2.5 → callout Candidate |
-
-```mermaid
-flowchart LR
-  A[00 Accueil] --> B[01 Comprendre]
-  B --> C[03 Cycle]
-  C --> D[04 Profils]
-  D --> E[07 Gouvernance]
-  E --> F[Prêt mise en œuvre]
-```
+| Niveau | Durée | Objectif | Actes | Résultat |
+|--------|-------|----------|-------|----------|
+| **Teaser** | 3 min | Accroche | I (extrait) | Curiosité |
+| **Compréhension** | 10 min | Différenciation | I + II | Distinction IA libre |
+| **Conviction** | 20 min | Crédibilité | I–IV (condensé) | Projet imagé |
+| **Démonstration** | 30–45 min | Projection | I–VI | Décision approfondir |
+| **Exploration** | Libre | Méthode | VII + annexes | Passage Git |
 
 ---
 
-## C. Lancer un premier cycle
+## 3. Parcours détaillés
 
-| Champ | Valeur |
+### 3.1 Teaser 3 minutes
+
+| Ordre | Chapitre | Temps | Indispensable |
+|-------|----------|-------|---------------|
+| 1 | Pourquoi SFIA (Acte I résumé) | 1 min | ✓ |
+| 2 | Contraste IA libre (Acte II schéma) | 1 min | ✓ |
+| 3 | CTA « 10 min » ou sortie | 1 min | ✓ |
+
+### 3.2 Compréhension 10 minutes
+
+Acte I complet → Acte II complet → CTA conviction
+
+### 3.3 Conviction 20 minutes
+
+I → II → III (extrait fil rouge 3 phases) → IV (galerie 5 livrables)
+
+### 3.4 Démonstration 45 minutes
+
+I → II → III (complet) → IV → V → VI (persona choisi)
+
+### 3.5 Exploration libre
+
+Hub Acte VII · Annexes glossaire · Liens Git · Bases Référentiel/Cycles
+
+---
+
+## 4. Contenu facultatif par parcours
+
+| Parcours | Facultatif |
+|----------|------------|
+| Teaser | Tout sauf I–II |
+| Compréhension | III–VII |
+| Conviction | V détail, VII |
+| Démonstration | VII complet |
+| Exploration | Actes I–VI si déjà lus |
+
+---
+
+## Liens
+
+→ [02 Actes](02-sfia-discovery-narrative-architecture.md) · [06 IA cible](06-sfia-discovery-target-information-architecture.md)
+
+---
+
+# FICHIER 6 — 05-sfia-discovery-editorial-contract.md
+
+# 05 — Contrat éditorial — SFIA Discovery Experience
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
+
+---
+
+## 1. Voix éditoriale
+
+| Dimension | Règle |
+|-----------|-------|
+| Ton | Confiant, concret, pédagogique — jamais arrogant |
+| Personne | « Vous » pour le lecteur ; « SFIA » en troisième personne |
+| Registre | Métier d'abord, technique en annexe |
+| Longueur phrases | ≤ 25 mots en corps principal |
+| Analogies | Autorisées (équipe virtuelle, usine logicielle) — pas de hype |
+
+---
+
+## 2. Niveau de langage
+
+| Audience | Niveau |
+|----------|--------|
+| Dirigeant / prospect | B1–B2 métier |
+| PO / PMO | B2 avec termes SFIA définis |
+| Technique | B2–C1 avec liens Git |
+| Glossaire | Obligatoire pour tout terme SFIA non trivial |
+
+---
+
+## 3. Rapport métier / technique
+
+- **80/20** métier/valeur sur Actes I–VI
+- **20/80** technique sur Acte VII
+- Jamais de dump Git dans le corps narratif
+- Schémas ASCII ou visuels — pas de code exécutable
+
+---
+
+## 4. Règles de storytelling
+
+1. Toujours un **protagoniste** (NovaBuild ou persona)
+2. Toujours un **conflit** (chaos projet / IA libre)
+3. Toujours une **preuve** avant une promesse
+4. Distinction **observation / hypothèse / recommandation / décision Morris**
+5. Pas de cliffhanger sans résolution dans le parcours 45 min
+
+---
+
+## 5. Frontière preuve / promesse
+
+| Autorisé | Interdit |
+|----------|----------|
+| « Chantiers360 a produit X » (sourcé Git) | « SFIA double votre CA » |
+| « Réduit le rework **lorsque** le cadre est suivi » | « Zéro bug » |
+| « Morris valide les gates structurants » | « Plus besoin de chef de projet » |
+
+---
+
+## 6. Règles d'usage des exemples
+
+- Projets réels : **synthèse** uniquement — gate Morris pour contenu client
+- NovaBuild : étiqueté **fiction pédagogique** sauf décision contraire
+- Captures : autorisées si anonymisées / génériques
+- Pas de données client identifiables
+
+---
+
+## 7. Confidentialité méthodologique
+
+**Principe :** le lecteur comprend capacités et valeur **sans** reconstruire SFIA intégralement.
+
+| Catégorie | Notion Discovery | Git |
+|-----------|------------------|-----|
+| Public / démontrable | Valeur, rôles, types livrables | — |
+| Pédagogique | Cycles simplifiés, schéma operating model | Détail |
+| Repository | Index, renvois | Canonique |
+| Protégé / non publié | — | Prompt catalog intégral, routing exhaustif, automation engines, seuils internes |
+
+---
+
+## 8. Matrice d'information
+
+| Information | Niveau Discovery | Exemple |
+|-------------|------------------|---------|
+| « SFIA utilise des cycles » | Public | Acte II |
+| « 15 types de cycles existent » | Pédagogique | Acte VII résumé |
+| « Matrice routage complète » | Repository | Lien Git |
+| « Texte prompt catalog §X » | Protégé | Non publié |
+| « Seuils Critical implicites » | Protégé | Non publié |
+
+---
+
+## 9. Termes autorisés / déconseillés / interdits
+
+| Terme | Statut |
 |-------|--------|
-| **Persona** | PO / tech lead |
-| **Contexte** | Workspace SFIA disponible, demande métier formulée |
-| **Déclencheur** | « Je veux lancer un cycle documentation » |
-| **Objectif** | Identifier cycle, profil, template ; préparer exécution Git |
-| **Durée cible** | 20–40 minutes |
-| **Étapes** | Accueil → Mise en place → Routage → Templates → **Git** |
-| **Décisions** | Cycle type, profil Light/Standard/Critical |
-| **Friction** | Croire que Notion exécute Cursor |
-| **Résultat** | Prompt prêt à copier dans Cursor depuis Git |
-| **Sortie Git** | **Obligatoire** — routing-guide, prompt-catalog |
-| **Indicateur réussite** | Branche créée dans Git |
-| **Desktop** | Matrice routage + lien template |
-| **Mobile** | Checklist mise en place scannable |
-| **Échec / récupération** | Mauvais cycle → retour 05 Routage |
+| Cycle, gate, review pack (définis) | Autorisé |
+| Baseline (v2.4 only) | Autorisé avec qualification |
+| Candidate v2.5 | Autorisé avec badge |
+| « SFIA 3.0 » | **Interdit** |
+| « Autopilot », « magic » | **Interdit** |
+| « Baseline UX » / « standard officiel » | **Interdit** (Candidate) |
+| Jargon Git non expliqué (rebase, cherry-pick) | Déconseillé Actes I–VI |
+
+---
+
+## 10. Comparaisons
+
+### vs équipe projet classique
+
+- SFIA **cadre** et **accélère** — ne remplace pas la réflexion métier
+- Morris **tranche** — ne disparaît pas
+
+### vs ChatGPT / Cursor libres
+
+- IA libre = **vitesse sans gouvernance**
+- SFIA = **vitesse + traçabilité + gates + capitalisation**
+
+---
+
+## 11. Garde-fous promesses
+
+- Aucune garantie délai absolu
+- Aucune garantie coût fixe
+- Aucune promesse conformité réglementaire sans preuve
+- IA = assistée, pas autonome
+
+---
+
+## 12. Niveau de détail maximal par type
+
+| Type page | Max |
+|-----------|-----|
+| Acte narratif | 3 écrans desktop |
+| Fiche persona | 1 écran |
+| Galerie livrable | 5 items visibles + lien « plus dans Git » |
+| Annexe technique | 2 écrans + lien Git |
+
+---
+
+## 13. Critères qualité page
+
+- Une intention · 30 secondes en tête · Preuve · CTA · Pas de mur de texte · Mobile scannable
+
+---
+
+## 14. Critères d'arrêt
+
+Page trop longue si > 4 écrans sans toggle · Trop abstraite si aucun exemple en 2 premiers paragraphes
+
+---
+
+## Liens
+
+→ [08 Acceptation](08-sfia-discovery-acceptance-framework.md) · [01 Vision](01-sfia-discovery-product-vision.md)
+
+---
+
+# FICHIER 7 — 06-sfia-discovery-target-information-architecture.md
+
+# 06 — Architecture cible de l'information — SFIA Discovery Experience
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
+
+---
+
+## 1. Objectif
+
+Proposer une **nouvelle architecture de pages** orientée Discovery — sans supprimer réellement les pages Notion existantes. Mapping ancien → cible pour migration future.
+
+---
+
+## 2. Arborescence cible (narrative)
 
 ```text
-Accueil → 08 Mise en place (checklist)
-       → 05 Routage (matrice 8 demandes)
-       → 06 Templates (index)
-       → GIT : ouvrir Cursor, cycle-execution-template
+SFIA Discovery — Accueil (Hub)
+├── ACTE I — Pourquoi SFIA existe
+├── ACTE II — Une nouvelle façon de piloter un projet
+├── ACTE III — Suivons NovaBuild (fil rouge)
+│   ├── III.1 Intention et cadrage
+│   ├── III.2 Conception et UX
+│   ├── III.3 Delivery et QA
+│   └── III.4 Release et RUN
+├── ACTE IV — Ce que SFIA produit (galerie livrables)
+├── ACTE V — Pourquoi cela fonctionne (garanties et limites)
+├── ACTE VI — Se projeter (par persona)
+│   ├── VI.1 Dirigeant PME
+│   ├── VI.2 Chef de projet
+│   ├── VI.3 Équipe technique
+│   └── VI.4 ESN partenaire
+├── ACTE VII — Explorer la méthode (annexes)
+│   ├── Cycles et profils (simplifié)
+│   ├── Routage (orientation)
+│   ├── Templates et assets (index)
+│   ├── Gouvernance (résumé)
+│   ├── Mettre SFIA en place
+│   ├── Documents de référence (vue base)
+│   └── Glossaire
+└── Meta — Gouvernance espace · Sources Git · Statut Candidate
 ```
 
----
+**Bases (position inchangée conceptuellement) :**
 
-## D. Contribuer à la méthode
-
-| Champ | Valeur |
-|-------|--------|
-| **Persona** | Contributeur technique / responsable méthode |
-| **Contexte** | Propose amélioration méthode SFIA |
-| **Déclencheur** | « Je veux modifier un garde-fou » |
-| **Objectif** | Comprendre chemins protégés, process PR, gates |
-| **Durée cible** | 15–25 minutes |
-| **Étapes** | Accueil → Gouvernance → Templates → Documents → Git PR |
-| **Décisions** | Fichier cible, profil Critical ou non |
-| **Friction** | Modifier Notion au lieu de Git |
-| **Résultat** | PR sur branche dédiée — pas changement Notion seul |
-| **Sortie Git** | **Obligatoire** — rules-and-guardrails, protected paths |
-| **Indicateur réussite** | PR créée sur method/ ou docs/ |
-| **Desktop** | Table garde-fous complète |
-| **Mobile** | Callout « Git uniquement » visible |
-| **Échec / récupération** | Tentative edit Notion → callout Attention |
+- **Référentiel SFIA** — embed Acte IV + VII
+- **Cycles SFIA** — embed Acte VII
 
 ---
 
-## E. Vérifier une règle ou un statut documentaire
+## 3. Table page actuelle → page cible
 
-| Champ | Valeur |
-|-------|--------|
-| **Persona** | Morris / qualité |
-| **Contexte** | Doute sur statut Candidate ou divergence |
-| **Déclencheur** | « Ce contenu est-il baseline ? » |
-| **Objectif** | Confirmer statut, source Git, règle divergence |
-| **Durée cible** | 5–10 minutes |
-| **Étapes** | Page concernée → Gouvernance → Git source → comparaison |
-| **Décisions** | Resync éditorial nécessaire ou non |
-| **Friction** | Métadonnées commit obsolètes |
-| **Résultat** | Verdict Git prime documenté |
-| **Sortie Git** | Commit SHA sur page vs main actuel |
-| **Indicateur réussite** | Écart identifié ou confirmé aligné |
-| **Desktop** | Métadonnées + callout Candidate |
-| **Mobile** | Même flux |
-| **Échec / récupération** | SHA absent → QA UX-06 backlog |
+| Page P0 actuelle | Action cible | Destination narrative |
+|------------------|--------------|---------------------|
+| 00 Accueil | **Remplacer** | Hub Discovery (nouveau hero + parcours temps) |
+| 01 Comprendre SFIA | **Fusionner** | Acte II + extrait Acte V |
+| 02 Proposition de valeur | **Fusionner** | Acte I + Acte VI |
+| 03 Comment fonctionne un cycle | **Déplacer** | Acte III (schéma) + Acte VII |
+| 04 Cycles, profils, gates | **Renommer + simplifier** | Acte VII — Cycles (Candidate badge) |
+| 05 Routage | **Réduire** | Acte VII — orientation uniquement |
+| 06 Templates, prompts | **Index** | Acte VII — liens Référentiel |
+| 07 Gouvernance | **Fusionner** | Acte V + Meta |
+| 08 Mise en place | **Conserver annexe** | Acte VII |
+| 10 Documents référence | **Conserver** | Acte VII — vue base |
+| 11 Glossaire | **Conserver annexe** | Acte VII |
 
----
-
-## F. Trouver un actif dans le Référentiel
-
-| Champ | Valeur |
-|-------|--------|
-| **Persona** | Développeur / contributeur |
-| **Contexte** | Besoin d'un template ou prompt précis |
-| **Déclencheur** | « Où est le template cycle execution ? » |
-| **Objectif** | Localiser asset sans parcourir repo |
-| **Durée cible** | 2–5 minutes |
-| **Étapes** | 06 Templates → Base Référentiel (filtre) → lien Git |
-| **Décisions** | Ouvrir Git ou rester Notion |
-| **Friction** | Catalog intégral dupliqué |
-| **Résultat** | Chemin Git identifié |
-| **Sortie Git** | prompts/templates/... |
-| **Indicateur réussite** | Fichier ouvert en < 3 clics depuis accueil |
-| **Desktop** | Vue base filtrée type=template |
-| **Mobile** | Lien direct depuis 06 |
-| **Échec / récupération** | Asset absent base → lien catalog Git |
-
-```mermaid
-flowchart TD
-  A[06 Templates] --> B[Base Référentiel]
-  B --> C{Fiche trouvée?}
-  C -->|Oui| D[Lien Git]
-  C -->|Non| E[prompt-catalog Git]
-```
+**§09 Cas d'usage :** création future P1 — hors parcours principal Discovery.
 
 ---
 
-## Synthèse parcours
+## 4. Table chapitre → question lecteur
 
-| ID | Parcours | Durée | Sortie Git |
-|----|----------|-------|------------|
-| A | Découvrir 5 min | 5 min | Non |
-| B | Comprendre 30 min | 30 min | Optionnel |
-| C | Premier cycle | 20–40 min | **Oui** |
-| D | Contribuer méthode | 15–25 min | **Oui** |
-| E | Vérifier statut | 5–10 min | **Oui** |
-| F | Trouver actif | 2–5 min | **Oui** |
+| Chapitre | Question |
+|----------|----------|
+| Hub | Par où commencer selon mon temps ? |
+| Acte I | Pourquoi SFIA ? |
+| Acte II | En quoi est-ce différent ? |
+| Acte III | Comment se déroule un vrai projet ? |
+| Acte IV | Que produit-on ? |
+| Acte V | Pourquoi faire confiance ? |
+| Acte VI | Qu'est-ce que j'y gagne ? |
+| Acte VII | Comment approfondir ? |
+
+---
+
+## 5. Table chapitre → source Git
+
+| Chapitre | Sources principales |
+|----------|---------------------|
+| Acte I | engineering-principles, platform-architecture (résumé) |
+| Acte II | operating-model, product-vision |
+| Acte III | delivery-pipeline, projects/chantiers360 (synthèse) |
+| Acte IV | bpmn-deliverables-standard, review pack examples |
+| Acte V | rules-and-guardrails, publication-governance |
+| Acte VI | product-vision personas, capitalization |
+| Acte VII | editorial P0 existant, routing-guide (index) |
+
+---
+
+## 6. Table chapitre → preuve métier
+
+| Chapitre | Preuve |
+|----------|--------|
+| Acte I | Anti-patterns documentés |
+| Acte II | Tableau comparatif |
+| Acte III | Fil rouge NovaBuild |
+| Acte IV | Captures livrables |
+| Acte V | Gates Morris, Git prime |
+| Acte VI | Fiches persona |
+| Acte VII | Bases peuplées |
+
+---
+
+## 7. Table chapitre → confidentialité
+
+| Chapitre | Niveau max |
+|----------|------------|
+| I–VI | Public / pédagogique |
+| VII cycles/routage | Pédagogique — pas catalog |
+| VII templates | Index → Git |
+| Meta | Gouvernance résumée |
+
+---
+
+## 8. Transitions précédent / suivant (extrait)
+
+| Page | Précédent | Suivant |
+|------|-----------|---------|
+| Hub | — | Acte I ou parcours choisi |
+| Acte I | Hub | Acte II |
+| Acte II | I | III |
+| Acte III.1 | II | III.2 |
+| … | … | … |
+| Acte VII | VI | Hub / Git |
+
+*(Détail complet en implémentation PD-03+)*
+
+---
+
+## 9. Portes d'entrée par persona
+
+| Persona | Entrée | Parcours défaut |
+|---------|--------|-----------------|
+| Dirigeant PME | Hub → « 10 min » | I → II → VI.1 |
+| PO | Hub → « Projet » | I → III |
+| Technique | Hub → « Livrables » | IV → VII |
+| ESN | Hub → « Partenaire » | II → VI.4 |
+| Prospect | Hub → « 3 min » | I teaser |
+
+---
+
+## 10. Navigation globale
+
+- **Hub central** — jamais sidebar Notion comme navigation primaire
+- **Fil d'Ariane narratif** — Acte · Section
+- **Parcours temps** — badges 3/10/20/45 min
+- **Footer** — Git prime · Candidate · Morris · date sync
+
+---
+
+## 11. Niveaux de lecture L0–L4
+
+| Niveau | Pages |
+|--------|-------|
+| L0 | Hub, Acte I teaser |
+| L1 | I, II, VI |
+| L2 | III, IV, V |
+| L3 | VII setup, templates index |
+| L4 | VII référence, glossaire complet |
+
+---
+
+## 12. Hypothèses
+
+- Anciennes pages P0 **archivées** ou **redirigées** en PD-06 — pas supprimées sans GO
+- Numérotation §00–11 **retirée du parcours principal** — conservée en métadonnées Git
 
 ---
 
 ## Liens
 
-→ [03 Navigation](03-sfia-notion-navigation-model.md) · [05 Templates](05-sfia-notion-page-templates.md) · [07 Roadmap](07-sfia-notion-ux-roadmap.md)
+→ [07 Roadmap](07-sfia-discovery-transformation-roadmap.md) · [03 Storyline](03-sfia-discovery-storyline.md)
 
 ---
 
-# FICHIER 8 — 07-sfia-notion-ux-roadmap.md
+# FICHIER 8 — 07-sfia-discovery-transformation-roadmap.md
 
-# 07 — Roadmap UX — SFIA Notion
+# 07 — Roadmap de transformation — SFIA Discovery Experience
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidate** — expérimentation UX documentaire Notion |
-| **Usage** | Roadmap implémentation — non capitalisé |
-| **Baseline opérationnelle** | SFIA v2.4 |
+| **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
-| **Source de vérité** | Git |
-| **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycles UX-02 à UX-06 |
-| **Horodatage** | 2026-07-14 15:02 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-notion-ux-conception` |
-| **HEAD source** | `ee6c358750ecd18f7ba884ec51c8c7db3eaf3faa` |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
 ---
 
 ## 1. Positionnement
 
-| Dimension | Valeur |
-|-----------|--------|
-| **Niveau automatisation** | **L0 — manuel assisté** |
-| **Périmètre** | Espace Notion privé Morris — 11 pages P0 + 2 bases |
-| **Hors périmètre** | API, CMP, raw sync, capitalisation method/core |
-| **Prérequis** | UX-01 contrat validé + GO Morris commit/PR |
+| Phase | Contenu |
+|-------|---------|
+| **PD-01 (présent)** | Product Design Git — ce corpus |
+| **Préparation éditoriale** | Brouillons Discovery dans Git |
+| **Implémentation Notion** | PD-02+ manuel L0 |
+| **QA** | PD-07 |
+| **Capitalisation** | PD-08 — GO Morris |
+
+**Aucune action Notion dans PD-01.**
 
 ---
 
-## 2. Incréments UX-02 à UX-06
+## 2. Incréments PD-01 à PD-08
 
-### UX-02 — Landing page
-
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Appliquer gabarit landing sur 00 Accueil |
-| **Pages** | 00 Accueil |
-| **Dépendances** | UX-01 validé, design system §04 |
-| **Actions Notion** | Hero, 3 parcours, callout Git, schéma, footer synced |
-| **Hors périmètre** | §09, visibilité publique |
-| **Critères acceptation** | 3 CTA ; mobile empilé ; QA checklist §04 |
-| **Preuves** | Capture desktop + mobile ; lien pages parcours |
-| **Gate Morris** | Revue visuelle accueil |
-| **Rollback** | Restaurer version éditoriale cycle 3 |
-| **Risque** | Surcharge hero — **moyen** |
-| **Dette** | Synced block footer à maintenir |
-| **Priorité** | **P0** — quick win |
-
-### UX-03 — Navigation des pages
+### PD-01 — Vision et architecture narrative ✓ (présent cycle)
 
 | Champ | Valeur |
 |-------|--------|
-| **Objectif** | En-têtes, précédent/suivant, liens transverses |
-| **Pages** | 01–08, 11 (10 pages éditoriales) |
-| **Dépendances** | UX-02 (footer synced) |
-| **Actions Notion** | Blocs navigation en-tête/pied ; tableau transitions §03 |
-| **Hors périmètre** | Sidebar optimisation |
-| **Critères acceptation** | Zéro impasse ; P/S cohérents §03 |
-| **Preuves** | Walkthrough 4 parcours |
-| **Gate Morris** | Test parcours 5 min + 30 min |
-| **Rollback** | Retirer blocs nav — contenu intact |
-| **Risque** | Incohérence P/S — **faible** |
-| **Dette** | Mise à jour manuelle si nouvelle page |
-| **Priorité** | **P0** |
+| Objectif | Contrat Product Design complet |
+| Périmètre | 9 fichiers Git |
+| Dépendances | UX-01, editorial P0, Notion cycle 1 |
+| Pages | — |
+| Preuve | Review handoff |
+| Gate Morris | GO commit/PR corpus |
+| Risque | Scope creep — **moyen** |
+| Rollback | N/A — pas implémenté |
+| Notion | **Aucune** |
+| Git préalable | **Ce cycle** |
 
-### UX-04 — Bases et vues
+### PD-02 — Prototype Acte I (Landing Discovery)
 
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Vues Référentiel et Cycles par intention |
-| **Bases** | Référentiel (25), Cycles (15) |
-| **Dépendances** | UX-01 ; liens finaux pages ↔ bases après stabilisation UX-03 |
-| **Actions Notion** | Vues filtrées ; embed §10 ; fiches liées |
-| **Hors périmètre** | Nouvelles entrées massives |
-| **Critères acceptation** | Parcours F (trouver actif) < 3 clics |
-| **Preuves** | Test parcours F + E |
-| **Gate Morris** | Validation liste fermée Référentiel |
-| **Rollback** | Revenir vues cycle 3 |
-| **Risque** | Miroir catalog — **moyen** |
-| **Dette** | Sync métadonnées Git manuel |
-| **Priorité** | **P0** |
+| Objectif | Hero + Acte I complet dans Notion |
+| Pages | Hub + Acte I |
+| Dépendances | PD-01 merged, GO Morris |
+| Notion | Création pages — manuel |
+| Git préalable | Brouillons editorial Discovery |
+| Gate | Revue Morris narrative |
 
-### UX-05 — Cohérence visuelle
+### PD-03 — Fil rouge NovaBuild (Acte III)
 
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Design system §04 sur 11 pages |
-| **Pages** | Toutes P0 |
-| **Dépendances** | UX-02, UX-03 |
-| **Actions Notion** | Callouts, icônes, métadonnées, toggles mobile |
-| **Hors périmètre** | Rebrand complet |
-| **Critères acceptation** | Matrice QA §04 — 100 % pages |
-| **Preuves** | Checklist design system par page |
-| **Gate Morris** | Revue sobriété + accessibilité |
-| **Rollback** | Page par page |
-| **Risque** | Synced blocks divergence — **moyen** |
-| **Dette** | 4 synced blocks à auditer |
-| **Priorité** | **P0** |
+| Objectif | Narration projet bout en bout |
+| Pages | III.1–III.4 |
+| Dépendances | PD-02, fil rouge validé Morris |
+| Preuve | Alignement sources Chantiers360 |
+| Gate | Test PO + confidentialité |
 
-### UX-06 — QA de l'espace
+### PD-04 — Actes II, IV, V
 
-| Champ | Valeur |
-|-------|--------|
-| **Objectif** | Validation globale parcours + cohérence |
-| **Pages** | Espace complet |
-| **Dépendances** | UX-02 à UX-05 |
-| **Actions Notion** | Corrections liens, métadonnées, impasses |
-| **Hors périmètre** | §09 P1, public launch |
-| **Critères acceptation** | 6 parcours §06 passent ; 0 lien mort |
-| **Preuves** | Rapport QA Morris ; captures |
-| **Gate Morris** | GO clôture UX ou réserves |
-| **Rollback** | Backlog corrections |
-| **Risque** | Dette non résolue — **faible** |
-| **Dette** | Process QA manuel récurrent |
-| **Priorité** | **P0** |
+| Objectif | Contraste, livrables, garanties |
+| Pages | II, IV, V |
+| Dépendances | PD-03 |
+| Gate | Test valeur + pas sur-promesse |
+
+### PD-05 — Actes VI et VII
+
+| Objectif | Personas + annexes méthode |
+| Pages | VI.*, VII.* |
+| Dépendances | PD-04 |
+| Gate | Mapping P0 legacy |
+
+### PD-06 — Migration structure ancienne
+
+| Objectif | Redirections, archivage parcours §00–11 |
+| Pages | Toutes P0 actuelles |
+| Dépendances | PD-05 |
+| Risque | Confusion utilisateurs — **moyen** |
+| Rollback | Restaurer P0 depuis Git editorial |
+| Gate | Morris GO migration |
+
+### PD-07 — QA narrative et métier
+
+| Objectif | Framework §08 appliqué |
+| Périmètre | Espace complet |
+| Dépendances | PD-02–06 |
+| Gate | Verdict acceptation |
+
+### PD-08 — Décision capitalisation
+
+| Objectif | Évaluer promotion method/core |
+| Dépendances | PD-07, ≥ 2 itérations usage |
+| Gate | GO Morris explicite |
+| Non-capitalisation | Rester dans documentation/notion/discovery-product-design/ |
 
 ---
 
-## 3. Priorisation P0 / P1 / P2
-
-| Priorité | Incréments | Éléments |
-|----------|------------|----------|
-| **P0** | UX-02 à UX-06 | Contrat UX appliqué espace existant |
-| **P1** | Post UX-06 | §09 Cas d'usage ; parcours personas ; captures |
-| **P2** | Post-MVP | L1 métadonnées ; visibilité publique ; capitalisation |
-
----
-
-## 4. Quick wins
-
-| Quick win | Incrément | Effort |
-|-----------|-----------|--------|
-| Callout « À retenir » standardisé | UX-05 | Faible |
-| Footer synced Git prime | UX-02 | Faible |
-| Icônes en-tête pages | UX-05 | Faible |
-| Badge Candidate pages 03–04 | UX-05 | Faible |
-
----
-
-## 5. Dépendances bloquantes
-
-Les relations ci-dessous sont **obligatoires** — un incrément ne démarre pas tant que son prérequis bloquant n'est pas satisfait.
-
-| Relation | Règle |
-|----------|-------|
-| UX-01 → tous | Le contrat UX validé est prérequis à UX-02 à UX-06 |
-| UX-02 → UX-03 | La landing page précède la validation globale de la navigation UX-03 |
-| UX-03 → UX-06 | La navigation doit être suffisamment stabilisée avant la QA finale |
-| UX-04 → UX-06 | Les bases et vues doivent être terminées avant UX-06 |
-| UX-05 → UX-06 | La cohérence visuelle doit être terminée avant UX-06 |
-| UX-06 | **Terminal** — clôture l'expérimentation UX |
+## 3. Distinction phases
 
 ```text
-UX-01
-├── UX-02 Landing
-│   └── UX-03 Navigation
-├── UX-04 Bases et vues
-└── UX-05 Cohérence visuelle
-    ↓
-UX-06 QA finale
-    ↓
-Décision Morris éventuelle de capitalisation
+Conception (PD-01) → Éditorial Git → Implémentation Notion (PD-02–06) → QA (PD-07) → Capitalisation? (PD-08)
 ```
 
-**Note :** UX-04 et UX-05 sont des branches parallèles après UX-01 ; UX-03 reste une branche dépendante de UX-02. UX-06 agrège toutes les branches.
+---
+
+## 4. Dépendances globales
+
+```text
+PD-01 (présent)
+  → PD-02 Hub + Acte I
+    → PD-03 Fil rouge
+      → PD-04 Actes II, IV, V
+        → PD-05 Actes VI, VII
+          → PD-06 Migration
+            → PD-07 QA
+              → PD-08 Capitalisation?
+```
 
 ---
 
-## 6. Travaux parallélisables
+## 5. Quick wins post-PD-01
 
-Le parallélisme concerne la **préparation** et l'exécution partielle — pas la **validation finale** ni la clôture.
-
-| Travail | Parallélisme | Condition |
-|---------|--------------|-----------|
-| UX-04 Bases et vues | Peut démarrer après UX-01 | Sans attendre la finalisation complète de UX-03 |
-| UX-05 composants simples | Peut démarrer en parallèle de UX-02 / UX-03 | Callouts, icônes, badges Candidate, footer synced |
-| UX-05 composants navigation | **Non parallèle** | Attendre les décisions UX-03 (P/S, en-têtes) |
-| UX-06 QA finale | **Jamais parallèle** | Attend UX-02, UX-03, UX-04, UX-05 terminés |
-
-**Règle :** aucun incrément n'est déclaré **terminé** sans ses propres critères d'acceptation et gate Morris — le parallélisme n'abroge pas les gates.
+- Validation Morris vision · Choix fil rouge · GO PD-02 séparé
 
 ---
 
-## 7. Ordre de livraison recommandé
+## 6. Critères capitalisation (PD-08)
 
-Ordre de **validation et clôture** (séquentiel) :
-
-1. **UX-02** — Landing page
-2. **UX-03** — Navigation structurante
-3. **UX-04** — Bases et vues
-4. **UX-05** — Cohérence visuelle et finitions
-5. **UX-06** — QA finale
-
-| Distinction | Description |
-|-------------|-------------|
-| **Ordre de préparation** | Peut comporter du parallélisme (§6) — ex. quick wins UX-05 pendant UX-02/03 |
-| **Ordre de validation** | Reste séquentiel — chaque incrément validé par Morris avant clôture |
-| **Ordre de livraison** | UX-02 → UX-03 → UX-04 → UX-05 → UX-06 pour déclaration « terminé » |
-
-**Quick wins préparatoires (UX-05 partiel) :** callout « À retenir », footer synced Git prime, icônes en-tête, badge Candidate — réalisables dès UX-02 sans clôturer UX-05.
-
----
-
-## 8. Gates Morris par incrément
-
-| Incrément | Gate |
-|-----------|------|
-| UX-01 | GO commit/PR contrat (présent cycle) |
-| UX-02 | Revue accueil |
-| UX-03 | Test 4 parcours |
-| UX-04 | Liste fermée Référentiel |
-| UX-05 | Checklist design system |
-| UX-06 | GO clôture UX ou réserves documentées |
-
----
-
-## 9. Critères capitalisation future
-
-Capitalisation dans `method/core` ou template générique **uniquement si** :
-
-| # | Critère |
-|---|---------|
-| 1 | ≥ 2 itérations réelles UX-02–06 menées |
-| 2 | Navigation améliore usage constaté (preuve QA) |
-| 3 | Gabarits réutilisables hors workspace Morris |
-| 4 | Règles non spécifiques à un seul espace |
-| 5 | Dette synced blocks acceptable |
-| 6 | **GO Morris explicite** capitalisation |
-
----
-
-## 10. Critères de non-capitalisation
-
-| Situation | Action |
-|-----------|--------|
-| Règles trop spécifiques Notion Morris | Rester dans `documentation/notion/ux/` |
-| Dette synced blocks excessive | Simplifier avant capitalisation |
-| Usage faible constaté | Ne pas promouvoir baseline |
-| Conflit doctrine SFIA | **STOP** — revue Morris |
-| Tentative promotion baseline UX | **Interdit** sans GO |
-
----
-
-## 11. Synthèse risques roadmap
-
-| Risque global | Niveau | Mitigation |
-|---------------|--------|------------|
-| Scope creep §09 | Moyen | P1 explicite |
-| Automatisation prématurée | Faible | L0 only |
-| Capitalisation hâtive | Moyen | Critères §8 stricts |
-| Divergence Git/Notion | Moyen | Métadonnées + QA E |
+Identiques UX-01 §8 : itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
 
 ---
 
 ## Liens
 
-→ [README](README.md) · [01 Vision](01-sfia-notion-ux-vision.md) · [06 User journeys](06-sfia-notion-user-journeys.md)
+→ [08 Acceptation](08-sfia-discovery-acceptance-framework.md) · [README](README.md)
+
+---
+
+# FICHIER 9 — 08-sfia-discovery-acceptance-framework.md
+
+# 08 — Framework d'acceptation — SFIA Discovery Experience
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-product-design` |
+| **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
+
+---
+
+## 1. Objectif
+
+Définir les **critères de jugement** de la future expérience Discovery — avant et après implémentation Notion (PD-07).
+
+---
+
+## 2. Critères minimum (18)
+
+| # | Critère | Mesure |
+|---|---------|--------|
+| C1 | Compréhension immédiate valeur | Reformulation 2 min post 10 min |
+| C2 | Distinction classique / IA libre / SFIA | Quiz 3 items |
+| C3 | Raconter SFIA avec ses mots | Entretien 5 min |
+| C4 | Rôles Morris/ChatGPT/Cursor/Git/Notion | Schéma annoté |
+| C5 | Projet bout en bout | Récit 5 phases minimum |
+| C6 | Livrables concrets identifiés | ≥ 5 types cités |
+| C7 | Garanties et limites | 2 garanties + 2 limites |
+| C8 | Projection persona | « Mon cas » articulé |
+| C9 | Envie poursuivre | Score ≥ 4/5 |
+| C10 | Absence fuite méthodologique | Audit prompts/catalog |
+| C11 | Absence promesse excessive | Revue éditoriale §05 |
+| C12 | Cohérence Git | Métadonnées SHA |
+| C13 | Navigation sans impasse | Walkthrough 4 parcours |
+| C14 | Temps lecture maîtrisé | Parcours dans budget |
+| C15 | Métier > méthode | Ratio contenu Actes I–VI |
+| C16 | Mobile lisible | Test 2 pages |
+| C17 | Accessibilité | Pas couleur seule |
+| C18 | Candidate visible | Badge v2.5 |
+
+---
+
+## 3. Grille revue Morris
+
+| Domaine | Question | ☐ |
+|---------|----------|---|
+| Vision | IDE métier clair ? | |
+| Narration | Actes cohérents ? | |
+| Fil rouge | Crédible et sourcé ? | |
+| Confidentialité | Pas de fuite ? | |
+| Promesses | Sobres ? | |
+| Migration | Mapping P0 acceptable ? | |
+| GO PD-02 | Autorisé ? | |
+
+---
+
+## 4. Tests utilisateurs
+
+### 4.1 Lecteur non technique
+
+- Parcours 10 min · Reformulation · Score C1, C3, C9
+
+### 4.2 Chef de projet
+
+- Parcours 30 min · Identification livrables · C5, C6
+
+### 4.3 Développeur
+
+- Acte VII + lien Git · Pas de frustration « manque détail » si renvoi clair · C4
+
+### 4.4 Prospect PME
+
+- Teaser 3 min + conviction partielle · C1, C8
+
+### 4.5 Test confidentialité
+
+- Chercher prompt catalog, routing exhaustif, automation — **doit échouer** sur Notion · C10
+
+### 4.6 Test valeur
+
+- « Qu'achète-on avec SFIA ? » — réponse métier sans jargon · C15
+
+### 4.7 Test storytelling
+
+- Récit NovaBuild fluide · C5
+
+---
+
+## 5. Verdicts possibles
+
+| Verdict | Signification |
+|---------|---------------|
+| **DISCOVERY PRODUCT DESIGN READY** | Corpus PD-01 validé pour commit/PR |
+| **READY WITH EDITORIAL RESERVES** | Corrections mineures documentées |
+| **NARRATIVE INSUFFICIENT** | Actes ou fil rouge à retravailler |
+| **VALUE PROPOSITION INSUFFICIENT** | Actes I–II faibles |
+| **METHODOLOGY OVEREXPOSED** | Confidentialité violée |
+| **MORRIS DECISION REQUIRED** | Arbitrage positioning |
+
+---
+
+## 6. Application cycle présent (PD-01)
+
+Ce framework s'applique **pleinement** à PD-07 (QA Notion). Pour PD-01 :
+
+- Revue Morris sur **documents Git** via critères C1–C8 en **lecture simulée**
+- C10–C13 à l'implémentation
+- Verdict attendu post-revue : **DISCOVERY PRODUCT DESIGN READY** ou réserves
+
+---
+
+## 7. Seuils GO / NO-GO implémentation
+
+| Condition | GO PD-02 |
+|-----------|----------|
+| PD-01 merged | Requis |
+| Fil rouge Morris | Requis |
+| Contrat éditorial validé | Requis |
+| METHODOLOGY OVEREXPOSED | **NO-GO** |
+
+---
+
+## Liens
+
+→ [05 Contrat éditorial](05-sfia-discovery-editorial-contract.md) · [07 Roadmap](07-sfia-discovery-transformation-roadmap.md)
 
 ---
 
 ## Verdict
 
-**UX CONTRACT CORRECTED — READY FOR COMMIT**
+**DISCOVERY PRODUCT DESIGN DOCUMENTED — READY FOR MORRIS REVIEW**
