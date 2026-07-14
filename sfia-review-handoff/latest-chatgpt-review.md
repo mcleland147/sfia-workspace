@@ -1,15 +1,16 @@
-# SFIA Review Pack — Discovery Experience Product Design
+# SFIA Review Pack — Discovery Experience Product Design (Correctif R1–R3)
 
-**Horodatage :** 2026-07-14 17:58 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 18:12 CEST
 **Repository :** mcleland147/sfia-workspace
-**Cycle :** SFIA Discovery Experience — Product Design (type 2)
+**Cycle :** SFIA Discovery Experience — Correctif réserves Product Design (cycle 9 QA)
 **Profil SFIA :** Standard
 **Typologie v2.4 :** DOC
 **Branche projet :** documentation/sfia-discovery-product-design
 **HEAD/base :** 14446b91019c1e320c12533124201b9a3dd4863d
 **origin/main :** 14446b91019c1e320c12533124201b9a3dd4863d
 **Statut :** Candidate — non baseline
-**Verdict :** DISCOVERY PRODUCT DESIGN DOCUMENTED — READY FOR MORRIS REVIEW
+**Verdict :** DISCOVERY PRODUCT DESIGN CORRECTED — READY FOR COMMIT
+**Handoff commit précédent :** 0c5e31c82678449b02281ae5e166e8f14075d9a6
 
 ---
 
@@ -17,82 +18,162 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| Branche initiale | main → documentation/sfia-discovery-product-design |
+| pwd | /Users/morris/Projects/sfia-workspace |
+| Branche active | documentation/sfia-discovery-product-design |
 | HEAD | 14446b91019c1e320c12533124201b9a3dd4863d |
+| origin/main | 14446b91019c1e320c12533124201b9a3dd4863d |
+| Base ancestor OK | ✓ |
 | 9 fichiers discovery-product-design/ | ✓ untracked |
-| Fichiers existants modifiés | 0 |
+| Fichiers staged | 0 |
+| Fichiers versionnés hors périmètre modifiés | 0 |
 | Commit projet | aucun |
+| Push projet | aucun |
 | **Verdict** | **PASS** |
 
 ## Sources consultées
 
-- sfia-cycle-execution-template, routing-guide, operating-model, rules-and-guardrails, knowledge-layer
-- sfia-notion-product-vision, information-architecture, publication-governance, mvp-backlog
-- editorial/ pack P0 (12 fichiers)
-- ux/ contrat Candidate (8 fichiers)
-- engineering-principles, platform-architecture, delivery-pipeline, repository-blueprint
-- grep PME, Interv360, Chantiers360, Software Factory, review pack
-
-## Recherche overlap
-
-- Dossier discovery-product-design : **absent avant cycle**
-- Pas de corpus Discovery équivalent — **pas de STOP overlap**
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- origin/sfia/review-handoff @ 0c5e31c82678449b02281ae5e166e8f14075d9a6 (handoff précédent)
+- Corpus discovery-product-design/ (9 fichiers) — avant/après correctif
 
 ## Qualification
 
-- Cycle 2 Conception fonctionnelle · Profil Standard · DOC · Candidate
+- Cycle 9 QA / validation corrective · Profil Standard · DOC · Candidate
+- Périmètre borné : R1, R2, R3 uniquement — pas de reconception corpus
 
 ## Décisions Morris appliquées
 
-- GO Product Design Discovery ✓
-- GO architecture narrative ✓
-- GO remise en question structure (proposition) ✓
-- GO storytelling valeur ✓
-- Aucune implémentation Notion ✓
+- GO traitement R1 (NovaBuild composite définitif) ✓
+- GO traitement R2 (suppression statistiques non sourcées Acte I) ✓
+- GO traitement R3 (séparation Git / Notion roadmap) ✓
+- NovaBuild retenu comme fil rouge pédagogique composite ✓
+- Aucun GO commit/push/PR/merge projet ✓
+- Aucune modification Notion ✓
 
-## Fichiers créés (9)
+## État initial R1 — Fil rouge NovaBuild
+
+- Formulations hésitantes : « cas générique inspiré Chantiers360 », « Morris tranchera fil rouge définitif », « BatiNova vs Chantiers360 vs générique » (README)
+- NovaBuild présenté comme option ou « fiction sauf décision Morris contraire » (05, 03)
+- Fil rouge « à valider » dans décisions ouvertes
+
+## Correction R1
+
+- NovaBuild qualifié **cas pédagogique composite validé** dans README, 01, 02, 03, 04, 05, 07, 08
+- Formulation de référence intégrée (03 §5, README)
+- Table distinction fiction / preuves SFIA réelles (03)
+- Retrait des décisions ouvertes sur le choix du fil rouge
+- Contrôle C19 + test 4.8 (08) : lecteur distingue fiction NovaBuild et preuves réelles
+- Chantiers360 conservé uniquement comme **catégorie d'actifs vérifiables**, pas comme fil rouge alternatif
+
+## État initial R2 — Statistiques génériques
+
+- Acte I (02) : preuve = « Statistiques génériques, anti-patterns »
+- Risque de chiffres sectoriels non sourcés dans la narration d'ouverture
+
+## Correction R2
+
+- Acte I (02) : preuves **qualitatives vérifiables** uniquement (fragmentation, rework, IA non reproductible, etc.) — sans chiffres inventés
+- Règle éditoriale explicite §05 : aucun chiffre performance/coût/délai sans source
+- Contrôle C20 + test 4.9 (08)
+- Note pédagogique conservée en 03 §3 : pas de benchmark chiffré non sourcé
+
+## État initial R3 — Roadmap Git/Notion
+
+- PD-02 combinait conception éditoriale et création pages Notion
+- Pas de cycles PD-nA / PD-nB distincts
+
+## Correction R3
+
+- Roadmap 07 refondée : PD-02A/B à PD-06A/B + PD-07/08
+- Modèle A/B documenté avec gates, merge recommandé, règle source Git avant Notion
+- README, 06, 08 alignés (PD-02A gates, PD-03B+, PD-06B)
+- Framework acceptation : grille roadmap Git/Notion + GO PD-02A/02B
+
+## Fichiers modifiés (9 — correctif intégral corpus Candidate)
 
 | # | Fichier | Lignes |
 |---|---------|-------:|
-| 1 | `README.md` | 106 |
+| 1 | `README.md` | 119 |
 | 2 | `01-sfia-discovery-product-vision.md` | 195 |
 | 3 | `02-sfia-discovery-narrative-architecture.md` | 181 |
-| 4 | `03-sfia-discovery-storyline.md` | 138 |
+| 4 | `03-sfia-discovery-storyline.md` | 149 |
 | 5 | `04-sfia-discovery-personas-and-reading-journeys.md` | 160 |
-| 6 | `05-sfia-discovery-editorial-contract.md` | 162 |
+| 6 | `05-sfia-discovery-editorial-contract.md` | 166 |
 | 7 | `06-sfia-discovery-target-information-architecture.md` | 187 |
-| 8 | `07-sfia-discovery-transformation-roadmap.md` | 138 |
-| 9 | `08-sfia-discovery-acceptance-framework.md` | 127 |
+| 8 | `07-sfia-discovery-transformation-roadmap.md` | 162 |
+| 9 | `08-sfia-discovery-acceptance-framework.md` | 143 |
 
-## Fichiers modifiés
+## Fichiers inchangés (hors périmètre)
 
-**Aucun**
+Aucun fichier hors `discovery-product-design/` modifié.
 
-## Synthèse architecture
+## Volume final
 
-- 7 actes narratifs · Fil rouge NovaBuild · 6 personas · 5 niveaux lecture
-- IA cible narrative (remplace parcours §00–11 comme structure primaire)
-- Roadmap PD-01 à PD-08 · Framework acceptation 18 critères
+Total lignes : 1462
+
+## Contrôles NovaBuild
+
+| Recherche | Résultat |
+|-----------|----------|
+| NovaBuild ou Chantiers360 (fil rouge) | Absent |
+| fil rouge à sélectionner | Absent |
+| sauf décision Morris (fil rouge) | Absent |
+| BatiNova | Absent |
+| NovaBuild composite explicite | ✓ README, 03, 05 |
+
+## Contrôles preuves et statistiques
+
+| Recherche | Résultat |
+|-----------|----------|
+| statistiques génériques | Absent |
+| Acte I preuves qualitatives | ✓ 02 |
+| Règle chiffres §05 | ✓ |
+| C20 acceptation | ✓ 08 |
+
+## Contrôles roadmap Git / Notion
+
+| Recherche | Résultat |
+|-----------|----------|
+| PD-02A/B … PD-06A/B | ✓ 07 |
+| PD-02 sans suffixe A/B | Absent |
+| Règle merge Git avant Notion | ✓ 07 §1 |
+
+## Contrôles Git (post-correctif)
+
+- git status --short : 9 fichiers untracked discovery-product-design/ uniquement
+- git diff --cached : vide
+- Aucun commit projet
 
 ## Garde-fous
 
-- Aucun commit/push projet ✓ · Aucune modification Notion ✓
-- Opacité méthodologique sélective ✓ · Pas promotion baseline ✓
+- Vision produit, 7 actes, personas, contrat, IA cible : non modifiés hors impacts R1–R3
+- Aucune modification Notion ✓
+- Aucune capitalisation / promotion baseline ✓
 
-## Review Handoff Git
+## Réserves restantes
 
-| Champ | Valeur |
-|-------|--------|
-| Décision | required |
-| Branche handoff | sfia/review-handoff |
-| Commit publication précédent | 5a15479c66f1331c3b88b133096f9c26212c498f |
-| Handoff source | review pack local |
-| SHA effectif publication | rapport Cursor post-push |
-| Vérification distante | réalisée après push |
-| Comparaison local/distant | conforme après push |
-| Verdict handoff | HANDOFF UPDATED — REMOTE VERIFIED |
+Aucune réserve éditoriale R1–R3 ouverte.
+
+## Décisions Morris requises
+
+- GO commit / PR corpus Product Design
+- GO PD-02A editorial (cycle suivant)
+
+## Actions non réalisées (conformément au mandat)
+
+- Commit projet · Push projet · PR · Merge · Modification Notion · Capitalisation · Promotion baseline
+
+## Verdict
+
+**DISCOVERY PRODUCT DESIGN CORRECTED — READY FOR COMMIT**
+
+---
 
 ## Contenu complet — 9 fichiers
+
 
 ---
 
@@ -108,8 +189,8 @@
 | **Propriétaire** | Morris |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
 | **Capitalisation méthode** | Non réalisée |
-| **Implémentation Notion** | Cycles futurs distincts (PD-02+) |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Implémentation Notion** | Cycles PD-nB distincts (après PD-nA Git) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD source** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -122,7 +203,7 @@ Ce répertoire formalise le **contrat de Product Design** pour transformer l'esp
 | Principe | Application |
 |----------|-------------|
 | **Repartir du lecteur** | Parcours mental du non-initié — pas de l'arborescence §00–11 |
-| **Storytelling** | Sept actes narratifs + fil rouge projet |
+| **Storytelling** | Sept actes narratifs + fil rouge **NovaBuild** (cas composite validé) |
 | **Transparence sélective** | Valeur et capacités visibles ; recettes internes masquées |
 | **Git prime** | Conception dans Git ; Notion = couche d'expérience future |
 | **Candidate** | Aucune baseline ; revue Morris avant implémentation |
@@ -147,7 +228,7 @@ Ce cycle **ne modifie pas Notion** — il conçoit la transformation narrative c
 | 4 | [04-sfia-discovery-personas-and-reading-journeys.md](04-sfia-discovery-personas-and-reading-journeys.md) | 6 personas, 5 niveaux de lecture |
 | 5 | [05-sfia-discovery-editorial-contract.md](05-sfia-discovery-editorial-contract.md) | Voix, confidentialité, matrice d'information |
 | 6 | [06-sfia-discovery-target-information-architecture.md](06-sfia-discovery-target-information-architecture.md) | Nouvelle arborescence, mapping ancien → cible |
-| 7 | [07-sfia-discovery-transformation-roadmap.md](07-sfia-discovery-transformation-roadmap.md) | Incréments PD-01 à PD-08 |
+| 7 | [07-sfia-discovery-transformation-roadmap.md](07-sfia-discovery-transformation-roadmap.md) | Incréments PD-01, PD-nA/B, PD-07–08 |
 | 8 | [08-sfia-discovery-acceptance-framework.md](08-sfia-discovery-acceptance-framework.md) | Critères d'acceptation, grilles de test |
 
 ---
@@ -173,10 +254,23 @@ Ce cycle **ne modifie pas Notion** — il conçoit la transformation narrative c
 
 ```text
 Product Design (présent) → validation Morris → préparation éditoriale Git
-  → implémentation Notion (PD-02+) → QA narrative (PD-07) → capitalisation éventuelle (PD-08)
+  → préparation éditoriale Git (PD-nA) → implémentation Notion (PD-nB) → QA (PD-07) → capitalisation (PD-08)
 ```
 
-**Gates futurs :** GO commit/PR corpus · GO fil rouge projet · GO implémentation Notion · GO capitalisation.
+**Gates futurs :** GO commit/PR corpus · GO PD-02A editorial · GO PD-nB Notion · GO capitalisation.
+
+---
+
+## Fil rouge NovaBuild (décision Morris — R1)
+
+> **NovaBuild** est un **cas pédagogique composite**. L'entreprise et le déroulé narratif sont **fictifs**. Les besoins, catégories de livrables, contrôles et mécanismes visibles sont **inspirés** de situations réalistes et d'actifs SFIA vérifiables (ex. catégories produites dans des cycles Chantiers360 documentés dans Git). Le récit **ne constitue ni un témoignage client ni la reproduction exacte** d'un projet réel.
+
+| Type | NovaBuild |
+|------|-----------|
+| Entreprise | Fiction narrative |
+| Enchaînement projet | Scénarisé pédagogiquement |
+| Catégories de livrables | Inspirées d'actifs SFIA réels |
+| Résultats chiffrés | **Interdits** sans source |
 
 ---
 
@@ -186,14 +280,14 @@ Product Design (présent) → validation Morris → préparation éditoriale Git
 - GO nouvelle architecture narrative
 - GO remise en question structure pages actuelles (proposition, pas exécution)
 - GO storytelling orienté valeur
-- GO SFIA comme cas d'usage démonstratif
+- GO fil rouge **NovaBuild** (cas composite) — R1
 - Aucune modification Notion dans ce cycle
 
 ## Décisions non prises
 
-- Sélection définitive du fil rouge (BatiNova vs Chantiers360 vs générique)
-- Validation architecture cible pages
-- GO implémentation Notion
+- Validation architecture cible pages (implémentation)
+- GO premier cycle PD-02A editorial
+- GO implémentation Notion (PD-nB)
 - Promotion baseline ou capitalisation méthode
 
 ---
@@ -217,7 +311,7 @@ Product Design (présent) → validation Morris → préparation éditoriale Git
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
 | **Source de vérité** | Git |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -288,7 +382,7 @@ Notion devient : point d'entrée métier, storytelling, preuves sélectionnées,
 | Pourquoi SFIA ? | ✓ Acte I | Résumé foundation |
 | Comment router un cycle ? | Orientation L2 | routing-guide complet |
 | Quel prompt exact ? | **Non** | prompts/ |
-| Preuve projet Chantiers360 | Synthèse narrative | projects/ complet |
+| Preuve fil rouge NovaBuild (composite) | Synthèse narrative | Catégories livrables dans projects/ |
 
 **Principe :** transparence fonctionnelle, opacité méthodologique sélective.
 
@@ -319,7 +413,7 @@ Dirigeant PME · Chef de projet / PO · Équipe technique · ESN / partenaire ·
 | « SFIA = docs + IA » | « SFIA = usine logicielle gouvernée » |
 | « Encore une méthode » | « Réponse au chaos projet + IA libre » |
 | « Trop technique » | « Je vois mon rôle et mes gains » |
-| « Où est la preuve ? » | « J'ai suivi un projet réel » |
+| « Où est la preuve ? » | « J'ai suivi un fil rouge crédible et distingué fiction / preuves » |
 
 ---
 
@@ -374,7 +468,7 @@ Dirigeant PME · Chef de projet / PO · Équipe technique · ESN / partenaire ·
 |--------|------------|
 | Sur-promesse commerciale | Contrat éditorial §05, framework §08 |
 | Exposition méthode | Matrice confidentialité |
-| Fil rouge non crédible | Sources Chantiers360 / générique PME BTP |
+| Fil rouge confondu avec client réel | Qualification composite NovaBuild · contrôles §08 |
 | Trop long | Parcours temps bornés |
 | Conflit avec P0 existant | Mapping migration §06, pas suppression immédiate |
 
@@ -393,9 +487,9 @@ Dirigeant PME · Chef de projet / PO · Équipe technique · ESN / partenaire ·
 
 ## 15. Décisions Morris
 
-**Validées :** GO Product Design · IDE métier · narration · remise en question structure (proposition).
+**Validées :** GO Product Design · IDE métier · narration · remise en question structure (proposition) · fil rouge **NovaBuild composite** (R1).
 
-**Futures :** validation vision · fil rouge · GO implémentation · capitalisation.
+**Futures :** GO commit corpus · GO PD-02A editorial · GO implémentation Notion (PD-nB) · capitalisation.
 
 ---
 
@@ -416,7 +510,7 @@ Dirigeant PME · Chef de projet / PO · Équipe technique · ESN / partenaire ·
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -450,7 +544,7 @@ ACTE VII Explorer la méthode (annexes)
 | **Objectif** | Créer l'urgence et la reconnaissance du problème |
 | **Message** | Les projets numériques échouent par manque de cadre, pas par manque d'outils IA |
 | **Émotion** | « C'est notre situation » |
-| **Preuve** | Statistiques génériques, anti-patterns (hypothèse documentée) |
+| **Preuve** | Observations qualitatives vérifiables : fragmentation des responsabilités · perte de décisions · spécifications contradictoires · rework · dépendance à quelques experts · prompts improvisés · résultats IA difficiles à reproduire · manque de traçabilité · passage difficile du besoin au delivery · gouvernance implicite · coûts organisationnels décrits **sans chiffres inventés** (anti-patterns documentés · situations métier reconnaissables · illustration NovaBuild · hypothèses explicitement signalées) |
 | **Niveau détail** | L0–L1 |
 | **Révélé** | Douleur PME, chaos IA libre, coût du flou |
 | **Masqué** | Architecture SFIA interne |
@@ -486,7 +580,7 @@ ACTE VII Explorer la méthode (annexes)
 | **Objectif** | Fil rouge narratif bout en bout |
 | **Message** | De l'intention métier à la mise en service — avec gates humaines |
 | **Émotion** | « Je me projette » |
-| **Preuve** | Fil rouge PME BTP / Chantiers360 (synthèse — sources Git) |
+| **Preuve** | Fil rouge **NovaBuild** (cas pédagogique composite) — catégories de livrables et mécanismes inspirés d'actifs SFIA vérifiables (ex. cycles Chantiers360 en Git) ; récit fictif, pas reproduction exacte d'un projet client |
 | **Niveau** | L1–L2 |
 | **Révélé** | Étapes cadrage → RUN, livrables par phase |
 | **Masqué** | Contenu brut projects/, prompts exécutés |
@@ -581,8 +675,8 @@ ACTE VII Explorer la méthode (annexes)
 
 | Élément | Statut |
 |---------|--------|
-| 7 actes | **Recommandation** — à valider Morris |
-| Fil rouge Chantiers360 | **Option** — générique PME BTP si préféré |
+| 7 actes | **Validé** Morris |
+| Fil rouge NovaBuild (composite) | **Validé** Morris — R1 |
 | Acte VII reprend glossaire/routage | **Hypothèse** — contenu P0 recyclé en annexe |
 
 ---
@@ -602,7 +696,7 @@ ACTE VII Explorer la méthode (annexes)
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -616,7 +710,7 @@ ACTE VII Explorer la méthode (annexes)
 
 ## 2. Ouverture narrative
 
-> **Scène :** Un dirigeant de PME du BTP — appelons l'entreprise **NovaBuild** (cas générique inspiré des trajectoires Chantiers360 documentées dans Git). Il a besoin d'une application pour piloter ses chantiers et réserves. Il a testé ChatGPT pour « faire une app ». Résultat : des bouts de code, des idées, aucune traçabilité, personne pour maintenir.
+> **Scène :** Un dirigeant de PME du BTP — l'entreprise **NovaBuild** est un **cas pédagogique composite** : entreprise et déroulé narratif **fictifs**, besoins et catégories de livrables **inspirés** de situations réalistes et d'actifs SFIA vérifiables. NovaBuild a besoin d'une application pour piloter ses chantiers et réserves. Il a testé ChatGPT pour « faire une app ». Résultat : des bouts de code, des idées, aucune traçabilité, personne pour maintenir.
 
 **Question du lecteur :** « Et SFIA, concrètement, ça change quoi ? »
 
@@ -651,7 +745,17 @@ ACTE VII Explorer la méthode (annexes)
 
 ## 5. Fil rouge projet NovaBuild
 
-**Sources vérifiables :** trajectoire Chantiers360 (`projects/chantiers360/`, capitalisations v2.5) — **synthèse narrative**, pas export brut.
+> NovaBuild est un cas pédagogique composite. L'entreprise et le déroulé narratif sont fictifs. Les besoins, catégories de livrables, contrôles et mécanismes visibles sont inspirés de situations réalistes et d'actifs SFIA vérifiables. Le récit ne constitue ni un témoignage client ni la reproduction exacte d'un projet réel.
+
+**Lien de preuve (catégories réelles, contenu scénarisé) :** cycles documentés type Chantiers360 (`projects/chantiers360/`, capitalisations v2.5) — **synthèse narrative**, pas export brut ni attribution client à NovaBuild.
+
+| Distinction | NovaBuild | SFIA réel |
+|-------------|-----------|-----------|
+| Entreprise | Fiction | — |
+| Enchaînement cycles | Scénarisé | Traçable Git |
+| Types de livrables | Inspirés | Produits dans projects/ |
+| Gates Morris | Narrés | Décisions réelles |
+| Résultats chiffrés | **Interdits** | Uniquement si sourcés |
 
 | Phase | Problème projet | Action SFIA visible | Rôles | Livrable observable | Gate Morris | Valeur | Preuve Git | Masqué |
 |-------|-----------------|---------------------|-------|---------------------|-------------|--------|------------|--------|
@@ -665,7 +769,7 @@ ACTE VII Explorer la méthode (annexes)
 | **RUN** | Exploitation | Cycle RUN readiness | Ops | Runbook | GO | Continuité | run readiness | — |
 | **Capitalisation** | Perte REX | Cycle cap. | Morris | REX, méthode | GO cap. | Amélioration continue | capitalization docs | — |
 
-**Hypothèse :** NovaBuild = **cas générique dérivé** — Morris tranchera fil rouge définitif (Chantiers360 nominal vs générique).
+*(Tableau pédagogique — événements NovaBuild scénarisés ; catégories alignées sur actifs SFIA réels.)*
 
 ---
 
@@ -706,8 +810,9 @@ ACTE VII Explorer la méthode (annexes)
 
 | Affirmation | Statut |
 |-------------|--------|
-| Chantiers360 a produit des livrables réels | **Observation** — sources Git |
-| NovaBuild est un client réel | **Fiction pédagogique** — sauf décision Morris contraire |
+| Des cycles SFIA ont produit des livrables réels (ex. Chantiers360) | **Observation** — sources Git |
+| NovaBuild est un client réel | **Fiction pédagogique** — cas composite validé |
+| NovaBuild reproduit exactement un projet client | **Interdit** |
 | SFIA garantit succès projet | **Interdit** |
 | IA exécute seule | **Interdit** |
 
@@ -745,7 +850,7 @@ flowchart LR
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -762,7 +867,7 @@ flowchart LR
 | Question initiale | « Pourquoi payer une méthode ? » |
 | Attente | ROI, risque maîtrisé, simplicité |
 | Objection | « Encore du consulting » |
-| Preuve | Fil rouge NovaBuild, témoignage synthétique, livrables visibles |
+| Preuve | Fil rouge NovaBuild (composite), livrables visibles, distinction fiction/preuves |
 | Vocabulaire | Business, pas Git |
 | Profondeur max | L1 |
 | CTA | Parcours 10 min → contact Morris |
@@ -807,7 +912,7 @@ flowchart LR
 | Question | « Puis-je vendre / appliquer SFIA chez mes clients ? » |
 | Attente | Méthode reproductible, preuves |
 | Objection | « Propriétaire Morris ? » |
-| Preuve | Chantiers360 REX, capitalisation |
+| Preuve | REX et capitalisation SFIA réels (ex. Chantiers360 en Git) — distincts du récit NovaBuild |
 | Vocabulaire | Delivery, gouvernance |
 | Profondeur | L2 |
 | CTA | Acte VI (ESN) → Morris |
@@ -910,7 +1015,7 @@ Hub Acte VII · Annexes glossaire · Liens Git · Bases Référentiel/Cycles
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -971,9 +1076,13 @@ Hub Acte VII · Annexes glossaire · Liens Git · Bases Référentiel/Cycles
 ## 6. Règles d'usage des exemples
 
 - Projets réels : **synthèse** uniquement — gate Morris pour contenu client
-- NovaBuild : étiqueté **fiction pédagogique** sauf décision contraire
-- Captures : autorisées si anonymisées / génériques
+- **NovaBuild** : cas pédagogique **composite validé** — entreprise et récit fictifs ; catégories de livrables inspirées d'actifs SFIA vérifiables ; jamais présenté comme client réel
+- Captures : autorisées si anonymisées
 - Pas de données client identifiables
+
+### Règle chiffres et promesses quantitatives (R2)
+
+> Aucun chiffre de performance, de coût, de délai, de réduction du risque ou de succès ne peut être publié sans source vérifiable et qualification explicite du contexte.
 
 ---
 
@@ -1077,7 +1186,7 @@ Page trop longue si > 4 écrans sans toggle · Trop abstraite si aucun exemple e
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -1210,7 +1319,7 @@ SFIA Discovery — Accueil (Hub)
 | … | … | … |
 | Acte VII | VI | Hub / Git |
 
-*(Détail complet en implémentation PD-03+)*
+*(Détail complet en implémentation PD-03B+)*
 
 ---
 
@@ -1249,7 +1358,7 @@ SFIA Discovery — Accueil (Hub)
 
 ## 12. Hypothèses
 
-- Anciennes pages P0 **archivées** ou **redirigées** en PD-06 — pas supprimées sans GO
+- Anciennes pages P0 **archivées** ou **redirigées** en PD-06B — pas supprimées sans GO
 - Numérotation §00–11 **retirée du parcours principal** — conservée en métadonnées Git
 
 ---
@@ -1269,7 +1378,7 @@ SFIA Discovery — Accueil (Hub)
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -1279,121 +1388,145 @@ SFIA Discovery — Accueil (Hub)
 
 | Phase | Contenu |
 |-------|---------|
-| **PD-01 (présent)** | Product Design Git — ce corpus |
-| **Préparation éditoriale** | Brouillons Discovery dans Git |
-| **Implémentation Notion** | PD-02+ manuel L0 |
-| **QA** | PD-07 |
-| **Capitalisation** | PD-08 — GO Morris |
+| **PD-01** | Product Design Candidate — corpus présent |
+| **PD-nA** | Préparation éditoriale Git (brouillons complets) |
+| **PD-nB** | Implémentation Notion L0 (après validation source Git) |
+| **PD-07** | QA narrative et métier |
+| **PD-08** | Décision capitalisation — GO Morris |
 
-**Aucune action Notion dans PD-01.**
+**Règle structurante :** chaque incrément de contenu suit **deux cycles distincts** — préparation Git (A) puis implémentation Notion (B).
+
+> La source éditoriale Git doit être validée avant toute implémentation Notion. Le merge préalable est **recommandé** pour les incréments structurants ; toute exception exige une décision Morris explicite et une source Git stable identifiable.
+
+**Aucune action Notion dans PD-01 ni dans les cycles A.**
 
 ---
 
-## 2. Incréments PD-01 à PD-08
+## 2. Modèle A / B
 
-### PD-01 — Vision et architecture narrative ✓ (présent cycle)
+| Cycle | Périmètre | Livrables | Gate |
+|-------|-----------|-----------|------|
+| **A — Git** | Brouillons Markdown complets dans `discovery/` ou équivalent | Review pack, handoff si requis | GO Morris commit/PR/merge |
+| **B — Notion** | Lecture version Git validée ; action L0 manuelle | Pages Notion, revue visuelle | GO Morris implémentation ; rollback possible |
+
+Chaque **B** exige : source Git stable · aucune écriture Git pendant B · pas d'automatisation · revue Morris.
+
+---
+
+## 3. Incréments
+
+### PD-01 — Product Design Candidate ✓ (présent)
+
+Contrat Product Design — 9 fichiers — gate GO commit/PR corpus.
+
+### PD-02A — Préparation éditoriale Git : Hub + Acte I
 
 | Champ | Valeur |
 |-------|--------|
-| Objectif | Contrat Product Design complet |
-| Périmètre | 9 fichiers Git |
-| Dépendances | UX-01, editorial P0, Notion cycle 1 |
-| Pages | — |
-| Preuve | Review handoff |
-| Gate Morris | GO commit/PR corpus |
-| Risque | Scope creep — **moyen** |
-| Rollback | N/A — pas implémenté |
+| Objectif | Brouillons Hub Discovery + Acte I complets |
+| Git | Création fichiers editorial Discovery |
+| Review pack | Full ou light selon profil |
+| Gate Morris | Validation narrative Acte I |
 | Notion | **Aucune** |
-| Git préalable | **Ce cycle** |
 
-### PD-02 — Prototype Acte I (Landing Discovery)
+### PD-02B — Implémentation Notion : Hub + Acte I
 
-| Objectif | Hero + Acte I complet dans Notion |
-| Pages | Hub + Acte I |
-| Dépendances | PD-01 merged, GO Morris |
-| Notion | Création pages — manuel |
-| Git préalable | Brouillons editorial Discovery |
-| Gate | Revue Morris narrative |
+| Champ | Valeur |
+|-------|--------|
+| Objectif | Matérialiser Hub + Acte I dans Notion |
+| Prérequis | PD-02A validé ; merge Git **recommandé** |
+| Notion | Création pages L0 — manuel |
+| Git | Lecture seule |
+| Rollback | Restaurer depuis editorial Git |
+| Gate | Revue visuelle Morris |
 
-### PD-03 — Fil rouge NovaBuild (Acte III)
+### PD-03A — Préparation éditoriale Git : fil rouge NovaBuild
 
-| Objectif | Narration projet bout en bout |
-| Pages | III.1–III.4 |
-| Dépendances | PD-02, fil rouge validé Morris |
-| Preuve | Alignement sources Chantiers360 |
-| Gate | Test PO + confidentialité |
+| Champ | Valeur |
+|-------|--------|
+| Objectif | Brouillons Acte III (III.1–III.4) — cas composite NovaBuild |
+| Preuve | Catégories livrables SFIA vérifiables — pas export projet brut |
+| Gate | Test PO + distinction fiction/preuve |
 
-### PD-04 — Actes II, IV, V
+### PD-03B — Implémentation Notion : Acte III
 
-| Objectif | Contraste, livrables, garanties |
-| Pages | II, IV, V |
-| Dépendances | PD-03 |
-| Gate | Test valeur + pas sur-promesse |
+| Prérequis | PD-03A validé |
+| Notion | Pages fil rouge |
+| Gate | Confidentialité + crédibilité narrative |
 
-### PD-05 — Actes VI et VII
+### PD-04A — Préparation Git : Actes II, IV, V
 
-| Objectif | Personas + annexes méthode |
-| Pages | VI.*, VII.* |
-| Dépendances | PD-04 |
-| Gate | Mapping P0 legacy |
+Brouillons contraste tripartite, galerie livrables, garanties/limites.
 
-### PD-06 — Migration structure ancienne
+### PD-04B — Implémentation Notion : Actes II, IV, V
 
-| Objectif | Redirections, archivage parcours §00–11 |
-| Pages | Toutes P0 actuelles |
-| Dépendances | PD-05 |
-| Risque | Confusion utilisateurs — **moyen** |
-| Rollback | Restaurer P0 depuis Git editorial |
-| Gate | Morris GO migration |
+Matérialisation L0 après validation 04A.
+
+### PD-05A — Préparation Git : Actes VI et VII
+
+Brouillons personas + annexes méthode simplifiées.
+
+### PD-05B — Implémentation Notion : Actes VI et VII
+
+Pages persona + portail annexes ; mapping P0 legacy documenté.
+
+### PD-06A — Préparation Git : plan migration legacy
+
+Plan redirections §00–11 → architecture Discovery — pas de suppression Notion dans A.
+
+### PD-06B — Migration contrôlée Notion
+
+Redirections, archivage parcours legacy — gate Morris GO migration.
 
 ### PD-07 — QA narrative et métier
 
-| Objectif | Framework §08 appliqué |
-| Périmètre | Espace complet |
-| Dépendances | PD-02–06 |
-| Gate | Verdict acceptation |
+Framework §08 · dépend PD-02B–06B · verdict acceptation.
 
 ### PD-08 — Décision capitalisation
 
-| Objectif | Évaluer promotion method/core |
-| Dépendances | PD-07, ≥ 2 itérations usage |
-| Gate | GO Morris explicite |
-| Non-capitalisation | Rester dans documentation/notion/discovery-product-design/ |
-
----
-
-## 3. Distinction phases
-
-```text
-Conception (PD-01) → Éditorial Git → Implémentation Notion (PD-02–06) → QA (PD-07) → Capitalisation? (PD-08)
-```
+Évaluer promotion method/core — GO Morris explicite.
 
 ---
 
 ## 4. Dépendances globales
 
 ```text
-PD-01 (présent)
-  → PD-02 Hub + Acte I
-    → PD-03 Fil rouge
-      → PD-04 Actes II, IV, V
-        → PD-05 Actes VI, VII
-          → PD-06 Migration
-            → PD-07 QA
-              → PD-08 Capitalisation?
+PD-01
+├── PD-02A → PD-02B
+├── PD-03A → PD-03B  (peut chevaucher 02A après gate Morris)
+├── PD-04A → PD-04B  (après 03A recommandé)
+├── PD-05A → PD-05B
+├── PD-06A → PD-06B  (après 05B)
+├── PD-07 (après 06B)
+└── PD-08 (après PD-07)
+```
+
+**Parallélisme autorisé en préparation (A)** — pas en implémentation (B) sans source Git validée par incrément.
+
+---
+
+## 5. Distinction phases (synthèse)
+
+```text
+Conception (PD-01)
+  → Préparation éditoriale Git (PD-nA)
+    → Implémentation Notion (PD-nB)
+      → QA (PD-07)
+        → Capitalisation? (PD-08)
 ```
 
 ---
 
-## 5. Quick wins post-PD-01
+## 6. Quick wins post-PD-01
 
-- Validation Morris vision · Choix fil rouge · GO PD-02 séparé
+- GO commit/PR corpus PD-01
+- Lancement PD-02A (Hub + Acte I editorial Git)
 
 ---
 
-## 6. Critères capitalisation (PD-08)
+## 7. Critères capitalisation (PD-08)
 
-Identiques UX-01 §8 : itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
+Itérations réelles · usage amélioré · gabarits réutilisables · dette acceptable · **GO Morris**
 
 ---
 
@@ -1412,7 +1545,7 @@ Identiques UX-01 §8 : itérations réelles · usage amélioré · gabarits réu
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 17:56 Europe/Paris (CEST) |
+| **Horodatage** | 2026-07-14 18:10 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-product-design` |
 | **HEAD** | `14446b91019c1e320c12533124201b9a3dd4863d` |
 
@@ -1446,6 +1579,8 @@ Définir les **critères de jugement** de la future expérience Discovery — av
 | C16 | Mobile lisible | Test 2 pages |
 | C17 | Accessibilité | Pas couleur seule |
 | C18 | Candidate visible | Badge v2.5 |
+| C19 | Distinction fiction NovaBuild / preuves SFIA | Test explicite post Acte III |
+| C20 | Absence statistiques non sourcées | Revue Acte I + corpus — aucun chiffre sans source |
 
 ---
 
@@ -1455,11 +1590,13 @@ Définir les **critères de jugement** de la future expérience Discovery — av
 |---------|----------|---|
 | Vision | IDE métier clair ? | |
 | Narration | Actes cohérents ? | |
-| Fil rouge | Crédible et sourcé ? | |
+| Fil rouge | NovaBuild composite distingué des preuves réelles ? | |
+| Chiffres | Aucune statistique non sourcée (Acte I) ? | |
 | Confidentialité | Pas de fuite ? | |
 | Promesses | Sobres ? | |
 | Migration | Mapping P0 acceptable ? | |
-| GO PD-02 | Autorisé ? | |
+| Roadmap | Cycles Git (A) / Notion (B) séparés ? | |
+| GO PD-02A | Editorial Hub + Acte I autorisé ? | |
 
 ---
 
@@ -1493,12 +1630,21 @@ Définir les **critères de jugement** de la future expérience Discovery — av
 
 - Récit NovaBuild fluide · C5
 
+### 4.8 Test NovaBuild / preuves
+
+- Après Acte III : le lecteur distingue fiction NovaBuild et preuves SFIA réelles · C19
+
+### 4.9 Test statistiques
+
+- Revue Acte I : aucun taux, économie ou gain chiffré sans source · C20
+
 ---
 
 ## 5. Verdicts possibles
 
 | Verdict | Signification |
 |---------|---------------|
+| **DISCOVERY PRODUCT DESIGN CORRECTED — READY FOR COMMIT** | Réserves R1–R3 traitées ; corpus PD-01 prêt pour commit/PR |
 | **DISCOVERY PRODUCT DESIGN READY** | Corpus PD-01 validé pour commit/PR |
 | **READY WITH EDITORIAL RESERVES** | Corrections mineures documentées |
 | **NARRATIVE INSUFFICIENT** | Actes ou fil rouge à retravailler |
@@ -1520,21 +1666,18 @@ Ce framework s'applique **pleinement** à PD-07 (QA Notion). Pour PD-01 :
 
 ## 7. Seuils GO / NO-GO implémentation
 
-| Condition | GO PD-02 |
-|-----------|----------|
-| PD-01 merged | Requis |
-| Fil rouge Morris | Requis |
-| Contrat éditorial validé | Requis |
-| METHODOLOGY OVEREXPOSED | **NO-GO** |
+| Condition | GO PD-02A (Git) | GO PD-02B (Notion) |
+|-----------|-----------------|---------------------|
+| PD-01 merged | Requis | Requis |
+| Fil rouge NovaBuild composite documenté | Requis | Requis |
+| Brouillons Hub + Acte I validés Morris | Requis | Requis |
+| Source Git stable (merge recommandé) | — | Requis |
+| Contrat éditorial validé | Requis | Requis |
+| Statistique non sourcée détectée | **NO-GO** | **NO-GO** |
+| METHODOLOGY OVEREXPOSED | **NO-GO** | **NO-GO** |
 
 ---
 
 ## Liens
 
 → [05 Contrat éditorial](05-sfia-discovery-editorial-contract.md) · [07 Roadmap](07-sfia-discovery-transformation-roadmap.md)
-
----
-
-## Verdict
-
-**DISCOVERY PRODUCT DESIGN DOCUMENTED — READY FOR MORRIS REVIEW**
