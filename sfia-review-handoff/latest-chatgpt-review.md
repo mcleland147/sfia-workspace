@@ -1,6 +1,6 @@
 # SFIA Review Pack — Discovery Editorial PD-04A (Acte III NovaBuild)
 
-**Horodatage :** 2026-07-14 22:50 Europe/Paris (CEST)
+**Horodatage :** 2026-07-14 ~23:10 Europe/Paris (CEST) — corrective PD-04A R1–R3
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
 **Cycle :** PD-04A — Préparation éditoriale Git (Acte III — Suivons NovaBuild)
@@ -13,8 +13,8 @@
 **Implémentation Notion :** PD-02B ✓ · PD-03B ✓ · PD-04B futur
 **Capitalisation méthode :** Non
 **Niveau review pack :** full (5 NEW + 2 MOD + contenu intégral)
-**Handoff avant :** `origin/sfia/review-handoff` @ `5c1a0828a444aec6680b86280bae9093d051a001`
-**Verdict :** **ACT III EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
+**Handoff avant :** `origin/sfia/review-handoff` @ `343d8097761d18ad29daa848282ec6268f61fc02`
+**Verdict :** **ACT III EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
 
 ---
 
@@ -942,7 +942,7 @@ Avant publication, NovaBuild consolide :
 - **risques connus** — réserves QA ouvertes · limitations MVP ;
 - **plan de rollback** — même simplifié.
 
-> **Transparence pédagogique :** dans des projets SFIA documentés, la **readiness pré-delivery** est riche ; la **mise en production complète** peut être une **étape ultérieure** explicitement cadrée. NovaBuild **narré** ici la chaîne SFIA cible — sans prétendre qu'un déploiement production identique a déjà eu lieu pour ce cas fictif.
+> **Transparence pédagogique :** dans des projets SFIA documentés, la **readiness pré-delivery** est riche ; la **mise en production complète** peut être une **étape ultérieure** explicitement cadrée. NovaBuild **illustre** ici la chaîne SFIA cible — sans prétendre qu'un déploiement production identique a déjà eu lieu pour ce cas fictif.
 
 ---
 
@@ -982,7 +982,7 @@ Pour **exploiter** le service, NovaBuild prépare :
 | **Observabilité minimale** | Logs · alertes · santé applicative |
 | **Retour utilisateur** | Canal pour remontées terrain |
 
-> Dans Git, des **runbooks de test local** existent pour certains projets SFIA ; l'**observabilité production complète** est une **catégorie** souvent cadrée en post-MVP — NovaBuild l'illustre comme **étape méthodologique**, pas comme témoignage déployé.
+> Dans Git, des **runbooks de test local** existent pour certains projets SFIA ; l'**observabilité production complète** n'est **pas démontrée** par les sources du pilote consulté — NovaBuild l'illustre comme **étape méthodologique cible**, pas comme **fait observé**.
 
 ---
 
@@ -1010,7 +1010,7 @@ En fin de cycle projet NovaBuild :
 
 La capitalisation est **proportionnée** : leçons utiles, pas export intégral du repo.
 
-**Moment de preuve P4 :** le projet peut être **repris**, **exploité** et **amélioré** sans reconstruire tout son historique — grâce à Git et aux cycles documentés.
+**Moment de preuve P4 (scénarisé) :** les artefacts attendus — release notes, runbook, REX — illustrent la reprise du projet sans reconstruire tout son historique ; les sources du pilote confirment surtout readiness, runbooks de test et capitalisation.
 
 ---
 
@@ -1032,7 +1032,7 @@ NovaBuild (fiction) atteint une **première mise en service maîtrisée** du MVP
 |--|--|
 | **Conflit** | Un merge n'est pas une mise en service ; une mise en service n'est pas une exploitation maîtrisée. |
 | **Résolution** | Release · RUN readiness · capitalisation sont des **étapes explicites**. |
-| **Preuve P4** | Release notes · runbook · REX · reprise projet possible. |
+| **Preuve P4** | **Preuve P4 scénarisée :** release notes, runbook et REX constituent les artefacts attendus du cas NovaBuild ; les sources du pilote attestent principalement la readiness, les runbooks de test et la capitalisation. |
 
 ---
 
@@ -1379,6 +1379,130 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 
 ---
 
+
+## Correctif PD-04A — réserves ChatGPT R1–R3 (Acte III.4)
+
+**Horodatage :** 2026-07-14 ~23:10 Europe/Paris (CEST)
+**Cycle :** PD-04A corrective review
+**Profil SFIA :** Light
+**Décision Morris :** **GO R1–R3 uniquement** — aucun élargissement de périmètre
+**Fichier projet modifié :** `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-4-release-and-run-editorial-draft.md`
+**Note :** les **5 brouillons Acte III** (hub + III.1–III.4) et le périmètre PD-04A (README · roadmap 07) restent **inchangés par ce correctif**, **sauf III.4** (corrections ciblées).
+**Handoff avant :** `343d8097761d18ad29daa848282ec6268f61fc02`
+**Branche projet :** `documentation/sfia-discovery-act-03-novabuild-editorial` @ `a3b42d9c1bfcec2645ca6202e3c460da75e294f8` — **non commitée**
+
+### R1 — Grammaire (§2 Préparation release)
+
+| | Texte |
+|--|-------|
+| **Avant** | NovaBuild **narré** ici la chaîne SFIA cible |
+| **Après** | NovaBuild **illustre** ici la chaîne SFIA cible |
+
+### R2 — Observabilité non démontrée (§5 Observabilité et RUN readiness)
+
+| | Texte |
+|--|-------|
+| **Avant** | l'**observabilité production complète** est une **catégorie** souvent cadrée en post-MVP — NovaBuild l'illustre comme **étape méthodologique**, pas comme témoignage déployé. |
+| **Après** | l'**observabilité production complète** n'est **pas démontrée** par les sources du pilote consulté — NovaBuild l'illustre comme **étape méthodologique cible**, pas comme **fait observé**. |
+
+### R3 — Preuve P4 scénarisée (§7 moment · §9 tableau)
+
+| Zone | Avant | Après |
+|------|-------|-------|
+| **§7 Moment de preuve P4** | **Moment de preuve P4 :** le projet peut être **repris**, **exploité** et **amélioré** sans reconstruire tout son historique — grâce à Git et aux cycles documentés. | **Moment de preuve P4 (scénarisé) :** les artefacts attendus — release notes, runbook, REX — illustrent la reprise du projet sans reconstruire tout son historique ; les sources du pilote confirment surtout readiness, runbooks de test et capitalisation. |
+| **§9 Preuve P4 (cellule)** | Release notes · runbook · REX · reprise projet possible. | **Preuve P4 scénarisée :** release notes, runbook et REX constituent les artefacts attendus du cas NovaBuild ; les sources du pilote attestent principalement la readiness, les runbooks de test et la capitalisation. |
+
+### Contenu corrigé intégral — sections touchées
+
+#### §2 Préparation release
+
+```markdown
+## 2. Préparation release
+
+Avant publication, NovaBuild consolide :
+
+- **release notes** — ce que l'utilisateur voit ;
+- **prérequis de déploiement** — environnement · données · accès ;
+- **risques connus** — réserves QA ouvertes · limitations MVP ;
+- **plan de rollback** — même simplifié.
+
+> **Transparence pédagogique :** dans des projets SFIA documentés, la **readiness pré-delivery** est riche ; la **mise en production complète** peut être une **étape ultérieure** explicitement cadrée. NovaBuild **illustre** ici la chaîne SFIA cible — sans prétendre qu'un déploiement production identique a déjà eu lieu pour ce cas fictif.
+```
+
+#### §5 Observabilité et RUN readiness
+
+```markdown
+## 5. Observabilité et RUN readiness
+
+Pour **exploiter** le service, NovaBuild prépare :
+
+| Élément | Objectif |
+|---------|----------|
+| **Runbook** | Que faire en cas d'incident courant |
+| **Responsabilités RUN** | Qui surveille · qui corrige |
+| **Observabilité minimale** | Logs · alertes · santé applicative |
+| **Retour utilisateur** | Canal pour remontées terrain |
+
+> Dans Git, des **runbooks de test local** existent pour certains projets SFIA ; l'**observabilité production complète** n'est **pas démontrée** par les sources du pilote consulté — NovaBuild l'illustre comme **étape méthodologique cible**, pas comme **fait observé**.
+```
+
+#### §7 — Moment de preuve P4 (extrait)
+
+```markdown
+**Moment de preuve P4 (scénarisé) :** les artefacts attendus — release notes, runbook, REX — illustrent la reprise du projet sans reconstruire tout son historique ; les sources du pilote confirment surtout readiness, runbooks de test et capitalisation.
+```
+
+#### §9 Conflit · résolution · preuve (tableau)
+
+```markdown
+## 9. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | Un merge n'est pas une mise en service ; une mise en service n'est pas une exploitation maîtrisée. |
+| **Résolution** | Release · RUN readiness · capitalisation sont des **étapes explicites**. |
+| **Preuve P4** | **Preuve P4 scénarisée :** release notes, runbook et REX constituent les artefacts attendus du cas NovaBuild ; les sources du pilote attestent principalement la readiness, les runbooks de test et la capitalisation. |
+```
+
+### diff — Acte III.4 seul (vs review pack PD-04A initial)
+
+```
+ method/.../sfia-discovery-act-03-4-release-and-run-editorial-draft.md | 4 insertions(+), 4 deletions(-)
+ 4 hunks — §2 · §5 · §7 P4 · §9 Preuve P4
+```
+
+### QA ciblée — 17 contrôles
+
+| # | Contrôle | Résultat |
+|---|----------|----------|
+| Q1 | « NovaBuild narré » absent | **PASS** |
+| Q2 | « NovaBuild illustre ici la chaîne SFIA cible » présent | **PASS** |
+| Q3 | « souvent cadrée en post-MVP » absent | **PASS** |
+| Q4 | Aucune autre généralisation de fréquence non sourcée introduite | **PASS** |
+| Q5 | Formulation observabilité fondée sur sources pilote présente | **PASS** |
+| Q6 | Preuve P4 explicitement qualifiée de scénarisée | **PASS** |
+| Q7 | Sources pilote limitées à readiness · runbooks de test · capitalisation | **PASS** |
+| Q8 | Aucune release production réelle attribuée au pilote | **PASS** |
+| Q9 | NovaBuild reste cas pédagogique composite | **PASS** |
+| Q10 | Mise en service NovaBuild clairement fictive | **PASS** |
+| Q11 | Transition Acte IV inchangée | **PASS** |
+| Q12 | Aucun autre fichier projet modifié par ce correctif | **PASS** |
+| Q13 | Aucun staged (projet) | **PASS** |
+| Q14 | Aucun commit projet | **PASS** |
+| Q15 | Aucun push projet | **PASS** |
+| Q16 | Aucune action Notion | **PASS** |
+| Q17 | Aucun TODO · TBD · FIXME · placeholder | **PASS** |
+
+**Verdict QA corrective :** **PASS** (17/17)
+
+### Décisions Morris restantes
+
+- Relecture ChatGPT (re-review)
+- M6 — commit / push / PR branche projet
+- M7 — Notion PD-04B
+
+---
+
 ## Verdict final
 
-**ACT III EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
+**ACT III EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
