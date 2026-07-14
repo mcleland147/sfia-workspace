@@ -7,7 +7,7 @@
 | **Baseline** | SFIA v2.4 |
 | **Horodatage** | 2026-07-14 22:50 Europe/Paris (CEST) |
 | **Branche** | `documentation/sfia-discovery-act-03-novabuild-editorial` |
-| **HEAD** | `a3b42d9c1bfcec2645ca6202e3c460ba75e294f8` |
+| **HEAD** | `a3b42d9c1bfcec2645ca6202e3c460da75e294f8` |
 | **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---

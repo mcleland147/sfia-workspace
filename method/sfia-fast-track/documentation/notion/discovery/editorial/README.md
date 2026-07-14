@@ -8,7 +8,7 @@
 | **Baseline opérationnelle** | SFIA v2.4 |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
 | **Branche projet** | `documentation/sfia-discovery-act-03-novabuild-editorial` |
-| **HEAD / base** | `a3b42d9c1bfcec2645ca6202e3c460ba75e294f8` |
+| **HEAD / base** | `a3b42d9c1bfcec2645ca6202e3c460da75e294f8` |
 | **Horodatage** | 2026-07-14 22:50 Europe/Paris (CEST) |
 | **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B futur |
 | **Capitalisation méthode** | Non |
@@ -97,17 +97,18 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 
 ---
 
-## 9. Décisions restantes (Acte III)
+## 9. Gates Acte III
 
 | Gate | Objet | Statut |
 |------|-------|--------|
-| **M1** | Structure Acte III | En attente |
-| **M2** | Crédibilité NovaBuild | En attente |
-| **M3** | Fiction / actifs réels | En attente |
-| **M4** | Niveau preuve | En attente |
-| **M5** | Contenu complet | En attente |
-| **M6** | GO commit / push / PR | En attente |
-| **M7** | GO PD-04B Notion | Hors cycle |
+| **M1** | Structure Acte III | **Validée** |
+| **M2** | Crédibilité NovaBuild | **Validée** |
+| **M3** | Fiction / actifs réels | **Validée** |
+| **M4** | Niveau de preuve et exposition | **Validée** |
+| **M5** | Contenu éditorial complet | **Validée** |
+| **M6** | Commit / push / PR | **Exécutée — PR #198 ouverte** |
+| **M6 bis** | GO merge Morris | **En attente** |
+| **M7** | GO PD-04B Notion | **Hors cycle — futur** |
 
 ---
 
