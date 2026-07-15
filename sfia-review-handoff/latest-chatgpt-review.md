@@ -189,38 +189,38 @@
 | Q4 | Aucun fichier staged (scope projet) | **PASS** |
 | Q5 | 6 fichiers Act VI–VII NEW untracked + README + roadmap MOD | **PASS** |
 | Q6 | Actes I–V sources mergées sur main (PR #198 · #199) | **PASS** |
-| Q7 | Handoff avant = \`$HANDOFF_BEFORE\` | **PASS** |
-| Q8 | Pattern \`Morris tranchera\` absent (6 drafts) | **$Q8** |
-| Q9 | Pattern \`à valider\` absent | **$Q9** |
-| Q10 | \`BatiNova\` absent | **$Q10** |
-| Q11 | TODO / TBD / FIXME / PLACEHOLDER / WIP / Lorem absent | **$Q11** |
-| Q12 | \`équipe IA qui accélère\` absent | **$Q12** |
-| Q13 | Métadonnée branche correcte dans 6 drafts | **$Q13** |
-| Q14 | Métadonnée HEAD \`96d1580\` dans 6 drafts | **$Q14** |
-| Q15 | Acte VI hub — table choix profil | **$Q15** |
-| Q16 | Acte VI hub — VI.1 à VI.4 référencés | **$Q16** |
-| Q17 | Acte VII — section sept portes | **$Q17** |
-| Q18 | Acte VII — max sept portes visibles | **$Q18** |
-| Q19 | Persona ESN — réserves obligatoires | **$Q19** |
-| Q20 | Persona ESN — licensing mentionné (limite) | **$Q20** |
-| Q21 | Persona technique — Cursor / limites IA | **$Q21** |
-| Q22 | Persona PO — review pack | **$Q22** |
-| Q23 | README cycle = PD-06A | **$Q23** |
-| Q24 | Roadmap PD-06A cycle courant | **$Q24** |
-| Q25 | README PD-05A ✓ · PD-06B futur | **$Q25** |
-| Q26 | Transition Acte V → VI (hub) | **$Q26** |
-| Q27 | Teaser / lien Acte VII depuis hub VI | **$Q27** |
-| Q28 | Chemins \`projects/\` non exposés en corps lecteur (6 drafts) | **$Q28** |
-| Q29 | Acte VII — réserve prompt catalog | **$Q29** |
-| Q30 | Baseline SFIA v2.4 Acte VII | **$Q30** |
-| Q31 | Gates M1–M8 documentées README §9 | **$Q31** |
-| Q32 | PR #199 · main 96d1580 README §8 | **$Q32** |
-| Q33 | Fiche VI.1 Dirigeant PME présente | **$Q33** |
-| Q34 | Fiche VI.2 Chef de projet présente | **$Q34** |
-| Q35 | Fiche VI.3 Équipe technique présente | **$Q35** |
-| Q36 | Fiche VI.4 ESN présente | **$Q36** |
-| Q37 | Acte VII self-check A1 sept portes | **$Q37** |
-| Q38 | Verdict pack = ACTS VI-VII EDITORIAL PREPARED | **$Q38** |
+| Q7 | Handoff avant = `d0901173d38290269ac8cdda483e43ea36175986` | **PASS** |
+| Q8 | Pattern `Morris tranchera` absent (6 drafts) | **PASS** |
+| Q9 | Pattern `à valider` absent | **PASS** |
+| Q10 | `BatiNova` absent | **PASS** |
+| Q11 | TODO / TBD / FIXME / PLACEHOLDER / WIP / Lorem absent | **PASS** |
+| Q12 | `équipe IA qui accélère` absent | **PASS** |
+| Q13 | Métadonnée branche correcte dans 6 drafts | **PASS** |
+| Q14 | Métadonnée HEAD `96d1580` dans 6 drafts | **PASS** |
+| Q15 | Acte VI hub — table choix profil | **PASS** |
+| Q16 | Acte VI hub — VI.1 à VI.4 référencés | **PASS** |
+| Q17 | Acte VII — section sept portes | **PASS** |
+| Q18 | Acte VII — max sept portes visibles | **PASS** |
+| Q19 | Persona ESN — réserves obligatoires | **PASS** |
+| Q20 | Persona ESN — licensing mentionné (limite) | **PASS** |
+| Q21 | Persona technique — Cursor / limites IA | **PASS** |
+| Q22 | Persona PO — review pack | **PASS** |
+| Q23 | README cycle = PD-06A | **PASS** |
+| Q24 | Roadmap PD-06A cycle courant | **PASS** |
+| Q25 | README PD-05A ✓ · PD-06B futur | **PASS** |
+| Q26 | Transition Acte V → VI (hub) | **PASS** |
+| Q27 | Teaser / lien Acte VII depuis hub VI | **PASS** |
+| Q28 | Chemins `projects/` non exposés en corps lecteur (6 drafts) | **PASS** |
+| Q29 | Acte VII — réserve prompt catalog | **PASS** |
+| Q30 | Baseline SFIA v2.4 Acte VII | **PASS** |
+| Q31 | Gates M1–M8 documentées README §9 | **PASS** |
+| Q32 | PR #199 · main 96d1580 README §8 | **PASS** |
+| Q33 | Fiche VI.1 Dirigeant PME présente | **PASS** |
+| Q34 | Fiche VI.2 Chef de projet présente | **PASS** |
+| Q35 | Fiche VI.3 Équipe technique présente | **PASS** |
+| Q36 | Fiche VI.4 ESN présente | **PASS** |
+| Q37 | Acte VII self-check A1 sept portes | **PASS** |
+| Q38 | Verdict pack = ACTS VI-VII EDITORIAL PREPARED | **PASS** |
 
 **Verdict QA :** **PASS** (38/38) — soumis à revue ChatGPT + gates Morris M1–M6.
 
