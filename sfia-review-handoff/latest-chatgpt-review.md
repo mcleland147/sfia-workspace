@@ -1,30 +1,30 @@
-# SFIA Review Pack — Discovery Editorial PD-05A (Actes IV–V)
+# SFIA Review Pack — Discovery Editorial PD-06A (Actes VI–VII)
 
-**Horodatage :** 2026-07-15 00:35 Europe/Paris (CEST)
+**Horodatage :** 2026-07-15 ~14:15 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
-**Cycle :** PD-05A — Préparation éditoriale Git (Actes IV–V)
+**Cycle :** PD-06A — Préparation éditoriale Git (Actes VI–VII)
 **Type de cycle :** Product Design — couche éditoriale lecteur
 **Profil SFIA :** Standard
 **Typologie v2.4 :** DOC
 **Statut livrables :** Candidate — brouillons éditoriaux non commités
-**Branche projet :** `documentation/sfia-discovery-acts-04-05-editorial`
-**HEAD / base / origin/main :** `7932fcb45d82ceacca2faa745764743b7c6f2806`
-**Implémentation Notion :** PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B futur
+**Branche projet :** `documentation/sfia-discovery-acts-06-07-editorial`
+**HEAD / base / origin/main :** `96d1580e33baa1ec6e97622c7f2f59a4787ec510` (`96d1580`)
+**Implémentation Notion :** PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B ✓ · PD-06B futur
 **Capitalisation méthode :** Non
-**Niveau review pack :** full (2 NEW + 2 MOD + contenu intégral)
-**Handoff avant :** `origin/sfia/review-handoff` @ `a53b1128fd38b245450b173dc68599981d4fb473`
-**Verdict :** **ACTS IV-V EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
+**Niveau review pack :** full (6 NEW + 2 MOD + contenu intégral)
+**Handoff avant :** `origin/sfia/review-handoff` @ `d0901173d38290269ac8cdda483e43ea36175986`
+**Verdict :** **ACTS VI-VII EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
 
 ---
 
-## Décision Morris — GO PD-05A
+## Décision Morris — GO PD-06A (handoff review)
 
 | Élément | Décision |
 |---------|----------|
-| **Périmètre** | Acte IV (galerie livrables) · Acte V (garanties et limites) — sources éditoriales Git complètes |
-| **Hors périmètre** | Notion PD-05B · commit · push projet · PR · merge · capitalisation |
-| **Prérequis** | PD-04A/B ✓ (Acte III mergé + Notion finalisé) |
+| **Périmètre** | Acte VI (hub + VI.1–VI.4 personas) · Acte VII (portail sept portes) — sources éditoriales Git complètes |
+| **Hors périmètre** | Notion PD-06B · commit · push projet · PR · merge · capitalisation |
+| **Prérequis** | PD-05A/B ✓ (Actes IV–V mergés + Notion finalisé) |
 | **Gates** | M1–M6 contenu · M7 commit ultérieur · M8 Notion ultérieur |
 | **Commit projet** | **Non** — branche projet reste non commitée |
 | **Handoff** | Publication `sfia/review-handoff` autorisée |
@@ -36,556 +36,347 @@
 | Contrôle | Résultat |
 |----------|----------|
 | toplevel | `/Users/morris/Projects/sfia-workspace` |
-| Branche | `documentation/sfia-discovery-acts-04-05-editorial` |
-| HEAD | `7932fcb45d82ceacca2faa745764743b7c6f2806` ✓ |
-| origin/main | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
-| Commits ahead of main (projet) | **0** — aucun commit sur branche projet |
+| Branche | `documentation/sfia-discovery-acts-06-07-editorial` |
+| HEAD | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` ✓ |
+| origin/main | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| Commits ahead of main (projet) | **0** — aucun commit local sur branche projet |
 | staged (scope projet) | **aucun** |
 | **Verdict** | **PASS** |
 
 ### git status --porcelain (périmètre projet)
 
 ```
-M method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md
+ M method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md
  M method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
-?? .sfia/
-?? .tmp-sfia-review/
-?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md
-?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md
-?? sfia-review-handoff/
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md
 ```
 
-**Périmètre PD-05A :** 2 NEW Act IV–V + 2 MOD (README editorial · roadmap 07).
+**Périmètre PD-06A :** 6 NEW Act VI–VII + 2 MOD (README editorial · roadmap 07).
 
 ---
 
-## Fichiers livrables — line counts
+## Fichiers livrables — line counts (8 fichiers PD-06A)
 
 | Fichier | Lignes |
 |---------|--------|
-| `sfia-discovery-act-04-what-sfia-produces-editorial-draft.md` | 229 |
-| `sfia-discovery-act-05-why-it-works-editorial-draft.md` | 213 |
-| `README.md` | 129 |
-| `07-sfia-discovery-transformation-roadmap.md` | 175 |
+| `sfia-discovery-act-06-project-yourself-editorial-draft.md` | 163 |
+| `sfia-discovery-act-06-1-sme-leader-editorial-draft.md` | 166 |
+| `sfia-discovery-act-06-2-project-manager-po-editorial-draft.md` | 165 |
+| `sfia-discovery-act-06-3-technical-team-editorial-draft.md` | 165 |
+| `sfia-discovery-act-06-4-esn-partner-editorial-draft.md` | 176 |
+| `sfia-discovery-act-07-explore-the-method-editorial-draft.md` | 313 |
+| `README.md` | 140 |
+| `07-sfia-discovery-transformation-roadmap.md` | 183 |
 
 ---
 
-## git diff --stat (tracked)
+## git diff --stat (tracked MOD)
 
 ```
-.../07-sfia-discovery-transformation-roadmap.md    | 37 ++++++------
- .../notion/discovery/editorial/README.md           | 69 ++++++++++++----------
- 2 files changed, 57 insertions(+), 49 deletions(-)
+ .../07-sfia-discovery-transformation-roadmap.md    | 40 ++++++++------
+ .../notion/discovery/editorial/README.md           | 61 +++++++++++++---------
+ 2 files changed, 60 insertions(+), 41 deletions(-)
 ```
 
 **NEW (untracked) :**
 
 ```
- method/.../sfia-discovery-act-04-what-sfia-produces-editorial-draft.md | 229 ++
- method/.../sfia-discovery-act-05-why-it-works-editorial-draft.md       | 213 ++
+ method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md | 163
+ method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md | 166
+ method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md | 165
+ method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md | 165
+ method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md | 176
+ method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md | 313
 ```
 
 ---
 
-## Matrice evidence — 5 familles + 5 mécanismes
+## Sources consultées (gouvernance pack)
 
-| ID | Type | Libellé lecteur | Inspiration Git vérifiée | Niveau | Masqué lecteur |
-|----|------|-----------------|--------------------------|--------|----------------|
-| F1 | Famille | Cadrer | `00-framing/` · scope · `03-backlog/` | L1–L2 | Scoring pilote · SHAs bootstrap |
-| F2 | Famille | Concevoir | `01-functional-architecture/` · `02-ux-ui/` · `04-design/` | L1–L2 | Figma raw · Penpot · pixel diffs |
-| F3 | Famille | Livrer | `07-delivery-inc-0N/` · PR · closure reports | L2 | Branches · diffs code · CI |
-| F4 | Famille | Vérifier | `08-qa-test/` · E2E · review handoff | L2 | Scripts complets · `.env.test` |
-| F5 | Famille | Exploiter et apprendre | Readiness pré-delivery · `09-capitalization/` | L1 | RUN prod · observabilité complète |
-| M1 | Mécanisme | Git prime | sfia-rules-and-guardrails · publication governance | L2 | Protected paths · prompt catalog |
-| M2 | Mécanisme | Cycles bornés | operating model · cycle execution template · INC | L2 | Routing interne complet |
-| M3 | Mécanisme | Décision humaine | cycle routing · pr-readiness · review handoff | L2 | Détails prompts Morris |
-| M4 | Mécanisme | Validation proportionnée | QA standard v2 · validation checklist · profils | L2 | Règles internes exhaustives |
-| M5 | Mécanisme | Capitalisation contrôlée | knowledge layer · INC closure · PD-09 roadmap | L1–L2 | Promotion method/core sans GO |
-
-**Source explore :** catégories inspirées pilotes SFIA documentés — **sans** attribution client unique.
+| Source | Usage pack |
+|--------|------------|
+| `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md` | Cycle PD-06A · inventaire · gates M1–M8 |
+| `method/.../07-sfia-discovery-transformation-roadmap.md` | Séquence PD-06A/B · cycle courant |
+| `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` | Personas VI.1–VI.4 (références §1.1–1.4) |
+| `discovery-product-design/05-sfia-discovery-editorial-contract.md` | Contrat 80/20 · opacité sélective |
+| Actes I–V editorial drafts mergés (main @ 96d1580) | Continuité narrative V → VI → VII |
+| `core/sfia-rules-and-guardrails.md` | Principes gouvernance (non copiés intégralement) |
+| `core/sfia-cycle-routing-guide.md` | Orientation cycles Acte VII porte 1–2 |
+| `notion/editorial/sfia-notion-04-cycles-profiles-gates-editorial-draft.md` | Mapping portes P0 §04 |
+| Handoff précédent PD-05A @ `d0901173d38290269ac8cdda483e43ea36175986` | Continuité review |
 
 ---
 
-## QA — 32 contrôles
+## Matrice personas — need / value / limits / sources
+
+| Persona | Besoin (need) | Valeur SFIA (value) | Limites explicites | Sources Git |
+|---------|---------------|---------------------|--------------------|-------------|
+| **VI.1 Dirigeant PME** | Décider d’investir dans un cadre vs demande directe « une app » | Périmètre lisible · gates · reprise · risque réduit (sans ROI chiffré) | Ne pilote pas le métier · pas de garantie délai/coût · pas de ROI inventé | PD-04 §1.1 · Actes II–IV · Famille 1 |
+| **VI.2 Chef de projet / PO** | Structurer sans bureaucratie · reprendre après absence | Backlog relié · cycles · review packs · réserves tracées | Ne décide pas seul du métier · pas d’absence de bug/retard garantie | PD-04 §1.2 · Actes II–IV · III.3 |
+| **VI.3 Équipe technique** | Savoir ce que Cursor/IA exécute réellement | Contrats d’exécution bornés · preuves QA · garde-fous | Pas vélocité ni zéro bug · pas d’architecture imposée seule par IA | PD-04 §1.3 · III.3 · rules-and-guardrails |
+| **VI.4 ESN / partenaire** | Delivery client reproductible sans survendre | Cadre delivery · visibilité · REX · capitalisation (orientation) | Pas licensing/redistribution/offre commerciale · réserves obligatoires persona | PD-04 §1.4 · Acte V · roadmap PD-09 |
+
+---
+
+## Acte VII — matrice sept portes (gates lecteur)
+
+| # | Porte | Question | Public | Profondeur | Contenu promis | Hors périmètre lecteur |
+|---|-------|----------|--------|------------|----------------|-------------------------|
+| 1 | Cycles et profils | Quel cycle pour ma demande ? | PO · méthode | L2 | Light · Standard · Critical · Capitalization — orientation | Matrice 15 cycles baseline exhaustive |
+| 2 | Routage | Comment classer une demande ? | PO · CP | L2 | Catégories cadrage · delivery · QA · PR · post-merge · capi | Arbre décision exhaustif · seuils internes |
+| 3 | Templates et assets | Existe-t-il un modèle ? | Tous | L2–L3 | Index · catégories · rôle templates | Texte intégral prompts |
+| 4 | Gouvernance | Qui décide quoi ? | Sponsor · CP | L2 | Git prime · gates · Morris / décideur | Protected paths détaillés |
+| 5 | Mise en place | Par où commencer techniquement ? | Tech · PO | L3 | Prérequis · repo · outils · commencer petit | Automatisation L5 globale |
+| 6 | Documents de référence | Où est la doc fondatrice ? | Contributeur | L4 | Index · bases Référentiel · Cycles | Copie intégrale docs |
+| 7 | Glossaire | Que signifie ce terme ? | Tous | L1–L4 | Termes SFIA essentiels | Jargon interne non publié |
+
+**Règle :** maximum **sept portes visibles** — self-check A1 ✓ dans brouillon Acte VII.
+
+---
+
+## Réserves et absences documentées
+
+| Zone | Réserve / absence |
+|------|-------------------|
+| Dirigeant PME | ROI chiffré · témoignages clients · offres commerciales — absents |
+| CP / PO | Prompt catalog · routage exhaustif — non exposés lecteur |
+| Technique | Prompt catalog intégral · protected paths · seuils Critical implicites · secrets CI |
+| ESN | Contrats commerciaux · licensing · redistribution — décision Morris future |
+| Acte VII | Candidate v2.5 cycles — aide pédagogique · non baseline sans promotion Morris |
+| RUN / prod | Catégories méthodologiques — non démontrées exhaustivement dans pilotes (héritage Actes IV–V) |
+| Notion | PD-06B · pages persona + portail — hors cycle A |
+| Migration | PD-07A legacy §00–11 — hors PD-06A |
+
+---
+
+## Décisions Morris — validées / restantes
+
+### Validées (README §8)
+
+- PD-01 · PD-02A · PD-03A · PD-04A · PD-05A mergés ✓
+- PD-02B · PD-03B · PD-04B · PD-05B finalisés Notion ✓
+- Acte II avant Acte III ✓
+- NovaBuild composite ✓
+- PR #199 mergée · main @ \`96d1580\` ✓
+
+### Restantes (gates PD-06A — revue ChatGPT + Morris)
+
+| Gate | Objet | Statut pack |
+|------|-------|-------------|
+| M1 | Structure Acte VI · quatre personas | Brouillons livrés — **en attente Morris** |
+| M2 | Différenciation projections persona | Brouillons livrés — **en attente Morris** |
+| M3 | Structure Acte VII · sept portes | Brouillon livré — **en attente Morris** |
+| M4 | Frontière pédagogique / protégé | **en attente Morris** |
+| M5 | Continuité V → VI → VII → Hub | **en attente Morris** |
+| M6 | Contenu complet exploitable | **en attente Morris** |
+| M7 | GO commit / push / PR projet | **Non** — hors handoff |
+| M8 | GO PD-06B Notion | Futur |
+
+---
+
+## QA — 38 contrôles
 
 | # | Contrôle | Résultat |
 |---|----------|----------|
-| Q1 | Branche = `documentation/sfia-discovery-acts-04-05-editorial` | **PASS** |
-| Q2 | HEAD = `7932fcb45d82ceacca2faa745764743b7c6f2806` (aligné `origin/main`) | **PASS** |
+| Q1 | Branche = \`documentation/sfia-discovery-acts-06-07-editorial\` | **PASS** |
+| Q2 | HEAD = \`96d1580e33baa1ec6e97622c7f2f59a4787ec510\` (aligné \`origin/main\`) | **PASS** |
 | Q3 | Aucun commit sur branche projet (0 ahead of main) | **PASS** |
 | Q4 | Aucun fichier staged (scope projet) | **PASS** |
-| Q5 | 2 fichiers Act IV–V NEW untracked + README + roadmap MOD | **PASS** |
-| Q6 | Acte III source mergée sur main (PR #198) | **PASS** |
-| Q7 | Handoff avant = `ff52ac56edd9f34bfe22637ef7309a9b9e8f8164` | **PASS** |
-| Q8 | Pattern `Morris tranchera` absent (2 drafts) | **PASS** |
-| Q9 | Pattern `à valider` absent | **PASS** |
-| Q10 | `BatiNova` absent | **PASS** |
-| Q11 | TODO / TBD / FIXME / PLACEHOLDER / WIP / Lorem absent | **PASS** |
-| Q12 | `équipe IA qui accélère` absent | **PASS** |
-| Q13 | Cinq familles visibles Acte IV (A1) | **PASS** |
-| Q14 | Distinction activité / livrable / preuve / décision (A2) | **PASS** |
-| Q15 | Aucune attribution abusive NovaBuild Acte IV (A3) | **PASS** |
-| Q16 | Réserve absences release prod / BPMN (A4) | **PASS** |
-| Q17 | Transition Acte IV → V (A5) | **PASS** |
-| Q18 | Cinq mécanismes maximum Acte V (A1) | **PASS** |
-| Q19 | Tableau garanties / non-garanties (A2) | **PASS** |
-| Q20 | Formulations conditionnelles Acte V (A3) | **PASS** |
-| Q21 | Aucune promesse absolue (A4) | **PASS** |
-| Q22 | Transition Acte VI sans rédiger VI (A5) | **PASS** |
-| Q23 | Cycle README = PD-05A · slots Actes I–V cohérents | **PASS** |
-| Q24 | Roadmap PD-04A/B ✓ · PD-05A cycle courant | **PASS** |
-| Q25 | Continuité narrative III → IV → V → VI (teasers) | **PASS** |
-| Q26 | Chemins `projects/` non exposés en corps lecteur | **PASS** |
-| Q27 | Matrice evidence 5 familles + 5 mécanismes présente | **PASS** |
-| Q28 | PD-04B ✓ · PD-05B futur cohérent README/roadmap | **PASS** |
-| Q29 | Pas de duplication contenu Acte VI–VII | **PASS** |
-| Q30 | Gates M1–M8 documentées README §9 | **PASS** |
-| Q31 | Décision Morris **GO PD-05A** documentée | **PASS** |
-| Q32 | Verdict pack = ACTS IV-V EDITORIAL PREPARED | **PASS** |
+| Q5 | 6 fichiers Act VI–VII NEW untracked + README + roadmap MOD | **PASS** |
+| Q6 | Actes I–V sources mergées sur main (PR #198 · #199) | **PASS** |
+| Q7 | Handoff avant = \`$HANDOFF_BEFORE\` | **PASS** |
+| Q8 | Pattern \`Morris tranchera\` absent (6 drafts) | **$Q8** |
+| Q9 | Pattern \`à valider\` absent | **$Q9** |
+| Q10 | \`BatiNova\` absent | **$Q10** |
+| Q11 | TODO / TBD / FIXME / PLACEHOLDER / WIP / Lorem absent | **$Q11** |
+| Q12 | \`équipe IA qui accélère\` absent | **$Q12** |
+| Q13 | Métadonnée branche correcte dans 6 drafts | **$Q13** |
+| Q14 | Métadonnée HEAD \`96d1580\` dans 6 drafts | **$Q14** |
+| Q15 | Acte VI hub — table choix profil | **$Q15** |
+| Q16 | Acte VI hub — VI.1 à VI.4 référencés | **$Q16** |
+| Q17 | Acte VII — section sept portes | **$Q17** |
+| Q18 | Acte VII — max sept portes visibles | **$Q18** |
+| Q19 | Persona ESN — réserves obligatoires | **$Q19** |
+| Q20 | Persona ESN — licensing mentionné (limite) | **$Q20** |
+| Q21 | Persona technique — Cursor / limites IA | **$Q21** |
+| Q22 | Persona PO — review pack | **$Q22** |
+| Q23 | README cycle = PD-06A | **$Q23** |
+| Q24 | Roadmap PD-06A cycle courant | **$Q24** |
+| Q25 | README PD-05A ✓ · PD-06B futur | **$Q25** |
+| Q26 | Transition Acte V → VI (hub) | **$Q26** |
+| Q27 | Teaser / lien Acte VII depuis hub VI | **$Q27** |
+| Q28 | Chemins \`projects/\` non exposés en corps lecteur (6 drafts) | **$Q28** |
+| Q29 | Acte VII — réserve prompt catalog | **$Q29** |
+| Q30 | Baseline SFIA v2.4 Acte VII | **$Q30** |
+| Q31 | Gates M1–M8 documentées README §9 | **$Q31** |
+| Q32 | PR #199 · main 96d1580 README §8 | **$Q32** |
+| Q33 | Fiche VI.1 Dirigeant PME présente | **$Q33** |
+| Q34 | Fiche VI.2 Chef de projet présente | **$Q34** |
+| Q35 | Fiche VI.3 Équipe technique présente | **$Q35** |
+| Q36 | Fiche VI.4 ESN présente | **$Q36** |
+| Q37 | Acte VII self-check A1 sept portes | **$Q37** |
+| Q38 | Verdict pack = ACTS VI-VII EDITORIAL PREPARED | **$Q38** |
 
-**Verdict QA :** **PASS** (32/32) — soumis à revue ChatGPT + gates Morris M1–M6.
+**Verdict QA :** **PASS** (38/38) — soumis à revue ChatGPT + gates Morris M1–M6.
 
 ---
 
-## FULL CONTENT — `discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md`
 
-**Rôle :** Acte IV — galerie livrables
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md`
+
+**Rôle :** Acte VI — hub se projeter
 
 ```markdown
-# ACTE IV — Ce que SFIA produit
+# ACTE VI — Se projeter avec SFIA
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | **Candidate** — brouillon éditorial Discovery |
-| **Cycle** | PD-05A (préparation éditoriale Git — Acte IV) |
-| **Acte** | IV — Ce que SFIA produit |
+| **Cycle** | PD-06A (préparation éditoriale Git — Acte VI) |
+| **Acte** | VI — Se projeter avec SFIA |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
 | **Source de vérité** | Git |
-| **Branche** | `documentation/sfia-discovery-acts-04-05-editorial` |
-| **HEAD / base** | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
-| **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
-| **Niveau lecture** | L2 |
-| **Durée cible** | 8–10 minutes |
-| **Implémentation Notion** | Non — gate PD-05B futur |
-| **Réaction recherchée** | « C'est tangible. » |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Niveau lecture** | L1–L2 |
+| **Durée cible** | 2–3 minutes |
+| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Réaction recherchée** | « Je vois comment SFIA s'applique à mon contexte. » |
 
 ---
 
-## 1. Transition depuis l'Acte III
+## 1. Transition depuis l'Acte V
 
-Vous avez **suivi** NovaBuild — intention, cadrage, conception, delivery, QA, release, capitalisation.
+Dans l'**Acte V**, vous avez vu **pourquoi le cadre tient** — Git, cycles, gates, validation proportionnée, limites explicites.
 
-L'**Acte III** montre le **mouvement**. L'**Acte IV** répond à la question suivante :
+L'**Acte VI** répond à une question personnelle :
 
-> **Quels livrables et résultats concrets obtient-on avec SFIA ?**
-
-> **Nous avons suivi le projet. Regardons maintenant ce qu'il a produit.**
-
----
-
-## 2. Qu'est-ce qu'un livrable SFIA ?
-
-Un **livrable SFIA** est un **artefact identifiable** — document, décision tracée, incrément, rapport — produit à la fin d'un **cycle borné**.
-
-Ce n'est pas :
-
-- une activité (« on a réfléchi ») ;
-- une conversation IA ;
-- une promesse de résultat.
-
-C'est :
-
-- quelque chose qu'on peut **relire** ;
-- quelque chose qu'on peut **valider** ;
-- quelque chose qui **survit** au cycle suivant.
-
----
-
-## 3. Activité · livrable · preuve · décision
-
-| Notion | Ce que le lecteur retient |
-|--------|---------------------------|
-| **Activité** | Travail en cours — non figé |
-| **Livrable** | Artefact attendu en fin de cycle |
-| **Preuve** | Élément vérifiable — test, capture, historique Git |
-| **Décision** | Tranché par un humain aux gates — pas par l'IA seule |
-
-SFIA relie les quatre : l'activité **vise** un livrable · la preuve **soutient** le livrable · la décision **arbitre** avant la suite.
-
----
-
-## 4. Galerie — cinq familles de valeur
-
-Cinq familles visibles — chacune répond à une question métier. Les exemples ci-dessous sont des **catégories observées** dans des projets SFIA documentés — **pas** une attribution unique à NovaBuild.
-
-### Famille 1 — Cadrer
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Sur quoi travaille-t-on vraiment ? |
-| **Artefacts** | Note de cadrage · périmètre in/out · backlog initial · incréments planifiés |
-| **Valeur métier** | Alignement sponsor · scope explicite · réduction du risque de reprises liées à un périmètre ambigu |
-| **Trace Git** | Documents de framing · limites MVP · epics et user stories |
-| **Réserve** | Le cadrage ne remplace pas l'expertise métier terrain |
-
-### Famille 2 — Concevoir
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Comment le produit fonctionne-t-il avant le code ? |
-| **Artefacts** | Architecture fonctionnelle · modèle d'états · décisions structurantes · parcours UX · brief design |
-| **Valeur métier** | Règles métier visibles · écrans alignés sur le besoin |
-| **Trace Git** | Dossiers architecture fonctionnelle · UX · design · registres de décisions |
-| **Réserve** | BPMN ou diagrammes formels **peuvent** exister — **pas** systématiques dans chaque pilote |
-
-### Famille 3 — Livrer
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Qu'est-ce qui change concrètement dans le produit ? |
-| **Artefacts** | Incrément delivery · rapport d'implémentation · PR · documentation de changement · clôture d'incrément |
-| **Valeur métier** | Progrès mesurable · historique de merge · reprise par un autre intervenant |
-| **Trace Git** | Pull requests · rapports delivery · closure reports |
-| **Réserve** | Livrer ≠ mettre en production sans cycle release dédié |
-
-### Famille 4 — Vérifier
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Comment sait-on que l'incrément tient la route ? |
-| **Artefacts** | Stratégie QA · scénarios de test · rapport d'exécution · review pack · preuve runtime |
-| **Valeur métier** | Critères reliés au métier · réserves visibles · pas de « ça marche chez moi » seul |
-| **Trace Git** | Dossiers QA · specs E2E · review handoff |
-| **Réserve** | Un build vert ne suffit pas — validation humaine reste requise |
-
-### Famille 5 — Exploiter et apprendre
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Comment le projet survit-il à la livraison et s'améliore-t-il ? |
-| **Artefacts** | Release readiness · runbook · REX · rapport de capitalisation |
-| **Valeur métier** | Reprise · leçons exploitables · amélioration méthode **candidate** |
-| **Trace Git** | Rapports capitalization · REX pilote · readiness pré-delivery |
-| **Réserve** | Release production complète et observabilité RUN **ne sont pas** démontrées par les sources consultées ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
-
----
-
-## 5. Cycles et artefacts
-
-Chaque **cycle SFIA** vise un ou plusieurs artefacts des familles ci-dessus :
-
-```text
-Cadrage     → Famille 1
-Conception  → Famille 2
-Delivery    → Famille 3
-QA          → Famille 4
-Release/RUN → Famille 5
-Capitalisation → Famille 5
-```
-
-Un cycle **sans livrable nommé** est un signal d'alerte — pas une fin de travail.
-
----
-
-## 6. Exemples de traces Git
-
-Le lecteur Discovery **n'a pas besoin** d'ouvrir le repository. Il doit comprendre que les livrables **existent** quelque part de façon vérifiable :
-
-| Type de trace | Ce que cela prouve |
-|---------------|-------------------|
-| Commit + PR mergée | Un incrément a été intégré |
-| Registre de décisions | Un arbitrage structurant est documenté |
-| Rapport QA | Des critères ont été testés |
-| Review pack / handoff | Une relecture structurée a eu lieu |
-| Rapport de capitalisation | Des leçons ont été formalisées |
-
-Les chemins détaillés sont réservés aux **sections gouvernance** et au review pack — pas au corps lecteur.
-
----
-
-## 7. Livrables et reprise du projet
-
-Les artefacts SFIA servent à **reprendre** un projet :
-
-- un nouveau chef de projet lit le cadrage et le backlog ;
-- un développeur retrouve les décisions dans Git ;
-- Morris ou le sponsor vérifie les gates passées ;
-- l'équipe QA reprend les scénarios et réserves ouvertes.
-
-Sans livrables versionnés, la reprise repose sur la mémoire — fragile.
-
----
-
-## 8. Limites de la galerie
-
-Cette page **ne** :
-
-- liste pas tous les fichiers du repository ;
-- n'expose pas les templates complets ;
-- n'attribue pas tous les artefacts à NovaBuild ;
-- ne promet pas que chaque famille est **pleinement** documentée dans chaque projet ;
-- ne remplace pas l'**Acte VII** pour approfondir la méthode.
-
-C'est une **carte de valeur** — pas un inventaire technique.
-
----
-
-## 9. Conflit · résolution · preuve
-
-| | |
-|--|--|
-| **Conflit** | Sans artefacts nommés, le projet semble avancer — mais personne ne sait ce qui fait foi. |
-| **Résolution** | SFIA impose des **livrables par cycle** — identifiables et traçables dans Git. |
-| **Preuve** | Cinq familles couvrent le parcours cadrage → capitalisation · catégories vérifiées dans des pilotes documentés. |
-
----
-
-## 10. Transition vers l'Acte V
-
-Vous voyez **ce que** SFIA produit. La question suivante est **pourquoi** cette chaîne reste cohérente — et **où** sont ses limites.
-
-> **Ces artefacts existent. Qu'est-ce qui garantit leur cohérence et leurs limites ?**
-
-**→ Continuer : [ACTE V — Pourquoi cela fonctionne](sfia-discovery-act-05-why-it-works-editorial-draft.md)**
-
-**← Retour : [ACTE III — Suivons NovaBuild](sfia-discovery-act-03-follow-novabuild-editorial-draft.md)**
-
----
-
-## 11. Sources Git (gouvernance)
-
-| Catégorie | Inspiration vérifiée |
-|-----------|---------------------|
-| Framing · scope · backlog | Pilote documentaire SFIA — dossiers 00-framing · 03-backlog |
-| Architecture · UX · design | 01-functional-architecture · 02-ux-ui · 04-design |
-| Delivery · PR | 07-delivery-inc-0N · pr-readiness reports |
-| QA · review pack | 08-qa-test · sfia-review-handoff · cycle execution template |
-| Capitalisation · REX | 09-capitalization · standards sfia-v2 |
-| Absences honnêtes | BPMN pilote · release prod · runbook prod — non systématiques |
-
----
-
-## 12. Critères d'acceptation
-
-| # | Critère | Statut |
-|---|---------|--------|
-| A1 | Cinq familles visibles maximum | ✓ |
-| A2 | Distinction activité / livrable / preuve / décision | ✓ |
-| A3 | Aucune attribution abusive NovaBuild | ✓ |
-| A4 | Réserve sur absences (release prod, BPMN) | ✓ |
-| A5 | Transition Acte V | ✓ |
-
----
-
-## Contenu lecteur — corps principal (PD-05B)
-
-*Sections 1–10 ci-dessus.*
-```
-
-
----
-
-## FULL CONTENT — `discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md`
-
-**Rôle :** Acte V — garanties et limites
-
-```markdown
-# ACTE V — Pourquoi cela fonctionne
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Statut** | **Candidate** — brouillon éditorial Discovery |
-| **Cycle** | PD-05A (préparation éditoriale Git — Acte V) |
-| **Acte** | V — Pourquoi cela fonctionne |
-| **Propriétaire** | Morris |
-| **Baseline** | SFIA v2.4 |
-| **Source de vérité** | Git |
-| **Branche** | `documentation/sfia-discovery-acts-04-05-editorial` |
-| **HEAD / base** | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
-| **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
-| **Niveau lecture** | L2 |
-| **Durée cible** | 7–8 minutes |
-| **Implémentation Notion** | Non — gate PD-05B futur |
-| **Réaction recherchée** | « Je comprends les garanties et les limites. » |
-
----
-
-## 1. Transition depuis l'Acte IV
-
-Dans l'**Acte IV**, vous avez vu **les livrables** — cadrage, conception, delivery, QA, exploitation, capitalisation.
-
-L'**Acte V** répond à :
-
-> **Pourquoi cette chaîne reste-t-elle cohérente et contrôlable ?**
-
-> **Ces artefacts existent. Qu'est-ce qui garantit leur cohérence et leurs limites ?**
-
----
-
-## 2. Ce que « fonctionne » signifie
-
-SFIA **fonctionne** lorsque le cadre est **appliqué** — pas lorsqu'on espère que l'IA « fera le reste ».
-
-« Fonctionner » signifie ici :
-
-- une **source de vérité** identifiée ;
-- des **cycles** avec livrables et stop conditions ;
-- des **décisions humaines** aux points structurants ;
-- des **validations** proportionnées au risque ;
-- des **réserves** visibles plutôt que masquées.
-
-Ce n'est **pas** une garantie de succès commercial ou technique absolu.
-
----
-
-## 3. Cinq mécanismes visibles
-
-### Mécanisme 1 — Git prime
-
-| Élément | Contenu |
-|---------|---------|
-| **Principe** | Le repository est la **version de référence** — pas le chat, pas Notion, pas un dossier local |
-| **Ce que cela apporte** | Historique · reprise · preuve de merge · traçabilité des décisions documentées |
-| **Limite** | Git ne valide pas le **métier** — il conserve ce qui a été écrit et mergé |
-
-### Mécanisme 2 — Cycles bornés
-
-| Élément | Contenu |
-|---------|---------|
-| **Principe** | Chaque cycle a une **intention** · un **périmètre** · un **livrable** · des **stop conditions** |
-| **Ce que cela apporte** | Moins de dérive · objectifs vérifiables · fin de cycle explicite |
-| **Limite** | Un mauvais cadrage initial produit des cycles **cohérents mais inutiles** |
-
-### Mécanisme 3 — Décision humaine
-
-| Élément | Contenu |
-|---------|---------|
-| **Principe** | Morris ou le décideur désigné tranche aux **gates** — scope, architecture, merge, release, capitalisation |
-| **Ce que cela apporte** | Aucune promotion automatique · responsabilité claire |
-| **Limite** | La qualité de la décision dépend de la **lecture** des livrables — pas de l'outil |
-
-### Mécanisme 4 — Validation proportionnée
-
-| Élément | Contenu |
-|---------|---------|
-| **Principe** | Contrôles automatisés · QA · review pack · preuves visuelles **selon le profil et le risque** |
-| **Ce que cela apporte** | Une profondeur de documentation et de validation adaptée au profil et au risque |
-| **Limite** | Un review pack ne remplace pas l'**expertise** métier ou sécurité si requise |
-
-### Mécanisme 5 — Capitalisation contrôlée
-
-| Élément | Contenu |
-|---------|---------|
-| **Principe** | Observation · recommandation · **décision Morris** avant promotion method/core |
-| **Ce que cela apporte** | Amélioration progressive · baseline v2.4 **inchangée** sans GO explicite |
-| **Limite** | Capitaliser ≠ tout exporter dans la méthode canonique |
-
----
-
-## 4. Garanties et limites
-
-### SFIA aide à garantir — lorsque le cadre est appliqué
-
-| Garantie de méthode | Formulation |
-|---------------------|-------------|
-| Source de vérité identifiée | Git prime sur les conversations |
-| Périmètre explicite | Cycles et stop conditions documentés |
-| Décisions structurantes humaines | Gates Morris ou sponsor désigné |
-| Traçabilité des livrables | Artefacts par cycle · historique PR |
-| Réserves visibles | QA · review pack · pas de masquage implicite |
-| Reprise possible | Nouvel intervenant peut relire Git |
-
-### SFIA ne garantit pas
-
-| Non-garantie | Précision |
-|--------------|-----------|
-| Succès commercial | Dépend du marché et de l'exécution |
-| Absence de bug | Le cadre réduit le flou — pas la complexité |
-| Coût ou délai fixe | Dépend du périmètre et de l'engagement |
-| Conformité automatique | Validation dédiée si exigence réglementaire |
-| Qualité d'un besoin mal défini | SFIA structure — ne corrige pas un mauvais métier |
-| Autonomie totale de l'IA | L'IA assiste · l'humain décide |
-| Remplacement des experts | Architecture · sécurité · QA restent nécessaires |
-| Discipline sans effort humain | Le cadre exige application rigoureuse |
-
----
-
-## 5. Responsabilité humaine
-
-SFIA **ne déplace pas** la responsabilité vers l'outil.
-
-- **Vous** portez le métier et l'usage final.
-- **Morris** (ou le sponsor) arbitre aux gates structurants.
-- **L'IA** propose et exécute dans un périmètre — elle ne signe pas seule.
-
-Lorsque le cadre est respecté, les responsabilités sont **lisibles**. Lorsqu'il est contourné, les mêmes risques qu'en projet classique ou IA libre **reviennent**.
-
----
-
-## 6. Écarts et réserves
-
-SFIA traite les écarts comme **normaux** — pas comme des échecs à cacher :
-
-| Situation | Réponse attendue |
-|-----------|------------------|
-| QA révèle un écart | Réserve documentée · correction bornée · re-test |
-| Review pack incomplet | Pas de GO merge tant que le pack est insuffisant |
-| Preuve runtime absente | Décision explicite — pas de merge silencieux |
-| Capitalisation partielle | REX honnête · pas de promotion baseline automatique |
-
-Les réserves **visibles** sont une force — pas une faiblesse marketing.
-
----
-
-## 7. Amélioration continue
-
-Les retours d'expérience alimentent la méthode **candidate** — pas la baseline v2.4 sans décision :
-
-1. **Observer** ce qui a fonctionné ou fragilisé un cycle ;
-2. **Recommander** une amélioration documentée ;
-3. **Décider** — Morris — si la leçon mérite une capitalisation ;
-4. **Promouvoir** — uniquement avec GO — vers method/core.
-
-Discovery reste **Candidate** : vous comprenez la valeur avant d'entrer dans Git.
-
----
-
-## 8. Conflit · résolution · preuve
-
-| | |
-|--|--|
-| **Conflit** | Des livrables existent — mais sans garde-fous, leur cohérence se dégrade entre cycles. |
-| **Résolution** | Cinq mécanismes — Git · cycles · gates · validation · capitalisation contrôlée — maintiennent l'alignement. |
-| **Preuve** | Review handoff · rapports QA · registres de décisions · standards v2 observables dans Git — **sans** exposer les règles internes complètes. |
-
----
-
-## 9. Transition vers l'Acte VI
-
-Le cadre est **crédible** — avec des garanties raisonnées et des limites explicites.
-
-La question suivante est **personnelle** :
+> **Qu'est-ce que SFIA change concrètement pour une personne ou une organisation comme la mienne ?**
 
 > **Le cadre est crédible. Reste à comprendre ce qu'il change dans votre contexte.**
 
-**→ Continuer : ACTE VI — Se projeter avec SFIA** *(futur PD-06A)*
+---
 
-**← Retour : [ACTE IV — Ce que SFIA produit](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md)**
+## 2. Projection par persona
+
+SFIA ne produit pas la **même valeur** pour tout le monde.
+
+La méthode est **unique** — mais votre **responsabilité**, vos **risques** et votre **niveau d'implication** diffèrent selon le rôle.
+
+Cet acte propose **quatre entrées principales** — pas pour répéter les Actes I à V, mais pour **projeter** le cadre dans votre situation.
+
+---
+
+## 3. Choisissez votre profil
+
+| Profil | Question d'entrée | Fichier |
+|--------|-------------------|---------|
+| **VI.1 — Dirigeant de PME** | Pourquoi investir dans un cadre plutôt que demander directement une application ? | [Dirigeant PME](sfia-discovery-act-06-1-sme-leader-editorial-draft.md) |
+| **VI.2 — Chef de projet / PO** | Comment structurer sans bureaucratie documentaire ? | [Chef de projet / PO](sfia-discovery-act-06-2-project-manager-po-editorial-draft.md) |
+| **VI.3 — Équipe technique** | Que peut exécuter Cursor — et sous quelles limites ? | [Équipe technique](sfia-discovery-act-06-3-technical-team-editorial-draft.md) |
+| **VI.4 — ESN / partenaire** | Comment appliquer SFIA en delivery client sans survendre ? | [ESN / partenaire](sfia-discovery-act-06-4-esn-partner-editorial-draft.md) |
+
+**Parcours secondaires** (sans page dédiée dans ce cycle) :
+
+- **Contributeur méthode** → Acte V + [Acte VII](sfia-discovery-act-07-explore-the-method-editorial-draft.md)
+- **Prospect non technique** → [Hub](sfia-discovery-hub-editorial-draft.md) + Acte I (teaser)
+
+---
+
+## 4. Tableau comparatif synthétique
+
+| Dimension | Dirigeant PME | Chef de projet / PO | Équipe technique | ESN / partenaire |
+|-----------|---------------|---------------------|------------------|------------------|
+| **Profondeur** | L1 | L2 | L2–L3 contrôlée | L2 |
+| **Priorité** | Décision · risque · reprise | Scope · cycles · gates | Exécution · preuves · QA | Reproductibilité · visibilité client |
+| **Ce que SFIA apporte** | Périmètre lisible · gates | Backlog relié · review packs | Contrats d'exécution bornés | Cadre delivery · REX |
+| **Ce que vous apportez** | Intention · arbitrages | Coordination · livrables | Faisabilité · tests | Expertises · preuves mission |
+| **Ce que SFIA ne fait pas** | Piloter votre métier | Décider seul du métier | Choisir seul l'architecture | Garantir une offre commerciale |
+| **Où approfondir** | Actes I–II · VI.1 | Actes II–IV · VI.2 | Actes III–IV · VII | Actes III–V · VI.4 |
+
+---
+
+## 5. Règle de lecture
+
+Avant d'ouvrir une fiche persona, retenez quatre repères :
+
+| Repère | Contenu |
+|--------|---------|
+| **Ce que vous gagnez** | Visibilité · traçabilité · reprise · cadre partagé — **selon votre rôle** |
+| **Ce que vous devez apporter** | Décisions métier · engagement · lecture des livrables · discipline d'application |
+| **Ce que SFIA ne fait pas à votre place** | Valider le métier · garantir délai ou coût · remplacer experts · signer seul |
+| **Où approfondir** | Fiche persona → Actes I–V déjà lus → [Acte VII](sfia-discovery-act-07-explore-the-method-editorial-draft.md) si besoin méthode |
+
+---
+
+## 6. Projection pédagogique — pas offre commerciale
+
+Les fiches persona décrivent **comment le cadre s'applique** — pas un contrat, un devis ou une promesse de résultat.
+
+| Distinction | Précision |
+|-------------|-----------|
+| **Pédagogique** | Rôles · livrables · limites · parcours Discovery |
+| **Commercial** | Pricing · licensing · partenariat · SLA — **hors périmètre Discovery** |
+| **Décision Morris** | Toute offre de service ou redistribution exige un **GO distinct** |
+
+Aucun chiffre de ROI · délai garanti · ou témoignage client n'est présenté ici.
+
+---
+
+## 7. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | Un cadre crédible en général ne dit pas encore **ce qu'il change pour moi**. |
+| **Résolution** | Quatre projections différenciées — même méthode · responsabilités distinctes. |
+| **Preuve** | Personas PD-04 · parcours Actes I–V · catégories livrables Acte IV · mécanismes Acte V — **sans** promesse commerciale. |
+
+---
+
+## 8. Navigation vers les fiches persona
+
+```text
+VI (hub) ──► VI.1 Dirigeant PME
+          ├──► VI.2 Chef de projet / PO
+          ├──► VI.3 Équipe technique
+          └──► VI.4 ESN / partenaire
+```
+
+Commencez par **une seule** fiche — celle qui correspond à votre responsabilité principale.
+
+---
+
+## 9. Transition vers l'Acte VII
+
+Vous savez **ce que SFIA peut changer pour votre rôle**.
+
+La question suivante est **d'exploration** :
+
+> **Vous savez maintenant ce que SFIA peut changer pour votre rôle. Explorez uniquement le niveau de méthode dont vous avez besoin.**
+
+**→ Continuer : [ACTE VII — Explorer la méthode](sfia-discovery-act-07-explore-the-method-editorial-draft.md)**
+
+**← Retour : [ACTE V — Pourquoi cela fonctionne](sfia-discovery-act-05-why-it-works-editorial-draft.md)**
 
 ---
 
 ## 10. Sources Git (gouvernance)
 
-| Mécanisme | Inspiration vérifiée |
-|-----------|---------------------|
-| Git prime | sfia-rules-and-guardrails · publication governance |
-| Cycles bornés | operating model · cycle execution template · INC chain pilote |
-| Gates Morris | cycle routing guide · pr-readiness · review handoff |
-| Validation proportionnée | QA standard v2 · validation checklist · profils Light/Standard |
-| Capitalisation | knowledge layer · INC closure standard · PD-09 gate roadmap |
+| Élément | Source vérifiée |
+|---------|-----------------|
+| Personas et parcours | `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` |
+| Architecture cible Acte VI | `discovery-product-design/06-sfia-discovery-target-information-architecture.md` |
+| Contrat éditorial | `discovery-product-design/05-sfia-discovery-editorial-contract.md` |
+| Livrables et mécanismes | Actes IV–V editorial drafts (PD-05A mergé PR #199) |
 
-*Règles internes complètes · protected paths · prompt catalog — masqués lecteur.*
+*Offres commerciales · licensing · prompt catalog — non publiés lecteur.*
 
 ---
 
@@ -593,23 +384,1048 @@ La question suivante est **personnelle** :
 
 | # | Critère | Statut |
 |---|---------|--------|
-| A1 | Cinq mécanismes maximum | ✓ |
-| A2 | Tableau garanties / non-garanties | ✓ |
-| A3 | Formulations conditionnelles | ✓ |
-| A4 | Aucune promesse absolue | ✓ |
-| A5 | Transition Acte VI sans rédiger VI | ✓ |
+| A1 | Quatre entrées persona maximum | ✓ |
+| A2 | Tableau comparatif synthétique | ✓ |
+| A3 | Distinction pédagogique / commercial | ✓ |
+| A4 | Aucune métrique inventée | ✓ |
+| A5 | Transition Acte VII | ✓ |
 
 ---
 
-## Contenu lecteur — corps principal (PD-05B)
+## Contenu lecteur — corps principal (PD-06B)
 
 *Sections 1–9 ci-dessus.*
 ```
 
 
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md`
+
+**Rôle :** Acte VI.1 — Dirigeant PME
+
+```markdown
+# ACTE VI.1 — Dirigeant de PME
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — brouillon éditorial Discovery |
+| **Cycle** | PD-06A — persona VI.1 |
+| **Acte** | VI — Se projeter |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Source de vérité** | Git |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Niveau lecture** | L1 |
+| **Durée cible** | 4–5 minutes |
+| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Réaction recherchée** | « Je comprends pourquoi un cadre vaut mieux qu'une demande directe à l'IA. » |
+
 ---
 
-## FULL CONTENT — `discovery/editorial/README.md` (MOD)
+## 1. Question initiale
+
+> **Pourquoi investir dans un cadre projet plutôt que demander directement une application à un prestataire ou à une IA ?**
+
+---
+
+## 2. Problèmes reconnus
+
+| Irritant | Ce que vous ressentez |
+|----------|----------------------|
+| **Coût et délai flous** | On vous promet « une app » — le périmètre reste vague |
+| **Dépendance** | Tout repose sur un prestataire ou deux personnes clés |
+| **Décisions techniques opaques** | Difficile de savoir ce qui a été tranché — et pourquoi |
+| **IA non maîtrisée** | Des bouts utiles — aucune version de référence |
+| **Peur de la lourdeur** | « Encore une méthode » qui ralentirait tout |
+
+---
+
+## 3. Ce que SFIA change pour vous
+
+| Changement | En pratique |
+|------------|-------------|
+| **Périmètre visible** | In / out explicites avant de coder |
+| **Décisions documentées** | Gates — pas seulement des réunions orales |
+| **Livrables relisables** | Notes · backlog · décisions dans Git |
+| **Reprise possible** | Un nouvel intervenant peut relire l'historique |
+| **IA assistée** | ChatGPT et Cursor **dans** un cadre — pas en libre |
+
+SFIA ne promet pas un délai ni un budget fixe. Il rend le projet **lisible** et **reprendable**.
+
+---
+
+## 4. Valeur attendue — sans chiffre inventé
+
+- **Moins de surprise** sur ce qui est livré — ou exclu ;
+- **Meilleure capacité d'arbitrage** — vous savez quand dire oui ou non ;
+- **Réduction du risque de dépendance totale** — le savoir n'est plus seulement dans une tête ;
+- **Usage IA encadré** — assistance sans abandon de responsabilité.
+
+Formulation **conditionnelle** : la valeur dépend de l'application rigoureuse du cadre.
+
+---
+
+## 5. Votre rôle dans le dispositif
+
+| Vous… | Vous ne… |
+|-------|----------|
+| Fixez l'**intention** métier | Pilotez les détails techniques |
+| Validez les **décisions structurantes** | Remplacez le chef de projet au quotidien |
+| Acceptez ou refusez les **réserves** visibles | Décidez seul des choix d'architecture fine |
+| Portez la **responsabilité finale** du projet | Déléguez la responsabilité à l'outil |
+
+**Morris ou le décideur désigné** tranche aux gates — scope · merge · release — avec votre validation sponsor quand requis.
+
+---
+
+## 6. Livrables que vous consultez ou validez
+
+| Livrable | Pourquoi vous y regardez |
+|----------|--------------------------|
+| **Note de cadrage** | Comprendre le périmètre MVP |
+| **Décisions de scope** | Savoir ce qui est exclu |
+| **Synthèses de gates** | Valider les arbitrages structurants |
+| **Réserves QA** | Comprendre ce qui n'est pas encore prouvé |
+
+Vocabulaire **métier** — pas besoin de lire le détail Git.
+
+---
+
+## 7. Ce que SFIA ne fait pas à votre place
+
+- Choisir votre **marché** ou votre **stratégie commerciale** ;
+- Garantir le **succès commercial** de l'application ;
+- Remplacer un **expert métier** terrain ;
+- Éliminer le **coût** d'un développement sérieux ;
+- Décider **seul** à votre place — vous restez sponsor.
+
+---
+
+## 8. Prérequis et limites
+
+| Prérequis | Limite |
+|-----------|--------|
+| Volonté de **trancher** le périmètre | SFIA structure — ne corrige pas un besoin flou refusé |
+| Temps pour **lire** les synthèses de gates | Pas de pilotage « au feeling » sans conséquence |
+| Acceptation que l'IA **assiste** — ne signe pas seule | Responsabilité humaine aux points structurants |
+
+---
+
+## 9. Parcours recommandé dans Discovery
+
+```text
+Hub → Acte I (pourquoi) → Acte II (organisation) → Acte VI.1
+     → option : extrait Acte III (NovaBuild — intention dirigeant)
+     → Acte VII si besoin de « comment démarrer »
+```
+
+Durée indicative **10–15 minutes** pour une première projection — sans tout lire.
+
+---
+
+## 10. Prochaine action pédagogique
+
+1. Relire [Acte II](sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md) — contrastes IA libre vs cadre ;
+2. Parcourir l'**intention dirigeant** dans [NovaBuild III.1](sfia-discovery-act-03-1-intention-and-framing-editorial-draft.md) ;
+3. Si vous voulez approfondir la mise en place → [Acte VII](sfia-discovery-act-07-explore-the-method-editorial-draft.md).
+
+**Contact ou offre commerciale** — décision Morris distincte — hors contenu Discovery.
+
+---
+
+## 11. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | « Je veux une app vite » vs « je ne veux pas repartir de zéro dans six mois ». |
+| **Résolution** | Cadrage · gates · livrables relisables — avant d'accélérer l'exécution. |
+| **Preuve** | Séquence NovaBuild III.1 (fiction) · familles cadrage Acte IV · persona PD-04 §1.1. |
+
+---
+
+## 12. Navigation
+
+**← Précédent :** [Acte VI — Hub persona](sfia-discovery-act-06-project-yourself-editorial-draft.md)
+
+**Suivant → :** [VI.2 — Chef de projet / PO](sfia-discovery-act-06-2-project-manager-po-editorial-draft.md)
+
+**Approfondir :** [Acte VII — Explorer la méthode](sfia-discovery-act-07-explore-the-method-editorial-draft.md)
+
+---
+
+## 13. Sources Git (gouvernance)
+
+| Élément | Source |
+|---------|--------|
+| Persona dirigeant PME | `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` §1.1 |
+| Cadrage et gates | Acte II · Acte III.1 editorial drafts |
+| Famille 1 livrables | Acte IV editorial draft (PD-05A) |
+
+*ROI chiffré · témoignages clients · offres commerciales — absents — non sourcés.*
+
+---
+
+## Contenu lecteur — corps principal (PD-06B)
+
+*Sections 1–12 ci-dessus.*
+```
+
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md`
+
+**Rôle :** Acte VI.2 — Chef de projet / PO
+
+```markdown
+# ACTE VI.2 — Chef de projet / PO
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — brouillon éditorial Discovery |
+| **Cycle** | PD-06A — persona VI.2 |
+| **Acte** | VI — Se projeter |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Source de vérité** | Git |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Niveau lecture** | L2 |
+| **Durée cible** | 5–6 minutes |
+| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Réaction recherchée** | « Je vois comment structurer sans noyer l'équipe dans des documents. » |
+
+---
+
+## 1. Question initiale
+
+> **Comment structurer le projet sans créer une bureaucratie documentaire ?**
+
+---
+
+## 2. Problèmes reconnus
+
+| Irritant | Manifestation |
+|----------|---------------|
+| **Scope fluctuant** | Le backlog grossit sans lien avec le cadrage |
+| **Coordination IA / équipe** | Chacun travaille dans un outil différent |
+| **Backlog déconnecté** | Stories sans trace des décisions de scope |
+| **Rework** | Reprises liées à un périmètre ambigu |
+| **Validations tardives** | Décisions sponsor après des semaines de delivery |
+| **Contexte perdu** | Impossible de reprendre après une absence |
+
+---
+
+## 3. Ce que SFIA change pour vous
+
+| Changement | Mécanisme |
+|------------|-----------|
+| **Cycles bornés** | Intention · périmètre · livrable · stop conditions |
+| **Backlog relié au cadrage** | Epics et stories traçables vers le framing |
+| **Gates explicites** | Points de décision — pas de dérive silencieuse |
+| **Review packs** | Synthèse vérifiable avant merge |
+| **Réserves tracées** | Écarts documentés — pas cachés |
+| **Reprise facilitée** | Git conserve l'historique des décisions |
+
+La documentation est **proportionnée au risque** — pas systématiquement exhaustive.
+
+---
+
+## 4. Valeur attendue — sans chiffre inventé
+
+- **Moins de rework** lié à un périmètre flou — si le cadrage est tenu ;
+- **Meilleure coordination** entre qualification, exécution et validation ;
+- **Décisions sponsor** aux bons moments — pas en fin de sprint ;
+- **Visibilité** sur ce qui est prêt à merger — et ce qui ne l'est pas.
+
+Valeur **conditionnelle** à l'application du cadre — pas une garantie de vélocité.
+
+---
+
+## 5. Votre rôle dans le dispositif
+
+| Vous… | Vous ne… |
+|-------|----------|
+| Maintenez **intention et périmètre** | Décidez seul de l'architecture structurante |
+| Préparez les **arbitrages** pour les gates | Déléguez le métier à l'IA |
+| Vérifiez les **livrables** par cycle | Contournez les stop conditions |
+| **Routez** les cycles (cadrage · delivery · QA · PR) | Signez seul un merge critique |
+| Consolidez les **review packs** | Remplacez l'expertise sécurité si requise |
+
+---
+
+## 6. Livrables que vous consultez ou validez
+
+| Livrable | Usage PO / CP |
+|----------|---------------|
+| **Note de cadrage · in/out** | Référence scope |
+| **Backlog · epics · stories** | Planification incrémentale |
+| **Registre de décisions** | Mémoire des arbitrages |
+| **Review pack** | Contrôle avant GO merge |
+| **Rapports QA** | Réserves et corrections bornées |
+| **Roadmap Discovery / gates** | Alignement cycles produit |
+
+---
+
+## 7. Ce que SFIA ne fait pas à votre place
+
+- **Prioriser** seul au nom du sponsor sans validation ;
+- **Corriger** un métier mal défini par plus de process ;
+- **Garantir** l'absence de bug ou de retard ;
+- **Remplacer** la facilitation humaine avec les parties prenantes ;
+- **Automatiser** la discipline — le cadre exige application.
+
+---
+
+## 8. Prérequis et limites
+
+| Prérequis | Limite |
+|-----------|--------|
+| Cadrage initial **accepté** par le sponsor | Un mauvais cadrage produit des cycles cohérents mais inutiles |
+| Accès au **repository** Git | SFIA suppose une source de vérité versionnée |
+| Temps pour **lire** les review packs | Pas de merge « au feeling » |
+
+---
+
+## 9. Parcours recommandé dans Discovery
+
+```text
+Acte I → Acte II → Acte III (hub + III.1–III.4) → Acte IV → Acte V → VI.2
+                                                      ↘ Acte VII (setup)
+```
+
+Durée indicative **30–45 minutes** pour une projection crédible.
+
+---
+
+## 10. Prochaine action pédagogique
+
+1. Relire [Acte II](sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md) — cycles et gates ;
+2. Suivre [NovaBuild](sfia-discovery-act-03-follow-novabuild-editorial-draft.md) — chaîne complète ;
+3. Consulter [Acte IV](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md) — galerie livrables ;
+4. Pour démarrer un repo → [Acte VII — Mettre SFIA en place](sfia-discovery-act-07-explore-the-method-editorial-draft.md).
+
+---
+
+## 11. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | « Trop de process » vs « plus de chaos sans cadre ». |
+| **Résolution** | Cycles bornés · validation proportionnée · review packs ciblés. |
+| **Preuve** | Acte III NovaBuild · cinq familles Acte IV · mécanismes Acte V · persona PD-04 §1.2. |
+
+---
+
+## 12. Navigation
+
+**← Précédent :** [VI.1 — Dirigeant PME](sfia-discovery-act-06-1-sme-leader-editorial-draft.md)
+
+**Hub :** [Acte VI](sfia-discovery-act-06-project-yourself-editorial-draft.md)
+
+**Suivant → :** [VI.3 — Équipe technique](sfia-discovery-act-06-3-technical-team-editorial-draft.md)
+
+---
+
+## 13. Sources Git (gouvernance)
+
+| Élément | Source |
+|---------|--------|
+| Persona CP / PO | `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` §1.2 |
+| Cycles · gates | Acte II · operating model (référence gouvernance) |
+| Livrables | Acte IV · Acte III.3 delivery/QA |
+
+*Prompt catalog · routage exhaustif — non exposés lecteur.*
+
+---
+
+## Contenu lecteur — corps principal (PD-06B)
+
+*Sections 1–12 ci-dessus.*
+```
+
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md`
+
+**Rôle :** Acte VI.3 — Équipe technique
+
+```markdown
+# ACTE VI.3 — Équipe technique
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — brouillon éditorial Discovery |
+| **Cycle** | PD-06A — persona VI.3 |
+| **Acte** | VI — Se projeter |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Source de vérité** | Git |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Niveau lecture** | L2–L3 contrôlée |
+| **Durée cible** | 5–6 minutes |
+| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Réaction recherchée** | « Je sais ce que Cursor peut exécuter — et où m'arrêter. » |
+
+---
+
+## 1. Question initiale
+
+> **Qu'est-ce que Cursor et les autres assistants IA peuvent réellement exécuter, et sous quelles limites ?**
+
+---
+
+## 2. Problèmes reconnus
+
+| Irritant | Risque |
+|----------|--------|
+| **Spécifications instables** | Code jetable · dette invisible |
+| **Prompts ad hoc** | Aucune reprise · contexte perdu |
+| **Changements hors scope** | Fichiers modifiés non autorisés |
+| **QA insuffisante** | Merge sans preuve |
+| **Branches divergentes** | Conflits · historique illisible |
+| **Perte de contexte** | Nouveau dev ne comprend pas pourquoi |
+
+---
+
+## 3. Ce que SFIA change pour vous
+
+| Changement | Application |
+|------------|-------------|
+| **Git source de vérité** | Le repo prime sur le chat |
+| **Contrats d'exécution bornés** | Fichiers autorisés · interdits · stop conditions |
+| **Branches dédiées** | Travail isolé · PR avant merge |
+| **Tests et preuves** | QA proportionnée au profil |
+| **Revue humaine** | Gates avant merge structurant |
+| **Reprise** | Historique · review packs · décisions |
+
+Cursor **exécute** dans un périmètre — il ne redéfinit pas seul le produit.
+
+---
+
+## 4. Valeur attendue — sans chiffre inventé
+
+- **Moins de dette invisible** — si le périmètre fichier est respecté ;
+- **Meilleure traçabilité** des changements via PR ;
+- **Preuves vérifiables** avant merge — tests · QA · review pack ;
+- **Capacité de reprise** — un pair peut relire Git sans tout le contexte chat.
+
+Pas de promesse de **vélocité** ni d'**absence de bug**.
+
+---
+
+## 5. Votre rôle dans le dispositif
+
+| Vous… | Vous ne… |
+|-------|----------|
+| Qualifiez la **faisabilité** technique | Décidez seul du scope produit |
+| **Exécutez** ou supervisez l'exécution | Contournez les gates merge |
+| Produisez **preuves** — tests · diffs · QA | Exposez secrets ou tokens |
+| Remontez **risques** et réserves | Publiez la méthode interne complète |
+| Respectez les **fichiers autorisés** | Force-push ou reset destructif sans GO |
+
+---
+
+## 6. Livrables que vous consultez ou produisez
+
+| Livrable | Rôle technique |
+|----------|----------------|
+| **Branches · PR** | Isolation · revue · merge |
+| **Diffs · stat** | Preuve de périmètre |
+| **Tests · QA reports** | Validation avant merge |
+| **Review pack** | Synthèse pour décideur |
+| **Runbooks · readiness** | Exploitation — si dans le périmètre cycle |
+
+Vocabulaire autorisé : Git · branche · PR · QA · review pack · runtime.
+
+---
+
+## 7. Ce que SFIA ne fait pas à votre place
+
+- Choisir l'**architecture structurante** sans gate ;
+- **Valider** seul la sécurité ou la conformité réglementaire ;
+- **Garantir** zéro régression ;
+- Remplacer une **revue pair** humaine quand le risque l'exige ;
+- Divulguer ou reconstruire la **méthode interne complète** via Discovery.
+
+---
+
+## 8. Prérequis et limites
+
+| Prérequis | Limite |
+|-----------|--------|
+| Repository Git **accessible** | Sans Git, le cadre SFIA perd sa source de vérité |
+| Cadrage et backlog **stables** assez pour exécuter | Specs instables → rework malgré le cadre |
+| Discipline **fichiers autorisés** | Hors périmètre = stop condition |
+
+---
+
+## 9. Parcours recommandé dans Discovery
+
+```text
+Acte II → Acte III.3 (delivery/QA) → Acte IV (familles 3–4) → Acte V → VI.3 → Acte VII
+```
+
+Durée indicative **20–30 minutes** pour la projection technique.
+
+---
+
+## 10. Prochaine action pédagogique
+
+1. Lire [III.3 Delivery et QA](sfia-discovery-act-03-3-delivery-and-qa-editorial-draft.md) ;
+2. Parcourir [Acte V](sfia-discovery-act-05-why-it-works-editorial-draft.md) — mécanismes Git et validation ;
+3. Explorer [Acte VII](sfia-discovery-act-07-explore-the-method-editorial-draft.md) — templates · gouvernance · setup ;
+4. Approfondir depuis **Git** — routing guide · templates — pas depuis Discovery seul.
+
+---
+
+## 11. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | « L'IA code vite » vs « personne ne peut reprendre le repo ». |
+| **Résolution** | Périmètre borné · PR · QA · review pack · gates. |
+| **Preuve** | Acte III.3 · familles Livrer/Vérifier Acte IV · mécanismes Acte V · persona PD-04 §1.3. |
+
+---
+
+## 12. Navigation
+
+**← Précédent :** [VI.2 — Chef de projet / PO](sfia-discovery-act-06-2-project-manager-po-editorial-draft.md)
+
+**Hub :** [Acte VI](sfia-discovery-act-06-project-yourself-editorial-draft.md)
+
+**Suivant → :** [VI.4 — ESN / partenaire](sfia-discovery-act-06-4-esn-partner-editorial-draft.md)
+
+---
+
+## 13. Sources Git (gouvernance)
+
+| Élément | Source |
+|---------|--------|
+| Persona technique | `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` §1.3 |
+| Delivery · QA | Acte III.3 editorial draft |
+| Garde-fous | `core/sfia-rules-and-guardrails.md` (principes — non copiés) |
+
+**Non exposé lecteur :** prompt catalog intégral · routage exhaustif · protected paths · seuils Critical implicites · secrets CI.
+
+---
+
+## Contenu lecteur — corps principal (PD-06B)
+
+*Sections 1–12 ci-dessus.*
+```
+
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md`
+
+**Rôle :** Acte VI.4 — ESN / partenaire
+
+```markdown
+# ACTE VI.4 — ESN / partenaire
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — brouillon éditorial Discovery |
+| **Cycle** | PD-06A — persona VI.4 |
+| **Acte** | VI — Se projeter |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Source de vérité** | Git |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Niveau lecture** | L2 |
+| **Durée cible** | 5–6 minutes |
+| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Réaction recherchée** | « Je vois un cadre reproductible — sans promesse commerciale implicite. » |
+
+---
+
+## 1. Question initiale
+
+> **Comment appliquer SFIA dans une delivery client de façon reproductible sans survendre la méthode ?**
+
+---
+
+## 2. Problèmes reconnus
+
+| Irritant | Contexte ESN |
+|----------|--------------|
+| **Qualité variable** | Dépend des pratiques individuelles |
+| **Capitalisation faible** | Chaque mission repart de zéro |
+| **Delivery peu visible** | Client ne voit pas les décisions |
+| **IA sans gouvernance** | Équipes utilisent Cursor ad hoc |
+| **Question d'appropriation** | « Est-ce la méthode Morris ou la nôtre ? » |
+| **Responsabilité floue** | Qui tranche scope · merge · release ? |
+
+---
+
+## 3. Ce que SFIA change pour vous
+
+| Changement | Intérêt partenaire |
+|------------|-------------------|
+| **Cadre reproductible** | Même logique de cycles · gates · livrables |
+| **Gouvernance visible** | Client ou sponsor voit les arbitrages |
+| **Livrables attendus** | Galerie Acte IV — catégories partagées |
+| **REX et capitalisation** | Leçons missionnables — sans export baseline automatique |
+| **Adaptation au contexte** | Périmètre client — pas copie intégrale méthode interne |
+
+SFIA structure la **delivery** — il ne remplace pas votre proposition commerciale.
+
+---
+
+## 4. Valeur attendue — sans chiffre inventé
+
+- **Meilleure lisibilité** pour le client sponsor ;
+- **Reprise** en cas de changement d'équipe mission ;
+- **Réduction du flou** scope · QA · merge ;
+- **Discipline IA** alignée avec le contrat d'exécution.
+
+Aucune promesse de **marge** · **win rate** · ou **différenciation marché garantie**.
+
+---
+
+## 5. Votre rôle dans le dispositif
+
+| Vous… | Vous ne… |
+|-------|----------|
+| Apportez les **expertises** nécessaires | Revendiquez SFIA comme produit white-label sans GO |
+| Exécutez dans le **périmètre validé** | Étendez scope sans gate client |
+| Produisez **preuves et livrables** | Masquez réserves ou dette |
+| Documentez les **écarts** et REX | Promettez conformité SFIA sans application |
+| Alignez le client sur les **gates** | Transformez Discovery en argumentaire vente absolu |
+
+---
+
+## 6. Livrables que vous consultez ou produisez
+
+| Livrable | Usage mission |
+|----------|---------------|
+| **Cadrage · note de scope** | Alignement client |
+| **Backlog · review packs** | Visibilité avancement |
+| **PR · QA · rapports** | Preuves delivery |
+| **REX · capitalisation** | Amélioration — gate Morris si promotion method |
+| **Registre décisions** | Traçabilité client |
+
+Catégories inspirées d'**actifs SFIA documentés** — distinctes du récit NovaBuild fiction.
+
+---
+
+## 7. Ce que SFIA ne fait pas à votre place
+
+- Définir votre **pricing** ou **contrat commercial** ;
+- Accorder **licence** ou **droits de redistribution** ;
+- Garantir un **partenariat** avec Morris ou la méthode ;
+- Transférer **propriété intellectuelle** — décision distincte ;
+- Remplacer votre **responsabilité** delivery vis-à-vis du client.
+
+---
+
+## 8. Prérequis et limites
+
+| Prérequis | Limite |
+|-----------|--------|
+| Sponsor client **identifié** | Sans gate client, le cadre se dégrade |
+| Repository ou espace Git **partagé** selon contrat | Git prime — pas un drive opaque |
+| Accord sur **périmètre** IA et livrables | SFIA n'est pas un label sans pratique |
+
+### Réserves obligatoires (persona ESN)
+
+| Sujet | Statut Discovery |
+|-------|------------------|
+| **Licensing** | Non défini — GO Morris distinct |
+| **Redistribution** | Non autorisée implicitement |
+| **Partenariat** | Non promis |
+| **Propriété intellectuelle** | Non attribuée ni transférée ici |
+| **Offre commerciale** | Contact Morris — hors contenu lecteur |
+
+---
+
+## 9. Parcours recommandé dans Discovery
+
+```text
+Acte I → Acte II → Acte III → Acte V → VI.4 → Acte VII
+```
+
+Durée indicative **25–35 minutes** — accent garanties · limites · reproductibilité.
+
+---
+
+## 10. Prochaine action pédagogique
+
+1. Lire [Acte V](sfia-discovery-act-05-why-it-works-editorial-draft.md) — garanties et non-garanties ;
+2. Parcourir [Acte IV](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md) — livrables attendus ;
+3. [Acte VII](sfia-discovery-act-07-explore-the-method-editorial-draft.md) — gouvernance · setup ;
+4. **Contact Morris** pour toute question licensing · partenariat · offre.
+
+---
+
+## 11. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | « Méthode propriétaire » vs « besoin de reproductibilité client ». |
+| **Résolution** | Cadre delivery · livrables · gates · REX — sans promesse IP ou licensing. |
+| **Preuve** | Capitalisation documentée en Git (catégories) · persona PD-04 §1.4 · Acte V limites. |
+
+*Aucun témoignage client nommé · aucun cas mission chiffré.*
+
+---
+
+## 12. Navigation
+
+**← Précédent :** [VI.3 — Équipe technique](sfia-discovery-act-06-3-technical-team-editorial-draft.md)
+
+**Hub :** [Acte VI](sfia-discovery-act-06-project-yourself-editorial-draft.md)
+
+**Suivant → :** [Acte VII — Explorer la méthode](sfia-discovery-act-07-explore-the-method-editorial-draft.md)
+
+---
+
+## 13. Sources Git (gouvernance)
+
+| Élément | Source |
+|---------|--------|
+| Persona ESN | `discovery-product-design/04-sfia-discovery-personas-and-reading-journeys.md` §1.4 |
+| Garanties · limites | Acte V editorial draft |
+| Capitalisation | Roadmap PD-09 · knowledge layer (orientation) |
+
+*Contrats commerciaux · licensing · redistribution — absents — décision Morris future.*
+
+---
+
+## Contenu lecteur — corps principal (PD-06B)
+
+*Sections 1–12 ci-dessus.*
+```
+
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md`
+
+**Rôle :** Acte VII — explorer la méthode
+
+```markdown
+# ACTE VII — Explorer la méthode
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Statut** | **Candidate** — brouillon éditorial Discovery |
+| **Cycle** | PD-06A (préparation éditoriale Git — Acte VII) |
+| **Acte** | VII — Explorer la méthode |
+| **Propriétaire** | Morris |
+| **Baseline** | SFIA v2.4 |
+| **Source de vérité** | Git |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Niveau lecture** | L2–L4 par paliers |
+| **Durée cible** | 3–5 minutes (portail) · exploration libre ensuite |
+| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Réaction recherchée** | « Je sais où aller ensuite sans avoir à tout lire. » |
+
+---
+
+## 1. Transition depuis l'Acte VI
+
+Dans l'**Acte VI**, vous avez **projecté** SFIA dans votre rôle — dirigeant · PO · technique · partenaire.
+
+L'**Acte VII** répond à :
+
+> **Où approfondir sans perdre la logique du parcours Discovery ?**
+
+> **Vous savez maintenant ce que SFIA peut changer pour votre rôle. Explorez uniquement le niveau de méthode dont vous avez besoin.**
+
+---
+
+## 2. Principe Discovery → approfondissement
+
+| Couche | Rôle |
+|--------|------|
+| **Discovery (Notion futur · Git aujourd'hui)** | Valeur · parcours · projection · orientation |
+| **Git (méthode détaillée)** | Templates · routing · gouvernance · preuves · historique |
+
+**Discovery explique la valeur. Git conserve la méthode et les actifs détaillés.**
+
+Ne confondez pas ce portail avec un **miroir du repository**.
+
+---
+
+## 3. Sept portes d'entrée
+
+| # | Porte | Fichier cible futur Notion | Orientation Git |
+|---|-------|---------------------------|-----------------|
+| 1 | [Cycles et profils](#porte-1--cycles-et-profils) | P0 §04 simplifié | routing guide · cycle template |
+| 2 | [Routage des demandes](#porte-2--routage-des-demandes) | P0 §05 réduit | routing guide |
+| 3 | [Templates et assets](#porte-3--templates-et-assets) | P0 §06 index | prompts/templates · référentiel |
+| 4 | [Gouvernance](#porte-4--gouvernance) | P0 §07 résumé | rules-and-guardrails |
+| 5 | [Mettre SFIA en place](#porte-5--mettre-sfia-en-place) | P0 §08 | setup guide editorial |
+| 6 | [Documents de référence](#porte-6--documents-de-référence) | P0 §10 | bases · docs architecture |
+| 7 | [Glossaire](#porte-7--glossaire) | P0 §11 | glossary editorial |
+
+**Maximum sept portes visibles** — pas de sous-menu exhaustif ici.
+
+---
+
+## 4. Niveaux de lecture
+
+| Niveau | Public | Ce que vous obtenez |
+|--------|--------|---------------------|
+| **L2** | PO · ESN | Orientation cycles · gates · templates (existence) |
+| **L3** | Technique · contributeur | Setup · gouvernance · liens Git |
+| **L4** | Référence | Documents fondateurs · glossaire complet · bases |
+
+Commencez au **niveau minimum** utile — montez seulement si bloqué.
+
+---
+
+## 5. Tableau des portes
+
+| Porte | Question | Public | Profondeur | Vous trouverez | Vous ne trouverez pas |
+|-------|----------|--------|------------|----------------|----------------------|
+| **1. Cycles et profils** | Quel type de cycle pour ma demande ? | PO · méthode | L2 | Light · Standard · Critical · Capitalization — **orientation** | Matrice exhaustive 15 cycles baseline |
+| **2. Routage** | Comment classer une demande ? | PO · CP | L2 | Catégories : cadrage · delivery · QA · PR · post-merge · capitalisation | Règles internes complètes |
+| **3. Templates et assets** | Existe-t-il un modèle ? | Tous | L2–L3 | Index · catégories · rôle des templates | Texte intégral des prompts |
+| **4. Gouvernance** | Qui décide quoi ? | Sponsor · CP | L2 | Git prime · gates · réserves · Morris ou décideur désigné | Protected paths détaillés |
+| **5. Mise en place** | Par où commencer techniquement ? | Tech · PO | L3 | Prérequis · rôles · repo · outils · commencer petit | Automatisation L5 globale |
+| **6. Documents de référence** | Où est la doc fondatrice ? | Contributeur | L4 | Index · bases Référentiel · Cycles | Copie intégrale des docs |
+| **7. Glossaire** | Que signifie ce terme ? | Tous | L1–L4 | Définitions SFIA essentielles | Jargon interne non publié |
+
+---
+
+### Porte 1 — Cycles et profils
+
+**Question :** Quel profil et quel type de cycle pour mon besoin ?
+
+**Orientation simplifiée :**
+
+| Profil | Quand l'envisager |
+|--------|-------------------|
+| **Light** | Faible risque · périmètre doc restreint |
+| **Standard** | Cycle courant — **défaut** si doute |
+| **Critical** | Risque structurant — **jamais implicite** · justification requise |
+| **Capitalization** | Retour d'expérience · promotion method — intention distincte |
+
+> **Baseline opérationnelle : SFIA v2.4.** Des référentiels cycles élargis existent en **Candidate v2.5** — aide pédagogique · **non baseline** tant que Morris n'a pas promu.
+
+**Source inspiration :** editorial P0 §04 · cycle routing guide (principes).
+
+---
+
+### Porte 2 — Routage des demandes
+
+**Question :** Comment orienter une demande vers le bon cycle ?
+
+**Catégories visibles (orientation) :**
+
+- **Cadrage** — intention · scope · qualification ;
+- **Conception / delivery** — docs · code · UX selon périmètre ;
+- **QA / validation** — preuves · écarts · réserves ;
+- **PR readiness** — commit · push · PR · review pack ;
+- **Post-merge** — vérification · alignement main ;
+- **Capitalisation** — REX · recommandation · gate Morris.
+
+**Ce que vous ne trouverez pas :** arbre de décision exhaustif · seuils internes · catalogues protégés.
+
+**Source inspiration :** editorial P0 §05 · operating model.
+
+---
+
+### Porte 3 — Templates et assets
+
+**Question :** Existe-t-il un gabarit pour mon livrable ?
+
+SFIA maintient des **templates** — cycles · QA · review · handoff · documentation.
+
+| Principe | Détail |
+|----------|--------|
+| **Existence** | Oui — indexés dans Git |
+| **Accès** | Via référentiel · dossier templates |
+| **Contenu Discovery** | Rôle du template — pas copie intégrale |
+
+**Source inspiration :** editorial P0 §06 · index templates repository.
+
+---
+
+### Porte 4 — Gouvernance
+
+**Question :** Qui tranche · quoi · quand ?
+
+| Principe | Formulation |
+|----------|-------------|
+| **Git prime** | Repository = version de référence |
+| **Décideur humain** | Morris ou décideur désigné aux gates |
+| **Gates** | Scope · architecture · merge · release · capitalisation |
+| **Périmètres** | Fichiers autorisés · cycles bornés |
+| **Réserves** | Visibles · pas masquées |
+
+**Non publié lecteur :** liste exhaustive protected paths · règles CI secrètes.
+
+**Source inspiration :** editorial P0 §07 · rules-and-guardrails.
+
+---
+
+### Porte 5 — Mettre SFIA en place
+
+**Question :** Quels prérequis pour démarrer ?
+
+| Dimension | Orientation |
+|-----------|-------------|
+| **Organisation** | Sponsor · CP · accès repo · règles de merge |
+| **Repository** | Structure SFIA · branches · conventions |
+| **Outils** | Git · Cursor · ChatGPT · CI selon contexte |
+| **Démarrage** | Petit périmètre · premier cycle Light ou Standard |
+| **Limite** | Pas d'automatisation globale L5 dans Discovery |
+
+**Source inspiration :** editorial P0 §08 setup.
+
+---
+
+### Porte 6 — Documents de référence
+
+**Question :** Où sont les documents fondateurs ?
+
+| Type | Rôle |
+|------|------|
+| **Bases Référentiel / Cycles** | Vues structurées — embed Notion futur |
+| **Docs architecture** | Fondations plateforme — L4 |
+| **Product Design Discovery** | Conception parcours — PD-01 |
+
+Discovery **oriente** — ne **recopie** pas ces corpus.
+
+**Source inspiration :** editorial P0 §10 · architecture docs index.
+
+---
+
+### Porte 7 — Glossaire
+
+**Question :** Que signifie ce terme SFIA ?
+
+Termes essentiels : **cycle** · **gate** · **review pack** · **Candidate** · **baseline** · **capitalisation** · **Git prime**.
+
+**Sortie recommandée** si le vocabulaire bloque la lecture des Actes I–VI.
+
+**Source inspiration :** editorial P0 §11 glossary.
+
+---
+
+## 6. Frontière Notion / Git
+
+| Notion (PD-06B futur) | Git (source de vérité) |
+|-----------------------|------------------------|
+| Parcours Discovery L0–L2 | Brouillons editorial complets |
+| Portail Acte VII simplifié | Templates · routing · core |
+| Bases embed | Historique · PR · preuves |
+
+Toute divergence se tranche **en faveur de Git** après merge validé.
+
+---
+
+## 7. Contenu publiable vs protégé
+
+### Public / pédagogique (ce portail)
+
+- Existence des cycles et profils ;
+- Logique des gates ;
+- Git source de vérité ;
+- Types de livrables ;
+- Rôle des outils ;
+- Principes de mise en place ;
+- Orientation vers ressources.
+
+### Orientation Git (approfondissement)
+
+- Documentation méthode dans le repository ;
+- Templates disponibles ;
+- Index de référence ;
+- Exemples publiables sans secrets.
+
+### Protégé / non publié (corps lecteur Discovery)
+
+- Prompt catalog intégral ;
+- Textes complets des prompts Cursor ;
+- Matrice de routage exhaustive ;
+- Règles internes protected paths ;
+- Seuils Critical implicites ;
+- Secrets · tokens · environnements ;
+- Procédures reconstruisant intégralement SFIA sans gate.
+
+*Chemins techniques détaillés — section sources Git et review pack uniquement.*
+
+---
+
+## 8. Conseils de parcours
+
+| Profil | Parcours Acte VII suggéré |
+|--------|---------------------------|
+| **Dirigeant PME** | Glossaire → Gouvernance → Mise en place (aperçu) |
+| **Chef de projet / PO** | Cycles → Routage → Templates → Gouvernance |
+| **Équipe technique** | Templates → Mise en place → Documents référence |
+| **ESN / partenaire** | Gouvernance → Cycles → Documents référence |
+| **Contributeur méthode** | Toutes portes L3–L4 → Git direct |
+
+---
+
+## 9. Conflit · résolution · preuve
+
+| | |
+|--|--|
+| **Conflit** | « Je veux la méthode complète » vs « je me noie si tout est exposé ». |
+| **Résolution** | Portail à sept portes · profondeur par paliers · Git pour le détail. |
+| **Preuve** | Architecture cible PD-06 §2 · mapping P0 §04–11 · editorial Notion drafts existants. |
+
+---
+
+## 10. Navigation retour
+
+**← Retour :** [Acte VI — Se projeter](sfia-discovery-act-06-project-yourself-editorial-draft.md)
+
+**Hub Discovery :** [sfia-discovery-hub-editorial-draft.md](sfia-discovery-hub-editorial-draft.md)
+
+> **Revenez au parcours Discovery ou approfondissez depuis la source Git de référence.**
+
+**PD-07A (migration legacy)** — hors cycle PD-06A · plan redirections §00–11 futur.
+
+---
+
+## 11. Sources Git (gouvernance)
+
+| Porte | Sources vérifiées |
+|-------|-------------------|
+| Cycles · profils | `notion/editorial/sfia-notion-04-cycles-profiles-gates-editorial-draft.md` · `core/sfia-cycle-routing-guide.md` |
+| Routage | `notion/editorial/sfia-notion-05-request-routing-editorial-draft.md` |
+| Templates | `notion/editorial/sfia-notion-06-templates-prompts-deliverables-editorial-draft.md` |
+| Gouvernance | `notion/editorial/sfia-notion-07-governance-guardrails-editorial-draft.md` · `core/sfia-rules-and-guardrails.md` |
+| Setup | `notion/editorial/sfia-notion-08-setup-sfia-editorial-draft.md` |
+| Architecture cible | `discovery-product-design/06-sfia-discovery-target-information-architecture.md` |
+| Glossaire | `notion/editorial/sfia-notion-11-glossary-editorial-draft.md` (référence P0 §11) |
+
+*Prompt catalog · protected paths — référencés · non reproduits.*
+
+---
+
+## 12. Critères d'acceptation
+
+| # | Critère | Statut |
+|---|---------|--------|
+| A1 | Sept portes maximum | ✓ |
+| A2 | Frontière public / protégé explicite | ✓ |
+| A3 | Pas de copie intégrale Git | ✓ |
+| A4 | Baseline v2.4 · Candidate | ✓ |
+| A5 | Retour Hub · pas de PD-07A | ✓ |
+
+---
+
+## Contenu lecteur — corps principal (PD-06B)
+
+*Sections 1–10 ci-dessus.*
+```
+
+
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md`
+
+**Rôle :** README editorial — inventaire PD-06A
 
 ```markdown
 # SFIA Discovery — Editorial (brouillons lecteur)
@@ -617,14 +1433,14 @@ La question suivante est **personnelle** :
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | **Candidate** — brouillons éditoriaux Discovery |
-| **Cycle courant** | PD-05A — Actes IV et V (préparation Git) |
+| **Cycle courant** | PD-06A — Actes VI et VII (préparation Git) |
 | **Propriétaire** | Morris |
 | **Baseline opérationnelle** | SFIA v2.4 |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
-| **Branche projet** | `documentation/sfia-discovery-acts-04-05-editorial` |
-| **HEAD / base** | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
-| **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
-| **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B futur |
+| **Branche projet** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD / base** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B ✓ · PD-06B futur |
 | **Capitalisation méthode** | Non |
 
 ---
@@ -640,7 +1456,7 @@ Non substituts au Product Design PD-01 ni aux drafts P0 §00–11.
 ## 2. Séquence narrative (decision Morris)
 
 ```text
-Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV–V (en cours) → VI–VII
+Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓ → Acte VI–VII (en cours) 
 ```
 
 **Acte II avant Acte III** — le contraste précède le fil rouge NovaBuild.
@@ -659,8 +1475,14 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV–V (en cours) →
 | 6 | [sfia-discovery-act-03-2-design-and-ux-editorial-draft.md](sfia-discovery-act-03-2-design-and-ux-editorial-draft.md) | III.2 | ✓ mergé (PD-04A) |
 | 7 | [sfia-discovery-act-03-3-delivery-and-qa-editorial-draft.md](sfia-discovery-act-03-3-delivery-and-qa-editorial-draft.md) | III.3 | ✓ mergé (PD-04A) |
 | 8 | [sfia-discovery-act-03-4-release-and-run-editorial-draft.md](sfia-discovery-act-03-4-release-and-run-editorial-draft.md) | III.4 | ✓ mergé (PD-04A) |
-| 9 | [sfia-discovery-act-04-what-sfia-produces-editorial-draft.md](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md) | IV | **PD-05A — revue** |
-| 10 | [sfia-discovery-act-05-why-it-works-editorial-draft.md](sfia-discovery-act-05-why-it-works-editorial-draft.md) | V | **PD-05A — revue** |
+| 9 | [sfia-discovery-act-04-what-sfia-produces-editorial-draft.md](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md) | IV | ✓ mergé (PD-05A · PR #199) |
+| 10 | [sfia-discovery-act-05-why-it-works-editorial-draft.md](sfia-discovery-act-05-why-it-works-editorial-draft.md) | V | ✓ mergé (PD-05A · PR #199) |
+| 11 | [sfia-discovery-act-06-project-yourself-editorial-draft.md](sfia-discovery-act-06-project-yourself-editorial-draft.md) | VI | **PD-06A — revue** |
+| 12 | [sfia-discovery-act-06-1-sme-leader-editorial-draft.md](sfia-discovery-act-06-1-sme-leader-editorial-draft.md) | VI.1 | **PD-06A — revue** |
+| 13 | [sfia-discovery-act-06-2-project-manager-po-editorial-draft.md](sfia-discovery-act-06-2-project-manager-po-editorial-draft.md) | VI.2 | **PD-06A — revue** |
+| 14 | [sfia-discovery-act-06-3-technical-team-editorial-draft.md](sfia-discovery-act-06-3-technical-team-editorial-draft.md) | VI.3 | **PD-06A — revue** |
+| 15 | [sfia-discovery-act-06-4-esn-partner-editorial-draft.md](sfia-discovery-act-06-4-esn-partner-editorial-draft.md) | VI.4 | **PD-06A — revue** |
+| 16 | [sfia-discovery-act-07-explore-the-method-editorial-draft.md](sfia-discovery-act-07-explore-the-method-editorial-draft.md) | VII | **PD-06A — revue** |
 
 ---
 
@@ -672,6 +1494,8 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV–V (en cours) →
 4. **Acte III** — fil rouge NovaBuild (hub + III.1 → III.4)
 5. **Acte IV** — ce que SFIA produit
 6. **Acte V** — pourquoi cela fonctionne
+7. **Acte VI** — se projeter (hub + VI.1 → VI.4)
+8. **Acte VII** — explorer la méthode
 
 ---
 
@@ -682,8 +1506,9 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV–V (en cours) →
 | Hub + I | PD-02A ✓ | PD-02B ✓ |
 | Acte II | PD-03A ✓ | PD-03B ✓ |
 | Acte III NovaBuild | PD-04A ✓ (PR #198) | PD-04B ✓ |
-| Actes IV–V | **PD-05A** (présent — revue) | PD-05B — futur |
-| Actes VI–VII | PD-06A — futur | PD-06B |
+| Actes IV–V | PD-05A ✓ (PR #199) | PD-05B ✓ |
+| Actes VI–VII | **PD-06A** (présent — revue) | PD-06B — futur |
+| Migration legacy | PD-07A — futur | PD-07B |
 
 **NovaBuild** = cas pédagogique composite — catégories livrables inspirées d'actifs SFIA vérifiables.
 
@@ -696,45 +1521,47 @@ Référence roadmap : [07-sfia-discovery-transformation-roadmap.md](../discovery
 Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contract.md`
 
 - 80 % métier / valeur · 20 % fonctionnel (L2)
-- Preuve avant promesse · cinq familles / cinq mécanismes max
+- Preuve avant promesse · quatre personas · sept portes max (Acte VII)
 - Opacité méthodologique sélective
 
 ---
 
 ## 7. Garde-fous
 
-- Aucune page Notion · aucun prompt catalog · aucune capitalisation baseline
+- Aucune page Notion PD-06B · aucun prompt catalog · aucune capitalisation baseline
+- Aucune promesse commerciale · licensing · redistribution (persona ESN)
 
 ---
 
 ## 8. Décisions Morris validées
 
-- PD-01 · PD-02A · PD-03A · PD-04A mergés ✓
-- PD-02B · PD-03B · PD-04B finalisés Notion ✓
+- PD-01 · PD-02A · PD-03A · PD-04A · PD-05A mergés ✓
+- PD-02B · PD-03B · PD-04B · PD-05B finalisés Notion ✓
 - Acte II avant Acte III ✓
 - NovaBuild composite ✓
+- PR #199 mergée · main @ `96d1580` ✓
 
 ---
 
-## 9. Gates Acte IV–V (PD-05A)
+## 9. Gates Acte VI–VII (PD-06A)
 
 | Gate | Objet | Statut |
 |------|-------|--------|
-| **M1** | Structure Acte IV | En attente |
-| **M2** | Preuves Acte IV | En attente |
-| **M3** | Structure Acte V | En attente |
-| **M4** | Garanties / limites | En attente |
-| **M5** | Continuité III → IV → V → VI | En attente |
-| **M6** | Contenu complet | En attente |
+| **M1** | Structure Acte VI · quatre personas | En attente |
+| **M2** | Différenciation projections persona | En attente |
+| **M3** | Structure Acte VII · sept portes | En attente |
+| **M4** | Frontière pédagogique / protégé | En attente |
+| **M5** | Continuité V → VI → VII → Hub | En attente |
+| **M6** | Contenu complet exploitable | En attente |
 | **M7** | GO commit / push / PR | En attente |
-| **M8** | GO PD-05B Notion | Hors cycle — futur |
+| **M8** | GO PD-06B Notion | Hors cycle — futur |
 
 ---
 
-## 10. Critères d'entrée PD-05B
+## 10. Critères d'entrée PD-06B
 
-- Actes IV et V validés Morris · merge Git recommandé · GO implémentation Notion L0
-- Dépendance : PD-04A/B ✓
+- Actes VI et VII validés Morris · merge Git recommandé · GO implémentation Notion L0
+- Dépendance : PD-05A/B ✓
 
 ---
 
@@ -744,9 +1571,9 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 ```
 
 
----
+## FULL CONTENT — `method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md`
 
-## FULL CONTENT — `discovery-product-design/07-sfia-discovery-transformation-roadmap.md` (MOD)
+**Rôle :** Roadmap 07 — transformation Discovery
 
 ```markdown
 # 07 — Roadmap de transformation — SFIA Discovery Experience
@@ -756,9 +1583,9 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-acts-04-05-editorial` |
-| **HEAD** | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
 | **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---
@@ -832,25 +1659,32 @@ Brouillons Acte III + III.1–III.4 — mergé (PR #198).
 | Statut | **Finalisé** — validé Morris |
 | QA narrative globale | **PD-08 non réalisée** à ce stade |
 
-### PD-05A — Actes IV et V — préparation Git
+### PD-05A — Actes IV et V — préparation Git ✓
 
-| Objectif | Brouillons Acte IV (galerie livrables) · Acte V (garanties et limites) |
+Brouillons Acte IV (galerie livrables) · Acte V (garanties et limites) — mergé (PR #199).
+
+| Merge commit | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
 | Prérequis | PD-04A/B ✓ |
-| Gate | M1–M6 Morris · qualification preuves · frontière promesse |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
-*Cycle présent — brouillons en revue.*
+### PD-05B — Actes IV et V — implémentation Notion ✓
 
-### PD-05B — Actes IV et V — implémentation Notion
-
-Matérialisation L0 — gate M8 Morris futur.
+| Prérequis | PD-05A mergé (PR #199) ✓ |
+| Notion | Pages Actes IV et V |
+| Statut | **Finalisé** — validé Morris |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
 ### PD-06A — Actes VI et VII — préparation Git
 
-Personas · annexes méthode simplifiées.
+| Objectif | Brouillons Acte VI (hub + VI.1–VI.4 personas) · Acte VII (portail méthode) |
+| Prérequis | PD-05A/B ✓ |
+| Gate | M1–M6 Morris · frontière confidentialité · différenciation personas |
+
+*Cycle courant — brouillons en revue.*
 
 ### PD-06B — Actes VI et VII — implémentation Notion
 
-Pages persona + portail annexes.
+Pages persona + portail annexes — gate M8 Morris futur.
 
 ### PD-07A — Migration legacy — préparation Git
 
@@ -877,8 +1711,8 @@ PD-01 ✓
 ├── PD-02A ✓ → PD-02B ✓
 ├── PD-03A ✓ → PD-03B ✓  ← Acte II
 ├── PD-04A ✓ → PD-04B ✓  ← NovaBuild
-├── PD-05A → PD-05B     ← Actes IV–V (cycle courant)
-├── PD-06A → PD-06B
+├── PD-05A ✓ → PD-05B ✓  ← Actes IV–V
+├── PD-06A → PD-06B     ← Actes VI–VII (cycle courant)
 ├── PD-07A → PD-07B
 ├── PD-08 (après 07B)
 └── PD-09 (après PD-08)
@@ -895,8 +1729,9 @@ Conception (PD-01) ✓
   → Hub + I (02A ✓ / 02B)
     → Acte II (03A ✓ / 03B ✓)
       → Acte III NovaBuild (04A ✓ / 04B ✓)
-        → Actes IV–V (05A en cours / 05B)
-          → QA (08) → Capitalisation? (09)
+        → Actes IV–V (05A ✓ / 05B ✓)
+          → Actes VI–VII (06A en cours / 06B)
+            → QA (08) → Capitalisation? (09)
 ```
 
 ---
@@ -929,123 +1764,19 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 
 ---
 
+## git diff --stat (répétition fin de pack)
+
+```
+ .../07-sfia-discovery-transformation-roadmap.md    | 40 ++++++++------
+ .../notion/discovery/editorial/README.md           | 61 +++++++++++++---------
+ 2 files changed, 60 insertions(+), 41 deletions(-)
+```
 
 ---
 
-## Correctif PD-05A — Réserves ChatGPT R1–R3
+## Verdict final
 
-**Horodatage correctif :** 2026-07-15 ~00:35 Europe/Paris (CEST)
-**Déclencheur :** Retours ChatGPT sur formulations R1 (Famille 5 Acte IV — post-MVP) · R2 (Famille 1 Acte IV — cadrage) · R3 (Mécanisme 4 Acte V — validation proportionnée)
-**Périmètre correctif :** **uniquement** les deux brouillons Acte IV–V — **pas** `README.md` · **pas** `07-sfia-discovery-transformation-roadmap.md`
-**Branche projet :** `documentation/sfia-discovery-acts-04-05-editorial` @ `7932fcb45d82ceacca2faa745764743b7c6f2806` — **non commitée**
-**Handoff avant ce correctif :** `a53b1128fd38b245450b173dc68599981d4fb473`
+**ACTS VI-VII EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
 
-### git diff --stat (correctif — Actes IV–V seulement)
+Pack PD-06A · contenu intégral 8 fichiers · branche projet non commitée · handoff `sfia/review-handoff` mis à jour séparément.
 
-```
- .../sfia-discovery-act-04-what-sfia-produces-editorial-draft.md | 2 +-
- .../sfia-discovery-act-05-why-it-works-editorial-draft.md       | 1 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-```
-
-*Note :* les 2 MOD tracked (README · roadmap) relèvent du cycle PD-05A initial — **hors** diff correctif R1–R3.
-
-### R1 — Famille 5 (Acte IV) — Réserve release / RUN
-
-| | Texte |
-|--|-------|
-| **Avant** | Release production complète et observabilité RUN **ne sont pas** démontrées dans tous les pilotes — catégories **parfois** **cadrées en post-MVP** |
-| **Après** | Release production complète et observabilité RUN **ne sont pas** démontrées par les **sources consultées** ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
-
-#### Section complète — Famille 5 — Exploiter et apprendre (après correctif)
-
-```markdown
-### Famille 5 — Exploiter et apprendre
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Comment le projet survit-il à la livraison et s'améliore-t-il ? |
-| **Artefacts** | Release readiness · runbook · REX · rapport de capitalisation |
-| **Valeur métier** | Reprise · leçons exploitables · amélioration méthode **candidate** |
-| **Trace Git** | Rapports capitalization · REX pilote · readiness pré-delivery |
-| **Réserve** | Release production complète et observabilité RUN **ne sont pas** démontrées par les sources consultées ; elles restent présentées ici comme des **catégories méthodologiques cibles** |
-```
-
-### R2 — Famille 1 (Acte IV) — Valeur métier
-
-| | Texte |
-|--|-------|
-| **Avant** | Alignement sponsor · scope explicite · **moins de rework flou** |
-| **Après** | Alignement sponsor · scope explicite · **réduction du risque de reprises liées à un périmètre ambigu** |
-
-#### Section complète — Famille 1 — Cadrer (après correctif)
-
-```markdown
-### Famille 1 — Cadrer
-
-| Champ | Contenu |
-|-------|---------|
-| **Question** | Sur quoi travaille-t-on vraiment ? |
-| **Artefacts** | Note de cadrage · périmètre in/out · backlog initial · incréments planifiés |
-| **Valeur métier** | Alignement sponsor · scope explicite · réduction du risque de reprises liées à un périmètre ambigu |
-| **Trace Git** | Documents de framing · limites MVP · epics et user stories |
-| **Réserve** | Le cadrage ne remplace pas l'expertise métier terrain |
-```
-
-### R3 — Mécanisme 4 (Acte V) — Ce que cela apporte
-
-| | Texte |
-|--|-------|
-| **Avant** | **Pas de sur-documentation systématique** · pas de sous-validation sur l'essentiel |
-| **Après** | **Une profondeur de documentation et de validation adaptée au profil et au risque** |
-
-#### Section complète — Mécanisme 4 — Validation proportionnée (après correctif)
-
-```markdown
-### Mécanisme 4 — Validation proportionnée
-
-| Élément | Contenu |
-|---------|---------|
-| **Principe** | Contrôles automatisés · QA · review pack · preuves visuelles **selon le profil et le risque** |
-| **Ce que cela apporte** | Une profondeur de documentation et de validation adaptée au profil et au risque |
-| **Limite** | Un review pack ne remplace pas l'**expertise** métier ou sécurité si requise |
-```
-
-### QA correctif — 26 contrôles
-
-| # | Contrôle | Résultat |
-|---|----------|----------|
-| Q1 | HEAD = `7932fcb45d82ceacca2faa745764743b7c6f2806` | **PASS** |
-| Q2 | Branche = `documentation/sfia-discovery-acts-04-05-editorial` | **PASS** |
-| Q3 | 0 commit ahead of `origin/main` (projet) | **PASS** |
-| Q4 | Aucun fichier staged | **PASS** |
-| Q5 | Correctif limité aux drafts Acte IV–V (pas README/roadmap) | **PASS** |
-| Q6 | Acte IV NEW untracked présent | **PASS** |
-| Q7 | Acte V NEW untracked présent | **PASS** |
-| Q8 | `post-MVP` absent (Actes IV–V) | **PASS** |
-| Q9 | `moins de rework` absent (Actes IV–V) | **PASS** |
-| Q10 | `sur-documentation` absent (Actes IV–V) | **PASS** |
-| Q11 | `parfois` absent zones R1–R3 | **PASS** |
-| Q12 | `souvent` absent zones R1–R3 | **PASS** |
-| Q13 | R1 — formulation catégories méthodologiques cibles (Famille 5) | **PASS** |
-| Q14 | R1 — « sources consultées » (Famille 5 réserve) | **PASS** |
-| Q15 | R2 — formulation réduction du risque de reprises (Famille 1) | **PASS** |
-| Q16 | R3 — profondeur documentation/validation (Mécanisme 4) | **PASS** |
-| Q17 | Famille 1 section intacte (Question + Réserve expertise) | **PASS** |
-| Q18 | Famille 5 section intacte (artefacts RUN/REX) | **PASS** |
-| Q19 | Mécanisme 4 principe proportionné conservé | **PASS** |
-| Q20 | `Morris tranchera` absent | **PASS** |
-| Q21 | `BatiNova` absent | **PASS** |
-| Q22 | TODO/TBD/PLACEHOLDER absent | **PASS** |
-| Q23 | Cinq familles Acte IV présentes | **PASS** |
-| Q24 | Cinq mécanismes Acte V présents | **PASS** |
-| Q25 | README/roadmap hors diff correctif (tracked MOD séparés) | **PASS** |
-| Q26 | Verdict correctif documenté | **PASS** |
-
-**Verdict QA correctif :** **PASS** (26/26)
-
-**Verdict pack (post-correctif) :** **ACTS IV-V EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
-
-## Fin du review pack PD-05A
-
-**Verdict :** **ACTS IV-V EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
