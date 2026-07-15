@@ -5,9 +5,9 @@
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-acts-04-05-editorial` |
-| **HEAD** | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
+| **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-acts-06-07-editorial` |
+| **HEAD** | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
 | **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---
@@ -81,25 +81,32 @@ Brouillons Acte III + III.1–III.4 — mergé (PR #198).
 | Statut | **Finalisé** — validé Morris |
 | QA narrative globale | **PD-08 non réalisée** à ce stade |
 
-### PD-05A — Actes IV et V — préparation Git
+### PD-05A — Actes IV et V — préparation Git ✓
 
-| Objectif | Brouillons Acte IV (galerie livrables) · Acte V (garanties et limites) |
+Brouillons Acte IV (galerie livrables) · Acte V (garanties et limites) — mergé (PR #199).
+
+| Merge commit | `96d1580e33baa1ec6e97622c7f2f59a4787ec510` |
 | Prérequis | PD-04A/B ✓ |
-| Gate | M1–M6 Morris · qualification preuves · frontière promesse |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
-*Cycle présent — brouillons en revue.*
+### PD-05B — Actes IV et V — implémentation Notion ✓
 
-### PD-05B — Actes IV et V — implémentation Notion
-
-Matérialisation L0 — gate M8 Morris futur.
+| Prérequis | PD-05A mergé (PR #199) ✓ |
+| Notion | Pages Actes IV et V |
+| Statut | **Finalisé** — validé Morris |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
 ### PD-06A — Actes VI et VII — préparation Git
 
-Personas · annexes méthode simplifiées.
+| Objectif | Brouillons Acte VI (hub + VI.1–VI.4 personas) · Acte VII (portail méthode) |
+| Prérequis | PD-05A/B ✓ |
+| Gate | M1–M6 Morris · frontière confidentialité · différenciation personas |
+
+*Cycle courant — brouillons en revue.*
 
 ### PD-06B — Actes VI et VII — implémentation Notion
 
-Pages persona + portail annexes.
+Pages persona + portail annexes — gate M8 Morris futur.
 
 ### PD-07A — Migration legacy — préparation Git
 
@@ -126,8 +133,8 @@ PD-01 ✓
 ├── PD-02A ✓ → PD-02B ✓
 ├── PD-03A ✓ → PD-03B ✓  ← Acte II
 ├── PD-04A ✓ → PD-04B ✓  ← NovaBuild
-├── PD-05A → PD-05B     ← Actes IV–V (cycle courant)
-├── PD-06A → PD-06B
+├── PD-05A ✓ → PD-05B ✓  ← Actes IV–V
+├── PD-06A → PD-06B     ← Actes VI–VII (cycle courant)
 ├── PD-07A → PD-07B
 ├── PD-08 (après 07B)
 └── PD-09 (après PD-08)
@@ -144,8 +151,9 @@ Conception (PD-01) ✓
   → Hub + I (02A ✓ / 02B)
     → Acte II (03A ✓ / 03B ✓)
       → Acte III NovaBuild (04A ✓ / 04B ✓)
-        → Actes IV–V (05A en cours / 05B)
-          → QA (08) → Capitalisation? (09)
+        → Actes IV–V (05A ✓ / 05B ✓)
+          → Actes VI–VII (06A en cours / 06B)
+            → QA (08) → Capitalisation? (09)
 ```
 
 ---
