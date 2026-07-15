@@ -5,9 +5,9 @@
 | **Statut** | **Candidate** |
 | **Propriétaire** | Morris |
 | **Baseline** | SFIA v2.4 |
-| **Horodatage** | 2026-07-14 22:50 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-act-03-novabuild-editorial` |
-| **HEAD** | `a3b42d9c1bfcec2645ca6202e3c460da75e294f8` |
+| **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
+| **Branche** | `documentation/sfia-discovery-acts-04-05-editorial` |
+| **HEAD** | `7932fcb45d82ceacca2faa745764743b7c6f2806` |
 | **Décision Morris** | Acte II avant Acte III — séquence narrative I → II → III |
 
 ---
@@ -70,25 +70,28 @@ Brouillon Acte II — mergé (PR #197).
 | Statut | **Finalisé** — validé Morris |
 | QA narrative globale | **PD-08 non réalisée** à ce stade |
 
-### PD-04A — Acte III — fil rouge NovaBuild — préparation Git
+### PD-04A — Acte III — fil rouge NovaBuild — préparation Git ✓
 
-| Objectif | Brouillons Acte III + III.1–III.4 — cas composite NovaBuild |
-| Prérequis | PD-03A/B ✓ — Acte II avant fil rouge |
-| Gate | M1–M5 Morris · distinction fiction / preuves |
+Brouillons Acte III + III.1–III.4 — mergé (PR #198).
 
-*Cycle présent — brouillons en revue.*
+### PD-04B — Acte III — implémentation Notion ✓
 
-### PD-04B — Acte III — implémentation Notion
-
-Pages fil rouge NovaBuild — gate M7 Morris futur.
+| Prérequis | PD-04A mergé (PR #198) ✓ |
+| Notion | Pages fil rouge NovaBuild |
+| Statut | **Finalisé** — validé Morris |
+| QA narrative globale | **PD-08 non réalisée** à ce stade |
 
 ### PD-05A — Actes IV et V — préparation Git
 
-Galerie livrables · garanties et limites.
+| Objectif | Brouillons Acte IV (galerie livrables) · Acte V (garanties et limites) |
+| Prérequis | PD-04A/B ✓ |
+| Gate | M1–M6 Morris · qualification preuves · frontière promesse |
+
+*Cycle présent — brouillons en revue.*
 
 ### PD-05B — Actes IV et V — implémentation Notion
 
-Matérialisation L0.
+Matérialisation L0 — gate M8 Morris futur.
 
 ### PD-06A — Actes VI et VII — préparation Git
 
@@ -122,8 +125,8 @@ Framework §08 · dépend PD-02B–07B.
 PD-01 ✓
 ├── PD-02A ✓ → PD-02B ✓
 ├── PD-03A ✓ → PD-03B ✓  ← Acte II
-├── PD-04A → PD-04B     ← NovaBuild (cycle courant)
-├── PD-05A → PD-05B
+├── PD-04A ✓ → PD-04B ✓  ← NovaBuild
+├── PD-05A → PD-05B     ← Actes IV–V (cycle courant)
 ├── PD-06A → PD-06B
 ├── PD-07A → PD-07B
 ├── PD-08 (après 07B)
@@ -140,8 +143,8 @@ PD-01 ✓
 Conception (PD-01) ✓
   → Hub + I (02A ✓ / 02B)
     → Acte II (03A ✓ / 03B ✓)
-      → Acte III NovaBuild (04A en cours / 04B)
-        → IV–V (05) → VI–VII (06) → Migration (07)
+      → Acte III NovaBuild (04A ✓ / 04B ✓)
+        → Actes IV–V (05A en cours / 05B)
           → QA (08) → Capitalisation? (09)
 ```
 
