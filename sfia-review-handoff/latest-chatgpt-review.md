@@ -1774,9 +1774,183 @@ Itérations réelles · usage amélioré · gabarits réutilisables · dette acc
 
 ---
 
-## Verdict final
+## Correctif PD-06A — Réserves ChatGPT R1–R4
 
-**ACTS VI-VII EDITORIAL PREPARED — READY FOR CHATGPT REVIEW**
+**Horodatage :** 2026-07-15 ~14:40 Europe/Paris (CEST)
+**Décision :** Morris **GO R1–R4** (correctif éditorial ciblé — sans commit branche projet)
+**Handoff avant :** `origin/sfia/review-handoff` @ `32f1c6607e81a5117bb7750096ff2980a9195fc8`
+**Branche projet :** `documentation/sfia-discovery-acts-06-07-editorial` (non commitée)
 
-Pack PD-06A · contenu intégral 8 fichiers · branche projet non commitée · handoff `sfia/review-handoff` mis à jour séparément.
+### Git state before (correctif)
 
+```text
+M method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md
+ M method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
+?? .sfia/
+?? .tmp-sfia-review/
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
+?? method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md
+?? sfia-review-handoff/
+```
+
+**Périmètre correctif vérifié :** modifications substantives **uniquement** sur
+`sfia-discovery-act-07-explore-the-method-editorial-draft.md` et
+`sfia-discovery-act-06-4-esn-partner-editorial-draft.md` — hub VI · VI.1–VI.3 · README · roadmap **hors** session correctif.
+
+### Réserves — avant / après
+
+| Réserve | Avant (ChatGPT) | Après (correctif Morris GO R1–R4) |
+|---------|-----------------|-----------------------------------|
+| **R1** | §3 Acte VII — table « Fichier cible futur Notion / Orientation Git » | §3 — « Destination Discovery / Approfondissement » |
+| **R2** | §5 porte 1 — « Matrice exhaustive 15 cycles baseline » | « Référentiel détaillé des cycles candidats et règles internes de qualification » |
+| **R3** | VI.4 §3 — « Leçons missionnables » · « il ne remplace pas » | « Leçons réutilisables… sans promotion automatique » · « elle ne remplace pas » |
+| **R4** | VI.4 — « Contact Morris » (réserves + prochaine action) | « Non définie dans Discovery — décision Morris distincte » · sans étape Contact Morris |
+
+### Acte VII — section 3 complète (corrigée)
+
+```markdown
+## 3. Sept portes d'entrée
+
+| # | Porte | Destination Discovery | Approfondissement |
+|---|-------|-----------------------|-------------------|
+| 1 | [Cycles et profils](#porte-1--cycles-et-profils) | Page pédagogique dédiée | Documentation méthode dans Git |
+| 2 | [Routage des demandes](#porte-2--routage-des-demandes) | Guide simplifié | Référentiel de routage |
+| 3 | [Templates et assets](#porte-3--templates-et-assets) | Index pédagogique | Index des modèles disponibles |
+| 4 | [Gouvernance](#porte-4--gouvernance) | Synthèse des garde-fous | Documentation de gouvernance |
+| 5 | [Mettre SFIA en place](#porte-5--mettre-sfia-en-place) | Guide de démarrage | Documentation d'installation |
+| 6 | [Documents de référence](#porte-6--documents-de-référence) | Portail documentaire | Corpus de référence |
+| 7 | [Glossaire](#porte-7--glossaire) | Glossaire Discovery | Glossaire complet |
+
+**Maximum sept portes visibles** — pas de sous-menu exhaustif ici.
+
+---
+```
+
+### Acte VII — ligne corrigée (§5 tableau — porte 1)
+
+```markdown
+| **1. Cycles et profils** | Quel type de cycle pour ma demande ? | PO · méthode | L2 | Light · Standard · Critical · Capitalization — **orientation** | Référentiel détaillé des cycles candidats et règles internes de qualification |
+```
+
+### Acte VI.4 — sections corrigées
+
+#### Ce que SFIA change pour vous
+
+```markdown
+## 3. Ce que SFIA change pour vous
+
+| Changement | Intérêt partenaire |
+|------------|-------------------|
+| **Cadre reproductible** | Même logique de cycles · gates · livrables |
+| **Gouvernance visible** | Client ou sponsor voit les arbitrages |
+| **Livrables attendus** | Galerie Acte IV — catégories partagées |
+| **REX et capitalisation** | Leçons réutilisables entre missions — sans promotion automatique |
+| **Adaptation au contexte** | Périmètre client — pas copie intégrale méthode interne |
+
+SFIA structure la **delivery** — elle ne remplace pas votre proposition commerciale.
+
+---
+```
+
+#### Valeur attendue — sans chiffre inventé
+
+```markdown
+## 4. Valeur attendue — sans chiffre inventé
+
+- **Meilleure lisibilité** pour le client sponsor ;
+- **Reprise** en cas de changement d'équipe mission ;
+- **Réduction du flou** scope · QA · merge ;
+- **Discipline IA** alignée avec le contrat d'exécution.
+
+Aucune promesse de **marge** · **win rate** · ou **différenciation marché garantie**.
+
+---
+```
+
+#### Réserves obligatoires (persona ESN)
+
+```markdown
+### Réserves obligatoires (persona ESN)
+
+| Sujet | Statut Discovery |
+|-------|------------------|
+| **Licensing** | Non défini — GO Morris distinct |
+| **Redistribution** | Non autorisée implicitement |
+| **Partenariat** | Non promis |
+| **Propriété intellectuelle** | Non attribuée ni transférée ici |
+| **Offre commerciale** | Non définie dans Discovery — décision Morris distincte |
+
+---
+```
+
+#### Prochaine action pédagogique
+
+```markdown
+## 10. Prochaine action pédagogique
+
+1. Lire [Acte V](sfia-discovery-act-05-why-it-works-editorial-draft.md) — garanties et non-garanties ;
+2. Parcourir [Acte IV](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md) — livrables attendus ;
+3. [Acte VII](sfia-discovery-act-07-explore-the-method-editorial-draft.md) — gouvernance · setup ;
+
+---
+```
+
+### git diff --stat (2 fichiers correctifs vs embed handoff PD-06A)
+
+```text
+ .../notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md |  57 +++++++++++++++++++++-----
+ .../notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md |  20 ++++++++++----------
+ 2 files changed, 64 insertions(+), 13 deletions(-)```
+
+### QA — 34 contrôles (correctif R1–R4)
+
+| # | Contrôle | Résultat |
+|---|----------|----------|
+| Q1 | Branche = `documentation/sfia-discovery-acts-06-07-editorial` | **PASS** |
+| Q2 | HEAD = `96d1580e33baa1ec6e97622c7f2f59a4787ec510` | **PASS** |
+| Q3 | Correctif — seuls act-07 + act-06-4 modifiés vs embed handoff (VI hub/1–3 préfixe inchangé) | **PASS** |
+| Q4 | README / roadmap non touchés en session correctif | **PASS** |
+| Q5 | Handoff avant = `32f1c6607e81a5117bb7750096ff2980a9195fc8` | **PASS** |
+| Q6 | `Matrice exhaustive` absent (Acte VII §1–3 + VI.4) | **PASS** |
+| Q7 | `Contact Morris` absent (VI.4) | **PASS** |
+| Q8 | `Leçons missionnables` absent (VI.4) | **PASS** |
+| Q9 | R1 — table §3 `Destination Discovery` / `Approfondissement` | **PASS** |
+| Q10 | R1 — §3 sans colonnes Notion/P0 techniques | **PASS** |
+| Q11 | R2 — §5 porte 1 formulation Référentiel détaillé… | **PASS** |
+| Q12 | R2 — plus « Matrice exhaustive 15 cycles baseline » | **PASS** |
+| Q13 | R3 — Leçons réutilisables… sans promotion automatique | **PASS** |
+| Q14 | R3 — « elle ne remplace pas » | **PASS** |
+| Q15 | R4 — Offre commerciale Discovery / Morris distincte | **PASS** |
+| Q16 | R4 — Prochaine action sans Contact Morris | **PASS** |
+| Q17 | Porte 1 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q18 | Porte 2 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q19 | Porte 3 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q20 | Porte 4 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q21 | Porte 5 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q22 | Porte 6 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q23 | Porte 7 — `Source inspiration` préservée (contrainte DIFF) | **PASS** |
+| Q24 | Pattern `Morris tranchera` absent (6 drafts) | **PASS** |
+| Q25 | §3 — sept portes numérotées 1–7 | **PASS** |
+| Q26 | Maximum sept portes visibles (§3) | **PASS** |
+| Q27 | Table profils sous porte 1 (Light→Capitalization) | **PASS** |
+| Q28 | VI.4 — Réserves obligatoires présentes | **PASS** |
+| Q29 | §7 protégé — Matrice de routage exhaustive (OK) | **PASS** |
+| Q30 | Baseline SFIA v2.4 (Acte VII) | **PASS** |
+| Q31 | HEAD 96d1580 dans fichiers correctifs | **PASS** |
+| Q32 | 0 commit ahead origin/main (projet) | **PASS** |
+| Q33 | Fichiers correctifs untracked | **PASS** |
+| Q34 | Verdict correctif READY FOR CHATGPT RE-REVIEW | **PASS** |
+
+*Note : portes 1–7 — lignes « Source inspiration » préservées (contrainte DIFF) ; table §3 nettoyée (R1).*
+
+---
+
+## Verdict final (post-correctif)
+
+**ACTS VI-VII EDITORIAL CORRECTED — READY FOR CHATGPT RE-REVIEW**
+
+Correctif PD-06A R1–R4 appliqué sur disque · branche projet non commitée · handoff `sfia/review-handoff` mis à jour séparément.
