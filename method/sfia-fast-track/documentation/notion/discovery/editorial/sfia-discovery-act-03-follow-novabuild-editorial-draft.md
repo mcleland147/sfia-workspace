@@ -14,7 +14,7 @@
 | **Niveau lecture** | L1–L2 |
 | **Durée cible** | 15–20 minutes (page + quatre séquences) |
 | **NovaBuild** | **Cas pédagogique composite** |
-| **Implémentation Notion** | Non — gate PD-04B futur |
+| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-04A |
 | **Réaction recherchée** | « Je vois comment SFIA accompagne réellement un projet. » |
 
 ---

@@ -13,7 +13,7 @@
 | **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
 | **Niveau lecture** | L2 |
 | **Durée cible** | 8–10 minutes |
-| **Implémentation Notion** | Non — gate PD-05B futur |
+| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-05A |
 | **Réaction recherchée** | « C'est tangible. » |
 
 ---

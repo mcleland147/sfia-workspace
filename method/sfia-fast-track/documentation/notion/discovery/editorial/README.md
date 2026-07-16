@@ -3,16 +3,16 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Statut** | **Candidate** — brouillons éditoriaux Discovery |
-| **Cycle courant** | PD-07A — migration legacy (préparation Git) |
+| **Cycle courant** | PD-08B — corrections éditoriales (resync métadonnées) |
 | **Propriétaire** | Morris |
 | **Baseline opérationnelle** | SFIA v2.4 |
 | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
-| **Branche projet** | `documentation/sfia-discovery-legacy-migration-plan` |
-| **HEAD / base** | `9dd9dcfb4325b1b0fefaa39ba9c25899709b675c` |
-| **Horodatage** | 2026-07-15 22:30 Europe/Paris (CEST) |
-| **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B ✓ · PD-06B ✓ · PD-07B futur |
+| **Branche projet** | `documentation/sfia-discovery-pd-08-qa` |
+| **HEAD / base** | `1125972bb1a78379cdc485250bf34625141bdde6` |
+| **Horodatage** | 2026-07-16 10:40 Europe/Paris (CEST) |
+| **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B ✓ · PD-06B ✓ · PD-07B ✓ (validée Morris) |
 | **Capitalisation méthode** | Non |
-| **Migration Notion** | **Non exécutée** — plan Git seulement |
+| **Migration Notion** | **Validée Morris** (PD-07B) — sans preuve runtime Cursor |
 
 ---
 
@@ -32,7 +32,7 @@ Le plan de migration legacy (PD-07A) vit dans :
 
 ```text
 Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓ → Acte VI ✓ → Acte VII ✓
-→ migration legacy (PD-07A en cours) → QA (PD-08) → capitalisation? (PD-09)
+→ migration legacy (PD-07A mergé ✓ · PD-07B validée Morris ✓) → QA (PD-08A ✓ · PD-08B en cours) → capitalisation? (PD-09)
 ```
 
 **Acte II avant Acte III** — le contraste précède le fil rouge NovaBuild.
@@ -66,8 +66,8 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓
 
 | # | Fichier | Rôle | Statut |
 |---|---------|------|--------|
-| 17 | [../migration/sfia-discovery-legacy-content-inventory.md](../migration/sfia-discovery-legacy-content-inventory.md) | Inventaire legacy §00–11 | **PD-07A — revue** |
-| 18 | [../migration/sfia-discovery-legacy-migration-plan.md](../migration/sfia-discovery-legacy-migration-plan.md) | Plan PD-07B réversible | **PD-07A — revue** |
+| 17 | [../migration/sfia-discovery-legacy-content-inventory.md](../migration/sfia-discovery-legacy-content-inventory.md) | Inventaire legacy §00–11 | ✓ mergé (PD-07A · PR #201) |
+| 18 | [../migration/sfia-discovery-legacy-migration-plan.md](../migration/sfia-discovery-legacy-migration-plan.md) | Plan PD-07B réversible | ✓ mergé (PD-07A · PR #201) |
 
 ---
 
@@ -94,8 +94,9 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓
 | Acte III NovaBuild | PD-04A ✓ (PR #198) | PD-04B ✓ |
 | Actes IV–V | PD-05A ✓ (PR #199) | PD-05B ✓ |
 | Actes VI–VII | PD-06A ✓ (PR #200) | PD-06B ✓ |
-| Migration legacy | **PD-07A** (présent — revue) | PD-07B — futur |
-| QA narrative | PD-08 — futur | — |
+| Migration legacy | PD-07A ✓ (PR #201) | PD-07B ✓ (validée Morris) |
+| QA narrative | PD-08A ✓ | — |
+| Corrections éditoriales | **PD-08B** (présent — revue) | — |
 
 **NovaBuild** = cas pédagogique composite — catégories livrables inspirées d'actifs SFIA vérifiables.
 
@@ -116,7 +117,7 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 
 ## 8. Garde-fous
 
-- Aucune page Notion PD-07B · aucun archivage · aucune suppression
+- Migration legacy PD-07B validée Morris (Notion) — trace Git PD-07A mergé (PR #201)
 - Aucun prompt catalog · aucune capitalisation baseline
 - Drafts P0 legacy **non modifiés** dans ce cycle
 
@@ -126,6 +127,8 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 
 - PD-01 · PD-02A · PD-03A · PD-04A · PD-05A · PD-06A mergés ✓
 - PD-02B · PD-03B · PD-04B · PD-05B · PD-06B finalisés Notion ✓
+- PR #201 mergée · PD-07A ✓ · PD-07B validée Morris ✓
+- PD-08A QA narrative ✓ — verdict READY WITH EDITORIAL RESERVES
 - Acte II avant Acte III ✓
 - NovaBuild composite ✓
 - PR #199 mergée · PD-05A/B ✓
@@ -137,22 +140,22 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
 
 | Gate | Objet | Statut |
 |------|-------|--------|
-| **M1** | Inventaire legacy complet et sourcé | En attente |
-| **M2** | Mapping legacy → Discovery | En attente |
-| **M3** | Stratégie proposée par page | En attente |
-| **M4** | Contrôle absence de perte | En attente |
-| **M5** | Plan PD-07B réversible | En attente |
-| **M6** | Contenu complet exploitable | En attente |
-| **M7** | GO commit / push / PR | En attente |
-| **M8** | GO PD-07B Notion | Hors cycle — futur |
+| **M1** | Inventaire legacy complet et sourcé | ✓ (PD-07A mergé) |
+| **M2** | Mapping legacy → Discovery | ✓ (PD-07A mergé) |
+| **M3** | Stratégie proposée par page | ✓ (PD-07A mergé) |
+| **M4** | Contrôle absence de perte | ✓ (PD-07A mergé) |
+| **M5** | Plan PD-07B réversible | ✓ (PD-07A mergé) |
+| **M6** | Contenu complet exploitable | ✓ (PD-07A mergé) |
+| **M7** | GO commit / push / PR | ✓ (PR #201) |
+| **M8** | GO PD-07B Notion | ✓ (validée Morris) |
 
 ---
 
 ## 11. Critères d'entrée PD-07B
 
-- Inventaire et plan validés Morris · merge Git recommandé · GO exécution Notion
+- Inventaire et plan validés Morris · merge Git ✓ (PR #201) · exécution Notion validée Morris ✓
 - Dépendance : PD-06A/B ✓
-- Lot 0 inventaire Notion réel obligatoire avant toute redirection
+- Lot 0 inventaire Notion réel exécuté (PD-07B — validation Morris)
 
 ---
 

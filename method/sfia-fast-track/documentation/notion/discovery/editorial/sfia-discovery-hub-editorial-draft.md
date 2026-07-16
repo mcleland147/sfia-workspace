@@ -13,7 +13,7 @@
 | **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
 | **Niveau lecture** | L0 |
 | **Durée cible** | 30 secondes à 3 minutes (hero + orientation) |
-| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) — document source Git PD-02A |
+| **Implémentation Notion** | Réalisée et validée par Morris (PD-02B à PD-07B) — source Git PD-02A à PD-06A |
 | **Audience** | Tous personas — orientation |
 
 ---
@@ -141,7 +141,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
 | **Contenu** | Hub complet · **Acte I** intégral |
 | **Pages / actes** | Hub → Acte I |
 | **Résultat** | « Je comprends pourquoi ChatGPT ou Cursor seuls ne suffisent pas » |
-| **CTA** | Acte II *(PD-03A)* ou porte persona |
+| **CTA** | Acte II ou porte persona |
 
 ---
 
@@ -155,7 +155,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
 | **Résultat** | « Je vois des livrables concrets et un cadre crédible » |
 | **CTA** | Acte III (extrait) ou contact Morris |
 
-*Actes II et IV : cycles éditoriaux futurs — liens de navigation à compléter.*
+*Actes II et IV disponibles — parcours I → II → IV (teaser) puis Acte III selon le temps.*
 
 ---
 
@@ -189,10 +189,10 @@ Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigati
 
 | Persona | Question | Entrée recommandée | Parcours | CTA |
 |---------|----------|-------------------|----------|-----|
-| **Dirigeant PME** | « Pourquoi investir dans une méthode ? » | Parcours 10 min | Hub → Acte I → Acte VI.1 (futur) | Comprendre le risque maîtrisé |
+| **Dirigeant PME** | « Pourquoi investir dans une méthode ? » | Parcours 10 min | Hub → Acte I → Acte VI.1 | Comprendre le risque maîtrisé |
 | **Chef de projet / PO** | « Comment structurer sans surcharger ? » | Parcours 20 min | Acte I → II → III (extrait) | Voir cycles et livrables |
 | **Équipe technique** | « Où sont les garde-fous ? » | Porte « Livrables & traçabilité » | Acte IV → VII (orientation) | Lien Git |
-| **ESN / partenaire** | « Puis-je reproduire cette offre ? » | Porte « Partenaire » | Acte II → V → VI.4 (futur) | Gouvernance Morris |
+| **ESN / partenaire** | « Puis-je reproduire cette offre ? » | Porte « Partenaire » | Acte II → V → VI.4 | Gouvernance Morris |
 | **Prospect non technique** | « C'est quoi concrètement ? » | Parcours 3 min | Hero + Acte I (ouverture) | Acte I complet |
 
 **Bloc navigation cible (PD-02B) :**
@@ -211,13 +211,13 @@ Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigati
 
 | Acte | Question | Statut éditorial |
 |------|----------|------------------|
-| **I** | Pourquoi SFIA existe ? | **PD-02A** — brouillon présent |
-| **II** | En quoi SFIA diffère-t-elle ? | **PD-03A** — brouillon en revue |
-| **III** | À quoi ressemble un projet ? | Futur **PD-04A** (NovaBuild) |
-| **IV** | Que produit-on ? | Futur **PD-05A** |
-| **V** | Pourquoi ça tient ? | Futur **PD-05A** |
-| **VI** | Comment me projeter ? | Futur **PD-06A** |
-| **VII** | Où approfondir la méthode ? | Futur **PD-06A** |
+| **I** | Pourquoi SFIA existe ? | ✓ mergé (PD-02A) |
+| **II** | En quoi SFIA diffère-t-elle ? | ✓ mergé (PD-03A) |
+| **III** | À quoi ressemble un projet ? | ✓ mergé (PD-04A — NovaBuild) |
+| **IV** | Que produit-on ? | ✓ mergé (PD-05A) |
+| **V** | Pourquoi ça tient ? | ✓ mergé (PD-05A) |
+| **VI** | Comment me projeter ? | ✓ mergé (PD-06A — hub + VI.1 à VI.4) |
+| **VII** | Où approfondir la méthode ? | ✓ mergé (PD-06A) |
 
 Le Hub **annonce** le voyage — il ne livre pas la méthode complète.
 
@@ -283,8 +283,8 @@ Lien cible PD-02B : page Acte I en enfant direct du Hub.
 | CTA | Destination | Profil |
 |-----|-------------|--------|
 | Choisir mon parcours (10 min) | Acte I | Dirigeant, prospect |
-| Voir ce que SFIA produit | Acte IV (futur) | PO, technique |
-| Comprendre la gouvernance | Acte V (futur) | ESN, contributeur |
+| Voir ce que SFIA produit | Acte IV | PO, technique |
+| Comprendre la gouvernance | Acte V | ESN, contributeur |
 | Aller à la méthode détaillée | Acte VII + Git | Technique, méthode |
 | Statut Candidate · Sources Git | Meta footer | Tous |
 
@@ -294,13 +294,18 @@ Lien cible PD-02B : page Acte I en enfant direct du Hub.
 
 ```text
 Hub Discovery
-├── ACTE I — Pourquoi SFIA existe          ← PD-02A
-├── ACTE II — Une nouvelle façon…           (futur)
-├── ACTE III — Suivons NovaBuild            (futur)
-├── ACTE IV — Ce que SFIA produit           (futur)
-├── ACTE V — Pourquoi cela fonctionne       (futur)
-├── ACTE VI — Se projeter                   (futur)
-├── ACTE VII — Explorer la méthode          (futur)
+├── ACTE I — Pourquoi SFIA existe
+├── ACTE II — Une nouvelle façon de conduire un projet
+├── ACTE III — Suivons NovaBuild
+├── ACTE IV — Ce que SFIA produit
+├── ACTE V — Pourquoi cela fonctionne
+├── ACTE VI — Se projeter
+│   ├── VI.1 — Dirigeant PME
+│   ├── VI.2 — Chef de projet / PO
+│   ├── VI.3 — Équipe technique
+│   └── VI.4 — ESN / partenaire
+├── ACTE VII — Explorer la méthode
+├── Annexes SFIA
 └── Meta — Candidate · Git · Morris
 ```
 
