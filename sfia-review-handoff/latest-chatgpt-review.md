@@ -836,3 +836,24 @@ prompts/templates/sfia-cycle-execution-template.md:14: trailing whitespace.
 **Verdict principal (inchangé) :** `SFIA v2.6 BASELINE PREPARED — READY FOR MORRIS REVIEW`
 
 *Fin du review pack FULL — Cycle 15 Capitalization Critical — 2026-07-16 13:40 Europe/Paris (CEST).*
+
+---
+
+## Technical validation update — baseline commit local (mono-cycle v2.6) — 2026-07-16 14:05 CEST
+
+**Cycle :** mono-cycle SFIA v2.6 baseline officialization (inchangé)
+
+| Item | Result |
+|------|--------|
+| Manifest lines 241–246 trailing whitespace | closed (2 spaces stripped per line) |
+| Temporary staged check (`git diff --cached --check` then unstage) | OK |
+| Final staged check (8 paths) | OK — check clean |
+| Commit SHA | `6e9eed1def9dec34b5e2a458728cb0d590238d5b` |
+| Parent SHA | `805952a9fffdba8787f07e5d60cf90ef74dacd37` |
+| Message | `docs: prepare SFIA v2.6 consolidated baseline` |
+| Files | exactly 8 (7 M + 1 A) |
+| Push work branch | **no push** |
+| Status baseline | still **PROPOSED BASELINE** (entrée en vigueur après merge) |
+
+**Verdict :** `SFIA v2.6 BASELINE COMMITTED LOCALLY — READY FOR MORRIS PUSH/PR DECISION`
+
