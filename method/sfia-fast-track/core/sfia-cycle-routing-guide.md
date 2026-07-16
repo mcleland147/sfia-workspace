@@ -1,16 +1,16 @@
 ---
 status: validated
 version: v1.4
-updated_after: SFIA v2.6 proposed baseline officialization — consolidation v2.4 + v2.5 absorbed + repository rationalization
+updated_after: SFIA v2.6 baseline officialization post-merge (PR #204) — consolidation v2.4 + v2.5 absorbed + repository rationalization
 scope: cycle routing and reference selection
 ---
 
 # Guide de routage des cycles SFIA
 
 **Version:** v1.4
-**Status:** Validated — aligné **SFIA v2.6 proposed baseline** (héritage v2.4 §4.3 · acquis v2.5 absorbés §4.4)
+**Status:** Validated — aligné **SFIA v2.6 baseline opérationnelle** (héritage v2.4 §4.3 · acquis v2.5 absorbés §4.4)
 **Scope:** Routage des cycles, sélection des références, templates et validations
-**Baseline proposée :** SFIA v2.6 — en vigueur après merge ; voir §4.3 (héritage) et §4.4 (acquis absorbés)
+**Baseline opérationnelle :** SFIA v2.6 — active sur `main` ; voir §4.3 (héritage) et §4.4 (acquis absorbés)
 ## 1. Objectif
 
 Ce document définit comment SFIA sélectionne, pour chaque cycle :
@@ -161,7 +161,7 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
 ### 4.3 Routage — héritage SFIA v2.4 (consolidation & operating efficiency)
 
 > **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
-> **Statut version :** héritage opérationnel **absorbé dans SFIA v2.6 (proposed baseline)** — v2.4 = baseline historique précédente.
+> **Statut version :** héritage opérationnel **absorbé dans SFIA v2.6 (baseline opérationnelle)** — v2.4 = baseline historique précédente.
 > **v3.0 :** immediate NO-GO — toute discussion v3.0 = décision Morris dédiée.
 
 SFIA v2.4 reste le **standard de consolidation** de référence pour les cycles. Il couvre notamment :
@@ -255,7 +255,7 @@ Handoff ChatGPT ↔ Cursor ↔ Git : **cadre documentaire** v2.4 §10 — **non 
 ### 4.4 Routage — acquis SFIA v2.5 absorbés dans v2.6 (profils transverses)
 
 > **Référence historique :** `method/sfia-fast-track/documentation/archive/version-history/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1
-> **Statut version :** acquis **absorbés dans SFIA v2.6 (proposed baseline)** — v2.5 = candidate absorbée, **jamais** baseline opérationnelle
+> **Statut version :** acquis **absorbés dans SFIA v2.6 (baseline opérationnelle)** — v2.5 = candidate absorbée, **jamais** baseline opérationnelle
 > **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2
 > **Cartographie cycles projet :** s'appuie sur l'historique `…/archive/version-history/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` et le template d'exécution actif.
 
@@ -981,7 +981,7 @@ Référence : `method/sfia-fast-track/automation/sfia-repository-execution-engin
 
 ## 13. Décision
 
-`sfia-cycle-routing-guide.md` est le **guide validé** pour sélectionner les références, templates et contrôles de validation selon le type de cycle — aligné **SFIA v2.6 proposed baseline** (héritage v2.4 / v2.4.1 · acquis v2.5 absorbés).
+`sfia-cycle-routing-guide.md` est le **guide validé** pour sélectionner les références, templates et contrôles de validation selon le type de cycle — aligné **SFIA v2.6 baseline opérationnelle** (héritage v2.4 / v2.4.1 · acquis v2.5 absorbés).
 
 Il fournit le mécanisme opérationnel permettant de s'assurer que la documentation SFIA est appliquée au bon moment.
 
@@ -999,4 +999,4 @@ Il rend la sélection documentaire **explicite, auditable et validable**.
 
 ---
 
-*Référentiel SFIA — Guide de routage des cycles v1.4 — validated document — aligné SFIA v2.6 proposed baseline (héritage v2.4 / acquis v2.5 absorbés).*
+*Référentiel SFIA — Guide de routage des cycles v1.4 — validated document — aligné SFIA v2.6 baseline opérationnelle (héritage v2.4 / acquis v2.5 absorbés).*

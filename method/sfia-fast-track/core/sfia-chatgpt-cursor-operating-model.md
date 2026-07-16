@@ -540,7 +540,7 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
 ### 18.2 Complément — acquis SFIA v2.5 absorbés dans v2.6 (MVP méthode proportionnée)
 
 > **Référence historique :** `sfia-v2.5-project-plan.md` — Cycle 1 — capitalisation Chantiers360 post-MVP.
-> **Statut version :** acquis **absorbés dans SFIA v2.6 (proposed baseline)** — v2.5 = candidate absorbée, **jamais** baseline.
+> **Statut version :** acquis **absorbés dans SFIA v2.6 (baseline opérationnelle)** — v2.5 = candidate absorbée, **jamais** baseline.
 > **Ne remplace pas** l'héritage v2.4 — **opérationnalise** la proportionnalité.
 
 Ce complément clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables (voir `sfia-cycle-routing-guide.md` §4.3.1).
