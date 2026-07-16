@@ -1,18 +1,18 @@
 ---
-status: candidate
-version: v2.5-candidate
+status: proposed-baseline
+version: v2.6-proposed-baseline
 type: prompt-instantiation-template
-family: SFIA v2.5 cycle execution
-updated_after: SFIA v2.5 Cycle 3 — méthode cycles projet (PR #146)
+family: SFIA v2.6 cycle execution
+updated_after: SFIA v2.6 proposed baseline officialization — consolidation v2.4 + v2.5 absorbed
 scope: instantiate Cursor execution prompts from ChatGPT
 ---
 
-# SFIA Cycle Execution — Template d'instanciation v2.5 candidate
+# SFIA Cycle Execution — Template d'instanciation v2.6 (proposed baseline)
 
 **Fichier :** `prompts/templates/sfia-cycle-execution-template.md`  
-**Statut :** SFIA v2.5 **candidate** — non validé comme baseline  
-**Baseline opérationnelle :** SFIA v2.4 — tant que Morris n'a pas validé explicitement v2.5  
-**Références :** `sfia-v2.5-project-cycles-method-candidate.md` ; operating model §18.2 ; routing guide §4.4 ; PGE §7
+**Statut :** SFIA v2.6 **proposed baseline** — **en vigueur après merge** Morris
+**Baseline proposée :** SFIA v2.6 — absorbe héritage v2.4 et acquis v2.5
+**Références :** operating model §18.2 ; routing guide §4.3–§4.4 ; manifest `2026-07-16-sfia-v2.6-baseline-release-manifest.md`
 
 > **Ce document est un template d'instanciation pour ChatGPT.** Il sert à **générer** des prompts Cursor SFIA adaptés au contexte. **Ce n'est pas un prompt Cursor à envoyer tel quel.**
 
@@ -26,7 +26,7 @@ scope: instantiate Cursor execution prompts from ChatGPT
 | **Pas pour** | Envoi direct à Cursor sans instanciation |
 | **Objectif** | Produire un **contrat d'exécution** borné : type de cycle + profil SFIA + périmètre + garde-fous |
 | **Repo-first** | Git est la source canonique ; le prompt déclare branche, HEAD, périmètre fichiers |
-| **Statut** | v2.5 **candidate** — ne valide pas SFIA v2.5 ; ne remplace pas v2.4 |
+| **Statut** | v2.6 **proposed baseline** — consolidation ; non en vigueur avant merge |
 | **Morris** | Autorité de décision — gates structurants, push, PR, merge, validation de baseline |
 | **Cursor** | Exécuteur contrôlé — ne décide pas, n'élargit pas le scope, n'arbitre pas |
 
@@ -155,7 +155,9 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 - Prompt sans périmètre / hors périmètre
 - Oublier review pack sur cycle documentaire
 - Omettre la décision Review Handoff Git (required / not required)
-- Présenter v2.5 comme baseline validée
+- Présenter une candidate non mergée comme baseline validée
+- Présenter v2.6 comme baseline officielle **avant** merge Morris
+- Relancer SFIA v3.0 sans GO Morris
 
 ---
 
@@ -321,7 +323,7 @@ Fichiers interdits :
 Garde-fous :
 - Ne pas push / PR / merge sans GO Morris
 - Ne pas élargir le périmètre
-- Ne pas valider SFIA v2.5 comme baseline
+- Ne pas déclarer SFIA v2.6 baseline officielle avant merge
 - Ne pas relancer SFIA 3.0
 - Git = source de vérité
 - [Garde-fous spécifiques au cycle]
@@ -1179,7 +1181,7 @@ Cursor doit **stopper** et demander Morris si :
 9. Suppression de branche sans GO Morris
 10. Décision structurante non validée
 11. Profil Critical sans justification
-12. Promotion v2.5 implicite
+12. Promotion implicite d'une baseline / candidate hors GO Morris
 13. Relance SFIA 3.0 implicite
 14. Modification Prompt Catalog sans GO Morris
 15. Tentative d'automatiser un arbitrage humain
@@ -1348,10 +1350,10 @@ Procédure détaillée :
 5. Critical : toujours justifier. Standard par défaut si doute.
 6. Review pack proportionné : none / light / full — voir template §7. Jamais de stub final si light ou full requis.
 7. Review Handoff Git : décision required / not required obligatoire dans chaque prompt (template §3, §5, §7.10–§7.11). Lorsque required : copie, commit, push origin/sfia/review-handoff, vérification remote, instruction ChatGPT §9.1 dans le rapport final. Verdict PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING si absent.
-8. v2.5 = candidate, non baseline. v2.4 reste baseline opérationnelle tant que Morris n'a pas validé v2.5.
+8. v2.6 = proposed baseline (en vigueur après merge). v2.4 = historique précédente. v2.5 = candidate absorbée. v3.0 = hors trajectoire.
 9. Morris décide push branche projet, PR, merge, gates structurants. Cursor exécute le contrat — ne décide pas. Push handoff required = L3 borné sans micro-GO Morris.
 ```
 
 ---
 
-*SFIA v2.5 candidate — Template d'instanciation — Cycle 3 — non validé comme baseline — Morris décide.*
+*SFIA v2.6 proposed baseline — Template d'instanciation — consolidation v2.4 + acquis v2.5 — en vigueur après merge — Morris décide.*

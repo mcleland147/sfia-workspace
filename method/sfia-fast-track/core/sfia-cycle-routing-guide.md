@@ -1,17 +1,16 @@
 ---
 status: validated
-version: v1.3
-updated_after: SFIA v2.5 candidate Cycle 1 — MVP méthode proportionnée
+version: v1.4
+updated_after: SFIA v2.6 proposed baseline officialization — consolidation v2.4 + v2.5 absorbed + repository rationalization
 scope: cycle routing and reference selection
 ---
 
 # Guide de routage des cycles SFIA
 
-**Version:** v1.3
-**Status:** Validated — complément SFIA v2.5 candidate Cycle 1 (hypothèse candidate)
+**Version:** v1.4
+**Status:** Validated — aligné **SFIA v2.6 proposed baseline** (héritage v2.4 §4.3 · acquis v2.5 absorbés §4.4)
 **Scope:** Routage des cycles, sélection des références, templates et validations
-**Standard consolidation actif :** SFIA v2.4 — voir §4.3 ; complément v2.5 candidate §4.4
-
+**Baseline proposée :** SFIA v2.6 — en vigueur après merge ; voir §4.3 (héritage) et §4.4 (acquis absorbés)
 ## 1. Objectif
 
 Ce document définit comment SFIA sélectionne, pour chaque cycle :
@@ -159,13 +158,13 @@ Si le type de cycle n'est pas clair, lancer d'abord un **cycle de cadrage** (mé
 | Capitalisation projet | Transformer un résultat projet en actif SFIA réutilisable |
 | Roadmap projet | Structurer les prochaines étapes, jalons, dépendances et priorités |
 
-### 4.3 Routage SFIA v2.4 — consolidation & operating efficiency
+### 4.3 Routage — héritage SFIA v2.4 (consolidation & operating efficiency)
 
 > **Référence détaillée :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.4-consolidation-operating-efficiency-standard.md`
-> **Baseline méthode :** SFIA v2.3.1 — **standard actif v2.4** depuis PR #139.
+> **Statut version :** héritage opérationnel **absorbé dans SFIA v2.6 (proposed baseline)** — v2.4 = baseline historique précédente.
 > **v3.0 :** immediate NO-GO — toute discussion v3.0 = décision Morris dédiée.
 
-SFIA v2.4 est le **standard de consolidation** pour les cycles futurs. Il couvre notamment :
+SFIA v2.4 reste le **standard de consolidation** de référence pour les cycles. Il couvre notamment :
 
 - profils projet et méthode adaptative ;
 - typologie INC / EVOL / RUN / CAPA / DOC ;
@@ -253,14 +252,14 @@ Handoff ChatGPT ↔ Cursor ↔ Git : **cadre documentaire** v2.4 §10 — **non 
 
 **Git reste la source de vérité.**
 
-### 4.4 Routage SFIA v2.5 candidate — profils transverses
+### 4.4 Routage — acquis SFIA v2.5 absorbés dans v2.6 (profils transverses)
 
-> **Référence :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1
-> **Statut :** hypothèse **candidate** — ne valide pas v2.5 ; preuve Cycle 4 ; Morris décide
+> **Référence historique :** `method/sfia-fast-track/documentation/archive/version-history/sfia-v2/sfia-v2.5-project-plan.md` — Cycle 1
+> **Statut version :** acquis **absorbés dans SFIA v2.6 (proposed baseline)** — v2.5 = candidate absorbée, **jamais** baseline opérationnelle
 > **Détail opérationnel :** `sfia-chatgpt-cursor-operating-model.md` §18.2
-> **Cartographie cycles projet (Cycle 2) :** le routage type de cycle projet × profil SFIA s'appuie, en v2.5 candidate, sur `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`.
+> **Cartographie cycles projet :** s'appuie sur l'historique `…/archive/version-history/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md` et le template d'exécution actif.
 
-Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables.
+Ce complément clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie héritée v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables.
 
 #### 4.4.1 Type de cycle projet vs profil SFIA
 
@@ -982,7 +981,7 @@ Référence : `method/sfia-fast-track/automation/sfia-repository-execution-engin
 
 ## 13. Décision
 
-`sfia-cycle-routing-guide.md` est le **guide validé SFIA v1.2** pour sélectionner les références, templates et contrôles de validation selon le type de cycle — aligné SFIA v2.4 / v2.4.1 (PR #139, #140).
+`sfia-cycle-routing-guide.md` est le **guide validé** pour sélectionner les références, templates et contrôles de validation selon le type de cycle — aligné **SFIA v2.6 proposed baseline** (héritage v2.4 / v2.4.1 · acquis v2.5 absorbés).
 
 Il fournit le mécanisme opérationnel permettant de s'assurer que la documentation SFIA est appliquée au bon moment.
 
@@ -1000,4 +999,4 @@ Il rend la sélection documentaire **explicite, auditable et validable**.
 
 ---
 
-*Référentiel SFIA — Guide de routage des cycles v1.3 — validated document — aligné SFIA v2.4 / v2.4.1 / v2.5 candidate Cycle 1.*
+*Référentiel SFIA — Guide de routage des cycles v1.4 — validated document — aligné SFIA v2.6 proposed baseline (héritage v2.4 / acquis v2.5 absorbés).*
