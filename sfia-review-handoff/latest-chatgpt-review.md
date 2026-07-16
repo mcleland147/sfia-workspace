@@ -797,6 +797,42 @@ Lire ce pack depuis `sfia-review-handoff/latest-chatgpt-review.md` sur la branch
 Ne pas traiter v2.6 comme baseline officielle.  
 Ne pas demander commit/push/PR/merge de la branche de travail sans GO Morris explicite.
 
+
 ---
+
+## Technical validation update — trailing whitespace (2026-07-16 13:50 Europe/Paris)
+
+**Réserve ChatGPT traitée :** `git diff --check` trailing whitespace (4 lines).
+
+| File | Lines |
+|------|-------|
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | 542, 543 |
+| `prompts/templates/sfia-cycle-execution-template.md` | 13, 14 |
+
+**Avant :**
+```
+method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md:542: trailing whitespace.
++> **Référence historique :** `sfia-v2.5-project-plan.md` — Cycle 1 — capitalisation Chantiers360 post-MVP.  
+method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md:543: trailing whitespace.
++> **Statut version :** acquis **absorbés dans SFIA v2.6 (proposed baseline)** — v2.5 = candidate absorbée, **jamais** baseline.  
+prompts/templates/sfia-cycle-execution-template.md:13: trailing whitespace.
++**Statut :** SFIA v2.6 **proposed baseline** — **en vigueur après merge** Morris  
+prompts/templates/sfia-cycle-execution-template.md:14: trailing whitespace.
++**Baseline proposée :** SFIA v2.6 — absorbe héritage v2.4 et acquis v2.5  
+```
+
+**Correction :** trailing spaces/tabs removed only — no semantic/Markdown/doctrine change.
+
+**Après :** `git diff --check` → OK — no output
+
+- non-whitespace changes on targeted lines: none
+- doctrine/content changes: none
+- files in cycle: still 7 modified + 1 created (manifest)
+- staging: none
+- HEAD: still 805952a9fffdba8787f07e5d60cf90ef74dacd37
+
+**Verdict correctif :** `TECHNICAL RESERVE CLOSED — READY FOR MORRIS COMMIT DECISION`
+
+**Verdict principal (inchangé) :** `SFIA v2.6 BASELINE PREPARED — READY FOR MORRIS REVIEW`
 
 *Fin du review pack FULL — Cycle 15 Capitalization Critical — 2026-07-16 13:40 Europe/Paris (CEST).*
