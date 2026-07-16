@@ -1,86 +1,113 @@
-# SFIA Review Pack — Discovery Corrections PD-08B
+# SFIA Review Pack — Discovery Corrections PD-08B.1
 
-**Horodatage :** 2026-07-16 10:53 Europe/Paris (CEST)
+**Horodatage :** 2026-07-16 11:25 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
-**Cycle :** PD-08B — corrections éditoriales (resync métadonnées post-PD-08A)
-**Rôle exécuteur :** Cursor (corrections corpus ciblées — 9 fichiers editorial)
-**Profil SFIA :** Standard
+**Cycle :** PD-08B.1 — métadonnées personas VI.1–VI.4 (mono-cycle, profil Light)
+**Rôle exécuteur :** Cursor (fermeture ANOM-04 résiduel personas)
+**Profil SFIA :** Light
 **Typologie v2.4 :** DOC
 **Branche projet :** `documentation/sfia-discovery-pd-08-qa`
 **HEAD :** `1125972bb1a78379cdc485250bf34625141bdde6`
 **origin/main :** `1125972bb1a78379cdc485250bf34625141bdde6`
 **merge-base (HEAD, origin/main) :** `1125972bb1a78379cdc485250bf34625141bdde6`
 **Référence QA :** PD-08A — verdict READY WITH EDITORIAL RESERVES
-**Verdict cycle :** **PD-08B CORRECTIONS READY FOR MORRIS REVIEW**
+**Verdict cycle :** **PD-08B.1 FINAL CORRECTIONS READY FOR MORRIS REVIEW**
 
 ---
 
 ## Synthèse exécutive
 
-Corrections mono-cycle PD-08B appliquées sur **9 fichiers** editorial (Hub, README, Actes II–VII metadata ANOM-04 + **sync corps Acte VII** (4 lignes « futur » obsolètes, aligné README/ANOM-04) + transitions ANOM-05). Objectif : fermer ANOM-01 à ANOM-03, ANOM-05, ANOM-06 et le lot ANOM-04 sur les **actes modifiés** ; personas VI.1–VI.4 **hors périmètre** (métadonnées résiduelles documentées).
+Mono-cycle **PD-08B.1** : correction unique de la métadonnée **Implémentation Notion** sur les **4 personas** Acte VI (VI.1–VI.4), alignée sur le lot **PD-08B** (9 fichiers Hub/README/Actes II–VII). Working tree cumulé : **13 fichiers** editorial (+67 / −59). Aucune modification corps Acte VII dans PD-08B.1 (déjà nettoyé en PD-08B).
 
 | Élément | Valeur |
 |---------|--------|
-| Fichiers modifiés | 9 (editorial uniquement) |
-| Lignes | +63 / −55 |
-| Commit projet | **Non** — working tree modifié, gate Morris |
-| Rapport PD-08A | Untracked (hors ce diff) |
+| Fichiers PD-08B.1 | 4 (personas uniquement) |
+| Fichiers cumulés (PD-08B + PD-08B.1) | 13 |
+| Lignes cumulées | +67 / −59 |
+| Commit projet | **Non** — gate Morris |
+| Rapport PD-08A (`09-sfia-discovery-pd-08-qa-report.md`) | **Untracked** — inchangé hors ce cycle |
 
 ---
 
-## Table anomalies — traitement PD-08B
+## Sources consultées
 
-| ID | Fichier | Section | Ancien (résumé) | Nouveau (résumé) | Justification |
-|----|---------|---------|-----------------|------------------|---------------|
-| **ANOM-01** | `sfia-discovery-hub-editorial-draft.md` | §8 — Statuts actes | Actes II–VII « Futur PD-0xA » / en revue | ✓ mergé (PD-03A–PD-06A) | Aligner Hub sur vérité Git post-merge |
-| **ANOM-02** | `sfia-discovery-hub-editorial-draft.md` | §13 CTAs · §14 arborescence | Destinations « (futur) » · arbre sans VI.1–VI.4 | CTAs Actes IV/V directs · arbre complet + Annexes | Navigation d'entrée non trompeuse (C13) |
-| **ANOM-03** | `editorial/README.md` | En-tête · §6 · §10 gates M1–M8 · §11 | PD-07B futur · M1–M7 en attente · branche PD-07A | PD-08B courant · PD-07A/B ✓ · gates ✓ | Gouvernance documentaire alignée PR #201 + PD-07B Morris |
-| **ANOM-04** | Actes II–VII (7 fichiers) | Métadonnées + **corps Acte VII** (4 lignes) | « futur » / gate PD-0xB | Aligné Morris · Git PD-0xA · Notion ✓ | **Partiel** (personas) — voir note |
-| **ANOM-05** | `act-03-4-release-and-run` · `act-05-why-it-works` | Transitions fin d'acte | « *(futur PD-05A/06A)* » | Libellés CTA sans suffixe futur | Cohérence locale parcours |
-| **ANOM-06** | `sfia-discovery-hub-editorial-draft.md` | §6.3 parcours 20 min | « cycles futurs — liens à compléter » | Actes II et IV disponibles | Parcours teaser documenté |
-
-### Note ANOM-04 (partiel)
-
-**Personas VI.1–VI.4 — modification FORBIDDEN dans PD-08B.** Les fichiers suivants conservent la métadonnée résiduelle :
-
-| Fichier | Ligne résiduelle |
-|---------|------------------|
-| `sfia-discovery-act-06-1-sme-leader-editorial-draft.md` | `Implémentation Notion \| Non — gate PD-06B futur` |
-| `sfia-discovery-act-06-2-project-manager-po-editorial-draft.md` | idem |
-| `sfia-discovery-act-06-3-technical-team-editorial-draft.md` | idem |
-| `sfia-discovery-act-06-4-esn-partner-editorial-draft.md` | idem |
-
-**Acte VII — corps synchronisé (PD-08B bis local).** Quatre lignes du corps corrigées (§1.2 couches · §4.2 bases · §6 frontière Notion/Git · §7.1 migration legacy) — plus la ligne métadonnée « Implémentation Notion » ; cohérent avec `editorial/README.md` et le traitement ANOM-04.
-
-**Action recommandée :** lot PD-08B bis ou PD-09 si Morris autorise le périmètre personas.
+- `method/sfia-fast-track/documentation/notion/discovery/editorial/` — corpus brouillons Discovery (Git)
+- Pack précédent `.tmp-sfia-review/chatgpt-review.md` (PD-08B)
+- `method/sfia-fast-track/documentation/notion/discovery-product-design/09-sfia-discovery-pd-08-qa-report.md` — référence PD-08A (non commité)
+- Ripgrep ciblé — motifs « futur » / gates obsolètes post-PD-07B
+- `git diff` / `git diff --stat` / `git diff --check` sur branche `documentation/sfia-discovery-pd-08-qa`
 
 ---
 
-## QA critères — replay post-corrections (sous-ensemble PD-08A)
+## Fichiers NEW dans PD-08B.1 (périmètre cycle)
 
-| Critère | Statut PD-08A | Statut PD-08B | Commentaire |
-|---------|---------------|---------------|-------------|
-| **C1** | PARTIAL | **PARTIAL** | Pas de test reformulation utilisateur |
-| **C3** | PARTIAL | **PARTIAL** | Lecture simulée experte uniquement |
-| **C10** | PARTIAL | **PARTIAL** | Git conforme ; Notion non crawlé |
-| **C12** | PARTIAL | **PASS** | Hub §8/§14 + README resynchronisés |
-| **C13** | PARTIAL | **PASS** | CTAs et arborescence Hub à jour |
-| **C14** | PARTIAL | **PARTIAL** | Durées cibles non chronométrées |
-| **C17** | PARTIAL | **PARTIAL** | Markdown OK ; Notion non testé |
-| **C18** | PARTIAL | **PARTIAL** | Candidate en Git ; badge Notion non prouvé |
+Uniquement les **4 personas** — une ligne métadonnée chacune :
 
-**Non rejoués ici :** C9, C16 — **NOT TESTABLE** (inchangé).
+| Fichier | Ancien | Nouveau |
+|---------|--------|---------|
+| `sfia-discovery-act-06-1-sme-leader-editorial-draft.md` | `Implémentation Notion \| Non — gate PD-06B futur` | `Implémentation Notion \| Réalisée et validée par Morris — source Git PD-06A` |
+| `sfia-discovery-act-06-2-project-manager-po-editorial-draft.md` | idem | idem |
+| `sfia-discovery-act-06-3-technical-team-editorial-draft.md` | idem | idem |
+| `sfia-discovery-act-06-4-esn-partner-editorial-draft.md` | idem | idem |
+
+**Hors périmètre PD-08B.1 :** Hub, README, Actes II–VII (déjà traités PD-08B).
 
 ---
 
-## Réserves ouvertes
+## Acte VII — vérification (PD-08B.1)
 
-| Réserve | Détail |
-|---------|--------|
-| Personas metadata | VI.1–VI.4 — gate PD-06B futur (ANOM-04 résiduel) |
-| C9 / C16 | Tests utilisateurs · mobile Notion — **NOT TESTABLE** sans runtime |
-| PD-07B Notion | Validation Morris déclarée — non vérifiée runtime Cursor |
+**Constat :** aucun changement requis ni appliqué dans PD-08B.1 sur `sfia-discovery-act-07-explore-the-method-editorial-draft.md`.
+
+**Vérification :**
+
+1. Le `git diff` cumulé Acte VII provient exclusivement du lot **PD-08B** (métadonnée + 4 lignes corps : couches Discovery, bases embed, frontière Notion/Git, note PD-07A).
+2. Ripgrep motifs interdits (`gate PD-06B futur`, `PD-06B futur`, `PD-07A futur`, `Notion futur`, `Implémentation Notion … Non … futur`) : **0 occurrence** dans `editorial/`.
+3. PD-08B.1 n'ajoute aucun hunk sur Acte VII (delta personas = 4 fichiers VI.x uniquement).
+
+**Verdict Acte VII :** déjà propre post-PD-08B — **OK pour gate Morris** sans action supplémentaire.
+
+---
+
+## Ripgrep — motifs gates / Notion obsolètes
+
+```text
+$ rg -n "gate PD-06B futur|PD-06B futur|PD-07A futur|Notion futur|Implémentation Notion.*Non.*futur" method/sfia-fast-track/documentation/notion/discovery/editorial
+(aucune occurrence)
+```
+
+## Ripgrep — toutes occurrences « futur »
+
+```text
+$ rg -n "futur" method/sfia-fast-track/documentation/notion/discovery/editorial
+method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md:169:*Contrats commerciaux · licensing · redistribution — absents — décision Morris future.*
+method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md:118:| SFIA 3.0 ou une baseline future | Le contenu Discovery est **Candidate** ; la baseline opérationnelle reste **v2.4** |
+```
+
+### Qualification des « futur » restants
+
+| Fichier | Ligne | Qualification |
+|---------|-------|---------------|
+| `sfia-discovery-hub-editorial-draft.md` | baseline **future** (SFIA 3.0) | **Légitime** — baseline produit future vs Candidate Discovery v2.4 |
+| `sfia-discovery-act-06-4-esn-partner-editorial-draft.md` | décision Morris **future** (contrats commerciaux) | **Légitime** — réserve commerciale explicite, hors promesse Notion |
+
+Tous les usages « futur » liés aux gates PD-06B / navigation trompeuse sont **éliminés**.
+
+---
+
+## QA critères — replay (sous-ensemble PD-08A + PD-08B)
+
+| Critère | Statut | Commentaire |
+|---------|--------|-------------|
+| **C12** | **PASS** | Hub §8/§14 + README + personas metadata alignés |
+| **C13** | **PASS** | CTAs / arborescence Hub — pas de suffixe futur résiduel |
+| **C18** | **PARTIAL** | Candidate cohérent en Git ; badge Notion non prouvé runtime |
+| **C1** | **PARTIAL** | Pas de test reformulation utilisateur |
+| **C3** | **PARTIAL** | Lecture experte / diff uniquement |
+| **C9** | **NOT TESTABLE** | Parcours utilisateur réel — hors runtime |
+| **C16** | **NOT TESTABLE** | Mobile Notion — hors runtime |
+
+**Rapport PD-08A :** fichier untracked inchangé — non inclus dans le diff editorial.
 
 ---
 
@@ -88,39 +115,43 @@ Corrections mono-cycle PD-08B appliquées sur **9 fichiers** editorial (Hub, REA
 
 | Gate | Question | État |
 |------|----------|------|
-| **M7** | GO commit corrections PD-08B sur `documentation/sfia-discovery-pd-08-qa` ? | **En attente Morris** |
+| **M7** | GO commit **13 fichiers** editorial (PD-08B + PD-08B.1) sur `documentation/sfia-discovery-pd-08-qa` ? | **En attente Morris** |
 | **M7b** | GO push + PR vers `main` ? | **En attente Morris** |
-| **D1** | Accepter ANOM-04 résiduel personas ou extension périmètre ? | **Arbitrage requis** |
-| **D2** | Commit rapport `09-sfia-discovery-pd-08-qa-report.md` (untracked) ? | **Hors pack diff** |
+| **D1** | Message commit unique vs séquentiel PD-08B / PD-08B.1 ? | **Arbitrage Morris** |
+| **D2** | Inclure rapport `09-sfia-discovery-pd-08-qa-report.md` dans le même commit/PR ? | **Hors diff actuel** |
 
-**Recommandation Cursor :** commit unique « docs(discovery): PD-08B editorial resync (metadata + Act VII body) » (9 fichiers) après revue Morris ; PR séparée ou même PR que rapport PD-08A selon préférence.
+**Recommandation Cursor :** commit unique « docs(discovery): PD-08B editorial resync + PD-08B.1 persona metadata » après revue Morris.
 
 ---
 
-## git diff --stat
+## git diff --stat (cumul 13 fichiers — recalculé)
 
-```
- .../notion/discovery/editorial/README.md           | 47 ++++++++++++----------
+```text
+.../notion/discovery/editorial/README.md           | 47 ++++++++++++----------
  ...-02-new-way-to-run-a-project-editorial-draft.md |  2 +-
  ...ery-act-03-4-release-and-run-editorial-draft.md |  2 +-
  ...very-act-03-follow-novabuild-editorial-draft.md |  2 +-
  ...ry-act-04-what-sfia-produces-editorial-draft.md |  2 +-
  ...iscovery-act-05-why-it-works-editorial-draft.md |  4 +-
+ ...iscovery-act-06-1-sme-leader-editorial-draft.md |  2 +-
+ ...-act-06-2-project-manager-po-editorial-draft.md |  2 +-
+ ...very-act-06-3-technical-team-editorial-draft.md |  2 +-
+ ...scovery-act-06-4-esn-partner-editorial-draft.md |  2 +-
  ...very-act-06-project-yourself-editorial-draft.md |  2 +-
  ...ry-act-07-explore-the-method-editorial-draft.md | 10 ++---
  .../sfia-discovery-hub-editorial-draft.md          | 47 ++++++++++++----------
- 9 files changed, 63 insertions(+), 55 deletions(-)
+ 13 files changed, 67 insertions(+), 59 deletions(-)
 ```
 
-## git diff --check
+## git diff --check (cumul)
 
-```
+```text
 (aucune erreur — sortie vide)
 ```
 
 ---
 
-## Diff intégral — fichiers modifiés (9)
+## git diff complet (13 fichiers editorial)
 
 ```diff
 diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/README.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
@@ -307,6 +338,58 @@ index 302d41c..558cc2c 100644
  
  **← Retour : [ACTE IV — Ce que SFIA produit](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md)**
  
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md
+index dc07ca2..c3347d7 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+ | **Niveau lecture** | L1 |
+ | **Durée cible** | 4–5 minutes |
+-| **Implémentation Notion** | Non — gate PD-06B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
+ | **Réaction recherchée** | « Je comprends pourquoi un cadre vaut mieux qu'une demande directe à l'IA. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md
+index dae7cd1..9bb4ace 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+ | **Niveau lecture** | L2 |
+ | **Durée cible** | 5–6 minutes |
+-| **Implémentation Notion** | Non — gate PD-06B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
+ | **Réaction recherchée** | « Je vois comment structurer sans noyer l'équipe dans des documents. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md
+index 77db7d9..b584811 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+ | **Niveau lecture** | L2–L3 contrôlée |
+ | **Durée cible** | 5–6 minutes |
+-| **Implémentation Notion** | Non — gate PD-06B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
+ | **Réaction recherchée** | « Je sais ce que Cursor peut exécuter — et où m'arrêter. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md
+index 4781007..4e37a70 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+ | **Niveau lecture** | L2 |
+ | **Durée cible** | 5–6 minutes |
+-| **Implémentation Notion** | Non — gate PD-06B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
+ | **Réaction recherchée** | « Je vois un cadre reproductible — sans promesse commerciale implicite. » |
+ 
+ ---
 diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
 index 5a8ad4c..ec0c34e 100644
 --- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
@@ -474,8 +557,4 @@ index 1b5a298..68da6a3 100644
 
 ---
 
-## Handoff
-
-Ce pack remplace `latest-chatgpt-review.md` sur branche `sfia/review-handoff` (worktree `sfia-review-handoff/`).
-
-**Verdict final :** **PD-08B CORRECTIONS READY FOR MORRIS REVIEW**
+*Fin du pack PD-08B.1 — généré 2026-07-16 11:25 CEST*
