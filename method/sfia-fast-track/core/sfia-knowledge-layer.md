@@ -20,8 +20,9 @@ scope: knowledge layer
 | Cartography tag | `lot-A` |
 | Authority | **reference** — active Documentation Routing Matrix |
 | Usage (cartography) | Clarified: **non-operational reference** for routing and Notion preparation rules |
-| SFIA v2.4 | **Baseline** opérationnelle |
-| SFIA v2.6 | **Candidate** — ne remplace pas v2.4 |
+| SFIA v2.6 | **Proposed baseline** — en vigueur après merge d'officialisation |
+| SFIA v2.4 | **Baseline historique précédente** (absorbée dans v2.6) |
+| SFIA v2.5 | **Candidate absorbée** dans v2.6 — jamais baseline |
 | Canonical promotion | **none** — complements `sfia-rules-and-guardrails.md` and operating model |
 
 ## 1. Objectif

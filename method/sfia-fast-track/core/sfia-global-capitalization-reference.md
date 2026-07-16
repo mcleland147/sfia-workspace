@@ -35,8 +35,9 @@ Le contenu historique ci-dessous reste inchangé à des fins de traçabilité.
 | Authority | **reference** — operational proof, not canonical |
 | Proposed disposition (CSV) | `rename` — **executed** Lot A → `sfia-global-capitalization-reference.md` |
 | Physical path | `method/sfia-fast-track/core/sfia-global-capitalization-reference.md` |
-| SFIA v2.4 | **Baseline** opérationnelle |
-| SFIA v2.6 | **Candidate** — ne remplace pas v2.4 |
+| SFIA v2.6 | **Proposed baseline** — en vigueur après merge d'officialisation |
+| SFIA v2.4 | **Baseline historique précédente** (absorbée dans v2.6) |
+| SFIA v2.5 | **Candidate absorbée** dans v2.6 — jamais baseline |
 
 ## 1. Objectif
 

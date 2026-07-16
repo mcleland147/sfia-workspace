@@ -6,8 +6,13 @@ This folder contains the operational foundation documents of the SFIA Fast Track
 
 | Version | Role |
 |---------|------|
-| **SFIA v2.4** | **Baseline** opérationnelle actuelle |
-| **SFIA v2.6** | **Candidate** — cartographie et trajectoire capitalisation ; ne remplace pas v2.4 |
+| **SFIA v2.6** | **Proposed baseline** opérationnelle — consolidation v2.4 + acquis v2.5 + rationalisation repository ; **en vigueur après merge** du cycle d'officialisation |
+| **SFIA v2.4** | **Baseline historique précédente** — héritage opérationnel absorbé dans v2.6 |
+| **SFIA v2.5** | **Candidate absorbée** dans v2.6 — **jamais** baseline opérationnelle |
+| **SFIA v1.1** | Baseline historique stable (fondations) |
+| **SFIA v3.0** | Hors trajectoire (sauf GO Morris explicite) |
+
+> Manifest : `documentation/capitalization/sfia-v2.6/2026-07-16-sfia-v2.6-baseline-release-manifest.md`
 
 ## Document authority
 

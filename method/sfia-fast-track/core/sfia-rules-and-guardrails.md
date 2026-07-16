@@ -216,7 +216,7 @@ SFIA utilise les décisions suivantes :
 | Prompt sans décision Review Handoff Git | Handoff omis — ChatGPT lit un cycle obsolète |
 | Review pack light/full pour ChatGPT sans handoff required | Cycle incomplet — pas de publication remote |
 
-## 13.1 Review Handoff Git — règle transverse (candidate v2.5 — correctif routing)
+## 13.1 Review Handoff Git — règle transverse (absorbée v2.6 — origine capitalisation v2.5)
 
 > **Référence :** template §7.10–§7.11 ; operating model §18.2.8.H ; routing guide §2.1.
 
@@ -227,7 +227,7 @@ SFIA utilise les décisions suivantes :
 | **Handoff required** | Copie review pack → commit → push `origin/sfia/review-handoff` → vérification remote — L3 borné |
 | **Rapport incomplet** | Rapport demandant lecture handoff sans push/remote confirmés → cycle incomplet |
 | **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor lorsque handoff required |
-| **Baseline** | Règle candidate v2.5 — ne promeut pas v2.5 ni v2.6 en baseline |
+| **Baseline** | Règle **absorbée dans SFIA v2.6 (proposed baseline)** — origine capitalisation v2.5 ; entrée en vigueur de v2.6 après merge Morris |
 
 ## 14. Documents associés
 

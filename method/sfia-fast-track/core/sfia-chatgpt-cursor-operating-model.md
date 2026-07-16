@@ -537,13 +537,13 @@ Ces documents ne doivent être créés qu'**après validation** du présent Oper
 - pas de L5 global ;
 - handoff agent = **trajectoire future**, non implémentée.
 
-### 18.2 Complément SFIA v2.5 candidate — MVP méthode proportionnée
+### 18.2 Complément — acquis SFIA v2.5 absorbés dans v2.6 (MVP méthode proportionnée)
 
-> **Référence :** `sfia-v2.5-project-plan.md` — Cycle 1 — **hypothèse candidate** ; preuve attendue au Cycle 4 ; Morris décide.  
-> **Ne remplace pas** v2.4 — **opérationnalise** la proportionnalité. **Ne valide pas** SFIA v2.5.
+> **Référence historique :** `sfia-v2.5-project-plan.md` — Cycle 1 — capitalisation Chantiers360 post-MVP.
+> **Statut version :** acquis **absorbés dans SFIA v2.6 (proposed baseline)** — v2.5 = candidate absorbée, **jamais** baseline.
+> **Ne remplace pas** l'héritage v2.4 — **opérationnalise** la proportionnalité.
 
-Ce complément v2.5 candidate clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables (voir `sfia-cycle-routing-guide.md` §4.3.1).
-
+Ce complément clarifie la séparation entre type de cycle et profil SFIA ; il ne remplace pas la typologie v2.4 `INC / EVOL / RUN / CAPA / DOC` ni les standards v2.0–v2.4 applicables (voir `sfia-cycle-routing-guide.md` §4.3.1).
 #### 18.2.1 Distinction type de cycle projet et profil SFIA
 
 | Dimension | Rôle |
