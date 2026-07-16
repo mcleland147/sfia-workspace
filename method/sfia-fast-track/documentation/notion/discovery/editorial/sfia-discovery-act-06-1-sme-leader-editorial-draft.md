@@ -13,7 +13,7 @@
 | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
 | **Niveau lecture** | L1 |
 | **Durée cible** | 4–5 minutes |
-| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
 | **Réaction recherchée** | « Je comprends pourquoi un cadre vaut mieux qu'une demande directe à l'IA. » |
 
 ---

@@ -140,7 +140,7 @@ L'Acte III montre **le mouvement**. L'**Acte IV** montre **ce que SFIA produit**
 
 > **Nous avons suivi le projet. Regardons maintenant ce que SFIA a concrètement produit.**
 
-**→ Continuer : ACTE IV — Ce que SFIA produit** *(futur PD-05A)*
+**→ Continuer : ACTE IV — Ce que SFIA produit**
 
 **← Retour : [ACTE III — Suivons NovaBuild](sfia-discovery-act-03-follow-novabuild-editorial-draft.md)**
 

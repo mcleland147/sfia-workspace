@@ -13,7 +13,7 @@
 | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
 | **Niveau lecture** | L2–L4 par paliers |
 | **Durée cible** | 3–5 minutes (portail) · exploration libre ensuite |
-| **Implémentation Notion** | Non — gate PD-06B futur |
+| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
 | **Réaction recherchée** | « Je sais où aller ensuite sans avoir à tout lire. » |
 
 ---
@@ -34,7 +34,7 @@ L'**Acte VII** répond à :
 
 | Couche | Rôle |
 |--------|------|
-| **Discovery (Notion futur · Git aujourd'hui)** | Valeur · parcours · projection · orientation |
+| **Discovery (Notion validée Morris · Git source de vérité)** | Valeur · parcours · projection · orientation |
 | **Git (méthode détaillée)** | Templates · routing · gouvernance · preuves · historique |
 
 **Discovery explique la valeur. Git conserve la méthode et les actifs détaillés.**
@@ -179,7 +179,7 @@ SFIA maintient des **templates** — cycles · QA · review · handoff · docume
 
 | Type | Rôle |
 |------|------|
-| **Bases Référentiel / Cycles** | Vues structurées — embed Notion futur |
+| **Bases Référentiel / Cycles** | Vues structurées — embed Notion |
 | **Docs architecture** | Fondations plateforme — L4 |
 | **Product Design Discovery** | Conception parcours — PD-01 |
 
@@ -203,7 +203,7 @@ Termes essentiels : **cycle** · **gate** · **review pack** · **Candidate** ·
 
 ## 6. Frontière Notion / Git
 
-| Notion (PD-06B futur) | Git (source de vérité) |
+| Notion (PD-06B ✓ · validée Morris) | Git (source de vérité) |
 |-----------------------|------------------------|
 | Parcours Discovery L0–L2 | Brouillons editorial complets |
 | Portail Acte VII simplifié | Templates · routing · core |
@@ -276,7 +276,7 @@ Toute divergence se tranche **en faveur de Git** après merge validé.
 
 > **Revenez au parcours Discovery ou approfondissez depuis la source Git de référence.**
 
-**PD-07A (migration legacy)** — hors cycle PD-06A · plan redirections §00–11 futur.
+**PD-07A mergé (PR #201)** — migration legacy validée Morris (PD-07B) · redirections §00–11 en annexe.
 
 ---
 

@@ -14,7 +14,7 @@
 | **Niveau lecture** | L1 |
 | **Durée cible** | 8–10 minutes |
 | **Question lecteur** | En quoi SFIA est-elle différente d'une conduite classique ou d'un usage libre de ChatGPT et Cursor ? |
-| **Implémentation Notion** | Non — gate PD-03B futur |
+| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-03A |
 | **Réaction recherchée** | « Je comprends comment SFIA organise le projet — je suis prêt à suivre NovaBuild. » |
 
 ---

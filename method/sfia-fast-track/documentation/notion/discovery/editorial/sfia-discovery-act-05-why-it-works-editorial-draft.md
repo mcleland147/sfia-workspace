@@ -13,7 +13,7 @@
 | **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
 | **Niveau lecture** | L2 |
 | **Durée cible** | 7–8 minutes |
-| **Implémentation Notion** | Non — gate PD-05B futur |
+| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-05A |
 | **Réaction recherchée** | « Je comprends les garanties et les limites. » |
 
 ---
@@ -176,7 +176,7 @@ La question suivante est **personnelle** :
 
 > **Le cadre est crédible. Reste à comprendre ce qu'il change dans votre contexte.**
 
-**→ Continuer : ACTE VI — Se projeter avec SFIA** *(futur PD-06A)*
+**→ Continuer : ACTE VI — Se projeter avec SFIA**
 
 **← Retour : [ACTE IV — Ce que SFIA produit](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md)**
 
