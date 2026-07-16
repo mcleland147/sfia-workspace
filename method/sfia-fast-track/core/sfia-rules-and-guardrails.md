@@ -227,7 +227,7 @@ SFIA utilise les décisions suivantes :
 | **Handoff required** | Copie review pack → commit → push `origin/sfia/review-handoff` → vérification remote — L3 borné |
 | **Rapport incomplet** | Rapport demandant lecture handoff sans push/remote confirmés → cycle incomplet |
 | **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor lorsque handoff required |
-| **Baseline** | Règle **absorbée dans SFIA v2.6 (proposed baseline)** — origine capitalisation v2.5 ; entrée en vigueur de v2.6 après merge Morris |
+| **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 |
 
 ## 14. Documents associés
 

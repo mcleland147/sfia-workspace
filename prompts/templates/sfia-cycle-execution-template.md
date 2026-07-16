@@ -1,17 +1,17 @@
 ---
-status: proposed-baseline
-version: v2.6-proposed-baseline
+status: baseline
+version: v2.6
 type: prompt-instantiation-template
 family: SFIA v2.6 cycle execution
-updated_after: SFIA v2.6 proposed baseline officialization — consolidation v2.4 + v2.5 absorbed
+updated_after: SFIA v2.6 baseline officialization post-merge (PR #204) — consolidation v2.4 + v2.5 absorbed
 scope: instantiate Cursor execution prompts from ChatGPT
 ---
 
-# SFIA Cycle Execution — Template d'instanciation v2.6 (proposed baseline)
+# SFIA Cycle Execution — Template d'instanciation v2.6
 
 **Fichier :** `prompts/templates/sfia-cycle-execution-template.md`  
-**Statut :** SFIA v2.6 **proposed baseline** — **en vigueur après merge** Morris
-**Baseline proposée :** SFIA v2.6 — absorbe héritage v2.4 et acquis v2.5
+**Statut :** SFIA v2.6 **baseline opérationnelle officielle** (active sur `main`)
+**Baseline opérationnelle :** SFIA v2.6 — absorbe héritage v2.4 et acquis v2.5
 **Références :** operating model §18.2 ; routing guide §4.3–§4.4 ; manifest `2026-07-16-sfia-v2.6-baseline-release-manifest.md`
 
 > **Ce document est un template d'instanciation pour ChatGPT.** Il sert à **générer** des prompts Cursor SFIA adaptés au contexte. **Ce n'est pas un prompt Cursor à envoyer tel quel.**
@@ -26,7 +26,7 @@ scope: instantiate Cursor execution prompts from ChatGPT
 | **Pas pour** | Envoi direct à Cursor sans instanciation |
 | **Objectif** | Produire un **contrat d'exécution** borné : type de cycle + profil SFIA + périmètre + garde-fous |
 | **Repo-first** | Git est la source canonique ; le prompt déclare branche, HEAD, périmètre fichiers |
-| **Statut** | v2.6 **proposed baseline** — consolidation ; non en vigueur avant merge |
+| **Statut** | v2.6 **baseline opérationnelle officielle** — consolidation v2.4 + acquis v2.5 |
 | **Morris** | Autorité de décision — gates structurants, push, PR, merge, validation de baseline |
 | **Cursor** | Exécuteur contrôlé — ne décide pas, n'élargit pas le scope, n'arbitre pas |
 
@@ -156,7 +156,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 - Oublier review pack sur cycle documentaire
 - Omettre la décision Review Handoff Git (required / not required)
 - Présenter une candidate non mergée comme baseline validée
-- Présenter v2.6 comme baseline officielle **avant** merge Morris
+- Présenter une version non mergée comme baseline officielle
 - Relancer SFIA v3.0 sans GO Morris
 
 ---
@@ -323,7 +323,7 @@ Fichiers interdits :
 Garde-fous :
 - Ne pas push / PR / merge sans GO Morris
 - Ne pas élargir le périmètre
-- Ne pas déclarer SFIA v2.6 baseline officielle avant merge
+- Ne pas déclarer une candidate non mergée comme baseline officielle
 - Ne pas relancer SFIA 3.0
 - Git = source de vérité
 - [Garde-fous spécifiques au cycle]
@@ -1350,10 +1350,10 @@ Procédure détaillée :
 5. Critical : toujours justifier. Standard par défaut si doute.
 6. Review pack proportionné : none / light / full — voir template §7. Jamais de stub final si light ou full requis.
 7. Review Handoff Git : décision required / not required obligatoire dans chaque prompt (template §3, §5, §7.10–§7.11). Lorsque required : copie, commit, push origin/sfia/review-handoff, vérification remote, instruction ChatGPT §9.1 dans le rapport final. Verdict PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING si absent.
-8. v2.6 = proposed baseline (en vigueur après merge). v2.4 = historique précédente. v2.5 = candidate absorbée. v3.0 = hors trajectoire.
+8. v2.6 = baseline opérationnelle officielle (active sur `main`). v2.4 = historique précédente. v2.5 = candidate absorbée. v3.0 = hors trajectoire.
 9. Morris décide push branche projet, PR, merge, gates structurants. Cursor exécute le contrat — ne décide pas. Push handoff required = L3 borné sans micro-GO Morris.
 ```
 
 ---
 
-*SFIA v2.6 proposed baseline — Template d'instanciation — consolidation v2.4 + acquis v2.5 — en vigueur après merge — Morris décide.*
+*SFIA v2.6 baseline opérationnelle officielle — Template d'instanciation — consolidation v2.4 + acquis v2.5 — Morris décide.*
