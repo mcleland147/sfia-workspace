@@ -1,575 +1,444 @@
-# SFIA Review Pack — Discovery QA PD-08A
+# SFIA Review Pack — Discovery Corrections PD-08B
 
-**Horodatage :** 2026-07-16 09:35 Europe/Paris (CEST)
+**Horodatage :** 2026-07-16 10:45 Europe/Paris (CEST)
 **Repository :** mcleland147/sfia-workspace
 **Workspace :** /Users/morris/Projects/sfia-workspace
-**Cycle :** PD-08A — QA narrative et métier
-**Rôle exécuteur :** Cursor (audit seul — aucune correction corpus)
+**Cycle :** PD-08B — corrections éditoriales (resync métadonnées post-PD-08A)
+**Rôle exécuteur :** Cursor (corrections corpus ciblées — 9 fichiers editorial)
 **Profil SFIA :** Standard
 **Typologie v2.4 :** DOC
 **Branche projet :** `documentation/sfia-discovery-pd-08-qa`
 **HEAD :** `1125972bb1a78379cdc485250bf34625141bdde6`
 **origin/main :** `1125972bb1a78379cdc485250bf34625141bdde6`
-**merge-base :** `1125972bb1a78379cdc485250bf34625141bdde6`
-**Handoff avant :** `origin/sfia/review-handoff` @ `c60e8a9501184098a17ce09b2c9ea2433028b851`
-**Verdict :** **READY WITH EDITORIAL RESERVES**
+**merge-base (HEAD, origin/main) :** `1125972bb1a78379cdc485250bf34625141bdde6`
+**Référence QA :** PD-08A — verdict READY WITH EDITORIAL RESERVES
+**Verdict cycle :** **PD-08B CORRECTIONS READY FOR MORRIS REVIEW**
 
 ---
 
-## Synthèse exécutive (pack)
+## Synthèse exécutive
 
-Le corpus Discovery Git (Hub + Actes I–VII + personas VI.1–VI.4) est **cohérent, pédagogique et fidèle à SFIA v2.4**. Aucune anomalie **bloquante** sur le fond éditorial. Réserve principale : **métadonnées et navigation Hub/README** non resynchronisées après PD-03A–PD-06A (sections « futur », arborescence §14, CTAs obsolètes).
+Corrections mono-cycle PD-08B appliquées sur **9 fichiers** editorial (Hub, README, Actes II–VII hub metadata + transitions ANOM-05). Objectif : fermer ANOM-01 à ANOM-03, ANOM-05, ANOM-06 et le lot ANOM-04 sur les **actes modifiés** ; personas VI.1–VI.4 **hors périmètre** (métadonnées résiduelles documentées).
 
 | Élément | Valeur |
 |---------|--------|
-| **Verdict QA fond** | **READY WITH EDITORIAL RESERVES** |
-| **Statut cycle** | READY FOR REVIEW |
-| **Verdict cycle** | PD-08 QA REPORT READY FOR MORRIS REVIEW |
-| **Commit rapport projet** | Non — fichier rapport **untracked** sur branche QA |
+| Fichiers modifiés | 9 (editorial uniquement) |
+| Lignes | +59 / −51 |
+| Commit projet | **Non** — working tree modifié, gate Morris |
+| Rapport PD-08A | Untracked (hors ce diff) |
 
 ---
 
-## Validations (résumé)
+## Table anomalies — traitement PD-08B
 
-| Domaine | Résultat |
-|---------|----------|
-| Git Truth Check | PASS — branche `documentation/sfia-discovery-pd-08-qa` · HEAD = origin/main = merge-base `1125972` |
-| Corpus editorial | 19 fichiers Markdown relus (18 editorial + migration) |
-| Matrice C1–C20 | PASS majoritaire ; PARTIAL sur C1, C3, C9, C13 ; NOT TESTABLE Notion/mobile/utilisateur |
-| Promesses / chiffres | Aucun chiffre de performance non sourcé (C20 PASS) |
-| NovaBuild fiction | Qualification systématique — risque confusion preuve **faible** |
-| Gouvernance v2.4 | Baseline · Git source de vérité · Morris décideur · pas de L5 globale — **conforme** |
-| Confidentialité corps lecteur | Prompts / routing non reproduits — **conforme** |
-| Modification corpus | **Aucune** hors rapport PD-08 (audit seul) |
+| ID | Fichier | Section | Ancien (résumé) | Nouveau (résumé) | Justification |
+|----|---------|---------|-----------------|------------------|---------------|
+| **ANOM-01** | `sfia-discovery-hub-editorial-draft.md` | §8 — Statuts actes | Actes II–VII « Futur PD-0xA » / en revue | ✓ mergé (PD-03A–PD-06A) | Aligner Hub sur vérité Git post-merge |
+| **ANOM-02** | `sfia-discovery-hub-editorial-draft.md` | §13 CTAs · §14 arborescence | Destinations « (futur) » · arbre sans VI.1–VI.4 | CTAs Actes IV/V directs · arbre complet + Annexes | Navigation d'entrée non trompeuse (C13) |
+| **ANOM-03** | `editorial/README.md` | En-tête · §6 · §10 gates M1–M8 · §11 | PD-07B futur · M1–M7 en attente · branche PD-07A | PD-08B courant · PD-07A/B ✓ · gates ✓ | Gouvernance documentaire alignée PR #201 + PD-07B Morris |
+| **ANOM-04** | Actes II–VII (7 fichiers) | Métadonnées « Implémentation Notion » | « Non — gate PD-0xB futur » | « Réalisée et validée par Morris — source Git PD-0xA » | **Partiel** — voir note ci-dessous |
+| **ANOM-05** | `act-03-4-release-and-run` · `act-05-why-it-works` | Transitions fin d'acte | « *(futur PD-05A/06A)* » | Libellés CTA sans suffixe futur | Cohérence locale parcours |
+| **ANOM-06** | `sfia-discovery-hub-editorial-draft.md` | §6.3 parcours 20 min | « cycles futurs — liens à compléter » | Actes II et IV disponibles | Parcours teaser documenté |
 
-### Matrice C1–C20 (statuts agrégés)
+### Note ANOM-04 (partiel)
 
-| Statut | Critères |
-|--------|----------|
-| **PASS** | C2, C4, C5, C6, C7, C8, C11, C15, C19, C20 |
-| **PARTIAL** | C1, C3, C10, C12, C13, C14, C17, C18 |
-| **NOT TESTABLE** | C9, C16 |
+**Personas VI.1–VI.4 — modification FORBIDDEN dans PD-08B.** Les fichiers suivants conservent la métadonnée résiduelle :
 
-*Détail ligne à ligne : voir rapport intégral §4.*
+| Fichier | Ligne résiduelle |
+|---------|------------------|
+| `sfia-discovery-act-06-1-sme-leader-editorial-draft.md` | `Implémentation Notion \| Non — gate PD-06B futur` |
+| `sfia-discovery-act-06-2-project-manager-po-editorial-draft.md` | idem |
+| `sfia-discovery-act-06-3-technical-team-editorial-draft.md` | idem |
+| `sfia-discovery-act-06-4-esn-partner-editorial-draft.md` | idem |
 
----
-
-## Garde-fous respectés
-
-| Garde-fou | Contrôle |
-|-----------|----------|
-| Audit seul | Aucune correction du corpus Discovery |
-| Baseline v2.4 | Tous actes ; v2.5 Candidate non promue |
-| NovaBuild | Fiction / composite / non témoignage |
-| Gates Morris | Structurants ; verdict ne valide pas baseline ni PD-09 |
-| ESN VI.4 | Pas de CTA commercial ; licensing hors Discovery |
-| Méthode interne | Non exposée au lecteur (contrat éditorial) |
-| Notion | Classé NOT TESTABLE sans MCP runtime fiable |
-| Contexte PD-07B | Déclaré Morris — **non vérifié runtime** par Cursor |
+**Action recommandée :** lot PD-08B bis ou PD-09 si Morris autorise le périmètre personas.
 
 ---
 
-## Anomalies et réserves (liste)
+## QA critères — replay post-corrections (sous-ensemble PD-08A)
 
-| ID | Sévérité | Description courte |
-|----|----------|-------------------|
-| **ANOM-01** | Majeure | Hub §8 annonce Actes II–VII comme futurs |
-| **ANOM-02** | Majeure | Hub §13–14 CTAs / arborescence « futur » |
-| **ANOM-03** | Majeure | README editorial : PD-07B futur · gates M1–M7 en attente |
-| **ANOM-04** | Mineure | Métadonnées « Implémentation Notion : gate PD-0XB futur » sur actes |
-| **ANOM-05** | Mineure | Transitions « futur PD-05A/06A » (III.4, Acte V) |
-| **ANOM-06** | Mineure | Hub §6.3 note actes II/IV « cycles futurs » |
-| **RES-01** | Information | QA Notion runtime non exécutée |
-| **RES-02** | Information | Tests utilisateurs C9 non réalisés |
-| **RES-03** | Information | Mobile / accessibilité Notion NOT TESTABLE |
+| Critère | Statut PD-08A | Statut PD-08B | Commentaire |
+|---------|---------------|---------------|-------------|
+| **C1** | PARTIAL | **PARTIAL** | Pas de test reformulation utilisateur |
+| **C3** | PARTIAL | **PARTIAL** | Lecture simulée experte uniquement |
+| **C10** | PARTIAL | **PARTIAL** | Git conforme ; Notion non crawlé |
+| **C12** | PARTIAL | **PASS** | Hub §8/§14 + README resynchronisés |
+| **C13** | PARTIAL | **PASS** | CTAs et arborescence Hub à jour |
+| **C14** | PARTIAL | **PARTIAL** | Durées cibles non chronométrées |
+| **C17** | PARTIAL | **PARTIAL** | Markdown OK ; Notion non testé |
+| **C18** | PARTIAL | **PARTIAL** | Candidate en Git ; badge Notion non prouvé |
 
-*Cause racine partagée ANOM-01/02/06 : Hub non resynchronisé post-PD-03A–06A.*
-
----
-
-## Décisions Morris (D1–D5 — arbitrage requis)
-
-| # | Question | Recommandation Cursor |
-|---|----------|----------------------|
-| **D1** | Lancer PD-08B corrections éditoriales ? | **A** — sync Hub/README ; effort limité |
-| **D2** | Valider parité Notion post-PD-07B ? | **B puis A** — walkthrough Morris puis revue ChatGPT |
-| **D3** | Verdict QA fond narratif ? | **B** — READY WITH EDITORIAL RESERVES |
-| **D4** | Enclencher PD-09 capitalisation ? | **A** — après PD-08B, sous réserve D2 |
-| **D5** | Hero Hub Option A définitif ? | **A** — aligné PD-02B déclaré |
-
-*Aucune décision validée dans ce pack — Morris arbitre.*
+**Non rejoués ici :** C9, C16 — **NOT TESTABLE** (inchangé).
 
 ---
 
-## Local Git Truth Check
+## Réserves ouvertes
 
-| Contrôle | Résultat |
-|----------|----------|
-| toplevel | `/Users/morris/Projects/sfia-workspace` |
-| Branche | `documentation/sfia-discovery-pd-08-qa` |
-| HEAD / origin/main / merge-base | `1125972bb1a78379cdc485250bf34625141bdde6` ✓ |
-| Rapport PD-08 | Untracked — prêt pour commit Morris (hors scope Cursor) |
-| **Verdict** | **PASS** |
-
-### git status --porcelain (workspace)
-
-```
-?? .sfia/
-?? .tmp-sfia-review/
-?? method/sfia-fast-track/documentation/notion/discovery-product-design/09-sfia-discovery-pd-08-qa-report.md
-?? sfia-review-handoff/
-```
-
----
-
-## git diff --stat (rapport PD-08 uniquement)
-
-```
-.../09-sfia-discovery-pd-08-qa-report.md}          | 439 +++++++++++++++++++++
- 1 file changed, 439 insertions(+)
-```
-
----
-
-## Rapport QA complet (reproduction intégrale)
-
-# 09 — Rapport QA PD-08A — SFIA Discovery Experience
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Cycle** | PD-08A — QA narrative et métier |
-| **Type** | 9 — QA / validation |
-| **Profil SFIA** | Standard |
-| **Typologie v2.4** | DOC |
-| **Propriétaire** | Morris |
-| **Baseline opérationnelle** | SFIA v2.4 |
-| **Exécuteur** | Cursor (audit seul — aucune correction corpus) |
-| **Horodatage** | 2026-07-16 09:30 Europe/Paris (CEST) |
-| **Branche** | `documentation/sfia-discovery-pd-08-qa` |
-| **HEAD** | `1125972bb1a78379cdc485250bf34625141bdde6` |
-| **origin/main** | `1125972bb1a78379cdc485250bf34625141bdde6` |
-| **merge-base** | `1125972bb1a78379cdc485250bf34625141bdde6` |
-| **Contexte Morris déclaré** | PD-07B validé (migration Notion, archivage legacy, restructuration annexes) — **non vérifié runtime par Cursor** |
-
----
-
-## 1. Métadonnées
-
-### 1.1 Git Truth Check
-
-| Contrôle | Résultat |
-|----------|----------|
-| Workspace | `/Users/morris/Projects/sfia-workspace` (sfia-workspace) |
-| Branche active | `documentation/sfia-discovery-pd-08-qa` |
-| HEAD | `1125972bb1a78379cdc485250bf34625141bdde6` |
-| origin/main | `1125972bb1a78379cdc485250bf34625141bdde6` |
-| Ancestre PD-07A merge | `1125972` — **OK** |
-| Fichiers staged | Aucun (hors création rapport PD-08) |
-| Working tree | Propre sur fichiers trackés ; untracked reconnus : `.sfia/`, `.tmp-sfia-review/`, `sfia-review-handoff/` |
-
-### 1.2 Sources consultées
-
-**Méthode et gouvernance :**
-
-| Fichier | Rôle |
-|---------|------|
-| `prompts/templates/sfia-cycle-execution-template.md` | Template cycle (référence — non modifié) |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Routage cycles (principes — non exposés lecteur) |
-| `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2-automation-levels.md` | Niveaux automatisation L1–L5 |
-| `method/sfia-fast-track/documentation/notion/discovery-product-design/README.md` | Index Product Design |
-| `method/sfia-fast-track/documentation/notion/discovery-product-design/05-sfia-discovery-editorial-contract.md` | Contrat éditorial |
-| `method/sfia-fast-track/documentation/notion/discovery-product-design/07-sfia-discovery-transformation-roadmap.md` | Roadmap (lecture — non modifiée) |
-| `method/sfia-fast-track/documentation/notion/discovery-product-design/08-sfia-discovery-acceptance-framework.md` | Critères C1–C20 |
-
-**Corpus éditorial Discovery (18 fichiers Markdown) :**
-
-| # | Chemin Git |
-|---|------------|
-| 1 | `method/sfia-fast-track/documentation/notion/discovery/editorial/README.md` |
-| 2 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md` |
-| 3 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-01-why-sfia-exists-editorial-draft.md` |
-| 4 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md` |
-| 5 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-follow-novabuild-editorial-draft.md` |
-| 6 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-1-intention-and-framing-editorial-draft.md` |
-| 7 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-2-design-and-ux-editorial-draft.md` |
-| 8 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-3-delivery-and-qa-editorial-draft.md` |
-| 9 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-4-release-and-run-editorial-draft.md` |
-| 10 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md` |
-| 11 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md` |
-| 12 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md` |
-| 13 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-1-sme-leader-editorial-draft.md` |
-| 14 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-2-project-manager-po-editorial-draft.md` |
-| 15 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-3-technical-team-editorial-draft.md` |
-| 16 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-4-esn-partner-editorial-draft.md` |
-| 17 | `method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md` |
-| 18 | `method/sfia-fast-track/documentation/notion/discovery/migration/sfia-discovery-legacy-content-inventory.md` |
-| 19 | `method/sfia-fast-track/documentation/notion/discovery/migration/sfia-discovery-legacy-migration-plan.md` |
-
-**Notion runtime :** aucun accès MCP Notion fiable — QA Notion classée **NOT TESTABLE** sauf contexte Morris déclaré (PD-07B).
-
----
-
-## 2. Executive summary
-
-### 2.1 Résultat général
-
-Le corpus Discovery Git (Hub + Actes I–VII + personas VI.1–VI.4) constitue un **parcours narratif cohérent, pédagogique et fidèle à SFIA v2.4**. La promesse métier est compréhensible, NovaBuild est explicitement fictionnel, les garanties et limites sont articulées, la confidentialité méthodologique est respectée dans le corps lecteur, et les quatre personas sont différenciés.
-
-**Réserve principale :** dérive de **métadonnées et navigation Hub** non resynchronisées après PD-03A à PD-06A (sections « futur », arborescence §14, CTAs obsolètes). Le contenu existe mais l'orientation d'entrée peut induire en erreur un lecteur Git ou Notion non averti.
-
-### 2.2 Points forts
-
-- Arc narratif I → II → III (NovaBuild) → IV → V → VI → VII **logique et progressif**
-- Distinction **projet classique / IA libre / SFIA** (Acte II) claire et mémorable
-- **NovaBuild** systématiquement qualifié composite / fiction / non témoignage
-- **Acte V** : cinq mécanismes, tableaux garanties / non-garanties exemplaires
-- **Personas VI.x** : objections, limites, parcours et absence de CTA commercial ESN
-- **Acte VII** : sept portes, frontière public / protégé, pas de L5 globale
-- **Aucun chiffre de performance non sourcé** détecté dans le corpus
-- Baseline **v2.4** et Candidate **v2.5** correctement positionnées (Acte VII)
-
-### 2.3 Principaux risques
-
-| Risque | Sévérité |
-|--------|----------|
-| Hub §8 et §14 annoncent Actes II–VII « futur » alors qu'ils sont mergés | Majeure |
-| README editorial : gates PD-07A « en attente » · PD-07B « futur » | Majeure |
-| Métadonnées « Implémentation Notion : gate PD-0XB futur » sur tous les actes | Mineure |
-| QA Notion / mobile / accessibilité runtime non prouvée | Réserve NOT TESTABLE |
-| Durées de lecture cibles non mesurées empiriquement | Mineure |
-
-### 2.4 Limites de l'audit
-
-- **Lecture simulée experte** — pas de test utilisateur réel (C1, C3, C9)
-- **Pas de preuve Notion runtime** — parité Git/Notion non vérifiée techniquement
-- **Pas de test mobile** ni audit accessibilité visuelle Notion
-- **Annexes SFIA** hors corpus editorial — non relues en détail (hors migration plan)
-- Aucune modification du corpus — constats documentés uniquement
-
-### 2.5 Verdict proposé
-
-**READY WITH EDITORIAL RESERVES**
-
-Le fond narratif et métier est **suffisant pour arbitrage Morris** et compatible avec un PD-08B ciblé (synchronisation métadonnées Hub/README, validation Notion). Aucune anomalie **Bloquante** sur le fond éditorial. Le verdict **ne valide pas** la baseline ni n'autorise PD-09.
-
----
-
-## 3. Périmètre et méthode
-
-### 3.1 Corpus
-
-19 fichiers Markdown sous `discovery/editorial/` et `discovery/migration/` — inventaire complet §1.2.
-
-### 3.2 Tests réalisés (Git)
-
-- Lecture intégrale ou par sections de tous les actes et personas
-- Matrice C1–C20 avec traçabilité fichier
-- Grep corpus : promesses absolues, chiffres non sourcés, fuites méthodologiques
-- Vérification liens Markdown relatifs inter-actes
-- Contrôles Markdown : hiérarchie titres, tableaux, listes, libellés
-
-### 3.3 Tests simulés
-
-- Quatre lectures persona (dirigeant PME, PO, technique, ESN)
-- Reformulation SFIA post-parcours 45 min (expert)
-- Walkthrough navigation parcours 3 / 10 / 20 / 45 min (Git)
-
-### 3.4 Tests non réalisables
-
-| Domaine | Raison |
+| Réserve | Détail |
 |---------|--------|
-| Notion layout, boutons, toggles | Pas d'accès runtime |
-| Mobile lisible (C16) | Pas de rendu Notion |
-| Badge Candidate Notion (C18) | Pas de preuve visuelle |
-| Score envie poursuivre (C9) | Pas d'entretien utilisateur |
-| Test confidentialité Notion (C10 partiel) | Pas de crawl Notion |
-
-### 3.5 Conventions statut
-
-| Statut | Usage |
-|--------|-------|
-| **PASS** | Critère satisfait sur preuves Git |
-| **PARTIAL** | Satisfait avec réserves ou lecture simulée seulement |
-| **FAIL** | Non conforme au framework |
-| **NOT TESTABLE** | Preuve requise absente (Notion, utilisateur, mobile) |
+| Personas metadata | VI.1–VI.4 — gate PD-06B futur (ANOM-04 résiduel) |
+| Acte VII corps | Lignes « Notion futur » / « PD-06B futur » **toujours présentes** dans le corps (tables portes · comparaison Git/Notion) — hors périmètre metadata-only PD-08B |
+| C9 / C16 | Tests utilisateurs · mobile Notion — **NOT TESTABLE** sans runtime |
+| PD-07B Notion | Validation Morris déclarée — non vérifiée runtime Cursor |
 
 ---
 
-## 4. Matrice C1–C20
+## Décisions Morris (gate commit / push / PR)
 
-| ID | Exigence | Sources Git | Observation | Preuve / extrait | Statut | Sévérité | Réserve | Recommandation | Décision Morris |
-|----|----------|-------------|-------------|------------------|--------|----------|---------|----------------|-----------------|
-| **C1** | Compréhension immédiate valeur | Hub §2, §4 ; Acte I §1 | Promesse centrale lisible en < 3 min ; hero Option A orientée contrôle humain | « SFIA aide les organisations à conduire des projets numériques avec clarté, traçabilité et assistance IA » | **PARTIAL** | Mineure | Pas de test reformulation 2 min réel | Valider hero Option A en revue Morris ; PD-08B sync Hub | Non |
-| **C2** | Distinction classique / IA libre / SFIA | Acte II §2–3 | Tableau tripartite complet, forces et fragilités équilibrées | Table 8 dimensions Acte II | **PASS** | — | — | Conserver tel quel | Non |
-| **C3** | Raconter SFIA avec ses mots | Parcours I→V ; Hub §6.4 | Enchaînement permet reformulation ; Hub §6.4 cible ce résultat | « Je peux raconter SFIA avec mes propres mots » (Hub 6.4) | **PARTIAL** | Information | Lecture simulée experte uniquement | Test utilisateur optionnel post-PD-08B | Non |
-| **C4** | Rôles Morris / ChatGPT / Cursor / Git / Notion | Hub §4 ; Acte II §4 ; Acte VII §4 | Cinq acteurs visibles, limites explicites | Table Acte II §4 | **PASS** | — | — | — | Non |
-| **C5** | Projet bout en bout | Acte III + III.1–III.4 | 8+ phases : intention → RUN → capitalisation | Schéma parcours Acte III §5 | **PASS** | — | — | — | Non |
-| **C6** | Livrables concrets ≥ 5 types | Acte IV §4 | Cinq familles : Cadrer, Concevoir, Livrer, Vérifier, Exploiter/Capitaliser | Galerie Acte IV | **PASS** | — | — | — | Non |
-| **C7** | Garanties et limites | Acte V §4 | ≥ 2 garanties + ≥ 2 non-garanties tabulées | Tableaux §4 Acte V | **PASS** | — | — | — | Non |
-| **C8** | Projection persona | Acte VI + VI.1–VI.4 | Quatre fiches complètes, tableau comparatif | Acte VI §3–4 | **PASS** | — | — | — | Non |
-| **C9** | Envie poursuivre ≥ 4/5 | — | Non mesuré | — | **NOT TESTABLE** | Information | Pas d'entretien | Test utilisateur si Morris le souhaite | Non |
-| **C10** | Absence fuite méthodologique | Acte VII §7 ; VI.3 §13 ; Acte V §10 | Prompt catalog, protected paths, routage exhaustif **masqués** ; références nommées en section gouvernance seulement | « Non publié lecteur : prompt catalog intégral » (Acte VII) | **PARTIAL** | Mineure | Git OK ; Notion non crawlé | Test confidentialité Notion en PD-08B | Oui (PD-08B) |
-| **C11** | Absence promesse excessive | Hub §5, §11 ; Acte V ; contrat §5 | Formulations conditionnelles ; pas de succès garanti | « SFIA améliore le cadre — le contexte et l'engagement comptent » | **PASS** | — | — | — | Non |
-| **C12** | Cohérence Git | Métadonnées tous actes ; Hub §8 | **Dérive** : Hub annonce Actes II–VII « futur » ; HEAD métadonnées obsolètes sur branches cycles | Hub §8 tableau statuts ; §14 arborescence | **PARTIAL** | Majeure | Contenu présent mais métadonnées désalignées | PD-08B : resync Hub §8, §14, §13, README | Oui |
-| **C13** | Navigation sans impasse | Liens relatifs ; Hub parcours | Liens inter-actes fonctionnels en Markdown ; **Hub orientation obsolète** | `sfia-discovery-act-02-...` depuis Acte I | **PARTIAL** | Majeure | Lecteur suivant README OK ; lecteur Hub seul risque confusion | Corriger Hub navigation cible + CTAs | Oui |
-| **C14** | Temps lecture maîtrisé | Durées cibles chaque acte | Budgets documentés (3 min → 45 min) ; non chronométrés | Hub §6 ; métadonnées actes | **PARTIAL** | Mineure | Cibles cohérentes, non mesurées | Mesure optionnelle PD-08B | Non |
-| **C15** | Métier > méthode | Actes I–VI vs VII | ~80 % métier sur I–VI ; VII = portail L2–L4 | Contrat §3 ; Acte VII structure | **PASS** | — | — | — | Non |
-| **C16** | Mobile lisible | Hub §15 notes Notion | Notes implémentation présentes ; **pas de test** | « Hero ≤ 4 lignes · parcours en accordéon » | **NOT TESTABLE** | Information | — | Test Morris/ChatGPT sur Notion | Oui (PD-08B) |
-| **C17** | Accessibilité | Corpus Markdown | Hiérarchie H1–H3 cohérente ; sens porté par texte/tableaux ; pas de « voir en rouge » | Structure titres tous fichiers | **PARTIAL** | Mineure | Markdown OK ; Notion non testé | Revue accessibilité Notion PD-08B | Non |
-| **C18** | Candidate visible | Métadonnées ; Acte VII porte 1 | **Candidate** en en-tête ; v2.5 non baseline | « Baseline opérationnelle : SFIA v2.4 » (Acte VII) | **PARTIAL** | Mineure | Git oui ; badge Notion non prouvé | Vérifier badge Notion | Oui (PD-08B) |
-| **C19** | Fiction NovaBuild / preuves réelles | Acte III §2 ; Hub §10 | Distinction explicite et répétée | « NovaBuild est une PME du BTP **fictive** » | **PASS** | — | — | — | Non |
-| **C20** | Absence statistiques non sourcées | Grep corpus ; Acte I | Aucun % ROI / délai chiffré inventé ; mentions = négations | VI.1 : « ROI chiffré — absents — non sourcés » | **PASS** | — | — | — | Non |
+| Gate | Question | État |
+|------|----------|------|
+| **M7** | GO commit corrections PD-08B sur `documentation/sfia-discovery-pd-08-qa` ? | **En attente Morris** |
+| **M7b** | GO push + PR vers `main` ? | **En attente Morris** |
+| **D1** | Accepter ANOM-04 résiduel personas ou extension périmètre ? | **Arbitrage requis** |
+| **D2** | Commit rapport `09-sfia-discovery-pd-08-qa-report.md` (untracked) ? | **Hors pack diff** |
 
-**Synthèse C1–C20 :** PASS 10 · PARTIAL 7 · FAIL 0 · NOT TESTABLE 3
+**Recommandation Cursor :** commit unique « docs(discovery): PD-08B editorial metadata resync » (9 fichiers) après revue Morris ; PR séparée ou même PR que rapport PD-08A selon préférence.
 
 ---
 
-## 5. QA narrative
+## git diff --stat
 
-### 5.1 Hub
-
-| Dimension | Attendu | Observé | Verdict local |
-|-----------|---------|---------|---------------|
-| Rôle narratif | Orientation · promesse · portes persona | Rempli — hero, 5 parcours temps, 5 portes | **PASS** |
-| Message principal | Contrôle humain + traçabilité | Option A retenue — clair pour PME | **PASS** |
-| Lacune | Navigation à jour | §8, §13, §14 **obsolètes** (actes « futur ») | **PARTIAL** |
-
-**Extrait problématique (Hub §8) :**
-
-```text
-| **II** | En quoi SFIA diffère-t-elle ? | **PD-03A** — brouillon en revue |
-| **III** | À quoi ressemble un projet ? | Futur **PD-04A** (NovaBuild) |
+```
+.../notion/discovery/editorial/README.md           | 47 ++++++++++++----------
+ ...-02-new-way-to-run-a-project-editorial-draft.md |  2 +-
+ ...ery-act-03-4-release-and-run-editorial-draft.md |  2 +-
+ ...very-act-03-follow-novabuild-editorial-draft.md |  2 +-
+ ...ry-act-04-what-sfia-produces-editorial-draft.md |  2 +-
+ ...iscovery-act-05-why-it-works-editorial-draft.md |  4 +-
+ ...very-act-06-project-yourself-editorial-draft.md |  2 +-
+ ...ry-act-07-explore-the-method-editorial-draft.md |  2 +-
+ .../sfia-discovery-hub-editorial-draft.md          | 47 ++++++++++++----------
+ 9 files changed, 59 insertions(+), 51 deletions(-)
 ```
 
-→ Contredit l'inventaire README (tous actes mergés).
+## git diff --check
 
-### 5.2 Matrice par Acte
-
-| Acte | Rôle attendu | Rôle observé | Message principal | Dépendance précédent | Transition suivant | Répétitions | Lacunes | Verdict |
-|------|--------------|--------------|-------------------|----------------------|-------------------|-------------|---------|---------|
-| **I** | Pourquoi SFIA | Douleur PME · chaîne projet | Intention simple → complexité | Hub | → II | NovaBuild amorcé (chantier) | — | **PASS** |
-| **II** | Modèle SFIA | Contraste tripartite · 5 acteurs | Organisation sans usine à gaz | I (problème) | → III | Rôles repris en V | — | **PASS** |
-| **III** | Fil rouge NovaBuild | 4 séquences · fiction claire | Projet de bout en bout | II (cadre) | → IV | NovaBuild = fiction répété | — | **PASS** |
-| **IV** | Livrables | 5 familles galerie | Tangible · catégories | III (mouvement) | → V | Lien III→IV explicite | — | **PASS** |
-| **V** | Garanties | 5 mécanismes | Cadre crédible · limites | IV (artefacts) | → VI | Garanties ≠ succès | Transition « futur PD-06A » obsolète | **PARTIAL** |
-| **VI** | Projection | Hub + 4 personas | « Pour mon rôle » | V (crédibilité) | → VII | Limites commerciales | — | **PASS** |
-| **VII** | Portail méthode | 7 portes · L2–L4 | Git pour le détail | VI (besoin) | Hub / Git | v2.5 Candidate | PD-07A « futur » en §10 | **PARTIAL** |
-
-### 5.3 Transitions
-
-- **I → II → III** : articulation **obligatoire respectée** (README §2, Acte II §1, Acte III §1)
-- **III → IV → V** : transitions formulées en questions miroir — **efficaces**
-- **V → VI → VII** : logique personnelle puis exploration — **cohérente**
-
-### 5.4 NovaBuild
-
-| Contrôle | Résultat |
-|----------|----------|
-| Fiction explicite | ✓ Acte III §2, Hub §10, III.1 métadonnées |
-| Continuité vers livrables | ✓ Catégories Acte IV distinctes de NovaBuild |
-| Lien personas | ✓ VI.1 → III.1 ; PO → chaîne complète |
-| Risque confusion preuve | **Faible** en lecture attentive ; Hub §10 renforce |
-
-### 5.5 Répétitions et ruptures
-
-- **Répétitions utiles** : Git prime, gates Morris, NovaBuild fiction, formulations conditionnelles — renforcement pédagogique
-- **Ruptures de ton** : aucune rupture majeure ; sections « gouvernance / sources Git » plus techniques — **hors corps lecteur** (conforme contrat)
-- **Rupture documentaire** : métadonnées « futur » — **rupture de confiance navigation** (non narrative)
-
-### 5.6 Promesses et preuves
-
-- Promesses **sobres** et conditionnelles (« lorsque le cadre est appliqué »)
-- Preuves = catégories observables Git, review packs, PR — **sans témoignage client nommé**
-- **Aucun chiffre non sourcé** (C20 PASS)
+```
+(aucune erreur — sortie vide)
+```
 
 ---
 
-## 6. QA métier par persona
+## Diff intégral — fichiers modifiés (9)
 
-*Lecture simulée experte — ne constitue pas un test utilisateur réel.*
-
-### 6.1 Dirigeant PME (VI.1)
-
-| Dimension | Synthèse |
-|-----------|----------|
-| Après Hub | Problème conduite projet · SFIA = cadre gouverné, pas chatbot |
-| Après I–III | Situation reconnue · contraste IA libre · NovaBuild illustre cadrage |
-| Après IV–V | Livrables lisibles · garanties raisonnées · pas de délai fixe |
-| Parcours VI.1 | Investissement cadre vs demande directe — objections adressées |
-| Après VII | Où démarrer sans noyer l'équipe |
-| Valeur perçue | Lisibilité · reprise · arbitrage |
-| Objections | « Encore une méthode » · coût flou |
-| Jargon bloquant | Faible en VI.1 |
-| Manques | ROI chiffré (volontairement absent) · contact commercial hors Discovery |
-| Confiance | **Moyenne-haute** si cadre accepté |
-| Prochain pas | Acte II + III.1 + VII — **compréhensible** |
-
-### 6.2 Chef de projet / PO (VI.2)
-
-| Dimension | Synthèse |
-|-----------|----------|
-| Après Hub | Parcours 20 min vers cycles et livrables |
-| Après I–III | Cycles bornés · backlog · review packs via NovaBuild |
-| Après IV–V | Galerie livrables · mécanismes QA |
-| Parcours VI.2 | Structurer sans bureaucratie — **résonne** |
-| Après VII | Cycles · routage · templates |
-| Valeur perçue | Coordination IA/équipe · moins de rework si cadrage tenu |
-| Objections | Risque surcharge documentaire |
-| Jargon | review pack, gates — **définis en parcours** |
-| Confiance | **Haute** pour adoption méthode |
-| Prochain pas | NovaBuild complet → Acte VII setup — **clair** |
-
-### 6.3 Équipe technique (VI.3)
-
-| Dimension | Synthèse |
-|-----------|----------|
-| Après Hub | Porte livrables & traçabilité |
-| Après I–III | III.3 delivery/QA — périmètre fichiers, PR |
-| Après IV–V | Familles Livrer/Vérifier · validation proportionnée |
-| Parcours VI.3 | Limites Cursor explicites — **rassurant** |
-| Après VII | Templates · gouvernance · Git direct |
-| Valeur perçue | Traçabilité · moins de dette invisible |
-| Objections | « Encore de la gouvernance » |
-| Jargon | Technique autorisé — **approprié** |
-| Confiance | **Haute** si accès Git |
-| Prochain pas | Git routing guide — **explicite** (hors Discovery) |
-
-### 6.4 ESN / partenaire (VI.4)
-
-| Dimension | Synthèse |
-|-----------|----------|
-| Après Hub | Porte partenaire → II → V → VI.4 |
-| Après I–III | Reproductibilité delivery · fiction vs preuves |
-| Après IV–V | Livrables client · limites licensing |
-| Parcours VI.4 | Pas de promesse IP / partenariat — **correct** |
-| Après VII | Gouvernance · documents référence |
-| Valeur perçue | Cadre delivery visible client |
-| Objections | Appropriation méthode · white-label |
-| Manques | Licensing — **décision Morris distincte** (documenté) |
-| Confiance | **Moyenne** — cadre clair, offre absente |
-| Prochain pas | Acte V + VII — **compréhensible** ; pas de CTA commercial |
+```diff
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/README.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
+index bb84039..4e81b65 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/README.md
+@@ -3,16 +3,16 @@
+ | Métadonnée | Valeur |
+ |------------|--------|
+ | **Statut** | **Candidate** — brouillons éditoriaux Discovery |
+-| **Cycle courant** | PD-07A — migration legacy (préparation Git) |
++| **Cycle courant** | PD-08B — corrections éditoriales (resync métadonnées) |
+ | **Propriétaire** | Morris |
+ | **Baseline opérationnelle** | SFIA v2.4 |
+ | **Source de vérité** | Git (`mcleland147/sfia-workspace`) |
+-| **Branche projet** | `documentation/sfia-discovery-legacy-migration-plan` |
+-| **HEAD / base** | `9dd9dcfb4325b1b0fefaa39ba9c25899709b675c` |
+-| **Horodatage** | 2026-07-15 22:30 Europe/Paris (CEST) |
+-| **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B ✓ · PD-06B ✓ · PD-07B futur |
++| **Branche projet** | `documentation/sfia-discovery-pd-08-qa` |
++| **HEAD / base** | `1125972bb1a78379cdc485250bf34625141bdde6` |
++| **Horodatage** | 2026-07-16 10:40 Europe/Paris (CEST) |
++| **Implémentation Notion** | PD-02B ✓ · PD-03B ✓ · PD-04B ✓ · PD-05B ✓ · PD-06B ✓ · PD-07B ✓ (validée Morris) |
+ | **Capitalisation méthode** | Non |
+-| **Migration Notion** | **Non exécutée** — plan Git seulement |
++| **Migration Notion** | **Validée Morris** (PD-07B) — sans preuve runtime Cursor |
+ 
+ ---
+ 
+@@ -32,7 +32,7 @@ Le plan de migration legacy (PD-07A) vit dans :
+ 
+ ```text
+ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓ → Acte VI ✓ → Acte VII ✓
+-→ migration legacy (PD-07A en cours) → QA (PD-08) → capitalisation? (PD-09)
++→ migration legacy (PD-07A mergé ✓ · PD-07B validée Morris ✓) → QA (PD-08A ✓ · PD-08B en cours) → capitalisation? (PD-09)
+ ```
+ 
+ **Acte II avant Acte III** — le contraste précède le fil rouge NovaBuild.
+@@ -66,8 +66,8 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓
+ 
+ | # | Fichier | Rôle | Statut |
+ |---|---------|------|--------|
+-| 17 | [../migration/sfia-discovery-legacy-content-inventory.md](../migration/sfia-discovery-legacy-content-inventory.md) | Inventaire legacy §00–11 | **PD-07A — revue** |
+-| 18 | [../migration/sfia-discovery-legacy-migration-plan.md](../migration/sfia-discovery-legacy-migration-plan.md) | Plan PD-07B réversible | **PD-07A — revue** |
++| 17 | [../migration/sfia-discovery-legacy-content-inventory.md](../migration/sfia-discovery-legacy-content-inventory.md) | Inventaire legacy §00–11 | ✓ mergé (PD-07A · PR #201) |
++| 18 | [../migration/sfia-discovery-legacy-migration-plan.md](../migration/sfia-discovery-legacy-migration-plan.md) | Plan PD-07B réversible | ✓ mergé (PD-07A · PR #201) |
+ 
+ ---
+ 
+@@ -94,8 +94,9 @@ Hub + Acte I ✓ → Acte II ✓ → Acte III ✓ → Acte IV ✓ → Acte V ✓
+ | Acte III NovaBuild | PD-04A ✓ (PR #198) | PD-04B ✓ |
+ | Actes IV–V | PD-05A ✓ (PR #199) | PD-05B ✓ |
+ | Actes VI–VII | PD-06A ✓ (PR #200) | PD-06B ✓ |
+-| Migration legacy | **PD-07A** (présent — revue) | PD-07B — futur |
+-| QA narrative | PD-08 — futur | — |
++| Migration legacy | PD-07A ✓ (PR #201) | PD-07B ✓ (validée Morris) |
++| QA narrative | PD-08A ✓ | — |
++| Corrections éditoriales | **PD-08B** (présent — revue) | — |
+ 
+ **NovaBuild** = cas pédagogique composite — catégories livrables inspirées d'actifs SFIA vérifiables.
+ 
+@@ -116,7 +117,7 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
+ 
+ ## 8. Garde-fous
+ 
+-- Aucune page Notion PD-07B · aucun archivage · aucune suppression
++- Migration legacy PD-07B validée Morris (Notion) — trace Git PD-07A mergé (PR #201)
+ - Aucun prompt catalog · aucune capitalisation baseline
+ - Drafts P0 legacy **non modifiés** dans ce cycle
+ 
+@@ -126,6 +127,8 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
+ 
+ - PD-01 · PD-02A · PD-03A · PD-04A · PD-05A · PD-06A mergés ✓
+ - PD-02B · PD-03B · PD-04B · PD-05B · PD-06B finalisés Notion ✓
++- PR #201 mergée · PD-07A ✓ · PD-07B validée Morris ✓
++- PD-08A QA narrative ✓ — verdict READY WITH EDITORIAL RESERVES
+ - Acte II avant Acte III ✓
+ - NovaBuild composite ✓
+ - PR #199 mergée · PD-05A/B ✓
+@@ -137,22 +140,22 @@ Contrat complet : `../discovery-product-design/05-sfia-discovery-editorial-contr
+ 
+ | Gate | Objet | Statut |
+ |------|-------|--------|
+-| **M1** | Inventaire legacy complet et sourcé | En attente |
+-| **M2** | Mapping legacy → Discovery | En attente |
+-| **M3** | Stratégie proposée par page | En attente |
+-| **M4** | Contrôle absence de perte | En attente |
+-| **M5** | Plan PD-07B réversible | En attente |
+-| **M6** | Contenu complet exploitable | En attente |
+-| **M7** | GO commit / push / PR | En attente |
+-| **M8** | GO PD-07B Notion | Hors cycle — futur |
++| **M1** | Inventaire legacy complet et sourcé | ✓ (PD-07A mergé) |
++| **M2** | Mapping legacy → Discovery | ✓ (PD-07A mergé) |
++| **M3** | Stratégie proposée par page | ✓ (PD-07A mergé) |
++| **M4** | Contrôle absence de perte | ✓ (PD-07A mergé) |
++| **M5** | Plan PD-07B réversible | ✓ (PD-07A mergé) |
++| **M6** | Contenu complet exploitable | ✓ (PD-07A mergé) |
++| **M7** | GO commit / push / PR | ✓ (PR #201) |
++| **M8** | GO PD-07B Notion | ✓ (validée Morris) |
+ 
+ ---
+ 
+ ## 11. Critères d'entrée PD-07B
+ 
+-- Inventaire et plan validés Morris · merge Git recommandé · GO exécution Notion
++- Inventaire et plan validés Morris · merge Git ✓ (PR #201) · exécution Notion validée Morris ✓
+ - Dépendance : PD-06A/B ✓
+-- Lot 0 inventaire Notion réel obligatoire avant toute redirection
++- Lot 0 inventaire Notion réel exécuté (PD-07B — validation Morris)
+ 
+ ---
+ 
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md
+index a2ff74c..5aa0a71 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-02-new-way-to-run-a-project-editorial-draft.md
+@@ -14,7 +14,7 @@
+ | **Niveau lecture** | L1 |
+ | **Durée cible** | 8–10 minutes |
+ | **Question lecteur** | En quoi SFIA est-elle différente d'une conduite classique ou d'un usage libre de ChatGPT et Cursor ? |
+-| **Implémentation Notion** | Non — gate PD-03B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-03A |
+ | **Réaction recherchée** | « Je comprends comment SFIA organise le projet — je suis prêt à suivre NovaBuild. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-4-release-and-run-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-4-release-and-run-editorial-draft.md
+index f6be469..a808261 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-4-release-and-run-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-4-release-and-run-editorial-draft.md
+@@ -140,7 +140,7 @@ L'Acte III montre **le mouvement**. L'**Acte IV** montre **ce que SFIA produit**
+ 
+ > **Nous avons suivi le projet. Regardons maintenant ce que SFIA a concrètement produit.**
+ 
+-**→ Continuer : ACTE IV — Ce que SFIA produit** *(futur PD-05A)*
++**→ Continuer : ACTE IV — Ce que SFIA produit**
+ 
+ **← Retour : [ACTE III — Suivons NovaBuild](sfia-discovery-act-03-follow-novabuild-editorial-draft.md)**
+ 
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-follow-novabuild-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-follow-novabuild-editorial-draft.md
+index d54398f..71111e8 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-follow-novabuild-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-03-follow-novabuild-editorial-draft.md
+@@ -14,7 +14,7 @@
+ | **Niveau lecture** | L1–L2 |
+ | **Durée cible** | 15–20 minutes (page + quatre séquences) |
+ | **NovaBuild** | **Cas pédagogique composite** |
+-| **Implémentation Notion** | Non — gate PD-04B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-04A |
+ | **Réaction recherchée** | « Je vois comment SFIA accompagne réellement un projet. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md
+index 617ddf7..081d177 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-04-what-sfia-produces-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
+ | **Niveau lecture** | L2 |
+ | **Durée cible** | 8–10 minutes |
+-| **Implémentation Notion** | Non — gate PD-05B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-05A |
+ | **Réaction recherchée** | « C'est tangible. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md
+index 302d41c..558cc2c 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-05-why-it-works-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 00:30 Europe/Paris (CEST) |
+ | **Niveau lecture** | L2 |
+ | **Durée cible** | 7–8 minutes |
+-| **Implémentation Notion** | Non — gate PD-05B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-05A |
+ | **Réaction recherchée** | « Je comprends les garanties et les limites. » |
+ 
+ ---
+@@ -176,7 +176,7 @@ La question suivante est **personnelle** :
+ 
+ > **Le cadre est crédible. Reste à comprendre ce qu'il change dans votre contexte.**
+ 
+-**→ Continuer : ACTE VI — Se projeter avec SFIA** *(futur PD-06A)*
++**→ Continuer : ACTE VI — Se projeter avec SFIA**
+ 
+ **← Retour : [ACTE IV — Ce que SFIA produit](sfia-discovery-act-04-what-sfia-produces-editorial-draft.md)**
+ 
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
+index 5a8ad4c..ec0c34e 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-06-project-yourself-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+ | **Niveau lecture** | L1–L2 |
+ | **Durée cible** | 2–3 minutes |
+-| **Implémentation Notion** | Non — gate PD-06B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
+ | **Réaction recherchée** | « Je vois comment SFIA s'applique à mon contexte. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md
+index 0df155b..0a62b56 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-act-07-explore-the-method-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-15 14:10 Europe/Paris (CEST) |
+ | **Niveau lecture** | L2–L4 par paliers |
+ | **Durée cible** | 3–5 minutes (portail) · exploration libre ensuite |
+-| **Implémentation Notion** | Non — gate PD-06B futur |
++| **Implémentation Notion** | Réalisée et validée par Morris — source Git PD-06A |
+ | **Réaction recherchée** | « Je sais où aller ensuite sans avoir à tout lire. » |
+ 
+ ---
+diff --git a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
+index 1b5a298..68da6a3 100644
+--- a/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
++++ b/method/sfia-fast-track/documentation/notion/discovery/editorial/sfia-discovery-hub-editorial-draft.md
+@@ -13,7 +13,7 @@
+ | **Horodatage** | 2026-07-14 19:05 Europe/Paris (CEST) |
+ | **Niveau lecture** | L0 |
+ | **Durée cible** | 30 secondes à 3 minutes (hero + orientation) |
+-| **Implémentation Notion** | PD-02B ✓ (Hub + Acte I) — document source Git PD-02A |
++| **Implémentation Notion** | Réalisée et validée par Morris (PD-02B à PD-07B) — source Git PD-02A à PD-06A |
+ | **Audience** | Tous personas — orientation |
+ 
+ ---
+@@ -141,7 +141,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
+ | **Contenu** | Hub complet · **Acte I** intégral |
+ | **Pages / actes** | Hub → Acte I |
+ | **Résultat** | « Je comprends pourquoi ChatGPT ou Cursor seuls ne suffisent pas » |
+-| **CTA** | Acte II *(PD-03A)* ou porte persona |
++| **CTA** | Acte II ou porte persona |
+ 
+ ---
+ 
+@@ -155,7 +155,7 @@ SFIA n'est pas un produit SaaS. C'est une **méthode gouvernée** et une **faço
+ | **Résultat** | « Je vois des livrables concrets et un cadre crédible » |
+ | **CTA** | Acte III (extrait) ou contact Morris |
+ 
+-*Actes II et IV : cycles éditoriaux futurs — liens de navigation à compléter.*
++*Actes II et IV disponibles — parcours I → II → IV (teaser) puis Acte III selon le temps.*
+ 
+ ---
+ 
+@@ -189,10 +189,10 @@ Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigati
+ 
+ | Persona | Question | Entrée recommandée | Parcours | CTA |
+ |---------|----------|-------------------|----------|-----|
+-| **Dirigeant PME** | « Pourquoi investir dans une méthode ? » | Parcours 10 min | Hub → Acte I → Acte VI.1 (futur) | Comprendre le risque maîtrisé |
++| **Dirigeant PME** | « Pourquoi investir dans une méthode ? » | Parcours 10 min | Hub → Acte I → Acte VI.1 | Comprendre le risque maîtrisé |
+ | **Chef de projet / PO** | « Comment structurer sans surcharger ? » | Parcours 20 min | Acte I → II → III (extrait) | Voir cycles et livrables |
+ | **Équipe technique** | « Où sont les garde-fous ? » | Porte « Livrables & traçabilité » | Acte IV → VII (orientation) | Lien Git |
+-| **ESN / partenaire** | « Puis-je reproduire cette offre ? » | Porte « Partenaire » | Acte II → V → VI.4 (futur) | Gouvernance Morris |
++| **ESN / partenaire** | « Puis-je reproduire cette offre ? » | Porte « Partenaire » | Acte II → V → VI.4 | Gouvernance Morris |
+ | **Prospect non technique** | « C'est quoi concrètement ? » | Parcours 3 min | Hero + Acte I (ouverture) | Acte I complet |
+ 
+ **Bloc navigation cible (PD-02B) :**
+@@ -211,13 +211,13 @@ Navigation **intégrée à la page** — la sidebar Notion n'est pas la navigati
+ 
+ | Acte | Question | Statut éditorial |
+ |------|----------|------------------|
+-| **I** | Pourquoi SFIA existe ? | **PD-02A** — brouillon présent |
+-| **II** | En quoi SFIA diffère-t-elle ? | **PD-03A** — brouillon en revue |
+-| **III** | À quoi ressemble un projet ? | Futur **PD-04A** (NovaBuild) |
+-| **IV** | Que produit-on ? | Futur **PD-05A** |
+-| **V** | Pourquoi ça tient ? | Futur **PD-05A** |
+-| **VI** | Comment me projeter ? | Futur **PD-06A** |
+-| **VII** | Où approfondir la méthode ? | Futur **PD-06A** |
++| **I** | Pourquoi SFIA existe ? | ✓ mergé (PD-02A) |
++| **II** | En quoi SFIA diffère-t-elle ? | ✓ mergé (PD-03A) |
++| **III** | À quoi ressemble un projet ? | ✓ mergé (PD-04A — NovaBuild) |
++| **IV** | Que produit-on ? | ✓ mergé (PD-05A) |
++| **V** | Pourquoi ça tient ? | ✓ mergé (PD-05A) |
++| **VI** | Comment me projeter ? | ✓ mergé (PD-06A — hub + VI.1 à VI.4) |
++| **VII** | Où approfondir la méthode ? | ✓ mergé (PD-06A) |
+ 
+ Le Hub **annonce** le voyage — il ne livre pas la méthode complète.
+ 
+@@ -283,8 +283,8 @@ Lien cible PD-02B : page Acte I en enfant direct du Hub.
+ | CTA | Destination | Profil |
+ |-----|-------------|--------|
+ | Choisir mon parcours (10 min) | Acte I | Dirigeant, prospect |
+-| Voir ce que SFIA produit | Acte IV (futur) | PO, technique |
+-| Comprendre la gouvernance | Acte V (futur) | ESN, contributeur |
++| Voir ce que SFIA produit | Acte IV | PO, technique |
++| Comprendre la gouvernance | Acte V | ESN, contributeur |
+ | Aller à la méthode détaillée | Acte VII + Git | Technique, méthode |
+ | Statut Candidate · Sources Git | Meta footer | Tous |
+ 
+@@ -294,13 +294,18 @@ Lien cible PD-02B : page Acte I en enfant direct du Hub.
+ 
+ ```text
+ Hub Discovery
+-├── ACTE I — Pourquoi SFIA existe          ← PD-02A
+-├── ACTE II — Une nouvelle façon…           (futur)
+-├── ACTE III — Suivons NovaBuild            (futur)
+-├── ACTE IV — Ce que SFIA produit           (futur)
+-├── ACTE V — Pourquoi cela fonctionne       (futur)
+-├── ACTE VI — Se projeter                   (futur)
+-├── ACTE VII — Explorer la méthode          (futur)
++├── ACTE I — Pourquoi SFIA existe
++├── ACTE II — Une nouvelle façon de conduire un projet
++├── ACTE III — Suivons NovaBuild
++├── ACTE IV — Ce que SFIA produit
++├── ACTE V — Pourquoi cela fonctionne
++├── ACTE VI — Se projeter
++│   ├── VI.1 — Dirigeant PME
++│   ├── VI.2 — Chef de projet / PO
++│   ├── VI.3 — Équipe technique
++│   └── VI.4 — ESN / partenaire
++├── ACTE VII — Explorer la méthode
++├── Annexes SFIA
+ └── Meta — Candidate · Git · Morris
+ ```
+```
 
 ---
 
-## 7. Gouvernance et confidentialité
+## Handoff
 
-| Contrôle | Résultat |
-|----------|----------|
-| Baseline v2.4 | ✓ Tous actes · Acte VII porte 1 |
-| v2.5 Candidate | ✓ Non promue baseline |
-| Git source de vérité | ✓ Hub, II, V, VII |
-| Morris décideur | ✓ Gates structurants |
-| ChatGPT qualification | ✓ Acte II, III.1 |
-| Cursor exécuteur borné | ✓ VI.3 |
-| Notion couche pédagogique | ✓ Acte VII §6 |
-| Méthode / outillage / automatisation | ✓ Distinction ; pas de L5 globale (Acte VII §5) |
-| Annexes hors parcours | ✓ Migration = hors lecteur (README §5) |
-| Prompts / routing exhaustif | ✓ Non reproduits corps lecteur |
-| v3.0 | ✓ Mentionnée comme « non baseline » (Hub §5) |
+Ce pack remplace `latest-chatgpt-review.md` sur branche `sfia/review-handoff` (worktree `sfia-review-handoff/`).
 
-**Réserve :** README editorial et migration plan indiquent PD-07B « futur » / « non exécuté » — **divergence avec contexte Morris PD-07B validé**. Traiter en PD-08B (sync métadonnées) sans présumer du runtime Notion.
-
----
-
-## 8. Accessibilité et lisibilité (Markdown)
-
-| Contrôle | Résultat |
-|----------|----------|
-| Hiérarchie titres | H1 unique par fichier · H2/H3 logiques |
-| Clarté libellés | Tableaux à en-têtes explicites |
-| Sens des liens | Texte descriptif (« Acte II », « NovaBuild III.1 ») |
-| Dépendance couleur | Aucune instruction « voir en couleur » |
-| Densité tableaux | Acceptable ; Acte II §3 et VII §5 denses mais lisibles |
-| Longueur sections | Acte I long (~12 min cible) — acceptable |
-| Listes | Parcours et CTAs en listes/tableaux |
-| Langage inclusif | « Vous » · personas genrés minimalement (Laurent fictif) |
-
-**NOT TESTABLE :** rendu mobile Notion, contraste, navigation clavier.
-
----
-
-## 9. Anomalies et réserves
-
-| ID | Sévérité | Description | Preuve | Impact | Recommandation | Fichiers | Gate Morris |
-|----|----------|-------------|--------|--------|----------------|----------|-------------|
-| **ANOM-01** | Majeure | Hub §8 annonce Actes II–VII comme futurs / en revue | Hub lignes 214–220 | Lecteur Hub croit contenu absent | Resync statuts éditoriaux post-PD-06A | `sfia-discovery-hub-editorial-draft.md` | PD-08B |
-| **ANOM-02** | Majeure | Hub §14 arborescence et §13 CTAs référencent actes « futur » | Hub §13–14 | Navigation d'entrée trompeuse | Mettre à jour arbre et CTAs | Hub | PD-08B |
-| **ANOM-03** | Majeure | README editorial : PD-07B futur · gates M1–M7 en attente | README §6, §10 | Gouvernance documentaire désalignée | Sync post-PD-07A merge et contexte PD-07B | `editorial/README.md` | Oui |
-| **ANOM-04** | Mineure | Métadonnées « Implémentation Notion : gate PD-0XB futur » sur actes II–VII | Métadonnées chaque acte | Confusion statut A/B | Batch update métadonnées | Tous actes | Non |
-| **ANOM-05** | Mineure | Transitions « futur PD-05A/06A » (III.4, Acte V) | III.4 fin ; Acte V §9 | Incohérence locale | Corriger libellés transition | III.4, Acte V | Non |
-| **ANOM-06** | Mineure | Hub §6.3 note « Actes II et IV : cycles futurs » | Hub §6.3 | Parcours 20 min sous-documenté | Actualiser note | Hub | Non |
-| **RES-01** | Information | QA Notion runtime non exécutée | Pas MCP Notion | Parité non prouvée | Validation Morris/ChatGPT Notion | — | PD-08B |
-| **RES-02** | Information | Tests utilisateurs C9 non réalisés | — | Score envie inconnu | Optionnel post-PD-08B | — | Non |
-| **RES-03** | Information | Mobile / accessibilité Notion | — | C16 NOT TESTABLE | Test manuel Notion | — | PD-08B |
-
-**Déduplication :** ANOM-01, ANOM-02, ANOM-06 partagent la cause racine **Hub non resynchronisé post-PD-03A–06A**.
-
----
-
-## 10. Recommandations PD-08B
-
-### 10.1 Quick wins
-
-1. Hub §8, §13, §14, §6.3 — statuts actes et CTAs à jour
-2. README editorial — PD-07A mergé · PD-07B selon validation Morris
-3. Transitions III.4 et Acte V — retirer « futur PD-0xA »
-4. Batch métadonnées « Implémentation Notion » sur actes II–VII
-
-### 10.2 Corrections majeures
-
-- Walkthrough Notion des 4 parcours persona (C13, C16, C18)
-- Test confidentialité Notion (C10) — échec attendu sur prompt catalog
-- Vérifier parité contenu corps lecteur Hub/Actes vs Git HEAD
-
-### 10.3 Sujets à ne pas modifier (sans GO)
-
-- Fond narratif Actes I–V (substance validée)
-- Positionnement NovaBuild fiction
-- Tableaux garanties Acte V
-- Réserves ESN licensing (VI.4)
-- Corpus baseline v2.4 · prompts · routing interne
-
-### 10.4 Ordre recommandé
-
-1. Sync métadonnées Hub + README (ANOM-01 à 06)
-2. Validation Notion Morris/ChatGPT (RES-01, C10, C16, C18)
-3. Test utilisateur optionnel (C9)
-4. Décision PD-09 capitalisation
-
-### 10.5 Dette potentielle
-
-- Faible si PD-08B limité à sync métadonnées
-- Dette accrue si parité Notion non vérifiée avant PD-09
-
----
-
-## 11. Décisions Morris
-
-| # | Question | Options | Recommandation Cursor/ChatGPT |
-|---|----------|---------|-------------------------------|
-| **D1** | Lancer PD-08B corrections éditoriales ? | A) Oui — sync Hub/README · B) Non — reporter · C) Partiel — Hub seul | **A** — réserves non bloquantes, effort limité |
-| **D2** | Valider parité Notion post-PD-07B ? | A) Revue ChatGPT depuis handoff · B) Walkthrough Morris · C) Reporter | **B puis A** — runtime non prouvé par Cursor |
-| **D3** | Verdict QA fond narratif ? | A) DISCOVERY QA READY · B) READY WITH RESERVES · C) Retravail actes | **B** — métadonnées Hub |
-| **D4** | Enclencher PD-09 capitalisation ? | A) Après PD-08B · B) Après tests utilisateurs · C) Non | **A** — sous réserve D2 |
-| **D5** | Hero Hub Option A définitif ? | A) Oui · B) Variante titre Morris · C) Revoir options | **A** — aligné PD-02B déclaré |
-
-*Aucune décision ci-dessus n'est validée — arbitrage Morris requis.*
-
----
-
-## 12. Verdict final
-
-| Élément | Valeur |
-|---------|--------|
-| **Verdict QA** | **READY WITH EDITORIAL RESERVES** |
-| **Statut cycle** | **READY FOR REVIEW** |
-| **Verdict cycle** | **PD-08 QA REPORT READY FOR MORRIS REVIEW** |
-| **Bloquante ouverte** | Aucune sur le fond éditorial |
-| **Condition READY complet** | PD-08B sync Hub/README + validation Notion (D1, D2) |
-
-Le parcours Discovery Git est **compréhensible, cohérent, utile pour les quatre personas, fidèle à SFIA v2.4 et suffisamment maîtrisé** pour permettre à Morris d'arbitrer les corrections avant PD-09 — sous réserve de traiter la **dérive métadonnées Hub/README** et de **valider Notion** hors périmètre Cursor.
-
----
-
-*Fin du rapport PD-08A — aucune modification du corpus Discovery hors ce fichier.*
-
+**Verdict final :** **PD-08B CORRECTIONS READY FOR MORRIS REVIEW**
