@@ -1,119 +1,64 @@
 # SFIA Review Pack — FULL mono-cycle
-## Campus360 — Cycle 14 Post-merge PR #206
+## Campus360 — Cycle 1 Detailed Framing (Critical DOC)
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Date / heure** | 2026-07-17 13:26:53 CEST |
+| **Date / heure** | 2026-07-17 13:35:41 CEST |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Cycle** | 14 — Post-merge |
-| **Profil** | Standard |
+| **Cycle** | 1 — Cadrage (cadrage détaillé) |
+| **Profil** | Critical |
 | **Typologie** | DOC |
-| **Branche initiale** | `project/campus360-opportunity-framing` @ `4275a60…` |
-| **Branche finale** | `main` |
-| **HEAD final** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
-| **origin/main** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
-| **PR** | #206 — MERGED — https://github.com/mcleland147/sfia-workspace/pull/206 |
-| **Merge commit** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
-| **Parents** | `c10f1c4…` (main) + `4275a60…` (source) |
+| **Branche** | `project/campus360-detailed-framing` |
+| **Base / HEAD** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` (= origin/main `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03`) |
+| **Commit projet** | **Aucun** |
+| **Push projet** | **Aucun** |
 | **Review Handoff** | **required** |
-| **Verdict** | `POST-MERGE COMPLETE — CAMPUS360 READY FOR MORRIS DETAILED FRAMING DECISION` |
-| **Branch cleanup** | `BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED` |
+| **Verdict** | `DETAILED FRAMING DRAFT COMPLETE — MORRIS REVIEW REQUIRED` |
 
 ---
 
 ## 0. Instruction ChatGPT
 
-Analyser le handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+Analyser `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
 
 Vérifier :
 
-1. PR #206 réellement MERGED ;
-2. `origin/main` = `ec7f397…` ;
-3. quatre fichiers Campus360 présents et identiques au commit source ;
-4. aucune modification projet dans ce cycle ;
-5. G3 validé / cadrage détaillé **non démarré** ;
-6. réserve G2 intacte ;
-7. snapshot G7 « EN ATTENTE » dans docs = non anomalie ;
-8. état opérationnel G7/merge = EXÉCUTÉ ;
-9. verdict post-merge et décision Morris suivante (cadrage détaillé).
+1. contenu intégral des 5 fichiers projet (README + 04–07) ;
+2. cohérence G2 + réserve (non-réduction MVP) ;
+3. 4 incréments proposés sans backlog ;
+4. 5 populations conservées ;
+5. gates DF-G1…G12 proposés (non auto-validés) ;
+6. absence d’architecture / stack / stories / code ;
+7. absence de commit/push projet ;
+8. recommandations vs décisions clairement séparées ;
+9. verdict `DETAILED FRAMING DRAFT COMPLETE — MORRIS REVIEW REQUIRED`.
 
 ---
 
 ## 1. Git truth
 
-### Initial
-
 ```text
-Branch: project/campus360-opportunity-framing
-HEAD:   4275a60cf81acffa00e5faa77c33bd3a583ed599
-origin/main (après fetch): ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
-Working tree: untracked artefacts only
-```
-
-### Final
-
-```text
-Branch: main
+Branch: project/campus360-detailed-framing
 HEAD:   ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
-origin/main: ec7f397a87381a57b8b0c0efbff8c3e98e9dea03 (MATCH)
+origin/main: ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+Commit projet: NONE
+Push projet: NONE
 Status:
+M projects/campus360/README.md
 ?? .sfia/
 ?? .tmp-sfia-review/
+?? projects/campus360/04-detailed-framing.md
+?? projects/campus360/05-mvp-increment-trajectory.md
+?? projects/campus360/06-governance-and-stakeholders.md
+?? projects/campus360/07-risks-dependencies-and-gates.md
 ?? sfia-review-handoff/
-Action sync: checkout main + fast-forward only (no rebase/reset)
 ```
 
-### Merge commit
+### Diff stat (uncommitted)
 
 ```text
-commit ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
-Merge: c10f1c4 4275a60
-Author:     mcleland147 <m.cleland@live.fr>
-AuthorDate: Fri Jul 17 13:22:35 2026 +0200
-Commit:     GitHub <noreply@github.com>
-CommitDate: Fri Jul 17 13:22:35 2026 +0200
-
-    Merge pull request #206 from mcleland147/project/campus360-opportunity-framing
-    
-    docs(campus360): establish and close the pre-framing baseline
-
- create mode 100644 projects/campus360/01-opportunity-and-vision.md
- create mode 100644 projects/campus360/02-sfia-cycle-coverage-hypothesis.md
- create mode 100644 projects/campus360/03-pre-framing-decision-pack.md
- create mode 100644 projects/campus360/README.md
-```
-
-### Parents
-
-```text
-c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
-4275a60cf81acffa00e5faa77c33bd3a583ed599
-```
-
-### Name-status (-m)
-
-```text
-A	projects/campus360/01-opportunity-and-vision.md
-A	projects/campus360/02-sfia-cycle-coverage-hypothesis.md
-A	projects/campus360/03-pre-framing-decision-pack.md
-A	projects/campus360/README.md
-```
-
-### PR #206
-
-```json
-{
-  "baseRefName": "main",
-  "headRefName": "project/campus360-opportunity-framing",
-  "mergeCommit": {
-    "oid": "ec7f397a87381a57b8b0c0efbff8c3e98e9dea03"
-  },
-  "mergedAt": "2026-07-17T11:22:35Z",
-  "number": 206,
-  "state": "MERGED",
-  "title": "docs(campus360): establish and close the pre-framing baseline",
-  "url": "https://github.com/mcleland147/sfia-workspace/pull/206"
-}
+projects/campus360/README.md | 134 ++++++++++++++++++++++---------------------
+ 1 file changed, 68 insertions(+), 66 deletions(-)
 ```
 
 ---
@@ -122,104 +67,62 @@ A	projects/campus360/README.md
 
 | Champ | Valeur |
 |-------|--------|
-| Cycle | 14 — Post-merge |
-| Profil | Standard |
-| Typologie | DOC |
-| Modifications projet | **Aucune** (read-only) |
-| Commit main / projet | **Aucun** |
-| Suppression branche | **Interdite** |
+| Justification Critical | Étalon national multi-campus ; 5 pops ; multi-domaines ; identité simulée ; réserve G2 ; impacts futurs larges ; anti-réduction MVP / anti-préemption technique |
+| Blocs activés | RGPD, accessibilité, performance, UX (dépendance), sécurité, DevOps (dépendances), release, RUN, REX léger |
+| Blocs non ouverts | Conception, archi fonc/tech, backlog, UX/Figma, delivery, QA détaillée |
 
 ---
 
-## 3. Sources lues
+## 3. Décisions Morris applicables
 
-1. Template SFIA cycle execution
-2. Routing guide
-3. Operating model
-4. Rules & guardrails
-5. Handoff PR readiness (`597c83c`)
-6. PR #206 + merge commit `ec7f397`
-7. Quatre documents Campus360 sur `main`
+| Décision | Statut |
+|----------|--------|
+| G1–G4 | VALIDÉS (G2 avec réserve) |
+| G3 + GO DETAILED FRAMING | Cadrage détaillé **démarré** |
+| G5–G7 pré-cadrage | EXÉCUTÉS (PR #206) |
+| Commit/push/PR cette branche | **Non autorisés** |
+| Validation fond cadrage / trajectoire / DF gates | **Attendues** |
 
 ---
 
-## 4. Contrôles d'intégration
+## 4. Trajectoire proposée (recommandation — option A)
+
+| INC | Objectif | Pops progressives |
+|-----|----------|-------------------|
+| INC-01 | Socle identité multi-campus & catalogue | Toutes présentes ; usagers consultent ; admins publient |
+| INC-02 | Réservation, notifications, exceptions | Usagers + gestionnaire cœur |
+| INC-03 | Pilotage local & national | Gestionnaire + admin national |
+| INC-04 | Identité simulée complète & support/RUN borné | Support/RUN cœur ; sync impacte tous |
+
+Options B (3 INC) et C (identité partagée) documentées dans `05`.
+
+---
+
+## 5. Gates proposés DF-G1…DF-G12
+
+Voir `07` — propositions non validées. Immédiats : DF-G1 (cadrage), DF-G2 (trajectoire), DF-G3 (gates/RACI).
+
+---
+
+## 6. Contrôles
 
 | Contrôle | Résultat |
 |----------|----------|
-| PR #206 MERGED | PASS |
-| merge commit = ec7f397… | PASS |
-| Parents c10f1c4 + 4275a60 | PASS |
-| HEAD main = origin/main | PASS |
-| 4 fichiers A only | PASS |
-| Contenu = blob source 4275a60 | PASS (MATCH ×4) |
-| Aucun method/prompts dans merge | PASS |
-| Aucun commit postérieur Campus360 | PASS |
-| Working tree tracké propre | PASS |
+| 4 fichiers créés + README modifié seulement | PASS |
+| Contenu complet (anti-stub) | PASS |
+| G2/réserve / 5 pops / multi-campus / identité simulée / majeurs | PASS |
+| 4 INC max raisonnable | PASS |
+| Critères intermédiaires ≠ finaux | PASS |
+| Pas stack/archi/backlog/code/IdP réel | PASS |
+| Pas commit/push/staged | PASS |
+| git diff --check | PASS |
 
 ---
 
-## 5. Contrôles documentaires (main)
-
-| Contrôle | Résultat |
-|----------|----------|
-| Nom Campus360 / baseline v2.6 | PASS |
-| Pré-cadrage clôturé | PASS |
-| G2 VALIDÉ AVEC RÉSERVE + texte | PASS |
-| G3 VALIDÉ / non démarré | PASS |
-| National multi-campus / 5 pops / identité simulée / RGPD majeurs | PASS |
-| Critères sortie renforcés | PASS |
-| Pas d'archi/backlog/code | PASS |
-| Liens relatifs | PASS |
-| Snapshot G7 EN ATTENTE dans docs | **Attendu** — non corrigé ; état opérationnel = EXÉCUTÉ (PR+merge) |
-
----
-
-## 6. Statut opérationnel des gates (post-merge)
-
-| Gate | Statut opérationnel |
-|------|---------------------|
-| G1 | VALIDÉ |
-| G2 | VALIDÉ AVEC RÉSERVE |
-| G3 | VALIDÉ — cadrage détaillé **non démarré** |
-| G4 | VALIDÉ |
-| G5 | EXÉCUTÉ |
-| G6 | EXÉCUTÉ |
-| G7 | EXÉCUTÉ (PR #206) |
-| Merge PR #206 | EXÉCUTÉ |
-
----
-
-## 7. État des branches
-
-| Branche | État |
-|---------|------|
-| Locale `project/campus360-opportunity-framing` | **Présente** (`project/campus360-opportunity-framing`) |
-| Distante `origin/project/campus360-opportunity-framing` | **Présente** @ `4275a60…` |
-| Suppression | **NON effectuée** |
-
-```text
-BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED
-```
-
-Recommandation candidate : suppression locale+distante possible après GO Morris — **pas une décision**.
-
----
-
-## 8. Observations REX (légères — non doctrine)
-
-1. Séquencement pré-cadrage → formalisation G2/G3 → commit/push → PR readiness → merge : **fluide**, sans friction Git.
-2. Séparation **G3 autorisé / cadrage non démarré** a empêché le démarrage implicite — utile.
-3. Réserve incrémentale a permis de valider un MVP ambitieux sans forcer les incréments trop tôt — utile.
-4. Écart snapshot documentaire G7 « EN ATTENTE » vs état Git G7/merge EXÉCUTÉ : **attendu**, porté par post-merge/handoff, pas une anomalie à corriger rétroactivement.
-5. Recommandation candidate (non décision) : éventuellement documenter dans un futur cycle DOC léger l’état post-merge des gates si Morris le souhaite — **hors ce cycle**.
-
----
-
-## 9. Contenu intégral des quatre documents sur main
+## 7. Contenu intégral des fichiers projet
 
 
-### Fichier : `projects/campus360/README.md` (main @ ec7f397a8738)
+### Fichier : `projects/campus360/README.md`
 
 ```markdown
 # Campus360
@@ -228,15 +131,16 @@ Recommandation candidate : suppression locale+distante possible après GO Morris
 |------------|--------|
 | **Identité** | Campus360 — plateforme fictive nationale de gestion de campus et de services |
 | **Nom** | **Campus360** — **validé Morris (G4)** — 17 juillet 2026 |
-| **Statut** | `pre-framing-closed` / `awaiting-pr-readiness` |
+| **Statut** | `detailed-framing-in-progress` |
 | **Baseline méthode** | **SFIA v2.6** (baseline opérationnelle officielle) |
 | **Autorité** | Morris (L0) |
-| **Exécuteur** | Cursor — clôture pré-cadrage (Cycle 1) |
+| **Exécuteur** | Cursor — Cycle 1 cadrage détaillé (DOC, Critical) |
 | **Typologie cycle** | DOC |
-| **Cycle projet** | 1 — Cadrage (sous-angle : formalisation finale G2/G3, clôture pré-cadrage, préparation PR readiness) |
+| **Cycle projet** | 1 — Cadrage (sous-angle : **cadrage détaillé**) |
 | **Profil SFIA** | Critical |
-| **Branche** | `project/campus360-opportunity-framing` |
+| **Branche** | `project/campus360-detailed-framing` |
 | **Chemin** | `projects/campus360/` |
+| **Pré-cadrage** | **Mergé** via PR #206 (`ec7f397`) |
 
 ---
 
@@ -258,24 +162,33 @@ Cible produit validée (G2 — **VALIDÉ AVEC RÉSERVE**) :
 > Le périmètre MVP final reste **intégralement maintenu**.
 > Sa réalisation devra être **découpée en incréments proportionnés**, chacun assorti de **critères de sortie intermédiaires**, **sans réduction implicite** de la cible MVP finale.
 
-Cette réserve est une règle de **trajectoire et de delivery**. Elle **ne rouvre pas** le périmètre G2.
+**Campus360 n’est pas un véhicule de promotion SFIA 3.0.**
 
-**Campus360 n’est pas un véhicule de promotion SFIA 3.0.** Il applique SFIA v2.6 telle qu’officialisée.
-
-**Distinction critique :** la cible **fonctionnelle** nationale multi-campus **n’implique aucune** architecture technique distribuée, multi-région, stack ou fournisseur d’identité réel décidés à ce stade.
+**Distinction critique :** national multi-campus = cible **fonctionnelle** — **aucune** architecture distribuée, multi-région, stack ou IdP réel décidé à ce stade.
 
 ---
 
-## 2. Documents du socle de pré-cadrage
+## 2. Navigation documentaire
+
+### Pré-cadrage (mergé PR #206)
 
 | Document | Rôle |
 |----------|------|
-| [README.md](./README.md) | Identité, statut, gates, navigation, règles de séparation |
-| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Opportunité, vision, populations, domaines, risques |
-| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Hypothèse de couverture des 15 cycles + transverses |
-| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Decision pack de clôture — décisions Morris & gates |
+| [README.md](./README.md) | Identité, statut, navigation |
+| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Opportunité, vision, populations, domaines |
+| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Hypothèse couverture 15 cycles |
+| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Decision pack de clôture pré-cadrage |
 
-Aucun autre document projet n’est créé dans cette itération. **Aucun document de cadrage détaillé.**
+### Cadrage détaillé (en cours — draft)
+
+| Document | Rôle |
+|----------|------|
+| [04-detailed-framing.md](./04-detailed-framing.md) | Cadrage détaillé produit / périmètre / contraintes |
+| [05-mvp-increment-trajectory.md](./05-mvp-increment-trajectory.md) | Trajectoire incrémentale (réserve G2) |
+| [06-governance-and-stakeholders.md](./06-governance-and-stakeholders.md) | Gouvernance et parties prenantes |
+| [07-risks-dependencies-and-gates.md](./07-risks-dependencies-and-gates.md) | Risques, dépendances, gates DF proposés |
+
+> **Cadrage détaillé ≠ conception / architecture / backlog / UX / code.**
 
 ---
 
@@ -283,30 +196,24 @@ Aucun autre document projet n’est créé dans cette itération. **Aucun docume
 
 | Élément | État |
 |---------|------|
-| Pré-cadrage / opportunité | **CLÔTURÉ** |
-| Cadrage détaillé | **Autorisé (G3)** — **non démarré** |
-| Conception / architecture / UX / delivery | Hors périmètre de cette exécution |
-| Commit branche projet (G5) | **Autorisé / exécuté** dans cette exécution |
-| Push branche projet (G6) | **Autorisé / exécuté** dans cette exécution |
-| Création PR (G7) | **EN ATTENTE** — cycle **13 — PR readiness** |
-
-> **Règle G3 :** le cadrage détaillé est **autorisé** mais **ne démarre** qu’après clôture du pré-cadrage, commit conforme, push de la branche, cycle PR readiness, création et traitement de la PR, puis décision de suite. **Cette exécution ne démarre pas le cadrage détaillé.**
+| Pré-cadrage | **CLÔTURÉ** — mergé PR #206 |
+| G3 | **VALIDÉ** — cadrage détaillé **démarré** par décision Morris `GO — DETAILED FRAMING CAMPUS360` |
+| Cadrage détaillé | **`detailed-framing-in-progress`** — draft local, **non commité** |
+| Conception / architecture / backlog / delivery | **Non démarrés** |
+| Commit / push / PR (cette branche) | **Interdits** sans nouveau GO Morris |
 
 ---
 
-## 4. Statut des gates Morris
+## 4. Statut des gates (rappel)
 
-| Gate | Objet | Statut |
-|------|-------|--------|
-| **G1** | Campus360 comme projet étalon | **VALIDÉ** — 17 juillet 2026 |
-| **G2** | Périmètre MVP | **VALIDÉ AVEC RÉSERVE** — 17 juillet 2026 |
-| **G3** | Passage au cadrage détaillé | **VALIDÉ** — 17 juillet 2026 *(démarrage différé — voir §3)* |
-| **G4** | Nom Campus360 | **VALIDÉ** — 17 juillet 2026 |
-| **G5** | Commit branche projet | **EXÉCUTÉ** *(cette exécution)* |
-| **G6** | Push branche projet | **EXÉCUTÉ** *(cette exécution)* |
-| **G7** | Création PR | **EN ATTENTE** — cycle **PR readiness** |
-
-Détail : voir [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md).
+| Gate | Statut |
+|------|--------|
+| G1 | **VALIDÉ** |
+| G2 | **VALIDÉ AVEC RÉSERVE** |
+| G3 | **VALIDÉ** — cadrage détaillé démarré |
+| G4 | **VALIDÉ** |
+| G5–G7 (pré-cadrage) | **EXÉCUTÉS** (PR #206 mergée) |
+| Gates DF-G* | **Proposés** — voir `07-…` — non validés |
 
 ---
 
@@ -314,29 +221,25 @@ Détail : voir [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.
 
 | Volet | Contenu retenu |
 |-------|----------------|
-| **Échelle** | National multi-campus dès la première cible ; admin nationale et locale ; données rattachées à un campus ; pilotage consolidé national |
-| **Fonctionnel** | Identité / rôles / habilitations ; catalogue ; réservation d’espaces ; notifications simples ; pilotage local et national ; exceptions ; intégration identité structurante |
+| **Échelle** | National multi-campus ; admin nationale et locale |
+| **Fonctionnel** | Identité / rôles ; catalogue ; réservation ; notifications ; pilotage local/national ; exceptions ; identité structurante |
 | **Populations (5)** | Étudiant ; personnel ; gestionnaire de campus ; administrateur national ; support / RUN |
-| **Support / RUN** | Borné — **pas** d’ITSM / CMDB / centre de support avancé |
-| **Identité** | Contrat + fournisseur **fictif** + simulation **complète** — **aucune** connexion réelle |
-| **RGPD** | Majeurs uniquement ; données minimales ; pas de DPIA dans ce cycle |
-| **Sortie MVP** | Fonctionnel, intégration, QA, sécurité, accessibilité, performance, release, RUN readiness |
-| **Réserve** | Incréments proportionnés + critères intermédiaires — **cible MVP finale inchangée** |
+| **Support / RUN** | Borné — pas d’ITSM / CMDB |
+| **Identité** | Fournisseur fictif + simulation complète — aucune connexion réelle |
+| **RGPD** | Majeurs ; données minimales |
+| **Sortie MVP** | Fonctionnel, intégration, QA, sécurité, accessibilité, performance, release, RUN |
+| **Réserve** | Incréments proportionnés — cible finale inchangée |
 
 ---
 
-## 6. Hors périmètre (cette exécution)
+## 6. Hors périmètre (cadrage détaillé)
 
-- Contenu de cadrage détaillé (malgré G3 validé — démarrage différé)
-- Code, stack, architecture technique détaillée
-- Backlog, user stories, UX/UI, Figma
-- Fournisseur d’identité réel
-- Logement, paiement réel, restauration complète, IoT
-- ITSM / CMDB / centre de support avancé
-- DPIA complète
-- Architecture distribuée / multi-région technique
+- Conception fonctionnelle détaillée, architecture, backlog, user stories
+- UX/UI, Figma, wireframes
+- Code, stack, IdP réel
+- DPIA complète, threat model complet, runbooks complets
+- Commit / push / PR / merge de `project/campus360-detailed-framing`
 - Modification SFIA / SFIA 3.0
-- Création de PR / merge (G7)
 
 ---
 
@@ -344,747 +247,1000 @@ Détail : voir [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.
 
 | Niveau | Source |
 |--------|--------|
-| **Méthode** | Git `main` — documents SFIA v2.6 canoniques |
-| **Décisions structurantes** | Morris (G1–G7) |
-| **Projet Campus360** | Documents versionnés sous `projects/campus360/` |
+| **Méthode** | Git `main` — SFIA v2.6 |
+| **Décisions structurantes** | Morris |
+| **Projet** | `projects/campus360/` (pré-cadrage sur `main` ; cadrage détaillé en draft branche locale) |
 
 ---
 
-## 8. Règle de séparation projet / méthode / capitalisation
+## 8. Séparation projet / méthode / capitalisation
 
-| Couche | Contenu autorisé | Contenu interdit |
-|--------|------------------|------------------|
-| **Projet produit** | Vision, périmètre G2, hypothèses, trajectoire Campus360 | Modification des documents SFIA canoniques |
-| **Actifs réutilisables** | Patterns observés *ultérieurement* | Promotion implicite en standard méthode |
-| **Observations méthodologiques** | Limites, frictions (REX projet) | Doctrine SFIA nouvelle |
-| **Capitalisation SFIA** | Cycle CAPA dédié + GO Morris | Relancer SFIA 3.0 via Campus360 |
-
-> Un apprentissage issu de Campus360 ne devient standard SFIA que via un **cycle de capitalisation** explicite, avec gate Morris.
+| Couche | Autorisé | Interdit |
+|--------|----------|----------|
+| Projet | Cadrage Campus360 | Modifier SFIA canonique |
+| Observations | REX / handoff | Doctrine implicite |
+| Capitalisation SFIA | Cycle CAPA + GO Morris | SFIA 3.0 via Campus360 |
 
 ---
 
-## 9. Prochaine étape
+## 9. Décision suivante
 
-Cycle **13 — PR readiness** (G7), puis décision de suite après traitement de la PR.
-Le **cadrage détaillé** (toujours Cycle 1) ne démarre qu’après cette chaîne.
+**Revue Morris du cadrage détaillé** (docs `04`–`07` + handoff) :
+
+- valider le fond ;
+- valider ou amender la trajectoire incrémentale ;
+- valider ou amender les gates DF ;
+- décider commit/push/PR ;
+- désigner le prochain cycle (recommandation : conception fonctionnelle).
 ```
 
 ---
 
-### Fichier : `projects/campus360/01-opportunity-and-vision.md` (main @ ec7f397a8738)
+### Fichier : `projects/campus360/04-detailed-framing.md`
 
 ```markdown
-# Campus360 — Opportunité et vision
+# Campus360 — Cadrage détaillé
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Projet** | **Campus360** (nom **validé** G4 — 17 juillet 2026) |
-| **Document** | `01-opportunity-and-vision.md` |
-| **Cycle** | 1 — Cadrage (clôture pré-cadrage / formalisation finale G2/G3) |
+| **Projet** | Campus360 |
+| **Document** | `04-detailed-framing.md` |
+| **Cycle** | 1 — Cadrage (sous-angle : cadrage détaillé) |
 | **Profil** | Critical |
 | **Typologie** | DOC |
 | **Baseline** | SFIA v2.6 |
-| **Statut** | Pré-cadrage **CLÔTURÉ** — G2 validé avec réserve ; G3 validé (cadrage détaillé **autorisé, non démarré**) |
-| **Autorité** | Morris |
+| **Branche** | `project/campus360-detailed-framing` |
+| **Autorité** | Morris (L0) |
+| **Statut** | `draft` — revue Morris requise |
+| **Pré-cadrage** | Mergé PR #206 — `ec7f397` |
 
-> Socle d’opportunité **clôturé**. Ce document **n’est pas** un cadrage détaillé. G3 autorise le cadrage détaillé mais **ne le démarre pas** dans cette exécution.
+> Ce document **cadre** le produit et sa trajectoire. Il **ne** conçoit **pas** la solution, **ne** choisit **pas** d’architecture, **ne** produit **pas** de backlog.
 
 ---
 
 ## 1. Résumé exécutif
 
-Morris a validé **Campus360** comme projet étalon SFIA v2.6 (G1) et le nom **Campus360** (G4).
+Campus360 est le projet étalon SFIA v2.6 (G1), nommé officiellement (G4), au périmètre MVP national multi-campus validé avec réserve incrémentale (G2). Le cadrage détaillé est démarré par décision Morris (`GO — DETAILED FRAMING CAMPUS360`) après merge de la PR #206.
 
-Le périmètre MVP (G2) est **VALIDÉ AVEC RÉSERVE** : cible nationale multi-campus, cinq populations, noyau fonctionnel borné, intégration identité simulée complète, support/RUN borné, RGPD majeurs uniquement, critères de sortie renforcés.
+Ce cadrage transforme le pré-cadrage en cadre exploitable : objectifs, périmètre, populations, capacités, contraintes transverses, principes de découpage, critères de succès, et décisions encore dues à Morris.
 
-**Réserve G2 (non bloquante) :** le périmètre MVP final reste intégralement maintenu ; sa réalisation devra être découpée en incréments proportionnés, chacun assorti de critères de sortie intermédiaires, sans réduction implicite de la cible MVP finale.
-
-Le passage au cadrage détaillé (G3) est **VALIDÉ**, avec démarrage **différé** après clôture pré-cadrage, commit, push, PR readiness, PR et décision de suite.
-
-| Gate | Statut |
-|------|--------|
-| G1 — Projet étalon | **VALIDÉ** |
-| G2 — Périmètre MVP | **VALIDÉ AVEC RÉSERVE** |
-| G3 — Cadrage détaillé | **VALIDÉ** — autorisé, **non démarré** |
-| G4 — Nom | **VALIDÉ** |
-| G5 — Commit | **EXÉCUTÉ** (cette exécution) |
-| G6 — Push | **EXÉCUTÉ** (cette exécution) |
-| G7 — PR | **EN ATTENTE** — cycle PR readiness |
-
-**Verdict de clôture :** `PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS`.
+**Verdict documentaire proposé :** `DETAILED FRAMING DRAFT COMPLETE — MORRIS REVIEW REQUIRED`.
 
 ---
 
-## 2. Contexte
-
-| Élément | État |
-|---------|------|
-| Baseline méthode | SFIA v2.6 = baseline opérationnelle officielle |
-| Chantiers360 / Interv360 | Projets antérieurs bornés — complétés, non remplacés |
-| Décision Morris | Campus360 = étalon (G1) ; périmètre G2 validé avec réserve ; G3 validé |
-| Pré-cadrage | **Clôturé** |
-
----
-
-## 3. Problème fictif adressé
-
-Dans un réseau **national multi-campus**, les services du quotidien sont fragmentés : catalogue et réservations dispersés, identités non unifiées, faible vision nationale, intégration identité absente ou partielle, conformité et exploitation peu industrialisées.
-
-**Besoin fictif :** plateforme unifiée pour découvrir, réserver et piloter les services campus sous identité et habilitations multi-niveaux, à l’échelle nationale multi-campus, avec support/RUN borné.
-
----
-
-## 4. Opportunité
-
-| Dimension | Opportunité |
-|-----------|-------------|
-| **Produit** | Scénario crédible, national multi-campus, cinq populations |
-| **Méthode** | Terrain SFIA v2.6 sans nouvelle doctrine |
-| **Couverture cycles** | Potentiel élevé — activation par déclencheurs |
-| **Différenciation** | Multi-campus × multi-populations × identité simulée × RUN borné |
-| **Capitalisation** | Observations futures — pas de SFIA 3.0 |
-
----
-
-## 5. Vision produit
-
-> Campus360 est une plateforme nationale de services campus qui permet aux cinq populations retenues de **découvrir, réserver et piloter** les services du quotidien (catalogue, espaces, notifications, exceptions), sous une identité et des habilitations multi-niveaux (campus / national), avec un support/RUN borné et une intégration identité simulée complète — sans connexion réelle à un fournisseur externe au MVP.
-
-### Caractéristiques validées (G2)
-
-| Aspect | Orientation |
-|--------|-------------|
-| **Échelle** | National multi-campus dès la première cible |
-| **Administration** | Nationale et locale |
-| **Données** | Rattachées à un campus |
-| **Habilitations** | Multi-niveaux |
-| **Pilotage** | Local et national consolidé |
-| **Populations** | Cinq (voir §7) |
-| **Identité** | Simulation complète, fournisseur fictif |
-| **Conformité** | RGPD majeurs ; accessibilité en UX/QA futurs |
-| **Trajectoire** | Incréments proportionnés (réserve G2) — cible MVP inchangée |
-
-### Explicitement non décidé / exclu du MVP
-
-| Élément | Statut |
-|---------|--------|
-| Architecture technique distribuée / multi-région | **Non décidé** |
-| Stack | **Non choisi** |
-| Fournisseur / protocole d’identité réel | **Non choisi** |
-| Logement, restauration complète, paiement réel, IoT | **Hors MVP** |
-| ITSM / CMDB / centre de support avancé | **Hors MVP** |
-| Contenu de cadrage détaillé | **Hors ce document** (G3 = autorisation, pas contenu) |
-| Nombre / contenu / ordre des incréments | **Non inventés ici** — cadrage détaillé ultérieur |
-
----
-
-## 6. Proposition de valeur
-
-| Bénéficiaire | Valeur |
-|--------------|--------|
-| **Étudiant / personnel** | Catalogue + réservation + notifications |
-| **Gestionnaire de campus** | Pilotage local, exceptions |
-| **Administrateur national** | Visibilité consolidée, gouvernance des droits |
-| **Support / RUN** | Incidents, disponibilité, diagnostic N1, erreurs d’intégration |
-| **Morris / SFIA** | Étalon trajectoire longue v2.6 |
-
----
-
-## 7. Cinq populations (G2)
-
-| # | Population | Rôle principal |
-|---|------------|----------------|
-| 1 | **Étudiant** | Consommer services |
-| 2 | **Personnel** | Consommer services ; usages métier |
-| 3 | **Gestionnaire de campus** | Pilotage local ; exceptions |
-| 4 | **Administrateur national** | Gouvernance multi-campus ; pilotage consolidé |
-| 5 | **Support / RUN** | Incidents de service, disponibilité, diagnostic N1, traçabilité, erreurs d’intégration |
-
-**Règle :** les cinq sont dans le périmètre ; les cinq sont exigés en critères de sortie MVP ; les parcours peuvent être livrés **incrémentalement** (réserve G2) ; la cible MVP finale inclut les cinq.
-
----
-
-## 8. Domaines fonctionnels (G2 validé)
-
-| Domaine | Statut MVP |
-|---------|------------|
-| Identité, rôles, habilitations | **Inclus** |
-| Catalogue de services | **Inclus** |
-| Réservation d’espaces | **Inclus** |
-| Notifications simples | **Inclus** |
-| Pilotage local et national | **Inclus** |
-| Gestion des exceptions | **Inclus** |
-| Intégration identité structurante (simulée) | **Inclus** |
-| Support / RUN borné | **Inclus** |
-| Événements complets, restauration, logement, paiement réel, ITSM, IoT | **Hors MVP** |
-
----
-
-## 9. Capacités métier principales
-
-1. Authentifier et autoriser selon population, campus et niveau national.
-2. Rattacher les données à un campus ; gérer plusieurs campus nativement.
-3. Publier et découvrir un catalogue de services.
-4. Réserver un espace (disponibilité, conflits, statuts).
-5. Notifier simplement les acteurs concernés.
-6. Piloter localement et nationalement (occupation, exceptions, consolidation).
-7. Intégrer l’identité via simulation complète — **sans** connexion réelle.
-8. Opérer un support/RUN borné (incidents, disponibilité, diagnostic N1, traçabilité, erreurs d’intégration, reprise bornée).
-
----
-
-## 10. Contraintes et hypothèses
-
-### 10.1 Contraintes
-
-| Contrainte | Description |
-|------------|-------------|
-| G1 / G4 | Étalon et nom validés |
-| G2 | Périmètre validé **avec réserve** incrémentale |
-| G3 | Cadrage détaillé **autorisé**, démarrage **différé** |
-| National multi-campus | Cible fonctionnelle — pas d’archi technique décidée |
-| Cinq populations | Périmètre + critères de sortie |
-| Identité simulée | Fournisseur fictif uniquement |
-| RGPD | Majeurs ; données minimales |
-| Baseline | SFIA v2.6 uniquement |
-
-### 10.2 Hypothèses
-
-| ID | Hypothèse |
-|----|-----------|
-| H1 | Le MVP national multi-campus est réalisable par incréments proportionnés (réserve G2) |
-| H2 | Les critères intermédiaires d’incrément ne remplacent pas les critères de sortie finaux |
-| H3 | La simulation identité complète suffit sans IdP réel au MVP |
-| H4 | Le découpage incrémental sera traité au **cadrage détaillé** — non inventé ici |
-| H5 | Les 15 cycles restent un potentiel — G3 ne les lance pas automatiquement |
-| H6 | G7 reste un cycle PR readiness séparé |
-
----
-
-## 11. Risques majeurs
-
-| ID | Risque | Mitigation |
-|----|--------|------------|
-| R1 | Lire G3 comme démarrage immédiat du cadrage détaillé | Séparation autorisation / démarrage |
-| R2 | Transformer la réserve en réduction du MVP | Réserve = trajectoire, pas scope cut |
-| R3 | Surconception technique « nationale » | Séparer fonctionnel / technique |
-| R4 | Inventer les incréments trop tôt | Report au cadrage détaillé |
-| R5 | Forçage des 15 cycles | Matrice `02-…` |
-| R6 | Confusion simulation / IdP réel | Fournisseur fictif |
-| R7 | Confusion projet / méthode / SFIA 3.0 | Séparation ; CAPA séparée |
-
----
-
-## 12. Différenciation vs Chantiers360 et Interv360
-
-| Critère | Chantiers360 | Interv360 | Campus360 |
-|---------|--------------|-----------|-----------|
-| Échelle | PME | Organisation SAV | **Nationale multi-campus** |
-| Populations | Artisan / PME | Rôles SAV | **Cinq populations** |
-| Intégrations | Limitées | Contrats simulés | **Identité simulée complète** |
-| RUN | Peu central | Partiel | **Support/RUN borné** + critères sortie |
-| Rôle SFIA | Pilote v2.0 | Référence | **Étalon v2.6 (G1)** |
-
----
-
-## 13. Critères de crédibilité
-
-Satisfaits sous G2 validé : problème compréhensible ; cinq populations ; multi-campus nécessaire ; identité simulée structurelle ; RGPD/accessibilité réels ; trajectoire incrémentale pensable ; pas d’archi technique préemptée.
-
----
-
-## 14. Critères de sortie du MVP (G2 — cible finale inchangée)
-
-1. Cinq populations couvertes.
-2. Fonctionnement national multi-campus démontré.
-3. Intégration identité simulée complète.
-4. Parcours métier validés.
-5. Tests fonctionnels.
-6. Contrôles sécurité.
-7. Contrôles accessibilité.
-8. Tests de performance.
-9. Logs, métriques et alertes minimales.
-10. Procédures RUN minimales.
-11. Release pilote démontrable.
-12. Rollback prévu et testable.
-
-**Réserve :** chaque incrément aura des critères de sortie **intermédiaires** ; ils **ne remplacent pas** cette liste finale.
-
----
-
-## 15. RGPD — périmètre décidé (sans DPIA)
-
-| Inclus | Exclu |
-|--------|-------|
-| Majeurs uniquement | Mineurs ; responsables légaux |
-| Identité minimale ; campus ; rôles ; réservation ; logs nécessaires | Santé ; logement ; paiement réel ; DPIA (ce cycle) |
-
----
-
-## 16. Critères de succès du projet étalon
-
-1. Pré-cadrage clôturé et versionné (G5/G6).
-2. PR readiness puis PR traitées (G7 — cycle séparé).
-3. Cadrage détaillé conduit après chaîne G3 différée.
-4. MVP livré selon critères de sortie G2, via incréments proportionnés.
-5. Séparation projet / méthode / capitalisation respectée.
-6. Aucune promotion SFIA 3.0.
-
----
-
-## 17. Recommandation / prochaines étapes
-
-| Élément | Position |
-|---------|----------|
-| **Pré-cadrage** | **Clôturé** |
-| **G2** | Validé avec réserve — périmètre **fermé** |
-| **G3** | Validé — cadrage détaillé **autorisé, non démarré** |
-| **G7** | Cycle **13 — PR readiness** |
-| **Interdit maintenant** | Contenu de cadrage détaillé, conception, architecture, backlog, code, PR |
-
-**Distinction observation / recommandation / décision :**
-
-- **Observation :** la réserve G2 discipline la delivery sans réduire le MVP.
-- **Recommandation :** enchaîner sur PR readiness, puis décider la suite.
-- **Décisions G1–G6 :** prises / exécutées ; **G7** à venir.
-```
-
----
-
-### Fichier : `projects/campus360/02-sfia-cycle-coverage-hypothesis.md` (main @ ec7f397a8738)
-
-```markdown
-# Campus360 — Hypothèse de couverture des cycles SFIA
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Projet** | **Campus360** (nom validé G4) |
-| **Document** | `02-sfia-cycle-coverage-hypothesis.md` |
-| **Cycle** | 1 — Cadrage (clôture pré-cadrage) |
-| **Profil** | Critical |
-| **Baseline** | SFIA v2.6 |
-| **Statut** | Pré-cadrage **CLÔTURÉ** — trajectoire actualisée post-G2/G3 ; **aucun cycle automatiquement lancé** |
-| **Référence méthode** | `sfia-v2.5-project-cycles-method-candidate.md` (acquis absorbés v2.6) |
-
-> **Règle :** les 15 cycles restent un **référentiel de couverture potentielle**. G3 n’active aucun cycle automatiquement. Activation **uniquement** par déclencheur réel. Profil **requalifié à chaque cycle**. Pas d’ordre séquentiel rigide. Pas de forçage pour atteindre quinze.
-
----
-
-## 1. Légende
-
-| Caractère | Signification |
-|-----------|---------------|
-| **Quasi systématique** | Attendue sur trajectoire produit sérieuse |
-| **Activable** | Fortement probable compte tenu de G2 |
-| **Conditionnel** | Dépend d’un événement ou arbitrage |
-| **Événementiel** | INC / RUN / EVOL — incident ou décision |
-
----
-
-## 2. Synthèse de couverture
-
-| # | Cycle | Caractère | Probabilité | Note post-clôture |
-|---|-------|-----------|-------------|-------------------|
-| 1 | Cadrage | Quasi systématique | **Certaine** | Pré-cadrage **clôturé** ; cadrage détaillé = prochaine activité **après PR** (toujours Cycle 1) |
-| 2 | Conception fonctionnelle | Quasi systématique | **Très élevée** | Après cadrage détaillé |
-| 3 | Architecture fonctionnelle | Activable | **Très élevée** | — |
-| 4 | UX/UI | Activable | **Très élevée** | 5 populations + accessibilité |
-| 5 | Backlog / user stories | Quasi systématique | **Très élevée** | Lieu naturel du découpage incrémental (réserve G2) |
-| 6 | Architecture technique | Activable | **Très élevée** | Sans stack préjugée |
-| 7 | Intégration / DevOps | Activable | **Très élevée** | Identité simulée complète |
-| 8 | Delivery / implémentation | Quasi systématique | **Certaine** | Incréments proportionnés (réserve G2) |
-| 9 | QA / validation | Quasi systématique | **Certaine** | Critical probable en sortie MVP |
-| 10 | Sécurité / RSSI | Activable | **Très élevée** | — |
-| 11 | Déploiement / release | Activable | **Très élevée** | Critères sortie |
-| 12 | Observabilité / RUN readiness | Activable | **Très élevée** | Support/RUN borné |
-| 13 | PR readiness | Quasi systématique | **Certaine** | **Prochaine étape immédiate (G7)** |
-| 14 | Post-merge | Quasi systématique | **Certaine** | — |
-| 15 | Capitalisation / REX | Quasi systématique | **Élevée** | Proportionnée — pas de promotion méthode ici |
-
----
-
-## 3. Réserve G2 — impact trajectoire (sans définir les incréments)
-
-| Règle | Contenu |
-|-------|---------|
-| **Cible MVP finale** | **Inchangée** (critères de sortie G2 complets) |
-| **Découpage** | Sera traité dans le **cadrage détaillé** puis backlog — **non défini ici** |
-| **Incréments** | Proportionnés ; chacun avec critères de sortie **intermédiaires** |
-| **Requalification** | Chaque incrément / cycle est requalifié (type, profil, périmètre) |
-| **Interdiction** | Les critères intermédiaires **ne remplacent pas** les critères de sortie finaux |
-| **Interdiction** | Inventer nombre, contenu ou ordre des incréments dans ce document |
-
----
-
-## 4. Matrice détaillée (synthèse opérationnelle)
-
-Les justifications détaillées du pré-cadrage restent valides. Mises à jour clés :
-
-### Cycle 1 — Cadrage
-
-| Champ | Contenu |
-|-------|---------|
-| **État** | Pré-cadrage **clôturé** |
-| **Suite** | Cadrage détaillé **autorisé (G3)** mais **non démarré** — après PR readiness / PR / décision de suite |
-| **Profil probable cadrage détaillé** | À re-qualifier à l’ouverture |
-| **Gates** | G1–G6 traités ; G7 = PR readiness |
-
-### Cycle 5 / 8 — Backlog & Delivery
-
-| Champ | Contenu |
-|-------|---------|
-| **Lien réserve G2** | Découpage en incréments proportionnés ; critères intermédiaires ; cible finale intacte |
-| **Ne pas faire ici** | Définir les incréments |
-
-### Cycle 9 — QA
-
-| Champ | Contenu |
-|-------|---------|
-| **Profil probable sortie MVP** | Critical |
-| **Couverture** | Fonctionnel, sécurité, accessibilité, performance |
-
-### Cycle 13 — PR readiness
-
-| Champ | Contenu |
-|-------|---------|
-| **État** | **Prochaine étape** — G7 |
-| **Déclencheur** | Branche poussée, pré-cadrage clôturé |
-
-### Cycles 3, 4, 6, 7, 10, 11, 12
-
-Fortement probables compte tenu de G2 — **non lancés** par G3.
-
----
-
-## 5. Classes de cycles
-
-| Classe | Cycles |
-|--------|--------|
-| Quasi systématiques | 1, 2, 5, 8, 9, 13, 14, 15 |
-| Activables (fortement probables) | 3, 4, 6, 7, 10, 11, 12 |
-| Conditionnels | Profondeur Critical ; Figma ; ADR lourds |
-| Événementiels | RUN / correctifs / CAPA |
-
----
-
-## 6. Transverses (non cycles cœur)
-
-### RGPD
-
-Majeurs ; données minimales ; campus ; rôles ; réservation ; logs nécessaires. Exclusions : santé, mineurs, logement, paiement réel. **Pas de DPIA** ici. Bloc toujours actif.
-
-### Accessibilité
-
-Activation future pour les cinq populations — cycles UX/UI et QA. **Pas de travail UX** dans cette exécution.
-
-### Performance
-
-National multi-campus + pics justifient travaux futurs. **Pas de SLA** ici.
-
-### Sécurité
-
-Habilitations, identité simulée, logs, séparation campus/national. **Pas de threat model** ici.
-
-### Observabilité / RUN readiness
-
-Critères de sortie + support/RUN borné maintenus. **Pas de runbooks** ici.
-
-### Capitalisation / REX documentaire
-
-Clôture du pré-cadrage tracée. **Pas** de modification méthode SFIA. **Pas** de promotion en baseline.
-
----
-
-## 7. Séparation projet / méthode / capitalisation
-
-| Couche | Règle |
-|--------|-------|
-| Projet produit | `projects/campus360/` |
-| Observations | REX projet |
-| Capitalisation SFIA | Cycle CAPA + GO Morris uniquement |
-
----
-
-## 8. Trajectoire macro (hypothèse — aucun démarrage implicite)
-
-```text
-Pré-cadrage Cycle 1                         ← CLÔTURÉ
-    → Commit (G5) + Push (G6)               ← cette exécution
-    → Cycle 13 — PR readiness (G7)          ← prochaine étape
-    → PR + décision de suite
-Cadrage détaillé (Cycle 1, DOC)             ← uniquement après chaîne ci-dessus
-    → Conception → (archi fonc. / UX) → backlog (incréments)
-    → Archi technique → DevOps / identité simulée
-    → Sécurité → Delivery INC-n + QA
-    → Release + RUN readiness
-    → EVOL / RUN / CAPA selon besoins
-```
-
-**G3 n’autorise pas** à sauter PR readiness ni à démarrer le cadrage détaillé dans cette exécution.
-
----
-
-## 9. Revue anti-couverture artificielle
-
-| Signal | Statut |
-|--------|--------|
-| 15 cycles obligatoires | Évité |
-| G3 = lancement multi-cycles | Évité |
-| Incréments inventés | Évité |
-| Réduction MVP via réserve | Interdit |
-| Architecture = multi-campus | Séparé |
-
-**Conclusion :** pré-cadrage clôturé ; hypothèses de couverture intactes ; prochaine action méthodologique après PR = cadrage détaillé (Cycle 1).
-```
-
----
-
-### Fichier : `projects/campus360/03-pre-framing-decision-pack.md` (main @ ec7f397a8738)
-
-```markdown
-# Campus360 — Decision pack de clôture du pré-cadrage
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Projet** | **Campus360** (nom **validé** G4) |
-| **Document** | `03-pre-framing-decision-pack.md` |
-| **Destinataire** | Morris (L0) |
-| **Cycle** | 1 — Cadrage (clôture pré-cadrage) |
-| **Profil** | Critical |
-| **Typologie** | DOC |
-| **Baseline** | SFIA v2.6 |
-| **Statut pré-cadrage** | **CLÔTURÉ** |
-| **Verdict documentaire (avant commit)** | `PRE-FRAMING DECISIONS COMPLETE — READY FOR COMMIT` |
-| **Verdict documentaire (après push)** | `PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS` |
-
----
-
-## 1. Décision suivante
-
-**Cycle 13 — PR readiness (G7).**
-
-Ne pas démarrer le cadrage détaillé dans cette exécution, malgré G3 validé.
-
----
-
-## 2. Statut final des gates
-
-| Gate | Objet | Statut |
-|------|-------|--------|
-| **G1** | Projet étalon SFIA v2.6 | **VALIDÉ** |
-| **G2** | Périmètre MVP | **VALIDÉ AVEC RÉSERVE** |
-| **G3** | Passage au cadrage détaillé | **VALIDÉ** — autorisé, **non démarré** |
-| **G4** | Nom Campus360 | **VALIDÉ** |
-| **G5** | Commit branche projet | **EXÉCUTÉ** |
-| **G6** | Push branche projet | **EXÉCUTÉ** |
-| **G7** | Création PR | **EN ATTENTE** — cycle **PR readiness** |
-
----
-
-## 3. Décisions Morris finales de clôture du pré-cadrage — 17 juillet 2026
-
-### 3.1 Validation G2
-
-Le périmètre MVP Campus360 est **validé** :
-
-- cible nationale multi-campus ;
-- cinq populations : étudiant ; personnel ; gestionnaire de campus ; administrateur national ; support / RUN ;
-- identité, rôles et habilitations multi-niveaux ;
-- catalogue de services ;
-- réservation d’espaces ;
-- notifications simples ;
-- pilotage local et national ;
-- gestion des exceptions ;
-- intégration identité structurante avec simulation complète ;
-- support / RUN borné ;
-- utilisateurs majeurs uniquement ;
-- données personnelles minimales ;
-- critères de sortie couvrant fonctionnel, intégration, QA, sécurité, accessibilité, performance, release et RUN readiness.
-
-### 3.2 Réserve de découpage incrémental (validée avec G2)
-
-**Texte exact de la réserve :**
+## 2. Rappel des décisions G1–G4 et réserve G2
+
+| Gate | Statut | Contenu |
+|------|--------|---------|
+| **G1** | VALIDÉ | Campus360 = projet étalon SFIA v2.6 |
+| **G2** | VALIDÉ AVEC RÉSERVE | Périmètre MVP national multi-campus (voir §8) |
+| **G3** | VALIDÉ | Cadrage détaillé autorisé — **démarré** dans cette exécution |
+| **G4** | VALIDÉ | Nom officiel Campus360 |
+| G5–G7 (pré-cadrage) | EXÉCUTÉS | Commit, push, PR #206, merge |
+
+**Réserve G2 (texte exact) :**
 
 > Le périmètre MVP final reste intégralement maintenu.
 > Sa réalisation devra être découpée en incréments proportionnés, chacun assorti de critères de sortie intermédiaires, sans réduction implicite de la cible MVP finale.
 
-**Nature :** règle de **trajectoire et de delivery**.
-**Effets :**
-
-- ne rouvre **pas** le périmètre G2 ;
-- n’est **pas** une réserve bloquante ;
-- n’autorise **pas** à inventer les incréments dans le pré-cadrage ;
-- le découpage sera traité au **cadrage détaillé** / backlog ultérieurs ;
-- chaque incrément sera **requalifié** ;
-- les critères intermédiaires **ne remplacent pas** les critères de sortie finaux.
-
-### 3.3 Validation G3
-
-Le passage au cadrage détaillé Campus360 est **autorisé**.
-
-### 3.4 Séparation autorisation / démarrage effectif
-
-Le cadrage détaillé **ne démarre** qu’après :
-
-1. clôture du pré-cadrage ;
-2. commit projet conforme (G5) ;
-3. push de la branche projet (G6) ;
-4. cycle **PR readiness** ;
-5. création et traitement de la pull request (G7) ;
-6. décision de suite après contrôle de la PR.
-
-**G3 validé ≠ cadrage détaillé démarré.**
-
-### 3.5 Autorisation G5 / G6
-
-- **G5** : commit borné des quatre documents Campus360 — **autorisé et exécuté** dans cette exécution.
-- **G6** : push de `project/campus360-opportunity-framing` — **autorisé et exécuté** dans cette exécution.
-
-### 3.6 Report de G7
-
-La création de PR est **reportée** au cycle distinct **13 — PR readiness**.
-**Aucune PR** dans cette exécution.
-
-### 3.7 G1 / G4 (rappel)
-
-- G1 : Campus360 = projet étalon SFIA v2.6 — **VALIDÉ**.
-- G4 : nom Campus360 — **VALIDÉ**.
+**Nature :** règle de trajectoire et de delivery — ne rouvre pas le périmètre — non bloquante.
 
 ---
 
-## 4. Critères de clôture du pré-cadrage
+## 3. Problème et opportunité
 
-| Critère | Statut |
-|---------|--------|
-| Quatre documents cohérents | À vérifier avant commit |
-| G1–G4 formalisés | Oui |
-| Réserve G2 tracée sans réduction MVP | Oui |
-| G3 autorisé sans démarrage implicite | Oui |
-| Aucun contenu de cadrage détaillé | Oui |
-| Aucune architecture / backlog / code | Oui |
-| G5 commit conforme (4 fichiers) | Exécuté dans cette exécution |
-| G6 push vérifié | Exécuté dans cette exécution |
-| G7 non exécuté | Oui |
+### Problème
+
+Dans un réseau national multi-campus, les services du quotidien (catalogue, réservation d’espaces, notifications, pilotage) sont fragmentés ; les identités et habilitations ne sont pas unifiées entre campus et niveau national ; l’intégration identité est absente ou partielle ; la conformité et l’exploitation restent peu industrialisées.
+
+### Opportunité
+
+Fournir une plateforme unifiée fictive permettant de découvrir, réserver et piloter les services campus sous identité et habilitations multi-niveaux, à l’échelle nationale multi-campus, avec support/RUN borné et intégration identité simulée complète — terrain d’épreuve durable pour SFIA v2.6.
 
 ---
 
-## 5. Actions autorisées (cette exécution)
+## 4. Objectifs du projet
 
-- Modifier les quatre documents du socle.
-- Commit borné (G5).
-- Push de la branche projet (G6).
-- Review Pack FULL + Review Handoff Git.
-
-## 6. Actions interdites (cette exécution)
-
-- Créer une PR / draft PR (G7).
-- Démarrer le cadrage détaillé.
-- Créer `00-framing/` ou tout document supplémentaire.
-- Conception, architecture, backlog, code.
-- Choisir stack ou fournisseur d’identité réel.
-- Modifier la méthode SFIA.
-- Force push ; push `main` ; merge ; suppression de branche.
+1. Démontrer un MVP national multi-campus cohérent pour cinq populations.
+2. Exercer identité, catalogue, réservation, notifications, pilotage local/national, exceptions, identité simulée complète, support/RUN borné.
+3. Satisfaire les critères de sortie G2 (fonctionnel, intégration, QA, sécurité, accessibilité, performance, release, RUN readiness).
+4. Respecter la réserve G2 via une trajectoire incrémentale proportionnée.
+5. Séparer clairement projet, méthode et capitalisation SFIA.
 
 ---
 
-## 7. Scénario retenu (clôturé)
+## 5. Résultats attendus
 
-| Élément | Contenu |
+| Résultat | Description |
+|----------|-------------|
+| Produit MVP | Cible G2 intégralement démontrable en sortie |
+| Trajectoire | Incréments avec critères intermédiaires (voir `05-…`) |
+| Gouvernance | Rôles, RACI, gates DF (voir `06-…` et `07-…`) |
+| Preuves | Chaîne documentaire + preuves runtime ultérieures par cycle |
+| Apprentissage SFIA | Observations projet — capitalisation méthode seulement via CAPA + GO Morris |
+
+---
+
+## 6. Non-objectifs
+
+- Remplacer Chantiers360 ou Interv360.
+- Promouvoir SFIA 3.0 ou modifier la méthode dans ce cycle.
+- Livrer un SI campus « complet » (logement, resto, paiement, IoT, ITSM).
+- Connecter un fournisseur d’identité réel au MVP.
+- Produire dans ce cycle : conception détaillée, architecture, backlog, UX/Figma, code.
+
+---
+
+## 7. Périmètre inclus (G2 — inchangé)
+
+- Cible **nationale multi-campus** ; admin nationale et locale ; données rattachées à un campus ; habilitations multi-niveaux ; pilotage consolidé national.
+- Identité, rôles, habilitations.
+- Catalogue de services.
+- Réservation d’espaces.
+- Notifications simples.
+- Pilotage local et national.
+- Gestion des exceptions.
+- Intégration identité **simulée complète** (création, MAJ, désactivation, doublons, idempotence, erreurs, reprises, désynchronisations, traçabilité, supervision) — fournisseur **fictif**.
+- Support / RUN **borné** (incidents de service, disponibilité, diagnostic N1, traçabilité, erreurs d’intégration, reprise bornée).
+- Utilisateurs **majeurs** ; données personnelles **minimales**.
+- Critères de sortie : fonctionnel, intégration, QA, sécurité, accessibilité, performance, release, RUN readiness.
+
+---
+
+## 8. Périmètre exclu
+
+| Exclu | Note |
+|-------|------|
+| Logement, restauration complète, paiement réel, IoT / contrôle d’accès physique | Hors MVP |
+| ITSM complet, CMDB, centre de support avancé | Hors MVP |
+| Fournisseur / protocole d’identité **réel** | Hors MVP |
+| Architecture distribuée / multi-région technique, stack | Non décidé |
+| DPIA complète | Hors ce cycle de cadrage |
+| Conception / architecture / backlog / UX-Figma / code | Cycles ultérieurs |
+
+---
+
+## 9. Cinq populations et responsabilités fonctionnelles
+
+| Population | Responsabilités fonctionnelles MVP |
+|------------|-------------------------------------|
+| **Étudiant** | Consulter catalogue ; réserver espaces ; recevoir notifications ; gérer ses réservations dans les limites de rôle |
+| **Personnel** | Idem étudiant + usages métier campus selon habilitations |
+| **Gestionnaire de campus** | Administrer services/espaces locaux ; traiter exceptions ; piloter occupation locale |
+| **Administrateur national** | Gouverner multi-campus ; habilitations ; pilotage consolidé ; supervision transverse |
+| **Support / RUN** | Consulter incidents de service ; statut disponibilité ; diagnostic N1 ; traçabilité ; erreurs d’intégration ; reprise bornée |
+
+**Règle :** les cinq sont dans le périmètre ; les cinq doivent être couvertes en **sortie MVP** ; la couverture peut être **progressive** par incrément (réserve G2).
+
+---
+
+## 10. Capacités métier attendues
+
+1. Authentifier et autoriser (population × campus × niveau national).
+2. Rattacher les données à un campus ; gérer plusieurs campus nativement.
+3. Publier / découvrir un catalogue de services.
+4. Réserver un espace (disponibilité, conflits, statuts).
+5. Notifier simplement les acteurs concernés.
+6. Piloter localement et nationalement (occupation, exceptions, consolidation).
+7. Intégrer l’identité via simulation complète — sans connexion réelle.
+8. Opérer le support/RUN borné défini en G2.
+
+---
+
+## 11. Parcours métier à cadrer ultérieurement (conception / UX)
+
+| ID | Parcours | Populations principales |
+|----|----------|-------------------------|
+| P1 | Authentification et sélection de contexte campus | Toutes |
+| P2 | Découverte catalogue | Étudiant, personnel |
+| P3 | Réservation d’espace (création → confirmation → modification/annulation) | Étudiant, personnel, gestionnaire |
+| P4 | Traitement d’exception (conflit, indisponibilité) | Gestionnaire, admin national |
+| P5 | Pilotage local | Gestionnaire |
+| P6 | Pilotage consolidé national | Administrateur national |
+| P7 | Supervision flux identité simulés (erreur, reprise, désync) | Support/RUN, admin |
+| P8 | Incident de service / disponibilité (N1) | Support/RUN |
+
+Ces parcours sont des **cibles de conception/UX futures**, pas des specs d’écran.
+
+---
+
+## 12. Contraintes fonctionnelles
+
+- Données métier rattachées à un campus.
+- Habilitations multi-niveaux (campus / national) sans confusion de privilèges.
+- Réservations soumises à règles de disponibilité et de conflit.
+- Notifications simples (pas de plateforme marketing).
+- Exceptions visibles et traitables par les rôles adéquats.
+- Simulation identité : couverture complète des cas G2, y compris non-happy-path.
+
+---
+
+## 13. Contraintes réglementaires et transverses
+
+### RGPD
+
+| Élément | Cadrage |
 |---------|---------|
-| Projet | Campus360 — étalon SFIA v2.6 |
-| Échelle | Nationale multi-campus (fonctionnel) |
-| MVP | Noyau + pilotage + identité simulée + RUN borné |
-| Populations | Cinq |
-| Réserve | Incréments proportionnés — cible finale intacte |
-| Suite immédiate | PR readiness (G7) |
-| Suite après PR | Cadrage détaillé (Cycle 1) si décision de suite |
+| **Populations données** | Majeurs uniquement |
+| **Catégories** | Identité minimale ; rattachement campus ; rôles/habilitations ; réservation ; logs techniques/sécurité nécessaires |
+| **Finalités** | Fourniture des services campus MVP ; sécurité ; exploitation bornée |
+| **Minimisation** | Pas de santé, logement, paiement réel, mineurs, responsables légaux |
+| **Responsabilité** | Rôle DPO fictif + product owner fictif (voir `06-…`) |
+| **Futur** | Registre des traitements ; éventuelle DPIA si élargissement ou risque élevé |
+| **Déclencheurs DPIA (futurs)** | Introduction de mineurs ; données sensibles ; profilage ; nouveau traitement à risque élevé |
+
+### Accessibilité
+
+| Élément | Cadrage |
+|---------|---------|
+| **Populations** | Les cinq, avec attention usagers en situation de handicap |
+| **Objectif** | Exigence d’accessibilité numérique pour parcours MVP |
+| **Preuves futures** | Contrôles UX + QA (critère de sortie G2) |
+| **Référentiel** | **À arbitrer Morris** (option candidate : alignement type RGAA / WCAG — non décidé) |
+
+### Performance
+
+| Élément | Cadrage |
+|---------|---------|
+| **Usages critiques** | Auth, catalogue, réservation, pilotage |
+| **Pics** | Rentrée, examens, événements campus |
+| **Attentes** | Temps de réponse « acceptables » à qualifier en conception/archi/QA — **pas de SLA chiffré ici** |
+| **Preuves** | Tests de performance = critère sortie MVP |
+
+### Sécurité
+
+| Élément | Cadrage |
+|---------|---------|
+| Habilitations multi-niveaux | Séparation campus / national |
+| Journalisation | Accès sensibles, flux identité |
+| Intégrité flux identité | Erreurs, reprises, désynchronisations tracées |
+| Futur | Analyse de risques / threat model en cycle sécurité |
+
+### Release / RUN
+
+| Élément | Cadrage |
+|---------|---------|
+| Release | Pilote démontrable + rollback testable |
+| RUN | Logs, métriques, alertes minimales ; procédures RUN minimales ; support borné |
+| Non-objectifs | ITSM/CMDB |
 
 ---
 
-## 8. Risques résiduels
+## 14. Hypothèses
+
+| ID | Hypothèse | Statut |
+|----|----------|--------|
+| H-DF-01 | Quatre incréments suffisent pour respecter la réserve G2 sans réduire le MVP | Proposition — à valider Morris |
+| H-DF-02 | La simulation identité peut être outillée progressivement (happy path puis non-happy-path) | Hypothèse |
+| H-DF-03 | Le support/RUN borné peut être démontré sans ITSM | Hypothèse |
+| H-DF-04 | Un référentiel d’accessibilité unique sera choisi avant UX Critical | Hypothèse |
+| H-DF-05 | Les parcours P1–P8 couvrent le cœur MVP pour conception/UX | Hypothèse |
+
+---
+
+## 15. Dépendances
+
+| Dépendance | Type | Commentaire |
+|------------|------|-------------|
+| Décisions G1–G4 / réserve G2 | Interne | Socle non négociable sans nouvelle décision Morris |
+| Simulation identité | Structurante | Bloque une partie des preuves intégration/RUN |
+| Choix référentiel accessibilité | Morris | Avant UX/QA accessibilité |
+| Cycles conception → … → release | Méthode | Ordre non rigide ; déclencheurs réels |
+| Aucun IdP réel | Externe fictif | Fournisseur fictif uniquement |
+
+---
+
+## 16. Principes de découpage incrémental
+
+1. Chaque incrément apporte une **valeur démontrable**.
+2. Aucun incrément ne **réduit** la cible MVP finale.
+3. Les critères **intermédiaires** ≠ critères **finaux** G2.
+4. Populations et capacités progressives, couverture **complète en sortie**.
+5. Dépendances maîtrisées ; réversibilité relative ; risque proportionné.
+6. Testabilité et observabilité dès que pertinent.
+7. Pas de découpage par couche technique pure ; pas de micro-incréments artificiels.
+
+Détail : `05-mvp-increment-trajectory.md`.
+
+---
+
+## 17. Résultats attendus par incrément (haut niveau)
+
+| Incrément | Résultat attendu (haut niveau) |
+|-----------|--------------------------------|
+| **INC-01** | Socle identité multi-campus + catalogue opérable |
+| **INC-02** | Réservation + notifications + exceptions |
+| **INC-03** | Pilotage local et national |
+| **INC-04** | Identité simulée complète + support/RUN borné + contribution aux critères transverses de sortie |
+
+---
+
+## 18. Critères de succès projet
+
+1. Cible G2 démontrée sans réduction.
+2. Cinq populations couvertes en sortie.
+3. Trajectoire incrémentale exécutée avec critères intermédiaires tracés.
+4. Séparation projet / méthode respectée.
+5. Aucune promotion SFIA 3.0.
+6. Gates Morris respectés avant conception, architecture, backlog, release.
+
+---
+
+## 19. Critères de sortie du cadrage détaillé
+
+Le cadrage détaillé peut être considéré **complet** (après GO Morris) lorsque :
+
+1. Les documents `04`–`07` + README sont cohérents avec G2/réserve.
+2. La trajectoire incrémentale est **acceptée** ou **réorientée** explicitement.
+3. Les gates DF proposés sont **acceptés, amendés ou rejetés**.
+4. Les arbitrages listés §20 sont tranchés ou reportés avec traçabilité.
+5. Aucune architecture/stack/backlog n’a été smuggled.
+6. La suite de cycles candidats est claire.
+
+---
+
+## 20. Décisions Morris encore nécessaires
+
+| ID | Décision | Urgence |
+|----|----------|---------|
+| DM-DF-01 | Valider le cadrage détaillé (`04`–`07`) | Immédiate (revue) |
+| DM-DF-02 | Valider ou amender la trajectoire INC-01…04 | Immédiate |
+| DM-DF-03 | Valider / amender les gates DF-G* | Immédiate |
+| DM-DF-04 | Autoriser commit / push / PR de cette branche | Après validation fond |
+| DM-DF-05 | Choisir le prochain cycle (conception vs autre) | Après DM-DF-01/02 |
+| DM-DF-06 | Arbitrer référentiel accessibilité | Avant UX Critical |
+| DM-DF-07 | Cleanup branche pré-cadrage (optionnel) | Indépendant |
+
+---
+
+## 21. Cycles suivants candidats
+
+| Priorité pressentie | Cycle | Condition |
+|---------------------|-------|-----------|
+| 1 | Conception fonctionnelle | Après validation cadrage + GO |
+| 2 | Architecture fonctionnelle | Si complexité flux le justifie |
+| 3 | UX/UI | Après conception ; accessibilité activée |
+| 4 | Backlog / user stories | Découpage INC → stories |
+| … | Technique, DevOps, sécurité, QA, release, RUN | Selon déclencheurs |
+
+Aucun cycle n’est lancé automatiquement.
+
+---
+
+## 22. Actions interdites avant gates
+
+- Conception détaillée, architecture, backlog, UX/Figma, code.
+- Choix de stack ou d’IdP réel.
+- Réduction du MVP ou exclusion d’une population.
+- Commit / push / PR / merge de cette branche sans GO Morris.
+- Modification de la méthode SFIA.
+
+---
+
+## 23. Verdict documentaire
+
+```text
+DETAILED FRAMING DRAFT COMPLETE — MORRIS REVIEW REQUIRED
+```
+
+**Observation :** le cadrage est prêt pour revue.
+**Recommandation :** valider `04`–`07` puis enchaîner sur conception fonctionnelle.
+**Décision :** réservée à Morris.
+```
+
+---
+
+### Fichier : `projects/campus360/05-mvp-increment-trajectory.md`
+
+```markdown
+# Campus360 — Trajectoire incrémentale MVP
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Projet** | Campus360 |
+| **Document** | `05-mvp-increment-trajectory.md` |
+| **Cycle** | 1 — Cadrage (cadrage détaillé) |
+| **Profil** | Critical |
+| **Baseline** | SFIA v2.6 |
+| **Statut** | Proposition — **non validée** Morris |
+| **Objet** | Satisfaire la réserve G2 sans réduire le MVP |
+
+> Ce document définit une **trajectoire de cadrage** à haut niveau.
+> Ce n’est **pas** un backlog, **pas** des user stories, **pas** un plan d’architecture.
+
+---
+
+## 1. Principes de découpage
+
+1. **Non-réduction** : la cible MVP G2 reste intégrale en sortie.
+2. **Valeur démontrable** à chaque incrément.
+3. **Progressivité** des populations et capacités — couverture complète en fin de trajectoire.
+4. **Dépendances maîtrisées** : pas d’incrément « orphelin ».
+5. **Réversibilité relative** : éviter les paris techniques irréversibles (aucune stack imposée ici).
+6. **Risque proportionné** : cas complexes identité/RUN en fin de trajectoire, pas exclus.
+7. **Testabilité / observabilité** : chaque incrément doit pouvoir être prouvé.
+8. **Pas de découpage couche technique** (front/back/infra) comme logique principale.
+9. **Pas de micro-incréments** artificiels.
+10. Critères **intermédiaires** ≠ critères **finaux** G2.
+
+---
+
+## 2. Critères de cohérence d’un incrément
+
+| Critère | Question |
+|---------|----------|
+| Valeur démontrable | Que peut-on montrer à Morris / acteurs fictifs ? |
+| Dépendances maîtrisées | Les prérequis sont-ils livrés ou simulés explicitement ? |
+| Réversibilité | Peut-on ajuster sans dettes structurantes non gated ? |
+| Risque proportionné | Le risque est-il justifié par la valeur ? |
+| Testabilité | Existe-t-il des preuves fonctionnelles envisageables ? |
+| Observabilité | Dispose-t-on de signaux minimaux si pertinent ? |
+| Non-réduction MVP | Contribue-t-on à la cible finale sans la rogner ? |
+
+---
+
+## 3. Proposition d’incréments (recommandation)
+
+**Nombre proposé : 4** — découle de l’analyse (socle → métier cœur → pilotage → durcissement identité/RUN).
+
+| ID | Nom | Intention |
+|----|-----|-----------|
+| **INC-01** | Socle identité multi-campus & catalogue | Fonder le contexte national multi-campus et l’accès aux services |
+| **INC-02** | Réservation, notifications & exceptions | Délivrer le parcours métier cœur |
+| **INC-03** | Pilotage local & national | Exploiter la valeur multi-niveaux et multi-campus |
+| **INC-04** | Identité simulée complète & support/RUN borné | Couvrir non-happy-path identité + exploitation bornée |
+
+---
+
+## 4. Détail des incréments
+
+### INC-01 — Socle identité multi-campus & catalogue
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectifs** | Authentification/autorisation de base ; rattachement campus ; catalogue publiable/consultable ; skeleton multi-campus |
+| **Populations (progressif)** | Étudiant, personnel (consultation) ; gestionnaire & admin national (publication/admin légère) ; support/RUN (accès lecture minimal / présence rôle) |
+| **Capacités** | Cap. 1–3 (authZ de base, multi-campus, catalogue) |
+| **Hors cet incrément** | Réservation ; notifications métier ; pilotage consolidé ; non-happy-path identité complets ; RUN incidents |
+| **Critères intermédiaires** | Au moins 2 campus fictifs ; 4 rôles opérationnels démontrés ; catalogue consultable ; aucune connexion IdP réelle |
+| **Contribution à la cible finale** | Socle indispensable à toutes les capacités G2 |
+| **Gate Morris pressenti** | DF-G4 (GO INC-01) — voir `07-…` |
+
+### INC-02 — Réservation, notifications & exceptions
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectifs** | Parcours réservation bout-en-bout ; notifications simples ; gestion d’exceptions |
+| **Populations** | Étudiant & personnel (réserver) ; gestionnaire (exceptions/espaces) ; admin national (visibilité) ; support (lecture erreurs métier si exposées) |
+| **Capacités** | Cap. 4–6 (réservation, notifications, exceptions ; amorces pilotage local) |
+| **Dépendance** | INC-01 |
+| **Hors cet incrément** | Pilotage national consolidé complet ; simulation identité non-happy-path complète ; RUN N1 complet |
+| **Critères intermédiaires** | Création/modification/annulation réservation ; notification émise ; au moins un type d’exception traité ; tests fonctionnels du parcours P3/P4 amorçables |
+| **Contribution** | Cœur de valeur usager |
+| **Gate** | DF-G5 |
+
+### INC-03 — Pilotage local & national
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectifs** | Vues de pilotage local et consolidé national ; démonstration habilitations multi-niveaux sur données multi-campus |
+| **Populations** | Gestionnaire (local) ; administrateur national (consolidé) ; autres populations en consultation selon droits |
+| **Capacités** | Cap. 6 approfondie (pilotage) |
+| **Dépendance** | INC-01, INC-02 |
+| **Hors cet incrément** | BI avancée ; ITSM ; identité non-happy-path complète |
+| **Critères intermédiaires** | Indicateurs d’occupation/exceptions locaux ; vue consolidée ≥2 campus ; séparation des privilèges campus/national prouvée |
+| **Contribution** | Différenciation étalon vs projets bornés |
+| **Gate** | DF-G6 |
+
+### INC-04 — Identité simulée complète & support/RUN borné
+
+| Champ | Contenu |
+|-------|---------|
+| **Objectifs** | Couvrir le contrat d’intégration identité **complet** (cas G2) ; activer support/RUN borné ; préparer release/RUN readiness |
+| **Populations** | Support/RUN pleinement exercé ; admin national ; impacts sur toutes les populations via sync identité |
+| **Capacités** | Cap. 7–8 (identité simulée complète, support/RUN borné) |
+| **Dépendance** | INC-01…03 (contexte métier pour donner sens aux flux) |
+| **Hors cet incrément** | IdP réel ; ITSM/CMDB ; runbooks encyclopédiques |
+| **Critères intermédiaires** | Scénarios : création/MAJ/désactivation, doublons, idempotence, erreur, reprise, désync, traçabilité, supervision ; incident de service + disponibilité + diagnostic N1 démontrables ; contribution explicite aux critères sortie sécurité/intégration/RUN/release |
+| **Contribution** | Clôture des exigences G2 différenciantes |
+| **Gate** | DF-G7 |
+
+---
+
+## 5. Matrice populations × incréments
+
+| Population | INC-01 | INC-02 | INC-03 | INC-04 | Sortie MVP |
+|------------|--------|--------|--------|--------|------------|
+| Étudiant | Consult. | **Cœur** | Consult. | Impact sync | **Couverte** |
+| Personnel | Consult. | **Cœur** | Consult. | Impact sync | **Couverte** |
+| Gestionnaire campus | Admin légère | **Exceptions** | **Pilotage local** | Support collab. | **Couverte** |
+| Admin national | Admin légère | Visibilité | **Pilotage national** | Supervision | **Couverte** |
+| Support / RUN | Présence rôle | Lecture | Lecture | **Cœur** | **Couverte** |
+
+Aucune population n’est exclue définitivement.
+
+---
+
+## 6. Matrice capacités × incréments
+
+| Capacité | INC-01 | INC-02 | INC-03 | INC-04 |
+|----------|--------|--------|--------|--------|
+| AuthZ / multi-campus | **Base** | Étendu | Étendu | Durci (sync) |
+| Catalogue | **Oui** | — | — | — |
+| Réservation | — | **Oui** | — | — |
+| Notifications | — | **Oui** | — | — |
+| Exceptions | — | **Oui** | Suivi | — |
+| Pilotage local/national | Amorcé | Amorcé | **Oui** | — |
+| Identité simulée complète | Happy path minimal | — | — | **Complet** |
+| Support/RUN borné | Stub rôle | — | — | **Oui** |
+
+---
+
+## 7. Dépendances entre incréments
+
+```text
+INC-01 → INC-02 → INC-03
+                ↘
+                 INC-04 (après INC-02 au minimum ; recommandé après INC-03)
+```
+
+**Règle :** INC-04 ne doit pas précéder le métier cœur (sinon simulation sans valeur métier). INC-03 peut être allégé si Morris priorise INC-04 plus tôt — **option B** ci-dessous.
+
+---
+
+## 8. Critères intermédiaires vs finaux
+
+| Niveau | Rôle |
+|--------|------|
+| **Intermédiaire (par INC)** | Autoriser la clôture d’un incrément et le passage au suivant |
+| **Final (G2)** | Déclarer le MVP atteint — liste des 12 critères de sortie du pré-cadrage |
+
+Les critères intermédiaires **ne remplacent jamais** les critères finaux.
+
+### Critères de non-régression
+
+- Chaque nouvel INC doit préserver les parcours validés des INC précédents.
+- Les habilitations déjà démontrées ne doivent pas régresser.
+- Les campus fictifs et rattachements restent cohérents.
+
+---
+
+## 9. Éléments explicitement différés (hors MVP / hors trajectoire)
+
+- Logement, resto complète, paiement réel, IoT.
+- ITSM / CMDB / centre de support avancé.
+- IdP réel / protocole définitif.
+- Stack, architecture distribuée, multi-région technique.
+- Incréments post-MVP (EVOL) : événements complets, etc.
+
+---
+
+## 10. Gates Morris entre incréments (propositions)
+
+| Gate | Objet |
+|------|-------|
+| DF-G4 | GO démarrage / clôture INC-01 |
+| DF-G5 | GO INC-02 |
+| DF-G6 | GO INC-03 |
+| DF-G7 | GO INC-04 |
+| DF-G8 | GO déclaration sortie MVP (critères finaux) |
+
+Détail et preuves : `07-risks-dependencies-and-gates.md`.
+Ces gates sont des **propositions**, pas des décisions validées.
+
+---
+
+## 11. Risques de découpage
 
 | Risque | Mitigation |
 |--------|------------|
-| Démarrer le cadrage détaillé trop tôt | Chaîne G3 différée explicite |
-| Réduire le MVP via la réserve | Texte réserve + contrôles |
-| Inventer les incréments maintenant | Interdit — cadrage détaillé |
-| Créer une PR dans cette exécution | G7 explicitement reporté |
-| Surconception technique nationale | Séparation fonctionnel / technique |
+| Réduire le MVP « pour aller plus vite » | Réserve G2 ; revue DF-G* |
+| Reporter indéfiniment Support/RUN | INC-04 obligatoire avant sortie MVP |
+| Faire INC-04 trop tôt | Dépendance métier INC-02+ |
+| Sur-découper (>4) | Recommandation 4 ; option C seulement si Morris l’exige |
+| Architecture implicite via découpage | Interdiction stack/archi dans ce doc |
 
 ---
 
-## 9. Questions ouvertes restantes
+## 12. Options alternatives
 
-| # | Question | Note |
-|---|----------|------|
-| Q1 | Contenu / nombre / ordre des incréments | Cadrage détaillé + backlog |
-| Q2 | Niveau d’accessibilité cible (référentiel) | UX/QA |
-| Q3 | Protocole d’identité (abstraction vs choix) | Conception / architecture |
-| Q4 | Décision de suite post-PR | Après G7 |
-
----
-
-## 10. Périmètre inclus / hors périmètre (rappel)
-
-### Inclus (G2)
-
-National multi-campus ; cinq populations ; identité/rôles/habilitations ; catalogue ; réservation ; notifications ; pilotage local/national ; exceptions ; identité simulée complète ; support/RUN borné ; RGPD majeurs ; critères de sortie renforcés ; réserve incrémentale.
-
-### Hors MVP / hors cette exécution
-
-Cadrage détaillé (contenu) ; code ; stack ; archi technique ; IdP réel ; logement ; resto complète ; paiement réel ; IoT ; ITSM/CMDB ; DPIA ; PR ; SFIA 3.0.
+| Option | Description | Forces | Faiblesses |
+|--------|-------------|--------|------------|
+| **A — 4 INC (recommandée)** | Socle → métier → pilotage → identité/RUN | Équilibre valeur / risque ; 5 pops couvertes | INC-04 dense |
+| **B — 3 INC** | Fusion pilotage dans INC-02 ; INC-03 = identité/RUN | Plus court | Charge INC métier trop lourde ; risque de qualité |
+| **C — 4 INC avec identité non-happy-path partagée INC-02/04** | Amorcer erreurs identité dès INC-02 | Risque identité plus tôt | Complexité précoce, moins de valeur usager |
 
 ---
 
-## 11. Verdicts
+## 13. Recommandation (non décision)
+
+**Recommandation :** adopter l’**option A (4 incréments INC-01…04)** comme trajectoire de référence pour la suite (conception, backlog).
+
+**Justification :** respecte la réserve G2 ; conserve les cinq populations ; place le métier cœur tôt ; reporte le durcissement identité/RUN sans l’exclure ; évite le sur-découpage.
+
+**Décision attendue Morris :** DM-DF-02 — valider, amender ou choisir B/C.
+```
+
+---
+
+### Fichier : `projects/campus360/06-governance-and-stakeholders.md`
+
+```markdown
+# Campus360 — Gouvernance et parties prenantes
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Projet** | Campus360 |
+| **Document** | `06-governance-and-stakeholders.md` |
+| **Cycle** | 1 — Cadrage (cadrage détaillé) |
+| **Profil** | Critical |
+| **Baseline** | SFIA v2.6 |
+| **Statut** | Proposition de gouvernance — **non validée** Morris |
+| **Autorité ultime** | Morris (L0) |
+
+> Acteurs **fictifs par rôle**. Aucune personne réelle inventée.
+
+---
+
+## 1. Autorité de décision
+
+| Niveau | Acteur | Pouvoir |
+|--------|--------|---------|
+| **L0** | **Morris** | GO/NO-GO structurants ; scope ; gates DF ; commit/push/PR/merge ; cycles suivants ; capitalisation méthode |
+| L1 fictif | Product Owner Campus360 | Priorisation produit dans le cadre G2 ; préparation des arbitrages Morris |
+| L2 fictifs | Responsables domaine / transverse | Propositions, preuves, exécution bornée |
+| Exécution | Cursor / ChatGPT | Analyse et exécution bornée — **non décideurs** |
+
+---
+
+## 2. Acteurs projet fictifs nécessaires
+
+| Rôle fictif | Mission |
+|-------------|---------|
+| **Product Owner (PO)** | Valeur MVP, trajectoire INC, arbitrages produit préparés |
+| **Responsable métier campus** | Besoins gestionnaire / usagers campus |
+| **Responsable national** | Cohérence multi-campus, pilotage consolidé |
+| **Responsable identité / intégration** | Contrat simulation identité, cas non-happy-path |
+| **RSSI fictif** | Exigences sécurité, habilitations, journaux |
+| **DPO fictif** | Minimisation, majeurs-only, déclencheurs DPIA |
+| **Référent accessibilité** | Objectifs et preuves accessibilité |
+| **Responsable RUN / release** | Support borné, observabilité minimale, rollback |
+| **QA Lead fictif** | Stratégie de preuves (sans plan détaillé ici) |
+| **SFIA Method Observer** | Observations méthode — sans promotion baseline |
+
+---
+
+## 3. Représentation des cinq populations
+
+| Population | Représentant fictif | Mode |
+|------------|---------------------|------|
+| Étudiant | Groupe usagers étudiants (fictif) | Besoins consultation via PO / métier campus |
+| Personnel | Groupe usagers personnels (fictif) | Idem |
+| Gestionnaire de campus | Responsable métier campus | Direct |
+| Administrateur national | Responsable national | Direct |
+| Support / RUN | Responsable RUN / release | Direct |
+
+---
+
+## 4. Matrice RACI (synthèse)
+
+Légende : **R** Responsible · **A** Accountable · **C** Consulted · **I** Informed
+
+| Décision / activité | Morris | PO | Métier campus | National | Identité | RSSI | DPO | Access. | RUN/Release | QA |
+|---------------------|--------|-----|---------------|----------|----------|------|-----|---------|-------------|-----|
+| Scope MVP G2 | **A** | C | C | C | C | C | C | C | C | I |
+| Trajectoire INC | **A** | R | C | C | C | C | I | I | C | C |
+| GO cycle suivant | **A** | R | C | C | C | C | C | C | C | C |
+| Commit / PR / merge | **A** | R | I | I | I | I | I | I | I | I |
+| Exigences sécurité | A* | C | I | C | C | **R** | C | I | C | C |
+| Exigences RGPD | A* | C | I | I | C | C | **R** | I | I | I |
+| Accessibilité | A* | C | C | I | I | I | I | **R** | I | C |
+| Simulation identité | A* | C | I | C | **R** | C | C | I | C | C |
+| RUN readiness | A* | C | I | I | C | C | I | I | **R** | C |
+| Capitalisation SFIA | **A** | I | I | I | I | I | I | I | I | I |
+
+\* Morris reste A sur tout arbitrage structurant ; R opérationnel préparé par le rôle métier/transverse.
+
+---
+
+## 5. Gouvernance nationale / campus
+
+| Niveau | Responsabilités |
+|--------|-----------------|
+| **National** | Règles d’habilitation transverses ; catalogue de politiques ; pilotage consolidé ; arbitrage inter-campus |
+| **Campus** | Exploitation locale des services/espaces ; exceptions locales ; qualité de service locale |
+| **Règle** | Une donnée métier est rattachée à un campus ; le national voit/consolide selon habilitation — sans effacer la responsabilité locale |
+
+---
+
+## 6. Responsabilités par domaine
+
+### Produit
+
+- PO : cohérence MVP, non-réduction G2, préparation gates DF.
+- Métier campus / national : validation métier des parcours cadrés.
+
+### Sécurité / RGPD / accessibilité
+
+- RSSI : modèle d’habilitation, journaux, exigences d’analyse future.
+- DPO : minimisation, majeurs-only, registre futur, déclencheurs DPIA.
+- Accessibilité : objectifs, preuves UX/QA, options de référentiel pour Morris.
+
+### Intégration identité
+
+- Responsable identité : couverture simulation complète ; traçabilité ; pas d’IdP réel au MVP.
+
+### RUN / release
+
+- Responsable RUN/release : support borné ; logs/métriques/alertes minimales ; rollback testable ; pas d’ITSM.
+
+---
+
+## 7. Instances
+
+| Instance | Objet | Fréquence indicative |
+|----------|-------|----------------------|
+| **Arbitrage Morris** | Gates DF, scope, cycles, Git | À chaque jalon structurant |
+| **Comité produit fictif** | Alignement PO / métiers / transverses | Par incrément (préparation) |
+| **Revue transverse** | Sécurité, RGPD, accessibilité, RUN | Avant GO INC à risque (surtout INC-04) |
+| **Validation de preuves** | QA / démonstrations | Clôture d’INC |
+
+Pas de calendrier figé (pas de dates imposées).
+
+---
+
+## 8. Règles d’escalade
+
+1. Tout risque de **réduction du MVP** → escalade immédiate Morris.
+2. Tout besoin d’**architecture / stack / IdP réel** → stop + gate Morris.
+3. Désaccord national vs campus sur habilitations → arbitrage Morris.
+4. Élargissement hors G2 (logement, paiement, ITSM…) → NO-GO sauf nouvelle décision.
+5. Friction méthodologique SFIA → observation documentée ; CAPA seulement avec GO Morris.
+
+---
+
+## 9. Décisions réservées à Morris
+
+- Validation du cadrage détaillé et de la trajectoire INC.
+- Activation des cycles suivants.
+- GO commit / push / PR / merge.
+- Choix référentiel accessibilité (si plusieurs options).
+- Toute décision d’architecture / stack / fournisseur réel.
+- Promotion d’un apprentissage en standard SFIA.
+- Cleanup de branches.
+- Réouverture ou amendement de G2.
+
+---
+
+## 10. Décisions délégables (dans le cadre G2)
+
+- Rédaction de specs de conception **après** GO cycle.
+- Priorisation fine **intra-incrément** (sans sortir du scope INC).
+- Choix de formulations documentaires non structurantes.
+- Organisation des revues fictives de préparation.
+
+Toute délégation cesse dès qu’un gate DF est requis.
+
+---
+
+## 11. Preuves attendues par type de gate (haut niveau)
+
+| Type de gate | Preuves typiques |
+|--------------|------------------|
+| Validation cadrage | Docs `04`–`07` cohérents ; revue ChatGPT/handoff |
+| GO INC | Objectifs INC ; critères intermédiaires ; dépendances OK ; démo ou preuves QA selon maturité |
+| GO cycle suivant | Brief cycle ; hors périmètre ; profil justifié |
+| GO release | Release notes ; rollback testé ; RUN readiness minimale |
+| GO sortie MVP | Matrice des 12 critères G2 ; non-régression ; 5 populations |
+
+Détail numéroté : `07-risks-dependencies-and-gates.md`.
+
+---
+
+## 12. Séparation projet / méthode / capitalisation
+
+| Couche | Contenu | Autorité |
+|--------|---------|----------|
+| **Projet** | Campus360 sous `projects/campus360/` | Morris + rôles fictifs |
+| **Méthode SFIA** | Documents canoniques v2.6 | Morris via CAPA |
+| **Observations** | REX dans handoff / docs projet | Non binding |
+| **Capitalisation** | Standards réutilisables | Cycle CAPA + GO Morris uniquement |
+
+Campus360 **n’est pas** un véhicule SFIA 3.0.
+```
+
+---
+
+### Fichier : `projects/campus360/07-risks-dependencies-and-gates.md`
+
+```markdown
+# Campus360 — Risques, dépendances et gates
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Projet** | Campus360 |
+| **Document** | `07-risks-dependencies-and-gates.md` |
+| **Cycle** | 1 — Cadrage (cadrage détaillé) |
+| **Profil** | Critical |
+| **Baseline** | SFIA v2.6 |
+| **Statut** | Proposition — gates DF **non validés** Morris |
+| **Série de gates** | DF-G1 … DF-G12 (nouvelle série, distincte de G1–G7 pré-cadrage) |
+
+---
+
+## 1. Registre des risques
+
+| ID | Catégorie | Risque | Impact | Mitigation | Rôle |
+|----|-----------|--------|--------|------------|------|
+| R01 | Produit | Perte de clarté sur la valeur usager (catalogue/réservation) | Élevé | INC-02 tôt ; démos parcours | PO |
+| R02 | Périmètre | Réduction implicite du MVP | Critique | Réserve G2 ; gates DF ; stop conditions | Morris / PO |
+| R03 | Périmètre | Scope creep (logement, paiement, ITSM) | Élevé | Hors MVP explicite | PO / Morris |
+| R04 | Multi-campus | Confusion responsabilité campus/national | Élevé | Règles rattachement ; RACI | National / campus |
+| R05 | Habilitation | Élévation de privilèges cross-campus | Critique | Séparation niveaux ; preuves INC-03/sécurité | RSSI |
+| R06 | Identité | Simulation incomplète (happy path only) | Élevé | INC-04 obligatoire avant sortie | Identité |
+| R07 | Identité | Glissement vers IdP réel | Élevé | Interdiction MVP ; gate | Morris |
+| R08 | RGPD | Introduction de mineurs ou données excessives | Critique | Majeurs-only ; minimisation ; DPO | DPO |
+| R09 | Accessibilité | Report indéfini des preuves | Moyen | Critère sortie G2 ; gate avant UX | Access. / QA |
+| R10 | Performance | Sous-estimation des pics multi-campus | Moyen | Cadrage pics ; tests futurs | QA / Archi future |
+| R11 | Sécurité | Journaux insuffisants sur flux sensibles | Élevé | Exigences dès conception ; cycle sécurité | RSSI |
+| R12 | Release/RUN | Release sans rollback testé | Élevé | Critère G2 ; DF-G12 | RUN/Release |
+| R13 | RUN | Dérive vers ITSM | Moyen | Périmètre borné support | RUN |
+| R14 | Découpage | Trop d’incréments / micro-découpage | Moyen | Plafond raisonnable (reco 4) | PO |
+| R15 | Découpage | INC-04 trop tardif → dette identité | Moyen | Ne pas clôturer MVP sans INC-04 | PO |
+| R16 | Méthode | Confusion projet / capitalisation SFIA | Moyen | Séparation ; CAPA gated | Method observer |
+| R17 | Méthode | Forçage des 15 cycles | Moyen | Activation par déclencheur | PO / Morris |
+| R18 | Gouvernance | Démarrage conception sans GO | Élevé | DF-G8 | Morris |
+
+---
+
+## 2. Dépendances
+
+### Internes
+
+| Dépendance | De → Vers |
+|------------|-----------|
+| Pré-cadrage G1–G4 / réserve | Socle de ce cadrage |
+| INC-01 | INC-02, 03, 04 |
+| INC-02 | INC-03, 04 |
+| Docs `04`–`07` | Revue Morris avant cycles suivants |
+| Simulation identité | Preuves intégration, sécurité, RUN |
+
+### Externes fictives
+
+| Dépendance | Nature |
+|------------|--------|
+| Fournisseur d’identité **fictif** | Contrat + simulation — pas de connexion réelle |
+| Campus fictifs (données) | Jeux de données multi-campus |
+| Aucun SI académique réel | Hors MVP |
+
+---
+
+## 3. Hypothèses à valider
+
+| ID | Hypothèse | Validation pressentie |
+|----|-----------|----------------------|
+| HA-01 | 4 INC suffisent | Revue Morris DM-DF-02 |
+| HA-02 | Accessibilité prouvable sans choix immédiat du référentiel | Avant UX : DM-DF-06 |
+| HA-03 | Support borné suffisant vs attentes « nationales » | Revue INC-04 |
+| HA-04 | Performance testable sans SLA chiffré précoce | Cycle perf/QA |
+
+---
+
+## 4. Signaux d’alerte
+
+- Demande d’exclure une population « pour simplifier ».
+- Demande d’IdP réel « juste pour démarrer ».
+- Apparition de modules hors G2 dans un brief INC.
+- Stories techniques sans valeur métier (découpage couche).
+- Absence de critères intermédiaires dans un GO INC.
+- Confusion entre critère intermédiaire et sortie MVP.
+- Proposition de modifier SFIA « via Campus360 ».
+
+---
+
+## 5. Gates Morris proposés (série DF)
+
+> **Proposition de gouvernance** — à valider / amender / rejeter par Morris.
+> Ne remplacent pas G1–G7 historiques ; les complètent pour la suite.
+
+| Gate | Objet | Preuves attendues | Statut |
+|------|-------|-------------------|--------|
+| **DF-G1** | Validation du cadrage détaillé (`04`–`07` + README) | Handoff FULL ; cohérence G2/réserve | **À valider** |
+| **DF-G2** | Validation trajectoire INC-01…04 (ou alternative) | Doc `05` ; matrice pops/capacités | **À valider** |
+| **DF-G3** | Validation gates DF et RACI | Docs `06`–`07` | **À valider** |
+| **DF-G4** | GO INC-01 | Objectifs ; critères intermédiaires ; hors scope | Proposition |
+| **DF-G5** | GO INC-02 | Dépendance INC-01 ; parcours réservation | Proposition |
+| **DF-G6** | GO INC-03 | Pilotage local/national ; habilitations | Proposition |
+| **DF-G7** | GO INC-04 | Plan simulation complète + RUN borné | Proposition |
+| **DF-G8** | GO cycle conception fonctionnelle | Brief cycle ; hors périmètre | Proposition |
+| **DF-G9** | GO architecture fonctionnelle (si déclenchée) | Justification complexité | Proposition |
+| **DF-G10** | GO UX/UI (+ accessibilité cadrée) | Parcours ; option référentiel tranchée ou reportée | Proposition |
+| **DF-G11** | GO backlog / architecture technique / DevOps (selon cycle) | Périmètre INC ; pas de stack smuggled sans gate dédié | Proposition |
+| **DF-G12** | GO release pilote / RUN readiness / sortie MVP | Critères G2 ; rollback ; 5 pops | Proposition |
+
+**Git (hors série DF mais rappelés) :** commit / push / PR de `project/campus360-detailed-framing` = décisions Morris **séparées**, non autorisées dans l’exécution courante.
+
+---
+
+## 6. Stop conditions
+
+STOP et escalade Morris si :
+
+1. Réduction du MVP ou exclusion d’une population.
+2. Nécessité de choisir une architecture / stack / IdP réel pour continuer.
+3. Contradiction avec G1–G4 / réserve G2.
+4. Demande de modifier la méthode SFIA.
+5. Scope impossible à fermer.
+6. Trajectoire nécessitant un découpage artificiel non justifiable.
+7. Action Git distante projet sans GO.
+
+---
+
+## 7. Critères de passage vers les cycles suivants
+
+| Cycle cible | Prérequis de passage |
+|-------------|----------------------|
+| **Conception fonctionnelle** | DF-G1/G2 (ou équivalent validé) ; DF-G8 |
+| **Architecture fonctionnelle** | Spec fonctionnelle ; complexité multi-domaines justifiée ; DF-G9 |
+| **UX/UI** | Parcours priorisés ; accessibilité cadrée ; DF-G10 ; pas de Figma sans GO source |
+| **Backlog / user stories** | Conception (± UX) ; trajectoire INC acceptée ; DF-G11 partiel |
+| **Architecture technique** | Arbitrages fonctionnels ; gate stack dédié si irréversible |
+| **Intégration / DevOps** | Besoin pipeline/env réel ; contrat identité simulé |
+| **QA** | Stories/critères ; profil selon risque (Critical probable en sortie MVP) |
+| **Sécurité** | Surfaces authZ/identité ; pas de threat model avant cycle dédié |
+| **Release** | Artefacts ; rollback ; DF-G12 partiel |
+| **RUN readiness** | Observabilité minimale ; support borné ; DF-G12 |
+
+---
+
+## 8. Lien avec les blocs transverses
+
+| Bloc | Risques liés | Gate / cycle |
+|------|--------------|--------------|
+| RGPD | R08 | Conception, sécurité, QA ; DPIA si déclencheur |
+| Accessibilité | R09 | UX, QA ; DM-DF-06 |
+| Performance | R10 | Archi, QA, observabilité |
+| Sécurité | R05, R11 | Sécurité, INC-03/04 |
+| Intégration | R06, R07 | DevOps, INC-04 |
+| Release/RUN | R12, R13 | Release, RUN, INC-04 |
+
+---
+
+## 9. Décisions Morris attendues (immédiat)
+
+1. **DF-G1** — valider le cadrage détaillé.
+2. **DF-G2** — valider la trajectoire (option A recommandée).
+3. **DF-G3** — valider la série de gates DF.
+4. Autoriser ou non commit/push/PR de la branche `project/campus360-detailed-framing`.
+5. Désigner le prochain cycle (recommandation : conception fonctionnelle).
+
+---
+
+## 10. Verdict
+
+Registre et gates **prêts pour arbitrage Morris**.
+Aucune auto-validation des gates DF dans cette exécution.
+```
+
+---
+
+## 8. Décisions Morris attendues
+
+1. Valider cadrage détaillé (DF-G1).
+2. Valider/amender trajectoire INC (DF-G2) — reco option A.
+3. Valider/amender gates DF (DF-G3).
+4. Autoriser ou non commit/push/PR de `project/campus360-detailed-framing`.
+5. Désigner prochain cycle (reco : conception fonctionnelle).
+6. Référentiel accessibilité (DM-DF-06) — avant UX Critical.
+
+## 9. Réserves
+
+1. Documents non versionnés (volontaire — pas de commit).
+2. Snapshot historique G7 dans docs pré-cadrage inchangé.
+3. Gates DF non validés.
+
+## 10. Verdict
 
 ```text
-PRE-FRAMING DECISIONS COMPLETE — READY FOR COMMIT
+DETAILED FRAMING DRAFT COMPLETE — MORRIS REVIEW REQUIRED
 ```
-
-```text
-PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS
-```
-
----
-
-## 12. Références
-
-- [README.md](./README.md)
-- [01-opportunity-and-vision.md](./01-opportunity-and-vision.md)
-- [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md)
-```
-
----
-
-## 10. Décision Morris suivante
-
-**GO / NO-GO / modalités** pour démarrer une nouvelle exécution bornée du **Cycle 1 — Cadrage détaillé** Campus360.
-
-Préalable : décider éventuellement du cleanup de branche (`BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED`).
-
-Ne pas démarrer le cadrage détaillé sans décision explicite Morris.
-
----
-
-## 11. Réserves
-
-1. Branches source locale et distante encore présentes — cleanup optionnel.
-2. Snapshot G7 dans docs non actualisé (volontaire / hors périmètre).
-3. Artefacts untracked tmp/handoff/.sfia — hors main.
-
-Aucune réserve bloquante sur le post-merge.
-
----
-
-## 12. Verdict
-
-```text
-POST-MERGE COMPLETE — CAMPUS360 READY FOR MORRIS DETAILED FRAMING DECISION
-```
-
-```text
-BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED
-```
-
-Pack FULL — prêt pour analyse ChatGPT sans accès workspace local.
