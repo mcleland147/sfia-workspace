@@ -1,69 +1,82 @@
 # SFIA Review Pack — FULL mono-cycle
-## Campus360 — Clôture pré-cadrage (G2/G3) + commit + push
+## Campus360 — Cycle 13 PR readiness + G7 PR creation
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Date / heure** | 2026-07-17 13:15:44 CEST |
+| **Date / heure** | 2026-07-17 13:20:48 CEST |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Cycle** | 1 — Cadrage (formalisation finale G2/G3, clôture pré-cadrage, préparation PR readiness) |
-| **Profil** | Critical |
+| **Cycle** | 13 — PR readiness |
+| **Profil** | Standard |
 | **Typologie** | DOC |
 | **Baseline** | SFIA v2.6 |
 | **Branche** | `project/campus360-opportunity-framing` |
-| **HEAD initial** | `c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e` |
-| **HEAD final (commit projet)** | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
-| **origin/main** | `c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e` |
-| **origin/project branch** | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
-| **Review pack** | FULL — content-complete, anti-stub |
+| **Base** | `main` @ `c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e` |
+| **Head** | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
+| **Review pack** | FULL — content-complete |
 | **Review Handoff** | **required** |
-| **Verdict** | `PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS` |
+| **Verdict readiness** | `READY FOR PR CREATION` |
+| **Verdict final** | `PR CREATED — READY FOR MORRIS REVIEW` |
+| **PR** | #206 — https://github.com/mcleland147/sfia-workspace/pull/206 |
 
 ---
 
-## 0. Instruction ChatGPT obligatoire
+## 0. Instruction ChatGPT
 
-Analyser le handoff distant :
-
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+Analyser le handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
 
 Vérifier :
 
-1. formalisation G2 **VALIDÉ AVEC RÉSERVE** ;
-2. texte exact de la réserve ;
-3. G3 **VALIDÉ** sans démarrage du cadrage détaillé ;
-4. pré-cadrage clôturé ;
-5. commit G5 = 4 fichiers uniquement ;
-6. push G6 vérifié ;
-7. G7 **non exécuté** — routage PR readiness ;
-8. absence d’architecture / backlog / code / nouveau fichier ;
-9. cohérence des quatre documents ;
-10. verdict `PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS`.
+1. contrôles PR readiness complets ;
+2. périmètre exactement 4 fichiers ;
+3. G2 VALIDÉ AVEC RÉSERVE + texte réserve ;
+4. G3 VALIDÉ / cadrage détaillé non démarré ;
+5. PR #206 créée correctement ;
+6. aucun merge ;
+7. aucun démarrage cadrage détaillé ;
+8. verdict `PR CREATED — READY FOR MORRIS REVIEW`.
 
 ---
 
 ## 1. Git truth
 
-### État initial
-
 ```text
-Branch: project/campus360-opportunity-framing
-HEAD:   c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
+Workspace: /Users/morris/Projects/sfia-workspace
+Branch:    project/campus360-opportunity-framing
+HEAD local/remote project: 4275a60cf81acffa00e5faa77c33bd3a583ed599
 origin/main: c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
-Working tree: 4 docs Campus360 untracked ; artefacts tmp/handoff/.sfia
-Remote project branch: absent
-```
-
-### État final
-
-```text
-Branch: project/campus360-opportunity-framing
-HEAD:   4275a60cf81acffa00e5faa77c33bd3a583ed599
-Remote: 4275a60cf81acffa00e5faa77c33bd3a583ed599 (MATCH)
+merge-base:  c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
+ahead/behind main: 1 / 0
+ahead/behind remote branch: 0 / 0
+Existing PR before create: none
 Status:
 ?? .sfia/
 ?? .tmp-sfia-review/
 ?? sfia-review-handoff/
+```
+
+### Log
+
+```text
+4275a60 docs(campus360): close pre-framing and validate G2 G3
+```
+
+### Diff stat
+
+```text
+projects/campus360/01-opportunity-and-vision.md    | 273 +++++++++++++++++++++
+ .../campus360/02-sfia-cycle-coverage-hypothesis.md | 181 ++++++++++++++
+ projects/campus360/03-pre-framing-decision-pack.md | 211 ++++++++++++++++
+ projects/campus360/README.md                       | 145 +++++++++++
+ 4 files changed, 810 insertions(+)
+```
+
+### Diff name-status
+
+```text
+A	projects/campus360/01-opportunity-and-vision.md
+A	projects/campus360/02-sfia-cycle-coverage-hypothesis.md
+A	projects/campus360/03-pre-framing-decision-pack.md
+A	projects/campus360/README.md
 ```
 
 ---
@@ -72,99 +85,153 @@ Status:
 
 | Champ | Valeur |
 |-------|--------|
-| Nature | Dernière itération Cycle 1 — clôture pré-cadrage |
-| Pas | Cadrage détaillé / PR readiness / conception / architecture / backlog |
-| Profil | Critical |
+| Cycle | 13 — PR readiness |
+| Profil | Standard |
 | Typologie | DOC |
+| G7 | AUTORISÉ CONDITIONNELLEMENT → **EXÉCUTÉ** (PR créée) |
+| Merge | **Non autorisé** |
 
 ---
 
 ## 3. Sources lues
 
-1. `prompts/templates/sfia-cycle-execution-template.md`
-2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-5. Handoff antérieur G2 formalization (`3c53fd2`)
-6. Quatre documents Campus360 locaux
-7. Décisions Morris de ce prompt — prioritaires
+1. Template d'exécution SFIA
+2. Routing guide
+3. Operating model
+4. Rules & guardrails
+5. Handoff clôture pré-cadrage (`153e6c9`)
+6. Quatre documents Campus360 (HEAD)
+7. Commit `4275a60…`
+8. Diff `origin/main...HEAD`
 
 ---
 
-## 4. Décisions Morris formalisées
-
-| Gate | Statut |
-|------|--------|
-| G1 | **VALIDÉ** |
-| G2 | **VALIDÉ AVEC RÉSERVE** |
-| G3 | **VALIDÉ** (autorisé, non démarré) |
-| G4 | **VALIDÉ** |
-| G5 | **EXÉCUTÉ** |
-| G6 | **EXÉCUTÉ** |
-| G7 | **EN ATTENTE** — cycle 13 PR readiness |
-
-### Texte exact de la réserve G2
-
-> Le périmètre MVP final reste intégralement maintenu. Sa réalisation devra être découpée en incréments proportionnés, chacun assorti de critères de sortie intermédiaires, sans réduction implicite de la cible MVP finale.
-
-Nature : règle de trajectoire et de delivery — ne rouvre pas le périmètre — non bloquante.
-
----
-
-## 5. Validations avant commit
+## 4. Contrôles PR readiness
 
 | Contrôle | Résultat |
 |----------|----------|
-| Anciens statuts G2 ARBITRÉ / G3 EN ATTENTE | Absents |
-| G2 VALIDÉ AVEC RÉSERVE | Présent |
-| G3 VALIDÉ + non démarré | Présent |
-| Réserve incrémentale | Présente |
-| 5 populations / multi-campus / identité simulée / RGPD majeurs | Présents |
-| Pas de contenu cadrage détaillé / archi / backlog | PASS |
-| Liens relatifs / 4 fichiers seulement | PASS |
-| Trailing whitespace | Corrigé avant commit |
+| 1 commit | PASS |
+| 4 fichiers A under projects/campus360/ | PASS |
+| 810 insertions / 0 deletions | PASS |
+| git diff --check | PASS |
+| Branche sync remote | PASS |
+| Pas derrière main | PASS |
+| Pas de PR existante avant | PASS |
+| G1/G2+réserve/G3 non démarré/G4/G5/G6 | PASS |
+| MVP national multi-campus + 5 pops + identité simulée + RGPD majeurs | PASS |
+| Réserve incrémentale sans réduction MVP | PASS |
+| Anti-surcomplexité | PASS |
+| Pas secrets / binaires / placeholders bloquants | PASS |
+| Liens relatifs | PASS |
+
+### Note non bloquante
+
+Les documents versionnés indiquent encore G7 « EN ATTENTE » (snapshot de clôture pré-cadrage). G7 est exécuté par la création de cette PR ; pas de second commit correctif nécessaire.
 
 ---
 
-## 6. G5 — Commit
+## 5. Corrections
+
+Aucune correction. Aucun second commit.
+
+---
+
+## 6. Verdict readiness
+
+```text
+READY FOR PR CREATION
+```
+
+(avec note non bloquante ci-dessus — n'empêche pas la création)
+
+---
+
+## 7. G7 — Pull request créée
 
 | Champ | Valeur |
 |-------|--------|
-| SHA | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
-| Sujet | `docs(campus360): close pre-framing and validate G2 G3` |
-| Fichiers | 4 fichiers Campus360 uniquement |
+| Number | **#206** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/206 |
+| Title | docs(campus360): establish and close the pre-framing baseline |
+| Base | main |
+| Head | project/campus360-opportunity-framing |
+| Head OID | 4275a60cf81acffa00e5faa77c33bd3a583ed599 |
+| State | OPEN |
+| Draft | False |
+| Commits | 1 |
+| Changed files | 4 |
+| Additions | 810 |
+| Deletions | 0 |
+| Mergeable | MERGEABLE |
+| Checks | none reported / empty |
 
-```text
-4275a60 docs(campus360): close pre-framing and validate G2 G3
- projects/campus360/01-opportunity-and-vision.md    | 273 +++++++++++++++++++++
- .../campus360/02-sfia-cycle-coverage-hypothesis.md | 181 ++++++++++++++
- projects/campus360/03-pre-framing-decision-pack.md | 211 ++++++++++++++++
- projects/campus360/README.md                       | 145 +++++++++++
- 4 files changed, 810 insertions(+)
+### Corps complet de la PR
 
-Files:
-projects/campus360/01-opportunity-and-vision.md
-projects/campus360/02-sfia-cycle-coverage-hypothesis.md
-projects/campus360/03-pre-framing-decision-pack.md
-projects/campus360/README.md
+```markdown
+## Objet
+
+Introduire le socle documentaire de pré-cadrage de Campus360, projet fictif étalon destiné à appliquer SFIA v2.6 sur une trajectoire nationale multi-campus.
+
+## Contenu
+
+- opportunité et vision produit ;
+- hypothèse de couverture des cycles SFIA ;
+- decision pack de pré-cadrage ;
+- statut et règles de gouvernance du projet.
+
+## Décisions Morris tracées
+
+- G1 : Campus360 validé comme projet étalon ;
+- G2 : périmètre MVP validé avec réserve ;
+- G3 : passage au cadrage détaillé validé, mais non démarré ;
+- G4 : nom Campus360 validé ;
+- G5/G6 : commit et push exécutés.
+
+## Périmètre MVP
+
+- cible nationale multi-campus ;
+- cinq populations ;
+- noyau fonctionnel, pilotage local/national et gestion des exceptions ;
+- intégration identité simulée complète ;
+- support/RUN borné ;
+- RGPD allégé, majeurs uniquement ;
+- critères de sortie incluant QA, sécurité, accessibilité, performance, release et RUN readiness.
+
+## Réserve G2
+
+Le périmètre MVP final reste intégralement maintenu. Sa réalisation devra être découpée en incréments proportionnés, chacun assorti de critères de sortie intermédiaires, sans réduction implicite de la cible MVP finale.
+
+## Hors périmètre
+
+- cadrage détaillé ;
+- architecture ;
+- backlog ;
+- code ;
+- UX/UI ;
+- choix de stack ou de fournisseur réel ;
+- modification de la méthode SFIA.
+
+## Validation
+
+- un commit ;
+- quatre fichiers documentaires ;
+- aucun fichier hors projects/campus360/ ;
+- aucun code ;
+- aucune modification de méthode ;
+- pré-cadrage clôturé ;
+- cadrage détaillé non démarré.
+
+## Suite
+
+Après traitement de cette PR et décision Morris, lancer une nouvelle exécution bornée du Cycle 1 pour le cadrage détaillé.
+
+
+Made with [Cursor](https://cursor.com)
 ```
 
 ---
 
-## 7. G6 — Push
-
-| Champ | Valeur |
-|-------|--------|
-| Commande | `git push -u origin project/campus360-opportunity-framing` |
-| SHA local | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
-| SHA remote | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
-| Vérification | **MATCH** |
-
-G7 non exécuté — aucune PR créée.
-
----
-
-## 8. Contenu intégral final des quatre fichiers
+## 8. Contenu intégral des quatre fichiers (HEAD)
 
 
 ### Fichier : `projects/campus360/README.md`
@@ -1005,27 +1072,41 @@ PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS
 
 ---
 
-## 9. Réserves
+## 9. Statut des gates
 
-1. G7 reste à traiter en cycle PR readiness.
-2. Cadrage détaillé autorisé mais non démarré — chaîne post-PR obligatoire.
-3. Découpage incrémental non défini (volontaire) — cadrage détaillé ultérieur.
-4. Artefacts untracked `.tmp-sfia-review/`, `.sfia/`, worktree handoff — hors commit projet.
+| Gate | Statut |
+|------|--------|
+| G1 | VALIDÉ |
+| G2 | VALIDÉ AVEC RÉSERVE |
+| G3 | VALIDÉ — cadrage détaillé non démarré |
+| G4 | VALIDÉ |
+| G5 | EXÉCUTÉ |
+| G6 | EXÉCUTÉ |
+| G7 | **EXÉCUTÉ** — PR #206 créée |
 
-Aucune réserve bloquante sur la clôture du pré-cadrage.
+Merge : **GO Morris distinct requis**.
 
 ---
 
-## 10. Décision suivante
+## 10. Risques / réserves
 
-Cycle **13 — PR readiness** (G7).
+1. Note non bloquante G7 snapshot docs vs G7 exécuté par PR.
+2. Mergeable GitHub peut être UNKNOWN au moment de création.
+3. Aucun check CI reporté (attendu pour PR doc-only selon repo).
 
 ---
 
-## 11. Verdict
+## 11. Action suivante
+
+Revue Morris de la PR #206 → GO/NO-GO merge.  
+Après merge et décision de suite : Cycle 1 cadrage détaillé (nouvelle exécution bornée).
+
+---
+
+## 12. Verdict final
 
 ```text
-PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS
+PR CREATED — READY FOR MORRIS REVIEW
 ```
 
-Pack FULL mono-cycle — prêt pour analyse ChatGPT sans accès workspace local.
+Pack FULL — prêt pour analyse ChatGPT sans accès workspace local.
