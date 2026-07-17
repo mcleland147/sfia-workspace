@@ -1,22 +1,23 @@
 # SFIA Review Pack — FULL mono-cycle
-## Campus360 — Cycle 13 PR readiness + G7 PR creation
+## Campus360 — Cycle 14 Post-merge PR #206
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Date / heure** | 2026-07-17 13:20:48 CEST |
+| **Date / heure** | 2026-07-17 13:26:53 CEST |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Cycle** | 13 — PR readiness |
+| **Cycle** | 14 — Post-merge |
 | **Profil** | Standard |
 | **Typologie** | DOC |
-| **Baseline** | SFIA v2.6 |
-| **Branche** | `project/campus360-opportunity-framing` |
-| **Base** | `main` @ `c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e` |
-| **Head** | `4275a60cf81acffa00e5faa77c33bd3a583ed599` |
-| **Review pack** | FULL — content-complete |
+| **Branche initiale** | `project/campus360-opportunity-framing` @ `4275a60…` |
+| **Branche finale** | `main` |
+| **HEAD final** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
+| **origin/main** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
+| **PR** | #206 — MERGED — https://github.com/mcleland147/sfia-workspace/pull/206 |
+| **Merge commit** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
+| **Parents** | `c10f1c4…` (main) + `4275a60…` (source) |
 | **Review Handoff** | **required** |
-| **Verdict readiness** | `READY FOR PR CREATION` |
-| **Verdict final** | `PR CREATED — READY FOR MORRIS REVIEW` |
-| **PR** | #206 — https://github.com/mcleland147/sfia-workspace/pull/206 |
+| **Verdict** | `POST-MERGE COMPLETE — CAMPUS360 READY FOR MORRIS DETAILED FRAMING DECISION` |
+| **Branch cleanup** | `BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED` |
 
 ---
 
@@ -26,51 +27,70 @@ Analyser le handoff distant `sfia/review-handoff` → `sfia-review-handoff/lates
 
 Vérifier :
 
-1. contrôles PR readiness complets ;
-2. périmètre exactement 4 fichiers ;
-3. G2 VALIDÉ AVEC RÉSERVE + texte réserve ;
-4. G3 VALIDÉ / cadrage détaillé non démarré ;
-5. PR #206 créée correctement ;
-6. aucun merge ;
-7. aucun démarrage cadrage détaillé ;
-8. verdict `PR CREATED — READY FOR MORRIS REVIEW`.
+1. PR #206 réellement MERGED ;
+2. `origin/main` = `ec7f397…` ;
+3. quatre fichiers Campus360 présents et identiques au commit source ;
+4. aucune modification projet dans ce cycle ;
+5. G3 validé / cadrage détaillé **non démarré** ;
+6. réserve G2 intacte ;
+7. snapshot G7 « EN ATTENTE » dans docs = non anomalie ;
+8. état opérationnel G7/merge = EXÉCUTÉ ;
+9. verdict post-merge et décision Morris suivante (cadrage détaillé).
 
 ---
 
 ## 1. Git truth
 
+### Initial
+
 ```text
-Workspace: /Users/morris/Projects/sfia-workspace
-Branch:    project/campus360-opportunity-framing
-HEAD local/remote project: 4275a60cf81acffa00e5faa77c33bd3a583ed599
-origin/main: c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
-merge-base:  c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
-ahead/behind main: 1 / 0
-ahead/behind remote branch: 0 / 0
-Existing PR before create: none
+Branch: project/campus360-opportunity-framing
+HEAD:   4275a60cf81acffa00e5faa77c33bd3a583ed599
+origin/main (après fetch): ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+Working tree: untracked artefacts only
+```
+
+### Final
+
+```text
+Branch: main
+HEAD:   ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+origin/main: ec7f397a87381a57b8b0c0efbff8c3e98e9dea03 (MATCH)
 Status:
 ?? .sfia/
 ?? .tmp-sfia-review/
 ?? sfia-review-handoff/
+Action sync: checkout main + fast-forward only (no rebase/reset)
 ```
 
-### Log
+### Merge commit
 
 ```text
-4275a60 docs(campus360): close pre-framing and validate G2 G3
+commit ec7f397a87381a57b8b0c0efbff8c3e98e9dea03
+Merge: c10f1c4 4275a60
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Fri Jul 17 13:22:35 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Jul 17 13:22:35 2026 +0200
+
+    Merge pull request #206 from mcleland147/project/campus360-opportunity-framing
+    
+    docs(campus360): establish and close the pre-framing baseline
+
+ create mode 100644 projects/campus360/01-opportunity-and-vision.md
+ create mode 100644 projects/campus360/02-sfia-cycle-coverage-hypothesis.md
+ create mode 100644 projects/campus360/03-pre-framing-decision-pack.md
+ create mode 100644 projects/campus360/README.md
 ```
 
-### Diff stat
+### Parents
 
 ```text
-projects/campus360/01-opportunity-and-vision.md    | 273 +++++++++++++++++++++
- .../campus360/02-sfia-cycle-coverage-hypothesis.md | 181 ++++++++++++++
- projects/campus360/03-pre-framing-decision-pack.md | 211 ++++++++++++++++
- projects/campus360/README.md                       | 145 +++++++++++
- 4 files changed, 810 insertions(+)
+c10f1c4282ed1ed6114e4961ff0c2658d4d7ce7e
+4275a60cf81acffa00e5faa77c33bd3a583ed599
 ```
 
-### Diff name-status
+### Name-status (-m)
 
 ```text
 A	projects/campus360/01-opportunity-and-vision.md
@@ -79,162 +99,127 @@ A	projects/campus360/03-pre-framing-decision-pack.md
 A	projects/campus360/README.md
 ```
 
+### PR #206
+
+```json
+{
+  "baseRefName": "main",
+  "headRefName": "project/campus360-opportunity-framing",
+  "mergeCommit": {
+    "oid": "ec7f397a87381a57b8b0c0efbff8c3e98e9dea03"
+  },
+  "mergedAt": "2026-07-17T11:22:35Z",
+  "number": 206,
+  "state": "MERGED",
+  "title": "docs(campus360): establish and close the pre-framing baseline",
+  "url": "https://github.com/mcleland147/sfia-workspace/pull/206"
+}
+```
+
 ---
 
 ## 2. Qualification
 
 | Champ | Valeur |
 |-------|--------|
-| Cycle | 13 — PR readiness |
+| Cycle | 14 — Post-merge |
 | Profil | Standard |
 | Typologie | DOC |
-| G7 | AUTORISÉ CONDITIONNELLEMENT → **EXÉCUTÉ** (PR créée) |
-| Merge | **Non autorisé** |
+| Modifications projet | **Aucune** (read-only) |
+| Commit main / projet | **Aucun** |
+| Suppression branche | **Interdite** |
 
 ---
 
 ## 3. Sources lues
 
-1. Template d'exécution SFIA
+1. Template SFIA cycle execution
 2. Routing guide
 3. Operating model
 4. Rules & guardrails
-5. Handoff clôture pré-cadrage (`153e6c9`)
-6. Quatre documents Campus360 (HEAD)
-7. Commit `4275a60…`
-8. Diff `origin/main...HEAD`
+5. Handoff PR readiness (`597c83c`)
+6. PR #206 + merge commit `ec7f397`
+7. Quatre documents Campus360 sur `main`
 
 ---
 
-## 4. Contrôles PR readiness
+## 4. Contrôles d'intégration
 
 | Contrôle | Résultat |
 |----------|----------|
-| 1 commit | PASS |
-| 4 fichiers A under projects/campus360/ | PASS |
-| 810 insertions / 0 deletions | PASS |
-| git diff --check | PASS |
-| Branche sync remote | PASS |
-| Pas derrière main | PASS |
-| Pas de PR existante avant | PASS |
-| G1/G2+réserve/G3 non démarré/G4/G5/G6 | PASS |
-| MVP national multi-campus + 5 pops + identité simulée + RGPD majeurs | PASS |
-| Réserve incrémentale sans réduction MVP | PASS |
-| Anti-surcomplexité | PASS |
-| Pas secrets / binaires / placeholders bloquants | PASS |
+| PR #206 MERGED | PASS |
+| merge commit = ec7f397… | PASS |
+| Parents c10f1c4 + 4275a60 | PASS |
+| HEAD main = origin/main | PASS |
+| 4 fichiers A only | PASS |
+| Contenu = blob source 4275a60 | PASS (MATCH ×4) |
+| Aucun method/prompts dans merge | PASS |
+| Aucun commit postérieur Campus360 | PASS |
+| Working tree tracké propre | PASS |
+
+---
+
+## 5. Contrôles documentaires (main)
+
+| Contrôle | Résultat |
+|----------|----------|
+| Nom Campus360 / baseline v2.6 | PASS |
+| Pré-cadrage clôturé | PASS |
+| G2 VALIDÉ AVEC RÉSERVE + texte | PASS |
+| G3 VALIDÉ / non démarré | PASS |
+| National multi-campus / 5 pops / identité simulée / RGPD majeurs | PASS |
+| Critères sortie renforcés | PASS |
+| Pas d'archi/backlog/code | PASS |
 | Liens relatifs | PASS |
-
-### Note non bloquante
-
-Les documents versionnés indiquent encore G7 « EN ATTENTE » (snapshot de clôture pré-cadrage). G7 est exécuté par la création de cette PR ; pas de second commit correctif nécessaire.
+| Snapshot G7 EN ATTENTE dans docs | **Attendu** — non corrigé ; état opérationnel = EXÉCUTÉ (PR+merge) |
 
 ---
 
-## 5. Corrections
+## 6. Statut opérationnel des gates (post-merge)
 
-Aucune correction. Aucun second commit.
+| Gate | Statut opérationnel |
+|------|---------------------|
+| G1 | VALIDÉ |
+| G2 | VALIDÉ AVEC RÉSERVE |
+| G3 | VALIDÉ — cadrage détaillé **non démarré** |
+| G4 | VALIDÉ |
+| G5 | EXÉCUTÉ |
+| G6 | EXÉCUTÉ |
+| G7 | EXÉCUTÉ (PR #206) |
+| Merge PR #206 | EXÉCUTÉ |
 
 ---
 
-## 6. Verdict readiness
+## 7. État des branches
+
+| Branche | État |
+|---------|------|
+| Locale `project/campus360-opportunity-framing` | **Présente** (`project/campus360-opportunity-framing`) |
+| Distante `origin/project/campus360-opportunity-framing` | **Présente** @ `4275a60…` |
+| Suppression | **NON effectuée** |
 
 ```text
-READY FOR PR CREATION
+BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED
 ```
 
-(avec note non bloquante ci-dessus — n'empêche pas la création)
+Recommandation candidate : suppression locale+distante possible après GO Morris — **pas une décision**.
 
 ---
 
-## 7. G7 — Pull request créée
+## 8. Observations REX (légères — non doctrine)
 
-| Champ | Valeur |
-|-------|--------|
-| Number | **#206** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/206 |
-| Title | docs(campus360): establish and close the pre-framing baseline |
-| Base | main |
-| Head | project/campus360-opportunity-framing |
-| Head OID | 4275a60cf81acffa00e5faa77c33bd3a583ed599 |
-| State | OPEN |
-| Draft | False |
-| Commits | 1 |
-| Changed files | 4 |
-| Additions | 810 |
-| Deletions | 0 |
-| Mergeable | MERGEABLE |
-| Checks | none reported / empty |
-
-### Corps complet de la PR
-
-```markdown
-## Objet
-
-Introduire le socle documentaire de pré-cadrage de Campus360, projet fictif étalon destiné à appliquer SFIA v2.6 sur une trajectoire nationale multi-campus.
-
-## Contenu
-
-- opportunité et vision produit ;
-- hypothèse de couverture des cycles SFIA ;
-- decision pack de pré-cadrage ;
-- statut et règles de gouvernance du projet.
-
-## Décisions Morris tracées
-
-- G1 : Campus360 validé comme projet étalon ;
-- G2 : périmètre MVP validé avec réserve ;
-- G3 : passage au cadrage détaillé validé, mais non démarré ;
-- G4 : nom Campus360 validé ;
-- G5/G6 : commit et push exécutés.
-
-## Périmètre MVP
-
-- cible nationale multi-campus ;
-- cinq populations ;
-- noyau fonctionnel, pilotage local/national et gestion des exceptions ;
-- intégration identité simulée complète ;
-- support/RUN borné ;
-- RGPD allégé, majeurs uniquement ;
-- critères de sortie incluant QA, sécurité, accessibilité, performance, release et RUN readiness.
-
-## Réserve G2
-
-Le périmètre MVP final reste intégralement maintenu. Sa réalisation devra être découpée en incréments proportionnés, chacun assorti de critères de sortie intermédiaires, sans réduction implicite de la cible MVP finale.
-
-## Hors périmètre
-
-- cadrage détaillé ;
-- architecture ;
-- backlog ;
-- code ;
-- UX/UI ;
-- choix de stack ou de fournisseur réel ;
-- modification de la méthode SFIA.
-
-## Validation
-
-- un commit ;
-- quatre fichiers documentaires ;
-- aucun fichier hors projects/campus360/ ;
-- aucun code ;
-- aucune modification de méthode ;
-- pré-cadrage clôturé ;
-- cadrage détaillé non démarré.
-
-## Suite
-
-Après traitement de cette PR et décision Morris, lancer une nouvelle exécution bornée du Cycle 1 pour le cadrage détaillé.
-
-
-Made with [Cursor](https://cursor.com)
-```
+1. Séquencement pré-cadrage → formalisation G2/G3 → commit/push → PR readiness → merge : **fluide**, sans friction Git.
+2. Séparation **G3 autorisé / cadrage non démarré** a empêché le démarrage implicite — utile.
+3. Réserve incrémentale a permis de valider un MVP ambitieux sans forcer les incréments trop tôt — utile.
+4. Écart snapshot documentaire G7 « EN ATTENTE » vs état Git G7/merge EXÉCUTÉ : **attendu**, porté par post-merge/handoff, pas une anomalie à corriger rétroactivement.
+5. Recommandation candidate (non décision) : éventuellement documenter dans un futur cycle DOC léger l’état post-merge des gates si Morris le souhaite — **hors ce cycle**.
 
 ---
 
-## 8. Contenu intégral des quatre fichiers (HEAD)
+## 9. Contenu intégral des quatre documents sur main
 
 
-### Fichier : `projects/campus360/README.md`
+### Fichier : `projects/campus360/README.md` (main @ ec7f397a8738)
 
 ```markdown
 # Campus360
@@ -386,7 +371,7 @@ Le **cadrage détaillé** (toujours Cycle 1) ne démarre qu’après cette chaî
 
 ---
 
-### Fichier : `projects/campus360/01-opportunity-and-vision.md`
+### Fichier : `projects/campus360/01-opportunity-and-vision.md` (main @ ec7f397a8738)
 
 ```markdown
 # Campus360 — Opportunité et vision
@@ -666,7 +651,7 @@ Satisfaits sous G2 validé : problème compréhensible ; cinq populations ; mult
 
 ---
 
-### Fichier : `projects/campus360/02-sfia-cycle-coverage-hypothesis.md`
+### Fichier : `projects/campus360/02-sfia-cycle-coverage-hypothesis.md` (main @ ec7f397a8738)
 
 ```markdown
 # Campus360 — Hypothèse de couverture des cycles SFIA
@@ -854,7 +839,7 @@ Cadrage détaillé (Cycle 1, DOC)             ← uniquement après chaîne ci-d
 
 ---
 
-### Fichier : `projects/campus360/03-pre-framing-decision-pack.md`
+### Fichier : `projects/campus360/03-pre-framing-decision-pack.md` (main @ ec7f397a8738)
 
 ```markdown
 # Campus360 — Decision pack de clôture du pré-cadrage
@@ -1072,41 +1057,34 @@ PRE-FRAMING CLOSED — BRANCH PUSHED — READY FOR PR READINESS
 
 ---
 
-## 9. Statut des gates
+## 10. Décision Morris suivante
 
-| Gate | Statut |
-|------|--------|
-| G1 | VALIDÉ |
-| G2 | VALIDÉ AVEC RÉSERVE |
-| G3 | VALIDÉ — cadrage détaillé non démarré |
-| G4 | VALIDÉ |
-| G5 | EXÉCUTÉ |
-| G6 | EXÉCUTÉ |
-| G7 | **EXÉCUTÉ** — PR #206 créée |
+**GO / NO-GO / modalités** pour démarrer une nouvelle exécution bornée du **Cycle 1 — Cadrage détaillé** Campus360.
 
-Merge : **GO Morris distinct requis**.
+Préalable : décider éventuellement du cleanup de branche (`BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED`).
+
+Ne pas démarrer le cadrage détaillé sans décision explicite Morris.
 
 ---
 
-## 10. Risques / réserves
+## 11. Réserves
 
-1. Note non bloquante G7 snapshot docs vs G7 exécuté par PR.
-2. Mergeable GitHub peut être UNKNOWN au moment de création.
-3. Aucun check CI reporté (attendu pour PR doc-only selon repo).
+1. Branches source locale et distante encore présentes — cleanup optionnel.
+2. Snapshot G7 dans docs non actualisé (volontaire / hors périmètre).
+3. Artefacts untracked tmp/handoff/.sfia — hors main.
 
----
-
-## 11. Action suivante
-
-Revue Morris de la PR #206 → GO/NO-GO merge.  
-Après merge et décision de suite : Cycle 1 cadrage détaillé (nouvelle exécution bornée).
+Aucune réserve bloquante sur le post-merge.
 
 ---
 
-## 12. Verdict final
+## 12. Verdict
 
 ```text
-PR CREATED — READY FOR MORRIS REVIEW
+POST-MERGE COMPLETE — CAMPUS360 READY FOR MORRIS DETAILED FRAMING DECISION
+```
+
+```text
+BRANCH CLEANUP OPTIONAL — MORRIS GO REQUIRED
 ```
 
 Pack FULL — prêt pour analyse ChatGPT sans accès workspace local.
