@@ -1,21 +1,21 @@
-# Review pack FULL — SFIA Studio — Post-merge PR #213 (trace locale)
+# Review pack FULL — SFIA Studio — Trace post-merge #213 versionnée + draft PR #214
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-18 22:14:06 CEST |
+| **Date/heure** | 2026-07-18 22:19:00 CEST |
 | **Repository** | `/Users/morris/Projects/sfia-workspace` (`mcleland147/sfia-workspace`) |
-| **Branche locale** | `project/sfia-studio-functional-architecture` |
-| **HEAD local** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
-| **origin/main** | `19302836b45d49f19698c624e99f2d68afa7b290` |
-| **PR #213** | [#213](https://github.com/mcleland147/sfia-workspace/pull/213) — **MERGED** |
-| **Head #213** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
-| **Merge #213** | `19302836b45d49f19698c624e99f2d68afa7b290` |
-| **Parents** | `cb870544…` + `0b61d728…` |
-| **Branche source** | `project/sfia-studio-functional-architecture` — **conservée** @ `0b61d728…` |
-| **Fichiers intégrés #213** | README, `07`, `11`, `12`, `13` |
-| **Cycle** | 14 — Post-merge |
+| **Branche** | `project/sfia-studio-functional-architecture` |
+| **Base** | `origin/main` @ `19302836b45d49f19698c624e99f2d68afa7b290` |
+| **HEAD initial** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
+| **HEAD après commit** | `4f4e7cf497a1fdc5b9304d09b918dd3bb987d5d3` |
+| **SHA distant branche** | `4f4e7cf497a1fdc5b9304d09b918dd3bb987d5d3` |
+| **Match local/distant** | **Oui** |
+| **Cycle** | 13 — PR readiness (après cycle 14 post-merge #213) |
 | **Profil** | **Critical** |
-| **Statut conservé** | `functional-architecture-post-merge-integrated` |
+| **Nouvelle PR** | [#214](https://github.com/mcleland147/sfia-workspace/pull/214) — **OPEN draft** |
+| **PR #213** | **MERGED** — merge `19302836b45d49f19698c624e99f2d68afa7b290` |
+| **Head #213** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
+| **Statut documentaire** | `functional-architecture-post-merge-integrated` (**conservé**) |
 
 ---
 
@@ -23,86 +23,60 @@
 
 ### Autorisé
 
-- Cycle post-merge local
-- Vérifications Git
-- Corrections documentaires factuelles strictement nécessaires
-- Review pack FULL
+- Contrôle final du diff local
+- Staging strictement borné
+- Commit projet unique
+- Push branche projet
+- Draft PR vers `main`
 - Review Handoff Git
 
 ### Non autorisé
 
-- Commit / staging / push / PR projet
-- Merge
+- Ready-for-review / merge
 - Clôture formelle
 - AF-CAND-11B
 - UX/UI / tech / backlog / POC / MVP
 - D-VAL-12
 - Suppression de branche
-- Modification fonctionnelle
+- Modification fonctionnelle / hors périmètre
 
 ---
 
 ## 2. Justification Critical
 
-- Documents structurants
-- Troisième niveau de traçabilité : #211 / #212 / #213
+- Cinq documents structurants
+- Troisième niveau de traçabilité après #211 / #212 / #213
 - Proximité du gate de clôture formelle
 - Risque promotion AF-CAND-11B
+- Working tree hors périmètre
 - Aucune D-VAL-12
-- Working tree hors périmètre possible
 
 ---
 
 ## 3. Sources
 
 - Template + routing + operating model (+ guardrails)
-- Docs projet (working tree / main)
-- Baseline `01`–`06`, `08`–`10`
-- Handoff précédent : `9e7e1bffbe2152fda591de382daf126c25482dde`
+- Working tree : README, `07`, `11`, `12`, `13`
+- Baseline protégée `01`–`06`, `08`–`10`
+- Handoff validé : `effc1783a84a7adc9a9436c268583411dc25375f`
 
 ---
 
-## 4. État avant → après
+## 4. État post-merge tracé
 
-| Avant (obsolète courant) | Après |
-|--------------------------|-------|
-| `main @ cb870544…` comme base courante | `main @ 19302836…` |
-| Branche @ `33d61e3…` | Branche @ `0b61d728…` |
-| Finalisation #213 absente / locale | PR #213 **MERGED** / finalisation **INTÉGRÉE** |
-| Sync #212 seule comme dernière intégration | Sync #212 + finalisation #213 |
+- Statut `functional-architecture-post-merge-integrated` **conservé**
+- PR #211 MERGED + acceptée/régularisée
+- PR #212 MERGED — sync **INTÉGRÉE**
+- PR #213 MERGED — finalisation **INTÉGRÉE** (`19302836…` / `0b61d728…`)
+- Architecture **VALIDÉE** et **INTÉGRÉE**
+- AF-Option C ; AF-CAND-01…10, 11A, 12 **VALIDÉES**
+- AF-CAND-11B **NON DÉCIDÉE**
+- D10 préservé ; D-VAL-12 **absente**
+- Clôture formelle **NON PRONONCÉE**
+- Branches **conservées**
+- Aucun cycle suivant lancé
 
-### Statut conservé
-
-`functional-architecture-post-merge-integrated` — **aucun nouveau statut** créé uniquement pour #213.
-
-### Formulation
-
-> La PR #213 intègre sur `main` la finalisation documentaire de l’état post-merge. Cette intégration ne prononce ni la clôture formelle du cycle d’architecture fonctionnelle, ni la sélection d’AF-CAND-11B, ni la suppression des branches conservées.
-
----
-
-## 5. État préservé
-
-| Élément | État |
-|---------|------|
-| PR #211 | MERGED + acceptée/régularisée |
-| PR #212 | Sync **INTÉGRÉE** |
-| PR #213 | Finalisation **INTÉGRÉE** |
-| AF-Option C | **VALIDÉE** |
-| AF-CAND-01…10 | **VALIDÉES** |
-| AF-CAND-11A | **VALIDÉE** |
-| AF-CAND-11B | **NON DÉCIDÉE** |
-| AF-CAND-12 | **VALIDÉE** |
-| D10 | Préservé |
-| D-VAL-12 | **Absente** |
-| Architecture technique | **Absente** |
-| Cycle suivant | **Non lancé** |
-| Clôture formelle | **NON PRONONCÉE** |
-| Branches | **Conservées** |
-
----
-
-## 6. Métadonnées README (extrait)
+### Métadonnées README (extrait)
 
 ```markdown
 # SFIA Studio
@@ -150,43 +124,40 @@
 | Élément | Valeur |
 |---------|--------|
 | PR cadrage | [#207](https://github.com/mcleland147/sfia-workspace/pull/207) — **MERGED** |
-| PR conception | [#209](https://github.com/mcleland147/sfia-workspace/pull/209) — **MERGED** |
-| Commit conception | `99eaeaab3120d488606963eb4e5f69c4f730cf14` |
-| Merge conception | `fdade59a23a6dff4c264c73975358f77bc90f9b0` |
-| Documents Studio sur `main` | **Quatorze** (`01`–`13` + README) — cadrage + conception + architecture |
-| Cadrage détaillé | **Validé** (D-VAL-9 / DF-G1) |
-| Cadrage documentaire | **Clôturé** (D-VAL-11) |
-| Cycle 2 conception | **VALIDÉE** et **CLÔTURÉE** — intégrée sur `main` |
-| FD-CAND-01…08 | **VALIDÉES** |
-| Cycle architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` |
-| AF-Option C | **VALIDÉE** — ≠ Option C méthode |
-| AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
-| AF-CAND-11B | **NON DÉCIDÉE** — sélection prochain cycle |
-| D10 | FB-11 → **AF-01 / AF-15** → FR-024 / FR-025 |
-| Versionnement architecture | Commit initial `2153258…` / head `72cab80…` / sync `33d61e3…` |
-| Intégration architecture sur `main` | **Réalisée** — PR #211 **MERGED** ; merge `84e4863…` |
-| Acceptation/régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 — sans D-VAL-12 ; sans réécriture rétroactive |
-| Sync post-merge (#212) | **INTÉGRÉE** — merge `cb870544…` ; commit `33d61e3…` |
-| Finalisation post-merge (#213) | **INTÉGRÉE** — merge `19302836…` ; commit `0b61d728…` |
-| Intégration conception sur `main` | **Réalisée** via PR #209 / sync #210 → `e9d8193…` |
-| Acceptation Morris intégration #209 | **VALIDÉE** — 2026-07-18 (sync post-merge) |
-| Écart d’autorisation merge #209 | **Clôturé** (traçabilité) — sans D-VAL-12 |
-| Clôture formelle cycle architecture | **NON PRONONCÉE** |
-| Prochain cycle | **Non sélectionné** (AF-CAND-11B) |
-| Branches | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
-
-> PR #207 / #209 : historiques. PR #211 : architecture **intégrée** (`84e4863…`) — **fait Git** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). PR #212 : sync post-merge **intégrée** (`cb870544…`). PR #213 : finalisation documentaire **intégrée** (`19302836…`). Cette intégration ne prononce ni la clôture formelle du cycle d’architecture fonctionnelle, ni la sélection d’AF-CAND-11B, ni la suppression des branches conservées.
-
----
-
-## 1. Finalité du projet (produit complet)
 ```
 
 ---
 
-## 7. Fichiers modifiés (locaux — non commités)
+## 5. Staging / commit / push
+
+### Fichiers (exactement 5)
 
 ```
+M	projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+M	projects/sfia-studio/11-functional-architecture.md
+M	projects/sfia-studio/12-functional-architecture-flows-and-boundaries.md
+M	projects/sfia-studio/13-functional-architecture-decision-pack.md
+M	projects/sfia-studio/README.md
+
+```
+
+### Commit
+
+- Message : `docs: sync SFIA Studio PR 213 post-merge integration`
+- SHA : `4f4e7cf497a1fdc5b9304d09b918dd3bb987d5d3`
+- Parent : `0b61d72874a7075bdb174490dc9aa739e79e7024`
+
+```
+commit 4f4e7cf497a1fdc5b9304d09b918dd3bb987d5d3
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Sat Jul 18 22:18:29 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air1.home>
+CommitDate: Sat Jul 18 22:18:29 2026 +0200
+
+    docs: sync SFIA Studio PR 213 post-merge integration
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 M	projects/sfia-studio/07-product-trajectory-and-decision-pack.md
 M	projects/sfia-studio/11-functional-architecture.md
 M	projects/sfia-studio/12-functional-architecture-flows-and-boundaries.md
@@ -213,23 +184,40 @@ M	projects/sfia-studio/README.md
 EXIT:0
 ```
 
-### Staged / actions projet
+### Push
+
+- Cible : `origin/project/sfia-studio-functional-architecture`
+- Force push : **NON**
+- Match local/distant : **Oui**
+
+### Commits vs main
 
 ```
-cached: (vide)
+4f4e7cf docs: sync SFIA Studio PR 213 post-merge integration
+
 ```
-
-- Commit projet : **NON**
-- Push projet : **NON**
-- PR projet : **NON**
-
-### Baseline 08–10
-
-Sans diff.
 
 ---
 
-## 8. Diff complet
+## 6. Draft PR #214
+
+| Champ | Valeur |
+|-------|--------|
+| URL | https://github.com/mcleland147/sfia-workspace/pull/214 |
+| État | OPEN |
+| Draft | **true** |
+| Base | `main` |
+| Head | `project/sfia-studio-functional-architecture` |
+| Head OID | `4f4e7cf497a1fdc5b9304d09b918dd3bb987d5d3` |
+| Fichiers | 5 |
+| +/− | +67 / −54 |
+| Checks | aucun check reporté |
+| Ready-for-review | **NON** |
+| Merge | **NON** |
+
+---
+
+## 7. Diff complet
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
@@ -614,16 +602,11 @@ index 876597a..1264b2f 100644
 
 ---
 
-## 9. Working tree final
+## 8. Working tree final
 
 ```
 ## project/sfia-studio-functional-architecture...origin/project/sfia-studio-functional-architecture
  M projects/campus360/README.md
- M projects/sfia-studio/07-product-trajectory-and-decision-pack.md
- M projects/sfia-studio/11-functional-architecture.md
- M projects/sfia-studio/12-functional-architecture-flows-and-boundaries.md
- M projects/sfia-studio/13-functional-architecture-decision-pack.md
- M projects/sfia-studio/README.md
 ?? .sfia/
 ?? .tmp-sfia-review/
 ?? projects/campus360/04-detailed-framing.md
@@ -633,11 +616,6 @@ index 876597a..1264b2f 100644
 ?? sfia-review-handoff/
 
  M projects/campus360/README.md
- M projects/sfia-studio/07-product-trajectory-and-decision-pack.md
- M projects/sfia-studio/11-functional-architecture.md
- M projects/sfia-studio/12-functional-architecture-flows-and-boundaries.md
- M projects/sfia-studio/13-functional-architecture-decision-pack.md
- M projects/sfia-studio/README.md
 ?? .sfia/
 ?? .tmp-sfia-review/
 ?? projects/campus360/04-detailed-framing.md
@@ -648,70 +626,70 @@ index 876597a..1264b2f 100644
 
 ```
 
+Hors périmètre intact : Campus360, `.sfia`, `.tmp-sfia-review`, `sfia-review-handoff/`.
+
 ---
 
-## 10. Risques
+## 9. Risques
 
-1. Confusion intégration #213 / clôture formelle
+1. Confusion clôture formelle / intégration #213 / draft #214
 2. Promotion implicite AF-CAND-11B
-3. Création implicite D-VAL-12
+3. Staging accidentel hors périmètre (évité)
 
 ---
 
-## 11. Réserves
+## 10. Réserves
 
-- Trace post-#213 **locale** jusqu’à GO versionnement
+- Draft PR uniquement
 - Clôture formelle **ouverte**
 - AF-CAND-11B **NON DÉCIDÉE**
 - Branches **conservées**
 
 ---
 
-## 12. Décisions Morris restantes
+## 11. Décisions Morris restantes
 
-1. Revue ChatGPT du handoff #213
-2. Clôture formelle du cycle architecture
-3. AF-CAND-11B — sélection prochain cycle
-4. Sort des branches
-5. GO versionnement éventuel de la trace post-#213
+1. Revue ChatGPT draft PR #214
+2. Ready-for-review / merge #214 (GO distincts)
+3. Clôture formelle du cycle architecture
+4. AF-CAND-11B — sélection prochain cycle
+5. Sort des branches
 
 ---
 
-## 13. Verdict
+## 12. Verdict
 
-**SFIA STUDIO PR #213 POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW**
+**SFIA STUDIO PR #213 POST-MERGE TRACE COMMITTED, PUSHED AND DRAFT PR OPENED — READY FOR CHATGPT PR REVIEW**
 
 Confirmations :
 
-- PR #213 mergée
-- Finalisation intégrée
+- Commit/push/draft PR conformes
+- Cinq fichiers
+- Intégration #213 tracée
 - Statut conservé
-- Références Git actualisées (`19302836…`)
 - AF-CAND-11B non décidée
-- Aucune D-VAL-12
+- D-VAL-12 absente
 - Clôture non prononcée
-- Branches conservées
-- Aucun commit/push/PR projet
+- Aucun ready-for-review / merge de #214
 
 ---
 
-## 14. Instruction ChatGPT
+## 13. Instruction ChatGPT
 
 Lire depuis Git :
 
 - repository : `mcleland147/sfia-workspace`
 - ref : `sfia/review-handoff`
 - fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- main attendu : `19302836b45d49f19698c624e99f2d68afa7b290`
+- base attendue : `19302836b45d49f19698c624e99f2d68afa7b290`
 
 Analyser :
 
-- PR #213 mergée
-- finalisation intégrée
+- conformité commit/push/draft PR
+- cinq fichiers
+- intégration #213 tracée
 - statut conservé
-- références Git actualisées
 - AF-CAND-11B non décidée
 - absence D-VAL-12
 - clôture non prononcée
-- branches conservées
-- readiness pour décision Morris de clôture formelle ou versionnement de la dernière trace
+- readiness pour revue PR
