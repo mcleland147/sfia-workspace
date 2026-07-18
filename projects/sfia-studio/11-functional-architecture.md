@@ -8,17 +8,17 @@
 | **Profil** | Critical |
 | **Typologie** | DOC — EVOL produit |
 | **Baseline** | SFIA v2.6 (**Option C méthode** validée — D-VAL-6) |
-| **Base Git** | `origin/main` @ `84e48636bb78808774b51f67329167f8e9749a6b` |
-| **Branche travail** | `project/sfia-studio-functional-architecture` (**conservée** ; intégrée à `main`) |
-| **Commit / merge** | head `72cab80…` ; merge `84e48636bb78808774b51f67329167f8e9749a6b` |
-| **Statut** | `functional-architecture-integrated-post-merge-review` |
+| **Base Git** | `origin/main` @ `cb87054423ed80905f633e86d907eee1709611b2` |
+| **Branche travail** | `project/sfia-studio-functional-architecture` (**conservée** @ `33d61e3…`) |
+| **Commit / merge** | head #211 `72cab80…` ; merge #211 `84e48636bb78808774b51f67329167f8e9749a6b` ; sync `33d61e3…` ; merge #212 `cb87054423ed80905f633e86d907eee1709611b2` |
+| **Statut** | `functional-architecture-post-merge-integrated` |
 | **Autorité** | Morris (L0) |
 | **Entrée** | Conception validée `08`–`10` (inchangée) |
 | **Architecture** | **VALIDÉE** et **INTÉGRÉE** sur `main` — **AF-Option C** VALIDÉE |
-| **Décisions** | AF-CAND-01…10, 11A, 12 **VALIDÉES** ; AF-CAND-11B **NON DÉCIDÉE** ; aucune D-VAL-12 |
-| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** |
+| **Décisions** | AF-CAND-01…10, 11A, 12 **VALIDÉES** ; AF-CAND-11B **NON DÉCIDÉE** ; aucune D-VAL-12 ; acceptation #211 **VALIDÉE** |
+| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) **MERGED** + acceptée ; [#212](https://github.com/mcleland147/sfia-workspace/pull/212) sync **MERGED** |
 
-> Architecture fonctionnelle **VALIDÉE** et **INTÉGRÉE** sur `main` (PR #211 / `84e4863…`). **Pas** d’architecture technique, stack, API, BDD, service, package, Figma, backlog, POC ou MVP. Runtime / orchestrateur = **candidat non contractuel**. **AF-Option C** ≠ Option C méthode. Clôture formelle **non automatique**.
+> Architecture fonctionnelle **VALIDÉE** et **INTÉGRÉE** (PR #211 / `84e4863…`) — **acceptée/régularisée** Morris 2026-07-18. Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`). **Pas** d’architecture technique, stack, API, BDD, service, package, Figma, backlog, POC ou MVP. Runtime / orchestrateur = **candidat non contractuel**. **AF-Option C** ≠ Option C méthode. Clôture formelle **non prononcée**.
 
 ---
 
@@ -355,7 +355,7 @@ Ces vues préparent un futur UX/UI **sans** maquette ni Figma.
 **Réserves :** FB ≠ composants ; Runtime candidat ; pas de stack ; pas de POC/MVP ; cycle suivant non sélectionné (AF-CAND-11B).
 **Risques :** confusion Studio/orchestrateur ; seconde vérité ; GO implicite ; confusion **AF-Option C** / Option C méthode.
 **Décidé :** **AF-Option C** VALIDÉE ; AF-CAND-01…10, 11A, 12 VALIDÉES.
-**Questions restantes :** AF-CAND-11B (sélection prochain cycle) ; acceptation/régularisation merge #211 ; GO sync post-merge ; clôture formelle ; sort des branches.
+**Questions restantes :** AF-CAND-11B (sélection prochain cycle) ; clôture formelle ; GO versionnement sync finale ; sort des branches.
 
 ---
 
@@ -370,4 +370,4 @@ Ces vues préparent un futur UX/UI **sans** maquette ni Figma.
 
 ---
 
-*SFIA Studio — architecture fonctionnelle VALIDÉE et INTÉGRÉE (PR #211 / 84e4863…) — post-merge sync en revue — AF-Option C VALIDÉE — AF-CAND-11B NON DÉCIDÉE — Critical — Morris décide.*
+*SFIA Studio — architecture VALIDÉE et INTÉGRÉE (PR #211) — sync post-merge INTÉGRÉE (PR #212 / cb870544…) — clôture NON PRONONCÉE — AF-Option C VALIDÉE — AF-CAND-11B NON DÉCIDÉE — Critical — Morris décide.*

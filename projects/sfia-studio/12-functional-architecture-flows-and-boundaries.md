@@ -3,10 +3,10 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `12-functional-architecture-flows-and-boundaries.md` |
-| **Statut** | `functional-architecture-integrated-post-merge-review` |
+| **Statut** | `functional-architecture-post-merge-integrated` |
 | **Cycle** | Architecture fonctionnelle — Critical |
-| **Base** | `84e48636bb78808774b51f67329167f8e9749a6b` |
-| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** — merge `84e4863…` |
+| **Base** | `cb87054423ed80905f633e86d907eee1709611b2` |
+| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) **MERGED** (`84e4863…`) + acceptée ; [#212](https://github.com/mcleland147/sfia-workspace/pull/212) sync **MERGED** (`cb870544…`) |
 | **Complète** | [11-functional-architecture.md](./11-functional-architecture.md) |
 
 > Flux **AF-*** candidats. Ne remplacent pas F1–F12 validés ; ils les **structurent** architecturalement.
@@ -389,4 +389,4 @@ Voir document 11 §§9–10 et BR-001…025. Gates séparés : commit, push, PR,
 
 ---
 
-*Flux architecture VALIDÉS et INTÉGRÉS (PR #211 / 84e4863…) — post-merge sync en revue — Morris décide AF-CAND-11B / clôture.*
+*Flux architecture VALIDÉS et INTÉGRÉS (PR #211) — sync post-merge INTÉGRÉE (PR #212 / cb870544…) — Morris décide AF-CAND-11B / clôture.*
