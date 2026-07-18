@@ -12,9 +12,9 @@
 
 > **Règle (G3-R5) :** les 15 cycles représentent la **cible de couverture progressive** du produit. Aucun incrément n’est obligé de les couvrir tous. Le MVP pourra couvrir un **sous-ensemble prioritaire** — **non sélectionné ici**. Aucun cycle n’est automatiquement activé. Profil requalifié à chaque cycle.
 >
-> **Statut actuel (post D-VAL-10) :** G1, G2, G3 (revue conforme), G4 (Option C), G5 (principe), G6, DF-G1 et G7 (**commit / push / draft PR autorisés — merge interdit**) **validés**. Prochain cycle **non sélectionné**.
+> **Bandeau post-merge :** document **historique**. PR **#207** mergée (`ec21074`). État courant porté par **README et `04`–`07`**. D-VAL-10 = historique (commit/push/draft PR ; merge non autorisé par cette décision). **D-VAL-11 — VALIDÉE** (Morris — 2026-07-18) : intégration reconnue ; cadrage documentaire **clôturé** ; prochain cycle **non sélectionné**.
 >
-> La sélection du prochain cycle reste une décision Morris distincte. Aucun cycle de conception, architecture ou UX n’est lancé par cette synchronisation. En cas d’écart, README et `04`–`07` priment.
+> La sélection du prochain cycle reste une décision Morris distincte. Aucun cycle de conception, architecture ou UX n’est lancé ici. En cas d’écart, README et `04`–`07` priment.
 
 ---
 
@@ -162,4 +162,4 @@ Activation auto ; architecture déguisée ; backlog ; sélection MVP ; validatio
 
 ---
 
-*SFIA Studio — document historique de pré-cadrage — synchronisé post D-VAL-10 — prochain cycle non lancé — Morris décide.*
+*SFIA Studio — document historique de pré-cadrage — PR #207 mergée — D-VAL-11 validée — prochain cycle non lancé — Morris décide.*

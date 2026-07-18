@@ -7,8 +7,8 @@
 | **Cycle** | 1 — Cadrage (cadrage détaillé produit) |
 | **Profil** | Critical |
 | **Baseline** | SFIA v2.6 (Option C) |
-| **Statut** | `detailed-framing-in-progress` |
-| **Décisions** | D-VAL-1 à D-VAL-10 |
+| **Statut** | `post-merge-documentary-synchronization-validated` |
+| **Décisions** | D-VAL-1 à D-VAL-11 |
 
 > Borne le produit, les phases et les preuves. **Ne sélectionne pas** le MVP. **Ne fige pas** le POC détaillé. **Ne conçoit pas** l’industrialisation.
 
@@ -109,7 +109,8 @@ Pas de conception détaillée dans ce cycle.
 | Pas d’automatisation d’arbitrage | Garde-fou |
 | macOS = preuve POC non contractuelle | G3-R3 |
 | Runtime = candidat non contractuel | G3-R2 |
-| G7 commit / push / draft PR autorisé — merge interdit | Morris (D-VAL-10) |
+| G7 historique (D-VAL-10) : commit / push / draft PR — merge hors D-VAL-10 | Historique |
+| Merge PR #207 régularisé ; D-VAL-11 validée (2026-07-18) | Morris |
 
 ---
 
@@ -220,7 +221,7 @@ Arrêt / escalade Morris si :
 - modification silencieuse de méthode ;
 - élargissement au-delà du contrat de cycle ;
 - secrets exposés ;
-- force push / merge non autorisé ;
+- force push ; merge sans GO Morris explicite ;
 - présentation d’une candidate comme baseline.
 
 ---

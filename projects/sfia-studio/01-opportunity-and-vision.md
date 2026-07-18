@@ -11,23 +11,32 @@
 | **Statut** | `historical-pre-framing-synchronized-after-detailed-framing-validation` |
 | **Autorité** | Morris |
 
-> **Note historique :** Ce document a porté l’opportunité et la vision lors du pré-cadrage. Le **cadrage détaillé validé** (D-VAL-9 / DF-G1) est désormais porté par les documents `04` à `07`. En cas d’écart sur l’état courant, **README et `04`–`07` priment**.
+> **Note historique :** Ce document a porté l’opportunité et la vision lors du pré-cadrage. Le **cadrage détaillé validé** (D-VAL-9 / DF-G1) et l’**état courant post-merge** sont portés par **README et `04`–`07`**. En cas d’écart, **README prime**.
 
-### Statut actuel (synchronisation post D-VAL-9)
+### Bandeau post-merge
+
+| Élément | Valeur |
+|---------|--------|
+| Nature | Document **historique** de pré-cadrage |
+| PR #207 | **MERGED** — merge `ec21074…` ; socle sur `main` |
+| D-VAL-10 (historique) | Commit / push / draft PR autorisés — merge **non** autorisé par cette décision |
+| Observation | Merge réalisé et vérifié techniquement |
+| D-VAL-11 | **VALIDÉE** — Morris — 2026-07-18 ; cadrage documentaire **clôturé** |
+| Prochain cycle | **Non sélectionné** |
+
+### Statut des décisions (rappel)
 
 | Élément | Statut |
 |---------|--------|
-| D-VAL-1 à D-VAL-7 | **Validés** |
-| D-VAL-8 / G6 | **VALIDÉ** — cadrage détaillé autorisé |
-| D-VAL-9 / DF-G1 | **VALIDÉ** — cadrage détaillé validé |
-| D-VAL-10 / G7 | **VALIDÉ — COMMIT / PUSH / DRAFT PR AUTORISÉS — MERGE INTERDIT** |
-| G1 / G2 | **VALIDÉ** |
+| D-VAL-1 à D-VAL-9 | **Validés** (historiques) |
+| D-VAL-10 / G7 | **Historique** — commit / push / draft PR autorisés ; merge non autorisé **par D-VAL-10** |
+| D-VAL-11 | **VALIDÉE** — Morris — 2026-07-18 |
+| G1 / G2 / G4 / G6 / DF-G1 | **VALIDÉ** |
 | G3 | **REVUE CONFORME** |
-| G4 | **VALIDÉ — OPTION C** |
 | G5 | **VALIDÉ SUR LE PRINCIPE** |
 | Prochain cycle | **Non sélectionné** |
 
-> G7 autorise commit, push et draft PR. **Merge non autorisé.** Le push technique du Review Handoff Git **ne vaut pas** merge.
+> Handoff review ≠ décision Morris. État courant porté par README et `04`–`07`.
 
 ---
 
@@ -286,7 +295,7 @@ Cadrage détaillé ; architecture ; stack ; UX/Figma ; backlog ; code ; démarra
 
 ## 18. Contraintes
 
-Baseline v2.6 non modifiable ici ; Option C ; pas de seconde vérité ; pas d’auto-décision ; G6 et DF-G1 **réalisés** ; G7 autorisé pour commit/push/draft PR — **merge interdit** ; Campus360 hors périmètre.
+Baseline v2.6 non modifiable ici ; Option C ; pas de seconde vérité ; pas d’auto-décision ; G6 et DF-G1 **réalisés** ; G7 historique (D-VAL-10) = commit/push/draft PR ; merge = fait Git (PR #207) — régularisé D-VAL-11 validée (2026-07-18) ; cadrage documentaire clôturé ; Campus360 hors périmètre.
 
 ---
 
@@ -303,7 +312,7 @@ Seconde vérité ; contournement gates ; Runtime figé trop tôt ; macOS pris po
 3. macOS = contrainte de preuve.
 4. Critères candidats de valeur présents ; POC ≠ valeur.
 5. Couverture 15 cycles = progressive.
-6. G1/G2/G4/G5 principe / G3 revue conforme / G6 / DF-G1 / G7 (commit/push/draft PR) correctement marqués ; merge interdit ; prochain cycle non sélectionné.
+6. G1/G2/G4/G5 principe / G3 revue conforme / G6 / DF-G1 / G7 historique correctement marqués ; merge observé (PR #207) ; D-VAL-11 validée ; cadrage documentaire clôturé ; prochain cycle non sélectionné.
 
 ---
 
@@ -338,4 +347,4 @@ Seconde vérité ; contournement gates ; Runtime figé trop tôt ; macOS pris po
 
 ---
 
-*SFIA Studio — document historique de pré-cadrage — synchronisé post D-VAL-10 — G7 autorisé — merge interdit — Morris décide.*
+*SFIA Studio — document historique de pré-cadrage — PR #207 mergée — D-VAL-11 validée — Morris décide.*
