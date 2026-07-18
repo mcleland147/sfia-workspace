@@ -3,12 +3,13 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `13-functional-architecture-decision-pack.md` |
-| **Statut** | `functional-architecture-validated-pr-open` |
+| **Statut** | `functional-architecture-integrated-post-merge-review` |
 | **Cycle** | 3 — Architecture fonctionnelle — sous-cycle amendements Morris |
 | **Profil** | Critical |
-| **Base** | `e9d819368a6224259e8ba0e942d53effb81e191a` |
-| **Commit** | `215325858ed493564f6083ec5adc1618008593f6` |
-| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) draft — merge **non autorisé** |
+| **Base / main** | `84e48636bb78808774b51f67329167f8e9749a6b` |
+| **Commit head PR** | `72cab8016387f827f4dcf04f7459208cd85ff327` |
+| **Merge** | `84e48636bb78808774b51f67329167f8e9749a6b` |
+| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** |
 | **Complète** | [11](./11-functional-architecture.md) · [12](./12-functional-architecture-flows-and-boundaries.md) |
 
 > **AF-CAND-*** = décisions locales au cycle d’architecture. **≠ D-VAL**. Aucune D-VAL-12.
@@ -251,9 +252,11 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 **Risques :** AF-Option B seconde vérité (écartée) ; FB pris pour microservices ; Runtime contractuel implicite ; confusion AF-Option C / Option C méthode ; promotion implicite d’AF-CAND-11B.
 **Réserves :** Pas de tech ; pas de D-VAL-12 ; Runtime candidat ; cycle suivant non sélectionné.
 **Questions Morris restantes :**
-1. Autorisez-vous le ready-for-review / merge de la draft PR #211 (GO distincts) ?
-2. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via 11A, ou autre ?
-3. Quel sort pour les branches (`pre-framing` / `functional-design` / architecture) ?
+1. Acceptez-vous / régularisez-vous documentairement le merge #211 (fait Git) ?
+2. Autorisez-vous commit / push / PR de synchronisation post-merge ?
+3. Clôturez-vous formellement le cycle architecture ?
+4. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via 11A, ou autre ?
+5. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
 
 ---
 
@@ -264,9 +267,9 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 | Validation AF-Option C | **FAIT** |
 | Validation AF-CAND-01…10, 11A, 12 | **FAIT** |
 | AF-CAND-11B sélection cycle | **OUVERT** |
-| Versionnement architecture | **Réalisé** — commit `2153258…` ; draft PR #211 |
-| Ready-for-review / merge PR #211 | **Non autorisé** |
-| Clôture formelle cycle architecture (post-merge) | **Non** — non intégrée sur `main` |
+| Versionnement architecture | **FAIT** |
+| Intégration PR #211 sur `main` | **FAIT Git** (`84e4863…`) — acceptation/régularisation documentaire **ouverte** |
+| Clôture formelle cycle architecture | **Non** — non automatique |
 | Lancement UX/UI / tech / POC / MVP | **Non** |
 
 ---
@@ -293,12 +296,12 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 
 ## 12. Verdict
 
-**Architecture fonctionnelle VALIDÉE** sur le fond — statut `functional-architecture-validated-pr-open` — commit `2153258…` — draft PR #211 — **non intégrée** sur `main`.
+**Architecture fonctionnelle VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-integrated-post-merge-review` — PR #211 **MERGED** (`84e4863…`).
 
 Validé : AF-Option C ; AF-CAND-01…10 ; AF-CAND-11A ; AF-CAND-12.
 Non décidé : AF-CAND-11B.
-Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle suivant lancé. Merge **non autorisé**.
+Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle suivant lancé. Clôture formelle **non automatique**. Merge tracé comme **fait Git** (sans D-VAL auto).
 
 ---
 
-*Pack AF validé — Critical — draft PR #211 — Morris décide AF-CAND-11B et GO merge.*
+*Pack AF validé et intégré — Critical — post-merge sync en revue — Morris décide AF-CAND-11B / clôture / sync.*
