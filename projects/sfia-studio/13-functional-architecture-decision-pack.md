@@ -3,13 +3,16 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `13-functional-architecture-decision-pack.md` |
-| **Statut** | `functional-architecture-integrated-post-merge-review` |
+| **Statut** | `functional-architecture-post-merge-integrated` |
 | **Cycle** | 3 — Architecture fonctionnelle — sous-cycle amendements Morris |
 | **Profil** | Critical |
-| **Base / main** | `84e48636bb78808774b51f67329167f8e9749a6b` |
-| **Commit head PR** | `72cab8016387f827f4dcf04f7459208cd85ff327` |
-| **Merge** | `84e48636bb78808774b51f67329167f8e9749a6b` |
-| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** |
+| **Base / main** | `cb87054423ed80905f633e86d907eee1709611b2` |
+| **Commit head PR #211** | `72cab8016387f827f4dcf04f7459208cd85ff327` |
+| **Merge #211** | `84e48636bb78808774b51f67329167f8e9749a6b` |
+| **Acceptation #211** | **VALIDÉE** — Morris — 2026-07-18 (sans D-VAL-12) |
+| **Commit sync #212** | `33d61e39511f7302aa8073bef30ebe939f8eb9a2` |
+| **Merge #212** | `cb87054423ed80905f633e86d907eee1709611b2` |
+| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) **MERGED** + acceptée ; [#212](https://github.com/mcleland147/sfia-workspace/pull/212) sync **MERGED** |
 | **Complète** | [11](./11-functional-architecture.md) · [12](./12-functional-architecture-flows-and-boundaries.md) |
 
 > **AF-CAND-*** = décisions locales au cycle d’architecture. **≠ D-VAL**. Aucune D-VAL-12.
@@ -252,11 +255,11 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 **Risques :** AF-Option B seconde vérité (écartée) ; FB pris pour microservices ; Runtime contractuel implicite ; confusion AF-Option C / Option C méthode ; promotion implicite d’AF-CAND-11B.
 **Réserves :** Pas de tech ; pas de D-VAL-12 ; Runtime candidat ; cycle suivant non sélectionné.
 **Questions Morris restantes :**
-1. Acceptez-vous / régularisez-vous documentairement le merge #211 (fait Git) ?
-2. Autorisez-vous commit / push / PR de synchronisation post-merge ?
-3. Clôturez-vous formellement le cycle architecture ?
-4. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via 11A, ou autre ?
-5. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
+1. Autorisez-vous commit / push / PR de la synchronisation documentaire finale (locale) ?
+2. Clôturez-vous formellement le cycle architecture ?
+3. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via 11A, ou autre ?
+4. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
+5. Quel niveau d’architecture minimale avant POC ?
 
 ---
 
@@ -268,8 +271,10 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 | Validation AF-CAND-01…10, 11A, 12 | **FAIT** |
 | AF-CAND-11B sélection cycle | **OUVERT** |
 | Versionnement architecture | **FAIT** |
-| Intégration PR #211 sur `main` | **FAIT Git** (`84e4863…`) — acceptation/régularisation documentaire **ouverte** |
-| Clôture formelle cycle architecture | **Non** — non automatique |
+| Intégration PR #211 sur `main` | **FAIT Git** (`84e4863…`) |
+| Acceptation/régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 — sans D-VAL-12 |
+| Sync post-merge PR #212 | **INTÉGRÉE** — `cb870544…` |
+| Clôture formelle cycle architecture | **Non** — **non prononcée** |
 | Lancement UX/UI / tech / POC / MVP | **Non** |
 
 ---
@@ -296,12 +301,12 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 
 ## 12. Verdict
 
-**Architecture fonctionnelle VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-integrated-post-merge-review` — PR #211 **MERGED** (`84e4863…`).
+**Architecture fonctionnelle VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` — PR #211 **MERGED** (`84e4863…`) et **acceptée/régularisée** (Morris — 2026-07-18). Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`).
 
-Validé : AF-Option C ; AF-CAND-01…10 ; AF-CAND-11A ; AF-CAND-12.
-Non décidé : AF-CAND-11B.
-Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle suivant lancé. Clôture formelle **non automatique**. Merge tracé comme **fait Git** (sans D-VAL auto).
+Validé : AF-Option C ; AF-CAND-01…10 ; AF-CAND-11A ; AF-CAND-12 ; acceptation #211.
+Non décidé : AF-CAND-11B ; clôture formelle.
+Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle suivant lancé. Clôture formelle **non prononcée**.
 
 ---
 
-*Pack AF validé et intégré — Critical — post-merge sync en revue — Morris décide AF-CAND-11B / clôture / sync.*
+*Pack AF validé et intégré — Critical — sync post-merge intégrée — Morris décide AF-CAND-11B / clôture.*
