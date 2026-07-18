@@ -10,9 +10,9 @@
 | **Statut** | `functional-architecture-post-merge-integrated` ; conception `functional-design-integrated` sur `main` ; cycle 2 **clôturé** |
 | **Décisions** | D-VAL-1…11 inchangées ; FD-CAND-01…08 **VALIDÉES** ; **AF-Option C VALIDÉE** ; AF-CAND-01…10, 11A, 12 **VALIDÉES** ; AF-CAND-11B **NON DÉCIDÉE** ; acceptation #211 **VALIDÉE** |
 | **Destinataire** | Morris |
-| **Source de vérité** | Git `main` @ `cb87054423ed80905f633e86d907eee1709611b2` — cadrage + conception + architecture + sync post-merge **intégrés** |
+| **Source de vérité** | Git `main` @ `19302836b45d49f19698c624e99f2d68afa7b290` — cadrage + conception + architecture + sync + finalisation **intégrés** |
 
-> Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Conception **VALIDÉE** et **INTÉGRÉE**. Architecture **VALIDÉE** et **INTÉGRÉE** (PR #211 / `84e4863…`). Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`). Acceptation/régularisation #211 **VALIDÉE** (Morris — 2026-07-18). Clôture formelle **non prononcée**. **Pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
+> Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Conception **VALIDÉE** et **INTÉGRÉE**. Architecture **VALIDÉE** et **INTÉGRÉE** (PR #211 / `84e4863…`). Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`). Finalisation documentaire **INTÉGRÉE** (PR #213 / `19302836…`). Acceptation/régularisation #211 **VALIDÉE** (Morris — 2026-07-18). Clôture formelle **non prononcée**. **Pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
 
 ---
 
@@ -42,11 +42,12 @@
 | Intégration architecture sur `main` | **Réalisée** — PR #211 **MERGED** ; merge `84e4863…` |
 | Acceptation/régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 — sans D-VAL-12 ; sans réécriture rétroactive |
 | Sync post-merge (#212) | **INTÉGRÉE** — merge `cb870544…` |
+| Finalisation post-merge (#213) | **INTÉGRÉE** — merge `19302836…` ; commit `0b61d728…` |
 | Clôture formelle cycle architecture | **NON PRONONCÉE** |
 | Prochain cycle après architecture | **Non sélectionné** (AF-CAND-11B) ; UX/UI **recommandé** (11A) |
 | Branches | `functional-design` / `pre-framing` / `functional-architecture` **conservées** |
 
-> Merges #207 / #209/#210 : historiques. Merge #211 (`84e4863…`) : architecture **intégrée** — **fait Git** ; Morris **accepte/régularise** documentairement le 2026-07-18 — clôt l’écart de traçabilité **sans** D-VAL-12 et **sans** réécriture rétroactive des autorisations pré-merge. Merge #212 (`cb870544…`) : sync post-merge **intégrée**. Clôture formelle architecture **ouverte**.
+> Merges #207 / #209/#210 : historiques. Merge #211 (`84e4863…`) : architecture **intégrée** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). Merge #212 (`cb870544…`) : sync **intégrée**. Merge #213 (`19302836…`) : finalisation documentaire **intégrée** — ne prononce ni clôture formelle, ni AF-CAND-11B, ni suppression de branches.
 
 ### Trace factuelle — cycle 2 (conception fonctionnelle)
 
@@ -123,7 +124,7 @@ Pré-cadrage                         ← terminé historiquement
   → merge PR #207                   ← fait Git vérifié (ec21074) — régularisé D-VAL-11
   → synchronisation post-merge      ← **VALIDÉE** — cadrage documentaire clôturé
   → conception fonctionnelle        ← **VALIDÉE** + **INTÉGRÉE** (PR #209 / sync #210 → `e9d8193…`) — **CLÔTURÉE**
-  → architecture fonctionnelle      ← **VALIDÉE** + **INTÉGRÉE** (PR #211 / `84e4863…`) — sync post-merge **intégrée** (PR #212 / `cb870544…`) — clôture formelle **ouverte** — AF-CAND-11B **ouverte**
+  → architecture fonctionnelle      ← **VALIDÉE** + **INTÉGRÉE** (PR #211 / `84e4863…`) — sync #212 **intégrée** (`cb870544…`) — finalisation #213 **intégrée** (`19302836…`) — clôture formelle **ouverte** — AF-CAND-11B **ouverte**
   → UX/UI (recommandé AF-CAND-11A)  ← **non sélectionnée** (AF-CAND-11B)
   → architecture technique candidate
   → définition du POC
@@ -147,6 +148,7 @@ Pré-cadrage                         ← terminé historiquement
 - Aucune stack / architecture **technique** validée.
 - Architecture **fonctionnelle VALIDÉE** et **INTÉGRÉE** sur `main` (PR #211 / `84e4863…`) — **acceptée/régularisée** Morris 2026-07-18.
 - Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`).
+- Finalisation documentaire **INTÉGRÉE** (PR #213 / `19302836…`).
 - **AF-CAND-11A** oriente UX/UI puis tech puis POC puis MVP — **sans lancer**.
 - **AF-CAND-11B** : sélection cycle suivant **NON DÉCIDÉE**.
 - Conception fonctionnelle **VALIDÉE** et **INTÉGRÉE** sur `main`.
@@ -189,8 +191,8 @@ Pré-cadrage                         ← terminé historiquement
 | AF-CAND-11B | **NON DÉCIDÉE** |
 | D10 | FB-11 → AF-01 / AF-15 → FR-024 / FR-025 |
 | Branche | `project/sfia-studio-functional-architecture` — **conservée** |
-| Commits / merges | head #211 `72cab80…` ; merge #211 `84e4863…` ; sync `33d61e3…` ; merge #212 `cb870544…` |
-| Intégration | Architecture **Oui** (#211) ; sync post-merge **Oui** (#212) |
+| Commits / merges | head #211 `72cab80…` ; merge #211 `84e4863…` ; sync `33d61e3…` ; merge #212 `cb870544…` ; finalisation `0b61d728…` ; merge #213 `19302836…` |
+| Intégration | Architecture **Oui** (#211) ; sync **Oui** (#212) ; finalisation **Oui** (#213) |
 | Acceptation #211 | **VALIDÉE** Morris 2026-07-18 (sans D-VAL-12) |
 | Ne lance pas | Architecture technique ; UX/UI ; stack ; POC ; MVP ; code ; clôture auto ; AF-CAND-11B |
 
@@ -232,6 +234,7 @@ Pré-cadrage                         ← terminé historiquement
 | D-NEXT-2i | Intégration PR #211 | Observation Git | **Fait Git** (`84e4863…`) |
 | D-NEXT-2i2 | Acceptation/régularisation documentaire #211 | Morris | **VALIDÉE** — 2026-07-18 — sans D-VAL-12 ; sans réécriture rétroactive |
 | D-NEXT-2i3 | Sync post-merge PR #212 | Observation Git | **MERGED** (`cb870544…`) — sync **intégrée** |
+| D-NEXT-2i4 | Finalisation post-merge PR #213 | Observation Git | **MERGED** (`19302836…`) — finalisation **intégrée** |
 | D-NEXT-2j | Clôture formelle cycle architecture | Morris | **Non** — **non prononcée** |
 | D-NEXT-2g | Sélection cycle suivant après architecture (AF-CAND-11B) | Morris | **Non sélectionné** |
 | D-NEXT-2h | Trajectoire recommandée (AF-CAND-11A) | Morris | **VALIDÉE** (recommandation uniquement) |
@@ -276,7 +279,7 @@ Pré-cadrage                         ← terminé historiquement
 
 **Conception fonctionnelle bornée** (Option 1 de séquencement post-cadrage) a été **sélectionnée, produite, VALIDÉE et INTÉGRÉE** (PR #209 / #210).
 
-**Architecture fonctionnelle Critical** : **VALIDÉE** et **INTÉGRÉE** — **AF-Option C VALIDÉE** ; AF-CAND-01…10, 11A, 12 **VALIDÉES** ; PR #211 **MERGED** (`84e4863…`) et **acceptée/régularisée** (Morris — 2026-07-18). Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`).
+**Architecture fonctionnelle Critical** : **VALIDÉE** et **INTÉGRÉE** — **AF-Option C VALIDÉE** ; AF-CAND-01…10, 11A, 12 **VALIDÉES** ; PR #211 **MERGED** (`84e4863…`) et **acceptée/régularisée** (Morris — 2026-07-18). Sync #212 **INTÉGRÉE** (`cb870544…`). Finalisation #213 **INTÉGRÉE** (`19302836…`).
 
 **AF-CAND-11A (VALIDÉE — recommandation) :** UX/UI → architecture technique → POC borné → MVP après retour POC.
 
@@ -298,18 +301,18 @@ Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n
 | **DF-G6** | Décision de poursuite post-POC | **PROPOSÉ** |
 | **DF-G7** | Autoriser cadrage / sélection MVP | **PROPOSÉ** |
 
-Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**. Architecture : **VALIDÉE** et **INTÉGRÉE** (`84e4863…`). Sync post-merge : **INTÉGRÉE** (`cb870544…`). Acceptation #211 : **VALIDÉE**. AF-CAND-11B : **non décidée**.
+Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**. Architecture : **VALIDÉE** et **INTÉGRÉE** (`84e4863…`). Sync #212 + finalisation #213 : **INTÉGRÉES** (`19302836…`). Acceptation #211 : **VALIDÉE**. AF-CAND-11B : **non décidée**.
 
 ---
 
 ## 8. Questions Morris
 
-1. Autorisez-vous commit / push / PR de la synchronisation documentaire finale (locale) ?
-2. Clôturez-vous formellement le cycle architecture ?
-3. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via AF-CAND-11A, ou autre ?
-4. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
-5. Quel niveau d’architecture minimale avant POC ?
-6. Quelles priorités NFR avant le POC ?
+1. Clôturez-vous formellement le cycle architecture ?
+2. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via AF-CAND-11A, ou autre ?
+3. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
+4. Quel niveau d’architecture minimale avant POC ?
+5. Quelles priorités NFR avant le POC ?
+6. Autorisez-vous une trace documentaire post-#213 éventuelle (commit/push/PR) ?
 
 ---
 
@@ -328,6 +331,7 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
 | FD-CAND-01…08 | **VALIDÉES** |
 | Architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — `84e4863…` |
 | Sync post-merge | **INTÉGRÉE** — `cb870544…` / PR #212 |
+| Finalisation post-merge | **INTÉGRÉE** — `19302836…` / PR #213 |
 | Acceptation #211 | **VALIDÉE** — 2026-07-18 |
 | AF-Option C | **VALIDÉE** |
 | AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
@@ -349,13 +353,14 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
 | Cycle 2 | **CLÔTURÉ** |
 | Architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — `84e4863…` |
 | Sync post-merge | **INTÉGRÉE** — `cb870544…` |
+| Finalisation #213 | **INTÉGRÉE** — `19302836…` |
 | Acceptation #211 | **VALIDÉE** |
 | AF-Option C | **VALIDÉE** — ≠ Option C méthode |
 | AF-CAND-11B | **NON DÉCIDÉE** |
 | Ready for POC / MVP / tech | **Non** |
-| Ready for Morris final post-merge review | **Oui** (sync locale) |
+| Ready for Morris #213 post-merge review | **Oui** (trace locale) |
 
-**Verdict :** `SFIA STUDIO FINAL POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW`
+**Verdict :** `SFIA STUDIO PR #213 POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW`
 
 ---
 
@@ -373,4 +378,4 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
 | [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux / frontières — D10 → AF-01 / AF-15 |
 | [13-functional-architecture-decision-pack.md](./13-functional-architecture-decision-pack.md) | AF-Option / AF-CAND |
 
-*SFIA Studio — architecture VALIDÉE et INTÉGRÉE (PR #211) — sync post-merge INTÉGRÉE (PR #212 / cb870544…) — clôture NON PRONONCÉE — AF-CAND-11B NON DÉCIDÉE — Option C méthode préservée — Morris décide.*
+*SFIA Studio — architecture VALIDÉE et INTÉGRÉE (#211) — sync #212 + finalisation #213 INTÉGRÉES (`19302836…`) — clôture NON PRONONCÉE — AF-CAND-11B NON DÉCIDÉE — Option C méthode préservée — Morris décide.*
