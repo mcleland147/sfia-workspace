@@ -1,82 +1,80 @@
-# SFIA Studio — Review Pack FULL — Correction trajectoire produit / POC
+# SFIA Studio — Review Pack FULL — Correction G3 (R1–R5)
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Date / heure** | 2026-07-18 14:49:28 CEST |
+| **Date / heure** | 2026-07-18 15:27:13 CEST |
 | **Fuseau** | Europe/Paris (CEST, UTC+2) |
-| **Repository** | `sfia-workspace` — `/Users/morris/Projects/sfia-workspace` |
+| **Repository** | `/Users/morris/Projects/sfia-workspace` |
 | **Branche** | `project/sfia-studio-pre-framing` |
 | **HEAD** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
 | **origin/main** | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
-| **Cycle** | 1 — Cadrage (correction documentaire pré-cadrage) |
+| **Cycle** | 1 — Correction finale vision G3 |
 | **Profil** | Critical |
-| **Typologie** | DOC — composante EVOL candidate |
-| **Baseline** | SFIA v2.6 |
+| **Baseline** | SFIA v2.6 (Option C) |
 | **Review pack** | FULL — mono-cycle |
-| **Review Handoff Git** | **not required** — correction locale ; push non autorisé |
-| **Verdict** | `SFIA STUDIO PRE-FRAMING PRODUCT TRAJECTORY CORRECTED — READY FOR MORRIS REVIEW` |
+| **Review Handoff Git** | **required** |
+| **Verdict** | `SFIA STUDIO G3 RESERVES ADDRESSED — READY FOR FINAL G3 REVIEW` |
 
 ---
 
 ## 1. État Git
 
-| Contrôle | Initial / Final |
-|----------|-----------------|
-| Branche | `project/sfia-studio-pre-framing` |
-| HEAD | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` (aucun commit) |
-| origin/main | `ec7f397a87381a57b8b0c0efbff8c3e98e9dea03` |
-| Staged | **Aucun** |
-| Tracked hors périmètre (préexistant) | `M projects/campus360/README.md` — **non touché** |
-| Untracked Studio | `projects/sfia-studio/` (4 fichiers corrigés) |
-| Autres untracked préexistants | `.sfia/`, `.tmp-sfia-review/`, Campus360 04–07, `sfia-review-handoff/` |
+| Élément | Valeur |
+|---------|--------|
+| Staged | Aucun |
+| Tracked hors périmètre | `M projects/campus360/README.md` (préexistant, non touché) |
+| Studio | `?? projects/sfia-studio/` — 4 fichiers corrigés |
+| Commit projet | Aucun |
 
 ---
 
-## 2. Sources consultées
+## 2. Sources
 
-| Source | Rôle |
-|--------|------|
-| Template v2.6 baseline | Contrat d’exécution |
-| Routing guide / operating model / rules | Garde-fous, rôles, cycles |
-| Quatre documents `projects/sfia-studio/` | Cibles de correction |
-| Handoff `77332e8` (lecture contexte) | Réserves revue précédente — **non modifié** |
-| Décision Morris de ce prompt | **Prime** — trajectoire produit complet |
+Template v2.6 ; routing ; operating model ; rules ; 4 docs Studio ; handoff `f648fbd` (D-VAL-3) ; décisions Morris D-VAL-4..7 de ce prompt.
 
 ---
 
-## 3. Décision corrective Morris (D-VAL-3)
+## 3. Décisions D-VAL-1 à D-VAL-7
 
-1. SFIA Studio vise la construction du **produit complet**.
-2. Le POC est une preuve de faisabilité **intermédiaire**.
-3. Le cadrage produit ne doit pas être centré sur le seul POC.
-4. Le POC doit être **dérivé** de la vision et de l’architecture cible — pas l’inverse.
-5. Le POC lève les risques techniques **avant** le MVP.
-6. Le MVP = premier produit réellement utilisable (ultérieur).
-7. L’industrialisation = étape ultérieure distincte.
-
----
-
-## 4. Formulations corrigées (liste)
-
-| Avant (problème) | Après |
-|------------------|-------|
-| POC local Mac comme périmètre projet / G5 | G5 = principe POC de **faisabilité** ; Mac = contrainte de preuve |
-| Progressivité « POC → maturations » | Produit cible → archi → POC → MVP → industrialisation |
-| H2 « valider l’intérêt » via POC | H2 = lever risques d’**implémentation** ; pas valider intérêt produit seul |
-| Trajectoire cycles centrée POC | Couverture **produit complet** ; POC = famille intermédiaire |
-| Vision « interface / cockpit » seule | Plateforme métier **opérationnelle et durable** |
-| « Cible POC : Local Mac » | Retiré comme cible produit |
-| Principe 9 « POC minimal = pas plateforme » | Remplacé : produit complet d’abord ; POC étape |
+| # | Contenu | Statut |
+|---|---------|--------|
+| D-VAL-1 | Initier pré-cadrage | VALIDÉE |
+| D-VAL-2 | Socle documentaire local | VALIDÉE |
+| D-VAL-3 | Produit complet ; POC = faisabilité | VALIDÉE |
+| D-VAL-4 / G1 | Projet officiel | VALIDÉE |
+| D-VAL-5 / G2 | Problème / opportunité | VALIDÉE |
+| D-VAL-6 / G4 | Option C | VALIDÉE |
+| D-VAL-7 / G5 | Principe POC faisabilité | VALIDÉE (principe) |
 
 ---
 
-## 5. Fichiers modifiés
+## 4. Statut G1–G7
 
-Exactement quatre fichiers sous `projects/sfia-studio/` — aucun nouveau fichier projet — Campus360 non touché — handoff distant non modifié.
+| Gate | Statut |
+|------|--------|
+| G1 | VALIDÉ — GO |
+| G2 | VALIDÉ — GO |
+| G3 | CORRECTION AUTORISÉE — VALIDATION FINALE EN ATTENTE |
+| G4 | VALIDÉ — OPTION C |
+| G5 | VALIDÉ SUR LE PRINCIPE |
+| G6 | EN ATTENTE |
+| G7 | EN ATTENTE |
 
 ---
 
-## 6. Contenu complet des fichiers corrigés
+## 5. Réserves G3 traitées
+
+| ID | Traitement |
+|----|------------|
+| G3-R1 | Industrialiser la plateforme, pas les cycles |
+| G3-R2 | Orchestration déterministe candidate ; Runtime non contractuel |
+| G3-R3 | macOS = contrainte de preuve POC |
+| G3-R4 | Critères candidats de valeur ; POC ≠ valeur |
+| G3-R5 | Couverture progressive des 15 cycles |
+
+---
+
+## 6. Contenu complet des fichiers
 
 
 ### 6.1 — `projects/sfia-studio/README.md`
@@ -86,60 +84,82 @@ Exactement quatre fichiers sous `projects/sfia-studio/` — aucun nouveau fichie
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Identité** | SFIA Studio — **produit complet candidat** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et SFIA Runtime sous contrôle Morris |
-| **Nom** | **SFIA Studio** — nom candidat (non validé comme projet officiel — G1) |
-| **Statut** | `pre-framing-ready-for-morris-review` |
-| **Baseline méthode** | **SFIA v2.6** (baseline opérationnelle officielle, active sur `main`) |
+| **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
+| **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
+| **Statut** | `pre-framing-g3-correction-ready-for-final-review` |
+| **Baseline méthode** | **SFIA v2.6** (consommée — Option **C** validée ; baseline inchangée) |
 | **Autorité** | Morris (L0) |
-| **Exécuteur** | Cursor — Cycle 1 correction documentaire du pré-cadrage (DOC, Critical) |
-| **Typologie cycle** | DOC — composante EVOL **candidate** (aucune évolution de baseline dans ce cycle) |
-| **Cycle projet** | 1 — Cadrage (sous-phase : **correction du pré-cadrage** avant arbitrage Morris) |
+| **Exécuteur** | Cursor — Cycle 1 correction finale vision G3 (DOC, Critical) |
+| **Typologie cycle** | DOC — composante EVOL projet |
+| **Cycle projet** | 1 — Cadrage (sous-phase : **correction finale vision produit**) |
 | **Profil SFIA** | Critical |
 | **Branche** | `project/sfia-studio-pre-framing` |
 | **Chemin** | `projects/sfia-studio/` |
 
 ---
 
-## 1. Finalité du projet (produit complet candidat)
+## 1. Finalité du projet (produit complet)
 
-**SFIA Studio vise la construction d’une plateforme métier complète** permettant de piloter les cycles SFIA et d’orchestrer Git, GPT, Cursor et SFIA Runtime sous contrôle Morris.
+**SFIA Studio vise la construction d’une plateforme métier complète** permettant de piloter les cycles SFIA et d’orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe sous contrôle Morris.
 
-Le projet n’a **pas** pour finalité un POC, un prototype ou une application locale limitée. Le **produit cible** est une plateforme métier **opérationnelle et durable**.
+### Formulation structurante (D-VAL-3)
 
-### Distinction obligatoire
-
-| Terme | Définition pour ce projet |
-|-------|---------------------------|
-| **Produit cible** | La plateforme complète visée — opérationnelle et durable |
-| **POC** | Preuve de **faisabilité technique** limitée, étape intermédiaire uniquement |
-| **MVP** | Première version **réellement utilisable** apportant une valeur métier mesurable (à définir ultérieurement) |
-| **Industrialisation** | Transformation en solution durable, sécurisée, observable, maintenable et distribuable |
-
-**Le POC n’est ni le produit cible, ni le MVP, ni la limite de la trajectoire.**
-
-### Formulation structurante (décision corrective Morris — validée)
-
-> SFIA Studio vise la construction d’une plateforme métier complète permettant de piloter les cycles SFIA et d’orchestrer Git, GPT, Cursor et SFIA Runtime sous contrôle Morris.
+> SFIA Studio vise la construction d’une plateforme métier complète permettant de piloter les cycles SFIA et d’orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe sous contrôle Morris.
 >
 > Le POC est une étape technique de validation de faisabilité.
 > Il ne constitue ni le produit cible, ni le MVP, ni la limite de la trajectoire.
 
-### Principes conservés
+### Distinction obligatoire
 
-- Git = source de vérité durable ;
-- Morris = autorité de décision ;
-- GPT = qualification, analyse, revue ;
-- Cursor = exécuteur repository contrôlé ;
-- gates humains explicites ;
-- automatisation progressive et bornée (L3/L4 = cibles futures éventuelles, **non activées** ici).
+| Terme | Définition |
+|-------|------------|
+| **Produit cible** | Plateforme complète — opérationnelle et durable |
+| **POC** | Preuve de **faisabilité technique** limitée |
+| **MVP** | Première version **réellement utilisable** (valeur métier) — non défini ici |
+| **Industrialisation** | Exploitation industrialisée de la **plateforme** (sécurisée, observable, maintenable, distribuable) — **pas** « industrialiser les cycles » |
 
-**SFIA Studio n’est pas validé comme projet officiel tant que G1 n’est pas arbitragé.**
+### Vision produit (candidat G3 — correction R1–R5)
+
+> SFIA Studio permet de **qualifier, lancer, suivre et clôturer** les cycles SFIA.
+> La plateforme est ensuite destinée à être **exploitée de manière industrialisée**, sécurisée, observable, maintenable et distribuable.
+
+### Orchestration déterministe (candidat — non validé)
+
+Un mécanisme d’orchestration déterministe, **éventuellement** matérialisé par un composant nommé SFIA Runtime, devra appliquer les contrats, permissions, gates et stop conditions.
+
+Sa séparation avec l’interface SFIA Studio reste à qualifier pendant l’architecture fonctionnelle et technique.
+
+| Élément | Statut |
+|---------|--------|
+| Besoin fonctionnel d’orchestration déterministe | **Candidat** |
+| Architecture Runtime | **Non validée** |
+| Nom « SFIA Runtime » | **Non contractuel** |
+
+### Couverture des 15 cycles
+
+La cible produit prévoit une **couverture progressive** des quinze cycles SFIA. Cette cible n’implique **pas** leur disponibilité dans le POC ou le MVP. Chaque incrément couvre uniquement les cycles nécessaires à la valeur et aux risques traités.
+
+### Faisabilité vs valeur métier
+
+| Étape | Ce qu’elle valide |
+|-------|-------------------|
+| **POC** | Faisabilité technique uniquement |
+| **MVP / expérimentations produit** | Première valeur métier utilisable |
+| **Industrialisation** | Durabilité d’exploitation de la plateforme |
+
+### macOS / environnement local
+
+Le POC devra pouvoir être exécuté dans l’environnement local de Morris sur **macOS**. Cette contrainte de preuve **ne présume ni** du support technique **ni** du mode de distribution du produit cible (native, web locale, desktop packagée, cloud, hybride — **non décidés**).
+
+### Relation méthode (G4 — Option C)
+
+SFIA Studio est un **produit indépendant consommant SFIA v2.6**. Toute évolution de méthode = cycle CAPA/EVOL méthode séparé + GO Morris. **Aucune modification de v2.6** dans ce projet sans cycle dédié.
 
 **SFIA Studio n’est pas une promotion de SFIA v2.7, ni une relance de SFIA v3.0.**
 
 ---
 
-## 2. Trajectoire macro candidate
+## 2. Trajectoire macro
 
 ```text
 SFIA Studio — produit cible complet
@@ -149,132 +169,111 @@ SFIA Studio — produit cible complet
   → décision de poursuite ou d’ajustement
   → MVP réellement utilisable
   → construction incrémentale
-  → industrialisation
+  → industrialisation de la plateforme
 ```
 
-Cette trajectoire est une **hypothèse de séquence** corrigée par décision Morris. Elle **ne lance aucun cycle**, ne choisit aucune stack et ne valide aucune architecture.
+Aucun cycle lancé automatiquement. Aucune stack / architecture validée.
 
 ---
 
-## 3. Navigation documentaire
+## 3. Navigation
 
 | Document | Rôle |
 |----------|------|
-| [README.md](./README.md) | Identité, produit cible, trajectoire, gouvernance |
-| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Opportunité, vision produit complète, POC vs MVP |
-| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture des 15 cycles (produit complet) |
-| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Decision pack — gates G1–G7 proposés |
+| [README.md](./README.md) | Identité, décisions, vision corrigée |
+| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Vision G3-R1–R5, valeur produit |
+| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture progressive des cycles |
+| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Gates G1–G7 et D-VAL |
 
-> **Pré-cadrage ≠ cadrage détaillé / architecture / UX / backlog / POC technique / MVP / code.**
-
----
-
-## 4. Justification du profil Critical
-
-Critical est **explicite** et **limité à la profondeur documentaire** de cette correction :
-
-- correction de la vision et de la trajectoire produit ;
-- impacts transverses sur les quatre documents ;
-- risque de confusion structurante produit / POC / MVP / industrialisation ;
-- impacts potentiels futurs sur architecture, cycles, automatisation et méthode.
-
-Critical **n’autorise pas** ici : architecture, développement, POC technique, MVP, modification de doctrine, L3/L4, commit, push ou PR.
+> **Pré-cadrage ≠ cadrage détaillé / architecture / UX / backlog / POC / MVP / code.**
 
 ---
 
-## 5. Principes de gouvernance (candidats)
+## 4. Justification Critical
+
+Correction de vision structurante ; transcription D-VAL-4 à D-VAL-7 ; impacts croisés produit / POC / MVP / industrialisation ; G6/G7 dépendent de la conformité G3.
+
+N’autorise pas : architecture, stack, POC, MVP, doctrine, commit projet, push projet, PR.
+
+---
+
+## 5. Principes de gouvernance
 
 | Principe | Portée |
 |----------|--------|
-| **Git = source de vérité** | Vérité produit durable versionnée ; tout stockage Runtime éventuel reste opérationnel, dérivé et reconstructible (sujet de cadrage — **non validé**) |
-| **Morris décide** | Gates structurants, promotion projet, passage de phase, commit / push / PR / merge |
-| **GPT qualifie / analyse / revoit** | Pas d’autorité de décision |
-| **Cursor exécute borné** | Dans le contrat de prompt uniquement |
-| **Gates humains explicites** | Aucune automatisation de décision |
-| **Produit complet d’abord** | Le cadrage vise le produit ; le POC en dérive |
-| **POC ≠ MVP ≠ industrialisation** | Vocabulaire strict |
-| **Baseline v2.6 inchangée** | Aucune modification canonique dans ce cycle |
-| **Observation ≠ règle** | Pas de promotion méthode sans CAPA + GO Morris |
+| **Git = source de vérité** | Durable ; stockage opérationnel éventuel = dérivé / reconstructible (hypothèse) |
+| **Morris décide** | Gates structurants |
+| **GPT / Cursor** | Qualifient / exécutent — ne décident pas |
+| **Option C** | Produit indépendant consommant v2.6 (**validé**) |
+| **POC ≠ valeur métier** | Faisabilité ≠ MVP |
+| **Couverture progressive** | 15 cycles = cible, pas obligation immédiate |
+| **Runtime candidat** | Besoin d’orchestration — architecture non figée |
+| **macOS = preuve** | Pas plateforme produit |
+| **Observation ≠ règle** | Pas de promotion méthode |
 
 ---
 
-## 6. Séparation projet / méthode / produit / capitalisation
-
-| Couche | Règle pour ce cycle |
-|--------|---------------------|
-| **Projet** | Socle documentaire sous `projects/sfia-studio/` uniquement |
-| **Méthode** | SFIA v2.6 reste la baseline ; **aucune** modification |
-| **Produit** | Vision **produit complet** candidate — G3 non validé |
-| **POC** | Principe de faisabilité — G5 proposé (périmètre détaillé non figé) |
-| **Capitalisation** | Observations isolées ; **aucune** promotion doctrine |
-
----
-
-## 7. Gates Morris proposés (pré-cadrage)
+## 6. Gates (statut actualisé)
 
 | Gate | Objet | Statut |
 |------|-------|--------|
-| **G1** | Confirmer SFIA Studio comme projet officiel | **PROPOSÉ** |
-| **G2** | Valider problème et opportunité | **PROPOSÉ** |
-| **G3** | Valider la **vision produit complète** candidate | **PROPOSÉ** |
-| **G4** | Statuer sur la relation avec SFIA v2.6 | **PROPOSÉ** |
-| **G5** | Valider le **principe et le périmètre d’un POC technique de faisabilité** (non le produit) | **PROPOSÉ** |
-| **G6** | Autoriser ou refuser le passage au cadrage détaillé | **PROPOSÉ** |
-| **G7** | Autoriser ultérieurement commit, push et PR du socle | **PROPOSÉ** |
+| **G1** | Projet officiel | **VALIDÉ — GO** (D-VAL-4) |
+| **G2** | Problème / opportunité | **VALIDÉ — GO** (D-VAL-5) |
+| **G3** | Vision produit complète | **CORRECTION AUTORISÉE — VALIDATION FINALE EN ATTENTE** |
+| **G4** | Relation v2.6 | **VALIDÉ — OPTION C** (D-VAL-6) |
+| **G5** | POC de faisabilité | **VALIDÉ SUR LE PRINCIPE** (D-VAL-7) — périmètre détaillé ultérieur |
+| **G6** | Cadrage détaillé | **EN ATTENTE** (après validation finale G3) |
+| **G7** | Commit / push / PR socle | **EN ATTENTE** (après validation finale G3) |
 
-Aucun gate G1–G7 n’est validé par la seule correction documentaire.
+**Rappels :** G1 ≠ autorisation cadrage détaillé. G5 ≠ démarrage du POC. G4 ≠ modification de v2.6.
 
 ---
 
-## 8. Décisions validées et non validées
+## 7. Décisions validées (D-VAL)
 
-### Validées
+| # | Décision | Gate |
+|---|----------|------|
+| D-VAL-1 | Initier le pré-cadrage | — |
+| D-VAL-2 | Créer le socle documentaire local | — |
+| D-VAL-3 | Produit complet ; POC = faisabilité uniquement | Trajectoire |
+| D-VAL-4 | Projet officiel | G1 |
+| D-VAL-5 | Problème et opportunité validés | G2 |
+| D-VAL-6 | Option C — produit indépendant consommant v2.6 | G4 |
+| D-VAL-7 | Principe POC de faisabilité validé ; périmètre détaillé après cadrage/archi | G5 |
+
+### En attente
 
 | Décision | Statut |
 |----------|--------|
-| Initier le pré-cadrage de SFIA Studio | **VALIDÉE** — Morris |
-| Création locale du socle documentaire de pré-cadrage | **VALIDÉE** — Morris |
-| **SFIA Studio vise un produit complet** ; le POC est uniquement une **preuve de faisabilité technique intermédiaire** | **VALIDÉE** — Morris (correction trajectoire) |
-
-### Non validées
-
-| Décision | Statut |
-|----------|--------|
-| Promotion comme projet définitivement engagé (G1) | **NON VALIDÉE** |
-| Vision produit complète (G3) | **NON VALIDÉE** |
-| Relation à v2.6 (G4) | **NON VALIDÉE** |
-| Principe / périmètre détaillé du POC (G5) | **NON VALIDÉE** |
-| Choix de stack / architecture cible | **NON VALIDÉE** |
-| Contenu exact du POC / MVP / industrialisation | **NON VALIDÉE** |
-| Modification SFIA v2.6 / création v2.7 | **NON VALIDÉE** / **interdite ici** |
-| Automatisation L3 ou L4 | **NON VALIDÉE** |
-| Commit, push, PR ou merge | **NON VALIDÉE** |
-| Passage au cadrage détaillé (G6) | **NON VALIDÉE** |
+| Validation finale vision produit (G3) | Après revue de cette correction |
+| Cadrage détaillé (G6) | Après G3 final |
+| Commit / push / PR (G7) | Après G3 final |
+| Stack / architecture / contenu POC / MVP | Non pris |
 
 ---
 
-## 9. Prochaine décision attendue
+## 8. Prochaine décision
 
-Morris revue le socle corrigé (`01`, `02`, `03` + review pack) puis statue sur **G1 à G6** (et éventuellement G7).
+1. Revue ChatGPT de la conformité G3-R1 à G3-R5.
+2. Morris : **validation finale G3**.
+3. Puis arbitrage **G6** et **G7**.
 
-**Prochaine activité autorisée sans nouveau GO :** aucune au-delà de la revue humaine / ChatGPT.
-
-**Verdict documentaire de ce cycle :** `SFIA STUDIO PRE-FRAMING PRODUCT TRAJECTORY CORRECTED — READY FOR MORRIS REVIEW`.
+**Verdict de ce cycle :** `SFIA STUDIO G3 RESERVES ADDRESSED — READY FOR FINAL G3 REVIEW`
 
 ---
 
-## 10. Source de vérité
+## 9. Source de vérité
 
 | Élément | Source |
 |---------|--------|
-| Méthode opérationnelle | SFIA v2.6 sur Git `main` |
-| Template d’exécution | `prompts/templates/sfia-cycle-execution-template.md` (v2.6, `status: baseline`) |
-| Documents projet | `projects/sfia-studio/` (cette branche, non mergés) |
-| Review pack temporaire | `.tmp-sfia-review/chatgpt-review.md` — **non versionné** |
+| Méthode | SFIA v2.6 sur `main` (consommée, non modifiée) |
+| Template | `prompts/templates/sfia-cycle-execution-template.md` v2.6 baseline |
+| Documents projet | `projects/sfia-studio/` (locaux, non mergés) |
+| Review pack | `.tmp-sfia-review/chatgpt-review.md` — non versionné |
 
 ---
 
-*SFIA Studio — produit complet candidat — POC = faisabilité uniquement — baseline SFIA v2.6 — Morris décide.*
+*SFIA Studio — projet officiel — Option C — G3 en validation finale — baseline SFIA v2.6 — Morris décide.*
 ```
 
 ### 6.2 — `projects/sfia-studio/01-opportunity-and-vision.md`
@@ -284,165 +283,163 @@ Morris revue le socle corrigé (`01`, `02`, `03` + review pack) puis statue sur 
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Projet** | SFIA Studio (candidat — **produit complet**) |
+| **Projet** | SFIA Studio — **projet officiel** (G1) |
 | **Document** | `01-opportunity-and-vision.md` |
-| **Cycle** | 1 — Cadrage (correction documentaire du pré-cadrage) |
+| **Cycle** | 1 — Cadrage (correction finale vision G3) |
 | **Profil** | Critical |
-| **Typologie** | DOC — composante EVOL candidate |
-| **Baseline** | SFIA v2.6 |
-| **Statut** | `pre-framing-ready-for-morris-review` |
+| **Typologie** | DOC — composante EVOL projet |
+| **Baseline** | SFIA v2.6 (consommée — Option C) |
+| **Statut** | `pre-framing-g3-correction-ready-for-final-review` |
 | **Autorité** | Morris |
 
-> Socle d’opportunité et de vision **produit complet**. Ce document **n’est pas** un cadrage détaillé. Aucune architecture, stack, backlog, POC technique ni MVP n’est validé ici.
+> Vision produit en **correction G3-R1 à G3-R5**. Validation finale G3 **en attente** après revue. Pas de cadrage détaillé, architecture, stack, MVP ni POC démarrés.
 
 ---
 
 ## 1. Résumé exécutif
 
-Le fonctionnement actuel de SFIA repose sur une boucle manuelle assistée :
+Boucle actuelle (observation) :
 
-**Morris → ChatGPT → template canonique Git → prompt Cursor → exécution locale → review pack / rapport → analyse ChatGPT → décision Morris.**
+**Morris → ChatGPT → template Git → prompt Cursor → exécution → review pack → analyse ChatGPT → décision Morris.**
 
-Cette boucle est **opérationnelle** sous SFIA v2.6. Elle reste toutefois **fragmentée** (outils séparés, copier/coller, charge cognitive, risque de dérive hors Git).
+Opérationnelle sous SFIA v2.6, mais fragmentée.
 
-**Décision corrective Morris (validée) :** SFIA Studio est un **projet produit complet** destiné à construire une **plateforme métier opérationnelle et durable**. Le POC n’est **pas** la finalité du projet, ni son MVP, ni son périmètre produit cible. Le POC est uniquement une **étape technique bornée** de preuve de faisabilité.
+**SFIA Studio** (projet officiel) construit une **plateforme métier opérationnelle et durable** pour piloter les cycles et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe sous contrôle Morris — en **consommant** SFIA v2.6 (Option C).
 
-| Élément | Nature |
+| Élément | Statut |
 |---------|--------|
-| Initiation du pré-cadrage | **Décision validée** Morris |
-| Trajectoire produit complet (POC ≠ produit ≠ MVP) | **Décision validée** Morris |
-| Projet officiel (G1) | **Décision proposée** — non validée |
-| Vision produit complète (G3) | **Candidate** — non validée |
-| Relation à v2.6 (G4) | **Options A/B/C** — non arbitrée |
-| POC de faisabilité (G5) | **Principe proposé** — périmètre détaillé non figé |
-| Cadrage détaillé (G6) | **Non démarré** |
+| D-VAL-1 à D-VAL-3 | **Validés** |
+| G1 projet officiel (D-VAL-4) | **VALIDÉ** |
+| G2 problème / opportunité (D-VAL-5) | **VALIDÉ** |
+| G4 Option C (D-VAL-6) | **VALIDÉ** |
+| G5 principe POC (D-VAL-7) | **VALIDÉ SUR LE PRINCIPE** |
+| G3 vision produit | **Correction traitée — validation finale en attente** |
+| G6 / G7 | **EN ATTENTE** après G3 final |
 
 ---
 
-## 2. Définitions terminologiques obligatoires
+## 2. Définitions
 
 | Terme | Définition |
 |-------|------------|
-| **Produit cible** | Plateforme métier complète couvrant progressivement les cycles SFIA — opérationnelle et durable |
-| **POC** | Preuve de faisabilité technique limitée (jetable ou réutilisable selon résultats) destinée à lever des risques d’implémentation critiques |
-| **MVP** | Première version réellement utilisable produisant une valeur métier mesurable |
-| **Industrialisation** | Version durable, sécurisée, observable, maintenable et distribuable |
-
-Ces termes ne sont **jamais** interchangeables.
+| **Produit cible** | Plateforme métier complète — couverture **progressive** des cycles SFIA |
+| **POC** | Preuve de faisabilité technique limitée |
+| **MVP** | Première version réellement utilisable (valeur métier) — non défini ici |
+| **Industrialisation** | Exploitation industrialisée de la **plateforme** — pas des cycles |
 
 ---
 
-## 3. Contexte et fonctionnement actuel
+## 3. Contexte
 
-### 3.1 Baseline
-
-| Élément | Observation |
-|---------|-------------|
-| Baseline opérationnelle | **SFIA v2.6** — officialisée (manifest `2026-07-16`, template `status: baseline`) |
-| Boucle opératoire | Operating model ChatGPT ↔ Cursor (niveaux 0→4 ; niveau courant = manuelle assistée) |
-| Source de vérité | Repository Git |
+| Élément | Observation / décision |
+|---------|------------------------|
+| Baseline | SFIA v2.6 — **consommée**, non modifiée (Option C) |
+| Source de vérité | Git |
 | Autorité | Morris (L0) |
-
-### 3.2 Boucle actuelle (observation)
-
-1. Morris exprime une intention.
-2. ChatGPT qualifie, cadre et produit un prompt Cursor conforme au template.
-3. Cursor exécute localement dans un périmètre borné.
-4. Un review pack / rapport est produit.
-5. ChatGPT analyse le retour.
-6. Morris décide (GO / NO-GO / gates).
-
-### 3.3 Précédents documentaires (observation, non décision)
-
-| Source | Rôle pour ce pré-cadrage |
-|--------|--------------------------|
-| `projects/campus360/` | **Référence de structure** uniquement |
-| `docs/architecture/sfia-platform-architecture.md` | Inspiration historique (Studio / Runtime / Core / Knowledge) — **non validée** |
-| Specs moteurs v1.1 | Fondations — specs, pas moteurs autonomes exécutables |
-
-> **Réserve :** la séparation Studio / Runtime est un **sujet de cadrage** recommandé à traiter ultérieurement. Elle n’est **pas** une architecture retenue dans ce cycle. Tout stockage Runtime éventuel devra rester opérationnel, dérivé et reconstructible depuis Git — **hypothèse de cadrage**, non décision.
+| Architecture historique Studio/Runtime/Core | Inspiration — **non validée** |
 
 ---
 
-## 4. Problème adressé
+## 4. Problème (G2 validé)
 
-La méthode SFIA v2.6 fonctionne, mais l’expérience opérateur reste **dispersée** entre plusieurs surfaces (chat, IDE, terminal, fichiers temporaires, PR).
-
-**Problème candidat :** absence d’une **plateforme métier** permettant de piloter durablement les cycles SFIA de bout en bout (qualification → exécution contrôlée → revue → décision) tout en préservant Git, Morris, GPT, Cursor (et un Runtime éventuel) dans leurs rôles respectifs.
+Absence d’une plateforme métier permettant de piloter durablement les cycles SFIA (qualification → exécution contrôlée → revue → décision) tout en préservant Git, Morris, GPT, Cursor et un mécanisme d’orchestration déterministe dans leurs rôles.
 
 ---
 
-## 5. Irritants et limites actuelles
+## 5. Irritants (hypothèses)
 
-| Irritant | Impact (hypothèse) |
-|----------|-------------------|
-| Copier/coller manuel entre ChatGPT et Cursor | Friction, erreurs de contrat, perte de contexte |
-| Multiplicité des artefacts | Charge cognitive, risque d’obsolescence |
-| Dépendance à la discipline opérateur | Qualité variable si template / gates non suivis |
-| Visibilité partielle de l’état Git / cycle | Risque hors branche / hors périmètre |
-| Absence d’UI métier | Méthode « outil-first », pas « métier-first » |
-| Tentation d’automatiser trop tôt | Risque de contourner les gates humains |
-
-Ces irritants sont des **observations / hypothèses**, pas un diagnostic validé.
+Copier/coller GPT↔Cursor ; multiplicité d’artefacts ; dépendance à la discipline opérateur ; visibilité Git partielle ; absence d’UI métier ; tentation d’automatiser trop tôt.
 
 ---
 
-## 6. Opportunité produit
+## 6. Opportunité produit (G2 validé)
 
-| Dimension | Opportunité candidate |
-|-----------|----------------------|
-| **Produit** | Plateforme métier complète de pilotage des cycles SFIA |
-| **Orchestration** | Coordination bornée Git + GPT + Cursor (+ Runtime) sous gates Morris |
-| **Traçabilité** | Historique de cycles, décisions et preuves ancré dans Git |
-| **Différenciation** | Produit métier sur méthode existante — sans remplacer la baseline |
-| **Progressivité** | Produit cible → architecture → POC de faisabilité → MVP → industrialisation |
+| Dimension | Contenu |
+|-----------|---------|
+| Produit | Plateforme métier complète de pilotage des cycles |
+| Orchestration | Git + GPT + Cursor + orchestration déterministe sous gates |
+| Traçabilité | Ancrée Git |
+| Relation méthode | Consomme v2.6 — Option C |
+| Progressivité | Produit → archi → POC → MVP → industrialisation plateforme |
 
 ---
 
 ## 7. Opportunité méthode
 
-| Dimension | Opportunité candidate |
-|-----------|----------------------|
-| **Épreuve terrain** | Vérifier si une plateforme métier améliore la conformité aux garde-fous v2.6 |
-| **Feedback** | Remonter des irritants réels vers d’éventuels cycles CAPA futurs |
-| **Non-objectif** | Ne pas créer SFIA v2.7 ni relancer v3.0 via ce projet |
-
-Toute évolution de méthode reste **hors périmètre** de ce pré-cadrage et exigerait un cycle dédié + GO Morris.
+Épreuve terrain sur conformité aux garde-fous v2.6. **Non-objectif :** créer v2.7 ou relancer v3.0. Toute évolution méthode = CAPA/EVOL séparé + GO Morris.
 
 ---
 
-## 8. Vision produit candidate (produit complet)
+## 8. Vision produit (corrigée G3-R1 à G3-R5)
 
-> **Vision candidate (non validée — G3) :** SFIA Studio est la **plateforme métier** qui permet à Morris (et, plus tard éventuellement, à d’autres opérateurs autorisés) de **qualifier, lancer, suivre, clôturer et industrialiser** les cycles SFIA, en orchestrant GPT, Cursor et SFIA Runtime autour de Git comme source de vérité, avec des gates humains explicites et une automatisation progressive strictement bornée.
+### Formulation cible (G3-R1)
 
-### Orientations candidates — produit cible
+> **SFIA Studio permet de qualifier, lancer, suivre et clôturer les cycles SFIA.**
+> **La plateforme est ensuite destinée à être exploitée de manière industrialisée, sécurisée, observable, maintenable et distribuable.**
 
-| Aspect | Orientation candidate |
-|--------|----------------------|
-| **Nature** | Plateforme métier opérationnelle et durable — **pas** un POC |
-| **Rôle** | Cockpit de cycle et d’orchestration — pas une seconde source de vérité |
-| **Couverture** | Progressive des 15 cycles projet SFIA |
-| **Entrée** | Intention / demande → qualification structurée |
-| **Sortie** | Prompt / exécution / preuves / décision — ancrés Git |
-| **Décision** | Toujours Morris (ou délégué explicite futur — non décidé) |
-| **Automatisation** | Progressive ; L3/L4 hors de ce pré-cadrage |
-| **Studio / Runtime** | Séparation à qualifier au cadrage — **non validée** ici |
+Éviter toute formulation du type « industrialiser les cycles SFIA ».
 
-### Explicitement non décidé
+### Orchestration déterministe (G3-R2)
+
+> Un mécanisme d’orchestration déterministe, éventuellement matérialisé par un composant nommé SFIA Runtime, devra appliquer les contrats, permissions, gates et stop conditions.
+>
+> Sa séparation avec l’interface SFIA Studio reste à qualifier pendant l’architecture fonctionnelle et technique.
 
 | Élément | Statut |
 |---------|--------|
-| Stack | **Non choisi** |
-| Architecture fonctionnelle / technique | **Non décidé** |
-| Modèle GPT / fournisseur | **Non décidé** |
-| Intégration Cursor définitive | **Non décidé** |
-| Contenu exact du POC / MVP | **Non décidé** |
-| Multi-utilisateur / cloud / auth | À qualifier ultérieurement — **hors ce pré-cadrage** |
-| Modification méthode v2.6 | **Interdite dans ce cycle** |
+| Besoin fonctionnel | **Candidat** |
+| Architecture | **Non validée** |
+| Nom « SFIA Runtime » | **Non contractuel** |
+
+### Support macOS (G3-R3)
+
+> Le POC devra pouvoir être exécuté dans l’environnement local de Morris sur macOS.
+> Cette contrainte de preuve ne présume ni du support technique ni du mode de distribution du produit cible.
+
+Plateforme produit définitive (native, web locale, desktop packagée, cloud, hybride) : **non décidée**.
+
+### Valeur produit (G3-R4)
+
+Le POC valide la **faisabilité technique**.
+Le MVP et les expérimentations produit valideront la **valeur métier**.
+
+**Dimensions candidates de mesure** (à confirmer au cadrage détaillé — non contractualisées) :
+
+- réduction du nombre de manipulations entre GPT, Cursor et Git ;
+- réduction des erreurs de routage et de contrat ;
+- diminution du temps de préparation et de clôture d’un cycle ;
+- amélioration de la visibilité sur les gates ;
+- amélioration de la traçabilité des décisions ;
+- diminution de la charge cognitive opérateur ;
+- conformité accrue aux garde-fous SFIA ;
+- reproductibilité des cycles.
+
+### Couverture des 15 cycles (G3-R5)
+
+> La cible produit prévoit une couverture progressive des quinze cycles SFIA.
+> Cette cible n’implique pas leur disponibilité dans le POC ou le MVP.
+> Chaque incrément couvre uniquement les cycles nécessaires à la valeur et aux risques traités.
+
+Le sous-ensemble MVP reste à définir au cadrage et au backlog. Aucun cycle n’est automatiquement activé.
+
+### Orientations candidates
+
+| Aspect | Orientation |
+|--------|-------------|
+| Nature | Plateforme métier opérationnelle et durable |
+| Rôle | Cockpit de cycle — pas seconde source de vérité |
+| Couverture | Progressive — pas obligation immédiate des 15 |
+| Décision | Morris |
+| Automatisation | Progressive ; L3/L4 hors pré-cadrage |
+| Orchestration | Mécanisme déterministe candidat |
+
+### Explicitement non décidé
+
+Stack ; architecture ; contenu exact POC ; MVP ; mode de distribution produit ; multi-user / cloud / auth détaillés.
 
 ---
 
-## 9. Trajectoire candidate (produit → POC → MVP → industrialisation)
+## 9. Trajectoire
 
 ```text
 Pré-cadrage
@@ -452,238 +449,158 @@ Pré-cadrage
   → décision de poursuite ou d’ajustement
   → MVP utilisable
   → delivery incrémental
-  → industrialisation
+  → industrialisation de la plateforme
 ```
 
-**Règle structurante :** le POC est **dérivé** de la vision produit et d’une architecture cible suffisamment cadrée — **pas l’inverse**.
+POC **dérivé** de la vision et d’une architecture cible suffisamment cadrée — pas l’inverse.
 
 ---
 
-## 10. Catégories produit / POC / MVP / industrialisation
+## 10. Catégories
 
-| Catégorie | Contenu candidat |
-|-----------|------------------|
-| **Produit cible** | Plateforme métier complète couvrant progressivement les cycles SFIA |
-| **POC** | Preuve technique destinée à démontrer la faisabilité d’implémentation (Git, GPT, Cursor, Runtime, règles SFIA, gates Morris) depuis une interface métier |
-| **MVP** | Première version réellement utilisable produisant une valeur métier — **non défini** dans ce cycle |
-| **Industrialisation** | Version durable, sécurisée, observable, maintenable et distribuable — étape ultérieure distincte |
+| Catégorie | Contenu |
+|-----------|---------|
+| Produit cible | Plateforme complète ; couverture progressive |
+| POC | Faisabilité technique (Git, GPT, Cursor, orchestration déterministe, règles, gates) |
+| MVP | Première valeur métier utilisable — non défini |
+| Industrialisation | Exploitation durable de la plateforme |
 
 ---
 
-## 11. Utilisateurs et parties prenantes
+## 11. Parties prenantes
 
-| Acteur | Rôle candidat |
-|--------|---------------|
-| **Morris** | Autorité de décision (L0) — utilisateur primaire du produit et du POC |
-| **ChatGPT / GPT** | Qualification, analyse, revue — non décideur |
-| **Cursor** | Exécuteur repository contrôlé |
-| **SFIA Runtime** | Orchestration / imposition de gates — **sujet de cadrage**, non validé |
-| **Git / GitHub** | Source de vérité et espace de revue (PR) |
-| **Futurs opérateurs** | Hypothèse produit ultérieure — hors définition MVP actuelle |
+| Acteur | Rôle |
+|--------|------|
+| Morris | Autorité L0 — utilisateur primaire |
+| GPT | Qualification / analyse / revue |
+| Cursor | Exécuteur repository |
+| Orchestration déterministe (Runtime candidat) | Contrats, permissions, gates — **non validé** |
+| Git / GitHub | Source de vérité / revue |
 
 ---
 
 ## 12. Proposition de valeur
 
-| Pour | Valeur candidate |
-|------|------------------|
-| **Morris** | Pilotage métier durable des cycles ; moins de friction ; visibilité des gates |
-| **Conformité méthode** | Meilleure application des contrats de prompt et stop conditions |
-| **Traçabilité** | Preuves rattachées aux artefacts Git |
-| **Trajectoire** | Preuve de faisabilité (POC) avant investissement MVP / industrialisation |
+Pilotage métier durable ; moins de friction ; meilleure conformité et traçabilité. Valeur mesurée via critères candidats §8 (G3-R4) au MVP — pas via le seul POC.
 
 ---
 
-## 13. Principes fondateurs candidats
+## 13. Principes fondateurs
 
-1. Git reste la seule source de vérité opérationnelle durable.
-2. Morris conserve l’autorité sur les gates structurants.
-3. GPT prépare ; Cursor exécute ; aucun des deux ne décide.
-4. Le projet vise le **produit complet** ; le POC n’en est qu’une étape.
-5. Le POC dérive de la vision et de l’architecture cible — pas l’inverse.
-6. POC ≠ MVP ≠ industrialisation.
-7. Toute automatisation est désactivable et journalisée.
-8. Le produit consomme la méthode ; il ne la remplace pas silencieusement.
-9. Observation projet ≠ règle méthode.
-10. Pas de seconde vérité opaque hors Git ; stockage Runtime éventuel = dérivé / reconstructible (hypothèse de cadrage).
-11. Sécurité et permissions avant commodité d’automatisation.
-12. Vocabulaire de statut explicite : observation / hypothèse / option / recommandation / décision proposée / décision validée.
+1. Git = source de vérité durable.
+2. Morris décide les gates.
+3. GPT prépare ; Cursor exécute.
+4. Produit complet ; POC = étape de faisabilité.
+5. POC dérive de l’architecture cible.
+6. POC ≠ MVP ≠ industrialisation plateforme.
+7. Faisabilité technique ≠ valeur métier.
+8. Couverture progressive des 15 cycles.
+9. Orchestration déterministe = besoin candidat, architecture non figée.
+10. macOS = contrainte de preuve POC.
+11. Option C : consomme v2.6, ne la modifie pas.
+12. Observation ≠ règle méthode.
 
 ---
 
 ## 14. Périmètre produit global candidat
 
-| Domaine | Inclusion candidate (produit cible) |
-|---------|-------------------------------------|
-| Pilotage progressif des 15 cycles | Vue, qualification, déclenchement contrôlé |
-| Orchestration GPT / Cursor / Runtime | Sous contrat et gates |
-| Visibilité Git | Branche, statut, diff, review pack |
-| Historique de décisions | Ancré ou exportable vers Git |
-| Garde-fous | Chemins interdits, stop conditions, profils |
-| Trajectoire MVP puis industrialisation | Après preuve de faisabilité et GO Morris |
-| Automatisation progressive | Cible future L3/L4 — non activée ici |
+Pilotage progressif des cycles ; orchestration sous gates ; visibilité Git ; historique décisions ; garde-fous ; trajectoire MVP puis industrialisation plateforme ; automatisation progressive future.
 
-Le **POC local Mac** n’est **pas** le périmètre du produit.
+Le POC local macOS n’est **pas** le périmètre produit.
 
 ---
 
-## 15. POC de faisabilité (étape technique — G5)
+## 15. POC de faisabilité (principe G5 validé)
 
 ### Rôle
 
-Démontrer que la solution envisagée **peut être implémentée**, notamment que Git, GPT, Cursor, SFIA Runtime, les règles SFIA et les gates Morris peuvent être orchestrés depuis une interface métier.
+Démontrer la faisabilité d’implémentation : Git, GPT, Cursor, mécanisme d’orchestration déterministe, règles SFIA, gates Morris — depuis une interface métier.
 
-### Questions techniques cibles (candidats G5)
+### Questions techniques cibles (périmètre détaillé ultérieur)
 
-| # | Question de faisabilité |
-|---|-------------------------|
+| # | Question |
+|---|----------|
 | 1 | L’interface peut-elle lire l’état Git réel ? |
 | 2 | Les instructions SFIA peuvent-elles être composées et injectées à GPT ? |
 | 3 | GPT peut-il produire une qualification et un contrat structurés ? |
 | 4 | Cursor peut-il être invoqué de manière contrôlée ? |
-| 5 | Le Runtime peut-il imposer des gates et stop conditions ? |
-| 6 | Les résultats, diffs et review packs peuvent-ils être récupérés et analysés ? |
-| 7 | L’ensemble peut-il fonctionner localement sur le Mac de Morris ? |
+| 5 | Le mécanisme d’orchestration déterministe peut-il imposer gates et stop conditions ? |
+| 6 | Résultats, diffs et review packs récupérables et analysables ? |
+| 7 | Exécution possible dans l’environnement local Morris sur macOS ? |
 
-Le point 7 est une **contrainte de preuve locale**, pas un choix de plateforme produit définitif.
+G5 validé **n’autorise pas** le démarrage du POC. Périmètre précis après cadrage et architecture suffisante.
 
-### Ce que le POC ne valide pas
+### Le POC ne valide pas
 
-- le produit complet ;
-- le MVP ;
-- l’industrialisation ;
-- la couverture de tous les cycles ;
-- la stack définitive ;
-- l’architecture définitive.
-
-### Nature
-
-Preuve technique **jetable ou réutilisable selon résultats** — à qualifier après exécution. Contenu exact du POC = **non figé** (G5 proposé).
+Produit complet ; MVP ; industrialisation ; couverture des 15 cycles ; stack ; architecture définitive ; **valeur métier complète**.
 
 ---
 
-## 16. Hors périmètre (ce pré-cadrage)
+## 16. Hors périmètre (ce cycle)
 
-- Cadrage détaillé, architecture détaillée, stack, API, modèle de données
-- UX/UI / Figma / maquettes
-- Backlog / user stories / code / tests applicatifs
-- Démarrage du POC technique ou définition du MVP
-- CI/CD, packaging, intégrations réelles dans ce cycle
-- Automatisation L3/L4, multi-utilisateur, cloud, authentification (détail)
-- Modification SFIA v2.6, création v2.7, relance v3.0
-- Commit / push / PR / merge sans GO Morris (G7)
+Cadrage détaillé ; architecture ; stack ; UX/Figma ; backlog ; code ; démarrage POC/MVP ; modification v2.6 ; commit/push/PR projet.
 
 ---
 
 ## 17. Hypothèses
 
-| ID | Hypothèse | Risque si fausse |
-|----|-----------|------------------|
-| H1 | La friction principale est l’orchestration multi-outils, pas l’insuffisance de la méthode v2.6 | Mauvais produit |
-| H2 | Un POC de faisabilité technique borné suffit à **lever les risques d’implémentation critiques** avant d’engager le MVP — il ne valide pas à lui seul l’intérêt produit complet ni le périmètre MVP | Confusion faisabilité ↔ valeur produit ; MVP mal engagé |
-| H3 | GPT et Cursor resteront les moteurs d’analyse et d’exécution à moyen terme | Reconception d’intégration |
-| H4 | Morris restera le décideur unique au moins jusqu’au MVP | Gouvernance à revoir |
-| H5 | L’UI peut renforcer les gates sans les contourner | Risque sécurité / gouvernance |
-| H6 | Option C (produit consommant v2.6) est la relation la plus sûre au démarrage | Repositionnement G4 |
-| H7 | Le POC doit être **dérivé d’une architecture cible suffisamment cadrée** (pas l’inverse) | POC orphelin / non représentatif |
-| H8 | La séparation Studio / Runtime sera utile au cadrage sans être figée ici | Architecture prématurée si figée trop tôt |
+| ID | Hypothèse |
+|----|----------|
+| H1 | Friction principale = orchestration multi-outils |
+| H2 | POC lève les risques techniques critiques — **pas** la valeur produit seule |
+| H3 | GPT / Cursor restent moteurs d’analyse / exécution à moyen terme |
+| H4 | Morris décideur au moins jusqu’au MVP |
+| H5 | UI peut renforcer les gates sans les contourner |
+| H6 | Option C (**validée**) reste appropriée |
+| H7 | POC dérivé d’architecture cible suffisante |
+| H8 | Orchestration déterministe utile ; forme/nom non figés |
 
 ---
 
 ## 18. Contraintes
 
-| Contrainte | Origine |
-|------------|---------|
-| Baseline v2.6 non modifiable dans ce cycle | Garde-fou Morris |
-| Pas de seconde source de vérité | Rules & guardrails / operating model |
-| Pas d’automatisation de décision | Operating model |
-| Produit complet ≠ périmètre POC | Décision corrective Morris |
-| Critical documentaire seulement | Profil de ce cycle |
-| Working tree Campus360 non lié | Ne pas toucher |
+Baseline v2.6 non modifiable ici ; Option C ; pas de seconde vérité ; pas d’auto-décision ; G6/G7 bloqués jusqu’à G3 final ; Campus360 hors périmètre.
 
 ---
 
-## 19. Risques majeurs
+## 19. Risques
 
-| Risque | Domaine | Mitigation candidate (non implémentée) |
-|--------|---------|----------------------------------------|
-| Seconde vérité hors Git | Gouvernance | Ancrage Git ; Runtime dérivé / reconstructible |
-| Contournement des gates | Sécurité / RSSI | Gates explicites ; POC doit démontrer des contrôles |
-| Exécution locale dangereuse | Sécurité | Périmètre borné ; permissions ; secrets |
-| Fuite de contexte vers IA | RGPD | Minimisation ; POC peut évaluer traçabilité — pas de DPIA ici |
-| Coûts API | FinOps | Mesure possible dans le POC — pas de modèle économique ici |
-| Confusion produit / POC / MVP | Trajectoire | Vocabulaire strict ; G5 borné |
-| Surinvestissement avant faisabilité | Delivery | POC après architecture cible suffisante |
-| Architecture historique prise pour validée | Trajectoire | Inspiration seulement |
-
-### Blocs pré-cadrage (identification seule)
-
-| Bloc | Identification | Non produit ici |
-|------|----------------|-----------------|
-| **Sécurité / RSSI** | Repo, agents, secrets, gates ; POC devra démontrer des contrôles | Threat model |
-| **DevOps** | Git, GPT, Cursor ; faisabilité ≠ industrialisation | Pipelines |
-| **Observabilité / RUN** | Logs / audit / reprise — architecture & industrialisation ; test éventuel en POC | Runbook, SLO |
-| **FinOps** | Coûts API mesurables en POC | Modèle économique |
-| **RGPD** | Contexte IA ; minimisation / traçabilité à évaluer en POC | DPIA |
-| **Accessibilité** | UI métier future | Référentiel |
-| **Performance** | Latence IA, contexte | SLA |
-| **UX/UI + Figma** | Cycle futur probable | Maquettes (désactivé) |
-| **Capitalisation** | Observations ≠ règles | Promotion méthode |
+Seconde vérité ; contournement gates ; Runtime figé trop tôt ; macOS pris pour plateforme produit ; confusion POC/valeur ; couverture 15 cycles prise pour obligation MVP ; architecture historique prise pour validée.
 
 ---
 
-## 20. Critères de crédibilité
+## 20. Critères de crédibilité G3
 
-1. Le produit cible est clairement distinct du POC.
-2. Le POC est clairement distinct du MVP.
-3. Le MVP est clairement distinct de l’industrialisation.
-4. La trajectoire place le POC **après** cadrage / architecture cible suffisante.
-5. Aucune stack / architecture n’est présentée comme retenue.
-6. Les gates G1–G7 restent proposés (hors décisions Morris déjà validées).
-
----
-
-## 21. Critères de succès du pré-cadrage
-
-| Critère | Cible |
-|---------|-------|
-| Socle à 4 documents cohérents | Oui |
-| Trajectoire produit / POC / MVP / industrialisation | Alignée décision Morris |
-| Baseline | v2.6 affirmée, non modifiée |
-| Revue Morris | Possible sur G1–G6 |
-| Handoff Git (cette correction) | Non requis |
+1. Pas de formulation « industrialiser les cycles ».
+2. Runtime = candidat non figé.
+3. macOS = contrainte de preuve.
+4. Critères candidats de valeur présents ; POC ≠ valeur.
+5. Couverture 15 cycles = progressive.
+6. G1/G2/G4/G5 principe correctement marqués ; G3 final en attente ; G6/G7 en attente.
 
 ---
 
-## 22. Options de relation avec SFIA v2.6
+## 21. Relation SFIA v2.6
 
-| Option | Description | Impact | Risque |
-|--------|-------------|--------|--------|
-| **A** | Extension candidate **compatible** v2.6 | Couplage plus fort produit/méthode | Confusion « extension = baseline » |
-| **B** | Future **évolution de méthode** | Cycles CAPA/EVOL méthode possibles | Promotion prématurée v2.7 |
-| **C** | **Produit indépendant** consommant SFIA v2.6 | Séparation nette ; baseline intacte | Moindre ancrage « officiel méthode » |
-
-### Recommandation candidate (non décision)
-
-**Recommandation proposée : Option C** comme position de démarrage.
-
-Justification candidate : préserve v2.6 ; évite v2.7 ; permet d’éprouver le produit avant couplage doctrine ; laisse A/B ouvertes après preuves + CAPA + GO Morris.
-
-**G4 reste l’arbitrage Morris.** Cette recommandation n’est pas une décision validée.
+| Option | Statut |
+|--------|--------|
+| A — Extension compatible | Non retenue |
+| B — Évolution méthode | Non retenue (cycles séparés possibles plus tard) |
+| **C — Produit indépendant consommant v2.6** | **VALIDÉE (D-VAL-6 / G4)** |
 
 ---
 
-## 23. Lien avec les documents du socle
+## 22. Liens
 
 | Document | Usage |
 |----------|-------|
-| [README.md](./README.md) | Identité et gouvernance |
-| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture cycles produit complet |
-| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Gates et arbitrages |
+| [README.md](./README.md) | Identité / gates |
+| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture progressive |
+| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | D-VAL et gates |
 
 ---
 
-*SFIA Studio — vision produit complet — POC = faisabilité uniquement — baseline SFIA v2.6 — Morris décide.*
+*SFIA Studio — vision corrigée G3-R1–R5 — Option C — validation finale G3 en attente — Morris décide.*
 ```
 
 ### 6.3 — `projects/sfia-studio/02-sfia-cycle-coverage-hypothesis.md`
@@ -693,17 +610,17 @@ Justification candidate : préserve v2.6 ; évite v2.7 ; permet d’éprouver le
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Projet** | SFIA Studio (candidat — **produit complet**) |
+| **Projet** | SFIA Studio — **projet officiel** (G1) |
 | **Document** | `02-sfia-cycle-coverage-hypothesis.md` |
-| **Cycle** | 1 — Cadrage (correction documentaire du pré-cadrage) |
+| **Cycle** | 1 — Cadrage (correction finale vision G3) |
 | **Profil** | Critical |
-| **Baseline** | SFIA v2.6 |
-| **Statut** | `pre-framing-ready-for-morris-review` |
-| **Référence méthode** | Template v2.6 §4.1 (15 cycles) ; routing guide §4–§6 |
+| **Baseline** | SFIA v2.6 (Option C — consommée) |
+| **Statut** | `pre-framing-g3-correction-ready-for-final-review` |
+| **Référence** | Template v2.6 §4.1 ; routing guide §4–§6 |
 
-> **Règle :** les 15 cycles restent un **référentiel de couverture potentielle du produit complet**. Aucun cycle n’est automatiquement lancé. Activation **uniquement** par déclencheur réel + qualification + GO Morris si requis. Profil **requalifié à chaque cycle**. Pas d’ordre séquentiel rigide. Pas de forçage pour atteindre quinze.
+> **Règle (G3-R5) :** les 15 cycles représentent la **cible de couverture progressive** du produit. Aucun incrément n’est obligé de les couvrir tous. Le MVP pourra couvrir un **sous-ensemble prioritaire** — **non sélectionné ici**. Aucun cycle n’est automatiquement activé. Profil requalifié à chaque cycle.
 >
-> **Correction Morris :** la couverture n’est **pas** centrée sur le seul POC. Le POC est une **activité technique intermédiaire** sur la trajectoire du produit.
+> **Décisions :** G1, G2, G4 (Option C), principe G5 **validés**. G3 en validation finale. G6/G7 en attente.
 
 ---
 
@@ -711,108 +628,97 @@ Justification candidate : préserve v2.6 ; évite v2.7 ; permet d’éprouver le
 
 | Caractère | Signification |
 |-----------|---------------|
-| **Quasi systématique** | Attendue sur une trajectoire produit complète |
-| **Activable** | Fortement probable si le projet est engagé |
-| **Conditionnel** | Dépend d’un événement ou d’un arbitrage |
-| **Événementiel** | INC / RUN / EVOL — incident ou décision |
+| **Quasi systématique** | Attendue sur trajectoire produit complète |
+| **Activable** | Fortement probable si engagé |
+| **Conditionnel** | Dépend d’un événement / arbitrage |
+| **Événementiel** | INC / RUN / EVOL |
 
 ---
 
-## 2. Familles de cycles (distinction obligatoire)
+## 2. Quatre couvertures distinctes
 
-| Famille | Objet | Exemples |
-|---------|-------|----------|
-| **Conception du produit cible** | Cadrage, conception, architectures, UX | Cycles 1–4, 6 |
-| **POC de faisabilité** | Preuve technique limitée | Parties de 6, 7, 9, 10 (+ delivery borné) |
-| **Construction du MVP** | Première valeur métier utilisable | Cycles 5, 8, puis 9–12 selon besoin |
-| **Industrialisation** | Durabilité, sécurité, release, RUN | Cycles 7, 10–12 renforcés |
-| **Évolution méthode** | Hors produit — CAPA/EVOL méthode | Template, operating model — **GO Morris + cycle dédié** |
+| Couverture | Objet | Règle |
+|------------|-------|-------|
+| **Produit cible** | Progressive des 15 cycles | Cible long terme — pas obligation immédiate |
+| **POC** | Lot technique mobilisant plusieurs cycles | **Jamais** un cycle autonome ; faisabilité seulement |
+| **MVP** | Sous-ensemble prioritaire | À définir au cadrage / backlog — **pas ici** |
+| **Industrialisation** | Cycles renforcés (sécurité, release, RUN…) | Exploitation durable de la **plateforme** |
 
----
-
-## 3. Synthèse de couverture (hypothèse — produit complet)
-
-| # | Cycle | Caractère | Probabilité (hyp.) | Justification produit complet |
-|---|-------|-----------|--------------------|-------------------------------|
-| 1 | Cadrage | Quasi systématique | Certaine (en cours) | Pré-cadrage ; cadrage **produit** complet si G6 |
-| 2 | Conception fonctionnelle | Quasi systématique | Très élevée | Spécifier la plateforme métier cible |
-| 3 | Architecture fonctionnelle | Activable | Très élevée | Modules métier ; distinction Studio / Runtime **à cadrer** — non validée |
-| 4 | UX/UI | Activable | Très élevée | Interface métier — Figma **désactivé** ici |
-| 5 | Backlog / user stories | Quasi systématique | Très élevée | **Après** POC / décision de poursuite — découpage MVP |
-| 6 | Architecture technique | Activable | Très élevée | Architecture **cible** d’abord ; socle du POC dérivé |
-| 7 | Intégration / DevOps | Activable | Très élevée | Git, GPT, Cursor, Runtime — faisabilité puis industrialisation |
-| 8 | Delivery / implémentation | Quasi systématique | Certaine si GO | POC borné **puis** incréments MVP — **pas dans ce cycle** |
-| 9 | QA / validation | Quasi systématique | Certaine si delivery | QA de faisabilité (POC) **et** QA produit (MVP+) |
-| 10 | Sécurité / RSSI | Activable | Très élevée | Critique produit ; contrôles à démontrer aussi en POC |
-| 11 | Déploiement / release | Activable | Élevée | Surtout industrialisation ; pas le focus POC |
-| 12 | Observabilité / RUN readiness | Activable | Élevée | Industrialisation ; tests éventuels limités en POC |
-| 13 | PR readiness | Quasi systématique | Certaine si versionnement | Tout lot documentaire / code versionné |
-| 14 | Post-merge | Quasi systématique | Certaine si merge | Cleanup et clôture |
-| 15 | Capitalisation / REX | Quasi systématique | Élevée | Observations produit ≠ promotion méthode |
+Le POC est un **lot** pouvant mobiliser architecture technique, intégration/DevOps, sécurité, QA — **pas** un 16ᵉ cycle.
 
 ---
 
-## 4. Profils probables (non figés)
+## 3. Familles de cycles
 
-| Situation | Profil probable | Note |
-|-----------|-----------------|------|
-| Pré-cadrage / correction trajectoire | **Critical** | Ce cycle |
-| Cadrage détaillé produit (si G6) | Critical ou Standard | À requalifier |
-| Conception / archi fonctionnelle produit | Critical probable | Gouvernance + IA |
-| Architecture technique cible | Critical probable | Avant POC |
-| POC de faisabilité | Standard ou Critical | Selon secrets / exécution locale |
-| MVP / delivery incrémental | Standard ou Critical | À requalifier |
-| Industrialisation / release | Critical probable | Sécurité / RUN |
-| PR readiness doc-only | Standard (Light si ≤3 fichiers) | Selon template |
-| Capitalisation méthode | Capitalization + profondeur | **Cycle séparé** |
-
-Aucun profil n’est figé hors du cycle courant.
+| Famille | Exemples |
+|---------|----------|
+| Conception produit cible | 1–4, 6 |
+| POC de faisabilité (lot) | Parties bornées de 6, 7, 8, 9, 10 |
+| Construction MVP | 5, 8, puis 9–12 selon besoin |
+| Industrialisation plateforme | 7, 10–12 renforcés |
+| Évolution méthode | Hors produit — CAPA/EVOL + GO Morris |
 
 ---
 
-## 5. Déclencheurs d’activation (hypothèses)
+## 4. Synthèse des 15 cycles (hypothèse produit)
 
-| Phase | Déclencheur candidat | Cycles probables |
-|-------|----------------------|------------------|
-| Cadrage produit | GO G6 | 1 (suite) |
-| Conception / archi produit | Clôture cadrage détaillé | 2, 3, 4, 6 |
-| POC de faisabilité | GO dédié après architecture cible suffisante | 6/7/8/9/10 (bornés) |
-| Décision de poursuite | Résultats POC | Gate Morris (hors G1–G7 pré-cadrage) |
-| MVP | GO post-POC | 5, 8, puis 9–12 |
-| Industrialisation | Maturité MVP | 7, 10–12 renforcés |
-| Capitalisation | Leçon durable | 15 — sans auto-promotion doctrine |
-
----
-
-## 6. Blocs transverses probables
-
-| Bloc | Pertinence produit | POC | Industrialisation | Statut ici |
-|------|-------------------|-----|-------------------|------------|
-| **FinOps** | Coûts API durables | Mesure technique possible | Modèle à définir | Identifié |
-| **GreenOps** | Conditionnel | Faible | Ultérieur | Conditionnel |
-| **RGPD** | Fort | Évaluer minimisation / traçabilité | DPIA si requis | Identifié |
-| **Accessibilité** | UI métier | Limité | Exigence produit | Identifié |
-| **Performance** | Latence IA | Mesure possible | SLA futurs | Identifié |
-| **UX/UI + Figma** | Fort | Non requis ici | Oui | **Désactivé** |
-| **Sécurité** | Critique | Démontrer contrôles | Complet | Identifié |
-| **DevOps / release** | Fort | Intégrations bornées | Pipelines / distribution | Identifié |
-| **Observabilité / RUN** | Fort | Tests éventuels limités | Complet | Identifié |
-| **Capitalisation** | Continu | Observations | REX structurés | Identifié |
+| # | Cycle | Caractère | Note |
+|---|-------|-----------|------|
+| 1 | Cadrage | Quasi systématique | Pré-cadrage ; cadrage détaillé si G6 |
+| 2 | Conception fonctionnelle | Quasi systématique | Plateforme métier |
+| 3 | Architecture fonctionnelle | Activable | Orchestration déterministe à cadrer — non validée |
+| 4 | UX/UI | Activable | Figma désactivé ici |
+| 5 | Backlog / user stories | Quasi systématique | Après POC / poursuite — sous-ensemble MVP |
+| 6 | Architecture technique | Activable | Cible d’abord ; POC en dérive |
+| 7 | Intégration / DevOps | Activable | Faisabilité puis industrialisation |
+| 8 | Delivery | Quasi systématique | Lot POC borné puis incréments MVP |
+| 9 | QA / validation | Quasi systématique | QA faisabilité **et** QA produit |
+| 10 | Sécurité / RSSI | Activable | Critique produit ; contrôles en POC |
+| 11 | Déploiement / release | Activable | Surtout industrialisation plateforme |
+| 12 | Observabilité / RUN | Activable | Industrialisation ; tests limités en POC |
+| 13 | PR readiness | Quasi systématique | Si versionnement |
+| 14 | Post-merge | Quasi systématique | Si merge |
+| 15 | Capitalisation / REX | Quasi systématique | Observations ≠ promotion méthode |
 
 ---
 
-## 7. Distinction cycles projet vs cycles méthode
+## 5. Profils probables (non figés)
 
-| Famille | Exemples | Règle |
-|---------|----------|-------|
-| **Cycles projet SFIA Studio** | Cadrage produit, conception, POC faisabilité, MVP, industrialisation | Livrables sous `projects/sfia-studio/` (+ code futur projet) |
-| **Cycles évolution méthode** | Template, operating model, routing, baseline | `method/`, `prompts/` — **GO Morris + cycle dédié** |
-
-**Interdiction dans ce cycle :** modification méthode, SFIA v2.7, relance v3.0.
+Pré-cadrage / correction G3 : Critical. Autres situations : à requalifier. Aucun profil futur figé.
 
 ---
 
-## 8. Trajectoire macro candidate (hypothèse)
+## 6. Déclencheurs (hypothèses)
+
+| Phase | Déclencheur | Cycles probables |
+|-------|-------------|------------------|
+| Cadrage produit | GO G6 (après G3 final) | 1 suite |
+| Conception / archi | Clôture cadrage | 2, 3, 4, 6 |
+| POC (lot) | GO dédié post-archi | 6/7/8/9/10 bornés |
+| MVP | GO post-POC | Sous-ensemble via 5, 8… |
+| Industrialisation plateforme | Maturité MVP | 7, 10–12 |
+| Capitalisation | Leçon durable | 15 |
+
+---
+
+## 7. Blocs transverses
+
+FinOps, RGPD, accessibilité, performance, sécurité, DevOps, observabilité, capitalisation : identifiés. UX/UI+Figma **désactivé**. GreenOps conditionnel.
+
+---
+
+## 8. Projet vs méthode
+
+| Famille | Règle |
+|---------|-------|
+| Cycles projet SFIA Studio | Sous `projects/sfia-studio/` (+ code futur) |
+| Cycles méthode | `method/`, `prompts/` — GO Morris + cycle dédié (Option C) |
+
+Interdit ici : modification v2.6, v2.7, v3.0.
+
+---
+
+## 9. Trajectoire macro (hypothèse)
 
 ```text
 Pré-cadrage
@@ -821,72 +727,37 @@ Pré-cadrage
   → architecture fonctionnelle
   → UX/UI initiale si nécessaire
   → architecture technique candidate
-  → POC de faisabilité
+  → POC de faisabilité (lot multi-cycles)
   → QA de faisabilité
   → décision Morris de poursuite
-  → backlog / MVP
+  → backlog / MVP (sous-ensemble)
   → delivery incrémental
   → sécurité / QA / release / RUN readiness
-  → industrialisation
+  → industrialisation de la plateforme
   → capitalisation / REX
 ```
 
-### Lecture structurante
-
-| Étape | Nature |
-|-------|--------|
-| Jusqu’à architecture technique candidate | Conception du **produit cible** |
-| POC + QA de faisabilité | Preuve technique **intermédiaire** |
-| Décision de poursuite | Gate Morris |
-| Backlog / MVP / delivery | Construction de la **valeur métier** |
-| Sécurité / release / RUN / industrialisation | **Durabilité** |
-| Capitalisation | Observations — pas auto-promotion méthode |
-
-Cette trajectoire est une **hypothèse**. Elle **ne lance aucun cycle**, ne produit aucun backlog et ne valide aucune architecture.
-
----
-
-## 9. Positionnement du POC dans la couverture
-
-Le POC **peut mobiliser** (de façon bornée) :
-
-- architecture technique (dérivée de la cible) ;
-- intégration / DevOps ;
-- sécurité ;
-- QA / validation ;
-- une delivery très limitée de preuve.
-
-Le POC **ne remplace pas** :
-
-- la conception du produit cible ;
-- le backlog / MVP ;
-- l’industrialisation ;
-- la couverture complète des 15 cycles.
+Ne lance aucun cycle. Pas de backlog. Pas d’architecture validée. Pas de sélection du sous-ensemble MVP.
 
 ---
 
 ## 10. Ce que ce document n’est pas
 
-- Pas une activation automatique de cycles
-- Pas une architecture déguisée
-- Pas un backlog
-- Pas une promotion d’évolution méthode
-- Pas une validation de POC, de MVP ou de stack
-- Pas un centrage du projet sur le POC
+Activation auto ; architecture déguisée ; backlog ; sélection MVP ; validation POC ; centrage projet sur POC ; obligation immédiate des 15 cycles.
 
 ---
 
-## 11. Lien avec les documents du socle
+## 11. Liens
 
 | Document | Usage |
 |----------|-------|
-| [README.md](./README.md) | Identité, produit cible, gates |
-| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Vision produit complète, POC de faisabilité |
-| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Arbitrages G1–G7 |
+| [README.md](./README.md) | Décisions / gates |
+| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Vision G3-R1–R5 |
+| [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | D-VAL / gates |
 
 ---
 
-*SFIA Studio — couverture cycles du produit complet — POC = étape intermédiaire — baseline SFIA v2.6 — Morris décide.*
+*SFIA Studio — couverture progressive — POC = lot — Option C — Morris décide.*
 ```
 
 ### 6.4 — `projects/sfia-studio/03-pre-framing-decision-pack.md`
@@ -896,152 +767,136 @@ Le POC **ne remplace pas** :
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Projet** | SFIA Studio (candidat — **produit complet**) |
+| **Projet** | SFIA Studio — **projet officiel** (G1) |
 | **Document** | `03-pre-framing-decision-pack.md` |
 | **Destinataire** | Morris (L0) |
-| **Cycle** | 1 — Cadrage (correction documentaire du pré-cadrage) |
+| **Cycle** | 1 — Cadrage (correction finale vision G3) |
 | **Profil** | Critical |
-| **Typologie** | DOC — composante EVOL candidate |
-| **Baseline** | SFIA v2.6 |
-| **Statut pré-cadrage** | `pre-framing-ready-for-morris-review` |
-| **Verdict documentaire** | `SFIA STUDIO PRE-FRAMING PRODUCT TRAJECTORY CORRECTED — READY FOR MORRIS REVIEW` |
+| **Typologie** | DOC — composante EVOL projet |
+| **Baseline** | SFIA v2.6 (Option C) |
+| **Statut pré-cadrage** | `pre-framing-g3-correction-ready-for-final-review` |
+| **Verdict** | `SFIA STUDIO G3 RESERVES ADDRESSED — READY FOR FINAL G3 REVIEW` |
 
 ---
 
-## 1. Objet du decision pack
+## 1. Objet
 
-Fournir à Morris un pack d’arbitrage pour :
-
-1. confirmer ou non SFIA Studio comme projet officiel ;
-2. valider problème, opportunité et **vision produit complète** ;
-3. statuer sur la relation à SFIA v2.6 ;
-4. valider le **principe et le périmètre d’un POC de faisabilité** (non le produit) ;
-5. autoriser ou refuser le passage ultérieur au cadrage détaillé ;
-6. décider ultérieurement du versionnement Git (commit / push / PR).
-
-Ce pack **ne décide pas** à la place de Morris.
+Pack d’arbitrage pour :
+1. tracer D-VAL-1 à D-VAL-7 ;
+2. permettre la **validation finale G3** après traitement G3-R1 à G3-R5 ;
+3. préparer ensuite les décisions **G6** et **G7**.
 
 ---
 
-## 2. Décisions déjà validées
+## 2. Décisions validées (D-VAL-1 à D-VAL-7)
 
-| # | Décision | Autorité | Portée |
-|---|----------|----------|--------|
-| D-VAL-1 | **Initier le pré-cadrage de SFIA Studio** | Morris | Pré-cadrage |
-| D-VAL-2 | **Autoriser la création locale** du socle documentaire de pré-cadrage | Morris | `projects/sfia-studio/` + review pack temporaire |
-| D-VAL-3 | **SFIA Studio vise un produit complet.** Le POC est uniquement une **preuve de faisabilité technique intermédiaire.** | Morris | Correction de trajectoire documentaire |
+| # | Décision | Gate | Statut |
+|---|----------|------|--------|
+| D-VAL-1 | Initier le pré-cadrage SFIA Studio | — | **VALIDÉE** |
+| D-VAL-2 | Créer localement le socle documentaire | — | **VALIDÉE** |
+| D-VAL-3 | Produit complet ; POC = faisabilité technique intermédiaire uniquement | Trajectoire | **VALIDÉE** |
+| D-VAL-4 | SFIA Studio confirmé comme **projet officiel** | **G1** | **VALIDÉE** |
+| D-VAL-5 | Problème et opportunité **validés** | **G2** | **VALIDÉE** |
+| D-VAL-6 | **Option C** — produit indépendant consommant SFIA v2.6 | **G4** | **VALIDÉE** |
+| D-VAL-7 | **Principe** d’un POC technique de faisabilité **validé** ; périmètre détaillé après cadrage/archi suffisants | **G5** | **VALIDÉE (principe)** |
 
-### Contenu explicite de D-VAL-3
+### Contenu D-VAL-3 (rappel)
 
-1. SFIA Studio vise la construction du **produit complet**.
-2. Le POC est une preuve de faisabilité **intermédiaire**.
-3. Le cadrage produit **ne doit pas** être centré sur le seul POC.
-4. Le POC doit être **dérivé** de la vision produit et de l’architecture cible — **pas l’inverse**.
-5. Le POC doit démontrer la faisabilité des points techniques risqués **avant** construction du MVP.
-6. Le MVP désignera ultérieurement le premier produit réellement utilisable.
-7. L’industrialisation est une étape ultérieure **distincte**.
+Produit complet ; POC ≠ produit ≠ MVP ≠ limite de trajectoire ; POC dérivé de vision/archi ; MVP et industrialisation distincts.
 
-D-VAL-3 **ne valide pas** G1–G7, ni l’architecture, ni la stack, ni le contenu exact du POC, ni le MVP.
+### Contenu D-VAL-6 (G4)
 
----
+SFIA Studio adopte l’Option C. Toute évolution de méthode = cycle CAPA/EVOL méthode séparé + GO Morris. **Ne modifie pas** SFIA v2.6.
 
-## 3. Décisions proposées (gates G1–G7)
+### Contenu D-VAL-7 (G5)
 
-| Gate | Décision proposée | Statut |
-|------|-------------------|--------|
-| **G1** | Confirmer SFIA Studio comme **projet officiel** engagé sous SFIA v2.6 | **PROPOSÉ** |
-| **G2** | Valider le **problème et l’opportunité** | **PROPOSÉ** |
-| **G3** | Valider la **vision produit complète** candidate (plateforme métier opérationnelle et durable) | **PROPOSÉ** |
-| **G4** | Statuer sur la **relation avec SFIA v2.6** (options A / B / C) | **PROPOSÉ** |
-| **G5** | Valider le **principe et le périmètre d’un POC technique** destiné **uniquement** à démontrer la faisabilité d’implémentation de SFIA Studio | **PROPOSÉ** |
-| **G6** | Autoriser ou refuser le **passage au cadrage détaillé** | **PROPOSÉ** |
-| **G7** | Autoriser ultérieurement **commit, push et PR** du socle documentaire | **PROPOSÉ** |
-
-### Précisions de statut
-
-| Formulation | Signification |
-|-------------|---------------|
-| **PROPOSÉ** | Soumis à arbitrage Morris — **non validé** |
-| **VALIDÉ** | Uniquement si Morris statue explicitement |
-| **REFUSÉ** | Uniquement si Morris refuse explicitement |
-
-**Validé aujourd’hui :** D-VAL-1, D-VAL-2, D-VAL-3 uniquement.
+Principe POC validé. **N’autorise pas** le démarrage du POC. Périmètre précis ultérieur.
 
 ---
 
-## 4. Formulation détaillée de G5 (POC de faisabilité)
+## 3. Statut des gates G1–G7
 
-**G5 — Valider le principe et le périmètre d’un POC technique destiné uniquement à démontrer la faisabilité d’implémentation de SFIA Studio.**
+| Gate | Statut | Formulation |
+|------|--------|-------------|
+| **G1** | **VALIDÉ — GO** | SFIA Studio est un projet officiel. |
+| **G2** | **VALIDÉ — GO** | Le problème et l’opportunité sont validés. |
+| **G3** | **CORRECTION AUTORISÉE — VALIDATION FINALE EN ATTENTE** | Réserves G3-R1 à G3-R5 traitées dans ce cycle ; validation finale Morris après revue. |
+| **G4** | **VALIDÉ — OPTION C** | Produit indépendant consommant SFIA v2.6. |
+| **G5** | **VALIDÉ SUR LE PRINCIPE** | POC technique de faisabilité requis ; périmètre précis après cadrage/archi. |
+| **G6** | **EN ATTENTE** | Morris statue après revue et validation finale G3. |
+| **G7** | **EN ATTENTE** | Morris statue après revue et validation finale G3. |
 
-Le POC doit répondre à des questions techniques ciblées, notamment :
+### Rappels d’effet
 
-| # | Question |
-|---|----------|
-| 1 | L’interface peut-elle lire l’état Git réel ? |
-| 2 | Les instructions SFIA peuvent-elles être composées et injectées à GPT ? |
-| 3 | GPT peut-il produire une qualification et un contrat structurés ? |
-| 4 | Cursor peut-il être invoqué de manière contrôlée ? |
-| 5 | Le Runtime peut-il imposer des gates et stop conditions ? |
-| 6 | Les résultats, diffs et review packs peuvent-ils être récupérés et analysés ? |
-| 7 | L’ensemble peut-il fonctionner localement sur le Mac de Morris ? |
+| Décision | N’autorise pas |
+|----------|----------------|
+| G1 validé | Cadrage détaillé automatique |
+| G4 Option C | Modification de SFIA v2.6 |
+| G5 principe | Démarrage du POC |
+| G3 correction documentaire | Validation finale G3, G6, G7 |
+
+---
+
+## 4. Réserves G3 traitées (R1–R5)
+
+| ID | Réserve | Traitement |
+|----|---------|------------|
+| **G3-R1** | « Industrialiser les cycles » | Vision : qualifier/lancer/suivre/clôturer les cycles ; industrialiser la **plateforme** |
+| **G3-R2** | Runtime figé | Mécanisme d’orchestration déterministe **candidat** ; nom non contractuel ; archi non validée |
+| **G3-R3** | macOS = plateforme produit | macOS = contrainte de **preuve** POC uniquement |
+| **G3-R4** | POC = valeur produit | Critères candidats de valeur ajoutés ; POC = faisabilité ; MVP = valeur |
+| **G3-R5** | 15 cycles obligatoires | Couverture **progressive** ; MVP = sous-ensemble à définir plus tard |
+
+---
+
+## 5. Formulation G5 (principe validé)
+
+POC destiné **uniquement** à démontrer la faisabilité d’implémentation.
+
+Questions techniques cibles (périmètre détaillé **non figé**) :
+
+1. Lecture état Git réel ?
+2. Composition / injection instructions SFIA vers GPT ?
+3. Qualification et contrat structurés par GPT ?
+4. Invocation contrôlée de Cursor ?
+5. Orchestration déterministe (Runtime candidat) : gates et stop conditions ?
+6. Récupération / analyse résultats, diffs, review packs ?
+7. Exécution dans l’environnement local Morris sur **macOS** (contrainte de preuve) ?
 
 ### Le POC ne valide pas
 
-- le produit complet ;
-- le MVP ;
-- l’industrialisation ;
-- la couverture de tous les cycles ;
-- la stack définitive ;
-- l’architecture définitive.
-
-Le fonctionnement local sur le Mac de Morris (question 7) est une **contrainte de preuve**, pas le périmètre produit cible.
+Produit complet ; MVP ; industrialisation plateforme ; couverture des 15 cycles ; stack ; architecture définitive ; valeur métier complète.
 
 ---
 
-## 5. Décisions non prises
+## 6. Décisions non prises
 
 | Sujet | Statut |
 |-------|--------|
-| Stack technique | Non pris |
-| Architecture fonctionnelle / technique détaillée | Non pris |
-| Séparation Studio / Runtime (détail) | Sujet de cadrage — **non validé** |
-| Modèle / fournisseur GPT | Non pris |
-| Modalités d’intégration Cursor | Non pris |
-| Contenu exact / jetable vs réutilisable du POC | Non pris (G5) |
-| MVP / backlog / user stories | Non pris |
-| Automatisation L3 / L4 | Non pris — **hors ce cycle** |
-| Modification SFIA v2.6 / création v2.7 | Non pris — **interdite ici** |
-| Multi-utilisateur / cloud / authentification | Non pris |
-| Commit / push / PR / merge | Non pris (G7) |
-| Cadrage détaillé démarré | Non — dépend de G6 |
+| Validation finale G3 | En attente revue |
+| G6 cadrage détaillé | En attente |
+| G7 commit/push/PR | En attente |
+| Stack / architecture | Non pris |
+| Contenu exact POC / MVP | Non pris |
+| Mode distribution produit | Non pris |
+| L3/L4 | Non pris |
+| Modification v2.6 | Interdite ici |
 
 ---
 
-## 6. Options et impacts (focus G4 et G5)
+## 7. Option C (validée) — rappel impacts
 
-### 6.1 Relation à SFIA v2.6 (G4)
+| Impact | Contenu |
+|--------|---------|
+| Produit | Indépendant, consomme v2.6 |
+| Méthode | Inchangée sans cycle CAPA/EVOL + GO |
+| Risque évité | Confusion extension = baseline |
 
-| Option | Résumé | Impact si retenue | Risque |
-|--------|--------|-------------------|--------|
-| **A** | Extension candidate compatible 2.6 | Couplage produit/méthode plus fort | Confusion extension ↔ baseline |
-| **B** | Future évolution de méthode | Ouvre trajectoire CAPA/EVOL méthode | Promotion prématurée de version |
-| **C** | Produit indépendant consommant 2.6 | Séparation nette ; baseline intacte | Moindre ancrage « officiel méthode » |
-
-**Recommandation candidate (non décision) :** Option **C** au démarrage — voir `01-opportunity-and-vision.md` §22.
-
-### 6.2 POC de faisabilité (G5)
-
-| Sous-option | Résumé | Impact |
-|-------------|--------|--------|
-| **POC de faisabilité borné** (recommandation candidate) | Questions G5 ciblées ; preuve locale possible ; dérivé de l’architecture cible | Lève risques techniques avant MVP |
-| **POC élargi trop tôt** | Couvre valeur produit / parcours complets | Confond faisabilité et MVP |
-| **Pas de POC** | Passer directement au MVP | Risque technique non levé |
-
-Le détail d’intégration (réel / simulé / partiel) reste à qualifier au **cadrage** puis à l’architecture cible — **pas dans ce pré-cadrage**.
+Options A/B : non retenues pour la relation produit/méthode au démarrage.
 
 ---
 
-## 7. Trajectoire macro (rappel)
+## 8. Trajectoire macro
 
 ```text
 Produit cible complet
@@ -1051,85 +906,56 @@ Produit cible complet
   → décision de poursuite ou d’ajustement
   → MVP réellement utilisable
   → construction incrémentale
-  → industrialisation
+  → industrialisation de la plateforme
 ```
 
 ---
 
-## 8. Risques résiduels
+## 9. Risques résiduels
 
-| ID | Risque | Sévérité hyp. | Reporté à |
-|----|--------|---------------|-----------|
-| R1 | Seconde source de vérité hors Git | Haute | G3 / cadrage / sécurité |
-| R2 | Contournement des gates humains via UI | Haute | Sécurité ; POC doit démontrer contrôles |
-| R3 | Confusion architecture plateforme historique = validée | Moyenne | Cadrage (inspiration seulement) |
-| R4 | Fuite de données vers fournisseurs IA | Haute | RGPD / sécurité |
-| R5 | Coûts API non maîtrisés | Moyenne | FinOps ; mesure possible en POC |
-| R6 | Rechute vers un cadrage centré POC | Haute | G3 / G5 / D-VAL-3 |
-| R7 | Confusion POC ↔ MVP | Haute | G5 / backlog ultérieur |
-| R8 | Travaux Campus360 locaux coexistants | Basse (process) | Discipline Git |
-
----
-
-## 9. Questions ouvertes
-
-1. G1 — SFIA Studio devient-il un projet officiel engagé ?
-2. G3 — La vision produit complète est-elle validée telle que formulée ?
-3. G4 — Quelle option A/B/C pour la relation à v2.6 ?
-4. G5 — Le principe et quelles questions de faisabilité sont retenus pour le POC ?
-5. G6 — Le cadrage détaillé produit est-il autorisé maintenant, plus tard, ou refusé ?
-6. G7 — Quand versionner le socle ?
-7. Comment traiter Studio / Runtime au cadrage (inspiration vs conception) ?
-8. Le POC sera-t-il jetable ou réutilisable (décision post-POC) ?
+| ID | Risque | Reporté à |
+|----|--------|-----------|
+| R1 | Seconde vérité hors Git | Cadrage / sécurité |
+| R2 | Contournement gates | Sécurité ; POC |
+| R3 | Runtime figé trop tôt | Architecture |
+| R4 | macOS pris pour plateforme produit | G3 final / cadrage |
+| R5 | Confusion POC ↔ valeur | G3-R4 / MVP |
+| R6 | 15 cycles pris pour obligation MVP | G3-R5 / backlog |
+| R7 | Campus360 local coexistant | Discipline Git |
 
 ---
 
-## 10. Critères de clôture du pré-cadrage
+## 10. Questions ouvertes (post-correction)
 
-Le pré-cadrage pourra être considéré **clôturable** lorsque Morris aura arbitragé :
-
-| Critère | Gate lié |
-|---------|----------|
-| Statut de projet officiel | G1 |
-| Problème / opportunité | G2 |
-| **Cible produit complète** (vision) | G3 |
-| Relation à v2.6 | G4 |
-| **Rôle exact du POC** (principe / périmètre de faisabilité) | G5 |
-| Passage au cadrage détaillé | G6 |
-| (Optionnel) Stratégie de versionnement | G7 |
+1. Morris valide-t-il **définitivement G3** après cette correction ?
+2. G6 — cadrage détaillé maintenant, plus tard, ou refusé ?
+3. G7 — quand versionner le socle ?
+4. Quelles questions G5 retenues dans le périmètre POC détaillé (ultérieur) ?
+5. POC jetable ou réutilisable (post-POC) ?
 
 ---
 
-## 11. Recommandation de prochaine décision
+## 11. Critères de clôture pré-cadrage (actualisés)
 
-**Prochaine décision recommandée :** arbitrer **G1 → G2 → G3 → G4 → G5**, puis **G6**.
-
-Ordre candidat :
-
-1. **G1** — engagement projet ;
-2. **G2 / G3** — problème et **vision produit complète** ;
-3. **G4** — relation à la baseline (recommandation candidate : **C**) ;
-4. **G5** — principe du POC de **faisabilité** (pas le produit) ;
-5. **G6** — ouvrir le cadrage détaillé **produit** si G1–G5 favorables ;
-6. **G7** — versionner après revue satisfaisante.
-
-**G6 favorable ≠ cadrage détaillé démarré automatiquement.**
+| Critère | Gate | État |
+|---------|------|------|
+| Projet officiel | G1 | **Fait** |
+| Problème / opportunité | G2 | **Fait** |
+| Vision produit | G3 | **Correction faite — validation finale attendue** |
+| Relation v2.6 Option C | G4 | **Fait** |
+| Principe POC | G5 | **Fait (principe)** |
+| Cadrage détaillé | G6 | En attente |
+| Versionnement | G7 | En attente |
 
 ---
 
-## 12. Arbitrages futurs à inscrire (blocs)
+## 12. Prochaine décision recommandée
 
-| Bloc | Arbitrage futur (non tranché) |
-|------|-------------------------------|
-| Sécurité | Permissions agents ; secrets ; contrôles à démontrer en POC |
-| DevOps | Intégrations Git/GPT/Cursor/Runtime ; faisabilité ≠ industrialisation |
-| Observabilité | Logs / audit — architecture & industrialisation ; tests limités en POC |
-| FinOps | Mesure coûts API en POC ; modèle économique ultérieur |
-| RGPD | Minimisation / traçabilité évaluables en POC ; DPIA ultérieure |
-| Accessibilité | Référentiel UI produit |
-| Performance | Objectifs de latence |
-| Capitalisation | Séparer REX projet et cycle méthode |
-| Studio / Runtime | Séparation à cadrer — non validée ici |
+1. Revue ChatGPT conformité G3-R1–R5.
+2. **Validation finale G3** par Morris.
+3. Puis **G6** puis **G7**.
+
+G6 favorable ≠ cadrage démarré automatiquement. G5 ≠ POC démarré.
 
 ---
 
@@ -1137,30 +963,28 @@ Ordre candidat :
 
 | Élément | Valeur |
 |---------|--------|
-| Completeness des 4 documents | Oui |
-| Trajectoire produit / POC / MVP / industrialisation | Corrigée (D-VAL-3) |
-| Décisions inventées | Non |
-| Architecture / stack tranchées | Non |
-| Baseline modifiée | Non |
-| Ready for Morris review | **Oui** |
-| Ready for detailed framing | **Non** — dépend G6 |
-| Ready for commit / push / PR | **Non** — dépend G7 |
+| G3-R1 à G3-R5 | Traitées |
+| D-VAL-1 à D-VAL-7 | Tracées |
+| Architecture / stack | Non choisies |
+| Ready for final G3 review | **Oui** |
+| Ready for G6 / G7 | **Après** validation finale G3 |
+| Ready for POC / MVP | **Non** |
 
-**Verdict :** `SFIA STUDIO PRE-FRAMING PRODUCT TRAJECTORY CORRECTED — READY FOR MORRIS REVIEW`
+**Verdict :** `SFIA STUDIO G3 RESERVES ADDRESSED — READY FOR FINAL G3 REVIEW`
 
 ---
 
-## 14. Lien avec les documents du socle
+## 14. Liens
 
 | Document | Usage |
 |----------|-------|
-| [README.md](./README.md) | Identité, produit cible, trajectoire |
-| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Vision produit complète, POC de faisabilité |
-| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture cycles produit complet |
+| [README.md](./README.md) | Identité / décisions |
+| [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Vision corrigée |
+| [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture progressive |
 
 ---
 
-*SFIA Studio — decision pack — produit complet / POC faisabilité — baseline SFIA v2.6 — Morris décide.*
+*SFIA Studio — decision pack — G3 correction — D-VAL-1..7 — Morris décide.*
 ```
 
 ---
@@ -1169,51 +993,30 @@ Ordre candidat :
 
 | Contrôle | Résultat |
 |----------|----------|
-| Quatre fichiers Studio modifiés | Oui |
-| Nouveau fichier projet | Non |
-| Campus360 touché par ce cycle | Non |
-| Staged | Aucun |
+| Phrase « industrialiser les cycles » comme affirmation | Absente (seulement en négation / correction) |
+| Runtime non figé | Oui |
+| macOS = preuve | Oui |
+| Critères valeur candidats | Oui |
+| Couverture progressive | Oui |
+| G1/G2/G4/G5 principe | Validés |
+| G3 final / G6 / G7 | En attente |
+| Stack / architecture / POC démarré | Non |
+| Staged projet | Aucun |
+| Campus360 touché | Non |
 | `git diff --check` | OK |
-| Liens Markdown relatifs | Valides |
-| Produit ≠ POC ≠ MVP ≠ industrialisation | Cohérent dans les 4 docs |
-| G5 reformulé (faisabilité) | Cohérent |
-| D-VAL-3 tracée | Oui |
-| Option C | Recommandation candidate uniquement |
-| Architecture / stack | Non choisies |
-| Studio / Runtime | Sujet de cadrage — non validé |
-| Baseline v2.6 | Inchangée |
-| Commit / push / PR | Non effectués |
 
-## 8. Contrôle terminologique
+## 8. Réserves restantes
 
-| Terme | Usage vérifié |
-|-------|---------------|
-| Produit cible | Plateforme complète |
-| POC | Faisabilité technique uniquement |
-| MVP | Première version utilisable — non défini ici |
-| Industrialisation | Étape ultérieure distincte |
-| Local Mac / macOS | Contrainte de preuve G5, pas périmètre produit |
+1. Validation finale G3 par Morris après revue GPT.
+2. Périmètre détaillé POC non figé (attendu).
+3. Sous-ensemble MVP non sélectionné (attendu).
+4. Handoff précédent f648fbd obsolète jusqu’à ce push.
+5. Working tree Campus360 coexistant.
 
-## 9. Gates
+## 9. Verdict
 
-G1–G7 = **PROPOSÉS**. Validés : D-VAL-1, D-VAL-2, D-VAL-3 uniquement.
-
-## 10. Réserves
-
-1. Contenu exact du POC (jetable vs réutilisable) non figé — G5.
-2. Séparation Studio / Runtime = sujet de cadrage, pas architecture validée.
-3. Working tree Campus360 préexistant coexistant.
-4. Handoff distant `77332e8` obsolète jusqu’à éventuel nouveau GO push.
-5. Option C non arbitrée (G4).
-
-## 11. Review Handoff Git
-
-**not required** — `HANDOFF NOT REQUIRED — JUSTIFIED`
-
-## 12. Verdict
-
-`SFIA STUDIO PRE-FRAMING PRODUCT TRAJECTORY CORRECTED — READY FOR MORRIS REVIEW`
+`SFIA STUDIO G3 RESERVES ADDRESSED — READY FOR FINAL G3 REVIEW`
 
 ---
 
-*Fin review pack FULL — ne pas committer `.tmp-sfia-review/`.*
+*Fin review pack FULL — ne pas committer `.tmp-sfia-review/` sur la branche projet.*
