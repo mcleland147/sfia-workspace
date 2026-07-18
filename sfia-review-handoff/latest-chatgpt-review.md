@@ -1,26 +1,8 @@
-# SFIA Studio — Review Handoff Git — UX Option B + corrections de cohérence
+# SFIA Studio — Review Pack FULL — Residual documentary consistency (07 + README attribution)
 
-**Handoff publié :** 2026-07-19 00:55:28 CEST
-**Branche handoff :** `sfia/review-handoff`
-**Fichier canonique :** `sfia-review-handoff/latest-chatgpt-review.md`
-**Source :** worktree `sfia-workspace-ux-reconciliation` / `.tmp-sfia-review/chatgpt-review.md`
-
-### Distinction handoff
-
-| Niveau | Statut |
-|---|---|
-| Cycle Option B initial | `HANDOFF NOT REQUIRED — JUSTIFIED` (transmission locale directe) |
-| Publication actuelle (corrections revue ChatGPT) | `HANDOFF REQUIRED — UPDATED — REMOTE VERIFIED` |
-
-**Instruction ChatGPT :** lire ce fichier et vérifier les trois corrections (13, README, distinction handoff), plus les contenus complets 14/15/16 et diffs README/07/13.
-
----
-
-# SFIA Studio — Review Pack FULL — Option B UX/UI + corrections de cohérence documentaire
-
-**Date/heure :** 2026-07-19 00:55:28 CEST
+**Date/heure :** 2026-07-19 01:02:41 CEST
 **Niveau :** FULL
-**Cycle :** Correction documentaire ciblée (post-revue ChatGPT Option B)
+**Cycle :** Correction documentaire ciblée — deux incohérences résiduelles post-revue ChatGPT
 **Profil :** Light
 **Typologie :** DOC
 **Verdict :** READY FOR COMMIT — DOCUMENTARY CONSISTENCY RESTORED
@@ -30,7 +12,75 @@
 | Niveau | Statut | Signification |
 |---|---|---|
 | Handoff du cycle Option B **initial** | `HANDOFF NOT REQUIRED — JUSTIFIED` | Transmission locale directe du pack Option B ; pas de publication handoff requise à ce moment |
-| Publication de revue **actuelle** (corrections) | `HANDOFF REQUIRED — UPDATED — REMOTE VERIFIED` | Commit + push `origin/sfia/review-handoff` + vérification remote pour revue ChatGPT des corrections |
+| Publication de revue **actuelle** (corrections résiduelles) | `HANDOFF REQUIRED — UPDATED — REMOTE VERIFIED` | Commit + push `origin/sfia/review-handoff` + vérification remote pour revue ChatGPT des deux corrections résiduelles |
+
+---
+
+## 0. Section corrective — incohérences résiduelles
+
+### Horodatage
+
+`2026-07-19 01:02:41 CEST`
+
+### Deux écarts détectés (revue ChatGPT)
+
+1. **`07-product-trajectory-and-decision-pack.md`** — phrase résiduelle contradictoire :
+   - Avant : `Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n’est lancé ici.`
+   - Après : `Morris reste libre. Aucun cycle delivery, architecture technique, POC ou MVP n’est lancé ici.`
+
+2. **Ligne de table « Prochain cycle après architecture | Non sélectionné »**
+   - Localisation ChatGPT annoncée : `README.md`
+   - Localisation réelle dans le worktree : **`07-product-trajectory-and-decision-pack.md`** (la phrase n’existe pas dans `README.md`)
+   - Avant : `| Prochain cycle après architecture | **Non sélectionné** |`
+   - Après : `| Prochain cycle après architecture | UX/UI sélectionné, exécuté et clôturé — delivery suivant non lancé |`
+   - `README.md` : lignes « Prochain cycle » déjà cohérentes (`Delivery` autorisé — non exécuté) ; **aucune modification supplémentaire** requise pour cet écart dans README.
+
+### Corrections appliquées
+
+| # | Fichier | Action |
+|---|---|---|
+| 1 | `07-…decision-pack.md` | Phrase « Morris reste libre… » corrigée |
+| 2 | `07-…decision-pack.md` | Ligne table « Prochain cycle après architecture » corrigée |
+| — | `README.md` | Aucun delta supplémentaire pour l’écart #2 (déjà cohérent ; attribution ChatGPT corrigée) |
+
+### Conservé (inchangé)
+
+- UX/UI sélectionné, exécuté et clôturé
+- AF-CAND-11B VALIDÉE
+- Delivery autorisé mais non exécuté
+- Architecture fonctionnelle non clôturée
+- Architecture technique, POC et MVP non lancés
+- Décisions Morris / fond Option B inchangés
+- Aucune modification Figma / fonctionnelle / architecture
+
+### Confirmation 13 / 14 / 15 / 16 inchangés (cette passe résiduelle)
+
+| Fichier | SHA-256 (inchangé vs début de passe) |
+|---|---|
+| `13-functional-architecture-decision-pack.md` | `6ce8014ae770779548dd7cfec270cd01981d02af49debca4b7e5efe23f0bdd8d` |
+| `14-ux-ui-contract.md` | `c2554ed6e664156add468a3f8de298023b3a1d5b948d465d9df0ceda441326e6` |
+| `15-ux-ui-flows-and-screens.md` | `cb223cf5a2fd78833ec86175237637516f1251a420cc2b8daf1000a302b65f92` |
+| `16-ux-ui-decision-pack.md` | `9bb957391c4edd66a10e02d600386feb8662ff5f9a37adae2e29bc29659a4cbf` |
+
+### Validations
+
+| Contrôle | Résultat |
+|---|---|
+| Formulations obsolètes absentes | **OK** |
+| Formulations corrigées présentes dans `07` | **OK** |
+| `git diff --check` | **propre** |
+| Staged projet | **aucun** |
+| Commit / push / PR projet | **aucun** |
+| 13/14/15/16 touchés cette passe | **non** |
+
+### Distinction handoff
+
+- Cycle Option B initial = `HANDOFF NOT REQUIRED — JUSTIFIED`
+- Publication actuelle = `HANDOFF REQUIRED — UPDATED — REMOTE VERIFIED`
+
+### Verdict final
+
+**READY FOR COMMIT — DOCUMENTARY CONSISTENCY RESTORED**
 
 ---
 
@@ -47,71 +97,41 @@
 
 ---
 
-## 2. Écarts identifiés par ChatGPT
+## 2. Historique des corrections documentaires (rappel)
 
-1. `13` : formulation « Aucun cycle suivant lancé » contradictoire avec UX/UI clôturé.
-2. `README` : double « 5. Sort des branches » dans ## 8. Prochaine décision.
-3. Handoff publié : « HANDOFF NOT REQUIRED » ambigu pour la publication canonique de revue.
-
----
-
-## 3. Corrections appliquées
-
-### A. 13-functional-architecture-decision-pack.md
-
-**Avant :** `Aucun cycle suivant lancé.`
-**Après :** `Aucun cycle delivery, architecture technique, POC ou MVP lancé.`
-
-Conservé : UX/UI clôturé ; AF-CAND-11B VALIDÉE ; architecture non clôturée ; delivery autorisé non exécuté.
-
-### B. README.md — ## 8. Prochaine décision
-
-Liste unique :
-
-1. Revue ChatGPT de la synchronisation documentaire UX Option B.
-2. GO commit de la branche projet.
-3. GO push et PR distincts.
-4. Lancement du cycle delivery / implémentation.
-5. Clôture formelle du cycle architecture, décision distincte.
-6. Sort des branches `pre-framing` / `functional-design` / `functional-architecture`.
-
-Ces items restent des **recommandations / prochaines décisions**, non des décisions validées.
-
-### C. Handoff
-
-Distinction des deux niveaux (voir tableau en tête). Publication actuelle = **required**.
+1. Passe précédente : `13` (« Aucun cycle suivant lancé ») + README §8 (doublon numérotation) + distinction handoff.
+2. **Passe actuelle (résiduelle)** : `07` (deux formulations) ; attribution README→07 pour l’écart #2.
 
 ---
 
-## 4. Fichiers
+## 3. Fichiers (état worktree projet vs HEAD)
 
-| Fichier | Statut cette correction |
+| Fichier | Statut |
 |---|---|
-| README.md | **Modifié** (numérotation) |
-| 13-…decision-pack.md | **Modifié** (phrase) |
-| 07-…decision-pack.md | **Inchangé** (reste M Option B) |
-| 14 / 15 / 16 | **Inchangés** |
-| 11 / 12 | Non touchés |
+| `README.md` | **M** (Option B + passe cohérence précédente ; pas de delta résiduel supplémentaire) |
+| `07-…decision-pack.md` | **M** (Option B + **deux corrections résiduelles**) |
+| `13-…decision-pack.md` | **M** (passe cohérence précédente uniquement ; **inchangé** cette passe) |
+| `14` / `15` / `16` | **??** présents, **inchangés** cette passe |
+| `11` / `12` | Non touchés |
 
 ---
 
-## 5. Diff stat (projet vs HEAD)
+## 4. Diff stat (projet vs HEAD)
 
 ```
- .../07-product-trajectory-and-decision-pack.md     | 65 ++++++++++--------
+.../07-product-trajectory-and-decision-pack.md     | 69 +++++++++++--------
  .../13-functional-architecture-decision-pack.md    | 37 ++++++-----
  projects/sfia-studio/README.md                     | 77 +++++++++++++++-------
- 3 files changed, 109 insertions(+), 70 deletions(-)
-
+ 3 files changed, 111 insertions(+), 72 deletions(-)
 ```
 
-## 6. Diff check
+## 5. Diff check
 
 `git diff --check` : propre.
 
 ---
 
-## 7. Contenu complet — 14-ux-ui-contract.md (inchangé)
+## 6. Contenu complet — 14-ux-ui-contract.md (inchangé cette passe)
 
 ```markdown
 # SFIA Studio — Contrat UX/UI
@@ -325,12 +345,11 @@ Structure observée et retenue pour les quatre frames :
 ---
 
 *SFIA Studio — UX/UI CLÔTURÉ — Figma référence initiale — Option B — architecture NON clôturée — delivery non lancé — Morris décide commit/push/PR.*
-
 ```
 
 ---
 
-## 8. Contenu complet — 15-ux-ui-flows-and-screens.md (inchangé)
+## 7. Contenu complet — 15-ux-ui-flows-and-screens.md (inchangé cette passe)
 
 ```markdown
 # SFIA Studio — Parcours UX/UI et écrans P0
@@ -478,12 +497,11 @@ L’inventaire documentaire antérieur S01–S10 (portefeuille dédié, Git Trut
 ---
 
 *Parcours P0 — 4 frames Figma — UX/UI clôturé — Option B — Morris décide delivery.*
-
 ```
 
 ---
 
-## 9. Contenu complet — 16-ux-ui-decision-pack.md (inchangé)
+## 8. Contenu complet — 16-ux-ui-decision-pack.md (inchangé cette passe)
 
 ```markdown
 # SFIA Studio — Decision pack UX/UI
@@ -599,12 +617,11 @@ Prochaine étape autorisée : **delivery / implémentation** (non lancée ici).
 ---
 
 *Decision pack UX/UI — Option B — cycle clôturé — architecture ouverte — Morris décide versionnement.*
-
 ```
 
 ---
 
-## 10. Diff utile complet — README.md
+## 9. Diff utile complet — README.md
 
 ```diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
@@ -651,9 +668,9 @@ index 1264b2f..470e8dc 100644
 +| **Architecture fonctionnelle** | **VALIDÉE** et **INTÉGRÉE** sur `main` — clôture formelle **NON PRONONCÉE** |
 +| **UX/UI** | **CLÔTURÉ** — Option B ; 4 frames Figma ; docs `14`–`16` |
 +| **Prochain cycle** | **Delivery** autorisé — **non exécuté** ; tech/POC/MVP **non lancés** |
-
+ 
  ---
-
+ 
 @@ -54,7 +57,7 @@
  | Cycle architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` |
  | AF-Option C | **VALIDÉE** — ≠ Option C méthode |
@@ -671,12 +688,12 @@ index 1264b2f..470e8dc 100644
 +| Cycle UX/UI | **CLÔTURÉ** — Option B ; Figma référence initiale |
 +| Prochain cycle | **Delivery** autorisé — **non exécuté** |
  | Branches | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
-
+ 
 -> PR #207 / #209 : historiques. PR #211 : architecture **intégrée** (`84e4863…`) — **fait Git** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). PR #212 : sync post-merge **intégrée** (`cb870544…`). PR #213 : finalisation documentaire **intégrée** (`19302836…`). Cette intégration ne prononce ni la clôture formelle du cycle d’architecture fonctionnelle, ni la sélection d’AF-CAND-11B, ni la suppression des branches conservées.
 +> PR #207 / #209 : historiques. PR #211 : architecture **intégrée** (`84e4863…`) — **fait Git** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). PR #212 : sync post-merge **intégrée** (`cb870544…`). PR #213 : finalisation documentaire **intégrée** (`19302836…`). Les merges architecture/sync/finalisation ne prononcent pas la clôture formelle architecture ni la suppression des branches. **AF-CAND-11B a depuis été VALIDÉE** (UX/UI clôturé — décision Morris distincte).
-
+ 
  ---
-
+ 
 @@ -140,12 +144,15 @@ Pré-cadrage                    ← terminé historiquement
    → merge PR #207              ← fait Git vérifié (ec21074) — régularisé par D-VAL-11
    → synchronisation post-merge ← **VALIDÉE** (D-VAL-11) — cadrage documentaire clôturé
@@ -691,16 +708,16 @@ index 1264b2f..470e8dc 100644
 +  → architecture technique / POC / MVP ← **non lancés**
 +  → industrialisation plateforme
  ```
-
+ 
 -Aucune stack / architecture **technique** validée. Architecture **fonctionnelle VALIDÉE** et **INTÉGRÉE** sur `main` (AF-Option C ; AF-CAND-01…10, 11A, 12). Cycle suivant **non sélectionné**. POC / MVP non lancés. Clôture formelle architecture **non automatique**.
 +Aucune stack / architecture **technique** validée. Architecture **fonctionnelle VALIDÉE** et **INTÉGRÉE**. UX/UI **CLÔTURÉ**. Delivery **non lancé**. POC / MVP non lancés. Clôture formelle architecture **non automatique**.
-
+ 
  ---
-
+ 
 @@ -189,7 +196,24 @@ Aucune stack / architecture **technique** validée. Architecture **fonctionnelle
  | [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux AF-01…15 et frontières (D10 → AF-01 / AF-15) |
  | [13-functional-architecture-decision-pack.md](./13-functional-architecture-decision-pack.md) | AF-Option A/B/C ; AF-CAND |
-
+ 
 -> Statut `functional-architecture-post-merge-integrated`. **AF-Option C VALIDÉE** (≠ Option C méthode). AF-CAND-01…10, 11A, 12 **VALIDÉES**. AF-CAND-11B **NON DÉCIDÉE**. Aucune D-VAL-12. PR #211 **MERGED** + acceptée. PR #212 **MERGED**. PR #213 **MERGED** — finalisation sur `main` (`19302836…`). Clôture formelle **non prononcée**.
 +> Statut architecture `functional-architecture-post-merge-integrated` (intégration). **AF-Option C VALIDÉE**. AF-CAND-01…10, 11A, 12 **VALIDÉES**. **AF-CAND-11B VALIDÉE** (UX/UI clôturé). Aucune D-VAL-12. Clôture formelle architecture **non prononcée**.
 +
@@ -720,9 +737,9 @@ index 1264b2f..470e8dc 100644
 +| P0-03C Décision Morris | `22:270` | 1440×1024 |
 +
 +> Statut `ux-ui-closed-implementation-reference`. Référence Figma = implémentation **initiale** (non intangible). Delivery **autorisé**, non exécuté. Runtime screenshot obligatoire avant verdict visuel fort.
-
+ 
  ---
-
+ 
 @@ -274,7 +298,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | AF-Option C (Studio / orchestrateur séparés) | **VALIDÉE** — ≠ Option C méthode |
  | AF-CAND-01…10 | **VALIDÉES** |
@@ -731,9 +748,9 @@ index 1264b2f..470e8dc 100644
 +| AF-CAND-11B (sélection prochain cycle) | **VALIDÉE** — UX/UI clôturé |
  | AF-CAND-12 (pas de D-VAL-12) | **VALIDÉE** |
  | D10 → AF-01 / AF-15 | **VALIDÉE** (amendement traçabilité) |
-
+ 
 @@ -282,7 +306,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
-
+ 
  | Décision | Statut |
  |----------|--------|
 -| AF-CAND-11B — sélection / lancement prochain cycle | **NON DÉCIDÉE** — UX/UI recommandé via 11A |
@@ -744,9 +761,9 @@ index 1264b2f..470e8dc 100644
  | Commit / push / PR sync (#212) + finalisation (#213) | **Réalisés et intégrés** — trace post-#213 locale éventuelle **non versionnée** ici |
  | Clôture formelle cycle architecture | **Non** — non automatique |
 @@ -296,11 +322,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
-
+ 
  ## 8. Prochaine décision
-
+ 
 -1. Revue ChatGPT du handoff **post-merge #213**.
 -2. Clôture formelle du cycle architecture (**non prononcée**).
 -3. **AF-CAND-11B** — sélection du prochain cycle (**non décidée** ; UX/UI recommandé).
@@ -758,25 +775,24 @@ index 1264b2f..470e8dc 100644
 +4. Lancement du cycle delivery / implémentation.
 +5. Clôture formelle du cycle architecture, décision distincte.
 +6. Sort des branches `pre-framing` / `functional-design` / `functional-architecture`.
-
+ 
  **Verdict documentaire :** `SFIA STUDIO FUNCTIONAL ARCHITECTURE POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW`
-
+ 
 @@ -324,4 +351,4 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
-
+ 
  ---
-
+ 
 -*SFIA Studio — architecture VALIDÉE et INTÉGRÉE (#211) — sync #212 + finalisation #213 INTÉGRÉES (`19302836…`) — clôture NON PRONONCÉE — AF-CAND-11B NON DÉCIDÉE — Option C méthode préservée — Morris décide.*
 +*SFIA Studio — architecture VALIDÉE et INTÉGRÉE — UX/UI CLÔTURÉ (Option B ; Figma P0) — delivery NON LANCÉ — clôture architecture NON PRONONCÉE — Option C méthode préservée — Morris décide.*
-
 ```
 
 ---
 
-## 11. Diff utile complet — 07 (inchangé cette correction ; conservé pour revue)
+## 10. Diff utile complet — 07-product-trajectory-and-decision-pack.md
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
-index 6d25f39..fd47e29 100644
+index 6d25f39..0dde30e 100644
 --- a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
 +++ b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
 @@ -7,10 +7,10 @@
@@ -790,9 +806,9 @@ index 6d25f39..fd47e29 100644
  | **Destinataire** | Morris |
 -| **Source de vérité** | Git `main` @ `19302836b45d49f19698c624e99f2d68afa7b290` — cadrage + conception + architecture + sync + finalisation **intégrés** |
 +| **Source de vérité** | Git `main` @ `5f1eb9089652885fa19b6ce7592540b0626f29df` — cadrage + conception + architecture + sync + finalisation + trace **intégrés** ; sync UX locale worktree |
-
+ 
  > Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Conception **VALIDÉE** et **INTÉGRÉE**. Architecture **VALIDÉE** et **INTÉGRÉE** (PR #211 / `84e4863…`). Sync post-merge **INTÉGRÉE** (PR #212 / `cb870544…`). Finalisation documentaire **INTÉGRÉE** (PR #213 / `19302836…`). Acceptation/régularisation #211 **VALIDÉE** (Morris — 2026-07-18). Clôture formelle **non prononcée**. **Pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
-
+ 
 @@ -36,7 +36,7 @@
  | Cycle architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — `functional-architecture-post-merge-integrated` |
  | AF-Option C | **VALIDÉE** — ≠ Option C méthode |
@@ -810,7 +826,7 @@ index 6d25f39..fd47e29 100644
 +| Cycle UX/UI | **CLÔTURÉ** — Option B ; Figma `lrjA1WEyRpL05vKR8k29LO` ; docs `14`–`16` |
 +| Prochain cycle | **Delivery** autorisé — **non exécuté** ; tech/POC/MVP **non lancés** |
  | Branches | `functional-design` / `pre-framing` / `functional-architecture` **conservées** |
-
+ 
  > Merges #207 / #209/#210 : historiques. Merge #211 (`84e4863…`) : architecture **intégrée** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). Merge #212 (`cb870544…`) : sync **intégrée**. Merge #213 (`19302836…`) : finalisation documentaire **intégrée** — ne prononce ni clôture formelle, ni AF-CAND-11B, ni suppression de branches.
 @@ -124,8 +125,10 @@ Pré-cadrage                         ← terminé historiquement
    → merge PR #207                   ← fait Git vérifié (ec21074) — régularisé D-VAL-11
@@ -833,7 +849,7 @@ index 6d25f39..fd47e29 100644
 +- **AF-CAND-11B** : **VALIDÉE** — UX/UI clôturé.
  - Conception fonctionnelle **VALIDÉE** et **INTÉGRÉE** sur `main`.
  - Clôture formelle architecture **non prononcée**.
-
+ 
 @@ -188,21 +191,23 @@ Pré-cadrage                         ← terminé historiquement
  | Profil | Critical |
  | AF-Option C | **VALIDÉE** — ≠ Option C méthode |
@@ -847,9 +863,9 @@ index 6d25f39..fd47e29 100644
  | Acceptation #211 | **VALIDÉE** Morris 2026-07-18 (sans D-VAL-12) |
 -| Ne lance pas | Architecture technique ; UX/UI ; stack ; POC ; MVP ; code ; clôture auto ; AF-CAND-11B |
 +| Ne lance pas | Architecture technique ; stack ; POC ; MVP ; code ; clôture auto architecture |
-
+ 
  ### 4.3 UX/UI
-
+ 
  | Champ | Contenu |
  |-------|---------|
 -| Statut | **Recommandé** (AF-CAND-11A) — **non sélectionné** (AF-CAND-11B) |
@@ -860,9 +876,9 @@ index 6d25f39..fd47e29 100644
 +| Livrables | `14` / `15` / `16` |
 +| Suite | Delivery autorisé — non exécuté ; runtime screenshot avant verdict visuel fort |
 +| Ne lance pas | Architecture technique ; stack ; POC ; MVP ; clôture architecture |
-
+ 
  ### 4.4 Architecture technique
-
+ 
 @@ -236,10 +241,13 @@ Pré-cadrage                         ← terminé historiquement
  | D-NEXT-2i3 | Sync post-merge PR #212 | Observation Git | **MERGED** (`cb870544…`) — sync **intégrée** |
  | D-NEXT-2i4 | Finalisation post-merge PR #213 | Observation Git | **MERGED** (`19302836…`) — finalisation **intégrée** |
@@ -879,26 +895,29 @@ index 6d25f39..fd47e29 100644
  | D-NEXT-5 | Niveau de preuve préalable au POC | Morris | Non pris |
  | D-NEXT-6 | Stratégie de mesure de la valeur | Morris / cadrage MVP | Non pris |
  | D-NEXT-7 | Gouvernance fournisseurs IA | Morris | Non pris |
-@@ -283,7 +291,7 @@ Pré-cadrage                         ← terminé historiquement
-
+@@ -283,9 +291,9 @@ Pré-cadrage                         ← terminé historiquement
+ 
  **AF-CAND-11A (VALIDÉE — recommandation) :** UX/UI → architecture technique → POC borné → MVP après retour POC.
-
+ 
 -**AF-CAND-11B :** **NON DÉCIDÉE** — aucun cycle suivant lancé. Nouveau GO Morris requis.
 +**AF-CAND-11B :** **VALIDÉE** — UX/UI clôturé. Delivery = prochain GO. Clôture architecture = GO distinct.
-
- Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n’est lancé ici. Clôture formelle architecture **non prononcée**.
-
+ 
+-Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n’est lancé ici. Clôture formelle architecture **non prononcée**.
++Morris reste libre. Aucun cycle delivery, architecture technique, POC ou MVP n’est lancé ici. Clôture formelle architecture **non prononcée**.
+ 
+ ---
+ 
 @@ -301,18 +309,18 @@ Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n
  | **DF-G6** | Décision de poursuite post-POC | **PROPOSÉ** |
  | **DF-G7** | Autoriser cadrage / sélection MVP | **PROPOSÉ** |
-
+ 
 -Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**. Architecture : **VALIDÉE** et **INTÉGRÉE** (`84e4863…`). Sync #212 + finalisation #213 : **INTÉGRÉES** (`19302836…`). Acceptation #211 : **VALIDÉE**. AF-CAND-11B : **non décidée**.
 +Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**. Architecture : **VALIDÉE** et **INTÉGRÉE** (`84e4863…`). Sync #212 + finalisation #213 : **INTÉGRÉES** (`19302836…`). Acceptation #211 : **VALIDÉE**. AF-CAND-11B : **VALIDÉE** (UX/UI clôturé).
-
+ 
  ---
-
+ 
  ## 8. Questions Morris
-
+ 
 -1. Clôturez-vous formellement le cycle architecture ?
 -2. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via AF-CAND-11A, ou autre ?
 -3. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
@@ -911,18 +930,20 @@ index 6d25f39..fd47e29 100644
 +4. Quel sort pour les branches historiques ?
 +5. Quelles priorités NFR / accessibilité avant le premier runtime review ?
 +6. Quand planifiez-vous une itération UX post-runtime ?
-
+ 
  ---
-
-@@ -335,7 +343,7 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
+ 
+@@ -335,8 +343,8 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
  | Acceptation #211 | **VALIDÉE** — 2026-07-18 |
  | AF-Option C | **VALIDÉE** |
  | AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
 -| AF-CAND-11B | **NON DÉCIDÉE** |
+-| Prochain cycle après architecture | **Non sélectionné** |
 +| AF-CAND-11B | **VALIDÉE** — UX/UI clôturé |
- | Prochain cycle après architecture | **Non sélectionné** |
-
++| Prochain cycle après architecture | UX/UI sélectionné, exécuté et clôturé — delivery suivant non lancé |
+ 
  ---
+ 
 @@ -356,11 +364,11 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
  | Finalisation #213 | **INTÉGRÉE** — `19302836…` |
  | Acceptation #211 | **VALIDÉE** |
@@ -931,12 +952,12 @@ index 6d25f39..fd47e29 100644
 +| AF-CAND-11B | **VALIDÉE** — UX/UI clôturé |
  | Ready for POC / MVP / tech | **Non** |
  | Ready for Morris #213 post-merge review | **Oui** (trace locale) |
-
+ 
 -**Verdict :** `SFIA STUDIO PR #213 POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW`
 +**Verdict :** `READY FOR CHATGPT DOCUMENTARY REVIEW`
-
+ 
  ---
-
+ 
 @@ -377,5 +385,8 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
  | [11-functional-architecture.md](./11-functional-architecture.md) | Architecture — **VALIDÉE** et **INTÉGRÉE** |
  | [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux / frontières — D10 → AF-01 / AF-15 |
@@ -944,15 +965,14 @@ index 6d25f39..fd47e29 100644
 +| [14-ux-ui-contract.md](./14-ux-ui-contract.md) | UX/UI — contrat |
 +| [15-ux-ui-flows-and-screens.md](./15-ux-ui-flows-and-screens.md) | UX/UI — écrans P0 |
 +| [16-ux-ui-decision-pack.md](./16-ux-ui-decision-pack.md) | UX/UI — décisions |
-
+ 
 -*SFIA Studio — architecture VALIDÉE et INTÉGRÉE (#211) — sync #212 + finalisation #213 INTÉGRÉES (`19302836…`) — clôture NON PRONONCÉE — AF-CAND-11B NON DÉCIDÉE — Option C méthode préservée — Morris décide.*
 +*SFIA Studio — architecture VALIDÉE et INTÉGRÉE — UX/UI CLÔTURÉ (Option B) — delivery NON LANCÉ — clôture architecture NON PRONONCÉE — Morris décide.*
-
 ```
 
 ---
 
-## 12. Diff utile complet — 13
+## 11. Diff utile complet — 13-functional-architecture-decision-pack.md (inchangé cette passe ; conservé pour revue)
 
 ```diff
 diff --git a/projects/sfia-studio/13-functional-architecture-decision-pack.md b/projects/sfia-studio/13-functional-architecture-decision-pack.md
@@ -974,18 +994,18 @@ index 5d14684..76b244b 100644
  | **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) **MERGED** + acceptée ; [#212](https://github.com/mcleland147/sfia-workspace/pull/212) sync **MERGED** ; [#213](https://github.com/mcleland147/sfia-workspace/pull/213) finalisation **MERGED** |
 -| **Complète** | [11](./11-functional-architecture.md) · [12](./12-functional-architecture-flows-and-boundaries.md) |
 +| **Complète** | [11](./11-functional-architecture.md) · [12](./12-functional-architecture-flows-and-boundaries.md) · UX [14](./14-ux-ui-contract.md)–[16](./16-ux-ui-decision-pack.md) |
-
+ 
  > **AF-CAND-*** = décisions locales au cycle d’architecture. **≠ D-VAL**. Aucune D-VAL-12.
  > **AF-Option A/B/C** = options d’architecture fonctionnelle — **distinctes** de l’**Option C méthode** SFIA v2.6 (relation produit/méthode déjà validée).
 @@ -36,7 +36,7 @@
-
+ 
  ## 2. Hors périmètre (interdit)
-
+ 
 -Stack ; API ; BDD ; services techniques ; Figma ; backlog ; POC ; MVP ; code ; commit/push/PR projet ; lancement cycle suivant ; D-VAL-12.
 +Stack ; API ; BDD ; services techniques ; backlog ; POC ; MVP ; code ; commit/push/PR projet (sans GO) ; clôture architecture automatique ; D-VAL-12. *(Figma UX désormais référencé dans `14`–`16` — hors architecture technique.)*
-
+ 
  ---
-
+ 
 @@ -142,7 +142,7 @@ Justification : préserve INV-12 / BR-019 / BR-025 ; évite fusion Studio/décid
  | AF-CAND-09 | Preuve / audit : journal ≠ preuve Git ≠ verdict ≠ décision | **VALIDÉE** | Observabilité | ≠ outil APM |
  | AF-CAND-10 | Option d’architecture = **AF-Option C** | **VALIDÉE** | Orientation | ≠ validation tech |
@@ -993,38 +1013,38 @@ index 5d14684..76b244b 100644
 -| AF-CAND-11B | Sélection effective du prochain cycle | **NON DÉCIDÉE / À SÉLECTIONNER** | — | Nouveau GO Morris requis |
 +| AF-CAND-11B | Sélection effective du prochain cycle | **VALIDÉE** — UX/UI sélectionné, exécuté et **clôturé** | Morris — post-architecture | **Ne clôt pas** l’architecture fonctionnelle ; Option B UX ; Figma P0 ; delivery autorisé non exécuté |
  | AF-CAND-12 | Aucune D-VAL-12 ; AF-CAND ≠ D-VAL | **VALIDÉE** | Gouvernance | — |
-
+ 
  ### 6.1 AF-CAND-11A — Trajectoire recommandée (VALIDÉE)
 @@ -158,13 +158,13 @@ Après validation et intégration documentaire de l’architecture fonctionnelle
-
+ 
  **Effets :** oriente la séquence ; prépare le futur cycle UX/UI ; **ne lance** aucun cycle ; **ne valide** aucune architecture technique ; **ne définit** ni POC ni MVP.
-
+ 
 -### 6.2 AF-CAND-11B — Sélection du prochain cycle (NON DÉCIDÉE)
 +### 6.2 AF-CAND-11B — Sélection du prochain cycle (**VALIDÉE** — UX/UI clôturé)
-
+ 
  La sélection effective du prochain cycle reste une décision Morris **distincte**.
-
+ 
 -**Statut :** **NON DÉCIDÉE / À SÉLECTIONNER**.
 +**Statut :** **VALIDÉE** — cycle UX/UI sélectionné, exécuté sur Figma et **clôturé** (décision Morris postérieure à ce pack historique).
-
+ 
 -**Effets :** aucun cycle lancé automatiquement ; UX/UI reste seulement le prochain cycle **recommandé** (via 11A) ; un nouveau GO Morris est requis pour sélectionner et lancer le cycle suivant.
 +**Effets :** UX/UI **lancé et clôturé** ; docs `14`–`16` ; Figma `lrjA1WEyRpL05vKR8k29LO` (P0-00C…03C). **Ne clôt pas** l’architecture fonctionnelle. Delivery = prochaine étape **autorisée**, non exécutée. Tech/POC/MVP non lancés.
-
+ 
  ---
-
+ 
 @@ -240,7 +240,7 @@ Voir document 12 §9 — couverture complète via AF-01…AF-15.
  | 11 | AF-12 |
  | 12 | FB-12, **AF-Option C** |
  | 13 | AF-06/10 |
 -| 14 | AF-CAND-* ; AF-CAND-11B non décidée |
 +| 14 | AF-CAND-* ; AF-CAND-11B VALIDÉE (UX/UI clôturé) — postérieur |
-
+ 
  ### AC-01…08 / RF-01…07
-
+ 
 @@ -254,11 +254,11 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde
-
+ 
  ## 8. Risques / réserves / questions Morris
-
+ 
 -**Risques :** AF-Option B seconde vérité (écartée) ; FB pris pour microservices ; Runtime contractuel implicite ; confusion AF-Option C / Option C méthode ; promotion implicite d’AF-CAND-11B.
 -**Réserves :** Pas de tech ; pas de D-VAL-12 ; Runtime candidat ; cycle suivant non sélectionné.
 +**Risques :** AF-Option B seconde vérité (écartée) ; FB pris pour microservices ; Runtime contractuel implicite ; confusion AF-Option C / Option C méthode ; confusion delivery/clôture architecture (AF-CAND-11B déjà tranché).
@@ -1051,67 +1071,80 @@ index 5d14684..76b244b 100644
 -| Lancement UX/UI / tech / POC / MVP | **Non** |
 +| Lancement UX/UI | **Fait / clôturé** |
 +| Lancement tech / POC / MVP | **Non** |
-
+ 
  ---
-
+ 
 @@ -290,7 +291,7 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde
  | FB-01…12 | Services créés |
  | AF-CAND-01…10, 11A, 12 | D-VAL-12 |
  | AF-CAND-11A (trajectoire) | Cycle suivant lancé |
 -| AF-CAND-11B | Toujours **non décidée** |
 +| AF-CAND-11B | **VALIDÉE** — UX/UI clôturé |
-
+ 
  ---
-
+ 
 @@ -298,7 +299,7 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde
-
+ 
  **Recommandation (AF-CAND-11A VALIDÉE) :** UX/UI fonctionnelle et visuelle en premier, puis architecture technique, POC borné, MVP après retour POC.
-
+ 
 -**Sélection (AF-CAND-11B) :** **NON DÉCIDÉE**. Aucun cycle lancé. Nouveau GO Morris requis.
 +**Sélection (AF-CAND-11B) :** **VALIDÉE** — UX/UI clôturé. Delivery autorisé non exécuté. Clôture architecture = GO distinct.
-
+ 
  ---
-
+ 
 @@ -307,9 +308,9 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde
  **Architecture fonctionnelle VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` — PR #211 **MERGED** (`84e4863…`) et **acceptée/régularisée** (Morris — 2026-07-18). Sync #212 **INTÉGRÉE** (`cb870544…`). Finalisation #213 **INTÉGRÉE** (`19302836…`).
-
+ 
  Validé : AF-Option C ; AF-CAND-01…10 ; AF-CAND-11A ; AF-CAND-12 ; acceptation #211.
 -Non décidé : AF-CAND-11B ; clôture formelle.
 -Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle suivant lancé. Clôture formelle **non prononcée**.
 +Non décidé : clôture formelle architecture ; delivery effectif ; tech/POC/MVP.
 +Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle delivery, architecture technique, POC ou MVP lancé. Clôture formelle **non prononcée**.
-
+ 
  ---
-
+ 
 -*Pack AF validé et intégré — Critical — sync #212 + finalisation #213 intégrées — Morris décide AF-CAND-11B / clôture.*
 +*Pack AF validé et intégré — AF-CAND-11B VALIDÉE (UX/UI clôturé) — architecture NON clôturée — Morris décide delivery / clôture archi.*
-
 ```
 
 ---
 
-## 13. Décisions Morris (rappel, non modifiées)
+## 12. Décisions Morris — fond inchangé
 
-Option B ; 14/15/16 conservés ; pas de 14-ux-ui-design-contract.md ; P0 = 4 frames ; UX clôturé ; Figma référence initiale ; architecture non clôturée ; delivery autorisé non exécuté ; pas de commit/push/PR projet dans ce cycle.
+| Décision | Statut |
+|---|---|
+| Option B consolidation | VALIDÉE |
+| AF-CAND-11B | VALIDÉE — UX/UI clôturé |
+| Figma P0 référence initiale | VALIDÉE (non immutable runtime) |
+| Delivery | Autorisé — non exécuté |
+| Clôture formelle architecture | NON PRONONCÉE |
+| Tech / POC / MVP | Non lancés |
+| Commit / push / PR projet | Interdits sans nouveau GO |
 
-## 14. Figma (rappel)
+---
 
-URL https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO — fileKey `lrjA1WEyRpL05vKR8k29LO` — P0-00C `19:2` ; P0-01C `22:2` ; P0-02C `22:133` ; P0-03C `22:270` — 1440×1024. Runtime screenshot obligatoire avant verdict visuel fort.
+## 13. Instruction ChatGPT obligatoire
 
-## 15. Réserves
+Le Review Handoff Git corrigé est disponible sur la branche `sfia/review-handoff`.
 
-Responsive / a11y / micro-interactions / empty-error-loading / conformité runtime / delivery non lancé.
+Lire obligatoirement :
+`sfia-review-handoff/latest-chatgpt-review.md`
 
-## 16. Validations
+Vérifier :
+- correction résiduelle dans `07` (phrase « Morris reste libre… ») ;
+- correction résiduelle « Prochain cycle après architecture » (localisée dans `07`, non dans README) ;
+- absence de modification de fond ;
+- contenus complets `14`/`15`/`16` toujours présents ;
+- diffs utiles README / `07` / `13` ;
+- validations ;
+- distinction handoff ;
+- verdict.
 
-- « Aucun cycle suivant lancé » : **absent**
-- Liste README 1–6 sans doublon : **OK**
-- Distinction handoff initial / publication actuelle : **OK**
-- 07/14/15/16 non modifiés par cette correction : **OK**
-- Aucun staged / commit projet : **OK**
+Verdict attendu :
+`READY FOR COMMIT — DOCUMENTARY CONSISTENCY RESTORED`
 
-## 17. Verdict
+---
+
+## 14. Verdict
 
 **READY FOR COMMIT — DOCUMENTARY CONSISTENCY RESTORED**
-
-Publication handoff : **HANDOFF REQUIRED — UPDATED — REMOTE VERIFIED** (après push).
