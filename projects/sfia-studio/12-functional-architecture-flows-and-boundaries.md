@@ -3,9 +3,10 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `12-functional-architecture-flows-and-boundaries.md` |
-| **Statut** | `functional-architecture-amended-review` |
+| **Statut** | `functional-architecture-validated-pr-open` |
 | **Cycle** | Architecture fonctionnelle — Critical |
 | **Base** | `e9d819368a6224259e8ba0e942d53effb81e191a` |
+| **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) draft — **non intégrée** sur `main` — merge **non autorisé** |
 | **Complète** | [11-functional-architecture.md](./11-functional-architecture.md) |
 
 > Flux **AF-*** candidats. Ne remplacent pas F1–F12 validés ; ils les **structurent** architecturalement.
@@ -388,4 +389,4 @@ Voir document 11 §§9–10 et BR-001…025. Gates séparés : commit, push, PR,
 
 ---
 
-*Flux architecture CANDIDATS — non validés — Morris décide.*
+*Flux architecture VALIDÉS avec l’architecture — draft PR #211 — non intégrés sur main — Morris décide AF-CAND-11B / merge.*

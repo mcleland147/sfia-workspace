@@ -7,12 +7,12 @@
 | **Cycle** | 1 — Cadrage (historique) ; cycle 2 conception tracé ci-dessous |
 | **Profil** | Critical (conception) / Standard (sync historique) / Critical (cadrage historique) |
 | **Baseline** | SFIA v2.6 (**Option C méthode**) |
-| **Statut** | `functional-architecture-amended-review` ; conception `functional-design-integrated` sur `main` ; cycle 2 **clôturé** |
+| **Statut** | `functional-architecture-validated-pr-open` ; conception `functional-design-integrated` sur `main` ; cycle 2 **clôturé** |
 | **Décisions** | D-VAL-1…11 inchangées ; FD-CAND-01…08 **VALIDÉES** ; **AF-Option C VALIDÉE** ; AF-CAND-01…10, 11A, 12 **VALIDÉES** ; AF-CAND-11B **NON DÉCIDÉE** |
 | **Destinataire** | Morris |
-| **Source de vérité** | Git `main` @ `e9d819368a6224259e8ba0e942d53effb81e191a` — cadrage + conception ; architecture **locale amendée** |
+| **Source de vérité** | Git `main` @ `e9d819368a6224259e8ba0e942d53effb81e191a` — cadrage + conception ; architecture **versionnée** (draft PR #211 — non sur `main`) |
 
-> Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Conception **VALIDÉE** et **INTÉGRÉE**. Architecture **VALIDÉE PARTIELLEMENT** (amendements) — **pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
+> Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Conception **VALIDÉE** et **INTÉGRÉE**. Architecture **VALIDÉE** sur le fond — commit `2153258…` — draft PR #211 — **non intégrée** sur `main` — **pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
 
 ---
 
@@ -33,15 +33,17 @@
 | Intégration Git conception | **Réalisée** — PR #209 / merge `fdade59…` / commit `99eaeaa…` |
 | Acceptation Morris intégration #209 | **VALIDÉE** — 2026-07-18 |
 | Écart d’autorisation merge #209 | **Clôturé** (traçabilité) — sans D-VAL-12 ; sans réécriture rétroactive du GO draft |
-| Cycle architecture fonctionnelle | **VALIDÉE PARTIELLEMENT** — amendements intégrés — `functional-architecture-amended-review` |
+| Cycle architecture fonctionnelle | **VALIDÉE** sur le fond — `functional-architecture-validated-pr-open` |
 | AF-Option C | **VALIDÉE** — ≠ Option C méthode |
 | AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
 | AF-CAND-11B | **NON DÉCIDÉE** — sélection prochain cycle |
 | D10 | FB-11 → **AF-01 / AF-15** → FR-024 / FR-025 |
+| Versionnement architecture | Commit `2153258…` ; branche **poussée** ; draft PR #211 |
+| Intégration architecture sur `main` | **Non** — merge **non autorisé** |
 | Prochain cycle après architecture | **Non sélectionné** (AF-CAND-11B) ; UX/UI **recommandé** (11A) |
-| Branches | `functional-design` / `pre-framing` **conservées** ; architecture **locale** (push interdit) |
+| Branches | `functional-design` / `pre-framing` **conservées** ; architecture **poussée** (PR #211 draft) |
 
-> Le merge #207 est un fait Git. D-VAL-11 clôture le cadrage. Le merge #209/#210 intègre la conception. L’architecture candidate est **locale** — aucun commit projet.
+> Le merge #207 est un fait Git. D-VAL-11 clôture le cadrage. Le merge #209/#210 intègre la conception. L’architecture est **versionnée** (commit `2153258…`, draft PR #211) — **non intégrée** sur `main`.
 
 ### Trace factuelle — cycle 2 (conception fonctionnelle)
 
@@ -118,7 +120,7 @@ Pré-cadrage                         ← terminé historiquement
   → merge PR #207                   ← fait Git vérifié (ec21074) — régularisé D-VAL-11
   → synchronisation post-merge      ← **VALIDÉE** — cadrage documentaire clôturé
   → conception fonctionnelle        ← **VALIDÉE** + **INTÉGRÉE** (PR #209 / sync #210 → `e9d8193…`) — **CLÔTURÉE**
-  → architecture fonctionnelle      ← **VALIDÉE PARTIELLEMENT** (`11`–`13` amendés) — AF-Option C **VALIDÉE** — AF-CAND-11B **ouverte**
+  → architecture fonctionnelle      ← **VALIDÉE** — commit `2153258…` — draft PR #211 — **non intégrée** sur `main` — AF-CAND-11B **ouverte**
   → UX/UI (recommandé AF-CAND-11A)  ← **non sélectionnée** (AF-CAND-11B)
   → architecture technique candidate
   → définition du POC
@@ -140,7 +142,7 @@ Pré-cadrage                         ← terminé historiquement
 - Merge #207 = fait Git ; régularisation cadrage = **D-VAL-11**.
 - Merge #209 / #210 = faits Git ; conception intégrée ; sync documentaire clôturable (post-#210).
 - Aucune stack / architecture **technique** validée.
-- Architecture **fonctionnelle VALIDÉE PARTIELLEMENT** — amendements locaux ; **non commitée** projet.
+- Architecture **fonctionnelle VALIDÉE** sur le fond — commit `2153258…` — branche **poussée** — draft PR #211 — **non intégrée** sur `main`.
 - **AF-CAND-11A** oriente UX/UI puis tech puis POC puis MVP — **sans lancer**.
 - **AF-CAND-11B** : sélection cycle suivant **NON DÉCIDÉE**.
 - Conception fonctionnelle **VALIDÉE** et **INTÉGRÉE** sur `main`.
@@ -173,7 +175,7 @@ Pré-cadrage                         ← terminé historiquement
 
 | Champ | Contenu |
 |-------|---------|
-| Statut | **VALIDÉE PARTIELLEMENT** — amendements Morris — `functional-architecture-amended-review` |
+| Statut | **VALIDÉE** sur le fond — `functional-architecture-validated-pr-open` |
 | Objectif | Blocs logiques ; frontières Studio / Git / GPT / Cursor / orchestrateur candidat |
 | Livrables | `11` / `12` / `13` |
 | Profil | Critical |
@@ -181,8 +183,10 @@ Pré-cadrage                         ← terminé historiquement
 | AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
 | AF-CAND-11B | **NON DÉCIDÉE** |
 | D10 | FB-11 → AF-01 / AF-15 → FR-024 / FR-025 |
-| Branche | `project/sfia-studio-functional-architecture` — **locale** ; push projet interdit |
-| Ne lance pas | Architecture technique ; UX/UI ; stack ; POC ; MVP ; code ; commit projet |
+| Branche | `project/sfia-studio-functional-architecture` — **poussée** — draft PR #211 |
+| Commit | `215325858ed493564f6083ec5adc1618008593f6` |
+| Intégration | **Non** sur `main` — merge **non autorisé** |
+| Ne lance pas | Architecture technique ; UX/UI ; stack ; POC ; MVP ; code ; ready-for-review ; merge |
 
 ### 4.3 UX/UI
 
@@ -218,7 +222,7 @@ Pré-cadrage                         ← terminé historiquement
 | D-NEXT-2c | Sélection du cycle suivant après validation conception | Morris | **FAIT** — architecture fonctionnelle **lancée** |
 | D-NEXT-2d | Autorisation commit / push / PR de la conception | Morris | **FAIT** — réalisés (PR #209 / #210) |
 | D-NEXT-2e | Acceptation intégration / clôture écart merge #209 | Morris | **VALIDÉE** — 2026-07-18 (sans D-VAL-12) |
-| D-NEXT-2f | Validation architecture / AF-CAND | Morris | **PARTIELLE** — AF-Option C + AF-CAND-01…10, 11A, 12 **VALIDÉES** ; 11B ouverte |
+| D-NEXT-2f | Validation architecture / AF-CAND | Morris | **VALIDÉE** sur le fond — AF-Option C + AF-CAND-01…10, 11A, 12 ; 11B ouverte ; draft PR #211 |
 | D-NEXT-2g | Sélection cycle suivant après architecture (AF-CAND-11B) | Morris | **Non sélectionné** |
 | D-NEXT-2h | Trajectoire recommandée (AF-CAND-11A) | Morris | **VALIDÉE** (recommandation uniquement) |
 | D-NEXT-3 | Autorisation versionnement **G7** (commit/push/draft PR) | Morris | **FAIT** (D-VAL-10) — historique |
@@ -262,13 +266,13 @@ Pré-cadrage                         ← terminé historiquement
 
 **Conception fonctionnelle bornée** (Option 1 de séquencement post-cadrage) a été **sélectionnée, produite, VALIDÉE et INTÉGRÉE** (PR #209 / #210).
 
-**Architecture fonctionnelle Critical** : **VALIDÉE PARTIELLEMENT** — **AF-Option C VALIDÉE** ; AF-CAND-01…10, 11A, 12 **VALIDÉES** ; amendements D10 / nommage / scission 11A–11B intégrés.
+**Architecture fonctionnelle Critical** : **VALIDÉE** sur le fond — **AF-Option C VALIDÉE** ; AF-CAND-01…10, 11A, 12 **VALIDÉES** ; versionnée (commit `2153258…`, draft PR #211) — **non intégrée** sur `main`.
 
 **AF-CAND-11A (VALIDÉE — recommandation) :** UX/UI → architecture technique → POC borné → MVP après retour POC.
 
 **AF-CAND-11B :** **NON DÉCIDÉE** — aucun cycle suivant lancé. Nouveau GO Morris requis.
 
-Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n’est lancé ici.
+Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n’est lancé ici. Merge PR #211 **non autorisé**.
 
 ---
 
@@ -284,16 +288,16 @@ Morris reste libre. **Aucun** cycle UX/UI / architecture technique / POC / MVP n
 | **DF-G6** | Décision de poursuite post-POC | **PROPOSÉ** |
 | **DF-G7** | Autoriser cadrage / sélection MVP | **PROPOSÉ** |
 
-Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**. Architecture : **VALIDÉE PARTIELLEMENT**. AF-CAND-11B : **non décidée**.
+Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**. Architecture : **VALIDÉE** sur le fond — draft PR #211. AF-CAND-11B : **non décidée**.
 
 ---
 
 ## 8. Questions Morris
 
-1. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via AF-CAND-11A, ou autre ?
-2. Autorisez-vous le versionnement / intégration documentaire de l’architecture amendée (GO distinct) ?
+1. Autorisez-vous le ready-for-review / merge de la draft PR #211 (GO distincts) ?
+2. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via AF-CAND-11A, ou autre ?
 3. Conservez-vous ou autorisez-vous la suppression (cycle séparé) de `project/sfia-studio-pre-framing` ?
-4. Quel sort pour `project/sfia-studio-functional-design` et la branche architecture locale ?
+4. Quel sort pour `project/sfia-studio-functional-design` et la branche architecture (après merge éventuel) ?
 5. Quel niveau d’architecture minimale avant POC ?
 6. Quelles priorités NFR avant le POC ?
 
@@ -312,7 +316,7 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
 | Clôture formelle cadrage | **FAIT** (D-VAL-11 — 2026-07-18) |
 | Cycle conception fonctionnelle | **CLÔTURÉ** — intégré PR #209 / #210 |
 | FD-CAND-01…08 | **VALIDÉES** |
-| Architecture fonctionnelle | **VALIDÉE PARTIELLEMENT** (`11`–`13` amendés) |
+| Architecture fonctionnelle | **VALIDÉE** — draft PR #211 — **non intégrée** sur `main` |
 | AF-Option C | **VALIDÉE** |
 | AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
 | AF-CAND-11B | **NON DÉCIDÉE** |
@@ -331,13 +335,13 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
 | Conception fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — base `e9d8193…` |
 | FD-CAND-01…08 | **VALIDÉES** |
 | Cycle 2 | **CLÔTURÉ** |
-| Architecture fonctionnelle | **VALIDÉE PARTIELLEMENT** — amendements |
+| Architecture fonctionnelle | **VALIDÉE** — commit `2153258…` — draft PR #211 — **non intégrée** |
 | AF-Option C | **VALIDÉE** — ≠ Option C méthode |
 | AF-CAND-11B | **NON DÉCIDÉE** |
 | Ready for POC / MVP / tech | **Non** |
-| Ready for Morris final review (amendements) | **Oui** |
+| Ready for ChatGPT PR review | **Oui** (correctif statut Git) |
 
-**Verdict :** `SFIA STUDIO FUNCTIONAL ARCHITECTURE AMENDMENTS APPLIED — READY FOR MORRIS FINAL REVIEW`
+**Verdict :** `SFIA STUDIO FUNCTIONAL ARCHITECTURE PR CORRECTED — READY FOR CHATGPT PR REVIEW`
 
 ---
 
@@ -351,8 +355,8 @@ Les gates DF-G4+ **ne sont pas** validés. Validation conception : **VALIDÉE**.
 | [08-functional-design.md](./08-functional-design.md) | Conception — contrat **validé / intégré** |
 | [09-functional-flows-and-rules.md](./09-functional-flows-and-rules.md) | Conception — parcours **validés** |
 | [10-functional-decision-pack.md](./10-functional-decision-pack.md) | Conception — pack de **validation / clôture** |
-| [11-functional-architecture.md](./11-functional-architecture.md) | Architecture — **VALIDÉE PARTIELLEMENT** |
-| [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux / frontières — amendé D10 |
-| [13-functional-architecture-decision-pack.md](./13-functional-architecture-decision-pack.md) | AF-Option / AF-CAND — amendé |
+| [11-functional-architecture.md](./11-functional-architecture.md) | Architecture — **VALIDÉE** — PR #211 |
+| [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux / frontières — D10 → AF-01 / AF-15 |
+| [13-functional-architecture-decision-pack.md](./13-functional-architecture-decision-pack.md) | AF-Option / AF-CAND |
 
-*SFIA Studio — architecture VALIDÉE PARTIELLEMENT (AF-Option C) — AF-CAND-11B NON DÉCIDÉE — Option C méthode préservée — Morris décide.*
+*SFIA Studio — architecture VALIDÉE — draft PR #211 — non intégrée sur main — AF-CAND-11B NON DÉCIDÉE — Option C méthode préservée — Morris décide.*
