@@ -8,16 +8,17 @@
 | **Profil** | Critical |
 | **Typologie** | DOC — EVOL produit |
 | **Baseline** | SFIA v2.6 (Option C) |
-| **Base Git** | `origin/main` @ `8f5e8a853cfa61ce9f77d6754bd8c1ef78da603a` |
-| **Branche travail** | `project/sfia-studio-functional-design` (locale — push interdit) |
-| **Statut** | `functional-design-validated` |
+| **Base Git** | `origin/main` @ `fdade59a23a6dff4c264c73975358f77bc90f9b0` (PR #209) |
+| **Branche conception** | `project/sfia-studio-functional-design` (**conservée** ; poussée ; intégrée) |
+| **Statut** | `functional-design-validated` — **intégré** sur `main` ; cycle **clôturé** |
 | **Autorité** | Morris (L0) |
 | **Décision validation** | Morris — **2026-07-18** — conception fonctionnelle **VALIDÉE** |
+| **Intégration** | PR #209 MERGED — commit `99eaeaab…` — merge `fdade59…` |
 | **Décisions cadrage** | D-VAL-1 à D-VAL-11 (historiques / validées) |
 | **Décisions conception** | FD-CAND-01 à FD-CAND-08 — **VALIDÉES** — Morris — 2026-07-18 |
 | **Cycle suivant** | **Non sélectionné** |
 
-> Contrat de conception fonctionnelle **validé**. **Pas** d’architecture technique, stack, API, modèle de données, Figma, backlog, POC ou MVP. Aucune D-VAL-12.
+> Contrat de conception fonctionnelle **validé** et **intégré** sur `main`. **Pas** d’architecture technique, stack, API, modèle de données, Figma, backlog, POC ou MVP. Aucune D-VAL-12.
 
 ---
 
@@ -50,17 +51,17 @@ Acteurs et responsabilités ; domaines D1–D10 ; douze états ; transitions ; F
 | MVP | **Non défini / non lancé** |
 | Backlog / user stories | **Non créés** |
 | Cycle suivant | **Non lancé** par cette validation |
-| Actions Git projet | Commit / push / PR / merge **non autorisés** par cette validation |
+| Actions Git projet (à la validation) | Commit / push / PR / merge **non autorisés** par la seule validation — faits ultérieurs sous GO distincts |
 
-### Effet de la validation
+### Effet de la validation (historique) et état post-intégration
 
-- Le référentiel fonctionnel `08`–`10` devient **socle validé** localement.
-- Aucun effet sur architecture, POC, MVP, stack ou actions Git projet.
-- L’intégration sur `main` exige un **GO Git distinct**.
+- Le référentiel fonctionnel `08`–`10` est devenu **socle validé**.
+- Aucun effet automatique sur architecture, POC, MVP ou stack.
+- **État courant :** intégration réalisée via PR #209 (`99eaeaa…` / `fdade59…`) ; cycle conception **clôturé** ; acceptation Morris de l’intégration (2026-07-18) ; écart d’autorisation de merge **clôturé** sans D-VAL-12.
 
 ### Éléments non décidés
 
-Architecture ; UX/UI visuelle ; stack ; contenu POC ; définition MVP ; commit/push/PR de la conception ; sort des branches ; sélection du cycle suivant.
+Architecture ; UX/UI visuelle ; stack ; contenu POC ; définition MVP ; sort des branches ; sélection du cycle suivant.
 
 ---
 
@@ -338,4 +339,4 @@ Pas de wireframes, maquettes, Figma, dimensions ni composants UI.
 
 ---
 
-*SFIA Studio — conception fonctionnelle VALIDÉE (Morris — 2026-07-18) — Critical — architecture/stack/POC/MVP non décidés — Morris décide.*
+*SFIA Studio — conception fonctionnelle VALIDÉE et INTÉGRÉE (PR #209 / `fdade59…`) — Critical — architecture/stack/POC/MVP non décidés — Morris décide.*
