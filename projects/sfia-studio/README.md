@@ -4,35 +4,42 @@
 |------------|--------|
 | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
 | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
-| **Statut** | `post-merge-documentary-synchronization-validated` |
+| **Statut** | `functional-design-validated` |
 | **Baseline méthode** | **SFIA v2.6** (consommée — Option **C** validée ; baseline inchangée) |
 | **Autorité** | Morris (L0) |
-| **Exécuteur** | Cursor — synchronisation documentaire post-merge (DOC, Standard) |
-| **Typologie cycle** | DOC — EVOL projet |
-| **Cycle projet** | 1 — Cadrage (sous-cycle : **synchronisation documentaire post-merge**) |
-| **Profil SFIA** | Standard |
+| **Exécuteur** | Cursor — finalisation documentaire conception (DOC, Critical) |
+| **Typologie cycle** | DOC — EVOL produit |
+| **Cycle projet** | 2 — Conception fonctionnelle (**VALIDÉE** — Morris — 2026-07-18) |
+| **Profil SFIA** | Critical |
+| **Branche travail** | `project/sfia-studio-functional-design` (locale — **non poussée**) |
 | **Branche historique** | `project/sfia-studio-pre-framing` (conservée ; intégrée à `main`) |
 | **Chemin** | `projects/sfia-studio/` |
-| **Source de vérité** | Git **`main`** — PR **#207** mergée |
+| **FD-CAND-01…08** | **VALIDÉES** — Morris — 2026-07-18 |
+| **D-VAL-11** | **VALIDÉE** — cadrage documentaire clôturé |
+| **Architecture fonctionnelle** | **RECOMMANDATION — NON SÉLECTIONNÉE / NON LANCÉE** |
+| **Prochain cycle** | **Non sélectionné** |
 
 ---
 
-## 0. État post-merge (observation)
+## 0. État post-merge (observation) et conception
 
 | Élément | Valeur |
 |---------|--------|
 | PR | [#207](https://github.com/mcleland147/sfia-workspace/pull/207) — **MERGED** |
 | Commit projet | `b853af1113a2ff03de72a7db3a00724c3c53820e` |
 | Merge commit | `ec21074ee1bff63153a3aa179b8d33d0678db389` |
-| Socle sur `main` | Huit documents intégrés — intégrité vérifiée |
+| Socle cadrage sur `main` | Huit documents — intégrité vérifiée |
 | Cadrage détaillé | **Validé** (D-VAL-9 / DF-G1) |
 | Cadrage documentaire | **Clôturé** (D-VAL-11) |
 | Synchronisation post-merge | **Validée** (D-VAL-11) |
 | D-VAL-11 | **VALIDÉE** — Morris — 2026-07-18 |
+| Cycle 2 conception | **VALIDÉE** — Morris — 2026-07-18 |
+| FD-CAND-01…08 | **VALIDÉES** |
+| Intégration conception sur `main` | **Non réalisée** — GO Git distinct requis |
 | Prochain cycle | **Non sélectionné** |
-| Branche projet | Conservée ; suppression = décision distincte |
+| Branche projet historique | Conservée ; suppression = décision distincte |
 
-> Le merge PR #207 est un **fait Git** vérifié. D-VAL-10 n’autorisait **pas** le merge. D-VAL-11 **régularise** l’intégration et clôture le cadrage documentaire.
+> Le merge PR #207 est un **fait Git** vérifié. D-VAL-10 n’autorisait **pas** le merge. D-VAL-11 **régularise** l’intégration et clôture le cadrage documentaire. La conception fonctionnelle est **validée** localement ; elle n’est **pas** encore sur `main`.
 
 ---
 
@@ -103,11 +110,12 @@ Pré-cadrage                    ← terminé historiquement
   → versionnement (G7)         ← commit / push / draft PR réalisés (D-VAL-10)
   → merge PR #207              ← fait Git vérifié (ec21074) — régularisé par D-VAL-11
   → synchronisation post-merge ← **VALIDÉE** (D-VAL-11) — cadrage documentaire clôturé
-  → conception / architecture / UX  ← non sélectionnés
+  → conception fonctionnelle   ← **VALIDÉE** (Morris — 2026-07-18) — locale, hors main
+  → architecture / UX          ← RECOMMANDATION architecture — **NON SÉLECTIONNÉE**
   → POC → MVP → delivery → industrialisation plateforme
 ```
 
-Aucune stack / architecture validée. Aucun cycle produit suivant démarré.
+Aucune stack / architecture validée. Conception fonctionnelle **validée** (locale). POC / MVP non lancés. Intégration Git conception = GO distinct.
 
 ---
 
@@ -117,7 +125,7 @@ Aucune stack / architecture validée. Aucun cycle produit suivant démarré.
 
 | Document | Rôle |
 |----------|------|
-| [README.md](./README.md) | Identité, état post-merge, décisions, navigation |
+| [README.md](./README.md) | Identité, état, décisions, navigation |
 | [01-opportunity-and-vision.md](./01-opportunity-and-vision.md) | Opportunité et vision (historique) |
 | [02-sfia-cycle-coverage-hypothesis.md](./02-sfia-cycle-coverage-hypothesis.md) | Couverture cycles (historique) |
 | [03-pre-framing-decision-pack.md](./03-pre-framing-decision-pack.md) | Decision pack pré-cadrage (historique) |
@@ -133,13 +141,23 @@ Aucune stack / architecture validée. Aucun cycle produit suivant démarré.
 
 > **Cadrage détaillé ≠ conception / architecture / UX / backlog / POC / code.**
 
+### Conception fonctionnelle — VALIDÉE
+
+| Document | Rôle |
+|----------|------|
+| [08-functional-design.md](./08-functional-design.md) | Contrat de conception fonctionnelle |
+| [09-functional-flows-and-rules.md](./09-functional-flows-and-rules.md) | Parcours F1–F12 et règles métier |
+| [10-functional-decision-pack.md](./10-functional-decision-pack.md) | Pack de validation (FD-CAND-01…08 VALIDÉES) |
+
+> Conception **VALIDÉE** — Morris — 2026-07-18 — avec réserves structurantes. ≠ architecture / stack / UX visuelle / backlog / POC / MVP / code. Présence **locale** sur `project/sfia-studio-functional-design` — **pas** encore sur `main`.
+
 ---
 
-## 4. Justification Critical (historique du cadrage)
+## 4. Justification Critical
 
 Le cadrage détaillé a été exécuté en profil Critical : projet officiel ; orchestration Git/GPT/Cursor/mécanisme déterministe ; impacts permissions, données, gates ; séparation produit/POC/MVP/industrialisation.
 
-Le présent sous-cycle de synchronisation post-merge est en profil **Standard**.
+Le cycle 2 (conception fonctionnelle / finalisation) est en profil **Critical** : règles de contrôle des actions Git/GPT/Cursor ; gates, permissions, arrêts ; prévention d’auto-arbitrage et de seconde vérité.
 
 ---
 
@@ -147,7 +165,8 @@ Le présent sous-cycle de synchronisation post-merge est en profil **Standard**.
 
 | Principe | Portée |
 |----------|--------|
-| Git `main` = source de vérité | Socle `projects/sfia-studio/` intégré via PR #207 |
+| Git `main` = source de vérité du **cadrage** validé | Socle `01`–`07` intégré via PR #207 / #208 |
+| Conception validée = locale jusqu’à GO Git | Branche `project/sfia-studio-functional-design` |
 | Morris décide | Gates structurants |
 | GPT / Cursor | Qualifient / exécutent — ne décident pas |
 | Option C | Consomme v2.6 (**validé**) |
@@ -176,7 +195,7 @@ Le présent sous-cycle de synchronisation post-merge est en profil **Standard**.
 
 ---
 
-## 7. Décisions D-VAL-1 à D-VAL-11
+## 7. Décisions D-VAL-1 à D-VAL-11 et FD-CAND
 
 | # | Décision | Gate |
 |---|----------|------|
@@ -199,28 +218,32 @@ Le présent sous-cycle de synchronisation post-merge est en profil **Standard**.
 | Statut | **VALIDÉE** |
 | Autorité | Morris |
 | Date | **2026-07-18** |
-| Contexte | Validation après contrôle post-merge et revue de la synchronisation documentaire |
-| Contenu | Intégration PR #207 reconnue ; socle établi sur `main` ; cadrage documentaire clôturé ; branche `project/sfia-studio-pre-framing` conservée jusqu’à décision distincte ; prochain cycle non sélectionné |
+| Contenu | Intégration PR #207 reconnue ; socle établi sur `main` ; cadrage documentaire clôturé ; branche `project/sfia-studio-pre-framing` conservée jusqu’à décision distincte |
+
+### FD-CAND-01…08 — VALIDÉES
+
+Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01…08 — **2026-07-18**. Identifiants locaux au cycle de conception — **pas de D-VAL-12**.
 
 ### Décisions encore ouvertes
 
 | Décision | Statut |
 |----------|--------|
-| Sort de la branche `project/sfia-studio-pre-framing` | Conservée ; décision distincte |
-| Prochain cycle (conception / archi / UX…) | **Non sélectionné** |
-| Stack / architecture / contenu POC / MVP | Non pris |
+| Autorisation commit / push / PR de la conception | **Non prise** |
+| Sélection / lancement architecture fonctionnelle | **Non sélectionné** (recommandation uniquement) |
+| Sort des branches | Conservées ; décisions distinctes |
+| Contenu POC / définition MVP | Non pris |
+| Stack / architecture technique | Non pris |
 
 ---
 
 ## 8. Prochaine décision
 
-1. Revue ChatGPT de la draft PR corrective + handoff (si créée).
-2. Sort de la branche projet (conserver / supprimer en cycle séparé).
-3. Sélection du prochain cycle (non lancée).
+1. Revue ChatGPT du handoff de **finalisation** (validation).
+2. GO distinct éventuel : commit / push / PR de la conception (non autorisé ici).
+3. Sélection du cycle suivant — **RECOMMANDATION :** architecture fonctionnelle Critical — **NON SÉLECTIONNÉE**.
+4. Sort des branches (décisions distinctes).
 
-**Recommandation (≠ décision) :** conception fonctionnelle bornée.
-
-**Verdict documentaire :** `SFIA STUDIO DOCUMENTARY FRAMING CLOSED — POST-MERGE SYNCHRONIZATION VALIDATED`
+**Verdict documentaire :** `SFIA STUDIO FUNCTIONAL DESIGN VALIDATED — DOCUMENTARY FINALIZATION READY FOR MORRIS REVIEW`
 
 ---
 
@@ -230,10 +253,13 @@ Le présent sous-cycle de synchronisation post-merge est en profil **Standard**.
 |---------|--------|
 | Méthode | SFIA v2.6 sur `main` |
 | Template | `prompts/templates/sfia-cycle-execution-template.md` v2.6 |
-| Documents projet | `projects/sfia-studio/` sur **`main`** (PR #207 / `ec21074`) |
+| Cadrage validé | `projects/sfia-studio/` **`01`–`07`** sur **`main`** (PR #207 / #208) |
+| Conception fonctionnelle validée | **Locale** — branche `project/sfia-studio-functional-design` (`08`–`10` + navigation) — **pas encore sur `main`** |
 | Review pack | `.tmp-sfia-review/chatgpt-review.md` — non versionné dans le projet |
 | Handoff | `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` |
 
+> `main` reste la source de vérité du **cadrage**. L’intégration de la conception exige un **GO Git distinct**.
+
 ---
 
-*SFIA Studio — socle intégré sur main (PR #207) — cadrage documentaire clôturé — D-VAL-11 validée — Option C — Morris décide.*
+*SFIA Studio — cadrage clôturé (D-VAL-11) — conception fonctionnelle VALIDÉE (Morris — 2026-07-18) — locale hors main — Option C — Morris décide.*
