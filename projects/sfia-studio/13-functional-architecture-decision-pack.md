@@ -6,7 +6,7 @@
 | **Statut** | `functional-architecture-post-merge-integrated` |
 | **Cycle** | 3 — Architecture fonctionnelle — sous-cycle amendements Morris |
 | **Profil** | Critical |
-| **Base / main** | `19302836b45d49f19698c624e99f2d68afa7b290` |
+| **Base / main** | `5f1eb9089652885fa19b6ce7592540b0626f29df` |
 | **Commit head PR #211** | `72cab8016387f827f4dcf04f7459208cd85ff327` |
 | **Merge #211** | `84e48636bb78808774b51f67329167f8e9749a6b` |
 | **Acceptation #211** | **VALIDÉE** — Morris — 2026-07-18 (sans D-VAL-12) |
@@ -15,7 +15,7 @@
 | **Commit finalisation #213** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
 | **Merge #213** | `19302836b45d49f19698c624e99f2d68afa7b290` |
 | **PR** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) **MERGED** + acceptée ; [#212](https://github.com/mcleland147/sfia-workspace/pull/212) sync **MERGED** ; [#213](https://github.com/mcleland147/sfia-workspace/pull/213) finalisation **MERGED** |
-| **Complète** | [11](./11-functional-architecture.md) · [12](./12-functional-architecture-flows-and-boundaries.md) |
+| **Complète** | [11](./11-functional-architecture.md) · [12](./12-functional-architecture-flows-and-boundaries.md) · UX [14](./14-ux-ui-contract.md)–[16](./16-ux-ui-decision-pack.md) |
 
 > **AF-CAND-*** = décisions locales au cycle d’architecture. **≠ D-VAL**. Aucune D-VAL-12.
 > **AF-Option A/B/C** = options d’architecture fonctionnelle — **distinctes** de l’**Option C méthode** SFIA v2.6 (relation produit/méthode déjà validée).
@@ -36,7 +36,7 @@
 
 ## 2. Hors périmètre (interdit)
 
-Stack ; API ; BDD ; services techniques ; Figma ; backlog ; POC ; MVP ; code ; commit/push/PR projet ; lancement cycle suivant ; D-VAL-12.
+Stack ; API ; BDD ; services techniques ; backlog ; POC ; MVP ; code ; commit/push/PR projet (sans GO) ; clôture architecture automatique ; D-VAL-12. *(Figma UX désormais référencé dans `14`–`16` — hors architecture technique.)*
 
 ---
 
@@ -142,7 +142,7 @@ Justification : préserve INV-12 / BR-019 / BR-025 ; évite fusion Studio/décid
 | AF-CAND-09 | Preuve / audit : journal ≠ preuve Git ≠ verdict ≠ décision | **VALIDÉE** | Observabilité | ≠ outil APM |
 | AF-CAND-10 | Option d’architecture = **AF-Option C** | **VALIDÉE** | Orientation | ≠ validation tech |
 | AF-CAND-11A | Trajectoire recommandée après architecture fonctionnelle (voir §6.1) | **VALIDÉE** (recommandation uniquement) | Oriente la séquence | Ne lance aucun cycle |
-| AF-CAND-11B | Sélection effective du prochain cycle | **NON DÉCIDÉE / À SÉLECTIONNER** | — | Nouveau GO Morris requis |
+| AF-CAND-11B | Sélection effective du prochain cycle | **VALIDÉE** — UX/UI sélectionné, exécuté et **clôturé** | Morris — post-architecture | **Ne clôt pas** l’architecture fonctionnelle ; Option B UX ; Figma P0 ; delivery autorisé non exécuté |
 | AF-CAND-12 | Aucune D-VAL-12 ; AF-CAND ≠ D-VAL | **VALIDÉE** | Gouvernance | — |
 
 ### 6.1 AF-CAND-11A — Trajectoire recommandée (VALIDÉE)
@@ -158,13 +158,13 @@ Après validation et intégration documentaire de l’architecture fonctionnelle
 
 **Effets :** oriente la séquence ; prépare le futur cycle UX/UI ; **ne lance** aucun cycle ; **ne valide** aucune architecture technique ; **ne définit** ni POC ni MVP.
 
-### 6.2 AF-CAND-11B — Sélection du prochain cycle (NON DÉCIDÉE)
+### 6.2 AF-CAND-11B — Sélection du prochain cycle (**VALIDÉE** — UX/UI clôturé)
 
 La sélection effective du prochain cycle reste une décision Morris **distincte**.
 
-**Statut :** **NON DÉCIDÉE / À SÉLECTIONNER**.
+**Statut :** **VALIDÉE** — cycle UX/UI sélectionné, exécuté sur Figma et **clôturé** (décision Morris postérieure à ce pack historique).
 
-**Effets :** aucun cycle lancé automatiquement ; UX/UI reste seulement le prochain cycle **recommandé** (via 11A) ; un nouveau GO Morris est requis pour sélectionner et lancer le cycle suivant.
+**Effets :** UX/UI **lancé et clôturé** ; docs `14`–`16` ; Figma `lrjA1WEyRpL05vKR8k29LO` (P0-00C…03C). **Ne clôt pas** l’architecture fonctionnelle. Delivery = prochaine étape **autorisée**, non exécutée. Tech/POC/MVP non lancés.
 
 ---
 
@@ -240,7 +240,7 @@ Voir document 12 §9 — couverture complète via AF-01…AF-15.
 | 11 | AF-12 |
 | 12 | FB-12, **AF-Option C** |
 | 13 | AF-06/10 |
-| 14 | AF-CAND-* ; AF-CAND-11B non décidée |
+| 14 | AF-CAND-* ; AF-CAND-11B VALIDÉE (UX/UI clôturé) — postérieur |
 
 ### AC-01…08 / RF-01…07
 
@@ -254,11 +254,11 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 
 ## 8. Risques / réserves / questions Morris
 
-**Risques :** AF-Option B seconde vérité (écartée) ; FB pris pour microservices ; Runtime contractuel implicite ; confusion AF-Option C / Option C méthode ; promotion implicite d’AF-CAND-11B.
-**Réserves :** Pas de tech ; pas de D-VAL-12 ; Runtime candidat ; cycle suivant non sélectionné.
+**Risques :** AF-Option B seconde vérité (écartée) ; FB pris pour microservices ; Runtime contractuel implicite ; confusion AF-Option C / Option C méthode ; confusion delivery/clôture architecture (AF-CAND-11B déjà tranché).
+**Réserves :** Pas de tech ; pas de D-VAL-12 ; Runtime candidat ; UX/UI clôturé (AF-CAND-11B) ; delivery non exécuté ; clôture architecture ouverte.
 **Questions Morris restantes :**
 1. Clôturez-vous formellement le cycle architecture ?
-2. Sélectionnez-vous le prochain cycle (**AF-CAND-11B**) — UX/UI recommandé via 11A, ou autre ?
+2. (Historique) AF-CAND-11B — **VALIDÉE** depuis (UX/UI clôturé). Prochaine question : lancez-vous le **delivery** ?
 3. Quel sort pour les branches (`pre-framing` / `functional-design` / `functional-architecture`) ?
 4. Quel niveau d’architecture minimale avant POC ?
 5. Autorisez-vous une trace documentaire post-#213 éventuelle ?
@@ -271,14 +271,15 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 |------|--------|
 | Validation AF-Option C | **FAIT** |
 | Validation AF-CAND-01…10, 11A, 12 | **FAIT** |
-| AF-CAND-11B sélection cycle | **OUVERT** |
+| AF-CAND-11B sélection cycle | **VALIDÉE** — UX/UI clôturé |
 | Versionnement architecture | **FAIT** |
 | Intégration PR #211 sur `main` | **FAIT Git** (`84e4863…`) |
 | Acceptation/régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 — sans D-VAL-12 |
 | Sync post-merge PR #212 | **INTÉGRÉE** — `cb870544…` |
 | Finalisation post-merge PR #213 | **INTÉGRÉE** — `19302836…` |
 | Clôture formelle cycle architecture | **Non** — **non prononcée** |
-| Lancement UX/UI / tech / POC / MVP | **Non** |
+| Lancement UX/UI | **Fait / clôturé** |
+| Lancement tech / POC / MVP | **Non** |
 
 ---
 
@@ -290,7 +291,7 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 | FB-01…12 | Services créés |
 | AF-CAND-01…10, 11A, 12 | D-VAL-12 |
 | AF-CAND-11A (trajectoire) | Cycle suivant lancé |
-| AF-CAND-11B | Toujours **non décidée** |
+| AF-CAND-11B | **VALIDÉE** — UX/UI clôturé |
 
 ---
 
@@ -298,7 +299,7 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 
 **Recommandation (AF-CAND-11A VALIDÉE) :** UX/UI fonctionnelle et visuelle en premier, puis architecture technique, POC borné, MVP après retour POC.
 
-**Sélection (AF-CAND-11B) :** **NON DÉCIDÉE**. Aucun cycle lancé. Nouveau GO Morris requis.
+**Sélection (AF-CAND-11B) :** **VALIDÉE** — UX/UI clôturé. Delivery autorisé non exécuté. Clôture architecture = GO distinct.
 
 ---
 
@@ -307,9 +308,9 @@ AC couverts par blocs+FR+flux ; RF traités comme risques architecture (seconde 
 **Architecture fonctionnelle VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` — PR #211 **MERGED** (`84e4863…`) et **acceptée/régularisée** (Morris — 2026-07-18). Sync #212 **INTÉGRÉE** (`cb870544…`). Finalisation #213 **INTÉGRÉE** (`19302836…`).
 
 Validé : AF-Option C ; AF-CAND-01…10 ; AF-CAND-11A ; AF-CAND-12 ; acceptation #211.
-Non décidé : AF-CAND-11B ; clôture formelle.
-Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle suivant lancé. Clôture formelle **non prononcée**.
+Non décidé : clôture formelle architecture ; delivery effectif ; tech/POC/MVP.
+Aucune D-VAL-12. Baseline `08`–`10` intacte. Aucun cycle delivery, architecture technique, POC ou MVP lancé. Clôture formelle **non prononcée**.
 
 ---
 
-*Pack AF validé et intégré — Critical — sync #212 + finalisation #213 intégrées — Morris décide AF-CAND-11B / clôture.*
+*Pack AF validé et intégré — AF-CAND-11B VALIDÉE (UX/UI clôturé) — architecture NON clôturée — Morris décide delivery / clôture archi.*
