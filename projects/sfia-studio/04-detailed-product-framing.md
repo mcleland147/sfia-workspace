@@ -8,11 +8,12 @@
 | **Profil** | Critical |
 | **Typologie** | DOC — EVOL projet |
 | **Baseline** | SFIA v2.6 (Option C) |
-| **Statut** | `detailed-framing-in-progress` |
-| **Décisions applicables** | D-VAL-1 à D-VAL-10 |
+| **Statut** | `post-merge-documentary-synchronization-validated` |
+| **Décisions applicables** | D-VAL-1 à D-VAL-11 |
 | **Autorité** | Morris |
+| **Source de vérité** | Git `main` — PR #207 / `ec21074` |
 
-> Contrat produit détaillé. **Pas** de conception fonctionnelle, architecture, stack, backlog, UX ni POC.
+> Contrat produit détaillé **validé** (D-VAL-9). **Pas** de conception fonctionnelle, architecture, stack, backlog, UX ni POC.
 
 ---
 
@@ -20,7 +21,7 @@
 
 SFIA Studio est le projet officiel visant une **plateforme métier opérationnelle et durable** pour **qualifier, lancer, suivre et clôturer** les cycles SFIA, en orchestrant Git, GPT, Cursor et un mécanisme d’orchestration déterministe sous contrôle Morris, tout en **consommant** SFIA v2.6 (Option C).
 
-Le pré-cadrage (G1–G5, revue G3 conforme) et **G6** autorisent ce cadrage détaillé. Le **POC** reste une preuve de faisabilité ultérieure. Le **MVP** et l’**industrialisation de la plateforme** restent distincts et non figés ici. **G7** (D-VAL-10) : commit / push / draft PR **autorisés** — **merge interdit**.
+Le pré-cadrage (G1–G5, revue G3 conforme) et **G6** ont autorisé ce cadrage détaillé, **validé** par D-VAL-9 / DF-G1. Le **POC** reste une preuve de faisabilité ultérieure. Le **MVP** et l’**industrialisation de la plateforme** restent distincts et non figés ici. **G7** (D-VAL-10, historique) : commit / push / draft PR autorisés — merge **non** autorisé par cette décision. **Observation :** PR #207 mergée (`ec21074`). **D-VAL-11 — VALIDÉE** (Morris — 2026-07-18) : intégration reconnue ; cadrage documentaire **clôturé** ; prochain cycle non sélectionné.
 
 ---
 
@@ -203,8 +204,8 @@ Aucune valeur numérique inventée.
 3. Métriques de valeur à contractualiser au MVP ?
 4. Gouvernance multi-opérateur future ?
 5. Politique secrets / permissions produit ?
-6. Merge de la draft PR — décision distincte (**non autorisée ici**) ?
-7. Quel prochain cycle ?
+6. Sort de la branche projet / sélection du prochain cycle ?
+7. Quel prochain cycle (conception bornée recommandée) ?
 
 ---
 
@@ -233,4 +234,4 @@ Aucune valeur numérique inventée.
 
 ---
 
-*SFIA Studio — cadrage détaillé produit — G6 — Morris décide.*
+*SFIA Studio — cadrage détaillé produit validé — cadrage documentaire clôturé — D-VAL-11 validée — Morris décide.*

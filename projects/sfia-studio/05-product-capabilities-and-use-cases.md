@@ -7,8 +7,8 @@
 | **Cycle** | 1 — Cadrage (cadrage détaillé produit) |
 | **Profil** | Critical |
 | **Baseline** | SFIA v2.6 (Option C) |
-| **Statut** | `detailed-framing-in-progress` |
-| **Décisions** | D-VAL-1 à D-VAL-10 |
+| **Statut** | `post-merge-documentary-synchronization-validated` |
+| **Décisions** | D-VAL-1 à D-VAL-11 |
 
 > Définit **ce que le produit doit permettre**. Pas de backlog, user stories détaillées, écrans, composants ni architecture.
 
