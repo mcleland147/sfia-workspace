@@ -7,12 +7,12 @@
 | **Cycle** | 2 — Conception fonctionnelle (finalisation documentaire) |
 | **Profil** | Critical |
 | **Baseline** | SFIA v2.6 (Option C) |
-| **Base Git** | `8f5e8a853cfa61ce9f77d6754bd8c1ef78da603a` |
-| **Statut** | `functional-design-validated` |
+| **Base Git** | `fdade59a23a6dff4c264c73975358f77bc90f9b0` (PR #209) |
+| **Statut** | `functional-design-validated` — **intégré** ; cycle **clôturé** |
 | **Destinataire** | Morris (L0) |
-| **Décision** | Validation Morris — **2026-07-18** |
+| **Décision** | Validation Morris — **2026-07-18** ; acceptation intégration #209 — **2026-07-18** |
 
-> Pack de **validation**. FD-CAND-01…08 **VALIDÉES**. Identifiants `FD-CAND-*` = locaux au cycle de conception — **ne modifient pas** la numérotation D-VAL. **Pas de D-VAL-12.**
+> Pack de **validation / clôture**. FD-CAND-01…08 **VALIDÉES**. Identifiants `FD-CAND-*` = locaux au cycle de conception — **ne modifient pas** la numérotation D-VAL. **Pas de D-VAL-12.**
 
 ---
 
@@ -22,18 +22,19 @@
 |-------|------|
 | Sélection cycle 2 | Morris — 2026-07-18 |
 | Production `08`–`10` | Cycle conception Critical |
-| Revue handoff | `80987d8…` sur `sfia/review-handoff` |
 | **Validation conception** | **Morris — 2026-07-18 — VALIDÉE** |
-| Intégration Git projet | **Non réalisée** — GO distinct requis |
+| Intégration Git projet | **Réalisée** — PR #209 MERGED (`99eaeaa…` / `fdade59…`) |
+| Acceptation intégration / écart merge | **Clôturés** — Morris — 2026-07-18 (sans D-VAL-12) |
+| Cycle 2 | **CLÔTURÉ** |
 | Cycle suivant | **Non sélectionné** |
 
-Livrables validés localement :
+Livrables validés et **intégrés** sur `main` :
 
 - `08-functional-design.md` — contrat fonctionnel ;
 - `09-functional-flows-and-rules.md` — parcours F1–F12 et règles BR ;
-- `10-functional-decision-pack.md` — le présent pack de validation.
+- `10-functional-decision-pack.md` — le présent pack.
 
-Aucune architecture, stack, UX visuelle, backlog, POC ou MVP n’a été lancé. Aucun commit / push / PR projet.
+Aucune architecture, stack, UX visuelle, backlog, POC ou MVP n’a été lancé.
 
 ---
 
@@ -55,7 +56,8 @@ Aucune architecture, stack, UX visuelle, backlog, POC ou MVP n’a été lancé.
 | Autorité | Morris |
 | Date | **2026-07-18** |
 | Objet | Socle fonctionnel `08`–`10` + FD-CAND-01…08 |
-| Effet Git projet | **Aucun** (commit/push/PR interdits dans ce sous-cycle) |
+| Effet Git projet (à la validation) | Aucun automatique — faits Git ultérieurs sous GO distincts |
+| Intégration courante | **Réalisée** — PR #209 |
 | Effet architecture / POC / MVP | **Aucun** |
 
 ---
@@ -86,9 +88,10 @@ Aucune architecture, stack, UX visuelle, backlog, POC ou MVP n’a été lancé.
 | Figma / maquettes / design system | Non autorisés |
 | Backlog / user stories delivery | Non créés |
 | POC / MVP | **Non lancés / non définis** |
-| Code / tests | Interdits |
-| Commit / push / PR / merge projet | **Interdits** (GO distinct) |
+| Code / tests | Hors conception |
 | Modification SFIA v2.6 / Campus360 | Interdites |
+
+> Note historique : le cycle de validation n’autorisait pas commit/push/PR/merge. Ces faits Git ont ensuite été réalisés sous GO distincts (PR #209). Commit / push / PR / merge restent des autorisations **génériques distinctes**.
 
 ---
 
@@ -164,12 +167,13 @@ RF-01…RF-07 demeurent le registre de risques fonctionnels à suivre (voir hist
 
 | Décision | Statut |
 |----------|--------|
-| Autorisation commit / push / PR de la conception | **Non prise** — interdite dans ce sous-cycle |
 | Sélection / lancement du cycle architecture fonctionnelle | **Non sélectionné** (recommandation ci-dessous) |
 | Validation future du contenu d’architecture | Ouverte |
-| Sort des branches (`functional-design` / `pre-framing`) | Ouvert |
+| Sort des branches (`functional-design` / `pre-framing`) | Conservées ; décisions distinctes |
 | Contenu du POC | Ouvert — non lancé |
 | Définition / lancement du MVP | Ouvert — non lancé |
+
+> Intégration Git / commit / push / PR de la conception : **faits réalisés** (PR #209) — plus des décisions ouvertes.
 
 ---
 
@@ -179,10 +183,11 @@ RF-01…RF-07 demeurent le registre de risques fonctionnels à suivre (voir hist
 |------|--------|
 | Validation Morris conception | **VALIDÉE** — 2026-07-18 |
 | FD-CAND-01…08 | **VALIDÉES** |
-| Finalisation documentaire | **Autorisée** (ce sous-cycle) |
-| GO Git projet (commit/push/PR) | **Interdit** |
+| Intégration PR #209 / acceptation | **VALIDÉE** — 2026-07-18 |
+| Écart d’autorisation merge | **Clôturé** (sans D-VAL-12) |
+| Cycle 2 conception | **CLÔTURÉ** |
 | GO cycle suivant | **Non pris** |
-| Merge / suppression branche | **Interdits** |
+| Suppression branche | **Interdite** |
 
 ---
 
@@ -192,13 +197,13 @@ RF-01…RF-07 demeurent le registre de risques fonctionnels à suivre (voir hist
 |---------|--------|
 | Recommandation | Architecture fonctionnelle Critical |
 | Qualification | **RECOMMANDATION — NON SÉLECTIONNÉE** |
-| Lancement | **Non autorisé** par la présente validation |
+| Lancement | **Non autorisé** / **non sélectionné** |
 
 ---
 
 ## 14. Verdict documentaire
 
-`SFIA STUDIO FUNCTIONAL DESIGN VALIDATED — DOCUMENTARY FINALIZATION READY FOR MORRIS REVIEW`
+`SFIA STUDIO FUNCTIONAL DESIGN POST-MERGE STATUS SYNCHRONIZED — READY FOR MORRIS REVIEW`
 
 ---
 
@@ -206,11 +211,11 @@ RF-01…RF-07 demeurent le registre de risques fonctionnels à suivre (voir hist
 
 | Document | Usage |
 |----------|-------|
-| [08-functional-design.md](./08-functional-design.md) | Contrat validé |
+| [08-functional-design.md](./08-functional-design.md) | Contrat validé / intégré |
 | [09-functional-flows-and-rules.md](./09-functional-flows-and-rules.md) | Parcours / BR validés |
 | [07-product-trajectory-and-decision-pack.md](./07-product-trajectory-and-decision-pack.md) | Trajectoire |
 | [README.md](./README.md) | Navigation |
 
 ---
 
-*SFIA Studio — conception VALIDÉE (Morris — 2026-07-18) — FD-CAND-01…08 VALIDÉES — pas de D-VAL-12 — Critical — Morris décide.*
+*SFIA Studio — conception VALIDÉE et INTÉGRÉE (PR #209 / `fdade59…`) — FD-CAND-01…08 VALIDÉES — pas de D-VAL-12 — cycle 2 clôturé — Critical — Morris décide.*
