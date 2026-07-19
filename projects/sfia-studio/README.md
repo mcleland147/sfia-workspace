@@ -21,7 +21,7 @@
 | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
 | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
 | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
-| **Prochaine décision** | Merge PR spike GPT→Cursor — **Morris** ; UI Studio / Docker — **FERMÉS** |
+| **Prochaine décision** | Sync doc post-merge #226 / CI SFIA Studio / traitement réserves — **Morris** ; UI Studio / Docker — **FERMÉS** |
 
 ---
 
