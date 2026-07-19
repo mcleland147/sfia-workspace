@@ -1,15 +1,15 @@
-# ChatGPT Review Pack — SFIA Studio Cycle 8/9 Payload Conformity (no temperature) Critical
+# ChatGPT Review Pack — SFIA Studio Cycle 8/9 Autonomous OpenAI Stabilization Critical
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 19:44:57 CEST (Europe/Paris) |
-| **Cycle** | 8 — Delivery / conformité payload · sous-cycle 9 QA live |
+| **Date / heure / fuseau** | 2026-07-19 20:04:34 CEST (Europe/Paris) |
+| **Cycle** | 8 — Delivery / stabilisation · sous-cycle 9 QA autonome bornée |
 | **Profil** | Critical |
-| **Décision Morris** | GO conformité bornée : retirer paramètres optionnels rejetés ; max 2 relances |
+| **Décision Morris** | GO cycle autonome borné de stabilisation du spike OpenAI |
 | **Branche spike** | `spike/sfia-studio-openai-gpt-adapter` (locale — **aucun** commit/push/PR) |
-| **HEAD / base / origin/main** | `dce5a41a0a8c4ea1cfd08a8a99596b9dc02cb957` |
+| **HEAD / base** | `dce5a41a0a8c4ea1cfd08a8a99596b9dc02cb957` |
 | **Niveau** | full |
 | **Handoff** | required |
 
@@ -26,163 +26,137 @@ remote spike=absente
 
 ---
 
-## 2. Sources
+## 2. Limites
 
-- Template cycle SFIA  
-- `origin/sfia/review-handoff` @ `45bfd77…` (bloqueur `temperature: 0`)  
-- `30`, harness, `openaiRealSpike.ts`, `run-spike.ts`, contrats, validateur, tests, prompts  
-
----
-
-## 3. État initial du payload
-
-```ts
-{
-  model,
-  temperature: 0,
-  max_completion_tokens: 2048,
-  response_format: { type: "json_object" },
-  messages: [...]
-}
-```
-
-Cause héritée : HTTP 400 `unsupported_value` — `temperature` ne supporte pas `0` (seul défaut = 1).
+| Limite | Consommé | Max |
+|--------|----------|-----|
+| Relances | **5** | 5 |
+| Appels OpenAI | **8** | 10 |
+| Retries | 0 | 0 |
+| max_completion_tokens | 8192 | 8192 |
 
 ---
 
-## 4. Premier correctif (appliqué)
+## 3. Cause exacte de GPT_INVALID_JSON initial
 
-```diff
-   const body = {
-     model,
--    temperature: 0,
-     max_completion_tokens: 2048,
-     response_format: { type: "json_object" },
-     messages: [ ... ],
-   };
-```
-
-Conservés : modèle `gpt-5-mini`, endpoint Chat Completions, `max_completion_tokens: 2048`, `response_format`, prompts, contrats, validateurs, fixture, flags.
-
----
-
-## 5. Tests / build
-
-| Contrôle | Résultat |
-|----------|----------|
-| typecheck | OK |
-| tests GPT | **19 passed** |
-| assert `temperature` absent | PASS |
-| assert `max_completion_tokens: 2048` | PASS |
-| assert pas de `max_tokens` | PASS |
-| sanitation HTTP | PASS |
-| build | OK |
-| fixture défaut | live NON_EXECUTED |
-
----
-
-## 6. Première relance live
-
-```bash
-SFIA_GPT_REAL_SPIKE=1 SFIA_GPT_REAL_LIVE=1 npm run spike:gpt-openai
-```
-
-### Preuve runtime
+Relance 1 observation :
 
 ```json
 {
-  "liveQualification": {
-    "ok": false,
-    "status": "FAILED",
-    "errorCode": "GPT_INVALID_JSON",
-    "errorMessage": "Output is not valid JSON",
-    "retriesAttempted": 0,
-    "liveInvoked": true,
-    "validatorAccepted": false
-  },
-  "liveVerdict": { "status": "NON_EXECUTED" }
+  "errorCode": "GPT_INVALID_JSON",
+  "errorMessage": "Empty message.content",
+  "responseObservation": {
+    "httpStatus": 200,
+    "finishReason": "length",
+    "contentLength": 0,
+    "reasoningTokens": 2048,
+    "modelReturned": "gpt-5-mini-2025-08-07"
+  }
 }
 ```
 
-| Champ | Valeur |
-|-------|--------|
-| Relance | 1 / 2 |
-| Appels | **1** |
-| Retries | **0** |
-| HTTP error sérialisé | **absent** (pas d’échec HTTP) |
-| Durée process | ~22,7 s |
-| Tokens | N/A dans preuve |
-| Modèle demandé | `gpt-5-mini` |
-| Modèle retourné | N/A |
-
-**S-GPT-09 :** FAILED — `GPT_INVALID_JSON`  
-**S-GPT-10 :** NON EXÉCUTÉ  
-
-**Lecture :** le bloqueur HTTP `temperature` est **levé**. La réponse modèle n’est pas du JSON valide → rejet fail-closed, sans réparation.
+**Cause :** tokens de raisonnement saturent `max_completion_tokens=2048` → contenu vide.
 
 ---
 
-## 7. Second correctif / seconde relance
+## 4. Tableau des itérations
 
-**Aucun.**
-
-L’échec ne désigne **pas** un paramètre optionnel explicite (`unsupported_parameter` / `unsupported_value` sur un champ nommé). Une 2ᵉ correction/relance n’est donc **pas** autorisée par le GO.
+| # | Observation | Correctif | Appels | Qual | Verdict |
+|---|-------------|-----------|--------|------|---------|
+| 1 | empty + length + reasoning=2048 | observabilité + prompts JSON | 1 | FAIL | — |
+| 2 | budget insuffisant | max_completion_tokens=8192 | 2 | **OK** | FAIL GPT_ENUM status |
+| 3 | options non-string | enums verdict | 1 | FAIL options[0] | — |
+| 4 | arrays objects | string arrays qual | 2 | **OK** | FAIL forbiddenClaimsDetected |
+| 5 | champ array manquant | arrays obligatoires | 2 | **OK** | FAIL schemaVersion `1.0.00` |
 
 ---
 
-## 8. Fichiers modifiés
+## 5. Correctifs techniques (diff utiles)
 
-| Fichier | Rôle |
-|---------|------|
-| `harness/src/ports/openaiRealSpike.ts` | Retrait `temperature` |
-| `harness/tests/gpt-openai-spike.test.ts` | Assert payload sans `temperature` |
-| `projects/sfia-studio/30-poc-gpt-openai-spike-report.md` | Rapport |
-| `.tmp-sfia-review/chatgpt-review.md` | Ce pack |
+### Observabilité
 
-### Diff utile complet (payload)
+- `GPTResponseObservation` : finishReason, usage, reasoningTokens, preview≤500, fences, looksLikeJsonObject  
+- Sérialisé dans `run-spike.ts` même en échec post-HTTP  
+
+### Compteur cycle
+
+- `proofs/.cycle-openai-calls.json` · budget 10 · `GPT_CYCLE_CALL_CAP`  
+
+### Payload final
 
 ```diff
--      temperature: 0,
-       max_completion_tokens: 2048,
+- max_completion_tokens: 2048
++ max_completion_tokens: 8192  // défaut runner ; env SFIA_GPT_MAX_COMPLETION_TOKENS
+  // temperature déjà absent
+  response_format: { type: "json_object" }
 ```
 
----
+### Prompts
 
-## 9. Sécurité / FinOps / invariants
+- Qualification : enums cycle/profil + **tableaux de strings uniquement**  
+- Verdict : enums status/proposedVerdict + **tous les tableaux obligatoires** (`[]` si vide)  
 
-- Aucun secret  
-- Aucun header Authorization sérialisé  
-- Aucun candidat live accepté  
-- `productionReadyClaimed=false` · `cursorRealInvoked=false`  
-- Coût monétaire non inventé  
-- Cursor réel non invoqué · `app/**` intact · Docker absent  
+### Validateurs
+
+**Non assouplis.** Échecs schéma correctement rejetés.
 
 ---
 
-## 10. Rapport `30`
+## 6. Résultats finaux (relance 5)
 
-Mis à jour intégralement (horodatage 19:44:41 CEST) : correctif température, relance 1, `GPT_INVALID_JSON`, absence de relance 2, verdict.
+### S-GPT-09 — PROUVÉ
 
----
+- HTTP 200 · stop · contrat accepté  
+- tokens : 705 / 2346 / 3051 · reasoning 1536 · 15,4 s  
+- `validatorAccepted=true`  
 
-## 11. Décisions Morris encore requises
+### S-GPT-10 — INCOMPLET
 
-1. GO stratégie de sortie JSON utilisable (structured outputs, budget tokens, format, etc.).  
-2. Versionnement spike / bout-en-bout — fermés.  
-3. Ne pas retirer `response_format` sans rejet API explicite.
-
----
-
-## 12. Verdict
-
-`GPT OPENAI LIVE RESPONSE UNUSABLE — CONTRACT OR TOKEN BUDGET DECISION REQUIRED`
-
-Statut : **NOT READY**. Conformité HTTP `temperature` **OK** ; contenu JSON **non utilisable**.
-
-Interdits : CHATGPT APP INTEGRATED · GPT PRODUCTION READY · POC COMPLETE · END-TO-END PROVEN · CURSOR REAL COMBINED · STUDIO UI COMPLETE · READY FOR MERGE · GPT OPENAI LIVE SPIKE PROVEN.
+- HTTP 200 · JSON syntaxique  
+- preview : `"schemaVersion": "gpt-spike-1.0.00"`  
+- rejet : `schemaVersion mismatch`  
+- fail-closed OK · **pas de réparation silencieuse**  
 
 ---
 
-## 13. Instruction ChatGPT
+## 7. Fichiers modifiés
+
+| Fichier | Justification |
+|---------|---------------|
+| `openaiRealSpike.ts` | observabilité, compteur, prompts, budget |
+| `run-spike.ts` | preuve enrichie, défaut 8192 |
+| `gptContracts.ts` | type observation |
+| `gpt-openai-spike.test.ts` | 22 tests |
+| prompts `*.md` | alignement technique |
+| `30-poc-gpt-openai-spike-report.md` | rapport |
+| ce pack | review |
+
+---
+
+## 8. Sécurité / FinOps / fixture
+
+- Aucun secret · fixture défaut OK · Cursor réel non invoqué · `app/**` intact  
+- 8 appels · coût non inventé · `productionReadyClaimed=false`  
+
+---
+
+## 9. Décisions Morris encore requises
+
+1. **Nouveau GO** pour 6ᵉ+ relance / correctif verdict (`schemaVersion` exact ou `json_schema` strict).  
+2. Versionnement spike / bout-en-bout / Cursor réel — fermés.  
+
+---
+
+## 10. Verdict
+
+`GPT OPENAI LIVE QUALIFICATION PROVEN — VERDICT STABILIZATION INCOMPLETE`
+
+Aussi applicable : limite de relances atteinte.
+
+Interdits : CHATGPT APP INTEGRATED · GPT PRODUCTION READY · POC COMPLETE · FULL END-TO-END PROVEN · CURSOR REAL COMBINED · STUDIO UI COMPLETE · READY FOR MERGE · GPT OPENAI LIVE SPIKE PROVEN.
+
+---
+
+## 11. Instruction ChatGPT
 
 ChatGPT doit lire obligatoirement depuis Git la branche `sfia/review-handoff` et le fichier `sfia-review-handoff/latest-chatgpt-review.md` avant de prononcer un verdict.
