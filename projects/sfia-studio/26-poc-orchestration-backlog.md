@@ -5,8 +5,8 @@
 | **Document** | `26-poc-orchestration-backlog.md` |
 | **Cycle** | 5 — Backlog / user stories |
 | **Profil** | Critical |
-| **Gate** | **POC-G8 CONSOMMÉ** (ouverture backlog) |
-| **POC-G9** | **FERMÉ** |
+| **Gate** | **POC-G8 CONSOMMÉ** |
+| **POC-G9** | **CONSOMMÉ** (harness-only — hors UI) |
 | **POC** | **NON LANCÉ** |
 | **Scénario** | **S1** — DOC read-only gouverné |
 | **Architecture** | **Option B minimale** (inchangée) |
@@ -168,7 +168,7 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 | **Risques** | Replay |
 | **Stop** | Adaptateur crée une décision |
 | **Candidats** | Couche adaptateur (protocole **ouvert**) |
-| **Gate** | Spike protocole si nécessaire avant POC-G9 |
+| **Gate** | Spike protocole si nécessaire avant UI/adaptateur (hors harness-only) |
 
 #### US-E1-05 — Idempotence et corrélation
 
@@ -376,7 +376,7 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 | **Risques** | Liste trop large |
 | **Stop** | Action non listée acceptée |
 | **Candidats** | Config policy |
-| **Gate** | Validation Morris allowlist (`27`) |
+| **Gate** | Allowlist initiale validée harness-only (`27`) ; élargissement = nouveau GO |
 
 #### US-E5-02 — Pas de retry auto après rejet
 
@@ -447,8 +447,8 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 | **Preuves** | Capture runtime (après UI) + traces |
 | **Risques** | Orch. dans UI |
 | **Stop** | Bouton ambigu = GO |
-| **Candidats** | Extensions minimales `app/**` **uniquement au delivery** (POC-G9) |
-| **Gate** | POC-G9 pour toucher `app/**` |
+| **Candidats** | Extensions minimales `app/**` **uniquement si nouveau GO UI** (hors harness-only) |
+| **Gate** | Nouveau GO Morris pour toucher `app/**` (POC-G9 harness-only ne l’autorise pas) |
 
 #### US-E7-02 — UI indisponible ≠ corruption harness
 
@@ -575,7 +575,7 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 5. E9 preuves
 6. E8 abuse
 7. E10 QA sans Studio
-8. E6 adaptateur + E7 cockpit (app/** seulement si POC-G9)
+8. E6 adaptateur + E7 cockpit (`app/**` seulement si nouveau GO UI)
 9. E11 démo
 ```
 
@@ -608,9 +608,9 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 | Gate | Statut |
 |------|--------|
 | POC-G8 | **OUVERT / CONSOMMÉ** pour ce backlog |
-| POC-G9 | **FERMÉ** |
+| POC-G9 | **CONSOMMÉ** (harness-only) |
 | Delivery / lancement POC | **NON AUTORISÉS** |
 
 ---
 
-*Backlog S1 Option B — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ — techno/protocole ouverts.*
+*Backlog S1 Option B — POC-G8 CONSOMMÉ — POC-G9 CONSOMMÉ harness-only — allowlist initiale VALIDÉE (incrément) — POC NON LANCÉ.*

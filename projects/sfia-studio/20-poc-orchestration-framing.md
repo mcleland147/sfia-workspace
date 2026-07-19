@@ -16,7 +16,7 @@
 | **Architecture Runtime** | **Non validée** — ouverts |
 | **Destinataire** | Morris |
 
-> Cadrage **validé**. Architecture Option B **INTÉGRÉE**. Backlog S1 **produit** (POC-G8, `26`–`28`). POC-G9 **fermé**. POC **non lancé**.
+> Cadrage **validé**. Architecture Option B **INTÉGRÉE**. Backlog S1 **INTÉGRÉ** (#223). POC-G9 **CONSOMMÉ** (harness-only). POC **non lancé** (pas d’industrialisation).
 
 ### Décision Morris — validation du cadrage (2026-07-19)
 
@@ -28,7 +28,7 @@
 | POC-G1…G6 | **VALIDÉS** |
 | POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
 | POC-G8 | **CONSOMMÉ** (backlog) |
-| POC-G9 | **FERMÉ** |
+| POC-G9 | **CONSOMMÉ** (harness-only) |
 | Intégration | #219–#222 @ `60e6880…` |
 
 ---
@@ -116,7 +116,7 @@ Intention Studio
 
 - Modification de `projects/sfia-studio/app/**`
 - Push / PR / merge du présent cadrage sans GO distinct (POC-G10)
-- Lancement du POC (POC-G9)
+- Lancement autonome / industrialisation du POC (hors POC-G9 harness-only)
 - Architecture technique détaillée du POC
 - Définition du MVP
 - Industrialisation
@@ -288,7 +288,7 @@ Pas de plateforme de supervision industrialisée.
 | Architecture POC ciblée | Après POC-G7 |
 | Choix techno orchestrateur | Architecture POC |
 | Backlog POC borné | Après POC-G8 |
-| Delivery POC | Après POC-G9 |
+| Delivery harness-only | POC-G9 **consommé** — commit/PR séparés |
 | Intégration réelle Git/Cursor | GO distincts (POC-G5+) |
 | Décision post-POC (abandon / itération / MVP) | DF-G6 / DF-G7 (proposés) |
 
@@ -302,12 +302,12 @@ Pas de plateforme de supervision industrialisée.
 | POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
 | POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B |
 | **POC-G8** | **CONSOMMÉ** — backlog `26`–`28` |
-| POC-G9 | **FERMÉ** |
+| POC-G9 | **CONSOMMÉ** (harness-only) |
 | Sync #220 / Archi #221 / Sync #222 | **MERGED** |
 
 **Architecture :** Option B minimale (Studio cockpit + adaptateur + harness autonome). Option A = test/dégradé. Option C écartée (1er POC).
 
-**Prochaine décision :** validation backlog / allowlist ; éventuel **POC-G9** — **FERMÉ**.
+**Prochaine décision :** review draft PR harness ; merge — **FERMÉ** ; Cursor réel / UI / Docker — **FERMÉS**.
 
 ---
 
@@ -327,4 +327,4 @@ Pas de plateforme de supervision industrialisée.
 
 ---
 
-*Cadrage INTÉGRÉ — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*
+*Cadrage INTÉGRÉ — POC-G9 harness-only CONSOMMÉ — POC NON LANCÉ — app/** intact.*

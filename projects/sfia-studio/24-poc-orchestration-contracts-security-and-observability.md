@@ -166,4 +166,4 @@ Effets locaux `proofDir` seulement ; remote inchangé.
 
 ---
 
-*Contrats Option B — INTÉGRÉS — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*
+*Contrats Option B — INTÉGRÉS — POC-G9 CONSOMMÉ harness-only — POC NON LANCÉ.*

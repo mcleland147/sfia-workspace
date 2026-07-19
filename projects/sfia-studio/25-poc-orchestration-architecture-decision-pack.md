@@ -4,12 +4,12 @@
 |------------|--------|
 | **Document** | `25-poc-orchestration-architecture-decision-pack.md` |
 | **Cycle** | Architecture Option B + post-merge + backlog POC-G8 |
-| **Statut** | POC-G7 **INTÉGRÉ** ; POC-G8 **CONSOMMÉ** ; POC-G9 **FERMÉ** |
+| **Statut** | POC-G7 **INTÉGRÉ** ; POC-G8 **CONSOMMÉ** ; POC-G9 **CONSOMMÉ** (harness-only) |
 | **Préfixe** | `ARCH-POC-CAND-*` (locaux ; ≠ D-VAL) |
 | **Architecture retenue** | **Option B minimale** — **INTÉGRÉE** (inchangée) |
 | **Backlog** | `26`–`28` |
 | **POC** | **Non lancé** |
-| **Base** | `main` @ `60e6880…` |
+| **Base** | `main` @ `d45cc54…` |
 
 ---
 
@@ -18,9 +18,9 @@
 1. #219–#222 MERGED (cadrage, sync, archi, sync post-merge).
 2. Option B minimale **RETENUE / INTÉGRÉE**.
 3. POC-G8 **CONSOMMÉ** — backlog borné S1 produit.
-4. Allowlist **candidate** (`27`) — validation Morris requise.
+4. Allowlist initiale **validée** pour harness-only (`27`) — élargissement = nouveau GO.
 5. ARCH-POC-CAND-01…12 **inchangées** (fond).
-6. POC-G9 **non ouvert**.
+6. POC-G9 **CONSOMMÉ** (harness-only).
 
 ---
 
@@ -50,10 +50,10 @@ Aucun nouveau ARCH-POC-CAND. Aucune modification de fond.
 | POC-G10 | **CONSOMMÉ** |
 | POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
 | **POC-G8** | **CONSOMMÉ** |
-| POC-G9 | **FERMÉ** |
+| POC-G9 | **CONSOMMÉ** (harness-only) |
 | Delivery / lancement POC | **NON AUTORISÉ** |
 
-**≠ READY FOR DELIVERY.** Backlog ≠ autorisation d’implémenter.
+**≠ READY FOR MERGE.** Draft PR harness autorisée (Cycle 13). Merge / industrialisation **fermés**.
 
 ---
 
@@ -62,18 +62,18 @@ Aucun nouveau ARCH-POC-CAND. Aucune modification de fond.
 1. Cursor réel non prouvé
 2. Techno harness ouverte
 3. Protocole adaptateur ouvert
-4. Allowlist candidate jusqu’à validation Morris
-5. `app/**` delivery borné seulement
+4. Allowlist initiale validée harness-only ; élargissement = nouveau GO
+5. `app/**` **fermé** (harness-only)
 6. QA non-seconde-vérité
 7. Clôture AF
-8. POC-G9
+8. Commit/push/PR delivery / UI / Cursor réel / Docker
 
 ---
 
 ## 7. Décisions Morris restantes
 
-1. Validation backlog / allowlist (`26`–`28`).
-2. Ouverture éventuelle **POC-G9**.
+1. Evidence re-review harness-only.
+2. Merge delivery (fermé) ; Cursor réel / UI / Docker (fermés).
 3. Clôture AF (séparée).
 
 ---
@@ -82,8 +82,8 @@ Aucun nouveau ARCH-POC-CAND. Aucune modification de fond.
 
 ```text
 POC-G8 CONSOMMÉ (backlog)
-  → validation Morris backlog/allowlist
-  → POC-G9 (FERMÉ)
+  → allowlist initiale validée harness-only
+  → POC-G9 (CONSOMMÉ harness-only)
   → POC (NON LANCÉ)
 ```
 
@@ -91,8 +91,14 @@ POC-G8 CONSOMMÉ (backlog)
 
 ## 9. Verdict
 
-**`POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`**
+**`POC S1 HARNESS DELIVERY COMPLETE WITH RESERVES — EVIDENCE REVIEW REQUIRED — NO REMOTE EFFECT`**
 
 ---
 
-*Decision pack — Option B inchangée — POC-G8 consommé — POC-G9 fermé — POC NON LANCÉ.*
+*Decision pack — Option B inchangée — POC-G9 harness-only consommé — POC NON LANCÉ — app/** intact.*
+
+---
+
+## Delivery POC-G9 (statut architecture)
+
+Option B **inchangée**. Harness autonome sous `projects/sfia-studio/harness/`. Studio/adaptateur **non** implémentés. Cursor **fixture**. Docker **non** introduit.

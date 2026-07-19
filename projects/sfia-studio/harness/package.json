@@ -1,0 +1,26 @@
+{
+  "name": "@sfia-studio/poc-s1-harness",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SFIA Studio POC S1 harness-only orchestrator (local, fail-closed, no remote Git writes, Cursor fixture only)",
+  "type": "module",
+  "bin": {
+    "sfia-poc-s1": "./dist/cli.js"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc -p tsconfig.build.json",
+    "cli": "tsx src/cli.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

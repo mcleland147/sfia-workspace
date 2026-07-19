@@ -4,15 +4,15 @@
 |------------|--------|
 | **Projet** | SFIA Studio — projet officiel (G1) |
 | **Document** | `07-product-trajectory-and-decision-pack.md` |
-| **Cycle** | 5 — Backlog POC-G8 ; historique Option B conservé |
+| **Cycle** | 8 — Delivery harness-only POC-G9 |
 | **Profil** | Critical |
 | **Baseline** | SFIA v2.6 (**Option C méthode**) |
-| **Statut** | POC-G8 **CONSOMMÉ** ; backlog S1 (`26`–`28`) ; POC-G9 **FERMÉ** ; POC **non lancé** |
-| **Décisions** | ARCH-POC-CAND-01…12 inchangées ; allowlist candidate |
+| **Statut** | POC-G9 **CONSOMMÉ** (harness-only local) ; POC-G8 **CONSOMMÉ** ; POC **non lancé** ; `app/**` intact |
+| **Décisions** | ARCH-POC-CAND-01…12 inchangées ; allowlist initiale **validée** harness-only |
 | **Destinataire** | Morris |
-| **Source de vérité** | `origin/main` @ `60e6880…` ; branche locale `backlog/sfia-studio-poc-orchestration-s1` |
+| **Source de vérité** | `origin/main` @ `d45cc54…` ; branche locale `delivery/sfia-studio-poc-s1-harness` |
 
-> Architecture Option B **intégrée**. Backlog S1 produit (POC-G8). Harness autonome + Studio cockpit + adaptateur fin. POC-G9 **fermé**. POC **non lancé**. Delivery **non autorisé**.
+> Architecture Option B **intégrée**. Harness-only (POC-G9). Allowlist initiale **validée**. POC **non lancé**. GO commit/push/draft PR **consommé**. Merge **fermé**. `app/**` intact.
 
 ---
 
@@ -34,7 +34,7 @@
 | Branche Delivery | **Supprimée** (local + remote) |
 | Gate Morris Delivery P0 | **Aucune restante** |
 | App `projects/sfia-studio/app/` | Sur `main` — desktop 1440×1024 ; fixtures ; pas d’API/auth/BDD/orchestration réelle |
-| Prochaine orientation | Validation backlog + éventuel **POC-G9** — **FERMÉ** |
+| Prochaine orientation | Review draft PR ; merge **FERMÉ** ; Cursor réel / UI / Docker **FERMÉS** |
 | Architecture POC | **Option B minimale** — POC-G7 **INTÉGRÉ** (PR #221) |
 | Sync post-merge archi | **MERGED** — PR #222 / `60e6880…` |
 | Backlog POC | POC-G8 **CONSOMMÉ** — docs `26`–`28` |
@@ -122,7 +122,7 @@ Pré-cadrage
   → architecture POC ciblée             ← POC-G7 **INTÉGRÉ** — Option B — PR #221
   → post-merge sync architecture        ← PR #222 **MERGED** (`60e6880…`)
   → backlog POC borné                   ← POC-G8 **CONSOMMÉ** (`26`–`28`)
-  → delivery POC                        ← POC-G9 fermé
+  → delivery harness-only                ← POC-G9 CONSOMMÉ ; draft PR Cycle 13 ; merge fermé
   → décision Morris : abandon / itération / préparation MVP
 ```
 
@@ -131,11 +131,11 @@ Pré-cadrage
 - Architecture : **Option B minimale** (intégrée).
 - Option A : mode test / dégradé harness.
 - Option C : écartée 1er POC.
-- POC-G8 : **CONSOMMÉ**. POC-G9 : **fermé**. POC : **non lancé**.
+- POC-G8 : **CONSOMMÉ**. POC-G9 : **CONSOMMÉ** (harness-only). POC : **non lancé**.
 
 ### Orientation
 
-> Backlog S1 produit (POC-G8). Allowlist candidate. Delivery (POC-G9) **fermé**. POC **non lancé**.
+> Backlog S1 intégré. Allowlist initiale **validée** harness-only. POC-G9 **consommé**. Draft PR autorisée ; merge **fermé**. POC **non lancé**.
 
 ---
 
@@ -211,7 +211,7 @@ Pré-cadrage
 |-------|---------|
 | Statut | **VALIDÉ + INTÉGRÉ** — PR #219 / `be713c45…` — docs `20`/`21`/`22` |
 | Scénario | **S1** sélectionné (POC-G2) — contrat de cadrage (**non exécuté**) |
-| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** ; POC-G8/G9 **FERMÉS** |
+| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **INTÉGRÉ** ; POC-G8 **CONSOMMÉ** ; POC-G9 **CONSOMMÉ** (harness-only) |
 | Architecture | Option B minimale (`23`–`25`) — **INTÉGRÉE** (PR #221 / `40f8ebe…`) |
 | Ne lance pas | POC ; backlog ; delivery ; MVP |
 
@@ -260,7 +260,7 @@ Pré-cadrage
 | D-NEXT-15 | GO cadrage POC orchestration | Morris | **Consommée** — cadrage **VALIDÉ** 2026-07-19 |
 | D-NEXT-16 | Validation POC-CAND / POC-G1…G6 | Morris | **FAIT** — 2026-07-19 |
 | D-NEXT-17 | POC-G10 versionnement cadrage | Morris | **CONSOMMÉ** — PR #219 **MERGED** (`be713c45…`) |
-| D-NEXT-18 | Architecture / delivery POC | Morris | Architecture **intégrée** (#221) ; delivery POC **fermé** (POC-G9) |
+| D-NEXT-18 | Architecture / delivery POC | Morris | Architecture **intégrée** (#221) ; harness-only **consommé** ; draft PR Cycle 13 ; merge **fermé** |
 | D-NEXT-19 | GO versionnement sync post-merge cadrage | Morris | **CONSOMMÉ** — PR #220 **MERGED** (`b882892…`) |
 | D-NEXT-20 | GO merge PR #220 | Morris | **CONSOMMÉ** — **MERGED** |
 | D-NEXT-21 | Ouverture POC-G7 (instruction) | Morris | **Consommée** → validation avec réserves |
@@ -269,8 +269,10 @@ Pré-cadrage
 | D-NEXT-24 | Ouverture POC-G8 | Morris | **CONSOMMÉ** — backlog `26`–`28` |
 | D-NEXT-25 | GO merge PR #221 | Morris | **CONSOMMÉ** — **MERGED** |
 | D-NEXT-26 | Versionnement sync post-merge archi | Morris | **CONSOMMÉ** — PR #222 **MERGED** (`60e6880…`) |
-| D-NEXT-27 | Validation backlog / allowlist | Morris | **Requise** |
-| D-NEXT-28 | Ouverture POC-G9 (delivery) | Morris | **Fermée** |
+| D-NEXT-27 | Validation backlog / allowlist initiale harness-only | Morris | **CONSOMMÉE** |
+| D-NEXT-28 | Ouverture POC-G9 (delivery harness-only) | Morris | **CONSOMMÉ** |
+| D-NEXT-29 | Commit/push/draft PR delivery harness | Morris | **CONSOMMÉ** (Cycle 13) — merge **fermé** |
+| D-NEXT-30 | UI app/** / Cursor réel / Docker | Morris | **Fermés** |
 
 ---
 
@@ -326,13 +328,13 @@ Clôture formelle architecture fonctionnelle **non prononcée**. MVP / industria
 | **DF-G6** | Décision de poursuite post-POC | **PROPOSÉ** |
 | **DF-G7** | Autoriser cadrage / sélection MVP | **PROPOSÉ** |
 
-Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage POC : **validé + intégré**. Architecture Option B : **intégrée** (#221). POC-G8/G9 : **fermés**.
+Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Architecture Option B : **intégrée** (#221). POC-G8/G9 **CONSOMMÉS**. Draft PR harness Cycle 13 ; merge **fermé**.
 
 ---
 
 ## 8. Questions Morris
 
-1. Validez-vous le backlog / allowlist (`26`–`28`) ?
+1. Evidence re-review du harness-only (allowlist initiale déjà validée pour cet incrément) ?
 2. Ouvrez-vous **POC-G9** (delivery borné) ?
 3. Clôture formelle AF (séparée) ?
 
@@ -352,7 +354,7 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 ## 10. Verdict documentaire
 
-**Verdict :** `POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`
+**Verdict :** `POC S1 HARNESS DELIVERY COMPLETE WITH RESERVES — EVIDENCE REVIEW REQUIRED — NO REMOTE EFFECT`
 
 ---
 
@@ -365,4 +367,4 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 | [20](./20-poc-orchestration-framing.md) · [21](./21-poc-orchestration-scenario-and-boundaries.md) · [22](./22-poc-orchestration-decision-pack.md) | Cadrage |
 | [11](./11-functional-architecture.md) | AF-Option C |
 
-*Option B — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*
+*Option B — POC-G9 harness-only CONSOMMÉ — allowlist initiale VALIDÉE (incrément) — POC NON LANCÉ.*

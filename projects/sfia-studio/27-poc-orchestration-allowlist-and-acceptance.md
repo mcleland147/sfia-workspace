@@ -3,16 +3,21 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `27-poc-orchestration-allowlist-and-acceptance.md` |
-| **Cycle** | 5 — Backlog |
+| **Cycle** | 9 — QA corrective documentaire (statuts) ; fond technique Cycle 5 |
 | **Profil** | Critical |
 | **Gate** | POC-G8 CONSOMMÉ |
-| **POC-G9** | **FERMÉ** |
+| **POC-G9** | **CONSOMMÉ** (harness-only ; allowlist initiale) |
 | **POC** | **NON LANCÉ** |
-| **Statut allowlist** | **CANDIDATE** — validation Morris requise |
+| **Statut allowlist** | **VALIDÉE POUR L’INCRÉMENT HARNESS-ONLY S1** — élargissement = nouveau GO Morris |
 | **Architecture** | Option B minimale (inchangée) |
-| **Base** | `main` @ `60e6880…` |
+| **Base** | `main` @ `d45cc54…` |
 
 > Défaut = **deny**. Toute action non listée est refusée. Fail-closed.
+>
+> **Allowlist initiale S1** : **VALIDÉE** pour l’incrément harness-only livré localement (POC-G9).
+> Périmètre = règles de ce document telles que définies. `app/**` **interdit**. `cursorMode=fixture` uniquement pour cet incrément. `gitEffect=none-remote`.
+> Tout élargissement (chemins, commandes, modes Cursor, effets Git) exige un **nouveau GO Morris**.
+> Cette validation **ne** vaut **pas** validation définitive pour tous les futurs incréments.
 
 ---
 
@@ -29,7 +34,7 @@
 
 ---
 
-## 2. Allowlist Git candidate
+## 2. Allowlist Git (initiale S1 — harness-only)
 
 ### 2.1 Commandes autorisées (lecture)
 
@@ -62,20 +67,20 @@
 
 ---
 
-## 3. Allowlist documentaire / fichiers candidate
+## 3. Allowlist documentaire / fichiers (initiale S1 — harness-only)
 
-### 3.1 Chemins candidats (à figer dans le contrat d’exécution)
+### 3.1 Chemins (figés dans le contrat d’exécution harness-only)
 
 | Zone | Exemple | Règle |
 |------|---------|-------|
-| Projet Studio docs | `projects/sfia-studio/*.md` (hors `app/**` sauf GO delivery) | Lecture |
+| Projet Studio docs | `projects/sfia-studio/*.md` (hors `app/**`) | Lecture |
 | Méthode (si contrat) | chemins méthode explicitement listés | Lecture |
 | Preuves locales | `proofDir` dédié POC | Lecture/écriture **locale** preuves seulement |
 | Fixtures POC | répertoire fixtures déclaré | Lecture |
 
 ### 3.2 Bornes
 
-| Borne | Valeur candidate |
+| Borne | Valeur (incrément harness-only) |
 |-------|------------------|
 | Extensions | `.md`, `.txt`, `.json`, `.jsonl` (autres = deny) |
 | Nb max fichiers / run | 30 |
@@ -83,20 +88,20 @@
 | Taille max agrégée | 5 MiB |
 | Traversée | Interdite (`..`, symlinks hors root) |
 | Secrets | Interdits (`.env`, credentials, clés) |
-| `app/**` | **Interdit** en S1 backlog/delivery sauf GO POC-G9 explicite borné |
+| `app/**` | **Interdit** — POC-G9 harness-only n’autorise **pas** `app/**` |
 | Chemins protégés méthode | Selon règles repo — deny par défaut |
 
 ---
 
-## 4. Allowlist Cursor candidate
+## 4. Allowlist Cursor (initiale S1 — harness-only)
 
 | Règle | Détail |
 |-------|--------|
 | Entrée | Via `CursorExecutorPort` uniquement |
-| Modes | `fixture` (Must) · `manual` (Must) · `real-adapter` (ouvert — spike) |
+| Modes | **Cet incrément :** `fixture` **uniquement**. `manual` / `real-adapter` = futurs GO Morris (fermés ici) |
 | Instruction | Bornée par contrat (objectif DOC read-only) |
 | CWD | Répertoire imposé par contrat |
-| Timeout | Configurable (candidat 120–300 s) |
+| Timeout | Configurable (borné par contrat ; ex. 30–300 s) |
 | Sortie | Capturée (stdout/stderr/artefacts locaux) |
 | Hors scope | Deny |
 | Action distante | Deny |
@@ -229,17 +234,21 @@ Voir `24` : `StudioIntent`, `StudioGateSubmission` (GO + `contractHash`), `Studi
 
 ---
 
-## 11. Validation Morris requise
+## 11. Statut de validation Morris
 
-Cette allowlist / denylist est **candidate**.
+L’allowlist / denylist de ce document est **VALIDÉE POUR L’INCRÉMENT HARNESS-ONLY S1** (POC-G9 consommé).
 
-Avant POC-G9, Morris doit :
+**Réserve explicite :** validation limitée à cet incrément. L’allowlist reste **révisable**. Tout élargissement de chemins, commandes, modes Cursor ou effets Git est soumis à un **nouveau GO Morris**.
 
-1. Valider ou corriger les listes §2–§5.
-2. Valider les bornes fichiers §3.2.
-3. Confirmer modes Cursor acceptables pour le 1er delivery.
-4. Confirmer que `app/**` reste hors S1 jusqu’à GO delivery borné.
+Pour tout élargissement futur, Morris doit notamment :
+
+1. Valider ou corriger les listes §2–§5 au-delà du périmètre actuel.
+2. Valider toute nouvelle borne fichiers §3.2.
+3. Autoriser explicitement tout mode Cursor autre que `fixture`.
+4. Autoriser explicitement tout touch `app/**` (aujourd’hui **interdit**).
+
+Cette validation initiale **n’autorise pas** : Cursor manuel/réel, écriture Git, Docker, multi-scénario, industrialisation.
 
 ---
 
-*Allowlist S1 candidate — POC-G8 — POC-G9 FERMÉ — POC NON LANCÉ — défaut deny.*
+*Allowlist S1 initiale VALIDÉE harness-only — POC-G9 CONSOMMÉ — POC NON LANCÉ — défaut deny — app/** interdit — élargissement = nouveau GO.*

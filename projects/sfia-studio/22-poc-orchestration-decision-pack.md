@@ -5,10 +5,10 @@
 | **Document** | `22-poc-orchestration-decision-pack.md` |
 | **Statut** | Cadrage **INTÉGRÉ** ; POC-G7 **INTÉGRÉ** ; POC-G8 **CONSOMMÉ** (backlog) |
 | **POC** | **Non lancé** |
-| **POC-G9** | **FERMÉ** |
+| **POC-G9** | **CONSOMMÉ** (harness-only) |
 | **Backlog** | `26`–`28` |
 | **PR archi / sync** | #221 / #222 **MERGED** |
-| **main** | `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
+| **main** | `d45cc54f97479cefa3d2612c6e1a965ff50958bb` |
 
 > Architecture **Option B minimale** intégrée. Backlog S1 produit. Harness autonome. Studio cockpit. Adaptateur sans autorité. Option C écartée (1er POC). Delivery **non autorisé**.
 
@@ -19,8 +19,8 @@
 1. Cadrage / sync / archi intégrés (#219–#222).
 2. POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ**.
 3. POC-G8 **CONSOMMÉ** — backlog `26`–`28`.
-4. Allowlist **candidate** (`27`).
-5. POC-G9 fermé ; POC non lancé.
+4. Allowlist initiale **validée** pour harness-only (`27`) — élargissement = nouveau GO.
+5. POC-G9 **CONSOMMÉ** (harness-only) ; POC non lancé.
 
 ---
 
@@ -38,7 +38,7 @@
 | POC-G10 | **CONSOMMÉ** |
 | POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
 | **POC-G8** | **CONSOMMÉ** (backlog) |
-| POC-G9 | **FERMÉ** |
+| POC-G9 | **CONSOMMÉ** (harness-only) |
 
 ARCH-POC-CAND-* : voir `25` (inchangées).
 
@@ -50,16 +50,31 @@ ARCH-POC-CAND-* : voir `25` (inchangées).
 POC-G7 INTÉGRÉ → versionnement CONSOMMÉ (#221)
   → sync post-merge CONSOMMÉE (#222)
   → POC-G8 CONSOMMÉ (backlog 26–28)
-  → validation backlog / allowlist (Morris)
-  → POC-G9 (FERMÉ) → POC (NON LANCÉ)
+  → allowlist initiale validée harness-only ; élargissements = nouveau GO
+  → POC-G9 (CONSOMMÉ harness-only) → POC (NON LANCÉ)
 ```
 
 ---
 
 ## 11. Verdict
 
-**`POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`**
+**`POC S1 HARNESS DELIVERY COMPLETE WITH RESERVES — EVIDENCE REVIEW REQUIRED — NO REMOTE EFFECT`**
 
 ---
 
 *Option B — G8 consommé — G9 fermé — POC NON LANCÉ.*
+
+---
+
+## Delivery POC-G9 (statut)
+
+| Élément | Statut |
+|---------|--------|
+| POC-G9 | **CONSOMMÉ** — harness-only local |
+| Branche | `delivery/sfia-studio-poc-s1-harness` (locale) |
+| Emplacement | `projects/sfia-studio/harness/` |
+| Cursor | fixture only |
+| Docker | non retenu (option ouverte) |
+| `app/**` | **intact** |
+| Commit/push/draft PR | **CONSOMMÉ** ; merge **fermé** |
+| POC lancé | **Non** |
