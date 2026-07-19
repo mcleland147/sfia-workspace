@@ -123,18 +123,31 @@ export function buildCursorAgentArgv(input: {
   return { command: input.bin, argv };
 }
 
+/** Allowed sandboxes: legacy cursor-real spike OR e2e proofs sandbox (both under harness). */
+export function isAllowedCursorSpikeSandbox(cwd: string): boolean {
+  const resolved = path.resolve(cwd);
+  return (
+    resolved.includes(`${path.sep}spikes${path.sep}cursor-real${path.sep}sandbox`) ||
+    resolved.includes(`${path.sep}proofs${path.sep}e2e-cursor-sandbox`)
+  );
+}
+
 export function assertSandboxPaths(contract: CursorRealSpikeContract): void {
   const cwd = path.resolve(contract.workingDirectory);
-  if (!cwd.includes(`${path.sep}spikes${path.sep}cursor-real${path.sep}sandbox`)) {
-    throw new HarnessError("SPIKE_CWD_DENIED", "workingDirectory must be cursor-real sandbox", { cwd });
+  if (!isAllowedCursorSpikeSandbox(cwd)) {
+    throw new HarnessError(
+      "SPIKE_CWD_DENIED",
+      "workingDirectory must be cursor-real sandbox or proofs/e2e-cursor-sandbox",
+      { cwd },
+    );
   }
   for (const p of [...contract.allowedWritePaths, ...contract.allowedReadPaths]) {
+    if (p.includes("..") || path.isAbsolute(p)) {
+      throw new HarnessError("SPIKE_PATH_TRAVERSAL", "relative in-sandbox paths only", { p });
+    }
     const resolved = path.resolve(cwd, p);
     if (!resolved.startsWith(cwd + path.sep) && resolved !== cwd) {
       throw new HarnessError("SPIKE_PATH_ESCAPE", "path escapes sandbox", { p, resolved });
-    }
-    if (resolved.includes("..")) {
-      throw new HarnessError("SPIKE_PATH_TRAVERSAL", "path traversal denied", { p });
     }
   }
   for (const d of contract.deniedPaths) {
