@@ -8,15 +8,15 @@
 | **Profil** | Critical |
 | **Typologie** | DOC / EVOL (cadrage) |
 | **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
-| **Branche** | `project/sfia-studio-poc-orchestration-framing` |
-| **Base** | `origin/main` @ `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
-| **Statut document** | **VALIDÉ PAR MORRIS** — 2026-07-19 |
+| **Branche** | Historique : `project/sfia-studio-poc-orchestration-framing` ; sync : `capitalization/sfia-studio-poc-framing-post-merge` |
+| **Base / main** | `origin/main` @ `be713c45a63c243a4d75c51d27d215d05bb621f1` (PR #219) |
+| **Statut document** | **VALIDÉ PAR MORRIS** (2026-07-19) et **INTÉGRÉ** sur `main` — cycle de cadrage **terminé** |
 | **POC** | **Non lancé** |
 | **MVP / industrialisation** | **Non engagés** |
-| **Architecture Runtime** | **Non validée** — aucune technologie sélectionnée |
+| **Architecture Runtime** | **Non validée** — aucune technologie sélectionnée ; outil orchestrateur **ouvert** |
 | **Destinataire** | Morris |
 
-> Cadrage **validé** le **2026-07-19**. Cette validation **ne lance pas** le POC, **ne valide pas** l’architecture technique, **ne sélectionne pas** de Runtime et **ne définit pas** le MVP. POC-G7 / G8 / G9 restent **fermés**.
+> Cadrage **validé** le **2026-07-19** et **intégré** via PR [#219](https://github.com/mcleland147/sfia-workspace/pull/219) (`be713c45…`). Cette validation **ne lance pas** le POC, **ne valide pas** l’architecture technique, **ne sélectionne pas** de Runtime et **ne définit pas** le MVP. POC-G7 / G8 / G9 restent **fermés**. Critères = contrat de preuve, **pas** preuve réalisée.
 
 ### Décision Morris — validation du cadrage (2026-07-19)
 
@@ -24,12 +24,13 @@
 |---------|--------|
 | POC-CAND-01…06, 08, 10 | **VALIDÉES** |
 | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** (orchestrateur local candidat ; outil ouvert) |
-| POC-CAND-09 / POC-G10 | **VALIDÉE** — commit / push / draft PR du cadrage |
+| POC-CAND-09 / POC-G10 | **VALIDÉE** puis **CONSOMMÉE** (PR #219 mergée) |
 | POC-G1…G6 | **VALIDÉS** |
-| POC-G7…G9 | **PROPOSÉS / NON VALIDÉS** |
+| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
 | Scénario | **S1** sélectionné |
 | Automatisation | L3 cible + L4* plafond chemin d’exécution ; L0 arbitrage ; L5 global interdit |
 | Git | Lecture réelle autorisée (futur POC) ; écritures distantes **simulées** |
+| Intégration | PR #219 **MERGED** — `be713c45a63c243a4d75c51d27d215d05bb621f1` |
 
 ---
 
@@ -41,7 +42,8 @@
 - Capitalisation post-P0 **INTÉGRÉE** (PR #218) — statut `p0-delivery-integrated-next-poc-orchestration-framing`.
 - Architecture fonctionnelle **VALIDÉE** / **INTÉGRÉE** — **AF-Option C** : Studio et orchestrateur déterministe **candidat séparés**.
 - Architecture technique P0 **VALIDÉE** — pas d’API, auth, BDD, Runtime contractuel en P0.
-- Décision Morris (2026-07-19) : **cadrage Option B VALIDÉ** (POC-G1…G6, POC-G10) — **POC non lancé**.
+- Décision Morris (2026-07-19) : **cadrage Option B VALIDÉ** (POC-G1…G6) — **POC non lancé**.
+- Intégration Git : PR #219 **MERGED** (`be713c45…`) — POC-G10 **consommé** ; cycle de cadrage **terminé**.
 
 ### 1.2 Formulation structurante (D-VAL-3 — inchangée)
 
@@ -293,18 +295,20 @@ Pas de plateforme de supervision industrialisée.
 
 ---
 
-## 14. Décisions Morris (état après 2026-07-19)
+## 14. Décisions Morris (état post-intégration PR #219)
 
 | Gate / CAND | Statut |
 |-------------|--------|
 | POC-G1…G6 | **VALIDÉS** |
-| POC-G10 | **VALIDÉ** (commit / push / draft PR cadrage) |
-| POC-G7…G9 | **NON VALIDÉS** |
+| POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
+| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
 | POC-CAND-01…06, 08, 10 | **VALIDÉES** |
 | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
-| POC-CAND-09 | **VALIDÉE** (via POC-G10) |
+| POC-CAND-09 | **VALIDÉE** puis **consommée** (via POC-G10 / #219) |
 
-**Prochaine étape après intégration du cadrage :** post-merge, puis décision **distincte** sur architecture POC ciblée (POC-G7) — **pas** de backlog/delivery direct.
+**Cycle de cadrage :** **terminé** (validé + intégré). Critères de succès/échec/abandon = contrat — **pas** preuve réalisée.
+
+**Prochaine décision Morris possible :** ouverture éventuelle de **POC-G7** (architecture POC ciblée) — **fermée** ici. Pas de backlog/delivery direct.
 
 **Toujours ouverts :** outil/techno orchestrateur ; harness vs UI ; clôture AF formelle ; MVP.
 
@@ -322,4 +326,4 @@ Pas de plateforme de supervision industrialisée.
 
 ---
 
-*Cadrage VALIDÉ PAR MORRIS 2026-07-19 — POC NON LANCÉ — POC-G7/G8/G9 fermés — Option C méthode préservée.*
+*Cadrage VALIDÉ + INTÉGRÉ (PR #219 / be713c45…) — cycle cadrage TERMINÉ — POC NON LANCÉ — POC-G7/G8/G9 fermés — outil orchestrateur ouvert.*
