@@ -1,107 +1,93 @@
-# ChatGPT Review Pack — SFIA Studio POC Framing — Cycle 14 Post-merge
+# ChatGPT Review Pack — SFIA Studio POC Framing Post-merge Sync — PR Readiness
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure** | 2026-07-19 12:59:50 CEST |
-| **Cycle** | 14 — Post-merge |
+| **Date / heure** | 2026-07-19 13:03:44 CEST |
+| **Cycle** | 13 — PR readiness |
 | **Profil SFIA** | Standard |
 | **Typologie** | DOC / CAPA légère |
 | **Projet** | SFIA Studio |
-| **Branche** | `capitalization/sfia-studio-poc-framing-post-merge` (**locale**, non poussée) |
-| **HEAD** | `be713c45a63c243a4d75c51d27d215d05bb621f1` |
+| **Branche** | `capitalization/sfia-studio-poc-framing-post-merge` |
+| **HEAD avant commit** | `be713c45a63c243a4d75c51d27d215d05bb621f1` |
+| **HEAD après commit** | `472d5fe5a2557a2ca008fc7a4b1e0ab1dab79578` |
+| **Draft PR** | [#220](https://github.com/mcleland147/sfia-workspace/pull/220) — DRAFT |
 | **origin/main** | `be713c45a63c243a4d75c51d27d215d05bb621f1` |
 | **merge-base** | `be713c45a63c243a4d75c51d27d215d05bb621f1` |
-| **PR merge** | [#219](https://github.com/mcleland147/sfia-workspace/pull/219) — MERGED |
-| **Merge commit** | `be713c45a63c243a4d75c51d27d215d05bb621f1` |
+| **Décision Morris consommée** | GO commit / push / draft PR — sync post-merge (5 docs) |
+| **Handoff source** | `760005ecd64c612dbabf626e8ecdb2903dbaa79d` — cycle 14 Post-merge |
 | **Niveau review pack** | **full** |
 | **Review Handoff Git** | required |
 
 ---
 
-## 1. Local Git Truth Check
+## 1. Décision Morris consommée
+
+GO versionnement de la synchronisation post-merge uniquement.
+
+| Autorisé | Non autorisé |
+|----------|--------------|
+| commit / push / draft PR | merge |
+| | ouverture POC-G7 |
+| | lancement POC / architecture / backlog / delivery |
+| | choix Runtime |
+| | clôture formelle AF |
+
+---
+
+## 2. Local Git Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| Branche initiale | `main` @ `be713c45…` — **PASS** |
-| origin/main | `be713c45…` (ls-remote confirmé) — **PASS** |
-| Working tree hors tmp | propre — **PASS** |
-| Cinq fichiers intégrés | présents — **PASS** |
-| Squash note | commit branche `3b162ec…` non ancêtre requis — **OK** |
+| Branche | `capitalization/sfia-studio-poc-framing-post-merge` — **PASS** |
+| HEAD / origin/main / merge-base | `be713c45a63c243a4d75c51d27d215d05bb621f1` — **PASS** |
+| 5 fichiers projet modifiés | **PASS** |
+| Staged vide | **PASS** |
+| Handoff `760005e…` | contenu normalisé **identique** (fence newline) — **PASS** |
 
 **Verdict Local Git Truth Check :** PASS
 
 ---
 
-## 2. Décision / merge consommés
+## 3. Sources
 
-- Décision Morris 2026-07-19 (POC-CAND / POC-G1…G6 / G10) **intégrée** via PR #219.
-- POC-G10 **CONSOMMÉ**.
-- Merge = **fait Git** — n’ouvre pas POC-G7 ; ne lance pas le POC.
-
-### POC-CAND
-
-| ID | Statut |
-|----|--------|
-| 01…06, 08, 10 | **VALIDÉES** |
-| 07 | **VALIDÉE AVEC RÉSERVE** |
-| 09 | **VALIDÉE** puis **consommée** |
-
-### Gates
-
-| Gate | Statut |
-|------|--------|
-| POC-G1…G6 | **VALIDÉS** |
-| POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** |
-| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
+- Template cycle / règles PR readiness v2.6
+- Cinq fichiers projet locaux
+- Handoff post-merge `sfia/review-handoff` @ `760005e…`
 
 ---
 
-## 3. Sources consultées
-
-- Template cycle + règles post-merge (v2.6)
-- `projects/sfia-studio/README.md`, `07`, `20`, `21`, `22`
-- `projects/sfia-studio/app/README.md` (lecture seule)
-- Handoff précédent `a11dff8…` (PR readiness #219)
-- PR #219 / merge `be713c45…`
-
----
-
-## 4. Contenu intégré vérifié
-
-Cinq fichiers présents sur `main` @ `be713c45…` avec cadrage validé (S1, L3+L4*/L0, writes simulées, POC non lancé, G7–G9 fermés). Contenu substantiellement conforme au handoff PR readiness. Sync post-merge = formulations obsolètes (draft PR / merge non autorisé) → état intégré.
-
----
-
-## 5. Fichiers modifiés (sync locale)
+## 4. Fichiers
 
 | Fichier | Action |
 |---------|--------|
-| `projects/sfia-studio/README.md` | modifié |
-| `projects/sfia-studio/07-product-trajectory-and-decision-pack.md` | modifié |
-| `projects/sfia-studio/20-poc-orchestration-framing.md` | modifié |
-| `projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md` | modifié |
-| `projects/sfia-studio/22-poc-orchestration-decision-pack.md` | modifié |
-
-Exactement **cinq** fichiers. Aucune suppression. Aucun `app/**`. Aucune méthode. Aucun staged. Branche **non poussée**.
+| `projects/sfia-studio/README.md` | M |
+| `projects/sfia-studio/07-product-trajectory-and-decision-pack.md` | M |
+| `projects/sfia-studio/20-poc-orchestration-framing.md` | M |
+| `projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md` | M |
+| `projects/sfia-studio/22-poc-orchestration-decision-pack.md` | M |
 
 ---
 
-## 6. Statuts post-sync
+## 5. Statuts (inchangés vs handoff post-merge)
 
 | Élément | Valeur |
 |---------|--------|
-| Cadrage | **VALIDÉ + INTÉGRÉ** ; cycle cadrage **terminé** |
-| Scénario S1 | contrat de cadrage (**non exécuté**) |
-| POC | **Non lancé** |
-| Architecture / backlog / delivery POC | **Non lancés** |
-| Runtime / orchestrateur | outil **ouvert** |
-| Clôture AF formelle | **ouverte** (séparée) |
+| Cadrage | VALIDÉ + INTÉGRÉ (PR #219 / `be713c45…`) |
+| POC-CAND-01…06, 08, 10 | VALIDÉES |
+| POC-CAND-07 | VALIDÉE AVEC RÉSERVE |
+| POC-CAND-09 | VALIDÉE puis consommée |
+| POC-G1…G6 | VALIDÉS |
+| POC-G10 | CONSOMMÉ |
+| POC-G7…G9 | FERMÉS |
+| S1 | contrat de cadrage (**non exécuté**) |
+| POC / archi / backlog / delivery | **non lancés** |
+| Runtime / orchestrateur | **ouverts** |
 
 ---
 
-## 7. Diff complet (vs HEAD = main@be713c45)
+## 6. Diff complet (avant staging)
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
@@ -728,58 +714,81 @@ index 68843ae..40bd185 100644
 
 ---
 
-## 8. Validations
+## 7. Validations avant staging
 
 | Validation | Résultat |
 |------------|----------|
 | `git diff --check` | PASS |
-| Exactement 5 fichiers | PASS |
-| Aucun staged | PASS |
-| Aucun app/** / méthode | PASS |
-| Merge #219 tracé | PASS |
-| POC-G10 consommé | PASS |
-| POC-G7…G9 fermés | PASS |
-| POC non lancé | PASS |
-| Runtime non sélectionné | PASS |
-| Horodatage Europe/Paris | 2026-07-19 12:59:50 CEST |
+| Exactement 5 fich## 8. Staged / commit / push / draft PR
+
+### 8.1 Staged (vérifié)
+
+```
+M	projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+M	projects/sfia-studio/20-poc-orchestration-framing.md
+M	projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md
+M	projects/sfia-studio/22-poc-orchestration-decision-pack.md
+M	projects/sfia-studio/README.md
+```
+
+`git diff --cached --check` : PASS  
+Stat : 5 files changed, 142 insertions(+), 119 deletions(-)
+
+### 8.2 Commit
+
+| Champ | Valeur |
+|-------|--------|
+| SHA | `472d5fe5a2557a2ca008fc7a4b1e0ab1dab79578` |
+| Message | `docs(sfia-studio): synchronize POC framing post-merge status` |
+| HEAD avant | `be713c45a63c243a4d75c51d27d215d05bb621f1` |
+| HEAD après | `472d5fe5a2557a2ca008fc7a4b1e0ab1dab79578` |
+
+### 8.3 Push
+
+| Champ | Valeur |
+|-------|--------|
+| Branche remote | `origin/capitalization/sfia-studio-poc-framing-post-merge` |
+| SHA remote | `472d5fe5a2557a2ca008fc7a4b1e0ab1dab79578` (`git ls-remote` confirmé) |
+
+### 8.4 Draft PR
+
+| Champ | Valeur |
+|-------|--------|
+| Numéro | **#220** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/220 |
+| Base | `main` |
+| Head | `capitalization/sfia-studio-poc-framing-post-merge` |
+| État | **DRAFT** (`isDraft: true`) |
+| Merged | **false** |
+
+Horodatage finalisation : 2026-07-19 13:04:15 CEST
 
 ---
 
 ## 9. Réserves
 
 1. POC-CAND-07 — outil/techno/forme ouverts.
-2. UI Studio vs harness — réserve d’architecture.
-3. Sync post-merge **non versionnée** — GO commit/push/PR requis.
+2. UI Studio vs harness — réserve d'architecture.
+3. Merge de #220 = GO Morris distinct.
 4. POC-G7 fermé — ouverture = décision distincte.
 5. Clôture AF formelle toujours ouverte.
-6. Réserves P0 (responsive/a11y/CI/postcss) non traitées.
 
 ---
 
-## 10. Décisions Morris requises
+## 10. Actions interdites restantes
 
-1. GO versionnement de la synchronisation post-merge (commit / push / PR) — **si** contenu retenu.
-2. Ouverture éventuelle de **POC-G7** — décision distincte, **non accordée** ici.
-3. Clôture formelle architecture fonctionnelle (séparée).
-
----
-
-## 11. Actions interdites restantes
-
-- commit / push / PR projet
-- merge
-- suppression branche
-- ouverture POC-G7 / architecture / backlog / delivery POC
+- merge #220
+- ouverture POC-G7 / G8 / G9
+- architecture / backlog / delivery POC
 - lancement POC
 - choix Runtime
+- suppression branche
 - clôture formelle AF
 
 ---
 
-## 12. Verdict
+## 11. Verdict
 
-**`POST-MERGE COMPLETE WITH RESERVES — POC FRAMING INTEGRATED — MORRIS DECISION REQUIRED`**
+**`PR READINESS COMPLETE WITH RESERVES — POST-MERGE SYNC DRAFT PR OPEN — MERGE NOT AUTHORIZED`**
 
-Statut attendu : `READY FOR MORRIS POST-MERGE REVIEW`
-
-Ce cycle **ne** lance **pas** le POC, **n’ouvre pas** POC-G7, **ne** versionne **pas** la sync, et **n’autorise pas** de PR projet.
+Ce cycle versionne uniquement la sync post-merge. Il **n'ouvre pas** POC-G7, **ne lance pas** le POC, et **n'autorise pas** le merge.
