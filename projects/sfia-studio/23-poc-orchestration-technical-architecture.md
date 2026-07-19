@@ -4,17 +4,17 @@
 |------------|--------|
 | **Projet** | SFIA Studio |
 | **Document** | `23-poc-orchestration-technical-architecture.md` |
-| **Cycle** | 6 — Architecture technique (+ correction QA Option B) |
-| **Profil** | Critical |
-| **Branche** | `architecture/sfia-studio-poc-orchestration` (**locale**, non poussée) |
-| **Base** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` |
-| **Statut** | **VALIDÉE AVEC RÉSERVES** (POC-G7) — documentée, **non versionnée** |
+| **Cycle** | 6 — Architecture technique (+ correction QA Option B + post-merge #221) |
+| **Profil** | Critical (architecture) / Standard (post-merge sync) |
+| **Branche historique** | `architecture/sfia-studio-poc-orchestration` — **MERGED** puis **supprimée** (remote) |
+| **Base / main** | `origin/main` @ `40f8ebecf41608756e4e8184c860b3b966b786b3` |
+| **Statut** | **VALIDÉE AVEC RÉSERVES — INTÉGRÉE** (POC-G7) — PR [#221](https://github.com/mcleland147/sfia-workspace/pull/221) **MERGED** |
 | **Décision architecture** | **Option B minimale** — Studio cockpit + adaptateur fin + harness autonome |
 | **POC-G8 / G9** | **FERMÉS** |
 | **POC** | **Non lancé** |
 | **Runtime / techno / protocole** | **Ouverts** (non figés) |
 
-> Architecture **validée avec réserves** par Morris. Versionnement = GO distinct. POC-G8 **non ouvert**. Aucun code.
+> Architecture **validée avec réserves** et **intégrée** sur `main` (PR #221 / `40f8ebe…`). Versionnement **consommé**. POC-G8 **non ouvert**. Aucun code.
 
 ---
 
@@ -23,10 +23,11 @@
 | Fait | Référence |
 |------|-----------|
 | Cadrage POC | PR #219 / `be713c45…` |
-| Sync post-merge | PR #220 / `b882892…` **MERGED** |
+| Sync post-merge cadrage | PR #220 / `b882892…` **MERGED** |
+| Architecture Option B | PR #221 / `40f8ebe…` **MERGED** |
 | AF-Option C | Studio ≠ orchestrateur — **VALIDÉE** |
 | App P0 | Next fixtures ; Git/Cursor simulés ; pas d’orch. |
-| Décision Morris | **Option B minimale** retenue ; POC-G7 **VALIDÉ AVEC RÉSERVES** |
+| Décision Morris | **Option B minimale** retenue ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
 
 Objectif S1 inchangé : boucle DOC read-only gouvernée, rejet hors allowlist, writes distantes absentes, L0 Morris, Git = vérité.
 
@@ -182,8 +183,9 @@ Toute logique d’orchestration reste **hors** `app/**`. Aucune modif app dans c
 | Harness autonome | **Conservé** (cœur) |
 | Option A | Mode test / dégradé **VALIDÉ** |
 | Option C | **Écartée** premier POC |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES** |
-| Versionnement docs | **NON AUTORISÉ** ici |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
+| Versionnement docs | **CONSOMMÉ / INTÉGRÉ** (PR #221 / `40f8ebe…`) |
+| Prochaine décision | Ouverture éventuelle **POC-G8** — **FERMÉE** |
 
 ---
 
@@ -200,4 +202,4 @@ Toute logique d’orchestration reste **hors** `app/**`. Aucune modif app dans c
 
 ---
 
-*Architecture POC Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — non versionnée — POC NON LANCÉ — Morris décide (versionnement).*
+*Architecture POC Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉE (PR #221 / 40f8ebe…) — POC-G8 FERMÉ — POC NON LANCÉ.*

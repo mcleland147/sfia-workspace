@@ -3,12 +3,13 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `24-poc-orchestration-contracts-security-and-observability.md` |
-| **Statut** | **VALIDÉ AVEC RÉSERVE** (mise à jour Option B) — POC-G7 |
+| **Statut** | **VALIDÉ AVEC RÉSERVE — INTÉGRÉ** (Option B) — POC-G7 ; PR #221 **MERGED** |
 | **Architecture** | Option B minimale (Studio + adaptateur + harness) |
 | **POC** | **Non lancé** |
-| **Base** | `main` @ `b882892…` |
+| **Base** | `main` @ `40f8ebe…` |
+| **Merge commit** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
 
-> Contrats conceptuels. Harness revalide tout. Adaptateur sans autorité.
+> Contrats conceptuels. Harness revalide tout. Adaptateur sans autorité. Document **intégré** sur `main` via PR #221.
 
 ---
 
@@ -165,4 +166,4 @@ Effets locaux `proofDir` seulement ; remote inchangé.
 
 ---
 
-*Contrats Option B — POC-G7 VALIDÉ AVEC RÉSERVES — Morris décide (versionnement).*
+*Contrats Option B — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (PR #221 / 40f8ebe…) — POC-G8 FERMÉ — POC NON LANCÉ.*
