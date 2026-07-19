@@ -4,15 +4,15 @@
 |------------|--------|
 | **Projet** | SFIA Studio — projet officiel (G1) |
 | **Document** | `07-product-trajectory-and-decision-pack.md` |
-| **Cycle** | 14 — Post-merge après PR #221 ; historique Option B conservé |
-| **Profil** | Standard |
+| **Cycle** | 5 — Backlog POC-G8 ; historique Option B conservé |
+| **Profil** | Critical |
 | **Baseline** | SFIA v2.6 (**Option C méthode**) |
-| **Statut** | POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** ; Option B minimale **INTÉGRÉE** ; POC **non lancé** ; G8/G9 **fermés** |
-| **Décisions** | ARCH-POC-CAND-01…12 selon Morris ; POC-CAND cadrage inchangés |
+| **Statut** | POC-G8 **CONSOMMÉ** ; backlog S1 (`26`–`28`) ; POC-G9 **FERMÉ** ; POC **non lancé** |
+| **Décisions** | ARCH-POC-CAND-01…12 inchangées ; allowlist candidate |
 | **Destinataire** | Morris |
-| **Source de vérité** | `origin/main` @ `40f8ebe…` ; branche locale `capitalization/sfia-studio-poc-option-b-post-merge` |
+| **Source de vérité** | `origin/main` @ `60e6880…` ; branche locale `backlog/sfia-studio-poc-orchestration-s1` |
 
-> Architecture **Option B minimale** validée avec réserves et **intégrée** (PR #221 / `40f8ebe…`). Harness autonome + Studio cockpit + adaptateur fin. Versionnement **consommé**. POC-G8 **fermé**. POC **non lancé**.
+> Architecture Option B **intégrée**. Backlog S1 produit (POC-G8). Harness autonome + Studio cockpit + adaptateur fin. POC-G9 **fermé**. POC **non lancé**. Delivery **non autorisé**.
 
 ---
 
@@ -34,13 +34,12 @@
 | Branche Delivery | **Supprimée** (local + remote) |
 | Gate Morris Delivery P0 | **Aucune restante** |
 | App `projects/sfia-studio/app/` | Sur `main` — desktop 1440×1024 ; fixtures ; pas d’API/auth/BDD/orchestration réelle |
-| Prochaine orientation | Ouverture éventuelle **POC-G8** — **FERMÉE** ; sync post-merge locale non versionnée ici |
-| Architecture POC | **Option B minimale** — POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** (PR #221 / `40f8ebe…`) |
-| Sync post-merge cadrage | **MERGED** — PR #220 / `b882892…` |
-| Architecture merge | **MERGED** — PR #221 / `40f8ebe…` |
+| Prochaine orientation | Validation backlog + éventuel **POC-G9** — **FERMÉ** |
+| Architecture POC | **Option B minimale** — POC-G7 **INTÉGRÉ** (PR #221) |
+| Sync post-merge archi | **MERGED** — PR #222 / `60e6880…` |
+| Backlog POC | POC-G8 **CONSOMMÉ** — docs `26`–`28` |
 | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
-| Branche architecture | historique — remote **supprimée** après #221 |
-| Branche post-merge | `capitalization/sfia-studio-poc-option-b-post-merge` (**locale**) |
+| Branche backlog | `backlog/sfia-studio-poc-orchestration-s1` (**locale**) |
 
 > Option B ≠ Option C. Harness autonome. Studio cockpit. Adaptateur sans autorité. POC non lancé.
 
@@ -120,23 +119,23 @@ Pré-cadrage
   → capitalisation P0 (PR #218)
   → cadrage POC orchestration          ← **VALIDÉ** + **INTÉGRÉ** (PR #219) — POC non lancé
   → post-merge sync documentaire       ← PR #220 **MERGED** (`b882892…`)
-  → architecture POC ciblée             ← POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B — PR #221 / `40f8ebe…`
-  → post-merge sync architecture        ← cycle 14 locale — non versionnée ici
-  → backlog POC borné                   ← POC-G8 fermé
+  → architecture POC ciblée             ← POC-G7 **INTÉGRÉ** — Option B — PR #221
+  → post-merge sync architecture        ← PR #222 **MERGED** (`60e6880…`)
+  → backlog POC borné                   ← POC-G8 **CONSOMMÉ** (`26`–`28`)
   → delivery POC                        ← POC-G9 fermé
   → décision Morris : abandon / itération / préparation MVP
 ```
 
 ### Précisions
 
-- Architecture : **Option B minimale** (validée avec réserves — **intégrée**).
+- Architecture : **Option B minimale** (intégrée).
 - Option A : mode test / dégradé harness.
 - Option C : écartée 1er POC.
-- POC-G8/G9 : **fermés**. POC : **non lancé**.
+- POC-G8 : **CONSOMMÉ**. POC-G9 : **fermé**. POC : **non lancé**.
 
 ### Orientation
 
-> POC-G7 validé avec réserves — **intégré** (PR #221). Versionnement **consommé**. Backlog non ouvert. POC-G8 **fermé**.
+> Backlog S1 produit (POC-G8). Allowlist candidate. Delivery (POC-G9) **fermé**. POC **non lancé**.
 
 ---
 
@@ -267,9 +266,11 @@ Pré-cadrage
 | D-NEXT-21 | Ouverture POC-G7 (instruction) | Morris | **Consommée** → validation avec réserves |
 | D-NEXT-22 | Validation architecture / ARCH-POC-CAND / Option B | Morris | **FAIT** — POC-G7 **VALIDÉ AVEC RÉSERVES** |
 | D-NEXT-23 | GO versionnement docs `23`–`25` | Morris | **CONSOMMÉ** — PR #221 **MERGED** (`40f8ebe…`) |
-| D-NEXT-24 | Ouverture POC-G8 | Morris | **Fermée** |
+| D-NEXT-24 | Ouverture POC-G8 | Morris | **CONSOMMÉ** — backlog `26`–`28` |
 | D-NEXT-25 | GO merge PR #221 | Morris | **CONSOMMÉ** — **MERGED** |
-| D-NEXT-26 | Versionnement sync post-merge archi (cycle 14) | Morris | **Non autorisé** ici |
+| D-NEXT-26 | Versionnement sync post-merge archi | Morris | **CONSOMMÉ** — PR #222 **MERGED** (`60e6880…`) |
+| D-NEXT-27 | Validation backlog / allowlist | Morris | **Requise** |
+| D-NEXT-28 | Ouverture POC-G9 (delivery) | Morris | **Fermée** |
 
 ---
 
@@ -331,8 +332,8 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 ## 8. Questions Morris
 
-1. Ouvrez-vous **POC-G8** (backlog borné) ?
-2. Autorisez-vous le versionnement de la **sync post-merge** (cycle 14) ?
+1. Validez-vous le backlog / allowlist (`26`–`28`) ?
+2. Ouvrez-vous **POC-G9** (delivery borné) ?
 3. Clôture formelle AF (séparée) ?
 
 ---
@@ -341,17 +342,17 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 | Critère | État |
 |---------|------|
-| Architecture Option B | **VALIDÉE AVEC RÉSERVES — INTÉGRÉE** |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
-| Versionnement archi | **CONSOMMÉ** (PR #221) |
-| POC-G8…G9 | **Fermés** |
+| Architecture Option B | **INTÉGRÉE** |
+| POC-G7 | **INTÉGRÉ** |
+| POC-G8 | **CONSOMMÉ** |
+| POC-G9 | **Fermé** |
 | POC lancé | **Non** |
 
 ---
 
 ## 10. Verdict documentaire
 
-**Verdict :** `POST-MERGE COMPLETE WITH RESERVES — OPTION B ARCHITECTURE INTEGRATED — POC-G8 DECISION REQUIRED`
+**Verdict :** `POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`
 
 ---
 
@@ -359,8 +360,9 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 | Document | Usage |
 |----------|-------|
+| [26](./26-poc-orchestration-backlog.md) · [27](./27-poc-orchestration-allowlist-and-acceptance.md) · [28](./28-poc-orchestration-delivery-gate-pack.md) | Backlog POC-G8 |
 | [23](./23-poc-orchestration-technical-architecture.md) · [24](./24-poc-orchestration-contracts-security-and-observability.md) · [25](./25-poc-orchestration-architecture-decision-pack.md) | Archi Option B |
 | [20](./20-poc-orchestration-framing.md) · [21](./21-poc-orchestration-scenario-and-boundaries.md) · [22](./22-poc-orchestration-decision-pack.md) | Cadrage |
 | [11](./11-functional-architecture.md) | AF-Option C |
 
-*Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (PR #221) — POC-G8 FERMÉ — POC NON LANCÉ.*
+*Option B — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*

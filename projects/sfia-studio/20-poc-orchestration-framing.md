@@ -8,15 +8,15 @@
 | **Profil** | Critical |
 | **Typologie** | DOC / EVOL (cadrage) |
 | **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
-| **Branche** | Historique cadrage/sync ; archi MERGED #221 (remote **supprimée**) ; post-merge `capitalization/sfia-studio-poc-option-b-post-merge` (**locale**) |
-| **Base / main** | `origin/main` @ `40f8ebecf41608756e4e8184c860b3b966b786b3` (PR #221 MERGED) |
-| **Statut document** | **VALIDÉ + INTÉGRÉ** — cycle cadrage **terminé** ; sync #220 **MERGED** ; archi #221 **MERGED** |
+| **Branche** | Historique cadrage/archi MERGED ; backlog `backlog/sfia-studio-poc-orchestration-s1` (**locale**) |
+| **Base / main** | `origin/main` @ `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` (PR #222 MERGED) |
+| **Statut document** | **VALIDÉ + INTÉGRÉ** ; archi #221 **MERGED** ; sync #222 **MERGED** ; backlog POC-G8 **CONSOMMÉ** |
 | **POC** | **Non lancé** |
 | **MVP / industrialisation** | **Non engagés** |
-| **Architecture Runtime** | **Non validée** — voir candidats `23`–`25` (ouverts) |
+| **Architecture Runtime** | **Non validée** — ouverts |
 | **Destinataire** | Morris |
 
-> Cadrage **validé** (#219). Sync #220 **MERGED**. Architecture **Option B minimale** **INTÉGRÉE** (PR #221 / `40f8ebe…`). POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ**. POC-G8 / G9 **fermés**. POC **non lancé**.
+> Cadrage **validé**. Architecture Option B **INTÉGRÉE**. Backlog S1 **produit** (POC-G8, `26`–`28`). POC-G9 **fermé**. POC **non lancé**.
 
 ### Décision Morris — validation du cadrage (2026-07-19)
 
@@ -26,9 +26,10 @@
 | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
 | POC-CAND-09 / POC-G10 | **CONSOMMÉE** |
 | POC-G1…G6 | **VALIDÉS** |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B minimale (PR #221) |
-| POC-G8…G9 | **FERMÉS** |
-| Intégration | #219 + #220 @ `b882892…` ; #221 @ `40f8ebe…` |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
+| POC-G8 | **CONSOMMÉ** (backlog) |
+| POC-G9 | **FERMÉ** |
+| Intégration | #219–#222 @ `60e6880…` |
 
 ---
 
@@ -299,14 +300,14 @@ Pas de plateforme de supervision industrialisée.
 |-------------|--------|
 | POC-G1…G6 | **VALIDÉS** |
 | POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B minimale (`23`–`25`) — PR #221 / `40f8ebe…` |
-| POC-G8…G9 | **FERMÉS** |
-| Sync #220 | **MERGED** |
-| Archi #221 | **MERGED** |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B |
+| **POC-G8** | **CONSOMMÉ** — backlog `26`–`28` |
+| POC-G9 | **FERMÉ** |
+| Sync #220 / Archi #221 / Sync #222 | **MERGED** |
 
 **Architecture :** Option B minimale (Studio cockpit + adaptateur + harness autonome). Option A = test/dégradé. Option C écartée (1er POC).
 
-**Prochaine décision :** ouverture éventuelle **POC-G8** — **FERMÉE** (GO Morris distinct).
+**Prochaine décision :** validation backlog / allowlist ; éventuel **POC-G9** — **FERMÉ**.
 
 ---
 
@@ -319,8 +320,11 @@ Pas de plateforme de supervision industrialisée.
 | [23](./23-poc-orchestration-technical-architecture.md) | Archi Option B |
 | [24](./24-poc-orchestration-contracts-security-and-observability.md) | Contrats |
 | [25](./25-poc-orchestration-architecture-decision-pack.md) | ARCH-POC-CAND |
+| [26](./26-poc-orchestration-backlog.md) | Backlog |
+| [27](./27-poc-orchestration-allowlist-and-acceptance.md) | Allowlist |
+| [28](./28-poc-orchestration-delivery-gate-pack.md) | Prérequis G9 |
 | [11](./11-functional-architecture.md) | AF-Option C |
 
 ---
 
-*Cadrage INTÉGRÉ — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (Option B, PR #221) — POC-G8 FERMÉ — POC NON LANCÉ.*
+*Cadrage INTÉGRÉ — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*

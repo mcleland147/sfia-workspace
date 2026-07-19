@@ -3,23 +3,24 @@
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `22-poc-orchestration-decision-pack.md` |
-| **Statut** | Cadrage **INTÉGRÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** (Option B minimale) |
+| **Statut** | Cadrage **INTÉGRÉ** ; POC-G7 **INTÉGRÉ** ; POC-G8 **CONSOMMÉ** (backlog) |
 | **POC** | **Non lancé** |
-| **POC-G8 / G9** | **FERMÉS** |
-| **PR architecture** | [#221](https://github.com/mcleland147/sfia-workspace/pull/221) **MERGED** |
-| **Merge commit** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
+| **POC-G9** | **FERMÉ** |
+| **Backlog** | `26`–`28` |
+| **PR archi / sync** | #221 / #222 **MERGED** |
+| **main** | `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
 
-> Cadrage #219 + sync #220 **MERGED**. Architecture **Option B minimale** validée avec réserves et **intégrée** (`23`–`25` via PR #221 / `40f8ebe…`). Harness autonome. Studio cockpit. Adaptateur sans autorité. Option C écartée (1er POC).
+> Architecture **Option B minimale** intégrée. Backlog S1 produit. Harness autonome. Studio cockpit. Adaptateur sans autorité. Option C écartée (1er POC). Delivery **non autorisé**.
 
 ---
 
 ## 1. Observations
 
-1. Cadrage / sync intégrés.
-2. POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B minimale.
-3. Option A = test/dégradé.
-4. POC-G8/G9 fermés ; POC non lancé.
-5. Versionnement archi **CONSOMMÉ / INTÉGRÉ** (PR #221).
+1. Cadrage / sync / archi intégrés (#219–#222).
+2. POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ**.
+3. POC-G8 **CONSOMMÉ** — backlog `26`–`28`.
+4. Allowlist **candidate** (`27`).
+5. POC-G9 fermé ; POC non lancé.
 
 ---
 
@@ -35,21 +36,21 @@
 |------|--------|
 | POC-G1…G6 | **VALIDÉS** |
 | POC-G10 | **CONSOMMÉ** |
-| **POC-G7** | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
-| POC-G8 | **FERMÉ** |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
+| **POC-G8** | **CONSOMMÉ** (backlog) |
 | POC-G9 | **FERMÉ** |
-| Versionnement archi | **CONSOMMÉ / INTÉGRÉ** (`40f8ebe…`) |
 
-ARCH-POC-CAND-* : voir `25`.
+ARCH-POC-CAND-* : voir `25` (inchangées).
 
 ---
 
 ## 10. Séquence
 
 ```text
-POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (Option B, PR #221 / 40f8ebe…)
-  → versionnement CONSOMMÉ
-  → éventuelle ouverture POC-G8 (FERMÉE — GO Morris requis)
+POC-G7 INTÉGRÉ → versionnement CONSOMMÉ (#221)
+  → sync post-merge CONSOMMÉE (#222)
+  → POC-G8 CONSOMMÉ (backlog 26–28)
+  → validation backlog / allowlist (Morris)
   → POC-G9 (FERMÉ) → POC (NON LANCÉ)
 ```
 
@@ -57,8 +58,8 @@ POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (Option B, PR #221 / 40f8ebe…)
 
 ## 11. Verdict
 
-**`POST-MERGE COMPLETE WITH RESERVES — OPTION B ARCHITECTURE INTEGRATED — POC-G8 DECISION REQUIRED`**
+**`POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`**
 
 ---
 
-*Option B minimale — G7 validé avec réserves — INTÉGRÉ (PR #221) — POC-G8 FERMÉ — POC NON LANCÉ.*
+*Option B — G8 consommé — G9 fermé — POC NON LANCÉ.*
