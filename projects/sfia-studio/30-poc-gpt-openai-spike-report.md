@@ -120,7 +120,7 @@ Preuve runtime : `spikes/gpt-openai/proofs/run-1784484725229.json` (gitignored).
 
 `GPT OPENAI LIVE SPIKE PROVEN WITH RESERVES — END-TO-END CURSOR DECISION REQUIRED`
 
-Statut : **READY WITH RESERVES** pour le flux fixture → qualification live → verdict live sous contrats stricts.  
+Statut : **READY WITH RESERVES** pour le flux fixture → qualification live → verdict live sous contrats stricts.
 **NOT** production ready · **NOT** merge · **NOT** Cursor réel combiné.
 
 Ne pas conclure : CHATGPT APP INTEGRATED · GPT PRODUCTION READY · POC COMPLETE · FULL END-TO-END PROVEN · CURSOR REAL COMBINED · STUDIO UI COMPLETE · READY FOR MERGE.
