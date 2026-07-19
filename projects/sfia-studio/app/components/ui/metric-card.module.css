@@ -1,0 +1,56 @@
+.card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: 18px;
+  box-shadow: var(--sfia-shadow-md);
+  padding: 18px 22px;
+  height: var(--sfia-metric-h);
+  min-height: var(--sfia-metric-h);
+  max-height: var(--sfia-metric-h);
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.barBlue {
+  background: var(--sfia-blue);
+}
+
+.barPurple {
+  background: var(--sfia-purple);
+}
+
+.barOrange {
+  background: var(--sfia-orange);
+}
+
+.barGreen {
+  background: var(--sfia-green);
+}
+
+.label {
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 600;
+  color: var(--sfia-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--sfia-line-meta);
+}
+
+.value {
+  margin-top: 14px;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--sfia-ink);
+  line-height: 1.15;
+}

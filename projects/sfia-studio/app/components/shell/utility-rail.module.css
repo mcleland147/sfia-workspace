@@ -1,0 +1,114 @@
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 11px;
+  height: 100%;
+}
+
+.brand {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  background: var(--sfia-ink-00c);
+  text-decoration: none;
+}
+
+.brandFlush {
+  composes: brand;
+  background: transparent;
+  color: var(--sfia-blue);
+  font-size: 22px;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.item {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--sfia-muted-00c);
+  background: #fff;
+  border: none;
+}
+
+.itemFlush {
+  composes: item;
+  color: var(--sfia-muted);
+  border: 1px solid var(--sfia-border);
+}
+
+.itemActive {
+  background: var(--sfia-blue-soft-00c);
+  color: var(--sfia-blue-00c);
+}
+
+.itemActiveFlush {
+  /* Softer than full fill so rail + horizontal tab stay complementary */
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+  border-color: var(--sfia-blue);
+  box-shadow: none;
+  font-weight: 700;
+}
+
+.itemDisabled {
+  composes: item;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background: var(--sfia-purple-00c);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarFlush {
+  width: 48px;
+  height: 30px;
+  border-radius: 15px;
+  background: var(--sfia-navy);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.floating {
+  composes: rail;
+}
+
+.flush {
+  composes: rail;
+  padding-top: 17px;
+}

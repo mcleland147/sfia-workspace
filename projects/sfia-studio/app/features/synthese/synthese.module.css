@@ -1,0 +1,221 @@
+.hero {
+  background: var(--sfia-hero-synthese);
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-xl);
+  box-shadow: var(--sfia-shadow-xl);
+  padding: 20px 28px;
+  color: #fff;
+  height: var(--sfia-hero-h-synthese);
+  min-height: var(--sfia-hero-h-synthese);
+  max-height: var(--sfia-hero-h-synthese);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9eb2ff;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.heroTitle {
+  font-size: 27px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  max-width: 720px;
+  line-height: var(--sfia-line-hero);
+}
+
+.heroText {
+  font-size: 13px;
+  line-height: 1.25;
+  color: #c9d6f5;
+  margin: 0;
+  max-width: 670px;
+}
+
+.heroPills {
+  position: absolute;
+  right: 46px;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heroWrap {
+  position: relative;
+  width: 100%;
+}
+
+.heroPillDark {
+  background: #303d66;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 140px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.heroPillPurple {
+  background: #42336b;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 140px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns:
+    var(--sfia-metric-w)
+    var(--sfia-metric-w)
+    var(--sfia-metric-w)
+    var(--sfia-metric-w-wide);
+  gap: var(--sfia-metric-gap);
+  margin: var(--sfia-stack-gap-sm) 0 var(--sfia-stack-gap-lg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: var(--sfia-portfolio-w) var(--sfia-side-panel-w);
+  gap: var(--sfia-col-gap);
+  align-items: start;
+  width: 100%;
+}
+
+.portfolio {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-sm);
+  padding: 20px 18px 22px;
+  height: 510px;
+  min-height: 510px;
+  max-height: 510px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.portfolioHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.portfolioTitle {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: var(--sfia-surface);
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  margin-bottom: 20px;
+  height: 72px;
+  min-height: 72px;
+  box-sizing: border-box;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+.rowDot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rowName {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rowSub {
+  font-size: var(--sfia-meta-size-sm);
+  line-height: var(--sfia-line-meta);
+  color: var(--sfia-muted);
+  margin: 4px 0 0;
+}
+
+.rowProgress {
+  margin-left: auto;
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sfia-side-stack-gap);
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-md);
+  padding: 18px 20px;
+  box-sizing: border-box;
+}
+
+.gatesPanel {
+  composes: panel;
+  height: 244px;
+  min-height: 244px;
+  max-height: 244px;
+  overflow: hidden;
+}
+
+.activityPanel {
+  composes: panel;
+  height: 248px;
+  min-height: 248px;
+  max-height: 248px;
+  overflow: hidden;
+}
+
+.panelTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+.activityList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activityItem {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-meta);
+  font-weight: 500;
+  color: var(--sfia-ink);
+  margin-bottom: 24px;
+}
+
+.activityItem:last-child {
+  margin-bottom: 0;
+}

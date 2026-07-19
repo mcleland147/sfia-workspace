@@ -1,0 +1,54 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--sfia-radius-sm);
+  font-family: var(--sfia-font);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: var(--sfia-blue);
+  color: #fff;
+  box-shadow: var(--sfia-shadow-sm);
+}
+
+.primaryDark {
+  background: var(--sfia-ink-00c);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(36, 46, 89, 0.14);
+}
+
+.secondary {
+  background: #fff;
+  color: var(--sfia-blue);
+  box-shadow: var(--sfia-shadow-sm);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--sfia-blue);
+  box-shadow: none;
+  border: 1px solid var(--sfia-border);
+}
+
+.link {
+  composes: button primary;
+}
+
+.simulated {
+  composes: button primary;
+  opacity: 0.5;
+}

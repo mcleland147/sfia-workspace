@@ -1,0 +1,117 @@
+/**
+ * SFIA Studio design tokens — extracted from Figma fileKey lrjA1WEyRpL05vKR8k29LO
+ * get_variable_defs returned empty; hex values documented from get_design_context.
+ */
+
+:root {
+  /* Flush palette (P0-01/02/03 — primary) */
+  --sfia-bg: #f6f9ff;
+  --sfia-ink: #141c30;
+  --sfia-blue: #3863f5;
+  --sfia-purple: #7a4df5;
+  --sfia-green: #21c28a;
+  --sfia-orange: #faa629;
+  /* Secondary text: darkened slightly vs Figma #636e85 for WCAG AA readability on white */
+  --sfia-muted: #51607a;
+  --sfia-border: #e0e5f5;
+  --sfia-border-soft: #e6eaf2;
+  --sfia-navy: #0f172e;
+  --sfia-pink: #f25794;
+  --sfia-blue-soft: #edf2ff;
+  --sfia-purple-soft: #f5ebff;
+  --sfia-surface: #fbfcff;
+  --sfia-hero-synthese: #141f47;
+  --sfia-hero-cycle: #121f4a;
+  --sfia-hero-decision: #121a38;
+
+  /* Floating palette (P0-00C variants) */
+  --sfia-bg-00c: #f6f9fe;
+  --sfia-ink-00c: #131729;
+  --sfia-blue-00c: #2e6bf2;
+  --sfia-purple-00c: #8c47f2;
+  --sfia-green-00c: #14b87a;
+  --sfia-orange-00c: #ffad2e;
+  /* Secondary text P0-00C: darkened slightly vs Figma #6e7894 */
+  --sfia-muted-00c: #5a657c;
+  --sfia-border-00c: #e3e8f5;
+  --sfia-blue-soft-00c: #e8f2ff;
+  --sfia-purple-soft-00c: #f5edff;
+  --sfia-green-soft-00c: #e5faf2;
+  --sfia-orange-soft-00c: #fff7e0;
+  --sfia-accent-pink-00c: #f552a3;
+
+  /* Brand accent gradient */
+  --sfia-gradient-brand-start: #5b5ce2;
+  --sfia-gradient-brand-mid: #8b5cf6;
+  --sfia-gradient-brand-end: #06b6d4;
+
+  /* Shadows (Figma) */
+  --sfia-shadow-sm: 0 6px 9px rgba(43, 56, 115, 0.08);
+  --sfia-shadow-md: 0 8px 12px rgba(23, 37, 84, 0.1);
+  --sfia-shadow-lg: 0 8px 24px rgba(36, 46, 89, 0.08);
+  --sfia-shadow-xl: 0 10px 14px rgba(43, 56, 115, 0.12);
+  --sfia-shadow-panel: 0 8px 24px rgba(23, 37, 84, 0.1);
+  --sfia-shadow-hero: 0 12px 26px rgba(36, 46, 89, 0.18);
+  --sfia-shadow-workspace: 0 10px 28px rgba(36, 46, 89, 0.08);
+
+  /* Layout (1440×1024 reference — Figma P0-01C/02C/03C/00C) */
+  --sfia-rail-width: 64px;
+  --sfia-topbar-height: 116px;
+  --sfia-copilot-width-flush: 340px;
+  --sfia-copilot-width-floating: 334px;
+  --sfia-canvas-offset-flush: 92px;
+  --sfia-canvas-width-flush: 972px;
+  --sfia-copilot-gap-flush: 36px;
+  --sfia-canvas-top-flush: 32px;
+  --sfia-copilot-height-flush: 908px;
+  --sfia-workspace-width-floating: 968px;
+  --sfia-floating-pad: 18px;
+  --sfia-floating-gap-rail: 18px;
+  --sfia-floating-gap-copilot: 20px;
+  --sfia-brand-accent-left: 84px;
+  --sfia-brand-accent-width: 4px;
+  --sfia-brand-accent-height: 150px;
+  --sfia-brand-accent-top: 120px;
+
+  /* Content geometry (flush) */
+  --sfia-hero-h-synthese: 152px;
+  --sfia-hero-h-cycle: 138px;
+  --sfia-hero-h-decision: 128px;
+  --sfia-hero-h-demande: 132px;
+  --sfia-metric-w: 220px;
+  --sfia-metric-w-wide: 264px;
+  --sfia-metric-h: 122px;
+  --sfia-metric-gap: 16px;
+  --sfia-portfolio-w: 626px;
+  --sfia-side-panel-w: 322px;
+  --sfia-work-w: 632px;
+  --sfia-inspector-w: 316px;
+  --sfia-evidence-w: 580px;
+  --sfia-decision-w: 368px;
+  --sfia-col-gap: 24px;
+  --sfia-stack-gap-sm: 10px;
+  --sfia-stack-gap-md: 16px;
+  --sfia-stack-gap-lg: 24px;
+  --sfia-side-stack-gap: 18px;
+  --sfia-tab-gap-flush: 64px;
+  --sfia-tab-underline-h: 3px;
+  --sfia-tab-underline-w: 78px;
+
+  /* Typography */
+  --sfia-font: var(--font-inter, "Inter", system-ui, sans-serif);
+  --sfia-line-meta: 1.4;
+  --sfia-line-body: 1.4;
+  --sfia-line-hero: 1.22;
+  --sfia-meta-size: 12px;
+  --sfia-meta-size-sm: 11px;
+  --sfia-space-xs: 8px;
+  --sfia-space-sm: 12px;
+  --sfia-space-md: 16px;
+  --sfia-space-lg: 20px;
+  --sfia-space-xl: 24px;
+  --sfia-space-2xl: 28px;
+  --sfia-radius-sm: 12px;
+  --sfia-radius-md: 16px;
+  --sfia-radius-lg: 20px;
+  --sfia-radius-xl: 24px;
+}
