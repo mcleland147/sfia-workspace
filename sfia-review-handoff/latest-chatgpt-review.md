@@ -1,6 +1,6 @@
-# SFIA Review Pack — Cycle 8+9 Visual Polish P0
+# SFIA Review Pack — Cycle 8+9 Geometry Polish P0 (polish-2)
 
-- **Date / heure :** 2026-07-19 10:23:51 UTC+02:00 (UTC+0200)
+- **Date / heure :** 2026-07-19 10:55:02 CEST (+0200)
 - **Cycle principal :** 8 — Delivery / implémentation corrective
 - **Sous-cycle :** 9 — QA / validation visuelle
 - **Profil :** Standard
@@ -9,74 +9,360 @@
 - **HEAD :** `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9` (inchangé — **aucun commit projet**)
 - **origin/main :** `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9`
 - **Push projet / PR / merge :** aucun
+- **Décision Morris consommée :** GO polish géométrique transversal runtime ↔ Figma
 
 ## 1. État Git initial et final
 
-### Initial
-- Branche delivery @ `ff5e3f6…` ; code P0 non commité sous `projects/sfia-studio/app/**`
-- Artefacts review sous `.tmp-sfia-review/**`
-- Aucun staged ; main aligné
-
-### Final
+### Initial / Final (identique sur HEAD)
 - Branche : `project/sfia-studio-delivery-p0-implementation`
-- HEAD : `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9`
+- HEAD = origin/main = `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9`
 - Aucun staged ; aucun commit projet
-- Modifications polish uniquement CSS / globals / e2e captures (JSX inchangé hors e2e)
+- Working tree : `projects/sfia-studio/app/**` + `.tmp-sfia-review/**` uniquement
 
-```
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/
-```
+## 2. Sources Git consultées (origin/main)
 
-## 2. Sources consultées
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `projects/sfia-studio/14-ux-ui-contract.md`
+- `projects/sfia-studio/15-ux-ui-flows-and-screens.md`
+- `projects/sfia-studio/16-ux-ui-decision-pack.md`
+- `projects/sfia-studio/18-technical-architecture.md`
+- `projects/sfia-studio/19-technical-architecture-decision-pack.md`
+- Handoff canonique : `sfia-review-handoff/latest-chatgpt-review.md` (polish-1)
 
-- Template cycle + docs Studio `14`–`16`, `18`–`19` (validés)
-- Handoff canonique Delivery P0
-- Figma fileKey `lrjA1WEyRpL05vKR8k29LO` frames `19:2`, `22:2`, `22:133`, `22:270` @ 1440×1024
-- Captures runtime avant (`.tmp-sfia-review/screenshots/before/`) et Playwright polish
+## 3. Références Figma
 
-## 3. Observations initiales (Morris + runtime)
+- fileKey : `lrjA1WEyRpL05vKR8k29LO`
+- Frames : P0-00C `19:2` · P0-01C `22:2` · P0-02C `22:133` · P0-03C `22:270`
+- Dimensions : **1440 × 1024**
+- Outils : MCP `get_metadata` + `get_design_context` (P0-01C)
+- Mesures détaillées : `.tmp-sfia-review/geometry/figma-measures.md`
+- **Figma non modifié**
 
-1. Densité / respiration insuffisante (surtout Nouvelle demande et décision).
-2. Textes secondaires (10–11px gris) trop faibles.
-3. Copilot dense : gaps et paddings à aérer.
-4. Alignements badges / titres / hauteurs de rangées à homogénéiser.
-5. Rail actif plein bleu + onglet souligné = double signal trop fort.
-6. Intention Option B et 4 frames à conserver (pas de refonte).
+### Mesures Figma structurantes (flush P0-01C)
 
-## 4. Corrections partagées
+| Zone | X | Y | W | H |
+|---|---:|---:|---:|---:|
+| Rail | 0 | 0 | 64 | 1024 |
+| Topbar | 64 | 0 | 1376 | 116 |
+| Hero | 92 | 148 | 972 | 152 |
+| Metrics (×3) | 92/328/564 | 310 | 220 | 122 |
+| Metric wide | 800 | 310 | 264 | 122 |
+| Portfolio | 92 | 456 | 626 | 510 |
+| Gates | 742 | 456 | 322 | 244 |
+| Activity | 742 | 718 | 322 | 248 |
+| Copilot | 1100 | 116 | 340 | 908 |
+| Gap canvas→copilot | — | — | **36** | — |
+
+### Floating P0-00C
+
+| Zone | X | Y | W | H |
+|---|---:|---:|---:|---:|
+| Pad | 18 | 18 | — | — |
+| Rail | 18 | 18 | 64 | 988 |
+| Workspace | 100 | 18 | 968 | 988 |
+| Copilot | 1088 | 18 | 334 | 988 |
+| Gap ws→copilot | — | — | **20** | — |
+| Hero | 24* | 166* | 920 | 132 |
+| Form / Preview | 24* / 646* | 322* | 600 / 298 | 638 |
+
+## 4. Diagnostic géométrique (avant polish-2)
+
+Mesures Playwright 1440×1024 DPR1 — voir `geometry/runtime-before.json`.
+
+| Élément | Figma | Runtime polish-1 | Delta px | Delta % | Cause | Correction |
+|---|---:|---:|---:|---:|---|---|
+| Canvas flush W | 972 | 1008 | +36 | +3.7% | `1fr` + padding 24px | colonnes fixes 972+36+340 |
+| Hero synthèse W×H | 972×152 | 984×183 | +12 / +31 | +8% / +20% | padding + min-height content | height fixe 152 + line-height |
+| Copilot inner W | 340 | 316 | −24 | −7% | shell padding 16/8 | padding shell 0 |
+| Metrics Y | 310 | 349 | +39 | — | hero trop haut | hero 152 + gap 10 |
+| Page synthèse H | 1024 | 1051 | +27 | — | contenu débordant | overflow hidden + heights |
+| Hero 00C H | 132 | 172 | +40 | +30% | padding + min-height | height 132 fixe |
+| Copilot 00C X | 1088 | 1086 | −2 | — | gap uniforme 18 | gutters 18/20 |
+
+## 5. Corrections transversales
 
 ### Tokens (`styles/tokens.css`)
-- `--sfia-muted` `#636e85` → `#51607a` (lisibilité AA secondaire)
-- `--sfia-muted-00c` `#6e7894` → `#5a657c`
-- Ajout `--sfia-line-meta`, `--sfia-line-body`, `--sfia-meta-size`, `--sfia-meta-size-sm`, `--sfia-space-*`
+- Ajout tokens géométriques : canvas 972, gap copilot 36, top canvas 32, hero heights, metric widths, portfolio/side/work/inspector/evidence/decision widths, col-gap 24, tab-gap 64, underline 3×78
+- line-height body/meta ramenés à 1.4 ; `--sfia-line-hero: 1.22`
 
-### Shell
-- Canvas flush padding rééquilibré ; Copilot flush padding latéral
-- `workspaceInner` padding bas +5px
+### Shell (`styles/shell.module.css`)
+- Flush : grille `972 + 36 + 340`, canvas offset 92, hauteur page/body 1024/908, **plus de padding horizontal canvas/copilot**
+- Floating : colonnes explicites `64 | 18 | 968 | 20 | 334`, hauteur 1024, overflow hidden
+- workspaceInner padding `0 24px 24px`
 
-### Copilot
-- Gaps body 16→18 ; paddings message/risk/composer ; line-height body
-- Labels section / risk title 10→11px ; watch items densifiés verticalement
+### Navigation (`topbar.module.css`)
+- Tab gap flush → 64px
+- Underline restauré à **3px** (Figma)
 
-### Navigation
-- Topbar : `titleRow` min-height + alignement badges ; tab underline 3→2px ; gap tabs 48→40
-- Rail flush actif : soft blue + texte bleu (complémentaire à l’onglet, moins concurrent)
+### Copilot (`copilot-panel.module.css` + JSX mineur)
+- Header flush 116 / floating 88
+- Avatar flush 46 ; body padding 20 ; watch items H 46
+- Composer floating 116 / flush 110
+- Badge L0 positionné bas-droite (flush) via wrapper JSX
 
-### UI
-- Gate timing / metric label / evidence label : meta-size + line-height
-- `globals.css` : `prefers-reduced-motion`
+## 6. Corrections par écran
 
-## 5. Corrections par écran
+### P0-01C Synthèse
+- Hero 152×972 @ y=148 ; metrics grid `220×3 + 264` gap 16 @ y=310 ; lower 626+322 gap 24 @ y=456
+- Gates 244 / Activity 248 ; side gap 18
 
-| Écran | Corrections |
-|-------|-------------|
-| P0-00C Nouvelle demande | hero/form/preview paddings ; section gaps ; status rows min-height ; meta 10→11 ; recommendation note lisible |
-| P0-01C Synthèse | metrics/lower gaps ; portfolio rows homogènes ; rowSub 12px ; panels padding |
-| P0-02C Cycle actif | stepper min-height ; work/inspector padding ; check rows ; field labels meta ; stop box line-height |
-| P0-03C Décision | content gap ; evidence/decision paddings ; option spacing ; optionSub/confirm/meta lisibles |
+### P0-02C Cycle
+- Hero 138 ; stepper 92 ; lower 632+316 gap 24 @ y=418 ; cards H 548
 
-## 6. Fichiers polish — contenu complet
+### P0-03C Décision
+- Hero 128 ; content 580+368 gap 24 @ y=302 ; panels H 664 ; options H 106
+
+### P0-00C Nouvelle demande
+- Hero 132 ; form/preview 600+298 gap 22 H 638 ; floating copilot X 1088
+
+## 7. Runtime après (Playwright)
+
+```json
+{
+  "synthese": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "canvas": {
+      "x": 92,
+      "y": 116,
+      "w": 972,
+      "h": 908
+    },
+    "copilot": {
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "panel": {
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "hero": {
+      "x": 92,
+      "y": 148,
+      "w": 972,
+      "h": 152
+    },
+    "metrics": {
+      "x": 92,
+      "y": 310,
+      "w": 972,
+      "h": 122
+    },
+    "lower": {
+      "x": 92,
+      "y": 456,
+      "w": 972,
+      "h": 510
+    },
+    "scrollH": 1024
+  },
+  "nouvelle": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "canvas": {
+      "x": 101,
+      "y": 161,
+      "w": 966,
+      "h": 844
+    },
+    "copilot": {
+      "x": 1088,
+      "y": 18,
+      "w": 334,
+      "h": 988
+    },
+    "panel": {
+      "x": 1089,
+      "y": 19,
+      "w": 332,
+      "h": 986
+    },
+    "hero": {
+      "x": 125,
+      "y": 185,
+      "w": 918,
+      "h": 132
+    },
+    "metrics": null,
+    "lower": {
+      "x": 125,
+      "y": 341,
+      "w": 918,
+      "h": 638
+    },
+    "scrollH": 1024
+  },
+  "cycle": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "canvas": {
+      "x": 92,
+      "y": 116,
+      "w": 972,
+      "h": 908
+    },
+    "copilot": {
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "panel": {
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "hero": {
+      "x": 92,
+      "y": 148,
+      "w": 972,
+      "h": 138
+    },
+    "metrics": null,
+    "lower": {
+      "x": 92,
+      "y": 418,
+      "w": 972,
+      "h": 548
+    },
+    "scrollH": 1024
+  },
+  "decision": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "canvas": {
+      "x": 92,
+      "y": 116,
+      "w": 972,
+      "h": 908
+    },
+    "copilot": {
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "panel": {
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "hero": {
+      "x": 92,
+      "y": 148,
+      "w": 972,
+      "h": 128
+    },
+    "metrics": null,
+    "lower": {
+      "x": 92,
+      "y": 302,
+      "w": 972,
+      "h": 664
+    },
+    "scrollH": 1024
+  }
+}
+```
+
+### Deltas finaux vs Figma (principaux)
+
+| Zone | Figma | Polish-2 | Delta | Verdict |
+|---|---:|---:|---:|---|
+| Canvas W | 972 | 972 | 0 | CONFORME |
+| Copilot flush | 340@1100 | 340@1100 | 0 | CONFORME |
+| Hero synthèse | 972×152@148 | 972×152@148 | 0 | CONFORME |
+| Metrics Y | 310 | 310 | 0 | CONFORME |
+| Lower Y | 456 | 456 | 0 | CONFORME |
+| Cycle lower Y | 418 | 418 | 0 | CONFORME |
+| Decision content Y | 302 | 302 | 0 | CONFORME |
+| Copilot 00C X | 1088 | 1088 | 0 | CONFORME |
+| Hero 00C H | 132 | 132 | 0 | CONFORME |
+| Hero 00C W | 920 | 918 | −2 | ÉCART MINEUR JUSTIFIÉ (border workspace) |
+| Scroll | 1024 | 1024 | 0 | CONFORME |
+
+## 8. Tests
+
+| Suite | Résultat |
+|---|---|
+| `npm run lint` | ✔ No ESLint warnings or errors |
+| `npm run typecheck` | ✔ |
+| `npm test` (Vitest) | ✔ 9/9 |
+| `npm run build` | ✔ |
+| `npm run test:e2e` | ✔ 10 passed / 4 skipped (polish-1 gated) |
+| Viewport | 1440×1024 · DPR 1 |
+| Zoom | 100 % (référence) |
+
+## 9. Captures
+
+| Série | Chemin |
+|---|---|
+| Avant (runtime initial) | `.tmp-sfia-review/screenshots/before/` |
+| Polish-1 | **écrasé** par e2e avant gating — voir README dans `screenshots/polish/` ; preuves textuelles handoff `bfb30c0` |
+| Polish-2 | `.tmp-sfia-review/screenshots/polish-2/p0-0{0..3}c-*-polish-2.png` |
+
+## 10. Accessibilité
+
+- Contraste muted conservé (polish-1)
+- Focus visible inchangé
+- Tab order inchangé
+- Reduced motion conservé
+- Typo Figma 10px gates timing conservée (méta)
+- **Verdict max :** a11y smoke conforme (axe-core critique OK)
+
+## 11. Écarts résiduels
+
+1. Hero 00C largeur 918 vs 920 (−2 px, border box) — justifié
+2. Copilot floating panel inner 332 vs 334 (−2, border) — justifié
+3. Captures polish-1 binaires non récupérées — documenté ; `before/` + mesures + handoff précédent
+4. Rail flush soft-active (choix polish-1) ≠ fill solide Figma — inchangé justifié (navigation dual-signal)
+5. Non pixel-perfect micro-typo / ombres
+
+Aucun écart majeur.
+
+## 12. Garde-fous
+
+- Pas de `transform: scale`
+- Pas de dépendance ajoutée
+- Pas de route / fixture / Figma / docs 01–19
+- Pas de commit / push / PR / merge projet
+- JSX limité (Copilot pill wrapper + Synthese panel class names)
+
+## 13. Décisions Morris requises
+
+- Validation visuelle finale runtime
+- GO commit / push / PR / merge projet
+- GO cleanup
+
+## 14. Verdict
+
+**GEOMETRY POLISH COMPLETE — READY FOR MORRIS FINAL VISUAL REVIEW**
+
+---
+
+## Annexe A — Contenu des fichiers modifiés
 
 ### `styles/tokens.css`
 
@@ -137,21 +423,54 @@
   --sfia-shadow-hero: 0 12px 26px rgba(36, 46, 89, 0.18);
   --sfia-shadow-workspace: 0 10px 28px rgba(36, 46, 89, 0.08);
 
-  /* Layout (1440×1024 reference) */
+  /* Layout (1440×1024 reference — Figma P0-01C/02C/03C/00C) */
   --sfia-rail-width: 64px;
   --sfia-topbar-height: 116px;
   --sfia-copilot-width-flush: 340px;
   --sfia-copilot-width-floating: 334px;
   --sfia-canvas-offset-flush: 92px;
+  --sfia-canvas-width-flush: 972px;
+  --sfia-copilot-gap-flush: 36px;
+  --sfia-canvas-top-flush: 32px;
+  --sfia-copilot-height-flush: 908px;
+  --sfia-workspace-width-floating: 968px;
+  --sfia-floating-pad: 18px;
+  --sfia-floating-gap-rail: 18px;
+  --sfia-floating-gap-copilot: 20px;
   --sfia-brand-accent-left: 84px;
   --sfia-brand-accent-width: 4px;
   --sfia-brand-accent-height: 150px;
   --sfia-brand-accent-top: 120px;
 
+  /* Content geometry (flush) */
+  --sfia-hero-h-synthese: 152px;
+  --sfia-hero-h-cycle: 138px;
+  --sfia-hero-h-decision: 128px;
+  --sfia-hero-h-demande: 132px;
+  --sfia-metric-w: 220px;
+  --sfia-metric-w-wide: 264px;
+  --sfia-metric-h: 122px;
+  --sfia-metric-gap: 16px;
+  --sfia-portfolio-w: 626px;
+  --sfia-side-panel-w: 322px;
+  --sfia-work-w: 632px;
+  --sfia-inspector-w: 316px;
+  --sfia-evidence-w: 580px;
+  --sfia-decision-w: 368px;
+  --sfia-col-gap: 24px;
+  --sfia-stack-gap-sm: 10px;
+  --sfia-stack-gap-md: 16px;
+  --sfia-stack-gap-lg: 24px;
+  --sfia-side-stack-gap: 18px;
+  --sfia-tab-gap-flush: 64px;
+  --sfia-tab-underline-h: 3px;
+  --sfia-tab-underline-w: 78px;
+
   /* Typography */
   --sfia-font: var(--font-inter, "Inter", system-ui, sans-serif);
-  --sfia-line-meta: 1.45;
-  --sfia-line-body: 1.5;
+  --sfia-line-meta: 1.4;
+  --sfia-line-body: 1.4;
+  --sfia-line-hero: 1.22;
   --sfia-meta-size: 12px;
   --sfia-meta-size-sm: 11px;
   --sfia-space-xs: 8px;
@@ -165,6 +484,7 @@
   --sfia-radius-lg: 20px;
   --sfia-radius-xl: 24px;
 }
+
 ```
 
 ### `styles/shell.module.css`
@@ -180,12 +500,22 @@
 .pageFloating {
   composes: page;
   background: var(--sfia-bg-00c);
-  padding: 18px;
+  padding: var(--sfia-floating-pad);
   display: grid;
-  grid-template-columns: 64px 968px 334px;
+  /* Explicit gutters: rail→ws 18, ws→copilot 20 (Figma P0-00C) */
+  grid-template-columns:
+    var(--sfia-rail-width)
+    var(--sfia-floating-gap-rail)
+    var(--sfia-workspace-width-floating)
+    var(--sfia-floating-gap-copilot)
+    var(--sfia-copilot-width-floating);
   grid-template-rows: 988px;
-  gap: 18px;
+  gap: 0;
   align-items: start;
+  box-sizing: border-box;
+  width: 1440px;
+  height: 1024px;
+  overflow: hidden;
 }
 
 .pageFlush {
@@ -193,10 +523,13 @@
   background: var(--sfia-bg);
   display: grid;
   grid-template-columns: var(--sfia-rail-width) 1fr;
-  grid-template-rows: minmax(1024px, auto);
+  grid-template-rows: 1024px;
+  height: 1024px;
   min-height: 1024px;
   width: 1440px;
   max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .brandAccent {
@@ -217,13 +550,15 @@
 }
 
 .railFloating {
-  width: 64px;
+  grid-column: 1;
+  width: var(--sfia-rail-width);
   height: 988px;
   background: #fff;
   border: 1px solid var(--sfia-border-00c);
   border-radius: 22px;
   box-shadow: var(--sfia-shadow-lg);
   position: relative;
+  box-sizing: border-box;
 }
 
 .railFlush {
@@ -241,36 +576,46 @@
 .mainFlush {
   display: flex;
   flex-direction: column;
-  min-height: 1024px;
+  height: 1024px;
+  min-height: 0;
   min-width: 0;
+  overflow: hidden;
 }
 
 .bodyFlush {
   display: grid;
-  grid-template-columns: 1fr var(--sfia-copilot-width-flush);
-  gap: 0;
+  grid-template-columns: var(--sfia-canvas-width-flush) var(--sfia-copilot-width-flush);
+  column-gap: var(--sfia-copilot-gap-flush);
   padding-left: calc(var(--sfia-canvas-offset-flush) - var(--sfia-rail-width));
   padding-right: 0;
   flex: 1;
-  min-height: 908px;
+  height: var(--sfia-copilot-height-flush);
+  min-height: 0;
   align-items: start;
+  box-sizing: border-box;
 }
 
 .canvasFlush {
-  padding: 28px 24px 28px 0;
+  padding: var(--sfia-canvas-top-flush) 0 0;
+  width: var(--sfia-canvas-width-flush);
   min-width: 0;
-  overflow: visible;
+  height: var(--sfia-copilot-height-flush);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .copilotFlush {
-  padding: 0 16px 16px 8px;
+  padding: 0;
   margin-top: 0;
-  height: 908px;
+  width: var(--sfia-copilot-width-flush);
+  height: var(--sfia-copilot-height-flush);
   align-self: start;
+  box-sizing: border-box;
 }
 
 .workspaceFloating {
-  width: 968px;
+  grid-column: 3;
+  width: var(--sfia-workspace-width-floating);
   height: 988px;
   background: #fff;
   border: 1px solid var(--sfia-border-00c);
@@ -279,10 +624,12 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .copilotFloating {
-  width: 334px;
+  grid-column: 5;
+  width: var(--sfia-copilot-width-floating);
   height: 988px;
   background: #fff;
   border: 1px solid var(--sfia-border-soft);
@@ -291,12 +638,14 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .workspaceInner {
   flex: 1;
-  overflow: auto;
-  padding: 0 23px 28px;
+  overflow: hidden;
+  padding: 0 24px 24px;
+  box-sizing: border-box;
 }
 
 .workspaceTopbarFloating {
@@ -315,68 +664,136 @@
   gap: 32px;
   flex-shrink: 0;
 }
+
 ```
 
-### `app/globals.css`
+### `components/shell/topbar.module.css`
 
 ```css
-@import "../styles/tokens.css";
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+.topbar {
+  height: var(--sfia-topbar-height);
+  padding: 17px 27px 0;
+  border-bottom: 1px solid var(--sfia-border);
+  background: #fff;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  background: var(--sfia-bg);
+.topbarFloating {
+  composes: topbar;
+  height: 88px;
+  padding: 18px 28px 0;
+  border-bottom: 1px solid var(--sfia-border-00c);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sfia-muted);
+  text-transform: uppercase;
+}
+
+.eyebrowFloating {
+  composes: eyebrow;
+  color: var(--sfia-purple-00c);
+  font-weight: 700;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 6px;
+  min-height: 42px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
   color: var(--sfia-ink);
+  margin: 0;
+}
+
+.titleFloating {
+  composes: title;
+  font-weight: 700;
+  color: var(--sfia-ink-00c);
+}
+
+.pills {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tabs {
+  display: flex;
+  gap: var(--sfia-tab-gap-flush);
+  margin-top: 14px;
+  align-items: center;
+}
+
+.tab {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sfia-muted);
+  text-decoration: none;
+  padding-bottom: 10px;
+  border-bottom: var(--sfia-tab-underline-h) solid transparent;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
   font-family: var(--sfia-font);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
-a {
-  color: inherit;
+.tabActive {
+  color: var(--sfia-blue);
+  font-weight: 600;
+  border-bottom-color: var(--sfia-blue);
 }
 
-button,
-input,
-textarea {
-  font: inherit;
+.tabDisabled {
+  composes: tab;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-:focus-visible {
-  outline: 2px solid var(--sfia-blue);
-  outline-offset: 2px;
+.tabsFloating {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  height: 54px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--sfia-border-00c);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+.tabFloating {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sfia-muted-00c);
+  text-decoration: none;
 }
 
-.sr-only {
+.tabFloatingActive {
+  composes: tabFloating;
+  color: var(--sfia-blue-00c);
+  font-weight: 600;
+  position: relative;
+}
+
+.tabFloatingActive::after {
+  content: "";
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  left: 0;
+  bottom: -16px;
+  width: 72px;
+  height: 3px;
+  background: var(--sfia-blue-00c);
 }
+
 ```
 
 ### `components/shell/copilot-panel.module.css`
@@ -386,12 +803,15 @@ textarea {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .header {
-  padding: 19px 20px;
+  padding: 18px 20px;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .headerFlush {
@@ -399,18 +819,40 @@ textarea {
   background: var(--sfia-navy);
   border-radius: 14px 14px 0 0;
   color: #fff;
+  height: 116px;
   min-height: 116px;
+  max-height: 116px;
+  padding: 20px;
 }
 
 .headerFloating {
   composes: header;
   border-bottom: 1px solid var(--sfia-border-00c);
+  height: 88px;
+  min-height: 88px;
+  max-height: 88px;
+  padding: 18px 20px;
+  box-sizing: border-box;
 }
 
 .headerRow {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
+  position: relative;
+  min-height: 46px;
+}
+
+.levelPill {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.levelPillFlush {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  flex-shrink: 0;
 }
 
 .avatar {
@@ -454,6 +896,7 @@ textarea {
   font-weight: 700;
   color: var(--sfia-ink-00c);
   margin: 0;
+  line-height: 1.2;
 }
 
 .nameFlush {
@@ -466,6 +909,7 @@ textarea {
   font-size: 12px;
   color: var(--sfia-green-00c);
   margin: 4px 0 0;
+  line-height: 1.25;
 }
 
 .subtitleFlush {
@@ -475,58 +919,73 @@ textarea {
 
 .body {
   flex: 1;
-  overflow-y: auto;
-  padding: 18px 17px 20px;
+  overflow: hidden;
+  padding: 24px 20px 16px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
+  box-sizing: border-box;
+  min-height: 0;
 }
 
 .message {
   background: var(--sfia-blue-soft-00c);
   border: 1px solid var(--sfia-border-soft);
-  border-radius: 18px;
-  padding: 15px 16px;
+  border-radius: 16px;
+  padding: 16px;
   font-size: 13px;
   line-height: var(--sfia-line-body);
   color: var(--sfia-ink-00c);
   box-shadow: var(--sfia-shadow-panel);
+  box-sizing: border-box;
+  min-height: 92px;
 }
 
 .messageFlush {
   composes: message;
   background: #f5f7ff;
   color: var(--sfia-ink);
+  min-height: 108px;
+  border-radius: 16px;
 }
 
 .sectionTitle {
   font-size: 13px;
   font-weight: 700;
   color: var(--sfia-ink-00c);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
 }
 
 .sectionLabel {
-  font-size: var(--sfia-meta-size-sm);
+  font-size: 10px;
   font-weight: 700;
   color: var(--sfia-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   line-height: var(--sfia-line-meta);
-  margin: 2px 0 0;
+  margin: 4px 0 0;
+}
+
+.watchList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .watchItem {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 13px;
+  padding: 0 13px;
+  height: 46px;
+  min-height: 46px;
   background: #fff;
   border: 1px solid var(--sfia-border-soft);
   border-radius: 14px;
   font-size: var(--sfia-meta-size);
   line-height: var(--sfia-line-meta);
   color: var(--sfia-ink);
+  box-sizing: border-box;
 }
 
 .watchDot {
@@ -538,18 +997,21 @@ textarea {
 
 .risk {
   background: var(--sfia-purple-soft-00c);
-  border-radius: 18px;
-  padding: 16px 16px 18px;
-  margin-top: 2px;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  min-height: 102px;
 }
 
 .riskFlush {
   composes: risk;
   background: #fff2f5;
+  border: 1px solid var(--sfia-border-soft);
 }
 
 .riskTitle {
-  font-size: var(--sfia-meta-size-sm);
+  font-size: 10px;
   font-weight: 700;
   color: var(--sfia-purple-00c);
   margin: 0 0 8px;
@@ -562,7 +1024,7 @@ textarea {
 }
 
 .riskText {
-  font-size: 13px;
+  font-size: var(--sfia-meta-size);
   line-height: var(--sfia-line-body);
   color: var(--sfia-ink-00c);
   margin: 0;
@@ -575,6 +1037,15 @@ textarea {
   border-radius: 18px;
   background: #fff;
   flex-shrink: 0;
+  box-sizing: border-box;
+  height: 116px;
+  min-height: 116px;
+}
+
+.panel[data-variant="flush"] .composer,
+.composerFlush {
+  height: 110px;
+  min-height: 110px;
 }
 
 .composerPlaceholder {
@@ -641,314 +1112,176 @@ textarea {
   color: var(--sfia-purple-00c);
   text-transform: uppercase;
 }
+
 ```
 
-### `components/shell/topbar.module.css`
+### `components/shell/CopilotPanel.tsx`
 
-```css
-.topbar {
-  height: var(--sfia-topbar-height);
-  padding: 17px 27px 0;
-  border-bottom: 1px solid var(--sfia-border);
-  background: #fff;
+```tsx
+import { StatusPill } from "@/components/ui/StatusPill";
+import styles from "./copilot-panel.module.css";
+
+export interface CopilotWatchItem {
+  label: string;
+  dotColor: string;
 }
 
-.topbarFloating {
-  composes: topbar;
-  height: 88px;
-  padding: 18px 28px 0;
-  border-bottom: 1px solid var(--sfia-border-00c);
+export interface CopilotProps {
+  variant: "floating" | "flush";
+  name: string;
+  subtitle: string;
+  avatarTone?: "pink" | "purple" | "blue" | "pinkFlush";
+  levelPill?: string;
+  summary: string;
+  watchItems?: CopilotWatchItem[];
+  watchLabel?: string;
+  riskTitle?: string;
+  riskText?: string;
+  checklist?: string[];
+  checklistTitle?: string;
+  showRecommendationLabel?: boolean;
 }
 
-.eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--sfia-muted);
-  text-transform: uppercase;
+export function CopilotPanel({
+  variant,
+  name,
+  subtitle,
+  avatarTone = "pink",
+  levelPill = "L0 humain",
+  summary,
+  watchItems = [],
+  watchLabel = "CE QUE JE SURVEILLE",
+  riskTitle,
+  riskText,
+  checklist,
+  checklistTitle,
+  showRecommendationLabel = false,
+}: CopilotProps) {
+  const isFlush = variant === "flush";
+
+  const avatarClass = [
+    styles.avatar,
+    isFlush ? styles.avatarFlush : "",
+    avatarTone === "pink"
+      ? styles.avatarPink
+      : avatarTone === "pinkFlush"
+        ? styles.avatarPinkFlush
+        : avatarTone === "blue"
+          ? styles.avatarBlue
+          : styles.avatarPurple,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <aside
+      className={styles.panel}
+      aria-label="Copilot Nora"
+      data-testid="copilot-panel"
+    >
+      <div
+        className={
+          isFlush ? styles.headerFlush : styles.headerFloating
+        }
+      >
+        <div className={styles.headerRow}>
+          <div className={avatarClass}>SF</div>
+          <div>
+            <p className={isFlush ? styles.nameFlush : styles.name}>{name}</p>
+            <p className={isFlush ? styles.subtitleFlush : styles.subtitle}>
+              {subtitle}
+            </p>
+          </div>
+          <div
+            className={
+              isFlush ? styles.levelPillFlush : styles.levelPill
+            }
+          >
+            <StatusPill tone={isFlush ? "navy" : "orange"}>
+              {levelPill}
+            </StatusPill>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.body}>
+        {showRecommendationLabel && (
+          <p className={styles.recommendationBadge}>
+            Recommandation copilot — non décision Morris
+          </p>
+        )}
+
+        <div className={isFlush ? styles.messageFlush : styles.message}>
+          {summary}
+        </div>
+
+        {checklist && (
+          <div className={styles.checklist}>
+            <p className={styles.sectionTitle}>{checklistTitle}</p>
+            {checklist.map((item) => (
+              <div key={item} className={styles.checkRow}>
+                <span className={styles.checkIcon}>✓</span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {watchItems.length > 0 && (
+          <>
+            <p className={styles.sectionLabel}>{watchLabel}</p>
+            {watchItems.map((item) => (
+              <div key={item.label} className={styles.watchItem}>
+                <span
+                  className={styles.watchDot}
+                  style={{ background: item.dotColor }}
+                  aria-hidden="true"
+                />
+                {item.label}
+              </div>
+            ))}
+          </>
+        )}
+
+        {riskTitle && riskText && (
+          <div className={isFlush ? styles.riskFlush : styles.risk}>
+            <p
+              className={
+                isFlush ? styles.riskTitleFlush : styles.riskTitle
+              }
+            >
+              {riskTitle}
+            </p>
+            <p className={styles.riskText}>{riskText}</p>
+          </div>
+        )}
+
+        <div
+          className={`${styles.composer} ${isFlush ? styles.composerFlush : ""}`}
+        >
+          <p className={styles.composerPlaceholder}>
+            Demander une analyse ou préciser une contrainte…
+          </p>
+          <div className={styles.composerRow}>
+            <StatusPill tone={isFlush ? "blueFlush" : "muted"}>
+              @ contexte
+            </StatusPill>
+            <button
+              type="button"
+              className={`${styles.send} ${isFlush ? styles.sendFlush : ""}`}
+              disabled
+              title="Simulation — aucune action Git réelle"
+              aria-disabled
+            >
+              ↑
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
 }
 
-.eyebrowFloating {
-  composes: eyebrow;
-  color: var(--sfia-purple-00c);
-  font-weight: 700;
-}
-
-.titleRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 6px;
-  min-height: 42px;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--sfia-ink);
-  margin: 0;
-}
-
-.titleFloating {
-  composes: title;
-  font-weight: 700;
-  color: var(--sfia-ink-00c);
-}
-
-.pills {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.tabs {
-  display: flex;
-  gap: 40px;
-  margin-top: 14px;
-  align-items: center;
-}
-
-.tab {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--sfia-muted);
-  text-decoration: none;
-  padding-bottom: 11px;
-  border-bottom: 2px solid transparent;
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  cursor: pointer;
-  font-family: var(--sfia-font);
-}
-
-.tabActive {
-  color: var(--sfia-blue);
-  font-weight: 600;
-  border-bottom-color: var(--sfia-blue);
-}
-
-.tabDisabled {
-  composes: tab;
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.tabsFloating {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-  height: 54px;
-  padding: 0 28px;
-  border-bottom: 1px solid var(--sfia-border-00c);
-}
-
-.tabFloating {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--sfia-muted-00c);
-  text-decoration: none;
-}
-
-.tabFloatingActive {
-  composes: tabFloating;
-  color: var(--sfia-blue-00c);
-  font-weight: 600;
-  position: relative;
-}
-
-.tabFloatingActive::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -16px;
-  width: 72px;
-  height: 3px;
-  background: var(--sfia-blue-00c);
-}
-```
-
-### `components/shell/utility-rail.module.css`
-
-```css
-.rail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 11px;
-  height: 100%;
-}
-
-.brand {
-  width: 40px;
-  height: 40px;
-  border-radius: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 20px;
-  color: #fff;
-  background: var(--sfia-ink-00c);
-  text-decoration: none;
-}
-
-.brandFlush {
-  composes: brand;
-  background: transparent;
-  color: var(--sfia-blue);
-  font-size: 22px;
-  border-radius: 0;
-  width: auto;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.item {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--sfia-muted-00c);
-  background: #fff;
-  border: none;
-}
-
-.itemFlush {
-  composes: item;
-  color: var(--sfia-muted);
-  border: 1px solid var(--sfia-border);
-}
-
-.itemActive {
-  background: var(--sfia-blue-soft-00c);
-  color: var(--sfia-blue-00c);
-}
-
-.itemActiveFlush {
-  /* Softer than full fill so rail + horizontal tab stay complementary */
-  background: var(--sfia-blue-soft);
-  color: var(--sfia-blue);
-  border-color: var(--sfia-blue);
-  box-shadow: none;
-  font-weight: 700;
-}
-
-.itemDisabled {
-  composes: item;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.spacer {
-  flex: 1;
-}
-
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  background: var(--sfia-purple-00c);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.avatarFlush {
-  width: 48px;
-  height: 30px;
-  border-radius: 15px;
-  background: var(--sfia-navy);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.floating {
-  composes: rail;
-}
-
-.flush {
-  composes: rail;
-  padding-top: 17px;
-}
-```
-
-### `components/ui/gate-list.module.css`
-
-```css
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  padding: 0 13px;
-  background: var(--sfia-surface);
-  border: 1px solid var(--sfia-border);
-  border-radius: var(--sfia-radius-sm);
-}
-
-.dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.dotBlue {
-  background: var(--sfia-blue);
-}
-
-.dotOrange {
-  background: var(--sfia-orange);
-}
-
-.dotPurple {
-  background: var(--sfia-purple);
-}
-
-.dotPink {
-  background: var(--sfia-pink);
-}
-
-.dotGreen {
-  background: var(--sfia-green);
-}
-
-.label {
-  flex: 1;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--sfia-ink);
-}
-
-.timing {
-  font-size: var(--sfia-meta-size-sm);
-  font-weight: 500;
-  line-height: var(--sfia-line-meta);
-  color: var(--sfia-muted);
-}
 ```
 
 ### `components/ui/metric-card.module.css`
@@ -960,9 +1293,13 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: 18px;
   box-shadow: var(--sfia-shadow-md);
-  padding: 17px 21px;
-  min-height: 122px;
+  padding: 18px 22px;
+  height: var(--sfia-metric-h);
+  min-height: var(--sfia-metric-h);
+  max-height: var(--sfia-metric-h);
   overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .bar {
@@ -1000,42 +1337,44 @@ textarea {
 }
 
 .value {
-  margin-top: 18px;
+  margin-top: 14px;
   font-size: 26px;
   font-weight: 700;
   color: var(--sfia-ink);
+  line-height: 1.15;
 }
+
+
 ```
 
-### `components/ui/evidence-list.module.css`
+### `components/ui/gate-list.module.css`
 
 ```css
 .list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .row {
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-height: 48px;
-  padding: 0 13px;
+  gap: 12px;
+  height: 44px;
+  min-height: 44px;
+  max-height: 44px;
+  padding: 0 14px;
   background: var(--sfia-surface);
   border: 1px solid var(--sfia-border);
-  border-radius: 14px;
+  border-radius: var(--sfia-radius-sm);
+  box-sizing: border-box;
 }
 
 .dot {
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   flex-shrink: 0;
-}
-
-.dotGreen {
-  background: var(--sfia-green);
 }
 
 .dotBlue {
@@ -1046,27 +1385,370 @@ textarea {
   background: var(--sfia-orange);
 }
 
+.dotPurple {
+  background: var(--sfia-purple);
+}
+
+.dotPink {
+  background: var(--sfia-pink);
+}
+
+.dotGreen {
+  background: var(--sfia-green);
+}
+
 .label {
   flex: 1;
-  font-size: var(--sfia-meta-size);
-  line-height: var(--sfia-line-meta);
+  font-size: 12px;
   font-weight: 500;
   color: var(--sfia-ink);
 }
 
-.status {
-  min-width: 160px;
-  display: flex;
-  justify-content: flex-end;
+.timing {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: var(--sfia-line-meta);
+  color: var(--sfia-muted);
 }
+
+```
+
+### `features/synthese/synthese.module.css`
+
+```css
+.hero {
+  background: var(--sfia-hero-synthese);
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-xl);
+  box-shadow: var(--sfia-shadow-xl);
+  padding: 20px 28px;
+  color: #fff;
+  height: var(--sfia-hero-h-synthese);
+  min-height: var(--sfia-hero-h-synthese);
+  max-height: var(--sfia-hero-h-synthese);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9eb2ff;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.heroTitle {
+  font-size: 27px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  max-width: 720px;
+  line-height: var(--sfia-line-hero);
+}
+
+.heroText {
+  font-size: 13px;
+  line-height: 1.25;
+  color: #c9d6f5;
+  margin: 0;
+  max-width: 670px;
+}
+
+.heroPills {
+  position: absolute;
+  right: 46px;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heroWrap {
+  position: relative;
+  width: 100%;
+}
+
+.heroPillDark {
+  background: #303d66;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 140px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.heroPillPurple {
+  background: #42336b;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 140px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns:
+    var(--sfia-metric-w)
+    var(--sfia-metric-w)
+    var(--sfia-metric-w)
+    var(--sfia-metric-w-wide);
+  gap: var(--sfia-metric-gap);
+  margin: var(--sfia-stack-gap-sm) 0 var(--sfia-stack-gap-lg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: var(--sfia-portfolio-w) var(--sfia-side-panel-w);
+  gap: var(--sfia-col-gap);
+  align-items: start;
+  width: 100%;
+}
+
+.portfolio {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-sm);
+  padding: 20px 18px 22px;
+  height: 510px;
+  min-height: 510px;
+  max-height: 510px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.portfolioHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.portfolioTitle {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: var(--sfia-surface);
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  margin-bottom: 20px;
+  height: 72px;
+  min-height: 72px;
+  box-sizing: border-box;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+.rowDot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rowName {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rowSub {
+  font-size: var(--sfia-meta-size-sm);
+  line-height: var(--sfia-line-meta);
+  color: var(--sfia-muted);
+  margin: 4px 0 0;
+}
+
+.rowProgress {
+  margin-left: auto;
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sfia-side-stack-gap);
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-md);
+  padding: 18px 20px;
+  box-sizing: border-box;
+}
+
+.gatesPanel {
+  composes: panel;
+  height: 244px;
+  min-height: 244px;
+  max-height: 244px;
+  overflow: hidden;
+}
+
+.activityPanel {
+  composes: panel;
+  height: 248px;
+  min-height: 248px;
+  max-height: 248px;
+  overflow: hidden;
+}
+
+.panelTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+.activityList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activityItem {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-meta);
+  font-weight: 500;
+  color: var(--sfia-ink);
+  margin-bottom: 24px;
+}
+
+.activityItem:last-child {
+  margin-bottom: 0;
+}
+
+```
+
+### `features/synthese/SyntheseScreen.tsx`
+
+```tsx
+import { MetricCard } from "@/components/ui/MetricCard";
+import { GateList } from "@/components/ui/GateList";
+import { StatusPill } from "@/components/ui/StatusPill";
+import { cycles } from "@/fixtures/cycles";
+import { gates } from "@/fixtures/gates";
+import styles from "./synthese.module.css";
+
+const dotColors = ["#7a4df5", "#3863f5", "#21c28a", "#faa629"];
+
+const activities = [
+  "Figma premium créé",
+  "AF-CAND-11B validée",
+  "PR #214 mergée",
+  "Handoff publié",
+];
+
+export function SyntheseScreen() {
+  return (
+    <>
+      <div className={styles.heroWrap}>
+        <section className={styles.hero} aria-labelledby="synthese-hero">
+          <p className={styles.heroEyebrow}>PILOTAGE EN TEMPS RÉEL</p>
+          <h2 id="synthese-hero" className={styles.heroTitle}>
+            Une vision claire de chaque cycle, chaque gate et chaque preuve.
+          </h2>
+          <p className={styles.heroText}>
+            Le cockpit consolide la vérité Git, les décisions Morris et les
+            prochaines actions sans créer une seconde vérité.
+          </p>
+          <div className={styles.heroPills}>
+            <span className={styles.heroPillDark}>4 projets actifs</span>
+            <span className={styles.heroPillPurple}>2 gates ouvertes</span>
+          </div>
+        </section>
+      </div>
+
+      <div className={styles.metrics}>
+        <MetricCard label="Projets actifs" value="04" accent="blue" />
+        <MetricCard label="Cycles en cours" value="03" accent="purple" />
+        <MetricCard label="Gates Morris" value="02" accent="orange" />
+        <MetricCard label="Review packs" value="07 / 08" accent="green" />
+      </div>
+
+      <div className={styles.lower}>
+        <section className={styles.portfolio} aria-labelledby="portfolio-title">
+          <div className={styles.portfolioHeader}>
+            <h2 id="portfolio-title" className={styles.portfolioTitle}>
+              Portefeuille des cycles
+            </h2>
+            <StatusPill tone="blueFlush">Vue portefeuille</StatusPill>
+          </div>
+          {cycles.map((cycle, index) => (
+            <div key={cycle.id} className={styles.row}>
+              <span
+                className={styles.rowDot}
+                style={{ background: dotColors[index] }}
+                aria-hidden
+              />
+              <div>
+                <p className={styles.rowName}>{cycle.name}</p>
+                <p className={styles.rowSub}>{cycle.subtitle}</p>
+              </div>
+              <span className={styles.rowProgress}>
+                <StatusPill tone="blueFlush">{cycle.progress} %</StatusPill>
+              </span>
+            </div>
+          ))}
+        </section>
+
+        <div className={styles.sideColumn}>
+          <section className={styles.gatesPanel} aria-labelledby="gates-title">
+            <h2 id="gates-title" className={styles.panelTitle}>
+              Gates à arbitrer
+            </h2>
+            <GateList gates={gates} />
+          </section>
+
+          <section
+            className={styles.activityPanel}
+            aria-labelledby="activity-title"
+          >
+            <h2 id="activity-title" className={styles.panelTitle}>
+              Activité récente
+            </h2>
+            <ul className={styles.activityList}>
+              {activities.map((item) => (
+                <li key={item} className={styles.activityItem}>
+                  • {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </div>
+    </>
+  );
+}
+
 ```
 
 ### `features/nouvelle-demande/nouvelle-demande.module.css`
 
 ```css
 .hero {
-  margin-top: 16px;
-  padding: 24px 27px 26px;
+  margin-top: 24px;
+  padding: 24px 28px;
   border-radius: var(--sfia-radius-xl);
   background: linear-gradient(
     90deg,
@@ -1078,29 +1760,34 @@ textarea {
   box-shadow: var(--sfia-shadow-hero);
   color: #fff;
   position: relative;
-  min-height: 132px;
+  height: var(--sfia-hero-h-demande);
+  min-height: var(--sfia-hero-h-demande);
+  max-height: var(--sfia-hero-h-demande);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .heroTitle {
   font-size: 24px;
   font-weight: 700;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   max-width: 560px;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .heroText {
   font-size: 13px;
-  line-height: var(--sfia-line-body);
+  line-height: 1.2;
   color: #e0e5ff;
-  margin: 0;
+  margin: 0 0 8px;
   max-width: 560px;
 }
 
 .heroOrb {
   position: absolute;
-  right: 57px;
-  top: 21px;
+  right: 56px;
+  top: 20px;
   width: 92px;
   height: 92px;
 }
@@ -1108,8 +1795,10 @@ textarea {
 .grid {
   display: grid;
   grid-template-columns: 600px 298px;
-  gap: 24px;
-  margin-top: 22px;
+  gap: 22px;
+  margin-top: 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .formCard {
@@ -1117,36 +1806,45 @@ textarea {
   border: 1px solid var(--sfia-border-00c);
   border-radius: var(--sfia-radius-lg);
   box-shadow: 0 6px 18px rgba(36, 46, 89, 0.05);
-  padding: 22px 23px 24px;
+  padding: 22px 24px;
+  height: 638px;
+  min-height: 638px;
+  max-height: 638px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .sectionLabel {
   font-size: 11px;
   font-weight: 700;
   color: var(--sfia-blue-00c);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .sectionLabelPurple {
   composes: sectionLabel;
   color: var(--sfia-purple-00c);
-  margin-top: 28px;
+  margin-top: 18px;
 }
 
 .sectionTitle {
   font-size: 20px;
   font-weight: 700;
   color: var(--sfia-ink-00c);
-  margin: 0 0 14px;
-  line-height: 1.3;
+  margin: 0 0 12px;
+  line-height: 1.2;
 }
 
 .field {
   background: var(--sfia-bg-00c);
   border: 1px solid var(--sfia-border-00c);
   border-radius: 14px;
-  padding: 10px 15px 12px;
+  padding: 10px 16px;
   margin-bottom: 14px;
+  box-sizing: border-box;
+  height: 62px;
+  min-height: 62px;
 }
 
 .fieldLabel {
@@ -1154,20 +1852,23 @@ textarea {
   font-size: var(--sfia-meta-size-sm);
   font-weight: 600;
   color: var(--sfia-muted-00c);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   line-height: var(--sfia-line-meta);
 }
 
 .fieldValue {
   font-size: 14px;
-  line-height: var(--sfia-line-body);
+  line-height: 1.25;
   color: var(--sfia-ink-00c);
   margin: 0;
 }
 
 .fieldLarge {
   composes: field;
+  height: 150px;
   min-height: 150px;
+  max-height: 150px;
+  padding: 12px 16px;
 }
 
 .tags {
@@ -1181,10 +1882,13 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: 14px;
   box-shadow: var(--sfia-shadow-panel);
-  padding: 17px 15px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   gap: 16px;
+  height: 106px;
+  min-height: 106px;
+  box-sizing: border-box;
 }
 
 .ghIcon {
@@ -1197,6 +1901,7 @@ textarea {
   align-items: center;
   justify-content: center;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .repoName {
@@ -1204,6 +1909,7 @@ textarea {
   font-weight: 600;
   color: var(--sfia-ink-00c);
   margin: 0;
+  line-height: 1.2;
 }
 
 .repoMeta {
@@ -1218,21 +1924,27 @@ textarea {
 }
 
 .attachment {
-  margin-top: 18px;
+  margin-top: 16px;
   background: var(--sfia-blue-soft-00c);
   border-radius: 14px;
-  padding: 22px 18px;
+  padding: 0 18px;
   color: var(--sfia-blue-00c);
   font-size: 13px;
   font-weight: 600;
+  height: 70px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 22px;
+  margin-top: 20px;
   gap: 16px;
+  height: 42px;
 }
 
 .saved {
@@ -1244,15 +1956,19 @@ textarea {
 .preview {
   background: var(--sfia-bg-00c);
   border-radius: var(--sfia-radius-lg);
-  padding: 20px 18px 22px;
+  padding: 20px 18px;
+  height: 638px;
   min-height: 638px;
+  max-height: 638px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .previewHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .previewTitle {
@@ -1260,6 +1976,8 @@ textarea {
   font-weight: 700;
   color: var(--sfia-ink-00c);
   margin: 0;
+  line-height: 1.2;
+  max-width: 160px;
 }
 
 .agentCard {
@@ -1267,10 +1985,15 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: 16px;
   box-shadow: var(--sfia-shadow-panel);
-  padding: 15px;
+  padding: 16px;
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 20px;
+  height: 96px;
+  min-height: 96px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .agentAvatar {
@@ -1284,24 +2007,28 @@ textarea {
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
+  flex-shrink: 0;
 }
 
 .statusRow {
   background: #fff;
   border: 1px solid var(--sfia-border-00c);
   border-radius: 14px;
-  padding: 11px 15px;
+  padding: 0 16px;
   margin-bottom: 12px;
   display: flex;
   gap: 12px;
   align-items: center;
+  height: 54px;
   min-height: 54px;
+  box-sizing: border-box;
 }
 
 .statusDot {
   width: 16px;
   height: 16px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .statusTitle {
@@ -1309,34 +2036,39 @@ textarea {
   font-weight: 600;
   color: var(--sfia-ink-00c);
   margin: 0;
+  line-height: 1.2;
 }
 
 .statusSub {
   font-size: var(--sfia-meta-size-sm);
   line-height: var(--sfia-line-meta);
   color: var(--sfia-muted-00c);
-  margin: 3px 0 0;
+  margin: 2px 0 0;
 }
 
 .timeline {
   background: #fff;
   border: 1px solid var(--sfia-border-00c);
   border-radius: 16px;
-  padding: 13px 15px;
-  margin-top: 16px;
+  padding: 14px 16px;
+  margin-top: 14px;
+  height: 160px;
+  min-height: 160px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .timelineTitle {
   font-size: 13px;
   font-weight: 700;
-  margin: 0 0 16px;
+  margin: 0 0 12px;
 }
 
 .timelineItem {
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-size: var(--sfia-meta-size);
   line-height: var(--sfia-line-meta);
   color: var(--sfia-muted-00c);
@@ -1352,17 +2084,23 @@ textarea {
   width: 10px;
   height: 10px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .trust {
-  margin-top: 20px;
+  margin-top: 16px;
   background: var(--sfia-ink-00c);
   color: #fff;
   border-radius: 14px;
-  padding: 16px;
+  padding: 0 16px;
   font-size: var(--sfia-meta-size-sm);
   line-height: var(--sfia-line-meta);
   font-weight: 600;
+  height: 56px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .recommendationNote {
@@ -1374,176 +2112,8 @@ textarea {
   margin: 0 0 6px;
   letter-spacing: 0.03em;
 }
-```
 
-### `features/synthese/synthese.module.css`
 
-```css
-.hero {
-  background: var(--sfia-hero-synthese);
-  border: 1px solid var(--sfia-border-soft);
-  border-radius: var(--sfia-radius-xl);
-  box-shadow: var(--sfia-shadow-xl);
-  padding: 19px 27px;
-  color: #fff;
-  min-height: 152px;
-}
-
-.heroEyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  color: #9eb2ff;
-  margin: 0 0 12px;
-}
-
-.heroTitle {
-  font-size: 27px;
-  font-weight: 600;
-  margin: 0 0 12px;
-  max-width: 720px;
-}
-
-.heroText {
-  font-size: 13px;
-  line-height: var(--sfia-line-body);
-  color: #c9d6f5;
-  margin: 0;
-  max-width: 670px;
-}
-
-.heroPills {
-  position: absolute;
-  right: 47px;
-  top: 23px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.heroWrap {
-  position: relative;
-}
-
-.heroPillDark {
-  background: #303d66;
-  color: #fff;
-  border-radius: 15px;
-  padding: 7px 13px;
-  font-size: 12px;
-}
-
-.heroPillPurple {
-  background: #42336b;
-  color: #fff;
-  border-radius: 15px;
-  padding: 7px 13px;
-  font-size: 12px;
-}
-
-.metrics {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin: 22px 0 26px;
-}
-
-.lower {
-  display: grid;
-  grid-template-columns: 626px 322px;
-  gap: 22px;
-  align-items: start;
-}
-
-.portfolio {
-  background: #fff;
-  border: 1px solid var(--sfia-border);
-  border-radius: var(--sfia-radius-lg);
-  box-shadow: var(--sfia-shadow-sm);
-  padding: 20px 18px 22px;
-  min-height: 510px;
-}
-
-.portfolioHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.portfolioTitle {
-  font-size: 17px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 15px 15px;
-  background: var(--sfia-surface);
-  border: 1px solid var(--sfia-border);
-  border-radius: 14px;
-  margin-bottom: 14px;
-  min-height: 72px;
-}
-
-.rowDot {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-
-.rowName {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.rowSub {
-  font-size: var(--sfia-meta-size);
-  line-height: var(--sfia-line-meta);
-  color: var(--sfia-muted);
-  margin: 4px 0 0;
-}
-
-.rowProgress {
-  margin-left: auto;
-}
-
-.sideColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.panel {
-  background: #fff;
-  border: 1px solid var(--sfia-border-soft);
-  border-radius: var(--sfia-radius-lg);
-  box-shadow: var(--sfia-shadow-md);
-  padding: 18px 19px 20px;
-}
-
-.panelTitle {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 16px;
-}
-
-.activityList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.activityItem {
-  font-size: var(--sfia-meta-size);
-  line-height: var(--sfia-line-meta);
-  font-weight: 500;
-  color: var(--sfia-ink);
-  margin-bottom: 14px;
-}
 ```
 
 ### `features/cycle-actif/cycle-actif.module.css`
@@ -1554,37 +2124,45 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: var(--sfia-radius-xl);
   box-shadow: var(--sfia-shadow-xl);
-  padding: 19px 27px;
+  padding: 20px 28px;
   color: #fff;
-  min-height: 138px;
+  height: var(--sfia-hero-h-cycle);
+  min-height: var(--sfia-hero-h-cycle);
+  max-height: var(--sfia-hero-h-cycle);
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .heroEyebrow {
   font-size: 11px;
   font-weight: 700;
   color: #99b8ff;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .heroTitle {
   font-size: 27px;
   font-weight: 600;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   max-width: 720px;
+  line-height: 1.2;
 }
 
 .heroText {
   font-size: 13px;
-  line-height: var(--sfia-line-body);
+  line-height: 1.25;
   color: #ccd6f5;
   margin: 0;
+  max-width: 650px;
 }
 
 .heroPills {
   position: absolute;
-  right: 49px;
-  top: 23px;
+  right: 48px;
+  top: 24px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1596,6 +2174,9 @@ textarea {
   border-radius: 15px;
   padding: 7px 13px;
   font-size: 12px;
+  width: 104px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .pillBlue {
@@ -1604,19 +2185,27 @@ textarea {
   border-radius: 15px;
   padding: 7px 13px;
   font-size: 12px;
+  width: 104px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .stepper {
-  margin: 16px 0 22px;
+  margin: 14px 0 26px;
   background: #fff;
   border: 1px solid var(--sfia-border);
   border-radius: 18px;
   box-shadow: var(--sfia-shadow-sm);
-  padding: 22px 23px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   gap: 12px;
+  height: 92px;
   min-height: 92px;
+  max-height: 92px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .step {
@@ -1635,6 +2224,7 @@ textarea {
   font-size: 11px;
   font-weight: 700;
   color: #fff;
+  flex-shrink: 0;
 }
 
 .stepCircleDone {
@@ -1657,6 +2247,7 @@ textarea {
   font-size: 12px;
   font-weight: 500;
   color: var(--sfia-ink);
+  white-space: nowrap;
 }
 
 .stepLabelActive {
@@ -1669,6 +2260,7 @@ textarea {
   width: 54px;
   height: 2px;
   background: var(--sfia-green);
+  flex-shrink: 0;
 }
 
 .connectorPending {
@@ -1678,9 +2270,10 @@ textarea {
 
 .lower {
   display: grid;
-  grid-template-columns: 632px 316px;
-  gap: 22px;
+  grid-template-columns: var(--sfia-work-w) var(--sfia-inspector-w);
+  gap: var(--sfia-col-gap);
   align-items: start;
+  width: 100%;
 }
 
 .work {
@@ -1688,45 +2281,55 @@ textarea {
   border: 1px solid var(--sfia-border);
   border-radius: var(--sfia-radius-lg);
   box-shadow: var(--sfia-shadow-sm);
-  padding: 18px 21px 22px;
+  padding: 18px 22px 22px;
+  height: 548px;
+  min-height: 548px;
+  max-height: 548px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .workLabel {
   font-size: 10px;
   font-weight: 700;
   color: var(--sfia-blue);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
 }
 
 .workTitle {
   font-size: 18px;
   font-weight: 600;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .workText {
   font-size: var(--sfia-meta-size);
   line-height: var(--sfia-line-body);
   color: var(--sfia-muted);
-  margin: 0 0 18px;
+  margin: 0 0 16px;
 }
 
 .checkRow {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 13px;
+  padding: 0 14px;
   background: var(--sfia-surface);
   border: 1px solid var(--sfia-border);
   border-radius: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  height: 52px;
   min-height: 52px;
+  box-sizing: border-box;
 }
 
 .checkDot {
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .checkLabel {
@@ -1738,7 +2341,7 @@ textarea {
 .actions {
   display: flex;
   gap: 12px;
-  margin-top: 22px;
+  margin-top: 20px;
   align-items: center;
 }
 
@@ -1747,20 +2350,26 @@ textarea {
   border: 1px solid var(--sfia-border);
   border-radius: var(--sfia-radius-lg);
   box-shadow: var(--sfia-shadow-sm);
-  padding: 18px 19px 22px;
+  padding: 18px 20px 22px;
+  height: 548px;
+  min-height: 548px;
+  max-height: 548px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .inspectorTitle {
   font-size: 16px;
   font-weight: 600;
-  margin: 0 0 20px;
+  margin: 0 0 18px;
+  line-height: 1.2;
 }
 
 .fieldLabel {
   font-size: var(--sfia-meta-size-sm);
   font-weight: 700;
   color: var(--sfia-muted);
-  margin: 14px 0 4px;
+  margin: 12px 0 4px;
   letter-spacing: 0.02em;
   line-height: var(--sfia-line-meta);
 }
@@ -1774,11 +2383,13 @@ textarea {
 }
 
 .stopBox {
-  margin-top: 22px;
+  margin-top: 20px;
   background: #fff2f5;
   border: 1px solid #ffc9d4;
   border-radius: 16px;
   padding: 14px;
+  min-height: 110px;
+  box-sizing: border-box;
 }
 
 .stopTitle {
@@ -1796,8 +2407,9 @@ textarea {
 }
 
 .inspectorAction {
-  margin-top: 22px;
+  margin-top: 18px;
 }
+
 ```
 
 ### `features/decision/decision.module.css`
@@ -1808,28 +2420,35 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: var(--sfia-radius-xl);
   box-shadow: var(--sfia-shadow-xl);
-  padding: 19px 27px;
+  padding: 20px 28px;
   color: #fff;
-  min-height: 128px;
+  height: var(--sfia-hero-h-decision);
+  min-height: var(--sfia-hero-h-decision);
+  max-height: var(--sfia-hero-h-decision);
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .heroEyebrow {
   font-size: 11px;
   font-weight: 700;
   color: #adb2ff;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .heroTitle {
   font-size: 27px;
   font-weight: 600;
-  margin: 0 0 12px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .heroText {
   font-size: 13px;
-  line-height: var(--sfia-line-body);
+  line-height: 1.25;
   color: #cfd6f2;
   margin: 0;
   max-width: 690px;
@@ -1837,11 +2456,12 @@ textarea {
 
 .heroPills {
   position: absolute;
-  right: 33px;
-  top: 23px;
+  right: 32px;
+  top: 24px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: flex-end;
 }
 
 .pillPurple {
@@ -1850,6 +2470,9 @@ textarea {
   border-radius: 15px;
   padding: 7px 13px;
   font-size: 12px;
+  width: 150px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .pillBlue {
@@ -1858,14 +2481,18 @@ textarea {
   border-radius: 15px;
   padding: 7px 13px;
   font-size: 12px;
+  width: 104px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .content {
   display: grid;
-  grid-template-columns: 580px 368px;
-  gap: 22px;
-  margin-top: 24px;
+  grid-template-columns: var(--sfia-evidence-w) var(--sfia-decision-w);
+  gap: var(--sfia-col-gap);
+  margin-top: 26px;
   align-items: start;
+  width: 100%;
 }
 
 .evidencePanel {
@@ -1873,28 +2500,34 @@ textarea {
   border: 1px solid var(--sfia-border);
   border-radius: var(--sfia-radius-lg);
   box-shadow: var(--sfia-shadow-sm);
-  padding: 18px 21px 22px;
+  padding: 18px 22px 22px;
+  height: 664px;
+  min-height: 664px;
+  max-height: 664px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .evidenceLabel {
   font-size: var(--sfia-meta-size-sm);
   font-weight: 700;
   color: var(--sfia-purple);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   letter-spacing: 0.03em;
 }
 
 .evidenceTitle {
   font-size: 19px;
   font-weight: 600;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .evidenceDesc {
   font-size: var(--sfia-meta-size);
   line-height: var(--sfia-line-body);
   color: var(--sfia-muted);
-  margin: 0 0 18px;
+  margin: 0 0 16px;
 }
 
 .decisionPanel {
@@ -1902,20 +2535,26 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: var(--sfia-radius-lg);
   box-shadow: var(--sfia-shadow-md);
-  padding: 18px 21px 22px;
+  padding: 18px 18px 22px;
+  height: 664px;
+  min-height: 664px;
+  max-height: 664px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .decisionTitle {
   font-size: 18px;
   font-weight: 600;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  line-height: 1.2;
 }
 
 .decisionHint {
   font-size: var(--sfia-meta-size);
   line-height: var(--sfia-line-meta);
   color: var(--sfia-muted);
-  margin: 0 0 18px;
+  margin: 0 0 16px;
 }
 
 .option {
@@ -1923,12 +2562,17 @@ textarea {
   border: 1px solid var(--sfia-border-soft);
   border-radius: 16px;
   box-shadow: var(--sfia-shadow-md);
-  padding: 14px 14px 15px;
-  margin-bottom: 14px;
+  padding: 14px;
+  margin-bottom: 20px;
   cursor: pointer;
   text-align: left;
   width: 100%;
+  height: 106px;
+  min-height: 106px;
+  max-height: 106px;
+  box-sizing: border-box;
   font-family: var(--sfia-font);
+  overflow: hidden;
 }
 
 .optionSelected {
@@ -1940,8 +2584,9 @@ textarea {
 .optionTitle {
   font-size: 13px;
   font-weight: 600;
-  margin: 12px 0 4px;
+  margin: 10px 0 4px;
   color: var(--sfia-ink);
+  line-height: 1.2;
 }
 
 .optionSub {
@@ -1956,7 +2601,9 @@ textarea {
   border: 1px solid var(--sfia-border);
   border-radius: 16px;
   padding: 14px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
+  min-height: 112px;
+  box-sizing: border-box;
 }
 
 .confirmLabel {
@@ -1978,7 +2625,7 @@ textarea {
   font-weight: 700;
   color: var(--sfia-pink);
   text-transform: uppercase;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   letter-spacing: 0.03em;
 }
 
@@ -1986,17 +2633,91 @@ textarea {
   font-size: var(--sfia-meta-size-sm);
   line-height: var(--sfia-line-meta);
   color: var(--sfia-muted);
-  margin-top: 10px;
+  margin-top: 8px;
 }
+
 ```
 
-### `e2e/p0-polish-screenshots.spec.ts`
+### `e2e/p0-polish-2-screenshots.spec.ts`
 
-```tsx
+```ts
 import { test, expect } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
+const polish2Dir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots/polish-2",
+);
+
+const routes = [
+  {
+    path: "/nouvelle-demande",
+    heading: "Nouvelle demande",
+    screenshot: "p0-00c-nouvelle-demande-polish-2.png",
+  },
+  {
+    path: "/synthese",
+    heading: "Vue synthèse",
+    screenshot: "p0-01c-synthese-polish-2.png",
+  },
+  {
+    path: "/cycle-actif",
+    heading: "Cycle actif",
+    screenshot: "p0-02c-cycle-actif-polish-2.png",
+  },
+  {
+    path: "/decision",
+    heading: "Décision Morris",
+    screenshot: "p0-03c-decision-polish-2.png",
+  },
+];
+
+test.beforeAll(() => {
+  fs.mkdirSync(polish2Dir, { recursive: true });
+});
+
+test.describe("P0 geometry polish-2 captures", () => {
+  for (const route of routes) {
+    test(`capture ${route.path}`, async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 1024 });
+      await page.goto(route.path);
+      await expect(
+        page.getByRole("heading", { name: route.heading, level: 1 }),
+      ).toBeVisible();
+
+      const metrics = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+        scrollHeight: document.documentElement.scrollHeight,
+        dpr: window.devicePixelRatio,
+      }));
+
+      expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth + 1);
+      expect(metrics.scrollHeight).toBeLessThanOrEqual(1024 + 1);
+
+      await page.screenshot({
+        path: path.join(polish2Dir, route.screenshot),
+        clip: { x: 0, y: 0, width: 1440, height: 1024 },
+      });
+    });
+  }
+});
+
+```
+
+### `e2e/p0-polish-screenshots.spec.ts`
+
+```ts
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+/**
+ * Polish-1 captures (lisibility pass). Disabled by default after geometry polish-2
+ * to avoid overwriting historical evidence. Re-enable with SFIA_CAPTURE_POLISH1=1
+ * only when intentionally regenerating polish-1 baselines.
+ */
 const polishDir = path.join(
   __dirname,
   "../../../../.tmp-sfia-review/screenshots/polish",
@@ -2025,11 +2746,15 @@ const routes = [
   },
 ];
 
-test.beforeAll(() => {
-  fs.mkdirSync(polishDir, { recursive: true });
-});
+const describePolish = process.env.SFIA_CAPTURE_POLISH1
+  ? test.describe
+  : test.describe.skip;
 
-test.describe("P0 polish captures", () => {
+describePolish("P0 polish captures", () => {
+  test.beforeAll(() => {
+    fs.mkdirSync(polishDir, { recursive: true });
+  });
+
   for (const route of routes) {
     test(`capture ${route.path}`, async ({ page }) => {
       await page.setViewportSize({ width: 1440, height: 1024 });
@@ -2053,71 +2778,303 @@ test.describe("P0 polish captures", () => {
     });
   }
 });
+
 ```
 
-## 7. Résultats tests
+## Annexe B — Mesures runtime before
 
-| Contrôle | Résultat |
-|----------|----------|
-| lint | ✔ No ESLint warnings or errors |
-| typecheck | ✔ |
-| Vitest | ✔ 9/9 |
-| build | ✔ 4 routes + redirect |
-| Playwright | ✔ 10/10 (6 smoke + 4 polish captures) |
-| overflow horizontal 1440 | ✔ aucun |
-| axe critical/serious | ✔ aucun |
+```json
+{
+  "synthese": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1051
+    },
+    "rail": {
+      "sel": "[class*=\"railFlush\"]",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 1051
+    },
+    "topbar": {
+      "sel": "header",
+      "x": 64,
+      "y": 0,
+      "w": 1376,
+      "h": 116
+    },
+    "canvas": {
+      "sel": "[class*=\"canvasFlush\"]",
+      "x": 92,
+      "y": 116,
+      "w": 1008,
+      "h": 935
+    },
+    "copilot": {
+      "sel": "[class*=\"copilotFlush\"]",
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "copilotPanel": {
+      "sel": "[class*=\"copilot-panel\"]",
+      "x": 1108,
+      "y": 116,
+      "w": 316,
+      "h": 892
+    },
+    "hero": {
+      "sel": "[class*=\"heroWrap\"]",
+      "x": 92,
+      "y": 144,
+      "w": 984,
+      "h": 183
+    },
+    "metrics": {
+      "sel": "[class*=\"metrics\"]",
+      "x": 92,
+      "y": 349,
+      "w": 984,
+      "h": 138
+    },
+    "lower": {
+      "sel": "[class*=\"lower\"]",
+      "x": 92,
+      "y": 513,
+      "w": 984,
+      "h": 510
+    },
+    "h1": {
+      "x": 91,
+      "y": 60,
+      "w": 159,
+      "h": 29,
+      "fontSize": "24px",
+      "lineHeight": "normal"
+    },
+    "scroll": {
+      "doc": 1051,
+      "body": 1051,
+      "client": 1024
+    }
+  },
+  "nouvelle": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "rail": {
+      "sel": "[class*=\"railFloating\"]",
+      "x": 18,
+      "y": 18,
+      "w": 64,
+      "h": 988
+    },
+    "topbar": {
+      "sel": "header",
+      "x": 101,
+      "y": 19,
+      "w": 966,
+      "h": 142
+    },
+    "canvas": {
+      "sel": "[class*=\"workspaceInner\"]",
+      "x": 101,
+      "y": 161,
+      "w": 966,
+      "h": 844
+    },
+    "copilot": {
+      "sel": "[class*=\"copilotFloating\"]",
+      "x": 1086,
+      "y": 18,
+      "w": 334,
+      "h": 988
+    },
+    "copilotPanel": {
+      "sel": "[class*=\"copilot-panel\"]",
+      "x": 1087,
+      "y": 19,
+      "w": 332,
+      "h": 986
+    },
+    "hero": {
+      "sel": "[class*=\"hero\"]",
+      "x": 124,
+      "y": 177,
+      "w": 920,
+      "h": 172
+    },
+    "metrics": null,
+    "lower": {
+      "sel": "[class*=\"grid\"]",
+      "x": 124,
+      "y": 371,
+      "w": 920,
+      "h": 746
+    },
+    "h1": {
+      "x": 129,
+      "y": 80,
+      "w": 219,
+      "h": 29,
+      "fontSize": "24px",
+      "lineHeight": "normal"
+    },
+    "scroll": {
+      "doc": 1024,
+      "body": 1024,
+      "client": 1024
+    }
+  },
+  "cycle": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "rail": {
+      "sel": "[class*=\"railFlush\"]",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 1024
+    },
+    "topbar": {
+      "sel": "header",
+      "x": 64,
+      "y": 0,
+      "w": 1376,
+      "h": 116
+    },
+    "canvas": {
+      "sel": "[class*=\"canvasFlush\"]",
+      "x": 92,
+      "y": 116,
+      "w": 1008,
+      "h": 863
+    },
+    "copilot": {
+      "sel": "[class*=\"copilotFlush\"]",
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "copilotPanel": {
+      "sel": "[class*=\"copilot-panel\"]",
+      "x": 1108,
+      "y": 116,
+      "w": 316,
+      "h": 892
+    },
+    "hero": {
+      "sel": "[class*=\"hero\"]",
+      "x": 92,
+      "y": 144,
+      "w": 984,
+      "h": 138
+    },
+    "metrics": null,
+    "lower": {
+      "sel": "[class*=\"lower\"]",
+      "x": 92,
+      "y": 412,
+      "w": 984,
+      "h": 539
+    },
+    "h1": {
+      "x": 91,
+      "y": 60,
+      "w": 124,
+      "h": 29,
+      "fontSize": "24px",
+      "lineHeight": "normal"
+    },
+    "scroll": {
+      "doc": 1024,
+      "body": 1024,
+      "client": 1024
+    }
+  },
+  "decision": {
+    "page": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024
+    },
+    "rail": {
+      "sel": "[class*=\"railFlush\"]",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 1024
+    },
+    "topbar": {
+      "sel": "header",
+      "x": 64,
+      "y": 0,
+      "w": 1376,
+      "h": 116
+    },
+    "canvas": {
+      "sel": "[class*=\"canvasFlush\"]",
+      "x": 92,
+      "y": 116,
+      "w": 1008,
+      "h": 899
+    },
+    "copilot": {
+      "sel": "[class*=\"copilotFlush\"]",
+      "x": 1100,
+      "y": 116,
+      "w": 340,
+      "h": 908
+    },
+    "copilotPanel": {
+      "sel": "[class*=\"copilot-panel\"]",
+      "x": 1108,
+      "y": 116,
+      "w": 316,
+      "h": 892
+    },
+    "hero": {
+      "sel": "[class*=\"hero\"]",
+      "x": 92,
+      "y": 144,
+      "w": 984,
+      "h": 129
+    },
+    "metrics": null,
+    "lower": {
+      "sel": "[class*=\"content\"]",
+      "x": 92,
+      "y": 297,
+      "w": 984,
+      "h": 691
+    },
+    "h1": {
+      "x": 91,
+      "y": 60,
+      "w": 182,
+      "h": 29,
+      "fontSize": "24px",
+      "lineHeight": "normal"
+    },
+    "scroll": {
+      "doc": 1024,
+      "body": 1024,
+      "client": 1024
+    }
+  }
+}
 
-## 8. Captures
-
-### Avant
-- `.tmp-sfia-review/screenshots/before/p0-00c-nouvelle-demande-runtime.png` — 307460 B — SHA `396ec5097b15ee443524204953e5baf196e8e41c53808b7a10aefd2a8fcffdc3`
-- `.tmp-sfia-review/screenshots/before/p0-01c-synthese-runtime.png` — 185321 B — SHA `a26d7f0374166705d2a83ae23ba86220c32f6900ecf5a5cda41fb44965bdc6d4`
-- `.tmp-sfia-review/screenshots/before/p0-02c-cycle-actif-runtime.png` — 183912 B — SHA `40f912869dd9f2edef16e67da8b9dfef09453dc50bf00dc27e298402013261c8`
-- `.tmp-sfia-review/screenshots/before/p0-03c-decision-runtime.png` — 198137 B — SHA `758395f816302dccffbd5205d3ae0ffed4e67349870dbd9d6a1778b4edfad71a`
-
-### Après (polish)
-- `.tmp-sfia-review/screenshots/polish/p0-00c-nouvelle-demande-polish.png` — 307195 B — SHA `6c26d32d1b1357aee578e32a58affbebab8f28486dbeff28dd8322bbbd01c50f`
-- `.tmp-sfia-review/screenshots/polish/p0-01c-synthese-polish.png` — 187275 B — SHA `5f2143c2fcbdb8755f43bc2a87e00eacb32f064bd5c55bc430b16bbb7077e881`
-- `.tmp-sfia-review/screenshots/polish/p0-02c-cycle-actif-polish.png` — 186255 B — SHA `cd6bafd174d674eaa86837bd91c8a02e76a9444fc6b82aa598d1ccc94ea2ec3d`
-- `.tmp-sfia-review/screenshots/polish/p0-03c-decision-polish.png` — 199626 B — SHA `90e0319aadb892ca182f69bcdad56ae7ae0250c5801f9399e633abed778a17d9`
-
-## 9. Matrice avant / après / Figma
-
-| Écran | Problème initial | Correction | Avant | Après | Figma | Écart résiduel | Verdict |
-|---|---|---|---|---|---|---|---|
-| P0-00C | Densité form/preview ; meta 10px | Espacements + typo secondaire | before/…runtime | polish/…polish | 19:2 | Densité preview encore riche (volontaire Figma) | AMÉLIORÉ |
-| P0-01C | Gaps métriques ; rowSub 11px ; rail actif fort | Gaps + muted + rail soft | before | polish | 22:2 | Écart mineur vs absolute Figma | AMÉLIORÉ |
-| P0-02C | Inspector labels 10px ; check rows | Meta + paddings + min-heights | before | polish | 22:133 | Stepper copy Figma conservée | AMÉLIORÉ |
-| P0-03C | Options tassées ; optionSub 11px | Respiration colonnes + typo | before | polish | 22:270 | Hauteurs colonnes non forçées égales | AMÉLIORÉ |
-| Shell/nav | Double signal actif rail+tab | Rail soft + tab 2px | — | — | flush frames | Soft vs Figma fill rail = choix lisibilité documenté | CORRIGÉ |
-| Copilot | Gaps/paddings denses | Body gap + paddings + line-height | — | — | panels | Largeur inchangée (pas de divergence) | AMÉLIORÉ |
-
-## 10. Accessibilité
-
-- Contraste muted amélioré ; focus-visible inchangé ; reduced-motion ajouté.
-- axe smoke : pas de critical/serious.
-- Verdict : **a11y smoke conforme** — pas ACCESSIBILITY READY.
-
-## 11. Garde-fous
-
-- Pas de refonte / Figma / nouvelles routes / deps / fixtures / docs projet.
-- JSX écrans non modifié ; CSS + globals + e2e captures seulement.
-- Aucun commit/push/PR/merge projet.
-
-## 12. Écarts résiduels
-
-- Pixel-perfect non revendiqué.
-- Rail flush soft ≠ fill bleu Figma (arbitrage double-signal actif).
-- Preview Nouvelle demande reste informationnellement dense (contenu Figma).
-- 1280 / mobile hors périmètre.
-
-## 13. Décisions Morris requises
-
-- Validation runtime finale
-- GO commit / push / PR / merge projet
-- GO cleanup
-
-## 14. Verdict
-
-**VISUAL POLISH COMPLETE — MINOR RESIDUALS DOCUMENTED**
-
+```
