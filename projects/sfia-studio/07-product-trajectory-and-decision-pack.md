@@ -4,15 +4,15 @@
 |------------|--------|
 | **Projet** | SFIA Studio — projet officiel (G1) |
 | **Document** | `07-product-trajectory-and-decision-pack.md` |
-| **Cycle** | 15 — Capitalisation / REX (post-Delivery P0) ; historique cadrage / conception conservé |
-| **Profil** | Capitalization — Standard |
+| **Cycle** | 13 — PR readiness (cadrage POC validé) ; historique Delivery/capitalisation conservé |
+| **Profil** | Critical |
 | **Baseline** | SFIA v2.6 (**Option C méthode**) |
-| **Statut** | `p0-delivery-integrated-next-poc-orchestration-framing` ; Delivery P0 **clôturé** ; UX/UI **clôturé** ; architecture fonctionnelle intégrée (clôture formelle **ouverte**) |
-| **Décisions** | D-VAL-1…11 inchangées ; FD-CAND / AF-CAND / TA-DEC historiques inchangés ; **Option B — POC orchestration** = prochaine orientation Morris (**cadrage**, non lancé) |
+| **Statut** | `poc-orchestration-framing-validated-draft-pr` ; cadrage **VALIDÉ** 2026-07-19 ; POC **non lancé** ; POC-G7…G9 **fermés** |
+| **Décisions** | POC-CAND-01…10 selon Morris 2026-07-19 ; POC-G1…G6 + G10 **VALIDÉS** ; D-VAL/FD/AF/TA historiques inchangés |
 | **Destinataire** | Morris |
-| **Source de vérité** | Git `main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` — cadrage → Delivery P0 intégrés |
+| **Source de vérité** | `origin/main` @ `aa8dbd4606c52df7662276a99c873b4d93e001ba` ; branche `project/sfia-studio-poc-orchestration-framing` |
 
-> Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Delivery P0 **CLÔTURÉ** (PR #217). Prochaine orientation : **cadrage POC orchestration** (Option B) — **non démarré**. Clôture formelle architecture fonctionnelle **non prononcée**. **Pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
+> Cadrage POC **VALIDÉ** le **2026-07-19**. Versionnement (draft PR) **autorisé**. **Merge non autorisé**. POC **non lancé**. Architecture POC (POC-G7) **non ouverte**.
 
 ---
 
@@ -34,11 +34,14 @@
 | Branche Delivery | **Supprimée** (local + remote) |
 | Gate Morris Delivery P0 | **Aucune restante** |
 | App `projects/sfia-studio/app/` | Sur `main` — desktop 1440×1024 ; fixtures ; pas d’API/auth/BDD/orchestration réelle |
-| Prochaine orientation | **Option B — cadrage POC orchestration** — sélectionnée, **non démarrée** |
+| Prochaine orientation | Cadrage POC **VALIDÉ** 2026-07-19 ; prochaine décision possible = **architecture POC (POC-G7)** — **non lancée** |
 | Produit complet / MVP / industrialisation | **Non atteints / non engagés** |
+| Décision Morris cadrage | **2026-07-19** — POC-G1…G6 + G10 **VALIDÉS** ; S1 ; L3+L4*/L0 ; writes distantes simulées |
+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil orchestrateur ouvert |
+| Branche cadrage POC | `project/sfia-studio-poc-orchestration-framing` |
 | Branches historiques | `functional-design` / `pre-framing` / `functional-architecture` **conservées** |
 
-> Les lignes « Delivery autorisé — non exécuté » des versions antérieures de ce document étaient **exactes à leur date**. Elles sont **obsolètes** après PR #217 et remplacées ici par l’état factuel ci-dessus.
+> Cadrage **validé** ≠ POC lancé ≠ architecture validée ≠ merge autorisé.
 
 ### Trace factuelle — Delivery P0 (historique compact)
 
@@ -113,44 +116,25 @@ Pré-cadrage
   → Delivery P0
   → PR #217 / intégration main
   → post-merge / cleanup
-  → cadrage POC orchestration          ← prochaine étape validée (Option B) — non démarrée
-  → architecture POC ciblée             ← candidate
-  → backlog POC borné                   ← candidate
-  → delivery POC                        ← candidate
+  → capitalisation P0 (PR #218)
+  → cadrage POC orchestration          ← **VALIDÉ** Morris 2026-07-19 — POC non lancé
+  → architecture POC ciblée             ← prochaine décision possible (POC-G7) — **non lancée**
+  → backlog POC borné                   ← POC-G8 fermé
+  → delivery POC                        ← POC-G9 fermé
   → décision Morris : abandon / itération / préparation MVP
 ```
 
 ### Précisions
 
-- Étapes jusqu’au cleanup P0 : **terminées**.
-- Cadrage POC orchestration : **sélectionné** (Option B Morris), **non démarré**.
-- Étapes post-cadrage POC : **candidates**, soumises aux résultats du cadrage.
-- POC ≠ MVP ≠ industrialisation — **aucun** de ces jalons n’est engagé.
-- Architecture **fonctionnelle** : VALIDÉE / INTÉGRÉE ; clôture formelle **non prononcée**.
-- Architecture **technique P0** : VALIDÉE / INTÉGRÉE ; Delivery P0 **exécuté**.
-- Desktop P0 uniquement (1440×1024) ; responsive / a11y complète / CI / Runtime réel **ouverts**.
+- Cadrage POC : **validé** (POC-G1…G6, POC-G10).
+- Scénario **S1** sélectionné.
+- Architecture / backlog / delivery POC : **non lancés**.
+- Clôture formelle architecture fonctionnelle : **décision séparée**, toujours ouverte.
+- POC ≠ MVP ≠ industrialisation.
 
-### Orientation Option B — cadrage POC orchestration
+### Orientation Option B — état
 
-> Le prochain cycle SFIA Studio sera un cycle de cadrage visant à définir un POC d’orchestration borné entre SFIA Studio et un mécanisme d’orchestration déterministe candidat. Ce cycle devra valider la faisabilité technique sans préjuger de l’architecture produit finale, du MVP ni de l’industrialisation.
-
-**Sujets du futur cadrage (préparation — non exécution) :**
-
-1. Objectif de preuve
-2. Scénario métier unique
-3. Frontières Studio / orchestrateur
-4. Niveau d’automatisation maximal
-5. Actions read-only ou simulées
-6. Gates Morris
-7. Stop conditions
-8. Données de test
-9. Preuves attendues
-10. Critères de succès et d’abandon
-11. Sécurité et réversibilité
-12. Périmètre Git
-13. Stratégie de démonstration
-
-**Hors ce cycle de capitalisation :** architecture détaillée ; schéma API ; contrat JSON ; backlog complet ; choix d’outil Runtime ; code ; planning détaillé.
+> Cadrage validé 2026-07-19. Draft PR autorisée. Merge = GO distinct. Après post-merge : décision distincte POC-G7 uniquement.
 
 ---
 
@@ -220,20 +204,21 @@ Pré-cadrage
 | Livrable | `projects/sfia-studio/app/` sur `main` @ `759ab0b…` |
 | Ne lance pas | POC orchestration ; Git/Cursor réels ; CI Studio |
 
-### 4.6 Cadrage POC orchestration (prochain)
+### 4.6 Cadrage POC orchestration (Option B)
 
 | Champ | Contenu |
 |-------|---------|
-| Statut | **Sélectionné** (Option B Morris) — **non démarré** |
-| Objectif | Définir un POC d’orchestration borné (faisabilité) |
-| Ne lance pas | Architecture POC détaillée ; code ; outil Runtime ; MVP |
+| Statut | **VALIDÉ PAR MORRIS** — 2026-07-19 — docs `20`/`21`/`22` |
+| Scénario | **S1** sélectionné (POC-G2) |
+| Gates | POC-G1…G6 + G10 **VALIDÉS** ; POC-G7…G9 **NON VALIDÉS** |
+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil ouvert |
+| Ne lance pas | POC ; architecture ; backlog ; delivery ; MVP |
 
 ### 4.7 Sécurité (bornée)
 
 | Champ | Contenu |
 |-------|---------|
-| Déclencheur | Avant POC à permissions élevées |
-| Pourquoi pas maintenant | Identification déjà faite au cadrage ; sujets à rouvrir dans le cadrage POC |
+| Validé | Lecture Git réelle OK ; writes distantes simulées ; L5 global interdit ; secrets exclus |
 
 ---
 
@@ -269,9 +254,12 @@ Pré-cadrage
 | D-NEXT-10 | **D-VAL-11** — clôture cadrage documentaire | Morris | **VALIDÉE** — 2026-07-18 |
 | D-NEXT-11 | Sort de la branche projet historique | Morris | Conservée ; décision distincte |
 | D-NEXT-12 | Sort de `project/sfia-studio-functional-design` | Morris | Conservée ; décision distincte |
-| D-NEXT-13 | GO capitalisation documentaire post-P0 | Morris | **Consommée** (ce cycle) |
-| D-NEXT-14 | GO commit / push / PR capitalisation | Morris | **Attendue** |
-| D-NEXT-15 | GO cadrage POC orchestration | Morris | **Attendue** après intégration capitalisation |
+| D-NEXT-13 | GO capitalisation documentaire post-P0 | Morris | **Consommée** + **intégrée** (PR #218) |
+| D-NEXT-14 | GO commit / push / PR capitalisation | Morris | **FAIT** (PR #218) |
+| D-NEXT-15 | GO cadrage POC orchestration | Morris | **Consommée** — cadrage **VALIDÉ** 2026-07-19 |
+| D-NEXT-16 | Validation POC-CAND / POC-G1…G6 | Morris | **FAIT** — 2026-07-19 |
+| D-NEXT-17 | POC-G10 versionnement cadrage | Morris | **FAIT** — draft PR autorisée ; **merge non autorisé** |
+| D-NEXT-18 | Architecture / delivery POC | Morris | **Fermée** — POC-G7…G9 non validés |
 
 ---
 
@@ -333,29 +321,21 @@ Les gates DF-G4+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 ## 8. Questions Morris
 
-1. Autorisez-vous **commit / push / PR** de la capitalisation documentaire (README + `07`) ?
-2. Après intégration : autorisez-vous le **GO cadrage POC orchestration** ?
-3. Clôturez-vous formellement le cycle architecture fonctionnelle (décision **distincte**) ?
-4. Quel sort pour les branches historiques restantes ?
-5. Quelles réserves P0 (responsive / a11y / CI / postcss) prioriser avant ou pendant le POC ?
+1. Autorisez-vous le **merge** de la draft PR de cadrage ? (distinct de POC-G10)
+2. Après post-merge : ouvrez-vous **POC-G7** (architecture POC) ?
+3. Clôture formelle architecture fonctionnelle (toujours séparée) ?
 
 ---
 
-## 9. Critères de clôture du cadrage détaillé
+## 9. Critères
 
 | Critère | État |
 |---------|------|
-| 04–07 complets et cohérents | **Oui** (07 synchronisé post-P0) |
-| Alignement D-VAL-1…11 / G1–G7 / DF-G1 | **Oui** |
-| DF-G1 validé | **Oui** (D-VAL-9) |
-| Clôture formelle cadrage | **FAIT** (D-VAL-11) |
-| Cycle conception | **CLÔTURÉ** |
-| Architecture fonctionnelle | **VALIDÉE** / **INTÉGRÉE** — clôture formelle ouverte |
-| UX/UI | **CLÔTURÉ** |
-| Architecture technique P0 | **VALIDÉE** / **INTÉGRÉE** |
-| Delivery P0 | **CLÔTURÉ** (PR #217) |
-| Prochain cycle | **Cadrage POC orchestration** — sélectionné, non lancé |
-| MVP / industrialisation / Runtime réel | **Non engagés** |
+| Cadrage POC `20`–`22` | **VALIDÉ** 2026-07-19 |
+| POC lancé | **Non** |
+| POC-G7…G9 | **Fermés** |
+| MVP / industrialisation | **Non engagés** |
+| Clôture AF formelle | **Ouverte** (séparée) |
 
 ---
 
@@ -363,13 +343,12 @@ Les gates DF-G4+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 | Élément | Valeur |
 |---------|--------|
-| Delivery P0 | **CLÔTURÉ** — `759ab0b…` / PR #217 |
-| Statut produit | `p0-delivery-integrated-next-poc-orchestration-framing` |
-| Option B POC | **Sélectionnée** — cadrage **non démarré** |
-| Ready for POC code / Runtime | **Non** |
-| Ready for Morris capitalisation review | **Oui** |
+| Cadrage | **VALIDÉ** |
+| Versionnement | Draft PR (POC-G10) |
+| Merge | **Non autorisé** |
+| POC | **Non lancé** |
 
-**Verdict :** `CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY`
+**Verdict :** `PR READINESS COMPLETE — DRAFT PR OPEN — MERGE NOT AUTHORIZED`
 
 ---
 
@@ -377,20 +356,10 @@ Les gates DF-G4+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 | Document | Usage |
 |----------|-------|
-| [04-detailed-product-framing.md](./04-detailed-product-framing.md) | Contrat produit |
-| [05-product-capabilities-and-use-cases.md](./05-product-capabilities-and-use-cases.md) | Capacités |
-| [06-scope-constraints-and-success-criteria.md](./06-scope-constraints-and-success-criteria.md) | Périmètres |
-| [08-functional-design.md](./08-functional-design.md) | Conception — contrat **validé / intégré** |
-| [09-functional-flows-and-rules.md](./09-functional-flows-and-rules.md) | Conception — parcours **validés** |
-| [10-functional-decision-pack.md](./10-functional-decision-pack.md) | Conception — pack de **validation / clôture** |
-| [11-functional-architecture.md](./11-functional-architecture.md) | Architecture — **VALIDÉE** et **INTÉGRÉE** |
-| [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux / frontières — D10 → AF-01 / AF-15 |
-| [13-functional-architecture-decision-pack.md](./13-functional-architecture-decision-pack.md) | AF-Option / AF-CAND |
-| [14-ux-ui-contract.md](./14-ux-ui-contract.md) | UX/UI — contrat |
-| [15-ux-ui-flows-and-screens.md](./15-ux-ui-flows-and-screens.md) | UX/UI — écrans P0 |
-| [16-ux-ui-decision-pack.md](./16-ux-ui-decision-pack.md) | UX/UI — décisions |
-| [18-technical-architecture.md](./18-technical-architecture.md) | Architecture technique P0 |
-| [19-technical-architecture-decision-pack.md](./19-technical-architecture-decision-pack.md) | TA-DEC (historique « delivery autorisé ») |
-| [app/README.md](./app/README.md) | Runtime P0 intégré |
+| [20-poc-orchestration-framing.md](./20-poc-orchestration-framing.md) | Cadrage POC **VALIDÉ** |
+| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | S1 **SÉLECTIONNÉ** |
+| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | POC-CAND / gates |
+| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C / L0–L5 |
+| [app/README.md](./app/README.md) | Runtime P0 |
 
-*SFIA Studio — Delivery P0 CLÔTURÉ (PR #217) — prochaine orientation = cadrage POC orchestration (Option B, non lancé) — clôture architecture fonctionnelle NON PRONONCÉE — Morris décide.*
+*SFIA Studio — cadrage POC VALIDÉ 2026-07-19 — POC NON LANCÉ — merge non autorisé — Morris décide.*
