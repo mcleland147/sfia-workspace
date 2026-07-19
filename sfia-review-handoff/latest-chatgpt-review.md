@@ -1,170 +1,164 @@
-# ChatGPT Review Pack — PR readiness spike GPT → Cursor e2e
+# ChatGPT Review Pack — PR #226 readiness finale
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure** | 2026-07-19 20:38:00 CEST (Europe/Paris) approx. pack write |
-| **Cycle** | 13 — PR readiness |
-| **Profil SFIA** | Critical |
-| **Typologie** | INC / EVOL — consolidation spike GPT → Cursor réel |
-| **Branche** | `spike/sfia-studio-openai-gpt-adapter` |
-| **HEAD commit** | `167c9f78e9a45ebe2c6d0f901e6d98018ddb2c14` |
-| **Base historique** | `dce5a41a0a8c4ea1cfd08a8a99596b9dc02cb957` |
-| **Review niveau** | full |
+| **Date / heure** | 2026-07-19 20:48:30 CEST (Europe/Paris) |
+| **Cycle** | 13 — PR readiness (finale courte) |
+| **Profil** | Critical |
+| **GO Morris** | GO cycle court de PR readiness finale pour la PR #226 |
+| **PR** | [#226](https://github.com/mcleland147/sfia-workspace/pull/226) |
+| **SHA final** | `056c97f6a9838a99125f81e1a84cf17cd070b3fe` |
 
 ---
 
-## GO Morris consommé
-
-GO commit, push et PR pour ce cycle.
-
-Autorisé : staging ciblé, commit(s), fetch, push spike, PR vers `main`, handoff `sfia/review-handoff`.  
-Interdit : merge, force push, rebase auto, live OpenAI/Cursor sauf nécessité, secrets, UI/industrialisation.
-
----
-
-## Truth Check (avant fetch)
+## Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| pwd | `/Users/morris/Projects/sfia-workspace` |
 | Branche | `spike/sfia-studio-openai-gpt-adapter` |
-| HEAD | `dce5a41a0a8c4ea1cfd08a8a99596b9dc02cb957` |
-| origin/main | idem |
-| merge-base | idem |
-| Staged préalable | aucun |
-| Remote spike | absente (avant push) |
+| HEAD initial cycle | `167c9f78…` |
+| HEAD final | `056c97f6…` (correctif MINOR) |
+| origin/main | `dce5a41…` inchangé après fetch |
+| origin/spike | = HEAD final |
+| merge-base | `dce5a41…` |
+| Working tree | `?? .tmp-sfia-review/` uniquement |
+| PR state | OPEN · base `main` · head spike · MERGEABLE · non draft · non mergée |
 
 **PASS**
-
-## Fetch / état `origin/main`
-
-Après `git fetch origin` : `origin/main` **inchangé** (`dce5a41…`). Aucun commit nouveau sur main. Aucun chevauchement. **Pas de drift.**
 
 ---
 
 ## Sources
 
-Template cycle · handoff précédent e2e (`bd51bbc…`) · docs 07/28/29/30/31 · harness · `.gitignore` harness.
+Template cycle · handoff readiness précédent · PR #226 · `.github/workflows/interv360-ci.yml` · harness package/gitignore/README · rapports 30/31 · docs 07/28 · fichiers PR.
 
 ---
 
-## Périmètre réel / table inclusion-exclusion
+## Axe 1 — Analyse CI
 
-| Fichier | Statut | Rôle | Inclus | Justification |
-|---------|--------|------|--------|---------------|
-| `07-product-trajectory…` | M | décisions D-NEXT-31/32 | oui | cohérence statut prouvé |
-| `28-poc-orchestration…` | M | statut spikes | oui | cohérence PR |
-| `30-poc-gpt-openai…` | A | rapport OpenAI | oui | cycle |
-| `31-poc-gpt-cursor-e2e…` | A | rapport e2e | oui | cycle |
-| `README.md` (studio) | M | index rapports | oui | navigation |
-| `harness/README.md` | M | commandes spikes | oui | doc |
-| `harness/package.json` | M | scripts spike | oui | runners |
-| `src/index.ts` | M | exports | oui | API package |
-| `cursorRealSpike.ts` | M | sandbox e2e allow | oui | e2e |
-| `openaiRealSpike.ts` | A | adaptateur OpenAI | oui | spike |
-| `gptContracts.ts` | A | contrats | oui | spike |
-| `gptOutputValidator.ts` | A | fail-closed | oui | spike |
-| `gptFixture/Qualification/Verdict` | A | ports | oui | spike |
-| `e2eCursorBounded.ts` | A | contrat Cursor | oui | e2e |
-| `e2eSandbox.ts` | A | sandbox lifecycle | oui | e2e |
-| `spikes/gpt-openai/**` | A | runner+prompts+fixture | oui | (proofs runtime ignorés) |
-| `spikes/e2e-gpt-cursor/run-e2e.ts` | A | runner e2e | oui | e2e |
-| `tests/gpt-openai-spike.test.ts` | A | tests | oui | QA |
-| `tests/e2e-gpt-cursor.test.ts` | A | tests | oui | QA |
-| `.tmp-sfia-review/**` | ?? | review local | **non** | hors spike commit |
-| `harness/proofs/**` runtime | ignored | preuves live | **non** | gitignore |
-| `.phase-*.json` / counters | ignored | FinOps runtime | **non** | gitignore |
-| sandbox `.git` / output.md | ignored | runtime | **non** | gitignore |
-| `package-lock.json` | inchangé | — | non | pas de nouvelle dépendance |
+### Workflows lus
 
-### Fichiers ignorés/runtime vérifiés
+Unique fichier : `.github/workflows/interv360-ci.yml`
 
-`git check-ignore` confirme : `proofs/e2e-cursor-sandbox/**`, `.phase-e2e-*.json`, `spikes/gpt-openai/proofs/run-*.json`, `e2e-runs/**`.
-
-Seul artefact proofs versionné : `spikes/gpt-openai/proofs/.gitkeep`.
-
----
-
-## Scan secrets
-
-- Candidates : fausses clés **uniquement** dans tests de sanitation (`sk-fake…`, `sk-abcdefghijklmnopqrstuvwxyz`) — attendu.
-- Aucune clé réelle, aucune identité Cursor, aucun `.env` staged.
-- `.tmp-sfia-review` non stagée.
-
----
-
-## Tests et build
-
-```text
-npm run typecheck → OK
-npm test → 73 passed | 1 skipped (74)
-npm run build → OK
-npm run spike:gpt-openai (flags off) → fixture OK, live NON_EXECUTED
-npm run spike:e2e-gpt-cursor (flags off) → NON_EXECUTED
-git diff --check → OK
+```yaml
+on:
+  pull_request:
+    paths:
+      - "projects/interv360/**"
+      - ".github/workflows/interv360-ci.yml"
 ```
 
-## Statut live
+Jobs : Node 20 · npm ci/build/test sous `projects/interv360/app` et `projects/interv360/backend` uniquement.
 
-`LIVE NON_EXECUTED — PREVIOUS EVIDENCE PRESERVED`
+### Déclencheurs / paths
 
-Aucune nouvelle exécution OpenAI/Cursor dans ce cycle readiness.
+- Déclenche sur `pull_request` **mais** filtré `paths: projects/interv360/**`
+- **N’inclut pas** `projects/sfia-studio/**`
+- Aucun autre workflow YAML dans `.github/workflows/`
 
----
+### Checks / runs distants
 
-## Commit
+- `gh pr checks 226` → `no checks reported`
+- `gh run list --commit <SHA>` → vide
+- `statusCheckRollup` → `[]`
+- Protection branche `main` → HTTP 404 « Branch not protected » (aucune required check visible)
 
-- Message : `feat(sfia-studio): prove bounded GPT to Cursor e2e spike`
-- SHA : `167c9f78e9a45ebe2c6d0f901e6d98018ddb2c14`
-- Diff : 26 files changed, 3934 insertions(+), 13 deletions(-)
-- 26 fichiers
+### Catégorie CI retenue
 
-## Working tree post-commit
+**B. `CI CONFIGURED — PATHS EXCLUDE SFIA STUDIO`**
 
-Uniquement `?? .tmp-sfia-review/` (volontairement hors spike).
+L’absence de check n’est **pas** un succès CI ; elle est **attendue** car le seul workflow exclut SFIA Studio via `paths`.
 
-## Push
+Non bloquant pour merge readiness **si** validations locales complètes (prouvé) et aucune règle repository n’impose de check (prouvé : branche non protégée). Création d’une CI SFIA Studio = cycle DevOps séparé (GO requis).
 
-- `git push -u origin spike/sfia-studio-openai-gpt-adapter`
-- SHA local = distant = `167c9f78e9a45ebe2c6d0f901e6d98018ddb2c14`
-
----
-
-## Pull Request
-
-| Champ | Valeur |
-|-------|--------|
-| Numéro | **#226** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/226 |
-| Titre | feat(sfia-studio): prove bounded GPT to Cursor end-to-end spike |
-| Base | `main` |
-| Head | `spike/sfia-studio-openai-gpt-adapter` |
-| État | **OPEN** |
-| Head OID | `167c9f78e9a45ebe2c6d0f901e6d98018ddb2c14` |
-| Diff | +3934 / −13 |
-| Fichiers | 26 (alignés commit) |
-| Checks CI (`statusCheckRollup`) | **[]** — aucun check immédiatement reporté → **PENDING** / non configuré visible |
-
-Corps PR : Objectif, Contenu, Preuves, Garde-fous, Réserves, Validation, Hors périmètre, Décision Morris (merge fermé).
+Corps PR mis à jour avec réserve CI explicite.
 
 ---
 
-## Garde-fous / réserves
+## Axe 2 — Revue sécurité (table)
 
-Voir corps PR. Invariants : `productionReadyClaimed=false`, `mergeAuthorized=false`, adaptateurs flag-gated, validateurs non assouplis.
+| Contrôle | Fichiers | Résultat | Gravité | Action |
+|----------|----------|----------|---------|--------|
+| Secrets réels | diff PR | aucun ; fausses clés tests uniquement | INFO | aucune |
+| `.env` / cookies | — | absents | INFO | — |
+| Identité Cursor | rapports | redactée | INFO | — |
+| Flags live off par défaut | openai/cursor adapters, runners | OK — flags + enabled requis | INFO | — |
+| Tests/build n’appellent pas live | runners flags off | NON_EXECUTED prouvé | INFO | — |
+| OpenAI endpoint Chat Completions | openaiRealSpike | OK | INFO | — |
+| 0 retry / timeout 30s / tokens ≤8192 | openaiRealSpike | OK | INFO | — |
+| Sanitation erreurs | sanitizeOpenAiErrorText | OK | INFO | — |
+| json_schema verdict + fail-closed | gptContracts, validator | OK | INFO | — |
+| Cursor sandbox + `..`/absolu/symlink | cursorRealSpike, e2e* | OK | INFO | — |
+| Denylist commandes dangereuses | e2eCursorBounded | OK (prompt + post-check) | INFO | — |
+| cursorRealInvoked après spawn | adapters | OK | INFO | — |
+| proofs/compteurs ignorés | .gitignore | OK (sauf .gitkeep) | INFO | — |
+| `.tmp-sfia-review` exclu | status | OK | INFO | — |
+| productionReadyClaimed=false | contrats/rapports | OK | INFO | — |
+| Path Cursor.app hardcodé | runners/tests | défaut local macOS, flag-gated | INFO | documenté |
+| Trailing whitespace report 30 | 30-poc… | `git diff --check` fail | MINOR | **corrigé** |
 
-## Décisions Morris restantes
-
-1. **Merge** de la PR #226 (GO requis)
-2. Rebase / force-push si drift futur
-3. Industrialisation / UI / L5 — fermés
+**Aucun BLOCKER · aucun MAJOR.**
 
 ---
 
-## Verdict final
+## Axe 3 — Cohérence documentaire
 
-`SPIKE VERSIONED AND PR OPEN — CI PENDING`
+- Scripts package.json alignés README
+- Rapports 30/31 non production-ready
+- 07/28 : D-NEXT-31/32 consommés ; merge fermé
+- Claims « READY FOR MERGE » uniquement en liste d’interdits
 
-Instruction : ChatGPT doit lire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` avant de valider la PR readiness.
+---
+
+## Validations locales
+
+```
+typecheck OK
+npm test → 73 passed | 1 skipped
+build OK
+spike:gpt-openai flags off → live NON_EXECUTED
+spike:e2e-gpt-cursor flags off → NON_EXECUTED
+git diff --check origin/main...HEAD → clean (après correctif)
+```
+
+Statut live : `LIVE NON_EXECUTED — PREVIOUS EVIDENCE PRESERVED`
+
+---
+
+## Corrections
+
+| Défaut | Gravité | Action |
+|--------|---------|--------|
+| Trailing whitespace L123 report 30 | MINOR | commit `056c97f` |
+| Réserve CI absente du corps PR | MINOR doc | `gh pr edit` |
+
+Message : `fix(sfia-studio): address final PR readiness findings`  
+Push : origin spike · local=distant=`056c97f6…`  
+PR head OID mis à jour · MERGEABLE · OPEN
+
+---
+
+## Réserves restantes
+
+1. Pas de CI GitHub Actions pour `projects/sfia-studio/**`
+2. Spike expérimental / un scénario
+3. Commandes internes Cursor non journalisées 1:1
+4. Réseau Cursor non mesuré
+5. Qual encore `json_object`
+6. Non-déterminisme GPT
+
+## Décisions Morris
+
+1. **Merge PR #226** — GO requis
+2. CI dédiée SFIA Studio — cycle DevOps séparé
+3. UI / industrialisation / L5 — fermés
+
+---
+
+## Verdict
+
+`PR #226 CORRECTED AND READY WITH RESERVES — MERGE DECISION REQUIRED`
+
+Instruction : ChatGPT doit lire Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` avant verdict de merge readiness.
 
 Aucun secret dans ce pack.
