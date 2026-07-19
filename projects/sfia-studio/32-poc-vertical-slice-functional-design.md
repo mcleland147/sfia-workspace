@@ -314,9 +314,9 @@ Critères détaillés `VS-AC-*` : voir `33`.
 
 ---
 
-## 13. Décisions candidates
+## 13. Décisions
 
-Voir pack `34` — `VS-CAND-01` … `VS-CAND-12` (**non validées**).
+Voir pack `34` — `VS-CAND-01` à `VS-CAND-13` et `VS-CAND-15` **validées** ; `VS-CAND-14` **validée avec réserve** — plafond GPT obligatoire, valeur numérique à définir, aucun retry automatique.
 
 ---
 
