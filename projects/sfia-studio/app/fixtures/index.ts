@@ -5,6 +5,7 @@ export { cycles, activeCycle } from "./cycles";
 export { gates } from "./gates";
 export { evidenceItems } from "./evidence";
 export { gitStatus } from "./git-status";
+export { vsFixture } from "./vertical-slice";
 
 export const copilotRecommendations: Recommendation[] = [
   {
