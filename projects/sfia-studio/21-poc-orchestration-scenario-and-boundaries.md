@@ -6,7 +6,7 @@
 | **Document** | `21-poc-orchestration-scenario-and-boundaries.md` |
 | **Cycle** | 1 — Cadrage POC orchestration (Option B) |
 | **Profil** | Critical |
-| **Statut document** | **VALIDÉ PAR MORRIS** — 2026-07-19 — scénario **S1 SÉLECTIONNÉ** |
+| **Statut document** | **VALIDÉ PAR MORRIS** (2026-07-19) et **INTÉGRÉ** sur `main` (PR #219) — S1 = **contrat de cadrage** (**non exécuté**) |
 | **Complète** | [20-poc-orchestration-framing.md](./20-poc-orchestration-framing.md) |
 | **POC** | **Non lancé** |
 
@@ -16,12 +16,12 @@
 
 | ID | Intitulé | Couverture preuve | Risque | Retenu ? |
 |----|----------|-------------------|--------|----------|
-| **S1** | Cycle DOC gouverné read-only (intention → gate → exécution Cursor lecture → pack → décision) | Git + GPT + Cursor + gates + stops | Faible | **SÉLECTIONNÉ / VALIDÉ PAR MORRIS** |
+| **S1** | Cycle DOC gouverné read-only (intention → gate → exécution Cursor lecture → pack → décision) | Git + GPT + Cursor + gates + stops | Faible | **SÉLECTIONNÉ / VALIDÉ / INTÉGRÉ** |
 | **S2** | Pre-check Git + détection divergence HEAD + stop + reprise lecture | Vérité Git / stops | Moyen | Non retenu |
-| **S3** | Allowlist orchestrateur + rejet d’écriture simulée hors contrat | Déterminisme négatif | Moyen | **Intégré à S1** (rejet obligatoire) |
+| **S3** | Allowlist orchestrateur + rejet d’écriture simulée hors contrat | Déterminisme négatif | Moyen | **Intégré à S1** (rejet obligatoire — exigence future du POC) |
 | **S4** | PR readiness locale sans push/PR/merge | Diff / review | Plus large | Reporté |
 
-**Décision Morris (POC-CAND-02 / POC-G2) — 2026-07-19 :** scénario **S1** sélectionné, avec **rejet obligatoire** d’une action hors allowlist (élément S3) dans le flux de preuve.
+**Décision Morris (POC-CAND-02 / POC-G2) — 2026-07-19 :** scénario **S1** sélectionné, avec **rejet obligatoire** d’une action hors allowlist (élément S3) dans le flux de preuve. Intégré sur `main` via PR #219. **S1 n’est pas exécuté.**
 
 ---
 
@@ -217,7 +217,9 @@ Le modèle d’état et le scénario restent un **contrat de cadrage**, pas une 
 | Gate d’exécution | Avant Cursor | GO / CORRIGER / STOP |
 | Gate de clôture preuve | Après pack | CLOSING / ITERATE / ABANDON |
 
-Les gates produit POC-G1…G6 et POC-G10 sont **VALIDÉS** (2026-07-19). POC-G7…G9 restent **NON VALIDÉS**.
+Les gates produit POC-G1…G6 sont **VALIDÉS** (2026-07-19). POC-G10 est **CONSOMMÉ** (PR #219). POC-G7…G9 restent **FERMÉS / NON VALIDÉS**.
+
+UI Studio versus harness : **réserve d’architecture** (ouverte pour un futur cycle POC-G7 — **non ouvert** ici).
 
 ---
 
@@ -294,4 +296,4 @@ L’UI P0 **n’est pas** l’orchestrateur. Branchement réel UI↔orchestrateu
 
 ---
 
-*Scénario S1 SÉLECTIONNÉ / VALIDÉ PAR MORRIS 2026-07-19 — POC NON LANCÉ — techno Runtime ouverte — Morris décide (POC-G7+).*
+*Scénario S1 VALIDÉ + INTÉGRÉ (PR #219) comme contrat de cadrage — NON EXÉCUTÉ — POC NON LANCÉ — rejet allowlist = exigence future — techno Runtime ouverte — Morris décide (POC-G7 fermé).*
