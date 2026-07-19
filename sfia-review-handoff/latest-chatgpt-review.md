@@ -1,90 +1,118 @@
-# Review pack — SFIA Studio POC vertical slice BACKLOG
+# Review pack — SFIA Studio POC vertical slice BACKLOG CORRECTIF
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 22:51:46 CEST |
-| **Cycle** | 5 — Backlog / user stories |
+| **Date / heure / fuseau** | 2026-07-19 22:58:52 CEST |
+| **Cycle** | 5 — Backlog / user stories — correctif documentaire |
 | **Profil** | Standard |
-| **Typologie** | DOC / BACKLOG / POC |
-| **GO Morris consommé** | G-VS-BL — produire backlog documentaire |
+| **Typologie** | DOC / BACKLOG / CORRECTIVE |
+| **GO Morris consommé** | G-VS-BL (produire) + G-VS-BL-FIX (correctif structure/traçabilité) |
 | **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale — aucun push**) |
-| **HEAD / origin/main** | `722f586855743f87a6d3318ccec2dd6224676e28` = `722f586855743f87a6d3318ccec2dd6224676e28` (`722f586…` PR #228 MERGED) |
-| **Working tree initial** | `.tmp` + création 38–40 |
-| **Verdict** | `SFIA STUDIO VERTICAL SLICE BACKLOG READY — MORRIS VALIDATION REQUIRED` |
+| **HEAD / origin/main** | `722f586855743f87a6d3318ccec2dd6224676e28` = `722f586855743f87a6d3318ccec2dd6224676e28` |
+| **Verdict** | `SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED` |
 
 ---
 
 ## 1. Truth Check
 
-OK — fetch · PR #228 MERGED · docs 32–37 sur main · FF main → `722f586…` · branche `backlog/sfia-studio-poc-vertical-slice` créée · collision 38–40 absente · staged vide · aucune modif versionnée étrangère.
+OK — fetch · branche `backlog/sfia-studio-poc-vertical-slice` · HEAD = origin/main = `722f586…` · PR #228 MERGED · docs 32–37 présents · staged vide · 38–40 non trackés non vides · aucun app/harness modifié · branche backlog absente du remote.
 
 ---
 
 ## 2. Sources consultées
 
 - Template + routing guide
-- Docs `32`–`37` (fonctionnel + UX)
-- POC `20`–`31` (contexte spikes/ports)
-- Figma lecture seule : page `51:2`, frames `51:3`…`51:1204`, VAR `52:2/10/18/26`
-- `app/**` et `harness/**` lecture seule
-
-### Code inspecté (RO)
-
-- App : 4 routes, shell, UI kit, fixtures — pas d’adaptateur, pas de live UI
-- Harness : GateValidator, GPT/Cursor fixtures + spikes live flaggés, journal, e2e sandbox
-- Contrainte : pas de CI Studio
-
-### Réutilisable
-
-Shell/tokens/UI · fixtures app · ports harness fixture · spikes C/D sous flags
-
-### Réserves observées
-
-Adapter absent · gate UI actuel 3 options · plafond À définir · réserves spikes
+- Docs `32`–`37` (vérité FR/BR/AC/N/CAND/UX)
+- Docs `38`–`40` (backlog à corriger)
+- Figma lecture seule : `51:2`, états `51:3`…`51:1204`, VAR `52:2/10/18/26`
+- `app/**` / `harness/**` RO (pas de changement)
+- Handoff précédent sur `sfia/review-handoff`
 
 ---
 
-## 3. Documents créés
+## 3. Grille d’audit des 33 stories
 
-| Doc | Lignes | Rôle |
-|-----|--------|------|
-| 38 | 633 | Backlog epics/stories/AC/matrice |
-| 39 | 234 | Story map + incréments A–E |
-| 40 | 149 | Decision pack VS-BL-CAND |
+| Contrôle | Résultat |
+|----------|----------|
+| Stories auditées | **33** |
+| Complètes avant correctif | **1** (US-001) |
+| Incomplètes avant | **32** |
+| Complétées | **32** |
+| Complètes après | **33 / 33** (16 champs) |
+| IDs uniques | 001…033 |
+| Références corrigées | **US-003** (N16 retiré) · **US-011** (VS-FR-15/16 → VS-FR-04 + VS-UX-FR-15/16) |
+| N16 | Couverture primaire **US-016** (+033) |
+| Matrice | **91** lignes recalculées · FR17 BR17 AC12 N16 CAND15 UX10 VAR4 |
+| Séquencement A–E | **Inchangé** (39 mis à jour traçabilité seulement) |
 
-### Quantitatif
+### Stories incomplètes détectées (avant)
 
-- Epics : **10**
-- Capabilities : **34**
-- Stories : **33** (`VS-BL-US-001`…`033`)
-- VS-BL-CAND : **12** (`01`…`12`)
-- Incréments candidats : **A–E**
+US-002…033 manquaient en combinaison : Valeur, Préconditions, Négatifs, Preuves, Dépendances, Risque, Gate, Hors périmètre, Notes delivery.
 
-### IDs stories
+### Corrections de traçabilité (liste exacte)
 
-VS-BL-US-001 … VS-BL-US-033
-
-### Matrice de couverture
-
-Incluse dans doc 38 §9 — FR-01…17 · BR · AC · N1–N16 · CAND · UX-01…10 · VAR — **tous couverts** (CAND-14 valeur numérique différée justifiée).
-
-### Incréments
-
-A cockpit mock → B adaptateur/fixtures → C GPT live → D Cursor live → E analyse/clôture
-
-### VS-BL-CAND-*
-
-01 séquence A–E · 02 priorité epics · 03 premier périmètre A · 04 mock puis live · 05 adaptateur Incr.B · 06 couverture N · 07 gate GPT live · 08 gate Cursor live · 09 plafond À définir · 10 critères « slice prouvé » · 11 stratégie tests · 12 granularité 33 stories
+1. **VS-BL-US-003** : retirer `N16` des sources ; remplacer par étape 1 / abandon pré-qualif / FinOps 0 / VS-UX-01 / VS-FR-16 (conso=0) / VS-BR-03 ; hors périmètre explicite N16→US-016.
+2. **VS-BL-US-011** : retirer `VS-FR-15/16` ; utiliser `VS-FR-04` · `VS-UX-FR-15` · `VS-UX-FR-16` · VS-UX-04 · Doc 36 §8 · VS-CAND-04 · VS-BR-04.
+3. **VS-BL-US-016** : N16 marqué primaire.
+4. **32 stories** : ajout des champs manquants (16 champs partout).
+5. **Matrice §9** : expansion ligne à ligne (plus de plages agrégées FR/BR/AC/CAND).
+6. **Doc 39** : story map étape 01/04/transverse clarifiée ; note N16.
+7. **Doc 40** : correctif meta · CAND-06 précisé · risques traçabilité · verdict CORRECTED.
 
 ---
 
-## 4. Fichiers non modifiés
+## 4. Couverture (après)
+
+| Famille | Statut |
+|---------|--------|
+| VS-FR-01…17 | couvert |
+| VS-BR-01…17 | couvert |
+| VS-AC-01…12 | couvert |
+| N1…N16 | couvert (N16=016) |
+| VS-CAND-01…15 | couvert (14 valeur différée) |
+| VS-UX-01…10 | couvert |
+| VAR Loading/Err/STOP/GO | couvert |
+
+---
+
+## 5. Cohérence 38 / 39 / 40
+
+- 33 stories · 10 epics · A–E inchangés
+- 39 : dépendances/story map alignées correctifs
+- 40 : VS-BL-CAND-01…12 toujours **non validées** · verdict CORRECTED
+
+---
+
+## 6. Contrôles exécutés
+
+- 33 IDs uniques
+- 0 story sans les 16 champs
+- 0 ID source inconnu (canon 32–37)
+- N16 absent des sources US-003
+- VS-FR-15/16 absents des sources US-011
+- Matrice sans orphelin
+- Aucun claim stack/MVP abusif
+- Trailing whitespace = 0
+- git status : uniquement 38–40 + .tmp
+
+---
+
+## 7. Fichiers
+
+### Créés / modifiés (non versionnés projet)
+
+- `38` (988 lignes) — **réécrit correctif**
+- `39` (237 lignes) — meta + story map N16/011
+- `40` (152 lignes) — meta + risques + verdict
+- `.tmp-sfia-review/chatgpt-review.md`
+
+### Non modifiés
 
 `01`–`37` · `app/**` · `harness/**` · Figma · method/prompts · configs
 
 ---
 
-## 5. git status
+## 8. git status final
 
 ```
 ?? .tmp-sfia-review/
@@ -93,49 +121,52 @@ A cockpit mock → B adaptateur/fixtures → C GPT live → D Cursor live → E 
 ?? projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md
 ```
 
-Aucun staged · aucun commit/push/PR projet · branche backlog **non poussée**.
+---
+
+## 9. Réserves
+
+- Plafond GPT valeur **À définir**
+- Adaptateur absent (dette Incr. B)
+- UI gate actuelle ≠ 4 actions (observé RO)
+- Aucune VS-BL-CAND validée
+- Séquencement A–E candidat seulement
 
 ---
 
-## 6. Garde-fous
+## 10. Décisions Morris attendues
 
-Option B · Git vérité · Morris L0 · 10 états ≠ 10 routes · pas de stack/API · plafond non inventé · no retry · pas MVP · harness autonome · timeout ≠ GO
-
----
-
-## 7. Décisions Morris attendues
-
-1. Valider/amender/refuser VS-BL-CAND-01…12  
-2. Autoriser versionnement 38–40  
-3. Choisir premier incrément delivery (A recommandé)  
-4. Ne pas traiter comme GO delivery/live/merge
+1. Valider/amender/refuser VS-BL-CAND-01…12
+2. Autoriser versionnement 38–40
+3. Confirmer correctifs US-003 / US-011
+4. **Ne pas** GO delivery / live / merge
 
 ---
 
-## 8. Verdict
+## 11. Verdict
 
-`SFIA STUDIO VERTICAL SLICE BACKLOG READY — MORRIS VALIDATION REQUIRED`
+`SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED`
 
-Instruction ChatGPT : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+Instruction ChatGPT : lire `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
 
 ---
 
-# ANNEXE A — Document 38 intégral
+# ANNEXE A — Document 38 intégral (final)
 
 # SFIA Studio — Backlog delivery borné du vertical slice POC
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `38-poc-vertical-slice-backlog.md` |
-| **Cycle** | 5 — Backlog / user stories |
+| **Cycle** | 5 — Backlog / user stories — **correctif documentaire** |
 | **Profil** | Standard |
-| **Typologie** | DOC / BACKLOG / POC |
+| **Typologie** | DOC / BACKLOG / CORRECTIVE |
 | **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
 | **Base Git** | `origin/main` @ `722f586855743f87a6d3318ccec2dd6224676e28` |
 | **Statut** | `draft-for-morris-validation` — **aucune story ni incrément validés** |
 | **Companions** | [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
 | **Sources** | [`32`](./32-poc-vertical-slice-functional-design.md)–[`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 | **Code / live** | **Aucun** dans ce cycle |
+| **Correctif** | Structure 16 champs × 33 stories · audit traçabilité · matrice recalculée |
 
 > Backlog documentaire du **premier vertical slice POC**.
 > Dix **états** UX ≠ dix routes · quatre vues P0 · Option B inchangée · plafond GPT **À définir** · aucun claim MVP.
@@ -178,13 +209,15 @@ Une story est Ready si :
 1. ID stable `VS-BL-US-*` ;
 2. epic + capability + acteur ;
 3. formulation En tant que / Je veux / Afin de ;
-4. sources (`VS-FR`/`VS-BR`/`VS-AC`/N/UX) ;
-5. état UX ou variante ;
-6. préconditions ;
-7. AC Given/When/Then testables ;
-8. hors périmètre explicite ;
-9. aucune dépendance stack non tranchée (sinon hypothèse / spike candidat) ;
-10. gate Morris éventuel identifié.
+4. valeur démontrée ;
+5. sources (`VS-FR`/`VS-BR`/`VS-AC`/N/UX/CAND) exactes ;
+6. état UX ou variante (ou `Aucun spécifique`) ;
+7. préconditions ;
+8. AC Given/When/Then testables ;
+9. scénarios négatifs (ou `Aucun spécifique`) ;
+10. preuves, dépendances, risque, taille, gate, hors périmètre, notes ;
+11. aucune dépendance stack non tranchée (sinon hypothèse / spike candidat) ;
+12. gate Morris éventuel identifié.
 
 ---
 
@@ -236,491 +269,837 @@ Une story est Ready si :
 
 ## 7. User stories
 
+> Chaque story ci-dessous comporte les **16 champs obligatoires**.
+> `—` ou `Aucun spécifique` = non applicable explicite (jamais une ligne omise).
+
+
 ### VS-BL-US-001 — Saisir une demande de preuve
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E1 / C1.1 |
+| Epic / Capability | E1 / C1.1 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux saisir une intention Markdown sandbox, afin de démarrer un cycle de preuve gouverné. |
-| Valeur | Entrée BeB observable |
-| Sources | VS-FR-01 · VS-CAND-01 · VS-UX-01 |
-| UX | VS-UX-01 · vue Nouvelle demande |
-| Préconditions | Studio accessible ; projet connu |
-| AC | **Given** vue Nouvelle demande **When** Morris saisit titre+synthèse et voit requestId candidat **Then** aucune exécution ni GO implicite |
-| Négatifs | Intention vide → validation locale, pas de qualif |
-| Preuves | StudioRequest horodatée |
+| Story | En tant que Morris, Je veux saisir une intention Markdown sandbox (titre + synthèse), Afin de démarrer un cycle de preuve gouverné. |
+| Valeur démontrée | Entrée BeB observable sans exécution implicite |
+| Sources | VS-FR-01 · VS-CAND-01 · VS-UX-01 · VS-AC-01 (prérequis parcours) |
+| UX / état / variante | VS-UX-01 · vue Nouvelle demande · frame `51:3` |
+| Préconditions | Studio accessible ; projet connu ; aucune session live requise |
+| Critères d’acceptation | **Given** vue Nouvelle demande **When** Morris saisit titre+synthèse valides et voit un requestId candidat **Then** StudioRequest affichée · aucune qualification démarrée · aucun GO implicite · aucune écriture distante |
+| Scénarios négatifs | Intention vide ou incomplète → validation locale · CTA Qualifier désactivé ou bloqué · pas d’appel GPT |
+| Preuves attendues | StudioRequest horodatée (TZ) · requestId visible |
 | Dépendances | — |
 | Risque | Faible |
-| Taille | S |
-| Gate | — |
-| Hors périmètre | Live GPT ; écriture distante |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Live GPT · Cursor · écriture Git distante · nouvelle route |
 | Notes delivery | Réutiliser shell floating `/nouvelle-demande` ; étendre états (pas nouvelle route) |
 
 ### VS-BL-US-002 — Propager requestId / correlationId
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E1 / C1.2 |
-| Acteur | Studio / Harness |
-| Story | En tant que Morris, je veux des IDs stables visibles, afin de reconstruire le parcours. |
-| Sources | VS-CAND-15 · VS-FR-01 · E10 |
-| UX | Toutes |
-| AC | **Given** demande créée **When** navigation entre états **Then** requestId et correlationId inchangés et affichés |
-| Preuves | Journal eventId liés |
-| Taille | S |
+| Epic / Capability | E1 / C1.2 · E10 / C10.1 |
+| Acteur | Morris (via Studio / Harness) |
+| Story | En tant que Morris, Je veux des identifiants stables visibles sur tout le parcours, Afin de reconstruire la corrélation bout-en-bout. |
+| Valeur démontrée | Observabilité et auditabilité du cycle |
+| Sources | VS-CAND-15 · VS-FR-01 · VS-AC-11 |
+| UX / état / variante | Tous les états VS-UX-01…10 · IDs dans topbar/canvas |
+| Préconditions | US-001 : demande créée avec requestId |
+| Critères d’acceptation | **Given** demande créée **When** navigation entre états/vues **Then** requestId et correlationId inchangés et affichés · eventId présents dans journal dérivé |
+| Scénarios négatifs | ID manquant ou réécrit → fail-closed UI (blocage progression) · message explicite |
+| Preuves attendues | Journal avec eventId liés au même requestId/correlationId |
+| Dépendances | VS-BL-US-001 |
+| Risque | Faible |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Schéma BDD · protocole réseau inventé |
+| Notes delivery | Affichage dérivé ; pas de génération d’ID concurrente côté UI |
 
 ### VS-BL-US-003 — Abandonner avant qualification
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E1 / C1.3 |
+| Epic / Capability | E1 / C1.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux abandonner avant qualif, afin d’éviter toute consommation GPT. |
-| Sources | N16 partiel · parcours 33 |
-| UX | VS-UX-01 |
-| AC | **Given** intention capturée **When** Abandonner **Then** état `abandonné` · 0 appel GPT |
-| Taille | XS |
+| Story | En tant que Morris, Je veux abandonner avant toute qualification GPT, Afin d’éviter toute consommation FinOps inutile. |
+| Valeur démontrée | Sortie propre pré-qualif · FinOps zéro appel |
+| Sources | Doc 33 § étape 1 (actions : abandonner) · Doc 32 § Abandon · transition `intention_capturée` → `abandonné` · VS-UX-01 · VS-FR-16 (visibilité conso = 0) · VS-BR-03 (pas de retry silencieux) |
+| UX / état / variante | VS-UX-01 · vue Nouvelle demande |
+| Préconditions | Intention capturée ou en saisie · qualification non démarrée |
+| Critères d’acceptation | **Given** intention capturée sans qualif démarrée **When** Morris choisit Abandonner (avec confirmation si destructif) **Then** état `abandonné` · **0** appel GPT · compteur FinOps inchangé à 0 · aucune écriture distante |
+| Scénarios négatifs | Abandon pendant qualif déjà démarrée → hors cette story (voir STOP / gate) · double-clic → un seul abandon journalisé |
+| Preuves attendues | Événement abandon journalisé · FinOps qualif = 0 |
+| Dépendances | VS-BL-US-001 |
+| Risque | Faible |
+| Taille relative | XS |
+| Gate Morris éventuel | — |
+| Hors périmètre | N16 (perte session) · Abandonner au gate (US-011) · STOP exécution (US-019) |
+| Notes delivery | Ne pas mapper N16 ici — N16 = reprise session (US-016) |
 
 ### VS-BL-US-004 — Déclencher qualification GPT
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E2 / C2.1 |
+| Epic / Capability | E2 / C2.1 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux déclencher explicitement « Qualifier la demande », afin de lancer une qualification contrôlée. |
-| Sources | VS-FR-02 · VS-FR-03 · VS-UX-02 |
-| UX | VS-UX-01→02 |
-| AC | **Given** demande valide **When** CTA Qualifier **Then** état `qualification_en_cours` · compteur FinOps +1 · aucun GO |
-| Négatifs | N2 sources Git indisponibles → STOP lecture |
-| Taille | M |
-| Gate | Avant live GPT : G-VS-LIVE-GPT (futur) |
-| Notes | Fixture d’abord (Incr. B/C) |
+| Story | En tant que Morris, Je veux déclencher explicitement « Qualifier la demande », Afin de lancer une qualification contrôlée. |
+| Valeur démontrée | Contrôle humain du démarrage GPT |
+| Sources | VS-FR-02 · VS-FR-03 · VS-UX-01→02 · VS-BR-03 · N2 |
+| UX / état / variante | Transition VS-UX-01 → VS-UX-02 · frame `51:139` |
+| Préconditions | Demande valide (US-001) · sources Git lisibles ou mode fixture déclaré |
+| Critères d’acceptation | **Given** demande valide **When** CTA Qualifier **Then** état `qualification_en_cours` · compteur FinOps qualif +1 (ou +1 à la consommation réelle selon mode) · aucun GO · aucun spawn Cursor |
+| Scénarios négatifs | **N2** Sources Git indisponibles → STOP lecture · pas de qualif live · message Truth Check · pas de fallback permissif |
+| Preuves attendues | Event qualification_started · FinOps visible |
+| Dépendances | VS-BL-US-001 · VS-BL-US-002 |
+| Risque | Moyen (live) |
+| Taille relative | M |
+| Gate Morris éventuel | Avant live GPT : G-VS-LIVE-GPT (futur) |
+| Hors périmètre | Retry automatique · inventaire coût € |
+| Notes delivery | Fixture d’abord (Incr. B) puis live (Incr. C) sous flags |
 
 ### VS-BL-US-005 — Loading qualification + no retry
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E2 / C2.2 · C2.4 |
-| Acteur | Système / Morris |
-| Story | En tant que Morris, je veux voir la phase active et le plafond « À définir », sans retry auto. |
-| Sources | VS-FR-16 · VS-BR-03 · VS-CAND-14 · VAR Loading `52:2` |
-| UX | VS-UX-02 |
-| AC | **Given** qualif en cours **When** UI affiche **Then** phase + `n / À définir` + « Aucun retry automatique » · pas de fausse barre inventée |
-| Taille | S |
+| Epic / Capability | E2 / C2.2 · C2.4 |
+| Acteur | Morris / Système |
+| Story | En tant que Morris, Je veux voir la phase active et le plafond « À définir », sans retry automatique, Afin de contrôler la consommation. |
+| Valeur démontrée | Transparence FinOps + anti-retry |
+| Sources | VS-FR-16 · VS-BR-03 · VS-CAND-14 · VS-UX-FR-07 · VS-UX-VAR Loading `52:2` |
+| UX / état / variante | VS-UX-02 · variante Loading `52:2` |
+| Préconditions | Qualification démarrée (US-004) |
+| Critères d’acceptation | **Given** qualif en cours **When** UI affiche l’état **Then** phase active lisible · compteur `n / À définir` · mention « Aucun retry automatique » · pas de barre de progression inventée comme succès |
+| Scénarios négatifs | Timeout qualif → état d’échec/stop explicite · **pas** de GO · **pas** de retry auto |
+| Preuves attendues | Screenshot / trace UI Loading + FinOps |
+| Dépendances | VS-BL-US-004 |
+| Risque | Faible |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Valeur numérique du plafond (G-VS-LIMIT) |
+| Notes delivery | Plafond affiché « À définir » jusqu’à arbitrage |
 
 ### VS-BL-US-006 — Rejet fail-closed QualificationCandidate
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E2 / C2.2 |
-| Acteur | Harness / Studio |
-| Story | En tant que Morris, je veux qu’une sortie GPT invalide soit rejetée, afin d’éviter un GO aveugle. |
-| Sources | VS-FR-02 · VS-BR-01 · VS-BR-02 · N1 · VAR Erreur `52:10` |
-| UX | VS-UX-02 |
-| AC | **Given** sortie hors contrat **When** validateur refuse **Then** message erreur · pas d’état `qualification_prête` · CTA correction/abandon |
-| Taille | M |
+| Epic / Capability | E2 / C2.2 |
+| Acteur | Harness (autorité) / Studio (affichage) |
+| Story | En tant que Morris, Je veux qu’une sortie GPT invalide soit rejetée fail-closed, Afin d’éviter un GO aveugle. |
+| Valeur démontrée | Garde-fou intégrité qualification |
+| Sources | VS-FR-02 · VS-BR-01 · VS-BR-02 · N1 · VS-UX-FR-13 · VS-UX-VAR Erreur `52:10` |
+| UX / état / variante | VS-UX-02 · variante Erreur `52:10` |
+| Préconditions | Sortie GPT reçue (fixture ou live) |
+| Critères d’acceptation | **Given** sortie hors contrat **When** validateur refuse **Then** message erreur fail-closed · pas d’état `qualification_prête` · CTA correction/abandon · aucun GO |
+| Scénarios négatifs | **N1** Qualif invalide → rejet · pas d’exécution · correction ou abandon uniquement |
+| Preuves attendues | Event validation_rejected · pas de QualificationCandidate acceptée |
+| Dépendances | VS-BL-US-004 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Fallback permissif · auto-correction GPT |
+| Notes delivery | Harness valide ; Studio affiche dérivé |
 
 ### VS-BL-US-007 — Afficher qualification complète avant gate
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E2 / C2.3 |
+| Epic / Capability | E2 / C2.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux lire cycle, profil, allowlist, stops, hash, afin de contrôler avant GO. |
-| Sources | VS-FR-03 · VS-CAND-03 · VS-UX-03 |
-| UX | VS-UX-03 |
-| AC | **Given** qualif valide **When** affichage **Then** tous champs obligatoires 33 §3 visibles · source GPT étiquetée · pas d’auto-GO |
-| Taille | M |
+| Story | En tant que Morris, Je veux lire cycle, profil, allowlist, stops, hash, Afin de contrôler avant tout GO. |
+| Valeur démontrée | Contrôle humain pré-GO (VS-CAND-03) |
+| Sources | VS-FR-03 · VS-CAND-03 · VS-UX-03 · VS-UX-FR-04 (préparation gate) |
+| UX / état / variante | VS-UX-03 · frame `51:277` · vue Nouvelle demande |
+| Préconditions | QualificationCandidate validée |
+| Critères d’acceptation | **Given** qualif valide **When** affichage **Then** champs obligatoires doc 33 §3 visibles · source étiquetée GPT · **pas** d’auto-GO · CTA Continuer vers gate / Correction / Abandonner |
+| Scénarios négatifs | Champ obligatoire manquant → pas de passage gate · message explicite |
+| Preuves attendues | Screenshot VS-UX-03 · QualificationCandidate complète |
+| Dépendances | VS-BL-US-006 (chemin OK) |
+| Risque | Faible |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Modification silencieuse du candidat |
+| Notes delivery | Mock possible Incr. A |
 
 ### VS-BL-US-008 — Demander correction qualification
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E2 |
+| Epic / Capability | E2 / C2.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux demander une correction, afin de relancer une nouvelle qualification contrôlée. |
-| Sources | VS-FR-04 · parcours 33 |
-| UX | VS-UX-03 |
-| AC | **Given** qualif proposée **When** Correction **Then** retour `qualification_en_cours` · nouvelle consommation FinOps visible · pas de fallback permissif |
-| Taille | S |
+| Story | En tant que Morris, Je veux demander une correction, Afin de relancer une nouvelle qualification contrôlée. |
+| Valeur démontrée | Boucle de correction gouvernée |
+| Sources | VS-FR-04 (action correction) · VS-BR-02 · VS-BR-03 · Doc 33 transitions qualif |
+| UX / état / variante | VS-UX-03 → VS-UX-02 |
+| Préconditions | Qualification proposée visible |
+| Critères d’acceptation | **Given** qualif proposée **When** Demander une correction **Then** retour `qualification_en_cours` · nouvelle consommation FinOps visible · pas de fallback permissif · pas de retry auto silencieux |
+| Scénarios négatifs | Correction sans confirmation FinOps → bloquée ou confirmée explicitement |
+| Preuves attendues | Event correction_requested · FinOps +1 (nouvelle conso) |
+| Dépendances | VS-BL-US-007 |
+| Risque | Moyen (FinOps) |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Correction automatique par GPT |
+| Notes delivery | Chaque relance = consommation distincte |
 
 ### VS-BL-US-009 — Générer ExecutionContract + hash
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E3 / C3.1 |
+| Epic / Capability | E3 / C3.1 |
 | Acteur | Harness |
-| Story | En tant que Morris, je veux un contrat borné hashé, afin d’ancrer le GO. |
-| Sources | VS-FR-05 · VS-BR-05 · VS-CAND-04 |
-| UX | VS-UX-03/04 |
-| AC | **Given** qualif acceptée pour gate **When** contrat produit **Then** contractId + contractHash + allowlist + gitEffect=none-remote |
-| Taille | M |
-| Notes | Réutiliser canonicalize/hash harness |
+| Story | En tant que Morris, Je veux un contrat borné hashé, Afin d’ancrer le futur GO. |
+| Valeur démontrée | Ancrage déterministe du périmètre |
+| Sources | VS-FR-05 · VS-BR-05 · VS-CAND-04 · VS-CAND-06 |
+| UX / état / variante | VS-UX-03/04 (affichage dérivé contractId/hash) |
+| Préconditions | Qualification acceptée pour passage gate |
+| Critères d’acceptation | **Given** qualif acceptée pour gate **When** contrat produit **Then** contractId + contractHash + allowlist + gitEffect=none-remote présents et stables |
+| Scénarios négatifs | Contrat incomplet → pas de gate GO possible · fail-closed |
+| Preuves attendues | ExecutionContract + hash dans preuves/journal |
+| Dépendances | VS-BL-US-007 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Protocole API inventé · ORM |
+| Notes delivery | Réutiliser canonicalize/hash harness existants (lecture seule observée) |
 
 ### VS-BL-US-010 — Dossier de décision Gate Morris
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E3 / C3.2 |
+| Epic / Capability | E3 / C3.2 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux un dossier ancré (IDs, HEAD, branche, allowlist, horodatage), afin de décider. |
-| Sources | VS-FR-05 · VS-UX-04 |
-| UX | VS-UX-04 · vue Décision |
-| AC | **Given** attente gate **When** affichage **Then** champs d’ancrage complets · timeout ≠ GO affiché |
-| Taille | M |
+| Story | En tant que Morris, Je veux un dossier ancré (IDs, HEAD, branche, allowlist, horodatage), Afin de décider en connaissance de cause. |
+| Valeur démontrée | Décision gate informée |
+| Sources | VS-FR-05 · VS-UX-04 · VS-UX-FR-04 · VS-BR-05 · VS-BR-11 |
+| UX / état / variante | VS-UX-04 · frame `51:415` · vue Décision / Gate |
+| Préconditions | Contrat hashé disponible (US-009) |
+| Critères d’acceptation | **Given** attente gate **When** affichage dossier **Then** requestId, contractId, contractHash, branche, HEAD, allowlist, horodatage TZ, autorité · mention timeout ≠ GO visible |
+| Scénarios négatifs | Ancrage incomplet → CTA GO désactivé · message explicite |
+| Preuves attendues | Screenshot dossier gate · champs d’ancrage |
+| Dépendances | VS-BL-US-009 |
+| Risque | Faible |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | GO sans ancrage · auto-GO |
+| Notes delivery | Mock Incr. A ; réel Incr. B |
 
 ### VS-BL-US-011 — Quatre actions gate (GO / NO-GO / Corriger / Abandonner)
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E3 / C3.3 |
+| Epic / Capability | E3 / C3.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux quatre actions explicites, afin de ne pas confondre NO-GO, STOP et Abandon. |
-| Sources | VS-FR-04 · VS-FR-15/16 (UX) · VS-UX-04 |
-| UX | VS-UX-04 |
-| AC | **Given** gate **When** choix **Then** GO/NO-GO/Corriger/Abandonner distincts · Abandonner destructif + confirmation · conséquence « abandonné » · aucune action Git distante |
-| Négatifs | Confusion Abandon/NO-GO/STOP documentée en UI |
-| Taille | M |
+| Story | En tant que Morris, Je veux quatre actions explicites au gate, Afin de ne pas confondre NO-GO, STOP et Abandonner. |
+| Valeur démontrée | Autorité Morris L0 au gate · distinction sémantique |
+| Sources | VS-FR-04 · VS-UX-FR-15 · VS-UX-FR-16 · VS-UX-04 · Doc 36 §8 (Abandonner ≠ NO-GO ≠ STOP) · VS-CAND-04 (ancrage GO) · VS-BR-04 |
+| UX / état / variante | VS-UX-04 · quatre CTA · confirmation Abandonner |
+| Préconditions | Dossier gate complet (US-010) |
+| Critères d’acceptation | **Given** gate affiché **When** Morris choisit une action **Then** GO / NO-GO / Demander une correction / Abandonner sont distincts · Abandonner = destructif + confirmation + conséquence `abandonné` · aucune action Git distante · GO n’autorise spawn qu’après revalidation ultérieure |
+| Scénarios négatifs | Confusion Abandon/NO-GO/STOP → copy UI + a11y (noms accessibles) · GO sans ancrage → impossible |
+| Preuves attendues | MorrisGateDecision journalisée · UI 4 actions |
+| Dépendances | VS-BL-US-010 |
+| Risque | Moyen (UI actuelle ≠ 4 actions) |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | VS-FR-15 (secrets) · VS-FR-16 (FinOps) — **non applicables** comme sources des 4 actions · STOP exécution (US-019) |
+| Notes delivery | Ne pas confondre VS-UX-FR-15/16 avec VS-FR-15/16 |
 
 ### VS-BL-US-012 — Invalidation GO (HEAD/hash/branche/allowlist)
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E3 / C3.4 |
-| Acteur | Harness / Studio |
-| Story | En tant que Morris, je veux qu’un GO stale soit invalide, afin d’empêcher un spawn dangereux. |
-| Sources | VS-FR-06 · VS-BR-06 · VS-AC-02 · VS-AC-03 · N3 · N5 · N6 · VAR GO invalide `52:26` |
-| UX | VS-UX-04/05 |
-| AC | **Given** GO ancré **When** HEAD ou hash change **Then** bandeau GO invalide · harness refuse spawn · nouveau gate requis |
-| Taille | M |
+| Epic / Capability | E3 / C3.4 |
+| Acteur | Harness / Studio (affichage) |
+| Story | En tant que Morris, Je veux qu’un GO stale soit invalide, Afin d’empêcher un spawn dangereux. |
+| Valeur démontrée | Sécurité d’ancrage |
+| Sources | VS-FR-06 · VS-BR-06 · VS-AC-02 · VS-AC-03 · N3 · N5 · N6 · VS-UX-FR-05 · VS-UX-VAR GO invalide `52:26` |
+| UX / état / variante | VS-UX-04/05 · variante GO invalide `52:26` |
+| Préconditions | GO ancré existant |
+| Critères d’acceptation | **Given** GO ancré **When** HEAD, contractHash, branche ou allowlist diverge **Then** bandeau GO invalide · harness refuse spawn · nouveau gate requis |
+| Scénarios négatifs | **N3** HEAD modifié · **N5** GO invalide/expiré · **N6** contrat modifié → refus + message |
+| Preuves attendues | Event go_invalidated · refus spawn journalisé |
+| Dépendances | VS-BL-US-011 (GO) · VS-BL-US-017 |
+| Risque | Élevé (runtime) |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Réparation automatique du GO |
+| Notes delivery | Variante UX obligatoire Incr. A mock + B/D réel |
 
 ### VS-BL-US-013 — Adaptateur fin sans autorité
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E4 / C4.1 |
-| Acteur | Adaptateur |
-| Story | En tant que Morris, je veux que Studio transmette sans élargir, afin de préserver Option B. |
+| Epic / Capability | E4 / C4.1 |
+| Acteur | Adaptateur (Studio→Harness) |
+| Story | En tant que Morris, Je veux que Studio transmette sans élargir ni décider, Afin de préserver Option B. |
+| Valeur démontrée | Garde-fou architecture Option B |
 | Sources | VS-FR-13 · VS-BR-12 · VS-CAND-05 |
-| UX | Transverse |
-| AC | **Given** action Studio **When** envoi harness **Then** aucune décision inventée · pas de seconde vérité · pas d’assouplissement policy |
-| Taille | L |
-| Notes | Spike candidat interface — pas de protocole figé ici |
+| UX / état / variante | Transverse (pas de 5e route) |
+| Préconditions | Actions Studio à transmettre ; harness joignable (fixture ou réel) |
+| Critères d’acceptation | **Given** action Studio **When** envoi via adaptateur **Then** aucune décision inventée · pas de seconde vérité · pas d’assouplissement policy · harness reste autorité d’application des gates |
+| Scénarios négatifs | Tentative d’élargissement périmètre côté Studio → refus / non transmission |
+| Preuves attendues | Trace transmission · comparaison payload vs preuves harness |
+| Dépendances | VS-BL-US-009 · VS-BL-US-011 |
+| Risque | Élevé (absent aujourd’hui) |
+| Taille relative | L |
+| Gate Morris éventuel | — |
+| Hors périmètre | Spécification API/protocole figée · choix stack |
+| Notes delivery | Spike candidat interface en cycle archi ultérieur — pas ici |
 
 ### VS-BL-US-014 — Afficher états dérivés depuis preuves/journal
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E4 / C4.2 |
+| Epic / Capability | E4 / C4.2 |
 | Acteur | Studio |
-| Story | En tant que Morris, je veux des états dérivés, afin que Git/preuves priment. |
-| Sources | VS-FR-13 · VS-AC-11 · VS-BR-12 |
-| UX | Toutes |
-| AC | **Given** événements harness **When** UI rafraîchit **Then** statut source explicite · pas d’état inventé |
-| Taille | M |
+| Story | En tant que Morris, Je veux des états dérivés des preuves/journal, Afin que Git/preuves priment. |
+| Valeur démontrée | Studio = cockpit dérivé (pas vérité) |
+| Sources | VS-FR-13 · VS-AC-11 · VS-BR-12 · VS-UX-FR-12 |
+| UX / état / variante | Tous états · source de statut visible |
+| Préconditions | Événements/preuves harness disponibles |
+| Critères d’acceptation | **Given** événements harness **When** UI rafraîchit **Then** statut source explicite (Git / harness / dérivé) · pas d’état inventé · cohérence VS-AC-11 |
+| Scénarios négatifs | Preuves absentes → message incomplet · pas de faux succès |
+| Preuves attendues | UI source statut · cohérence avec journal |
+| Dépendances | VS-BL-US-013 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Cache UI faisant autorité |
+| Notes delivery | Incr. B |
 
 ### VS-BL-US-015 — Harness autonome sans Studio
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E4 / C4.3 |
+| Epic / Capability | E4 / C4.3 |
 | Acteur | Morris / Harness |
-| Story | En tant que Morris, je veux pouvoir exécuter le scénario via harness seul, afin de ne pas dépendre de l’UI. |
+| Story | En tant que Morris, Je veux exécuter le scénario via harness seul, Afin de ne pas dépendre de l’UI. |
+| Valeur démontrée | Résilience + non-régression hors UI |
 | Sources | VS-FR-14 · VS-BR-13 · VS-AC-12 · VS-CAND-10 |
-| UX | — (CLI) |
-| AC | **Given** contrat+GO **When** harness fixture/live sous flags **Then** preuve BeB sans Studio |
-| Taille | S (déjà partiellement prouvé) |
-| Notes | Capitaliser spikes `29`–`31` |
+| UX / état / variante | — (CLI / hors Studio) · Aucun spécifique UI |
+| Préconditions | Contrat + GO (fixture ou réel selon incrément) |
+| Critères d’acceptation | **Given** contrat+GO **When** harness exécute en mode autonome **Then** preuve BeB produite sans Studio · mêmes garde-fous gates |
+| Scénarios négatifs | GO absent → refus spawn (N4) même sans Studio |
+| Preuves attendues | Journal/preuves harness · VS-AC-12 |
+| Dépendances | VS-BL-US-009 · capitalisation spikes `29`–`31` |
+| Risque | Faible (déjà partiel) |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Remplacer Studio · supprimer Option B cockpit |
+| Notes delivery | Chemin de contrôle parallèle obligatoire |
 
 ### VS-BL-US-016 — Reprise après perte de session Studio
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E4 / C4.4 |
+| Epic / Capability | E4 / C4.4 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux reprendre sans inventer d’état, afin d’éviter un faux succès. |
-| Sources | N16 · VS-AC-11 |
-| UX | Reprise |
-| AC | **Given** session perdue **When** rechargement **Then** états depuis preuves/Git · message si incomplet |
-| Taille | M |
+| Story | En tant que Morris, Je veux reprendre après perte de session sans inventer d’état, Afin d’éviter un faux succès. |
+| Valeur démontrée | Reprise sûre · anti faux succès |
+| Sources | **N16** · VS-AC-11 · VS-FR-13 · VS-BR-12 · Doc 33 N16 |
+| UX / état / variante | Reprise sur vues P0 selon état dérivé |
+| Préconditions | Cycle existant avec preuves/Git ; session Studio perdue |
+| Critères d’acceptation | **Given** session Studio perdue **When** rechargement **Then** états rechargés **uniquement** depuis preuves/Git · message si incomplet · **aucun** état inventé · pas de GO implicite |
+| Scénarios négatifs | **N16** Preuves incomplètes → reprise partielle explicite · blocage actions dangereuses |
+| Preuves attendues | Scénario reprise · source statut post-reload |
+| Dépendances | VS-BL-US-014 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Persistance locale faisant autorité · inventaire session storage comme vérité |
+| Notes delivery | N16 couvert ici — **pas** dans US-003 |
 
 ### VS-BL-US-017 — Revalidation GO avant Cursor
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E5 / C5.1 |
+| Epic / Capability | E5 / C5.1 |
 | Acteur | Harness |
-| Story | En tant que Morris, je veux une revalidation déterministe avant spawn, afin d’appliquer le gate. |
-| Sources | VS-FR-07 · VS-BR-07 · N4 · N5 |
-| UX | VS-UX-05 |
-| AC | **Given** GO présent **When** spawn demandé **Then** harness revalide hash/HEAD/allowlist · sinon refus |
-| Taille | M |
+| Story | En tant que Morris, Je veux une revalidation déterministe avant spawn, Afin d’appliquer le gate. |
+| Valeur démontrée | Autorité harness sur le spawn |
+| Sources | VS-FR-07 · VS-BR-07 · VS-AC-02 · VS-AC-03 · N4 · N5 |
+| UX / état / variante | VS-UX-05 (état dérivé refus/OK) |
+| Préconditions | Demande de spawn ; GO éventuellement présent |
+| Critères d’acceptation | **Given** spawn demandé **When** harness revalide **Then** hash/HEAD/branche/allowlist OK sinon refus · aucun spawn si N4/N5 |
+| Scénarios négatifs | **N4** GO absent → refus · **N5** GO invalide → refus · journal |
+| Preuves attendues | Event revalidation_ok/refused |
+| Dépendances | VS-BL-US-011 · VS-BL-US-012 |
+| Risque | Élevé |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Revalidation côté Studio comme autorité |
+| Notes delivery | Incr. B fixture · Incr. D live |
 
 ### VS-BL-US-018 — Exécution Cursor sandbox Markdown
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E5 / C5.2 |
+| Epic / Capability | E5 / C5.2 · C5.4 |
 | Acteur | Cursor / Harness |
-| Story | En tant que Morris, je veux que Cursor crée le Markdown autorisé, afin de prouver le BeB. |
-| Sources | VS-FR-08 · VS-FR-09 · VS-CAND-01 · VS-CAND-07 · VS-UX-05 |
-| UX | VS-UX-05 |
-| AC | **Given** GO revalidé **When** exécution **Then** fichier sandbox allowlist · remote writes=0 · journal dérivé · pas de commandes inventées en UI |
-| Négatifs | N7 N8 N9 N10 |
-| Taille | L |
-| Gate | G-VS-LIVE-CURSOR |
+| Story | En tant que Morris, Je veux que Cursor crée le Markdown autorisé uniquement, Afin de prouver le BeB sandbox. |
+| Valeur démontrée | Preuve BeB Markdown bornée |
+| Sources | VS-FR-08 · VS-FR-09 · VS-BR-08 · VS-BR-09 · VS-AC-04 · VS-AC-09 · VS-CAND-01 · VS-CAND-06 · VS-CAND-07 · VS-UX-05 · N7 · N8 · N9 · N10 |
+| UX / état / variante | VS-UX-05 · frame `51:540` · Cycle actif |
+| Préconditions | GO revalidé (US-017) · allowlist connue |
+| Critères d’acceptation | **Given** GO revalidé **When** exécution **Then** fichier sandbox allowlist · remote writes=0 · journal dérivé · pas de commandes inventées en UI comme réussies |
+| Scénarios négatifs | **N7** hors allowlist STOP/refus · **N8** action interdite STOP · **N9** Cursor indisponible échec explicite · **N10** exit≠0 rapport échec |
+| Preuves attendues | Fichier sandbox · CursorExecutionReport · remote=0 |
+| Dépendances | VS-BL-US-017 · VS-BL-US-013 (si via Studio) |
+| Risque | Élevé |
+| Taille relative | L |
+| Gate Morris éventuel | G-VS-LIVE-CURSOR |
+| Hors périmètre | Écriture remote · multi-fichier hors allowlist · claim prod |
+| Notes delivery | Capitaliser spike e2e sandbox ; fixture avant live |
 
 ### VS-BL-US-019 — STOP prioritaire pendant exécution
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E5 / C5.3 |
+| Epic / Capability | E5 / C5.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux STOP immédiat, afin d’interrompre toute activité. |
-| Sources | VS-FR-10 · VS-BR-10 · VS-AC-05 · N12 · VAR STOP `52:18` |
-| UX | VS-UX-02/05/07 |
-| AC | **Given** en_exécution **When** STOP **Then** `stoppé` · event journalisé · reprise sous nouveau GO si re-exec |
-| Taille | S |
+| Story | En tant que Morris, Je veux un STOP immédiat prioritaire, Afin d’interrompre toute activité en cours. |
+| Valeur démontrée | Sécurité opérateur |
+| Sources | VS-FR-10 · VS-BR-10 · VS-AC-05 · VS-CAND-09 · N12 · VS-UX-FR-06 · VS-UX-VAR STOP `52:18` |
+| UX / état / variante | VS-UX-02/05/07 · variante STOP `52:18` |
+| Préconditions | Phase active (qualif, exécution ou analyse) |
+| Critères d’acceptation | **Given** phase active **When** STOP **Then** état `stoppé` · event journalisé · STOP ≠ Abandonner ≠ NO-GO · reprise éventuelle sous **nouveau GO** si re-exec |
+| Scénarios négatifs | **N12** STOP → immédiat · pas de continuation silencieuse |
+| Preuves attendues | Event stop · UI variante STOP |
+| Dépendances | VS-BL-US-004 / 018 / 023 selon phase |
+| Risque | Moyen |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Auto-reprise sans GO |
+| Notes delivery | Accessible clavier (VS-UX-FR-06) |
 
 ### VS-BL-US-020 — Timeout ≠ GO
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E5 / C5.3 |
-| Acteur | Système |
-| Story | En tant que Morris, je veux qu’un timeout stoppe sans autoriser, afin d’éviter un GO implicite. |
-| Sources | VS-BR-11 · N11 |
-| UX | VS-UX-05 |
-| AC | **Given** exécution **When** timeout **Then** `stoppé` · message timeout ≠ GO · pas de spawn ultérieur sans nouveau GO |
-| Taille | S |
+| Epic / Capability | E5 / C5.3 |
+| Acteur | Système / Harness |
+| Story | En tant que Morris, Je veux qu’un timeout stoppe sans autoriser, Afin d’éviter un GO implicite. |
+| Valeur démontrée | Anti-autorisation implicite |
+| Sources | VS-BR-11 · VS-CAND-09 · N11 |
+| UX / état / variante | VS-UX-05 · message timeout |
+| Préconditions | Exécution en cours avec timer |
+| Critères d’acceptation | **Given** exécution **When** timeout **Then** `stoppé` · message « timeout ≠ GO » · pas de spawn ultérieur sans nouveau GO |
+| Scénarios négatifs | **N11** timeout → stoppé · pas de succès implicite |
+| Preuves attendues | Event timeout · absence de GO dérivé |
+| Dépendances | VS-BL-US-018 |
+| Risque | Moyen |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Allongement silencieux du timeout comme succès |
+| Notes delivery | Valeur numérique timeout = hypothèse delivery / spike — non figée ici |
 
 ### VS-BL-US-021 — Rapport et fichiers touchés
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E6 / C6.1 |
+| Epic / Capability | E6 / C6.1 · C6.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux le rapport Cursor/harness et l’aperçu sanitisé, afin de contrôler le résultat. |
-| Sources | VS-FR-11 · VS-UX-06 |
-| UX | VS-UX-06 |
-| AC | **Given** fin exécution **When** rapport disponible **Then** statut · fichiers · remote=0 · réserves · CTA analyse |
-| Négatifs | N13 |
-| Taille | M |
+| Story | En tant que Morris, Je veux le rapport Cursor/harness et l’aperçu sanitisé, Afin de contrôler le résultat. |
+| Valeur démontrée | Contrôle post-exécution |
+| Sources | VS-FR-11 · VS-UX-06 · VS-AC-09 · N13 |
+| UX / état / variante | VS-UX-06 · frame `51:678` |
+| Préconditions | Fin d’exécution (succès ou échec rapporté) |
+| Critères d’acceptation | **Given** fin exécution **When** rapport disponible **Then** statut · fichiers touchés · remote=0 · réserves · CTA analyse conditionné |
+| Scénarios négatifs | **N13** Rapport absent → bloque analyse · message |
+| Preuves attendues | CursorExecutionReport · aperçu sanitisé |
+| Dépendances | VS-BL-US-018 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Affichage de secrets dans l’aperçu |
+| Notes delivery | Sanitisation obligatoire (lien US-028) |
 
 ### VS-BL-US-022 — Review pack prérequis analyse / clôture
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E6 / C6.2 · C6.4 |
-| Acteur | Système |
-| Story | En tant que Morris, je veux bloquer si pack incomplet, afin d’éviter une clôture positive fallacieuse. |
+| Epic / Capability | E6 / C6.2 · C6.4 |
+| Acteur | Système / Morris |
+| Story | En tant que Morris, Je veux bloquer si pack incomplet, Afin d’éviter une clôture positive fallacieuse. |
+| Valeur démontrée | Garde-fou clôture positive |
 | Sources | VS-FR-17 · VS-BR-15 · VS-AC-06 · N14 |
-| UX | VS-UX-06/08/10 |
-| AC | **Given** pack incomplet **When** analyse ou clôture positive **Then** refus explicite |
-| Taille | S |
+| UX / état / variante | VS-UX-06/08/10 (blocage CTA) |
+| Préconditions | Tentative d’analyse ou clôture positive |
+| Critères d’acceptation | **Given** pack incomplet **When** analyse ou clôture positive demandée **Then** refus explicite · pas de verdict positif · pas de CycleSummary « succès » |
+| Scénarios négatifs | **N14** pack incomplet → bloque clôture positive |
+| Preuves attendues | Event pack_incomplete_blocked |
+| Dépendances | VS-BL-US-021 |
+| Risque | Moyen |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Clôture positive forcée |
+| Notes delivery | Incr. B fixture · E réel |
 
 ### VS-BL-US-023 — Analyse GPT verdict candidat
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E7 |
+| Epic / Capability | E7 / C7.1 · C7.2 · C7.4 |
 | Acteur | Morris / GPT |
-| Story | En tant que Morris, je veux une analyse GPT manuelle du paquet de preuves, afin d’obtenir un verdict **candidat**. |
-| Sources | VS-FR-12 · VS-BR-14 · VS-CAND-08 · VS-UX-07/08 |
-| UX | VS-UX-07→08 |
-| AC | **Given** rapport+pack OK **When** Lancer analyse **Then** appel GPT distinct · compteur · plafond À définir · no retry · verdict étiqueté candidat |
-| Négatifs | N15 fail-closed |
-| Taille | L |
-| Gate | G-VS-LIVE-GPT (analyse) |
+| Story | En tant que Morris, Je veux une analyse GPT manuelle du paquet de preuves, Afin d’obtenir un verdict **candidat**. |
+| Valeur démontrée | Aide à la décision sans autorité GPT |
+| Sources | VS-FR-12 · VS-BR-14 · VS-CAND-08 · VS-UX-07/08 · VS-FR-16 · VS-BR-03 · N15 · VS-AC-06 · VS-AC-07 |
+| UX / état / variante | VS-UX-07 → VS-UX-08 · frames `51:816` / `51:954` |
+| Préconditions | Rapport + pack OK (US-021/022) |
+| Critères d’acceptation | **Given** rapport+pack OK **When** Lancer analyse **Then** appel GPT distinct de la qualif · compteur analyse · plafond « À définir » · no retry · verdict étiqueté **candidat** · pas de clôture auto |
+| Scénarios négatifs | **N15** Verdict invalide → rejet fail-closed · FinOps visible · correction/abandon |
+| Preuves attendues | GptVerdictCandidate · events FinOps analyse |
+| Dépendances | VS-BL-US-022 |
+| Risque | Élevé (live) |
+| Taille relative | L |
+| Gate Morris éventuel | G-VS-LIVE-GPT (analyse) |
+| Hors périmètre | Clôture automatique · retry auto |
+| Notes delivery | Incr. E ; fixture possible avant live |
 
 ### VS-BL-US-024 — Afficher prouvé / non prouvé / écarts
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E7 / C7.3 |
+| Epic / Capability | E7 / C7.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux voir prouvé/non prouvé/écarts/risques/réserves, afin de décider. |
-| Sources | VS-FR-12 · VS-UX-08 |
-| UX | VS-UX-08 |
-| AC | **Given** verdict valide **When** affichage **Then** sections obligatoires · pas de bouton clôture auto |
-| Taille | M |
+| Story | En tant que Morris, Je veux voir prouvé/non prouvé/écarts/risques/réserves, Afin de décider en conscience. |
+| Valeur démontrée | Lisibilité du verdict candidat |
+| Sources | VS-FR-12 · VS-UX-08 · VS-UX-FR-08 · VS-BR-14 |
+| UX / état / variante | VS-UX-08 |
+| Préconditions | Verdict candidat valide |
+| Critères d’acceptation | **Given** verdict valide **When** affichage **Then** sections prouvé / non prouvé / écarts / risques / réserves / décisions Morris requises · étiquette candidat · pas de bouton clôture auto |
+| Scénarios négatifs | Section obligatoire manquante → pas de passage décision finale |
+| Preuves attendues | Screenshot VS-UX-08 |
+| Dépendances | VS-BL-US-023 |
+| Risque | Faible |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Reformulation comme décision Morris |
+| Notes delivery | — |
 
 ### VS-BL-US-025 — Décision finale Morris
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E8 / C8.1 |
+| Epic / Capability | E8 / C8.1 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux clôturer, corriger, relancer (nouveau GO) ou abandonner, afin de conclure. |
-| Sources | VS-FR-12 · VS-AC-07 · VS-AC-08 · VS-UX-09 |
-| UX | VS-UX-09 |
-| AC | **Given** verdict candidat **When** décision **Then** MorrisFinalDecision enregistrée · conséquences explicites · pas d’actions Git groupées |
-| Taille | M |
+| Story | En tant que Morris, Je veux clôturer, corriger, relancer (nouveau GO) ou abandonner, Afin de conclure le cycle. |
+| Valeur démontrée | Autorité de clôture humaine |
+| Sources | VS-FR-12 · VS-AC-07 · VS-AC-08 · VS-UX-09 · VS-UX-FR-09 · VS-BR-04 · VS-BR-17 |
+| UX / état / variante | VS-UX-09 · frame `51:1079` |
+| Préconditions | Verdict candidat affiché (ou chemin NO-GO/abandon documenté) |
+| Critères d’acceptation | **Given** verdict candidat **When** décision Morris **Then** MorrisFinalDecision enregistrée · conséquences explicites · pas d’actions Git groupées · pas de claim MVP/prod |
+| Scénarios négatifs | Verdict invalide → pas de clôture auto (VS-AC-07) |
+| Preuves attendues | MorrisFinalDecision journalisée |
+| Dépendances | VS-BL-US-024 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Merge auto · L5 · multi-projet |
+| Notes delivery | 4 actions finales distinctes du gate d’exécution |
 
 ### VS-BL-US-026 — Clôture slice-only
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E8 / C8.2 |
+| Epic / Capability | E8 / C8.2 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux une synthèse du slice courant uniquement, afin d’éviter un faux portefeuille. |
-| Sources | VS-UX-10 · correctif UX · VS-BR-17 |
-| UX | VS-UX-10 · vue synthèse |
-| AC | **Given** clôture **When** affichage **Then** requestId, décision, MD, preuves, FinOps, traçabilité · **aucun** portfolio multi-projet · aucun claim MVP/prod |
-| Taille | S |
+| Story | En tant que Morris, Je veux une synthèse du slice courant uniquement, Afin d’éviter un faux portefeuille multi-projet. |
+| Valeur démontrée | Clôture honnête bornée |
+| Sources | VS-UX-10 · VS-UX-FR-17 · VS-BR-17 · VS-CAND-11 |
+| UX / état / variante | VS-UX-10 · frame `51:1204` · vue synthèse |
+| Préconditions | Décision finale de clôture |
+| Critères d’acceptation | **Given** clôture **When** affichage CycleSummary **Then** requestId, décision, MD, preuves, FinOps, traçabilité du **slice courant** · **aucun** portfolio multi-projet · aucun claim MVP/production-ready |
+| Scénarios négatifs | Tentative d’afficher autres projets → hors périmètre · non rendu |
+| Preuves attendues | CycleSummary slice-only |
+| Dépendances | VS-BL-US-025 |
+| Risque | Faible |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Portfolio · Studio complete · industrialisation |
+| Notes delivery | Correctif UX validé — ne pas rouvrir |
 
 ### VS-BL-US-027 — Relance sous nouveau GO
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E8 / C8.3 |
+| Epic / Capability | E8 / C8.3 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux relancer après STOP/échec uniquement avec nouveau GO, afin de respecter les gates. |
-| Sources | Matrice GO 33 · N11 N12 |
-| UX | VS-UX-09 |
-| AC | **Given** stoppé ou correction avec re-exec **When** relance **Then** nouveau contrat/GO exigé |
-| Taille | S |
+| Story | En tant que Morris, Je veux relancer après STOP/échec uniquement avec nouveau GO, Afin de respecter les gates. |
+| Valeur démontrée | Ré-exécution gouvernée |
+| Sources | Doc 33 matrice GO / transitions `stoppé` · N11 · N12 · VS-BR-07 · VS-CAND-09 |
+| UX / état / variante | VS-UX-09 (Relancer) → retour gate |
+| Préconditions | État `stoppé` ou correction exigeant re-exec |
+| Critères d’acceptation | **Given** stoppé ou correction avec re-exec **When** Relancer **Then** nouveau contrat et/ou nouveau GO exigés · pas de réutilisation GO stale |
+| Scénarios négatifs | Relance sans nouveau GO → refus |
+| Preuves attendues | Event relaunch_requires_new_go |
+| Dépendances | VS-BL-US-019 · VS-BL-US-020 · VS-BL-US-025 |
+| Risque | Moyen |
+| Taille relative | S |
+| Gate Morris éventuel | Nouveau GO (humain) |
+| Hors périmètre | Réutilisation GO après timeout/STOP |
+| Notes delivery | — |
 
 ### VS-BL-US-028 — Interdiction secrets & PII
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E9 |
-| Acteur | Système |
-| Story | En tant que Morris, je veux zéro secret/PII réelle dans UI/logs/preuves, afin de respecter RGPD minimal. |
-| Sources | VS-FR-15 · VS-BR-16 · VS-CAND-13 · VS-AC-10 |
-| UX | Transverse |
-| AC | **Given** n’importe quel écran/preuve **When** inspection **Then** pas de token/clé · demande de test sans PII |
-| Taille | S |
+| Epic / Capability | E9 / C9.1 · C9.2 |
+| Acteur | Système / Morris |
+| Story | En tant que Morris, Je veux zéro secret et zéro PII réelle dans UI/logs/preuves, Afin de respecter le RGPD minimal. |
+| Valeur démontrée | Sécurité / conformité minimale |
+| Sources | VS-FR-15 · VS-BR-16 · VS-CAND-13 · VS-AC-10 · VS-UX-FR-10 |
+| UX / état / variante | Transverse · tous écrans/preuves |
+| Préconditions | Toute surface UI ou preuve du slice |
+| Critères d’acceptation | **Given** n’importe quel écran/preuve **When** inspection **Then** pas de token/clé/secret · demande de test sans PII réelle · masquage si donnée sensible mock |
+| Scénarios négatifs | Fuite détectée → STOP livraison surface · correction obligatoire |
+| Preuves attendues | Checklist audit secrets · revue preuves |
+| Dépendances | Toutes stories UI/preuves |
+| Risque | Élevé (si oubli) |
+| Taille relative | S |
+| Gate Morris éventuel | — |
+| Hors périmètre | Stockage secrets en clair « pour debug » |
+| Notes delivery | Transverse Incr. A+ |
 
 ### VS-BL-US-029 — Observabilité IDs + fuseau + source statut
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E10 |
+| Epic / Capability | E10 / C10.1 · C10.2 · C10.3 · C10.4 |
 | Acteur | Système |
-| Story | En tant que Morris, je veux requestId/correlationId/contractId/eventId et timestamps fuseau, afin de reconstruire. |
-| Sources | VS-CAND-15 · observabilité 32 |
-| UX | Transverse |
-| AC | **Given** événement **When** journal **Then** IDs + TZ + source statut · aucun faux succès |
-| Taille | M |
+| Story | En tant que Morris, Je veux requestId/correlationId/contractId/eventId, timestamps avec fuseau et source de statut, Afin de reconstruire sans faux succès. |
+| Valeur démontrée | RUN readiness minimale POC |
+| Sources | VS-CAND-15 · Doc 32 § observabilité · VS-UX-FR-12 · VS-AC-11 |
+| UX / état / variante | Transverse |
+| Préconditions | Événements produits |
+| Critères d’acceptation | **Given** événement **When** journal/UI **Then** IDs présents · timestamps avec TZ · source statut · durées séparées (qualif ≠ exec ≠ analyse) · aucun faux succès |
+| Scénarios négatifs | Event sans ID → non accepté comme preuve de progression |
+| Preuves attendues | Journal corrélé · export preuves |
+| Dépendances | VS-BL-US-002 |
+| Risque | Moyen |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Stack observabilité industrielle (Datadog, etc.) |
+| Notes delivery | POC local — pas d’industrialisation |
 
 ### VS-BL-US-030 — FinOps plafond À définir (qualif + analyse)
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E2/E7 |
+| Epic / Capability | E2 / E7 · C2.4 · C7.4 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux voir les appels séparés et pouvoir arrêter avant une nouvelle conso. |
-| Sources | VS-FR-16 · VS-CAND-14 · VS-BR-03 |
-| UX | VS-UX-02/07 |
-| AC | **Given** appels GPT **When** UI **Then** compteurs séparés · plafond « À définir » · stop avant nouvel appel · pas de € inventé |
-| Taille | S |
+| Story | En tant que Morris, Je veux voir les appels séparés et pouvoir arrêter avant une nouvelle consommation, Afin de maîtriser FinOps. |
+| Valeur démontrée | Contrôle consommation GPT |
+| Sources | VS-FR-16 · VS-CAND-14 · VS-BR-03 · VS-UX-FR-07 |
+| UX / état / variante | VS-UX-02 / VS-UX-07 · compteurs séparés |
+| Préconditions | Au moins un appel GPT (fixture ou live) |
+| Critères d’acceptation | **Given** appels GPT **When** UI **Then** compteurs qualif ≠ analyse · plafond affiché « À définir » · possibilité d’arrêter avant nouvel appel · pas de € inventé · pas de retry auto |
+| Scénarios négatifs | Dépassement si plafond numérique futur → refus nouvel appel (après G-VS-LIMIT) |
+| Preuves attendues | UI FinOps · events compteurs |
+| Dépendances | VS-BL-US-004 · VS-BL-US-023 |
+| Risque | Moyen (valeur absente) |
+| Taille relative | S |
+| Gate Morris éventuel | G-VS-LIMIT (valeur numérique) |
+| Hors périmètre | Inventer un plafond numérique |
+| Notes delivery | Réserve VS-CAND-14 conservée |
 
 ### VS-BL-US-031 — Mapping dix états / quatre vues (cockpit)
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | E1–E8 transverse UX |
+| Epic / Capability | Transverse UX E1–E8 |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux naviguer les dix états dans les quatre vues P0, afin de ne pas créer dix routes. |
-| Sources | VS-CAND-02 · UX 35/36 · VS-UX-01…10 |
-| UX | Quatre vues |
-| AC | **Given** Incrément A **When** parcours mock **Then** chaque état accessible via vue mappée · aucune 5e route VS |
-| Taille | L |
+| Story | En tant que Morris, Je veux naviguer les dix états dans les quatre vues P0, Afin de ne pas créer dix routes. |
+| Valeur démontrée | Preuve UX structurelle du slice |
+| Sources | VS-CAND-02 · VS-UX-01…10 · VS-UX-FR-01 · VS-UX-FR-02 · VS-AC-01 |
+| UX / état / variante | Quatre vues P0 · dix états |
+| Préconditions | Incrément A (mock) ou ultérieur |
+| Critères d’acceptation | **Given** Incrément A **When** parcours mock des 10 états **Then** chaque état accessible via vue mappée · **aucune** 5e route VS · shell P0 conservé |
+| Scénarios négatifs | Ajout route dédiée par état → STOP documentaire / arbitrage Morris |
+| Preuves attendues | Screenshots 10 états / 4 vues · éventuellement Playwright |
+| Dépendances | — |
+| Risque | Moyen (dérive routes) |
+| Taille relative | L |
+| Gate Morris éventuel | — |
+| Hors périmètre | Nouvelles routes · redesign shell |
+| Notes delivery | Prioritaire Incr. A |
 
 ### VS-BL-US-032 — Variantes Loading / Erreur / STOP / GO invalide
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | Transverse |
+| Epic / Capability | Transverse UX |
 | Acteur | Morris |
-| Story | En tant que Morris, je veux les variantes d’état, afin de gérer les cas non nominaux. |
-| Sources | VAR `52:2/10/18/26` · N1 N3 N5 N12 |
-| UX | Variantes |
-| AC | **Given** conditions variantes **When** affichage **Then** Loading/Erreur/STOP/GO-invalide distincts et accessibles |
-| Taille | M |
+| Story | En tant que Morris, Je veux les variantes d’état non nominales, Afin de gérer Loading, Erreur, STOP et GO invalide. |
+| Valeur démontrée | Couverture UX non nominale |
+| Sources | VS-UX-VAR Loading `52:2` · Erreur `52:10` · STOP `52:18` · GO invalide `52:26` · N1 · N3 · N5 · N12 · VS-UX-FR-05/06/13 |
+| UX / état / variante | Variantes (pas des routes) |
+| Préconditions | Conditions variantes (mock ou réel) |
+| Critères d’acceptation | **Given** conditions variantes **When** affichage **Then** Loading / Erreur fail-closed / STOP / GO invalide distincts, accessibles, non fusionnés avec Abandonner/NO-GO |
+| Scénarios négatifs | Fusion Abandonner↔STOP↔GO invalide → non conforme · correction UI |
+| Preuves attendues | Screenshots 4 variantes |
+| Dépendances | VS-BL-US-005 · 006 · 012 · 019 · 031 |
+| Risque | Faible |
+| Taille relative | M |
+| Gate Morris éventuel | — |
+| Hors périmètre | Nouvelles variantes non arbitrées |
+| Notes delivery | Incr. A mock obligatoire |
 
-### VS-BL-US-033 — Scénarios négatifs N1–N16 (couverture transverse)
+### VS-BL-US-033 — Scénarios négatifs N1–N16 (couverture transverse QA)
 
 | Champ | Contenu |
 |-------|---------|
-| Epic / Cap | Transverse QA |
+| Epic / Capability | Transverse QA |
 | Acteur | Morris / Système |
-| Story | En tant que Morris, je veux que chaque N1–N16 soit testable ou différé justifié, afin d’éviter les trous. |
-| Sources | N1–N16 |
-| UX | Selon N |
-| AC | Voir matrice §9 — chaque N couvert par US ou différé avec risque |
-| Taille | L (lot tests) |
+| Story | En tant que Morris, Je veux que chaque N1–N16 soit testable via une story dédiée ou cette couverture QA, Afin d’éviter les trous. |
+| Valeur démontrée | Complétude QA fail-closed |
+| Sources | N1–N16 · Doc 33 §7 · matrice §9 |
+| UX / état / variante | Selon N (variantes / états concernés) |
+| Préconditions | Stories couvrantes primaires disponibles selon incrément |
+| Critères d’acceptation | **Given** matrice §9 **When** revue QA **Then** chaque N a story primaire + AC/négatif ou statut différé justifié · aucun N ignoré · fail-closed vérifié · preuve identifiée |
+| Scénarios négatifs | N sans couverture ni justification → STOP documentaire |
+| Preuves attendues | Matrice §9 + cas de test par N |
+| Dépendances | Stories 004–023, 016, etc. |
+| Risque | Moyen (dette si différé) |
+| Taille relative | L |
+| Gate Morris éventuel | — |
+| Hors périmètre | Inventer de nouveaux N hors doc 33 |
+| Notes delivery | Story transverse de traçabilité — ne remplace pas les AC des stories primaires |
 
 ---
 
-## 8. Traçabilité rapide stories → sources
+## 8. Corrections de traçabilité (ce correctif)
 
-| Story | FR/BR/AC/N/UX principaux |
-|-------|--------------------------|
-| 001–003 | FR-01 · UX-01 · CAND-01 |
-| 004–008 | FR-02/03/16 · BR-01/02/03 · N1/N2 · UX-02/03 |
-| 009–012 | FR-04/05/06 · BR-05/06 · AC-02/03 · N3–N6 · UX-04 |
-| 013–016 | FR-13/14 · BR-12/13 · AC-11/12 · N16 · CAND-05/10 |
-| 017–020 | FR-07/08/09/10 · BR-07/08/09/10/11 · AC-04/05/09 · N7–N12 · UX-05 |
+| Story | Avant (erreur) | Après (corrigé) |
+|-------|----------------|-----------------|
+| **VS-BL-US-003** | Sources `N16 partiel` (faux : N16 = perte session) | Étape 1 / abandon pré-qualif · FinOps 0 · VS-UX-01 · VS-FR-16 (conso=0) · VS-BR-03 · **sans N16** |
+| **VS-BL-US-011** | Sources `VS-FR-15/16 (UX)` (faux : FR-15=secrets, FR-16=FinOps) | **VS-FR-04** · **VS-UX-FR-15** · **VS-UX-FR-16** · VS-UX-04 · Doc 36 §8 · VS-CAND-04 · VS-BR-04 |
+| **VS-BL-US-016** | Couverture N16 OK mais à renforcer | N16 explicitement primaire ici |
+| **32 stories** | Champs manquants (Valeur, Préconditions, Négatifs, Preuves, Déps, Risque, Gate, Hors, Notes) | **16 champs** présents partout |
+
+---
+
+## 9. Matrice de couverture (recalculée)
+
+| Famille | ID source | Description courte | Story couvrante | Incrément | Preuve attendue | Statut | Réserve / justification |
+|---------|-----------|--------------------|-----------------|-----------|-----------------|--------|-------------------------|
+
+| VS-FR | VS-FR-01 | Saisie demande + requestId | 001,002 | A | UI requestId | couvert | — |
+| VS-FR | VS-FR-02 | Qualif invalide fail-closed | 006,033 | B/C | validateur + N1 | couvert | — |
+| VS-FR | VS-FR-03 | Qualif lisible avant GO | 007 | A/B | UI VS-UX-03 | couvert | — |
+| VS-FR | VS-FR-04 | GO/NO-GO/correction/abandon | 011,003,008,025 | A/B | UI 4 actions + abandons | couvert | 003=abandon pré-qualif ; 011=gate |
+| VS-FR | VS-FR-05 | GO ancré IDs/hash/HEAD… | 009,010 | A/B | dossier gate | couvert | — |
+| VS-FR | VS-FR-06 | Invalidation GO | 012 | B/D | bandeau + refus | couvert | — |
+| VS-FR | VS-FR-07 | Revalidation avant Cursor | 017 | B/D | harness | couvert | — |
+| VS-FR | VS-FR-08 | Cursor sandbox only | 018 | D | allowlist file | couvert | — |
+| VS-FR | VS-FR-09 | Pas d’écriture remote | 018,021 | D | remote=0 | couvert | — |
+| VS-FR | VS-FR-10 | STOP prioritaire | 019 | B/D | STOP event | couvert | — |
+| VS-FR | VS-FR-11 | Rapport prérequis analyse | 021,022 | B/E | rapport | couvert | — |
+| VS-FR | VS-FR-12 | Verdict candidat ; Morris clôture | 023–025 | E | verdict+décision | couvert | — |
+| VS-FR | VS-FR-13 | États dérivés | 014,016 | B | source statut | couvert | — |
+| VS-FR | VS-FR-14 | Harness sans Studio | 015 | B | CLI/preuves | couvert | — |
+| VS-FR | VS-FR-15 | Pas de secrets | 028 | A+ | audit | couvert | — |
+| VS-FR | VS-FR-16 | FinOps visible | 005,030,003 | A/C/E | compteurs | couvert | valeur plafond différée |
+| VS-FR | VS-FR-17 | Pack incomplet bloque | 022 | B/E | blocage | couvert | — |
+| VS-BR | VS-BR-01 | Rejet hors contrat | 006 | B/C | reject event | couvert | — |
+| VS-BR | VS-BR-02 | Pas de fallback permissif | 006,008 | B/C | AC négatifs | couvert | — |
+| VS-BR | VS-BR-03 | Pas de retry auto | 005,008,023,030 | C/E | UI no retry | couvert | — |
+| VS-BR | VS-BR-04 | GPT ne décide pas | 011,023,025 | A/E | étiquettes candidat | couvert | — |
+| VS-BR | VS-BR-05 | GO lié hash/HEAD… | 009,010,011 | B | ancrage | couvert | — |
+| VS-BR | VS-BR-06 | Changement → GO invalide | 012 | B/D | invalidation | couvert | — |
+| VS-BR | VS-BR-07 | Revalidation spawn | 017,027 | B/D | revalidation | couvert | — |
+| VS-BR | VS-BR-08 | Sandbox / hors allowlist STOP | 018 | D | N7 | couvert | — |
+| VS-BR | VS-BR-09 | Pas remote Git | 018 | D | remote=0 | couvert | — |
+| VS-BR | VS-BR-10 | STOP prioritaire | 019 | B/D | N12 | couvert | — |
+| VS-BR | VS-BR-11 | Timeout ≠ GO | 020 | D | N11 | couvert | — |
+| VS-BR | VS-BR-12 | Studio ≠ vérité | 013,014,016 | B | Option B | couvert | — |
+| VS-BR | VS-BR-13 | Harness autonome | 015 | B | VS-AC-12 | couvert | — |
+| VS-BR | VS-BR-14 | Verdict = candidat | 023,024 | E | étiquette | couvert | — |
+| VS-BR | VS-BR-15 | Pack incomplet | 022 | E | N14 | couvert | — |
+| VS-BR | VS-BR-16 | Secrets jamais affichés | 028 | A+ | audit | couvert | — |
+| VS-BR | VS-BR-17 | Claims interdits | 025,026 | E | CycleSummary | couvert | — |
+| VS-AC | VS-AC-01 | Parcours 1→10 | 031,001–026 | A–E | parcours mock/réel | couvert | agrégé multi-stories |
+| VS-AC | VS-AC-02 | GO refusé HEAD≠ | 012,017 | B/D | N3/revalidation | couvert | — |
+| VS-AC | VS-AC-03 | GO refusé hash≠ | 012,017 | B/D | N6 | couvert | — |
+| VS-AC | VS-AC-04 | Hors allowlist pas succès | 018 | D | N7 | couvert | — |
+| VS-AC | VS-AC-05 | STOP journalisé | 019 | B/D | event | couvert | — |
+| VS-AC | VS-AC-06 | Sans rapport/pack pas analyse OK | 021,022,023 | E | blocage | couvert | — |
+| VS-AC | VS-AC-07 | Verdict invalide pas clôture auto | 023,025 | E | N15 | couvert | — |
+| VS-AC | VS-AC-08 | Clôture via MorrisFinalDecision | 025 | E | décision | couvert | — |
+| VS-AC | VS-AC-09 | Pas preuve écriture distante | 018,021 | D | remote=0 | couvert | — |
+| VS-AC | VS-AC-10 | Pas secret UI/preuves | 028 | A+ | audit | couvert | — |
+| VS-AC | VS-AC-11 | États cohérents preuves | 014,016,029 | B | dérivé | couvert | — |
+| VS-AC | VS-AC-12 | Harness sans Studio | 015 | B | CLI | couvert | — |
+| N | N1 | Qualif GPT invalide | 006,032,033 | C | fail-closed | couvert | — |
+| N | N2 | Sources Git indisponibles | 004,033 | B | Truth Check STOP | couvert | — |
+| N | N3 | HEAD modifié après qualif | 012,032,033 | B/D | invalidation | couvert | — |
+| N | N4 | GO absent | 017,015,033 | B/D | refus spawn | couvert | — |
+| N | N5 | GO invalide/expiré | 012,017,032,033 | D | refus | couvert | — |
+| N | N6 | Contrat modifié après GO | 012,033 | D | refus | couvert | — |
+| N | N7 | Fichier hors allowlist | 018,033 | D | STOP/refus | couvert | — |
+| N | N8 | Action interdite | 018,033 | D | STOP | couvert | — |
+| N | N9 | Cursor indisponible | 018,033 | D | échec explicite | couvert | — |
+| N | N10 | Cursor exit≠0 | 018,021,033 | D | rapport échec | couvert | — |
+| N | N11 | Timeout | 020,027,033 | D | timeout≠GO | couvert | — |
+| N | N12 | STOP Morris | 019,027,032,033 | D | stoppé | couvert | — |
+| N | N13 | Rapport absent | 021,022,033 | D/E | blocage analyse | couvert | — |
+| N | N14 | Pack incomplet | 022,033 | E | blocage clôture | couvert | — |
+| N | N15 | Verdict GPT invalide | 023,033 | E | fail-closed | couvert | — |
+| N | N16 | Perte session Studio | 016,033 | B | reprise dérivée | couvert | Corrigé : plus US-003 |
+| VS-CAND | VS-CAND-01 | Scénario Markdown sandbox | 001,018 | A/D | MD sandbox | couvert | — |
+| VS-CAND | VS-CAND-02 | Parcours dix étapes | 031 | A | 10 états | couvert | — |
+| VS-CAND | VS-CAND-03 | Qualif visible avant GO | 007 | A/B | VS-UX-03 | couvert | — |
+| VS-CAND | VS-CAND-04 | GO lié hash/HEAD… | 009–012 | B | ancrage | couvert | — |
+| VS-CAND | VS-CAND-05 | Studio dérivé / harness autorité | 013,014 | B | Option B | couvert | — |
+| VS-CAND | VS-CAND-06 | Pas écriture remote | 018 | D | remote=0 | couvert | — |
+| VS-CAND | VS-CAND-07 | Cursor sandbox après GO | 018 | D | spawn | couvert | — |
+| VS-CAND | VS-CAND-08 | Verdict candidat | 023–025 | E | étiquette | couvert | — |
+| VS-CAND | VS-CAND-09 | STOP ; timeout≠GO | 019,020 | D | events | couvert | — |
+| VS-CAND | VS-CAND-10 | Harness autonome | 015 | B | CLI | couvert | — |
+| VS-CAND | VS-CAND-11 | Succès = VS-AC + critère central | 026,033 | E | AC | couvert | — |
+| VS-CAND | VS-CAND-12 | Séquencement UX→backlog→delivery | meta docs 38–40 | — | ce cycle | couvert | observé cycle |
+| VS-CAND | VS-CAND-13 | Pas PII / secrets | 028 | A+ | audit | couvert | — |
+| VS-CAND | VS-CAND-14 | Plafond + no retry | 005,030 | C/E | UI À définir | couvert | valeur numérique **différée** |
+| VS-CAND | VS-CAND-15 | IDs corrélation | 002,029 | A/B | IDs UI/journal | couvert | — |
+| VS-UX | VS-UX-01 | Nouvelle demande | 001,003,031 | A | frame 51:3 | couvert | — |
+| VS-UX | VS-UX-02 | Qualification en cours | 004,005,006,030,032 | A/C | 51:139 | couvert | — |
+| VS-UX | VS-UX-03 | Qualification proposée | 007,008 | A/B | 51:277 | couvert | — |
+| VS-UX | VS-UX-04 | Gate Morris | 009–012,011 | A/B | 51:415 | couvert | — |
+| VS-UX | VS-UX-05 | Exécution | 017–020 | B/D | 51:540 | couvert | — |
+| VS-UX | VS-UX-06 | Rapport | 021,022 | B/D | 51:678 | couvert | — |
+| VS-UX | VS-UX-07 | Analyse GPT | 023,030,032 | E | 51:816 | couvert | — |
+| VS-UX | VS-UX-08 | Verdict proposé | 024 | E | 51:954 | couvert | — |
+| VS-UX | VS-UX-09 | Décision Morris | 025,027 | E | 51:1079 | couvert | — |
+| VS-UX | VS-UX-10 | Clôture | 026 | A/E | 51:1204 | couvert | — |
+| VAR | VS-UX-VAR Loading `52:2` | Loading GPT | 005,032 | A/C | screenshot | couvert | — |
+| VAR | VS-UX-VAR Erreur `52:10` | Erreur fail-closed | 006,032 | A/C | screenshot | couvert | — |
+| VAR | VS-UX-VAR STOP `52:18` | STOP Morris | 019,032 | A/D | screenshot | couvert | — |
+| VAR | VS-UX-VAR GO invalide `52:26` | GO invalide | 012,032 | A/D | screenshot | couvert | — |
+
+**Contrôle :** aucune source orpheline · aucune story inexistante · N16 ≠ US-003 · VS-FR-15/16 ≠ sources des 4 actions gate.
+
+**VS-CAND-14 :** plafond **obligatoire** couvert ; valeur numérique **différée** (À définir) — justifié (G-VS-LIMIT).
+
+---
+
+## 10. Traçabilité rapide stories → sources
+
+| Story | FR/BR/AC/N/UX/CAND principaux |
+|-------|-------------------------------|
+| 001–003 | FR-01/16 · UX-01 · CAND-01/15 · abandon pré-qualif (**pas N16**) |
+| 004–008 | FR-02/03/04/16 · BR-01/02/03 · N1/N2 · UX-02/03 · VAR Loading/Erreur |
+| 009–012 | FR-04/05/06 · BR-04/05/06 · AC-02/03 · N3/N5/N6 · UX-04 · UX-FR-15/16 · VAR GO invalide |
+| 013–016 | FR-13/14 · BR-12/13 · AC-11/12 · **N16→016** · CAND-05/10 |
+| 017–020 | FR-07/08/09/10 · BR-07/08/09/10/11 · AC-04/05/09 · N4/N7–N12 · UX-05 · VAR STOP |
 | 021–022 | FR-11/17 · BR-15 · AC-06 · N13/N14 · UX-06 |
-| 023–024 | FR-12 · BR-14 · N15 · UX-07/08 · CAND-08 |
-| 025–027 | AC-07/08 · UX-09/10 |
-| 028–030 | FR-15/16 · BR-16 · AC-10 · CAND-13/14/15 |
-| 031–033 | UX-01…10 · VAR · N1–N16 |
+| 023–024 | FR-12/16 · BR-14 · AC-06/07 · N15 · UX-07/08 · CAND-08 |
+| 025–027 | FR-12 · AC-07/08 · BR-04/17 · UX-09/10 · N11/N12 (relance) |
+| 028–030 | FR-15/16 · BR-03/16 · AC-10 · CAND-13/14/15 |
+| 031–033 | UX-01…10 · VAR · N1–N16 · AC-01 · CAND-02 |
 
 ---
 
-## 9. Matrice de couverture
-
-| Source | Story(s) | Incrément | Preuve | Couverture |
-|--------|----------|-----------|--------|------------|
-| VS-FR-01 | 001,002 | A | UI requestId | couvert |
-| VS-FR-02 | 006 | B/C | validateur | couvert |
-| VS-FR-03 | 007 | A/B | UI qualif | couvert |
-| VS-FR-04 | 011 | A/B | UI gate | couvert |
-| VS-FR-05 | 009,010 | B | contrat | couvert |
-| VS-FR-06 | 012 | B/D | invalidation | couvert |
-| VS-FR-07 | 017 | B/D | harness | couvert |
-| VS-FR-08 | 018 | D | sandbox file | couvert |
-| VS-FR-09 | 018 | D | remote=0 | couvert |
-| VS-FR-10 | 019 | B/D | STOP event | couvert |
-| VS-FR-11 | 021 | B/D | rapport | couvert |
-| VS-FR-12 | 023–025 | E | verdict+décision | couvert |
-| VS-FR-13 | 014 | B | source statut | couvert |
-| VS-FR-14 | 015 | B | CLI harness | couvert |
-| VS-FR-15 | 028 | A+ | audit secrets | couvert |
-| VS-FR-16 | 005,030 | C/E | compteurs | couvert |
-| VS-FR-17 | 022 | B/E | blocage pack | couvert |
-| VS-BR-01…17 | 006–030 | A–E | selon BR | couvert |
-| VS-AC-01…12 | 001–031 | A–E | BeB | couvert |
-| N1 | 006 | C | fail-closed | couvert |
-| N2 | 004 | B | Truth Check | couvert |
-| N3 | 012 | B/D | invalidation | couvert |
-| N4 | 017 | D | refus spawn | couvert |
-| N5 | 012,017 | D | refus | couvert |
-| N6 | 012 | D | refus | couvert |
-| N7 | 018 | D | allowlist | couvert |
-| N8 | 018 | D | policy | couvert |
-| N9 | 018 | D | erreur port | couvert |
-| N10 | 018,021 | D | rapport échec | couvert |
-| N11 | 020 | D | timeout | couvert |
-| N12 | 019 | D | STOP | couvert |
-| N13 | 021 | D/E | blocage | couvert |
-| N14 | 022 | E | blocage | couvert |
-| N15 | 023 | E | fail-closed | couvert |
-| N16 | 016 | B | reprise | couvert |
-| VS-CAND-01…15 | 001–030 | A–E | docs+UI | couvert (14 réserve valeur) |
-| VS-UX-01…10 | 001–031 | A | mapping | couvert |
-| VAR Loading/Err/STOP/GO | 005,006,019,012,032 | A–D | variantes | couvert |
-
-**Aucune source sans couverture.** VS-CAND-14 : plafond **obligatoire** couvert ; valeur numérique **différée** (À définir) — justifié.
-
----
-
-## 10. Risques backlog
+## 11. Risques backlog
 
 | Risque | Mitigation |
 |--------|------------|
@@ -729,14 +1108,16 @@ Une story est Ready si :
 | Live trop tôt | Gates G-VS-LIVE-GPT / CURSOR |
 | MVP implicite | DoD + claims interdits |
 | Plafond non chiffré | Afficher « À définir » ; GO FinOps séparé |
+| Traçabilité erronée | Correctif US-003 / US-011 + matrice §9 |
 
 ---
 
-## 11. Gates Morris (rappel)
+## 12. Gates Morris (rappel)
 
 | Gate | Objet |
 |------|-------|
 | G-VS-BL | **Consommé** — produire backlog |
+| G-VS-BL-FIX | **Consommé** — correctif documentaire structure/traçabilité |
 | G-VS-BL-VAL | Validation `VS-BL-CAND-*` / backlog |
 | G-VS-BL-DOC | Commit/push/PR/merge 38–40 |
 | G-VS-DEL | Delivery |
@@ -747,19 +1128,23 @@ Une story est Ready si :
 
 ---
 
-## 12. Synthèse quantitative
+## 13. Synthèse quantitative
 
 | Élément | Nombre |
 |---------|--------|
 | Epics | 10 |
 | Capabilities | 34 |
 | User stories | **33** (`VS-BL-US-001` … `033`) |
+| Champs obligatoires / story | **16** |
+| Lignes matrice couverture | 91 |
 | Incréments candidats | 5 (voir `39`) |
+| Références traçabilité corrigées (min.) | US-003 · US-011 (+ champs 32 stories) |
+
 
 
 ---
 
-# ANNEXE B — Document 39 intégral
+# ANNEXE B — Document 39 intégral (final)
 
 # SFIA Studio — Story map et séquencement du vertical slice POC
 
@@ -772,6 +1157,7 @@ Une story est Ready si :
 | **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
 | **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 | **Companion** | [`38`](./38-poc-vertical-slice-backlog.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
+| **Correctif** | Aligné sur audit traçabilité doc 38 (N16→016 ; structure 16 champs) — **séquencement A–E inchangé** |
 
 > Story map des **dix états** sur **quatre vues P0**.
 > Aucun incrément n’est validé sans GO Morris.
@@ -816,19 +1202,21 @@ Toute 5e route VS = STOP / arbitrage Morris.
 
 | Étape | Stories | Dépendances verticales |
 |-------|---------|------------------------|
-| 01 | 001, 002, 003, 031 | — |
+| 01 | 001, 002, 003 (abandon pré-qualif), 031 | — |
 | 02 | 004, 005, 006, 030, 032 | 001 |
 | 03 | 007, 008 | 004–006 |
-| 04 | 009, 010, 011, 012, 032 | 007, 009 |
+| 04 | 009, 010, 011 (4 actions · VS-FR-04 / VS-UX-FR-15/16), 012, 032 | 007, 009 |
 | 05 | 013*, 014, 017, 018, 019, 020, 032 | 011 GO, 017 |
 | 06 | 021, 022 | 018 |
 | 07 | 023, 030, 032 | 021–022 |
 | 08 | 024 | 023 |
 | 09 | 025, 027 | 024 |
 | 10 | 026 | 025 |
-| Transverse | 015, 016, 028, 029, 033 | Continu |
+| Transverse | 015, **016 (N16 reprise session)**, 028, 029, 033 | Continu |
 
 \*013 adaptateur commence Incr. B, critique avant live.
+
+**Traçabilité N16 :** couverture primaire = **VS-BL-US-016** (+ US-033 QA) — **pas** US-003.
 
 ---
 
@@ -999,7 +1387,7 @@ Gates humains entre A→B, B→C, C→D, D→E.
 
 ---
 
-# ANNEXE C — Document 40 intégral
+# ANNEXE C — Document 40 intégral (final)
 
 # SFIA Studio — Decision pack backlog vertical slice POC
 
@@ -1012,6 +1400,7 @@ Gates humains entre A→B, B→C, C→D, D→E.
 | **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
 | **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 | **Companions** | [`38`](./38-poc-vertical-slice-backlog.md) · [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) |
+| **Correctif** | Suite audit structure/traçabilité — quantitatif et risques mis à jour ; **aucune CAND nouvelle validée** |
 
 > Observations / hypothèses / options / recommandations / candidats.
 > **Ne jamais** écrire qu’une `VS-BL-CAND-*` est validée.
@@ -1020,7 +1409,7 @@ Gates humains entre A→B, B→C, C→D, D→E.
 
 ## 1. Synthèse
 
-Ce cycle produit un backlog borné (33 stories, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live ni versionnement projet.
+Ce cycle (puis correctif) produit un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live ni versionnement projet.
 
 | Livrable | Rôle |
 |----------|------|
@@ -1062,7 +1451,7 @@ Ce cycle produit un backlog borné (33 stories, 10 epics, incréments A–E) pou
 | Granularité | 15 mega-stories | **33 stories** | Traçabilité FR/N |
 | Séquencement | Live d’abord | **A→B→C→D→E** | Moins de risque |
 | Entry | CLI only | **Studio + harness autonome** | Preuve cockpit |
-| Négatifs | Différer N* | **Couvrir dans US-033 + stories** | Matrice §38 |
+| Négatifs | Différer N* | **Couvrir dans stories primaires + US-033** (N16→016) | Matrice §38 recalculée |
 | Adaptateur | Spécifier API maintenant | **Story L + spike tech ultérieur** | Pas de protocole ici |
 
 ---
@@ -1088,7 +1477,7 @@ Ce cycle produit un backlog borné (33 stories, 10 epics, incréments A–E) pou
 | **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | Peu de « wow » | Faible |
 | **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | — | Faible |
 | **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | Blocage delivery | Acceptable |
-| **VS-BL-CAND-06** | Couverture N1–N16 via stories + US-033 (pas de report silencieux) | Qualité | Trous QA | Faible |
+| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003 ; pas de report silencieux) | Qualité | Trous QA | Faible |
 | **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | Coût | Faible |
 | **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | Coût | Faible |
 | **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | Friction | Nulle |
@@ -1103,6 +1492,8 @@ Ce cycle produit un backlog borné (33 stories, 10 epics, incréments A–E) pou
 | Thème | Impact | Risque | Dette |
 |-------|--------|--------|-------|
 | Backlog Standard | Guide delivery | Sur-spécification | Maintenir alignement 38↔32–37 |
+| Traçabilité | Fiabilité delivery | Mapping artificiel (ex. N16→003) | Audit correctif + matrice 91 lignes |
+| Structure stories | DoR 16 champs | Stories incomplètes | Correctif : 0 story incomplète |
 | Incr. A mock | Preuve UX rapide | Sous-estimer adaptateur | B obligatoire avant live |
 | Pas de CI | POC local | Régression non détectée | Futur G-VS-CI |
 | Spikes existants | Accélère C/D | Réserves spike | Documenter dans DoD |
@@ -1136,7 +1527,7 @@ Effet d’une validation backlog : autoriser un cycle suivant (versionnement doc
 
 ## 10. Verdict candidat
 
-`SFIA STUDIO VERTICAL SLICE BACKLOG READY — MORRIS VALIDATION REQUIRED`
+`SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED`
 
 ### Interdits
 
@@ -1154,7 +1545,7 @@ BACKLOG VALIDATED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · AP
 
 ---
 
-# ANNEXE D — Diff utile (38–40)
+# ANNEXE D — Diff utile (38–40 final)
 
 diff --git a/projects/sfia-studio/38-poc-vertical-slice-backlog.md b/projects/sfia-studio/38-poc-vertical-slice-backlog.md
 new file mode 100644
@@ -1165,15 +1556,16 @@ new file mode 100644
 +| Métadonnée | Valeur |
 +|------------|--------|
 +| **Document** | `38-poc-vertical-slice-backlog.md` |
-+| **Cycle** | 5 — Backlog / user stories |
++| **Cycle** | 5 — Backlog / user stories — **correctif documentaire** |
 +| **Profil** | Standard |
-+| **Typologie** | DOC / BACKLOG / POC |
++| **Typologie** | DOC / BACKLOG / CORRECTIVE |
 +| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
 +| **Base Git** | `origin/main` @ `722f586855743f87a6d3318ccec2dd6224676e28` |
 +| **Statut** | `draft-for-morris-validation` — **aucune story ni incrément validés** |
 +| **Companions** | [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
 +| **Sources** | [`32`](./32-poc-vertical-slice-functional-design.md)–[`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 +| **Code / live** | **Aucun** dans ce cycle |
++| **Correctif** | Structure 16 champs × 33 stories · audit traçabilité · matrice recalculée |
 +
 +> Backlog documentaire du **premier vertical slice POC**.
 +> Dix **états** UX ≠ dix routes · quatre vues P0 · Option B inchangée · plafond GPT **À définir** · aucun claim MVP.
@@ -1216,13 +1608,15 @@ new file mode 100644
 +1. ID stable `VS-BL-US-*` ;
 +2. epic + capability + acteur ;
 +3. formulation En tant que / Je veux / Afin de ;
-+4. sources (`VS-FR`/`VS-BR`/`VS-AC`/N/UX) ;
-+5. état UX ou variante ;
-+6. préconditions ;
-+7. AC Given/When/Then testables ;
-+8. hors périmètre explicite ;
-+9. aucune dépendance stack non tranchée (sinon hypothèse / spike candidat) ;
-+10. gate Morris éventuel identifié.
++4. valeur démontrée ;
++5. sources (`VS-FR`/`VS-BR`/`VS-AC`/N/UX/CAND) exactes ;
++6. état UX ou variante (ou `Aucun spécifique`) ;
++7. préconditions ;
++8. AC Given/When/Then testables ;
++9. scénarios négatifs (ou `Aucun spécifique`) ;
++10. preuves, dépendances, risque, taille, gate, hors périmètre, notes ;
++11. aucune dépendance stack non tranchée (sinon hypothèse / spike candidat) ;
++12. gate Morris éventuel identifié.
 +
 +---
 +
@@ -1274,491 +1668,837 @@ new file mode 100644
 +
 +## 7. User stories
 +
++> Chaque story ci-dessous comporte les **16 champs obligatoires**.
++> `—` ou `Aucun spécifique` = non applicable explicite (jamais une ligne omise).
++
++
 +### VS-BL-US-001 — Saisir une demande de preuve
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E1 / C1.1 |
++| Epic / Capability | E1 / C1.1 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux saisir une intention Markdown sandbox, afin de démarrer un cycle de preuve gouverné. |
-+| Valeur | Entrée BeB observable |
-+| Sources | VS-FR-01 · VS-CAND-01 · VS-UX-01 |
-+| UX | VS-UX-01 · vue Nouvelle demande |
-+| Préconditions | Studio accessible ; projet connu |
-+| AC | **Given** vue Nouvelle demande **When** Morris saisit titre+synthèse et voit requestId candidat **Then** aucune exécution ni GO implicite |
-+| Négatifs | Intention vide → validation locale, pas de qualif |
-+| Preuves | StudioRequest horodatée |
++| Story | En tant que Morris, Je veux saisir une intention Markdown sandbox (titre + synthèse), Afin de démarrer un cycle de preuve gouverné. |
++| Valeur démontrée | Entrée BeB observable sans exécution implicite |
++| Sources | VS-FR-01 · VS-CAND-01 · VS-UX-01 · VS-AC-01 (prérequis parcours) |
++| UX / état / variante | VS-UX-01 · vue Nouvelle demande · frame `51:3` |
++| Préconditions | Studio accessible ; projet connu ; aucune session live requise |
++| Critères d’acceptation | **Given** vue Nouvelle demande **When** Morris saisit titre+synthèse valides et voit un requestId candidat **Then** StudioRequest affichée · aucune qualification démarrée · aucun GO implicite · aucune écriture distante |
++| Scénarios négatifs | Intention vide ou incomplète → validation locale · CTA Qualifier désactivé ou bloqué · pas d’appel GPT |
++| Preuves attendues | StudioRequest horodatée (TZ) · requestId visible |
 +| Dépendances | — |
 +| Risque | Faible |
-+| Taille | S |
-+| Gate | — |
-+| Hors périmètre | Live GPT ; écriture distante |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Live GPT · Cursor · écriture Git distante · nouvelle route |
 +| Notes delivery | Réutiliser shell floating `/nouvelle-demande` ; étendre états (pas nouvelle route) |
 +
 +### VS-BL-US-002 — Propager requestId / correlationId
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E1 / C1.2 |
-+| Acteur | Studio / Harness |
-+| Story | En tant que Morris, je veux des IDs stables visibles, afin de reconstruire le parcours. |
-+| Sources | VS-CAND-15 · VS-FR-01 · E10 |
-+| UX | Toutes |
-+| AC | **Given** demande créée **When** navigation entre états **Then** requestId et correlationId inchangés et affichés |
-+| Preuves | Journal eventId liés |
-+| Taille | S |
++| Epic / Capability | E1 / C1.2 · E10 / C10.1 |
++| Acteur | Morris (via Studio / Harness) |
++| Story | En tant que Morris, Je veux des identifiants stables visibles sur tout le parcours, Afin de reconstruire la corrélation bout-en-bout. |
++| Valeur démontrée | Observabilité et auditabilité du cycle |
++| Sources | VS-CAND-15 · VS-FR-01 · VS-AC-11 |
++| UX / état / variante | Tous les états VS-UX-01…10 · IDs dans topbar/canvas |
++| Préconditions | US-001 : demande créée avec requestId |
++| Critères d’acceptation | **Given** demande créée **When** navigation entre états/vues **Then** requestId et correlationId inchangés et affichés · eventId présents dans journal dérivé |
++| Scénarios négatifs | ID manquant ou réécrit → fail-closed UI (blocage progression) · message explicite |
++| Preuves attendues | Journal avec eventId liés au même requestId/correlationId |
++| Dépendances | VS-BL-US-001 |
++| Risque | Faible |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Schéma BDD · protocole réseau inventé |
++| Notes delivery | Affichage dérivé ; pas de génération d’ID concurrente côté UI |
 +
 +### VS-BL-US-003 — Abandonner avant qualification
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E1 / C1.3 |
++| Epic / Capability | E1 / C1.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux abandonner avant qualif, afin d’éviter toute consommation GPT. |
-+| Sources | N16 partiel · parcours 33 |
-+| UX | VS-UX-01 |
-+| AC | **Given** intention capturée **When** Abandonner **Then** état `abandonné` · 0 appel GPT |
-+| Taille | XS |
++| Story | En tant que Morris, Je veux abandonner avant toute qualification GPT, Afin d’éviter toute consommation FinOps inutile. |
++| Valeur démontrée | Sortie propre pré-qualif · FinOps zéro appel |
++| Sources | Doc 33 § étape 1 (actions : abandonner) · Doc 32 § Abandon · transition `intention_capturée` → `abandonné` · VS-UX-01 · VS-FR-16 (visibilité conso = 0) · VS-BR-03 (pas de retry silencieux) |
++| UX / état / variante | VS-UX-01 · vue Nouvelle demande |
++| Préconditions | Intention capturée ou en saisie · qualification non démarrée |
++| Critères d’acceptation | **Given** intention capturée sans qualif démarrée **When** Morris choisit Abandonner (avec confirmation si destructif) **Then** état `abandonné` · **0** appel GPT · compteur FinOps inchangé à 0 · aucune écriture distante |
++| Scénarios négatifs | Abandon pendant qualif déjà démarrée → hors cette story (voir STOP / gate) · double-clic → un seul abandon journalisé |
++| Preuves attendues | Événement abandon journalisé · FinOps qualif = 0 |
++| Dépendances | VS-BL-US-001 |
++| Risque | Faible |
++| Taille relative | XS |
++| Gate Morris éventuel | — |
++| Hors périmètre | N16 (perte session) · Abandonner au gate (US-011) · STOP exécution (US-019) |
++| Notes delivery | Ne pas mapper N16 ici — N16 = reprise session (US-016) |
 +
 +### VS-BL-US-004 — Déclencher qualification GPT
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E2 / C2.1 |
++| Epic / Capability | E2 / C2.1 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux déclencher explicitement « Qualifier la demande », afin de lancer une qualification contrôlée. |
-+| Sources | VS-FR-02 · VS-FR-03 · VS-UX-02 |
-+| UX | VS-UX-01→02 |
-+| AC | **Given** demande valide **When** CTA Qualifier **Then** état `qualification_en_cours` · compteur FinOps +1 · aucun GO |
-+| Négatifs | N2 sources Git indisponibles → STOP lecture |
-+| Taille | M |
-+| Gate | Avant live GPT : G-VS-LIVE-GPT (futur) |
-+| Notes | Fixture d’abord (Incr. B/C) |
++| Story | En tant que Morris, Je veux déclencher explicitement « Qualifier la demande », Afin de lancer une qualification contrôlée. |
++| Valeur démontrée | Contrôle humain du démarrage GPT |
++| Sources | VS-FR-02 · VS-FR-03 · VS-UX-01→02 · VS-BR-03 · N2 |
++| UX / état / variante | Transition VS-UX-01 → VS-UX-02 · frame `51:139` |
++| Préconditions | Demande valide (US-001) · sources Git lisibles ou mode fixture déclaré |
++| Critères d’acceptation | **Given** demande valide **When** CTA Qualifier **Then** état `qualification_en_cours` · compteur FinOps qualif +1 (ou +1 à la consommation réelle selon mode) · aucun GO · aucun spawn Cursor |
++| Scénarios négatifs | **N2** Sources Git indisponibles → STOP lecture · pas de qualif live · message Truth Check · pas de fallback permissif |
++| Preuves attendues | Event qualification_started · FinOps visible |
++| Dépendances | VS-BL-US-001 · VS-BL-US-002 |
++| Risque | Moyen (live) |
++| Taille relative | M |
++| Gate Morris éventuel | Avant live GPT : G-VS-LIVE-GPT (futur) |
++| Hors périmètre | Retry automatique · inventaire coût € |
++| Notes delivery | Fixture d’abord (Incr. B) puis live (Incr. C) sous flags |
 +
 +### VS-BL-US-005 — Loading qualification + no retry
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E2 / C2.2 · C2.4 |
-+| Acteur | Système / Morris |
-+| Story | En tant que Morris, je veux voir la phase active et le plafond « À définir », sans retry auto. |
-+| Sources | VS-FR-16 · VS-BR-03 · VS-CAND-14 · VAR Loading `52:2` |
-+| UX | VS-UX-02 |
-+| AC | **Given** qualif en cours **When** UI affiche **Then** phase + `n / À définir` + « Aucun retry automatique » · pas de fausse barre inventée |
-+| Taille | S |
++| Epic / Capability | E2 / C2.2 · C2.4 |
++| Acteur | Morris / Système |
++| Story | En tant que Morris, Je veux voir la phase active et le plafond « À définir », sans retry automatique, Afin de contrôler la consommation. |
++| Valeur démontrée | Transparence FinOps + anti-retry |
++| Sources | VS-FR-16 · VS-BR-03 · VS-CAND-14 · VS-UX-FR-07 · VS-UX-VAR Loading `52:2` |
++| UX / état / variante | VS-UX-02 · variante Loading `52:2` |
++| Préconditions | Qualification démarrée (US-004) |
++| Critères d’acceptation | **Given** qualif en cours **When** UI affiche l’état **Then** phase active lisible · compteur `n / À définir` · mention « Aucun retry automatique » · pas de barre de progression inventée comme succès |
++| Scénarios négatifs | Timeout qualif → état d’échec/stop explicite · **pas** de GO · **pas** de retry auto |
++| Preuves attendues | Screenshot / trace UI Loading + FinOps |
++| Dépendances | VS-BL-US-004 |
++| Risque | Faible |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Valeur numérique du plafond (G-VS-LIMIT) |
++| Notes delivery | Plafond affiché « À définir » jusqu’à arbitrage |
 +
 +### VS-BL-US-006 — Rejet fail-closed QualificationCandidate
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E2 / C2.2 |
-+| Acteur | Harness / Studio |
-+| Story | En tant que Morris, je veux qu’une sortie GPT invalide soit rejetée, afin d’éviter un GO aveugle. |
-+| Sources | VS-FR-02 · VS-BR-01 · VS-BR-02 · N1 · VAR Erreur `52:10` |
-+| UX | VS-UX-02 |
-+| AC | **Given** sortie hors contrat **When** validateur refuse **Then** message erreur · pas d’état `qualification_prête` · CTA correction/abandon |
-+| Taille | M |
++| Epic / Capability | E2 / C2.2 |
++| Acteur | Harness (autorité) / Studio (affichage) |
++| Story | En tant que Morris, Je veux qu’une sortie GPT invalide soit rejetée fail-closed, Afin d’éviter un GO aveugle. |
++| Valeur démontrée | Garde-fou intégrité qualification |
++| Sources | VS-FR-02 · VS-BR-01 · VS-BR-02 · N1 · VS-UX-FR-13 · VS-UX-VAR Erreur `52:10` |
++| UX / état / variante | VS-UX-02 · variante Erreur `52:10` |
++| Préconditions | Sortie GPT reçue (fixture ou live) |
++| Critères d’acceptation | **Given** sortie hors contrat **When** validateur refuse **Then** message erreur fail-closed · pas d’état `qualification_prête` · CTA correction/abandon · aucun GO |
++| Scénarios négatifs | **N1** Qualif invalide → rejet · pas d’exécution · correction ou abandon uniquement |
++| Preuves attendues | Event validation_rejected · pas de QualificationCandidate acceptée |
++| Dépendances | VS-BL-US-004 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Fallback permissif · auto-correction GPT |
++| Notes delivery | Harness valide ; Studio affiche dérivé |
 +
 +### VS-BL-US-007 — Afficher qualification complète avant gate
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E2 / C2.3 |
++| Epic / Capability | E2 / C2.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux lire cycle, profil, allowlist, stops, hash, afin de contrôler avant GO. |
-+| Sources | VS-FR-03 · VS-CAND-03 · VS-UX-03 |
-+| UX | VS-UX-03 |
-+| AC | **Given** qualif valide **When** affichage **Then** tous champs obligatoires 33 §3 visibles · source GPT étiquetée · pas d’auto-GO |
-+| Taille | M |
++| Story | En tant que Morris, Je veux lire cycle, profil, allowlist, stops, hash, Afin de contrôler avant tout GO. |
++| Valeur démontrée | Contrôle humain pré-GO (VS-CAND-03) |
++| Sources | VS-FR-03 · VS-CAND-03 · VS-UX-03 · VS-UX-FR-04 (préparation gate) |
++| UX / état / variante | VS-UX-03 · frame `51:277` · vue Nouvelle demande |
++| Préconditions | QualificationCandidate validée |
++| Critères d’acceptation | **Given** qualif valide **When** affichage **Then** champs obligatoires doc 33 §3 visibles · source étiquetée GPT · **pas** d’auto-GO · CTA Continuer vers gate / Correction / Abandonner |
++| Scénarios négatifs | Champ obligatoire manquant → pas de passage gate · message explicite |
++| Preuves attendues | Screenshot VS-UX-03 · QualificationCandidate complète |
++| Dépendances | VS-BL-US-006 (chemin OK) |
++| Risque | Faible |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Modification silencieuse du candidat |
++| Notes delivery | Mock possible Incr. A |
 +
 +### VS-BL-US-008 — Demander correction qualification
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E2 |
++| Epic / Capability | E2 / C2.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux demander une correction, afin de relancer une nouvelle qualification contrôlée. |
-+| Sources | VS-FR-04 · parcours 33 |
-+| UX | VS-UX-03 |
-+| AC | **Given** qualif proposée **When** Correction **Then** retour `qualification_en_cours` · nouvelle consommation FinOps visible · pas de fallback permissif |
-+| Taille | S |
++| Story | En tant que Morris, Je veux demander une correction, Afin de relancer une nouvelle qualification contrôlée. |
++| Valeur démontrée | Boucle de correction gouvernée |
++| Sources | VS-FR-04 (action correction) · VS-BR-02 · VS-BR-03 · Doc 33 transitions qualif |
++| UX / état / variante | VS-UX-03 → VS-UX-02 |
++| Préconditions | Qualification proposée visible |
++| Critères d’acceptation | **Given** qualif proposée **When** Demander une correction **Then** retour `qualification_en_cours` · nouvelle consommation FinOps visible · pas de fallback permissif · pas de retry auto silencieux |
++| Scénarios négatifs | Correction sans confirmation FinOps → bloquée ou confirmée explicitement |
++| Preuves attendues | Event correction_requested · FinOps +1 (nouvelle conso) |
++| Dépendances | VS-BL-US-007 |
++| Risque | Moyen (FinOps) |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Correction automatique par GPT |
++| Notes delivery | Chaque relance = consommation distincte |
 +
 +### VS-BL-US-009 — Générer ExecutionContract + hash
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E3 / C3.1 |
++| Epic / Capability | E3 / C3.1 |
 +| Acteur | Harness |
-+| Story | En tant que Morris, je veux un contrat borné hashé, afin d’ancrer le GO. |
-+| Sources | VS-FR-05 · VS-BR-05 · VS-CAND-04 |
-+| UX | VS-UX-03/04 |
-+| AC | **Given** qualif acceptée pour gate **When** contrat produit **Then** contractId + contractHash + allowlist + gitEffect=none-remote |
-+| Taille | M |
-+| Notes | Réutiliser canonicalize/hash harness |
++| Story | En tant que Morris, Je veux un contrat borné hashé, Afin d’ancrer le futur GO. |
++| Valeur démontrée | Ancrage déterministe du périmètre |
++| Sources | VS-FR-05 · VS-BR-05 · VS-CAND-04 · VS-CAND-06 |
++| UX / état / variante | VS-UX-03/04 (affichage dérivé contractId/hash) |
++| Préconditions | Qualification acceptée pour passage gate |
++| Critères d’acceptation | **Given** qualif acceptée pour gate **When** contrat produit **Then** contractId + contractHash + allowlist + gitEffect=none-remote présents et stables |
++| Scénarios négatifs | Contrat incomplet → pas de gate GO possible · fail-closed |
++| Preuves attendues | ExecutionContract + hash dans preuves/journal |
++| Dépendances | VS-BL-US-007 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Protocole API inventé · ORM |
++| Notes delivery | Réutiliser canonicalize/hash harness existants (lecture seule observée) |
 +
 +### VS-BL-US-010 — Dossier de décision Gate Morris
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E3 / C3.2 |
++| Epic / Capability | E3 / C3.2 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux un dossier ancré (IDs, HEAD, branche, allowlist, horodatage), afin de décider. |
-+| Sources | VS-FR-05 · VS-UX-04 |
-+| UX | VS-UX-04 · vue Décision |
-+| AC | **Given** attente gate **When** affichage **Then** champs d’ancrage complets · timeout ≠ GO affiché |
-+| Taille | M |
++| Story | En tant que Morris, Je veux un dossier ancré (IDs, HEAD, branche, allowlist, horodatage), Afin de décider en connaissance de cause. |
++| Valeur démontrée | Décision gate informée |
++| Sources | VS-FR-05 · VS-UX-04 · VS-UX-FR-04 · VS-BR-05 · VS-BR-11 |
++| UX / état / variante | VS-UX-04 · frame `51:415` · vue Décision / Gate |
++| Préconditions | Contrat hashé disponible (US-009) |
++| Critères d’acceptation | **Given** attente gate **When** affichage dossier **Then** requestId, contractId, contractHash, branche, HEAD, allowlist, horodatage TZ, autorité · mention timeout ≠ GO visible |
++| Scénarios négatifs | Ancrage incomplet → CTA GO désactivé · message explicite |
++| Preuves attendues | Screenshot dossier gate · champs d’ancrage |
++| Dépendances | VS-BL-US-009 |
++| Risque | Faible |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | GO sans ancrage · auto-GO |
++| Notes delivery | Mock Incr. A ; réel Incr. B |
 +
 +### VS-BL-US-011 — Quatre actions gate (GO / NO-GO / Corriger / Abandonner)
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E3 / C3.3 |
++| Epic / Capability | E3 / C3.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux quatre actions explicites, afin de ne pas confondre NO-GO, STOP et Abandon. |
-+| Sources | VS-FR-04 · VS-FR-15/16 (UX) · VS-UX-04 |
-+| UX | VS-UX-04 |
-+| AC | **Given** gate **When** choix **Then** GO/NO-GO/Corriger/Abandonner distincts · Abandonner destructif + confirmation · conséquence « abandonné » · aucune action Git distante |
-+| Négatifs | Confusion Abandon/NO-GO/STOP documentée en UI |
-+| Taille | M |
++| Story | En tant que Morris, Je veux quatre actions explicites au gate, Afin de ne pas confondre NO-GO, STOP et Abandonner. |
++| Valeur démontrée | Autorité Morris L0 au gate · distinction sémantique |
++| Sources | VS-FR-04 · VS-UX-FR-15 · VS-UX-FR-16 · VS-UX-04 · Doc 36 §8 (Abandonner ≠ NO-GO ≠ STOP) · VS-CAND-04 (ancrage GO) · VS-BR-04 |
++| UX / état / variante | VS-UX-04 · quatre CTA · confirmation Abandonner |
++| Préconditions | Dossier gate complet (US-010) |
++| Critères d’acceptation | **Given** gate affiché **When** Morris choisit une action **Then** GO / NO-GO / Demander une correction / Abandonner sont distincts · Abandonner = destructif + confirmation + conséquence `abandonné` · aucune action Git distante · GO n’autorise spawn qu’après revalidation ultérieure |
++| Scénarios négatifs | Confusion Abandon/NO-GO/STOP → copy UI + a11y (noms accessibles) · GO sans ancrage → impossible |
++| Preuves attendues | MorrisGateDecision journalisée · UI 4 actions |
++| Dépendances | VS-BL-US-010 |
++| Risque | Moyen (UI actuelle ≠ 4 actions) |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | VS-FR-15 (secrets) · VS-FR-16 (FinOps) — **non applicables** comme sources des 4 actions · STOP exécution (US-019) |
++| Notes delivery | Ne pas confondre VS-UX-FR-15/16 avec VS-FR-15/16 |
 +
 +### VS-BL-US-012 — Invalidation GO (HEAD/hash/branche/allowlist)
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E3 / C3.4 |
-+| Acteur | Harness / Studio |
-+| Story | En tant que Morris, je veux qu’un GO stale soit invalide, afin d’empêcher un spawn dangereux. |
-+| Sources | VS-FR-06 · VS-BR-06 · VS-AC-02 · VS-AC-03 · N3 · N5 · N6 · VAR GO invalide `52:26` |
-+| UX | VS-UX-04/05 |
-+| AC | **Given** GO ancré **When** HEAD ou hash change **Then** bandeau GO invalide · harness refuse spawn · nouveau gate requis |
-+| Taille | M |
++| Epic / Capability | E3 / C3.4 |
++| Acteur | Harness / Studio (affichage) |
++| Story | En tant que Morris, Je veux qu’un GO stale soit invalide, Afin d’empêcher un spawn dangereux. |
++| Valeur démontrée | Sécurité d’ancrage |
++| Sources | VS-FR-06 · VS-BR-06 · VS-AC-02 · VS-AC-03 · N3 · N5 · N6 · VS-UX-FR-05 · VS-UX-VAR GO invalide `52:26` |
++| UX / état / variante | VS-UX-04/05 · variante GO invalide `52:26` |
++| Préconditions | GO ancré existant |
++| Critères d’acceptation | **Given** GO ancré **When** HEAD, contractHash, branche ou allowlist diverge **Then** bandeau GO invalide · harness refuse spawn · nouveau gate requis |
++| Scénarios négatifs | **N3** HEAD modifié · **N5** GO invalide/expiré · **N6** contrat modifié → refus + message |
++| Preuves attendues | Event go_invalidated · refus spawn journalisé |
++| Dépendances | VS-BL-US-011 (GO) · VS-BL-US-017 |
++| Risque | Élevé (runtime) |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Réparation automatique du GO |
++| Notes delivery | Variante UX obligatoire Incr. A mock + B/D réel |
 +
 +### VS-BL-US-013 — Adaptateur fin sans autorité
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E4 / C4.1 |
-+| Acteur | Adaptateur |
-+| Story | En tant que Morris, je veux que Studio transmette sans élargir, afin de préserver Option B. |
++| Epic / Capability | E4 / C4.1 |
++| Acteur | Adaptateur (Studio→Harness) |
++| Story | En tant que Morris, Je veux que Studio transmette sans élargir ni décider, Afin de préserver Option B. |
++| Valeur démontrée | Garde-fou architecture Option B |
 +| Sources | VS-FR-13 · VS-BR-12 · VS-CAND-05 |
-+| UX | Transverse |
-+| AC | **Given** action Studio **When** envoi harness **Then** aucune décision inventée · pas de seconde vérité · pas d’assouplissement policy |
-+| Taille | L |
-+| Notes | Spike candidat interface — pas de protocole figé ici |
++| UX / état / variante | Transverse (pas de 5e route) |
++| Préconditions | Actions Studio à transmettre ; harness joignable (fixture ou réel) |
++| Critères d’acceptation | **Given** action Studio **When** envoi via adaptateur **Then** aucune décision inventée · pas de seconde vérité · pas d’assouplissement policy · harness reste autorité d’application des gates |
++| Scénarios négatifs | Tentative d’élargissement périmètre côté Studio → refus / non transmission |
++| Preuves attendues | Trace transmission · comparaison payload vs preuves harness |
++| Dépendances | VS-BL-US-009 · VS-BL-US-011 |
++| Risque | Élevé (absent aujourd’hui) |
++| Taille relative | L |
++| Gate Morris éventuel | — |
++| Hors périmètre | Spécification API/protocole figée · choix stack |
++| Notes delivery | Spike candidat interface en cycle archi ultérieur — pas ici |
 +
 +### VS-BL-US-014 — Afficher états dérivés depuis preuves/journal
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E4 / C4.2 |
++| Epic / Capability | E4 / C4.2 |
 +| Acteur | Studio |
-+| Story | En tant que Morris, je veux des états dérivés, afin que Git/preuves priment. |
-+| Sources | VS-FR-13 · VS-AC-11 · VS-BR-12 |
-+| UX | Toutes |
-+| AC | **Given** événements harness **When** UI rafraîchit **Then** statut source explicite · pas d’état inventé |
-+| Taille | M |
++| Story | En tant que Morris, Je veux des états dérivés des preuves/journal, Afin que Git/preuves priment. |
++| Valeur démontrée | Studio = cockpit dérivé (pas vérité) |
++| Sources | VS-FR-13 · VS-AC-11 · VS-BR-12 · VS-UX-FR-12 |
++| UX / état / variante | Tous états · source de statut visible |
++| Préconditions | Événements/preuves harness disponibles |
++| Critères d’acceptation | **Given** événements harness **When** UI rafraîchit **Then** statut source explicite (Git / harness / dérivé) · pas d’état inventé · cohérence VS-AC-11 |
++| Scénarios négatifs | Preuves absentes → message incomplet · pas de faux succès |
++| Preuves attendues | UI source statut · cohérence avec journal |
++| Dépendances | VS-BL-US-013 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Cache UI faisant autorité |
++| Notes delivery | Incr. B |
 +
 +### VS-BL-US-015 — Harness autonome sans Studio
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E4 / C4.3 |
++| Epic / Capability | E4 / C4.3 |
 +| Acteur | Morris / Harness |
-+| Story | En tant que Morris, je veux pouvoir exécuter le scénario via harness seul, afin de ne pas dépendre de l’UI. |
++| Story | En tant que Morris, Je veux exécuter le scénario via harness seul, Afin de ne pas dépendre de l’UI. |
++| Valeur démontrée | Résilience + non-régression hors UI |
 +| Sources | VS-FR-14 · VS-BR-13 · VS-AC-12 · VS-CAND-10 |
-+| UX | — (CLI) |
-+| AC | **Given** contrat+GO **When** harness fixture/live sous flags **Then** preuve BeB sans Studio |
-+| Taille | S (déjà partiellement prouvé) |
-+| Notes | Capitaliser spikes `29`–`31` |
++| UX / état / variante | — (CLI / hors Studio) · Aucun spécifique UI |
++| Préconditions | Contrat + GO (fixture ou réel selon incrément) |
++| Critères d’acceptation | **Given** contrat+GO **When** harness exécute en mode autonome **Then** preuve BeB produite sans Studio · mêmes garde-fous gates |
++| Scénarios négatifs | GO absent → refus spawn (N4) même sans Studio |
++| Preuves attendues | Journal/preuves harness · VS-AC-12 |
++| Dépendances | VS-BL-US-009 · capitalisation spikes `29`–`31` |
++| Risque | Faible (déjà partiel) |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Remplacer Studio · supprimer Option B cockpit |
++| Notes delivery | Chemin de contrôle parallèle obligatoire |
 +
 +### VS-BL-US-016 — Reprise après perte de session Studio
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E4 / C4.4 |
++| Epic / Capability | E4 / C4.4 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux reprendre sans inventer d’état, afin d’éviter un faux succès. |
-+| Sources | N16 · VS-AC-11 |
-+| UX | Reprise |
-+| AC | **Given** session perdue **When** rechargement **Then** états depuis preuves/Git · message si incomplet |
-+| Taille | M |
++| Story | En tant que Morris, Je veux reprendre après perte de session sans inventer d’état, Afin d’éviter un faux succès. |
++| Valeur démontrée | Reprise sûre · anti faux succès |
++| Sources | **N16** · VS-AC-11 · VS-FR-13 · VS-BR-12 · Doc 33 N16 |
++| UX / état / variante | Reprise sur vues P0 selon état dérivé |
++| Préconditions | Cycle existant avec preuves/Git ; session Studio perdue |
++| Critères d’acceptation | **Given** session Studio perdue **When** rechargement **Then** états rechargés **uniquement** depuis preuves/Git · message si incomplet · **aucun** état inventé · pas de GO implicite |
++| Scénarios négatifs | **N16** Preuves incomplètes → reprise partielle explicite · blocage actions dangereuses |
++| Preuves attendues | Scénario reprise · source statut post-reload |
++| Dépendances | VS-BL-US-014 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Persistance locale faisant autorité · inventaire session storage comme vérité |
++| Notes delivery | N16 couvert ici — **pas** dans US-003 |
 +
 +### VS-BL-US-017 — Revalidation GO avant Cursor
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E5 / C5.1 |
++| Epic / Capability | E5 / C5.1 |
 +| Acteur | Harness |
-+| Story | En tant que Morris, je veux une revalidation déterministe avant spawn, afin d’appliquer le gate. |
-+| Sources | VS-FR-07 · VS-BR-07 · N4 · N5 |
-+| UX | VS-UX-05 |
-+| AC | **Given** GO présent **When** spawn demandé **Then** harness revalide hash/HEAD/allowlist · sinon refus |
-+| Taille | M |
++| Story | En tant que Morris, Je veux une revalidation déterministe avant spawn, Afin d’appliquer le gate. |
++| Valeur démontrée | Autorité harness sur le spawn |
++| Sources | VS-FR-07 · VS-BR-07 · VS-AC-02 · VS-AC-03 · N4 · N5 |
++| UX / état / variante | VS-UX-05 (état dérivé refus/OK) |
++| Préconditions | Demande de spawn ; GO éventuellement présent |
++| Critères d’acceptation | **Given** spawn demandé **When** harness revalide **Then** hash/HEAD/branche/allowlist OK sinon refus · aucun spawn si N4/N5 |
++| Scénarios négatifs | **N4** GO absent → refus · **N5** GO invalide → refus · journal |
++| Preuves attendues | Event revalidation_ok/refused |
++| Dépendances | VS-BL-US-011 · VS-BL-US-012 |
++| Risque | Élevé |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Revalidation côté Studio comme autorité |
++| Notes delivery | Incr. B fixture · Incr. D live |
 +
 +### VS-BL-US-018 — Exécution Cursor sandbox Markdown
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E5 / C5.2 |
++| Epic / Capability | E5 / C5.2 · C5.4 |
 +| Acteur | Cursor / Harness |
-+| Story | En tant que Morris, je veux que Cursor crée le Markdown autorisé, afin de prouver le BeB. |
-+| Sources | VS-FR-08 · VS-FR-09 · VS-CAND-01 · VS-CAND-07 · VS-UX-05 |
-+| UX | VS-UX-05 |
-+| AC | **Given** GO revalidé **When** exécution **Then** fichier sandbox allowlist · remote writes=0 · journal dérivé · pas de commandes inventées en UI |
-+| Négatifs | N7 N8 N9 N10 |
-+| Taille | L |
-+| Gate | G-VS-LIVE-CURSOR |
++| Story | En tant que Morris, Je veux que Cursor crée le Markdown autorisé uniquement, Afin de prouver le BeB sandbox. |
++| Valeur démontrée | Preuve BeB Markdown bornée |
++| Sources | VS-FR-08 · VS-FR-09 · VS-BR-08 · VS-BR-09 · VS-AC-04 · VS-AC-09 · VS-CAND-01 · VS-CAND-06 · VS-CAND-07 · VS-UX-05 · N7 · N8 · N9 · N10 |
++| UX / état / variante | VS-UX-05 · frame `51:540` · Cycle actif |
++| Préconditions | GO revalidé (US-017) · allowlist connue |
++| Critères d’acceptation | **Given** GO revalidé **When** exécution **Then** fichier sandbox allowlist · remote writes=0 · journal dérivé · pas de commandes inventées en UI comme réussies |
++| Scénarios négatifs | **N7** hors allowlist STOP/refus · **N8** action interdite STOP · **N9** Cursor indisponible échec explicite · **N10** exit≠0 rapport échec |
++| Preuves attendues | Fichier sandbox · CursorExecutionReport · remote=0 |
++| Dépendances | VS-BL-US-017 · VS-BL-US-013 (si via Studio) |
++| Risque | Élevé |
++| Taille relative | L |
++| Gate Morris éventuel | G-VS-LIVE-CURSOR |
++| Hors périmètre | Écriture remote · multi-fichier hors allowlist · claim prod |
++| Notes delivery | Capitaliser spike e2e sandbox ; fixture avant live |
 +
 +### VS-BL-US-019 — STOP prioritaire pendant exécution
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E5 / C5.3 |
++| Epic / Capability | E5 / C5.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux STOP immédiat, afin d’interrompre toute activité. |
-+| Sources | VS-FR-10 · VS-BR-10 · VS-AC-05 · N12 · VAR STOP `52:18` |
-+| UX | VS-UX-02/05/07 |
-+| AC | **Given** en_exécution **When** STOP **Then** `stoppé` · event journalisé · reprise sous nouveau GO si re-exec |
-+| Taille | S |
++| Story | En tant que Morris, Je veux un STOP immédiat prioritaire, Afin d’interrompre toute activité en cours. |
++| Valeur démontrée | Sécurité opérateur |
++| Sources | VS-FR-10 · VS-BR-10 · VS-AC-05 · VS-CAND-09 · N12 · VS-UX-FR-06 · VS-UX-VAR STOP `52:18` |
++| UX / état / variante | VS-UX-02/05/07 · variante STOP `52:18` |
++| Préconditions | Phase active (qualif, exécution ou analyse) |
++| Critères d’acceptation | **Given** phase active **When** STOP **Then** état `stoppé` · event journalisé · STOP ≠ Abandonner ≠ NO-GO · reprise éventuelle sous **nouveau GO** si re-exec |
++| Scénarios négatifs | **N12** STOP → immédiat · pas de continuation silencieuse |
++| Preuves attendues | Event stop · UI variante STOP |
++| Dépendances | VS-BL-US-004 / 018 / 023 selon phase |
++| Risque | Moyen |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Auto-reprise sans GO |
++| Notes delivery | Accessible clavier (VS-UX-FR-06) |
 +
 +### VS-BL-US-020 — Timeout ≠ GO
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E5 / C5.3 |
-+| Acteur | Système |
-+| Story | En tant que Morris, je veux qu’un timeout stoppe sans autoriser, afin d’éviter un GO implicite. |
-+| Sources | VS-BR-11 · N11 |
-+| UX | VS-UX-05 |
-+| AC | **Given** exécution **When** timeout **Then** `stoppé` · message timeout ≠ GO · pas de spawn ultérieur sans nouveau GO |
-+| Taille | S |
++| Epic / Capability | E5 / C5.3 |
++| Acteur | Système / Harness |
++| Story | En tant que Morris, Je veux qu’un timeout stoppe sans autoriser, Afin d’éviter un GO implicite. |
++| Valeur démontrée | Anti-autorisation implicite |
++| Sources | VS-BR-11 · VS-CAND-09 · N11 |
++| UX / état / variante | VS-UX-05 · message timeout |
++| Préconditions | Exécution en cours avec timer |
++| Critères d’acceptation | **Given** exécution **When** timeout **Then** `stoppé` · message « timeout ≠ GO » · pas de spawn ultérieur sans nouveau GO |
++| Scénarios négatifs | **N11** timeout → stoppé · pas de succès implicite |
++| Preuves attendues | Event timeout · absence de GO dérivé |
++| Dépendances | VS-BL-US-018 |
++| Risque | Moyen |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Allongement silencieux du timeout comme succès |
++| Notes delivery | Valeur numérique timeout = hypothèse delivery / spike — non figée ici |
 +
 +### VS-BL-US-021 — Rapport et fichiers touchés
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E6 / C6.1 |
++| Epic / Capability | E6 / C6.1 · C6.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux le rapport Cursor/harness et l’aperçu sanitisé, afin de contrôler le résultat. |
-+| Sources | VS-FR-11 · VS-UX-06 |
-+| UX | VS-UX-06 |
-+| AC | **Given** fin exécution **When** rapport disponible **Then** statut · fichiers · remote=0 · réserves · CTA analyse |
-+| Négatifs | N13 |
-+| Taille | M |
++| Story | En tant que Morris, Je veux le rapport Cursor/harness et l’aperçu sanitisé, Afin de contrôler le résultat. |
++| Valeur démontrée | Contrôle post-exécution |
++| Sources | VS-FR-11 · VS-UX-06 · VS-AC-09 · N13 |
++| UX / état / variante | VS-UX-06 · frame `51:678` |
++| Préconditions | Fin d’exécution (succès ou échec rapporté) |
++| Critères d’acceptation | **Given** fin exécution **When** rapport disponible **Then** statut · fichiers touchés · remote=0 · réserves · CTA analyse conditionné |
++| Scénarios négatifs | **N13** Rapport absent → bloque analyse · message |
++| Preuves attendues | CursorExecutionReport · aperçu sanitisé |
++| Dépendances | VS-BL-US-018 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Affichage de secrets dans l’aperçu |
++| Notes delivery | Sanitisation obligatoire (lien US-028) |
 +
 +### VS-BL-US-022 — Review pack prérequis analyse / clôture
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E6 / C6.2 · C6.4 |
-+| Acteur | Système |
-+| Story | En tant que Morris, je veux bloquer si pack incomplet, afin d’éviter une clôture positive fallacieuse. |
++| Epic / Capability | E6 / C6.2 · C6.4 |
++| Acteur | Système / Morris |
++| Story | En tant que Morris, Je veux bloquer si pack incomplet, Afin d’éviter une clôture positive fallacieuse. |
++| Valeur démontrée | Garde-fou clôture positive |
 +| Sources | VS-FR-17 · VS-BR-15 · VS-AC-06 · N14 |
-+| UX | VS-UX-06/08/10 |
-+| AC | **Given** pack incomplet **When** analyse ou clôture positive **Then** refus explicite |
-+| Taille | S |
++| UX / état / variante | VS-UX-06/08/10 (blocage CTA) |
++| Préconditions | Tentative d’analyse ou clôture positive |
++| Critères d’acceptation | **Given** pack incomplet **When** analyse ou clôture positive demandée **Then** refus explicite · pas de verdict positif · pas de CycleSummary « succès » |
++| Scénarios négatifs | **N14** pack incomplet → bloque clôture positive |
++| Preuves attendues | Event pack_incomplete_blocked |
++| Dépendances | VS-BL-US-021 |
++| Risque | Moyen |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Clôture positive forcée |
++| Notes delivery | Incr. B fixture · E réel |
 +
 +### VS-BL-US-023 — Analyse GPT verdict candidat
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E7 |
++| Epic / Capability | E7 / C7.1 · C7.2 · C7.4 |
 +| Acteur | Morris / GPT |
-+| Story | En tant que Morris, je veux une analyse GPT manuelle du paquet de preuves, afin d’obtenir un verdict **candidat**. |
-+| Sources | VS-FR-12 · VS-BR-14 · VS-CAND-08 · VS-UX-07/08 |
-+| UX | VS-UX-07→08 |
-+| AC | **Given** rapport+pack OK **When** Lancer analyse **Then** appel GPT distinct · compteur · plafond À définir · no retry · verdict étiqueté candidat |
-+| Négatifs | N15 fail-closed |
-+| Taille | L |
-+| Gate | G-VS-LIVE-GPT (analyse) |
++| Story | En tant que Morris, Je veux une analyse GPT manuelle du paquet de preuves, Afin d’obtenir un verdict **candidat**. |
++| Valeur démontrée | Aide à la décision sans autorité GPT |
++| Sources | VS-FR-12 · VS-BR-14 · VS-CAND-08 · VS-UX-07/08 · VS-FR-16 · VS-BR-03 · N15 · VS-AC-06 · VS-AC-07 |
++| UX / état / variante | VS-UX-07 → VS-UX-08 · frames `51:816` / `51:954` |
++| Préconditions | Rapport + pack OK (US-021/022) |
++| Critères d’acceptation | **Given** rapport+pack OK **When** Lancer analyse **Then** appel GPT distinct de la qualif · compteur analyse · plafond « À définir » · no retry · verdict étiqueté **candidat** · pas de clôture auto |
++| Scénarios négatifs | **N15** Verdict invalide → rejet fail-closed · FinOps visible · correction/abandon |
++| Preuves attendues | GptVerdictCandidate · events FinOps analyse |
++| Dépendances | VS-BL-US-022 |
++| Risque | Élevé (live) |
++| Taille relative | L |
++| Gate Morris éventuel | G-VS-LIVE-GPT (analyse) |
++| Hors périmètre | Clôture automatique · retry auto |
++| Notes delivery | Incr. E ; fixture possible avant live |
 +
 +### VS-BL-US-024 — Afficher prouvé / non prouvé / écarts
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E7 / C7.3 |
++| Epic / Capability | E7 / C7.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux voir prouvé/non prouvé/écarts/risques/réserves, afin de décider. |
-+| Sources | VS-FR-12 · VS-UX-08 |
-+| UX | VS-UX-08 |
-+| AC | **Given** verdict valide **When** affichage **Then** sections obligatoires · pas de bouton clôture auto |
-+| Taille | M |
++| Story | En tant que Morris, Je veux voir prouvé/non prouvé/écarts/risques/réserves, Afin de décider en conscience. |
++| Valeur démontrée | Lisibilité du verdict candidat |
++| Sources | VS-FR-12 · VS-UX-08 · VS-UX-FR-08 · VS-BR-14 |
++| UX / état / variante | VS-UX-08 |
++| Préconditions | Verdict candidat valide |
++| Critères d’acceptation | **Given** verdict valide **When** affichage **Then** sections prouvé / non prouvé / écarts / risques / réserves / décisions Morris requises · étiquette candidat · pas de bouton clôture auto |
++| Scénarios négatifs | Section obligatoire manquante → pas de passage décision finale |
++| Preuves attendues | Screenshot VS-UX-08 |
++| Dépendances | VS-BL-US-023 |
++| Risque | Faible |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Reformulation comme décision Morris |
++| Notes delivery | — |
 +
 +### VS-BL-US-025 — Décision finale Morris
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E8 / C8.1 |
++| Epic / Capability | E8 / C8.1 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux clôturer, corriger, relancer (nouveau GO) ou abandonner, afin de conclure. |
-+| Sources | VS-FR-12 · VS-AC-07 · VS-AC-08 · VS-UX-09 |
-+| UX | VS-UX-09 |
-+| AC | **Given** verdict candidat **When** décision **Then** MorrisFinalDecision enregistrée · conséquences explicites · pas d’actions Git groupées |
-+| Taille | M |
++| Story | En tant que Morris, Je veux clôturer, corriger, relancer (nouveau GO) ou abandonner, Afin de conclure le cycle. |
++| Valeur démontrée | Autorité de clôture humaine |
++| Sources | VS-FR-12 · VS-AC-07 · VS-AC-08 · VS-UX-09 · VS-UX-FR-09 · VS-BR-04 · VS-BR-17 |
++| UX / état / variante | VS-UX-09 · frame `51:1079` |
++| Préconditions | Verdict candidat affiché (ou chemin NO-GO/abandon documenté) |
++| Critères d’acceptation | **Given** verdict candidat **When** décision Morris **Then** MorrisFinalDecision enregistrée · conséquences explicites · pas d’actions Git groupées · pas de claim MVP/prod |
++| Scénarios négatifs | Verdict invalide → pas de clôture auto (VS-AC-07) |
++| Preuves attendues | MorrisFinalDecision journalisée |
++| Dépendances | VS-BL-US-024 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Merge auto · L5 · multi-projet |
++| Notes delivery | 4 actions finales distinctes du gate d’exécution |
 +
 +### VS-BL-US-026 — Clôture slice-only
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E8 / C8.2 |
++| Epic / Capability | E8 / C8.2 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux une synthèse du slice courant uniquement, afin d’éviter un faux portefeuille. |
-+| Sources | VS-UX-10 · correctif UX · VS-BR-17 |
-+| UX | VS-UX-10 · vue synthèse |
-+| AC | **Given** clôture **When** affichage **Then** requestId, décision, MD, preuves, FinOps, traçabilité · **aucun** portfolio multi-projet · aucun claim MVP/prod |
-+| Taille | S |
++| Story | En tant que Morris, Je veux une synthèse du slice courant uniquement, Afin d’éviter un faux portefeuille multi-projet. |
++| Valeur démontrée | Clôture honnête bornée |
++| Sources | VS-UX-10 · VS-UX-FR-17 · VS-BR-17 · VS-CAND-11 |
++| UX / état / variante | VS-UX-10 · frame `51:1204` · vue synthèse |
++| Préconditions | Décision finale de clôture |
++| Critères d’acceptation | **Given** clôture **When** affichage CycleSummary **Then** requestId, décision, MD, preuves, FinOps, traçabilité du **slice courant** · **aucun** portfolio multi-projet · aucun claim MVP/production-ready |
++| Scénarios négatifs | Tentative d’afficher autres projets → hors périmètre · non rendu |
++| Preuves attendues | CycleSummary slice-only |
++| Dépendances | VS-BL-US-025 |
++| Risque | Faible |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Portfolio · Studio complete · industrialisation |
++| Notes delivery | Correctif UX validé — ne pas rouvrir |
 +
 +### VS-BL-US-027 — Relance sous nouveau GO
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E8 / C8.3 |
++| Epic / Capability | E8 / C8.3 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux relancer après STOP/échec uniquement avec nouveau GO, afin de respecter les gates. |
-+| Sources | Matrice GO 33 · N11 N12 |
-+| UX | VS-UX-09 |
-+| AC | **Given** stoppé ou correction avec re-exec **When** relance **Then** nouveau contrat/GO exigé |
-+| Taille | S |
++| Story | En tant que Morris, Je veux relancer après STOP/échec uniquement avec nouveau GO, Afin de respecter les gates. |
++| Valeur démontrée | Ré-exécution gouvernée |
++| Sources | Doc 33 matrice GO / transitions `stoppé` · N11 · N12 · VS-BR-07 · VS-CAND-09 |
++| UX / état / variante | VS-UX-09 (Relancer) → retour gate |
++| Préconditions | État `stoppé` ou correction exigeant re-exec |
++| Critères d’acceptation | **Given** stoppé ou correction avec re-exec **When** Relancer **Then** nouveau contrat et/ou nouveau GO exigés · pas de réutilisation GO stale |
++| Scénarios négatifs | Relance sans nouveau GO → refus |
++| Preuves attendues | Event relaunch_requires_new_go |
++| Dépendances | VS-BL-US-019 · VS-BL-US-020 · VS-BL-US-025 |
++| Risque | Moyen |
++| Taille relative | S |
++| Gate Morris éventuel | Nouveau GO (humain) |
++| Hors périmètre | Réutilisation GO après timeout/STOP |
++| Notes delivery | — |
 +
 +### VS-BL-US-028 — Interdiction secrets & PII
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E9 |
-+| Acteur | Système |
-+| Story | En tant que Morris, je veux zéro secret/PII réelle dans UI/logs/preuves, afin de respecter RGPD minimal. |
-+| Sources | VS-FR-15 · VS-BR-16 · VS-CAND-13 · VS-AC-10 |
-+| UX | Transverse |
-+| AC | **Given** n’importe quel écran/preuve **When** inspection **Then** pas de token/clé · demande de test sans PII |
-+| Taille | S |
++| Epic / Capability | E9 / C9.1 · C9.2 |
++| Acteur | Système / Morris |
++| Story | En tant que Morris, Je veux zéro secret et zéro PII réelle dans UI/logs/preuves, Afin de respecter le RGPD minimal. |
++| Valeur démontrée | Sécurité / conformité minimale |
++| Sources | VS-FR-15 · VS-BR-16 · VS-CAND-13 · VS-AC-10 · VS-UX-FR-10 |
++| UX / état / variante | Transverse · tous écrans/preuves |
++| Préconditions | Toute surface UI ou preuve du slice |
++| Critères d’acceptation | **Given** n’importe quel écran/preuve **When** inspection **Then** pas de token/clé/secret · demande de test sans PII réelle · masquage si donnée sensible mock |
++| Scénarios négatifs | Fuite détectée → STOP livraison surface · correction obligatoire |
++| Preuves attendues | Checklist audit secrets · revue preuves |
++| Dépendances | Toutes stories UI/preuves |
++| Risque | Élevé (si oubli) |
++| Taille relative | S |
++| Gate Morris éventuel | — |
++| Hors périmètre | Stockage secrets en clair « pour debug » |
++| Notes delivery | Transverse Incr. A+ |
 +
 +### VS-BL-US-029 — Observabilité IDs + fuseau + source statut
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E10 |
++| Epic / Capability | E10 / C10.1 · C10.2 · C10.3 · C10.4 |
 +| Acteur | Système |
-+| Story | En tant que Morris, je veux requestId/correlationId/contractId/eventId et timestamps fuseau, afin de reconstruire. |
-+| Sources | VS-CAND-15 · observabilité 32 |
-+| UX | Transverse |
-+| AC | **Given** événement **When** journal **Then** IDs + TZ + source statut · aucun faux succès |
-+| Taille | M |
++| Story | En tant que Morris, Je veux requestId/correlationId/contractId/eventId, timestamps avec fuseau et source de statut, Afin de reconstruire sans faux succès. |
++| Valeur démontrée | RUN readiness minimale POC |
++| Sources | VS-CAND-15 · Doc 32 § observabilité · VS-UX-FR-12 · VS-AC-11 |
++| UX / état / variante | Transverse |
++| Préconditions | Événements produits |
++| Critères d’acceptation | **Given** événement **When** journal/UI **Then** IDs présents · timestamps avec TZ · source statut · durées séparées (qualif ≠ exec ≠ analyse) · aucun faux succès |
++| Scénarios négatifs | Event sans ID → non accepté comme preuve de progression |
++| Preuves attendues | Journal corrélé · export preuves |
++| Dépendances | VS-BL-US-002 |
++| Risque | Moyen |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Stack observabilité industrielle (Datadog, etc.) |
++| Notes delivery | POC local — pas d’industrialisation |
 +
 +### VS-BL-US-030 — FinOps plafond À définir (qualif + analyse)
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E2/E7 |
++| Epic / Capability | E2 / E7 · C2.4 · C7.4 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux voir les appels séparés et pouvoir arrêter avant une nouvelle conso. |
-+| Sources | VS-FR-16 · VS-CAND-14 · VS-BR-03 |
-+| UX | VS-UX-02/07 |
-+| AC | **Given** appels GPT **When** UI **Then** compteurs séparés · plafond « À définir » · stop avant nouvel appel · pas de € inventé |
-+| Taille | S |
++| Story | En tant que Morris, Je veux voir les appels séparés et pouvoir arrêter avant une nouvelle consommation, Afin de maîtriser FinOps. |
++| Valeur démontrée | Contrôle consommation GPT |
++| Sources | VS-FR-16 · VS-CAND-14 · VS-BR-03 · VS-UX-FR-07 |
++| UX / état / variante | VS-UX-02 / VS-UX-07 · compteurs séparés |
++| Préconditions | Au moins un appel GPT (fixture ou live) |
++| Critères d’acceptation | **Given** appels GPT **When** UI **Then** compteurs qualif ≠ analyse · plafond affiché « À définir » · possibilité d’arrêter avant nouvel appel · pas de € inventé · pas de retry auto |
++| Scénarios négatifs | Dépassement si plafond numérique futur → refus nouvel appel (après G-VS-LIMIT) |
++| Preuves attendues | UI FinOps · events compteurs |
++| Dépendances | VS-BL-US-004 · VS-BL-US-023 |
++| Risque | Moyen (valeur absente) |
++| Taille relative | S |
++| Gate Morris éventuel | G-VS-LIMIT (valeur numérique) |
++| Hors périmètre | Inventer un plafond numérique |
++| Notes delivery | Réserve VS-CAND-14 conservée |
 +
 +### VS-BL-US-031 — Mapping dix états / quatre vues (cockpit)
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | E1–E8 transverse UX |
++| Epic / Capability | Transverse UX E1–E8 |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux naviguer les dix états dans les quatre vues P0, afin de ne pas créer dix routes. |
-+| Sources | VS-CAND-02 · UX 35/36 · VS-UX-01…10 |
-+| UX | Quatre vues |
-+| AC | **Given** Incrément A **When** parcours mock **Then** chaque état accessible via vue mappée · aucune 5e route VS |
-+| Taille | L |
++| Story | En tant que Morris, Je veux naviguer les dix états dans les quatre vues P0, Afin de ne pas créer dix routes. |
++| Valeur démontrée | Preuve UX structurelle du slice |
++| Sources | VS-CAND-02 · VS-UX-01…10 · VS-UX-FR-01 · VS-UX-FR-02 · VS-AC-01 |
++| UX / état / variante | Quatre vues P0 · dix états |
++| Préconditions | Incrément A (mock) ou ultérieur |
++| Critères d’acceptation | **Given** Incrément A **When** parcours mock des 10 états **Then** chaque état accessible via vue mappée · **aucune** 5e route VS · shell P0 conservé |
++| Scénarios négatifs | Ajout route dédiée par état → STOP documentaire / arbitrage Morris |
++| Preuves attendues | Screenshots 10 états / 4 vues · éventuellement Playwright |
++| Dépendances | — |
++| Risque | Moyen (dérive routes) |
++| Taille relative | L |
++| Gate Morris éventuel | — |
++| Hors périmètre | Nouvelles routes · redesign shell |
++| Notes delivery | Prioritaire Incr. A |
 +
 +### VS-BL-US-032 — Variantes Loading / Erreur / STOP / GO invalide
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | Transverse |
++| Epic / Capability | Transverse UX |
 +| Acteur | Morris |
-+| Story | En tant que Morris, je veux les variantes d’état, afin de gérer les cas non nominaux. |
-+| Sources | VAR `52:2/10/18/26` · N1 N3 N5 N12 |
-+| UX | Variantes |
-+| AC | **Given** conditions variantes **When** affichage **Then** Loading/Erreur/STOP/GO-invalide distincts et accessibles |
-+| Taille | M |
++| Story | En tant que Morris, Je veux les variantes d’état non nominales, Afin de gérer Loading, Erreur, STOP et GO invalide. |
++| Valeur démontrée | Couverture UX non nominale |
++| Sources | VS-UX-VAR Loading `52:2` · Erreur `52:10` · STOP `52:18` · GO invalide `52:26` · N1 · N3 · N5 · N12 · VS-UX-FR-05/06/13 |
++| UX / état / variante | Variantes (pas des routes) |
++| Préconditions | Conditions variantes (mock ou réel) |
++| Critères d’acceptation | **Given** conditions variantes **When** affichage **Then** Loading / Erreur fail-closed / STOP / GO invalide distincts, accessibles, non fusionnés avec Abandonner/NO-GO |
++| Scénarios négatifs | Fusion Abandonner↔STOP↔GO invalide → non conforme · correction UI |
++| Preuves attendues | Screenshots 4 variantes |
++| Dépendances | VS-BL-US-005 · 006 · 012 · 019 · 031 |
++| Risque | Faible |
++| Taille relative | M |
++| Gate Morris éventuel | — |
++| Hors périmètre | Nouvelles variantes non arbitrées |
++| Notes delivery | Incr. A mock obligatoire |
 +
-+### VS-BL-US-033 — Scénarios négatifs N1–N16 (couverture transverse)
++### VS-BL-US-033 — Scénarios négatifs N1–N16 (couverture transverse QA)
 +
 +| Champ | Contenu |
 +|-------|---------|
-+| Epic / Cap | Transverse QA |
++| Epic / Capability | Transverse QA |
 +| Acteur | Morris / Système |
-+| Story | En tant que Morris, je veux que chaque N1–N16 soit testable ou différé justifié, afin d’éviter les trous. |
-+| Sources | N1–N16 |
-+| UX | Selon N |
-+| AC | Voir matrice §9 — chaque N couvert par US ou différé avec risque |
-+| Taille | L (lot tests) |
++| Story | En tant que Morris, Je veux que chaque N1–N16 soit testable via une story dédiée ou cette couverture QA, Afin d’éviter les trous. |
++| Valeur démontrée | Complétude QA fail-closed |
++| Sources | N1–N16 · Doc 33 §7 · matrice §9 |
++| UX / état / variante | Selon N (variantes / états concernés) |
++| Préconditions | Stories couvrantes primaires disponibles selon incrément |
++| Critères d’acceptation | **Given** matrice §9 **When** revue QA **Then** chaque N a story primaire + AC/négatif ou statut différé justifié · aucun N ignoré · fail-closed vérifié · preuve identifiée |
++| Scénarios négatifs | N sans couverture ni justification → STOP documentaire |
++| Preuves attendues | Matrice §9 + cas de test par N |
++| Dépendances | Stories 004–023, 016, etc. |
++| Risque | Moyen (dette si différé) |
++| Taille relative | L |
++| Gate Morris éventuel | — |
++| Hors périmètre | Inventer de nouveaux N hors doc 33 |
++| Notes delivery | Story transverse de traçabilité — ne remplace pas les AC des stories primaires |
 +
 +---
 +
-+## 8. Traçabilité rapide stories → sources
++## 8. Corrections de traçabilité (ce correctif)
 +
-+| Story | FR/BR/AC/N/UX principaux |
-+|-------|--------------------------|
-+| 001–003 | FR-01 · UX-01 · CAND-01 |
-+| 004–008 | FR-02/03/16 · BR-01/02/03 · N1/N2 · UX-02/03 |
-+| 009–012 | FR-04/05/06 · BR-05/06 · AC-02/03 · N3–N6 · UX-04 |
-+| 013–016 | FR-13/14 · BR-12/13 · AC-11/12 · N16 · CAND-05/10 |
-+| 017–020 | FR-07/08/09/10 · BR-07/08/09/10/11 · AC-04/05/09 · N7–N12 · UX-05 |
++| Story | Avant (erreur) | Après (corrigé) |
++|-------|----------------|-----------------|
++| **VS-BL-US-003** | Sources `N16 partiel` (faux : N16 = perte session) | Étape 1 / abandon pré-qualif · FinOps 0 · VS-UX-01 · VS-FR-16 (conso=0) · VS-BR-03 · **sans N16** |
++| **VS-BL-US-011** | Sources `VS-FR-15/16 (UX)` (faux : FR-15=secrets, FR-16=FinOps) | **VS-FR-04** · **VS-UX-FR-15** · **VS-UX-FR-16** · VS-UX-04 · Doc 36 §8 · VS-CAND-04 · VS-BR-04 |
++| **VS-BL-US-016** | Couverture N16 OK mais à renforcer | N16 explicitement primaire ici |
++| **32 stories** | Champs manquants (Valeur, Préconditions, Négatifs, Preuves, Déps, Risque, Gate, Hors, Notes) | **16 champs** présents partout |
++
++---
++
++## 9. Matrice de couverture (recalculée)
++
++| Famille | ID source | Description courte | Story couvrante | Incrément | Preuve attendue | Statut | Réserve / justification |
++|---------|-----------|--------------------|-----------------|-----------|-----------------|--------|-------------------------|
++
++| VS-FR | VS-FR-01 | Saisie demande + requestId | 001,002 | A | UI requestId | couvert | — |
++| VS-FR | VS-FR-02 | Qualif invalide fail-closed | 006,033 | B/C | validateur + N1 | couvert | — |
++| VS-FR | VS-FR-03 | Qualif lisible avant GO | 007 | A/B | UI VS-UX-03 | couvert | — |
++| VS-FR | VS-FR-04 | GO/NO-GO/correction/abandon | 011,003,008,025 | A/B | UI 4 actions + abandons | couvert | 003=abandon pré-qualif ; 011=gate |
++| VS-FR | VS-FR-05 | GO ancré IDs/hash/HEAD… | 009,010 | A/B | dossier gate | couvert | — |
++| VS-FR | VS-FR-06 | Invalidation GO | 012 | B/D | bandeau + refus | couvert | — |
++| VS-FR | VS-FR-07 | Revalidation avant Cursor | 017 | B/D | harness | couvert | — |
++| VS-FR | VS-FR-08 | Cursor sandbox only | 018 | D | allowlist file | couvert | — |
++| VS-FR | VS-FR-09 | Pas d’écriture remote | 018,021 | D | remote=0 | couvert | — |
++| VS-FR | VS-FR-10 | STOP prioritaire | 019 | B/D | STOP event | couvert | — |
++| VS-FR | VS-FR-11 | Rapport prérequis analyse | 021,022 | B/E | rapport | couvert | — |
++| VS-FR | VS-FR-12 | Verdict candidat ; Morris clôture | 023–025 | E | verdict+décision | couvert | — |
++| VS-FR | VS-FR-13 | États dérivés | 014,016 | B | source statut | couvert | — |
++| VS-FR | VS-FR-14 | Harness sans Studio | 015 | B | CLI/preuves | couvert | — |
++| VS-FR | VS-FR-15 | Pas de secrets | 028 | A+ | audit | couvert | — |
++| VS-FR | VS-FR-16 | FinOps visible | 005,030,003 | A/C/E | compteurs | couvert | valeur plafond différée |
++| VS-FR | VS-FR-17 | Pack incomplet bloque | 022 | B/E | blocage | couvert | — |
++| VS-BR | VS-BR-01 | Rejet hors contrat | 006 | B/C | reject event | couvert | — |
++| VS-BR | VS-BR-02 | Pas de fallback permissif | 006,008 | B/C | AC négatifs | couvert | — |
++| VS-BR | VS-BR-03 | Pas de retry auto | 005,008,023,030 | C/E | UI no retry | couvert | — |
++| VS-BR | VS-BR-04 | GPT ne décide pas | 011,023,025 | A/E | étiquettes candidat | couvert | — |
++| VS-BR | VS-BR-05 | GO lié hash/HEAD… | 009,010,011 | B | ancrage | couvert | — |
++| VS-BR | VS-BR-06 | Changement → GO invalide | 012 | B/D | invalidation | couvert | — |
++| VS-BR | VS-BR-07 | Revalidation spawn | 017,027 | B/D | revalidation | couvert | — |
++| VS-BR | VS-BR-08 | Sandbox / hors allowlist STOP | 018 | D | N7 | couvert | — |
++| VS-BR | VS-BR-09 | Pas remote Git | 018 | D | remote=0 | couvert | — |
++| VS-BR | VS-BR-10 | STOP prioritaire | 019 | B/D | N12 | couvert | — |
++| VS-BR | VS-BR-11 | Timeout ≠ GO | 020 | D | N11 | couvert | — |
++| VS-BR | VS-BR-12 | Studio ≠ vérité | 013,014,016 | B | Option B | couvert | — |
++| VS-BR | VS-BR-13 | Harness autonome | 015 | B | VS-AC-12 | couvert | — |
++| VS-BR | VS-BR-14 | Verdict = candidat | 023,024 | E | étiquette | couvert | — |
++| VS-BR | VS-BR-15 | Pack incomplet | 022 | E | N14 | couvert | — |
++| VS-BR | VS-BR-16 | Secrets jamais affichés | 028 | A+ | audit | couvert | — |
++| VS-BR | VS-BR-17 | Claims interdits | 025,026 | E | CycleSummary | couvert | — |
++| VS-AC | VS-AC-01 | Parcours 1→10 | 031,001–026 | A–E | parcours mock/réel | couvert | agrégé multi-stories |
++| VS-AC | VS-AC-02 | GO refusé HEAD≠ | 012,017 | B/D | N3/revalidation | couvert | — |
++| VS-AC | VS-AC-03 | GO refusé hash≠ | 012,017 | B/D | N6 | couvert | — |
++| VS-AC | VS-AC-04 | Hors allowlist pas succès | 018 | D | N7 | couvert | — |
++| VS-AC | VS-AC-05 | STOP journalisé | 019 | B/D | event | couvert | — |
++| VS-AC | VS-AC-06 | Sans rapport/pack pas analyse OK | 021,022,023 | E | blocage | couvert | — |
++| VS-AC | VS-AC-07 | Verdict invalide pas clôture auto | 023,025 | E | N15 | couvert | — |
++| VS-AC | VS-AC-08 | Clôture via MorrisFinalDecision | 025 | E | décision | couvert | — |
++| VS-AC | VS-AC-09 | Pas preuve écriture distante | 018,021 | D | remote=0 | couvert | — |
++| VS-AC | VS-AC-10 | Pas secret UI/preuves | 028 | A+ | audit | couvert | — |
++| VS-AC | VS-AC-11 | États cohérents preuves | 014,016,029 | B | dérivé | couvert | — |
++| VS-AC | VS-AC-12 | Harness sans Studio | 015 | B | CLI | couvert | — |
++| N | N1 | Qualif GPT invalide | 006,032,033 | C | fail-closed | couvert | — |
++| N | N2 | Sources Git indisponibles | 004,033 | B | Truth Check STOP | couvert | — |
++| N | N3 | HEAD modifié après qualif | 012,032,033 | B/D | invalidation | couvert | — |
++| N | N4 | GO absent | 017,015,033 | B/D | refus spawn | couvert | — |
++| N | N5 | GO invalide/expiré | 012,017,032,033 | D | refus | couvert | — |
++| N | N6 | Contrat modifié après GO | 012,033 | D | refus | couvert | — |
++| N | N7 | Fichier hors allowlist | 018,033 | D | STOP/refus | couvert | — |
++| N | N8 | Action interdite | 018,033 | D | STOP | couvert | — |
++| N | N9 | Cursor indisponible | 018,033 | D | échec explicite | couvert | — |
++| N | N10 | Cursor exit≠0 | 018,021,033 | D | rapport échec | couvert | — |
++| N | N11 | Timeout | 020,027,033 | D | timeout≠GO | couvert | — |
++| N | N12 | STOP Morris | 019,027,032,033 | D | stoppé | couvert | — |
++| N | N13 | Rapport absent | 021,022,033 | D/E | blocage analyse | couvert | — |
++| N | N14 | Pack incomplet | 022,033 | E | blocage clôture | couvert | — |
++| N | N15 | Verdict GPT invalide | 023,033 | E | fail-closed | couvert | — |
++| N | N16 | Perte session Studio | 016,033 | B | reprise dérivée | couvert | Corrigé : plus US-003 |
++| VS-CAND | VS-CAND-01 | Scénario Markdown sandbox | 001,018 | A/D | MD sandbox | couvert | — |
++| VS-CAND | VS-CAND-02 | Parcours dix étapes | 031 | A | 10 états | couvert | — |
++| VS-CAND | VS-CAND-03 | Qualif visible avant GO | 007 | A/B | VS-UX-03 | couvert | — |
++| VS-CAND | VS-CAND-04 | GO lié hash/HEAD… | 009–012 | B | ancrage | couvert | — |
++| VS-CAND | VS-CAND-05 | Studio dérivé / harness autorité | 013,014 | B | Option B | couvert | — |
++| VS-CAND | VS-CAND-06 | Pas écriture remote | 018 | D | remote=0 | couvert | — |
++| VS-CAND | VS-CAND-07 | Cursor sandbox après GO | 018 | D | spawn | couvert | — |
++| VS-CAND | VS-CAND-08 | Verdict candidat | 023–025 | E | étiquette | couvert | — |
++| VS-CAND | VS-CAND-09 | STOP ; timeout≠GO | 019,020 | D | events | couvert | — |
++| VS-CAND | VS-CAND-10 | Harness autonome | 015 | B | CLI | couvert | — |
++| VS-CAND | VS-CAND-11 | Succès = VS-AC + critère central | 026,033 | E | AC | couvert | — |
++| VS-CAND | VS-CAND-12 | Séquencement UX→backlog→delivery | meta docs 38–40 | — | ce cycle | couvert | observé cycle |
++| VS-CAND | VS-CAND-13 | Pas PII / secrets | 028 | A+ | audit | couvert | — |
++| VS-CAND | VS-CAND-14 | Plafond + no retry | 005,030 | C/E | UI À définir | couvert | valeur numérique **différée** |
++| VS-CAND | VS-CAND-15 | IDs corrélation | 002,029 | A/B | IDs UI/journal | couvert | — |
++| VS-UX | VS-UX-01 | Nouvelle demande | 001,003,031 | A | frame 51:3 | couvert | — |
++| VS-UX | VS-UX-02 | Qualification en cours | 004,005,006,030,032 | A/C | 51:139 | couvert | — |
++| VS-UX | VS-UX-03 | Qualification proposée | 007,008 | A/B | 51:277 | couvert | — |
++| VS-UX | VS-UX-04 | Gate Morris | 009–012,011 | A/B | 51:415 | couvert | — |
++| VS-UX | VS-UX-05 | Exécution | 017–020 | B/D | 51:540 | couvert | — |
++| VS-UX | VS-UX-06 | Rapport | 021,022 | B/D | 51:678 | couvert | — |
++| VS-UX | VS-UX-07 | Analyse GPT | 023,030,032 | E | 51:816 | couvert | — |
++| VS-UX | VS-UX-08 | Verdict proposé | 024 | E | 51:954 | couvert | — |
++| VS-UX | VS-UX-09 | Décision Morris | 025,027 | E | 51:1079 | couvert | — |
++| VS-UX | VS-UX-10 | Clôture | 026 | A/E | 51:1204 | couvert | — |
++| VAR | VS-UX-VAR Loading `52:2` | Loading GPT | 005,032 | A/C | screenshot | couvert | — |
++| VAR | VS-UX-VAR Erreur `52:10` | Erreur fail-closed | 006,032 | A/C | screenshot | couvert | — |
++| VAR | VS-UX-VAR STOP `52:18` | STOP Morris | 019,032 | A/D | screenshot | couvert | — |
++| VAR | VS-UX-VAR GO invalide `52:26` | GO invalide | 012,032 | A/D | screenshot | couvert | — |
++
++**Contrôle :** aucune source orpheline · aucune story inexistante · N16 ≠ US-003 · VS-FR-15/16 ≠ sources des 4 actions gate.
++
++**VS-CAND-14 :** plafond **obligatoire** couvert ; valeur numérique **différée** (À définir) — justifié (G-VS-LIMIT).
++
++---
++
++## 10. Traçabilité rapide stories → sources
++
++| Story | FR/BR/AC/N/UX/CAND principaux |
++|-------|-------------------------------|
++| 001–003 | FR-01/16 · UX-01 · CAND-01/15 · abandon pré-qualif (**pas N16**) |
++| 004–008 | FR-02/03/04/16 · BR-01/02/03 · N1/N2 · UX-02/03 · VAR Loading/Erreur |
++| 009–012 | FR-04/05/06 · BR-04/05/06 · AC-02/03 · N3/N5/N6 · UX-04 · UX-FR-15/16 · VAR GO invalide |
++| 013–016 | FR-13/14 · BR-12/13 · AC-11/12 · **N16→016** · CAND-05/10 |
++| 017–020 | FR-07/08/09/10 · BR-07/08/09/10/11 · AC-04/05/09 · N4/N7–N12 · UX-05 · VAR STOP |
 +| 021–022 | FR-11/17 · BR-15 · AC-06 · N13/N14 · UX-06 |
-+| 023–024 | FR-12 · BR-14 · N15 · UX-07/08 · CAND-08 |
-+| 025–027 | AC-07/08 · UX-09/10 |
-+| 028–030 | FR-15/16 · BR-16 · AC-10 · CAND-13/14/15 |
-+| 031–033 | UX-01…10 · VAR · N1–N16 |
++| 023–024 | FR-12/16 · BR-14 · AC-06/07 · N15 · UX-07/08 · CAND-08 |
++| 025–027 | FR-12 · AC-07/08 · BR-04/17 · UX-09/10 · N11/N12 (relance) |
++| 028–030 | FR-15/16 · BR-03/16 · AC-10 · CAND-13/14/15 |
++| 031–033 | UX-01…10 · VAR · N1–N16 · AC-01 · CAND-02 |
 +
 +---
 +
-+## 9. Matrice de couverture
-+
-+| Source | Story(s) | Incrément | Preuve | Couverture |
-+|--------|----------|-----------|--------|------------|
-+| VS-FR-01 | 001,002 | A | UI requestId | couvert |
-+| VS-FR-02 | 006 | B/C | validateur | couvert |
-+| VS-FR-03 | 007 | A/B | UI qualif | couvert |
-+| VS-FR-04 | 011 | A/B | UI gate | couvert |
-+| VS-FR-05 | 009,010 | B | contrat | couvert |
-+| VS-FR-06 | 012 | B/D | invalidation | couvert |
-+| VS-FR-07 | 017 | B/D | harness | couvert |
-+| VS-FR-08 | 018 | D | sandbox file | couvert |
-+| VS-FR-09 | 018 | D | remote=0 | couvert |
-+| VS-FR-10 | 019 | B/D | STOP event | couvert |
-+| VS-FR-11 | 021 | B/D | rapport | couvert |
-+| VS-FR-12 | 023–025 | E | verdict+décision | couvert |
-+| VS-FR-13 | 014 | B | source statut | couvert |
-+| VS-FR-14 | 015 | B | CLI harness | couvert |
-+| VS-FR-15 | 028 | A+ | audit secrets | couvert |
-+| VS-FR-16 | 005,030 | C/E | compteurs | couvert |
-+| VS-FR-17 | 022 | B/E | blocage pack | couvert |
-+| VS-BR-01…17 | 006–030 | A–E | selon BR | couvert |
-+| VS-AC-01…12 | 001–031 | A–E | BeB | couvert |
-+| N1 | 006 | C | fail-closed | couvert |
-+| N2 | 004 | B | Truth Check | couvert |
-+| N3 | 012 | B/D | invalidation | couvert |
-+| N4 | 017 | D | refus spawn | couvert |
-+| N5 | 012,017 | D | refus | couvert |
-+| N6 | 012 | D | refus | couvert |
-+| N7 | 018 | D | allowlist | couvert |
-+| N8 | 018 | D | policy | couvert |
-+| N9 | 018 | D | erreur port | couvert |
-+| N10 | 018,021 | D | rapport échec | couvert |
-+| N11 | 020 | D | timeout | couvert |
-+| N12 | 019 | D | STOP | couvert |
-+| N13 | 021 | D/E | blocage | couvert |
-+| N14 | 022 | E | blocage | couvert |
-+| N15 | 023 | E | fail-closed | couvert |
-+| N16 | 016 | B | reprise | couvert |
-+| VS-CAND-01…15 | 001–030 | A–E | docs+UI | couvert (14 réserve valeur) |
-+| VS-UX-01…10 | 001–031 | A | mapping | couvert |
-+| VAR Loading/Err/STOP/GO | 005,006,019,012,032 | A–D | variantes | couvert |
-+
-+**Aucune source sans couverture.** VS-CAND-14 : plafond **obligatoire** couvert ; valeur numérique **différée** (À définir) — justifié.
-+
-+---
-+
-+## 10. Risques backlog
++## 11. Risques backlog
 +
 +| Risque | Mitigation |
 +|--------|------------|
@@ -1767,14 +2507,16 @@ new file mode 100644
 +| Live trop tôt | Gates G-VS-LIVE-GPT / CURSOR |
 +| MVP implicite | DoD + claims interdits |
 +| Plafond non chiffré | Afficher « À définir » ; GO FinOps séparé |
++| Traçabilité erronée | Correctif US-003 / US-011 + matrice §9 |
 +
 +---
 +
-+## 11. Gates Morris (rappel)
++## 12. Gates Morris (rappel)
 +
 +| Gate | Objet |
 +|------|-------|
 +| G-VS-BL | **Consommé** — produire backlog |
++| G-VS-BL-FIX | **Consommé** — correctif documentaire structure/traçabilité |
 +| G-VS-BL-VAL | Validation `VS-BL-CAND-*` / backlog |
 +| G-VS-BL-DOC | Commit/push/PR/merge 38–40 |
 +| G-VS-DEL | Delivery |
@@ -1785,14 +2527,18 @@ new file mode 100644
 +
 +---
 +
-+## 12. Synthèse quantitative
++## 13. Synthèse quantitative
 +
 +| Élément | Nombre |
 +|---------|--------|
 +| Epics | 10 |
 +| Capabilities | 34 |
 +| User stories | **33** (`VS-BL-US-001` … `033`) |
++| Champs obligatoires / story | **16** |
++| Lignes matrice couverture | 91 |
 +| Incréments candidats | 5 (voir `39`) |
++| Références traçabilité corrigées (min.) | US-003 · US-011 (+ champs 32 stories) |
++
 
 diff --git a/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md b/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md
 new file mode 100644
@@ -1809,6 +2555,7 @@ new file mode 100644
 +| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
 +| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 +| **Companion** | [`38`](./38-poc-vertical-slice-backlog.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
++| **Correctif** | Aligné sur audit traçabilité doc 38 (N16→016 ; structure 16 champs) — **séquencement A–E inchangé** |
 +
 +> Story map des **dix états** sur **quatre vues P0**.
 +> Aucun incrément n’est validé sans GO Morris.
@@ -1853,19 +2600,21 @@ new file mode 100644
 +
 +| Étape | Stories | Dépendances verticales |
 +|-------|---------|------------------------|
-+| 01 | 001, 002, 003, 031 | — |
++| 01 | 001, 002, 003 (abandon pré-qualif), 031 | — |
 +| 02 | 004, 005, 006, 030, 032 | 001 |
 +| 03 | 007, 008 | 004–006 |
-+| 04 | 009, 010, 011, 012, 032 | 007, 009 |
++| 04 | 009, 010, 011 (4 actions · VS-FR-04 / VS-UX-FR-15/16), 012, 032 | 007, 009 |
 +| 05 | 013*, 014, 017, 018, 019, 020, 032 | 011 GO, 017 |
 +| 06 | 021, 022 | 018 |
 +| 07 | 023, 030, 032 | 021–022 |
 +| 08 | 024 | 023 |
 +| 09 | 025, 027 | 024 |
 +| 10 | 026 | 025 |
-+| Transverse | 015, 016, 028, 029, 033 | Continu |
++| Transverse | 015, **016 (N16 reprise session)**, 028, 029, 033 | Continu |
 +
 +\*013 adaptateur commence Incr. B, critique avant live.
++
++**Traçabilité N16 :** couverture primaire = **VS-BL-US-016** (+ US-033 QA) — **pas** US-003.
 +
 +---
 +
@@ -2048,6 +2797,7 @@ new file mode 100644
 +| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
 +| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 +| **Companions** | [`38`](./38-poc-vertical-slice-backlog.md) · [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) |
++| **Correctif** | Suite audit structure/traçabilité — quantitatif et risques mis à jour ; **aucune CAND nouvelle validée** |
 +
 +> Observations / hypothèses / options / recommandations / candidats.
 +> **Ne jamais** écrire qu’une `VS-BL-CAND-*` est validée.
@@ -2056,7 +2806,7 @@ new file mode 100644
 +
 +## 1. Synthèse
 +
-+Ce cycle produit un backlog borné (33 stories, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live ni versionnement projet.
++Ce cycle (puis correctif) produit un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live ni versionnement projet.
 +
 +| Livrable | Rôle |
 +|----------|------|
@@ -2098,7 +2848,7 @@ new file mode 100644
 +| Granularité | 15 mega-stories | **33 stories** | Traçabilité FR/N |
 +| Séquencement | Live d’abord | **A→B→C→D→E** | Moins de risque |
 +| Entry | CLI only | **Studio + harness autonome** | Preuve cockpit |
-+| Négatifs | Différer N* | **Couvrir dans US-033 + stories** | Matrice §38 |
++| Négatifs | Différer N* | **Couvrir dans stories primaires + US-033** (N16→016) | Matrice §38 recalculée |
 +| Adaptateur | Spécifier API maintenant | **Story L + spike tech ultérieur** | Pas de protocole ici |
 +
 +---
@@ -2124,7 +2874,7 @@ new file mode 100644
 +| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | Peu de « wow » | Faible |
 +| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | — | Faible |
 +| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | Blocage delivery | Acceptable |
-+| **VS-BL-CAND-06** | Couverture N1–N16 via stories + US-033 (pas de report silencieux) | Qualité | Trous QA | Faible |
++| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003 ; pas de report silencieux) | Qualité | Trous QA | Faible |
 +| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | Coût | Faible |
 +| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | Coût | Faible |
 +| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | Friction | Nulle |
@@ -2139,6 +2889,8 @@ new file mode 100644
 +| Thème | Impact | Risque | Dette |
 +|-------|--------|--------|-------|
 +| Backlog Standard | Guide delivery | Sur-spécification | Maintenir alignement 38↔32–37 |
++| Traçabilité | Fiabilité delivery | Mapping artificiel (ex. N16→003) | Audit correctif + matrice 91 lignes |
++| Structure stories | DoR 16 champs | Stories incomplètes | Correctif : 0 story incomplète |
 +| Incr. A mock | Preuve UX rapide | Sous-estimer adaptateur | B obligatoire avant live |
 +| Pas de CI | POC local | Régression non détectée | Futur G-VS-CI |
 +| Spikes existants | Accélère C/D | Réserves spike | Documenter dans DoD |
@@ -2172,7 +2924,7 @@ new file mode 100644
 +
 +## 10. Verdict candidat
 +
-+`SFIA STUDIO VERTICAL SLICE BACKLOG READY — MORRIS VALIDATION REQUIRED`
++`SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED`
 +
 +### Interdits
 +
