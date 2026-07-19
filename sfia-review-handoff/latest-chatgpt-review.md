@@ -1,19 +1,17 @@
-# Review pack — SFIA Studio POC vertical slice functional design
+# Review pack — SFIA Studio POC vertical slice UX/UI
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 21:21:50 CEST |
-| **Cycle** | 2 — Conception fonctionnelle |
-| **Profil** | Critical |
-| **Typologie** | DOC / CONCEPTION / POC |
-| **Baseline** | SFIA v2.6 |
-| **Niveau review pack** | **full** |
-| **GO Morris consommé** | GO conception fonctionnelle du premier vertical slice SFIA Studio GPT + Cursor |
-| **Branche conception** | `design/sfia-studio-poc-vertical-slice` (**locale uniquement** — aucun push) |
+| **Date / heure / fuseau** | 2026-07-19 21:44:24 CEST |
+| **Cycle** | 4 — UX/UI |
+| **Profil** | Standard |
+| **Typologie** | DOC / UX |
+| **Branche** | `design/sfia-studio-poc-vertical-slice` (locale — aucun push projet) |
 | **HEAD** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 | **origin/main** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| **Alignement** | local main / origin/main alignés sur `eb180638…` |
-| **Verdict** | `SFIA STUDIO VERTICAL SLICE FUNCTIONAL DESIGN READY — MORRIS VALIDATION REQUIRED` |
+| **Niveau** | **full** |
+| **Verdict** | `SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED` |
+| **Statut** | READY FOR MORRIS UX/UI REVIEW |
 
 ---
 
@@ -21,103 +19,98 @@
 
 | Contrôle | Résultat |
 |----------|----------|
-| `pwd` | `/Users/morris/Projects/sfia-workspace` |
-| Branche travail | `design/sfia-studio-poc-vertical-slice` |
-| HEAD | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| origin/main | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| Alignement main | OK — `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| PR #226 | MERGED — `d3042230afa110e3c106146e85dfd5261a55afa8` |
-| PR #227 | MERGED — `eb180638ad334a29a86b9fb757f401814003a0d8` |
+| Workspace | `/Users/morris/Projects/sfia-workspace` |
+| Branche | `design/sfia-studio-poc-vertical-slice` |
+| HEAD / origin/main | Alignés `eb180638…` |
+| Docs 32–34 | Présents (untracked) |
+| Collision 35–37 | Absente à la création |
 | Staged | Aucun |
-| Modifications versionnées étrangères | Aucune |
-| Working tree | Untracked uniquement : docs `32`–`34` + `.tmp-sfia-review/` |
-| Collision chemins 32–34 | Absente (création OK) |
-| Fetch | Effectué ; pas de commit plus récent non compris |
+| Modifs versionnées étrangères | Aucune |
+| app/** / harness/** | Non modifiés |
 
 ---
 
-## 2. GO Morris consommé
+## 2. Décisions Morris appliquées
 
-**Décision :** GO conception fonctionnelle du premier vertical slice SFIA Studio GPT + Cursor.
-
-**Autorise :** consultation sources Git ; création docs conception ; parcours/variantes/erreurs/stops/gates/AC ; candidats VS-CAND ; review pack ; handoff Git review.
-
-**N’autorise pas :** modif `app/**` / harness ; OpenAI live ; Cursor live ; stack ; Option B ; API/BDD/protocole ; commit/push/PR projet ; merge ; CI ; MVP ; L5 ; validation implicite VS-CAND.
+- VS-CAND-01…13, 15 : **VALIDÉES**
+- VS-CAND-14 : **VALIDÉE AVEC RÉSERVE** — plafond obligatoire, valeur **À définir**, aucun retry auto
 
 ---
 
 ## 3. Sources consultées
 
-### Méthode
-- `prompts/templates/sfia-cycle-execution-template.md` (référencé cycle)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- Socle FD validé `08`–`10`
+### Git / docs
+- Template cycle + routing guide
+- `32`–`34` fonctionnels vertical slice
+- UX P0 `14`–`16`
+- POC `20`–`31` (contexte)
+- Handoff `origin/sfia/review-handoff` @ `b35683c…`
+- `app/**` lecture seule (routes, shell, tokens)
 
-### SFIA Studio (lecture)
-- README, `04`–`13`, UX P0 `14`–`16`, tech P0 `18`–`19`, POC `20`–`28`, rapports `29`–`31`
-- `app/**` / `harness/**` : lecture seule (non modifiés)
-- PR #226, PR #227, handoff review antérieur
-
-### Acquis retenus
-- FD-CAND-01…08 validés ; états F1–F12
-- AF-Option C : Studio ≠ orchestrateur ; Git vérité ; Morris L0
-- POC Option B : Studio → adaptateur fin → harness → ports
-- Spikes GPT+Cursor e2e prouvés **hors UI Studio** (#226) avec réserves
-- Sync docs #227
-
-### Écarts / besoins nouveaux
-- Manque le parcours **depuis Studio** (cockpit) jusqu’à clôture
-- Besoin de contrat fonctionnel précis gates / allowlist / invalidation GO / reprise
-- Pas de dérive MVP ; pas de rouverture Option B
-
-### Incohérences détectées
-- Aucune bloquante entre docs canoniques `08`–`10` / Option B / AF-C
-- Naming trap rappelé : AF Option C ≠ POC Option C ≠ method Option C (non conflateur)
+### Figma
+- fileKey `lrjA1WEyRpL05vKR8k29LO`
+- Page P0 `0:1` — frames `19:2`, `22:2`, `22:133`, `22:270` — **1440×1024** confirmés
+- P0 **non modifiées** (vérifié post-création)
 
 ---
 
-## 4. Rôle des documents créés
+## 4. Rôle documents 35–37
 
-| Doc | Rôle |
-|-----|------|
-| `32-poc-vertical-slice-functional-design.md` | Contrat fonctionnel (périmètre, acteurs, VS-FR, objets, sécurité, AC) |
-| `33-poc-vertical-slice-flows-and-rules.md` | Parcours 10 étapes, transitions, GPT/gate/Cursor/verdict, N1–N16, VS-BR, VS-AC |
-| `34-poc-vertical-slice-decision-pack.md` | Observations, VS-CAND-01…15, impacts, séquencement, verdict candidat |
-
----
-
-## 5. Sections complètes créées
-
-### Document 32
-métadonnées · contexte/acquis · objectif · périmètre · acteurs · valeur · parcours · états · VS-FR-01…17 · objets · sécurité/RGPD/FinOps/perf/observabilité · AC · hors périmètre · réserves · liens VS-CAND
-
-### Document 33
-parcours nominal détaillé · états/transitions · flux GPT · gate · Cursor · rapport/verdict · N1–N16 · reprise · matrice GO · VS-BR-01…17 · VS-AC-01…12 · preuves · challenge
-
-### Document 34
-synthèse · observations · hypothèses · options · recommandations · VS-CAND-01…15 · impacts/risques/dette · validation Morris proposée · gates suivants · séquencement · verdict candidat
+| Doc | Rôle | Lignes |
+|-----|------|--------|
+| 35 | Contrat UX/UI + contrat visuel Figma extrait | 189 |
+| 36 | Flows, inventaire frames, node IDs, variantes | 172 |
+| 37 | Decision pack VS-UX-CAND + gates | 138 |
 
 ---
 
-## 6. Architecture respectée
+## 5. Figma créé
 
-Option B minimale **inchangée** :
-Morris → Studio cockpit → adaptateur fin sans autorité → harness autonome → GPT/Git/Cursor ports bornés → journal/preuves → vue dérivée Studio.
+| Élément | ID |
+|---------|-----|
+| Page | `UX-B — POC Vertical Slice` `51:2` |
+| VS-UX-01 | `51:3` |
+| VS-UX-02 | `51:139` |
+| VS-UX-03 | `51:277` |
+| VS-UX-04 | `51:415` |
+| VS-UX-05 | `51:540` |
+| VS-UX-06 | `51:678` |
+| VS-UX-07 | `51:816` |
+| VS-UX-08 | `51:954` |
+| VS-UX-09 | `51:1079` |
+| VS-UX-10 | `51:1204` |
+| VAR Loading | `52:2` |
+| VAR Erreur | `52:10` |
+| VAR STOP | `52:18` |
+| VAR GO invalide | `52:26` |
+| NOTE Gate 4 actions | `52:34` |
 
-Pas de rouverture : séparation Studio/harness · Git vérité · Morris L0 · GPT sans décision · Cursor sans arbitrage · pas d’écriture distante · L5 interdit.
+Toutes frames principales : **1440 × 1024**.
+
+Lien : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
+
+### Captures locales (review pack)
+```
+.tmp-sfia-review/figma-screenshots/
+  VS-UX-01.png, VS-UX-02.png, VS-UX-04.png, VS-UX-05.png,
+  VS-UX-08.png, VS-UX-09.png, VS-UX-10.png, VS-UX-VAR-GO-invalide.png
+```
 
 ---
 
-## 7. Fichiers créés / modifiés
+## 6. Contrat visuel (synthèse)
 
-### Créés (non stagés, non commités projet)
-- `projects/sfia-studio/32-poc-vertical-slice-functional-design.md` (328 lignes)
-- `projects/sfia-studio/33-poc-vertical-slice-flows-and-rules.md` (353 lignes)
-- `projects/sfia-studio/34-poc-vertical-slice-decision-pack.md` (202 lignes)
-- `.tmp-sfia-review/chatgpt-review.md` (ce pack)
+Shell Product premium : rail 64 · topbar · canvas · copilote · brand accent.  
+Tokens : blue/purple/green/orange, Inter, 1440×1024.  
+FinOps : compteur + plafond « À définir » + no retry.  
+GO invalidable · STOP prioritaire · verdict candidat · clôture Morris.
 
-### Modifiés
-- **Aucun** fichier existant (`01`–`31`, `app/**`, `harness/**`, method, prompts : intacts)
+---
+
+## 7. Couverture 10 étapes
+
+01 Nouvelle demande → 02 Qualif en cours → 03 Qualif proposée → 04 Gate → 05 Exécution → 06 Rapport → 07 Analyse → 08 Verdict → 09 Décision → 10 Clôture.  
+Variantes : loading, erreur fail-closed, STOP, GO invalide.
 
 ---
 
@@ -128,907 +121,556 @@ Pas de rouverture : séparation Studio/harness · Git vérité · Morris L0 · G
 ?? projects/sfia-studio/32-poc-vertical-slice-functional-design.md
 ?? projects/sfia-studio/33-poc-vertical-slice-flows-and-rules.md
 ?? projects/sfia-studio/34-poc-vertical-slice-decision-pack.md
+?? projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md
+?? projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md
+?? projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
 ```
 
----
+### Preuve aucun app/harness
+Aucune entrée `app/**` ou `harness/**` dans le status. Fichiers existants `01`–`34` non modifiés dans ce cycle UX (32–34 non édités).
 
-## 9. Diff stat
-
+### Diff stat (nouveaux docs)
 | Fichier | Lignes |
 |---------|--------|
-| 32 | 328 |
-| 33 | 353 |
-| 34 | 202 |
-| Total docs | 883 |
+| 35 | 189 |
+| 36 | 172 |
+| 37 | 138 |
 
 ---
 
-## 10. Décisions candidates
+## 9. Fichiers créés / modifiés
 
-VS-CAND-01 … VS-CAND-15 (**aucune validée**). Détail dans document 34 ci-dessous.
+### Créés
+- `projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md`
+- `projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md`
+- `projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md`
+- `.tmp-sfia-review/chatgpt-review.md`
+- `.tmp-sfia-review/figma-screenshots/*.png`
 
----
+### Modifiés (Git existants)
+- **Aucun**
 
-## 11. Contrôles documentaires
-
-| Contrôle | Résultat |
-|----------|----------|
-| Cohérence SFIA v2.6 | OK |
-| Cohérence `08`–`10` | OK (sous-ensemble) |
-| Cohérence AF-Option C | OK |
-| Cohérence POC Option B | OK |
-| Pas de stack implicite | OK |
-| Pas de protocole/API figés | OK |
-| Pas d’API Cursor inventée | OK |
-| Pas de claim MVP/prod | OK |
-| Pas de CI/CD ouvert | OK |
-| Pas de contournement Morris | OK |
-| Pas de seconde vérité | OK |
-| Identifiants uniques VS-* | OK |
-| Liens relatifs | OK |
-| `git diff --check` | OK (fichiers nouveaux) |
-
-### Challenge
-Utile maintenant ? Oui. Preuve BeB conçue ? Oui. Dette ? Documentaire limitée. Trop large ? Non. Plus simple ? Harness-only déjà fait. Dérive MVP ? Bornée. Gate visible ? Oui. Option B ? Oui.
+### Figma
+- Nouvelle page + 10 frames + 5 annotations — P0 intact
 
 ---
 
-## 12. Garde-fous
+## 10. Garde-fous
 
-- Timeout ≠ GO
-- Fail-closed GPT
-- GO invalidé si hash/HEAD/branche/allowlist changent
-- STOP prioritaire
-- Studio vue dérivée
-- Harness autonome conservé
-- Aucun secret affiché
-- Aucune écriture distante
+Option B · Git vérité · Morris L0 · GPT ≠ décision · Cursor sandbox · pas remote Git · timeout ≠ GO · pas secret · plafond À définir · pas retry · pas code · pas live · pas commit projet
 
 ---
 
-## 13. Réserves
+## 11. Réserves
 
-1. Studio UI non livré (conception seule)
-2. Adapter Studio↔harness non spécifié techniquement
-3. Spikes hors UI = preuve technique partielle
-4. Pas de CI SFIA Studio
-5. Non-déterminisme GPT
-6. Conservation logs = candidat non tranché
-7. Documents non versionnés projet (attente GO)
+1. Copy Figma peut nécessiter polish (labels hérités P0 partiels)
+2. Abandon gate = note + confirmation (pas 4e carte) — VS-UX-CAND-10
+3. Variantes = annotations 720×420, pas full screens
+4. Accessibilité = contrat cible, pas audit
+5. VS-UX-10 portfolio : certaines lignes héritées synthèse P0
+6. Docs 35–37 non versionnés projet
+7. Valeur plafond GPT non fixée (volontaire)
 
 ---
 
-## 14. Décisions Morris attendues
+## 12. Options / recommandations
 
-1. Valider / amender / refuser VS-CAND-*
-2. Autoriser ou non versionnement docs 32–34
-3. Sélectionner cycle suivant (UX/UI recommandé si validation)
-4. Ne pas traiter ce pack comme GO live / delivery / merge
+Voir doc 37. Recommandation : validation visuelle Morris → arbitrage Abandon → backlog → delivery sous GO distincts.
 
-### Nouveau GO requis pour
-validation VS-CAND · commit · push · PR · merge · UX/UI · backlog · delivery · app/** · harness · OpenAI live · Cursor live · CI · MVP · industrialisation · L5 · suppression branche
+---
+
+## 13. Décisions Morris attendues
+
+1. Valider VS-UX-CAND-01…12
+2. Valider frames Figma candidates
+3. Arbitrer 4e carte Abandon
+4. GO versionnement docs 35–37 (séparé)
+5. Ne pas traiter comme GO delivery/live/merge
+
+---
+
+## 14. Contrôles accessibilité / FinOps
+
+Accessibilité : tab order, focus, labels, contraste AA cible, STOP clavier, sens non-couleur — documentés dans 35/36.  
+FinOps : compteurs séparés qualif/analyse, plafond À définir, no retry, arrêt avant conso — visibles 02/07.
 
 ---
 
 ## 15. Confirmation
 
-- **Aucun code** produit
-- **Aucun commit projet**
-- **Aucun push projet**
-- **Aucune PR projet**
-- Handoff Git review uniquement vers `sfia/review-handoff` (docs 32–34 **exclues** du handoff)
+Aucun code · aucun live GPT/Cursor · aucun commit/push/PR projet · handoff review uniquement.
 
 ---
 
 ## 16. Verdict
 
-`SFIA STUDIO VERTICAL SLICE FUNCTIONAL DESIGN READY — MORRIS VALIDATION REQUIRED`
+`SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED`
 
 ---
 
-# ANNEXE A — Contenu intégral document 32
+# ANNEXE A — Contenu intégral document 35
 
-# SFIA Studio — Conception fonctionnelle du premier vertical slice POC
+# SFIA Studio — Contrat UX/UI du vertical slice POC
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Projet** | SFIA Studio |
-| **Document** | `32-poc-vertical-slice-functional-design.md` |
-| **Cycle** | 2 — Conception fonctionnelle |
-| **Profil** | Critical |
-| **Typologie** | DOC / CONCEPTION / POC |
-| **Baseline méthode** | SFIA v2.6 |
-| **Branche conception** | `design/sfia-studio-poc-vertical-slice` (**locale uniquement**) |
-| **Base Git** | `origin/main` @ `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| **Statut** | `draft-for-morris-validation` — **non validé** |
-| **Autorité** | Morris (L0) |
-| **Décisions** | Candidates `VS-CAND-*` uniquement — **aucune validée** |
-| **Code / live** | **Aucun** dans ce cycle |
+| **Document** | `35-poc-vertical-slice-ux-ui-contract.md` |
+| **Cycle** | 4 — UX/UI |
+| **Profil** | Standard |
+| **Typologie** | DOC / UX |
+| **Baseline** | SFIA v2.6 |
+| **Branche** | `design/sfia-studio-poc-vertical-slice` (**locale**) |
+| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
+| **Statut** | `draft-for-morris-visual-validation` — **frames candidates, non validées** |
+| **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
+| **Page source** | `UX-B — P0` |
+| **Page créée** | `UX-B — POC Vertical Slice` |
+| **Code / live** | **Aucun** |
 
-> Contrat fonctionnel du **premier vertical slice POC** Studio → GPT → gate Morris → harness → Cursor → GPT verdict → décision Morris.  
-> **Pas** d’architecture technique, stack, API, BDD, Figma, backlog, delivery, MVP validé ni industrialisation.
-
----
-
-## 1. Contexte et acquis
-
-### Acquis retenus
-
-| Source | Acquis |
-|--------|--------|
-| `08`–`10` | Acteurs, 12 états, F1–F12, FR/BR, FD-CAND-01…08 **validés** |
-| AF-Option C | Studio ≠ orchestrateur ; Git = vérité durable ; Morris = L0 |
-| POC Option B | Studio → adaptateur fin → harness autonome → ports GPT/Git/Cursor |
-| `#224`–`#225` | Harness-only + spike Cursor sandbox |
-| `#226` / `30`–`31` | GPT live + e2e GPT→Cursor sandbox **prouvé avec réserves** |
-| `#227` | Sync documentaire post-merge |
-
-### Écart motivant ce document
-
-Les spikes prouvent la faisabilité **hors Studio UI**. Le vertical slice conçoit le **premier parcours réellement utilisable depuis SFIA Studio**, sans rouvrir Option B ni AF-Option C.
-
-### Architecture structurante (immuable ici)
-
-```text
-Morris → SFIA Studio (cockpit, vue dérivée)
-      → adaptateur fin sans autorité
-      → harness autonome (gates, policy, journal, preuves)
-      → ports GPT / Git / Cursor bornés
-      → restitution dérivée dans Studio
-```
-
-Toute divergence → `STOP — ARCHITECTURE DECISION REQUIRED`.
+> Contrat UX/UI du parcours gouverné en **dix** étapes. Continuité visuelle Product premium (P0).  
+> Les frames VS-UX sont **candidates** jusqu’à GO Morris. Ne pas modifier les frames P0.
 
 ---
 
-## 2. Objectif
+## 1. Décisions Morris appliquées (amont)
 
-Permettre à Morris, **depuis SFIA Studio**, de :
+| ID | Statut appliqué |
+|----|-----------------|
+| VS-CAND-01 … VS-CAND-13 | **VALIDÉES** |
+| VS-CAND-15 | **VALIDÉE** |
+| VS-CAND-14 | **VALIDÉE AVEC RÉSERVE** — plafond GPT obligatoire, valeur numérique **À définir** (non inventée) |
 
-1. saisir une demande de démonstration ;
-2. obtenir une qualification GPT réelle contrôlée ;
-3. autoriser (ou refuser) un gate lié au contrat et au HEAD ;
-4. déclencher une exécution Cursor réelle dans une sandbox contrôlée ;
-5. consulter le rapport et les preuves ;
-6. obtenir un verdict GPT candidat ;
-7. décider de la clôture, correction, relance ou abandon.
-
-### Valeur démontrée
-
-Faisabilité du **BeB gouverné** bout-en-bout sous autorité Morris, sans faire de Studio une seconde source de vérité.
+Architecture Option B, Git = vérité, Morris L0, GPT ≠ décision, Cursor sandbox borné : **maintenus**.
 
 ---
 
-## 3. Périmètre
+## 2. Contrat visuel Figma extrait
 
-### Dans le périmètre (POC vertical slice)
+| Élément | Valeur observée / retenue |
+|---------|---------------------------|
+| **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
+| **page source** | `UX-B — P0` (`0:1`) |
+| **frames sources** | P0-00C `19:2` · P0-01C `22:2` · P0-02C `22:133` · P0-03C `22:270` |
+| **dimensions** | **1440 × 1024** (confirmé MCP sur les quatre frames) |
+| **shell général** | Product premium — fond clair `#f6f9ff` / `#f6f9fe`, ink `#141c30` |
+| **rail utilitaire** | ~64 px ; brand « S » ; icônes nav ; avatar / pill bas ; **aucun GO** |
+| **topbar** | Eyebrow `SFIA STUDIO` ; titre workspace ; pills statut ; onglets ; CTA global non destructif |
+| **canvas** | Hero + zone métier (formulaire / stepper / evidence / options) |
+| **panneau copilote** | ~334–340 px ; résumé + suggestions **≠ décision** ; composer |
+| **grille / colonnes** | Flush : canvas ~972 px + copilote 340 px ; Floating (00C) : workspace 968 + copilote 334 |
+| **spacings clés** | 8 / 12 / 16 / 20 / 24 / 28 px ; rayons 12 / 16 / 20 / 24 |
+| **typographies** | Inter (app) ; eyebrow meta 11–12 px ; titres hero ~24–29 px ; body 15–16 px |
+| **couleurs / tokens** | Blue `#3863f5` · Purple `#7a4df5` · Green `#21c28a` · Orange `#faa629` · Pink `#f25794` · Navy heroes · Brand accent gradient |
+| **cartes** | Surfaces blanches, ombres soft, accent bar métriques |
+| **badges / statuts** | Pills (draft, ready, candidat, risque, Git, mode) — sens **aussi** textuel |
+| **CTA** | Primaire plein ; secondaire outline ; STOP / danger distinct |
+| **styles de gates** | Options décision + dossier preuves ; confirmation explicite |
+| **preuves** | Listes evidence / inspector / trust blocks |
+| **loading / erreur / STOP / vide** | P0 partiel (STOP box) ; **à étendre** sur VS (documenté ci-dessous) |
+| **écarts connus** | App P0 = 4 écrans ; slice = 10 ; loading/error absents en app |
+| **incertitudes** | Tokens Figma variables vides côté MCP — hex issus design context / `tokens.css` |
+| **impacts VS** | Cloner shell P0 ; adapter canvas par étape ; ne pas toucher `19:2`/`22:*` P0 |
 
-| Élément | Portée |
-|---------|--------|
-| Scénario démo | Créer un Markdown de démonstration dans une sandbox autorisée |
-| Qualification GPT réelle | Proposition structurée visible avant gate |
-| Gate Morris | GO / NO-GO / correction / abandon |
-| Harness | Revalidation déterministe GO + contrat + allowlist |
-| Cursor réel | Sandbox locale uniquement, après GO |
-| Analyse GPT | Verdict candidat post-exécution |
-| Studio | Saisie, affichage, décisions ; **vue dérivée** |
-| Mode dégradé | Harness autonome sans Studio toujours possible |
+### Limites de lecture MCP
 
-### Hors périmètre
-
-| Élément | Statut |
-|---------|--------|
-| UI/Figma détaillée | Hors cycle |
-| Choix stack / API / BDD | Interdits |
-| Écriture Git distante (commit/push/PR/merge) | Interdite dans le slice |
-| L5 global | Interdit |
-| MVP produit validé | Non |
-| Industrialisation / CI SFIA Studio | Non |
-| Multi-cycle / multi-projet | Non |
-| Modification `app/**` / harness (ce cycle) | Conception seule |
-
-### Niveaux (distinction obligatoire)
-
-| Niveau | Portée |
-|--------|--------|
-| **POC vertical slice** | Faisabilité du parcours complet gouverné |
-| **MVP candidat** | Première valeur métier future (non validé ici) |
-| **Produit cible** | Couverture durable multi-cycle |
-| **Industrialisation** | Exploitation sécurisée maintenable |
-
-Le vertical slice **n’est pas** un MVP validé.
+- `get_metadata` + `get_screenshot` : structure et dimensions confirmées.
+- Variables Figma : historiquement vides ; tokens app `styles/tokens.css` comme relais documentaire.
+- Textes exacts : partiellement masqués en metadata (noms de layers) — copy VS renseignée sur clones.
 
 ---
 
-## 4. Acteurs et responsabilités
+## 3. Objectif UX
 
-| Acteur | Responsabilité | Interdit |
-|--------|----------------|----------|
-| **Morris (L0)** | Saisie, revue, GO/NO-GO/correction/abandon, clôture | Déléguer un GO |
-| **SFIA Studio** | Présenter, collecter, afficher états dérivés | Créer une autorité ; inventer un GO |
-| **Adaptateur fin** | Transmettre sans élargir | Arbitrer ; assouplir |
-| **Harness** | Appliquer policy, revalider gate/contrat, journaliser, preuves | Décider un GO |
-| **GPT** | Qualifier / proposer / analyser | Décider ; clôturer ; élargir périmètre |
-| **Cursor** | Exécuter dans le contrat | Arbitrer ; sortir sandbox |
-| **Git** | Vérité durable / Truth Check | — |
+Permettre à Morris de **voir et contrôler** le parcours Studio → GPT → gate → harness/Cursor → rapport → GPT verdict → décision → clôture, sans faire de Studio une source de vérité et sans auto-GO.
 
 ---
 
-## 5. Scénario de référence
+## 4. Matrice parcours → frame → autorité
 
-**Intention utilisateur (candidate VS-CAND-01) :**
-
-> Créer un document Markdown de démonstration dans un dossier sandbox autorisé, comprenant un titre, une synthèse de la demande et une checklist de validation.
-
-Le document n’est qu’un **support de preuve**, pas une fonctionnalité produit finale.
-
-### Préconditions
-
-- Projet SFIA Studio connu ;
-- Git accessible en lecture ;
-- sandbox locale définie et isolée ;
-- secrets non affichés ;
-- flags live conditionnels (hors conception) ;
-- Morris identifié comme autorité.
-
-### Déclencheur
-
-Morris ouvre « Nouvelle demande » dans SFIA Studio et saisit l’intention.
+| Étape | Frame | Shell source | Autorité action | Preuve UI |
+|-------|-------|--------------|-----------------|-----------|
+| 1 Nouvelle demande | VS-UX-01 | P0-00C floating | Morris saisit | StudioRequest |
+| 2 Qualification en cours | VS-UX-02 | P0-02C flush | Système GPT ; STOP Morris | event qualif |
+| 3 Qualification proposée | VS-UX-03 | P0-02C | Morris revue | QualificationCandidate |
+| 4 Gate Morris | VS-UX-04 | P0-03C | **Morris seul** | MorrisGateDecision |
+| 5 Exécution | VS-UX-05 | P0-02C | Harness/Cursor ; STOP Morris | ExecutionEvents |
+| 6 Rapport | VS-UX-06 | P0-02C | Morris lit | CursorExecutionReport |
+| 7 Analyse GPT | VS-UX-07 | P0-02C | GPT analyse ; STOP conso | event analyse |
+| 8 Verdict proposé | VS-UX-08 | P0-03C | GPT candidat | GptVerdictCandidate |
+| 9 Décision Morris | VS-UX-09 | P0-03C | **Morris seul** | MorrisFinalDecision |
+| 10 Clôture | VS-UX-10 | P0-01C | Affichage dérivé | CycleSummary |
 
 ---
 
-## 6. Parcours utilisateur (vue d’ensemble)
-
-Dix étapes fonctionnelles (détail dans `33`) :
-
-1. Nouvelle demande  
-2. Qualification en cours  
-3. Qualification proposée  
-4. Gate Morris  
-5. Exécution  
-6. Rapport disponible  
-7. Analyse GPT  
-8. Verdict proposé  
-9. Décision Morris  
-10. Clôture  
-
----
-
-## 7. Sous-ensemble d’états (réutilisation `08`)
-
-États retenus pour le slice :
-
-`intention_capturée` · `qualification_en_cours` · `qualification_prête` · `attente_gate_morris` · `autorisé` · `en_exécution` · `stoppé` · `rapport_disponible` · `revue_en_cours` · `décision_requise` · `clôturé` · `abandonné`
-
-Le timeout **ne vaut jamais** GO.
-
-Mapping harness (informatif, non conflateur) : `AUTHORIZED` → `EXECUTING` → `PROOF_READY` → `CLOSED` — états techniques parallèles, bridgés par Git/preuves.
-
----
-
-## 8. Exigences fonctionnelles `VS-FR-*`
+## 5. Exigences UX `VS-UX-FR-*`
 
 | ID | Exigence |
 |----|----------|
-| VS-FR-01 | Studio permet de saisir une demande de slice et d’afficher un `requestId` |
-| VS-FR-02 | Une qualification GPT incomplète ou invalide est rejetée fail-closed |
-| VS-FR-03 | La qualification est entièrement lisible avant tout GO |
-| VS-FR-04 | Morris peut GO, NO-GO, demander correction ou abandonner |
-| VS-FR-05 | Un GO est lié à requestId, contractId, contractHash, branche, HEAD, périmètre, allowlist, horodatage, autorité |
-| VS-FR-06 | Tout changement de contrat, branche, HEAD ou périmètre invalide le GO |
-| VS-FR-07 | Le harness revalide gate + contrat avant Cursor |
-| VS-FR-08 | Cursor n’écrit que dans la sandbox allowlistée |
-| VS-FR-09 | Aucune écriture Git distante dans le slice |
-| VS-FR-10 | STOP Morris est prioritaire et journalisé |
-| VS-FR-11 | Le rapport/preuves sont prérequis à l’analyse GPT |
-| VS-FR-12 | Le verdict GPT est candidat ; Morris clôture |
-| VS-FR-13 | Studio affiche des états dérivés ; Git/preuves priment |
-| VS-FR-14 | Le harness reste utilisable sans Studio |
-| VS-FR-15 | Aucun secret n’est affiché dans Studio ni dans les preuves |
-| VS-FR-16 | Les appels GPT consommés sont visibles (FinOps) sans inventer un coût monétaire |
-| VS-FR-17 | Un review pack incomplet bloque la clôture positive |
+| VS-UX-FR-01 | Dix frames distinctes 1440×1024 ; pas de fusion silencieuse |
+| VS-UX-FR-02 | Shell P0 conservé (rail / topbar / canvas / copilote) |
+| VS-UX-FR-03 | Copilote jamais présenté comme décision Morris |
+| VS-UX-FR-04 | GO visible uniquement sur VS-UX-04 ; ancré hash/HEAD/branche/allowlist |
+| VS-UX-FR-05 | Invalidation GO représentée (bandeau / état invalide) |
+| VS-UX-FR-06 | STOP prioritaire et accessible clavier |
+| VS-UX-FR-07 | FinOps : appels GPT séparés (qualif ≠ analyse) ; plafond « À définir » ; pas de retry auto |
+| VS-UX-FR-08 | Verdict GPT étiqueté **candidat** |
+| VS-UX-FR-09 | Clôture uniquement via décision Morris (VS-UX-09→10) |
+| VS-UX-FR-10 | Aucun secret / token / PII réelle dans les maquettes |
+| VS-UX-FR-11 | Aucune écriture Git distante groupée dans les CTA |
+| VS-UX-FR-12 | Source de statut (Git / harness / dérivé Studio) lisible |
+| VS-UX-FR-13 | Fail-closed GPT visible (erreur + pas de suite) |
+| VS-UX-FR-14 | Frames P0 non modifiées ; VS non « baseline validée » |
 
 ---
 
-## 9. Objets fonctionnels (sans schéma BDD)
+## 6. États transverses (contrat)
 
-| Objet | Finalité | Propriétaire |
-|-------|----------|--------------|
-| StudioRequest | Demande saisie | Morris / Studio |
-| QualificationCandidate | Proposition GPT pré-gate | GPT (propose) / Morris (accepte ou corrige) |
-| ExecutionContract | Contrat borné d’exécution | Harness + Morris (via GO) |
-| MorrisGateDecision | GO/NO-GO/correction/abandon | Morris |
-| ExecutionStatus | État d’exécution dérivé | Harness → Studio |
-| ExecutionEvent | Événement journalisé | Harness |
-| CursorExecutionReport | Rapport d’exécution | Cursor/Harness |
-| ReviewPackReference | Référence au pack de preuves | Harness |
-| GptVerdictCandidate | Verdict candidat post-run | GPT |
-| MorrisFinalDecision | Clôture / correction / relance / abandon | Morris |
-| CycleSummary | Synthèse de cycle | Studio (dérivée) |
-
-Règles communes : champs obligatoires, source, sensibilité (pas de secret), cohérence requestId/correlationId/contractId, preuve Git ou runtime.
-
-Détail des champs : voir `33` § données et `34` impacts.
+| État | Représentation | Frames concernées |
+|------|----------------|-------------------|
+| Loading | Phase active + spinner textuel + compteur appel | 02, 05, 07 |
+| Erreur fail-closed | Banner erreur + CTA correction/abandon | 02, 07 (+ autres) |
+| STOP | CTA danger prioritaire + journal | 02, 05, 07 |
+| GO invalide | Banner « GO invalide — HEAD/contrat changé » | 04, 05 |
+| Vide / incomplet | Message « rapport/pack incomplet » | 06, 08 |
+| Candidat | Badge « Candidat GPT » | 03, 08 |
 
 ---
 
-## 10. Sécurité / RGPD / FinOps / performance / observabilité
+## 7. Accessibilité (contrat cible — pas un audit)
 
-### Sécurité
+Pour **chaque** frame VS-UX :
 
-- Fail closed ; moindre privilège ; allowlist fichiers/actions ; sandbox ; aucune action distante ; STOP prioritaire ; gate revalidé ; secrets jamais affichés.
+| Critère | Contrat |
+|---------|---------|
+| Ordre de tabulation | Rail → topbar → canvas → actions → copilote |
+| Focus visible | Outline blue `#3863f5` (app) |
+| Labels explicites | Inputs / CTA avec nom accessible |
+| CTA | Nom = verbe + objet (ex. « Qualifier la demande ») |
+| Couleur | Statuts aussi textuels / icônes |
+| Contraste | Cible WCAG 2.2 AA |
+| Annonce états | Live region pour loading / erreur / STOP |
+| Erreurs | Associées au champ / phase |
+| Gates | Conséquences textuelles sous chaque option |
+| STOP | Toujours atteignable au clavier dès phases 02/05/07 |
 
-### RGPD (minimal POC)
-
-- Demande de test **sans** donnée personnelle réelle ;
-- journaux sans secret ;
-- minimisation ;
-- masquage chemins/identités si nécessaire ;
-- durée de conservation = **VS-CAND** à arbitrer (non fixée).
-
-### FinOps
-
-- Appels GPT visibles ;
-- plafond d’appels candidat (à valider) ;
-- **aucun retry automatique** ;
-- coût monétaire **non inventé** ;
-- arrêt possible avant nouvelle consommation.
-
-### Performance (confort POC, pas SLA industriel)
-
-| Phase | Observation |
-|-------|-------------|
-| Qualification GPT | Mesurée séparément |
-| Attente Morris | Humaine, non SLA |
-| Exécution Cursor | Mesurée séparément |
-| Analyse GPT | Mesurée séparément |
-
-Seuils de confort = candidats (ex. timeout Cursor POC déjà observé ~120 s côté spike — **non** imposé comme SLA).
-
-### Observabilité
-
-requestId · correlationId · contractId · eventId · timestamps + fuseau · étapes reconstructibles · statut source · erreur explicite · **aucun faux succès**.
+**Ne pas** prétendre qu’un audit complet a été réalisé.
 
 ---
 
-## 11. Critères d’acceptation (BeB)
+## 8. FinOps UI
 
-### Critère central
-
-Depuis SFIA Studio, Morris doit pouvoir saisir une demande, contrôler la qualification GPT, autoriser l’exécution, voir Cursor produire le résultat borné, puis obtenir un verdict GPT exploitable **sans** manipulation manuelle du harness hors actions de gate.
-
-### Succès obligatoire
-
-- Parcours nominal 1→10 complété ;
-- GO lié hash+HEAD revalidé ;
-- sandbox respectée ;
-- aucune écriture distante ;
-- aucun secret exposé ;
-- verdict GPT accepté par validateur fonctionnel ;
-- clôture Morris enregistrée ;
-- Studio = vue dérivée ;
-- harness autonome toujours possible.
-
-### Succès avec réserve
-
-- Non-déterminisme GPT documenté ;
-- journalisation commandes Cursor non exhaustive (contrôle post-facto) ;
-- absence de CI SFIA Studio.
-
-### Échec de faisabilité
-
-- Impossible de lier GO au contrat/HEAD ;
-- Studio contourne harness ;
-- Cursor hors sandbox sans détection ;
-- GPT clôture sans Morris.
-
-### Abandon
-
-- NO-GO / abandon Morris à tout gate ;
-- STOP avec reprise ou abandon explicite.
-
-Critères détaillés `VS-AC-*` : voir `33`.
+| Élément | Affichage |
+|---------|-----------|
+| Appels consommés | Compteur `n / plafond` |
+| Plafond | **À définir** (obligatoire, non numérique) |
+| Séparation | Qualification vs Analyse |
+| Retry | Mention explicite « Aucun retry automatique » |
+| Coût € | **Non affiché** (interdit d’inventer) |
+| Arrêt | CTA avant nouvel appel |
 
 ---
 
-## 12. Réserves
+## 9. Sécurité & observabilité UI
 
-1. Pas de CI GitHub Actions pour `projects/sfia-studio/**`  
-2. Spike expérimental / scénario unique  
-3. Commandes internes Cursor non journalisées une à une  
-4. Réseau Cursor Agent non mesuré finement  
-5. S-GPT-09 encore en `json_object` (verdict en `json_schema` strict)  
-6. Non-déterminisme GPT  
-7. Studio UI non livré (conception seule)  
-8. Adapter Studio↔harness non spécifié techniquement  
+Afficher si pertinent : `requestId`, `correlationId`, `contractId`, `contractHash`, branche, HEAD, sandbox, allowlist, horodatage+fuseau, source statut, preuve, erreur, invalidation GO, STOP.
+
+Ne jamais afficher : token, clé API, secret, chemin utilisateur sensible non masqué, PII réelle.
 
 ---
 
-## 13. Décisions candidates
+## 10. Continuité app (lecture seule)
 
-Voir pack `34` — `VS-CAND-01` … `VS-CAND-12` (**non validées**).
-
----
-
-## 14. Documents liés
-
-- [`33-poc-vertical-slice-flows-and-rules.md`](./33-poc-vertical-slice-flows-and-rules.md)  
-- [`34-poc-vertical-slice-decision-pack.md`](./34-poc-vertical-slice-decision-pack.md)  
-- Socle : [`08`](./08-functional-design.md) · [`09`](./09-functional-flows-and-rules.md) · [`10`](./10-functional-decision-pack.md)  
-- POC : [`23`](./23-poc-orchestration-architecture.md)–[`28`](./28-poc-orchestration-delivery-gate-pack.md) · [`29`](./29-poc-cursor-real-spike-report.md)–[`31`](./31-poc-gpt-cursor-e2e-spike-report.md)
+Routes actuelles : `/nouvelle-demande`, `/synthese`, `/cycle-actif`, `/decision`.  
+Shell : `StudioShell` + tokens `styles/tokens.css`.  
+**Limite :** l’app ne couvre pas encore les 10 étapes — les frames VS sont le contrat pour un futur delivery (hors cycle).
 
 ---
 
-# ANNEXE B — Contenu intégral document 33
+## 11. Hors périmètre
 
-# SFIA Studio — Parcours, états et règles du vertical slice POC
+Code · modif `app/**` / harness · API/BDD · live GPT/Cursor · responsive mobile · claim MVP/prod · modif docs `01`–`34` · modif frames P0 · promotion VS comme baseline.
+
+---
+
+## 12. Documents liés
+
+- [`36-poc-vertical-slice-ux-ui-flows-and-frames.md`](./36-poc-vertical-slice-ux-ui-flows-and-frames.md)  
+- [`37-poc-vertical-slice-ux-ui-decision-pack.md`](./37-poc-vertical-slice-ux-ui-decision-pack.md)  
+- Fonctionnel : [`32`](./32-poc-vertical-slice-functional-design.md)–[`34`](./34-poc-vertical-slice-decision-pack.md)  
+- P0 : [`14`](./14-ux-ui-contract.md)–[`16`](./16-ux-ui-decision-pack.md)
+
+
+---
+
+# ANNEXE B — Contenu intégral document 36
+
+# SFIA Studio — Flows, frames et inventaire Figma (vertical slice POC)
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Document** | `33-poc-vertical-slice-flows-and-rules.md` |
-| **Complète** | [`32-poc-vertical-slice-functional-design.md`](./32-poc-vertical-slice-functional-design.md) |
-| **Statut** | `draft-for-morris-validation` — **non validé** |
-| **Baseline** | SFIA v2.6 · socle FD `08`–`10` · POC Option B · AF-Option C |
+| **Document** | `36-poc-vertical-slice-ux-ui-flows-and-frames.md` |
+| **Cycle** | 4 — UX/UI |
+| **Profil** | Standard |
+| **Statut** | `draft-for-morris-visual-validation` — **non validé** |
+| **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
+| **Page** | `UX-B — POC Vertical Slice` (`51:2`) |
+| **Companion** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 | **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 
-> Parcours détaillés, transitions, règles `VS-BR-*`, scénarios négatifs et preuves. **Pas** d’API technique.
+> Inventaire des frames candidates, node IDs, correspondance aux dix étapes, états, interactions et écarts P0.  
+> Les frames **ne sont pas** une baseline validée.
 
 ---
 
-## 1. Parcours nominal — dix étapes
+## 1. Pages Figma
 
-### Étape 1 — Nouvelle demande
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Capturer l’intention de démonstration |
-| Visible | Champ intention ; projet ; requestId généré ; rappel sandbox/no remote |
-| Actions Morris | Saisir ; soumettre ; abandonner |
-| Statut | `intention_capturée` |
-| Préconditions | Studio accessible ; projet connu |
-| Sortie | Soumission → étape 2 |
-| Preuve | StudioRequest horodatée |
-| Critique | Soumettre |
-
-### Étape 2 — Qualification en cours
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Lancer qualification GPT réelle |
-| Visible | Spinner/état ; requestId ; « aucun GO pendant cette phase » |
-| Actions | Attendre ; STOP si disponible côté plateforme |
-| Statut | `qualification_en_cours` |
-| Preuve | event `qualification_started` |
-| Erreurs | GPT indisponible → scénario N1/N9 |
-
-### Étape 3 — Qualification proposée
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Présenter QualificationCandidate complète |
-| Visible | Tous champs obligatoires §4 ; cycle ; profil ; blocs ; allowlist ; stops ; réserves |
-| Actions | Continuer vers gate ; demander correction ; abandonner |
-| Statut | `qualification_prête` → `attente_gate_morris` |
-| Non modifiable sans re-qualification | cycle/profil/allowlist/stops proposés (correction = nouvelle passe) |
-| Preuve | QualificationCandidate validée fail-closed |
-
-### Étape 4 — Gate Morris
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Décision d’autorisation d’exécution |
-| Visible | Dossier gate §5 ; Truth Check résumé ; contractHash ; HEAD ; branche |
-| Actions | **GO** · **NO-GO** · **Demander correction** · **Abandonner** |
-| Statut | `attente_gate_morris` → `autorisé` / retour / `abandonné` |
-| Preuve | MorrisGateDecision ancrée |
-| Critique | GO |
-
-### Étape 5 — Exécution
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Cursor réel dans sandbox après revalidation harness |
-| Visible | workspace ; HEAD ; contrat ; allowlist ; début ; durée ; phase ; STOP |
-| Actions | STOP Morris |
-| Statut | `autorisé` → `en_exécution` |
-| Interdit | Fausse progression inventée |
-| Preuve | ExecutionEvents |
-
-### Étape 6 — Rapport disponible
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Afficher résultat d’exécution |
-| Visible | statut ; fichiers touchés ; aperçu sanitisé ; erreurs ; refs preuves/review pack |
-| Statut | `rapport_disponible` |
-| Preuve | CursorExecutionReport + ReviewPackReference |
-
-### Étape 7 — Analyse GPT
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Lancer analyse GPT du paquet de preuves |
-| Visible | état analyse ; compteur appels |
-| Statut | `revue_en_cours` |
-| Précondition | Rapport + pack complets |
-
-### Étape 8 — Verdict proposé
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Afficher GptVerdictCandidate |
-| Visible | prouvé / non prouvé / écarts / risques / réserves / décisions requises / claims interdits / verdict proposé |
-| Statut | `décision_requise` |
-| Interdit | Bouton « clôturer automatiquement » |
-
-### Étape 9 — Décision Morris
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Décision finale humaine |
-| Actions | Accepter et clôturer · Demander correction · Relancer sous nouveau GO · Abandonner |
-| Preuve | MorrisFinalDecision |
-
-### Étape 10 — Clôture
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Figurer CycleSummary dérivé |
-| Statut | `clôturé` ou `abandonné` |
-| Visible | résumé ; liens preuves ; réserves ; « non production-ready » |
+| Page | node ID | Rôle |
+|------|---------|------|
+| `UX-B — P0` | `0:1` | Référence validée — **non modifiée** |
+| `UX-B — POC Vertical Slice` | `51:2` | Frames VS candidates (ce cycle) |
 
 ---
 
-## 2. États et transitions
+## 2. Frames sources P0 (lues, non modifiées)
 
-| De | Vers | Déclencheur | Gate | Échec |
-|----|------|-------------|------|-------|
-| — | `intention_capturée` | Saisie Morris | non | — |
-| `intention_capturée` | `qualification_en_cours` | Soumettre | non | validation locale |
-| `qualification_en_cours` | `qualification_prête` | GPT OK + validateur | non | → correction / abandon |
-| `qualification_prête` | `attente_gate_morris` | Morris « continuer » | non | — |
-| `attente_gate_morris` | `autorisé` | **GO** | oui | — |
-| `attente_gate_morris` | `qualification_en_cours` | Correction | non | — |
-| `attente_gate_morris` | `abandonné` | NO-GO / Abandon | oui | — |
-| `autorisé` | `en_exécution` | Harness revalide + spawn | GO revalidé | → `stoppé` / erreur |
-| `en_exécution` | `stoppé` | STOP / erreur / timeout | — | reprise ou abandon |
-| `en_exécution` | `rapport_disponible` | Fin exécution | — | rapport incomplet |
-| `rapport_disponible` | `revue_en_cours` | Lancer analyse | non | pack incomplet |
-| `revue_en_cours` | `décision_requise` | Verdict GPT valide | non | verdict invalide |
-| `décision_requise` | `clôturé` | Accepter | décision finale | — |
-| `décision_requise` | `qualification_en_cours` | Correction / relance | **nouveau GO** si re-exec | — |
-| `décision_requise` | `abandonné` | Abandon | oui | — |
-| `stoppé` | `attente_gate_morris` / `abandonné` | Reprise / abandon | **nouveau GO** si re-exec | — |
-
-**Règle :** timeout ≠ GO. **Règle :** GO invalide si contractHash, HEAD, branche ou allowlist changent.
+| Frame | node ID | Dimensions |
+|-------|---------|------------|
+| P0-00C — Nouvelle demande | `19:2` | 1440 × 1024 |
+| P0-01C — Vue synthèse | `22:2` | 1440 × 1024 |
+| P0-02C — Cycle actif | `22:133` | 1440 × 1024 |
+| P0-03C — Décision Morris | `22:270` | 1440 × 1024 |
 
 ---
 
-## 3. Contrat fonctionnel — Qualification GPT
+## 3. Inventaire frames vertical slice
 
-### Champs obligatoires (QualificationCandidate)
+| Frame | node ID | Dimensions | Clone source | Étape |
+|-------|---------|------------|--------------|-------|
+| VS-UX-01 — Nouvelle demande | `51:3` | 1440 × 1024 | P0-00C | 1 |
+| VS-UX-02 — Qualification en cours | `51:139` | 1440 × 1024 | P0-02C | 2 |
+| VS-UX-03 — Qualification proposée | `51:277` | 1440 × 1024 | P0-02C | 3 |
+| VS-UX-04 — Gate Morris | `51:415` | 1440 × 1024 | P0-03C | 4 |
+| VS-UX-05 — Exécution | `51:540` | 1440 × 1024 | P0-02C | 5 |
+| VS-UX-06 — Rapport disponible | `51:678` | 1440 × 1024 | P0-02C | 6 |
+| VS-UX-07 — Analyse GPT | `51:816` | 1440 × 1024 | P0-02C | 7 |
+| VS-UX-08 — Verdict proposé | `51:954` | 1440 × 1024 | P0-03C | 8 |
+| VS-UX-09 — Décision Morris | `51:1079` | 1440 × 1024 | P0-03C | 9 |
+| VS-UX-10 — Clôture | `51:1204` | 1440 × 1024 | P0-01C | 10 |
 
-| Champ | Visible Morris | Modifiable sans re-qualif |
-|-------|----------------|---------------------------|
-| requestId / correlationId | oui | non |
-| objectif reformulé | oui | non (correction = re-qualif) |
-| hypothèses / observations | oui | non |
-| cycle SFIA proposé | oui | non |
-| profil + justification | oui | non |
-| blocs activés / désactivés | oui | non |
-| sources nécessaires | oui | non |
-| gates Morris | oui | non |
-| périmètre / hors périmètre | oui | non |
-| fichiers autorisés / interdits | oui | non |
-| stop conditions | oui | non |
-| critères succès / échec | oui | non |
-| réserves | oui | non |
-| décisions requises | oui | non |
-| verdict attendu (indicatif) | oui | non |
-| schemaVersion / métadonnées modèle | oui (expérimental) | non |
-
-### Règles
-
-- Sortie incomplète → **rejet fail-closed** (VS-BR-01).  
-- Ambiguïté → correction ou abandon, **pas** de fallback permissif (VS-BR-02).  
-- Relance qualification = nouvelle consommation FinOps, jamais silencieuse (VS-BR-03).  
-- GPT recommande ; Morris décide (VS-BR-04).
+Lien fichier : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
 
 ---
 
-## 4. Gate Morris — dossier de décision
+## 4. Variantes / annotations
 
-### Actions
-
-`GO` · `NO-GO` · `Demander une correction` · `Abandonner`
-
-### Ancrage obligatoire du GO
-
-requestId · contractId · contractHash · branche · HEAD · périmètre · fichiers autorisés · actions autorisées · date/heure/fuseau · identité autorité · validité éventuelle (candidat)
-
-### Messages utilisateur (fonctionnels)
-
-| Situation | Message type |
-|-----------|--------------|
-| HEAD changé | « Le HEAD a changé depuis la qualification. Le GO précédent est invalide. Nouvelle qualification ou Truth Check requis. » |
-| Contrat changé | « Le contrat a changé. Relancez la qualification puis un nouveau gate. » |
-| Fichier hors allowlist | « Un fichier hors allowlist a été détecté. Exécution refusée. » |
-| Action interdite | « Action interdite par le contrat. Aucune exécution. » |
-| Rapport incomplet | « Rapport ou preuves incomplets. Analyse GPT bloquée. » |
-| Cursor échoue | « Exécution Cursor en échec. Consultez le rapport. Décision Morris requise. » |
-| GPT invalide | « Sortie GPT rejetée (fail-closed). Correction ou abandon. » |
+| Variante | node ID | Dimensions | Rôle | Frames couvertes |
+|----------|---------|------------|------|------------------|
+| VS-UX-VAR — Loading GPT | `52:2` | 720 × 420 | Phase active + FinOps | 02, 07 (+05) |
+| VS-UX-VAR — Erreur fail-closed | `52:10` | 720 × 420 | Rejet GPT | 02, 07 |
+| VS-UX-VAR — STOP Morris | `52:18` | 720 × 420 | STOP prioritaire | 02, 05, 07 |
+| VS-UX-VAR — GO invalide | `52:26` | 720 × 420 | Invalidation ancrage | 04, 05 |
+| VS-UX-NOTE — Gate 4 actions | `52:34` | 720 × 420 | Mapping Abandon | 04 |
 
 ---
 
-## 5. Exécution Cursor (fonctionnel)
+## 5. Contenu fonctionnel par frame
 
-### Avant
+### VS-UX-01 — Nouvelle demande
+- Intention Markdown sandbox ; requestId candidat ; repo/branche/HEAD ; sandbox.
+- CTA : **Qualifier la demande** — aucun GO.
+- Copilote = recommandation.
 
-Afficher : workspace sandbox · branche · HEAD · objectif · contrat · allowlist · commandes/actions interdites · gate actif · contractHash.
+### VS-UX-02 — Qualification en cours
+- Phase GPT qualification ; compteur `n / À définir` ; aucun retry auto ; STOP ; erreur fail-closed (variante).
 
-### Pendant
+### VS-UX-03 — Qualification proposée
+- Cycle, profil, périmètre, allowlist/denylist, risques, contrat, contractHash, source GPT.
+- CTA : Ouvrir gate Morris / Demander correction — **pas** d’auto-GO.
 
-État `en_exécution` · début · durée · phase courante (si connue) · STOP · événements · **aucune** barre de progression inventée.
+### VS-UX-04 — Gate Morris
+- Dossier ancré : requestId, contractId, contractHash, branche, HEAD, allowlist, autorité, horodatage.
+- Actions : GO · NO-GO · CORRECTION · ABANDON (3 cartes + note Abandon).
+- Mécanisme invalidation GO (bandeau / variante).
 
-### Après
+### VS-UX-05 — Exécution
+- Harness + Cursor sandbox ; fichier autorisé ; journal dérivé ; STOP ; pas de remote ; pas de commandes inventées.
 
-Statut · fichiers créés/modifiés (sandbox) · actions observables · erreurs · rapport · review pack · preuves · écarts au contrat · confirmation aucune écriture distante.
+### VS-UX-06 — Rapport disponible
+- Markdown produit ; rapport ; allowlist ; remote=0 ; preuves ; réserves ; CTA analyse GPT.
 
-**Ne pas** inventer une API Cursor : mécanisme = port harness existant / CLI agent observé dans `29`/`31`.
+### VS-UX-07 — Analyse GPT
+- Appel distinct ; compteur ; plafond À définir ; aucun retry ; fail-closed ; arrêt avant conso.
 
----
+### VS-UX-08 — Verdict proposé
+- Badge **candidat** ; preuves ; réserves ; incohérences ; CTA décision Morris.
 
-## 6. Rapport et verdict GPT
+### VS-UX-09 — Décision Morris
+- Clôturer · Corriger · Relancer (nouveau GO) · Abandonner ; conséquences ; pas d’actions Git groupées.
 
-### Paquet minimal pour analyse
-
-demande · qualification · contrat · décision Morris · Truth Check · journal · fichiers touchés · contenu utile sanitisé · tests éventuels · erreurs · stop · réserves · rapport Cursor · review pack.
-
-### GptVerdictCandidate
-
-observations · prouvé · non prouvé · conformité contrat · écarts · risques · réserves · recommandations · décisions Morris requises · claims interdits détectés · verdict proposé.
-
-### Décisions Morris post-verdict
-
-Accepter et clôturer · Demander correction · Relancer sous **nouveau GO** · Abandonner.
-
-GPT **ne clôture pas**.
-
----
-
-## 7. Scénarios négatifs (N1–N16)
-
-| ID | Scénario | Détection | Comportement | Reprise | Nouveau GO |
-|----|----------|-----------|--------------|---------|------------|
-| N1 | Qualif GPT invalide | Validateur | Rejet ; message ; pas d’exécution | Re-qualif | non (pas encore) |
-| N2 | Sources Git indisponibles | Truth Check | STOP lecture | Réessayer quand Git OK | non |
-| N3 | HEAD modifié après qualif | Comparaison HEAD | Invalider GO/contrat | Re-qualif | oui si exec |
-| N4 | GO absent | Harness | Refus spawn | Gate | oui |
-| N5 | GO invalide/expiré | Revalidation | Refus | Nouveau gate | oui |
-| N6 | Contrat modifié après GO | Hash | Refus | Re-qualif + gate | oui |
-| N7 | Fichier hors allowlist | Policy | STOP / refus | Correction contrat | oui |
-| N8 | Commande/action interdite | Policy / post-check | STOP | Correction | oui |
-| N9 | Cursor indisponible | Port | Échec explicite | Retry manuel sous GO | oui |
-| N10 | Cursor code erreur | exit ≠ 0 | Rapport d’échec | Décision Morris | selon reprise |
-| N11 | Timeout | Timer | `stoppé` ; timeout ≠ GO | Reprise sous GO | oui |
-| N12 | STOP Morris | Action | `stoppé` immédiat | Reprise/abandon | oui si re-exec |
-| N13 | Rapport absent | Check | Bloque analyse | Relancer collecte | — |
-| N14 | Review pack incomplet | Check | Bloque clôture positive | Compléter | — |
-| N15 | Verdict GPT invalide | Validateur | Rejet | Relance analyse ou abandon | FinOps |
-| N16 | Perte session Studio | Reprise UI | Recharger états **dérivés** depuis preuves/Git | Continuer sans inventer | selon état |
-
-Chaque scénario journalise une preuve (`ExecutionEvent` / note).
+### VS-UX-10 — Clôture
+- Décision ; statut ; traçabilité ; appels GPT ; réserves ; prochaines actions séparées ; **aucun** claim MVP/prod.
 
 ---
 
-## 8. Matrice gate / nouveau GO
+## 6. Transitions UX
 
-| Situation | Nouveau GO requis ? |
-|-----------|---------------------|
-| Re-qualification seule | non |
-| Première exécution | oui (GO initial) |
-| Reprise après STOP/erreur avec re-exec | **oui** |
-| Relance après verdict « correction » avec re-exec | **oui** |
-| Clôture / abandon | décision finale (pas GO Cursor) |
-| Lecture preuves seule | non |
-
----
-
-## 9. Règles métier `VS-BR-*`
-
-| ID | Règle |
-|----|-------|
-| VS-BR-01 | Sortie GPT hors contrat → rejet fail-closed |
-| VS-BR-02 | Pas de fallback permissif |
-| VS-BR-03 | Pas de retry automatique GPT/Cursor |
-| VS-BR-04 | GPT ne décide pas ; Morris décide |
-| VS-BR-05 | GO lié à contractHash + HEAD + branche + allowlist |
-| VS-BR-06 | Changement hash/HEAD/branche/allowlist → GO invalide |
-| VS-BR-07 | Harness revalide avant spawn |
-| VS-BR-08 | Cursor sandbox only ; hors allowlist → STOP |
-| VS-BR-09 | Aucune écriture Git distante dans le slice |
-| VS-BR-10 | STOP prioritaire |
-| VS-BR-11 | Timeout ≠ GO |
-| VS-BR-12 | Studio n’est pas source de vérité |
-| VS-BR-13 | Harness autonome sans Studio demeure possible |
-| VS-BR-14 | Verdict GPT = candidat |
-| VS-BR-15 | Review pack incomplet → pas de clôture positive |
-| VS-BR-16 | Secrets jamais affichés |
-| VS-BR-17 | Claims production-ready / merge auto / L5 = interdits |
+```text
+01 → 02 (Qualifier)
+02 → 03 (qualif OK) | variante erreur/STOP
+03 → 04 (Ouvrir gate) | correction → 02
+04 → 05 (GO) | NO-GO/Abandon → 10- | correction → 02
+05 → 06 (fin) | STOP → stoppé
+06 → 07 (Lancer analyse)
+07 → 08 (verdict OK) | fail-closed
+08 → 09
+09 → 10 (clôturer) | correction/relance (nouveau GO) | abandon
+```
 
 ---
 
-## 10. Critères d’acceptation testables `VS-AC-*`
+## 7. Interactions candidates (non delivery)
 
-| ID | Critère |
-|----|---------|
-| VS-AC-01 | Parcours nominal 1→10 réalisable depuis Studio |
-| VS-AC-02 | GO refusé si HEAD ≠ HEAD ancré |
-| VS-AC-03 | GO refusé si contractHash ≠ hash courant |
-| VS-AC-04 | Fichier hors allowlist → pas de succès d’exécution |
-| VS-AC-05 | STOP interrompt et journalise |
-| VS-AC-06 | Sans rapport/pack → pas d’analyse GPT réussie |
-| VS-AC-07 | Verdict invalide → pas de clôture auto |
-| VS-AC-08 | Clôture uniquement via MorrisFinalDecision |
-| VS-AC-09 | Aucune preuve d’écriture distante |
-| VS-AC-10 | Aucun secret dans UI/preuves |
-| VS-AC-11 | États Studio cohérents avec preuves (vue dérivée) |
-| VS-AC-12 | Même scénario exécutable via harness sans Studio |
+| Action UI | Autorité | Effet attendu |
+|-----------|----------|---------------|
+| Qualifier la demande | Morris | Déclenche qualif GPT via adaptateur→harness |
+| STOP | Morris | stoppé immédiat |
+| Ouvrir gate | Morris | Affiche dossier |
+| GO / NO-GO / Correction / Abandon | Morris | Gate decision |
+| Lancer analyse GPT | Morris | 2e appel GPT |
+| Confirmer décision finale | Morris | Clôture / reprise |
 
 ---
 
-## 11. Preuves attendues (fonctionnelles)
+## 8. Écarts au P0
 
-| Étape | Preuve |
-|-------|--------|
-| Demande | StudioRequest |
-| Qualif | QualificationCandidate + observation GPT |
-| Gate | MorrisGateDecision |
-| Exec | ExecutionEvents + CursorExecutionReport |
-| Pack | ReviewPackReference |
-| Verdict | GptVerdictCandidate |
-| Clôture | MorrisFinalDecision + CycleSummary |
+| Écart | Traitement |
+|-------|------------|
+| 4 écrans P0 vs 10 VS | Extension documentée — P0 inchangé |
+| Loading/error absents P0 | Variantes VS ajoutées |
+| Gate P0 = 3 options | 4e action Abandon en note + confirmation |
+| Synthèse P0 ≠ clôture slice | VS-UX-10 réutilise shell synthèse pour CycleSummary |
+| App routes limitées | Hors cycle — delivery futur |
 
 ---
 
-## 12. Données — champs clés (extrait)
+## 9. Accessibilité par frame (checklist cible)
 
-### ExecutionContract (fonctionnel)
+| Frame | Tab order | Focus | Labels CTA | STOP | Contraste cible |
+|-------|-----------|-------|------------|------|-----------------|
+| 01–10 | Rail→top→canvas→actions→copilote | Oui | Verbe+objet | 02/05/07 | WCAG 2.2 AA |
 
-contractId · contractHash · requestId · correlationId · objective · allowedReadPaths · allowedWritePaths · deniedPaths · allowedActions · forbiddenActions · stopConditions · requiredGates · gitEffect=`none-remote` · workspaceSandbox · initiatedBy · initiatedAt · validityWindow?
-
-### MorrisGateDecision
-
-decision ∈ {GO, NO_GO, CORRECTION, ABANDON} · requestId · contractId · contractHash · branch · head · actor · decidedAt · timezone · rationale?
+Pas d’audit runtime réalisé.
 
 ---
 
-## 13. Challenge (auto-contrôle)
+## 10. FinOps / sécurité (rappel UI)
 
-| Question | Réponse conception |
-|----------|-------------------|
-| Utile maintenant ? | Oui — débloque UX/backlog/delivery sans réinterprétation dangereuse |
-| Preuve BeB couverte ? | Oui — Studio→…→clôture conçue ; spikes = preuve technique partielle hors UI |
-| Trop large ? | Borné à un scénario Markdown sandbox |
-| Plus simple ? | Harness-only déjà prouvé ; slice ajoute Studio gouverné |
-| Dérive MVP ? | Explicitement non — niveaux §32 |
-| Gate visible ? | Oui — étape 4 + revalidation |
-| Option B respectée ? | Oui |
+- Plafond : **À définir** · pas de retry auto · pas de coût € inventé.
+- IDs visibles · secrets interdits · GO invalidable · Studio dérivé.
 
 ---
 
-# ANNEXE C — Contenu intégral document 34
+## 11. Limites
 
-# SFIA Studio — Decision pack vertical slice POC (candidat)
+- Copy Figma peut nécessiter polish Morris.
+- Variantes = annotations 720×420, pas full 1440 screens.
+- Quatrième option gate non matérialisée en 4e carte (candidat VS-UX-CAND).
+- Screenshots MCP à capturer dans le review pack.
+
+
+---
+
+# ANNEXE C — Contenu intégral document 37
+
+# SFIA Studio — Decision pack UX/UI vertical slice POC (candidat)
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Projet** | SFIA Studio |
-| **Document** | `34-poc-vertical-slice-decision-pack.md` |
-| **Cycle** | 2 — Conception fonctionnelle (vertical slice POC) |
-| **Profil** | Critical |
-| **Typologie** | DOC / CONCEPTION / POC |
-| **Baseline** | SFIA v2.6 |
+| **Document** | `37-poc-vertical-slice-ux-ui-decision-pack.md` |
+| **Cycle** | 4 — UX/UI |
+| **Profil** | Standard |
+| **Statut** | `draft-for-morris-visual-validation` — **aucune VS-UX-CAND validée** |
 | **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| **Branche conception** | `design/sfia-studio-poc-vertical-slice` (**locale**) |
-| **Statut** | `draft-for-morris-validation` — **aucune décision VS-CAND validée** |
-| **Autorité** | Morris (L0) |
-| **Complète** | [`32`](./32-poc-vertical-slice-functional-design.md) · [`33`](./33-poc-vertical-slice-flows-and-rules.md) |
+| **Figma** | `lrjA1WEyRpL05vKR8k29LO` · page `51:2` |
+| **Companions** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`36`](./36-poc-vertical-slice-ux-ui-flows-and-frames.md) |
 
-> Pack de **propositions**. Les `VS-CAND-*` sont **candidates**.  
-> Ne jamais écrire qu’elles sont validées. Validation Morris = GO distinct.
+> Pack de **propositions** UX/UI. Ne jamais écrire que les frames ou candidats sont validés.
 
 ---
 
 ## 1. Synthèse
 
-Ce cycle conçoit le **premier vertical slice POC utilisable depuis SFIA Studio** :
-
-Demande → qualification GPT réelle → gate Morris → harness → Cursor sandbox → preuves → analyse GPT → verdict candidat → décision Morris.
-
-Il **ne** livre pas de code, **ne** prouve pas le BeB UI, **ne** définit pas le MVP, **ne** rouvre pas Option B / AF-Option C.
+Ce cycle produit le **contrat UX/UI** et les **frames Figma candidates** du parcours gouverné en dix étapes du vertical slice POC, en continuité Product premium (P0), sans code, sans live GPT/Cursor, sans commit projet.
 
 | Livrable | Rôle |
 |----------|------|
-| `32` | Contrat fonctionnel du slice (périmètre, FR, objets, AC) |
-| `33` | Parcours, états, BR, scénarios négatifs, preuves |
-| `34` | Ce pack — observations, candidats, séquencement |
+| `35` | Contrat visuel + exigences UX + accessibilité/FinOps |
+| `36` | Inventaire frames, node IDs, flux, variantes |
+| `37` | Ce pack — options, candidats, gates |
+| Figma page `UX-B — POC Vertical Slice` | 10 frames + variantes annotations |
 
 ---
 
 ## 2. Observations
 
-1. Les spikes `#226` / docs `29`–`31` prouvent GPT + Cursor **hors Studio UI**, avec réserves.
-2. Le gap restant est **fonctionnel UX gouverné** : Studio comme cockpit / vue dérivée, pas comme orchestrateur.
-3. Le socle `08`–`10` (FD-CAND validés) reste la base ; ce slice en est un **sous-ensemble POC** explicite.
-4. Le scénario Markdown sandbox est un **support de preuve**, pas une feature produit finale.
-5. Les risques majeurs sont : dérive MVP, contournement gate, seconde vérité Studio, écriture distante, retry permissif, claims « prêt ».
+1. P0 (4 frames) reste la référence visuelle validée ; non modifié.
+2. Les 10 étapes fonctionnelles (`32`–`34`) nécessitent 10 frames distinctes — pas de fusion silencieuse.
+3. L’app actuelle ne couvre que partiellement les étapes 1 et 9 — écart delivery futur.
+4. VS-CAND-14 appliquée : plafond visible, valeur **À définir**.
+5. Structure P0-03C limite à 3 cartes option ; Abandon documenté via confirmation + note.
 
 ---
 
 ## 3. Hypothèses
 
 | ID | Hypothèse |
-|----|-----------|
-| H1 | Architecture POC Option B reste inchangée |
-| H2 | Morris reste seule autorité L0 ; GPT/Cursor sans pouvoir de décision |
-| H3 | Git reste source de vérité durable ; Studio = vue dérivée |
-| H4 | Aucune écriture Git distante dans le premier vertical slice |
-| H5 | Exécution Cursor limitée à une sandbox allowlistée |
-| H6 | Harness autonome sans Studio reste possible |
-| H7 | Demande de démo sans donnée personnelle |
-| H8 | Validation des VS-CAND précède UX/UI, backlog et delivery |
+|----|----------|
+| H1 | Continuité Product premium / Inter / tokens flush |
+| H2 | Shell rail+topbar+canvas+copilote inchangé conceptuellement |
+| H3 | Viewport 1440×1024 seul (pas mobile) |
+| H4 | Copilote = recommandation uniquement |
+| H5 | Valeur numérique plafond GPT décidée hors design |
 
 ---
 
-## 4. Options éventuelles (non tranchées techniquement)
+## 4. Options
 
-| Sujet | Option A | Option B (recommandée conception) | Note |
-|-------|----------|-----------------------------------|------|
-| Scénario preuve | Multi-fichiers / multi-projets | **Un Markdown sandbox** | Moins de dette |
-| Gate validity | GO sans fenêtre | GO + fenêtre de validité candidate | À arbitrer (VS-CAND-04) |
-| Affichage événements | Polling UI | Stream dérivé | Non figé tech |
-| Conservation logs | Indéfinie | Durée limitée candidate | RGPD / VS-CAND futur |
-
-Aucune option ci-dessus ne sélectionne stack, BDD, ORM ou protocole.
+| Sujet | Option A | Option B (retenue conception) | Soumis à Morris |
+|-------|----------|-------------------------------|-----------------|
+| Nombre de frames | Fusionner 8–9 | **10 frames** | Non (contrat) |
+| Gate Abandon | Fusionner avec NO-GO | **Action distincte** (note + confirmation) | Oui si 4e carte |
+| Variantes | Full 1440 | **Annotations 720×420** | Oui |
+| Clôture shell | Nouveau shell | **Réutiliser synthèse P0-01C** | Observation |
 
 ---
 
 ## 5. Recommandations (non validées)
 
-1. Valider d’abord les `VS-CAND-01`…`12` avant tout cycle UX/UI.
-2. Garder le scénario **minimal** (Markdown sandbox) pour le BeB.
-3. Exiger ancrage GO = contractHash + HEAD + branche + allowlist.
-4. Conserver harness autonome comme chemin de contrôle.
-5. Interdire claims MVP / production / L5 / « Studio complete ».
-6. Enchaîner ensuite : UX/UI → backlog → delivery (sous GO distincts).
+1. Valider visuellement les 10 frames + variantes avant backlog delivery.
+2. Ajouter une 4e carte « Abandon » sur VS-UX-04 en polish si Morris le souhaite.
+3. Garder plafond « À définir » jusqu’à décision FinOps séparée.
+4. Ne pas lancer delivery UI avant GO validation visuelle.
+5. Comparer runtime ↔ Figma avant tout READY visuel futur.
 
 ---
 
-## 6. Décisions candidates `VS-CAND-*`
+## 6. Décisions UX candidates `VS-UX-CAND-*`
 
-| ID | Décision candidate | Impact | Risque si non tranché | Dette si accepté |
-|----|-------------------|--------|----------------------|------------------|
-| **VS-CAND-01** | Scénario démo = Markdown sandbox (titre, synthèse, checklist) | Borne le BeB | Scénario flou → dérive | Faible |
-| **VS-CAND-02** | Parcours utilisateur en **dix** étapes (Nouvelle demande → Clôture) | Cadre UX | Ambiguïté écrans | Faible |
-| **VS-CAND-03** | Qualification GPT **visible** avant tout gate d’exécution | Contrôle humain | GO aveugle | Faible |
-| **VS-CAND-04** | GO lié à contractHash + Git HEAD (+ branche + allowlist) | Invalidation stricte | Contournement / stale GO | Faible (discipline) |
-| **VS-CAND-05** | Studio = vue dérivée ; harness = autorité d’application des gates | Option B | Studio orchestrateur | Faible |
-| **VS-CAND-06** | Aucune écriture Git distante dans le slice | Sécurité | Fuite périmètre | Faible |
-| **VS-CAND-07** | Cursor réel **uniquement** sandbox après GO revalidé | Bornage | Cursor libre | Moyenne (ops) |
-| **VS-CAND-08** | Verdict GPT = candidat ; clôture = Morris | Autorité | Clôture auto | Faible |
-| **VS-CAND-09** | STOP prioritaire (timeout ≠ GO) | Sécurité | Exécution zombie | Faible |
-| **VS-CAND-10** | Mode harness autonome conservé | Résilience | Dépendance UI | Faible |
-| **VS-CAND-11** | Critères de succès BeB = `VS-AC-*` + critère central doc `32` | Acceptation | « Succès » flou | Faible |
-| **VS-CAND-12** | Séquencement post-validation : UX/UI → backlog → delivery | Ordre cycles | Delivery trop tôt | Faible |
-
-### Compléments candidats (si nécessaires)
-
-| ID | Décision candidate | Pourquoi |
-|----|-------------------|----------|
-| **VS-CAND-13** | Demande de test sans donnée personnelle ; journaux sans secret | RGPD minimal |
-| **VS-CAND-14** | Plafond d’appels GPT candidat + pas de retry auto | FinOps |
-| **VS-CAND-15** | Identifiants correlation (requestId, contractId, eventId) obligatoires en UI/preuves | Observabilité |
+| ID | Décision candidate | Impact | Risque | Dette |
+|----|-------------------|--------|--------|-------|
+| **VS-UX-CAND-01** | Page Figma dédiée `UX-B — POC Vertical Slice` | Isolation P0 | Confusion pages | Faible |
+| **VS-UX-CAND-02** | Dix frames 1440×1024 VS-UX-01…10 | Couverture BeB | Effort delivery | Moyenne |
+| **VS-UX-CAND-03** | Continuité shell Product premium P0 | Cohérence | Sur-contrainte | Faible |
+| **VS-UX-CAND-04** | CTA Qualifier sans GO sur VS-UX-01 | Sécurité | — | Faible |
+| **VS-UX-CAND-05** | FinOps visible (compteur + plafond À définir + no retry) | Transparence | — | Faible |
+| **VS-UX-CAND-06** | Invalidation GO visuelle obligatoire | Sécurité | Friction | Faible |
+| **VS-UX-CAND-07** | STOP prioritaire sur 02/05/07 | Sécurité | — | Faible |
+| **VS-UX-CAND-08** | Verdict GPT badge candidat | Autorité | — | Faible |
+| **VS-UX-CAND-09** | Variantes loading/erreur/STOP/GO-invalide en annotations | Couverture états | Moins pixel-perfect | Acceptable POC |
+| **VS-UX-CAND-10** | Abandon gate via confirmation + note (pas 4e carte encore) | Fidélité P0 clone | Ambiguïté Abandon | Moyenne |
+| **VS-UX-CAND-11** | Accessibilité = contrat cible WCAG 2.2 AA (pas audit) | Qualité | Surclaim | Faible |
+| **VS-UX-CAND-12** | Séquencement : validation visuelle → backlog → delivery | Ordre | Delivery trop tôt | Faible |
 
 ---
 
@@ -1036,901 +678,518 @@ Aucune option ci-dessus ne sélectionne stack, BDD, ORM ou protocole.
 
 | Thème | Impact | Risque | Dette |
 |-------|--------|--------|-------|
-| Conception Critical | Documents structurants pour UX/delivery | Sur-spécification | Maintenir alignement `32`–`34` vs spikes |
-| Gates stricts | Sécurité BeB | Friction Morris | Discipline GO |
-| Sandbox only | Preuve limitée | Sous-estimer prod | Acceptable pour POC |
-| Pas de remote Git | Pas de merge auto | Moins « wow » démo | Volontaire |
-| Studio dérivé | Complexité UX sync | États désync | Reprise N16 |
+| 10 frames | Contrat delivery clair | Scope UI large | Implémentation multi-routes |
+| Clones P0 | Continuité visuelle | Copy non polishée | Polish Figma |
+| 3 vs 4 options gate | — | Abandon peu visible | 4e carte candidate |
+| Pas de code | Isolé | App ≠ Figma | Delivery futur |
 
 ---
 
-## 8. Proposition de validation Morris
-
-Morris est invité à **valider ou refuser** séparément chaque `VS-CAND-*` (ou un lot explicite), **sans** autoriser :
-
-- commit / push / PR / merge des docs `32`–`34` ;
-- UX/UI, backlog, delivery ;
-- modification `app/**` ou harness ;
-- exécution OpenAI / Cursor réelle ;
-- CI/CD, MVP, L5, industrialisation.
-
-Effet attendu d’une validation conception : **autorisation** d’un cycle suivant (typiquement UX/UI ou versionnement documentaire sous GO distinct).
-
----
-
-## 9. Gates suivants (GO distincts requis)
+## 8. Gates Morris
 
 | Gate | Objet |
 |------|-------|
-| G-VS-VAL | Validation `VS-CAND-*` |
-| G-VS-DOC | Commit / push / PR / merge docs `32`–`34` |
-| G-VS-UX | Cycle UX/UI visuelle |
-| G-VS-BL | Backlog delivery |
-| G-VS-DEL | Delivery / code Studio+adaptateur |
-| G-VS-LIVE | OpenAI / Cursor live |
-| G-VS-CI | CI/CD |
-| G-VS-MVP | Définition MVP |
-| G-VS-IND | Industrialisation / L5 |
+| G-VS-UX-VAL | Validation visuelle frames + contrat 35–37 |
+| G-VS-UX-ABANDON | 4e carte Abandon ou conserver note |
+| G-VS-UX-DOC | Commit/push/PR/merge docs 35–37 |
+| G-VS-UX-DEL | Delivery UI (app) |
+| G-VS-LIVE | Live GPT/Cursor |
+| G-VS-LIMIT | Valeur numérique plafond GPT |
 
 ---
 
-## 10. Séquencement candidat
+## 9. Décisions Morris déjà appliquées (amont)
 
-```text
-1. Validation conception (VS-CAND)     ← Morris — GO requis
-2. (Optionnel) versionnement docs 32–34
-3. UX/UI (écrans du parcours 10 étapes)
-4. Backlog borné vertical slice
-5. Delivery (app + adaptateur fin — hors harness authority)
-6. Preuve BeB live sous GO live
-```
-
-Ordre recommandé : **validation → UX/UI → backlog → delivery**.  
-Ne pas lancer delivery avant validation des candidats.
+VS-CAND-01…13, 15 **VALIDÉES** · VS-CAND-14 **VALIDÉE AVEC RÉSERVE**.
 
 ---
 
-## 11. Challenge (auto-contrôle)
+## 10. Décisions Morris attendues
 
-| Question | Verdict conception |
-|----------|-------------------|
-| Utile maintenant ? | Oui |
-| Preuve BeB conçue ? | Oui (exécution réelle = cycles suivants) |
-| Dette créée ? | Documentaire limitée |
-| Trop large ? | Non — scénario unique sandbox |
-| Plus simple ? | Harness-only déjà fait ; slice = Studio gouverné |
-| Dérive MVP ? | Explicitement bornée |
-| Gate visible ? | Oui |
-| Option B ? | Respectée |
+1. Valider / amender / refuser `VS-UX-CAND-*`.
+2. Valider ou demander polish des frames Figma.
+3. Arbitrer Abandon (4e carte vs note).
+4. Autoriser ou non versionnement docs 35–37.
+5. **Ne pas** interpréter comme GO delivery / live / merge.
 
 ---
 
-## 12. Verdict candidat (cycle conception)
+## 11. Verdict candidat
 
-`SFIA STUDIO VERTICAL SLICE FUNCTIONAL DESIGN READY — MORRIS VALIDATION REQUIRED`
+`SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED`
 
-### Interdits (non applicables)
+### Interdits
 
-CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · STUDIO COMPLETE · API INTEGRATED · CURSOR INTEGRATED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
+CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · FRAMES VALIDATED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
 
----
-
-## 13. Décisions Morris attendues
-
-1. Valider / amender / refuser `VS-CAND-01`…`15` (ou lot).
-2. Autoriser ou non le versionnement documentaire.
-3. Sélectionner le cycle suivant (UX/UI recommandé si validation).
-4. **Ne pas** interpréter ce pack comme GO live, delivery ou merge.
 
 ---
 
-# ANNEXE D — Diff utile complet (fichiers nouveaux)
+# ANNEXE D — Diff utile complet (docs 35–37)
 
-diff --git a/projects/sfia-studio/32-poc-vertical-slice-functional-design.md b/projects/sfia-studio/32-poc-vertical-slice-functional-design.md
+diff --git a/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md b/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md
 new file mode 100644
 --- /dev/null
-+++ b/projects/sfia-studio/32-poc-vertical-slice-functional-design.md
-+# SFIA Studio — Conception fonctionnelle du premier vertical slice POC
++++ b/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md
++# SFIA Studio — Contrat UX/UI du vertical slice POC
 +
 +| Métadonnée | Valeur |
 +|------------|--------|
 +| **Projet** | SFIA Studio |
-+| **Document** | `32-poc-vertical-slice-functional-design.md` |
-+| **Cycle** | 2 — Conception fonctionnelle |
-+| **Profil** | Critical |
-+| **Typologie** | DOC / CONCEPTION / POC |
-+| **Baseline méthode** | SFIA v2.6 |
-+| **Branche conception** | `design/sfia-studio-poc-vertical-slice` (**locale uniquement**) |
-+| **Base Git** | `origin/main` @ `eb180638ad334a29a86b9fb757f401814003a0d8` |
-+| **Statut** | `draft-for-morris-validation` — **non validé** |
-+| **Autorité** | Morris (L0) |
-+| **Décisions** | Candidates `VS-CAND-*` uniquement — **aucune validée** |
-+| **Code / live** | **Aucun** dans ce cycle |
++| **Document** | `35-poc-vertical-slice-ux-ui-contract.md` |
++| **Cycle** | 4 — UX/UI |
++| **Profil** | Standard |
++| **Typologie** | DOC / UX |
++| **Baseline** | SFIA v2.6 |
++| **Branche** | `design/sfia-studio-poc-vertical-slice` (**locale**) |
++| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
++| **Statut** | `draft-for-morris-visual-validation` — **frames candidates, non validées** |
++| **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
++| **Page source** | `UX-B — P0` |
++| **Page créée** | `UX-B — POC Vertical Slice` |
++| **Code / live** | **Aucun** |
 +
-+> Contrat fonctionnel du **premier vertical slice POC** Studio → GPT → gate Morris → harness → Cursor → GPT verdict → décision Morris.  
-+> **Pas** d’architecture technique, stack, API, BDD, Figma, backlog, delivery, MVP validé ni industrialisation.
-+
-+---
-+
-+## 1. Contexte et acquis
-+
-+### Acquis retenus
-+
-+| Source | Acquis |
-+|--------|--------|
-+| `08`–`10` | Acteurs, 12 états, F1–F12, FR/BR, FD-CAND-01…08 **validés** |
-+| AF-Option C | Studio ≠ orchestrateur ; Git = vérité durable ; Morris = L0 |
-+| POC Option B | Studio → adaptateur fin → harness autonome → ports GPT/Git/Cursor |
-+| `#224`–`#225` | Harness-only + spike Cursor sandbox |
-+| `#226` / `30`–`31` | GPT live + e2e GPT→Cursor sandbox **prouvé avec réserves** |
-+| `#227` | Sync documentaire post-merge |
-+
-+### Écart motivant ce document
-+
-+Les spikes prouvent la faisabilité **hors Studio UI**. Le vertical slice conçoit le **premier parcours réellement utilisable depuis SFIA Studio**, sans rouvrir Option B ni AF-Option C.
-+
-+### Architecture structurante (immuable ici)
-+
-+```text
-+Morris → SFIA Studio (cockpit, vue dérivée)
-+      → adaptateur fin sans autorité
-+      → harness autonome (gates, policy, journal, preuves)
-+      → ports GPT / Git / Cursor bornés
-+      → restitution dérivée dans Studio
-+```
-+
-+Toute divergence → `STOP — ARCHITECTURE DECISION REQUIRED`.
++> Contrat UX/UI du parcours gouverné en **dix** étapes. Continuité visuelle Product premium (P0).  
++> Les frames VS-UX sont **candidates** jusqu’à GO Morris. Ne pas modifier les frames P0.
 +
 +---
 +
-+## 2. Objectif
++## 1. Décisions Morris appliquées (amont)
 +
-+Permettre à Morris, **depuis SFIA Studio**, de :
++| ID | Statut appliqué |
++|----|-----------------|
++| VS-CAND-01 … VS-CAND-13 | **VALIDÉES** |
++| VS-CAND-15 | **VALIDÉE** |
++| VS-CAND-14 | **VALIDÉE AVEC RÉSERVE** — plafond GPT obligatoire, valeur numérique **À définir** (non inventée) |
 +
-+1. saisir une demande de démonstration ;
-+2. obtenir une qualification GPT réelle contrôlée ;
-+3. autoriser (ou refuser) un gate lié au contrat et au HEAD ;
-+4. déclencher une exécution Cursor réelle dans une sandbox contrôlée ;
-+5. consulter le rapport et les preuves ;
-+6. obtenir un verdict GPT candidat ;
-+7. décider de la clôture, correction, relance ou abandon.
-+
-+### Valeur démontrée
-+
-+Faisabilité du **BeB gouverné** bout-en-bout sous autorité Morris, sans faire de Studio une seconde source de vérité.
++Architecture Option B, Git = vérité, Morris L0, GPT ≠ décision, Cursor sandbox borné : **maintenus**.
 +
 +---
 +
-+## 3. Périmètre
++## 2. Contrat visuel Figma extrait
 +
-+### Dans le périmètre (POC vertical slice)
++| Élément | Valeur observée / retenue |
++|---------|---------------------------|
++| **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
++| **page source** | `UX-B — P0` (`0:1`) |
++| **frames sources** | P0-00C `19:2` · P0-01C `22:2` · P0-02C `22:133` · P0-03C `22:270` |
++| **dimensions** | **1440 × 1024** (confirmé MCP sur les quatre frames) |
++| **shell général** | Product premium — fond clair `#f6f9ff` / `#f6f9fe`, ink `#141c30` |
++| **rail utilitaire** | ~64 px ; brand « S » ; icônes nav ; avatar / pill bas ; **aucun GO** |
++| **topbar** | Eyebrow `SFIA STUDIO` ; titre workspace ; pills statut ; onglets ; CTA global non destructif |
++| **canvas** | Hero + zone métier (formulaire / stepper / evidence / options) |
++| **panneau copilote** | ~334–340 px ; résumé + suggestions **≠ décision** ; composer |
++| **grille / colonnes** | Flush : canvas ~972 px + copilote 340 px ; Floating (00C) : workspace 968 + copilote 334 |
++| **spacings clés** | 8 / 12 / 16 / 20 / 24 / 28 px ; rayons 12 / 16 / 20 / 24 |
++| **typographies** | Inter (app) ; eyebrow meta 11–12 px ; titres hero ~24–29 px ; body 15–16 px |
++| **couleurs / tokens** | Blue `#3863f5` · Purple `#7a4df5` · Green `#21c28a` · Orange `#faa629` · Pink `#f25794` · Navy heroes · Brand accent gradient |
++| **cartes** | Surfaces blanches, ombres soft, accent bar métriques |
++| **badges / statuts** | Pills (draft, ready, candidat, risque, Git, mode) — sens **aussi** textuel |
++| **CTA** | Primaire plein ; secondaire outline ; STOP / danger distinct |
++| **styles de gates** | Options décision + dossier preuves ; confirmation explicite |
++| **preuves** | Listes evidence / inspector / trust blocks |
++| **loading / erreur / STOP / vide** | P0 partiel (STOP box) ; **à étendre** sur VS (documenté ci-dessous) |
++| **écarts connus** | App P0 = 4 écrans ; slice = 10 ; loading/error absents en app |
++| **incertitudes** | Tokens Figma variables vides côté MCP — hex issus design context / `tokens.css` |
++| **impacts VS** | Cloner shell P0 ; adapter canvas par étape ; ne pas toucher `19:2`/`22:*` P0 |
 +
-+| Élément | Portée |
-+|---------|--------|
-+| Scénario démo | Créer un Markdown de démonstration dans une sandbox autorisée |
-+| Qualification GPT réelle | Proposition structurée visible avant gate |
-+| Gate Morris | GO / NO-GO / correction / abandon |
-+| Harness | Revalidation déterministe GO + contrat + allowlist |
-+| Cursor réel | Sandbox locale uniquement, après GO |
-+| Analyse GPT | Verdict candidat post-exécution |
-+| Studio | Saisie, affichage, décisions ; **vue dérivée** |
-+| Mode dégradé | Harness autonome sans Studio toujours possible |
++### Limites de lecture MCP
 +
-+### Hors périmètre
-+
-+| Élément | Statut |
-+|---------|--------|
-+| UI/Figma détaillée | Hors cycle |
-+| Choix stack / API / BDD | Interdits |
-+| Écriture Git distante (commit/push/PR/merge) | Interdite dans le slice |
-+| L5 global | Interdit |
-+| MVP produit validé | Non |
-+| Industrialisation / CI SFIA Studio | Non |
-+| Multi-cycle / multi-projet | Non |
-+| Modification `app/**` / harness (ce cycle) | Conception seule |
-+
-+### Niveaux (distinction obligatoire)
-+
-+| Niveau | Portée |
-+|--------|--------|
-+| **POC vertical slice** | Faisabilité du parcours complet gouverné |
-+| **MVP candidat** | Première valeur métier future (non validé ici) |
-+| **Produit cible** | Couverture durable multi-cycle |
-+| **Industrialisation** | Exploitation sécurisée maintenable |
-+
-+Le vertical slice **n’est pas** un MVP validé.
++- `get_metadata` + `get_screenshot` : structure et dimensions confirmées.
++- Variables Figma : historiquement vides ; tokens app `styles/tokens.css` comme relais documentaire.
++- Textes exacts : partiellement masqués en metadata (noms de layers) — copy VS renseignée sur clones.
 +
 +---
 +
-+## 4. Acteurs et responsabilités
++## 3. Objectif UX
 +
-+| Acteur | Responsabilité | Interdit |
-+|--------|----------------|----------|
-+| **Morris (L0)** | Saisie, revue, GO/NO-GO/correction/abandon, clôture | Déléguer un GO |
-+| **SFIA Studio** | Présenter, collecter, afficher états dérivés | Créer une autorité ; inventer un GO |
-+| **Adaptateur fin** | Transmettre sans élargir | Arbitrer ; assouplir |
-+| **Harness** | Appliquer policy, revalider gate/contrat, journaliser, preuves | Décider un GO |
-+| **GPT** | Qualifier / proposer / analyser | Décider ; clôturer ; élargir périmètre |
-+| **Cursor** | Exécuter dans le contrat | Arbitrer ; sortir sandbox |
-+| **Git** | Vérité durable / Truth Check | — |
++Permettre à Morris de **voir et contrôler** le parcours Studio → GPT → gate → harness/Cursor → rapport → GPT verdict → décision → clôture, sans faire de Studio une source de vérité et sans auto-GO.
 +
 +---
 +
-+## 5. Scénario de référence
++## 4. Matrice parcours → frame → autorité
 +
-+**Intention utilisateur (candidate VS-CAND-01) :**
-+
-+> Créer un document Markdown de démonstration dans un dossier sandbox autorisé, comprenant un titre, une synthèse de la demande et une checklist de validation.
-+
-+Le document n’est qu’un **support de preuve**, pas une fonctionnalité produit finale.
-+
-+### Préconditions
-+
-+- Projet SFIA Studio connu ;
-+- Git accessible en lecture ;
-+- sandbox locale définie et isolée ;
-+- secrets non affichés ;
-+- flags live conditionnels (hors conception) ;
-+- Morris identifié comme autorité.
-+
-+### Déclencheur
-+
-+Morris ouvre « Nouvelle demande » dans SFIA Studio et saisit l’intention.
++| Étape | Frame | Shell source | Autorité action | Preuve UI |
++|-------|-------|--------------|-----------------|-----------|
++| 1 Nouvelle demande | VS-UX-01 | P0-00C floating | Morris saisit | StudioRequest |
++| 2 Qualification en cours | VS-UX-02 | P0-02C flush | Système GPT ; STOP Morris | event qualif |
++| 3 Qualification proposée | VS-UX-03 | P0-02C | Morris revue | QualificationCandidate |
++| 4 Gate Morris | VS-UX-04 | P0-03C | **Morris seul** | MorrisGateDecision |
++| 5 Exécution | VS-UX-05 | P0-02C | Harness/Cursor ; STOP Morris | ExecutionEvents |
++| 6 Rapport | VS-UX-06 | P0-02C | Morris lit | CursorExecutionReport |
++| 7 Analyse GPT | VS-UX-07 | P0-02C | GPT analyse ; STOP conso | event analyse |
++| 8 Verdict proposé | VS-UX-08 | P0-03C | GPT candidat | GptVerdictCandidate |
++| 9 Décision Morris | VS-UX-09 | P0-03C | **Morris seul** | MorrisFinalDecision |
++| 10 Clôture | VS-UX-10 | P0-01C | Affichage dérivé | CycleSummary |
 +
 +---
 +
-+## 6. Parcours utilisateur (vue d’ensemble)
-+
-+Dix étapes fonctionnelles (détail dans `33`) :
-+
-+1. Nouvelle demande  
-+2. Qualification en cours  
-+3. Qualification proposée  
-+4. Gate Morris  
-+5. Exécution  
-+6. Rapport disponible  
-+7. Analyse GPT  
-+8. Verdict proposé  
-+9. Décision Morris  
-+10. Clôture  
-+
-+---
-+
-+## 7. Sous-ensemble d’états (réutilisation `08`)
-+
-+États retenus pour le slice :
-+
-+`intention_capturée` · `qualification_en_cours` · `qualification_prête` · `attente_gate_morris` · `autorisé` · `en_exécution` · `stoppé` · `rapport_disponible` · `revue_en_cours` · `décision_requise` · `clôturé` · `abandonné`
-+
-+Le timeout **ne vaut jamais** GO.
-+
-+Mapping harness (informatif, non conflateur) : `AUTHORIZED` → `EXECUTING` → `PROOF_READY` → `CLOSED` — états techniques parallèles, bridgés par Git/preuves.
-+
-+---
-+
-+## 8. Exigences fonctionnelles `VS-FR-*`
++## 5. Exigences UX `VS-UX-FR-*`
 +
 +| ID | Exigence |
 +|----|----------|
-+| VS-FR-01 | Studio permet de saisir une demande de slice et d’afficher un `requestId` |
-+| VS-FR-02 | Une qualification GPT incomplète ou invalide est rejetée fail-closed |
-+| VS-FR-03 | La qualification est entièrement lisible avant tout GO |
-+| VS-FR-04 | Morris peut GO, NO-GO, demander correction ou abandonner |
-+| VS-FR-05 | Un GO est lié à requestId, contractId, contractHash, branche, HEAD, périmètre, allowlist, horodatage, autorité |
-+| VS-FR-06 | Tout changement de contrat, branche, HEAD ou périmètre invalide le GO |
-+| VS-FR-07 | Le harness revalide gate + contrat avant Cursor |
-+| VS-FR-08 | Cursor n’écrit que dans la sandbox allowlistée |
-+| VS-FR-09 | Aucune écriture Git distante dans le slice |
-+| VS-FR-10 | STOP Morris est prioritaire et journalisé |
-+| VS-FR-11 | Le rapport/preuves sont prérequis à l’analyse GPT |
-+| VS-FR-12 | Le verdict GPT est candidat ; Morris clôture |
-+| VS-FR-13 | Studio affiche des états dérivés ; Git/preuves priment |
-+| VS-FR-14 | Le harness reste utilisable sans Studio |
-+| VS-FR-15 | Aucun secret n’est affiché dans Studio ni dans les preuves |
-+| VS-FR-16 | Les appels GPT consommés sont visibles (FinOps) sans inventer un coût monétaire |
-+| VS-FR-17 | Un review pack incomplet bloque la clôture positive |
++| VS-UX-FR-01 | Dix frames distinctes 1440×1024 ; pas de fusion silencieuse |
++| VS-UX-FR-02 | Shell P0 conservé (rail / topbar / canvas / copilote) |
++| VS-UX-FR-03 | Copilote jamais présenté comme décision Morris |
++| VS-UX-FR-04 | GO visible uniquement sur VS-UX-04 ; ancré hash/HEAD/branche/allowlist |
++| VS-UX-FR-05 | Invalidation GO représentée (bandeau / état invalide) |
++| VS-UX-FR-06 | STOP prioritaire et accessible clavier |
++| VS-UX-FR-07 | FinOps : appels GPT séparés (qualif ≠ analyse) ; plafond « À définir » ; pas de retry auto |
++| VS-UX-FR-08 | Verdict GPT étiqueté **candidat** |
++| VS-UX-FR-09 | Clôture uniquement via décision Morris (VS-UX-09→10) |
++| VS-UX-FR-10 | Aucun secret / token / PII réelle dans les maquettes |
++| VS-UX-FR-11 | Aucune écriture Git distante groupée dans les CTA |
++| VS-UX-FR-12 | Source de statut (Git / harness / dérivé Studio) lisible |
++| VS-UX-FR-13 | Fail-closed GPT visible (erreur + pas de suite) |
++| VS-UX-FR-14 | Frames P0 non modifiées ; VS non « baseline validée » |
 +
 +---
 +
-+## 9. Objets fonctionnels (sans schéma BDD)
++## 6. États transverses (contrat)
 +
-+| Objet | Finalité | Propriétaire |
-+|-------|----------|--------------|
-+| StudioRequest | Demande saisie | Morris / Studio |
-+| QualificationCandidate | Proposition GPT pré-gate | GPT (propose) / Morris (accepte ou corrige) |
-+| ExecutionContract | Contrat borné d’exécution | Harness + Morris (via GO) |
-+| MorrisGateDecision | GO/NO-GO/correction/abandon | Morris |
-+| ExecutionStatus | État d’exécution dérivé | Harness → Studio |
-+| ExecutionEvent | Événement journalisé | Harness |
-+| CursorExecutionReport | Rapport d’exécution | Cursor/Harness |
-+| ReviewPackReference | Référence au pack de preuves | Harness |
-+| GptVerdictCandidate | Verdict candidat post-run | GPT |
-+| MorrisFinalDecision | Clôture / correction / relance / abandon | Morris |
-+| CycleSummary | Synthèse de cycle | Studio (dérivée) |
-+
-+Règles communes : champs obligatoires, source, sensibilité (pas de secret), cohérence requestId/correlationId/contractId, preuve Git ou runtime.
-+
-+Détail des champs : voir `33` § données et `34` impacts.
++| État | Représentation | Frames concernées |
++|------|----------------|-------------------|
++| Loading | Phase active + spinner textuel + compteur appel | 02, 05, 07 |
++| Erreur fail-closed | Banner erreur + CTA correction/abandon | 02, 07 (+ autres) |
++| STOP | CTA danger prioritaire + journal | 02, 05, 07 |
++| GO invalide | Banner « GO invalide — HEAD/contrat changé » | 04, 05 |
++| Vide / incomplet | Message « rapport/pack incomplet » | 06, 08 |
++| Candidat | Badge « Candidat GPT » | 03, 08 |
 +
 +---
 +
-+## 10. Sécurité / RGPD / FinOps / performance / observabilité
++## 7. Accessibilité (contrat cible — pas un audit)
 +
-+### Sécurité
++Pour **chaque** frame VS-UX :
 +
-+- Fail closed ; moindre privilège ; allowlist fichiers/actions ; sandbox ; aucune action distante ; STOP prioritaire ; gate revalidé ; secrets jamais affichés.
++| Critère | Contrat |
++|---------|---------|
++| Ordre de tabulation | Rail → topbar → canvas → actions → copilote |
++| Focus visible | Outline blue `#3863f5` (app) |
++| Labels explicites | Inputs / CTA avec nom accessible |
++| CTA | Nom = verbe + objet (ex. « Qualifier la demande ») |
++| Couleur | Statuts aussi textuels / icônes |
++| Contraste | Cible WCAG 2.2 AA |
++| Annonce états | Live region pour loading / erreur / STOP |
++| Erreurs | Associées au champ / phase |
++| Gates | Conséquences textuelles sous chaque option |
++| STOP | Toujours atteignable au clavier dès phases 02/05/07 |
 +
-+### RGPD (minimal POC)
-+
-+- Demande de test **sans** donnée personnelle réelle ;
-+- journaux sans secret ;
-+- minimisation ;
-+- masquage chemins/identités si nécessaire ;
-+- durée de conservation = **VS-CAND** à arbitrer (non fixée).
-+
-+### FinOps
-+
-+- Appels GPT visibles ;
-+- plafond d’appels candidat (à valider) ;
-+- **aucun retry automatique** ;
-+- coût monétaire **non inventé** ;
-+- arrêt possible avant nouvelle consommation.
-+
-+### Performance (confort POC, pas SLA industriel)
-+
-+| Phase | Observation |
-+|-------|-------------|
-+| Qualification GPT | Mesurée séparément |
-+| Attente Morris | Humaine, non SLA |
-+| Exécution Cursor | Mesurée séparément |
-+| Analyse GPT | Mesurée séparément |
-+
-+Seuils de confort = candidats (ex. timeout Cursor POC déjà observé ~120 s côté spike — **non** imposé comme SLA).
-+
-+### Observabilité
-+
-+requestId · correlationId · contractId · eventId · timestamps + fuseau · étapes reconstructibles · statut source · erreur explicite · **aucun faux succès**.
++**Ne pas** prétendre qu’un audit complet a été réalisé.
 +
 +---
 +
-+## 11. Critères d’acceptation (BeB)
++## 8. FinOps UI
 +
-+### Critère central
-+
-+Depuis SFIA Studio, Morris doit pouvoir saisir une demande, contrôler la qualification GPT, autoriser l’exécution, voir Cursor produire le résultat borné, puis obtenir un verdict GPT exploitable **sans** manipulation manuelle du harness hors actions de gate.
-+
-+### Succès obligatoire
-+
-+- Parcours nominal 1→10 complété ;
-+- GO lié hash+HEAD revalidé ;
-+- sandbox respectée ;
-+- aucune écriture distante ;
-+- aucun secret exposé ;
-+- verdict GPT accepté par validateur fonctionnel ;
-+- clôture Morris enregistrée ;
-+- Studio = vue dérivée ;
-+- harness autonome toujours possible.
-+
-+### Succès avec réserve
-+
-+- Non-déterminisme GPT documenté ;
-+- journalisation commandes Cursor non exhaustive (contrôle post-facto) ;
-+- absence de CI SFIA Studio.
-+
-+### Échec de faisabilité
-+
-+- Impossible de lier GO au contrat/HEAD ;
-+- Studio contourne harness ;
-+- Cursor hors sandbox sans détection ;
-+- GPT clôture sans Morris.
-+
-+### Abandon
-+
-+- NO-GO / abandon Morris à tout gate ;
-+- STOP avec reprise ou abandon explicite.
-+
-+Critères détaillés `VS-AC-*` : voir `33`.
++| Élément | Affichage |
++|---------|-----------|
++| Appels consommés | Compteur `n / plafond` |
++| Plafond | **À définir** (obligatoire, non numérique) |
++| Séparation | Qualification vs Analyse |
++| Retry | Mention explicite « Aucun retry automatique » |
++| Coût € | **Non affiché** (interdit d’inventer) |
++| Arrêt | CTA avant nouvel appel |
 +
 +---
 +
-+## 12. Réserves
++## 9. Sécurité & observabilité UI
 +
-+1. Pas de CI GitHub Actions pour `projects/sfia-studio/**`  
-+2. Spike expérimental / scénario unique  
-+3. Commandes internes Cursor non journalisées une à une  
-+4. Réseau Cursor Agent non mesuré finement  
-+5. S-GPT-09 encore en `json_object` (verdict en `json_schema` strict)  
-+6. Non-déterminisme GPT  
-+7. Studio UI non livré (conception seule)  
-+8. Adapter Studio↔harness non spécifié techniquement  
++Afficher si pertinent : `requestId`, `correlationId`, `contractId`, `contractHash`, branche, HEAD, sandbox, allowlist, horodatage+fuseau, source statut, preuve, erreur, invalidation GO, STOP.
++
++Ne jamais afficher : token, clé API, secret, chemin utilisateur sensible non masqué, PII réelle.
 +
 +---
 +
-+## 13. Décisions candidates
++## 10. Continuité app (lecture seule)
 +
-+Voir pack `34` — `VS-CAND-01` … `VS-CAND-12` (**non validées**).
++Routes actuelles : `/nouvelle-demande`, `/synthese`, `/cycle-actif`, `/decision`.  
++Shell : `StudioShell` + tokens `styles/tokens.css`.  
++**Limite :** l’app ne couvre pas encore les 10 étapes — les frames VS sont le contrat pour un futur delivery (hors cycle).
 +
 +---
 +
-+## 14. Documents liés
++## 11. Hors périmètre
 +
-+- [`33-poc-vertical-slice-flows-and-rules.md`](./33-poc-vertical-slice-flows-and-rules.md)  
-+- [`34-poc-vertical-slice-decision-pack.md`](./34-poc-vertical-slice-decision-pack.md)  
-+- Socle : [`08`](./08-functional-design.md) · [`09`](./09-functional-flows-and-rules.md) · [`10`](./10-functional-decision-pack.md)  
-+- POC : [`23`](./23-poc-orchestration-architecture.md)–[`28`](./28-poc-orchestration-delivery-gate-pack.md) · [`29`](./29-poc-cursor-real-spike-report.md)–[`31`](./31-poc-gpt-cursor-e2e-spike-report.md)
++Code · modif `app/**` / harness · API/BDD · live GPT/Cursor · responsive mobile · claim MVP/prod · modif docs `01`–`34` · modif frames P0 · promotion VS comme baseline.
++
++---
++
++## 12. Documents liés
++
++- [`36-poc-vertical-slice-ux-ui-flows-and-frames.md`](./36-poc-vertical-slice-ux-ui-flows-and-frames.md)  
++- [`37-poc-vertical-slice-ux-ui-decision-pack.md`](./37-poc-vertical-slice-ux-ui-decision-pack.md)  
++- Fonctionnel : [`32`](./32-poc-vertical-slice-functional-design.md)–[`34`](./34-poc-vertical-slice-decision-pack.md)  
++- P0 : [`14`](./14-ux-ui-contract.md)–[`16`](./16-ux-ui-decision-pack.md)
 
-diff --git a/projects/sfia-studio/33-poc-vertical-slice-flows-and-rules.md b/projects/sfia-studio/33-poc-vertical-slice-flows-and-rules.md
+diff --git a/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md b/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md
 new file mode 100644
 --- /dev/null
-+++ b/projects/sfia-studio/33-poc-vertical-slice-flows-and-rules.md
-+# SFIA Studio — Parcours, états et règles du vertical slice POC
++++ b/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md
++# SFIA Studio — Flows, frames et inventaire Figma (vertical slice POC)
 +
 +| Métadonnée | Valeur |
 +|------------|--------|
-+| **Document** | `33-poc-vertical-slice-flows-and-rules.md` |
-+| **Complète** | [`32-poc-vertical-slice-functional-design.md`](./32-poc-vertical-slice-functional-design.md) |
-+| **Statut** | `draft-for-morris-validation` — **non validé** |
-+| **Baseline** | SFIA v2.6 · socle FD `08`–`10` · POC Option B · AF-Option C |
++| **Document** | `36-poc-vertical-slice-ux-ui-flows-and-frames.md` |
++| **Cycle** | 4 — UX/UI |
++| **Profil** | Standard |
++| **Statut** | `draft-for-morris-visual-validation` — **non validé** |
++| **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
++| **Page** | `UX-B — POC Vertical Slice` (`51:2`) |
++| **Companion** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 +| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 +
-+> Parcours détaillés, transitions, règles `VS-BR-*`, scénarios négatifs et preuves. **Pas** d’API technique.
++> Inventaire des frames candidates, node IDs, correspondance aux dix étapes, états, interactions et écarts P0.  
++> Les frames **ne sont pas** une baseline validée.
 +
 +---
 +
-+## 1. Parcours nominal — dix étapes
++## 1. Pages Figma
 +
-+### Étape 1 — Nouvelle demande
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Capturer l’intention de démonstration |
-+| Visible | Champ intention ; projet ; requestId généré ; rappel sandbox/no remote |
-+| Actions Morris | Saisir ; soumettre ; abandonner |
-+| Statut | `intention_capturée` |
-+| Préconditions | Studio accessible ; projet connu |
-+| Sortie | Soumission → étape 2 |
-+| Preuve | StudioRequest horodatée |
-+| Critique | Soumettre |
-+
-+### Étape 2 — Qualification en cours
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Lancer qualification GPT réelle |
-+| Visible | Spinner/état ; requestId ; « aucun GO pendant cette phase » |
-+| Actions | Attendre ; STOP si disponible côté plateforme |
-+| Statut | `qualification_en_cours` |
-+| Preuve | event `qualification_started` |
-+| Erreurs | GPT indisponible → scénario N1/N9 |
-+
-+### Étape 3 — Qualification proposée
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Présenter QualificationCandidate complète |
-+| Visible | Tous champs obligatoires §4 ; cycle ; profil ; blocs ; allowlist ; stops ; réserves |
-+| Actions | Continuer vers gate ; demander correction ; abandonner |
-+| Statut | `qualification_prête` → `attente_gate_morris` |
-+| Non modifiable sans re-qualification | cycle/profil/allowlist/stops proposés (correction = nouvelle passe) |
-+| Preuve | QualificationCandidate validée fail-closed |
-+
-+### Étape 4 — Gate Morris
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Décision d’autorisation d’exécution |
-+| Visible | Dossier gate §5 ; Truth Check résumé ; contractHash ; HEAD ; branche |
-+| Actions | **GO** · **NO-GO** · **Demander correction** · **Abandonner** |
-+| Statut | `attente_gate_morris` → `autorisé` / retour / `abandonné` |
-+| Preuve | MorrisGateDecision ancrée |
-+| Critique | GO |
-+
-+### Étape 5 — Exécution
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Cursor réel dans sandbox après revalidation harness |
-+| Visible | workspace ; HEAD ; contrat ; allowlist ; début ; durée ; phase ; STOP |
-+| Actions | STOP Morris |
-+| Statut | `autorisé` → `en_exécution` |
-+| Interdit | Fausse progression inventée |
-+| Preuve | ExecutionEvents |
-+
-+### Étape 6 — Rapport disponible
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Afficher résultat d’exécution |
-+| Visible | statut ; fichiers touchés ; aperçu sanitisé ; erreurs ; refs preuves/review pack |
-+| Statut | `rapport_disponible` |
-+| Preuve | CursorExecutionReport + ReviewPackReference |
-+
-+### Étape 7 — Analyse GPT
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Lancer analyse GPT du paquet de preuves |
-+| Visible | état analyse ; compteur appels |
-+| Statut | `revue_en_cours` |
-+| Précondition | Rapport + pack complets |
-+
-+### Étape 8 — Verdict proposé
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Afficher GptVerdictCandidate |
-+| Visible | prouvé / non prouvé / écarts / risques / réserves / décisions requises / claims interdits / verdict proposé |
-+| Statut | `décision_requise` |
-+| Interdit | Bouton « clôturer automatiquement » |
-+
-+### Étape 9 — Décision Morris
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Décision finale humaine |
-+| Actions | Accepter et clôturer · Demander correction · Relancer sous nouveau GO · Abandonner |
-+| Preuve | MorrisFinalDecision |
-+
-+### Étape 10 — Clôture
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Figurer CycleSummary dérivé |
-+| Statut | `clôturé` ou `abandonné` |
-+| Visible | résumé ; liens preuves ; réserves ; « non production-ready » |
++| Page | node ID | Rôle |
++|------|---------|------|
++| `UX-B — P0` | `0:1` | Référence validée — **non modifiée** |
++| `UX-B — POC Vertical Slice` | `51:2` | Frames VS candidates (ce cycle) |
 +
 +---
 +
-+## 2. États et transitions
++## 2. Frames sources P0 (lues, non modifiées)
 +
-+| De | Vers | Déclencheur | Gate | Échec |
-+|----|------|-------------|------|-------|
-+| — | `intention_capturée` | Saisie Morris | non | — |
-+| `intention_capturée` | `qualification_en_cours` | Soumettre | non | validation locale |
-+| `qualification_en_cours` | `qualification_prête` | GPT OK + validateur | non | → correction / abandon |
-+| `qualification_prête` | `attente_gate_morris` | Morris « continuer » | non | — |
-+| `attente_gate_morris` | `autorisé` | **GO** | oui | — |
-+| `attente_gate_morris` | `qualification_en_cours` | Correction | non | — |
-+| `attente_gate_morris` | `abandonné` | NO-GO / Abandon | oui | — |
-+| `autorisé` | `en_exécution` | Harness revalide + spawn | GO revalidé | → `stoppé` / erreur |
-+| `en_exécution` | `stoppé` | STOP / erreur / timeout | — | reprise ou abandon |
-+| `en_exécution` | `rapport_disponible` | Fin exécution | — | rapport incomplet |
-+| `rapport_disponible` | `revue_en_cours` | Lancer analyse | non | pack incomplet |
-+| `revue_en_cours` | `décision_requise` | Verdict GPT valide | non | verdict invalide |
-+| `décision_requise` | `clôturé` | Accepter | décision finale | — |
-+| `décision_requise` | `qualification_en_cours` | Correction / relance | **nouveau GO** si re-exec | — |
-+| `décision_requise` | `abandonné` | Abandon | oui | — |
-+| `stoppé` | `attente_gate_morris` / `abandonné` | Reprise / abandon | **nouveau GO** si re-exec | — |
-+
-+**Règle :** timeout ≠ GO. **Règle :** GO invalide si contractHash, HEAD, branche ou allowlist changent.
++| Frame | node ID | Dimensions |
++|-------|---------|------------|
++| P0-00C — Nouvelle demande | `19:2` | 1440 × 1024 |
++| P0-01C — Vue synthèse | `22:2` | 1440 × 1024 |
++| P0-02C — Cycle actif | `22:133` | 1440 × 1024 |
++| P0-03C — Décision Morris | `22:270` | 1440 × 1024 |
 +
 +---
 +
-+## 3. Contrat fonctionnel — Qualification GPT
++## 3. Inventaire frames vertical slice
 +
-+### Champs obligatoires (QualificationCandidate)
++| Frame | node ID | Dimensions | Clone source | Étape |
++|-------|---------|------------|--------------|-------|
++| VS-UX-01 — Nouvelle demande | `51:3` | 1440 × 1024 | P0-00C | 1 |
++| VS-UX-02 — Qualification en cours | `51:139` | 1440 × 1024 | P0-02C | 2 |
++| VS-UX-03 — Qualification proposée | `51:277` | 1440 × 1024 | P0-02C | 3 |
++| VS-UX-04 — Gate Morris | `51:415` | 1440 × 1024 | P0-03C | 4 |
++| VS-UX-05 — Exécution | `51:540` | 1440 × 1024 | P0-02C | 5 |
++| VS-UX-06 — Rapport disponible | `51:678` | 1440 × 1024 | P0-02C | 6 |
++| VS-UX-07 — Analyse GPT | `51:816` | 1440 × 1024 | P0-02C | 7 |
++| VS-UX-08 — Verdict proposé | `51:954` | 1440 × 1024 | P0-03C | 8 |
++| VS-UX-09 — Décision Morris | `51:1079` | 1440 × 1024 | P0-03C | 9 |
++| VS-UX-10 — Clôture | `51:1204` | 1440 × 1024 | P0-01C | 10 |
 +
-+| Champ | Visible Morris | Modifiable sans re-qualif |
-+|-------|----------------|---------------------------|
-+| requestId / correlationId | oui | non |
-+| objectif reformulé | oui | non (correction = re-qualif) |
-+| hypothèses / observations | oui | non |
-+| cycle SFIA proposé | oui | non |
-+| profil + justification | oui | non |
-+| blocs activés / désactivés | oui | non |
-+| sources nécessaires | oui | non |
-+| gates Morris | oui | non |
-+| périmètre / hors périmètre | oui | non |
-+| fichiers autorisés / interdits | oui | non |
-+| stop conditions | oui | non |
-+| critères succès / échec | oui | non |
-+| réserves | oui | non |
-+| décisions requises | oui | non |
-+| verdict attendu (indicatif) | oui | non |
-+| schemaVersion / métadonnées modèle | oui (expérimental) | non |
-+
-+### Règles
-+
-+- Sortie incomplète → **rejet fail-closed** (VS-BR-01).  
-+- Ambiguïté → correction ou abandon, **pas** de fallback permissif (VS-BR-02).  
-+- Relance qualification = nouvelle consommation FinOps, jamais silencieuse (VS-BR-03).  
-+- GPT recommande ; Morris décide (VS-BR-04).
++Lien fichier : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
 +
 +---
 +
-+## 4. Gate Morris — dossier de décision
++## 4. Variantes / annotations
 +
-+### Actions
-+
-+`GO` · `NO-GO` · `Demander une correction` · `Abandonner`
-+
-+### Ancrage obligatoire du GO
-+
-+requestId · contractId · contractHash · branche · HEAD · périmètre · fichiers autorisés · actions autorisées · date/heure/fuseau · identité autorité · validité éventuelle (candidat)
-+
-+### Messages utilisateur (fonctionnels)
-+
-+| Situation | Message type |
-+|-----------|--------------|
-+| HEAD changé | « Le HEAD a changé depuis la qualification. Le GO précédent est invalide. Nouvelle qualification ou Truth Check requis. » |
-+| Contrat changé | « Le contrat a changé. Relancez la qualification puis un nouveau gate. » |
-+| Fichier hors allowlist | « Un fichier hors allowlist a été détecté. Exécution refusée. » |
-+| Action interdite | « Action interdite par le contrat. Aucune exécution. » |
-+| Rapport incomplet | « Rapport ou preuves incomplets. Analyse GPT bloquée. » |
-+| Cursor échoue | « Exécution Cursor en échec. Consultez le rapport. Décision Morris requise. » |
-+| GPT invalide | « Sortie GPT rejetée (fail-closed). Correction ou abandon. » |
++| Variante | node ID | Dimensions | Rôle | Frames couvertes |
++|----------|---------|------------|------|------------------|
++| VS-UX-VAR — Loading GPT | `52:2` | 720 × 420 | Phase active + FinOps | 02, 07 (+05) |
++| VS-UX-VAR — Erreur fail-closed | `52:10` | 720 × 420 | Rejet GPT | 02, 07 |
++| VS-UX-VAR — STOP Morris | `52:18` | 720 × 420 | STOP prioritaire | 02, 05, 07 |
++| VS-UX-VAR — GO invalide | `52:26` | 720 × 420 | Invalidation ancrage | 04, 05 |
++| VS-UX-NOTE — Gate 4 actions | `52:34` | 720 × 420 | Mapping Abandon | 04 |
 +
 +---
 +
-+## 5. Exécution Cursor (fonctionnel)
++## 5. Contenu fonctionnel par frame
 +
-+### Avant
++### VS-UX-01 — Nouvelle demande
++- Intention Markdown sandbox ; requestId candidat ; repo/branche/HEAD ; sandbox.
++- CTA : **Qualifier la demande** — aucun GO.
++- Copilote = recommandation.
 +
-+Afficher : workspace sandbox · branche · HEAD · objectif · contrat · allowlist · commandes/actions interdites · gate actif · contractHash.
++### VS-UX-02 — Qualification en cours
++- Phase GPT qualification ; compteur `n / À définir` ; aucun retry auto ; STOP ; erreur fail-closed (variante).
 +
-+### Pendant
++### VS-UX-03 — Qualification proposée
++- Cycle, profil, périmètre, allowlist/denylist, risques, contrat, contractHash, source GPT.
++- CTA : Ouvrir gate Morris / Demander correction — **pas** d’auto-GO.
 +
-+État `en_exécution` · début · durée · phase courante (si connue) · STOP · événements · **aucune** barre de progression inventée.
++### VS-UX-04 — Gate Morris
++- Dossier ancré : requestId, contractId, contractHash, branche, HEAD, allowlist, autorité, horodatage.
++- Actions : GO · NO-GO · CORRECTION · ABANDON (3 cartes + note Abandon).
++- Mécanisme invalidation GO (bandeau / variante).
 +
-+### Après
++### VS-UX-05 — Exécution
++- Harness + Cursor sandbox ; fichier autorisé ; journal dérivé ; STOP ; pas de remote ; pas de commandes inventées.
 +
-+Statut · fichiers créés/modifiés (sandbox) · actions observables · erreurs · rapport · review pack · preuves · écarts au contrat · confirmation aucune écriture distante.
++### VS-UX-06 — Rapport disponible
++- Markdown produit ; rapport ; allowlist ; remote=0 ; preuves ; réserves ; CTA analyse GPT.
 +
-+**Ne pas** inventer une API Cursor : mécanisme = port harness existant / CLI agent observé dans `29`/`31`.
++### VS-UX-07 — Analyse GPT
++- Appel distinct ; compteur ; plafond À définir ; aucun retry ; fail-closed ; arrêt avant conso.
 +
-+---
++### VS-UX-08 — Verdict proposé
++- Badge **candidat** ; preuves ; réserves ; incohérences ; CTA décision Morris.
 +
-+## 6. Rapport et verdict GPT
++### VS-UX-09 — Décision Morris
++- Clôturer · Corriger · Relancer (nouveau GO) · Abandonner ; conséquences ; pas d’actions Git groupées.
 +
-+### Paquet minimal pour analyse
-+
-+demande · qualification · contrat · décision Morris · Truth Check · journal · fichiers touchés · contenu utile sanitisé · tests éventuels · erreurs · stop · réserves · rapport Cursor · review pack.
-+
-+### GptVerdictCandidate
-+
-+observations · prouvé · non prouvé · conformité contrat · écarts · risques · réserves · recommandations · décisions Morris requises · claims interdits détectés · verdict proposé.
-+
-+### Décisions Morris post-verdict
-+
-+Accepter et clôturer · Demander correction · Relancer sous **nouveau GO** · Abandonner.
-+
-+GPT **ne clôture pas**.
-+
-+---
-+
-+## 7. Scénarios négatifs (N1–N16)
-+
-+| ID | Scénario | Détection | Comportement | Reprise | Nouveau GO |
-+|----|----------|-----------|--------------|---------|------------|
-+| N1 | Qualif GPT invalide | Validateur | Rejet ; message ; pas d’exécution | Re-qualif | non (pas encore) |
-+| N2 | Sources Git indisponibles | Truth Check | STOP lecture | Réessayer quand Git OK | non |
-+| N3 | HEAD modifié après qualif | Comparaison HEAD | Invalider GO/contrat | Re-qualif | oui si exec |
-+| N4 | GO absent | Harness | Refus spawn | Gate | oui |
-+| N5 | GO invalide/expiré | Revalidation | Refus | Nouveau gate | oui |
-+| N6 | Contrat modifié après GO | Hash | Refus | Re-qualif + gate | oui |
-+| N7 | Fichier hors allowlist | Policy | STOP / refus | Correction contrat | oui |
-+| N8 | Commande/action interdite | Policy / post-check | STOP | Correction | oui |
-+| N9 | Cursor indisponible | Port | Échec explicite | Retry manuel sous GO | oui |
-+| N10 | Cursor code erreur | exit ≠ 0 | Rapport d’échec | Décision Morris | selon reprise |
-+| N11 | Timeout | Timer | `stoppé` ; timeout ≠ GO | Reprise sous GO | oui |
-+| N12 | STOP Morris | Action | `stoppé` immédiat | Reprise/abandon | oui si re-exec |
-+| N13 | Rapport absent | Check | Bloque analyse | Relancer collecte | — |
-+| N14 | Review pack incomplet | Check | Bloque clôture positive | Compléter | — |
-+| N15 | Verdict GPT invalide | Validateur | Rejet | Relance analyse ou abandon | FinOps |
-+| N16 | Perte session Studio | Reprise UI | Recharger états **dérivés** depuis preuves/Git | Continuer sans inventer | selon état |
-+
-+Chaque scénario journalise une preuve (`ExecutionEvent` / note).
++### VS-UX-10 — Clôture
++- Décision ; statut ; traçabilité ; appels GPT ; réserves ; prochaines actions séparées ; **aucun** claim MVP/prod.
 +
 +---
 +
-+## 8. Matrice gate / nouveau GO
++## 6. Transitions UX
 +
-+| Situation | Nouveau GO requis ? |
-+|-----------|---------------------|
-+| Re-qualification seule | non |
-+| Première exécution | oui (GO initial) |
-+| Reprise après STOP/erreur avec re-exec | **oui** |
-+| Relance après verdict « correction » avec re-exec | **oui** |
-+| Clôture / abandon | décision finale (pas GO Cursor) |
-+| Lecture preuves seule | non |
-+
-+---
-+
-+## 9. Règles métier `VS-BR-*`
-+
-+| ID | Règle |
-+|----|-------|
-+| VS-BR-01 | Sortie GPT hors contrat → rejet fail-closed |
-+| VS-BR-02 | Pas de fallback permissif |
-+| VS-BR-03 | Pas de retry automatique GPT/Cursor |
-+| VS-BR-04 | GPT ne décide pas ; Morris décide |
-+| VS-BR-05 | GO lié à contractHash + HEAD + branche + allowlist |
-+| VS-BR-06 | Changement hash/HEAD/branche/allowlist → GO invalide |
-+| VS-BR-07 | Harness revalide avant spawn |
-+| VS-BR-08 | Cursor sandbox only ; hors allowlist → STOP |
-+| VS-BR-09 | Aucune écriture Git distante dans le slice |
-+| VS-BR-10 | STOP prioritaire |
-+| VS-BR-11 | Timeout ≠ GO |
-+| VS-BR-12 | Studio n’est pas source de vérité |
-+| VS-BR-13 | Harness autonome sans Studio demeure possible |
-+| VS-BR-14 | Verdict GPT = candidat |
-+| VS-BR-15 | Review pack incomplet → pas de clôture positive |
-+| VS-BR-16 | Secrets jamais affichés |
-+| VS-BR-17 | Claims production-ready / merge auto / L5 = interdits |
++```text
++01 → 02 (Qualifier)
++02 → 03 (qualif OK) | variante erreur/STOP
++03 → 04 (Ouvrir gate) | correction → 02
++04 → 05 (GO) | NO-GO/Abandon → 10- | correction → 02
++05 → 06 (fin) | STOP → stoppé
++06 → 07 (Lancer analyse)
++07 → 08 (verdict OK) | fail-closed
++08 → 09
++09 → 10 (clôturer) | correction/relance (nouveau GO) | abandon
++```
 +
 +---
 +
-+## 10. Critères d’acceptation testables `VS-AC-*`
++## 7. Interactions candidates (non delivery)
 +
-+| ID | Critère |
-+|----|---------|
-+| VS-AC-01 | Parcours nominal 1→10 réalisable depuis Studio |
-+| VS-AC-02 | GO refusé si HEAD ≠ HEAD ancré |
-+| VS-AC-03 | GO refusé si contractHash ≠ hash courant |
-+| VS-AC-04 | Fichier hors allowlist → pas de succès d’exécution |
-+| VS-AC-05 | STOP interrompt et journalise |
-+| VS-AC-06 | Sans rapport/pack → pas d’analyse GPT réussie |
-+| VS-AC-07 | Verdict invalide → pas de clôture auto |
-+| VS-AC-08 | Clôture uniquement via MorrisFinalDecision |
-+| VS-AC-09 | Aucune preuve d’écriture distante |
-+| VS-AC-10 | Aucun secret dans UI/preuves |
-+| VS-AC-11 | États Studio cohérents avec preuves (vue dérivée) |
-+| VS-AC-12 | Même scénario exécutable via harness sans Studio |
++| Action UI | Autorité | Effet attendu |
++|-----------|----------|---------------|
++| Qualifier la demande | Morris | Déclenche qualif GPT via adaptateur→harness |
++| STOP | Morris | stoppé immédiat |
++| Ouvrir gate | Morris | Affiche dossier |
++| GO / NO-GO / Correction / Abandon | Morris | Gate decision |
++| Lancer analyse GPT | Morris | 2e appel GPT |
++| Confirmer décision finale | Morris | Clôture / reprise |
 +
 +---
 +
-+## 11. Preuves attendues (fonctionnelles)
++## 8. Écarts au P0
 +
-+| Étape | Preuve |
-+|-------|--------|
-+| Demande | StudioRequest |
-+| Qualif | QualificationCandidate + observation GPT |
-+| Gate | MorrisGateDecision |
-+| Exec | ExecutionEvents + CursorExecutionReport |
-+| Pack | ReviewPackReference |
-+| Verdict | GptVerdictCandidate |
-+| Clôture | MorrisFinalDecision + CycleSummary |
++| Écart | Traitement |
++|-------|------------|
++| 4 écrans P0 vs 10 VS | Extension documentée — P0 inchangé |
++| Loading/error absents P0 | Variantes VS ajoutées |
++| Gate P0 = 3 options | 4e action Abandon en note + confirmation |
++| Synthèse P0 ≠ clôture slice | VS-UX-10 réutilise shell synthèse pour CycleSummary |
++| App routes limitées | Hors cycle — delivery futur |
 +
 +---
 +
-+## 12. Données — champs clés (extrait)
++## 9. Accessibilité par frame (checklist cible)
 +
-+### ExecutionContract (fonctionnel)
++| Frame | Tab order | Focus | Labels CTA | STOP | Contraste cible |
++|-------|-----------|-------|------------|------|-----------------|
++| 01–10 | Rail→top→canvas→actions→copilote | Oui | Verbe+objet | 02/05/07 | WCAG 2.2 AA |
 +
-+contractId · contractHash · requestId · correlationId · objective · allowedReadPaths · allowedWritePaths · deniedPaths · allowedActions · forbiddenActions · stopConditions · requiredGates · gitEffect=`none-remote` · workspaceSandbox · initiatedBy · initiatedAt · validityWindow?
-+
-+### MorrisGateDecision
-+
-+decision ∈ {GO, NO_GO, CORRECTION, ABANDON} · requestId · contractId · contractHash · branch · head · actor · decidedAt · timezone · rationale?
++Pas d’audit runtime réalisé.
 +
 +---
 +
-+## 13. Challenge (auto-contrôle)
++## 10. FinOps / sécurité (rappel UI)
 +
-+| Question | Réponse conception |
-+|----------|-------------------|
-+| Utile maintenant ? | Oui — débloque UX/backlog/delivery sans réinterprétation dangereuse |
-+| Preuve BeB couverte ? | Oui — Studio→…→clôture conçue ; spikes = preuve technique partielle hors UI |
-+| Trop large ? | Borné à un scénario Markdown sandbox |
-+| Plus simple ? | Harness-only déjà prouvé ; slice ajoute Studio gouverné |
-+| Dérive MVP ? | Explicitement non — niveaux §32 |
-+| Gate visible ? | Oui — étape 4 + revalidation |
-+| Option B respectée ? | Oui |
++- Plafond : **À définir** · pas de retry auto · pas de coût € inventé.
++- IDs visibles · secrets interdits · GO invalidable · Studio dérivé.
++
++---
++
++## 11. Limites
++
++- Copy Figma peut nécessiter polish Morris.
++- Variantes = annotations 720×420, pas full 1440 screens.
++- Quatrième option gate non matérialisée en 4e carte (candidat VS-UX-CAND).
++- Screenshots MCP à capturer dans le review pack.
 
-diff --git a/projects/sfia-studio/34-poc-vertical-slice-decision-pack.md b/projects/sfia-studio/34-poc-vertical-slice-decision-pack.md
+diff --git a/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md b/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
 new file mode 100644
 --- /dev/null
-+++ b/projects/sfia-studio/34-poc-vertical-slice-decision-pack.md
-+# SFIA Studio — Decision pack vertical slice POC (candidat)
++++ b/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
++# SFIA Studio — Decision pack UX/UI vertical slice POC (candidat)
 +
 +| Métadonnée | Valeur |
 +|------------|--------|
-+| **Projet** | SFIA Studio |
-+| **Document** | `34-poc-vertical-slice-decision-pack.md` |
-+| **Cycle** | 2 — Conception fonctionnelle (vertical slice POC) |
-+| **Profil** | Critical |
-+| **Typologie** | DOC / CONCEPTION / POC |
-+| **Baseline** | SFIA v2.6 |
++| **Document** | `37-poc-vertical-slice-ux-ui-decision-pack.md` |
++| **Cycle** | 4 — UX/UI |
++| **Profil** | Standard |
++| **Statut** | `draft-for-morris-visual-validation` — **aucune VS-UX-CAND validée** |
 +| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-+| **Branche conception** | `design/sfia-studio-poc-vertical-slice` (**locale**) |
-+| **Statut** | `draft-for-morris-validation` — **aucune décision VS-CAND validée** |
-+| **Autorité** | Morris (L0) |
-+| **Complète** | [`32`](./32-poc-vertical-slice-functional-design.md) · [`33`](./33-poc-vertical-slice-flows-and-rules.md) |
++| **Figma** | `lrjA1WEyRpL05vKR8k29LO` · page `51:2` |
++| **Companions** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`36`](./36-poc-vertical-slice-ux-ui-flows-and-frames.md) |
 +
-+> Pack de **propositions**. Les `VS-CAND-*` sont **candidates**.  
-+> Ne jamais écrire qu’elles sont validées. Validation Morris = GO distinct.
++> Pack de **propositions** UX/UI. Ne jamais écrire que les frames ou candidats sont validés.
 +
 +---
 +
 +## 1. Synthèse
 +
-+Ce cycle conçoit le **premier vertical slice POC utilisable depuis SFIA Studio** :
-+
-+Demande → qualification GPT réelle → gate Morris → harness → Cursor sandbox → preuves → analyse GPT → verdict candidat → décision Morris.
-+
-+Il **ne** livre pas de code, **ne** prouve pas le BeB UI, **ne** définit pas le MVP, **ne** rouvre pas Option B / AF-Option C.
++Ce cycle produit le **contrat UX/UI** et les **frames Figma candidates** du parcours gouverné en dix étapes du vertical slice POC, en continuité Product premium (P0), sans code, sans live GPT/Cursor, sans commit projet.
 +
 +| Livrable | Rôle |
 +|----------|------|
-+| `32` | Contrat fonctionnel du slice (périmètre, FR, objets, AC) |
-+| `33` | Parcours, états, BR, scénarios négatifs, preuves |
-+| `34` | Ce pack — observations, candidats, séquencement |
++| `35` | Contrat visuel + exigences UX + accessibilité/FinOps |
++| `36` | Inventaire frames, node IDs, flux, variantes |
++| `37` | Ce pack — options, candidats, gates |
++| Figma page `UX-B — POC Vertical Slice` | 10 frames + variantes annotations |
 +
 +---
 +
 +## 2. Observations
 +
-+1. Les spikes `#226` / docs `29`–`31` prouvent GPT + Cursor **hors Studio UI**, avec réserves.
-+2. Le gap restant est **fonctionnel UX gouverné** : Studio comme cockpit / vue dérivée, pas comme orchestrateur.
-+3. Le socle `08`–`10` (FD-CAND validés) reste la base ; ce slice en est un **sous-ensemble POC** explicite.
-+4. Le scénario Markdown sandbox est un **support de preuve**, pas une feature produit finale.
-+5. Les risques majeurs sont : dérive MVP, contournement gate, seconde vérité Studio, écriture distante, retry permissif, claims « prêt ».
++1. P0 (4 frames) reste la référence visuelle validée ; non modifié.
++2. Les 10 étapes fonctionnelles (`32`–`34`) nécessitent 10 frames distinctes — pas de fusion silencieuse.
++3. L’app actuelle ne couvre que partiellement les étapes 1 et 9 — écart delivery futur.
++4. VS-CAND-14 appliquée : plafond visible, valeur **À définir**.
++5. Structure P0-03C limite à 3 cartes option ; Abandon documenté via confirmation + note.
 +
 +---
 +
 +## 3. Hypothèses
 +
 +| ID | Hypothèse |
-+|----|-----------|
-+| H1 | Architecture POC Option B reste inchangée |
-+| H2 | Morris reste seule autorité L0 ; GPT/Cursor sans pouvoir de décision |
-+| H3 | Git reste source de vérité durable ; Studio = vue dérivée |
-+| H4 | Aucune écriture Git distante dans le premier vertical slice |
-+| H5 | Exécution Cursor limitée à une sandbox allowlistée |
-+| H6 | Harness autonome sans Studio reste possible |
-+| H7 | Demande de démo sans donnée personnelle |
-+| H8 | Validation des VS-CAND précède UX/UI, backlog et delivery |
++|----|----------|
++| H1 | Continuité Product premium / Inter / tokens flush |
++| H2 | Shell rail+topbar+canvas+copilote inchangé conceptuellement |
++| H3 | Viewport 1440×1024 seul (pas mobile) |
++| H4 | Copilote = recommandation uniquement |
++| H5 | Valeur numérique plafond GPT décidée hors design |
 +
 +---
 +
-+## 4. Options éventuelles (non tranchées techniquement)
++## 4. Options
 +
-+| Sujet | Option A | Option B (recommandée conception) | Note |
-+|-------|----------|-----------------------------------|------|
-+| Scénario preuve | Multi-fichiers / multi-projets | **Un Markdown sandbox** | Moins de dette |
-+| Gate validity | GO sans fenêtre | GO + fenêtre de validité candidate | À arbitrer (VS-CAND-04) |
-+| Affichage événements | Polling UI | Stream dérivé | Non figé tech |
-+| Conservation logs | Indéfinie | Durée limitée candidate | RGPD / VS-CAND futur |
-+
-+Aucune option ci-dessus ne sélectionne stack, BDD, ORM ou protocole.
++| Sujet | Option A | Option B (retenue conception) | Soumis à Morris |
++|-------|----------|-------------------------------|-----------------|
++| Nombre de frames | Fusionner 8–9 | **10 frames** | Non (contrat) |
++| Gate Abandon | Fusionner avec NO-GO | **Action distincte** (note + confirmation) | Oui si 4e carte |
++| Variantes | Full 1440 | **Annotations 720×420** | Oui |
++| Clôture shell | Nouveau shell | **Réutiliser synthèse P0-01C** | Observation |
 +
 +---
 +
 +## 5. Recommandations (non validées)
 +
-+1. Valider d’abord les `VS-CAND-01`…`12` avant tout cycle UX/UI.
-+2. Garder le scénario **minimal** (Markdown sandbox) pour le BeB.
-+3. Exiger ancrage GO = contractHash + HEAD + branche + allowlist.
-+4. Conserver harness autonome comme chemin de contrôle.
-+5. Interdire claims MVP / production / L5 / « Studio complete ».
-+6. Enchaîner ensuite : UX/UI → backlog → delivery (sous GO distincts).
++1. Valider visuellement les 10 frames + variantes avant backlog delivery.
++2. Ajouter une 4e carte « Abandon » sur VS-UX-04 en polish si Morris le souhaite.
++3. Garder plafond « À définir » jusqu’à décision FinOps séparée.
++4. Ne pas lancer delivery UI avant GO validation visuelle.
++5. Comparer runtime ↔ Figma avant tout READY visuel futur.
 +
 +---
 +
-+## 6. Décisions candidates `VS-CAND-*`
++## 6. Décisions UX candidates `VS-UX-CAND-*`
 +
-+| ID | Décision candidate | Impact | Risque si non tranché | Dette si accepté |
-+|----|-------------------|--------|----------------------|------------------|
-+| **VS-CAND-01** | Scénario démo = Markdown sandbox (titre, synthèse, checklist) | Borne le BeB | Scénario flou → dérive | Faible |
-+| **VS-CAND-02** | Parcours utilisateur en **dix** étapes (Nouvelle demande → Clôture) | Cadre UX | Ambiguïté écrans | Faible |
-+| **VS-CAND-03** | Qualification GPT **visible** avant tout gate d’exécution | Contrôle humain | GO aveugle | Faible |
-+| **VS-CAND-04** | GO lié à contractHash + Git HEAD (+ branche + allowlist) | Invalidation stricte | Contournement / stale GO | Faible (discipline) |
-+| **VS-CAND-05** | Studio = vue dérivée ; harness = autorité d’application des gates | Option B | Studio orchestrateur | Faible |
-+| **VS-CAND-06** | Aucune écriture Git distante dans le slice | Sécurité | Fuite périmètre | Faible |
-+| **VS-CAND-07** | Cursor réel **uniquement** sandbox après GO revalidé | Bornage | Cursor libre | Moyenne (ops) |
-+| **VS-CAND-08** | Verdict GPT = candidat ; clôture = Morris | Autorité | Clôture auto | Faible |
-+| **VS-CAND-09** | STOP prioritaire (timeout ≠ GO) | Sécurité | Exécution zombie | Faible |
-+| **VS-CAND-10** | Mode harness autonome conservé | Résilience | Dépendance UI | Faible |
-+| **VS-CAND-11** | Critères de succès BeB = `VS-AC-*` + critère central doc `32` | Acceptation | « Succès » flou | Faible |
-+| **VS-CAND-12** | Séquencement post-validation : UX/UI → backlog → delivery | Ordre cycles | Delivery trop tôt | Faible |
-+
-+### Compléments candidats (si nécessaires)
-+
-+| ID | Décision candidate | Pourquoi |
-+|----|-------------------|----------|
-+| **VS-CAND-13** | Demande de test sans donnée personnelle ; journaux sans secret | RGPD minimal |
-+| **VS-CAND-14** | Plafond d’appels GPT candidat + pas de retry auto | FinOps |
-+| **VS-CAND-15** | Identifiants correlation (requestId, contractId, eventId) obligatoires en UI/preuves | Observabilité |
++| ID | Décision candidate | Impact | Risque | Dette |
++|----|-------------------|--------|--------|-------|
++| **VS-UX-CAND-01** | Page Figma dédiée `UX-B — POC Vertical Slice` | Isolation P0 | Confusion pages | Faible |
++| **VS-UX-CAND-02** | Dix frames 1440×1024 VS-UX-01…10 | Couverture BeB | Effort delivery | Moyenne |
++| **VS-UX-CAND-03** | Continuité shell Product premium P0 | Cohérence | Sur-contrainte | Faible |
++| **VS-UX-CAND-04** | CTA Qualifier sans GO sur VS-UX-01 | Sécurité | — | Faible |
++| **VS-UX-CAND-05** | FinOps visible (compteur + plafond À définir + no retry) | Transparence | — | Faible |
++| **VS-UX-CAND-06** | Invalidation GO visuelle obligatoire | Sécurité | Friction | Faible |
++| **VS-UX-CAND-07** | STOP prioritaire sur 02/05/07 | Sécurité | — | Faible |
++| **VS-UX-CAND-08** | Verdict GPT badge candidat | Autorité | — | Faible |
++| **VS-UX-CAND-09** | Variantes loading/erreur/STOP/GO-invalide en annotations | Couverture états | Moins pixel-perfect | Acceptable POC |
++| **VS-UX-CAND-10** | Abandon gate via confirmation + note (pas 4e carte encore) | Fidélité P0 clone | Ambiguïté Abandon | Moyenne |
++| **VS-UX-CAND-11** | Accessibilité = contrat cible WCAG 2.2 AA (pas audit) | Qualité | Surclaim | Faible |
++| **VS-UX-CAND-12** | Séquencement : validation visuelle → backlog → delivery | Ordre | Delivery trop tôt | Faible |
 +
 +---
 +
@@ -1938,88 +1197,47 @@ new file mode 100644
 +
 +| Thème | Impact | Risque | Dette |
 +|-------|--------|--------|-------|
-+| Conception Critical | Documents structurants pour UX/delivery | Sur-spécification | Maintenir alignement `32`–`34` vs spikes |
-+| Gates stricts | Sécurité BeB | Friction Morris | Discipline GO |
-+| Sandbox only | Preuve limitée | Sous-estimer prod | Acceptable pour POC |
-+| Pas de remote Git | Pas de merge auto | Moins « wow » démo | Volontaire |
-+| Studio dérivé | Complexité UX sync | États désync | Reprise N16 |
++| 10 frames | Contrat delivery clair | Scope UI large | Implémentation multi-routes |
++| Clones P0 | Continuité visuelle | Copy non polishée | Polish Figma |
++| 3 vs 4 options gate | — | Abandon peu visible | 4e carte candidate |
++| Pas de code | Isolé | App ≠ Figma | Delivery futur |
 +
 +---
 +
-+## 8. Proposition de validation Morris
-+
-+Morris est invité à **valider ou refuser** séparément chaque `VS-CAND-*` (ou un lot explicite), **sans** autoriser :
-+
-+- commit / push / PR / merge des docs `32`–`34` ;
-+- UX/UI, backlog, delivery ;
-+- modification `app/**` ou harness ;
-+- exécution OpenAI / Cursor réelle ;
-+- CI/CD, MVP, L5, industrialisation.
-+
-+Effet attendu d’une validation conception : **autorisation** d’un cycle suivant (typiquement UX/UI ou versionnement documentaire sous GO distinct).
-+
-+---
-+
-+## 9. Gates suivants (GO distincts requis)
++## 8. Gates Morris
 +
 +| Gate | Objet |
 +|------|-------|
-+| G-VS-VAL | Validation `VS-CAND-*` |
-+| G-VS-DOC | Commit / push / PR / merge docs `32`–`34` |
-+| G-VS-UX | Cycle UX/UI visuelle |
-+| G-VS-BL | Backlog delivery |
-+| G-VS-DEL | Delivery / code Studio+adaptateur |
-+| G-VS-LIVE | OpenAI / Cursor live |
-+| G-VS-CI | CI/CD |
-+| G-VS-MVP | Définition MVP |
-+| G-VS-IND | Industrialisation / L5 |
++| G-VS-UX-VAL | Validation visuelle frames + contrat 35–37 |
++| G-VS-UX-ABANDON | 4e carte Abandon ou conserver note |
++| G-VS-UX-DOC | Commit/push/PR/merge docs 35–37 |
++| G-VS-UX-DEL | Delivery UI (app) |
++| G-VS-LIVE | Live GPT/Cursor |
++| G-VS-LIMIT | Valeur numérique plafond GPT |
 +
 +---
 +
-+## 10. Séquencement candidat
++## 9. Décisions Morris déjà appliquées (amont)
 +
-+```text
-+1. Validation conception (VS-CAND)     ← Morris — GO requis
-+2. (Optionnel) versionnement docs 32–34
-+3. UX/UI (écrans du parcours 10 étapes)
-+4. Backlog borné vertical slice
-+5. Delivery (app + adaptateur fin — hors harness authority)
-+6. Preuve BeB live sous GO live
-+```
-+
-+Ordre recommandé : **validation → UX/UI → backlog → delivery**.  
-+Ne pas lancer delivery avant validation des candidats.
++VS-CAND-01…13, 15 **VALIDÉES** · VS-CAND-14 **VALIDÉE AVEC RÉSERVE**.
 +
 +---
 +
-+## 11. Challenge (auto-contrôle)
++## 10. Décisions Morris attendues
 +
-+| Question | Verdict conception |
-+|----------|-------------------|
-+| Utile maintenant ? | Oui |
-+| Preuve BeB conçue ? | Oui (exécution réelle = cycles suivants) |
-+| Dette créée ? | Documentaire limitée |
-+| Trop large ? | Non — scénario unique sandbox |
-+| Plus simple ? | Harness-only déjà fait ; slice = Studio gouverné |
-+| Dérive MVP ? | Explicitement bornée |
-+| Gate visible ? | Oui |
-+| Option B ? | Respectée |
++1. Valider / amender / refuser `VS-UX-CAND-*`.
++2. Valider ou demander polish des frames Figma.
++3. Arbitrer Abandon (4e carte vs note).
++4. Autoriser ou non versionnement docs 35–37.
++5. **Ne pas** interpréter comme GO delivery / live / merge.
 +
 +---
 +
-+## 12. Verdict candidat (cycle conception)
++## 11. Verdict candidat
 +
-+`SFIA STUDIO VERTICAL SLICE FUNCTIONAL DESIGN READY — MORRIS VALIDATION REQUIRED`
++`SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED`
 +
-+### Interdits (non applicables)
++### Interdits
 +
-+CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · STUDIO COMPLETE · API INTEGRATED · CURSOR INTEGRATED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
-+
-+---
-+
-+## 13. Décisions Morris attendues
-+
-+1. Valider / amender / refuser `VS-CAND-01`…`15` (ou lot).
-+2. Autoriser ou non le versionnement documentaire.
-+3. Sélectionner le cycle suivant (UX/UI recommandé si validation).
-+4. **Ne pas** interpréter ce pack comme GO live, delivery ou merge.
++CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · FRAMES VALIDATED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
+
