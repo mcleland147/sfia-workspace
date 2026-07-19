@@ -1,0 +1,7 @@
+# Runtime proofs and local run artifacts — never version
+sandbox/proofs/**
+!sandbox/proofs/.gitkeep
+sandbox/output/**
+!sandbox/output/.gitkeep
+*.log
+.DS_Store
