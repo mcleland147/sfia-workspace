@@ -12,7 +12,7 @@
 | **Base Git** | `origin/main` @ `eb180638ad334a29a86b9fb757f401814003a0d8` |
 | **Statut** | `validated-for-versioning` — conception fonctionnelle **validée Morris** ; merge PR = GO distinct |
 | **Autorité** | Morris (L0) |
-| **Décisions** | Candidates `VS-CAND-*` uniquement — **aucune validée** |
+| **Décisions** | `VS-CAND-01` à `VS-CAND-13` et `VS-CAND-15` **validées** ; `VS-CAND-14` **validée avec réserve** — plafond GPT obligatoire, valeur numérique à définir, aucun retry automatique |
 | **Code / live** | **Aucun** dans ce cycle |
 
 > Contrat fonctionnel du **premier vertical slice POC** Studio → GPT → gate Morris → harness → Cursor → GPT verdict → décision Morris.
