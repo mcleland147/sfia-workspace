@@ -1,120 +1,94 @@
-# Review pack — SFIA Studio POC vertical slice UX/UI
+# Review pack — SFIA Studio POC vertical slice UX/UI CORRECTIF
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 21:44:24 CEST |
-| **Cycle** | 4 — UX/UI |
+| **Date / heure / fuseau** | 2026-07-19 22:03:49 CEST |
+| **Cycle** | 4 — UX/UI (correctif borné) |
 | **Profil** | Standard |
-| **Typologie** | DOC / UX |
 | **Branche** | `design/sfia-studio-poc-vertical-slice` (locale — aucun push projet) |
-| **HEAD** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
+| **HEAD / base** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 | **origin/main** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
+| **GO Morris consommé** | GO UX/UI correctif borné |
 | **Niveau** | **full** |
-| **Verdict** | `SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED` |
-| **Statut** | READY FOR MORRIS UX/UI REVIEW |
+| **Verdict** | `SFIA STUDIO VERTICAL SLICE UX/UI CORRECTED — MORRIS FINAL VALIDATION REQUIRED` |
 
 ---
 
 ## 1. Truth Check
 
-| Contrôle | Résultat |
-|----------|----------|
-| Workspace | `/Users/morris/Projects/sfia-workspace` |
-| Branche | `design/sfia-studio-poc-vertical-slice` |
-| HEAD / origin/main | Alignés `eb180638…` |
-| Docs 32–34 | Présents (untracked) |
-| Collision 35–37 | Absente à la création |
-| Staged | Aucun |
-| Modifs versionnées étrangères | Aucune |
-| app/** / harness/** | Non modifiés |
+OK — branche `design/sfia-studio-poc-vertical-slice` · HEAD=origin/main=`eb180638…` · staged vide · untracked attendus (32–37 + .tmp) · aucun app/harness.
 
 ---
 
-## 2. Décisions Morris appliquées
+## 2. Sources consultées
 
-- VS-CAND-01…13, 15 : **VALIDÉES**
-- VS-CAND-14 : **VALIDÉE AVEC RÉSERVE** — plafond obligatoire, valeur **À définir**, aucun retry auto
-
----
-
-## 3. Sources consultées
-
-### Git / docs
-- Template cycle + routing guide
-- `32`–`34` fonctionnels vertical slice
-- UX P0 `14`–`16`
-- POC `20`–`31` (contexte)
-- Handoff `origin/sfia/review-handoff` @ `b35683c…`
-- `app/**` lecture seule (routes, shell, tokens)
-
-### Figma
-- fileKey `lrjA1WEyRpL05vKR8k29LO`
-- Page P0 `0:1` — frames `19:2`, `22:2`, `22:133`, `22:270` — **1440×1024** confirmés
-- P0 **non modifiées** (vérifié post-création)
+Template cycle · P0 `14`–`16` · fonctionnel `32`–`34` · UX `35`–`37` (avant correctif) · app/** lecture seule · handoff `f3c7e6f…` · Figma page `51:2` frames `51:415` / `51:1204` / note `52:34`.
 
 ---
 
-## 4. Rôle documents 35–37
+## 3. État avant → après
 
-| Doc | Rôle | Lignes |
-|-----|------|--------|
-| 35 | Contrat UX/UI + contrat visuel Figma extrait | 189 |
-| 36 | Flows, inventaire frames, node IDs, variantes | 172 |
-| 37 | Decision pack VS-UX-CAND + gates | 138 |
-
----
-
-## 5. Figma créé
-
-| Élément | ID |
-|---------|-----|
-| Page | `UX-B — POC Vertical Slice` `51:2` |
-| VS-UX-01 | `51:3` |
-| VS-UX-02 | `51:139` |
-| VS-UX-03 | `51:277` |
-| VS-UX-04 | `51:415` |
-| VS-UX-05 | `51:540` |
-| VS-UX-06 | `51:678` |
-| VS-UX-07 | `51:816` |
-| VS-UX-08 | `51:954` |
-| VS-UX-09 | `51:1079` |
-| VS-UX-10 | `51:1204` |
-| VAR Loading | `52:2` |
-| VAR Erreur | `52:10` |
-| VAR STOP | `52:18` |
-| VAR GO invalide | `52:26` |
-| NOTE Gate 4 actions | `52:34` |
-
-Toutes frames principales : **1440 × 1024**.
-
-Lien : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
-
-### Captures locales (review pack)
-```
-.tmp-sfia-review/figma-screenshots/
-  VS-UX-01.png, VS-UX-02.png, VS-UX-04.png, VS-UX-05.png,
-  VS-UX-08.png, VS-UX-09.png, VS-UX-10.png, VS-UX-VAR-GO-invalide.png
-```
+| Élément | Avant | Après |
+|---------|-------|-------|
+| Navigation | 10 frames ambiguës vs routes | **Dix états** storyboard → **4 vues P0** documentées |
+| Gate VS-UX-04 | 3 cartes + note Abandon | **4 actions explicites** dont Abandonner destructif + confirmation |
+| Note `52:34` | Présente | **Supprimée** |
+| Clôture VS-UX-10 | Portfolio multi-projet hérité | **Slice-only** (requestId, décision, MD, preuves, FinOps, traçabilité) |
+| Docs 35–37 | Pré-correctif | Alignés (états≠routes, Abandonner, clôture) |
 
 ---
 
-## 6. Contrat visuel (synthèse)
+## 4. Preuve « dix états, pas dix routes »
 
-Shell Product premium : rail 64 · topbar · canvas · copilote · brand accent.  
-Tokens : blue/purple/green/orange, Inter, 1440×1024.  
-FinOps : compteur + plafond « À définir » + no retry.  
-GO invalidable · STOP prioritaire · verdict candidat · clôture Morris.
-
----
-
-## 7. Couverture 10 étapes
-
-01 Nouvelle demande → 02 Qualif en cours → 03 Qualif proposée → 04 Gate → 05 Exécution → 06 Rapport → 07 Analyse → 08 Verdict → 09 Décision → 10 Clôture.  
-Variantes : loading, erreur fail-closed, STOP, GO invalide.
+Documentée dans 35 §1bis, 36 §3, 37 §1/3.  
+Mapping : Nouvelle demande (01–03) · Gate (04) · Cycle actif (05–08) · Décision finale (09) · Synthèse/clôture (10).  
+Delivery = états/variantes dans routes P0 existantes. **Aucune nouvelle route.**
 
 ---
 
-## 8. git status
+## 5. Preuve quatre actions gate
+
+VS-UX-04 `51:415` : GO · NO-GO · CORRIGER · **ABANDONNER** (danger, confirmation, ≠ NO-GO ≠ STOP).  
+Invalidation GO reste variante `52:26` / bandeau séparé.
+
+Capture : `.tmp-sfia-review/figma-screenshots/VS-UX-04-corrected.png`
+
+---
+
+## 6. Preuve nettoyage clôture
+
+VS-UX-10 `51:1204` : plus de lignes Interv360/Campus360/etc.  
+Contenu : requestId, décision, output.md, preuves, appels GPT À définir, traçabilité, réserves.  
+Capture : `.tmp-sfia-review/figma-screenshots/VS-UX-10-corrected.png`
+
+---
+
+## 7. Frames modifiées / non modifiées
+
+### Modifiées
+- `51:415` VS-UX-04  
+- `51:1204` VS-UX-10  
+- `52:34` **supprimée**
+
+### Non modifiées (principales)
+VS-UX-01…03, 05…09 · variantes Loading/Erreur/STOP/GO-invalide · **toutes frames P0** (`19:2`, `22:2`, `22:133`, `22:270`)
+
+Dimensions principales : **1440 × 1024** confirmées.
+
+---
+
+## 8. Fichiers modifiés / non modifiés
+
+### Modifiés (untracked docs)
+- `35` (220 lignes) · `36` (170) · `37` (102)
+- `.tmp-sfia-review/chatgpt-review.md` + captures
+
+### Non modifiés
+- `01`–`34` · `app/**` · `harness/**` · prompts/method · aucune config
+
+---
+
+## 9. git status
 
 ```
 ?? .tmp-sfia-review/
@@ -126,89 +100,41 @@ Variantes : loading, erreur fail-closed, STOP, GO invalide.
 ?? projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
 ```
 
-### Preuve aucun app/harness
-Aucune entrée `app/**` ou `harness/**` dans le status. Fichiers existants `01`–`34` non modifiés dans ce cycle UX (32–34 non édités).
-
-### Diff stat (nouveaux docs)
-| Fichier | Lignes |
-|---------|--------|
-| 35 | 189 |
-| 36 | 172 |
-| 37 | 138 |
+Aucun staged · aucun commit/push/PR projet.
 
 ---
 
-## 9. Fichiers créés / modifiés
+## 10. Réserves
 
-### Créés
-- `projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md`
-- `projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md`
-- `projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md`
-- `.tmp-sfia-review/chatgpt-review.md`
-- `.tmp-sfia-review/figma-screenshots/*.png`
-
-### Modifiés (Git existants)
-- **Aucun**
-
-### Figma
-- Nouvelle page + 10 frames + 5 annotations — P0 intact
+1. Chrome topbar/pills secondaires peuvent encore porter du générique mineur.  
+2. Densité gate (4 options) — polish optionnel.  
+3. Accessibilité = contrat cible, pas audit.  
+4. Docs non versionnés projet.  
+5. Plafond GPT toujours « À définir ».
 
 ---
 
-## 10. Garde-fous
+## 11. Décisions Morris restantes
 
-Option B · Git vérité · Morris L0 · GPT ≠ décision · Cursor sandbox · pas remote Git · timeout ≠ GO · pas secret · plafond À définir · pas retry · pas code · pas live · pas commit projet
-
----
-
-## 11. Réserves
-
-1. Copy Figma peut nécessiter polish (labels hérités P0 partiels)
-2. Abandon gate = note + confirmation (pas 4e carte) — VS-UX-CAND-10
-3. Variantes = annotations 720×420, pas full screens
-4. Accessibilité = contrat cible, pas audit
-5. VS-UX-10 portfolio : certaines lignes héritées synthèse P0
-6. Docs 35–37 non versionnés projet
-7. Valeur plafond GPT non fixée (volontaire)
+1. Validation finale visuelle post-correctif.  
+2. GO versionnement docs.  
+3. Ne pas traiter comme delivery / 10 routes / live / merge.
 
 ---
 
-## 12. Options / recommandations
+## 12. Confirmation
 
-Voir doc 37. Recommandation : validation visuelle Morris → arbitrage Abandon → backlog → delivery sous GO distincts.
-
----
-
-## 13. Décisions Morris attendues
-
-1. Valider VS-UX-CAND-01…12
-2. Valider frames Figma candidates
-3. Arbitrer 4e carte Abandon
-4. GO versionnement docs 35–37 (séparé)
-5. Ne pas traiter comme GO delivery/live/merge
+Aucun code · aucun live · aucune nouvelle route · aucune nouvelle frame principale · P0 intact · handoff review only.
 
 ---
 
-## 14. Contrôles accessibilité / FinOps
+## 13. Verdict
 
-Accessibilité : tab order, focus, labels, contraste AA cible, STOP clavier, sens non-couleur — documentés dans 35/36.  
-FinOps : compteurs séparés qualif/analyse, plafond À définir, no retry, arrêt avant conso — visibles 02/07.
-
----
-
-## 15. Confirmation
-
-Aucun code · aucun live GPT/Cursor · aucun commit/push/PR projet · handoff review uniquement.
+`SFIA STUDIO VERTICAL SLICE UX/UI CORRECTED — MORRIS FINAL VALIDATION REQUIRED`
 
 ---
 
-## 16. Verdict
-
-`SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED`
-
----
-
-# ANNEXE A — Contenu intégral document 35
+# ANNEXE A — Contenu intégral document 35 (après correctif)
 
 # SFIA Studio — Contrat UX/UI du vertical slice POC
 
@@ -222,14 +148,16 @@ Aucun code · aucun live GPT/Cursor · aucun commit/push/PR projet · handoff re
 | **Baseline** | SFIA v2.6 |
 | **Branche** | `design/sfia-studio-poc-vertical-slice` (**locale**) |
 | **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-| **Statut** | `draft-for-morris-visual-validation` — **frames candidates, non validées** |
+| **Statut** | `draft-for-morris-final-validation` — correctif appliqué ; **validation finale Morris requise** |
 | **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
 | **Page source** | `UX-B — P0` |
 | **Page créée** | `UX-B — POC Vertical Slice` |
+| **Correctif** | GO UX/UI correctif borné — dix états / Abandonner / clôture slice |
 | **Code / live** | **Aucun** |
 
-> Contrat UX/UI du parcours gouverné en **dix** étapes. Continuité visuelle Product premium (P0).  
-> Les frames VS-UX sont **candidates** jusqu’à GO Morris. Ne pas modifier les frames P0.
+> Contrat UX/UI du parcours gouverné en **dix états fonctionnels** (storyboard), **pas dix routes**.  
+> Continuité visuelle Product premium (P0). Les **quatre vues P0** restent la structure applicative de référence.  
+> Frames VS-UX = candidates jusqu’à validation finale Morris. Ne pas modifier les frames P0.
 
 ---
 
@@ -242,6 +170,29 @@ Aucun code · aucun live GPT/Cursor · aucun commit/push/PR projet · handoff re
 | VS-CAND-14 | **VALIDÉE AVEC RÉSERVE** — plafond GPT obligatoire, valeur numérique **À définir** (non inventée) |
 
 Architecture Option B, Git = vérité, Morris L0, GPT ≠ décision, Cursor sandbox borné : **maintenus**.
+
+### Correctif Morris appliqué (ce cycle)
+
+| Décision | Statut |
+|----------|--------|
+| Dix frames = **dix états** de parcours, **pas dix routes** | **VALIDÉE / appliquée** |
+| Quatre vues P0 = structure produit de référence | **VALIDÉE / appliquée** |
+| Action **Abandonner** explicite dans le gate Morris | **VALIDÉE / appliquée** |
+| Clôture spécifique au vertical slice (sans portfolio hors contexte) | **VALIDÉE / appliquée** |
+
+---
+
+## 1bis. Modèle de navigation — dix états, quatre vues
+
+**Règle dure :** les frames VS-UX-01…10 forment un **storyboard d’états fonctionnels**. Elles **ne constituent pas** dix nouvelles routes applicatives. Toute nouvelle route = arbitrage Morris distinct.
+
+| Vue applicative P0 (référence) | États VS-UX couverts | Mode delivery cible |
+|--------------------------------|----------------------|---------------------|
+| **Nouvelle demande** (P0-00C) | VS-UX-01, VS-UX-02, VS-UX-03 | États / panneaux / transitions dans la route existante |
+| **Décision Morris / Gate** (P0-03C) | VS-UX-04 | Gate à 4 actions dans la vue décision |
+| **Cycle actif** (P0-02C) | VS-UX-05, VS-UX-06, VS-UX-07, VS-UX-08 | Stepper / variantes d’état |
+| **Décision Morris finale** (P0-03C) | VS-UX-09 | Même famille « décision », phase post-verdict |
+| **Vue synthèse / clôture** (P0-01C) | VS-UX-10 | Synthèse **du slice courant** uniquement |
 
 ---
 
@@ -286,20 +237,22 @@ Permettre à Morris de **voir et contrôler** le parcours Studio → GPT → gat
 
 ---
 
-## 4. Matrice parcours → frame → autorité
+## 4. Matrice parcours → état (frame) → vue P0 → autorité
 
-| Étape | Frame | Shell source | Autorité action | Preuve UI |
-|-------|-------|--------------|-----------------|-----------|
-| 1 Nouvelle demande | VS-UX-01 | P0-00C floating | Morris saisit | StudioRequest |
-| 2 Qualification en cours | VS-UX-02 | P0-02C flush | Système GPT ; STOP Morris | event qualif |
-| 3 Qualification proposée | VS-UX-03 | P0-02C | Morris revue | QualificationCandidate |
-| 4 Gate Morris | VS-UX-04 | P0-03C | **Morris seul** | MorrisGateDecision |
-| 5 Exécution | VS-UX-05 | P0-02C | Harness/Cursor ; STOP Morris | ExecutionEvents |
-| 6 Rapport | VS-UX-06 | P0-02C | Morris lit | CursorExecutionReport |
-| 7 Analyse GPT | VS-UX-07 | P0-02C | GPT analyse ; STOP conso | event analyse |
-| 8 Verdict proposé | VS-UX-08 | P0-03C | GPT candidat | GptVerdictCandidate |
-| 9 Décision Morris | VS-UX-09 | P0-03C | **Morris seul** | MorrisFinalDecision |
-| 10 Clôture | VS-UX-10 | P0-01C | Affichage dérivé | CycleSummary |
+| État | Frame | Vue P0 de rattachement | Autorité action | Preuve UI |
+|------|-------|------------------------|-----------------|-----------|
+| 1 Nouvelle demande | VS-UX-01 | Nouvelle demande | Morris saisit | StudioRequest |
+| 2 Qualification en cours | VS-UX-02 | Nouvelle demande | Système GPT ; STOP Morris | event qualif |
+| 3 Qualification proposée | VS-UX-03 | Nouvelle demande | Morris revue | QualificationCandidate |
+| 4 Gate Morris | VS-UX-04 | Décision Morris / Gate | **Morris seul** | MorrisGateDecision |
+| 5 Exécution | VS-UX-05 | Cycle actif | Harness/Cursor ; STOP Morris | ExecutionEvents |
+| 6 Rapport | VS-UX-06 | Cycle actif | Morris lit | CursorExecutionReport |
+| 7 Analyse GPT | VS-UX-07 | Cycle actif | GPT analyse ; STOP conso | event analyse |
+| 8 Verdict proposé | VS-UX-08 | Cycle actif | GPT candidat | GptVerdictCandidate |
+| 9 Décision Morris | VS-UX-09 | Décision Morris finale | **Morris seul** | MorrisFinalDecision |
+| 10 Clôture | VS-UX-10 | Vue synthèse / clôture | Affichage dérivé | CycleSummary |
+
+> **Pas de routes nouvelles** : le delivery privilégie états, variantes, panneaux et transitions dans les quatre vues P0.
 
 ---
 
@@ -307,12 +260,12 @@ Permettre à Morris de **voir et contrôler** le parcours Studio → GPT → gat
 
 | ID | Exigence |
 |----|----------|
-| VS-UX-FR-01 | Dix frames distinctes 1440×1024 ; pas de fusion silencieuse |
+| VS-UX-FR-01 | Dix frames = **dix états** storyboard 1440×1024 ; **pas** dix routes ; pas de fusion silencieuse |
 | VS-UX-FR-02 | Shell P0 conservé (rail / topbar / canvas / copilote) |
 | VS-UX-FR-03 | Copilote jamais présenté comme décision Morris |
 | VS-UX-FR-04 | GO visible uniquement sur VS-UX-04 ; ancré hash/HEAD/branche/allowlist |
-| VS-UX-FR-05 | Invalidation GO représentée (bandeau / état invalide) |
-| VS-UX-FR-06 | STOP prioritaire et accessible clavier |
+| VS-UX-FR-05 | Invalidation GO représentée (bandeau / état invalide) — **distincte** d’Abandonner |
+| VS-UX-FR-06 | STOP prioritaire et accessible clavier — **≠** Abandonner / NO-GO |
 | VS-UX-FR-07 | FinOps : appels GPT séparés (qualif ≠ analyse) ; plafond « À définir » ; pas de retry auto |
 | VS-UX-FR-08 | Verdict GPT étiqueté **candidat** |
 | VS-UX-FR-09 | Clôture uniquement via décision Morris (VS-UX-09→10) |
@@ -321,6 +274,9 @@ Permettre à Morris de **voir et contrôler** le parcours Studio → GPT → gat
 | VS-UX-FR-12 | Source de statut (Git / harness / dérivé Studio) lisible |
 | VS-UX-FR-13 | Fail-closed GPT visible (erreur + pas de suite) |
 | VS-UX-FR-14 | Frames P0 non modifiées ; VS non « baseline validée » |
+| VS-UX-FR-15 | Gate Morris : **quatre** actions explicites GO · NO-GO · Demander une correction · **Abandonner** |
+| VS-UX-FR-16 | Abandonner : visible, destructif, confirmation, conséquence « état abandonné », pas d’action Git distante |
+| VS-UX-FR-17 | Clôture (VS-UX-10) : **uniquement** données du vertical slice courant — **aucun** portfolio multi-projet hors contexte |
 
 ---
 
@@ -353,6 +309,7 @@ Pour **chaque** frame VS-UX :
 | Erreurs | Associées au champ / phase |
 | Gates | Conséquences textuelles sous chaque option |
 | STOP | Toujours atteignable au clavier dès phases 02/05/07 |
+| **Abandonner** | Nom accessible explicite « Abandonner le cycle » ; danger **aussi** textuel (pas couleur seule) ; confirmation clavier ; message de conséquence ; focus visible |
 
 **Ne pas** prétendre qu’un audit complet a été réalisé.
 
@@ -403,23 +360,23 @@ Code · modif `app/**` / harness · API/BDD · live GPT/Cursor · responsive mob
 
 ---
 
-# ANNEXE B — Contenu intégral document 36
+# ANNEXE B — Contenu intégral document 36 (après correctif)
 
 # SFIA Studio — Flows, frames et inventaire Figma (vertical slice POC)
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `36-poc-vertical-slice-ux-ui-flows-and-frames.md` |
-| **Cycle** | 4 — UX/UI |
+| **Cycle** | 4 — UX/UI (correctif borné) |
 | **Profil** | Standard |
-| **Statut** | `draft-for-morris-visual-validation` — **non validé** |
+| **Statut** | `draft-for-morris-final-validation` — correctif appliqué |
 | **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
 | **Page** | `UX-B — POC Vertical Slice` (`51:2`) |
 | **Companion** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 | **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 
-> Inventaire des frames candidates, node IDs, correspondance aux dix étapes, états, interactions et écarts P0.  
-> Les frames **ne sont pas** une baseline validée.
+> Inventaire des frames candidates = **storyboard d’états**.  
+> **Dix états, pas dix routes.** Quatre vues P0 = structure applicative de référence.
 
 ---
 
@@ -428,7 +385,7 @@ Code · modif `app/**` / harness · API/BDD · live GPT/Cursor · responsive mob
 | Page | node ID | Rôle |
 |------|---------|------|
 | `UX-B — P0` | `0:1` | Référence validée — **non modifiée** |
-| `UX-B — POC Vertical Slice` | `51:2` | Frames VS candidates (ce cycle) |
+| `UX-B — POC Vertical Slice` | `51:2` | Frames VS candidates |
 
 ---
 
@@ -443,293 +400,254 @@ Code · modif `app/**` / harness · API/BDD · live GPT/Cursor · responsive mob
 
 ---
 
-## 3. Inventaire frames vertical slice
+## 3. Modèle — dix états → quatre vues P0
 
-| Frame | node ID | Dimensions | Clone source | Étape |
-|-------|---------|------------|--------------|-------|
-| VS-UX-01 — Nouvelle demande | `51:3` | 1440 × 1024 | P0-00C | 1 |
-| VS-UX-02 — Qualification en cours | `51:139` | 1440 × 1024 | P0-02C | 2 |
-| VS-UX-03 — Qualification proposée | `51:277` | 1440 × 1024 | P0-02C | 3 |
-| VS-UX-04 — Gate Morris | `51:415` | 1440 × 1024 | P0-03C | 4 |
-| VS-UX-05 — Exécution | `51:540` | 1440 × 1024 | P0-02C | 5 |
-| VS-UX-06 — Rapport disponible | `51:678` | 1440 × 1024 | P0-02C | 6 |
-| VS-UX-07 — Analyse GPT | `51:816` | 1440 × 1024 | P0-02C | 7 |
-| VS-UX-08 — Verdict proposé | `51:954` | 1440 × 1024 | P0-03C | 8 |
-| VS-UX-09 — Décision Morris | `51:1079` | 1440 × 1024 | P0-03C | 9 |
-| VS-UX-10 — Clôture | `51:1204` | 1440 × 1024 | P0-01C | 10 |
+| Vue applicative P0 | États VS-UX | Delivery cible |
+|--------------------|-------------|----------------|
+| Nouvelle demande | 01, 02, 03 | États / panneaux dans route existante |
+| Décision Morris / Gate | 04 | 4 actions gate |
+| Cycle actif | 05, 06, 07, 08 | Stepper / variantes |
+| Décision Morris finale | 09 | Phase post-verdict |
+| Vue synthèse / clôture | 10 | Synthèse **slice courant** seul |
 
-Lien fichier : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
+Toute **nouvelle route** = arbitrage Morris distinct (hors correctif).
 
 ---
 
-## 4. Variantes / annotations
+## 4. Inventaire frames vertical slice
 
-| Variante | node ID | Dimensions | Rôle | Frames couvertes |
-|----------|---------|------------|------|------------------|
-| VS-UX-VAR — Loading GPT | `52:2` | 720 × 420 | Phase active + FinOps | 02, 07 (+05) |
-| VS-UX-VAR — Erreur fail-closed | `52:10` | 720 × 420 | Rejet GPT | 02, 07 |
-| VS-UX-VAR — STOP Morris | `52:18` | 720 × 420 | STOP prioritaire | 02, 05, 07 |
-| VS-UX-VAR — GO invalide | `52:26` | 720 × 420 | Invalidation ancrage | 04, 05 |
-| VS-UX-NOTE — Gate 4 actions | `52:34` | 720 × 420 | Mapping Abandon | 04 |
+| Frame (état) | node ID | Dimensions | Vue P0 | Étape |
+|--------------|---------|------------|--------|-------|
+| VS-UX-01 — Nouvelle demande | `51:3` | 1440 × 1024 | Nouvelle demande | 1 |
+| VS-UX-02 — Qualification en cours | `51:139` | 1440 × 1024 | Nouvelle demande | 2 |
+| VS-UX-03 — Qualification proposée | `51:277` | 1440 × 1024 | Nouvelle demande | 3 |
+| VS-UX-04 — Gate Morris | `51:415` | 1440 × 1024 | Décision / Gate | 4 |
+| VS-UX-05 — Exécution | `51:540` | 1440 × 1024 | Cycle actif | 5 |
+| VS-UX-06 — Rapport disponible | `51:678` | 1440 × 1024 | Cycle actif | 6 |
+| VS-UX-07 — Analyse GPT | `51:816` | 1440 × 1024 | Cycle actif | 7 |
+| VS-UX-08 — Verdict proposé | `51:954` | 1440 × 1024 | Cycle actif | 8 |
+| VS-UX-09 — Décision Morris | `51:1079` | 1440 × 1024 | Décision finale | 9 |
+| VS-UX-10 — Clôture | `51:1204` | 1440 × 1024 | Synthèse / clôture | 10 |
+
+Lien : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
 
 ---
 
-## 5. Contenu fonctionnel par frame
+## 5. Variantes / annotations
 
-### VS-UX-01 — Nouvelle demande
-- Intention Markdown sandbox ; requestId candidat ; repo/branche/HEAD ; sandbox.
-- CTA : **Qualifier la demande** — aucun GO.
-- Copilote = recommandation.
+| Variante | node ID | Dimensions | Rôle |
+|----------|---------|------------|------|
+| VS-UX-VAR — Loading GPT | `52:2` | 720 × 420 | Phase active + FinOps |
+| VS-UX-VAR — Erreur fail-closed | `52:10` | 720 × 420 | Rejet GPT |
+| VS-UX-VAR — STOP Morris | `52:18` | 720 × 420 | STOP prioritaire |
+| VS-UX-VAR — GO invalide | `52:26` | 720 × 420 | Invalidation ancrage |
 
-### VS-UX-02 — Qualification en cours
-- Phase GPT qualification ; compteur `n / À définir` ; aucun retry auto ; STOP ; erreur fail-closed (variante).
+**Supprimée (correctif) :** `VS-UX-NOTE — Gate 4 actions` (`52:34`) — redondante après 4e action explicite.
 
-### VS-UX-03 — Qualification proposée
-- Cycle, profil, périmètre, allowlist/denylist, risques, contrat, contractHash, source GPT.
-- CTA : Ouvrir gate Morris / Demander correction — **pas** d’auto-GO.
+---
 
-### VS-UX-04 — Gate Morris
+## 6. Contenu fonctionnel par état
+
+### VS-UX-01 … 03 — vue Nouvelle demande
+Inchangés fonctionnellement (saisie → qualif → proposition). Aucun GO.
+
+### VS-UX-04 — Gate Morris (**correctif**)
 - Dossier ancré : requestId, contractId, contractHash, branche, HEAD, allowlist, autorité, horodatage.
-- Actions : GO · NO-GO · CORRECTION · ABANDON (3 cartes + note Abandon).
-- Mécanisme invalidation GO (bandeau / variante).
+- **Quatre actions explicites :**
+  1. **GO** — autoriser Cursor sandbox  
+  2. **NO-GO** — refuser l’exécution (pas de spawn)  
+  3. **Demander une correction** (CORRIGER) — re-qualification  
+  4. **Abandonner** — visible, destructif (traitement danger), confirmation, conséquence « état abandonné », **aucune** action Git distante  
+- **Abandonner ≠ NO-GO ≠ STOP**  
+- Invalidation GO = bandeau / variante **séparée** (pas un substitut à Abandonner)
 
-### VS-UX-05 — Exécution
-- Harness + Cursor sandbox ; fichier autorisé ; journal dérivé ; STOP ; pas de remote ; pas de commandes inventées.
+### VS-UX-05 … 08 — vue Cycle actif
+Inchangés (exécution → rapport → analyse → verdict candidat).
 
-### VS-UX-06 — Rapport disponible
-- Markdown produit ; rapport ; allowlist ; remote=0 ; preuves ; réserves ; CTA analyse GPT.
+### VS-UX-09 — Décision Morris finale
+Clôturer · Corriger · Relancer (nouveau GO) · Abandonner — hors Git groupé.
 
-### VS-UX-07 — Analyse GPT
-- Appel distinct ; compteur ; plafond À définir ; aucun retry ; fail-closed ; arrêt avant conso.
-
-### VS-UX-08 — Verdict proposé
-- Badge **candidat** ; preuves ; réserves ; incohérences ; CTA décision Morris.
-
-### VS-UX-09 — Décision Morris
-- Clôturer · Corriger · Relancer (nouveau GO) · Abandonner ; conséquences ; pas d’actions Git groupées.
-
-### VS-UX-10 — Clôture
-- Décision ; statut ; traçabilité ; appels GPT ; réserves ; prochaines actions séparées ; **aucun** claim MVP/prod.
+### VS-UX-10 — Clôture (**correctif**)
+Affiche **uniquement** le vertical slice courant :
+- requestId · statut final · décision Morris  
+- fichier Markdown produit · rapport & preuves  
+- appels GPT (n / À définir) · réserves  
+- traçabilité branche / HEAD / contractHash  
+- prochaines actions candidates **séparées**  
+**Retiré :** portfolio multi-projet / lignes héritées P0 hors contexte.  
+**Aucun** claim MVP / production-ready.
 
 ---
 
-## 6. Transitions UX
+## 7. Transitions UX
 
 ```text
 01 → 02 (Qualifier)
-02 → 03 (qualif OK) | variante erreur/STOP
+02 → 03 (qualif OK) | erreur/STOP
 03 → 04 (Ouvrir gate) | correction → 02
-04 → 05 (GO) | NO-GO/Abandon → 10- | correction → 02
-05 → 06 (fin) | STOP → stoppé
-06 → 07 (Lancer analyse)
-07 → 08 (verdict OK) | fail-closed
+04 → 05 (GO) | NO-GO → clôture négative | Abandonner → abandonné | correction → 02
+05 → 06 | STOP → stoppé
+06 → 07
+07 → 08 | fail-closed
 08 → 09
-09 → 10 (clôturer) | correction/relance (nouveau GO) | abandon
+09 → 10 | correction/relance (nouveau GO) | abandon
 ```
 
 ---
 
-## 7. Interactions candidates (non delivery)
+## 8. Distinction Abandonner / NO-GO / STOP
 
-| Action UI | Autorité | Effet attendu |
-|-----------|----------|---------------|
-| Qualifier la demande | Morris | Déclenche qualif GPT via adaptateur→harness |
-| STOP | Morris | stoppé immédiat |
-| Ouvrir gate | Morris | Affiche dossier |
-| GO / NO-GO / Correction / Abandon | Morris | Gate decision |
-| Lancer analyse GPT | Morris | 2e appel GPT |
-| Confirmer décision finale | Morris | Clôture / reprise |
+| Action | Moment | Effet | Git distant |
+|--------|--------|-------|-------------|
+| **STOP** | Pendant qualif / exec / analyse | Interrompt activité en cours → `stoppé` | Non |
+| **NO-GO** | Gate pré-exécution | Refuse spawn Cursor | Non |
+| **Abandonner** | Gate (et décision finale) | Cycle → `abandonné` après confirmation | Non |
+| **Invalidation GO** | Si hash/HEAD/branche/allowlist change | GO invalide — re-gate | Non |
 
 ---
 
-## 8. Écarts au P0
+## 9. Écarts au P0 (après correctif)
 
 | Écart | Traitement |
 |-------|------------|
-| 4 écrans P0 vs 10 VS | Extension documentée — P0 inchangé |
-| Loading/error absents P0 | Variantes VS ajoutées |
-| Gate P0 = 3 options | 4e action Abandon en note + confirmation |
-| Synthèse P0 ≠ clôture slice | VS-UX-10 réutilise shell synthèse pour CycleSummary |
-| App routes limitées | Hors cycle — delivery futur |
+| 10 états vs 4 vues | Mapping §3 — **pas** 10 routes |
+| Gate 4 actions | Matérialisé sur VS-UX-04 |
+| Clôture vs synthèse | Contenu slice-only ; portfolio générique retiré |
+| Note 52:34 | **Supprimée** |
 
 ---
 
-## 9. Accessibilité par frame (checklist cible)
+## 10. Accessibilité (rappel Abandonner)
 
-| Frame | Tab order | Focus | Labels CTA | STOP | Contraste cible |
-|-------|-----------|-------|------------|------|-----------------|
-| 01–10 | Rail→top→canvas→actions→copilote | Oui | Verbe+objet | 02/05/07 | WCAG 2.2 AA |
-
-Pas d’audit runtime réalisé.
-
----
-
-## 10. FinOps / sécurité (rappel UI)
-
-- Plafond : **À définir** · pas de retry auto · pas de coût € inventé.
-- IDs visibles · secrets interdits · GO invalidable · Studio dérivé.
+- Nom accessible : « Abandonner le cycle »  
+- Danger textuel + style (pas couleur seule)  
+- Confirmation focusable clavier  
+- Conséquence lisible  
+- Tab order : options → confirmation → confirmer  
 
 ---
 
 ## 11. Limites
 
-- Copy Figma peut nécessiter polish Morris.
-- Variantes = annotations 720×420, pas full 1440 screens.
-- Quatrième option gate non matérialisée en 4e carte (candidat VS-UX-CAND).
-- Screenshots MCP à capturer dans le review pack.
+- Chrome topbar (CTA « Interv360 », pills héritées) peut rester générique — hors nettoyage portfolio.  
+- Variantes = annotations 720×420.  
+- Frames VS toujours **candidates** jusqu’à validation finale Morris.
 
 
 ---
 
-# ANNEXE C — Contenu intégral document 37
+# ANNEXE C — Contenu intégral document 37 (après correctif)
 
-# SFIA Studio — Decision pack UX/UI vertical slice POC (candidat)
+# SFIA Studio — Decision pack UX/UI vertical slice POC
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `37-poc-vertical-slice-ux-ui-decision-pack.md` |
-| **Cycle** | 4 — UX/UI |
+| **Cycle** | 4 — UX/UI (correctif borné) |
 | **Profil** | Standard |
-| **Statut** | `draft-for-morris-visual-validation` — **aucune VS-UX-CAND validée** |
+| **Statut** | `draft-for-morris-final-validation` — correctif appliqué ; **validation finale requise** |
 | **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 | **Figma** | `lrjA1WEyRpL05vKR8k29LO` · page `51:2` |
 | **Companions** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`36`](./36-poc-vertical-slice-ux-ui-flows-and-frames.md) |
 
-> Pack de **propositions** UX/UI. Ne jamais écrire que les frames ou candidats sont validés.
+> Pack après correctif Morris. Distingue **décisions déjà appliquées**, **candidates restantes** et **gates suivants**.
 
 ---
 
-## 1. Synthèse
+## 1. Synthèse du correctif
 
-Ce cycle produit le **contrat UX/UI** et les **frames Figma candidates** du parcours gouverné en dix étapes du vertical slice POC, en continuité Product premium (P0), sans code, sans live GPT/Cursor, sans commit projet.
+GO Morris : **UX/UI correctif borné** consommé.
 
-| Livrable | Rôle |
-|----------|------|
-| `35` | Contrat visuel + exigences UX + accessibilité/FinOps |
-| `36` | Inventaire frames, node IDs, flux, variantes |
-| `37` | Ce pack — options, candidats, gates |
-| Figma page `UX-B — POC Vertical Slice` | 10 frames + variantes annotations |
+| Correction | Fait |
+|------------|------|
+| Dix frames = **états**, pas routes | Documenté 35/36/37 + mapping 4 vues P0 |
+| Abandonner explicite au gate | VS-UX-04 — 4 actions ; note `52:34` **supprimée** |
+| Clôture slice-only | VS-UX-10 — portfolio multi-projet **retiré** |
+
+Aucun code · aucune route · aucune modif P0 / app / harness · aucun live · aucun commit projet.
 
 ---
 
 ## 2. Observations
 
-1. P0 (4 frames) reste la référence visuelle validée ; non modifié.
-2. Les 10 étapes fonctionnelles (`32`–`34`) nécessitent 10 frames distinctes — pas de fusion silencieuse.
-3. L’app actuelle ne couvre que partiellement les étapes 1 et 9 — écart delivery futur.
-4. VS-CAND-14 appliquée : plafond visible, valeur **À définir**.
-5. Structure P0-03C limite à 3 cartes option ; Abandon documenté via confirmation + note.
+1. Les quatre vues P0 restent le modèle applicatif de référence.
+2. Le storyboard Figma reste utile pour revue visuelle sans imposer 10 routes.
+3. Abandonner / NO-GO / STOP / invalidation GO sont désormais distingués.
+4. La clôture ne doit plus être lue comme une synthèse portefeuille.
 
 ---
 
-## 3. Hypothèses
+## 3. Décisions Morris déjà appliquées
 
-| ID | Hypothèse |
-|----|----------|
-| H1 | Continuité Product premium / Inter / tokens flush |
-| H2 | Shell rail+topbar+canvas+copilote inchangé conceptuellement |
-| H3 | Viewport 1440×1024 seul (pas mobile) |
-| H4 | Copilote = recommandation uniquement |
-| H5 | Valeur numérique plafond GPT décidée hors design |
-
----
-
-## 4. Options
-
-| Sujet | Option A | Option B (retenue conception) | Soumis à Morris |
-|-------|----------|-------------------------------|-----------------|
-| Nombre de frames | Fusionner 8–9 | **10 frames** | Non (contrat) |
-| Gate Abandon | Fusionner avec NO-GO | **Action distincte** (note + confirmation) | Oui si 4e carte |
-| Variantes | Full 1440 | **Annotations 720×420** | Oui |
-| Clôture shell | Nouveau shell | **Réutiliser synthèse P0-01C** | Observation |
+| ID | Décision | Statut |
+|----|----------|--------|
+| VS-CAND-01…13, 15 | Amont fonctionnel | **VALIDÉES** |
+| VS-CAND-14 | Plafond GPT obligatoire, valeur À définir | **VALIDÉE AVEC RÉSERVE** |
+| **VS-UX-CAND-02** (amendée) | Dix frames = **dix états** (pas dix routes) | **VALIDÉE / appliquée** |
+| **VS-UX-CAND-10** (amendée) | Abandonner = **4e action explicite** au gate | **VALIDÉE / appliquée** |
+| Correctif clôture | VS-UX-10 sans portfolio hors contexte | **VALIDÉE / appliquée** |
+| Mapping 4 vues | Regroupement états → vues P0 | **VALIDÉE / appliquée** |
 
 ---
 
-## 5. Recommandations (non validées)
+## 4. Décisions UX candidates restantes
 
-1. Valider visuellement les 10 frames + variantes avant backlog delivery.
-2. Ajouter une 4e carte « Abandon » sur VS-UX-04 en polish si Morris le souhaite.
-3. Garder plafond « À définir » jusqu’à décision FinOps séparée.
-4. Ne pas lancer delivery UI avant GO validation visuelle.
-5. Comparer runtime ↔ Figma avant tout READY visuel futur.
-
----
-
-## 6. Décisions UX candidates `VS-UX-CAND-*`
-
-| ID | Décision candidate | Impact | Risque | Dette |
-|----|-------------------|--------|--------|-------|
-| **VS-UX-CAND-01** | Page Figma dédiée `UX-B — POC Vertical Slice` | Isolation P0 | Confusion pages | Faible |
-| **VS-UX-CAND-02** | Dix frames 1440×1024 VS-UX-01…10 | Couverture BeB | Effort delivery | Moyenne |
-| **VS-UX-CAND-03** | Continuité shell Product premium P0 | Cohérence | Sur-contrainte | Faible |
-| **VS-UX-CAND-04** | CTA Qualifier sans GO sur VS-UX-01 | Sécurité | — | Faible |
-| **VS-UX-CAND-05** | FinOps visible (compteur + plafond À définir + no retry) | Transparence | — | Faible |
-| **VS-UX-CAND-06** | Invalidation GO visuelle obligatoire | Sécurité | Friction | Faible |
-| **VS-UX-CAND-07** | STOP prioritaire sur 02/05/07 | Sécurité | — | Faible |
-| **VS-UX-CAND-08** | Verdict GPT badge candidat | Autorité | — | Faible |
-| **VS-UX-CAND-09** | Variantes loading/erreur/STOP/GO-invalide en annotations | Couverture états | Moins pixel-perfect | Acceptable POC |
-| **VS-UX-CAND-10** | Abandon gate via confirmation + note (pas 4e carte encore) | Fidélité P0 clone | Ambiguïté Abandon | Moyenne |
-| **VS-UX-CAND-11** | Accessibilité = contrat cible WCAG 2.2 AA (pas audit) | Qualité | Surclaim | Faible |
-| **VS-UX-CAND-12** | Séquencement : validation visuelle → backlog → delivery | Ordre | Delivery trop tôt | Faible |
+| ID | Décision candidate | Statut |
+|----|-------------------|--------|
+| VS-UX-CAND-01 | Page Figma dédiée | Ouverte (page créée) |
+| VS-UX-CAND-03 | Continuité Product premium | Ouverte |
+| VS-UX-CAND-04…09, 11 | FinOps / STOP / candidat / variantes / a11y | Ouvertes |
+| VS-UX-CAND-12 | Séquencement validation → backlog → delivery | Ouverte |
+| VS-UX-CAND-13 | Validation finale visuelle post-correctif | **Attendue** |
 
 ---
 
-## 7. Impacts / risques / dette
+## 5. Impacts / risques / dette
 
 | Thème | Impact | Risque | Dette |
 |-------|--------|--------|-------|
-| 10 frames | Contrat delivery clair | Scope UI large | Implémentation multi-routes |
-| Clones P0 | Continuité visuelle | Copy non polishée | Polish Figma |
-| 3 vs 4 options gate | — | Abandon peu visible | 4e carte candidate |
-| Pas de code | Isolé | App ≠ Figma | Delivery futur |
+| États ≠ routes | Clarifie delivery | Mésinterprétation future | Doc à préserver |
+| 4 actions gate | Gate complet | Densité UI | Polish optionnel |
+| Clôture slice | Moins de bruit | Chrome topbar encore générique | Mineure |
+| Note 52:34 | Supprimée | — | — |
 
 ---
 
-## 8. Gates Morris
+## 6. Gates Morris suivants
 
 | Gate | Objet |
 |------|-------|
-| G-VS-UX-VAL | Validation visuelle frames + contrat 35–37 |
-| G-VS-UX-ABANDON | 4e carte Abandon ou conserver note |
-| G-VS-UX-DOC | Commit/push/PR/merge docs 35–37 |
-| G-VS-UX-DEL | Delivery UI (app) |
+| **G-VS-UX-FINAL** | Validation finale visuelle post-correctif |
+| G-VS-UX-DOC | Commit / push / PR / merge docs 35–37 (+32–34 si lot) |
+| G-VS-UX-DEL | Delivery UI (états dans 4 routes P0 — **pas** 10 routes) |
 | G-VS-LIVE | Live GPT/Cursor |
 | G-VS-LIMIT | Valeur numérique plafond GPT |
 
 ---
 
-## 9. Décisions Morris déjà appliquées (amont)
+## 7. Décisions Morris attendues
 
-VS-CAND-01…13, 15 **VALIDÉES** · VS-CAND-14 **VALIDÉE AVEC RÉSERVE**.
-
----
-
-## 10. Décisions Morris attendues
-
-1. Valider / amender / refuser `VS-UX-CAND-*`.
-2. Valider ou demander polish des frames Figma.
-3. Arbitrer Abandon (4e carte vs note).
-4. Autoriser ou non versionnement docs 35–37.
-5. **Ne pas** interpréter comme GO delivery / live / merge.
+1. Validation finale du correctif (frames 04/10 + docs).  
+2. Autoriser ou non versionnement documentaire.  
+3. **Ne pas** interpréter comme GO delivery / live / 10 routes / merge.
 
 ---
 
-## 11. Verdict candidat
+## 8. Verdict candidat
 
-`SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED`
+`SFIA STUDIO VERTICAL SLICE UX/UI CORRECTED — MORRIS FINAL VALIDATION REQUIRED`
 
 ### Interdits
 
-CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · FRAMES VALIDATED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
+CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · FRAMES VALIDATED · TEN ROUTES APPROVED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
 
 
 ---
 
-# ANNEXE D — Diff utile complet (docs 35–37)
+# ANNEXE D — Contenu complet docs 35–37 (diff utile)
 
 diff --git a/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md b/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md
-new file mode 100644
---- /dev/null
+--- a/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md
 +++ b/projects/sfia-studio/35-poc-vertical-slice-ux-ui-contract.md
 +# SFIA Studio — Contrat UX/UI du vertical slice POC
 +
@@ -743,14 +661,16 @@ new file mode 100644
 +| **Baseline** | SFIA v2.6 |
 +| **Branche** | `design/sfia-studio-poc-vertical-slice` (**locale**) |
 +| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
-+| **Statut** | `draft-for-morris-visual-validation` — **frames candidates, non validées** |
++| **Statut** | `draft-for-morris-final-validation` — correctif appliqué ; **validation finale Morris requise** |
 +| **Figma fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
 +| **Page source** | `UX-B — P0` |
 +| **Page créée** | `UX-B — POC Vertical Slice` |
++| **Correctif** | GO UX/UI correctif borné — dix états / Abandonner / clôture slice |
 +| **Code / live** | **Aucun** |
 +
-+> Contrat UX/UI du parcours gouverné en **dix** étapes. Continuité visuelle Product premium (P0).  
-+> Les frames VS-UX sont **candidates** jusqu’à GO Morris. Ne pas modifier les frames P0.
++> Contrat UX/UI du parcours gouverné en **dix états fonctionnels** (storyboard), **pas dix routes**.  
++> Continuité visuelle Product premium (P0). Les **quatre vues P0** restent la structure applicative de référence.  
++> Frames VS-UX = candidates jusqu’à validation finale Morris. Ne pas modifier les frames P0.
 +
 +---
 +
@@ -763,6 +683,29 @@ new file mode 100644
 +| VS-CAND-14 | **VALIDÉE AVEC RÉSERVE** — plafond GPT obligatoire, valeur numérique **À définir** (non inventée) |
 +
 +Architecture Option B, Git = vérité, Morris L0, GPT ≠ décision, Cursor sandbox borné : **maintenus**.
++
++### Correctif Morris appliqué (ce cycle)
++
++| Décision | Statut |
++|----------|--------|
++| Dix frames = **dix états** de parcours, **pas dix routes** | **VALIDÉE / appliquée** |
++| Quatre vues P0 = structure produit de référence | **VALIDÉE / appliquée** |
++| Action **Abandonner** explicite dans le gate Morris | **VALIDÉE / appliquée** |
++| Clôture spécifique au vertical slice (sans portfolio hors contexte) | **VALIDÉE / appliquée** |
++
++---
++
++## 1bis. Modèle de navigation — dix états, quatre vues
++
++**Règle dure :** les frames VS-UX-01…10 forment un **storyboard d’états fonctionnels**. Elles **ne constituent pas** dix nouvelles routes applicatives. Toute nouvelle route = arbitrage Morris distinct.
++
++| Vue applicative P0 (référence) | États VS-UX couverts | Mode delivery cible |
++|--------------------------------|----------------------|---------------------|
++| **Nouvelle demande** (P0-00C) | VS-UX-01, VS-UX-02, VS-UX-03 | États / panneaux / transitions dans la route existante |
++| **Décision Morris / Gate** (P0-03C) | VS-UX-04 | Gate à 4 actions dans la vue décision |
++| **Cycle actif** (P0-02C) | VS-UX-05, VS-UX-06, VS-UX-07, VS-UX-08 | Stepper / variantes d’état |
++| **Décision Morris finale** (P0-03C) | VS-UX-09 | Même famille « décision », phase post-verdict |
++| **Vue synthèse / clôture** (P0-01C) | VS-UX-10 | Synthèse **du slice courant** uniquement |
 +
 +---
 +
@@ -807,20 +750,22 @@ new file mode 100644
 +
 +---
 +
-+## 4. Matrice parcours → frame → autorité
++## 4. Matrice parcours → état (frame) → vue P0 → autorité
 +
-+| Étape | Frame | Shell source | Autorité action | Preuve UI |
-+|-------|-------|--------------|-----------------|-----------|
-+| 1 Nouvelle demande | VS-UX-01 | P0-00C floating | Morris saisit | StudioRequest |
-+| 2 Qualification en cours | VS-UX-02 | P0-02C flush | Système GPT ; STOP Morris | event qualif |
-+| 3 Qualification proposée | VS-UX-03 | P0-02C | Morris revue | QualificationCandidate |
-+| 4 Gate Morris | VS-UX-04 | P0-03C | **Morris seul** | MorrisGateDecision |
-+| 5 Exécution | VS-UX-05 | P0-02C | Harness/Cursor ; STOP Morris | ExecutionEvents |
-+| 6 Rapport | VS-UX-06 | P0-02C | Morris lit | CursorExecutionReport |
-+| 7 Analyse GPT | VS-UX-07 | P0-02C | GPT analyse ; STOP conso | event analyse |
-+| 8 Verdict proposé | VS-UX-08 | P0-03C | GPT candidat | GptVerdictCandidate |
-+| 9 Décision Morris | VS-UX-09 | P0-03C | **Morris seul** | MorrisFinalDecision |
-+| 10 Clôture | VS-UX-10 | P0-01C | Affichage dérivé | CycleSummary |
++| État | Frame | Vue P0 de rattachement | Autorité action | Preuve UI |
++|------|-------|------------------------|-----------------|-----------|
++| 1 Nouvelle demande | VS-UX-01 | Nouvelle demande | Morris saisit | StudioRequest |
++| 2 Qualification en cours | VS-UX-02 | Nouvelle demande | Système GPT ; STOP Morris | event qualif |
++| 3 Qualification proposée | VS-UX-03 | Nouvelle demande | Morris revue | QualificationCandidate |
++| 4 Gate Morris | VS-UX-04 | Décision Morris / Gate | **Morris seul** | MorrisGateDecision |
++| 5 Exécution | VS-UX-05 | Cycle actif | Harness/Cursor ; STOP Morris | ExecutionEvents |
++| 6 Rapport | VS-UX-06 | Cycle actif | Morris lit | CursorExecutionReport |
++| 7 Analyse GPT | VS-UX-07 | Cycle actif | GPT analyse ; STOP conso | event analyse |
++| 8 Verdict proposé | VS-UX-08 | Cycle actif | GPT candidat | GptVerdictCandidate |
++| 9 Décision Morris | VS-UX-09 | Décision Morris finale | **Morris seul** | MorrisFinalDecision |
++| 10 Clôture | VS-UX-10 | Vue synthèse / clôture | Affichage dérivé | CycleSummary |
++
++> **Pas de routes nouvelles** : le delivery privilégie états, variantes, panneaux et transitions dans les quatre vues P0.
 +
 +---
 +
@@ -828,12 +773,12 @@ new file mode 100644
 +
 +| ID | Exigence |
 +|----|----------|
-+| VS-UX-FR-01 | Dix frames distinctes 1440×1024 ; pas de fusion silencieuse |
++| VS-UX-FR-01 | Dix frames = **dix états** storyboard 1440×1024 ; **pas** dix routes ; pas de fusion silencieuse |
 +| VS-UX-FR-02 | Shell P0 conservé (rail / topbar / canvas / copilote) |
 +| VS-UX-FR-03 | Copilote jamais présenté comme décision Morris |
 +| VS-UX-FR-04 | GO visible uniquement sur VS-UX-04 ; ancré hash/HEAD/branche/allowlist |
-+| VS-UX-FR-05 | Invalidation GO représentée (bandeau / état invalide) |
-+| VS-UX-FR-06 | STOP prioritaire et accessible clavier |
++| VS-UX-FR-05 | Invalidation GO représentée (bandeau / état invalide) — **distincte** d’Abandonner |
++| VS-UX-FR-06 | STOP prioritaire et accessible clavier — **≠** Abandonner / NO-GO |
 +| VS-UX-FR-07 | FinOps : appels GPT séparés (qualif ≠ analyse) ; plafond « À définir » ; pas de retry auto |
 +| VS-UX-FR-08 | Verdict GPT étiqueté **candidat** |
 +| VS-UX-FR-09 | Clôture uniquement via décision Morris (VS-UX-09→10) |
@@ -842,6 +787,9 @@ new file mode 100644
 +| VS-UX-FR-12 | Source de statut (Git / harness / dérivé Studio) lisible |
 +| VS-UX-FR-13 | Fail-closed GPT visible (erreur + pas de suite) |
 +| VS-UX-FR-14 | Frames P0 non modifiées ; VS non « baseline validée » |
++| VS-UX-FR-15 | Gate Morris : **quatre** actions explicites GO · NO-GO · Demander une correction · **Abandonner** |
++| VS-UX-FR-16 | Abandonner : visible, destructif, confirmation, conséquence « état abandonné », pas d’action Git distante |
++| VS-UX-FR-17 | Clôture (VS-UX-10) : **uniquement** données du vertical slice courant — **aucun** portfolio multi-projet hors contexte |
 +
 +---
 +
@@ -874,6 +822,7 @@ new file mode 100644
 +| Erreurs | Associées au champ / phase |
 +| Gates | Conséquences textuelles sous chaque option |
 +| STOP | Toujours atteignable au clavier dès phases 02/05/07 |
++| **Abandonner** | Nom accessible explicite « Abandonner le cycle » ; danger **aussi** textuel (pas couleur seule) ; confirmation clavier ; message de conséquence ; focus visible |
 +
 +**Ne pas** prétendre qu’un audit complet a été réalisé.
 +
@@ -922,24 +871,23 @@ new file mode 100644
 +- P0 : [`14`](./14-ux-ui-contract.md)–[`16`](./16-ux-ui-decision-pack.md)
 
 diff --git a/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md b/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md
-new file mode 100644
---- /dev/null
+--- a/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md
 +++ b/projects/sfia-studio/36-poc-vertical-slice-ux-ui-flows-and-frames.md
 +# SFIA Studio — Flows, frames et inventaire Figma (vertical slice POC)
 +
 +| Métadonnée | Valeur |
 +|------------|--------|
 +| **Document** | `36-poc-vertical-slice-ux-ui-flows-and-frames.md` |
-+| **Cycle** | 4 — UX/UI |
++| **Cycle** | 4 — UX/UI (correctif borné) |
 +| **Profil** | Standard |
-+| **Statut** | `draft-for-morris-visual-validation` — **non validé** |
++| **Statut** | `draft-for-morris-final-validation` — correctif appliqué |
 +| **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
 +| **Page** | `UX-B — POC Vertical Slice` (`51:2`) |
 +| **Companion** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 +| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 +
-+> Inventaire des frames candidates, node IDs, correspondance aux dix étapes, états, interactions et écarts P0.  
-+> Les frames **ne sont pas** une baseline validée.
++> Inventaire des frames candidates = **storyboard d’états**.  
++> **Dix états, pas dix routes.** Quatre vues P0 = structure applicative de référence.
 +
 +---
 +
@@ -948,7 +896,7 @@ new file mode 100644
 +| Page | node ID | Rôle |
 +|------|---------|------|
 +| `UX-B — P0` | `0:1` | Référence validée — **non modifiée** |
-+| `UX-B — POC Vertical Slice` | `51:2` | Frames VS candidates (ce cycle) |
++| `UX-B — POC Vertical Slice` | `51:2` | Frames VS candidates |
 +
 +---
 +
@@ -963,281 +911,242 @@ new file mode 100644
 +
 +---
 +
-+## 3. Inventaire frames vertical slice
++## 3. Modèle — dix états → quatre vues P0
 +
-+| Frame | node ID | Dimensions | Clone source | Étape |
-+|-------|---------|------------|--------------|-------|
-+| VS-UX-01 — Nouvelle demande | `51:3` | 1440 × 1024 | P0-00C | 1 |
-+| VS-UX-02 — Qualification en cours | `51:139` | 1440 × 1024 | P0-02C | 2 |
-+| VS-UX-03 — Qualification proposée | `51:277` | 1440 × 1024 | P0-02C | 3 |
-+| VS-UX-04 — Gate Morris | `51:415` | 1440 × 1024 | P0-03C | 4 |
-+| VS-UX-05 — Exécution | `51:540` | 1440 × 1024 | P0-02C | 5 |
-+| VS-UX-06 — Rapport disponible | `51:678` | 1440 × 1024 | P0-02C | 6 |
-+| VS-UX-07 — Analyse GPT | `51:816` | 1440 × 1024 | P0-02C | 7 |
-+| VS-UX-08 — Verdict proposé | `51:954` | 1440 × 1024 | P0-03C | 8 |
-+| VS-UX-09 — Décision Morris | `51:1079` | 1440 × 1024 | P0-03C | 9 |
-+| VS-UX-10 — Clôture | `51:1204` | 1440 × 1024 | P0-01C | 10 |
++| Vue applicative P0 | États VS-UX | Delivery cible |
++|--------------------|-------------|----------------|
++| Nouvelle demande | 01, 02, 03 | États / panneaux dans route existante |
++| Décision Morris / Gate | 04 | 4 actions gate |
++| Cycle actif | 05, 06, 07, 08 | Stepper / variantes |
++| Décision Morris finale | 09 | Phase post-verdict |
++| Vue synthèse / clôture | 10 | Synthèse **slice courant** seul |
 +
-+Lien fichier : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
++Toute **nouvelle route** = arbitrage Morris distinct (hors correctif).
 +
 +---
 +
-+## 4. Variantes / annotations
++## 4. Inventaire frames vertical slice
 +
-+| Variante | node ID | Dimensions | Rôle | Frames couvertes |
-+|----------|---------|------------|------|------------------|
-+| VS-UX-VAR — Loading GPT | `52:2` | 720 × 420 | Phase active + FinOps | 02, 07 (+05) |
-+| VS-UX-VAR — Erreur fail-closed | `52:10` | 720 × 420 | Rejet GPT | 02, 07 |
-+| VS-UX-VAR — STOP Morris | `52:18` | 720 × 420 | STOP prioritaire | 02, 05, 07 |
-+| VS-UX-VAR — GO invalide | `52:26` | 720 × 420 | Invalidation ancrage | 04, 05 |
-+| VS-UX-NOTE — Gate 4 actions | `52:34` | 720 × 420 | Mapping Abandon | 04 |
++| Frame (état) | node ID | Dimensions | Vue P0 | Étape |
++|--------------|---------|------------|--------|-------|
++| VS-UX-01 — Nouvelle demande | `51:3` | 1440 × 1024 | Nouvelle demande | 1 |
++| VS-UX-02 — Qualification en cours | `51:139` | 1440 × 1024 | Nouvelle demande | 2 |
++| VS-UX-03 — Qualification proposée | `51:277` | 1440 × 1024 | Nouvelle demande | 3 |
++| VS-UX-04 — Gate Morris | `51:415` | 1440 × 1024 | Décision / Gate | 4 |
++| VS-UX-05 — Exécution | `51:540` | 1440 × 1024 | Cycle actif | 5 |
++| VS-UX-06 — Rapport disponible | `51:678` | 1440 × 1024 | Cycle actif | 6 |
++| VS-UX-07 — Analyse GPT | `51:816` | 1440 × 1024 | Cycle actif | 7 |
++| VS-UX-08 — Verdict proposé | `51:954` | 1440 × 1024 | Cycle actif | 8 |
++| VS-UX-09 — Décision Morris | `51:1079` | 1440 × 1024 | Décision finale | 9 |
++| VS-UX-10 — Clôture | `51:1204` | 1440 × 1024 | Synthèse / clôture | 10 |
++
++Lien : https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO?node-id=51-2
 +
 +---
 +
-+## 5. Contenu fonctionnel par frame
++## 5. Variantes / annotations
 +
-+### VS-UX-01 — Nouvelle demande
-+- Intention Markdown sandbox ; requestId candidat ; repo/branche/HEAD ; sandbox.
-+- CTA : **Qualifier la demande** — aucun GO.
-+- Copilote = recommandation.
++| Variante | node ID | Dimensions | Rôle |
++|----------|---------|------------|------|
++| VS-UX-VAR — Loading GPT | `52:2` | 720 × 420 | Phase active + FinOps |
++| VS-UX-VAR — Erreur fail-closed | `52:10` | 720 × 420 | Rejet GPT |
++| VS-UX-VAR — STOP Morris | `52:18` | 720 × 420 | STOP prioritaire |
++| VS-UX-VAR — GO invalide | `52:26` | 720 × 420 | Invalidation ancrage |
 +
-+### VS-UX-02 — Qualification en cours
-+- Phase GPT qualification ; compteur `n / À définir` ; aucun retry auto ; STOP ; erreur fail-closed (variante).
++**Supprimée (correctif) :** `VS-UX-NOTE — Gate 4 actions` (`52:34`) — redondante après 4e action explicite.
 +
-+### VS-UX-03 — Qualification proposée
-+- Cycle, profil, périmètre, allowlist/denylist, risques, contrat, contractHash, source GPT.
-+- CTA : Ouvrir gate Morris / Demander correction — **pas** d’auto-GO.
++---
 +
-+### VS-UX-04 — Gate Morris
++## 6. Contenu fonctionnel par état
++
++### VS-UX-01 … 03 — vue Nouvelle demande
++Inchangés fonctionnellement (saisie → qualif → proposition). Aucun GO.
++
++### VS-UX-04 — Gate Morris (**correctif**)
 +- Dossier ancré : requestId, contractId, contractHash, branche, HEAD, allowlist, autorité, horodatage.
-+- Actions : GO · NO-GO · CORRECTION · ABANDON (3 cartes + note Abandon).
-+- Mécanisme invalidation GO (bandeau / variante).
++- **Quatre actions explicites :**
++  1. **GO** — autoriser Cursor sandbox  
++  2. **NO-GO** — refuser l’exécution (pas de spawn)  
++  3. **Demander une correction** (CORRIGER) — re-qualification  
++  4. **Abandonner** — visible, destructif (traitement danger), confirmation, conséquence « état abandonné », **aucune** action Git distante  
++- **Abandonner ≠ NO-GO ≠ STOP**  
++- Invalidation GO = bandeau / variante **séparée** (pas un substitut à Abandonner)
 +
-+### VS-UX-05 — Exécution
-+- Harness + Cursor sandbox ; fichier autorisé ; journal dérivé ; STOP ; pas de remote ; pas de commandes inventées.
++### VS-UX-05 … 08 — vue Cycle actif
++Inchangés (exécution → rapport → analyse → verdict candidat).
 +
-+### VS-UX-06 — Rapport disponible
-+- Markdown produit ; rapport ; allowlist ; remote=0 ; preuves ; réserves ; CTA analyse GPT.
++### VS-UX-09 — Décision Morris finale
++Clôturer · Corriger · Relancer (nouveau GO) · Abandonner — hors Git groupé.
 +
-+### VS-UX-07 — Analyse GPT
-+- Appel distinct ; compteur ; plafond À définir ; aucun retry ; fail-closed ; arrêt avant conso.
-+
-+### VS-UX-08 — Verdict proposé
-+- Badge **candidat** ; preuves ; réserves ; incohérences ; CTA décision Morris.
-+
-+### VS-UX-09 — Décision Morris
-+- Clôturer · Corriger · Relancer (nouveau GO) · Abandonner ; conséquences ; pas d’actions Git groupées.
-+
-+### VS-UX-10 — Clôture
-+- Décision ; statut ; traçabilité ; appels GPT ; réserves ; prochaines actions séparées ; **aucun** claim MVP/prod.
++### VS-UX-10 — Clôture (**correctif**)
++Affiche **uniquement** le vertical slice courant :
++- requestId · statut final · décision Morris  
++- fichier Markdown produit · rapport & preuves  
++- appels GPT (n / À définir) · réserves  
++- traçabilité branche / HEAD / contractHash  
++- prochaines actions candidates **séparées**  
++**Retiré :** portfolio multi-projet / lignes héritées P0 hors contexte.  
++**Aucun** claim MVP / production-ready.
 +
 +---
 +
-+## 6. Transitions UX
++## 7. Transitions UX
 +
 +```text
 +01 → 02 (Qualifier)
-+02 → 03 (qualif OK) | variante erreur/STOP
++02 → 03 (qualif OK) | erreur/STOP
 +03 → 04 (Ouvrir gate) | correction → 02
-+04 → 05 (GO) | NO-GO/Abandon → 10- | correction → 02
-+05 → 06 (fin) | STOP → stoppé
-+06 → 07 (Lancer analyse)
-+07 → 08 (verdict OK) | fail-closed
++04 → 05 (GO) | NO-GO → clôture négative | Abandonner → abandonné | correction → 02
++05 → 06 | STOP → stoppé
++06 → 07
++07 → 08 | fail-closed
 +08 → 09
-+09 → 10 (clôturer) | correction/relance (nouveau GO) | abandon
++09 → 10 | correction/relance (nouveau GO) | abandon
 +```
 +
 +---
 +
-+## 7. Interactions candidates (non delivery)
++## 8. Distinction Abandonner / NO-GO / STOP
 +
-+| Action UI | Autorité | Effet attendu |
-+|-----------|----------|---------------|
-+| Qualifier la demande | Morris | Déclenche qualif GPT via adaptateur→harness |
-+| STOP | Morris | stoppé immédiat |
-+| Ouvrir gate | Morris | Affiche dossier |
-+| GO / NO-GO / Correction / Abandon | Morris | Gate decision |
-+| Lancer analyse GPT | Morris | 2e appel GPT |
-+| Confirmer décision finale | Morris | Clôture / reprise |
++| Action | Moment | Effet | Git distant |
++|--------|--------|-------|-------------|
++| **STOP** | Pendant qualif / exec / analyse | Interrompt activité en cours → `stoppé` | Non |
++| **NO-GO** | Gate pré-exécution | Refuse spawn Cursor | Non |
++| **Abandonner** | Gate (et décision finale) | Cycle → `abandonné` après confirmation | Non |
++| **Invalidation GO** | Si hash/HEAD/branche/allowlist change | GO invalide — re-gate | Non |
 +
 +---
 +
-+## 8. Écarts au P0
++## 9. Écarts au P0 (après correctif)
 +
 +| Écart | Traitement |
 +|-------|------------|
-+| 4 écrans P0 vs 10 VS | Extension documentée — P0 inchangé |
-+| Loading/error absents P0 | Variantes VS ajoutées |
-+| Gate P0 = 3 options | 4e action Abandon en note + confirmation |
-+| Synthèse P0 ≠ clôture slice | VS-UX-10 réutilise shell synthèse pour CycleSummary |
-+| App routes limitées | Hors cycle — delivery futur |
++| 10 états vs 4 vues | Mapping §3 — **pas** 10 routes |
++| Gate 4 actions | Matérialisé sur VS-UX-04 |
++| Clôture vs synthèse | Contenu slice-only ; portfolio générique retiré |
++| Note 52:34 | **Supprimée** |
 +
 +---
 +
-+## 9. Accessibilité par frame (checklist cible)
++## 10. Accessibilité (rappel Abandonner)
 +
-+| Frame | Tab order | Focus | Labels CTA | STOP | Contraste cible |
-+|-------|-----------|-------|------------|------|-----------------|
-+| 01–10 | Rail→top→canvas→actions→copilote | Oui | Verbe+objet | 02/05/07 | WCAG 2.2 AA |
-+
-+Pas d’audit runtime réalisé.
-+
-+---
-+
-+## 10. FinOps / sécurité (rappel UI)
-+
-+- Plafond : **À définir** · pas de retry auto · pas de coût € inventé.
-+- IDs visibles · secrets interdits · GO invalidable · Studio dérivé.
++- Nom accessible : « Abandonner le cycle »  
++- Danger textuel + style (pas couleur seule)  
++- Confirmation focusable clavier  
++- Conséquence lisible  
++- Tab order : options → confirmation → confirmer  
 +
 +---
 +
 +## 11. Limites
 +
-+- Copy Figma peut nécessiter polish Morris.
-+- Variantes = annotations 720×420, pas full 1440 screens.
-+- Quatrième option gate non matérialisée en 4e carte (candidat VS-UX-CAND).
-+- Screenshots MCP à capturer dans le review pack.
++- Chrome topbar (CTA « Interv360 », pills héritées) peut rester générique — hors nettoyage portfolio.  
++- Variantes = annotations 720×420.  
++- Frames VS toujours **candidates** jusqu’à validation finale Morris.
 
 diff --git a/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md b/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
-new file mode 100644
---- /dev/null
+--- a/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
 +++ b/projects/sfia-studio/37-poc-vertical-slice-ux-ui-decision-pack.md
-+# SFIA Studio — Decision pack UX/UI vertical slice POC (candidat)
++# SFIA Studio — Decision pack UX/UI vertical slice POC
 +
 +| Métadonnée | Valeur |
 +|------------|--------|
 +| **Document** | `37-poc-vertical-slice-ux-ui-decision-pack.md` |
-+| **Cycle** | 4 — UX/UI |
++| **Cycle** | 4 — UX/UI (correctif borné) |
 +| **Profil** | Standard |
-+| **Statut** | `draft-for-morris-visual-validation` — **aucune VS-UX-CAND validée** |
++| **Statut** | `draft-for-morris-final-validation` — correctif appliqué ; **validation finale requise** |
 +| **Base Git** | `eb180638ad334a29a86b9fb757f401814003a0d8` |
 +| **Figma** | `lrjA1WEyRpL05vKR8k29LO` · page `51:2` |
 +| **Companions** | [`35`](./35-poc-vertical-slice-ux-ui-contract.md) · [`36`](./36-poc-vertical-slice-ux-ui-flows-and-frames.md) |
 +
-+> Pack de **propositions** UX/UI. Ne jamais écrire que les frames ou candidats sont validés.
++> Pack après correctif Morris. Distingue **décisions déjà appliquées**, **candidates restantes** et **gates suivants**.
 +
 +---
 +
-+## 1. Synthèse
++## 1. Synthèse du correctif
 +
-+Ce cycle produit le **contrat UX/UI** et les **frames Figma candidates** du parcours gouverné en dix étapes du vertical slice POC, en continuité Product premium (P0), sans code, sans live GPT/Cursor, sans commit projet.
++GO Morris : **UX/UI correctif borné** consommé.
 +
-+| Livrable | Rôle |
-+|----------|------|
-+| `35` | Contrat visuel + exigences UX + accessibilité/FinOps |
-+| `36` | Inventaire frames, node IDs, flux, variantes |
-+| `37` | Ce pack — options, candidats, gates |
-+| Figma page `UX-B — POC Vertical Slice` | 10 frames + variantes annotations |
++| Correction | Fait |
++|------------|------|
++| Dix frames = **états**, pas routes | Documenté 35/36/37 + mapping 4 vues P0 |
++| Abandonner explicite au gate | VS-UX-04 — 4 actions ; note `52:34` **supprimée** |
++| Clôture slice-only | VS-UX-10 — portfolio multi-projet **retiré** |
++
++Aucun code · aucune route · aucune modif P0 / app / harness · aucun live · aucun commit projet.
 +
 +---
 +
 +## 2. Observations
 +
-+1. P0 (4 frames) reste la référence visuelle validée ; non modifié.
-+2. Les 10 étapes fonctionnelles (`32`–`34`) nécessitent 10 frames distinctes — pas de fusion silencieuse.
-+3. L’app actuelle ne couvre que partiellement les étapes 1 et 9 — écart delivery futur.
-+4. VS-CAND-14 appliquée : plafond visible, valeur **À définir**.
-+5. Structure P0-03C limite à 3 cartes option ; Abandon documenté via confirmation + note.
++1. Les quatre vues P0 restent le modèle applicatif de référence.
++2. Le storyboard Figma reste utile pour revue visuelle sans imposer 10 routes.
++3. Abandonner / NO-GO / STOP / invalidation GO sont désormais distingués.
++4. La clôture ne doit plus être lue comme une synthèse portefeuille.
 +
 +---
 +
-+## 3. Hypothèses
++## 3. Décisions Morris déjà appliquées
 +
-+| ID | Hypothèse |
-+|----|----------|
-+| H1 | Continuité Product premium / Inter / tokens flush |
-+| H2 | Shell rail+topbar+canvas+copilote inchangé conceptuellement |
-+| H3 | Viewport 1440×1024 seul (pas mobile) |
-+| H4 | Copilote = recommandation uniquement |
-+| H5 | Valeur numérique plafond GPT décidée hors design |
-+
-+---
-+
-+## 4. Options
-+
-+| Sujet | Option A | Option B (retenue conception) | Soumis à Morris |
-+|-------|----------|-------------------------------|-----------------|
-+| Nombre de frames | Fusionner 8–9 | **10 frames** | Non (contrat) |
-+| Gate Abandon | Fusionner avec NO-GO | **Action distincte** (note + confirmation) | Oui si 4e carte |
-+| Variantes | Full 1440 | **Annotations 720×420** | Oui |
-+| Clôture shell | Nouveau shell | **Réutiliser synthèse P0-01C** | Observation |
++| ID | Décision | Statut |
++|----|----------|--------|
++| VS-CAND-01…13, 15 | Amont fonctionnel | **VALIDÉES** |
++| VS-CAND-14 | Plafond GPT obligatoire, valeur À définir | **VALIDÉE AVEC RÉSERVE** |
++| **VS-UX-CAND-02** (amendée) | Dix frames = **dix états** (pas dix routes) | **VALIDÉE / appliquée** |
++| **VS-UX-CAND-10** (amendée) | Abandonner = **4e action explicite** au gate | **VALIDÉE / appliquée** |
++| Correctif clôture | VS-UX-10 sans portfolio hors contexte | **VALIDÉE / appliquée** |
++| Mapping 4 vues | Regroupement états → vues P0 | **VALIDÉE / appliquée** |
 +
 +---
 +
-+## 5. Recommandations (non validées)
++## 4. Décisions UX candidates restantes
 +
-+1. Valider visuellement les 10 frames + variantes avant backlog delivery.
-+2. Ajouter une 4e carte « Abandon » sur VS-UX-04 en polish si Morris le souhaite.
-+3. Garder plafond « À définir » jusqu’à décision FinOps séparée.
-+4. Ne pas lancer delivery UI avant GO validation visuelle.
-+5. Comparer runtime ↔ Figma avant tout READY visuel futur.
-+
-+---
-+
-+## 6. Décisions UX candidates `VS-UX-CAND-*`
-+
-+| ID | Décision candidate | Impact | Risque | Dette |
-+|----|-------------------|--------|--------|-------|
-+| **VS-UX-CAND-01** | Page Figma dédiée `UX-B — POC Vertical Slice` | Isolation P0 | Confusion pages | Faible |
-+| **VS-UX-CAND-02** | Dix frames 1440×1024 VS-UX-01…10 | Couverture BeB | Effort delivery | Moyenne |
-+| **VS-UX-CAND-03** | Continuité shell Product premium P0 | Cohérence | Sur-contrainte | Faible |
-+| **VS-UX-CAND-04** | CTA Qualifier sans GO sur VS-UX-01 | Sécurité | — | Faible |
-+| **VS-UX-CAND-05** | FinOps visible (compteur + plafond À définir + no retry) | Transparence | — | Faible |
-+| **VS-UX-CAND-06** | Invalidation GO visuelle obligatoire | Sécurité | Friction | Faible |
-+| **VS-UX-CAND-07** | STOP prioritaire sur 02/05/07 | Sécurité | — | Faible |
-+| **VS-UX-CAND-08** | Verdict GPT badge candidat | Autorité | — | Faible |
-+| **VS-UX-CAND-09** | Variantes loading/erreur/STOP/GO-invalide en annotations | Couverture états | Moins pixel-perfect | Acceptable POC |
-+| **VS-UX-CAND-10** | Abandon gate via confirmation + note (pas 4e carte encore) | Fidélité P0 clone | Ambiguïté Abandon | Moyenne |
-+| **VS-UX-CAND-11** | Accessibilité = contrat cible WCAG 2.2 AA (pas audit) | Qualité | Surclaim | Faible |
-+| **VS-UX-CAND-12** | Séquencement : validation visuelle → backlog → delivery | Ordre | Delivery trop tôt | Faible |
++| ID | Décision candidate | Statut |
++|----|-------------------|--------|
++| VS-UX-CAND-01 | Page Figma dédiée | Ouverte (page créée) |
++| VS-UX-CAND-03 | Continuité Product premium | Ouverte |
++| VS-UX-CAND-04…09, 11 | FinOps / STOP / candidat / variantes / a11y | Ouvertes |
++| VS-UX-CAND-12 | Séquencement validation → backlog → delivery | Ouverte |
++| VS-UX-CAND-13 | Validation finale visuelle post-correctif | **Attendue** |
 +
 +---
 +
-+## 7. Impacts / risques / dette
++## 5. Impacts / risques / dette
 +
 +| Thème | Impact | Risque | Dette |
 +|-------|--------|--------|-------|
-+| 10 frames | Contrat delivery clair | Scope UI large | Implémentation multi-routes |
-+| Clones P0 | Continuité visuelle | Copy non polishée | Polish Figma |
-+| 3 vs 4 options gate | — | Abandon peu visible | 4e carte candidate |
-+| Pas de code | Isolé | App ≠ Figma | Delivery futur |
++| États ≠ routes | Clarifie delivery | Mésinterprétation future | Doc à préserver |
++| 4 actions gate | Gate complet | Densité UI | Polish optionnel |
++| Clôture slice | Moins de bruit | Chrome topbar encore générique | Mineure |
++| Note 52:34 | Supprimée | — | — |
 +
 +---
 +
-+## 8. Gates Morris
++## 6. Gates Morris suivants
 +
 +| Gate | Objet |
 +|------|-------|
-+| G-VS-UX-VAL | Validation visuelle frames + contrat 35–37 |
-+| G-VS-UX-ABANDON | 4e carte Abandon ou conserver note |
-+| G-VS-UX-DOC | Commit/push/PR/merge docs 35–37 |
-+| G-VS-UX-DEL | Delivery UI (app) |
++| **G-VS-UX-FINAL** | Validation finale visuelle post-correctif |
++| G-VS-UX-DOC | Commit / push / PR / merge docs 35–37 (+32–34 si lot) |
++| G-VS-UX-DEL | Delivery UI (états dans 4 routes P0 — **pas** 10 routes) |
 +| G-VS-LIVE | Live GPT/Cursor |
 +| G-VS-LIMIT | Valeur numérique plafond GPT |
 +
 +---
 +
-+## 9. Décisions Morris déjà appliquées (amont)
++## 7. Décisions Morris attendues
 +
-+VS-CAND-01…13, 15 **VALIDÉES** · VS-CAND-14 **VALIDÉE AVEC RÉSERVE**.
-+
-+---
-+
-+## 10. Décisions Morris attendues
-+
-+1. Valider / amender / refuser `VS-UX-CAND-*`.
-+2. Valider ou demander polish des frames Figma.
-+3. Arbitrer Abandon (4e carte vs note).
-+4. Autoriser ou non versionnement docs 35–37.
-+5. **Ne pas** interpréter comme GO delivery / live / merge.
++1. Validation finale du correctif (frames 04/10 + docs).  
++2. Autoriser ou non versionnement documentaire.  
++3. **Ne pas** interpréter comme GO delivery / live / 10 routes / merge.
 +
 +---
 +
-+## 11. Verdict candidat
++## 8. Verdict candidat
 +
-+`SFIA STUDIO VERTICAL SLICE UX/UI READY — MORRIS VISUAL VALIDATION REQUIRED`
++`SFIA STUDIO VERTICAL SLICE UX/UI CORRECTED — MORRIS FINAL VALIDATION REQUIRED`
 +
 +### Interdits
 +
-+CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · FRAMES VALIDATED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
++CONCEPTION VALIDATED · POC PROVEN · MVP DEFINED · READY FOR DELIVERY · PRODUCTION READY · FRAMES VALIDATED · TEN ROUTES APPROVED · DOCUMENTATION MERGED · L5 GLOBAL PROVEN
 
