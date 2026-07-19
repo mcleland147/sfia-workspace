@@ -1,20 +1,22 @@
-# ChatGPT Review Pack — SFIA Studio Option B Post-Merge — Cycle 14 Standard
+# ChatGPT Review Pack — SFIA Studio Option B Post-Merge Sync — Cycle 13 PR Readiness Standard
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure** | 2026-07-19 14:39:07 CEST |
-| **Cycle** | 14 — Post-merge |
-| **Profil** | Standard — sync documentaire factuelle après merge Critical |
-| **Décision Morris** | GO cycle post-merge après merge PR #221 |
-| **Branche** | `capitalization/sfia-studio-poc-option-b-post-merge` (**locale**) |
-| **HEAD / origin/main** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
-| **PR #221** | **MERGED** — https://github.com/mcleland147/sfia-workspace/pull/221 |
-| **Merge commit** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
-| **Branche remote archi** | **supprimée** |
+| **Date / heure** | 2026-07-19 15:13:40 CEST |
+| **Cycle** | 13 — PR readiness (post-merge sync Cycle 14) |
+| **Profil** | Standard — sync documentaire factuelle uniquement |
+| **Décision Morris** | GO commit + push + draft PR — sync post-merge Cycle 14 |
+| **Branche** | `capitalization/sfia-studio-poc-option-b-post-merge` |
+| **HEAD avant** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
+| **HEAD après** | `a28245aa10a2e45e2eff9864d06bd566a262d478` |
+| **origin/main** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
+| **merge-base** | `40f8ebecf41608756e4e8184c860b3b966b786b3` |
+| **Draft PR** | [#222](https://github.com/mcleland147/sfia-workspace/pull/222) |
+| **PR architecture #221** | **MERGED** @ `40f8ebe…` |
 | **Niveau** | **full** |
-| **Commit/push/PR projet** | **NON** |
+| **Merge** | **NON AUTORISÉ** |
 
 ---
 
@@ -22,100 +24,110 @@
 
 | Check | Résultat |
 |-------|----------|
-| Branche initiale | `main` @ `40f8ebe…` PASS |
-| HEAD = origin/main | PASS |
-| PR #221 MERGED | PASS (`mergedAt=2026-07-19T12:29:36Z`) |
-| Squash message | `docs(sfia-studio): document POC Option B architecture (#221)` PASS |
-| Remote archi absente | PASS |
-| 8 docs présents sur main | PASS |
-| Branche post-merge créée | `capitalization/sfia-studio-poc-option-b-post-merge` PASS |
-| Staged | vide PASS |
+| Branche | `capitalization/sfia-studio-poc-option-b-post-merge` PASS |
+| HEAD initial = origin/main | `40f8ebecf41608756e4e8184c860b3b966b786b3` PASS |
+| PR #221 MERGED | PASS |
+| Staged initial | vide PASS |
+| 8M exactes ; 0A ; 0D | PASS |
+| Remote post-merge initiale | absente PASS |
+| Hors `app/**` | PASS |
 
 **Verdict Truth Check :** PASS
 
 ---
 
-## 2. Handoff précédent
+## 2. Handoff Cycle 14 consulté
 
 | Champ | Valeur |
 |-------|--------|
-| SHA | `a33240299abac53b5fde6e579929129650a0924c` |
-| Cycle | 13 PR readiness Critical |
-| Contenu | commit `7736fac…` ; draft PR #221 ; Option B ; G7 avec réserves ; G8/G9 fermés ; POC non lancé ; **merge non autorisé alors** |
+| SHA | `ac5912f3d2dec83e53ccedcd58cd227bd1e78cf3` |
+| Cycle | 14 Post-merge Standard |
+| Contenu | Option B intégrée ; G7 INTÉGRÉ ; G8/G9 FERMÉS ; POC non lancé ; 8 docs ; diff complet ; commit/push/PR **non** autorisés alors |
+| Verdict | POST-MERGE COMPLETE WITH RESERVES |
 
-**Handoff précédent :** COMPLET (historique pré-merge correctement daté)
+**Handoff Cycle 14 :** COMPLET
 
 ---
 
-## 3. Sources consultées
+## 3. Sources
 
 - Template SFIA cycle execution
 - Huit docs `projects/sfia-studio/`
-- PR #221 + merge `40f8ebe…`
-- Handoff Cycle 13
+- Handoff Cycle 14 (`ac5912f…`)
+- PR #221 (MERGED)
 
 ---
 
-## 4. État avant → après
-
-| Avant (pré-merge / obsolète comme statut courant) | Après (post-merge) |
-|---------------------------------------------------|--------------------|
-| docs / architecture **non versionnés** | **INTÉGRÉS** sur main via #221 |
-| GO versionnement requis / non accordé | **CONSOMMÉ** |
-| base `b882892…` comme courant | `40f8ebe…` |
-| branche archi locale courante | historique ; remote **supprimée** |
-| verdict VERSIONING DECISION REQUIRED | POST-MERGE COMPLETE … POC-G8 DECISION REQUIRED |
-| POC-G7 validé avec réserves | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
-
----
-
-## 5. Architecture préservée (inchangée)
-
-- **Option B minimale** RETENUE : Studio cockpit → adaptateur fin → harness autonome
-- **Option A** = test / diagnostic / dégradé
-- **Option C** = écartée 1er POC
-- ARCH-POC-CAND-01…12 **inchangées** (12 : GO versionnement **CONSOMMÉ**)
-- Réserves Cursor / techno / protocole / allowlist / app/** / QA / AF / G8-G9 **conservées**
-- Git = vérité ; Morris = L0 ; fail-closed
-
----
-
-## 6. Gates
-
-| Gate | Statut |
-|------|--------|
-| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
-| Versionnement archi | **CONSOMMÉ / INTÉGRÉ** |
-| POC-G8 | **FERMÉ** |
-| POC-G9 | **FERMÉ** |
-| POC | **NON LANCÉ** |
-| Merge #221 | **CONSOMMÉ** |
-
----
-
-## 7. Recherche textuelle qualifiée
-
-Commande : `rg` non versionn / versionnement / PR #221 / 7736fac / b882892 / 40f8ebe / draft / merge non autorisé / POC-G7/8/9 / READY FOR BACKLOG/DELIVERY / POC LAUNCHED
-
-| Qualification | Exemples |
-|---------------|----------|
-| Historique valide | `b882892…` pour #220 ; D-VAL-10 « merge non autorisé » historique ; handoff Cycle 13 |
-| Pré-merge obsolète corrigé | « non versionné » comme statut courant ; GO versionnement restant ; verdict VERSIONING REQUIRED |
-| État post-merge correct | INTÉGRÉ ; #221 MERGED ; `40f8ebe…` ; versionnement CONSOMMÉ ; G8 FERMÉ |
-| Formulation interdite | **Aucune** |
-| Réserve conservée | Cursor ; techno ; protocole ; allowlist ; app/** delivery |
-
----
-
-## 8. Fichiers modifiés (8)
+## 4. Fichiers (8 modifications)
 
 README · 07 · 20 · 21 · 22 · 23 · 24 · 25
 
-Aucune création · aucune suppression · aucun `app/**` · aucun code
++146 / −117 — aucune création — aucune suppression
 
 ---
 
-## 9. Diff complet
+## 5. Architecture / décisions (inchangées)
+
+| Élément | Statut |
+|---------|--------|
+| Option B minimale | RETENUE / INTÉGRÉE |
+| Studio | Cockpit |
+| Adaptateur | Fin, sans autorité |
+| Harness | Autonome |
+| Option A | Test / diagnostic / dégradé |
+| Option C | Écartée 1er POC |
+| ARCH-POC-CAND-01…12 | Inchangées (12 : GO versionnement CONSOMMÉ) |
+| Réserves | Conservées |
+| POC-G7 | VALIDÉ AVEC RÉSERVES — INTÉGRÉ |
+| POC-G8 / G9 | **FERMÉS** |
+| POC | **NON LANCÉ** |
+| Versionnement archi #221 | CONSOMMÉ / INTÉGRÉ |
+
+---
+
+## 6. Recherche textuelle qualifiée
+
+Anti-dérive PASS — aucune formulation interdite de statut courant ; historiques `b882892` (#220) / D-VAL-10 conservés.
+
+---
+
+## 7. Validations avant staging
+
+| Check | Résultat |
+|-------|----------|
+| `git diff --check` | PASS |
+| 8M | PASS |
+| Aucun staged initial | PASS |
+| Aligné handoff Cycle 14 | PASS |
+
+---
+
+## 8. Staged / commit diff
+
+```
+a28245a docs(sfia-studio): sync Option B architecture post-merge
+ .../07-product-trajectory-and-decision-pack.md     | 55 ++++++++++---------
+ .../sfia-studio/20-poc-orchestration-framing.md    | 21 ++++----
+ ...21-poc-orchestration-scenario-and-boundaries.md |  4 +-
+ .../22-poc-orchestration-decision-pack.md          | 24 +++++----
+ .../23-poc-orchestration-technical-architecture.md | 24 +++++----
+ ...tration-contracts-security-and-observability.md |  9 ++--
+ ...poc-orchestration-architecture-decision-pack.md | 63 ++++++++++++----------
+ projects/sfia-studio/README.md                     | 63 ++++++++++++----------
+ 8 files changed, 146 insertions(+), 117 deletions(-)
+
+a28245a docs(sfia-studio): sync Option B architecture post-merge
+M	projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+M	projects/sfia-studio/20-poc-orchestration-framing.md
+M	projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md
+M	projects/sfia-studio/22-poc-orchestration-decision-pack.md
+M	projects/sfia-studio/23-poc-orchestration-technical-architecture.md
+M	projects/sfia-studio/24-poc-orchestration-contracts-security-and-observability.md
+M	projects/sfia-studio/25-poc-orchestration-architecture-decision-pack.md
+M	projects/sfia-studio/README.md
+```
+
+### Diff complet du commit
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
@@ -786,36 +798,57 @@ index 6165a91..dbf221e 100644
 
 ---
 
-## 10. Validations
+## 9. Commit
 
-| Check | Résultat |
-|-------|----------|
-| `git diff --check` | PASS |
-| 8 fichiers M | PASS |
-| Aucun staged | PASS |
-| Option B inchangée | PASS |
-| ARCH-POC-CAND inchangées (fond) | PASS |
-| Réserves conservées | PASS |
-| G8/G9 fermés | PASS |
-| POC non lancé | PASS |
-| ≠ READY FOR BACKLOG | PASS |
+| Champ | Valeur |
+|-------|--------|
+| SHA | `a28245aa10a2e45e2eff9864d06bd566a262d478` |
+| Message | `docs(sfia-studio): sync Option B architecture post-merge` |
+| Fichiers | 8M |
+| Stats | +146 / −117 |
 
 ---
 
-## 11. Décisions Morris restantes
+## 10. Push
 
-1. Ouverture éventuelle **POC-G8** (GO distinct — **FERMÉE** aujourd’hui)
-2. Versionnement de la **sync post-merge** cycle 14 (commit/push/draft PR) — **non autorisé** ici
-3. Clôture formelle AF (séparée)
+| Champ | Valeur |
+|-------|--------|
+| Remote | `origin/capitalization/sfia-studio-poc-option-b-post-merge` |
+| SHA distant | `a28245aa10a2e45e2eff9864d06bd566a262d478` |
+| Match local | **OUI** |
 
 ---
 
-## 12. Actions interdites
+## 11. Draft PR
 
-commit/push/PR projet · merge · G8/G9 · backlog · delivery · code · `app/**` · lancement POC
+| Champ | Valeur |
+|-------|--------|
+| Numéro | **#222** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/222 |
+| state | **OPEN** |
+| isDraft | **true** |
+| merged | **false** |
+| base | `main` |
+| head | `capitalization/sfia-studio-poc-option-b-post-merge` |
+| head SHA | `a28245aa10a2e45e2eff9864d06bd566a262d478` |
+| Fichiers PR | 8 MODIFIED |
+
+Corps conforme : sync #221 ; Option B inchangée ; G8/G9 fermés ; POC non lancé ; merge non autorisé.
+
+---
+
+## 12. Actions interdites restantes
+
+- merge
+- ready for review
+- suppression de branche
+- ouverture POC-G8 / POC-G9
+- backlog / delivery
+- code / `app/**`
+- lancement POC
 
 ---
 
 ## 13. Verdict
 
-**`POST-MERGE COMPLETE WITH RESERVES — OPTION B ARCHITECTURE INTEGRATED — POC-G8 DECISION REQUIRED`**
+**`PR READINESS COMPLETE — OPTION B POST-MERGE SYNC DRAFT PR OPEN — POC-G8 CLOSED`**
