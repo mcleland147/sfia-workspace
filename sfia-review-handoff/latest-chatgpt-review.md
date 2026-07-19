@@ -1,13 +1,13 @@
-# ChatGPT Review Pack — SFIA Studio Cycle 8/9 OpenAI Corrective + Live Relaunch Critical
+# ChatGPT Review Pack — SFIA Studio Cycle 8/9 max_completion_tokens + Live Critical
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 19:30:30 CEST (Europe/Paris) |
-| **Cycle** | 8 — Delivery / correctif adaptateur · sous-cycle 9 QA live |
+| **Date / heure / fuseau** | 2026-07-19 19:35:16 CEST (Europe/Paris) |
+| **Cycle** | 8 — Delivery / correctif payload · sous-cycle 9 QA live |
 | **Profil** | Critical |
-| **Décision Morris** | GO correctif adaptateur OpenAI + une relance live bornée |
+| **Décision Morris** | GO `max_tokens` → `max_completion_tokens` + une relance live unique |
 | **Branche spike** | `spike/sfia-studio-openai-gpt-adapter` (locale — **aucun** commit/push/PR) |
 | **HEAD / base / origin/main** | `dce5a41a0a8c4ea1cfd08a8a99596b9dc02cb957` |
 | **Niveau** | full |
@@ -18,83 +18,111 @@
 ## 1. Truth Check — PASS
 
 ```
-pwd=/Users/morris/Projects/sfia-workspace
 branch=spike/sfia-studio-openai-gpt-adapter
 HEAD=origin/main=dce5a41a0a8c4ea1cfd08a8a99596b9dc02cb957
 staged=aucun
 remote spike=absente
 ```
 
-Working tree = spike GPT/OpenAI local uniquement (+ `.tmp-sfia-review/`).
-
 ---
 
 ## 2. Sources
 
 - Template cycle SFIA  
-- `origin/sfia/review-handoff` (pack Cycle 9 précédent — échec sans cause)  
-- `30`, `07`, `28`, README, harness README, `package.json`  
-- `run-spike.ts`, `openaiRealSpike.ts`, `gptContracts.ts`, `gptOutputValidator.ts`, tests, prompts  
-- Preuve runtime précédente (sans httpError)
+- `origin/sfia/review-handoff` (pack root-cause `max_tokens` @ `ffeb623…`)  
+- `30`, README, harness, `package.json`, `openaiRealSpike.ts`, `run-spike.ts`, contrats, validateur, tests, prompts  
 
 ---
 
-## 3. Diagnostic du défaut de preuve
+## 3. Cause racine héritée
 
-1. Transport renvoie `status` + `text`.  
-2. Avant correctif, `callOnce` jetait `HarnessError` avec seulement `detail.status` (nommé `status`) + `bodyLen` — **sans** parser `error.message/code/type`.  
-3. `qualify`/`verdict` exposaient `errorMessage` mais **pas** `detail`.  
-4. `run-spike.ts` ne sérialisait que `errorCode` → **perte totale** du statut HTTP et du message dans la preuve.
+HTTP 400 · `unsupported_parameter` ·  
+`Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.`
 
-**Cause du défaut de sérialisation :** pipeline de preuve incomplet (pas un problème d’auth ni d’endpoint).
+Pipeline de preuve HTTP déjà en place (sanitation + sérialisation).
 
 ---
 
-## 4. Correctif de preuve (exact)
+## 4. Correctif exact
 
-### Ajouts dans `openaiRealSpike.ts`
+### Avant / après (seul paramètre modifié)
 
-- `sanitizeOpenAiErrorText` — redaction Bearer / `sk-…` / `OPENAI_API_KEY=` + troncature 400.  
-- `extractOpenAiHttpErrorEvidence` — parse JSON d’erreur OpenAI.  
-- `GPTHttpErrorEvidence` sur `GPTCallResult`.  
-- Sur `!res.ok` : remplit `httpStatus`, `apiCode`, `apiType`, `messageSanitized`, `durationMs`, `bodyLen`.
-
-### `run-spike.ts`
-
-Sérialise désormais : `errorMessage`, `httpError`, `retriesAttempted`, `liveInvoked`, `validatorAccepted`.
-
-### Payload
-
-**Non modifié** (relance unique consommée par le diagnostic ; 2ᵉ live interdit).
-
-Corps live inchangé :
-
-```ts
-{
-  model,
-  temperature: 0,
-  max_tokens: 2048,
-  response_format: { type: "json_object" },
-  messages: [...]
-}
+```diff
+-      max_tokens: 2048,
++      max_completion_tokens: 2048,
 ```
 
+### Preuve d’unicité du changement payload
+
+```ts
+const body = {
+  model,
+  temperature: 0,                    // inchangé
+  max_completion_tokens: 2048,       // seul remplacement
+  response_format: { type: "json_object" }, // inchangé
+  messages: [ /* … */ ],
+};
+```
+
+Endpoint inchangé : `https://api.openai.com/v1/chat/completions`  
+Modèle inchangé : `gpt-5-mini` (env)  
+Aucun autre paramètre modifié.
+
 ---
 
-## 5. Cause racine HTTP exacte (après relance)
+## 5. Fichiers modifiés
+
+| Fichier | Rôle |
+|---------|------|
+| `harness/src/ports/openaiRealSpike.ts` | `max_completion_tokens: 2048` |
+| `harness/tests/gpt-openai-spike.test.ts` | Assert payload live : présence `max_completion_tokens`, absence `max_tokens`, model/temperature/response_format inchangés |
+| `projects/sfia-studio/30-poc-gpt-openai-spike-report.md` | Rapport live |
+| `.tmp-sfia-review/chatgpt-review.md` | Ce pack |
+
+`harness/README.md` : **non modifié** (ne documentait pas `max_tokens`).
+
+---
+
+## 6. Tests / build
+
+| Contrôle | Résultat |
+|----------|----------|
+| typecheck | OK |
+| tests GPT | **19 passed** |
+| test payload `max_completion_tokens` | PASS |
+| tests sanitation | PASS |
+| build | OK |
+| fixture défaut (flags absents) | live NON_EXECUTED |
+
+---
+
+## 7. Commande live logique
+
+```bash
+SFIA_GPT_REAL_SPIKE=1 SFIA_GPT_REAL_LIVE=1 npm run spike:gpt-openai
+```
+
+- Relances : **1**  
+- Appels OpenAI : **1**  
+- Retries : **0**  
+- Timeout : 30s  
+
+---
+
+## 8. S-GPT-09 — résultat live
 
 ```json
 {
   "ok": false,
   "status": "FAILED",
   "errorCode": "GPT_HTTP_ERROR",
-  "errorMessage": "OpenAI HTTP 400: Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.",
+  "errorMessage": "OpenAI HTTP 400: Unsupported value: 'temperature' does not support 0 with this model. Only the default (1) value is supported.",
   "httpError": {
     "httpStatus": 400,
-    "apiCode": "unsupported_parameter",
+    "apiCode": "unsupported_value",
     "apiType": "invalid_request_error",
-    "messageSanitized": "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.",
-    "durationMs": 253,
+    "messageSanitized": "Unsupported value: 'temperature' does not support 0 with this model. Only the default (1) value is supported.",
+    "durationMs": 978,
     "bodyLen": 245
   },
   "retriesAttempted": 0,
@@ -103,119 +131,39 @@ Corps live inchangé :
 }
 ```
 
-**Cause démontrée :** `max_tokens` incompatible avec `gpt-5-mini` ; API demande `max_completion_tokens`.
+**Efficacité du correctif `max_completion_tokens` :** l’erreur précédente sur `max_tokens` **n’apparaît plus**.  
+**Nouveau bloqueur capturé :** `temperature: 0` non supporté (seul défaut API = 1).
 
-### Hypothèses rejetées comme correctif immédiat
-
-| Hypothèse | Statut |
-|-----------|--------|
-| Auth / clé invalide | Rejetée (400 + message paramètre) |
-| Endpoint inexistant | Rejetée |
-| `temperature` | Non cité par l’erreur — **non modifié** |
-| `response_format` | Non cité — **non modifié** |
-| Changement de modèle / Responses API | Hors GO |
+Aucune correction supplémentaire dans ce cycle (interdit sans nouveau GO).
 
 ---
 
-## 6. Fichiers modifiés (ce cycle)
+## 9. S-GPT-10
 
-| Fichier | Rôle |
-|---------|------|
-| `harness/src/ports/openaiRealSpike.ts` | Sanitation + evidence HTTP |
-| `harness/src/types/gptContracts.ts` | Type `GPTHttpErrorEvidence` |
-| `harness/spikes/gpt-openai/run-spike.ts` | Sérialisation preuve |
-| `harness/tests/gpt-openai-spike.test.ts` | Tests sanitation + httpError |
-| `projects/sfia-studio/30-poc-gpt-openai-spike-report.md` | Rapport complet |
-| `.tmp-sfia-review/chatgpt-review.md` | Ce pack |
-
-### Extrait correctif `callOnce` (échec HTTP)
-
-```typescript
-if (!res.ok) {
-  const evidence = extractOpenAiHttpErrorEvidence({
-    status: res.status,
-    bodyText: res.text,
-    durationMs: res.durationMs,
-  });
-  throw new HarnessError(
-    "GPT_HTTP_ERROR",
-    `OpenAI HTTP ${evidence.httpStatus}: ${evidence.messageSanitized}`,
-    {
-      httpStatus: evidence.httpStatus,
-      apiCode: evidence.apiCode,
-      apiType: evidence.apiType,
-      messageSanitized: evidence.messageSanitized,
-      durationMs: evidence.durationMs,
-      bodyLen: evidence.bodyLen,
-    },
-  );
-}
-```
-
-### Extrait sanitation
-
-```typescript
-export function sanitizeOpenAiErrorText(raw: string, maxLen = 400): string {
-  let s = raw
-    .replace(/Authorization:\s*Bearer\s+\S+/gi, "Authorization: Bearer [REDACTED]")
-    .replace(/Bearer\s+[A-Za-z0-9._-]{10,}/g, "Bearer [REDACTED]")
-    .replace(/OPENAI_API_KEY\s*=\s*\S+/gi, "OPENAI_API_KEY=[REDACTED]")
-    .replace(/sk-[a-zA-Z0-9_-]{10,}/g, "sk-[REDACTED]");
-  if (s.length > maxLen) s = `${s.slice(0, maxLen)}…[truncated]`;
-  return s;
-}
-```
+**NON EXÉCUTÉ** — S-GPT-09 échoué.
 
 ---
 
-## 7. Tests
+## 10. FinOps / sécurité / invariants
 
-| Suite | Résultat |
-|-------|----------|
-| GPT ciblés | **18 passed** |
-| Sanitation (Bearer, sk-, truncate, extract, no key in result, fixture inchangée) | **PASS** |
-| typecheck / build | **OK** |
-| Fixture défaut sans flags | live NON_EXECUTED |
-
----
-
-## 8. Commande live logique
-
-```bash
-SFIA_GPT_REAL_SPIKE=1 SFIA_GPT_REAL_LIVE=1 npm run spike:gpt-openai
-```
-
-- Relances live : **1**  
-- Appels OpenAI : **1**  
-- Retries : **0**  
-- Timeout : 30s  
-- S-GPT-10 : **NON EXÉCUTÉ**
+| Métrique | Valeur |
+|----------|--------|
+| Tokens | N/A |
+| Coût inventé | non |
+| Facturation vérifiée | inconnue |
+| Modèle demandé | `gpt-5-mini` |
+| Modèle retourné | N/A |
+| Secrets | aucun dans preuve/rapport |
+| Candidat live accepté | non |
+| `productionReadyClaimed` | false |
+| Cursor réel | non invoqué |
+| `app/**` / Docker | intact / absent |
 
 ---
 
-## 9. FinOps / perf / sécurité
+## 11. Rapport `30` — contenu modifié
 
-- Tokens : N/A (échec 400)  
-- Coût inventé : non  
-- Durée appel : 253 ms  
-- Aucun secret dans preuve/rapport  
-- Cursor réel : non  
-- app/** : intact  
-- Docker : absent  
-
----
-
-## 10. Invariants
-
-Aucun contrat/verdict live accepté.  
-`productionReadyClaimed=false`.  
-Validateur fail-closed non affaibli.
-
----
-
-## 11. Rapport `30` — contenu modifié exploitable
-
-Rapport intégralement mis à jour (horodatage 19:30:10 CEST) : sections diagnostic sérialisation, correctif preuve, cause HTTP 400 `max_tokens`, absence de correctif payload, S-GPT-09/10, FinOps, verdict.
+Rapport intégralement mis à jour (horodatage 19:35:04 CEST) : correctif `max_completion_tokens`, preuve live HTTP 400 `temperature`, S-GPT-10 non exécuté, décisions Morris, verdict.
 
 Chemin : `projects/sfia-studio/30-poc-gpt-openai-spike-report.md`
 
@@ -223,17 +171,17 @@ Chemin : `projects/sfia-studio/30-poc-gpt-openai-spike-report.md`
 
 ## 12. Décisions Morris encore requises
 
-1. **GO** : remplacer `max_tokens` par `max_completion_tokens` + **une** nouvelle relance live.  
-2. Versionnement spike / PR / merge — fermés.  
-3. Bout-en-bout — fermé.
+1. **GO** : correction démontrée de `temperature` (retirer le champ **ou** valeur explicitement supportée) + **une** relance live.  
+2. Ne pas toucher `response_format` / modèle / endpoint sans preuve.  
+3. Versionnement spike / bout-en-bout — **fermés**.
 
 ---
 
 ## 13. Verdict
 
-`GPT OPENAI LIVE ROOT CAUSE CAPTURED — FURTHER CORRECTIVE DECISION REQUIRED`
+`GPT OPENAI LIVE NEXT BLOCKER CAPTURED — FURTHER CORRECTIVE DECISION REQUIRED`
 
-Statut : **NOT READY** (live positif) · preuve d’erreur **READY**.
+Statut : **NOT READY** (live positif). Correctif `max_completion_tokens` **prouvé** ; bloqueur suivant = `temperature: 0`.
 
 Interdits : CHATGPT APP INTEGRATED · GPT PRODUCTION READY · POC COMPLETE · END-TO-END PROVEN · CURSOR REAL COMBINED · STUDIO UI COMPLETE · READY FOR MERGE · GPT OPENAI LIVE SPIKE PROVEN.
 
