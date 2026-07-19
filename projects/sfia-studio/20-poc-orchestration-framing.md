@@ -8,29 +8,27 @@
 | **Profil** | Critical |
 | **Typologie** | DOC / EVOL (cadrage) |
 | **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
-| **Branche** | Historique : `project/sfia-studio-poc-orchestration-framing` ; sync : `capitalization/sfia-studio-poc-framing-post-merge` (**poussée**) ; draft PR [#220](https://github.com/mcleland147/sfia-workspace/pull/220) |
-| **Base / main** | `origin/main` @ `be713c45a63c243a4d75c51d27d215d05bb621f1` (PR #219) |
-| **Statut document** | **VALIDÉ PAR MORRIS** (2026-07-19) et **INTÉGRÉ** sur `main` — cycle de cadrage **terminé** |
+| **Branche** | Historique cadrage/sync ; architecture : `architecture/sfia-studio-poc-orchestration` (**locale**) |
+| **Base / main** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` (PR #220 MERGED) |
+| **Statut document** | **VALIDÉ + INTÉGRÉ** — cycle cadrage **terminé** ; sync #220 **MERGED** |
 | **POC** | **Non lancé** |
 | **MVP / industrialisation** | **Non engagés** |
-| **Architecture Runtime** | **Non validée** — aucune technologie sélectionnée ; outil orchestrateur **ouvert** |
+| **Architecture Runtime** | **Non validée** — voir candidats `23`–`25` |
 | **Destinataire** | Morris |
 
-> Cadrage **validé** le **2026-07-19** et **intégré** via PR [#219](https://github.com/mcleland147/sfia-workspace/pull/219) (`be713c45…`). Cette validation **ne lance pas** le POC, **ne valide pas** l’architecture technique, **ne sélectionne pas** de Runtime et **ne définit pas** le MVP. POC-G7 / G8 / G9 restent **fermés**. Critères = contrat de preuve, **pas** preuve réalisée.
+> Cadrage **validé** (#219). Sync #220 **MERGED**. POC-G7 **VALIDÉ AVEC RÉSERVES** — **Option B minimale** (`23`–`25`, non versionnés). POC-G8 / G9 **fermés**. POC **non lancé**.
 
 ### Décision Morris — validation du cadrage (2026-07-19)
 
 | Élément | Statut |
 |---------|--------|
 | POC-CAND-01…06, 08, 10 | **VALIDÉES** |
-| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** (orchestrateur local candidat ; outil ouvert) |
-| POC-CAND-09 / POC-G10 | **VALIDÉE** puis **CONSOMMÉE** (PR #219 mergée) |
+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
+| POC-CAND-09 / POC-G10 | **CONSOMMÉE** |
 | POC-G1…G6 | **VALIDÉS** |
-| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
-| Scénario | **S1** sélectionné |
-| Automatisation | L3 cible + L4* plafond chemin d’exécution ; L0 arbitrage ; L5 global interdit |
-| Git | Lecture réelle autorisée (futur POC) ; écritures distantes **simulées** |
-| Intégration | PR #219 **MERGED** — `be713c45a63c243a4d75c51d27d215d05bb621f1` |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES** — Option B minimale |
+| POC-G8…G9 | **FERMÉS** |
+| Intégration | #219 + #220 @ `b882892…` |
 
 ---
 
@@ -301,18 +299,13 @@ Pas de plateforme de supervision industrialisée.
 |-------------|--------|
 | POC-G1…G6 | **VALIDÉS** |
 | POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
-| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
-| POC-CAND-01…06, 08, 10 | **VALIDÉES** |
-| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
-| POC-CAND-09 | **VALIDÉE** puis **consommée** (via POC-G10 / #219) |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES** — Option B minimale (`23`–`25`) — **non versionnée** |
+| POC-G8…G9 | **FERMÉS** |
+| Sync #220 | **MERGED** |
 
-**Cycle de cadrage :** **terminé** (validé + intégré). Critères de succès/échec/abandon = contrat — **pas** preuve réalisée.
+**Architecture :** Option B minimale (Studio cockpit + adaptateur + harness autonome). Option A = test/dégradé. Option C écartée (1er POC).
 
-**Sync post-merge :** **versionnée** (commit + push + draft PR #220). **Merge #220** = GO Morris distinct — **non autorisé** ici.
-
-**Prochaine décision Morris possible après merge #220 :** ouverture éventuelle de **POC-G7** (architecture POC ciblée) — **fermée** ici. Pas de backlog/delivery direct.
-
-**Toujours ouverts :** outil/techno orchestrateur ; harness vs UI ; clôture AF formelle ; MVP.
+**Prochaine décision :** GO versionnement — **non accordé**.
 
 ---
 
@@ -320,12 +313,13 @@ Pas de plateforme de supervision industrialisée.
 
 | Document | Rôle |
 |----------|------|
-| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | Scénario + frontières + flux |
-| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | Options, reco, POC-CAND, gates |
-| [07-product-trajectory-and-decision-pack.md](./07-product-trajectory-and-decision-pack.md) | Trajectoire produit |
-| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C, niveaux L0–L5 |
-| [18-technical-architecture.md](./18-technical-architecture.md) | Contraintes techniques P0 |
+| [21](./21-poc-orchestration-scenario-and-boundaries.md) | S1 |
+| [22](./22-poc-orchestration-decision-pack.md) | POC-CAND |
+| [23](./23-poc-orchestration-technical-architecture.md) | Archi Option B |
+| [24](./24-poc-orchestration-contracts-security-and-observability.md) | Contrats |
+| [25](./25-poc-orchestration-architecture-decision-pack.md) | ARCH-POC-CAND |
+| [11](./11-functional-architecture.md) | AF-Option C |
 
 ---
 
-*Cadrage VALIDÉ + INTÉGRÉ (PR #219 / be713c45…) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — cycle cadrage TERMINÉ — POC NON LANCÉ — POC-G7/G8/G9 fermés — outil orchestrateur ouvert.*
+*Cadrage INTÉGRÉ — POC-G7 VALIDÉ AVEC RÉSERVES (Option B) — non versionné — POC NON LANCÉ.*

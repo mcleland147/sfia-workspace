@@ -6,8 +6,8 @@
 | **Document** | `21-poc-orchestration-scenario-and-boundaries.md` |
 | **Cycle** | 1 — Cadrage POC orchestration (Option B) |
 | **Profil** | Critical |
-| **Statut document** | **VALIDÉ PAR MORRIS** (2026-07-19) et **INTÉGRÉ** sur `main` (PR #219) — S1 = **contrat de cadrage** (**non exécuté**) |
-| **Complète** | [20-poc-orchestration-framing.md](./20-poc-orchestration-framing.md) |
+| **Statut document** | **VALIDÉ + INTÉGRÉ** (#219) ; sync #220 **MERGED** ; S1 = contrat (**non exécuté**) ; UI vs harness → voir archi candidate `23` |
+| **Complète** | [20](./20-poc-orchestration-framing.md) · archi [23](./23-poc-orchestration-technical-architecture.md) |
 | **POC** | **Non lancé** |
 
 ---
@@ -217,9 +217,9 @@ Le modèle d’état et le scénario restent un **contrat de cadrage**, pas une 
 | Gate d’exécution | Avant Cursor | GO / CORRIGER / STOP |
 | Gate de clôture preuve | Après pack | CLOSING / ITERATE / ABANDON |
 
-Les gates produit POC-G1…G6 sont **VALIDÉS** (2026-07-19). POC-G10 est **CONSOMMÉ** (PR #219). POC-G7…G9 restent **FERMÉS / NON VALIDÉS**.
+Les gates POC-G1…G6 **VALIDÉS**. POC-G10 **CONSOMMÉ**. POC-G7 **VALIDÉ AVEC RÉSERVES** (Option B minimale). POC-G8…G9 **FERMÉS**.
 
-UI Studio versus harness : **réserve d’architecture** (ouverte pour un futur cycle POC-G7 — **non ouvert** ici).
+UI Studio versus harness : **Option B minimale** — Studio cockpit + adaptateur fin ; harness autonome (cœur). Option A conservée pour tests hors UI.
 
 ---
 
@@ -296,4 +296,4 @@ L’UI P0 **n’est pas** l’orchestrateur. Branchement réel UI↔orchestrateu
 
 ---
 
-*Scénario S1 VALIDÉ + INTÉGRÉ (PR #219) comme contrat de cadrage — NON EXÉCUTÉ — POC NON LANCÉ — rejet allowlist = exigence future — techno Runtime ouverte — Morris décide (POC-G7 fermé).*
+*Scénario S1 VALIDÉ — NON EXÉCUTÉ — Option B minimale (POC-G7 VALIDÉ AVEC RÉSERVES) — POC NON LANCÉ.*
