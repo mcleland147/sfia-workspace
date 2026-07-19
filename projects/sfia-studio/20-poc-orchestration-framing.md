@@ -8,15 +8,15 @@
 | **Profil** | Critical |
 | **Typologie** | DOC / EVOL (cadrage) |
 | **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
-| **Branche** | Historique cadrage/sync ; architecture : `architecture/sfia-studio-poc-orchestration` (**locale**) |
-| **Base / main** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` (PR #220 MERGED) |
-| **Statut document** | **VALIDÉ + INTÉGRÉ** — cycle cadrage **terminé** ; sync #220 **MERGED** |
+| **Branche** | Historique cadrage/sync ; archi MERGED #221 (remote **supprimée**) ; post-merge `capitalization/sfia-studio-poc-option-b-post-merge` (**locale**) |
+| **Base / main** | `origin/main` @ `40f8ebecf41608756e4e8184c860b3b966b786b3` (PR #221 MERGED) |
+| **Statut document** | **VALIDÉ + INTÉGRÉ** — cycle cadrage **terminé** ; sync #220 **MERGED** ; archi #221 **MERGED** |
 | **POC** | **Non lancé** |
 | **MVP / industrialisation** | **Non engagés** |
-| **Architecture Runtime** | **Non validée** — voir candidats `23`–`25` |
+| **Architecture Runtime** | **Non validée** — voir candidats `23`–`25` (ouverts) |
 | **Destinataire** | Morris |
 
-> Cadrage **validé** (#219). Sync #220 **MERGED**. POC-G7 **VALIDÉ AVEC RÉSERVES** — **Option B minimale** (`23`–`25`, non versionnés). POC-G8 / G9 **fermés**. POC **non lancé**.
+> Cadrage **validé** (#219). Sync #220 **MERGED**. Architecture **Option B minimale** **INTÉGRÉE** (PR #221 / `40f8ebe…`). POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ**. POC-G8 / G9 **fermés**. POC **non lancé**.
 
 ### Décision Morris — validation du cadrage (2026-07-19)
 
@@ -26,9 +26,9 @@
 | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
 | POC-CAND-09 / POC-G10 | **CONSOMMÉE** |
 | POC-G1…G6 | **VALIDÉS** |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES** — Option B minimale |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B minimale (PR #221) |
 | POC-G8…G9 | **FERMÉS** |
-| Intégration | #219 + #220 @ `b882892…` |
+| Intégration | #219 + #220 @ `b882892…` ; #221 @ `40f8ebe…` |
 
 ---
 
@@ -299,13 +299,14 @@ Pas de plateforme de supervision industrialisée.
 |-------------|--------|
 | POC-G1…G6 | **VALIDÉS** |
 | POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES** — Option B minimale (`23`–`25`) — **non versionnée** |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B minimale (`23`–`25`) — PR #221 / `40f8ebe…` |
 | POC-G8…G9 | **FERMÉS** |
 | Sync #220 | **MERGED** |
+| Archi #221 | **MERGED** |
 
 **Architecture :** Option B minimale (Studio cockpit + adaptateur + harness autonome). Option A = test/dégradé. Option C écartée (1er POC).
 
-**Prochaine décision :** GO versionnement — **non accordé**.
+**Prochaine décision :** ouverture éventuelle **POC-G8** — **FERMÉE** (GO Morris distinct).
 
 ---
 
@@ -322,4 +323,4 @@ Pas de plateforme de supervision industrialisée.
 
 ---
 
-*Cadrage INTÉGRÉ — POC-G7 VALIDÉ AVEC RÉSERVES (Option B) — non versionné — POC NON LANCÉ.*
+*Cadrage INTÉGRÉ — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (Option B, PR #221) — POC-G8 FERMÉ — POC NON LANCÉ.*

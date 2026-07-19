@@ -4,15 +4,15 @@
 |------------|--------|
 | **Projet** | SFIA Studio — projet officiel (G1) |
 | **Document** | `07-product-trajectory-and-decision-pack.md` |
-| **Cycle** | 9 — QA corrective Option B ; historique archi POC-G7 conservé |
-| **Profil** | Critical |
+| **Cycle** | 14 — Post-merge après PR #221 ; historique Option B conservé |
+| **Profil** | Standard |
 | **Baseline** | SFIA v2.6 (**Option C méthode**) |
-| **Statut** | POC-G7 **VALIDÉ AVEC RÉSERVES** ; Option B minimale ; docs **non versionnés** ; POC **non lancé** ; G8/G9 **fermés** |
+| **Statut** | POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** ; Option B minimale **INTÉGRÉE** ; POC **non lancé** ; G8/G9 **fermés** |
 | **Décisions** | ARCH-POC-CAND-01…12 selon Morris ; POC-CAND cadrage inchangés |
 | **Destinataire** | Morris |
-| **Source de vérité** | `origin/main` @ `b882892…` ; branche locale `architecture/sfia-studio-poc-orchestration` |
+| **Source de vérité** | `origin/main` @ `40f8ebe…` ; branche locale `capitalization/sfia-studio-poc-option-b-post-merge` |
 
-> Architecture **Option B minimale** validée avec réserves. Harness autonome + Studio cockpit + adaptateur fin. Versionnement = GO distinct. POC-G8 **fermé**. POC **non lancé**.
+> Architecture **Option B minimale** validée avec réserves et **intégrée** (PR #221 / `40f8ebe…`). Harness autonome + Studio cockpit + adaptateur fin. Versionnement **consommé**. POC-G8 **fermé**. POC **non lancé**.
 
 ---
 
@@ -34,11 +34,13 @@
 | Branche Delivery | **Supprimée** (local + remote) |
 | Gate Morris Delivery P0 | **Aucune restante** |
 | App `projects/sfia-studio/app/` | Sur `main` — desktop 1440×1024 ; fixtures ; pas d’API/auth/BDD/orchestration réelle |
-| Prochaine orientation | GO **versionnement** archi Option B — **non accordé** ; POC-G8 après intégration — **fermé** |
-| Architecture POC | **Option B minimale** — POC-G7 **VALIDÉ AVEC RÉSERVES** ; non versionnée |
-| Sync post-merge | **MERGED** — PR #220 / `b882892…` |
+| Prochaine orientation | Ouverture éventuelle **POC-G8** — **FERMÉE** ; sync post-merge locale non versionnée ici |
+| Architecture POC | **Option B minimale** — POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** (PR #221 / `40f8ebe…`) |
+| Sync post-merge cadrage | **MERGED** — PR #220 / `b882892…` |
+| Architecture merge | **MERGED** — PR #221 / `40f8ebe…` |
 | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
-| Branche architecture | `architecture/sfia-studio-poc-orchestration` (**locale**) |
+| Branche architecture | historique — remote **supprimée** après #221 |
+| Branche post-merge | `capitalization/sfia-studio-poc-option-b-post-merge` (**locale**) |
 
 > Option B ≠ Option C. Harness autonome. Studio cockpit. Adaptateur sans autorité. POC non lancé.
 
@@ -118,7 +120,8 @@ Pré-cadrage
   → capitalisation P0 (PR #218)
   → cadrage POC orchestration          ← **VALIDÉ** + **INTÉGRÉ** (PR #219) — POC non lancé
   → post-merge sync documentaire       ← PR #220 **MERGED** (`b882892…`)
-  → architecture POC ciblée             ← POC-G7 **VALIDÉ AVEC RÉSERVES** — Option B minimale — **non versionnée**
+  → architecture POC ciblée             ← POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** — Option B — PR #221 / `40f8ebe…`
+  → post-merge sync architecture        ← cycle 14 locale — non versionnée ici
   → backlog POC borné                   ← POC-G8 fermé
   → delivery POC                        ← POC-G9 fermé
   → décision Morris : abandon / itération / préparation MVP
@@ -126,14 +129,14 @@ Pré-cadrage
 
 ### Précisions
 
-- Architecture : **Option B minimale** (validée avec réserves).
+- Architecture : **Option B minimale** (validée avec réserves — **intégrée**).
 - Option A : mode test / dégradé harness.
 - Option C : écartée 1er POC.
 - POC-G8/G9 : **fermés**. POC : **non lancé**.
 
 ### Orientation
 
-> POC-G7 validé avec réserves. Versionnement requis. Backlog non ouvert.
+> POC-G7 validé avec réserves — **intégré** (PR #221). Versionnement **consommé**. Backlog non ouvert. POC-G8 **fermé**.
 
 ---
 
@@ -209,8 +212,8 @@ Pré-cadrage
 |-------|---------|
 | Statut | **VALIDÉ + INTÉGRÉ** — PR #219 / `be713c45…` — docs `20`/`21`/`22` |
 | Scénario | **S1** sélectionné (POC-G2) — contrat de cadrage (**non exécuté**) |
-| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES** ; POC-G8/G9 **FERMÉS** |
-| Architecture | Option B minimale (`23`–`25`) — non versionnée |
+| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** ; POC-G8/G9 **FERMÉS** |
+| Architecture | Option B minimale (`23`–`25`) — **INTÉGRÉE** (PR #221 / `40f8ebe…`) |
 | Ne lance pas | POC ; backlog ; delivery ; MVP |
 
 ### 4.7 Sécurité (bornée)
@@ -258,13 +261,15 @@ Pré-cadrage
 | D-NEXT-15 | GO cadrage POC orchestration | Morris | **Consommée** — cadrage **VALIDÉ** 2026-07-19 |
 | D-NEXT-16 | Validation POC-CAND / POC-G1…G6 | Morris | **FAIT** — 2026-07-19 |
 | D-NEXT-17 | POC-G10 versionnement cadrage | Morris | **CONSOMMÉ** — PR #219 **MERGED** (`be713c45…`) |
-| D-NEXT-18 | Architecture / delivery POC | Morris | **Fermée** — POC-G7…G9 non validés |
-| D-NEXT-19 | GO versionnement sync post-merge | Morris | **CONSOMMÉ** — PR #220 **MERGED** (`b882892…`) |
+| D-NEXT-18 | Architecture / delivery POC | Morris | Architecture **intégrée** (#221) ; delivery POC **fermé** (POC-G9) |
+| D-NEXT-19 | GO versionnement sync post-merge cadrage | Morris | **CONSOMMÉ** — PR #220 **MERGED** (`b882892…`) |
 | D-NEXT-20 | GO merge PR #220 | Morris | **CONSOMMÉ** — **MERGED** |
 | D-NEXT-21 | Ouverture POC-G7 (instruction) | Morris | **Consommée** → validation avec réserves |
 | D-NEXT-22 | Validation architecture / ARCH-POC-CAND / Option B | Morris | **FAIT** — POC-G7 **VALIDÉ AVEC RÉSERVES** |
-| D-NEXT-23 | GO versionnement docs `23`–`25` | Morris | **Requis** — **non accordé** |
+| D-NEXT-23 | GO versionnement docs `23`–`25` | Morris | **CONSOMMÉ** — PR #221 **MERGED** (`40f8ebe…`) |
 | D-NEXT-24 | Ouverture POC-G8 | Morris | **Fermée** |
+| D-NEXT-25 | GO merge PR #221 | Morris | **CONSOMMÉ** — **MERGED** |
+| D-NEXT-26 | Versionnement sync post-merge archi (cycle 14) | Morris | **Non autorisé** ici |
 
 ---
 
@@ -320,14 +325,14 @@ Clôture formelle architecture fonctionnelle **non prononcée**. MVP / industria
 | **DF-G6** | Décision de poursuite post-POC | **PROPOSÉ** |
 | **DF-G7** | Autoriser cadrage / sélection MVP | **PROPOSÉ** |
 
-Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage POC : **validé + intégré**. POC-G7…G9 : **fermés**.
+Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage POC : **validé + intégré**. Architecture Option B : **intégrée** (#221). POC-G8/G9 : **fermés**.
 
 ---
 
 ## 8. Questions Morris
 
-1. Autorisez-vous le **versionnement** (commit / push / draft PR) de l’architecture Option B ?
-2. Après intégration : ouvrez-vous **POC-G8** ?
+1. Ouvrez-vous **POC-G8** (backlog borné) ?
+2. Autorisez-vous le versionnement de la **sync post-merge** (cycle 14) ?
 3. Clôture formelle AF (séparée) ?
 
 ---
@@ -336,9 +341,9 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 | Critère | État |
 |---------|------|
-| Architecture Option B | **VALIDÉE AVEC RÉSERVES** |
-| POC-G7 | **VALIDÉ AVEC RÉSERVES** |
-| Versionnement | **Non autorisé** |
+| Architecture Option B | **VALIDÉE AVEC RÉSERVES — INTÉGRÉE** |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
+| Versionnement archi | **CONSOMMÉ** (PR #221) |
 | POC-G8…G9 | **Fermés** |
 | POC lancé | **Non** |
 
@@ -346,7 +351,7 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 
 ## 10. Verdict documentaire
 
-**Verdict :** `ARCHITECTURE POC OPTION B DOCUMENTED WITH RESERVES — POC-G7 VALIDATED WITH RESERVES — VERSIONING DECISION REQUIRED`
+**Verdict :** `POST-MERGE COMPLETE WITH RESERVES — OPTION B ARCHITECTURE INTEGRATED — POC-G8 DECISION REQUIRED`
 
 ---
 
@@ -358,4 +363,4 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage 
 | [20](./20-poc-orchestration-framing.md) · [21](./21-poc-orchestration-scenario-and-boundaries.md) · [22](./22-poc-orchestration-decision-pack.md) | Cadrage |
 | [11](./11-functional-architecture.md) | AF-Option C |
 
-*Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — non versionné — POC NON LANCÉ.*
+*Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (PR #221) — POC-G8 FERMÉ — POC NON LANCÉ.*

@@ -217,7 +217,7 @@ Le modèle d’état et le scénario restent un **contrat de cadrage**, pas une 
 | Gate d’exécution | Avant Cursor | GO / CORRIGER / STOP |
 | Gate de clôture preuve | Après pack | CLOSING / ITERATE / ABANDON |
 
-Les gates POC-G1…G6 **VALIDÉS**. POC-G10 **CONSOMMÉ**. POC-G7 **VALIDÉ AVEC RÉSERVES** (Option B minimale). POC-G8…G9 **FERMÉS**.
+Les gates POC-G1…G6 **VALIDÉS**. POC-G10 **CONSOMMÉ**. POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** (Option B minimale, PR #221). POC-G8…G9 **FERMÉS**.
 
 UI Studio versus harness : **Option B minimale** — Studio cockpit + adaptateur fin ; harness autonome (cœur). Option A conservée pour tests hors UI.
 
@@ -296,4 +296,4 @@ L’UI P0 **n’est pas** l’orchestrateur. Branchement réel UI↔orchestrateu
 
 ---
 
-*Scénario S1 VALIDÉ — NON EXÉCUTÉ — Option B minimale (POC-G7 VALIDÉ AVEC RÉSERVES) — POC NON LANCÉ.*
+*Scénario S1 VALIDÉ — NON EXÉCUTÉ — Option B minimale (POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ, PR #221) — POC-G8 FERMÉ — POC NON LANCÉ.*
