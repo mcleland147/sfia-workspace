@@ -1,2949 +1,4269 @@
-# Review pack — SFIA Studio POC vertical slice BACKLOG PR readiness
+# Review pack — SFIA Studio POC Increment A (Delivery)
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 23:06:52 CEST |
-| **Cycle** | 13 — PR readiness (backlog 38–40) |
+| **Date / heure / fuseau** | 2026-07-19 23:22:51 CEST |
+| **Cycle** | 8 — Delivery / implémentation · Incrément A |
 | **Profil** | Standard |
-| **Typologie** | DOC / BACKLOG / PR READINESS |
-| **GO Morris consommé** | Backlog validé · VS-BL-CAND-01…12 validées · A→E validé · Incr. A retenu · commit/push/draft PR autorisés |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-| **HEAD avant** | `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **HEAD après / commit** | `b4b26b260d6a4a3b3f1b3ef4441f126e322c1f05` |
-| **Message** | `docs(sfia-studio): define validated vertical slice backlog` |
-| **origin/main** | `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **PR** | [#229](https://github.com/mcleland147/sfia-workspace/pull/229) — **OPEN** · **draft** · base `main` · head `backlog/sfia-studio-poc-vertical-slice` |
-| **Verdict** | `SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED` |
+| **Typologie** | EVOL / DELIVERY / POC / UI MOCK |
+| **GO Morris consommé** | G-VS-DEL-A — implémentation locale Increment A |
+| **Branche** | `delivery/sfia-studio-poc-increment-a` (**locale — non poussée**) |
+| **HEAD / origin/main** | `e7502bf2f1791cc4b9639cc1949006d888931f1c` = `e7502bf2f1791cc4b9639cc1949006d888931f1c` (`e7502bf…`) |
+| **Verdict** | `SFIA STUDIO INCREMENT A IMPLEMENTED — MORRIS VISUAL AND FUNCTIONAL VALIDATION REQUIRED` |
 
 ---
 
 ## 1. Truth Check
 
-OK — fetch · branche backlog · HEAD avant = origin/main = `722f586…` · branche distante absente avant push · aucune PR préalable · staged vide · 38–40 + .tmp untracked · aucun app/harness modifié.
+OK — fetch · main FF `e7502bf…` · docs 32–40 présents · staged vide · branche `delivery/sfia-studio-poc-increment-a` créée · aucun fichier versionné étranger hors app · `.tmp` hors versionnement.
+
+Working tree initial : `?? .tmp-sfia-review/` uniquement avant delivery.
 
 ---
 
-## 2. Working tree initial
-
-```
-?? .tmp-sfia-review/
-?? projects/sfia-studio/38-…40-….md
-```
-
----
-
-## 3. Sources consultées
+## 2. Sources Git consultées
 
 - Template + routing guide
-- Docs 32–37 (cohérence)
-- Docs 38–40 (versionnement)
-- Handoff `sfia/review-handoff` (correctif préalable)
+- Docs 32–40 (fonctionnel, UX, backlog Increment A)
+- `projects/sfia-studio/app/**` (shell, 4 routes, fixtures, tests)
+- `package.json` scripts (lecture)
+
+## 3. Frames Figma consultées (MCP, lecture seule)
+
+| Frame | nodeId | Dimensions |
+|-------|--------|------------|
+| Page UX-B | 51:2 | page |
+| VS-UX-01 | 51:3 | **1440×1024** |
+| VS-UX-02 | 51:139 | 1440×1024 |
+| VS-UX-03 | 51:277 | 1440×1024 |
+| VS-UX-04 | 51:415 | **1440×1024** (screenshot MCP) |
+| VS-UX-05…10 | 51:540…51:1204 | 1440×1024 |
+| VAR Loading | 52:2 | **720×420** |
+| VAR Erreur | 52:10 | 720×420 |
+| VAR STOP | 52:18 | 720×420 |
+| VAR GO invalide | 52:26 | 720×420 |
+
+Aucune frame modifiée.
+
+Références locales : `.tmp-sfia-review/figma-increment-a/`
 
 ---
 
-## 4. Décisions Morris intégrées
+## 4. Readiness Light (avant code — consolidée)
 
-- Backlog 38–40 validé sur le fond
-- VS-BL-CAND-01…12 **validées**
-- Séquencement A→E **validé**
-- Incrément A **retenu** comme premier périmètre futur
-- Commit / push / draft PR **autorisés**
-- Merge / delivery / live **non autorisés**
+### Routes (4)
+`/nouvelle-demande` · `/decision` · `/cycle-actif` · `/synthese`
+
+### Réutilisable
+StudioShell · Topbar · UtilityRail · CopilotPanel · CtaButton · StatusPill · tokens.css · fixtures existantes (conservées)
+
+### Fixtures existantes
+cycles · gates · evidence · git-status · pendingMorrisDecision
+
+### Navigation
+Rail 4 liens + brand · tabs flush · **pas** de switcher d’état VS avant Increment A
+
+### Fichiers envisagés / réalisés
+- `fixtures/vertical-slice.ts`
+- `lib/vertical-slice/*` + `VsDemoContext`
+- `components/vertical-slice/*`
+- `features/*/Vs*Screen.tsx` + wrappers screens
+- tests unitaires + e2e Increment A
+- `CtaButton` danger + a11y props
+
+### Protégés (non modifiés)
+harness/** · docs 01–40 · prompts · method · .github · package.json · lock · Figma
+
+### Écarts runtime P0 vs Figma VS (avant)
+P0 = portfolio / 3 options gate (GO/CORRIGER/STOP) · pas de 10 états · pas Abandonner · synthèse multi-projet
+
+### Proposition minimale
+États via query `?vs=` + sélecteur POC · contenu VS dans 4 routes · fixtures mock · **aucune** nouvelle dépendance · **aucune** nouvelle route · **pas** d’adaptateur
+
+### Confirmation dépendances
+**Aucune nouvelle dépendance installée.**
 
 ---
 
-## 5. Alignements de statut (métadonnées uniquement)
+## 5. Contrat visuel avant code
 
-| Doc | Avant | Après |
-|-----|-------|-------|
-| 38 | `draft-for-morris-validation` — aucune story/incrément validés | `validated-for-versioning` — backlog validé ; merge/delivery = GO distinct |
-| 39 | incréments candidats non validés | séquencement A–E validé ; Incr. A retenu ; delivery non autorisé |
-| 40 | aucune VS-BL-CAND validée · « Ne jamais écrire validée » | 12 CAND **VALIDÉES** · versionnement autorisé · merge = GO distinct |
-
-Gates 38/40 : G-VS-BL-VAL consommé · G-VS-BL-DOC partiel (merge restant).
-
-Conservés (légitimes) : verdict GPT **candidat** (produit) · DoD delivery futur non validée · plafond **À définir**.
+- Réf. **1440×1024** ; shell rail/topbar/canvas/copilote
+- Tokens existants (blue/purple/green/orange/pink)
+- IDs + source statut visibles
+- CTA primaire / secondaire / **danger textuel** pour Abandonner
+- Loading : phase + compteur `n / À définir` + no retry · pas de fausse barre
+- Erreur fail-closed · STOP ≠ NO-GO ≠ Abandonner · GO invalide bandeau
+- Clôture slice-only · interdits MVP/prod/portfolio
+- Focus clavier / noms accessibles sur Abandonner
 
 ---
 
-## 6. Contrôles quantitatifs
+## 6. Fichiers créés / modifiés
 
-| Contrôle | Résultat |
+### Modifiés
+- `components/ui/CtaButton.tsx` · `cta-button.module.css`
+- `features/*/…Screen.tsx` (wrappers VS)
+- `fixtures/index.ts`
+- `app/synthese/page.tsx` (copy copilote slice-only)
+
+### Créés
+- `fixtures/vertical-slice.ts`
+- `lib/vertical-slice/{types,mapping,VsDemoContext,index}.ts(x)`
+- `components/vertical-slice/{VsDemoRoot,VsDemoChrome,VsShared,vs-*.css}`
+- `features/*/Vs*Screen.tsx` (4)
+- `__tests__/increment-a.test.tsx`
+- `e2e/increment-a.spec.ts`
+
+### Captures
+`.tmp-sfia-review/screenshots-increment-a/*.png` (9)
+`.tmp-sfia-review/figma-increment-a/*.png`
+
+---
+
+## 7. Stories couvertes (mock)
+
+| Story | Couverture Increment A |
+|-------|------------------------|
+| VS-BL-US-001 | Saisie demande fixture |
+| VS-BL-US-002 | requestId/correlationId visibles |
+| VS-BL-US-003 | Abandon pré-qualif · GPT 0 |
+| VS-BL-US-007 | Qualif complète VS-UX-03 |
+| VS-BL-US-010 | Dossier gate ancré |
+| VS-BL-US-011 | GO / NO-GO / Corriger / Abandonner |
+| VS-BL-US-026 | CycleSummary slice-only |
+| VS-BL-US-028 | Fixtures sans secret/PII |
+| VS-BL-US-031 | 10 états / 4 vues + switcher |
+| VS-BL-US-032 | Loading / Erreur / STOP / GO invalide |
+
+---
+
+## 8. Matrice stories → fichiers → tests → preuves
+
+| Story | Fichiers | Tests | Preuve |
+|-------|----------|-------|--------|
+| 001–003,007 | VsNouvelleDemande* | unit + e2e | captures 01/03 |
+| 010–011 | VsDecision* | unit gate + e2e abandon | capture gate |
+| 026 | VsSynthese* | unit + e2e | capture clôture |
+| 028 | vertical-slice.ts | unit secrets | fixture audit |
+| 031–032 | mapping + switcher + variantes | unit/e2e | captures + VAR |
+
+---
+
+## 9. Commandes et résultats
+
+| Commande | Résultat |
 |----------|----------|
-| Stories | 33/33 uniques |
-| Epics | 10 |
-| Capabilities | 34 |
-| VS-BL-CAND VALIDÉE | 12/12 |
-| Matrice | 91 lignes |
-| Séquencement A–E | validé |
-| Incr. A | retenu |
-| Plafond GPT | À définir |
-| Delivery/live | non autorisés |
-| Nouvelles routes | aucune |
-| Claim MVP abusif | aucun |
-| Code | aucun |
-| git diff --check | OK |
-| Fichiers commit/PR | **exactement 3** |
+| `npm run typecheck` | OK |
+| `npm run lint` | OK |
+| `npm run test` | **17/17** OK |
+| `npm run build` | OK (~1.2s compile) |
+| `npx playwright test e2e/increment-a.spec.ts` | **13/13** OK |
+| `npx playwright test e2e/p0-smoke.spec.ts` | **6/6** OK |
+| Runtime | `npm run dev` :3020 observé |
+| Appels openai/live | **0** (assert e2e) |
+| Console errors critiques | **0** (hors bruit connu) |
 
 ---
 
-## 7. Commit / push
+## 10. Runtime & captures
 
-| Champ | Valeur |
-|-------|--------|
-| SHA | `b4b26b260d6a4a3b3f1b3ef4441f126e322c1f05` |
-| Message | docs(sfia-studio): define validated vertical slice backlog |
-| Fichiers | 38 · 39 · 40 |
-| .tmp | exclu |
-| Push | normal `-u` · local = remote · **pas** de force push |
+Captures dans `.tmp-sfia-review/screenshots-increment-a/` :
+nouvelle-demande · qualification-proposée · gate · exécution · rapport · verdict · décision-finale · clôture · go-invalide
 
 ---
 
-## 8. Pull Request
+## 11. Comparaison Figma / runtime
 
-| Champ | Valeur |
-|-------|--------|
-| Numéro | **#229** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/229 |
-| État | OPEN · **draft** |
-| Base | main |
-| Head | backlog/sfia-studio-poc-vertical-slice |
-| Fichiers | 3 ADDED (38, 39, 40) |
-| Mergeable | UNKNOWN (info GitHub) |
+| Écran | Statut | Notes |
+|-------|--------|-------|
+| Gate VS-UX-04 | **conforme** (fonctionnel) | 4 actions + Abandonner danger ; layout option cards plus dense côté Figma → **écart mineur** |
+| Clôture VS-UX-10 | **conforme** | slice-only · anti-MVP · pas de portfolio ; métriques Figma plus riches → **écart mineur** |
+| Nouvelle demande | **conforme** / écart mineur | shell P0 conservé ; canvas VS simplifié vs storyboard |
+| Variante GO invalide | **conforme** | bandeau + distinction Abandon/NO-GO |
+| Loading / STOP / Erreur | **conforme** | via switcher + banners |
+
+Aucun écart **bloquant** restant dans le périmètre Increment A.
 
 ---
 
-## 9. git status final
+## 12. git status final
 
 ```
+ M projects/sfia-studio/app/app/synthese/page.tsx
+ M projects/sfia-studio/app/components/ui/CtaButton.tsx
+ M projects/sfia-studio/app/components/ui/cta-button.module.css
+ M projects/sfia-studio/app/features/cycle-actif/CycleActifScreen.tsx
+ M projects/sfia-studio/app/features/decision/DecisionScreen.tsx
+ M projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandeScreen.tsx
+ M projects/sfia-studio/app/features/synthese/SyntheseScreen.tsx
+ M projects/sfia-studio/app/fixtures/index.ts
 ?? .tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/increment-a.test.tsx
+?? projects/sfia-studio/app/components/vertical-slice/
+?? projects/sfia-studio/app/e2e/increment-a.spec.ts
+?? projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+?? projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+?? projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+?? projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+?? projects/sfia-studio/app/fixtures/vertical-slice.ts
+?? projects/sfia-studio/app/lib/vertical-slice/
 ```
 
----
+`git diff --check` : OK (pas de trailing whitespace bloquant).
 
-## 10. Réserves
-
-- Plafond GPT numérique **À définir**
-- Adaptateur Studio↔harness absent
-- Gate UI actuelle ≠ 4 actions (alignement delivery)
-- Incr. A retenu mais delivery = GO distinct
-- Merge non autorisé
+Aucun harness · aucun doc 01–40 · aucun package.json · aucune nouvelle route.
 
 ---
 
-## 11. Gates restants
+## 13. Réserves
 
-G-VS-BL-MERGE · ready-for-review · G-VS-DEL-A · G-VS-LIVE-GPT · G-VS-LIVE-CURSOR · G-VS-LIMIT · CI/MVP/IND
+- Pixel-perfect Figma non revendiqué (écart mineur densité/copy copilote P0)
+- State switcher POC visible (intentionnel Increment A)
+- Pas d’adaptateur / harness / live
+- Plafond GPT toujours **À définir**
+- Commit/push/PR **non autorisés** ici
 
 ---
 
-## 12. Verdict
+## 14. Décisions Morris attendues
 
-`SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED`
+1. Validation fonctionnelle + visuelle Increment A
+2. Autoriser éventuellement commit/push/PR (GO distinct)
+3. **Ne pas** démarrer Increment B / adaptateur / live sans GO
+
+---
+
+## 15. Verdict
+
+`SFIA STUDIO INCREMENT A IMPLEMENTED — MORRIS VISUAL AND FUNCTIONAL VALIDATION REQUIRED`
 
 Instruction ChatGPT : `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
 
 ---
 
-# ANNEXE A — Document 38 intégral (commité)
+# ANNEXE A — Diff utile complet (app Increment A)
 
-# SFIA Studio — Backlog delivery borné du vertical slice POC
+diff --git a/projects/sfia-studio/app/app/synthese/page.tsx b/projects/sfia-studio/app/app/synthese/page.tsx
+index 7b56507..6bfc8ee 100644
+--- a/projects/sfia-studio/app/app/synthese/page.tsx
++++ b/projects/sfia-studio/app/app/synthese/page.tsx
+@@ -8,24 +8,24 @@ export default function SynthesePage() {
+       activeRoute="/synthese"
+       title="Vue synthèse"
+       pills={[
+-        { label: "main · clean", tone: "blueFlush" },
+-        { label: "Morris · décideur", tone: "purpleFlush" },
++        { label: "fixture · slice-only", tone: "blueFlush" },
++        { label: "Increment A", tone: "purpleFlush" },
+       ]}
+       copilot={{
+         variant: "flush",
+         name: "Nora · Project Copilot",
+-        subtitle: "Vue consolidée active",
++        subtitle: "Clôture slice courant",
+         avatarTone: "purple",
+         summary:
+-          "La trajectoire est cohérente. Deux décisions Morris restent ouvertes avant la suite.",
++          "Synthèse limitée au vertical slice POC. Aucun portefeuille multi-projet. Aucun claim MVP.",
+         watchItems: [
+-          { label: "Vérité Git synchronisée", dotColor: "#21c28a" },
+-          { label: "Décisions candidates séparées", dotColor: "#3863f5" },
+-          { label: "Aucun périmètre technique engagé", dotColor: "#7a4df5" },
++          { label: "Slice-only — pas de portfolio", dotColor: "#21c28a" },
++          { label: "Décision Morris humaine", dotColor: "#3863f5" },
++          { label: "Fixture — aucun live", dotColor: "#7a4df5" },
+         ],
+         riskTitle: "POINT D'ATTENTION",
+         riskText:
+-          "La clôture architecture et le choix du prochain jalon doivent rester des décisions distinctes.",
++          "Incrément A uniquement. Adaptateur, GPT live et Cursor live restent hors périmètre.",
+       }}
+     >
+       <SyntheseScreen />
+diff --git a/projects/sfia-studio/app/components/ui/CtaButton.tsx b/projects/sfia-studio/app/components/ui/CtaButton.tsx
+index 27387ab..6278902 100644
+--- a/projects/sfia-studio/app/components/ui/CtaButton.tsx
++++ b/projects/sfia-studio/app/components/ui/CtaButton.tsx
+@@ -2,7 +2,13 @@ import Link from "next/link";
+ import styles from "./cta-button.module.css";
+ import { SIMULATION_TITLE } from "@/lib/a11y";
+ 
+-type CtaVariant = "primary" | "primaryDark" | "secondary" | "ghost" | "simulated";
++type CtaVariant =
++  | "primary"
++  | "primaryDark"
++  | "secondary"
++  | "ghost"
++  | "danger"
++  | "simulated";
+ 
+ interface CtaButtonProps {
+   children: React.ReactNode;
+@@ -14,6 +20,8 @@ interface CtaButtonProps {
+   type?: "button" | "submit";
+   className?: string;
+   title?: string;
++  "aria-label"?: string;
++  "data-testid"?: string;
+ }
+ 
+ export function CtaButton({
+@@ -26,6 +34,8 @@ export function CtaButton({
+   type = "button",
+   className = "",
+   title,
++  "aria-label": ariaLabel,
++  "data-testid": testId,
+ }: CtaButtonProps) {
+   const resolvedVariant = simulated ? "simulated" : variant;
+   const classes = `${styles.button} ${styles[resolvedVariant]} ${className}`.trim();
+@@ -34,7 +44,7 @@ export function CtaButton({
+ 
+   if (href && !isDisabled) {
+     return (
+-      <Link href={href} className={classes}>
++      <Link href={href} className={classes} aria-label={ariaLabel} data-testid={testId}>
+         {children}
+       </Link>
+     );
+@@ -48,6 +58,8 @@ export function CtaButton({
+       disabled={isDisabled}
+       title={resolvedTitle}
+       aria-disabled={isDisabled || undefined}
++      aria-label={ariaLabel}
++      data-testid={testId}
+     >
+       {children}
+     </button>
+diff --git a/projects/sfia-studio/app/components/ui/cta-button.module.css b/projects/sfia-studio/app/components/ui/cta-button.module.css
+index ee80bc0..4eb9d06 100644
+--- a/projects/sfia-studio/app/components/ui/cta-button.module.css
++++ b/projects/sfia-studio/app/components/ui/cta-button.module.css
+@@ -44,6 +44,13 @@
+   border: 1px solid var(--sfia-border);
+ }
+ 
++.danger {
++  background: #fff0f5;
++  color: #9b1d4a;
++  border: 1px solid #f5b8d0;
++  box-shadow: none;
++}
++
+ .link {
+   composes: button primary;
+ }
+diff --git a/projects/sfia-studio/app/features/cycle-actif/CycleActifScreen.tsx b/projects/sfia-studio/app/features/cycle-actif/CycleActifScreen.tsx
+index 9b92cc7..20058e8 100644
+--- a/projects/sfia-studio/app/features/cycle-actif/CycleActifScreen.tsx
++++ b/projects/sfia-studio/app/features/cycle-actif/CycleActifScreen.tsx
+@@ -1,139 +1,13 @@
+-import { StatusPill } from "@/components/ui/StatusPill";
+-import { CtaButton } from "@/components/ui/CtaButton";
+-import { activeCycle } from "@/fixtures/cycles";
+-import styles from "./cycle-actif.module.css";
++"use client";
+ 
+-const steps = [
+-  { num: 1, label: "Cadrer", state: "done" as const },
+-  { num: 2, label: "Produire", state: "done" as const },
+-  { num: 3, label: "Vérifier", state: "active" as const },
+-  { num: 4, label: "Décider", state: "pending" as const },
+-  { num: 5, label: "Versionner", state: "pending" as const },
+-];
+-
+-const checklist = [
+-  { label: "Contrat UX/UI complet", status: "Terminé", tone: "greenFlush" as const, dot: "#21c28a" },
+-  { label: "4 écrans P0 premium", status: "En cours", tone: "blueFlush" as const, dot: "#3863f5" },
+-  { label: "Contraste WCAG AA", status: "À vérifier", tone: "orangeFlush" as const, dot: "#faa629" },
+-  { label: "Capture runtime", status: "Non lancée", tone: "pink" as const, dot: "#f25794" },
+-  { label: "Review handoff", status: "À produire", tone: "purpleFlush" as const, dot: "#7a4df5" },
+-];
++import { VsDemoRoot } from "@/components/vertical-slice/VsDemoRoot";
++import { VsCycleActifScreen } from "./VsCycleActifScreen";
+ 
++/** Increment A : états VS-UX-05…08 (+ STOP) dans Cycle actif. */
+ export function CycleActifScreen() {
+   return (
+-    <>
+-      <section className={styles.hero} aria-labelledby="cycle-hero">
+-        <p className={styles.heroEyebrow}>CYCLE 4 · UX/UI</p>
+-        <h2 id="cycle-hero" className={styles.heroTitle}>
+-          Construire, vérifier, décider — sans perdre la vérité Git.
+-        </h2>
+-        <p className={styles.heroText}>
+-          Le parcours guidé concentre les preuves, les stops et les décisions
+-          humaines au bon moment.
+-        </p>
+-        <div className={styles.heroPills}>
+-          <span className={styles.pillPurple}>Critical</span>
+-          <span className={styles.pillBlue}>72 %</span>
+-        </div>
+-      </section>
+-
+-      <nav className={styles.stepper} aria-label="Étapes du cycle">
+-        {steps.map((step, index) => (
+-          <div key={step.num} style={{ display: "contents" }}>
+-            <div className={styles.step}>
+-              <span
+-                className={
+-                  step.state === "done"
+-                    ? styles.stepCircleDone
+-                    : step.state === "active"
+-                      ? styles.stepCircleActive
+-                      : styles.stepCirclePending
+-                }
+-              >
+-                {step.num}
+-              </span>
+-              <span
+-                className={
+-                  step.state === "active"
+-                    ? styles.stepLabelActive
+-                    : styles.stepLabel
+-                }
+-              >
+-                {step.label}
+-              </span>
+-            </div>
+-            {index < steps.length - 1 && (
+-              <span
+-                className={
+-                  step.state === "done" || step.state === "active"
+-                    ? styles.connector
+-                    : styles.connectorPending
+-                }
+-                aria-hidden
+-              />
+-            )}
+-          </div>
+-        ))}
+-      </nav>
+-
+-      <div className={styles.lower}>
+-        <section className={styles.work} aria-labelledby="work-title">
+-          <p className={styles.workLabel}>ÉTAPE COURANTE</p>
+-          <h2 id="work-title" className={styles.workTitle}>
+-            Vérification visuelle et documentaire
+-          </h2>
+-          <p className={styles.workText}>
+-            Comparer les écrans Figma, le contrat UX-B et les garde-fous avant
+-            décision Morris.
+-          </p>
+-
+-          {checklist.map((item) => (
+-            <div key={item.label} className={styles.checkRow}>
+-              <span
+-                className={styles.checkDot}
+-                style={{ background: item.dot }}
+-                aria-hidden
+-              />
+-              <span className={styles.checkLabel}>{item.label}</span>
+-              <StatusPill tone={item.tone}>{item.status}</StatusPill>
+-            </div>
+-          ))}
+-
+-          <div className={styles.actions}>
+-            <CtaButton variant="secondary" simulated>
+-              Ouvrir les preuves
+-            </CtaButton>
+-            <CtaButton href="/decision">Préparer décision Morris</CtaButton>
+-          </div>
+-        </section>
+-
+-        <aside className={styles.inspector} aria-label="Cadre d'exécution">
+-          <h2 className={styles.inspectorTitle}>Cadre d&apos;exécution</h2>
+-          <p className={styles.fieldLabel}>Branche</p>
+-          <p className={styles.fieldValue}>{activeCycle.branch}</p>
+-          <p className={styles.fieldLabel}>Base</p>
+-          <p className={styles.fieldValue}>{activeCycle.base}</p>
+-          <p className={styles.fieldLabel}>Profil</p>
+-          <p className={styles.fieldValue}>Critical</p>
+-          <p className={styles.fieldLabel}>Figma</p>
+-          <p className={styles.fieldValue}>4 frames P0</p>
+-          <p className={styles.fieldLabel}>Staged</p>
+-          <p className={styles.fieldValue}>Aucun</p>
+-
+-          <div className={styles.stopBox}>
+-            <p className={styles.stopTitle}>STOP CONDITIONS</p>
+-            <p className={styles.stopText}>
+-              Option UX promue sans GO · divergence Git · preuve visuelle absente.
+-            </p>
+-          </div>
+-
+-          <div className={styles.inspectorAction}>
+-            <CtaButton variant="primary" simulated>
+-              Demander un STOP
+-            </CtaButton>
+-          </div>
+-        </aside>
+-      </div>
+-    </>
++    <VsDemoRoot>
++      <VsCycleActifScreen />
++    </VsDemoRoot>
+   );
+ }
+diff --git a/projects/sfia-studio/app/features/decision/DecisionScreen.tsx b/projects/sfia-studio/app/features/decision/DecisionScreen.tsx
+index 54057ef..f9e0a60 100644
+--- a/projects/sfia-studio/app/features/decision/DecisionScreen.tsx
++++ b/projects/sfia-studio/app/features/decision/DecisionScreen.tsx
+@@ -1,128 +1,13 @@
+ "use client";
+ 
+-import { useState } from "react";
+-import { EvidenceList } from "@/components/ui/EvidenceList";
+-import { StatusPill } from "@/components/ui/StatusPill";
+-import { CtaButton } from "@/components/ui/CtaButton";
+-import { evidenceItems } from "@/fixtures/evidence";
+-import { pendingMorrisDecision } from "@/fixtures";
+-import type { MorrisVerdict } from "@/lib/domain/morris-decision";
+-import styles from "./decision.module.css";
+-
+-const options: {
+-  verdict: MorrisVerdict;
+-  pill: string;
+-  tone: "greenFlush" | "orangeFlush" | "pink";
+-  title: string;
+-  subtitle: string;
+-}[] = [
+-  {
+-    verdict: "GO",
+-    pill: "GO",
+-    tone: "greenFlush",
+-    title: "Adopter la direction premium",
+-    subtitle: "Décliner sur le cycle UX/UI",
+-  },
+-  {
+-    verdict: "CORRIGER",
+-    pill: "CORRIGER",
+-    tone: "orangeFlush",
+-    title: "Demander une itération",
+-    subtitle: "Ajuster avant validation",
+-  },
+-  {
+-    verdict: "STOP",
+-    pill: "STOP",
+-    tone: "pink",
+-    title: "Suspendre la trajectoire",
+-    subtitle: "Aucun engagement supplémentaire",
+-  },
+-];
++import { VsDemoRoot } from "@/components/vertical-slice/VsDemoRoot";
++import { VsDecisionScreen } from "./VsDecisionScreen";
+ 
++/** Increment A : gate VS-UX-04 + décision finale VS-UX-09 (+ GO invalide). */
+ export function DecisionScreen() {
+-  const [selected, setSelected] = useState<MorrisVerdict | null>(null);
+-  const decision = pendingMorrisDecision;
+-
+   return (
+-    <>
+-      <section className={styles.hero} aria-labelledby="decision-hero">
+-        <p className={styles.heroEyebrow}>GATE MORRIS · UX/UI</p>
+-        <h2 id="decision-hero" className={styles.heroTitle}>
+-          Décider avec le bon niveau de preuve.
+-        </h2>
+-        <p className={styles.heroText}>
+-          Chaque choix affiche sa portée, ses risques, sa révocabilité et les
+-          impacts sur la trajectoire.
+-        </p>
+-        <div className={styles.heroPills}>
+-          <span className={styles.pillPurple}>Décision requise</span>
+-          <span className={styles.pillBlue}>Morris</span>
+-        </div>
+-      </section>
+-
+-      <div className={styles.content}>
+-        <section className={styles.evidencePanel} aria-labelledby="evidence-title">
+-          <p className={styles.evidenceLabel}>DOSSIER DE DÉCISION</p>
+-          <h2 id="evidence-title" className={styles.evidenceTitle}>
+-            {decision.title}
+-          </h2>
+-          <p className={styles.evidenceDesc}>{decision.description}</p>
+-          <EvidenceList items={evidenceItems} />
+-        </section>
+-
+-        <section
+-          className={styles.decisionPanel}
+-          aria-labelledby="morris-decision-title"
+-        >
+-          <p className={styles.morrisLabel}>Décision Morris — autorité humaine</p>
+-          <h2 id="morris-decision-title" className={styles.decisionTitle}>
+-            Votre décision
+-          </h2>
+-          <p className={styles.decisionHint}>
+-            Aucune action n&apos;est déclenchée avant confirmation.
+-          </p>
+-
+-          {options.map((option) => (
+-            <button
+-              key={option.verdict}
+-              type="button"
+-              className={
+-                selected === option.verdict
+-                  ? styles.optionSelected
+-                  : styles.option
+-              }
+-              onClick={() => setSelected(option.verdict)}
+-              aria-pressed={selected === option.verdict}
+-            >
+-              <StatusPill tone={option.tone}>{option.pill}</StatusPill>
+-              <p className={styles.optionTitle}>{option.title}</p>
+-              <p className={styles.optionSub}>{option.subtitle}</p>
+-            </button>
+-          ))}
+-
+-          <div className={styles.confirmBox}>
+-            <p className={styles.confirmLabel}>CONFIRMATION RENFORCÉE</p>
+-            <p className={styles.confirmText}>
+-              Portée : {decision.scope}
+-            </p>
+-          </div>
+-
+-          <CtaButton
+-            simulated
+-            disabled={!selected}
+-            title={
+-              selected
+-                ? "Simulation — aucune décision Morris réelle"
+-                : "Sélectionnez une option"
+-            }
+-          >
+-            Confirmer la décision
+-          </CtaButton>
+-          <p className={styles.simulatedNote}>
+-            Simulation P0 — aucun effet sur Git, Cursor ou la trajectoire.
+-          </p>
+-        </section>
+-      </div>
+-    </>
++    <VsDemoRoot>
++      <VsDecisionScreen />
++    </VsDemoRoot>
+   );
+ }
+diff --git a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandeScreen.tsx b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandeScreen.tsx
+index e7bb72b..b10807a 100644
+--- a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandeScreen.tsx
++++ b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandeScreen.tsx
+@@ -1,179 +1,13 @@
+-import Image from "next/image";
+-import { StatusPill } from "@/components/ui/StatusPill";
+-import { CtaButton } from "@/components/ui/CtaButton";
+-import { gitStatus } from "@/fixtures/git-status";
+-import { copilotRecommendations } from "@/fixtures";
+-import styles from "./nouvelle-demande.module.css";
++"use client";
+ 
+-export function NouvelleDemandeScreen() {
+-  const recommendation = copilotRecommendations[0];
++import { VsDemoRoot } from "@/components/vertical-slice/VsDemoRoot";
++import { VsNouvelleDemandeScreen } from "./VsNouvelleDemandeScreen";
+ 
++/** Increment A : états VS-UX-01…03 (+ variantes) dans la route Nouvelle demande. */
++export function NouvelleDemandeScreen() {
+   return (
+-    <>
+-      <section className={styles.hero} aria-labelledby="hero-title">
+-        <h2 id="hero-title" className={styles.heroTitle}>
+-          Transformez un besoin flou en cycle exécutable.
+-        </h2>
+-        <p className={styles.heroText}>
+-          Décrivez la demande. SFIA qualifie le cycle, les gates, les risques et
+-          le cadre d&apos;exécution.
+-        </p>
+-        <StatusPill tone="white">Qualification assistée</StatusPill>
+-        <Image
+-          src="/icons/hero-orb.svg"
+-          alt=""
+-          width={92}
+-          height={92}
+-          className={styles.heroOrb}
+-          aria-hidden
+-        />
+-      </section>
+-
+-      <div className={styles.grid}>
+-        <section className={styles.formCard} aria-labelledby="form-title">
+-          <p className={styles.sectionLabel}>1 · EXPRIMER LE BESOIN</p>
+-          <h2 id="form-title" className={styles.sectionTitle}>
+-            Que souhaitez-vous accomplir ?
+-          </h2>
+-
+-          <div className={styles.field}>
+-            <span className={styles.fieldLabel}>Objet de la demande</span>
+-            <p className={styles.fieldValue}>
+-              Industrialiser la préparation des cycles SFIA
+-            </p>
+-          </div>
+-
+-          <div className={`${styles.field} ${styles.fieldLarge}`}>
+-            <span className={styles.fieldLabel}>
+-              Décrivez le résultat attendu
+-            </span>
+-            <p className={styles.fieldValue}>
+-              Je veux réduire la préparation manuelle, sécuriser les gates Morris
+-              et produire automatiquement un cadrage exploitable par Cursor.
+-            </p>
+-            <div className={styles.tags}>
+-              <StatusPill tone="blue">Objectif</StatusPill>
+-              <StatusPill tone="purple">Automatisation</StatusPill>
+-              <StatusPill tone="green">Gouvernance</StatusPill>
+-            </div>
+-          </div>
+-
+-          <p className={styles.sectionLabelPurple}>2 · CONTEXTE</p>
+-          <div className={styles.contextCard}>
+-            <div className={styles.ghIcon}>GH</div>
+-            <div>
+-              <p className={styles.repoName}>{gitStatus.repository}</p>
+-              <p className={styles.repoMeta}>
+-                {gitStatus.branch} · {gitStatus.commit} · {gitStatus.cleanliness}
+-              </p>
+-            </div>
+-            <span className={styles.contextPill}>
+-              <StatusPill tone="green">Git truth vérifiée</StatusPill>
+-            </span>
+-          </div>
+-
+-          <div className={styles.attachment}>
+-            ＋ Ajouter des documents, captures ou liens
+-          </div>
+-
+-          <div className={styles.actions}>
+-            <span className={styles.saved}>Enregistré il y a 8 s</span>
+-            <CtaButton variant="primaryDark" simulated>
+-              Lancer la qualification →
+-            </CtaButton>
+-          </div>
+-        </section>
+-
+-        <aside className={styles.preview} aria-label="Prévisualisation du cycle">
+-          <div className={styles.previewHeader}>
+-            <h2 className={styles.previewTitle}>Prévisualisation du cycle</h2>
+-            <StatusPill tone="green">Temps réel</StatusPill>
+-          </div>
+-
+-          <div className={styles.agentCard}>
+-            <div className={styles.agentAvatar}>AI</div>
+-            <div>
+-              <p className={styles.statusTitle}>Orchestrateur de qualification</p>
+-              <p className={styles.statusSub}>
+-                Analyse du besoin, risques et gates en cours…
+-              </p>
+-              <StatusPill tone="purple">68 %</StatusPill>
+-            </div>
+-          </div>
+-
+-          <p className={styles.recommendationNote}>
+-            Recommandation copilot — non décision Morris
+-          </p>
+-          <div className={styles.statusRow}>
+-            <span
+-              className={styles.statusDot}
+-              style={{ background: "var(--sfia-blue-00c)" }}
+-            />
+-            <div>
+-              <p className={styles.statusTitle}>Cycle proposé</p>
+-              <p className={styles.statusSub}>Conception fonctionnelle</p>
+-            </div>
+-          </div>
+-
+-          <div className={styles.statusRow}>
+-            <span
+-              className={styles.statusDot}
+-              style={{ background: "var(--sfia-purple-00c)" }}
+-            />
+-            <div>
+-              <p className={styles.statusTitle}>{recommendation.title}</p>
+-              <p className={styles.statusSub}>Standard</p>
+-            </div>
+-          </div>
+-
+-          <div className={styles.statusRow}>
+-            <span
+-              className={styles.statusDot}
+-              style={{ background: "var(--sfia-orange-00c)" }}
+-            />
+-            <div>
+-              <p className={styles.statusTitle}>Gate Morris</p>
+-              <p className={styles.statusSub}>Requise avant exécution</p>
+-            </div>
+-          </div>
+-
+-          <div className={styles.timeline}>
+-            <p className={styles.timelineTitle}>Parcours</p>
+-            <div className={styles.timelineItem}>
+-              <span
+-                className={styles.timelineDot}
+-                style={{ background: "var(--sfia-green-00c)" }}
+-              />
+-              Demande reçue
+-            </div>
+-            <div className={styles.timelineItemActive}>
+-              <span
+-                className={styles.timelineDot}
+-                style={{ background: "var(--sfia-green-00c)" }}
+-              />
+-              Qualification
+-            </div>
+-            <div className={styles.timelineItem}>
+-              <span
+-                className={styles.timelineDot}
+-                style={{ background: "var(--sfia-border-00c)" }}
+-              />
+-              Validation Morris
+-            </div>
+-            <div className={styles.timelineItem}>
+-              <span
+-                className={styles.timelineDot}
+-                style={{ background: "var(--sfia-border-00c)" }}
+-              />
+-              Prompt Cursor
+-            </div>
+-          </div>
+-
+-          <p className={styles.trust}>
+-            Aucune action Git ou Cursor sans GO Morris.
+-          </p>
+-        </aside>
+-      </div>
+-    </>
++    <VsDemoRoot>
++      <VsNouvelleDemandeScreen />
++    </VsDemoRoot>
+   );
+ }
+diff --git a/projects/sfia-studio/app/features/synthese/SyntheseScreen.tsx b/projects/sfia-studio/app/features/synthese/SyntheseScreen.tsx
+index a8ce786..cc7c5da 100644
+--- a/projects/sfia-studio/app/features/synthese/SyntheseScreen.tsx
++++ b/projects/sfia-studio/app/features/synthese/SyntheseScreen.tsx
+@@ -1,97 +1,13 @@
+-import { MetricCard } from "@/components/ui/MetricCard";
+-import { GateList } from "@/components/ui/GateList";
+-import { StatusPill } from "@/components/ui/StatusPill";
+-import { cycles } from "@/fixtures/cycles";
+-import { gates } from "@/fixtures/gates";
+-import styles from "./synthese.module.css";
++"use client";
+ 
+-const dotColors = ["#7a4df5", "#3863f5", "#21c28a", "#faa629"];
+-
+-const activities = [
+-  "Figma premium créé",
+-  "AF-CAND-11B validée",
+-  "PR #214 mergée",
+-  "Handoff publié",
+-];
++import { VsDemoRoot } from "@/components/vertical-slice/VsDemoRoot";
++import { VsSyntheseScreen } from "./VsSyntheseScreen";
+ 
++/** Increment A : clôture slice-only VS-UX-10 (pas de portefeuille). */
+ export function SyntheseScreen() {
+   return (
+-    <>
+-      <div className={styles.heroWrap}>
+-        <section className={styles.hero} aria-labelledby="synthese-hero">
+-          <p className={styles.heroEyebrow}>PILOTAGE EN TEMPS RÉEL</p>
+-          <h2 id="synthese-hero" className={styles.heroTitle}>
+-            Une vision claire de chaque cycle, chaque gate et chaque preuve.
+-          </h2>
+-          <p className={styles.heroText}>
+-            Le cockpit consolide la vérité Git, les décisions Morris et les
+-            prochaines actions sans créer une seconde vérité.
+-          </p>
+-          <div className={styles.heroPills}>
+-            <span className={styles.heroPillDark}>4 projets actifs</span>
+-            <span className={styles.heroPillPurple}>2 gates ouvertes</span>
+-          </div>
+-        </section>
+-      </div>
+-
+-      <div className={styles.metrics}>
+-        <MetricCard label="Projets actifs" value="04" accent="blue" />
+-        <MetricCard label="Cycles en cours" value="03" accent="purple" />
+-        <MetricCard label="Gates Morris" value="02" accent="orange" />
+-        <MetricCard label="Review packs" value="07 / 08" accent="green" />
+-      </div>
+-
+-      <div className={styles.lower}>
+-        <section className={styles.portfolio} aria-labelledby="portfolio-title">
+-          <div className={styles.portfolioHeader}>
+-            <h2 id="portfolio-title" className={styles.portfolioTitle}>
+-              Portefeuille des cycles
+-            </h2>
+-            <StatusPill tone="blueFlush">Vue portefeuille</StatusPill>
+-          </div>
+-          {cycles.map((cycle, index) => (
+-            <div key={cycle.id} className={styles.row}>
+-              <span
+-                className={styles.rowDot}
+-                style={{ background: dotColors[index] }}
+-                aria-hidden
+-              />
+-              <div>
+-                <p className={styles.rowName}>{cycle.name}</p>
+-                <p className={styles.rowSub}>{cycle.subtitle}</p>
+-              </div>
+-              <span className={styles.rowProgress}>
+-                <StatusPill tone="blueFlush">{cycle.progress} %</StatusPill>
+-              </span>
+-            </div>
+-          ))}
+-        </section>
+-
+-        <div className={styles.sideColumn}>
+-          <section className={styles.gatesPanel} aria-labelledby="gates-title">
+-            <h2 id="gates-title" className={styles.panelTitle}>
+-              Gates à arbitrer
+-            </h2>
+-            <GateList gates={gates} />
+-          </section>
+-
+-          <section
+-            className={styles.activityPanel}
+-            aria-labelledby="activity-title"
+-          >
+-            <h2 id="activity-title" className={styles.panelTitle}>
+-              Activité récente
+-            </h2>
+-            <ul className={styles.activityList}>
+-              {activities.map((item) => (
+-                <li key={item} className={styles.activityItem}>
+-                  • {item}
+-                </li>
+-              ))}
+-            </ul>
+-          </section>
+-        </div>
+-      </div>
+-    </>
++    <VsDemoRoot>
++      <VsSyntheseScreen />
++    </VsDemoRoot>
+   );
+ }
+diff --git a/projects/sfia-studio/app/fixtures/index.ts b/projects/sfia-studio/app/fixtures/index.ts
+index 242b8ea..83b6dab 100644
+--- a/projects/sfia-studio/app/fixtures/index.ts
++++ b/projects/sfia-studio/app/fixtures/index.ts
+@@ -5,6 +5,7 @@ export { cycles, activeCycle } from "./cycles";
+ export { gates } from "./gates";
+ export { evidenceItems } from "./evidence";
+ export { gitStatus } from "./git-status";
++export { vsFixture } from "./vertical-slice";
+ 
+ export const copilotRecommendations: Recommendation[] = [
+   {
+diff --git a/projects/sfia-studio/app/__tests__/increment-a.test.tsx b/projects/sfia-studio/app/__tests__/increment-a.test.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/increment-a.test.tsx
++import { cleanup, render, screen, within } from "@testing-library/react";
++import userEvent from "@testing-library/user-event";
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++import { STUDIO_ROUTES } from "@/lib/navigation";
++import {
++  STUDIO_ROUTES_ONLY,
++  VS_STATE_IDS,
++  VS_STATES,
++  parseVsQuery,
++} from "@/lib/vertical-slice";
++import { vsFixture } from "@/fixtures/vertical-slice";
++import { NouvelleDemandeScreen } from "@/features/nouvelle-demande/NouvelleDemandeScreen";
++import { DecisionScreen } from "@/features/decision/DecisionScreen";
++import { CycleActifScreen } from "@/features/cycle-actif/CycleActifScreen";
++import { SyntheseScreen } from "@/features/synthese/SyntheseScreen";
++
++const push = vi.fn();
++let mockPathname = "/nouvelle-demande";
++let mockSearch = "vs=VS-UX-01";
++
++vi.mock("next/navigation", () => ({
++  useRouter: () => ({ push, replace: vi.fn(), prefetch: vi.fn() }),
++  usePathname: () => mockPathname,
++  useSearchParams: () => new URLSearchParams(mockSearch),
++}));
++
++vi.mock("next/link", () => ({
++  default: ({
++    children,
++    href,
++    ...props
++  }: {
++    children: React.ReactNode;
++    href: string;
++  }) => (
++    <a href={href} {...props}>
++      {children}
++    </a>
++  ),
++}));
++
++afterEach(() => {
++  cleanup();
++  push.mockClear();
++});
++
++beforeEach(() => {
++  mockPathname = "/nouvelle-demande";
++  mockSearch = "vs=VS-UX-01";
++});
++
++describe("Increment A — mapping & fixtures", () => {
++  it("exposes exactly four Studio routes", () => {
++    expect(STUDIO_ROUTES).toHaveLength(4);
++    expect(STUDIO_ROUTES_ONLY).toEqual([
++      "/nouvelle-demande",
++      "/decision",
++      "/cycle-actif",
++      "/synthese",
++    ]);
++  });
++
++  it("maps ten states plus four variants without extra routes", () => {
++    expect(VS_STATES.filter((s) => s.kind === "state")).toHaveLength(10);
++    expect(VS_STATES.filter((s) => s.kind === "variant")).toHaveLength(4);
++    expect(VS_STATE_IDS).toHaveLength(14);
++    const routes = new Set(VS_STATES.map((s) => s.route));
++    expect([...routes].sort()).toEqual(
++      ["/cycle-actif", "/decision", "/nouvelle-demande", "/synthese"].sort(),
++    );
++  });
++
++  it("parses demo query aliases", () => {
++    expect(parseVsQuery("04")).toBe("VS-UX-04");
++    expect(parseVsQuery("GO-INVALID")).toBe("VS-UX-VAR-GO-INVALID");
++  });
++
++  it("uses demo fixtures without secrets or PII", () => {
++    const blob = JSON.stringify(vsFixture);
++    expect(blob).not.toMatch(/sk-|api[_-]?key|password|Bearer /i);
++    expect(blob).not.toMatch(/@gmail\.com|numéro de sécurité/i);
++    expect(vsFixture.gptCalls.ceiling).toBe("À définir");
++    expect(vsFixture.gptCalls.noRetry).toMatch(/Aucun retry automatique/i);
++  });
++});
++
++describe("Increment A — UI screens", () => {
++  it("shows demo banner, ids and GPT ceiling on nouvelle demande", () => {
++    render(<NouvelleDemandeScreen />);
++    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent(
++      /Données de démonstration/i,
++    );
++    expect(screen.getByTestId("vs-id-strip")).toHaveTextContent(
++      vsFixture.requestId,
++    );
++    expect(screen.getByTestId("vs-gpt-counter")).toHaveTextContent(/À définir/);
++    expect(screen.getByTestId("vs-no-retry")).toHaveTextContent(
++      /Aucun retry automatique/i,
++    );
++    expect(screen.getByTestId("vs-demo-switcher")).toBeInTheDocument();
++  });
++
++  it("renders GO, NO-GO, Corriger, Abandonner as distinct actions", async () => {
++    mockPathname = "/decision";
++    mockSearch = "vs=VS-UX-04";
++    const user = userEvent.setup();
++    render(<DecisionScreen />);
++
++    const panel = screen.getByTestId("vs-morris-actions");
++    expect(within(panel).getByTestId("vs-gate-GO")).toBeInTheDocument();
++    expect(within(panel).getByTestId("vs-gate-NO-GO")).toBeInTheDocument();
++    expect(within(panel).getByTestId("vs-gate-CORRIGER")).toBeInTheDocument();
++    expect(within(panel).getByTestId("vs-gate-ABANDONNER")).toBeInTheDocument();
++
++    await user.click(within(panel).getByTestId("vs-gate-ABANDONNER"));
++    const dialog = screen.getByTestId("vs-abandon-confirm");
++    expect(dialog).toHaveTextContent(/abandonné/i);
++    expect(
++      within(dialog).getByRole("button", {
++        name: /Confirmer abandonner le cycle/i,
++      }),
++    ).toBeEnabled();
++  });
++
++  it("shows CycleSummary without portfolio or MVP claims", () => {
++    mockPathname = "/synthese";
++    mockSearch = "vs=VS-UX-10";
++    render(<SyntheseScreen />);
++    expect(screen.getByTestId("vs-cycle-summary")).toBeInTheDocument();
++    expect(screen.getByTestId("vs-no-portfolio")).toHaveTextContent(
++      /portefeuille multi-projet/i,
++    );
++    expect(screen.getByTestId("vs-no-mvp-claim")).toHaveTextContent(/MVP/);
++    expect(
++      screen.queryByText(/Portefeuille des cycles/i),
++    ).not.toBeInTheDocument();
++    expect(screen.getByTestId("vs-summary-gpt")).toHaveTextContent(/À définir/);
++  });
++
++  it("exposes STOP control distinct from gate vocabulary", () => {
++    mockPathname = "/cycle-actif";
++    mockSearch = "vs=VS-UX-05";
++    render(<CycleActifScreen />);
++    expect(screen.getByTestId("vs-stop-execution")).toHaveAttribute(
++      "aria-label",
++      expect.stringMatching(/STOP Morris/i),
++    );
++    expect(screen.queryByTestId("vs-gate-ABANDONNER")).not.toBeInTheDocument();
++  });
++});
 
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `38-poc-vertical-slice-backlog.md` |
-| **Cycle** | 5 — Backlog / user stories · 13 — PR readiness |
-| **Profil** | Standard |
-| **Typologie** | DOC / BACKLOG / PR READINESS |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-| **Base Git** | `origin/main` @ `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **Statut** | `validated-for-versioning` — backlog et stories **validés Morris** ; merge PR = GO distinct ; delivery = GO distinct |
-| **Companions** | [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
-| **Sources** | [`32`](./32-poc-vertical-slice-functional-design.md)–[`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
-| **Code / live** | **Aucun** dans ce cycle |
-| **Décisions Morris** | `VS-BL-CAND-01`…`12` validées · séquencement A→E validé · incrément A = premier périmètre futur |
+diff --git a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
++"use client";
++
++import { VS_STATES } from "@/lib/vertical-slice/mapping";
++import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
++import { vsFixture } from "@/fixtures/vertical-slice";
++import type { VsStateId } from "@/lib/vertical-slice/types";
++import styles from "./vs-demo.module.css";
++
++export function VsDemoChrome() {
++  const { stateId, setStateId, resetDemo, abandoned } = useVsDemo();
++
++  return (
++    <div className={styles.chrome} data-testid="vs-demo-chrome">
++      <div className={styles.banner} role="status" data-testid="vs-demo-banner">
++        <strong>Incrément A — cockpit statique gouverné</strong>
++        <span>{vsFixture.demoLabel}</span>
++        <span>{vsFixture.noLiveLabel}</span>
++      </div>
++      <div className={styles.switcherRow}>
++        <label className={styles.switcherLabel} htmlFor="vs-state-switcher">
++          État / variante POC
++        </label>
++        <select
++          id="vs-state-switcher"
++          className={styles.switcher}
++          data-testid="vs-demo-switcher"
++          value={stateId}
++          onChange={(e) => setStateId(e.target.value as VsStateId)}
++          aria-label="Sélecteur d'état vertical slice"
++        >
++          <optgroup label="États VS-UX-01…10">
++            {VS_STATES.filter((s) => s.kind === "state").map((s) => (
++              <option key={s.id} value={s.id}>
++                {s.label}
++              </option>
++            ))}
++          </optgroup>
++          <optgroup label="Variantes">
++            {VS_STATES.filter((s) => s.kind === "variant").map((s) => (
++              <option key={s.id} value={s.id}>
++                {s.label}
++              </option>
++            ))}
++          </optgroup>
++        </select>
++        <button
++          type="button"
++          className={styles.reset}
++          onClick={resetDemo}
++          data-testid="vs-demo-reset"
++        >
++          Réinitialiser démo
++        </button>
++        {abandoned ? (
++          <span className={styles.abandonedPill} data-testid="vs-abandoned-pill">
++            Cycle abandonné
++          </span>
++        ) : null}
++      </div>
++    </div>
++  );
++}
 
-> Backlog documentaire du **premier vertical slice POC**.
-> Dix **états** UX ≠ dix routes · quatre vues P0 · Option B inchangée · plafond GPT **À définir** · aucun claim MVP.
+diff --git a/projects/sfia-studio/app/components/vertical-slice/VsDemoRoot.tsx b/projects/sfia-studio/app/components/vertical-slice/VsDemoRoot.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/components/vertical-slice/VsDemoRoot.tsx
++"use client";
++
++import { Suspense, type ReactNode } from "react";
++import { VsDemoProvider } from "@/lib/vertical-slice/VsDemoContext";
++import { VsDemoChrome } from "@/components/vertical-slice/VsDemoChrome";
++
++function VsDemoInner({ children }: { children: ReactNode }) {
++  return (
++    <VsDemoProvider>
++      <VsDemoChrome />
++      {children}
++    </VsDemoProvider>
++  );
++}
++
++/** Provider + chrome POC Increment A (query `?vs=`). */
++export function VsDemoRoot({ children }: { children: ReactNode }) {
++  return (
++    <Suspense fallback={null}>
++      <VsDemoInner>{children}</VsDemoInner>
++    </Suspense>
++  );
++}
+
+diff --git a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
++import { vsFixture } from "@/fixtures/vertical-slice";
++import styles from "./vs-panels.module.css";
++
++export function IdStrip() {
++  return (
++    <dl className={styles.idStrip} data-testid="vs-id-strip">
++      <div>
++        <dt>requestId</dt>
++        <dd>{vsFixture.requestId}</dd>
++      </div>
++      <div>
++        <dt>correlationId</dt>
++        <dd>{vsFixture.correlationId}</dd>
++      </div>
++      <div>
++        <dt>contractId</dt>
++        <dd>{vsFixture.contractId}</dd>
++      </div>
++      <div>
++        <dt>contractHash</dt>
++        <dd>{vsFixture.contractHash}</dd>
++      </div>
++      <div>
++        <dt>Branche</dt>
++        <dd>{vsFixture.branch}</dd>
++      </div>
++      <div>
++        <dt>HEAD</dt>
++        <dd>{vsFixture.head.slice(0, 12)}…</dd>
++      </div>
++      <div>
++        <dt>Source statut</dt>
++        <dd>{vsFixture.sourceStatus}</dd>
++      </div>
++      <div>
++        <dt>Horodatage</dt>
++        <dd>
++          {vsFixture.timestamp} ({vsFixture.timezone})
++        </dd>
++      </div>
++    </dl>
++  );
++}
++
++export function FinOpsBox({
++  phase,
++  calls,
++}: {
++  phase: string;
++  calls: number;
++}) {
++  return (
++    <aside className={styles.finops} data-testid="vs-finops" aria-live="polite">
++      <p className={styles.finopsTitle}>FinOps GPT (fixture)</p>
++      <p>
++        Phase active : <strong>{phase}</strong>
++      </p>
++      <p>
++        Consommation :{" "}
++        <strong data-testid="vs-gpt-counter">
++          {calls} / {vsFixture.gptCalls.ceiling}
++        </strong>
++      </p>
++      <p data-testid="vs-no-retry">{vsFixture.gptCalls.noRetry}</p>
++      <p className={styles.muted}>Aucun coût monétaire inventé.</p>
++    </aside>
++  );
++}
++
++export function VariantBanner({
++  tone,
++  title,
++  children,
++}: {
++  tone: "info" | "error" | "stop" | "warn";
++  title: string;
++  children: React.ReactNode;
++}) {
++  return (
++    <div
++      className={`${styles.variantBanner} ${styles[tone]}`}
++      role="alert"
++      data-testid="vs-variant-banner"
++    >
++      <p className={styles.variantTitle}>{title}</p>
++      <div className={styles.variantBody}>{children}</div>
++    </div>
++  );
++}
+
+diff --git a/projects/sfia-studio/app/components/vertical-slice/vs-demo.module.css b/projects/sfia-studio/app/components/vertical-slice/vs-demo.module.css
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/components/vertical-slice/vs-demo.module.css
++.chrome {
++  display: flex;
++  flex-direction: column;
++  gap: 8px;
++  margin: 0 0 16px;
++}
++
++.banner {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px 16px;
++  padding: 10px 14px;
++  border-radius: 12px;
++  background: #edf2ff;
++  border: 1px solid var(--sfia-border);
++  color: var(--sfia-ink);
++  font-size: 12px;
++  line-height: 1.4;
++}
++
++.banner strong {
++  font-size: 12px;
++  font-weight: 700;
++}
++
++.switcherRow {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: 10px;
++}
++
++.switcherLabel {
++  font-size: 12px;
++  font-weight: 600;
++  color: var(--sfia-muted);
++}
++
++.switcher {
++  min-width: 280px;
++  height: 36px;
++  padding: 0 10px;
++  border-radius: 10px;
++  border: 1px solid var(--sfia-border);
++  background: #fff;
++  font: inherit;
++  font-size: 13px;
++  color: var(--sfia-ink);
++}
++
++.reset {
++  height: 36px;
++  padding: 0 12px;
++  border-radius: 10px;
++  border: 1px solid var(--sfia-border);
++  background: #fff;
++  font: inherit;
++  font-size: 12px;
++  font-weight: 600;
++  color: var(--sfia-blue);
++  cursor: pointer;
++}
++
++.abandonedPill {
++  display: inline-flex;
++  align-items: center;
++  height: 28px;
++  padding: 0 10px;
++  border-radius: 999px;
++  background: #fff0f5;
++  color: #9b1d4a;
++  border: 1px solid #f5b8d0;
++  font-size: 12px;
++  font-weight: 700;
++}
+
+diff --git a/projects/sfia-studio/app/components/vertical-slice/vs-panels.module.css b/projects/sfia-studio/app/components/vertical-slice/vs-panels.module.css
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/components/vertical-slice/vs-panels.module.css
++.idStrip {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
++  gap: 10px 16px;
++  padding: 14px 16px;
++  margin: 0 0 16px;
++  border-radius: 14px;
++  background: #fff;
++  border: 1px solid var(--sfia-border);
++  box-shadow: var(--sfia-shadow-sm);
++}
++
++.idStrip dt {
++  margin: 0;
++  font-size: 11px;
++  font-weight: 700;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--sfia-muted);
++}
++
++.idStrip dd {
++  margin: 2px 0 0;
++  font-size: 12px;
++  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
++  color: var(--sfia-ink);
++  word-break: break-all;
++}
++
++.finops {
++  padding: 14px 16px;
++  border-radius: 14px;
++  background: var(--sfia-purple-soft);
++  border: 1px solid var(--sfia-border);
++  font-size: 13px;
++  line-height: 1.45;
++}
++
++.finopsTitle {
++  margin: 0 0 8px;
++  font-size: 12px;
++  font-weight: 700;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--sfia-purple);
++}
++
++.finops p {
++  margin: 0 0 6px;
++}
++
++.muted {
++  color: var(--sfia-muted);
++  font-size: 12px;
++}
++
++.variantBanner {
++  padding: 14px 16px;
++  border-radius: 14px;
++  margin: 0 0 16px;
++  border: 1px solid var(--sfia-border);
++}
++
++.variantTitle {
++  margin: 0 0 8px;
++  font-size: 14px;
++  font-weight: 700;
++}
++
++.variantBody {
++  font-size: 13px;
++  line-height: 1.45;
++}
++
++.info {
++  background: #edf2ff;
++}
++
++.error {
++  background: #fff0f5;
++  border-color: #f5b8d0;
++}
++
++.stop {
++  background: #fff5eb;
++  border-color: #f5c78a;
++}
++
++.warn {
++  background: #fff8e8;
++  border-color: #f0d48a;
++}
++
++.panel {
++  display: flex;
++  flex-direction: column;
++  gap: 16px;
++}
++
++.hero {
++  padding: 20px 22px;
++  border-radius: 20px;
++  background: linear-gradient(135deg, #141f47, #2a3a7a);
++  color: #fff;
++  box-shadow: var(--sfia-shadow-hero);
++}
++
++.heroEyebrow {
++  margin: 0 0 8px;
++  font-size: 11px;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  opacity: 0.8;
++}
++
++.heroTitle {
++  margin: 0 0 8px;
++  font-size: 24px;
++  line-height: 1.25;
++}
++
++.heroText {
++  margin: 0;
++  font-size: 14px;
++  opacity: 0.9;
++  max-width: 62ch;
++}
++
++.card {
++  padding: 18px 20px;
++  border-radius: 16px;
++  background: #fff;
++  border: 1px solid var(--sfia-border);
++  box-shadow: var(--sfia-shadow-sm);
++}
++
++.cardTitle {
++  margin: 0 0 10px;
++  font-size: 16px;
++}
++
++.fieldLabel {
++  margin: 0 0 4px;
++  font-size: 11px;
++  font-weight: 700;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--sfia-muted);
++}
++
++.fieldValue {
++  margin: 0 0 12px;
++  font-size: 14px;
++  color: var(--sfia-ink);
++}
++
++.actions {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 10px;
++  margin-top: 8px;
++}
++
++.optionGrid {
++  display: grid;
++  grid-template-columns: 1fr 1fr;
++  gap: 10px;
++}
++
++.option {
++  text-align: left;
++  padding: 14px;
++  border-radius: 14px;
++  border: 1px solid var(--sfia-border);
++  background: #fff;
++  cursor: pointer;
++  font: inherit;
++}
++
++.optionSelected {
++  composes: option;
++  border-color: var(--sfia-blue);
++  box-shadow: 0 0 0 2px rgba(56, 99, 245, 0.2);
++}
++
++.optionDanger {
++  composes: option;
++  border-color: #f5b8d0;
++  background: #fff0f5;
++}
++
++.optionDangerSelected {
++  composes: optionDanger;
++  box-shadow: 0 0 0 2px rgba(242, 87, 148, 0.25);
++}
++
++.optionTitle {
++  margin: 6px 0 2px;
++  font-size: 14px;
++  font-weight: 700;
++}
++
++.optionSub {
++  margin: 0;
++  font-size: 12px;
++  color: var(--sfia-muted);
++}
++
++.confirmBox {
++  padding: 14px;
++  border-radius: 12px;
++  background: #fff8e8;
++  border: 1px solid #f0d48a;
++}
++
++.list {
++  margin: 0;
++  padding-left: 18px;
++  font-size: 13px;
++  line-height: 1.5;
++}
++
++.twoCol {
++  display: grid;
++  grid-template-columns: 1.4fr 1fr;
++  gap: 16px;
++}
++
++@media (max-width: 960px) {
++  .twoCol,
++  .optionGrid {
++    grid-template-columns: 1fr;
++  }
++}
++
++.forbidden {
++  color: #9b1d4a;
++  font-weight: 700;
++}
++
++.loadingPulse {
++  display: inline-flex;
++  align-items: center;
++  gap: 8px;
++  font-size: 13px;
++  font-weight: 600;
++  color: var(--sfia-purple);
++}
++
++.loadingDot {
++  width: 10px;
++  height: 10px;
++  border-radius: 50%;
++  background: var(--sfia-purple);
++  animation: pulse 1.2s ease-in-out infinite;
++}
++
++@keyframes pulse {
++  0%,
++  100% {
++    opacity: 0.35;
++  }
++  50% {
++    opacity: 1;
++  }
++}
+
+diff --git a/projects/sfia-studio/app/e2e/increment-a.spec.ts b/projects/sfia-studio/app/e2e/increment-a.spec.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/e2e/increment-a.spec.ts
++import { test, expect } from "@playwright/test";
++import path from "path";
++import fs from "fs";
++
++const screenshotDir = path.join(
++  __dirname,
++  "../../../../.tmp-sfia-review/screenshots-increment-a",
++);
++
++const captures = [
++  {
++    path: "/nouvelle-demande?vs=VS-UX-01",
++    name: "inc-a-nouvelle-demande",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByTestId("vs-demo-banner")).toBeVisible();
++      await expect(page.getByTestId("vs-id-strip")).toContainText("req-vs-poc-001");
++    },
++  },
++  {
++    path: "/nouvelle-demande?vs=VS-UX-03",
++    name: "inc-a-qualification-proposee",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(
++        page.getByRole("heading", { name: /Qualification proposée/i }),
++      ).toBeVisible();
++      await expect(page.getByText(/Candidat GPT/i).first()).toBeVisible();
++    },
++  },
++  {
++    path: "/decision?vs=VS-UX-04",
++    name: "inc-a-gate-morris",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByTestId("vs-gate-GO")).toBeVisible();
++      await expect(page.getByTestId("vs-gate-NO-GO")).toBeVisible();
++      await expect(page.getByTestId("vs-gate-CORRIGER")).toBeVisible();
++      await expect(page.getByTestId("vs-gate-ABANDONNER")).toBeVisible();
++    },
++  },
++  {
++    path: "/cycle-actif?vs=VS-UX-05",
++    name: "inc-a-execution",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByTestId("vs-stop-execution")).toBeVisible();
++    },
++  },
++  {
++    path: "/cycle-actif?vs=VS-UX-06",
++    name: "inc-a-rapport",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByText(/CursorExecutionReport/i)).toBeVisible();
++    },
++  },
++  {
++    path: "/cycle-actif?vs=VS-UX-08",
++    name: "inc-a-verdict",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByText(/Candidat GPT/i)).toBeVisible();
++    },
++  },
++  {
++    path: "/decision?vs=VS-UX-09",
++    name: "inc-a-decision-finale",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByTestId("vs-final-CLOTURER")).toBeVisible();
++    },
++  },
++  {
++    path: "/synthese?vs=VS-UX-10",
++    name: "inc-a-cloture",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByTestId("vs-cycle-summary")).toBeVisible();
++      await expect(page.getByTestId("vs-no-mvp-claim")).toBeVisible();
++      await expect(page.getByText(/Portefeuille des cycles/i)).toHaveCount(0);
++    },
++  },
++  {
++    path: "/decision?vs=VS-UX-VAR-GO-INVALID",
++    name: "inc-a-go-invalide",
++    assert: async (page: import("@playwright/test").Page) => {
++      await expect(page.getByTestId("vs-variant-banner")).toContainText(
++        /GO invalide/i,
++      );
++    },
++  },
++];
++
++test.beforeAll(() => {
++  fs.mkdirSync(screenshotDir, { recursive: true });
++});
++
++test.describe("Increment A visual & functional", () => {
++  test("only four primary routes remain navigable", async ({ page }) => {
++    await page.goto("/synthese?vs=VS-UX-10");
++    const rail = page.getByTestId("utility-rail");
++    for (const label of [
++      "Vue synthèse",
++      "Nouvelle demande",
++      "Cycle actif",
++      "Décision Morris",
++    ]) {
++      await expect(rail.getByRole("link", { name: label })).toBeVisible();
++    }
++    await expect(rail.getByLabel("Paramètres (désactivé)")).toBeDisabled();
++  });
++
++  test("demo switcher reaches ten states", async ({ page }) => {
++    await page.goto("/nouvelle-demande?vs=VS-UX-01");
++    const switcher = page.getByTestId("vs-demo-switcher");
++    await expect(switcher).toBeVisible();
++    const values = await switcher.locator("option").evaluateAll((opts) =>
++      opts.map((o) => (o as HTMLOptionElement).value),
++    );
++    for (const id of [
++      "VS-UX-01",
++      "VS-UX-02",
++      "VS-UX-03",
++      "VS-UX-04",
++      "VS-UX-05",
++      "VS-UX-06",
++      "VS-UX-07",
++      "VS-UX-08",
++      "VS-UX-09",
++      "VS-UX-10",
++      "VS-UX-VAR-LOADING",
++      "VS-UX-VAR-ERROR",
++      "VS-UX-VAR-STOP",
++      "VS-UX-VAR-GO-INVALID",
++    ]) {
++      expect(values).toContain(id);
++    }
++  });
++
++  test("abandon confirmation is keyboard reachable", async ({ page }) => {
++    await page.goto("/decision?vs=VS-UX-04");
++    await page.getByTestId("vs-gate-ABANDONNER").focus();
++    await page.keyboard.press("Enter");
++    const dialog = page.getByTestId("vs-abandon-confirm");
++    await expect(dialog).toBeVisible();
++    await page.getByTestId("vs-abandon-confirm-yes").focus();
++    await expect(page.getByTestId("vs-abandon-confirm-yes")).toBeFocused();
++  });
++
++  test("GPT counter shows À définir and no-retry", async ({ page }) => {
++    await page.goto("/nouvelle-demande?vs=VS-UX-02");
++    await expect(page.getByTestId("vs-gpt-counter").first()).toContainText(
++      "À définir",
++    );
++    await expect(page.getByTestId("vs-no-retry").first()).toContainText(
++      "Aucun retry automatique",
++    );
++  });
++
++  for (const capture of captures) {
++    test(`capture ${capture.name}`, async ({ page }) => {
++      const errors: string[] = [];
++      const requests: string[] = [];
++      page.on("console", (msg) => {
++        if (msg.type() === "error") errors.push(msg.text());
++      });
++      page.on("request", (req) => {
++        const url = req.url();
++        if (/openai|api\.openai|anthropic/i.test(url)) requests.push(url);
++      });
++
++      await page.goto(capture.path);
++      await capture.assert(page);
++      await page.screenshot({
++        path: path.join(screenshotDir, `${capture.name}.png`),
++        fullPage: true,
++      });
++      expect(requests).toEqual([]);
++      const critical = errors.filter(
++        (e) =>
++          !/Download the React DevTools|Hydration|Extra attributes/i.test(e),
++      );
++      expect(critical).toEqual([]);
++    });
++  }
++});
+
+diff --git a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
++"use client";
++
++import { CtaButton } from "@/components/ui/CtaButton";
++import { StatusPill } from "@/components/ui/StatusPill";
++import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
++import { vsFixture } from "@/fixtures/vertical-slice";
++import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
++import styles from "@/components/vertical-slice/vs-panels.module.css";
++
++const stepMap: Record<string, number> = {
++  "VS-UX-05": 5,
++  "VS-UX-06": 6,
++  "VS-UX-07": 7,
++  "VS-UX-08": 8,
++  "VS-UX-VAR-STOP": 5,
++  "VS-UX-VAR-LOADING": 7,
++  "VS-UX-VAR-ERROR": 7,
++};
++
++export function VsCycleActifScreen() {
++  const { stateId, setStateId, fireStop, stopFired } = useVsDemo();
++  const activeStep = stepMap[stateId] ?? 5;
++
++  return (
++    <div className={styles.panel} data-testid="vs-cycle-actif">
++      <IdStrip />
++
++      {stateId === "VS-UX-VAR-STOP" || stopFired ? (
++        <VariantBanner tone="stop" title="STOP Morris — prioritaire">
++          <p>
++            Exécution <strong>stoppée</strong>. STOP ≠ NO-GO ≠ Abandonner. Event mock
++            journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
++          </p>
++          <p className={styles.muted}>
++            eventId=evt-stop-mock · {vsFixture.timestamp}
++          </p>
++        </VariantBanner>
++      ) : null}
++
++      {stateId === "VS-UX-VAR-LOADING" ? (
++        <VariantBanner tone="info" title="Loading — analyse GPT (fixture)">
++          <p className={styles.loadingPulse}>
++            <span className={styles.loadingDot} aria-hidden />
++            Phase active : analyse — pas de barre inventée
++          </p>
++          <FinOpsBox phase="analyse" calls={1} />
++        </VariantBanner>
++      ) : null}
++
++      {stateId === "VS-UX-VAR-ERROR" ? (
++        <VariantBanner tone="error" title="Erreur fail-closed — verdict invalide">
++          <p>Verdict GPT rejeté. Pas de clôture automatique.</p>
++          <div className={styles.actions}>
++            <CtaButton onClick={() => setStateId("VS-UX-07")}>
++              Relancer analyse (mock)
++            </CtaButton>
++          </div>
++        </VariantBanner>
++      ) : null}
++
++      <section className={styles.hero} aria-labelledby="vs-cycle-hero">
++        <p className={styles.heroEyebrow}>CYCLE ACTIF · ÉTATS 05–08</p>
++        <h2 id="vs-cycle-hero" className={styles.heroTitle}>
++          {stateId === "VS-UX-06"
++            ? "Rapport Cursor / harness disponible (fixture)"
++            : stateId === "VS-UX-07"
++              ? "Analyse GPT en cours (simulée)"
++              : stateId === "VS-UX-08"
++                ? "Verdict GPT candidat proposé"
++                : "Exécution sandbox simulée"}
++        </h2>
++        <p className={styles.heroText}>
++          Stepper d&apos;états dans la route Cycle actif — aucune 5e route.
++        </p>
++      </section>
++
++      <nav className={styles.card} aria-label="Étapes vertical slice 05 à 08">
++        <div className={styles.actions}>
++          {(["VS-UX-05", "VS-UX-06", "VS-UX-07", "VS-UX-08"] as const).map(
++            (id, index) => (
++              <CtaButton
++                key={id}
++                variant={stateId === id ? "primary" : "secondary"}
++                onClick={() => setStateId(id)}
++                aria-current={stateId === id ? "step" : undefined}
++              >
++                {index + 5}. {id.replace("VS-UX-0", "")}
++              </CtaButton>
++            ),
++          )}
++        </div>
++        <p className={styles.muted}>Étape active fixture : {activeStep}</p>
++      </nav>
++
++      <div className={styles.twoCol}>
++        <section className={styles.card}>
++          {stateId === "VS-UX-05" || stateId === "VS-UX-VAR-STOP" ? (
++            <>
++              <StatusPill tone="blueFlush">en_exécution (fixture)</StatusPill>
++              <p className={styles.fieldValue}>
++                Cursor sandbox mock — fichier allowlist uniquement. Remote writes = 0.
++              </p>
++              <div className={styles.actions}>
++                <CtaButton onClick={() => setStateId("VS-UX-06")}>
++                  Simuler fin d&apos;exécution
++                </CtaButton>
++                <CtaButton
++                  variant="danger"
++                  onClick={fireStop}
++                  aria-label="STOP Morris pendant exécution"
++                  data-testid="vs-stop-execution"
++                >
++                  STOP Morris
++                </CtaButton>
++              </div>
++            </>
++          ) : null}
++
++          {stateId === "VS-UX-06" ? (
++            <>
++              <p className={styles.cardTitle}>CursorExecutionReport (fixture)</p>
++              <p className={styles.fieldLabel}>Statut</p>
++              <p className={styles.fieldValue}>{vsFixture.report.status}</p>
++              <p className={styles.fieldLabel}>Fichiers touchés</p>
++              <p className={styles.fieldValue}>
++                {vsFixture.report.filesTouched.join(", ")}
++              </p>
++              <p className={styles.fieldLabel}>Remote writes</p>
++              <p className={styles.fieldValue}>{vsFixture.report.remoteWrites}</p>
++              <p className={styles.fieldLabel}>Aperçu sanitisé</p>
++              <pre className={styles.fieldValue}>{vsFixture.report.markdownPreview}</pre>
++              <div className={styles.actions}>
++                <CtaButton onClick={() => setStateId("VS-UX-07")}>
++                  Lancer analyse GPT (mock)
++                </CtaButton>
++              </div>
++            </>
++          ) : null}
++
++          {stateId === "VS-UX-07" || stateId === "VS-UX-VAR-LOADING" ? (
++            <>
++              <FinOpsBox phase="analyse" calls={1} />
++              <div className={styles.actions}>
++                <CtaButton onClick={() => setStateId("VS-UX-08")}>
++                  Simuler verdict OK
++                </CtaButton>
++                <CtaButton
++                  variant="secondary"
++                  onClick={() => setStateId("VS-UX-VAR-ERROR")}
++                >
++                  Simuler verdict invalide
++                </CtaButton>
++                <CtaButton variant="danger" onClick={fireStop}>
++                  STOP Morris
++                </CtaButton>
++              </div>
++            </>
++          ) : null}
++
++          {stateId === "VS-UX-08" ? (
++            <>
++              <StatusPill tone="purple">{vsFixture.verdict.label}</StatusPill>
++              <p className={styles.fieldLabel}>Prouvé</p>
++              <ul className={styles.list}>
++                {vsFixture.verdict.proven.map((item) => (
++                  <li key={item}>{item}</li>
++                ))}
++              </ul>
++              <p className={styles.fieldLabel}>Non prouvé</p>
++              <ul className={styles.list}>
++                {vsFixture.verdict.notProven.map((item) => (
++                  <li key={item}>{item}</li>
++                ))}
++              </ul>
++              <p className={styles.fieldLabel}>Écarts / risques / réserves</p>
++              <ul className={styles.list}>
++                {[
++                  ...vsFixture.verdict.gaps,
++                  ...vsFixture.verdict.risks,
++                  ...vsFixture.verdict.reserves,
++                ].map((item) => (
++                  <li key={item}>{item}</li>
++                ))}
++              </ul>
++              <div className={styles.actions}>
++                <CtaButton onClick={() => setStateId("VS-UX-09")}>
++                  Ouvrir décision Morris finale
++                </CtaButton>
++              </div>
++            </>
++          ) : null}
++        </section>
++
++        <aside className={styles.card} aria-label="Cadre d'exécution fixture">
++          <p className={styles.cardTitle}>Cadre d&apos;exécution</p>
++          <p className={styles.fieldLabel}>Allowlist</p>
++          <p className={styles.fieldValue}>{vsFixture.allowlist.join(", ")}</p>
++          <p className={styles.fieldLabel}>gitEffect</p>
++          <p className={styles.fieldValue}>none-remote</p>
++          <p className={styles.fieldLabel}>Source</p>
++          <p className={styles.fieldValue}>{vsFixture.sourceStatus}</p>
++        </aside>
++      </div>
++    </div>
++  );
++}
+
+diff --git a/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx b/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
++"use client";
++
++import { CtaButton } from "@/components/ui/CtaButton";
++import { StatusPill } from "@/components/ui/StatusPill";
++import { IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
++import { vsFixture } from "@/fixtures/vertical-slice";
++import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
++import type { VsFinalAction, VsGateAction } from "@/lib/vertical-slice/types";
++import styles from "@/components/vertical-slice/vs-panels.module.css";
++
++const gateOptions: {
++  action: VsGateAction;
++  title: string;
++  subtitle: string;
++  danger?: boolean;
++}[] = [
++  {
++    action: "GO",
++    title: "GO",
++    subtitle: "Autoriser l'exécution sandbox après revalidation harness (mock)",
++  },
++  {
++    action: "NO-GO",
++    title: "NO-GO",
++    subtitle: "Refuser l'exécution — clôture négative sans spawn",
++  },
++  {
++    action: "CORRIGER",
++    title: "Demander une correction",
++    subtitle: "Retour qualification — nouvelle consommation FinOps visible",
++  },
++  {
++    action: "ABANDONNER",
++    title: "Abandonner le cycle",
++    subtitle: "Action destructive — conséquence : cycle abandonné",
++    danger: true,
++  },
++];
++
++const finalOptions: {
++  action: VsFinalAction;
++  title: string;
++  subtitle: string;
++  danger?: boolean;
++}[] = [
++  {
++    action: "CLOTURER",
++    title: "Accepter et clôturer",
++    subtitle: "Clôture slice-only — aucun claim MVP",
++  },
++  {
++    action: "CORRIGER",
++    title: "Demander une correction",
++    subtitle: "Revoir le verdict candidat",
++  },
++  {
++    action: "RELANCER",
++    title: "Relancer sous nouveau GO",
++    subtitle: "Ré-exécution uniquement avec nouveau GO",
++  },
++  {
++    action: "ABANDONNER",
++    title: "Abandonner le cycle",
++    subtitle: "Fin du cycle sans clôture positive",
++    danger: true,
++  },
++];
++
++export function VsDecisionScreen() {
++  const {
++    stateId,
++    gateAction,
++    selectGateAction,
++    abandonConfirmOpen,
++    closeAbandonConfirm,
++    confirmAbandon,
++    confirmGate,
++    gateConfirmed,
++    abandoned,
++    selectFinalAction,
++    finalAction,
++    setStateId,
++  } = useVsDemo();
++
++  const isFinal = stateId === "VS-UX-09";
++  const isGoInvalid = stateId === "VS-UX-VAR-GO-INVALID";
++  const isGate = stateId === "VS-UX-04" || isGoInvalid;
++
++  return (
++    <div className={styles.panel} data-testid="vs-decision">
++      <IdStrip />
++
++      {isGoInvalid ? (
++        <VariantBanner tone="warn" title="GO invalide — ancrage divergé">
++          <p>
++            HEAD fixture courant : <code>{vsFixture.headInvalidated.slice(0, 12)}…</code> ≠
++            HEAD ancré : <code>{vsFixture.head.slice(0, 12)}…</code>
++          </p>
++          <p>
++            contractHash / branche / allowlist doivent être revalidés. Nouveau gate
++            requis. Ceci n&apos;est <strong>pas</strong> un Abandonner ni un NO-GO.
++          </p>
++          <div className={styles.actions}>
++            <CtaButton onClick={() => setStateId("VS-UX-04")}>
++              Rouvrir le gate
++            </CtaButton>
++          </div>
++        </VariantBanner>
++      ) : null}
++
++      <section className={styles.hero} aria-labelledby="vs-decision-hero">
++        <p className={styles.heroEyebrow}>
++          {isFinal ? "DÉCISION MORRIS FINALE" : "GATE MORRIS · EXÉCUTION"}
++        </p>
++        <h2 id="vs-decision-hero" className={styles.heroTitle}>
++          {isFinal
++            ? "Décider de la clôture avec le verdict candidat"
++            : "Décider avec le dossier d'ancrage — quatre actions distinctes"}
++        </h2>
++        <p className={styles.heroText}>
++          STOP ≠ NO-GO ≠ Abandonner. Timeout ≠ GO. Aucune action Git distante.
++        </p>
++      </section>
++
++      <div className={styles.twoCol}>
++        <section className={styles.card} aria-labelledby="vs-dossier-title">
++          <p className={styles.fieldLabel}>DOSSIER DE DÉCISION (fixture)</p>
++          <h2 id="vs-dossier-title" className={styles.cardTitle}>
++            Ancrage GO — requestId / contrat / Git
++          </h2>
++          <p className={styles.fieldLabel}>requestId</p>
++          <p className={styles.fieldValue}>{vsFixture.requestId}</p>
++          <p className={styles.fieldLabel}>contractId / hash</p>
++          <p className={styles.fieldValue}>
++            {vsFixture.contractId} · {vsFixture.contractHash}
++          </p>
++          <p className={styles.fieldLabel}>Branche · HEAD</p>
++          <p className={styles.fieldValue}>
++            {vsFixture.branch} · {vsFixture.head}
++          </p>
++          <p className={styles.fieldLabel}>Allowlist</p>
++          <p className={styles.fieldValue}>{vsFixture.allowlist.join(", ")}</p>
++          <p className={styles.fieldLabel}>Autorité</p>
++          <p className={styles.fieldValue}>{vsFixture.authority}</p>
++          <p className={styles.fieldLabel}>Horodatage</p>
++          <p className={styles.fieldValue}>
++            {vsFixture.timestamp} ({vsFixture.timezone})
++          </p>
++          <p className={styles.muted}>Timeout ≠ GO (rappel affiché).</p>
++          {!isFinal ? (
++            <div className={styles.actions}>
++              <CtaButton
++                variant="secondary"
++                onClick={() => setStateId("VS-UX-VAR-GO-INVALID")}
++                data-testid="vs-simulate-go-invalid"
++              >
++                Simuler GO invalide
++              </CtaButton>
++            </div>
++          ) : null}
++        </section>
++
++        <section
++          className={styles.card}
++          aria-labelledby="vs-morris-actions-title"
++          data-testid="vs-morris-actions"
++        >
++          <p className={styles.fieldLabel}>Décision Morris — autorité humaine</p>
++          <h2 id="vs-morris-actions-title" className={styles.cardTitle}>
++            {isFinal ? "Décision finale" : "Quatre actions du gate"}
++          </h2>
++
++          {isGate ? (
++            <div className={styles.optionGrid} role="group" aria-label="Actions gate Morris">
++              {gateOptions.map((opt) => {
++                const selected = gateAction === opt.action;
++                const className = opt.danger
++                  ? selected
++                    ? styles.optionDangerSelected
++                    : styles.optionDanger
++                  : selected
++                    ? styles.optionSelected
++                    : styles.option;
++                return (
++                  <button
++                    key={opt.action}
++                    type="button"
++                    className={className}
++                    aria-pressed={selected}
++                    data-testid={`vs-gate-${opt.action}`}
++                    aria-label={
++                      opt.action === "ABANDONNER"
++                        ? "Abandonner le cycle"
++                        : opt.title
++                    }
++                    onClick={() => selectGateAction(opt.action)}
++                  >
++                    <StatusPill tone={opt.danger ? "pink" : "blueFlush"}>
++                      {opt.title}
++                    </StatusPill>
++                    <p className={styles.optionTitle}>{opt.title}</p>
++                    <p className={styles.optionSub}>{opt.subtitle}</p>
++                  </button>
++                );
++              })}
++            </div>
++          ) : null}
++
++          {isFinal ? (
++            <div className={styles.optionGrid} role="group" aria-label="Actions décision finale">
++              {finalOptions.map((opt) => {
++                const selected = finalAction === opt.action;
++                const className = opt.danger
++                  ? selected
++                    ? styles.optionDangerSelected
++                    : styles.optionDanger
++                  : selected
++                    ? styles.optionSelected
++                    : styles.option;
++                return (
++                  <button
++                    key={opt.action}
++                    type="button"
++                    className={className}
++                    aria-pressed={selected}
++                    data-testid={`vs-final-${opt.action}`}
++                    aria-label={
++                      opt.action === "ABANDONNER"
++                        ? "Abandonner le cycle"
++                        : opt.title
++                    }
++                    onClick={() => selectFinalAction(opt.action)}
++                  >
++                    <StatusPill tone={opt.danger ? "pink" : "greenFlush"}>
++                      {opt.title}
++                    </StatusPill>
++                    <p className={styles.optionTitle}>{opt.title}</p>
++                    <p className={styles.optionSub}>{opt.subtitle}</p>
++                  </button>
++                );
++              })}
++            </div>
++          ) : null}
++
++          {abandonConfirmOpen ? (
++            <div
++              className={styles.confirmBox}
++              role="dialog"
++              aria-modal="true"
++              aria-labelledby="vs-abandon-confirm-title"
++              data-testid="vs-abandon-confirm"
++            >
++              <p id="vs-abandon-confirm-title" className={styles.optionTitle}>
++                Confirmer l&apos;abandon du cycle
++              </p>
++              <p className={styles.optionSub}>
++                Conséquence explicite : état <strong>abandonné</strong>. Aucune
++                écriture Git distante. Action destructive (danger textuel + visuel).
++              </p>
++              <div className={styles.actions}>
++                <CtaButton
++                  variant="danger"
++                  onClick={confirmAbandon}
++                  data-testid="vs-abandon-confirm-yes"
++                  aria-label="Confirmer abandonner le cycle"
++                >
++                  Confirmer — Abandonner le cycle
++                </CtaButton>
++                <CtaButton
++                  variant="secondary"
++                  onClick={closeAbandonConfirm}
++                  data-testid="vs-abandon-confirm-no"
++                >
++                  Annuler
++                </CtaButton>
++              </div>
++            </div>
++          ) : null}
++
++          {isGate && gateAction && gateAction !== "ABANDONNER" ? (
++            <div className={styles.actions}>
++              <CtaButton
++                onClick={confirmGate}
++                disabled={!gateAction}
++                data-testid="vs-gate-confirm"
++              >
++                Confirmer {gateAction}
++              </CtaButton>
++            </div>
++          ) : null}
++
++          {gateConfirmed || abandoned ? (
++            <p className={styles.muted} data-testid="vs-gate-result">
++              {abandoned
++                ? "Résultat fixture : cycle abandonné"
++                : `Résultat fixture : ${gateAction} confirmé`}
++            </p>
++          ) : null}
++
++          <p className={styles.muted}>
++            Simulation Increment A — aucun effet Git / Cursor / GPT live.
++          </p>
++        </section>
++      </div>
++    </div>
++  );
++}
+
+diff --git a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
++"use client";
++
++import { CtaButton } from "@/components/ui/CtaButton";
++import { StatusPill } from "@/components/ui/StatusPill";
++import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
++import { vsFixture } from "@/fixtures/vertical-slice";
++import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
++import styles from "@/components/vertical-slice/vs-panels.module.css";
++
++export function VsNouvelleDemandeScreen() {
++  const { stateId, setStateId, fireStop, abandoned, confirmAbandon } = useVsDemo();
++
++  return (
++    <div className={styles.panel} data-testid="vs-nouvelle-demande">
++      <IdStrip />
++
++      {stateId === "VS-UX-VAR-LOADING" || stateId === "VS-UX-02" ? (
++        <VariantBanner tone="info" title="Loading — qualification GPT (fixture)">
++          <p className={styles.loadingPulse}>
++            <span className={styles.loadingDot} aria-hidden />
++            Phase active : qualification — aucune fausse barre de progression
++          </p>
++          <FinOpsBox phase="qualification" calls={vsFixture.gptCalls.qualification} />
++        </VariantBanner>
++      ) : null}
++
++      {stateId === "VS-UX-VAR-ERROR" ? (
++        <VariantBanner tone="error" title="Erreur fail-closed — sortie GPT invalide">
++          <p>
++            Sortie GPT rejetée (fail-closed). Aucune progression automatique vers le
++            gate. Correction ou abandon uniquement.
++          </p>
++          <div className={styles.actions}>
++            <CtaButton onClick={() => setStateId("VS-UX-02")}>
++              Demander une correction
++            </CtaButton>
++            <CtaButton variant="danger" onClick={() => setStateId("VS-UX-01")}>
++              Abandonner avant qualification
++            </CtaButton>
++          </div>
++        </VariantBanner>
++      ) : null}
++
++      <section className={styles.hero} aria-labelledby="vs-nd-hero">
++        <p className={styles.heroEyebrow}>VERTICAL SLICE · INCREMENT A</p>
++        <h2 id="vs-nd-hero" className={styles.heroTitle}>
++          {stateId === "VS-UX-03"
++            ? "Qualification proposée — revue avant gate"
++            : stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING"
++              ? "Qualification en cours (simulée)"
++              : "Nouvelle demande de preuve Markdown"}
++        </h2>
++        <p className={styles.heroText}>
++          Saisie et qualification mockées. Aucun appel réseau live. Studio reste une
++          vue dérivée.
++        </p>
++      </section>
++
++      <div className={styles.twoCol}>
++        <section className={styles.card} aria-labelledby="vs-request-title">
++          <p className={styles.fieldLabel}>StudioRequest (fixture)</p>
++          <h2 id="vs-request-title" className={styles.cardTitle}>
++            {vsFixture.request.title}
++          </h2>
++          <p className={styles.fieldLabel}>Synthèse</p>
++          <p className={styles.fieldValue}>{vsFixture.request.summary}</p>
++          <p className={styles.fieldLabel}>IDs visibles</p>
++          <p className={styles.fieldValue}>
++            {vsFixture.requestId} · {vsFixture.correlationId}
++          </p>
++          <div className={styles.actions}>
++            {(stateId === "VS-UX-01" || abandoned) && (
++              <>
++                <CtaButton onClick={() => setStateId("VS-UX-02")}>
++                  Qualifier la demande
++                </CtaButton>
++                <CtaButton
++                  variant="danger"
++                  onClick={() => {
++                    confirmAbandon();
++                  }}
++                  data-testid="vs-abandon-prequal"
++                  aria-label="Abandonner le cycle avant qualification"
++                >
++                  Abandonner avant qualification
++                </CtaButton>
++              </>
++            )}
++            {(stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING") && (
++              <>
++                <CtaButton onClick={() => setStateId("VS-UX-03")}>
++                  Simuler qualification OK
++                </CtaButton>
++                <CtaButton
++                  variant="danger"
++                  onClick={fireStop}
++                  aria-label="STOP Morris pendant qualification"
++                >
++                  STOP Morris
++                </CtaButton>
++                <CtaButton
++                  variant="secondary"
++                  onClick={() => setStateId("VS-UX-VAR-ERROR")}
++                >
++                  Simuler erreur fail-closed
++                </CtaButton>
++              </>
++            )}
++            {stateId === "VS-UX-03" && (
++              <>
++                <CtaButton onClick={() => setStateId("VS-UX-04")}>
++                  Continuer vers le gate
++                </CtaButton>
++                <CtaButton
++                  variant="secondary"
++                  onClick={() => setStateId("VS-UX-02")}
++                >
++                  Demander une correction
++                </CtaButton>
++              </>
++            )}
++          </div>
++          {stateId === "VS-UX-01" ? (
++            <p className={styles.muted} data-testid="vs-finops-zero">
++              Consommation GPT avant qualification : 0 / {vsFixture.gptCalls.ceiling}
++            </p>
++          ) : null}
++        </section>
++
++        <aside className={styles.card} aria-label="Prévisualisation qualification">
++          {stateId === "VS-UX-03" ? (
++            <>
++              <StatusPill tone="purple">Candidat GPT</StatusPill>
++              <p className={styles.fieldLabel}>Cycle</p>
++              <p className={styles.fieldValue}>{vsFixture.qualification.cycle}</p>
++              <p className={styles.fieldLabel}>Profil</p>
++              <p className={styles.fieldValue}>{vsFixture.qualification.profile}</p>
++              <p className={styles.fieldLabel}>Allowlist</p>
++              <p className={styles.fieldValue}>
++                {vsFixture.qualification.allowlist.join(", ")}
++              </p>
++              <p className={styles.fieldLabel}>Stops</p>
++              <p className={styles.fieldValue}>
++                {vsFixture.qualification.stops.join(" · ")}
++              </p>
++              <p className={styles.fieldLabel}>Hash</p>
++              <p className={styles.fieldValue}>{vsFixture.qualification.hashPreview}</p>
++              <p className={styles.fieldLabel}>Source</p>
++              <p className={styles.fieldValue}>{vsFixture.qualification.source}</p>
++              <p className={styles.muted}>Pas d&apos;auto-GO.</p>
++            </>
++          ) : (
++            <>
++              <p className={styles.cardTitle}>Aperçu gouverné</p>
++              <p className={styles.fieldValue}>
++                Les champs de qualification complète apparaissent à l&apos;état
++                VS-UX-03 avant tout gate.
++              </p>
++              <FinOpsBox
++                phase={
++                  stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING"
++                    ? "qualification"
++                    : "idle"
++                }
++                calls={
++                  stateId === "VS-UX-01" ? 0 : vsFixture.gptCalls.qualification
++                }
++              />
++            </>
++          )}
++        </aside>
++      </div>
++    </div>
++  );
++}
+
+diff --git a/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx b/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
++"use client";
++
++import { StatusPill } from "@/components/ui/StatusPill";
++import { IdStrip } from "@/components/vertical-slice/VsShared";
++import { vsFixture } from "@/fixtures/vertical-slice";
++import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
++import styles from "@/components/vertical-slice/vs-panels.module.css";
++
++export function VsSyntheseScreen() {
++  const { abandoned, finalAction } = useVsDemo();
++
++  return (
++    <div className={styles.panel} data-testid="vs-synthese">
++      <IdStrip />
++
++      <section className={styles.hero} aria-labelledby="vs-close-hero">
++        <p className={styles.heroEyebrow}>CLÔTURE · SLICE COURANT UNIQUEMENT</p>
++        <h2 id="vs-close-hero" className={styles.heroTitle}>
++          CycleSummary — vertical slice POC
++        </h2>
++        <p className={styles.heroText}>
++          Aucun portefeuille multi-projet. Aucun claim MVP ou production-ready.
++        </p>
++      </section>
++
++      <section className={styles.card} data-testid="vs-cycle-summary">
++        <StatusPill tone={abandoned ? "pink" : "greenFlush"}>
++          {abandoned ? "abandonné" : vsFixture.summary.finalStatus}
++        </StatusPill>
++        <p className={styles.fieldLabel}>requestId</p>
++        <p className={styles.fieldValue}>{vsFixture.requestId}</p>
++        <p className={styles.fieldLabel}>Statut final</p>
++        <p className={styles.fieldValue}>
++          {abandoned ? "abandonné (fixture)" : vsFixture.summary.finalStatus}
++        </p>
++        <p className={styles.fieldLabel}>Décision Morris</p>
++        <p className={styles.fieldValue}>
++          {abandoned
++            ? "Abandonner"
++            : finalAction === "CLOTURER"
++              ? vsFixture.summary.decision
++              : finalAction ?? vsFixture.summary.decision}
++        </p>
++        <p className={styles.fieldLabel}>Fichier Markdown (mock)</p>
++        <p className={styles.fieldValue}>{vsFixture.summary.markdownFile}</p>
++        <p className={styles.fieldLabel}>Rapport / preuves</p>
++        <p className={styles.fieldValue}>
++          {vsFixture.summary.reportRef} · {vsFixture.summary.proofRef}
++        </p>
++        <p className={styles.fieldLabel}>Compteur GPT</p>
++        <p className={styles.fieldValue} data-testid="vs-summary-gpt">
++          {vsFixture.summary.gptCounter}
++        </p>
++        <p className={styles.fieldLabel}>Branche · HEAD · contractHash</p>
++        <p className={styles.fieldValue}>
++          {vsFixture.branch} · {vsFixture.head} · {vsFixture.contractHash}
++        </p>
++        <p className={styles.fieldLabel}>Réserves</p>
++        <ul className={styles.list}>
++          {vsFixture.summary.reserves.map((r) => (
++            <li key={r}>{r}</li>
++          ))}
++        </ul>
++        <p className={styles.forbidden} data-testid="vs-no-mvp-claim">
++          Interdit : MVP · production-ready · Studio complete · industrialisé
++        </p>
++        <p className={styles.muted} data-testid="vs-no-portfolio">
++          Hors périmètre affiché : portefeuille multi-projet, autres cycles hors
++          slice.
++        </p>
++      </section>
++    </div>
++  );
++}
+
+diff --git a/projects/sfia-studio/app/fixtures/vertical-slice.ts b/projects/sfia-studio/app/fixtures/vertical-slice.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/fixtures/vertical-slice.ts
++/**
++ * Fixtures Increment A — vertical slice POC.
++ * Données de démonstration uniquement. Aucun secret, aucune PII réelle, aucun live.
++ */
++
++export const vsFixture = {
++  demoLabel: "Données de démonstration — état simulé / fixture",
++  noLiveLabel: "Aucune exécution réelle · aucun GPT live · aucun Cursor live · aucune écriture Git distante",
++  requestId: "req-vs-poc-001",
++  correlationId: "corr-vs-poc-001",
++  contractId: "ctr-vs-poc-001",
++  contractHash: "sha256:fixture9f3c2a7b1e8d0456",
++  branch: "delivery/sfia-studio-poc-increment-a",
++  head: "e7502bf2f1791cc4b9639cc1949006d888931f1c",
++  headInvalidated: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++  allowlist: ["sandbox/vs-poc/output.md"],
++  authority: "Morris (L0)",
++  timezone: "Europe/Paris",
++  timestamp: "2026-07-19T23:16:00+02:00",
++  sourceStatus: "dérivé Studio (fixture)",
++  gptCalls: {
++    qualification: 1,
++    analysis: 0,
++    ceiling: "À définir",
++    noRetry: "Aucun retry automatique",
++  },
++  request: {
++    title: "Preuve Markdown sandbox (vertical slice POC)",
++    summary:
++      "Créer un fichier Markdown de preuve dans la sandbox autorisée pour démontrer le parcours gouverné bout-en-bout.",
++  },
++  qualification: {
++    cycle: "Conception fonctionnelle — preuve BeB",
++    profile: "Standard",
++    allowlist: ["sandbox/vs-poc/output.md"],
++    stops: ["Hors allowlist", "GO invalide", "STOP Morris"],
++    hashPreview: "sha256:fixture9f3c2a7b1e8d0456",
++    source: "GPT (candidat fixture)",
++  },
++  report: {
++    status: "terminé (fixture)",
++    filesTouched: ["sandbox/vs-poc/output.md"],
++    remoteWrites: 0,
++    reserves: ["Exécution mockée — pas de Cursor réel"],
++    markdownPreview:
++      "# Preuve vertical slice\n\nFichier Markdown sandbox (fixture).\n",
++  },
++  verdict: {
++    label: "Candidat GPT",
++    proven: ["Fichier Markdown mock présent dans allowlist"],
++    notProven: ["Exécution Cursor réelle", "Intégration harness"],
++    gaps: ["Adaptateur Studio↔harness absent (Incr. B)"],
++    risks: ["Confusion live / fixture si non étiqueté"],
++    reserves: ["Plafond GPT numérique À définir"],
++    morrisRequired: ["Décision finale humaine", "Aucun claim MVP"],
++  },
++  summary: {
++    finalStatus: "clôturé (fixture slice-only)",
++    decision: "Accepter et clôturer (mock)",
++    markdownFile: "sandbox/vs-poc/output.md",
++    reportRef: "CursorExecutionReport#fixture-001",
++    proofRef: "ReviewPackReference#fixture-001",
++    gptCounter: "1 / À définir (qualification) · 0 / À définir (analyse)",
++    reserves: [
++      "Incrément A uniquement",
++      "Pas d’adaptateur",
++      "Pas de live",
++      "Pas de claim MVP / production-ready",
++    ],
++  },
++  events: [
++    {
++      eventId: "evt-001",
++      type: "request_created",
++      at: "2026-07-19T23:10:00+02:00",
++    },
++    {
++      eventId: "evt-002",
++      type: "qualification_fixture",
++      at: "2026-07-19T23:11:00+02:00",
++    },
++    {
++      eventId: "evt-003",
++      type: "gate_ready",
++      at: "2026-07-19T23:12:00+02:00",
++    },
++  ],
++} as const;
++
++export type VsFixture = typeof vsFixture;
+
+diff --git a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
++"use client";
++
++import {
++  createContext,
++  useCallback,
++  useContext,
++  useEffect,
++  useMemo,
++  useState,
++  type ReactNode,
++} from "react";
++import { usePathname, useRouter, useSearchParams } from "next/navigation";
++import type { StudioRoute } from "@/lib/navigation";
++import {
++  defaultStateForRoute,
++  metaFor,
++  parseVsQuery,
++} from "@/lib/vertical-slice/mapping";
++import type {
++  VsDemoUiState,
++  VsFinalAction,
++  VsGateAction,
++  VsStateId,
++} from "@/lib/vertical-slice/types";
++
++interface VsDemoContextValue extends VsDemoUiState {
++  setStateId: (id: VsStateId) => void;
++  selectGateAction: (action: VsGateAction) => void;
++  openAbandonConfirm: () => void;
++  closeAbandonConfirm: () => void;
++  confirmAbandon: () => void;
++  confirmGate: () => void;
++  selectFinalAction: (action: VsFinalAction) => void;
++  fireStop: () => void;
++  resetDemo: () => void;
++}
++
++const VsDemoContext = createContext<VsDemoContextValue | null>(null);
++
++function routeFromPath(pathname: string): StudioRoute {
++  if (pathname.startsWith("/decision")) return "/decision";
++  if (pathname.startsWith("/cycle-actif")) return "/cycle-actif";
++  if (pathname.startsWith("/synthese")) return "/synthese";
++  return "/nouvelle-demande";
++}
++
++export function VsDemoProvider({ children }: { children: ReactNode }) {
++  const router = useRouter();
++  const pathname = usePathname() || "/nouvelle-demande";
++  const searchParams = useSearchParams();
++  const route = routeFromPath(pathname);
++
++  const [stateId, setStateIdLocal] = useState<VsStateId>(() => {
++    return parseVsQuery(searchParams.get("vs")) ?? defaultStateForRoute(route);
++  });
++  const [abandoned, setAbandoned] = useState(false);
++  const [gateAction, setGateAction] = useState<VsGateAction | null>(null);
++  const [gateConfirmed, setGateConfirmed] = useState(false);
++  const [abandonConfirmOpen, setAbandonConfirmOpen] = useState(false);
++  const [finalAction, setFinalAction] = useState<VsFinalAction | null>(null);
++  const [stopFired, setStopFired] = useState(false);
++
++  useEffect(() => {
++    const fromQuery = parseVsQuery(searchParams.get("vs"));
++    if (fromQuery) {
++      setStateIdLocal(fromQuery);
++      return;
++    }
++    const meta = metaFor(stateId);
++    if (meta.route !== route) {
++      setStateIdLocal(defaultStateForRoute(route));
++    }
++    // eslint-disable-next-line react-hooks/exhaustive-deps -- sync on route/query only
++  }, [pathname, searchParams]);
++
++  const setStateId = useCallback(
++    (id: VsStateId) => {
++      const meta = metaFor(id);
++      setStateIdLocal(id);
++      setAbandoned(false);
++      setGateAction(null);
++      setGateConfirmed(false);
++      setAbandonConfirmOpen(false);
++      setFinalAction(null);
++      setStopFired(id === "VS-UX-VAR-STOP");
++      const params = new URLSearchParams(searchParams.toString());
++      params.set("vs", id);
++      router.push(`${meta.route}?${params.toString()}`);
++    },
++    [router, searchParams],
++  );
++
++  const selectGateAction = useCallback((action: VsGateAction) => {
++    setGateAction(action);
++    setGateConfirmed(false);
++    if (action === "ABANDONNER") {
++      setAbandonConfirmOpen(true);
++    } else {
++      setAbandonConfirmOpen(false);
++    }
++  }, []);
++
++  const openAbandonConfirm = useCallback(() => setAbandonConfirmOpen(true), []);
++  const closeAbandonConfirm = useCallback(() => {
++    setAbandonConfirmOpen(false);
++    if (gateAction === "ABANDONNER") setGateAction(null);
++  }, [gateAction]);
++
++  const confirmAbandon = useCallback(() => {
++    setAbandoned(true);
++    setAbandonConfirmOpen(false);
++    setGateAction("ABANDONNER");
++    setGateConfirmed(true);
++  }, []);
++
++  const confirmGate = useCallback(() => {
++    if (!gateAction || gateAction === "ABANDONNER") return;
++    setGateConfirmed(true);
++    if (gateAction === "GO") {
++      setStateId("VS-UX-05");
++    } else if (gateAction === "NO-GO") {
++      setStateId("VS-UX-10");
++    } else if (gateAction === "CORRIGER") {
++      setStateId("VS-UX-02");
++    }
++  }, [gateAction, setStateId]);
++
++  const selectFinalAction = useCallback(
++    (action: VsFinalAction) => {
++      setFinalAction(action);
++      if (action === "ABANDONNER") {
++        setAbandoned(true);
++      }
++      if (action === "CLOTURER") {
++        setStateId("VS-UX-10");
++      }
++    },
++    [setStateId],
++  );
++
++  const fireStop = useCallback(() => {
++    setStopFired(true);
++    setStateId("VS-UX-VAR-STOP");
++  }, [setStateId]);
++
++  const resetDemo = useCallback(() => {
++    setAbandoned(false);
++    setGateAction(null);
++    setGateConfirmed(false);
++    setAbandonConfirmOpen(false);
++    setFinalAction(null);
++    setStopFired(false);
++    setStateId("VS-UX-01");
++  }, [setStateId]);
++
++  const value = useMemo<VsDemoContextValue>(
++    () => ({
++      stateId,
++      abandoned,
++      gateAction,
++      gateConfirmed,
++      abandonConfirmOpen,
++      finalAction,
++      stopFired,
++      setStateId,
++      selectGateAction,
++      openAbandonConfirm,
++      closeAbandonConfirm,
++      confirmAbandon,
++      confirmGate,
++      selectFinalAction,
++      fireStop,
++      resetDemo,
++    }),
++    [
++      stateId,
++      abandoned,
++      gateAction,
++      gateConfirmed,
++      abandonConfirmOpen,
++      finalAction,
++      stopFired,
++      setStateId,
++      selectGateAction,
++      openAbandonConfirm,
++      closeAbandonConfirm,
++      confirmAbandon,
++      confirmGate,
++      selectFinalAction,
++      fireStop,
++      resetDemo,
++    ],
++  );
++
++  return (
++    <VsDemoContext.Provider value={value}>{children}</VsDemoContext.Provider>
++  );
++}
++
++export function useVsDemo(): VsDemoContextValue {
++  const ctx = useContext(VsDemoContext);
++  if (!ctx) {
++    throw new Error("useVsDemo must be used within VsDemoProvider");
++  }
++  return ctx;
++}
+
+diff --git a/projects/sfia-studio/app/lib/vertical-slice/index.ts b/projects/sfia-studio/app/lib/vertical-slice/index.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/vertical-slice/index.ts
++export type {
++  VsStateId,
++  VsGateAction,
++  VsFinalAction,
++  VsStateMeta,
++  VsDemoUiState,
++} from "./types";
++export {
++  VS_STATES,
++  VS_STATE_IDS,
++  STUDIO_ROUTES_ONLY,
++  metaFor,
++  defaultStateForRoute,
++  parseVsQuery,
++} from "./mapping";
+
+diff --git a/projects/sfia-studio/app/lib/vertical-slice/mapping.ts b/projects/sfia-studio/app/lib/vertical-slice/mapping.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/vertical-slice/mapping.ts
++import type { StudioRoute } from "@/lib/navigation";
++import type { VsStateId, VsStateMeta } from "./types";
++
++export const VS_STATES: VsStateMeta[] = [
++  {
++    id: "VS-UX-01",
++    label: "01 — Nouvelle demande",
++    route: "/nouvelle-demande",
++    kind: "state",
++    figmaNode: "51:3",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-02",
++    label: "02 — Qualification en cours",
++    route: "/nouvelle-demande",
++    kind: "state",
++    figmaNode: "51:139",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-03",
++    label: "03 — Qualification proposée",
++    route: "/nouvelle-demande",
++    kind: "state",
++    figmaNode: "51:277",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-04",
++    label: "04 — Gate Morris",
++    route: "/decision",
++    kind: "state",
++    figmaNode: "51:415",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-05",
++    label: "05 — Exécution",
++    route: "/cycle-actif",
++    kind: "state",
++    figmaNode: "51:540",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-06",
++    label: "06 — Rapport disponible",
++    route: "/cycle-actif",
++    kind: "state",
++    figmaNode: "51:678",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-07",
++    label: "07 — Analyse GPT",
++    route: "/cycle-actif",
++    kind: "state",
++    figmaNode: "51:816",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-08",
++    label: "08 — Verdict proposé",
++    route: "/cycle-actif",
++    kind: "state",
++    figmaNode: "51:954",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-09",
++    label: "09 — Décision Morris finale",
++    route: "/decision",
++    kind: "state",
++    figmaNode: "51:1079",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-10",
++    label: "10 — Clôture slice-only",
++    route: "/synthese",
++    kind: "state",
++    figmaNode: "51:1204",
++    dimensions: "1440×1024",
++  },
++  {
++    id: "VS-UX-VAR-LOADING",
++    label: "VAR — Loading GPT",
++    route: "/nouvelle-demande",
++    kind: "variant",
++    figmaNode: "52:2",
++    dimensions: "720×420",
++  },
++  {
++    id: "VS-UX-VAR-ERROR",
++    label: "VAR — Erreur fail-closed",
++    route: "/nouvelle-demande",
++    kind: "variant",
++    figmaNode: "52:10",
++    dimensions: "720×420",
++  },
++  {
++    id: "VS-UX-VAR-STOP",
++    label: "VAR — STOP Morris",
++    route: "/cycle-actif",
++    kind: "variant",
++    figmaNode: "52:18",
++    dimensions: "720×420",
++  },
++  {
++    id: "VS-UX-VAR-GO-INVALID",
++    label: "VAR — GO invalide",
++    route: "/decision",
++    kind: "variant",
++    figmaNode: "52:26",
++    dimensions: "720×420",
++  },
++];
++
++export const VS_STATE_IDS = VS_STATES.map((s) => s.id);
++
++export const STUDIO_ROUTES_ONLY: StudioRoute[] = [
++  "/nouvelle-demande",
++  "/decision",
++  "/cycle-actif",
++  "/synthese",
++];
++
++export function metaFor(id: VsStateId): VsStateMeta {
++  const found = VS_STATES.find((s) => s.id === id);
++  if (!found) throw new Error(`Unknown VS state: ${id}`);
++  return found;
++}
++
++export function defaultStateForRoute(route: StudioRoute): VsStateId {
++  switch (route) {
++    case "/nouvelle-demande":
++      return "VS-UX-01";
++    case "/decision":
++      return "VS-UX-04";
++    case "/cycle-actif":
++      return "VS-UX-05";
++    case "/synthese":
++      return "VS-UX-10";
++  }
++}
++
++export function parseVsQuery(value: string | null | undefined): VsStateId | null {
++  if (!value) return null;
++  const normalized = value.trim().toUpperCase();
++  const aliases: Record<string, VsStateId> = {
++    "01": "VS-UX-01",
++    "02": "VS-UX-02",
++    "03": "VS-UX-03",
++    "04": "VS-UX-04",
++    "05": "VS-UX-05",
++    "06": "VS-UX-06",
++    "07": "VS-UX-07",
++    "08": "VS-UX-08",
++    "09": "VS-UX-09",
++    "10": "VS-UX-10",
++    LOADING: "VS-UX-VAR-LOADING",
++    ERROR: "VS-UX-VAR-ERROR",
++    STOP: "VS-UX-VAR-STOP",
++    "GO-INVALID": "VS-UX-VAR-GO-INVALID",
++    GO_INVALID: "VS-UX-VAR-GO-INVALID",
++  };
++  if (normalized in aliases) return aliases[normalized];
++  if ((VS_STATE_IDS as string[]).includes(normalized)) {
++    return normalized as VsStateId;
++  }
++  return null;
++}
++
++export function queryFor(id: VsStateId): string {
++  return id.replace("VS-UX-", "").replace("VAR-", "VAR-");
++}
+
+diff --git a/projects/sfia-studio/app/lib/vertical-slice/types.ts b/projects/sfia-studio/app/lib/vertical-slice/types.ts
+new file mode 100644
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/vertical-slice/types.ts
++import type { StudioRoute } from "@/lib/navigation";
++
++/** Dix états fonctionnels + quatre variantes — pas de routes dédiées. */
++export type VsStateId =
++  | "VS-UX-01"
++  | "VS-UX-02"
++  | "VS-UX-03"
++  | "VS-UX-04"
++  | "VS-UX-05"
++  | "VS-UX-06"
++  | "VS-UX-07"
++  | "VS-UX-08"
++  | "VS-UX-09"
++  | "VS-UX-10"
++  | "VS-UX-VAR-LOADING"
++  | "VS-UX-VAR-ERROR"
++  | "VS-UX-VAR-STOP"
++  | "VS-UX-VAR-GO-INVALID";
++
++export type VsGateAction = "GO" | "NO-GO" | "CORRIGER" | "ABANDONNER";
++
++export type VsFinalAction =
++  | "CLOTURER"
++  | "CORRIGER"
++  | "RELANCER"
++  | "ABANDONNER";
++
++export interface VsStateMeta {
++  id: VsStateId;
++  label: string;
++  route: StudioRoute;
++  kind: "state" | "variant";
++  figmaNode: string;
++  dimensions: string;
++}
++
++export interface VsDemoUiState {
++  stateId: VsStateId;
++  abandoned: boolean;
++  gateAction: VsGateAction | null;
++  gateConfirmed: boolean;
++  abandonConfirmOpen: boolean;
++  finalAction: VsFinalAction | null;
++  stopFired: boolean;
++}
+
+
 
 ---
 
-## 1. Objectif
+# ANNEXE B — Fichiers clés (intégral)
+
+
+## FILE: projects/sfia-studio/app/fixtures/vertical-slice.ts
+
+```
+/**
+ * Fixtures Increment A — vertical slice POC.
+ * Données de démonstration uniquement. Aucun secret, aucune PII réelle, aucun live.
+ */
+
+export const vsFixture = {
+  demoLabel: "Données de démonstration — état simulé / fixture",
+  noLiveLabel: "Aucune exécution réelle · aucun GPT live · aucun Cursor live · aucune écriture Git distante",
+  requestId: "req-vs-poc-001",
+  correlationId: "corr-vs-poc-001",
+  contractId: "ctr-vs-poc-001",
+  contractHash: "sha256:fixture9f3c2a7b1e8d0456",
+  branch: "delivery/sfia-studio-poc-increment-a",
+  head: "e7502bf2f1791cc4b9639cc1949006d888931f1c",
+  headInvalidated: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  allowlist: ["sandbox/vs-poc/output.md"],
+  authority: "Morris (L0)",
+  timezone: "Europe/Paris",
+  timestamp: "2026-07-19T23:16:00+02:00",
+  sourceStatus: "dérivé Studio (fixture)",
+  gptCalls: {
+    qualification: 1,
+    analysis: 0,
+    ceiling: "À définir",
+    noRetry: "Aucun retry automatique",
+  },
+  request: {
+    title: "Preuve Markdown sandbox (vertical slice POC)",
+    summary:
+      "Créer un fichier Markdown de preuve dans la sandbox autorisée pour démontrer le parcours gouverné bout-en-bout.",
+  },
+  qualification: {
+    cycle: "Conception fonctionnelle — preuve BeB",
+    profile: "Standard",
+    allowlist: ["sandbox/vs-poc/output.md"],
+    stops: ["Hors allowlist", "GO invalide", "STOP Morris"],
+    hashPreview: "sha256:fixture9f3c2a7b1e8d0456",
+    source: "GPT (candidat fixture)",
+  },
+  report: {
+    status: "terminé (fixture)",
+    filesTouched: ["sandbox/vs-poc/output.md"],
+    remoteWrites: 0,
+    reserves: ["Exécution mockée — pas de Cursor réel"],
+    markdownPreview:
+      "# Preuve vertical slice\n\nFichier Markdown sandbox (fixture).\n",
+  },
+  verdict: {
+    label: "Candidat GPT",
+    proven: ["Fichier Markdown mock présent dans allowlist"],
+    notProven: ["Exécution Cursor réelle", "Intégration harness"],
+    gaps: ["Adaptateur Studio↔harness absent (Incr. B)"],
+    risks: ["Confusion live / fixture si non étiqueté"],
+    reserves: ["Plafond GPT numérique À définir"],
+    morrisRequired: ["Décision finale humaine", "Aucun claim MVP"],
+  },
+  summary: {
+    finalStatus: "clôturé (fixture slice-only)",
+    decision: "Accepter et clôturer (mock)",
+    markdownFile: "sandbox/vs-poc/output.md",
+    reportRef: "CursorExecutionReport#fixture-001",
+    proofRef: "ReviewPackReference#fixture-001",
+    gptCounter: "1 / À définir (qualification) · 0 / À définir (analyse)",
+    reserves: [
+      "Incrément A uniquement",
+      "Pas d’adaptateur",
+      "Pas de live",
+      "Pas de claim MVP / production-ready",
+    ],
+  },
+  events: [
+    {
+      eventId: "evt-001",
+      type: "request_created",
+      at: "2026-07-19T23:10:00+02:00",
+    },
+    {
+      eventId: "evt-002",
+      type: "qualification_fixture",
+      at: "2026-07-19T23:11:00+02:00",
+    },
+    {
+      eventId: "evt-003",
+      type: "gate_ready",
+      at: "2026-07-19T23:12:00+02:00",
+    },
+  ],
+} as const;
+
+export type VsFixture = typeof vsFixture;
 
-Transformer les exigences validées (`VS-FR` / `VS-BR` / `VS-AC` / N1–N16 / VS-UX) en epics, capabilities et user stories testables permettant un futur delivery **borné** du BeB :
-
-Studio → qualification GPT → gate Morris → harness → Cursor sandbox → preuves → verdict GPT candidat → décision Morris → clôture.
-
----
-
-## 2. Périmètre / hors périmètre
-
-### Dans le périmètre backlog
-
-- Stories pour le parcours 10 états dans **4 vues P0**
-- Adaptateur fin Studio→harness (sans autorité)
-- Qualification / verdict GPT (fixture puis live sous gate)
-- Cursor sandbox (fixture puis live sous gate)
-- Gates Morris, STOP, invalidation GO, FinOps (compteur + plafond À définir + no retry)
-- Sécurité / RGPD minimal / observabilité / reprise session
-
-### Hors périmètre
-
-- Choix stack / API / BDD / ORM / protocole
-- CI/CD, déploiement, industrialisation, L5
-- Multi-projet, MVP produit, écriture Git distante
-- Modification Figma / docs `01`–`37` / code (ce cycle)
-- Valeur numérique du plafond GPT (reste **À définir**)
-
----
-
-## 3. Definition of Ready (DoR) — story
-
-Une story est Ready si :
-
-1. ID stable `VS-BL-US-*` ;
-2. epic + capability + acteur ;
-3. formulation En tant que / Je veux / Afin de ;
-4. valeur démontrée ;
-5. sources (`VS-FR`/`VS-BR`/`VS-AC`/N/UX/CAND) exactes ;
-6. état UX ou variante (ou `Aucun spécifique`) ;
-7. préconditions ;
-8. AC Given/When/Then testables ;
-9. scénarios négatifs (ou `Aucun spécifique`) ;
-10. preuves, dépendances, risque, taille, gate, hors périmètre, notes ;
-11. aucune dépendance stack non tranchée (sinon hypothèse / spike candidat) ;
-12. gate Morris éventuel identifié.
-
----
-
-## 4. Definition of Done (DoD) — candidat delivery futur
-
-**Non validée** — candidate pour GO delivery :
-
-1. AC satisfaits avec preuves (journal, screenshots, fixtures ou live sous gate) ;
-2. aucun secret exposé ;
-3. Studio = vue dérivée (pas de vérité parallèle) ;
-4. harness autonome toujours possible ;
-5. timeout ≠ GO ; STOP journalisé ;
-6. pas de claim MVP / production-ready ;
-7. review pack / preuves selon story ;
-8. pas d’écriture Git distante dans le slice.
-
----
-
-## 5. Acteurs
-
-| Acteur | Rôle |
-|--------|------|
-| Morris (L0) | Saisie, gates, STOP, clôture |
-| SFIA Studio | Cockpit / vue dérivée |
-| Adaptateur fin | Transmission sans autorité |
-| Harness | Policy, revalidation, journal, preuves |
-| GPT | Qualifie / analyse (candidat) |
-| Cursor | Exécute sandbox bornée |
-| Git | Vérité durable / Truth Check |
-
----
-
-## 6. Epics et capabilities
-
-| Epic | Capabilities |
-|------|----------------|
-| **E1** Demande & identité | C1.1 Saisie · C1.2 IDs · C1.3 Abandon pré-qualif |
-| **E2** Qualification GPT | C2.1 Déclenchement · C2.2 Loading/fail-closed · C2.3 Affichage · C2.4 FinOps |
-| **E3** Contrat & Gate | C3.1 Contrat/hash · C3.2 Dossier GO · C3.3 4 actions · C3.4 Invalidation |
-| **E4** Adaptateur Studio↔harness | C4.1 Transmission · C4.2 États dérivés · C4.3 Mode autonome · C4.4 Reprise session |
-| **E5** Exécution Cursor | C5.1 Revalidation · C5.2 Spawn sandbox · C5.3 STOP/timeout · C5.4 Refus hors allowlist |
-| **E6** Rapport & preuves | C6.1 Rapport · C6.2 Pack · C6.3 Aperçu sanitisé · C6.4 Blocage incomplet |
-| **E7** Analyse & verdict | C7.1 Paquet preuves · C7.2 Analyse GPT · C7.3 Verdict candidat · C7.4 FinOps analyse |
-| **E8** Décision & clôture | C8.1 Décision finale · C8.2 CycleSummary slice-only · C8.3 Relance nouveau GO |
-| **E9** Sécurité & RGPD | C9.1 No PII/secrets · C9.2 Masquage · C9.3 Journal refus |
-| **E10** Observabilité & perf | C10.1 Corrélation IDs · C10.2 Durées séparées · C10.3 Source statut · C10.4 Aucun faux succès |
-
----
-
-## 7. User stories
-
-> Chaque story ci-dessous comporte les **16 champs obligatoires**.
-> `—` ou `Aucun spécifique` = non applicable explicite (jamais une ligne omise).
-
-
-### VS-BL-US-001 — Saisir une demande de preuve
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E1 / C1.1 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux saisir une intention Markdown sandbox (titre + synthèse), Afin de démarrer un cycle de preuve gouverné. |
-| Valeur démontrée | Entrée BeB observable sans exécution implicite |
-| Sources | VS-FR-01 · VS-CAND-01 · VS-UX-01 · VS-AC-01 (prérequis parcours) |
-| UX / état / variante | VS-UX-01 · vue Nouvelle demande · frame `51:3` |
-| Préconditions | Studio accessible ; projet connu ; aucune session live requise |
-| Critères d’acceptation | **Given** vue Nouvelle demande **When** Morris saisit titre+synthèse valides et voit un requestId candidat **Then** StudioRequest affichée · aucune qualification démarrée · aucun GO implicite · aucune écriture distante |
-| Scénarios négatifs | Intention vide ou incomplète → validation locale · CTA Qualifier désactivé ou bloqué · pas d’appel GPT |
-| Preuves attendues | StudioRequest horodatée (TZ) · requestId visible |
-| Dépendances | — |
-| Risque | Faible |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Live GPT · Cursor · écriture Git distante · nouvelle route |
-| Notes delivery | Réutiliser shell floating `/nouvelle-demande` ; étendre états (pas nouvelle route) |
-
-### VS-BL-US-002 — Propager requestId / correlationId
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E1 / C1.2 · E10 / C10.1 |
-| Acteur | Morris (via Studio / Harness) |
-| Story | En tant que Morris, Je veux des identifiants stables visibles sur tout le parcours, Afin de reconstruire la corrélation bout-en-bout. |
-| Valeur démontrée | Observabilité et auditabilité du cycle |
-| Sources | VS-CAND-15 · VS-FR-01 · VS-AC-11 |
-| UX / état / variante | Tous les états VS-UX-01…10 · IDs dans topbar/canvas |
-| Préconditions | US-001 : demande créée avec requestId |
-| Critères d’acceptation | **Given** demande créée **When** navigation entre états/vues **Then** requestId et correlationId inchangés et affichés · eventId présents dans journal dérivé |
-| Scénarios négatifs | ID manquant ou réécrit → fail-closed UI (blocage progression) · message explicite |
-| Preuves attendues | Journal avec eventId liés au même requestId/correlationId |
-| Dépendances | VS-BL-US-001 |
-| Risque | Faible |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Schéma BDD · protocole réseau inventé |
-| Notes delivery | Affichage dérivé ; pas de génération d’ID concurrente côté UI |
-
-### VS-BL-US-003 — Abandonner avant qualification
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E1 / C1.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux abandonner avant toute qualification GPT, Afin d’éviter toute consommation FinOps inutile. |
-| Valeur démontrée | Sortie propre pré-qualif · FinOps zéro appel |
-| Sources | Doc 33 § étape 1 (actions : abandonner) · Doc 32 § Abandon · transition `intention_capturée` → `abandonné` · VS-UX-01 · VS-FR-16 (visibilité conso = 0) · VS-BR-03 (pas de retry silencieux) |
-| UX / état / variante | VS-UX-01 · vue Nouvelle demande |
-| Préconditions | Intention capturée ou en saisie · qualification non démarrée |
-| Critères d’acceptation | **Given** intention capturée sans qualif démarrée **When** Morris choisit Abandonner (avec confirmation si destructif) **Then** état `abandonné` · **0** appel GPT · compteur FinOps inchangé à 0 · aucune écriture distante |
-| Scénarios négatifs | Abandon pendant qualif déjà démarrée → hors cette story (voir STOP / gate) · double-clic → un seul abandon journalisé |
-| Preuves attendues | Événement abandon journalisé · FinOps qualif = 0 |
-| Dépendances | VS-BL-US-001 |
-| Risque | Faible |
-| Taille relative | XS |
-| Gate Morris éventuel | — |
-| Hors périmètre | N16 (perte session) · Abandonner au gate (US-011) · STOP exécution (US-019) |
-| Notes delivery | Ne pas mapper N16 ici — N16 = reprise session (US-016) |
-
-### VS-BL-US-004 — Déclencher qualification GPT
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E2 / C2.1 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux déclencher explicitement « Qualifier la demande », Afin de lancer une qualification contrôlée. |
-| Valeur démontrée | Contrôle humain du démarrage GPT |
-| Sources | VS-FR-02 · VS-FR-03 · VS-UX-01→02 · VS-BR-03 · N2 |
-| UX / état / variante | Transition VS-UX-01 → VS-UX-02 · frame `51:139` |
-| Préconditions | Demande valide (US-001) · sources Git lisibles ou mode fixture déclaré |
-| Critères d’acceptation | **Given** demande valide **When** CTA Qualifier **Then** état `qualification_en_cours` · compteur FinOps qualif +1 (ou +1 à la consommation réelle selon mode) · aucun GO · aucun spawn Cursor |
-| Scénarios négatifs | **N2** Sources Git indisponibles → STOP lecture · pas de qualif live · message Truth Check · pas de fallback permissif |
-| Preuves attendues | Event qualification_started · FinOps visible |
-| Dépendances | VS-BL-US-001 · VS-BL-US-002 |
-| Risque | Moyen (live) |
-| Taille relative | M |
-| Gate Morris éventuel | Avant live GPT : G-VS-LIVE-GPT (futur) |
-| Hors périmètre | Retry automatique · inventaire coût € |
-| Notes delivery | Fixture d’abord (Incr. B) puis live (Incr. C) sous flags |
-
-### VS-BL-US-005 — Loading qualification + no retry
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E2 / C2.2 · C2.4 |
-| Acteur | Morris / Système |
-| Story | En tant que Morris, Je veux voir la phase active et le plafond « À définir », sans retry automatique, Afin de contrôler la consommation. |
-| Valeur démontrée | Transparence FinOps + anti-retry |
-| Sources | VS-FR-16 · VS-BR-03 · VS-CAND-14 · VS-UX-FR-07 · VS-UX-VAR Loading `52:2` |
-| UX / état / variante | VS-UX-02 · variante Loading `52:2` |
-| Préconditions | Qualification démarrée (US-004) |
-| Critères d’acceptation | **Given** qualif en cours **When** UI affiche l’état **Then** phase active lisible · compteur `n / À définir` · mention « Aucun retry automatique » · pas de barre de progression inventée comme succès |
-| Scénarios négatifs | Timeout qualif → état d’échec/stop explicite · **pas** de GO · **pas** de retry auto |
-| Preuves attendues | Screenshot / trace UI Loading + FinOps |
-| Dépendances | VS-BL-US-004 |
-| Risque | Faible |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Valeur numérique du plafond (G-VS-LIMIT) |
-| Notes delivery | Plafond affiché « À définir » jusqu’à arbitrage |
-
-### VS-BL-US-006 — Rejet fail-closed QualificationCandidate
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E2 / C2.2 |
-| Acteur | Harness (autorité) / Studio (affichage) |
-| Story | En tant que Morris, Je veux qu’une sortie GPT invalide soit rejetée fail-closed, Afin d’éviter un GO aveugle. |
-| Valeur démontrée | Garde-fou intégrité qualification |
-| Sources | VS-FR-02 · VS-BR-01 · VS-BR-02 · N1 · VS-UX-FR-13 · VS-UX-VAR Erreur `52:10` |
-| UX / état / variante | VS-UX-02 · variante Erreur `52:10` |
-| Préconditions | Sortie GPT reçue (fixture ou live) |
-| Critères d’acceptation | **Given** sortie hors contrat **When** validateur refuse **Then** message erreur fail-closed · pas d’état `qualification_prête` · CTA correction/abandon · aucun GO |
-| Scénarios négatifs | **N1** Qualif invalide → rejet · pas d’exécution · correction ou abandon uniquement |
-| Preuves attendues | Event validation_rejected · pas de QualificationCandidate acceptée |
-| Dépendances | VS-BL-US-004 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Fallback permissif · auto-correction GPT |
-| Notes delivery | Harness valide ; Studio affiche dérivé |
-
-### VS-BL-US-007 — Afficher qualification complète avant gate
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E2 / C2.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux lire cycle, profil, allowlist, stops, hash, Afin de contrôler avant tout GO. |
-| Valeur démontrée | Contrôle humain pré-GO (VS-CAND-03) |
-| Sources | VS-FR-03 · VS-CAND-03 · VS-UX-03 · VS-UX-FR-04 (préparation gate) |
-| UX / état / variante | VS-UX-03 · frame `51:277` · vue Nouvelle demande |
-| Préconditions | QualificationCandidate validée |
-| Critères d’acceptation | **Given** qualif valide **When** affichage **Then** champs obligatoires doc 33 §3 visibles · source étiquetée GPT · **pas** d’auto-GO · CTA Continuer vers gate / Correction / Abandonner |
-| Scénarios négatifs | Champ obligatoire manquant → pas de passage gate · message explicite |
-| Preuves attendues | Screenshot VS-UX-03 · QualificationCandidate complète |
-| Dépendances | VS-BL-US-006 (chemin OK) |
-| Risque | Faible |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Modification silencieuse du candidat |
-| Notes delivery | Mock possible Incr. A |
-
-### VS-BL-US-008 — Demander correction qualification
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E2 / C2.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux demander une correction, Afin de relancer une nouvelle qualification contrôlée. |
-| Valeur démontrée | Boucle de correction gouvernée |
-| Sources | VS-FR-04 (action correction) · VS-BR-02 · VS-BR-03 · Doc 33 transitions qualif |
-| UX / état / variante | VS-UX-03 → VS-UX-02 |
-| Préconditions | Qualification proposée visible |
-| Critères d’acceptation | **Given** qualif proposée **When** Demander une correction **Then** retour `qualification_en_cours` · nouvelle consommation FinOps visible · pas de fallback permissif · pas de retry auto silencieux |
-| Scénarios négatifs | Correction sans confirmation FinOps → bloquée ou confirmée explicitement |
-| Preuves attendues | Event correction_requested · FinOps +1 (nouvelle conso) |
-| Dépendances | VS-BL-US-007 |
-| Risque | Moyen (FinOps) |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Correction automatique par GPT |
-| Notes delivery | Chaque relance = consommation distincte |
-
-### VS-BL-US-009 — Générer ExecutionContract + hash
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E3 / C3.1 |
-| Acteur | Harness |
-| Story | En tant que Morris, Je veux un contrat borné hashé, Afin d’ancrer le futur GO. |
-| Valeur démontrée | Ancrage déterministe du périmètre |
-| Sources | VS-FR-05 · VS-BR-05 · VS-CAND-04 · VS-CAND-06 |
-| UX / état / variante | VS-UX-03/04 (affichage dérivé contractId/hash) |
-| Préconditions | Qualification acceptée pour passage gate |
-| Critères d’acceptation | **Given** qualif acceptée pour gate **When** contrat produit **Then** contractId + contractHash + allowlist + gitEffect=none-remote présents et stables |
-| Scénarios négatifs | Contrat incomplet → pas de gate GO possible · fail-closed |
-| Preuves attendues | ExecutionContract + hash dans preuves/journal |
-| Dépendances | VS-BL-US-007 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Protocole API inventé · ORM |
-| Notes delivery | Réutiliser canonicalize/hash harness existants (lecture seule observée) |
-
-### VS-BL-US-010 — Dossier de décision Gate Morris
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E3 / C3.2 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux un dossier ancré (IDs, HEAD, branche, allowlist, horodatage), Afin de décider en connaissance de cause. |
-| Valeur démontrée | Décision gate informée |
-| Sources | VS-FR-05 · VS-UX-04 · VS-UX-FR-04 · VS-BR-05 · VS-BR-11 |
-| UX / état / variante | VS-UX-04 · frame `51:415` · vue Décision / Gate |
-| Préconditions | Contrat hashé disponible (US-009) |
-| Critères d’acceptation | **Given** attente gate **When** affichage dossier **Then** requestId, contractId, contractHash, branche, HEAD, allowlist, horodatage TZ, autorité · mention timeout ≠ GO visible |
-| Scénarios négatifs | Ancrage incomplet → CTA GO désactivé · message explicite |
-| Preuves attendues | Screenshot dossier gate · champs d’ancrage |
-| Dépendances | VS-BL-US-009 |
-| Risque | Faible |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | GO sans ancrage · auto-GO |
-| Notes delivery | Mock Incr. A ; réel Incr. B |
-
-### VS-BL-US-011 — Quatre actions gate (GO / NO-GO / Corriger / Abandonner)
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E3 / C3.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux quatre actions explicites au gate, Afin de ne pas confondre NO-GO, STOP et Abandonner. |
-| Valeur démontrée | Autorité Morris L0 au gate · distinction sémantique |
-| Sources | VS-FR-04 · VS-UX-FR-15 · VS-UX-FR-16 · VS-UX-04 · Doc 36 §8 (Abandonner ≠ NO-GO ≠ STOP) · VS-CAND-04 (ancrage GO) · VS-BR-04 |
-| UX / état / variante | VS-UX-04 · quatre CTA · confirmation Abandonner |
-| Préconditions | Dossier gate complet (US-010) |
-| Critères d’acceptation | **Given** gate affiché **When** Morris choisit une action **Then** GO / NO-GO / Demander une correction / Abandonner sont distincts · Abandonner = destructif + confirmation + conséquence `abandonné` · aucune action Git distante · GO n’autorise spawn qu’après revalidation ultérieure |
-| Scénarios négatifs | Confusion Abandon/NO-GO/STOP → copy UI + a11y (noms accessibles) · GO sans ancrage → impossible |
-| Preuves attendues | MorrisGateDecision journalisée · UI 4 actions |
-| Dépendances | VS-BL-US-010 |
-| Risque | Moyen (UI actuelle ≠ 4 actions) |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | VS-FR-15 (secrets) · VS-FR-16 (FinOps) — **non applicables** comme sources des 4 actions · STOP exécution (US-019) |
-| Notes delivery | Ne pas confondre VS-UX-FR-15/16 avec VS-FR-15/16 |
-
-### VS-BL-US-012 — Invalidation GO (HEAD/hash/branche/allowlist)
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E3 / C3.4 |
-| Acteur | Harness / Studio (affichage) |
-| Story | En tant que Morris, Je veux qu’un GO stale soit invalide, Afin d’empêcher un spawn dangereux. |
-| Valeur démontrée | Sécurité d’ancrage |
-| Sources | VS-FR-06 · VS-BR-06 · VS-AC-02 · VS-AC-03 · N3 · N5 · N6 · VS-UX-FR-05 · VS-UX-VAR GO invalide `52:26` |
-| UX / état / variante | VS-UX-04/05 · variante GO invalide `52:26` |
-| Préconditions | GO ancré existant |
-| Critères d’acceptation | **Given** GO ancré **When** HEAD, contractHash, branche ou allowlist diverge **Then** bandeau GO invalide · harness refuse spawn · nouveau gate requis |
-| Scénarios négatifs | **N3** HEAD modifié · **N5** GO invalide/expiré · **N6** contrat modifié → refus + message |
-| Preuves attendues | Event go_invalidated · refus spawn journalisé |
-| Dépendances | VS-BL-US-011 (GO) · VS-BL-US-017 |
-| Risque | Élevé (runtime) |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Réparation automatique du GO |
-| Notes delivery | Variante UX obligatoire Incr. A mock + B/D réel |
-
-### VS-BL-US-013 — Adaptateur fin sans autorité
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E4 / C4.1 |
-| Acteur | Adaptateur (Studio→Harness) |
-| Story | En tant que Morris, Je veux que Studio transmette sans élargir ni décider, Afin de préserver Option B. |
-| Valeur démontrée | Garde-fou architecture Option B |
-| Sources | VS-FR-13 · VS-BR-12 · VS-CAND-05 |
-| UX / état / variante | Transverse (pas de 5e route) |
-| Préconditions | Actions Studio à transmettre ; harness joignable (fixture ou réel) |
-| Critères d’acceptation | **Given** action Studio **When** envoi via adaptateur **Then** aucune décision inventée · pas de seconde vérité · pas d’assouplissement policy · harness reste autorité d’application des gates |
-| Scénarios négatifs | Tentative d’élargissement périmètre côté Studio → refus / non transmission |
-| Preuves attendues | Trace transmission · comparaison payload vs preuves harness |
-| Dépendances | VS-BL-US-009 · VS-BL-US-011 |
-| Risque | Élevé (absent aujourd’hui) |
-| Taille relative | L |
-| Gate Morris éventuel | — |
-| Hors périmètre | Spécification API/protocole figée · choix stack |
-| Notes delivery | Spike candidat interface en cycle archi ultérieur — pas ici |
-
-### VS-BL-US-014 — Afficher états dérivés depuis preuves/journal
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E4 / C4.2 |
-| Acteur | Studio |
-| Story | En tant que Morris, Je veux des états dérivés des preuves/journal, Afin que Git/preuves priment. |
-| Valeur démontrée | Studio = cockpit dérivé (pas vérité) |
-| Sources | VS-FR-13 · VS-AC-11 · VS-BR-12 · VS-UX-FR-12 |
-| UX / état / variante | Tous états · source de statut visible |
-| Préconditions | Événements/preuves harness disponibles |
-| Critères d’acceptation | **Given** événements harness **When** UI rafraîchit **Then** statut source explicite (Git / harness / dérivé) · pas d’état inventé · cohérence VS-AC-11 |
-| Scénarios négatifs | Preuves absentes → message incomplet · pas de faux succès |
-| Preuves attendues | UI source statut · cohérence avec journal |
-| Dépendances | VS-BL-US-013 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Cache UI faisant autorité |
-| Notes delivery | Incr. B |
-
-### VS-BL-US-015 — Harness autonome sans Studio
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E4 / C4.3 |
-| Acteur | Morris / Harness |
-| Story | En tant que Morris, Je veux exécuter le scénario via harness seul, Afin de ne pas dépendre de l’UI. |
-| Valeur démontrée | Résilience + non-régression hors UI |
-| Sources | VS-FR-14 · VS-BR-13 · VS-AC-12 · VS-CAND-10 |
-| UX / état / variante | — (CLI / hors Studio) · Aucun spécifique UI |
-| Préconditions | Contrat + GO (fixture ou réel selon incrément) |
-| Critères d’acceptation | **Given** contrat+GO **When** harness exécute en mode autonome **Then** preuve BeB produite sans Studio · mêmes garde-fous gates |
-| Scénarios négatifs | GO absent → refus spawn (N4) même sans Studio |
-| Preuves attendues | Journal/preuves harness · VS-AC-12 |
-| Dépendances | VS-BL-US-009 · capitalisation spikes `29`–`31` |
-| Risque | Faible (déjà partiel) |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Remplacer Studio · supprimer Option B cockpit |
-| Notes delivery | Chemin de contrôle parallèle obligatoire |
-
-### VS-BL-US-016 — Reprise après perte de session Studio
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E4 / C4.4 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux reprendre après perte de session sans inventer d’état, Afin d’éviter un faux succès. |
-| Valeur démontrée | Reprise sûre · anti faux succès |
-| Sources | **N16** · VS-AC-11 · VS-FR-13 · VS-BR-12 · Doc 33 N16 |
-| UX / état / variante | Reprise sur vues P0 selon état dérivé |
-| Préconditions | Cycle existant avec preuves/Git ; session Studio perdue |
-| Critères d’acceptation | **Given** session Studio perdue **When** rechargement **Then** états rechargés **uniquement** depuis preuves/Git · message si incomplet · **aucun** état inventé · pas de GO implicite |
-| Scénarios négatifs | **N16** Preuves incomplètes → reprise partielle explicite · blocage actions dangereuses |
-| Preuves attendues | Scénario reprise · source statut post-reload |
-| Dépendances | VS-BL-US-014 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Persistance locale faisant autorité · inventaire session storage comme vérité |
-| Notes delivery | N16 couvert ici — **pas** dans US-003 |
-
-### VS-BL-US-017 — Revalidation GO avant Cursor
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E5 / C5.1 |
-| Acteur | Harness |
-| Story | En tant que Morris, Je veux une revalidation déterministe avant spawn, Afin d’appliquer le gate. |
-| Valeur démontrée | Autorité harness sur le spawn |
-| Sources | VS-FR-07 · VS-BR-07 · VS-AC-02 · VS-AC-03 · N4 · N5 |
-| UX / état / variante | VS-UX-05 (état dérivé refus/OK) |
-| Préconditions | Demande de spawn ; GO éventuellement présent |
-| Critères d’acceptation | **Given** spawn demandé **When** harness revalide **Then** hash/HEAD/branche/allowlist OK sinon refus · aucun spawn si N4/N5 |
-| Scénarios négatifs | **N4** GO absent → refus · **N5** GO invalide → refus · journal |
-| Preuves attendues | Event revalidation_ok/refused |
-| Dépendances | VS-BL-US-011 · VS-BL-US-012 |
-| Risque | Élevé |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Revalidation côté Studio comme autorité |
-| Notes delivery | Incr. B fixture · Incr. D live |
-
-### VS-BL-US-018 — Exécution Cursor sandbox Markdown
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E5 / C5.2 · C5.4 |
-| Acteur | Cursor / Harness |
-| Story | En tant que Morris, Je veux que Cursor crée le Markdown autorisé uniquement, Afin de prouver le BeB sandbox. |
-| Valeur démontrée | Preuve BeB Markdown bornée |
-| Sources | VS-FR-08 · VS-FR-09 · VS-BR-08 · VS-BR-09 · VS-AC-04 · VS-AC-09 · VS-CAND-01 · VS-CAND-06 · VS-CAND-07 · VS-UX-05 · N7 · N8 · N9 · N10 |
-| UX / état / variante | VS-UX-05 · frame `51:540` · Cycle actif |
-| Préconditions | GO revalidé (US-017) · allowlist connue |
-| Critères d’acceptation | **Given** GO revalidé **When** exécution **Then** fichier sandbox allowlist · remote writes=0 · journal dérivé · pas de commandes inventées en UI comme réussies |
-| Scénarios négatifs | **N7** hors allowlist STOP/refus · **N8** action interdite STOP · **N9** Cursor indisponible échec explicite · **N10** exit≠0 rapport échec |
-| Preuves attendues | Fichier sandbox · CursorExecutionReport · remote=0 |
-| Dépendances | VS-BL-US-017 · VS-BL-US-013 (si via Studio) |
-| Risque | Élevé |
-| Taille relative | L |
-| Gate Morris éventuel | G-VS-LIVE-CURSOR |
-| Hors périmètre | Écriture remote · multi-fichier hors allowlist · claim prod |
-| Notes delivery | Capitaliser spike e2e sandbox ; fixture avant live |
-
-### VS-BL-US-019 — STOP prioritaire pendant exécution
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E5 / C5.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux un STOP immédiat prioritaire, Afin d’interrompre toute activité en cours. |
-| Valeur démontrée | Sécurité opérateur |
-| Sources | VS-FR-10 · VS-BR-10 · VS-AC-05 · VS-CAND-09 · N12 · VS-UX-FR-06 · VS-UX-VAR STOP `52:18` |
-| UX / état / variante | VS-UX-02/05/07 · variante STOP `52:18` |
-| Préconditions | Phase active (qualif, exécution ou analyse) |
-| Critères d’acceptation | **Given** phase active **When** STOP **Then** état `stoppé` · event journalisé · STOP ≠ Abandonner ≠ NO-GO · reprise éventuelle sous **nouveau GO** si re-exec |
-| Scénarios négatifs | **N12** STOP → immédiat · pas de continuation silencieuse |
-| Preuves attendues | Event stop · UI variante STOP |
-| Dépendances | VS-BL-US-004 / 018 / 023 selon phase |
-| Risque | Moyen |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Auto-reprise sans GO |
-| Notes delivery | Accessible clavier (VS-UX-FR-06) |
-
-### VS-BL-US-020 — Timeout ≠ GO
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E5 / C5.3 |
-| Acteur | Système / Harness |
-| Story | En tant que Morris, Je veux qu’un timeout stoppe sans autoriser, Afin d’éviter un GO implicite. |
-| Valeur démontrée | Anti-autorisation implicite |
-| Sources | VS-BR-11 · VS-CAND-09 · N11 |
-| UX / état / variante | VS-UX-05 · message timeout |
-| Préconditions | Exécution en cours avec timer |
-| Critères d’acceptation | **Given** exécution **When** timeout **Then** `stoppé` · message « timeout ≠ GO » · pas de spawn ultérieur sans nouveau GO |
-| Scénarios négatifs | **N11** timeout → stoppé · pas de succès implicite |
-| Preuves attendues | Event timeout · absence de GO dérivé |
-| Dépendances | VS-BL-US-018 |
-| Risque | Moyen |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Allongement silencieux du timeout comme succès |
-| Notes delivery | Valeur numérique timeout = hypothèse delivery / spike — non figée ici |
-
-### VS-BL-US-021 — Rapport et fichiers touchés
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E6 / C6.1 · C6.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux le rapport Cursor/harness et l’aperçu sanitisé, Afin de contrôler le résultat. |
-| Valeur démontrée | Contrôle post-exécution |
-| Sources | VS-FR-11 · VS-UX-06 · VS-AC-09 · N13 |
-| UX / état / variante | VS-UX-06 · frame `51:678` |
-| Préconditions | Fin d’exécution (succès ou échec rapporté) |
-| Critères d’acceptation | **Given** fin exécution **When** rapport disponible **Then** statut · fichiers touchés · remote=0 · réserves · CTA analyse conditionné |
-| Scénarios négatifs | **N13** Rapport absent → bloque analyse · message |
-| Preuves attendues | CursorExecutionReport · aperçu sanitisé |
-| Dépendances | VS-BL-US-018 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Affichage de secrets dans l’aperçu |
-| Notes delivery | Sanitisation obligatoire (lien US-028) |
-
-### VS-BL-US-022 — Review pack prérequis analyse / clôture
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E6 / C6.2 · C6.4 |
-| Acteur | Système / Morris |
-| Story | En tant que Morris, Je veux bloquer si pack incomplet, Afin d’éviter une clôture positive fallacieuse. |
-| Valeur démontrée | Garde-fou clôture positive |
-| Sources | VS-FR-17 · VS-BR-15 · VS-AC-06 · N14 |
-| UX / état / variante | VS-UX-06/08/10 (blocage CTA) |
-| Préconditions | Tentative d’analyse ou clôture positive |
-| Critères d’acceptation | **Given** pack incomplet **When** analyse ou clôture positive demandée **Then** refus explicite · pas de verdict positif · pas de CycleSummary « succès » |
-| Scénarios négatifs | **N14** pack incomplet → bloque clôture positive |
-| Preuves attendues | Event pack_incomplete_blocked |
-| Dépendances | VS-BL-US-021 |
-| Risque | Moyen |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Clôture positive forcée |
-| Notes delivery | Incr. B fixture · E réel |
-
-### VS-BL-US-023 — Analyse GPT verdict candidat
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E7 / C7.1 · C7.2 · C7.4 |
-| Acteur | Morris / GPT |
-| Story | En tant que Morris, Je veux une analyse GPT manuelle du paquet de preuves, Afin d’obtenir un verdict **candidat**. |
-| Valeur démontrée | Aide à la décision sans autorité GPT |
-| Sources | VS-FR-12 · VS-BR-14 · VS-CAND-08 · VS-UX-07/08 · VS-FR-16 · VS-BR-03 · N15 · VS-AC-06 · VS-AC-07 |
-| UX / état / variante | VS-UX-07 → VS-UX-08 · frames `51:816` / `51:954` |
-| Préconditions | Rapport + pack OK (US-021/022) |
-| Critères d’acceptation | **Given** rapport+pack OK **When** Lancer analyse **Then** appel GPT distinct de la qualif · compteur analyse · plafond « À définir » · no retry · verdict étiqueté **candidat** · pas de clôture auto |
-| Scénarios négatifs | **N15** Verdict invalide → rejet fail-closed · FinOps visible · correction/abandon |
-| Preuves attendues | GptVerdictCandidate · events FinOps analyse |
-| Dépendances | VS-BL-US-022 |
-| Risque | Élevé (live) |
-| Taille relative | L |
-| Gate Morris éventuel | G-VS-LIVE-GPT (analyse) |
-| Hors périmètre | Clôture automatique · retry auto |
-| Notes delivery | Incr. E ; fixture possible avant live |
-
-### VS-BL-US-024 — Afficher prouvé / non prouvé / écarts
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E7 / C7.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux voir prouvé/non prouvé/écarts/risques/réserves, Afin de décider en conscience. |
-| Valeur démontrée | Lisibilité du verdict candidat |
-| Sources | VS-FR-12 · VS-UX-08 · VS-UX-FR-08 · VS-BR-14 |
-| UX / état / variante | VS-UX-08 |
-| Préconditions | Verdict candidat valide |
-| Critères d’acceptation | **Given** verdict valide **When** affichage **Then** sections prouvé / non prouvé / écarts / risques / réserves / décisions Morris requises · étiquette candidat · pas de bouton clôture auto |
-| Scénarios négatifs | Section obligatoire manquante → pas de passage décision finale |
-| Preuves attendues | Screenshot VS-UX-08 |
-| Dépendances | VS-BL-US-023 |
-| Risque | Faible |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Reformulation comme décision Morris |
-| Notes delivery | — |
-
-### VS-BL-US-025 — Décision finale Morris
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E8 / C8.1 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux clôturer, corriger, relancer (nouveau GO) ou abandonner, Afin de conclure le cycle. |
-| Valeur démontrée | Autorité de clôture humaine |
-| Sources | VS-FR-12 · VS-AC-07 · VS-AC-08 · VS-UX-09 · VS-UX-FR-09 · VS-BR-04 · VS-BR-17 |
-| UX / état / variante | VS-UX-09 · frame `51:1079` |
-| Préconditions | Verdict candidat affiché (ou chemin NO-GO/abandon documenté) |
-| Critères d’acceptation | **Given** verdict candidat **When** décision Morris **Then** MorrisFinalDecision enregistrée · conséquences explicites · pas d’actions Git groupées · pas de claim MVP/prod |
-| Scénarios négatifs | Verdict invalide → pas de clôture auto (VS-AC-07) |
-| Preuves attendues | MorrisFinalDecision journalisée |
-| Dépendances | VS-BL-US-024 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Merge auto · L5 · multi-projet |
-| Notes delivery | 4 actions finales distinctes du gate d’exécution |
-
-### VS-BL-US-026 — Clôture slice-only
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E8 / C8.2 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux une synthèse du slice courant uniquement, Afin d’éviter un faux portefeuille multi-projet. |
-| Valeur démontrée | Clôture honnête bornée |
-| Sources | VS-UX-10 · VS-UX-FR-17 · VS-BR-17 · VS-CAND-11 |
-| UX / état / variante | VS-UX-10 · frame `51:1204` · vue synthèse |
-| Préconditions | Décision finale de clôture |
-| Critères d’acceptation | **Given** clôture **When** affichage CycleSummary **Then** requestId, décision, MD, preuves, FinOps, traçabilité du **slice courant** · **aucun** portfolio multi-projet · aucun claim MVP/production-ready |
-| Scénarios négatifs | Tentative d’afficher autres projets → hors périmètre · non rendu |
-| Preuves attendues | CycleSummary slice-only |
-| Dépendances | VS-BL-US-025 |
-| Risque | Faible |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Portfolio · Studio complete · industrialisation |
-| Notes delivery | Correctif UX validé — ne pas rouvrir |
-
-### VS-BL-US-027 — Relance sous nouveau GO
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E8 / C8.3 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux relancer après STOP/échec uniquement avec nouveau GO, Afin de respecter les gates. |
-| Valeur démontrée | Ré-exécution gouvernée |
-| Sources | Doc 33 matrice GO / transitions `stoppé` · N11 · N12 · VS-BR-07 · VS-CAND-09 |
-| UX / état / variante | VS-UX-09 (Relancer) → retour gate |
-| Préconditions | État `stoppé` ou correction exigeant re-exec |
-| Critères d’acceptation | **Given** stoppé ou correction avec re-exec **When** Relancer **Then** nouveau contrat et/ou nouveau GO exigés · pas de réutilisation GO stale |
-| Scénarios négatifs | Relance sans nouveau GO → refus |
-| Preuves attendues | Event relaunch_requires_new_go |
-| Dépendances | VS-BL-US-019 · VS-BL-US-020 · VS-BL-US-025 |
-| Risque | Moyen |
-| Taille relative | S |
-| Gate Morris éventuel | Nouveau GO (humain) |
-| Hors périmètre | Réutilisation GO après timeout/STOP |
-| Notes delivery | — |
-
-### VS-BL-US-028 — Interdiction secrets & PII
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E9 / C9.1 · C9.2 |
-| Acteur | Système / Morris |
-| Story | En tant que Morris, Je veux zéro secret et zéro PII réelle dans UI/logs/preuves, Afin de respecter le RGPD minimal. |
-| Valeur démontrée | Sécurité / conformité minimale |
-| Sources | VS-FR-15 · VS-BR-16 · VS-CAND-13 · VS-AC-10 · VS-UX-FR-10 |
-| UX / état / variante | Transverse · tous écrans/preuves |
-| Préconditions | Toute surface UI ou preuve du slice |
-| Critères d’acceptation | **Given** n’importe quel écran/preuve **When** inspection **Then** pas de token/clé/secret · demande de test sans PII réelle · masquage si donnée sensible mock |
-| Scénarios négatifs | Fuite détectée → STOP livraison surface · correction obligatoire |
-| Preuves attendues | Checklist audit secrets · revue preuves |
-| Dépendances | Toutes stories UI/preuves |
-| Risque | Élevé (si oubli) |
-| Taille relative | S |
-| Gate Morris éventuel | — |
-| Hors périmètre | Stockage secrets en clair « pour debug » |
-| Notes delivery | Transverse Incr. A+ |
-
-### VS-BL-US-029 — Observabilité IDs + fuseau + source statut
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E10 / C10.1 · C10.2 · C10.3 · C10.4 |
-| Acteur | Système |
-| Story | En tant que Morris, Je veux requestId/correlationId/contractId/eventId, timestamps avec fuseau et source de statut, Afin de reconstruire sans faux succès. |
-| Valeur démontrée | RUN readiness minimale POC |
-| Sources | VS-CAND-15 · Doc 32 § observabilité · VS-UX-FR-12 · VS-AC-11 |
-| UX / état / variante | Transverse |
-| Préconditions | Événements produits |
-| Critères d’acceptation | **Given** événement **When** journal/UI **Then** IDs présents · timestamps avec TZ · source statut · durées séparées (qualif ≠ exec ≠ analyse) · aucun faux succès |
-| Scénarios négatifs | Event sans ID → non accepté comme preuve de progression |
-| Preuves attendues | Journal corrélé · export preuves |
-| Dépendances | VS-BL-US-002 |
-| Risque | Moyen |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Stack observabilité industrielle (Datadog, etc.) |
-| Notes delivery | POC local — pas d’industrialisation |
-
-### VS-BL-US-030 — FinOps plafond À définir (qualif + analyse)
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | E2 / E7 · C2.4 · C7.4 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux voir les appels séparés et pouvoir arrêter avant une nouvelle consommation, Afin de maîtriser FinOps. |
-| Valeur démontrée | Contrôle consommation GPT |
-| Sources | VS-FR-16 · VS-CAND-14 · VS-BR-03 · VS-UX-FR-07 |
-| UX / état / variante | VS-UX-02 / VS-UX-07 · compteurs séparés |
-| Préconditions | Au moins un appel GPT (fixture ou live) |
-| Critères d’acceptation | **Given** appels GPT **When** UI **Then** compteurs qualif ≠ analyse · plafond affiché « À définir » · possibilité d’arrêter avant nouvel appel · pas de € inventé · pas de retry auto |
-| Scénarios négatifs | Dépassement si plafond numérique futur → refus nouvel appel (après G-VS-LIMIT) |
-| Preuves attendues | UI FinOps · events compteurs |
-| Dépendances | VS-BL-US-004 · VS-BL-US-023 |
-| Risque | Moyen (valeur absente) |
-| Taille relative | S |
-| Gate Morris éventuel | G-VS-LIMIT (valeur numérique) |
-| Hors périmètre | Inventer un plafond numérique |
-| Notes delivery | Réserve VS-CAND-14 conservée |
-
-### VS-BL-US-031 — Mapping dix états / quatre vues (cockpit)
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | Transverse UX E1–E8 |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux naviguer les dix états dans les quatre vues P0, Afin de ne pas créer dix routes. |
-| Valeur démontrée | Preuve UX structurelle du slice |
-| Sources | VS-CAND-02 · VS-UX-01…10 · VS-UX-FR-01 · VS-UX-FR-02 · VS-AC-01 |
-| UX / état / variante | Quatre vues P0 · dix états |
-| Préconditions | Incrément A (mock) ou ultérieur |
-| Critères d’acceptation | **Given** Incrément A **When** parcours mock des 10 états **Then** chaque état accessible via vue mappée · **aucune** 5e route VS · shell P0 conservé |
-| Scénarios négatifs | Ajout route dédiée par état → STOP documentaire / arbitrage Morris |
-| Preuves attendues | Screenshots 10 états / 4 vues · éventuellement Playwright |
-| Dépendances | — |
-| Risque | Moyen (dérive routes) |
-| Taille relative | L |
-| Gate Morris éventuel | — |
-| Hors périmètre | Nouvelles routes · redesign shell |
-| Notes delivery | Prioritaire Incr. A |
-
-### VS-BL-US-032 — Variantes Loading / Erreur / STOP / GO invalide
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | Transverse UX |
-| Acteur | Morris |
-| Story | En tant que Morris, Je veux les variantes d’état non nominales, Afin de gérer Loading, Erreur, STOP et GO invalide. |
-| Valeur démontrée | Couverture UX non nominale |
-| Sources | VS-UX-VAR Loading `52:2` · Erreur `52:10` · STOP `52:18` · GO invalide `52:26` · N1 · N3 · N5 · N12 · VS-UX-FR-05/06/13 |
-| UX / état / variante | Variantes (pas des routes) |
-| Préconditions | Conditions variantes (mock ou réel) |
-| Critères d’acceptation | **Given** conditions variantes **When** affichage **Then** Loading / Erreur fail-closed / STOP / GO invalide distincts, accessibles, non fusionnés avec Abandonner/NO-GO |
-| Scénarios négatifs | Fusion Abandonner↔STOP↔GO invalide → non conforme · correction UI |
-| Preuves attendues | Screenshots 4 variantes |
-| Dépendances | VS-BL-US-005 · 006 · 012 · 019 · 031 |
-| Risque | Faible |
-| Taille relative | M |
-| Gate Morris éventuel | — |
-| Hors périmètre | Nouvelles variantes non arbitrées |
-| Notes delivery | Incr. A mock obligatoire |
-
-### VS-BL-US-033 — Scénarios négatifs N1–N16 (couverture transverse QA)
-
-| Champ | Contenu |
-|-------|---------|
-| Epic / Capability | Transverse QA |
-| Acteur | Morris / Système |
-| Story | En tant que Morris, Je veux que chaque N1–N16 soit testable via une story dédiée ou cette couverture QA, Afin d’éviter les trous. |
-| Valeur démontrée | Complétude QA fail-closed |
-| Sources | N1–N16 · Doc 33 §7 · matrice §9 |
-| UX / état / variante | Selon N (variantes / états concernés) |
-| Préconditions | Stories couvrantes primaires disponibles selon incrément |
-| Critères d’acceptation | **Given** matrice §9 **When** revue QA **Then** chaque N a story primaire + AC/négatif ou statut différé justifié · aucun N ignoré · fail-closed vérifié · preuve identifiée |
-| Scénarios négatifs | N sans couverture ni justification → STOP documentaire |
-| Preuves attendues | Matrice §9 + cas de test par N |
-| Dépendances | Stories 004–023, 016, etc. |
-| Risque | Moyen (dette si différé) |
-| Taille relative | L |
-| Gate Morris éventuel | — |
-| Hors périmètre | Inventer de nouveaux N hors doc 33 |
-| Notes delivery | Story transverse de traçabilité — ne remplace pas les AC des stories primaires |
-
----
-
-## 8. Corrections de traçabilité (ce correctif)
-
-| Story | Avant (erreur) | Après (corrigé) |
-|-------|----------------|-----------------|
-| **VS-BL-US-003** | Sources `N16 partiel` (faux : N16 = perte session) | Étape 1 / abandon pré-qualif · FinOps 0 · VS-UX-01 · VS-FR-16 (conso=0) · VS-BR-03 · **sans N16** |
-| **VS-BL-US-011** | Sources `VS-FR-15/16 (UX)` (faux : FR-15=secrets, FR-16=FinOps) | **VS-FR-04** · **VS-UX-FR-15** · **VS-UX-FR-16** · VS-UX-04 · Doc 36 §8 · VS-CAND-04 · VS-BR-04 |
-| **VS-BL-US-016** | Couverture N16 OK mais à renforcer | N16 explicitement primaire ici |
-| **32 stories** | Champs manquants (Valeur, Préconditions, Négatifs, Preuves, Déps, Risque, Gate, Hors, Notes) | **16 champs** présents partout |
-
----
-
-## 9. Matrice de couverture (recalculée)
-
-| Famille | ID source | Description courte | Story couvrante | Incrément | Preuve attendue | Statut | Réserve / justification |
-|---------|-----------|--------------------|-----------------|-----------|-----------------|--------|-------------------------|
-
-| VS-FR | VS-FR-01 | Saisie demande + requestId | 001,002 | A | UI requestId | couvert | — |
-| VS-FR | VS-FR-02 | Qualif invalide fail-closed | 006,033 | B/C | validateur + N1 | couvert | — |
-| VS-FR | VS-FR-03 | Qualif lisible avant GO | 007 | A/B | UI VS-UX-03 | couvert | — |
-| VS-FR | VS-FR-04 | GO/NO-GO/correction/abandon | 011,003,008,025 | A/B | UI 4 actions + abandons | couvert | 003=abandon pré-qualif ; 011=gate |
-| VS-FR | VS-FR-05 | GO ancré IDs/hash/HEAD… | 009,010 | A/B | dossier gate | couvert | — |
-| VS-FR | VS-FR-06 | Invalidation GO | 012 | B/D | bandeau + refus | couvert | — |
-| VS-FR | VS-FR-07 | Revalidation avant Cursor | 017 | B/D | harness | couvert | — |
-| VS-FR | VS-FR-08 | Cursor sandbox only | 018 | D | allowlist file | couvert | — |
-| VS-FR | VS-FR-09 | Pas d’écriture remote | 018,021 | D | remote=0 | couvert | — |
-| VS-FR | VS-FR-10 | STOP prioritaire | 019 | B/D | STOP event | couvert | — |
-| VS-FR | VS-FR-11 | Rapport prérequis analyse | 021,022 | B/E | rapport | couvert | — |
-| VS-FR | VS-FR-12 | Verdict candidat ; Morris clôture | 023–025 | E | verdict+décision | couvert | — |
-| VS-FR | VS-FR-13 | États dérivés | 014,016 | B | source statut | couvert | — |
-| VS-FR | VS-FR-14 | Harness sans Studio | 015 | B | CLI/preuves | couvert | — |
-| VS-FR | VS-FR-15 | Pas de secrets | 028 | A+ | audit | couvert | — |
-| VS-FR | VS-FR-16 | FinOps visible | 005,030,003 | A/C/E | compteurs | couvert | valeur plafond différée |
-| VS-FR | VS-FR-17 | Pack incomplet bloque | 022 | B/E | blocage | couvert | — |
-| VS-BR | VS-BR-01 | Rejet hors contrat | 006 | B/C | reject event | couvert | — |
-| VS-BR | VS-BR-02 | Pas de fallback permissif | 006,008 | B/C | AC négatifs | couvert | — |
-| VS-BR | VS-BR-03 | Pas de retry auto | 005,008,023,030 | C/E | UI no retry | couvert | — |
-| VS-BR | VS-BR-04 | GPT ne décide pas | 011,023,025 | A/E | étiquettes candidat | couvert | — |
-| VS-BR | VS-BR-05 | GO lié hash/HEAD… | 009,010,011 | B | ancrage | couvert | — |
-| VS-BR | VS-BR-06 | Changement → GO invalide | 012 | B/D | invalidation | couvert | — |
-| VS-BR | VS-BR-07 | Revalidation spawn | 017,027 | B/D | revalidation | couvert | — |
-| VS-BR | VS-BR-08 | Sandbox / hors allowlist STOP | 018 | D | N7 | couvert | — |
-| VS-BR | VS-BR-09 | Pas remote Git | 018 | D | remote=0 | couvert | — |
-| VS-BR | VS-BR-10 | STOP prioritaire | 019 | B/D | N12 | couvert | — |
-| VS-BR | VS-BR-11 | Timeout ≠ GO | 020 | D | N11 | couvert | — |
-| VS-BR | VS-BR-12 | Studio ≠ vérité | 013,014,016 | B | Option B | couvert | — |
-| VS-BR | VS-BR-13 | Harness autonome | 015 | B | VS-AC-12 | couvert | — |
-| VS-BR | VS-BR-14 | Verdict = candidat | 023,024 | E | étiquette | couvert | — |
-| VS-BR | VS-BR-15 | Pack incomplet | 022 | E | N14 | couvert | — |
-| VS-BR | VS-BR-16 | Secrets jamais affichés | 028 | A+ | audit | couvert | — |
-| VS-BR | VS-BR-17 | Claims interdits | 025,026 | E | CycleSummary | couvert | — |
-| VS-AC | VS-AC-01 | Parcours 1→10 | 031,001–026 | A–E | parcours mock/réel | couvert | agrégé multi-stories |
-| VS-AC | VS-AC-02 | GO refusé HEAD≠ | 012,017 | B/D | N3/revalidation | couvert | — |
-| VS-AC | VS-AC-03 | GO refusé hash≠ | 012,017 | B/D | N6 | couvert | — |
-| VS-AC | VS-AC-04 | Hors allowlist pas succès | 018 | D | N7 | couvert | — |
-| VS-AC | VS-AC-05 | STOP journalisé | 019 | B/D | event | couvert | — |
-| VS-AC | VS-AC-06 | Sans rapport/pack pas analyse OK | 021,022,023 | E | blocage | couvert | — |
-| VS-AC | VS-AC-07 | Verdict invalide pas clôture auto | 023,025 | E | N15 | couvert | — |
-| VS-AC | VS-AC-08 | Clôture via MorrisFinalDecision | 025 | E | décision | couvert | — |
-| VS-AC | VS-AC-09 | Pas preuve écriture distante | 018,021 | D | remote=0 | couvert | — |
-| VS-AC | VS-AC-10 | Pas secret UI/preuves | 028 | A+ | audit | couvert | — |
-| VS-AC | VS-AC-11 | États cohérents preuves | 014,016,029 | B | dérivé | couvert | — |
-| VS-AC | VS-AC-12 | Harness sans Studio | 015 | B | CLI | couvert | — |
-| N | N1 | Qualif GPT invalide | 006,032,033 | C | fail-closed | couvert | — |
-| N | N2 | Sources Git indisponibles | 004,033 | B | Truth Check STOP | couvert | — |
-| N | N3 | HEAD modifié après qualif | 012,032,033 | B/D | invalidation | couvert | — |
-| N | N4 | GO absent | 017,015,033 | B/D | refus spawn | couvert | — |
-| N | N5 | GO invalide/expiré | 012,017,032,033 | D | refus | couvert | — |
-| N | N6 | Contrat modifié après GO | 012,033 | D | refus | couvert | — |
-| N | N7 | Fichier hors allowlist | 018,033 | D | STOP/refus | couvert | — |
-| N | N8 | Action interdite | 018,033 | D | STOP | couvert | — |
-| N | N9 | Cursor indisponible | 018,033 | D | échec explicite | couvert | — |
-| N | N10 | Cursor exit≠0 | 018,021,033 | D | rapport échec | couvert | — |
-| N | N11 | Timeout | 020,027,033 | D | timeout≠GO | couvert | — |
-| N | N12 | STOP Morris | 019,027,032,033 | D | stoppé | couvert | — |
-| N | N13 | Rapport absent | 021,022,033 | D/E | blocage analyse | couvert | — |
-| N | N14 | Pack incomplet | 022,033 | E | blocage clôture | couvert | — |
-| N | N15 | Verdict GPT invalide | 023,033 | E | fail-closed | couvert | — |
-| N | N16 | Perte session Studio | 016,033 | B | reprise dérivée | couvert | Corrigé : plus US-003 |
-| VS-CAND | VS-CAND-01 | Scénario Markdown sandbox | 001,018 | A/D | MD sandbox | couvert | — |
-| VS-CAND | VS-CAND-02 | Parcours dix étapes | 031 | A | 10 états | couvert | — |
-| VS-CAND | VS-CAND-03 | Qualif visible avant GO | 007 | A/B | VS-UX-03 | couvert | — |
-| VS-CAND | VS-CAND-04 | GO lié hash/HEAD… | 009–012 | B | ancrage | couvert | — |
-| VS-CAND | VS-CAND-05 | Studio dérivé / harness autorité | 013,014 | B | Option B | couvert | — |
-| VS-CAND | VS-CAND-06 | Pas écriture remote | 018 | D | remote=0 | couvert | — |
-| VS-CAND | VS-CAND-07 | Cursor sandbox après GO | 018 | D | spawn | couvert | — |
-| VS-CAND | VS-CAND-08 | Verdict candidat | 023–025 | E | étiquette | couvert | — |
-| VS-CAND | VS-CAND-09 | STOP ; timeout≠GO | 019,020 | D | events | couvert | — |
-| VS-CAND | VS-CAND-10 | Harness autonome | 015 | B | CLI | couvert | — |
-| VS-CAND | VS-CAND-11 | Succès = VS-AC + critère central | 026,033 | E | AC | couvert | — |
-| VS-CAND | VS-CAND-12 | Séquencement UX→backlog→delivery | meta docs 38–40 | — | ce cycle | couvert | observé cycle |
-| VS-CAND | VS-CAND-13 | Pas PII / secrets | 028 | A+ | audit | couvert | — |
-| VS-CAND | VS-CAND-14 | Plafond + no retry | 005,030 | C/E | UI À définir | couvert | valeur numérique **différée** |
-| VS-CAND | VS-CAND-15 | IDs corrélation | 002,029 | A/B | IDs UI/journal | couvert | — |
-| VS-UX | VS-UX-01 | Nouvelle demande | 001,003,031 | A | frame 51:3 | couvert | — |
-| VS-UX | VS-UX-02 | Qualification en cours | 004,005,006,030,032 | A/C | 51:139 | couvert | — |
-| VS-UX | VS-UX-03 | Qualification proposée | 007,008 | A/B | 51:277 | couvert | — |
-| VS-UX | VS-UX-04 | Gate Morris | 009–012,011 | A/B | 51:415 | couvert | — |
-| VS-UX | VS-UX-05 | Exécution | 017–020 | B/D | 51:540 | couvert | — |
-| VS-UX | VS-UX-06 | Rapport | 021,022 | B/D | 51:678 | couvert | — |
-| VS-UX | VS-UX-07 | Analyse GPT | 023,030,032 | E | 51:816 | couvert | — |
-| VS-UX | VS-UX-08 | Verdict proposé | 024 | E | 51:954 | couvert | — |
-| VS-UX | VS-UX-09 | Décision Morris | 025,027 | E | 51:1079 | couvert | — |
-| VS-UX | VS-UX-10 | Clôture | 026 | A/E | 51:1204 | couvert | — |
-| VAR | VS-UX-VAR Loading `52:2` | Loading GPT | 005,032 | A/C | screenshot | couvert | — |
-| VAR | VS-UX-VAR Erreur `52:10` | Erreur fail-closed | 006,032 | A/C | screenshot | couvert | — |
-| VAR | VS-UX-VAR STOP `52:18` | STOP Morris | 019,032 | A/D | screenshot | couvert | — |
-| VAR | VS-UX-VAR GO invalide `52:26` | GO invalide | 012,032 | A/D | screenshot | couvert | — |
-
-**Contrôle :** aucune source orpheline · aucune story inexistante · N16 ≠ US-003 · VS-FR-15/16 ≠ sources des 4 actions gate.
-
-**VS-CAND-14 :** plafond **obligatoire** couvert ; valeur numérique **différée** (À définir) — justifié (G-VS-LIMIT).
-
----
-
-## 10. Traçabilité rapide stories → sources
-
-| Story | FR/BR/AC/N/UX/CAND principaux |
-|-------|-------------------------------|
-| 001–003 | FR-01/16 · UX-01 · CAND-01/15 · abandon pré-qualif (**pas N16**) |
-| 004–008 | FR-02/03/04/16 · BR-01/02/03 · N1/N2 · UX-02/03 · VAR Loading/Erreur |
-| 009–012 | FR-04/05/06 · BR-04/05/06 · AC-02/03 · N3/N5/N6 · UX-04 · UX-FR-15/16 · VAR GO invalide |
-| 013–016 | FR-13/14 · BR-12/13 · AC-11/12 · **N16→016** · CAND-05/10 |
-| 017–020 | FR-07/08/09/10 · BR-07/08/09/10/11 · AC-04/05/09 · N4/N7–N12 · UX-05 · VAR STOP |
-| 021–022 | FR-11/17 · BR-15 · AC-06 · N13/N14 · UX-06 |
-| 023–024 | FR-12/16 · BR-14 · AC-06/07 · N15 · UX-07/08 · CAND-08 |
-| 025–027 | FR-12 · AC-07/08 · BR-04/17 · UX-09/10 · N11/N12 (relance) |
-| 028–030 | FR-15/16 · BR-03/16 · AC-10 · CAND-13/14/15 |
-| 031–033 | UX-01…10 · VAR · N1–N16 · AC-01 · CAND-02 |
-
----
-
-## 11. Risques backlog
-
-| Risque | Mitigation |
-|--------|------------|
-| Adapter Studio↔harness sous-estimé | US-013 L + Incr. B avant live |
-| Confusion 10 routes | US-031 + DoR « pas de nouvelle route » |
-| Live trop tôt | Gates G-VS-LIVE-GPT / CURSOR |
-| MVP implicite | DoD + claims interdits |
-| Plafond non chiffré | Afficher « À définir » ; GO FinOps séparé |
-| Traçabilité erronée | Correctif US-003 / US-011 + matrice §9 |
-
----
-
-## 12. Gates Morris (rappel)
-
-| Gate | Objet |
-|------|-------|
-| G-VS-BL | **Consommé** — produire backlog |
-| G-VS-BL-FIX | **Consommé** — correctif documentaire structure/traçabilité |
-| G-VS-BL-VAL | **Consommé** — validation backlog / `VS-BL-CAND-01`…`12` |
-| G-VS-BL-DOC | **Partiel** — commit/push/draft PR autorisés ; **merge** = GO distinct |
-| G-VS-DEL / G-VS-DEL-A | Delivery (Incr. A retenu, **non autorisé** ici) |
-| G-VS-LIVE-GPT | GPT live |
-| G-VS-LIVE-CURSOR | Cursor live |
-| G-VS-LIMIT | Valeur numérique plafond (**À définir**) |
-| G-VS-CI / MVP / IND | Interdits tant que non GO |
-
----
-
-## 13. Synthèse quantitative
-
-| Élément | Nombre |
-|---------|--------|
-| Epics | 10 |
-| Capabilities | 34 |
-| User stories | **33** (`VS-BL-US-001` … `033`) |
-| Champs obligatoires / story | **16** |
-| Lignes matrice couverture | 91 |
-| Incréments A–E | 5 — séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct (voir `39`) |
-| Références traçabilité corrigées (min.) | US-003 · US-011 (+ champs 32 stories) |
-
-
----
-
-# ANNEXE B — Document 39 intégral (commité)
-
-# SFIA Studio — Story map et séquencement du vertical slice POC
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `39-poc-vertical-slice-story-map-and-sequencing.md` |
-| **Cycle** | 5 — Backlog / user stories |
-| **Profil** | Standard |
-| **Statut** | `validated-for-versioning` — story map et séquencement A–E **validés Morris** ; incrément A **retenu** ; delivery non autorisé |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **Companion** | [`38`](./38-poc-vertical-slice-backlog.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
-| **Décisions Morris** | `VS-BL-CAND-01` (A→E) · `VS-BL-CAND-03` (Incr. A premier périmètre) validées |
-
-> Story map des **dix états** sur **quatre vues P0**.
-> Séquencement A–E validé ; **delivery** de chaque incrément soumis à GO Morris distinct.
-
----
-
-## 1. Backbone — dix étapes / états
-
-```text
-01 Nouvelle demande
- → 02 Qualification en cours
- → 03 Qualification proposée
- → 04 Gate Morris
- → 05 Exécution
- → 06 Rapport disponible
- → 07 Analyse GPT
- → 08 Verdict proposé
- → 09 Décision Morris
- → 10 Clôture
 ```
 
-Variantes transverses : Loading · Erreur fail-closed · STOP · GO invalide.
+## FILE: projects/sfia-studio/app/lib/vertical-slice/mapping.ts
 
----
+```
+import type { StudioRoute } from "@/lib/navigation";
+import type { VsStateId, VsStateMeta } from "./types";
 
-## 2. Mapping états → quatre vues P0
+export const VS_STATES: VsStateMeta[] = [
+  {
+    id: "VS-UX-01",
+    label: "01 — Nouvelle demande",
+    route: "/nouvelle-demande",
+    kind: "state",
+    figmaNode: "51:3",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-02",
+    label: "02 — Qualification en cours",
+    route: "/nouvelle-demande",
+    kind: "state",
+    figmaNode: "51:139",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-03",
+    label: "03 — Qualification proposée",
+    route: "/nouvelle-demande",
+    kind: "state",
+    figmaNode: "51:277",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-04",
+    label: "04 — Gate Morris",
+    route: "/decision",
+    kind: "state",
+    figmaNode: "51:415",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-05",
+    label: "05 — Exécution",
+    route: "/cycle-actif",
+    kind: "state",
+    figmaNode: "51:540",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-06",
+    label: "06 — Rapport disponible",
+    route: "/cycle-actif",
+    kind: "state",
+    figmaNode: "51:678",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-07",
+    label: "07 — Analyse GPT",
+    route: "/cycle-actif",
+    kind: "state",
+    figmaNode: "51:816",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-08",
+    label: "08 — Verdict proposé",
+    route: "/cycle-actif",
+    kind: "state",
+    figmaNode: "51:954",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-09",
+    label: "09 — Décision Morris finale",
+    route: "/decision",
+    kind: "state",
+    figmaNode: "51:1079",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-10",
+    label: "10 — Clôture slice-only",
+    route: "/synthese",
+    kind: "state",
+    figmaNode: "51:1204",
+    dimensions: "1440×1024",
+  },
+  {
+    id: "VS-UX-VAR-LOADING",
+    label: "VAR — Loading GPT",
+    route: "/nouvelle-demande",
+    kind: "variant",
+    figmaNode: "52:2",
+    dimensions: "720×420",
+  },
+  {
+    id: "VS-UX-VAR-ERROR",
+    label: "VAR — Erreur fail-closed",
+    route: "/nouvelle-demande",
+    kind: "variant",
+    figmaNode: "52:10",
+    dimensions: "720×420",
+  },
+  {
+    id: "VS-UX-VAR-STOP",
+    label: "VAR — STOP Morris",
+    route: "/cycle-actif",
+    kind: "variant",
+    figmaNode: "52:18",
+    dimensions: "720×420",
+  },
+  {
+    id: "VS-UX-VAR-GO-INVALID",
+    label: "VAR — GO invalide",
+    route: "/decision",
+    kind: "variant",
+    figmaNode: "52:26",
+    dimensions: "720×420",
+  },
+];
 
-| Vue P0 (route existante) | États VS-UX | Stories principales |
-|--------------------------|-------------|---------------------|
-| **Nouvelle demande** `/nouvelle-demande` | 01, 02, 03 | 001–008, 005, 006, 030, 032 |
-| **Décision Morris / Gate** `/decision` | 04 | 009–012, 032 |
-| **Cycle actif** `/cycle-actif` | 05, 06, 07, 08 | 017–024, 019, 020, 032 |
-| **Décision finale** `/decision` (phase post-verdict) | 09 | 025, 027 |
-| **Vue synthèse / clôture** `/synthese` | 10 | 026 |
+export const VS_STATE_IDS = VS_STATES.map((s) => s.id);
 
-**Règle :** états / panneaux / transitions — **pas** dix routes.
-Toute 5e route VS = STOP / arbitrage Morris.
+export const STUDIO_ROUTES_ONLY: StudioRoute[] = [
+  "/nouvelle-demande",
+  "/decision",
+  "/cycle-actif",
+  "/synthese",
+];
 
----
+export function metaFor(id: VsStateId): VsStateMeta {
+  const found = VS_STATES.find((s) => s.id === id);
+  if (!found) throw new Error(`Unknown VS state: ${id}`);
+  return found;
+}
 
-## 3. Story map (backbone × stories)
+export function defaultStateForRoute(route: StudioRoute): VsStateId {
+  switch (route) {
+    case "/nouvelle-demande":
+      return "VS-UX-01";
+    case "/decision":
+      return "VS-UX-04";
+    case "/cycle-actif":
+      return "VS-UX-05";
+    case "/synthese":
+      return "VS-UX-10";
+  }
+}
 
-| Étape | Stories | Dépendances verticales |
-|-------|---------|------------------------|
-| 01 | 001, 002, 003 (abandon pré-qualif), 031 | — |
-| 02 | 004, 005, 006, 030, 032 | 001 |
-| 03 | 007, 008 | 004–006 |
-| 04 | 009, 010, 011 (4 actions · VS-FR-04 / VS-UX-FR-15/16), 012, 032 | 007, 009 |
-| 05 | 013*, 014, 017, 018, 019, 020, 032 | 011 GO, 017 |
-| 06 | 021, 022 | 018 |
-| 07 | 023, 030, 032 | 021–022 |
-| 08 | 024 | 023 |
-| 09 | 025, 027 | 024 |
-| 10 | 026 | 025 |
-| Transverse | 015, **016 (N16 reprise session)**, 028, 029, 033 | Continu |
+export function parseVsQuery(value: string | null | undefined): VsStateId | null {
+  if (!value) return null;
+  const normalized = value.trim().toUpperCase();
+  const aliases: Record<string, VsStateId> = {
+    "01": "VS-UX-01",
+    "02": "VS-UX-02",
+    "03": "VS-UX-03",
+    "04": "VS-UX-04",
+    "05": "VS-UX-05",
+    "06": "VS-UX-06",
+    "07": "VS-UX-07",
+    "08": "VS-UX-08",
+    "09": "VS-UX-09",
+    "10": "VS-UX-10",
+    LOADING: "VS-UX-VAR-LOADING",
+    ERROR: "VS-UX-VAR-ERROR",
+    STOP: "VS-UX-VAR-STOP",
+    "GO-INVALID": "VS-UX-VAR-GO-INVALID",
+    GO_INVALID: "VS-UX-VAR-GO-INVALID",
+  };
+  if (normalized in aliases) return aliases[normalized];
+  if ((VS_STATE_IDS as string[]).includes(normalized)) {
+    return normalized as VsStateId;
+  }
+  return null;
+}
 
-\*013 adaptateur commence Incr. B, critique avant live.
+export function queryFor(id: VsStateId): string {
+  return id.replace("VS-UX-", "").replace("VAR-", "VAR-");
+}
 
-**Traçabilité N16 :** couverture primaire = **VS-BL-US-016** (+ US-033 QA) — **pas** US-003.
-
----
-
-## 4. Dépendances horizontales
-
-| Lien | Nature |
-|------|--------|
-| 002 IDs ↔ toutes | Corrélation obligatoire |
-| 013 adaptateur ↔ 014/017/018 | Pas de live UI sans adaptateur contrôlé |
-| 012 invalidation ↔ 017 | Même ancrage |
-| 022 pack ↔ 023/025 | Blocage positif |
-| 015 harness autonome ↔ 018 | Chemin de contrôle parallèle |
-| 028 secrets ↔ toutes | Non-négociable |
-
----
-
-## 5. Chemin critique
-
-```text
-US-001 → 004 → 007 → 009/011 → 013/017 → 018 → 021/022 → 023/024 → 025 → 026
 ```
 
-Parallélisable avec prudence : 028/029 (transverse), 015 (harness-only), 031 (shell mapping A).
+## FILE: projects/sfia-studio/app/lib/vertical-slice/types.ts
 
-**Ne pas paralléliser :** gate (011) avec spawn (018) ; analyse (023) avant pack (022) ; live GPT/Cursor avant Incr. B.
+```
+import type { StudioRoute } from "@/lib/navigation";
 
----
+/** Dix états fonctionnels + quatre variantes — pas de routes dédiées. */
+export type VsStateId =
+  | "VS-UX-01"
+  | "VS-UX-02"
+  | "VS-UX-03"
+  | "VS-UX-04"
+  | "VS-UX-05"
+  | "VS-UX-06"
+  | "VS-UX-07"
+  | "VS-UX-08"
+  | "VS-UX-09"
+  | "VS-UX-10"
+  | "VS-UX-VAR-LOADING"
+  | "VS-UX-VAR-ERROR"
+  | "VS-UX-VAR-STOP"
+  | "VS-UX-VAR-GO-INVALID";
 
-## 6. Incréments A–E (séquencement validé Morris ; delivery non autorisé)
+export type VsGateAction = "GO" | "NO-GO" | "CORRIGER" | "ABANDONNER";
 
-> **Incrément A** = premier périmètre delivery **futur** retenu (`VS-BL-CAND-03`). Aucun GO delivery consommé ici.
+export type VsFinalAction =
+  | "CLOTURER"
+  | "CORRIGER"
+  | "RELANCER"
+  | "ABANDONNER";
 
-### Incrément A — Cockpit statique gouverné (**retenu** — premier périmètre futur)
+export interface VsStateMeta {
+  id: VsStateId;
+  label: string;
+  route: StudioRoute;
+  kind: "state" | "variant";
+  figmaNode: string;
+  dimensions: string;
+}
 
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Prouver mapping 10 états / 4 vues avec données mockées |
-| Stories | 001–003, 007*, 010*, 011*, 026*, 031, 032 (UI mock), 028 (checklist) |
-| Live | Aucun |
-| Sortie | Parcours UI navigable ; Abandonner visible ; clôture slice-only mock ; **pas** 10 routes |
-| Gate suivant | Revue visuelle + GO Incr. B (après G-VS-DEL-A) |
-| Preuve | Screenshots / Playwright états |
+export interface VsDemoUiState {
+  stateId: VsStateId;
+  abandoned: boolean;
+  gateAction: VsGateAction | null;
+  gateConfirmed: boolean;
+  abandonConfirmOpen: boolean;
+  finalAction: VsFinalAction | null;
+  stopFired: boolean;
+}
 
-\*Versions mock du dossier gate / qualif.
-
-### Incrément B — Studio ↔ harness contrôlé non live
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Contrat, gates, journal, événements via ports fixture |
-| Stories | 009, 012–017, 014, 015, 016, 019 (STOP simulé), 021–022 (fixture), 029, 033 (N fixture) |
-| Live | Aucun GPT/Cursor réel |
-| Sortie | BeB fixture Studio→harness→preuves ; harness autonome OK |
-| Gate | GO avant Incr. C |
-| Preuve | Journal + proofStore + tests harness existants |
-
-### Incrément C — Qualification GPT réelle bornée
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Qualif live fail-closed + FinOps |
-| Stories | 004–008, 005, 006, 030 (qualif) |
-| Live | GPT qualif uniquement (flags) |
-| Sortie | QualificationCandidate validée ou rejetée ; compteur ; no retry ; plafond À définir |
-| Gate | **G-VS-LIVE-GPT** |
-| Preuve | Observation GPT + UI |
-
-### Incrément D — Cursor sandbox réel
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Markdown sandbox après GO revalidé |
-| Stories | 017–021, 019, 020, 012 (runtime) |
-| Live | Cursor sandbox |
-| Sortie | output.md · remote=0 · STOP/timeout · rapport |
-| Gate | **G-VS-LIVE-CURSOR** |
-| Preuve | Fichier sandbox + rapport (capitaliser spike 31) |
-
-### Incrément E — Analyse GPT et clôture
-
-| Champ | Contenu |
-|-------|---------|
-| Objectif | Verdict candidat + décision Morris + clôture |
-| Stories | 022–027, 023, 024, 030 (analyse) |
-| Live | GPT analyse |
-| Sortie | GptVerdictCandidate · MorrisFinalDecision · CycleSummary · réserves |
-| Gate | Clôture humaine ; pas de claim MVP |
-| Preuve | Verdict + décision journalisés |
-
----
-
-## 7. Ordre delivery recommandé
-
-```text
-A (cockpit mock)
- → B (adaptateur + fixtures)
- → C (GPT qualif live)
- → D (Cursor live)
- → E (analyse + clôture)
 ```
 
-Gates humains entre A→B, B→C, C→D, D→E.
+## FILE: projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+
+```
+"use client";
+
+import { CtaButton } from "@/components/ui/CtaButton";
+import { StatusPill } from "@/components/ui/StatusPill";
+import { IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
+import { vsFixture } from "@/fixtures/vertical-slice";
+import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+import type { VsFinalAction, VsGateAction } from "@/lib/vertical-slice/types";
+import styles from "@/components/vertical-slice/vs-panels.module.css";
+
+const gateOptions: {
+  action: VsGateAction;
+  title: string;
+  subtitle: string;
+  danger?: boolean;
+}[] = [
+  {
+    action: "GO",
+    title: "GO",
+    subtitle: "Autoriser l'exécution sandbox après revalidation harness (mock)",
+  },
+  {
+    action: "NO-GO",
+    title: "NO-GO",
+    subtitle: "Refuser l'exécution — clôture négative sans spawn",
+  },
+  {
+    action: "CORRIGER",
+    title: "Demander une correction",
+    subtitle: "Retour qualification — nouvelle consommation FinOps visible",
+  },
+  {
+    action: "ABANDONNER",
+    title: "Abandonner le cycle",
+    subtitle: "Action destructive — conséquence : cycle abandonné",
+    danger: true,
+  },
+];
+
+const finalOptions: {
+  action: VsFinalAction;
+  title: string;
+  subtitle: string;
+  danger?: boolean;
+}[] = [
+  {
+    action: "CLOTURER",
+    title: "Accepter et clôturer",
+    subtitle: "Clôture slice-only — aucun claim MVP",
+  },
+  {
+    action: "CORRIGER",
+    title: "Demander une correction",
+    subtitle: "Revoir le verdict candidat",
+  },
+  {
+    action: "RELANCER",
+    title: "Relancer sous nouveau GO",
+    subtitle: "Ré-exécution uniquement avec nouveau GO",
+  },
+  {
+    action: "ABANDONNER",
+    title: "Abandonner le cycle",
+    subtitle: "Fin du cycle sans clôture positive",
+    danger: true,
+  },
+];
+
+export function VsDecisionScreen() {
+  const {
+    stateId,
+    gateAction,
+    selectGateAction,
+    abandonConfirmOpen,
+    closeAbandonConfirm,
+    confirmAbandon,
+    confirmGate,
+    gateConfirmed,
+    abandoned,
+    selectFinalAction,
+    finalAction,
+    setStateId,
+  } = useVsDemo();
+
+  const isFinal = stateId === "VS-UX-09";
+  const isGoInvalid = stateId === "VS-UX-VAR-GO-INVALID";
+  const isGate = stateId === "VS-UX-04" || isGoInvalid;
+
+  return (
+    <div className={styles.panel} data-testid="vs-decision">
+      <IdStrip />
+
+      {isGoInvalid ? (
+        <VariantBanner tone="warn" title="GO invalide — ancrage divergé">
+          <p>
+            HEAD fixture courant : <code>{vsFixture.headInvalidated.slice(0, 12)}…</code> ≠
+            HEAD ancré : <code>{vsFixture.head.slice(0, 12)}…</code>
+          </p>
+          <p>
+            contractHash / branche / allowlist doivent être revalidés. Nouveau gate
+            requis. Ceci n&apos;est <strong>pas</strong> un Abandonner ni un NO-GO.
+          </p>
+          <div className={styles.actions}>
+            <CtaButton onClick={() => setStateId("VS-UX-04")}>
+              Rouvrir le gate
+            </CtaButton>
+          </div>
+        </VariantBanner>
+      ) : null}
+
+      <section className={styles.hero} aria-labelledby="vs-decision-hero">
+        <p className={styles.heroEyebrow}>
+          {isFinal ? "DÉCISION MORRIS FINALE" : "GATE MORRIS · EXÉCUTION"}
+        </p>
+        <h2 id="vs-decision-hero" className={styles.heroTitle}>
+          {isFinal
+            ? "Décider de la clôture avec le verdict candidat"
+            : "Décider avec le dossier d'ancrage — quatre actions distinctes"}
+        </h2>
+        <p className={styles.heroText}>
+          STOP ≠ NO-GO ≠ Abandonner. Timeout ≠ GO. Aucune action Git distante.
+        </p>
+      </section>
+
+      <div className={styles.twoCol}>
+        <section className={styles.card} aria-labelledby="vs-dossier-title">
+          <p className={styles.fieldLabel}>DOSSIER DE DÉCISION (fixture)</p>
+          <h2 id="vs-dossier-title" className={styles.cardTitle}>
+            Ancrage GO — requestId / contrat / Git
+          </h2>
+          <p className={styles.fieldLabel}>requestId</p>
+          <p className={styles.fieldValue}>{vsFixture.requestId}</p>
+          <p className={styles.fieldLabel}>contractId / hash</p>
+          <p className={styles.fieldValue}>
+            {vsFixture.contractId} · {vsFixture.contractHash}
+          </p>
+          <p className={styles.fieldLabel}>Branche · HEAD</p>
+          <p className={styles.fieldValue}>
+            {vsFixture.branch} · {vsFixture.head}
+          </p>
+          <p className={styles.fieldLabel}>Allowlist</p>
+          <p className={styles.fieldValue}>{vsFixture.allowlist.join(", ")}</p>
+          <p className={styles.fieldLabel}>Autorité</p>
+          <p className={styles.fieldValue}>{vsFixture.authority}</p>
+          <p className={styles.fieldLabel}>Horodatage</p>
+          <p className={styles.fieldValue}>
+            {vsFixture.timestamp} ({vsFixture.timezone})
+          </p>
+          <p className={styles.muted}>Timeout ≠ GO (rappel affiché).</p>
+          {!isFinal ? (
+            <div className={styles.actions}>
+              <CtaButton
+                variant="secondary"
+                onClick={() => setStateId("VS-UX-VAR-GO-INVALID")}
+                data-testid="vs-simulate-go-invalid"
+              >
+                Simuler GO invalide
+              </CtaButton>
+            </div>
+          ) : null}
+        </section>
+
+        <section
+          className={styles.card}
+          aria-labelledby="vs-morris-actions-title"
+          data-testid="vs-morris-actions"
+        >
+          <p className={styles.fieldLabel}>Décision Morris — autorité humaine</p>
+          <h2 id="vs-morris-actions-title" className={styles.cardTitle}>
+            {isFinal ? "Décision finale" : "Quatre actions du gate"}
+          </h2>
+
+          {isGate ? (
+            <div className={styles.optionGrid} role="group" aria-label="Actions gate Morris">
+              {gateOptions.map((opt) => {
+                const selected = gateAction === opt.action;
+                const className = opt.danger
+                  ? selected
+                    ? styles.optionDangerSelected
+                    : styles.optionDanger
+                  : selected
+                    ? styles.optionSelected
+                    : styles.option;
+                return (
+                  <button
+                    key={opt.action}
+                    type="button"
+                    className={className}
+                    aria-pressed={selected}
+                    data-testid={`vs-gate-${opt.action}`}
+                    aria-label={
+                      opt.action === "ABANDONNER"
+                        ? "Abandonner le cycle"
+                        : opt.title
+                    }
+                    onClick={() => selectGateAction(opt.action)}
+                  >
+                    <StatusPill tone={opt.danger ? "pink" : "blueFlush"}>
+                      {opt.title}
+                    </StatusPill>
+                    <p className={styles.optionTitle}>{opt.title}</p>
+                    <p className={styles.optionSub}>{opt.subtitle}</p>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+
+          {isFinal ? (
+            <div className={styles.optionGrid} role="group" aria-label="Actions décision finale">
+              {finalOptions.map((opt) => {
+                const selected = finalAction === opt.action;
+                const className = opt.danger
+                  ? selected
+                    ? styles.optionDangerSelected
+                    : styles.optionDanger
+                  : selected
+                    ? styles.optionSelected
+                    : styles.option;
+                return (
+                  <button
+                    key={opt.action}
+                    type="button"
+                    className={className}
+                    aria-pressed={selected}
+                    data-testid={`vs-final-${opt.action}`}
+                    aria-label={
+                      opt.action === "ABANDONNER"
+                        ? "Abandonner le cycle"
+                        : opt.title
+                    }
+                    onClick={() => selectFinalAction(opt.action)}
+                  >
+                    <StatusPill tone={opt.danger ? "pink" : "greenFlush"}>
+                      {opt.title}
+                    </StatusPill>
+                    <p className={styles.optionTitle}>{opt.title}</p>
+                    <p className={styles.optionSub}>{opt.subtitle}</p>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+
+          {abandonConfirmOpen ? (
+            <div
+              className={styles.confirmBox}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="vs-abandon-confirm-title"
+              data-testid="vs-abandon-confirm"
+            >
+              <p id="vs-abandon-confirm-title" className={styles.optionTitle}>
+                Confirmer l&apos;abandon du cycle
+              </p>
+              <p className={styles.optionSub}>
+                Conséquence explicite : état <strong>abandonné</strong>. Aucune
+                écriture Git distante. Action destructive (danger textuel + visuel).
+              </p>
+              <div className={styles.actions}>
+                <CtaButton
+                  variant="danger"
+                  onClick={confirmAbandon}
+                  data-testid="vs-abandon-confirm-yes"
+                  aria-label="Confirmer abandonner le cycle"
+                >
+                  Confirmer — Abandonner le cycle
+                </CtaButton>
+                <CtaButton
+                  variant="secondary"
+                  onClick={closeAbandonConfirm}
+                  data-testid="vs-abandon-confirm-no"
+                >
+                  Annuler
+                </CtaButton>
+              </div>
+            </div>
+          ) : null}
+
+          {isGate && gateAction && gateAction !== "ABANDONNER" ? (
+            <div className={styles.actions}>
+              <CtaButton
+                onClick={confirmGate}
+                disabled={!gateAction}
+                data-testid="vs-gate-confirm"
+              >
+                Confirmer {gateAction}
+              </CtaButton>
+            </div>
+          ) : null}
+
+          {gateConfirmed || abandoned ? (
+            <p className={styles.muted} data-testid="vs-gate-result">
+              {abandoned
+                ? "Résultat fixture : cycle abandonné"
+                : `Résultat fixture : ${gateAction} confirmé`}
+            </p>
+          ) : null}
+
+          <p className={styles.muted}>
+            Simulation Increment A — aucun effet Git / Cursor / GPT live.
+          </p>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+```
+
+## FILE: projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+
+```
+"use client";
+
+import { StatusPill } from "@/components/ui/StatusPill";
+import { IdStrip } from "@/components/vertical-slice/VsShared";
+import { vsFixture } from "@/fixtures/vertical-slice";
+import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+import styles from "@/components/vertical-slice/vs-panels.module.css";
+
+export function VsSyntheseScreen() {
+  const { abandoned, finalAction } = useVsDemo();
+
+  return (
+    <div className={styles.panel} data-testid="vs-synthese">
+      <IdStrip />
+
+      <section className={styles.hero} aria-labelledby="vs-close-hero">
+        <p className={styles.heroEyebrow}>CLÔTURE · SLICE COURANT UNIQUEMENT</p>
+        <h2 id="vs-close-hero" className={styles.heroTitle}>
+          CycleSummary — vertical slice POC
+        </h2>
+        <p className={styles.heroText}>
+          Aucun portefeuille multi-projet. Aucun claim MVP ou production-ready.
+        </p>
+      </section>
+
+      <section className={styles.card} data-testid="vs-cycle-summary">
+        <StatusPill tone={abandoned ? "pink" : "greenFlush"}>
+          {abandoned ? "abandonné" : vsFixture.summary.finalStatus}
+        </StatusPill>
+        <p className={styles.fieldLabel}>requestId</p>
+        <p className={styles.fieldValue}>{vsFixture.requestId}</p>
+        <p className={styles.fieldLabel}>Statut final</p>
+        <p className={styles.fieldValue}>
+          {abandoned ? "abandonné (fixture)" : vsFixture.summary.finalStatus}
+        </p>
+        <p className={styles.fieldLabel}>Décision Morris</p>
+        <p className={styles.fieldValue}>
+          {abandoned
+            ? "Abandonner"
+            : finalAction === "CLOTURER"
+              ? vsFixture.summary.decision
+              : finalAction ?? vsFixture.summary.decision}
+        </p>
+        <p className={styles.fieldLabel}>Fichier Markdown (mock)</p>
+        <p className={styles.fieldValue}>{vsFixture.summary.markdownFile}</p>
+        <p className={styles.fieldLabel}>Rapport / preuves</p>
+        <p className={styles.fieldValue}>
+          {vsFixture.summary.reportRef} · {vsFixture.summary.proofRef}
+        </p>
+        <p className={styles.fieldLabel}>Compteur GPT</p>
+        <p className={styles.fieldValue} data-testid="vs-summary-gpt">
+          {vsFixture.summary.gptCounter}
+        </p>
+        <p className={styles.fieldLabel}>Branche · HEAD · contractHash</p>
+        <p className={styles.fieldValue}>
+          {vsFixture.branch} · {vsFixture.head} · {vsFixture.contractHash}
+        </p>
+        <p className={styles.fieldLabel}>Réserves</p>
+        <ul className={styles.list}>
+          {vsFixture.summary.reserves.map((r) => (
+            <li key={r}>{r}</li>
+          ))}
+        </ul>
+        <p className={styles.forbidden} data-testid="vs-no-mvp-claim">
+          Interdit : MVP · production-ready · Studio complete · industrialisé
+        </p>
+        <p className={styles.muted} data-testid="vs-no-portfolio">
+          Hors périmètre affiché : portefeuille multi-projet, autres cycles hors
+          slice.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+```
+
+## FILE: projects/sfia-studio/app/__tests__/increment-a.test.tsx
+
+```
+import { cleanup, render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { STUDIO_ROUTES } from "@/lib/navigation";
+import {
+  STUDIO_ROUTES_ONLY,
+  VS_STATE_IDS,
+  VS_STATES,
+  parseVsQuery,
+} from "@/lib/vertical-slice";
+import { vsFixture } from "@/fixtures/vertical-slice";
+import { NouvelleDemandeScreen } from "@/features/nouvelle-demande/NouvelleDemandeScreen";
+import { DecisionScreen } from "@/features/decision/DecisionScreen";
+import { CycleActifScreen } from "@/features/cycle-actif/CycleActifScreen";
+import { SyntheseScreen } from "@/features/synthese/SyntheseScreen";
+
+const push = vi.fn();
+let mockPathname = "/nouvelle-demande";
+let mockSearch = "vs=VS-UX-01";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push, replace: vi.fn(), prefetch: vi.fn() }),
+  usePathname: () => mockPathname,
+  useSearchParams: () => new URLSearchParams(mockSearch),
+}));
+
+vi.mock("next/link", () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
+afterEach(() => {
+  cleanup();
+  push.mockClear();
+});
+
+beforeEach(() => {
+  mockPathname = "/nouvelle-demande";
+  mockSearch = "vs=VS-UX-01";
+});
+
+describe("Increment A — mapping & fixtures", () => {
+  it("exposes exactly four Studio routes", () => {
+    expect(STUDIO_ROUTES).toHaveLength(4);
+    expect(STUDIO_ROUTES_ONLY).toEqual([
+      "/nouvelle-demande",
+      "/decision",
+      "/cycle-actif",
+      "/synthese",
+    ]);
+  });
+
+  it("maps ten states plus four variants without extra routes", () => {
+    expect(VS_STATES.filter((s) => s.kind === "state")).toHaveLength(10);
+    expect(VS_STATES.filter((s) => s.kind === "variant")).toHaveLength(4);
+    expect(VS_STATE_IDS).toHaveLength(14);
+    const routes = new Set(VS_STATES.map((s) => s.route));
+    expect([...routes].sort()).toEqual(
+      ["/cycle-actif", "/decision", "/nouvelle-demande", "/synthese"].sort(),
+    );
+  });
+
+  it("parses demo query aliases", () => {
+    expect(parseVsQuery("04")).toBe("VS-UX-04");
+    expect(parseVsQuery("GO-INVALID")).toBe("VS-UX-VAR-GO-INVALID");
+  });
+
+  it("uses demo fixtures without secrets or PII", () => {
+    const blob = JSON.stringify(vsFixture);
+    expect(blob).not.toMatch(/sk-|api[_-]?key|password|Bearer /i);
+    expect(blob).not.toMatch(/@gmail\.com|numéro de sécurité/i);
+    expect(vsFixture.gptCalls.ceiling).toBe("À définir");
+    expect(vsFixture.gptCalls.noRetry).toMatch(/Aucun retry automatique/i);
+  });
+});
+
+describe("Increment A — UI screens", () => {
+  it("shows demo banner, ids and GPT ceiling on nouvelle demande", () => {
+    render(<NouvelleDemandeScreen />);
+    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent(
+      /Données de démonstration/i,
+    );
+    expect(screen.getByTestId("vs-id-strip")).toHaveTextContent(
+      vsFixture.requestId,
+    );
+    expect(screen.getByTestId("vs-gpt-counter")).toHaveTextContent(/À définir/);
+    expect(screen.getByTestId("vs-no-retry")).toHaveTextContent(
+      /Aucun retry automatique/i,
+    );
+    expect(screen.getByTestId("vs-demo-switcher")).toBeInTheDocument();
+  });
+
+  it("renders GO, NO-GO, Corriger, Abandonner as distinct actions", async () => {
+    mockPathname = "/decision";
+    mockSearch = "vs=VS-UX-04";
+    const user = userEvent.setup();
+    render(<DecisionScreen />);
+
+    const panel = screen.getByTestId("vs-morris-actions");
+    expect(within(panel).getByTestId("vs-gate-GO")).toBeInTheDocument();
+    expect(within(panel).getByTestId("vs-gate-NO-GO")).toBeInTheDocument();
+    expect(within(panel).getByTestId("vs-gate-CORRIGER")).toBeInTheDocument();
+    expect(within(panel).getByTestId("vs-gate-ABANDONNER")).toBeInTheDocument();
+
+    await user.click(within(panel).getByTestId("vs-gate-ABANDONNER"));
+    const dialog = screen.getByTestId("vs-abandon-confirm");
+    expect(dialog).toHaveTextContent(/abandonné/i);
+    expect(
+      within(dialog).getByRole("button", {
+        name: /Confirmer abandonner le cycle/i,
+      }),
+    ).toBeEnabled();
+  });
+
+  it("shows CycleSummary without portfolio or MVP claims", () => {
+    mockPathname = "/synthese";
+    mockSearch = "vs=VS-UX-10";
+    render(<SyntheseScreen />);
+    expect(screen.getByTestId("vs-cycle-summary")).toBeInTheDocument();
+    expect(screen.getByTestId("vs-no-portfolio")).toHaveTextContent(
+      /portefeuille multi-projet/i,
+    );
+    expect(screen.getByTestId("vs-no-mvp-claim")).toHaveTextContent(/MVP/);
+    expect(
+      screen.queryByText(/Portefeuille des cycles/i),
+    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("vs-summary-gpt")).toHaveTextContent(/À définir/);
+  });
+
+  it("exposes STOP control distinct from gate vocabulary", () => {
+    mockPathname = "/cycle-actif";
+    mockSearch = "vs=VS-UX-05";
+    render(<CycleActifScreen />);
+    expect(screen.getByTestId("vs-stop-execution")).toHaveAttribute(
+      "aria-label",
+      expect.stringMatching(/STOP Morris/i),
+    );
+    expect(screen.queryByTestId("vs-gate-ABANDONNER")).not.toBeInTheDocument();
+  });
+});
+
+```
+
+## FILE: projects/sfia-studio/app/e2e/increment-a.spec.ts
+
+```
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-increment-a",
+);
+
+const captures = [
+  {
+    path: "/nouvelle-demande?vs=VS-UX-01",
+    name: "inc-a-nouvelle-demande",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByTestId("vs-demo-banner")).toBeVisible();
+      await expect(page.getByTestId("vs-id-strip")).toContainText("req-vs-poc-001");
+    },
+  },
+  {
+    path: "/nouvelle-demande?vs=VS-UX-03",
+    name: "inc-a-qualification-proposee",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(
+        page.getByRole("heading", { name: /Qualification proposée/i }),
+      ).toBeVisible();
+      await expect(page.getByText(/Candidat GPT/i).first()).toBeVisible();
+    },
+  },
+  {
+    path: "/decision?vs=VS-UX-04",
+    name: "inc-a-gate-morris",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByTestId("vs-gate-GO")).toBeVisible();
+      await expect(page.getByTestId("vs-gate-NO-GO")).toBeVisible();
+      await expect(page.getByTestId("vs-gate-CORRIGER")).toBeVisible();
+      await expect(page.getByTestId("vs-gate-ABANDONNER")).toBeVisible();
+    },
+  },
+  {
+    path: "/cycle-actif?vs=VS-UX-05",
+    name: "inc-a-execution",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByTestId("vs-stop-execution")).toBeVisible();
+    },
+  },
+  {
+    path: "/cycle-actif?vs=VS-UX-06",
+    name: "inc-a-rapport",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByText(/CursorExecutionReport/i)).toBeVisible();
+    },
+  },
+  {
+    path: "/cycle-actif?vs=VS-UX-08",
+    name: "inc-a-verdict",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByText(/Candidat GPT/i)).toBeVisible();
+    },
+  },
+  {
+    path: "/decision?vs=VS-UX-09",
+    name: "inc-a-decision-finale",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByTestId("vs-final-CLOTURER")).toBeVisible();
+    },
+  },
+  {
+    path: "/synthese?vs=VS-UX-10",
+    name: "inc-a-cloture",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByTestId("vs-cycle-summary")).toBeVisible();
+      await expect(page.getByTestId("vs-no-mvp-claim")).toBeVisible();
+      await expect(page.getByText(/Portefeuille des cycles/i)).toHaveCount(0);
+    },
+  },
+  {
+    path: "/decision?vs=VS-UX-VAR-GO-INVALID",
+    name: "inc-a-go-invalide",
+    assert: async (page: import("@playwright/test").Page) => {
+      await expect(page.getByTestId("vs-variant-banner")).toContainText(
+        /GO invalide/i,
+      );
+    },
+  },
+];
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+test.describe("Increment A visual & functional", () => {
+  test("only four primary routes remain navigable", async ({ page }) => {
+    await page.goto("/synthese?vs=VS-UX-10");
+    const rail = page.getByTestId("utility-rail");
+    for (const label of [
+      "Vue synthèse",
+      "Nouvelle demande",
+      "Cycle actif",
+      "Décision Morris",
+    ]) {
+      await expect(rail.getByRole("link", { name: label })).toBeVisible();
+    }
+    await expect(rail.getByLabel("Paramètres (désactivé)")).toBeDisabled();
+  });
+
+  test("demo switcher reaches ten states", async ({ page }) => {
+    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    const switcher = page.getByTestId("vs-demo-switcher");
+    await expect(switcher).toBeVisible();
+    const values = await switcher.locator("option").evaluateAll((opts) =>
+      opts.map((o) => (o as HTMLOptionElement).value),
+    );
+    for (const id of [
+      "VS-UX-01",
+      "VS-UX-02",
+      "VS-UX-03",
+      "VS-UX-04",
+      "VS-UX-05",
+      "VS-UX-06",
+      "VS-UX-07",
+      "VS-UX-08",
+      "VS-UX-09",
+      "VS-UX-10",
+      "VS-UX-VAR-LOADING",
+      "VS-UX-VAR-ERROR",
+      "VS-UX-VAR-STOP",
+      "VS-UX-VAR-GO-INVALID",
+    ]) {
+      expect(values).toContain(id);
+    }
+  });
+
+  test("abandon confirmation is keyboard reachable", async ({ page }) => {
+    await page.goto("/decision?vs=VS-UX-04");
+    await page.getByTestId("vs-gate-ABANDONNER").focus();
+    await page.keyboard.press("Enter");
+    const dialog = page.getByTestId("vs-abandon-confirm");
+    await expect(dialog).toBeVisible();
+    await page.getByTestId("vs-abandon-confirm-yes").focus();
+    await expect(page.getByTestId("vs-abandon-confirm-yes")).toBeFocused();
+  });
+
+  test("GPT counter shows À définir and no-retry", async ({ page }) => {
+    await page.goto("/nouvelle-demande?vs=VS-UX-02");
+    await expect(page.getByTestId("vs-gpt-counter").first()).toContainText(
+      "À définir",
+    );
+    await expect(page.getByTestId("vs-no-retry").first()).toContainText(
+      "Aucun retry automatique",
+    );
+  });
+
+  for (const capture of captures) {
+    test(`capture ${capture.name}`, async ({ page }) => {
+      const errors: string[] = [];
+      const requests: string[] = [];
+      page.on("console", (msg) => {
+        if (msg.type() === "error") errors.push(msg.text());
+      });
+      page.on("request", (req) => {
+        const url = req.url();
+        if (/openai|api\.openai|anthropic/i.test(url)) requests.push(url);
+      });
+
+      await page.goto(capture.path);
+      await capture.assert(page);
+      await page.screenshot({
+        path: path.join(screenshotDir, `${capture.name}.png`),
+        fullPage: true,
+      });
+      expect(requests).toEqual([]);
+      const critical = errors.filter(
+        (e) =>
+          !/Download the React DevTools|Hydration|Extra attributes/i.test(e),
+      );
+      expect(critical).toEqual([]);
+    });
+  }
+});
+
+```
+
 
 ---
 
-## 8. Challenge du séquencement
+# ANNEXE C — Liste captures
 
-| Question | Réponse conception backlog |
-|----------|----------------------------|
-| Utile maintenant ? | Oui — isole UI avant live |
-| Dette créée ? | Adaptateur B = dette acceptée si reporté |
-| Plus simple ? | Harness-only déjà prouvé ; A+B ajoutent Studio gouverné |
-| Intégration trop précoce ? | Évitée : live seulement C/D/E sous gates |
-| Gate Morris visible ? | Oui — 011 dès A mock, réel dès B/D |
-| Preuve mesurable ? | Oui par incrément |
-| MVP implicite ? | Non — scénario Markdown preuve + claims interdits |
-
-**Option alternative (candidat VS-BL-CAND) :** B avant A partiel (CLI d’abord) — plus rapide tech, moins de preuve UX Studio. Non retenue comme reco principale.
-
----
-
-## 9. Risques de parallélisation
-
-| Parallelisme | Risque | Conseil |
-|--------------|--------|---------|
-| A ∥ B | Divergence contrat UI | Sérialiser A puis B ou sync contrat |
-| C ∥ D | Double live + FinOps | Interdit sans GO |
-| E avant D | Verdict sans exécution | Interdit |
-| 031 ∥ 013 | Routes vs adaptateur | 031 d’abord (A) |
-
----
-
-## 10. Critères de sortie par incrément
-
-| Incr. | Sortie minimale |
-|-------|-----------------|
-| A | 10 états mock dans 4 vues ; Abandonner ; clôture slice-only |
-| B | GO hash/HEAD fixture ; journal ; harness sans Studio |
-| C | Qualif live fail-closed ; FinOps visible |
-| D | Markdown sandbox ; STOP/timeout ; remote=0 |
-| E | Verdict candidat ; clôture Morris ; pack complet |
-
-**Critères « slice prouvé » (`VS-BL-CAND-10` validée) :** A–E complétés sous gates + VS-AC-01…12 avec réserves documentées — **≠** MVP ; déclaration future uniquement après deliveries sous GO.
-
----
-
-## 11. Observations code (lecture seule)
-
-| Actif | Usage incrément |
-|-------|-----------------|
-| 4 routes + shell + UI kit | A |
-| Fixtures app | A |
-| Harness GateValidator / fixtures GPT-Cursor / journal | B |
-| openaiRealSpike / cursorRealSpike / e2e sandbox | C/D (sous flags) |
-| Pas d’adaptateur Studio↔harness | B (à créer en delivery) |
-| Pas de CI Studio | Hors backlog delivery POC |
-
----
-
-## 12. Synthèse
-
-| Élément | Valeur |
-|---------|--------|
-| Vues | 4 |
-| États | 10 + 4 variantes |
-| Stories mappées | 33 |
-| Incréments A–E | Séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct |
-| Versionnement | Commit / push / draft PR autorisés ; merge = GO distinct |
-
-
----
-
-# ANNEXE C — Document 40 intégral (commité)
-
-# SFIA Studio — Decision pack backlog vertical slice POC
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `40-poc-vertical-slice-backlog-decision-pack.md` |
-| **Cycle** | 5 — Backlog / user stories |
-| **Profil** | Standard |
-| **Statut** | `validated-for-versioning` — `VS-BL-CAND-01` à `VS-BL-CAND-12` **validées Morris** ; versionnement autorisé ; merge et delivery = gates distincts |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **Companions** | [`38`](./38-poc-vertical-slice-backlog.md) · [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) |
-| **Décisions Morris** | Backlog 38–40 validé · A→E validé · Incr. A retenu · commit/push/draft PR autorisés |
-
-> Observations / hypothèses / options / recommandations.
-> `VS-BL-CAND-01`…`12` = **VALIDÉES** (Morris). Merge PR, delivery et live restent soumis à GO distincts.
-
----
-
-## 1. Synthèse
-
-Ce cycle versionne un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live. Versionnement autorisé ; **merge** et **delivery** non autorisés ici.
-
-| Livrable | Rôle |
-|----------|------|
-| `38` | Epics, stories, AC, matrice couverture |
-| `39` | Story map, séquencement, incréments |
-| `40` | Ce pack — `VS-BL-CAND-*` |
-
----
-
-## 2. Observations (certaines)
-
-1. Docs `32`–`37` intégrés sur `main` @ `722f586…` (PR #228 MERGED).
-2. App = 4 routes P0 fixtures ; pas d’adaptateur Studio↔harness ; gate UI actuel ≠ 4 actions VS.
-3. Harness = fixtures par défaut ; spikes GPT/Cursor/e2e prouvés hors UI avec réserves (`29`–`31`).
-4. Architecture Option B / AF-Option C / Git vérité / Morris L0 = invariants.
-5. Pas de CI GitHub pour `projects/sfia-studio/**`.
-6. Plafond GPT : obligatoire, valeur **À définir** (VS-CAND-14).
-7. Dix états ≠ dix routes = décision UX validée.
-
----
-
-## 3. Hypothèses
-
-| ID | Hypothèse |
-|----|----------|
-| H1 | Delivery réutilisera les 4 routes P0 via états/variantes |
-| H2 | Incrément A mock suffit à prouver le mapping UX avant adaptateur |
-| H3 | Ports fixture harness suffisent pour Incr. B |
-| H4 | Tailles XS–L sont relatives (pas d’estimation horaire) |
-| H5 | Live GPT/Cursor restent derrière flags + GO Morris |
-| H6 | Valeur plafond GPT sera arbitrée hors design (G-VS-LIMIT) |
-
----
-
-## 4. Options
-
-| Sujet | Option A | Option B (recommandée) | Notes |
-|-------|----------|------------------------|-------|
-| Granularité | 15 mega-stories | **33 stories** | Traçabilité FR/N |
-| Séquencement | Live d’abord | **A→B→C→D→E** | Moins de risque |
-| Entry | CLI only | **Studio + harness autonome** | Preuve cockpit |
-| Négatifs | Différer N* | **Couvrir dans stories primaires + US-033** (N16→016) | Matrice §38 recalculée |
-| Adaptateur | Spécifier API maintenant | **Story L + spike tech ultérieur** | Pas de protocole ici |
-
----
-
-## 5. Recommandations (statut post-validation)
-
-1. ~~Valider d’abord `VS-BL-CAND-*`~~ → **FAIT** (Morris).
-2. Versionner 38–40 via draft PR → **en cours** (ce cycle).
-3. Delivery minimal = Incr. A puis B avant tout live — **GO delivery distinct**.
-4. Ne pas paralléliser C et D.
-5. Exiger G-VS-LIVE-GPT / CURSOR distincts.
-6. Garder harness autonome comme chemin de non-régression.
-7. Ne pas ouvrir CI/MVP/industrialisation dans ce backlog.
-8. Capitaliser spikes existants plutôt que réécrire les ports.
-
----
-
-## 6. Décisions `VS-BL-CAND-*` — **VALIDÉES Morris**
-
-| ID | Décision (validée) | Impact | Statut | Dette |
-|----|-------------------|--------|--------|-------|
-| **VS-BL-CAND-01** | Incréments A→B→C→D→E comme séquence delivery | Ordre BeB | **VALIDÉE** | Faible |
-| **VS-BL-CAND-02** | Priorité epics : E1–E3 UI → E4 adaptateur → E5–E8 live → E9/E10 transverse | Focus | **VALIDÉE** | Moyenne |
-| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | **VALIDÉE** | Faible |
-| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | **VALIDÉE** | Faible |
-| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | **VALIDÉE** | Acceptable |
-| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003) | Qualité | **VALIDÉE** | Faible |
-| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | **VALIDÉE** | Faible |
-| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | **VALIDÉE** | Faible |
-| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | **VALIDÉE** | Nulle |
-| **VS-BL-CAND-10** | Critères « slice prouvé » = VS-AC-01…12 + A–E sous gates + réserves ; **≠** MVP | Acceptation | **VALIDÉE** | Discipline |
-| **VS-BL-CAND-11** | Stratégie tests : Vitest/Playwright app (A) + tests harness (B–D) + preuves live sous flags | QA | **VALIDÉE** | Acceptable POC |
-| **VS-BL-CAND-12** | 33 stories / 10 epics = granularité retenue (pas fusion silencieuse) | Traçabilité | **VALIDÉE** | Faible |
-
----
-
-## 7. Impacts / risques / dette
-
-| Thème | Impact | Risque | Dette |
-|-------|--------|--------|-------|
-| Backlog Standard | Guide delivery | Sur-spécification | Maintenir alignement 38↔32–37 |
-| Traçabilité | Fiabilité delivery | Mapping artificiel (ex. N16→003) | Audit correctif + matrice 91 lignes |
-| Structure stories | DoR 16 champs | Stories incomplètes | Correctif : 0 story incomplète |
-| Incr. A mock | Preuve UX rapide | Sous-estimer adaptateur | B obligatoire avant live |
-| Pas de CI | POC local | Régression non détectée | Futur G-VS-CI |
-| Spikes existants | Accélère C/D | Réserves spike | Documenter dans DoD |
-
----
-
-## 8. Statut de validation Morris
-
-| Élément | Statut |
-|---------|--------|
-| Backlog 38–40 (fond) | **Validé** |
-| `VS-BL-CAND-01`…`12` | **Validées** |
-| Séquencement A→E | **Validé** |
-| Incrément A premier périmètre | **Retenu** |
-| Commit / push / draft PR | **Autorisés** (ce cycle) |
-| Merge PR | **Non autorisé** — GO distinct |
-| Delivery / live / archi / CI / MVP | **Non autorisés** |
-
----
-
-## 9. Gates
-
-| Gate | Objet | Statut |
-|------|-------|--------|
-| G-VS-BL-VAL | Validation backlog / VS-BL-CAND | **Consommé** |
-| G-VS-BL-DOC | Commit/push/draft PR | **Consommé partiel** (merge restant) |
-| G-VS-BL-MERGE | Merge PR 38–40 | **Requis** |
-| G-VS-DEL-A | Delivery Incrément A | Requis |
-| G-VS-LIVE-GPT | Incrément C | Requis |
-| G-VS-LIVE-CURSOR | Incrément D | Requis |
-| G-VS-LIMIT | Valeur plafond GPT | Requis (valeur **À définir**) |
-| G-VS-CI / MVP / IND | Interdits sans GO | Interdits |
-
----
-
-## 10. Verdict
-
-`SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED`
-
-### Interdits (sans nouveau GO)
-
-READY FOR REVIEW · MERGED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · API SELECTED · L5 GLOBAL PROVEN · GPT LIVE · CURSOR LIVE
-
----
-
-## 11. Décisions Morris attendues (suivantes)
-
-1. Autoriser ou non le **merge** de la draft PR 38–40.
-2. Autoriser éventuellement ready-for-review (GO distinct si requis).
-3. **Ne pas** traiter ce pack comme GO delivery, live ou architecture.
-
-
----
-
-# ANNEXE D — Diff commit HEAD (38–40)
-
-diff --git a/projects/sfia-studio/38-poc-vertical-slice-backlog.md b/projects/sfia-studio/38-poc-vertical-slice-backlog.md
-new file mode 100644
-index 0000000..02cc5ea
---- /dev/null
-+++ b/projects/sfia-studio/38-poc-vertical-slice-backlog.md
-@@ -0,0 +1,987 @@
-+# SFIA Studio — Backlog delivery borné du vertical slice POC
-+
-+| Métadonnée | Valeur |
-+|------------|--------|
-+| **Document** | `38-poc-vertical-slice-backlog.md` |
-+| **Cycle** | 5 — Backlog / user stories · 13 — PR readiness |
-+| **Profil** | Standard |
-+| **Typologie** | DOC / BACKLOG / PR READINESS |
-+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-+| **Base Git** | `origin/main` @ `722f586855743f87a6d3318ccec2dd6224676e28` |
-+| **Statut** | `validated-for-versioning` — backlog et stories **validés Morris** ; merge PR = GO distinct ; delivery = GO distinct |
-+| **Companions** | [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
-+| **Sources** | [`32`](./32-poc-vertical-slice-functional-design.md)–[`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
-+| **Code / live** | **Aucun** dans ce cycle |
-+| **Décisions Morris** | `VS-BL-CAND-01`…`12` validées · séquencement A→E validé · incrément A = premier périmètre futur |
-+
-+> Backlog documentaire du **premier vertical slice POC**.
-+> Dix **états** UX ≠ dix routes · quatre vues P0 · Option B inchangée · plafond GPT **À définir** · aucun claim MVP.
-+
-+---
-+
-+## 1. Objectif
-+
-+Transformer les exigences validées (`VS-FR` / `VS-BR` / `VS-AC` / N1–N16 / VS-UX) en epics, capabilities et user stories testables permettant un futur delivery **borné** du BeB :
-+
-+Studio → qualification GPT → gate Morris → harness → Cursor sandbox → preuves → verdict GPT candidat → décision Morris → clôture.
-+
-+---
-+
-+## 2. Périmètre / hors périmètre
-+
-+### Dans le périmètre backlog
-+
-+- Stories pour le parcours 10 états dans **4 vues P0**
-+- Adaptateur fin Studio→harness (sans autorité)
-+- Qualification / verdict GPT (fixture puis live sous gate)
-+- Cursor sandbox (fixture puis live sous gate)
-+- Gates Morris, STOP, invalidation GO, FinOps (compteur + plafond À définir + no retry)
-+- Sécurité / RGPD minimal / observabilité / reprise session
-+
-+### Hors périmètre
-+
-+- Choix stack / API / BDD / ORM / protocole
-+- CI/CD, déploiement, industrialisation, L5
-+- Multi-projet, MVP produit, écriture Git distante
-+- Modification Figma / docs `01`–`37` / code (ce cycle)
-+- Valeur numérique du plafond GPT (reste **À définir**)
-+
-+---
-+
-+## 3. Definition of Ready (DoR) — story
-+
-+Une story est Ready si :
-+
-+1. ID stable `VS-BL-US-*` ;
-+2. epic + capability + acteur ;
-+3. formulation En tant que / Je veux / Afin de ;
-+4. valeur démontrée ;
-+5. sources (`VS-FR`/`VS-BR`/`VS-AC`/N/UX/CAND) exactes ;
-+6. état UX ou variante (ou `Aucun spécifique`) ;
-+7. préconditions ;
-+8. AC Given/When/Then testables ;
-+9. scénarios négatifs (ou `Aucun spécifique`) ;
-+10. preuves, dépendances, risque, taille, gate, hors périmètre, notes ;
-+11. aucune dépendance stack non tranchée (sinon hypothèse / spike candidat) ;
-+12. gate Morris éventuel identifié.
-+
-+---
-+
-+## 4. Definition of Done (DoD) — candidat delivery futur
-+
-+**Non validée** — candidate pour GO delivery :
-+
-+1. AC satisfaits avec preuves (journal, screenshots, fixtures ou live sous gate) ;
-+2. aucun secret exposé ;
-+3. Studio = vue dérivée (pas de vérité parallèle) ;
-+4. harness autonome toujours possible ;
-+5. timeout ≠ GO ; STOP journalisé ;
-+6. pas de claim MVP / production-ready ;
-+7. review pack / preuves selon story ;
-+8. pas d’écriture Git distante dans le slice.
-+
-+---
-+
-+## 5. Acteurs
-+
-+| Acteur | Rôle |
-+|--------|------|
-+| Morris (L0) | Saisie, gates, STOP, clôture |
-+| SFIA Studio | Cockpit / vue dérivée |
-+| Adaptateur fin | Transmission sans autorité |
-+| Harness | Policy, revalidation, journal, preuves |
-+| GPT | Qualifie / analyse (candidat) |
-+| Cursor | Exécute sandbox bornée |
-+| Git | Vérité durable / Truth Check |
-+
-+---
-+
-+## 6. Epics et capabilities
-+
-+| Epic | Capabilities |
-+|------|----------------|
-+| **E1** Demande & identité | C1.1 Saisie · C1.2 IDs · C1.3 Abandon pré-qualif |
-+| **E2** Qualification GPT | C2.1 Déclenchement · C2.2 Loading/fail-closed · C2.3 Affichage · C2.4 FinOps |
-+| **E3** Contrat & Gate | C3.1 Contrat/hash · C3.2 Dossier GO · C3.3 4 actions · C3.4 Invalidation |
-+| **E4** Adaptateur Studio↔harness | C4.1 Transmission · C4.2 États dérivés · C4.3 Mode autonome · C4.4 Reprise session |
-+| **E5** Exécution Cursor | C5.1 Revalidation · C5.2 Spawn sandbox · C5.3 STOP/timeout · C5.4 Refus hors allowlist |
-+| **E6** Rapport & preuves | C6.1 Rapport · C6.2 Pack · C6.3 Aperçu sanitisé · C6.4 Blocage incomplet |
-+| **E7** Analyse & verdict | C7.1 Paquet preuves · C7.2 Analyse GPT · C7.3 Verdict candidat · C7.4 FinOps analyse |
-+| **E8** Décision & clôture | C8.1 Décision finale · C8.2 CycleSummary slice-only · C8.3 Relance nouveau GO |
-+| **E9** Sécurité & RGPD | C9.1 No PII/secrets · C9.2 Masquage · C9.3 Journal refus |
-+| **E10** Observabilité & perf | C10.1 Corrélation IDs · C10.2 Durées séparées · C10.3 Source statut · C10.4 Aucun faux succès |
-+
-+---
-+
-+## 7. User stories
-+
-+> Chaque story ci-dessous comporte les **16 champs obligatoires**.
-+> `—` ou `Aucun spécifique` = non applicable explicite (jamais une ligne omise).
-+
-+
-+### VS-BL-US-001 — Saisir une demande de preuve
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E1 / C1.1 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux saisir une intention Markdown sandbox (titre + synthèse), Afin de démarrer un cycle de preuve gouverné. |
-+| Valeur démontrée | Entrée BeB observable sans exécution implicite |
-+| Sources | VS-FR-01 · VS-CAND-01 · VS-UX-01 · VS-AC-01 (prérequis parcours) |
-+| UX / état / variante | VS-UX-01 · vue Nouvelle demande · frame `51:3` |
-+| Préconditions | Studio accessible ; projet connu ; aucune session live requise |
-+| Critères d’acceptation | **Given** vue Nouvelle demande **When** Morris saisit titre+synthèse valides et voit un requestId candidat **Then** StudioRequest affichée · aucune qualification démarrée · aucun GO implicite · aucune écriture distante |
-+| Scénarios négatifs | Intention vide ou incomplète → validation locale · CTA Qualifier désactivé ou bloqué · pas d’appel GPT |
-+| Preuves attendues | StudioRequest horodatée (TZ) · requestId visible |
-+| Dépendances | — |
-+| Risque | Faible |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Live GPT · Cursor · écriture Git distante · nouvelle route |
-+| Notes delivery | Réutiliser shell floating `/nouvelle-demande` ; étendre états (pas nouvelle route) |
-+
-+### VS-BL-US-002 — Propager requestId / correlationId
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E1 / C1.2 · E10 / C10.1 |
-+| Acteur | Morris (via Studio / Harness) |
-+| Story | En tant que Morris, Je veux des identifiants stables visibles sur tout le parcours, Afin de reconstruire la corrélation bout-en-bout. |
-+| Valeur démontrée | Observabilité et auditabilité du cycle |
-+| Sources | VS-CAND-15 · VS-FR-01 · VS-AC-11 |
-+| UX / état / variante | Tous les états VS-UX-01…10 · IDs dans topbar/canvas |
-+| Préconditions | US-001 : demande créée avec requestId |
-+| Critères d’acceptation | **Given** demande créée **When** navigation entre états/vues **Then** requestId et correlationId inchangés et affichés · eventId présents dans journal dérivé |
-+| Scénarios négatifs | ID manquant ou réécrit → fail-closed UI (blocage progression) · message explicite |
-+| Preuves attendues | Journal avec eventId liés au même requestId/correlationId |
-+| Dépendances | VS-BL-US-001 |
-+| Risque | Faible |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Schéma BDD · protocole réseau inventé |
-+| Notes delivery | Affichage dérivé ; pas de génération d’ID concurrente côté UI |
-+
-+### VS-BL-US-003 — Abandonner avant qualification
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E1 / C1.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux abandonner avant toute qualification GPT, Afin d’éviter toute consommation FinOps inutile. |
-+| Valeur démontrée | Sortie propre pré-qualif · FinOps zéro appel |
-+| Sources | Doc 33 § étape 1 (actions : abandonner) · Doc 32 § Abandon · transition `intention_capturée` → `abandonné` · VS-UX-01 · VS-FR-16 (visibilité conso = 0) · VS-BR-03 (pas de retry silencieux) |
-+| UX / état / variante | VS-UX-01 · vue Nouvelle demande |
-+| Préconditions | Intention capturée ou en saisie · qualification non démarrée |
-+| Critères d’acceptation | **Given** intention capturée sans qualif démarrée **When** Morris choisit Abandonner (avec confirmation si destructif) **Then** état `abandonné` · **0** appel GPT · compteur FinOps inchangé à 0 · aucune écriture distante |
-+| Scénarios négatifs | Abandon pendant qualif déjà démarrée → hors cette story (voir STOP / gate) · double-clic → un seul abandon journalisé |
-+| Preuves attendues | Événement abandon journalisé · FinOps qualif = 0 |
-+| Dépendances | VS-BL-US-001 |
-+| Risque | Faible |
-+| Taille relative | XS |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | N16 (perte session) · Abandonner au gate (US-011) · STOP exécution (US-019) |
-+| Notes delivery | Ne pas mapper N16 ici — N16 = reprise session (US-016) |
-+
-+### VS-BL-US-004 — Déclencher qualification GPT
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E2 / C2.1 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux déclencher explicitement « Qualifier la demande », Afin de lancer une qualification contrôlée. |
-+| Valeur démontrée | Contrôle humain du démarrage GPT |
-+| Sources | VS-FR-02 · VS-FR-03 · VS-UX-01→02 · VS-BR-03 · N2 |
-+| UX / état / variante | Transition VS-UX-01 → VS-UX-02 · frame `51:139` |
-+| Préconditions | Demande valide (US-001) · sources Git lisibles ou mode fixture déclaré |
-+| Critères d’acceptation | **Given** demande valide **When** CTA Qualifier **Then** état `qualification_en_cours` · compteur FinOps qualif +1 (ou +1 à la consommation réelle selon mode) · aucun GO · aucun spawn Cursor |
-+| Scénarios négatifs | **N2** Sources Git indisponibles → STOP lecture · pas de qualif live · message Truth Check · pas de fallback permissif |
-+| Preuves attendues | Event qualification_started · FinOps visible |
-+| Dépendances | VS-BL-US-001 · VS-BL-US-002 |
-+| Risque | Moyen (live) |
-+| Taille relative | M |
-+| Gate Morris éventuel | Avant live GPT : G-VS-LIVE-GPT (futur) |
-+| Hors périmètre | Retry automatique · inventaire coût € |
-+| Notes delivery | Fixture d’abord (Incr. B) puis live (Incr. C) sous flags |
-+
-+### VS-BL-US-005 — Loading qualification + no retry
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E2 / C2.2 · C2.4 |
-+| Acteur | Morris / Système |
-+| Story | En tant que Morris, Je veux voir la phase active et le plafond « À définir », sans retry automatique, Afin de contrôler la consommation. |
-+| Valeur démontrée | Transparence FinOps + anti-retry |
-+| Sources | VS-FR-16 · VS-BR-03 · VS-CAND-14 · VS-UX-FR-07 · VS-UX-VAR Loading `52:2` |
-+| UX / état / variante | VS-UX-02 · variante Loading `52:2` |
-+| Préconditions | Qualification démarrée (US-004) |
-+| Critères d’acceptation | **Given** qualif en cours **When** UI affiche l’état **Then** phase active lisible · compteur `n / À définir` · mention « Aucun retry automatique » · pas de barre de progression inventée comme succès |
-+| Scénarios négatifs | Timeout qualif → état d’échec/stop explicite · **pas** de GO · **pas** de retry auto |
-+| Preuves attendues | Screenshot / trace UI Loading + FinOps |
-+| Dépendances | VS-BL-US-004 |
-+| Risque | Faible |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Valeur numérique du plafond (G-VS-LIMIT) |
-+| Notes delivery | Plafond affiché « À définir » jusqu’à arbitrage |
-+
-+### VS-BL-US-006 — Rejet fail-closed QualificationCandidate
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E2 / C2.2 |
-+| Acteur | Harness (autorité) / Studio (affichage) |
-+| Story | En tant que Morris, Je veux qu’une sortie GPT invalide soit rejetée fail-closed, Afin d’éviter un GO aveugle. |
-+| Valeur démontrée | Garde-fou intégrité qualification |
-+| Sources | VS-FR-02 · VS-BR-01 · VS-BR-02 · N1 · VS-UX-FR-13 · VS-UX-VAR Erreur `52:10` |
-+| UX / état / variante | VS-UX-02 · variante Erreur `52:10` |
-+| Préconditions | Sortie GPT reçue (fixture ou live) |
-+| Critères d’acceptation | **Given** sortie hors contrat **When** validateur refuse **Then** message erreur fail-closed · pas d’état `qualification_prête` · CTA correction/abandon · aucun GO |
-+| Scénarios négatifs | **N1** Qualif invalide → rejet · pas d’exécution · correction ou abandon uniquement |
-+| Preuves attendues | Event validation_rejected · pas de QualificationCandidate acceptée |
-+| Dépendances | VS-BL-US-004 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Fallback permissif · auto-correction GPT |
-+| Notes delivery | Harness valide ; Studio affiche dérivé |
-+
-+### VS-BL-US-007 — Afficher qualification complète avant gate
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E2 / C2.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux lire cycle, profil, allowlist, stops, hash, Afin de contrôler avant tout GO. |
-+| Valeur démontrée | Contrôle humain pré-GO (VS-CAND-03) |
-+| Sources | VS-FR-03 · VS-CAND-03 · VS-UX-03 · VS-UX-FR-04 (préparation gate) |
-+| UX / état / variante | VS-UX-03 · frame `51:277` · vue Nouvelle demande |
-+| Préconditions | QualificationCandidate validée |
-+| Critères d’acceptation | **Given** qualif valide **When** affichage **Then** champs obligatoires doc 33 §3 visibles · source étiquetée GPT · **pas** d’auto-GO · CTA Continuer vers gate / Correction / Abandonner |
-+| Scénarios négatifs | Champ obligatoire manquant → pas de passage gate · message explicite |
-+| Preuves attendues | Screenshot VS-UX-03 · QualificationCandidate complète |
-+| Dépendances | VS-BL-US-006 (chemin OK) |
-+| Risque | Faible |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Modification silencieuse du candidat |
-+| Notes delivery | Mock possible Incr. A |
-+
-+### VS-BL-US-008 — Demander correction qualification
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E2 / C2.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux demander une correction, Afin de relancer une nouvelle qualification contrôlée. |
-+| Valeur démontrée | Boucle de correction gouvernée |
-+| Sources | VS-FR-04 (action correction) · VS-BR-02 · VS-BR-03 · Doc 33 transitions qualif |
-+| UX / état / variante | VS-UX-03 → VS-UX-02 |
-+| Préconditions | Qualification proposée visible |
-+| Critères d’acceptation | **Given** qualif proposée **When** Demander une correction **Then** retour `qualification_en_cours` · nouvelle consommation FinOps visible · pas de fallback permissif · pas de retry auto silencieux |
-+| Scénarios négatifs | Correction sans confirmation FinOps → bloquée ou confirmée explicitement |
-+| Preuves attendues | Event correction_requested · FinOps +1 (nouvelle conso) |
-+| Dépendances | VS-BL-US-007 |
-+| Risque | Moyen (FinOps) |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Correction automatique par GPT |
-+| Notes delivery | Chaque relance = consommation distincte |
-+
-+### VS-BL-US-009 — Générer ExecutionContract + hash
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E3 / C3.1 |
-+| Acteur | Harness |
-+| Story | En tant que Morris, Je veux un contrat borné hashé, Afin d’ancrer le futur GO. |
-+| Valeur démontrée | Ancrage déterministe du périmètre |
-+| Sources | VS-FR-05 · VS-BR-05 · VS-CAND-04 · VS-CAND-06 |
-+| UX / état / variante | VS-UX-03/04 (affichage dérivé contractId/hash) |
-+| Préconditions | Qualification acceptée pour passage gate |
-+| Critères d’acceptation | **Given** qualif acceptée pour gate **When** contrat produit **Then** contractId + contractHash + allowlist + gitEffect=none-remote présents et stables |
-+| Scénarios négatifs | Contrat incomplet → pas de gate GO possible · fail-closed |
-+| Preuves attendues | ExecutionContract + hash dans preuves/journal |
-+| Dépendances | VS-BL-US-007 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Protocole API inventé · ORM |
-+| Notes delivery | Réutiliser canonicalize/hash harness existants (lecture seule observée) |
-+
-+### VS-BL-US-010 — Dossier de décision Gate Morris
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E3 / C3.2 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux un dossier ancré (IDs, HEAD, branche, allowlist, horodatage), Afin de décider en connaissance de cause. |
-+| Valeur démontrée | Décision gate informée |
-+| Sources | VS-FR-05 · VS-UX-04 · VS-UX-FR-04 · VS-BR-05 · VS-BR-11 |
-+| UX / état / variante | VS-UX-04 · frame `51:415` · vue Décision / Gate |
-+| Préconditions | Contrat hashé disponible (US-009) |
-+| Critères d’acceptation | **Given** attente gate **When** affichage dossier **Then** requestId, contractId, contractHash, branche, HEAD, allowlist, horodatage TZ, autorité · mention timeout ≠ GO visible |
-+| Scénarios négatifs | Ancrage incomplet → CTA GO désactivé · message explicite |
-+| Preuves attendues | Screenshot dossier gate · champs d’ancrage |
-+| Dépendances | VS-BL-US-009 |
-+| Risque | Faible |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | GO sans ancrage · auto-GO |
-+| Notes delivery | Mock Incr. A ; réel Incr. B |
-+
-+### VS-BL-US-011 — Quatre actions gate (GO / NO-GO / Corriger / Abandonner)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E3 / C3.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux quatre actions explicites au gate, Afin de ne pas confondre NO-GO, STOP et Abandonner. |
-+| Valeur démontrée | Autorité Morris L0 au gate · distinction sémantique |
-+| Sources | VS-FR-04 · VS-UX-FR-15 · VS-UX-FR-16 · VS-UX-04 · Doc 36 §8 (Abandonner ≠ NO-GO ≠ STOP) · VS-CAND-04 (ancrage GO) · VS-BR-04 |
-+| UX / état / variante | VS-UX-04 · quatre CTA · confirmation Abandonner |
-+| Préconditions | Dossier gate complet (US-010) |
-+| Critères d’acceptation | **Given** gate affiché **When** Morris choisit une action **Then** GO / NO-GO / Demander une correction / Abandonner sont distincts · Abandonner = destructif + confirmation + conséquence `abandonné` · aucune action Git distante · GO n’autorise spawn qu’après revalidation ultérieure |
-+| Scénarios négatifs | Confusion Abandon/NO-GO/STOP → copy UI + a11y (noms accessibles) · GO sans ancrage → impossible |
-+| Preuves attendues | MorrisGateDecision journalisée · UI 4 actions |
-+| Dépendances | VS-BL-US-010 |
-+| Risque | Moyen (UI actuelle ≠ 4 actions) |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | VS-FR-15 (secrets) · VS-FR-16 (FinOps) — **non applicables** comme sources des 4 actions · STOP exécution (US-019) |
-+| Notes delivery | Ne pas confondre VS-UX-FR-15/16 avec VS-FR-15/16 |
-+
-+### VS-BL-US-012 — Invalidation GO (HEAD/hash/branche/allowlist)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E3 / C3.4 |
-+| Acteur | Harness / Studio (affichage) |
-+| Story | En tant que Morris, Je veux qu’un GO stale soit invalide, Afin d’empêcher un spawn dangereux. |
-+| Valeur démontrée | Sécurité d’ancrage |
-+| Sources | VS-FR-06 · VS-BR-06 · VS-AC-02 · VS-AC-03 · N3 · N5 · N6 · VS-UX-FR-05 · VS-UX-VAR GO invalide `52:26` |
-+| UX / état / variante | VS-UX-04/05 · variante GO invalide `52:26` |
-+| Préconditions | GO ancré existant |
-+| Critères d’acceptation | **Given** GO ancré **When** HEAD, contractHash, branche ou allowlist diverge **Then** bandeau GO invalide · harness refuse spawn · nouveau gate requis |
-+| Scénarios négatifs | **N3** HEAD modifié · **N5** GO invalide/expiré · **N6** contrat modifié → refus + message |
-+| Preuves attendues | Event go_invalidated · refus spawn journalisé |
-+| Dépendances | VS-BL-US-011 (GO) · VS-BL-US-017 |
-+| Risque | Élevé (runtime) |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Réparation automatique du GO |
-+| Notes delivery | Variante UX obligatoire Incr. A mock + B/D réel |
-+
-+### VS-BL-US-013 — Adaptateur fin sans autorité
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E4 / C4.1 |
-+| Acteur | Adaptateur (Studio→Harness) |
-+| Story | En tant que Morris, Je veux que Studio transmette sans élargir ni décider, Afin de préserver Option B. |
-+| Valeur démontrée | Garde-fou architecture Option B |
-+| Sources | VS-FR-13 · VS-BR-12 · VS-CAND-05 |
-+| UX / état / variante | Transverse (pas de 5e route) |
-+| Préconditions | Actions Studio à transmettre ; harness joignable (fixture ou réel) |
-+| Critères d’acceptation | **Given** action Studio **When** envoi via adaptateur **Then** aucune décision inventée · pas de seconde vérité · pas d’assouplissement policy · harness reste autorité d’application des gates |
-+| Scénarios négatifs | Tentative d’élargissement périmètre côté Studio → refus / non transmission |
-+| Preuves attendues | Trace transmission · comparaison payload vs preuves harness |
-+| Dépendances | VS-BL-US-009 · VS-BL-US-011 |
-+| Risque | Élevé (absent aujourd’hui) |
-+| Taille relative | L |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Spécification API/protocole figée · choix stack |
-+| Notes delivery | Spike candidat interface en cycle archi ultérieur — pas ici |
-+
-+### VS-BL-US-014 — Afficher états dérivés depuis preuves/journal
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E4 / C4.2 |
-+| Acteur | Studio |
-+| Story | En tant que Morris, Je veux des états dérivés des preuves/journal, Afin que Git/preuves priment. |
-+| Valeur démontrée | Studio = cockpit dérivé (pas vérité) |
-+| Sources | VS-FR-13 · VS-AC-11 · VS-BR-12 · VS-UX-FR-12 |
-+| UX / état / variante | Tous états · source de statut visible |
-+| Préconditions | Événements/preuves harness disponibles |
-+| Critères d’acceptation | **Given** événements harness **When** UI rafraîchit **Then** statut source explicite (Git / harness / dérivé) · pas d’état inventé · cohérence VS-AC-11 |
-+| Scénarios négatifs | Preuves absentes → message incomplet · pas de faux succès |
-+| Preuves attendues | UI source statut · cohérence avec journal |
-+| Dépendances | VS-BL-US-013 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Cache UI faisant autorité |
-+| Notes delivery | Incr. B |
-+
-+### VS-BL-US-015 — Harness autonome sans Studio
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E4 / C4.3 |
-+| Acteur | Morris / Harness |
-+| Story | En tant que Morris, Je veux exécuter le scénario via harness seul, Afin de ne pas dépendre de l’UI. |
-+| Valeur démontrée | Résilience + non-régression hors UI |
-+| Sources | VS-FR-14 · VS-BR-13 · VS-AC-12 · VS-CAND-10 |
-+| UX / état / variante | — (CLI / hors Studio) · Aucun spécifique UI |
-+| Préconditions | Contrat + GO (fixture ou réel selon incrément) |
-+| Critères d’acceptation | **Given** contrat+GO **When** harness exécute en mode autonome **Then** preuve BeB produite sans Studio · mêmes garde-fous gates |
-+| Scénarios négatifs | GO absent → refus spawn (N4) même sans Studio |
-+| Preuves attendues | Journal/preuves harness · VS-AC-12 |
-+| Dépendances | VS-BL-US-009 · capitalisation spikes `29`–`31` |
-+| Risque | Faible (déjà partiel) |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Remplacer Studio · supprimer Option B cockpit |
-+| Notes delivery | Chemin de contrôle parallèle obligatoire |
-+
-+### VS-BL-US-016 — Reprise après perte de session Studio
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E4 / C4.4 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux reprendre après perte de session sans inventer d’état, Afin d’éviter un faux succès. |
-+| Valeur démontrée | Reprise sûre · anti faux succès |
-+| Sources | **N16** · VS-AC-11 · VS-FR-13 · VS-BR-12 · Doc 33 N16 |
-+| UX / état / variante | Reprise sur vues P0 selon état dérivé |
-+| Préconditions | Cycle existant avec preuves/Git ; session Studio perdue |
-+| Critères d’acceptation | **Given** session Studio perdue **When** rechargement **Then** états rechargés **uniquement** depuis preuves/Git · message si incomplet · **aucun** état inventé · pas de GO implicite |
-+| Scénarios négatifs | **N16** Preuves incomplètes → reprise partielle explicite · blocage actions dangereuses |
-+| Preuves attendues | Scénario reprise · source statut post-reload |
-+| Dépendances | VS-BL-US-014 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Persistance locale faisant autorité · inventaire session storage comme vérité |
-+| Notes delivery | N16 couvert ici — **pas** dans US-003 |
-+
-+### VS-BL-US-017 — Revalidation GO avant Cursor
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E5 / C5.1 |
-+| Acteur | Harness |
-+| Story | En tant que Morris, Je veux une revalidation déterministe avant spawn, Afin d’appliquer le gate. |
-+| Valeur démontrée | Autorité harness sur le spawn |
-+| Sources | VS-FR-07 · VS-BR-07 · VS-AC-02 · VS-AC-03 · N4 · N5 |
-+| UX / état / variante | VS-UX-05 (état dérivé refus/OK) |
-+| Préconditions | Demande de spawn ; GO éventuellement présent |
-+| Critères d’acceptation | **Given** spawn demandé **When** harness revalide **Then** hash/HEAD/branche/allowlist OK sinon refus · aucun spawn si N4/N5 |
-+| Scénarios négatifs | **N4** GO absent → refus · **N5** GO invalide → refus · journal |
-+| Preuves attendues | Event revalidation_ok/refused |
-+| Dépendances | VS-BL-US-011 · VS-BL-US-012 |
-+| Risque | Élevé |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Revalidation côté Studio comme autorité |
-+| Notes delivery | Incr. B fixture · Incr. D live |
-+
-+### VS-BL-US-018 — Exécution Cursor sandbox Markdown
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E5 / C5.2 · C5.4 |
-+| Acteur | Cursor / Harness |
-+| Story | En tant que Morris, Je veux que Cursor crée le Markdown autorisé uniquement, Afin de prouver le BeB sandbox. |
-+| Valeur démontrée | Preuve BeB Markdown bornée |
-+| Sources | VS-FR-08 · VS-FR-09 · VS-BR-08 · VS-BR-09 · VS-AC-04 · VS-AC-09 · VS-CAND-01 · VS-CAND-06 · VS-CAND-07 · VS-UX-05 · N7 · N8 · N9 · N10 |
-+| UX / état / variante | VS-UX-05 · frame `51:540` · Cycle actif |
-+| Préconditions | GO revalidé (US-017) · allowlist connue |
-+| Critères d’acceptation | **Given** GO revalidé **When** exécution **Then** fichier sandbox allowlist · remote writes=0 · journal dérivé · pas de commandes inventées en UI comme réussies |
-+| Scénarios négatifs | **N7** hors allowlist STOP/refus · **N8** action interdite STOP · **N9** Cursor indisponible échec explicite · **N10** exit≠0 rapport échec |
-+| Preuves attendues | Fichier sandbox · CursorExecutionReport · remote=0 |
-+| Dépendances | VS-BL-US-017 · VS-BL-US-013 (si via Studio) |
-+| Risque | Élevé |
-+| Taille relative | L |
-+| Gate Morris éventuel | G-VS-LIVE-CURSOR |
-+| Hors périmètre | Écriture remote · multi-fichier hors allowlist · claim prod |
-+| Notes delivery | Capitaliser spike e2e sandbox ; fixture avant live |
-+
-+### VS-BL-US-019 — STOP prioritaire pendant exécution
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E5 / C5.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux un STOP immédiat prioritaire, Afin d’interrompre toute activité en cours. |
-+| Valeur démontrée | Sécurité opérateur |
-+| Sources | VS-FR-10 · VS-BR-10 · VS-AC-05 · VS-CAND-09 · N12 · VS-UX-FR-06 · VS-UX-VAR STOP `52:18` |
-+| UX / état / variante | VS-UX-02/05/07 · variante STOP `52:18` |
-+| Préconditions | Phase active (qualif, exécution ou analyse) |
-+| Critères d’acceptation | **Given** phase active **When** STOP **Then** état `stoppé` · event journalisé · STOP ≠ Abandonner ≠ NO-GO · reprise éventuelle sous **nouveau GO** si re-exec |
-+| Scénarios négatifs | **N12** STOP → immédiat · pas de continuation silencieuse |
-+| Preuves attendues | Event stop · UI variante STOP |
-+| Dépendances | VS-BL-US-004 / 018 / 023 selon phase |
-+| Risque | Moyen |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Auto-reprise sans GO |
-+| Notes delivery | Accessible clavier (VS-UX-FR-06) |
-+
-+### VS-BL-US-020 — Timeout ≠ GO
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E5 / C5.3 |
-+| Acteur | Système / Harness |
-+| Story | En tant que Morris, Je veux qu’un timeout stoppe sans autoriser, Afin d’éviter un GO implicite. |
-+| Valeur démontrée | Anti-autorisation implicite |
-+| Sources | VS-BR-11 · VS-CAND-09 · N11 |
-+| UX / état / variante | VS-UX-05 · message timeout |
-+| Préconditions | Exécution en cours avec timer |
-+| Critères d’acceptation | **Given** exécution **When** timeout **Then** `stoppé` · message « timeout ≠ GO » · pas de spawn ultérieur sans nouveau GO |
-+| Scénarios négatifs | **N11** timeout → stoppé · pas de succès implicite |
-+| Preuves attendues | Event timeout · absence de GO dérivé |
-+| Dépendances | VS-BL-US-018 |
-+| Risque | Moyen |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Allongement silencieux du timeout comme succès |
-+| Notes delivery | Valeur numérique timeout = hypothèse delivery / spike — non figée ici |
-+
-+### VS-BL-US-021 — Rapport et fichiers touchés
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E6 / C6.1 · C6.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux le rapport Cursor/harness et l’aperçu sanitisé, Afin de contrôler le résultat. |
-+| Valeur démontrée | Contrôle post-exécution |
-+| Sources | VS-FR-11 · VS-UX-06 · VS-AC-09 · N13 |
-+| UX / état / variante | VS-UX-06 · frame `51:678` |
-+| Préconditions | Fin d’exécution (succès ou échec rapporté) |
-+| Critères d’acceptation | **Given** fin exécution **When** rapport disponible **Then** statut · fichiers touchés · remote=0 · réserves · CTA analyse conditionné |
-+| Scénarios négatifs | **N13** Rapport absent → bloque analyse · message |
-+| Preuves attendues | CursorExecutionReport · aperçu sanitisé |
-+| Dépendances | VS-BL-US-018 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Affichage de secrets dans l’aperçu |
-+| Notes delivery | Sanitisation obligatoire (lien US-028) |
-+
-+### VS-BL-US-022 — Review pack prérequis analyse / clôture
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E6 / C6.2 · C6.4 |
-+| Acteur | Système / Morris |
-+| Story | En tant que Morris, Je veux bloquer si pack incomplet, Afin d’éviter une clôture positive fallacieuse. |
-+| Valeur démontrée | Garde-fou clôture positive |
-+| Sources | VS-FR-17 · VS-BR-15 · VS-AC-06 · N14 |
-+| UX / état / variante | VS-UX-06/08/10 (blocage CTA) |
-+| Préconditions | Tentative d’analyse ou clôture positive |
-+| Critères d’acceptation | **Given** pack incomplet **When** analyse ou clôture positive demandée **Then** refus explicite · pas de verdict positif · pas de CycleSummary « succès » |
-+| Scénarios négatifs | **N14** pack incomplet → bloque clôture positive |
-+| Preuves attendues | Event pack_incomplete_blocked |
-+| Dépendances | VS-BL-US-021 |
-+| Risque | Moyen |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Clôture positive forcée |
-+| Notes delivery | Incr. B fixture · E réel |
-+
-+### VS-BL-US-023 — Analyse GPT verdict candidat
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E7 / C7.1 · C7.2 · C7.4 |
-+| Acteur | Morris / GPT |
-+| Story | En tant que Morris, Je veux une analyse GPT manuelle du paquet de preuves, Afin d’obtenir un verdict **candidat**. |
-+| Valeur démontrée | Aide à la décision sans autorité GPT |
-+| Sources | VS-FR-12 · VS-BR-14 · VS-CAND-08 · VS-UX-07/08 · VS-FR-16 · VS-BR-03 · N15 · VS-AC-06 · VS-AC-07 |
-+| UX / état / variante | VS-UX-07 → VS-UX-08 · frames `51:816` / `51:954` |
-+| Préconditions | Rapport + pack OK (US-021/022) |
-+| Critères d’acceptation | **Given** rapport+pack OK **When** Lancer analyse **Then** appel GPT distinct de la qualif · compteur analyse · plafond « À définir » · no retry · verdict étiqueté **candidat** · pas de clôture auto |
-+| Scénarios négatifs | **N15** Verdict invalide → rejet fail-closed · FinOps visible · correction/abandon |
-+| Preuves attendues | GptVerdictCandidate · events FinOps analyse |
-+| Dépendances | VS-BL-US-022 |
-+| Risque | Élevé (live) |
-+| Taille relative | L |
-+| Gate Morris éventuel | G-VS-LIVE-GPT (analyse) |
-+| Hors périmètre | Clôture automatique · retry auto |
-+| Notes delivery | Incr. E ; fixture possible avant live |
-+
-+### VS-BL-US-024 — Afficher prouvé / non prouvé / écarts
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E7 / C7.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux voir prouvé/non prouvé/écarts/risques/réserves, Afin de décider en conscience. |
-+| Valeur démontrée | Lisibilité du verdict candidat |
-+| Sources | VS-FR-12 · VS-UX-08 · VS-UX-FR-08 · VS-BR-14 |
-+| UX / état / variante | VS-UX-08 |
-+| Préconditions | Verdict candidat valide |
-+| Critères d’acceptation | **Given** verdict valide **When** affichage **Then** sections prouvé / non prouvé / écarts / risques / réserves / décisions Morris requises · étiquette candidat · pas de bouton clôture auto |
-+| Scénarios négatifs | Section obligatoire manquante → pas de passage décision finale |
-+| Preuves attendues | Screenshot VS-UX-08 |
-+| Dépendances | VS-BL-US-023 |
-+| Risque | Faible |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Reformulation comme décision Morris |
-+| Notes delivery | — |
-+
-+### VS-BL-US-025 — Décision finale Morris
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E8 / C8.1 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux clôturer, corriger, relancer (nouveau GO) ou abandonner, Afin de conclure le cycle. |
-+| Valeur démontrée | Autorité de clôture humaine |
-+| Sources | VS-FR-12 · VS-AC-07 · VS-AC-08 · VS-UX-09 · VS-UX-FR-09 · VS-BR-04 · VS-BR-17 |
-+| UX / état / variante | VS-UX-09 · frame `51:1079` |
-+| Préconditions | Verdict candidat affiché (ou chemin NO-GO/abandon documenté) |
-+| Critères d’acceptation | **Given** verdict candidat **When** décision Morris **Then** MorrisFinalDecision enregistrée · conséquences explicites · pas d’actions Git groupées · pas de claim MVP/prod |
-+| Scénarios négatifs | Verdict invalide → pas de clôture auto (VS-AC-07) |
-+| Preuves attendues | MorrisFinalDecision journalisée |
-+| Dépendances | VS-BL-US-024 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Merge auto · L5 · multi-projet |
-+| Notes delivery | 4 actions finales distinctes du gate d’exécution |
-+
-+### VS-BL-US-026 — Clôture slice-only
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E8 / C8.2 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux une synthèse du slice courant uniquement, Afin d’éviter un faux portefeuille multi-projet. |
-+| Valeur démontrée | Clôture honnête bornée |
-+| Sources | VS-UX-10 · VS-UX-FR-17 · VS-BR-17 · VS-CAND-11 |
-+| UX / état / variante | VS-UX-10 · frame `51:1204` · vue synthèse |
-+| Préconditions | Décision finale de clôture |
-+| Critères d’acceptation | **Given** clôture **When** affichage CycleSummary **Then** requestId, décision, MD, preuves, FinOps, traçabilité du **slice courant** · **aucun** portfolio multi-projet · aucun claim MVP/production-ready |
-+| Scénarios négatifs | Tentative d’afficher autres projets → hors périmètre · non rendu |
-+| Preuves attendues | CycleSummary slice-only |
-+| Dépendances | VS-BL-US-025 |
-+| Risque | Faible |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Portfolio · Studio complete · industrialisation |
-+| Notes delivery | Correctif UX validé — ne pas rouvrir |
-+
-+### VS-BL-US-027 — Relance sous nouveau GO
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E8 / C8.3 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux relancer après STOP/échec uniquement avec nouveau GO, Afin de respecter les gates. |
-+| Valeur démontrée | Ré-exécution gouvernée |
-+| Sources | Doc 33 matrice GO / transitions `stoppé` · N11 · N12 · VS-BR-07 · VS-CAND-09 |
-+| UX / état / variante | VS-UX-09 (Relancer) → retour gate |
-+| Préconditions | État `stoppé` ou correction exigeant re-exec |
-+| Critères d’acceptation | **Given** stoppé ou correction avec re-exec **When** Relancer **Then** nouveau contrat et/ou nouveau GO exigés · pas de réutilisation GO stale |
-+| Scénarios négatifs | Relance sans nouveau GO → refus |
-+| Preuves attendues | Event relaunch_requires_new_go |
-+| Dépendances | VS-BL-US-019 · VS-BL-US-020 · VS-BL-US-025 |
-+| Risque | Moyen |
-+| Taille relative | S |
-+| Gate Morris éventuel | Nouveau GO (humain) |
-+| Hors périmètre | Réutilisation GO après timeout/STOP |
-+| Notes delivery | — |
-+
-+### VS-BL-US-028 — Interdiction secrets & PII
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E9 / C9.1 · C9.2 |
-+| Acteur | Système / Morris |
-+| Story | En tant que Morris, Je veux zéro secret et zéro PII réelle dans UI/logs/preuves, Afin de respecter le RGPD minimal. |
-+| Valeur démontrée | Sécurité / conformité minimale |
-+| Sources | VS-FR-15 · VS-BR-16 · VS-CAND-13 · VS-AC-10 · VS-UX-FR-10 |
-+| UX / état / variante | Transverse · tous écrans/preuves |
-+| Préconditions | Toute surface UI ou preuve du slice |
-+| Critères d’acceptation | **Given** n’importe quel écran/preuve **When** inspection **Then** pas de token/clé/secret · demande de test sans PII réelle · masquage si donnée sensible mock |
-+| Scénarios négatifs | Fuite détectée → STOP livraison surface · correction obligatoire |
-+| Preuves attendues | Checklist audit secrets · revue preuves |
-+| Dépendances | Toutes stories UI/preuves |
-+| Risque | Élevé (si oubli) |
-+| Taille relative | S |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Stockage secrets en clair « pour debug » |
-+| Notes delivery | Transverse Incr. A+ |
-+
-+### VS-BL-US-029 — Observabilité IDs + fuseau + source statut
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E10 / C10.1 · C10.2 · C10.3 · C10.4 |
-+| Acteur | Système |
-+| Story | En tant que Morris, Je veux requestId/correlationId/contractId/eventId, timestamps avec fuseau et source de statut, Afin de reconstruire sans faux succès. |
-+| Valeur démontrée | RUN readiness minimale POC |
-+| Sources | VS-CAND-15 · Doc 32 § observabilité · VS-UX-FR-12 · VS-AC-11 |
-+| UX / état / variante | Transverse |
-+| Préconditions | Événements produits |
-+| Critères d’acceptation | **Given** événement **When** journal/UI **Then** IDs présents · timestamps avec TZ · source statut · durées séparées (qualif ≠ exec ≠ analyse) · aucun faux succès |
-+| Scénarios négatifs | Event sans ID → non accepté comme preuve de progression |
-+| Preuves attendues | Journal corrélé · export preuves |
-+| Dépendances | VS-BL-US-002 |
-+| Risque | Moyen |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Stack observabilité industrielle (Datadog, etc.) |
-+| Notes delivery | POC local — pas d’industrialisation |
-+
-+### VS-BL-US-030 — FinOps plafond À définir (qualif + analyse)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | E2 / E7 · C2.4 · C7.4 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux voir les appels séparés et pouvoir arrêter avant une nouvelle consommation, Afin de maîtriser FinOps. |
-+| Valeur démontrée | Contrôle consommation GPT |
-+| Sources | VS-FR-16 · VS-CAND-14 · VS-BR-03 · VS-UX-FR-07 |
-+| UX / état / variante | VS-UX-02 / VS-UX-07 · compteurs séparés |
-+| Préconditions | Au moins un appel GPT (fixture ou live) |
-+| Critères d’acceptation | **Given** appels GPT **When** UI **Then** compteurs qualif ≠ analyse · plafond affiché « À définir » · possibilité d’arrêter avant nouvel appel · pas de € inventé · pas de retry auto |
-+| Scénarios négatifs | Dépassement si plafond numérique futur → refus nouvel appel (après G-VS-LIMIT) |
-+| Preuves attendues | UI FinOps · events compteurs |
-+| Dépendances | VS-BL-US-004 · VS-BL-US-023 |
-+| Risque | Moyen (valeur absente) |
-+| Taille relative | S |
-+| Gate Morris éventuel | G-VS-LIMIT (valeur numérique) |
-+| Hors périmètre | Inventer un plafond numérique |
-+| Notes delivery | Réserve VS-CAND-14 conservée |
-+
-+### VS-BL-US-031 — Mapping dix états / quatre vues (cockpit)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | Transverse UX E1–E8 |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux naviguer les dix états dans les quatre vues P0, Afin de ne pas créer dix routes. |
-+| Valeur démontrée | Preuve UX structurelle du slice |
-+| Sources | VS-CAND-02 · VS-UX-01…10 · VS-UX-FR-01 · VS-UX-FR-02 · VS-AC-01 |
-+| UX / état / variante | Quatre vues P0 · dix états |
-+| Préconditions | Incrément A (mock) ou ultérieur |
-+| Critères d’acceptation | **Given** Incrément A **When** parcours mock des 10 états **Then** chaque état accessible via vue mappée · **aucune** 5e route VS · shell P0 conservé |
-+| Scénarios négatifs | Ajout route dédiée par état → STOP documentaire / arbitrage Morris |
-+| Preuves attendues | Screenshots 10 états / 4 vues · éventuellement Playwright |
-+| Dépendances | — |
-+| Risque | Moyen (dérive routes) |
-+| Taille relative | L |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Nouvelles routes · redesign shell |
-+| Notes delivery | Prioritaire Incr. A |
-+
-+### VS-BL-US-032 — Variantes Loading / Erreur / STOP / GO invalide
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | Transverse UX |
-+| Acteur | Morris |
-+| Story | En tant que Morris, Je veux les variantes d’état non nominales, Afin de gérer Loading, Erreur, STOP et GO invalide. |
-+| Valeur démontrée | Couverture UX non nominale |
-+| Sources | VS-UX-VAR Loading `52:2` · Erreur `52:10` · STOP `52:18` · GO invalide `52:26` · N1 · N3 · N5 · N12 · VS-UX-FR-05/06/13 |
-+| UX / état / variante | Variantes (pas des routes) |
-+| Préconditions | Conditions variantes (mock ou réel) |
-+| Critères d’acceptation | **Given** conditions variantes **When** affichage **Then** Loading / Erreur fail-closed / STOP / GO invalide distincts, accessibles, non fusionnés avec Abandonner/NO-GO |
-+| Scénarios négatifs | Fusion Abandonner↔STOP↔GO invalide → non conforme · correction UI |
-+| Preuves attendues | Screenshots 4 variantes |
-+| Dépendances | VS-BL-US-005 · 006 · 012 · 019 · 031 |
-+| Risque | Faible |
-+| Taille relative | M |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Nouvelles variantes non arbitrées |
-+| Notes delivery | Incr. A mock obligatoire |
-+
-+### VS-BL-US-033 — Scénarios négatifs N1–N16 (couverture transverse QA)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Epic / Capability | Transverse QA |
-+| Acteur | Morris / Système |
-+| Story | En tant que Morris, Je veux que chaque N1–N16 soit testable via une story dédiée ou cette couverture QA, Afin d’éviter les trous. |
-+| Valeur démontrée | Complétude QA fail-closed |
-+| Sources | N1–N16 · Doc 33 §7 · matrice §9 |
-+| UX / état / variante | Selon N (variantes / états concernés) |
-+| Préconditions | Stories couvrantes primaires disponibles selon incrément |
-+| Critères d’acceptation | **Given** matrice §9 **When** revue QA **Then** chaque N a story primaire + AC/négatif ou statut différé justifié · aucun N ignoré · fail-closed vérifié · preuve identifiée |
-+| Scénarios négatifs | N sans couverture ni justification → STOP documentaire |
-+| Preuves attendues | Matrice §9 + cas de test par N |
-+| Dépendances | Stories 004–023, 016, etc. |
-+| Risque | Moyen (dette si différé) |
-+| Taille relative | L |
-+| Gate Morris éventuel | — |
-+| Hors périmètre | Inventer de nouveaux N hors doc 33 |
-+| Notes delivery | Story transverse de traçabilité — ne remplace pas les AC des stories primaires |
-+
-+---
-+
-+## 8. Corrections de traçabilité (ce correctif)
-+
-+| Story | Avant (erreur) | Après (corrigé) |
-+|-------|----------------|-----------------|
-+| **VS-BL-US-003** | Sources `N16 partiel` (faux : N16 = perte session) | Étape 1 / abandon pré-qualif · FinOps 0 · VS-UX-01 · VS-FR-16 (conso=0) · VS-BR-03 · **sans N16** |
-+| **VS-BL-US-011** | Sources `VS-FR-15/16 (UX)` (faux : FR-15=secrets, FR-16=FinOps) | **VS-FR-04** · **VS-UX-FR-15** · **VS-UX-FR-16** · VS-UX-04 · Doc 36 §8 · VS-CAND-04 · VS-BR-04 |
-+| **VS-BL-US-016** | Couverture N16 OK mais à renforcer | N16 explicitement primaire ici |
-+| **32 stories** | Champs manquants (Valeur, Préconditions, Négatifs, Preuves, Déps, Risque, Gate, Hors, Notes) | **16 champs** présents partout |
-+
-+---
-+
-+## 9. Matrice de couverture (recalculée)
-+
-+| Famille | ID source | Description courte | Story couvrante | Incrément | Preuve attendue | Statut | Réserve / justification |
-+|---------|-----------|--------------------|-----------------|-----------|-----------------|--------|-------------------------|
-+
-+| VS-FR | VS-FR-01 | Saisie demande + requestId | 001,002 | A | UI requestId | couvert | — |
-+| VS-FR | VS-FR-02 | Qualif invalide fail-closed | 006,033 | B/C | validateur + N1 | couvert | — |
-+| VS-FR | VS-FR-03 | Qualif lisible avant GO | 007 | A/B | UI VS-UX-03 | couvert | — |
-+| VS-FR | VS-FR-04 | GO/NO-GO/correction/abandon | 011,003,008,025 | A/B | UI 4 actions + abandons | couvert | 003=abandon pré-qualif ; 011=gate |
-+| VS-FR | VS-FR-05 | GO ancré IDs/hash/HEAD… | 009,010 | A/B | dossier gate | couvert | — |
-+| VS-FR | VS-FR-06 | Invalidation GO | 012 | B/D | bandeau + refus | couvert | — |
-+| VS-FR | VS-FR-07 | Revalidation avant Cursor | 017 | B/D | harness | couvert | — |
-+| VS-FR | VS-FR-08 | Cursor sandbox only | 018 | D | allowlist file | couvert | — |
-+| VS-FR | VS-FR-09 | Pas d’écriture remote | 018,021 | D | remote=0 | couvert | — |
-+| VS-FR | VS-FR-10 | STOP prioritaire | 019 | B/D | STOP event | couvert | — |
-+| VS-FR | VS-FR-11 | Rapport prérequis analyse | 021,022 | B/E | rapport | couvert | — |
-+| VS-FR | VS-FR-12 | Verdict candidat ; Morris clôture | 023–025 | E | verdict+décision | couvert | — |
-+| VS-FR | VS-FR-13 | États dérivés | 014,016 | B | source statut | couvert | — |
-+| VS-FR | VS-FR-14 | Harness sans Studio | 015 | B | CLI/preuves | couvert | — |
-+| VS-FR | VS-FR-15 | Pas de secrets | 028 | A+ | audit | couvert | — |
-+| VS-FR | VS-FR-16 | FinOps visible | 005,030,003 | A/C/E | compteurs | couvert | valeur plafond différée |
-+| VS-FR | VS-FR-17 | Pack incomplet bloque | 022 | B/E | blocage | couvert | — |
-+| VS-BR | VS-BR-01 | Rejet hors contrat | 006 | B/C | reject event | couvert | — |
-+| VS-BR | VS-BR-02 | Pas de fallback permissif | 006,008 | B/C | AC négatifs | couvert | — |
-+| VS-BR | VS-BR-03 | Pas de retry auto | 005,008,023,030 | C/E | UI no retry | couvert | — |
-+| VS-BR | VS-BR-04 | GPT ne décide pas | 011,023,025 | A/E | étiquettes candidat | couvert | — |
-+| VS-BR | VS-BR-05 | GO lié hash/HEAD… | 009,010,011 | B | ancrage | couvert | — |
-+| VS-BR | VS-BR-06 | Changement → GO invalide | 012 | B/D | invalidation | couvert | — |
-+| VS-BR | VS-BR-07 | Revalidation spawn | 017,027 | B/D | revalidation | couvert | — |
-+| VS-BR | VS-BR-08 | Sandbox / hors allowlist STOP | 018 | D | N7 | couvert | — |
-+| VS-BR | VS-BR-09 | Pas remote Git | 018 | D | remote=0 | couvert | — |
-+| VS-BR | VS-BR-10 | STOP prioritaire | 019 | B/D | N12 | couvert | — |
-+| VS-BR | VS-BR-11 | Timeout ≠ GO | 020 | D | N11 | couvert | — |
-+| VS-BR | VS-BR-12 | Studio ≠ vérité | 013,014,016 | B | Option B | couvert | — |
-+| VS-BR | VS-BR-13 | Harness autonome | 015 | B | VS-AC-12 | couvert | — |
-+| VS-BR | VS-BR-14 | Verdict = candidat | 023,024 | E | étiquette | couvert | — |
-+| VS-BR | VS-BR-15 | Pack incomplet | 022 | E | N14 | couvert | — |
-+| VS-BR | VS-BR-16 | Secrets jamais affichés | 028 | A+ | audit | couvert | — |
-+| VS-BR | VS-BR-17 | Claims interdits | 025,026 | E | CycleSummary | couvert | — |
-+| VS-AC | VS-AC-01 | Parcours 1→10 | 031,001–026 | A–E | parcours mock/réel | couvert | agrégé multi-stories |
-+| VS-AC | VS-AC-02 | GO refusé HEAD≠ | 012,017 | B/D | N3/revalidation | couvert | — |
-+| VS-AC | VS-AC-03 | GO refusé hash≠ | 012,017 | B/D | N6 | couvert | — |
-+| VS-AC | VS-AC-04 | Hors allowlist pas succès | 018 | D | N7 | couvert | — |
-+| VS-AC | VS-AC-05 | STOP journalisé | 019 | B/D | event | couvert | — |
-+| VS-AC | VS-AC-06 | Sans rapport/pack pas analyse OK | 021,022,023 | E | blocage | couvert | — |
-+| VS-AC | VS-AC-07 | Verdict invalide pas clôture auto | 023,025 | E | N15 | couvert | — |
-+| VS-AC | VS-AC-08 | Clôture via MorrisFinalDecision | 025 | E | décision | couvert | — |
-+| VS-AC | VS-AC-09 | Pas preuve écriture distante | 018,021 | D | remote=0 | couvert | — |
-+| VS-AC | VS-AC-10 | Pas secret UI/preuves | 028 | A+ | audit | couvert | — |
-+| VS-AC | VS-AC-11 | États cohérents preuves | 014,016,029 | B | dérivé | couvert | — |
-+| VS-AC | VS-AC-12 | Harness sans Studio | 015 | B | CLI | couvert | — |
-+| N | N1 | Qualif GPT invalide | 006,032,033 | C | fail-closed | couvert | — |
-+| N | N2 | Sources Git indisponibles | 004,033 | B | Truth Check STOP | couvert | — |
-+| N | N3 | HEAD modifié après qualif | 012,032,033 | B/D | invalidation | couvert | — |
-+| N | N4 | GO absent | 017,015,033 | B/D | refus spawn | couvert | — |
-+| N | N5 | GO invalide/expiré | 012,017,032,033 | D | refus | couvert | — |
-+| N | N6 | Contrat modifié après GO | 012,033 | D | refus | couvert | — |
-+| N | N7 | Fichier hors allowlist | 018,033 | D | STOP/refus | couvert | — |
-+| N | N8 | Action interdite | 018,033 | D | STOP | couvert | — |
-+| N | N9 | Cursor indisponible | 018,033 | D | échec explicite | couvert | — |
-+| N | N10 | Cursor exit≠0 | 018,021,033 | D | rapport échec | couvert | — |
-+| N | N11 | Timeout | 020,027,033 | D | timeout≠GO | couvert | — |
-+| N | N12 | STOP Morris | 019,027,032,033 | D | stoppé | couvert | — |
-+| N | N13 | Rapport absent | 021,022,033 | D/E | blocage analyse | couvert | — |
-+| N | N14 | Pack incomplet | 022,033 | E | blocage clôture | couvert | — |
-+| N | N15 | Verdict GPT invalide | 023,033 | E | fail-closed | couvert | — |
-+| N | N16 | Perte session Studio | 016,033 | B | reprise dérivée | couvert | Corrigé : plus US-003 |
-+| VS-CAND | VS-CAND-01 | Scénario Markdown sandbox | 001,018 | A/D | MD sandbox | couvert | — |
-+| VS-CAND | VS-CAND-02 | Parcours dix étapes | 031 | A | 10 états | couvert | — |
-+| VS-CAND | VS-CAND-03 | Qualif visible avant GO | 007 | A/B | VS-UX-03 | couvert | — |
-+| VS-CAND | VS-CAND-04 | GO lié hash/HEAD… | 009–012 | B | ancrage | couvert | — |
-+| VS-CAND | VS-CAND-05 | Studio dérivé / harness autorité | 013,014 | B | Option B | couvert | — |
-+| VS-CAND | VS-CAND-06 | Pas écriture remote | 018 | D | remote=0 | couvert | — |
-+| VS-CAND | VS-CAND-07 | Cursor sandbox après GO | 018 | D | spawn | couvert | — |
-+| VS-CAND | VS-CAND-08 | Verdict candidat | 023–025 | E | étiquette | couvert | — |
-+| VS-CAND | VS-CAND-09 | STOP ; timeout≠GO | 019,020 | D | events | couvert | — |
-+| VS-CAND | VS-CAND-10 | Harness autonome | 015 | B | CLI | couvert | — |
-+| VS-CAND | VS-CAND-11 | Succès = VS-AC + critère central | 026,033 | E | AC | couvert | — |
-+| VS-CAND | VS-CAND-12 | Séquencement UX→backlog→delivery | meta docs 38–40 | — | ce cycle | couvert | observé cycle |
-+| VS-CAND | VS-CAND-13 | Pas PII / secrets | 028 | A+ | audit | couvert | — |
-+| VS-CAND | VS-CAND-14 | Plafond + no retry | 005,030 | C/E | UI À définir | couvert | valeur numérique **différée** |
-+| VS-CAND | VS-CAND-15 | IDs corrélation | 002,029 | A/B | IDs UI/journal | couvert | — |
-+| VS-UX | VS-UX-01 | Nouvelle demande | 001,003,031 | A | frame 51:3 | couvert | — |
-+| VS-UX | VS-UX-02 | Qualification en cours | 004,005,006,030,032 | A/C | 51:139 | couvert | — |
-+| VS-UX | VS-UX-03 | Qualification proposée | 007,008 | A/B | 51:277 | couvert | — |
-+| VS-UX | VS-UX-04 | Gate Morris | 009–012,011 | A/B | 51:415 | couvert | — |
-+| VS-UX | VS-UX-05 | Exécution | 017–020 | B/D | 51:540 | couvert | — |
-+| VS-UX | VS-UX-06 | Rapport | 021,022 | B/D | 51:678 | couvert | — |
-+| VS-UX | VS-UX-07 | Analyse GPT | 023,030,032 | E | 51:816 | couvert | — |
-+| VS-UX | VS-UX-08 | Verdict proposé | 024 | E | 51:954 | couvert | — |
-+| VS-UX | VS-UX-09 | Décision Morris | 025,027 | E | 51:1079 | couvert | — |
-+| VS-UX | VS-UX-10 | Clôture | 026 | A/E | 51:1204 | couvert | — |
-+| VAR | VS-UX-VAR Loading `52:2` | Loading GPT | 005,032 | A/C | screenshot | couvert | — |
-+| VAR | VS-UX-VAR Erreur `52:10` | Erreur fail-closed | 006,032 | A/C | screenshot | couvert | — |
-+| VAR | VS-UX-VAR STOP `52:18` | STOP Morris | 019,032 | A/D | screenshot | couvert | — |
-+| VAR | VS-UX-VAR GO invalide `52:26` | GO invalide | 012,032 | A/D | screenshot | couvert | — |
-+
-+**Contrôle :** aucune source orpheline · aucune story inexistante · N16 ≠ US-003 · VS-FR-15/16 ≠ sources des 4 actions gate.
-+
-+**VS-CAND-14 :** plafond **obligatoire** couvert ; valeur numérique **différée** (À définir) — justifié (G-VS-LIMIT).
-+
-+---
-+
-+## 10. Traçabilité rapide stories → sources
-+
-+| Story | FR/BR/AC/N/UX/CAND principaux |
-+|-------|-------------------------------|
-+| 001–003 | FR-01/16 · UX-01 · CAND-01/15 · abandon pré-qualif (**pas N16**) |
-+| 004–008 | FR-02/03/04/16 · BR-01/02/03 · N1/N2 · UX-02/03 · VAR Loading/Erreur |
-+| 009–012 | FR-04/05/06 · BR-04/05/06 · AC-02/03 · N3/N5/N6 · UX-04 · UX-FR-15/16 · VAR GO invalide |
-+| 013–016 | FR-13/14 · BR-12/13 · AC-11/12 · **N16→016** · CAND-05/10 |
-+| 017–020 | FR-07/08/09/10 · BR-07/08/09/10/11 · AC-04/05/09 · N4/N7–N12 · UX-05 · VAR STOP |
-+| 021–022 | FR-11/17 · BR-15 · AC-06 · N13/N14 · UX-06 |
-+| 023–024 | FR-12/16 · BR-14 · AC-06/07 · N15 · UX-07/08 · CAND-08 |
-+| 025–027 | FR-12 · AC-07/08 · BR-04/17 · UX-09/10 · N11/N12 (relance) |
-+| 028–030 | FR-15/16 · BR-03/16 · AC-10 · CAND-13/14/15 |
-+| 031–033 | UX-01…10 · VAR · N1–N16 · AC-01 · CAND-02 |
-+
-+---
-+
-+## 11. Risques backlog
-+
-+| Risque | Mitigation |
-+|--------|------------|
-+| Adapter Studio↔harness sous-estimé | US-013 L + Incr. B avant live |
-+| Confusion 10 routes | US-031 + DoR « pas de nouvelle route » |
-+| Live trop tôt | Gates G-VS-LIVE-GPT / CURSOR |
-+| MVP implicite | DoD + claims interdits |
-+| Plafond non chiffré | Afficher « À définir » ; GO FinOps séparé |
-+| Traçabilité erronée | Correctif US-003 / US-011 + matrice §9 |
-+
-+---
-+
-+## 12. Gates Morris (rappel)
-+
-+| Gate | Objet |
-+|------|-------|
-+| G-VS-BL | **Consommé** — produire backlog |
-+| G-VS-BL-FIX | **Consommé** — correctif documentaire structure/traçabilité |
-+| G-VS-BL-VAL | **Consommé** — validation backlog / `VS-BL-CAND-01`…`12` |
-+| G-VS-BL-DOC | **Partiel** — commit/push/draft PR autorisés ; **merge** = GO distinct |
-+| G-VS-DEL / G-VS-DEL-A | Delivery (Incr. A retenu, **non autorisé** ici) |
-+| G-VS-LIVE-GPT | GPT live |
-+| G-VS-LIVE-CURSOR | Cursor live |
-+| G-VS-LIMIT | Valeur numérique plafond (**À définir**) |
-+| G-VS-CI / MVP / IND | Interdits tant que non GO |
-+
-+---
-+
-+## 13. Synthèse quantitative
-+
-+| Élément | Nombre |
-+|---------|--------|
-+| Epics | 10 |
-+| Capabilities | 34 |
-+| User stories | **33** (`VS-BL-US-001` … `033`) |
-+| Champs obligatoires / story | **16** |
-+| Lignes matrice couverture | 91 |
-+| Incréments A–E | 5 — séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct (voir `39`) |
-+| Références traçabilité corrigées (min.) | US-003 · US-011 (+ champs 32 stories) |
-diff --git a/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md b/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md
-new file mode 100644
-index 0000000..47116c9
---- /dev/null
-+++ b/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md
-@@ -0,0 +1,239 @@
-+# SFIA Studio — Story map et séquencement du vertical slice POC
-+
-+| Métadonnée | Valeur |
-+|------------|--------|
-+| **Document** | `39-poc-vertical-slice-story-map-and-sequencing.md` |
-+| **Cycle** | 5 — Backlog / user stories |
-+| **Profil** | Standard |
-+| **Statut** | `validated-for-versioning` — story map et séquencement A–E **validés Morris** ; incrément A **retenu** ; delivery non autorisé |
-+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-+| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
-+| **Companion** | [`38`](./38-poc-vertical-slice-backlog.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
-+| **Décisions Morris** | `VS-BL-CAND-01` (A→E) · `VS-BL-CAND-03` (Incr. A premier périmètre) validées |
-+
-+> Story map des **dix états** sur **quatre vues P0**.
-+> Séquencement A–E validé ; **delivery** de chaque incrément soumis à GO Morris distinct.
-+
-+---
-+
-+## 1. Backbone — dix étapes / états
-+
-+```text
-+01 Nouvelle demande
-+ → 02 Qualification en cours
-+ → 03 Qualification proposée
-+ → 04 Gate Morris
-+ → 05 Exécution
-+ → 06 Rapport disponible
-+ → 07 Analyse GPT
-+ → 08 Verdict proposé
-+ → 09 Décision Morris
-+ → 10 Clôture
-+```
-+
-+Variantes transverses : Loading · Erreur fail-closed · STOP · GO invalide.
-+
-+---
-+
-+## 2. Mapping états → quatre vues P0
-+
-+| Vue P0 (route existante) | États VS-UX | Stories principales |
-+|--------------------------|-------------|---------------------|
-+| **Nouvelle demande** `/nouvelle-demande` | 01, 02, 03 | 001–008, 005, 006, 030, 032 |
-+| **Décision Morris / Gate** `/decision` | 04 | 009–012, 032 |
-+| **Cycle actif** `/cycle-actif` | 05, 06, 07, 08 | 017–024, 019, 020, 032 |
-+| **Décision finale** `/decision` (phase post-verdict) | 09 | 025, 027 |
-+| **Vue synthèse / clôture** `/synthese` | 10 | 026 |
-+
-+**Règle :** états / panneaux / transitions — **pas** dix routes.
-+Toute 5e route VS = STOP / arbitrage Morris.
-+
-+---
-+
-+## 3. Story map (backbone × stories)
-+
-+| Étape | Stories | Dépendances verticales |
-+|-------|---------|------------------------|
-+| 01 | 001, 002, 003 (abandon pré-qualif), 031 | — |
-+| 02 | 004, 005, 006, 030, 032 | 001 |
-+| 03 | 007, 008 | 004–006 |
-+| 04 | 009, 010, 011 (4 actions · VS-FR-04 / VS-UX-FR-15/16), 012, 032 | 007, 009 |
-+| 05 | 013*, 014, 017, 018, 019, 020, 032 | 011 GO, 017 |
-+| 06 | 021, 022 | 018 |
-+| 07 | 023, 030, 032 | 021–022 |
-+| 08 | 024 | 023 |
-+| 09 | 025, 027 | 024 |
-+| 10 | 026 | 025 |
-+| Transverse | 015, **016 (N16 reprise session)**, 028, 029, 033 | Continu |
-+
-+\*013 adaptateur commence Incr. B, critique avant live.
-+
-+**Traçabilité N16 :** couverture primaire = **VS-BL-US-016** (+ US-033 QA) — **pas** US-003.
-+
-+---
-+
-+## 4. Dépendances horizontales
-+
-+| Lien | Nature |
-+|------|--------|
-+| 002 IDs ↔ toutes | Corrélation obligatoire |
-+| 013 adaptateur ↔ 014/017/018 | Pas de live UI sans adaptateur contrôlé |
-+| 012 invalidation ↔ 017 | Même ancrage |
-+| 022 pack ↔ 023/025 | Blocage positif |
-+| 015 harness autonome ↔ 018 | Chemin de contrôle parallèle |
-+| 028 secrets ↔ toutes | Non-négociable |
-+
-+---
-+
-+## 5. Chemin critique
-+
-+```text
-+US-001 → 004 → 007 → 009/011 → 013/017 → 018 → 021/022 → 023/024 → 025 → 026
-+```
-+
-+Parallélisable avec prudence : 028/029 (transverse), 015 (harness-only), 031 (shell mapping A).
-+
-+**Ne pas paralléliser :** gate (011) avec spawn (018) ; analyse (023) avant pack (022) ; live GPT/Cursor avant Incr. B.
-+
-+---
-+
-+## 6. Incréments A–E (séquencement validé Morris ; delivery non autorisé)
-+
-+> **Incrément A** = premier périmètre delivery **futur** retenu (`VS-BL-CAND-03`). Aucun GO delivery consommé ici.
-+
-+### Incrément A — Cockpit statique gouverné (**retenu** — premier périmètre futur)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Prouver mapping 10 états / 4 vues avec données mockées |
-+| Stories | 001–003, 007*, 010*, 011*, 026*, 031, 032 (UI mock), 028 (checklist) |
-+| Live | Aucun |
-+| Sortie | Parcours UI navigable ; Abandonner visible ; clôture slice-only mock ; **pas** 10 routes |
-+| Gate suivant | Revue visuelle + GO Incr. B (après G-VS-DEL-A) |
-+| Preuve | Screenshots / Playwright états |
-+
-+\*Versions mock du dossier gate / qualif.
-+
-+### Incrément B — Studio ↔ harness contrôlé non live
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Contrat, gates, journal, événements via ports fixture |
-+| Stories | 009, 012–017, 014, 015, 016, 019 (STOP simulé), 021–022 (fixture), 029, 033 (N fixture) |
-+| Live | Aucun GPT/Cursor réel |
-+| Sortie | BeB fixture Studio→harness→preuves ; harness autonome OK |
-+| Gate | GO avant Incr. C |
-+| Preuve | Journal + proofStore + tests harness existants |
-+
-+### Incrément C — Qualification GPT réelle bornée
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Qualif live fail-closed + FinOps |
-+| Stories | 004–008, 005, 006, 030 (qualif) |
-+| Live | GPT qualif uniquement (flags) |
-+| Sortie | QualificationCandidate validée ou rejetée ; compteur ; no retry ; plafond À définir |
-+| Gate | **G-VS-LIVE-GPT** |
-+| Preuve | Observation GPT + UI |
-+
-+### Incrément D — Cursor sandbox réel
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Markdown sandbox après GO revalidé |
-+| Stories | 017–021, 019, 020, 012 (runtime) |
-+| Live | Cursor sandbox |
-+| Sortie | output.md · remote=0 · STOP/timeout · rapport |
-+| Gate | **G-VS-LIVE-CURSOR** |
-+| Preuve | Fichier sandbox + rapport (capitaliser spike 31) |
-+
-+### Incrément E — Analyse GPT et clôture
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Objectif | Verdict candidat + décision Morris + clôture |
-+| Stories | 022–027, 023, 024, 030 (analyse) |
-+| Live | GPT analyse |
-+| Sortie | GptVerdictCandidate · MorrisFinalDecision · CycleSummary · réserves |
-+| Gate | Clôture humaine ; pas de claim MVP |
-+| Preuve | Verdict + décision journalisés |
-+
-+---
-+
-+## 7. Ordre delivery recommandé
-+
-+```text
-+A (cockpit mock)
-+ → B (adaptateur + fixtures)
-+ → C (GPT qualif live)
-+ → D (Cursor live)
-+ → E (analyse + clôture)
-+```
-+
-+Gates humains entre A→B, B→C, C→D, D→E.
-+
-+---
-+
-+## 8. Challenge du séquencement
-+
-+| Question | Réponse conception backlog |
-+|----------|----------------------------|
-+| Utile maintenant ? | Oui — isole UI avant live |
-+| Dette créée ? | Adaptateur B = dette acceptée si reporté |
-+| Plus simple ? | Harness-only déjà prouvé ; A+B ajoutent Studio gouverné |
-+| Intégration trop précoce ? | Évitée : live seulement C/D/E sous gates |
-+| Gate Morris visible ? | Oui — 011 dès A mock, réel dès B/D |
-+| Preuve mesurable ? | Oui par incrément |
-+| MVP implicite ? | Non — scénario Markdown preuve + claims interdits |
-+
-+**Option alternative (candidat VS-BL-CAND) :** B avant A partiel (CLI d’abord) — plus rapide tech, moins de preuve UX Studio. Non retenue comme reco principale.
-+
-+---
-+
-+## 9. Risques de parallélisation
-+
-+| Parallelisme | Risque | Conseil |
-+|--------------|--------|---------|
-+| A ∥ B | Divergence contrat UI | Sérialiser A puis B ou sync contrat |
-+| C ∥ D | Double live + FinOps | Interdit sans GO |
-+| E avant D | Verdict sans exécution | Interdit |
-+| 031 ∥ 013 | Routes vs adaptateur | 031 d’abord (A) |
-+
-+---
-+
-+## 10. Critères de sortie par incrément
-+
-+| Incr. | Sortie minimale |
-+|-------|-----------------|
-+| A | 10 états mock dans 4 vues ; Abandonner ; clôture slice-only |
-+| B | GO hash/HEAD fixture ; journal ; harness sans Studio |
-+| C | Qualif live fail-closed ; FinOps visible |
-+| D | Markdown sandbox ; STOP/timeout ; remote=0 |
-+| E | Verdict candidat ; clôture Morris ; pack complet |
-+
-+**Critères « slice prouvé » (`VS-BL-CAND-10` validée) :** A–E complétés sous gates + VS-AC-01…12 avec réserves documentées — **≠** MVP ; déclaration future uniquement après deliveries sous GO.
-+
-+---
-+
-+## 11. Observations code (lecture seule)
-+
-+| Actif | Usage incrément |
-+|-------|-----------------|
-+| 4 routes + shell + UI kit | A |
-+| Fixtures app | A |
-+| Harness GateValidator / fixtures GPT-Cursor / journal | B |
-+| openaiRealSpike / cursorRealSpike / e2e sandbox | C/D (sous flags) |
-+| Pas d’adaptateur Studio↔harness | B (à créer en delivery) |
-+| Pas de CI Studio | Hors backlog delivery POC |
-+
-+---
-+
-+## 12. Synthèse
-+
-+| Élément | Valeur |
-+|---------|--------|
-+| Vues | 4 |
-+| États | 10 + 4 variantes |
-+| Stories mappées | 33 |
-+| Incréments A–E | Séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct |
-+| Versionnement | Commit / push / draft PR autorisés ; merge = GO distinct |
-diff --git a/projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md b/projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md
-new file mode 100644
-index 0000000..1a1a2ae
---- /dev/null
-+++ b/projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md
-@@ -0,0 +1,156 @@
-+# SFIA Studio — Decision pack backlog vertical slice POC
-+
-+| Métadonnée | Valeur |
-+|------------|--------|
-+| **Document** | `40-poc-vertical-slice-backlog-decision-pack.md` |
-+| **Cycle** | 5 — Backlog / user stories |
-+| **Profil** | Standard |
-+| **Statut** | `validated-for-versioning` — `VS-BL-CAND-01` à `VS-BL-CAND-12` **validées Morris** ; versionnement autorisé ; merge et delivery = gates distincts |
-+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
-+| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
-+| **Companions** | [`38`](./38-poc-vertical-slice-backlog.md) · [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) |
-+| **Décisions Morris** | Backlog 38–40 validé · A→E validé · Incr. A retenu · commit/push/draft PR autorisés |
-+
-+> Observations / hypothèses / options / recommandations.
-+> `VS-BL-CAND-01`…`12` = **VALIDÉES** (Morris). Merge PR, delivery et live restent soumis à GO distincts.
-+
-+---
-+
-+## 1. Synthèse
-+
-+Ce cycle versionne un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live. Versionnement autorisé ; **merge** et **delivery** non autorisés ici.
-+
-+| Livrable | Rôle |
-+|----------|------|
-+| `38` | Epics, stories, AC, matrice couverture |
-+| `39` | Story map, séquencement, incréments |
-+| `40` | Ce pack — `VS-BL-CAND-*` |
-+
-+---
-+
-+## 2. Observations (certaines)
-+
-+1. Docs `32`–`37` intégrés sur `main` @ `722f586…` (PR #228 MERGED).
-+2. App = 4 routes P0 fixtures ; pas d’adaptateur Studio↔harness ; gate UI actuel ≠ 4 actions VS.
-+3. Harness = fixtures par défaut ; spikes GPT/Cursor/e2e prouvés hors UI avec réserves (`29`–`31`).
-+4. Architecture Option B / AF-Option C / Git vérité / Morris L0 = invariants.
-+5. Pas de CI GitHub pour `projects/sfia-studio/**`.
-+6. Plafond GPT : obligatoire, valeur **À définir** (VS-CAND-14).
-+7. Dix états ≠ dix routes = décision UX validée.
-+
-+---
-+
-+## 3. Hypothèses
-+
-+| ID | Hypothèse |
-+|----|----------|
-+| H1 | Delivery réutilisera les 4 routes P0 via états/variantes |
-+| H2 | Incrément A mock suffit à prouver le mapping UX avant adaptateur |
-+| H3 | Ports fixture harness suffisent pour Incr. B |
-+| H4 | Tailles XS–L sont relatives (pas d’estimation horaire) |
-+| H5 | Live GPT/Cursor restent derrière flags + GO Morris |
-+| H6 | Valeur plafond GPT sera arbitrée hors design (G-VS-LIMIT) |
-+
-+---
-+
-+## 4. Options
-+
-+| Sujet | Option A | Option B (recommandée) | Notes |
-+|-------|----------|------------------------|-------|
-+| Granularité | 15 mega-stories | **33 stories** | Traçabilité FR/N |
-+| Séquencement | Live d’abord | **A→B→C→D→E** | Moins de risque |
-+| Entry | CLI only | **Studio + harness autonome** | Preuve cockpit |
-+| Négatifs | Différer N* | **Couvrir dans stories primaires + US-033** (N16→016) | Matrice §38 recalculée |
-+| Adaptateur | Spécifier API maintenant | **Story L + spike tech ultérieur** | Pas de protocole ici |
-+
-+---
-+
-+## 5. Recommandations (statut post-validation)
-+
-+1. ~~Valider d’abord `VS-BL-CAND-*`~~ → **FAIT** (Morris).
-+2. Versionner 38–40 via draft PR → **en cours** (ce cycle).
-+3. Delivery minimal = Incr. A puis B avant tout live — **GO delivery distinct**.
-+4. Ne pas paralléliser C et D.
-+5. Exiger G-VS-LIVE-GPT / CURSOR distincts.
-+6. Garder harness autonome comme chemin de non-régression.
-+7. Ne pas ouvrir CI/MVP/industrialisation dans ce backlog.
-+8. Capitaliser spikes existants plutôt que réécrire les ports.
-+
-+---
-+
-+## 6. Décisions `VS-BL-CAND-*` — **VALIDÉES Morris**
-+
-+| ID | Décision (validée) | Impact | Statut | Dette |
-+|----|-------------------|--------|--------|-------|
-+| **VS-BL-CAND-01** | Incréments A→B→C→D→E comme séquence delivery | Ordre BeB | **VALIDÉE** | Faible |
-+| **VS-BL-CAND-02** | Priorité epics : E1–E3 UI → E4 adaptateur → E5–E8 live → E9/E10 transverse | Focus | **VALIDÉE** | Moyenne |
-+| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | **VALIDÉE** | Faible |
-+| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | **VALIDÉE** | Faible |
-+| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | **VALIDÉE** | Acceptable |
-+| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003) | Qualité | **VALIDÉE** | Faible |
-+| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | **VALIDÉE** | Faible |
-+| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | **VALIDÉE** | Faible |
-+| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | **VALIDÉE** | Nulle |
-+| **VS-BL-CAND-10** | Critères « slice prouvé » = VS-AC-01…12 + A–E sous gates + réserves ; **≠** MVP | Acceptation | **VALIDÉE** | Discipline |
-+| **VS-BL-CAND-11** | Stratégie tests : Vitest/Playwright app (A) + tests harness (B–D) + preuves live sous flags | QA | **VALIDÉE** | Acceptable POC |
-+| **VS-BL-CAND-12** | 33 stories / 10 epics = granularité retenue (pas fusion silencieuse) | Traçabilité | **VALIDÉE** | Faible |
-+
-+---
-+
-+## 7. Impacts / risques / dette
-+
-+| Thème | Impact | Risque | Dette |
-+|-------|--------|--------|-------|
-+| Backlog Standard | Guide delivery | Sur-spécification | Maintenir alignement 38↔32–37 |
-+| Traçabilité | Fiabilité delivery | Mapping artificiel (ex. N16→003) | Audit correctif + matrice 91 lignes |
-+| Structure stories | DoR 16 champs | Stories incomplètes | Correctif : 0 story incomplète |
-+| Incr. A mock | Preuve UX rapide | Sous-estimer adaptateur | B obligatoire avant live |
-+| Pas de CI | POC local | Régression non détectée | Futur G-VS-CI |
-+| Spikes existants | Accélère C/D | Réserves spike | Documenter dans DoD |
-+
-+---
-+
-+## 8. Statut de validation Morris
-+
-+| Élément | Statut |
-+|---------|--------|
-+| Backlog 38–40 (fond) | **Validé** |
-+| `VS-BL-CAND-01`…`12` | **Validées** |
-+| Séquencement A→E | **Validé** |
-+| Incrément A premier périmètre | **Retenu** |
-+| Commit / push / draft PR | **Autorisés** (ce cycle) |
-+| Merge PR | **Non autorisé** — GO distinct |
-+| Delivery / live / archi / CI / MVP | **Non autorisés** |
-+
-+---
-+
-+## 9. Gates
-+
-+| Gate | Objet | Statut |
-+|------|-------|--------|
-+| G-VS-BL-VAL | Validation backlog / VS-BL-CAND | **Consommé** |
-+| G-VS-BL-DOC | Commit/push/draft PR | **Consommé partiel** (merge restant) |
-+| G-VS-BL-MERGE | Merge PR 38–40 | **Requis** |
-+| G-VS-DEL-A | Delivery Incrément A | Requis |
-+| G-VS-LIVE-GPT | Incrément C | Requis |
-+| G-VS-LIVE-CURSOR | Incrément D | Requis |
-+| G-VS-LIMIT | Valeur plafond GPT | Requis (valeur **À définir**) |
-+| G-VS-CI / MVP / IND | Interdits sans GO | Interdits |
-+
-+---
-+
-+## 10. Verdict
-+
-+`SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED`
-+
-+### Interdits (sans nouveau GO)
-+
-+READY FOR REVIEW · MERGED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · API SELECTED · L5 GLOBAL PROVEN · GPT LIVE · CURSOR LIVE
-+
-+---
-+
-+## 11. Décisions Morris attendues (suivantes)
-+
-+1. Autoriser ou non le **merge** de la draft PR 38–40.
-+2. Autoriser éventuellement ready-for-review (GO distinct si requis).
-+3. **Ne pas** traiter ce pack comme GO delivery, live ou architecture.
+total 4808
+drwxr-xr-x@ 11 morris  staff     352 19 juil. 23:21 .
+drwxr-xr-x@ 24 morris  staff     768 19 juil. 23:21 ..
+-rw-r--r--@  1 morris  staff  257496 19 juil. 23:22 inc-a-cloture.png
+-rw-r--r--@  1 morris  staff  293194 19 juil. 23:21 inc-a-decision-finale.png
+-rw-r--r--@  1 morris  staff  231213 19 juil. 23:21 inc-a-execution.png
+-rw-r--r--@  1 morris  staff  301252 19 juil. 23:21 inc-a-gate-morris.png
+-rw-r--r--@  1 morris  staff  291997 19 juil. 23:21 inc-a-go-invalide.png
+-rw-r--r--@  1 morris  staff  288292 19 juil. 23:21 inc-a-nouvelle-demande.png
+-rw-r--r--@  1 morris  staff  290551 19 juil. 23:21 inc-a-qualification-proposee.png
+-rw-r--r--@  1 morris  staff  244528 19 juil. 23:21 inc-a-rapport.png
+-rw-r--r--@  1 morris  staff  248457 19 juil. 23:21 inc-a-verdict.png
+total 560
+drwxr-xr-x@  5 morris  staff     160 19 juil. 23:22 .
+drwxr-xr-x@ 24 morris  staff     768 19 juil. 23:21 ..
+-rw-r--r--@  1 morris  staff  114624 19 juil. 23:22 vs-ux-01.png
+-rw-r--r--@  1 morris  staff   88741 19 juil. 23:21 vs-ux-04-gate.png
+-rw-r--r--@  1 morris  staff   79626 19 juil. 23:22 vs-ux-10.png
