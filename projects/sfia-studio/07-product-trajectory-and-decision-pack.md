@@ -272,7 +272,7 @@ Pré-cadrage
 | D-NEXT-27 | Validation backlog / allowlist initiale harness-only | Morris | **CONSOMMÉE** |
 | D-NEXT-28 | Ouverture POC-G9 (delivery harness-only) | Morris | **CONSOMMÉ** |
 | D-NEXT-29 | Commit/push/draft PR delivery harness | Morris | **CONSOMMÉ** (Cycle 13) — merge **fermé** |
-| D-NEXT-30 | UI app/** / Cursor réel / Docker | Morris | **Fermés** |
+| D-NEXT-30 | UI app/** / Cursor réel / Docker | Morris | UI/Docker **fermés** ; spike Cursor **prouvé avec réserves** (`29`) — versionnement ouvert |
 
 ---
 

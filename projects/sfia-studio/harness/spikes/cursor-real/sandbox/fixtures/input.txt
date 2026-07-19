@@ -1,0 +1,2 @@
+spike-fixture-v1
+read-only content for cursor real spike

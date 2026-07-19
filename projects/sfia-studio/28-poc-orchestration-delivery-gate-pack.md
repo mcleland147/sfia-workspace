@@ -8,11 +8,11 @@
 | **POC-G8** | **CONSOMMÉ** (backlog produit) |
 | **POC-G9** | **CONSOMMÉ** — harness-only local |
 | **POC** | **NON LANCÉ** (pas d’autonomie permanente) |
-| **Delivery** | Harness versionné via **draft PR** (Cycle 13) — merge **fermé** |
+| **Delivery** | Harness **MERGED** (#224) ; spike Cursor = branche locale non versionnée |
 | **Allowlist** | **VALIDÉE** pour incrément harness-only S1 |
-| **Cursor** | **fixture** uniquement (réel **fermé**) |
+| **Cursor** | **fixture** = défaut ; spike réel **inconclusive** (auth) — pas défaut |
 | **Docker** | **Non retenu** pour l’incrément ; option future = gate Morris |
-| **Base** | `main` @ `d45cc54…` |
+| **Base** | `main` @ `1c44bc0…` (#224 MERGED) |
 | **Architecture** | Option B minimale (inchangée) |
 
 > POC-G9 **consommé** pour harness-only. Code sous `harness/`. `app/**` intact. Cursor fixture only. Docker non retenu. Commit/PR delivery = gates séparés.
@@ -178,3 +178,11 @@ Le POC global n’est **pas** déclaré réussi, lancé en autonomie ou industri
 ---
 
 *Gate pack — POC-G9 CONSOMMÉ harness-only — allowlist VALIDÉE (incrément) — draft PR Cycle 13 — merge FERMÉ — POC NON LANCÉ.*
+
+---
+
+## Spike Cursor réel (Cycle 7 — statut)
+
+Spike Cursor : auth session locale **OK** ; S-CUR-02 sandbox **PROUVÉ** avec réserves ; fixture = défaut ; mode réel non défaut. Voir `29`.
+
+Commit/push/PR du spike : **non autorisés** ici.

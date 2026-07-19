@@ -8,6 +8,8 @@ export * from "./ports/gitReader.js";
 export * from "./ports/gitReaderImpl.js";
 export * from "./ports/cursorExecutor.js";
 export * from "./ports/cursorFixture.js";
+/** EXPERIMENTAL spike — not default; see ports/cursorRealSpike.ts */
+export * from "./ports/cursorRealSpike.js";
 export * from "./journal/eventJournal.js";
 export * from "./proof/proofStore.js";
 export * from "./orchestrator.js";
