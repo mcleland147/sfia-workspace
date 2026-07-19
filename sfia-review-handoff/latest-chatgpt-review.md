@@ -1,421 +1,292 @@
-# ChatGPT Review Pack — SFIA Studio POC Architecture (POC-G7) — Cycle 6 Critical
+# ChatGPT Review Pack — SFIA Studio Architecture Option B Correction — Cycle 9 Critical
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure** | 2026-07-19 13:30:33 CEST |
-| **Cycle** | 6 — Architecture technique |
-| **Profil** | Critical — séparation Studio/orch., contracts, allowlist, Cursor, Git, preuves, stop |
-| **Typologie** | EVOL / DOC / ARCH |
-| **Décision Morris** | GO architecture POC — **POC-G7 OUVERT** (instruction) — **NON VALIDÉ** |
-| **Branche** | `architecture/sfia-studio-poc-orchestration` (**locale**, non poussée) |
+| **Date / heure** | 2026-07-19 14:18:15 CEST |
+| **Cycle** | 9 — QA / validation corrective documentaire |
+| **Profil** | Critical — choix architecture Option B + statut POC-G7 |
+| **Décision Morris** | GO correction — Option B minimale ; POC-G7 **VALIDÉ AVEC RÉSERVES** |
+| **Branche** | `architecture/sfia-studio-poc-orchestration` (**locale**) |
 | **HEAD / origin/main** | `b882892d79709acd0637d0df872c16bbe16d7ed1` |
-| **PR sync** | #220 **MERGED** |
 | **Niveau** | **full** |
-| **Handoff** | required |
+| **Commit/push/PR projet** | **NON** |
 
 ---
 
 ## 1. Local Git Truth Check
 
-PASS — main@`b882892…` ; 5 docs cadrage présents ; POC-G1…G6 validés ; G8/G9 fermés ; POC non lancé.
+PASS — branche archi ; base `b882892…` ; 5M+3A ; aucun staged ; pas d’app/**.
 
 ---
 
-## 2. Sources consultées
+## 2. État avant → après
 
-- Template cycle + règles archi/sécurité
-- `README`, `07`, `20`, `21`, `22`
-- `11` AF-Option C / L0–L5 ; `18` tech P0
-- `app/README.md`, `app/package.json` (lecture)
-- Handoff précédent `sfia/review-handoff`
-
----
-
-## 3. Analyse repo
-
-Next 15 fixtures-only ; pas d’API/orchestrateur ; Git/Cursor simulés UI ; aucune API Cursor dans le repo → port Cursor + modes fixture/manual.
+| Avant | Après |
+|-------|-------|
+| Option A recommandée candidate | Option B minimale **RETENUE** |
+| POC-G7 ouvert instruction | POC-G7 **VALIDÉ AVEC RÉSERVES** |
+| ARCH-POC-CAND candidates | 01–12 selon Morris (validées / avec réserves) |
+| Studio hors chemin | Studio = cockpit + adaptateur fin |
 
 ---
 
-## 4. Options A/B/C
+## 3. Option B / A / C
 
-| Option | Verdict candidat |
-|--------|------------------|
-| A harness autonome | **Recommandée** |
-| B harness + adaptateur Studio | Reportée |
-| C orch. dans app | Écartée premier POC |
+- **B minimale** : Studio cockpit → adaptateur → harness autonome — **VALIDÉE**
+- **A** : test / diagnostic / dégradé — **VALIDÉE** (conservée)
+- **C** : écartée 1er POC — **VALIDÉE**
+
+B = extension de A (cœur harness) — **pas** Option C.
 
 ---
 
-## 5. Recommandation
+## 4. Rôles
 
-Option A — harness local autonome ; ports Git/Cursor ; Studio inchangé ; preuves locales.
+| Rôle | Contenu |
+|------|---------|
+| Studio | Cockpit intention / gate / STOP / vues |
+| Adaptateur | Transmission sans autorité |
+| Harness | Gates, policies, Git, CursorPort, journal, preuves — autonome |
+
+---
+
+## 5. Contrats ajoutés (24)
+
+StudioIntent · StudioGateSubmission · StudioStopRequest · AdapterEnvelope · StudioExecutionView + invariants + menaces Option B.
 
 ---
 
 ## 6. ARCH-POC-CAND-01…12
 
-Voir `25` — toutes **CANDIDATES** (non validées).
+Voir `25` — 01/02/03/06/08/10/11/12 **VALIDÉES** ; 04/05/07/09 **VALIDÉES AVEC RÉSERVE**.
 
 ---
 
 ## 7. Gates
 
-| Gate | Statut |
-|------|--------|
-| POC-G7 instruction | **OUVERT** |
-| POC-G7 validation | **EN ATTENTE** Morris |
-| POC-G8 / G9 | **FERMÉS** |
-| Versionnement 23–25 | **NON ACCORDÉ** |
-| POC | **NON LANCÉ** |
+POC-G7 **VALIDÉ AVEC RÉSERVES** · G8/G9 **FERMÉS** · POC **NON LANCÉ** · versionnement **NON AUTORISÉ**.
 
 ---
 
-## 8. Fichiers
+## 8. Recherche textuelle (qualification)
 
-Créés : `23`, `24`, `25`  
-Modifiés : `README`, `07`, `20`, `21`, `22`  
-Aucun staged · aucun app/** · branche non poussée.
+| Type | Exemples |
+|------|----------|
+| Historique conservé | AF-Option C ; Option B UX P0 ; Option C méthode |
+| Obsolète corrigé | « reco Option A », « G7 OUVERT instruction », « Reporter Option B » |
+| Actuel validé | Option B minimale ; G7 VALIDÉ AVEC RÉSERVES ; harness autonome |
+| Réserve maintenue | Cursor ; protocole ; techno ; allowlist ; app/** delivery |
 
 ---
 
 ## 9. Contenu complet — 23
 
 ```markdown
-# SFIA Studio — Architecture technique POC orchestration (candidate)
+# SFIA Studio — Architecture technique POC orchestration
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Projet** | SFIA Studio |
 | **Document** | `23-poc-orchestration-technical-architecture.md` |
-| **Cycle** | 6 — Architecture technique |
+| **Cycle** | 6 — Architecture technique (+ correction QA Option B) |
 | **Profil** | Critical |
-| **Typologie** | EVOL / DOC / ARCH |
 | **Branche** | `architecture/sfia-studio-poc-orchestration` (**locale**, non poussée) |
-| **Base** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` (PR #220) |
-| **Statut** | **CANDIDATE** — POC-G7 **OUVERT** pour instruction ; architecture **NON VALIDÉE** |
-| **Complète** | `24` (contrats/sécurité) · `25` (decision pack) |
-| **POC** | **Non lancé** |
+| **Base** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` |
+| **Statut** | **VALIDÉE AVEC RÉSERVES** (POC-G7) — documentée, **non versionnée** |
+| **Décision architecture** | **Option B minimale** — Studio cockpit + adaptateur fin + harness autonome |
 | **POC-G8 / G9** | **FERMÉS** |
-| **Runtime / techno** | **Non sélectionnés** (recommandation candidate uniquement) |
+| **POC** | **Non lancé** |
+| **Runtime / techno / protocole** | **Ouverts** (non figés) |
 
-> Architecture **candidate**. Morris valide, corrige ou rejette. Aucun code, backlog, delivery ou lancement POC dans ce cycle.
+> Architecture **validée avec réserves** par Morris. Versionnement = GO distinct. POC-G8 **non ouvert**. Aucun code.
 
 ---
 
 ## 1. Contexte
 
-### 1.1 Acquis Git
-
 | Fait | Référence |
 |------|-----------|
-| Cadrage POC validé | PR #219 / `be713c45…` |
-| Sync post-merge intégrée | PR #220 / `b882892…` — **MERGED** |
-| Delivery P0 | PR #217 — app Next.js 15 fixtures-only |
-| AF-Option C | Studio / orchestrateur **séparés** — VALIDÉE |
-| Tech P0 | `18`/`19` — Runtime **non contractuel** en P0 |
+| Cadrage POC | PR #219 / `be713c45…` |
+| Sync post-merge | PR #220 / `b882892…` **MERGED** |
+| AF-Option C | Studio ≠ orchestrateur — **VALIDÉE** |
+| App P0 | Next fixtures ; Git/Cursor simulés ; pas d’orch. |
+| Décision Morris | **Option B minimale** retenue ; POC-G7 **VALIDÉ AVEC RÉSERVES** |
 
-### 1.2 Objectif de preuve (S1 — inchangé)
-
-Démontrer localement, de façon déterministe, bornée, observable, stoppable, reproductible et réversible :
-
-```text
-Intention → qualification GPT → gate Morris (GO) → orchestrateur
-  → (rejet hors allowlist obligatoire)
-  → Cursor read-only borné → preuves → verdict candidat → décision Morris
-```
-
-Sans seconde vérité, sans écriture Git distante réelle, sans automatiser L0.
-
-### 1.3 Question d’architecture
-
-Quelle architecture technique **minimale** prouve S1 sous macOS local Morris, cohérente avec AF-Option C et le repo existant, sans préparer le MVP ?
+Objectif S1 inchangé : boucle DOC read-only gouvernée, rejet hors allowlist, writes distantes absentes, L0 Morris, Git = vérité.
 
 ---
 
-## 2. Exigences
+## 2. Exigences (inchangées + E14)
 
-| ID | Exigence | Priorité |
-|----|----------|----------|
-| E1 | Séparation Studio / orchestrateur (AF-Option C) | Obligatoire |
-| E2 | Git = seule vérité durable | Obligatoire |
-| E3 | L0 exclusif Morris ; timeout ≠ GO | Obligatoire |
-| E4 | Lecture Git réelle ; writes distantes **simulées** | Obligatoire |
-| E5 | Rejet hors allowlist **obligatoire** dans la démo | Obligatoire |
-| E6 | Cursor exécute un contrat ; n’arbitre pas | Obligatoire |
-| E7 | Journal corrélé + preuve reconstructible | Obligatoire |
-| E8 | Stop / reprise contrôlés | Obligatoire |
-| E9 | Réversible ; workspace de preuve jetable | Obligatoire |
-| E10 | Aucun secret réel | Obligatoire |
-| E11 | L3 cible ; L4* plafond chemin ; L5 global interdit | Obligatoire |
-| E12 | Techno POC ≠ Runtime produit | Obligatoire |
-| E13 | Zéro modification `app/**` dans le premier POC si Option A | Recommandé |
+| ID | Exigence |
+|----|----------|
+| E1–E12 | Séparation AF-C ; Git vérité ; L0 ; read Git ; deny writes ; rejet allowlist ; Cursor borné ; journal ; stop ; réversible ; secrets ; L3/L4*/L5 |
+| E13 | Logique d’orchestration **hors** `app/**` |
+| E14 | Studio = cockpit ; adaptateur **sans autorité** ; harness **autonome** et testable sans UI |
 
 ---
 
 ## 3. Principes
 
-| ID | Principe |
-|----|----------|
-| P1 | Repo-first — Git prime ; états dérivés |
-| P2 | Décision ≠ exécution |
-| P3 | Least privilege — allowlist explicite |
-| P4 | Fail closed — doute = rejet / stop |
-| P5 | Simplicité locale — pas de service managé |
-| P6 | Preuve avant intégration UI |
-| P7 | Adapter ports — Cursor/Git derrière interfaces |
-| P8 | POC jetable — dette bornée |
-| P9 | Incertitude Cursor documentée — pas d’API inventée |
+P1 Repo-first · P2 Décision ≠ exécution · P3 Fail closed · P4 Least privilege · P5 Simplicité locale · P6 Harness autonome · P7 Adaptateur fin · P8 Studio ≠ vérité · P9 Pas d’API Cursor inventée · P10 Option B = extension d’Option A (cœur harness préservé)
 
 ---
 
-## 4. Analyse repo (lecture seule)
+## 4. Options A / B / C — statut Morris
 
-| Observation | Implication POC |
-|-------------|-----------------|
-| `projects/sfia-studio/app/` = Next 15 / React 19 / TS / fixtures | UI P0 **ne** contient **pas** d’orchestrateur |
-| Pas d’`app/api`, auth, BDD | Intégration UI = dette + risque seconde vérité |
-| Git/Cursor **simulés** dans l’UI | Preuve S1 **ne** peut **pas** s’appuyer sur l’UI actuelle |
-| Stack TS/npm dominante dans le monorepo | Harness Node/TS candidat **aligné** (non validé) |
-| Aucune API Cursor versionnée dans le repo | Invocation Cursor = **incertitude** → port + modes fixture/manuel |
+### 4.1 Option A — Harness autonome (historique / mode test)
 
----
+**Statut :** **conservée** comme socle technique et mode de test / diagnostic / dégradé. **Non rejetée.** **Non retenue** comme architecture utilisateur du premier POC.
 
-## 5. Options A / B / C
+### 4.2 Option B minimale — **RETENUE**
 
-### 5.1 Option A — Harness local autonome (**recommandée candidate**)
-
-**Description :** CLI / processus local hors `app/**`. Entrée = fixtures JSON + fichier GO Morris. Studio **non modifié**.
+Studio (cockpit) → adaptateur fin → harness autonome (gates, policies, Git, Cursor, journal, preuves).
 
 | Critère | Évaluation |
 |---------|------------|
-| Avantages | Preuve pure S1 ; zéro couplage UI ; AF-Option C stricte ; réversible ; testable |
-| Inconvénients | Ne prouve pas le branchement UI↔orch. |
-| Sécurité | Surface minimale |
-| Dette | Faible si chemin dédié `poc-harness/` (candidat) |
-| Aptitude S1 | **Forte** |
-| MVP | Non préparé |
+| Preuve S1 | ★★★ (même cœur A) |
+| AF-Option C | ★★★ |
+| Démo cockpit | ★★★ |
+| Risque Option C | Faible si adaptateur borné |
+| Dette UI | Minimale, reportée au delivery |
 
-### 5.2 Option B — Harness + adaptateur Studio minimal
+### 4.3 Option C — Orch. dans l’app
 
-Intention depuis UI ou export fixture ; adaptateur → harness. Orchestration séparée.
+**Écartée** pour le premier POC (couplage / seconde vérité). Conservée comme historique ; non interdite pour toute trajectoire future hors premier POC.
 
-| Critère | Évaluation |
-|---------|------------|
-| Avantages | Prépare intégration sans fondre Runtime dans Next |
-| Inconvénients | Touche UI ou ajoute couche ; plus tôt |
-| Aptitude S1 | Bonne mais **surdimensionnée** pour première preuve |
-| Condition de bascule | Après GO Option A + besoin démo cockpit |
-
-### 5.3 Option C — Orchestrateur dans l’application Studio
-
-Route/composant Next local.
-
-| Critère | Évaluation |
-|---------|------------|
-| Avantages | UX unifiée |
-| Inconvénients | Couplage ; risque seconde vérité ; viole esprit AF-Option C ; touche `app/**` |
-| Aptitude S1 | Possible mais **risquée** |
-| Recommandation | **Écarter** pour premier POC |
-
-### 5.4 Challenge obligatoire
+### 4.4 Challenge
 
 | Question | Réponse |
 |----------|---------|
-| Utile maintenant ? | Oui — débloque POC-G8 après validation |
-| Dette ? | Option A minimise |
-| Plus simple ? | A > B > C |
-| Repo-first ? | Oui |
-| Prouve S1 ? | A oui ; B partiel UI ; C confond |
-| Prépare MVP inutilement ? | C oui ; A non |
-| Sépare décision/exécution ? | A/B oui ; C fragile |
-| Git = vérité ? | A/B oui ; C risque UI |
+| Utile maintenant ? | Oui — B prouve S1 + cockpit sans fondre Runtime |
+| Drift vers C ? | **Non** si frontières §5–7 respectées |
+| Harness autonome ? | **Oui** — cœur inchangé vs A |
+| Plus simple possible ? | A plus simple hors UI ; B minimale = plus simple *avec* cockpit |
 
 ---
 
-## 6. Architecture logique candidate (Option A)
+## 5. Architecture logique — Option B minimale
 
 ```text
-[Morris] --GO/STOP fichier--> [Harness CLI]
-[ChatGPT] --qualification/contrats (hors bande)--> artefacts locaux
+[Morris] --GO/STOP explicites--> [SFIA Studio cockpit]
+[SFIA Studio] --intention / gate / stop / query--> [StudioAdapter] (fin, sans autorité)
+[StudioAdapter] --AdapterEnvelope--> [Harness CLI autonome]
 [Harness Orchestrator]
-   ├─ GateValidator (GO scope/expiry/revocation)
-   ├─ PolicyEngine (allowlist/denylist)
+   ├─ GateValidator (revalide GO + contractHash)
+   ├─ PolicyEngine (allow/deny fail-closed)
+   ├─ StateMachine
    ├─ GitReaderPort (read-only réel)
-   ├─ CursorExecutorPort (adapter ; modes: fixture|manual|future)
-   ├─ EventJournal + ProofStore (local)
-   └─ StateMachine (dérivée, reconstructible)
-[Git repo] <--lecture-- GitReaderPort
-[Cursor IDE / agent] <--contrat-- CursorExecutorPort (si mode réel futur)
+   ├─ CursorExecutorPort (fixture|manual|adapter-future)
+   ├─ EventJournal + ProofStore
+   └─ Status/Proof responses --> Adapter --> Studio (vue dérivée)
+[Mode dégradé / test] Harness utilisable **sans** Studio (= Option A)
 ```
-
-Studio P0 reste **observateur / futur adaptateur** — hors chemin critique POC-G7 Option A.
 
 ---
 
-## 7. Composants et responsabilités
+## 6. Responsabilités
 
-| Composant | Responsabilité | Interdit |
-|-----------|----------------|----------|
-| **Harness CLI** | Entrée unique ; charge fixtures ; orchestre | Décider L0 |
-| **Orchestrator core** | Appliquer contrat ; transitions | Auto-GO |
-| **GateValidator** | Valider GO | Inventer GO |
-| **PolicyEngine** | Allow/deny ; rejet | Élévation |
-| **GitReaderPort** | `status`/`rev-parse`/`diff`/`log` lecture | push/commit/PR/merge |
-| **CursorExecutorPort** | Exécuter contrat read-only ou simuler | Sortir allowlist |
-| **EventJournal** | Événements ordonnés | Vérité produit |
-| **ProofStore** | Artefacts locaux | Secrets |
-| **Studio P0** | Hors POC A | Moteur d’exécution |
+| Composant | Fait | Interdit |
+|-----------|------|----------|
+| **Studio** | Intention, présentation gate, STOP, suivi, consultation preuves | Auto-GO ; exec Git/Cursor ; évaluer allowlist ; vérité exclusive ; contourner harness |
+| **Adaptateur** | Transformer / transmettre messages ; corrélation ; renvoyer vues | Décider ; policy ; modifier contrat ; créer GO ; masquer rejet/stop ; vérité durable |
+| **Harness** | Revalider GO/contrat/allowlist ; Git ; CursorPort ; journal ; preuves ; états | Arbitrer L0 ; write remote |
 | **GPT** | Qualification hors bande | Commander orch. |
-| **Morris** | GO / STOP / clôture | — |
+| **Morris** | GO / STOP / CLOSE | — |
 
 ---
 
-## 8. Flux
+## 7. Flux
 
-### 8.1 Nominal
+### 7.1 Nominal
 
 ```text
-LOAD fixtures → QUALIFY (artefacts GPT) → GATE_OPEN
-  → Morris GO fichier → AUTHORIZED
-  → PRECHECK Git + policy → ORCHESTRATING
-  → EXECUTING (CursorPort) → PROOF_READY
-  → verdict candidat GPT → Morris CLOSE → CLOSED
+Studio Intent → Adapter → Harness QUALIFIED/GATE_OPEN
+  → Studio présente dossier → Morris GO explicite
+  → Adapter StudioGateSubmission → Harness revalide → AUTHORIZED
+  → PRECHECK → ORCHESTRATING → EXECUTING → PROOF_READY
+  → Statuts/preuves → Adapter → StudioExecutionView
+  → Morris CLOSE → CLOSED
 ```
 
-### 8.2 Rejet hors allowlist (obligatoire)
+### 7.2 Rejet hors allowlist
 
 ```text
-AUTHORIZED → demande action deny → REJECTED
-  → event orchestrator.rejected → pas Cursor write
-  → correction contrat + **nouveau GO** → reprise
+AUTHORIZED → policy deny → REJECTED + event
+  → Studio affiche rejet (pas de retry auto)
+  → correction contrat + **nouveau GO** requis
 ```
 
-### 8.3 Stop / reprise
+### 7.3 STOP
 
 ```text
-ORCHESTRATING|EXECUTING → STOP Morris|sécurité → STOPPED
-  → pas de retry auto → nouveau GO si reprise
+StudioStopRequest → Adapter → Harness STOP prioritaire → STOPPED
+  → flush journal → vue Studio mise à jour
 ```
 
-Détails : document `24`.
+### 7.4 Dégradé
+
+Harness CLI sans Studio (fixtures + fichier GO) — tests / diagnostic.
 
 ---
 
-## 9. Modèle d’état (technique)
+## 8. Adaptateur — portée
 
-États cadrage `21` confirmés : `DRAFT`, `QUALIFIED`, `GATE_OPEN`, `AUTHORIZED`, `ORCHESTRATING`, `EXECUTING`, `PROOF_READY`, `STOPPED`, `REJECTED`, `FAILED`, `CLOSED`.
+**Autorisé :** intention→demande ; transmission GO/STOP ; query statut ; affichage état/erreurs/preuves ; IDs corrélation.
 
-| Règle | Contenu |
-|-------|---------|
-| Persistance | Journal + artefacts locaux ; **pas** BDD |
-| Reconstruction | Depuis journal + Git HEAD observé |
-| Auteur transitions L0 | Morris uniquement (`AUTHORIZED`, `CLOSED`, `STOPPED` volontaire) |
-| Transitions interdites | `GATE_OPEN`→`EXECUTING` sans GO ; timeout→`AUTHORIZED` |
+**Exclu :** orch. métier ; Git/Cursor ; élévation ; modif contrat ; retry auto ; auto-GO ; auto-clôture.
+
+**Protocoles candidats (ouverts) :** fichier/répertoire · processus enfant · HTTP local · IPC · CLI encapsulé.
+Choix = backlog/delivery sauf cohérence bloquante. Critères : simplicité, sécurité, testabilité, pas de daemon inutile, harness sans Studio.
 
 ---
 
-## 10. Git
+## 9. État / Git / Cursor
 
-| Autorisé (lecture) | Interdit (POC initial) |
-|--------------------|------------------------|
-| `rev-parse`, `status`, `diff`, `log`, `show`, `ls-files` | `commit`, `push`, `fetch` write, `merge`, `rebase`, `branch -D` remote, API GitHub write |
+Modèle d’états `21` + transitions `24` — harness = autorité d’application ; UI = vue dérivée du journal.
 
-Preuve d’absence d’effet remote : capture `git status`/`rev-parse` avant/après + assertion `gitEffect: none-remote`.
+Git read réel ; denylist writes ; `gitEffect=none-remote`.
 
----
-
-## 11. Cursor — incertitude et stratégie
-
-| Fait | Conséquence |
-|------|-------------|
-| Aucune API Cursor contractuelle dans le repo | **Ne pas inventer** |
-| Cursor = outil opérateur / agent IDE | Invocation réelle = **hypothèse** |
-
-**Port `CursorExecutorPort` :**
-
-| Mode | Usage |
-|------|-------|
-| `fixture` | Replay déterministe pour tests / CI locale harness |
-| `manual` | Opérateur exécute le contrat dans Cursor ; harness vérifie preuves |
-| `adapter-future` | Placeholders seulement — **nécessite preuve technique** avant activation |
-
-Le POC peut **compléter** S1 en mode `manual` + `fixture` pour le rejet ; le mode réel reste une **réserve** (ARCH-POC-CAND).
+Cursor via port ; modes fixture/manual/adapter-future ; **pas d’API inventée**.
 
 ---
 
-## 12. Persistance et environnement
+## 10. `app/**`
 
-| Élément | Choix candidat |
-|---------|----------------|
-| Preuves | `projects/sfia-studio/.poc-proof/<executionId>/` (gitignored candidat) |
-| Journal | JSONL local ordonné |
-| Config | Fichiers YAML/JSON versionnés sous harness |
-| Runtime | Processus Node one-shot ; **pas** daemon permanent |
-| OS | macOS local Morris |
+Au **delivery uniquement** (POC-G9, fermé) : modifications **minimales** cockpit / adaptateur / affichage.
+Toute logique d’orchestration reste **hors** `app/**`. Aucune modif app dans ce cycle.
 
 ---
 
-## 13. Dépendances (candidates — non installées)
+## 11. Recommandation → décision
 
-| Dépendance | Statut |
-|------------|--------|
-| Node/npm déjà présents (Studio) | Réutiliser |
-| Libs nouvelles | **À justifier** en backlog ; zéro install ce cycle |
-| Service cloud | **Non** |
-| BDD | **Non** |
-
----
-
-## 14. Stratégie de test (future — POC-G8/G9)
-
-1. Tests unitaires PolicyEngine (allow/deny).
-2. Tests GateValidator (expiry, revoke, scope).
-3. Tests d’intégration GitReader (repo fixture).
-4. Scénario S1 dry-run mode fixture.
-5. Scénario rejet hors allowlist (obligatoire).
-6. Scénario stop.
-7. Assertion aucune mutation remote.
-8. Démo manuelle mode `manual` (réserve Cursor).
-
-Aucun test exécuté dans ce cycle.
+| Élément | Statut |
+|---------|--------|
+| Option B minimale | **RETENUE / VALIDÉE** (Morris) |
+| Harness autonome | **Conservé** (cœur) |
+| Option A | Mode test / dégradé **VALIDÉ** |
+| Option C | **Écartée** premier POC |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES** |
+| Versionnement docs | **NON AUTORISÉ** ici |
 
 ---
 
-## 15. Recommandation
+## 12. Réserves
 
-**Recommander Option A — harness local autonome**, avec ports d’adaptation futurs (B), **sans** modifier `app/**` pour le premier POC.
-
-| Prouve | Ne prouve pas |
-|--------|---------------|
-| Boucle orch. + gates + allowlist + rejet + journal | UX Studio branchée |
-| Lecture Git réelle + absence write remote | API Cursor native |
-| Stop/reprise | Performance / industrialisation |
-
-**Bascule vers B :** après validation + exécution A réussie + besoin démo cockpit.
-**Abandon :** si preuve S1 impossible sans write remote, ou si Cursor/manual insuffisant et aucun adapter viable.
+1. Cursor réel non prouvé
+2. Techno harness ouverte (Node/TS candidat)
+3. Protocole adaptateur ouvert
+4. Allowlist détaillée → backlog
+5. Modif `app/**` seulement au delivery, bornée
+6. Preuve QA : Studio ≠ seconde vérité
+7. Clôture AF séparée
+8. POC-G8/G9 fermés ; POC non lancé
 
 ---
 
-## 16. Réserves
-
-1. Invocation Cursor réelle non prouvée.
-2. Chemin exact harness / gitignore à figer en backlog.
-3. Allowlist chemins détaillée à finaliser.
-4. Option B/C non écartées définitivement hors premier POC.
-5. Clôture AF formelle toujours ouverte (séparée).
-
----
-
-## 17. Hors périmètre
-
-Code · backlog · delivery · MVP · Runtime produit · CI · modification `app/**` · écritures distantes · secrets · versionnement sans GO.
-
----
-
-*Architecture POC CANDIDATE — POC-G7 ouvert instruction — NON VALIDÉE — Option A recommandée — POC NON LANCÉ — Morris décide.*
+*Architecture POC Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — non versionnée — POC NON LANCÉ — Morris décide (versionnement).*
 ```
 
 ---
@@ -423,278 +294,174 @@ Code · backlog · delivery · MVP · Runtime produit · CI · modification `app
 ## 10. Contenu complet — 24
 
 ```markdown
-# SFIA Studio — Contrats, sécurité et observabilité POC orchestration (candidate)
+# SFIA Studio — Contrats, sécurité et observabilité POC orchestration
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `24-poc-orchestration-contracts-security-and-observability.md` |
-| **Complète** | `23` · `25` |
-| **Statut** | **CANDIDATE** — POC-G7 instruction ; **NON VALIDÉ** |
+| **Statut** | **VALIDÉ AVEC RÉSERVE** (mise à jour Option B) — POC-G7 |
+| **Architecture** | Option B minimale (Studio + adaptateur + harness) |
 | **POC** | **Non lancé** |
 | **Base** | `main` @ `b882892…` |
 
-> Contrats **conceptuels** — pas d’OpenAPI validée. Aucune API Cursor inventée.
+> Contrats conceptuels. Harness revalide tout. Adaptateur sans autorité.
 
 ---
 
-## 1. Identifiants de corrélation
+## 1. Corrélation
 
-| ID | Portée |
-|----|--------|
-| `requestId` | Intention / demande |
-| `cycleId` | Cycle SFIA de preuve |
-| `gateId` | Décision Morris |
-| `executionId` | Tentative d’exécution |
-| `contractHash` | Empreinte du contrat allowlisté |
-
-Tous les événements portent au minimum `requestId` + `executionId` (si pertinent) + timestamp Europe/Paris.
+`requestId`, `cycleId`, `gateId`, `executionId`, `contractHash`, `correlationId` — timestamps Europe/Paris.
 
 ---
 
-## 2. Contrats conceptuels
+## 2. Contrats cœur harness (inchangés dans l’esprit)
 
-### 2.1 OrchestrationRequest
+OrchestrationRequest · GateDecision · Allowlist/Denylist · ExecutionContract · OrchestrationResult · Event — voir cadrage `21` et sections historiques.
+**Invariant :** absence de GO valide ⇒ rejet ; fail closed.
 
-| Champ | Obligatoire | Invariant |
-|-------|-------------|-----------|
-| `requestId` | Oui | UUID/ULID stable |
-| `cycleId` | Oui | |
-| `scenario` | Oui | `S1` |
-| `gateDecision` | Oui avant exec | Voir §3 |
-| `allowlist` | Oui | Non vide |
-| `denylist` | Oui | Inclut writes distantes |
-| `executionContract` | Oui | `tool=cursor`, `mode=read-only` |
-| `gitContext` | Oui | repo/branch/headSha observés |
-| `proofDir` | Oui | Chemin local |
+### Allowlist / Denylist (rappel)
 
-**Invariant :** absense de `gateDecision` valide ⇒ rejet ; pas d’exécution.
+Allow : lecture paths projet/méthode ; `git.read.*` ; `cursor.analyze` ; `proof.write.local`.
+Deny : commit/push/merge/PR/API write ; shell libre ; secrets ; fs hors `proofDir` ; toute action non listée.
 
-### 2.2 GateDecision (Morris)
+---
 
-| Champ | Obligatoire | Règle |
-|-------|-------------|-------|
-| `decision` | Oui | `GO` \| `CORRIGER` \| `STOP` \| `CLOSE` |
-| `gateId` | Oui | |
-| `scope` | Oui | Texte borné + `contractHash` |
-| `issuedAt` | Oui | ISO + TZ |
-| `expiresAt` | Oui | Après `issuedAt` |
-| `revocable` | Oui | `true` pour POC |
-| `revokedAt` | Si révoqué | |
-| `operator` | Oui | Morris |
+## 3. Contrats Studio / Adaptateur (Option B)
 
-**Interdits :** timeout = GO ; GO implicite ; GO sans `contractHash` ; réutilisation après modification contrat.
-
-### 2.3 Allowlist / Denylist
-
-**Allowlist (candidate S1) :**
-
-| Classe | Exemples |
-|--------|----------|
-| Paths read | `projects/sfia-studio/**`, `prompts/**`, `sfia/**` méthode (lecture) |
-| Actions | `git.read.*`, `fs.read`, `cursor.analyze`, `proof.write.local` |
-| Git | `rev-parse`, `status`, `diff`, `log`, `show`, `ls-files` |
-
-**Denylist (obligatoire) :**
-
-| Action |
-|--------|
-| `git.commit` / `git.push` / `git.merge` / `git.rebase` |
-| `github.pr.create` / `github.merge` / `branch.delete.remote` |
-| `shell.unrestricted` / `secret.read` / `fs.write` hors `proofDir` |
-| Toute action absente de l’allowlist (**fail closed**) |
-
-### 2.4 ExecutionContract (Cursor)
-
-| Champ | Règle |
-|-------|-------|
-| `tool` | `cursor` |
-| `mode` | `read-only` |
-| `adapterMode` | `fixture` \| `manual` \| `adapter-future` |
-| `inputs` | Chemins allowlistés |
-| `outputs` | Uniquement sous `proofDir` |
-| `timeoutSec` | Borne explicite |
-| `stopSignal` | Supporté |
-
-**Pas** de schéma d’API Cursor vendor — le contrat décrit l’intention ; l’adapter traduit ou simule.
-
-### 2.5 OrchestrationResult
-
-| Champ | Valeurs |
-|-------|---------|
-| `status` | `accepted` \| `rejected` \| `stopped` \| `completed` \| `failed` |
-| `events[]` | Ordonnés |
-| `proofs[]` | Chemins locaux |
-| `gitEffect` | **Toujours** `none-remote` en POC initial |
-| `error?` | Code + message redacted |
-
-### 2.6 Event
+### 3.1 StudioIntent
 
 | Champ | Obligatoire |
 |-------|-------------|
-| `ts` | Oui (Europe/Paris) |
-| `type` | Oui |
 | `requestId` | Oui |
-| `executionId` | Si applicable |
-| `payload` | Redacted |
+| `title` | Oui |
+| `requestedCycle` | Oui |
+| `requestedScope` | Oui |
+| `operator` | Oui |
+| `createdAt` | Oui |
 
-Types minimaux : `gate.received`, `gate.rejected`, `policy.rejected`, `git.precheck`, `execution.started`, `execution.completed`, `execution.stopped`, `proof.written`, `orchestrator.rejected`, `orchestrator.failed`.
+### 3.2 StudioGateSubmission
+
+| Champ | Obligatoire | Règle |
+|-------|-------------|-------|
+| `gateId` | Oui | |
+| `requestId` | Oui | |
+| `decision` | Oui | GO / CORRIGER / STOP / CLOSE — **explicite** |
+| `scope` | Oui | |
+| `issuedBy` | Oui | Morris |
+| `issuedAt` / `expiresAt` | Oui | |
+| `contractHash` | Oui | Match contrat courant |
+
+### 3.3 StudioStopRequest
+
+| Champ | Obligatoire |
+|-------|-------------|
+| `requestId` | Oui |
+| `executionId` | Oui si exec active |
+| `issuedBy` | Oui |
+| `issuedAt` | Oui |
+| `reason` | Oui |
+
+### 3.4 AdapterEnvelope
+
+| Champ | Obligatoire |
+|-------|-------------|
+| `schemaVersion` | Oui |
+| `correlationId` | Oui |
+| `messageType` | Oui (`intent`\|`gate`\|`stop`\|`statusQuery`\|`status`\|`proof`) |
+| `payload` | Oui |
+| `emittedAt` | Oui |
+
+### 3.5 StudioExecutionView
+
+| Champ | Obligatoire |
+|-------|-------------|
+| `requestId` / `executionId` | Oui |
+| `status` | Oui (dérivé journal) |
+| `lastEvent` | Oui |
+| `proofRefs` | Oui |
+| `errors` | Oui |
+| `updatedAt` | Oui |
 
 ---
 
-## 3. Gate Morris — contrôles
+## 4. Invariants Option B
 
-| Contrôle | Comportement |
-|----------|--------------|
-| Signature/fichier GO | Présent et lisible |
-| `expiresAt` | Si dépassé ⇒ rejet |
-| `revokedAt` | Si présent ⇒ rejet |
-| `contractHash` | Doit matcher contrat courant |
-| Scope | Doit couvrir S1 + allowlist |
-| Absence de réponse | Reste `GATE_OPEN` — **jamais** GO |
-| Modification contrat | Invalide GO précédent |
-
----
-
-## 4. Modèle d’état — transitions
-
-| De | Vers | Auteur | Condition |
-|----|------|--------|-----------|
-| DRAFT | QUALIFIED | Opérateur/GPT artefacts | Contrat candidat |
-| QUALIFIED | GATE_OPEN | Harness | Dossier gate prêt |
-| GATE_OPEN | AUTHORIZED | Morris | GO valide |
-| AUTHORIZED | ORCHESTRATING | Orch. | Prechecks OK |
-| ORCHESTRATING | EXECUTING | Orch. | CursorPort start |
-| EXECUTING | PROOF_READY | Orch. | Collecte OK |
-| PROOF_READY | CLOSED | Morris | CLOSE |
-| * | REJECTED | Orch. | Policy/gate fail |
-| * | STOPPED | Morris/sécurité | STOP |
-| * | FAILED | Orch. | Erreur technique |
-| REJECTED/STOPPED | GATE_OPEN/AUTHORIZED | Morris | Nouveau GO + contrat |
-
-**Interdit :** GATE_OPEN→EXECUTING ; EXECUTING→CLOSED sans PROOF_READY/STOP/FAIL ; auto-AUTHORIZED.
-
-**Réversibilité :** états dérivés ; reprise = nouveau `executionId` ; pas de mutation remote à annuler.
+1. L’adaptateur **ne crée aucune décision**.
+2. Le harness **revalide** tout message (GO, hash, allowlist, Git).
+3. `contractHash` obligatoire pour GO ; modif contrat ⇒ GO invalide.
+4. Statut UI **dérivé** du journal harness — pas de vérité UI exclusive.
+5. Absence de message / timeout **≠** GO.
+6. Retry après rejet ⇒ correction + **nouveau GO**.
+7. STOP **prioritaire**.
+8. UI indisponible **ne corrompt pas** le harness.
+9. Harness **testable sans Studio**.
+10. Studio / adaptateur **n’exécutent pas** Git ni Cursor.
 
 ---
 
-## 5. Sécurité
+## 5. Transitions d’état
 
-### 5.1 Menaces et contrôles
+Auteur L0 = Morris (via StudioGateSubmission / Stop, **revalidés** harness).
+Harness applique ; Studio affiche. Transitions interdites inchangées (`GATE_OPEN`→`EXECUTING` sans GO, etc.).
+
+---
+
+## 6. Sécurité
+
+### 6.1 Menaces cœur + Option B
 
 | Menace | Contrôle |
 |--------|----------|
-| Auto-arbitrage | GateValidator ; pas de timeout=GO |
-| Write remote | Denylist + assertion gitEffect |
-| Path traversal | Canonicalisation paths ; racines allowlist |
-| Symlinks | Résolution + refus hors racines |
-| Command injection | Pas de shell libre ; argv structurés |
-| Prompt injection | CursorPort borné ; outputs sous proofDir |
-| Secrets | Interdit en fixtures ; redaction journal |
-| Privilege escalation | Fail closed deny |
-| Log leakage | Redaction patterns |
-| Dépendances | Aucune install ce cycle ; audit futur |
+| Auto-GO / timeout=GO | GateValidator ; décision explicite |
+| Write remote | Denylist + `none-remote` |
+| Path traversal / symlinks | Canonicalisation |
+| Command injection | Pas de shell libre |
+| Prompt injection | CursorPort borné |
+| Secrets | Interdits ; redaction |
+| **Falsification GO UI** | Revalidation harness + hash + issuedBy |
+| **Replay message adaptateur** | `correlationId` / idempotence / issuedAt |
+| **Désync Studio / journal** | Vue dérivée ; refresh depuis harness |
+| **Élévation de scope** | Scope + contractHash revalidés |
+| **Injection champs UI** | Validation schéma envelope |
+| **Altération contractHash** | Recompute côté harness |
+| **Contournement harness** | UI n’a pas d’accès Cursor/Git direct |
+| **Preuve sensible dans Studio** | Refs + redaction ; pas de secrets |
 
-### 5.2 Least privilege
+### 6.2 Least privilege
 
-Processus harness = utilisateur Morris local ; pas de sudo ; working directory borné ; env filtré (pas de tokens GitHub write).
-
-### 5.3 Stop sécurisé
-
-| Trigger | Action |
-|---------|--------|
-| STOP Morris | Interrupt CursorPort ; flush journal ; STOPPED |
-| Deny mid-flight | Abort ; REJECTED |
-| Divergence Git inattendue | STOPPED/FAILED |
-| Timeout | FAILED — **pas** COMPLETED |
+Adaptateur : transmission seule. Harness : user local ; env filtré ; pas de tokens write.
 
 ---
 
-## 6. Observabilité et preuve
+## 7. Observabilité
 
-### 6.1 Journal
+Journal JSONL harness = source. Studio affiche `StudioExecutionView`.
+Preuves S1 : GO, rejet allowlist, HEAD avant/après, `none-remote`, artefacts Cursor/manual.
 
-- Format JSONL append-only local.
-- Ordre strict ; monométrie `ts`.
-- Corrélation IDs §1.
-- Conservé sous `proofDir/events.jsonl`.
-
-### 6.2 Preuves minimales S1
-
-| Preuve | Obligatoire |
-|--------|-------------|
-| Fichier GO Morris | Oui |
-| `orchestrator.rejected` hors allowlist | Oui |
-| Git HEAD avant/après | Oui |
-| Assertion `none-remote` | Oui |
-| Artefacts Cursor/manual ou fixture | Oui |
-| Absence de secrets | Oui (scan basique futur) |
-
-### 6.3 Reconstruction
-
-Un opérateur doit pouvoir rejouer le récit : IDs → événements → preuves → décisions, **sans** BDD.
-
-### 6.4 Démo / reset
-
-1. Créer workspace preuve / `proofDir` neuf.
-2. Charger fixtures S1.
-3. Exécuter nominal + rejet.
-4. Archiver `proofDir` ou supprimer (réversible).
-5. Vérifier remote inchangé.
+Dégradé : CLI harness sans UI.
 
 ---
 
-## 7. Erreurs
+## 8. Stop / reprise / réversibilité
 
-| Code | Sens | Transition |
-|------|------|------------|
-| `GATE_INVALID` | GO manquant/expiré/hash | REJECTED |
-| `POLICY_DENY` | Hors allowlist | REJECTED |
-| `GIT_DIVERGENCE` | HEAD inattendu | STOPPED/FAILED |
-| `CURSOR_TIMEOUT` | Timeout | FAILED |
-| `CURSOR_OUT_OF_SCOPE` | Sortie contrat | STOPPED |
-| `INTERNAL` | Bug harness | FAILED |
+STOP prioritaire via `StudioStopRequest` ou harness direct.
+Reprise = nouveau GO + nouvel `executionId`.
+Effets locaux `proofDir` seulement ; remote inchangé.
 
 ---
 
-## 8. Stop et reprise
+## 9. Critères d’acceptation (Option B)
 
-| Cas | Reprise |
-|-----|---------|
-| STOP volontair | Nouveau GO requis |
-| REJECT policy | Corriger contrat + nouveau GO |
-| FAILED technique | Diagnostic ; nouveau `executionId` |
-| Idempotence read-only | Relance sans effet remote |
-
----
-
-## 9. Réversibilité
-
-| Autorisé | Interdit |
-|----------|----------|
-| Écriture locale `proofDir` | Commit/push/PR/merge |
-| Fixtures | Secrets |
-| Journal local | Vérité UI exclusive |
-
-Nettoyage : supprimer `proofDir` ; checkout inchangé.
+1. Option B minimale documentée ; A = test/dégradé ; C écartée 1er POC.
+2. Harness autonome ; Studio cockpit ; adaptateur sans autorité.
+3. Contrats §3 présents.
+4. Invariants §4.
+5. Menaces §6 couvertes.
+6. POC-G8/G9 fermés ; POC non lancé ; pas de protocole définitif non décidé.
 
 ---
 
-## 10. Critères d’acceptation architecture (pour validation Morris)
-
-1. Option A/B/C comparées ; recommandation distincte de décision.
-2. AF-Option C respectée.
-3. Contrats §2 complets conceptuellement.
-4. Rejet hors allowlist imposé.
-5. Writes distantes absentes du chemin nominal.
-6. Cursor via port + modes ; pas d’API inventée.
-7. États/transitions cohérents avec `21`.
-8. Sécurité §5 couverte.
-9. Preuve/observabilité §6 couvertes.
-10. POC-G8/G9 non ouverts ; POC non lancé.
-
----
-
-*Contrats/sécurité CANDIDATES — POC-G7 instruction — NON VALIDÉS — Morris décide.*
+*Contrats Option B — POC-G7 VALIDÉ AVEC RÉSERVES — Morris décide (versionnement).*
 ```
 
 ---
@@ -707,185 +474,154 @@ Nettoyage : supprimer `proofDir` ; checkout inchangé.
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `25-poc-orchestration-architecture-decision-pack.md` |
-| **Cycle** | 6 — Architecture technique |
+| **Cycle** | 6 Architecture + QA corrective Option B |
 | **Profil** | Critical |
-| **Statut** | **CANDIDATE** — POC-G7 **OUVERT** instruction ; décisions **NON VALIDÉES** |
+| **Statut** | POC-G7 **VALIDÉ AVEC RÉSERVES** — docs **non versionnés** |
 | **Préfixe** | `ARCH-POC-CAND-*` (locaux ; ≠ D-VAL) |
-| **POC** | **Non lancé** |
+| **Architecture retenue** | **Option B minimale** |
 | **POC-G8 / G9** | **FERMÉS** |
-| **Base** | `main` @ `b882892…` (PR #220 MERGED) |
-
-> Morris valide / corrige / rejette. Aucun versionnement projet sans GO distinct.
-
----
-
-## 1. Observations factuelles
-
-1. PR #219 cadrage **MERGED** (`be713c45…`).
-2. PR #220 sync post-merge **MERGED** (`b882892…`).
-3. POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ**.
-4. POC-G7 **OUVERT** pour instruction (présent cycle) — **pas encore VALIDÉ**.
-5. App P0 : Next fixtures ; Git/Cursor simulés ; pas d’orchestrateur.
-6. Aucune API Cursor dans le repo.
-7. AF-Option C : Studio / orch. séparés.
-8. S1 + rejet allowlist + writes distantes simulées = contrat cadrage.
+| **POC** | **Non lancé** |
+| **Base** | `main` @ `b882892…` |
 
 ---
 
-## 2. Hypothèses
+## 1. Observations
 
-| ID | Hypothèse | Statut |
-|----|----------|--------|
-| H1 | Harness local suffit pour prouver S1 | Candidate |
-| H2 | Node/TS aligné monorepo convient au harness | Candidate |
-| H3 | Mode Cursor `manual`+`fixture` suffit pour première preuve | Candidate |
-| H4 | Adapter UI (Option B) reportable | Candidate |
-| H5 | Pas de service managé nécessaire | Candidate |
-| H6 | Chemin preuves local gitignored acceptable | Candidate |
+1. #219/#220 MERGED.
+2. Instruction POC-G7 produite puis **validée avec réserves** (Option B minimale).
+3. App P0 sans orch. ; pas d’API Cursor repo.
+4. AF-Option C : Studio / orch. séparés.
+5. Versionnement architecture **non autorisé** ici.
+6. POC-G8 **non ouvert** tant que docs non intégrés.
 
 ---
 
-## 3. Options (rappel)
+## 2. Options — statut
 
-| Option | Intitulé | Verdict candidat |
-|--------|----------|------------------|
-| **A** | Harness local autonome | **Recommandée** |
-| **B** | Harness + adaptateur Studio | Reportée (bascule conditionnelle) |
-| **C** | Orch. dans app Studio | **Écartée** premier POC |
+| Option | Statut Morris |
+|--------|---------------|
+| **A** Harness autonome | Conservée — test / diagnostic / dégradé |
+| **B minimale** Studio + adaptateur + harness | **RETENUE / VALIDÉE** |
+| **C** Orch. dans app | **Écartée** premier POC |
 
-Détail : `23` §5.
+B = **extension** de A (cœur harness) — **pas** Option C.
 
 ---
 
-## 4. Comparaison synthétique
+## 3. Comparaison
 
-| Critère | A | B | C |
-|---------|---|---|---|
-| Preuve S1 | ★★★ | ★★ | ★★ |
+| Critère | A | B min | C |
+|---------|---|-------|---|
+| Preuve S1 | ★★★ | ★★★ | ★★ |
+| Cockpit | — | ★★★ | ★★★ |
 | AF-Option C | ★★★ | ★★★ | ★ |
-| Simplicité | ★★★ | ★★ | ★ |
-| Sécurité surface | ★★★ | ★★ | ★ |
-| Dette UI | ★★★ | ★★ | ★ |
-| Prépare MVP trop tôt | Non | Peu | Oui |
+| Risque couplage | Faible | Faible si borné | Fort |
+| Autonomie harness | ★★★ | ★★★ | ★ |
 
 ---
 
-## 5. Impacts / risques / dette
+## 4. ARCH-POC-CAND-* — statuts Morris
 
-| Thème | Impact |
-|-------|--------|
-| Positif | Preuve isolée ; zéro `app/**` ; fail closed |
-| Risque | Cursor réel non prouvé |
-| Risque | Démo sans UI moins « produit » |
-| Dette évitée | Couplage Next/Runtime |
-| Dette acceptée | Harness jetable à maintenir court terme |
+| ID | Décision | Statut |
+|----|----------|--------|
+| **01** | Adopter **Option B minimale** (Studio cockpit + adaptateur fin + harness autonome) | **VALIDÉE** |
+| **02** | Écarter Option C pour le premier POC | **VALIDÉE** |
+| **03** | Conserver Option A comme mode autonome test / diagnostic / dégradé | **VALIDÉE** |
+| **04** | Orch. = processus local autonome déterministe ; techno ouverte (Node/TS candidat) | **VALIDÉE AVEC RÉSERVE** |
+| **05** | Cursor via `CursorExecutorPort` ; pas d’API inventée | **VALIDÉE AVEC RÉSERVE** |
+| **06** | Git read réel ; writes distantes interdites ; `gitEffect=none-remote` | **VALIDÉE** |
+| **07** | Contrats / états / transitions `24` (màj Option B) | **VALIDÉE AVEC RÉSERVE** |
+| **08** | Journal JSONL + preuves locales | **VALIDÉE** |
+| **09** | Modif `app/**` possible **au delivery uniquement**, minimale (cockpit/adaptateur/vues) ; orch. hors `app/**` | **VALIDÉE AVEC RÉSERVE** |
+| **10** | Après validation+intégration archi → prochaine porte = **POC-G8** | **VALIDÉE** |
+| **11** | Archi POC ≠ Runtime produit ; L4* plafond chemin | **VALIDÉE** |
+| **12** | Versionnement docs `23`–`25` = GO Morris distinct | **VALIDÉE** |
 
----
-
-## 6. Recommandation
-
-**Option A** — harness local autonome, ports Git/Cursor, preuves locales, Studio inchangé.
-
-Distinct de la **décision** Morris (ci-dessous).
-
----
-
-## 7. Décisions candidates ARCH-POC-CAND-*
-
-| ID | Décision candidate | Statut |
-|----|--------------------|--------|
-| **ARCH-POC-CAND-01** | Adopter Option A (harness local autonome) pour le premier POC S1 | **CANDIDATE** |
-| **ARCH-POC-CAND-02** | Écarter Option C pour le premier POC | **CANDIDATE** |
-| **ARCH-POC-CAND-03** | Reporter Option B jusqu’à preuve A + besoin cockpit | **CANDIDATE** |
-| **ARCH-POC-CAND-04** | Orchestrateur = processus CLI local déterministe (forme) ; techno d’implémentation ouverte (TS/Node candidat) | **CANDIDATE** |
-| **ARCH-POC-CAND-05** | Cursor via `CursorExecutorPort` modes `fixture`\|`manual`\|`adapter-future` ; pas d’API inventée | **CANDIDATE** |
-| **ARCH-POC-CAND-06** | Git read réel ; denylist writes distantes ; `gitEffect=none-remote` | **CANDIDATE** |
-| **ARCH-POC-CAND-07** | Contrats / états / transitions selon `24` (alignés `21`) | **CANDIDATE** |
-| **ARCH-POC-CAND-08** | Preuves sous répertoire local dédié ; journal JSONL | **CANDIDATE** |
-| **ARCH-POC-CAND-09** | Aucune modification `projects/sfia-studio/app/**` dans le premier POC (Option A) | **CANDIDATE** |
-| **ARCH-POC-CAND-10** | Après validation + intégration archi → seule porte suivante = décision **POC-G8** (pas delivery direct) | **CANDIDATE** |
-| **ARCH-POC-CAND-11** | Architecture POC ≠ Runtime produit ; L4* reste plafond chemin | **CANDIDATE** |
-| **ARCH-POC-CAND-12** | Versionnement docs `23`–`25` = GO Morris distinct (commit/push/PR) | **CANDIDATE** |
-
-Aucune ARCH-POC-CAND n’est **VALIDÉE**. Aucun nouveau D-VAL.
+Aucun nouveau D-VAL.
 
 ---
 
-## 8. Gates
+## 5. Gates
 
 | Gate | Statut |
 |------|--------|
-| POC-G7 instruction | **OUVERT** (consommé pour ce cycle) |
-| POC-G7 **validation** architecture | **ATTENDUE** — Morris |
-| POC-G8 backlog | **FERMÉ** |
-| POC-G9 delivery | **FERMÉ** |
-| Versionnement `23`–`25` | **NON ACCORDÉ** ici |
-| Lancement POC | **NON ACCORDÉ** |
+| POC-G1…G6 | **VALIDÉS** |
+| POC-G10 | **CONSOMMÉ** |
+| **POC-G7** | **VALIDÉ AVEC RÉSERVES** |
+| POC-G8 | **FERMÉ** |
+| POC-G9 | **FERMÉ** |
+| Versionnement archi | **NON AUTORISÉ** |
+| Delivery / lancement POC | **NON AUTORISÉ** |
+
+**≠ READY FOR BACKLOG** tant que docs non intégrés.
 
 ---
 
-## 9. Décision Morris attendue
+## 6. Ouverts / réserves
 
-Morris doit :
-
-1. **VALIDER** / **CORRIGER** / **REJETER** l’architecture candidate (`23`/`24`/`25`).
-2. Trancher les ARCH-POC-CAND-01…12 (en bloc ou unitairement).
-3. Si GO validation : autoriser éventuellement **versionnement** (commit/push/draft PR) — gate distinct.
-4. Après intégration seulement : décider ouverture **POC-G8**.
-
-### Conséquences GO validation
-
-- Architecture candidate devient référence pour backlog borné.
-- POC reste non lancé jusqu’à POC-G9 + gates exécution.
-- Techno d’implémentation peut rester ouverte si CAND-04 le prévoit.
-
-### Conséquences NO-GO / correction
-
-- Retour instruction ; pas de POC-G8.
-- Options B/C réévaluables selon motif.
+1. Cursor réel
+2. Techno harness
+3. Protocole adaptateur
+4. Allowlist détaillée (backlog)
+5. Portée exacte modifs `app/**` au delivery
+6. Preuve QA non-seconde-vérité
+7. Clôture AF
+8. POC-G8/G9
 
 ---
 
-## 10. Séquence
+## 7. Décisions Morris restantes
+
+1. GO **versionnement** (commit / push / draft PR) des docs `23`–`25` (+ sync README/`07`/`20`–`22`).
+2. Après intégration uniquement : ouverture éventuelle **POC-G8**.
+3. Clôture AF (séparée).
+
+### Conséquences
+
+- GO versionnement ≠ GO backlog ≠ GO delivery ≠ lancement POC.
+- NO-GO versionnement : docs restent locaux.
+
+---
+
+## 8. Séquence
 
 ```text
-POC-G7 OUVERT (instruction) — EN COURS
-  → validation Morris architecture
-  → (GO) versionnement docs 23–25
+POC-G7 VALIDÉ AVEC RÉSERVES (Option B minimale)
+  → GO versionnement docs (requis — non accordé ici)
   → post-merge archi
-  → décision POC-G8 (backlog) — FERMÉE aujourd’hui
-  → POC-G9 delivery — FERMÉE
-  → exécution POC — NON LANCÉE
+  → décision POC-G8 (FERMÉE aujourd’hui)
+  → POC-G9 / POC (NON LANCÉS)
 ```
 
 ---
 
-## 11. Verdict documentaire
+## 9. Verdict
 
 | Élément | Valeur |
 |---------|--------|
-| Architecture | **CANDIDATE COMPLETE** |
-| Validation | **REQUISE** |
-| Recommandation | Option A |
+| Option B minimale | **RETENUE** |
+| Harness autonome | **Oui** |
+| Studio | Cockpit |
+| Adaptateur | Sans autorité |
+| POC-G7 | **VALIDÉ AVEC RÉSERVES** |
 | POC-G8/G9 | **FERMÉS** |
 | POC | **Non lancé** |
-| Runtime | **Ouvert** |
-| Versionnement | **Non autorisé** ici |
+| Versionnement | **Décision requise** |
 
-**Verdict :** `ARCHITECTURE POC CANDIDATE COMPLETE WITH RESERVES — MORRIS VALIDATION REQUIRED`
+**Verdict :** `ARCHITECTURE POC OPTION B DOCUMENTED WITH RESERVES — POC-G7 VALIDATED WITH RESERVES — VERSIONING DECISION REQUIRED`
 
 ---
 
-*Decision pack ARCHITECTURE CANDIDATE — POC-G7 instruction — NON VALIDÉ — Morris décide.*
+*Decision pack — Option B minimale — G7 validé avec réserves — non versionné — Morris décide.*
 ```
 
 ---
 
-## 12. Diff complet — cinq fichiers modifiés
+## 12. Diff complet — cinq documents historiques
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
-index 506595e..e4659bc 100644
+index 506595e..8f02a8d 100644
 --- a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
 +++ b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
 @@ -4,15 +4,15 @@
@@ -894,59 +630,59 @@ index 506595e..e4659bc 100644
  | **Document** | `07-product-trajectory-and-decision-pack.md` |
 -| **Cycle** | 9 — QA corrective (sync post-merge versionnée) ; historique post-merge / PR readiness conservé |
 -| **Profil** | Standard |
-+| **Cycle** | 6 — Architecture technique POC (POC-G7) ; historique cadrage / sync #220 conservé |
++| **Cycle** | 9 — QA corrective Option B ; historique archi POC-G7 conservé |
 +| **Profil** | Critical |
  | **Baseline** | SFIA v2.6 (**Option C méthode**) |
 -| **Statut** | `poc-orchestration-framing-post-merge-integrated` ; sync **versionnée** ; draft PR #220 **ouverte** ; merge **non effectué** ; POC **non lancé** ; POC-G7…G9 **fermés** |
 -| **Décisions** | POC-CAND-01…10 selon Morris 2026-07-19 ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; D-VAL/FD/AF/TA historiques inchangés |
-+| **Statut** | `poc-architecture-candidate-in-instruction` ; POC-G7 **OUVERT** ; archi **CANDIDATE NON VALIDÉE** ; POC **non lancé** ; POC-G8/G9 **fermés** |
-+| **Décisions** | POC-CAND historiques ; ARCH-POC-CAND-01…12 **candidates** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
++| **Statut** | POC-G7 **VALIDÉ AVEC RÉSERVES** ; Option B minimale ; docs **non versionnés** ; POC **non lancé** ; G8/G9 **fermés** |
++| **Décisions** | ARCH-POC-CAND-01…12 selon Morris ; POC-CAND cadrage inchangés |
  | **Destinataire** | Morris |
 -| **Source de vérité** | `origin/main` @ `be713c45a63c243a4d75c51d27d215d05bb621f1` ; branche **poussée** `capitalization/sfia-studio-poc-framing-post-merge` ; draft PR #220 |
-+| **Source de vérité** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` ; branche locale `architecture/sfia-studio-poc-orchestration` |
++| **Source de vérité** | `origin/main` @ `b882892…` ; branche locale `architecture/sfia-studio-poc-orchestration` |
  
 -> Cadrage POC **VALIDÉ** (2026-07-19) et **INTÉGRÉ** (PR #219 / `be713c45…`). POC-G10 **consommé**. Sync post-merge **versionnée** (commit + push + draft PR #220). **Merge #220 non autorisé**. POC **non lancé**. Architecture POC (POC-G7) **fermée**.
-+> Cadrage **INTÉGRÉ** (#219). Sync #220 **MERGED** (`b882892…`). POC-G7 **ouvert** pour instruction (`23`–`25`). Architecture **non validée**. POC **non lancé**. Versionnement archi = GO distinct.
++> Architecture **Option B minimale** validée avec réserves. Harness autonome + Studio cockpit + adaptateur fin. Versionnement = GO distinct. POC-G8 **fermé**. POC **non lancé**.
  
  ---
  
-@@ -34,17 +34,17 @@
+@@ -34,17 +34,13 @@
  | Branche Delivery | **Supprimée** (local + remote) |
  | Gate Morris Delivery P0 | **Aucune restante** |
  | App `projects/sfia-studio/app/` | Sur `main` — desktop 1440×1024 ; fixtures ; pas d’API/auth/BDD/orchestration réelle |
 -| Prochaine orientation | Sync post-merge **versionnée** (PR #220 draft) ; prochaine décision = **GO merge #220** ou, après intégration, éventuel **POC-G7** — **fermé** |
-+| Prochaine orientation | Architecture POC **CANDIDATE** (`23`–`25`) ; POC-G7 **ouvert instruction** ; validation Morris **requise** |
- | Produit complet / MVP / industrialisation | **Non atteints / non engagés** |
+-| Produit complet / MVP / industrialisation | **Non atteints / non engagés** |
 -| Décision Morris cadrage | **2026-07-19** — POC-G1…G6 **VALIDÉS** ; S1 ; L3+L4*/L0 ; writes distantes simulées |
-+| Décision Morris cadrage | **2026-07-19** — POC-G1…G6 **VALIDÉS** ; S1 ; L3+L4*/L0 |
- | Intégration cadrage | **Fait Git** — PR #219 MERGED ; `be713c45…` ; POC-G10 **CONSOMMÉ** |
+-| Intégration cadrage | **Fait Git** — PR #219 MERGED ; `be713c45…` ; POC-G10 **CONSOMMÉ** |
 -| Sync post-merge | **Versionnée** — commit + push + draft PR #220 ; merge **non effectué** |
-+| Sync post-merge | **MERGED** — PR #220 / `b882892…` |
-+| Architecture POC | Docs `23`–`25` **CANDIDATES** — **NON VALIDÉES** |
- | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil orchestrateur ouvert |
+-| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil orchestrateur ouvert |
 -| Branche cadrage POC | `project/sfia-studio-poc-orchestration-framing` (**conservée**) |
 -| Branche post-merge | `capitalization/sfia-studio-poc-framing-post-merge` (**poussée**) ; PR #220 |
 -| Branches historiques | `functional-design` / `pre-framing` / `functional-architecture` **conservées** |
-+| Branche architecture | `architecture/sfia-studio-poc-orchestration` (**locale**) |
-+| Branches historiques | conservées |
- 
+-
 -> Cadrage **validé + intégré** ≠ POC lancé ≠ architecture validée ≠ merge #220 autorisé. GO commit / push / draft PR **consommé**.
-+> Cadrage intégré ≠ architecture validée ≠ POC lancé ≠ POC-G8 ouvert.
++| Prochaine orientation | GO **versionnement** archi Option B — **non accordé** ; POC-G8 après intégration — **fermé** |
++| Architecture POC | **Option B minimale** — POC-G7 **VALIDÉ AVEC RÉSERVES** ; non versionnée |
++| Sync post-merge | **MERGED** — PR #220 / `b882892…` |
++| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
++| Branche architecture | `architecture/sfia-studio-poc-orchestration` (**locale**) |
++
++> Option B ≠ Option C. Harness autonome. Studio cockpit. Adaptateur sans autorité. POC non lancé.
  
  ### Trace factuelle — Delivery P0 (historique compact)
  
-@@ -121,8 +121,8 @@ Pré-cadrage
+@@ -121,8 +117,8 @@ Pré-cadrage
    → post-merge / cleanup
    → capitalisation P0 (PR #218)
    → cadrage POC orchestration          ← **VALIDÉ** + **INTÉGRÉ** (PR #219) — POC non lancé
 -  → post-merge sync documentaire       ← **versionnée** ; draft PR #220 ouverte ; merge = GO Morris distinct
 -  → architecture POC ciblée             ← prochaine décision **possible** (POC-G7) — **fermée**
 +  → post-merge sync documentaire       ← PR #220 **MERGED** (`b882892…`)
-+  → architecture POC ciblée             ← POC-G7 **OUVERT** — `23`–`25` CANDIDATES — **NON VALIDÉE**
++  → architecture POC ciblée             ← POC-G7 **VALIDÉ AVEC RÉSERVES** — Option B minimale — **non versionnée**
    → backlog POC borné                   ← POC-G8 fermé
    → delivery POC                        ← POC-G9 fermé
    → décision Morris : abandon / itération / préparation MVP
-@@ -130,16 +130,15 @@ Pré-cadrage
+@@ -130,16 +126,14 @@ Pré-cadrage
  
  ### Précisions
  
@@ -956,33 +692,33 @@ index 506595e..e4659bc 100644
 -- Architecture / backlog / delivery POC : **non lancés**.
 -- Clôture formelle architecture fonctionnelle : **décision séparée**, toujours ouverte.
 -- POC ≠ MVP ≠ industrialisation.
-+- Cadrage POC : **validé et intégré** ; sync #220 **mergée**.
-+- Architecture POC : **en instruction** (POC-G7) — **non validée**.
-+- Scénario **S1** : contrat de cadrage (**non exécuté**).
-+- Backlog / delivery POC : **non lancés**.
-+- Clôture formelle AF : **ouverte** (séparée).
++- Architecture : **Option B minimale** (validée avec réserves).
++- Option A : mode test / dégradé harness.
++- Option C : écartée 1er POC.
++- POC-G8/G9 : **fermés**. POC : **non lancé**.
  
- ### Orientation Option B — état
+-### Orientation Option B — état
++### Orientation
  
 -> Cadrage validé 2026-07-19 ; intégré via PR #219 (`be713c45…`). POC-G10 consommé. Sync post-merge versionnée (PR #220 draft). Prochaines décisions : **GO merge #220** ; éventuellement **POC-G7** après intégration — **fermée**.
-+> POC-G7 ouvert. Recommandation candidate : harness local autonome (Option A). Validation Morris requise. POC-G8 fermé.
++> POC-G7 validé avec réserves. Versionnement requis. Backlog non ouvert.
  
  ---
  
-@@ -215,9 +214,10 @@ Pré-cadrage
+@@ -215,9 +209,9 @@ Pré-cadrage
  |-------|---------|
  | Statut | **VALIDÉ + INTÉGRÉ** — PR #219 / `be713c45…` — docs `20`/`21`/`22` |
  | Scénario | **S1** sélectionné (POC-G2) — contrat de cadrage (**non exécuté**) |
 -| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7…G9 **FERMÉS** |
-+| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **OUVERT** (instruction) ; POC-G8/G9 **FERMÉS** |
- | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil ouvert |
+-| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil ouvert |
 -| Ne lance pas | POC ; architecture ; backlog ; delivery ; MVP |
-+| Architecture | Docs `23`–`25` **CANDIDATES** |
++| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES** ; POC-G8/G9 **FERMÉS** |
++| Architecture | Option B minimale (`23`–`25`) — non versionnée |
 +| Ne lance pas | POC ; backlog ; delivery ; MVP |
  
  ### 4.7 Sécurité (bornée)
  
-@@ -265,9 +265,12 @@ Pré-cadrage
+@@ -265,9 +259,12 @@ Pré-cadrage
  | D-NEXT-16 | Validation POC-CAND / POC-G1…G6 | Morris | **FAIT** — 2026-07-19 |
  | D-NEXT-17 | POC-G10 versionnement cadrage | Morris | **CONSOMMÉ** — PR #219 **MERGED** (`be713c45…`) |
  | D-NEXT-18 | Architecture / delivery POC | Morris | **Fermée** — POC-G7…G9 non validés |
@@ -991,68 +727,62 @@ index 506595e..e4659bc 100644
 -| D-NEXT-21 | Ouverture éventuelle POC-G7 | Morris | **Possible** après intégration — **non ouverte** |
 +| D-NEXT-19 | GO versionnement sync post-merge | Morris | **CONSOMMÉ** — PR #220 **MERGED** (`b882892…`) |
 +| D-NEXT-20 | GO merge PR #220 | Morris | **CONSOMMÉ** — **MERGED** |
-+| D-NEXT-21 | Ouverture POC-G7 (instruction) | Morris | **OUVERTE** — architecture en instruction |
-+| D-NEXT-22 | Validation architecture POC / ARCH-POC-CAND-* | Morris | **Requise** — **non validée** |
-+| D-NEXT-23 | GO versionnement docs `23`–`25` | Morris | **Non accordé** |
++| D-NEXT-21 | Ouverture POC-G7 (instruction) | Morris | **Consommée** → validation avec réserves |
++| D-NEXT-22 | Validation architecture / ARCH-POC-CAND / Option B | Morris | **FAIT** — POC-G7 **VALIDÉ AVEC RÉSERVES** |
++| D-NEXT-23 | GO versionnement docs `23`–`25` | Morris | **Requis** — **non accordé** |
 +| D-NEXT-24 | Ouverture POC-G8 | Morris | **Fermée** |
  
  ---
  
-@@ -329,9 +332,10 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+@@ -329,9 +326,9 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
  
  ## 8. Questions Morris
  
 -1. Autorisez-vous le **merge** de la draft PR #220 ?
 -2. Après intégration : ouvrez-vous éventuellement **POC-G7** (architecture POC) — décision distincte ?
 -3. Clôture formelle architecture fonctionnelle (toujours séparée) ?
-+1. Validez-vous / corrigez-vous / rejetez-vous l’architecture candidate `23`–`25` ?
-+2. Tranchez-vous les ARCH-POC-CAND-01…12 (notamment Option A) ?
-+3. Autorisez-vous le versionnement (commit / push / PR) des docs d’architecture ?
-+4. Clôture formelle architecture fonctionnelle (toujours séparée) ?
++1. Autorisez-vous le **versionnement** (commit / push / draft PR) de l’architecture Option B ?
++2. Après intégration : ouvrez-vous **POC-G8** ?
++3. Clôture formelle AF (séparée) ?
  
  ---
  
-@@ -339,13 +343,13 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+@@ -339,29 +336,17 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
  
  | Critère | État |
  |---------|------|
 -| Cadrage POC `20`–`22` | **VALIDÉ + INTÉGRÉ** (PR #219) |
 -| Sync post-merge | **Versionnée** — draft PR #220 |
 -| POC-G10 | **CONSOMMÉ** |
-+| Cadrage POC | **VALIDÉ + INTÉGRÉ** |
-+| Sync #220 | **MERGED** |
-+| Architecture POC | **CANDIDATE** — **NON VALIDÉE** |
-+| POC-G7 | **OUVERT** (instruction) |
++| Architecture Option B | **VALIDÉE AVEC RÉSERVES** |
++| POC-G7 | **VALIDÉ AVEC RÉSERVES** |
++| Versionnement | **Non autorisé** |
 +| POC-G8…G9 | **Fermés** |
  | POC lancé | **Non** |
 -| POC-G7…G9 | **Fermés** |
 -| MVP / industrialisation | **Non engagés** |
 -| Clôture AF formelle | **Ouverte** (séparée) |
-+| Clôture AF formelle | **Ouverte** |
  
  ---
  
-@@ -353,15 +357,12 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+ ## 10. Verdict documentaire
  
- | Élément | Valeur |
- |---------|--------|
+-| Élément | Valeur |
+-|---------|--------|
 -| Cadrage | **VALIDÉ + INTÉGRÉ** |
 -| POC-G10 | **CONSOMMÉ** (PR #219) |
 -| Sync post-merge | **Versionnée** (PR #220 draft) |
 -| GO commit / push / draft PR | **Consommé** |
 -| Merge #220 | **Non autorisé** |
-+| Architecture | **CANDIDATE COMPLETE** |
-+| Validation | **REQUISE** |
- | POC | **Non lancé** |
+-| POC | **Non lancé** |
 -| POC-G7 | **Fermé** |
-+| Versionnement | **Non autorisé** |
- 
+-
 -**Verdict :** `CORRECTION COMPLETE — PR #220 UPDATED — READY FOR MORRIS MERGE DECISION`
-+**Verdict :** `ARCHITECTURE POC CANDIDATE COMPLETE WITH RESERVES — MORRIS VALIDATION REQUIRED`
++**Verdict :** `ARCHITECTURE POC OPTION B DOCUMENTED WITH RESERVES — POC-G7 VALIDATED WITH RESERVES — VERSIONING DECISION REQUIRED`
  
  ---
  
-@@ -369,10 +370,9 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+@@ -369,10 +354,8 @@ Les gates DF-G5+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
  
  | Document | Usage |
  |----------|-------|
@@ -1060,18 +790,18 @@ index 506595e..e4659bc 100644
 -| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | S1 contrat de cadrage |
 -| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | POC-CAND / gates |
 -| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C / L0–L5 |
+-| [app/README.md](./app/README.md) | Runtime P0 |
++| [23](./23-poc-orchestration-technical-architecture.md) · [24](./24-poc-orchestration-contracts-security-and-observability.md) · [25](./25-poc-orchestration-architecture-decision-pack.md) | Archi Option B |
 +| [20](./20-poc-orchestration-framing.md) · [21](./21-poc-orchestration-scenario-and-boundaries.md) · [22](./22-poc-orchestration-decision-pack.md) | Cadrage |
-+| [23](./23-poc-orchestration-technical-architecture.md) · [24](./24-poc-orchestration-contracts-security-and-observability.md) · [25](./25-poc-orchestration-architecture-decision-pack.md) | Architecture candidate |
-+| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C |
- | [app/README.md](./app/README.md) | Runtime P0 |
++| [11](./11-functional-architecture.md) | AF-Option C |
  
 -*SFIA Studio — cadrage POC VALIDÉ + INTÉGRÉ (PR #219) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — POC NON LANCÉ — POC-G7 fermé — Morris décide.*
-+*SFIA Studio — architecture POC CANDIDATE — POC-G7 ouvert — NON VALIDÉE — POC NON LANCÉ — Morris décide.*
++*Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — non versionné — POC NON LANCÉ.*
 diff --git a/projects/sfia-studio/20-poc-orchestration-framing.md b/projects/sfia-studio/20-poc-orchestration-framing.md
-index 15365a5..1b4ee8a 100644
+index 15365a5..35f09db 100644
 --- a/projects/sfia-studio/20-poc-orchestration-framing.md
 +++ b/projects/sfia-studio/20-poc-orchestration-framing.md
-@@ -8,29 +8,28 @@
+@@ -8,29 +8,27 @@
  | **Profil** | Critical |
  | **Typologie** | DOC / EVOL (cadrage) |
  | **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
@@ -1088,7 +818,7 @@ index 15365a5..1b4ee8a 100644
  | **Destinataire** | Morris |
  
 -> Cadrage **validé** le **2026-07-19** et **intégré** via PR [#219](https://github.com/mcleland147/sfia-workspace/pull/219) (`be713c45…`). Cette validation **ne lance pas** le POC, **ne valide pas** l’architecture technique, **ne sélectionne pas** de Runtime et **ne définit pas** le MVP. POC-G7 / G8 / G9 restent **fermés**. Critères = contrat de preuve, **pas** preuve réalisée.
-+> Cadrage **validé** (2026-07-19) et **intégré** (#219). Sync post-merge **MERGED** (#220 / `b882892…`). POC-G7 **OUVERT** pour instruction d’architecture candidate (`23`–`25`) — **non validée**. POC-G8 / G9 **fermés**. POC **non lancé**.
++> Cadrage **validé** (#219). Sync #220 **MERGED**. POC-G7 **VALIDÉ AVEC RÉSERVES** — **Option B minimale** (`23`–`25`, non versionnés). POC-G8 / G9 **fermés**. POC **non lancé**.
  
  ### Décision Morris — validation du cadrage (2026-07-19)
  
@@ -1098,68 +828,65 @@ index 15365a5..1b4ee8a 100644
 -| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** (orchestrateur local candidat ; outil ouvert) |
 -| POC-CAND-09 / POC-G10 | **VALIDÉE** puis **CONSOMMÉE** (PR #219 mergée) |
 +| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
-+| POC-CAND-09 / POC-G10 | **CONSOMMÉE** (#219) |
++| POC-CAND-09 / POC-G10 | **CONSOMMÉE** |
  | POC-G1…G6 | **VALIDÉS** |
 -| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
 -| Scénario | **S1** sélectionné |
 -| Automatisation | L3 cible + L4* plafond chemin d’exécution ; L0 arbitrage ; L5 global interdit |
 -| Git | Lecture réelle autorisée (futur POC) ; écritures distantes **simulées** |
 -| Intégration | PR #219 **MERGED** — `be713c45a63c243a4d75c51d27d215d05bb621f1` |
-+| POC-G7 | **OUVERT** (instruction) — architecture **NON VALIDÉE** |
++| POC-G7 | **VALIDÉ AVEC RÉSERVES** — Option B minimale |
 +| POC-G8…G9 | **FERMÉS** |
-+| Scénario | **S1** |
-+| Intégration | #219 + #220 sur `main` @ `b882892…` |
++| Intégration | #219 + #220 @ `b882892…` |
  
  ---
  
-@@ -301,31 +300,30 @@ Pas de plateforme de supervision industrialisée.
+@@ -301,18 +299,13 @@ Pas de plateforme de supervision industrialisée.
  |-------------|--------|
  | POC-G1…G6 | **VALIDÉS** |
  | POC-G10 | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
 -| POC-G7…G9 | **FERMÉS / NON VALIDÉS** |
-+| POC-G7 | **OUVERT** (instruction) — docs `23`–`25` **CANDIDATES** — **NON VALIDÉ** |
-+| POC-G8…G9 | **FERMÉS / NON VALIDÉS** |
- | POC-CAND-01…06, 08, 10 | **VALIDÉES** |
- | POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
+-| POC-CAND-01…06, 08, 10 | **VALIDÉES** |
+-| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
 -| POC-CAND-09 | **VALIDÉE** puis **consommée** (via POC-G10 / #219) |
 -
 -**Cycle de cadrage :** **terminé** (validé + intégré). Critères de succès/échec/abandon = contrat — **pas** preuve réalisée.
 -
 -**Sync post-merge :** **versionnée** (commit + push + draft PR #220). **Merge #220** = GO Morris distinct — **non autorisé** ici.
-+| Sync #220 | **MERGED** (`b882892…`) |
++| POC-G7 | **VALIDÉ AVEC RÉSERVES** — Option B minimale (`23`–`25`) — **non versionnée** |
++| POC-G8…G9 | **FERMÉS** |
++| Sync #220 | **MERGED** |
  
 -**Prochaine décision Morris possible après merge #220 :** ouverture éventuelle de **POC-G7** (architecture POC ciblée) — **fermée** ici. Pas de backlog/delivery direct.
-+**Cycle de cadrage :** **terminé**. **Architecture POC :** en instruction — **non validée**.
++**Architecture :** Option B minimale (Studio cockpit + adaptateur + harness autonome). Option A = test/dégradé. Option C écartée (1er POC).
  
 -**Toujours ouverts :** outil/techno orchestrateur ; harness vs UI ; clôture AF formelle ; MVP.
-+**Toujours ouverts :** validation ARCH-POC-CAND-* ; outil/techno ; harness vs UI (Option B future) ; clôture AF ; MVP.
++**Prochaine décision :** GO versionnement — **non accordé**.
  
  ---
  
- ## 15. Documents liés
+@@ -320,12 +313,13 @@ Pas de plateforme de supervision industrialisée.
  
  | Document | Rôle |
--|----------|------|
+ |----------|------|
 -| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | Scénario + frontières + flux |
 -| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | Options, reco, POC-CAND, gates |
 -| [07-product-trajectory-and-decision-pack.md](./07-product-trajectory-and-decision-pack.md) | Trajectoire produit |
 -| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C, niveaux L0–L5 |
 -| [18-technical-architecture.md](./18-technical-architecture.md) | Contraintes techniques P0 |
-+|----------|-------|
-+| [21](./21-poc-orchestration-scenario-and-boundaries.md) | Scénario S1 |
++| [21](./21-poc-orchestration-scenario-and-boundaries.md) | S1 |
 +| [22](./22-poc-orchestration-decision-pack.md) | POC-CAND |
-+| [23](./23-poc-orchestration-technical-architecture.md) | Archi technique candidate |
-+| [24](./24-poc-orchestration-contracts-security-and-observability.md) | Contrats / sécurité |
-+| [25](./25-poc-orchestration-architecture-decision-pack.md) | ARCH-POC-CAND-* |
-+| [07](./07-product-trajectory-and-decision-pack.md) | Trajectoire |
++| [23](./23-poc-orchestration-technical-architecture.md) | Archi Option B |
++| [24](./24-poc-orchestration-contracts-security-and-observability.md) | Contrats |
++| [25](./25-poc-orchestration-architecture-decision-pack.md) | ARCH-POC-CAND |
 +| [11](./11-functional-architecture.md) | AF-Option C |
  
  ---
  
 -*Cadrage VALIDÉ + INTÉGRÉ (PR #219 / be713c45…) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — cycle cadrage TERMINÉ — POC NON LANCÉ — POC-G7/G8/G9 fermés — outil orchestrateur ouvert.*
-+*Cadrage VALIDÉ + INTÉGRÉ — sync #220 MERGED — POC-G7 ouvert instruction — architecture NON VALIDÉE — POC NON LANCÉ.*
++*Cadrage INTÉGRÉ — POC-G7 VALIDÉ AVEC RÉSERVES (Option B) — non versionné — POC NON LANCÉ.*
 diff --git a/projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md b/projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md
-index f0871d4..37b7c27 100644
+index f0871d4..7952d1f 100644
 --- a/projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md
 +++ b/projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md
 @@ -6,8 +6,8 @@
@@ -1178,10 +905,10 @@ index f0871d4..37b7c27 100644
  | Gate de clôture preuve | Après pack | CLOSING / ITERATE / ABANDON |
  
 -Les gates produit POC-G1…G6 sont **VALIDÉS** (2026-07-19). POC-G10 est **CONSOMMÉ** (PR #219). POC-G7…G9 restent **FERMÉS / NON VALIDÉS**.
-+Les gates produit POC-G1…G6 sont **VALIDÉS**. POC-G10 **CONSOMMÉ**. POC-G7 **OUVERT** (instruction architecture — **non validée**). POC-G8…G9 **FERMÉS**.
++Les gates POC-G1…G6 **VALIDÉS**. POC-G10 **CONSOMMÉ**. POC-G7 **VALIDÉ AVEC RÉSERVES** (Option B minimale). POC-G8…G9 **FERMÉS**.
  
 -UI Studio versus harness : **réserve d’architecture** (ouverte pour un futur cycle POC-G7 — **non ouvert** ici).
-+UI Studio versus harness : tranché en **recommandation candidate** Option A (harness autonome) dans `23` — **non validé** Morris.
++UI Studio versus harness : **Option B minimale** — Studio cockpit + adaptateur fin ; harness autonome (cœur). Option A conservée pour tests hors UI.
  
  ---
  
@@ -1190,33 +917,34 @@ index f0871d4..37b7c27 100644
  ---
  
 -*Scénario S1 VALIDÉ + INTÉGRÉ (PR #219) comme contrat de cadrage — NON EXÉCUTÉ — POC NON LANCÉ — rejet allowlist = exigence future — techno Runtime ouverte — Morris décide (POC-G7 fermé).*
-+*Scénario S1 VALIDÉ + INTÉGRÉ — NON EXÉCUTÉ — POC-G7 ouvert (archi candidate) — POC NON LANCÉ — Morris décide.*
++*Scénario S1 VALIDÉ — NON EXÉCUTÉ — Option B minimale (POC-G7 VALIDÉ AVEC RÉSERVES) — POC NON LANCÉ.*
 diff --git a/projects/sfia-studio/22-poc-orchestration-decision-pack.md b/projects/sfia-studio/22-poc-orchestration-decision-pack.md
-index 35c9873..cfdf68c 100644
+index 35c9873..3117010 100644
 --- a/projects/sfia-studio/22-poc-orchestration-decision-pack.md
 +++ b/projects/sfia-studio/22-poc-orchestration-decision-pack.md
-@@ -4,128 +4,100 @@
+@@ -2,130 +2,59 @@
+ 
+ | Métadonnée | Valeur |
  |------------|--------|
- | **Projet** | SFIA Studio |
+-| **Projet** | SFIA Studio |
  | **Document** | `22-poc-orchestration-decision-pack.md` |
 -| **Cycle** | 1 — Cadrage POC orchestration (Option B) ; sync post-merge cycle 14 |
 -| **Profil** | Critical (cadrage) / Standard (post-merge sync) |
 -| **Statut document** | **VALIDÉ PAR MORRIS** (2026-07-19) et **INTÉGRÉ** sur `main` (PR #219) |
 -| **Préfixe décisions** | `POC-CAND-*` — identifiants locaux (même après validation) |
-+| **Cycle** | 1 — Cadrage (historique) ; état post-#220 + POC-G7 |
-+| **Profil** | Critical |
-+| **Statut document** | Cadrage **VALIDÉ + INTÉGRÉ** ; sync #220 **MERGED** ; POC-G7 **OUVERT** instruction |
-+| **Préfixe** | `POC-CAND-*` |
- | **D-VAL nouvelles** | **Aucune** |
+-| **D-VAL nouvelles** | **Aucune** |
++| **Statut** | Cadrage **INTÉGRÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES** (Option B minimale) |
  | **POC** | **Non lancé** |
- | **Destinataire** | Morris |
+-| **Destinataire** | Morris |
++| **POC-G8 / G9** | **FERMÉS** |
  
 -> Décision Morris du **2026-07-19** : validation du cadrage Option B. Intégration Git : PR [#219](https://github.com/mcleland147/sfia-workspace/pull/219) **MERGED** (`be713c45…`). POC-G7 / G8 / G9 **fermés**. Aucune architecture Runtime / techno sélectionnée. Aucune décision d’architecture POC prise. POC **non lancé**.
-+> Cadrage Option B **VALIDÉ** (2026-07-19). PR #219 + #220 **MERGED** (`b882892…`). POC-G7 **ouvert** pour instruction d’architecture (`23`–`25`) — **non validée**. POC-G8 / G9 **fermés**. POC **non lancé**.
++> Cadrage #219 + sync #220 **MERGED**. Architecture **Option B minimale** validée avec réserves (`23`–`25`, non versionnés). Harness autonome. Studio cockpit. Adaptateur sans autorité. Option C écartée (1er POC).
  
  ---
  
- ## 1. Observations factuelles
+-## 1. Observations factuelles
++## 1. Observations
  
 -1. Delivery P0 clôturé (PR #217) ; capitalisation intégrée (PR #218).
 -2. Cadrage Option B produit, **validé Morris 2026-07-19**, puis **intégré** (PR #219).
@@ -1224,38 +952,31 @@ index 35c9873..cfdf68c 100644
 -4. Baseline SFIA v2.6 / Option C méthode **inchangée**.
 -5. POC / MVP / industrialisation **non engagés**.
 -6. POC-G10 **consommé** par le versionnement et le merge du cadrage.
-+1. Delivery P0 clôturé (#217) ; capitalisation (#218).
-+2. Cadrage validé + intégré (#219).
-+3. Sync post-merge **MERGED** (#220 / `b882892…`).
-+4. POC-G7 **OUVERT** — architecture candidate produite localement.
-+5. POC-G8 / G9 **FERMÉS** ; POC **non lancé**.
-+6. Runtime / techno **non sélectionnés** (recommandation Option A = candidate).
++1. Cadrage / sync intégrés.
++2. POC-G7 **VALIDÉ AVEC RÉSERVES** — Option B minimale.
++3. Option A = test/dégradé.
++4. POC-G8/G9 fermés ; POC non lancé.
++5. Versionnement archi = GO distinct.
  
  ---
  
 -## 2. Hypothèses
-+## 2–5. Historique
++## 6. POC-CAND — inchangées
  
 -H1–H8 du document `20` — dont H6 (orchestrateur local) **retenue avec réserve** (POC-CAND-07) : outil/forme **ouverts**.
-+Inchangé — voir versions antérieures / docs `20`–`21`. Hypothèse H6 orchestrateur local = **ARCH-POC-CAND-04** candidate.
++01…06, 08, 10 **VALIDÉES** · 07 **AVEC RÉSERVE** · 09 **CONSOMMÉE**.
  
  ---
  
 -## 3–5. Options (historique de cadrage)
-+## 6. Décisions POC-CAND — inchangées
++## 7. Gates
  
 -Les options A/B/C de séquencement et S1–S4 / L-levels restent documentées comme **historique de qualification**. Les choix Morris sont dans §6–7.
-+| ID | Statut |
-+|----|--------|
-+| POC-CAND-01…06, 08, 10 | **VALIDÉES** |
-+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
-+| POC-CAND-09 | **CONSOMMÉE** (#219 / G10) |
- 
- ---
- 
+-
+----
+-
 -## 6. Décisions POC-CAND — état post-intégration PR #219
-+## 7. Gates Morris — état courant
- 
+-
 -> Identifiants locaux au cadrage. **Aucune D-VAL nouvelle.**
 -
 -| ID | Décision | Statut Morris |
@@ -1287,27 +1008,25 @@ index 35c9873..cfdf68c 100644
 -| **POC-G8** | Backlog POC | **FERMÉ / NON VALIDÉ** |
 -| **POC-G9** | Delivery POC | **FERMÉ / NON VALIDÉ** |
 -| **POC-G10** | Commit / push / draft PR du cadrage | **VALIDÉ / CONSOMMÉ / INTÉGRÉ** (PR #219) |
+-
+-**Merge #219 = fait Git.** N’ouvre **pas** POC-G7. N’autorise **pas** le lancement du POC.
+-
+----
+-
+-## 8. Impacts
+-
+-Cadrage validé + intégré → cycle de cadrage **clôturable** documentairement → sync post-merge **versionnée** (draft PR #220) → prochaine décision : **GO merge #220** ; après intégration, éventuel **POC-G7**. Pas de shortcut backlog/delivery.
+-
+----
+-
+-## 9. Dette / ouverts
 +| Gate | Statut |
 +|------|--------|
 +| POC-G1…G6 | **VALIDÉS** |
 +| POC-G10 | **CONSOMMÉ** |
-+| **POC-G7** | **OUVERT** (instruction) — validation architecture **en attente** |
++| **POC-G7** | **VALIDÉ AVEC RÉSERVES** |
 +| POC-G8 | **FERMÉ** |
 +| POC-G9 | **FERMÉ** |
- 
--**Merge #219 = fait Git.** N’ouvre **pas** POC-G7. N’autorise **pas** le lancement du POC.
-+Architecture technique : voir `25` (ARCH-POC-CAND-*).
- 
- ---
- 
- ## 8. Impacts
- 
--Cadrage validé + intégré → cycle de cadrage **clôturable** documentairement → sync post-merge **versionnée** (draft PR #220) → prochaine décision : **GO merge #220** ; après intégration, éventuel **POC-G7**. Pas de shortcut backlog/delivery.
-+Cadrage intégré → sync #220 mergée → POC-G7 instruction (`23`–`25`) → **validation Morris** → (GO) versionnement archi → (plus tard) POC-G8.
- 
- ---
- 
- ## 9. Dette / ouverts
  
 -- Outil / forme orchestrateur (réserve POC-CAND-07)
 -- Harness vs UI P0 (réserve d’architecture)
@@ -1315,11 +1034,7 @@ index 35c9873..cfdf68c 100644
 -- Clôture formelle AF
 -- MVP / industrialisation / réserves P0
 -- GO merge draft PR #220 (requis ; non accordé ici)
-+- Validation ARCH-POC-CAND-*
-+- Cursor adapter réel
-+- Allowlist détaillée
-+- Clôture AF
-+- POC-G8+
++ARCH-POC-CAND-* : voir `25`.
  
  ---
  
@@ -1333,10 +1048,8 @@ index 35c9873..cfdf68c 100644
 -  → décision distincte éventuelle architecture POC (POC-G7) — FERMÉE
 -  → (plus tard) backlog POC (POC-G8) → delivery POC (POC-G9)
 -  → décision post-POC : abandon / itération / préparation MVP
-+#219/#220 MERGED
-+  → POC-G7 OUVERT — architecture CANDIDATE (23–25)
-+  → validation Morris
-+  → (GO) versionnement archi
++POC-G7 VALIDÉ AVEC RÉSERVES (Option B)
++  → GO versionnement (requis — non accordé)
 +  → POC-G8 (FERMÉ) → POC-G9 (FERMÉ) → POC (NON LANCÉ)
  ```
  
@@ -1345,10 +1058,9 @@ index 35c9873..cfdf68c 100644
  ---
  
 -## 11. Verdict documentaire
-+## 11. Verdict
- 
- | Élément | Valeur |
- |---------|--------|
+-
+-| Élément | Valeur |
+-|---------|--------|
 -| Cadrage | **VALIDÉ + INTÉGRÉ** (PR #219) |
 -| POC-G10 | **CONSOMMÉ** |
 -| Sync post-merge | **Versionnée** — draft PR #220 |
@@ -1359,22 +1071,17 @@ index 35c9873..cfdf68c 100644
 -| POC-G7…G9 | **Fermés** |
 -| Runtime / techno | **Non sélectionnés** (outil ouvert) |
 -| Prochaine décision Morris | **GO merge #220** ; éventuellement POC-G7 après intégration |
-+| Cadrage | **INTÉGRÉ** |
-+| Sync #220 | **MERGED** |
-+| Architecture | **CANDIDATE** — **NON VALIDÉE** |
-+| POC-G7 | **OUVERT** (instruction) |
-+| POC-G8/G9 | **FERMÉS** |
-+| POC | **Non lancé** |
++## 11. Verdict
  
 -**Verdict :** `CORRECTION COMPLETE — PR #220 UPDATED — READY FOR MORRIS MERGE DECISION`
-+**Verdict :** `ARCHITECTURE POC CANDIDATE COMPLETE WITH RESERVES — MORRIS VALIDATION REQUIRED`
++**`ARCHITECTURE POC OPTION B DOCUMENTED WITH RESERVES — POC-G7 VALIDATED WITH RESERVES — VERSIONING DECISION REQUIRED`**
  
  ---
  
 -*Decision pack VALIDÉ + INTÉGRÉ (PR #219) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — POC-G10 CONSOMMÉ — POC NON LANCÉ — POC-G7 fermé.*
-+*POC-CAND pack — G7 ouvert instruction — archi NON VALIDÉE — POC NON LANCÉ.*
++*Option B minimale — G7 validé avec réserves — non versionné — POC NON LANCÉ.*
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 1ef9944..93afb54 100644
+index 1ef9944..6165a91 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
 @@ -4,20 +4,21 @@
@@ -1382,7 +1089,7 @@ index 1ef9944..93afb54 100644
  | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
  | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
 -| **Statut** | `poc-orchestration-framing-post-merge-integrated` — cadrage Option B **VALIDÉ** et **INTÉGRÉ** (PR #219) ; POC **non lancé** ; POC-G7…G9 **fermés** |
-+| **Statut** | `poc-architecture-candidate-in-instruction` — cadrage **INTÉGRÉ** ; sync #220 **MERGED** ; POC-G7 **OUVERT** (instruction) ; architecture **CANDIDATE NON VALIDÉE** ; POC **non lancé** ; POC-G8/G9 **fermés** |
++| **Statut** | `poc-architecture-option-b-validated-with-reserves` — POC-G7 **VALIDÉ AVEC RÉSERVES** ; Option B minimale ; docs **non versionnés** ; POC **non lancé** ; POC-G8/G9 **fermés** |
  | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
  | **Autorité** | Morris (L0) |
 -| **Exécuteur** | Cursor — QA corrective documentaire PR #220 (DOC / INC légère, Standard) |
@@ -1391,20 +1098,22 @@ index 1ef9944..93afb54 100644
 -| **Profil SFIA** | Standard |
 -| **Branche post-merge** | `capitalization/sfia-studio-poc-framing-post-merge` (**poussée**) ; draft PR [#220](https://github.com/mcleland147/sfia-workspace/pull/220) |
 -| **Base canonique** | `origin/main` @ `be713c45a63c243a4d75c51d27d215d05bb621f1` |
-+| **Exécuteur** | Cursor — Architecture technique POC (EVOL/DOC/ARCH, Critical) |
-+| **Typologie cycle** | EVOL / DOC / ARCH — Architecture technique Critical |
-+| **Cycle projet** | 6 — Architecture technique POC ; POC-G7 **ouvert instruction** |
++| **Exécuteur** | Cursor — QA corrective architecture Option B (DOC/ARCH/INC, Critical) |
++| **Typologie cycle** | DOC / ARCH / INC corrective — Critical |
++| **Cycle projet** | 9 — QA corrective ; architecture Option B documentée |
 +| **Profil SFIA** | Critical |
 +| **Branche architecture** | `architecture/sfia-studio-poc-orchestration` (**locale**, non poussée) |
-+| **Base canonique** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` (PR #220) |
++| **Base canonique** | `origin/main` @ `b882892d79709acd0637d0df872c16bbe16d7ed1` |
  | **Chemin** | `projects/sfia-studio/` |
- | **AF-Option C** | **VALIDÉE** + **opérationnalisée** pour le POC (POC-CAND-03) |
- | **Cadrage POC** | `20`–`22` — **VALIDÉS et INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
+-| **AF-Option C** | **VALIDÉE** + **opérationnalisée** pour le POC (POC-CAND-03) |
+-| **Cadrage POC** | `20`–`22` — **VALIDÉS et INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
 -| **POC** | **Non lancé** — architecture / backlog / delivery POC **non lancés** |
 -| **Prochaine décision** | **GO merge** de la PR #220 (distinct) ; ouverture éventuelle **POC-G7** après intégration — **fermée** |
-+| **Architecture POC** | `23`–`25` — **CANDIDATES** ; POC-G7 **OUVERT** instruction ; **NON VALIDÉE** |
-+| **POC** | **Non lancé** — backlog / delivery POC **non lancés** (G8/G9 fermés) |
-+| **Prochaine décision** | Validation Morris architecture candidate ; versionnement docs = GO distinct ; POC-G8 après intégration seulement |
++| **AF-Option C** | **VALIDÉE** — Studio ≠ orchestrateur |
++| **Cadrage POC** | `20`–`22` — **INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
++| **Architecture POC** | `23`–`25` — **Option B minimale** ; POC-G7 **VALIDÉ AVEC RÉSERVES** ; **non versionnée** |
++| **POC** | **Non lancé** — backlog / delivery **fermés** |
++| **Prochaine décision** | GO **versionnement** docs architecture — **non accordé** ; POC-G8 après intégration seulement |
  
  ---
  
@@ -1413,14 +1122,16 @@ index 1ef9944..93afb54 100644
  | Automatisation | L3 + L4* / L0 — L5 global interdit (POC-G4) |
  | Git futur POC | Lecture réelle OK ; écritures distantes **simulées** (POC-G5) |
 -| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7…G9 **fermés** |
-+| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **OUVERT** (instruction) ; POC-G8/G9 **fermés** |
-+| Sync post-merge | PR [#220](https://github.com/mcleland147/sfia-workspace/pull/220) — **MERGED** (`b882892…`) |
-+| Architecture POC | Docs `23`–`25` **CANDIDATES** — **NON VALIDÉES** |
- | Branche cadrage | `project/sfia-studio-poc-orchestration-framing` (**conservée**) |
- | Branches historiques | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
+-| Branche cadrage | `project/sfia-studio-poc-orchestration-framing` (**conservée**) |
+-| Branches historiques | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
++| Gates | POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** ; POC-G7 **VALIDÉ AVEC RÉSERVES** ; POC-G8/G9 **fermés** |
++| Sync post-merge | PR #220 — **MERGED** (`b882892…`) |
++| Architecture POC | **Option B minimale** (`23`–`25`) — validée avec réserves ; **non versionnée** |
++| Branche cadrage | conservée |
++| Branches historiques | conservées |
  
 -> Cadrage **validé et intégré** sur `main`. POC **non lancé**. Architecture / backlog / delivery POC **non lancés**. POC-G7 = décision distincte future.
-+> Cadrage **validé et intégré**. Sync #220 **mergée**. Architecture POC **en instruction** (POC-G7). POC **non lancé**. Backlog / delivery **fermés**.
++> Cadrage intégré. Sync #220 mergée. Architecture **Option B minimale** (Studio cockpit + adaptateur + harness autonome). POC-G7 **validé avec réserves**. POC **non lancé**. Versionnement = GO distinct.
  
  ---
  
@@ -1431,14 +1142,14 @@ index 1ef9944..93afb54 100644
 -  → post-merge sync documentaire       ← **versionnée** ; draft PR #220 ouverte ; merge = GO Morris distinct
 -  → architecture POC ciblée             ← prochaine décision **possible** (POC-G7) — **fermée**
 +  → post-merge sync documentaire       ← PR #220 **MERGED** (`b882892…`)
-+  → architecture POC ciblée             ← POC-G7 **OUVERT** — docs `23`–`25` **CANDIDATES** — **NON VALIDÉE**
++  → architecture POC ciblée             ← POC-G7 **VALIDÉ AVEC RÉSERVES** — Option B minimale (`23`–`25`) — **non versionnée**
    → backlog POC borné                   ← POC-G8 **fermé**
    → delivery POC                        ← POC-G9 **fermé**
    → décision Morris : abandon / itération / préparation MVP
  ```
  
 -Cadrage POC : **validé et intégré**. Sync post-merge : **versionnée** (draft PR #220). Architecture / backlog / delivery POC : **non lancés**. MVP / industrialisation : **non engagés**.
-+Cadrage POC : **validé et intégré**. Sync #220 : **mergée**. Architecture POC : **candidate en instruction**. Backlog / delivery : **non lancés**. POC : **non lancé**.
++Cadrage intégré. Architecture Option B **validée avec réserves** (non versionnée). Harness autonome + Studio cockpit + adaptateur fin. POC **non lancé**.
  
  ---
  
@@ -1451,17 +1162,17 @@ index 1ef9944..93afb54 100644
  | POC-G10 | **CONSOMMÉ** |
  
 -> POC **non lancé**. Runtime / techno **ouverts** (non sélectionnés). POC-G7 = décision distincte future (**fermée**).
-+### Architecture POC orchestration — CANDIDATE (POC-G7 ouvert)
++### Architecture POC orchestration — Option B minimale (POC-G7 VALIDÉ AVEC RÉSERVES)
 +
 +| Document | Rôle |
 +|----------|------|
-+| [23-poc-orchestration-technical-architecture.md](./23-poc-orchestration-technical-architecture.md) | Architecture logique, options A/B/C, reco Option A |
-+| [24-poc-orchestration-contracts-security-and-observability.md](./24-poc-orchestration-contracts-security-and-observability.md) | Contrats, sécurité, preuve, stop/reprise |
-+| [25-poc-orchestration-architecture-decision-pack.md](./25-poc-orchestration-architecture-decision-pack.md) | ARCH-POC-CAND-* / gates |
++| [23-poc-orchestration-technical-architecture.md](./23-poc-orchestration-technical-architecture.md) | Option B minimale ; harness autonome ; adaptateur ; Option A = test |
++| [24-poc-orchestration-contracts-security-and-observability.md](./24-poc-orchestration-contracts-security-and-observability.md) | Contrats Studio/adaptateur/harness ; sécurité |
++| [25-poc-orchestration-architecture-decision-pack.md](./25-poc-orchestration-architecture-decision-pack.md) | ARCH-POC-CAND-* validées (avec réserves) |
 +
-+> Architecture **CANDIDATE** — **NON VALIDÉE**. POC-G8/G9 **fermés**. Runtime / techno **ouverts**. POC **non lancé**.
++> POC-G7 **VALIDÉ AVEC RÉSERVES**. Docs **non versionnés**. POC-G8/G9 **fermés**. Runtime/protocole **ouverts**. POC **non lancé**.
 +
-+> POC **non lancé**. Runtime / techno **ouverts** (non sélectionnés). POC-G7 = instruction ouverte ; validation = GO distinct.
++> Studio = cockpit. Adaptateur = sans autorité. Harness = cœur d’exécution autonome. Option C écartée (1er POC).
  
  ---
  
@@ -1470,18 +1181,21 @@ index 1ef9944..93afb54 100644
  | Clôture formelle cycle architecture | **Non** — non automatique |
  | Sort des branches historiques | Conservées ; décisions distinctes |
 -| Contenu / architecture du POC orchestration | Cadrage **VALIDÉ + INTÉGRÉ** (PR #219) ; architecture POC (POC-G7) **fermée** |
-+| Contenu / architecture du POC orchestration | Cadrage **INTÉGRÉ** ; archi `23`–`25` **CANDIDATES** ; POC-G7 **ouvert instruction** ; **non validée** |
++| Contenu / architecture du POC orchestration | Option B minimale — POC-G7 **VALIDÉ AVEC RÉSERVES** ; non versionnée ; G8/G9 fermés |
  | Définition MVP | **Non pris** |
  | Industrialisation | **Non engagée** |
  | Responsive / a11y complète / CI GitHub | **Ouverts** (réserves P0) |
-@@ -333,18 +346,19 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -331,20 +344,20 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  
- ### Orientation Morris — Option B (POC orchestration)
+ > Conception : intégrée (PR #209 / #210). Architecture fonctionnelle : intégrée (#211–#213). Architecture technique P0 + Delivery P0 : **intégrés** (PR #217 / `759ab0b…`). Aucune D-VAL-12.
+ 
+-### Orientation Morris — Option B (POC orchestration)
++### Orientation Morris — architecture POC
  
 -> Cadrage **VALIDÉ** (2026-07-19) et **INTÉGRÉ** (PR #219 / `be713c45…`). Sync post-merge **versionnée** (draft PR #220). Scénario **S1**. L3+L4*/L0. Écritures distantes simulées. Orchestrateur local **avec réserve** (outil ouvert).
 -> **POC non lancé.** Prochaines décisions : **GO merge #220** ; éventuellement **POC-G7** après intégration — **fermée**.
-+> Cadrage **VALIDÉ + INTÉGRÉ**. Sync #220 **MERGED**. POC-G7 **OUVERT** — architecture candidate `23`–`25` (reco Option A harness).
-+> **POC non lancé.** POC-G8/G9 **fermés**. Validation architecture + versionnement = GO distincts.
++> POC-G7 **VALIDÉ AVEC RÉSERVES**. **Option B minimale** : Studio cockpit + adaptateur fin + harness autonome. Option A = test/dégradé. Option C écartée (1er POC).
++> **POC non lancé.** Versionnement docs = GO distinct. POC-G8 **fermé**.
  
  ---
  
@@ -1490,32 +1204,30 @@ index 1ef9944..93afb54 100644
 -1. **GO merge** de la draft PR [#220](https://github.com/mcleland147/sfia-workspace/pull/220) — **non autorisé** ici (GO commit / push / draft PR **consommé**).
 -2. Décision distincte éventuelle **POC-G7** (architecture POC) après intégration — **fermée**.
 -3. Clôture formelle architecture fonctionnelle (toujours séparée).
-+1. **Valider / corriger / rejeter** l’architecture POC candidate (`23`–`25` / ARCH-POC-CAND-*).
-+2. GO versionnement des docs d’architecture (commit / push / PR) — **non accordé** ici.
-+3. Après intégration : décision éventuelle **POC-G8** — **fermée**.
-+4. Clôture formelle architecture fonctionnelle (toujours séparée).
++1. GO **versionnement** (commit / push / draft PR) des docs `23`–`25` et sync README/`07`/`20`–`22` — **non accordé**.
++2. Après intégration : éventuel **POC-G8** — **fermé**.
++3. Clôture formelle AF (séparée).
  
 -**Verdict documentaire :** `CORRECTION COMPLETE — PR #220 UPDATED — READY FOR MORRIS MERGE DECISION`
-+**Verdict documentaire :** `ARCHITECTURE POC CANDIDATE COMPLETE WITH RESERVES — MORRIS VALIDATION REQUIRED`
++**Verdict documentaire :** `ARCHITECTURE POC OPTION B DOCUMENTED WITH RESERVES — POC-G7 VALIDATED WITH RESERVES — VERSIONING DECISION REQUIRED`
  
  ---
  
-@@ -353,11 +367,11 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -353,11 +366,10 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | Élément | Source |
  |---------|--------|
  | Méthode | SFIA v2.6 — Option C méthode |
 -| Socle intégré | `main` @ `be713c45…` (PR #219) |
 -| Cadrage POC | `20`–`22` **validés et intégrés** sur `main` |
 -| Sync post-merge | branche poussée + draft PR [#220](https://github.com/mcleland147/sfia-workspace/pull/220) — **merge non effectué** |
-+| Socle intégré | `main` @ `b882892…` (PR #220) |
-+| Cadrage POC | `20`–`22` sur `main` |
-+| Architecture POC candidate | `23`–`25` (locale, non versionnée) |
++| Socle | `main` @ `b882892…` |
++| Architecture POC | `23`–`25` locaux (non versionnés) |
  | Handoff | `sfia/review-handoff` |
  
  ---
  
 -*SFIA Studio — cadrage POC VALIDÉ + INTÉGRÉ (PR #219) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — POC NON LANCÉ — POC-G7/G8/G9 fermés — Morris décide.*
-+*SFIA Studio — architecture POC CANDIDATE (POC-G7) — NON VALIDÉE — POC NON LANCÉ — POC-G8/G9 fermés — Morris décide.*
++*SFIA Studio — Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — non versionné — POC NON LANCÉ — Morris décide (versionnement).*
 ```
 
 ---
@@ -1525,43 +1237,36 @@ index 1ef9944..93afb54 100644
 | Check | Résultat |
 |-------|----------|
 | `git diff --check` | PASS |
-| 5 M + 3 A | PASS |
-| Aucun staged | PASS |
-| POC-G8/G9 fermés | PASS |
+| 8 fichiers (5M+3A) | PASS |
+| Aucun staged / app/** / code | PASS |
+| Option B ≠ Option C | PASS |
+| Harness autonome | PASS |
+| G8/G9 fermés | PASS |
 | POC non lancé | PASS |
-| Runtime ouvert | PASS |
-| Pas d’API Cursor inventée | PASS |
-| Writes distantes simulées | PASS |
+| Versionnement non autorisé | PASS |
 
 ---
 
-## 14. Décisions Morris requises
+## 14. Décisions Morris restantes
 
-1. Valider / corriger / rejeter architecture `23`–`25`
-2. Trancher ARCH-POC-CAND-01…12
-3. GO versionnement (distinct)
-4. Après intégration : éventuel POC-G8
+1. GO versionnement docs architecture  
+2. Après intégration : éventuel POC-G8  
+3. Clôture AF (séparée)
 
 ---
 
-## 15. Actions interdites restantes
+## 15. Actions interdites
 
-commit/push/PR projet · merge · POC-G8/G9 · code · lancement POC · Runtime validé · clôture AF
+commit/push/PR projet · merge · G8/G9 · code · app/** · lancement POC · protocole définitif non décidé
 
 ---
 
 ## 16. Réserves
 
-1. Cursor réel non prouvé (modes fixture/manual)
-2. Chemin harness/gitignore à figer en backlog
-3. Allowlist détaillée
-4. Option B reportée
-5. Clôture AF ouverte
+Cursor réel · techno harness · protocole adaptateur · allowlist backlog · app/** delivery borné · QA non-seconde-vérité · clôture AF · G8/G9
 
 ---
 
 ## 17. Verdict
 
-**`ARCHITECTURE POC CANDIDATE COMPLETE WITH RESERVES — MORRIS VALIDATION REQUIRED`**
-
-POC-G7 = instruction ouverte. Architecture **non validée**. POC **non lancé**. POC-G8/G9 **fermés**.
+**`ARCHITECTURE POC OPTION B DOCUMENTED WITH RESERVES — POC-G7 VALIDATED WITH RESERVES — VERSIONING DECISION REQUIRED`**
