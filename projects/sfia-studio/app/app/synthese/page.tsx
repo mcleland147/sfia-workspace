@@ -8,24 +8,24 @@ export default function SynthesePage() {
       activeRoute="/synthese"
       title="Vue synthèse"
       pills={[
-        { label: "main · clean", tone: "blueFlush" },
-        { label: "Morris · décideur", tone: "purpleFlush" },
+        { label: "fixture · slice-only", tone: "blueFlush" },
+        { label: "Increment A", tone: "purpleFlush" },
       ]}
       copilot={{
         variant: "flush",
         name: "Nora · Project Copilot",
-        subtitle: "Vue consolidée active",
+        subtitle: "Clôture slice courant",
         avatarTone: "purple",
         summary:
-          "La trajectoire est cohérente. Deux décisions Morris restent ouvertes avant la suite.",
+          "Synthèse limitée au vertical slice POC. Aucun portefeuille multi-projet. Aucun claim MVP.",
         watchItems: [
-          { label: "Vérité Git synchronisée", dotColor: "#21c28a" },
-          { label: "Décisions candidates séparées", dotColor: "#3863f5" },
-          { label: "Aucun périmètre technique engagé", dotColor: "#7a4df5" },
+          { label: "Slice-only — pas de portfolio", dotColor: "#21c28a" },
+          { label: "Décision Morris humaine", dotColor: "#3863f5" },
+          { label: "Fixture — aucun live", dotColor: "#7a4df5" },
         ],
         riskTitle: "POINT D'ATTENTION",
         riskText:
-          "La clôture architecture et le choix du prochain jalon doivent rester des décisions distinctes.",
+          "Incrément A uniquement. Adaptateur, GPT live et Cursor live restent hors périmètre.",
       }}
     >
       <SyntheseScreen />

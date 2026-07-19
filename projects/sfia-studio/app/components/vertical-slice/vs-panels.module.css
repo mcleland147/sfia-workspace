@@ -1,0 +1,266 @@
+.idStrip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px 16px;
+  padding: 14px 16px;
+  margin: 0 0 16px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  box-shadow: var(--sfia-shadow-sm);
+}
+
+.idStrip dt {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sfia-muted);
+}
+
+.idStrip dd {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--sfia-ink);
+  word-break: break-all;
+}
+
+.finops {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--sfia-purple-soft);
+  border: 1px solid var(--sfia-border);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.finopsTitle {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sfia-purple);
+}
+
+.finops p {
+  margin: 0 0 6px;
+}
+
+.muted {
+  color: var(--sfia-muted);
+  font-size: 12px;
+}
+
+.variantBanner {
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin: 0 0 16px;
+  border: 1px solid var(--sfia-border);
+}
+
+.variantTitle {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.variantBody {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.info {
+  background: #edf2ff;
+}
+
+.error {
+  background: #fff0f5;
+  border-color: #f5b8d0;
+}
+
+.stop {
+  background: #fff5eb;
+  border-color: #f5c78a;
+}
+
+.warn {
+  background: #fff8e8;
+  border-color: #f0d48a;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero {
+  padding: 20px 22px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #141f47, #2a3a7a);
+  color: #fff;
+  box-shadow: var(--sfia-shadow-hero);
+}
+
+.heroEyebrow {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.heroTitle {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.heroText {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+  max-width: 62ch;
+}
+
+.card {
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  box-shadow: var(--sfia-shadow-sm);
+}
+
+.cardTitle {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.fieldLabel {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sfia-muted);
+}
+
+.fieldValue {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--sfia-ink);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.option {
+  text-align: left;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.optionSelected {
+  composes: option;
+  border-color: var(--sfia-blue);
+  box-shadow: 0 0 0 2px rgba(56, 99, 245, 0.2);
+}
+
+.optionDanger {
+  composes: option;
+  border-color: #f5b8d0;
+  background: #fff0f5;
+}
+
+.optionDangerSelected {
+  composes: optionDanger;
+  box-shadow: 0 0 0 2px rgba(242, 87, 148, 0.25);
+}
+
+.optionTitle {
+  margin: 6px 0 2px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.optionSub {
+  margin: 0;
+  font-size: 12px;
+  color: var(--sfia-muted);
+}
+
+.confirmBox {
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff8e8;
+  border: 1px solid #f0d48a;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .twoCol,
+  .optionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.forbidden {
+  color: #9b1d4a;
+  font-weight: 700;
+}
+
+.loadingPulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sfia-purple);
+}
+
+.loadingDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sfia-purple);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}

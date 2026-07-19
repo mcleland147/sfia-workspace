@@ -1,0 +1,75 @@
+.chrome {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #edf2ff;
+  border: 1px solid var(--sfia-border);
+  color: var(--sfia-ink);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.banner strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.switcherRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.switcherLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sfia-muted);
+}
+
+.switcher {
+  min-width: 280px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  color: var(--sfia-ink);
+}
+
+.reset {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sfia-blue);
+  cursor: pointer;
+}
+
+.abandonedPill {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #fff0f5;
+  color: #9b1d4a;
+  border: 1px solid #f5b8d0;
+  font-size: 12px;
+  font-weight: 700;
+}
