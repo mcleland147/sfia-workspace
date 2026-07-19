@@ -1,431 +1,179 @@
-# SFIA Review Pack — Cycle 15 Capitalisation / REX — SFIA Studio P0
+# SFIA Review Pack — Cycle 13 PR readiness — Capitalisation SFIA Studio P0
 
-- **Date / heure :** 2026-07-19 12:08:28 CEST (UTC+0200)
-- **Cycle :** 15 — Capitalisation / REX
-- **Profil :** Capitalization — Standard
+- **Date / heure :** 2026-07-19 12:15:17 CEST (UTC+0200)
+- **Cycle :** 13 — PR readiness (contexte : capitalisation post-Delivery P0)
+- **Profil :** Standard
 - **Typologie :** DOC / CAPA légère
 - **Repository :** `/Users/morris/Projects/sfia-workspace`
-- **Branche active :** `main`
-- **HEAD / origin/main :** `759ab0bb4b5601bacfc6856a22feb2bd48426ee5`
-- **Décision Morris consommée :**
-  1. GO exécution du présent cycle de capitalisation ;
-  2. Orientation suivante **Option B — POC orchestration** (= **cadrage** du POC, **non** lancement du POC).
-- **Commit / push / PR projet :** **aucun** (attend GO Morris)
+- **Décision Morris consommée :** GO créer branche `capitalization/sfia-studio-p0-status-sync` ; committer ; pousser ; ouvrir PR vers `main`
+- **Merge :** **non exécuté** (attendu)
 
 ## Verdict
 
-**CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY**
+**CAPITALIZATION PR OPEN — READY FOR MORRIS MERGE DECISION**
 
-Décision Morris suivante : **GO commit / push / PR** de la capitalisation documentaire ; puis, après intégration, **GO cadrage POC orchestration**.
+Gate Morris restante : **GO merge** de la PR de capitalisation uniquement.  
+Cadrage POC orchestration **bloqué** jusqu’à intégration + post-merge de cette PR.
 
 ---
 
-## 1. État Git
+## 1. État Git initial
+
+| Champ | Valeur |
+|-------|--------|
+| Branche | `main` |
+| HEAD / origin/main | `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
+| Staged | aucun |
+| Modifiés | exactement 2 fichiers Studio |
+| Untracked | `.tmp-sfia-review/**` |
+| Branche cible locale/distante | **absente** |
 
 ```
-git rev-parse --show-toplevel
-# /Users/morris/Projects/sfia-workspace
-git fetch origin --prune
-git branch --show-current
-# main
-git rev-parse HEAD
-# 759ab0bb4b5601bacfc6856a22feb2bd48426ee5
-git rev-parse origin/main
-# 759ab0bb4b5601bacfc6856a22feb2bd48426ee5
-git status --short
-# ?? .tmp-sfia-review/
-# + modifications locales non commitées :
-#    projects/sfia-studio/README.md
-#    projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+ M projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+ M projects/sfia-studio/README.md
+?? .tmp-sfia-review/
+# 2 files changed, 244 insertions(+), 224 deletions(-)
+git diff --check  # OK (vide)
 ```
 
-Aucun staged initial. Aucun fichier projet dirty avant édition. `.tmp-sfia-review/**` toléré.
+## 2. Handoff capitalisation consulté
 
-## 2. Sources consultées
+Branche `sfia/review-handoff` @ `6cb7ff0…` :
 
-- `prompts/templates/sfia-cycle-execution-template.md` (sur `origin/main`)
+- Verdict : **CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY**
+- 2 fichiers uniquement ; statut `p0-delivery-integrated-next-poc-orchestration-framing`
+- Option B = cadrage futur ; POC non lancé ; aucun code ; aucun commit/push/PR projet déjà exécuté
+
+## 3. Cohérence textuelle (grep)
+
+Occurrences restantes qualifiées :
+
+| Fichier:ligne | Qualification |
+|---------------|---------------|
+| README.md:284 — D-VAL-11 « prochain cycle non sélectionné » | **Historique exact** (contenu de la décision D-VAL-11) |
+| 07:41 — citation « Delivery autorisé — non exécuté » | **Historique explicite** — phrase d’obsolescence |
+| 07:83 — D-VAL-11 « prochain cycle non sélectionné » | **Historique exact** |
+
+Aucune formulation **actuelle** incohérente (« Delivery non exécuté » comme état courant).
+
+## 4. Branche / commit / push
+
+```
+git switch -c capitalization/sfia-studio-p0-status-sync
+git add projects/sfia-studio/README.md \
+        projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+git commit -m "docs(sfia-studio): synchronize P0 status and POC trajectory"
+# e97e083a749d88b8556ffd81edc0160a432df137
+git push -u origin capitalization/sfia-studio-p0-status-sync
+# LOCAL = REMOTE = e97e083a749d88b8556ffd81edc0160a432df137
+# left-right remote...HEAD = 0 0
+```
+
+### Commit
+
+| Champ | Valeur |
+|-------|--------|
+| SHA | `e97e083a749d88b8556ffd81edc0160a432df137` |
+| Message | `docs(sfia-studio): synchronize P0 status and POC trajectory` |
+| Fichiers | 2 — README.md ; 07-product-trajectory-and-decision-pack.md |
+| Stat | +244 / −224 |
+| Au-dessus de main | 1 commit (`0	1`) |
+
+```
+commit e97e083a749d88b8556ffd81edc0160a432df137
+Author:     Morris Cleland <morris@macbook-air1.home>
+AuthorDate: Sun Jul 19 12:14:47 2026 +0200
+
+    docs(sfia-studio): synchronize P0 status and POC trajectory
+
+M	projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+M	projects/sfia-studio/README.md
+```
+
+## 5. Pull Request #218
+
+| Champ | Valeur |
+|-------|--------|
+| URL | https://github.com/mcleland147/sfia-workspace/pull/218 |
+| Titre | `docs: synchronize SFIA Studio P0 status and POC trajectory` |
+| État | **OPEN** |
+| Draft | **false** |
+| Base | `main` |
+| Head | `capitalization/sfia-studio-p0-status-sync` |
+| Commits | **1** |
+| Fichiers | **2** |
+| Additions / deletions | +244 / −224 |
+| Mergeable | **MERGEABLE** |
+| Checks | aucun check configuré (`statusCheckRollup: []`) — pas de check rouge |
+| Merge | **non exécuté** |
+
+### Corps PR (publié)
+
+## Objet
+
+Synchronise la documentation SFIA Studio après l’intégration et la clôture du Delivery P0.
+
+## Changements
+
+- met à jour le statut réel de SFIA Studio ;
+- trace l’intégration de la PR #217 ;
+- clôture les formulations pré-Delivery devenues obsolètes ;
+- met à jour la trajectoire produit ;
+- trace la décision Morris :
+  Option B — cadrage POC orchestration comme prochaine étape ;
+- maintient explicitement le POC, le MVP et l’industrialisation non lancés.
+
+## État P0 tracé
+
+- PR #217 mergée ;
+- merge squash `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` ;
+- 77 fichiers intégrés ;
+- Delivery P0 validé visuellement ;
+- post-merge conforme ;
+- cleanup Delivery terminé ;
+- aucune gate Morris restante sur le Delivery P0.
+
+## Fichiers
+
 - `projects/sfia-studio/README.md`
-- `projects/sfia-studio/07-product-trajectory-and-decision-pack.md` (**fichier 07-* réel**)
-- `projects/sfia-studio/16-ux-ui-decision-pack.md` (référencé)
-- `projects/sfia-studio/18-technical-architecture.md` / `19-technical-architecture-decision-pack.md` (état historique TA-DEC-18 lu ; **non modifié** — exact à sa date)
-- `projects/sfia-studio/app/README.md`
-- `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (`9533bbb…`)
+- `projects/sfia-studio/07-product-trajectory-and-decision-pack.md`
 
-Handoff cleanup confirmé :
+## Hors périmètre
 
-- **CLEANUP COMPLETE — DELIVERY BRANCH REMOVED — SFIA STUDIO P0 CLOSED**
-- post-merge complet ; branche Delivery absente ; main propre @ `759ab0b…`
-- aucune gate Morris Delivery P0
-- réserves P0 (desktop, a11y smoke, postcss, CI, Runtime) documentées
+- code applicatif ;
+- méthode SFIA ;
+- architecture Runtime ;
+- implémentation du POC ;
+- API, schéma JSON ou backlog POC ;
+- Figma ;
+- Campus360.
 
-## 3. Diagnostic documentaire
+## Validation
 
-| Élément | Classification |
-|---------|----------------|
-| Delivery « autorisé mais non exécuté » (README / 07) | Formulation **obsolète** → remplacée |
-| Architecture technique « non lancée / stack non décidée » comme état courant | **Obsolète** (TA P0 validée + Delivery fait) → remplacée ; historique TA-DEC dans `19` **conservé** |
-| P0 non implémenté / prochain cycle indéterminé | **Obsolète** → remplacé |
-| Branche Delivery active | **Obsolète** → tracée **supprimée** |
-| Base Git `5f1eb908…` / `19302836…` comme vérité courante | **Obsolète** → `759ab0b…` |
-| Cycle UX/UI ou Delivery « actif » | **Obsolète** → clôturés |
-| Absence PR #217 dans trajectoire | **À tracer** → tracée |
-| Absence clôture Delivery P0 | **À tracer** → clôturée |
-| Clôture formelle architecture fonctionnelle | **Encore ouverte** — non clôturée |
-| MVP / industrialisation / Runtime réel | **Encore ouverts** — non engagés |
-| Option B POC orchestration | **Décision Morris à tracer** → tracée (cadrage, non lancement) |
-| Contenu historique D-VAL / AF-CAND / PR #207–#216 | **Historique à conserver** |
+- [x] deux fichiers uniquement
+- [x] `git diff --check`
+- [x] aucun code modifié
+- [x] aucune baseline méthode modifiée
+- [x] Option B tracée comme cadrage futur
+- [x] POC orchestration non lancé
 
-## 4. Périmètre documentaire
+## Gouvernance
 
-**2 fichiers modifiés** (≤ 3) :
+- Git reste la source de vérité ;
+- Morris décide ;
+- cette PR ne lance pas le POC ;
+- merge soumis à un GO Morris séparé.
 
-1. `projects/sfia-studio/README.md`
-2. `projects/sfia-studio/07-product-trajectory-and-decision-pack.md`
+## 6. Contenu documentaire (rappel)
 
-**Aucun 3ᵉ fichier** : `19` laisse TA-DEC-18 en historique (« delivery autorisé, non exécuté ») — exact à sa date ; l’état actuel est synchronisé dans README / `07`.
-
-**Aucun** fichier `app/**`, `prompts/**`, `method/**`, Campus360, Figma, package*.
-
-## 5. Statut produit final proposé
-
-`p0-delivery-integrated-next-poc-orchestration-framing`
-
-(libellé documentaire produit — **≠** baseline méthode)
-
-## 6. Faits P0 tracés
-
-- PR #217 MERGED — titre `feat: implement SFIA Studio P0 governed workspace`
-- Commit projet `c37b065…` ; merge squash `759ab0b…`
-- 77 fichiers ; +12830 / −0 ; 4 routes
-- Validation visuelle Morris ; tests post-merge verts
-- Post-merge + cleanup Delivery (branche locale/remote absentes)
-- Squash : commit branche non ancêtre ; trees app identiques
-- Pas d’API / auth / BDD / orchestration réelle ; Git/Cursor/Runtime simulés
-- Aucune gate Morris restante sur Delivery P0
-
-## 7. Trajectoire finale
-
-```text
-Pré-cadrage → cadrage détaillé → conception → architecture fonctionnelle
-→ UX/UI P0 → architecture technique P0 → Delivery P0
-→ PR #217 / intégration main → post-merge / cleanup
-→ cadrage POC orchestration          ← prochaine (Option B) — non démarrée
-→ architecture POC ciblée / backlog POC / delivery POC  ← candidates
-→ décision Morris : abandon / itération / préparation MVP
-```
-
-## 8. Orientation Option B
-
-Formulation tracée :
-
-> Le prochain cycle SFIA Studio sera un cycle de cadrage visant à définir un POC d’orchestration borné entre SFIA Studio et un mécanisme d’orchestration déterministe candidat. Ce cycle devra valider la faisabilité technique sans préjuger de l’architecture produit finale, du MVP ni de l’industrialisation.
-
-Sujets préparés (13) : objectif de preuve ; scénario unique ; frontières Studio/orchestrateur ; automatisation max ; actions read-only/simulées ; gates Morris ; stop conditions ; données de test ; preuves ; succès/abandon ; sécurité/réversibilité ; périmètre Git ; démonstration.
-
-**Non produit :** architecture détaillée, API, JSON, backlog, outil Runtime, code, planning.
-
-## 9. Éléments encore ouverts
-
-- Définition MVP ; produit complet ; industrialisation
-- Responsive ; audit a11y complet ; CI GitHub
-- 2 vulnérabilités moderate postcss
-- Runtime / orchestrateur réel ; Git & Cursor réels
-- Architecture du POC orchestration
-- Clôture formelle architecture fonctionnelle
-- Sort des branches historiques
-
-## 10. Contrôles Git post-édition
-
-```
-git diff --check
-# (vide — OK après correction trailing whitespace)
-git diff --stat
-#  .../07-product-trajectory-and-decision-pack.md | 284 +++++++++++----------
-#  projects/sfia-studio/README.md                     | 184 +++++++------
-#  2 files changed, 244 insertions(+), 224 deletions(-)
-git diff --name-only
-# projects/sfia-studio/07-product-trajectory-and-decision-pack.md
-# projects/sfia-studio/README.md
-```
-
-## 11. Garde-fous
-
-- Aucune modification de code
-- Aucun commit / push / PR projet
+- Statut : `p0-delivery-integrated-next-poc-orchestration-framing`
+- Delivery P0 **CLÔTURÉ** (PR #217)
+- Option B = **cadrage** POC orchestration — **non lancé**
+- MVP / industrialisation / Runtime réel **ouverts**
 - Aucune baseline méthode modifiée
-- Aucune architecture Runtime validée
-- Aucun POC lancé
-- Push handoff uniquement sur `sfia/review-handoff`
+- Aucun code `app/**`
 
-## 12. Diff complet — README.md
-
-```diff
-diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 470e8dc..bbc2c1d 100644
---- a/projects/sfia-studio/README.md
-+++ b/projects/sfia-studio/README.md
-@@ -4,31 +4,29 @@
- |------------|--------|
- | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
- | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
--| **Statut** | `ux-ui-closed-implementation-reference` — UX/UI **CLÔTURÉ** (référence Figma initiale) ; architecture **VALIDÉE** + **INTÉGRÉE** ; clôture formelle architecture **non prononcée** |
-+| **Statut** | `p0-delivery-integrated-next-poc-orchestration-framing` — Delivery P0 **CLÔTURÉ** et intégré sur `main` ; prochaine orientation = **cadrage POC orchestration** (Option B) — **non lancé** |
- | **Baseline méthode** | **SFIA v2.6** (consommée — **Option C méthode** validée ; baseline inchangée) |
- | **Autorité** | Morris (L0) |
--| **Exécuteur** | Cursor — capitalisation UX/UI Option B (DOC, Standard) — worktree local |
--| **Typologie cycle** | DOC — clôture documentaire UX/UI / transition delivery |
--| **Cycle projet** | 4 — UX/UI (**CLÔTURÉ**) ; architecture cycle 3 **intégrée** ; clôture formelle architecture **ouverte** |
--| **Profil SFIA** | Critical |
-+| **Exécuteur** | Cursor — capitalisation post-Delivery P0 (DOC / CAPA légère, Standard) |
-+| **Typologie cycle** | DOC / CAPA légère — synchronisation statut produit + trajectoire |
-+| **Cycle projet** | 15 — Capitalisation / REX ; Delivery P0 **clôturé** ; UX/UI **clôturé** ; architecture fonctionnelle **intégrée** (clôture formelle **ouverte**) |
-+| **Profil SFIA** | Standard (capitalisation) |
- | **Branche architecture** | `project/sfia-studio-functional-architecture` (**conservée**) |
--| **Branche UX (worktree)** | `project/sfia-studio-ux-ui-reconciliation` — locale ; **non poussée** |
--| **Figma UX** | [lrjA1WEyRpL05vKR8k29LO](https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO) — P0-00C…P0-03C @ 1440×1024 |
--| **Commit architecture initial** | `215325858ed493564f6083ec5adc1618008593f6` |
--| **Head final PR #211** | `72cab8016387f827f4dcf04f7459208cd85ff327` |
-+| **Branche Delivery P0** | `project/sfia-studio-delivery-p0-implementation` — **supprimée** (local + remote) après cleanup post-merge |
-+| **Figma UX** | [lrjA1WEyRpL05vKR8k29LO](https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO) — P0-00C…P0-03C @ 1440×1024 (référence initiale) |
-+| **App P0** | `projects/sfia-studio/app/` — Next.js 15 / React 19 / TypeScript ; 4 routes ; fixtures locales |
-+| **PR Delivery P0** | [#217](https://github.com/mcleland147/sfia-workspace/pull/217) — **MERGED** (squash) |
-+| **Commit projet Delivery** | `c37b065fc59b60d01f5896aa7ebd3c130a636457` |
-+| **Merge Delivery** | `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
-+| **Périmètre Delivery** | 77 fichiers ; +12830 / −0 |
- | **PR architecture** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** |
- | **Merge architecture** | `84e48636bb78808774b51f67329167f8e9749a6b` |
- | **Acceptation Morris #211** | **OUI** — 2026-07-18 (régularisation documentaire ; sans D-VAL-12) |
--| **PR sync post-merge** | [#212](https://github.com/mcleland147/sfia-workspace/pull/212) — **MERGED** |
--| **Commit sync** | `33d61e39511f7302aa8073bef30ebe939f8eb9a2` |
--| **Merge sync** | `cb87054423ed80905f633e86d907eee1709611b2` |
--| **PR finalisation post-merge** | [#213](https://github.com/mcleland147/sfia-workspace/pull/213) — **MERGED** |
--| **Commit finalisation** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
--| **Merge finalisation** | `19302836b45d49f19698c624e99f2d68afa7b290` |
--| **Branche conception** | `project/sfia-studio-functional-design` (**conservée** ; poussée ; intégrée à `main`) |
-+| **PR sync / finalisation archi** | [#212](https://github.com/mcleland147/sfia-workspace/pull/212) / [#213](https://github.com/mcleland147/sfia-workspace/pull/213) — **MERGED** |
-+| **Branche conception** | `project/sfia-studio-functional-design` (**conservée** ; intégrée à `main`) |
- | **Branche historique** | `project/sfia-studio-pre-framing` (**conservée** ; intégrée à `main`) |
- | **Chemin** | `projects/sfia-studio/` |
--| **Base canonique** | `origin/main` @ `5f1eb9089652885fa19b6ce7592540b0626f29df` |
-+| **Base canonique** | `origin/main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
- | **PR conception** | [#209](https://github.com/mcleland147/sfia-workspace/pull/209) — **MERGED** |
- | **FD-CAND-01…08** | **VALIDÉES** — Morris — 2026-07-18 |
- | **AF-Option C** | **VALIDÉE** — Studio / orchestrateur candidat séparés — **≠** Option C méthode |
-@@ -36,43 +34,39 @@
- | **AF-CAND-11B** | **VALIDÉE** — UX/UI sélectionné, exécuté et **clôturé** |
- | **D-VAL-11** | **VALIDÉE** — cadrage documentaire clôturé |
- | **Architecture fonctionnelle** | **VALIDÉE** et **INTÉGRÉE** sur `main` — clôture formelle **NON PRONONCÉE** |
-+| **Architecture technique P0** | **VALIDÉE** et **INTÉGRÉE** (`18`/`19` ; TA-DEC-01…18) — Delivery P0 **exécuté** depuis |
- | **UX/UI** | **CLÔTURÉ** — Option B ; 4 frames Figma ; docs `14`–`16` |
--| **Prochain cycle** | **Delivery** autorisé — **non exécuté** ; tech/POC/MVP **non lancés** |
-+| **Delivery P0** | **CLÔTURÉ** — implémenté, validé visuellement, mergé (#217), post-mergé, cleanup branche effectué ; **aucune gate Morris restante** |
-+| **Prochain cycle** | **Cadrage POC orchestration** (Option B Morris) — **sélectionné**, **non démarré** ; POC / MVP / industrialisation **non lancés** |
- 
- ---
- 
--## 0. État post-merge (observation) et conception
-+## 0. État produit (capitalisation post-Delivery P0)
- 
- | Élément | Valeur |
- |---------|--------|
--| PR cadrage | [#207](https://github.com/mcleland147/sfia-workspace/pull/207) — **MERGED** |
--| PR conception | [#209](https://github.com/mcleland147/sfia-workspace/pull/209) — **MERGED** |
--| Commit conception | `99eaeaab3120d488606963eb4e5f69c4f730cf14` |
--| Merge conception | `fdade59a23a6dff4c264c73975358f77bc90f9b0` |
--| Documents Studio sur `main` | **Quatorze** (`01`–`13` + README) — cadrage + conception + architecture |
--| Cadrage détaillé | **Validé** (D-VAL-9 / DF-G1) |
--| Cadrage documentaire | **Clôturé** (D-VAL-11) |
--| Cycle 2 conception | **VALIDÉE** et **CLÔTURÉE** — intégrée sur `main` |
--| FD-CAND-01…08 | **VALIDÉES** |
--| Cycle architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` |
--| AF-Option C | **VALIDÉE** — ≠ Option C méthode |
--| AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
--| AF-CAND-11B | **VALIDÉE** — UX/UI clôturé |
--| D10 | FB-11 → **AF-01 / AF-15** → FR-024 / FR-025 |
--| Versionnement architecture | Commit initial `2153258…` / head `72cab80…` / sync `33d61e3…` |
--| Intégration architecture sur `main` | **Réalisée** — PR #211 **MERGED** ; merge `84e4863…` |
--| Acceptation/régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 — sans D-VAL-12 ; sans réécriture rétroactive |
--| Sync post-merge (#212) | **INTÉGRÉE** — merge `cb870544…` ; commit `33d61e3…` |
--| Finalisation post-merge (#213) | **INTÉGRÉE** — merge `19302836…` ; commit `0b61d728…` |
--| Intégration conception sur `main` | **Réalisée** via PR #209 / sync #210 → `e9d8193…` |
--| Acceptation Morris intégration #209 | **VALIDÉE** — 2026-07-18 (sync post-merge) |
--| Écart d’autorisation merge #209 | **Clôturé** (traçabilité) — sans D-VAL-12 |
--| Clôture formelle cycle architecture | **NON PRONONCÉE** |
--| Cycle UX/UI | **CLÔTURÉ** — Option B ; Figma référence initiale |
--| Prochain cycle | **Delivery** autorisé — **non exécuté** |
--| Branches | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
--
--> PR #207 / #209 : historiques. PR #211 : architecture **intégrée** (`84e4863…`) — **fait Git** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). PR #212 : sync post-merge **intégrée** (`cb870544…`). PR #213 : finalisation documentaire **intégrée** (`19302836…`). Les merges architecture/sync/finalisation ne prononcent pas la clôture formelle architecture ni la suppression des branches. **AF-CAND-11B a depuis été VALIDÉE** (UX/UI clôturé — décision Morris distincte).
-+| Cadrage | **Clôturé** (D-VAL-11) |
-+| Conception fonctionnelle | **Clôturée** et **intégrée** (PR #209 / #210) |
-+| Architecture fonctionnelle | **Validée** et **intégrée** (#211–#214) — clôture formelle **ouverte** |
-+| UX/UI P0 | **Clôturé** (Option B ; `14`–`16` ; Figma) |
-+| Architecture technique P0 | **Validée** et **intégrée** (`18`/`19`) |
-+| Delivery P0 | **Clôturé** — implémenté, validé, mergé, post-mergé, cleanup effectué |
-+| PR Delivery P0 | [#217](https://github.com/mcleland147/sfia-workspace/pull/217) — **MERGED** (squash) |
-+| Titre | `feat: implement SFIA Studio P0 governed workspace` |
-+| Commit projet | `c37b065fc59b60d01f5896aa7ebd3c130a636457` |
-+| Merge squash | `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
-+| Périmètre | 77 fichiers sous `projects/sfia-studio/app/**` ; +12830 / −0 |
-+| Routes P0 | `/` → `/synthese` ; `/nouvelle-demande` ; `/cycle-actif` ; `/decision` |
-+| Preuves | Validation visuelle Morris ; lint / typecheck / Vitest / build / Playwright post-merge verts |
-+| Nature squash | Commit de branche **non ancêtre** de `main` ; trees applicatifs **vérifiés identiques** |
-+| Branche Delivery | **Supprimée** (locale + distante) — aucune gate Morris restante sur Delivery P0 |
-+| App sur `main` | Disponible — desktop 1440×1024 ; pas d’API / auth / BDD / orchestration réelle |
-+| Git / Cursor / Runtime | **Simulés ou désactivés** en P0 |
-+| Produit complet / MVP / industrialisation | **Non atteints** |
-+| Prochaine orientation | **Option B — cadrage POC orchestration** — sélectionnée, **non lancée** |
-+| Branches historiques | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
-+
-+> Historique antérieur (PR #207–#216) : inchangé dans son rôle. La capitalisation synchronise le statut **après** clôture Delivery P0 ; elle ne réécrit pas les décisions D-VAL / AF-CAND / TA-DEC.
- 
- ---
- 
-@@ -138,21 +132,23 @@ Produit indépendant **consommant** SFIA v2.6. Pas de v2.7 / v3.0. Évolution m
- ## 2. Trajectoire macro (état factuel)
- 
- ```text
--Pré-cadrage                    ← terminé historiquement
--  → cadrage détaillé           ← VALIDÉ (D-VAL-9 / DF-G1)
--  → versionnement (G7)         ← commit / push / draft PR réalisés (D-VAL-10)
--  → merge PR #207              ← fait Git vérifié (ec21074) — régularisé par D-VAL-11
--  → synchronisation post-merge ← **VALIDÉE** (D-VAL-11) — cadrage documentaire clôturé
--  → conception fonctionnelle   ← **VALIDÉE** + **INTÉGRÉE** (PR #209 / sync #210 → `e9d8193…`) — cycle **CLÔTURÉ**
--  → architecture fonctionnelle ← **VALIDÉE** + **INTÉGRÉE** (#211–#214 / `5f1eb908…`) — clôture formelle **ouverte**
--  → UX/UI ← **SÉLECTIONNÉ** → **EXÉCUTÉ** → **CLÔTURÉ** (AF-CAND-11B ; Option B ; Figma P0-00C…03C)
--  → synchronisation documentaire ← **en cours** (worktree local)
--  → delivery / implémentation ← **autorisé** — **non exécuté**
--  → architecture technique / POC / MVP ← **non lancés**
--  → industrialisation plateforme
-+Pré-cadrage
-+  → cadrage détaillé
-+  → conception fonctionnelle
-+  → architecture fonctionnelle
-+  → UX/UI P0
-+  → architecture technique P0
-+  → Delivery P0
-+  → PR #217 / intégration main
-+  → post-merge / cleanup
-+  → cadrage POC orchestration          ← prochaine étape validée (Option B) — non démarrée
-+  → architecture POC ciblée             ← candidate (après cadrage)
-+  → backlog POC borné                   ← candidate
-+  → delivery POC                        ← candidate
-+  → décision Morris : abandon / itération / préparation MVP
- ```
- 
--Aucune stack / architecture **technique** validée. Architecture **fonctionnelle VALIDÉE** et **INTÉGRÉE**. UX/UI **CLÔTURÉ**. Delivery **non lancé**. POC / MVP non lancés. Clôture formelle architecture **non automatique**.
-+Étapes jusqu’au cleanup P0 : **terminées**. Cadrage POC orchestration : **sélectionné**, **non démarré**. Étapes suivantes : **candidates**, soumises aux résultats du cadrage. POC / MVP / industrialisation : **non engagés**. Clôture formelle architecture fonctionnelle : **non automatique**.
- 
- ---
- 
-@@ -213,7 +209,16 @@ Aucune stack / architecture **technique** validée. Architecture **fonctionnelle
- | P0-02C Cycle actif | `22:133` | 1440×1024 |
- | P0-03C Décision Morris | `22:270` | 1440×1024 |
- 
--> Statut `ux-ui-closed-implementation-reference`. Référence Figma = implémentation **initiale** (non intangible). Delivery **autorisé**, non exécuté. Runtime screenshot obligatoire avant verdict visuel fort.
-+> UX/UI **CLÔTURÉ**. Référence Figma = implémentation **initiale** (non intangible). Delivery P0 **exécuté et clôturé** (PR #217). Desktop 1440×1024 uniquement ; responsive / a11y complète / CI / Runtime réel **non validés**.
-+
-+### Delivery P0 — CLÔTURÉ (PR #217)
-+
-+| Document / artefact | Rôle |
-+|---------------------|------|
-+| [app/README.md](./app/README.md) | Runtime P0 — stack, routes, contraintes |
-+| `projects/sfia-studio/app/**` | 77 fichiers intégrés sur `main` @ `759ab0b…` |
-+
-+> Delivery P0 **CLÔTURÉ**. Aucune API, auth, BDD ni orchestration réelle. Git / Cursor / Runtime **simulés**. Prochaine orientation : **cadrage POC orchestration** (non lancé).
- 
- ---
- 
-@@ -302,34 +307,44 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | AF-CAND-12 (pas de D-VAL-12) | **VALIDÉE** |
- | D10 → AF-01 / AF-15 | **VALIDÉE** (amendement traçabilité) |
- 
--### Décisions encore ouvertes
-+### Décisions encore ouvertes / clôturées depuis
- 
- | Décision | Statut |
- |----------|--------|
--| AF-CAND-11B — sélection / lancement prochain cycle | **VALIDÉE** — UX/UI clôturé |
-+| AF-CAND-11B — UX/UI | **VALIDÉE** — UX/UI clôturé |
- | Option B consolidation 14/15/16 | **VALIDÉE** |
--| Delivery | **Autorisé** — non exécuté |
--| Acceptation / régularisation documentaire du merge #211 | **Ouverte** — fait Git tracé ; pas de D-VAL auto |
--| Commit / push / PR sync (#212) + finalisation (#213) | **Réalisés et intégrés** — trace post-#213 locale éventuelle **non versionnée** ici |
-+| Delivery P0 | **CLÔTURÉ** — PR #217 mergée ; post-merge + cleanup effectués ; aucune gate restante |
-+| Acceptation / régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 |
-+| Sync #212 + finalisation #213 | **INTÉGRÉES** |
- | Clôture formelle cycle architecture | **Non** — non automatique |
--| Sort des branches | Conservées ; décisions distinctes |
--| Contenu POC / définition MVP | Non pris |
--| Stack / architecture technique | Non pris |
-+| Sort des branches historiques | Conservées ; décisions distinctes |
-+| Contenu / architecture du POC orchestration | **Non pris** — cadrage à venir |
-+| Définition MVP | **Non pris** |
-+| Industrialisation | **Non engagée** |
-+| Responsive / a11y complète / CI GitHub | **Ouverts** (réserves P0) |
-+| Vulnérabilités moderate postcss (via Next) | **Ouvertes** — pas de fix forcé |
-+| Runtime / Git / Cursor réels | **Hors périmètre P0** — sujets du futur cadrage POC |
-+
-+> Conception : intégrée (PR #209 / #210). Architecture fonctionnelle : intégrée (#211–#213). Architecture technique P0 + Delivery P0 : **intégrés** (PR #217 / `759ab0b…`). Aucune D-VAL-12.
-+
-+### Orientation Morris — Option B (POC orchestration)
-+
-+> Le prochain cycle SFIA Studio sera un cycle de **cadrage** visant à définir un POC d’orchestration borné entre SFIA Studio et un mécanisme d’orchestration déterministe candidat. Ce cycle devra valider la faisabilité technique **sans** préjuger de l’architecture produit finale, du MVP ni de l’industrialisation.
-+
-+**Décision consommée :** Option B sélectionnée comme prochaine orientation — **cadrage uniquement** ; POC **non lancé** ; aucune techno Runtime sélectionnée ; aucune intégration Studio ↔ Git ↔ Cursor ↔ orchestrateur autorisée dans ce cycle de capitalisation.
- 
--> Conception : intégrée (PR #209 / #210). Architecture : **intégrée** (PR #211 / `84e4863…`) — acceptée/régularisée Morris 2026-07-18. Sync #212 + finalisation #213 : **intégrées** (`cb870544…` / `19302836…`). Aucune réinterprétation rétroactive ; aucune D-VAL-12.
-+**Sujets préparés pour le futur cadrage POC :** objectif de preuve ; scénario métier unique ; frontières Studio / orchestrateur ; niveau d’automatisation maximal ; actions read-only ou simulées ; gates Morris ; stop conditions ; données de test ; preuves attendues ; critères de succès et d’abandon ; sécurité et réversibilité ; périmètre Git ; stratégie de démonstration.
- 
- ---
- 
- ## 8. Prochaine décision
- 
--1. Revue ChatGPT de la synchronisation documentaire UX Option B.
--2. GO commit de la branche projet.
--3. GO push et PR distincts.
--4. Lancement du cycle delivery / implémentation.
--5. Clôture formelle du cycle architecture, décision distincte.
--6. Sort des branches `pre-framing` / `functional-design` / `functional-architecture`.
-+1. **GO commit / push / PR** de la présente capitalisation documentaire.
-+2. Après intégration : **GO cadrage POC orchestration**.
-+3. Clôture formelle du cycle architecture fonctionnelle (décision **distincte**, toujours ouverte).
-+4. Sort des branches historiques (`pre-framing` / `functional-design` / `functional-architecture`).
- 
--**Verdict documentaire :** `SFIA STUDIO FUNCTIONAL ARCHITECTURE POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW`
-+**Verdict documentaire :** `CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY`
- 
- ---
- 
-@@ -339,16 +354,17 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- |---------|--------|
- | Méthode | SFIA v2.6 sur `main` — **Option C méthode** |
- | Template | `prompts/templates/sfia-cycle-execution-template.md` v2.6 |
--| Cadrage validé | `projects/sfia-studio/` **`01`–`07`** sur **`main`** (PR #207 / #208) |
--| Conception fonctionnelle validée | **`08`–`10`** sur **`main`** — baseline **inchangée** |
--| Architecture fonctionnelle validée + intégrée | **`11`–`13`** sur **`main`** (`84e4863…` / PR #211) |
--| Sync post-merge intégrée | PR #212 / `cb870544…` |
--| Finalisation post-merge intégrée | PR #213 / `19302836…` — statut `functional-architecture-post-merge-integrated` |
-+| Cadrage validé | `projects/sfia-studio/` **`01`–`07`** sur **`main`** |
-+| Conception fonctionnelle | **`08`–`10`** sur **`main`** |
-+| Architecture fonctionnelle | **`11`–`13`** sur **`main`** |
-+| UX/UI | **`14`–`16`** sur **`main`** |
-+| Architecture technique P0 | **`18`–`19`** sur **`main`** |
-+| Delivery P0 / app | `projects/sfia-studio/app/` — PR #217 / merge `759ab0b…` |
- | Review pack | `.tmp-sfia-review/chatgpt-review.md` — non versionné dans le projet |
- | Handoff | `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` |
- 
--> `main` @ `19302836…` est la source de vérité du **cadrage**, de la **conception**, de l’**architecture**, de la **sync post-merge** et de la **finalisation documentaire** intégrées. Toute trace post-#213 éventuelle = **locale** jusqu’à GO versionnement.
-+> `main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` est la source de vérité du **cadrage**, de la **conception**, de l’**architecture**, de l’**UX/UI**, de l’**architecture technique P0** et du **Delivery P0** intégrés.
- 
- ---
- 
--*SFIA Studio — architecture VALIDÉE et INTÉGRÉE — UX/UI CLÔTURÉ (Option B ; Figma P0) — delivery NON LANCÉ — clôture architecture NON PRONONCÉE — Option C méthode préservée — Morris décide.*
-+*SFIA Studio — Delivery P0 CLÔTURÉ (PR #217) — prochaine orientation = cadrage POC orchestration (Option B, non lancé) — clôture architecture fonctionnelle NON PRONONCÉE — Option C méthode préservée — Morris décide.*
-
-```
-
-## 13. Diff complet — 07-product-trajectory-and-decision-pack.md
+## 7. Diff complet `origin/main...HEAD`
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
@@ -825,20 +573,295 @@ index 0dde30e..08babef 100644
  
 -*SFIA Studio — architecture VALIDÉE et INTÉGRÉE — UX/UI CLÔTURÉ (Option B) — delivery NON LANCÉ — clôture architecture NON PRONONCÉE — Morris décide.*
 +*SFIA Studio — Delivery P0 CLÔTURÉ (PR #217) — prochaine orientation = cadrage POC orchestration (Option B, non lancé) — clôture architecture fonctionnelle NON PRONONCÉE — Morris décide.*
+diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
+index 470e8dc..bbc2c1d 100644
+--- a/projects/sfia-studio/README.md
++++ b/projects/sfia-studio/README.md
+@@ -4,31 +4,29 @@
+ |------------|--------|
+ | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
+ | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
+-| **Statut** | `ux-ui-closed-implementation-reference` — UX/UI **CLÔTURÉ** (référence Figma initiale) ; architecture **VALIDÉE** + **INTÉGRÉE** ; clôture formelle architecture **non prononcée** |
++| **Statut** | `p0-delivery-integrated-next-poc-orchestration-framing` — Delivery P0 **CLÔTURÉ** et intégré sur `main` ; prochaine orientation = **cadrage POC orchestration** (Option B) — **non lancé** |
+ | **Baseline méthode** | **SFIA v2.6** (consommée — **Option C méthode** validée ; baseline inchangée) |
+ | **Autorité** | Morris (L0) |
+-| **Exécuteur** | Cursor — capitalisation UX/UI Option B (DOC, Standard) — worktree local |
+-| **Typologie cycle** | DOC — clôture documentaire UX/UI / transition delivery |
+-| **Cycle projet** | 4 — UX/UI (**CLÔTURÉ**) ; architecture cycle 3 **intégrée** ; clôture formelle architecture **ouverte** |
+-| **Profil SFIA** | Critical |
++| **Exécuteur** | Cursor — capitalisation post-Delivery P0 (DOC / CAPA légère, Standard) |
++| **Typologie cycle** | DOC / CAPA légère — synchronisation statut produit + trajectoire |
++| **Cycle projet** | 15 — Capitalisation / REX ; Delivery P0 **clôturé** ; UX/UI **clôturé** ; architecture fonctionnelle **intégrée** (clôture formelle **ouverte**) |
++| **Profil SFIA** | Standard (capitalisation) |
+ | **Branche architecture** | `project/sfia-studio-functional-architecture` (**conservée**) |
+-| **Branche UX (worktree)** | `project/sfia-studio-ux-ui-reconciliation` — locale ; **non poussée** |
+-| **Figma UX** | [lrjA1WEyRpL05vKR8k29LO](https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO) — P0-00C…P0-03C @ 1440×1024 |
+-| **Commit architecture initial** | `215325858ed493564f6083ec5adc1618008593f6` |
+-| **Head final PR #211** | `72cab8016387f827f4dcf04f7459208cd85ff327` |
++| **Branche Delivery P0** | `project/sfia-studio-delivery-p0-implementation` — **supprimée** (local + remote) après cleanup post-merge |
++| **Figma UX** | [lrjA1WEyRpL05vKR8k29LO](https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO) — P0-00C…P0-03C @ 1440×1024 (référence initiale) |
++| **App P0** | `projects/sfia-studio/app/` — Next.js 15 / React 19 / TypeScript ; 4 routes ; fixtures locales |
++| **PR Delivery P0** | [#217](https://github.com/mcleland147/sfia-workspace/pull/217) — **MERGED** (squash) |
++| **Commit projet Delivery** | `c37b065fc59b60d01f5896aa7ebd3c130a636457` |
++| **Merge Delivery** | `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
++| **Périmètre Delivery** | 77 fichiers ; +12830 / −0 |
+ | **PR architecture** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** |
+ | **Merge architecture** | `84e48636bb78808774b51f67329167f8e9749a6b` |
+ | **Acceptation Morris #211** | **OUI** — 2026-07-18 (régularisation documentaire ; sans D-VAL-12) |
+-| **PR sync post-merge** | [#212](https://github.com/mcleland147/sfia-workspace/pull/212) — **MERGED** |
+-| **Commit sync** | `33d61e39511f7302aa8073bef30ebe939f8eb9a2` |
+-| **Merge sync** | `cb87054423ed80905f633e86d907eee1709611b2` |
+-| **PR finalisation post-merge** | [#213](https://github.com/mcleland147/sfia-workspace/pull/213) — **MERGED** |
+-| **Commit finalisation** | `0b61d72874a7075bdb174490dc9aa739e79e7024` |
+-| **Merge finalisation** | `19302836b45d49f19698c624e99f2d68afa7b290` |
+-| **Branche conception** | `project/sfia-studio-functional-design` (**conservée** ; poussée ; intégrée à `main`) |
++| **PR sync / finalisation archi** | [#212](https://github.com/mcleland147/sfia-workspace/pull/212) / [#213](https://github.com/mcleland147/sfia-workspace/pull/213) — **MERGED** |
++| **Branche conception** | `project/sfia-studio-functional-design` (**conservée** ; intégrée à `main`) |
+ | **Branche historique** | `project/sfia-studio-pre-framing` (**conservée** ; intégrée à `main`) |
+ | **Chemin** | `projects/sfia-studio/` |
+-| **Base canonique** | `origin/main` @ `5f1eb9089652885fa19b6ce7592540b0626f29df` |
++| **Base canonique** | `origin/main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
+ | **PR conception** | [#209](https://github.com/mcleland147/sfia-workspace/pull/209) — **MERGED** |
+ | **FD-CAND-01…08** | **VALIDÉES** — Morris — 2026-07-18 |
+ | **AF-Option C** | **VALIDÉE** — Studio / orchestrateur candidat séparés — **≠** Option C méthode |
+@@ -36,43 +34,39 @@
+ | **AF-CAND-11B** | **VALIDÉE** — UX/UI sélectionné, exécuté et **clôturé** |
+ | **D-VAL-11** | **VALIDÉE** — cadrage documentaire clôturé |
+ | **Architecture fonctionnelle** | **VALIDÉE** et **INTÉGRÉE** sur `main` — clôture formelle **NON PRONONCÉE** |
++| **Architecture technique P0** | **VALIDÉE** et **INTÉGRÉE** (`18`/`19` ; TA-DEC-01…18) — Delivery P0 **exécuté** depuis |
+ | **UX/UI** | **CLÔTURÉ** — Option B ; 4 frames Figma ; docs `14`–`16` |
+-| **Prochain cycle** | **Delivery** autorisé — **non exécuté** ; tech/POC/MVP **non lancés** |
++| **Delivery P0** | **CLÔTURÉ** — implémenté, validé visuellement, mergé (#217), post-mergé, cleanup branche effectué ; **aucune gate Morris restante** |
++| **Prochain cycle** | **Cadrage POC orchestration** (Option B Morris) — **sélectionné**, **non démarré** ; POC / MVP / industrialisation **non lancés** |
+ 
+ ---
+ 
+-## 0. État post-merge (observation) et conception
++## 0. État produit (capitalisation post-Delivery P0)
+ 
+ | Élément | Valeur |
+ |---------|--------|
+-| PR cadrage | [#207](https://github.com/mcleland147/sfia-workspace/pull/207) — **MERGED** |
+-| PR conception | [#209](https://github.com/mcleland147/sfia-workspace/pull/209) — **MERGED** |
+-| Commit conception | `99eaeaab3120d488606963eb4e5f69c4f730cf14` |
+-| Merge conception | `fdade59a23a6dff4c264c73975358f77bc90f9b0` |
+-| Documents Studio sur `main` | **Quatorze** (`01`–`13` + README) — cadrage + conception + architecture |
+-| Cadrage détaillé | **Validé** (D-VAL-9 / DF-G1) |
+-| Cadrage documentaire | **Clôturé** (D-VAL-11) |
+-| Cycle 2 conception | **VALIDÉE** et **CLÔTURÉE** — intégrée sur `main` |
+-| FD-CAND-01…08 | **VALIDÉES** |
+-| Cycle architecture fonctionnelle | **VALIDÉE** et **INTÉGRÉE** — statut `functional-architecture-post-merge-integrated` |
+-| AF-Option C | **VALIDÉE** — ≠ Option C méthode |
+-| AF-CAND-01…10, 11A, 12 | **VALIDÉES** |
+-| AF-CAND-11B | **VALIDÉE** — UX/UI clôturé |
+-| D10 | FB-11 → **AF-01 / AF-15** → FR-024 / FR-025 |
+-| Versionnement architecture | Commit initial `2153258…` / head `72cab80…` / sync `33d61e3…` |
+-| Intégration architecture sur `main` | **Réalisée** — PR #211 **MERGED** ; merge `84e4863…` |
+-| Acceptation/régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 — sans D-VAL-12 ; sans réécriture rétroactive |
+-| Sync post-merge (#212) | **INTÉGRÉE** — merge `cb870544…` ; commit `33d61e3…` |
+-| Finalisation post-merge (#213) | **INTÉGRÉE** — merge `19302836…` ; commit `0b61d728…` |
+-| Intégration conception sur `main` | **Réalisée** via PR #209 / sync #210 → `e9d8193…` |
+-| Acceptation Morris intégration #209 | **VALIDÉE** — 2026-07-18 (sync post-merge) |
+-| Écart d’autorisation merge #209 | **Clôturé** (traçabilité) — sans D-VAL-12 |
+-| Clôture formelle cycle architecture | **NON PRONONCÉE** |
+-| Cycle UX/UI | **CLÔTURÉ** — Option B ; Figma référence initiale |
+-| Prochain cycle | **Delivery** autorisé — **non exécuté** |
+-| Branches | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
+-
+-> PR #207 / #209 : historiques. PR #211 : architecture **intégrée** (`84e4863…`) — **fait Git** + acceptée/régularisée Morris 2026-07-18 (sans D-VAL-12 ; sans réécriture rétroactive). PR #212 : sync post-merge **intégrée** (`cb870544…`). PR #213 : finalisation documentaire **intégrée** (`19302836…`). Les merges architecture/sync/finalisation ne prononcent pas la clôture formelle architecture ni la suppression des branches. **AF-CAND-11B a depuis été VALIDÉE** (UX/UI clôturé — décision Morris distincte).
++| Cadrage | **Clôturé** (D-VAL-11) |
++| Conception fonctionnelle | **Clôturée** et **intégrée** (PR #209 / #210) |
++| Architecture fonctionnelle | **Validée** et **intégrée** (#211–#214) — clôture formelle **ouverte** |
++| UX/UI P0 | **Clôturé** (Option B ; `14`–`16` ; Figma) |
++| Architecture technique P0 | **Validée** et **intégrée** (`18`/`19`) |
++| Delivery P0 | **Clôturé** — implémenté, validé, mergé, post-mergé, cleanup effectué |
++| PR Delivery P0 | [#217](https://github.com/mcleland147/sfia-workspace/pull/217) — **MERGED** (squash) |
++| Titre | `feat: implement SFIA Studio P0 governed workspace` |
++| Commit projet | `c37b065fc59b60d01f5896aa7ebd3c130a636457` |
++| Merge squash | `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
++| Périmètre | 77 fichiers sous `projects/sfia-studio/app/**` ; +12830 / −0 |
++| Routes P0 | `/` → `/synthese` ; `/nouvelle-demande` ; `/cycle-actif` ; `/decision` |
++| Preuves | Validation visuelle Morris ; lint / typecheck / Vitest / build / Playwright post-merge verts |
++| Nature squash | Commit de branche **non ancêtre** de `main` ; trees applicatifs **vérifiés identiques** |
++| Branche Delivery | **Supprimée** (locale + distante) — aucune gate Morris restante sur Delivery P0 |
++| App sur `main` | Disponible — desktop 1440×1024 ; pas d’API / auth / BDD / orchestration réelle |
++| Git / Cursor / Runtime | **Simulés ou désactivés** en P0 |
++| Produit complet / MVP / industrialisation | **Non atteints** |
++| Prochaine orientation | **Option B — cadrage POC orchestration** — sélectionnée, **non lancée** |
++| Branches historiques | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
++
++> Historique antérieur (PR #207–#216) : inchangé dans son rôle. La capitalisation synchronise le statut **après** clôture Delivery P0 ; elle ne réécrit pas les décisions D-VAL / AF-CAND / TA-DEC.
+ 
+ ---
+ 
+@@ -138,21 +132,23 @@ Produit indépendant **consommant** SFIA v2.6. Pas de v2.7 / v3.0. Évolution m
+ ## 2. Trajectoire macro (état factuel)
+ 
+ ```text
+-Pré-cadrage                    ← terminé historiquement
+-  → cadrage détaillé           ← VALIDÉ (D-VAL-9 / DF-G1)
+-  → versionnement (G7)         ← commit / push / draft PR réalisés (D-VAL-10)
+-  → merge PR #207              ← fait Git vérifié (ec21074) — régularisé par D-VAL-11
+-  → synchronisation post-merge ← **VALIDÉE** (D-VAL-11) — cadrage documentaire clôturé
+-  → conception fonctionnelle   ← **VALIDÉE** + **INTÉGRÉE** (PR #209 / sync #210 → `e9d8193…`) — cycle **CLÔTURÉ**
+-  → architecture fonctionnelle ← **VALIDÉE** + **INTÉGRÉE** (#211–#214 / `5f1eb908…`) — clôture formelle **ouverte**
+-  → UX/UI ← **SÉLECTIONNÉ** → **EXÉCUTÉ** → **CLÔTURÉ** (AF-CAND-11B ; Option B ; Figma P0-00C…03C)
+-  → synchronisation documentaire ← **en cours** (worktree local)
+-  → delivery / implémentation ← **autorisé** — **non exécuté**
+-  → architecture technique / POC / MVP ← **non lancés**
+-  → industrialisation plateforme
++Pré-cadrage
++  → cadrage détaillé
++  → conception fonctionnelle
++  → architecture fonctionnelle
++  → UX/UI P0
++  → architecture technique P0
++  → Delivery P0
++  → PR #217 / intégration main
++  → post-merge / cleanup
++  → cadrage POC orchestration          ← prochaine étape validée (Option B) — non démarrée
++  → architecture POC ciblée             ← candidate (après cadrage)
++  → backlog POC borné                   ← candidate
++  → delivery POC                        ← candidate
++  → décision Morris : abandon / itération / préparation MVP
+ ```
+ 
+-Aucune stack / architecture **technique** validée. Architecture **fonctionnelle VALIDÉE** et **INTÉGRÉE**. UX/UI **CLÔTURÉ**. Delivery **non lancé**. POC / MVP non lancés. Clôture formelle architecture **non automatique**.
++Étapes jusqu’au cleanup P0 : **terminées**. Cadrage POC orchestration : **sélectionné**, **non démarré**. Étapes suivantes : **candidates**, soumises aux résultats du cadrage. POC / MVP / industrialisation : **non engagés**. Clôture formelle architecture fonctionnelle : **non automatique**.
+ 
+ ---
+ 
+@@ -213,7 +209,16 @@ Aucune stack / architecture **technique** validée. Architecture **fonctionnelle
+ | P0-02C Cycle actif | `22:133` | 1440×1024 |
+ | P0-03C Décision Morris | `22:270` | 1440×1024 |
+ 
+-> Statut `ux-ui-closed-implementation-reference`. Référence Figma = implémentation **initiale** (non intangible). Delivery **autorisé**, non exécuté. Runtime screenshot obligatoire avant verdict visuel fort.
++> UX/UI **CLÔTURÉ**. Référence Figma = implémentation **initiale** (non intangible). Delivery P0 **exécuté et clôturé** (PR #217). Desktop 1440×1024 uniquement ; responsive / a11y complète / CI / Runtime réel **non validés**.
++
++### Delivery P0 — CLÔTURÉ (PR #217)
++
++| Document / artefact | Rôle |
++|---------------------|------|
++| [app/README.md](./app/README.md) | Runtime P0 — stack, routes, contraintes |
++| `projects/sfia-studio/app/**` | 77 fichiers intégrés sur `main` @ `759ab0b…` |
++
++> Delivery P0 **CLÔTURÉ**. Aucune API, auth, BDD ni orchestration réelle. Git / Cursor / Runtime **simulés**. Prochaine orientation : **cadrage POC orchestration** (non lancé).
+ 
+ ---
+ 
+@@ -302,34 +307,44 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | AF-CAND-12 (pas de D-VAL-12) | **VALIDÉE** |
+ | D10 → AF-01 / AF-15 | **VALIDÉE** (amendement traçabilité) |
+ 
+-### Décisions encore ouvertes
++### Décisions encore ouvertes / clôturées depuis
+ 
+ | Décision | Statut |
+ |----------|--------|
+-| AF-CAND-11B — sélection / lancement prochain cycle | **VALIDÉE** — UX/UI clôturé |
++| AF-CAND-11B — UX/UI | **VALIDÉE** — UX/UI clôturé |
+ | Option B consolidation 14/15/16 | **VALIDÉE** |
+-| Delivery | **Autorisé** — non exécuté |
+-| Acceptation / régularisation documentaire du merge #211 | **Ouverte** — fait Git tracé ; pas de D-VAL auto |
+-| Commit / push / PR sync (#212) + finalisation (#213) | **Réalisés et intégrés** — trace post-#213 locale éventuelle **non versionnée** ici |
++| Delivery P0 | **CLÔTURÉ** — PR #217 mergée ; post-merge + cleanup effectués ; aucune gate restante |
++| Acceptation / régularisation #211 | **VALIDÉE** — Morris — 2026-07-18 |
++| Sync #212 + finalisation #213 | **INTÉGRÉES** |
+ | Clôture formelle cycle architecture | **Non** — non automatique |
+-| Sort des branches | Conservées ; décisions distinctes |
+-| Contenu POC / définition MVP | Non pris |
+-| Stack / architecture technique | Non pris |
++| Sort des branches historiques | Conservées ; décisions distinctes |
++| Contenu / architecture du POC orchestration | **Non pris** — cadrage à venir |
++| Définition MVP | **Non pris** |
++| Industrialisation | **Non engagée** |
++| Responsive / a11y complète / CI GitHub | **Ouverts** (réserves P0) |
++| Vulnérabilités moderate postcss (via Next) | **Ouvertes** — pas de fix forcé |
++| Runtime / Git / Cursor réels | **Hors périmètre P0** — sujets du futur cadrage POC |
++
++> Conception : intégrée (PR #209 / #210). Architecture fonctionnelle : intégrée (#211–#213). Architecture technique P0 + Delivery P0 : **intégrés** (PR #217 / `759ab0b…`). Aucune D-VAL-12.
++
++### Orientation Morris — Option B (POC orchestration)
++
++> Le prochain cycle SFIA Studio sera un cycle de **cadrage** visant à définir un POC d’orchestration borné entre SFIA Studio et un mécanisme d’orchestration déterministe candidat. Ce cycle devra valider la faisabilité technique **sans** préjuger de l’architecture produit finale, du MVP ni de l’industrialisation.
++
++**Décision consommée :** Option B sélectionnée comme prochaine orientation — **cadrage uniquement** ; POC **non lancé** ; aucune techno Runtime sélectionnée ; aucune intégration Studio ↔ Git ↔ Cursor ↔ orchestrateur autorisée dans ce cycle de capitalisation.
+ 
+-> Conception : intégrée (PR #209 / #210). Architecture : **intégrée** (PR #211 / `84e4863…`) — acceptée/régularisée Morris 2026-07-18. Sync #212 + finalisation #213 : **intégrées** (`cb870544…` / `19302836…`). Aucune réinterprétation rétroactive ; aucune D-VAL-12.
++**Sujets préparés pour le futur cadrage POC :** objectif de preuve ; scénario métier unique ; frontières Studio / orchestrateur ; niveau d’automatisation maximal ; actions read-only ou simulées ; gates Morris ; stop conditions ; données de test ; preuves attendues ; critères de succès et d’abandon ; sécurité et réversibilité ; périmètre Git ; stratégie de démonstration.
+ 
+ ---
+ 
+ ## 8. Prochaine décision
+ 
+-1. Revue ChatGPT de la synchronisation documentaire UX Option B.
+-2. GO commit de la branche projet.
+-3. GO push et PR distincts.
+-4. Lancement du cycle delivery / implémentation.
+-5. Clôture formelle du cycle architecture, décision distincte.
+-6. Sort des branches `pre-framing` / `functional-design` / `functional-architecture`.
++1. **GO commit / push / PR** de la présente capitalisation documentaire.
++2. Après intégration : **GO cadrage POC orchestration**.
++3. Clôture formelle du cycle architecture fonctionnelle (décision **distincte**, toujours ouverte).
++4. Sort des branches historiques (`pre-framing` / `functional-design` / `functional-architecture`).
+ 
+-**Verdict documentaire :** `SFIA STUDIO FUNCTIONAL ARCHITECTURE POST-MERGE SYNC PREPARED — READY FOR MORRIS REVIEW`
++**Verdict documentaire :** `CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY`
+ 
+ ---
+ 
+@@ -339,16 +354,17 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ |---------|--------|
+ | Méthode | SFIA v2.6 sur `main` — **Option C méthode** |
+ | Template | `prompts/templates/sfia-cycle-execution-template.md` v2.6 |
+-| Cadrage validé | `projects/sfia-studio/` **`01`–`07`** sur **`main`** (PR #207 / #208) |
+-| Conception fonctionnelle validée | **`08`–`10`** sur **`main`** — baseline **inchangée** |
+-| Architecture fonctionnelle validée + intégrée | **`11`–`13`** sur **`main`** (`84e4863…` / PR #211) |
+-| Sync post-merge intégrée | PR #212 / `cb870544…` |
+-| Finalisation post-merge intégrée | PR #213 / `19302836…` — statut `functional-architecture-post-merge-integrated` |
++| Cadrage validé | `projects/sfia-studio/` **`01`–`07`** sur **`main`** |
++| Conception fonctionnelle | **`08`–`10`** sur **`main`** |
++| Architecture fonctionnelle | **`11`–`13`** sur **`main`** |
++| UX/UI | **`14`–`16`** sur **`main`** |
++| Architecture technique P0 | **`18`–`19`** sur **`main`** |
++| Delivery P0 / app | `projects/sfia-studio/app/` — PR #217 / merge `759ab0b…` |
+ | Review pack | `.tmp-sfia-review/chatgpt-review.md` — non versionné dans le projet |
+ | Handoff | `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` |
+ 
+-> `main` @ `19302836…` est la source de vérité du **cadrage**, de la **conception**, de l’**architecture**, de la **sync post-merge** et de la **finalisation documentaire** intégrées. Toute trace post-#213 éventuelle = **locale** jusqu’à GO versionnement.
++> `main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` est la source de vérité du **cadrage**, de la **conception**, de l’**architecture**, de l’**UX/UI**, de l’**architecture technique P0** et du **Delivery P0** intégrés.
+ 
+ ---
+ 
+-*SFIA Studio — architecture VALIDÉE et INTÉGRÉE — UX/UI CLÔTURÉ (Option B ; Figma P0) — delivery NON LANCÉ — clôture architecture NON PRONONCÉE — Option C méthode préservée — Morris décide.*
++*SFIA Studio — Delivery P0 CLÔTURÉ (PR #217) — prochaine orientation = cadrage POC orchestration (Option B, non lancé) — clôture architecture fonctionnelle NON PRONONCÉE — Option C méthode préservée — Morris décide.*
 
 ```
 
-## 14. Réserves
+## 8. Contrôle final
 
-- Documents `18`/`19` conservent des formulations historiques « delivery autorisé / non exécuté » — **volontaire** (exactes à leur date) ; état courant dans README/`07`.
-- Capitalisation **non versionnée** tant que Morris n’a pas donné GO commit/push/PR.
-- `.tmp-sfia-review/**` local non nettoyé.
+```
+git branch --show-current
+# capitalization/sfia-studio-p0-status-sync
+git rev-parse HEAD
+# e97e083a749d88b8556ffd81edc0160a432df137
+git rev-parse origin/capitalization/sfia-studio-p0-status-sync
+# e97e083a749d88b8556ffd81edc0160a432df137
+git status --short
+# ?? .tmp-sfia-review/
+git rev-list --left-right --count origin/main...HEAD
+# 0	1
+```
 
-## 15. Décision Morris suivante
+- Aucun staged ; aucun fichier projet modifié restant
+- Aucun push `main` ; aucun merge
+- `.tmp-sfia-review/**` conservé (untracked)
 
-1. **GO commit / push / PR** de la capitalisation documentaire.
-2. Après intégration : **GO cadrage POC orchestration**.
+## 9. Décisions Morris restantes
 
-## 16. Verdict final
+1. **GO merge** PR #218 uniquement.
+2. Après intégration + post-merge : **GO cadrage POC orchestration** (bloqué jusque-là).
 
-**CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY**
+## 10. Verdict final
+
+**CAPITALIZATION PR OPEN — READY FOR MORRIS MERGE DECISION**
