@@ -1,0 +1,223 @@
+.hero {
+  background: var(--sfia-hero-decision);
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-xl);
+  box-shadow: var(--sfia-shadow-xl);
+  padding: 20px 28px;
+  color: #fff;
+  height: var(--sfia-hero-h-decision);
+  min-height: var(--sfia-hero-h-decision);
+  max-height: var(--sfia-hero-h-decision);
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #adb2ff;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.heroTitle {
+  font-size: 27px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.heroText {
+  font-size: 13px;
+  line-height: 1.25;
+  color: #cfd6f2;
+  margin: 0;
+  max-width: 690px;
+}
+
+.heroPills {
+  position: absolute;
+  right: 32px;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.pillPurple {
+  background: #612e66;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 150px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.pillBlue {
+  background: #294578;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 104px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: var(--sfia-evidence-w) var(--sfia-decision-w);
+  gap: var(--sfia-col-gap);
+  margin-top: 26px;
+  align-items: start;
+  width: 100%;
+}
+
+.evidencePanel {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-sm);
+  padding: 18px 22px 22px;
+  min-height: 664px;
+  height: auto;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.evidenceLabel {
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 700;
+  color: var(--sfia-purple);
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+}
+
+.evidenceTitle {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.evidenceDesc {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-body);
+  color: var(--sfia-muted);
+  margin: 0 0 16px;
+}
+
+.decisionPanel {
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-md);
+  padding: 16px 18px 18px;
+  min-height: 664px;
+  height: auto;
+  max-height: none;
+  box-sizing: border-box;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.decisionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.decisionHint {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-meta);
+  color: var(--sfia-muted);
+  margin: 0 0 12px;
+}
+
+.option {
+  background: var(--sfia-surface);
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: 16px;
+  box-shadow: var(--sfia-shadow-md);
+  padding: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  min-height: 106px;
+  height: auto;
+  box-sizing: border-box;
+  font-family: var(--sfia-font);
+  overflow: visible;
+}
+
+.optionSelected {
+  composes: option;
+  border-color: var(--sfia-blue);
+  box-shadow: 0 0 0 2px rgba(56, 99, 245, 0.15);
+}
+
+.optionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 10px 0 4px;
+  color: var(--sfia-ink);
+  line-height: 1.2;
+}
+
+.optionSub {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-meta);
+  color: var(--sfia-muted);
+  margin: 0;
+}
+
+.confirmBox {
+  background: #f2f7ff;
+  border: 1px solid var(--sfia-border);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  min-height: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.confirmLabel {
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 700;
+  color: var(--sfia-blue);
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+}
+
+.confirmText {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-body);
+  margin: 0;
+}
+
+.morrisLabel {
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 700;
+  color: var(--sfia-pink);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  letter-spacing: 0.03em;
+}
+
+.simulatedNote {
+  font-size: var(--sfia-meta-size-sm);
+  line-height: 1.4;
+  color: var(--sfia-muted);
+  margin-top: 10px;
+  padding-bottom: 2px;
+  flex-shrink: 0;
+}

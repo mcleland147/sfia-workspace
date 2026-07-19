@@ -1,0 +1,76 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.blue {
+  background: var(--sfia-blue-soft-00c);
+  color: var(--sfia-blue-00c);
+}
+
+.blueFlush {
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+}
+
+.purple {
+  background: var(--sfia-purple-soft-00c);
+  color: var(--sfia-purple-00c);
+}
+
+.purpleFlush {
+  background: var(--sfia-purple-soft);
+  color: var(--sfia-purple);
+}
+
+.green {
+  background: var(--sfia-green-soft-00c);
+  color: var(--sfia-green-00c);
+}
+
+.greenFlush {
+  background: #f0f5ff;
+  color: var(--sfia-green);
+}
+
+.orange {
+  background: var(--sfia-orange-soft-00c);
+  color: var(--sfia-orange-00c);
+}
+
+.orangeFlush {
+  background: #fff7e0;
+  color: var(--sfia-orange);
+}
+
+.pink {
+  background: #fff2f5;
+  color: var(--sfia-pink);
+}
+
+.muted {
+  background: var(--sfia-bg-00c);
+  color: var(--sfia-muted-00c);
+}
+
+.navy {
+  background: var(--sfia-navy);
+  color: #fff;
+}
+
+.dark {
+  background: var(--sfia-ink-00c);
+  color: #fff;
+}
+
+.white {
+  background: #fff;
+  color: var(--sfia-purple-00c);
+}

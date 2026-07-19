@@ -1,0 +1,288 @@
+.hero {
+  background: var(--sfia-hero-cycle);
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-xl);
+  box-shadow: var(--sfia-shadow-xl);
+  padding: 20px 28px;
+  color: #fff;
+  height: var(--sfia-hero-h-cycle);
+  min-height: var(--sfia-hero-h-cycle);
+  max-height: var(--sfia-hero-h-cycle);
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #99b8ff;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.heroTitle {
+  font-size: 27px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  max-width: 720px;
+  line-height: 1.2;
+}
+
+.heroText {
+  font-size: 13px;
+  line-height: 1.25;
+  color: #ccd6f5;
+  margin: 0;
+  max-width: 650px;
+}
+
+.heroPills {
+  position: absolute;
+  right: 48px;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pillPurple {
+  background: #522e6b;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 104px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.pillBlue {
+  background: #214585;
+  color: #fff;
+  border-radius: 15px;
+  padding: 7px 13px;
+  font-size: 12px;
+  width: 104px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.stepper {
+  margin: 14px 0 26px;
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: 18px;
+  box-shadow: var(--sfia-shadow-sm);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 92px;
+  min-height: 92px;
+  max-height: 92px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.stepCircleDone {
+  composes: stepCircle;
+  background: var(--sfia-green);
+}
+
+.stepCircleActive {
+  composes: stepCircle;
+  background: var(--sfia-blue);
+}
+
+.stepCirclePending {
+  composes: stepCircle;
+  background: var(--sfia-border);
+  color: var(--sfia-muted);
+}
+
+.stepLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sfia-ink);
+  white-space: nowrap;
+}
+
+.stepLabelActive {
+  composes: stepLabel;
+  color: var(--sfia-blue);
+  font-weight: 600;
+}
+
+.connector {
+  width: 54px;
+  height: 2px;
+  background: var(--sfia-green);
+  flex-shrink: 0;
+}
+
+.connectorPending {
+  composes: connector;
+  background: var(--sfia-border);
+}
+
+.lower {
+  display: grid;
+  grid-template-columns: var(--sfia-work-w) var(--sfia-inspector-w);
+  gap: var(--sfia-col-gap);
+  align-items: start;
+  width: 100%;
+}
+
+.work {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-sm);
+  padding: 18px 22px 22px;
+  min-height: 548px;
+  height: auto;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.workLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--sfia-blue);
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+}
+
+.workTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.workText {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-body);
+  color: var(--sfia-muted);
+  margin: 0 0 16px;
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 14px;
+  background: var(--sfia-surface);
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  height: 52px;
+  min-height: 52px;
+  box-sizing: border-box;
+}
+
+.checkDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.checkLabel {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.inspector {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-sm);
+  padding: 18px 20px 22px;
+  min-height: 548px;
+  height: auto;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.inspectorTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 18px;
+  line-height: 1.2;
+}
+
+.fieldLabel {
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 700;
+  color: var(--sfia-muted);
+  margin: 12px 0 4px;
+  letter-spacing: 0.02em;
+  line-height: var(--sfia-line-meta);
+}
+
+.fieldValue {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-meta);
+  font-weight: 500;
+  color: var(--sfia-ink);
+  margin: 0;
+}
+
+.stopBox {
+  margin-top: 20px;
+  background: #fff2f5;
+  border: 1px solid #ffc9d4;
+  border-radius: 16px;
+  padding: 14px;
+  min-height: 110px;
+  box-sizing: border-box;
+}
+
+.stopTitle {
+  font-size: var(--sfia-meta-size-sm);
+  font-weight: 700;
+  color: var(--sfia-pink);
+  margin: 0 0 8px;
+  letter-spacing: 0.03em;
+}
+
+.stopText {
+  font-size: var(--sfia-meta-size);
+  line-height: var(--sfia-line-body);
+  margin: 0;
+}
+
+.inspectorAction {
+  margin-top: 18px;
+}

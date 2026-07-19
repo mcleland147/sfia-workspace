@@ -1,0 +1,178 @@
+.page {
+  min-height: 1024px;
+  min-width: 1440px;
+  font-family: var(--sfia-font);
+  position: relative;
+}
+
+.pageFloating {
+  composes: page;
+  background: var(--sfia-bg-00c);
+  padding: var(--sfia-floating-pad);
+  display: grid;
+  /* Explicit gutters: rail→ws 18, ws→copilot 20 (Figma P0-00C) */
+  grid-template-columns:
+    var(--sfia-rail-width)
+    var(--sfia-floating-gap-rail)
+    var(--sfia-workspace-width-floating)
+    var(--sfia-floating-gap-copilot)
+    var(--sfia-copilot-width-floating);
+  grid-template-rows: 988px;
+  gap: 0;
+  align-items: start;
+  box-sizing: border-box;
+  width: 1440px;
+  height: 1024px;
+  overflow: hidden;
+}
+
+.pageFlush {
+  composes: page;
+  background: var(--sfia-bg);
+  display: grid;
+  grid-template-columns: var(--sfia-rail-width) 1fr;
+  grid-template-rows: 1024px;
+  height: 1024px;
+  min-height: 1024px;
+  width: 1440px;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.brandAccent {
+  position: absolute;
+  left: var(--sfia-brand-accent-left);
+  top: var(--sfia-brand-accent-top);
+  width: var(--sfia-brand-accent-width);
+  height: var(--sfia-brand-accent-height);
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--sfia-gradient-brand-start) 10%,
+    var(--sfia-gradient-brand-mid) 60%,
+    var(--sfia-gradient-brand-end) 110%
+  );
+  /* Below topbar (z-index 5) so the accent never covers tabs */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.railFloating {
+  grid-column: 1;
+  width: var(--sfia-rail-width);
+  height: 988px;
+  background: #fff;
+  border: 1px solid var(--sfia-border-00c);
+  border-radius: 22px;
+  box-shadow: var(--sfia-shadow-lg);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.railFlush {
+  grid-row: 1 / -1;
+  width: var(--sfia-rail-width);
+  background: #fff;
+  border-right: 1px solid var(--sfia-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 17px 0;
+  gap: 12px;
+}
+
+.mainFlush {
+  display: flex;
+  flex-direction: column;
+  height: 1024px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.bodyFlush {
+  display: grid;
+  grid-template-columns: var(--sfia-canvas-width-flush) var(--sfia-copilot-width-flush);
+  column-gap: var(--sfia-copilot-gap-flush);
+  padding-left: calc(var(--sfia-canvas-offset-flush) - var(--sfia-rail-width));
+  padding-right: 0;
+  flex: 1;
+  height: var(--sfia-copilot-height-flush);
+  min-height: 0;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+.canvasFlush {
+  padding: var(--sfia-canvas-top-flush) 0 24px;
+  width: var(--sfia-canvas-width-flush);
+  min-width: 0;
+  height: var(--sfia-copilot-height-flush);
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.copilotFlush {
+  padding: 0;
+  margin-top: 0;
+  width: var(--sfia-copilot-width-flush);
+  height: var(--sfia-copilot-height-flush);
+  align-self: start;
+  box-sizing: border-box;
+}
+
+.workspaceFloating {
+  grid-column: 3;
+  width: var(--sfia-workspace-width-floating);
+  height: 988px;
+  background: #fff;
+  border: 1px solid var(--sfia-border-00c);
+  border-radius: var(--sfia-radius-xl);
+  box-shadow: var(--sfia-shadow-workspace);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.copilotFloating {
+  grid-column: 5;
+  width: var(--sfia-copilot-width-floating);
+  height: 988px;
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-xl);
+  box-shadow: var(--sfia-shadow-panel);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.workspaceInner {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.workspaceTopbarFloating {
+  height: 88px;
+  padding: 18px 28px 0;
+  border-bottom: 1px solid var(--sfia-border-00c);
+  flex-shrink: 0;
+}
+
+.workspaceTabsFloating {
+  height: 54px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--sfia-border-00c);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-shrink: 0;
+}

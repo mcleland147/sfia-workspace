@@ -1,0 +1,16 @@
+.card {
+  background: #fff;
+  border: 1px solid var(--sfia-border-soft);
+  border-radius: var(--sfia-radius-lg);
+  box-shadow: var(--sfia-shadow-md);
+}
+
+.cardFlush {
+  composes: card;
+  border-color: var(--sfia-border);
+  box-shadow: var(--sfia-shadow-sm);
+}
+
+.cardPadding {
+  padding: 19px 21px;
+}
