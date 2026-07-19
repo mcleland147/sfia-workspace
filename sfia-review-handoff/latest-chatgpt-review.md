@@ -1,79 +1,69 @@
-# ChatGPT Review Pack — SFIA Studio POC-G8 Backlog S1 — Cycle 5 Critical
+# ChatGPT Review Pack — SFIA Studio Governed S1 Backlog — Cycle 13 PR Readiness Critical
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure** | 2026-07-19 15:46:17 CEST |
-| **Cycle** | 5 — Backlog / user stories |
-| **Profil** | Critical — orchestration Git/Cursor future ; authority ; allowlist |
-| **Décision Morris** | GO ouverture POC-G8 — backlog POC borné |
-| **Branche** | `backlog/sfia-studio-poc-orchestration-s1` (**locale**) |
-| **Convention branche** | Préfixe `backlog/` aligné intention ; repo utilise aussi `cycle/*-backlog` — choix documenté |
-| **HEAD / origin/main** | `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
-| **PR #222** | **MERGED** @ `60e6880…` |
+| **Date / heure** | 2026-07-19 16:23:05 CEST |
+| **Cycle** | 13 — PR readiness (backlog POC-G8) |
+| **Profil** | Critical — contrat futur delivery ; allowlist ; authority |
+| **Décision Morris** | GO commit + push + draft PR — backlog S1 après POC-G8 |
+| **Branche** | `backlog/sfia-studio-poc-orchestration-s1` |
+| **HEAD avant** | `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
+| **HEAD après** | `c635cbed6085f89f34623e0a63ff59d3ba9536ec` |
+| **origin/main** | `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
+| **merge-base** | `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
+| **Draft PR** | [#223](https://github.com/mcleland147/sfia-workspace/pull/223) |
 | **Niveau** | **full** |
-| **Commit/push/PR projet** | **NON** |
+| **Merge** | **NON AUTORISÉ** |
 
 ---
 
 ## 1. Local Git Truth Check
 
-PASS — main@60e6880 ; PR #222 MERGED ; remote post-merge absente ; pas de backlog concurrent ; working tree propre hors tmp + docs cycle.
+PASS — branche backlog ; HEAD=`60e6880…`=origin/main ; PR #222 MERGED ; 8M+3A ; aucun staged ; remote backlog absente initialement.
 
 ---
 
-## 2. Sources
+## 2. Handoff Cycle 5
 
-Template SFIA · docs 07, 11, 20–25 · app README/package.json (RO) · PR #221/#222 · handoff `8891f0a…` (G8 fermé alors — historique pré-GO)
+| Champ | Valeur |
+|-------|--------|
+| SHA | `f3bc69ffd1925548b7dd1e8f1af91f8f59c87089` |
+| Contenu | Cycle 5 Critical ; POC-G8 consommé ; S1 ; Option B ; 26–28 ; E1–E11 ; allowlist candidate ; G9 fermé ; POC non lancé |
+| Verdict | POC BACKLOG COMPLETE WITH RESERVES |
 
----
-
-## 3. Scénario S1 / périmètre
-
-**S1** DOC read-only gouverné : intention → gate Morris → contrat/hash/allowlist → exec bornée → journal/preuves → STOP possible → vues Studio.
-
-**Hors :** writes distantes, L5, MVP, multi-scénario, delivery, code, app/** (sauf futur POC-G9).
+**Handoff Cycle 5 :** COMPLET
 
 ---
 
-## 4. Architecture préservée
+## 3. Fichiers (11)
 
-Option B minimale inchangée. Studio cockpit · adaptateur fin · harness autonome. Option A test. Option C écartée 1er POC. ARCH-POC-CAND inchangées.
-
----
-
-## 5. Documents créés (3)
-
-- `26-poc-orchestration-backlog.md` — epics E1–E11, stories, DoR/DoD, tâches, spikes
-- `27-poc-orchestration-allowlist-and-acceptance.md` — allow/deny Git/docs/Cursor, critères A1–A6, abuse
-- `28-poc-orchestration-delivery-gate-pack.md` — prérequis POC-G9, risques, preuves, décision future
-
-## 6. Documents modifiés
-
-README · 07 · 20 · 21 · 22 · 25 (+ **23/24** : correctifs statut gates uniquement — cohérence bloquante G8)
+**Créés (3) :** 26 · 27 · 28  
+**Modifiés (8) :** README · 07 · 20 · 21 · 22 · 23 · 24 · 25  
+**Stats :** +1188 / −186
 
 ---
 
-## 7. Epics / priorisation
+## 4. Architecture / scénario
 
-Must : E1–E10 · Should : E11 + idempotence/timeouts · Could : protocoles alt. · Won’t : writes, L5, MVP, cloud
-
----
-
-## 8. Allowlist / denylist
-
-Voir `27` — **candidate** jusqu’à validation Morris. Défaut deny. `gitEffect=none-remote`.
+Option B inchangée. S1 DOC read-only gouverné. Studio cockpit · adaptateur fin · harness autonome. Option A test. Option C écartée.
 
 ---
 
-## 9. DoR / DoD / preuves
+## 5. Backlog résumé
 
-DoR/DoD dans `26`. Preuves A1–A6 + AB-01…08 dans `27`. Prérequis POC-G9 dans `28`.
+- Epics E1–E11 ; Must E1–E10 ; Should E11
+- Stories avec G/W/T, preuves, risques, stops
+- T-01…T-10 ; DoR ; DoD story ; DoD POC future
+- Allowlist/denylist candidates ; défaut deny ; `gitEffect=none-remote`
+- A1–A6 ; AB-01…08
+- Prérequis POC-G9 dans `28`
+- **Docker** : option/spike **ouverte** — non décidée, non obligatoire, non exclue
 
 ---
 
-## 10. Gates
+## 6. Gates
 
 | Gate | Statut |
 |------|--------|
@@ -84,7 +74,7 @@ DoR/DoD dans `26`. Preuves A1–A6 + AB-01…08 dans `27`. Prérequis POC-G9 dan
 
 ---
 
-## 11. Contenu complet — 26
+## 7. Contenu complet — 26
 
 ```markdown
 # SFIA Studio — Backlog POC orchestration S1 (Option B minimale)
@@ -674,7 +664,7 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 
 | Spike | Options | Critères de sortie | Gate Morris ? |
 |-------|---------|-------------------|---------------|
-| Techno harness | Node/TS candidat ; autres | Simplicité, testabilité, local macOS, alignement repo | Si écart majeur au candidat |
+| Techno harness | Node/TS candidat ; autres ; **Docker** = option/spike non décidé | Simplicité, testabilité, local macOS, alignement repo | Si écart majeur au candidat |
 | Protocole adaptateur | fichier / child / HTTP local / IPC / CLI | Simplicité, sécu, obs., pas de service inutile | Si structurante |
 | Cursor réel | fixture / manual / adapter futur | Preuve mécanisme réel avant claim | **Oui** avant « Cursor réel » |
 
@@ -707,7 +697,7 @@ Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW 
 
 ---
 
-## 12. Contenu complet — 27
+## 8. Contenu complet — 27
 
 ```markdown
 # SFIA Studio — Allowlist, denylist et critères d’acceptation POC S1
@@ -959,7 +949,7 @@ Avant POC-G9, Morris doit :
 
 ---
 
-## 13. Contenu complet — 28
+## 9. Contenu complet — 28
 
 ```markdown
 # SFIA Studio — Gate pack delivery POC S1 (prérequis POC-G9)
@@ -1040,6 +1030,7 @@ Avant tout GO delivery, Morris doit disposer de :
 6. QA non-seconde-vérité.
 7. Clôture AF séparée.
 8. POC-G9 / lancement non autorisés ici.
+9. **Docker** : option / spike d’évaluation possible avant POC-G9 — **non décidé**, ni obligatoire ni exclu.
 
 ---
 
@@ -1140,7 +1131,7 @@ code · `app/**` · commit/push/PR · merge · ouverture POC-G9 · lancement POC
 
 ---
 
-## 14. Diff complet — fichiers modifiés
+## 10. Diff complet du commit
 
 ```diff
 diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
@@ -1687,6 +1678,1060 @@ index 638b003..05a9a4c 100644
  
 -*Decision pack — Option B minimale — G7 validé avec réserves — INTÉGRÉ (PR #221 / 40f8ebe…) — POC-G8 FERMÉ — POC NON LANCÉ.*
 +*Decision pack — Option B inchangée — POC-G8 consommé — POC-G9 fermé — POC NON LANCÉ.*
+diff --git a/projects/sfia-studio/26-poc-orchestration-backlog.md b/projects/sfia-studio/26-poc-orchestration-backlog.md
+new file mode 100644
+index 0000000..123023d
+--- /dev/null
++++ b/projects/sfia-studio/26-poc-orchestration-backlog.md
+@@ -0,0 +1,616 @@
++# SFIA Studio — Backlog POC orchestration S1 (Option B minimale)
++
++| Métadonnée | Valeur |
++|------------|--------|
++| **Document** | `26-poc-orchestration-backlog.md` |
++| **Cycle** | 5 — Backlog / user stories |
++| **Profil** | Critical |
++| **Gate** | **POC-G8 CONSOMMÉ** (ouverture backlog) |
++| **POC-G9** | **FERMÉ** |
++| **POC** | **NON LANCÉ** |
++| **Scénario** | **S1** — DOC read-only gouverné |
++| **Architecture** | **Option B minimale** (inchangée) |
++| **Branche** | `backlog/sfia-studio-poc-orchestration-s1` (**locale**) |
++| **Base** | `main` @ `60e6880104f795ed0e4ba5dc18172c01dcaf9b02` |
++| **PR sync** | [#222](https://github.com/mcleland147/sfia-workspace/pull/222) **MERGED** |
++
++> Backlog **candidat** jusqu’à validation Morris. ≠ delivery. ≠ lancement POC. ≠ choix techno/protocole définitif.
++
++---
++
++## 1. Périmètre
++
++### 1.1 Inclus (Must du POC)
++
++Démontrer qu’une intention documentaire bornée peut être qualifiée, soumise à un gate Morris explicite, contrôlée par contrat + allowlist + `contractHash`, exécutée en read-only / `gitEffect=none-remote`, journalisée, stoppable, prouvée, et restituée dans Studio — via harness autonome + adaptateur fin.
++
++### 1.2 Hors périmètre (Won’t)
++
++- Git write distant (add/commit/push/merge/rebase/reset destructif/PR auto)
++- Multi-utilisateur / RBAC complet / cloud
++- Orchestrateur distribué / daemon permanent inutile
++- L5 global
++- MVP / industrialisation / multi-scénarios (S2/S4)
++- Clôture AF
++- Choix définitif Runtime / techno harness / protocole adaptateur / mécanisme Cursor réel
++- Delivery (POC-G9) et lancement POC
++
++### 1.3 Architecture préservée
++
++```text
++Morris → Studio (cockpit) → adaptateur fin → harness autonome
++  → GateValidator → PolicyEngine → GitReaderPort → CursorExecutorPort
++  → EventJournal / ProofStore → vues Studio (dérivées)
++```
++
++Option A = mode test / dégradé. Option C = écartée 1er POC.
++
++---
++
++## 2. Definition of Ready (DoR) — story
++
++Une story est Ready si :
++
++1. Identifiant, epic, priorité MoSCoW présents.
++2. Critères Given/When/Then testables.
++3. Preuves attendues listées.
++4. Dépendances et stop conditions explicites.
++5. Aucune décision techno figée sans spike/gate.
++6. Alignée S1 + Option B (Studio ≠ orch. ; harness autonome).
++7. Hors allowlist / denylist référencée (`27`).
++
++---
++
++## 3. Definition of Done (DoD) — story / POC
++
++### 3.1 Story Done (futur delivery)
++
++1. Critères G/W/T verts.
++2. Preuves locales produites et corrélées.
++3. Aucune écriture distante.
++4. Journal JSONL des transitions.
++5. Fail-closed démontré si applicable.
++6. Aucune dérive Option C.
++
++### 3.2 POC Done (après POC-G9 + exécution — hors cycle)
++
++1. Scénarios nominal + rejet allowlist + STOP prouvés.
++2. Harness testable sans Studio.
++3. UI n’est pas seconde vérité.
++4. Dossier preuves remis à Morris.
++5. Décision abandon / itération / poursuite.
++
++---
++
++## 4. Epics
++
++| Epic | Titre | Priorité |
++|------|-------|----------|
++| E1 | Contrat et modèle de domaine | Must |
++| E2 | Harness autonome | Must |
++| E3 | GitReaderPort | Must |
++| E4 | CursorExecutorPort | Must |
++| E5 | Policy et allowlist S1 | Must |
++| E6 | Adaptateur Studio minimal | Must |
++| E7 | Cockpit Studio minimal | Must |
++| E8 | Sécurité et abuse cases | Must |
++| E9 | Observabilité et preuves | Must |
++| E10 | QA du POC | Must |
++| E11 | Démonstration et décision | Should |
++
++---
++
++## 5. User stories
++
++Format : ID · Epic · Titre · Persona/composant · Besoin · Valeur · MoSCoW · Dépendances · G/W/T · Preuves · Risques · Stop · Candidats futurs · Gate
++
++### E1 — Contrat et modèle
++
++#### US-E1-01 — POCRequest
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness / Studio |
++| **Besoin** | Représenter une intention DOC bornée (`requestId`, titre, cycle, scope, operator, createdAt) |
++| **Valeur** | Corrélation bout-en-bout |
++| **Priorité** | Must |
++| **Dépendances** | — |
++| **G/W/T** | Given un opérateur ; When il crée une intention S1 ; Then un `POCRequest` valide est émis avec IDs uniques |
++| **Preuves** | Schéma + fixture JSON |
++| **Risques** | Scope trop large |
++| **Stop** | Scope hors chemins `27` |
++| **Candidats** | Types partagés hors `app/**` (emplacement ouvert) |
++| **Gate** | — |
++
++#### US-E1-02 — ExecutionContract + contractHash
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness GateValidator |
++| **Besoin** | Contrat d’exécution hashé ; toute modif invalide le GO |
++| **Valeur** | Intégrité / anti-élévation |
++| **Priorité** | Must |
++| **Dépendances** | US-E1-01 |
++| **G/W/T** | Given un contrat hashé et un GO ; When le contrat change ; Then le GO est rejeté et un nouveau GO est requis |
++| **Preuves** | Événement `gate.rejected` + hash avant/après |
++| **Risques** | Hash non canonique |
++| **Stop** | GO accepté sur hash mismatch |
++| **Candidats** | Module contrat harness |
++| **Gate** | — |
++
++#### US-E1-03 — GateDecision explicite
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Morris / Studio |
++| **Besoin** | Décision GO / CORRIGER / STOP / CLOSE explicite, datée, scopée, avec `contractHash` |
++| **Valeur** | Autorité L0 |
++| **Priorité** | Must |
++| **Dépendances** | US-E1-02 |
++| **G/W/T** | Given un dossier gate ; When Morris choisit GO ; Then le harness ne démarre qu’après revalidation du GO |
++| **Preuves** | Trace gate journalisée |
++| **Risques** | Auto-GO UI |
++| **Stop** | Timeout ou clic ambigu traité comme GO |
++| **Candidats** | `StudioGateSubmission` (`24`) |
++| **Gate** | — |
++
++#### US-E1-04 — AdapterEnvelope + événements
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Adaptateur |
++| **Besoin** | Enveloppes versionnées (`schemaVersion`, `correlationId`, `messageType`, payload) |
++| **Valeur** | Transmission sans autorité |
++| **Priorité** | Must |
++| **Dépendances** | US-E1-01 |
++| **G/W/T** | Given un message adaptateur ; When reçu par harness ; Then revalidé sans confiance aveugle |
++| **Preuves** | Fixture enveloppe + rejet enveloppe invalide |
++| **Risques** | Replay |
++| **Stop** | Adaptateur crée une décision |
++| **Candidats** | Couche adaptateur (protocole **ouvert**) |
++| **Gate** | Spike protocole si nécessaire avant POC-G9 |
++
++#### US-E1-05 — Idempotence et corrélation
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | `requestId` / `executionId` / `correlationId` stables ; pas de double exécution silencieuse |
++| **Valeur** | Reprise sûre |
++| **Priorité** | Should |
++| **Dépendances** | E2 |
++| **G/W/T** | Given un GO déjà consommé ; When rejoué ; Then rejet / no-op journalisé |
++| **Preuves** | Événement replay |
++| **Risques** | Double Cursor |
++| **Stop** | Deux exécutions pour un même GO |
++| **Candidats** | StateMachine |
++| **Gate** | — |
++
++---
++
++### E2 — Harness autonome
++
++#### US-E2-01 — Initialisation locale
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | Démarrer localement avec config (proofDir, allowlist path, timeouts) sans Studio |
++| **Valeur** | Autonomie / Option A |
++| **Priorité** | Must |
++| **Dépendances** | E1 |
++| **G/W/T** | Given un workspace ; When harness start ; Then prêt et journal initial créé |
++| **Preuves** | Log start + config effective |
++| **Risques** | Service permanent inutile |
++| **Stop** | Dépendance hard à Next/Studio |
++| **Candidats** | Processus local (techno **ouverte**, Node/TS candidat) |
++| **Gate** | Choix techno = décision distincte / spike |
++
++#### US-E2-02 — StateMachine
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | Transitions déterministes (draft → gated → running → rejected/stopped/completed) |
++| **Valeur** | Preuve d’état |
++| **Priorité** | Must |
++| **Dépendances** | US-E2-01 |
++| **G/W/T** | Given état `gated` ; When GO invalide ; Then transition `rejected` fail-closed |
++| **Preuves** | Journal transitions |
++| **Risques** | États UI divergents |
++| **Stop** | Transition sans événement |
++| **Candidats** | Module state |
++| **Gate** | — |
++
++#### US-E2-03 — GateValidator + PolicyEngine
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | Revalider GO, hash, allowlist, Git avant toute exécution |
++| **Valeur** | Fail-closed |
++| **Priorité** | Must |
++| **Dépendances** | E5, E3 |
++| **G/W/T** | Given GO + allowlist OK ; When préconditions OK ; Then `accepted` ; sinon `rejected` |
++| **Preuves** | Événements accept/reject |
++| **Risques** | Trust UI |
++| **Stop** | Exécution sans revalidation |
++| **Candidats** | GateValidator, PolicyEngine |
++| **Gate** | — |
++
++#### US-E2-04 — EventJournal + ProofStore locaux
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | Journal JSONL append-only + preuves locales |
++| **Valeur** | Auditabilité |
++| **Priorité** | Must |
++| **Dépendances** | US-E2-02 |
++| **G/W/T** | Given une transition ; When journalisée ; Then événement corrélé écrit sous proofDir |
++| **Preuves** | Fichier JSONL |
++| **Risques** | Fuite secrets |
++| **Stop** | Secret dans journal |
++| **Candidats** | proofDir local |
++| **Gate** | — |
++
++#### US-E2-05 — Mode test sans Studio
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | QA / Option A |
++| **Besoin** | Exécuter S1 via CLI/fixture sans UI |
++| **Valeur** | Autonomie harness |
++| **Priorité** | Must |
++| **Dépendances** | US-E2-01…04 |
++| **G/W/T** | Given harness seul ; When scénario fixture ; Then preuves produites sans Studio |
++| **Preuves** | Run Option A |
++| **Risques** | Couplage UI |
++| **Stop** | Impossible sans Next |
++| **Candidats** | Entrée CLI |
++| **Gate** | — |
++
++---
++
++### E3 — GitReaderPort
++
++#### US-E3-01 — Lectures Git allowlistées
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | GitReaderPort |
++| **Besoin** | Exécuter uniquement commandes read listées dans `27` |
++| **Valeur** | Vérité Git |
++| **Priorité** | Must |
++| **Dépendances** | E5 |
++| **G/W/T** | Given commande allowlistée ; When appelée ; Then stdout capturé + journalisé |
++| **Preuves** | Trace commande + sortie |
++| **Risques** | Shell libre |
++| **Stop** | Commande hors liste exécutée |
++| **Candidats** | Port Git |
++| **Gate** | — |
++
++#### US-E3-02 — Interdiction writes distantes
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | PolicyEngine |
++| **Besoin** | Refuser add/commit/push/merge/… ; `gitEffect=none-remote` |
++| **Valeur** | Sécurité |
++| **Priorité** | Must |
++| **Dépendances** | US-E3-01 |
++| **G/W/T** | Given demande `git push` ; When évaluée ; Then rejet + aucune exécution |
++| **Preuves** | `orchestrator.rejected` |
++| **Risques** | Contournement |
++| **Stop** | Push réussi |
++| **Candidats** | Denylist `27` |
++| **Gate** | — |
++
++#### US-E3-03 — Erreurs / timeouts Git
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | GitReaderPort |
++| **Besoin** | Timeout et erreurs ≠ GO ; état safe |
++| **Valeur** | Fail-closed |
++| **Priorité** | Should |
++| **Dépendances** | US-E3-01 |
++| **G/W/T** | Given timeout ; When détecté ; Then rejet/arrêt journalisé sans autorisation |
++| **Preuves** | Événement timeout |
++| **Risques** | Hang |
++| **Stop** | Timeout = succès |
++| **Candidats** | Config timeout |
++| **Gate** | — |
++
++---
++
++### E4 — CursorExecutorPort
++
++#### US-E4-01 — Contrat de port (pas d’API inventée)
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | CursorExecutorPort |
++| **Besoin** | Interface `execute(contract) → result` ; modes fixture / manual / future-adapter |
++| **Valeur** | Remplaçabilité |
++| **Priorité** | Must |
++| **Dépendances** | E1 |
++| **G/W/T** | Given un port ; When fixture mode ; Then résultat déterministe sans API Cursor inventée |
++| **Preuves** | Fixture run |
++| **Risques** | API inventée |
++| **Stop** | Dépendance à une API non prouvée présentée comme réelle |
++| **Candidats** | Port + adapters |
++| **Gate** | Spike mécanisme réel Cursor avant claim « réel » |
++
++#### US-E4-02 — Capture I/O + STOP
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | CursorExecutorPort |
++| **Besoin** | Capturer entrées/sorties/erreurs ; honorer STOP |
++| **Valeur** | Preuve + contrôle |
++| **Priorité** | Must |
++| **Dépendances** | US-E4-01, E2 |
++| **G/W/T** | Given exécution en cours ; When STOP ; Then arrêt prioritaire + preuve |
++| **Preuves** | `execution.stopped` |
++| **Risques** | Orphelin process |
++| **Stop** | STOP ignoré |
++| **Candidats** | Port |
++| **Gate** | — |
++
++---
++
++### E5 — Policy / allowlist S1
++
++#### US-E5-01 — Allowlist / denylist appliquées
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | PolicyEngine |
++| **Besoin** | Appliquer listes `27` ; défaut = deny |
++| **Valeur** | Bornage S1 |
++| **Priorité** | Must |
++| **Dépendances** | Doc `27` validée |
++| **G/W/T** | Given action hors allowlist ; When évaluée ; Then rejet |
++| **Preuves** | Rejet + raison |
++| **Risques** | Liste trop large |
++| **Stop** | Action non listée acceptée |
++| **Candidats** | Config policy |
++| **Gate** | Validation Morris allowlist (`27`) |
++
++#### US-E5-02 — Pas de retry auto après rejet
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | Après rejet : correction + nouveau GO |
++| **Valeur** | Autorité Morris |
++| **Priorité** | Must |
++| **Dépendances** | US-E5-01 |
++| **G/W/T** | Given rejet ; When sans nouveau GO ; Then aucune réexécution |
++| **Preuves** | Absence d’événement run |
++| **Risques** | Boucle auto |
++| **Stop** | Retry silencieux |
++| **Candidats** | StateMachine |
++| **Gate** | — |
++
++---
++
++### E6 — Adaptateur Studio
++
++#### US-E6-01 — Transmission intention / GO / STOP / statut
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Adaptateur |
++| **Besoin** | Transmettre sans décider ; corréler ; retourner vues |
++| **Valeur** | Option B |
++| **Priorité** | Must |
++| **Dépendances** | E1, E2 |
++| **G/W/T** | Given un GO Studio ; When transmis ; Then harness revalide indépendamment |
++| **Preuves** | Enveloppes + revalidation |
++| **Risques** | Autorité adaptateur |
++| **Stop** | Adaptateur évalue allowlist ou exécute Git |
++| **Candidats** | Module adaptateur (protocole **ouvert**) |
++| **Gate** | Spike protocole |
++
++#### US-E6-02 — Pas de vérité durable exclusive
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Adaptateur / Studio |
++| **Besoin** | Pas de store d’état non reconstructible depuis le journal |
++| **Valeur** | Git/journal = vérité |
++| **Priorité** | Must |
++| **Dépendances** | E9 |
++| **G/W/T** | Given UI restart ; When statut relu ; Then dérivé du journal harness |
++| **Preuves** | Test désync |
++| **Risques** | Seconde vérité |
++| **Stop** | État UI non dérivable |
++| **Candidats** | Adapter + vues |
++| **Gate** | — |
++
++---
++
++### E7 — Cockpit Studio
++
++#### US-E7-01 — Vues intention / gate / état / rejet / STOP / preuves
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Morris (UI) |
++| **Besoin** | Surfaces minimales pour intention, gate explicite, suivi, preuves |
++| **Valeur** | Pilotage humain |
++| **Priorité** | Must |
++| **Dépendances** | E6 |
++| **G/W/T** | Given une exécution ; When Morris ouvre les vues ; Then statut = journal ; GO = action explicite |
++| **Preuves** | Capture runtime (après UI) + traces |
++| **Risques** | Orch. dans UI |
++| **Stop** | Bouton ambigu = GO |
++| **Candidats** | Extensions minimales `app/**` **uniquement au delivery** (POC-G9) |
++| **Gate** | POC-G9 pour toucher `app/**` |
++
++#### US-E7-02 — UI indisponible ≠ corruption harness
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Harness |
++| **Besoin** | Continuer / s’arrêter proprement sans Studio |
++| **Valeur** | Résilience |
++| **Priorité** | Must |
++| **Dépendances** | US-E2-05 |
++| **G/W/T** | Given Studio down ; When harness actif ; Then pas de GO implicite ; Option A possible |
++| **Preuves** | Run sans UI |
++| **Risques** | Couplage |
++| **Stop** | Harness bloqué sans UI pour tests |
++| **Candidats** | Harness |
++| **Gate** | — |
++
++---
++
++### E8 — Sécurité
++
++#### US-E8-01 — Abuse cases fail-closed
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Security / QA |
++| **Besoin** | Couvrir falsification GO, replay, hash, élévation, injection, contournement, fuite preuve |
++| **Valeur** | Critical |
++| **Priorité** | Must |
++| **Dépendances** | E2–E6 |
++| **G/W/T** | Given chaque abuse case `27` ; When tenté ; Then rejet + journal |
++| **Preuves** | Matrice abuse |
++| **Risques** | Faux positifs confiance |
++| **Stop** | Un abuse case réussi |
++| **Candidats** | Tests sécurité |
++| **Gate** | — |
++
++---
++
++### E9 — Observabilité
++
++#### US-E9-01 — Journal corrélé + preuves Git/Cursor/refus/STOP
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Observabilité |
++| **Besoin** | JSONL + refs preuves pour chaque transition clé |
++| **Valeur** | Audit |
++| **Priorité** | Must |
++| **Dépendances** | US-E2-04 |
++| **G/W/T** | Given scénario S1 ; When terminé ; Then pack preuves complet |
++| **Preuves** | Dossier preuves |
++| **Risques** | Incomplete trail |
++| **Stop** | Transition sans événement |
++| **Candidats** | ProofStore |
++| **Gate** | — |
++
++---
++
++### E10 — QA
++
++#### US-E10-01 — Batterie tests S1
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | QA |
++| **Besoin** | Unitaires contrats, intégration locale, refus, STOP, sans Studio, désync |
++| **Valeur** | Confiance |
++| **Priorité** | Must |
++| **Dépendances** | E1–E9 |
++| **G/W/T** | Given suite QA ; When exécutée ; Then scénarios Must verts |
++| **Preuves** | Rapport tests |
++| **Risques** | Tests UI only |
++| **Stop** | Pas de test sans Studio |
++| **Candidats** | Suite locale (outil ouvert) |
++| **Gate** | — |
++
++---
++
++### E11 — Démonstration
++
++#### US-E11-01 — Dossier démo Morris
++
++| Champ | Contenu |
++|-------|---------|
++| **Persona** | Morris |
++| **Besoin** | Pack : nominal, rejet, STOP, UI down, critères abandon/itération/poursuite |
++| **Valeur** | Décision post-POC |
++| **Priorité** | Should |
++| **Dépendances** | E10 |
++| **G/W/T** | Given POC exécuté ; When pack remis ; Then décision possible |
++| **Preuves** | Pack démo |
++| **Risques** | Démo non reproductible |
++| **Stop** | Preuve manquante scénario obligatoire |
++| **Candidats** | Doc preuves |
++| **Gate** | Décision post-POC (DF-G6 proposé) |
++
++---
++
++## 6. Tâches techniques (futures — non exécutées ici)
++
++| ID | Tâche | Epic | MoSCoW |
++|----|-------|------|--------|
++| T-01 | Schémas POCRequest / Contract / Gate / Envelope | E1 | Must |
++| T-02 | Implémenter StateMachine + journal JSONL | E2 | Must |
++| T-03 | GateValidator + PolicyEngine + config allowlist | E2/E5 | Must |
++| T-04 | GitReaderPort read-only | E3 | Must |
++| T-05 | CursorExecutorPort fixture + manual | E4 | Must |
++| T-06 | Spike protocole adaptateur (critères `28`) | E6 | Should |
++| T-07 | Spike mécanisme Cursor réel (si claim réel) | E4 | Should |
++| T-08 | Adaptateur + cockpit minimal (delivery only) | E6/E7 | Must |
++| T-09 | Matrice abuse + tests | E8/E10 | Must |
++| T-10 | Pack démo | E11 | Should |
++
++---
++
++## 7. Séquencement candidat (futur delivery — POC-G9 requis)
++
++```text
++1. E1 contrats
++2. E2 harness + E5 policy
++3. E3 GitReader
++4. E4 CursorPort (fixture d’abord)
++5. E9 preuves
++6. E8 abuse
++7. E10 QA sans Studio
++8. E6 adaptateur + E7 cockpit (app/** seulement si POC-G9)
++9. E11 démo
++```
++
++---
++
++## 8. Spikes ouverts (pas de conclusion)
++
++| Spike | Options | Critères de sortie | Gate Morris ? |
++|-------|---------|-------------------|---------------|
++| Techno harness | Node/TS candidat ; autres ; **Docker** = option/spike non décidé | Simplicité, testabilité, local macOS, alignement repo | Si écart majeur au candidat |
++| Protocole adaptateur | fichier / child / HTTP local / IPC / CLI | Simplicité, sécu, obs., pas de service inutile | Si structurante |
++| Cursor réel | fixture / manual / adapter futur | Preuve mécanisme réel avant claim | **Oui** avant « Cursor réel » |
++
++---
++
++## 9. Risques backlog
++
++| Risque | Mitigation |
++|--------|------------|
++| Dérive Option C | Stories E6/E7 bornées ; stop conditions |
++| Allowlist floue | Doc `27` + validation Morris |
++| API Cursor inventée | Port + spike |
++| Confusion backlog = delivery | POC-G9 fermé ; pas de code |
++| Seconde vérité UI | US-E6-02 / E7 |
++
++---
++
++## 10. Statut gates
++
++| Gate | Statut |
++|------|--------|
++| POC-G8 | **OUVERT / CONSOMMÉ** pour ce backlog |
++| POC-G9 | **FERMÉ** |
++| Delivery / lancement POC | **NON AUTORISÉS** |
++
++---
++
++*Backlog S1 Option B — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ — techno/protocole ouverts.*
+diff --git a/projects/sfia-studio/27-poc-orchestration-allowlist-and-acceptance.md b/projects/sfia-studio/27-poc-orchestration-allowlist-and-acceptance.md
+new file mode 100644
+index 0000000..774a41b
+--- /dev/null
++++ b/projects/sfia-studio/27-poc-orchestration-allowlist-and-acceptance.md
+@@ -0,0 +1,245 @@
++# SFIA Studio — Allowlist, denylist et critères d’acceptation POC S1
++
++| Métadonnée | Valeur |
++|------------|--------|
++| **Document** | `27-poc-orchestration-allowlist-and-acceptance.md` |
++| **Cycle** | 5 — Backlog |
++| **Profil** | Critical |
++| **Gate** | POC-G8 CONSOMMÉ |
++| **POC-G9** | **FERMÉ** |
++| **POC** | **NON LANCÉ** |
++| **Statut allowlist** | **CANDIDATE** — validation Morris requise |
++| **Architecture** | Option B minimale (inchangée) |
++| **Base** | `main` @ `60e6880…` |
++
++> Défaut = **deny**. Toute action non listée est refusée. Fail-closed.
++
++---
++
++## 1. Principes
++
++1. Allowlist explicite > conventions implicites.
++2. Harness applique et revalide ; Studio / adaptateur **n’évaluent pas**.
++3. `contractHash` lie le GO au contrat ; modif ⇒ GO invalide.
++4. `gitEffect=none-remote` pour le POC S1.
++5. Pas de retry automatique après rejet.
++6. Timeout / absence de message ≠ GO.
++7. STOP prioritaire.
++8. Secrets exclus du journal et des preuves affichées.
++
++---
++
++## 2. Allowlist Git candidate
++
++### 2.1 Commandes autorisées (lecture)
++
++| Commande | Usage S1 | Bornes |
++|----------|----------|--------|
++| `git branch --show-current` | Branche courante | — |
++| `git rev-parse HEAD` | HEAD | — |
++| `git rev-parse origin/main` | Réf main | Ref explicite |
++| `git merge-base <a> <b>` | Divergence | Refs allowlistées |
++| `git status --short` | État worktree | — |
++| `git diff --check` | Whitespace | Paths allowlistés |
++| `git diff --stat` | Résumé | Paths allowlistés |
++| `git diff --name-status` | Fichiers | Paths allowlistés |
++| `git log` | Historique | `--oneline` + limite ≤ 20 ; refs allowlistées |
++| `git show <ref>:<path>` | Contenu | Ref + path allowlistés |
++| `git ls-remote` | Lecture remote | **read-only** ; pas de write |
++
++### 2.2 Interdit (denylist Git) — non exhaustif, défaut deny
++
++- `git add`, `git commit`, `git push`
++- `git merge`, `git rebase`, `git cherry-pick`
++- `git reset` destructif (`--hard`, etc.)
++- `git checkout` / `git restore` destructifs de worktree hors preuve locale contrôlée
++- `git clean`, suppression de branche
++- modification de remote / `git remote set-url`
++- write GitHub (PR create/merge, releases, secrets)
++- tout shell composé non listé (`&&`, pipes vers write, etc.)
++
++**Effet attendu :** rejet `orchestrator.rejected` ; aucune exécution.
++
++---
++
++## 3. Allowlist documentaire / fichiers candidate
++
++### 3.1 Chemins candidats (à figer dans le contrat d’exécution)
++
++| Zone | Exemple | Règle |
++|------|---------|-------|
++| Projet Studio docs | `projects/sfia-studio/*.md` (hors `app/**` sauf GO delivery) | Lecture |
++| Méthode (si contrat) | chemins méthode explicitement listés | Lecture |
++| Preuves locales | `proofDir` dédié POC | Lecture/écriture **locale** preuves seulement |
++| Fixtures POC | répertoire fixtures déclaré | Lecture |
++
++### 3.2 Bornes
++
++| Borne | Valeur candidate |
++|-------|------------------|
++| Extensions | `.md`, `.txt`, `.json`, `.jsonl` (autres = deny) |
++| Nb max fichiers / run | 30 |
++| Taille max / fichier | 512 KiB |
++| Taille max agrégée | 5 MiB |
++| Traversée | Interdite (`..`, symlinks hors root) |
++| Secrets | Interdits (`.env`, credentials, clés) |
++| `app/**` | **Interdit** en S1 backlog/delivery sauf GO POC-G9 explicite borné |
++| Chemins protégés méthode | Selon règles repo — deny par défaut |
++
++---
++
++## 4. Allowlist Cursor candidate
++
++| Règle | Détail |
++|-------|--------|
++| Entrée | Via `CursorExecutorPort` uniquement |
++| Modes | `fixture` (Must) · `manual` (Must) · `real-adapter` (ouvert — spike) |
++| Instruction | Bornée par contrat (objectif DOC read-only) |
++| CWD | Répertoire imposé par contrat |
++| Timeout | Configurable (candidat 120–300 s) |
++| Sortie | Capturée (stdout/stderr/artefacts locaux) |
++| Hors scope | Deny |
++| Action distante | Deny |
++| Élargissement autonome | Deny |
++| API inventée | **Interdite** |
++
++---
++
++## 5. Allowlist adaptateur / Studio
++
++| Autorisé | Interdit |
++|----------|----------|
++| Émettre intention | Créer GO |
++| Transmettre GO/STOP explicites Morris | Interpréter clic ambigu comme GO |
++| Interroger statut | Exécuter Git/Cursor |
++| Afficher vues dérivées | Évaluer allowlist |
++| Corrélation IDs | Persister vérité exclusive |
++| | Modifier contrat / hash |
++| | Retry auto / auto-clôture |
++
++---
++
++## 6. Contrats autorisés (rappel)
++
++Voir `24` : `StudioIntent`, `StudioGateSubmission` (GO + `contractHash`), `StudioStopRequest`, `AdapterEnvelope`, `StudioExecutionView`, plus contrats cœur harness.
++
++**Invariant :** GO sans `contractHash` valide = rejet.
++
++---
++
++## 7. Scénarios d’acceptation Must
++
++### A1 — Nominal S1
++
++| | |
++|--|--|
++| **Given** | Intention DOC bornée + contrat hashé + allowlist OK + Git readable |
++| **When** | Morris émet GO explicite |
++| **Then** | Harness revalide ; exécute read-only ; journalise ; produit preuves ; Studio affiche statut dérivé |
++| **Preuves** | GO, journal, HEAD, artefacts, `gitEffect=none-remote` |
++
++### A2 — Rejet hors allowlist
++
++| | |
++|--|--|
++| **Given** | Demande `git push` ou path hors liste |
++| **When** | Policy évalue |
++| **Then** | Rejet ; aucune exécution Cursor write ; événement journalisé ; pas de retry auto |
++| **Preuves** | `orchestrator.rejected` |
++
++### A3 — Contrat modifié / hash mismatch
++
++| | |
++|--|--|
++| **Given** | GO émis pour hash H1 |
++| **When** | Contrat devient H2 |
++| **Then** | GO invalide ; rejet ; nouveau GO requis |
++| **Preuves** | reject + hashes |
++
++### A4 — STOP
++
++| | |
++|--|--|
++| **Given** | Exécution active |
++| **When** | STOP explicite Morris |
++| **Then** | Arrêt prioritaire ; preuve STOP ; pas de poursuite |
++| **Preuves** | `execution.stopped` |
++
++### A5 — Sans Studio (Option A)
++
++| | |
++|--|--|
++| **Given** | Harness seul + fixtures |
++| **When** | Scénario A1/A2 |
++| **Then** | Preuves produites sans UI |
++| **Preuves** | Run CLI/fixture |
++
++### A6 — UI indisponible
++
++| | |
++|--|--|
++| **Given** | Studio down |
++| **When** | Message absent / timeout |
++| **Then** | ≠ GO ; harness non corrompu |
++| **Preuves** | Journal timeout/safe |
++
++---
++
++## 8. Critères fail-closed
++
++1. Défaut deny.
++2. Erreur / timeout / message manquant ⇒ pas d’autorisation.
++3. Hash mismatch ⇒ rejet.
++4. Scope elevation ⇒ rejet.
++5. Replay GO consommé ⇒ rejet / no-op journalisé.
++6. Injection path / command ⇒ rejet.
++7. Contournement harness (appel direct Git/Cursor depuis UI) ⇒ hors design ; tests de non-régression.
++8. Fuite secret ⇒ stop + redaction.
++
++---
++
++## 9. Abuse cases (matrice minimale)
++
++| ID | Case | Attendu |
++|----|------|---------|
++| AB-01 | Falsification GO UI | Rejet harness |
++| AB-02 | Replay enveloppe | Rejet / no-op |
++| AB-03 | Altération contractHash | Rejet |
++| AB-04 | Élévation scope | Rejet |
++| AB-05 | Injection `../` / commande | Rejet |
++| AB-06 | Contournement harness | Non possible via adaptateur ; test |
++| AB-07 | Exposition preuve sensible | Redaction / deny |
++| AB-08 | Studio down pendant run | Safe / STOP possible côté harness |
++
++---
++
++## 10. Preuves attendues (pack S1)
++
++| Preuve | Obligatoire |
++|--------|-------------|
++| Trace GO Morris + hash | Oui |
++| Journal JSONL corrélé | Oui |
++| Trace rejet allowlist | Oui |
++| HEAD / status Git avant-après (read) | Oui |
++| Affirmation `none-remote` | Oui |
++| Artefacts Cursor/fixture | Oui |
++| Trace STOP | Oui (scénario A4) |
++| Preuve run sans Studio | Oui |
++| Preuve statut UI dérivé | Oui (si cockpit livré) |
++
++---
++
++## 11. Validation Morris requise
++
++Cette allowlist / denylist est **candidate**.
++
++Avant POC-G9, Morris doit :
++
++1. Valider ou corriger les listes §2–§5.
++2. Valider les bornes fichiers §3.2.
++3. Confirmer modes Cursor acceptables pour le 1er delivery.
++4. Confirmer que `app/**` reste hors S1 jusqu’à GO delivery borné.
++
++---
++
++*Allowlist S1 candidate — POC-G8 — POC-G9 FERMÉ — POC NON LANCÉ — défaut deny.*
+diff --git a/projects/sfia-studio/28-poc-orchestration-delivery-gate-pack.md b/projects/sfia-studio/28-poc-orchestration-delivery-gate-pack.md
+new file mode 100644
+index 0000000..32bee4f
+--- /dev/null
++++ b/projects/sfia-studio/28-poc-orchestration-delivery-gate-pack.md
+@@ -0,0 +1,175 @@
++# SFIA Studio — Gate pack delivery POC S1 (prérequis POC-G9)
++
++| Métadonnée | Valeur |
++|------------|--------|
++| **Document** | `28-poc-orchestration-delivery-gate-pack.md` |
++| **Cycle** | 5 — Backlog |
++| **Profil** | Critical |
++| **POC-G8** | **CONSOMMÉ** (backlog produit) |
++| **POC-G9** | **FERMÉ** — décision Morris distincte |
++| **POC** | **NON LANCÉ** |
++| **Delivery** | **NON AUTORISÉ** |
++| **Base** | `main` @ `60e6880…` |
++| **Architecture** | Option B minimale (inchangée) |
++
++> Ce document **prépare** POC-G9. Il ne l’ouvre pas. Il n’autorise ni code, ni `app/**`, ni lancement.
++
++---
++
++## 1. Couverture backlog
++
++| Epic | Couvert dans `26` | Ready pour instruction delivery ? |
++|------|-------------------|-----------------------------------|
++| E1 Contrats | Oui | Oui (après validation Morris backlog) |
++| E2 Harness | Oui | Oui |
++| E3 GitReader | Oui | Oui |
++| E4 CursorPort | Oui | Oui — réel = spike |
++| E5 Policy | Oui + `27` | Oui — allowlist candidate |
++| E6 Adaptateur | Oui | Oui — protocole ouvert |
++| E7 Cockpit | Oui | Oui — `app/**` seulement si POC-G9 |
++| E8 Sécurité | Oui | Oui |
++| E9 Observabilité | Oui | Oui |
++| E10 QA | Oui | Oui |
++| E11 Démo | Oui | Should |
++
++---
++
++## 2. Prérequis POC-G9 (checklist)
++
++Avant tout GO delivery, Morris doit disposer de :
++
++1. Backlog `26` validé (ou corrections actées).
++2. Allowlist/denylist `27` **validée** (plus seulement candidate).
++3. Confirmation Option B : Studio cockpit / adaptateur fin / harness autonome.
++4. Confirmation hors périmètre : no remote write, no L5 global, no MVP.
++5. Décision explicite sur modes Cursor acceptés pour le 1er incrément (fixture±manual).
++6. Décision sur touch `app/**` (oui borné / non — harness-only d’abord).
++7. Stratégie de preuve acceptée (§5).
++8. Plan de réversibilité (§7).
++9. Aucune techno/protocole présentée comme définitive sans preuve.
++
++**POC-G9 reste FERMÉ jusqu’à GO Morris explicite.**
++
++---
++
++## 3. Risques delivery (à traiter si POC-G9)
++
++| Risque | Sévérité | Mitigation |
++|--------|----------|------------|
++| Dérive Option C (orch. dans app) | Haute | Revues ; orch. hors `app/**` |
++| Allowlist trop large | Haute | Validation `27` ; défaut deny |
++| API Cursor inventée | Haute | Port + fixture ; spike avant « réel » |
++| Seconde vérité UI | Haute | Statut dérivé journal |
++| Écriture Git accidentelle | Haute | Denylist + tests A2 |
++| Service permanent inutile | Moyenne | Processus local à la demande |
++| Scope creep multi-scénario | Moyenne | S1 only |
++
++---
++
++## 4. Réserves conservées (architecture)
++
++1. Cursor réel non prouvé.
++2. Technologie harness ouverte (Node/TS candidat).
++3. Protocole adaptateur ouvert.
++4. Allowlist détaillée = candidate jusqu’à validation Morris.
++5. `app/**` uniquement delivery borné.
++6. QA non-seconde-vérité.
++7. Clôture AF séparée.
++8. POC-G9 / lancement non autorisés ici.
++9. **Docker** : option / spike d’évaluation possible avant POC-G9 — **non décidé**, ni obligatoire ni exclu.
++
++---
++
++## 5. Stratégie de preuve (delivery futur)
++
++| Phase | Preuve |
++|-------|--------|
++| Harness-only | A1, A2, A4, A5 (`27`) verts |
++| Sécurité | Matrice AB-01…08 |
++| Option B UI | A1 + A6 + preuve statut dérivé |
++| Démo Morris | Pack E11 |
++
++Outils de test : ouverts (alignement repo). Pas de CI Studio imposée dans ce pack.
++
++---
++
++## 6. Sécurité (gate)
++
++- Authority : Morris L0 ; harness revalide.
++- Intégrité : `contractHash`.
++- Replay : détection GO consommé.
++- Injection : paths/commands.
++- Fail-closed : défaut deny.
++- Journal : pas de secrets.
++- STOP : prioritaire.
++
++---
++
++## 7. Observabilité / réversibilité
++
++| Thème | Exigence |
++|-------|----------|
++| Journal | JSONL corrélé |
++| Preuves | Locales sous proofDir |
++| Corrélation | request/execution/gate IDs |
++| Erreurs | Explicitement journalisées |
++| Reprise | Nouveau GO après rejet |
++| Réversibilité | Pas d’effet distant ; cleanup local preuves possible |
++| Mode dégradé | Option A sans Studio |
++
++---
++
++## 8. FinOps / GreenOps
++
++- Local macOS.
++- Pas de composant managé.
++- Pas de daemon permanent non nécessaire.
++- Protocole simple.
++- Dette minimale.
++
++---
++
++## 9. Décision Morris attendue (future)
++
++### Question POC-G9
++
++Autorisez-vous le **delivery** du POC S1 Option B selon `26`/`27`/`28` ?
++
++Sous-questions :
++
++1. Validez-vous l’allowlist `27` ?
++2. Autorisez-vous un premier incrément **harness-only** (sans `app/**`) ?
++3. Si UI : quelles surfaces `app/**` minimales ?
++4. Modes Cursor : fixture seulement / + manual / spike réel ?
++5. Commit/push/PR delivery = gates séparés après POC-G9.
++
++### Conséquences
++
++| Décision | Effet |
++|----------|-------|
++| GO POC-G9 | Delivery documentaire+code borné possible (cycle dédié) |
++| NO-GO | Backlog reste ; pas d’implémentation |
++| GO harness-only | `app/**` reste intact |
++| Claim Cursor réel | Spike + preuve obligatoires |
++
++---
++
++## 10. Verdict futur (non actuel)
++
++Verdict **candidat** après POC-G9 réussi + démo :
++
++`POC S1 EVIDENCE COMPLETE — MORRIS POST-POC DECISION REQUIRED`
++
++**Verdict actuel de ce cycle :**
++
++`POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`
++
++---
++
++## 11. Actions interdites (rappel)
++
++code · `app/**` · commit/push/PR · merge · ouverture POC-G9 · lancement POC · L5 · writes Git distantes · choix techno/protocole définitifs sans preuve
++
++---
++
++*Gate pack delivery — prépare POC-G9 — ne l’ouvre pas — POC NON LANCÉ.*
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
 index dbf221e..1c6614c 100644
 --- a/projects/sfia-studio/README.md
@@ -1826,35 +2871,22 @@ index dbf221e..1c6614c 100644
 
 ---
 
-## 15. Validations
+## 11. Commit / Push / PR
 
-| Check | Résultat |
-|-------|----------|
-| `git diff --check` | PASS |
-| 3 créés + ≤8 modifiés | PASS (8M dont 23/24 statut) |
-| Aucun app/** / code / staged | PASS |
-| Option B inchangée | PASS |
-| POC-G9 fermé | PASS |
-| POC non lancé | PASS |
-| Allowlist candidate | PASS |
-| Techno/protocole ouverts | PASS |
+| Champ | Valeur |
+|-------|--------|
+| Commit | `c635cbed6085f89f34623e0a63ff59d3ba9536ec` — `docs(sfia-studio): define governed S1 POC backlog` |
+| Push | `origin/backlog/sfia-studio-poc-orchestration-s1` = HEAD |
+| PR | **#223** draft OPEN ; merged=false ; base=main ; 11 fichiers |
 
 ---
 
-## 16. Décisions Morris restantes
+## 12. Actions interdites restantes
 
-1. Validation backlog / allowlist
-2. POC-G9 (delivery) — fermé
-3. Clôture AF
+merge · ready-for-review · POC-G9 · delivery · code · app/** · Docker imposé · lancement POC · L5 · writes distantes
 
 ---
 
-## 17. Actions interdites
+## 13. Verdict
 
-commit/push/PR · merge · code · app/** · POC-G9 · lancement · L5 · writes distantes · choix techno définitif
-
----
-
-## 18. Verdict
-
-**`POC BACKLOG COMPLETE WITH RESERVES — POC-G8 CONSUMED — POC-G9 DECISION REQUIRED`**
+**`PR READINESS COMPLETE WITH RESERVES — GOVERNED S1 BACKLOG DRAFT PR OPEN — POC-G9 CLOSED`**
