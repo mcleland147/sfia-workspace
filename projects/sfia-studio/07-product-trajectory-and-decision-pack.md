@@ -273,8 +273,8 @@ Pré-cadrage
 | D-NEXT-28 | Ouverture POC-G9 (delivery harness-only) | Morris | **CONSOMMÉ** |
 | D-NEXT-29 | Commit/push/draft PR delivery harness | Morris | **CONSOMMÉ** (Cycle 13) — merge **fermé** |
 | D-NEXT-30 | UI app/** / Cursor réel / Docker | Morris | UI/Docker **fermés** ; spike Cursor **prouvé avec réserves** (`29`, #225) |
-| D-NEXT-31 | Spike GPT/OpenAI live (clé + modèle) | Morris | **CONSOMMÉ** — S-GPT-09/10 live prouvés avec réserves (`30`) ; versionnement/PR ouvert |
-| D-NEXT-32 | Test bout-en-bout GPT→Cursor réel→GPT | Morris | **CONSOMMÉ** — e2e sandbox prouvé avec réserves (`31`) ; merge **fermé** |
+| D-NEXT-31 | Spike GPT/OpenAI live (clé + modèle) | Morris | **CONSOMMÉ** — S-GPT-09/10 live prouvés avec réserves (`30`) ; **intégré** PR **#226** MERGED (`d304223…`) |
+| D-NEXT-32 | Test bout-en-bout GPT→Cursor réel→GPT | Morris | **CONSOMMÉ** — e2e sandbox prouvé avec réserves (`31`) ; **intégré** PR **#226** MERGED (`d304223…`) ; non production-ready |
 
 ---
 
