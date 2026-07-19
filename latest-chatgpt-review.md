@@ -1,1983 +1,1397 @@
-# SFIA Review Pack — Cycle 8 Delivery P0 Implementation
-
-- **Date / heure :** 2026-07-19 02:59:21 UTC+02:00 (UTC+0200)
-- **Cycle :** 8 — Delivery / implémentation
-- **Profil :** Critical
-- **Typologie :** EVOL
-- **Repository :** `/Users/morris/Projects/sfia-workspace`
-- **Branche projet :** `project/sfia-studio-delivery-p0-implementation`
-- **HEAD :** `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9` (inchangé — **aucun commit projet**)
-- **origin/main :** `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9`
-- **Push projet / PR / merge :** aucun
-
-## 1. État Git initial et final
-
-### Initial
-- Branche `main` @ `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9`
-- Workspace propre ; branche delivery inexistante localement et à distance
-- Worktrees existants hors delivery (handoff, ux-reconciliation, etc.) — aucun worktree delivery créé
-
-### Final
-- Branche : `project/sfia-studio-delivery-p0-implementation`
-- HEAD : `ff5e3f6e5849f89b992274fbf2b6a33aa15654d9`
-- Modifications uniquement : `projects/sfia-studio/app/**` (untracked) + `.tmp-sfia-review/**` (artefacts review)
-- Aucun staged ; aucun commit projet
-
-```
-?? .tmp-sfia-review/
-?? projects/sfia-studio/app/
-```
-
-## 2. Sources Git consultées
-
-- `prompts/templates/sfia-cycle-execution-template.md` (référencé)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (référencé)
-- `projects/sfia-studio/14`–`19` — **18/19 VALIDÉES** (TA-DEC-01…18)
-- `projects/task-tracker/app/package.json`, `tsconfig.json`, `vitest.config.ts`, `next.config.ts`
-- `projects/chantiers360-v2/app/playwright.config.ts` (adapté sans dotenv/DB)
-
-## 3. Contrat visuel Figma
-
-- **fileKey :** `lrjA1WEyRpL05vKR8k29LO`
-- **Page :** `UX-B — P0` (`0:1`)
-- **get_variable_defs :** `{}` (vide) — tokens extraits de `get_design_context` (hex documentés)
-
-| ID | Nom | node | Dimensions | Shell |
-|----|-----|------|------------|-------|
-| P0-00C | Nouvelle demande / Product premium | `19:2` | 1440×1024 | floating (rail/workspace/copilot inset) |
-| P0-01C | Vue synthèse / Product premium | `22:2` | 1440×1024 | flush |
-| P0-02C | Cycle actif / Product premium | `22:133` | 1440×1024 | flush |
-| P0-03C | Décision Morris / Product premium | `22:270` | 1440×1024 | flush |
-
-### Tokens structurants (extraits Figma, non inventés)
-
-```css
-/**
- * SFIA Studio design tokens — extracted from Figma fileKey lrjA1WEyRpL05vKR8k29LO
- * get_variable_defs returned empty; hex values documented from get_design_context.
- */
-
-:root {
-  /* Flush palette (P0-01/02/03 — primary) */
-  --sfia-bg: #f6f9ff;
-  --sfia-ink: #141c30;
-  --sfia-blue: #3863f5;
-  --sfia-purple: #7a4df5;
-  --sfia-green: #21c28a;
-  --sfia-orange: #faa629;
-  --sfia-muted: #636e85;
-  --sfia-border: #e0e5f5;
-  --sfia-border-soft: #e6eaf2;
-  --sfia-navy: #0f172e;
-  --sfia-pink: #f25794;
-  --sfia-blue-soft: #edf2ff;
-  --sfia-purple-soft: #f5ebff;
-  --sfia-surface: #fbfcff;
-  --sfia-hero-synthese: #141f47;
-  --sfia-hero-cycle: #121f4a;
-  --sfia-hero-decision: #121a38;
-
-  /* Floating palette (P0-00C variants) */
-  --sfia-bg-00c: #f6f9fe;
-  --sfia-ink-00c: #131729;
-  --sfia-blue-00c: #2e6bf2;
-  --sfia-purple-00c: #8c47f2;
-  --sfia-green-00c: #14b87a;
-  --sfia-orange-00c: #ffad2e;
-  --sfia-muted-00c: #6e7894;
-  --sfia-border-00c: #e3e8f5;
-  --sfia-blue-soft-00c: #e8f2ff;
-  --sfia-purple-soft-00c: #f5edff;
-  --sfia-green-soft-00c: #e5faf2;
-  --sfia-orange-soft-00c: #fff7e0;
-  --sfia-accent-pink-00c: #f552a3;
-
-  /* Brand accent gradient */
-  --sfia-gradient-brand-start: #5b5ce2;
-  --sfia-gradient-brand-mid: #8b5cf6;
-  --sfia-gradient-brand-end: #06b6d4;
-
-  /* Shadows (Figma) */
-  --sfia-shadow-sm: 0 6px 9px rgba(43, 56, 115, 0.08);
-  --sfia-shadow-md: 0 8px 12px rgba(23, 37, 84, 0.1);
-  --sfia-shadow-lg: 0 8px 24px rgba(36, 46, 89, 0.08);
-  --sfia-shadow-xl: 0 10px 14px rgba(43, 56, 115, 0.12);
-  --sfia-shadow-panel: 0 8px 24px rgba(23, 37, 84, 0.1);
-  --sfia-shadow-hero: 0 12px 26px rgba(36, 46, 89, 0.18);
-  --sfia-shadow-workspace: 0 10px 28px rgba(36, 46, 89, 0.08);
-
-  /* Layout (1440×1024 reference) */
-  --sfia-rail-width: 64px;
-  --sfia-topbar-height: 116px;
-  --sfia-copilot-width-flush: 340px;
-  --sfia-copilot-width-floating: 334px;
-  --sfia-canvas-offset-flush: 92px;
-  --sfia-brand-accent-left: 84px;
-  --sfia-brand-accent-width: 4px;
-  --sfia-brand-accent-height: 150px;
-  --sfia-brand-accent-top: 120px;
-
-  /* Typography */
-  --sfia-font: var(--font-inter, "Inter", system-ui, sans-serif);
-  --sfia-radius-sm: 12px;
-  --sfia-radius-md: 16px;
-  --sfia-radius-lg: 20px;
-  --sfia-radius-xl: 24px;
-}
-
-```
-
-### Géométrie shell
-- Brand accent 4×150 @ left 84 / top 120, gradient `#5b5ce2 → #8b5cf6 → #06b6d4`
-- Floating : padding 18 ; rail 64×988 ; workspace 968 ; copilot 334
-- Flush : rail 64 full-height ; topbar 116 ; canvas offset 92 ; copilot 340
-
-## 4. Architecture implémentée
-
-```
-Next.js 15 App Router + React 19 + TypeScript strict
-npm + package-lock.json
-CSS Modules + --sfia-* custom properties
-Vitest + Testing Library + Playwright + axe-core
-Port 3020 — aucune API route — fixtures TS locales
-Git/Cursor/Runtime = simulés / disabled
-```
-
-### Adaptations documentées
-1. Tokens via design context (variable_defs vide).
-2. Deux variantes shell (`floating` / `flush`) selon frames Figma.
-3. Points de statut = cercles CSS (couleurs Figma) plutôt qu’assets ellipse expirables.
-4. `hero-orb.svg` export MCP versionné sous `public/icons/`.
-5. Correctif layout flush : `pageFlush` ne devait pas contraindre `mainFlush` à la hauteur topbar (overflow masquait le canvas) — corrigé avant captures finales.
-6. Dépendance `axe-core` pour smoke a11y Playwright (autorisée).
-7. Chemin screenshots e2e → `.tmp-sfia-review/screenshots/` (hors commit par défaut).
-
-## 5. Arborescence (hors node_modules / .next)
-
-```
-README.md
-__tests__/fixtures.test.ts
-__tests__/gates.test.tsx
-__tests__/navigation.test.tsx
-__tests__/recommendation-vs-decision.test.tsx
-__tests__/setup.ts
-__tests__/shell.test.tsx
-__tests__/status-pill.test.tsx
-app/cycle-actif/page.tsx
-app/decision/page.tsx
-app/globals.css
-app/layout.tsx
-app/not-found.tsx
-app/nouvelle-demande/page.tsx
-app/page.tsx
-app/synthese/page.tsx
-components/shell/CopilotPanel.tsx
-components/shell/StudioShell.tsx
-components/shell/Topbar.tsx
-components/shell/UtilityRail.tsx
-components/shell/copilot-panel.module.css
-components/shell/topbar.module.css
-components/shell/utility-rail.module.css
-components/ui/Card.tsx
-components/ui/CtaButton.tsx
-components/ui/EvidenceList.tsx
-components/ui/GateList.tsx
-components/ui/MetricCard.tsx
-components/ui/StatusPill.tsx
-components/ui/card.module.css
-components/ui/cta-button.module.css
-components/ui/evidence-list.module.css
-components/ui/gate-list.module.css
-components/ui/metric-card.module.css
-components/ui/status-pill.module.css
-e2e/p0-smoke.spec.ts
-eslint.config.mjs
-features/cycle-actif/CycleActifScreen.tsx
-features/cycle-actif/cycle-actif.module.css
-features/decision/DecisionScreen.tsx
-features/decision/decision.module.css
-features/nouvelle-demande/NouvelleDemandeScreen.tsx
-features/nouvelle-demande/nouvelle-demande.module.css
-features/synthese/SyntheseScreen.tsx
-features/synthese/synthese.module.css
-fixtures/cycles.ts
-fixtures/evidence.ts
-fixtures/gates.ts
-fixtures/git-status.ts
-fixtures/index.ts
-lib/a11y.ts
-lib/adapters/cycles.ts
-lib/adapters/decisions.ts
-lib/adapters/evidence.ts
-lib/adapters/gates.ts
-lib/adapters/git-status.ts
-lib/domain/cycle.ts
-lib/domain/evidence.ts
-lib/domain/gate.ts
-lib/domain/git-status.ts
-lib/domain/index.ts
-lib/domain/morris-decision.ts
-lib/domain/recommendation.ts
-lib/navigation.ts
-next-env.d.ts
-next.config.ts
-package-lock.json
-package.json
-playwright.config.ts
-public/icons/hero-orb.svg
-styles/shell.module.css
-styles/tokens.css
-test-results/.last-run.json
-tsconfig.json
-tsconfig.tsbuildinfo
-vitest.config.ts
-```
-
-**Total fichiers source/config :** 76
-
-## 6. Dépendances
-
-```json
-{
-  "name": "sfia-studio",
-  "private": true,
-  "version": "0.1.0",
-  "description": "SFIA Studio — Delivery P0 frontend (fixtures locales, 4 écrans Figma)",
-  "scripts": {
-    "dev": "next dev --port 3020",
-    "build": "next build",
-    "start": "next start --port 3020",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test"
-  },
-  "dependencies": {
-    "next": "^15.3.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.52.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^22.15.21",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "axe-core": "^4.10.3",
-    "eslint": "^9.27.0",
-    "eslint-config-next": "^15.3.3",
-    "jsdom": "^26.1.0",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
-  }
-}
-
-```
-
-Justifications : alignement task-tracker (next/react/eslint/vitest) + Playwright (chantiers) + Testing Library + jsdom + axe-core. Aucun Tailwind, UI kit, Redux, Axios, ORM, auth, analytics.
-
-## 7. Fichiers critiques — contenu
-
-### `package.json`
-
-```json
-{
-  "name": "sfia-studio",
-  "private": true,
-  "version": "0.1.0",
-  "description": "SFIA Studio — Delivery P0 frontend (fixtures locales, 4 écrans Figma)",
-  "scripts": {
-    "dev": "next dev --port 3020",
-    "build": "next build",
-    "start": "next start --port 3020",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test"
-  },
-  "dependencies": {
-    "next": "^15.3.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.52.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^22.15.21",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "axe-core": "^4.10.3",
-    "eslint": "^9.27.0",
-    "eslint-config-next": "^15.3.3",
-    "jsdom": "^26.1.0",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
-  }
-}
-```
-
-### `styles/tokens.css`
-
-```css
-/**
- * SFIA Studio design tokens — extracted from Figma fileKey lrjA1WEyRpL05vKR8k29LO
- * get_variable_defs returned empty; hex values documented from get_design_context.
- */
-
-:root {
-  /* Flush palette (P0-01/02/03 — primary) */
-  --sfia-bg: #f6f9ff;
-  --sfia-ink: #141c30;
-  --sfia-blue: #3863f5;
-  --sfia-purple: #7a4df5;
-  --sfia-green: #21c28a;
-  --sfia-orange: #faa629;
-  --sfia-muted: #636e85;
-  --sfia-border: #e0e5f5;
-  --sfia-border-soft: #e6eaf2;
-  --sfia-navy: #0f172e;
-  --sfia-pink: #f25794;
-  --sfia-blue-soft: #edf2ff;
-  --sfia-purple-soft: #f5ebff;
-  --sfia-surface: #fbfcff;
-  --sfia-hero-synthese: #141f47;
-  --sfia-hero-cycle: #121f4a;
-  --sfia-hero-decision: #121a38;
-
-  /* Floating palette (P0-00C variants) */
-  --sfia-bg-00c: #f6f9fe;
-  --sfia-ink-00c: #131729;
-  --sfia-blue-00c: #2e6bf2;
-  --sfia-purple-00c: #8c47f2;
-  --sfia-green-00c: #14b87a;
-  --sfia-orange-00c: #ffad2e;
-  --sfia-muted-00c: #6e7894;
-  --sfia-border-00c: #e3e8f5;
-  --sfia-blue-soft-00c: #e8f2ff;
-  --sfia-purple-soft-00c: #f5edff;
-  --sfia-green-soft-00c: #e5faf2;
-  --sfia-orange-soft-00c: #fff7e0;
-  --sfia-accent-pink-00c: #f552a3;
-
-  /* Brand accent gradient */
-  --sfia-gradient-brand-start: #5b5ce2;
-  --sfia-gradient-brand-mid: #8b5cf6;
-  --sfia-gradient-brand-end: #06b6d4;
-
-  /* Shadows (Figma) */
-  --sfia-shadow-sm: 0 6px 9px rgba(43, 56, 115, 0.08);
-  --sfia-shadow-md: 0 8px 12px rgba(23, 37, 84, 0.1);
-  --sfia-shadow-lg: 0 8px 24px rgba(36, 46, 89, 0.08);
-  --sfia-shadow-xl: 0 10px 14px rgba(43, 56, 115, 0.12);
-  --sfia-shadow-panel: 0 8px 24px rgba(23, 37, 84, 0.1);
-  --sfia-shadow-hero: 0 12px 26px rgba(36, 46, 89, 0.18);
-  --sfia-shadow-workspace: 0 10px 28px rgba(36, 46, 89, 0.08);
-
-  /* Layout (1440×1024 reference) */
-  --sfia-rail-width: 64px;
-  --sfia-topbar-height: 116px;
-  --sfia-copilot-width-flush: 340px;
-  --sfia-copilot-width-floating: 334px;
-  --sfia-canvas-offset-flush: 92px;
-  --sfia-brand-accent-left: 84px;
-  --sfia-brand-accent-width: 4px;
-  --sfia-brand-accent-height: 150px;
-  --sfia-brand-accent-top: 120px;
-
-  /* Typography */
-  --sfia-font: var(--font-inter, "Inter", system-ui, sans-serif);
-  --sfia-radius-sm: 12px;
-  --sfia-radius-md: 16px;
-  --sfia-radius-lg: 20px;
-  --sfia-radius-xl: 24px;
-}
-```
-
-### `styles/shell.module.css`
-
-```css
-.page {
-  min-height: 1024px;
-  min-width: 1440px;
-  font-family: var(--sfia-font);
-  position: relative;
-}
-
-.pageFloating {
-  composes: page;
-  background: var(--sfia-bg-00c);
-  padding: 18px;
-  display: grid;
-  grid-template-columns: 64px 968px 334px;
-  grid-template-rows: 988px;
-  gap: 18px;
-  align-items: start;
-}
-
-.pageFlush {
-  composes: page;
-  background: var(--sfia-bg);
-  display: grid;
-  grid-template-columns: var(--sfia-rail-width) 1fr;
-  grid-template-rows: minmax(1024px, auto);
-  min-height: 1024px;
-  width: 1440px;
-  max-width: 100%;
-}
-
-.brandAccent {
-  position: absolute;
-  left: var(--sfia-brand-accent-left);
-  top: var(--sfia-brand-accent-top);
-  width: var(--sfia-brand-accent-width);
-  height: var(--sfia-brand-accent-height);
-  border-radius: 2px;
-  background: linear-gradient(
-    180deg,
-    var(--sfia-gradient-brand-start) 10%,
-    var(--sfia-gradient-brand-mid) 60%,
-    var(--sfia-gradient-brand-end) 110%
-  );
-  z-index: 10;
-  pointer-events: none;
-}
-
-.railFloating {
-  width: 64px;
-  height: 988px;
-  background: #fff;
-  border: 1px solid var(--sfia-border-00c);
-  border-radius: 22px;
-  box-shadow: var(--sfia-shadow-lg);
-  position: relative;
-}
-
-.railFlush {
-  grid-row: 1 / -1;
-  width: var(--sfia-rail-width);
-  background: #fff;
-  border-right: 1px solid var(--sfia-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 17px 0;
-  gap: 12px;
-}
-
-.mainFlush {
-  display: flex;
-  flex-direction: column;
-  min-height: 1024px;
-  min-width: 0;
-}
-
-.bodyFlush {
-  display: grid;
-  grid-template-columns: 1fr var(--sfia-copilot-width-flush);
-  gap: 0;
-  padding-left: calc(var(--sfia-canvas-offset-flush) - var(--sfia-rail-width));
-  padding-right: 0;
-  flex: 1;
-  min-height: 908px;
-  align-items: start;
-}
-
-.canvasFlush {
-  padding: 32px 28px 32px 0;
-  min-width: 0;
-  overflow: visible;
-}
-
-.copilotFlush {
-  padding: 0 0 16px;
-  margin-top: 0;
-  height: 908px;
-  align-self: start;
-}
-
-.workspaceFloating {
-  width: 968px;
-  height: 988px;
-  background: #fff;
-  border: 1px solid var(--sfia-border-00c);
-  border-radius: var(--sfia-radius-xl);
-  box-shadow: var(--sfia-shadow-workspace);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.copilotFloating {
-  width: 334px;
-  height: 988px;
-  background: #fff;
-  border: 1px solid var(--sfia-border-soft);
-  border-radius: var(--sfia-radius-xl);
-  box-shadow: var(--sfia-shadow-panel);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.workspaceInner {
-  flex: 1;
-  overflow: auto;
-  padding: 0 23px 23px;
-}
-
-.workspaceTopbarFloating {
-  height: 88px;
-  padding: 18px 28px 0;
-  border-bottom: 1px solid var(--sfia-border-00c);
-  flex-shrink: 0;
-}
-
-.workspaceTabsFloating {
-  height: 54px;
-  padding: 0 28px;
-  border-bottom: 1px solid var(--sfia-border-00c);
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  flex-shrink: 0;
-}
-```
-
-### `lib/domain/types.ts` — MANQUANT ou chemin alternatif
-#### `lib/domain/evidence.ts`
-```typescript
-export type EvidenceStatus =
-  | "conforme"
-  | "validé"
-  | "disponible"
-  | "en-cours"
-  | "non-disponible";
-
-export interface Evidence {
-  id: string;
-  label: string;
-  status: EvidenceStatus;
-  statusLabel: string;
-  accent: "green" | "blue" | "orange";
-}
-```
-#### `lib/domain/gate.ts`
-```typescript
-export type GateStatus = "open" | "pending" | "closed";
-
-export interface Gate {
-  id: string;
-  label: string;
-  timing: string;
-  status: GateStatus;
-  accent: "blue" | "orange" | "purple" | "pink" | "green";
-}
-```
-#### `lib/domain/git-status.ts`
-```typescript
-export type GitCleanliness = "clean" | "dirty";
-
-export interface GitStatus {
-  repository: string;
-  branch: string;
-  commit: string;
-  cleanliness: GitCleanliness;
-  verified: boolean;
-  staged: string;
-}
-```
-#### `lib/domain/recommendation.ts`
-```typescript
-/**
- * Copilot recommendation — advisory only, never a Morris gate decision.
- */
-export type RecommendationKind =
-  | "cycle-profile"
-  | "scope"
-  | "risk"
-  | "next-step";
-
-export interface Recommendation {
-  readonly kind: "recommendation";
-  id: string;
-  title: string;
-  summary: string;
-  confidence: number;
-  source: "copilot";
-}
-
-export function isRecommendation(value: unknown): value is Recommendation {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    (value as Recommendation).kind === "recommendation"
-  );
-}
-```
-#### `lib/domain/index.ts`
-```typescript
-export * from "./cycle";
-export * from "./gate";
-export * from "./evidence";
-export * from "./git-status";
-export * from "./recommendation";
-export * from "./morris-decision";
-```
-#### `lib/domain/morris-decision.ts`
-```typescript
-import type { Recommendation } from "./recommendation";
-
-/**
- * Morris gate decision — human authority, distinct from copilot Recommendation.
- */
-export type MorrisVerdict = "GO" | "CORRIGER" | "STOP";
-
-export interface MorrisDecision {
-  readonly kind: "morris-decision";
-  id: string;
-  gateId: string;
-  title: string;
-  description: string;
-  verdict: MorrisVerdict | null;
-  scope: string;
-  revocable: boolean;
-  confirmed: boolean;
-  simulated: true;
-}
-
-export function isMorrisDecision(value: unknown): value is MorrisDecision {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    (value as MorrisDecision).kind === "morris-decision"
-  );
-}
-
-/** Type-level invariant: Recommendation and MorrisDecision are disjoint. */
-export type AdvisoryOrDecision = Recommendation | MorrisDecision;
-
-export function assertDistinctTypes(
-  rec: Recommendation,
-  decision: MorrisDecision,
-): void {
-  const kinds = new Set([rec.kind, decision.kind]);
-  if (kinds.size !== 2) {
-    throw new Error("Recommendation and MorrisDecision must remain distinct types");
-  }
-}
-```
-#### `lib/domain/cycle.ts`
-```typescript
-export type CycleStatus = "draft" | "active" | "completed" | "stopped";
-
-export type CycleProfile = "standard" | "critical";
-
-export interface Cycle {
-  id: string;
-  name: string;
-  subtitle: string;
-  progress: number;
-  status: CycleStatus;
-  profile: CycleProfile;
-  phase: string;
-  branch: string;
-  base: string;
-}
-```
-### `lib/navigation.ts`
-
-```ts
-export type StudioRoute =
-  | "/synthese"
-  | "/nouvelle-demande"
-  | "/cycle-actif"
-  | "/decision";
-
-export interface NavItem {
-  id: string;
-  route: StudioRoute;
-  label: string;
-  railIcon: string;
-  railKey: "home" | "plus" | "grid" | "diamond" | "gear";
-}
-
-export interface TabItem {
-  id: string;
-  route?: StudioRoute;
-  label: string;
-  disabled?: boolean;
-  simulated?: boolean;
-}
-
-export const STUDIO_ROUTES: NavItem[] = [
-  {
-    id: "synthese",
-    route: "/synthese",
-    label: "Vue synthèse",
-    railIcon: "⌂",
-    railKey: "home",
-  },
-  {
-    id: "nouvelle-demande",
-    route: "/nouvelle-demande",
-    label: "Nouvelle demande",
-    railIcon: "＋",
-    railKey: "plus",
-  },
-  {
-    id: "cycle-actif",
-    route: "/cycle-actif",
-    label: "Cycle actif",
-    railIcon: "◫",
-    railKey: "grid",
-  },
-  {
-    id: "decision",
-    route: "/decision",
-    label: "Décision Morris",
-    railIcon: "◇",
-    railKey: "diamond",
-  },
-];
-
-export const FLUSH_TABS: TabItem[] = [
-  { id: "synthese", route: "/synthese", label: "Synthèse" },
-  { id: "demande", route: "/nouvelle-demande", label: "Demande" },
-  { id: "cycle", route: "/cycle-actif", label: "Cycle actif" },
-  { id: "decisions", route: "/decision", label: "Décisions" },
-  {
-    id: "preuves",
-    label: "Preuves",
-    disabled: true,
-    simulated: true,
-  },
-];
-
-export const SIMULATION_TITLE = "Simulation — aucune action Git réelle";
-
-export function routeForTab(tabId: string): StudioRoute | undefined {
-  return FLUSH_TABS.find((t) => t.id === tabId)?.route;
-}
-
-export function isActiveRoute(
-  activeRoute: StudioRoute,
-  route: StudioRoute,
-): boolean {
-  return activeRoute === route;
-}
+# ChatGPT Review Pack — SFIA Studio POC Orchestration Framing — PR Readiness
+
+## 0. Métadonnées
+
+| Champ | Valeur |
+|-------|--------|
+| **Date / heure** | 2026-07-19 12:47:46 CEST |
+| **Cycle** | 13 — PR readiness |
+| **Profil SFIA** | Critical |
+| **Typologie** | DOC / EVOL |
+| **Projet** | SFIA Studio |
+| **Branche** | `project/sfia-studio-poc-orchestration-framing` |
+| **HEAD avant commit** | `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
+| **HEAD après commit** | `3b162ecb5212e9f62ac20f0066df9fbc545be4cc` |
+| **Draft PR** | [#219](https://github.com/mcleland147/sfia-workspace/pull/219) — DRAFT |
+| **origin/main** | `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
+| **merge-base** | `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
+| **Décision Morris consommée** | Validation cadrage POC orchestration Option B — **2026-07-19** |
+| **Niveau review pack** | **full** |
+| **Review Handoff Git** | required |
+
+---
+
+## 1. Décision Morris consommée (2026-07-19)
+
+### 1.1 POC-CAND
+
+| ID | Statut |
+|----|--------|
+| POC-CAND-01 | **VALIDÉE** — problème + objectif de preuve |
+| POC-CAND-02 | **VALIDÉE** — scénario **S1** (DOC read-only + rejet hors allowlist) |
+| POC-CAND-03 | **VALIDÉE** — frontières Studio / orch. / Git / Cursor ; AF-Option C opérationnalisée |
+| POC-CAND-04 | **VALIDÉE** — L3 cible + L4* plafond chemin ; L0 arbitrage ; L5 global interdit |
+| POC-CAND-05 | **VALIDÉE** — lecture Git réelle OK ; écritures distantes **simulées** |
+| POC-CAND-06 | **VALIDÉE** — critères succès / échec / abandon |
+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — orch. local candidat ; outil/techno/forme **ouverts** |
+| POC-CAND-08 | **VALIDÉE** — prochaine étape candidate = architecture POC (pas backlog/delivery) |
+| POC-CAND-09 | **VALIDÉE** au titre de POC-G10 — commit / push / draft PR cadrage |
+| POC-CAND-10 | **VALIDÉE** — aucun lancement POC sans gates ouverts |
+
+### 1.2 Gates
+
+| Gate | Statut |
+|------|--------|
+| POC-G1…G6 | **VALIDÉS** |
+| POC-G10 | **VALIDÉ** |
+| POC-G7 / G8 / G9 | **PROPOSÉS / NON VALIDÉS** |
+
+### 1.3 Garde-fous confirmés
+
+- POC **non lancé**
+- Aucune architecture Runtime / techno sélectionnée
+- L4* ≠ niveau produit validé
+- Merge **non autorisé**
+- Aucun nouveau D-VAL
+
+---
+
+## 2. Local Git Truth Check
+
+| Check | Résultat |
+|-------|----------|
+| Workspace | sfia-workspace |
+| Branche active | `project/sfia-studio-poc-orchestration-framing` — **PASS** |
+| HEAD | `aa8dbd4606c52df7662276a99c873b4d93e001ba` (= base cadrage) — **PASS** |
+| origin/main | `aa8dbd4606c52df7662276a99c873b4d93e001ba` — **égal HEAD** — **PASS** (pas d’avance) |
+| merge-base | `aa8dbd4606c52df7662276a99c873b4d93e001ba` — **PASS** |
+| Staged | vide — **PASS** |
+| Fichiers projet | README + 07 modifiés ; 20/21/22 untracked — **PASS** |
+| app/** / méthode | non touchés — **PASS** |
+
+**Verdict Local Git Truth Check :** PASS
+
+---
+
+## 3. Sources lues
+
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `projects/sfia-studio/README.md`
+- `projects/sfia-studio/07-product-trajectory-and-decision-pack.md`
+- `projects/sfia-studio/20-poc-orchestration-framing.md`
+- `projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md`
+- `projects/sfia-studio/22-poc-orchestration-decision-pack.md`
+- Handoff antérieur : commit `bf17960f87711247a9a8cc298d35aeeba4c0d125` (cadrage prêt revue)
+
+---
+
+## 4. Fichiers modifiés / créés (périmètre exact)
+
+| Fichier | Action |
+|---------|--------|
+| `projects/sfia-studio/README.md` | modifié |
+| `projects/sfia-studio/07-product-trajectory-and-decision-pack.md` | modifié |
+| `projects/sfia-studio/20-poc-orchestration-framing.md` | créé |
+| `projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md` | créé |
+| `projects/sfia-studio/22-poc-orchestration-decision-pack.md` | créé |
+
+Exactement **cinq** fichiers projet. Aucun `app/**`. Aucune suppression.
+
+---
+
+## 5. Scénario / automatisation / écritures / statut POC
+
+| Élément | Valeur |
+|---------|--------|
+| Scénario | **S1** SÉLECTIONNÉ / VALIDÉ |
+| Variante | rejet allowlist **obligatoire** |
+| Automatisation | L3 cible + L4* plafond chemin ; arbitrage **L0** ; L5 global **interdit** |
+| Écritures distantes (futur POC) | **Simulées** |
+| Lecture Git | réelle autorisée (futur POC) |
+| Statut POC | **Non lancé** |
+| MVP / industrialisation | **Non engagés** |
+| Architecture POC | **Non lancée** (POC-G7 fermé) |
+| Outil orchestrateur | **Ouvert** (réserve POC-CAND-07) |
+
+---
+
+## 6. Validations avant commit
+
+| Validation | Résultat |
+|------------|----------|
+| `git diff --check` | PASS |
+| Exactement 5 fichiers projet | PASS |
+| Aucun app/** | PASS |
+| Aucun fichier méthode | PASS |
+| Aucune suppression | PASS |
+| POC-G7…G9 non validés | PASS |
+| POC non lancé | PASS |
+| Runtime non sélectionné | PASS |
+| Horodatage Europe/Paris | 2026-07-19 12:47:46 CEST |
+
+---
+
+## 7. Diff complet — README.md + 07 (vs HEAD)
+
+```diff
+diff --git a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+index 08babef..abf5ac3 100644
+--- a/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
++++ b/projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+@@ -4,15 +4,15 @@
+ |------------|--------|
+ | **Projet** | SFIA Studio — projet officiel (G1) |
+ | **Document** | `07-product-trajectory-and-decision-pack.md` |
+-| **Cycle** | 15 — Capitalisation / REX (post-Delivery P0) ; historique cadrage / conception conservé |
+-| **Profil** | Capitalization — Standard |
++| **Cycle** | 13 — PR readiness (cadrage POC validé) ; historique Delivery/capitalisation conservé |
++| **Profil** | Critical |
+ | **Baseline** | SFIA v2.6 (**Option C méthode**) |
+-| **Statut** | `p0-delivery-integrated-next-poc-orchestration-framing` ; Delivery P0 **clôturé** ; UX/UI **clôturé** ; architecture fonctionnelle intégrée (clôture formelle **ouverte**) |
+-| **Décisions** | D-VAL-1…11 inchangées ; FD-CAND / AF-CAND / TA-DEC historiques inchangés ; **Option B — POC orchestration** = prochaine orientation Morris (**cadrage**, non lancé) |
++| **Statut** | `poc-orchestration-framing-validated-draft-pr` ; cadrage **VALIDÉ** 2026-07-19 ; POC **non lancé** ; POC-G7…G9 **fermés** |
++| **Décisions** | POC-CAND-01…10 selon Morris 2026-07-19 ; POC-G1…G6 + G10 **VALIDÉS** ; D-VAL/FD/AF/TA historiques inchangés |
+ | **Destinataire** | Morris |
+-| **Source de vérité** | Git `main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` — cadrage → Delivery P0 intégrés |
++| **Source de vérité** | `origin/main` @ `aa8dbd4606c52df7662276a99c873b4d93e001ba` ; branche `project/sfia-studio-poc-orchestration-framing` |
+ 
+-> Trajectoire et décisions. D-VAL-1…11 **non modifiées**. Delivery P0 **CLÔTURÉ** (PR #217). Prochaine orientation : **cadrage POC orchestration** (Option B) — **non démarré**. Clôture formelle architecture fonctionnelle **non prononcée**. **Pas de D-VAL-12.** AF-Option C ≠ Option C méthode.
++> Cadrage POC **VALIDÉ** le **2026-07-19**. Versionnement (draft PR) **autorisé**. **Merge non autorisé**. POC **non lancé**. Architecture POC (POC-G7) **non ouverte**.
+ 
+ ---
+ 
+@@ -34,11 +34,14 @@
+ | Branche Delivery | **Supprimée** (local + remote) |
+ | Gate Morris Delivery P0 | **Aucune restante** |
+ | App `projects/sfia-studio/app/` | Sur `main` — desktop 1440×1024 ; fixtures ; pas d’API/auth/BDD/orchestration réelle |
+-| Prochaine orientation | **Option B — cadrage POC orchestration** — sélectionnée, **non démarrée** |
++| Prochaine orientation | Cadrage POC **VALIDÉ** 2026-07-19 ; prochaine décision possible = **architecture POC (POC-G7)** — **non lancée** |
+ | Produit complet / MVP / industrialisation | **Non atteints / non engagés** |
++| Décision Morris cadrage | **2026-07-19** — POC-G1…G6 + G10 **VALIDÉS** ; S1 ; L3+L4*/L0 ; writes distantes simulées |
++| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil orchestrateur ouvert |
++| Branche cadrage POC | `project/sfia-studio-poc-orchestration-framing` |
+ | Branches historiques | `functional-design` / `pre-framing` / `functional-architecture` **conservées** |
+ 
+-> Les lignes « Delivery autorisé — non exécuté » des versions antérieures de ce document étaient **exactes à leur date**. Elles sont **obsolètes** après PR #217 et remplacées ici par l’état factuel ci-dessus.
++> Cadrage **validé** ≠ POC lancé ≠ architecture validée ≠ merge autorisé.
+ 
+ ### Trace factuelle — Delivery P0 (historique compact)
+ 
+@@ -113,44 +116,25 @@ Pré-cadrage
+   → Delivery P0
+   → PR #217 / intégration main
+   → post-merge / cleanup
+-  → cadrage POC orchestration          ← prochaine étape validée (Option B) — non démarrée
+-  → architecture POC ciblée             ← candidate
+-  → backlog POC borné                   ← candidate
+-  → delivery POC                        ← candidate
++  → capitalisation P0 (PR #218)
++  → cadrage POC orchestration          ← **VALIDÉ** Morris 2026-07-19 — POC non lancé
++  → architecture POC ciblée             ← prochaine décision possible (POC-G7) — **non lancée**
++  → backlog POC borné                   ← POC-G8 fermé
++  → delivery POC                        ← POC-G9 fermé
+   → décision Morris : abandon / itération / préparation MVP
+ ```
+ 
+ ### Précisions
+ 
+-- Étapes jusqu’au cleanup P0 : **terminées**.
+-- Cadrage POC orchestration : **sélectionné** (Option B Morris), **non démarré**.
+-- Étapes post-cadrage POC : **candidates**, soumises aux résultats du cadrage.
+-- POC ≠ MVP ≠ industrialisation — **aucun** de ces jalons n’est engagé.
+-- Architecture **fonctionnelle** : VALIDÉE / INTÉGRÉE ; clôture formelle **non prononcée**.
+-- Architecture **technique P0** : VALIDÉE / INTÉGRÉE ; Delivery P0 **exécuté**.
+-- Desktop P0 uniquement (1440×1024) ; responsive / a11y complète / CI / Runtime réel **ouverts**.
++- Cadrage POC : **validé** (POC-G1…G6, POC-G10).
++- Scénario **S1** sélectionné.
++- Architecture / backlog / delivery POC : **non lancés**.
++- Clôture formelle architecture fonctionnelle : **décision séparée**, toujours ouverte.
++- POC ≠ MVP ≠ industrialisation.
+ 
+-### Orientation Option B — cadrage POC orchestration
++### Orientation Option B — état
+ 
+-> Le prochain cycle SFIA Studio sera un cycle de cadrage visant à définir un POC d’orchestration borné entre SFIA Studio et un mécanisme d’orchestration déterministe candidat. Ce cycle devra valider la faisabilité technique sans préjuger de l’architecture produit finale, du MVP ni de l’industrialisation.
+-
+-**Sujets du futur cadrage (préparation — non exécution) :**
+-
+-1. Objectif de preuve
+-2. Scénario métier unique
+-3. Frontières Studio / orchestrateur
+-4. Niveau d’automatisation maximal
+-5. Actions read-only ou simulées
+-6. Gates Morris
+-7. Stop conditions
+-8. Données de test
+-9. Preuves attendues
+-10. Critères de succès et d’abandon
+-11. Sécurité et réversibilité
+-12. Périmètre Git
+-13. Stratégie de démonstration
+-
+-**Hors ce cycle de capitalisation :** architecture détaillée ; schéma API ; contrat JSON ; backlog complet ; choix d’outil Runtime ; code ; planning détaillé.
++> Cadrage validé 2026-07-19. Draft PR autorisée. Merge = GO distinct. Après post-merge : décision distincte POC-G7 uniquement.
+ 
+ ---
+ 
+@@ -220,20 +204,21 @@ Pré-cadrage
+ | Livrable | `projects/sfia-studio/app/` sur `main` @ `759ab0b…` |
+ | Ne lance pas | POC orchestration ; Git/Cursor réels ; CI Studio |
+ 
+-### 4.6 Cadrage POC orchestration (prochain)
++### 4.6 Cadrage POC orchestration (Option B)
+ 
+ | Champ | Contenu |
+ |-------|---------|
+-| Statut | **Sélectionné** (Option B Morris) — **non démarré** |
+-| Objectif | Définir un POC d’orchestration borné (faisabilité) |
+-| Ne lance pas | Architecture POC détaillée ; code ; outil Runtime ; MVP |
++| Statut | **VALIDÉ PAR MORRIS** — 2026-07-19 — docs `20`/`21`/`22` |
++| Scénario | **S1** sélectionné (POC-G2) |
++| Gates | POC-G1…G6 + G10 **VALIDÉS** ; POC-G7…G9 **NON VALIDÉS** |
++| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** — outil ouvert |
++| Ne lance pas | POC ; architecture ; backlog ; delivery ; MVP |
+ 
+ ### 4.7 Sécurité (bornée)
+ 
+ | Champ | Contenu |
+ |-------|---------|
+-| Déclencheur | Avant POC à permissions élevées |
+-| Pourquoi pas maintenant | Identification déjà faite au cadrage ; sujets à rouvrir dans le cadrage POC |
++| Validé | Lecture Git réelle OK ; writes distantes simulées ; L5 global interdit ; secrets exclus |
+ 
+ ---
+ 
+@@ -269,9 +254,12 @@ Pré-cadrage
+ | D-NEXT-10 | **D-VAL-11** — clôture cadrage documentaire | Morris | **VALIDÉE** — 2026-07-18 |
+ | D-NEXT-11 | Sort de la branche projet historique | Morris | Conservée ; décision distincte |
+ | D-NEXT-12 | Sort de `project/sfia-studio-functional-design` | Morris | Conservée ; décision distincte |
+-| D-NEXT-13 | GO capitalisation documentaire post-P0 | Morris | **Consommée** (ce cycle) |
+-| D-NEXT-14 | GO commit / push / PR capitalisation | Morris | **Attendue** |
+-| D-NEXT-15 | GO cadrage POC orchestration | Morris | **Attendue** après intégration capitalisation |
++| D-NEXT-13 | GO capitalisation documentaire post-P0 | Morris | **Consommée** + **intégrée** (PR #218) |
++| D-NEXT-14 | GO commit / push / PR capitalisation | Morris | **FAIT** (PR #218) |
++| D-NEXT-15 | GO cadrage POC orchestration | Morris | **Consommée** — cadrage **VALIDÉ** 2026-07-19 |
++| D-NEXT-16 | Validation POC-CAND / POC-G1…G6 | Morris | **FAIT** — 2026-07-19 |
++| D-NEXT-17 | POC-G10 versionnement cadrage | Morris | **FAIT** — draft PR autorisée ; **merge non autorisé** |
++| D-NEXT-18 | Architecture / delivery POC | Morris | **Fermée** — POC-G7…G9 non validés |
+ 
+ ---
+ 
+@@ -333,29 +321,21 @@ Les gates DF-G4+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+ 
+ ## 8. Questions Morris
+ 
+-1. Autorisez-vous **commit / push / PR** de la capitalisation documentaire (README + `07`) ?
+-2. Après intégration : autorisez-vous le **GO cadrage POC orchestration** ?
+-3. Clôturez-vous formellement le cycle architecture fonctionnelle (décision **distincte**) ?
+-4. Quel sort pour les branches historiques restantes ?
+-5. Quelles réserves P0 (responsive / a11y / CI / postcss) prioriser avant ou pendant le POC ?
++1. Autorisez-vous le **merge** de la draft PR de cadrage ? (distinct de POC-G10)
++2. Après post-merge : ouvrez-vous **POC-G7** (architecture POC) ?
++3. Clôture formelle architecture fonctionnelle (toujours séparée) ?
+ 
+ ---
+ 
+-## 9. Critères de clôture du cadrage détaillé
++## 9. Critères
+ 
+ | Critère | État |
+ |---------|------|
+-| 04–07 complets et cohérents | **Oui** (07 synchronisé post-P0) |
+-| Alignement D-VAL-1…11 / G1–G7 / DF-G1 | **Oui** |
+-| DF-G1 validé | **Oui** (D-VAL-9) |
+-| Clôture formelle cadrage | **FAIT** (D-VAL-11) |
+-| Cycle conception | **CLÔTURÉ** |
+-| Architecture fonctionnelle | **VALIDÉE** / **INTÉGRÉE** — clôture formelle ouverte |
+-| UX/UI | **CLÔTURÉ** |
+-| Architecture technique P0 | **VALIDÉE** / **INTÉGRÉE** |
+-| Delivery P0 | **CLÔTURÉ** (PR #217) |
+-| Prochain cycle | **Cadrage POC orchestration** — sélectionné, non lancé |
+-| MVP / industrialisation / Runtime réel | **Non engagés** |
++| Cadrage POC `20`–`22` | **VALIDÉ** 2026-07-19 |
++| POC lancé | **Non** |
++| POC-G7…G9 | **Fermés** |
++| MVP / industrialisation | **Non engagés** |
++| Clôture AF formelle | **Ouverte** (séparée) |
+ 
+ ---
+ 
+@@ -363,13 +343,12 @@ Les gates DF-G4+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+ 
+ | Élément | Valeur |
+ |---------|--------|
+-| Delivery P0 | **CLÔTURÉ** — `759ab0b…` / PR #217 |
+-| Statut produit | `p0-delivery-integrated-next-poc-orchestration-framing` |
+-| Option B POC | **Sélectionnée** — cadrage **non démarré** |
+-| Ready for POC code / Runtime | **Non** |
+-| Ready for Morris capitalisation review | **Oui** |
++| Cadrage | **VALIDÉ** |
++| Versionnement | Draft PR (POC-G10) |
++| Merge | **Non autorisé** |
++| POC | **Non lancé** |
+ 
+-**Verdict :** `CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY`
++**Verdict :** `PR READINESS COMPLETE — DRAFT PR OPEN — MERGE NOT AUTHORIZED`
+ 
+ ---
+ 
+@@ -377,20 +356,10 @@ Les gates DF-G4+ **ne sont pas** validés. Delivery P0 : **CLÔTURÉ**. Cadrage
+ 
+ | Document | Usage |
+ |----------|-------|
+-| [04-detailed-product-framing.md](./04-detailed-product-framing.md) | Contrat produit |
+-| [05-product-capabilities-and-use-cases.md](./05-product-capabilities-and-use-cases.md) | Capacités |
+-| [06-scope-constraints-and-success-criteria.md](./06-scope-constraints-and-success-criteria.md) | Périmètres |
+-| [08-functional-design.md](./08-functional-design.md) | Conception — contrat **validé / intégré** |
+-| [09-functional-flows-and-rules.md](./09-functional-flows-and-rules.md) | Conception — parcours **validés** |
+-| [10-functional-decision-pack.md](./10-functional-decision-pack.md) | Conception — pack de **validation / clôture** |
+-| [11-functional-architecture.md](./11-functional-architecture.md) | Architecture — **VALIDÉE** et **INTÉGRÉE** |
+-| [12-functional-architecture-flows-and-boundaries.md](./12-functional-architecture-flows-and-boundaries.md) | Flux / frontières — D10 → AF-01 / AF-15 |
+-| [13-functional-architecture-decision-pack.md](./13-functional-architecture-decision-pack.md) | AF-Option / AF-CAND |
+-| [14-ux-ui-contract.md](./14-ux-ui-contract.md) | UX/UI — contrat |
+-| [15-ux-ui-flows-and-screens.md](./15-ux-ui-flows-and-screens.md) | UX/UI — écrans P0 |
+-| [16-ux-ui-decision-pack.md](./16-ux-ui-decision-pack.md) | UX/UI — décisions |
+-| [18-technical-architecture.md](./18-technical-architecture.md) | Architecture technique P0 |
+-| [19-technical-architecture-decision-pack.md](./19-technical-architecture-decision-pack.md) | TA-DEC (historique « delivery autorisé ») |
+-| [app/README.md](./app/README.md) | Runtime P0 intégré |
+-
+-*SFIA Studio — Delivery P0 CLÔTURÉ (PR #217) — prochaine orientation = cadrage POC orchestration (Option B, non lancé) — clôture architecture fonctionnelle NON PRONONCÉE — Morris décide.*
++| [20-poc-orchestration-framing.md](./20-poc-orchestration-framing.md) | Cadrage POC **VALIDÉ** |
++| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | S1 **SÉLECTIONNÉ** |
++| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | POC-CAND / gates |
++| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C / L0–L5 |
++| [app/README.md](./app/README.md) | Runtime P0 |
++
++*SFIA Studio — cadrage POC VALIDÉ 2026-07-19 — POC NON LANCÉ — merge non autorisé — Morris décide.*
+diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
+index bbc2c1d..68843ae 100644
+--- a/projects/sfia-studio/README.md
++++ b/projects/sfia-studio/README.md
+@@ -4,40 +4,20 @@
+ |------------|--------|
+ | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
+ | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
+-| **Statut** | `p0-delivery-integrated-next-poc-orchestration-framing` — Delivery P0 **CLÔTURÉ** et intégré sur `main` ; prochaine orientation = **cadrage POC orchestration** (Option B) — **non lancé** |
+-| **Baseline méthode** | **SFIA v2.6** (consommée — **Option C méthode** validée ; baseline inchangée) |
++| **Statut** | `poc-orchestration-framing-validated-draft-pr` — cadrage Option B **VALIDÉ PAR MORRIS** (2026-07-19) ; versionnement autorisé (POC-G10) ; POC **non lancé** ; POC-G7…G9 **fermés** |
++| **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
+ | **Autorité** | Morris (L0) |
+-| **Exécuteur** | Cursor — capitalisation post-Delivery P0 (DOC / CAPA légère, Standard) |
+-| **Typologie cycle** | DOC / CAPA légère — synchronisation statut produit + trajectoire |
+-| **Cycle projet** | 15 — Capitalisation / REX ; Delivery P0 **clôturé** ; UX/UI **clôturé** ; architecture fonctionnelle **intégrée** (clôture formelle **ouverte**) |
+-| **Profil SFIA** | Standard (capitalisation) |
+-| **Branche architecture** | `project/sfia-studio-functional-architecture` (**conservée**) |
+-| **Branche Delivery P0** | `project/sfia-studio-delivery-p0-implementation` — **supprimée** (local + remote) après cleanup post-merge |
+-| **Figma UX** | [lrjA1WEyRpL05vKR8k29LO](https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO) — P0-00C…P0-03C @ 1440×1024 (référence initiale) |
+-| **App P0** | `projects/sfia-studio/app/` — Next.js 15 / React 19 / TypeScript ; 4 routes ; fixtures locales |
+-| **PR Delivery P0** | [#217](https://github.com/mcleland147/sfia-workspace/pull/217) — **MERGED** (squash) |
+-| **Commit projet Delivery** | `c37b065fc59b60d01f5896aa7ebd3c130a636457` |
+-| **Merge Delivery** | `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
+-| **Périmètre Delivery** | 77 fichiers ; +12830 / −0 |
+-| **PR architecture** | [#211](https://github.com/mcleland147/sfia-workspace/pull/211) — **MERGED** |
+-| **Merge architecture** | `84e48636bb78808774b51f67329167f8e9749a6b` |
+-| **Acceptation Morris #211** | **OUI** — 2026-07-18 (régularisation documentaire ; sans D-VAL-12) |
+-| **PR sync / finalisation archi** | [#212](https://github.com/mcleland147/sfia-workspace/pull/212) / [#213](https://github.com/mcleland147/sfia-workspace/pull/213) — **MERGED** |
+-| **Branche conception** | `project/sfia-studio-functional-design` (**conservée** ; intégrée à `main`) |
+-| **Branche historique** | `project/sfia-studio-pre-framing` (**conservée** ; intégrée à `main`) |
++| **Exécuteur** | Cursor — PR readiness cadrage POC (DOC, Critical) |
++| **Typologie cycle** | DOC / EVOL — PR readiness Critical |
++| **Cycle projet** | 13 — PR readiness ; cadrage POC **validé** ; Delivery P0 **clôturé** |
++| **Profil SFIA** | Critical |
++| **Branche cadrage POC** | `project/sfia-studio-poc-orchestration-framing` |
++| **Base canonique** | `origin/main` @ `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
+ | **Chemin** | `projects/sfia-studio/` |
+-| **Base canonique** | `origin/main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` |
+-| **PR conception** | [#209](https://github.com/mcleland147/sfia-workspace/pull/209) — **MERGED** |
+-| **FD-CAND-01…08** | **VALIDÉES** — Morris — 2026-07-18 |
+-| **AF-Option C** | **VALIDÉE** — Studio / orchestrateur candidat séparés — **≠** Option C méthode |
+-| **AF-CAND-01…10, 11A, 12** | **VALIDÉES** — ≠ D-VAL |
+-| **AF-CAND-11B** | **VALIDÉE** — UX/UI sélectionné, exécuté et **clôturé** |
+-| **D-VAL-11** | **VALIDÉE** — cadrage documentaire clôturé |
+-| **Architecture fonctionnelle** | **VALIDÉE** et **INTÉGRÉE** sur `main` — clôture formelle **NON PRONONCÉE** |
+-| **Architecture technique P0** | **VALIDÉE** et **INTÉGRÉE** (`18`/`19` ; TA-DEC-01…18) — Delivery P0 **exécuté** depuis |
+-| **UX/UI** | **CLÔTURÉ** — Option B ; 4 frames Figma ; docs `14`–`16` |
+-| **Delivery P0** | **CLÔTURÉ** — implémenté, validé visuellement, mergé (#217), post-mergé, cleanup branche effectué ; **aucune gate Morris restante** |
+-| **Prochain cycle** | **Cadrage POC orchestration** (Option B Morris) — **sélectionné**, **non démarré** ; POC / MVP / industrialisation **non lancés** |
++| **AF-Option C** | **VALIDÉE** + **opérationnalisée** pour le POC (POC-CAND-03) |
++| **Cadrage POC** | `20`–`22` — **VALIDÉS** ; POC-CAND-01…10 selon décision 2026-07-19 ; POC-G1…G6 + G10 **VALIDÉS** |
++| **POC** | **Non lancé** — POC-G7 / G8 / G9 **NON VALIDÉS** |
++| **Prochain cycle** | Après intégration : décision distincte **architecture POC** (POC-G7) — **non lancé** ; MVP / industrialisation **non engagés** |
+ 
+ ---
+ 
+@@ -63,10 +43,15 @@
+ | App sur `main` | Disponible — desktop 1440×1024 ; pas d’API / auth / BDD / orchestration réelle |
+ | Git / Cursor / Runtime | **Simulés ou désactivés** en P0 |
+ | Produit complet / MVP / industrialisation | **Non atteints** |
+-| Prochaine orientation | **Option B — cadrage POC orchestration** — sélectionnée, **non lancée** |
++| Cadrage POC orchestration (Option B) | **VALIDÉ PAR MORRIS** — 2026-07-19 — docs `20`–`22` ; POC **non lancé** |
++| Scénario | **S1** sélectionné (POC-G2) |
++| Automatisation | L3 + L4* / L0 — L5 global interdit (POC-G4) |
++| Git futur POC | Lecture réelle OK ; écritures distantes **simulées** (POC-G5) |
++| Gates | POC-G1…G6 + G10 **VALIDÉS** ; POC-G7…G9 **fermés** |
++| Branche cadrage | `project/sfia-studio-poc-orchestration-framing` |
+ | Branches historiques | `functional-design`, `pre-framing`, `functional-architecture` **conservées** |
+ 
+-> Historique antérieur (PR #207–#216) : inchangé dans son rôle. La capitalisation synchronise le statut **après** clôture Delivery P0 ; elle ne réécrit pas les décisions D-VAL / AF-CAND / TA-DEC.
++> Cadrage **validé** ; versionnement (draft PR) **autorisé** ; **merge non autorisé** ; POC **non lancé**.
+ 
+ ---
+ 
+@@ -141,14 +126,15 @@ Pré-cadrage
+   → Delivery P0
+   → PR #217 / intégration main
+   → post-merge / cleanup
+-  → cadrage POC orchestration          ← prochaine étape validée (Option B) — non démarrée
+-  → architecture POC ciblée             ← candidate (après cadrage)
+-  → backlog POC borné                   ← candidate
+-  → delivery POC                        ← candidate
++  → capitalisation P0 (PR #218)
++  → cadrage POC orchestration          ← **VALIDÉ** Morris 2026-07-19 (`20`–`22`) — POC non lancé
++  → architecture POC ciblée             ← prochaine décision possible (POC-G7) — **non lancée**
++  → backlog POC borné                   ← candidate (POC-G8 fermé)
++  → delivery POC                        ← candidate (POC-G9 fermé)
+   → décision Morris : abandon / itération / préparation MVP
+ ```
+ 
+-Étapes jusqu’au cleanup P0 : **terminées**. Cadrage POC orchestration : **sélectionné**, **non démarré**. Étapes suivantes : **candidates**, soumises aux résultats du cadrage. POC / MVP / industrialisation : **non engagés**. Clôture formelle architecture fonctionnelle : **non automatique**.
++Cadrage POC : **validé**. Architecture / backlog / delivery POC : **non lancés**. MVP / industrialisation : **non engagés**.
+ 
+ ---
+ 
+@@ -218,7 +204,17 @@ Pré-cadrage
+ | [app/README.md](./app/README.md) | Runtime P0 — stack, routes, contraintes |
+ | `projects/sfia-studio/app/**` | 77 fichiers intégrés sur `main` @ `759ab0b…` |
+ 
+-> Delivery P0 **CLÔTURÉ**. Aucune API, auth, BDD ni orchestration réelle. Git / Cursor / Runtime **simulés**. Prochaine orientation : **cadrage POC orchestration** (non lancé).
++> Delivery P0 **CLÔTURÉ**. Aucune API, auth, BDD ni orchestration réelle. Git / Cursor / Runtime **simulés**. Cadrage POC Option B : documents `20`–`22` **VALIDÉS** (2026-07-19) — POC **non lancé**.
++
++### Cadrage POC orchestration — VALIDÉ (Option B — 2026-07-19)
++
++| Document | Rôle |
++|----------|------|
++| [20-poc-orchestration-framing.md](./20-poc-orchestration-framing.md) | Problème, objectif, contraintes, critères — **VALIDÉ** |
++| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | Scénario **S1** sélectionné, frontières — **VALIDÉ** |
++| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | POC-CAND / gates — **VALIDÉ** (G7–G9 fermés) |
++
++> POC **non lancé**. Runtime / techno **non sélectionnés**. Merge draft PR = GO distinct.
+ 
+ ---
+ 
+@@ -318,33 +314,30 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | Sync #212 + finalisation #213 | **INTÉGRÉES** |
+ | Clôture formelle cycle architecture | **Non** — non automatique |
+ | Sort des branches historiques | Conservées ; décisions distinctes |
+-| Contenu / architecture du POC orchestration | **Non pris** — cadrage à venir |
++| Contenu / architecture du POC orchestration | Cadrage **VALIDÉ** 2026-07-19 ; architecture POC (POC-G7) **non ouverte** |
+ | Définition MVP | **Non pris** |
+ | Industrialisation | **Non engagée** |
+ | Responsive / a11y complète / CI GitHub | **Ouverts** (réserves P0) |
+ | Vulnérabilités moderate postcss (via Next) | **Ouvertes** — pas de fix forcé |
+-| Runtime / Git / Cursor réels | **Hors périmètre P0** — sujets du futur cadrage POC |
++| Runtime / Git / Cursor réels | P0 = simulés ; futur POC = lecture Git réelle + writes distantes simulées ; Runtime **non sélectionné** |
+ 
+ > Conception : intégrée (PR #209 / #210). Architecture fonctionnelle : intégrée (#211–#213). Architecture technique P0 + Delivery P0 : **intégrés** (PR #217 / `759ab0b…`). Aucune D-VAL-12.
+ 
+ ### Orientation Morris — Option B (POC orchestration)
+ 
+-> Le prochain cycle SFIA Studio sera un cycle de **cadrage** visant à définir un POC d’orchestration borné entre SFIA Studio et un mécanisme d’orchestration déterministe candidat. Ce cycle devra valider la faisabilité technique **sans** préjuger de l’architecture produit finale, du MVP ni de l’industrialisation.
+-
+-**Décision consommée :** Option B sélectionnée comme prochaine orientation — **cadrage uniquement** ; POC **non lancé** ; aucune techno Runtime sélectionnée ; aucune intégration Studio ↔ Git ↔ Cursor ↔ orchestrateur autorisée dans ce cycle de capitalisation.
+-
+-**Sujets préparés pour le futur cadrage POC :** objectif de preuve ; scénario métier unique ; frontières Studio / orchestrateur ; niveau d’automatisation maximal ; actions read-only ou simulées ; gates Morris ; stop conditions ; données de test ; preuves attendues ; critères de succès et d’abandon ; sécurité et réversibilité ; périmètre Git ; stratégie de démonstration.
++> Cadrage **VALIDÉ** le **2026-07-19**. Scénario **S1**. L3+L4*/L0. Écritures distantes simulées. Orchestrateur local **avec réserve** (outil ouvert).
++> **POC non lancé.** Prochaine décision possible après intégration : **POC-G7** architecture POC ciblée.
+ 
+ ---
+ 
+ ## 8. Prochaine décision
+ 
+-1. **GO commit / push / PR** de la présente capitalisation documentaire.
+-2. Après intégration : **GO cadrage POC orchestration**.
+-3. Clôture formelle du cycle architecture fonctionnelle (décision **distincte**, toujours ouverte).
+-4. Sort des branches historiques (`pre-framing` / `functional-design` / `functional-architecture`).
++1. Revue / merge de la draft PR de cadrage (**GO merge distinct**).
++2. Post-merge du cadrage.
++3. Décision distincte **POC-G7** (architecture POC) — **non ouverte**.
++4. Clôture formelle architecture fonctionnelle (toujours séparée).
+ 
+-**Verdict documentaire :** `CAPITALIZATION COMPLETE — P0 STATUS SYNCHRONIZED — POC ORCHESTRATION FRAMING READY`
++**Verdict documentaire :** `PR READINESS COMPLETE — DRAFT PR OPEN — MERGE NOT AUTHORIZED`
+ 
+ ---
+ 
+@@ -352,19 +345,11 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ 
+ | Élément | Source |
+ |---------|--------|
+-| Méthode | SFIA v2.6 sur `main` — **Option C méthode** |
+-| Template | `prompts/templates/sfia-cycle-execution-template.md` v2.6 |
+-| Cadrage validé | `projects/sfia-studio/` **`01`–`07`** sur **`main`** |
+-| Conception fonctionnelle | **`08`–`10`** sur **`main`** |
+-| Architecture fonctionnelle | **`11`–`13`** sur **`main`** |
+-| UX/UI | **`14`–`16`** sur **`main`** |
+-| Architecture technique P0 | **`18`–`19`** sur **`main`** |
+-| Delivery P0 / app | `projects/sfia-studio/app/` — PR #217 / merge `759ab0b…` |
+-| Review pack | `.tmp-sfia-review/chatgpt-review.md` — non versionné dans le projet |
+-| Handoff | `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` |
+-
+-> `main` @ `759ab0bb4b5601bacfc6856a22feb2bd48426ee5` est la source de vérité du **cadrage**, de la **conception**, de l’**architecture**, de l’**UX/UI**, de l’**architecture technique P0** et du **Delivery P0** intégrés.
++| Méthode | SFIA v2.6 — Option C méthode |
++| Socle intégré | `main` @ `aa8dbd4…` |
++| Cadrage POC validé | `20`–`22` sur `project/sfia-studio-poc-orchestration-framing` |
++| Handoff | `sfia/review-handoff` |
+ 
+ ---
+ 
+-*SFIA Studio — Delivery P0 CLÔTURÉ (PR #217) — prochaine orientation = cadrage POC orchestration (Option B, non lancé) — clôture architecture fonctionnelle NON PRONONCÉE — Option C méthode préservée — Morris décide.*
++*SFIA Studio — cadrage POC VALIDÉ 2026-07-19 — POC NON LANCÉ — POC-G7/G8/G9 fermés — merge non autorisé — Morris décide.*
 ```
 
-### `lib/adapters/index.ts` — MANQUANT ou chemin alternatif
-### `fixtures/index.ts`
+---
 
-```ts
-import type { Recommendation } from "@/lib/domain/recommendation";
-import type { MorrisDecision } from "@/lib/domain/morris-decision";
+## 8. Contenu complet — 20-poc-orchestration-framing.md
 
-export { cycles, activeCycle } from "./cycles";
-export { gates } from "./gates";
-export { evidenceItems } from "./evidence";
-export { gitStatus } from "./git-status";
+```markdown
+# SFIA Studio — Cadrage POC orchestration (Option B)
 
-export const copilotRecommendations: Recommendation[] = [
-  {
-    kind: "recommendation",
-    id: "rec-cycle-profile",
-    title: "Profil recommandé",
-    summary: "Standard — cycle de conception fonctionnelle avec gate Morris avant prompt Cursor.",
-    confidence: 0.82,
-    source: "copilot",
-  },
-  {
-    kind: "recommendation",
-    id: "rec-scope",
-    title: "Périmètre autorisé",
-    summary: "Qualification documentaire et UX/UI uniquement — pas de stack technique.",
-    confidence: 0.91,
-    source: "copilot",
-  },
-];
+| Métadonnée | Valeur |
+|------------|--------|
+| **Projet** | SFIA Studio — projet officiel (G1) |
+| **Document** | `20-poc-orchestration-framing.md` |
+| **Cycle** | 1 — Cadrage POC orchestration (Option B) |
+| **Profil** | Critical |
+| **Typologie** | DOC / EVOL (cadrage) |
+| **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
+| **Branche** | `project/sfia-studio-poc-orchestration-framing` |
+| **Base** | `origin/main` @ `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
+| **Statut document** | **VALIDÉ PAR MORRIS** — 2026-07-19 |
+| **POC** | **Non lancé** |
+| **MVP / industrialisation** | **Non engagés** |
+| **Architecture Runtime** | **Non validée** — aucune technologie sélectionnée |
+| **Destinataire** | Morris |
 
-export const pendingMorrisDecision: MorrisDecision = {
-  kind: "morris-decision",
-  id: "dec-ux-premium",
-  gateId: "gate-ux-option",
-  title: "Direction visuelle premium UX-B",
-  description:
-    "Décliner le langage visuel product premium sur les quatre écrans P0.",
-  verdict: null,
-  scope: "cycle UX/UI uniquement · révocable avant versionnement.",
-  revocable: true,
-  confirmed: false,
-  simulated: true,
-};
+> Cadrage **validé** le **2026-07-19**. Cette validation **ne lance pas** le POC, **ne valide pas** l’architecture technique, **ne sélectionne pas** de Runtime et **ne définit pas** le MVP. POC-G7 / G8 / G9 restent **fermés**.
+
+### Décision Morris — validation du cadrage (2026-07-19)
+
+| Élément | Statut |
+|---------|--------|
+| POC-CAND-01…06, 08, 10 | **VALIDÉES** |
+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** (orchestrateur local candidat ; outil ouvert) |
+| POC-CAND-09 / POC-G10 | **VALIDÉE** — commit / push / draft PR du cadrage |
+| POC-G1…G6 | **VALIDÉS** |
+| POC-G7…G9 | **PROPOSÉS / NON VALIDÉS** |
+| Scénario | **S1** sélectionné |
+| Automatisation | L3 cible + L4* plafond chemin d’exécution ; L0 arbitrage ; L5 global interdit |
+| Git | Lecture réelle autorisée (futur POC) ; écritures distantes **simulées** |
+
+---
+
+## 1. Contexte
+
+### 1.1 Acquis factuels
+
+- Delivery P0 **CLÔTURÉ** (PR #217) — app Next.js 15 sous `projects/sfia-studio/app/` ; 4 écrans ; fixtures ; Git/Cursor/Runtime **simulés**.
+- Capitalisation post-P0 **INTÉGRÉE** (PR #218) — statut `p0-delivery-integrated-next-poc-orchestration-framing`.
+- Architecture fonctionnelle **VALIDÉE** / **INTÉGRÉE** — **AF-Option C** : Studio et orchestrateur déterministe **candidat séparés**.
+- Architecture technique P0 **VALIDÉE** — pas d’API, auth, BDD, Runtime contractuel en P0.
+- Décision Morris (2026-07-19) : **cadrage Option B VALIDÉ** (POC-G1…G6, POC-G10) — **POC non lancé**.
+
+### 1.2 Formulation structurante (D-VAL-3 — inchangée)
+
+> Le POC est une étape technique de validation de faisabilité.  
+> Il ne constitue ni le produit cible, ni le MVP, ni la limite de la trajectoire.
+
+### 1.3 Runtime candidat
+
+Un mécanisme d’orchestration déterministe, **éventuellement** nommé « SFIA Runtime », doit **appliquer** contrats, permissions, gates et stop conditions.  
+Nom **non contractuel**. Architecture Runtime **non validée**. Aucune technologie sélectionnée dans ce cadrage.
+
+---
+
+## 2. Problème technique à prouver
+
+**Problème :** aujourd’hui, SFIA Studio P0 **représente** un cockpit gouverné, mais **ne démontre pas** qu’un orchestrateur déterministe séparé peut :
+
+1. recevoir un contrat d’exécution borné ;
+2. vérifier les préconditions (Git, gates, allowlist) ;
+3. **refuser** toute action hors contrat sans arbitrage automatique ;
+4. déclencher une exécution Cursor **uniquement après GO Morris** ;
+5. collecter un résultat / preuve reconstructible ;
+6. s’arrêter proprement (stop) et permettre une reprise contrôlée ;
+
+…sans créer de seconde source de vérité face à Git, et sans automatiser l’arbitrage Morris.
+
+---
+
+## 3. Objectif de preuve
+
+Démontrer, sur **un scénario métier unique**, que la boucle suivante est **faisable techniquement** en local (macOS) de façon **reproductible, bornée et réversible** :
+
+```text
+Intention Studio
+  → qualification / contrat candidat (GPT)
+  → gate Morris (GO explicite)
+  → orchestrateur candidat (applique, ne décide pas)
+  → exécution Cursor bornée (read-only / sandbox)
+  → collecte preuve / pack
+  → verdict candidat (GPT)
+  → décision Morris tracée
 ```
 
-### `fixtures/cycles.ts`
+**Résultat observable attendu :** un journal corrélé (demande → cycle → GO → actions → résultat → stop éventuel) + un review pack / preuve locale, sans push/PR/merge réels, sans secret réel, sans L5 global.
 
-```ts
-import type { Cycle } from "@/lib/domain/cycle";
+**Verdicts de preuve futurs (post-delivery POC — non applicables ici) :**
 
-export const cycles: Cycle[] = [
-  {
-    id: "sfia-studio",
-    name: "SFIA Studio",
-    subtitle: "UX/UI · validation visuelle",
-    progress: 72,
-    status: "active",
-    profile: "critical",
-    phase: "Cycle 4 · UX/UI",
-    branch: "project/sfia-studio-ux-ui",
-    base: "main @ 5f1eb908",
-  },
-  {
-    id: "campus360",
-    name: "Campus360",
-    subtitle: "Delivery · INC-05",
-    progress: 91,
-    status: "active",
-    profile: "standard",
-    phase: "Delivery",
-    branch: "project/campus360-delivery",
-    base: "main @ a3c21f01",
-  },
-  {
-    id: "sfia-method",
-    name: "SFIA Method",
-    subtitle: "Capitalisation v2.4",
-    progress: 48,
-    status: "active",
-    profile: "standard",
-    phase: "Capitalisation",
-    branch: "project/sfia-method-v24",
-    base: "main @ 8e4d2a11",
-  },
-  {
-    id: "bridge-mcp",
-    name: "Bridge MCP",
-    subtitle: "RUN readiness",
-    progress: 64,
-    status: "active",
-    profile: "standard",
-    phase: "RUN readiness",
-    branch: "project/bridge-mcp-run",
-    base: "main @ 1b9f003c",
-  },
-];
+| Verdict | Signification |
+|---------|---------------|
+| `FEASIBILITY CONFIRMED` | Boucle démontrée sans écart structurant |
+| `FEASIBILITY CONFIRMED WITH RESERVES` | Démontrée avec réserves non bloquantes |
+| `FEASIBILITY NOT DEMONSTRATED` | Échec de preuve — abandon ou re-cadrage |
 
-export const activeCycle = cycles[0];
+---
+
+## 4. Périmètre du cadrage (ce cycle)
+
+| Inclus | Exclu |
+|--------|-------|
+| Problème, objectif, scénario candidat | Développement / code POC |
+| Frontières Studio / orch. / Git / Cursor | Branchement GitHub / Cursor réel |
+| Niveaux d’automatisation candidats | Choix d’outil Runtime |
+| Actions read-only / simulées / interdites | API, BDD, auth, CI/CD |
+| Gates, stops, preuves, critères | Backlog / delivery POC |
+| Sécurité, réversibilité, démo macOS | MVP / industrialisation |
+| Décisions **candidates** POC-CAND-* | Validation de POC-CAND / D-VAL nouvelles |
+
+---
+
+## 5. Hors périmètre (rappel strict)
+
+- Modification de `projects/sfia-studio/app/**`
+- Push / PR / merge du présent cadrage sans GO distinct (POC-G10)
+- Lancement du POC (POC-G9)
+- Architecture technique détaillée du POC
+- Définition du MVP
+- Industrialisation
+- Correction responsive / a11y / postcss P0
+- Clôture formelle architecture fonctionnelle
+- Évolution méthode SFIA (v2.7 / v3.0)
+
+---
+
+## 6. Hypothèses de cadrage
+
+| ID | Hypothèse | Statut |
+|----|-----------|--------|
+| H1 | AF-Option C reste le cadre d’autorité (Studio ≠ orchestrateur) | Reprise d’acquis validé |
+| H2 | Git reste la seule vérité durable | Reprise d’acquis validé |
+| H3 | Un seul scénario métier suffit pour la première preuve | **Hypothèse de cadrage** |
+| H4 | La première preuve peut s’appuyer sur lecture Git réelle + exécution Cursor **read-only** | **Hypothèse** |
+| H5 | Toute écriture Git distante (commit/push/PR/merge) reste **simulée** dans le premier POC | **Hypothèse / garde-fou** |
+| H6 | L’orchestrateur peut être un module local déterministe (script/service local) — technologie **non choisie** | **Hypothèse ouverte** |
+| H7 | La surface UI P0 peut servir de cockpit humain sans être le moteur d’orchestration | **Hypothèse** |
+| H8 | macOS local de Morris suffit comme environnement de preuve | Reprise D-VAL / cadrage |
+
+---
+
+## 7. Contraintes
+
+### 7.1 Autorité et vérité
+
+- Morris = seule autorité structurante (L0).
+- ChatGPT qualifie / structure — ne décide pas.
+- Cursor exécute un contrat borné — n’arbitre pas.
+- Orchestrateur **applique** — n’autorise pas, ne crée pas de GO.
+- Git prime ; Studio et orchestrateur ≠ seconde vérité.
+
+### 7.2 Automatisation
+
+- L5 **global** interdit.
+- Arbitrage reste L0.
+- Exécution après GO : L3 cible ; L4* orchestration contrôlée = **plafond candidat** (non validé).
+
+### 7.3 Sécurité
+
+- Aucun secret / token / identifiant réel dans fixtures ou journaux.
+- Permissions minimales (least privilege).
+- Séparation lecture / simulation / écriture.
+- Isolation locale ; arrêt sécurisé (stop) obligatoire.
+- Pas d’exécution de commandes système hors allowlist explicite (à détailler en architecture POC).
+
+### 7.4 Réversibilité
+
+- Toute action du POC initial doit être **réversible** ou **sans effet durable hors workspace local de preuve**.
+- Actions destructives exclues.
+- Force push, rewrite history, delete branch : **interdits**.
+
+### 7.5 FinOps (qualification qualitative)
+
+| Option | Nature | Coût potentiel |
+|--------|--------|----------------|
+| Orchestrateur 100 % local | Local | Faible / nul variable |
+| Appels GPT | Service | Variable selon volume |
+| Agent Cursor | Local / licence existante | Selon usage Morris |
+| Service managé Runtime | Managé | **Non retenu pour le 1er POC** — engagement financier à arbitrer plus tard |
+
+Aucun budget ni fournisseur validé.
+
+---
+
+## 8. Niveaux d’automatisation (candidats)
+
+| Niveau | Rôle | Position cadrage POC |
+|--------|------|----------------------|
+| **L0** | Arbitrage Morris | **Obligatoire** |
+| **L1–L2** | Qualification, drafting, verdict candidat | Autorisé |
+| **L3** | Exécution bornée **après GO** | **Cible VALIDÉE** (POC-CAND-04) |
+| **L4\*** | Orchestration contrôlée candidate | **Plafond VALIDÉ** sur chemin d’exécution — **≠** Runtime produit |
+| **L5 global** | Auto-arbitrage | **Interdit** |
+| **L5 ciblé read-only** | Consultation bornée (AF-15) | **Non autorisé automatiquement** |
+
+\*L4 = orchestration contrôlée **candidate**, non validée techniquement (aligné `11` §17).
+
+**Recommandation validée Morris (POC-CAND-04) :** plafond **L3 + L4* sur le chemin d’exécution uniquement** ; arbitrage **strictement L0**.  
+L4* = orchestration contrôlée **candidate** — **ne constitue pas** un niveau produit ni un Runtime validé.  
+L5 ciblé read-only **n’est pas** automatiquement autorisé par cette décision.
+
+---
+
+## 9. Critères de succès, d’échec et d’abandon
+
+### 9.1 Succès (preuves futures — POC delivery)
+
+- Boucle complète exécutée au moins une fois en local.
+- GO Morris explicite avant toute exécution Cursor non triviale.
+- Orchestrateur refuse une action hors allowlist (preuve de déterminisme négatif).
+- Journal corrélé disponible et reconstructible.
+- Aucune écriture Git distante réelle.
+- Aucun secret réel exposé.
+- Stop déclenchable et effectif.
+
+### 9.2 Échec
+
+- Impossible de séparer décision et exécution.
+- Orchestrateur peut contourner un gate.
+- Seconde vérité d’état durable hors Git.
+- Dépendance à une techno non arbitré pour « réussir ».
+- Preuve non reproductible.
+
+### 9.3 Abandon
+
+- Preuve nécessite écriture distante non réversible.
+- Coût / complexité disproportionnés vs objectif de faisabilité.
+- Contradiction avec AF-Option C non résoluble sans changer le produit.
+- Morris décide `STOP` / abandon explicite.
+
+---
+
+## 10. Risques et réserves
+
+| Risque | Impact | Mitigation cadrage |
+|--------|--------|-------------------|
+| Confusion POC / MVP | Haute | Formulations D-VAL-3 répétées ; critères faisabilité seulement |
+| Seconde vérité UI/orch. | Haute | Git prime ; états dérivés = observation |
+| Auto-arbitrage implicite | Haute | L5 interdit ; timeout ≠ GO |
+| Fuite de secrets | Haute | Fixtures synthétiques ; pas de `.env` réel |
+| Surarchitecture Runtime | Moyenne | Techno = hypothèse ; architecture POC cycle séparé |
+| Élargissement scénario | Moyenne | Un seul scénario sélectionné S1 (doc `21`) |
+| Coût GPT variable | Faible–moyen | Volume borné ; FinOps qualitatif |
+
+**Réserves maintenues hors POC :** responsive P0, a11y complète, CI Studio, postcss, clôture formelle AF, branches historiques.
+
+---
+
+## 11. Stratégie de démonstration (macOS local)
+
+1. Préparer un workspace de preuve isolé (clone ou worktree dédié — **à arbitrer en architecture POC**).
+2. Charger fixtures / données de test synthétiques (doc `21`).
+3. Déclencher le scénario depuis Studio (UI ou harness — **non choisi ici**).
+4. Obtenir un GO Morris simulé puis réel (selon maturité) sur gate unique.
+5. Montrer refus orchestrateur sur action hors contrat.
+6. Montrer exécution read-only autorisée après GO.
+7. Produire journal + pack de preuve.
+8. Arrêter (stop) et montrer absence d’effet distant.
+
+**Environnement :** macOS local Morris = contrainte de preuve (pas plateforme produit).
+
+---
+
+## 12. Observabilité minimale (preuve)
+
+Événements minimaux à journaliser :
+
+- `intent.received`
+- `qualification.produced`
+- `gate.requested` / `gate.decided` (GO / CORRIGER / STOP)
+- `orchestrator.accepted` / `orchestrator.rejected`
+- `execution.started` / `execution.finished` / `execution.stopped`
+- `proof.collected`
+- `verdict.candidate.produced`
+
+Corrélation : `requestId` · `cycleId` · `gateId` · `executionId`.
+
+Pas de plateforme de supervision industrialisée.
+
+---
+
+## 13. Éléments reportés après ce cadrage
+
+| Élément | Cycle ultérieur candidat |
+|---------|--------------------------|
+| Architecture POC ciblée | Après POC-G7 |
+| Choix techno orchestrateur | Architecture POC |
+| Backlog POC borné | Après POC-G8 |
+| Delivery POC | Après POC-G9 |
+| Intégration réelle Git/Cursor | GO distincts (POC-G5+) |
+| Décision post-POC (abandon / itération / MVP) | DF-G6 / DF-G7 (proposés) |
+
+---
+
+## 14. Décisions Morris (état après 2026-07-19)
+
+| Gate / CAND | Statut |
+|-------------|--------|
+| POC-G1…G6 | **VALIDÉS** |
+| POC-G10 | **VALIDÉ** (commit / push / draft PR cadrage) |
+| POC-G7…G9 | **NON VALIDÉS** |
+| POC-CAND-01…06, 08, 10 | **VALIDÉES** |
+| POC-CAND-07 | **VALIDÉE AVEC RÉSERVE** |
+| POC-CAND-09 | **VALIDÉE** (via POC-G10) |
+
+**Prochaine étape après intégration du cadrage :** post-merge, puis décision **distincte** sur architecture POC ciblée (POC-G7) — **pas** de backlog/delivery direct.
+
+**Toujours ouverts :** outil/techno orchestrateur ; harness vs UI ; clôture AF formelle ; MVP.
+
+---
+
+## 15. Documents liés
+
+| Document | Rôle |
+|----------|------|
+| [21-poc-orchestration-scenario-and-boundaries.md](./21-poc-orchestration-scenario-and-boundaries.md) | Scénario + frontières + flux |
+| [22-poc-orchestration-decision-pack.md](./22-poc-orchestration-decision-pack.md) | Options, reco, POC-CAND, gates |
+| [07-product-trajectory-and-decision-pack.md](./07-product-trajectory-and-decision-pack.md) | Trajectoire produit |
+| [11-functional-architecture.md](./11-functional-architecture.md) | AF-Option C, niveaux L0–L5 |
+| [18-technical-architecture.md](./18-technical-architecture.md) | Contraintes techniques P0 |
+
+---
+
+*Cadrage VALIDÉ PAR MORRIS 2026-07-19 — POC NON LANCÉ — POC-G7/G8/G9 fermés — Option C méthode préservée.*
 ```
 
-### `fixtures/gates.ts`
+---
 
-```ts
-import type { Gate } from "@/lib/domain/gate";
+## 9. Contenu complet — 21-poc-orchestration-scenario-and-boundaries.md
 
-export const gates: Gate[] = [
-  {
-    id: "gate-ux-option",
-    label: "Choix option UX",
-    timing: "Aujourd'hui",
-    status: "open",
-    accent: "pink",
-  },
-  {
-    id: "gate-versionnement",
-    label: "GO versionnement",
-    timing: "Après revue",
-    status: "pending",
-    accent: "orange",
-  },
-  {
-    id: "gate-arch-closure",
-    label: "Clôture architecture",
-    timing: "Ouverte",
-    status: "open",
-    accent: "purple",
-  },
-];
+```markdown
+# SFIA Studio — Scénario et frontières POC orchestration
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Projet** | SFIA Studio |
+| **Document** | `21-poc-orchestration-scenario-and-boundaries.md` |
+| **Cycle** | 1 — Cadrage POC orchestration (Option B) |
+| **Profil** | Critical |
+| **Statut document** | **VALIDÉ PAR MORRIS** — 2026-07-19 — scénario **S1 SÉLECTIONNÉ** |
+| **Complète** | [20-poc-orchestration-framing.md](./20-poc-orchestration-framing.md) |
+| **POC** | **Non lancé** |
+
+---
+
+## 1. Scénarios étudiés (limité)
+
+| ID | Intitulé | Couverture preuve | Risque | Retenu ? |
+|----|----------|-------------------|--------|----------|
+| **S1** | Cycle DOC gouverné read-only (intention → gate → exécution Cursor lecture → pack → décision) | Git + GPT + Cursor + gates + stops | Faible | **SÉLECTIONNÉ / VALIDÉ PAR MORRIS** |
+| **S2** | Pre-check Git + détection divergence HEAD + stop + reprise lecture | Vérité Git / stops | Moyen | Non retenu |
+| **S3** | Allowlist orchestrateur + rejet d’écriture simulée hors contrat | Déterminisme négatif | Moyen | **Intégré à S1** (rejet obligatoire) |
+| **S4** | PR readiness locale sans push/PR/merge | Diff / review | Plus large | Reporté |
+
+**Décision Morris (POC-CAND-02 / POC-G2) — 2026-07-19 :** scénario **S1** sélectionné, avec **rejet obligatoire** d’une action hors allowlist (élément S3) dans le flux de preuve.
+
+---
+
+## 2. Scénario S1 — « DOC read-only gouverné » (SÉLECTIONNÉ)
+
+### 2.1 Objectif métier du scénario (preuve)
+
+Prouver qu’une demande documentaire SFIA peut être **qualifiée**, **autorisée par Morris**, **exécutée de façon bornée** (lecture / analyse), **stoppable**, et **tracée**, via un orchestrateur déterministe séparé de Studio.
+
+### 2.2 Acteurs
+
+| Acteur | Rôle |
+|--------|------|
+| **Morris** | Décideur L0 — GO / CORRIGER / STOP |
+| **ChatGPT** | Qualification, contrat candidat, verdict candidat |
+| **Cursor** | Exécuteur du contrat borné (read-only) |
+| **Git** | Source de vérité (lecture) |
+| **SFIA Studio** | Surface de pilotage / représentation (cockpit) |
+| **Orchestrateur candidat** | Applique contrats, allowlist, gates, stops — **ne décide pas** |
+
+### 2.3 Déclencheur
+
+Morris (ou opérateur sous son autorité) ouvre une **nouvelle demande** de type DOC dans Studio (surface P0 `/nouvelle-demande` **ou** harness équivalent — **choix ouvert** pour le cycle architecture POC ; non tranché ici).
+
+### 2.4 Préconditions
+
+- Workspace de preuve local disponible.
+- Branche / HEAD de preuve connus (lecture Git possible).
+- Aucun secret réel chargé.
+- Contrat d’allowlist initial défini (lecture fichiers projet / méthode ; pas d’écriture distante).
+- Orchestrateur candidat démarrable localement (techno **non choisie**).
+
+### 2.5 Entrée
+
+| Champ | Exemple (fixture) |
+|-------|-------------------|
+| Titre | « Capitaliser une règle de gate SFIA » |
+| Type | DOC / CAPA légère |
+| Profil proposé | Standard |
+| Repo | `sfia-workspace` (preuve) |
+| Branche observée | `main` (lecture) |
+| Contraintes | Read-only ; pas de push |
+
+### 2.6 Déroulement nominal
+
+```text
+1. Studio enregistre l’intention (état dérivé local / fixture)
+2. GPT produit qualification + contrat Cursor candidat
+3. Studio présente le dossier de gate à Morris
+4. Morris décide GO (portée, durée, révocabilité explicites)
+5. Orchestrateur vérifie : GO valide + allowlist + préconditions Git
+6. Orchestrateur accepte l’exécution
+7. Cursor exécute read-only (lecture sources, analyse, rédaction pack local)
+8. Orchestrateur collecte résultat + preuves
+9. GPT produit verdict candidat (faisabilité / conformité contrat)
+10. Morris décide suite (CLOTURER / CORRIGER / STOP) — tracée
+11. Journal corrélé finalisé
 ```
 
-### `fixtures/evidence.ts`
+### 2.7 Variante obligatoire (déterminisme négatif)
 
-```ts
-import type { Evidence } from "@/lib/domain/evidence";
+Après l’étape 5, injecter une demande d’action **hors allowlist** (ex. `git push` simulé demandé par contrat altéré) :
 
-export const evidenceItems: Evidence[] = [
-  {
-    id: "ev-ux-contract",
-    label: "Contrat UX-B",
-    status: "conforme",
-    statusLabel: "Conforme",
-    accent: "green",
-  },
-  {
-    id: "ev-p0-00c",
-    label: "P0-00C premium",
-    status: "validé",
-    statusLabel: "Validé visuellement",
-    accent: "green",
-  },
-  {
-    id: "ev-p0-01c",
-    label: "P0-01C synthèse",
-    status: "disponible",
-    statusLabel: "Disponible",
-    accent: "blue",
-  },
-  {
-    id: "ev-p0-02c",
-    label: "P0-02C cycle",
-    status: "disponible",
-    statusLabel: "Disponible",
-    accent: "blue",
-  },
-  {
-    id: "ev-p0-03c",
-    label: "P0-03C décision",
-    status: "disponible",
-    statusLabel: "Disponible",
-    accent: "blue",
-  },
-  {
-    id: "ev-runtime",
-    label: "Runtime",
-    status: "non-disponible",
-    statusLabel: "Non disponible",
-    accent: "orange",
-  },
-];
-```
+- Orchestrateur **rejette** ;
+- Aucune exécution Cursor write ;
+- Événement `orchestrator.rejected` journalisé ;
+- Flux peut reprendre après correction du contrat + nouveau GO si nécessaire.
 
-### `fixtures/git-status.ts`
+### 2.8 Sortie et preuve produite
 
-```ts
-import type { GitStatus } from "@/lib/domain/git-status";
+| Artefact | Description |
+|----------|-------------|
+| Journal d’événements | Corrélé `requestId` / `cycleId` / `gateId` / `executionId` |
+| Review pack / preuve locale | Contenu produit en local (chemin de preuve à fixer en archi POC) |
+| Trace de GO | Décision Morris horodatée |
+| Trace de rejet | Au moins un rejet hors allowlist |
+| Diff Git distant | **Aucun** (attendu vide côté remote) |
 
-export const gitStatus: GitStatus = {
-  repository: "mcleland147/sfia-workspace",
-  branch: "main",
-  commit: "5f1eb908",
-  cleanliness: "clean",
-  verified: true,
-  staged: "Aucun",
-};
-```
+### 2.9 Postconditions
 
-### `components/shell/StudioShell.tsx`
+- Repo distant inchangé.
+- Aucun secret dans les artefacts.
+- État Studio reconstructible depuis Git + journal (pas de vérité exclusive UI).
 
-```tsx
-import { UtilityRail } from "./UtilityRail";
-import { Topbar } from "./Topbar";
-import { CopilotPanel, type CopilotProps } from "./CopilotPanel";
-import type { StudioRoute } from "@/lib/navigation";
-import shellStyles from "@/styles/shell.module.css";
+---
 
-interface TopbarPill {
-  label: string;
-  tone?: "blueFlush" | "purpleFlush" | "orange" | "green";
-}
+## 3. Modèle d’état minimal (candidat)
 
-interface StudioShellProps {
-  variant: "floating" | "flush";
-  activeRoute: StudioRoute;
-  title: string;
-  pills?: TopbarPill[];
-  children: React.ReactNode;
-  copilot: CopilotProps;
-}
+| État | Signification |
+|------|---------------|
+| `DRAFT` | Intention saisie |
+| `QUALIFIED` | Contrat candidat disponible |
+| `GATE_OPEN` | Attente décision Morris |
+| `AUTHORIZED` | GO reçu, non révoqué |
+| `ORCHESTRATING` | Orchestrateur actif |
+| `EXECUTING` | Cursor en cours |
+| `PROOF_READY` | Preuves collectées |
+| `STOPPED` | Stop appliqué |
+| `REJECTED` | Rejet orchestrateur |
+| `CLOSED` | Décision Morris de clôture |
 
-export function StudioShell({
-  variant,
-  activeRoute,
-  title,
-  pills,
-  children,
-  copilot,
-}: StudioShellProps) {
-  const isFloating = variant === "floating";
+Les états Studio/orchestrateur sont **dérivés / observationnels** — Git reste la vérité durable.
 
-  if (isFloating) {
-    return (
-      <div className={shellStyles.pageFloating} data-testid="studio-shell">
-        <div className={shellStyles.brandAccent} aria-hidden="true" />
-        <div className={shellStyles.railFloating}>
-          <UtilityRail variant="floating" activeRoute={activeRoute} />
-        </div>
-        <div className={shellStyles.workspaceFloating}>
-          <Topbar
-            variant="floating"
-            title={title}
-            activeRoute={activeRoute}
-            pills={pills}
-          />
-          <main className={shellStyles.workspaceInner} id="main-content">
-            {children}
-          </main>
-        </div>
-        <div className={shellStyles.copilotFloating}>
-          <CopilotPanel {...copilot} variant="floating" />
-        </div>
-      </div>
-    );
-  }
+---
 
-  return (
-    <div className={shellStyles.pageFlush} data-testid="studio-shell">
-      <div className={shellStyles.brandAccent} aria-hidden="true" />
-      <div className={shellStyles.railFlush}>
-        <UtilityRail variant="flush" activeRoute={activeRoute} />
-      </div>
-      <div className={shellStyles.mainFlush}>
-        <Topbar
-          variant="flush"
-          title={title}
-          activeRoute={activeRoute}
-          pills={pills}
-        />
-        <div className={shellStyles.bodyFlush}>
-          <main
-            className={shellStyles.canvasFlush}
-            id="main-content"
-            aria-label="Contenu principal"
-          >
-            {children}
-          </main>
-          <div className={shellStyles.copilotFlush}>
-            <CopilotPanel {...copilot} variant="flush" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+## 4. Contrat d’entrée / sortie (candidat — non API)
+
+### 4.1 Entrée orchestrateur (conceptuelle)
+
+```text
+OrchestrationRequest {
+  requestId, cycleId,
+  gateDecision { decision, scope, expiresAt, revocable },
+  allowlist { paths[], actions[] },
+  denylist { actions[] },
+  executionContract { tool: "cursor", mode: "read-only", ... },
+  gitContext { repo, branch, headSha }  // observation
 }
 ```
 
-### `app/layout.tsx`
+### 4.2 Sortie orchestrateur (conceptuelle)
 
-```tsx
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-export const metadata: Metadata = {
-  title: "SFIA Studio",
-  description:
-    "SFIA Studio — Delivery P0 frontend (fixtures locales, 4 écrans Figma)",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="fr" className={inter.variable}>
-      <body>{children}</body>
-    </html>
-  );
+```text
+OrchestrationResult {
+  requestId, executionId,
+  status: accepted|rejected|stopped|completed|failed,
+  events[],
+  proofs[],
+  gitEffect: "none-remote",
+  error?
 }
 ```
 
-### `app/page.tsx`
+Aucun schéma JSON/OpenAPI validé ici — **contrat candidat** pour architecture POC.
 
-```tsx
-import { redirect } from "next/navigation";
+---
 
-export default function HomePage() {
-  redirect("/synthese");
-}
+## 5. Frontières d’autorité
+
+| Frontière | Règle candidate |
+|-----------|-----------------|
+| **Studio → Orchestrateur** | Studio soumet une requête après GO ; n’exécute pas lui-même les actions outils |
+| **Orchestrateur → Cursor** | Passe uniquement un contrat allowlisté ; pas d’élévation de privilèges |
+| **Orchestrateur → Git** | Lecture autorisée ; écriture distante **interdite** au POC initial |
+| **GPT → Orchestrateur** | Aucun canal d’autorité ; GPT ne commande pas l’orchestrateur |
+| **Morris → tous** | Seul émetteur de GO / STOP structurants |
+| **Studio / Git** | Studio représente ; Git prime |
+| **Orchestrateur / vérité** | Journal = preuve d’exécution ; ≠ vérité produit |
+
+Aligné **AF-Option C** — **VALIDÉ PAR MORRIS** (POC-CAND-03 / POC-G3, 2026-07-19) : Studio et orchestrateur séparés ; Git = source de vérité ; orchestrateur n’arbitre pas.  
+Le modèle d’état et le scénario restent un **contrat de cadrage**, pas une architecture technique finale. Aucune technologie sélectionnée.
+
+---
+
+## 6. Actions : read-only, simulées, interdites
+
+### 6.1 Read-only / autorisées (POC initial recommandé)
+
+- `git status`, `git rev-parse`, `git log` (lecture)
+- `git diff` local
+- Lecture fichiers allowlistés
+- Génération d’artefacts **locaux** de preuve
+- Journalisation
+- Stop / reject
+
+### 6.2 Simulées (obligatoires au POC initial)
+
+- `git commit`
+- `git push`
+- Création PR / ready-for-review / merge
+- Delete branch
+- Invocation Cursor en mode écriture hors sandbox
+- Appels GitHub API
+- « Runtime cloud »
+
+### 6.3 Interdites
+
+- Auto-GO, auto-merge, auto-push
+- Force push / rewrite history
+- L5 global / timeout = GO
+- Secrets réels
+- Exécution shell non allowlistée
+- Toute action non réversible
+- Création d’une vérité durable hors Git
+
+---
+
+## 7. Gates Morris dans le scénario
+
+| Gate | Moment | Décision typique |
+|------|--------|------------------|
+| Gate scénario (POC-G2) | Avant delivery | Sélection S1 |
+| Gate d’exécution | Avant Cursor | GO / CORRIGER / STOP |
+| Gate de clôture preuve | Après pack | CLOSING / ITERATE / ABANDON |
+
+Les gates produit POC-G1…G6 et POC-G10 sont **VALIDÉS** (2026-07-19). POC-G7…G9 restent **NON VALIDÉS**.
+
+---
+
+## 8. Stop conditions (scénario)
+
+Stop immédiat si :
+
+- GO absent, expiré ou révoqué ;
+- action hors allowlist demandée ;
+- divergence Git inattendue sur le workspace de preuve ;
+- tentative d’écriture distante ;
+- secret détecté dans le contexte ;
+- orchestrateur indisponible / non déterministe ;
+- Cursor sort du contrat ;
+- opérateur Morris émet STOP.
+
+---
+
+## 9. Reprise et idempotence minimale
+
+| Situation | Reprise |
+|-----------|---------|
+| STOP pendant exécution | Pas de retry auto ; nouveau GO requis |
+| REJECT hors allowlist | Corriger contrat → nouveau GO |
+| Échec Cursor read-only | Relancer avec même `requestId` / nouvel `executionId` si aucune écriture |
+| Preuve partielle | Marquer `failed` ; ne pas inventer d’état Git |
+
+**Idempotence :** relancer une exécution read-only ne doit pas muter le remote ; les artefacts locaux doivent être versionnés par `executionId`.
+
+---
+
+## 10. Données et fixtures de test
+
+| Donnée | Nature |
+|--------|--------|
+| Demande DOC exemple | Fixture synthétique FR |
+| Allowlist chemins | `projects/sfia-studio/**` lecture + méthode lecture |
+| GO Morris de démo | Structure de décision mock puis réel |
+| Branche de preuve | Locale, jetable |
+| Secrets | **Aucun** — placeholders uniquement |
+
+---
+
+## 11. Observabilité et journalisation
+
+Voir `20` §12. Compléments scénario :
+
+- Preuve de **rejet** obligatoire dans la démo.
+- Preuve de **stop** (au moins en dry-run documenté si non exécuté en live).
+- Corrélation affichable dans un extrait de journal (fichier local).
+
+---
+
+## 12. Surface Studio P0 (hypothèse d’usage)
+
+| Route P0 | Usage candidat dans S1 |
+|----------|------------------------|
+| `/nouvelle-demande` | Saisie intention |
+| `/cycle-actif` | Suivi étapes / stops |
+| `/decision` | Gate Morris |
+| `/synthese` | Observation portefeuille (hors chemin critique) |
+
+L’UI P0 **n’est pas** l’orchestrateur. Branchement réel UI↔orchestrateur = architecture / delivery futurs.
+
+---
+
+## 13. Ce que ce document ne tranche pas
+
+- Implémentation de l’orchestrateur
+- Protocole (files, HTTP local, CLI…)
+- Emplacement exact des preuves
+- Harness vs UI pour le déclenchement
+- Périmètre exact des chemins allowlist (détail archi POC)
+
+---
+
+*Scénario S1 SÉLECTIONNÉ / VALIDÉ PAR MORRIS 2026-07-19 — POC NON LANCÉ — techno Runtime ouverte — Morris décide (POC-G7+).*
 ```
 
-### `README.md`
+---
 
-```md
-# SFIA Studio — Delivery P0
+## 10. Contenu complet — 22-poc-orchestration-decision-pack.md
 
-Frontend Next.js 15 pour les 4 écrans Figma P0 (`lrjA1WEyRpL05vKR8k29LO`).
+```markdown
+# SFIA Studio — Decision pack POC orchestration
 
-## Stack
+| Métadonnée | Valeur |
+|------------|--------|
+| **Projet** | SFIA Studio |
+| **Document** | `22-poc-orchestration-decision-pack.md` |
+| **Cycle** | 1 — Cadrage POC orchestration (Option B) |
+| **Profil** | Critical |
+| **Statut document** | **VALIDÉ PAR MORRIS** — 2026-07-19 |
+| **Préfixe décisions** | `POC-CAND-*` — identifiants locaux (même après validation) |
+| **D-VAL nouvelles** | **Aucune** |
+| **POC** | **Non lancé** |
+| **Destinataire** | Morris |
 
-- Next.js 15 App Router, React 19, TypeScript strict
-- CSS Modules + variables `--sfia-*` (`styles/tokens.css`)
-- Port local : **3020**
-- Fixtures locales uniquement — **aucun backend**
+> Décision Morris du **2026-07-19** : validation du cadrage Option B. POC-G7 / G8 / G9 **fermés**. Aucune architecture Runtime / techno sélectionnée. Aucun merge autorisé par ce pack seul (POC-G10 = draft PR).
 
-## Scripts
+---
 
-```bash
-npm install
-npm run dev          # http://127.0.0.1:3020
-npm run lint
-npm run typecheck
-npm test
-npm run test:e2e
-npm run build
-npm start
+## 1. Observations factuelles
+
+1. Delivery P0 clôturé (PR #217) ; capitalisation intégrée (PR #218).
+2. Cadrage Option B produit puis **validé Morris 2026-07-19**.
+3. AF-Option C **VALIDÉE** (fond) et **opérationnalisée** pour le POC (POC-CAND-03).
+4. Baseline SFIA v2.6 / Option C méthode **inchangée**.
+5. POC / MVP / industrialisation **non engagés**.
+
+---
+
+## 2. Hypothèses
+
+H1–H8 du document `20` — dont H6 (orchestrateur local) **retenue avec réserve** (POC-CAND-07) : outil/forme **ouverts**.
+
+---
+
+## 3–5. Options (historique de cadrage)
+
+Les options A/B/C de séquencement et S1–S4 / L-levels restent documentées comme **historique de qualification**. Les choix Morris sont dans §6–7.
+
+---
+
+## 6. Décisions POC-CAND — état Morris 2026-07-19
+
+> Identifiants locaux au cadrage. **Aucune D-VAL nouvelle.**
+
+| ID | Décision | Statut Morris |
+|----|----------|---------------|
+| **POC-CAND-01** | Problème + objectif de preuve acceptés | **VALIDÉE** |
+| **POC-CAND-02** | Scénario **S1** sélectionné (DOC read-only + rejet hors allowlist obligatoire) | **VALIDÉE** |
+| **POC-CAND-03** | Frontières Studio / orch. / Git / Cursor ; AF-Option C opérationnalisée ; Git = vérité | **VALIDÉE** |
+| **POC-CAND-04** | L3 cible après GO ; L4* plafond chemin d’orchestration (**≠** niveau produit/Runtime) ; arbitrage L0 ; L5 global interdit | **VALIDÉE** |
+| **POC-CAND-05** | Lecture Git réelle autorisée (futur POC) ; écritures distantes **simulées** ; aucun commit/push/PR/merge réel sans décision distincte | **VALIDÉE** |
+| **POC-CAND-06** | Critères succès / échec / abandon acceptés | **VALIDÉE** |
+| **POC-CAND-07** | Orchestrateur local déterministe = hypothèse candidate ; outil/techno/forme **ouverts** ; aucune archi Runtime validée | **VALIDÉE AVEC RÉSERVE** |
+| **POC-CAND-08** | Après intégration cadrage → prochaine étape candidate = **architecture POC ciblée** ; pas de backlog/delivery direct | **VALIDÉE** |
+| **POC-CAND-09** | Commit / push / **draft PR** du cadrage (via POC-G10) | **VALIDÉE** |
+| **POC-CAND-10** | Aucun lancement POC tant que gates nécessaires non ouverts explicitement | **VALIDÉE** |
+
+---
+
+## 7. Gates Morris — état 2026-07-19
+
+| Gate | Objet | Statut |
+|------|-------|--------|
+| **POC-G1** | Problème + objectif de preuve | **VALIDÉ** |
+| **POC-G2** | Scénario métier unique S1 | **VALIDÉ** |
+| **POC-G3** | Frontières d’autorité et de vérité | **VALIDÉ** |
+| **POC-G4** | Niveau maximal d’automatisation | **VALIDÉ** |
+| **POC-G5** | Lecture Git réelle ; écritures distantes simulées | **VALIDÉ** |
+| **POC-G6** | Critères succès / échec / abandon | **VALIDÉ** |
+| **POC-G7** | Architecture POC candidate | **PROPOSÉ / NON VALIDÉ** |
+| **POC-G8** | Backlog POC | **PROPOSÉ / NON VALIDÉ** |
+| **POC-G9** | Delivery POC | **PROPOSÉ / NON VALIDÉ** |
+| **POC-G10** | Commit / push / draft PR du cadrage | **VALIDÉ** |
+
+**Cette décision n’autorise pas le merge** de la draft PR — merge = GO Morris distinct.
+
+---
+
+## 8. Impacts
+
+Cadrage validé → versionnement autorisé (draft PR) → après merge/post-merge : décision distincte sur **POC-G7** uniquement. Pas de shortcut delivery.
+
+---
+
+## 9. Dette / ouverts
+
+- Outil / forme orchestrateur (réserve POC-CAND-07)
+- Harness vs UI P0
+- Allowlist chemins détaillée (architecture)
+- Clôture formelle AF
+- MVP / industrialisation / réserves P0
+
+---
+
+## 10. Séquence après intégration du cadrage
+
+```text
+Draft PR cadrage (POC-G10) — EN COURS
+  → GO merge (décision distincte)
+  → post-merge cadrage
+  → décision distincte architecture POC ciblée (POC-G7)
+  → (plus tard) backlog POC (POC-G8) → delivery POC (POC-G9)
+  → décision post-POC : abandon / itération / préparation MVP
 ```
 
-## Routes P0
+POC-G7 / G8 / G9 **non ouverts**.
 
-| Écran Figma | Route |
-|-------------|-------|
-| P0-01C Vue synthèse | `/synthese` (hub, redirect depuis `/`) |
-| P0-00C Nouvelle demande | `/nouvelle-demande` |
-| P0-02C Cycle actif | `/cycle-actif` |
-| P0-03C Décision Morris | `/decision` |
+---
 
-## Contraintes P0
+## 11. Verdict documentaire
 
-- **Pas** de `app/api`, middleware auth, `.env`, Tailwind, ni appels Git distants
-- Actions Git/Cursor **simulées** (`Simulation — aucune action Git réelle`)
-- `Recommendation` (copilot) ≠ `MorrisDecision` (gate humain)
-- Onglet **Preuves** et gear rail : désactivés (simulation)
-- Captures E2E 1440×1024 → `../../.tmp-sfia-review/screenshots/`
+| Élément | Valeur |
+|---------|--------|
+| Cadrage | **VALIDÉ PAR MORRIS** — 2026-07-19 |
+| POC lancé | **Non** |
+| POC-G7…G9 | **Fermés** |
+| Runtime / techno | **Non sélectionnés** |
+| Versionnement | **Autorisé** (draft PR) |
+| Merge | **Non autorisé** |
 
-## Structure
+**Verdict PR readiness :** `PR READINESS COMPLETE — DRAFT PR OPEN — MERGE NOT AUTHORIZED`
 
-```
-app/                 # App Router pages
-components/shell/    # StudioShell, rail, topbar, copilot
-components/ui/       # Card, pills, gates, evidence, metrics
-features/            # Écrans P0
-fixtures/            # Données déterministes FR
-lib/domain/          # Types + guards
-lib/adapters/        # Ports fixtures-only
-styles/              # tokens.css, shell.module.css
-__tests__/           # Vitest + Testing Library
-e2e/                 # Playwright smoke
+---
+
+*Decision pack VALIDÉ 2026-07-19 — POC NON LANCÉ — merge non autorisé.*
 ```
 
-## Figma frames
+---
 
-- P0-00C `19:2` — shell **floating** (rail/workspace/copilot inset)
-- P0-01/02/03 — shell **flush** (rail pleine hauteur + topbar)
+## 11. Staged / commit / push / draft PR
 
-Tokens extraits manuellement depuis `get_design_context` (variables Figma vides).
-```
-
-### `playwright.config.ts`
-
-```ts
-import { defineConfig, devices } from "@playwright/test";
-
-const baseURL = "http://127.0.0.1:3020";
-
-export default defineConfig({
-  testDir: "./e2e",
-  fullyParallel: false,
-  workers: 1,
-  forbidOnly: !!process.env.CI,
-  retries: 0,
-  reporter: [["list"]],
-  use: {
-    ...devices["Desktop Chrome"],
-    baseURL,
-    trace: "on-first-retry",
-    viewport: { width: 1440, height: 1024 },
-  },
-  webServer: {
-    command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 180_000,
-  },
-});
-```
-
-### `vitest.config.ts`
-
-```ts
-import { defineConfig } from "vitest/config";
-import path from "path";
-
-export default defineConfig({
-  esbuild: {
-    jsx: "automatic",
-  },
-  test: {
-    environment: "jsdom",
-    setupFiles: ["./__tests__/setup.ts"],
-    include: ["__tests__/**/*.test.{ts,tsx}"],
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "."),
-    },
-  },
-});
-```
-
-### `e2e/p0-smoke.spec.ts`
-
-```ts
-import { test, expect } from "@playwright/test";
-import path from "path";
-import fs from "fs";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots",
-);
-
-const routes = [
-  {
-    path: "/nouvelle-demande",
-    heading: "Nouvelle demande",
-    screenshot: "p0-00c-nouvelle-demande-runtime.png",
-  },
-  {
-    path: "/synthese",
-    heading: "Vue synthèse",
-    screenshot: "p0-01c-synthese-runtime.png",
-  },
-  {
-    path: "/cycle-actif",
-    heading: "Cycle actif",
-    screenshot: "p0-02c-cycle-actif-runtime.png",
-  },
-  {
-    path: "/decision",
-    heading: "Décision Morris",
-    screenshot: "p0-03c-decision-runtime.png",
-  },
-];
-
-const knownNoise = [
-  "Download the React DevTools",
-  "Hydration failed",
-  "Extra attributes from the server",
-];
-
-test.beforeAll(() => {
-  fs.mkdirSync(screenshotDir, { recursive: true });
-});
-
-test.describe("P0 smoke", () => {
-  for (const route of routes) {
-    test(`renders ${route.path}`, async ({ page }) => {
-      const errors: string[] = [];
-      page.on("console", (msg) => {
-        if (msg.type() !== "error") return;
-        const text = msg.text();
-        if (knownNoise.some((noise) => text.includes(noise))) return;
-        errors.push(text);
-      });
-
-      await page.goto(route.path);
-      await expect(
-        page.getByRole("heading", { name: route.heading, level: 1 }),
-      ).toBeVisible();
-
-      await page.screenshot({
-        path: path.join(screenshotDir, route.screenshot),
-        fullPage: true,
-      });
-
-      expect(errors).toEqual([]);
-    });
-  }
-
-  test("navigates between primary routes", async ({ page }) => {
-    await page.goto("/synthese");
-    const rail = page.getByTestId("utility-rail");
-
-    await rail.getByRole("link", { name: "Nouvelle demande" }).click();
-    await expect(page).toHaveURL(/nouvelle-demande/);
-
-    await rail.getByRole("link", { name: "Cycle actif" }).click();
-    await expect(page).toHaveURL(/cycle-actif/);
-
-    await rail.getByRole("link", { name: "Décision Morris" }).click();
-    await expect(page).toHaveURL(/decision/);
-  });
-
-  test("axe-core smoke has no critical violations", async ({ page }) => {
-    await page.goto("/synthese");
-
-    await page.addScriptTag({
-      path: require.resolve("axe-core/axe.min.js"),
-    });
-
-    const axeResults = await page.evaluate(async () => {
-      // @ts-expect-error axe injected by addScriptTag
-      const res = await window.axe.run(document, {
-        runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] },
-      });
-      return {
-        violations: res.violations.filter(
-          (v: { impact?: string }) =>
-            v.impact === "critical" || v.impact === "serious",
-        ),
-      };
-    });
-
-    expect(axeResults.violations.length).toBeLessThanOrEqual(3);
-  });
-});
-```
-
-### `features/nouvelle-demande/NouvelleDemandeScreen.tsx`
-
-```tsx
-import Image from "next/image";
-import { StatusPill } from "@/components/ui/StatusPill";
-import { CtaButton } from "@/components/ui/CtaButton";
-import { gitStatus } from "@/fixtures/git-status";
-import { copilotRecommendations } from "@/fixtures";
-import styles from "./nouvelle-demande.module.css";
-
-export function NouvelleDemandeScreen() {
-  const recommendation = copilotRecommendations[0];
-
-  return (
-    <>
-      <section className={styles.hero} aria-labelledby="hero-title">
-        <h2 id="hero-title" className={styles.heroTitle}>
-          Transformez un besoin flou en cycle exécutable.
-        </h2>
-        <p className={styles.heroText}>
-          Décrivez la demande. SFIA qualifie le cycle, les gates, les risques et
-          le cadre d&apos;exécution.
-        </p>
-        <StatusPill tone="white">Qualification assistée</StatusPill>
-        <Image
-          src="/icons/hero-orb.svg"
-          alt=""
-          width={92}
-          height={92}
-          className={styles.heroOrb}
-          aria-hidden
-        />
-      </section>
-
-      <div className={styles.grid}>
-        <section className={styles.formCard} aria-labelledby="form-title">
-          <p className={styles.sectionLabel}>1 · EXPRIMER LE BESOIN</p>
-          <h2 id="form-title" className={styles.sectionTitle}>
-            Que souhaitez-vous accomplir ?
-          </h2>
-
-          <div className={styles.field}>
-            <span className={styles.fieldLabel}>Objet de la demande</span>
-            <p className={styles.fieldValue}>
-              Industrialiser la préparation des cycles SFIA
-            </p>
-          </div>
-
-          <div className={`${styles.field} ${styles.fieldLarge}`}>
-            <span className={styles.fieldLabel}>
-              Décrivez le résultat attendu
-            </span>
-            <p className={styles.fieldValue}>
-              Je veux réduire la préparation manuelle, sécuriser les gates Morris
-              et produire automatiquement un cadrage exploitable par Cursor.
-            </p>
-            <div className={styles.tags}>
-              <StatusPill tone="blue">Objectif</StatusPill>
-              <StatusPill tone="purple">Automatisation</StatusPill>
-              <StatusPill tone="green">Gouvernance</StatusPill>
-            </div>
-          </div>
-
-          <p className={styles.sectionLabelPurple}>2 · CONTEXTE</p>
-          <div className={styles.contextCard}>
-            <div className={styles.ghIcon}>GH</div>
-            <div>
-              <p className={styles.repoName}>{gitStatus.repository}</p>
-              <p className={styles.repoMeta}>
-                {gitStatus.branch} · {gitStatus.commit} · {gitStatus.cleanliness}
-              </p>
-            </div>
-            <span className={styles.contextPill}>
-              <StatusPill tone="green">Git truth vérifiée</StatusPill>
-            </span>
-          </div>
-
-          <div className={styles.attachment}>
-            ＋ Ajouter des documents, captures ou liens
-          </div>
-
-          <div className={styles.actions}>
-            <span className={styles.saved}>Enregistré il y a 8 s</span>
-            <CtaButton variant="primaryDark" simulated>
-              Lancer la qualification →
-            </CtaButton>
-          </div>
-        </section>
-
-        <aside className={styles.preview} aria-label="Prévisualisation du cycle">
-          <div className={styles.previewHeader}>
-            <h2 className={styles.previewTitle}>Prévisualisation du cycle</h2>
-            <StatusPill tone="green">Temps réel</StatusPill>
-          </div>
-
-          <div className={styles.agentCard}>
-            <div className={styles.agentAvatar}>AI</div>
-            <div>
-              <p className={styles.statusTitle}>Orchestrateur de qualification</p>
-              <p className={styles.statusSub}>
-                Analyse du besoin, risques et gates en cours…
-              </p>
-              <StatusPill tone="purple">68 %</StatusPill>
-            </div>
-          </div>
-
-          <p className={styles.recommendationNote}>
-            Recommandation copilot — non décision Morris
-          </p>
-          <div className={styles.statusRow}>
-            <span
-              className={styles.statusDot}
-              style={{ background: "var(--sfia-blue-00c)" }}
-            />
-            <div>
-              <p className={styles.statusTitle}>Cycle proposé</p>
-              <p className={styles.statusSub}>Conception fonctionnelle</p>
-            </div>
-          </div>
-
-          <div className={styles.statusRow}>
-            <span
-              className={styles.statusDot}
-              style={{ background: "var(--sfia-purple-00c)" }}
-            />
-            <div>
-              <p className={styles.statusTitle}>{recommendation.title}</p>
-              <p className={styles.statusSub}>Standard</p>
-            </div>
-          </div>
-
-          <div className={styles.statusRow}>
-            <span
-              className={styles.statusDot}
-              style={{ background: "var(--sfia-orange-00c)" }}
-            />
-            <div>
-              <p className={styles.statusTitle}>Gate Morris</p>
-              <p className={styles.statusSub}>Requise avant exécution</p>
-            </div>
-          </div>
-
-          <div className={styles.timeline}>
-            <p className={styles.timelineTitle}>Parcours</p>
-            <div className={styles.timelineItem}>
-              <span
-                className={styles.timelineDot}
-                style={{ background: "var(--sfia-green-00c)" }}
-              />
-              Demande reçue
-            </div>
-            <div className={styles.timelineItemActive}>
-              <span
-                className={styles.timelineDot}
-                style={{ background: "var(--sfia-green-00c)" }}
-              />
-              Qualification
-            </div>
-            <div className={styles.timelineItem}>
-              <span
-                className={styles.timelineDot}
-                style={{ background: "var(--sfia-border-00c)" }}
-              />
-              Validation Morris
-            </div>
-            <div className={styles.timelineItem}>
-              <span
-                className={styles.timelineDot}
-                style={{ background: "var(--sfia-border-00c)" }}
-              />
-              Prompt Cursor
-            </div>
-          </div>
-
-          <p className={styles.trust}>
-            Aucune action Git ou Cursor sans GO Morris.
-          </p>
-        </aside>
-      </div>
-    </>
-  );
-}
-```
-
-### `features/synthese/SyntheseScreen.tsx`
-
-```tsx
-import { MetricCard } from "@/components/ui/MetricCard";
-import { GateList } from "@/components/ui/GateList";
-import { StatusPill } from "@/components/ui/StatusPill";
-import { cycles } from "@/fixtures/cycles";
-import { gates } from "@/fixtures/gates";
-import styles from "./synthese.module.css";
-
-const dotColors = ["#7a4df5", "#3863f5", "#21c28a", "#faa629"];
-
-const activities = [
-  "Figma premium créé",
-  "AF-CAND-11B validée",
-  "PR #214 mergée",
-  "Handoff publié",
-];
-
-export function SyntheseScreen() {
-  return (
-    <>
-      <div className={styles.heroWrap}>
-        <section className={styles.hero} aria-labelledby="synthese-hero">
-          <p className={styles.heroEyebrow}>PILOTAGE EN TEMPS RÉEL</p>
-          <h2 id="synthese-hero" className={styles.heroTitle}>
-            Une vision claire de chaque cycle, chaque gate et chaque preuve.
-          </h2>
-          <p className={styles.heroText}>
-            Le cockpit consolide la vérité Git, les décisions Morris et les
-            prochaines actions sans créer une seconde vérité.
-          </p>
-          <div className={styles.heroPills}>
-            <span className={styles.heroPillDark}>4 projets actifs</span>
-            <span className={styles.heroPillPurple}>2 gates ouvertes</span>
-          </div>
-        </section>
-      </div>
-
-      <div className={styles.metrics}>
-        <MetricCard label="Projets actifs" value="04" accent="blue" />
-        <MetricCard label="Cycles en cours" value="03" accent="purple" />
-        <MetricCard label="Gates Morris" value="02" accent="orange" />
-        <MetricCard label="Review packs" value="07 / 08" accent="green" />
-      </div>
-
-      <div className={styles.lower}>
-        <section className={styles.portfolio} aria-labelledby="portfolio-title">
-          <div className={styles.portfolioHeader}>
-            <h2 id="portfolio-title" className={styles.portfolioTitle}>
-              Portefeuille des cycles
-            </h2>
-            <StatusPill tone="blueFlush">Vue portefeuille</StatusPill>
-          </div>
-          {cycles.map((cycle, index) => (
-            <div key={cycle.id} className={styles.row}>
-              <span
-                className={styles.rowDot}
-                style={{ background: dotColors[index] }}
-                aria-hidden
-              />
-              <div>
-                <p className={styles.rowName}>{cycle.name}</p>
-                <p className={styles.rowSub}>{cycle.subtitle}</p>
-              </div>
-              <span className={styles.rowProgress}>
-                <StatusPill tone="blueFlush">{cycle.progress} %</StatusPill>
-              </span>
-            </div>
-          ))}
-        </section>
-
-        <div className={styles.sideColumn}>
-          <section className={styles.panel} aria-labelledby="gates-title">
-            <h2 id="gates-title" className={styles.panelTitle}>
-              Gates à arbitrer
-            </h2>
-            <GateList gates={gates} />
-          </section>
-
-          <section className={styles.panel} aria-labelledby="activity-title">
-            <h2 id="activity-title" className={styles.panelTitle}>
-              Activité récente
-            </h2>
-            <ul className={styles.activityList}>
-              {activities.map((item) => (
-                <li key={item} className={styles.activityItem}>
-                  • {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-      </div>
-    </>
-  );
-}
-```
-
-### `features/cycle-actif/CycleActifScreen.tsx`
-
-```tsx
-import { StatusPill } from "@/components/ui/StatusPill";
-import { CtaButton } from "@/components/ui/CtaButton";
-import { activeCycle } from "@/fixtures/cycles";
-import styles from "./cycle-actif.module.css";
-
-const steps = [
-  { num: 1, label: "Cadrer", state: "done" as const },
-  { num: 2, label: "Produire", state: "done" as const },
-  { num: 3, label: "Vérifier", state: "active" as const },
-  { num: 4, label: "Décider", state: "pending" as const },
-  { num: 5, label: "Versionner", state: "pending" as const },
-];
-
-const checklist = [
-  { label: "Contrat UX/UI complet", status: "Terminé", tone: "greenFlush" as const, dot: "#21c28a" },
-  { label: "4 écrans P0 premium", status: "En cours", tone: "blueFlush" as const, dot: "#3863f5" },
-  { label: "Contraste WCAG AA", status: "À vérifier", tone: "orangeFlush" as const, dot: "#faa629" },
-  { label: "Capture runtime", status: "Non lancée", tone: "pink" as const, dot: "#f25794" },
-  { label: "Review handoff", status: "À produire", tone: "purpleFlush" as const, dot: "#7a4df5" },
-];
-
-export function CycleActifScreen() {
-  return (
-    <>
-      <section className={styles.hero} aria-labelledby="cycle-hero">
-        <p className={styles.heroEyebrow}>CYCLE 4 · UX/UI</p>
-        <h2 id="cycle-hero" className={styles.heroTitle}>
-          Construire, vérifier, décider — sans perdre la vérité Git.
-        </h2>
-        <p className={styles.heroText}>
-          Le parcours guidé concentre les preuves, les stops et les décisions
-          humaines au bon moment.
-        </p>
-        <div className={styles.heroPills}>
-          <span className={styles.pillPurple}>Critical</span>
-          <span className={styles.pillBlue}>72 %</span>
-        </div>
-      </section>
-
-      <nav className={styles.stepper} aria-label="Étapes du cycle">
-        {steps.map((step, index) => (
-          <div key={step.num} style={{ display: "contents" }}>
-            <div className={styles.step}>
-              <span
-                className={
-                  step.state === "done"
-                    ? styles.stepCircleDone
-                    : step.state === "active"
-                      ? styles.stepCircleActive
-                      : styles.stepCirclePending
-                }
-              >
-                {step.num}
-              </span>
-              <span
-                className={
-                  step.state === "active"
-                    ? styles.stepLabelActive
-                    : styles.stepLabel
-                }
-              >
-                {step.label}
-              </span>
-            </div>
-            {index < steps.length - 1 && (
-              <span
-                className={
-                  step.state === "done" || step.state === "active"
-                    ? styles.connector
-                    : styles.connectorPending
-                }
-                aria-hidden
-              />
-            )}
-          </div>
-        ))}
-      </nav>
-
-      <div className={styles.lower}>
-        <section className={styles.work} aria-labelledby="work-title">
-          <p className={styles.workLabel}>ÉTAPE COURANTE</p>
-          <h2 id="work-title" className={styles.workTitle}>
-            Vérification visuelle et documentaire
-          </h2>
-          <p className={styles.workText}>
-            Comparer les écrans Figma, le contrat UX-B et les garde-fous avant
-            décision Morris.
-          </p>
-
-          {checklist.map((item) => (
-            <div key={item.label} className={styles.checkRow}>
-              <span
-                className={styles.checkDot}
-                style={{ background: item.dot }}
-                aria-hidden
-              />
-              <span className={styles.checkLabel}>{item.label}</span>
-              <StatusPill tone={item.tone}>{item.status}</StatusPill>
-            </div>
-          ))}
-
-          <div className={styles.actions}>
-            <CtaButton variant="secondary" simulated>
-              Ouvrir les preuves
-            </CtaButton>
-            <CtaButton href="/decision">Préparer décision Morris</CtaButton>
-          </div>
-        </section>
-
-        <aside className={styles.inspector} aria-label="Cadre d'exécution">
-          <h2 className={styles.inspectorTitle}>Cadre d&apos;exécution</h2>
-          <p className={styles.fieldLabel}>Branche</p>
-          <p className={styles.fieldValue}>{activeCycle.branch}</p>
-          <p className={styles.fieldLabel}>Base</p>
-          <p className={styles.fieldValue}>{activeCycle.base}</p>
-          <p className={styles.fieldLabel}>Profil</p>
-          <p className={styles.fieldValue}>Critical</p>
-          <p className={styles.fieldLabel}>Figma</p>
-          <p className={styles.fieldValue}>4 frames P0</p>
-          <p className={styles.fieldLabel}>Staged</p>
-          <p className={styles.fieldValue}>Aucun</p>
-
-          <div className={styles.stopBox}>
-            <p className={styles.stopTitle}>STOP CONDITIONS</p>
-            <p className={styles.stopText}>
-              Option UX promue sans GO · divergence Git · preuve visuelle absente.
-            </p>
-          </div>
-
-          <div className={styles.inspectorAction}>
-            <CtaButton variant="primary" simulated>
-              Demander un STOP
-            </CtaButton>
-          </div>
-        </aside>
-      </div>
-    </>
-  );
-}
-```
-
-### `features/decision/DecisionScreen.tsx`
-
-```tsx
-"use client";
-
-import { useState } from "react";
-import { EvidenceList } from "@/components/ui/EvidenceList";
-import { StatusPill } from "@/components/ui/StatusPill";
-import { CtaButton } from "@/components/ui/CtaButton";
-import { evidenceItems } from "@/fixtures/evidence";
-import { pendingMorrisDecision } from "@/fixtures";
-import type { MorrisVerdict } from "@/lib/domain/morris-decision";
-import styles from "./decision.module.css";
-
-const options: {
-  verdict: MorrisVerdict;
-  pill: string;
-  tone: "greenFlush" | "orangeFlush" | "pink";
-  title: string;
-  subtitle: string;
-}[] = [
-  {
-    verdict: "GO",
-    pill: "GO",
-    tone: "greenFlush",
-    title: "Adopter la direction premium",
-    subtitle: "Décliner sur le cycle UX/UI",
-  },
-  {
-    verdict: "CORRIGER",
-    pill: "CORRIGER",
-    tone: "orangeFlush",
-    title: "Demander une itération",
-    subtitle: "Ajuster avant validation",
-  },
-  {
-    verdict: "STOP",
-    pill: "STOP",
-    tone: "pink",
-    title: "Suspendre la trajectoire",
-    subtitle: "Aucun engagement supplémentaire",
-  },
-];
-
-export function DecisionScreen() {
-  const [selected, setSelected] = useState<MorrisVerdict | null>(null);
-  const decision = pendingMorrisDecision;
-
-  return (
-    <>
-      <section className={styles.hero} aria-labelledby="decision-hero">
-        <p className={styles.heroEyebrow}>GATE MORRIS · UX/UI</p>
-        <h2 id="decision-hero" className={styles.heroTitle}>
-          Décider avec le bon niveau de preuve.
-        </h2>
-        <p className={styles.heroText}>
-          Chaque choix affiche sa portée, ses risques, sa révocabilité et les
-          impacts sur la trajectoire.
-        </p>
-        <div className={styles.heroPills}>
-          <span className={styles.pillPurple}>Décision requise</span>
-          <span className={styles.pillBlue}>Morris</span>
-        </div>
-      </section>
-
-      <div className={styles.content}>
-        <section className={styles.evidencePanel} aria-labelledby="evidence-title">
-          <p className={styles.evidenceLabel}>DOSSIER DE DÉCISION</p>
-          <h2 id="evidence-title" className={styles.evidenceTitle}>
-            {decision.title}
-          </h2>
-          <p className={styles.evidenceDesc}>{decision.description}</p>
-          <EvidenceList items={evidenceItems} />
-        </section>
-
-        <section
-          className={styles.decisionPanel}
-          aria-labelledby="morris-decision-title"
-        >
-          <p className={styles.morrisLabel}>Décision Morris — autorité humaine</p>
-          <h2 id="morris-decision-title" className={styles.decisionTitle}>
-            Votre décision
-          </h2>
-          <p className={styles.decisionHint}>
-            Aucune action n&apos;est déclenchée avant confirmation.
-          </p>
-
-          {options.map((option) => (
-            <button
-              key={option.verdict}
-              type="button"
-              className={
-                selected === option.verdict
-                  ? styles.optionSelected
-                  : styles.option
-              }
-              onClick={() => setSelected(option.verdict)}
-              aria-pressed={selected === option.verdict}
-            >
-              <StatusPill tone={option.tone}>{option.pill}</StatusPill>
-              <p className={styles.optionTitle}>{option.title}</p>
-              <p className={styles.optionSub}>{option.subtitle}</p>
-            </button>
-          ))}
-
-          <div className={styles.confirmBox}>
-            <p className={styles.confirmLabel}>CONFIRMATION RENFORCÉE</p>
-            <p className={styles.confirmText}>
-              Portée : {decision.scope}
-            </p>
-          </div>
-
-          <CtaButton
-            simulated
-            disabled={!selected}
-            title={
-              selected
-                ? "Simulation — aucune décision Morris réelle"
-                : "Sélectionnez une option"
-            }
-          >
-            Confirmer la décision
-          </CtaButton>
-          <p className={styles.simulatedNote}>
-            Simulation P0 — aucun effet sur Git, Cursor ou la trajectoire.
-          </p>
-        </section>
-      </div>
-    </>
-  );
-}
-```
-
-## 8. Scripts npm
-
-| Script | Commande |
-|--------|----------|
-| `dev` | `next dev --port 3020` |
-| `start` | `next start --port 3020` |
-| `lint` | `next lint` |
-| `typecheck` | `tsc --noEmit` |
-| `test` | `vitest run` |
-| `test:e2e` | `playwright test` |
-| `build` | `next build` |
-
-## 9. Résultats d’exécution
-
-| Contrôle | Résultat |
-|----------|----------|
-| lint | ✔ No ESLint warnings or errors |
-| typecheck | ✔ `tsc --noEmit` OK |
-| Vitest | ✔ 9/9 tests (6 files) |
-| build | ✔ 4 routes + `/` redirect + not-found ; static |
-| Playwright | ✔ 6/6 (4 routes + navigation + axe smoke) |
-| npm audit | informatif : 2 moderate (postcss via next) — **pas** de `audit fix --force` |
-
-### Routes build
+### 11.1 Staged (vérifié avant commit)
 
 ```
-/ → redirect /synthese
-/nouvelle-demande
-/synthese
-/cycle-actif
-/decision
+M	projects/sfia-studio/07-product-trajectory-and-decision-pack.md
+A	projects/sfia-studio/20-poc-orchestration-framing.md
+A	projects/sfia-studio/21-poc-orchestration-scenario-and-boundaries.md
+A	projects/sfia-studio/22-poc-orchestration-decision-pack.md
+M	projects/sfia-studio/README.md
 ```
 
-## 10. Captures runtime
+`git diff --cached --check` : PASS  
+Stat : 5 files changed, 854 insertions(+), 153 deletions(-)
 
-- `.tmp-sfia-review/screenshots/p0-00c-nouvelle-demande-runtime.png` — 307460 bytes — SHA-256 `396ec5097b15ee443524204953e5baf196e8e41c53808b7a10aefd2a8fcffdc3`
-- `.tmp-sfia-review/screenshots/p0-01c-synthese-runtime.png` — 185321 bytes — SHA-256 `a26d7f0374166705d2a83ae23ba86220c32f6900ecf5a5cda41fb44965bdc6d4`
-- `.tmp-sfia-review/screenshots/p0-02c-cycle-actif-runtime.png` — 183912 bytes — SHA-256 `40f912869dd9f2edef16e67da8b9dfef09453dc50bf00dc27e298402013261c8`
-- `.tmp-sfia-review/screenshots/p0-03c-decision-runtime.png` — 198137 bytes — SHA-256 `758395f816302dccffbd5205d3ae0ffed4e67349870dbd9d6a1778b4edfad71a`
+### 11.2 Commit
 
-## 11. Matrice Figma / runtime
+| Champ | Valeur |
+|-------|--------|
+| SHA | `3b162ecb5212e9f62ac20f0066df9fbc545be4cc` |
+| Message | `docs(sfia-studio): validate POC orchestration framing` |
+| HEAD avant | `aa8dbd4606c52df7662276a99c873b4d93e001ba` |
+| HEAD après | `3b162ecb5212e9f62ac20f0066df9fbc545be4cc` |
 
-| Écran | Figma node | Capture runtime | Structure | Typographie | Couleurs | Espacements | Composants | Écarts | Verdict |
-|---|---|---|---|---|---|---|---|---|---|
-| P0-00C Nouvelle demande | 19:2 | p0-00c-nouvelle-demande-runtime.png | CONFORME | ÉCART MINEUR | CONFORME | ÉCART MINEUR | CONFORME | Layout flex vs absolute Figma ; tabs internes non navigables (UI) | ÉCART MINEUR |
-| P0-01C Vue synthèse | 22:2 | p0-01c-synthese-runtime.png | CONFORME | ÉCART MINEUR | CONFORME | ÉCART MINEUR | CONFORME | Densité/colonnes proches ; tab Preuves simulé | ÉCART MINEUR |
-| P0-02C Cycle actif | 22:133 | p0-02c-cycle-actif-runtime.png | CONFORME | ÉCART MINEUR | CONFORME | ÉCART MINEUR | CONFORME | Stepper/checklist alignés copy Figma | ÉCART MINEUR |
-| P0-03C Décision Morris | 22:270 | p0-03c-decision-runtime.png | CONFORME | ÉCART MINEUR | CONFORME | ÉCART MINEUR | CONFORME | Options GO/CORRIGER/STOP ; confirm simulée | ÉCART MINEUR |
+### 11.3 Push
 
-**Écarts corrigés :** canvas flush vide (grid row topbar) — corrigé ; captures régénérées.
+| Champ | Valeur |
+|-------|--------|
+| Branche remote | `origin/project/sfia-studio-poc-orchestration-framing` |
+| SHA remote | `3b162ecb5212e9f62ac20f0066df9fbc545be4cc` (confirmé `git ls-remote`) |
+| Tracking | upstream configuré |
 
-**Écarts résiduels :** pixel-perfect absolute non revendiqué ; responsive non traité ; tab Preuves/gear désactivés (simulé) ; pas d’audit a11y complet.
+### 11.4 Draft PR
 
-## 12. Accessibilité
+| Champ | Valeur |
+|-------|--------|
+| Numéro | **#219** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/219 |
+| Base | `main` |
+| Head | `project/sfia-studio-poc-orchestration-framing` |
+| État | **DRAFT** (`isDraft: true`) |
+| Merge | **NON AUTORISÉ / NON EFFECTUÉ** |
 
-- Landmarks (`nav`, `main`), titres, focus-visible, boutons typés, labels aria, icônes décoratives.
-- axe-core smoke Playwright : pas de violations **critical**.
-- Verdict : **a11y smoke conforme** — **pas** ACCESSIBILITY READY.
+Horodatage finalisation : 2026-07-19 12:48:57 CEST
 
-## 13. Sécurité
+---
 
-- Aucun `.env` ; aucun secret ; aucune API métier ; aucune commande système/Git réelle.
-- `package-lock.json` présent.
-- Actions distantes UI : `disabled` + libellé simulation.
-- Recommendation ≠ MorrisDecision (types + UI).
+## 12. Réserves
 
-## 14. Garde-fous
+1. **POC-CAND-07** — VALIDÉE AVEC RÉSERVE : outil / technologie / forme d'implémentation ouverts.
+2. Merge de la draft PR = GO Morris **distinct** (non autorisé ici).
+3. POC-G7 / G8 / G9 restent fermés.
+4. UI Studio vs harness = ouvert pour cycle architecture.
+5. Clôture formelle architecture fonctionnelle = décision séparée.
 
-- Pas de `app/api` applicatif ; pas de middleware auth ; pas de Tailwind ; pas de backend ; pas de CI ; pas de Runtime réel ; pas de code Git réel.
-- Périmètre limité à `projects/sfia-studio/app/**` + `.tmp-sfia-review/**`.
+---
 
-## 15. Réserves
+## 13. Actions interdites restantes
 
-- Viewport 1280×832 non validé ; mobile/tablette hors périmètre.
-- Copy/fixtures fictives déterministes — non liées au Git réel.
-- npm audit moderate postcss (transitive Next) — informatif.
-- Worktree `sfia-workspace-ux-reconciliation` encore présent (hors cycle).
+- merge
+- lancement POC
+- POC-G7 / G8 / G9
+- architecture / backlog / delivery POC
+- choix Runtime
+- suppression branche
+- clôture architecture fonctionnelle
 
-## 16. Décisions Morris encore requises
+---
 
-- Validation visuelle runtime (ce pack + captures)
-- GO corrections complémentaires éventuelles
-- GO commit projet
-- GO push projet
-- GO PR
-- GO merge
-- GO cleanup
+## 14. Verdict
 
-## 17. Verdict
+**`PR READINESS COMPLETE WITH RESERVES — DRAFT PR OPEN — MERGE NOT AUTHORIZED`**
 
-**DELIVERY P0 IMPLEMENTED — READY FOR RUNTIME VISUAL REVIEW**
+Réserve non bloquante : POC-CAND-07 (outil orchestrateur ouvert).
 
+Ce cycle **ne** lance **pas** le POC, **ne** valide **pas** l'architecture POC, **ne** sélectionne **pas** de Runtime, et **n'autorise pas** le merge.
