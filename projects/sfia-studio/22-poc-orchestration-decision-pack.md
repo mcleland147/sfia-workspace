@@ -79,7 +79,7 @@ Les options A/B/C de séquencement et S1–S4 / L-levels restent documentées co
 
 ## 8. Impacts
 
-Cadrage validé + intégré → cycle de cadrage **clôturable** documentairement → prochaine décision Morris **possible** : ouverture éventuelle de **POC-G7** uniquement. Pas de shortcut backlog/delivery. Versionnement de la sync post-merge = GO distinct.
+Cadrage validé + intégré → cycle de cadrage **clôturable** documentairement → sync post-merge **versionnée** (draft PR #220) → prochaine décision : **GO merge #220** ; après intégration, éventuel **POC-G7**. Pas de shortcut backlog/delivery.
 
 ---
 
@@ -90,7 +90,7 @@ Cadrage validé + intégré → cycle de cadrage **clôturable** documentairemen
 - Allowlist chemins détaillée (architecture)
 - Clôture formelle AF
 - MVP / industrialisation / réserves P0
-- GO versionnement sync post-merge (si retenue)
+- GO merge draft PR #220 (requis ; non accordé ici)
 
 ---
 
@@ -99,7 +99,7 @@ Cadrage validé + intégré → cycle de cadrage **clôturable** documentairemen
 ```text
 Cadrage validé (2026-07-19)
   → POC-G10 consommé — PR #219 MERGED (be713c45…)
-  → post-merge sync documentaire (cycle 14 — local)
+  → post-merge sync documentaire — versionnée ; draft PR #220 ouverte ; merge = GO Morris distinct
   → décision distincte éventuelle architecture POC (POC-G7) — FERMÉE
   → (plus tard) backlog POC (POC-G8) → delivery POC (POC-G9)
   → décision post-POC : abandon / itération / préparation MVP
@@ -115,14 +115,17 @@ POC-G7 / G8 / G9 **non ouverts**. Aucune architecture POC prise. Aucun lancement
 |---------|--------|
 | Cadrage | **VALIDÉ + INTÉGRÉ** (PR #219) |
 | POC-G10 | **CONSOMMÉ** |
+| Sync post-merge | **Versionnée** — draft PR #220 |
+| GO commit / push / draft PR | **Consommé** |
+| Merge #220 | **Non autorisé** |
 | POC lancé | **Non** |
 | Architecture / backlog / delivery POC | **Non lancés** |
 | POC-G7…G9 | **Fermés** |
 | Runtime / techno | **Non sélectionnés** (outil ouvert) |
-| Prochaine décision Morris possible | Ouverture éventuelle de **POC-G7** |
+| Prochaine décision Morris | **GO merge #220** ; éventuellement POC-G7 après intégration |
 
-**Verdict post-merge :** `POST-MERGE COMPLETE — POC FRAMING INTEGRATED — MORRIS DECISION REQUIRED`
+**Verdict :** `CORRECTION COMPLETE — PR #220 UPDATED — READY FOR MORRIS MERGE DECISION`
 
 ---
 
-*Decision pack VALIDÉ + INTÉGRÉ (PR #219) — POC-G10 CONSOMMÉ — POC NON LANCÉ — POC-G7 fermé.*
+*Decision pack VALIDÉ + INTÉGRÉ (PR #219) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — POC-G10 CONSOMMÉ — POC NON LANCÉ — POC-G7 fermé.*

@@ -8,7 +8,7 @@
 | **Profil** | Critical |
 | **Typologie** | DOC / EVOL (cadrage) |
 | **Baseline méthode** | SFIA v2.6 — Option C méthode (**inchangée**) |
-| **Branche** | Historique : `project/sfia-studio-poc-orchestration-framing` ; sync : `capitalization/sfia-studio-poc-framing-post-merge` |
+| **Branche** | Historique : `project/sfia-studio-poc-orchestration-framing` ; sync : `capitalization/sfia-studio-poc-framing-post-merge` (**poussée**) ; draft PR [#220](https://github.com/mcleland147/sfia-workspace/pull/220) |
 | **Base / main** | `origin/main` @ `be713c45a63c243a4d75c51d27d215d05bb621f1` (PR #219) |
 | **Statut document** | **VALIDÉ PAR MORRIS** (2026-07-19) et **INTÉGRÉ** sur `main` — cycle de cadrage **terminé** |
 | **POC** | **Non lancé** |
@@ -308,7 +308,9 @@ Pas de plateforme de supervision industrialisée.
 
 **Cycle de cadrage :** **terminé** (validé + intégré). Critères de succès/échec/abandon = contrat — **pas** preuve réalisée.
 
-**Prochaine décision Morris possible :** ouverture éventuelle de **POC-G7** (architecture POC ciblée) — **fermée** ici. Pas de backlog/delivery direct.
+**Sync post-merge :** **versionnée** (commit + push + draft PR #220). **Merge #220** = GO Morris distinct — **non autorisé** ici.
+
+**Prochaine décision Morris possible après merge #220 :** ouverture éventuelle de **POC-G7** (architecture POC ciblée) — **fermée** ici. Pas de backlog/delivery direct.
 
 **Toujours ouverts :** outil/techno orchestrateur ; harness vs UI ; clôture AF formelle ; MVP.
 
@@ -326,4 +328,4 @@ Pas de plateforme de supervision industrialisée.
 
 ---
 
-*Cadrage VALIDÉ + INTÉGRÉ (PR #219 / be713c45…) — cycle cadrage TERMINÉ — POC NON LANCÉ — POC-G7/G8/G9 fermés — outil orchestrateur ouvert.*
+*Cadrage VALIDÉ + INTÉGRÉ (PR #219 / be713c45…) — sync post-merge versionnée (PR #220 draft) — merge non autorisé — cycle cadrage TERMINÉ — POC NON LANCÉ — POC-G7/G8/G9 fermés — outil orchestrateur ouvert.*
