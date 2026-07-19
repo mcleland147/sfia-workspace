@@ -1,172 +1,167 @@
-# Review pack — SFIA Studio POC vertical slice BACKLOG CORRECTIF
+# Review pack — SFIA Studio POC vertical slice BACKLOG PR readiness
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / fuseau** | 2026-07-19 22:58:52 CEST |
-| **Cycle** | 5 — Backlog / user stories — correctif documentaire |
+| **Date / heure / fuseau** | 2026-07-19 23:06:52 CEST |
+| **Cycle** | 13 — PR readiness (backlog 38–40) |
 | **Profil** | Standard |
-| **Typologie** | DOC / BACKLOG / CORRECTIVE |
-| **GO Morris consommé** | G-VS-BL (produire) + G-VS-BL-FIX (correctif structure/traçabilité) |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale — aucun push**) |
-| **HEAD / origin/main** | `722f586855743f87a6d3318ccec2dd6224676e28` = `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **Verdict** | `SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED` |
+| **Typologie** | DOC / BACKLOG / PR READINESS |
+| **GO Morris consommé** | Backlog validé · VS-BL-CAND-01…12 validées · A→E validé · Incr. A retenu · commit/push/draft PR autorisés |
+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
+| **HEAD avant** | `722f586855743f87a6d3318ccec2dd6224676e28` |
+| **HEAD après / commit** | `b4b26b260d6a4a3b3f1b3ef4441f126e322c1f05` |
+| **Message** | `docs(sfia-studio): define validated vertical slice backlog` |
+| **origin/main** | `722f586855743f87a6d3318ccec2dd6224676e28` |
+| **PR** | [#229](https://github.com/mcleland147/sfia-workspace/pull/229) — **OPEN** · **draft** · base `main` · head `backlog/sfia-studio-poc-vertical-slice` |
+| **Verdict** | `SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED` |
 
 ---
 
 ## 1. Truth Check
 
-OK — fetch · branche `backlog/sfia-studio-poc-vertical-slice` · HEAD = origin/main = `722f586…` · PR #228 MERGED · docs 32–37 présents · staged vide · 38–40 non trackés non vides · aucun app/harness modifié · branche backlog absente du remote.
+OK — fetch · branche backlog · HEAD avant = origin/main = `722f586…` · branche distante absente avant push · aucune PR préalable · staged vide · 38–40 + .tmp untracked · aucun app/harness modifié.
 
 ---
 
-## 2. Sources consultées
-
-- Template + routing guide
-- Docs `32`–`37` (vérité FR/BR/AC/N/CAND/UX)
-- Docs `38`–`40` (backlog à corriger)
-- Figma lecture seule : `51:2`, états `51:3`…`51:1204`, VAR `52:2/10/18/26`
-- `app/**` / `harness/**` RO (pas de changement)
-- Handoff précédent sur `sfia/review-handoff`
-
----
-
-## 3. Grille d’audit des 33 stories
-
-| Contrôle | Résultat |
-|----------|----------|
-| Stories auditées | **33** |
-| Complètes avant correctif | **1** (US-001) |
-| Incomplètes avant | **32** |
-| Complétées | **32** |
-| Complètes après | **33 / 33** (16 champs) |
-| IDs uniques | 001…033 |
-| Références corrigées | **US-003** (N16 retiré) · **US-011** (VS-FR-15/16 → VS-FR-04 + VS-UX-FR-15/16) |
-| N16 | Couverture primaire **US-016** (+033) |
-| Matrice | **91** lignes recalculées · FR17 BR17 AC12 N16 CAND15 UX10 VAR4 |
-| Séquencement A–E | **Inchangé** (39 mis à jour traçabilité seulement) |
-
-### Stories incomplètes détectées (avant)
-
-US-002…033 manquaient en combinaison : Valeur, Préconditions, Négatifs, Preuves, Dépendances, Risque, Gate, Hors périmètre, Notes delivery.
-
-### Corrections de traçabilité (liste exacte)
-
-1. **VS-BL-US-003** : retirer `N16` des sources ; remplacer par étape 1 / abandon pré-qualif / FinOps 0 / VS-UX-01 / VS-FR-16 (conso=0) / VS-BR-03 ; hors périmètre explicite N16→US-016.
-2. **VS-BL-US-011** : retirer `VS-FR-15/16` ; utiliser `VS-FR-04` · `VS-UX-FR-15` · `VS-UX-FR-16` · VS-UX-04 · Doc 36 §8 · VS-CAND-04 · VS-BR-04.
-3. **VS-BL-US-016** : N16 marqué primaire.
-4. **32 stories** : ajout des champs manquants (16 champs partout).
-5. **Matrice §9** : expansion ligne à ligne (plus de plages agrégées FR/BR/AC/CAND).
-6. **Doc 39** : story map étape 01/04/transverse clarifiée ; note N16.
-7. **Doc 40** : correctif meta · CAND-06 précisé · risques traçabilité · verdict CORRECTED.
-
----
-
-## 4. Couverture (après)
-
-| Famille | Statut |
-|---------|--------|
-| VS-FR-01…17 | couvert |
-| VS-BR-01…17 | couvert |
-| VS-AC-01…12 | couvert |
-| N1…N16 | couvert (N16=016) |
-| VS-CAND-01…15 | couvert (14 valeur différée) |
-| VS-UX-01…10 | couvert |
-| VAR Loading/Err/STOP/GO | couvert |
-
----
-
-## 5. Cohérence 38 / 39 / 40
-
-- 33 stories · 10 epics · A–E inchangés
-- 39 : dépendances/story map alignées correctifs
-- 40 : VS-BL-CAND-01…12 toujours **non validées** · verdict CORRECTED
-
----
-
-## 6. Contrôles exécutés
-
-- 33 IDs uniques
-- 0 story sans les 16 champs
-- 0 ID source inconnu (canon 32–37)
-- N16 absent des sources US-003
-- VS-FR-15/16 absents des sources US-011
-- Matrice sans orphelin
-- Aucun claim stack/MVP abusif
-- Trailing whitespace = 0
-- git status : uniquement 38–40 + .tmp
-
----
-
-## 7. Fichiers
-
-### Créés / modifiés (non versionnés projet)
-
-- `38` (988 lignes) — **réécrit correctif**
-- `39` (237 lignes) — meta + story map N16/011
-- `40` (152 lignes) — meta + risques + verdict
-- `.tmp-sfia-review/chatgpt-review.md`
-
-### Non modifiés
-
-`01`–`37` · `app/**` · `harness/**` · Figma · method/prompts · configs
-
----
-
-## 8. git status final
+## 2. Working tree initial
 
 ```
 ?? .tmp-sfia-review/
-?? projects/sfia-studio/38-poc-vertical-slice-backlog.md
-?? projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md
-?? projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md
+?? projects/sfia-studio/38-…40-….md
 ```
 
 ---
 
-## 9. Réserves
+## 3. Sources consultées
 
-- Plafond GPT valeur **À définir**
-- Adaptateur absent (dette Incr. B)
-- UI gate actuelle ≠ 4 actions (observé RO)
-- Aucune VS-BL-CAND validée
-- Séquencement A–E candidat seulement
-
----
-
-## 10. Décisions Morris attendues
-
-1. Valider/amender/refuser VS-BL-CAND-01…12
-2. Autoriser versionnement 38–40
-3. Confirmer correctifs US-003 / US-011
-4. **Ne pas** GO delivery / live / merge
+- Template + routing guide
+- Docs 32–37 (cohérence)
+- Docs 38–40 (versionnement)
+- Handoff `sfia/review-handoff` (correctif préalable)
 
 ---
 
-## 11. Verdict
+## 4. Décisions Morris intégrées
 
-`SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED`
-
-Instruction ChatGPT : lire `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
+- Backlog 38–40 validé sur le fond
+- VS-BL-CAND-01…12 **validées**
+- Séquencement A→E **validé**
+- Incrément A **retenu** comme premier périmètre futur
+- Commit / push / draft PR **autorisés**
+- Merge / delivery / live **non autorisés**
 
 ---
 
-# ANNEXE A — Document 38 intégral (final)
+## 5. Alignements de statut (métadonnées uniquement)
+
+| Doc | Avant | Après |
+|-----|-------|-------|
+| 38 | `draft-for-morris-validation` — aucune story/incrément validés | `validated-for-versioning` — backlog validé ; merge/delivery = GO distinct |
+| 39 | incréments candidats non validés | séquencement A–E validé ; Incr. A retenu ; delivery non autorisé |
+| 40 | aucune VS-BL-CAND validée · « Ne jamais écrire validée » | 12 CAND **VALIDÉES** · versionnement autorisé · merge = GO distinct |
+
+Gates 38/40 : G-VS-BL-VAL consommé · G-VS-BL-DOC partiel (merge restant).
+
+Conservés (légitimes) : verdict GPT **candidat** (produit) · DoD delivery futur non validée · plafond **À définir**.
+
+---
+
+## 6. Contrôles quantitatifs
+
+| Contrôle | Résultat |
+|----------|----------|
+| Stories | 33/33 uniques |
+| Epics | 10 |
+| Capabilities | 34 |
+| VS-BL-CAND VALIDÉE | 12/12 |
+| Matrice | 91 lignes |
+| Séquencement A–E | validé |
+| Incr. A | retenu |
+| Plafond GPT | À définir |
+| Delivery/live | non autorisés |
+| Nouvelles routes | aucune |
+| Claim MVP abusif | aucun |
+| Code | aucun |
+| git diff --check | OK |
+| Fichiers commit/PR | **exactement 3** |
+
+---
+
+## 7. Commit / push
+
+| Champ | Valeur |
+|-------|--------|
+| SHA | `b4b26b260d6a4a3b3f1b3ef4441f126e322c1f05` |
+| Message | docs(sfia-studio): define validated vertical slice backlog |
+| Fichiers | 38 · 39 · 40 |
+| .tmp | exclu |
+| Push | normal `-u` · local = remote · **pas** de force push |
+
+---
+
+## 8. Pull Request
+
+| Champ | Valeur |
+|-------|--------|
+| Numéro | **#229** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/229 |
+| État | OPEN · **draft** |
+| Base | main |
+| Head | backlog/sfia-studio-poc-vertical-slice |
+| Fichiers | 3 ADDED (38, 39, 40) |
+| Mergeable | UNKNOWN (info GitHub) |
+
+---
+
+## 9. git status final
+
+```
+?? .tmp-sfia-review/
+```
+
+---
+
+## 10. Réserves
+
+- Plafond GPT numérique **À définir**
+- Adaptateur Studio↔harness absent
+- Gate UI actuelle ≠ 4 actions (alignement delivery)
+- Incr. A retenu mais delivery = GO distinct
+- Merge non autorisé
+
+---
+
+## 11. Gates restants
+
+G-VS-BL-MERGE · ready-for-review · G-VS-DEL-A · G-VS-LIVE-GPT · G-VS-LIVE-CURSOR · G-VS-LIMIT · CI/MVP/IND
+
+---
+
+## 12. Verdict
+
+`SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED`
+
+Instruction ChatGPT : `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md`
+
+---
+
+# ANNEXE A — Document 38 intégral (commité)
 
 # SFIA Studio — Backlog delivery borné du vertical slice POC
 
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `38-poc-vertical-slice-backlog.md` |
-| **Cycle** | 5 — Backlog / user stories — **correctif documentaire** |
+| **Cycle** | 5 — Backlog / user stories · 13 — PR readiness |
 | **Profil** | Standard |
-| **Typologie** | DOC / BACKLOG / CORRECTIVE |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
+| **Typologie** | DOC / BACKLOG / PR READINESS |
+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
 | **Base Git** | `origin/main` @ `722f586855743f87a6d3318ccec2dd6224676e28` |
-| **Statut** | `draft-for-morris-validation` — **aucune story ni incrément validés** |
+| **Statut** | `validated-for-versioning` — backlog et stories **validés Morris** ; merge PR = GO distinct ; delivery = GO distinct |
 | **Companions** | [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
 | **Sources** | [`32`](./32-poc-vertical-slice-functional-design.md)–[`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 | **Code / live** | **Aucun** dans ce cycle |
-| **Correctif** | Structure 16 champs × 33 stories · audit traçabilité · matrice recalculée |
+| **Décisions Morris** | `VS-BL-CAND-01`…`12` validées · séquencement A→E validé · incrément A = premier périmètre futur |
 
 > Backlog documentaire du **premier vertical slice POC**.
 > Dix **états** UX ≠ dix routes · quatre vues P0 · Option B inchangée · plafond GPT **À définir** · aucun claim MVP.
@@ -1118,12 +1113,12 @@ Une story est Ready si :
 |------|-------|
 | G-VS-BL | **Consommé** — produire backlog |
 | G-VS-BL-FIX | **Consommé** — correctif documentaire structure/traçabilité |
-| G-VS-BL-VAL | Validation `VS-BL-CAND-*` / backlog |
-| G-VS-BL-DOC | Commit/push/PR/merge 38–40 |
-| G-VS-DEL | Delivery |
+| G-VS-BL-VAL | **Consommé** — validation backlog / `VS-BL-CAND-01`…`12` |
+| G-VS-BL-DOC | **Partiel** — commit/push/draft PR autorisés ; **merge** = GO distinct |
+| G-VS-DEL / G-VS-DEL-A | Delivery (Incr. A retenu, **non autorisé** ici) |
 | G-VS-LIVE-GPT | GPT live |
 | G-VS-LIVE-CURSOR | Cursor live |
-| G-VS-LIMIT | Valeur numérique plafond |
+| G-VS-LIMIT | Valeur numérique plafond (**À définir**) |
 | G-VS-CI / MVP / IND | Interdits tant que non GO |
 
 ---
@@ -1137,14 +1132,13 @@ Une story est Ready si :
 | User stories | **33** (`VS-BL-US-001` … `033`) |
 | Champs obligatoires / story | **16** |
 | Lignes matrice couverture | 91 |
-| Incréments candidats | 5 (voir `39`) |
+| Incréments A–E | 5 — séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct (voir `39`) |
 | Références traçabilité corrigées (min.) | US-003 · US-011 (+ champs 32 stories) |
-
 
 
 ---
 
-# ANNEXE B — Document 39 intégral (final)
+# ANNEXE B — Document 39 intégral (commité)
 
 # SFIA Studio — Story map et séquencement du vertical slice POC
 
@@ -1153,14 +1147,14 @@ Une story est Ready si :
 | **Document** | `39-poc-vertical-slice-story-map-and-sequencing.md` |
 | **Cycle** | 5 — Backlog / user stories |
 | **Profil** | Standard |
-| **Statut** | `draft-for-morris-validation` — incréments **candidats non validés** |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
+| **Statut** | `validated-for-versioning` — story map et séquencement A–E **validés Morris** ; incrément A **retenu** ; delivery non autorisé |
+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
 | **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 | **Companion** | [`38`](./38-poc-vertical-slice-backlog.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
-| **Correctif** | Aligné sur audit traçabilité doc 38 (N16→016 ; structure 16 champs) — **séquencement A–E inchangé** |
+| **Décisions Morris** | `VS-BL-CAND-01` (A→E) · `VS-BL-CAND-03` (Incr. A premier périmètre) validées |
 
 > Story map des **dix états** sur **quatre vues P0**.
-> Aucun incrément n’est validé sans GO Morris.
+> Séquencement A–E validé ; **delivery** de chaque incrément soumis à GO Morris distinct.
 
 ---
 
@@ -1245,9 +1239,11 @@ Parallélisable avec prudence : 028/029 (transverse), 015 (harness-only), 031 (s
 
 ---
 
-## 6. Incréments candidats (non validés)
+## 6. Incréments A–E (séquencement validé Morris ; delivery non autorisé)
 
-### Incrément A — Cockpit statique gouverné
+> **Incrément A** = premier périmètre delivery **futur** retenu (`VS-BL-CAND-03`). Aucun GO delivery consommé ici.
+
+### Incrément A — Cockpit statique gouverné (**retenu** — premier périmètre futur)
 
 | Champ | Contenu |
 |-------|---------|
@@ -1255,7 +1251,7 @@ Parallélisable avec prudence : 028/029 (transverse), 015 (harness-only), 031 (s
 | Stories | 001–003, 007*, 010*, 011*, 026*, 031, 032 (UI mock), 028 (checklist) |
 | Live | Aucun |
 | Sortie | Parcours UI navigable ; Abandonner visible ; clôture slice-only mock ; **pas** 10 routes |
-| Gate suivant | Revue visuelle + GO Incr. B |
+| Gate suivant | Revue visuelle + GO Incr. B (après G-VS-DEL-A) |
 | Preuve | Screenshots / Playwright états |
 
 \*Versions mock du dossier gate / qualif.
@@ -1357,7 +1353,7 @@ Gates humains entre A→B, B→C, C→D, D→E.
 | D | Markdown sandbox ; STOP/timeout ; remote=0 |
 | E | Verdict candidat ; clôture Morris ; pack complet |
 
-**Vertical slice « prouvé » (candidat, non validé) :** A–E complétés sous gates + VS-AC-01…12 satisfaits avec réserves documentées — voir `VS-BL-CAND-10`.
+**Critères « slice prouvé » (`VS-BL-CAND-10` validée) :** A–E complétés sous gates + VS-AC-01…12 avec réserves documentées — **≠** MVP ; déclaration future uniquement après deliveries sous GO.
 
 ---
 
@@ -1381,13 +1377,13 @@ Gates humains entre A→B, B→C, C→D, D→E.
 | Vues | 4 |
 | États | 10 + 4 variantes |
 | Stories mappées | 33 |
-| Incréments candidats | A–E |
-| Push branche | **Interdit** (ce cycle) |
+| Incréments A–E | Séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct |
+| Versionnement | Commit / push / draft PR autorisés ; merge = GO distinct |
 
 
 ---
 
-# ANNEXE C — Document 40 intégral (final)
+# ANNEXE C — Document 40 intégral (commité)
 
 # SFIA Studio — Decision pack backlog vertical slice POC
 
@@ -1396,20 +1392,20 @@ Gates humains entre A→B, B→C, C→D, D→E.
 | **Document** | `40-poc-vertical-slice-backlog-decision-pack.md` |
 | **Cycle** | 5 — Backlog / user stories |
 | **Profil** | Standard |
-| **Statut** | `draft-for-morris-validation` — **aucune VS-BL-CAND validée** |
-| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
+| **Statut** | `validated-for-versioning` — `VS-BL-CAND-01` à `VS-BL-CAND-12` **validées Morris** ; versionnement autorisé ; merge et delivery = gates distincts |
+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
 | **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 | **Companions** | [`38`](./38-poc-vertical-slice-backlog.md) · [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) |
-| **Correctif** | Suite audit structure/traçabilité — quantitatif et risques mis à jour ; **aucune CAND nouvelle validée** |
+| **Décisions Morris** | Backlog 38–40 validé · A→E validé · Incr. A retenu · commit/push/draft PR autorisés |
 
-> Observations / hypothèses / options / recommandations / candidats.
-> **Ne jamais** écrire qu’une `VS-BL-CAND-*` est validée.
+> Observations / hypothèses / options / recommandations.
+> `VS-BL-CAND-01`…`12` = **VALIDÉES** (Morris). Merge PR, delivery et live restent soumis à GO distincts.
 
 ---
 
 ## 1. Synthèse
 
-Ce cycle (puis correctif) produit un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live ni versionnement projet.
+Ce cycle versionne un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live. Versionnement autorisé ; **merge** et **delivery** non autorisés ici.
 
 | Livrable | Rôle |
 |----------|------|
@@ -1456,34 +1452,35 @@ Ce cycle (puis correctif) produit un backlog borné (33 stories × **16 champs**
 
 ---
 
-## 5. Recommandations (non validées)
+## 5. Recommandations (statut post-validation)
 
-1. Valider d’abord `VS-BL-CAND-*` avant commit/push des docs 38–40.
-2. Delivery minimal = Incr. A puis B avant tout live.
-3. Ne pas paralléliser C et D.
-4. Exiger G-VS-LIVE-GPT / CURSOR distincts.
-5. Garder harness autonome comme chemin de non-régression.
-6. Ne pas ouvrir CI/MVP/industrialisation dans ce backlog.
-7. Capitaliser spikes existants plutôt que réécrire les ports.
+1. ~~Valider d’abord `VS-BL-CAND-*`~~ → **FAIT** (Morris).
+2. Versionner 38–40 via draft PR → **en cours** (ce cycle).
+3. Delivery minimal = Incr. A puis B avant tout live — **GO delivery distinct**.
+4. Ne pas paralléliser C et D.
+5. Exiger G-VS-LIVE-GPT / CURSOR distincts.
+6. Garder harness autonome comme chemin de non-régression.
+7. Ne pas ouvrir CI/MVP/industrialisation dans ce backlog.
+8. Capitaliser spikes existants plutôt que réécrire les ports.
 
 ---
 
-## 6. Décisions candidates `VS-BL-CAND-*`
+## 6. Décisions `VS-BL-CAND-*` — **VALIDÉES Morris**
 
-| ID | Décision candidate | Impact | Risque si non tranché | Dette |
-|----|-------------------|--------|----------------------|-------|
-| **VS-BL-CAND-01** | Incréments A→B→C→D→E comme séquence delivery | Ordre BeB | Live trop tôt | Faible |
-| **VS-BL-CAND-02** | Priorité epics : E1–E3 UI → E4 adaptateur → E5–E8 live → E9/E10 transverse | Focus | Dette adaptateur | Moyenne |
-| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | Peu de « wow » | Faible |
-| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | — | Faible |
-| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | Blocage delivery | Acceptable |
-| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003 ; pas de report silencieux) | Qualité | Trous QA | Faible |
-| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | Coût | Faible |
-| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | Coût | Faible |
-| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | Friction | Nulle |
-| **VS-BL-CAND-10** | Critères « slice prouvé » = VS-AC-01…12 + A–E sous gates + réserves documentées ; **≠** MVP | Acceptation | Claim abusif | Discipline |
-| **VS-BL-CAND-11** | Stratégie tests : Vitest/Playwright app (A) + tests harness (B–D) + preuves live sous flags | QA | Pas de CI Studio | Acceptable POC |
-| **VS-BL-CAND-12** | 33 stories / 10 epics = granularité retenue (pas fusion silencieuse) | Traçabilité | Effort doc | Faible |
+| ID | Décision (validée) | Impact | Statut | Dette |
+|----|-------------------|--------|--------|-------|
+| **VS-BL-CAND-01** | Incréments A→B→C→D→E comme séquence delivery | Ordre BeB | **VALIDÉE** | Faible |
+| **VS-BL-CAND-02** | Priorité epics : E1–E3 UI → E4 adaptateur → E5–E8 live → E9/E10 transverse | Focus | **VALIDÉE** | Moyenne |
+| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | **VALIDÉE** | Faible |
+| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | **VALIDÉE** | Faible |
+| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | **VALIDÉE** | Acceptable |
+| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003) | Qualité | **VALIDÉE** | Faible |
+| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | **VALIDÉE** | Faible |
+| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | **VALIDÉE** | Faible |
+| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | **VALIDÉE** | Nulle |
+| **VS-BL-CAND-10** | Critères « slice prouvé » = VS-AC-01…12 + A–E sous gates + réserves ; **≠** MVP | Acceptation | **VALIDÉE** | Discipline |
+| **VS-BL-CAND-11** | Stratégie tests : Vitest/Playwright app (A) + tests harness (B–D) + preuves live sous flags | QA | **VALIDÉE** | Acceptable POC |
+| **VS-BL-CAND-12** | 33 stories / 10 epics = granularité retenue (pas fusion silencieuse) | Traçabilité | **VALIDÉE** | Faible |
 
 ---
 
@@ -1500,72 +1497,77 @@ Ce cycle (puis correctif) produit un backlog borné (33 stories × **16 champs**
 
 ---
 
-## 8. Proposition de validation Morris
+## 8. Statut de validation Morris
 
-Morris est invité à **valider / amender / refuser** chaque `VS-BL-CAND-*` (ou un lot), **sans** autoriser :
-
-- commit / push / PR / merge des docs 38–40 ;
-- delivery / live / archi technique / CI / MVP.
-
-Effet d’une validation backlog : autoriser un cycle suivant (versionnement docs ou delivery Incr. A sous GO distinct).
-
----
-
-## 9. Gates suivants
-
-| Gate | Objet |
-|------|-------|
-| G-VS-BL-VAL | Validation backlog / VS-BL-CAND |
-| G-VS-BL-DOC | Commit/push/PR/merge 38–40 |
-| G-VS-DEL-A | Delivery Incrément A |
-| G-VS-LIVE-GPT | Incrément C |
-| G-VS-LIVE-CURSOR | Incrément D |
-| G-VS-LIMIT | Valeur plafond GPT |
-| G-VS-CI / MVP / IND | Interdits sans GO |
+| Élément | Statut |
+|---------|--------|
+| Backlog 38–40 (fond) | **Validé** |
+| `VS-BL-CAND-01`…`12` | **Validées** |
+| Séquencement A→E | **Validé** |
+| Incrément A premier périmètre | **Retenu** |
+| Commit / push / draft PR | **Autorisés** (ce cycle) |
+| Merge PR | **Non autorisé** — GO distinct |
+| Delivery / live / archi / CI / MVP | **Non autorisés** |
 
 ---
 
-## 10. Verdict candidat
+## 9. Gates
 
-`SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED`
-
-### Interdits
-
-BACKLOG VALIDATED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · API SELECTED · L5 GLOBAL PROVEN · DOCUMENTATION MERGED
-
----
-
-## 11. Décisions Morris attendues
-
-1. Valider / amender / refuser `VS-BL-CAND-01`…`12`.
-2. Autoriser ou non le versionnement 38–40.
-3. Sélectionner le premier incrément delivery (A recommandé).
-4. **Ne pas** traiter ce pack comme GO live, delivery ou merge.
-
+| Gate | Objet | Statut |
+|------|-------|--------|
+| G-VS-BL-VAL | Validation backlog / VS-BL-CAND | **Consommé** |
+| G-VS-BL-DOC | Commit/push/draft PR | **Consommé partiel** (merge restant) |
+| G-VS-BL-MERGE | Merge PR 38–40 | **Requis** |
+| G-VS-DEL-A | Delivery Incrément A | Requis |
+| G-VS-LIVE-GPT | Incrément C | Requis |
+| G-VS-LIVE-CURSOR | Incrément D | Requis |
+| G-VS-LIMIT | Valeur plafond GPT | Requis (valeur **À définir**) |
+| G-VS-CI / MVP / IND | Interdits sans GO | Interdits |
 
 ---
 
-# ANNEXE D — Diff utile (38–40 final)
+## 10. Verdict
+
+`SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED`
+
+### Interdits (sans nouveau GO)
+
+READY FOR REVIEW · MERGED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · API SELECTED · L5 GLOBAL PROVEN · GPT LIVE · CURSOR LIVE
+
+---
+
+## 11. Décisions Morris attendues (suivantes)
+
+1. Autoriser ou non le **merge** de la draft PR 38–40.
+2. Autoriser éventuellement ready-for-review (GO distinct si requis).
+3. **Ne pas** traiter ce pack comme GO delivery, live ou architecture.
+
+
+---
+
+# ANNEXE D — Diff commit HEAD (38–40)
 
 diff --git a/projects/sfia-studio/38-poc-vertical-slice-backlog.md b/projects/sfia-studio/38-poc-vertical-slice-backlog.md
 new file mode 100644
+index 0000000..02cc5ea
 --- /dev/null
 +++ b/projects/sfia-studio/38-poc-vertical-slice-backlog.md
+@@ -0,0 +1,987 @@
 +# SFIA Studio — Backlog delivery borné du vertical slice POC
 +
 +| Métadonnée | Valeur |
 +|------------|--------|
 +| **Document** | `38-poc-vertical-slice-backlog.md` |
-+| **Cycle** | 5 — Backlog / user stories — **correctif documentaire** |
++| **Cycle** | 5 — Backlog / user stories · 13 — PR readiness |
 +| **Profil** | Standard |
-+| **Typologie** | DOC / BACKLOG / CORRECTIVE |
-+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
++| **Typologie** | DOC / BACKLOG / PR READINESS |
++| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
 +| **Base Git** | `origin/main` @ `722f586855743f87a6d3318ccec2dd6224676e28` |
-+| **Statut** | `draft-for-morris-validation` — **aucune story ni incrément validés** |
++| **Statut** | `validated-for-versioning` — backlog et stories **validés Morris** ; merge PR = GO distinct ; delivery = GO distinct |
 +| **Companions** | [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
 +| **Sources** | [`32`](./32-poc-vertical-slice-functional-design.md)–[`37`](./37-poc-vertical-slice-ux-ui-decision-pack.md) |
 +| **Code / live** | **Aucun** dans ce cycle |
-+| **Correctif** | Structure 16 champs × 33 stories · audit traçabilité · matrice recalculée |
++| **Décisions Morris** | `VS-BL-CAND-01`…`12` validées · séquencement A→E validé · incrément A = premier périmètre futur |
 +
 +> Backlog documentaire du **premier vertical slice POC**.
 +> Dix **états** UX ≠ dix routes · quatre vues P0 · Option B inchangée · plafond GPT **À définir** · aucun claim MVP.
@@ -2517,12 +2519,12 @@ new file mode 100644
 +|------|-------|
 +| G-VS-BL | **Consommé** — produire backlog |
 +| G-VS-BL-FIX | **Consommé** — correctif documentaire structure/traçabilité |
-+| G-VS-BL-VAL | Validation `VS-BL-CAND-*` / backlog |
-+| G-VS-BL-DOC | Commit/push/PR/merge 38–40 |
-+| G-VS-DEL | Delivery |
++| G-VS-BL-VAL | **Consommé** — validation backlog / `VS-BL-CAND-01`…`12` |
++| G-VS-BL-DOC | **Partiel** — commit/push/draft PR autorisés ; **merge** = GO distinct |
++| G-VS-DEL / G-VS-DEL-A | Delivery (Incr. A retenu, **non autorisé** ici) |
 +| G-VS-LIVE-GPT | GPT live |
 +| G-VS-LIVE-CURSOR | Cursor live |
-+| G-VS-LIMIT | Valeur numérique plafond |
++| G-VS-LIMIT | Valeur numérique plafond (**À définir**) |
 +| G-VS-CI / MVP / IND | Interdits tant que non GO |
 +
 +---
@@ -2536,14 +2538,14 @@ new file mode 100644
 +| User stories | **33** (`VS-BL-US-001` … `033`) |
 +| Champs obligatoires / story | **16** |
 +| Lignes matrice couverture | 91 |
-+| Incréments candidats | 5 (voir `39`) |
++| Incréments A–E | 5 — séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct (voir `39`) |
 +| Références traçabilité corrigées (min.) | US-003 · US-011 (+ champs 32 stories) |
-+
-
 diff --git a/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md b/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md
 new file mode 100644
+index 0000000..47116c9
 --- /dev/null
 +++ b/projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md
+@@ -0,0 +1,239 @@
 +# SFIA Studio — Story map et séquencement du vertical slice POC
 +
 +| Métadonnée | Valeur |
@@ -2551,14 +2553,14 @@ new file mode 100644
 +| **Document** | `39-poc-vertical-slice-story-map-and-sequencing.md` |
 +| **Cycle** | 5 — Backlog / user stories |
 +| **Profil** | Standard |
-+| **Statut** | `draft-for-morris-validation` — incréments **candidats non validés** |
-+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
++| **Statut** | `validated-for-versioning` — story map et séquencement A–E **validés Morris** ; incrément A **retenu** ; delivery non autorisé |
++| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
 +| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 +| **Companion** | [`38`](./38-poc-vertical-slice-backlog.md) · [`40`](./40-poc-vertical-slice-backlog-decision-pack.md) |
-+| **Correctif** | Aligné sur audit traçabilité doc 38 (N16→016 ; structure 16 champs) — **séquencement A–E inchangé** |
++| **Décisions Morris** | `VS-BL-CAND-01` (A→E) · `VS-BL-CAND-03` (Incr. A premier périmètre) validées |
 +
 +> Story map des **dix états** sur **quatre vues P0**.
-+> Aucun incrément n’est validé sans GO Morris.
++> Séquencement A–E validé ; **delivery** de chaque incrément soumis à GO Morris distinct.
 +
 +---
 +
@@ -2643,9 +2645,11 @@ new file mode 100644
 +
 +---
 +
-+## 6. Incréments candidats (non validés)
++## 6. Incréments A–E (séquencement validé Morris ; delivery non autorisé)
 +
-+### Incrément A — Cockpit statique gouverné
++> **Incrément A** = premier périmètre delivery **futur** retenu (`VS-BL-CAND-03`). Aucun GO delivery consommé ici.
++
++### Incrément A — Cockpit statique gouverné (**retenu** — premier périmètre futur)
 +
 +| Champ | Contenu |
 +|-------|---------|
@@ -2653,7 +2657,7 @@ new file mode 100644
 +| Stories | 001–003, 007*, 010*, 011*, 026*, 031, 032 (UI mock), 028 (checklist) |
 +| Live | Aucun |
 +| Sortie | Parcours UI navigable ; Abandonner visible ; clôture slice-only mock ; **pas** 10 routes |
-+| Gate suivant | Revue visuelle + GO Incr. B |
++| Gate suivant | Revue visuelle + GO Incr. B (après G-VS-DEL-A) |
 +| Preuve | Screenshots / Playwright états |
 +
 +\*Versions mock du dossier gate / qualif.
@@ -2755,7 +2759,7 @@ new file mode 100644
 +| D | Markdown sandbox ; STOP/timeout ; remote=0 |
 +| E | Verdict candidat ; clôture Morris ; pack complet |
 +
-+**Vertical slice « prouvé » (candidat, non validé) :** A–E complétés sous gates + VS-AC-01…12 satisfaits avec réserves documentées — voir `VS-BL-CAND-10`.
++**Critères « slice prouvé » (`VS-BL-CAND-10` validée) :** A–E complétés sous gates + VS-AC-01…12 avec réserves documentées — **≠** MVP ; déclaration future uniquement après deliveries sous GO.
 +
 +---
 +
@@ -2779,13 +2783,14 @@ new file mode 100644
 +| Vues | 4 |
 +| États | 10 + 4 variantes |
 +| Stories mappées | 33 |
-+| Incréments candidats | A–E |
-+| Push branche | **Interdit** (ce cycle) |
-
++| Incréments A–E | Séquencement **validé** ; Incr. A **retenu** ; delivery = GO distinct |
++| Versionnement | Commit / push / draft PR autorisés ; merge = GO distinct |
 diff --git a/projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md b/projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md
 new file mode 100644
+index 0000000..1a1a2ae
 --- /dev/null
 +++ b/projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md
+@@ -0,0 +1,156 @@
 +# SFIA Studio — Decision pack backlog vertical slice POC
 +
 +| Métadonnée | Valeur |
@@ -2793,20 +2798,20 @@ new file mode 100644
 +| **Document** | `40-poc-vertical-slice-backlog-decision-pack.md` |
 +| **Cycle** | 5 — Backlog / user stories |
 +| **Profil** | Standard |
-+| **Statut** | `draft-for-morris-validation` — **aucune VS-BL-CAND validée** |
-+| **Branche** | `backlog/sfia-studio-poc-vertical-slice` (**locale**) |
++| **Statut** | `validated-for-versioning` — `VS-BL-CAND-01` à `VS-BL-CAND-12` **validées Morris** ; versionnement autorisé ; merge et delivery = gates distincts |
++| **Branche** | `backlog/sfia-studio-poc-vertical-slice` |
 +| **Base Git** | `722f586855743f87a6d3318ccec2dd6224676e28` |
 +| **Companions** | [`38`](./38-poc-vertical-slice-backlog.md) · [`39`](./39-poc-vertical-slice-story-map-and-sequencing.md) |
-+| **Correctif** | Suite audit structure/traçabilité — quantitatif et risques mis à jour ; **aucune CAND nouvelle validée** |
++| **Décisions Morris** | Backlog 38–40 validé · A→E validé · Incr. A retenu · commit/push/draft PR autorisés |
 +
-+> Observations / hypothèses / options / recommandations / candidats.
-+> **Ne jamais** écrire qu’une `VS-BL-CAND-*` est validée.
++> Observations / hypothèses / options / recommandations.
++> `VS-BL-CAND-01`…`12` = **VALIDÉES** (Morris). Merge PR, delivery et live restent soumis à GO distincts.
 +
 +---
 +
 +## 1. Synthèse
 +
-+Ce cycle (puis correctif) produit un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live ni versionnement projet.
++Ce cycle versionne un backlog borné (33 stories × **16 champs**, 10 epics, incréments A–E) pour le vertical slice POC, sans code ni live. Versionnement autorisé ; **merge** et **delivery** non autorisés ici.
 +
 +| Livrable | Rôle |
 +|----------|------|
@@ -2853,34 +2858,35 @@ new file mode 100644
 +
 +---
 +
-+## 5. Recommandations (non validées)
++## 5. Recommandations (statut post-validation)
 +
-+1. Valider d’abord `VS-BL-CAND-*` avant commit/push des docs 38–40.
-+2. Delivery minimal = Incr. A puis B avant tout live.
-+3. Ne pas paralléliser C et D.
-+4. Exiger G-VS-LIVE-GPT / CURSOR distincts.
-+5. Garder harness autonome comme chemin de non-régression.
-+6. Ne pas ouvrir CI/MVP/industrialisation dans ce backlog.
-+7. Capitaliser spikes existants plutôt que réécrire les ports.
++1. ~~Valider d’abord `VS-BL-CAND-*`~~ → **FAIT** (Morris).
++2. Versionner 38–40 via draft PR → **en cours** (ce cycle).
++3. Delivery minimal = Incr. A puis B avant tout live — **GO delivery distinct**.
++4. Ne pas paralléliser C et D.
++5. Exiger G-VS-LIVE-GPT / CURSOR distincts.
++6. Garder harness autonome comme chemin de non-régression.
++7. Ne pas ouvrir CI/MVP/industrialisation dans ce backlog.
++8. Capitaliser spikes existants plutôt que réécrire les ports.
 +
 +---
 +
-+## 6. Décisions candidates `VS-BL-CAND-*`
++## 6. Décisions `VS-BL-CAND-*` — **VALIDÉES Morris**
 +
-+| ID | Décision candidate | Impact | Risque si non tranché | Dette |
-+|----|-------------------|--------|----------------------|-------|
-+| **VS-BL-CAND-01** | Incréments A→B→C→D→E comme séquence delivery | Ordre BeB | Live trop tôt | Faible |
-+| **VS-BL-CAND-02** | Priorité epics : E1–E3 UI → E4 adaptateur → E5–E8 live → E9/E10 transverse | Focus | Dette adaptateur | Moyenne |
-+| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | Peu de « wow » | Faible |
-+| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | — | Faible |
-+| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | Blocage delivery | Acceptable |
-+| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003 ; pas de report silencieux) | Qualité | Trous QA | Faible |
-+| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | Coût | Faible |
-+| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | Coût | Faible |
-+| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | Friction | Nulle |
-+| **VS-BL-CAND-10** | Critères « slice prouvé » = VS-AC-01…12 + A–E sous gates + réserves documentées ; **≠** MVP | Acceptation | Claim abusif | Discipline |
-+| **VS-BL-CAND-11** | Stratégie tests : Vitest/Playwright app (A) + tests harness (B–D) + preuves live sous flags | QA | Pas de CI Studio | Acceptable POC |
-+| **VS-BL-CAND-12** | 33 stories / 10 epics = granularité retenue (pas fusion silencieuse) | Traçabilité | Effort doc | Faible |
++| ID | Décision (validée) | Impact | Statut | Dette |
++|----|-------------------|--------|--------|-------|
++| **VS-BL-CAND-01** | Incréments A→B→C→D→E comme séquence delivery | Ordre BeB | **VALIDÉE** | Faible |
++| **VS-BL-CAND-02** | Priorité epics : E1–E3 UI → E4 adaptateur → E5–E8 live → E9/E10 transverse | Focus | **VALIDÉE** | Moyenne |
++| **VS-BL-CAND-03** | Premier périmètre delivery = Incrément A (cockpit mock) | Preuve UX | **VALIDÉE** | Faible |
++| **VS-BL-CAND-04** | Stratégie mock (A/B) puis live (C/D/E) | Sécurité FinOps | **VALIDÉE** | Faible |
++| **VS-BL-CAND-05** | Adaptateur fin = story L en Incr. B, protocole en cycle archi ultérieur | Option B | **VALIDÉE** | Acceptable |
++| **VS-BL-CAND-06** | Couverture N1–N16 via stories primaires + US-033 (N16 = US-016, **pas** US-003) | Qualité | **VALIDÉE** | Faible |
++| **VS-BL-CAND-07** | Gate obligatoire avant GPT live (Incr. C) | Sécurité | **VALIDÉE** | Faible |
++| **VS-BL-CAND-08** | Gate obligatoire avant Cursor live (Incr. D) | Sécurité | **VALIDÉE** | Faible |
++| **VS-BL-CAND-09** | Plafond GPT : UI « À définir » jusqu’à G-VS-LIMIT (ne pas inventer) | FinOps | **VALIDÉE** | Nulle |
++| **VS-BL-CAND-10** | Critères « slice prouvé » = VS-AC-01…12 + A–E sous gates + réserves ; **≠** MVP | Acceptation | **VALIDÉE** | Discipline |
++| **VS-BL-CAND-11** | Stratégie tests : Vitest/Playwright app (A) + tests harness (B–D) + preuves live sous flags | QA | **VALIDÉE** | Acceptable POC |
++| **VS-BL-CAND-12** | 33 stories / 10 epics = granularité retenue (pas fusion silencieuse) | Traçabilité | **VALIDÉE** | Faible |
 +
 +---
 +
@@ -2897,45 +2903,47 @@ new file mode 100644
 +
 +---
 +
-+## 8. Proposition de validation Morris
++## 8. Statut de validation Morris
 +
-+Morris est invité à **valider / amender / refuser** chaque `VS-BL-CAND-*` (ou un lot), **sans** autoriser :
-+
-+- commit / push / PR / merge des docs 38–40 ;
-+- delivery / live / archi technique / CI / MVP.
-+
-+Effet d’une validation backlog : autoriser un cycle suivant (versionnement docs ou delivery Incr. A sous GO distinct).
-+
-+---
-+
-+## 9. Gates suivants
-+
-+| Gate | Objet |
-+|------|-------|
-+| G-VS-BL-VAL | Validation backlog / VS-BL-CAND |
-+| G-VS-BL-DOC | Commit/push/PR/merge 38–40 |
-+| G-VS-DEL-A | Delivery Incrément A |
-+| G-VS-LIVE-GPT | Incrément C |
-+| G-VS-LIVE-CURSOR | Incrément D |
-+| G-VS-LIMIT | Valeur plafond GPT |
-+| G-VS-CI / MVP / IND | Interdits sans GO |
++| Élément | Statut |
++|---------|--------|
++| Backlog 38–40 (fond) | **Validé** |
++| `VS-BL-CAND-01`…`12` | **Validées** |
++| Séquencement A→E | **Validé** |
++| Incrément A premier périmètre | **Retenu** |
++| Commit / push / draft PR | **Autorisés** (ce cycle) |
++| Merge PR | **Non autorisé** — GO distinct |
++| Delivery / live / archi / CI / MVP | **Non autorisés** |
 +
 +---
 +
-+## 10. Verdict candidat
++## 9. Gates
 +
-+`SFIA STUDIO VERTICAL SLICE BACKLOG CORRECTED — MORRIS VALIDATION REQUIRED`
-+
-+### Interdits
-+
-+BACKLOG VALIDATED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · API SELECTED · L5 GLOBAL PROVEN · DOCUMENTATION MERGED
++| Gate | Objet | Statut |
++|------|-------|--------|
++| G-VS-BL-VAL | Validation backlog / VS-BL-CAND | **Consommé** |
++| G-VS-BL-DOC | Commit/push/draft PR | **Consommé partiel** (merge restant) |
++| G-VS-BL-MERGE | Merge PR 38–40 | **Requis** |
++| G-VS-DEL-A | Delivery Incrément A | Requis |
++| G-VS-LIVE-GPT | Incrément C | Requis |
++| G-VS-LIVE-CURSOR | Incrément D | Requis |
++| G-VS-LIMIT | Valeur plafond GPT | Requis (valeur **À définir**) |
++| G-VS-CI / MVP / IND | Interdits sans GO | Interdits |
 +
 +---
 +
-+## 11. Décisions Morris attendues
++## 10. Verdict
 +
-+1. Valider / amender / refuser `VS-BL-CAND-01`…`12`.
-+2. Autoriser ou non le versionnement 38–40.
-+3. Sélectionner le premier incrément delivery (A recommandé).
-+4. **Ne pas** traiter ce pack comme GO live, delivery ou merge.
-
++`SFIA STUDIO VERTICAL SLICE BACKLOG PR CREATED — MORRIS MERGE DECISION REQUIRED`
++
++### Interdits (sans nouveau GO)
++
++READY FOR REVIEW · MERGED · READY FOR DELIVERY · MVP DEFINED · PRODUCTION READY · API SELECTED · L5 GLOBAL PROVEN · GPT LIVE · CURSOR LIVE
++
++---
++
++## 11. Décisions Morris attendues (suivantes)
++
++1. Autoriser ou non le **merge** de la draft PR 38–40.
++2. Autoriser éventuellement ready-for-review (GO distinct si requis).
++3. **Ne pas** traiter ce pack comme GO delivery, live ou architecture.
