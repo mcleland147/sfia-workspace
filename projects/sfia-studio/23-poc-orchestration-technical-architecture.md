@@ -10,11 +10,11 @@
 | **Base / main** | `origin/main` @ `40f8ebecf41608756e4e8184c860b3b966b786b3` |
 | **Statut** | **VALIDÉE AVEC RÉSERVES — INTÉGRÉE** (POC-G7) — PR [#221](https://github.com/mcleland147/sfia-workspace/pull/221) **MERGED** |
 | **Décision architecture** | **Option B minimale** — Studio cockpit + adaptateur fin + harness autonome |
-| **POC-G8 / G9** | **FERMÉS** |
+| **POC-G8 / G9** | POC-G8 **CONSOMMÉ** (backlog) · POC-G9 **FERMÉ** |
 | **POC** | **Non lancé** |
 | **Runtime / techno / protocole** | **Ouverts** (non figés) |
 
-> Architecture **validée avec réserves** et **intégrée** sur `main` (PR #221 / `40f8ebe…`). Versionnement **consommé**. POC-G8 **non ouvert**. Aucun code.
+> Architecture **validée avec réserves** et **intégrée** (PR #221). Backlog POC-G8 **consommé** (`26`–`28`). POC-G9 **non ouvert**. Aucun code.
 
 ---
 
@@ -185,7 +185,7 @@ Toute logique d’orchestration reste **hors** `app/**`. Aucune modif app dans c
 | Option C | **Écartée** premier POC |
 | POC-G7 | **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
 | Versionnement docs | **CONSOMMÉ / INTÉGRÉ** (PR #221 / `40f8ebe…`) |
-| Prochaine décision | Ouverture éventuelle **POC-G8** — **FERMÉE** |
+| Prochaine décision | Ouverture éventuelle **POC-G9** — **FERMÉE** (backlog POC-G8 consommé) |
 
 ---
 
@@ -198,8 +198,8 @@ Toute logique d’orchestration reste **hors** `app/**`. Aucune modif app dans c
 5. Modif `app/**` seulement au delivery, bornée
 6. Preuve QA : Studio ≠ seconde vérité
 7. Clôture AF séparée
-8. POC-G8/G9 fermés ; POC non lancé
+8. POC-G9 fermé ; POC non lancé ; backlog POC-G8 consommé
 
 ---
 
-*Architecture POC Option B minimale — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉE (PR #221 / 40f8ebe…) — POC-G8 FERMÉ — POC NON LANCÉ.*
+*Architecture POC Option B minimale — INTÉGRÉE — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*

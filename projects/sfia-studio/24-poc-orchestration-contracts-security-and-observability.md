@@ -162,8 +162,8 @@ Effets locaux `proofDir` seulement ; remote inchangé.
 3. Contrats §3 présents.
 4. Invariants §4.
 5. Menaces §6 couvertes.
-6. POC-G8/G9 fermés ; POC non lancé ; pas de protocole définitif non décidé.
+6. POC-G8 consommé (backlog) ; POC-G9 fermé ; POC non lancé ; pas de protocole définitif non décidé.
 
 ---
 
-*Contrats Option B — POC-G7 VALIDÉ AVEC RÉSERVES — INTÉGRÉ (PR #221 / 40f8ebe…) — POC-G8 FERMÉ — POC NON LANCÉ.*
+*Contrats Option B — INTÉGRÉS — POC-G8 CONSOMMÉ — POC-G9 FERMÉ — POC NON LANCÉ.*
