@@ -2,7 +2,7 @@
   "name": "@sfia-studio/poc-s1-harness",
   "private": true,
   "version": "0.1.0",
-  "description": "SFIA Studio POC S1 harness-only orchestrator (local, fail-closed, no remote Git writes, Cursor fixture default; experimental real-spike behind flag)",
+  "description": "SFIA Studio POC S1 harness-only orchestrator (local, fail-closed, no remote Git writes; Cursor/GPT fixtures default; experimental OpenAI/Cursor spikes behind flags)",
   "type": "module",
   "bin": {
     "sfia-poc-s1": "./dist/cli.js"
@@ -13,7 +13,9 @@
     "test:watch": "vitest",
     "build": "tsc -p tsconfig.build.json",
     "cli": "tsx src/cli.ts",
-    "spike:cursor-real": "tsx spikes/cursor-real/run-spike.ts"
+    "spike:cursor-real": "tsx spikes/cursor-real/run-spike.ts",
+    "spike:gpt-openai": "tsx spikes/gpt-openai/run-spike.ts",
+    "spike:e2e-gpt-cursor": "tsx spikes/e2e-gpt-cursor/run-e2e.ts"
   },
   "engines": {
     "node": ">=20"

@@ -7,6 +7,7 @@
 | **Architecture** | Option B — harness autonome |
 | **Studio / app/** | **Non touché** |
 | **Cursor** | **Fixture = défaut stable** ; spike `cursor-real` expérimental (flag off) |
+| **GPT / OpenAI** | **Fixture = défaut** ; spike `gpt-openai` expérimental (flag off) — API OpenAI ≠ ChatGPT app |
 | **Docker** | **Non retenu** pour cet incrément (option ouverte) |
 | **Git** | Lecture réelle allowlistée · `gitEffect=none-remote` |
 | **Allowlist** | Initiale S1 **validée** pour cet incrément — élargissement = nouveau GO |
@@ -37,6 +38,7 @@ npm run cli -- inspect-journal <proofDir>
 npm run cli -- verify-proofs <proofDir>
 # EXPERIMENTAL only:
 # SFIA_CURSOR_REAL_SPIKE=1 SFIA_CURSOR_REAL_LIVE=1 npm run spike:cursor-real
+# SFIA_GPT_REAL_SPIKE=1 SFIA_GPT_REAL_LIVE=1 OPENAI_MODEL=<explicit> npm run spike:gpt-openai
 ```
 
 ## Architecture effective
@@ -70,8 +72,10 @@ rm -rf proofs/* node_modules dist
 
 ## Limites / réserves
 
-- Cursor réel = spike local **inconclusive** (voir `spikes/cursor-real/` + doc `29`) — auth requise ; pas défaut.
-- Ne jamais activer sans `SFIA_CURSOR_REAL_SPIKE=1`.
+- Cursor réel = spike local **prouvé en sandbox** (voir `spikes/cursor-real/` + doc `29`) et **enchaîné GPT→Cursor e2e avec réserves** (voir `spikes/e2e-gpt-cursor/` + doc `31`) — auth requise ; pas défaut.
+- GPT / OpenAI = spike local **qualification + verdict live prouvés avec réserves** (voir `spikes/gpt-openai/` + doc `30`) — défaut = fixture ; live = flags + clé + modèle ; verdict live utilise `response_format.json_schema` strict ; pas défaut produit.
+- Ne jamais activer sans `SFIA_CURSOR_REAL_SPIKE=1` / `SFIA_GPT_REAL_SPIKE=1` (+ live flags).
+- E2E : `SFIA_GPT_REAL_SPIKE=1 SFIA_GPT_REAL_LIVE=1 SFIA_CURSOR_REAL_SPIKE=1 SFIA_CURSOR_REAL_LIVE=1 npm run spike:e2e-gpt-cursor`
 - Versionnement du spike ≠ activation produit ; live proofs runtime gitignored.
 - Protocole adaptateur / UI Studio = hors incrément.
 - Docker = option future non décidée.

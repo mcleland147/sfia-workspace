@@ -1,0 +1,5 @@
+proofs/**
+!proofs/.gitkeep
+*.log
+.env
+.DS_Store

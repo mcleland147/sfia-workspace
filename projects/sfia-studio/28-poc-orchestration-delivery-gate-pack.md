@@ -183,6 +183,14 @@ Le POC global n’est **pas** déclaré réussi, lancé en autonomie ou industri
 
 ## Spike Cursor réel (Cycle 7 — statut)
 
-Spike Cursor : auth session locale **OK** ; S-CUR-02 sandbox **PROUVÉ** avec réserves ; fixture = défaut ; mode réel non défaut. Voir `29`.
+Spike Cursor : auth session locale **OK** ; S-CUR-02 sandbox **PROUVÉ** avec réserves ; fixture = défaut ; mode réel non défaut. Voir `29`. Versionné via PR **#225** MERGED.
 
-Commit/push/PR du spike : **non autorisés** ici.
+## Spike GPT / OpenAI (Cycle 8/9 — statut)
+
+Spike GPT : fixture + validateurs **PASS** ; live Chat Completions `gpt-5-mini` **PROUVÉ** (S-GPT-09 `json_object`, S-GPT-10 `json_schema` strict) avec réserves. ChatGPT app **non** intégrée. Voir `30`.
+
+## Spike GPT → Cursor réel bout-en-bout (Cycle 8/9 — statut)
+
+E2E sandbox `proofs/e2e-cursor-sandbox` : qualification → contrat borné → Cursor CLI réel → `output.md` → verdict **PROUVÉ** avec réserves. Voir `31`.
+
+Commit/push/PR du spike consolidé : **autorisés** (Cycle 13 readiness) ; merge **non autorisé** dans ce cycle.
