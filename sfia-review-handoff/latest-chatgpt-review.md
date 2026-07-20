@@ -209,7 +209,7 @@ merge   : non exécuté
 
 ## Handoff
 
-- SHA : `96e58450784646efabf7b3c3876caa27d7729b63`
+- SHA :  (tip )`96e58450784646efabf7b3c3876caa27d7729b63`
 
 ## Verdict
 
