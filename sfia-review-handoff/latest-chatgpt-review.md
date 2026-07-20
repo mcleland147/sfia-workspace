@@ -209,7 +209,7 @@ merge   : non exécuté
 
 ## Handoff
 
-- SHA :  (tip )`96e58450784646efabf7b3c3876caa27d7729b63`
+- SHA : `e1163b5d52f0bb59989f8826209e11ec3c97186e` (tip `sfia/review-handoff`)
 
 ## Verdict
 
