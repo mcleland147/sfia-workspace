@@ -1,108 +1,75 @@
-# SFIA Studio — Review Pack — OPS1 Framing Cleanup
+# SFIA Studio — Review Pack — OPS1 README Post-Merge Sync
 
-- **Date/heure/fuseau :** 2026-07-20 12:45:30 CEST
+- **Date/heure/fuseau :** 2026-07-20 12:52:07 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Cycle :** 14 — Post-merge, cleanup
-- **Profil :** Standard
-- **Gate :** G-OPS1-FRAMING-CLEANUP
-- **Décision Morris :** suppression distante + locale de `docs/sfia-studio-ops1-framing` ; `-D` autorisé si `-d` échoue uniquement pour topologie squash
+- **Cycle :** 8 — Delivery documentaire
+- **Profil :** Light
+- **Gate :** G-OPS1-README-POST-MERGE-SYNC
+- **Branche :** 
+- **Commit :** 
+- **Parent :** 
+- **origin/main :**  (inchangé)
 
 ## 1. Truth Check
 
-| Champ | Valeur |
-|-------|--------|
-| Branche courante | `main` |
-| HEAD / origin/main | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
-| ahead/behind | 0/0 |
-| Staged | vide |
-| Tracked | propre |
-| Artefacts | `?? .tmp-sfia-review/`, `?? projects/.tmp-sfia-review/` |
-| Branche locale avant | `docs/sfia-studio-ops1-framing` @ `c95010dce848ae5c6290044d65ac1dfb95cc2954` |
-| Branche distante avant | même SHA |
+- main = origin/main =  ; 0/0
+- tracked propre ; staged vide
+- branches  absentes
+- branche cible absente avant création
 
-## 2. Preuve PR / intégration
+## 2. Dette identifiée
 
-| Champ | Valeur |
-|-------|--------|
-| PR | #235 MERGED — https://github.com/mcleland147/sfia-workspace/pull/235 |
-| Merge SHA | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
-| Head SHA | `c95010dce848ae5c6290044d65ac1dfb95cc2954` |
-| Fichiers | 5 (README + 41–44) |
-| `git diff c95010d b686eb1 -- <5 fichiers>` | **vide** (EQUIV_OK) |
-| `git log main..docs` | `c95010d` listé — **attendu** (squash ≠ ancêtre) ; pas une perte de contenu |
+Occurrences obsolètes OPS1 dans README :
+- « draft PR / non mergés » (statut, trajectoire, synthèse, source de vérité)
+- Base canonique obsolète 
+- Section navigation « cadrage candidat »
 
-## 3. Suppression distante
+## 3. Corrections appliquées
 
-```bash
-git push origin --delete docs/sfia-studio-ops1-framing
-```
+| Zone | Avant | Après |
+|------|-------|-------|
+| Statut | draft PR / non mergés | intégrés via PR #235 /  ; cleanup effectué ; gates fermés |
+| Base canonique |  |  |
+| Trajectoire OPS1 | draft PR / merge fermé | intégré PR #235 ; post-merge + cleanup terminés |
+| Synthèse | docs en draft PR non mergés | canonique sur main ; I1–I7 cadrage only ; G-OPS1-FUNC-DESIGN non ouvert |
+| Source de vérité | branche/draft non mergés | intégrés PR #235 / squash + cleanup |
+| Navigation | cadrage candidat | cadrage validé — intégré |
 
-- Résultat : `- [deleted] docs/sfia-studio-ops1-framing`
-- `git ls-remote --heads origin docs/sfia-studio-ops1-framing` : vide
-- `git fetch origin --prune` : OK
+Historiques G7 / D-VAL-10 / harness Cycle 13 « draft PR » **conservés** (hors dette OPS1).
 
-## 4. Suppression locale
+## 4. Diff
 
-### Tentative `-d`
 
-```bash
-git branch -d docs/sfia-studio-ops1-framing
-```
 
-Message exact :
 
-```
-error: the branch 'docs/sfia-studio-ops1-framing' is not fully merged
-hint: If you are sure you want to delete it, run 'git branch -D docs/sfia-studio-ops1-framing'
-```
 
-Cause : topologie **squash** (commit non ancêtre de main).
+## 5. Contrôles
 
-### Recours `-D` (autorisé)
+| Contrôle | Résultat |
+|----------|----------|
+| Un seul fichier | OK — README.md |
+| diff --check | OK |
+| TODO/placeholder | aucun |
+| Claims OPS1 livré / MVP / production | absents |
+| Secrets | aucun |
+| Docs 41–44 | **non modifiés** |
 
-Reconfirmation équivalence cinq fichiers : **vide**.
+## 6. Push / PR
 
-```bash
-git branch -D docs/sfia-studio-ops1-framing
-```
+- SHA distant = 
+- PR **#236** — https://github.com/mcleland147/sfia-workspace/pull/236
 
-Résultat : `Deleted branch docs/sfia-studio-ops1-framing (was c95010d).`
+- OPEN · non draft · **non mergée**
+- Merge réservé à Morris
 
-## 5. État final
+## 7. Réserves / gates maintenus
 
-| Ref | État |
-|-----|------|
-| Branche courante | `main` |
-| HEAD | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
-| origin/main | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
-| ahead/behind | `0	0` |
-| Locale docs/... | (absente) |
-| Remote tracking | (absente) |
-| ls-remote | (aucune ref) |
-
-## 6. Absences
-
-- aucune autre branche supprimée
-- aucun commit / push main
-- aucune modification README / 41–44
-- aucun code / live / claim MVP
-
-## 7. Dette documentaire (hors périmètre)
-
-README conserve encore le libellé pré-merge « draft PR / non mergés ».  
-**Non corrigé** dans ce cleanup. Correction légère ultérieure recommandée avant conception OPS1.
+POC maintenu ; conception / live / backlog / delivery / MVP fermés ; réserves cadrage OPS1 inchangées.
 
 ## 8. git status final
 
-```
-?? .tmp-sfia-review/
-?? projects/.tmp-sfia-review/
-```
 
-## 9. Gates restant fermés
 
-`G-OPS1-FUNC-DESIGN` · live · backlog · delivery · MVP-claim · sync README wording
+## 9. Verdict
 
-## 10. Verdict
-
-**SFIA STUDIO OPS1 FRAMING CLEANUP COMPLETE — BRANCHES REMOVED SAFELY**
+**SFIA STUDIO OPS1 README POST-MERGE SYNC VERSIONED — PR READY FOR MORRIS MERGE**
