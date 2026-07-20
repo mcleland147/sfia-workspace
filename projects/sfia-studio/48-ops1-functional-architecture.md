@@ -15,7 +15,7 @@
 | **Décisions** | `OPS1-FA-CAND-01`…`22` **validées** (réserves maintenues) |
 | **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
 | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`47`](./47-ops1-functional-decision-pack.md) |
-| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves**) |
+| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves**) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**validés avec amendements**) |
 | **Horodatage production** | 2026-07-20 15:14 CEST |
 
 > Architecture **fonctionnelle** du Vertical Slice Opérationnel 1 — **validée avec réserves** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
@@ -226,8 +226,12 @@ Couverture CAP : CAP-01…21 (voir matrices doc 49).
 
 ## 13. Clôture, consultation et continuation
 
-- CLOSE rend la session **immuable** (lecture seule).
-- Continuation / nouvelle session liée = mécanisme **OPEN** (réserve FD-CAND-13) — **pas de mutation silencieuse**.
+- `CLOSED` rend la session **immuable** (lecture seule).
+- Toute nouvelle activité crée une **continuation liée** (nouvel identifiant + référence explicite à la session source) — **jamais** de réouverture silencieuse.
+- Historique source **non muté** ; nouvelle action ⇒ nouveau contrat + nouveau gate.
+- Ambiguïté de restauration ⇒ `STOP` / `FAILED` / lecture seule.
+- ABANDONED / STOPPED / FAILED **non** auto-rouverts.
+- Statut : `FD-CAND-13 — LIFTED: LINKED CONTINUATION, NEVER SILENT REOPEN` (voir [`54`](./54-ops1-operational-scenario.md) §4bis).
 - Consultation après CLOSE via reprise lecture (FLOW-02 / CAP-20).
 
 ---
@@ -328,7 +332,7 @@ Audit Journal reconstruit l’historique (CAP-21).
 |------|---------------|------|
 | UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (UX-R01…UX-R04) |
 | Architecture technique | Stack, BDD, API, protocole, isolation OS/réseau | `G-OPS1-TECH-ARCH` (fermé) |
-| Scénario | Cartographie chemins Campus360, convention branche | `G-OPS1-SCENARIO-VAL` (fermé) |
+| Scénario | Cartographie / allowlist / branche / continuation | Docs `54`–`56` **validés avec amendements** — `GO G-OPS1-SCENARIO-VAL — VALIDATION AVEC AMENDEMENTS — 2026-07-20 18:34:47 CEST` ; FD-CAND-13/20/26 levées (périmètre OPS1) |
 | Backlog | Découpage I1–I7 opérationnel | `G-OPS1-BACKLOG` (fermé) |
 
 Aucune ouverture automatique.
@@ -337,10 +341,10 @@ Aucune ouverture automatique.
 
 ## 24. Réserves héritées (OPEN — non arbitrées)
 
-- FD-CAND-13 — continuation après CLOSE ;
-- FD-CAND-15 — FinOps numériques ;
-- FD-CAND-20 — cartographie chemins/catégories ;
-- FD-CAND-26 — détails opérationnels Campus360 exclusifs ;
+- FD-CAND-13 — **levée** (continuation liée) ;
+- FD-CAND-15 — FinOps numériques — **maintenue** jusqu’au gate FinOps/live ;
+- FD-CAND-20 — **levée pour OPS1** (1..n explicite, pas de wildcard) ;
+- FD-CAND-26 — **levée pour Campus360 OPS1** (`03` protégé par défaut) ;
 - convention de branche Campus360 ;
 - preuve GPT live / Cursor live ;
 - CI distante ;
@@ -372,5 +376,5 @@ Confirmés sous validation Morris (2026-07-20 15:30 CEST) :
 Gate `G-OPS1-FUNC-ARCH` consommé — 2026-07-20 15:14 CEST.
 Gate `G-OPS1-FUNC-ARCH-VAL` **consommé** — Morris — 2026-07-20 15:30 CEST.
 11 domaines D1–D11 retenus ; 14 composants fonctionnels retenus ; frontières Morris / GPT / harness / Cursor / Git / persistance retenues ; couverture CAP/FLOW/FR confirmée.
-Réserves maintenues (continuation CLOSE ; FinOps numériques ; Campus360 cartographie/branche ; live ; CI ; isolation ; FD-CAND-13/15/20/26).
-UX : `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues. Architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
+Réserves : FD-CAND-13/20/26 **levées** (OPS1) ; FD-CAND-15 **maintenue** ; UX-R01…R04 **maintenues** ; isolation/CI **routées** vers tech-arch (non conçues ici) ; live **fermé**.
+UX : docs `51`–`53` validés avec réserves. Scénario : docs `54`–`56` **validés avec amendements** (`G-OPS1-SCENARIO-VAL` consommé). Architecture technique, backlog, delivery, live et MVP : **fermés**.

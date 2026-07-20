@@ -59,7 +59,7 @@ Challenge (rappel) : utile maintenant ? responsabilité distincte ? dette ? plus
 | **In** | Ouverture ; décisions Morris ; STOP ; fin d’exécution |
 | **Out** | Transitions d’état ; session lecture seule |
 | **Autorisé** | Appliquer transitions conformes FR |
-| **Interdit** | Muter une session CLOSED ; autoriser exécution |
+| **Interdit** | Muter une session CLOSED ; réouverture silencieuse ; autoriser exécution sans gate |
 | **Interactions** | Tous les composants via état de session |
 | **Erreurs** | Ambiguïté reprise → STOPPED/FAILED/read-only |
 | **Preuves** | Journal d’états horodaté |
@@ -335,7 +335,7 @@ Challenge (rappel) : utile maintenant ? responsabilité distincte ? dette ? plus
 | Revalidation contrat | **Harness** |
 | Mutation fichiers | **Cursor** sous contrat |
 | Vérité HEAD/diff | **Git** |
-| Clôture / continuation | **Morris** (mécanisme continuation OPEN) |
+| Clôture / continuation | **Morris** — continuation liée (FD-CAND-13 **levée**) ; jamais de réouverture silencieuse |
 
 ---
 
@@ -431,6 +431,21 @@ sequenceDiagram
   Note over SM: pas de mutation silencieuse
 ```
 
+### 4.7 Continuation liée (FD-CAND-13 — levée)
+
+```mermaid
+sequenceDiagram
+  participant M as Morris
+  participant SM as Session Manager
+  M->>SM: nouvelle activité depuis CLOSED
+  SM-->>M: créer continuation liée (new id + parentSessionId)
+  Note over SM: historique source immuable
+  Note over M: action ⇒ nouveau contrat + nouveau gate
+```
+
+Règles : immutabilité source · pas de réouverture silencieuse · ambiguïté ⇒ STOP/FAILED/lecture seule · ABANDONED/STOPPED/FAILED non auto-rouverts.
+Statut : `FD-CAND-13 — LIFTED: LINKED CONTINUATION, NEVER SILENT REOPEN`.
+
 ---
 
 ## 5. Routage UX / architecture technique
@@ -444,7 +459,9 @@ sequenceDiagram
 ### Vers architecture technique (`G-OPS1-TECH-ARCH` — fermé)
 
 - Stack, BDD, API, protocole, filesystems ;
-- isolation OS/réseau, CI distante ;
+- **Isolation** (candidate, non conçue ici) : workspace dédié ; revalidation HEAD ; validation allowlist hors texte GPT ; contrôle liens symboliques ; contrôle du diff ; aucune commande Git distante ; working tree initial propre ;
+- **CI minimale** (candidate, non conçue ici) : lint Markdown ; liens internes ; contrôle du périmètre ; recherche de secrets ; validation du rapport ; preuves négatives automatisables ;
+- Statut isolation/CI : `ROUTED TO OPS1 TECHNICAL ARCHITECTURE — NOT DESIGNED HERE` ;
 - choix modèle GPT définitif ;
 - implémentation harness/Cursor.
 

@@ -60,6 +60,7 @@
 | Conversation post-rapport | **Obligatoire** | Phase `POST_EXECUTION_CONVERSATION` |
 | Analyse GPT candidate | **Obligatoire** | `candidateOnly` |
 | Décision finale + clôture | **Obligatoire** | `MorrisFinalDecision` + summary |
+| Continuation après CLOSE | **Obligatoire si reprise** | Continuation liée (nouvel id) ; jamais de réouverture silencieuse — FD-CAND-13 **levée** |
 | Historique + reprise session | **Obligatoire** | Fermer / rouvrir |
 | Fixtures pour tests automatisés | **Autorisées** | Hors preuve opératoire |
 | Fixture comme preuve métier scénario | **Interdite** | — |

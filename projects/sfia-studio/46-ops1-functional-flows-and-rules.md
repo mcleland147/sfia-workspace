@@ -76,7 +76,7 @@
 | **Données produites** | Événement de reprise horodaté |
 | **Preuves attendues** | Preuve de non-invention |
 | **Critères associés** | Critères 5,10 |
-| **Décisions Morris** | Après CLOSE : consultation libre ; reprise d’activité = continuation / nouvelle session liée (pas de mutation) |
+| **Décisions Morris** | Après CLOSE : consultation libre ; reprise d’activité = **continuation liée** obligatoire (FD-CAND-13 levée) ; jamais de mutation de la session source |
 | **Hors périmètre** | — |
 
 **Étapes nominales :**
@@ -88,7 +88,7 @@
 
 **Alternatives :**
    - Ambiguïté → IDLE_READ_ONLY ou STOPPED
-   - Session CLOSED → lecture seule ; activité nouvelle → continuation / session liée
+   - Session CLOSED → lecture seule ; activité nouvelle → **continuation liée** (nouvel id + ref source) ; ABANDONED/STOPPED/FAILED non auto-rouverts
 **Erreurs et STOP :**
    - Données corrompues → FAILED
    - Conflit Git majeur → STOP
@@ -999,7 +999,7 @@
 
 1. Recharger journal et objets sans inventer (FLOW-02, 27).
 2. Si ambiguïté d’état d’exécution → `STOPPED` / `FAILED` / lecture seule.
-3. Session `CLOSED` : **immuable** ; reprise **lecture** par défaut ; reprendre une activité = **continuation ou nouvelle session liée** — **pas** de mutation silencieuse de l’historique clôturé (`OPS1-FD-CAND-13`).
+3. Session `CLOSED` : **immuable** ; reprise **lecture** par défaut ; reprendre une activité = **continuation liée** (propre contrat/gate si action) — `FD-CAND-13 — LIFTED: LINKED CONTINUATION, NEVER SILENT REOPEN`.
 4. Git HEAD divergent : signaler ; bloquer exec jusqu’à resynchronisation fonctionnelle.
 5. Draft UI non soumis : non obligatoire de survivre.
 
