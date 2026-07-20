@@ -151,7 +151,7 @@ design remote/local : présentes @ c473b14…
 
 ## Handoff
 
-- SHA : *(après push handoff)*
+- SHA : `462f1974a8289c42c723c4b0a11fb7607ec00bcd`
 
 ## Verdict
 
