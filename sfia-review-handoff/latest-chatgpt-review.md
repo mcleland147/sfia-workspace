@@ -714,8 +714,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 
 ---
 
-*Contrat candidat — {STAMP} — AWAITING `G-OPS1-DEVOPS-VAL`.*
-
+*Contrat candidat — 2026-07-20 21:06:00 CEST — AWAITING `G-OPS1-DEVOPS-VAL`.*
 
 ---
 
