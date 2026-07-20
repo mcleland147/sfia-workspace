@@ -30,3 +30,24 @@ export * from "./types/qualificationCandidate.js";
 export * from "./finops/qualificationLimits.js";
 export * from "./validation/qualificationCandidateValidator.js";
 export * from "./ports/gptQualificationLive.js";
+export * from "./types/cursorExecutionReport.js";
+export * from "./increment-d/sandboxPaths.js";
+export {
+  buildIncrementDContract,
+  hashIncrementDContract,
+  makeIncrementDGo,
+  buildIncDMarkdownContent,
+  buildIncDCursorInstruction,
+  S1_CONTRACT_CURSOR_MODE,
+} from "./increment-d/executionContract.js";
+export {
+  runFakeCursorPort,
+  cleanupFakeOutsideProbe,
+  type FakeCursorBehavior,
+} from "./increment-d/fakeCursorPort.js";
+export {
+  runIncrementDSandbox,
+  resetIncDSandboxOutput,
+  type IncrementDRunInput,
+  type IncrementDRunResult,
+} from "./increment-d/cursorSandboxRunner.js";
