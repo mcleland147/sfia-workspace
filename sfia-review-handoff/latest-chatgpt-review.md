@@ -106,7 +106,7 @@ branches sync + design : présentes
 
 ## Handoff
 
-- SHA : *(après push handoff)*
+- SHA : `a97e07ed8a21e4f6277fa9ffe08d358add663284`
 
 ## Verdict
 
