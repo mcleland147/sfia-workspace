@@ -1,209 +1,216 @@
-# SFIA Studio — Review Handoff — OPS1 PR Readiness Corrective (Mono-File Drift)
+# SFIA Studio — Review Pack — OPS1 Functional Design PR Publication
 
-## Métadonnées
-
-- **Date/heure/fuseau :** 2026-07-20 14:07:23 CEST
+- **Date/heure/fuseau :** 2026-07-20 14:12:34 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Cycle :** 13 — PR readiness corrective
-- **Profil :** Light
-- **Gate Morris (correction) :** GO correction contrainte mono-fichier document 41
-- **Gate Morris (republication) :** GO republication du Review Handoff Git correctif
+- **Cycle :** 13 — PR readiness / publication de branche et création de PR
+- **Profil :** Standard
+- **Gate Morris :** GO PUSH PR
 - **Branche projet :** `design/sfia-studio-ops1-functional`
-- **origin/main :** `62eb23f0b1934afbecc517fc83aff90493fb8f29`
-- **Ancien HEAD (avant correctif) :** `05034b69abb493d78466c9857d9fc1a6c002706f`
-- **Nouveau HEAD (après correctif) :** `c5f1cead95c35d558261a17196f91da852c36eb4`
-- **Parent du correctif :** `05034b69abb493d78466c9857d9fc1a6c002706f`
-- **ahead/behind :** `2/0`
-- **Branche distante projet :** absente
-- **Push projet / PR :** absents
-- **Note republication :** remplace le handoff précédent encore lisible sous `sfia-review-handoff/latest-chatgpt-review.md` (état `05034b6` / ahead `1/0` / anomalie mono-fichier ouverte). Cause : publication antérieure sur le chemin racine non canonique.
+- **HEAD :** `c5f1cead95c35d558261a17196f91da852c36eb4`
+- **Parent :** `05034b69abb493d78466c9857d9fc1a6c002706f`
+- **origin/main :** `62eb23f0b1934afbecc517fc83aff90493fb8f29` (inchangé)
+- **PR :** [#237](https://github.com/mcleland147/sfia-workspace/pull/237)
 
-## Anomalie initiale
+## Truth Check avant push
 
-PR readiness (HEAD `05034b6`, ahead `1/0`) avait signalé des formulations **normatives** mono-fichier dans le document de cadrage `41` (§1.3, §2.6, §4.1–4.3, §11), en tension avec la conception fonctionnelle validée multi-fichiers + allowlist (`45`–`47`, `OPS1-FD-CAND-20` / `26` / `27`).
+| Contrôle | Résultat |
+|----------|----------|
+| Branche | `design/sfia-studio-ops1-functional` |
+| HEAD | `c5f1cea…` exact |
+| Parent | `05034b6…` exact |
+| origin/main | `62eb23f…` — non avancé |
+| ahead/behind | `2/0` |
+| Commits | 2 exacts |
+| Tracked / staged | Propre / vide |
+| Remote design avant push | Absente |
+| Diff | 4 fichiers ; +2225 / −12 |
+| `diff --check` | OK |
 
-Qualification : **blocage PR readiness** (dérive cadrage vs conception).
+**Verdict Truth Check :** CONFORME — push autorisé.
 
-Décision Morris : **GO correction contrainte mono-fichier document 41** — modifier uniquement `41`, commit correctif local distinct, republier le handoff.
-
-## Correction
-
-Sections corrigées dans `projects/sfia-studio/41-operational-vertical-slice-1-framing.md` :
-
-| Localisation | Avant (normatif) | Après |
-|--------------|------------------|-------|
-| §1.3 liste d’action | « un seul fichier Markdown non protégé » | Périmètre Campus360 Markdown non protégé ; 1..n si besoin ; allowlist exhaustive |
-| §2.6 niveau Action | « Un Markdown non protégé… » | Markdown Campus360 éligibles ; allowlist 1..n ; branche locale ; Cursor après GO |
-| §4.1 Action | mono implicite | Allowlist / Campus360 / pas d’autorisation globale |
-| §4.2 étape 8 | « le Markdown autorisé » | « les fichiers Markdown de l’allowlist » |
-| §4.3 tableau | « Un seul Markdown non protégé » | Bornes multi-fichiers + objet `G-OPS1-SCENARIO-VAL` |
-| §11 décisions non prises | « fichier Markdown exact » | Cartographie / branche / allowlist sous SCENARIO-VAL |
-
-Modèle retenu (aligné conception) :
-
-- Markdown Campus360 non protégés **éligibles** ;
-- une action peut concerner **un ou plusieurs** fichiers lorsque le besoin le justifie ;
-- **allowlist explicite et exhaustive** par action, validée par Morris ;
-- Campus360 **≠** autorisation globale ;
-- hors allowlist = **interdit** ;
-- extension d’allowlist après GO = **nouveau gate** ;
-- aucun commit / push / PR / merge automatique ;
-- `G-OPS1-SCENARIO-VAL` porte sur cartographie chemins/catégories éligibles, exclusions, convention de branche, règles d’allowlist, scénario de preuve.
-
-Occurrences restantes **non normatives** (conservées) :
-
-- « un seul cycle documentaire » — limite de cycle, pas de fichier ;
-- mention historique « contrainte … un seul fichier Markdown … supersédée ».
-
-Fichiers projet **non** modifiés dans le correctif : `45`–`47`, README, `42`–`44`, code, method.
-
-## Diff projet
-
-Correctif limité au document 41. Message : `docs(sfia-studio): align OPS1 framing with multi-file scope`.
-
-### Chaîne des commits (origin/main..HEAD)
+## Chaîne des commits
 
 1. `05034b69abb493d78466c9857d9fc1a6c002706f` — `docs(sfia-studio): validate OPS1 functional design`
 2. `c5f1cead95c35d558261a17196f91da852c36eb4` — `docs(sfia-studio): align OPS1 framing with multi-file scope`
 
-## Diff complet — document 41 (commit correctif)
-
-```diff
-commit c5f1cead95c35d558261a17196f91da852c36eb4
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Mon Jul 20 14:01:59 2026 +0200
-
-    docs(sfia-studio): align OPS1 framing with multi-file scope
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-index c9c0ec6..26f8359 100644
---- a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-+++ b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-@@ -55,11 +55,14 @@ Morris doit pouvoir échanger **librement et réellement** avec ChatGPT depuis S
- La capacité d’**action** derrière cette conversation peut, pour le premier slice, rester limitée à :
-
- - un seul cycle documentaire ;
--- un seul fichier Markdown non protégé ;
-+- le **périmètre documentaire Markdown non protégé** du projet **Campus360**, avec **un ou plusieurs** fichiers lorsque le besoin le justifie ;
-+- une **allowlist explicite et exhaustive** par action, validée par Morris (Campus360 ≠ autorisation globale) ;
- - une branche locale dédiée ;
- - une exécution Cursor bornée ;
- - aucun commit, push, PR ou merge automatique.
-
-+> **Alignement conception :** la contrainte historique « un seul fichier Markdown » est **supersédée**. Voir [`45`](./45-ops1-functional-design.md) §11 et `OPS1-FD-CAND-20`/`27`.
-+
- ### 1.4 Formulation structurante obligatoire
-
- ```text
-@@ -177,7 +180,7 @@ Résultat observable : fil multi-tours non prédéterminé ; corrections Morris
- | Niveau | Attendu |
- |--------|---------|
- | **Conversation** | GPT **réel**, libre, multi-tours, non scénarisé pour la preuve opératoire |
--| **Action** | Un Markdown non protégé, branche locale, Cursor après GO |
-+| **Action** | Markdown Campus360 non protégés **éligibles** ; allowlist explicite par action (1..n) ; branche locale ; Cursor après GO |
- | **Fixtures** | Autorisées pour **tests automatisés** uniquement — pas pour la preuve métier du scénario pilote |
- | **Git distant** | Aucun effet automatique |
-
-@@ -204,8 +207,9 @@ Résultat observable : fil multi-tours non prédéterminé ; corrections Morris
-
- ### 4.1 Recommandation
-
--**Action :** un cycle documentaire Markdown non protégé, branche locale dédiée, sans push auto.
-+**Action :** cycle documentaire sur Markdown Campus360 non protégés ; **allowlist** explicite par exécution (un ou plusieurs fichiers si nécessaire) ; branche locale dédiée ; sans push auto.
- **Conversation :** dynamique **non prédéterminée** (chemins multiples cohérents).
-+**Principe :** périmètre Campus360 **éligible** ≠ autorisation globale ; hors allowlist = interdit ; extension après GO = nouveau gate.
-
- ### 4.2 Dynamique attendue (non scriptée)
-
-@@ -218,7 +222,7 @@ Exemple de dynamique — **ne pas figer les phrases** :
- 5. Morris challenge ou modifie le périmètre ;
- 6. ChatGPT produit une **proposition d’action structurée** (ou conclut qu’aucune action n’est nécessaire) ;
- 7. Si action : Morris donne un **GO explicite** ;
--8. Cursor modifie uniquement le Markdown autorisé ;
-+8. Cursor modifie uniquement les fichiers Markdown de l’**allowlist** autorisée ;
- 9. Le rapport remonte ;
- 10. Morris **échange à nouveau** avec ChatGPT sur le résultat ;
- 11. Morris valide, demande correction, refuse ou abandonne ;
-@@ -231,12 +235,15 @@ La preuve porte sur la capacité à gérer **plusieurs chemins conversationnels*
- | Champ | Proposition candidate |
- |-------|------------------------|
- | Repository | `sfia-workspace` |
--| Branche | Locale dédiée (sans push) |
--| Fichier | Un seul Markdown non protégé |
--| Interdits | `method/**`, `prompts/**`, `app/**`, `harness/**`, secrets, lockfiles, `.github/**` |
-+| Projet pilote | **Campus360** (contexte exclusif) |
-+| Branche | Locale dédiée (sans push) — convention sous `G-OPS1-SCENARIO-VAL` |
-+| Fichiers | Markdown documentaires Campus360 **non protégés** **éligibles** ; action bornée par **allowlist** explicite (1..n fichiers si besoin) |
-+| Interdits | `method/**`, `prompts/**`, `app/**`, `harness/**`, secrets, lockfiles, `.github/**` ; hors allowlist ; hors Campus360 éligible |
- | Effets distants | Aucun automatique |
-+| Gate scénario | `G-OPS1-SCENARIO-VAL` — cartographie chemins/catégories, exclusions, branche, règles allowlist, scénario de preuve |
-
- Limitation Markdown = limite d’**action**, **pas** limite de **conversation**.
-+Campus360 éligible ≠ autorisation globale. Hors allowlist = interdit. Extension d’allowlist après GO = nouveau gate.
-
- ---
-
-@@ -320,7 +327,7 @@ OPS1 réussi = preuve de **conversation réelle utilisable** + **action gouvern
-
- ## 11. Décisions non prises
-
--Stack, protocole, Figma, plafonds numériques, noms techniques définitifs, fichier Markdown exact, ouverture conception/backlog/delivery, commit des docs cadrage.
-+Stack, protocole, Figma, plafonds numériques, noms techniques définitifs ; cartographie exacte des chemins/catégories Markdown Campus360 éligibles, convention de branche et règles d’allowlist opératoires (`G-OPS1-SCENARIO-VAL`) ; ouverture backlog/delivery/live ; push/PR des docs hors GO distinct.
-
- ---
-
-
-```
-
-### Diff total branche ↔ origin/main
+## Diff total
 
 ```text
- .../41-operational-vertical-slice-1-framing.md     |   34 +-
- projects/sfia-studio/45-ops1-functional-design.md  |  630 ++++++++++++
- .../46-ops1-functional-flows-and-rules.md          | 1056 ++++++++++++++++++++
- .../47-ops1-functional-decision-pack.md            |  517 ++++++++++
- 4 files changed, 2225 insertions(+), 12 deletions(-)
+M  projects/sfia-studio/41-operational-vertical-slice-1-framing.md
+A  projects/sfia-studio/45-ops1-functional-design.md
+A  projects/sfia-studio/46-ops1-functional-flows-and-rules.md
+A  projects/sfia-studio/47-ops1-functional-decision-pack.md
+4 files changed, 2225 insertions(+), 12 deletions(-)
 ```
 
-Quatre fichiers au total : `41` (M) + `45` / `46` / `47` (A). Stat : **+2225 / −12**.
+## Contrôles pré-push
+
+- Statut `functional-design-validated-with-reservations` — OK
+- FD-CAND-01…27 — OK ; réserves 13, 15, 20, 26 — OK
+- Aucune formulation normative mono-fichier dans 41 (mention historique supersédée uniquement) — OK
+- Campus360 multi-fichiers + allowlist ; pas d’autorisation globale — OK
+- Gates suivants fermés — OK
+- Claims MVP/production/READY FOR DELIVERY absents comme claims — OK
+- README / 42–44 absents du diff — OK
+- Aucun code / secret / fichier protégé — OK
+
+## Push
+
+```text
+git push -u origin design/sfia-studio-ops1-functional
+```
+
+Résultat : branche créée sur origin ; upstream configuré.
+
+- SHA remote : `c5f1cead95c35d558261a17196f91da852c36eb4`
+- local/distant : `0/0`
+- upstream : `origin/design/sfia-studio-ops1-functional`
+
+## Recherche PR existante
+
+Aucune PR ouverte `head=design/sfia-studio-ops1-functional` / `base=main` avant création.
+
+## Pull Request créée
+
+| Champ | Valeur |
+|-------|--------|
+| Numéro | **237** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/237 |
+| Titre | `docs(sfia-studio): validate OPS1 functional design` |
+| État | OPEN |
+| Draft | non |
+| Base | `main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
+| Head | `design/sfia-studio-ops1-functional` @ `c5f1cead95c35d558261a17196f91da852c36eb4` |
+| Commits | 2 |
+| Fichiers | 4 |
+| Additions / deletions | +2225 / −12 |
+| Mergeable | MERGEABLE |
+| Merge state | CLEAN |
+| Merged | non (`mergedAt` null) |
+| Checks | aucun check reporté sur la branche |
+
+### Description complète
+
+## Summary
+
+Conception fonctionnelle OPS1 de SFIA Studio, validée par Morris avec réserves sous `G-OPS1-FUNC-DESIGN-VAL`.
+
+Le cadrage OPS1 (`41`–`44`) est déjà intégré sur `main` via la PR #235. Cette PR ajoute les documents de conception fonctionnelle `45`–`47` et synchronise le document `41`.
+
+## Contenu
+
+- `41-operational-vertical-slice-1-framing.md`
+  - synchronisation du statut de conception ;
+  - alignement du cadrage avec le modèle Campus360 multi-fichiers ;
+  - suppression de la contrainte normative mono-fichier.
+
+- `45-ops1-functional-design.md`
+  - contrat fonctionnel OPS1 ;
+  - objets, états, règles `OPS1-FR-001…032` ;
+  - critères fonctionnels et non fonctionnels.
+
+- `46-ops1-functional-flows-and-rules.md`
+  - flux `OPS1-FLOW-01…32` ;
+  - preuves négatives `PN-01…06` ;
+  - règles de contrôle et de reprise.
+
+- `47-ops1-functional-decision-pack.md`
+  - décisions `OPS1-FD-CAND-01…27` ;
+  - validations Morris ;
+  - réserves et gates.
+
+## Modèle Campus360
+
+- Campus360 est le contexte projet exclusif du pilote OPS1.
+- Les fichiers Markdown documentaires non protégés sont éligibles.
+- Une action peut concerner un ou plusieurs fichiers lorsque nécessaire.
+- Chaque action porte une allowlist explicite et exhaustive.
+- Le périmètre Campus360 ne constitue aucune autorisation globale.
+- Hors allowlist : refus fail-closed.
+- Toute extension après GO nécessite un nouveau gate Morris.
+
+## Décisions et réserves
+
+Les décisions `OPS1-FD-CAND-01…27` sont validées.
+
+Validées avec réserve :
+
+- `OPS1-FD-CAND-13`
+- `OPS1-FD-CAND-15`
+- `OPS1-FD-CAND-20`
+- `OPS1-FD-CAND-26`
+
+Réserves restantes :
+
+- cartographie des chemins ou catégories Campus360 éligibles ;
+- convention de branche Campus360 ;
+- valeurs FinOps numériques, seuils, modèles et plafonds ;
+- mécanisme exact de continuation après `CLOSE` ;
+- preuve live ;
+- CI distante ;
+- isolation OS/réseau.
+
+## Hors périmètre
+
+- aucun code ;
+- aucune architecture fonctionnelle ou technique ;
+- aucune UX/UI ;
+- aucun backlog ;
+- aucun delivery ;
+- aucun live ;
+- aucun claim MVP ou production ;
+- aucun cycle suivant ouvert automatiquement.
 
 ## Contrôles
 
-| Contrôle | Résultat |
-|----------|----------|
-| `git diff --check` | OK |
-| Formulation normative mono-fichier restante dans 41 | Aucune |
-| Occurrences historiques / hors sujet | Qualifiées et conservées |
-| Cohérence 41 / 45 §11 / FLOW-32 / FD-CAND-20, 26, 27 | OK |
-| Claims interdits (MVP / production / READY FOR DELIVERY) | Absents |
-| Fichiers interdits intacts | OK |
-| Staged projet | Vide |
-| Branche projet distante | Absente |
-| Push projet | Aucun |
-| PR | Aucune |
+- quatre fichiers dans le diff ;
+- `git diff --check` OK ;
+- liens et identifiants contrôlés ;
+- décisions `01…27` complètes ;
+- réserves cohérentes ;
+- aucune formulation normative mono-fichier restante ;
+- aucun secret ou fichier protégé ;
+- README et documents `42`–`44` intacts.
 
-## Réserves et gates
+## Merge
 
-- Réserves fonctionnelles (`OPS1-FD-CAND` WITH RESERVATION) **inchangées**.
-- Gates suivants **fermés** : `G-OPS1-SCENARIO-VAL`, arch, UX, backlog, delivery, live, MVP.
-- Push de `design/sfia-studio-ops1-functional` et création de PR soumis à **GO Morris distinct**.
-- Merge recommandé : **squash** (2 commits locaux → 1 sur main).
+Stratégie recommandée : **Squash merge**.
 
-## État projet au moment de la republication
+Le merge nécessite un GO Morris distinct.
+
+## Réserves
+
+- FD-CAND-13, 15, 20, 26 `VALIDATED WITH RESERVATION`
+- Cartographie Campus360 ; convention de branche ; FinOps numériques ; continuation après CLOSE ; preuve live ; CI distante ; isolation OS/réseau
+
+## Gates fermés
+
+`G-OPS1-SCENARIO-VAL`, architecture, UX, backlog, delivery, live, MVP — non ouverts.
+
+## Merge
+
+Stratégie recommandée : **Squash merge**.
+**Merge non exécuté** — soumis à GO Morris distinct.
+
+## État Git final
 
 ```text
 Branche : design/sfia-studio-ops1-functional
 HEAD     : c5f1cead95c35d558261a17196f91da852c36eb4
-Parent   : 05034b69abb493d78466c9857d9fc1a6c002706f
-origin/main : 62eb23f0b1934afbecc517fc83aff90493fb8f29
-ahead/behind : 2/0
-Remote design : absente
-Push / PR : absents
-status : ?? .tmp-sfia-review/ ; ?? projects/.tmp-sfia-review/
+Upstream : origin/design/sfia-studio-ops1-functional
+local/remote : 0/0
+origin/main  : 62eb23f0b1934afbecc517fc83aff90493fb8f29 (inchangé)
+ahead/behind main : 2/0
+tracked : propre (?? .tmp-sfia-review/ ; ?? projects/.tmp-sfia-review/)
+staged  : vide
+PR      : #237 OPEN
+merge   : non exécuté
 ```
+
+## Handoff
+
+- SHA : *(après push handoff)*
 
 ## Verdict
 
-**SFIA STUDIO OPS1 FUNCTIONAL DESIGN PR READY — MONO-FILE DRIFT CORRECTED — PUSH AND PR REQUIRE MORRIS GO**
+**SFIA STUDIO OPS1 FUNCTIONAL DESIGN PR OPENED — MERGE REQUIRES MORRIS GO**
