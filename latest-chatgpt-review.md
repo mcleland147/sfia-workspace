@@ -1,11 +1,11 @@
-# SFIA Studio — Increment C Corrective Review Pack (FULL)
+# SFIA Studio — Increment C User Input Workflow Review Pack (FULL)
 
-- **Date / heure / fuseau :** 2026-07-20 06:58 CEST (Europe/Paris)
-- **Cycle :** 9 — QA / validation corrective
-- **Profil :** Critical
-- **Justification profil :** Le contrat fermé alimente un GPT live réel pour le routage SFIA ; une liste incorrecte produit une qualification fonctionnellement erronée malgré un JSON techniquement valide.
-- **Typologie :** INC / QA / LIVE GPT / CONTRACT CORRECTION
-- **GO Morris consommé :** GO pour anomalies + corrections obligatoires (contrat Increment C, schéma, prompt, validateurs, UI, tests, 1 observation live, review pack, handoff). **Sans** commit/push delivery, PR, merge, D/E, Cursor live, GPT analyse finale, docs 01–40, méthode, Figma, dépendances, seuils FinOps, architecture.
+- **Date / heure / fuseau :** 2026-07-20 07:32 CEST (Europe/Paris)
+- **Cycle :** 8 — Delivery / implémentation corrective
+- **Profil :** Standard
+- **Justification :** Moteur GPT live, FinOps, contrat canonique et autorité déjà en place ; correctif = raccordement UI → demandText sans nouvelle frontière.
+- **Typologie :** INC / DELIVERY / UX / USER INPUT / LIVE GPT
+- **GO Morris consommé :** préparer/exécuter le correctif de saisie libre → qualification ; préserver garde-fous Inc C. **Sans** commit/push delivery, PR, merge, D/E, Cursor live, GPT analyse finale, docs 01–40, méthode, Figma, dépendances, seuils FinOps, architecture.
 
 ---
 
@@ -14,364 +14,192 @@
 | Check | Résultat |
 |---|---|
 | Repo | `sfia-workspace` |
-| Branche active | `delivery/sfia-studio-poc-increment-c` |
+| Branche | `delivery/sfia-studio-poc-increment-c` |
 | HEAD | `f80fa1dc902f7532835ecad067da0ebdf4baef99` |
-| Base attendue | `f80fa1dc902f7532835ecad067da0ebdf4baef99` — **OK** |
-| `origin/main` | `f80fa1dc902f7532835ecad067da0ebdf4baef99` — aligné |
-| Commit Increment C | **aucun** (0 commits ahead) |
+| `origin/main` | `f80fa1dc…` — aligné |
+| Commit Increment C | **aucun** (0 ahead) |
 | Push delivery | **absent** |
-| Staging | **non effectué** |
-| Modifications Increment C | **présentes** (locales untracked/modified) |
-| Fichiers étrangers hors périmètre Studio | non touchés (docs 01–40, method, prompts, package.json intacts) |
-| `git fetch origin` | OK |
-| Rebase / reset --hard | **non** |
+| Staging | **non** |
+| Mods Increment C | **présentes** |
+| `git fetch` | OK |
 
 ---
 
-## 2. Sources Git consultées
+## 2. Anomalie initiale
 
-**Méthode :**
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+Le harness acceptait déjà `demandText`, mais l’UI :
 
-**Projet (lecture, non modifiés) :**
-- `projects/sfia-studio/32-poc-vertical-slice-functional-design.md`
-- `projects/sfia-studio/33-poc-vertical-slice-flows-and-rules.md`
-- `projects/sfia-studio/34-poc-vertical-slice-decision-pack.md`
-- `projects/sfia-studio/38-poc-vertical-slice-backlog.md`
-- `projects/sfia-studio/39-poc-vertical-slice-story-map-and-sequencing.md`
-- `projects/sfia-studio/40-poc-vertical-slice-backlog-decision-pack.md`
-
-**Handoff précédent :** `origin/sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+- affichait une demande synthétique **non éditable** ;
+- ne montrait pas le texte dans la confirmation ;
+- laissait Nora avec une affordance de chat trompeuse ;
+- ne permettait pas à Morris de saisir sa propre demande.
 
 ---
 
-## 3. Anomalie initiale
+## 3. Workflow avant / après
 
-`SFIA_CYCLES` était réduit à :
-- Cycle 7, Cycle 8, Cycle 9, Cycle 13, **DOC**
+**Avant :** fixture texte hardcodé → confirm → qualifyAction(fixture text) → candidate
 
-Conséquences :
-- 11 cycles canoniques omis ;
-- DOC n’est pas un cycle SFIA v2.6 ;
-- GPT forcé vers un sous-ensemble incorrect ou `INVALID_RESPONSE`.
-
-`SFIA_BLOCKS` utilisait des catégories génériques non canoniques :
-`security`, `governance`, `delivery`, `architecture`, `data`, `ux`, `ops`, `finops`, `documentation`.
-
----
-
-## 4. Inventaire avant correction (app/** + harness/**)
-
-| Emplacement | Ancienne liste | Action |
-|---|---|---|
-| `harness/src/types/qualificationCandidate.ts` | Cycle 7/8/9/13/DOC + blocs génériques | **Corrigé** — source unique |
-| `harness/src/ports/gptQualificationLive.ts` | fixture Cycle 8 / security+governance | **Corrigé** |
-| `harness/src/validation/qualificationCandidateValidator.ts` | consommait anciennes constantes | **Corrigé** (maxItems blocs → 11) |
-| `harness/tests/increment-c.test.ts` | fixtures legacy | **Corrigé** + tests 15/11 |
-| `app/__tests__/increment-c.test.tsx` | Cycle 8 / security | **Corrigé** |
-| `app/features/.../VsNouvelleDemandeScreen.tsx` | affichage raw ids | **Corrigé** (libellés) |
-| Spike legacy `gptContracts.ts` / `gptOutputValidator.ts` / `openaiRealSpike.ts` / fixtures spike | Cycle 7–13+DOC | **Non modifié** — hors chemin Increment C (dette résiduelle documentée) |
+**Après :**
+1. textarea éditable (vide au départ)
+2. validation locale (trim, min 10, max 12 000, pas de troncature)
+3. confirmation avec **texte exact** + limites FinOps
+4. `requestId`/`correlationId` utilisateur
+5. `demandText` transmis tel quel à qualifyAction → harness
+6. fixture ou live GPT
+7. QualificationCandidate + `demandProvenance` (len / sha256 / preview)
+8. affichage Studio + Morris encore requis
 
 ---
 
-## 5. Listes canoniques retenues
+## 4. Champ de saisie
 
-### 15 cycles (machine id → libellé)
+- Label : « Décrivez votre demande »
+- `textarea` central (`data-testid=vs-demand-input`)
+- Compteur caractères
+- Bouton « Exemple Campus360 »
+- `aria-invalid` / `role=alert` sur erreur
+- Bouton Qualifier : `aria-disabled` si invalide (cliquable pour feedback)
 
-1. `cadrage` → Cadrage  
-2. `conception-fonctionnelle` → Conception fonctionnelle  
-3. `architecture-fonctionnelle` → Architecture fonctionnelle  
-4. `ux-ui` → UX/UI  
-5. `backlog-user-stories` → Backlog / user stories  
-6. `architecture-technique` → Architecture technique  
-7. `integration-devops` → Intégration / DevOps  
-8. `delivery-implementation` → Delivery / implémentation  
-9. `qa-validation` → QA / validation  
-10. `securite-rssi` → Sécurité / RSSI  
-11. `deploiement-release` → Déploiement / release  
-12. `observabilite-run-readiness` → Observabilité / RUN readiness  
-13. `pr-readiness` → PR readiness  
-14. `post-merge` → Post-merge  
-15. `capitalisation-rex` → Capitalisation / REX  
+## 5. Règles de validation
 
-**DOC exclu.** Aucune valeur `Cycle N`.
+Fichier : `app/lib/harness/demandTextValidation.ts`
 
-### 11 blocs (machine id → libellé)
+- trim
+- EMPTY / TOO_SHORT (<10) / TOO_LONG (>12000)
+- aucune troncature silencieuse
+- harness reste autorité tokens/coût/secrets
 
-1. `finops` → FinOps  
-2. `greenops` → GreenOps  
-3. `rgpd` → RGPD  
-4. `accessibilite` → Accessibilité  
-5. `performance` → Performance  
-6. `ux-ui-figma` → UX/UI + Figma  
-7. `securite` → Sécurité  
-8. `devops` → DevOps  
-9. `deploiement-release` → Déploiement / release  
-10. `observabilite-run-readiness` → Observabilité / RUN readiness  
-11. `capitalisation-rex` → Capitalisation / REX  
+## 6. Confirmation
 
-**Rejetés :** governance, delivery, architecture, data, ux, ops, documentation, security (legacy).
+Affiche : texte exact, gpt-5.4-mini, 1 appel, 0 retry, 7500 tokens, 0,05 €, 30 s, candidate only, Morris requis.  
+Actions : live / fixture / revenir modifier / abandonner.
 
----
+## 7. Transmission + anti-substitution
 
-## 6. Source unique
+- `qualifyAction` écrit `demandText` inchangé dans le payload CLI
+- fixture : `proposedScope` contient preview user ; `demandProvenance` hash
+- live : `buildUserMessage` injecte `demandText`
+- UI affiche `vs-submitted-demand` + `vs-demand-provenance`
+- tests prouvent `qualifyMock` reçoit le texte Campus360 exact
 
-**Autorité unique des enums / schéma / prompt / validator :**  
-`projects/sfia-studio/harness/src/types/qualificationCandidate.ts`
+## 8. Fixture / Live
 
-- `SFIA_CYCLES` / `SFIA_BLOCKS` / labels  
-- `QUALIFICATION_MODEL_JSON_SCHEMA` (enum dérivé)  
-- `INC_C_QUALIFICATION_RESPONSE_FORMAT` (`qualification_candidate_1_1_0`)  
-- `INC_C_QUALIFICATION_SYSTEM_PROMPT` (injecte les mêmes constantes)  
-- `schemaVersion` : `qualification-candidate-1.1.0`
-
-**Miroir d’affichage Studio (libellés seulement) :**  
-`projects/sfia-studio/app/lib/harness/sfiaCanonicalLabels.ts`  
-→ ne redéfinit pas les ids autorisés ; dette mineure de duplication des libellés (pas d’enums divergents sur le chemin live).
-
----
-
-## 7. JSON Schema corrigé (extrait)
-
-```json
-{
-  "schemaVersion": { "enum": ["qualification-candidate-1.1.0"] },
-  "proposedCycle": {
-    "type": "string",
-    "enum": [
-      "cadrage", "conception-fonctionnelle", "architecture-fonctionnelle",
-      "ux-ui", "backlog-user-stories", "architecture-technique",
-      "integration-devops", "delivery-implementation", "qa-validation",
-      "securite-rssi", "deploiement-release", "observabilite-run-readiness",
-      "pr-readiness", "post-merge", "capitalisation-rex"
-    ]
-  },
-  "proposedBlocks": {
-    "type": "array",
-    "maxItems": 11,
-    "items": {
-      "type": "string",
-      "enum": [
-        "finops", "greenops", "rgpd", "accessibilite", "performance",
-        "ux-ui-figma", "securite", "devops", "deploiement-release",
-        "observabilite-run-readiness", "capitalisation-rex"
-      ]
-    }
-  }
-}
-```
-
-Structured Outputs name : `qualification_candidate_1_1_0`, `strict: true`.
-
----
-
-## 8. Prompt système corrigé (substance)
-
-- Producteur QualificationCandidate JSON strict, candidate-only  
-- Injecte `SFIA_CYCLES` (15) + labels  
-- Injecte `SFIA_BLOCKS` (11) + labels  
-- Interdit DOC et Cycle 7/8/9/13  
-- Interdit blocs génériques (governance, data, ops, documentation, security legacy)  
-- Profils Light/Standard/Critical/Capitalization  
-- Critical ⇒ justification non vide  
-- Pas d’outils / Cursor / Git / secrets  
-
----
-
-## 9. Validator corrigé
-
-`qualificationCandidateValidator.ts` :
-- cycle ∈ `SFIA_CYCLES` (rejette DOC, Cycle 8, etc.)  
-- blocs ∈ `SFIA_BLOCKS`, max 11  
-- `assertCandidateAuthorityInvariants` : candidateOnly=true, morrisDecisionRequired=true, executionAuthorized=false  
-
----
-
-## 10. UI corrigée
-
-`VsNouvelleDemandeScreen.tsx` affiche `formatSfiaCycle` / `formatSfiaBlocks`  
-(ex. `Delivery / implémentation (delivery-implementation)`).  
-Testid `vs-qual-blocks` ajouté.
-
----
-
-## 11. Fichiers créés / modifiés (périmètre)
-
-**Créés :**
-- `harness/src/types/qualificationCandidate.ts` (réécrit canonique)
-- `harness/src/validation/qualificationCandidateValidator.ts`
-- `harness/src/ports/gptQualificationLive.ts`
-- `harness/src/ports/openaiTransportShared.ts`
-- `harness/src/finops/qualificationLimits.ts`
-- `harness/tests/increment-c.test.ts`
-- `harness/tests/increment-c-live-observe.test.ts`
-- `app/lib/harness/qualifyAction.ts`
-- `app/lib/harness/sfiaCanonicalLabels.ts`
-- `app/__tests__/increment-c.test.tsx`
-- `app/e2e/increment-c.spec.ts`
-- `.tmp-sfia-review/chatgpt-review.md` (ce pack)
-- `.tmp-sfia-review/screenshots-increment-c-corrective/**`
-
-**Modifiés :**
-- `app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx`
-- `harness/src/cli.ts` / `index.ts` (commandes qualify-*)
-- fichiers Increment B mineurs déjà présents sur la branche locale
-
-**Non modifiés (protégés) :** `01-*`–`40-*`, `prompts/**`, `method/**`, `package.json`, lockfiles, Figma, `.env`, seuils FinOps numériques, modèle `gpt-5.4-mini`.
-
----
-
-## 12. Preuves DOC / anciens blocs rejetés
-
-Fichier : `.tmp-sfia-review/screenshots-increment-c-corrective/rejection-fixtures.json`
-
-| Entrée | Résultat |
+| Mode | Comportement |
 |---|---|
-| cycle `DOC` | `INVALID_RESPONSE` — Unknown cycle: DOC |
-| cycle `Cycle 8` | `INVALID_RESPONSE` |
-| cycle `Cycle 99` | `INVALID_RESPONSE` |
-| block `governance` | Unauthorized block |
-| block `data` / `ops` / `documentation` / `security` | Unauthorized block |
+| fixture | pas de clé ; mode affiché ; cycle hint (cadrage si « cadrage ») ; provenance |
+| live | gpt-5.4-mini ; limites Inc C ; fail-closed ; 1 appel |
 
-Tests unitaires dédiés dans `harness/tests/increment-c.test.ts` (15 cycles + 11 blocs + rejet DOC + rejet génériques).
+## 9. Authority / FinOps
+
+Inchangés : candidateOnly=true, morrisDecisionRequired=true, executionAuthorized=false  
+Seuils : 6k/1.5k/7.5k, €0.05, €1/j, 3/session, 20/j, timeout 30s, modèle gpt-5.4-mini
+
+## 10. Nora
+
+Composer : « Chat non disponible dans ce POC… » + bouton send disabled (`copilot-composer-disabled`)
+
+## 11. Fichiers modifiés / créés
+
+**Créés :** `demandTextValidation.ts`  
+**Modifiés :** `VsNouvelleDemandeScreen.tsx`, `vs-panels.module.css`, `CopilotPanel.tsx`, `CtaButton.tsx` (aria-disabled pass-through), harness fixture provenance + cycle hint, tests unit/E2E Inc C, live observe Campus360  
+
+**Hors périmètre :** docs 01–40, method, prompts, package.json — **intacts**
 
 ---
 
-## 13. Tests détaillés
+## 12. Tests
 
-### Cycles (1–8)
-1. 15 cycles acceptés — **PASS**  
-2. cycle inconnu rejeté — **PASS**  
-3. DOC rejeté — **PASS**  
-4–8. ux-ui, securite-rssi, deploiement-release, post-merge, capitalisation-rex — **PASS**
+### UI / transmission
+1–10 editable/vide/refus/confirmation/retour/abandon — **PASS**  
+11–15 demandText exact + ids + provenance — **PASS**
 
-### Blocs (9–15)
-9. 11 blocs acceptés — **PASS**  
-10–14. rgpd, accessibilite, greenops, ux-ui-figma, observabilite-run-readiness — **PASS**  
-15. governance/data/ops/documentation rejetés — **PASS**
-
-### Autorité (16–19)
-16–18. candidateOnly=false / executionAuthorized=true / morrisDecisionRequired=false rejetés — **PASS**  
-19. fixture ≠ décision Morris — **PASS**
-
-### Live / limites (20–27)
-20. modèle différent rejeté — **PASS**  
-21–22. pas de fallback / retry=0 — **PASS**  
-23–24. seuils FinOps + timeout 30s inchangés — **PASS** (`INC_C_LIMITS` assertés)  
-25. clé non exposée — **PASS**  
-26–27. pas Cursor live / pas git push dans port — **PASS**
+### Fixture / live / autorité / FinOps
+16–29 — **PASS** (harness + app)
 
 ### Régression
 | Check | Résultat |
 |---|---|
-| harness typecheck | PASS |
-| harness tests (116 pass, 2 skip) | PASS |
-| app typecheck | PASS |
-| app lint | PASS |
-| app unit (26) incl. A/B/C | PASS |
-| app build | PASS |
-| E2E A+B+C (20) | PASS (serveur 3020 rafraîchi) |
-| E2E P0 smoke (6) | PASS |
-| `git diff --check` | PASS (exit 0) |
+| harness tests | 117 pass / 2 skip |
+| app unit | 31 pass |
+| typecheck / lint / build | PASS |
+| E2E A+B+C+P0 | **28/28 PASS** |
+| `git diff --check` | PASS |
 
 ---
 
-## 14. Observation live corrective (unique)
+## 13. Demande Campus360
 
-- **Flags :** `SFIA_GPT_INC_C_OBSERVE=1` + `SFIA_GPT_INC_C_LIVE=1` + `OPENAI_MODEL=gpt-5.4-mini`  
-- **Appels :** 1 seul (`retriesAttempted: 0`)  
-- **Requête synthétique :**  
-  « Concevoir le parcours UX/UI d’un formulaire public contenant des données personnelles, avec exigences d’accessibilité, sans démarrer le développement avant validation Morris. »
+Texte exact :  
+« Je veux lancer un cycle de cadrage pour préparer le développement de Campus360. »
 
-### Résultat sanitisé
+### Fixture
+- cycle `cadrage`
+- mode fixture affiché
+- Morris requis
+- provenance sha256 présente
 
+### Live (1 appel)
 | Champ | Valeur |
 |---|---|
-| status | `CANDIDATE_CREATED` |
-| model | `gpt-5.4-mini` |
-| proposedCycle | **`ux-ui`** (auparavant impossible) |
-| proposedProfile | Critical (proposition) |
-| proposedBlocks | **`accessibilite`, `rgpd`, `ux-ui-figma`, `securite`** |
-| authority | candidateOnly=true, morrisDecisionRequired=true, executionAuthorized=false |
-| inputTokens | 1228 |
-| outputTokens | 461 |
-| totalTokens | 1689 |
-| estimatedCostEur | ≈ **0.002756** (estimate) |
-| durationMs | 3440 |
-| events | requested → started → completed → candidate_created |
+| proposedCycle | **cadrage** |
+| profile | Standard |
+| blocks | devops, observabilite-run-readiness |
+| authority | candidateOnly / morrisRequired / !execution |
+| tokens | 1213 + 326 = 1539 |
+| coût estimé | ≈ €0.002187 |
+| durée | 3792 ms |
+| retries | 0 |
 
-Preuves :
-- `.tmp-sfia-review/inc-c-corrective-live-observation.json`
-- `.tmp-sfia-review/screenshots-increment-c-corrective/live-observation-sanitized.json`
-- `.tmp-sfia-review/screenshots-increment-c-corrective/qualification-candidate.json`
-- `.tmp-sfia-review/screenshots-increment-c-corrective/qualification-usage.json`
-- `.tmp-sfia-review/screenshots-increment-c-corrective/live-events.jsonl`
-
-Aucune correction manuelle de la réponse provider. Aucun second appel live.
+Preuves : `.tmp-sfia-review/screenshots-increment-c-user-input/live-*.json` + events
 
 ---
 
-## 15. Captures runtime
+## 14. Captures
 
-Répertoire : `.tmp-sfia-review/screenshots-increment-c-corrective/` (non versionné)
+Dossier `.tmp-sfia-review/screenshots-increment-c-user-input/` :
 
-| Artifact | Contenu |
-|---|---|
-| `inc-c-corr-candidate-canonical.png` | Écran fixture avec cycle/blocs canoniques |
-| `inc-c-corr-usage-no-secret.png` | Tokens / coût estimé, sans secret |
-| `inc-c-corr-morris-required.png` | Décision Morris toujours requise |
-| `live-observation-sanitized.json` | Observation GPT réelle |
-| `rejection-fixtures.json` | DOC + anciens blocs rejetés |
-| `qualification-*.json` / `live-events.jsonl` | Journal / preuve |
+- empty / invalid / Campus360 saisi
+- confirmation texte exact
+- fixture candidate + cycles/blocs + tokens/Morris + no-secret
+- live observation sanitisée
+
+Scan secret : **négatif**
 
 ---
 
-## 16. Garde-fous préservés
+## 15. Accessibilité
 
-| Garde-fou | Statut |
-|---|---|
-| Modèle `gpt-5.4-mini` | inchangé |
-| FinOps (6k/1.5k/7.5k, €0.05, €1/j, 3/session, 20/j) | inchangé |
-| timeout 30s | inchangé |
-| retry = 0 | inchangé |
-| fail-closed | inchangé |
-| clé jamais dans UI/résultats | OK (scan négatif) |
-| Cursor live | **absent** |
-| Git distant applicatif | **absent** |
-| Architecture Studio → Server Action → harness CLI | inchangée |
+- label ↔ textarea
+- erreur `role=alert`
+- loading `aria-live`
+- focus outline textarea
+- Nora non présentée comme chat actif
 
 ---
 
-## 17. git status final (extrait)
+## 16. git status final
 
-Branche : `delivery/sfia-studio-poc-increment-c` @ `f80fa1dc…`  
-Modifications locales Increment C présentes ; **non stagées** ; **non commitées** ; **non poussées**.  
-Untracked review : `.tmp-sfia-review/**`.
-
----
-
-## 18. Réserves
-
-1. **Dette résiduelle spike :** chemins `gptContracts` / `openaiRealSpike` / `gptOutputValidator` conservent encore Cycle 7–13+DOC — hors Increment C live ; ne pas confondre avec le contrat de qualification.  
-2. **Miroir labels Studio :** `sfiaCanonicalLabels.ts` duplique les libellés (pas les enums) — acceptable sans pivot architectural.  
-3. Observation live = 1 échantillon ; ne remplace pas une validation Morris multi-demandes.  
-4. Premier run E2E a échoué à cause d’un serveur `3020` stale (`reuseExistingServer`) ; re-run après kill → 20/20 PASS.
+Branche delivery locale non commitée / non poussée @ `f80fa1dc…`  
+Handoff à publier séparément.
 
 ---
 
-## 19. Décision Morris attendue
+## 17. Réserves
 
-Valider en live UI que :
-- les 15 cycles / 11 blocs sont bien ceux du contrat ;
-- une qualification reste candidate-only ;
-- aucun secret / Cursor / Git distant ;
-- puis décider GO/NO-GO pour **staging/commit/push/PR** de la branche delivery (non autorisé par ce GO).
+1. Validation UX 12 000 car. ≠ plafond tokens harness (harness autorité).  
+2. Hint fixture « cadrage » = heuristique démo, pas décision Morris.  
+3. Une seule observation live Campus360.  
+4. Bouton Qualifier cliquable avec `aria-disabled` pour feedback erreur (pas `disabled` HTML).
 
 ---
 
-## 20. Verdict
+## 18. Décision Morris attendue
 
-**SFIA STUDIO INCREMENT C CANONICAL CONTRACT CORRECTED — MORRIS LIVE QUALIFICATION VALIDATION REQUIRED**
+Valider en UI le flux saisie → confirm → fixture/live → candidat, puis GO séparé pour staging/commit/PR.
 
-Actions interdites sans nouveau GO Morris : staging, commit, push delivery, PR, merge, incrément D/E, Cursor live, GPT analyse finale, modification seuils, documentaire 01–40, Figma, dépendance nouvelle, MVP, industrialisation.
+---
+
+## 19. Verdict
+
+**SFIA STUDIO INCREMENT C USER INPUT WORKFLOW IMPLEMENTED — MORRIS VALIDATION REQUIRED**
