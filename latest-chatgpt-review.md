@@ -508,7 +508,7 @@ Validation Morris de la conception : soumise à **`G-OPS1-FUNC-DESIGN-VAL`**. Au
 ## Handoff
 
 - Branche : `sfia/review-handoff`
-- SHA : *(après push)*
+- SHA handoff tip : `53d52c818bd0dd98428be4689d1b9c5119be82dc` (`origin/sfia/review-handoff`)
 
 ## Verdict
 
