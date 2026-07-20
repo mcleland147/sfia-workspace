@@ -1,60 +1,56 @@
-# SFIA Studio — Review Pack — OPS1 Framing Versioning
+# SFIA Studio — Review Pack — OPS1 Framing Post-Merge
 
-- **Date/heure/fuseau :** 2026-07-20 12:31:23 CEST
+- **Date/heure/fuseau :** 2026-07-20 12:37:49 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Branche :** `docs/sfia-studio-ops1-framing`
-- **HEAD initiale / base :** `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- **Commit :** `c95010dce848ae5c6290044d65ac1dfb95cc2954`
-- **Parent :** `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- **origin/main :** `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` (inchangé)
-- **Cycle :** 8 — Delivery / implémentation documentaire
+- **Cycle :** 14 — Post-merge
 - **Profil :** Standard
-- **Gate :** G-OPS1-FRAMING-VERSIONING
+- **Gate :** G-OPS1-FRAMING-POST-MERGE
+- **PR :** #235 — https://github.com/mcleland147/sfia-workspace/pull/235
 
 ## 1. Truth Check initial
 
-- main = origin/main = `6a4c4a7` ; 0/0
-- staged vide ; README modifié + 41–44 untracked ; `.tmp-sfia-review` untracked
-- branche distante `docs/sfia-studio-ops1-framing` absente avant création
+| Champ | Valeur |
+|-------|--------|
+| Branche initiale | `docs/sfia-studio-ops1-framing` |
+| HEAD branche | `c95010dce848ae5c6290044d65ac1dfb95cc2954` |
+| main local initial | `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
+| origin/main initial | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
+| ahead/behind initial | 0 / 1 |
+| Working tree | tracked propre ; staged vide ; `?? .tmp-sfia-review/` |
 
-## 2. Sources consultées
+## 2. PR #235
 
-- template SFIA v2.6 / routing guide
-- README + docs 41–44
-- handoff validation précédent
+| Champ | Valeur |
+|-------|--------|
+| State | MERGED (CLOSED) |
+| Base | main |
+| Head | docs/sfia-studio-ops1-framing |
+| Head SHA | `c95010dce848ae5c6290044d65ac1dfb95cc2954` |
+| Merge SHA | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
+| Message | `docs(sfia-studio): validate OPS1 operational slice framing (#235)` |
+| Mode | squash |
+| Fichiers | 5 (+1088 / −12) |
+| Checks distants | **aucun** (`statusCheckRollup: []`) — réserve CI |
 
-## 3. Contrôles documentaires
+## 3. Synchronisation
 
-- Statuts `framing-validated-with-reservations` / VALIDATED WITH RESERVATIONS : OK
-- Formulation conversation → gate → exécution : OK
-- OPS1-CAND 01–09,11,12 VALIDÉ ; 10/13/14 VALIDÉ AVEC RÉSERVE : OK
-- Trajectoire I1–I7 : OK
-- Réserves maintenues : OK
-- Correction mineure : trailing whitespace retiré pour `git diff --check` ; README « draft PR / non mergés »
+```bash
+git switch main
+git merge --ff-only origin/main
+```
 
-## 4. Branche / commit / push
+Résultat : Fast-forward `6a4c4a7..b686eb1`
 
-- Branche créée : `docs/sfia-studio-ops1-framing` depuis `6a4c4a7`
-- Fichiers staged (5 uniquement) :
-  - README.md (M)
-  - 41, 42, 43, 44 (A)
-- Message : `docs(sfia-studio): validate OPS1 operational slice framing`
-- Commit : `c95010dce848ae5c6290044d65ac1dfb95cc2954`
-- Parent : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- Push : origin/docs/sfia-studio-ops1-framing = `c95010dce848ae5c6290044d65ac1dfb95cc2954`
+| Champ | Valeur |
+|-------|--------|
+| Branche finale | `main` |
+| main local final | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
+| origin/main final | `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
+| ahead/behind | `0	0` (0/0) |
 
-## 5. Draft PR
-
-- **#235** — https://github.com/mcleland147/sfia-workspace/pull/235
-- Titre : docs(sfia-studio): validate OPS1 operational slice framing
-- Base : main · Head : docs/sfia-studio-ops1-framing
-- **isDraft = true** · state OPEN
-- **Merge non effectué**
-
-## 6. Diff commit
+## 4. Fichiers intégrés
 
 ```
-c95010d docs(sfia-studio): validate OPS1 operational slice framing
 A	projects/sfia-studio/41-operational-vertical-slice-1-framing.md
 A	projects/sfia-studio/42-operational-vertical-slice-1-flow-and-session-model.md
 A	projects/sfia-studio/43-operational-vertical-slice-1-scope-and-success-criteria.md
@@ -63,7 +59,53 @@ M	projects/sfia-studio/README.md
 
 ```
 
-## 7. Contenu substantiel — 41
+```
+b686eb1 docs(sfia-studio): validate OPS1 operational slice framing (#235)
+ .../41-operational-vertical-slice-1-framing.md     | 356 +++++++++++++++++++++
+ ...onal-vertical-slice-1-flow-and-session-model.md | 280 ++++++++++++++++
+ ...-vertical-slice-1-scope-and-success-criteria.md | 226 +++++++++++++
+ ...4-operational-vertical-slice-1-decision-pack.md | 196 ++++++++++++
+ projects/sfia-studio/README.md                     |  42 ++-
+ 5 files changed, 1088 insertions(+), 12 deletions(-)
+
+```
+
+Comparaison arbres `c95010d` ↔ `HEAD` (cinq fichiers) : **vide** — contenu équivalent au commit de branche.
+
+## 5. Contrôles contenu
+
+- Statuts `framing-validated-with-reservations` : OK (41–44)
+- Conversation réelle libre + chat ≠ GO : OK
+- OPS1-CAND 01–09,11–12 VALIDÉ ; 10,13,14 VALIDÉ AVEC RÉSERVE : OK
+- Trajectoire I1–I7 : OK
+- POC maintenu / MVP fermé / conception·backlog·delivery·live fermés : OK
+- `git diff --check HEAD^ HEAD` : OK
+- Liens relatifs : OK
+- TODO/secrets/claims positifs : absents
+- Code app/harness : absent
+
+### Observation README (non corrigée — modification interdite)
+
+Le README intégré conserve encore des formulations pré-merge (« draft PR / non mergés »). Le contenu est canonique sur `main` ; une sync documentaire légère ultérieure sous GO distinct peut actualiser ce libellé. **Pas de modification dans ce cycle.**
+
+## 6. Branches (aucune suppression)
+
+| Ref | État |
+|-----|------|
+| Locale `docs/sfia-studio-ops1-framing` | **présente** @ `c95010dce848ae5c6290044d65ac1dfb95cc2954` |
+| Distante `origin/docs/...` | **présente** — `c95010dce848ae5c6290044d65ac1dfb95cc2954	refs/heads/docs/sfia-studio-ops1-framing` |
+
+Cleanup recommandé (GO distinct) : supprimer remote puis locale après preuve squash ; `-d` peut refuser (squash) → éventuellement `-D` sous GO force-delete.
+
+## 7. Absences
+
+- aucun commit supplémentaire sur main
+- aucun push main
+- aucune suppression de branche
+- aucun code / live / conception / backlog / delivery
+- aucun claim MVP/production
+
+## 8. Contenu substantiel — 41
 
 ```markdown
 # SFIA Studio — Cadrage du Vertical Slice Opérationnel 1
@@ -146,20 +188,9 @@ Conversation réelle et libre
 | **B** | Connexion Studio ↔ harness | Ports fixture |
 | **C** | Qualification GPT | Live borné (appels ponctuels) |
 | **D** | Exécution Cursor sandbox | Live borné sous GO |
-| **E** | Analyse GPT + clôture Morris | Live + `CLOSED_WITH_RESERVATIONS` |
+| **E** | Analyse GPT + clôture Morris | Live + 
 
-**Prouvé :** briques gouvernées, enchaînables sous fixture ou live contrôlé.
-
-**Non prouvé :** une **conversation réelle, libre, contextuelle et multi-tours** dans Studio, pouvant aboutir (ou non) à une action gouvernée, puis reprendre après exécution — sans script ni formulaire unique.
-
-### 1.6 Distinctions obligatoires
-
-| Terme | Définition |
-|-------|------------|
-| **POC A–E** | Preuve incrémentale des briques ; clôturée `CLOSED_WITH_RESERVATIONS` |
-| **OPS1** |
-
-… [extrait — fichier complet dans le commit] …
+… [extrait — contenu canonique sur main] …
 
 mme succès | Critères `43` + OPS1-CAND-03/04 |
 | Chat = GO implicite | Séparation action + gate |
@@ -232,359 +263,7 @@ Gates suivants : **fermés** — voir [`44`](./44-operational-vertical-slice-1-d
 
 ```
 
-## 8. Contenu substantiel — 42
-
-```markdown
-# SFIA Studio — Flux, états et modèle de session du Vertical Slice Opérationnel 1
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `42-operational-vertical-slice-1-flow-and-session-model.md` |
-| **Cycle** | 1 — Cadrage, validation |
-| **Profil** | Standard |
-| **Statut** | `framing-validated-with-reservations` — modèle et états **validés au niveau cadrage** (2026-07-20) ; noms / schémas techniques **non définitifs** |
-| **Gates** | `G-SFIA-STUDIO-OPERATIONAL-SLICE-1-FRAMING` · `G-OPS1-FRAMING-REAL-CONVERSATION-AMENDMENT` · `G-OPS1-FRAMING-VAL` |
-| **Companions** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
-| **Base Git** | `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
-
-> Parcours, couches d’état, `CycleSession`, contrats conversation / action / analyse, persistance et reprise.
-> **Validé au niveau cadrage** (`G-OPS1-FRAMING-VAL`) : séparation conversation / action ; `CycleSession` conceptuel ; couches d’états ; contrats comme **base de conception** ; persistance et reprise **obligatoires**.
-> Les noms de champs, statuts et contrats **ne sont pas** des schémas techniques définitifs.
-> Aucune stack / BDD / protocole figé. Conception / delivery / live **non ouverts**.
-
----
-
-## 1. Parcours bout en bout (cible amendée)
-
-```text
-Session ouverte
-  → CONVERSATION RÉELLE ET LIBRE (multi-tours, non scénarisée)
-      ↳ compréhension / clarification / challenge / reformulation
-      ↳ éventuellement : aucune action nécessaire
-      ↳ éventuellement : proposition d’action structurée (séparée du dialogue)
-  → gate Morris explicite (si action)
-  → exécution Cursor strictement bornée (Markdown)
-  → rapport + preuves + diff
-  → CONVERSATION POST-EXÉCUTION (réelle)
-  → analyse GPT candidate (si pertinente)
-  → décision Morris finale
-  → clôture + historique + reprise
-```
-
-Formulation structurante :
-
-```text
-Conversation réelle et libre
-  → compréhension et qualification GPT
-  → action proposée et explicitée
-  → gate Morris
-  → exécution strictement bornée
-```
-
----
-
-## 2. Couches d’état (éviter la rigidité message → transition)
-
-Quatre couches **indépendantes conceptuellement** :
-
-| Couche | Rôle |
-|--------|------|
-| **État global de session** | Cycle de vie macro (ouverte, clôturée, abandonnée, STOP, FAILED) |
-| **Phase conversationnelle** | Où en est le dialogue (actif, post-exec, etc.) |
-| **Statut d’action candidate** | Aucune / candidate / raffinement / gate / autorisée / refusée |
-| **Statut d’exécution** | Idle / pending / executing / report / failed |
-
-**Règle :** la conversation peut rester **active** dans plusieurs états globaux.
-**Règle :** une réponse GPT seule **ne** fait **jamais** passer une action à `AUTHORIZED`.
-
-### 2.1 États candidats (couches fusionnées pour lisibilité)
-
-| État / phase | Intention |
-|--------------|-----------|
-| `CONVERSATION_ACTIVE` | Dialogue libre en cours |
-| `ACTION_NOT_REQUIRED` | GPT ou Morris concluent qu’aucune action n’est nécessaire (conversation peut continuer) |
-| `ACTION_CANDIDATE` | Proposition d’action structurée affichée, non autorisée |
-| `ACTION_REFINEMENT` | Correction / challenge de l’action via conversation ou panneau |
-| `MORRIS_ACTION_GATE` | Attente GO / NO-GO / CORRIGER / ABANDONNER |
-| `ACTION_AUTHORIZED` | GO ancré consommé — exécution pas encore démarrée |
-| `EXECUTION_PENDING` | Harness prépare / revalide |
-| `EXECUTING` | Cursor en cours |
-| `REPORT_AVAILABLE` | Rapport + preuves disponibles |
-| `POST_EXECUTION_CONVERSATION` | Reprise du chat réel sur le résultat |
-| `MORRIS_FINAL_DECISION` | CLOSE / CORRECT / RELAUNCH / ABANDON |
-| `CLOSED` | Clôturé |
-| `ABANDONED` | Abandon explicite |
-| `STOPPED` | STOP prioritaire |
-| `FAILED` | Échec fail-closed |
-
-Les états A–E historiques (`qualification_en_cours`, etc.) restent un **héritage de mapping UX** ; OPS1 ne les traite plus comme une file unique de formulaires.
-
-### 2.2 Transitions essentielles
-
-| Depuis | Déclencheur | Autorité | Vers | Notes |
-|--------|-------------|----------|------|-------|
-| (start) | Ouvrir session / message | Morris | `CONVERSATION_ACTIVE` | GPT réel sous GO live conversation |
-| `CONVERSATION_ACTIVE` | Message Morris/GPT | — | `CONVERSATION_ACTIVE` | **Pas** de transition d’autorisation |
-| `CONVERSATION_ACTIVE` | Signal « pas d’action » | GPT/Morris | `ACTION_NOT_REQUIRED` | Chat peut continuer |
-| `CONVERSATION_ACTIVE` | Proposi
-
-… [extrait — fichier complet dans le commit] …
-
-| Journal messages (`real`) | Oui | Session + preuves |
-| Actions / gates / contrats | Oui | Session + preuves |
-| Rapports / diffs | Oui | Preuves (+ Git) |
-| Draft UI non soumis | Non obligatoire | UI |
-| Git HEAD / fichiers | Oui | Git |
-
-Reprise : recharger sans inventer ; si ambiguïté → état sûr (`STOPPED`/`FAILED`/lecture seule).
-Double exécution : verrou sur `contractHash` en `EXECUTING`.
-
----
-
-## 7. Sécurité conversationnelle (cadrage)
-
-- Pas d’exposition de secrets dans le chat.
-- Contexte Git **explicitement sélectionné** — pas le dépôt entier automatique.
-- Outils GPT allowlistés.
-- Action proposée = non exécutable avant gate.
-- Réponses textuelles ≠ commandes.
-- Contenu utilisateur et fichiers = **données**, jamais autorité système.
-- Prompt injection dans fichiers = non fiable.
-- Harness valide les contrats **hors** confiance au texte GPT.
-
----
-
-## 8. UX/UI (exigences de cadrage)
-
-Espace conversationnel réel :
-
-- fil lisible Morris / GPT / système ;
-- indicateur de phase ;
-- sources / refs utilisées ;
-- **propositions d’action séparées visuellement** du dialogue ;
-- panneau de gate **indépendant** ;
-- poursuivre la discussion **sans** exécuter ;
-- capacités indisponibles affichées clairement ;
-- reprise après rapport Cursor ;
-- historique décisions / actions.
-
-**Éviter** une UX qui transforme le chat en assistant de formulaire.
-
-Routes P0 réutilisables ; manques : panneau chat, historique sessions, séparation action/gate. Pas de Figma dans ce cycle.
-
----
-
-## 9. Alignement A–E
-
-A–E fournit cockpit, ports, live ponctuels. OPS1 **réorganise** autour du chat libre et de l’action facultative — sans invalider les preuves A–E, sans claim MVP.
-
----
-
-## 10. Éléments validés au niveau cadrage (G-OPS1-FRAMING-VAL)
-
-| Élément | Statut cadrage | Réserve |
-|---------|----------------|---------|
-| Séparation conversation / action | **Validé** | — |
-| Modèle conceptuel `CycleSession` | **Validé** | Noms de champs ajustables en conception |
-| Couches d’états (conversation / action / exécution) | **Validé** | Libellés d’états ajustables |
-| Contrats fonctionnels (conversation / action / analyse) | **Validé** comme base de conception | Protocole / API non décidés |
-| Persistance + reprise obligatoires | **Validé** | Stack / BDD non décidées |
-| Chat ≠ GO ; GPT seul ≠ AUTHORIZED | **Validé** | — |
-
-## 11. Verdict documentaire
-
-`framing-validated-with-reservations`
-
-`OPS1 FLOW AND SESSION MODEL VALIDATED AT FRAMING LEVEL — READY FOR DISTINCT FUNCTIONAL DESIGN GO`
-
-```
-
-## 9. Contenu substantiel — 43
-
-```markdown
-# SFIA Studio — Périmètre, NFR et critères de succès du Vertical Slice Opérationnel 1
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `43-operational-vertical-slice-1-scope-and-success-criteria.md` |
-| **Cycle** | 1 — Cadrage, validation |
-| **Profil** | Standard |
-| **Statut** | `framing-validated-with-reservations` — critères de succès = **contrat validé** du slice (2026-07-20) |
-| **Gates** | `G-SFIA-STUDIO-OPERATIONAL-SLICE-1-FRAMING` · `G-OPS1-FRAMING-REAL-CONVERSATION-AMENDMENT` · `G-OPS1-FRAMING-VAL` |
-| **Companions** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
-| **Base Git** | `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
-
-> Contrat de périmètre, NFR et critères de réussite — **validé avec réserves** (`G-OPS1-FRAMING-VAL`).
-> Les critères §6 constituent le **contrat de succès validé** du Vertical Slice Opérationnel 1.
-> Succès OPS1 ≠ MVP ≠ production-ready ≠ industrialisation.
-> Limitation Markdown = limite d’**action**, pas de **conversation**.
-> Conception / backlog / delivery / live **non ouverts** par cette validation.
-
----
-
-## 1. In-scope
-
-| Domaine | Inclus |
-|---------|--------|
-| Conversation | GPT **réel**, libre, contextuel, multi-tours, non scénarisé (preuve opératoire) |
-| Action | Proposition structurée facultative ; gate ; Cursor Markdown borné |
-| Post-exec | Reprise de conversation réelle sur le rapport |
-| Session | Journal, historique, reprise |
-| Gouvernance | Morris L0 ; harness fail-closed ; no remote auto |
-| Méthode | Consommation SFIA v2.6 + template (sans modifier `method/**` / `prompts/**`) |
-
----
-
-## 2. Out-of-scope
-
-- Conversation métier **simulée / mockée / scriptée** comme preuve OPS1
-- Chat illimité sans plafonds FinOps
-- Multi-projets, 15 cycles, auth complète, collaboration multi-users
-- Commit / push / PR / merge automatiques
-- Déploiement, production, L5, industrialisation
-- Claim MVP / production-ready
-- Conception / architecture / UX finale / backlog / delivery dans **ce** cycle documentaire
-- Modification Figma
-- Appels GPT live / Cursor réel **pendant le cycle de cadrage** lui-même
-
----
-
-## 3. Capacités — matrice
-
-| Capacité | Statut | Preuve attendue |
-|----------|--------|-----------------|
-| Conversation GPT réelle multi-tours | **Obligatoire** | Fil `originKind=real`, non prédéterminé |
-| Conservation du contexte de session | **Obligatoire** | Reprise + continuité thématique |
-| Correction / contestation Morris dans le chat | **Obligatoire** | Tours de correction visibles |
-| Réponse GPT sans proposer d’action | **Obligatoire** | Cas `ACTION_NOT_REQUIRED` |
-| Proposition d’action structurée séparée | **Obligatoire** | Objet action ≠ bulle chat |
-| Gates GO/NO-GO/CORRIGER/ABANDONNER | **Obligatoire** | Décision ancrée |
-| Aucune action avant gate explicite | **Obligatoire** | Preuve négative |
-| Exécution Markdown bornée | **Obligatoire** (si GO) | Diff allowlisté |
-| Conversation post-rapport | **Obligatoire** | Phase `POST_EXECUTION_CONVERSATION` |
-| Analyse GPT candidate | **Obligatoire** | `candidateOnly` |
-| Décision finale + clôture | **Obligatoire** | `MorrisFinalDecision` + summary |
-| Historique + reprise session | **Obligatoire** | Fermer / rouvrir |
-| Fixtures pour tests automatisés | **Autorisées** | Hors preuve opératoire |
-| Fixture comme preuve métier scénario | **Interdite** | — |
-| Single-shot qualif comme expérience cible | **Interdite** | — |
-
----
-
-## 4. UX/UI (cadrage amendé)
-
-| Surface | Besoin |
-|---------|--------|
-| Fil de discussion | Lisibilité ; auteurs distincts ; horodatage fuseau |
-| Contexte | Indicateur de phase ; refs/sources |
-| Action | Carte / panneau **séparé** du dialogue |
-| Gate | Panneau indépendant ; motif |
-| Continuer sans exécuter | Action claire |
-| Capacités fermées | Affichage explicite (ex. remote Git) |
-| Post-exec | Reprise chat + diff/preuves côte à côte |
-| Historique | Sessions + décisions + actions |
-
-Éviter le « chat formulaire ». Pas de Figma ici. Socle : 4 routes P0 + panneaux manquants.
-
----
-
-## 5. NFR
-
-### 5.1 Sécurité
-
-- Secrets exclus du chat et des logs
-- Contexte Git **sélectionné** explicitement
-- Pas d’ingestion automatique du repository entier
-- Outils allowlistés
-- Action non exécutable avant gate
-- Texte GPT ≠ commande
-- Contenu utilisateur / fichiers = données non autoritaires
-- Anti prompt-injection : harness valide hors confiance au texte
-
-… [extrait — fichier complet dans le commit] …
-
- une limitation de la conversation.
-13. Aucune décision structurante sans Morris.
-14. Aucune action Git distante automatique.
-15. Rapport, preuves et diff consultables.
-16. Analyse / verdict GPT restent **candidats**.
-17. Clôture Morris explicite.
-
-### 6.2 Souhaitables
-
-Coût visible par tour ; condensation de contexte explicite ; export pack ; harness autonome de non-régression.
-
-### 6.3 Hors critères
-
-Multi-cycles projet ; auth entreprise ; CI complète ; MVP défini ; production-ready.
-
-### 6.4 Niveaux de preuve (distinction)
-
-| Niveau | Usage | GPT / Cursor |
-|--------|-------|--------------|
-| **Tests automatisés** | Non-régression | Fixtures autorisées |
-| **Intégration contrôlée** | Adaptateurs / ports | Modes contrôlés |
-| **Démonstration opératoire OPS1** | Acceptation slice | **GPT réel + Cursor réel** sous gates |
-
-### 6.5 Anti-claims
-
-Interdits : `MVP DEFINED/READY`, `PRODUCTION READY`, `INDUSTRIALIZATION COMPLETE`, `STUDIO COMPLETE`, `L5 GLOBAL PROVEN`, « conversation simulée = OPS1 prouvé ».
-
-Verdict de succès OPS1 (après preuve opératoire) : `OPERATIONAL VERTICAL SLICE 1 PROVEN WITH RESERVES` — **≠ MVP**.
-
----
-
-## 7. Preuves attendues
-
-| Preuve | Description |
-|--------|-------------|
-| Journal conversationnel | Multi-tours `real`, corrections Morris |
-| Action candidate | Structure séparée + gate |
-| Preuve négative | Tentative d’exec sans GO refusée |
-| Rapport + diff Markdown | Allowlist respectée |
-| Post-exec chat | Reprise réelle |
-| CycleSummary | État final + réserves |
-| FinOps | Compteurs conversation / structuré / analyse |
-
----
-
-## 8. Limites acceptées
-
-Un seul scénario d’action Markdown ; pas de CI obligatoire ; sandbox OS non industrialisée ; plafonds numériques À définir ; store session non productisé ; pas de multi-user.
-
----
-
-## 9. Hypothèses
-
-| ID | Hypothèse |
-|----|-----------|
-| H1 | Option B + AF-Option C inchangées |
-| H2 | Chat libre + plafonds suffit sans questions pré-définies |
-| H3 | Markdown borne l’action sans borner le dialogue |
-| H4 | I1 peut établir la persistance avant live conversation (I2) |
-| H5 | Live conversation et live Cursor restent des GO distincts |
-
----
-
-## 10. Dette
-
-| Évitée | Acceptée |
-|--------|----------|
-| Chat simulé comme succès | Store session minimal |
-| Auto-GO depuis texte | UX chat non encore Figma |
-| BDD imposée | Plafonds À définir |
-
----
-
-## 11. Verdict documentaire
-
-`framing-validated-with-reservations`
-
-`OPS1 SCOPE AND SUCCESS CRITERIA VALIDATED — SUCCESS CONTRACT SET — NOT MVP`
-
-```
-
-## 10. Contenu substantiel — 44
+## 9. Contenu substantiel — 44 (décisions)
 
 ```markdown
 # SFIA Studio — Decision pack Vertical Slice Opérationnel 1
@@ -681,12 +360,9 @@ Conversation réelle et libre
 ## 5. Décisions `OPS1-CAND-*` — statut après `G-OPS1-FRAMING-VAL`
 
 | ID | Décision (version amendée) | Statut | Réserve |
-|----|----------------------------|--------|---------|
-| **OPS1-CAND-01** | Scénario d’**action** = Markdown non protégé, branche locale, sans push auto | **VALIDÉ** | Fichier Markdown exact et convention de branche **non choisis** |
-| **OPS1-CAND-02** | Périmètre obligatoire = matrice doc `43` (conversation + action séparées) | **VALIDÉ** | — |
-| **OPS1-CAND-03** | Conversation GPT **réelle, libre, contextuelle et multi-tours** obligatoire pour la preuve OPS1 ; bornes = budget, outils, données, effets — jamais dia
+|----|--------------
 
-… [extrait — fichier complet dans le commit] …
+… [extrait — contenu canonique sur main] …
 
 t **validée pour préparer la conception** ; noms et découpage delivery **non définitifs** ; chaque incrément futur soumis à qualification et GO Morris ; **aucun** gate live ou delivery ouvert par `G-OPS1-FRAMING-VAL`.
 
@@ -761,16 +437,7 @@ CONCEPTION OPENED · BACKLOG OPENED · READY FOR DELIVERY · GPT LIVE · CURSOR 
 
 ```
 
-## 11. Garde-fous respectés
-
-- Pas de merge
-- Pas de push main
-- Pas de code / live / backlog / delivery
-- Pas de force-push
-- `.tmp-sfia-review` non commités
-- MVP/production claims absents
-
-## 12. git status final
+## 10. git status final
 
 ```
 ?? .tmp-sfia-review/
@@ -778,10 +445,14 @@ CONCEPTION OPENED · BACKLOG OPENED · READY FOR DELIVERY · GPT LIVE · CURSOR 
 
 ```
 
-## 13. Gates restant fermés
+## 11. Gates restant fermés
 
-G-OPS1-FRAMING-MERGE (implicite) · G-OPS1-FUNC-DESIGN · LIVE-CONVERSATION · LIVE-CURSOR · BACKLOG · DEL-* · MVP-CLAIM
+`G-OPS1-FUNC-DESIGN` · `G-OPS1-LIVE-CONVERSATION` · `G-OPS1-LIVE-CURSOR` · `G-OPS1-BACKLOG` · `G-OPS1-DEL-*` · `G-MVP-CLAIM` · cleanup branches
 
-## 14. Verdict
+## 12. Prochaine gate recommandée
 
-**SFIA STUDIO OPS1 FRAMING VERSIONED — DRAFT PR READY FOR MORRIS REVIEW**
+Après review post-merge : éventuel `G-OPS1-FUNC-DESIGN` **ou** cleanup branches sous GO distinct — **aucun ouvert automatiquement**.
+
+## 13. Verdict
+
+**SFIA STUDIO OPS1 FRAMING POST-MERGE COMPLETE — MAIN ALIGNED**
