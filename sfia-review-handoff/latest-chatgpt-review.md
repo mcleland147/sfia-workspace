@@ -1,134 +1,135 @@
-# Review Pack — OPS1 DevOps Reservation Treatment
+# Review Pack — OPS1 DevOps Foundation PR Readiness
 
 ## Métadonnées
 
 | Champ | Valeur |
 |---|---|
-| Date / heure / fuseau | 2026-07-20 21:16:34 CEST |
+| Date / heure / fuseau | 2026-07-20 21:27:26 CEST |
 | Repository | `mcleland147/sfia-workspace` |
 | Branche | `devops/sfia-studio-ops1-foundation` |
-| HEAD / base / merge-base | `6584646066dbd6f7002b20200e513026e3a880df` |
-| Gate consommé | `GO TREAT OPS1 DEVOPS RESERVATIONS` |
-| Gate toujours attendu | `G-OPS1-DEVOPS-VAL` |
-| Commit / push / PR projet | **aucun** |
-| Verdict | `OPS1 DEVOPS RESERVATIONS TREATED — READY FOR CHATGPT RE-REVIEW` |
+| HEAD initial | `6584646066dbd6f7002b20200e513026e3a880df` |
+| HEAD projet | `04a3b4570b6116ff3fb3dbdc1295b0858caa2a1c` |
+| Base / merge-base | `6584646066dbd6f7002b20200e513026e3a880df` |
+| Décisions Morris | `GO G-OPS1-DEVOPS-VAL — VALIDATION AVEC RÉSERVES` · `GO COMMIT PUSH PR DRAFT — OPS1 DEVOPS FOUNDATION` |
+| PR | #245 — https://github.com/mcleland147/sfia-workspace/pull/245 |
+| État PR | Draft / OPEN / non mergée |
+| Verdict | `OPS1 DEVOPS FOUNDATION PR DRAFT CREATED — READY FOR CHATGPT PR REVIEW` |
 
-## Sources
+## Fichiers (5)
 
-Docs `63`–`65`, README, `.gitignore`, `app/package.json`, `package-lock.json` (lecture), recherche `.nvmrc`/`.node-version`/`mise`/workflows `setup-node`, handoff tip `b38d15c…`, sources `57`–`62`.
+| Statut | Fichier |
+|---|---|
+| M | `.gitignore` |
+| A | `63-ops1-integration-devops-foundation.md` |
+| A | `64-ops1-local-controls-ci-and-evidence-contract.md` |
+| A | `65-ops1-integration-devops-decision-pack.md` |
+| M | `README.md` |
 
-## État avant traitement
+## 24 décisions et statuts
 
-- 24 CAND AWAITING ; CI non implémentée ; `.sfia-exec` non ignoré ; engines Studio absents ; verdict fondation documentée.
+- `OPS1-DEVOPS-CAND-01` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-02` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-03` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-04` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-05` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-06` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-07` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-08` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-09` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-10` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-11` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-12` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-13` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-14` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-15` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-16` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-17` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-18` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-19` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-20` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-21` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-22` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-23` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
+- `OPS1-DEVOPS-CAND-24` → `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`
 
-## Matrice complète des réserves
+## Matrice des réserves (maintenues)
 
-| Réserve | Statut après cycle | Preuve / note |
-|---|---|---|
-| `.sfia-exec/**` ignore | `CLOSED — EVIDENCE PROVIDED` | `git check-ignore -v` positif |
-| Node non figée | `TREATED — REMAINS OPEN` | Cas B — aucune version canonique Studio ; `package.json` inchangé |
-| Scanner secrets | `DEFERRED — DISTINCT IMPLEMENTATION GATE` | `GO IMPLEMENT OPS1 SECRET SCANNING` |
-| Suites intégration | `DEFERRED — DELIVERY I1 OR DEVOPS IMPLEMENTATION GATE` | périmètre documenté ; pas de code |
-| CI Studio | `DEFERRED — GO IMPLEMENT OPS1 CI REQUIRED` | stratégie précisée ; pas de `.github/**` |
-| Worktree ≠ sandbox | `ACCEPTED STRUCTURAL RESERVATION` | pas de claim sandbox forte |
-| Stack/fournisseur | `TREATED — REMAINS OPEN` | non arbitrés |
-| FD-CAND-15 | `OUTSIDE DEVOPS CYCLE` | FinOps/live |
-| UX-R01…R04 | `OUTSIDE DEVOPS CYCLE` | UX/delivery |
+| Réserve | Statut |
+|---|---|
+| `.sfia-exec` ignore | CLOSED — EVIDENCE PROVIDED (antérieur ; conservé) |
+| Node non figé | TREATED — REMAINS OPEN |
+| Scanner secrets | DEFERRED — DISTINCT IMPLEMENTATION GATE |
+| Suites intégration | DEFERRED — DELIVERY I1 OR DEVOPS IMPLEMENTATION GATE |
+| CI Studio | DEFERRED — GO IMPLEMENT OPS1 CI REQUIRED |
+| Worktree ≠ sandbox | ACCEPTED STRUCTURAL RESERVATION |
+| Stack/fournisseur | TREATED — REMAINS OPEN |
+| FD-CAND-15 / UX-R01…R04 | OUTSIDE DEVOPS CYCLE |
+| Live / Delivery I1 / MVP / production | FERMÉS |
 
-### Fermées
-- `.sfia-exec` ignore
+## Commandes
 
-### Ouvertes (traitées)
-- Node pin · stack/fournisseur
+### EXISTS
+- npm ci
+- npm run lint
+- npm run typecheck
+- npm test
+- npm run test:e2e
+- npm run build
+- git status/rev-parse/diff --check
+- git check-ignore (.sfia-exec)
 
-### Différées
-- scanner · suites · CI
+### PARTIAL
+- .env* ignore (secrets PARTIAL)
+- Node engines Studio (OPEN Cas B)
 
-### Structurelle
-- worktree ≠ sandbox OS
+### CANDIDATE
+- scanner secrets outillé
+- suites intégration runtime
+- workflow CI Studio
+- cleanup .sfia-exec gouverné
+- pin engines.node
 
-### Hors cycle
-- FD-CAND-15 · UX-R01…R04
+### NOT REQUIRED OPS1
+- harness scripts
+- interv360-ci.yml
 
-## Décision Node (Cas B)
+## Preuve `git check-ignore`
 
-Preuves négatives : pas de `.nvmrc`/`.node-version`/engines dans `app/package.json` ; CI Node 20 = Interv360 (autre projet) ; harness `engines.node >=20` ≠ pin Studio ; local `v24.16.0` = observation. **Aucune invention. `package.json` non modifié.**
-
-## Commandes exécutées
-
-```
-git check-ignore -v projects/sfia-studio/.sfia-exec/session-1/state.sqlite
-git check-ignore -v projects/sfia-studio/.sfia-exec/session-1/artifacts/report.json
-```
-
-Résultat :
 ```
 .gitignore:15:projects/sfia-studio/.sfia-exec/**	projects/sfia-studio/.sfia-exec/session-1/state.sqlite
 .gitignore:15:projects/sfia-studio/.sfia-exec/**	projects/sfia-studio/.sfia-exec/session-1/artifacts/report.json
 
 ```
 
-## Fichiers modifiés
+## Commit / push / PR
 
-| Fichier | Nature |
+| Élément | Valeur |
 |---|---|
-| `.gitignore` | + règle `.sfia-exec/**` |
-| `63`…`65` | matrice / CAND mis à jour |
-| `README.md` | propagation minimale |
-| `app/package.json` | **non modifié** |
-
-## 24 candidats
-
-- OPS1-DEVOPS-CAND-01 — Structure du repository OPS1 — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-02 — Frontières Studio / runtime — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-03 — Emplacement SQLite — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-04 — Emplacement artefacts append-only — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-05 — Politique fichiers temporaires et `.gitignore` — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-06 — Installation déterministe — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-07 — Gestion des dépendances — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-08 — Commandes locales socle — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-09 — Stratégie de tests — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-10 — Stratégie CI PR candidate — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-11 — Permissions CI — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-12 — Politique secrets — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-13 — Politique réseau — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-14 — Politique cache CI — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-15 — Politique artefacts CI — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-16 — Politique rétention locale runtime — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-17 — Contrôle fichiers protégés — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-18 — Contrôle Git remote — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-19 — Gestion `REPORT_INCOMPLETE` — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-20 — Gestion `METRICS_INCOMPLETE` — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-21 — Gates vers Delivery I1 — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-22 — Critères d’ouverture CI implémentée — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-23 — Rollback — `AWAITING G-OPS1-DEVOPS-VAL`
-- OPS1-DEVOPS-CAND-24 — Dette et réserves — `AWAITING G-OPS1-DEVOPS-VAL`
-
-Traitement réserves ≠ validation.
-
-## Gates futurs (non consommés)
-
-`G-OPS1-DEVOPS-VAL` · `GO IMPLEMENT OPS1 CI` · `GO IMPLEMENT OPS1 SECRET SCANNING` · `GO DELIVERY I1` · gate Node · FinOps/UX/live
+| Commit | `04a3b4570b6116ff3fb3dbdc1295b0858caa2a1c` — `docs: validate OPS1 integration DevOps foundation` |
+| Remote branch SHA | `04a3b4570b6116ff3fb3dbdc1295b0858caa2a1c` |
+| PR | #245 Draft/OPEN |
+| Merge | **aucun** |
+| CI implémentée | Non |
+| Delivery I1 | Fermé |
 
 ## Contrôles
 
-- 24 CAND conservés ; tous AWAITING
-- check-ignore OK ; pas de lockfile/deps/.github/package.json
-- worktree jamais sandbox forte ; FD/UX non arbitrés
-- staged vide ; `git diff --check` clean
-- REPORT/METRICS_INCOMPLETE + no auto-retry conservés
+- 5 fichiers exacts ; 0 AWAITING décisionnel ; 24 VAL WITH RESERVATIONS
+- package.json/lockfile/.github/code intacts
+- classifications EXISTS/CANDIDATE non confondues
+- staged vide post-commit
 
-## Risques / dette résiduelle
+## Risques / dette
 
-Présenter différé comme fermé ; divergence Node local vs futur pin ; isolation OS limitée.
+Validation ≠ CI/Delivery ; Node pin ouvert ; scanner/suites/CI différés ; isolation OS limitée.
 
 ## Verdict
 
-`OPS1 DEVOPS RESERVATIONS TREATED — READY FOR CHATGPT RE-REVIEW`
+`OPS1 DEVOPS FOUNDATION PR DRAFT CREATED — READY FOR CHATGPT PR REVIEW`
 
 ---
 
-# Contenu complet — 63 (après traitement)
+# Contenu complet — 63
 
 # 63 — OPS1 Integration / DevOps Foundation
 
@@ -139,16 +140,17 @@ Présenter différé comme fermé ; divergence Node local vs futur pin ; isolati
 | **Cycle** | 7 — Intégration / DevOps |
 | **Profil** | Standard |
 | **Typologie** | DOC / DEVOPS / INTEGRATION / QA / SECURITY |
-| **Statut** | `devops-foundation-candidate` — **candidat** ; réserves DevOps **traitées selon nature** (2026-07-20 21:16:34 CEST) ; `G-OPS1-DEVOPS-VAL` **AWAITING** |
+| **Statut** | `devops-foundation-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 21:27:26 CEST) |
 | **Gate ouverture** | `G-OPS1-DEVOPS` **consommé** — 2026-07-20 21:06:00 CEST |
-| **Gate validation** | `G-OPS1-DEVOPS-VAL` — **AWAITING** |
+| **Gate validation** | `G-OPS1-DEVOPS-VAL` **consommé** — 2026-07-20 21:27:26 CEST |
+| **Décision Morris validation** | `GO G-OPS1-DEVOPS-VAL — VALIDATION AVEC RÉSERVES` |
 | **Décision Morris ouverture** | `GO G-OPS1-DEVOPS — OPEN INTEGRATION / DEVOPS CYCLE` |
-| **Branche** | `devops/sfia-studio-ops1-foundation` (locale ; **aucun push projet** dans ce cycle) |
+| **Branche** | `devops/sfia-studio-ops1-foundation` |
 | **Base** | `origin/main` @ `6584646066dbd6f7002b20200e513026e3a880df` |
 | **Autorité** | Morris (L0) |
 | **Exécuteur** | Cursor (documentaire) |
 
-> Socle documentaire d’intégration et de contrôles locaux pour préparer des lots delivery OPS1 **exécutables, vérifiables et gouvernés**.
+> Socle Intégration / DevOps OPS1 **validé avec réserves** sous `G-OPS1-DEVOPS-VAL` (2026-07-20 21:27:26 CEST).
 > **N’implémente pas** de CI, de code, de SQLite, de runner, ni de delivery.
 > CI PR, Delivery I1, GPT live, Cursor live, MVP et production restent **fermés** jusqu’à GO Morris distincts.
 
@@ -163,7 +165,7 @@ Transformer les décisions déjà validées (architecture technique `57`–`59`,
 3. stratégie CI PR **candidate** (non implémentée) ;
 4. secrets / réseau / artefacts / SQLite ;
 5. gates vers Delivery I1 ;
-6. decision pack `65` soumis à `G-OPS1-DEVOPS-VAL`.
+6. decision pack `65` validé avec réserves sous `G-OPS1-DEVOPS-VAL`.
 
 ---
 
@@ -518,7 +520,7 @@ Code applicatif · workflows GitHub · `package.json`/lockfiles · SQLite réel 
 | Gate | État |
 |------|------|
 | `G-OPS1-DEVOPS` | **consommé** (ouverture) |
-| `G-OPS1-DEVOPS-VAL` | **AWAITING** |
+| `G-OPS1-DEVOPS-VAL` | **consommé** — validation avec réserves (2026-07-20 21:27:26 CEST) |
 | GO implémentation CI | **non ouvert** |
 | GO Delivery I1 | **non ouvert** |
 | Gates live | **non ouverts** |
@@ -537,21 +539,21 @@ Code applicatif · workflows GitHub · `package.json`/lockfiles · SQLite réel 
 
 - Docs `63`–`65` + README cohérents ;
 - commandes EXISTS vs CANDIDATE non confondues ;
-- décisions `65` toutes `AWAITING G-OPS1-DEVOPS-VAL` ;
+- décisions `65` toutes `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL` ;
 - invariants `57`–`62` respectés ;
 - aucun code / CI / dépendance modifiés ;
 - review pack + handoff publiés.
 
-**Verdict documentaire candidat :** `OPS1 DEVOPS RESERVATIONS TREATED — AWAITING G-OPS1-DEVOPS-VAL`
+**Verdict documentaire :** `OPS1 INTEGRATION DEVOPS FOUNDATION VALIDATED WITH RESERVATIONS`
 
 ---
 
-*Document candidat — réserves traitées 2026-07-20 21:16:34 CEST — validation Morris toujours `G-OPS1-DEVOPS-VAL`.*
+*Document validé avec réserves — 2026-07-20 21:27:26 CEST — CI / Delivery I1 / live / MVP non ouverts.*
 
 
 ---
 
-# Contenu complet — 64 (après traitement)
+# Contenu complet — 64
 
 # 64 — OPS1 Local Controls, CI and Evidence Contract
 
@@ -559,11 +561,11 @@ Code applicatif · workflows GitHub · `package.json`/lockfiles · SQLite réel 
 |------------|--------|
 | **Document** | `64-ops1-local-controls-ci-and-evidence-contract.md` |
 | **Complément** | [`63`](./63-ops1-integration-devops-foundation.md) · [`65`](./65-ops1-integration-devops-decision-pack.md) |
-| **Statut** | contrat **candidat** — réserves traitées (2026-07-20 21:16:34 CEST) — `G-OPS1-DEVOPS-VAL` AWAITING |
-| **Horodatage** | 2026-07-20 21:16:34 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL` — Morris — 2026-07-20 21:27:26 CEST |
+| **Horodatage validation** | 2026-07-20 21:27:26 CEST |
 | **Base** | `origin/main` @ `6584646…` |
 
-> Matrice des contrôles locaux et CI candidats pour OPS1.
+> Matrice des contrôles locaux et CI candidats pour OPS1 — **validée avec réserves** (`G-OPS1-DEVOPS-VAL`, 2026-07-20 21:27:26 CEST).
 > Statuts commande : **EXISTS** · **PARTIAL** · **CANDIDATE** · **NOT REQUIRED OPS1**.
 > Une commande **CANDIDATE** n’existe pas encore dans le repository comme automatisation OPS1.
 
@@ -788,12 +790,12 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 
 ---
 
-*Contrat candidat — réserves traitées 2026-07-20 21:16:34 CEST — AWAITING `G-OPS1-DEVOPS-VAL`.*
+*Contrat validé avec réserves — 2026-07-20 21:27:26 CEST — classifications EXISTS/PARTIAL/CANDIDATE inchangées selon réalité ; CI/Delivery non ouverts.*
 
 
 ---
 
-# Contenu complet — 65 (après traitement)
+# Contenu complet — 65
 
 # 65 — OPS1 Integration / DevOps Decision Pack
 
@@ -801,13 +803,13 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 |------------|--------|
 | **Document** | `65-ops1-integration-devops-decision-pack.md` |
 | **Compléments** | [`63`](./63-ops1-integration-devops-foundation.md) · [`64`](./64-ops1-local-controls-ci-and-evidence-contract.md) |
-| **Statut** | décision pack **candidat** |
-| **Gate validation** | `G-OPS1-DEVOPS-VAL` — **AWAITING** |
-| **Horodatage** | 2026-07-20 21:16:34 CEST (réserves traitées ; candidats toujours AWAITING) |
+| **Statut** | décision pack **validé avec réserves** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) |
+| **Gate validation** | `G-OPS1-DEVOPS-VAL` **consommé** — 2026-07-20 21:27:26 CEST |
+| **Horodatage validation** | 2026-07-20 21:27:26 CEST |
 | **Nombre de candidats** | 24 (`OPS1-DEVOPS-CAND-01…24`) |
 
-> Toutes les décisions Morris ci-dessous valent **`AWAITING G-OPS1-DEVOPS-VAL`**.
-> Aucune n’est validée. Aucune n’ouvre CI, delivery, live, MVP ou production.
+> Les 24 décisions sont **`VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST`**.
+> Validation ≠ ouverture CI, Delivery I1, live, MVP ou production. Gates futurs **distincts**.
 
 ---
 
@@ -815,12 +817,12 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 
 | Indicateur | Valeur |
 |------------|--------|
-| Décisions candidates | 24 |
-| Validées | 0 |
-| `AWAITING G-OPS1-DEVOPS-VAL` | 24 |
+| Décisions | 24 |
+| Validées avec réserves | 24 |
+| `AWAITING G-OPS1-DEVOPS-VAL` | **0** |
 | CI implémentée | Non |
 | Delivery I1 | Non ouvert |
-| Réserves levées | 0 |
+| Réserves structurelles / différées / hors cycle | Maintenues (voir matrice `63`) |
 
 ---
 
@@ -837,7 +839,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Migration harness ultérieure possible |
 | **Réserve** | Ne pas créer les dossiers dans ce cycle |
 | **Recommandation** | Adopter la structure candidate documentée |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-02 — Frontières Studio / runtime
 
@@ -852,7 +854,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Adapters à concevoir en delivery |
 | **Réserve** | — |
 | **Recommandation** | Maintenir séparation stricte |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-03 — Emplacement SQLite
 
@@ -867,7 +869,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Outil admin local futur |
 | **Réserve** | FD-CAND-15 indépendant |
 | **Recommandation** | Adopter emplacement sous `.sfia-exec` |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-04 — Emplacement artefacts append-only
 
@@ -882,7 +884,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Export sélectif versionné sous GO |
 | **Réserve** | — |
 | **Recommandation** | Adopter artifacts/ append-only |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-05 — Politique fichiers temporaires et `.gitignore`
 
@@ -897,7 +899,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Ignore `.sfia-exec` **fermée avec preuve** (2026-07-20 21:16:34 CEST) ; cleanup procédural reste CANDIDATE |
 | **Réserve** | Traitement `GO TREAT OPS1 DEVOPS RESERVATIONS` — ne vaut **pas** validation du CAND |
 | **Recommandation** | Conserver la règle ; valider le CAND sous `G-OPS1-DEVOPS-VAL` |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-06 — Installation déterministe
 
@@ -912,7 +914,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Pin Node **TREATED — REMAINS OPEN** — Cursor **n’autorise pas** le choix automatique |
 | **Réserve** | `package.json` non modifié ; aucune install |
 | **Recommandation** | Adopter npm ci ; trancher Node sous `G-OPS1-DEVOPS-VAL` ou gate Node distinct |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-07 — Gestion des dépendances
 
@@ -927,7 +929,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Dette moderate postcss ouverte |
 | **Réserve** | — |
 | **Recommandation** | Gel deps hors GO explicite |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-08 — Commandes locales socle
 
@@ -942,7 +944,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Scripts agrégateurs candidats ; scanner outillé différé |
 | **Réserve** | Traitement réserves 2026-07-20 21:16:34 CEST — CAND toujours AWAITING |
 | **Recommandation** | Contractualiser le socle EXISTS + check-ignore |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-09 — Stratégie de tests
 
@@ -957,7 +959,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | `DEFERRED — DELIVERY I1 OR DEVOPS IMPLEMENTATION GATE` |
 | **Réserve** | Aucun code/test créé (2026-07-20 21:16:34 CEST) |
 | **Recommandation** | Valider pyramide ; implémenter sous GO distinct |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-10 — Stratégie CI PR candidate
 
@@ -972,7 +974,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | `DEFERRED — GO IMPLEMENT OPS1 CI REQUIRED` |
 | **Réserve** | Aucun `.github/**` modifié (2026-07-20 21:16:34 CEST) |
 | **Recommandation** | Valider stratégie sous VAL ; YAML seulement après `GO IMPLEMENT OPS1 CI` |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-11 — Permissions CI
 
@@ -987,7 +989,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | — |
 | **Réserve** | — |
 | **Recommandation** | Adopter least privilege |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-12 — Politique secrets
 
@@ -1002,7 +1004,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | `DEFERRED — DISTINCT IMPLEMENTATION GATE` |
 | **Réserve** | Aucun outil installé (2026-07-20 21:16:34 CEST) |
 | **Recommandation** | Fail-closed ; outiller seulement sous GO scanning |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-13 — Politique réseau
 
@@ -1017,7 +1019,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Contrôle technique OS limité (dette sandbox) |
 | **Réserve** | Worktree ≠ sandbox forte rappelée |
 | **Recommandation** | Adopter deny default |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-14 — Politique cache CI
 
@@ -1032,7 +1034,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | — |
 | **Réserve** | — |
 | **Recommandation** | Cache npm scoped only |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-15 — Politique artefacts CI
 
@@ -1047,7 +1049,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | — |
 | **Réserve** | — |
 | **Recommandation** | Rétention courte + redaction |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-16 — Politique rétention locale runtime
 
@@ -1062,7 +1064,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Procédure cleanup |
 | **Réserve** | — |
 | **Recommandation** | Cleanup seulement sous GO |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-17 — Contrôle fichiers protégés
 
@@ -1077,7 +1079,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Script guard CANDIDATE |
 | **Réserve** | — |
 | **Recommandation** | Fail-closed protected paths |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-18 — Contrôle Git remote
 
@@ -1092,7 +1094,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Implémentation delivery |
 | **Réserve** | — |
 | **Recommandation** | Bloquer remote par défaut |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-19 — Gestion `REPORT_INCOMPLETE`
 
@@ -1107,7 +1109,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | — |
 | **Réserve** | — |
 | **Recommandation** | Enforcer REPORT_INCOMPLETE |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-20 — Gestion `METRICS_INCOMPLETE`
 
@@ -1122,7 +1124,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Seuils numériques absents |
 | **Réserve** | FD-CAND-15 OPEN |
 | **Recommandation** | Exiger état explicite |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-21 — Gates vers Delivery I1
 
@@ -1137,7 +1139,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Suites runtime différées |
 | **Réserve** | I1 non ouvert (2026-07-20 21:16:34 CEST) |
 | **Recommandation** | Maintenir GO Delivery I1 distinct |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-22 — Critères d’ouverture CI implémentée
 
@@ -1152,7 +1154,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | `DEFERRED — GO IMPLEMENT OPS1 CI REQUIRED` |
 | **Réserve** | Aucun YAML (2026-07-20 21:16:34 CEST) ; traitement réserves ≠ implémentation |
 | **Recommandation** | Exiger GO implémentation CI séparé |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-23 — Rollback
 
@@ -1167,7 +1169,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | — |
 | **Réserve** | — |
 | **Recommandation** | Adopter rollback non destructif |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ## OPS1-DEVOPS-CAND-24 — Dette et réserves
 
@@ -1182,7 +1184,7 @@ Implémentation CI · modification `.github/**` · installation deps · delivery
 | **Dette** | Voir matrice §16 doc 63 |
 | **Réserve** | Traitement ≠ validation des 24 CAND |
 | **Recommandation** | Conserver statuts à preuve ; valider pack sous `G-OPS1-DEVOPS-VAL` |
-| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-DEVOPS-VAL — Morris — 2026-07-20 21:27:26 CEST` |
 
 ---
 
@@ -1212,22 +1214,109 @@ Interdit de conclure de ce pack :
 
 ---
 
-## Gate Morris attendu
+## Gate Morris consommé
 
-`G-OPS1-DEVOPS-VAL` — validation sans réserve / avec réserves ou amendements / correction / rejet.
+`G-OPS1-DEVOPS-VAL` — **VALIDATION AVEC RÉSERVES** (2026-07-20 21:27:26 CEST).
 
-Décisions futures **distinctes** possibles après VAL : GO implémentation CI · GO Delivery I1 · gates live.
-
----
-
-*Pack candidat — 2026-07-20 21:06:00 CEST — 0 décisions validées.*
-
+Décisions futures **distinctes** toujours requises : `GO IMPLEMENT OPS1 CI` · `GO IMPLEMENT OPS1 SECRET SCANNING` · `GO DELIVERY I1` · gate Node · gates FinOps/UX/live.
 
 ---
 
-# Diff `.gitignore`
+*Pack validé avec réserves — 2026-07-20 21:27:26 CEST — 24 décisions ; 0 AWAITING ; CI/Delivery non ouverts.*
+
+
+---
+
+# Diff README (commit)
 
 ```diff
+commit 04a3b4570b6116ff3fb3dbdc1295b0858caa2a1c
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Mon Jul 20 21:28:53 2026 +0200
+
+    docs: validate OPS1 integration DevOps foundation
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
+index d1b4ad6..ccd03ee 100644
+--- a/projects/sfia-studio/README.md
++++ b/projects/sfia-studio/README.md
+@@ -4,7 +4,7 @@
+ |------------|--------|
+ | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
+ | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
+-| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; backlog OPS1 **validé avec réserves** (`60`–`62`) ; live / delivery / code / DevOps / MVP / production **fermés** |
++| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44`) ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; Intégration / DevOps OPS1 **validé avec réserves** (`63`–`65` ; `G-OPS1-DEVOPS-VAL` consommé) ; `.sfia-exec/**` **ignoré** ; Node/scanner/suites/CI **ouverts ou différés** ; live / delivery / code / MVP / production **fermés** |
+ | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
+ | **Autorité** | Morris (L0) |
+ | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
+@@ -21,7 +21,7 @@
+ | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
+ | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
+ | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
+-| **Prochaine décision** | Choix Morris : revue PR / merge éventuel / GO delivery ou DevOps — **non automatiques** ; backlog OPS1 **validé avec réserves** |
++| **Prochaine décision** | Revue PR Draft DevOps / merge éventuel / `GO IMPLEMENT OPS1 CI` / `GO DELIVERY I1` / gate Node — **non automatiques** |
+ 
+ ---
+ 
+@@ -370,11 +370,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ 
+ 1. Scénario OPS1 **validé avec amendements** — docs [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md).
+ 2. Architecture technique OPS1 — docs [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) **validés avec amendements**.
+-3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · 17 epics / 41 stories / 20 décisions · corrections de revue intégrées.
+-4. Delivery / code / Intégration-DevOps / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
+-5. Réserves restantes : FD-CAND-15 · UX-R01…R04 · stack/fournisseur non finalisés · worktree ≠ sandbox OS forte · CI PR = cycle DevOps distinct · gates live distincts.
++3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · intégrés sur `main` (PR [#244](https://github.com/mcleland147/sfia-workspace/pull/244) / `6584646…`) · 17 epics / 41 stories / 20 décisions.
++4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **validés avec réserves** · `G-OPS1-DEVOPS-VAL` consommé (2026-07-20 21:27:26 CEST) · 24 décisions · `.sfia-exec/**` ignoré · **non intégrés sur `main` tant que PR non mergée**.
++5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
++6. Réserves maintenues : Node non figé · scanner différé · suites intégration différées · CI Studio différée (`GO IMPLEMENT OPS1 CI`) · worktree≠sandbox · stack/fournisseur · FD-CAND-15 · UX-R01…R04 · live fermés.
+ 
+-**Verdict documentaire courant :** `SFIA STUDIO OPS1 BACKLOG VALIDATED WITH RESERVATIONS`
++**Verdict documentaire courant :** `SFIA STUDIO OPS1 INTEGRATION DEVOPS VALIDATED WITH RESERVATIONS`
+ 
+ 
+ ---
+@@ -391,7 +392,8 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | UX/UI OPS1 | Docs `51`–`53` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; Figma page `61:2` référence desktop ; UX-R01…UX-R04 ouvertes |
+ | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
+ | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
+-| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; 17 epics / 41 stories / 20 décisions ; delivery/code/DevOps/live/MVP fermés |
++| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
++| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** ; **pas encore** sur `main` avant merge PR |
+ | Handoff | `sfia/review-handoff` |
+ 
+ ---
+@@ -467,4 +469,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | [61-ops1-epics-stories-and-acceptance-criteria.md](./61-ops1-epics-stories-and-acceptance-criteria.md) | 17 epics / 41 stories — **VALIDATED WITH RESERVATIONS** |
+ | [62-ops1-backlog-decision-pack.md](./62-ops1-backlog-decision-pack.md) | `OPS1-BACKLOG-CAND-01`…`20` — **VALIDATED WITH RESERVATIONS** (2026-07-20 20:52:00 CEST) |
+ 
+-*SFIA Studio — POC maintenu — OPS1 backlog VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — delivery / MVP non ouverts.*
++### Intégration / DevOps OPS1 (validé avec réserves — `G-OPS1-DEVOPS-VAL` consommé)
++
++| Document | Rôle |
++|----------|------|
++| [63-ops1-integration-devops-foundation.md](./63-ops1-integration-devops-foundation.md) | Socle intégration / structure / CI candidate / secrets·réseau / stockage — **VALIDATED WITH RESERVATIONS** |
++| [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves — **VALIDATED WITH RESERVATIONS** |
++| [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **VALIDATED WITH RESERVATIONS** (2026-07-20 21:27:26 CEST) |
++
++*SFIA Studio — POC maintenu — Intégration/DevOps VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — CI / delivery / live / MVP non ouverts.*
+
+```
+
+---
+
+# Diff `.gitignore` (commit)
+
+```diff
+commit 04a3b4570b6116ff3fb3dbdc1295b0858caa2a1c
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Mon Jul 20 21:28:53 2026 +0200
+
+    docs: validate OPS1 integration DevOps foundation
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/.gitignore b/.gitignore
 index 47f93b6..48abd28 100644
 --- a/.gitignore
@@ -1244,80 +1333,3 @@ index 47f93b6..48abd28 100644
  !exports/notion/
 
 ```
-
----
-
-# Diff README
-
-```diff
-diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index d1b4ad6..7698e39 100644
---- a/projects/sfia-studio/README.md
-+++ b/projects/sfia-studio/README.md
-@@ -4,7 +4,7 @@
- |------------|--------|
- | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
- | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
--| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; backlog OPS1 **validé avec réserves** (`60`–`62`) ; live / delivery / code / DevOps / MVP / production **fermés** |
-+| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; cycle Intégration / DevOps **documentaire candidat** (`63`–`65` ; réserves **analysées/traitées selon nature** ; `G-OPS1-DEVOPS-VAL` **AWAITING**) ; `.sfia-exec/**` **ignoré** (root `.gitignore`) ; CI implémentée / live / delivery / code / MVP / production **fermés** |
- | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
- | **Autorité** | Morris (L0) |
- | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
-@@ -21,7 +21,7 @@
- | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
- | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
- | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
--| **Prochaine décision** | Choix Morris : revue PR / merge éventuel / GO delivery ou DevOps — **non automatiques** ; backlog OPS1 **validé avec réserves** |
-+| **Prochaine décision** | `G-OPS1-DEVOPS-VAL` (validation pack `63`–`65`) — **non automatique** ; CI implémentée / Delivery I1 / live **fermés** tant que GO distincts non consommés |
- 
- ---
- 
-@@ -370,11 +370,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- 
- 1. Scénario OPS1 **validé avec amendements** — docs [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md).
- 2. Architecture technique OPS1 — docs [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) **validés avec amendements**.
--3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · 17 epics / 41 stories / 20 décisions · corrections de revue intégrées.
--4. Delivery / code / Intégration-DevOps / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
--5. Réserves restantes : FD-CAND-15 · UX-R01…R04 · stack/fournisseur non finalisés · worktree ≠ sandbox OS forte · CI PR = cycle DevOps distinct · gates live distincts.
-+3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · intégrés sur `main` (PR [#244](https://github.com/mcleland147/sfia-workspace/pull/244) / `6584646…`) · 17 epics / 41 stories / 20 décisions.
-+4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **candidats** · `G-OPS1-DEVOPS` consommé · réserves traitées selon nature (`GO TREAT OPS1 DEVOPS RESERVATIONS` — 2026-07-20 21:16:34 CEST) · **`G-OPS1-DEVOPS-VAL` AWAITING** · `.sfia-exec/**` ignoré (preuve `git check-ignore`) · CI **non implémentée** · aucun code runtime / delivery / live ouvert.
-+5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
-+6. Réserves : ignore `.sfia-exec` **CLOSED (preuve)** · Node pin / stack-fournisseur **REMAIN OPEN** · scanner / suites / CI **DEFERRED (gates)** · worktree≠sandbox **ACCEPTED STRUCTURAL** · FD-CAND-15 / UX-R01…R04 **OUTSIDE DEVOPS**.
- 
--**Verdict documentaire courant :** `SFIA STUDIO OPS1 BACKLOG VALIDATED WITH RESERVATIONS`
-+**Verdict documentaire courant :** `SFIA STUDIO OPS1 DEVOPS RESERVATIONS TREATED — AWAITING G-OPS1-DEVOPS-VAL`
- 
- 
- ---
-@@ -391,7 +392,8 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | UX/UI OPS1 | Docs `51`–`53` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; Figma page `61:2` référence desktop ; UX-R01…UX-R04 ouvertes |
- | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
- | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
--| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; 17 epics / 41 stories / 20 décisions ; delivery/code/DevOps/live/MVP fermés |
-+| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
-+| Intégration / DevOps OPS1 | Docs `63`–`65` — **CANDIDATE** (réserves traitées selon nature ; `G-OPS1-DEVOPS-VAL` **AWAITING**) ; `.sfia-exec/**` ignoré ; CI implémentée / delivery / live / MVP **fermés** |
- | Handoff | `sfia/review-handoff` |
- 
- ---
-@@ -467,4 +469,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [61-ops1-epics-stories-and-acceptance-criteria.md](./61-ops1-epics-stories-and-acceptance-criteria.md) | 17 epics / 41 stories — **VALIDATED WITH RESERVATIONS** |
- | [62-ops1-backlog-decision-pack.md](./62-ops1-backlog-decision-pack.md) | `OPS1-BACKLOG-CAND-01`…`20` — **VALIDATED WITH RESERVATIONS** (2026-07-20 20:52:00 CEST) |
- 
--*SFIA Studio — POC maintenu — OPS1 backlog VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — delivery / MVP non ouverts.*
-+### Intégration / DevOps OPS1 (candidat — `G-OPS1-DEVOPS-VAL` AWAITING)
-+
-+| Document | Rôle |
-+|----------|------|
-+| [63-ops1-integration-devops-foundation.md](./63-ops1-integration-devops-foundation.md) | Socle intégration / structure / CI candidate / secrets·réseau / stockage |
-+| [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves / stop conditions |
-+| [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **AWAITING G-OPS1-DEVOPS-VAL** (réserves traitées ≠ validation) |
-+
-+*SFIA Studio — POC maintenu — backlog OPS1 VALIDATED WITH RESERVATIONS — Intégration/DevOps documentaire candidat (réserves traitées) — CI / delivery / live / MVP non ouverts.*
-
-```
-
----
-
-# Diff `package.json`
-
-*(aucun — Cas B)*
