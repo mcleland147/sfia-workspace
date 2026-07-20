@@ -1,48 +1,179 @@
-# SFIA Studio — Review Pack — OPS1 Functional Design Final Amendment
+# SFIA Studio — Review Pack — OPS1 Functional Design Local Versioning
 
-- **Date/heure/fuseau :** 2026-07-20 13:39:32 CEST
+- **Date/heure/fuseau :** 2026-07-20 13:47:49 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Cycle :** 2 — Conception fonctionnelle, amendement final
+- **Cycle :** 8 — Delivery documentaire / versionnement local
 - **Profil :** Standard
-- **Gate :** Amendement final de `G-OPS1-FUNC-DESIGN-VAL`
-- **Branche :** `design/sfia-studio-ops1-functional` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29`
-- **origin/main :** identique ; ahead/behind `0/0` ; remote design absente
+- **Gate Morris :** GO OPS1 FUNCTIONAL DESIGN VERSIONING
+- **Validation conception :** `G-OPS1-FUNC-DESIGN-VAL` consommé (2026-07-20 13:46 CEST)
+- **Branche :** `design/sfia-studio-ops1-functional`
+- **Commit :** `05034b69abb493d78466c9857d9fc1a6c002706f`
+- **Parent :** `62eb23f0b1934afbecc517fc83aff90493fb8f29`
+- **Message :** `docs(sfia-studio): validate OPS1 functional design`
 
-## Décision Morris
+## Truth Check (avant commit)
 
-**Date/heure/fuseau :** 2026-07-20 13:36 CEST  
-**Gate :** `G-OPS1-FUNC-DESIGN-VAL` (amendement final)
+| Contrôle | Résultat |
+|----------|----------|
+| HEAD initial | `62eb23f0b1934afbecc517fc83aff90493fb8f29` = origin/main |
+| ahead/behind | 0/0 |
+| Remote design | absente |
+| Staged | vide |
+| Fichiers | 41 modifié ; 45–47 untracked |
 
-Les fichiers Markdown du périmètre documentaire Campus360 **non protégé** sont **éligibles**.
-Une action peut concerner **un ou plusieurs** fichiers.
-Chaque action porte une **allowlist explicite et exhaustive**, présentée avant le gate et validée par Morris.
-Le rattachement Campus360 **≠** autorisation globale.
-Chemins protégés exclus ; aucun remote Git automatique.
-Extension d’allowlist après GO = nouveau gate.
+## Décisions Morris tracées
 
-## Truth Check
+- Conception OPS1 **validée avec réserves**
+- `OPS1-FD-CAND-01`…`12` VALIDATED
+- `13` VALIDATED WITH RESERVATION (CLOSED immuable ; continuation/session liée)
+- `14` VALIDATED
+- `15` VALIDATED WITH RESERVATION (FinOps principes ; chiffres OPEN)
+- `16`…`19` VALIDATED
+- `20` VALIDATED WITH RESERVATION (multi-fichiers Campus360 + allowlist)
+- `21`…`23` VALIDATED (cycles distincts normaux)
+- `24` VALIDATED (réserves amendées)
+- `25` VALIDATED
+- `26` VALIDATED WITH RESERVATION (Campus360 exclusif ; cartographie OPEN)
+- `27` VALIDATED (éligible ≠ allowlist ; extension après GO = nouveau gate)
+- Aucun cycle suivant ouvert
 
-Conforme : branche/base exactes ; staged vide ; 41 modifié (cycle précédent) ; 45–47 untracked ; README/42–44 intacts.
+## Statuts finaux OPS1-FD-CAND-01…27
 
-## Formulation avant / après
+| ID | Statut |
+|----|--------|
+| 01 | `VALIDATED` |
+| 02 | `VALIDATED` |
+| 03 | `VALIDATED` |
+| 04 | `VALIDATED` |
+| 05 | `VALIDATED` |
+| 06 | `VALIDATED` |
+| 07 | `VALIDATED` |
+| 08 | `VALIDATED` |
+| 09 | `VALIDATED` |
+| 10 | `VALIDATED` |
+| 11 | `VALIDATED` |
+| 12 | `VALIDATED` |
+| 13 | `VALIDATED WITH RESERVATION` |
+| 14 | `VALIDATED` |
+| 15 | `VALIDATED WITH RESERVATION` |
+| 16 | `VALIDATED` |
+| 17 | `VALIDATED` |
+| 18 | `VALIDATED` |
+| 19 | `VALIDATED` |
+| 20 | `VALIDATED WITH RESERVATION` |
+| 21 | `VALIDATED` |
+| 22 | `VALIDATED` |
+| 23 | `VALIDATED` |
+| 24 | `VALIDATED` |
+| 25 | `VALIDATED` |
+| 26 | `VALIDATED WITH RESERVATION` |
+| 27 | `VALIDATED` |
 
-| Avant | Après |
-|-------|-------|
-| Hypothèse / réserve « fichier Markdown exact unique » | **Retiré** |
-| Action systématiquement mono-fichier | Multi-fichiers **si nécessaire** |
-| SCENARIO-VAL = choisir un fichier | SCENARIO-VAL = cartographie éligible + branche + règles allowlist |
-| Campus360 = contexte | Campus360 = **périmètre éligible** ≠ allowlist d’exécution |
+## Réserves maintenues
 
-## Distinction clé
+- cartographie chemins/catégories Campus360 éligibles ;
+- convention de branche Campus360 ;
+- FinOps numériques / seuils / modèles / plafonds ;
+- mécanisme exact continuation après CLOSE ;
+- preuve live ; CI distante ; isolation OS/réseau.
 
-| Notion | Rôle |
-|--------|------|
-| Périmètre éligible Campus360 | Ensemble des Markdown documentaires non protégés pouvant être déclarés |
-| Allowlist d’action | Sous-ensemble **explicite** autorisé pour **cette** exécution ; objet du GO Morris |
+## Fichiers versionnés
 
----
+| Fichier | Action |
+|---------|--------|
+| `41-operational-vertical-slice-1-framing.md` | Modifié |
+| `45-ops1-functional-design.md` | Créé |
+| `46-ops1-functional-flows-and-rules.md` | Créé |
+| `47-ops1-functional-decision-pack.md` | Créé |
 
-## Sections amendées — document 45
+## Diff utile complet — document 41
+
+```diff
+commit 05034b69abb493d78466c9857d9fc1a6c002706f
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Mon Jul 20 13:47:31 2026 +0200
+
+    docs(sfia-studio): validate OPS1 functional design
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
+index 9d8f41e..c9c0ec6 100644
+--- a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
++++ b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
+@@ -8,16 +8,18 @@
+ | **Typologie** | POC / CADRAGE / PRODUIT / VALIDATION |
+ | **Baseline** | SFIA v2.6 opérationnelle sur `main` |
+ | **Gates consommés** | `G-SFIA-STUDIO-OPERATIONAL-SLICE-1-FRAMING` · `G-OPS1-FRAMING-REAL-CONVERSATION-AMENDMENT` · `G-OPS1-FRAMING-VAL` |
+-| **Statut** | `framing-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 12:21 CEST) ; POC **maintenu** ; conception, architecture, UX finale, backlog, delivery, GPT live, Cursor réel, MVP **fermés** |
++| **Statut** | `framing-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 12:21 CEST) ; docs `41`–`44` **intégrés** sur `main` (PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; post-merge + cleanup **terminés** ; POC **maintenu** ; conception fonctionnelle **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST) ; architecture, UX, backlog, delivery, live, MVP **fermés** |
+ | **Companions** | [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
+ | **Base Git de cadrage** | `origin/main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
++| **Intégration cadrage** | PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) MERGED — squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
+ | **Autorité** | Morris (L0) |
+ 
+ > Ce document cadre la **prochaine marche du POC** après le vertical slice A–E.
+ > **Cadrage validé avec réserves** sous `G-OPS1-FRAMING-VAL` — conversation GPT réelle et libre au centre ; action Markdown gouvernée.
+-> La validation **n’ouvre pas** conception détaillée, architecture technique, UX finale, backlog, delivery, live ni MVP.
++> Documents `41`–`44` **intégrés sur `main`** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1394bb4d550eeff1dd64669b3d405579ad`) ; post-merge et cleanup **terminés**.
++> Conception fonctionnelle OPS1 **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST) — voir [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md).
++> Architecture, UX, backlog, delivery, live et MVP **restent fermés**.
+ > Aucun claim MVP, production-ready ou industrialisation.
+-> Documents sur branche documentaire / draft PR — **non mergés** tant qu’un GO Morris de merge distinct n’est pas émis.
+ 
+ ---
+ 
+@@ -353,4 +355,5 @@ Conversation réelle et libre
+ 
+ `SFIA STUDIO OPS1 FRAMING VALIDATED WITH RESERVATIONS`
+ 
+-Gates suivants : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Prochaine étape = décision Morris distincte sur l’ouverture éventuelle de la conception fonctionnelle OPS1.
++Cadrage **intégré** et **canonique** sur `main`. Conception fonctionnelle OPS1 **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST) — voir [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md).
++Gates architecture / UX / backlog / delivery / live / MVP : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Aucun cycle suivant ouvert automatiquement.
+
+```
+
+## Extraits substantiels — document 45
+
+### Métadonnées
+
+```markdown
+# SFIA Studio — Conception fonctionnelle OPS1
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `45-ops1-functional-design.md` |
+| **Cycle** | 2 — Conception fonctionnelle |
+| **Profil** | Standard |
+| **Typologie** | POC / CONCEPTION FONCTIONNELLE / PRODUIT / DOC |
+| **Gates consommés** | `G-OPS1-FUNC-DESIGN` · `G-OPS1-FUNC-DESIGN-VAL` |
+| **Baseline Git** | `origin/main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
+| **Branche** | `design/sfia-studio-ops1-functional` (**locale uniquement** — aucun push) |
+| **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) |
+| **Autorité** | Morris (L0) |
+| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) |
+| **Entrées cadrage** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
+| **Socle historique (lecture)** | [`08`](./08-functional-design.md) · [`09`](./09-functional-flows-and-rules.md) · [`10`](./10-functional-decision-pack.md) |
+| **Horodatage production** | 2026-07-20 13:10 CEST |
+| **Horodatage amendement** | 2026-07-20 13:23 CEST |
+| **Horodatage amendement final** | 2026-07-20 13:36 CEST |
+| **Horodatage validation Morris** | 2026-07-20 13:46 CEST |
+| **Projet pilote OPS1** | **Campus360 exclusivement** — Markdown documentaires non protégés **éligibles** ; allowlist **par action** ; cartographie/branche : `G-OPS1-SCENARIO-VAL` |
+
+> Contrat de **conception fonctionnelle validée avec réserves** du Vertical Slice Opérationnel 1.
+> Gate `G-OPS1-FUNC-DESIGN-VAL` **consommé** — Morris — 2026-07-20 13:46 CEST.
+> Hérite des invariants validés du cadrage OPS1 (`G-OPS1-FRAMING-VAL`) sans les altérer.
+> Scénario pilote : contexte **Campus360** exclusivement — OPS1 = slice **SFIA Studio**, pas une feature produit Campus360.
+> **Décision Morris multi-fichiers (2026-07-20 13:36 CEST)** : Markdown documentaires Campus360 non protégés **éligibles** ; allowlist explicite par action ; Campus360 ≠ autorisation globale.
+> Architecture fonctionnelle et UX/UI = cycles SFIA distincts **normaux**. Stack / BDD / API / protocole **routés** vers architecture technique (cycle 6 / `G-OPS1-TECH-ARCH` si établi).
+> `OPS1-FD-CAND-01`…`27` **validées** (avec réserves sur 13, 15, 20, 26). Aucun cycle suivant ouvert automatiquement.
+> Aucun claim MVP / production-ready / industrialisation / OPS1 prouvé / READY FOR DELIVERY.
+
+### Distinction POC / OPS1 / MVP
+
+| Terme | Définition fonctionnelle |
+|-------|--------------------------|
+```
 
 ### §1.7 Réserves
 
@@ -61,85 +192,7 @@ Conforme : branche/base exactes ; staged vide ; 41 modifié (cycle précédent) 
 
 ```
 
-### §4.5 ProposedAction
-
-```markdown
-### 4.5 ProposedAction
-
-| Aspect | Contenu |
-|--------|---------|
-| **Responsabilité** | Proposition d’action **structurée**, séparée du dialogue |
-| **Données minimales** | objectif ; cycle/profil proposés ; **allowlist explicite et exhaustive** (fichiers consultables / créables / modifiables, distincts si besoin) ; denylist / chemins protégés exclus ; effets locaux ; remote=aucun auto ; risques ; preuves attendues (diff consolidé + par fichier) ; gate requis ; statut |
-| **Source de vérité** | Objet session (≠ texte chat) |
-| **Cycle de vie** | draft → candidate → refinement → gated → authorized/refused/withdrawn |
-| **Liens** | Session ; gate ; contrat |
-| **Autorité** | GPT propose ; Morris corrige/retire ; **jamais** auto-AUTHORIZED |
-| **Règle clé** | Périmètre Campus360 **éligible** ≠ allowlist d’exécution ; multi-fichiers **autorisé si nécessaire** ; GO Morris porte sur l’allowlist présentée |
-
-```
-
-### §4.8 ExecutionContract
-
-```markdown
-### 4.8 ExecutionContract
-
-| Aspect | Contenu |
-|--------|---------|
-| **Responsabilité** | Contrat borné pour Cursor |
-| **Données minimales** | contractHash ; HEAD ancré ; **allowlist d’exécution** (copie exhaustive de l’action GO) ; denylist ; effets autorisés ; interdits (remote, secrets, hors allowlist) ; timeout |
-| **Source de vérité** | Harness + Git HEAD |
-| **Cycle de vie** | préparé → revalidé → exécuté / invalidé |
-| **Liens** | Action ; rapport |
-| **Autorité** | Harness valide ; Cursor exécute **sans élargir** l’allowlist |
-| **Règle clé** | Ajout de fichier après GO = **interdit** ; nécessite correction d’action + **nouveau gate** |
-
-```
-
-### §6 Règles métier (extrait FR-026…032 inclus)
-
-```markdown
-## 6. Règles métier (`OPS1-FR-*`)
-
-| ID | Règle |
-|----|-------|
-| **OPS1-FR-001** | Le dialogue est libre dans son contenu ; non scénarisé pour la preuve opératoire |
-| **OPS1-FR-002** | Aucune obligation de produire une action à chaque tour |
-| **OPS1-FR-003** | Dialogue et action candidate sont des objets séparés ; le texte chat n’est pas une commande |
-| **OPS1-FR-004** | Seul Morris émet GO / NO-GO / CORRIGER / ABANDONNER / STOP / clôture |
-| **OPS1-FR-005** | Toute exécution est ancrée (contractHash + HEAD + allowlist) et revalidée par le harness |
-| **OPS1-FR-006** | Allowlist/denylist : hors allowlist = interdit ; default deny |
-| **OPS1-FR-026** | Périmètre Campus360 **éligible** ≠ allowlist d’une action ; le rattachement projet n’autorise aucun fichier implicitement |
-| **OPS1-FR-027** | Allowlist **obligatoire** et **exhaustive** avant soumission au gate ; distingue consultables / créables / modifiables si besoin |
-| **OPS1-FR-028** | Une action peut porter sur **un ou plusieurs** Markdown Campus360 éligibles ; le nombre est dicté par le besoin, pas par un plafond mono-fichier |
-| **OPS1-FR-029** | Accès ou modification d’un fichier **absent** de l’allowlist = **refus fail-closed**, même si le fichier est dans le périmètre éligible |
-| **OPS1-FR-030** | Extension d’allowlist après GO = **interdite** ; correction d’action + **nouveau gate** Morris requis |
-| **OPS1-FR-031** | Rapport et preuves couvrent **chaque** fichier de l’allowlist ; diff consolidé **et** par fichier consultables |
-| **OPS1-FR-032** | Multi-fichiers autorisé **uniquement lorsque nécessaire** ; action doit rester proportionnée, réversible et vérifiable |
-| **OPS1-FR-007** | Aucun commit, push, PR ou merge automatique dans le scénario OPS1 |
-| **OPS1-FR-008** | Preuve négative : tentative d’exécution sans GO doit être refusée et journalisée |
-| **OPS1-FR-009** | Idempotence fonctionnelle : un même contrat autorisé ne produit pas deux exécutions concurrentes |
-| **OPS1-FR-010** | Anti double-exécution : verrou sur `contractHash` en `EXECUTING` |
-| **OPS1-FR-011** | Timeouts fonctionnels obligatoires ; timeout ≠ autorisation |
-| **OPS1-FR-012** | Aucun retry automatique d’appel coûteux ou d’exécution |
-| **OPS1-FR-013** | Rapport incomplet bloque la clôture nominale et la nouvelle exécution sur le même contrat |
-| **OPS1-FR-014** | Conservation du contexte utile ; condensation contrôlée et explicite |
-| **OPS1-FR-015** | Git prime sur le store conversationnel en cas de conflit |
-| **OPS1-FR-016** | Contenu des fichiers lus = donnée non autoritaire (anti prompt-injection) |
-| **OPS1-FR-017** | Toute décision Morris est horodatée avec fuseau |
-| **OPS1-FR-018** | Fixtures autorisées en tests uniquement ; preuve opératoire = `originKind=real` |
-| **OPS1-FR-019** | Conversation post-exécution obligatoire après une exécution dans le BeB |
-| **OPS1-FR-020** | Analyses / verdicts GPT restent `candidateOnly` |
-| **OPS1-FR-021** | Sources Git consultables = sélection explicite, jamais dépôt entier automatique |
-| **OPS1-FR-022** | Limitation Markdown = limite d’action, jamais présentée comme limite de conversation |
-| **OPS1-FR-023** | Budget FinOps : compteurs séparés conversation / structuration / analyse ; confirmation avant coût élevé |
-| **OPS1-FR-024** | Secrets exclus du chat, des rapports et des logs fonctionnels |
-| **OPS1-FR-025** | Fail-closed : doute sur gate/contrat/sources → STOP ou refus |
-
----
-
-```
-
-### §11 Éligibilité et allowlist
+### §11 Éligibilité / allowlist
 
 ```markdown
 ## 11. Scénario pilote Campus360 — éligibilité et allowlist
@@ -206,442 +259,137 @@ Valider :
 
 ```
 
-### §13 Verdict
+### Verdict
 
 ```markdown
 ## 13. Verdict documentaire
 
-`functional-design-candidate-for-morris-validation`
+`functional-design-validated-with-reservations`
 
-`SFIA STUDIO OPS1 FUNCTIONAL DESIGN FINAL AMENDMENT INTEGRATED — READY FOR VERSIONING`
+`SFIA STUDIO OPS1 FUNCTIONAL DESIGN VALIDATED WITH RESERVATIONS`
 
-Amendement final multi-fichiers + allowlist intégré sous **`G-OPS1-FUNC-DESIGN-VAL`** (2026-07-20 13:36 CEST).
-Aucun cycle architecture / UX / backlog / delivery / live / MVP ouvert automatiquement. Versionnement projet = GO distinct.
+Gate `G-OPS1-FUNC-DESIGN-VAL` consommé — Morris — 2026-07-20 13:46 CEST.
+Amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) intégré.
+Aucun cycle architecture / UX / backlog / delivery / live / MVP ouvert automatiquement.
 ```
 
----
+## Extraits — document 47
 
-## Sections amendées — document 46
-
-### Flux concernés (complets)
+### Métadonnées
 
 ```markdown
-### OPS1-FLOW-06 — GPT propose une action candidate
+# SFIA Studio — Decision pack conception fonctionnelle OPS1
 
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Émettre ProposedAction séparée du dialogue avec allowlist explicite. |
-| **Préconditions** | Discussion suffisante ; pas d’exécution en cours. |
-| **Déclencheur** | GPT émet proposition structurée validable par harness de forme. |
-| **Acteurs** | GPT, Studio, harness (validation de forme) |
-| **États avant/après** | ACTION_CANDIDATE ; exec IDLE |
-| **Données produites** | ProposedAction + allowlist (consultables/créables/modifiables) |
-| **Preuves attendues** | Objet action ≠ bulle ; allowlist visible |
-| **Critères associés** | Critère 7 ; FR-026–028 |
-| **Décisions Morris** | Aucune autorisation |
-| **Hors périmètre** | Ne pas figer de chemins réels ici |
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `47-ops1-functional-decision-pack.md` |
+| **Cycle** | 2 — Conception fonctionnelle |
+| **Profil** | Standard |
+| **Gates consommés** | `G-OPS1-FUNC-DESIGN` · `G-OPS1-FUNC-DESIGN-VAL` |
+| **Baseline Git** | `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
+| **Branche** | `design/sfia-studio-ops1-functional` |
+| **Statut** | `functional-design-validated-with-reservations` — validé Morris (2026-07-20 13:46 CEST) |
+| **Autorité** | Morris (L0) |
+| **Companions** | [`45`](./45-ops1-functional-design.md) · [`46`](./46-ops1-functional-flows-and-rules.md) |
+| **Cadrage** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
+| **Horodatage** | 2026-07-20 13:10 CEST |
+| **Amendement** | 2026-07-20 13:23 CEST — Campus360 ; réserves / routage ; FD-CAND-13/20–26 |
+| **Amendement final** | 2026-07-20 13:36 CEST — multi-fichiers + allowlist ; FD-CAND-20/24–27 |
+| **Validation Morris** | 2026-07-20 13:46 CEST — `G-OPS1-FUNC-DESIGN-VAL` consommé ; `OPS1-FD-CAND-01`…`27` validées |
+| **Projet pilote** | Campus360 exclusivement |
 
-**Étapes nominales :**
-   1. Créer ProposedAction ACTION_CANDIDATE
-   2. Déclarer allowlist exhaustive (1..n Markdown Campus360 éligibles)
-   3. Afficher panneau séparé avec allowlist
-   4. Lier message optionnel
-   5. Attendre Morris
-
-**Alternatives :**
-   - Proposition refusée de forme / allowlist vide → rester en conversation avec erreur
-   - Mono ou multi-fichiers selon besoin (pas de plafond artificiel à 1)
-
-**Erreurs et STOP :**
-   - Schema invalide → pas d’ACTION_CANDIDATE
-   - Fichier hors périmètre éligible Campus360 / protégé → refus de forme
-
-
-
-### OPS1-FLOW-07 — Morris corrige l’action via le chat
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Modifier l’action par dialogue. |
-| **Préconditions** | ACTION_CANDIDATE ou REFINEMENT. |
-| **Déclencheur** | Morris demande correction en message. |
-| **Acteurs** | Morris, GPT, Studio |
-| **États avant/après** | REFINEMENT → CANDIDATE |
-| **Données produites** | Nouvelle version action |
-| **Preuves attendues** | Historique versions action |
-| **Critères associés** | Critères 4,7 |
-| **Décisions Morris** | — |
-| **Hors périmètre** | — |
-
-**Étapes nominales :**
-   1. Passer ACTION_REFINEMENT
-   2. GPT propose révision structurée (objectif et/ou allowlist)
-   3. Remplacer/mettre à jour ProposedAction **et** allowlist
-   4. Retour ACTION_CANDIDATE
-
-**Alternatives :**
-   - Retrait → FLOW-09
-   - Ajout/retrait de fichiers dans l’allowlist avant gate
-
-**Erreurs et STOP :**
-   - Fichier hors éligibilité Campus360 → refus
-
-
-
-### OPS1-FLOW-08 — Morris corrige l’action via surface structurée
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Éditer champs de l’action sans dépendre du chat. |
-| **Préconditions** | ACTION_CANDIDATE. |
-| **Déclencheur** | Édition panneau action. |
-| **Acteurs** | Morris, Studio |
-| **États avant/après** | CANDIDATE |
-| **Données produites** | ProposedAction mise à jour |
-| **Preuves attendues** | Trace édition |
-| **Critères associés** | Critère 7 |
-| **Décisions Morris** | — |
-| **Hors périmètre** | — |
-
-**Étapes nominales :**
-   1. Édition champs (objectif, risques, **allowlist**)
-   2. Recalcul risques/preuves (couverture multi-fichiers)
-   3. Rester CANDIDATE ou REFINEMENT
-   4. Chat peut commenter
-
-**Alternatives :**
-   - Annuler édition
-   - Ajuster distinction consultables / créables / modifiables
-
-**Erreurs et STOP :**
-   - Fichier hors périmètre éligible / protégé → refus UI
-   - Allowlist vide → refus de soumission
-
-
-
-### OPS1-FLOW-10 — Soumission au gate
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Ouvrir ActionGate explicite avec allowlist présentée. |
-| **Préconditions** | ACTION_CANDIDATE complète **avec allowlist non vide**. |
-| **Déclencheur** | Morris soumet au gate. |
-| **Acteurs** | Morris, Studio |
-| **États avant/après** | MORRIS_ACTION_GATE |
-| **Données produites** | ActionGate ouvert + allowlist figée pour décision |
-| **Preuves attendues** | Gate visible séparé ; allowlist exhaustive affichée |
-| **Critères associés** | Critère 8 ; FR-027 |
-| **Décisions Morris** | — |
-| **Hors périmètre** | — |
-
-**Étapes nominales :**
-   1. Vérifier allowlist exhaustive présente
-   2. MORRIS_ACTION_GATE
-   3. Afficher options + ancrage candidat + **allowlist complète**
-   4. Geler édition libre non gouvernée
-
-**Alternatives :**
-   - Retour CORRIGER sans ouvrir
-
-**Erreurs et STOP :**
-   - Action incomplète / allowlist absente → refus soumission
-
-
-
-### OPS1-FLOW-11 — GO Morris
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Autoriser l’action **et son allowlist** par décision ancrée. |
-| **Préconditions** | MORRIS_ACTION_GATE ; allowlist présentée. |
-| **Déclencheur** | Morris choisit GO avec motif. |
-| **Acteurs** | Morris, Studio, harness |
-| **États avant/après** | AUTHORIZED ; exec IDLE→PENDING possible |
-| **Données produites** | Décision + contractHash candidat + allowlist gelée |
-| **Preuves attendues** | Décision ancrée portant sur l’allowlist |
-| **Critères associés** | Critères 8,13 ; FR-005,027 |
-| **Décisions Morris** | GO explicite **sur allowlist** |
-| **Hors périmètre** | Chat ≠ GO ; Campus360 ≠ GO global |
-
-**Étapes nominales :**
-   1. MorrisDecision GO horodatée (réf. allowlist)
-   2. ACTION_AUTHORIZED
-   3. Préparer ExecutionContract **avec la même allowlist**
-   4. Pas d’exec auto sans start harness
-
-**Alternatives :**
-   - —
-
-**Erreurs et STOP :**
-   - Ancrage impossible → refus GO
-
-
-
-### OPS1-FLOW-17 — Tentative d’exécution sans GO ou hors allowlist
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Preuves négatives de gouvernance (sans GO **ou** hors allowlist). |
-| **Préconditions** | Pas d’ACTION_AUTHORIZED **ou** tentative sur fichier non listé. |
-| **Déclencheur** | Tentative start exécution ; ou accès/modif d’un fichier Campus360 **absent** de l’allowlist. |
-| **Acteurs** | Studio, harness |
-| **États avant/après** | Pas d’AUTHORIZED ; ou EXECUTING refusé pour le chemin hors liste |
-| **Données produites** | Événement refus |
-| **Preuves attendues** | Preuve négative obligatoire (PN-01 / PN-06) |
-| **Critères associés** | Critère 8 ; FR-008,029 |
-| **Décisions Morris** | Aucune |
-| **Hors périmètre** | — |
-
-**Étapes nominales :**
-   1. Refus immédiat fail-closed
-   2. Journal preuve négative (motif : sans GO **ou** hors allowlist)
-   3. État d’autorisation inchangé ; aucun effet sur le fichier hors liste
-
-**Alternatives :**
-   - Fichier éligible Campus360 mais hors allowlist → **refus identique** (éligibilité ≠ autorisation)
-
-**Erreurs et STOP :**
-   - —
-
-
-
-### OPS1-FLOW-18 — Exécution Markdown réussie
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Exécuter Cursor borné sur l’allowlist (1..n fichiers). |
-| **Préconditions** | Contrat revalidé ; GO consommé ; allowlist figée. |
-| **Déclencheur** | Start exécution autorisée. |
-| **Acteurs** | Cursor, harness, Git, Studio |
-| **États avant/après** | REPORT_AVAILABLE |
-| **Données produites** | ExecutionReport + EvidenceReference (par fichier + consolidé) |
-| **Preuves attendues** | Diffs allowlistés (consolidé + par fichier) |
-| **Critères associés** | Critères 14,15 ; FR-031 |
-| **Décisions Morris** | STOP possible |
-| **Hors périmètre** | No remote auto ; pas d’élargissement |
-
-**Étapes nominales :**
-   1. EXECUTING
-   2. Lire/créer/modifier **uniquement** les chemins de l’allowlist
-   3. Produire diffs locaux (consolidé + par fichier)
-   4. REPORT_AVAILABLE
-   5. Verrou contractHash
-
-**Alternatives :**
-   - STOP pendant exec → STOPPED
-   - Action mono-fichier ou multi-fichiers selon allowlist GO
-
-**Erreurs et STOP :**
-   - Élargissement / fichier hors allowlist → fail-closed (FLOW-17)
-
-
-
-### OPS1-FLOW-22 — Correction nécessitant un nouveau gate
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Toute nouvelle exécution **ou extension d’allowlist** exige un nouveau GO. |
-| **Préconditions** | Post-exec ; besoin de corriger fichiers **ou** d’ajouter un chemin. |
-| **Déclencheur** | Morris/GPT demandent correction actionnable ; ou besoin d’élargir l’allowlist. |
-| **Acteurs** | Morris, GPT, Studio |
-| **États avant/après** | Retour CANDIDATE/GATE |
-| **Données produites** | Nouvelle action/contrat + nouvelle allowlist |
-| **Preuves attendues** | Trace nouveau gate |
-| **Critères associés** | Critères 8,13 ; FR-030 |
-| **Décisions Morris** | Nouveau GO |
-| **Hors périmètre** | — |
-
-**Étapes nominales :**
-   1. Nouvelle ProposedAction (allowlist revue)
-   2. Nouveau gate
-   3. Ancien contrat / ancienne allowlist non réutilisés silencieusement
-
-**Alternatives :**
-   - Correction purement conversationnelle sans exec
-
-**Erreurs et STOP :**
-   - Réutilisation contrat expiré → refus
-   - Extension allowlist sans nouveau gate → refus (FR-030)
-
-
-
-### OPS1-FLOW-32 — Scénario pilote Campus360 bout en bout (capacités)
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Enchaîner conversation → action → gate → exec → post-exec → clôture **Campus360**, sans script de phrases, avec allowlist explicite (1..n Markdown). |
-| **Préconditions** | GO live conversation + live Cursor distincts (futurs) ; cartographie éligible + branche sous `G-OPS1-SCENARIO-VAL` ; hors chemins protégés. |
-| **Déclencheur** | Morris lance le scénario pilote OPS1 **Campus360**. |
-| **Acteurs** | Tous |
-| **États avant/après** | CLOSED avec summary |
-| **Données produites** | Pack preuves complet ; allowlist GO ; diffs multi-fichiers |
-| **Preuves attendues** | Démonstration opératoire ; PN hors allowlist ; couverture fichiers |
-| **Critères associés** | Critères 1–17 ; §11 doc 45 ; FR-026–032 |
-| **Décisions Morris** | GO action **sur allowlist** + clôture |
-| **Hors périmètre** | Capacité cible ; **ne fige pas** phrases, chemins réels, branche exacte ni demande ; **pas** de mono-fichier obligatoire ; OPS1 ≠ feature Campus360 |
-
-**Étapes nominales :**
-   1. FLOW-01 (session ancrée contexte Campus360)
-   2. Multi-tours FLOW-03/04/05
-   3. FLOW-06→10→11 (ProposedAction + allowlist 1..n Markdown éligibles)
-   4. FLOW-15→18 (exec bornée allowlist)
-   5. FLOW-20→21→23→24 (diffs consolidé + par fichier)
-   6. Preuves 1–17 + PN-06
-
-**Alternatives :**
-   - Branches sans action FLOW-09
-   - NO-GO FLOW-12
-   - Échec FLOW-19
-   - Mono-fichier **ou** multi-fichiers selon besoin
-
-**Erreurs et STOP :**
-   - STOP / FAILED selon cas
-   - Hors périmètre Campus360 / chemins protégés → refus
-   - Fichier Campus360 éligible mais **hors allowlist** → refus (FLOW-17 / PN-06)
-
-
+> Pack de **décisions de conception fonctionnelle OPS1 validées avec réserves**.
+> Gate `G-OPS1-FUNC-DESIGN-VAL` **consommé** — Morris — 2026-07-20 13:46 CEST.
+> Les `OPS1-CAND-*` du cadrage restent l’héritage validé ; les `OPS1-FD-CAND-01`…`27` sont **validées** (réserves sur 13, 15, 20, 26).
+> Scénario pilote : **Campus360** uniquement ; Markdown documentaires non protégés **éligibles** (multi-fichiers) ; **allowlist par action** ; cartographie/branche sous `G-OPS1-SCENARIO-VAL`.
+> Architecture fonctionnelle et UX = cycles distincts **normaux** ; stack/BDD/API/protocole **routés** vers architecture technique.
+> Aucun claim MVP / PRODUCTION READY / READY FOR DELIVERY / OPS1 prouvé. Aucun cycle suivant ouvert automatiquement.
 
 ---
 
+## 1. Synthèse
+
+| Élément | Valeur |
+|---------|--------|
+| Livrables | `45`, `46`, `47` |
+| Gate d’ouverture | `G-OPS1-FUNC-DESIGN` **consommé** (production) |
+| Gate de validation conception | **Non ouvert / non consommé** |
+| Décisions | `OPS1-FD-CAND-01`…`27` **validées** (avec réserves 13/15/20/26) |
+| Règles | `OPS1-FR-001`…`025` |
+| Flux | `OPS1-FLOW-01`…`32` |
+| Commit / push / PR projet | **Absents** (ce cycle) |
 ```
 
-### Preuves négatives
+### §7 Post-validation
 
 ```markdown
-## 7. Preuves négatives obligatoires (conception)
+## 7. Décisions Morris — état post-validation
 
-| ID | Preuve | Flux |
-|----|--------|------|
-| PN-01 | Exécution refusée sans GO | FLOW-17 |
-| PN-02 | Double-exécution refusée | FLOW-28 |
-| PN-03 | Remote auto absent | FLOW-18 + FR-007 |
-| PN-04 | Contenu fichier non autoritaire | FLOW-31 |
-| PN-05 | GPT seul ≠ AUTHORIZED | FLOW-06 |
-| PN-06 | Fichier Campus360 **éligible** mais **hors allowlist** refusé | FLOW-17 ; FR-026,029 |
+1. `G-OPS1-FUNC-DESIGN-VAL` **consommé** (2026-07-20 13:46 CEST) — conception validée avec réserves.
+2. `OPS1-FD-CAND-01`…`27` validées (WITH RESERVATION : 13, 15, 20, 26).
+3. `G-OPS1-SCENARIO-VAL` reste **fermé** : cartographie chemins/catégories, exclusions, branche, règles allowlist, scénario de preuve.
+4. Aucun cycle suivant ouvert automatiquement (FUNC-ARCH, UX, BACKLOG, TECH-ARCH, delivery, live, MVP).
+5. Versionnement local autorisé sous GO distinct ; push/PR non autorisés dans le cycle de versionnement local seul.
+
 
 ---
 
 ```
 
----
-
-## Décisions FD-CAND mises à jour
+### Verdict
 
 ```markdown
-### OPS1-FD-CAND-20 — Périmètre Markdown pilote Campus360 (éligibilité multi-fichiers)
+## 9. Verdict
 
-| Élément | Contenu |
-|---------|---------|
-| **Observation** | Un plafond mono-fichier crée une contrainte artificielle. |
-| **Héritage validé (cadrage)** | OPS1-CAND-01 (action Markdown locale étroite) ; `G-OPS1-SCENARIO-VAL`. |
-| **Option** | Mono-fichier obligatoire vs multi-fichiers avec allowlist. |
-| **Recommandation** | Multi-fichiers Markdown Campus360 **éligibles** ; allowlist explicite par action ; pas d’autorisation globale. |
-| **Décision Morris** | **Validée** — 2026-07-20 13:36 CEST — gate `G-OPS1-FUNC-DESIGN-VAL` (amendement final) : Markdown documentaires Campus360 non protégés **éligibles** ; action 1..n fichiers ; GO porte sur allowlist ; Campus360 ≠ autorisation globale ; chemins protégés exclus ; pas de remote auto. |
-| **Portée exacte** | Contrat fonctionnel d’éligibilité + allowlist ; **pas** cartographie de chemins réels ni branche. |
-| **Réserve** | Cartographie chemins/catégories éligibles + convention de branche sous `G-OPS1-SCENARIO-VAL`. |
-| **Statut** | `VALIDATED BY MORRIS` (dans le cadre de `G-OPS1-FUNC-DESIGN-VAL`) |
-| **Décision Morris attendue** | Aucune supplémentaire sur ce point ; SCENARIO-VAL pour cartographie/branche. |
+`functional-design-validated-with-reservations`
 
+`SFIA STUDIO OPS1 FUNCTIONAL DESIGN VALIDATED WITH RESERVATIONS`
 
-### OPS1-FD-CAND-24 — Réserves de conception (liste amendée finale)
-
-| Élément | Contenu |
-|---------|---------|
-| **Observation** | La réserve « fichier Markdown exact unique » est obsolète après décision multi-fichiers. |
-| **Héritage validé (cadrage)** | Réserves cadrage 44 §7. |
-| **Option** | Conserver le mono-fichier comme réserve (rejeté). |
-| **Recommandation** | **Réserves conception :** FinOps numériques ; continuation après CLOSE ; **cartographie** chemins Campus360 éligibles ; convention de branche ; preuve live ; CI distante ; isolation OS/réseau. **Supprimé :** fichier Markdown exact unique. **Non-réserves :** archi fct / UX (cycles normaux) ; stack/BDD/API/protocole (routés). |
-| **Décision candidate** | Adopter §1.7–1.8 doc 45 (amendement final). |
-| **Réserve** | Les réserves listées restent ouvertes. |
-| **Statut** | `RECOMMENDED FOR MORRIS VALIDATION` |
-| **Décision Morris attendue** | Confirmer la liste finale des réserves. |
-
-
-### OPS1-FD-CAND-25 — Verdict candidat de conception (amendement final)
-
-| Élément | Contenu |
-|---------|---------|
-| **Observation** | Conception produite, amendée (Campus360/routage/CLOSE), puis amendement final multi-fichiers + allowlist. |
-| **Héritage validé (cadrage)** | Cadrage validé avec réserves ; docs 41–44 sur main. |
-| **Option** | Claim READY FOR DELIVERY (interdit). |
-| **Recommandation** | Intégrer l’arbitrage Morris ; préparer versionnement sous GO distinct. |
-| **Décision candidate** | Verdict : `SFIA STUDIO OPS1 FUNCTIONAL DESIGN FINAL AMENDMENT INTEGRATED — READY FOR VERSIONING`. |
-| **Réserve** | Versionnement / PR non faits ; pas OPS1 prouvé ; live non ouvert. |
-| **Statut** | `RECOMMENDED FOR MORRIS VALIDATION` (versionnement) |
-| **Décision Morris attendue** | Autoriser éventuellement le versionnement ; ne pas ouvrir delivery/live/MVP. |
-| **Traçabilité amendement final** | Morris — 2026-07-20 13:36 CEST — `G-OPS1-FUNC-DESIGN-VAL` (allowlist multi-fichiers). |
-
-
-### OPS1-FD-CAND-26 — Contexte projet du scénario pilote (Campus360)
-
-| Élément | Contenu |
-|---------|---------|
-| **Observation** | Sans ancrage projet, le pilote Markdown reste ambigu. |
-| **Héritage validé (cadrage)** | Action Markdown locale (OPS1-CAND-01). |
-| **Option** | Projet libre vs Campus360 exclusif vs multi-projets. |
-| **Recommandation** | **Campus360 exclusivement** ; plusieurs Markdown peuvent être **éligibles** ; chaque action gouvernée par **sa** allowlist ; OPS1 = capacité SFIA Studio. |
-| **Décision Morris** | Ancrage Campus360 exclusif + éligibilité multi-fichiers (voir FD-CAND-20/27) — 2026-07-20 13:36 CEST. |
-| **Décision candidate / portée** | Pilote OPS1 **uniquement** Campus360 ; pas d’autorisation globale implicite. |
-| **Réserve** | Cartographie chemins + branche sous `G-OPS1-SCENARIO-VAL`. |
-| **Statut** | `VALIDATED BY MORRIS` (ancrage + modèle éligibilité ; cartographie OPEN) |
-| **Décision Morris attendue** | SCENARIO-VAL pour cartographie/branche. |
-
-
-
-### OPS1-FD-CAND-27 — Modèle d’éligibilité et allowlist par action
-
-| Élément | Contenu |
-|---------|---------|
-| **Observation** | Le mono-fichier crée une contrainte artificielle et confond éligibilité projet et autorisation d’exécution. |
-| **Héritage validé (cadrage)** | Exécution étroite, réversible, sans remote automatique ; chat ≠ GO ; harness fail-closed. |
-| **Option** | Allowlist globale Campus360 vs allowlist **par action**. |
-| **Décision Morris** | **Validée** — 2026-07-20 13:36 CEST — gate `G-OPS1-FUNC-DESIGN-VAL` : Markdown Campus360 documentaires non protégés **éligibles** ; allowlist **exacte** par action ; GO Morris porte sur cette allowlist ; extension après GO = nouveau gate ; hors allowlist = refus même si éligible. |
-| **Règle** | Périmètre éligible ≠ autorisation d’exécution (FR-026…032). |
-| **Portée exacte** | Contrat fonctionnel ; pas de sélection de chemins réels dans ce cycle. |
-| **Réserve** | Cartographie de chemins / catégories et convention de branche sous `G-OPS1-SCENARIO-VAL`. |
-| **Statut** | `VALIDATED BY MORRIS` (dans le cadre de `G-OPS1-FUNC-DESIGN-VAL`) |
-| **Décision Morris attendue** | Aucune supplémentaire sur le modèle ; SCENARIO-VAL pour cartographie. |
-
-
-
+Gate `G-OPS1-FUNC-DESIGN-VAL` consommé — Morris — 2026-07-20 13:46 CEST.
+`OPS1-FD-CAND-01`…`27` validées. Aucun cycle suivant ouvert automatiquement.
 ```
 
-## Réserves
+## Commit
 
-**Supprimée :** fichier Markdown Campus360 exact unique.  
-**Maintenues / reformulées :** cartographie chemins éligibles ; convention de branche ; FinOps numériques ; continuation CLOSE ; preuve live ; CI ; isolation OS/réseau.
+```text
+05034b6 docs(sfia-studio): validate OPS1 functional design
+ .../41-operational-vertical-slice-1-framing.md     |   11 +-
+ projects/sfia-studio/45-ops1-functional-design.md  |  630 ++++++++++++
+ .../46-ops1-functional-flows-and-rules.md          | 1056 ++++++++++++++++++++
+ .../47-ops1-functional-decision-pack.md            |  517 ++++++++++
+ 4 files changed, 2210 insertions(+), 4 deletions(-)
+
+```
 
 ## Contrôles
 
 | Contrôle | Résultat |
 |----------|----------|
-| Seuls 45–47 modifiés ce cycle | OK (41 inchangé ce cycle) |
+| 4 fichiers staged exact | OK |
+| `diff --check` | OK |
+| Mono-fichier normatif | Absent (mentions négatives seulement) |
+| Claims interdits | Absents |
+| TODO/FIXME/TBD | Absents |
 | README / 42–44 intacts | OK |
-| Mono-fichier normatif retiré | OK (mentions négatives seulement) |
-| Éligible ≠ allowlist | OK |
-| Multi-fichiers sans autorisation globale | OK |
-| FLOW-32 + PN-06 | OK |
-| FD-CAND-20/24/25/26/27 | OK |
-| VALIDATED BY MORRIS tracé (20/26/27) | OK |
-| Stack/API non décidés ; cycles suivants fermés | OK |
-| `git diff --check` | OK |
-| Staged / commit / push / PR | Absents |
+| Push / PR | Absents |
+| Remote design | Absente |
+| ahead/behind final | 1/0 |
 
-## Git status
+## Git status final
 
 ```text
- M projects/sfia-studio/41-operational-vertical-slice-1-framing.md
 ?? .tmp-sfia-review/
 ?? projects/.tmp-sfia-review/
-?? projects/sfia-studio/45-ops1-functional-design.md
-?? projects/sfia-studio/46-ops1-functional-flows-and-rules.md
-?? projects/sfia-studio/47-ops1-functional-decision-pack.md
 ```
+
+## Gates suivants fermés
+
+`G-OPS1-SCENARIO-VAL` · `G-OPS1-FUNC-ARCH` · `G-OPS1-UX` · `G-OPS1-BACKLOG` · `G-OPS1-TECH-ARCH` · delivery / live / MVP
 
 ## Handoff
 
-- SHA handoff tip : `ba3e68d30aa0c2b1fe7577ab6149ff1d1fe8a465` (`origin/sfia/review-handoff`)
+- SHA handoff : *(après push)*
 
 ## Verdict
 
-**SFIA STUDIO OPS1 FUNCTIONAL DESIGN FINAL AMENDMENT INTEGRATED — READY FOR VERSIONING**
+**SFIA STUDIO OPS1 FUNCTIONAL DESIGN VERSIONED LOCALLY — READY FOR PR READINESS**
