@@ -640,7 +640,7 @@ Aucun cycle architecture / UX / backlog / delivery / live / MVP ouvert automatiq
 
 ## Handoff
 
-- SHA : *(après push)*
+- SHA handoff tip : `ba3e68d30aa0c2b1fe7577ab6149ff1d1fe8a465` (`origin/sfia/review-handoff`)
 
 ## Verdict
 
