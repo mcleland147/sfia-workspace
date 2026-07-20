@@ -11,6 +11,7 @@ import {
 } from "@/components/vertical-slice/VsShared";
 import { vsFixture } from "@/fixtures/vertical-slice";
 import { runIncrementDAction } from "@/lib/harness/incrementDAction";
+import { runAnalysisAction } from "@/lib/harness/analysisAction";
 import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import styles from "@/components/vertical-slice/vs-panels.module.css";
 
@@ -60,8 +61,44 @@ export function VsCycleActifScreen() {
   const activeStep = stepMap[stateId] ?? 5;
   const [busy, setBusy] = useState(false);
   const [incD, setIncD] = useState<IncDResultView | null>(null);
+  const [analysis, setAnalysis] = useState<{
+    ok?: boolean;
+    status?: string;
+    analysisUiState?: string;
+    candidate?: {
+      status?: string;
+      proven?: string[];
+      notProven?: string[];
+      gaps?: string[];
+      risks?: string[];
+      reservations?: string[];
+      requiredMorrisDecisions?: string[];
+      candidateOnly?: boolean;
+      morrisDecisionRequired?: boolean;
+      closureAuthorized?: boolean;
+      finOps?: { callNumber?: number; phase?: string };
+    };
+    errorMessage?: string;
+  } | null>(null);
+  const [analyseBusy, setAnalyseBusy] = useState(false);
 
   const report = incD?.report;
+
+  const runIncEAnalyse = useCallback(async () => {
+    setAnalyseBusy(true);
+    setStateId("VS-UX-VAR-LOADING");
+    try {
+      const raw = (await runAnalysisAction({
+        confirmedByUser: true,
+        mode: "fixture",
+      })) as NonNullable<typeof analysis>;
+      setAnalysis(raw);
+      if (raw.ok) setStateId("VS-UX-08");
+      else setStateId("VS-UX-VAR-ERROR");
+    } finally {
+      setAnalyseBusy(false);
+    }
+  }, [setStateId]);
 
   const runIncDFixture = useCallback(async () => {
     setBusy(true);
@@ -271,11 +308,21 @@ export function VsCycleActifScreen() {
 
           {stateId === "VS-UX-07" ? (
             <>
-              <FinOpsBox phase="analyse" calls={0} />
-              <p className={styles.muted}>Increment E / analyse GPT réelle — hors périmètre.</p>
+              <FinOpsBox phase="analyse" calls={analysis?.candidate?.finOps?.callNumber ?? 0} />
+              <p className={styles.muted} data-testid="vs-inc-e-finops">
+                Compteur analyse distinct · no retry · modèle gpt-5.4-mini
+              </p>
+              <p className={styles.fieldValue}>
+                Pack : CursorExecutionReport Increment D sanitisé + tests + secrets
+              </p>
               <div className={styles.actions}>
-                <CtaButton onClick={() => setStateId("VS-UX-08")}>
-                  Simuler verdict OK
+                <CtaButton
+                  data-testid="vs-inc-e-analyse"
+                  onClick={() => void runIncEAnalyse()}
+                  disabled={analyseBusy}
+                  aria-label="Lancer l analyse GPT fixture"
+                >
+                  Lancer l&apos;analyse GPT (fixture)
                 </CtaButton>
                 <CtaButton
                   variant="secondary"
@@ -295,37 +342,57 @@ export function VsCycleActifScreen() {
             </>
           ) : null}
 
-          {stateId === "VS-UX-VAR-LOADING" && busy ? (
-            <p className={styles.muted} role="status" aria-live="polite">
-              Harness : revalidation + spawn fixture en cours…
+          {stateId === "VS-UX-VAR-LOADING" && (busy || analyseBusy) ? (
+            <p className={styles.muted} role="status" aria-live="polite" data-testid="vs-inc-e-loading">
+              {analyseBusy
+                ? "Harness : analyse GPT en cours — fail-closed, 0 retry…"
+                : "Harness : revalidation + spawn fixture en cours…"}
             </p>
           ) : null}
 
           {stateId === "VS-UX-08" ? (
             <>
-              <StatusPill tone="purple">{vsFixture.verdict.label}</StatusPill>
+              <StatusPill tone="purple">
+                {analysis?.candidate
+                  ? "Candidat GPT — décision Morris requise"
+                  : vsFixture.verdict.label}
+              </StatusPill>
+              <p className={styles.muted} data-testid="vs-inc-e-candidate-badge">
+                candidateOnly · morrisDecisionRequired · closureAuthorized=false
+              </p>
+              <p className={styles.fieldLabel}>Statut candidat</p>
+              <p className={styles.fieldValue} data-testid="vs-inc-e-verdict-status">
+                {analysis?.candidate?.status ?? "PARTIALLY_PROVED (fixture demo)"}
+              </p>
+              <p className={styles.muted} data-testid="vs-inc-e-awaiting">
+                {analysis?.analysisUiState ?? "AWAITING_MORRIS_FINAL_DECISION"}
+              </p>
               <p className={styles.fieldLabel}>Prouvé</p>
-              <ul className={styles.list}>
-                {vsFixture.verdict.proven.map((item) => (
+              <ul className={styles.list} data-testid="vs-inc-e-proven">
+                {(analysis?.candidate?.proven ?? vsFixture.verdict.proven).map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
               <p className={styles.fieldLabel}>Non prouvé</p>
               <ul className={styles.list}>
-                {vsFixture.verdict.notProven.map((item) => (
+                {(analysis?.candidate?.notProven ?? vsFixture.verdict.notProven).map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
               <p className={styles.fieldLabel}>Écarts / risques / réserves</p>
               <ul className={styles.list}>
                 {[
-                  ...vsFixture.verdict.gaps,
-                  ...vsFixture.verdict.risks,
-                  ...vsFixture.verdict.reserves,
+                  ...(analysis?.candidate?.gaps ?? vsFixture.verdict.gaps),
+                  ...(analysis?.candidate?.risks ?? vsFixture.verdict.risks),
+                  ...(analysis?.candidate?.reservations ?? vsFixture.verdict.reserves),
                 ].map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+              <p className={styles.forbidden}>
+                closureAuthorized=
+                {String(analysis?.candidate?.closureAuthorized ?? false)} · aucun claim MVP
+              </p>
               <div className={styles.actions}>
                 <CtaButton onClick={() => setStateId("VS-UX-09")}>
                   Ouvrir décision Morris finale

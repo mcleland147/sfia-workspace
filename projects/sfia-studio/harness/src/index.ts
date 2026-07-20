@@ -51,3 +51,28 @@ export {
   type IncrementDRunInput,
   type IncrementDRunResult,
 } from "./increment-d/cursorSandboxRunner.js";
+export * from "./types/evidenceAnalysisPack.js";
+export * from "./types/gptVerdictCandidate.js";
+export * from "./types/morrisFinalDecision.js";
+export * from "./finops/analysisLimits.js";
+export {
+  buildEvidenceAnalysisPack,
+  validateEvidenceAnalysisPack,
+} from "./increment-e/evidencePack.js";
+export {
+  recordMorrisFinalDecision,
+  buildCycleSummary,
+  regenerateCycleSummary,
+} from "./increment-e/morrisDecision.js";
+export { sampleIncrementDReport, completePackBuildInput } from "./increment-e/fixtures.js";
+export {
+  validateVerdictModelPayload,
+  assertCandidateAuthority,
+} from "./validation/verdictCandidateValidator.js";
+export {
+  GptAnalysisLivePort,
+  runAnalysisFixture,
+  INC_E_LIVE_FLAG,
+  INC_E_OBSERVE_FLAG,
+  type AnalysisRequestInput,
+} from "./ports/gptAnalysisLive.js";

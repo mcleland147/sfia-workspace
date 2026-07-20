@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
 import {
@@ -8,6 +9,7 @@ import {
   VariantBanner,
 } from "@/components/vertical-slice/VsShared";
 import { vsFixture } from "@/fixtures/vertical-slice";
+import { incrementEClosureArtifact } from "@/lib/harness/incrementEClosureArtifact";
 import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import type { VsFinalAction, VsGateAction } from "@/lib/vertical-slice/types";
 import styles from "@/components/vertical-slice/vs-panels.module.css";
@@ -60,7 +62,7 @@ const finalOptions: {
   {
     action: "RELANCER",
     title: "Relancer sous nouveau GO",
-    subtitle: "Ré-exécution uniquement avec nouveau GO",
+    subtitle: "Ré-exécution uniquement avec nouveau GO — GO D non réutilisable",
   },
   {
     action: "ABANDONNER",
@@ -71,6 +73,8 @@ const finalOptions: {
 ];
 
 export function VsDecisionScreen() {
+  const searchParams = useSearchParams();
+  const showIncEClosure = searchParams.get("closure") === "inc-e";
   const {
     stateId,
     gateAction,
@@ -89,6 +93,8 @@ export function VsDecisionScreen() {
   const isFinal = stateId === "VS-UX-09";
   const isGoInvalid = stateId === "VS-UX-VAR-GO-INVALID";
   const isGate = stateId === "VS-UX-04" || isGoInvalid;
+  const closure = incrementEClosureArtifact;
+  const decisionLocked = showIncEClosure && isFinal;
 
   return (
     <div className={styles.panel} data-testid="vs-decision">
@@ -212,39 +218,96 @@ export function VsDecisionScreen() {
           ) : null}
 
           {isFinal ? (
-            <div className={styles.optionGrid} role="group" aria-label="Actions décision finale">
-              {finalOptions.map((opt) => {
-                const selected = finalAction === opt.action;
-                const className = opt.danger
-                  ? selected
-                    ? styles.optionDangerSelected
-                    : styles.optionDanger
-                  : selected
-                    ? styles.optionSelected
-                    : styles.option;
-                return (
-                  <button
-                    key={opt.action}
-                    type="button"
-                    className={className}
-                    aria-pressed={selected}
-                    data-testid={`vs-final-${opt.action}`}
-                    aria-label={
-                      opt.action === "ABANDONNER"
-                        ? "Abandonner le cycle"
-                        : opt.title
-                    }
-                    onClick={() => selectFinalAction(opt.action)}
-                  >
-                    <StatusPill tone={opt.danger ? "pink" : "greenFlush"}>
-                      {opt.title}
-                    </StatusPill>
-                    <p className={styles.optionTitle}>{opt.title}</p>
-                    <p className={styles.optionSub}>{opt.subtitle}</p>
-                  </button>
-                );
-              })}
-            </div>
+            <>
+              {decisionLocked ? (
+                <section
+                  className={styles.card}
+                  data-testid="vs-inc-e-morris-decision"
+                  aria-labelledby="vs-inc-e-decision-title"
+                >
+                  <StatusPill tone="greenFlush">CLOSE_SLICE · Morris</StatusPill>
+                  <h2 id="vs-inc-e-decision-title" className={styles.cardTitle}>
+                    Décision finale enregistrée
+                  </h2>
+                  <p className={styles.fieldLabel}>decisionId</p>
+                  <p className={styles.fieldValue}>{closure.decision.decisionId}</p>
+                  <p className={styles.fieldLabel}>verdictId (candidat inchangé)</p>
+                  <p className={styles.fieldValue}>
+                    {closure.decision.verdictId} · {closure.candidateSnapshot.status}
+                  </p>
+                  <p className={styles.fieldLabel}>Décidé par · date</p>
+                  <p className={styles.fieldValue} data-testid="vs-inc-e-decided-at">
+                    {closure.decision.decidedBy} · {closure.decision.decidedAt}
+                  </p>
+                  <p className={styles.fieldLabel}>Justification</p>
+                  <p className={styles.fieldValue}>{closure.decision.rationale}</p>
+                  <p className={styles.fieldLabel}>Réserves acceptées</p>
+                  <ul className={styles.list} data-testid="vs-inc-e-accepted-reservations">
+                    {closure.decision.acceptedReservations.map((r) => (
+                      <li key={r}>{r}</li>
+                    ))}
+                  </ul>
+                  <p className={styles.fieldLabel}>Réserves non résolues</p>
+                  <ul className={styles.list} data-testid="vs-inc-e-unresolved-reservations">
+                    {closure.decision.unresolvedReservations.map((r) => (
+                      <li key={r}>{r}</li>
+                    ))}
+                  </ul>
+                  <p className={styles.fieldLabel}>Conséquences</p>
+                  <ul className={styles.list}>
+                    {closure.decision.consequences.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                  <p className={styles.forbidden}>
+                    Aucune action Git · mvpClaim=false · productionReadyClaim=false ·
+                    seconde décision bloquée
+                  </p>
+                  <div className={styles.actions}>
+                    <CtaButton
+                      onClick={() => setStateId("VS-UX-10")}
+                      data-testid="vs-inc-e-open-summary"
+                    >
+                      Ouvrir la synthèse slice-only
+                    </CtaButton>
+                  </div>
+                </section>
+              ) : (
+                <div className={styles.optionGrid} role="group" aria-label="Actions décision finale">
+                  {finalOptions.map((opt) => {
+                    const selected = finalAction === opt.action;
+                    const className = opt.danger
+                      ? selected
+                        ? styles.optionDangerSelected
+                        : styles.optionDanger
+                      : selected
+                        ? styles.optionSelected
+                        : styles.option;
+                    return (
+                      <button
+                        key={opt.action}
+                        type="button"
+                        className={className}
+                        aria-pressed={selected}
+                        data-testid={`vs-final-${opt.action}`}
+                        aria-label={
+                          opt.action === "ABANDONNER"
+                            ? "Abandonner le cycle"
+                            : opt.title
+                        }
+                        onClick={() => selectFinalAction(opt.action)}
+                      >
+                        <StatusPill tone={opt.danger ? "pink" : "greenFlush"}>
+                          {opt.title}
+                        </StatusPill>
+                        <p className={styles.optionTitle}>{opt.title}</p>
+                        <p className={styles.optionSub}>{opt.subtitle}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </>
           ) : null}
 
           {abandonConfirmOpen ? (
