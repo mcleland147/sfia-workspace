@@ -38,7 +38,7 @@ Author: Morris Cleland <morris@macbook-air1.home>
 Date:   Mon Jul 20 14:17:19 2026 +0200
 
     docs(sfia-studio): update OPS1 PR branch metadata
-
+    
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio/45-ops1-functional-design.md b/projects/sfia-studio/45-ops1-functional-design.md
@@ -60,7 +60,7 @@ index e53979e..5a08aea 100644
 
 - Staged exact : `projects/sfia-studio/45-ops1-functional-design.md` uniquement
 - Message : `docs(sfia-studio): update OPS1 PR branch metadata`
-- SHA : `c473b145b9917fbc4cf7a83f5b7edf031b61001a`
+- SHA : `bbdc6ba586790d2be2d5cca5386c062cc5f76a6c`
 - Parent : `c5f1cead95c35d558261a17196f91da852c36eb4`
 
 ## Push
@@ -111,7 +111,7 @@ tracked : propre (?? .tmp-sfia-review/)
 
 ## Handoff
 
-- SHA : *(après push handoff)*
+- SHA : `bbdc6ba586790d2be2d5cca5386c062cc5f76a6c`
 
 ## Verdict
 
