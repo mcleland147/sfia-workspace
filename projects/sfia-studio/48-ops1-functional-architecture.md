@@ -15,7 +15,7 @@
 | **Décisions** | `OPS1-FA-CAND-01`…`22` **validées** (réserves maintenues) |
 | **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
 | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`47`](./47-ops1-functional-decision-pack.md) |
-| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) |
+| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves**) |
 | **Horodatage production** | 2026-07-20 15:14 CEST |
 
 > Architecture **fonctionnelle** du Vertical Slice Opérationnel 1 — **validée avec réserves** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
@@ -301,7 +301,7 @@ Aucune duplication de vérité : le store **référence** Git, il ne le remplace
 - Navigation clavier des surfaces (thread, action, gate, rapport) ;
 - annonces d’état non purement visuelles ;
 - distinction d’auteurs lisible ;
-- détail UX visuelle = cycle `G-OPS1-UX` (fermé).
+- détail UX visuelle = cycle `G-OPS1-UX` **consommé** — docs [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) **validés avec réserves** ; `G-OPS1-UX-VAL` **consommé** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues.
 
 ---
 
@@ -326,7 +326,7 @@ Audit Journal reconstruit l’historique (CAP-21).
 
 | Vers | Contenu routé | Gate |
 |------|---------------|------|
-| UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` (fermé) |
+| UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (UX-R01…UX-R04) |
 | Architecture technique | Stack, BDD, API, protocole, isolation OS/réseau | `G-OPS1-TECH-ARCH` (fermé) |
 | Scénario | Cartographie chemins Campus360, convention branche | `G-OPS1-SCENARIO-VAL` (fermé) |
 | Backlog | Découpage I1–I7 opérationnel | `G-OPS1-BACKLOG` (fermé) |
@@ -373,4 +373,4 @@ Gate `G-OPS1-FUNC-ARCH` consommé — 2026-07-20 15:14 CEST.
 Gate `G-OPS1-FUNC-ARCH-VAL` **consommé** — Morris — 2026-07-20 15:30 CEST.
 11 domaines D1–D11 retenus ; 14 composants fonctionnels retenus ; frontières Morris / GPT / harness / Cursor / Git / persistance retenues ; couverture CAP/FLOW/FR confirmée.
 Réserves maintenues (continuation CLOSE ; FinOps numériques ; Campus360 cartographie/branche ; live ; CI ; isolation ; FD-CAND-13/15/20/26).
-UX (`G-OPS1-UX`), architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
+UX : `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues. Architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
