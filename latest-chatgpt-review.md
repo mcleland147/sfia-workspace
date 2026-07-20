@@ -1,78 +1,44 @@
-# SFIA Studio Increment E — Review Pack (PR publication)
+# SFIA Studio Increment E — Review Pack (post-merge)
 
-- **Date/heure/fuseau :** 2026-07-20 11:10:01 CEST
-- **Cycle :** 13 — PR readiness / publication
+- **Date/heure/fuseau :** 2026-07-20 11:16:41 CEST
+- **Cycle :** 14 — Post-merge
 - **Profil SFIA :** Standard
-- **Gate consommé :** G-INCREMENT-E-PUSH-PR
-- **Gates encore fermés :** G-INCREMENT-E-MERGE, G-BRANCH-DELETE, G-MVP-CLAIM, G-PRODUCTION-CLAIM
+- **Gate consommé :** G-INCREMENT-E-POST-MERGE
+- **Gate branche toujours fermé :** G-INCREMENT-E-BRANCH-CLEANUP
+- **Gates fermés :** G-MVP-CLAIM, G-PRODUCTION-CLAIM
 
-## 1. Truth Check
+## 1. Truth Check initial
 
-- Branche : `delivery/sfia-studio-poc-increment-e`
-- HEAD local : `c801a19364cffc6081f366085bab5128656a1aaf`
-- Parent : `a766eb3e5f21b1df288bd07e727be2c20fd1a1d7`
-- origin/main : `a766eb3e5f21b1df288bd07e727be2c20fd1a1d7`
-- merge-base : `a766eb3e5f21b1df288bd07e727be2c20fd1a1d7`
-- ahead/behind : `0	1` (0 behind / 1 ahead)
-- tracked propre ; staged vide ; uniquement `.tmp-sfia-review` non tracké
-- aucune branche distante delivery avant push
+- Branche initiale : `delivery/sfia-studio-poc-increment-e` @ `c801a19`
+- main local avant sync : `a766eb3` (behind 1)
+- origin/main : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
+- Message : `feat(sfia-studio): add governed GPT analysis and slice closure (#234)`
+- Working tree tracked propre ; staged vide ; `.tmp-sfia-review` non tracké
+- PR #234 MERGED
+- fetch --prune n’a pas supprimé `origin/delivery/sfia-studio-poc-increment-e`
 
-## 2. Push
+## 2. PR / merge
 
-- Commande : `git push -u origin delivery/sfia-studio-poc-increment-e`
-- SHA distant : `c801a19364cffc6081f366085bab5128656a1aaf` (identique au local)
-- Upstream :
-
-```
-* delivery/sfia-studio-poc-increment-e                         c801a19 [origin/delivery/sfia-studio-poc-increment-e] feat(sfia-studio): add governed GPT analysis and slice closure
-
-c801a19364cffc6081f366085bab5128656a1aaf	refs/heads/delivery/sfia-studio-poc-increment-e
+```json
+{"baseRefOid":"a766eb3e5f21b1df288bd07e727be2c20fd1a1d7","headRefOid":"c801a19364cffc6081f366085bab5128656a1aaf","mergeCommit":{"oid":"6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25"},"mergedAt":"2026-07-20T09:11:33Z","state":"MERGED","url":"https://github.com/mcleland147/sfia-workspace/pull/234"}
 
 ```
 
-## 3. Pull Request
+- Méthode : squash merge GitHub
+- Merge commit : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
+- Head historique delivery : `c801a19364cffc6081f366085bab5128656a1aaf`
+- Base historique : `a766eb3e5f21b1df288bd07e727be2c20fd1a1d7`
+- Note : `c801a19` n’est pas l’ancêtre direct du squash `6a4c4a7`, mais le contenu est intégré
 
-- Numéro : **#234**
-- URL : https://github.com/mcleland147/sfia-workspace/pull/234
-- Titre : feat(sfia-studio): add governed GPT analysis and slice closure
-- Base : `main`
-- Head : `delivery/sfia-studio-poc-increment-e`
-- Head SHA : `c801a19364cffc6081f366085bab5128656a1aaf`
-- Draft : False
-- State : OPEN
-- Mergeable : MERGEABLE
-- Merge state : CLEAN
-- Files : 21
-- Additions/Deletions : +3557 / -50
-- Reviewers : []
-- Labels : []
+## 3. Synchronisation main
 
-### Diff name-status
+- Commande : `git switch main` puis `git merge --ff-only origin/main`
+- Branche actuelle : `main`
+- HEAD main : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
+- origin/main : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
+- ahead/behind : `0	0` (0/0)
 
-```
-A	projects/sfia-studio/app/__tests__/increment-e.test.tsx
-M	projects/sfia-studio/app/e2e/increment-a.spec.ts
-A	projects/sfia-studio/app/e2e/increment-e.spec.ts
-M	projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
-M	projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
-M	projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
-A	projects/sfia-studio/app/lib/harness/analysisAction.ts
-A	projects/sfia-studio/app/lib/harness/defaultIncEPackBuild.ts
-A	projects/sfia-studio/app/lib/harness/incrementEClosureArtifact.ts
-M	projects/sfia-studio/harness/src/cli.ts
-A	projects/sfia-studio/harness/src/finops/analysisLimits.ts
-A	projects/sfia-studio/harness/src/increment-e/evidencePack.ts
-A	projects/sfia-studio/harness/src/increment-e/fixtures.ts
-A	projects/sfia-studio/harness/src/increment-e/morrisDecision.ts
-M	projects/sfia-studio/harness/src/index.ts
-A	projects/sfia-studio/harness/src/ports/gptAnalysisLive.ts
-A	projects/sfia-studio/harness/src/types/evidenceAnalysisPack.ts
-A	projects/sfia-studio/harness/src/types/gptVerdictCandidate.ts
-A	projects/sfia-studio/harness/src/types/morrisFinalDecision.ts
-A	projects/sfia-studio/harness/src/validation/verdictCandidateValidator.ts
-A	projects/sfia-studio/harness/tests/increment-e.test.ts
-
-```
+## 4. Contenu squashé
 
 ### Diff stat
 
@@ -102,24 +68,76 @@ A	projects/sfia-studio/harness/tests/increment-e.test.ts
 
 ```
 
-## 4. CI / checks
+### Name-status
 
-- `gh pr checks` : **no checks reported** sur la branche
-- Check-runs API pour `c801a19` : total **0**
-- Combined status : pending / empty
-- Aucun échec CI observé ; aucun workflow relancé
-- État documenté : **pending / aucun check configuré ou pas encore reporté**
+```
+A	projects/sfia-studio/app/__tests__/increment-e.test.tsx
+M	projects/sfia-studio/app/e2e/increment-a.spec.ts
+A	projects/sfia-studio/app/e2e/increment-e.spec.ts
+M	projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+M	projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+M	projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+A	projects/sfia-studio/app/lib/harness/analysisAction.ts
+A	projects/sfia-studio/app/lib/harness/defaultIncEPackBuild.ts
+A	projects/sfia-studio/app/lib/harness/incrementEClosureArtifact.ts
+M	projects/sfia-studio/harness/src/cli.ts
+A	projects/sfia-studio/harness/src/finops/analysisLimits.ts
+A	projects/sfia-studio/harness/src/increment-e/evidencePack.ts
+A	projects/sfia-studio/harness/src/increment-e/fixtures.ts
+A	projects/sfia-studio/harness/src/increment-e/morrisDecision.ts
+M	projects/sfia-studio/harness/src/index.ts
+A	projects/sfia-studio/harness/src/ports/gptAnalysisLive.ts
+A	projects/sfia-studio/harness/src/types/evidenceAnalysisPack.ts
+A	projects/sfia-studio/harness/src/types/gptVerdictCandidate.ts
+A	projects/sfia-studio/harness/src/types/morrisFinalDecision.ts
+A	projects/sfia-studio/harness/src/validation/verdictCandidateValidator.ts
+A	projects/sfia-studio/harness/tests/increment-e.test.ts
 
-## 5. Absences
+```
 
-- aucun nouveau commit après push
-- aucun force-push
-- aucun merge
+- 21 fichiers Increment E
+- aucun `.tmp-sfia-review`, method/**, prompts/**, docs 01–40, package.json/lockfile
+
+## 5. Invariants GPT / Morris
+
+- GptVerdictCandidate : candidat uniquement (`candidateOnly`, `closureAuthorized=false`, `morrisDecisionRequired`)
+- snapshot historique PARTIALLY_PROVED conservé dans artefact
+- MorrisFinalDecision CLOSE_SLICE distincte
+- CycleSummary : CLOSED_WITH_RESERVATIONS
+- candidateSnapshot ≠ finalState
+- resolvedByMorrisDecision présent
+- mvpClaim=false · productionReadyClaim=false
+- 4 routes P0 conservées
+
+## 6. Tests post-merge sur main
+
+| Gate | Résultat |
+|------|----------|
+| Harness tsc | OK |
+| Harness tests | 168 passed / 2 skipped |
+| App tsc / lint / build | OK |
+| App unit | 40 passed |
+| E2E A–E + P0 | 43 passed |
+| git diff --check | OK |
+| Scan secrets | clean |
+| Appel GPT live | **aucun** (historiques : 2) |
+| Cursor réel | **aucun** |
+| CI distante | **aucun check reporté** (réserve, pas un succès CI) |
+
+## 7. Branches delivery
+
+- Locale : `delivery/sfia-studio-poc-increment-e` @ `c801a19364cffc6081f366085bab5128656a1aaf` — **non supprimée**
+- Distante : `origin/delivery/...` @ `c801a19364cffc6081f366085bab5128656a1aaf` — **non supprimée**
+- Cleanup sous GO distinct `G-INCREMENT-E-BRANCH-CLEANUP`
+
+## 8. Absences
+
+- aucun nouveau commit
+- aucun push main/delivery
+- aucune suppression de branche
 - aucun amend/rebase
-- aucun nouvel appel GPT
-- aucun claim MVP / production dans la PR
 
-## 6. git status final
+## 9. git status final
 
 ```
 ?? .tmp-sfia-review/
@@ -127,10 +145,10 @@ A	projects/sfia-studio/harness/tests/increment-e.test.ts
 
 ```
 
-## 7. Décision Morris suivante
+## 10. Décision Morris suivante
 
-Autoriser ou non le merge via `G-INCREMENT-E-MERGE` après revue ChatGPT.
+Éventuel nettoyage de branche via `G-INCREMENT-E-BRANCH-CLEANUP`, ou nouvelle trajectoire hors Increment E.
 
-## 8. Verdict
+## 11. Verdict
 
-**SFIA STUDIO INCREMENT E PR OPENED — MERGE REQUIRES MORRIS GO**
+**SFIA STUDIO INCREMENT E MERGED — POST-MERGE COMPLETE**
