@@ -12,7 +12,7 @@
 | **Branche de conception** | `design/sfia-studio-ops1-functional` — fusionnée via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) ; branche conservée temporairement en attente du cleanup Morris |
 | **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) ; **intégré et canonique sur `main`** ; post-merge **validé** (2026-07-20 14:29 CEST) ; réserves 13, 15, 20, 26 **inchangées** ; aucun cycle suivant ouvert automatiquement |
 | **Autorité** | Morris (L0) |
-| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) |
+| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**validés avec amendements** ; `G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) |
 | **Entrées cadrage** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
 | **Socle historique (lecture)** | [`08`](./08-functional-design.md) · [`09`](./09-functional-flows-and-rules.md) · [`10`](./10-functional-decision-pack.md) |
 | **Horodatage production** | 2026-07-20 13:10 CEST |
@@ -384,7 +384,7 @@ Quatre couches **indépendantes conceptuellement** (héritage `42`, instanciées
 4. `STOP` et `FAILED` ont priorité sur les transitions nominales.
 5. Timeout ≠ GO ; aucun retry automatique d’exécution.
 6. Reprise : recharger sans inventer ; ambiguïté → `STOPPED` / `FAILED` / lecture seule.
-7. Session `CLOSED` : **immuable** ; consultation autorisée ; reprendre une activité = **continuation ou nouvelle session liée** — **aucune** réouverture silencieuse ne mute l’historique clôturé (`OPS1-FD-CAND-13`).
+7. Session `CLOSED` : **immuable** ; consultation autorisée ; reprendre une activité = **continuation liée** (nouvel id + référence source ; propre contrat/gate si action) — **aucune** réouverture silencieuse (`FD-CAND-13 — LIFTED: LINKED CONTINUATION, NEVER SILENT REOPEN`).
 
 Transitions détaillées : [`46`](./46-ops1-functional-flows-and-rules.md).
 
@@ -543,9 +543,9 @@ Souhaitables `43` §6.2 : couverts comme **candidats** (coût visible, condensat
 | Stack / BDD / API / protocole | Cycle **6 — Architecture technique** (`G-OPS1-TECH-ARCH` si établi) | **Routé** — hors réserves conception |
 | Découpage I1–I7 en stories | `G-OPS1-BACKLOG` | Fermé |
 | Implémentation / live GPT / Cursor | Delivery / live (gates distincts) | Fermé |
-| Cartographie chemins éligibles Campus360 + branche + allowlist | `G-OPS1-SCENARIO-VAL` | Réserve conception |
+| Cartographie chemins éligibles Campus360 + branche + allowlist | `G-OPS1-SCENARIO-VAL` **consommé** | Docs [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) **validés avec amendements** ; FD-CAND-20/26 **levées** pour OPS1 ; `03` protégé par défaut |
 | Plafonds FinOps numériques | GO avant live | Réserve conception (non bloquante pour FUNC-DESIGN-VAL) |
-| Mécanisme continuation après CLOSE | Archi fonctionnelle / UX | Réserve conception (`OPS1-FD-CAND-13`) |
+| Mécanisme continuation après CLOSE | Scénario OPS1 — FD-CAND-13 **levée** | Continuation liée obligatoire ; jamais de réouverture silencieuse (voir [`54`](./54-ops1-operational-scenario.md) §4bis) |
 
 ---
 
@@ -607,7 +607,9 @@ Valider :
 - scénario de preuve.
 
 **Ne plus** valider un fichier unique obligatoire.
-**Non choisis dans ce cycle :** liste globale définitive de chemins réels ; nom de branche exact ; demande métier exacte.
+**État scénario :** [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) **validés avec amendements** — `GO G-OPS1-SCENARIO-VAL — VALIDATION AVEC AMENDEMENTS — 2026-07-20 18:34:47 CEST`.
+**FD-CAND-20** levée pour OPS1 · **FD-CAND-26** levée pour Campus360 OPS1 (`03` protégé par défaut) · **FD-CAND-13** levée (continuation liée).
+**Non figé ici :** demande métier exacte d’une démonstration live (exécution ultérieure).
 
 ---
 

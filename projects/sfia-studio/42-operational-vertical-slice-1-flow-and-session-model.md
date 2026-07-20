@@ -102,6 +102,20 @@ Les états A–E historiques (`qualification_en_cours`, etc.) restent un **héri
 
 **Timeout ≠ GO. STOP prioritaire. Pas de retry automatique.**
 
+### 2.3 Continuation liée après `CLOSED` (FD-CAND-13 — levée)
+
+| Règle | Contenu |
+|-------|---------|
+| Immutabilité | Session `CLOSED` **immuable** ; lecture seule |
+| Réouverture silencieuse | **Interdite** |
+| Nouvelle activité | Crée une **continuation liée** (nouvel id + référence session source) |
+| Historique source | **Jamais muté** |
+| Nouvelle action | Propre contrat + propre gate Morris |
+| Ambiguïté | `STOP` / `FAILED` / lecture seule |
+| ABANDONED / STOPPED / FAILED | Non auto-rouverts |
+
+Statut : `FD-CAND-13 — LIFTED: LINKED CONTINUATION, NEVER SILENT REOPEN` — voir [`54`](./54-ops1-operational-scenario.md) §4bis · `GO G-OPS1-SCENARIO-VAL — VALIDATION AVEC AMENDEMENTS — 2026-07-20 18:34:47 CEST`.
+
 ---
 
 ## 3. Modèle conceptuel candidat — `CycleSession`
@@ -113,6 +127,7 @@ Nom **candidat**. Champs conceptuels (noms techniques non figés).
 | Champ | Description |
 |-------|-------------|
 | `sessionId` | Identifiant de session |
+| `parentSessionId` / lien continuation | Référence explicite à la session source si continuation liée (FD-CAND-13) |
 | `projectId` / `repository` | Projet / dépôt |
 | `conversationMessages[]` | Journal des messages |
 | `conversationContext` | Contexte utile condensé (dérivé, non vérité Git) |

@@ -11,7 +11,7 @@
 | **Baseline Git** | `origin/main` @ `bfa2cdf949f417fcbce47d1687824c223eeed8f7` |
 | **Branche** | `design/sfia-studio-ops1-ux-ui` |
 | **Statut** | `ux-ui-validated-with-reservations` |
-| **Companions** | [`52`](./52-ops1-visual-contract-and-figma-spec.md) · [`53`](./53-ops1-ux-ui-decision-pack.md) |
+| **Companions** | [`52`](./52-ops1-visual-contract-and-figma-spec.md) · [`53`](./53-ops1-ux-ui-decision-pack.md) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**validés avec amendements** ; `G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) |
 | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`50`](./50-ops1-functional-architecture-decision-pack.md) |
 | **Figma** | fileKey `lrjA1WEyRpL05vKR8k29LO` · page `UX-B — OPS1` (`61:2`) — **référence visuelle desktop validée avec réserves** |
 | **Horodatage production** | 2026-07-20 16:15 CEST |
@@ -360,16 +360,16 @@ Confirmés sous validation Morris (2026-07-20 16:52 CEST) — sous réserves UX-
 | **UX-R01** | Produire les déclinaisons tablette/mobile avant toute implémentation responsive |
 | **UX-R02** | Nettoyer les microcopies héritées de P0 avant delivery |
 | **UX-R03** | Formaliser le design system avant industrialisation multi-écrans |
-| **UX-R04** | Maintenir ouvertes FD-CAND-13/15/20/26 ainsi que FinOps, Campus360, live, CI et isolation |
+| **UX-R04** | Réserve transverse : FD-CAND-15 / live / CI / isolation / tech-arch restent à router ; FD-CAND-13/20/26 traités au scénario — UX-R01…R03 **maintenues** |
 
 ### Réserves héritées (FD / transverses)
 
-- Continuation après CLOSE (FD-CAND-13).
-- FinOps numériques (FD-CAND-15).
-- Cartographie / catégories Campus360 (FD-CAND-20).
-- Détails opérationnels Campus360 (FD-CAND-26).
-- Convention de branche scénario.
-- Preuves GPT / Cursor live ; CI distante ; isolation OS/réseau.
+- Continuation après CLOSE (FD-CAND-13) — **levée** : continuation liée, jamais de réouverture silencieuse (voir [`54`](./54-ops1-operational-scenario.md) §4bis).
+- FinOps numériques (FD-CAND-15) — **maintenue** jusqu’au gate FinOps/live.
+- Cartographie / catégories Campus360 (FD-CAND-20) — **levée pour OPS1** (voir [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md)).
+- Détails opérationnels Campus360 (FD-CAND-26) — **levée pour Campus360 OPS1** ; `03` protégé par défaut.
+- Convention de branche scénario — **validée avec amendements** ([`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) §6).
+- Preuves GPT / Cursor live ; CI distante ; isolation OS/réseau — **routées** vers architecture technique (non conçues ici).
 
 ---
 
