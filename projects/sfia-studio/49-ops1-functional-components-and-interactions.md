@@ -6,14 +6,15 @@
 | **Cycle** | 3 — Architecture fonctionnelle |
 | **Profil** | Standard |
 | **Gate d’ouverture** | `G-OPS1-FUNC-ARCH` — consommé |
-| **Gate de validation** | `G-OPS1-FUNC-ARCH-VAL` — fermé |
+| **Gate de validation** | `G-OPS1-FUNC-ARCH-VAL` — **consommé** — Morris — 2026-07-20 15:30 CEST |
 | **Baseline Git** | `origin/main` @ `b4b9df577a39fe564c3a787a23501786682e1740` |
-| **Branche** | `architecture/sfia-studio-ops1-functional` (locale — aucun push) |
-| **Statut** | `functional-architecture-candidate` — **CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Branche** | `architecture/sfia-studio-ops1-functional` |
+| **Statut** | `functional-architecture-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 15:30 CEST) |
 | **Companion** | [`48`](./48-ops1-functional-architecture.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) |
-| **Horodatage** | 2026-07-20 15:14 CEST |
+| **Horodatage production** | 2026-07-20 15:14 CEST |
+| **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
 
-> Contrats fonctionnels des composants OPS1.  
+> Contrats fonctionnels des composants OPS1.
 > **Aucun** framework, endpoint, table, queue ou protocole imposé.
 
 ---
@@ -477,9 +478,13 @@ sequenceDiagram
 
 ---
 
-## 7. Verdict candidat
+## 7. Verdict
 
-`functional-architecture-candidate`
+`functional-architecture-validated-with-reservations`
 
-Composants et interactions **candidats** — validation Morris requise (`G-OPS1-FUNC-ARCH-VAL`).
-Aucun choix technique. Réserves héritées **non arbitrées**.
+`SFIA STUDIO OPS1 FUNCTIONAL ARCHITECTURE VALIDATED WITH RESERVATIONS`
+
+Composants et interactions **validés fonctionnellement** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
+Les **noms** de composants restent affinables dans les cycles suivants sans modifier les responsabilités validées.
+Aucun mapping technique validé ; aucune UX visuelle validée ; réserves héritées **maintenues**.
+Aucun cycle UX / tech / backlog / delivery / live / MVP ouvert automatiquement.

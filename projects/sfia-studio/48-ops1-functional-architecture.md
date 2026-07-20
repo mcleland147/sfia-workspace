@@ -7,20 +7,22 @@
 | **Profil** | Standard |
 | **Typologie** | POC / ARCHITECTURE FONCTIONNELLE / PRODUIT / DOC |
 | **Gate d’ouverture** | `G-OPS1-FUNC-ARCH` — **consommé** |
-| **Gate de validation** | `G-OPS1-FUNC-ARCH-VAL` — **fermé** |
+| **Gate de validation** | `G-OPS1-FUNC-ARCH-VAL` — **consommé** — Morris — 2026-07-20 15:30 CEST |
 | **Baseline Git** | `origin/main` @ `b4b9df577a39fe564c3a787a23501786682e1740` |
-| **Branche** | `architecture/sfia-studio-ops1-functional` (**locale uniquement** — aucun push) |
-| **Statut** | `functional-architecture-candidate` — **CANDIDATE — MORRIS VALIDATION REQUIRED** |
+| **Branche** | `architecture/sfia-studio-ops1-functional` |
+| **Statut** | `functional-architecture-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 15:30 CEST) |
 | **Autorité** | Morris (L0) |
+| **Décisions** | `OPS1-FA-CAND-01`…`22` **validées** (réserves maintenues) |
+| **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
 | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`47`](./47-ops1-functional-decision-pack.md) |
 | **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) |
 | **Horodatage production** | 2026-07-20 15:14 CEST |
 
-> Architecture **fonctionnelle** candidate du Vertical Slice Opérationnel 1.
+> Architecture **fonctionnelle** du Vertical Slice Opérationnel 1 — **validée avec réserves** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
 > Hérite du cadrage validé (`G-OPS1-FRAMING-VAL`) et de la conception validée avec réserves (`G-OPS1-FUNC-DESIGN-VAL`).
-> **Aucune validation Morris** de cette architecture dans ce cycle.
+> Décisions `OPS1-FA-CAND-01`…`22` **validées** ; réserves héritées **inchangées**.
 > **Aucun** choix de stack, BDD, API, protocole, code, Figma, backlog, delivery, live ou MVP.
-> Les décisions `OPS1-FA-CAND-*` sont **candidates** — voir [`50`](./50-ops1-functional-architecture-decision-pack.md).
+> Aucun cycle suivant ouvert automatiquement — voir [`50`](./50-ops1-functional-architecture-decision-pack.md).
 
 ---
 
@@ -346,27 +348,29 @@ Aucune ouverture automatique.
 
 ---
 
-## 25. Critères de validation future (`G-OPS1-FUNC-ARCH-VAL`)
+## 25. Critères de validation (`G-OPS1-FUNC-ARCH-VAL`) — satisfaits
 
-Candidats (à valider Morris) :
+Confirmés sous validation Morris (2026-07-20 15:30 CEST) :
 
-1. Domaines et composants couvrent CAP-01…21 ;
+1. Domaines D1–D11 et 14 composants couvrent CAP-01…21 ;
 2. FLOW-01…32 rattachés à des composants ;
 3. FR-001…032 rattachées à des frontières ;
 4. Autorité Morris / harness / Cursor intacte ;
 5. Git / session sans double vérité ;
-6. Réserves listées et non « résolues » silencieusement ;
+6. Réserves listées et **non** résolues silencieusement ;
 7. Aucun choix technique implicite ;
 8. Aucun claim MVP / production / READY FOR DELIVERY.
 
 ---
 
-## 26. Verdict candidat
+## 26. Verdict
 
-`functional-architecture-candidate`
+`functional-architecture-validated-with-reservations`
 
-`OPS1 FUNCTIONAL ARCHITECTURE CANDIDATE — MORRIS VALIDATION REQUIRED`
+`SFIA STUDIO OPS1 FUNCTIONAL ARCHITECTURE VALIDATED WITH RESERVATIONS`
 
 Gate `G-OPS1-FUNC-ARCH` consommé — 2026-07-20 15:14 CEST.
-Gate `G-OPS1-FUNC-ARCH-VAL` **fermé**.
-Aucun push / PR / merge. Aucun cycle UX / tech / backlog / delivery / live / MVP ouvert.
+Gate `G-OPS1-FUNC-ARCH-VAL` **consommé** — Morris — 2026-07-20 15:30 CEST.
+11 domaines D1–D11 retenus ; 14 composants fonctionnels retenus ; frontières Morris / GPT / harness / Cursor / Git / persistance retenues ; couverture CAP/FLOW/FR confirmée.
+Réserves maintenues (continuation CLOSE ; FinOps numériques ; Campus360 cartographie/branche ; live ; CI ; isolation ; FD-CAND-13/15/20/26).
+UX (`G-OPS1-UX`), architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
