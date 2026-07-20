@@ -4,32 +4,31 @@ import { NouvelleDemandeScreen } from "@/features/nouvelle-demande/NouvelleDeman
 export default function NouvelleDemandePage() {
   return (
     <StudioShell
-      variant="floating"
+      variant="flush"
       activeRoute="/nouvelle-demande"
       title="Nouvelle demande"
       pills={[
-        { label: "Brouillon", tone: "orange" },
-        { label: "main · clean", tone: "green" },
+        { label: "MODE FIXTURE / NON LIVE", tone: "orange" },
+        { label: "OPS1 I1", tone: "blueFlush" },
       ]}
       copilot={{
-        variant: "floating",
+        variant: "flush",
         name: "Nora · SFIA Copilot",
-        subtitle: "Qualification en direct",
-        avatarTone: "pink",
+        subtitle: "OPS1 I1 — session locale",
+        avatarTone: "blue",
         levelPill: "L0 humain",
         summary:
-          "Votre demande semble relever d'un cycle de conception fonctionnelle, avec un gate Morris avant préparation du prompt Cursor.",
+          "Session CycleSession OPEN et journal fixture. Aucun GPT live, aucun Cursor live, aucune action Markdown.",
         checklist: [
-          "Cycle et profil",
-          "Périmètre autorisé",
-          "Gates et stop conditions",
-          "Review pack attendu",
+          "Créer session OPEN",
+          "Journaliser tours fixture",
+          "Recharger et retrouver le journal",
+          "Aucun effet d’exécution",
         ],
-        checklistTitle: "Ce que je vais préparer",
-        showRecommendationLabel: true,
-        riskTitle: "RISQUE DÉTECTÉ",
+        checklistTitle: "Parcours I1",
+        riskTitle: "PÉRIMÈTRE",
         riskText:
-          "Le besoin mélange automatisation et arbitrage humain. Je séparerai clairement les deux.",
+          "I1 n’ouvre pas I2–I7, la clôture CLOSED, ni la CI. E01-03 hors scope.",
       }}
     >
       <NouvelleDemandeScreen />
