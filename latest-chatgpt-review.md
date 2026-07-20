@@ -252,7 +252,7 @@ status : ?? .tmp-sfia-review/ ; ?? projects/.tmp-sfia-review/
 
 ## Handoff
 
-- SHA : *(après push)*
+- SHA handoff tip : `7a748b3771c94c4e9bd169895a92c8966f925844` (`origin/sfia/review-handoff`)
 
 ## Verdict
 
