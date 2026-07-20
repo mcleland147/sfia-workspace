@@ -22,7 +22,7 @@ Author: Morris Cleland <morris@macbook-air1.home>
 Date:   Mon Jul 20 14:34:34 2026 +0200
 
     docs(sfia-studio): sync OPS1 functional design post-merge status
-
+    
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
@@ -40,7 +40,7 @@ index 26f8359..5db21ef 100644
  | **Intégration cadrage** | PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) MERGED — squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
 +| **Intégration conception fonctionnelle** | PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) MERGED — squash `6cbf37482c7d384ef5630259d58a2e223a607925` |
  | **Autorité** | Morris (L0) |
-
+ 
  > Ce document cadre la **prochaine marche du POC** après le vertical slice A–E.
  > **Cadrage validé avec réserves** sous `G-OPS1-FRAMING-VAL` — conversation GPT réelle et libre au centre ; action Markdown gouvernée.
  > Documents `41`–`44` **intégrés sur `main`** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1394bb4d550eeff1dd64669b3d405579ad`) ; post-merge et cleanup **terminés**.
@@ -49,12 +49,12 @@ index 26f8359..5db21ef 100644
 +> Conception fonctionnelle OPS1 (`45`–`47`) **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST), **intégrée et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash merge `6cbf37482c7d384ef5630259d58a2e223a607925`) ; post-merge **validé** (2026-07-20 14:29 CEST).
 +> Réserves fonctionnelles **inchangées**. Architecture, UX, backlog, delivery, live et MVP **restent fermés**. Aucun cycle suivant ouvert automatiquement.
  > Aucun claim MVP, production-ready ou industrialisation.
-
+ 
  ---
 @@ -362,5 +363,5 @@ Conversation réelle et libre
-
+ 
  `SFIA STUDIO OPS1 FRAMING VALIDATED WITH RESERVATIONS`
-
+ 
 -Cadrage **intégré** et **canonique** sur `main`. Conception fonctionnelle OPS1 **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST) — voir [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md).
 -Gates architecture / UX / backlog / delivery / live / MVP : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Aucun cycle suivant ouvert automatiquement.
 +Cadrage **intégré** et **canonique** sur `main` (PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235)). Conception fonctionnelle OPS1 **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST), **intégrée et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) — voir [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md).
@@ -84,7 +84,7 @@ index 5a08aea..abe61fb 100644
 +| **Horodatage post-merge** | 2026-07-20 14:29 CEST |
 +| **Horodatage sync documentaire** | 2026-07-20 14:34 CEST |
  | **Projet pilote OPS1** | **Campus360 exclusivement** — Markdown documentaires non protégés **éligibles** ; allowlist **par action** ; cartographie/branche : `G-OPS1-SCENARIO-VAL` |
-
+ 
  > Contrat de **conception fonctionnelle validée avec réserves** du Vertical Slice Opérationnel 1.
  > Gate `G-OPS1-FUNC-DESIGN-VAL` **consommé** — Morris — 2026-07-20 13:46 CEST.
 +> **Intégré et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash merge `6cbf37482c7d384ef5630259d58a2e223a607925`) ; post-merge **validé** (2026-07-20 14:29 CEST).
@@ -95,10 +95,10 @@ index 5a08aea..abe61fb 100644
 -> `OPS1-FD-CAND-01`…`27` **validées** (avec réserves sur 13, 15, 20, 26). Aucun cycle suivant ouvert automatiquement.
 +> `OPS1-FD-CAND-01`…`27` **validées** (avec réserves sur 13, 15, 20, 26 **inchangées**). Aucun cycle suivant ouvert automatiquement.
  > Aucun claim MVP / production-ready / industrialisation / OPS1 prouvé / READY FOR DELIVERY.
-
+ 
  ### Distinction POC / OPS1 / MVP
 @@ -627,4 +631,5 @@ Valider :
-
+ 
  Gate `G-OPS1-FUNC-DESIGN-VAL` consommé — Morris — 2026-07-20 13:46 CEST.
  Amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) intégré.
 -Aucun cycle architecture / UX / backlog / delivery / live / MVP ouvert automatiquement.
@@ -164,7 +164,7 @@ PR #238 OPEN — merge non exécuté
 
 ## Handoff
 
-- SHA : *(après push handoff)*
+- SHA : `aaf4d4ec595d9e1c035ec13b5547b624f0d2050d`
 
 ## Verdict
 
