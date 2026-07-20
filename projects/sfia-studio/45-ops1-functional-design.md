@@ -8,7 +8,7 @@
 | **Typologie** | POC / CONCEPTION FONCTIONNELLE / PRODUIT / DOC |
 | **Gates consommés** | `G-OPS1-FUNC-DESIGN` · `G-OPS1-FUNC-DESIGN-VAL` |
 | **Baseline Git** | `origin/main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
-| **Branche** | `design/sfia-studio-ops1-functional` (**locale uniquement** — aucun push) |
+| **Branche** | `design/sfia-studio-ops1-functional` — publiée pour la PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) |
 | **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) |
 | **Autorité** | Morris (L0) |
 | **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) |
