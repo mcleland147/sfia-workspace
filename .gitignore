@@ -11,6 +11,9 @@ projects/sfia-studio/.sandbox/**
 !projects/sfia-studio/.sandbox/**/
 !projects/sfia-studio/.sandbox/**/.gitkeep
 
+# SFIA Studio OPS1 local runtime state and append-only execution artifacts
+projects/sfia-studio/.sfia-exec/**
+
 # Exports JSON — versionner les snapshots Notion
 exports/**
 !exports/notion/
