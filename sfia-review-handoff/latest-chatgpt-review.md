@@ -1,2055 +1,1168 @@
-# Review Pack — OPS1 Backlog PR Readiness
+# Review Pack — OPS1 Integration / DevOps Foundation
 
-## Métadonnées cycle
+## Métadonnées
 
 | Champ | Valeur |
 |---|---|
-| Date / heure / fuseau | 2026-07-20 20:52:00 CEST |
+| Date / heure / fuseau | 2026-07-20 21:06:00 CEST |
 | Repository | `mcleland147/sfia-workspace` |
-| Branche projet | `backlog/sfia-studio-ops1` |
-| HEAD initial | `9bfee8ea113386ee2603093fbec366eda9161c19` |
-| HEAD projet (commit validation) | `4032c25145b92d4f5389af0d2f8cc4d27bd2ab8e` |
-| Base / merge-base (`origin/main`) | `9bfee8ea113386ee2603093fbec366eda9161c19` |
-| Profil | Standard |
-| Typologie | DOC / PRODUIT / BACKLOG / PR READINESS |
-| Cycles | 5 — Backlog / user stories — validation ; 13 — PR readiness |
-| PR | #244 — https://github.com/mcleland147/sfia-workspace/pull/244 |
-| État PR | Draft / OPEN / non mergée |
-| Verdict attendu | `OPS1 BACKLOG PR DRAFT CREATED — READY FOR CHATGPT PR REVIEW` |
+| État initial | detached HEAD sur `origin/main` tip |
+| Branche créée | `devops/sfia-studio-ops1-foundation` |
+| HEAD / base / merge-base | `6584646066dbd6f7002b20200e513026e3a880df` |
+| Gate consommée | `GO G-OPS1-DEVOPS — OPEN INTEGRATION / DEVOPS CYCLE` |
+| Gate attendue | `G-OPS1-DEVOPS-VAL` |
+| Profil | Standard — Cycle 7 Intégration / DevOps |
+| Commit / push / PR projet | **aucun** |
+| Verdict | `OPS1 INTEGRATION DEVOPS FOUNDATION DOCUMENTED — READY FOR CHATGPT REVIEW` |
 
-## Décisions Morris consommées
+## Rôle du cycle
 
-1. `GO G-OPS1-BACKLOG-VAL — VALIDATION AVEC RÉSERVES` — valide 17 epics / 41 stories / 20 décisions / mapping I1–I7 / priorités et tailles comme modèle de backlog (pas engagement sprint / delivery / calendaire / implémentation).
-2. `GO COMMIT PUSH PR DRAFT — OPS1 BACKLOG` — autorise uniquement commit documentaire des 4 fichiers, push sans force de `backlog/sfia-studio-ops1`, PR Draft vers `main`, handoff L3 borné. **N’autorise pas** merge, Ready for review, suppression de branche, modification de `main`, delivery, code, DevOps, live, MVP, production.
+Documenter le socle d’intégration, contrôles locaux et CI **candidate** pour rendre un futur lot delivery OPS1 exécutable/vérifiable/gouverné — **sans** code, CI, deps, delivery ni live.
 
 ## Sources consultées
 
-- `projects/sfia-studio/60-ops1-backlog-framing-and-prioritization.md`
-- `projects/sfia-studio/61-ops1-epics-stories-and-acceptance-criteria.md`
-- `projects/sfia-studio/62-ops1-backlog-decision-pack.md`
-- `projects/sfia-studio/README.md`
-- Handoff distant précédent (`sfia/review-handoff`) : tip `4bf6ee524302c7a14933889d1ac6025e5b6ed5bd` — `OPS1 BACKLOG REVIEW RESERVATIONS TREATED — READY FOR CHATGPT RE-REVIEW`
-- Contrôle cohérence (lecture, non modifié) : `44`, `47`, `50`, `53`, `56`, `59`
-- Template : `prompts/templates/sfia-cycle-execution-template.md` (depuis `main`)
+Méthode template ; docs `41`,`43`,`45`,`46`,`48`,`49`,`51`,`52`,`54`,`55`,`56`,`57`,`58`,`59`,`60`,`61`,`62`, README ; `app/package.json`+lock+configs ; `harness/package.json` ; `.github/workflows/interv360-ci.yml` (lecture) ; structures `app/**` et `harness/**` (lecture).
 
-## Fichiers créés et modifiés
+## État réel repository / commandes
+
+### EXISTS
+- npm ci (pratique lockfile app)
+- npm run lint
+- npm run typecheck
+- npm test
+- npm run test:e2e
+- npm run build
+- git status / rev-parse / diff --check
+- harness typecheck/test/build (NOT REQUIRED OPS1 delivery)
+- workflow interv360-ci.yml (NOT REQUIRED OPS1)
+
+### CANDIDATE
+- ops1:controls monorepo script
+- secrets scanner outillé
+- integration suite paths/sqlite/runner
+- git remote-deny wrapper
+- network/env policy enforcement
+- markdown link check
+- .github/workflows/sfia-studio-ops1-ci.yml
+- cleanup .sfia-exec gouverné
+- engines.node pin
+
+CI Studio : **absente**. CI Interv360 : autre projet.
+
+## Fichiers créés / modifiés
 
 | Statut | Fichier |
 |---|---|
-| A (créé) | `projects/sfia-studio/60-ops1-backlog-framing-and-prioritization.md` |
-| A (créé) | `projects/sfia-studio/61-ops1-epics-stories-and-acceptance-criteria.md` |
-| A (créé) | `projects/sfia-studio/62-ops1-backlog-decision-pack.md` |
-| M (modifié) | `projects/sfia-studio/README.md` |
+| A | `projects/sfia-studio/63-ops1-integration-devops-foundation.md` |
+| A | `projects/sfia-studio/64-ops1-local-controls-ci-and-evidence-contract.md` |
+| A | `projects/sfia-studio/65-ops1-integration-devops-decision-pack.md` |
+| M | `projects/sfia-studio/README.md` |
 
-Exactement **4** fichiers projet. Aucun fichier protégé `01*`–`59*`, `app/**`, `harness/**`, `method/**`, `prompts/**`.
+## Décisions candidates (24)
 
-## Volumes vérifiés
+- OPS1-DEVOPS-CAND-01 — Structure du repository OPS1
+- OPS1-DEVOPS-CAND-02 — Frontières Studio / runtime
+- OPS1-DEVOPS-CAND-03 — Emplacement SQLite
+- OPS1-DEVOPS-CAND-04 — Emplacement artefacts append-only
+- OPS1-DEVOPS-CAND-05 — Politique fichiers temporaires et `.gitignore`
+- OPS1-DEVOPS-CAND-06 — Installation déterministe
+- OPS1-DEVOPS-CAND-07 — Gestion des dépendances
+- OPS1-DEVOPS-CAND-08 — Commandes locales socle
+- OPS1-DEVOPS-CAND-09 — Stratégie de tests
+- OPS1-DEVOPS-CAND-10 — Stratégie CI PR candidate
+- OPS1-DEVOPS-CAND-11 — Permissions CI
+- OPS1-DEVOPS-CAND-12 — Politique secrets
+- OPS1-DEVOPS-CAND-13 — Politique réseau
+- OPS1-DEVOPS-CAND-14 — Politique cache CI
+- OPS1-DEVOPS-CAND-15 — Politique artefacts CI
+- OPS1-DEVOPS-CAND-16 — Politique rétention locale runtime
+- OPS1-DEVOPS-CAND-17 — Contrôle fichiers protégés
+- OPS1-DEVOPS-CAND-18 — Contrôle Git remote
+- OPS1-DEVOPS-CAND-19 — Gestion `REPORT_INCOMPLETE`
+- OPS1-DEVOPS-CAND-20 — Gestion `METRICS_INCOMPLETE`
+- OPS1-DEVOPS-CAND-21 — Gates vers Delivery I1
+- OPS1-DEVOPS-CAND-22 — Critères d’ouverture CI implémentée
+- OPS1-DEVOPS-CAND-23 — Rollback
+- OPS1-DEVOPS-CAND-24 — Dette et réserves
 
-- Epics : **17**
-- Stories : **41**
-- Décisions : **20**
-- Statuts story : `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` (homogène)
-- Décisions Morris : `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` (20/20)
-- `AWAITING G-OPS1-BACKLOG-VAL` résiduel dans statuts : **0**
-- `METRICS_INCOMPLETE` : conservé
-- Claims READY FOR DELIVERY / READY FOR IMPLEMENTATION : **0**
+Toutes : `AWAITING G-OPS1-DEVOPS-VAL`.
 
-## Liste des 17 epics
+## Stratégie CI candidate (résumé)
 
+PR path-filtered `projects/sfia-studio/**` ; permissions read ; pas de secrets socle ; jobs doc-guard + app-quality (+ e2e optionnel) ; fail-closed secrets/protected ; **non implémentée**.
 
-- OPS1-E01 — Session persistante et journal
-- OPS1-E02 — Conversation GPT réelle multi-tours
-- OPS1-E03 — Qualification et proposition d’action
-- OPS1-E04 — Gate Morris explicite
-- OPS1-E05 — Contrat canonique, hash et HEAD
-- OPS1-E06 — Chemins, allowlist et symlinks
-- OPS1-E07 — Worktree et runner borné
-- OPS1-E08 — Stockage SQLite et artefacts append-only
-- OPS1-E09 — Idempotence, locks, tentatives, recovery
-- OPS1-E10 — Rapport, preuves et REPORT_INCOMPLETE
-- OPS1-E11 — Reprise conversationnelle post-exécution
-- OPS1-E12 — UX et états visibles
-- OPS1-E13 — Observabilité et audit
-- OPS1-E14 — Sécurité locale
-- OPS1-E15 — Contrôles locaux et préparation DevOps
-- OPS1-E16 — FinOps et réserves numériques
-- OPS1-E17 — Démonstration opératoire I7
+## Secrets / réseau
 
-## Liste des 41 stories
+Deny network default ; no secrets in env/prompt/report ; `.env*` ignored ; live exceptions under distinct gates.
 
-- OPS1-US-E01-01 — Créer CycleSession OPEN
-- OPS1-US-E01-02 — Journaliser tours conversationnels
-- OPS1-US-E01-03 — Clôturer session CLOSED immuable
-- OPS1-US-E02-01 — Échanger multi-tours GPT réel
-- OPS1-US-E02-02 — Interdire exécution depuis le chat
-- OPS1-US-E02-03 — Mode fixture pour tests non-live
-- OPS1-US-E03-01 — Proposer action structurée séparée
-- OPS1-US-E03-02 — Support ACTION_NOT_REQUIRED
-- OPS1-US-E04-01 — Enregistrer GO Morris sur candidat
-- OPS1-US-E04-02 — Enregistrer NO-GO et bloquer exec
-- OPS1-US-E05-01 — Canonicaliser et hasher le contrat
-- OPS1-US-E05-02 — Revalider HEAD avant exécution
-- OPS1-US-E05-03 — Inclure gateDecision dans hash
-- OPS1-US-E06-01 — Valider paths realpath + allowlist
-- OPS1-US-E06-02 — Protéger 03 par défaut
-- OPS1-US-E06-03 — Refuser symlink sortant
-- OPS1-US-E07-01 — Créer worktree d’exécution
-- OPS1-US-E07-02 — Appliquer contrôles runner
-- OPS1-US-E07-03 — Documenter limite non-sandbox OS
-- OPS1-US-E08-01 — Persister états dans SQLite
-- OPS1-US-E08-02 — Écrire artefacts append-only
-- OPS1-US-E09-01 — Créer executionAttemptId distinct
-- OPS1-US-E09-02 — Lock une tentative active
-- OPS1-US-E09-03 — Recovery crash sans resume opaque
-- OPS1-US-E09-04 — Interdire retry auto REPORT_INCOMPLETE
-- OPS1-US-E10-01 — Générer rapport consolidé + par fichier
-- OPS1-US-E10-02 — Collecter preuves négatives remote
-- OPS1-US-E11-01 — Reprendre chat après rapport
-- OPS1-US-E11-02 — Continuation liée post-CLOSED
-- OPS1-US-E12-01 — Afficher états desktop chat/action/gate
-- OPS1-US-E12-02 — Afficher états exec/rapport/clôture
-- OPS1-US-E12-03 — Réserver responsive tablette/mobile
-- OPS1-US-E13-01 — Émettre événements corrélés sans secrets
-- OPS1-US-E13-02 — Mesurer durée et fichiers touchés
-- OPS1-US-E14-01 — Scan secrets pré/post exécution
-- OPS1-US-E14-02 — Wrapper refus remote Git
-- OPS1-US-E15-01 — Checklist contrôles locaux socle
-- OPS1-US-E15-02 — Préparer stories CI PR (hors ouverture)
-- OPS1-US-E16-01 — Afficher compteurs tokens/coût placeholders
-- OPS1-US-E17-01 — Checklist démonstration I7
-- OPS1-US-E17-02 — Interdire claims MVP/production en démo
+## Stockage / artefacts
 
-## Liste des 20 décisions et statuts
+SQLite + append-only under `.sfia-exec/<executionId>/` ; not versioned ; no auto-retry ; REPORT/METRICS_INCOMPLETE strict.
 
-- `OPS1-BACKLOG-CAND-01 — Structure des epics` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-02 — Ordre d’incréments` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-03 — Périmètre P0/P1/P2` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-04 — Séquencement I1–I7` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-05 — Séparation backlog / DevOps / delivery` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-06 — Stratégie de dépendances` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-07 — Definition of Ready` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-08 — Definition of Done` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-09 — Modèle de priorité` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-10 — Modèle de taille relative` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-11 — Couverture sécurité` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-12 — Couverture UX` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-13 — Couverture observabilité` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-14 — Couverture QA` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-15 — Traitement FD-CAND-15` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-16 — Traitement UX-R01…R04` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-17 — Critère d’ouverture premier cycle delivery` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-18 — Critère d’ouverture cycle Intégration/DevOps` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-19 — Éléments hors OPS1` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
-- `OPS1-BACKLOG-CAND-20 — Statut initial des stories` → `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`
+## Gates Delivery I1
 
-## Mapping I1–I7
+Require `G-OPS1-DEVOPS-VAL` + distinct GO Delivery I1 + DoR + allowlist + rollback — **not opened**.
 
-Conservé tel que documenté dans `60` / `61` (inchangé par la validation ; modèle de backlog validé avec réserves, non plan de delivery).
+## Réserves maintenues
 
-## Réserves maintenues (aucune levée)
+FD-CAND-15 · UX-R01…R04 · stack/fournisseur · worktree≠sandbox · CI non implémentée · live/delivery/MVP fermés.
 
+## Garde-fous / fichiers protégés
 
-- FD-CAND-15 — seuils FinOps numériques
-- UX-R01 — couverture tablette/mobile après desktop
-- UX-R02 — microcopies avant delivery
-- UX-R03 — design system avant industrialisation
-- UX-R04 — réserve transverse
-- Stack et fournisseur non finalisés
-- Worktree = isolation Git, pas sandbox OS forte
-- CI PR = cycle Intégration / DevOps distinct
-- GPT live sous gate distinct
-- Cursor live sous gate distinct
-- Delivery sous décision Morris séparée
-- MVP et production fermés
+Aucun touch `01`–`62`, `app/**`, `harness/**`, `.github/**`, package.json/lockfiles, method/prompts.
 
 ## Contrôles exécutés
 
-- Truth check local pré-modif : HEAD/base/merge-base = `9bfee8ea113386ee2603093fbec366eda9161c19` ; staged vide ; 60/61/62 untracked + README modifié ; handoff tip `4bf6ee5` conforme au treat-reservations.
-- Post-validation : 17/41/20 ; 0 AWAITING décisionnel ; stories validées avec réserves ; réserves visibles ; anti-claims.
-- `git diff --cached --name-only` = exactement 4 chemins autorisés.
-- `git diff --check` clean.
-- Commit projet : `4032c25145b92d4f5389af0d2f8cc4d27bd2ab8e` — `docs: validate OPS1 backlog`.
-- Push sans force : `origin/backlog/sfia-studio-ops1` = `4032c25145b92d4f5389af0d2f8cc4d27bd2ab8e`.
-- PR Draft #244 créée, base `main`, head `backlog/sfia-studio-ops1`, état Draft/OPEN, non mergée.
-- Aucun artefact `.tmp-sfia-review/**` commité.
+- 3 créés + 1 modifié ; staged vide ; `git diff --check` clean
+- 24 CAND awaiting ; 0 validated
+- EXISTS vs CANDIDATE distingués
+- invariants tech-arch/backlog respectés
 
-## Commit / push / PR
+## Risques / dette
 
-| Élément | Valeur |
-|---|---|
-| Commit projet | `4032c25145b92d4f5389af0d2f8cc4d27bd2ab8e` |
-| Message | `docs: validate OPS1 backlog` |
-| SHA distant branche | `4032c25145b92d4f5389af0d2f8cc4d27bd2ab8e` |
-| PR | #244 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/244 |
-| Titre | `docs: validate OPS1 backlog` |
-| Base | `main` |
-| Head | `backlog/sfia-studio-ops1` |
-| État | Draft / OPEN |
-| Merge | **aucun** |
+Confusion harness=runtime ; claim CI Studio ; ignore `.sfia-exec` manquant ; engines Node non pin ; suites integration absentes.
 
-## Risques
+## Décision Morris consommée / attendue
 
-- Confusion validation ≠ autorisation d’implémentation / sprint / calendaire.
-- Levée implicite des réserves FinOps/UX/stack/live.
-- Merge ou Ready for review sans GO Morris distinct.
-
-## Rollback
-
-- Abandonner/fermer la PR Draft sans merge ; `main` inchangé.
-
-## Absence de merge
-
-Confirmée : PR reste Draft/OPEN ; aucun squash/merge ; delivery/code/DevOps/live/MVP/production fermés.
+- Consommée : `G-OPS1-DEVOPS` ouverture
+- Attendue : `G-OPS1-DEVOPS-VAL`
 
 ## Verdict
 
-`OPS1 BACKLOG PR DRAFT CREATED — READY FOR CHATGPT PR REVIEW`
+`OPS1 INTEGRATION DEVOPS FOUNDATION DOCUMENTED — READY FOR CHATGPT REVIEW`
 
 ---
 
-# Contenu complet — 60-ops1-backlog-framing-and-prioritization.md
+# Contenu complet — 63
 
-
-# SFIA Studio — Backlog OPS1 — cadrage et priorisation (candidat)
+# 63 — OPS1 Integration / DevOps Foundation
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Document** | `60-ops1-backlog-framing-and-prioritization.md` |
-| **Cycle** | 5 — Backlog / user stories |
+| **Document** | `63-ops1-integration-devops-foundation.md` |
+| **Projet** | SFIA Studio — Vertical Slice Opérationnel 1 (OPS1) |
+| **Cycle** | 7 — Intégration / DevOps |
 | **Profil** | Standard |
-| **Typologie** | DOC / PRODUIT / BACKLOG |
-| **Gate consommé** | `GO G-OPS1-BACKLOG — OPEN BACKLOG CYCLE` |
-| **Gate validation** | `G-OPS1-BACKLOG-VAL` **consommé** — 2026-07-20 20:52:00 CEST |
-| **Décision Morris** | `GO G-OPS1-BACKLOG-VAL — VALIDATION AVEC RÉSERVES` |
-| **Statut** | `backlog-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 20:52:00 CEST) |
-| **Companions** | [`61`](./61-ops1-epics-stories-and-acceptance-criteria.md) · [`62`](./62-ops1-backlog-decision-pack.md) |
-| **Branche** | `backlog/sfia-studio-ops1` |
-| **Base** | `origin/main` @ `9bfee8ea113386ee2603093fbec366eda9161c19` |
+| **Typologie** | DOC / DEVOPS / INTEGRATION / QA / SECURITY |
+| **Statut** | `devops-foundation-candidate` — **candidat** en attente de `G-OPS1-DEVOPS-VAL` |
+| **Gate ouverture** | `G-OPS1-DEVOPS` **consommé** — 2026-07-20 21:06:00 CEST |
+| **Gate validation** | `G-OPS1-DEVOPS-VAL` — **AWAITING** |
+| **Décision Morris ouverture** | `GO G-OPS1-DEVOPS — OPEN INTEGRATION / DEVOPS CYCLE` |
+| **Branche** | `devops/sfia-studio-ops1-foundation` (locale ; **aucun push projet** dans ce cycle) |
+| **Base** | `origin/main` @ `6584646066dbd6f7002b20200e513026e3a880df` |
 | **Autorité** | Morris (L0) |
+| **Exécuteur** | Cursor (documentaire) |
 
-> Backlog OPS1 **validé avec réserves** sous `G-OPS1-BACKLOG-VAL` (2026-07-20 20:52:00 CEST).
-> 17 epics · 41 stories · 20 décisions — modèle de priorité/taille **validé avec réserves** (pas un plan de sprint ni une autorisation d’implémentation).
-> Il **n’ouvre pas** l’implémentation, le delivery, l’Intégration/DevOps, GPT live, Cursor live, le MVP ni la production.
-
----
-
-## 1. Objectif du backlog
-
-Transformer les décisions OPS1 **déjà validées et intégrées sur `main`** (cadrage → conception → architecture fonctionnelle → UX → scénario → architecture technique) en un backlog :
-
-- structuré (epics / stories) ;
-- priorisé (P0–P2 / OUT) ;
-- traçable (sources → epics → stories) ;
-- exploitable pour une future décision Morris d’ouverture de lots delivery ou DevOps.
-
-Le backlog **n’est pas** un plan de delivery validé, ni une autorisation d’implémentation.
+> Socle documentaire d’intégration et de contrôles locaux pour préparer des lots delivery OPS1 **exécutables, vérifiables et gouvernés**.
+> **N’implémente pas** de CI, de code, de SQLite, de runner, ni de delivery.
+> CI PR, Delivery I1, GPT live, Cursor live, MVP et production restent **fermés** jusqu’à GO Morris distincts.
 
 ---
 
-## 2. Sources et décisions amont
+## 1. Objectif
 
-| Domaine | Documents | Statut |
-|---------|-----------|--------|
-| Cadrage | [`41`](./41-operational-vertical-slice-1-framing.md)–[`44`](./44-operational-vertical-slice-1-decision-pack.md) | VALIDATED WITH RESERVATIONS |
-| Conception | [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md) | VALIDATED WITH RESERVATIONS |
-| Archi fonctionnelle | [`48`](./48-ops1-functional-architecture.md)–[`50`](./50-ops1-functional-architecture-decision-pack.md) | VALIDATED WITH RESERVATIONS |
-| UX/UI | [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) | VALIDATED WITH RESERVATIONS |
-| Scénario | [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) | VALIDATED WITH AMENDMENTS |
-| Archi technique | [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) | VALIDATED WITH AMENDMENTS |
-| Forme historique | [`26`](./26-poc-orchestration-backlog.md)–[`28`](./28-poc-orchestration-delivery-gate-pack.md) | Référence de forme **uniquement** |
+Transformer les décisions déjà validées (architecture technique `57`–`59`, scénario `54`–`56`, backlog `60`–`62`) en un **contrat documentaire** Intégration / DevOps :
 
-Décisions amont structurantes (rappel) : conversation GPT réelle multi-tours ; chat ≠ GO ; action Markdown Campus360 bornée ; Morris L0 ; Git vérité documentaire ; tech-arch validée avec 4 amendements (isolation, stockage, idempotence, CI).
+1. structure technique candidate (sans création de dossiers/code) ;
+2. commandes et contrôles locaux (existants vs candidats) ;
+3. stratégie CI PR **candidate** (non implémentée) ;
+4. secrets / réseau / artefacts / SQLite ;
+5. gates vers Delivery I1 ;
+6. decision pack `65` soumis à `G-OPS1-DEVOPS-VAL`.
 
 ---
 
-## 3. Principes de découpage
+## 2. Sources
 
-1. **Une story = un résultat vérifiable** (comportement ou contrôle), pas un choix de stack.
-2. **Indépendance techno** — aucune story ne fige framework, fournisseur cloud ou BDD hors SQLite local déjà décidé.
-3. **Fail-closed** — les contrôles négatifs et stop conditions sont des stories de première classe.
-4. **Preuves d’abord** — chaque story P0/P1 liste des preuves attendues.
-5. **Séparation des cycles** — backlog ≠ DevOps ≠ delivery ≠ live.
-6. **Réserves explicites** — FD-CAND-15 et UX-R01…R04 restent ouvertes ; stories associées marquées réserve.
-7. **I1–I7 comme trajectoire** — mapping obligatoire ; I7 est démonstration, pas industrialisation.
-
----
-
-## 4. Modèle de priorité (candidat)
-
-| Priorité | Signification | Usage OPS1 |
-|----------|---------------|------------|
-| **P0** | Indispensable à la preuve OPS1 | Chemin nominal I1→I7 minimal gouverné |
-| **P1** | Nécessaire à la robustesse de la preuve | Sécurité, idempotence, REPORT_INCOMPLETE, recovery |
-| **P2** | Utile mais différable | Polish UX hors desktop, FinOps avancé, a11y étendue |
-| **OUT** | Hors OPS1 | Multi-tenant, remote Git auto, CI delivery, MVP, production |
-
-Les priorités constituent le **modèle de backlog validé avec réserves** — pas un engagement de sprint, ni un plan de delivery définitif, ni une estimation calendaire, ni une autorisation d’implémentation.
+| Famille | Documents |
+|---------|-----------|
+| Méthode | `prompts/templates/sfia-cycle-execution-template.md` ; garde-fous SFIA |
+| Cadrage / conception | `41`, `43`, `45`, `46`, `48`, `49` |
+| UX / scénario | `51`, `52`, `54`, `55` (allowlist Campus360), `56` |
+| Architecture technique | `57`, `58`, `59` (`OPS1-TECH-CAND-01…26`) |
+| Backlog | `60`, `61`, `62` (`OPS1-BACKLOG-CAND-01…20`) |
+| Projet | `README.md` |
+| Existant technique (lecture seule) | `app/package.json`, `package-lock.json`, configs TS/lint/test/build/Playwright, `app/**`, `harness/**`, `.github/workflows/**` |
 
 ---
 
-## 5. Critères de priorité
+## 3. État réel du repository (constat)
 
-Une story est **P0** si son absence empêche la démonstration opératoire I7 gouvernée (chat réel + action Markdown bornée + gate + preuves).
+### 3.1 Application Studio (`projects/sfia-studio/app`)
 
-Une story est **P1** si elle est requise pour l’intégrité fail-closed (secrets, paths, locks, REPORT_INCOMPLETE, audit) mais peut être démontrée juste après le nominal.
+| Élément | Constat |
+|---------|---------|
+| Stack | Next.js 15 · React 19 · TypeScript · Vitest · Playwright · ESLint (`eslint-config-next`) |
+| Lockfile | `package-lock.json` **présent** (installation déterministe via `npm ci` possible) |
+| Scripts **existants** | `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `test:e2e` |
+| Tests | `__tests__/` (Vitest) · `e2e/` (Playwright) · fixtures UI P0 |
+| Nature P0 | Fixtures locales ; pas d’API/auth/BDD/orchestration réelle OPS1 |
+| `.gitignore` app | `node_modules/`, `.next/`, `coverage/`, `playwright-report/`, `test-results/`, `.env*` |
 
-Une story est **P2** si elle améliore UX, FinOps ou DevOps sans bloquer la preuve.
+### 3.2 Harness historique (`projects/sfia-studio/harness`)
 
-Une story est **OUT** si elle exige MVP, production, remote auto, multi-projets hors Campus360, ou CI delivery complète.
+| Élément | Constat |
+|---------|---------|
+| Rôle | Harness POC S1 (Option B) — **historique** ; ≠ runtime OPS1 validé |
+| Scripts | `typecheck`, `test`, `build`, `cli`, spikes Cursor/GPT |
+| Limite | Ne pas présenter le harness comme le runtime OPS1 cible |
 
----
+### 3.3 CI GitHub
 
-## 6. Tailles relatives (candidates)
+| Élément | Constat |
+|---------|---------|
+| Workflow existant | `.github/workflows/interv360-ci.yml` — **Interv360 uniquement** |
+| Workflow SFIA Studio / OPS1 | **ABSENT** |
+| Conclusion | Aucune CI PR OPS1 **n’existe** ; toute CI Studio = **CANDIDATE** |
 
-| Taille | Lecture qualitative |
-|--------|---------------------|
-| **XS** | Contrôle local / schema / doc runtime mince |
-| **S** | Composant borné ou écran d’état simple |
-| **M** | Flux multi-composants avec preuves |
-| **L** | Incrément transversal (runner + store + UI) |
-| **XL** | Lot multi-incréments — à découper avant delivery |
+### 3.4 Ignore / runtime
 
-Aucune charge en jours/heures. Les tailles constituent des estimations qualitatives du **modèle validé avec réserves** — pas d’engagement calendaire ni d’autorisation d’implémentation.
-
----
-
-## 7. Mapping I1–I7
-
-| Incrément | Intention | Epics principaux ([`61`](./61-ops1-epics-stories-and-acceptance-criteria.md)) | Priorité dominante |
-|-----------|-----------|-----------------------------------------------------------------------------|--------------------|
-| **I1** | Session + journal | E01 Session · E12 UX états | P0 |
-| **I2** | Conversation GPT réelle multi-tours | E02 Conversation · E12 UX | P0 (live gate distinct) |
-| **I3** | Qualification + proposition d’action + gate | E03 Qualification · E04 Gate Morris | P0 |
-| **I4** | Contrat + Cursor Markdown borné | E05 Contrat/hash · E06 Paths · E07 Worktree/runner | P0 |
-| **I5** | Rapport + conversation post-exécution | E10 Rapport · E11 Reprise post-exec | P0 |
-| **I6** | Clôture, historique, reprise | E01 Session (CLOSE) · E11 · E13 Audit | P0/P1 |
-| **I7** | Démonstration opératoire | E17 Démo I7 · transverses E14–E16 | P0 (preuve) |
-
-Transverses : E08 Stockage · E09 Idempotence · E13 Observabilité · E14 Sécurité · E15 Contrôles locaux / DevOps prep · E16 FinOps.
+| Élément | Constat |
+|---------|---------|
+| Root `.gitignore` | `node_modules/`, `.env*`, `.sandbox/**` (Increment D) |
+| `.sfia-exec/**` | **Non** listé aujourd’hui — politique d’ignore = **candidate** (`OPS1-DEVOPS-CAND-05`) |
+| SQLite / artefacts OPS1 | **Non créés** |
 
 ---
 
-## 8. Stratégie d’incréments (candidate)
+## 4. Principes d’intégration
+
+1. **Git = vérité documentaire** ; SQLite = état opérationnel local ; fichiers append-only = preuves immuables (`OPS1-TECH-CAND-12`).
+2. **Morris L0** ; chat ≠ GO ; fail-closed / default deny.
+3. **Studio ≠ orchestrateur** (AF-Option C) — cockpit vs runtime d’exécution.
+4. **Worktree = isolation Git**, pas sandbox OS forte (`OPS1-TECH-CAND-01` Amendement 1).
+5. **Réseau désactivé par défaut** ; secrets absents d’env/prompt/rapport (`OPS1-TECH-CAND-03/04`).
+6. **Aucun effet Git distant** du runner (`OPS1-TECH-CAND-26`).
+7. **`contractHash` ≠ `executionAttemptId`** ; **aucun retry automatique** (`OPS1-TECH-CAND-14…17`).
+8. **`REPORT_INCOMPLETE` / `METRICS_INCOMPLETE`** explicites — jamais COMPLETED silencieux.
+9. **Contrôles locaux obligatoires** avant delivery ; **CI PR = cycle distinct** d’implémentation après validation du présent pack (`OPS1-TECH-CAND-20`, `OPS1-BACKLOG-CAND-18`).
+10. Séparation des cycles : backlog ≠ DevOps doc ≠ CI implémentée ≠ delivery ≠ live.
+
+---
+
+## 5. Structure technique candidate (sans création)
+
+> Chemins **candidats** — aucun dossier/fichier de code créé dans ce cycle.
+
+| Rôle | Emplacement candidat | Versionné ? |
+|------|----------------------|-------------|
+| Studio UI / domaine P0+ | `projects/sfia-studio/app/**` | Oui (code) |
+| Contrats / docs OPS1 | `projects/sfia-studio/NN-*.md` | Oui |
+| Runtime / runner OPS1 (futur) | `projects/sfia-studio/runtime/` **ou** module dédié hors UI (à trancher en delivery) — **≠** réécrire le harness POC comme vérité | Code futur versionné |
+| Worktree d’exécution | `.sfia-exec/<executionId>/` via `git worktree add` depuis `baseHeadSha` (`58`) | Non (état runtime) |
+| SQLite opérationnel | `.sfia-exec/<executionId>/state/ops1.sqlite` (ou `data/ops1.sqlite` sous racine exec) | Non |
+| Artefacts append-only | `.sfia-exec/<executionId>/artifacts/` — contrats gelés, gate decisions, rapports, diffs, preuves, logs exportables | Non (preuves locales) ; exports sélectionnés versionnables sous décision Morris |
+| Fixtures tests | `app/fixtures/**`, futurs `runtime/fixtures/**` | Oui |
+| Tests unitaires | `app/__tests__/**` ; futurs tests runtime colocalisés | Oui |
+| Tests intégration | candidats `app/__tests__/integration/**` ou `runtime/tests/integration/**` | Oui |
+| Tests E2E | `app/e2e/**` (Playwright existant) | Oui |
+| Temporaires | `.tmp-sfia-review/**`, `app/test-results/**`, caches build | Non |
+| Campus360 (cible action) | `projects/campus360/**` selon allowlist gelée | Oui (contenu métier) |
+
+### 5.1 Séparation versionné / runtime / temporaire
+
+| Classe | Exemples | Règle |
+|--------|----------|-------|
+| **Versionné** | code Studio, docs, fixtures, tests, configs | Revue PR ; pas de secrets |
+| **Runtime** | SQLite, locks, worktrees `.sfia-exec`, tentatives | Local ; purge gouvernée ; pas de commit automatique |
+| **Temporaire** | `.next/`, coverage, playwright-report, `.tmp-*` | Ignoré ; nettoyable |
+| **Append-only preuves** | contrats, rapports, PN | Immuables une fois écrits ; pas de rewrite |
+
+### 5.2 `.gitignore` futur (candidat)
+
+Ajouter / confirmer (cycle d’implémentation distinct) :
+
+- `.sfia-exec/`
+- `**/*.sqlite` / `**/*.sqlite-journal` / `**/*.db`
+- conservation éventuelle de `.gitkeep` sous racines vides autorisées
+- ne pas ignorer les docs `63`–`65` ni le code versionné
+
+### 5.3 Branches et worktrees
+
+| Usage | Convention candidate |
+|-------|----------------------|
+| Documentaire DevOps | `devops/sfia-studio-ops1-*` |
+| Delivery lots | sous GO delivery distinct (ex. `delivery/sfia-studio-ops1-i1`) |
+| Exécution scénario | `scenario/campus360-<slug>-<id>` **locale** (`OPS1-TECH-CAND-10`) |
+| Worktree exec | `.sfia-exec/<executionId>/` lié à la branche d’exécution |
+| Handoff revue | `sfia/review-handoff` (L3 borné) |
+
+---
+
+## 6. Dépendances et installation
+
+| Règle | Détail |
+|-------|--------|
+| Déterminisme | `npm ci` dans `projects/sfia-studio/app` (lockfile présent) — **EXISTS** comme pratique ; script dédié racine = **CANDIDATE** |
+| Interdit ce cycle | `npm install` modifiant le lockfile ; ajout de packages |
+| Harness | installation séparée si réutilisé pour spikes — hors socle OPS1 delivery tant que non sélectionné |
+| Node | CI Interv360 utilise Node 20 — **référence de fait** ; pin Studio = **CANDIDATE** (engines non déclarés dans `package.json` Studio) |
+
+---
+
+## 7. Configuration
+
+| Domaine | État |
+|---------|------|
+| `tsconfig.json` / `eslint.config.mjs` / `vitest.config.ts` / `playwright.config.ts` / `next.config.ts` | **EXISTENT** (app P0) |
+| Config runner OPS1 (env allowlist, network deny, path root) | **CANDIDATE** — non créée |
+| Secrets | `.env*` ignorés ; **aucun secret** requis pour contrôles socle locaux/CI de base |
+| Feature flags live | **fermés** (gates live distincts) |
+
+---
+
+## 8. Secrets et réseau
+
+| Règle | Obligation |
+|-------|------------|
+| Secrets interdits | tokens API, credentials Git, clés SSH, cookies, contenus `.env` dans prompts/rapports/artefacts/logs CI |
+| Variables non sensibles OK | `NODE_ENV`, chemins relatifs de projet, flags `FIXTURE_MODE=1`, versions outil |
+| Filtrage env runner | allowlist stricte (`OPS1-TECH-CAND-04`) |
+| Réseau | **deny by default** ; exceptions live sous gate Morris + preuve |
+| Tests fournisseur externe | hors CI socle ; séparés fixture vs live |
+| Redaction | masquage systématique patterns secret ; échec = stop |
+| Pré/post | scan secrets avant/après exécution candidate |
+
+---
+
+## 9. Stockage SQLite et artefacts
+
+| Artefact | Store | Versionné | Append-only | Conservation candidate |
+|----------|-------|-----------|-------------|------------------------|
+| Sessions / états / locks / attempts | SQLite | Non | N/A (mutable contrôlé) | durée lot + revue Morris ; purge sous GO cleanup |
+| Contrat gelé | fichier | Non (sauf export décidé) | Oui | correlé `contractHash` |
+| Gate decision | fichier | Idem | Oui | correlé attempt |
+| Rapport / diff / preuves / PN | fichier | Idem | Oui | idem |
+| Métriques | SQLite + extrait rapport | Non | partiel | `METRICS_INCOMPLETE` si manquantes |
+| `REPORT_INCOMPLETE` | rapport | Non | Oui | bloque COMPLETED |
+| Logs exportables | fichier | Non | Oui | redacted |
+
+**Corrélation :** `executionId` · `contractHash` · `executionAttemptId` · `baseHeadSha` · timestamps.
+
+**Crash recovery :** pas de reprise opaque ; nouvel attempt = décision Morris (`OPS1-TECH-CAND-16`).
+
+**Retry automatique :** **interdit**.
+
+---
+
+## 10. Stratégie de tests
+
+| Couche | Outil actuel | Portée OPS1 |
+|--------|--------------|-------------|
+| Unitaire | Vitest (`npm test`) — **EXISTS** | schémas, hash, mapping, redaction (à étendre en delivery) |
+| Intégration | **PARTIAL / CANDIDATE** | paths, allowlist, sqlite, runner wrappers |
+| E2E UI | Playwright (`npm run test:e2e`) — **EXISTS** (P0) | surfaces Studio ; pas live GPT |
+| Contrôles sécurité locaux | **CANDIDATE** | secrets, remote Git, symlinks, realpath |
+| Live | **NOT REQUIRED** tant que gates live fermés | séparé |
+
+Fixture ≠ live : tout test non-live doit être étiqueté (`OPS1-US-E02-03`).
+
+---
+
+## 11. Stratégie CI PR candidate (non implémentée)
+
+> Aucun fichier `.github/**` créé ou modifié dans ce cycle.
+
+| Élément | Proposition candidate |
+|---------|------------------------|
+| Triggers | `pull_request` sur chemins `projects/sfia-studio/**` (+ workflow file) ; pas de `workflow_dispatch` large sans besoin |
+| Permissions | `contents: read` minimal ; pas `write` ; pas `id-token` sauf besoin futur justifié |
+| Secrets | **aucun** pour jobs socle |
+| Forks | pas de secrets ; jobs read-only ; option skip E2E lourds |
+| Jobs suggérés | `doc-guard` → `app-quality` (lint/typecheck/unit/build) → `e2e` optionnel ; fail-fast sur secrets/protected |
+| Artefacts | logs junit / rapports test retenus courte durée (ex. 7–14 j) |
+| Cache | `npm` cache scoped ; pas de cache cross-fork sensible |
+| Path filters | ignorer hors `projects/sfia-studio/**` |
+| Anti-remote | asserts documentaires + futurs tests runner |
+| Incomplete | job rouge si rapport/métriques déclarés incomplets là où exigés |
+| Implémentation | **uniquement** après `G-OPS1-DEVOPS-VAL` **et** GO Morris d’implémentation CI distinct |
+
+---
+
+## 12. Observabilité des contrôles
+
+Chaque contrôle produit : statut PASS/FAIL/INCOMPLETE · commande · SHA · timestamp · artefact preuve · corrélation IDs.
+
+États incomplets :
+
+- `REPORT_INCOMPLETE` — couverture preuve insuffisante ;
+- `METRICS_INCOMPLETE` — métriques obligatoires absentes (cause explicite).
+
+---
+
+## 13. Rollback
+
+| Couche | Rollback |
+|--------|----------|
+| Documentaire DevOps | revert commits docs / fermer PR future sans merge |
+| Runtime local | supprimer worktree `.sfia-exec/<id>` sous GO cleanup ; SQLite non versionné |
+| Delivery futur | revert PR lot ; pas de remote auto |
+| CI future | désactiver workflow ; pas de force-push |
+
+---
+
+## 14. Risques
+
+| Risque | Mitigation |
+|--------|------------|
+| Confusion harness POC = runtime OPS1 | frontière documentaire explicite |
+| Claim « CI existante Studio » | Interv360 ≠ Studio ; CI Studio = CANDIDATE |
+| Worktree pris pour sandbox forte | amendement tech-arch rappelé |
+| Secrets dans CI | jobs sans secrets ; scan |
+| Ouverture delivery via DevOps doc | gates séparés `G-OPS1-DEVOPS-VAL` ≠ GO Delivery I1 |
+| Ignore manquant `.sfia-exec` | CAND-05 |
+
+---
+
+## 15. Dette
+
+- Pin Node/`engines` non déclaré Studio.
+- Pas de script racine monorepo pour contrôles OPS1.
+- Pas de suite intégration paths/sqlite.
+- Pas d’entrée `.gitignore` `.sfia-exec`.
+- Dettes tech-arch : isolation OS, FinOps numériques, stack/fournisseur.
+
+---
+
+## 16. Réserves maintenues
+
+- `FD-CAND-15` — seuils FinOps numériques **OPEN**
+- `UX-R01…R04` **OPEN**
+- Stack / fournisseur **non finalisés**
+- Worktree ≠ sandbox OS forte
+- CI PR **non implémentée**
+- GPT live / Cursor live **fermés**
+- Delivery I1 / MVP / production **fermés**
+
+---
+
+## 17. Hors périmètre (ce cycle)
+
+Code applicatif · workflows GitHub · `package.json`/lockfiles · SQLite réel · runner · Delivery I1 · live · déploiement · release · production · L4/L5 · modification méthode.
+
+---
+
+## 18. Gates
+
+| Gate | État |
+|------|------|
+| `G-OPS1-DEVOPS` | **consommé** (ouverture) |
+| `G-OPS1-DEVOPS-VAL` | **AWAITING** |
+| GO implémentation CI | **non ouvert** |
+| GO Delivery I1 | **non ouvert** |
+| Gates live | **non ouverts** |
+
+### Conditions minimales avant Delivery I1 (rappel)
+
+1. `G-OPS1-DEVOPS-VAL` consommé (présent pack) ;
+2. structure / commandes / tests / stockage / secrets-réseau / chemins validés ou réserves acceptées ;
+3. périmètre exact lot I1 + allowlist delivery ;
+4. rollback + preuves attendues ;
+5. **nouveau GO Morris delivery** explicite (`OPS1-BACKLOG-CAND-17`, `OPS1-TECH-CAND-24`).
+
+---
+
+## 19. Critères de validation du cycle documentaire
+
+- Docs `63`–`65` + README cohérents ;
+- commandes EXISTS vs CANDIDATE non confondues ;
+- décisions `65` toutes `AWAITING G-OPS1-DEVOPS-VAL` ;
+- invariants `57`–`62` respectés ;
+- aucun code / CI / dépendance modifiés ;
+- review pack + handoff publiés.
+
+**Verdict documentaire candidat :** `OPS1 INTEGRATION DEVOPS FOUNDATION DOCUMENTED — AWAITING G-OPS1-DEVOPS-VAL`
+
+---
+
+*Document candidat — 2026-07-20 21:06:00 CEST — aucune validation Morris de contenu tant que `G-OPS1-DEVOPS-VAL` non consommé.*
+
+
+---
+
+# Contenu complet — 64
+
+# 64 — OPS1 Local Controls, CI and Evidence Contract
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `64-ops1-local-controls-ci-and-evidence-contract.md` |
+| **Complément** | [`63`](./63-ops1-integration-devops-foundation.md) · [`65`](./65-ops1-integration-devops-decision-pack.md) |
+| **Statut** | contrat **candidat** — `G-OPS1-DEVOPS-VAL` AWAITING |
+| **Horodatage** | 2026-07-20 21:06:00 CEST |
+| **Base** | `origin/main` @ `6584646…` |
+
+> Matrice des contrôles locaux et CI candidats pour OPS1.
+> Statuts commande : **EXISTS** · **PARTIAL** · **CANDIDATE** · **NOT REQUIRED OPS1**.
+> Une commande **CANDIDATE** n’existe pas encore dans le repository comme automatisation OPS1.
+
+---
+
+## 1. Légende des statuts
+
+| Statut | Signification |
+|--------|----------------|
+| **EXISTS** | Commande ou pratique vérifiable aujourd’hui dans le repo |
+| **PARTIAL** | Socle partiel (ex. ignore `.env`) sans outillage complet |
+| **CANDIDATE** | À créer dans un futur delivery ou cycle d’implémentation CI/DevOps |
+| **NOT REQUIRED OPS1** | Existe éventuellement ailleurs ; hors obligation OPS1 delivery |
+
+Codes retour attendus (convention) : `0` = PASS ; `≠0` = FAIL/STOP ; états métier `REPORT_INCOMPLETE` / `METRICS_INCOMPLETE` ≠ succès silencieux.
+
+---
+
+## 2. Matrice des contrôles
+
+| Contrôle | Portée | Commande actuelle ou candidate | Entrées | Résultat attendu | Preuve | Stop condition | Statut |
+|----------|--------|-------------------------------|---------|------------------|--------|----------------|--------|
+
+| Branche / HEAD / base | Git local | `git branch --show-current` · `git rev-parse HEAD` · `git rev-parse origin/main` · `git merge-base` | repo cloné | HEAD = base attendue ou descendante compatible | stdout capturé + SHA | divergence non autorisée / base inconnue | EXISTS |
+| Working tree clean (projet) | Git local | `git status --short` | repo | pas de modifs hors allowlist cycle | status dump | modifs hors allowlist | EXISTS |
+| Staged vide (pré-commit cycle) | Git local | `git diff --cached --name-only` | index | sortie vide hors staging volontaire | stdout | staging parasite | EXISTS |
+| Allowlist fichiers cycle | Doc/Git | revue `git diff --name-status` vs allowlist cycle | diff | uniquement fichiers autorisés | diff name-status | fichier hors allowlist | EXISTS (manuel) / CANDIDATE (script) |
+| Fichiers protégés 01–62 / method / prompts | Doc/Git | `git diff` + path denylist | diff | aucun touch protégé | diff | modification protégée | EXISTS (manuel) / CANDIDATE (script) |
+| Chemins / realpath / racine | Runtime futur | contrôle runner candidat (realpath + prefix root) | chemins contrat | tous chemins sous racine autorisée | log validation paths | échappe racine | CANDIDATE |
+| Allowlist Campus360 | Runtime/scénario | validation listes `allowedReads/Modifies/Creates` | contrat gelé | sous-ensemble exhaustif ; pas de wildcard nu | contrat + preuve négative | path hors allowlist / wildcard | CANDIDATE (runtime) ; règles EXISTS en docs `55` |
+| Symlinks | Runtime | detect symlink escape post-realpath | paths | deny escape | log | symlink escape | CANDIDATE |
+| Environnement filtré | Runtime | env allowlist runner | process env | uniquement vars non sensibles autorisées | dump redacted env keys | secret ou var interdite | CANDIDATE |
+| Secrets scan | Local/CI | scan patterns (gitleaks/candidate) + grep `.env` | tree + diff | 0 secret | rapport scan | secret détecté | PARTIAL (gitignore `.env`) / CANDIDATE (scan outillé) |
+| Réseau deny default | Runtime | policy network off + probe | runner | pas d’egress sauf exception gate | preuve config + PN si besoin | egress non autorisé | CANDIDATE |
+| Remote Git bloqué | Runtime/Git | wrapper git deny push/fetch remote write | commandes git | remote write refuse | log deny + PN-09 | push/PR/merge auto | CANDIDATE (runtime) ; politique EXISTS `OPS1-TECH-CAND-26` |
+| Canonicalisation contrat | Runtime | canonical JSON/MD déterministe | contrat | bytes stables | contrat canonique + hash | divergence canon | CANDIDATE |
+| Hash SHA-256 `contractHash` | Runtime | sha256(canon) | contrat | hash stable ; ≠ attemptId | fichier hash | mismatch / confusion IDs | CANDIDATE |
+| Gate Morris présent | Fonctionnel | vérif artefact gate decision | session | GO explicite avant exec | gateDecision append-only | exec sans gate | CANDIDATE (impl) ; règle EXISTS docs |
+| SQLite opérationnel | Runtime | init schema + integrity_check | path sqlite | schema OK ; hors git | log + schema version | sqlite versionné / corrupt | CANDIDATE |
+| Append-only artefacts | Runtime | write-once files under artifacts/ | payloads | pas de rewrite | fs evidence | mutation preuve | CANDIDATE |
+| Locks / attempts | Runtime | lock session + `executionAttemptId` | sqlite | un attempt actif ; pas retry auto | rows attempt | double exec / retry auto | CANDIDATE |
+| Rapport `REPORT_INCOMPLETE` | Runtime/QA | génération rapport strict | preuves | COMPLETED seulement si couverture OK | rapport | COMPLETED silencieux / incomplete ignoré | CANDIDATE |
+| Métriques `METRICS_INCOMPLETE` | Obs | collecte métriques déclarées | rapport | manquantes → état explicite + cause | section metrics | métriques absentes silencieuses | CANDIDATE |
+| Lint | App Studio | `npm run lint` (cwd `app`) | sources TS/JS | exit 0 | log lint | lint errors | EXISTS |
+| Typecheck | App Studio | `npm run typecheck` | tsconfig | exit 0 | log tsc | erreurs TS | EXISTS |
+| Tests unitaires | App Studio | `npm test` (vitest run) | __tests__ | exit 0 | rapport vitest | échec test | EXISTS |
+| Tests intégration | App/Runtime | suite intégration candidate | fixtures + fs | exit 0 | rapport | échec / suite absente si exigée | CANDIDATE (Studio) ; PARTIAL si seuls unitaires |
+| E2E | App Studio | `npm run test:e2e` | playwright.config + e2e/ | exit 0 | playwright-report/ (non versionné) | échec E2E | EXISTS |
+| Build | App Studio | `npm run build` | sources | build Next OK | log build | échec build | EXISTS |
+| Installation déterministe | App Studio | `npm ci` | package-lock.json | node_modules aligné lock | log npm ci | lock drift / install ad hoc | EXISTS (commande npm) ; script wrapper CANDIDATE |
+| Diff check whitespace | Git | `git diff --check` | diff | clean | stdout | whitespace errors | EXISTS |
+| Markdown / liens docs | Docs | lychee/markdown-link-check **candidat** | docs md | liens OK | rapport liens | lien cassé | CANDIDATE |
+| Contrôle fichiers protégés CI | CI future | path filter job | PR files | deny method/prompts/.github studio edits hors GO | check annotation | touch protégé | CANDIDATE |
+| Anti-effet distant CI | CI/docs | pas de credentials push ; permissions read | workflow | aucun push depuis job | workflow yaml futur | permission write injustifiée | CANDIDATE |
+| Artefacts CI rétention | CI | upload-artifact courte | rapports | retention 7–14j candidate | meta artifact | rétention infinie secrets | CANDIDATE |
+| Cleanup worktree/runtime | Ops local | script cleanup sous GO | `.sfia-exec` | suppression gouvernée | preuve cleanup | cleanup sans GO / fuite données | CANDIDATE |
+| Harness typecheck/test (hist.) | Harness POC | `npm run typecheck` / `npm test` (cwd harness) | harness/ | vert si utilisé | logs | N/A OPS1 delivery tant que non sélectionné | EXISTS mais NOT REQUIRED OPS1 delivery |
+| CI Interv360 | Autre projet | workflow `interv360-ci.yml` | interv360 paths | N/A Studio | — | ne pas invoquer comme CI Studio | EXISTS (autre projet) / NOT REQUIRED OPS1 |
+
+
+---
+
+## 3. Graphe logique des contrôles (ordre)
 
 ```text
-I1 (session) → I2 (chat réel*) → I3 (action+gate) → I4 (exec bornée)
-  → I5 (rapport+reprise) → I6 (clôture) → I7 (démo bout-en-bout)
+[0] Truth Git (branche/HEAD/base/status/staged)
+        ↓
+[1] Allowlist cycle + fichiers protégés + diff --check
+        ↓
+[2] Install déterministe (npm ci) — si code touché
+        ↓
+[3] Secrets scan (local)
+        ↓
+[4] Lint → Typecheck → Unit → (Integration) → Build → E2E
+        ↓
+[5] (Runtime delivery) Path/realpath/symlink/allowlist Campus360
+        ↓
+[6] Env filter + network deny + remote Git deny
+        ↓
+[7] Contract canon + contractHash + gateDecision
+        ↓
+[8] SQLite + locks + attemptId (≠ hash)
+        ↓
+[9] Append-only artefacts + rapport
+        ↓
+[10] Metrics completeness → PASS | REPORT_INCOMPLETE | METRICS_INCOMPLETE
+        ↓
+[11] Cleanup gouverné (GO distinct) — hors chemin nominal happy-path
 ```
 
-\* I2 / I7 nécessitent un gate Morris **live** distinct (`G-OPS1-LIVE-CONVERSATION` ou équivalent) — **non ouvert** par ce backlog.
-
-Ordre de robustesse recommandé avant I7 : E06 + E07 + E08 + E09 + E10 (P1) au moins sur le chemin nominal.
+CI PR candidate (futur) rejoue un sous-ensemble **sans secrets** des étapes [1]–[4] (+ doc-guard), jamais les effets runtime distants.
 
 ---
 
-## 9. Dépendances
+## 4. Règles fail-closed
 
-| Dépendance | Nature |
-|------------|--------|
-| Tech-arch `57`–`59` | Contrat runtime, stockage, CI locale |
-| Scénario `54`–`56` | Allowlist Campus360, PN, continuation |
-| UX `51`–`53` | Surfaces desktop ; UX-R01…R04 ouvertes |
-| FD-CAND-15 | Seuils numériques **OPEN** jusqu’à FinOps/live |
-| Cycle DevOps | CI PR — **hors** delivery OPS1 initial |
-| Gate live | Conversation GPT réelle — **fermé** |
+1. Toute absence de preuve exigée ⇒ **FAIL** ou **INCOMPLETE**, jamais PASS implicite.
+2. Secret détecté ⇒ **STOP** immédiat.
+3. Path/symlink/allowlist violation ⇒ **STOP** ; pas d’exécution.
+4. Remote Git write tenté ⇒ **STOP** + preuve négative.
+5. Retry automatique après échec attempt ⇒ **STOP** (interdit).
+6. `COMPLETED` avec preuves/métriques manquantes ⇒ **STOP** / invalidation.
 
 ---
 
-## 10. Hypothèses (explicites — non décisions)
+## 5. Convention de rapport de contrôle
 
-- Un runtime local (app + store) pourra être choisi plus tard sans invalider les stories.
-- Campus360 reste le seul projet cible OPS1 pour l’action Markdown.
-- Les fixtures peuvent soutenir I1/tests ; I2/I7 exigent GPT réel sous gate live.
-- Le handoff Git et le template SFIA v2.6 restent le canal de revue.
-
----
-
-## 11. Réserves maintenues
-
-| Réserve | Statut |
-|---------|--------|
-| FD-CAND-15 — FinOps numériques | **OUVERTE** |
-| UX-R01 — tablette/mobile après desktop | **OUVERTE** |
-| UX-R02 — microcopies avant delivery | **OUVERTE** |
-| UX-R03 — design system avant industrialisation | **OUVERTE** |
-| UX-R04 — transverse | **OUVERTE** |
-| Stack / fournisseur | **NON FINALISÉS** |
-| Worktree ≠ sandbox OS forte | Dette documentée |
-| CI PR | Cycle Intégration/DevOps distinct |
+```text
+controlId: <id>
+status: PASS | FAIL | REPORT_INCOMPLETE | METRICS_INCOMPLETE
+command: <cmd or N/A>
+exitCode: <n>
+headSha: <sha>
+contractHash: <sha|null>
+executionAttemptId: <id|null>
+artifactPath: <path|null>
+notes: <redacted>
+```
 
 ---
 
-## 12. Périmètre inclus
+## 6. États incomplets
 
-- Stories documentaires couvrant I1–I7 et transverses sécurité / observabilité / QA / FinOps placeholders.
-- Critères d’acceptation testables et preuves attendues.
-- Préparation documentaire des contrôles locaux socle (Amendement 4).
-- Préparation documentaire du futur cycle DevOps (sans l’ouvrir).
-
----
-
-## 13. Périmètre exclu
-
-- Implémentation / code / packages.
-- Delivery / déploiement / release / production.
-- GPT live / Cursor live sans gate Morris distinct.
-- Pipeline CI delivery complète.
-- Force push / remote Git auto dans le runtime.
-- Choix définitif de stack ou fournisseur.
-- MVP défini.
-- Modification Campus360 ou packs validés `41`–`59`.
+| État | Quand | Effet |
+|------|-------|-------|
+| `REPORT_INCOMPLETE` | preuves/couverture insuffisantes | bloque clôture SUCCESS ; pas de retry auto |
+| `METRICS_INCOMPLETE` | métriques obligatoires absentes | explicite + cause ; pas COMPLETED masquant |
 
 ---
 
-## 14. Definition of Ready documentaire (story)
+## 7. Matrice contrôle → backlog stories
 
-Une story est **Ready documentaire** si :
-
-1. Identifiant, epic, priorité candidate, taille candidate présents.
-2. Acteur, besoin, valeur, préconditions explicites — formulation utilisateur en capacité/comportement observable (**pas** un identifiant CAND/Amendement/FD/I# comme besoin principal).
-3. Scénario nominal + erreurs / stop conditions.
-4. Critères d’acceptation testables (Given/When/Then) couvrant état initial, déclencheur, résultat attendu, comportement négatif/stop et preuve.
-5. Preuves attendues listées.
-6. Traçabilité vers ≥1 décision/exigence source (les identifiants techniques restent ici, pas dans la formulation principale).
-7. Aucune dépendance à une stack non choisie.
-8. Réserve éventuelle nommée (FD-CAND-15 / UX-Rx).
-9. Statut = `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` (après `G-OPS1-BACKLOG-VAL`).
-10. Si la story déclare des métriques obligatoires : pas d’absence silencieuse — état explicite `METRICS_INCOMPLETE` (ou équivalent) + cause + pas de COMPLETED masquant l’absence.
-
----
-
-## 15. Definition of Done documentaire (story / backlog)
-
-### 15.1 Story Done (futur — hors ce cycle)
-
-1. Critères d’acceptation vérifiés en delivery sous GO distinct.
-2. Preuves produites et corrélées (`contractHash` / `executionAttemptId` si applicable).
-3. Aucune écriture Git distante automatique.
-4. Fail-closed démontré si story de contrôle négatif.
-5. Rapport / audit sans secrets.
-
-### 15.2 Backlog Done (ce cycle documentaire)
-
-1. Docs `60`–`62` complets et cohérents.
-2. Couverture I1–I7 + 17 domaines minimaux.
-3. Toutes décisions `62` validées avec réserves (`G-OPS1-BACKLOG-VAL`).
-4. Review pack full + handoff distant vérifié.
-5. Aucun claim READY FOR DELIVERY / READY FOR IMPLEMENTATION / COMMITTED FOR SPRINT (validation ≠ autorisation d’implémentation).
+| Contrôle (groupe) | Stories |
+|-------------------|---------|
+| Git HEAD/base/working tree | E05-02 · E15-01 |
+| Allowlist / paths / symlinks / realpath | E06-01 · E06-02 · E06-03 |
+| Contract hash / canon / gate | E05-01 · E05-03 · E04-* |
+| Worktree / runner / env / network / remote | E07-01 · E07-02 · E07-03 · E14-01 · E14-02 |
+| SQLite / append-only | E08-01 · E08-02 |
+| Locks / attempts / recovery / no retry | E09-01…E09-04 |
+| Rapport / PN remote | E10-01 · E10-02 |
+| Observabilité / métriques | E13-01 · E13-02 |
+| Lint/typecheck/unit/E2E/build locaux | E15-01 |
+| CI PR | **E15-02** (sous GO DevOps impl + VAL) |
+| Fixture ≠ live | E02-03 |
+| FinOps placeholder | E16-01 (FD-CAND-15) |
+| Anti-claims I7 | E17-01 · E17-02 |
 
 ---
 
-## 16. Règles d’ouverture d’une story vers delivery
+## 8. Matrice contrôle → décisions techniques
 
-Une story ne peut entrer en delivery que si :
-
-1. `G-OPS1-BACKLOG-VAL` consommé (backlog validé ou amendé) ;
-2. GO delivery Morris **distinct** pour le lot ;
-3. DoR documentaire satisfaite ;
-4. dépendances P0 du lot satisfaites ou explicitement waivées par Morris ;
-5. aucune réserve bloquante non arbitrée pour ce lot ;
-6. pas d’élargissement hors allowlist Campus360 sans gate scénario.
-
----
-
-## 17. Gates Morris nécessaires (hors consommation)
-
-| Gate | Rôle |
-|------|------|
-| `G-OPS1-BACKLOG-VAL` | Valider / amender / rejeter ce backlog |
-| GO delivery (lot n) | Autoriser implémentation d’un lot |
-| GO Intégration/DevOps | Autoriser CI PR |
-| Gate live conversation | Autoriser GPT réel I2/I7 |
-| Gate FinOps/live | Lever ou fixer FD-CAND-15 |
+| Contrôle (groupe) | `OPS1-TECH-CAND` |
+|-------------------|------------------|
+| Isolation worktree / runner | 01 · 02 |
+| Network / secrets | 03 · 04 |
+| Paths / symlinks | 05 · 06 |
+| Canon / hash / HEAD | 07 · 08 · 09 · 25 |
+| Branche exec / no commit auto | 10 · 11 |
+| SQLite + append-only | 12 |
+| Idempotence / lock / recovery / incomplete | 14 · 15 · 16 · 17 |
+| Audit / obs | 18 · 19 |
+| CI local vs PR | **20** |
+| Cleanup GO | 21 |
+| FinOps | 22 |
+| Delivery open | 24 |
+| Remote block | **26** |
 
 ---
 
-## 18. Risques et dette
+## 9. Matrice contrôles → preuves delivery futures
 
-| Risque / dette | Mitigation backlog |
-|----------------|--------------------|
-| Pression à coder avant VAL | Statuts CANDIDATE uniquement |
-| Confusion live vs fixture | Stories I2/I7 marquées gate live |
-| Worktree ≠ sandbox forte | Stories E07/E14 explicites |
-| FinOps inventés | E16 placeholders ; FD-CAND-15 |
-| CI trop tôt | E15 local-only ; DevOps séparé |
-| UX-R non traitées | Stories P2 / réserve |
-
----
-
-## 19. Critères de validation du backlog (`G-OPS1-BACKLOG-VAL`)
-
-Morris peut valider si :
-
-1. Traçabilité sources → epics → stories est complète pour P0.
-2. Aucune story P0 ne fige une stack.
-3. Réserves FD-CAND-15 et UX-R01…R04 sont visibles.
-4. Séparation backlog / DevOps / delivery / live est claire.
-5. I1–I7 sont couverts sans ouvrir le delivery.
-6. Decision pack `62` est cohérent et entièrement AWAITING.
+| Preuve delivery | Contrôles sources |
+|-----------------|-------------------|
+| Journal session I1 | HEAD/base · rapport · metrics |
+| Contrat + hash | canon · hash · gate |
+| Preuve négative remote | remote deny · PN |
+| Preuve paths | realpath · allowlist · symlink |
+| Rapport clôture | REPORT/METRICS completeness |
+| Qualité code lot | lint · typecheck · unit · build · e2e |
 
 ---
 
-## 20. Anti-claims
+## 10. Inventaire commandes
 
-Ce document **n’affirme pas** : READY FOR DELIVERY · READY FOR IMPLEMENTATION · BACKLOG VALIDATED · STACK FINALIZED · MVP DEFINED · LIVE READY · PRODUCTION READY · FULL CI IMPLEMENTED · OPS1 PROVEN.
+### 10.1 EXISTS (Studio `app/`)
+
+- `npm ci` (pratique lockfile)
+- `npm run lint`
+- `npm run typecheck`
+- `npm test`
+- `npm run test:e2e`
+- `npm run build`
+- `npm run dev` / `start` (runtime dev — pas contrôle CI socle obligatoire)
+- Git : `status`, `diff`, `rev-parse`, `diff --check`
+
+### 10.2 EXISTS ailleurs / NOT REQUIRED OPS1 delivery
+
+- Harness : `typecheck`, `test`, `build`, spikes
+- CI Interv360 workflow
+
+### 10.3 CANDIDATE (à ne pas présenter comme existantes)
+
+- Script monorepo `ops1:controls`
+- Scanner secrets outillé
+- Suite intégration paths/sqlite/runner
+- Wrapper git deny-remote
+- Network/env policy enforcement
+- Markdown link check CI
+- Workflow `.github/workflows/sfia-studio-ops1-ci.yml`
+- Cleanup `.sfia-exec` gouverné
+- Pin `engines.node`
 
 ---
 
-## 21. Verdict documentaire
+## 11. Hors périmètre
 
-`OPS1 BACKLOG FRAMING VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — 2026-07-20 20:52:00 CEST`
+Implémentation CI · modification `.github/**` · installation deps · delivery I1 · live · déploiement.
 
-Companions : [`61`](./61-ops1-epics-stories-and-acceptance-criteria.md) · [`62`](./62-ops1-backlog-decision-pack.md).
+---
+
+*Contrat candidat — {STAMP} — AWAITING `G-OPS1-DEVOPS-VAL`.*
 
 
 ---
 
-# Contenu complet — 61-ops1-epics-stories-and-acceptance-criteria.md
+# Contenu complet — 65
 
-
-# SFIA Studio — Backlog OPS1 — epics, stories et critères d’acceptation (candidat)
+# 65 — OPS1 Integration / DevOps Decision Pack
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Document** | `61-ops1-epics-stories-and-acceptance-criteria.md` |
-| **Cycle** | 5 — Backlog / user stories |
-| **Profil** | Standard |
-| **Gate consommé** | `GO G-OPS1-BACKLOG — OPEN BACKLOG CYCLE` |
-| **Gate validation** | `G-OPS1-BACKLOG-VAL` **consommé** — 2026-07-20 20:52:00 CEST |
-| **Statut** | `backlog-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 20:52:00 CEST) |
-| **Companions** | [`60`](./60-ops1-backlog-framing-and-prioritization.md) · [`62`](./62-ops1-backlog-decision-pack.md) |
-| **Branche** | `backlog/sfia-studio-ops1` |
-| **Base** | `origin/main` @ `9bfee8ea113386ee2603093fbec366eda9161c19` |
-| **Epics** | 17 |
-| **Stories** | 41 |
-
-> Statut collectif des stories : `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` — Morris — 2026-07-20 20:52:00 CEST.
-> Aucune story n’est READY FOR DELIVERY / IMPLEMENTATION / COMMITTED FOR SPRINT / LIVE READY.
-> Validation avec réserves : FD-CAND-15 · UX-R01…R04 · stack/fournisseur non finalisés · live/DevOps/delivery fermés.
-
----
-
-## 0. Synthèse epics
-
-| Epic | Titre | Priorité | I1–I7 |
-|------|-------|----------|-------|
-| `OPS1-E01` | Session persistante et journal | P0 | I1,I6 |
-| `OPS1-E02` | Conversation GPT réelle multi-tours | P0 | I2,I7 |
-| `OPS1-E03` | Qualification et proposition d’action | P0 | I3 |
-| `OPS1-E04` | Gate Morris explicite | P0 | I3,I4 |
-| `OPS1-E05` | Contrat canonique, hash et HEAD | P0 | I4 |
-| `OPS1-E06` | Chemins, allowlist et symlinks | P0 | I4 |
-| `OPS1-E07` | Worktree et runner borné | P0 | I4 |
-| `OPS1-E08` | Stockage SQLite et artefacts append-only | P0 | I1,I4,I5 |
-| `OPS1-E09` | Idempotence, locks, tentatives, recovery | P1 | I4,I5 |
-| `OPS1-E10` | Rapport, preuves et REPORT_INCOMPLETE | P0 | I5 |
-| `OPS1-E11` | Reprise conversationnelle post-exécution | P0 | I5,I6 |
-| `OPS1-E12` | UX et états visibles | P0 | I1–I7 |
-| `OPS1-E13` | Observabilité et audit | P1 | I4–I6 |
-| `OPS1-E14` | Sécurité locale | P0 | I4 |
-| `OPS1-E15` | Contrôles locaux et préparation DevOps | P1 | Transverse |
-| `OPS1-E16` | FinOps et réserves numériques | P2 | Transverse |
-| `OPS1-E17` | Démonstration opératoire I7 | P0 | I7 |
-
----
-
-## OPS1-E01 — Session persistante et journal
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Ouvrir/fermer une CycleSession, journaliser les tours, immutabilité CLOSED. |
-| **Valeur OPS1** | Preuve de continuité conversationnelle (I1/I6). |
-| **Décisions / sources** | 41–44 · 45 CAP session · 48 Session Manager · 57/58 Session Store |
-| **Priorité candidate** | P0 |
-| **Dépendances** | — |
-| **Risques** | Confusion nouvelle session vs cycle |
-| **Critères de sortie** | Session OPEN/CLOSED prouvable ; journal corrélé ; CLOSED immuable. |
-| **Gates** | G-OPS1-BACKLOG-VAL ; GO delivery lot I1 |
-| **Mapping** | I1,I6 |
-| **Stories** | `OPS1-US-E01-01`, `OPS1-US-E01-02`, `OPS1-US-E01-03` |
-
-### OPS1-US-E01-01 — Créer CycleSession OPEN
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux ouvrir une session OPS1 traçable, afin de corréler tous les échanges et décisions d’un même parcours. |
-| **Acteur** | Morris/UI |
-| **Besoin** | Ouvrir une session OPS1 traçable |
-| **Valeur** | Corréler échanges et décisions d’un parcours |
-| **Préconditions** | Projet OPS1 sélectionnable |
-| **Scénario nominal** | Morris démarre une session |
-| **Erreurs / stop** | Échec store → STOP |
-| **Critères d’acceptation** | Given l’UI idle sans session active ; When Morris crée une session OPS1 ; Then un sessionId unique est créé avec statut OPEN et un journal initialisé ; And aucune exécution n’est possible avant GO ; Given un échec de persistance store ; When la création est tentée ; Then la session n’est pas considérée OPEN et un STOP/FAILED est journalisé. |
-| **Preuves attendues** | session.json + event SESSION_OPENED |
-| **Dépendances** | — |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E01-02 — Journaliser tours conversationnels
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux persister chaque tour de conversation, afin de permettre une reprise multi-tours fidèle au contexte. |
-| **Acteur** | Système |
-| **Besoin** | Persister chaque tour de conversation |
-| **Valeur** | Reprise multi-tours fidèle au contexte |
-| **Préconditions** | Session OPEN |
-| **Scénario nominal** | Tour chat ajouté au journal |
-| **Erreurs / stop** | Écriture partielle → FAILED journal |
-| **Critères d’acceptation** | Given une session OPEN ; When un message est émis ou reçu ; Then un tour append-only est journalisé et corrélé au sessionId ; And l’ordre des tours est stable ; Given une écriture partielle ; When la persistance échoue ; Then le tour n’est pas marqué complet et un état d’erreur journal est produit. |
-| **Preuves attendues** | journal entries + ids |
-| **Dépendances** | E01-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E01-03 — Clôturer session CLOSED immuable
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux clôturer explicitement une session, afin de figer l’historique et empêcher toute mutation ultérieure. |
-| **Acteur** | Morris |
-| **Besoin** | Clôturer explicitement une session |
-| **Valeur** | Figer l’historique et empêcher les mutations |
-| **Préconditions** | Session OPEN |
-| **Scénario nominal** | Morris CLOSE |
-| **Erreurs / stop** | Tentative mutation CLOSED → refus |
-| **Critères d’acceptation** | Given une session OPEN ; When Morris exécute CLOSE ; Then le statut devient CLOSED et les artefacts de session sont immuables ; Given une session CLOSED ; When une mutation est tentée ; Then elle est refusée avec preuve négative. |
-| **Preuves attendues** | event SESSION_CLOSED |
-| **Dépendances** | E01-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E02 — Conversation GPT réelle multi-tours
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Dialogue libre multi-tours avec contexte ; chat ≠ GO. |
-| **Valeur OPS1** | Cœur produit OPS1 (I2/I7). |
-| **Décisions / sources** | 41 amendement conversation · 45 FR chat · 51 UX chat · gate live futur |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E01 |
-| **Risques** | Live gate fermé ; coût tokens (FD-CAND-15) |
-| **Critères de sortie** | Multi-tours non scriptés possibles sous gate live ; aucune exécution depuis le chat. |
-| **Gates** | Gate live conversation (distinct) ; G-OPS1-BACKLOG-VAL |
-| **Mapping** | I2,I7 |
-| **Stories** | `OPS1-US-E02-01`, `OPS1-US-E02-02`, `OPS1-US-E02-03` |
-
-### OPS1-US-E02-01 — Échanger multi-tours GPT réel
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux dialoguer librement en multi-tours avec GPT réel, afin d’explorer un sujet sans scénario figé ni exécution implicite. |
-| **Acteur** | Morris |
-| **Besoin** | Dialoguer librement en multi-tours avec GPT réel |
-| **Valeur** | Explorer un sujet sans scénario figé ni exécution implicite |
-| **Préconditions** | Gate live consommé ; session OPEN |
-| **Scénario nominal** | ≥3 tours non scriptés |
-| **Erreurs / stop** | Timeout/provider → état erreur visible |
-| **Critères d’acceptation** | Given un gate live consommé et une session OPEN ; When Morris échange ≥3 tours non scriptés ; Then les réponses restent contextuelles et aucune exécution n’est déclenchée ; Given timeout ou erreur fournisseur ; When l’échange échoue ; Then un état d’erreur visible est journalisé sans GO implicite. |
-| **Preuves attendues** | transcript + usage counters |
-| **Dépendances** | E01 |
-| **Réserve** | FD-CAND-15 |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | L |
-| **Gate Morris éventuelle** | Gate live |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E02-02 — Interdire exécution depuis le chat
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux empêcher toute exécution depuis le fil de chat, afin de garantir que seule une décision Morris explicite autorise une action. |
-| **Acteur** | Système |
-| **Besoin** | Empêcher toute exécution depuis le fil de chat |
-| **Valeur** | Garantir qu’une action n’est autorisée que par décision Morris |
-| **Préconditions** | Session avec chat |
-| **Scénario nominal** | Message n’exécute jamais |
-| **Erreurs / stop** | Tentative d’outil exec dans chat → bloqué |
-| **Critères d’acceptation** | Given un fil de chat actif ; When un message ressemble à une instruction d’exécution ; Then aucune exécution n’est lancée et l’UI indique le chemin gate/action ; Given une tentative d’outil d’exécution dans le chat ; When elle est invoquée ; Then elle est bloquée avec preuve négative. |
-| **Preuves attendues** | preuve négative |
-| **Dépendances** | E02-01,E04 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E02-03 — Mode fixture pour tests non-live
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que QA, je veux disposer d’un mode conversationnel fixture, afin de tester la persistance et l’UI sans consommer un gate live. |
-| **Acteur** | QA |
-| **Besoin** | Disposer d’un mode conversationnel fixture |
-| **Valeur** | Tester persistance et UI sans gate live |
-| **Préconditions** | Config test |
-| **Scénario nominal** | Fixture conversationnelle |
-| **Erreurs / stop** | Fixture présentée comme live → STOP doc |
-| **Critères d’acceptation** | Given le mode test/fixture activé ; When un dialogue est simulé ; Then un flag fixture est visible dans UI et artefacts ; Given un rapport de test ; When il est relu ; Then le mode fixture n’est jamais présenté comme conversation live. |
-| **Preuves attendues** | flag fixture in report |
-| **Dépendances** | E01 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E03 — Qualification et proposition d’action
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Qualifier une intention et proposer une action structurée séparée du chat. |
-| **Valeur OPS1** | Action facultative gouvernée (I3). |
-| **Décisions / sources** | 45 CAP-08 · 46 flows · 51 panneaux · 54 scénario |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E01,E02 |
-| **Risques** | Action implicite dans le fil |
-| **Critères de sortie** | Objet action distinct ; ACTION_NOT_REQUIRED possible ; aucun exec sans gate. |
-| **Gates** | G-OPS1-BACKLOG-VAL ; GO delivery lot I3 |
-| **Mapping** | I3 |
-| **Stories** | `OPS1-US-E03-01`, `OPS1-US-E03-02` |
-
-### OPS1-US-E03-01 — Proposer action structurée séparée
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux recevoir une proposition d’action structurée hors du fil de chat, afin de l’examiner sans la confondre avec le dialogue. |
-| **Acteur** | GPT/UI |
-| **Besoin** | Recevoir une proposition d’action structurée hors du fil |
-| **Valeur** | Examiner une action sans la confondre avec le dialogue |
-| **Préconditions** | Discussion préalable |
-| **Scénario nominal** | ActionCandidate dans panneau dédié |
-| **Erreurs / stop** | Action seulement dans chat → invalide |
-| **Critères d’acceptation** | Given une discussion préalable en session OPEN ; When une action est proposée ; Then un ActionCandidate distinct est créé hors du fil chat ; And le chat ne contient pas de GO ; Given une action proposée uniquement dans le chat ; When elle est détectée ; Then elle est invalidée pour exécution. |
-| **Preuves attendues** | action object id |
-| **Dépendances** | E02 |
-| **Réserve** | UX-R02 |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E03-02 — Support ACTION_NOT_REQUIRED
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux conclure qu’aucune action n’est nécessaire, afin de clôturer ou poursuivre la conversation sans forcer une exécution. |
-| **Acteur** | Morris/GPT |
-| **Besoin** | Conclure qu’aucune action n’est nécessaire |
-| **Valeur** | Poursuivre sans forcer une exécution |
-| **Préconditions** | Session chat |
-| **Scénario nominal** | Décision pas d’action |
-| **Erreurs / stop** | Forcer action → refus UX |
-| **Critères d’acceptation** | Given une session de chat ; When Morris ou le flux qualifie ACTION_NOT_REQUIRED ; Then l’état est journalisé et aucune exécution n’est préparée ; Given une pression UI à forcer une action ; When ACTION_NOT_REQUIRED est choisi ; Then l’exécution reste impossible. |
-| **Preuves attendues** | event |
-| **Dépendances** | E02 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E04 — Gate Morris explicite
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Journaliser GO/NO-GO L0 avant toute exécution. |
-| **Valeur OPS1** | Autorité Morris (I3/I4). |
-| **Décisions / sources** | 44 · 45 FR-008 · 48 Morris Gate · 57 Gate Service |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E03 |
-| **Risques** | Auto-GO / GO dans le chat |
-| **Critères de sortie** | Aucune exécution sans décision Morris journalisée. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I3,I4 |
-| **Stories** | `OPS1-US-E04-01`, `OPS1-US-E04-02` |
-
-### OPS1-US-E04-01 — Enregistrer GO Morris sur candidat
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux enregistrer un GO explicite sur une action candidate, afin d’autoriser l’exécution sous mon autorité L0. |
-| **Acteur** | Morris |
-| **Besoin** | Enregistrer un GO explicite sur une action candidate |
-| **Valeur** | Autoriser l’exécution sous autorité L0 |
-| **Préconditions** | ActionCandidate valide |
-| **Scénario nominal** | GO journalisé avec motif |
-| **Erreurs / stop** | GO sans candidat → refus |
-| **Critères d’acceptation** | Given une ActionCandidate valide et journalisée ; When Morris enregistre un GO explicite ; Then une gateDecision horodatée est persistée et liée à l’action ; And aucune exécution ne commence avant cette persistance ; And le rapport expose l’identifiant de la décision ; Given une décision absente ou invalide ; When une exécution est demandée ; Then l’exécution est refusée et une preuve négative est produite. |
-| **Preuves attendues** | gateDecision artifact |
-| **Dépendances** | E03 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E04-02 — Enregistrer NO-GO et bloquer exec
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux enregistrer un NO-GO explicite, afin de bloquer toute exécution et conserver la preuve du refus. |
-| **Acteur** | Morris |
-| **Besoin** | Enregistrer un NO-GO explicite |
-| **Valeur** | Bloquer l’exécution et conserver la preuve du refus |
-| **Préconditions** | ActionCandidate |
-| **Scénario nominal** | NO-GO → pas d’exec |
-| **Erreurs / stop** | Exec malgré NO-GO → STOP |
-| **Critères d’acceptation** | Given une ActionCandidate ; When Morris enregistre NO-GO ; Then aucune exécution n’est lancée et la décision est journalisée ; Given un NO-GO persisté ; When une exécution est retentée ; Then elle est refusée avec preuve négative. |
-| **Preuves attendues** | preuve négative |
-| **Dépendances** | E03 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E05 — Contrat canonique, hash et HEAD
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Geler contrat, calculer contractHash, revalider HEAD. |
-| **Valeur OPS1** | Intégrité du périmètre exécutable (I4). |
-| **Décisions / sources** | 54–56 · 57 CAND-07/08/09/25 · 59 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E04 |
-| **Risques** | Hash instable ; HEAD drift |
-| **Critères de sortie** | Contrat immuable post-GO ; hash vérifiable ; HEAD invalidant si drift. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I4 |
-| **Stories** | `OPS1-US-E05-01`, `OPS1-US-E05-02`, `OPS1-US-E05-03` |
-
-### OPS1-US-E05-01 — Canonicaliser et hasher le contrat
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux geler un contrat d’exécution et calculer son empreinte, afin de garantir que le périmètre exécuté est exactement celui approuvé. |
-| **Acteur** | Système |
-| **Besoin** | Geler un contrat d’exécution et calculer son empreinte |
-| **Valeur** | Garantir que le périmètre exécuté est celui approuvé |
-| **Préconditions** | GO Morris |
-| **Scénario nominal** | Hash stable du contrat gelé |
-| **Erreurs / stop** | Changement post-hash → invalidation |
-| **Critères d’acceptation** | Given un GO Morris ; When le contrat est gelé ; Then un contractHash immuable est produit et stocké ; Given une modification post-hash du contrat ; When une exécution est demandée ; Then le contrat est invalidé et l’exécution refusée. |
-| **Preuves attendues** | contract + hash |
-| **Dépendances** | E04 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E05-02 — Revalider HEAD avant exécution
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux revalider le HEAD Git avant exécution, afin d’arrêter le parcours si la base a dérivé depuis l’approbation. |
-| **Acteur** | Système |
-| **Besoin** | Revalider le HEAD Git avant exécution |
-| **Valeur** | Arrêter le parcours si la base a dérivé depuis l’approbation |
-| **Préconditions** | Contrat gelé |
-| **Scénario nominal** | HEAD ≠ base → STOP |
-| **Erreurs / stop** | Ignorer drift → interdit |
-| **Critères d’acceptation** | Given un contrat gelé avec baseHeadSha ; When le HEAD courant diffère ; Then l’état CONTRACT_INVALIDATED/FAILED est posé et l’exécution n’a pas lieu ; Given un HEAD identique ; When la revalidation réussit ; Then l’exécution peut continuer aux contrôles suivants. |
-| **Preuves attendues** | event |
-| **Dépendances** | E05-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E05-03 — Inclure gateDecision dans hash
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux inclure la décision de gate dans le contenu haché, afin de lier cryptographiquement l’autorisation Morris au contrat. |
-| **Acteur** | Système |
-| **Besoin** | Inclure la décision de gate dans le contenu haché |
-| **Valeur** | Lier cryptographiquement l’autorisation Morris au contrat |
-| **Préconditions** | GO + contrat |
-| **Scénario nominal** | Hash couvre gateDecision |
-| **Erreurs / stop** | GO altéré → hash mismatch |
-| **Critères d’acceptation** | Given un GO et un contrat ; When le hash est calculé ; Then gateDecision fait partie du payload canonique ; Given une altération de la gateDecision ; When le hash est recalculé ; Then il ne correspond plus et l’exécution est refusée. |
-| **Preuves attendues** | hash input dump |
-| **Dépendances** | E05-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E06 — Chemins, allowlist et symlinks
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Normaliser paths, enforce allowlist Campus360, refuser symlink escape. |
-| **Valeur OPS1** | Sécurité locale fail-closed (I4). |
-| **Décisions / sources** | 55 allowlist · 57 CAND-05/06 · 59 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E05 |
-| **Risques** | Wildcard ; 03 protégé |
-| **Critères de sortie** | Paths hors allowlist refusés ; 03 protégé par défaut ; symlink sortant refusé. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I4 |
-| **Stories** | `OPS1-US-E06-01`, `OPS1-US-E06-02`, `OPS1-US-E06-03` |
-
-### OPS1-US-E06-01 — Valider paths realpath + allowlist
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux résoudre et contrôler chaque chemin cible, afin de n’autoriser que des fichiers explicitement allowlistés sous la racine du workspace. |
-| **Acteur** | Système |
-| **Besoin** | Résoudre et contrôler chaque chemin cible |
-| **Valeur** | N’autoriser que des fichiers allowlistés sous la racine workspace |
-| **Préconditions** | Allowlist 55 |
-| **Scénario nominal** | Path hors allowlist refusé |
-| **Erreurs / stop** | Wildcard → refus |
-| **Critères d’acceptation** | Given un chemin candidat ; When normalisation + realpath sont appliqués ; Then le chemin est accepté seulement s’il reste sous la racine et dans l’allowlist ; Given un wildcard ou chemin ambigu ; When la validation s’exécute ; Then le chemin est refusé avec preuve. |
-| **Preuves attendues** | validation log |
-| **Dépendances** | E05 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E06-02 — Protéger 03 par défaut
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux protéger par défaut le fichier Campus360 `03`, afin d’empêcher une modification non autorisée d’un artefact sensible. |
-| **Acteur** | Système |
-| **Besoin** | Protéger par défaut le fichier Campus360 03 |
-| **Valeur** | Empêcher une modification non autorisée d’un artefact sensible |
-| **Préconditions** | Allowlist |
-| **Scénario nominal** | Cible 03 → refus sauf GO explicite futur |
-| **Erreurs / stop** | Écriture 03 → STOP |
-| **Critères d’acceptation** | Given une allowlist OPS1 ; When une cible pointe vers `03` ; Then l’écriture est refusée par défaut ; And une preuve négative est produite ; Given une demande d’exception non couverte par GO ; When l’exécution est tentée ; Then elle reste bloquée. |
-| **Preuves attendues** | preuve négative |
-| **Dépendances** | E06-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E06-03 — Refuser symlink sortant
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux refuser les symlinks dont la cible sort du workspace, afin d’empêcher une évasion de périmètre via le système de fichiers. |
-| **Acteur** | Système |
-| **Besoin** | Refuser les symlinks sortant du workspace |
-| **Valeur** | Empêcher une évasion de périmètre via le système de fichiers |
-| **Préconditions** | Workspace |
-| **Scénario nominal** | Symlink hors racine → refus |
-| **Erreurs / stop** | Suivre symlink → interdit |
-| **Critères d’acceptation** | Given un symlink dont la cible résolue sort de la racine ; When la validation s’exécute ; Then le chemin est refusé ; Given un symlink interne valide ; When la validation s’exécute ; Then le chemin peut être accepté s’il reste allowlisté. |
-| **Preuves attendues** | scan log |
-| **Dépendances** | E06-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E07 — Worktree et runner borné
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Exécuter dans worktree dédié avec contrôles runner (pas sandbox OS forte). |
-| **Valeur OPS1** | Isolation Git OPS1 (I4) — Amendement 1. |
-| **Décisions / sources** | 57–59 CAND-01/02/03/04/26 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E05,E06 |
-| **Risques** | Sur-revendiquer isolation forte |
-| **Critères de sortie** | Worktree créé depuis baseHeadSha ; CWD/env/credentials/réseau/remote contrôlés. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I4 |
-| **Stories** | `OPS1-US-E07-01`, `OPS1-US-E07-02`, `OPS1-US-E07-03` |
-
-### OPS1-US-E07-01 — Créer worktree d’exécution
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux préparer un worktree Git dédié pour l’exécution, afin d’isoler les changements du working tree principal sans prétendre à une sandbox OS forte. |
-| **Acteur** | Système |
-| **Besoin** | Préparer un worktree Git dédié pour l’exécution |
-| **Valeur** | Isoler les changements du working tree principal |
-| **Préconditions** | baseHeadSha |
-| **Scénario nominal** | worktree add dédié |
-| **Erreurs / stop** | Contamination working tree principal → STOP |
-| **Critères d’acceptation** | Given un GO et un baseHeadSha ; When la préparation s’exécute ; Then un worktree dédié est créé depuis ce HEAD ; And le working tree principal n’est pas contaminé ; Given un échec de création worktree ; When la préparation échoue ; Then l’exécution n’est pas démarrée. |
-| **Preuves attendues** | worktree path evidence |
-| **Dépendances** | E05 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E07-02 — Appliquer contrôles runner
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que responsable d’exécution OPS1, je veux que le runner applique des contrôles bornés (CWD, environnement, credentials, réseau, remote), afin de limiter les effets de bord d’une exécution locale. |
-| **Acteur** | Système |
-| **Besoin** | Appliquer des contrôles runner bornés avant exécution |
-| **Valeur** | Limiter les effets de bord d’une exécution locale |
-| **Préconditions** | Worktree prêt |
-| **Scénario nominal** | CWD/env/credentials/réseau/remote contrôlés |
-| **Erreurs / stop** | Réseau on par défaut → non-conforme |
-| **Critères d’acceptation** | Given un worktree prêt ; When le runner démarre ; Then le CWD est borné, l’env est filtré, les credentials sont absents, le réseau est off par défaut et les commandes remote sont refusées ; Given un contrôle pré-exécution en échec ; When le runner évalue ; Then l’exécution est stoppée avec rapport de précontrôle. |
-| **Preuves attendues** | runner precheck report |
-| **Dépendances** | E07-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E07-03 — Documenter limite non-sandbox OS
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que QA documentaire, je veux vérifier que les rapports n’affirment pas une isolation OS forte, afin d’éviter une sur-revendication de sécurité. |
-| **Acteur** | Docs/QA |
-| **Besoin** | Vérifier que les rapports n’affirment pas une isolation OS forte |
-| **Valeur** | Éviter une sur-revendication de sécurité |
-| **Préconditions** | Tech-arch |
-| **Scénario nominal** | Docs/rapports n’affirment pas sandbox forte |
-| **Erreurs / stop** | Claim STRONG SANDBOX → STOP review |
-| **Critères d’acceptation** | Given un rapport d’exécution ou de revue ; When le wording d’isolation est contrôlé ; Then aucune affirmation de sandbox OS forte n’est présente ; Given un claim interdit détecté ; When la revue s’exécute ; Then le livrable est rejeté. |
-| **Preuves attendues** | review checklist |
-| **Dépendances** | E07-02 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | XS |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E08 — Stockage SQLite et artefacts append-only
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Séparer état opérationnel (SQLite) et artefacts immuables (fichiers). |
-| **Valeur OPS1** | Persistance cohérente — Amendement 2. |
-| **Décisions / sources** | 57–59 CAND-12/18 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E01 |
-| **Risques** | Double source d’état |
-| **Critères de sortie** | SQLite = sessions/états/locks/tentatives ; append-only = contrats/rapports/preuves. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I1,I4,I5 |
-| **Stories** | `OPS1-US-E08-01`, `OPS1-US-E08-02` |
-
-### OPS1-US-E08-01 — Persister états dans SQLite
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux persister sessions, états, locks et tentatives dans SQLite, afin de disposer d’une source opérationnelle locale distincte de Git. |
-| **Acteur** | Système |
-| **Besoin** | Persister sessions, états, locks et tentatives dans SQLite |
-| **Valeur** | Disposer d’une source opérationnelle locale distincte de Git |
-| **Préconditions** | Store local |
-| **Scénario nominal** | Sessions/locks/attempts in SQLite |
-| **Erreurs / stop** | État seulement fichiers → non-conforme |
-| **Critères d’acceptation** | Given le runtime OPS1 ; When un état de session/lock/tentative est persisté ; Then il est écrit dans SQLite ; And Git n’est pas utilisé comme magasin d’état concurrent ; Given une indisponibilité SQLite ; When une persistance est requise ; Then l’opération échoue explicitement. |
-| **Preuves attendues** | schema + rows |
-| **Dépendances** | E01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E08-02 — Écrire artefacts append-only
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux écrire contrats, rapports et preuves en fichiers append-only, afin de conserver des artefacts immuables exploitables en audit. |
-| **Acteur** | Système |
-| **Besoin** | Écrire contrats, rapports et preuves en fichiers append-only |
-| **Valeur** | Conserver des artefacts immuables exploitables en audit |
-| **Préconditions** | Exécution |
-| **Scénario nominal** | Contrats/rapports/diffs append-only |
-| **Erreurs / stop** | Overwrite preuve → STOP |
-| **Critères d’acceptation** | Given une preuve ou un rapport à conserver ; When l’écriture s’exécute ; Then le fichier est append-only/immuable après scellage ; Given une tentative d’overwrite d’une preuve scellée ; When elle est tentée ; Then elle est refusée. |
-| **Preuves attendues** | artifact hashes |
-| **Dépendances** | E10 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E09 — Idempotence, locks, tentatives, recovery
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Distinguer contractHash et executionAttemptId ; pas de retry auto. |
-| **Valeur OPS1** | Anti double exécution — Amendement 3. |
-| **Décisions / sources** | 57–59 CAND-14/15/16/17 |
-| **Priorité candidate** | P1 |
-| **Dépendances** | E05,E07,E08 |
-| **Risques** | Resume opaque |
-| **Critères de sortie** | Une tentative active ; nouvelle tentative = décision Morris ; crash → lecture + GO. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I4,I5 |
-| **Stories** | `OPS1-US-E09-01`, `OPS1-US-E09-02`, `OPS1-US-E09-03`, `OPS1-US-E09-04` |
-
-### OPS1-US-E09-01 — Créer executionAttemptId distinct
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux créer un identifiant unique de tentative d’exécution distinct du hash de contrat, afin de tracer chaque essai sans réécrire le contrat approuvé. |
-| **Acteur** | Système |
-| **Besoin** | Créer un identifiant unique de tentative distinct du hash de contrat |
-| **Valeur** | Tracer chaque essai sans réécrire le contrat approuvé |
-| **Préconditions** | contractHash |
-| **Scénario nominal** | Nouvel attemptId par tentative |
-| **Erreurs / stop** | Réutiliser attemptId → refus |
-| **Critères d’acceptation** | Given un contractHash valide ; When une tentative démarre ; Then un executionAttemptId unique est créé et lié au hash ; Given une réutilisation du même attemptId ; When une nouvelle tentative est demandée ; Then elle est refusée. |
-| **Preuves attendues** | attempt record |
-| **Dépendances** | E05,E08 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E09-02 — Lock une tentative active
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux verrouiller la tentative active d’un contrat, afin d’empêcher deux exécutions concurrentes sur le même périmètre. |
-| **Acteur** | Système |
-| **Besoin** | Verrouiller la tentative active d’un contrat |
-| **Valeur** | Empêcher deux exécutions concurrentes sur le même périmètre |
-| **Préconditions** | Attempt |
-| **Scénario nominal** | Seconde active → refus |
-| **Erreurs / stop** | Double exec → STOP |
-| **Critères d’acceptation** | Given une tentative active pour un contractHash ; When une seconde tentative est demandée ; Then le lock refuse et aucune double exécution n’est observée ; Given la fin ou l’échec de la tentative active ; When le lock est libéré selon les règles ; Then une nouvelle tentative n’est possible que sous décision Morris. |
-| **Preuves attendues** | lock evidence |
-| **Dépendances** | E09-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E09-03 — Recovery crash sans resume opaque
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux qu’un crash d’exécution laisse un état lisible nécessitant ma décision, afin d’éviter toute reprise automatique opaque. |
-| **Acteur** | Morris/Système |
-| **Besoin** | Obtenir un état lisible après crash nécessitant décision Morris |
-| **Valeur** | Éviter toute reprise automatique opaque |
-| **Préconditions** | Crash mid-exec |
-| **Scénario nominal** | État lecture + décision Morris |
-| **Erreurs / stop** | Auto-resume → interdit |
-| **Critères d’acceptation** | Given un crash en cours d’exécution ; When la récupération s’exécute ; Then l’état est disponible en lecture et aucune reprise auto n’a lieu ; And la poursuite attend une décision Morris explicite ; Given une tentative de resume opaque ; When elle est demandée ; Then elle est refusée. |
-| **Preuves attendues** | recovery report |
-| **Dépendances** | E09-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E09-04 — Interdire retry auto REPORT_INCOMPLETE
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux traiter un rapport incomplet comme un échec explicite, afin d’interdire une complétion silencieuse ou une relance automatique. |
-| **Acteur** | Système |
-| **Besoin** | Traiter un rapport incomplet comme un échec explicite |
-| **Valeur** | Interdire complétion silencieuse ou relance automatique |
-| **Préconditions** | Rapport incomplet |
-| **Scénario nominal** | Pas COMPLETED ; pas relance auto |
-| **Erreurs / stop** | COMPLETED silencieux · relance auto · perte des preuves de l’échec |
-| **Critères d’acceptation** | Given des preuves insuffisantes en fin d’exécution ; When la finalisation s’exécute ; Then le statut est REPORT_INCOMPLETE (ou équivalent) et non COMPLETED ; And aucune relance automatique n’est déclenchée ; Given une demande de nouvelle tentative ; When elle survient ; Then elle exige une décision Morris explicite et conserve l’échec précédent. |
-| **Preuves attendues** | status evidence |
-| **Dépendances** | E10 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E10 — Rapport, preuves et REPORT_INCOMPLETE
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Produire rapport consolidé ; interdire COMPLETED silencieux. |
-| **Valeur OPS1** | Intégrité preuve (I5). |
-| **Décisions / sources** | 54 PN · 57 CAND-17 · 58 Evidence Collector |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E07,E09 |
-| **Risques** | Complétion fictive |
-| **Critères de sortie** | REPORT_INCOMPLETE strict ; preuves par fichier ; pas de relance auto. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I5 |
-| **Stories** | `OPS1-US-E10-01`, `OPS1-US-E10-02` |
-
-### OPS1-US-E10-01 — Générer rapport consolidé + par fichier
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux un rapport consolidé et par fichier couvrant l’allowlist, afin de vérifier ce qui a réellement été tenté ou modifié. |
-| **Acteur** | Système |
-| **Besoin** | Obtenir un rapport consolidé et par fichier couvrant l’allowlist |
-| **Valeur** | Vérifier ce qui a réellement été tenté ou modifié |
-| **Préconditions** | Exec ended |
-| **Scénario nominal** | Rapport couverture fichiers |
-| **Erreurs / stop** | Fichier manquant → incomplete |
-| **Critères d’acceptation** | Given une allowlist 1..n et une exécution terminée ; When le rapport est produit ; Then chaque fichier allowlisté a une entrée de couverture ; Given un fichier allowlisté sans couverture ; When la finalisation s’exécute ; Then le statut ne peut pas être COMPLETED et l’incomplétude est explicite. |
-| **Preuves attendues** | report artifact |
-| **Dépendances** | E07 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E10-02 — Collecter preuves négatives remote
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux une preuve négative d’absence d’effet Git distant, afin de démontrer qu’aucune action remote n’a été réalisée pendant l’exécution. |
-| **Acteur** | Système |
-| **Besoin** | Obtenir une preuve négative d’absence d’effet Git distant |
-| **Valeur** | Démontrer qu’aucune action remote n’a été réalisée |
-| **Préconditions** | Exec |
-| **Scénario nominal** | Aucune push/fetch write |
-| **Erreurs / stop** | Remote observé → FAILED |
-| **Critères d’acceptation** | Given une exécution OPS1 ; When l’audit post-exécution s’exécute ; Then aucune push/fetch write/PR/merge n’est observée et une preuve négative est jointe ; Given une commande remote détectée ; When l’audit s’exécute ; Then l’exécution est FAILED et la preuve est conservée. |
-| **Preuves attendues** | negative proof |
-| **Dépendances** | E07,E14 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E11 — Reprise conversationnelle post-exécution
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Reprendre le chat après rapport ; continuation liée si besoin. |
-| **Valeur OPS1** | Boucle OPS1 (I5/I6). |
-| **Décisions / sources** | 45 CAP-16 · 54 continuation · UX-R02 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E02,E10 |
-| **Risques** | Réouverture CLOSED mutable |
-| **Critères de sortie** | Post-exec conversationnelle ; CLOSED immuable ; continuation = nouvel id + parent. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I5,I6 |
-| **Stories** | `OPS1-US-E11-01`, `OPS1-US-E11-02` |
-
-### OPS1-US-E11-01 — Reprendre chat après rapport
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux reprendre la conversation après le rapport, afin d’analyser le résultat sans perdre le contexte de session. |
-| **Acteur** | Morris |
-| **Besoin** | Reprendre la conversation après le rapport |
-| **Valeur** | Analyser le résultat sans perdre le contexte de session |
-| **Préconditions** | Rapport disponible |
-| **Scénario nominal** | Chat post-exec avec contexte |
-| **Erreurs / stop** | Perte contexte → bug |
-| **Critères d’acceptation** | Given un rapport disponible ; When Morris reprend le chat ; Then le contexte de session est conservé et aucune exécution n’est relancée implicitement ; Given une perte de contexte ; When la reprise est tentée ; Then l’écart est signalé et n’est pas masqué. |
-| **Preuves attendues** | transcript |
-| **Dépendances** | E02,E10 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E11-02 — Continuation liée post-CLOSED
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux ouvrir une continuation liée après clôture, afin de reprendre le fil sans rendre mutable une session CLOSED. |
-| **Acteur** | Morris |
-| **Besoin** | Ouvrir une continuation liée après clôture |
-| **Valeur** | Reprendre le fil sans rendre mutable une session CLOSED |
-| **Préconditions** | Session CLOSED |
-| **Scénario nominal** | new id + parentSessionId |
-| **Erreurs / stop** | Mutate CLOSED → refus |
-| **Critères d’acceptation** | Given une session CLOSED ; When Morris demande une continuation ; Then une nouvelle session est créée avec parentSessionId et la source reste immuable ; Given une tentative de mutation de la session CLOSED ; When elle est demandée ; Then elle est refusée. |
-| **Preuves attendues** | parent link |
-| **Dépendances** | E01-03 |
-| **Réserve** | UX-R02 |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E12 — UX et états visibles
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Surfaces desktop : chat, action, gate, exec, rapport, clôture. |
-| **Valeur OPS1** | Lisibilité Morris (transverse). |
-| **Décisions / sources** | 51–53 · UX-R01…R04 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E01–E04,E10 |
-| **Risques** | Responsive/microcopy non prêts |
-| **Critères de sortie** | États visibles desktop ; chat≠action ; réserves UX non levées. |
-| **Gates** | G-OPS1-BACKLOG-VAL ; UX-R02 avant delivery polish |
-| **Mapping** | I1–I7 |
-| **Stories** | `OPS1-US-E12-01`, `OPS1-US-E12-02`, `OPS1-US-E12-03` |
-
-### OPS1-US-E12-01 — Afficher états desktop chat/action/gate
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux voir chat, action et gate dans des surfaces distinctes, afin de ne jamais confondre dialogue et autorisation. |
-| **Acteur** | UI |
-| **Besoin** | Voir chat, action et gate dans des surfaces distinctes |
-| **Valeur** | Ne jamais confondre dialogue et autorisation |
-| **Préconditions** | Desktop 1440 |
-| **Scénario nominal** | Panneaux distincts |
-| **Erreurs / stop** | GO dans fil → non-conforme |
-| **Critères d’acceptation** | Given une session desktop ; When l’UI est affichée ; Then chat, action et gate sont des panneaux/états distincts ; Given un GO proposé dans le fil de chat ; When l’UI est contrôlée ; Then ce pattern est rejeté comme non conforme. |
-| **Preuves attendues** | screenshot refs |
-| **Dépendances** | E03,E04 |
-| **Réserve** | UX-R01 |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E12-02 — Afficher états exec/rapport/clôture
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux visualiser fidèlement les états d’exécution, de rapport et de clôture, afin de décider sur des statuts non trompeurs. |
-| **Acteur** | UI |
-| **Besoin** | Visualiser fidèlement les états d’exécution, rapport et clôture |
-| **Valeur** | Décider sur des statuts non trompeurs |
-| **Préconditions** | Exec/rapport |
-| **Scénario nominal** | États visibles |
-| **Erreurs / stop** | État faux COMPLETED → STOP UI |
-| **Critères d’acceptation** | Given une exécution ou un rapport ; When l’UI affiche le statut ; Then il correspond à l’état réel (y compris REPORT_INCOMPLETE) ; Given un statut COMPLETED alors que le rapport est incomplet ; When l’UI est contrôlée ; Then le cas est traité comme non conforme. |
-| **Preuves attendues** | UI state log |
-| **Dépendances** | E10 |
-| **Réserve** | UX-R02 |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E12-03 — Réserver responsive tablette/mobile
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux conserver le responsive tablette/mobile après le desktop, afin de ne pas diluer la preuve OPS1 avant la couverture desktop. |
-| **Acteur** | UX |
-| **Besoin** | Conserver le responsive tablette/mobile après le desktop |
-| **Valeur** | Ne pas diluer la preuve OPS1 avant la couverture desktop |
-| **Préconditions** | Desktop OK |
-| **Scénario nominal** | Stories responsive OUT/P2 |
-| **Erreurs / stop** | Livrer mobile avant desktop → non |
-| **Critères d’acceptation** | Given le backlog priorisé ; When les lots UX sont ordonnés ; Then le desktop précède tablette/mobile ; And UX-R01 reste ouverte ; Given une livraison mobile avant desktop ; When la revue backlog s’exécute ; Then elle est refusée. |
-| **Preuves attendues** | prio note |
-| **Dépendances** | E12-01 |
-| **Réserve** | UX-R01 |
-| **Priorité candidate** | P2 |
-| **Taille relative candidate** | L |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E13 — Observabilité et audit
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Événements corrélés sans secrets ; métriques durée/fichiers. |
-| **Valeur OPS1** | Traçabilité (transverse). |
-| **Décisions / sources** | 57 §obs · 59 CAND-19 |
-| **Priorité candidate** | P1 |
-| **Dépendances** | E08 |
-| **Risques** | APM excessif |
-| **Critères de sortie** | Journal append-only corrélé ; pas de secret dans logs. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I4–I6 |
-| **Stories** | `OPS1-US-E13-01`, `OPS1-US-E13-02` |
-
-### OPS1-US-E13-01 — Émettre événements corrélés sans secrets
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux émettre des événements d’audit corrélés sans secrets, afin de reconstituer le parcours sans risque de fuite. |
-| **Acteur** | Système |
-| **Besoin** | Émettre des événements d’audit corrélés sans secrets |
-| **Valeur** | Reconstituer le parcours sans risque de fuite |
-| **Préconditions** | Runtime |
-| **Scénario nominal** | Events ids+actor+status |
-| **Erreurs / stop** | Secret in log → STOP |
-| **Critères d’acceptation** | Given un événement runtime ; When il est émis ; Then il contient ids corrélés, acteur, statut et horodatage sans secret ; Given un champ secret détecté ; When l’émission est contrôlée ; Then l’événement est rejeté ou redacted et un STOP/FAILED de conformité est journalisé. |
-| **Preuves attendues** | event sample redacted |
-| **Dépendances** | E08 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E13-02 — Mesurer durée et fichiers touchés
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux disposer de métriques minimales d’exécution (durée et fichiers touchés), afin d’évaluer le déroulement sans inventer une stack d’observabilité. |
-| **Acteur** | Système |
-| **Besoin** | Disposer de métriques minimales d’exécution (durée et fichiers touchés) |
-| **Valeur** | Évaluer le déroulement sans inventer une stack d’observabilité |
-| **Préconditions** | Exec |
-| **Scénario nominal** | Durée + count fichiers |
-| **Erreurs / stop** | Métrique obligatoire absente masquée · statut COMPLETED malgré METRICS_INCOMPLETE · relance automatique |
-| **Critères d’acceptation** | Given une exécution terminée ; When le rapport/audit est produit ; Then la durée d’exécution et le nombre de fichiers touchés sont présents ; Given une métrique obligatoire non produisible ; When la finalisation s’exécute ; Then l’état explicite METRICS_INCOMPLETE est posé, les métriques absentes et leur cause sont listées, aucun statut COMPLETED/succès ne masque l’absence, et aucune relance automatique n’est déclenchée ; And la poursuite éventuelle reste une décision Morris. |
-| **Preuves attendues** | metrics |
-| **Dépendances** | E10 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | XS |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E14 — Sécurité locale
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Secrets absents ; réseau off ; remote Git refusé ; scans. |
-| **Valeur OPS1** | Fail-closed sécurité. |
-| **Décisions / sources** | 57–59 CAND-03/04/26 · 55 |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E07 |
-| **Risques** | Fuite via fichiers |
-| **Critères de sortie** | Scans secrets ; remote wrapper ; env filtré démontrables. |
-| **Gates** | G-OPS1-BACKLOG-VAL |
-| **Mapping** | I4 |
-| **Stories** | `OPS1-US-E14-01`, `OPS1-US-E14-02` |
-
-### OPS1-US-E14-01 — Scan secrets pré/post exécution
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que système OPS1, je veux scanner les secrets avant et après exécution, afin d’arrêter le parcours dès qu’une fuite potentielle est détectée. |
-| **Acteur** | Système |
-| **Besoin** | Scanner les secrets avant et après exécution |
-| **Valeur** | Arrêter le parcours dès qu’une fuite potentielle est détectée |
-| **Préconditions** | Worktree |
-| **Scénario nominal** | Scan fail → STOP |
-| **Erreurs / stop** | Secret commit → FAILED |
-| **Critères d’acceptation** | Given un worktree d’exécution ; When le scan pré/post s’exécute ; Then un rapport de scan est produit ; Given un secret détecté ; When le scan échoue ; Then l’exécution est STOP/FAILED et aucune poursuite silencieuse n’a lieu. |
-| **Preuves attendues** | scan report |
-| **Dépendances** | E07 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E14-02 — Wrapper refus remote Git
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que responsable d’exécution OPS1, je veux que le runner bloque toute commande Git distante, afin d’empêcher qu’une exécution locale déclenche un effet distant non autorisé. |
-| **Acteur** | Système |
-| **Besoin** | Bloquer toute commande Git distante dans le runner |
-| **Valeur** | Empêcher qu’une exécution locale déclenche un effet distant non autorisé |
-| **Préconditions** | Runner |
-| **Scénario nominal** | push/fetch write refusés |
-| **Erreurs / stop** | Remote success → non-conforme |
-| **Critères d’acceptation** | Given le runner OPS1 ; When une commande push/fetch write/PR/merge est invoquée ; Then elle est refusée par wrapper et journalisée ; Given une tentative de contournement ; When elle est détectée ; Then l’exécution est FAILED avec preuve. |
-| **Preuves attendues** | deny log |
-| **Dépendances** | E07 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E15 — Contrôles locaux et préparation DevOps
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Contrôles déterministes locaux ; CI PR reportée. |
-| **Valeur OPS1** | Amendement 4 — sans ouvrir DevOps. |
-| **Décisions / sources** | 57 §CI · 59 CAND-20 |
-| **Priorité candidate** | P1 |
-| **Dépendances** | E05–E10 |
-| **Risques** | FULL CI trop tôt |
-| **Critères de sortie** | Checklist locale socle documentée ; stories DevOps = OUT/P2 sous gate DevOps. |
-| **Gates** | G-OPS1-BACKLOG-VAL ; GO DevOps distinct |
-| **Mapping** | Transverse |
-| **Stories** | `OPS1-US-E15-01`, `OPS1-US-E15-02` |
-
-### OPS1-US-E15-01 — Checklist contrôles locaux socle
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que QA, je veux exécuter une checklist déterministe de contrôles locaux, afin de vérifier qu’un futur lot respecte les garde-fous OPS1 avant toute décision de delivery. |
-| **Acteur** | QA/Dev |
-| **Besoin** | Exécuter une checklist déterministe de contrôles locaux |
-| **Valeur** | Vérifier les garde-fous OPS1 avant toute décision de delivery |
-| **Préconditions** | Contrat/hash/HEAD/allowlist/paths/symlinks/secrets/diff-check/rapport |
-| **Scénario nominal** | Checklist documentée exécutable localement |
-| **Erreurs / stop** | CI PR présentée comme faite → non |
-| **Critères d’acceptation** | Given un lot candidat ; When la checklist locale s’exécute ; Then contrat/hash/HEAD/allowlist/paths/symlinks/secrets/diff-check/rapport sont évalués avec résultat explicite ; Given un contrôle rouge ; When la checklist se termine ; Then le lot n’est pas présenté comme prêt delivery ; And aucune CI PR n’est affirmée comme déjà réalisée. |
-| **Preuves attendues** | checklist results |
-| **Dépendances** | E05–E10 |
-| **Réserve** | — |
-| **Priorité candidate** | P1 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E15-02 — Préparer stories CI PR (hors ouverture)
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que documentariste OPS1, je veux préparer des stories CI PR sous gate DevOps distinct, afin de ne pas ouvrir l’intégration dans le cycle backlog courant. |
-| **Acteur** | Docs |
-| **Besoin** | Préparer des stories CI PR sous gate DevOps distinct |
-| **Valeur** | Ne pas ouvrir l’intégration dans le cycle backlog courant |
-| **Préconditions** | Backlog |
-| **Scénario nominal** | Stories CI PR marquées gate DevOps / OUT delivery |
-| **Erreurs / stop** | Ouvrir CI delivery maintenant → STOP |
-| **Critères d’acceptation** | Given le backlog OPS1 ; When les items CI PR sont inspectés ; Then ils sont explicitement gated GO DevOps / hors delivery courant ; Given une tentative d’ouvrir CI delivery maintenant ; When la revue s’exécute ; Then elle est refusée. |
-| **Preuves attendues** | E15 mapping |
-| **Dépendances** | — |
-| **Réserve** | — |
-| **Priorité candidate** | P2 |
-| **Taille relative candidate** | M |
-| **Gate Morris éventuelle** | GO DevOps |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E16 — FinOps et réserves numériques
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Compteurs/alertes placeholders ; aucun seuil inventé. |
-| **Valeur OPS1** | FD-CAND-15 maintenue. |
-| **Décisions / sources** | 45 FD-CAND-15 · 59 CAND-22 |
-| **Priorité candidate** | P2 |
-| **Dépendances** | E02,E13 |
-| **Risques** | Seuils inventés |
-| **Critères de sortie** | Placeholders visibles ; seuils OPEN jusqu’à gate FinOps/live. |
-| **Gates** | Gate FinOps/live |
-| **Mapping** | Transverse |
-| **Stories** | `OPS1-US-E16-01` |
-
-### OPS1-US-E16-01 — Afficher compteurs tokens/coût placeholders
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux visualiser séparément les volumes d’usage conversationnel et d’exécution, afin d’évaluer les coûts sans inventer de seuil FinOps définitif. |
-| **Acteur** | UI/FinOps |
-| **Besoin** | Visualiser séparément les volumes d’usage conversationnel et d’exécution |
-| **Valeur** | Évaluer les coûts sans inventer de seuil FinOps définitif |
-| **Préconditions** | Chat/exec |
-| **Scénario nominal** | Placeholders numériques non normatifs |
-| **Erreurs / stop** | Seuil hardcodé définitif → STOP |
-| **Critères d’acceptation** | Given des compteurs d’usage ; When l’UI FinOps s’affiche ; Then des placeholders non normatifs sont visibles avec mention FD-CAND-15 OPEN ; Given un seuil numérique définitif hardcodé ; When la revue s’exécute ; Then il est rejeté tant que FD-CAND-15 n’est pas arbitrée. |
-| **Preuves attendues** | UI + note FD-CAND-15 |
-| **Dépendances** | E02 |
-| **Réserve** | FD-CAND-15 |
-| **Priorité candidate** | P2 |
-| **Taille relative candidate** | S |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
-
-## OPS1-E17 — Démonstration opératoire I7
-
-| Champ | Contenu |
-|-------|---------|
-| **Objectif** | Scénario bout-en-bout GPT réel + Cursor réel + chat non scénarisé. |
-| **Valeur OPS1** | Preuve OPS1 (I7). |
-| **Décisions / sources** | 41 I7 · 43 succès · 54 scénario |
-| **Priorité candidate** | P0 |
-| **Dépendances** | E01–E14 (P0/P1) |
-| **Risques** | Démo partielle présentée comme preuve |
-| **Critères de sortie** | Checklist I7 + preuves négatives remote ; sans claim MVP/production. |
-| **Gates** | Gate live + GO démo ; G-OPS1-BACKLOG-VAL |
-| **Mapping** | I7 |
-| **Stories** | `OPS1-US-E17-01`, `OPS1-US-E17-02` |
-
-### OPS1-US-E17-01 — Checklist démonstration I7
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que Morris, je veux dérouler une démonstration opératoire bout-en-bout, afin de prouver le parcours OPS1 gouverné sans la confondre avec un MVP. |
-| **Acteur** | Morris/QA |
-| **Besoin** | Dérouler une démonstration opératoire bout-en-bout |
-| **Valeur** | Prouver le parcours OPS1 gouverné sans la confondre avec un MVP |
-| **Préconditions** | Lots P0/P1 + gate live |
-| **Scénario nominal** | Parcours bout-en-bout + PN remote |
-| **Erreurs / stop** | Démo partielle = preuve → interdit |
-| **Critères d’acceptation** | Given lots P0/P1 prêts et gate live consommé ; When la checklist I7 s’exécute ; Then le parcours chat→action→gate→exec→rapport→preuves négatives remote est démontré et signé Morris ; Given une démo partielle ; When elle est présentée comme preuve complète ; Then elle est refusée. |
-| **Preuves attendues** | I7 evidence pack |
-| **Dépendances** | E01–E14 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | L |
-| **Gate Morris éventuelle** | Gate live + GO démo |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-### OPS1-US-E17-02 — Interdire claims MVP/production en démo
-
-| Champ | Contenu |
-|-------|---------|
-| **Formulation** | En tant que reviewer OPS1, je veux que les rapports de démonstration excluent les claims MVP/production, afin de préserver le statut POC du studio. |
-| **Acteur** | Docs |
-| **Besoin** | Exclure les claims MVP/production des rapports de démonstration |
-| **Valeur** | Préserver le statut POC du studio |
-| **Préconditions** | I7 |
-| **Scénario nominal** | Rapports sans MVP/PROD READY |
-| **Erreurs / stop** | Claim MVP → STOP review |
-| **Critères d’acceptation** | Given un rapport de démo I7 ; When la revue anti-claims s’exécute ; Then aucun claim MVP DEFINED / PRODUCTION READY / LIVE READY n’est présent ; Given un claim interdit ; When il est détecté ; Then le rapport est rejeté. |
-| **Preuves attendues** | review sign-off |
-| **Dépendances** | E17-01 |
-| **Réserve** | — |
-| **Priorité candidate** | P0 |
-| **Taille relative candidate** | XS |
-| **Gate Morris éventuelle** | — |
-| **Statut** | `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` |
-
-
----
-
-## Anti-claims
-
-Ce document n’affirme pas : READY FOR DELIVERY · READY FOR IMPLEMENTATION · APPROVED · VALIDATED · COMMITTED FOR SPRINT · STACK FINALIZED · MVP DEFINED · LIVE READY · PRODUCTION READY.
-
-## Verdict
-
-`OPS1 BACKLOG EPICS/STORIES VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — 2026-07-20 20:52:00 CEST`
-
-
----
-
-# Contenu complet — 62-ops1-backlog-decision-pack.md
-
-
-# SFIA Studio — Backlog OPS1 — decision pack (candidats)
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `62-ops1-backlog-decision-pack.md` |
-| **Cycle** | 5 — Backlog / user stories |
-| **Profil** | Standard |
-| **Gate consommé** | `GO G-OPS1-BACKLOG — OPEN BACKLOG CYCLE` |
-| **Gate validation** | `G-OPS1-BACKLOG-VAL` **consommé** — 2026-07-20 20:52:00 CEST |
-| **Statut** | `backlog-decisions-validated-with-reservations` — **20 validées avec réserves** (2026-07-20 20:52:00 CEST) |
-| **Décisions** | `OPS1-BACKLOG-CAND-01`…`20` |
-| **Companions** | [`60`](./60-ops1-backlog-framing-and-prioritization.md) · [`61`](./61-ops1-epics-stories-and-acceptance-criteria.md) |
-| **Branche** | `backlog/sfia-studio-ops1` |
-| **Base** | `origin/main` @ `9bfee8ea113386ee2603093fbec366eda9161c19` |
-
-> Toutes les décisions : `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST`.
-> 20 validées avec réserves · 0 AWAITING · aucune ouverture automatique du cycle suivant.
+| **Document** | `65-ops1-integration-devops-decision-pack.md` |
+| **Compléments** | [`63`](./63-ops1-integration-devops-foundation.md) · [`64`](./64-ops1-local-controls-ci-and-evidence-contract.md) |
+| **Statut** | décision pack **candidat** |
+| **Gate validation** | `G-OPS1-DEVOPS-VAL` — **AWAITING** |
+| **Horodatage** | 2026-07-20 21:06:00 CEST |
+| **Nombre de candidats** | 24 (`OPS1-DEVOPS-CAND-01…24`) |
+
+> Toutes les décisions Morris ci-dessous valent **`AWAITING G-OPS1-DEVOPS-VAL`**.
+> Aucune n’est validée. Aucune n’ouvre CI, delivery, live, MVP ou production.
 
 ---
 
 ## Synthèse
 
-| Champ | Valeur |
-|-------|--------|
-| Nombre de candidats | 20 |
-| Statut collectif | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-| Epics ([`61`](./61-ops1-epics-stories-and-acceptance-criteria.md)) | 17 |
-| Stories | 41 |
-| Réserves | FD-CAND-15 · UX-R01…R04 |
-| Fermé | Delivery · code · live · MVP · production · CI delivery |
+| Indicateur | Valeur |
+|------------|--------|
+| Décisions candidates | 24 |
+| Validées | 0 |
+| `AWAITING G-OPS1-DEVOPS-VAL` | 24 |
+| CI implémentée | Non |
+| Delivery I1 | Non ouvert |
+| Réserves levées | 0 |
 
 ---
 
-## OPS1-BACKLOG-CAND-01 — Structure des epics
+## OPS1-DEVOPS-CAND-01 — Structure du repository OPS1
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Structure des epics |
-| **Proposition** | Retenir 17 epics `OPS1-E01`…`E17` couvrant session, chat, action, gate, contrat, paths, worktree, stockage, idempotence, rapport, reprise, UX, obs, sécurité, contrôles locaux/DevOps prep, FinOps, démo I7. |
-| **Alternatives** | Fusionner en <10 epics ; aligner 1:1 sur I1–I7 seulement. |
-| **Justification** | Couverture minimale demandée + transverses sécurité/obs/FinOps. |
-| **Impacts** | Navigation backlog plus fine. |
-| **Risques** | Sur-découpage. |
-| **Dette** | Ajustement post-VAL possible. |
+| **Sujet** | Structure du repository OPS1 |
+| **Proposition** | Conserver `projects/sfia-studio/app/**` comme Studio ; docs `NN-*.md` ; runtime OPS1 futur dans module dédié (ex. `projects/sfia-studio/runtime/`) distinct du harness POC ; état exec sous `.sfia-exec/<executionId>/`. |
+| **Alternatives** | Tout fusionner dans `app/` · Réutiliser `harness/` comme runtime OPS1 sans frontière |
+| **Justification** | Respecte AF-Option C et tech-arch ; évite confusion POC/OPS1 |
+| **Impacts** | Clarté delivery ; ignore policies |
+| **Risques** | Confusion harness=runtime |
+| **Dette** | Migration harness ultérieure possible |
+| **Réserve** | Ne pas créer les dossiers dans ce cycle |
+| **Recommandation** | Adopter la structure candidate documentée |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-02 — Frontières Studio / runtime
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Frontières Studio / runtime |
+| **Proposition** | Studio = cockpit UI/domaine ; runtime/runner = exécution gouvernée (contrats, paths, git wrapper) ; pas d’auto-GO UI. |
+| **Alternatives** | Orchestrateur monolithique dans Next.js |
+| **Justification** | Aligné décisions archi fonctionnelle + technique |
+| **Impacts** | Séparation tests UI vs contrôles runtime |
+| **Risques** | Fuite d’autorité vers UI |
+| **Dette** | Adapters à concevoir en delivery |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Maintenir séparation stricte |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-02 — Ordre d’incréments
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Ordre d’incréments |
-| **Proposition** | Séquencer I1→I2→I3→I4→I5→I6→I7 avec robustesse P1 (E06–E10) avant I7. |
-| **Alternatives** | I4 avant I2 ; big-bang I7. |
-| **Justification** | Aligné cadrage `41` et preuve progressive. |
-| **Impacts** | Lots delivery futurs ordonnés. |
-| **Risques** | Pression live trop tôt. |
-| **Dette** | — |
-| **Réserve** | Gate live distinct pour I2/I7. |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-03 — Périmètre P0/P1/P2
+## OPS1-DEVOPS-CAND-03 — Emplacement SQLite
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Périmètre P0/P1/P2 |
-| **Proposition** | P0 = chemin preuve I1–I7 gouverné ; P1 = fail-closed/idempotence/audit ; P2 = FinOps polish, responsive, CI PR prep ; OUT = MVP/prod/remote auto/CI delivery. |
-| **Alternatives** | MoSCoW Must/Should ; score numérique. |
-| **Justification** | Simplicité explicite sans fausse charge. |
-| **Impacts** | Priorisation Morris. |
-| **Risques** | Débat P0 vs P1. |
-| **Dette** | — |
+| **Sujet** | Emplacement SQLite |
+| **Proposition** | SQLite local non versionné sous `.sfia-exec/<executionId>/state/ops1.sqlite` (chemin exact figé à l’implémentation). |
+| **Alternatives** | SQLite dans `app/` versionné · DB cloud |
+| **Justification** | OPS1-TECH-CAND-12 ; pas de store Git opérationnel |
+| **Impacts** | gitignore ; backup/purge |
+| **Risques** | Commit accidentel DB |
+| **Dette** | Outil admin local futur |
+| **Réserve** | FD-CAND-15 indépendant |
+| **Recommandation** | Adopter emplacement sous `.sfia-exec` |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-04 — Emplacement artefacts append-only
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Emplacement artefacts append-only |
+| **Proposition** | `.sfia-exec/<executionId>/artifacts/` pour contrats, gateDecision, rapports, diffs, preuves, logs redacted. |
+| **Alternatives** | Commit systématique des artefacts · stdout only |
+| **Justification** | Preuves immuables corrélées hash/attempt |
+| **Impacts** | Rétention ; exports Morris |
+| **Risques** | Rewrite de preuves |
+| **Dette** | Export sélectif versionné sous GO |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Adopter artifacts/ append-only |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-04 — Séquencement I1–I7
+## OPS1-DEVOPS-CAND-05 — Politique fichiers temporaires et `.gitignore`
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Mapping stories → I1–I7 |
-| **Proposition** | Mapping documenté dans [`60`](./60-ops1-backlog-framing-and-prioritization.md) §7 et epics [`61`](./61-ops1-epics-stories-and-acceptance-criteria.md). |
-| **Alternatives** | Trajectoire libre hors I1–I7. |
-| **Justification** | I1–I7 déjà cadrés. |
-| **Impacts** | Traçabilité. |
-| **Risques** | — |
-| **Dette** | — |
+| **Sujet** | Politique fichiers temporaires et `.gitignore` |
+| **Proposition** | Ignorer `.sfia-exec/`, `*.sqlite*`, caches build/test déjà ignorés côté app ; conserver docs/code versionnés. |
+| **Alternatives** | Versionner worktrees exec |
+| **Justification** | Évite bruit git et fuites |
+| **Impacts** | Update root/app gitignore en cycle implémentation |
+| **Risques** | Oublier ignore ⇒ commit runtime |
+| **Dette** | Dette ignore actuelle |
+| **Réserve** | Aucune création ignore dans ce cycle |
+| **Recommandation** | Valider politique ; implémentation ultérieure |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-06 — Installation déterministe
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Installation déterministe |
+| **Proposition** | `npm ci` dans `projects/sfia-studio/app` comme standard ; interdiction de modifier lockfile hors GO deps. |
+| **Alternatives** | `npm install` libre · pnpm sans lock partagé |
+| **Justification** | Lockfile déjà présent |
+| **Impacts** | Reproductibilité locale/CI |
+| **Risques** | Drift lockfile |
+| **Dette** | Pin Node engines manquant |
+| **Réserve** | Pas d’install dans ce cycle |
+| **Recommandation** | Adopter npm ci comme norme Studio |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-07 — Gestion des dépendances
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Gestion des dépendances |
+| **Proposition** | Ajout/maj deps uniquement sous GO Morris delivery/deps ; audit vulnerabilities (ex. postcss via Next) tracé en dette. |
+| **Alternatives** | Upgrade Continu automatique |
+| **Justification** | Gouvernance POC maintenu |
+| **Impacts** | Sécurité supply-chain |
+| **Risques** | CVE non traités |
+| **Dette** | Dette moderate postcss ouverte |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Gel deps hors GO explicite |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-05 — Séparation backlog / DevOps / delivery
+## OPS1-DEVOPS-CAND-08 — Commandes locales socle
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Séparation des cycles |
-| **Proposition** | Ce backlog n’ouvre ni delivery ni DevOps ; E15 prépare CI PR sous GO DevOps distinct ; delivery lot = GO distinct post-`G-OPS1-BACKLOG-VAL`. |
-| **Alternatives** | Ouvrir DevOps dès VAL backlog. |
-| **Justification** | Amendement 4 tech-arch + doctrine SFIA. |
-| **Impacts** | Pas de CI delivery maintenant. |
-| **Risques** | Frustration outillage. |
-| **Dette** | — |
+| **Sujet** | Commandes locales socle |
+| **Proposition** | Socle obligatoire avant delivery code : `npm ci`, `lint`, `typecheck`, `test`, `build`, `test:e2e` (+ `git diff --check`) quand le lot touche `app/**`. |
+| **Alternatives** | Uniquement E2E · skip typecheck |
+| **Justification** | Commandes EXISTS déjà |
+| **Impacts** | DoD qualité |
+| **Risques** | False sense si runtime non testé |
+| **Dette** | Scripts agrégateurs candidats |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Contractualiser le socle EXISTS |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-06 — Stratégie de dépendances
+## OPS1-DEVOPS-CAND-09 — Stratégie de tests
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Dépendances stories |
-| **Proposition** | Dépendances explicites inter-stories ; lot delivery = fermeture transitive des P0 requis. |
-| **Alternatives** | Stories totalement indépendantes. |
-| **Justification** | Runtime OPS1 fortement chaîné (gate→contrat→exec→rapport). |
-| **Impacts** | Lots cohérents. |
-| **Risques** | Chemins critiques longs. |
-| **Dette** | — |
+| **Sujet** | Stratégie de tests |
+| **Proposition** | Pyramide : unit EXISTS → integration CANDIDATE (paths/sqlite/runner) → E2E UI EXISTS ; fixture≠live ; live hors CI socle. |
+| **Alternatives** | E2E only · live in CI |
+| **Justification** | Aligné E15 / tech-arch |
+| **Impacts** | Couverture contrôles |
+| **Risques** | Trous integration |
+| **Dette** | Suites à créer en delivery |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Adopter pyramide documentée |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-07 — Definition of Ready
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | DoR documentaire |
-| **Proposition** | Adopter DoR [`60`](./60-ops1-backlog-framing-and-prioritization.md) §14. |
-| **Alternatives** | DoR delivery-only. |
-| **Justification** | Qualité avant VAL. |
-| **Impacts** | Revue ChatGPT facilitée. |
-| **Risques** | — |
-| **Dette** | — |
-| **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-08 — Definition of Done
+## OPS1-DEVOPS-CAND-10 — Stratégie CI PR candidate
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | DoD documentaire / futur |
-| **Proposition** | Adopter DoD [`60`](./60-ops1-backlog-framing-and-prioritization.md) §15 ; Done delivery hors cycle. |
-| **Alternatives** | DoD code-only immédiat. |
-| **Justification** | Sépare doc et implémentation. |
-| **Impacts** | — |
-| **Risques** | — |
-| **Dette** | — |
-| **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Sujet** | Stratégie CI PR candidate |
+| **Proposition** | CI PR Studio path-filtered, sans secrets, permissions read, jobs doc-guard + app-quality (+ e2e optionnel) ; **non implémentée** tant que GO implémentation distinct après VAL. |
+| **Alternatives** | Réutiliser Interv360 CI · CI avec secrets GPT |
+| **Justification** | OPS1-TECH-CAND-20 · BACKLOG-CAND-18 |
+| **Impacts** | Qualité PR |
+| **Risques** | Scope creep workflow monorepo |
+| **Dette** | YAML à écrire plus tard |
+| **Réserve** | Aucun fichier .github modifié maintenant |
+| **Recommandation** | Valider stratégie ; n’implémenter qu’après GO CI |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-09 — Modèle de priorité
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Priorité P0/P1/P2/OUT |
-| **Proposition** | Utiliser le modèle [`60`](./60-ops1-backlog-framing-and-prioritization.md) §4–5 comme référence unique. |
-| **Alternatives** | MoSCoW ; RICE. |
-| **Justification** | Lisibilité Morris. |
-| **Impacts** | — |
-| **Risques** | — |
-| **Dette** | — |
-| **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-10 — Modèle de taille relative
+## OPS1-DEVOPS-CAND-11 — Permissions CI
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Tailles XS–XL |
-| **Proposition** | Tailles relatives candidates uniquement ; pas de jours. |
-| **Alternatives** | Points Fibonacci ; estimation horaire. |
-| **Justification** | Évite fausse précision. |
-| **Impacts** | — |
-| **Risques** | — |
-| **Dette** | — |
-| **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-11 — Couverture sécurité
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Sécurité dans le backlog |
-| **Proposition** | E06, E07, E14 + PN remote E10 obligatoires P0/P1 ; pas de claim sandbox OS forte. |
-| **Alternatives** | Sécurité seulement en DevOps. |
-| **Justification** | Tech-arch amendements 1/4. |
-| **Impacts** | Stories sécurité first-class. |
-| **Risques** | — |
-| **Dette** | Conteneur = trajectoire hors OPS1. |
-| **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-12 — Couverture UX
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | UX dans le backlog |
-| **Proposition** | E12 P0 desktop ; UX-R01…R04 non levées ; responsive P2 ; microcopy réserve UX-R02. |
-| **Alternatives** | Bloquer backlog tant que UX-R non closes. |
-| **Justification** | UX validée avec réserves. |
-| **Impacts** | Delivery desktop d’abord. |
-| **Risques** | Dette microcopy. |
-| **Dette** | UX-R01…R04 |
-| **Réserve** | UX-R01…R04 |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-13 — Couverture observabilité
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Observabilité |
-| **Proposition** | E13 P1 événements corrélés sans secrets + métriques minimales obligatoires (durée, fichiers touchés) ; absence ⇒ `METRICS_INCOMPLETE` explicite (pas d’absence silencieuse) ; pas d’APM complet. |
-| **Alternatives** | APM immédiat. |
-| **Justification** | Proportionné OPS1. |
-| **Impacts** | — |
-| **Risques** | — |
+| **Sujet** | Permissions CI |
+| **Proposition** | `contents: read` minimal ; pas de `pull-requests: write` ni secrets ; forks sans credentials. |
+| **Alternatives** | Permissions write pour commentaires |
+| **Justification** | Moindre privilège |
+| **Impacts** | Surface d’attaque |
+| **Risques** | Escalade future |
 | **Dette** | — |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Adopter least privilege |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-14 — Couverture QA
+## OPS1-DEVOPS-CAND-12 — Politique secrets
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | QA |
-| **Proposition** | Chaque story P0/P1 a AC testables + preuves ; E15 checklist locale ; E17 checklist I7. |
-| **Alternatives** | QA seulement post-delivery. |
-| **Justification** | Preuve OPS1. |
-| **Impacts** | — |
-| **Risques** | — |
+| **Sujet** | Politique secrets |
+| **Proposition** | Interdit secrets dans env runner, prompts, rapports, artefacts, logs CI ; `.env*` ignoré ; scan CANDIDATE. |
+| **Alternatives** | Secrets en variables repo pour E2E live |
+| **Justification** | OPS1-TECH-CAND-04 |
+| **Impacts** | Conformité |
+| **Risques** | Fuite via artefacts |
+| **Dette** | Scanner à brancher |
+| **Réserve** | — |
+| **Recommandation** | Fail-closed secrets |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-13 — Politique réseau
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Politique réseau |
+| **Proposition** | Deny by default runner ; CI socle sans besoin egress fournisseur ; live = exception gate Morris. |
+| **Alternatives** | Network on by default |
+| **Justification** | OPS1-TECH-CAND-03 |
+| **Impacts** | Isolation |
+| **Risques** | Tests live mal classés |
+| **Dette** | Contrôle technique OS limité (dette sandbox) |
+| **Réserve** | Worktree ≠ sandbox forte rappelée |
+| **Recommandation** | Adopter deny default |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-14 — Politique cache CI
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Politique cache CI |
+| **Proposition** | Cache npm scoped au workflow Studio ; pas de cache partagé forks ; invalidation sur lockfile. |
+| **Alternatives** | Cache global monorepo permissif |
+| **Justification** | Perf vs isolation |
+| **Impacts** | Temps jobs |
+| **Risques** | Poisoning cache |
 | **Dette** | — |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Cache npm scoped only |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-15 — Traitement FD-CAND-15
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | FinOps numériques |
-| **Proposition** | Maintenir FD-CAND-15 OPEN ; E16 placeholders uniquement ; aucun seuil inventé dans le backlog. |
-| **Alternatives** | Fixer seuils maintenant. |
-| **Justification** | Décision amont maintenue. |
-| **Impacts** | Stories FinOps P2. |
-| **Risques** | — |
-| **Dette** | Gate FinOps/live |
-| **Réserve** | FD-CAND-15 |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-16 — Traitement UX-R01…R04
+## OPS1-DEVOPS-CAND-15 — Politique artefacts CI
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Réserves UX |
-| **Proposition** | Maintenir UX-R01…R04 ouvertes ; stories associées marquées réserve ; ne pas les lever ici. |
-| **Alternatives** | Lever UX-R02 dans ce cycle. |
-| **Justification** | Hors arbitrage backlog. |
-| **Impacts** | — |
-| **Risques** | — |
-| **Dette** | UX-R |
-| **Réserve** | UX-R01…R04 |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-17 — Critère d’ouverture premier cycle delivery
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Ouverture delivery |
-| **Proposition** | Premier lot delivery seulement après `G-OPS1-BACKLOG-VAL` + GO delivery distinct + DoR du lot + P0 dépendances satisfaites. |
-| **Alternatives** | Delivery dès documentation backlog. |
-| **Justification** | CAND tech-arch 23/24 + doctrine. |
-| **Impacts** | Code fermé maintenant. |
-| **Risques** | — |
+| **Sujet** | Politique artefacts CI |
+| **Proposition** | Uploader rapports test/lint en artefacts courte durée ; redaction ; pas de sqlite/runtime. |
+| **Alternatives** | Artefacts illimités |
+| **Justification** | Preuve PR |
+| **Impacts** | Stockage Actions |
+| **Risques** | Fuite données |
 | **Dette** | — |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Rétention courte + redaction |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-18 — Critère d’ouverture cycle Intégration/DevOps
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Ouverture DevOps |
-| **Proposition** | CI PR seulement sous GO Intégration/DevOps distinct ; E15-02 reste préparatoire. |
-| **Alternatives** | CI PR dans premier delivery. |
-| **Justification** | Amendement 4. |
-| **Impacts** | — |
-| **Risques** | — |
-| **Dette** | — |
-| **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
-
-## OPS1-BACKLOG-CAND-19 — Éléments hors OPS1
+## OPS1-DEVOPS-CAND-16 — Politique rétention locale runtime
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | OUT |
-| **Proposition** | Hors OPS1 : MVP, production, remote Git auto, multi-projets hors Campus360, CI delivery complète, sandbox OS forte affirmée, L4/L5, stack cloud finalisée. |
-| **Alternatives** | Élargir OPS1. |
-| **Justification** | Invariants §6 du prompt + tech-arch. |
-| **Impacts** | Scope borné. |
-| **Risques** | — |
-| **Dette** | — |
+| **Sujet** | Politique rétention locale runtime |
+| **Proposition** | Conserver `.sfia-exec/<id>` jusqu’à revue/cleanup GO (`OPS1-TECH-CAND-21`) ; purge explicite ; pas de TTL silencieux détruisant preuves requises. |
+| **Alternatives** | Purge auto 24h |
+| **Justification** | Traçabilité |
+| **Impacts** | Disque local |
+| **Risques** | Perte preuves |
+| **Dette** | Procédure cleanup |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Cleanup seulement sous GO |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
 
-## OPS1-BACKLOG-CAND-20 — Statut initial des stories
+## OPS1-DEVOPS-CAND-17 — Contrôle fichiers protégés
 
 | Champ | Contenu |
 |-------|---------|
-| **Sujet** | Statut stories |
-| **Proposition** | Toutes stories portent le statut `BACKLOG VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL` après validation Morris du pack ; ce statut n’ouvre pas delivery. |
-| **Alternatives** | Marquer P0 comme APPROVED. |
-| **Justification** | Évite fausse validation. |
-| **Impacts** | — |
-| **Risques** | — |
+| **Sujet** | Contrôle fichiers protégés |
+| **Proposition** | Denylist : `method/**`, `prompts/**`, `.github/**` (hors GO CI), `01`–`62` hors cycles autorisés, secrets, lockfiles non allowlistés, Campus360 hors contrat. |
+| **Alternatives** | Allow all under projects/ |
+| **Justification** | Scénario + tech-arch |
+| **Impacts** | Gouvernance |
+| **Risques** | Modification opportuniste |
+| **Dette** | Script guard CANDIDATE |
+| **Réserve** | — |
+| **Recommandation** | Fail-closed protected paths |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-18 — Contrôle Git remote
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Contrôle Git remote |
+| **Proposition** | Runner : deny push/fetch-write/PR/merge ; preuves négatives ; humains seuls sous GO. |
+| **Alternatives** | Auto-push branche scenario |
+| **Justification** | OPS1-TECH-CAND-26 · PN-09 |
+| **Impacts** | Sécurité |
+| **Risques** | Wrapper incomplet |
+| **Dette** | Implémentation delivery |
+| **Réserve** | — |
+| **Recommandation** | Bloquer remote par défaut |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-19 — Gestion `REPORT_INCOMPLETE`
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Gestion `REPORT_INCOMPLETE` |
+| **Proposition** | Rapport STRICT : incomplete ⇒ non SUCCESS ; pas retry auto ; nouvel attempt = Morris (`OPS1-TECH-CAND-17`). |
+| **Alternatives** | COMPLETED soft |
+| **Justification** | Invariant validé tech-arch |
+| **Impacts** | DoD preuves |
+| **Risques** | Masquage échecs |
 | **Dette** | — |
 | **Réserve** | — |
-| **Recommandation** | Proposition retenue. |
-| **Décision Morris** | `VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — Morris — 2026-07-20 20:52:00 CEST` |
+| **Recommandation** | Enforcer REPORT_INCOMPLETE |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-20 — Gestion `METRICS_INCOMPLETE`
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Gestion `METRICS_INCOMPLETE` |
+| **Proposition** | Métriques obligatoires absentes ⇒ `METRICS_INCOMPLETE` + cause ; aligné E13-02 / BACKLOG-CAND-13. |
+| **Alternatives** | Omettre section metrics |
+| **Justification** | Revue backlog corrections |
+| **Impacts** | Observabilité |
+| **Risques** | FinOps incomplets (FD-CAND-15) |
+| **Dette** | Seuils numériques absents |
+| **Réserve** | FD-CAND-15 OPEN |
+| **Recommandation** | Exiger état explicite |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-21 — Gates vers Delivery I1
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Gates vers Delivery I1 |
+| **Proposition** | I1 nécessite : `G-OPS1-DEVOPS-VAL` consommé ; socle contrôles/commandes accepté ; DoR backlog ; allowlist lot ; rollback ; **GO Delivery I1** distinct. |
+| **Alternatives** | Ouvrir I1 dès docs DevOps écrits |
+| **Justification** | BACKLOG-CAND-17 · TECH-CAND-24 |
+| **Impacts** | Séquencement sûr |
+| **Risques** | Ouverture prématurée |
+| **Dette** | — |
+| **Réserve** | I1 = E01+E12 session |
+| **Recommandation** | Ne pas ouvrir I1 dans ce cycle |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-22 — Critères d’ouverture CI implémentée
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Critères d’ouverture CI implémentée |
+| **Proposition** | Créer workflow Studio seulement après `G-OPS1-DEVOPS-VAL` **et** `GO IMPLEMENT OPS1 CI` (nom indicatif) distinct ; YAML minimal conforme CAND-10/11. |
+| **Alternatives** | Implémenter CI dans le cycle de validation doc |
+| **Justification** | Séparation doc vs impl |
+| **Impacts** | Contrôle changement .github |
+| **Risques** | PR CI trop large |
+| **Dette** | — |
+| **Réserve** | Aucun YAML maintenant |
+| **Recommandation** | Exiger GO implémentation CI séparé |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-23 — Rollback
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Rollback |
+| **Proposition** | Docs : revert ; runtime : delete worktree sous GO ; CI : disable workflow ; delivery : revert PR ; jamais force-push main. |
+| **Alternatives** | Reset hard partagé |
+| **Justification** | Sécurité Git |
+| **Impacts** | Récupération |
+| **Risques** | Manipulation historique |
+| **Dette** | — |
+| **Réserve** | — |
+| **Recommandation** | Adopter rollback non destructif |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+## OPS1-DEVOPS-CAND-24 — Dette et réserves
+
+| Champ | Contenu |
+|-------|---------|
+| **Sujet** | Dette et réserves |
+| **Proposition** | Maintenir ouvertes : FD-CAND-15, UX-R01…R04, stack/fournisseur, sandbox OS, CI non implémentée, live fermés ; tracer dette engines Node + suites integration + ignore `.sfia-exec`. |
+| **Alternatives** | Lever réserves implicitement |
+| **Justification** | Cohérence packs validés |
+| **Impacts** | Transparence |
+| **Risques** | Oubli réserves |
+| **Dette** | Liste dette §15 doc 63 |
+| **Réserve** | Aucune levée ici |
+| **Recommandation** | Conserver réserves explicites |
+| **Décision Morris** | `AWAITING G-OPS1-DEVOPS-VAL` |
+
+---
+
+## Traceabilité vers sources
+
+| Candidat | Sources principales |
+|----------|---------------------|
+| 01–05 | `57`–`58` · TECH-CAND-01/12/21 |
+| 06–09 | `app/package.json` · TECH-CAND-20 · E15 |
+| 10–16 | TECH-CAND-03/04/20/26 · BACKLOG-CAND-18 |
+| 17–20 | `55` · TECH-CAND-05/06/17/26 · E13 |
+| 21–24 | BACKLOG-CAND-17/18 · TECH-CAND-24 · réserves FD/UX |
 
 ---
 
 ## Anti-claims
 
-Pas de : BACKLOG VALIDATED · READY FOR DELIVERY · READY FOR IMPLEMENTATION · STACK FINALIZED · MVP DEFINED · LIVE READY · PRODUCTION READY · FULL CI IMPLEMENTED.
+Interdit de conclure de ce pack :
+
+- `FULL CI IMPLEMENTED`
+- `READY FOR DELIVERY` / `READY FOR IMPLEMENTATION`
+- `SANDBOX STRONG ISOLATION`
+- `STACK FINALIZED`
+- `LIVE READY`
+- levée de `FD-CAND-15` ou `UX-R01…R04`
 
 ---
 
-## Verdict
+## Gate Morris attendu
 
-`OPS1 BACKLOG DECISION PACK VALIDATED WITH RESERVATIONS — G-OPS1-BACKLOG-VAL — 2026-07-20 20:52:00 CEST`
+`G-OPS1-DEVOPS-VAL` — validation sans réserve / avec réserves ou amendements / correction / rejet.
 
-20 décisions validées avec réserves · 0 AWAITING · `2026-07-20 20:52:00 CEST`.
+Décisions futures **distinctes** possibles après VAL : GO implémentation CI · GO Delivery I1 · gates live.
+
+---
+
+*Pack candidat — 2026-07-20 21:06:00 CEST — 0 décisions validées.*
 
 
 ---
 
-# Diff complet utile — README.md (commit projet)
+# Diff README
 
 ```diff
-
-commit 4032c25145b92d4f5389af0d2f8cc4d27bd2ab8e
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Mon Jul 20 20:53:09 2026 +0200
-
-    docs: validate OPS1 backlog
-    
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 47a6810..d1b4ad6 100644
+index d1b4ad6..0411b13 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
 @@ -4,7 +4,7 @@
  |------------|--------|
  | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
  | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
--| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; conception / live / backlog / delivery / MVP / production **fermés** |
-+| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; backlog OPS1 **validé avec réserves** (`60`–`62`) ; live / delivery / code / DevOps / MVP / production **fermés** |
+-| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; backlog OPS1 **validé avec réserves** (`60`–`62`) ; live / delivery / code / DevOps / MVP / production **fermés** |
++| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44` intégrés sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235), squash `b686eb1`) ; cleanup branche documentaire effectué ; **POC maintenu** ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; cycle Intégration / DevOps **documentaire ouvert** (`63`–`65` ; `G-OPS1-DEVOPS-VAL` **AWAITING**) ; CI implémentée / live / delivery / code / MVP / production **fermés** |
  | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
  | **Autorité** | Morris (L0) |
  | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
@@ -2057,50 +1170,51 @@ index 47a6810..d1b4ad6 100644
  | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
  | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
  | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
--| **Prochaine décision** | Choix Morris : publication handoff / PR readiness / backlog — **non ouverts automatiquement** ; tech-arch OPS1 **validée avec amendements** (`G-OPS1-TECH-ARCH-VAL` consommé) |
-+| **Prochaine décision** | Choix Morris : revue PR / merge éventuel / GO delivery ou DevOps — **non automatiques** ; backlog OPS1 **validé avec réserves** |
+-| **Prochaine décision** | Choix Morris : revue PR / merge éventuel / GO delivery ou DevOps — **non automatiques** ; backlog OPS1 **validé avec réserves** |
++| **Prochaine décision** | `G-OPS1-DEVOPS-VAL` (validation pack `63`–`65`) — **non automatique** ; CI implémentée / Delivery I1 / live **fermés** tant que GO distincts non consommés |
  
  ---
  
-@@ -369,11 +369,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- ## 8. Prochaine décision
+@@ -370,11 +370,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  
  1. Scénario OPS1 **validé avec amendements** — docs [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md).
--2. Architecture technique OPS1 — docs [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) **validés avec amendements** · `GO G-OPS1-TECH-ARCH-VAL — VALIDATION AVEC AMENDEMENTS — 2026-07-20 19:17:11 CEST`.
--3. Backlog / delivery / live GPT-Cursor / MVP — **FERMÉS** (non ouverts automatiquement).
--4. Réserves restantes : FD-CAND-15 · UX-R01…R04 · live · FinOps numériques ; worktree ≠ sandbox OS forte ; CI PR = cycle DevOps distinct.
-+2. Architecture technique OPS1 — docs [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) **validés avec amendements**.
-+3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · 17 epics / 41 stories / 20 décisions · corrections de revue intégrées.
-+4. Delivery / code / Intégration-DevOps / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
-+5. Réserves restantes : FD-CAND-15 · UX-R01…R04 · stack/fournisseur non finalisés · worktree ≠ sandbox OS forte · CI PR = cycle DevOps distinct · gates live distincts.
+ 2. Architecture technique OPS1 — docs [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) **validés avec amendements**.
+-3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · 17 epics / 41 stories / 20 décisions · corrections de revue intégrées.
+-4. Delivery / code / Intégration-DevOps / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
+-5. Réserves restantes : FD-CAND-15 · UX-R01…R04 · stack/fournisseur non finalisés · worktree ≠ sandbox OS forte · CI PR = cycle DevOps distinct · gates live distincts.
++3. Backlog OPS1 — docs [`60`](./60-ops1-backlog-framing-and-prioritization.md)–[`62`](./62-ops1-backlog-decision-pack.md) **validés avec réserves** · `G-OPS1-BACKLOG-VAL` consommé (2026-07-20 20:52:00 CEST) · intégrés sur `main` (PR [#244](https://github.com/mcleland147/sfia-workspace/pull/244) / `6584646…`) · 17 epics / 41 stories / 20 décisions.
++4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **candidats** · gate ouverture `G-OPS1-DEVOPS` consommée · **`G-OPS1-DEVOPS-VAL` AWAITING** · CI **non implémentée** · aucun code / `.github/**` modifié dans ce cycle.
++5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
++6. Réserves restantes : FD-CAND-15 · UX-R01…R04 · stack/fournisseur non finalisés · worktree ≠ sandbox OS forte · CI PR = implémentation sous GO distinct · gates live distincts.
  
--**Verdict documentaire courant :** `SFIA STUDIO OPS1 TECHNICAL ARCHITECTURE VALIDATED WITH AMENDMENTS`
-+**Verdict documentaire courant :** `SFIA STUDIO OPS1 BACKLOG VALIDATED WITH RESERVATIONS`
+-**Verdict documentaire courant :** `SFIA STUDIO OPS1 BACKLOG VALIDATED WITH RESERVATIONS`
++**Verdict documentaire courant :** `SFIA STUDIO OPS1 INTEGRATION DEVOPS FOUNDATION DOCUMENTED — AWAITING G-OPS1-DEVOPS-VAL`
  
  
  ---
-@@ -390,6 +391,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -391,7 +392,8 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | UX/UI OPS1 | Docs `51`–`53` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; Figma page `61:2` référence desktop ; UX-R01…UX-R04 ouvertes |
  | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
  | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
-+| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; 17 epics / 41 stories / 20 décisions ; delivery/code/DevOps/live/MVP fermés |
+-| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; 17 epics / 41 stories / 20 décisions ; delivery/code/DevOps/live/MVP fermés |
++| Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
++| Intégration / DevOps OPS1 | Docs `63`–`65` — **CANDIDATE** (`G-OPS1-DEVOPS` ouvert ; `G-OPS1-DEVOPS-VAL` **AWAITING**) ; CI implémentée / delivery / live / MVP **fermés** |
  | Handoff | `sfia/review-handoff` |
  
  ---
-@@ -457,4 +459,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [58-ops1-technical-components-security-and-runtime.md](./58-ops1-technical-components-security-and-runtime.md) | Composants / sécurité / runtime — **VALIDATED WITH AMENDMENTS** |
- | [59-ops1-technical-architecture-decision-pack.md](./59-ops1-technical-architecture-decision-pack.md) | `OPS1-TECH-CAND-01`…`26` — **VALIDATED WITH AMENDMENTS** |
+@@ -467,4 +469,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | [61-ops1-epics-stories-and-acceptance-criteria.md](./61-ops1-epics-stories-and-acceptance-criteria.md) | 17 epics / 41 stories — **VALIDATED WITH RESERVATIONS** |
+ | [62-ops1-backlog-decision-pack.md](./62-ops1-backlog-decision-pack.md) | `OPS1-BACKLOG-CAND-01`…`20` — **VALIDATED WITH RESERVATIONS** (2026-07-20 20:52:00 CEST) |
  
--*SFIA Studio — POC maintenu — OPS1 scénario + tech-arch VALIDATED WITH AMENDMENTS — backlog / delivery / MVP non ouverts.*
-+### Backlog OPS1 (validé avec réserves — `G-OPS1-BACKLOG-VAL` consommé)
+-*SFIA Studio — POC maintenu — OPS1 backlog VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — delivery / MVP non ouverts.*
++### Intégration / DevOps OPS1 (candidat — `G-OPS1-DEVOPS-VAL` AWAITING)
 +
 +| Document | Rôle |
 +|----------|------|
-+| [60-ops1-backlog-framing-and-prioritization.md](./60-ops1-backlog-framing-and-prioritization.md) | Cadrage / priorisation backlog — **VALIDATED WITH RESERVATIONS** |
-+| [61-ops1-epics-stories-and-acceptance-criteria.md](./61-ops1-epics-stories-and-acceptance-criteria.md) | 17 epics / 41 stories — **VALIDATED WITH RESERVATIONS** |
-+| [62-ops1-backlog-decision-pack.md](./62-ops1-backlog-decision-pack.md) | `OPS1-BACKLOG-CAND-01`…`20` — **VALIDATED WITH RESERVATIONS** (2026-07-20 20:52:00 CEST) |
++| [63-ops1-integration-devops-foundation.md](./63-ops1-integration-devops-foundation.md) | Socle intégration / structure / CI candidate / secrets·réseau / stockage |
++| [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves / stop conditions |
++| [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **AWAITING G-OPS1-DEVOPS-VAL** |
 +
-+*SFIA Studio — POC maintenu — OPS1 backlog VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — delivery / MVP non ouverts.*
-
++*SFIA Studio — POC maintenu — backlog OPS1 VALIDATED WITH RESERVATIONS (sur `main`) — Intégration/DevOps documentaire candidat — CI / delivery / live / MVP non ouverts.*
 
 ```
