@@ -1,49 +1,42 @@
-# SFIA Studio Increment E — Review Pack (post-merge)
+# SFIA Studio Increment E — Review Pack (branch cleanup)
 
-- **Date/heure/fuseau :** 2026-07-20 11:16:41 CEST
-- **Cycle :** 14 — Post-merge
+- **Date/heure/fuseau :** 2026-07-20 11:30:23 CEST
+- **Cycle :** 14 — Post-merge / nettoyage de branche
 - **Profil SFIA :** Standard
-- **Gate consommé :** G-INCREMENT-E-POST-MERGE
-- **Gate branche toujours fermé :** G-INCREMENT-E-BRANCH-CLEANUP
-- **Gates fermés :** G-MVP-CLAIM, G-PRODUCTION-CLAIM
+- **Gate consommé :** G-INCREMENT-E-BRANCH-CLEANUP
+- **Gates fermés :** G-INCREMENT-E-POST-MERGE, G-MVP-CLAIM, G-PRODUCTION-CLAIM
 
-## 1. Truth Check initial
+## 1. Truth Check
 
-- Branche initiale : `delivery/sfia-studio-poc-increment-e` @ `c801a19`
-- main local avant sync : `a766eb3` (behind 1)
+- Branche courante : `main`
+- HEAD / main local : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
 - origin/main : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- Message : `feat(sfia-studio): add governed GPT analysis and slice closure (#234)`
-- Working tree tracked propre ; staged vide ; `.tmp-sfia-review` non tracké
-- PR #234 MERGED
-- fetch --prune n’a pas supprimé `origin/delivery/sfia-studio-poc-increment-e`
+- ahead/behind : `0	0` (0/0)
+- Working tree tracked propre ; staged vide
+- Artefacts non trackés : `.tmp-sfia-review/`, `projects/.tmp-sfia-review/`
+- Branche locale delivery avant suppression : `delivery/sfia-studio-poc-increment-e` @ `c801a19364cffc6081f366085bab5128656a1aaf`
+- Branche distante delivery avant suppression : `origin/delivery/sfia-studio-poc-increment-e` @ `c801a19364cffc6081f366085bab5128656a1aaf`
 
-## 2. PR / merge
+## 2. PR #234 / intégration squash
 
 ```json
 {"baseRefOid":"a766eb3e5f21b1df288bd07e727be2c20fd1a1d7","headRefOid":"c801a19364cffc6081f366085bab5128656a1aaf","mergeCommit":{"oid":"6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25"},"mergedAt":"2026-07-20T09:11:33Z","state":"MERGED","url":"https://github.com/mcleland147/sfia-workspace/pull/234"}
-
 ```
 
-- Méthode : squash merge GitHub
 - Merge commit : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- Head historique delivery : `c801a19364cffc6081f366085bab5128656a1aaf`
+- Head historique : `c801a19364cffc6081f366085bab5128656a1aaf`
 - Base historique : `a766eb3e5f21b1df288bd07e727be2c20fd1a1d7`
-- Note : `c801a19` n’est pas l’ancêtre direct du squash `6a4c4a7`, mais le contenu est intégré
+- 21 fichiers Increment E (squash et delivery identiques)
+- `git diff 6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25 c801a19364cffc6081f366085bab5128656a1aaf` : (vide — contenu identique)
+- `c801a19` n'est **pas** ancêtre direct de main (squash) — normal
+- merge-base(main, delivery) = `a766eb3e5f21b1df288bd07e727be2c20fd1a1d7`
 
-## 3. Synchronisation main
+## 3. Diff squash (preuve intégration)
 
-- Commande : `git switch main` puis `git merge --ff-only origin/main`
-- Branche actuelle : `main`
-- HEAD main : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- origin/main : `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
-- ahead/behind : `0	0` (0/0)
-
-## 4. Contenu squashé
-
-### Diff stat
+### Stat
 
 ```
- .../sfia-studio/app/__tests__/increment-e.test.tsx | 107 ++++
+.../sfia-studio/app/__tests__/increment-e.test.tsx | 107 ++++
  projects/sfia-studio/app/e2e/increment-a.spec.ts   |   2 +-
  projects/sfia-studio/app/e2e/increment-e.spec.ts   | 165 +++++
  .../features/cycle-actif/VsCycleActifScreen.tsx    |  95 ++-
@@ -65,7 +58,6 @@
  .../src/validation/verdictCandidateValidator.ts    | 165 +++++
  .../sfia-studio/harness/tests/increment-e.test.ts  | 425 +++++++++++++
  21 files changed, 3557 insertions(+), 50 deletions(-)
-
 ```
 
 ### Name-status
@@ -92,63 +84,69 @@ A	projects/sfia-studio/harness/src/types/gptVerdictCandidate.ts
 A	projects/sfia-studio/harness/src/types/morrisFinalDecision.ts
 A	projects/sfia-studio/harness/src/validation/verdictCandidateValidator.ts
 A	projects/sfia-studio/harness/tests/increment-e.test.ts
-
 ```
 
-- 21 fichiers Increment E
-- aucun `.tmp-sfia-review`, method/**, prompts/**, docs 01–40, package.json/lockfile
+## 4. Commandes exécutées
 
-## 5. Invariants GPT / Morris
+### Suppression distante
 
-- GptVerdictCandidate : candidat uniquement (`candidateOnly`, `closureAuthorized=false`, `morrisDecisionRequired`)
-- snapshot historique PARTIALLY_PROVED conservé dans artefact
-- MorrisFinalDecision CLOSE_SLICE distincte
-- CycleSummary : CLOSED_WITH_RESERVATIONS
-- candidateSnapshot ≠ finalState
-- resolvedByMorrisDecision présent
-- mvpClaim=false · productionReadyClaim=false
-- 4 routes P0 conservées
+```bash
+git push origin --delete delivery/sfia-studio-poc-increment-e
+```
 
-## 6. Tests post-merge sur main
+- Résultat : **succès** (`- [deleted] delivery/sfia-studio-poc-increment-e`)
+- `git ls-remote --heads origin delivery/sfia-studio-poc-increment-e` : (aucune ref)
+- `git branch -r --list origin/delivery/sfia-studio-poc-increment-e` : (absente)
 
-| Gate | Résultat |
-|------|----------|
-| Harness tsc | OK |
-| Harness tests | 168 passed / 2 skipped |
-| App tsc / lint / build | OK |
-| App unit | 40 passed |
-| E2E A–E + P0 | 43 passed |
-| git diff --check | OK |
-| Scan secrets | clean |
-| Appel GPT live | **aucun** (historiques : 2) |
-| Cursor réel | **aucun** |
-| CI distante | **aucun check reporté** (réserve, pas un succès CI) |
+### Suppression locale
 
-## 7. Branches delivery
+```bash
+git branch -d delivery/sfia-studio-poc-increment-e
+```
 
-- Locale : `delivery/sfia-studio-poc-increment-e` @ `c801a19364cffc6081f366085bab5128656a1aaf` — **non supprimée**
-- Distante : `origin/delivery/...` @ `c801a19364cffc6081f366085bab5128656a1aaf` — **non supprimée**
-- Cleanup sous GO distinct `G-INCREMENT-E-BRANCH-CLEANUP`
+- Résultat : **refusé** (exit 1)
+- Message Git : `the branch 'delivery/sfia-studio-poc-increment-e' is not fully merged`
+- Cause : squash — Git ne reconnaît pas `c801a19364cffc6081f366085bab5128656a1aaf` comme ancêtre de `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25`
+- **Aucun `git branch -D` exécuté** — GO Morris complémentaire requis
 
-## 8. Absences
+## 5. État final des branches
 
-- aucun nouveau commit
-- aucun push main/delivery
-- aucune suppression de branche
-- aucun amend/rebase
+| Ref | État |
+|-----|------|
+| `main` local | `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
+| `origin/main` | `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
+| `delivery/sfia-studio-poc-increment-e` (local) | **encore présente** @ `c801a19364cffc6081f366085bab5128656a1aaf` |
+| `origin/delivery/sfia-studio-poc-increment-e` | **supprimée** |
 
-## 9. git status final
+## 6. Absences
+
+- aucun commit applicatif ou sur main
+- aucun push main
+- aucune autre branche supprimée
+- aucun force-push
+- aucun `git clean`
+- artefacts `.tmp-sfia-review` conservés
+
+## 7. git status final
 
 ```
 ?? .tmp-sfia-review/
 ?? projects/.tmp-sfia-review/
-
 ```
 
-## 10. Décision Morris suivante
+## 8. Réserves restantes
 
-Éventuel nettoyage de branche via `G-INCREMENT-E-BRANCH-CLEANUP`, ou nouvelle trajectoire hors Increment E.
+- Branche locale delivery encore présente — force-delete (`-D`) requis avec GO Morris explicite
+- CI distante : aucun check reporté sur PR #234 (réserve historique)
+- Slice A–E : `CLOSED_WITH_RESERVATIONS` ; pas de claim MVP / production
+- 2 appels GPT live historiques ; aucun nouvel appel ce cycle
 
-## 11. Verdict
+## 9. Décision Morris suivante
 
-**SFIA STUDIO INCREMENT E MERGED — POST-MERGE COMPLETE**
+GO complémentaire explicite pour `git branch -D delivery/sfia-studio-poc-increment-e` après vérification fonctionnelle du refus squash.
+
+## 10. Verdict
+
+**BRANCH CLEANUP REQUIRES FORCE-DELETE CONFIRMATION**
+
+Suppression distante complète. Suppression locale bloquée par Git (squash). Contenu intégré et vérifié identique.
