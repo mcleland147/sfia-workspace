@@ -388,7 +388,7 @@ Gate `G-OPS1-FUNC-DESIGN-VAL` consommé — Morris — 2026-07-20 13:46 CEST.
 
 ## Handoff
 
-- SHA handoff : *(après push)*
+- SHA handoff tip : `655910a216193312e0dab939cc91a72cccce791f` (`origin/sfia/review-handoff`)
 
 ## Verdict
 
