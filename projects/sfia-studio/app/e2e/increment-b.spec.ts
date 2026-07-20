@@ -14,7 +14,7 @@ test.beforeAll(() => {
 test.describe("Increment B — harness-derived cockpit", () => {
   test("decision shows harness panel and four routes only", async ({ page }) => {
     await page.goto("/decision?vs=VS-UX-04");
-    await expect(page.getByTestId("vs-demo-banner")).toContainText("Incrément B");
+    await expect(page.getByTestId("vs-demo-banner")).toContainText("Incrément C");
     await expect(page.getByTestId("vs-harness-idle")).toBeVisible();
     await expect(page.getByTestId("vs-status-source")).toBeVisible();
     await page.screenshot({

@@ -26,3 +26,7 @@ export * from "./proof/verifyProofPack.js";
 export * from "./session/resumeSession.js";
 export * from "./adapter/thinStudioAdapter.js";
 export * from "./orchestrator.js";
+export * from "./types/qualificationCandidate.js";
+export * from "./finops/qualificationLimits.js";
+export * from "./validation/qualificationCandidateValidator.js";
+export * from "./ports/gptQualificationLive.js";

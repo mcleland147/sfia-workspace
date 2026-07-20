@@ -21,6 +21,7 @@ interface CtaButtonProps {
   className?: string;
   title?: string;
   "aria-label"?: string;
+  "aria-disabled"?: boolean;
   "data-testid"?: string;
 }
 
@@ -35,12 +36,15 @@ export function CtaButton({
   className = "",
   title,
   "aria-label": ariaLabel,
+  "aria-disabled": ariaDisabled,
   "data-testid": testId,
 }: CtaButtonProps) {
   const resolvedVariant = simulated ? "simulated" : variant;
   const classes = `${styles.button} ${styles[resolvedVariant]} ${className}`.trim();
   const isDisabled = disabled || simulated;
   const resolvedTitle = simulated ? SIMULATION_TITLE : title;
+  const resolvedAriaDisabled =
+    ariaDisabled !== undefined ? ariaDisabled : isDisabled || undefined;
 
   if (href && !isDisabled) {
     return (
@@ -57,7 +61,7 @@ export function CtaButton({
       onClick={onClick}
       disabled={isDisabled}
       title={resolvedTitle}
-      aria-disabled={isDisabled || undefined}
+      aria-disabled={resolvedAriaDisabled}
       aria-label={ariaLabel}
       data-testid={testId}
     >
