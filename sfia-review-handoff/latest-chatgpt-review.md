@@ -1,118 +1,160 @@
-# SFIA Studio — Review Pack — OPS1 PR #237 Branch Metadata Correction
+# SFIA Studio — Review Pack — OPS1 Functional Design Post-Merge (PR #237)
 
-- **Date/heure/fuseau :** 2026-07-20 14:17:44 CEST
+- **Date/heure/fuseau :** 2026-07-20 14:29:06 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Cycle :** 13 — PR readiness corrective
-- **Profil :** Light
-- **Gate Morris :** GO correctif métadonnée branche document 45
-- **Branche :** `design/sfia-studio-ops1-functional`
-- **Ancien HEAD :** `c5f1cead95c35d558261a17196f91da852c36eb4`
-- **Nouveau HEAD :** `c473b145b9917fbc4cf7a83f5b7edf031b61001a`
-- **Parent du correctif :** `c5f1cead95c35d558261a17196f91da852c36eb4`
-- **origin/main :** `62eb23f0b1934afbecc517fc83aff90493fb8f29` (inchangé)
+- **Cycle :** 14 — Post-merge
+- **Profil :** Standard
+- **Gate Morris :** GO POST-MERGE
 - **PR :** [#237](https://github.com/mcleland147/sfia-workspace/pull/237)
 
-## Truth Check
+## Truth Check initial
 
-Conforme avant correction : HEAD local = distant = `c5f1cead95c35d558261a17196f91da852c36eb4` ; local/distant `0/0` ; vs main `2/0` ; PR #237 OPEN ; tracked propre.
+| Contrôle | Résultat |
+|----------|----------|
+| Branche initiale | `design/sfia-studio-ops1-functional` |
+| HEAD initial | `c473b145b9917fbc4cf7a83f5b7edf031b61001a` |
+| origin/main | `6cbf37482c7d384ef5630259d58a2e223a607925` |
+| Tracked / staged | Propre / vide |
+| Untracked | `?? .tmp-sfia-review/` ; `?? projects/.tmp-sfia-review/` |
+| Remote design | Présente @ `c473b14…` |
 
-## Anomalie initiale
+**Verdict Truth Check :** CONFORME.
 
-Métadonnée Branche dans `45` indiquait encore :
-`design/sfia-studio-ops1-functional` (**locale uniquement** — aucun push)
-alors que la branche était publiée et la PR #237 ouverte.
-
-## Correction
-
-Avant :
-| **Branche** | `design/sfia-studio-ops1-functional` (**locale uniquement** — aucun push) |
-
-Après :
-| **Branche** | `design/sfia-studio-ops1-functional` — publiée pour la PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) |
-
-## Diff complet — document 45
-
-```diff
-commit c473b145b9917fbc4cf7a83f5b7edf031b61001a
-Author: Morris Cleland <morris@macbook-air1.home>
-Date:   Mon Jul 20 14:17:19 2026 +0200
-
-    docs(sfia-studio): update OPS1 PR branch metadata
-    
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/45-ops1-functional-design.md b/projects/sfia-studio/45-ops1-functional-design.md
-index e53979e..5a08aea 100644
---- a/projects/sfia-studio/45-ops1-functional-design.md
-+++ b/projects/sfia-studio/45-ops1-functional-design.md
-@@ -8,7 +8,7 @@
- | **Typologie** | POC / CONCEPTION FONCTIONNELLE / PRODUIT / DOC |
- | **Gates consommés** | `G-OPS1-FUNC-DESIGN` · `G-OPS1-FUNC-DESIGN-VAL` |
- | **Baseline Git** | `origin/main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
--| **Branche** | `design/sfia-studio-ops1-functional` (**locale uniquement** — aucun push) |
-+| **Branche** | `design/sfia-studio-ops1-functional` — publiée pour la PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) |
- | **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) |
- | **Autorité** | Morris (L0) |
- | **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) |
-```
-
-## Staged / commit
-
-- Staged exact : `projects/sfia-studio/45-ops1-functional-design.md` uniquement
-- Message : `docs(sfia-studio): update OPS1 PR branch metadata`
-- SHA : `bbdc6ba586790d2be2d5cca5386c062cc5f76a6c`
-- Parent : `c5f1cead95c35d558261a17196f91da852c36eb4`
-
-## Push
-
-```text
-git push origin design/sfia-studio-ops1-functional
-```
-
-- SHA distant : `c473b145b9917fbc4cf7a83f5b7edf031b61001a`
-- local/distant : `0/0`
-
-## PR #237 après correctif
+## Vérification PR #237
 
 | Champ | Valeur |
 |-------|--------|
-| État | OPEN |
-| Draft | non |
-| Base | main @ `62eb23f…` |
+| Numéro / URL | 237 / https://github.com/mcleland147/sfia-workspace/pull/237 |
+| État | MERGED |
+| mergedAt | 2026-07-20T12:20:51Z |
+| Base | `main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
 | Head | `design/sfia-studio-ops1-functional` @ `c473b145b9917fbc4cf7a83f5b7edf031b61001a` |
-| Commits | 3 |
-| Fichiers | 4 (`41` M, `45`–`47` A) |
-| Merged | false |
-| Checks | aucun reporté |
+| Merge commit | `6cbf37482c7d384ef5630259d58a2e223a607925` |
+| Titre | `docs(sfia-studio): validate OPS1 functional design` |
+| Stratégie | Squash merge (1 parent = base avant merge) |
+| Fichiers / +/- | 4 · +2225 / −12 |
 
-### Contenu distant 45
+## Squash commit
 
-Métadonnée Branche mise à jour avec lien PR #237 ; « locale uniquement » / « aucun push » absents.
+```text
+6cbf374 docs(sfia-studio): validate OPS1 functional design
+Parent : 62eb23f0b1934afbecc517fc83aff90493fb8f29
+M  projects/sfia-studio/41-operational-vertical-slice-1-framing.md
+A  projects/sfia-studio/45-ops1-functional-design.md
+A  projects/sfia-studio/46-ops1-functional-flows-and-rules.md
+A  projects/sfia-studio/47-ops1-functional-decision-pack.md
+4 files changed, 2225 insertions(+), 12 deletions(-)
+```
 
-## Chaîne des commits (origin/main..HEAD)
+`git diff --check HEAD^..HEAD` : OK.
 
-1. `05034b6` — validate OPS1 functional design
-2. `c5f1cea` — align OPS1 framing with multi-file scope
-3. `c473b14` — update OPS1 PR branch metadata
+## Synchronisation main
 
-ahead/behind main : `3/0`
+| Étape | Valeur |
+|-------|--------|
+| Avant | `main` @ `62eb23f…` ; behind origin `0/1` |
+| Commande | `git merge --ff-only origin/main` |
+| Résultat | Fast-forward `62eb23f..6cbf374` |
+| Après | `main` = `origin/main` = `6cbf374…` ; local/distant `0/0` |
+
+## Contenu intégré vérifié
+
+### Document 41
+
+- PR #235 intégrée tracée (squash `b686eb1`) ; post-merge/cleanup cadrage terminés.
+- Conception fonctionnelle validée avec réserves sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST) — liens `45`–`47`.
+- Campus360 multi-fichiers + allowlist ; mention historique mono-fichier **supersédée** uniquement.
+- Architecture, UX, backlog, delivery, live, MVP **fermés**.
+
+### Document 45
+
+- Présent sur main ; statut `functional-design-validated-with-reservations`.
+- Gates `G-OPS1-FUNC-DESIGN` + `G-OPS1-FUNC-DESIGN-VAL` consommés.
+- Métadonnée Branche : publiée pour PR #237 (lien présent).
+- FR-001…032 présents (dont FR-026…032 allowlist multi-fichiers).
+- Claims MVP / production / READY FOR DELIVERY / OPS1 prouvé : **interdits** (énoncés négatifs uniquement).
+
+### Document 46
+
+- Présent ; `OPS1-FLOW-01`…`32` (32 sections `### OPS1-FLOW-`).
+- PN-01…06 présents (dont PN-06 hors allowlist).
+- FLOW-32 Campus360 + reprise après CLOSE (FLOW-02 / FD-CAND-13) présents.
+- Modèle multi-fichiers + allowlist cohérent.
+
+### Document 47
+
+- Présent ; `OPS1-FD-CAND-01`…`27`.
+- `VALIDATED WITH RESERVATION` **exactement** sur 13, 15, 20, 26.
+- Autres décisions `VALIDATED` ; FD-CAND-27 allowlist par action validée.
+
+## Décisions et réserves
+
+**Réserves WITH RESERVATION :** FD-CAND-13, 15, 20, 26.
+
+**Réserves ouvertes conservées :**
+
+- cartographie chemins/catégories Campus360 éligibles ;
+- convention de branche Campus360 ;
+- FinOps numériques / seuils / modèles / plafonds ;
+- mécanisme exact de continuation après CLOSE ;
+- preuve live ;
+- CI distante ;
+- isolation OS/réseau.
+
+## Gates fermés
+
+`G-OPS1-SCENARIO-VAL`, `G-OPS1-FUNC-ARCH`, `G-OPS1-UX`, `G-OPS1-TECH-ARCH`, `G-OPS1-BACKLOG`, delivery, GPT live, Cursor live, MVP, production.
+
+## Claims / secrets
+
+- Aucun claim interdit comme état positif.
+- Aucun secret / token / clé détecté dans 41, 45–47.
+
+## Anomalies documentaires post-merge (non bloquantes)
+
+| Élément | Qualification | Action |
+|---------|---------------|--------|
+| `45` Baseline Git encore `62eb23f` | Dette documentaire mineure | Cycle doc séparé sous GO distinct |
+| `45` Branche = « publiée pour PR #237 » (pas « mergée / intégrée ») | Dette mineure attendue | Idem ; métadonnée ≠ preuve post-merge complet |
+| `41` trace PR #235 mais pas encore le squash #237 sur main pour 45–47 | Dette mineure de statut | Cycle sync post-merge éventuel (type #236) |
+
+Intégration **exploitable** ; aucune correction dans ce cycle.
+
+## Branches
+
+| Branche | État | SHA |
+|---------|------|-----|
+| `origin/main` / `main` | Synchronisés | `6cbf374…` |
+| `origin/design/sfia-studio-ops1-functional` | **Présente** | `c473b14…` |
+| locale `design/sfia-studio-ops1-functional` | **Présente** | `c473b14…` |
+
+**Aucune suppression de branche.** Cleanup soumis à `GO CLEANUP BRANCH OPS1 FUNCTIONAL DESIGN`.
+
+## Confirmations
+
+- Aucun fichier projet modifié dans ce cycle.
+- Aucun commit projet.
+- Aucun push projet / main.
+- Aucune PR supplémentaire.
+- Aucun cycle suivant ouvert.
 
 ## État Git final
 
 ```text
-Branche : design/sfia-studio-ops1-functional
-HEAD     : c473b145b9917fbc4cf7a83f5b7edf031b61001a
-Upstream : origin/design/sfia-studio-ops1-functional
-local/remote : 0/0
-origin/main inchangé
-PR #237 OPEN — merge non exécuté
-tracked : propre (?? .tmp-sfia-review/)
+Branche courante : main
+HEAD / origin/main : 6cbf37482c7d384ef5630259d58a2e223a607925
+local/distant : 0/0
+tracked : propre
+staged : vide
+design remote/local : présentes @ c473b14…
 ```
 
 ## Handoff
 
-- SHA : `bbdc6ba586790d2be2d5cca5386c062cc5f76a6c`
+- SHA : *(après push handoff)*
 
 ## Verdict
 
-**PR #237 UPDATED — STALE BRANCH METADATA CORRECTED — MERGE REQUIRES MORRIS GO**
+**SFIA STUDIO OPS1 FUNCTIONAL DESIGN POST-MERGE VALIDATED — BRANCH CLEANUP REQUIRES MORRIS GO**
+
+(Dette documentaire mineure non bloquante signalée pour cycle sync séparé.)
