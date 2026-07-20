@@ -88,7 +88,7 @@ staged : vide
 
 ## Handoff
 
-- SHA : *(après push handoff)*
+- SHA : `8dcc1b9d8d2cef54139804b235f5e5b78b57168d`
 
 ## Verdict
 
