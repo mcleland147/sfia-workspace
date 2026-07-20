@@ -55,10 +55,13 @@ Morris doit pouvoir échanger **librement et réellement** avec ChatGPT depuis S
 La capacité d’**action** derrière cette conversation peut, pour le premier slice, rester limitée à :
 
 - un seul cycle documentaire ;
-- un seul fichier Markdown non protégé ;
+- le **périmètre documentaire Markdown non protégé** du projet **Campus360**, avec **un ou plusieurs** fichiers lorsque le besoin le justifie ;
+- une **allowlist explicite et exhaustive** par action, validée par Morris (Campus360 ≠ autorisation globale) ;
 - une branche locale dédiée ;
 - une exécution Cursor bornée ;
 - aucun commit, push, PR ou merge automatique.
+
+> **Alignement conception :** la contrainte historique « un seul fichier Markdown » est **supersédée**. Voir [`45`](./45-ops1-functional-design.md) §11 et `OPS1-FD-CAND-20`/`27`.
 
 ### 1.4 Formulation structurante obligatoire
 
@@ -177,7 +180,7 @@ Résultat observable : fil multi-tours non prédéterminé ; corrections Morris 
 | Niveau | Attendu |
 |--------|---------|
 | **Conversation** | GPT **réel**, libre, multi-tours, non scénarisé pour la preuve opératoire |
-| **Action** | Un Markdown non protégé, branche locale, Cursor après GO |
+| **Action** | Markdown Campus360 non protégés **éligibles** ; allowlist explicite par action (1..n) ; branche locale ; Cursor après GO |
 | **Fixtures** | Autorisées pour **tests automatisés** uniquement — pas pour la preuve métier du scénario pilote |
 | **Git distant** | Aucun effet automatique |
 
@@ -204,8 +207,9 @@ Résultat observable : fil multi-tours non prédéterminé ; corrections Morris 
 
 ### 4.1 Recommandation
 
-**Action :** un cycle documentaire Markdown non protégé, branche locale dédiée, sans push auto.
+**Action :** cycle documentaire sur Markdown Campus360 non protégés ; **allowlist** explicite par exécution (un ou plusieurs fichiers si nécessaire) ; branche locale dédiée ; sans push auto.
 **Conversation :** dynamique **non prédéterminée** (chemins multiples cohérents).
+**Principe :** périmètre Campus360 **éligible** ≠ autorisation globale ; hors allowlist = interdit ; extension après GO = nouveau gate.
 
 ### 4.2 Dynamique attendue (non scriptée)
 
@@ -218,7 +222,7 @@ Exemple de dynamique — **ne pas figer les phrases** :
 5. Morris challenge ou modifie le périmètre ;
 6. ChatGPT produit une **proposition d’action structurée** (ou conclut qu’aucune action n’est nécessaire) ;
 7. Si action : Morris donne un **GO explicite** ;
-8. Cursor modifie uniquement le Markdown autorisé ;
+8. Cursor modifie uniquement les fichiers Markdown de l’**allowlist** autorisée ;
 9. Le rapport remonte ;
 10. Morris **échange à nouveau** avec ChatGPT sur le résultat ;
 11. Morris valide, demande correction, refuse ou abandonne ;
@@ -231,12 +235,15 @@ La preuve porte sur la capacité à gérer **plusieurs chemins conversationnels*
 | Champ | Proposition candidate |
 |-------|------------------------|
 | Repository | `sfia-workspace` |
-| Branche | Locale dédiée (sans push) |
-| Fichier | Un seul Markdown non protégé |
-| Interdits | `method/**`, `prompts/**`, `app/**`, `harness/**`, secrets, lockfiles, `.github/**` |
+| Projet pilote | **Campus360** (contexte exclusif) |
+| Branche | Locale dédiée (sans push) — convention sous `G-OPS1-SCENARIO-VAL` |
+| Fichiers | Markdown documentaires Campus360 **non protégés** **éligibles** ; action bornée par **allowlist** explicite (1..n fichiers si besoin) |
+| Interdits | `method/**`, `prompts/**`, `app/**`, `harness/**`, secrets, lockfiles, `.github/**` ; hors allowlist ; hors Campus360 éligible |
 | Effets distants | Aucun automatique |
+| Gate scénario | `G-OPS1-SCENARIO-VAL` — cartographie chemins/catégories, exclusions, branche, règles allowlist, scénario de preuve |
 
 Limitation Markdown = limite d’**action**, **pas** limite de **conversation**.
+Campus360 éligible ≠ autorisation globale. Hors allowlist = interdit. Extension d’allowlist après GO = nouveau gate.
 
 ---
 
@@ -320,7 +327,7 @@ OPS1 réussi = preuve de **conversation réelle utilisable** + **action gouvern�
 
 ## 11. Décisions non prises
 
-Stack, protocole, Figma, plafonds numériques, noms techniques définitifs, fichier Markdown exact, ouverture conception/backlog/delivery, commit des docs cadrage.
+Stack, protocole, Figma, plafonds numériques, noms techniques définitifs ; cartographie exacte des chemins/catégories Markdown Campus360 éligibles, convention de branche et règles d’allowlist opératoires (`G-OPS1-SCENARIO-VAL`) ; ouverture backlog/delivery/live ; push/PR des docs hors GO distinct.
 
 ---
 
