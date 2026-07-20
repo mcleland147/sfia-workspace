@@ -255,7 +255,7 @@ git branch -D docs/sfia-studio-ops1-readme-sync
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - Push : L3 borné (handoff uniquement)
-- SHA handoff : *(renseigné après commit/push)*
+- SHA handoff : `9a24ebd0ec4fa7325b0e85603edf6b434b3a571f` (origin/sfia/review-handoff vérifié identique)
 
 ---
 
