@@ -59,7 +59,7 @@ index e6a3f5a..1be47e1 100644
  | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`47`](./47-ops1-functional-decision-pack.md) |
  | **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) |
  | **Horodatage production** | 2026-07-20 15:14 CEST |
-
+ 
 -> Architecture **fonctionnelle** candidate du Vertical Slice Opérationnel 1.
 +> Architecture **fonctionnelle** du Vertical Slice Opérationnel 1 — **validée avec réserves** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
  > Hérite du cadrage validé (`G-OPS1-FRAMING-VAL`) et de la conception validée avec réserves (`G-OPS1-FUNC-DESIGN-VAL`).
@@ -68,19 +68,19 @@ index e6a3f5a..1be47e1 100644
  > **Aucun** choix de stack, BDD, API, protocole, code, Figma, backlog, delivery, live ou MVP.
 -> Les décisions `OPS1-FA-CAND-*` sont **candidates** — voir [`50`](./50-ops1-functional-architecture-decision-pack.md).
 +> Aucun cycle suivant ouvert automatiquement — voir [`50`](./50-ops1-functional-architecture-decision-pack.md).
-
+ 
  ---
-
+ 
 @@ -346,27 +348,29 @@ Aucune ouverture automatique.
-
+ 
  ---
-
+ 
 -## 25. Critères de validation future (`G-OPS1-FUNC-ARCH-VAL`)
 +## 25. Critères de validation (`G-OPS1-FUNC-ARCH-VAL`) — satisfaits
-
+ 
 -Candidats (à valider Morris) :
 +Confirmés sous validation Morris (2026-07-20 15:30 CEST) :
-
+ 
 -1. Domaines et composants couvrent CAP-01…21 ;
 +1. Domaines D1–D11 et 14 composants couvrent CAP-01…21 ;
  2. FLOW-01…32 rattachés à des composants ;
@@ -91,18 +91,18 @@ index e6a3f5a..1be47e1 100644
 +6. Réserves listées et **non** résolues silencieusement ;
  7. Aucun choix technique implicite ;
  8. Aucun claim MVP / production / READY FOR DELIVERY.
-
+ 
  ---
-
+ 
 -## 26. Verdict candidat
 +## 26. Verdict
-
+ 
 -`functional-architecture-candidate`
 +`functional-architecture-validated-with-reservations`
-
+ 
 -`OPS1 FUNCTIONAL ARCHITECTURE CANDIDATE — MORRIS VALIDATION REQUIRED`
 +`SFIA STUDIO OPS1 FUNCTIONAL ARCHITECTURE VALIDATED WITH RESERVATIONS`
-
+ 
  Gate `G-OPS1-FUNC-ARCH` consommé — 2026-07-20 15:14 CEST.
 -Gate `G-OPS1-FUNC-ARCH-VAL` **fermé**.
 -Aucun push / PR / merge. Aucun cycle UX / tech / backlog / delivery / live / MVP ouvert.
@@ -129,22 +129,22 @@ index a33be6d..5f1fbe1 100644
 -| **Horodatage** | 2026-07-20 15:14 CEST |
 +| **Horodatage production** | 2026-07-20 15:14 CEST |
 +| **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
-
--> Contrats fonctionnels des composants OPS1.
+ 
+-> Contrats fonctionnels des composants OPS1.  
 +> Contrats fonctionnels des composants OPS1.
  > **Aucun** framework, endpoint, table, queue ou protocole imposé.
-
+ 
  ---
 @@ -477,9 +478,13 @@ sequenceDiagram
-
+ 
  ---
-
+ 
 -## 7. Verdict candidat
 +## 7. Verdict
-
+ 
 -`functional-architecture-candidate`
 +`functional-architecture-validated-with-reservations`
-
+ 
 -Composants et interactions **candidats** — validation Morris requise (`G-OPS1-FUNC-ARCH-VAL`).
 -Aucun choix technique. Réserves héritées **non arbitrées**.
 +`SFIA STUDIO OPS1 FUNCTIONAL ARCHITECTURE VALIDATED WITH RESERVATIONS`
@@ -172,26 +172,26 @@ index 51d5b0a..4e4829c 100644
 -| **Horodatage** | 2026-07-20 15:14 CEST |
 +| **Horodatage production** | 2026-07-20 15:14 CEST |
 +| **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
-
--> Toutes les décisions `OPS1-FA-CAND-*` portent le statut :
+ 
+-> Toutes les décisions `OPS1-FA-CAND-*` portent le statut :  
 -> **`CANDIDATE — MORRIS VALIDATION REQUIRED`**
 -
 -Hérite des `OPS1-FD-CAND-01…27` **validées** (réserves 13/15/20/26 **OPEN** — non arbitrées ici).
 +> Décisions `OPS1-FA-CAND-01`…`22` **validées** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
 +> Statut global : `functional-architecture-validated-with-reservations`.
 +> Hérite des `OPS1-FD-CAND-01…27` **validées** (réserves 13/15/20/26 **OPEN** — **maintenues**).
-
+ 
  ---
-
+ 
 @@ -26,7 +26,7 @@ Chaque décision : observation · héritage · options · recommandation · déc
-
+ 
  ---
-
+ 
 -## 2. Décisions candidates
 +## 2. Décisions `OPS1-FA-CAND-*` (validées)
-
+ 
  ### OPS1-FA-CAND-01 — Découpage des domaines fonctionnels
-
+ 
 @@ -36,14 +36,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-01, 03, 21 |
  | **Options** | (A) Monolithe logique unique ; (B) 11 domaines D1–D11 (doc 48) ; (C) découpage technique prématuré |
@@ -206,9 +206,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Valider / ajuster la carte |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-02 — Responsabilité du Cycle Session Manager
-
+ 
 @@ -53,14 +53,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-02, 03, 07 |
  | **Options** | (A) États dispersés dans l’UI ; (B) Session Manager propriétaire des transitions |
@@ -223,9 +223,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer la propriété |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-03 — Séparation conversation / action
-
+ 
 @@ -70,14 +70,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-04, 05, 27 ; FR-003 |
  | **Options** | (A) Action dans le fil chat ; (B) Action Proposal Manager dédié |
@@ -240,9 +240,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-04 — Autorité exclusive Morris
-
+ 
 @@ -87,14 +87,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-08 ; FR-004 |
  | **Options** | (A) Auto-GO sous conditions ; (B) Morris Gate Manager exclusif |
@@ -257,9 +257,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-05 — Frontière harness
-
+ 
 @@ -104,14 +104,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-09 ; FR-005,025 |
  | **Options** | (A) Contrôles UI seuls ; (B) Harness Validation Boundary obligatoire |
@@ -274,9 +274,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-06 — Frontière Cursor
-
+ 
 @@ -121,14 +121,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-09, 27 ; FR-007,030 |
  | **Options** | (A) Cursor libre post-GO ; (B) Cursor Adapter strictement borné |
@@ -291,9 +291,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-07 — Relation Git / store de session
-
+ 
 @@ -138,14 +138,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-02 ; FR-015 |
  | **Options** | (A) Store = vérité fichiers ; (B) Git vérité ; store = journal |
@@ -308,9 +308,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-08 — Modèle d’événements fonctionnels
-
+ 
 @@ -155,14 +155,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FLOW-01…32 |
  | **Options** | (A) Appels ad hoc non nommés ; (B) catalogue d’événements fonctionnels (message, gateDecision, contractValidated, executionFinished, stopSignaled, …) |
@@ -325,9 +325,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Valider le principe |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-09 — Gestion des preuves
-
+ 
 @@ -172,14 +172,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-14 ; FR-013,031 |
  | **Options** | (A) Preuves optionnelles ; (B) Evidence and Result Collector obligatoire post-exec |
@@ -342,9 +342,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-10 — STOP / FAILED
-
+ 
 @@ -189,14 +189,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-10 ; FR-011,012,025 |
  | **Options** | (A) Gestion dispersée ; (B) Error and STOP Coordinator |
@@ -359,9 +359,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-11 — Reprise et lecture après CLOSE
-
+ 
 @@ -206,14 +206,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-13 (WITH RESERVATION) ; CAP-20 |
  | **Options** | (A) Muter CLOSED ; (B) lecture seule + continuation/session liée (mécanisme OPEN) |
@@ -376,9 +376,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer non-mutation ; ne pas clôturer FD-CAND-13 ici |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED WITH RESERVATIONS — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-12 — Non-mutation silencieuse
-
+ 
 @@ -223,14 +223,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-13 ; framing |
  | **Options** | (A) Reprise implicite ; (B) règle architecturale anti-silencieux |
@@ -393,9 +393,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-13 — Traitement FinOps
-
+ 
 @@ -240,14 +240,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-15 (WITH RESERVATION) ; FR-023 |
  | **Options** | (A) Ignorer FinOps en archi ; (B) FinOps Guard fonctionnel sans seuils figés |
@@ -410,9 +410,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer composant ; garder seuils OPEN |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED WITH RESERVATIONS — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-14 — Sécurité fonctionnelle et fail-closed
-
+ 
 @@ -257,14 +257,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-16 (principes) ; FR-006,016,024,025 |
  | **Options** | (A) Confiance GPT ; (B) fail-closed systématique sur doute |
@@ -427,9 +427,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-15 — Observabilité
-
+ 
 @@ -274,14 +274,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-19 |
  | **Options** | (A) Logs ad hoc ; (B) Audit Journal + IDs corrélés |
@@ -444,9 +444,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-16 — Frontières UX
-
+ 
 @@ -291,14 +291,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-22 |
  | **Options** | (A) Spec visuelle ici ; (B) router vers `G-OPS1-UX` |
@@ -461,9 +461,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer routage |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-17 — Frontières architecture technique
-
+ 
 @@ -308,14 +308,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-21 (archi fct) ; routage stack |
  | **Options** | (A) Choisir stack ici ; (B) router vers `G-OPS1-TECH-ARCH` |
@@ -478,9 +478,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-18 — Traitement des réserves Campus360
-
+ 
 @@ -325,14 +325,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-20, 26 (WITH RESERVATION) ; 27 |
  | **Options** | (A) Trancher chemins ici ; (B) préserver OPEN → SCENARIO-VAL |
@@ -495,9 +495,9 @@ index 51d5b0a..4e4829c 100644
  | **Morris attendu** | Confirmer non-arbitrage |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
 +| **Statut** | `VALIDATED WITH RESERVATIONS — Morris — 2026-07-20 15:30 CEST — `G-OPS1-FUNC-ARCH-VAL`` |
-
+ 
  ### OPS1-FA-CAND-19 — Critères de passage vers UX
-
+ 
 @@ -342,14 +342,14 @@ Chaque décision : observation · héritage · options · recommandation · déc
  | **Héritage** | FD-CAND-22 ; doc 45 §12 |
  | **Options** | Critères candidats : archi fct validée ; besoins de surfaces stables |
@@ -511,7 +511,7 @@ index 51d5b0a..4e4829c 100644
  | **Routé** | UX |
  | **Morris attendu** | Confirmer |
 -| **Statut** | `CANDIDATE — MORRIS VALIDATION REQUIRED` |
-+| **Statut** | `VALIDATED — Morris —
++| **Statut** | `VALIDATED — Morris — 
 ... [truncated for handoff size; full in git show] ...
 
 ```
@@ -530,7 +530,7 @@ Author: Morris Cleland <morris@macbook-air1.home>
 Date:   Mon Jul 20 15:31:14 2026 +0200
 
     docs(sfia-studio): validate OPS1 functional architecture
-
+    
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
  .../sfia-studio/48-ops1-functional-architecture.md |  34 +++--
@@ -578,7 +578,7 @@ Merge **non** exécuté. Squash recommandé. Cleanup = GO distinct.
 
 ## Handoff
 
-- SHA : (après push)
+- SHA : `59ff81cff9724861192e39761d45225360ec1ca8`
 
 ## Verdict
 
