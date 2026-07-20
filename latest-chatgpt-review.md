@@ -517,7 +517,7 @@ Staged : vide. Commit/push/PR : absents.
 - Branche : `sfia/review-handoff`
 - Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 - Push L3 borné : oui
-- SHA : *(après push)*
+- SHA : `9356086956eac4ac0a700e7cf949b431b5d336df` (`origin/sfia/review-handoff` vérifié)
 
 ---
 
