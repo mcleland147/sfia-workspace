@@ -1,168 +1,216 @@
-# SFIA Studio — Review Handoff Git — OPS1 UX/UI + Figma (republication)
+# SFIA Studio — Review Handoff Git — OPS1 UX/UI Validation (republication)
 
-- **Date/heure/fuseau republication :** 2026-07-20 16:39:00 CEST
+- **Date/heure/fuseau republication :** 2026-07-20 17:01:00 CEST
 - **Cycle handoff :** Validation — republication Review Handoff Git
 - **Profil handoff :** Light
 - **Branche handoff :** `sfia/review-handoff`
 - **Fichier canonique :** `sfia-review-handoff/latest-chatgpt-review.md`
-- **GO Morris :** republication handoff uniquement — **pas** `G-OPS1-UX-VAL`
-- **Branche UX non poussée :** `design/sfia-studio-ops1-ux-ui` (locale)
+- **Handoff remplacé :** `08f5ddf572a52dcc91e7ea1aaf1046e959ed4a65` (candidat UX pré-validation)
+- **GO Morris :** republication handoff uniquement
+- **Branche UX non poussée :** `design/sfia-studio-ops1-ux-ui`
 
 > **Mention obligatoire :** le verdict source
-> `OPS1 UX/UI CONTRACT AND FIGMA CANDIDATE READY FOR MORRIS VALIDATION`
-> **ne constitue pas une validation UX Morris.**
-> Aucune décision `OPS1-UX-CAND-*` n’est VALIDATED. Gate attendu : `G-OPS1-UX-VAL`.
+> `OPS1 UX/UI VALIDATION DOCUMENTED — READY FOR CHATGPT REVIEW`
+> **n’autorise ni commit projet, ni push UX, ni PR, ni merge.**
+> Gate `G-OPS1-UX-VAL` déjà consommé ; aucune ouverture automatique du cycle suivant.
 
 ---
 
-# SFIA Studio — Review Pack — OPS1 UX/UI + Figma Candidate
+# SFIA Studio — Review Pack — OPS1 UX/UI Validation (`G-OPS1-UX-VAL`)
 
-- **Date/heure/fuseau :** 2026-07-20 16:17:31 CEST
-- **Cycle :** 4 — UX/UI
-- **Profil :** Standard — cycle documentaire + Figma multi-livrables, sans code/tech/backlog
-- **Typologie :** POC / UX / UI / FIGMA / DOC / VALIDATION CANDIDATE
-- **Blocs activés :** UX/UI+Figma · Accessibilité · Performance perçue · Sécurité UX · FinOps UX · RGPD fonctionnel
-- **Blocs désactivés :** architecture technique · DevOps · backlog · delivery · live · RUN · GreenOps · capitalisation globale
-- **Repo :** mcleland147/sfia-workspace
-- **Branche :** `design/sfia-studio-ops1-ux-ui`
-- **HEAD :** `bfa2cdf949f417fcbce47d1687824c223eeed8f7` (= origin/main ; pas de commit projet)
-- **Base / merge-base :** `bfa2cdf949f417fcbce47d1687824c223eeed8f7`
-- **Working tree initial :** propre (untracked `.tmp-sfia-review/` / `projects/.tmp-sfia-review/` seulement)
-- **Working tree final :** docs 51–53 créés ; liens factuels 41/45/48/README ; captures tmp
-- **Rôle :** Cursor producteur UX/Figma candidat sous GO Morris `G-OPS1-UX`
-- **Gate consommé :** `G-OPS1-UX`
-- **Gates fermés :** `G-OPS1-UX-VAL` · SCENARIO-VAL · TECH-ARCH · BACKLOG · delivery · live · MVP · production · commit · push · PR · merge
+- **Date/heure/fuseau :** 2026-07-20 16:52:00 CEST
+- **Repository :** mcleland147/sfia-workspace
+- **Cycle source :** 9 — QA / validation
+- **Profil source :** Standard
+- **Branche source :** `design/sfia-studio-ops1-ux-ui`
+- **HEAD source :** `bfa2cdf949f417fcbce47d1687824c223eeed8f7`
+- **Base origin/main / merge-base :** `bfa2cdf949f417fcbce47d1687824c223eeed8f7`
+- **Décision Morris consommée :** `GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES`
+- **Gate :** `G-OPS1-UX-VAL` **consommé**
+- **Handoff source précédent (candidat) :** `08f5ddf572a52dcc91e7ea1aaf1046e959ed4a65`
+- **Blocs activés (cycle source) :** UX/UI+Figma (traçabilité) · a11y · perf perçue · sécurité UX · FinOps UX · RGPD fct · validation doc · traçabilité Git · capitalisation review pack
+- **Blocs désactivés :** code · tech arch · DevOps · backlog · delivery · live · RUN · GreenOps · capitalisation globale
+
+## État Git initial (cycle validation)
+
+- Branche `design/sfia-studio-ops1-ux-ui` @ `bfa2cdf…`
+- Docs `51`–`53` untracked candidats
+- Mods `41`/`45`/`48`/`README` (liens candidats)
+- Handoff remote candidat `08f5ddf…`
+- Staged vide
+
+## État Git final (après validation documentaire)
+
+```
+ M projects/sfia-studio/41-operational-vertical-slice-1-framing.md
+ M projects/sfia-studio/45-ops1-functional-design.md
+ M projects/sfia-studio/48-ops1-functional-architecture.md
+ M projects/sfia-studio/README.md
+?? .tmp-sfia-review/
+?? projects/.tmp-sfia-review/
+?? projects/sfia-studio/51-ops1-ux-ui-contract.md
+?? projects/sfia-studio/52-ops1-visual-contract-and-figma-spec.md
+?? projects/sfia-studio/53-ops1-ux-ui-decision-pack.md
+
+```
+
+Aucun commit projet · aucun push UX · staged vide.
 
 ## Sources Git consultées
 
-Méthode : `prompts/templates/sfia-cycle-execution-template.md` · `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `41`, `45`, `48`, `51`, `52`, `53`, `README`
+- handoff précédent `sfia-review-handoff/latest-chatgpt-review.md` @ `08f5ddf…`
 
-OPS1 : `41`–`50` · `README.md`
+## Diff stat tracked
 
-Historique UX (observe) : `14`/`16` · `35`–`37` — fileKey `lrjA1WEyRpL05vKR8k29LO`
+```
+ .../41-operational-vertical-slice-1-framing.md     | 11 ++++----
+ projects/sfia-studio/45-ops1-functional-design.md  |  2 +-
+ .../sfia-studio/48-ops1-functional-architecture.md |  8 +++---
+ projects/sfia-studio/README.md                     | 29 +++++++++++++++++-----
+ 4 files changed, 34 insertions(+), 16 deletions(-)
 
-## Sources Figma
+```
 
-| Élément | Valeur |
-|---------|--------|
-| fileKey | `lrjA1WEyRpL05vKR8k29LO` |
-| URL | https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO |
-| Auth | OK (Full seat) |
-| Pages | `0:1` UX-B — P0 · `51:2` VS (vide) · **`61:2` UX-B — OPS1** (créée) |
-| DS search | vide (pas de lib publiée) |
-| Code Connect | absent |
-| Héritage | clones P0 1440×1024 |
+## Fichiers créés / mis à jour (UX)
 
-## Frames (dimensions confirmées MCP)
+- `51` — `ux-ui-validated-with-reservations`
+- `52` — `visual-contract-validated-with-reservations`
+- `53` — 20 décisions VALIDATED WITH RESERVATIONS
 
-Toutes **1440×1024** :
+## Fichiers modifiés (propagation)
 
-| Frame | ID |
-|-------|-----|
-| OPS1-UX-01 | 61:3 |
-| OPS1-UX-02 | 61:139 |
-| OPS1-UX-03 | 61:275 |
-| OPS1-UX-04 | 61:1207 |
-| OPS1-UX-05 | 61:411 (+ strip 62:2) |
-| OPS1-UX-06 | 61:536 |
-| OPS1-UX-07 | 61:674 |
-| OPS1-UX-08 | 61:812 |
-| OPS1-UX-09 | 61:950 |
-| OPS1-UX-10 | 61:1075 |
-| VAR-A…G | 61:1343 … 61:2148 |
+- `41`, `45`, `48`, `README`
 
-## Hypothèses / observations / options / recommandations
+## Fichiers explicitement non modifiés
 
-- Hypothèse : continuité shell P0 réduit dette cognitive.
-- Observation : page VS vide ; DS publié absent.
-- Option retenue : clone P0 + overlays OPS1 (vs shell neuf).
-- Recommandation : conversation-first ; gate 4 actions ; allowlist visible ; FinOps placeholders.
+app/ · harness/ · method/ · prompts/ · .github/ · Figma · backlog · tech arch · code
 
-## Décisions candidates
+## Décisions OPS1-UX-CAND-01…20
 
-`OPS1-UX-CAND-01`…`20` — toutes `CANDIDATE — AWAITING G-OPS1-UX-VAL` (voir doc 53).
+Comptage statut lignes décision : **20**
+Comptage Décision Morris : **20**
 
-## Décisions Morris déjà validées (amont, non réinterprétées)
+Toutes : `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST`
+Décision Morris : `GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST`
+Identifiants historiques `OPS1-UX-CAND-*` **conservés**.
 
-Chat ≠ GO · allowlist · Campus360 · harness · Cursor borné · Git vérité · CLOSED immuable · réserves FD-CAND-13/15/20/26 OPEN · anti-claims.
+### Synthèse
 
-## Fichiers créés
+- **20** décisions VALIDATED WITH RESERVATIONS
+- **Aucune** décision UX candidate restante dans le pack
+- `G-OPS1-UX-VAL` **consommé**
 
-- `projects/sfia-studio/51-ops1-ux-ui-contract.md`
-- `projects/sfia-studio/52-ops1-visual-contract-and-figma-spec.md`
-- `projects/sfia-studio/53-ops1-ux-ui-decision-pack.md`
-- `.tmp-sfia-review/figma-ops1-ux/*.png` (captures contrôle)
-- `.tmp-sfia-review/handoff-local/latest-chatgpt-review.md` (préparation locale)
+### Réserves associées (indicatif)
 
-## Fichiers modifiés (liens / traçabilité uniquement)
+| Décisions | Réserves |
+|-----------|----------|
+| UX-CAND-15 | UX-R01 |
+| UX-CAND-01/17 | UX-R02, UX-R03 |
+| UX-CAND-13/14 | UX-R04 · FD-CAND-13/15 |
+| UX-CAND-04 | UX-R04 · FD-CAND-20/26 |
+| Ensemble | UX-R04 (live, CI, isolation) |
 
-- `41` companions UX candidats
-- `45` companions UX candidats
-- `48` gate UX consommé + companions + verdict ligne
-- `README` index 45–53 + prochaine décision `G-OPS1-UX-VAL`
+## Réserves UX
 
-## Captures Figma
+| ID | Contenu |
+|----|---------|
+| UX-R01 | Tablette/mobile avant implémentation responsive |
+| UX-R02 | Microcopies P0 avant delivery |
+| UX-R03 | Design system avant industrialisation multi-écrans |
+| UX-R04 | FD-CAND-13/15/20/26 + FinOps, Campus360, live, CI, isolation |
 
-- `ops1-ux-01.png` → 61:3
-- `ops1-ux-03.png` → 61:275
-- `ops1-ux-05.png` / `ops1-ux-05-gate-4actions.png` → 61:411
+## Réserves maintenues
 
-## Vérifications
+FD-CAND-13 · FD-CAND-15 · FD-CAND-20 · FD-CAND-26 · FinOps · Campus360 · live · CI · isolation
 
-- git diff --check : OK
-- aucun fichier interdit (app/harness/method/prompts/.github)
-- claims interdits : garde-fous seulement
-- aucune décision VALIDATED dans 53
-- pas de TODO non qualifié
-- dimensions MCP confirmées
-- handoff push : **non effectué** (gate Morris)
+## Preuves Figma héritées (pas de nouveau MCP)
 
-## Garde-fous / réserves / écarts / dette
+- fileKey `lrjA1WEyRpL05vKR8k29LO`
+- page OPS1 `61:2` — référence **desktop** validée avec réserves
+- P0 `0:1` · VS `51:2` · gate strip `62:2`
+- 10 frames + 7 variantes @ **1440×1024**
+- Captures héritées : ops1-ux-01 / 03 / 05 / 05-gate-4actions
+- **Aucune nouvelle vérification MCP** pendant le cycle documentaire de validation
+- Desktop **validé** · tablette/mobile **non produites** · DS **non publié** · dette microcopy **maintenue**
 
-Réserves : FD-CAND-13/15/20/26 · FinOps · Campus360 map/branche · live · CI · isolation.
+## Contrôles
 
-Écarts : résidus microcopy P0 sur clones ; frames tablette/mobile absentes ; page VS vide.
-
-Risques : confusion héritage P0 vs OPS1 — documenté comme dette polish.
+- Truth Check OK
+- `git diff --check` OK
+- `AWAITING G-OPS1-UX-VAL` : absent
+- `G-OPS1-UX-VAL fermé` : absent
+- Anti-claims garde-fou présents
+- Pas de claim READY FOR DELIVERY / PRODUCTION READY / OPS1 PROVEN / MVP DEFINED / responsive implémenté / DS publié / FinOps résolu (positifs)
+- Staged vide ; pas de commit/push/PR/merge projet
 
 ## Actions interdites non effectuées
 
-commit · push · PR · merge · suppression branche · code · backlog · tech arch · live · résolution réserves · claim validé.
+commit projet · push UX · PR · merge · Figma · code · résolution réserves · ouverture cycle suivant
 
-## Décisions Morris attendues
+## Prochaine décision Morris
 
-Sous `G-OPS1-UX-VAL` : valider / corriger / rejeter contrats 51–53, frames, captures, dettes.
+Choix distinct du cycle suivant (scénario / tech-arch / backlog / autre) — GO distinct.
+Éventuels GO commit/push/PR docs UX et GO push handoff — distincts.
 
-## Handoff
+## Verdict source
 
-**REVIEW HANDOFF PREPARED LOCALLY — PUSH REQUIRES MORRIS GO**
+**OPS1 UX/UI VALIDATION DOCUMENTED — READY FOR CHATGPT REVIEW**
 
-## Verdict
+> Ce verdict **n’autorise ni commit projet, ni push UX, ni PR, ni merge.**
 
-**OPS1 UX/UI CONTRACT AND FIGMA CANDIDATE READY FOR MORRIS VALIDATION**
+## Verdict handoff
 
-> Ce verdict **ne constitue pas une validation UX Morris**. `G-OPS1-UX-VAL` reste fermé.
+**REVIEW HANDOFF REPUBLISHED — OPS1 UX VALIDATION READY FOR CHATGPT REVIEW**
 
 ---
 
-## Annexe A — Diff fichiers modifiés
+## Annexe A — Diff utile (41, 45, 48, README)
 
 ```diff
 diff --git a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-index 5db21ef..e6677f1 100644
+index 5db21ef..b15b29d 100644
 --- a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
 +++ b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-@@ -9,7 +9,7 @@
+@@ -8,8 +8,8 @@
+ | **Typologie** | POC / CADRAGE / PRODUIT / VALIDATION |
  | **Baseline** | SFIA v2.6 opérationnelle sur `main` |
  | **Gates consommés** | `G-SFIA-STUDIO-OPERATIONAL-SLICE-1-FRAMING` · `G-OPS1-FRAMING-REAL-CONVERSATION-AMENDMENT` · `G-OPS1-FRAMING-VAL` |
- | **Statut** | `framing-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 12:21 CEST) ; cadrage `41`–`44` **intégré** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1`) — post-merge + cleanup **terminés** ; conception fonctionnelle `45`–`47` **intégrée** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) ; POC **maintenu** ; réserves fonctionnelles **inchangées** ; architecture, UX, backlog, delivery, live, MVP **fermés** |
+-| **Statut** | `framing-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 12:21 CEST) ; cadrage `41`–`44` **intégré** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1`) — post-merge + cleanup **terminés** ; conception fonctionnelle `45`–`47` **intégrée** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) ; POC **maintenu** ; réserves fonctionnelles **inchangées** ; architecture, UX, backlog, delivery, live, MVP **fermés** |
 -| **Companions** | [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
-+| **Companions** | [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) · UX candidats [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (`G-OPS1-UX` consommé ; `G-OPS1-UX-VAL` fermé) |
++| **Statut** | `framing-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 12:21 CEST) ; cadrage `41`–`44` **intégré** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1`) — post-merge + cleanup **terminés** ; conception fonctionnelle `45`–`47` **intégrée** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) ; UX OPS1 `51`–`53` **validés avec réserves** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; POC **maintenu** ; réserves fonctionnelles **inchangées** ; architecture technique, backlog, delivery, live, MVP **fermés** |
++| **Companions** | [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) |
  | **Base Git de cadrage** | `origin/main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
  | **Intégration cadrage** | PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) MERGED — squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
  | **Intégration conception fonctionnelle** | PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) MERGED — squash `6cbf37482c7d384ef5630259d58a2e223a607925` |
+@@ -19,7 +19,7 @@
+ > **Cadrage validé avec réserves** sous `G-OPS1-FRAMING-VAL` — conversation GPT réelle et libre au centre ; action Markdown gouvernée.
+ > Documents `41`–`44` **intégrés sur `main`** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1394bb4d550eeff1dd64669b3d405579ad`) ; post-merge et cleanup **terminés**.
+ > Conception fonctionnelle OPS1 (`45`–`47`) **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST), **intégrée et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash merge `6cbf37482c7d384ef5630259d58a2e223a607925`) ; post-merge **validé** (2026-07-20 14:29 CEST).
+-> Réserves fonctionnelles **inchangées**. Architecture, UX, backlog, delivery, live et MVP **restent fermés**. Aucun cycle suivant ouvert automatiquement.
++> Réserves fonctionnelles **inchangées**. UX OPS1 **validée avec réserves** (`G-OPS1-UX-VAL` consommé). Architecture technique, backlog, delivery, live et MVP **restent fermés**. Aucun cycle suivant ouvert automatiquement.
+ > Aucun claim MVP, production-ready ou industrialisation.
+
+ ---
+@@ -341,7 +341,8 @@ Stack, protocole, Figma, plafonds numériques, noms techniques définitifs ; car
+ | Date/heure/fuseau | 2026-07-20 12:21 CEST |
+ | Décision | Cadrage OPS1 amendé **validé avec réserves** |
+ | POC | **Reste ouvert** (phase POC maintenue) |
+-| Conception / archi / UX / backlog / delivery / live / MVP | **Restent fermés** — GO distincts requis |
++| Conception / archi fct / UX OPS1 | Conception + archi fct + UX **validés avec réserves** — GO distincts déjà consommés pour ces gates |
++| Architecture technique / backlog / delivery / live / MVP | **Restent fermés** — GO distincts requis |
+ | OPS1-CAND-01…14 | Validées selon [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
+
+ Formulation structurante **validée** :
+@@ -364,4 +365,4 @@ Conversation réelle et libre
+ `SFIA STUDIO OPS1 FRAMING VALIDATED WITH RESERVATIONS`
+
+ Cadrage **intégré** et **canonique** sur `main` (PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235)). Conception fonctionnelle OPS1 **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST), **intégrée et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) — voir [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md).
+-Réserves fonctionnelles **inchangées**. Gates architecture / UX / backlog / delivery / live / MVP : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Aucun cycle suivant ouvert automatiquement.
++Réserves fonctionnelles **inchangées**. UX OPS1 **validée avec réserves** (`G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST ; UX-R01…UX-R04 ouvertes). Gates architecture technique / backlog / delivery / live / MVP : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Aucun cycle suivant ouvert automatiquement.
 diff --git a/projects/sfia-studio/45-ops1-functional-design.md b/projects/sfia-studio/45-ops1-functional-design.md
-index abe61fb..8536461 100644
+index abe61fb..ef6b645 100644
 --- a/projects/sfia-studio/45-ops1-functional-design.md
 +++ b/projects/sfia-studio/45-ops1-functional-design.md
 @@ -12,7 +12,7 @@
@@ -170,12 +218,12 @@ index abe61fb..8536461 100644
  | **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) ; **intégré et canonique sur `main`** ; post-merge **validé** (2026-07-20 14:29 CEST) ; réserves 13, 15, 20, 26 **inchangées** ; aucun cycle suivant ouvert automatiquement |
  | **Autorité** | Morris (L0) |
 -| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) |
-+| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) · UX candidats [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (`G-OPS1-UX` consommé ; `G-OPS1-UX-VAL` fermé) |
++| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) |
  | **Entrées cadrage** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
  | **Socle historique (lecture)** | [`08`](./08-functional-design.md) · [`09`](./09-functional-flows-and-rules.md) · [`10`](./10-functional-decision-pack.md) |
  | **Horodatage production** | 2026-07-20 13:10 CEST |
 diff --git a/projects/sfia-studio/48-ops1-functional-architecture.md b/projects/sfia-studio/48-ops1-functional-architecture.md
-index 1be47e1..79fac77 100644
+index 1be47e1..46b71c4 100644
 --- a/projects/sfia-studio/48-ops1-functional-architecture.md
 +++ b/projects/sfia-studio/48-ops1-functional-architecture.md
 @@ -15,7 +15,7 @@
@@ -183,7 +231,7 @@ index 1be47e1..79fac77 100644
  | **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
  | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`47`](./47-ops1-functional-decision-pack.md) |
 -| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) |
-+| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX candidats [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) |
++| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves**) |
  | **Horodatage production** | 2026-07-20 15:14 CEST |
 
  > Architecture **fonctionnelle** du Vertical Slice Opérationnel 1 — **validée avec réserves** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
@@ -192,7 +240,7 @@ index 1be47e1..79fac77 100644
  - annonces d’état non purement visuelles ;
  - distinction d’auteurs lisible ;
 -- détail UX visuelle = cycle `G-OPS1-UX` (fermé).
-+- détail UX visuelle = cycle `G-OPS1-UX` **consommé** — candidats [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) ; validation `G-OPS1-UX-VAL` **fermée**.
++- détail UX visuelle = cycle `G-OPS1-UX` **consommé** — docs [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) **validés avec réserves** ; `G-OPS1-UX-VAL` **consommé** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues.
 
  ---
 
@@ -201,7 +249,7 @@ index 1be47e1..79fac77 100644
  | Vers | Contenu routé | Gate |
  |------|---------------|------|
 -| UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` (fermé) |
-+| UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` **consommé** (candidats `51`–`53`) ; `G-OPS1-UX-VAL` **fermé** |
++| UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (UX-R01…UX-R04) |
  | Architecture technique | Stack, BDD, API, protocole, isolation OS/réseau | `G-OPS1-TECH-ARCH` (fermé) |
  | Scénario | Cartographie chemins Campus360, convention branche | `G-OPS1-SCENARIO-VAL` (fermé) |
  | Backlog | Découpage I1–I7 opérationnel | `G-OPS1-BACKLOG` (fermé) |
@@ -210,9 +258,9 @@ index 1be47e1..79fac77 100644
  11 domaines D1–D11 retenus ; 14 composants fonctionnels retenus ; frontières Morris / GPT / harness / Cursor / Git / persistance retenues ; couverture CAP/FLOW/FR confirmée.
  Réserves maintenues (continuation CLOSE ; FinOps numériques ; Campus360 cartographie/branche ; live ; CI ; isolation ; FD-CAND-13/15/20/26).
 -UX (`G-OPS1-UX`), architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
-+UX : `G-OPS1-UX` **consommé** (candidats `51`–`53`) ; `G-OPS1-UX-VAL` **fermé**. Architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
++UX : `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues. Architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 83837ad..0567d7e 100644
+index 83837ad..3b0d6bf 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
 @@ -21,7 +21,7 @@
@@ -220,16 +268,32 @@ index 83837ad..0567d7e 100644
  | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
  | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
 -| **Prochaine décision** | Ouverture **éventuelle** de la conception fonctionnelle OPS1 — **G-OPS1-FUNC-DESIGN** (GO distinct) ; backlog / delivery / live / MVP — **FERMÉS** |
-+| **Prochaine décision** | Validation UX OPS1 — **`G-OPS1-UX-VAL`** (GO Morris distinct) ; tech-arch / backlog / delivery / live / MVP — **FERMÉS** |
++| **Prochaine décision** | Choix Morris du cycle suivant — scénario, architecture technique, backlog ou autre cycle explicitement ouvert ; tech-arch / backlog / delivery / live / MVP — **non ouverts automatiquement** |
 
  ---
 
+@@ -368,11 +368,11 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+
+ ## 8. Prochaine décision
+
+-1. Ouverture **éventuelle** de la conception fonctionnelle OPS1 — gate **`G-OPS1-FUNC-DESIGN`** (décision Morris distincte).
+-2. Backlog / delivery / live GPT-Cursor / MVP — **FERMÉS**.
+-3. Réserves cadrage OPS1 maintenues (fichier Markdown exact, branche, plafonds FinOps, stack, CI, sandbox OS).
++1. Choix Morris du cycle suivant — scénario (`G-OPS1-SCENARIO-VAL`), architecture technique, backlog ou autre cycle **explicitement** ouvert.
++2. Architecture technique / backlog / delivery / live GPT-Cursor / MVP — **FERMÉS** (non ouverts automatiquement).
++3. Réserves OPS1 maintenues (FD-CAND-13/15/20/26 · FinOps · Campus360 · live · CI · isolation · UX-R01…UX-R04).
+
+-**Verdict documentaire courant :** `SFIA STUDIO OPS1 FRAMING VALIDATED WITH RESERVATIONS`
++**Verdict documentaire courant :** `SFIA STUDIO OPS1 FRAMING / DESIGN / ARCH / UX VALIDATED WITH RESERVATIONS`
+
+
+ ---
 @@ -385,6 +385,8 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | Socle applicatif / harness A–E | `main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` (PR #234 MERGED) |
  | Vertical slice A–E | Docs `32`–`40` ; clôture `CLOSED_WITH_RESERVATIONS` |
  | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
 +| Conception / archi OPS1 | Docs `45`–`50` — **VALIDATED WITH RESERVATIONS** ; intégrés (PR #237 / #239) |
-+| UX/UI OPS1 | Docs `51`–`53` — **CANDIDATE** sur branche `design/sfia-studio-ops1-ux-ui` ; Figma page `61:2` ; `G-OPS1-UX-VAL` **fermé** |
++| UX/UI OPS1 | Docs `51`–`53` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; Figma page `61:2` référence desktop ; UX-R01…UX-R04 ouvertes |
  | Handoff | `sfia/review-handoff` |
 
  ---
@@ -245,21 +309,21 @@ index 83837ad..0567d7e 100644
 +| [45](./45-ops1-functional-design.md)–[47](./47-ops1-functional-decision-pack.md) | Conception fonctionnelle — **VALIDATED WITH RESERVATIONS** |
 +| [48](./48-ops1-functional-architecture.md)–[50](./50-ops1-functional-architecture-decision-pack.md) | Architecture fonctionnelle — **VALIDATED WITH RESERVATIONS** |
 +
-+### UX/UI OPS1 (candidats — `G-OPS1-UX` consommé)
++### UX/UI OPS1 (validés avec réserves — `G-OPS1-UX-VAL` consommé)
 +
 +| Document | Rôle |
 +|----------|------|
-+| [51-ops1-ux-ui-contract.md](./51-ops1-ux-ui-contract.md) | Contrat UX/UI candidat |
-+| [52-ops1-visual-contract-and-figma-spec.md](./52-ops1-visual-contract-and-figma-spec.md) | Contrat visuel / Figma candidat (`lrjA1WEyRpL05vKR8k29LO` · page `61:2`) |
-+| [53-ops1-ux-ui-decision-pack.md](./53-ops1-ux-ui-decision-pack.md) | `OPS1-UX-CAND-01`…`20` — **CANDIDATE** ; `G-OPS1-UX-VAL` fermé |
++| [51-ops1-ux-ui-contract.md](./51-ops1-ux-ui-contract.md) | Contrat UX/UI — **VALIDATED WITH RESERVATIONS** |
++| [52-ops1-visual-contract-and-figma-spec.md](./52-ops1-visual-contract-and-figma-spec.md) | Contrat visuel / Figma — page `61:2` référence desktop validée |
++| [53-ops1-ux-ui-decision-pack.md](./53-ops1-ux-ui-decision-pack.md) | `OPS1-UX-CAND-01`…`20` — **VALIDATED WITH RESERVATIONS** ; UX-R01…UX-R04 ouvertes |
 +
-+*SFIA Studio — POC maintenu — A–E CLOSED_WITH_RESERVATIONS — OPS1 framing/design/arch VALIDATED WITH RESERVATIONS — UX OPS1 CANDIDATE awaiting G-OPS1-UX-VAL — MVP / delivery non ouverts.*
++*SFIA Studio — POC maintenu — A–E CLOSED_WITH_RESERVATIONS — OPS1 framing/design/arch/UX VALIDATED WITH RESERVATIONS — MVP / delivery non ouverts.*
 
 ```
 
 ---
 
-## Annexe B — Document 51 (complet)
+## Annexe B — Document 51 (complet après validation)
 
 # SFIA Studio — Contrat UX/UI OPS1
 
@@ -268,23 +332,25 @@ index 83837ad..0567d7e 100644
 | **Document** | `51-ops1-ux-ui-contract.md` |
 | **Cycle** | 4 — UX/UI |
 | **Profil** | Standard |
-| **Typologie** | POC / UX / UI / DOC / VALIDATION CANDIDATE |
-| **Gate d’ouverture** | `G-OPS1-UX` — **consommé** (GO Morris source) |
-| **Gate de validation** | `G-OPS1-UX-VAL` — **fermé** pendant la production |
+| **Typologie** | POC / UX / UI / DOC / VALIDATION |
+| **Gate d’ouverture** | `G-OPS1-UX` — **consommé** |
+| **Gate de validation** | `G-OPS1-UX-VAL` — **consommé** — Morris — 2026-07-20 16:52 CEST — **VALIDATION AVEC RÉSERVES** |
 | **Baseline Git** | `origin/main` @ `bfa2cdf949f417fcbce47d1687824c223eeed8f7` |
 | **Branche** | `design/sfia-studio-ops1-ux-ui` |
-| **Statut** | `ux-ui-candidate-awaiting-morris-validation` |
+| **Statut** | `ux-ui-validated-with-reservations` |
 | **Companions** | [`52`](./52-ops1-visual-contract-and-figma-spec.md) · [`53`](./53-ops1-ux-ui-decision-pack.md) |
 | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`50`](./50-ops1-functional-architecture-decision-pack.md) |
-| **Figma** | fileKey `lrjA1WEyRpL05vKR8k29LO` · page `UX-B — OPS1` (`61:2`) |
+| **Figma** | fileKey `lrjA1WEyRpL05vKR8k29LO` · page `UX-B — OPS1` (`61:2`) — **référence visuelle desktop validée avec réserves** |
 | **Horodatage production** | 2026-07-20 16:15 CEST |
+| **Horodatage validation Morris** | 2026-07-20 16:52 CEST |
 | **Code / live / backlog** | **Aucun** |
 
-> Contrat UX/UI **candidat** du Vertical Slice Opérationnel 1.
+> Contrat UX/UI OPS1 **validé avec réserves** sous `G-OPS1-UX-VAL` (2026-07-20 16:52 CEST).
+> Documents `51`–`53` = **baseline UX/UI OPS1** validée avec réserves.
+> Page Figma `61:2` = référence visuelle **desktop** validée ; tablette/mobile **non validées** (UX-R01).
 > Hérite des décisions validées `41`–`50` **sans les réinterpréter**.
-> Frames Figma = contrat visuel **candidat** — **pas** baseline validée.
 > Dix états storyboard ≠ dix routes. Conversation = espace principal. Chat ≠ GO.
-> Validation Morris distincte requise : `G-OPS1-UX-VAL`.
+> Réserves UX-R01…UX-R04 et FD-CAND-13/15/20/26 **maintenues**. Aucun cycle suivant ouvert automatiquement.
 
 ---
 
@@ -593,7 +659,9 @@ Interdit : « GPT a validé », « Lancer » dans le fil, « Tout Campus360 auto
 
 ---
 
-## 25. Critères de validation UX (`G-OPS1-UX-VAL`)
+## 25. Critères de validation UX (`G-OPS1-UX-VAL`) — **satisfaits avec réserves**
+
+Confirmés sous validation Morris (2026-07-20 16:52 CEST) — sous réserves UX-R01…UX-R04 :
 
 1. Séparation visuelle conversation / action / gate vérifiable sur frames.
 2. Quatre actions Morris + STOP distincts.
@@ -606,11 +674,22 @@ Interdit : « GPT a validé », « Lancer » dans le fil, « Tout Campus360 auto
 9. A11y / responsive documentés.
 10. Réserves listées ; anti-claims respectés.
 11. Aucun code / backlog / tech arch introduit.
-12. Décisions restent `CANDIDATE`.
+12. Décisions `OPS1-UX-CAND-01…20` **VALIDATED WITH RESERVATIONS** (doc 53).
 
 ---
 
 ## 26. Réserves maintenues (affichables)
+
+### Réserves UX (`UX-R*`) — ouvertes sous validation
+
+| ID | Réserve |
+|----|---------|
+| **UX-R01** | Produire les déclinaisons tablette/mobile avant toute implémentation responsive |
+| **UX-R02** | Nettoyer les microcopies héritées de P0 avant delivery |
+| **UX-R03** | Formaliser le design system avant industrialisation multi-écrans |
+| **UX-R04** | Maintenir ouvertes FD-CAND-13/15/20/26 ainsi que FinOps, Campus360, live, CI et isolation |
+
+### Réserves héritées (FD / transverses)
 
 - Continuation après CLOSE (FD-CAND-13).
 - FinOps numériques (FD-CAND-15).
@@ -623,22 +702,25 @@ Interdit : « GPT a validé », « Lancer » dans le fil, « Tout Campus360 auto
 
 ## 27. Anti-claims
 
-Ce document **n’affirme pas** : UX validée · design baseline · READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · architecture technique validée · backlog ouvert · code autorisé.
+Ce document **n’affirme pas** : READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · responsive implémenté · design system publié · FinOps résolu · Campus360 entièrement autorisé · live / CI / isolation validés · backlog ouvert · architecture technique ouverte ou validée · autorisation d’implémentation code.
+
+La validation UX/UI **ne vaut pas** validation technique, live, MVP ou production.
 
 ---
 
-## 28. Verdict candidat
+## 28. Verdict
 
-`ux-ui-candidate-awaiting-morris-validation`
+`ux-ui-validated-with-reservations`
 
-`SFIA STUDIO OPS1 UX/UI CONTRACT CANDIDATE — AWAITING G-OPS1-UX-VAL`
+`SFIA STUDIO OPS1 UX/UI VALIDATED WITH RESERVATIONS`
 
-Gate `G-OPS1-UX` consommé. Gate `G-OPS1-UX-VAL` **fermé** jusqu’à décision Morris après revue des docs 51–53, frames et captures.
+Gate `G-OPS1-UX` consommé. Gate `G-OPS1-UX-VAL` **consommé** — Morris — 2026-07-20 16:52 CEST — **GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES**.
+Baseline UX/UI OPS1 : docs `51`–`53` + page Figma `61:2` (desktop). Réserves UX-R01…UX-R04 ouvertes. Aucun cycle suivant ouvert automatiquement.
 
 
 ---
 
-## Annexe C — Document 52 (complet)
+## Annexe C — Document 52 (complet après validation)
 
 # SFIA Studio — Contrat visuel et spécification Figma OPS1
 
@@ -648,15 +730,19 @@ Gate `G-OPS1-UX` consommé. Gate `G-OPS1-UX-VAL` **fermé** jusqu’à décision
 | **Cycle** | 4 — UX/UI |
 | **Profil** | Standard |
 | **Gate d’ouverture** | `G-OPS1-UX` — consommé |
-| **Gate de validation** | `G-OPS1-UX-VAL` — **fermé** |
+| **Gate de validation** | `G-OPS1-UX-VAL` — **consommé** — Morris — 2026-07-20 16:52 CEST — **VALIDATION AVEC RÉSERVES** |
 | **Baseline Git** | `origin/main` @ `bfa2cdf949f417fcbce47d1687824c223eeed8f7` |
 | **Branche** | `design/sfia-studio-ops1-ux-ui` |
-| **Statut** | `visual-contract-candidate-awaiting-morris-validation` |
+| **Statut** | `visual-contract-validated-with-reservations` |
 | **Companion** | [`51`](./51-ops1-ux-ui-contract.md) · [`53`](./53-ops1-ux-ui-decision-pack.md) |
-| **Horodatage** | 2026-07-20 16:15 CEST |
+| **Horodatage production** | 2026-07-20 16:15 CEST |
+| **Horodatage validation Morris** | 2026-07-20 16:52 CEST |
 
-> Contrat visuel **candidat**. Dimensions et node IDs **vérifiés MCP Figma**.
-> Ne constitue **pas** une baseline visuelle validée.
+> Contrat visuel **validé avec réserves** sous `G-OPS1-UX-VAL` (2026-07-20 16:52 CEST).
+> Page `UX-B — OPS1` (`61:2`) = **référence visuelle desktop** validée (périmètre 1440×1024).
+> Preuves Figma = celles du cycle source / handoff `08f5ddf…` — **pas** de nouvelle vérification MCP dans ce cycle de validation documentaire.
+> Tablette/mobile **non produites** (UX-R01). Design system **non publié** (UX-R03). Microcopies P0 = dette (UX-R02).
+> Aucune implémentation code autorisée ou impliquée.
 
 ---
 
@@ -666,7 +752,7 @@ Gate `G-OPS1-UX` consommé. Gate `G-OPS1-UX-VAL` **fermé** jusqu’à décision
 |-------|--------|
 | **fileKey** | `lrjA1WEyRpL05vKR8k29LO` |
 | **URL** | https://www.figma.com/design/lrjA1WEyRpL05vKR8k29LO |
-| **Page OPS1** | `UX-B — OPS1` — node `61:2` |
+| **Page OPS1** | `UX-B — OPS1` — node `61:2` — **référence desktop validée avec réserves** |
 | **Page source héritée** | `UX-B — P0` — node `0:1` |
 | **Page historique observée** | `UX-B — POC Vertical Slice` — node `51:2` (**vide** au moment du cycle ; frames VS absentes) |
 | **Accès MCP** | Authentifié (Full seat) — lecture/écriture OK |
@@ -693,7 +779,7 @@ Gate `G-OPS1-UX` consommé. Gate `G-OPS1-UX-VAL` **fermé** jusqu’à décision
 
 Toutes dimensions **1440 × 1024** confirmées MCP (`use_figma` inventory 2026-07-20).
 
-### 3.1 Frames principales
+### 3.1 Frames principales (desktop — **validées avec réserves**)
 
 | Nom | Node ID | Finalité | État fonctionnel | FLOW/CAP |
 |-----|---------|----------|------------------|----------|
@@ -708,7 +794,7 @@ Toutes dimensions **1440 × 1024** confirmées MCP (`use_figma` inventory 2026-0
 | OPS1-UX-09 — Décision finale Morris | `61:950` | CLOSE / options finales | DECISION | FLOW-24–26 |
 | OPS1-UX-10 — Session CLOSED lecture seule | `61:1075` | Immutabilité + réserves | CLOSED | FLOW-24 · FD-CAND-13 placeholder |
 
-### 3.2 Variantes
+### 3.2 Variantes (desktop — **validées avec réserves**)
 
 | Nom | Node ID | Situation |
 |-----|---------|-----------|
@@ -724,8 +810,8 @@ Toutes dimensions **1440 × 1024** confirmées MCP (`use_figma` inventory 2026-0
 
 | Breakpoint | Statut |
 |------------|--------|
-| Desktop 1440×1024 | **Confirmé** sur les 17 frames |
-| Tablette / mobile | **Spécifiés** dans doc 51 §21 — **frames non produites** ce cycle (dette documentée) |
+| Desktop 1440×1024 | **Confirmé** et **validé** (périmètre desktop) sur les 17 frames |
+| Tablette / mobile | Documentés dans doc 51 §21 — **frames non produites** — **UX-R01** (non validé pour implémentation responsive) |
 
 ---
 
@@ -856,33 +942,37 @@ Captures MCP supplémentaires recommandées en revue Morris pour 06–10 et VAR-
 
 ## 15. Écarts et réserves
 
-| Écart | Traitement |
-|-------|------------|
+| Écart | Traitement / réserve |
+|-------|----------------------|
 | Page VS vide | Documenté — pas de baseline VS importée |
-| DS publié vide | Clone P0 + overlays |
-| Frames tablette/mobile absentes | Dette responsive |
-| Résidus microcopy P0 | Dette polish — listée |
-| FD-CAND-* | Placeholders UX seulement |
-| FinOps chiffres | « À définir » |
+| DS publié vide | Clone P0 + overlays — **UX-R03** |
+| Frames tablette/mobile absentes | **UX-R01** — avant implémentation responsive |
+| Résidus microcopy P0 | **UX-R02** — avant delivery |
+| FD-CAND-* / FinOps / Campus360 / live / CI / isolation | **UX-R04** — maintenues OPEN |
+| FinOps chiffres | « À définir » — non résolu |
 
 ---
 
-## 16. Validation requise
+## 16. Validation Morris
 
-`G-OPS1-UX-VAL` — Morris distinct — après revue :
+`G-OPS1-UX-VAL` **consommé** — Morris — 2026-07-20 16:52 CEST — **GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES**.
+
+Validés dans le périmètre desktop :
 
 - docs 51–53 ;
-- page `61:2` et frames listées ;
-- dimensions 1440×1024 ;
-- captures ;
-- réserves et dettes.
+- page `61:2` et frames / variantes listées ;
+- dimensions 1440×1024 (preuves cycle source) ;
+- gate strip `62:2` ;
+- captures héritées du handoff.
 
-**Verdict documentaire candidat :** `visual-contract-candidate-awaiting-morris-validation`
+Non validés : tablette/mobile · DS publié · microcopy P0 nettoyée · réserves FD/live/CI/isolation.
+
+**Verdict :** `visual-contract-validated-with-reservations`
 
 
 ---
 
-## Annexe D — Document 53 (complet)
+## Annexe D — Document 53 (complet après validation)
 
 # SFIA Studio — Decision pack UX/UI OPS1
 
@@ -892,21 +982,23 @@ Captures MCP supplémentaires recommandées en revue Morris pour 06–10 et VAR-
 | **Cycle** | 4 — UX/UI |
 | **Profil** | Standard |
 | **Gate d’ouverture** | `G-OPS1-UX` — consommé |
-| **Gate de validation** | `G-OPS1-UX-VAL` — **fermé** |
+| **Gate de validation** | `G-OPS1-UX-VAL` — **consommé** — Morris — 2026-07-20 16:52 CEST — **VALIDATION AVEC RÉSERVES** |
 | **Baseline Git** | `origin/main` @ `bfa2cdf949f417fcbce47d1687824c223eeed8f7` |
 | **Branche** | `design/sfia-studio-ops1-ux-ui` |
-| **Statut** | `ux-decisions-candidate-awaiting-morris-validation` |
+| **Statut** | `ux-decisions-validated-with-reservations` |
 | **Companions** | [`51`](./51-ops1-ux-ui-contract.md) · [`52`](./52-ops1-visual-contract-and-figma-spec.md) |
-| **Horodatage** | 2026-07-20 16:15 CEST |
+| **Horodatage production** | 2026-07-20 16:15 CEST |
+| **Horodatage validation Morris** | 2026-07-20 16:52 CEST |
 
-> Toutes les décisions `OPS1-UX-CAND-*` restent **`CANDIDATE — AWAITING G-OPS1-UX-VAL`**.
-> Aucune n’est marquée VALIDATED sans intervention Morris post-revue.
+> Décisions `OPS1-UX-CAND-01`…`20` **VALIDATED WITH RESERVATIONS** sous `G-OPS1-UX-VAL` (2026-07-20 16:52 CEST).
+> Identifiants `OPS1-UX-CAND-*` **conservés** (suffixe historique stable).
+> Réserves UX-R01…UX-R04 et FD-CAND-13/15/20/26 **ouvertes**. Aucun cycle suivant ouvert automatiquement.
 
 ---
 
 ## Convention
 
-Chaque décision : observation · héritage · hypothèse · options · recommandation · décision candidate · impacts · risques · dette · réserves · sujets routés · décision Morris attendue · statut.
+Chaque décision : observation · héritage · hypothèse · options · recommandation · décision candidate · impacts · risques · dette · réserves · sujets routés · décision Morris · statut.
 
 ---
 
@@ -926,7 +1018,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Réserves** | — |
 | **Routé** | Delivery UI ultérieur |
 | **Morris attendu** | Valider continuité shell |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-02 — Conversation comme surface principale
 
@@ -940,7 +1033,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Impacts** | Abandon UX « Nouvelle demande » comme cible OPS1 |
 | **Risques** | Friction vs P0 form |
 | **Dette** | Purge hero qualification |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-03 — Action séparée du dialogue
 
@@ -951,7 +1045,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Options** | (A) Action dans bulles ; (B) Panneau séparé |
 | **Recommandation** | (B) |
 | **Décision candidate** | Panneau « Action candidate — NON AUTORISÉE » séparé. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-04 — Présentation de l’allowlist
 
@@ -963,7 +1058,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Recommandation** | (B) avec placeholders si chemins OPEN |
 | **Décision candidate** | Allowlist lisible avant GO ; modes CONSULT/CREATE/MODIFY. |
 | **Réserves** | Chemins exacts SCENARIO-VAL |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-05 — Positionnement du gate Morris
 
@@ -974,7 +1070,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Options** | (A) Modale seule ; (B) Vue gate dédiée + strip |
 | **Recommandation** | (B) |
 | **Décision candidate** | Gate séparé ; strip GO / NO-GO / CORRIGER / ABANDONNER (`62:2`). |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-06 — Mécanisme de correction de l’action
 
@@ -983,7 +1080,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Observation** | CORRIGER et raffinement chat/structuré. |
 | **Héritage** | FLOW-07/08 |
 | **Décision candidate** | Raffinement via chat et/ou panneau (UX-04) ; CORRIGER ramène ici. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-07 — Visualisation harness et Cursor
 
@@ -991,7 +1089,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 |-------|---------|
 | **Observation** | Harness fail-closed ; Cursor borné. |
 | **Décision candidate** | États VALIDATING/REFUSED/EXECUTING visibles ; STOP sur exec. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-08 — Rapport et diff multi-fichiers
 
@@ -999,28 +1098,32 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 |-------|---------|
 | **Héritage** | FR-031 ; CAP-15–16 |
 | **Décision candidate** | Vue consolidée + détail par fichier ; incomplet bloque CLOSE. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-09 — STOP
 
 | Champ | Contenu |
 |-------|---------|
 | **Décision candidate** | STOP toujours distinct et accessible ; ≠ ABANDONNER / NO-GO. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-10 — Erreurs et fail-closed
 
 | Champ | Contenu |
 |-------|---------|
 | **Décision candidate** | Bandeaux FAIL-CLOSED non masqués (VAR-B/D/G) ; timeout ≠ GO. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-11 — Historique et reprise
 
 | Champ | Contenu |
 |-------|---------|
 | **Décision candidate** | Reprise = restauration journal + check Git ; ambiguïté → read-only/STOP. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-12 — CLOSED lecture seule
 
@@ -1028,7 +1131,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 |-------|---------|
 | **Héritage** | CLOSED immutable |
 | **Décision candidate** | UX-10 lecture seule ; pas d’édition silencieuse. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-13 — Continuation après CLOSE (option candidate)
 
@@ -1039,7 +1143,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Recommandation** | (B) |
 | **Décision candidate** | CTA « Continuer / session liée » **candidat** sans figer le mécanisme. |
 | **Réserves** | **FD-CAND-13** |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-14 — FinOps
 
@@ -1047,7 +1152,8 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 |-------|---------|
 | **Décision candidate** | Surfaces compteurs / alerte / confirmation ; chiffres = « À définir ». |
 | **Réserves** | **FD-CAND-15** |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-15 — Responsive
 
@@ -1055,14 +1161,16 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 |-------|---------|
 | **Décision candidate** | Desktop 1440×1024 storyboard ; tablette/mobile = règles doc 51, frames ultérieures. |
 | **Dette** | Frames non desktop |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-16 — Accessibilité
 
 | Champ | Contenu |
 |-------|---------|
 | **Décision candidate** | Clavier, focus, annonces, non-couleur-seule, contrastes AA cibles — contrat 51 §20. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-17 — Design system et composants réutilisés
 
@@ -1071,14 +1179,16 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 | **Observation** | `search_design_system` vide ; pas de Code Connect. |
 | **Décision candidate** | Réutiliser shell P0 par clone ; overlays AL locaux ; pas de nouvelle library publiée ce cycle. |
 | **Dette** | Publication DS / tokens variables |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-18 — Liste et dimensions des frames
 
 | Champ | Contenu |
 |-------|---------|
 | **Décision candidate** | 10 frames + 7 variantes @ **1440×1024** confirmées MCP — inventaire doc 52. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ## OPS1-UX-CAND-19 — États ≠ routes
 
@@ -1086,15 +1196,17 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 |-------|---------|
 | **Héritage** | VS-UX-CAND-02 |
 | **Décision candidate** | Storyboard ≠ routes ; mapping ≤4 vues P0. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
-## OPS1-UX-CAND-20 — Verdict UX candidat
+## OPS1-UX-CAND-20 — Verdict UX
 
 | Champ | Contenu |
 |-------|---------|
-| **Décision candidate** | Contrats 51–52 + frames prêts pour revue Morris sous `G-OPS1-UX-VAL`. |
-| **Morris attendu** | Valider / corriger / rejeter — sans ouvrir backlog/tech/delivery. |
-| **Statut** | `CANDIDATE — AWAITING G-OPS1-UX-VAL` |
+| **Décision candidate** | Contrats 51–52 + frames validés avec réserves sous `G-OPS1-UX-VAL`. |
+| **Morris attendu** | _(consommé)_ Valider / corriger / rejeter — sans ouvrir backlog/tech/delivery. |
+| **Décision Morris** | GO G-OPS1-UX-VAL — VALIDATION AVEC RÉSERVES — 2026-07-20 16:52 CEST |
+| **Statut** | `VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL — Morris — 2026-07-20 16:52 CEST` |
 
 ---
 
@@ -1102,9 +1214,23 @@ Chaque décision : observation · héritage · hypothèse · options · recomman
 
 | ID | Statut |
 |----|--------|
-| OPS1-UX-CAND-01…20 | **CANDIDATE — AWAITING G-OPS1-UX-VAL** |
+| OPS1-UX-CAND-01…20 | **VALIDATED WITH RESERVATIONS — G-OPS1-UX-VAL** |
 
-Aucune décision VALIDATED dans ce pack.
+- **20** décisions validées avec réserves.
+- **Aucune** décision UX candidate restante dans ce pack.
+- `G-OPS1-UX-VAL` **consommé**.
+- Réserves **UX-R01…UX-R04** ouvertes.
+- Aucune ouverture automatique des cycles suivants.
+
+### Association réserves (indicatif)
+
+| Décisions | Réserves associées |
+|-----------|-------------------|
+| UX-CAND-15 (responsive) | UX-R01 |
+| UX-CAND-01/17 (shell / DS) | UX-R02, UX-R03 |
+| UX-CAND-13/14 (CLOSE / FinOps) | UX-R04 · FD-CAND-13/15 |
+| UX-CAND-04 (allowlist / Campus360) | UX-R04 · FD-CAND-20/26 |
+| Ensemble | UX-R04 (live, CI, isolation) |
 
 ---
 
@@ -1113,39 +1239,32 @@ Aucune décision VALIDATED dans ce pack.
 | Gate | État |
 |------|------|
 | `G-OPS1-UX` | Consommé (ouverture) |
-| `G-OPS1-UX-VAL` | Fermé — attendu Morris |
+| `G-OPS1-UX-VAL` | **Consommé** — Morris — 2026-07-20 16:52 CEST |
 | `G-OPS1-SCENARIO-VAL` | Fermé |
 | `G-OPS1-TECH-ARCH` | Fermé |
 | `G-OPS1-BACKLOG` | Fermé |
 | Delivery / live / MVP / production | Fermés |
-| Commit / push / PR / merge | Fermés (ce cycle) |
+| Commit / push / PR / merge | Fermés (jusqu’à GO distinct) |
 
 ---
 
 ## Réserves maintenues
 
-FD-CAND-13/15/20/26 · FinOps numériques · cartographie Campus360 · branche · live · CI · isolation.
+**UX-R01…UX-R04** · FD-CAND-13/15/20/26 · FinOps numériques · cartographie Campus360 · branche · live · CI · isolation.
 
 ---
 
 ## Anti-claims
 
-Pas de READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · UX validée · baseline Figma.
+Pas de READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · responsive implémenté · design system publié · FinOps/Campus360/live/CI/isolation résolus · backlog ou tech arch ouverts.
 
 ---
 
-## Verdict candidat
+## Verdict
 
-`ux-decisions-candidate-awaiting-morris-validation`
+`ux-decisions-validated-with-reservations`
 
-`SFIA STUDIO OPS1 UX/UI DECISIONS CANDIDATE — AWAITING G-OPS1-UX-VAL`
+`SFIA STUDIO OPS1 UX/UI DECISIONS VALIDATED WITH RESERVATIONS`
 
+20 décisions `OPS1-UX-CAND-01…20` validées avec réserves sous `G-OPS1-UX-VAL` (2026-07-20 16:52 CEST).
 
-
----
-
-## Verdict handoff (republication)
-
-**REVIEW HANDOFF REPUBLISHED — READY FOR CHATGPT VALIDATION**
-
-Périmètre limité : fichier handoff uniquement. Aucune PR, merge, push UX, modification Figma/docs projet.
