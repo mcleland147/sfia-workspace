@@ -11,14 +11,14 @@
 | **Statut** | `validated-with-amendments` — **validé Morris avec amendements** (2026-07-20 18:34:47 CEST) |
 | **Branche** | `design/sfia-studio-ops1-scenario` |
 | **Baseline Git** | `origin/main` @ `5a595b0dfcc01302ce8e7f729fee2dd383735388` |
-| **Companions** | [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) · [`56`](./56-ops1-scenario-decision-pack.md) |
+| **Companions** | [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) · [`56`](./56-ops1-scenario-decision-pack.md)  · Tech-arch [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) (**validés avec amendements**) |
 | **Héritage** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) |
 | **Autorité** | Morris (L0) |
 | **Horodatage production** | 2026-07-20 18:08:37 CEST |
 
 > Scénario opérationnel **validé avec amendements** sous `GO G-OPS1-SCENARIO-VAL — VALIDATION AVEC AMENDEMENTS — 2026-07-20 18:34:47 CEST`.
 > Décisions `OPS1-SCENARIO-CAND-01…22` **validées avec amendements** — voir [`56`](./56-ops1-scenario-decision-pack.md).
-> **N’ouvre pas** l’architecture technique, le backlog, le code, la delivery, le live, le MVP ni la production.
+> Scénario validé. Architecture technique : `57`–`59` **validés avec amendements**. **N’ouvre pas** le backlog, le code, la delivery, le live, le MVP ni la production.
 
 ---
 
@@ -322,13 +322,14 @@ Champs minimaux du contrat **fonctionnel** (pas de schéma JSON technique figé)
 | FD-CAND-15 | `MAINTAINED UNTIL FINOPS/LIVE GATE` |
 | UX-R01…R04 | **Maintenues** (UX-R01 tablette/mobile après desktop ; UX-R02 microcopies avant delivery ; UX-R03 DS avant industrialisation ; UX-R04 transverse) |
 | Isolation / CI | `ROUTED TO OPS1 TECHNICAL ARCHITECTURE — NOT DESIGNED HERE` |
-| Tech-arch / backlog / delivery / live / MVP | **Fermés** |
+| Tech-arch | Docs [`57`](./57-ops1-technical-architecture.md)–[`59`](./59-ops1-technical-architecture-decision-pack.md) **validés avec amendements** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) |
+| Backlog / delivery / live / MVP | **Fermés** |
 
 ---
 
 ## 18. Anti-claims
 
-Ce document **n’affirme pas** : READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · LIVE READY · ARCHITECTURE TECHNIQUE VALIDÉE · Campus360 entièrement autorisé · backlog ouvert · code autorisé.
+Ce document **n’affirme pas** : READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · LIVE READY · STACK FINALIZED · Campus360 entièrement autorisé · backlog ouvert · code autorisé. (Tech-arch : voir `57`–`59` — validée avec amendements.)
 
 ---
 
