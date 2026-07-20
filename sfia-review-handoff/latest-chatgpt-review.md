@@ -1,113 +1,95 @@
-# SFIA Studio — Review Pack — OPS1 Post-Merge Sync Final (PR #238)
+# SFIA Studio — Review Pack — OPS1 Functional Design Branch Cleanup
 
-- **Date/heure/fuseau :** 2026-07-20 14:48:11 CEST
+- **Date/heure/fuseau :** 2026-07-20 14:53:59 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Cycle :** 14 — Post-merge
+- **Cycle :** 14 — Post-merge / clôture et cleanup de branches
 - **Profil :** Light
-- **Gate Morris :** GO POST-MERGE
-- **PR :** [#238](https://github.com/mcleland147/sfia-workspace/pull/238)
+- **Gate Morris :** GO CLEANUP BRANCHES OPS1 FUNCTIONAL DESIGN
 
-## Truth Check initial
+## Truth Check
 
 | Contrôle | Résultat |
 |----------|----------|
-| Branche initiale | `docs/sfia-studio-ops1-functional-post-merge-sync` |
-| HEAD initial | `84bd1930c8b7f1e622ffd9a193ca545498b78dfa` |
-| origin/main | `b4b9df577a39fe564c3a787a23501786682e1740` |
+| Branche courante | `main` |
+| HEAD / origin/main | `b4b9df577a39fe564c3a787a23501786682e1740` |
+| local/distant | `0/0` |
 | Tracked / staged | Propre / vide |
-| Sync remote | Présente @ `84bd193…` |
-| Design remote | Présente @ `c473b14…` |
+| Sync locale/distante initiale | `84bd1930c8b7f1e622ffd9a193ca545498b78dfa` |
+| Design locale/distante initiale | `c473b145b9917fbc4cf7a83f5b7edf031b61001a` |
 
 **Verdict Truth Check :** CONFORME.
 
-## Vérification PR #238
+## PR #237 / #238
 
-| Champ | Valeur |
-|-------|--------|
-| État | MERGED |
-| mergedAt | 2026-07-20T12:42:19Z |
-| Base | `main` @ `6cbf37482c7d384ef5630259d58a2e223a607925` |
-| Head | `docs/sfia-studio-ops1-functional-post-merge-sync` @ `84bd193…` |
-| Merge commit | `b4b9df577a39fe564c3a787a23501786682e1740` |
-| Titre | `docs(sfia-studio): sync OPS1 functional design post-merge status` |
-| Fichiers / +/- | 2 · +16 / −10 |
+| PR | État | Head | Head SHA | Squash |
+|----|------|------|----------|--------|
+| #237 | MERGED | `design/sfia-studio-ops1-functional` | `c473b145…` | `6cbf37482c7d384ef5630259d58a2e223a607925` |
+| #238 | MERGED | `docs/sfia-studio-ops1-functional-post-merge-sync` | `84bd193…` | `b4b9df577a39fe564c3a787a23501786682e1740` |
 
-## Squash commit
+## Preuves d’intégration
+
+- Squash #237 et #238 ancêtres de `main` : confirmé.
+- Tips locaux/distants = head SHA des PR : confirmé.
+- Aucun commit post-merge sur les tips après fusion.
+- `git branch --merged main` ne liste pas ces branches (**attendu** après squash).
+- Contenu intégré via squash (4 fichiers #237 + sync métadonnées #238).
+
+## Suppressions distantes
 
 ```text
-b4b9df5 docs(sfia-studio): sync OPS1 functional design post-merge status
-Parent : 6cbf37482c7d384ef5630259d58a2e223a607925
-M  projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-M  projects/sfia-studio/45-ops1-functional-design.md
+git push origin --delete docs/sfia-studio-ops1-functional-post-merge-sync
+→ deleted
+
+git push origin --delete design/sfia-studio-ops1-functional
+→ deleted
 ```
 
-## Synchronisation main
+`git ls-remote` après chaque suppression : **vide**.
 
-| Étape | Valeur |
-|-------|--------|
-| Avant | `main` @ `6cbf374…` ; behind `0/1` |
-| Commande | `git merge --ff-only origin/main` |
-| Résultat | Fast-forward `6cbf374..b4b9df5` |
-| Après | `main` = `origin/main` = `b4b9df5…` ; `0/0` |
+## Prune
 
-## Vérification document 41 (extraits)
+`git fetch origin --prune` — remote-tracking refs absentes.
 
-- Cadrage `41`–`44` via PR #235 ; post-merge+cleanup terminés.
-- Conception `45`–`47` via PR #237 ; squash `6cbf37482c7d384ef5630259d58a2e223a607925`.
-- Métadonnée : `| **Intégration conception fonctionnelle** | PR #237 MERGED — squash 6cbf374… |`
-- Intro/verdict : intégrée et canonique sur main ; post-merge validé (14:29 CEST) ; réserves inchangées ; gates fermés ; aucun cycle suivant.
+## Suppressions locales
 
-## Vérification document 45 (extraits)
+| Branche | Tentative `-d` | Action |
+|---------|----------------|--------|
+| sync | refusée (« not fully merged ») | `-D (squash: tip not ancestor of main; PR #238 MERGED head=84bd193 squash=b4b9df5)` |
+| design | refusée (« not fully merged ») | `-D (squash: tips not ancestors of main; PR #237 MERGED head=c473b14 squash=6cbf374)` |
 
-- `| **Baseline Git de conception** | origin/main @ 62eb23f… |`
-- `| **Intégration** | PR #237 MERGED — squash 6cbf374… sur main |`
-- `| **Branche de conception** | … fusionnée … conservée temporairement en attente du cleanup Morris |`
-- Statut `functional-design-validated-with-reservations` ; réserves 13, 15, 20, 26 inchangées ; post-merge validé.
-- Claims MVP / production-ready / READY FOR DELIVERY / OPS1 prouvé : **négatifs uniquement**.
+Justification `-D` : squash merge — tips non ancêtres de main ; PR MERGED + head SHA + squash SHA + tip inchangé confirmés.
 
-## Réserves / gates
+## État final des quatre références
 
-Réserves inchangées : FD-CAND-13/15/20/26 ; cartographie Campus360 ; convention branche ; FinOps ; CLOSE ; live ; CI ; isolation.
-
-Gates fermés : SCENARIO-VAL, FUNC-ARCH, UX, TECH-ARCH, BACKLOG, delivery, GPT/Cursor live, MVP, production.
-
-`git diff --check HEAD^..HEAD` : OK. Aucun secret. Aucune décision FD-CAND modifiée par ce squash (métadonnées/statut seulement).
-
-## Branches
-
-| Réf | État | SHA |
-|-----|------|-----|
-| `origin/docs/...-post-merge-sync` | **Présente** | `84bd193…` |
-| locale sync | **Présente** | `84bd193…` |
-| `origin/design/sfia-studio-ops1-functional` | **Présente** | `c473b14…` |
-| locale design | **Présente** | `c473b14…` |
-| `main` / `origin/main` | Sync | `b4b9df5…` |
-
-**Aucune suppression de branche.** Cleanup = `GO CLEANUP BRANCHES OPS1 FUNCTIONAL DESIGN`.
+| Référence | État |
+|-----------|------|
+| `refs/heads/docs/...-post-merge-sync` | **ABSENTE** |
+| `refs/remotes/origin/docs/...-post-merge-sync` | **ABSENTE** |
+| `refs/heads/design/sfia-studio-ops1-functional` | **ABSENTE** |
+| `refs/remotes/origin/design/sfia-studio-ops1-functional` | **ABSENTE** |
+| origin heads sync/design | **ABSENTES** |
 
 ## Confirmations
 
-- Aucun fichier modifié dans ce cycle.
-- Aucun commit projet.
-- Aucun push projet.
-- Aucune nouvelle PR.
-- Aucun cycle suivant ouvert.
+- Aucune autre branche OPS1 sync/design supprimée hors périmètre.
+- `main` et `sfia/review-handoff` **conservés**.
+- Branche non liée `docs/sfia-studio-pr226-post-merge-sync` **inchangée** (hors périmètre).
+- Aucun fichier modifié ; aucun commit projet ; aucun tag modifié.
 
 ## État Git final
 
 ```text
-Branche courante : main
+Branche : main
 HEAD / origin/main : b4b9df577a39fe564c3a787a23501786682e1740
 local/distant : 0/0
 tracked : propre
 staged : vide
-branches sync + design : présentes
 ```
 
 ## Handoff
 
-- SHA : `a97e07ed8a21e4f6277fa9ffe08d358add663284`
+- SHA : *(après push handoff)*
 
 ## Verdict
 
-**OPS1 FUNCTIONAL DESIGN DOCUMENTATION SYNC POST-MERGE VALIDATED — BRANCH CLEANUP REQUIRES MORRIS GO**
+**OPS1 FUNCTIONAL DESIGN BRANCHES CLEANED UP — CYCLE CLOSED**
