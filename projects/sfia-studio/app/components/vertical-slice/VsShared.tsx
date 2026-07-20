@@ -1,7 +1,16 @@
 import { vsFixture } from "@/fixtures/vertical-slice";
+import type { StudioHarnessView } from "@/lib/harness/types";
+import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import styles from "./vs-panels.module.css";
 
 export function IdStrip() {
+  const { harnessView } = useVsDemo();
+  const source = harnessView?.statusSource
+    ? `harness (${harnessView.mode})`
+    : vsFixture.sourceStatus;
+  const hash = harnessView?.contractHash ?? vsFixture.contractHash;
+  const corr = harnessView?.correlationId ?? vsFixture.correlationId;
+
   return (
     <dl className={styles.idStrip} data-testid="vs-id-strip">
       <div>
@@ -10,7 +19,7 @@ export function IdStrip() {
       </div>
       <div>
         <dt>correlationId</dt>
-        <dd>{vsFixture.correlationId}</dd>
+        <dd>{corr}</dd>
       </div>
       <div>
         <dt>contractId</dt>
@@ -18,7 +27,7 @@ export function IdStrip() {
       </div>
       <div>
         <dt>contractHash</dt>
-        <dd>{vsFixture.contractHash}</dd>
+        <dd>{hash.length > 24 ? `${hash.slice(0, 20)}…` : hash}</dd>
       </div>
       <div>
         <dt>Branche</dt>
@@ -30,15 +39,91 @@ export function IdStrip() {
       </div>
       <div>
         <dt>Source statut</dt>
-        <dd>{vsFixture.sourceStatus}</dd>
+        <dd data-testid="vs-status-source">{source}</dd>
       </div>
       <div>
         <dt>Horodatage</dt>
         <dd>
-          {vsFixture.timestamp} ({vsFixture.timezone})
+          {harnessView?.timestamps.completedAt ?? vsFixture.timestamp} (
+          {vsFixture.timezone})
         </dd>
       </div>
     </dl>
+  );
+}
+
+export function HarnessStatusPanel() {
+  const { harnessView, harnessBusy, resumeFromHarness } = useVsDemo();
+  if (harnessBusy) {
+    return (
+      <aside className={styles.finops} data-testid="vs-harness-busy">
+        <p>Transmission harness (fixture)…</p>
+      </aside>
+    );
+  }
+  if (!harnessView) {
+    return (
+      <aside className={styles.finops} data-testid="vs-harness-idle">
+        <p className={styles.finopsTitle}>Harness (Increment B)</p>
+        <p>Aucun cycle harness encore — simulation / fixture uniquement.</p>
+        <p className={styles.muted}>Aucun GPT live · aucun Cursor live</p>
+        <button type="button" data-testid="vs-resume" onClick={resumeFromHarness}>
+          Reprendre depuis journal harness
+        </button>
+      </aside>
+    );
+  }
+  return <HarnessViewCard view={harnessView} onResume={resumeFromHarness} />;
+}
+
+function HarnessViewCard({
+  view,
+  onResume,
+}: {
+  view: StudioHarnessView;
+  onResume: () => void;
+}) {
+  const last = view.events[view.events.length - 1];
+  return (
+    <aside className={styles.finops} data-testid="vs-harness-panel">
+      <p className={styles.finopsTitle}>État dérivé harness (fixture)</p>
+      <p>
+        Statut canonique :{" "}
+        <strong data-testid="vs-harness-status">{view.canonicalStatus}</strong>
+      </p>
+      <p>
+        GO valide :{" "}
+        <strong data-testid="vs-go-valid">{view.goValid ? "oui" : "non"}</strong>
+      </p>
+      <p data-testid="vs-harness-mode">Mode : {view.mode} · source : {view.statusSource}</p>
+      {view.errorCode ? (
+        <p data-testid="vs-harness-error">
+          Refus / écart : {view.errorCode}
+          {view.refusalReason ? ` — ${view.refusalReason}` : ""}
+        </p>
+      ) : null}
+      {view.stopOrTimeout ? (
+        <p data-testid="vs-stop-timeout">Classe : {view.stopOrTimeout}</p>
+      ) : null}
+      {last ? (
+        <p data-testid="vs-last-event">
+          Dernier événement : {last.eventType} ({last.result ?? "—"})
+        </p>
+      ) : null}
+      <p data-testid="vs-report-flag">
+        Rapport : {view.report ? "disponible" : "absent"}
+      </p>
+      <p data-testid="vs-proof-flag">
+        Pack preuves :{" "}
+        {view.proofPack?.ok
+          ? "complet"
+          : `incomplet (${view.proofPack?.missing.join(", ") || "n/a"})`}
+      </p>
+      <p className={styles.muted}>Aucun GPT/Cursor live · aucune écriture Git distante</p>
+      <button type="button" data-testid="vs-resume" onClick={onResume}>
+        Reprendre depuis journal harness
+      </button>
+    </aside>
   );
 }
 

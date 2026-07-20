@@ -11,6 +11,12 @@ import {
 } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { StudioRoute } from "@/lib/navigation";
+import { runStudioHarness } from "@/lib/harness/actions";
+import {
+  actionForGateConfirm,
+  buildStudioHarnessRequest,
+} from "@/lib/harness/buildRequest";
+import type { StudioHarnessView } from "@/lib/harness/types";
 import {
   defaultStateForRoute,
   metaFor,
@@ -23,6 +29,33 @@ import type {
   VsStateId,
 } from "@/lib/vertical-slice/types";
 
+const PROOF_DIR_KEY = "sfia-vs-inc-b-proofDir";
+const HARNESS_VIEW_KEY = "sfia-vs-inc-b-harnessView";
+
+function persistHarness(view: StudioHarnessView | null): void {
+  if (typeof window === "undefined") return;
+  if (!view) {
+    window.sessionStorage.removeItem(HARNESS_VIEW_KEY);
+    window.sessionStorage.removeItem(PROOF_DIR_KEY);
+    return;
+  }
+  window.sessionStorage.setItem(HARNESS_VIEW_KEY, JSON.stringify(view));
+  if (view.proofDir) {
+    window.sessionStorage.setItem(PROOF_DIR_KEY, view.proofDir);
+  }
+}
+
+function readPersistedHarness(): StudioHarnessView | null {
+  if (typeof window === "undefined") return null;
+  const raw = window.sessionStorage.getItem(HARNESS_VIEW_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as StudioHarnessView;
+  } catch {
+    return null;
+  }
+}
+
 interface VsDemoContextValue extends VsDemoUiState {
   setStateId: (id: VsStateId) => void;
   selectGateAction: (action: VsGateAction) => void;
@@ -33,6 +66,7 @@ interface VsDemoContextValue extends VsDemoUiState {
   selectFinalAction: (action: VsFinalAction) => void;
   fireStop: () => void;
   resetDemo: () => void;
+  resumeFromHarness: () => void;
 }
 
 const VsDemoContext = createContext<VsDemoContextValue | null>(null);
@@ -42,6 +76,25 @@ function routeFromPath(pathname: string): StudioRoute {
   if (pathname.startsWith("/cycle-actif")) return "/cycle-actif";
   if (pathname.startsWith("/synthese")) return "/synthese";
   return "/nouvelle-demande";
+}
+
+function deriveStateFromHarness(view: StudioHarnessView): VsStateId {
+  if (view.stopOrTimeout === "STOP") return "VS-UX-VAR-STOP";
+  if (view.stopOrTimeout === "timeout" || view.errorCode?.includes("TIMEOUT")) {
+    return "VS-UX-VAR-ERROR";
+  }
+  if (
+    view.errorCode?.includes("HASH") ||
+    view.errorCode?.includes("BRANCH") ||
+    view.errorCode?.includes("HEAD") ||
+    view.errorCode?.includes("ALLOWLIST")
+  ) {
+    return "VS-UX-VAR-GO-INVALID";
+  }
+  if (view.ok && view.goValid) return "VS-UX-05";
+  if (view.errorCode === "GATE_NO_GO") return "VS-UX-10";
+  if (!view.ok) return "VS-UX-VAR-ERROR";
+  return "VS-UX-05";
 }
 
 export function VsDemoProvider({ children }: { children: ReactNode }) {
@@ -59,6 +112,13 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
   const [abandonConfirmOpen, setAbandonConfirmOpen] = useState(false);
   const [finalAction, setFinalAction] = useState<VsFinalAction | null>(null);
   const [stopFired, setStopFired] = useState(false);
+  const [harnessView, setHarnessView] = useState<StudioHarnessView | null>(null);
+  const [harnessBusy, setHarnessBusy] = useState(false);
+
+  useEffect(() => {
+    const persisted = readPersistedHarness();
+    if (persisted) setHarnessView(persisted);
+  }, []);
 
   useEffect(() => {
     const fromQuery = parseVsQuery(searchParams.get("vs"));
@@ -72,6 +132,11 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- sync on route/query only
   }, [pathname, searchParams]);
+
+  const applyHarnessView = useCallback((view: StudioHarnessView) => {
+    setHarnessView(view);
+    persistHarness(view);
+  }, []);
 
   const setStateId = useCallback(
     (id: VsStateId) => {
@@ -116,14 +181,30 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
   const confirmGate = useCallback(() => {
     if (!gateAction || gateAction === "ABANDONNER") return;
     setGateConfirmed(true);
-    if (gateAction === "GO") {
-      setStateId("VS-UX-05");
-    } else if (gateAction === "NO-GO") {
-      setStateId("VS-UX-10");
-    } else if (gateAction === "CORRIGER") {
-      setStateId("VS-UX-02");
+
+    const mapped = actionForGateConfirm({ gateAction, stateId });
+    if (mapped === "local-only") {
+      if (gateAction === "NO-GO") {
+        setStateId("VS-UX-10");
+      } else if (gateAction === "CORRIGER") {
+        setStateId("VS-UX-02");
+      }
+      return;
     }
-  }, [gateAction, setStateId]);
+
+    setHarnessBusy(true);
+    const req = buildStudioHarnessRequest(mapped, {
+      morrisDecision: gateAction === "NO-GO" ? "NO-GO" : "GO",
+      action: gateAction === "NO-GO" ? "run-fixture" : mapped,
+    });
+
+    void runStudioHarness(req)
+      .then((view) => {
+        applyHarnessView(view);
+        setStateId(deriveStateFromHarness(view));
+      })
+      .finally(() => setHarnessBusy(false));
+  }, [applyHarnessView, gateAction, setStateId, stateId]);
 
   const selectFinalAction = useCallback(
     (action: VsFinalAction) => {
@@ -140,8 +221,31 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
 
   const fireStop = useCallback(() => {
     setStopFired(true);
-    setStateId("VS-UX-VAR-STOP");
-  }, [setStateId]);
+    setHarnessBusy(true);
+    const req = buildStudioHarnessRequest("stop");
+    void runStudioHarness(req)
+      .then((view) => {
+        applyHarnessView(view);
+        setStateId("VS-UX-VAR-STOP");
+      })
+      .finally(() => setHarnessBusy(false));
+  }, [applyHarnessView, setStateId]);
+
+  const resumeFromHarness = useCallback(() => {
+    const proofDir =
+      typeof window !== "undefined"
+        ? window.sessionStorage.getItem(PROOF_DIR_KEY) ?? undefined
+        : undefined;
+    if (!proofDir) return;
+    setHarnessBusy(true);
+    const req = buildStudioHarnessRequest("resume", { proofDir });
+    void runStudioHarness(req)
+      .then((view) => {
+        // Resume rebuilds derived view only — no implicit GO, no forced navigation.
+        applyHarnessView(view);
+      })
+      .finally(() => setHarnessBusy(false));
+  }, [applyHarnessView]);
 
   const resetDemo = useCallback(() => {
     setAbandoned(false);
@@ -150,6 +254,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
     setAbandonConfirmOpen(false);
     setFinalAction(null);
     setStopFired(false);
+    setHarnessView(null);
+    persistHarness(null);
     setStateId("VS-UX-01");
   }, [setStateId]);
 
@@ -162,6 +268,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
       abandonConfirmOpen,
       finalAction,
       stopFired,
+      harnessView,
+      harnessBusy,
       setStateId,
       selectGateAction,
       openAbandonConfirm,
@@ -171,6 +279,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
       selectFinalAction,
       fireStop,
       resetDemo,
+      resumeFromHarness,
     }),
     [
       stateId,
@@ -180,6 +289,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
       abandonConfirmOpen,
       finalAction,
       stopFired,
+      harnessView,
+      harnessBusy,
       setStateId,
       selectGateAction,
       openAbandonConfirm,
@@ -189,6 +300,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
       selectFinalAction,
       fireStop,
       resetDemo,
+      resumeFromHarness,
     ],
   );
 

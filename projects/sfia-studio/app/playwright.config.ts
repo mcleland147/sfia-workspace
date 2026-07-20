@@ -18,7 +18,8 @@ export default defineConfig({
   webServer: {
     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    // Prefer local reuse: port 3020 is often already served by `npm run dev`.
+    reuseExistingServer: true,
     timeout: 180_000,
   },
 });

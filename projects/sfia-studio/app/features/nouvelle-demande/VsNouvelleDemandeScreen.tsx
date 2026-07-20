@@ -2,7 +2,12 @@
 
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
+import {
+  FinOpsBox,
+  HarnessStatusPanel,
+  IdStrip,
+  VariantBanner,
+} from "@/components/vertical-slice/VsShared";
 import { vsFixture } from "@/fixtures/vertical-slice";
 import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import styles from "@/components/vertical-slice/vs-panels.module.css";
@@ -13,6 +18,7 @@ export function VsNouvelleDemandeScreen() {
   return (
     <div className={styles.panel} data-testid="vs-nouvelle-demande">
       <IdStrip />
+      <HarnessStatusPanel />
 
       {stateId === "VS-UX-VAR-LOADING" || stateId === "VS-UX-02" ? (
         <VariantBanner tone="info" title="Loading — qualification GPT (fixture)">

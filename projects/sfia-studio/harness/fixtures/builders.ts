@@ -68,6 +68,10 @@ export function makeGo(contract: ExecutionContract, overrides: Partial<GateDecis
     decidedBy: "Morris",
     decidedAt: new Date().toISOString(),
     scope: "projects/sfia-studio",
+    gitBranch: "delivery/sfia-studio-poc-increment-b",
+    gitHead: "ee9487797ce44c8d864846030c54fac43ee33611",
+    allowlistSnapshot: [...contract.allowedPaths],
+    correlationId: "corr-fixture-001",
     ...overrides,
   };
 }

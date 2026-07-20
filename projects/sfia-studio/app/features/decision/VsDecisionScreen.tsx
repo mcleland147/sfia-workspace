@@ -2,7 +2,11 @@
 
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
+import {
+  HarnessStatusPanel,
+  IdStrip,
+  VariantBanner,
+} from "@/components/vertical-slice/VsShared";
 import { vsFixture } from "@/fixtures/vertical-slice";
 import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import type { VsFinalAction, VsGateAction } from "@/lib/vertical-slice/types";
@@ -17,12 +21,12 @@ const gateOptions: {
   {
     action: "GO",
     title: "GO",
-    subtitle: "Autoriser l'exécution sandbox après revalidation harness (mock)",
+    subtitle: "Autoriser l'exécution fixture — revalidation GO côté harness",
   },
   {
     action: "NO-GO",
     title: "NO-GO",
-    subtitle: "Refuser l'exécution — clôture négative sans spawn",
+    subtitle: "Refuser l'exécution — refus harness, pas de faux succès",
   },
   {
     action: "CORRIGER",
@@ -89,6 +93,7 @@ export function VsDecisionScreen() {
   return (
     <div className={styles.panel} data-testid="vs-decision">
       <IdStrip />
+      <HarnessStatusPanel />
 
       {isGoInvalid ? (
         <VariantBanner tone="warn" title="GO invalide — ancrage divergé">
