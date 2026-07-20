@@ -209,7 +209,7 @@ merge   : non exécuté
 
 ## Handoff
 
-- SHA : *(après push handoff)*
+- SHA : `96e58450784646efabf7b3c3876caa27d7729b63`
 
 ## Verdict
 
