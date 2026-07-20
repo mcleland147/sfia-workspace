@@ -213,7 +213,7 @@ Définir les **domaines**, **composants fonctionnels**, **frontières de respons
 | **Companion** | [`48`](./48-ops1-functional-architecture.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) |
 | **Horodatage** | 2026-07-20 15:14 CEST |
 
-> Contrats fonctionnels des composants OPS1.
+> Contrats fonctionnels des composants OPS1.  
 > **Aucun** framework, endpoint, table, queue ou protocole imposé.
 
 ---
@@ -301,7 +301,7 @@ Challenge (rappel) : utile maintenant ? responsabilité distincte ? dette ? plus
 | **Companions** | [`48`](./48-ops1-functional-architecture.md) · [`49`](./49-ops1-functional-components-and-interactions.md) |
 | **Horodatage** | 2026-07-20 15:14 CEST |
 
-> Toutes les décisions `OPS1-FA-CAND-*` portent le statut :
+> Toutes les décisions `OPS1-FA-CAND-*` portent le statut :  
 > **`CANDIDATE — MORRIS VALIDATION REQUIRED`**
 
 Hérite des `OPS1-FD-CAND-01…27` **validées** (réserves 13/15/20/26 **OPEN** — non arbitrées ici).
@@ -356,7 +356,7 @@ Pas de stack/API/BDD ; FA-CAND non VALIDATED ; 41–47 intacts ; gates suivants 
 
 ## Handoff
 
-- SHA : (après push)
+- SHA : `d7cab8cd6c0b76af304e70fea13767071e5fb04f`
 
 ## Verdict
 
