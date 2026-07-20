@@ -7,12 +7,14 @@ import { EventJournal } from "./journal/eventJournal.js";
 import { createThinStudioAdapter } from "./adapter/thinStudioAdapter.js";
 import { resumeSessionFromProofDir } from "./session/resumeSession.js";
 import { verifyProofPack } from "./proof/verifyProofPack.js";
+import { GptQualificationLivePort, runQualificationFixture } from "./ports/gptQualificationLive.js";
 import type {
   ExecutionContract,
   GateDecision,
   POCRequest,
   StudioAdapterRequest,
 } from "./types/contracts.js";
+import type { QualificationRequestInput } from "./types/qualificationCandidate.js";
 import { computeContractHash } from "./hash/contractHash.js";
 
 function usage(): never {
@@ -26,6 +28,8 @@ Commands:
   verify-proofs <proofDir>
   studio-run <payload.json>         # Increment B thin adapter forward (stdout JSON)
   resume-session <proofDir>         # Increment B session resume from journal/proofs
+  qualify-fixture <payload.json>    # Increment C qualification fixture (no OpenAI)
+  qualify-live <payload.json>       # Increment C live qualification (requires flags + key)
 `);
   process.exit(2);
 }
@@ -131,6 +135,21 @@ async function main(): Promise<void> {
     const proofDir = args[0];
     if (!proofDir) usage();
     const result = resumeSessionFromProofDir(proofDir);
+    console.log(JSON.stringify(result, null, 2));
+    process.exit(result.ok ? 0 : 1);
+  }
+
+  if (cmd === "qualify-fixture" || cmd === "qualify-live") {
+    const file = args[0];
+    if (!file) usage();
+    const payload = JSON.parse(readFileSync(file, "utf8")) as QualificationRequestInput;
+    if (cmd === "qualify-fixture") {
+      const result = await runQualificationFixture(payload);
+      console.log(JSON.stringify(result, null, 2));
+      process.exit(result.ok ? 0 : 1);
+    }
+    const port = new GptQualificationLivePort();
+    const result = await port.run({ ...payload, live: true });
     console.log(JSON.stringify(result, null, 2));
     process.exit(result.ok ? 0 : 1);
   }

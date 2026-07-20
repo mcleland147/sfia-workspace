@@ -104,7 +104,7 @@ describe("Increment B — Studio derives harness status", () => {
   it("renders harness panel and fixture labels on decision", () => {
     render(<DecisionScreen />);
     expect(screen.getByTestId("vs-harness-idle")).toBeInTheDocument();
-    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent("Incrément B");
+    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent("Incrément C");
     expect(screen.getByTestId("vs-status-source")).toBeInTheDocument();
   });
 });

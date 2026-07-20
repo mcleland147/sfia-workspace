@@ -138,19 +138,23 @@ export function CopilotPanel({
 
         <div
           className={`${styles.composer} ${isFlush ? styles.composerFlush : ""}`}
+          data-testid="copilot-composer-disabled"
+          aria-disabled="true"
         >
           <p className={styles.composerPlaceholder}>
-            Demander une analyse ou préciser une contrainte…
+            Chat non disponible dans ce POC — saisissez votre demande dans le
+            panneau central « Nouvelle demande ».
           </p>
           <div className={styles.composerRow}>
             <StatusPill tone={isFlush ? "blueFlush" : "muted"}>
-              @ contexte
+              @ contexte (lecture seule)
             </StatusPill>
             <button
               type="button"
               className={`${styles.send} ${isFlush ? styles.sendFlush : ""}`}
               disabled
-              title="Simulation — aucune action Git réelle"
+              title="Chat Nora non disponible dans ce POC"
+              aria-label="Chat Nora non disponible dans ce POC"
               aria-disabled
             >
               ↑
