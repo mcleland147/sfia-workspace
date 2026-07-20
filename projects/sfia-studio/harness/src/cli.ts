@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, mkdirSync } from "node:fs";
+import { readFileSync, mkdirSync, writeFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Orchestrator, validateContractOnly } from "./orchestrator.js";
@@ -9,6 +9,11 @@ import { resumeSessionFromProofDir } from "./session/resumeSession.js";
 import { verifyProofPack } from "./proof/verifyProofPack.js";
 import { GptQualificationLivePort, runQualificationFixture } from "./ports/gptQualificationLive.js";
 import { runIncrementDSandbox } from "./increment-d/cursorSandboxRunner.js";
+import { GptAnalysisLivePort, runAnalysisFixture } from "./ports/gptAnalysisLive.js";
+import { recordMorrisFinalDecision, regenerateCycleSummary } from "./increment-e/morrisDecision.js";
+import type { GptVerdictCandidate } from "./types/gptVerdictCandidate.js";
+import type { EvidenceAnalysisPack } from "./types/evidenceAnalysisPack.js";
+import type { MorrisFinalAction } from "./types/morrisFinalDecision.js";
 import type {
   ExecutionContract,
   GateDecision,
@@ -17,6 +22,7 @@ import type {
 } from "./types/contracts.js";
 import type { QualificationRequestInput } from "./types/qualificationCandidate.js";
 import type { IncrementDRunInput } from "./increment-d/cursorSandboxRunner.js";
+import type { AnalysisRequestInput } from "./ports/gptAnalysisLive.js";
 import { computeContractHash } from "./hash/contractHash.js";
 
 function usage(): never {
@@ -33,6 +39,10 @@ Commands:
   qualify-fixture <payload.json>    # Increment C qualification fixture (no OpenAI)
   qualify-live <payload.json>       # Increment C live qualification (requires flags + key)
   inc-d-run <payload.json>          # Increment D Cursor sandbox (fixture fake or live)
+  analyse-fixture <payload.json>    # Increment E GPT analysis fixture
+  analyse-live <payload.json>       # Increment E live GPT analysis (requires flags + key)
+  morris-decide <payload.json>      # Increment E record MorrisFinalDecision (+ CycleSummary if CLOSE_SLICE)
+  morris-regenerate-summary <payload.json>  # Technical CycleSummary regen (same decision, no new GPT)
 `);
   process.exit(2);
 }
@@ -162,6 +172,152 @@ async function main(): Promise<void> {
     if (!file) usage();
     const payload = JSON.parse(readFileSync(file, "utf8")) as IncrementDRunInput;
     const result = await runIncrementDSandbox(payload);
+    console.log(JSON.stringify(result, null, 2));
+    process.exit(result.ok ? 0 : 1);
+  }
+
+  if (cmd === "analyse-fixture" || cmd === "analyse-live") {
+    const file = args[0];
+    if (!file) usage();
+    const payload = JSON.parse(readFileSync(file, "utf8")) as AnalysisRequestInput;
+    if (cmd === "analyse-fixture") {
+      const result = runAnalysisFixture(payload);
+      console.log(JSON.stringify(result, null, 2));
+      process.exit(result.ok ? 0 : 1);
+    }
+    const port = new GptAnalysisLivePort();
+    const result = await port.run({ ...payload, live: true });
+    console.log(JSON.stringify(result, null, 2));
+    process.exit(result.ok ? 0 : 1);
+  }
+
+  if (cmd === "morris-decide") {
+    const file = args[0];
+    if (!file) usage();
+    const payload = JSON.parse(readFileSync(file, "utf8")) as {
+      verdict: GptVerdictCandidate;
+      pack: EvidenceAnalysisPack;
+      action: MorrisFinalAction;
+      rationale?: string;
+      acceptedReservations?: string[];
+      unresolvedReservations?: string[];
+      consequences?: string[];
+      requiresNewGo?: boolean;
+      decidedAt?: string;
+      decisionId?: string;
+      proofDir?: string;
+      qualificationCalls?: number;
+    };
+    const proofDir = payload.proofDir;
+    let priorDecisionIdForVerdict: string | null = null;
+    if (proofDir) {
+      mkdirSync(proofDir, { recursive: true });
+      const lockPath = path.join(proofDir, "morris-final-decision.json");
+      if (existsSync(lockPath)) {
+        const prior = JSON.parse(readFileSync(lockPath, "utf8")) as { decisionId?: string; verdictId?: string };
+        if (prior.verdictId === payload.verdict.verdictId && prior.decisionId) {
+          priorDecisionIdForVerdict = prior.decisionId;
+        }
+      }
+    }
+    const result = recordMorrisFinalDecision({
+      verdict: payload.verdict,
+      pack: payload.pack,
+      action: payload.action,
+      rationale: payload.rationale,
+      acceptedReservations: payload.acceptedReservations,
+      unresolvedReservations: payload.unresolvedReservations,
+      consequences: payload.consequences,
+      requiresNewGo: payload.requiresNewGo,
+      decidedAt: payload.decidedAt,
+      decisionId: payload.decisionId,
+      priorDecisionIdForVerdict,
+      qualificationCalls: payload.qualificationCalls,
+    });
+    if (result.ok && proofDir && result.decision) {
+      writeFileSync(
+        path.join(proofDir, "morris-final-decision.json"),
+        `${JSON.stringify(result.decision, null, 2)}\n`,
+        "utf8",
+      );
+      if (result.summary) {
+        writeFileSync(
+          path.join(proofDir, "cycle-summary.json"),
+          `${JSON.stringify(result.summary, null, 2)}\n`,
+          "utf8",
+        );
+      }
+      writeFileSync(
+        path.join(proofDir, "closure-result.json"),
+        `${JSON.stringify(
+          {
+            ok: result.ok,
+            uiStatus: result.uiStatus,
+            message: result.message,
+            gptCallsUnchanged: true,
+            gitActions: false,
+            verdictId: payload.verdict.verdictId,
+            candidateStatusUnchanged: payload.verdict.status,
+          },
+          null,
+          2,
+        )}\n`,
+        "utf8",
+      );
+    }
+    console.log(JSON.stringify(result, null, 2));
+    process.exit(result.ok ? 0 : 1);
+  }
+
+  if (cmd === "morris-regenerate-summary") {
+    const file = args[0];
+    if (!file) usage();
+    const payload = JSON.parse(readFileSync(file, "utf8")) as {
+      verdict: GptVerdictCandidate;
+      pack: EvidenceAnalysisPack;
+      decision: import("./types/morrisFinalDecision.js").MorrisFinalDecision;
+      previousSummaryId?: string;
+      summaryId?: string;
+      proofDir?: string;
+      qualificationCalls?: number;
+    };
+    const result = regenerateCycleSummary({
+      decision: payload.decision,
+      verdict: payload.verdict,
+      pack: payload.pack,
+      analysisCalls: payload.verdict.finOps?.callNumber ?? 0,
+      qualificationCalls: payload.qualificationCalls ?? 0,
+      previousSummaryId: payload.previousSummaryId,
+      summaryId: payload.summaryId,
+    });
+    if (result.ok && payload.proofDir) {
+      mkdirSync(payload.proofDir, { recursive: true });
+      writeFileSync(
+        path.join(payload.proofDir, "cycle-summary.json"),
+        `${JSON.stringify(result.summary, null, 2)}\n`,
+        "utf8",
+      );
+      writeFileSync(
+        path.join(payload.proofDir, "cycle-summary-regen-meta.json"),
+        `${JSON.stringify(
+          {
+            technicalRegeneration: true,
+            previousSummaryId: payload.previousSummaryId ?? null,
+            summaryId: result.summary.summaryId,
+            decisionIdUnchanged: payload.decision.decisionId,
+            decidedAtUnchanged: payload.decision.decidedAt,
+            verdictIdUnchanged: payload.verdict.verdictId,
+            candidateStatusUnchanged: payload.verdict.status,
+            gptCallsUnchanged: true,
+            newMorrisDecision: false,
+            gate: "G-INCREMENT-E-CYCLE-SUMMARY-CORRECTION",
+          },
+          null,
+          2,
+        )}\n`,
+        "utf8",
+      );
+    }
     console.log(JSON.stringify(result, null, 2));
     process.exit(result.ok ? 0 : 1);
   }

@@ -54,7 +54,7 @@ const captures = [
     path: "/cycle-actif?vs=VS-UX-08",
     name: "inc-a-verdict",
     assert: async (page: import("@playwright/test").Page) => {
-      await expect(page.getByText(/Candidat GPT/i)).toBeVisible();
+      await expect(page.getByText(/Candidat GPT/i).first()).toBeVisible();
     },
   },
   {
