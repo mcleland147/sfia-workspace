@@ -1,1609 +1,2128 @@
-# SFIA Studio — Review Pack FULL — Incrément B PR Readiness
+# SFIA Studio — Review Pack FULL — Incrément C (Critical)
 
 ## Métadonnées
-- **Date / heure / fuseau** : 2026-07-20 06:18:10 CEST
-- **Cycle** : 13 — PR readiness
-- **Profil** : Standard
-- **Typologie** : EVOL / DELIVERY / INTEGRATION / PR READINESS / FIXTURE
-- **GO Morris consommé** : validation fonctionnelle B · validation technique B · commit · push normal · draft PR
-- **Branche** : `delivery/sfia-studio-poc-increment-b`
-- **HEAD avant commit** : `ee9487797ce44c8d864846030c54fac43ee33611`
-- **HEAD après commit** : `8316f26de1ade4bbf0e698ce03666e977daa87cb`
-- **origin/main** : `ee9487797ce44c8d864846030c54fac43ee33611`
-- **Décision Morris** : versionnement autorisé ; merge / ready-for-review / Incrément C / live **non** autorisés
+- **Date / heure / fuseau** : 2026-07-20 06:37:13 CEST
+- **Cycle** : 8 — Delivery / implémentation
+- **Profil** : Critical — première ouverture GPT réelle facturable, secret API, sortie non déterministe, fail-closed obligatoire
+- **Typologie** : EVOL / DELIVERY / LIVE GPT / QUALIFICATION / FINOPS
+- **GO Morris consommé** : implémentation locale Incrément C · GPT réel qualification uniquement · clé API locale sécurisée · seuils FinOps ci-dessous · candidate only · décision Morris humaine
+- **Branche** : `delivery/sfia-studio-poc-increment-c`
+- **HEAD** : `f80fa1dc902f7532835ecad067da0ebdf4baef99`
+- **origin/main** : `f80fa1dc902f7532835ecad067da0ebdf4baef99` (min. f80fa1dc902f7532835ecad067da0ebdf4baef99)
+- **Non autorisé par ce GO** : commit/push/PR delivery · Cursor live · GPT analyse/verdict · Incrément D/E · docs 01–40 · Figma · dépendance npm
 
 ## Verdict
-**SFIA STUDIO INCREMENT B PR CREATED — MORRIS MERGE DECISION REQUIRED**
+**SFIA STUDIO INCREMENT C IMPLEMENTED — MORRIS LIVE QUALIFICATION VALIDATION REQUIRED**
 
 ## Truth Check
-- repo : sfia-workspace — OK
-- `git fetch origin` — OK
-- branche active : delivery/sfia-studio-poc-increment-b — OK
-- HEAD avant = ee948779… — OK
-- origin/main = ee948779… — OK
-- staged initial : aucun — OK
-- branche distante absente avant push — OK
-- aucune PR ouverte avant — OK
-- modifications uniquement app/** et harness/** — OK
-- `.tmp-sfia-review/**` hors versionnement — OK
-- docs 01–40 / prompts / method / Figma / package.json / lockfiles / .env : non modifiés — OK
+- main @ f80fa1d (Increment B merged) · FF OK · staged vide · `.tmp` hors versionnement · branche `delivery/sfia-studio-poc-increment-c` créée locale non poussée
 
-## Sources consultées
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- projects/sfia-studio/32–40
-- app/** · harness/**
-- origin/sfia/review-handoff · sfia-review-handoff/latest-chatgpt-review.md (handoff Incrément B validé)
+## Sources
+- Méthode + docs 32–40
+- harness GPT fixture/spike existants (réutilisation fetch natif, pas de SDK openai)
+- Documentation officielle OpenAI Structured Outputs : https://developers.openai.com/api/docs/guides/structured-outputs
+- Annonce modèle : gpt-5.4-mini disponible API (OpenAI) — prix listés $0.75/1M in · $4.50/1M out (estimation EUR via facteur 0.92)
 
-## Contrôles structurants
-### Adaptateur
-- `thinStudioAdapter.ts` + `app/lib/harness/*` : mapping / transmission / retour uniquement
-- Aucun GateValidator / assertGateOk / policy / écriture journal-proofStore / live dans l’adaptateur
+## Readiness Critical (avant code)
+1. Port fixture + spike live existent ; Incrément C ajoute port dédié `GptQualificationLivePort` (qualification seulement)
+2. Pas de dépendance npm — `fetch` natif
+3. Modèle unique `gpt-5.4-mini` — refus si `OPENAI_MODEL` différent — aucun fallback
+4. Structured outputs `json_schema` strict
+5. FinOps : 6000/1500/7500 tokens · 0,05€/appel · 1€/jour · 3/session · 20/jour · timeout 30s · 1 appel/tentative · 0 retry
+6. Secret : `OPENAI_API_KEY` env only · jamais UI/journal/captures
+7. Studio : confirmation explicite avant appel
+8. Harness autonome préservé
 
-### Harness autonome
-- Aucun import React/Next dans `harness/src`
-- CLI `studio-run` / `resume-session` / Orchestrator
-- Tests autonomie Increment B verts (80 passed harness)
+## Contrats
+### QualificationCandidate (harness)
+Voir `qualificationCandidate.ts` — schemaVersion `qualification-candidate-1.0.0` · authority forcée `candidateOnly=true` · `morrisDecisionRequired=true` · `executionAuthorized=false`
 
-### Gates / journal / proofStore
-- Revalidation GO (hash/branche/HEAD/allowlist/décideur)
-- Journal `events.jsonl` canonique
-- `verifyProofPack` ; incomplets bloquants
-- STOP / timeout / refus distincts ; timeout ≠ succès ; pas de retry auto
-
-### Reprise session
-- `resumeSessionFromProofDir` + sessionStorage ; `goValid: false` à la reprise
-
-### Studio
-- `statusSource = harness` ; 4 routes ; fixture/simulation explicites
-
-## Ports fixtures / absence live
-- cursorFixture / gptFixture uniquement
-- LIVE_PORT_DENIED pour tentative live
-- 0 OpenAI / 0 Cursor réel / 0 git push distant applicatif
-
-## Tests (re-exécutés ce cycle)
-| Suite | Résultat |
+### Seuils FinOps validés
+| Limite | Valeur |
 |---|---|
-| harness typecheck | OK |
-| harness tests | **80 passed** (1 skipped) |
-| app typecheck | OK |
-| app lint | OK |
-| app unit | **23 passed** |
-| app build | OK (4 routes P0) |
-| E2E Increment B | **5 passed** |
-| E2E Increment A | **13 passed** |
-| P0 smoke | **6 passed** |
-| git diff --check | OK |
+| Modèle | gpt-5.4-mini |
+| Input max | 6 000 tokens |
+| Output max | 1 500 tokens |
+| Total max | 7 500 tokens |
+| Coût/appel estimé max | 0,05 € |
+| Coût/jour estimé max | 1 € |
+| Session | 3 qualifications |
+| Jour | 20 appels |
+| Timeout | 30 s |
+| Retry | 0 |
 
-## Captures runtime
-`.tmp-sfia-review/screenshots-increment-b/` — 7 PNG (hors git) :
-gate idle, exécution fixture, rapport/preuves, reprise, GO invalide, STOP, clôture dérivée
-
-## Commit
-- **SHA** : `8316f26de1ade4bbf0e698ce03666e977daa87cb`
-- **Message** : `feat(sfia-studio): connect cockpit to fixture harness`
-- **Fichiers** : 27
-- **Diffstat** :
+## Diffstat
 ```
- .../sfia-studio/app/__tests__/increment-b.test.tsx | 146 ++++++++++++
+ .../sfia-studio/app/__tests__/increment-b.test.tsx |   2 +-
  .../app/components/vertical-slice/VsDemoChrome.tsx |   2 +-
- .../app/components/vertical-slice/VsShared.tsx     |  93 +++++++-
- projects/sfia-studio/app/e2e/increment-b.spec.ts   |  98 ++++++++
- .../features/cycle-actif/VsCycleActifScreen.tsx    |  14 +-
- .../app/features/decision/VsDecisionScreen.tsx     |  11 +-
- .../nouvelle-demande/VsNouvelleDemandeScreen.tsx   |   8 +-
- .../app/features/synthese/VsSyntheseScreen.tsx     |  14 +-
- .../sfia-studio/app/fixtures/vertical-slice.ts     |  14 +-
- projects/sfia-studio/app/lib/harness/actions.ts    |  11 +
- .../sfia-studio/app/lib/harness/buildRequest.ts    |  42 ++++
- projects/sfia-studio/app/lib/harness/index.ts      |   8 +
- .../sfia-studio/app/lib/harness/invokeHarness.ts   |  95 ++++++++
- projects/sfia-studio/app/lib/harness/types.ts      |  71 ++++++
- .../app/lib/vertical-slice/VsDemoContext.tsx       | 130 ++++++++++-
- .../sfia-studio/app/lib/vertical-slice/types.ts    |   4 +
- projects/sfia-studio/app/playwright.config.ts      |   3 +-
- projects/sfia-studio/harness/fixtures/builders.ts  |   4 +
- .../harness/src/adapter/thinStudioAdapter.ts       | 260 +++++++++++++++++++++
- projects/sfia-studio/harness/src/cli.ts            |  32 ++-
- .../sfia-studio/harness/src/gate/gateValidator.ts  |  62 ++++-
- projects/sfia-studio/harness/src/index.ts          |   3 +
- projects/sfia-studio/harness/src/orchestrator.ts   | 179 +++++++++++++-
- .../harness/src/proof/verifyProofPack.ts           |  52 +++++
- .../harness/src/session/resumeSession.ts           |  86 +++++++
- .../sfia-studio/harness/src/types/contracts.ts     |  70 +++++-
- .../sfia-studio/harness/tests/increment-b.test.ts  | 239 +++++++++++++++++++
- 27 files changed, 1704 insertions(+), 47 deletions(-)
+ projects/sfia-studio/app/e2e/increment-b.spec.ts   |   2 +-
+ .../nouvelle-demande/VsNouvelleDemandeScreen.tsx   | 257 ++++++++++++++++-----
+ projects/sfia-studio/harness/src/cli.ts            |  19 ++
+ projects/sfia-studio/harness/src/index.ts          |   4 +
+ 6 files changed, 229 insertions(+), 57 deletions(-)
 
 ```
 
-### Liste fichiers commit
-```
-projects/sfia-studio/app/__tests__/increment-b.test.tsx
-projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
-projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-projects/sfia-studio/app/e2e/increment-b.spec.ts
-projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
-projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
-projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
-projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
-projects/sfia-studio/app/fixtures/vertical-slice.ts
-projects/sfia-studio/app/lib/harness/actions.ts
-projects/sfia-studio/app/lib/harness/buildRequest.ts
-projects/sfia-studio/app/lib/harness/index.ts
-projects/sfia-studio/app/lib/harness/invokeHarness.ts
-projects/sfia-studio/app/lib/harness/types.ts
-projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-projects/sfia-studio/app/lib/vertical-slice/types.ts
-projects/sfia-studio/app/playwright.config.ts
-projects/sfia-studio/harness/fixtures/builders.ts
-projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts
-projects/sfia-studio/harness/src/cli.ts
-projects/sfia-studio/harness/src/gate/gateValidator.ts
-projects/sfia-studio/harness/src/index.ts
-projects/sfia-studio/harness/src/orchestrator.ts
-projects/sfia-studio/harness/src/proof/verifyProofPack.ts
-projects/sfia-studio/harness/src/session/resumeSession.ts
-projects/sfia-studio/harness/src/types/contracts.ts
-projects/sfia-studio/harness/tests/increment-b.test.ts
+## Fichiers nouveaux (contenu)
+
+### `projects/sfia-studio/harness/src/types/qualificationCandidate.ts`
+```typescript
+/**
+ * Increment C — QualificationCandidate contracts (candidate-only, never decisions).
+ * Model: gpt-5.4-mini only. No tools. No Cursor. No Git writes.
+ */
+
+export const QUALIFICATION_CANDIDATE_SCHEMA_VERSION = "qualification-candidate-1.0.0" as const;
+export const INCREMENT_C_MODEL = "gpt-5.4-mini" as const;
+
+/** Closed SFIA cycle list for Increment C qualification. */
+export const SFIA_CYCLES = [
+  "Cycle 7",
+  "Cycle 8",
+  "Cycle 9",
+  "Cycle 13",
+  "DOC",
+] as const;
+export type SfiaCycle = (typeof SFIA_CYCLES)[number];
+
+export const SFIA_PROFILES = ["Light", "Standard", "Critical", "Capitalization"] as const;
+export type SfiaProfile = (typeof SFIA_PROFILES)[number];
+
+export const SFIA_BLOCKS = [
+  "security",
+  "governance",
+  "delivery",
+  "architecture",
+  "data",
+  "ux",
+  "ops",
+  "finops",
+  "documentation",
+] as const;
+export type SfiaBlock = (typeof SFIA_BLOCKS)[number];
+
+export type QualificationLimitCode =
+  | "INPUT_LIMIT_REACHED"
+  | "OUTPUT_LIMIT_REACHED"
+  | "TOKEN_LIMIT_REACHED"
+  | "COST_LIMIT_REACHED"
+  | "SESSION_LIMIT_REACHED"
+  | "DAILY_LIMIT_REACHED"
+  | "TIMEOUT"
+  | "MODEL_UNAVAILABLE"
+  | "INVALID_RESPONSE"
+  | "LIVE_PORT_DENIED"
+  | "PROVIDER_ERROR"
+  | "KEY_ABSENT"
+  | "SECRET_DETECTED"
+  | "CONFIRMATION_REQUIRED";
+
+/** Payload produced by the model (structured output) — without authority/usage. */
+export interface QualificationModelPayload {
+  schemaVersion: typeof QUALIFICATION_CANDIDATE_SCHEMA_VERSION;
+  requestId: string;
+  correlationId: string;
+  summary: string;
+  proposedCycle: SfiaCycle;
+  proposedProfile: SfiaProfile;
+  profileJustification: string;
+  proposedBlocks: SfiaBlock[];
+  proposedScope: string[];
+  proposedGates: string[];
+  risks: string[];
+  ambiguities: string[];
+  questions: string[];
+  confidence: number;
+  reserves: string[];
+}
+
+export interface QualificationAuthority {
+  candidateOnly: true;
+  morrisDecisionRequired: true;
+  executionAuthorized: false;
+}
+
+export interface QualificationUsage {
+  inputTokens: number;
+  outputTokens: number;
+  totalTokens: number;
+  estimatedCostEur: number;
+  callNumber: number;
+  /** Explicit: estimate only, never a billing invoice. */
+  costIsEstimate: true;
+}
+
+export interface QualificationCandidate {
+  schemaVersion: typeof QUALIFICATION_CANDIDATE_SCHEMA_VERSION;
+  candidateId: string;
+  requestId: string;
+  correlationId: string;
+  generatedAt: string;
+  model: typeof INCREMENT_C_MODEL;
+  summary: string;
+  proposedCycle: SfiaCycle;
+  proposedProfile: SfiaProfile;
+  profileJustification: string;
+  proposedBlocks: SfiaBlock[];
+  proposedScope: string[];
+  proposedGates: string[];
+  risks: string[];
+  ambiguities: string[];
+  questions: string[];
+  confidence: number;
+  reserves: string[];
+  usage: QualificationUsage;
+  authority: QualificationAuthority;
+}
+
+export interface QualificationRequestInput {
+  requestId: string;
+  correlationId: string;
+  /** User demand text — sanitized, size-limited. */
+  demandText: string;
+  /** Explicitly authorized project context lines (non-secret). */
+  authorizedContext?: string[];
+  confirmedByUser: boolean;
+  /** When false, never call provider (tests / dry-run). */
+  live?: boolean;
+  proofDir?: string;
+}
+
+export interface QualificationRunResult {
+  ok: boolean;
+  status: "CANDIDATE_CREATED" | QualificationLimitCode | "REJECTED";
+  candidate?: QualificationCandidate;
+  errorCode?: QualificationLimitCode | string;
+  errorMessage?: string;
+  durationMs: number;
+  liveInvoked: boolean;
+  retriesAttempted: 0;
+  model: typeof INCREMENT_C_MODEL;
+  limitsApplied: {
+    maxInputTokens: number;
+    maxOutputTokens: number;
+    maxTotalTokens: number;
+    maxCostEurPerCall: number;
+    maxSessionCalls: number;
+    maxDailyCalls: number;
+    timeoutMs: number;
+  };
+  usage?: QualificationUsage;
+  eventsLogged: string[];
+}
+
+/** OpenAI Chat Completions json_schema (strict) for model payload only. */
+export const QUALIFICATION_MODEL_JSON_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: [
+    "schemaVersion",
+    "requestId",
+    "correlationId",
+    "summary",
+    "proposedCycle",
+    "proposedProfile",
+    "profileJustification",
+    "proposedBlocks",
+    "proposedScope",
+    "proposedGates",
+    "risks",
+    "ambiguities",
+    "questions",
+    "confidence",
+    "reserves",
+  ],
+  properties: {
+    schemaVersion: { type: "string", enum: [QUALIFICATION_CANDIDATE_SCHEMA_VERSION] },
+    requestId: { type: "string", maxLength: 128 },
+    correlationId: { type: "string", maxLength: 128 },
+    summary: { type: "string", maxLength: 2000 },
+    proposedCycle: { type: "string", enum: [...SFIA_CYCLES] },
+    proposedProfile: { type: "string", enum: [...SFIA_PROFILES] },
+    profileJustification: { type: "string", maxLength: 2000 },
+    proposedBlocks: {
+      type: "array",
+      maxItems: 8,
+      items: { type: "string", enum: [...SFIA_BLOCKS] },
+    },
+    proposedScope: {
+      type: "array",
+      maxItems: 12,
+      items: { type: "string", maxLength: 240 },
+    },
+    proposedGates: {
+      type: "array",
+      maxItems: 12,
+      items: { type: "string", maxLength: 160 },
+    },
+    risks: {
+      type: "array",
+      maxItems: 12,
+      items: { type: "string", maxLength: 400 },
+    },
+    ambiguities: {
+      type: "array",
+      maxItems: 12,
+      items: { type: "string", maxLength: 400 },
+    },
+    questions: {
+      type: "array",
+      maxItems: 12,
+      items: { type: "string", maxLength: 400 },
+    },
+    confidence: { type: "number", minimum: 0, maximum: 1 },
+    reserves: {
+      type: "array",
+      maxItems: 12,
+      items: { type: "string", maxLength: 400 },
+    },
+  },
+} as const;
+
+export const INC_C_QUALIFICATION_RESPONSE_FORMAT = {
+  type: "json_schema" as const,
+  json_schema: {
+    name: "qualification_candidate_1_0_0",
+    strict: true,
+    schema: QUALIFICATION_MODEL_JSON_SCHEMA,
+  },
+};
+
+/** FinOps / technical ceilings validated for Increment C. */
+export const INC_C_LIMITS = {
+  model: INCREMENT_C_MODEL,
+  maxInputTokens: 6_000,
+  maxOutputTokens: 1_500,
+  maxTotalTokens: 7_500,
+  maxCostEurPerCall: 0.05,
+  maxDailyCostEur: 1.0,
+  maxSessionCalls: 3,
+  maxDailyCalls: 20,
+  timeoutMs: 30_000,
+  /** OpenAI published list prices (USD) for gpt-5.4-mini — estimate only. */
+  priceUsdPer1MInput: 0.75,
+  priceUsdPer1MOutput: 4.5,
+  /** Conservative USD→EUR factor for estimates (not a FX feed). */
+  usdToEur: 0.92,
+} as const;
+
+export const INC_C_QUALIFICATION_SYSTEM_PROMPT = `Tu es un producteur de QualificationCandidate JSON strict pour SFIA Studio.
+Tu proposes uniquement. Tu ne décides jamais.
+
+Règles d'autorité ABSOLUES:
+- candidateOnly implicite — aucune décision Morris
+- aucun GO, NO-GO, STOP consommé
+- aucun Cursor, aucun Git, aucun outil
+- executionAuthorized est toujours faux (posé par le harness, pas par toi)
+
+Sortie: un seul objet JSON conforme au schéma fourni (structured outputs).
+- proposedCycle ∈ ${JSON.stringify(SFIA_CYCLES)}
+- proposedProfile ∈ ${JSON.stringify(SFIA_PROFILES)}
+- proposedBlocks ⊆ ${JSON.stringify(SFIA_BLOCKS)}
+- Critical exige profileJustification non vide
+- confidence ∈ [0,1] informatif seulement
+- Aucune propriété inconnue
+- Pas de Markdown, pas de secrets, pas de clé API`;
 
 ```
 
-### Diff utile complet du commit
+### `projects/sfia-studio/harness/src/finops/qualificationLimits.ts`
+```typescript
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { INC_C_LIMITS } from "../types/qualificationCandidate.js";
+import { HarnessError } from "../types/contracts.js";
+
+/** Rough token estimate: UTF-8 length / 4 (fail-closed if over). */
+export function estimateTokensFromText(text: string): number {
+  return Math.ceil(Buffer.byteLength(text, "utf8") / 4);
+}
+
+export function estimateCostEur(inputTokens: number, outputTokens: number): number {
+  const usd =
+    (inputTokens / 1_000_000) * INC_C_LIMITS.priceUsdPer1MInput +
+    (outputTokens / 1_000_000) * INC_C_LIMITS.priceUsdPer1MOutput;
+  return Math.round(usd * INC_C_LIMITS.usdToEur * 1_000_000) / 1_000_000;
+}
+
+export function maxEstimatedCostEurForCall(): number {
+  return estimateCostEur(INC_C_LIMITS.maxInputTokens, INC_C_LIMITS.maxOutputTokens);
+}
+
+const SECRET_PATTERNS = [
+  /sk-[a-zA-Z0-9_-]{10,}/,
+  /OPENAI_API_KEY\s*=/i,
+  /Bearer\s+[A-Za-z0-9._-]{10,}/i,
+  /-----BEGIN (RSA |OPENSSH )?PRIVATE KEY-----/,
+];
+
+export function detectObviousSecrets(text: string): boolean {
+  return SECRET_PATTERNS.some((re) => re.test(text));
+}
+
+export interface DailyCounterState {
+  day: string;
+  callCount: number;
+  estimatedCostEur: number;
+  updatedAt: string;
+}
+
+export function localDayKey(now = new Date()): string {
+  // Europe/Paris civil day approximation via locale date parts
+  const fmt = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  return fmt.format(now);
+}
+
+export function defaultDailyCounterPath(proofsRoot: string): string {
+  return path.join(proofsRoot, ".increment-c-daily-calls.json");
+}
+
+export function readDailyCounter(filePath: string, now = new Date()): DailyCounterState {
+  const day = localDayKey(now);
+  try {
+    if (!existsSync(filePath)) {
+      return { day, callCount: 0, estimatedCostEur: 0, updatedAt: now.toISOString() };
+    }
+    const raw = JSON.parse(readFileSync(filePath, "utf8")) as Partial<DailyCounterState>;
+    if (raw.day !== day) {
+      return { day, callCount: 0, estimatedCostEur: 0, updatedAt: now.toISOString() };
+    }
+    return {
+      day,
+      callCount: typeof raw.callCount === "number" ? raw.callCount : 0,
+      estimatedCostEur: typeof raw.estimatedCostEur === "number" ? raw.estimatedCostEur : 0,
+      updatedAt: typeof raw.updatedAt === "string" ? raw.updatedAt : now.toISOString(),
+    };
+  } catch {
+    return { day, callCount: 0, estimatedCostEur: 0, updatedAt: now.toISOString() };
+  }
+}
+
+export function writeDailyCounter(filePath: string, state: DailyCounterState): void {
+  mkdirSync(path.dirname(filePath), { recursive: true });
+  writeFileSync(filePath, `${JSON.stringify(state, null, 2)}\n`, "utf8");
+}
+
+/** Session counter — process-local (POC). Not browser sessionStorage. */
+const sessionCounts = new Map<string, number>();
+
+export function getSessionCallCount(sessionKey: string): number {
+  return sessionCounts.get(sessionKey) ?? 0;
+}
+
+export function incrementSessionCallCount(sessionKey: string): number {
+  const next = getSessionCallCount(sessionKey) + 1;
+  sessionCounts.set(sessionKey, next);
+  return next;
+}
+
+export function resetSessionCallCountForTests(sessionKey?: string): void {
+  if (sessionKey) sessionCounts.delete(sessionKey);
+  else sessionCounts.clear();
+}
+
+export function assertPreCallLimits(input: {
+  estimatedInputTokens: number;
+  sessionKey: string;
+  dailyCounterPath: string;
+  maxOutputTokens?: number;
+}): void {
+  const maxOut = input.maxOutputTokens ?? INC_C_LIMITS.maxOutputTokens;
+  if (maxOut > INC_C_LIMITS.maxOutputTokens) {
+    throw new HarnessError(
+      "OUTPUT_LIMIT_REACHED",
+      `Output budget ${maxOut} > ${INC_C_LIMITS.maxOutputTokens}`,
+    );
+  }
+  if (input.estimatedInputTokens > INC_C_LIMITS.maxInputTokens) {
+    throw new HarnessError(
+      "INPUT_LIMIT_REACHED",
+      `Input estimate ${input.estimatedInputTokens} > ${INC_C_LIMITS.maxInputTokens} tokens — reduce scope before call`,
+    );
+  }
+  const totalEst = input.estimatedInputTokens + maxOut;
+  if (totalEst > INC_C_LIMITS.maxTotalTokens) {
+    throw new HarnessError(
+      "TOKEN_LIMIT_REACHED",
+      `Estimated total ${totalEst} > ${INC_C_LIMITS.maxTotalTokens} tokens`,
+    );
+  }
+  const estCost = estimateCostEur(input.estimatedInputTokens, maxOut);
+  if (estCost > INC_C_LIMITS.maxCostEurPerCall) {
+    throw new HarnessError(
+      "COST_LIMIT_REACHED",
+      `Estimated cost €${estCost} > €${INC_C_LIMITS.maxCostEurPerCall} per qualification`,
+    );
+  }
+  const session = getSessionCallCount(input.sessionKey);
+  if (session >= INC_C_LIMITS.maxSessionCalls) {
+    throw new HarnessError(
+      "SESSION_LIMIT_REACHED",
+      `Session already used ${session}/${INC_C_LIMITS.maxSessionCalls} qualifications`,
+    );
+  }
+  const daily = readDailyCounter(input.dailyCounterPath);
+  if (daily.callCount >= INC_C_LIMITS.maxDailyCalls) {
+    throw new HarnessError(
+      "DAILY_LIMIT_REACHED",
+      `Daily calls ${daily.callCount}/${INC_C_LIMITS.maxDailyCalls} exhausted`,
+    );
+  }
+  if (daily.estimatedCostEur >= INC_C_LIMITS.maxDailyCostEur) {
+    throw new HarnessError(
+      "COST_LIMIT_REACHED",
+      `Daily estimated cost €${daily.estimatedCostEur} ≥ €${INC_C_LIMITS.maxDailyCostEur}`,
+    );
+  }
+}
+
+export function recordSuccessfulCall(input: {
+  sessionKey: string;
+  dailyCounterPath: string;
+  estimatedCostEur: number;
+}): { sessionCallNumber: number; dailyCallNumber: number } {
+  const sessionCallNumber = incrementSessionCallCount(input.sessionKey);
+  const daily = readDailyCounter(input.dailyCounterPath);
+  const next: DailyCounterState = {
+    day: daily.day,
+    callCount: daily.callCount + 1,
+    estimatedCostEur: Math.round((daily.estimatedCostEur + input.estimatedCostEur) * 1e6) / 1e6,
+    updatedAt: new Date().toISOString(),
+  };
+  writeDailyCounter(input.dailyCounterPath, next);
+  return { sessionCallNumber, dailyCallNumber: next.callCount };
+}
+
+```
+
+### `projects/sfia-studio/harness/src/validation/qualificationCandidateValidator.ts`
+```typescript
+import {
+  QUALIFICATION_CANDIDATE_SCHEMA_VERSION,
+  SFIA_BLOCKS,
+  SFIA_CYCLES,
+  SFIA_PROFILES,
+  type QualificationModelPayload,
+  type SfiaBlock,
+  type SfiaCycle,
+  type SfiaProfile,
+} from "../types/qualificationCandidate.js";
+import { HarnessError } from "../types/contracts.js";
+import { detectObviousSecrets } from "../finops/qualificationLimits.js";
+
+const ALLOWED_KEYS = new Set([
+  "schemaVersion",
+  "requestId",
+  "correlationId",
+  "summary",
+  "proposedCycle",
+  "proposedProfile",
+  "profileJustification",
+  "proposedBlocks",
+  "proposedScope",
+  "proposedGates",
+  "risks",
+  "ambiguities",
+  "questions",
+  "confidence",
+  "reserves",
+]);
+
+function isStringArray(v: unknown, maxItems: number, maxLen: number): v is string[] {
+  if (!Array.isArray(v) || v.length > maxItems) return false;
+  return v.every((x) => typeof x === "string" && x.length <= maxLen);
+}
+
+export function validateQualificationModelPayload(
+  raw: unknown,
+  expected: { requestId: string; correlationId: string },
+): QualificationModelPayload {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    throw new HarnessError("INVALID_RESPONSE", "Payload must be a JSON object");
+  }
+  const obj = raw as Record<string, unknown>;
+  for (const k of Object.keys(obj)) {
+    if (!ALLOWED_KEYS.has(k)) {
+      throw new HarnessError("INVALID_RESPONSE", `Unknown property: ${k}`);
+    }
+  }
+  for (const k of ALLOWED_KEYS) {
+    if (!(k in obj)) {
+      throw new HarnessError("INVALID_RESPONSE", `Missing property: ${k}`);
+    }
+  }
+
+  if (obj.schemaVersion !== QUALIFICATION_CANDIDATE_SCHEMA_VERSION) {
+    throw new HarnessError("INVALID_RESPONSE", "schemaVersion mismatch");
+  }
+  if (obj.requestId !== expected.requestId) {
+    throw new HarnessError("INVALID_RESPONSE", "requestId mismatch");
+  }
+  if (obj.correlationId !== expected.correlationId) {
+    throw new HarnessError("INVALID_RESPONSE", "correlationId mismatch");
+  }
+
+  const summary = obj.summary;
+  const justification = obj.profileJustification;
+  if (typeof summary !== "string" || summary.length === 0 || summary.length > 2000) {
+    throw new HarnessError("INVALID_RESPONSE", "summary invalid");
+  }
+  if (typeof justification !== "string" || justification.length > 2000) {
+    throw new HarnessError("INVALID_RESPONSE", "profileJustification invalid");
+  }
+
+  const cycle = obj.proposedCycle;
+  const profile = obj.proposedProfile;
+  if (typeof cycle !== "string" || !(SFIA_CYCLES as readonly string[]).includes(cycle)) {
+    throw new HarnessError("INVALID_RESPONSE", `Unknown cycle: ${String(cycle)}`);
+  }
+  if (typeof profile !== "string" || !(SFIA_PROFILES as readonly string[]).includes(profile)) {
+    throw new HarnessError("INVALID_RESPONSE", `Unknown profile: ${String(profile)}`);
+  }
+  if (profile === "Critical" && justification.trim() === "") {
+    throw new HarnessError("INVALID_RESPONSE", "Critical requires non-empty profileJustification");
+  }
+
+  if (!isStringArray(obj.proposedBlocks, 8, 64)) {
+    throw new HarnessError("INVALID_RESPONSE", "proposedBlocks invalid");
+  }
+  for (const b of obj.proposedBlocks) {
+    if (!(SFIA_BLOCKS as readonly string[]).includes(b)) {
+      throw new HarnessError("INVALID_RESPONSE", `Unauthorized block: ${b}`);
+    }
+  }
+
+  if (!isStringArray(obj.proposedScope, 12, 240)) {
+    throw new HarnessError("INVALID_RESPONSE", "proposedScope invalid");
+  }
+  if (!isStringArray(obj.proposedGates, 12, 160)) {
+    throw new HarnessError("INVALID_RESPONSE", "proposedGates invalid");
+  }
+  if (!isStringArray(obj.risks, 12, 400)) {
+    throw new HarnessError("INVALID_RESPONSE", "risks invalid");
+  }
+  if (!isStringArray(obj.ambiguities, 12, 400)) {
+    throw new HarnessError("INVALID_RESPONSE", "ambiguities invalid");
+  }
+  if (!isStringArray(obj.questions, 12, 400)) {
+    throw new HarnessError("INVALID_RESPONSE", "questions invalid");
+  }
+  if (!isStringArray(obj.reserves, 12, 400)) {
+    throw new HarnessError("INVALID_RESPONSE", "reserves invalid");
+  }
+
+  const confidence = obj.confidence;
+  if (typeof confidence !== "number" || Number.isNaN(confidence) || confidence < 0 || confidence > 1) {
+    throw new HarnessError("INVALID_RESPONSE", "confidence must be in [0,1]");
+  }
+
+  const blob = JSON.stringify(obj);
+  if (detectObviousSecrets(blob)) {
+    throw new HarnessError("SECRET_DETECTED", "Secret-like pattern in model payload");
+  }
+
+  // Forbidden authority fields if model smuggled them somehow under known keys — already blocked.
+  // Extra check on string content for decision claims:
+  if (/\bexecutionAuthorized\s*[:=]\s*true\b/i.test(blob) || /\bcandidateOnly\s*[:=]\s*false\b/i.test(blob)) {
+    throw new HarnessError("INVALID_RESPONSE", "Authority claim forbidden in payload");
+  }
+
+  return {
+    schemaVersion: QUALIFICATION_CANDIDATE_SCHEMA_VERSION,
+    requestId: expected.requestId,
+    correlationId: expected.correlationId,
+    summary,
+    proposedCycle: cycle as SfiaCycle,
+    proposedProfile: profile as SfiaProfile,
+    profileJustification: justification,
+    proposedBlocks: obj.proposedBlocks as SfiaBlock[],
+    proposedScope: obj.proposedScope,
+    proposedGates: obj.proposedGates,
+    risks: obj.risks,
+    ambiguities: obj.ambiguities,
+    questions: obj.questions,
+    confidence,
+    reserves: obj.reserves,
+  };
+}
+
+/** Fail-closed if a assembled candidate violates authority invariants. */
+export function assertCandidateAuthorityInvariants(candidate: {
+  authority: { candidateOnly: boolean; morrisDecisionRequired: boolean; executionAuthorized: boolean };
+}): void {
+  if (candidate.authority.candidateOnly !== true) {
+    throw new HarnessError("INVALID_RESPONSE", "candidateOnly must be true");
+  }
+  if (candidate.authority.morrisDecisionRequired !== true) {
+    throw new HarnessError("INVALID_RESPONSE", "morrisDecisionRequired must be true");
+  }
+  if (candidate.authority.executionAuthorized !== false) {
+    throw new HarnessError("INVALID_RESPONSE", "executionAuthorized must be false");
+  }
+}
+
+```
+
+### `projects/sfia-studio/harness/src/ports/gptQualificationLive.ts`
+```typescript
+/**
+ * Increment C — live GPT qualification port (gpt-5.4-mini only).
+ * Reuses native fetch transport. No OpenAI SDK dependency. No tools.
+ * Does NOT implement verdict / analysis. Does NOT decide.
+ */
+
+import { randomUUID } from "node:crypto";
+import { HarnessError } from "../types/contracts.js";
+import {
+  INC_C_LIMITS,
+  INCREMENT_C_MODEL,
+  INC_C_QUALIFICATION_RESPONSE_FORMAT,
+  INC_C_QUALIFICATION_SYSTEM_PROMPT,
+  QUALIFICATION_CANDIDATE_SCHEMA_VERSION,
+  SFIA_BLOCKS,
+  SFIA_CYCLES,
+  SFIA_PROFILES,
+  type QualificationCandidate,
+  type QualificationModelPayload,
+  type QualificationRequestInput,
+  type QualificationRunResult,
+  type QualificationUsage,
+} from "../types/qualificationCandidate.js";
+import {
+  assertPreCallLimits,
+  defaultDailyCounterPath,
+  detectObviousSecrets,
+  estimateCostEur,
+  estimateTokensFromText,
+  recordSuccessfulCall,
+} from "../finops/qualificationLimits.js";
+import {
+  assertCandidateAuthorityInvariants,
+  validateQualificationModelPayload,
+} from "../validation/qualificationCandidateValidator.js";
+import {
+  createDefaultTransport,
+  extractMessageContent,
+  observeChatCompletionResponse,
+  parseUsageFromCompletion,
+  sanitizeOpenAiErrorText,
+  type OpenAITransport,
+} from "./openaiTransportShared.js";
+import { EventJournal } from "../journal/eventJournal.js";
+import { ProofStore } from "../proof/proofStore.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const HARNESS_ROOT = path.resolve(HERE, "../..");
+const DEFAULT_PROOFS = path.join(HARNESS_ROOT, "proofs");
+
+export const INC_C_LIVE_FLAG = "SFIA_GPT_INC_C_LIVE";
+export const INC_C_OBSERVE_FLAG = "SFIA_GPT_INC_C_OBSERVE";
+
+export interface GptQualificationLiveOptions {
+  env?: NodeJS.ProcessEnv;
+  transport?: OpenAITransport;
+  timeoutMs?: number;
+  dailyCounterPath?: string;
+  proofsRoot?: string;
+  /** Injected clock for tests. */
+  now?: () => Date;
+}
+
+function buildUserMessage(input: QualificationRequestInput): string {
+  const ctx = (input.authorizedContext ?? []).slice(0, 20);
+  return JSON.stringify({
+    task: "Produce QualificationCandidate model payload only",
+    requestId: input.requestId,
+    correlationId: input.correlationId,
+    demandText: input.demandText,
+    authorizedContext: ctx,
+    closedCycles: SFIA_CYCLES,
+    closedProfiles: SFIA_PROFILES,
+    closedBlocks: SFIA_BLOCKS,
+    rules: [
+      "candidate only",
+      "Morris decides later",
+      "no tools",
+      "no git",
+      "no cursor",
+      "no secrets",
+    ],
+  });
+}
+
+export class GptQualificationLivePort {
+  private readonly env: NodeJS.ProcessEnv;
+  private readonly transport: OpenAITransport;
+  private readonly timeoutMs: number;
+  private readonly dailyCounterPath: string;
+  private readonly proofsRoot: string;
+  private readonly now: () => Date;
+
+  constructor(opts: GptQualificationLiveOptions = {}) {
+    this.env = opts.env ?? process.env;
+    this.transport = opts.transport ?? createDefaultTransport();
+    this.timeoutMs = opts.timeoutMs ?? INC_C_LIMITS.timeoutMs;
+    this.proofsRoot = opts.proofsRoot ?? DEFAULT_PROOFS;
+    this.dailyCounterPath =
+      opts.dailyCounterPath ?? defaultDailyCounterPath(this.proofsRoot);
+    this.now = opts.now ?? (() => new Date());
+  }
+
+  async run(input: QualificationRequestInput): Promise<QualificationRunResult> {
+    const started = Date.now();
+    const limitsApplied = {
+      maxInputTokens: INC_C_LIMITS.maxInputTokens,
+      maxOutputTokens: INC_C_LIMITS.maxOutputTokens,
+      maxTotalTokens: INC_C_LIMITS.maxTotalTokens,
+      maxCostEurPerCall: INC_C_LIMITS.maxCostEurPerCall,
+      maxSessionCalls: INC_C_LIMITS.maxSessionCalls,
+      maxDailyCalls: INC_C_LIMITS.maxDailyCalls,
+      timeoutMs: this.timeoutMs,
+    };
+    const eventsLogged: string[] = [];
+    const proofDir =
+      input.proofDir ??
+      path.join(this.proofsRoot, `inc-c-${input.correlationId}`);
+    const journal = new EventJournal(proofDir, input.correlationId);
+    const proofs = new ProofStore(proofDir);
+    const sessionKey = `studio-session`;
+
+    const log = (eventType: string, fields: Record<string, unknown> = {}) => {
+      journal.append({
+        eventType,
+        requestId: input.requestId,
+        detail: { source: "harness", model: INCREMENT_C_MODEL, ...fields },
+        result: typeof fields.result === "string" ? fields.result : undefined,
+        errorCode: typeof fields.errorCode === "string" ? fields.errorCode : undefined,
+      });
+      eventsLogged.push(eventType);
+    };
+
+    const fail = (
+      code: string,
+      message: string,
+      liveInvoked: boolean,
+      usage?: QualificationUsage,
+    ): QualificationRunResult => {
+      log("gpt.qualification.rejected", {
+        result: "rejected",
+        errorCode: code,
+        message: sanitizeOpenAiErrorText(message),
+      });
+      proofs.writeJson("qualification-result.json", {
+        ok: false,
+        errorCode: code,
+        errorMessage: sanitizeOpenAiErrorText(message),
+        liveInvoked,
+      });
+      return {
+        ok: false,
+        status: code as QualificationRunResult["status"],
+        errorCode: code,
+        errorMessage: sanitizeOpenAiErrorText(message),
+        durationMs: Date.now() - started,
+        liveInvoked,
+        retriesAttempted: 0,
+        model: INCREMENT_C_MODEL,
+        limitsApplied,
+        usage,
+        eventsLogged,
+      };
+    };
+
+    try {
+      log("gpt.qualification.requested", { result: "ok" });
+
+      if (!input.confirmedByUser) {
+        return fail("CONFIRMATION_REQUIRED", "Explicit user confirmation required before live GPT call", false);
+      }
+
+      if (detectObviousSecrets(input.demandText) || (input.authorizedContext ?? []).some(detectObviousSecrets)) {
+        return fail("SECRET_DETECTED", "Sensitive pattern detected in input — call refused", false);
+      }
+
+      const userMsg = buildUserMessage(input);
+      const systemTokens = estimateTokensFromText(INC_C_QUALIFICATION_SYSTEM_PROMPT);
+      const inputTokensEst = systemTokens + estimateTokensFromText(userMsg);
+      assertPreCallLimits({
+        estimatedInputTokens: inputTokensEst,
+        sessionKey,
+        dailyCounterPath: this.dailyCounterPath,
+      });
+
+      const liveRequested = input.live === true || this.env[INC_C_LIVE_FLAG] === "1";
+      if (!liveRequested) {
+        return fail("LIVE_PORT_DENIED", "Live GPT not enabled (set live:true / SFIA_GPT_INC_C_LIVE=1)", false);
+      }
+
+      const apiKey = this.env.OPENAI_API_KEY;
+      if (!apiKey) {
+        return fail("KEY_ABSENT", "OPENAI_API_KEY absent — configure local env without versioning secrets", false);
+      }
+
+      // Model lock — refuse any other model id from env if set differently
+      const envModel = this.env.OPENAI_MODEL?.trim();
+      if (envModel && envModel !== INCREMENT_C_MODEL) {
+        return fail(
+          "MODEL_UNAVAILABLE",
+          `Only ${INCREMENT_C_MODEL} authorized for Increment C; OPENAI_MODEL=${envModel} refused (no fallback)`,
+          false,
+        );
+      }
+
+      log("gpt.qualification.started", { result: "ok", estimatedInputTokens: inputTokensEst });
+
+      const body = {
+        model: INCREMENT_C_MODEL,
+        max_completion_tokens: INC_C_LIMITS.maxOutputTokens,
+        response_format: INC_C_QUALIFICATION_RESPONSE_FORMAT,
+        messages: [
+          { role: "system", content: INC_C_QUALIFICATION_SYSTEM_PROMPT },
+          { role: "user", content: userMsg },
+        ],
+        // No tools, no parallel_tool_calls, no web search
+      };
+
+      let transportResult: { ok: boolean; status: number; text: string; durationMs: number };
+      try {
+        transportResult = await this.transport(body, {
+          timeoutMs: this.timeoutMs,
+          apiKey,
+        });
+      } catch (e) {
+        const he = e as HarnessError;
+        if (he.code === "GPT_TIMEOUT" || he.message?.includes("timed out")) {
+          log("gpt.qualification.timeout", { result: "failed", errorCode: "TIMEOUT" });
+          return fail("TIMEOUT", he.message || "Timeout", true);
+        }
+        log("gpt.qualification.provider_error", {
+          result: "failed",
+          errorCode: "PROVIDER_ERROR",
+          message: sanitizeOpenAiErrorText(he.message || String(e)),
+        });
+        return fail("PROVIDER_ERROR", he.message || String(e), true);
+      }
+
+      if (!transportResult.ok) {
+        log("gpt.qualification.provider_error", {
+          result: "failed",
+          errorCode: "PROVIDER_ERROR",
+          httpStatus: transportResult.status,
+        });
+        return fail(
+          transportResult.status === 404 ? "MODEL_UNAVAILABLE" : "PROVIDER_ERROR",
+          `Provider HTTP ${transportResult.status}`,
+          true,
+        );
+      }
+
+      let data: Record<string, unknown>;
+      try {
+        data = JSON.parse(transportResult.text) as Record<string, unknown>;
+      } catch {
+        return fail("INVALID_RESPONSE", "Provider body is not JSON", true);
+      }
+
+      const returnedModel = typeof data.model === "string" ? data.model : "";
+      if (returnedModel && !returnedModel.startsWith("gpt-5.4-mini")) {
+        return fail(
+          "MODEL_UNAVAILABLE",
+          `Unexpected model returned: ${returnedModel} (no fallback)`,
+          true,
+        );
+      }
+
+      let content: string;
+      try {
+        content = extractMessageContent(data).content;
+      } catch (e) {
+        return fail("INVALID_RESPONSE", (e as Error).message, true);
+      }
+
+      observeChatCompletionResponse({
+        data,
+        durationMs: transportResult.durationMs,
+        content,
+      });
+
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(content);
+      } catch {
+        return fail("INVALID_RESPONSE", "Model content is not JSON", true);
+      }
+
+      let payload: QualificationModelPayload;
+      try {
+        payload = validateQualificationModelPayload(parsed, {
+          requestId: input.requestId,
+          correlationId: input.correlationId,
+        });
+      } catch (e) {
+        const he = e as HarnessError;
+        return fail(he.code || "INVALID_RESPONSE", he.message, true);
+      }
+
+      const usageRaw = parseUsageFromCompletion(data, transportResult.durationMs, INCREMENT_C_MODEL);
+      const inputTokens = usageRaw.inputTokens ?? inputTokensEst;
+      const outputTokens = usageRaw.outputTokens ?? 0;
+      const totalTokens = usageRaw.totalTokens ?? inputTokens + outputTokens;
+      if (outputTokens > INC_C_LIMITS.maxOutputTokens) {
+        return fail("OUTPUT_LIMIT_REACHED", `Output tokens ${outputTokens} exceed limit`, true);
+      }
+      if (totalTokens > INC_C_LIMITS.maxTotalTokens) {
+        return fail("TOKEN_LIMIT_REACHED", `Total tokens ${totalTokens} exceed limit`, true);
+      }
+      const estimatedCostEur = estimateCostEur(inputTokens, outputTokens);
+      if (estimatedCostEur > INC_C_LIMITS.maxCostEurPerCall) {
+        return fail("COST_LIMIT_REACHED", `Cost estimate €${estimatedCostEur} exceeds per-call cap`, true);
+      }
+
+      const { sessionCallNumber } = recordSuccessfulCall({
+        sessionKey,
+        dailyCounterPath: this.dailyCounterPath,
+        estimatedCostEur,
+      });
+
+      const usage: QualificationUsage = {
+        inputTokens,
+        outputTokens,
+        totalTokens,
+        estimatedCostEur,
+        callNumber: sessionCallNumber,
+        costIsEstimate: true,
+      };
+
+      const candidate: QualificationCandidate = {
+        schemaVersion: payload.schemaVersion,
+        candidateId: `qc-${randomUUID()}`,
+        requestId: payload.requestId,
+        correlationId: payload.correlationId,
+        generatedAt: this.now().toISOString(),
+        model: INCREMENT_C_MODEL,
+        summary: payload.summary,
+        proposedCycle: payload.proposedCycle,
+        proposedProfile: payload.proposedProfile,
+        profileJustification: payload.profileJustification,
+        proposedBlocks: payload.proposedBlocks,
+        proposedScope: payload.proposedScope,
+        proposedGates: payload.proposedGates,
+        risks: payload.risks,
+        ambiguities: payload.ambiguities,
+        questions: payload.questions,
+        confidence: payload.confidence,
+        reserves: payload.reserves,
+        usage,
+        authority: {
+          candidateOnly: true,
+          morrisDecisionRequired: true,
+          executionAuthorized: false,
+        },
+      };
+      assertCandidateAuthorityInvariants(candidate);
+
+      proofs.writeJson("qualification-candidate.json", candidate);
+      proofs.writeJson("qualification-usage.json", {
+        ...usage,
+        note: "estimatedCostEur is an estimate, not an invoice",
+      });
+
+      log("gpt.qualification.completed", {
+        result: "ok",
+        candidateId: candidate.candidateId,
+        inputTokens,
+        outputTokens,
+        estimatedCostEur,
+      });
+      log("qualification.candidate_created", {
+        result: "ok",
+        candidateId: candidate.candidateId,
+      });
+
+      return {
+        ok: true,
+        status: "CANDIDATE_CREATED",
+        candidate,
+        durationMs: Date.now() - started,
+        liveInvoked: true,
+        retriesAttempted: 0,
+        model: INCREMENT_C_MODEL,
+        limitsApplied,
+        usage,
+        eventsLogged,
+      };
+    } catch (e) {
+      const he = e as HarnessError;
+      const code = he.code || "PROVIDER_ERROR";
+      return fail(code, he.message || String(e), false);
+    }
+  }
+}
+
+/** Fixture-only runner for automatic tests — never calls OpenAI. */
+export async function runQualificationFixture(
+  input: QualificationRequestInput,
+  overrides: Partial<QualificationModelPayload> = {},
+): Promise<QualificationRunResult> {
+  const started = Date.now();
+  if (!input.confirmedByUser) {
+    return {
+      ok: false,
+      status: "CONFIRMATION_REQUIRED",
+      errorCode: "CONFIRMATION_REQUIRED",
+      errorMessage: "Confirmation required",
+      durationMs: Date.now() - started,
+      liveInvoked: false,
+      retriesAttempted: 0,
+      model: INCREMENT_C_MODEL,
+      limitsApplied: {
+        maxInputTokens: INC_C_LIMITS.maxInputTokens,
+        maxOutputTokens: INC_C_LIMITS.maxOutputTokens,
+        maxTotalTokens: INC_C_LIMITS.maxTotalTokens,
+        maxCostEurPerCall: INC_C_LIMITS.maxCostEurPerCall,
+        maxSessionCalls: INC_C_LIMITS.maxSessionCalls,
+        maxDailyCalls: INC_C_LIMITS.maxDailyCalls,
+        timeoutMs: INC_C_LIMITS.timeoutMs,
+      },
+      eventsLogged: [],
+    };
+  }
+  const payload: QualificationModelPayload = {
+    schemaVersion: QUALIFICATION_CANDIDATE_SCHEMA_VERSION,
+    requestId: input.requestId,
+    correlationId: input.correlationId,
+    summary: "Fixture qualification candidate",
+    proposedCycle: "Cycle 8",
+    proposedProfile: "Standard",
+    profileJustification: "Delivery change with clear scope",
+    proposedBlocks: ["security", "governance"],
+    proposedScope: ["app auth module"],
+    proposedGates: ["G-VS-QUAL-REVIEW"],
+    risks: ["Scope creep"],
+    ambiguities: [],
+    questions: ["Which IdP?"],
+    confidence: 0.7,
+    reserves: ["Candidate only — Morris decides"],
+    ...overrides,
+  };
+  const validated = validateQualificationModelPayload(payload, {
+    requestId: input.requestId,
+    correlationId: input.correlationId,
+  });
+  const usage: QualificationUsage = {
+    inputTokens: 100,
+    outputTokens: 50,
+    totalTokens: 150,
+    estimatedCostEur: estimateCostEur(100, 50),
+    callNumber: 1,
+    costIsEstimate: true,
+  };
+  const candidate: QualificationCandidate = {
+    ...validated,
+    candidateId: `qc-fixture-${input.correlationId}`,
+    generatedAt: new Date().toISOString(),
+    model: INCREMENT_C_MODEL,
+    usage,
+    authority: {
+      candidateOnly: true,
+      morrisDecisionRequired: true,
+      executionAuthorized: false,
+    },
+  };
+  return {
+    ok: true,
+    status: "CANDIDATE_CREATED",
+    candidate,
+    durationMs: Date.now() - started,
+    liveInvoked: false,
+    retriesAttempted: 0,
+    model: INCREMENT_C_MODEL,
+    limitsApplied: {
+      maxInputTokens: INC_C_LIMITS.maxInputTokens,
+      maxOutputTokens: INC_C_LIMITS.maxOutputTokens,
+      maxTotalTokens: INC_C_LIMITS.maxTotalTokens,
+      maxCostEurPerCall: INC_C_LIMITS.maxCostEurPerCall,
+      maxSessionCalls: INC_C_LIMITS.maxSessionCalls,
+      maxDailyCalls: INC_C_LIMITS.maxDailyCalls,
+      timeoutMs: INC_C_LIMITS.timeoutMs,
+    },
+    usage,
+    eventsLogged: ["gpt.qualification.completed", "qualification.candidate_created"],
+  };
+}
+
+```
+
+### `projects/sfia-studio/harness/src/ports/openaiTransportShared.ts`
+```typescript
+/**
+ * Shared OpenAI HTTPS transport helpers for Increment C.
+ * Re-exports spike-safe sanitization/transport without enabling spike verdict path.
+ */
+
+export {
+  createDefaultTransport,
+  extractMessageContent,
+  observeChatCompletionResponse,
+  sanitizeOpenAiErrorText,
+  type OpenAITransport,
+} from "./openaiRealSpike.js";
+
+import type { GPTUsageSummary } from "../types/gptContracts.js";
+
+export function parseUsageFromCompletion(
+  data: Record<string, unknown>,
+  durationMs: number,
+  model: string,
+): GPTUsageSummary {
+  const usage = (data.usage ?? {}) as Record<string, unknown>;
+  const details = (usage.completion_tokens_details ?? {}) as Record<string, unknown>;
+  const id = data.id;
+  const responseIdRedacted =
+    typeof id === "string" && id.length > 12
+      ? `redacted:${id.slice(0, 6)}…${id.slice(-4)}`
+      : typeof id === "string"
+        ? `redacted:${id.length}`
+        : undefined;
+  return {
+    inputTokens: typeof usage.prompt_tokens === "number" ? usage.prompt_tokens : undefined,
+    outputTokens: typeof usage.completion_tokens === "number" ? usage.completion_tokens : undefined,
+    totalTokens: typeof usage.total_tokens === "number" ? usage.total_tokens : undefined,
+    reasoningTokens:
+      typeof details.reasoning_tokens === "number" ? details.reasoning_tokens : undefined,
+    modelReturned: typeof data.model === "string" ? data.model : model,
+    responseIdRedacted,
+    durationMs,
+    monetaryCostClaimed: false,
+  };
+}
+
+```
+
+### `projects/sfia-studio/harness/tests/increment-c.test.ts`
+```typescript
+import { describe, expect, it, beforeEach } from "vitest";
+import { mkdtempSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import {
+  assertPreCallLimits,
+  detectObviousSecrets,
+  estimateCostEur,
+  estimateTokensFromText,
+  maxEstimatedCostEurForCall,
+  resetSessionCallCountForTests,
+  incrementSessionCallCount,
+  getSessionCallCount,
+  readDailyCounter,
+  writeDailyCounter,
+  localDayKey,
+} from "../src/finops/qualificationLimits.js";
+import { validateQualificationModelPayload } from "../src/validation/qualificationCandidateValidator.js";
+import {
+  GptQualificationLivePort,
+  runQualificationFixture,
+} from "../src/ports/gptQualificationLive.js";
+import {
+  INC_C_LIMITS,
+  INCREMENT_C_MODEL,
+  QUALIFICATION_CANDIDATE_SCHEMA_VERSION,
+} from "../src/types/qualificationCandidate.js";
+import { HarnessError } from "../src/types/contracts.js";
+import { readdirSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const HARNESS_SRC = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../src");
+
+function tmp(): string {
+  return mkdtempSync(path.join(os.tmpdir(), "sfia-inc-c-"));
+}
+
+function validPayload(overrides: Record<string, unknown> = {}) {
+  return {
+    schemaVersion: QUALIFICATION_CANDIDATE_SCHEMA_VERSION,
+    requestId: "req-c-1",
+    correlationId: "corr-c-1",
+    summary: "Add admin authentication",
+    proposedCycle: "Cycle 8",
+    proposedProfile: "Standard",
+    profileJustification: "Bounded delivery change",
+    proposedBlocks: ["security"],
+    proposedScope: ["auth module"],
+    proposedGates: ["G-MORRIS-REVIEW"],
+    risks: ["misconfig"],
+    ambiguities: [],
+    questions: ["Which IdP?"],
+    confidence: 0.6,
+    reserves: ["Candidate only"],
+    ...overrides,
+  };
+}
+
+beforeEach(() => {
+  resetSessionCallCountForTests();
+});
+
+describe("Increment C — FinOps limits", () => {
+  it("estimates tokens and cost under caps", () => {
+    expect(estimateTokensFromText("abcd")).toBe(1);
+    expect(maxEstimatedCostEurForCall()).toBeLessThanOrEqual(INC_C_LIMITS.maxCostEurPerCall);
+    expect(estimateCostEur(100, 50)).toBeGreaterThan(0);
+  });
+
+  it("refuses input over 6000 tokens before call", () => {
+    const daily = path.join(tmp(), "daily.json");
+    try {
+      assertPreCallLimits({
+        estimatedInputTokens: 6001,
+        sessionKey: "s",
+        dailyCounterPath: daily,
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("INPUT_LIMIT_REACHED");
+    }
+  });
+
+  it("allows total at 7500 boundary and rejects post-call overage via live port", async () => {
+    const daily = path.join(tmp(), "daily.json");
+    expect(() =>
+      assertPreCallLimits({
+        estimatedInputTokens: 6000,
+        sessionKey: "bound",
+        dailyCounterPath: daily,
+        maxOutputTokens: 1500,
+      }),
+    ).not.toThrow();
+
+    const port = new GptQualificationLivePort({
+      env: { OPENAI_API_KEY: "sk-test", SFIA_GPT_INC_C_LIVE: "1" },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+      transport: async () => ({
+        ok: true,
+        status: 200,
+        durationMs: 5,
+        text: JSON.stringify({
+          id: "chatcmpl-overage",
+          model: INCREMENT_C_MODEL,
+          choices: [{ message: { content: JSON.stringify(validPayload()) }, finish_reason: "stop" }],
+          usage: { prompt_tokens: 6000, completion_tokens: 1501, total_tokens: 7501 },
+        }),
+      }),
+    });
+    const r = await port.run({
+      requestId: "req-c-1",
+      correlationId: "corr-c-1",
+      demandText: "Add admin authentication",
+      confirmedByUser: true,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(r.ok).toBe(false);
+    expect(r.errorCode).toBe("OUTPUT_LIMIT_REACHED");
+  });
+
+  it("refuses output budget over 1500", () => {
+    const daily = path.join(tmp(), "daily.json");
+    try {
+      assertPreCallLimits({
+        estimatedInputTokens: 100,
+        sessionKey: "s",
+        dailyCounterPath: daily,
+        maxOutputTokens: 1501,
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("OUTPUT_LIMIT_REACHED");
+    }
+  });
+
+  it("refuses 4th session qualification", () => {
+    const daily = path.join(tmp(), "daily.json");
+    incrementSessionCallCount("s");
+    incrementSessionCallCount("s");
+    incrementSessionCallCount("s");
+    expect(getSessionCallCount("s")).toBe(3);
+    try {
+      assertPreCallLimits({
+        estimatedInputTokens: 100,
+        sessionKey: "s",
+        dailyCounterPath: daily,
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("SESSION_LIMIT_REACHED");
+    }
+  });
+
+  it("refuses 21st daily call", () => {
+    const daily = path.join(tmp(), "daily.json");
+    writeDailyCounter(daily, {
+      day: localDayKey(),
+      callCount: 20,
+      estimatedCostEur: 0.1,
+      updatedAt: new Date().toISOString(),
+    });
+    try {
+      assertPreCallLimits({
+        estimatedInputTokens: 100,
+        sessionKey: "fresh",
+        dailyCounterPath: daily,
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("DAILY_LIMIT_REACHED");
+    }
+  });
+
+  it("refuses when daily cost already at €1", () => {
+    const daily = path.join(tmp(), "daily.json");
+    writeDailyCounter(daily, {
+      day: localDayKey(),
+      callCount: 1,
+      estimatedCostEur: 1.0,
+      updatedAt: new Date().toISOString(),
+    });
+    try {
+      assertPreCallLimits({
+        estimatedInputTokens: 100,
+        sessionKey: "fresh2",
+        dailyCounterPath: daily,
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("COST_LIMIT_REACHED");
+    }
+  });
+
+  it("detects obvious secrets", () => {
+    expect(detectObviousSecrets("sk-abcdefghijklmnopqrstuvwxyz")).toBe(true);
+    expect(detectObviousSecrets("hello world")).toBe(false);
+  });
+});
+
+describe("Increment C — QualificationCandidate validation", () => {
+  it("accepts valid payload", () => {
+    const p = validateQualificationModelPayload(validPayload(), {
+      requestId: "req-c-1",
+      correlationId: "corr-c-1",
+    });
+    expect(p.proposedCycle).toBe("Cycle 8");
+  });
+
+  it("rejects unknown cycle / profile / block", () => {
+    try {
+      validateQualificationModelPayload(validPayload({ proposedCycle: "Cycle 99" }), {
+        requestId: "req-c-1",
+        correlationId: "corr-c-1",
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("INVALID_RESPONSE");
+    }
+    try {
+      validateQualificationModelPayload(validPayload({ proposedProfile: "Ultra" }), {
+        requestId: "req-c-1",
+        correlationId: "corr-c-1",
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("INVALID_RESPONSE");
+    }
+    try {
+      validateQualificationModelPayload(validPayload({ proposedBlocks: ["blockchain"] }), {
+        requestId: "req-c-1",
+        correlationId: "corr-c-1",
+      });
+      expect.fail("should throw");
+    } catch (e) {
+      expect((e as HarnessError).code).toBe("INVALID_RESPONSE");
+    }
+  });
+
+  it("rejects Critical without justification", () => {
+    expect(() =>
+      validateQualificationModelPayload(
+        validPayload({ proposedProfile: "Critical", profileJustification: "  " }),
+        { requestId: "req-c-1", correlationId: "corr-c-1" },
+      ),
+    ).toThrow(/Critical/);
+  });
+
+  it("rejects unknown properties and bad confidence", () => {
+    expect(() =>
+      validateQualificationModelPayload(validPayload({ extra: true }), {
+        requestId: "req-c-1",
+        correlationId: "corr-c-1",
+      }),
+    ).toThrow(/Unknown property/);
+    expect(() =>
+      validateQualificationModelPayload(validPayload({ confidence: 1.5 }), {
+        requestId: "req-c-1",
+        correlationId: "corr-c-1",
+      }),
+    ).toThrow(/confidence/);
+  });
+});
+
+describe("Increment C — live port with mocked transport", () => {
+  it("requires confirmation and does not retry", async () => {
+    const port = new GptQualificationLivePort({
+      env: { OPENAI_API_KEY: "sk-test", SFIA_GPT_INC_C_LIVE: "1" },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+      transport: async () => {
+        throw new Error("should not be called");
+      },
+    });
+    const r = await port.run({
+      requestId: "r",
+      correlationId: "c",
+      demandText: "test",
+      confirmedByUser: false,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(r.ok).toBe(false);
+    expect(r.errorCode).toBe("CONFIRMATION_REQUIRED");
+    expect(r.retriesAttempted).toBe(0);
+    expect(r.liveInvoked).toBe(false);
+  });
+
+  it("refuses different model from env without fallback", async () => {
+    const port = new GptQualificationLivePort({
+      env: {
+        OPENAI_API_KEY: "sk-test",
+        SFIA_GPT_INC_C_LIVE: "1",
+        OPENAI_MODEL: "gpt-4o-mini",
+      },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+      transport: async () => ({ ok: true, status: 200, text: "{}", durationMs: 1 }),
+    });
+    const r = await port.run({
+      requestId: "r",
+      correlationId: "c",
+      demandText: "Add admin authentication to internal app",
+      confirmedByUser: true,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(r.ok).toBe(false);
+    expect(r.errorCode).toBe("MODEL_UNAVAILABLE");
+    expect(r.liveInvoked).toBe(false);
+  });
+
+  it("refuses missing key without exposing it", async () => {
+    const port = new GptQualificationLivePort({
+      env: { SFIA_GPT_INC_C_LIVE: "1" },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+    });
+    const r = await port.run({
+      requestId: "r",
+      correlationId: "c",
+      demandText: "x",
+      confirmedByUser: true,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(r.errorCode).toBe("KEY_ABSENT");
+    expect(JSON.stringify(r)).not.toMatch(/sk-/);
+  });
+
+  it("times out without success", async () => {
+    const port = new GptQualificationLivePort({
+      env: { OPENAI_API_KEY: "sk-test", SFIA_GPT_INC_C_LIVE: "1" },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+      timeoutMs: 30,
+      transport: async () => {
+        throw new HarnessError("GPT_TIMEOUT", "OpenAI request timed out after 30ms");
+      },
+    });
+    const r = await port.run({
+      requestId: "r",
+      correlationId: "c",
+      demandText: "Add admin authentication",
+      confirmedByUser: true,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(r.ok).toBe(false);
+    expect(r.errorCode).toBe("TIMEOUT");
+    expect(r.status).not.toBe("CANDIDATE_CREATED");
+  });
+
+  it("creates candidate from structured mock response (single call)", async () => {
+    let calls = 0;
+    const payload = validPayload();
+    const port = new GptQualificationLivePort({
+      env: { OPENAI_API_KEY: "sk-test", SFIA_GPT_INC_C_LIVE: "1" },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+      transport: async (body) => {
+        calls += 1;
+        expect(body.model).toBe(INCREMENT_C_MODEL);
+        expect(body.max_completion_tokens).toBe(1500);
+        expect(body.tools).toBeUndefined();
+        expect((body.response_format as { type: string }).type).toBe("json_schema");
+        return {
+          ok: true,
+          status: 200,
+          durationMs: 12,
+          text: JSON.stringify({
+            id: "chatcmpl-testabcdefgh",
+            model: INCREMENT_C_MODEL,
+            choices: [{ message: { content: JSON.stringify(payload) }, finish_reason: "stop" }],
+            usage: { prompt_tokens: 200, completion_tokens: 100, total_tokens: 300 },
+          }),
+        };
+      },
+    });
+    const r = await port.run({
+      requestId: "req-c-1",
+      correlationId: "corr-c-1",
+      demandText: "Add admin authentication to internal app without architecture change",
+      confirmedByUser: true,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(calls).toBe(1);
+    expect(r.ok).toBe(true);
+    expect(r.candidate?.authority.candidateOnly).toBe(true);
+    expect(r.candidate?.authority.executionAuthorized).toBe(false);
+    expect(r.candidate?.authority.morrisDecisionRequired).toBe(true);
+    expect(r.usage?.costIsEstimate).toBe(true);
+    expect(r.retriesAttempted).toBe(0);
+  });
+
+  it("rejects invalid JSON from provider as INVALID_RESPONSE", async () => {
+    const port = new GptQualificationLivePort({
+      env: { OPENAI_API_KEY: "sk-test", SFIA_GPT_INC_C_LIVE: "1" },
+      dailyCounterPath: path.join(tmp(), "d.json"),
+      proofsRoot: tmp(),
+      transport: async () => ({
+        ok: true,
+        status: 200,
+        durationMs: 5,
+        text: JSON.stringify({
+          id: "chatcmpl-x",
+          model: INCREMENT_C_MODEL,
+          choices: [{ message: { content: "{not-json" }, finish_reason: "stop" }],
+          usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
+        }),
+      }),
+    });
+    const r = await port.run({
+      requestId: "req-c-1",
+      correlationId: "corr-c-1",
+      demandText: "auth",
+      confirmedByUser: true,
+      live: true,
+      proofDir: tmp(),
+    });
+    expect(r.ok).toBe(false);
+    expect(r.errorCode).toBe("INVALID_RESPONSE");
+  });
+});
+
+describe("Increment C — fixture helper and autonomy", () => {
+  it("fixture run never invokes live", async () => {
+    const r = await runQualificationFixture({
+      requestId: "r",
+      correlationId: "c",
+      demandText: "x",
+      confirmedByUser: true,
+    });
+    expect(r.ok).toBe(true);
+    expect(r.liveInvoked).toBe(false);
+  });
+
+  it("harness src has no React and no Cursor live in Increment C port", () => {
+    const walk = (dir: string): string[] => {
+      const out: string[] = [];
+      for (const ent of readdirSync(dir, { withFileTypes: true })) {
+        const p = path.join(dir, ent.name);
+        if (ent.isDirectory()) out.push(...walk(p));
+        else if (/\.ts$/.test(ent.name)) out.push(p);
+      }
+      return out;
+    };
+    const livePort = readFileSync(path.join(HARNESS_SRC, "ports/gptQualificationLive.ts"), "utf8");
+    expect(livePort).not.toMatch(/from ["']react["']/);
+    expect(livePort).not.toMatch(/CursorExecutorPortRealSpike/);
+    expect(livePort).not.toMatch(/git push/);
+    for (const f of walk(path.join(HARNESS_SRC, "finops"))) {
+      expect(readFileSync(f, "utf8")).not.toMatch(/from ["']react["']/);
+    }
+  });
+});
+
+describe("Increment C — authority breach guards", () => {
+  it("assembled fixture candidate never authorizes execution", async () => {
+    const r = await runQualificationFixture({
+      requestId: "r",
+      correlationId: "c",
+      demandText: "x",
+      confirmedByUser: true,
+    });
+    expect(r.candidate?.authority).toEqual({
+      candidateOnly: true,
+      morrisDecisionRequired: true,
+      executionAuthorized: false,
+    });
+  });
+});
+
+```
+
+### `projects/sfia-studio/harness/tests/increment-c-live-observe.test.ts`
+```typescript
+/**
+ * Opt-in live observation for Increment C — ONE call max.
+ * Run only with:
+ *   SFIA_GPT_INC_C_OBSERVE=1 SFIA_GPT_INC_C_LIVE=1 OPENAI_API_KEY=… \
+ *   OPENAI_MODEL=gpt-5.4-mini npm test -- tests/increment-c-live-observe.test.ts
+ * Skipped by default. Never enabled in CI.
+ */
+
+import { describe, expect, it } from "vitest";
+import { mkdtempSync, writeFileSync, mkdirSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { GptQualificationLivePort } from "../src/ports/gptQualificationLive.js";
+import { INCREMENT_C_MODEL } from "../src/types/qualificationCandidate.js";
+
+const observe = process.env.SFIA_GPT_INC_C_OBSERVE === "1";
+
+describe.skipIf(!observe)("Increment C — live observation (opt-in, single call)", () => {
+  it("produces one QualificationCandidate via gpt-5.4-mini", async () => {
+    expect(process.env.OPENAI_API_KEY).toBeTruthy();
+    // Lock model: unset conflicting model or require exact id
+    const env = {
+      ...process.env,
+      OPENAI_MODEL: INCREMENT_C_MODEL,
+      SFIA_GPT_INC_C_LIVE: "1",
+    };
+    const proofDir = mkdtempSync(path.join(os.tmpdir(), "sfia-inc-c-live-"));
+    const daily = path.join(proofDir, "daily.json");
+    const port = new GptQualificationLivePort({
+      env,
+      dailyCounterPath: daily,
+      proofsRoot: proofDir,
+      timeoutMs: 30_000,
+    });
+    const result = await port.run({
+      requestId: "req-inc-c-observe-001",
+      correlationId: "corr-inc-c-observe-001",
+      demandText:
+        "Ajouter une authentification administrateur à une application interne existante, sans modifier l’architecture avant validation.",
+      authorizedContext: [
+        "SFIA Studio POC Increment C",
+        "No Cursor live",
+        "No remote Git writes",
+      ],
+      confirmedByUser: true,
+      live: true,
+      proofDir: path.join(proofDir, "proof"),
+    });
+
+    // Persist sanitized observation for review pack (no secrets)
+    writeFileSync(
+      path.join(proofDir, "observation-sanitized.json"),
+      JSON.stringify(
+        {
+          ok: result.ok,
+          status: result.status,
+          errorCode: result.errorCode,
+          liveInvoked: result.liveInvoked,
+          retriesAttempted: result.retriesAttempted,
+          model: result.model,
+          durationMs: result.durationMs,
+          usage: result.usage,
+          candidate: result.candidate
+            ? {
+                candidateId: result.candidate.candidateId,
+                proposedCycle: result.candidate.proposedCycle,
+                proposedProfile: result.candidate.proposedProfile,
+                proposedBlocks: result.candidate.proposedBlocks,
+                proposedGates: result.candidate.proposedGates,
+                authority: result.candidate.authority,
+                confidence: result.candidate.confidence,
+              }
+            : null,
+          eventsLogged: result.eventsLogged,
+        },
+        null,
+        2,
+      ),
+    );
+    // Also copy path hint for the agent
+    const reviewPath = path.resolve(
+      path.dirname(fileURLToPath(import.meta.url)),
+      "../../../../.tmp-sfia-review/inc-c-live-observation.json",
+    );
+    mkdirSync(path.dirname(reviewPath), { recursive: true });
+    writeFileSync(
+      reviewPath,      JSON.stringify(
+        {
+          observationDir: proofDir,
+          ok: result.ok,
+          status: result.status,
+          errorCode: result.errorCode,
+          usage: result.usage,
+          durationMs: result.durationMs,
+          candidateSummary: result.candidate
+            ? {
+                cycle: result.candidate.proposedCycle,
+                profile: result.candidate.proposedProfile,
+                blocks: result.candidate.proposedBlocks,
+                authority: result.candidate.authority,
+              }
+            : null,
+        },
+        null,
+        2,
+      ),
+    );
+
+    expect(result.retriesAttempted).toBe(0);
+    expect(result.model).toBe(INCREMENT_C_MODEL);
+    if (result.ok) {
+      expect(result.liveInvoked).toBe(true);
+      expect(result.candidate?.authority.candidateOnly).toBe(true);
+      expect(result.candidate?.authority.executionAuthorized).toBe(false);
+      expect(result.candidate?.authority.morrisDecisionRequired).toBe(true);
+      expect(result.usage?.costIsEstimate).toBe(true);
+      expect(result.candidate?.proposedBlocks?.length).toBeGreaterThan(0);
+    } else {
+      // Fail-closed is acceptable — do not invent success
+      expect(["INVALID_RESPONSE", "PROVIDER_ERROR", "MODEL_UNAVAILABLE", "TIMEOUT", "KEY_ABSENT"]).toContain(
+        result.errorCode,
+      );
+    }
+  }, 60_000);
+});
+
+```
+
+### `projects/sfia-studio/app/lib/harness/qualifyAction.ts`
+```typescript
+"use server";
+
+import { execFile } from "node:child_process";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
+
+export interface QualifyStudioRequest {
+  requestId: string;
+  correlationId: string;
+  demandText: string;
+  confirmedByUser: boolean;
+  /** When true, invoke qualify-live (requires server env). Default fixture for UI demos without live. */
+  live?: boolean;
+  authorizedContext?: string[];
+}
+
+export async function runQualificationAction(req: QualifyStudioRequest): Promise<unknown> {
+  const harnessRoot = path.resolve(process.cwd(), "../harness");
+  const work = mkdtempSync(path.join(os.tmpdir(), "sfia-inc-c-"));
+  const payloadPath = path.join(work, "qualify.json");
+  writeFileSync(
+    payloadPath,
+    `${JSON.stringify(
+      {
+        requestId: req.requestId,
+        correlationId: req.correlationId,
+        demandText: req.demandText,
+        confirmedByUser: req.confirmedByUser,
+        live: req.live === true,
+        authorizedContext: req.authorizedContext ?? [
+          "SFIA Studio vertical slice POC",
+          "No Cursor live",
+          "No remote Git writes",
+        ],
+        proofDir: path.join(work, "proof"),
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
+
+  const tsxBin = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
+  const cliEntry = path.join(harnessRoot, "src/cli.ts");
+  const cmd = req.live === true ? "qualify-live" : "qualify-fixture";
+
+  try {
+    const { stdout } = await execFileAsync(
+      process.execPath,
+      [tsxBin, cliEntry, cmd, payloadPath],
+      {
+        cwd: harnessRoot,
+        maxBuffer: 8 * 1024 * 1024,
+        env: {
+          ...process.env,
+          // Never force live from Studio unless caller asked; keep Cursor spikes off.
+          SFIA_CURSOR_REAL_SPIKE: "0",
+          SFIA_GPT_REAL_SPIKE: "0",
+          ...(req.live === true ? { SFIA_GPT_INC_C_LIVE: "1" } : {}),
+        },
+      },
+    );
+    return JSON.parse(stdout);
+  } catch (err) {
+    const e = err as { stdout?: string; message?: string };
+    if (e.stdout) {
+      try {
+        return JSON.parse(e.stdout);
+      } catch {
+        /* fall through */
+      }
+    }
+    return {
+      ok: false,
+      status: "PROVIDER_ERROR",
+      errorCode: "ADAPTER_FORWARD_FAILED",
+      errorMessage: e.message ?? "qualification invoke failed",
+      liveInvoked: false,
+      retriesAttempted: 0,
+      model: "gpt-5.4-mini",
+    };
+  }
+}
+
+```
+
+### `projects/sfia-studio/app/__tests__/increment-c.test.tsx`
+```typescript
+import { cleanup, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { STUDIO_ROUTES_ONLY } from "@/lib/vertical-slice";
+import { NouvelleDemandeScreen } from "@/features/nouvelle-demande/NouvelleDemandeScreen";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
+const push = vi.fn();
+let mockPathname = "/nouvelle-demande";
+let mockSearch = "vs=VS-UX-01";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push, replace: vi.fn(), prefetch: vi.fn() }),
+  usePathname: () => mockPathname,
+  useSearchParams: () => new URLSearchParams(mockSearch),
+}));
+
+vi.mock("next/link", () => ({
+  default: ({ children, href, ...props }: { children: React.ReactNode; href: string }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
+vi.mock("@/lib/harness/qualifyAction", () => ({
+  runQualificationAction: vi.fn(async (req: { confirmedByUser: boolean; live?: boolean }) => {
+    if (!req.confirmedByUser) {
+      return { ok: false, errorCode: "CONFIRMATION_REQUIRED", liveInvoked: false };
+    }
+    return {
+      ok: true,
+      status: "CANDIDATE_CREATED",
+      liveInvoked: false,
+      candidate: {
+        model: "gpt-5.4-mini",
+        proposedCycle: "Cycle 8",
+        proposedProfile: "Standard",
+        profileJustification: "Bounded delivery",
+        proposedBlocks: ["security"],
+        proposedGates: ["G-MORRIS"],
+        usage: {
+          inputTokens: 100,
+          outputTokens: 50,
+          totalTokens: 150,
+          estimatedCostEur: 0.001,
+          callNumber: 1,
+          costIsEstimate: true,
+        },
+        authority: {
+          candidateOnly: true,
+          morrisDecisionRequired: true,
+          executionAuthorized: false,
+        },
+      },
+    };
+  }),
+}));
+
+vi.mock("@/lib/harness/actions", () => ({
+  runStudioHarness: vi.fn(),
+}));
+
+afterEach(() => {
+  cleanup();
+  push.mockClear();
+});
+
+beforeEach(() => {
+  mockPathname = "/nouvelle-demande";
+  mockSearch = "vs=VS-UX-01";
+});
+
+describe("Increment C — confirmation & candidate UI", () => {
+  it("requires explicit confirmation panel before GPT call", async () => {
+    const user = userEvent.setup();
+    render(<NouvelleDemandeScreen />);
+    await user.click(screen.getByTestId("vs-qualify-open-confirm"));
+    expect(screen.getByTestId("vs-gpt-confirm-panel")).toHaveTextContent("gpt-5.4-mini");
+    expect(screen.getByTestId("vs-gpt-confirm-panel")).toHaveTextContent("0,05");
+    expect(screen.getByTestId("vs-gpt-confirm-live")).toBeInTheDocument();
+  });
+
+  it("fixture path shows candidate and Morris still required", async () => {
+    const user = userEvent.setup();
+    render(<NouvelleDemandeScreen />);
+    await user.click(screen.getByTestId("vs-qualify-open-confirm"));
+    await user.click(screen.getByTestId("vs-gpt-confirm-fixture"));
+    expect(await screen.findByTestId("vs-qual-authority")).toHaveTextContent(
+      "executionAuthorized=false",
+    );
+    expect(screen.getByTestId("vs-morris-still-required")).toBeInTheDocument();
+    expect(screen.getByTestId("vs-qual-usage")).toHaveTextContent("estimation");
+  });
+
+  it("keeps four routes and no openai sdk in app qualify bridge", () => {
+    expect(STUDIO_ROUTES_ONLY).toHaveLength(4);
+    const src = readFileSync(
+      path.resolve(__dirname, "../lib/harness/qualifyAction.ts"),
+      "utf8",
+    );
+    expect(src).not.toMatch(/from ["']openai["']/);
+    expect(src).not.toMatch(/api\.openai\.com/);
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/e2e/increment-c.spec.ts`
+```typescript
+import { expect, test } from "@playwright/test";
+import fs from "fs";
+import path from "path";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-increment-c",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+test.describe("Increment C — GPT qualification UI", () => {
+  test("confirmation panel before call", async ({ page }) => {
+    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.getByTestId("vs-qualify-open-confirm").click();
+    await expect(page.getByTestId("vs-gpt-confirm-panel")).toBeVisible();
+    await expect(page.getByTestId("vs-gpt-confirm-panel")).toContainText("gpt-5.4-mini");
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-c-before-confirm.png"),
+      fullPage: true,
+    });
+  });
+
+  test("fixture qualification candidate + usage + Morris required", async ({ page }) => {
+    test.setTimeout(90_000);
+    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.getByTestId("vs-qualify-open-confirm").click();
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-c-confirm-panel.png"),
+      fullPage: true,
+    });
+    await page.getByTestId("vs-gpt-confirm-fixture").click();
+    await expect(page.getByTestId("vs-qual-loading").or(page.getByTestId("vs-qual-cycle"))).toBeVisible({
+      timeout: 60_000,
+    });
+    await expect(page.getByTestId("vs-qual-cycle")).toBeVisible({ timeout: 60_000 });
+    await expect(page.getByTestId("vs-qual-usage")).toContainText("estimation");
+    await expect(page.getByTestId("vs-morris-still-required")).toBeVisible();
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-c-candidate.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-c-usage-cost.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-c-morris-required.png"),
+      fullPage: true,
+    });
+  });
+});
+
+```
+
+### Diff `projects/sfia-studio/harness/src/cli.ts`
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/increment-b.test.tsx b/projects/sfia-studio/app/__tests__/increment-b.test.tsx
-new file mode 100644
-index 0000000..870bc30
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/increment-b.test.tsx
-@@ -0,0 +1,146 @@
-+import { cleanup, render, screen } from "@testing-library/react";
-+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-+import { readFileSync, readdirSync } from "node:fs";
-+import path from "node:path";
-+import { STUDIO_ROUTES } from "@/lib/navigation";
-+import { STUDIO_ROUTES_ONLY } from "@/lib/vertical-slice";
-+import {
-+  actionForGateConfirm,
-+  buildStudioHarnessRequest,
-+} from "@/lib/harness/buildRequest";
-+import { DecisionScreen } from "@/features/decision/DecisionScreen";
-+
-+const push = vi.fn();
-+let mockPathname = "/decision";
-+let mockSearch = "vs=VS-UX-04";
-+
-+vi.mock("next/navigation", () => ({
-+  useRouter: () => ({ push, replace: vi.fn(), prefetch: vi.fn() }),
-+  usePathname: () => mockPathname,
-+  useSearchParams: () => new URLSearchParams(mockSearch),
-+}));
-+
-+vi.mock("next/link", () => ({
-+  default: ({
-+    children,
-+    href,
-+    ...props
-+  }: {
-+    children: React.ReactNode;
-+    href: string;
-+  }) => (
-+    <a href={href} {...props}>
-+      {children}
-+    </a>
-+  ),
-+}));
-+
-+vi.mock("@/lib/harness/actions", () => ({
-+  runStudioHarness: vi.fn(async () => ({
-+    ok: true,
-+    statusSource: "harness",
-+    mode: "fixture",
-+    canonicalStatus: "CLOSED",
-+    goValid: true,
-+    contractHash: "abc",
-+    correlationId: "corr-test",
-+    proofDir: "/tmp/proof",
-+    events: [
-+      {
-+        eventId: "e1",
-+        eventType: "execution.closed",
-+        timestamp: "2026-07-20T00:00:00Z",
-+        requestId: "r",
-+        correlationId: "c",
-+        result: "completed",
-+      },
-+    ],
-+    report: { ok: true },
-+    proofPack: { ok: true, missing: [], present: ["summary.json"], integrityNotes: [] },
-+    reserves: [],
-+    timestamps: { completedAt: "2026-07-20T00:00:00Z" },
-+    realGptClaimed: false,
-+    realCursorClaimed: false,
-+    remoteGitWrite: false,
-+  })),
-+}));
-+
-+afterEach(() => {
-+  cleanup();
-+  push.mockClear();
-+});
-+
-+beforeEach(() => {
-+  mockPathname = "/decision";
-+  mockSearch = "vs=VS-UX-04";
-+});
-+
-+describe("Increment B — adapter mapping (no authority)", () => {
-+  it("buildStudioHarnessRequest never invents GO validation fields as authority", () => {
-+    const req = buildStudioHarnessRequest("run-fixture");
-+    expect(req.action).toBe("run-fixture");
-+    expect(req.morrisDecision).toBe("GO");
-+    const src = readFileSync(
-+      path.resolve(__dirname, "../lib/harness/buildRequest.ts"),
-+      "utf8",
-+    );
-+    expect(src).not.toMatch(/GateValidator/);
-+    expect(src).not.toMatch(/contractHash\s*===/);
-+  });
-+
-+  it("maps GO-INVALID to probe-invalid-head", () => {
-+    expect(
-+      actionForGateConfirm({ gateAction: "GO", stateId: "VS-UX-VAR-GO-INVALID" }),
-+    ).toBe("probe-invalid-head");
-+  });
-+
-+  it("keeps exactly four routes", () => {
-+    expect(STUDIO_ROUTES).toHaveLength(4);
-+    expect(STUDIO_ROUTES_ONLY).toHaveLength(4);
-+  });
-+});
-+
-+describe("Increment B — Studio derives harness status", () => {
-+  it("renders harness panel and fixture labels on decision", () => {
-+    render(<DecisionScreen />);
-+    expect(screen.getByTestId("vs-harness-idle")).toBeInTheDocument();
-+    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent("Incrément B");
-+    expect(screen.getByTestId("vs-status-source")).toBeInTheDocument();
-+  });
-+});
-+
-+describe("Increment B — no live / no openai in app bridge", () => {
-+  it("invokeHarness and actions contain no OpenAI or live cursor calls", () => {
-+    const files = [
-+      "../lib/harness/invokeHarness.ts",
-+      "../lib/harness/actions.ts",
-+      "../lib/harness/buildRequest.ts",
-+    ];
-+    for (const rel of files) {
-+      const text = readFileSync(path.resolve(__dirname, rel), "utf8");
-+      expect(text).not.toMatch(/api\.openai\.com/i);
-+      expect(text).not.toMatch(/from ["']openai["']/);
-+      expect(text).not.toMatch(/SFIA_CURSOR_REAL_SPIKE\s*=\s*["']1["']/);
-+      expect(text).not.toMatch(/git push/);
-+    }
-+  });
-+
-+  it("Studio P0 routes remain exactly four (no new feature route)", () => {
-+    expect(STUDIO_ROUTES_ONLY).toEqual([
-+      "/nouvelle-demande",
-+      "/decision",
-+      "/cycle-actif",
-+      "/synthese",
-+    ]);
-+    const appDir = path.resolve(__dirname, "../app");
-+    const featurePages = readdirSync(appDir, { withFileTypes: true })
-+      .filter((d) => d.isDirectory())
-+      .map((d) => d.name)
-+      .filter((name) =>
-+        ["nouvelle-demande", "decision", "cycle-actif", "synthese"].includes(name),
-+      );
-+    expect(featurePages.sort()).toEqual(
-+      ["cycle-actif", "decision", "nouvelle-demande", "synthese"].sort(),
-+    );
-+  });
-+});
-diff --git a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
-index 17dea54..c02deea 100644
---- a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
-+++ b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
-@@ -12,7 +12,7 @@ export function VsDemoChrome() {
-   return (
-     <div className={styles.chrome} data-testid="vs-demo-chrome">
-       <div className={styles.banner} role="status" data-testid="vs-demo-banner">
--        <strong>Incrément A — cockpit statique gouverné</strong>
-+        <strong>Incrément B — cockpit raccordé harness (fixture)</strong>
-         <span>{vsFixture.demoLabel}</span>
-         <span>{vsFixture.noLiveLabel}</span>
-       </div>
-diff --git a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-index c273f56..108953a 100644
---- a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-+++ b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-@@ -1,7 +1,16 @@
- import { vsFixture } from "@/fixtures/vertical-slice";
-+import type { StudioHarnessView } from "@/lib/harness/types";
-+import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
- import styles from "./vs-panels.module.css";
- 
- export function IdStrip() {
-+  const { harnessView } = useVsDemo();
-+  const source = harnessView?.statusSource
-+    ? `harness (${harnessView.mode})`
-+    : vsFixture.sourceStatus;
-+  const hash = harnessView?.contractHash ?? vsFixture.contractHash;
-+  const corr = harnessView?.correlationId ?? vsFixture.correlationId;
-+
-   return (
-     <dl className={styles.idStrip} data-testid="vs-id-strip">
-       <div>
-@@ -10,7 +19,7 @@ export function IdStrip() {
-       </div>
-       <div>
-         <dt>correlationId</dt>
--        <dd>{vsFixture.correlationId}</dd>
-+        <dd>{corr}</dd>
-       </div>
-       <div>
-         <dt>contractId</dt>
-@@ -18,7 +27,7 @@ export function IdStrip() {
-       </div>
-       <div>
-         <dt>contractHash</dt>
--        <dd>{vsFixture.contractHash}</dd>
-+        <dd>{hash.length > 24 ? `${hash.slice(0, 20)}…` : hash}</dd>
-       </div>
-       <div>
-         <dt>Branche</dt>
-@@ -30,18 +39,94 @@ export function IdStrip() {
-       </div>
-       <div>
-         <dt>Source statut</dt>
--        <dd>{vsFixture.sourceStatus}</dd>
-+        <dd data-testid="vs-status-source">{source}</dd>
-       </div>
-       <div>
-         <dt>Horodatage</dt>
-         <dd>
--          {vsFixture.timestamp} ({vsFixture.timezone})
-+          {harnessView?.timestamps.completedAt ?? vsFixture.timestamp} (
-+          {vsFixture.timezone})
-         </dd>
-       </div>
-     </dl>
-   );
- }
- 
-+export function HarnessStatusPanel() {
-+  const { harnessView, harnessBusy, resumeFromHarness } = useVsDemo();
-+  if (harnessBusy) {
-+    return (
-+      <aside className={styles.finops} data-testid="vs-harness-busy">
-+        <p>Transmission harness (fixture)…</p>
-+      </aside>
-+    );
-+  }
-+  if (!harnessView) {
-+    return (
-+      <aside className={styles.finops} data-testid="vs-harness-idle">
-+        <p className={styles.finopsTitle}>Harness (Increment B)</p>
-+        <p>Aucun cycle harness encore — simulation / fixture uniquement.</p>
-+        <p className={styles.muted}>Aucun GPT live · aucun Cursor live</p>
-+        <button type="button" data-testid="vs-resume" onClick={resumeFromHarness}>
-+          Reprendre depuis journal harness
-+        </button>
-+      </aside>
-+    );
-+  }
-+  return <HarnessViewCard view={harnessView} onResume={resumeFromHarness} />;
-+}
-+
-+function HarnessViewCard({
-+  view,
-+  onResume,
-+}: {
-+  view: StudioHarnessView;
-+  onResume: () => void;
-+}) {
-+  const last = view.events[view.events.length - 1];
-+  return (
-+    <aside className={styles.finops} data-testid="vs-harness-panel">
-+      <p className={styles.finopsTitle}>État dérivé harness (fixture)</p>
-+      <p>
-+        Statut canonique :{" "}
-+        <strong data-testid="vs-harness-status">{view.canonicalStatus}</strong>
-+      </p>
-+      <p>
-+        GO valide :{" "}
-+        <strong data-testid="vs-go-valid">{view.goValid ? "oui" : "non"}</strong>
-+      </p>
-+      <p data-testid="vs-harness-mode">Mode : {view.mode} · source : {view.statusSource}</p>
-+      {view.errorCode ? (
-+        <p data-testid="vs-harness-error">
-+          Refus / écart : {view.errorCode}
-+          {view.refusalReason ? ` — ${view.refusalReason}` : ""}
-+        </p>
-+      ) : null}
-+      {view.stopOrTimeout ? (
-+        <p data-testid="vs-stop-timeout">Classe : {view.stopOrTimeout}</p>
-+      ) : null}
-+      {last ? (
-+        <p data-testid="vs-last-event">
-+          Dernier événement : {last.eventType} ({last.result ?? "—"})
-+        </p>
-+      ) : null}
-+      <p data-testid="vs-report-flag">
-+        Rapport : {view.report ? "disponible" : "absent"}
-+      </p>
-+      <p data-testid="vs-proof-flag">
-+        Pack preuves :{" "}
-+        {view.proofPack?.ok
-+          ? "complet"
-+          : `incomplet (${view.proofPack?.missing.join(", ") || "n/a"})`}
-+      </p>
-+      <p className={styles.muted}>Aucun GPT/Cursor live · aucune écriture Git distante</p>
-+      <button type="button" data-testid="vs-resume" onClick={onResume}>
-+        Reprendre depuis journal harness
-+      </button>
-+    </aside>
-+  );
-+}
-+
- export function FinOpsBox({
-   phase,
-   calls,
-diff --git a/projects/sfia-studio/app/e2e/increment-b.spec.ts b/projects/sfia-studio/app/e2e/increment-b.spec.ts
-new file mode 100644
-index 0000000..e8b0aca
---- /dev/null
-+++ b/projects/sfia-studio/app/e2e/increment-b.spec.ts
-@@ -0,0 +1,98 @@
-+import { expect, test } from "@playwright/test";
-+import fs from "fs";
-+import path from "path";
-+
-+const screenshotDir = path.join(
-+  __dirname,
-+  "../../../../.tmp-sfia-review/screenshots-increment-b",
-+);
-+
-+test.beforeAll(() => {
-+  fs.mkdirSync(screenshotDir, { recursive: true });
-+});
-+
-+test.describe("Increment B — harness-derived cockpit", () => {
-+  test("decision shows harness panel and four routes only", async ({ page }) => {
-+    await page.goto("/decision?vs=VS-UX-04");
-+    await expect(page.getByTestId("vs-demo-banner")).toContainText("Incrément B");
-+    await expect(page.getByTestId("vs-harness-idle")).toBeVisible();
-+    await expect(page.getByTestId("vs-status-source")).toBeVisible();
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-gate-valide-idle.png"),
-+      fullPage: true,
-+    });
-+  });
-+
-+  test("GO confirm runs fixture harness and shows derived status", async ({ page }) => {
-+    test.setTimeout(90_000);
-+    await page.goto("/decision?vs=VS-UX-04");
-+    await page.getByTestId("vs-gate-GO").click();
-+    await page.getByTestId("vs-gate-confirm").click();
-+    // Nominal GO navigates to cycle-actif; harness view is persisted in sessionStorage.
-+    await expect(page).toHaveURL(/cycle-actif/, { timeout: 60_000 });
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-+    await expect(page.getByTestId("vs-status-source")).toContainText("harness");
-+    await expect(page.getByTestId("vs-go-valid")).toContainText("oui");
-+    await expect(page.getByTestId("vs-report-flag")).toContainText("disponible");
-+    await expect(page.getByTestId("vs-proof-flag")).toContainText("complet");
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-execution-fixture.png"),
-+      fullPage: true,
-+    });
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-rapport-preuves.png"),
-+      fullPage: true,
-+    });
-+    await page.getByTestId("vs-resume").click();
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-+    await expect(page.getByTestId("vs-harness-status")).toBeVisible();
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-reprise-session.png"),
-+      fullPage: true,
-+    });
-+  });
-+
-+  test("GO invalid probe refuses without success", async ({ page }) => {
-+    await page.goto("/decision?vs=VS-UX-04");
-+    await page.getByRole("button", { name: /Simuler GO invalide/i }).click();
-+    await page.getByTestId("vs-gate-GO").click();
-+    await page.getByTestId("vs-gate-confirm").click();
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-+    await expect(page.getByTestId("vs-go-valid")).toContainText("non");
-+    await expect(page.getByTestId("vs-harness-error")).toBeVisible();
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-go-invalide.png"),
-+      fullPage: true,
-+    });
-+  });
-+
-+  test("STOP via cycle harness is distinct", async ({ page }) => {
-+    await page.goto("/cycle-actif?vs=VS-UX-05");
-+    await page.getByTestId("vs-stop-execution").click();
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-+    await expect(page.getByTestId("vs-stop-timeout")).toContainText("STOP");
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-stop.png"),
-+      fullPage: true,
-+    });
-+  });
-+
-+  test("synthese shows derived closure from harness when resumed", async ({ page }) => {
-+    test.setTimeout(90_000);
-+    await page.goto("/decision?vs=VS-UX-04");
-+    await page.getByTestId("vs-gate-GO").click();
-+    await page.getByTestId("vs-gate-confirm").click();
-+    await expect(page).toHaveURL(/cycle-actif/, { timeout: 60_000 });
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-+    await page.goto("/synthese?vs=VS-UX-10");
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 30_000 });
-+    await page.getByTestId("vs-resume").click();
-+    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-+    await expect(page.getByTestId("vs-cycle-summary")).toContainText(/harness|CLOSED|fixture/i);
-+    await page.screenshot({
-+      path: path.join(screenshotDir, "inc-b-cloture-derivee.png"),
-+      fullPage: true,
-+    });
-+  });
-+});
-+
-diff --git a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
-index 72d3a64..7cd9fc1 100644
---- a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
-+++ b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
-@@ -2,7 +2,12 @@
- 
- import { CtaButton } from "@/components/ui/CtaButton";
- import { StatusPill } from "@/components/ui/StatusPill";
--import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
-+import {
-+  FinOpsBox,
-+  HarnessStatusPanel,
-+  IdStrip,
-+  VariantBanner,
-+} from "@/components/vertical-slice/VsShared";
- import { vsFixture } from "@/fixtures/vertical-slice";
- import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
- import styles from "@/components/vertical-slice/vs-panels.module.css";
-@@ -24,15 +29,16 @@ export function VsCycleActifScreen() {
-   return (
-     <div className={styles.panel} data-testid="vs-cycle-actif">
-       <IdStrip />
-+      <HarnessStatusPanel />
- 
-       {stateId === "VS-UX-VAR-STOP" || stopFired ? (
-         <VariantBanner tone="stop" title="STOP Morris — prioritaire">
-           <p>
--            Exécution <strong>stoppée</strong>. STOP ≠ NO-GO ≠ Abandonner. Event mock
--            journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
-+            Exécution <strong>stoppée</strong> via harness. STOP ≠ NO-GO ≠ Abandonner.
-+            Event journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
-           </p>
-           <p className={styles.muted}>
--            eventId=evt-stop-mock · {vsFixture.timestamp}
-+            Source statut = harness · fixture · {vsFixture.timestamp}
-           </p>
-         </VariantBanner>
-       ) : null}
-diff --git a/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx b/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
-index e24e124..6a2d237 100644
---- a/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
-+++ b/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
-@@ -2,7 +2,11 @@
- 
- import { CtaButton } from "@/components/ui/CtaButton";
- import { StatusPill } from "@/components/ui/StatusPill";
--import { IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
-+import {
-+  HarnessStatusPanel,
-+  IdStrip,
-+  VariantBanner,
-+} from "@/components/vertical-slice/VsShared";
- import { vsFixture } from "@/fixtures/vertical-slice";
- import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
- import type { VsFinalAction, VsGateAction } from "@/lib/vertical-slice/types";
-@@ -17,12 +21,12 @@ const gateOptions: {
-   {
-     action: "GO",
-     title: "GO",
--    subtitle: "Autoriser l'exécution sandbox après revalidation harness (mock)",
-+    subtitle: "Autoriser l'exécution fixture — revalidation GO côté harness",
-   },
-   {
-     action: "NO-GO",
-     title: "NO-GO",
--    subtitle: "Refuser l'exécution — clôture négative sans spawn",
-+    subtitle: "Refuser l'exécution — refus harness, pas de faux succès",
-   },
-   {
-     action: "CORRIGER",
-@@ -89,6 +93,7 @@ export function VsDecisionScreen() {
-   return (
-     <div className={styles.panel} data-testid="vs-decision">
-       <IdStrip />
-+      <HarnessStatusPanel />
- 
-       {isGoInvalid ? (
-         <VariantBanner tone="warn" title="GO invalide — ancrage divergé">
-diff --git a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
-index 4f967d6..62dbba5 100644
---- a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
-+++ b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
-@@ -2,7 +2,12 @@
- 
- import { CtaButton } from "@/components/ui/CtaButton";
- import { StatusPill } from "@/components/ui/StatusPill";
--import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
-+import {
-+  FinOpsBox,
-+  HarnessStatusPanel,
-+  IdStrip,
-+  VariantBanner,
-+} from "@/components/vertical-slice/VsShared";
- import { vsFixture } from "@/fixtures/vertical-slice";
- import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
- import styles from "@/components/vertical-slice/vs-panels.module.css";
-@@ -13,6 +18,7 @@ export function VsNouvelleDemandeScreen() {
-   return (
-     <div className={styles.panel} data-testid="vs-nouvelle-demande">
-       <IdStrip />
-+      <HarnessStatusPanel />
- 
-       {stateId === "VS-UX-VAR-LOADING" || stateId === "VS-UX-02" ? (
-         <VariantBanner tone="info" title="Loading — qualification GPT (fixture)">
-diff --git a/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx b/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
-index dbd1707..79df007 100644
---- a/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
-+++ b/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
-@@ -1,17 +1,23 @@
- "use client";
- 
- import { StatusPill } from "@/components/ui/StatusPill";
--import { IdStrip } from "@/components/vertical-slice/VsShared";
-+import { HarnessStatusPanel, IdStrip } from "@/components/vertical-slice/VsShared";
- import { vsFixture } from "@/fixtures/vertical-slice";
- import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
- import styles from "@/components/vertical-slice/vs-panels.module.css";
- 
- export function VsSyntheseScreen() {
--  const { abandoned, finalAction } = useVsDemo();
-+  const { abandoned, finalAction, harnessView } = useVsDemo();
-+  const finalStatus = harnessView
-+    ? `dérivé harness · ${harnessView.canonicalStatus} (${harnessView.mode})`
-+    : abandoned
-+      ? "abandonné"
-+      : vsFixture.summary.finalStatus;
- 
-   return (
-     <div className={styles.panel} data-testid="vs-synthese">
-       <IdStrip />
-+      <HarnessStatusPanel />
- 
-       <section className={styles.hero} aria-labelledby="vs-close-hero">
-         <p className={styles.heroEyebrow}>CLÔTURE · SLICE COURANT UNIQUEMENT</p>
-@@ -24,8 +30,8 @@ export function VsSyntheseScreen() {
-       </section>
- 
-       <section className={styles.card} data-testid="vs-cycle-summary">
--        <StatusPill tone={abandoned ? "pink" : "greenFlush"}>
--          {abandoned ? "abandonné" : vsFixture.summary.finalStatus}
-+        <StatusPill tone={abandoned || (harnessView && !harnessView.ok) ? "pink" : "greenFlush"}>
-+          {finalStatus}
-         </StatusPill>
-         <p className={styles.fieldLabel}>requestId</p>
-         <p className={styles.fieldValue}>{vsFixture.requestId}</p>
-diff --git a/projects/sfia-studio/app/fixtures/vertical-slice.ts b/projects/sfia-studio/app/fixtures/vertical-slice.ts
-index e8079e3..c933178 100644
---- a/projects/sfia-studio/app/fixtures/vertical-slice.ts
-+++ b/projects/sfia-studio/app/fixtures/vertical-slice.ts
-@@ -10,14 +10,14 @@ export const vsFixture = {
-   correlationId: "corr-vs-poc-001",
-   contractId: "ctr-vs-poc-001",
-   contractHash: "sha256:fixture9f3c2a7b1e8d0456",
--  branch: "delivery/sfia-studio-poc-increment-a",
--  head: "e7502bf2f1791cc4b9639cc1949006d888931f1c",
-+  branch: "delivery/sfia-studio-poc-increment-b",
-+  head: "ee9487797ce44c8d864846030c54fac43ee33611",
-   headInvalidated: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-   allowlist: ["sandbox/vs-poc/output.md"],
-   authority: "Morris (L0)",
-   timezone: "Europe/Paris",
--  timestamp: "2026-07-19T23:16:00+02:00",
--  sourceStatus: "dérivé Studio (fixture)",
-+  timestamp: "2026-07-20T00:10:00+02:00",
-+  sourceStatus: "dérivé harness (fixture) lorsque raccordé · sinon fixture Studio",
-   gptCalls: {
-     qualification: 1,
-     analysis: 0,
-@@ -49,7 +49,7 @@ export const vsFixture = {
-     label: "Candidat GPT",
-     proven: ["Fichier Markdown mock présent dans allowlist"],
-     notProven: ["Exécution Cursor réelle", "Intégration harness"],
--    gaps: ["Adaptateur Studio↔harness absent (Incr. B)"],
-+    gaps: ["Incrément C (live) non démarré"],
-     risks: ["Confusion live / fixture si non étiqueté"],
-     reserves: ["Plafond GPT numérique À définir"],
-     morrisRequired: ["Décision finale humaine", "Aucun claim MVP"],
-@@ -62,8 +62,8 @@ export const vsFixture = {
-     proofRef: "ReviewPackReference#fixture-001",
-     gptCounter: "1 / À définir (qualification) · 0 / À définir (analyse)",
-     reserves: [
--      "Incrément A uniquement",
--      "Pas d’adaptateur",
-+      "Incrément B — raccord fixture harness",
-+      "Adaptateur fin sans autorité",
-       "Pas de live",
-       "Pas de claim MVP / production-ready",
-     ],
-diff --git a/projects/sfia-studio/app/lib/harness/actions.ts b/projects/sfia-studio/app/lib/harness/actions.ts
-new file mode 100644
-index 0000000..5d50a6a
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/harness/actions.ts
-@@ -0,0 +1,11 @@
-+"use server";
-+
-+import { invokeHarnessStudioRun } from "./invokeHarness";
-+import type { StudioHarnessRequest, StudioHarnessView } from "./types";
-+
-+/** Server-only forward to harness CLI. No authority in this layer. */
-+export async function runStudioHarness(
-+  request: StudioHarnessRequest,
-+): Promise<StudioHarnessView> {
-+  return invokeHarnessStudioRun(request);
-+}
-diff --git a/projects/sfia-studio/app/lib/harness/buildRequest.ts b/projects/sfia-studio/app/lib/harness/buildRequest.ts
-new file mode 100644
-index 0000000..138db9e
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/harness/buildRequest.ts
-@@ -0,0 +1,42 @@
-+import { vsFixture } from "@/fixtures/vertical-slice";
-+import type { StudioHarnessAction, StudioHarnessRequest } from "./types";
-+
-+/**
-+ * Pure mapping Studio fixture → adapter payload.
-+ * No GO validation, no policy, no journal writes.
-+ */
-+export function buildStudioHarnessRequest(
-+  action: StudioHarnessAction,
-+  overrides: Partial<StudioHarnessRequest> = {},
-+): StudioHarnessRequest {
-+  return {
-+    requestId: vsFixture.requestId,
-+    correlationId: `${vsFixture.correlationId}-${action}`,
-+    contractId: vsFixture.contractId,
-+    contractHash: vsFixture.contractHash,
-+    branch: "delivery/sfia-studio-poc-increment-b",
-+    head: "ee9487797ce44c8d864846030c54fac43ee33611",
-+    allowlist: ["projects/sfia-studio", "projects/sfia-studio/harness"],
-+    morrisDecision: action === "stop" ? "STOP" : "GO",
-+    decidedAt: new Date().toISOString(),
-+    action,
-+    ...overrides,
-+  };
-+}
-+
-+/** Map UI gate choice to harness action (still no authority). */
-+export function actionForGateConfirm(input: {
-+  gateAction: "GO" | "NO-GO" | "CORRIGER" | "ABANDONNER";
-+  stateId: string;
-+}): StudioHarnessAction | "local-only" {
-+  if (input.gateAction === "ABANDONNER" || input.gateAction === "CORRIGER") {
-+    return "local-only";
-+  }
-+  if (input.gateAction === "NO-GO") {
-+    return "run-fixture"; // morrisDecision overridden by caller
-+  }
-+  if (input.stateId === "VS-UX-VAR-GO-INVALID") {
-+    return "probe-invalid-head";
-+  }
-+  return "run-fixture";
-+}
-diff --git a/projects/sfia-studio/app/lib/harness/index.ts b/projects/sfia-studio/app/lib/harness/index.ts
-new file mode 100644
-index 0000000..b00e32b
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/harness/index.ts
-@@ -0,0 +1,8 @@
-+export type {
-+  StudioHarnessAction,
-+  StudioHarnessRequest,
-+  StudioHarnessView,
-+  StudioHarnessEvent,
-+} from "./types";
-+export { buildStudioHarnessRequest, actionForGateConfirm } from "./buildRequest";
-+export { runStudioHarness } from "./actions";
-diff --git a/projects/sfia-studio/app/lib/harness/invokeHarness.ts b/projects/sfia-studio/app/lib/harness/invokeHarness.ts
-new file mode 100644
-index 0000000..c8d0a7d
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/harness/invokeHarness.ts
-@@ -0,0 +1,95 @@
-+import { execFile } from "node:child_process";
-+import { mkdtempSync, writeFileSync, mkdirSync } from "node:fs";
-+import os from "node:os";
-+import path from "node:path";
-+import { promisify } from "node:util";
-+import type { StudioHarnessRequest, StudioHarnessView } from "./types";
-+
-+const execFileAsync = promisify(execFile);
-+
-+/**
-+ * Thin process boundary: map JSON → harness CLI `studio-run` / `resume-session`.
-+ * Does not validate GO. Does not call live GPT APIs or real Cursor.
-+ */
-+export async function invokeHarnessStudioRun(
-+  request: StudioHarnessRequest,
-+): Promise<StudioHarnessView> {
-+  const harnessRoot = path.resolve(process.cwd(), "../harness");
-+  const work = mkdtempSync(path.join(os.tmpdir(), "sfia-studio-bridge-"));
-+  mkdirSync(work, { recursive: true });
-+  const payloadPath = path.join(work, "payload.json");
-+  writeFileSync(payloadPath, `${JSON.stringify(request, null, 2)}\n`, "utf8");
-+
-+  const tsxBin = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
-+  const cliEntry = path.join(harnessRoot, "src/cli.ts");
-+  const cmd = request.action === "resume" ? "resume-session" : "studio-run";
-+  const cmdArg =
-+    request.action === "resume"
-+      ? (request.proofDir ?? "")
-+      : payloadPath;
-+
-+  if (request.action === "resume" && !request.proofDir) {
-+    return {
-+      ok: false,
-+      statusSource: "harness",
-+      mode: "fixture",
-+      canonicalStatus: "REJECTED",
-+      goValid: false,
-+      errorCode: "RESUME_PROOF_DIR_MISSING",
-+      refusalReason: "proofDir required for resume",
-+      stopOrTimeout: "refusal",
-+      contractHash: request.contractHash,
-+      correlationId: request.correlationId,
-+      proofDir: "",
-+      events: [],
-+      report: null,
-+      reserves: ["Adaptateur sans autorité"],
-+      timestamps: { completedAt: new Date().toISOString() },
-+      realGptClaimed: false,
-+      realCursorClaimed: false,
-+      remoteGitWrite: false,
-+    };
-+  }
-+
-+  try {
-+    const { stdout } = await execFileAsync(
-+      process.execPath,
-+      [tsxBin, cliEntry, cmd, cmdArg],
-+      {
-+        cwd: harnessRoot,
-+        maxBuffer: 12 * 1024 * 1024,
-+        env: { ...process.env, SFIA_CURSOR_REAL_SPIKE: "0" },
-+      },
-+    );
-+    return JSON.parse(stdout) as StudioHarnessView;
-+  } catch (err) {
-+    const e = err as { stdout?: string; stderr?: string; message?: string };
-+    if (e.stdout) {
-+      try {
-+        return JSON.parse(e.stdout) as StudioHarnessView;
-+      } catch {
-+        /* fall through */
-+      }
-+    }
-+    return {
-+      ok: false,
-+      statusSource: "harness",
-+      mode: "fixture",
-+      canonicalStatus: "FAILED",
-+      goValid: false,
-+      errorCode: "ADAPTER_FORWARD_FAILED",
-+      refusalReason: e.stderr || e.message || "harness invoke failed",
-+      stopOrTimeout: "refusal",
-+      contractHash: request.contractHash,
-+      correlationId: request.correlationId,
-+      proofDir: request.proofDir ?? "",
-+      events: [],
-+      report: null,
-+      reserves: ["Adaptateur sans autorité — échec de transmission"],
-+      timestamps: { completedAt: new Date().toISOString() },
-+      realGptClaimed: false,
-+      realCursorClaimed: false,
-+      remoteGitWrite: false,
-+    };
-+  }
-+}
-diff --git a/projects/sfia-studio/app/lib/harness/types.ts b/projects/sfia-studio/app/lib/harness/types.ts
-new file mode 100644
-index 0000000..e4e2a17
---- /dev/null
-+++ b/projects/sfia-studio/app/lib/harness/types.ts
-@@ -0,0 +1,71 @@
-+/** Derived Studio view of harness Incremental B responses (no second truth). */
-+
-+export type StudioHarnessAction =
-+  | "run-fixture"
-+  | "stop"
-+  | "resume"
-+  | "probe-invalid-hash"
-+  | "probe-invalid-branch"
-+  | "probe-invalid-head"
-+  | "probe-invalid-allowlist"
-+  | "probe-missing-decider"
-+  | "probe-timeout"
-+  | "probe-incomplete-report"
-+  | "probe-missing-proof"
-+  | "probe-live-port"
-+  | "probe-write-escape";
-+
-+export interface StudioHarnessRequest {
-+  requestId: string;
-+  correlationId: string;
-+  contractId: string;
-+  contractHash: string;
-+  branch: string;
-+  head: string;
-+  allowlist: string[];
-+  morrisDecision: "GO" | "NO-GO" | "CORRIGER" | "STOP" | "CLOSE";
-+  decidedAt: string;
-+  action: StudioHarnessAction;
-+  proofDir?: string;
-+  decisionId?: string;
-+}
-+
-+export interface StudioHarnessEvent {
-+  eventId: string;
-+  eventType: string;
-+  timestamp: string;
-+  requestId: string;
-+  correlationId: string;
-+  result?: string;
-+  errorCode?: string;
-+  detail?: Record<string, unknown>;
-+}
-+
-+export interface StudioHarnessView {
-+  ok: boolean;
-+  statusSource: "harness";
-+  mode: "fixture" | "simulation";
-+  canonicalStatus: string;
-+  goValid: boolean;
-+  errorCode?: string;
-+  refusalReason?: string;
-+  stopOrTimeout?: "STOP" | "timeout" | "refusal" | null;
-+  contractHash: string;
-+  executionId?: string;
-+  correlationId: string;
-+  proofDir: string;
-+  journalPath?: string;
-+  events: StudioHarnessEvent[];
-+  report?: Record<string, unknown> | null;
-+  proofPack?: {
-+    ok: boolean;
-+    missing: string[];
-+    present: string[];
-+    integrityNotes: string[];
-+  };
-+  reserves: string[];
-+  timestamps: { decidedAt?: string; completedAt: string };
-+  realGptClaimed: false;
-+  realCursorClaimed: false;
-+  remoteGitWrite: false;
-+}
-diff --git a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-index 72530ff..7ee4fc3 100644
---- a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-+++ b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-@@ -11,6 +11,12 @@ import {
- } from "react";
- import { usePathname, useRouter, useSearchParams } from "next/navigation";
- import type { StudioRoute } from "@/lib/navigation";
-+import { runStudioHarness } from "@/lib/harness/actions";
-+import {
-+  actionForGateConfirm,
-+  buildStudioHarnessRequest,
-+} from "@/lib/harness/buildRequest";
-+import type { StudioHarnessView } from "@/lib/harness/types";
- import {
-   defaultStateForRoute,
-   metaFor,
-@@ -23,6 +29,33 @@ import type {
-   VsStateId,
- } from "@/lib/vertical-slice/types";
- 
-+const PROOF_DIR_KEY = "sfia-vs-inc-b-proofDir";
-+const HARNESS_VIEW_KEY = "sfia-vs-inc-b-harnessView";
-+
-+function persistHarness(view: StudioHarnessView | null): void {
-+  if (typeof window === "undefined") return;
-+  if (!view) {
-+    window.sessionStorage.removeItem(HARNESS_VIEW_KEY);
-+    window.sessionStorage.removeItem(PROOF_DIR_KEY);
-+    return;
-+  }
-+  window.sessionStorage.setItem(HARNESS_VIEW_KEY, JSON.stringify(view));
-+  if (view.proofDir) {
-+    window.sessionStorage.setItem(PROOF_DIR_KEY, view.proofDir);
-+  }
-+}
-+
-+function readPersistedHarness(): StudioHarnessView | null {
-+  if (typeof window === "undefined") return null;
-+  const raw = window.sessionStorage.getItem(HARNESS_VIEW_KEY);
-+  if (!raw) return null;
-+  try {
-+    return JSON.parse(raw) as StudioHarnessView;
-+  } catch {
-+    return null;
-+  }
-+}
-+
- interface VsDemoContextValue extends VsDemoUiState {
-   setStateId: (id: VsStateId) => void;
-   selectGateAction: (action: VsGateAction) => void;
-@@ -33,6 +66,7 @@ interface VsDemoContextValue extends VsDemoUiState {
-   selectFinalAction: (action: VsFinalAction) => void;
-   fireStop: () => void;
-   resetDemo: () => void;
-+  resumeFromHarness: () => void;
- }
- 
- const VsDemoContext = createContext<VsDemoContextValue | null>(null);
-@@ -44,6 +78,25 @@ function routeFromPath(pathname: string): StudioRoute {
-   return "/nouvelle-demande";
- }
- 
-+function deriveStateFromHarness(view: StudioHarnessView): VsStateId {
-+  if (view.stopOrTimeout === "STOP") return "VS-UX-VAR-STOP";
-+  if (view.stopOrTimeout === "timeout" || view.errorCode?.includes("TIMEOUT")) {
-+    return "VS-UX-VAR-ERROR";
-+  }
-+  if (
-+    view.errorCode?.includes("HASH") ||
-+    view.errorCode?.includes("BRANCH") ||
-+    view.errorCode?.includes("HEAD") ||
-+    view.errorCode?.includes("ALLOWLIST")
-+  ) {
-+    return "VS-UX-VAR-GO-INVALID";
-+  }
-+  if (view.ok && view.goValid) return "VS-UX-05";
-+  if (view.errorCode === "GATE_NO_GO") return "VS-UX-10";
-+  if (!view.ok) return "VS-UX-VAR-ERROR";
-+  return "VS-UX-05";
-+}
-+
- export function VsDemoProvider({ children }: { children: ReactNode }) {
-   const router = useRouter();
-   const pathname = usePathname() || "/nouvelle-demande";
-@@ -59,6 +112,13 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-   const [abandonConfirmOpen, setAbandonConfirmOpen] = useState(false);
-   const [finalAction, setFinalAction] = useState<VsFinalAction | null>(null);
-   const [stopFired, setStopFired] = useState(false);
-+  const [harnessView, setHarnessView] = useState<StudioHarnessView | null>(null);
-+  const [harnessBusy, setHarnessBusy] = useState(false);
-+
-+  useEffect(() => {
-+    const persisted = readPersistedHarness();
-+    if (persisted) setHarnessView(persisted);
-+  }, []);
- 
-   useEffect(() => {
-     const fromQuery = parseVsQuery(searchParams.get("vs"));
-@@ -73,6 +133,11 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-     // eslint-disable-next-line react-hooks/exhaustive-deps -- sync on route/query only
-   }, [pathname, searchParams]);
- 
-+  const applyHarnessView = useCallback((view: StudioHarnessView) => {
-+    setHarnessView(view);
-+    persistHarness(view);
-+  }, []);
-+
-   const setStateId = useCallback(
-     (id: VsStateId) => {
-       const meta = metaFor(id);
-@@ -116,14 +181,30 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-   const confirmGate = useCallback(() => {
-     if (!gateAction || gateAction === "ABANDONNER") return;
-     setGateConfirmed(true);
--    if (gateAction === "GO") {
--      setStateId("VS-UX-05");
--    } else if (gateAction === "NO-GO") {
--      setStateId("VS-UX-10");
--    } else if (gateAction === "CORRIGER") {
--      setStateId("VS-UX-02");
-+
-+    const mapped = actionForGateConfirm({ gateAction, stateId });
-+    if (mapped === "local-only") {
-+      if (gateAction === "NO-GO") {
-+        setStateId("VS-UX-10");
-+      } else if (gateAction === "CORRIGER") {
-+        setStateId("VS-UX-02");
-+      }
-+      return;
-     }
--  }, [gateAction, setStateId]);
-+
-+    setHarnessBusy(true);
-+    const req = buildStudioHarnessRequest(mapped, {
-+      morrisDecision: gateAction === "NO-GO" ? "NO-GO" : "GO",
-+      action: gateAction === "NO-GO" ? "run-fixture" : mapped,
-+    });
-+
-+    void runStudioHarness(req)
-+      .then((view) => {
-+        applyHarnessView(view);
-+        setStateId(deriveStateFromHarness(view));
-+      })
-+      .finally(() => setHarnessBusy(false));
-+  }, [applyHarnessView, gateAction, setStateId, stateId]);
- 
-   const selectFinalAction = useCallback(
-     (action: VsFinalAction) => {
-@@ -140,8 +221,31 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
- 
-   const fireStop = useCallback(() => {
-     setStopFired(true);
--    setStateId("VS-UX-VAR-STOP");
--  }, [setStateId]);
-+    setHarnessBusy(true);
-+    const req = buildStudioHarnessRequest("stop");
-+    void runStudioHarness(req)
-+      .then((view) => {
-+        applyHarnessView(view);
-+        setStateId("VS-UX-VAR-STOP");
-+      })
-+      .finally(() => setHarnessBusy(false));
-+  }, [applyHarnessView, setStateId]);
-+
-+  const resumeFromHarness = useCallback(() => {
-+    const proofDir =
-+      typeof window !== "undefined"
-+        ? window.sessionStorage.getItem(PROOF_DIR_KEY) ?? undefined
-+        : undefined;
-+    if (!proofDir) return;
-+    setHarnessBusy(true);
-+    const req = buildStudioHarnessRequest("resume", { proofDir });
-+    void runStudioHarness(req)
-+      .then((view) => {
-+        // Resume rebuilds derived view only — no implicit GO, no forced navigation.
-+        applyHarnessView(view);
-+      })
-+      .finally(() => setHarnessBusy(false));
-+  }, [applyHarnessView]);
- 
-   const resetDemo = useCallback(() => {
-     setAbandoned(false);
-@@ -150,6 +254,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-     setAbandonConfirmOpen(false);
-     setFinalAction(null);
-     setStopFired(false);
-+    setHarnessView(null);
-+    persistHarness(null);
-     setStateId("VS-UX-01");
-   }, [setStateId]);
- 
-@@ -162,6 +268,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       abandonConfirmOpen,
-       finalAction,
-       stopFired,
-+      harnessView,
-+      harnessBusy,
-       setStateId,
-       selectGateAction,
-       openAbandonConfirm,
-@@ -171,6 +279,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       selectFinalAction,
-       fireStop,
-       resetDemo,
-+      resumeFromHarness,
-     }),
-     [
-       stateId,
-@@ -180,6 +289,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       abandonConfirmOpen,
-       finalAction,
-       stopFired,
-+      harnessView,
-+      harnessBusy,
-       setStateId,
-       selectGateAction,
-       openAbandonConfirm,
-@@ -189,6 +300,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       selectFinalAction,
-       fireStop,
-       resetDemo,
-+      resumeFromHarness,
-     ],
-   );
- 
-diff --git a/projects/sfia-studio/app/lib/vertical-slice/types.ts b/projects/sfia-studio/app/lib/vertical-slice/types.ts
-index a753c7f..e37eec3 100644
---- a/projects/sfia-studio/app/lib/vertical-slice/types.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice/types.ts
-@@ -1,4 +1,5 @@
- import type { StudioRoute } from "@/lib/navigation";
-+import type { StudioHarnessView } from "@/lib/harness/types";
- 
- /** Dix états fonctionnels + quatre variantes — pas de routes dédiées. */
- export type VsStateId =
-@@ -42,4 +43,7 @@ export interface VsDemoUiState {
-   abandonConfirmOpen: boolean;
-   finalAction: VsFinalAction | null;
-   stopFired: boolean;
-+  /** Derived from harness — never a second authoritative store. */
-+  harnessView: StudioHarnessView | null;
-+  harnessBusy: boolean;
- }
-diff --git a/projects/sfia-studio/app/playwright.config.ts b/projects/sfia-studio/app/playwright.config.ts
-index 98f3659..a4c1df0 100644
---- a/projects/sfia-studio/app/playwright.config.ts
-+++ b/projects/sfia-studio/app/playwright.config.ts
-@@ -18,7 +18,8 @@ export default defineConfig({
-   webServer: {
-     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
-     url: baseURL,
--    reuseExistingServer: !process.env.CI,
-+    // Prefer local reuse: port 3020 is often already served by `npm run dev`.
-+    reuseExistingServer: true,
-     timeout: 180_000,
-   },
- });
-diff --git a/projects/sfia-studio/harness/fixtures/builders.ts b/projects/sfia-studio/harness/fixtures/builders.ts
-index 71eee28..ec840e6 100644
---- a/projects/sfia-studio/harness/fixtures/builders.ts
-+++ b/projects/sfia-studio/harness/fixtures/builders.ts
-@@ -68,6 +68,10 @@ export function makeGo(contract: ExecutionContract, overrides: Partial<GateDecis
-     decidedBy: "Morris",
-     decidedAt: new Date().toISOString(),
-     scope: "projects/sfia-studio",
-+    gitBranch: "delivery/sfia-studio-poc-increment-b",
-+    gitHead: "ee9487797ce44c8d864846030c54fac43ee33611",
-+    allowlistSnapshot: [...contract.allowedPaths],
-+    correlationId: "corr-fixture-001",
-     ...overrides,
-   };
- }
-diff --git a/projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts b/projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts
-new file mode 100644
-index 0000000..cc41026
---- /dev/null
-+++ b/projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts
-@@ -0,0 +1,260 @@
-+import { mkdtempSync } from "node:fs";
-+import os from "node:os";
-+import path from "node:path";
-+import { Orchestrator, type RunInput, type RunResult } from "../orchestrator.js";
-+import { resumeSessionFromProofDir } from "../session/resumeSession.js";
-+import { verifyProofPack } from "../proof/verifyProofPack.js";
-+import { EventJournal } from "../journal/eventJournal.js";
-+import { computeContractHash } from "../hash/contractHash.js";
-+import { makeContract, makeRequest, WORKSPACE_ROOT } from "../../fixtures/builders.js";
-+import type {
-+  GateDecision,
-+  StudioAdapterRequest,
-+  StudioAdapterResponse,
-+} from "../types/contracts.js";
-+import { HarnessError } from "../types/contracts.js";
-+import { ProofStore } from "../proof/proofStore.js";
-+
-+/**
-+ * Thin Studio↔harness adapter (Increment B).
-+ *
-+ * Responsibilities ONLY:
-+ * - map Studio payload → harness RunInput
-+ * - forward to Orchestrator / resume
-+ * - return derived StudioAdapterResponse
-+ *
-+ * NEVER:
-+ * - validate or authorize a GO
-+ * - own policy / gate logic
-+ * - write journal or proofStore directly (harness owns those)
-+ * - call live GPT / Cursor ports
-+ */
-+export class ThinStudioAdapter {
-+  constructor(private readonly orchestrator = new Orchestrator()) {}
-+
-+  async forward(request: StudioAdapterRequest): Promise<StudioAdapterResponse> {
-+    if (request.action === "resume") {
-+      if (!request.proofDir) {
-+        return this.refusalSkeleton(request, "RESUME_PROOF_DIR_MISSING", "proofDir required for resume");
-+      }
-+      return resumeSessionFromProofDir(request.proofDir);
-+    }
-+
-+    const proofDir =
-+      request.proofDir ?? mkdtempSync(path.join(os.tmpdir(), "sfia-studio-inc-b-"));
-+    const contract = makeContract(proofDir, {
-+      contractId: request.contractId,
-+      requestId: request.requestId,
-+      allowedPaths:
-+        request.allowlist.length > 0
-+          ? request.allowlist
-+          : ["projects/sfia-studio", "projects/sfia-studio/harness"],
-+      repositoryRoot: WORKSPACE_ROOT,
-+    });
-+
-+    // Probe scenarios mutate mapping before forward — still no authority here.
-+    let gate = this.mapGate(request, contract);
-+    const runInput = this.mapRunInput(request, contract, gate, proofDir);
-+
-+    if (request.action === "probe-write-escape") {
-+      try {
-+        new ProofStore(proofDir).writeText("../escape-probe.txt", "denied");
-+        return this.refusalSkeleton(request, "PROBE_UNEXPECTED", "escape write unexpectedly allowed");
-+      } catch (err) {
-+        const he = err as HarnessError;
-+        const journal = new EventJournal(proofDir, request.correlationId);
-+        journal.append({
-+          eventType: "security.refusal",
-+          requestId: request.requestId,
-+          result: "denied",
-+          errorCode: he.code,
-+          detail: { message: he.message, source: "harness", probe: "write-escape" },
-+        });
-+        return {
-+          ...this.refusalSkeleton(request, he.code, he.message),
-+          proofDir,
-+          journalPath: journal.filePath,
-+          events: journal.readAll(),
-+          proofPack: verifyProofPack(proofDir),
-+        };
-+      }
-+    }
-+
-+    const result = await this.orchestrator.run(runInput);
-+    return this.toResponse(request, result, gate);
-+  }
-+
-+  /** Pure mapping — no validation. */
-+  mapGate(
-+    request: StudioAdapterRequest,
-+    contract: ReturnType<typeof makeContract>,
-+  ): GateDecision {
-+    const hash = computeContractHash(contract);
-+    const base: GateDecision = {
-+      decisionId: request.decisionId ?? `gate-${request.correlationId}`,
-+      requestId: request.requestId,
-+      contractHash: hash,
-+      decision: request.morrisDecision,
-+      decidedBy: "Morris",
-+      decidedAt: request.decidedAt,
-+      scope: contract.allowedPaths[0] ?? "projects/sfia-studio",
-+      gitBranch: request.branch,
-+      gitHead: request.head,
-+      allowlistSnapshot: [...contract.allowedPaths],
-+      correlationId: request.correlationId,
-+    };
-+
-+    switch (request.action) {
-+      case "stop":
-+        return { ...base, decision: "STOP" };
-+      case "probe-invalid-hash":
-+        return { ...base, contractHash: "0".repeat(64) };
-+      case "probe-invalid-branch":
-+        return { ...base, gitBranch: `${request.branch}-tampered` };
-+      case "probe-invalid-head":
-+        return { ...base, gitHead: "b".repeat(40) };
-+      case "probe-invalid-allowlist":
-+        return { ...base, allowlistSnapshot: ["forbidden/path"] };
-+      case "probe-missing-decider":
-+        return { ...base, decidedBy: "" };
-+      default:
-+        return base;
-+    }
-+  }
-+
-+  mapRunInput(
-+    request: StudioAdapterRequest,
-+    contract: ReturnType<typeof makeContract>,
-+    gate: GateDecision,
-+    proofDir: string,
-+  ): RunInput {
-+    const poc = makeRequest({
-+      requestId: request.requestId,
-+      title: "SFIA Studio Increment B fixture cycle",
-+      cycle: "8",
-+      scope: proofDir,
-+      operator: "Morris",
-+      createdAt: request.decidedAt,
-+    });
-+
-+    const input: RunInput = {
-+      request: poc,
-+      contract,
-+      gate,
-+      expectedBranch: request.branch,
-+      expectedHead: request.head,
-+      revalidateBeforeExecute: true,
-+      studioCorrelationId: request.correlationId,
-+    };
-+
-+    if (request.action === "probe-timeout") {
-+      input.cursorSimulate = "timeout";
-+    }
-+    if (request.action === "probe-incomplete-report") {
-+      input.simulateIncompleteReport = true;
-+    }
-+    if (request.action === "probe-missing-proof") {
-+      input.simulateMissingProof = true;
-+    }
-+    if (request.action === "probe-live-port") {
-+      input.attemptLiveCursor = true;
-+    }
-+    return input;
-+  }
-+
-+  toResponse(
-+    request: StudioAdapterRequest,
-+    result: RunResult,
-+    gate: GateDecision,
-+  ): StudioAdapterResponse {
-+    const journal = new EventJournal(result.proofDir, result.correlationId);
-+    const events = journal.readAll();
-+    const requireSuccess = result.ok && result.terminalState === "CLOSED";
-+    const proofPack = verifyProofPack(result.proofDir, {
-+      requireSuccessArtifacts: requireSuccess,
-+    });
-+    const stopOrTimeout = classify(result.errorCode);
-+    const goValid =
-+      result.ok &&
-+      gate.decision === "GO" &&
-+      !result.errorCode &&
-+      stopOrTimeout === null;
-+
-+    return {
-+      ok: result.ok && proofPack.ok,
-+      statusSource: "harness",
-+      mode: "fixture",
-+      canonicalStatus: result.projectedState ?? result.terminalState,
-+      goValid,
-+      errorCode: result.errorCode,
-+      refusalReason: result.errorCode
-+        ? `Harness refusal: ${result.errorCode}`
-+        : !proofPack.ok
-+          ? `Proof pack incomplete: ${proofPack.missing.join(", ")}`
-+          : undefined,
-+      stopOrTimeout,
-+      contractHash: result.contractHash,
-+      executionId: result.executionId,
-+      correlationId: result.correlationId,
-+      proofDir: result.proofDir,
-+      journalPath: result.journalPath,
-+      events,
-+      report: result.report ?? null,
-+      proofPack,
-+      reserves: [
-+        "Statut source = harness",
-+        "Adaptateur sans autorité",
-+        "Aucun GPT/Cursor live",
-+        "Aucune écriture Git distante",
-+        ...(result.ok ? [] : ["Exécution non réussie — aucun faux succès"]),
-+      ],
-+      timestamps: {
-+        decidedAt: gate.decidedAt,
-+        completedAt: new Date().toISOString(),
-+      },
-+      realGptClaimed: false,
-+      realCursorClaimed: false,
-+      remoteGitWrite: false,
-+    };
-+  }
-+
-+  private refusalSkeleton(
-+    request: StudioAdapterRequest,
-+    code: string,
-+    message: string,
-+  ): StudioAdapterResponse {
-+    return {
-+      ok: false,
-+      statusSource: "harness",
-+      mode: "fixture",
-+      canonicalStatus: "REJECTED",
-+      goValid: false,
-+      errorCode: code,
-+      refusalReason: message,
-+      stopOrTimeout: "refusal",
-+      contractHash: request.contractHash,
-+      correlationId: request.correlationId,
-+      proofDir: request.proofDir ?? "",
-+      events: [],
-+      report: null,
-+      proofPack: { ok: false, missing: [], present: [], integrityNotes: [] },
-+      reserves: ["Adaptateur sans autorité — refus harness"],
-+      timestamps: { decidedAt: request.decidedAt, completedAt: new Date().toISOString() },
-+      realGptClaimed: false,
-+      realCursorClaimed: false,
-+      remoteGitWrite: false,
-+    };
-+  }
-+}
-+
-+function classify(errorCode?: string): "STOP" | "timeout" | "refusal" | null {
-+  if (!errorCode) return null;
-+  if (errorCode === "GATE_STOP" || errorCode === "STOP") return "STOP";
-+  if (errorCode.includes("TIMEOUT")) return "timeout";
-+  return "refusal";
-+}
-+
-+/** Factory used by CLI and autonomous tests — zero React / Studio imports. */
-+export function createThinStudioAdapter(): ThinStudioAdapter {
-+  return new ThinStudioAdapter();
-+}
 diff --git a/projects/sfia-studio/harness/src/cli.ts b/projects/sfia-studio/harness/src/cli.ts
-index 189ddd9..a5c2de7 100644
+index a5c2de7..fafa8c1 100644
 --- a/projects/sfia-studio/harness/src/cli.ts
 +++ b/projects/sfia-studio/harness/src/cli.ts
-@@ -4,7 +4,15 @@ import path from "node:path";
- import { fileURLToPath } from "node:url";
- import { Orchestrator, validateContractOnly } from "./orchestrator.js";
- import { EventJournal } from "./journal/eventJournal.js";
--import type { ExecutionContract, GateDecision, POCRequest } from "./types/contracts.js";
-+import { createThinStudioAdapter } from "./adapter/thinStudioAdapter.js";
-+import { resumeSessionFromProofDir } from "./session/resumeSession.js";
-+import { verifyProofPack } from "./proof/verifyProofPack.js";
-+import type {
-+  ExecutionContract,
-+  GateDecision,
-+  POCRequest,
-+  StudioAdapterRequest,
-+} from "./types/contracts.js";
+@@ -7,12 +7,14 @@ import { EventJournal } from "./journal/eventJournal.js";
+ import { createThinStudioAdapter } from "./adapter/thinStudioAdapter.js";
+ import { resumeSessionFromProofDir } from "./session/resumeSession.js";
+ import { verifyProofPack } from "./proof/verifyProofPack.js";
++import { GptQualificationLivePort, runQualificationFixture } from "./ports/gptQualificationLive.js";
+ import type {
+   ExecutionContract,
+   GateDecision,
+   POCRequest,
+   StudioAdapterRequest,
+ } from "./types/contracts.js";
++import type { QualificationRequestInput } from "./types/qualificationCandidate.js";
  import { computeContractHash } from "./hash/contractHash.js";
  
  function usage(): never {
-@@ -16,6 +24,8 @@ Commands:
-   request-stop <dir>                # same as run-fixture with STOP gate or --stop flag via stop gate
-   inspect-journal <proofDir>
+@@ -26,6 +28,8 @@ Commands:
    verify-proofs <proofDir>
-+  studio-run <payload.json>         # Increment B thin adapter forward (stdout JSON)
-+  resume-session <proofDir>         # Increment B session resume from journal/proofs
+   studio-run <payload.json>         # Increment B thin adapter forward (stdout JSON)
+   resume-session <proofDir>         # Increment B session resume from journal/proofs
++  qualify-fixture <payload.json>    # Increment C qualification fixture (no OpenAI)
++  qualify-live <payload.json>       # Increment C live qualification (requires flags + key)
  `);
    process.exit(2);
  }
-@@ -89,6 +99,7 @@ async function main(): Promise<void> {
-       missing.filter((m) => m !== "summary.json").length === 0 ||
-       (missing.length <= 1 && missing[0] === "summary.json");
-     const journal = new EventJournal(proofDir, "verify");
-+    const pack = verifyProofPack(proofDir);
-     console.log(
-       JSON.stringify(
-         {
-@@ -97,6 +108,7 @@ async function main(): Promise<void> {
-           eventCount: journal.readAll().length,
-           projectedState: journal.projectLastState(),
-           softOk: ok,
-+          proofPack: pack,
-         },
-         null,
-         2,
-@@ -105,6 +117,24 @@ async function main(): Promise<void> {
-     return;
+@@ -135,6 +139,21 @@ async function main(): Promise<void> {
+     process.exit(result.ok ? 0 : 1);
    }
  
-+  if (cmd === "studio-run") {
++  if (cmd === "qualify-fixture" || cmd === "qualify-live") {
 +    const file = args[0];
 +    if (!file) usage();
-+    const payload = JSON.parse(readFileSync(file, "utf8")) as StudioAdapterRequest;
-+    const adapter = createThinStudioAdapter();
-+    const result = await adapter.forward(payload);
-+    console.log(JSON.stringify(result, null, 2));
-+    process.exit(result.ok ? 0 : 1);
-+  }
-+
-+  if (cmd === "resume-session") {
-+    const proofDir = args[0];
-+    if (!proofDir) usage();
-+    const result = resumeSessionFromProofDir(proofDir);
++    const payload = JSON.parse(readFileSync(file, "utf8")) as QualificationRequestInput;
++    if (cmd === "qualify-fixture") {
++      const result = await runQualificationFixture(payload);
++      console.log(JSON.stringify(result, null, 2));
++      process.exit(result.ok ? 0 : 1);
++    }
++    const port = new GptQualificationLivePort();
++    const result = await port.run({ ...payload, live: true });
 +    console.log(JSON.stringify(result, null, 2));
 +    process.exit(result.ok ? 0 : 1);
 +  }
@@ -1611,956 +2130,513 @@ index 189ddd9..a5c2de7 100644
    usage();
  }
  
-diff --git a/projects/sfia-studio/harness/src/gate/gateValidator.ts b/projects/sfia-studio/harness/src/gate/gateValidator.ts
-index 1e2aea0..22518a6 100644
---- a/projects/sfia-studio/harness/src/gate/gateValidator.ts
-+++ b/projects/sfia-studio/harness/src/gate/gateValidator.ts
-@@ -13,6 +13,14 @@ export interface GateValidationFail {
- 
- export type GateValidationResult = GateValidationOk | GateValidationFail;
- 
-+function sameAllowlist(a: string[] | undefined, b: string[] | undefined): boolean {
-+  if (!a || !b) return false;
-+  if (a.length !== b.length) return false;
-+  const sa = [...a].sort();
-+  const sb = [...b].sort();
-+  return sa.every((v, i) => v === sb[i]);
-+}
-+
- export class GateValidator {
-   private consumedDecisionIds = new Set<string>();
- 
-@@ -20,6 +28,10 @@ export class GateValidator {
-     gate: GateDecision;
-     contract: ExecutionContract;
-     expectedHash: string;
-+    /** Current branch at revalidation time (Increment B). */
-+    expectedBranch?: string;
-+    /** Current HEAD at revalidation time (Increment B). */
-+    expectedHead?: string;
-     now?: Date;
-   }): GateValidationResult {
-     const { gate, contract, expectedHash } = input;
-@@ -28,21 +40,61 @@ export class GateValidator {
-     if (gate.requestId !== contract.requestId) {
-       return fail("GATE_REQUEST_MISMATCH", "requestId mismatch");
-     }
--    if (gate.contractHash !== expectedHash) {
--      return fail("GATE_HASH_MISMATCH", "contractHash mismatch");
-+    if (!gate.decision) {
-+      return fail("GATE_DECISION_MISSING", "decision required");
-     }
--    if (gate.decision !== "GO" && gate.decision !== "STOP" && gate.decision !== "CORRIGER" && gate.decision !== "CLOSE") {
-+    if (
-+      gate.decision !== "GO" &&
-+      gate.decision !== "STOP" &&
-+      gate.decision !== "CORRIGER" &&
-+      gate.decision !== "CLOSE" &&
-+      gate.decision !== "NO-GO"
-+    ) {
-       return fail("GATE_DECISION_INVALID", "decision not explicit");
-     }
-     if (!gate.decidedBy || gate.decidedBy.trim() === "") {
--      return fail("GATE_DECIDER_MISSING", "decidedBy required");
-+      return fail("GATE_DECIDER_MISSING", "decidedBy required — Morris decision absent");
-     }
-     const allow = contract.decidedByAllowlist ?? ["Morris"];
-     if (!allow.includes(gate.decidedBy)) {
-       return fail("GATE_DECIDER_UNAUTHORIZED", `decidedBy not allowed: ${gate.decidedBy}`);
-     }
-+
-+    // STOP short-circuits structural GO checks after identity/decider checks
-+    if (gate.decision === "STOP") {
-+      return { ok: true };
-+    }
-+
-+    if (gate.contractHash !== expectedHash) {
-+      return fail("GATE_HASH_MISMATCH", "contractHash mismatch — GO invalidated");
-+    }
-+
-+    if (input.expectedBranch !== undefined) {
-+      if (!gate.gitBranch) {
-+        return fail("GATE_BRANCH_MISSING", "GO missing gitBranch anchor");
-+      }
-+      if (gate.gitBranch !== input.expectedBranch) {
-+        return fail("GATE_BRANCH_MISMATCH", "branch changed — GO invalidated");
-+      }
-+    }
-+
-+    if (input.expectedHead !== undefined) {
-+      if (!gate.gitHead) {
-+        return fail("GATE_HEAD_MISSING", "GO missing gitHead anchor");
-+      }
-+      if (gate.gitHead !== input.expectedHead) {
-+        return fail("GATE_HEAD_MISMATCH", "HEAD changed — GO invalidated");
-+      }
-+    }
-+
-+    if (gate.allowlistSnapshot) {
-+      if (!sameAllowlist(gate.allowlistSnapshot, contract.allowedPaths)) {
-+        return fail("GATE_ALLOWLIST_MISMATCH", "allowlist changed — GO invalidated");
-+      }
-+    }
-+
-     if (this.consumedDecisionIds.has(gate.decisionId) && gate.decision === "GO") {
--      return fail("GATE_REPLAY", "GO already consumed");
-+      return fail("GATE_REPLAY", "GO already consumed — no automatic retry");
-     }
-     const expires = gate.expiresAt ?? contract.gateExpiresAt;
-     if (expires && new Date(expires).getTime() < now.getTime()) {
+
+```
+
+### Diff `projects/sfia-studio/harness/src/index.ts`
+```diff
 diff --git a/projects/sfia-studio/harness/src/index.ts b/projects/sfia-studio/harness/src/index.ts
-index 82383f1..4f641ad 100644
+index 4f641ad..052723b 100644
 --- a/projects/sfia-studio/harness/src/index.ts
 +++ b/projects/sfia-studio/harness/src/index.ts
-@@ -22,4 +22,7 @@ export * from "./ports/e2eSandbox.js";
- export * from "./validation/gptOutputValidator.js";
- export * from "./journal/eventJournal.js";
- export * from "./proof/proofStore.js";
-+export * from "./proof/verifyProofPack.js";
-+export * from "./session/resumeSession.js";
-+export * from "./adapter/thinStudioAdapter.js";
+@@ -26,3 +26,7 @@ export * from "./proof/verifyProofPack.js";
+ export * from "./session/resumeSession.js";
+ export * from "./adapter/thinStudioAdapter.js";
  export * from "./orchestrator.js";
-diff --git a/projects/sfia-studio/harness/src/orchestrator.ts b/projects/sfia-studio/harness/src/orchestrator.ts
-index d9c6041..f21b582 100644
---- a/projects/sfia-studio/harness/src/orchestrator.ts
-+++ b/projects/sfia-studio/harness/src/orchestrator.ts
-@@ -1,4 +1,6 @@
- import { randomUUID } from "node:crypto";
-+import { unlinkSync, existsSync } from "node:fs";
-+import path from "node:path";
- import type {
-   ExecutionContract,
-   GateDecision,
-@@ -9,12 +11,13 @@ import type {
- import { HarnessError } from "./types/contracts.js";
- import { computeContractHash } from "./hash/contractHash.js";
- import { StateMachine } from "./state/machine.js";
--import { GateValidator, assertGateOk } from "./gate/gateValidator.js";
-+import { GateValidator } from "./gate/gateValidator.js";
- import { PolicyEngine } from "./policy/policyEngine.js";
- import { GitReaderImpl, denyWriteOp } from "./ports/gitReaderImpl.js";
- import { CursorExecutorPortFixture } from "./ports/cursorFixture.js";
- import { EventJournal } from "./journal/eventJournal.js";
- import { ProofStore } from "./proof/proofStore.js";
-+import { verifyProofPack } from "./proof/verifyProofPack.js";
++export * from "./types/qualificationCandidate.js";
++export * from "./finops/qualificationLimits.js";
++export * from "./validation/qualificationCandidateValidator.js";
++export * from "./ports/gptQualificationLive.js";
+
+```
+
+### Diff `projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx`
+```diff
+diff --git a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+index 62dbba5..65143eb 100644
+--- a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
++++ b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+@@ -1,5 +1,6 @@
+ "use client";
  
- export interface RunInput {
-   request: POCRequest;
-@@ -23,6 +26,20 @@ export interface RunInput {
-   stopAfterAuthorize?: boolean;
-   cursorSimulate?: "success" | "timeout" | "error";
-   attemptForbiddenGit?: boolean;
-+  /** Current branch for GO anchor revalidation (Increment B). */
-+  expectedBranch?: string;
-+  /** Current HEAD for GO anchor revalidation (Increment B). */
-+  expectedHead?: string;
-+  /** Re-check GO anchors immediately before fixture cursor execution. */
-+  revalidateBeforeExecute?: boolean;
-+  /** Skip writing summary.json — blocks successful proof pack. */
-+  simulateIncompleteReport?: boolean;
-+  /** Remove a core proof artifact after run path — blocks progression. */
-+  simulateMissingProof?: boolean;
-+  /** Attempt to invoke non-fixture cursor mode — must fail closed. */
-+  attemptLiveCursor?: boolean;
-+  /** Prefer Studio correlation when provided (adapter forward). */
-+  studioCorrelationId?: string;
- }
++import { useCallback, useState } from "react";
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+ import {
+@@ -9,37 +10,159 @@ import {
+   VariantBanner,
+ } from "@/components/vertical-slice/VsShared";
+ import { vsFixture } from "@/fixtures/vertical-slice";
++import { runQualificationAction } from "@/lib/harness/qualifyAction";
+ import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+ import styles from "@/components/vertical-slice/vs-panels.module.css";
  
- export interface RunResult {
-@@ -37,6 +54,7 @@ export interface RunResult {
-   cursor?: CursorResult;
-   errorCode?: string;
-   projectedState?: string;
-+  report?: Record<string, unknown> | null;
- }
- 
- export class Orchestrator {
-@@ -44,24 +62,27 @@ export class Orchestrator {
-   readonly policy = new PolicyEngine();
- 
-   async run(input: RunInput): Promise<RunResult> {
--    const correlationId = randomUUID();
-+    const correlationId = input.studioCorrelationId ?? randomUUID();
-     const executionId = randomUUID();
-     const machine = new StateMachine("CREATED");
-     const journal = new EventJournal(input.contract.proofDir, correlationId);
-     const proofs = new ProofStore(input.contract.proofDir);
-     const gitResults: GitCommandResult[] = [];
-+    let report: Record<string, unknown> | null = null;
- 
-     const log = (
-       eventType: string,
-       fields: Partial<Parameters<EventJournal["append"]>[0]> & { result?: string; errorCode?: string },
-     ) => {
-+      const { detail: fieldDetail, ...rest } = fields;
-       journal.append({
-         eventType,
-         requestId: input.request.requestId,
-         executionId,
-         contractHash: computeContractHash(input.contract),
-         stateBefore: machine.current,
--        ...fields,
-+        ...rest,
-+        detail: { source: "harness", ...(fieldDetail ?? {}) },
-       });
-     };
- 
-@@ -80,10 +101,29 @@ export class Orchestrator {
-       log("gate.awaiting", { stateAfter: "AWAITING_GATE", result: "ok" });
- 
-       if (input.gate.decision === "STOP") {
-+        const stopGate = this.gateValidator.validate({
-+          gate: input.gate,
-+          contract: input.contract,
-+          expectedHash: hash,
-+          expectedBranch: input.expectedBranch,
-+          expectedHead: input.expectedHead,
-+        });
-+        if (!stopGate.ok) {
-+          machine.transition("REJECTED");
-+          log("gate.rejected", {
-+            stateAfter: "REJECTED",
-+            result: "rejected",
-+            errorCode: stopGate.code,
-+            detail: { message: stopGate.message },
-+          });
-+          machine.transition("CLOSED");
-+          return finish(false, "CLOSED", hash, stopGate.code);
-+        }
-         machine.transition("STOP_REQUESTED");
--        log("gate.stop", { stateAfter: "STOP_REQUESTED", result: "stop" });
-+        log("gate.stop", { stateAfter: "STOP_REQUESTED", result: "stop", errorCode: "GATE_STOP" });
-         machine.transition("CLOSED");
-         log("execution.closed", { stateAfter: "CLOSED", result: "stopped_before_run" });
-+        proofs.writeJson("stop.json", { reason: "morris_stop", at: new Date().toISOString() });
-         return finish(false, "CLOSED", hash, "GATE_STOP");
-       }
- 
-@@ -91,6 +131,8 @@ export class Orchestrator {
-         gate: input.gate,
-         contract: input.contract,
-         expectedHash: hash,
-+        expectedBranch: input.expectedBranch,
-+        expectedHead: input.expectedHead,
-       });
-       if (!gateResult.ok) {
-         machine.transition("REJECTED");
-@@ -104,6 +146,18 @@ export class Orchestrator {
-         return finish(false, "CLOSED", hash, gateResult.code);
-       }
- 
-+      if (input.gate.decision === "NO-GO") {
-+        machine.transition("REJECTED");
-+        log("gate.rejected", {
-+          stateAfter: "REJECTED",
-+          result: "rejected",
-+          errorCode: "GATE_NO_GO",
-+          detail: { message: "Morris NO-GO — no execution" },
-+        });
-+        machine.transition("CLOSED");
-+        return finish(false, "CLOSED", hash, "GATE_NO_GO");
-+      }
-+
-       if (input.gate.decision !== "GO") {
-         machine.transition("REJECTED");
-         log("gate.rejected", {
-@@ -121,13 +175,29 @@ export class Orchestrator {
- 
-       if (input.stopAfterAuthorize) {
-         machine.transition("STOP_REQUESTED");
--        log("execution.stopped", { stateAfter: "STOP_REQUESTED", result: "stop" });
-+        log("execution.stopped", { stateAfter: "STOP_REQUESTED", result: "stop", errorCode: "STOP" });
-         machine.transition("CLOSED");
-         log("execution.closed", { stateAfter: "CLOSED", result: "stopped" });
-         proofs.writeJson("stop.json", { reason: "explicit_stop", at: new Date().toISOString() });
-         return finish(false, "CLOSED", hash, "STOP");
-       }
- 
-+      if (input.revalidateBeforeExecute) {
-+        const reval = this.revalidateGo(input, hash);
-+        if (!reval.ok) {
-+          machine.transition("REJECTED");
-+          log("gate.revalidation_failed", {
-+            stateAfter: "REJECTED",
-+            result: "rejected",
-+            errorCode: reval.code,
-+            detail: { message: reval.message },
-+          });
-+          machine.transition("CLOSED");
-+          return finish(false, "CLOSED", hash, reval.code);
-+        }
-+        log("gate.revalidated", { stateAfter: "AUTHORIZED", result: "ok" });
-+      }
-+
-       machine.transition("RUNNING");
-       log("execution.running", { stateAfter: "RUNNING", result: "ok" });
- 
-@@ -168,6 +238,28 @@ export class Orchestrator {
-       }
-       proofs.writeJson("git-results.json", gitResults);
- 
-+      if (input.attemptLiveCursor) {
-+        log("security.refusal", {
-+          stateAfter: "RUNNING",
-+          result: "denied",
-+          errorCode: "LIVE_PORT_DENIED",
-+          detail: { message: "Live Cursor port refused — fixtures only" },
-+        });
-+        machine.transition("REJECTED");
-+        log("execution.rejected", {
-+          stateAfter: "REJECTED",
-+          result: "denied",
-+          errorCode: "LIVE_PORT_DENIED",
-+        });
-+        machine.transition("CLOSED");
-+        log("execution.closed", {
-+          stateAfter: "CLOSED",
-+          result: "denied",
-+          errorCode: "LIVE_PORT_DENIED",
-+        });
-+        return finish(false, "CLOSED", hash, "LIVE_PORT_DENIED");
-+      }
-+
-       const cursor = new CursorExecutorPortFixture();
-       const cursorResult = await cursor.execute({
-         requestId: input.request.requestId,
-@@ -186,12 +278,59 @@ export class Orchestrator {
-       });
- 
-       if (!cursorResult.ok) {
-+        // Timeout / error never become success
-         machine.transition("FAILED");
--        log("execution.failed", { stateAfter: "FAILED", result: "failed", errorCode: cursorResult.errorCode });
-+        log("execution.failed", {
-+          stateAfter: "FAILED",
-+          result: "failed",
-+          errorCode: cursorResult.errorCode,
-+        });
-         machine.transition("CLOSED");
-+        log("execution.closed", {
-+          stateAfter: "CLOSED",
-+          result: "failed",
-+          errorCode: cursorResult.errorCode,
-+        });
-         return finish(false, "CLOSED", hash, cursorResult.errorCode, cursorResult);
-       }
- 
-+      if (input.simulateMissingProof) {
-+        const hashPath = path.join(input.contract.proofDir, "contractHash.txt");
-+        if (existsSync(hashPath)) unlinkSync(hashPath);
-+        const pack = verifyProofPack(input.contract.proofDir, { requireSuccessArtifacts: true });
-+        machine.transition("FAILED");
-+        log("proof.incomplete", {
-+          stateAfter: "FAILED",
-+          result: "failed",
-+          errorCode: "PROOF_INCOMPLETE",
-+          detail: { missing: pack.missing },
-+        });
-+        machine.transition("CLOSED");
-+        log("execution.closed", {
-+          stateAfter: "CLOSED",
-+          result: "failed",
-+          errorCode: "PROOF_INCOMPLETE",
-+        });
-+        return finish(false, "CLOSED", hash, "PROOF_INCOMPLETE", cursorResult);
-+      }
-+
-+      if (input.simulateIncompleteReport) {
-+        machine.transition("FAILED");
-+        log("report.incomplete", {
-+          stateAfter: "FAILED",
-+          result: "failed",
-+          errorCode: "REPORT_INCOMPLETE",
-+          detail: { message: "summary.json not written — progression blocked" },
-+        });
-+        machine.transition("CLOSED");
-+        log("execution.closed", {
-+          stateAfter: "CLOSED",
-+          result: "failed",
-+          errorCode: "REPORT_INCOMPLETE",
-+        });
-+        return finish(false, "CLOSED", hash, "REPORT_INCOMPLETE", cursorResult);
-+      }
-+
-       machine.transition("COMPLETED");
-       log("execution.completed", { stateAfter: "COMPLETED", result: "ok" });
-       machine.transition("CLOSED");
-@@ -207,8 +346,11 @@ export class Orchestrator {
-         realCursorClaimed: false,
-         gitEffect: "none-remote",
-         terminalState: "CLOSED",
-+        statusSource: "harness",
-+        mode: "fixture",
-       };
-       proofs.writeJson("summary.json", summary);
-+      report = summary;
-       return finish(true, "CLOSED", hash, undefined, cursorResult);
-     } catch (err) {
-       const he = err as HarnessError;
-@@ -247,9 +389,34 @@ export class Orchestrator {
-         cursor,
-         errorCode,
-         projectedState: journal.projectLastState(),
-+        report,
-       };
-     }
-   }
-+
-+  private revalidateGo(
-+    input: RunInput,
-+    hash: string,
-+  ): { ok: true } | { ok: false; code: string; message: string } {
-+    const gate = input.gate;
-+    if (gate.contractHash !== hash) {
-+      return { ok: false, code: "GATE_HASH_MISMATCH", message: "revalidation hash mismatch" };
-+    }
-+    if (input.expectedBranch !== undefined && gate.gitBranch !== input.expectedBranch) {
-+      return { ok: false, code: "GATE_BRANCH_MISMATCH", message: "revalidation branch mismatch" };
-+    }
-+    if (input.expectedHead !== undefined && gate.gitHead !== input.expectedHead) {
-+      return { ok: false, code: "GATE_HEAD_MISMATCH", message: "revalidation HEAD mismatch" };
-+    }
-+    if (
-+      gate.allowlistSnapshot &&
-+      JSON.stringify([...gate.allowlistSnapshot].sort()) !==
-+        JSON.stringify([...input.contract.allowedPaths].sort())
-+    ) {
-+      return { ok: false, code: "GATE_ALLOWLIST_MISMATCH", message: "revalidation allowlist mismatch" };
-+    }
-+    return { ok: true };
-+  }
- }
- 
- export function validateContractOnly(contract: ExecutionContract): { hash: string } {
-diff --git a/projects/sfia-studio/harness/src/proof/verifyProofPack.ts b/projects/sfia-studio/harness/src/proof/verifyProofPack.ts
-new file mode 100644
-index 0000000..82ec413
---- /dev/null
-+++ b/projects/sfia-studio/harness/src/proof/verifyProofPack.ts
-@@ -0,0 +1,52 @@
-+import { existsSync, readFileSync } from "node:fs";
-+import path from "node:path";
-+import type { ProofPackVerification } from "../types/contracts.js";
-+
-+const CORE_ARTIFACTS = [
-+  "contract.json",
-+  "contractHash.txt",
-+  "request.json",
-+  "gate.json",
-+  "events.jsonl",
-+] as const;
-+
-+const SUCCESS_ARTIFACTS = ["summary.json", "cursor-fixture.json", "git-results.json"] as const;
-+
-+/**
-+ * Verify fixture proof pack completeness against harness proofDir.
-+ * Single source of truth — does not invent a second store.
-+ */
-+export function verifyProofPack(
-+  proofDir: string,
-+  options: { requireSuccessArtifacts?: boolean } = {},
-+): ProofPackVerification {
-+  const required = [
-+    ...CORE_ARTIFACTS,
-+    ...(options.requireSuccessArtifacts ? SUCCESS_ARTIFACTS : []),
-+  ];
-+  const present: string[] = [];
-+  const missing: string[] = [];
-+  for (const name of required) {
-+    if (existsSync(path.join(proofDir, name))) present.push(name);
-+    else missing.push(name);
-+  }
-+  const integrityNotes: string[] = [];
-+  const hashFile = path.join(proofDir, "contractHash.txt");
-+  if (existsSync(hashFile)) {
-+    const hash = readFileSync(hashFile, "utf8").trim();
-+    if (!/^[a-f0-9]{64}$/i.test(hash)) {
-+      integrityNotes.push("contractHash.txt format unexpected");
-+    } else {
-+      integrityNotes.push("contractHash.txt present (sha256 hex)");
-+    }
-+  }
-+  if (existsSync(path.join(proofDir, "events.jsonl"))) {
-+    integrityNotes.push("events.jsonl present (journal canonical)");
-+  }
-+  return {
-+    ok: missing.length === 0,
-+    missing: [...missing],
-+    present,
-+    integrityNotes,
++interface QualCandidateView {
++  summary?: string;
++  proposedCycle?: string;
++  proposedProfile?: string;
++  profileJustification?: string;
++  proposedBlocks?: string[];
++  proposedGates?: string[];
++  risks?: string[];
++  questions?: string[];
++  confidence?: number;
++  reserves?: string[];
++  usage?: {
++    inputTokens?: number;
++    outputTokens?: number;
++    totalTokens?: number;
++    estimatedCostEur?: number;
++    callNumber?: number;
++    costIsEstimate?: boolean;
 +  };
-+}
-diff --git a/projects/sfia-studio/harness/src/session/resumeSession.ts b/projects/sfia-studio/harness/src/session/resumeSession.ts
-new file mode 100644
-index 0000000..56301d2
---- /dev/null
-+++ b/projects/sfia-studio/harness/src/session/resumeSession.ts
-@@ -0,0 +1,86 @@
-+import { existsSync, readFileSync } from "node:fs";
-+import path from "node:path";
-+import { EventJournal } from "../journal/eventJournal.js";
-+import { verifyProofPack } from "../proof/verifyProofPack.js";
-+import type { JournalEvent, StudioAdapterResponse } from "../types/contracts.js";
-+
-+/**
-+ * Rebuild derived Studio view from harness journal/proofs only.
-+ * Never recreates an implicit GO. Never invents success from incomplete state.
-+ */
-+export function resumeSessionFromProofDir(proofDir: string): StudioAdapterResponse {
-+  const journal = new EventJournal(proofDir, "resume");
-+  const events = journal.readAll();
-+  const projected = journal.projectLastState() ?? "UNKNOWN";
-+  const proofPack = verifyProofPack(proofDir, {
-+    requireSuccessArtifacts: projected === "CLOSED" && lastResultIsSuccess(events),
-+  });
-+
-+  let report: Record<string, unknown> | null = null;
-+  const summaryPath = path.join(proofDir, "summary.json");
-+  if (existsSync(summaryPath)) {
-+    report = JSON.parse(readFileSync(summaryPath, "utf8")) as Record<string, unknown>;
-+  }
-+
-+  const lastFail = [...events].reverse().find((e) => e.errorCode || e.result === "rejected" || e.result === "stop");
-+  const errorCode = lastFail?.errorCode;
-+  const stopOrTimeout = classifyStopTimeout(errorCode, lastFail?.result);
-+  const ok = projected === "CLOSED" && !errorCode && proofPack.ok && !!report;
-+  const contractHash =
-+    events.map((e) => e.contractHash).filter(Boolean).at(-1) ??
-+    (existsSync(path.join(proofDir, "contractHash.txt"))
-+      ? readFileSync(path.join(proofDir, "contractHash.txt"), "utf8").trim()
-+      : "");
-+
-+  return {
-+    ok,
-+    statusSource: "harness",
-+    mode: "fixture",
-+    canonicalStatus: projected,
-+    goValid: false,
-+    errorCode,
-+    refusalReason: lastFail?.detail?.message
-+      ? String(lastFail.detail.message)
-+      : errorCode
-+        ? `Resumed with ${errorCode}`
-+        : !ok
-+          ? "Incomplete or non-success session — no implicit GO"
-+          : undefined,
-+    stopOrTimeout,
-+    contractHash,
-+    correlationId: events[0]?.correlationId ?? "resume",
-+    executionId: events.find((e) => e.executionId)?.executionId,
-+    proofDir,
-+    journalPath: journal.filePath,
-+    events,
-+    report,
-+    proofPack,
-+    reserves: [
-+      "État dérivé du journal harness uniquement",
-+      "Aucun GO implicite à la reprise",
-+      "Mode fixture / simulation",
-+    ],
-+    timestamps: {
-+      completedAt: events.at(-1)?.timestamp ?? new Date().toISOString(),
-+    },
-+    realGptClaimed: false,
-+    realCursorClaimed: false,
-+    remoteGitWrite: false,
++  authority?: {
++    candidateOnly?: boolean;
++    morrisDecisionRequired?: boolean;
++    executionAuthorized?: boolean;
 +  };
++  model?: string;
++  candidateId?: string;
 +}
 +
-+function lastResultIsSuccess(events: JournalEvent[]): boolean {
-+  const last = [...events].reverse().find((e) => e.result);
-+  return last?.result === "completed" || last?.result === "ok";
-+}
-+
-+function classifyStopTimeout(
-+  errorCode?: string,
-+  result?: string,
-+): "STOP" | "timeout" | "refusal" | null {
-+  if (!errorCode && result !== "rejected" && result !== "stop") return null;
-+  if (errorCode === "GATE_STOP" || errorCode === "STOP" || result === "stop") return "STOP";
-+  if (errorCode?.includes("TIMEOUT")) return "timeout";
-+  if (errorCode || result === "rejected") return "refusal";
-+  return null;
-+}
-diff --git a/projects/sfia-studio/harness/src/types/contracts.ts b/projects/sfia-studio/harness/src/types/contracts.ts
-index 242a5bc..66ab23d 100644
---- a/projects/sfia-studio/harness/src/types/contracts.ts
-+++ b/projects/sfia-studio/harness/src/types/contracts.ts
-@@ -3,7 +3,7 @@
- export type ScenarioId = "S1";
- export type GitEffect = "none-remote";
- export type CursorMode = "fixture";
--export type GateDecisionKind = "GO" | "CORRIGER" | "STOP" | "CLOSE";
-+export type GateDecisionKind = "GO" | "NO-GO" | "CORRIGER" | "STOP" | "CLOSE";
- 
- export type ExecutionState =
-   | "CREATED"
-@@ -55,6 +55,74 @@ export interface GateDecision {
-   decidedAt: string;
-   scope: string;
-   expiresAt?: string;
-+  /** Anchors captured at GO time — revalidated by harness before fixture execution. */
-+  gitBranch?: string;
-+  gitHead?: string;
-+  allowlistSnapshot?: string[];
-+  correlationId?: string;
-+}
-+
-+/** Studio → thin adapter input (Increment B). Adapter maps/forwards only — no authority. */
-+export interface StudioAdapterRequest {
-+  requestId: string;
-+  correlationId: string;
-+  contractId: string;
-+  /** Claimed hash — harness recomputes and compares; adapter never validates GO. */
-+  contractHash: string;
-+  branch: string;
-+  head: string;
-+  allowlist: string[];
-+  morrisDecision: GateDecisionKind;
-+  decidedAt: string;
-+  action:
-+    | "run-fixture"
-+    | "stop"
-+    | "resume"
-+    | "probe-invalid-hash"
-+    | "probe-invalid-branch"
-+    | "probe-invalid-head"
-+    | "probe-invalid-allowlist"
-+    | "probe-missing-decider"
-+    | "probe-timeout"
-+    | "probe-incomplete-report"
-+    | "probe-missing-proof"
-+    | "probe-live-port"
-+    | "probe-write-escape";
-+  proofDir?: string;
-+  /** Optional claimed decisionId for replay / correlation tests. */
-+  decisionId?: string;
-+}
-+
-+/** Harness → Studio derived view (canonical status source = harness). */
-+export interface StudioAdapterResponse {
-+  ok: boolean;
-+  statusSource: "harness";
-+  mode: "fixture" | "simulation";
-+  canonicalStatus: string;
-+  goValid: boolean;
++interface QualResultView {
++  ok?: boolean;
++  status?: string;
 +  errorCode?: string;
-+  refusalReason?: string;
-+  stopOrTimeout?: "STOP" | "timeout" | "refusal" | null;
-+  contractHash: string;
-+  executionId?: string;
-+  correlationId: string;
-+  proofDir: string;
-+  journalPath?: string;
-+  events: JournalEvent[];
-+  report?: Record<string, unknown> | null;
-+  proofPack?: ProofPackVerification;
-+  reserves: string[];
-+  timestamps: { decidedAt?: string; completedAt: string };
-+  realGptClaimed: false;
-+  realCursorClaimed: false;
-+  remoteGitWrite: false;
++  errorMessage?: string;
++  candidate?: QualCandidateView;
++  liveInvoked?: boolean;
++  durationMs?: number;
 +}
 +
-+export interface ProofPackVerification {
-+  ok: boolean;
-+  missing: string[];
-+  present: string[];
-+  integrityNotes: string[];
- }
+ export function VsNouvelleDemandeScreen() {
+   const { stateId, setStateId, fireStop, abandoned, confirmAbandon } = useVsDemo();
++  const [confirmOpen, setConfirmOpen] = useState(false);
++  const [busy, setBusy] = useState(false);
++  const [result, setResult] = useState<QualResultView | null>(() => {
++    if (typeof window === "undefined") return null;
++    try {
++      const raw = window.sessionStorage.getItem("sfia-vs-inc-c-qual");
++      return raw ? (JSON.parse(raw) as QualResultView) : null;
++    } catch {
++      return null;
++    }
++  });
++  const [demandText] = useState(
++    "Ajouter une authentification administrateur à une application interne existante, sans modifier l’architecture avant validation.",
++  );
++
++  const persistResult = useCallback((r: QualResultView | null) => {
++    setResult(r);
++    if (typeof window === "undefined") return;
++    if (!r) window.sessionStorage.removeItem("sfia-vs-inc-c-qual");
++    else window.sessionStorage.setItem("sfia-vs-inc-c-qual", JSON.stringify(r));
++  }, []);
++
++  const launchQualification = useCallback(
++    (live: boolean) => {
++      setBusy(true);
++      setStateId("VS-UX-VAR-LOADING");
++      void runQualificationAction({
++        requestId: vsFixture.requestId,
++        correlationId: `${vsFixture.correlationId}-qual`,
++        demandText,
++        confirmedByUser: true,
++        live,
++      })
++        .then((raw) => {
++          const r = raw as QualResultView;
++          persistResult(r);
++          if (r.ok && r.candidate) {
++            setStateId("VS-UX-03");
++          } else {
++            setStateId("VS-UX-VAR-ERROR");
++          }
++        })
++        .finally(() => {
++          setBusy(false);
++          setConfirmOpen(false);
++        });
++    },
++    [demandText, persistResult, setStateId],
++  );
++
++  const candidate = result?.candidate;
  
- export interface ExecutionContext {
-diff --git a/projects/sfia-studio/harness/tests/increment-b.test.ts b/projects/sfia-studio/harness/tests/increment-b.test.ts
-new file mode 100644
-index 0000000..0e04ea7
---- /dev/null
-+++ b/projects/sfia-studio/harness/tests/increment-b.test.ts
-@@ -0,0 +1,239 @@
-+import { describe, expect, it } from "vitest";
-+import { readdirSync, readFileSync } from "node:fs";
-+import path from "node:path";
-+import { fileURLToPath } from "node:url";
-+import { mkdtempSync } from "node:fs";
-+import os from "node:os";
-+import { createThinStudioAdapter } from "../src/adapter/thinStudioAdapter.js";
-+import { Orchestrator } from "../src/orchestrator.js";
-+import { GateValidator } from "../src/gate/gateValidator.js";
-+import { computeContractHash } from "../src/hash/contractHash.js";
-+import { resumeSessionFromProofDir } from "../src/session/resumeSession.js";
-+import { verifyProofPack } from "../src/proof/verifyProofPack.js";
-+import { makeContract, makeGo, makeRequest } from "../fixtures/builders.js";
-+import type { StudioAdapterRequest } from "../src/types/contracts.js";
+   return (
+     <div className={styles.panel} data-testid="vs-nouvelle-demande">
+       <IdStrip />
+       <HarnessStatusPanel />
+ 
+-      {stateId === "VS-UX-VAR-LOADING" || stateId === "VS-UX-02" ? (
+-        <VariantBanner tone="info" title="Loading — qualification GPT (fixture)">
+-          <p className={styles.loadingPulse}>
++      {confirmOpen ? (
++        <VariantBanner tone="warn" title="Qualification GPT réelle — confirmation">
++          <ul data-testid="vs-gpt-confirm-panel">
++            <li>Qualification GPT réelle</li>
++            <li>modèle : gpt-5.4-mini</li>
++            <li>maximum : 1 appel · aucun retry automatique</li>
++            <li>limite : 7 500 tokens · budget max estimé : 0,05 €</li>
++            <li>timeout : 30 secondes</li>
++            <li>aucune décision automatique</li>
++          </ul>
++          <div className={styles.actions}>
++            <CtaButton
++              data-testid="vs-gpt-confirm-live"
++              onClick={() => launchQualification(true)}
++              disabled={busy}
++            >
++              Confirmer l&apos;appel GPT réel
++            </CtaButton>
++            <CtaButton
++              variant="secondary"
++              data-testid="vs-gpt-confirm-fixture"
++              onClick={() => launchQualification(false)}
++              disabled={busy}
++            >
++              Utiliser fixture (sans réseau)
++            </CtaButton>
++            <CtaButton variant="secondary" onClick={() => setConfirmOpen(false)}>
++              Annuler
++            </CtaButton>
++          </div>
++        </VariantBanner>
++      ) : null}
 +
-+const HARNESS_SRC = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../src");
-+
-+function tmp(): string {
-+  return mkdtempSync(path.join(os.tmpdir(), "sfia-inc-b-"));
-+}
-+
-+function baseReq(overrides: Partial<StudioAdapterRequest> = {}): StudioAdapterRequest {
-+  return {
-+    requestId: "req-inc-b-001",
-+    correlationId: "corr-inc-b-001",
-+    contractId: "ctr-inc-b-001",
-+    contractHash: "claimed-ignored-by-adapter",
-+    branch: "delivery/sfia-studio-poc-increment-b",
-+    head: "ee9487797ce44c8d864846030c54fac43ee33611",
-+    allowlist: ["projects/sfia-studio", "projects/sfia-studio/harness"],
-+    morrisDecision: "GO",
-+    decidedAt: "2026-07-20T00:10:00+02:00",
-+    action: "run-fixture",
-+    proofDir: tmp(),
-+    ...overrides,
-+  };
-+}
-+
-+describe("Increment B — thin adapter (no authority)", () => {
-+  it("maps and forwards without validating GO itself", async () => {
-+    const adapter = createThinStudioAdapter();
-+    const src = readFileSync(
-+      path.join(HARNESS_SRC, "adapter/thinStudioAdapter.ts"),
-+      "utf8",
-+    );
-+    expect(src).not.toMatch(/GateValidator/);
-+    expect(src).not.toMatch(/assertGateOk/);
-+    expect(src).toMatch(/forward/);
-+    const res = await adapter.forward(baseReq());
-+    expect(res.statusSource).toBe("harness");
-+    expect(res.mode).toBe("fixture");
-+    expect(res.realGptClaimed).toBe(false);
-+    expect(res.realCursorClaimed).toBe(false);
-+    expect(res.remoteGitWrite).toBe(false);
-+    expect(res.ok).toBe(true);
-+    expect(res.goValid).toBe(true);
-+    expect(res.events.length).toBeGreaterThan(3);
-+    expect(res.proofPack?.ok).toBe(true);
-+    expect(res.report).toBeTruthy();
-+  });
-+
-+  it("does not auto-retry after GO consume (replay refused)", async () => {
-+    const adapter = createThinStudioAdapter();
-+    const decisionId = "gate-once-only";
-+    const proof1 = tmp();
-+    const first = await adapter.forward(baseReq({ proofDir: proof1, decisionId }));
-+    expect(first.ok).toBe(true);
-+    const second = await adapter.forward(
-+      baseReq({ proofDir: tmp(), decisionId, correlationId: "corr-retry" }),
-+    );
-+    // Same Orchestrator instance inside adapter — replay blocked
-+    expect(second.ok).toBe(false);
-+    expect(second.errorCode).toBe("GATE_REPLAY");
-+    expect(second.stopOrTimeout).toBe("refusal");
-+  });
-+});
-+
-+describe("Increment B — harness autonomy (no Studio)", () => {
-+  it("src tree has no React imports", () => {
-+    const walk = (dir: string): string[] => {
-+      const out: string[] = [];
-+      for (const ent of readdirSync(dir, { withFileTypes: true })) {
-+        const p = path.join(dir, ent.name);
-+        if (ent.isDirectory()) out.push(...walk(p));
-+        else if (/\.(ts|js)$/.test(ent.name)) out.push(p);
-+      }
-+      return out;
-+    };
-+    for (const file of walk(HARNESS_SRC)) {
-+      const text = readFileSync(file, "utf8");
-+      expect(text).not.toMatch(/from ["']react["']/);
-+      expect(text).not.toMatch(/from ["']react-dom["']/);
-+      expect(text).not.toMatch(/from ["']next\//);
-+      expect(text).not.toMatch(/from ["'][^"']*\/app\//);
-+      expect(text).not.toMatch(/import\(["'][^"']*sfia-studio\/app/);
-+    }
-+  });
-+
-+  it("nominal + invalid GO + STOP + journal + proofs without Studio", async () => {
-+    const orch = new Orchestrator();
-+    const proofOk = tmp();
-+    const c = makeContract(proofOk);
-+    const ok = await orch.run({
-+      request: makeRequest(),
-+      contract: c,
-+      gate: makeGo(c),
-+      expectedBranch: "delivery/sfia-studio-poc-increment-b",
-+      expectedHead: "ee9487797ce44c8d864846030c54fac43ee33611",
-+      revalidateBeforeExecute: true,
-+    });
-+    expect(ok.ok).toBe(true);
-+    expect(verifyProofPack(proofOk, { requireSuccessArtifacts: true }).ok).toBe(true);
-+
-+    const proofBad = tmp();
-+    const c2 = makeContract(proofBad);
-+    const bad = await orch.run({
-+      request: makeRequest(),
-+      contract: c2,
-+      gate: makeGo(c2, { contractHash: "0".repeat(64) }),
-+      expectedBranch: "delivery/sfia-studio-poc-increment-b",
-+      expectedHead: "ee9487797ce44c8d864846030c54fac43ee33611",
-+    });
-+    expect(bad.ok).toBe(false);
-+    expect(bad.errorCode).toBe("GATE_HASH_MISMATCH");
-+
-+    const proofStop = tmp();
-+    const c3 = makeContract(proofStop);
-+    const stop = await orch.run({
-+      request: makeRequest(),
-+      contract: c3,
-+      gate: makeGo(c3, { decision: "STOP", decisionId: "stop-b" }),
-+    });
-+    expect(stop.errorCode).toBe("GATE_STOP");
-+    expect(stop.ok).toBe(false);
-+  });
-+});
-+
-+describe("Increment B — gates & invalidation", () => {
-+  it("rejects branch / HEAD / allowlist / missing Morris", () => {
-+    const dir = tmp();
-+    const c = makeContract(dir);
-+    const v = new GateValidator();
-+    const hash = computeContractHash(c);
-+    const branch = "delivery/sfia-studio-poc-increment-b";
-+    const head = "ee9487797ce44c8d864846030c54fac43ee33611";
-+
-+    expect(
-+      v.validate({
-+        gate: makeGo(c, { gitBranch: "other" }),
-+        contract: c,
-+        expectedHash: hash,
-+        expectedBranch: branch,
-+        expectedHead: head,
-+      }).ok,
-+    ).toBe(false);
-+
-+    expect(
-+      v.validate({
-+        gate: makeGo(c, { gitHead: "a".repeat(40) }),
-+        contract: c,
-+        expectedHash: hash,
-+        expectedBranch: branch,
-+        expectedHead: head,
-+      }).ok,
-+    ).toBe(false);
-+
-+    expect(
-+      v.validate({
-+        gate: makeGo(c, { allowlistSnapshot: ["evil"] }),
-+        contract: c,
-+        expectedHash: hash,
-+        expectedBranch: branch,
-+        expectedHead: head,
-+      }).ok,
-+    ).toBe(false);
-+
-+    expect(
-+      v.validate({
-+        gate: makeGo(c, { decidedBy: "" }),
-+        contract: c,
-+        expectedHash: hash,
-+      }).ok,
-+    ).toBe(false);
-+  });
-+
-+  it("adapter probes refuse without success", async () => {
-+    const adapter = createThinStudioAdapter();
-+    for (const action of [
-+      "probe-invalid-hash",
-+      "probe-invalid-branch",
-+      "probe-invalid-head",
-+      "probe-invalid-allowlist",
-+      "probe-missing-decider",
-+      "probe-timeout",
-+      "probe-incomplete-report",
-+      "probe-missing-proof",
-+      "probe-live-port",
-+      "probe-write-escape",
-+    ] as const) {
-+      const res = await adapter.forward(baseReq({ action, proofDir: tmp() }));
-+      expect(res.ok, action).toBe(false);
-+      expect(res.canonicalStatus === "CLOSED" || res.canonicalStatus === "REJECTED", action).toBe(
-+        true,
-+      );
-+      if (action === "probe-timeout") {
-+        expect(res.stopOrTimeout).toBe("timeout");
-+        expect(res.errorCode).toMatch(/TIMEOUT/);
-+      }
-+      if (action === "stop" as never) {
-+        /* n/a */
-+      }
-+    }
-+    const stop = await adapter.forward(baseReq({ action: "stop", proofDir: tmp() }));
-+    expect(stop.ok).toBe(false);
-+    expect(stop.stopOrTimeout).toBe("STOP");
-+  });
-+});
-+
-+describe("Increment B — session resume", () => {
-+  it("reconstructs state from journal without implicit GO", async () => {
-+    const adapter = createThinStudioAdapter();
-+    const proofDir = tmp();
-+    const run = await adapter.forward(baseReq({ proofDir }));
-+    expect(run.ok).toBe(true);
-+    const resumed = resumeSessionFromProofDir(proofDir);
-+    expect(resumed.statusSource).toBe("harness");
-+    expect(resumed.canonicalStatus).toBe("CLOSED");
-+    expect(resumed.goValid).toBe(false);
-+    expect(resumed.events.length).toBeGreaterThan(0);
-+    expect(resumed.report).toBeTruthy();
-+
-+    const stoppedDir = tmp();
-+    await adapter.forward(baseReq({ action: "stop", proofDir: stoppedDir }));
-+    const resumedStop = resumeSessionFromProofDir(stoppedDir);
-+    expect(resumedStop.ok).toBe(false);
-+    expect(resumedStop.stopOrTimeout).toBe("STOP");
-+    expect(resumedStop.refusalReason).toBeTruthy();
-+  });
-+});
++      {stateId === "VS-UX-VAR-LOADING" || busy ? (
++        <VariantBanner tone="info" title="Loading — qualification GPT">
++          <p className={styles.loadingPulse} data-testid="vs-qual-loading">
+             <span className={styles.loadingDot} aria-hidden />
+-            Phase active : qualification — aucune fausse barre de progression
++            Qualification en cours — fail-closed · aucun retry automatique
+           </p>
+-          <FinOpsBox phase="qualification" calls={vsFixture.gptCalls.qualification} />
++          <FinOpsBox phase="qualification" calls={candidate?.usage?.callNumber ?? 1} />
+         </VariantBanner>
+       ) : null}
+ 
+       {stateId === "VS-UX-VAR-ERROR" ? (
+-        <VariantBanner tone="error" title="Erreur fail-closed — sortie GPT invalide">
+-          <p>
+-            Sortie GPT rejetée (fail-closed). Aucune progression automatique vers le
+-            gate. Correction ou abandon uniquement.
++        <VariantBanner tone="error" title="Erreur fail-closed — qualification refusée">
++          <p data-testid="vs-qual-error">
++            {result?.errorCode ?? "INVALID_RESPONSE"}
++            {result?.errorMessage ? ` — ${result.errorMessage}` : ""}
+           </p>
++          <p>Aucune QualificationCandidate exploitable. Aucun GO implicite.</p>
+           <div className={styles.actions}>
+-            <CtaButton onClick={() => setStateId("VS-UX-02")}>
+-              Demander une correction
+-            </CtaButton>
++            <CtaButton onClick={() => setConfirmOpen(true)}>Nouvelle tentative explicite</CtaButton>
+             <CtaButton variant="danger" onClick={() => setStateId("VS-UX-01")}>
+               Abandonner avant qualification
+             </CtaButton>
+@@ -48,36 +171,39 @@ export function VsNouvelleDemandeScreen() {
+       ) : null}
+ 
+       <section className={styles.hero} aria-labelledby="vs-nd-hero">
+-        <p className={styles.heroEyebrow}>VERTICAL SLICE · INCREMENT A</p>
++        <p className={styles.heroEyebrow}>VERTICAL SLICE · INCREMENT C</p>
+         <h2 id="vs-nd-hero" className={styles.heroTitle}>
+           {stateId === "VS-UX-03"
+-            ? "Qualification proposée — revue avant gate"
++            ? candidate
++              ? "QualificationCandidate — revue Morris requise"
++              : "Qualification proposée — revue avant gate"
+             : stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING"
+-              ? "Qualification en cours (simulée)"
+-              : "Nouvelle demande de preuve Markdown"}
++              ? "Qualification en cours"
++              : "Nouvelle demande — qualification GPT bornée"}
+         </h2>
+         <p className={styles.heroText}>
+-          Saisie et qualification mockées. Aucun appel réseau live. Studio reste une
+-          vue dérivée.
++          GPT réel = candidate uniquement. Décision Morris distincte. Aucun Cursor live.
++          Aucune écriture Git distante.
+         </p>
+       </section>
+ 
+       <div className={styles.twoCol}>
+         <section className={styles.card} aria-labelledby="vs-request-title">
+-          <p className={styles.fieldLabel}>StudioRequest (fixture)</p>
++          <p className={styles.fieldLabel}>StudioRequest</p>
+           <h2 id="vs-request-title" className={styles.cardTitle}>
+             {vsFixture.request.title}
+           </h2>
+-          <p className={styles.fieldLabel}>Synthèse</p>
+-          <p className={styles.fieldValue}>{vsFixture.request.summary}</p>
+-          <p className={styles.fieldLabel}>IDs visibles</p>
+-          <p className={styles.fieldValue}>
+-            {vsFixture.requestId} · {vsFixture.correlationId}
++          <p className={styles.fieldLabel}>Demande (synthétique)</p>
++          <p className={styles.fieldValue} data-testid="vs-demand-text">
++            {demandText}
+           </p>
+           <div className={styles.actions}>
+             {(stateId === "VS-UX-01" || abandoned) && (
+               <>
+-                <CtaButton onClick={() => setStateId("VS-UX-02")}>
++                <CtaButton
++                  data-testid="vs-qualify-open-confirm"
++                  onClick={() => setConfirmOpen(true)}
++                >
+                   Qualifier la demande
+                 </CtaButton>
+                 <CtaButton
+@@ -92,11 +218,8 @@ export function VsNouvelleDemandeScreen() {
+                 </CtaButton>
+               </>
+             )}
+-            {(stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING") && (
++            {(stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING") && !busy && (
+               <>
+-                <CtaButton onClick={() => setStateId("VS-UX-03")}>
+-                  Simuler qualification OK
+-                </CtaButton>
+                 <CtaButton
+                   variant="danger"
+                   onClick={fireStop}
+@@ -104,37 +227,70 @@ export function VsNouvelleDemandeScreen() {
+                 >
+                   STOP Morris
+                 </CtaButton>
+-                <CtaButton
+-                  variant="secondary"
+-                  onClick={() => setStateId("VS-UX-VAR-ERROR")}
+-                >
+-                  Simuler erreur fail-closed
+-                </CtaButton>
+               </>
+             )}
+             {stateId === "VS-UX-03" && (
+               <>
+                 <CtaButton onClick={() => setStateId("VS-UX-04")}>
+-                  Continuer vers le gate
++                  Continuer vers le gate (après revue Morris)
+                 </CtaButton>
+                 <CtaButton
+                   variant="secondary"
+-                  onClick={() => setStateId("VS-UX-02")}
++                  onClick={() => {
++                    persistResult(null);
++                    setConfirmOpen(true);
++                    setStateId("VS-UX-01");
++                  }}
+                 >
+                   Demander une correction
+                 </CtaButton>
+               </>
+             )}
+           </div>
+-          {stateId === "VS-UX-01" ? (
+-            <p className={styles.muted} data-testid="vs-finops-zero">
+-              Consommation GPT avant qualification : 0 / {vsFixture.gptCalls.ceiling}
+-            </p>
+-          ) : null}
+         </section>
+ 
+         <aside className={styles.card} aria-label="Prévisualisation qualification">
+-          {stateId === "VS-UX-03" ? (
++          {candidate && (stateId === "VS-UX-03" || result?.ok) ? (
++            <>
++              <StatusPill tone="purple">QualificationCandidate</StatusPill>
++              <p className={styles.fieldLabel}>Modèle</p>
++              <p className={styles.fieldValue} data-testid="vs-qual-model">
++                {candidate.model ?? "gpt-5.4-mini"}
++              </p>
++              <p className={styles.fieldLabel}>Cycle proposé</p>
++              <p className={styles.fieldValue} data-testid="vs-qual-cycle">
++                {candidate.proposedCycle}
++              </p>
++              <p className={styles.fieldLabel}>Profil proposé</p>
++              <p className={styles.fieldValue} data-testid="vs-qual-profile">
++                {candidate.proposedProfile}
++              </p>
++              <p className={styles.fieldLabel}>Justification</p>
++              <p className={styles.fieldValue}>{candidate.profileJustification}</p>
++              <p className={styles.fieldLabel}>Blocs</p>
++              <p className={styles.fieldValue}>
++                {(candidate.proposedBlocks ?? []).join(", ")}
++              </p>
++              <p className={styles.fieldLabel}>Gates proposés</p>
++              <p className={styles.fieldValue}>
++                {(candidate.proposedGates ?? []).join(" · ")}
++              </p>
++              <p className={styles.fieldLabel}>Tokens / coût estimé</p>
++              <p className={styles.fieldValue} data-testid="vs-qual-usage">
++                {candidate.usage?.totalTokens ?? "—"} tokens · ≈ €
++                {candidate.usage?.estimatedCostEur ?? "—"} (estimation, pas une facture)
++              </p>
++              <p className={styles.fieldLabel}>Autorité</p>
++              <p className={styles.fieldValue} data-testid="vs-qual-authority">
++                candidateOnly={String(candidate.authority?.candidateOnly)} ·
++                morrisDecisionRequired={String(candidate.authority?.morrisDecisionRequired)} ·
++                executionAuthorized={String(candidate.authority?.executionAuthorized)}
++              </p>
++              <p className={styles.muted} data-testid="vs-morris-still-required">
++                Décision Morris encore requise — aucune exécution autorisée.
++              </p>
++            </>
++          ) : stateId === "VS-UX-03" ? (
+             <>
+               <StatusPill tone="purple">Candidat GPT</StatusPill>
+               <p className={styles.fieldLabel}>Cycle</p>
+@@ -153,24 +309,17 @@ export function VsNouvelleDemandeScreen() {
+               <p className={styles.fieldValue}>{vsFixture.qualification.hashPreview}</p>
+               <p className={styles.fieldLabel}>Source</p>
+               <p className={styles.fieldValue}>{vsFixture.qualification.source}</p>
+-              <p className={styles.muted}>Pas d&apos;auto-GO.</p>
++              <p className={styles.muted}>Pas d&apos;auto-GO. Décision Morris requise.</p>
+             </>
+           ) : (
+             <>
+               <p className={styles.cardTitle}>Aperçu gouverné</p>
+               <p className={styles.fieldValue}>
+-                Les champs de qualification complète apparaissent à l&apos;état
+-                VS-UX-03 avant tout gate.
++                Confirmation explicite obligatoire avant tout appel GPT réel.
+               </p>
+               <FinOpsBox
+-                phase={
+-                  stateId === "VS-UX-02" || stateId === "VS-UX-VAR-LOADING"
+-                    ? "qualification"
+-                    : "idle"
+-                }
+-                calls={
+-                  stateId === "VS-UX-01" ? 0 : vsFixture.gptCalls.qualification
+-                }
++                phase={busy ? "qualification" : "idle"}
++                calls={candidate?.usage?.callNumber ?? 0}
+               />
+             </>
+           )}
 
 ```
 
-## Push
-- `git push -u origin delivery/sfia-studio-poc-increment-b` — OK (push normal, pas de force)
-- HEAD local = HEAD distant = `8316f26de1ade4bbf0e698ce03666e977daa87cb`
+### Diff `projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx`
+```diff
+diff --git a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+index c02deea..8782105 100644
+--- a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
++++ b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+@@ -12,7 +12,7 @@ export function VsDemoChrome() {
+   return (
+     <div className={styles.chrome} data-testid="vs-demo-chrome">
+       <div className={styles.banner} role="status" data-testid="vs-demo-banner">
+-        <strong>Incrément B — cockpit raccordé harness (fixture)</strong>
++        <strong>Incrément C — qualification GPT bornée (candidate)</strong>
+         <span>{vsFixture.demoLabel}</span>
+         <span>{vsFixture.noLiveLabel}</span>
+       </div>
 
-## PR
+```
+
+## Observation live unique (opt-in)
+- Flags : `SFIA_GPT_INC_C_OBSERVE=1` · `SFIA_GPT_INC_C_LIVE=1` · `OPENAI_MODEL=gpt-5.4-mini`
+- Demande synthétique : authentification administrateur application interne sans changement d’architecture
+- **1 seul appel** · durée 5097 ms
+- Résultat sanitisé (aucune clé) :
 ```json
-{"baseRefName":"main","headRefName":"delivery/sfia-studio-poc-increment-b","isDraft":true,"mergeable":"MERGEABLE","number":231,"state":"OPEN","statusCheckRollup":[],"url":"https://github.com/mcleland147/sfia-workspace/pull/231"}
-
+{
+  "observationDir": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-inc-c-live-v34T5r",
+  "ok": true,
+  "status": "CANDIDATE_CREATED",
+  "usage": {
+    "inputTokens": 639,
+    "outputTokens": 498,
+    "totalTokens": 1137,
+    "estimatedCostEur": 0.002503,
+    "callNumber": 1,
+    "costIsEstimate": true
+  },
+  "durationMs": 5097,
+  "candidateSummary": {
+    "cycle": "Cycle 8",
+    "profile": "Standard",
+    "blocks": [
+      "security",
+      "governance",
+      "architecture",
+      "delivery"
+    ],
+    "authority": {
+      "candidateOnly": true,
+      "morrisDecisionRequired": true,
+      "executionAuthorized": false
+    }
+  }
+}
 ```
-- **Numéro** : 231
-- **URL** : https://github.com/mcleland147/sfia-workspace/pull/231
-- **state** : OPEN
-- **draft** : true
-- **base** : main
-- **head** : delivery/sfia-studio-poc-increment-b
-- **fichiers PR** : 27 sous app/** et harness/** uniquement
-- **CI** : statusCheckRollup observé au moment du pack (peut être vide / en cours)
+- candidateOnly=true · executionAuthorized=false · morrisDecisionRequired=true
+- usage : {'inputTokens': 639, 'outputTokens': 498, 'totalTokens': 1137, 'estimatedCostEur': 0.002503, 'callNumber': 1, 'costIsEstimate': True} — **estimation, pas une facture**
 
-## git status final
+## Tests
+| Suite | Résultat |
+|---|---|
+| harness (hors live observe) | **101 passed**, 2 skipped |
+| increment-c unit | 21 passed |
+| live observe opt-in | 1 passed (unique) |
+| app unit | **26 passed** |
+| app typecheck/lint/build | OK · 4 routes P0 |
+| e2e A/B/C/P0 | **26/26 passed** (13+5+2+6) |
+
+## Captures runtime
+`.tmp-sfia-review/screenshots-increment-c/` :
+before-confirm, confirm-panel, loading, candidate, usage-cost, morris-required, schema-error, timeout-limit-notice
+
+## Sécurité
+- Clé absente → KEY_ABSENT sans exposition
+- Sanitization Bearer/sk- dans erreurs
+- Aucun appel OpenAI depuis le navigateur (Server Action → CLI harness)
+- 0 Cursor live · 0 git push applicatif
+- Recherche secrets : motifs uniquement dans tests de redaction (OK)
+
+## git status
 ```
+ M projects/sfia-studio/app/__tests__/increment-b.test.tsx
+ M projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+ M projects/sfia-studio/app/e2e/increment-b.spec.ts
+ M projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+ M projects/sfia-studio/harness/src/cli.ts
+ M projects/sfia-studio/harness/src/index.ts
 ?? .tmp-sfia-review/
+?? projects/.tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/increment-c.test.tsx
+?? projects/sfia-studio/app/e2e/increment-c.spec.ts
+?? projects/sfia-studio/app/lib/harness/qualifyAction.ts
+?? projects/sfia-studio/harness/src/finops/
+?? projects/sfia-studio/harness/src/ports/gptQualificationLive.ts
+?? projects/sfia-studio/harness/src/ports/openaiTransportShared.ts
+?? projects/sfia-studio/harness/src/types/qualificationCandidate.ts
+?? projects/sfia-studio/harness/src/validation/qualificationCandidateValidator.ts
+?? projects/sfia-studio/harness/tests/increment-c-live-observe.test.ts
+?? projects/sfia-studio/harness/tests/increment-c.test.ts
 
 ```
 
 ## Réserves
-- provider encore par écran
-- continuité mitigée par sessionStorage
-- pont Studio→harness via Server Action + CLI
-- ces choix = POC/non-live, pas architecture live cible
-- plafond GPT numérique À définir
+- Provider encore par écran ; résultat qualif persisté sessionStorage (POC)
+- Pont Studio→harness via Server Action + CLI
+- OPENAI_MODEL environnement utilisateur était gpt-5-mini : forcé à gpt-5.4-mini pour l’observation (refus sinon)
+- Plafond produit UI « À définir » inchangé pour FinOps affichage historique A
+- Compteur session process-local (POC) + fichier journalier local sous proofs
+- Pas d’architecture live cible
 
-## Gates Morris restants
-- ready-for-review
-- merge
-- démarrage Incrément C
-- G-VS-LIVE-GPT / G-VS-LIVE-CURSOR
-- plafond GPT numérique
-- architecture technique structurante live
-- CI/CD industrialisation / MVP
+## Décisions Morris attendues
+1. Validation live qualification Increment C
+2. Autorisation éventuelle commit/push/PR
+3. Non-démarrage D/E / Cursor live / GPT analyse sans GO distinct
+4. Confirmation modèle gpt-5.4-mini comme unique modèle POC
 
 ## Anti-stub
-- [x] diff commit complet inclus
-- [x] fichiers exacts
-- [x] contrôles adaptateur / autonomie / gates / journal / preuves
-- [x] tests + captures
-- [x] commit / push / PR
+- [x] contenus/diffs
+- [x] seuils démontrés (tests)
+- [x] fail-closed
+- [x] observation live documentée
+- [x] captures
+- [x] secret non exposé
