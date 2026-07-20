@@ -7,9 +7,10 @@
 | **Profil** | Standard |
 | **Typologie** | POC / CONCEPTION FONCTIONNELLE / PRODUIT / DOC |
 | **Gates consommés** | `G-OPS1-FUNC-DESIGN` · `G-OPS1-FUNC-DESIGN-VAL` |
-| **Baseline Git** | `origin/main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
-| **Branche** | `design/sfia-studio-ops1-functional` — publiée pour la PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) |
-| **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) |
+| **Baseline Git de conception** | `origin/main` @ `62eb23f0b1934afbecc517fc83aff90493fb8f29` |
+| **Intégration** | PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) MERGED — squash `6cbf37482c7d384ef5630259d58a2e223a607925` sur `main` |
+| **Branche de conception** | `design/sfia-studio-ops1-functional` — fusionnée via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) ; branche conservée temporairement en attente du cleanup Morris |
+| **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) ; **intégré et canonique sur `main`** ; post-merge **validé** (2026-07-20 14:29 CEST) ; réserves 13, 15, 20, 26 **inchangées** ; aucun cycle suivant ouvert automatiquement |
 | **Autorité** | Morris (L0) |
 | **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) |
 | **Entrées cadrage** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
@@ -18,15 +19,18 @@
 | **Horodatage amendement** | 2026-07-20 13:23 CEST |
 | **Horodatage amendement final** | 2026-07-20 13:36 CEST |
 | **Horodatage validation Morris** | 2026-07-20 13:46 CEST |
+| **Horodatage post-merge** | 2026-07-20 14:29 CEST |
+| **Horodatage sync documentaire** | 2026-07-20 14:34 CEST |
 | **Projet pilote OPS1** | **Campus360 exclusivement** — Markdown documentaires non protégés **éligibles** ; allowlist **par action** ; cartographie/branche : `G-OPS1-SCENARIO-VAL` |
 
 > Contrat de **conception fonctionnelle validée avec réserves** du Vertical Slice Opérationnel 1.
 > Gate `G-OPS1-FUNC-DESIGN-VAL` **consommé** — Morris — 2026-07-20 13:46 CEST.
+> **Intégré et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash merge `6cbf37482c7d384ef5630259d58a2e223a607925`) ; post-merge **validé** (2026-07-20 14:29 CEST).
 > Hérite des invariants validés du cadrage OPS1 (`G-OPS1-FRAMING-VAL`) sans les altérer.
 > Scénario pilote : contexte **Campus360** exclusivement — OPS1 = slice **SFIA Studio**, pas une feature produit Campus360.
 > **Décision Morris multi-fichiers (2026-07-20 13:36 CEST)** : Markdown documentaires Campus360 non protégés **éligibles** ; allowlist explicite par action ; Campus360 ≠ autorisation globale.
 > Architecture fonctionnelle et UX/UI = cycles SFIA distincts **normaux**. Stack / BDD / API / protocole **routés** vers architecture technique (cycle 6 / `G-OPS1-TECH-ARCH` si établi).
-> `OPS1-FD-CAND-01`…`27` **validées** (avec réserves sur 13, 15, 20, 26). Aucun cycle suivant ouvert automatiquement.
+> `OPS1-FD-CAND-01`…`27` **validées** (avec réserves sur 13, 15, 20, 26 **inchangées**). Aucun cycle suivant ouvert automatiquement.
 > Aucun claim MVP / production-ready / industrialisation / OPS1 prouvé / READY FOR DELIVERY.
 
 ### Distinction POC / OPS1 / MVP
@@ -627,4 +631,5 @@ Valider :
 
 Gate `G-OPS1-FUNC-DESIGN-VAL` consommé — Morris — 2026-07-20 13:46 CEST.
 Amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) intégré.
-Aucun cycle architecture / UX / backlog / delivery / live / MVP ouvert automatiquement.
+**Intégré et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) ; post-merge **validé** (2026-07-20 14:29 CEST).
+Réserves 13, 15, 20, 26 **inchangées**. Aucun cycle architecture / UX / backlog / delivery / live / MVP ouvert automatiquement.
