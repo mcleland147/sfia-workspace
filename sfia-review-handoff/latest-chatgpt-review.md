@@ -13,7 +13,8 @@
 | **Cycle** | 15 — Capitalisation / correction méthode ciblée |
 | **Profil** | Light |
 | **Gate Morris distant** | Aucun |
-| **Mode handoff de CE cycle** | `local-only` |
+| **Mode handoff de CE cycle** | `local-only` (cycle documentaire) |
+| **Statut validation ChatGPT** | **ACCEPTED** — 2026-07-20 19:49:00 CEST |
 | **Motif local-only** | Correctif du mécanisme de publication — revue avant toute publication distante / PR |
 | **Commit / push / PR / merge** | **AUCUN** |
 
@@ -1480,15 +1481,37 @@ Si Mode = **`local-only`** : indiquer clairement que la revue Git distante **n'e
 
 ## Absence de commit / push / PR / merge
 
-Ce cycle est **local-only** pour le handoff. Aucune publication distante. Aucun commit projet.
+Ce cycle documentaire d’origine était **local-only** pour le handoff. Aucune publication distante du correctif projet. Aucun commit projet à cette étape.
+
+## Décision ChatGPT finale
+
+| Champ | Valeur |
+|-------|--------|
+| **Date / heure / fuseau** | 2026-07-20 19:49:00 CEST |
+| **Rôle** | ChatGPT reviewer |
+| **Observation** | Correctif vérifié depuis le diff Git complet du handoff |
+| **Décision** | Correctif **accepté** |
+| **Portée** | Autorisation de passer au cycle PR readiness (`GO COMMIT PUSH PR DRAFT — SFIA TEMPLATE HANDOFF FIX`) |
+| **Limites** | Aucun merge automatique · aucune modification complémentaire implicite |
+
+**Verdict courant :**
+
+`SFIA TEMPLATE REVIEW HANDOFF PUBLICATION FIX ACCEPTED — READY FOR COMMIT AND PR READINESS`
+
+## Historique de verdict (cycle documentaire)
+
+Verdict antérieur du cycle local (conservé pour traçabilité, **non courant**) :
+
+`SFIA TEMPLATE REVIEW HANDOFF PUBLICATION FIX DOCUMENTED — READY FOR MORRIS REVIEW`
 
 ## Prochaine décision Morris
 
-Revue ChatGPT du correctif template, puis GO distinct éventuel pour :
-1. commit sur `docs/sfia-template-handoff-publication-fix` ;
-2. publication handoff (si souhaitée) ;
-3. PR readiness vers `main`.
+Exécuter le cycle :
+
+`GO COMMIT PUSH PR DRAFT — SFIA TEMPLATE HANDOFF FIX`
+
+(commit + push branche corrective + PR Draft — **aucun merge** dans ce cycle).
 
 ## Verdict
 
-`SFIA TEMPLATE REVIEW HANDOFF PUBLICATION FIX DOCUMENTED — READY FOR MORRIS REVIEW`
+`SFIA TEMPLATE REVIEW HANDOFF PUBLICATION FIX ACCEPTED — READY FOR COMMIT AND PR READINESS`
