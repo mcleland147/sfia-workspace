@@ -1,79 +1,155 @@
-# SFIA Studio Increment D — Review Pack (full)
+# SFIA Studio Increment D — PR Readiness Review Pack (FULL)
 
-- date/heure/fuseau: 2026-07-20T08:21:26+0200 (Europe/Paris / CEST)
-- cycle: 8 — Delivery / implémentation
+- date/heure/fuseau: 2026-07-20T08:33:27+0200 (Europe/Paris / CEST)
+- cycle: 13 — PR readiness
 - profil: Critical
-- typologie: DELIVERY / LIVE CURSOR / SANDBOX / SECURITY / DEVOPS / QA
-- GO Morris consommés: G-INCREMENT-D-FRAMING, G-INCREMENT-D-EXECUTION, G-VS-LIVE-CURSOR (observation unique)
+- typologie: PR READINESS / LIVE CURSOR / SANDBOX / SECURITY / DEVOPS / QA
+- GO Morris consommé: G-INCREMENT-D-PR-READINESS
+- GO antérieurs: G-INCREMENT-D-FRAMING, G-INCREMENT-D-EXECUTION, G-VS-LIVE-CURSOR (observation unique déjà consommée — non relancée)
 - repo: sfia-workspace
 - branche: delivery/sfia-studio-poc-increment-d
-- base / HEAD: 9926238a0be3c2e7ce745ee95321281ef49f0465
+- HEAD / base: 9926238a0be3c2e7ce745ee95321281ef49f0465
 - origin/main: 9926238a0be3c2e7ce745ee95321281ef49f0465
-- merge-base(origin/main)=HEAD
+- merge-base(HEAD, origin/main): 9926238a0be3c2e7ce745ee95321281ef49f0465
+- commits Increment D: **0** (travail local non commit)
+- upstream delivery: **absent** (non poussée)
+- staged: **vide**
+- handoff précédent: 07df4ed4184a83ad313b00608d429a710eac5e91
 
 ## Verdict candidat
 
-**SFIA STUDIO INCREMENT D CURSOR SANDBOX PROVED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO INCREMENT D READY FOR COMMIT GATE — MORRIS GO REQUIRED**
 
-## Truth Check initial
+## Truth Check
 
-- main local aligné origin/main @ 9926238
-- branche créée localement depuis exactement 9926238
-- aucun staging/commit/push delivery
-- working tree: uniquement modifications Increment D + `.tmp-sfia-review/` non versionné
-- Increment C présent sur main
+Conformant:
+- branche exacte delivery/sfia-studio-poc-increment-d
+- HEAD = base = origin/main = 9926238
+- aucun commit Inc D
+- staged vide
+- pas de package.json/lockfile/docs 01–40/method/prompts/Figma
+- un seul spawn réel documenté (observationNumber=1) — **aucune seconde observation** dans ce cycle
+- `.tmp-inc-d-prepare-live.ts` **absent** (déjà nettoyé)
 
-## Sources Git consultées
+## Analyse obligatoire `cursorMode`
 
-Méthode / projet (lecture seule): templates cycle, routing, operating model, docs 32–40 Studio.
-Code: harness/src, harness/tests, app/lib/harness, app/features/cycle-actif, spike Cursor réel.
-Handoff précédent: origin/sfia/review-handoff.
+### Constat
 
-## Décisions et hors périmètre
+Sur la preuve live existante:
+- `ExecutionContract.cursorMode` = `"fixture"`
+- `CursorExecutionReport.mode` = `"live"`
+- `realCursorProcessInvoked` = `true`
 
-Autorisé: implémentation locale, tests, 1 observation Cursor, review pack, handoff.
-Interdit: stage/commit/push delivery, PR, merge, Increment E, analyse GPT, deps, docs 01–40, Figma, remote Git.
+### Qualification (cases 1–5)
 
-## Architecture avant / après
+1. **Schéma S1 historique** — OUI. `CursorMode = "fixture"` uniquement dans `contracts.ts`.
+2. **Mode d’exécution réel** — NON pour `cursorMode`. L’exécution est `report.mode` + `realCursorProcessInvoked`.
+3. **Hérité spike** — partiellement: spike utilise `real-spike` sur un contrat distinct; Inc D réutilise le slot S1 `fixture` pour rester compatible PolicyEngine Orchestrator B.
+4. **Utilisé par runtime** — OUI pour PolicyEngine (`cursorMode must be fixture`). Inc D **ne passe pas** par PolicyEngine pour le spawn live; le runner Inc D lit `input.mode`.
+5. **Informatif seulement** pour le process Cursor — le champ S1 ne décrit pas le process lancé.
 
-Option B préservée:
-- Studio: collecte action, affiche états dérivés, ne décide pas, ne revalide pas comme autorité.
-- Harness: ExecutionContract, gate, revalidation, spawn Cursor, STOP/timeout, rapport, journal.
-- Cursor: écrit uniquement `output.md` sandbox, aucune écriture remote.
+### Correction appliquée (sans pivot)
 
-Avant: Increment C qualification live GPT; Cursor = spike / fixture Orchestrator B.
-Après: runner dédié Increment D (`runIncrementDSandbox`) + faux port + port live via spike `spawnWithTimeout` / `filterSpikeEnv` / `buildCursorAgentArgv`.
+- **Pas** de remplacement de `cursorMode` par `live` (exigerait élargir `CursorMode` + PolicyEngine = pivot structurant).
+- Documentation explicite dans `executionContract.ts` + constante `S1_CONTRACT_CURSOR_MODE`.
+- Champ rapport `s1ContractCursorMode: "fixture"` (écho schéma).
+- Extension `s1CursorModeIsSchemaOnly: true` (hors hash S1).
+- UI: `vs-inc-d-process-mode` affiche processMode / realCursor / s1.cursorMode schéma.
+- Tests: invariants fixture process ≠ realCursor; live claim ⇒ mode live.
 
-## Choix sandbox
+### Réserve maintenue (explicite)
 
-Chemin canonique retenu (aligné spike allowlist étendue):
-`projects/sfia-studio/.sandbox/increment-d/output.md`
+`ExecutionContract.cursorMode` reste `"fixture"` par contrainte de type S1. La vérité process = `CursorExecutionReport.mode` + `realCursorProcessInvoked`. Ambiguïté levée dans le code/UI/tests — pas masquée.
 
-Doctrine: ignoré du versionnement sauf `.gitkeep`. Isolé du code applicatif. Nettoyable sans toucher l’app.
+## Inventaire complet
 
-## Observation Cursor réelle (unique)
+### Modifiés (tracked diffs)
 
-- nombre de spawns réels: **1**
+```
+M	.gitignore
+M	projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+M	projects/sfia-studio/harness/src/cli.ts
+M	projects/sfia-studio/harness/src/index.ts
+M	projects/sfia-studio/harness/src/ports/cursorRealSpike.ts
+
+```
+
+```
+ .gitignore                                         |   5 +
+ .../features/cycle-actif/VsCycleActifScreen.tsx    | 210 ++++++++++++++++++---
+ projects/sfia-studio/harness/src/cli.ts            |  12 ++
+ projects/sfia-studio/harness/src/index.ts          |  21 +++
+ .../harness/src/ports/cursorRealSpike.ts           |  32 +++-
+ 5 files changed, 246 insertions(+), 34 deletions(-)
+
+```
+
+```
+5	0	.gitignore
+181	29	projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+12	0	projects/sfia-studio/harness/src/cli.ts
+21	0	projects/sfia-studio/harness/src/index.ts
+27	5	projects/sfia-studio/harness/src/ports/cursorRealSpike.ts
+
+```
+
+### Créés (untracked destinés versionnement)
+
+| Fichier | Rôle | Stories |
+|---|---|---|
+| harness/src/increment-d/sandboxPaths.ts | chemins sandbox canoniques | US-018 |
+| harness/src/increment-d/executionContract.ts | contrat/hash/GO/instruction | US-017,018 |
+| harness/src/increment-d/fakeCursorPort.ts | faux port déterministe | US-019,020 |
+| harness/src/increment-d/cursorSandboxRunner.ts | runner gate→spawn→rapport | US-012,017–021 |
+| harness/src/types/cursorExecutionReport.ts | rapport canonique | US-021 |
+| harness/tests/increment-d.test.ts | unit gate/port/STOP/timeout | US-012,017–021 |
+| app/lib/harness/incrementDAction.ts | adaptateur fin Studio→CLI | cockpit |
+| app/features/cycle-actif/VsCycleActifScreen.tsx (mod) | UI états/STOP/rapport | US-019,021 |
+| app/__tests__/increment-d.test.tsx | unit UI | UI |
+| app/e2e/increment-d.spec.ts | E2E déterministes | QA |
+| .sandbox/.../.gitkeep | marqueur dir | US-018 |
+| .gitignore (mod) | ignore sandbox outputs | US-018 |
+| cli.ts / index.ts / cursorRealSpike.ts (mod) | CLI, exports, AbortSignal, allowlist | US-018–020 |
+
+### Supprimés
+
+Aucun fichier tracked supprimé.
+
+### Exclus (ne pas versionner)
+
+- `.tmp-sfia-review/**` (preuves, screenshots, review pack local)
+- `projects/.tmp-sfia-review/**` (résidu hors Inc D)
+- `projects/sfia-studio/.sandbox/**/output.md`
+- rapports live JSON/jsonl
+- `run-live-once.mjs`
+- `.tmp-inc-d-prepare-live.ts` (absent)
+- secrets / .env
+
+### Candidats versionnement pour futur commit Morris
+
+- `.gitignore`
+- `projects/sfia-studio/.sandbox/increment-d/.gitkeep`
+- `projects/sfia-studio/harness/src/increment-d/**`
+- `projects/sfia-studio/harness/src/types/cursorExecutionReport.ts`
+- diffs harness cli/index/cursorRealSpike
+- `app/lib/harness/incrementDAction.ts`
+- `app/features/cycle-actif/VsCycleActifScreen.tsx`
+- `app/__tests__/increment-d.test.tsx`
+- `app/e2e/increment-d.spec.ts`
+- `harness/tests/increment-d.test.ts`
+
+## Preuve live (existante — non relancée)
+
+- spawns réels: **1**
 - executionId: `exec-inc-d-c9f0bec1-5755-40d5-8284-ad6b05597b7c`
-- requestId: `req-inc-d-live-1784528437254`
-- contractId: `ctr-inc-d-live-001`
-- contractHash: `75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78`
-- branche: `delivery/sfia-studio-poc-increment-d`
-- HEAD: `9926238a0be3c2e7ce745ee95321281ef49f0465`
-- startedAt: `2026-07-20T06:20:37.485Z`
-- completedAt: `2026-07-20T06:20:49.779Z`
-- durationMs: 12294
-- exitCode: 0
-- status: `SUCCEEDED`
-- realCursorProcessInvoked: True
-- remoteGitWrites: 0
-- networkUsed: False
-- filesCreated: ['output.md']
-- outOfAllowlistChanges: []
-- instruction meta: {"instructionSha256Prefix": "0b80023d35996c71", "instructionLength": 1240, "networkEffect": "none", "gitEffect": "none-remote"}
-- GO: decisionId `go-inc-d-live-morris-001` ancré hash/branche/HEAD/allowlist
+- status: `SUCCEEDED` · exit `0` · durationMs `12294`
+- mode report: `live` · realCursor: `True`
+- contract.cursorMode (preuve): `fixture`
+- remoteGitWrites: `0` · networkUsed: `False`
+- filesCreated: `['output.md']` · outOfAllowlist: `[]`
+- HEAD/origin inchangés (post-git proof)
 
-### Contenu Markdown produit
+### Markdown
 
 ```markdown
 # SFIA Studio Increment D Sandbox Proof
@@ -94,196 +170,44 @@ Candidate proof only — Morris decision required
 
 ```
 
-### Preuve remote=0 / network=none
+### Limite remote=0 / network=none
 
-```json
-{
-  "headUnchanged": true,
-  "originMainUnchanged": true,
-  "remoteGitWrites": 0,
-  "networkEffect": "none",
-  "noFetchDuringObservation": true,
-  "statusAfter": " M .gitignore\n M projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx\n M projects/sfia-studio/harness/src/cli.ts\n M projects/sfia-studio/harness/src/index.ts\n M projects/sfia-studio/harness/src/ports/cursorRealSpike.ts\n?? .tmp-sfia-review/\n?? projects/.tmp-sfia-review/\n?? projects/sfia-studio/.sandbox/\n?? projects/sfia-studio/app/__tests__/increment-d.test.tsx\n?? projects/sfia-studio/app/e2e/increment-d.spec.ts\n?? projects/sfia-studio/app/lib/harness/incrementDAction.ts\n?? projects/sfia-studio/harness/.tmp-inc-d-prepare-live.ts\n?? projects/sfia-studio/harness/src/increment-d/\n?? projects/sfia-studio/harness/src/types/cursorExecutionReport.ts\n?? projects/sfia-studio/harness/tests/increment-d.test.ts\n",
-  "note": "Truth-check fetch was before observation; no fetch during Cursor window"
-}
-```
+Preuve POC observée (pas de fetch/push pendant fenêtre Cursor; instruction sans git distant; rapport remote=0).
+**Ce n’est pas** une sandbox OS/réseau forte.
 
-### CursorExecutionReport
+## Tests (run readiness actuel)
 
-```json
-{
-  "schemaVersion": "cursor-execution-report-1.0.0",
-  "executionId": "exec-inc-d-c9f0bec1-5755-40d5-8284-ad6b05597b7c",
-  "requestId": "req-inc-d-live-1784528437254",
-  "correlationId": "corr-inc-d-live-1784528437254",
-  "contractId": "ctr-inc-d-live-001",
-  "contractHash": "75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78",
-  "expectedBranch": "delivery/sfia-studio-poc-increment-d",
-  "actualBranch": "delivery/sfia-studio-poc-increment-d",
-  "expectedHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
-  "actualHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
-  "allowlistedWritePaths": [
-    "projects/sfia-studio/.sandbox/increment-d/output.md"
-  ],
-  "status": "SUCCEEDED",
-  "startedAt": "2026-07-20T06:20:37.485Z",
-  "completedAt": "2026-07-20T06:20:49.779Z",
-  "durationMs": 12294,
-  "exitCode": 0,
-  "signal": null,
-  "timeout": false,
-  "stopRequested": false,
-  "cursorAvailable": true,
-  "filesCreated": [
-    "output.md"
-  ],
-  "filesModified": [],
-  "filesDeleted": [],
-  "outOfAllowlistChanges": [],
-  "stdoutPreview": "Wrote `output.md` in the Increment D sandbox with the specified proof content.\n",
-  "stderrPreview": "",
-  "reservations": [
-    "Sandbox Markdown proof succeeded",
-    "Remote Git writes: 0",
-    "Candidate proof only — Morris decision required",
-    "Increment E / GPT analysis not authorized"
-  ],
-  "mode": "live",
-  "realCursorProcessInvoked": true,
-  "remoteGitWrites": 0,
-  "networkUsed": false,
-  "authority": {
-    "candidateOnly": true,
-    "morrisDecisionRequired": true,
-    "executionAuthorized": false,
-    "analysisAuthorized": false
-  },
-  "morrisDecisionRequired": true,
-  "analysisAuthorized": false
-}
-```
+- harness tsc: PASS
+- harness tests: **141 passed**, 2 skipped
+- Increment D harness: 24 passed
+- app tsc/lint/build: PASS
+- app unit: **36 passed**
+- E2E A+B+C+D+P0: **37 passed**
+- git diff --check: PASS
+- secret scan: aucun secret réel (uniquement fixtures de test sk-fake)
 
-### ExecutionContract + GO
+## Sécurité
 
-```json
-{
-  "contract": {
-    "contractId": "ctr-inc-d-live-001",
-    "requestId": "req-inc-d-live-1784528437254",
-    "scenario": "S1",
-    "repositoryRoot": "/Users/morris/Projects/sfia-workspace",
-    "allowedPaths": [
-      "projects/sfia-studio/.sandbox/increment-d",
-      "projects/sfia-studio/.sandbox/increment-d/output.md"
-    ],
-    "allowedCommands": [
-      "cursor-sandbox-write-output-md",
-      "git-status-short",
-      "git-rev-parse"
-    ],
-    "gitEffect": "none-remote",
-    "cursorMode": "fixture",
-    "timeoutMs": 30000,
-    "proofDir": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-inc-d-live-AraNUS/proof",
-    "schemaVersion": "poc-s1-1.0.0",
-    "maxFiles": 1,
-    "maxFileBytes": 64000,
-    "allowedExtensions": [
-      ".md"
-    ],
-    "decidedByAllowlist": [
-      "Morris"
-    ],
-    "expectedBranch": "delivery/sfia-studio-poc-increment-d",
-    "expectedHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
-    "allowlistedWritePaths": [
-      "projects/sfia-studio/.sandbox/increment-d/output.md"
-    ]
-  },
-  "contractHash": "75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78",
-  "gate": {
-    "decisionId": "go-inc-d-live-morris-001",
-    "requestId": "req-inc-d-live-1784528437254",
-    "contractHash": "75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78",
-    "decision": "GO",
-    "decidedBy": "Morris",
-    "decidedAt": "2026-07-20T06:20:37.395Z",
-    "scope": "increment-d-cursor-sandbox",
-    "gitBranch": "delivery/sfia-studio-poc-increment-d",
-    "gitHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
-    "allowlistSnapshot": [
-      "projects/sfia-studio/.sandbox/increment-d",
-      "projects/sfia-studio/.sandbox/increment-d/output.md"
-    ],
-    "correlationId": "corr-go-inc-d-live-morris-001"
-  }
-}
-```
-
-### Pre-spawn meta
-
-```json
-{
-  "spawnedAt": "2026-07-20T06:20:37.254Z",
-  "timezone": "Europe/Paris",
-  "branch": "delivery/sfia-studio-poc-increment-d",
-  "head": "9926238a0be3c2e7ce745ee95321281ef49f0465",
-  "originMain": "9926238a0be3c2e7ce745ee95321281ef49f0465",
-  "expectedRemoteWrites": 0,
-  "networkEffect": "none",
-  "allowlistedWritePaths": [
-    "projects/sfia-studio/.sandbox/increment-d/output.md"
-  ],
-  "timeoutMs": 30000,
-  "cursorBin": "/Applications/Cursor.app/Contents/Resources/app/bin/cursor",
-  "morrisGate": "G-VS-LIVE-CURSOR",
-  "observationNumber": 1,
-  "maxObservations": 1,
-  "statusBefore": " M .gitignore\n M projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx\n M projects/sfia-studio/harness/src/cli.ts\n M projects/sfia-studio/harness/src/index.ts\n M projects/sfia-studio/harness/src/ports/cursorRealSpike.ts\n?? .tmp-sfia-review/\n?? projects/.tmp-sfia-review/\n?? projects/sfia-studio/.sandbox/\n?? projects/sfia-studio/app/__tests__/increment-d.test.tsx\n?? projects/sfia-studio/app/e2e/increment-d.spec.ts\n?? projects/sfia-studio/app/lib/harness/incrementDAction.ts\n?? projects/sfia-studio/harness/src/increment-d/\n?? projects/sfia-studio/harness/src/types/cursorExecutionReport.ts\n?? projects/sfia-studio/harness/tests/increment-d.test.ts\n"
-}
-```
-
-## Tests
-
-- harness unit Increment D: 22 passed
-- harness full: 139 passed (2 skipped live/spike)
-- app unit A/B/C/D: 35 passed
-- app lint: clean
-- app build: OK
-- harness tsc: OK
-- E2E Increment D: 9 passed
-- E2E A+B+C+D+P0: verts après correctif titre rapport (A)
-- git diff --check: clean
-- secret scan (src harness/app ciblé): aucun secret
-
-## STOP / timeout
-
-Testés via faux port (`stoppable-slow`, `timeout`). Observation réelle non stoppée artificiellement.
-`spawnWithTimeout` accepte AbortSignal (SIGTERM puis SIGKILL).
-
-## UI Cycle actif
-
-Route `/cycle-actif` uniquement. STOP clavier, remote=0, CTA analyse Increment E disabled, états dérivés rapport.
-
-## Réserves
-
-- Candidate proof only — Morris decision required
-- Increment E / analyse GPT non autorisée
-- observation unique consommée; nouveau GO requis pour toute réexécution
-- spike vocabulary Cycle/DOC hors chemin Inc C (dette hors D)
-- `projects/.tmp-sfia-review/` préexistant hors Increment D (non versionné)
+- child env filtré (`filterSpikeEnv`)
+- OPENAI_API_KEY / CURSOR_API_KEY absentes du child
+- shell: false
+- argv Cursor sans concaténation shell
+- allowlist mono-fichier + policy violation
+- Studio non-autorité
+- CTA Increment E disabled
+- 4 routes uniquement
 
 ## Gates fermés
 
-G-INCREMENT-D-STAGE, COMMIT, PUSH, PR, MERGE, G-INCREMENT-E, G-GPT-ANALYSIS, G-BRANCH-DELETE, G-MVP-CLAIM, G-INDUSTRIALIZATION
-
-## Décision Morris attendue
-
-Valider Increment D (preuve sandbox Cursor) et décider de la suite (PR readiness / Increment E) — hors autorité Cursor.
+G-INCREMENT-D-STAGE / COMMIT / PUSH / PR / MERGE · G-INCREMENT-E · G-GPT-ANALYSIS · G-BRANCH-DELETE
 
 ## Absence staging/commit/push/PR delivery
 
-Confirmé: aucun commit delivery; handoff uniquement sur `sfia/review-handoff` après ce pack.
+Confirmé à la fin de ce cycle. Handoff seul autorisé.
+
+## Décision Morris attendue
+
+Accorder **G-INCREMENT-D-COMMIT** (puis push/PR sous gates séparés) après revue ChatGPT du handoff.
 
 ### Modified: .gitignore
 
@@ -311,7 +235,7 @@ index fdfdc0a..47f93b6 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
-index 7cd9fc1..0d2128b 100644
+index 7cd9fc1..77750ed 100644
 --- a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
 +++ b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
 @@ -1,5 +1,6 @@
@@ -329,7 +253,7 @@ index 7cd9fc1..0d2128b 100644
  import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
  import styles from "@/components/vertical-slice/vs-panels.module.css";
  
-@@ -22,40 +24,95 @@ const stepMap: Record<string, number> = {
+@@ -22,40 +24,97 @@ const stepMap: Record<string, number> = {
    "VS-UX-VAR-ERROR": 7,
  };
  
@@ -351,6 +275,8 @@ index 7cd9fc1..0d2128b 100644
 +  reservations?: string[];
 +  analysisAuthorized?: boolean;
 +  mode?: string;
++  realCursorProcessInvoked?: boolean;
++  s1ContractCursorMode?: string;
 +}
 +
 +interface IncDResultView {
@@ -435,7 +361,7 @@ index 7cd9fc1..0d2128b 100644
            <div className={styles.actions}>
              <CtaButton onClick={() => setStateId("VS-UX-07")}>
                Relancer analyse (mock)
-@@ -65,18 +122,19 @@ export function VsCycleActifScreen() {
+@@ -65,18 +124,19 @@ export function VsCycleActifScreen() {
        ) : null}
  
        <section className={styles.hero} aria-labelledby="vs-cycle-hero">
@@ -460,7 +386,7 @@ index 7cd9fc1..0d2128b 100644
          </p>
        </section>
  
-@@ -95,18 +153,30 @@ export function VsCycleActifScreen() {
+@@ -95,18 +155,30 @@ export function VsCycleActifScreen() {
              ),
            )}
          </div>
@@ -494,9 +420,29 @@ index 7cd9fc1..0d2128b 100644
                  <CtaButton onClick={() => setStateId("VS-UX-06")}>
                    Simuler fin d&apos;exécution
                  </CtaButton>
-@@ -126,16 +196,50 @@ export function VsCycleActifScreen() {
+@@ -124,18 +196,72 @@ export function VsCycleActifScreen() {
+ 
+           {stateId === "VS-UX-06" ? (
              <>
-               <p className={styles.cardTitle}>CursorExecutionReport (fixture)</p>
+-              <p className={styles.cardTitle}>CursorExecutionReport (fixture)</p>
++              <p className={styles.cardTitle}>
++                {report
++                  ? "CursorExecutionReport"
++                  : "CursorExecutionReport (fixture)"}
++              </p>
++              <p className={styles.fieldLabel}>Process mode (autorité harness)</p>
++              <p className={styles.fieldValue} data-testid="vs-inc-d-process-mode">
++                processMode={report?.mode ?? "fixture"}
++                {" · "}
++                realCursor=
++                {report?.realCursorProcessInvoked === true
++                  ? "true"
++                  : report
++                    ? "false"
++                    : "n/a (demo fixture)"}
++                {" · "}
++                s1.cursorMode=fixture (schema PolicyEngine only — not process)
++              </p>
                <p className={styles.fieldLabel}>Statut</p>
 -              <p className={styles.fieldValue}>{vsFixture.report.status}</p>
 -              <p className={styles.fieldLabel}>Fichiers touchés</p>
@@ -537,6 +483,9 @@ index 7cd9fc1..0d2128b 100644
 +              </pre>
 +              <p className={styles.muted} data-testid="vs-inc-d-source">
 +                Source statut = harness / preuves · mode={report?.mode ?? "fixture"}
++                {report?.realCursorProcessInvoked
++                  ? " · Cursor réel invoqué"
++                  : ""}
 +              </p>
                <div className={styles.actions}>
 +                <CtaButton
@@ -550,7 +499,7 @@ index 7cd9fc1..0d2128b 100644
                  <CtaButton onClick={() => setStateId("VS-UX-07")}>
                    Lancer analyse GPT (mock)
                  </CtaButton>
-@@ -143,9 +247,10 @@ export function VsCycleActifScreen() {
+@@ -143,9 +269,10 @@ export function VsCycleActifScreen() {
              </>
            ) : null}
  
@@ -563,7 +512,7 @@ index 7cd9fc1..0d2128b 100644
                <div className={styles.actions}>
                  <CtaButton onClick={() => setStateId("VS-UX-08")}>
                    Simuler verdict OK
-@@ -156,13 +261,24 @@ export function VsCycleActifScreen() {
+@@ -156,13 +283,24 @@ export function VsCycleActifScreen() {
                  >
                    Simuler verdict invalide
                  </CtaButton>
@@ -589,7 +538,7 @@ index 7cd9fc1..0d2128b 100644
            {stateId === "VS-UX-08" ? (
              <>
                <StatusPill tone="purple">{vsFixture.verdict.label}</StatusPill>
-@@ -197,14 +313,28 @@ export function VsCycleActifScreen() {
+@@ -197,14 +335,28 @@ export function VsCycleActifScreen() {
            ) : null}
          </section>
  
@@ -677,10 +626,10 @@ index fafa8c1..48c13b5 100644
 
 ```diff
 diff --git a/projects/sfia-studio/harness/src/index.ts b/projects/sfia-studio/harness/src/index.ts
-index 052723b..cd47f42 100644
+index 052723b..a14c490 100644
 --- a/projects/sfia-studio/harness/src/index.ts
 +++ b/projects/sfia-studio/harness/src/index.ts
-@@ -30,3 +30,23 @@ export * from "./types/qualificationCandidate.js";
+@@ -30,3 +30,24 @@ export * from "./types/qualificationCandidate.js";
  export * from "./finops/qualificationLimits.js";
  export * from "./validation/qualificationCandidateValidator.js";
  export * from "./ports/gptQualificationLive.js";
@@ -692,6 +641,7 @@ index 052723b..cd47f42 100644
 +  makeIncrementDGo,
 +  buildIncDMarkdownContent,
 +  buildIncDCursorInstruction,
++  S1_CONTRACT_CURSOR_MODE,
 +} from "./increment-d/executionContract.js";
 +export {
 +  runFakeCursorPort,
@@ -812,487 +762,412 @@ index 0bc103a..7b5e576 100644
 
 ```
 
-### projects/sfia-studio/harness/src/types/cursorExecutionReport.ts
+### projects/sfia-studio/.sandbox/increment-d/.gitkeep
 
-Path: `projects/sfia-studio/harness/src/types/cursorExecutionReport.ts`
+(empty marker file)
+
+### projects/sfia-studio/app/__tests__/increment-d.test.tsx
 
 ```
 /**
- * Increment D — CursorExecutionReport (canonical harness report).
- * Candidate proof only — Morris decision still required. Never authorizes analysis.
+ * @vitest-environment jsdom
  */
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { CycleActifScreen } from "@/features/cycle-actif/CycleActifScreen";
 
-export const CURSOR_EXECUTION_REPORT_SCHEMA = "cursor-execution-report-1.0.0" as const;
+vi.mock("next/navigation", () => ({
+  usePathname: () => mockPathname,
+  useSearchParams: () => new URLSearchParams(mockSearch),
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn(), prefetch: vi.fn() }),
+}));
 
-export type CursorExecutionStatus =
-  | "SUCCEEDED"
-  | "REFUSED_NO_GO"
-  | "REFUSED_STALE_GO"
-  | "REFUSED_SCOPE"
-  | "CURSOR_UNAVAILABLE"
-  | "FAILED_EXIT_CODE"
-  | "STOPPED"
-  | "TIMED_OUT"
-  | "POLICY_VIOLATION"
-  | "REPORT_INCOMPLETE";
+vi.mock("next/link", () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
 
-export interface CursorExecutionReport {
-  schemaVersion: typeof CURSOR_EXECUTION_REPORT_SCHEMA;
-  executionId: string;
+vi.mock("@/lib/harness/incrementDAction", () => ({
+  runIncrementDAction: vi.fn(async () => ({
+    ok: true,
+    status: "SUCCEEDED",
+    report: {
+      status: "SUCCEEDED",
+      contractId: "ctr-mock",
+      contractHash: "abc123",
+      actualBranch: "delivery/sfia-studio-poc-increment-d",
+      actualHead: "0123456789ab",
+      allowlistedWritePaths: ["projects/sfia-studio/.sandbox/increment-d/output.md"],
+      filesCreated: ["output.md"],
+      remoteGitWrites: 0,
+      analysisAuthorized: false,
+      mode: "fixture",
+      reservations: ["Candidate proof only"],
+    },
+    markdownContent: "# SFIA Studio Increment D Sandbox Proof\n",
+  })),
+}));
+
+let mockPathname = "/cycle-actif";
+let mockSearch = "vs=VS-UX-05";
+
+afterEach(() => {
+  cleanup();
+});
+
+beforeEach(() => {
+  mockPathname = "/cycle-actif";
+  mockSearch = "vs=VS-UX-05";
+});
+
+describe("Increment D — Cycle actif UI", () => {
+  it("exposes STOP with accessible name", () => {
+    render(<CycleActifScreen />);
+    expect(screen.getByTestId("vs-stop-execution")).toHaveAttribute(
+      "aria-label",
+      expect.stringMatching(/STOP Morris/i),
+    );
+  });
+
+  it("shows remote=0 expectation", () => {
+    render(<CycleActifScreen />);
+    expect(screen.getByTestId("vs-inc-d-remote-zero")).toHaveTextContent(/0/);
+  });
+
+  it("disables analysis CTA on report step", () => {
+    mockSearch = "vs=VS-UX-06";
+    render(<CycleActifScreen />);
+    expect(screen.getByTestId("vs-inc-d-analyze-disabled")).toBeDisabled();
+    expect(screen.getByTestId("vs-inc-d-analyze-disabled")).toHaveTextContent(
+      /Increment E non disponible/i,
+    );
+  });
+
+  it("exposes process mode distinct from S1 cursorMode schema", () => {
+    mockSearch = "vs=VS-UX-06";
+    render(<CycleActifScreen />);
+    expect(screen.getByTestId("vs-inc-d-process-mode")).toHaveTextContent(/processMode=/);
+    expect(screen.getByTestId("vs-inc-d-process-mode")).toHaveTextContent(
+      /s1\.cursorMode=fixture/,
+    );
+  });
+
+  it("keeps CursorExecutionReport panel without fifth route", () => {
+    mockSearch = "vs=VS-UX-06";
+    render(<CycleActifScreen />);
+    expect(screen.getByTestId("vs-inc-d-status")).toBeInTheDocument();
+    expect(screen.getByTestId("vs-cycle-actif")).toBeInTheDocument();
+  });
+});
+
+```
+
+### projects/sfia-studio/app/e2e/increment-d.spec.ts
+
+```
+import { expect, test } from "@playwright/test";
+import { execFileSync } from "node:child_process";
+import fs from "fs";
+import os from "os";
+import path from "path";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-increment-d",
+);
+const harnessRoot = path.resolve(__dirname, "../../harness");
+const workspaceRoot = path.resolve(__dirname, "../../../..");
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+function runIncDCli(payload: Record<string, unknown>): {
+  ok: boolean;
+  status: string;
+  report?: { remoteGitWrites?: number; analysisAuthorized?: boolean };
+  refusedBeforeSpawn?: boolean;
+} {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-e2e-inc-d-"));
+  const payloadPath = path.join(dir, "payload.json");
+  const proofDir = path.join(dir, "proof");
+  fs.writeFileSync(
+    payloadPath,
+    JSON.stringify({ ...payload, proofDir }, null, 2),
+    "utf8",
+  );
+  const tsx = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
+  const cli = path.join(harnessRoot, "src/cli.ts");
+  try {
+    const stdout = execFileSync(process.execPath, [tsx, cli, "inc-d-run", payloadPath], {
+      cwd: harnessRoot,
+      encoding: "utf8",
+      env: { ...process.env, SFIA_CURSOR_REAL_SPIKE: "0", SFIA_GPT_REAL_SPIKE: "0" },
+      maxBuffer: 8 * 1024 * 1024,
+    });
+    return JSON.parse(stdout);
+  } catch (err) {
+    const e = err as { stdout?: string };
+    if (e.stdout) return JSON.parse(e.stdout);
+    throw err;
+  }
+}
+
+test.describe("Increment D — UI Cycle actif", () => {
+  test("STOP keyboard-visible + remote=0 + analyse E disabled + 4 routes", async ({
+    page,
+  }) => {
+    await page.goto("/cycle-actif?vs=VS-UX-05");
+    await expect(page.getByTestId("vs-stop-execution")).toBeVisible();
+    await expect(page.getByTestId("vs-inc-d-remote-zero")).toContainText("0");
+    await page.goto("/cycle-actif?vs=VS-UX-06");
+    await expect(page.getByTestId("vs-inc-d-status")).toBeVisible();
+    await expect(page.getByTestId("vs-inc-d-process-mode")).toContainText("s1.cursorMode=fixture");
+    await expect(page.getByTestId("vs-inc-d-analyze-disabled")).toBeDisabled();
+    await expect(page.getByTestId("vs-inc-d-analyze-disabled")).toContainText(
+      /Increment E non disponible/i,
+    );
+    await expect(page).toHaveURL(/cycle-actif/);
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-d-cycle-actif-ready.png"),
+      fullPage: true,
+    });
+  });
+
+  test("fixture harness run via UI produces report", async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto("/cycle-actif?vs=VS-UX-05");
+    await page.getByTestId("vs-inc-d-run-fixture").click();
+    await expect(page.getByTestId("vs-inc-d-status")).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByTestId("vs-inc-d-remote")).toContainText("0");
+    await expect(page.getByTestId("vs-inc-d-analyze-disabled")).toBeDisabled();
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-d-fixture-report.png"),
+      fullPage: true,
+    });
+  });
+
+  test("STOP banner distinct from NO-GO", async ({ page }) => {
+    await page.goto("/cycle-actif?vs=VS-UX-05");
+    await page.getByTestId("vs-stop-execution").click();
+    await expect(page.getByTestId("vs-stop-timeout")).toContainText("STOP");
+    await expect(page.getByTestId("vs-inc-d-stop-banner")).toBeVisible();
+    await page.screenshot({
+      path: path.join(screenshotDir, "inc-d-stop.png"),
+      fullPage: true,
+    });
+  });
+});
+
+test.describe("Increment D — deterministic harness CLI (E2E gate)", () => {
+  test("nominal mintGate fixture → SUCCEEDED + remote=0", () => {
+    const r = runIncDCli({
+      requestId: "req-e2e-inc-d-ok",
+      correlationId: "corr-e2e-inc-d-ok",
+      contractId: "ctr-e2e-inc-d-ok",
+      expectedBranch: "pending",
+      expectedHead: "pending",
+      gate: null,
+      mintGate: true,
+      mode: "fixture",
+      fakeBehavior: "success",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.status).toBe("SUCCEEDED");
+    expect(r.report?.remoteGitWrites).toBe(0);
+    expect(r.report?.analysisAuthorized).toBe(false);
+  });
+
+  test("absent GO refuses", () => {
+    const branch = execFileSync("git", ["branch", "--show-current"], {
+      cwd: workspaceRoot,
+      encoding: "utf8",
+    }).trim();
+    const head = execFileSync("git", ["rev-parse", "HEAD"], {
+      cwd: workspaceRoot,
+      encoding: "utf8",
+    }).trim();
+    const r = runIncDCli({
+      requestId: "req-e2e-inc-d-nogo",
+      correlationId: "corr-e2e-inc-d-nogo",
+      contractId: "ctr-e2e-inc-d-nogo",
+      expectedBranch: branch,
+      expectedHead: head,
+      gate: null,
+      mintGate: false,
+      mode: "fixture",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.status).toBe("REFUSED_NO_GO");
+    expect(r.refusedBeforeSpawn).toBe(true);
+  });
+
+  test("policy violation outside allowlist", () => {
+    const r = runIncDCli({
+      requestId: "req-e2e-inc-d-pol",
+      correlationId: "corr-e2e-inc-d-pol",
+      contractId: "ctr-e2e-inc-d-pol",
+      expectedBranch: "pending",
+      expectedHead: "pending",
+      gate: null,
+      mintGate: true,
+      mode: "fixture",
+      fakeBehavior: "write-outside",
+    });
+    expect(r.status).toBe("POLICY_VIOLATION");
+  });
+
+  test("Cursor unavailable", () => {
+    const r = runIncDCli({
+      requestId: "req-e2e-inc-d-unavail",
+      correlationId: "corr-e2e-inc-d-unavail",
+      contractId: "ctr-e2e-inc-d-unavail",
+      expectedBranch: "pending",
+      expectedHead: "pending",
+      gate: null,
+      mintGate: true,
+      mode: "fixture",
+      fakeBehavior: "unavailable",
+    });
+    expect(r.status).toBe("CURSOR_UNAVAILABLE");
+  });
+
+  test("exit nonzero", () => {
+    const r = runIncDCli({
+      requestId: "req-e2e-inc-d-exit",
+      correlationId: "corr-e2e-inc-d-exit",
+      contractId: "ctr-e2e-inc-d-exit",
+      expectedBranch: "pending",
+      expectedHead: "pending",
+      gate: null,
+      mintGate: true,
+      mode: "fixture",
+      fakeBehavior: "exit-nonzero",
+    });
+    expect(r.status).toBe("FAILED_EXIT_CODE");
+  });
+
+  test("timeout ≠ GO", () => {
+    const r = runIncDCli({
+      requestId: "req-e2e-inc-d-to",
+      correlationId: "corr-e2e-inc-d-to",
+      contractId: "ctr-e2e-inc-d-to",
+      expectedBranch: "pending",
+      expectedHead: "pending",
+      gate: null,
+      mintGate: true,
+      mode: "fixture",
+      fakeBehavior: "timeout",
+      fakeDelayMs: 10,
+    });
+    expect(r.status).toBe("TIMED_OUT");
+    expect(r.ok).toBe(false);
+  });
+});
+
+```
+
+### projects/sfia-studio/app/lib/harness/incrementDAction.ts
+
+```
+"use server";
+
+import { execFile } from "node:child_process";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
+
+export interface IncrementDStudioRequest {
   requestId: string;
   correlationId: string;
   contractId: string;
-  contractHash: string;
-  expectedBranch: string;
-  actualBranch: string;
-  expectedHead: string;
-  actualHead: string;
-  allowlistedWritePaths: string[];
-  status: CursorExecutionStatus;
-  startedAt: string;
-  completedAt: string;
-  durationMs: number;
-  exitCode: number | null;
-  signal: string | null;
-  timeout: boolean;
-  stopRequested: boolean;
-  cursorAvailable: boolean;
-  filesCreated: string[];
-  filesModified: string[];
-  filesDeleted: string[];
-  outOfAllowlistChanges: string[];
-  stdoutPreview: string;
-  stderrPreview: string;
-  remoteGitWrites: 0;
-  networkUsed: false;
-  reservations: string[];
-  authority: {
-    candidateOnly: true;
-    morrisDecisionRequired: true;
-    executionAuthorized: false;
-    analysisAuthorized: false;
-  };
-  morrisDecisionRequired: true;
-  analysisAuthorized: false;
+  expectedBranch?: string;
+  expectedHead?: string;
+  gate?: unknown;
   mode: "fixture" | "live";
-  realCursorProcessInvoked: boolean;
+  mintGate?: boolean;
+  fakeBehavior?: string;
 }
 
-```
+export async function runIncrementDAction(req: IncrementDStudioRequest): Promise<unknown> {
+  const harnessRoot = path.resolve(process.cwd(), "../harness");
+  const work = mkdtempSync(path.join(os.tmpdir(), "sfia-inc-d-"));
+  const payloadPath = path.join(work, "inc-d.json");
+  writeFileSync(
+    payloadPath,
+    `${JSON.stringify(
+      {
+        requestId: req.requestId,
+        correlationId: req.correlationId,
+        contractId: req.contractId,
+        expectedBranch: req.expectedBranch ?? "pending",
+        expectedHead: req.expectedHead ?? "pending",
+        gate: req.gate ?? null,
+        proofDir: path.join(work, "proof"),
+        mode: req.mode,
+        mintGate: req.mintGate === true && req.mode === "fixture",
+        fakeBehavior: req.fakeBehavior ?? "success",
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
 
-### projects/sfia-studio/harness/src/increment-d/sandboxPaths.ts
+  const tsxBin = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
+  const cliEntry = path.join(harnessRoot, "src/cli.ts");
 
-Path: `projects/sfia-studio/harness/src/increment-d/sandboxPaths.ts`
-
-```
-/**
- * Increment D — sandbox path conventions (single Markdown write).
- * Reuses spike allowlist extension rather than a competing sandbox doctrine.
- */
-
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const HERE = path.dirname(fileURLToPath(import.meta.url));
-/** Workspace root: harness/src/increment-d → … → sfia-workspace */
-export const INC_D_WORKSPACE_ROOT = path.resolve(HERE, "../../../../../");
-
-export const INC_D_SANDBOX_REL = "projects/sfia-studio/.sandbox/increment-d";
-export const INC_D_OUTPUT_REL = "output.md";
-export const INC_D_TIMEOUT_MS = 30_000;
-export const INC_D_LIVE_FLAG = "SFIA_CURSOR_INC_D_LIVE";
-export const INC_D_OBSERVE_FLAG = "SFIA_CURSOR_INC_D_OBSERVE";
-
-export function resolveIncDSandboxAbs(workspaceRoot = INC_D_WORKSPACE_ROOT): string {
-  return path.resolve(workspaceRoot, INC_D_SANDBOX_REL);
-}
-
-export function resolveIncDOutputAbs(workspaceRoot = INC_D_WORKSPACE_ROOT): string {
-  return path.join(resolveIncDSandboxAbs(workspaceRoot), INC_D_OUTPUT_REL);
-}
-
-export function isIncDSandboxPath(cwd: string): boolean {
-  const resolved = path.resolve(cwd);
-  const marker = `${path.sep}.sandbox${path.sep}increment-d`;
-  return resolved.includes(marker) || resolved.endsWith(`${path.sep}increment-d`);
-}
-
-```
-
-### projects/sfia-studio/harness/src/increment-d/executionContract.ts
-
-Path: `projects/sfia-studio/harness/src/increment-d/executionContract.ts`
-
-```
-/**
- * Increment D — ExecutionContract + GO anchors for Cursor sandbox spawn.
- * Uses existing canonicalize + computeContractHash — no second hash algorithm.
- */
-
-import { createHash } from "node:crypto";
-import type { ExecutionContract, GateDecision } from "../types/contracts.js";
-import { computeContractHash } from "../hash/contractHash.js";
-import { canonicalize } from "../hash/canonicalize.js";
-import {
-  INC_D_OUTPUT_REL,
-  INC_D_SANDBOX_REL,
-  INC_D_TIMEOUT_MS,
-  INC_D_WORKSPACE_ROOT,
-} from "./sandboxPaths.js";
-
-/** Stable ExecutionContract for Increment D (cursorMode remains fixture for PolicyEngine;
- * live spawn is gated by Increment D runner flags, not by widening Orchestrator B). */
-export function buildIncrementDContract(input: {
-  contractId: string;
-  requestId: string;
-  proofDir: string;
-  expectedBranch: string;
-  expectedHead: string;
-  timeoutMs?: number;
-  repositoryRoot?: string;
-}): ExecutionContract & { expectedBranch: string; expectedHead: string; allowlistedWritePaths: string[] } {
-  const repositoryRoot = input.repositoryRoot ?? INC_D_WORKSPACE_ROOT;
-  const base: ExecutionContract = {
-    contractId: input.contractId,
-    requestId: input.requestId,
-    scenario: "S1",
-    repositoryRoot,
-    allowedPaths: [INC_D_SANDBOX_REL, `${INC_D_SANDBOX_REL}/${INC_D_OUTPUT_REL}`],
-    allowedCommands: ["cursor-sandbox-write-output-md", "git-status-short", "git-rev-parse"],
-    gitEffect: "none-remote",
-    cursorMode: "fixture",
-    timeoutMs: input.timeoutMs ?? INC_D_TIMEOUT_MS,
-    proofDir: input.proofDir,
-    schemaVersion: "poc-s1-1.0.0",
-    maxFiles: 1,
-    maxFileBytes: 64_000,
-    allowedExtensions: [".md"],
-    decidedByAllowlist: ["Morris"],
-  };
-  return {
-    ...base,
-    expectedBranch: input.expectedBranch,
-    expectedHead: input.expectedHead,
-    allowlistedWritePaths: [`${INC_D_SANDBOX_REL}/${INC_D_OUTPUT_REL}`],
-  };
-}
-
-export function hashIncrementDContract(
-  contract: ReturnType<typeof buildIncrementDContract>,
-): string {
-  // Hash the ExecutionContract fields only (stable algorithm).
-  const { expectedBranch: _b, expectedHead: _h, allowlistedWritePaths: _a, ...stable } = contract;
-  return computeContractHash(stable);
-}
-
-export function makeIncrementDGo(input: {
-  decisionId: string;
-  requestId: string;
-  contractHash: string;
-  branch: string;
-  head: string;
-  allowlist: string[];
-  decidedAt?: string;
-  expiresAt?: string;
-}): GateDecision {
-  return {
-    decisionId: input.decisionId,
-    requestId: input.requestId,
-    contractHash: input.contractHash,
-    decision: "GO",
-    decidedBy: "Morris",
-    decidedAt: input.decidedAt ?? new Date().toISOString(),
-    scope: "increment-d-cursor-sandbox",
-    expiresAt: input.expiresAt,
-    gitBranch: input.branch,
-    gitHead: input.head,
-    allowlistSnapshot: [...input.allowlist],
-    correlationId: `corr-${input.decisionId}`,
-  };
-}
-
-export function buildIncDMarkdownContent(meta: {
-  executionId: string;
-  requestId: string;
-  contractId: string;
-  branch: string;
-  head: string;
-  contractHash: string;
-  timestamp: string;
-}): string {
-  return [
-    "# SFIA Studio Increment D Sandbox Proof",
-    "",
-    `- executionId: ${meta.executionId}`,
-    `- requestId: ${meta.requestId}`,
-    `- contractId: ${meta.contractId}`,
-    `- branche revalidée: ${meta.branch}`,
-    `- HEAD revalidé: ${meta.head}`,
-    `- contractHash: ${meta.contractHash}`,
-    `- date/heure/fuseau: ${meta.timestamp}`,
-    "",
-    "Cursor sandbox execution completed",
-    "",
-    "Remote Git writes: 0",
-    "",
-    "Candidate proof only — Morris decision required",
-    "",
-  ].join("\n");
-}
-
-export function buildIncDCursorInstruction(meta: {
-  workspaceRoot: string;
-  sandboxAbs: string;
-  outputRel: string;
-  markdownContent: string;
-}): string {
-  return [
-    "SFIA Studio Increment D — Cursor sandbox Markdown proof.",
-    `Repository root: ${meta.workspaceRoot}`,
-    `Working directory (sandbox): ${meta.sandboxAbs}`,
-    `Write ONLY this relative file: ${meta.outputRel}`,
-    "Do not read secrets, .env, or API keys.",
-    "Do not modify any other file.",
-    "Do not run git commit, push, pull, fetch, checkout, reset, clean, rm, or any remote Git command.",
-    "Do not install dependencies.",
-    "Do not access the network.",
-    "If the sandbox path is missing or the scope diverges, stop immediately.",
-    "Write the following Markdown content exactly:",
-    "-----BEGIN MARKDOWN-----",
-    meta.markdownContent.trimEnd(),
-    "-----END MARKDOWN-----",
-    "Return a short completion note only.",
-  ].join("\n");
-}
-
-/** Provenance hash of demand/instruction without logging full text in events. */
-export function sha256Prefix(text: string, n = 16): string {
-  return createHash("sha256").update(text, "utf8").digest("hex").slice(0, n);
-}
-
-export function canonicalizeForAudit(value: unknown): string {
-  return canonicalize(value);
-}
-
-```
-
-### projects/sfia-studio/harness/src/increment-d/fakeCursorPort.ts
-
-Path: `projects/sfia-studio/harness/src/increment-d/fakeCursorPort.ts`
-
-```
-/**
- * Increment D — deterministic fake Cursor port (tests / fixture mode).
- * Never invokes a real Cursor binary.
- */
-
-import { mkdirSync, writeFileSync, unlinkSync, existsSync } from "node:fs";
-import path from "node:path";
-import { INC_D_OUTPUT_REL } from "./sandboxPaths.js";
-
-export type FakeCursorBehavior =
-  | "success"
-  | "exit-nonzero"
-  | "timeout"
-  | "stoppable-slow"
-  | "write-outside"
-  | "unavailable"
-  | "success-no-file";
-
-export interface FakeCursorPortOptions {
-  behavior: FakeCursorBehavior;
-  sandboxAbs: string;
-  markdownContent: string;
-  /** Delay before completing (ms) — used for STOP/timeout tests. */
-  delayMs?: number;
-  signal?: AbortSignal;
-}
-
-export interface FakeCursorPortResult {
-  ok: boolean;
-  exitCode: number | null;
-  signal: string | null;
-  timedOut: boolean;
-  stopRequested: boolean;
-  cursorAvailable: boolean;
-  realCursorProcessInvoked: false;
-  durationMs: number;
-  stdout: string;
-  stderr: string;
-  errorCode?: string;
-}
-
-export async function runFakeCursorPort(
-  opts: FakeCursorPortOptions,
-): Promise<FakeCursorPortResult> {
-  const started = Date.now();
-  const delay = opts.delayMs ?? 0;
-
-  if (opts.behavior === "unavailable") {
-    return {
-      ok: false,
-      exitCode: null,
-      signal: null,
-      timedOut: false,
-      stopRequested: false,
-      cursorAvailable: false,
-      realCursorProcessInvoked: false,
-      durationMs: Date.now() - started,
-      stdout: "",
-      stderr: "cursor binary not found",
-      errorCode: "CURSOR_UNAVAILABLE",
-    };
-  }
-
-  const waitOrAbort = async (): Promise<"ok" | "aborted" | "timeout"> => {
-    if (delay <= 0) return "ok";
-    return new Promise((resolve) => {
-      const timer = setTimeout(() => resolve("ok"), delay);
-      const onAbort = () => {
-        clearTimeout(timer);
-        resolve("aborted");
-      };
-      if (opts.signal?.aborted) {
-        clearTimeout(timer);
-        resolve("aborted");
-        return;
+  try {
+    const { stdout } = await execFileAsync(
+      process.execPath,
+      [tsxBin, cliEntry, "inc-d-run", payloadPath],
+      {
+        cwd: harnessRoot,
+        maxBuffer: 8 * 1024 * 1024,
+        env: {
+          ...process.env,
+          SFIA_CURSOR_REAL_SPIKE: "0",
+          SFIA_GPT_REAL_SPIKE: "0",
+          ...(req.mode === "live" ? { SFIA_CURSOR_INC_D_LIVE: "1" } : {}),
+        },
+      },
+    );
+    return JSON.parse(stdout);
+  } catch (err) {
+    const e = err as { stdout?: string; message?: string };
+    if (e.stdout) {
+      try {
+        return JSON.parse(e.stdout);
+      } catch {
+        /* fall through */
       }
-      opts.signal?.addEventListener("abort", onAbort, { once: true });
-    });
-  };
-
-  if (opts.behavior === "timeout") {
-    await new Promise((r) => setTimeout(r, opts.delayMs ?? 50));
-    return {
-      ok: false,
-      exitCode: null,
-      signal: "SIGTERM",
-      timedOut: true,
-      stopRequested: false,
-      cursorAvailable: true,
-      realCursorProcessInvoked: false,
-      durationMs: Date.now() - started,
-      stdout: "",
-      stderr: "fake port timed out",
-      errorCode: "TIMED_OUT",
-    };
-  }
-
-  if (opts.behavior === "stoppable-slow") {
-    const outcome = await waitOrAbort();
-    if (outcome === "aborted") {
-      return {
-        ok: false,
-        exitCode: null,
-        signal: "SIGTERM",
-        timedOut: false,
-        stopRequested: true,
-        cursorAvailable: true,
-        realCursorProcessInvoked: false,
-        durationMs: Date.now() - started,
-        stdout: "",
-        stderr: "fake port stopped",
-        errorCode: "STOPPED",
-      };
     }
-  } else if (delay > 0) {
-    const outcome = await waitOrAbort();
-    if (outcome === "aborted") {
-      return {
-        ok: false,
-        exitCode: null,
-        signal: "SIGTERM",
-        timedOut: false,
-        stopRequested: true,
-        cursorAvailable: true,
-        realCursorProcessInvoked: false,
-        durationMs: Date.now() - started,
-        stdout: "",
-        stderr: "fake port stopped",
-        errorCode: "STOPPED",
-      };
-    }
-  }
-
-  mkdirSync(opts.sandboxAbs, { recursive: true });
-
-  if (opts.behavior === "write-outside") {
-    const outside = path.resolve(opts.sandboxAbs, "..", "ESCAPE_PROBE.md");
-    writeFileSync(outside, "escape", "utf8");
     return {
       ok: false,
-      exitCode: 0,
-      signal: null,
-      timedOut: false,
-      stopRequested: false,
-      cursorAvailable: true,
-      realCursorProcessInvoked: false,
-      durationMs: Date.now() - started,
-      stdout: "wrote outside",
-      stderr: "",
-      errorCode: "POLICY_VIOLATION",
+      status: "FAILED_EXIT_CODE",
+      errorCode: "ADAPTER_FORWARD_FAILED",
+      errorMessage: e.message ?? "inc-d invoke failed",
+      liveInvoked: false,
     };
   }
-
-  if (opts.behavior === "success-no-file") {
-    return {
-      ok: false,
-      exitCode: 0,
-      signal: null,
-      timedOut: false,
-      stopRequested: false,
-      cursorAvailable: true,
-      realCursorProcessInvoked: false,
-      durationMs: Date.now() - started,
-      stdout: "claimed success without file",
-      stderr: "",
-      errorCode: "REPORT_INCOMPLETE",
-    };
-  }
-
-  if (opts.behavior === "exit-nonzero") {
-    return {
-      ok: false,
-      exitCode: 2,
-      signal: null,
-      timedOut: false,
-      stopRequested: false,
-      cursorAvailable: true,
-      realCursorProcessInvoked: false,
-      durationMs: Date.now() - started,
-      stdout: "",
-      stderr: "fake exit 2",
-      errorCode: "FAILED_EXIT_CODE",
-    };
-  }
-
-  // success
-  const out = path.join(opts.sandboxAbs, INC_D_OUTPUT_REL);
-  writeFileSync(out, opts.markdownContent, "utf8");
-  return {
-    ok: true,
-    exitCode: 0,
-    signal: null,
-    timedOut: false,
-    stopRequested: false,
-    cursorAvailable: true,
-    realCursorProcessInvoked: false,
-    durationMs: Date.now() - started,
-    stdout: `wrote ${INC_D_OUTPUT_REL}`,
-    stderr: "",
-  };
-}
-
-export function cleanupFakeOutsideProbe(sandboxAbs: string): void {
-  const outside = path.resolve(sandboxAbs, "..", "ESCAPE_PROBE.md");
-  if (existsSync(outside)) unlinkSync(outside);
 }
 
 ```
 
 ### projects/sfia-studio/harness/src/increment-d/cursorSandboxRunner.ts
-
-Path: `projects/sfia-studio/harness/src/increment-d/cursorSandboxRunner.ts`
 
 ```
 /**
@@ -1415,12 +1290,13 @@ function sanitizePreview(s: string, max = 4000): string {
     .slice(0, max);
 }
 
-function buildReport(partial: Omit<CursorExecutionReport, "schemaVersion" | "authority" | "morrisDecisionRequired" | "analysisAuthorized" | "remoteGitWrites" | "networkUsed">): CursorExecutionReport {
+function buildReport(partial: Omit<CursorExecutionReport, "schemaVersion" | "authority" | "morrisDecisionRequired" | "analysisAuthorized" | "remoteGitWrites" | "networkUsed" | "s1ContractCursorMode">): CursorExecutionReport {
   return {
     schemaVersion: CURSOR_EXECUTION_REPORT_SCHEMA,
     ...partial,
     remoteGitWrites: 0,
     networkUsed: false,
+    s1ContractCursorMode: "fixture",
     authority: {
       candidateOnly: true,
       morrisDecisionRequired: true,
@@ -1964,9 +1840,517 @@ export { INC_D_SANDBOX_REL, INC_D_OUTPUT_REL, INC_D_TIMEOUT_MS, INC_D_LIVE_FLAG,
 
 ```
 
-### projects/sfia-studio/harness/tests/increment-d.test.ts
+### projects/sfia-studio/harness/src/increment-d/executionContract.ts
 
-Path: `projects/sfia-studio/harness/tests/increment-d.test.ts`
+```
+/**
+ * Increment D — ExecutionContract + GO anchors for Cursor sandbox spawn.
+ * Uses existing canonicalize + computeContractHash — no second hash algorithm.
+ *
+ * ## cursorMode semantics (PR readiness — do not conflate)
+ *
+ * `ExecutionContract.cursorMode` is typed as S1 `CursorMode = "fixture"` only and is
+ * required by PolicyEngine for the stable Orchestrator B path. It is a **schema /
+ * policy slot**, not the Increment D process invocation mode.
+ *
+ * Authoritative process mode for Increment D lives on:
+ * - `IncrementDRunInput.mode` (`fixture` | `live`)
+ * - `CursorExecutionReport.mode` + `realCursorProcessInvoked`
+ * - `CursorExecutionReport.s1ContractCursorMode` (always `"fixture"`, audit echo)
+ *
+ * Changing S1 `cursorMode` to `"live"` would require widening `CursorMode` and
+ * PolicyEngine — structural pivot, out of Increment D readiness scope.
+ */
+
+import { createHash } from "node:crypto";
+import type { ExecutionContract, GateDecision } from "../types/contracts.js";
+import { computeContractHash } from "../hash/contractHash.js";
+import { canonicalize } from "../hash/canonicalize.js";
+import {
+  INC_D_OUTPUT_REL,
+  INC_D_SANDBOX_REL,
+  INC_D_TIMEOUT_MS,
+  INC_D_WORKSPACE_ROOT,
+} from "./sandboxPaths.js";
+
+/** Echo of S1 schema slot — never means “no real Cursor process”. */
+export const S1_CONTRACT_CURSOR_MODE = "fixture" as const;
+
+/** Stable ExecutionContract for Increment D. */
+export function buildIncrementDContract(input: {
+  contractId: string;
+  requestId: string;
+  proofDir: string;
+  expectedBranch: string;
+  expectedHead: string;
+  timeoutMs?: number;
+  repositoryRoot?: string;
+}): ExecutionContract & {
+  expectedBranch: string;
+  expectedHead: string;
+  allowlistedWritePaths: string[];
+  /** Documentation-only: S1 cursorMode is schema, not process mode. */
+  s1CursorModeIsSchemaOnly: true;
+} {
+  const repositoryRoot = input.repositoryRoot ?? INC_D_WORKSPACE_ROOT;
+  const base: ExecutionContract = {
+    contractId: input.contractId,
+    requestId: input.requestId,
+    scenario: "S1",
+    repositoryRoot,
+    allowedPaths: [INC_D_SANDBOX_REL, `${INC_D_SANDBOX_REL}/${INC_D_OUTPUT_REL}`],
+    allowedCommands: ["cursor-sandbox-write-output-md", "git-status-short", "git-rev-parse"],
+    gitEffect: "none-remote",
+    cursorMode: S1_CONTRACT_CURSOR_MODE,
+    timeoutMs: input.timeoutMs ?? INC_D_TIMEOUT_MS,
+    proofDir: input.proofDir,
+    schemaVersion: "poc-s1-1.0.0",
+    maxFiles: 1,
+    maxFileBytes: 64_000,
+    allowedExtensions: [".md"],
+    decidedByAllowlist: ["Morris"],
+  };
+  return {
+    ...base,
+    expectedBranch: input.expectedBranch,
+    expectedHead: input.expectedHead,
+    allowlistedWritePaths: [`${INC_D_SANDBOX_REL}/${INC_D_OUTPUT_REL}`],
+    s1CursorModeIsSchemaOnly: true,
+  };
+}
+
+export function hashIncrementDContract(
+  contract: ReturnType<typeof buildIncrementDContract>,
+): string {
+  // Hash the ExecutionContract fields only (stable algorithm).
+  // Extension fields (expected*, allowlistedWritePaths, s1CursorModeIsSchemaOnly) excluded.
+  const {
+    expectedBranch: _b,
+    expectedHead: _h,
+    allowlistedWritePaths: _a,
+    s1CursorModeIsSchemaOnly: _s,
+    ...stable
+  } = contract;
+  return computeContractHash(stable);
+}
+
+export function makeIncrementDGo(input: {
+  decisionId: string;
+  requestId: string;
+  contractHash: string;
+  branch: string;
+  head: string;
+  allowlist: string[];
+  decidedAt?: string;
+  expiresAt?: string;
+}): GateDecision {
+  return {
+    decisionId: input.decisionId,
+    requestId: input.requestId,
+    contractHash: input.contractHash,
+    decision: "GO",
+    decidedBy: "Morris",
+    decidedAt: input.decidedAt ?? new Date().toISOString(),
+    scope: "increment-d-cursor-sandbox",
+    expiresAt: input.expiresAt,
+    gitBranch: input.branch,
+    gitHead: input.head,
+    allowlistSnapshot: [...input.allowlist],
+    correlationId: `corr-${input.decisionId}`,
+  };
+}
+
+export function buildIncDMarkdownContent(meta: {
+  executionId: string;
+  requestId: string;
+  contractId: string;
+  branch: string;
+  head: string;
+  contractHash: string;
+  timestamp: string;
+}): string {
+  return [
+    "# SFIA Studio Increment D Sandbox Proof",
+    "",
+    `- executionId: ${meta.executionId}`,
+    `- requestId: ${meta.requestId}`,
+    `- contractId: ${meta.contractId}`,
+    `- branche revalidée: ${meta.branch}`,
+    `- HEAD revalidé: ${meta.head}`,
+    `- contractHash: ${meta.contractHash}`,
+    `- date/heure/fuseau: ${meta.timestamp}`,
+    "",
+    "Cursor sandbox execution completed",
+    "",
+    "Remote Git writes: 0",
+    "",
+    "Candidate proof only — Morris decision required",
+    "",
+  ].join("\n");
+}
+
+export function buildIncDCursorInstruction(meta: {
+  workspaceRoot: string;
+  sandboxAbs: string;
+  outputRel: string;
+  markdownContent: string;
+}): string {
+  return [
+    "SFIA Studio Increment D — Cursor sandbox Markdown proof.",
+    `Repository root: ${meta.workspaceRoot}`,
+    `Working directory (sandbox): ${meta.sandboxAbs}`,
+    `Write ONLY this relative file: ${meta.outputRel}`,
+    "Do not read secrets, .env, or API keys.",
+    "Do not modify any other file.",
+    "Do not run git commit, push, pull, fetch, checkout, reset, clean, rm, or any remote Git command.",
+    "Do not install dependencies.",
+    "Do not access the network.",
+    "If the sandbox path is missing or the scope diverges, stop immediately.",
+    "Write the following Markdown content exactly:",
+    "-----BEGIN MARKDOWN-----",
+    meta.markdownContent.trimEnd(),
+    "-----END MARKDOWN-----",
+    "Return a short completion note only.",
+  ].join("\n");
+}
+
+/** Provenance hash of demand/instruction without logging full text in events. */
+export function sha256Prefix(text: string, n = 16): string {
+  return createHash("sha256").update(text, "utf8").digest("hex").slice(0, n);
+}
+
+export function canonicalizeForAudit(value: unknown): string {
+  return canonicalize(value);
+}
+
+```
+
+### projects/sfia-studio/harness/src/increment-d/fakeCursorPort.ts
+
+```
+/**
+ * Increment D — deterministic fake Cursor port (tests / fixture mode).
+ * Never invokes a real Cursor binary.
+ */
+
+import { mkdirSync, writeFileSync, unlinkSync, existsSync } from "node:fs";
+import path from "node:path";
+import { INC_D_OUTPUT_REL } from "./sandboxPaths.js";
+
+export type FakeCursorBehavior =
+  | "success"
+  | "exit-nonzero"
+  | "timeout"
+  | "stoppable-slow"
+  | "write-outside"
+  | "unavailable"
+  | "success-no-file";
+
+export interface FakeCursorPortOptions {
+  behavior: FakeCursorBehavior;
+  sandboxAbs: string;
+  markdownContent: string;
+  /** Delay before completing (ms) — used for STOP/timeout tests. */
+  delayMs?: number;
+  signal?: AbortSignal;
+}
+
+export interface FakeCursorPortResult {
+  ok: boolean;
+  exitCode: number | null;
+  signal: string | null;
+  timedOut: boolean;
+  stopRequested: boolean;
+  cursorAvailable: boolean;
+  realCursorProcessInvoked: false;
+  durationMs: number;
+  stdout: string;
+  stderr: string;
+  errorCode?: string;
+}
+
+export async function runFakeCursorPort(
+  opts: FakeCursorPortOptions,
+): Promise<FakeCursorPortResult> {
+  const started = Date.now();
+  const delay = opts.delayMs ?? 0;
+
+  if (opts.behavior === "unavailable") {
+    return {
+      ok: false,
+      exitCode: null,
+      signal: null,
+      timedOut: false,
+      stopRequested: false,
+      cursorAvailable: false,
+      realCursorProcessInvoked: false,
+      durationMs: Date.now() - started,
+      stdout: "",
+      stderr: "cursor binary not found",
+      errorCode: "CURSOR_UNAVAILABLE",
+    };
+  }
+
+  const waitOrAbort = async (): Promise<"ok" | "aborted" | "timeout"> => {
+    if (delay <= 0) return "ok";
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => resolve("ok"), delay);
+      const onAbort = () => {
+        clearTimeout(timer);
+        resolve("aborted");
+      };
+      if (opts.signal?.aborted) {
+        clearTimeout(timer);
+        resolve("aborted");
+        return;
+      }
+      opts.signal?.addEventListener("abort", onAbort, { once: true });
+    });
+  };
+
+  if (opts.behavior === "timeout") {
+    await new Promise((r) => setTimeout(r, opts.delayMs ?? 50));
+    return {
+      ok: false,
+      exitCode: null,
+      signal: "SIGTERM",
+      timedOut: true,
+      stopRequested: false,
+      cursorAvailable: true,
+      realCursorProcessInvoked: false,
+      durationMs: Date.now() - started,
+      stdout: "",
+      stderr: "fake port timed out",
+      errorCode: "TIMED_OUT",
+    };
+  }
+
+  if (opts.behavior === "stoppable-slow") {
+    const outcome = await waitOrAbort();
+    if (outcome === "aborted") {
+      return {
+        ok: false,
+        exitCode: null,
+        signal: "SIGTERM",
+        timedOut: false,
+        stopRequested: true,
+        cursorAvailable: true,
+        realCursorProcessInvoked: false,
+        durationMs: Date.now() - started,
+        stdout: "",
+        stderr: "fake port stopped",
+        errorCode: "STOPPED",
+      };
+    }
+  } else if (delay > 0) {
+    const outcome = await waitOrAbort();
+    if (outcome === "aborted") {
+      return {
+        ok: false,
+        exitCode: null,
+        signal: "SIGTERM",
+        timedOut: false,
+        stopRequested: true,
+        cursorAvailable: true,
+        realCursorProcessInvoked: false,
+        durationMs: Date.now() - started,
+        stdout: "",
+        stderr: "fake port stopped",
+        errorCode: "STOPPED",
+      };
+    }
+  }
+
+  mkdirSync(opts.sandboxAbs, { recursive: true });
+
+  if (opts.behavior === "write-outside") {
+    const outside = path.resolve(opts.sandboxAbs, "..", "ESCAPE_PROBE.md");
+    writeFileSync(outside, "escape", "utf8");
+    return {
+      ok: false,
+      exitCode: 0,
+      signal: null,
+      timedOut: false,
+      stopRequested: false,
+      cursorAvailable: true,
+      realCursorProcessInvoked: false,
+      durationMs: Date.now() - started,
+      stdout: "wrote outside",
+      stderr: "",
+      errorCode: "POLICY_VIOLATION",
+    };
+  }
+
+  if (opts.behavior === "success-no-file") {
+    return {
+      ok: false,
+      exitCode: 0,
+      signal: null,
+      timedOut: false,
+      stopRequested: false,
+      cursorAvailable: true,
+      realCursorProcessInvoked: false,
+      durationMs: Date.now() - started,
+      stdout: "claimed success without file",
+      stderr: "",
+      errorCode: "REPORT_INCOMPLETE",
+    };
+  }
+
+  if (opts.behavior === "exit-nonzero") {
+    return {
+      ok: false,
+      exitCode: 2,
+      signal: null,
+      timedOut: false,
+      stopRequested: false,
+      cursorAvailable: true,
+      realCursorProcessInvoked: false,
+      durationMs: Date.now() - started,
+      stdout: "",
+      stderr: "fake exit 2",
+      errorCode: "FAILED_EXIT_CODE",
+    };
+  }
+
+  // success
+  const out = path.join(opts.sandboxAbs, INC_D_OUTPUT_REL);
+  writeFileSync(out, opts.markdownContent, "utf8");
+  return {
+    ok: true,
+    exitCode: 0,
+    signal: null,
+    timedOut: false,
+    stopRequested: false,
+    cursorAvailable: true,
+    realCursorProcessInvoked: false,
+    durationMs: Date.now() - started,
+    stdout: `wrote ${INC_D_OUTPUT_REL}`,
+    stderr: "",
+  };
+}
+
+export function cleanupFakeOutsideProbe(sandboxAbs: string): void {
+  const outside = path.resolve(sandboxAbs, "..", "ESCAPE_PROBE.md");
+  if (existsSync(outside)) unlinkSync(outside);
+}
+
+```
+
+### projects/sfia-studio/harness/src/increment-d/sandboxPaths.ts
+
+```
+/**
+ * Increment D — sandbox path conventions (single Markdown write).
+ * Reuses spike allowlist extension rather than a competing sandbox doctrine.
+ */
+
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+/** Workspace root: harness/src/increment-d → … → sfia-workspace */
+export const INC_D_WORKSPACE_ROOT = path.resolve(HERE, "../../../../../");
+
+export const INC_D_SANDBOX_REL = "projects/sfia-studio/.sandbox/increment-d";
+export const INC_D_OUTPUT_REL = "output.md";
+export const INC_D_TIMEOUT_MS = 30_000;
+export const INC_D_LIVE_FLAG = "SFIA_CURSOR_INC_D_LIVE";
+export const INC_D_OBSERVE_FLAG = "SFIA_CURSOR_INC_D_OBSERVE";
+
+export function resolveIncDSandboxAbs(workspaceRoot = INC_D_WORKSPACE_ROOT): string {
+  return path.resolve(workspaceRoot, INC_D_SANDBOX_REL);
+}
+
+export function resolveIncDOutputAbs(workspaceRoot = INC_D_WORKSPACE_ROOT): string {
+  return path.join(resolveIncDSandboxAbs(workspaceRoot), INC_D_OUTPUT_REL);
+}
+
+export function isIncDSandboxPath(cwd: string): boolean {
+  const resolved = path.resolve(cwd);
+  const marker = `${path.sep}.sandbox${path.sep}increment-d`;
+  return resolved.includes(marker) || resolved.endsWith(`${path.sep}increment-d`);
+}
+
+```
+
+### projects/sfia-studio/harness/src/types/cursorExecutionReport.ts
+
+```
+/**
+ * Increment D — CursorExecutionReport (canonical harness report).
+ * Candidate proof only — Morris decision still required. Never authorizes analysis.
+ */
+
+export const CURSOR_EXECUTION_REPORT_SCHEMA = "cursor-execution-report-1.0.0" as const;
+
+export type CursorExecutionStatus =
+  | "SUCCEEDED"
+  | "REFUSED_NO_GO"
+  | "REFUSED_STALE_GO"
+  | "REFUSED_SCOPE"
+  | "CURSOR_UNAVAILABLE"
+  | "FAILED_EXIT_CODE"
+  | "STOPPED"
+  | "TIMED_OUT"
+  | "POLICY_VIOLATION"
+  | "REPORT_INCOMPLETE";
+
+export interface CursorExecutionReport {
+  schemaVersion: typeof CURSOR_EXECUTION_REPORT_SCHEMA;
+  executionId: string;
+  requestId: string;
+  correlationId: string;
+  contractId: string;
+  contractHash: string;
+  expectedBranch: string;
+  actualBranch: string;
+  expectedHead: string;
+  actualHead: string;
+  allowlistedWritePaths: string[];
+  status: CursorExecutionStatus;
+  startedAt: string;
+  completedAt: string;
+  durationMs: number;
+  exitCode: number | null;
+  signal: string | null;
+  timeout: boolean;
+  stopRequested: boolean;
+  cursorAvailable: boolean;
+  filesCreated: string[];
+  filesModified: string[];
+  filesDeleted: string[];
+  outOfAllowlistChanges: string[];
+  stdoutPreview: string;
+  stderrPreview: string;
+  remoteGitWrites: 0;
+  networkUsed: false;
+  reservations: string[];
+  authority: {
+    candidateOnly: true;
+    morrisDecisionRequired: true;
+    executionAuthorized: false;
+    analysisAuthorized: false;
+  };
+  morrisDecisionRequired: true;
+  analysisAuthorized: false;
+  /**
+   * Authoritative Increment D process path for this report.
+   * Do not confuse with S1 ExecutionContract.cursorMode (always "fixture").
+   */
+  mode: "fixture" | "live";
+  /** True only when a real Cursor child process was spawned. */
+  realCursorProcessInvoked: boolean;
+  /**
+   * Echo of S1 ExecutionContract.cursorMode — PolicyEngine schema slot only.
+   * Always "fixture". Never means the process was a fixture when mode=live.
+   */
+  s1ContractCursorMode: "fixture";
+}
+
+```
+
+### projects/sfia-studio/harness/tests/increment-d.test.ts
 
 ```
 import { describe, expect, it, beforeEach } from "vitest";
@@ -2298,6 +2682,9 @@ describe("Increment D — remote / report authority", () => {
     expect(rep.completedAt).toBeTruthy();
     expect(typeof rep.durationMs).toBe("number");
     expect(rep.morrisDecisionRequired).toBe(true);
+    expect(rep.s1ContractCursorMode).toBe("fixture");
+    expect(rep.mode).toBe("fixture");
+    expect(rep.realCursorProcessInvoked).toBe(false);
   });
 
   it("no automatic relaunch after timeout", async () => {
@@ -2307,437 +2694,185 @@ describe("Increment D — remote / report authority", () => {
     const spawnCount = r.eventsLogged.filter((e) => e === "cursor.spawn.requested").length;
     expect(spawnCount).toBe(1);
   });
-});
 
-```
+  it("S1 cursorMode=fixture is schema-only; process mode is report.mode", async () => {
+    const { input, contract } = validBundle();
+    expect(contract.cursorMode).toBe("fixture");
+    expect(contract.s1CursorModeIsSchemaOnly).toBe(true);
+    const r = await runIncrementDSandbox(input);
+    expect(r.report.s1ContractCursorMode).toBe("fixture");
+    expect(r.report.mode).toBe("fixture");
+    expect(r.report.realCursorProcessInvoked).toBe(false);
+  });
 
-### projects/sfia-studio/app/lib/harness/incrementDAction.ts
-
-Path: `projects/sfia-studio/app/lib/harness/incrementDAction.ts`
-
-```
-"use server";
-
-import { execFile } from "node:child_process";
-import { mkdtempSync, writeFileSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { promisify } from "node:util";
-
-const execFileAsync = promisify(execFile);
-
-export interface IncrementDStudioRequest {
-  requestId: string;
-  correlationId: string;
-  contractId: string;
-  expectedBranch?: string;
-  expectedHead?: string;
-  gate?: unknown;
-  mode: "fixture" | "live";
-  mintGate?: boolean;
-  fakeBehavior?: string;
-}
-
-export async function runIncrementDAction(req: IncrementDStudioRequest): Promise<unknown> {
-  const harnessRoot = path.resolve(process.cwd(), "../harness");
-  const work = mkdtempSync(path.join(os.tmpdir(), "sfia-inc-d-"));
-  const payloadPath = path.join(work, "inc-d.json");
-  writeFileSync(
-    payloadPath,
-    `${JSON.stringify(
-      {
-        requestId: req.requestId,
-        correlationId: req.correlationId,
-        contractId: req.contractId,
-        expectedBranch: req.expectedBranch ?? "pending",
-        expectedHead: req.expectedHead ?? "pending",
-        gate: req.gate ?? null,
-        proofDir: path.join(work, "proof"),
-        mode: req.mode,
-        mintGate: req.mintGate === true && req.mode === "fixture",
-        fakeBehavior: req.fakeBehavior ?? "success",
-      },
-      null,
-      2,
-    )}\n`,
-    "utf8",
-  );
-
-  const tsxBin = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
-  const cliEntry = path.join(harnessRoot, "src/cli.ts");
-
-  try {
-    const { stdout } = await execFileAsync(
-      process.execPath,
-      [tsxBin, cliEntry, "inc-d-run", payloadPath],
-      {
-        cwd: harnessRoot,
-        maxBuffer: 8 * 1024 * 1024,
-        env: {
-          ...process.env,
-          SFIA_CURSOR_REAL_SPIKE: "0",
-          SFIA_GPT_REAL_SPIKE: "0",
-          ...(req.mode === "live" ? { SFIA_CURSOR_INC_D_LIVE: "1" } : {}),
-        },
-      },
-    );
-    return JSON.parse(stdout);
-  } catch (err) {
-    const e = err as { stdout?: string; message?: string };
-    if (e.stdout) {
-      try {
-        return JSON.parse(e.stdout);
-      } catch {
-        /* fall through */
-      }
+  it("real Cursor claim cannot coexist with fixture process mode", async () => {
+    const { input } = validBundle();
+    const r = await runIncrementDSandbox(input);
+    if (r.report.realCursorProcessInvoked) {
+      expect(r.report.mode).toBe("live");
     }
-    return {
-      ok: false,
-      status: "FAILED_EXIT_CODE",
-      errorCode: "ADAPTER_FORWARD_FAILED",
-      errorMessage: e.message ?? "inc-d invoke failed",
-      liveInvoked: false,
-    };
-  }
+    if (r.report.mode === "fixture") {
+      expect(r.report.realCursorProcessInvoked).toBe(false);
+    }
+  });
+});
+
+```
+
+### Preuves live (références — non versionnées)
+
+
+#### cursor-execution-report.json
+
+```json
+{
+  "schemaVersion": "cursor-execution-report-1.0.0",
+  "executionId": "exec-inc-d-c9f0bec1-5755-40d5-8284-ad6b05597b7c",
+  "requestId": "req-inc-d-live-1784528437254",
+  "correlationId": "corr-inc-d-live-1784528437254",
+  "contractId": "ctr-inc-d-live-001",
+  "contractHash": "75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78",
+  "expectedBranch": "delivery/sfia-studio-poc-increment-d",
+  "actualBranch": "delivery/sfia-studio-poc-increment-d",
+  "expectedHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
+  "actualHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
+  "allowlistedWritePaths": [
+    "projects/sfia-studio/.sandbox/increment-d/output.md"
+  ],
+  "status": "SUCCEEDED",
+  "startedAt": "2026-07-20T06:20:37.485Z",
+  "completedAt": "2026-07-20T06:20:49.779Z",
+  "durationMs": 12294,
+  "exitCode": 0,
+  "signal": null,
+  "timeout": false,
+  "stopRequested": false,
+  "cursorAvailable": true,
+  "filesCreated": [
+    "output.md"
+  ],
+  "filesModified": [],
+  "filesDeleted": [],
+  "outOfAllowlistChanges": [],
+  "stdoutPreview": "Wrote `output.md` in the Increment D sandbox with the specified proof content.\n",
+  "stderrPreview": "",
+  "reservations": [
+    "Sandbox Markdown proof succeeded",
+    "Remote Git writes: 0",
+    "Candidate proof only — Morris decision required",
+    "Increment E / GPT analysis not authorized"
+  ],
+  "mode": "live",
+  "realCursorProcessInvoked": true,
+  "remoteGitWrites": 0,
+  "networkUsed": false,
+  "authority": {
+    "candidateOnly": true,
+    "morrisDecisionRequired": true,
+    "executionAuthorized": false,
+    "analysisAuthorized": false
+  },
+  "morrisDecisionRequired": true,
+  "analysisAuthorized": false
 }
 
 ```
 
-### projects/sfia-studio/app/__tests__/increment-d.test.tsx
+#### 01-execution-contract.json
 
-Path: `projects/sfia-studio/app/__tests__/increment-d.test.tsx`
-
-```
-/**
- * @vitest-environment jsdom
- */
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CycleActifScreen } from "@/features/cycle-actif/CycleActifScreen";
-
-vi.mock("next/navigation", () => ({
-  usePathname: () => mockPathname,
-  useSearchParams: () => new URLSearchParams(mockSearch),
-  useRouter: () => ({ push: vi.fn(), replace: vi.fn(), prefetch: vi.fn() }),
-}));
-
-vi.mock("next/link", () => ({
-  default: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href: string;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
-vi.mock("@/lib/harness/incrementDAction", () => ({
-  runIncrementDAction: vi.fn(async () => ({
-    ok: true,
-    status: "SUCCEEDED",
-    report: {
-      status: "SUCCEEDED",
-      contractId: "ctr-mock",
-      contractHash: "abc123",
-      actualBranch: "delivery/sfia-studio-poc-increment-d",
-      actualHead: "0123456789ab",
-      allowlistedWritePaths: ["projects/sfia-studio/.sandbox/increment-d/output.md"],
-      filesCreated: ["output.md"],
-      remoteGitWrites: 0,
-      analysisAuthorized: false,
-      mode: "fixture",
-      reservations: ["Candidate proof only"],
-    },
-    markdownContent: "# SFIA Studio Increment D Sandbox Proof\n",
-  })),
-}));
-
-let mockPathname = "/cycle-actif";
-let mockSearch = "vs=VS-UX-05";
-
-afterEach(() => {
-  cleanup();
-});
-
-beforeEach(() => {
-  mockPathname = "/cycle-actif";
-  mockSearch = "vs=VS-UX-05";
-});
-
-describe("Increment D — Cycle actif UI", () => {
-  it("exposes STOP with accessible name", () => {
-    render(<CycleActifScreen />);
-    expect(screen.getByTestId("vs-stop-execution")).toHaveAttribute(
-      "aria-label",
-      expect.stringMatching(/STOP Morris/i),
-    );
-  });
-
-  it("shows remote=0 expectation", () => {
-    render(<CycleActifScreen />);
-    expect(screen.getByTestId("vs-inc-d-remote-zero")).toHaveTextContent(/0/);
-  });
-
-  it("disables analysis CTA on report step", () => {
-    mockSearch = "vs=VS-UX-06";
-    render(<CycleActifScreen />);
-    expect(screen.getByTestId("vs-inc-d-analyze-disabled")).toBeDisabled();
-    expect(screen.getByTestId("vs-inc-d-analyze-disabled")).toHaveTextContent(
-      /Increment E non disponible/i,
-    );
-  });
-
-  it("keeps CursorExecutionReport panel without fifth route", () => {
-    mockSearch = "vs=VS-UX-06";
-    render(<CycleActifScreen />);
-    expect(screen.getByTestId("vs-inc-d-status")).toBeInTheDocument();
-    expect(screen.getByTestId("vs-cycle-actif")).toBeInTheDocument();
-  });
-});
-
-```
-
-### projects/sfia-studio/app/e2e/increment-d.spec.ts
-
-Path: `projects/sfia-studio/app/e2e/increment-d.spec.ts`
-
-```
-import { expect, test } from "@playwright/test";
-import { execFileSync } from "node:child_process";
-import fs from "fs";
-import os from "os";
-import path from "path";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots-increment-d",
-);
-const harnessRoot = path.resolve(__dirname, "../../harness");
-const workspaceRoot = path.resolve(__dirname, "../../../..");
-
-test.beforeAll(() => {
-  fs.mkdirSync(screenshotDir, { recursive: true });
-});
-
-function runIncDCli(payload: Record<string, unknown>): {
-  ok: boolean;
-  status: string;
-  report?: { remoteGitWrites?: number; analysisAuthorized?: boolean };
-  refusedBeforeSpawn?: boolean;
-} {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-e2e-inc-d-"));
-  const payloadPath = path.join(dir, "payload.json");
-  const proofDir = path.join(dir, "proof");
-  fs.writeFileSync(
-    payloadPath,
-    JSON.stringify({ ...payload, proofDir }, null, 2),
-    "utf8",
-  );
-  const tsx = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
-  const cli = path.join(harnessRoot, "src/cli.ts");
-  try {
-    const stdout = execFileSync(process.execPath, [tsx, cli, "inc-d-run", payloadPath], {
-      cwd: harnessRoot,
-      encoding: "utf8",
-      env: { ...process.env, SFIA_CURSOR_REAL_SPIKE: "0", SFIA_GPT_REAL_SPIKE: "0" },
-      maxBuffer: 8 * 1024 * 1024,
-    });
-    return JSON.parse(stdout);
-  } catch (err) {
-    const e = err as { stdout?: string };
-    if (e.stdout) return JSON.parse(e.stdout);
-    throw err;
+```json
+{
+  "contract": {
+    "contractId": "ctr-inc-d-live-001",
+    "requestId": "req-inc-d-live-1784528437254",
+    "scenario": "S1",
+    "repositoryRoot": "/Users/morris/Projects/sfia-workspace",
+    "allowedPaths": [
+      "projects/sfia-studio/.sandbox/increment-d",
+      "projects/sfia-studio/.sandbox/increment-d/output.md"
+    ],
+    "allowedCommands": [
+      "cursor-sandbox-write-output-md",
+      "git-status-short",
+      "git-rev-parse"
+    ],
+    "gitEffect": "none-remote",
+    "cursorMode": "fixture",
+    "timeoutMs": 30000,
+    "proofDir": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-inc-d-live-AraNUS/proof",
+    "schemaVersion": "poc-s1-1.0.0",
+    "maxFiles": 1,
+    "maxFileBytes": 64000,
+    "allowedExtensions": [
+      ".md"
+    ],
+    "decidedByAllowlist": [
+      "Morris"
+    ],
+    "expectedBranch": "delivery/sfia-studio-poc-increment-d",
+    "expectedHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
+    "allowlistedWritePaths": [
+      "projects/sfia-studio/.sandbox/increment-d/output.md"
+    ]
+  },
+  "contractHash": "75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78",
+  "gate": {
+    "decisionId": "go-inc-d-live-morris-001",
+    "requestId": "req-inc-d-live-1784528437254",
+    "contractHash": "75eeca7668c69c4db9ec1d3afab60563cd1db1ab68b4107f3fd76155ba1c1d78",
+    "decision": "GO",
+    "decidedBy": "Morris",
+    "decidedAt": "2026-07-20T06:20:37.395Z",
+    "scope": "increment-d-cursor-sandbox",
+    "gitBranch": "delivery/sfia-studio-poc-increment-d",
+    "gitHead": "9926238a0be3c2e7ce745ee95321281ef49f0465",
+    "allowlistSnapshot": [
+      "projects/sfia-studio/.sandbox/increment-d",
+      "projects/sfia-studio/.sandbox/increment-d/output.md"
+    ],
+    "correlationId": "corr-go-inc-d-live-morris-001"
   }
 }
-
-test.describe("Increment D — UI Cycle actif", () => {
-  test("STOP keyboard-visible + remote=0 + analyse E disabled + 4 routes", async ({
-    page,
-  }) => {
-    await page.goto("/cycle-actif?vs=VS-UX-05");
-    await expect(page.getByTestId("vs-stop-execution")).toBeVisible();
-    await expect(page.getByTestId("vs-inc-d-remote-zero")).toContainText("0");
-    await page.goto("/cycle-actif?vs=VS-UX-06");
-    await expect(page.getByTestId("vs-inc-d-status")).toBeVisible();
-    await expect(page.getByTestId("vs-inc-d-analyze-disabled")).toBeDisabled();
-    await expect(page.getByTestId("vs-inc-d-analyze-disabled")).toContainText(
-      /Increment E non disponible/i,
-    );
-    await expect(page).toHaveURL(/cycle-actif/);
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-d-cycle-actif-ready.png"),
-      fullPage: true,
-    });
-  });
-
-  test("fixture harness run via UI produces report", async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto("/cycle-actif?vs=VS-UX-05");
-    await page.getByTestId("vs-inc-d-run-fixture").click();
-    await expect(page.getByTestId("vs-inc-d-status")).toBeVisible({ timeout: 90_000 });
-    await expect(page.getByTestId("vs-inc-d-remote")).toContainText("0");
-    await expect(page.getByTestId("vs-inc-d-analyze-disabled")).toBeDisabled();
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-d-fixture-report.png"),
-      fullPage: true,
-    });
-  });
-
-  test("STOP banner distinct from NO-GO", async ({ page }) => {
-    await page.goto("/cycle-actif?vs=VS-UX-05");
-    await page.getByTestId("vs-stop-execution").click();
-    await expect(page.getByTestId("vs-stop-timeout")).toContainText("STOP");
-    await expect(page.getByTestId("vs-inc-d-stop-banner")).toBeVisible();
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-d-stop.png"),
-      fullPage: true,
-    });
-  });
-});
-
-test.describe("Increment D — deterministic harness CLI (E2E gate)", () => {
-  test("nominal mintGate fixture → SUCCEEDED + remote=0", () => {
-    const r = runIncDCli({
-      requestId: "req-e2e-inc-d-ok",
-      correlationId: "corr-e2e-inc-d-ok",
-      contractId: "ctr-e2e-inc-d-ok",
-      expectedBranch: "pending",
-      expectedHead: "pending",
-      gate: null,
-      mintGate: true,
-      mode: "fixture",
-      fakeBehavior: "success",
-    });
-    expect(r.ok).toBe(true);
-    expect(r.status).toBe("SUCCEEDED");
-    expect(r.report?.remoteGitWrites).toBe(0);
-    expect(r.report?.analysisAuthorized).toBe(false);
-  });
-
-  test("absent GO refuses", () => {
-    const branch = execFileSync("git", ["branch", "--show-current"], {
-      cwd: workspaceRoot,
-      encoding: "utf8",
-    }).trim();
-    const head = execFileSync("git", ["rev-parse", "HEAD"], {
-      cwd: workspaceRoot,
-      encoding: "utf8",
-    }).trim();
-    const r = runIncDCli({
-      requestId: "req-e2e-inc-d-nogo",
-      correlationId: "corr-e2e-inc-d-nogo",
-      contractId: "ctr-e2e-inc-d-nogo",
-      expectedBranch: branch,
-      expectedHead: head,
-      gate: null,
-      mintGate: false,
-      mode: "fixture",
-    });
-    expect(r.ok).toBe(false);
-    expect(r.status).toBe("REFUSED_NO_GO");
-    expect(r.refusedBeforeSpawn).toBe(true);
-  });
-
-  test("policy violation outside allowlist", () => {
-    const r = runIncDCli({
-      requestId: "req-e2e-inc-d-pol",
-      correlationId: "corr-e2e-inc-d-pol",
-      contractId: "ctr-e2e-inc-d-pol",
-      expectedBranch: "pending",
-      expectedHead: "pending",
-      gate: null,
-      mintGate: true,
-      mode: "fixture",
-      fakeBehavior: "write-outside",
-    });
-    expect(r.status).toBe("POLICY_VIOLATION");
-  });
-
-  test("Cursor unavailable", () => {
-    const r = runIncDCli({
-      requestId: "req-e2e-inc-d-unavail",
-      correlationId: "corr-e2e-inc-d-unavail",
-      contractId: "ctr-e2e-inc-d-unavail",
-      expectedBranch: "pending",
-      expectedHead: "pending",
-      gate: null,
-      mintGate: true,
-      mode: "fixture",
-      fakeBehavior: "unavailable",
-    });
-    expect(r.status).toBe("CURSOR_UNAVAILABLE");
-  });
-
-  test("exit nonzero", () => {
-    const r = runIncDCli({
-      requestId: "req-e2e-inc-d-exit",
-      correlationId: "corr-e2e-inc-d-exit",
-      contractId: "ctr-e2e-inc-d-exit",
-      expectedBranch: "pending",
-      expectedHead: "pending",
-      gate: null,
-      mintGate: true,
-      mode: "fixture",
-      fakeBehavior: "exit-nonzero",
-    });
-    expect(r.status).toBe("FAILED_EXIT_CODE");
-  });
-
-  test("timeout ≠ GO", () => {
-    const r = runIncDCli({
-      requestId: "req-e2e-inc-d-to",
-      correlationId: "corr-e2e-inc-d-to",
-      contractId: "ctr-e2e-inc-d-to",
-      expectedBranch: "pending",
-      expectedHead: "pending",
-      gate: null,
-      mintGate: true,
-      mode: "fixture",
-      fakeBehavior: "timeout",
-      fakeDelayMs: 10,
-    });
-    expect(r.status).toBe("TIMED_OUT");
-    expect(r.ok).toBe(false);
-  });
-});
-
 ```
 
-### Sandbox .gitkeep
+#### 05-post-git-proof.json
 
-Path: `projects/sfia-studio/.sandbox/increment-d/.gitkeep` (empty marker; `output.md` ignored)
-
-## Instruction Cursor exacte (sanitisée — générée par harness)
-
-Reconstruite depuis `buildIncDCursorInstruction` + contenu Markdown attendu (pas de secret, pas d’OPENAI_API_KEY):
-
-```
-SFIA Studio Increment D — Cursor sandbox Markdown proof.
-Repository root: <workspace>
-Working directory (sandbox): <workspace>/projects/sfia-studio/.sandbox/increment-d
-Write ONLY this relative file: output.md
-Do not read secrets, .env, or API keys.
-Do not modify any other file.
-Do not run git commit, push, pull, fetch, checkout, reset, clean, rm, or any remote Git command.
-Do not install dependencies.
-Do not access the network.
-If the sandbox path is missing or the scope diverges, stop immediately.
-Write the following Markdown content exactly:
------BEGIN MARKDOWN-----
-# SFIA Studio Increment D Sandbox Proof
-... (ids/hash/branche/HEAD as in output.md) ...
------END MARKDOWN-----
-Return a short completion note only.
+```json
+{
+  "headUnchanged": true,
+  "originMainUnchanged": true,
+  "remoteGitWrites": 0,
+  "networkEffect": "none",
+  "noFetchDuringObservation": true,
+  "statusAfter": " M .gitignore\n M projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx\n M projects/sfia-studio/harness/src/cli.ts\n M projects/sfia-studio/harness/src/index.ts\n M projects/sfia-studio/harness/src/ports/cursorRealSpike.ts\n?? .tmp-sfia-review/\n?? projects/.tmp-sfia-review/\n?? projects/sfia-studio/.sandbox/\n?? projects/sfia-studio/app/__tests__/increment-d.test.tsx\n?? projects/sfia-studio/app/e2e/increment-d.spec.ts\n?? projects/sfia-studio/app/lib/harness/incrementDAction.ts\n?? projects/sfia-studio/harness/.tmp-inc-d-prepare-live.ts\n?? projects/sfia-studio/harness/src/increment-d/\n?? projects/sfia-studio/harness/src/types/cursorExecutionReport.ts\n?? projects/sfia-studio/harness/tests/increment-d.test.ts\n",
+  "note": "Truth-check fetch was before observation; no fetch during Cursor window"
+}
 ```
 
-instructionSha256Prefix: 0b80023d35996c71
+#### 00-pre-spawn-meta.json
 
-## git status final (hors preuves tmp)
+```json
+{
+  "spawnedAt": "2026-07-20T06:20:37.254Z",
+  "timezone": "Europe/Paris",
+  "branch": "delivery/sfia-studio-poc-increment-d",
+  "head": "9926238a0be3c2e7ce745ee95321281ef49f0465",
+  "originMain": "9926238a0be3c2e7ce745ee95321281ef49f0465",
+  "expectedRemoteWrites": 0,
+  "networkEffect": "none",
+  "allowlistedWritePaths": [
+    "projects/sfia-studio/.sandbox/increment-d/output.md"
+  ],
+  "timeoutMs": 30000,
+  "cursorBin": "/Applications/Cursor.app/Contents/Resources/app/bin/cursor",
+  "morrisGate": "G-VS-LIVE-CURSOR",
+  "observationNumber": 1,
+  "maxObservations": 1,
+  "statusBefore": " M .gitignore\n M projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx\n M projects/sfia-studio/harness/src/cli.ts\n M projects/sfia-studio/harness/src/index.ts\n M projects/sfia-studio/harness/src/ports/cursorRealSpike.ts\n?? .tmp-sfia-review/\n?? projects/.tmp-sfia-review/\n?? projects/sfia-studio/.sandbox/\n?? projects/sfia-studio/app/__tests__/increment-d.test.tsx\n?? projects/sfia-studio/app/e2e/increment-d.spec.ts\n?? projects/sfia-studio/app/lib/harness/incrementDAction.ts\n?? projects/sfia-studio/harness/src/increment-d/\n?? projects/sfia-studio/harness/src/types/cursorExecutionReport.ts\n?? projects/sfia-studio/harness/tests/increment-d.test.ts\n"
+}
+```
+
+## git status final
 
 ```
  M .gitignore
@@ -2758,4 +2893,4 @@ instructionSha256Prefix: 0b80023d35996c71
 ```
 
 ---
-Fin review pack Increment D — contenu complet des fichiers créés/modifiés inclus ci-dessus.
+Fin review pack PR readiness Increment D — contenu complet inclus.
