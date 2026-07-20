@@ -1,1268 +1,1616 @@
-# SFIA Studio — Review Pack FULL — Incrément B
+# SFIA Studio — Review Pack FULL — Incrément B PR Readiness
 
 ## Métadonnées
-- **Date / heure / fuseau** : 2026-07-20 00:09:44 CEST
-- **Cycle** : 8 — Delivery / implémentation
+- **Date / heure / fuseau** : 2026-07-20 06:18:10 CEST
+- **Cycle** : 13 — PR readiness
 - **Profil** : Standard
-- **Typologie** : EVOL / DELIVERY / INTEGRATION / FIXTURE
-- **GO Morris consommé** : G-VS-DEL-B (implémentation locale non live)
+- **Typologie** : EVOL / DELIVERY / INTEGRATION / PR READINESS / FIXTURE
+- **GO Morris consommé** : validation fonctionnelle B · validation technique B · commit · push normal · draft PR
 - **Branche** : `delivery/sfia-studio-poc-increment-b`
-- **HEAD** : `ee9487797ce44c8d864846030c54fac43ee33611`
-- **origin/main** : `ee9487797ce44c8d864846030c54fac43ee33611` (attendu min. ee9487797ce44c8d864846030c54fac43ee33611)
-- **Working tree initial** : clean hors `.tmp-sfia-review/` ; Truth Check FF `main` → branche créée ; aucun stage/commit/push delivery
+- **HEAD avant commit** : `ee9487797ce44c8d864846030c54fac43ee33611`
+- **HEAD après commit** : `8316f26de1ade4bbf0e698ce03666e977daa87cb`
+- **origin/main** : `ee9487797ce44c8d864846030c54fac43ee33611`
+- **Décision Morris** : versionnement autorisé ; merge / ready-for-review / Incrément C / live **non** autorisés
 
 ## Verdict
-**SFIA STUDIO INCREMENT B IMPLEMENTED — MORRIS FUNCTIONAL AND TECHNICAL VALIDATION REQUIRED**
+**SFIA STUDIO INCREMENT B PR CREATED — MORRIS MERGE DECISION REQUIRED**
 
-## Sources Git consultées
+## Truth Check
+- repo : sfia-workspace — OK
+- `git fetch origin` — OK
+- branche active : delivery/sfia-studio-poc-increment-b — OK
+- HEAD avant = ee948779… — OK
+- origin/main = ee948779… — OK
+- staged initial : aucun — OK
+- branche distante absente avant push — OK
+- aucune PR ouverte avant — OK
+- modifications uniquement app/** et harness/** — OK
+- `.tmp-sfia-review/**` hors versionnement — OK
+- docs 01–40 / prompts / method / Figma / package.json / lockfiles / .env : non modifiés — OK
+
+## Sources consultées
 - prompts/templates/sfia-cycle-execution-template.md
 - method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- projects/sfia-studio/32–40 (conception, UX, backlog)
-- projects/sfia-studio/app/** et harness/**
+- projects/sfia-studio/32–40
+- app/** · harness/**
+- origin/sfia/review-handoff · sfia-review-handoff/latest-chatgpt-review.md (handoff Incrément B validé)
 
-## Découverte locale app/harness
-| Élément | Localisation |
+## Contrôles structurants
+### Adaptateur
+- `thinStudioAdapter.ts` + `app/lib/harness/*` : mapping / transmission / retour uniquement
+- Aucun GateValidator / assertGateOk / policy / écriture journal-proofStore / live dans l’adaptateur
+
+### Harness autonome
+- Aucun import React/Next dans `harness/src`
+- CLI `studio-run` / `resume-session` / Orchestrator
+- Tests autonomie Increment B verts (80 passed harness)
+
+### Gates / journal / proofStore
+- Revalidation GO (hash/branche/HEAD/allowlist/décideur)
+- Journal `events.jsonl` canonique
+- `verifyProofPack` ; incomplets bloquants
+- STOP / timeout / refus distincts ; timeout ≠ succès ; pas de retry auto
+
+### Reprise session
+- `resumeSessionFromProofDir` + sessionStorage ; `goValid: false` à la reprise
+
+### Studio
+- `statusSource = harness` ; 4 routes ; fixture/simulation explicites
+
+## Ports fixtures / absence live
+- cursorFixture / gptFixture uniquement
+- LIVE_PORT_DENIED pour tentative live
+- 0 OpenAI / 0 Cursor réel / 0 git push distant applicatif
+
+## Tests (re-exécutés ce cycle)
+| Suite | Résultat |
 |---|---|
-| Entrée autonome harness | `harness/src/cli.ts`, `Orchestrator.run`, `npm run cli` |
-| GateValidator | `harness/src/gate/gateValidator.ts` (+ ancrage branche/HEAD/allowlist) |
-| Journal | `harness/src/journal/eventJournal.ts` → `events.jsonl` |
-| ProofStore | `harness/src/proof/proofStore.js` + `verifyProofPack.ts` |
-| Ports fixtures | `cursorFixture.ts`, `gptFixture.ts` (défaut) ; spikes live non utilisés |
-| Contrats | `harness/src/types/contracts.ts` |
-| Adaptateur fin | `harness/src/adapter/thinStudioAdapter.ts` |
-| Reprise session | `harness/src/session/resumeSession.ts` |
-| Pont Studio | `app/lib/harness/*` + Server Action `runStudioHarness` |
-| Cockpit Incr. A | routes ×4 + switcher `?vs=` conservés |
+| harness typecheck | OK |
+| harness tests | **80 passed** (1 skipped) |
+| app typecheck | OK |
+| app lint | OK |
+| app unit | **23 passed** |
+| app build | OK (4 routes P0) |
+| E2E Increment B | **5 passed** |
+| E2E Increment A | **13 passed** |
+| P0 smoke | **6 passed** |
+| git diff --check | OK |
 
-## Readiness Standard (avant code — confirmée)
-1. Inventaire harness : OK (orchestrator, gate, journal, proof, ports fixtures, CLI)
-2. Point d’entrée autonome : `cli.ts` / `Orchestrator` — intact
-3. Contrats/types : `ExecutionContract`, `GateDecision`, `JournalEvent` (+ extensions B)
-4. GateValidator : étendu ancrages ; pas de second moteur
-5. Ports fixtures GPT/Cursor : réutilisés ; live refusé (`LIVE_PORT_DENIED`)
-6. Journal : `EventJournal` unique
-7. ProofStore : unique + `verifyProofPack`
-8. Fixtures : `fixtures/builders.ts`
-9. Tests harness : unit + integration + increment-b
-10. Studio Incr. A : 4 routes, VsDemo*, fixtures — raccordés
-11. Fichiers envisagés = fichiers livrés (ci-dessous)
-12. Écarts 32–40 : aucun doc 01–40 modifié ; Option B respectée
-13. Adaptateur minimal : map/forward/return uniquement
-14. Aucune dépendance npm ajoutée
-15. Harness autonome intact (preuve tests sans React/Studio)
+## Captures runtime
+`.tmp-sfia-review/screenshots-increment-b/` — 7 PNG (hors git) :
+gate idle, exécution fixture, rapport/preuves, reprise, GO invalide, STOP, clôture dérivée
 
-**STOP architecture** : non déclenché (pas de second moteur, pas d’autorité Studio, pas de bus/API/BDD)
-
-## Contrat d’intégration (avant code — formalisé)
-
-### Entrée Studio → adaptateur
-`requestId`, `correlationId`, `contractId`, `contractHash` (claim), `branch`, `head`, `allowlist`, `morrisDecision`, `decidedAt` (ISO+TZ), `action`
-
-### Responsabilité adaptateur
-- Traduire / mapper / transmettre / retourner
-- **Ne jamais** valider un GO, décider, écrire journal/proofStore, appeler ports live
-
-### Responsabilité harness
-- Schéma/invariants, revalidation hash/branche/HEAD/allowlist/décision Morris
-- Fail-closed, ports fixtures, événements, rapport, preuves, état dérivé, CLI autonome
-
-### Sortie harness → Studio
-`statusSource: "harness"`, `canonicalStatus`, `events`, `report`, `proofPack`, `refusalReason`, `stopOrTimeout`, `goValid`, timestamps, réserves, `realGptClaimed: false`, `realCursorClaimed: false`, `remoteGitWrite: false`
-
-## Architecture réutilisée
-Option B : Studio = cockpit / vue dérivée ; harness = autorité gates/journal/preuves. Adaptateur fin sans policy. Pas de duplication GateValidator/journal/proofStore côté Studio.
-
-## Fichiers créés / modifiés
-### Diffstat
+## Commit
+- **SHA** : `8316f26de1ade4bbf0e698ce03666e977daa87cb`
+- **Message** : `feat(sfia-studio): connect cockpit to fixture harness`
+- **Fichiers** : 27
+- **Diffstat** :
 ```
+ .../sfia-studio/app/__tests__/increment-b.test.tsx | 146 ++++++++++++
  .../app/components/vertical-slice/VsDemoChrome.tsx |   2 +-
- .../app/components/vertical-slice/VsShared.tsx     |  93 ++++++++++-
+ .../app/components/vertical-slice/VsShared.tsx     |  93 +++++++-
+ projects/sfia-studio/app/e2e/increment-b.spec.ts   |  98 ++++++++
  .../features/cycle-actif/VsCycleActifScreen.tsx    |  14 +-
  .../app/features/decision/VsDecisionScreen.tsx     |  11 +-
  .../nouvelle-demande/VsNouvelleDemandeScreen.tsx   |   8 +-
  .../app/features/synthese/VsSyntheseScreen.tsx     |  14 +-
  .../sfia-studio/app/fixtures/vertical-slice.ts     |  14 +-
- .../app/lib/vertical-slice/VsDemoContext.tsx       | 130 +++++++++++++--
+ projects/sfia-studio/app/lib/harness/actions.ts    |  11 +
+ .../sfia-studio/app/lib/harness/buildRequest.ts    |  42 ++++
+ projects/sfia-studio/app/lib/harness/index.ts      |   8 +
+ .../sfia-studio/app/lib/harness/invokeHarness.ts   |  95 ++++++++
+ projects/sfia-studio/app/lib/harness/types.ts      |  71 ++++++
+ .../app/lib/vertical-slice/VsDemoContext.tsx       | 130 ++++++++++-
  .../sfia-studio/app/lib/vertical-slice/types.ts    |   4 +
  projects/sfia-studio/app/playwright.config.ts      |   3 +-
  projects/sfia-studio/harness/fixtures/builders.ts  |   4 +
- projects/sfia-studio/harness/src/cli.ts            |  32 +++-
- .../sfia-studio/harness/src/gate/gateValidator.ts  |  62 ++++++-
+ .../harness/src/adapter/thinStudioAdapter.ts       | 260 +++++++++++++++++++++
+ projects/sfia-studio/harness/src/cli.ts            |  32 ++-
+ .../sfia-studio/harness/src/gate/gateValidator.ts  |  62 ++++-
  projects/sfia-studio/harness/src/index.ts          |   3 +
- projects/sfia-studio/harness/src/orchestrator.ts   | 179 ++++++++++++++++++++-
- .../sfia-studio/harness/src/types/contracts.ts     |  70 +++++++-
- 16 files changed, 596 insertions(+), 47 deletions(-)
-
-```
-### Nouveaux fichiers (contenu complet ci-dessous)
-
-### `projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts`
-```typescript
-import { mkdtempSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { Orchestrator, type RunInput, type RunResult } from "../orchestrator.js";
-import { resumeSessionFromProofDir } from "../session/resumeSession.js";
-import { verifyProofPack } from "../proof/verifyProofPack.js";
-import { EventJournal } from "../journal/eventJournal.js";
-import { computeContractHash } from "../hash/contractHash.js";
-import { makeContract, makeRequest, WORKSPACE_ROOT } from "../../fixtures/builders.js";
-import type {
-  GateDecision,
-  StudioAdapterRequest,
-  StudioAdapterResponse,
-} from "../types/contracts.js";
-import { HarnessError } from "../types/contracts.js";
-import { ProofStore } from "../proof/proofStore.js";
-
-/**
- * Thin Studio↔harness adapter (Increment B).
- *
- * Responsibilities ONLY:
- * - map Studio payload → harness RunInput
- * - forward to Orchestrator / resume
- * - return derived StudioAdapterResponse
- *
- * NEVER:
- * - validate or authorize a GO
- * - own policy / gate logic
- * - write journal or proofStore directly (harness owns those)
- * - call live GPT / Cursor ports
- */
-export class ThinStudioAdapter {
-  constructor(private readonly orchestrator = new Orchestrator()) {}
-
-  async forward(request: StudioAdapterRequest): Promise<StudioAdapterResponse> {
-    if (request.action === "resume") {
-      if (!request.proofDir) {
-        return this.refusalSkeleton(request, "RESUME_PROOF_DIR_MISSING", "proofDir required for resume");
-      }
-      return resumeSessionFromProofDir(request.proofDir);
-    }
-
-    const proofDir =
-      request.proofDir ?? mkdtempSync(path.join(os.tmpdir(), "sfia-studio-inc-b-"));
-    const contract = makeContract(proofDir, {
-      contractId: request.contractId,
-      requestId: request.requestId,
-      allowedPaths:
-        request.allowlist.length > 0
-          ? request.allowlist
-          : ["projects/sfia-studio", "projects/sfia-studio/harness"],
-      repositoryRoot: WORKSPACE_ROOT,
-    });
-
-    // Probe scenarios mutate mapping before forward — still no authority here.
-    let gate = this.mapGate(request, contract);
-    const runInput = this.mapRunInput(request, contract, gate, proofDir);
-
-    if (request.action === "probe-write-escape") {
-      try {
-        new ProofStore(proofDir).writeText("../escape-probe.txt", "denied");
-        return this.refusalSkeleton(request, "PROBE_UNEXPECTED", "escape write unexpectedly allowed");
-      } catch (err) {
-        const he = err as HarnessError;
-        const journal = new EventJournal(proofDir, request.correlationId);
-        journal.append({
-          eventType: "security.refusal",
-          requestId: request.requestId,
-          result: "denied",
-          errorCode: he.code,
-          detail: { message: he.message, source: "harness", probe: "write-escape" },
-        });
-        return {
-          ...this.refusalSkeleton(request, he.code, he.message),
-          proofDir,
-          journalPath: journal.filePath,
-          events: journal.readAll(),
-          proofPack: verifyProofPack(proofDir),
-        };
-      }
-    }
-
-    const result = await this.orchestrator.run(runInput);
-    return this.toResponse(request, result, gate);
-  }
-
-  /** Pure mapping — no validation. */
-  mapGate(
-    request: StudioAdapterRequest,
-    contract: ReturnType<typeof makeContract>,
-  ): GateDecision {
-    const hash = computeContractHash(contract);
-    const base: GateDecision = {
-      decisionId: request.decisionId ?? `gate-${request.correlationId}`,
-      requestId: request.requestId,
-      contractHash: hash,
-      decision: request.morrisDecision,
-      decidedBy: "Morris",
-      decidedAt: request.decidedAt,
-      scope: contract.allowedPaths[0] ?? "projects/sfia-studio",
-      gitBranch: request.branch,
-      gitHead: request.head,
-      allowlistSnapshot: [...contract.allowedPaths],
-      correlationId: request.correlationId,
-    };
-
-    switch (request.action) {
-      case "stop":
-        return { ...base, decision: "STOP" };
-      case "probe-invalid-hash":
-        return { ...base, contractHash: "0".repeat(64) };
-      case "probe-invalid-branch":
-        return { ...base, gitBranch: `${request.branch}-tampered` };
-      case "probe-invalid-head":
-        return { ...base, gitHead: "b".repeat(40) };
-      case "probe-invalid-allowlist":
-        return { ...base, allowlistSnapshot: ["forbidden/path"] };
-      case "probe-missing-decider":
-        return { ...base, decidedBy: "" };
-      default:
-        return base;
-    }
-  }
-
-  mapRunInput(
-    request: StudioAdapterRequest,
-    contract: ReturnType<typeof makeContract>,
-    gate: GateDecision,
-    proofDir: string,
-  ): RunInput {
-    const poc = makeRequest({
-      requestId: request.requestId,
-      title: "SFIA Studio Increment B fixture cycle",
-      cycle: "8",
-      scope: proofDir,
-      operator: "Morris",
-      createdAt: request.decidedAt,
-    });
-
-    const input: RunInput = {
-      request: poc,
-      contract,
-      gate,
-      expectedBranch: request.branch,
-      expectedHead: request.head,
-      revalidateBeforeExecute: true,
-      studioCorrelationId: request.correlationId,
-    };
-
-    if (request.action === "probe-timeout") {
-      input.cursorSimulate = "timeout";
-    }
-    if (request.action === "probe-incomplete-report") {
-      input.simulateIncompleteReport = true;
-    }
-    if (request.action === "probe-missing-proof") {
-      input.simulateMissingProof = true;
-    }
-    if (request.action === "probe-live-port") {
-      input.attemptLiveCursor = true;
-    }
-    return input;
-  }
-
-  toResponse(
-    request: StudioAdapterRequest,
-    result: RunResult,
-    gate: GateDecision,
-  ): StudioAdapterResponse {
-    const journal = new EventJournal(result.proofDir, result.correlationId);
-    const events = journal.readAll();
-    const requireSuccess = result.ok && result.terminalState === "CLOSED";
-    const proofPack = verifyProofPack(result.proofDir, {
-      requireSuccessArtifacts: requireSuccess,
-    });
-    const stopOrTimeout = classify(result.errorCode);
-    const goValid =
-      result.ok &&
-      gate.decision === "GO" &&
-      !result.errorCode &&
-      stopOrTimeout === null;
-
-    return {
-      ok: result.ok && proofPack.ok,
-      statusSource: "harness",
-      mode: "fixture",
-      canonicalStatus: result.projectedState ?? result.terminalState,
-      goValid,
-      errorCode: result.errorCode,
-      refusalReason: result.errorCode
-        ? `Harness refusal: ${result.errorCode}`
-        : !proofPack.ok
-          ? `Proof pack incomplete: ${proofPack.missing.join(", ")}`
-          : undefined,
-      stopOrTimeout,
-      contractHash: result.contractHash,
-      executionId: result.executionId,
-      correlationId: result.correlationId,
-      proofDir: result.proofDir,
-      journalPath: result.journalPath,
-      events,
-      report: result.report ?? null,
-      proofPack,
-      reserves: [
-        "Statut source = harness",
-        "Adaptateur sans autorité",
-        "Aucun GPT/Cursor live",
-        "Aucune écriture Git distante",
-        ...(result.ok ? [] : ["Exécution non réussie — aucun faux succès"]),
-      ],
-      timestamps: {
-        decidedAt: gate.decidedAt,
-        completedAt: new Date().toISOString(),
-      },
-      realGptClaimed: false,
-      realCursorClaimed: false,
-      remoteGitWrite: false,
-    };
-  }
-
-  private refusalSkeleton(
-    request: StudioAdapterRequest,
-    code: string,
-    message: string,
-  ): StudioAdapterResponse {
-    return {
-      ok: false,
-      statusSource: "harness",
-      mode: "fixture",
-      canonicalStatus: "REJECTED",
-      goValid: false,
-      errorCode: code,
-      refusalReason: message,
-      stopOrTimeout: "refusal",
-      contractHash: request.contractHash,
-      correlationId: request.correlationId,
-      proofDir: request.proofDir ?? "",
-      events: [],
-      report: null,
-      proofPack: { ok: false, missing: [], present: [], integrityNotes: [] },
-      reserves: ["Adaptateur sans autorité — refus harness"],
-      timestamps: { decidedAt: request.decidedAt, completedAt: new Date().toISOString() },
-      realGptClaimed: false,
-      realCursorClaimed: false,
-      remoteGitWrite: false,
-    };
-  }
-}
-
-function classify(errorCode?: string): "STOP" | "timeout" | "refusal" | null {
-  if (!errorCode) return null;
-  if (errorCode === "GATE_STOP" || errorCode === "STOP") return "STOP";
-  if (errorCode.includes("TIMEOUT")) return "timeout";
-  return "refusal";
-}
-
-/** Factory used by CLI and autonomous tests — zero React / Studio imports. */
-export function createThinStudioAdapter(): ThinStudioAdapter {
-  return new ThinStudioAdapter();
-}
+ projects/sfia-studio/harness/src/orchestrator.ts   | 179 +++++++++++++-
+ .../harness/src/proof/verifyProofPack.ts           |  52 +++++
+ .../harness/src/session/resumeSession.ts           |  86 +++++++
+ .../sfia-studio/harness/src/types/contracts.ts     |  70 +++++-
+ .../sfia-studio/harness/tests/increment-b.test.ts  | 239 +++++++++++++++++++
+ 27 files changed, 1704 insertions(+), 47 deletions(-)
 
 ```
 
-### `projects/sfia-studio/harness/src/session/resumeSession.ts`
-```typescript
-import { existsSync, readFileSync } from "node:fs";
-import path from "node:path";
-import { EventJournal } from "../journal/eventJournal.js";
-import { verifyProofPack } from "../proof/verifyProofPack.js";
-import type { JournalEvent, StudioAdapterResponse } from "../types/contracts.js";
-
-/**
- * Rebuild derived Studio view from harness journal/proofs only.
- * Never recreates an implicit GO. Never invents success from incomplete state.
- */
-export function resumeSessionFromProofDir(proofDir: string): StudioAdapterResponse {
-  const journal = new EventJournal(proofDir, "resume");
-  const events = journal.readAll();
-  const projected = journal.projectLastState() ?? "UNKNOWN";
-  const proofPack = verifyProofPack(proofDir, {
-    requireSuccessArtifacts: projected === "CLOSED" && lastResultIsSuccess(events),
-  });
-
-  let report: Record<string, unknown> | null = null;
-  const summaryPath = path.join(proofDir, "summary.json");
-  if (existsSync(summaryPath)) {
-    report = JSON.parse(readFileSync(summaryPath, "utf8")) as Record<string, unknown>;
-  }
-
-  const lastFail = [...events].reverse().find((e) => e.errorCode || e.result === "rejected" || e.result === "stop");
-  const errorCode = lastFail?.errorCode;
-  const stopOrTimeout = classifyStopTimeout(errorCode, lastFail?.result);
-  const ok = projected === "CLOSED" && !errorCode && proofPack.ok && !!report;
-  const contractHash =
-    events.map((e) => e.contractHash).filter(Boolean).at(-1) ??
-    (existsSync(path.join(proofDir, "contractHash.txt"))
-      ? readFileSync(path.join(proofDir, "contractHash.txt"), "utf8").trim()
-      : "");
-
-  return {
-    ok,
-    statusSource: "harness",
-    mode: "fixture",
-    canonicalStatus: projected,
-    goValid: false,
-    errorCode,
-    refusalReason: lastFail?.detail?.message
-      ? String(lastFail.detail.message)
-      : errorCode
-        ? `Resumed with ${errorCode}`
-        : !ok
-          ? "Incomplete or non-success session — no implicit GO"
-          : undefined,
-    stopOrTimeout,
-    contractHash,
-    correlationId: events[0]?.correlationId ?? "resume",
-    executionId: events.find((e) => e.executionId)?.executionId,
-    proofDir,
-    journalPath: journal.filePath,
-    events,
-    report,
-    proofPack,
-    reserves: [
-      "État dérivé du journal harness uniquement",
-      "Aucun GO implicite à la reprise",
-      "Mode fixture / simulation",
-    ],
-    timestamps: {
-      completedAt: events.at(-1)?.timestamp ?? new Date().toISOString(),
-    },
-    realGptClaimed: false,
-    realCursorClaimed: false,
-    remoteGitWrite: false,
-  };
-}
-
-function lastResultIsSuccess(events: JournalEvent[]): boolean {
-  const last = [...events].reverse().find((e) => e.result);
-  return last?.result === "completed" || last?.result === "ok";
-}
-
-function classifyStopTimeout(
-  errorCode?: string,
-  result?: string,
-): "STOP" | "timeout" | "refusal" | null {
-  if (!errorCode && result !== "rejected" && result !== "stop") return null;
-  if (errorCode === "GATE_STOP" || errorCode === "STOP" || result === "stop") return "STOP";
-  if (errorCode?.includes("TIMEOUT")) return "timeout";
-  if (errorCode || result === "rejected") return "refusal";
-  return null;
-}
+### Liste fichiers commit
+```
+projects/sfia-studio/app/__tests__/increment-b.test.tsx
+projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
+projects/sfia-studio/app/e2e/increment-b.spec.ts
+projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+projects/sfia-studio/app/fixtures/vertical-slice.ts
+projects/sfia-studio/app/lib/harness/actions.ts
+projects/sfia-studio/app/lib/harness/buildRequest.ts
+projects/sfia-studio/app/lib/harness/index.ts
+projects/sfia-studio/app/lib/harness/invokeHarness.ts
+projects/sfia-studio/app/lib/harness/types.ts
+projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
+projects/sfia-studio/app/lib/vertical-slice/types.ts
+projects/sfia-studio/app/playwright.config.ts
+projects/sfia-studio/harness/fixtures/builders.ts
+projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts
+projects/sfia-studio/harness/src/cli.ts
+projects/sfia-studio/harness/src/gate/gateValidator.ts
+projects/sfia-studio/harness/src/index.ts
+projects/sfia-studio/harness/src/orchestrator.ts
+projects/sfia-studio/harness/src/proof/verifyProofPack.ts
+projects/sfia-studio/harness/src/session/resumeSession.ts
+projects/sfia-studio/harness/src/types/contracts.ts
+projects/sfia-studio/harness/tests/increment-b.test.ts
 
 ```
 
-### `projects/sfia-studio/harness/src/proof/verifyProofPack.ts`
-```typescript
-import { existsSync, readFileSync } from "node:fs";
-import path from "node:path";
-import type { ProofPackVerification } from "../types/contracts.js";
-
-const CORE_ARTIFACTS = [
-  "contract.json",
-  "contractHash.txt",
-  "request.json",
-  "gate.json",
-  "events.jsonl",
-] as const;
-
-const SUCCESS_ARTIFACTS = ["summary.json", "cursor-fixture.json", "git-results.json"] as const;
-
-/**
- * Verify fixture proof pack completeness against harness proofDir.
- * Single source of truth — does not invent a second store.
- */
-export function verifyProofPack(
-  proofDir: string,
-  options: { requireSuccessArtifacts?: boolean } = {},
-): ProofPackVerification {
-  const required = [
-    ...CORE_ARTIFACTS,
-    ...(options.requireSuccessArtifacts ? SUCCESS_ARTIFACTS : []),
-  ];
-  const present: string[] = [];
-  const missing: string[] = [];
-  for (const name of required) {
-    if (existsSync(path.join(proofDir, name))) present.push(name);
-    else missing.push(name);
-  }
-  const integrityNotes: string[] = [];
-  const hashFile = path.join(proofDir, "contractHash.txt");
-  if (existsSync(hashFile)) {
-    const hash = readFileSync(hashFile, "utf8").trim();
-    if (!/^[a-f0-9]{64}$/i.test(hash)) {
-      integrityNotes.push("contractHash.txt format unexpected");
-    } else {
-      integrityNotes.push("contractHash.txt present (sha256 hex)");
-    }
-  }
-  if (existsSync(path.join(proofDir, "events.jsonl"))) {
-    integrityNotes.push("events.jsonl present (journal canonical)");
-  }
-  return {
-    ok: missing.length === 0,
-    missing: [...missing],
-    present,
-    integrityNotes,
-  };
-}
-
-```
-
-### `projects/sfia-studio/harness/tests/increment-b.test.ts`
-```typescript
-import { describe, expect, it } from "vitest";
-import { readdirSync, readFileSync } from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { mkdtempSync } from "node:fs";
-import os from "node:os";
-import { createThinStudioAdapter } from "../src/adapter/thinStudioAdapter.js";
-import { Orchestrator } from "../src/orchestrator.js";
-import { GateValidator } from "../src/gate/gateValidator.js";
-import { computeContractHash } from "../src/hash/contractHash.js";
-import { resumeSessionFromProofDir } from "../src/session/resumeSession.js";
-import { verifyProofPack } from "../src/proof/verifyProofPack.js";
-import { makeContract, makeGo, makeRequest } from "../fixtures/builders.js";
-import type { StudioAdapterRequest } from "../src/types/contracts.js";
-
-const HARNESS_SRC = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../src");
-
-function tmp(): string {
-  return mkdtempSync(path.join(os.tmpdir(), "sfia-inc-b-"));
-}
-
-function baseReq(overrides: Partial<StudioAdapterRequest> = {}): StudioAdapterRequest {
-  return {
-    requestId: "req-inc-b-001",
-    correlationId: "corr-inc-b-001",
-    contractId: "ctr-inc-b-001",
-    contractHash: "claimed-ignored-by-adapter",
-    branch: "delivery/sfia-studio-poc-increment-b",
-    head: "ee9487797ce44c8d864846030c54fac43ee33611",
-    allowlist: ["projects/sfia-studio", "projects/sfia-studio/harness"],
-    morrisDecision: "GO",
-    decidedAt: "2026-07-20T00:10:00+02:00",
-    action: "run-fixture",
-    proofDir: tmp(),
-    ...overrides,
-  };
-}
-
-describe("Increment B — thin adapter (no authority)", () => {
-  it("maps and forwards without validating GO itself", async () => {
-    const adapter = createThinStudioAdapter();
-    const src = readFileSync(
-      path.join(HARNESS_SRC, "adapter/thinStudioAdapter.ts"),
-      "utf8",
-    );
-    expect(src).not.toMatch(/GateValidator/);
-    expect(src).not.toMatch(/assertGateOk/);
-    expect(src).toMatch(/forward/);
-    const res = await adapter.forward(baseReq());
-    expect(res.statusSource).toBe("harness");
-    expect(res.mode).toBe("fixture");
-    expect(res.realGptClaimed).toBe(false);
-    expect(res.realCursorClaimed).toBe(false);
-    expect(res.remoteGitWrite).toBe(false);
-    expect(res.ok).toBe(true);
-    expect(res.goValid).toBe(true);
-    expect(res.events.length).toBeGreaterThan(3);
-    expect(res.proofPack?.ok).toBe(true);
-    expect(res.report).toBeTruthy();
-  });
-
-  it("does not auto-retry after GO consume (replay refused)", async () => {
-    const adapter = createThinStudioAdapter();
-    const decisionId = "gate-once-only";
-    const proof1 = tmp();
-    const first = await adapter.forward(baseReq({ proofDir: proof1, decisionId }));
-    expect(first.ok).toBe(true);
-    const second = await adapter.forward(
-      baseReq({ proofDir: tmp(), decisionId, correlationId: "corr-retry" }),
-    );
-    // Same Orchestrator instance inside adapter — replay blocked
-    expect(second.ok).toBe(false);
-    expect(second.errorCode).toBe("GATE_REPLAY");
-    expect(second.stopOrTimeout).toBe("refusal");
-  });
-});
-
-describe("Increment B — harness autonomy (no Studio)", () => {
-  it("src tree has no React imports", () => {
-    const walk = (dir: string): string[] => {
-      const out: string[] = [];
-      for (const ent of readdirSync(dir, { withFileTypes: true })) {
-        const p = path.join(dir, ent.name);
-        if (ent.isDirectory()) out.push(...walk(p));
-        else if (/\.(ts|js)$/.test(ent.name)) out.push(p);
-      }
-      return out;
-    };
-    for (const file of walk(HARNESS_SRC)) {
-      const text = readFileSync(file, "utf8");
-      expect(text).not.toMatch(/from ["']react["']/);
-      expect(text).not.toMatch(/from ["']react-dom["']/);
-      expect(text).not.toMatch(/from ["']next\//);
-      expect(text).not.toMatch(/from ["'][^"']*\/app\//);
-      expect(text).not.toMatch(/import\(["'][^"']*sfia-studio\/app/);
-    }
-  });
-
-  it("nominal + invalid GO + STOP + journal + proofs without Studio", async () => {
-    const orch = new Orchestrator();
-    const proofOk = tmp();
-    const c = makeContract(proofOk);
-    const ok = await orch.run({
-      request: makeRequest(),
-      contract: c,
-      gate: makeGo(c),
-      expectedBranch: "delivery/sfia-studio-poc-increment-b",
-      expectedHead: "ee9487797ce44c8d864846030c54fac43ee33611",
-      revalidateBeforeExecute: true,
-    });
-    expect(ok.ok).toBe(true);
-    expect(verifyProofPack(proofOk, { requireSuccessArtifacts: true }).ok).toBe(true);
-
-    const proofBad = tmp();
-    const c2 = makeContract(proofBad);
-    const bad = await orch.run({
-      request: makeRequest(),
-      contract: c2,
-      gate: makeGo(c2, { contractHash: "0".repeat(64) }),
-      expectedBranch: "delivery/sfia-studio-poc-increment-b",
-      expectedHead: "ee9487797ce44c8d864846030c54fac43ee33611",
-    });
-    expect(bad.ok).toBe(false);
-    expect(bad.errorCode).toBe("GATE_HASH_MISMATCH");
-
-    const proofStop = tmp();
-    const c3 = makeContract(proofStop);
-    const stop = await orch.run({
-      request: makeRequest(),
-      contract: c3,
-      gate: makeGo(c3, { decision: "STOP", decisionId: "stop-b" }),
-    });
-    expect(stop.errorCode).toBe("GATE_STOP");
-    expect(stop.ok).toBe(false);
-  });
-});
-
-describe("Increment B — gates & invalidation", () => {
-  it("rejects branch / HEAD / allowlist / missing Morris", () => {
-    const dir = tmp();
-    const c = makeContract(dir);
-    const v = new GateValidator();
-    const hash = computeContractHash(c);
-    const branch = "delivery/sfia-studio-poc-increment-b";
-    const head = "ee9487797ce44c8d864846030c54fac43ee33611";
-
-    expect(
-      v.validate({
-        gate: makeGo(c, { gitBranch: "other" }),
-        contract: c,
-        expectedHash: hash,
-        expectedBranch: branch,
-        expectedHead: head,
-      }).ok,
-    ).toBe(false);
-
-    expect(
-      v.validate({
-        gate: makeGo(c, { gitHead: "a".repeat(40) }),
-        contract: c,
-        expectedHash: hash,
-        expectedBranch: branch,
-        expectedHead: head,
-      }).ok,
-    ).toBe(false);
-
-    expect(
-      v.validate({
-        gate: makeGo(c, { allowlistSnapshot: ["evil"] }),
-        contract: c,
-        expectedHash: hash,
-        expectedBranch: branch,
-        expectedHead: head,
-      }).ok,
-    ).toBe(false);
-
-    expect(
-      v.validate({
-        gate: makeGo(c, { decidedBy: "" }),
-        contract: c,
-        expectedHash: hash,
-      }).ok,
-    ).toBe(false);
-  });
-
-  it("adapter probes refuse without success", async () => {
-    const adapter = createThinStudioAdapter();
-    for (const action of [
-      "probe-invalid-hash",
-      "probe-invalid-branch",
-      "probe-invalid-head",
-      "probe-invalid-allowlist",
-      "probe-missing-decider",
-      "probe-timeout",
-      "probe-incomplete-report",
-      "probe-missing-proof",
-      "probe-live-port",
-      "probe-write-escape",
-    ] as const) {
-      const res = await adapter.forward(baseReq({ action, proofDir: tmp() }));
-      expect(res.ok, action).toBe(false);
-      expect(res.canonicalStatus === "CLOSED" || res.canonicalStatus === "REJECTED", action).toBe(
-        true,
-      );
-      if (action === "probe-timeout") {
-        expect(res.stopOrTimeout).toBe("timeout");
-        expect(res.errorCode).toMatch(/TIMEOUT/);
-      }
-      if (action === "stop" as never) {
-        /* n/a */
-      }
-    }
-    const stop = await adapter.forward(baseReq({ action: "stop", proofDir: tmp() }));
-    expect(stop.ok).toBe(false);
-    expect(stop.stopOrTimeout).toBe("STOP");
-  });
-});
-
-describe("Increment B — session resume", () => {
-  it("reconstructs state from journal without implicit GO", async () => {
-    const adapter = createThinStudioAdapter();
-    const proofDir = tmp();
-    const run = await adapter.forward(baseReq({ proofDir }));
-    expect(run.ok).toBe(true);
-    const resumed = resumeSessionFromProofDir(proofDir);
-    expect(resumed.statusSource).toBe("harness");
-    expect(resumed.canonicalStatus).toBe("CLOSED");
-    expect(resumed.goValid).toBe(false);
-    expect(resumed.events.length).toBeGreaterThan(0);
-    expect(resumed.report).toBeTruthy();
-
-    const stoppedDir = tmp();
-    await adapter.forward(baseReq({ action: "stop", proofDir: stoppedDir }));
-    const resumedStop = resumeSessionFromProofDir(stoppedDir);
-    expect(resumedStop.ok).toBe(false);
-    expect(resumedStop.stopOrTimeout).toBe("STOP");
-    expect(resumedStop.refusalReason).toBeTruthy();
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/lib/harness/types.ts`
-```typescript
-/** Derived Studio view of harness Incremental B responses (no second truth). */
-
-export type StudioHarnessAction =
-  | "run-fixture"
-  | "stop"
-  | "resume"
-  | "probe-invalid-hash"
-  | "probe-invalid-branch"
-  | "probe-invalid-head"
-  | "probe-invalid-allowlist"
-  | "probe-missing-decider"
-  | "probe-timeout"
-  | "probe-incomplete-report"
-  | "probe-missing-proof"
-  | "probe-live-port"
-  | "probe-write-escape";
-
-export interface StudioHarnessRequest {
-  requestId: string;
-  correlationId: string;
-  contractId: string;
-  contractHash: string;
-  branch: string;
-  head: string;
-  allowlist: string[];
-  morrisDecision: "GO" | "NO-GO" | "CORRIGER" | "STOP" | "CLOSE";
-  decidedAt: string;
-  action: StudioHarnessAction;
-  proofDir?: string;
-  decisionId?: string;
-}
-
-export interface StudioHarnessEvent {
-  eventId: string;
-  eventType: string;
-  timestamp: string;
-  requestId: string;
-  correlationId: string;
-  result?: string;
-  errorCode?: string;
-  detail?: Record<string, unknown>;
-}
-
-export interface StudioHarnessView {
-  ok: boolean;
-  statusSource: "harness";
-  mode: "fixture" | "simulation";
-  canonicalStatus: string;
-  goValid: boolean;
-  errorCode?: string;
-  refusalReason?: string;
-  stopOrTimeout?: "STOP" | "timeout" | "refusal" | null;
-  contractHash: string;
-  executionId?: string;
-  correlationId: string;
-  proofDir: string;
-  journalPath?: string;
-  events: StudioHarnessEvent[];
-  report?: Record<string, unknown> | null;
-  proofPack?: {
-    ok: boolean;
-    missing: string[];
-    present: string[];
-    integrityNotes: string[];
-  };
-  reserves: string[];
-  timestamps: { decidedAt?: string; completedAt: string };
-  realGptClaimed: false;
-  realCursorClaimed: false;
-  remoteGitWrite: false;
-}
-
-```
-
-### `projects/sfia-studio/app/lib/harness/buildRequest.ts`
-```typescript
-import { vsFixture } from "@/fixtures/vertical-slice";
-import type { StudioHarnessAction, StudioHarnessRequest } from "./types";
-
-/**
- * Pure mapping Studio fixture → adapter payload.
- * No GO validation, no policy, no journal writes.
- */
-export function buildStudioHarnessRequest(
-  action: StudioHarnessAction,
-  overrides: Partial<StudioHarnessRequest> = {},
-): StudioHarnessRequest {
-  return {
-    requestId: vsFixture.requestId,
-    correlationId: `${vsFixture.correlationId}-${action}`,
-    contractId: vsFixture.contractId,
-    contractHash: vsFixture.contractHash,
-    branch: "delivery/sfia-studio-poc-increment-b",
-    head: "ee9487797ce44c8d864846030c54fac43ee33611",
-    allowlist: ["projects/sfia-studio", "projects/sfia-studio/harness"],
-    morrisDecision: action === "stop" ? "STOP" : "GO",
-    decidedAt: new Date().toISOString(),
-    action,
-    ...overrides,
-  };
-}
-
-/** Map UI gate choice to harness action (still no authority). */
-export function actionForGateConfirm(input: {
-  gateAction: "GO" | "NO-GO" | "CORRIGER" | "ABANDONNER";
-  stateId: string;
-}): StudioHarnessAction | "local-only" {
-  if (input.gateAction === "ABANDONNER" || input.gateAction === "CORRIGER") {
-    return "local-only";
-  }
-  if (input.gateAction === "NO-GO") {
-    return "run-fixture"; // morrisDecision overridden by caller
-  }
-  if (input.stateId === "VS-UX-VAR-GO-INVALID") {
-    return "probe-invalid-head";
-  }
-  return "run-fixture";
-}
-
-```
-
-### `projects/sfia-studio/app/lib/harness/invokeHarness.ts`
-```typescript
-import { execFile } from "node:child_process";
-import { mkdtempSync, writeFileSync, mkdirSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { promisify } from "node:util";
-import type { StudioHarnessRequest, StudioHarnessView } from "./types";
-
-const execFileAsync = promisify(execFile);
-
-/**
- * Thin process boundary: map JSON → harness CLI `studio-run` / `resume-session`.
- * Does not validate GO. Does not call live GPT APIs or real Cursor.
- */
-export async function invokeHarnessStudioRun(
-  request: StudioHarnessRequest,
-): Promise<StudioHarnessView> {
-  const harnessRoot = path.resolve(process.cwd(), "../harness");
-  const work = mkdtempSync(path.join(os.tmpdir(), "sfia-studio-bridge-"));
-  mkdirSync(work, { recursive: true });
-  const payloadPath = path.join(work, "payload.json");
-  writeFileSync(payloadPath, `${JSON.stringify(request, null, 2)}\n`, "utf8");
-
-  const tsxBin = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
-  const cliEntry = path.join(harnessRoot, "src/cli.ts");
-  const cmd = request.action === "resume" ? "resume-session" : "studio-run";
-  const cmdArg =
-    request.action === "resume"
-      ? (request.proofDir ?? "")
-      : payloadPath;
-
-  if (request.action === "resume" && !request.proofDir) {
-    return {
-      ok: false,
-      statusSource: "harness",
-      mode: "fixture",
-      canonicalStatus: "REJECTED",
-      goValid: false,
-      errorCode: "RESUME_PROOF_DIR_MISSING",
-      refusalReason: "proofDir required for resume",
-      stopOrTimeout: "refusal",
-      contractHash: request.contractHash,
-      correlationId: request.correlationId,
-      proofDir: "",
-      events: [],
-      report: null,
-      reserves: ["Adaptateur sans autorité"],
-      timestamps: { completedAt: new Date().toISOString() },
-      realGptClaimed: false,
-      realCursorClaimed: false,
-      remoteGitWrite: false,
-    };
-  }
-
-  try {
-    const { stdout } = await execFileAsync(
-      process.execPath,
-      [tsxBin, cliEntry, cmd, cmdArg],
-      {
-        cwd: harnessRoot,
-        maxBuffer: 12 * 1024 * 1024,
-        env: { ...process.env, SFIA_CURSOR_REAL_SPIKE: "0" },
-      },
-    );
-    return JSON.parse(stdout) as StudioHarnessView;
-  } catch (err) {
-    const e = err as { stdout?: string; stderr?: string; message?: string };
-    if (e.stdout) {
-      try {
-        return JSON.parse(e.stdout) as StudioHarnessView;
-      } catch {
-        /* fall through */
-      }
-    }
-    return {
-      ok: false,
-      statusSource: "harness",
-      mode: "fixture",
-      canonicalStatus: "FAILED",
-      goValid: false,
-      errorCode: "ADAPTER_FORWARD_FAILED",
-      refusalReason: e.stderr || e.message || "harness invoke failed",
-      stopOrTimeout: "refusal",
-      contractHash: request.contractHash,
-      correlationId: request.correlationId,
-      proofDir: request.proofDir ?? "",
-      events: [],
-      report: null,
-      reserves: ["Adaptateur sans autorité — échec de transmission"],
-      timestamps: { completedAt: new Date().toISOString() },
-      realGptClaimed: false,
-      realCursorClaimed: false,
-      remoteGitWrite: false,
-    };
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/harness/actions.ts`
-```typescript
-"use server";
-
-import { invokeHarnessStudioRun } from "./invokeHarness";
-import type { StudioHarnessRequest, StudioHarnessView } from "./types";
-
-/** Server-only forward to harness CLI. No authority in this layer. */
-export async function runStudioHarness(
-  request: StudioHarnessRequest,
-): Promise<StudioHarnessView> {
-  return invokeHarnessStudioRun(request);
-}
-
-```
-
-### `projects/sfia-studio/app/lib/harness/index.ts`
-```typescript
-export type {
-  StudioHarnessAction,
-  StudioHarnessRequest,
-  StudioHarnessView,
-  StudioHarnessEvent,
-} from "./types";
-export { buildStudioHarnessRequest, actionForGateConfirm } from "./buildRequest";
-export { runStudioHarness } from "./actions";
-
-```
-
-### `projects/sfia-studio/app/__tests__/increment-b.test.tsx`
-```typescript
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { readFileSync, readdirSync } from "node:fs";
-import path from "node:path";
-import { STUDIO_ROUTES } from "@/lib/navigation";
-import { STUDIO_ROUTES_ONLY } from "@/lib/vertical-slice";
-import {
-  actionForGateConfirm,
-  buildStudioHarnessRequest,
-} from "@/lib/harness/buildRequest";
-import { DecisionScreen } from "@/features/decision/DecisionScreen";
-
-const push = vi.fn();
-let mockPathname = "/decision";
-let mockSearch = "vs=VS-UX-04";
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push, replace: vi.fn(), prefetch: vi.fn() }),
-  usePathname: () => mockPathname,
-  useSearchParams: () => new URLSearchParams(mockSearch),
-}));
-
-vi.mock("next/link", () => ({
-  default: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href: string;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
-vi.mock("@/lib/harness/actions", () => ({
-  runStudioHarness: vi.fn(async () => ({
-    ok: true,
-    statusSource: "harness",
-    mode: "fixture",
-    canonicalStatus: "CLOSED",
-    goValid: true,
-    contractHash: "abc",
-    correlationId: "corr-test",
-    proofDir: "/tmp/proof",
-    events: [
-      {
-        eventId: "e1",
-        eventType: "execution.closed",
-        timestamp: "2026-07-20T00:00:00Z",
-        requestId: "r",
-        correlationId: "c",
-        result: "completed",
-      },
-    ],
-    report: { ok: true },
-    proofPack: { ok: true, missing: [], present: ["summary.json"], integrityNotes: [] },
-    reserves: [],
-    timestamps: { completedAt: "2026-07-20T00:00:00Z" },
-    realGptClaimed: false,
-    realCursorClaimed: false,
-    remoteGitWrite: false,
-  })),
-}));
-
-afterEach(() => {
-  cleanup();
-  push.mockClear();
-});
-
-beforeEach(() => {
-  mockPathname = "/decision";
-  mockSearch = "vs=VS-UX-04";
-});
-
-describe("Increment B — adapter mapping (no authority)", () => {
-  it("buildStudioHarnessRequest never invents GO validation fields as authority", () => {
-    const req = buildStudioHarnessRequest("run-fixture");
-    expect(req.action).toBe("run-fixture");
-    expect(req.morrisDecision).toBe("GO");
-    const src = readFileSync(
-      path.resolve(__dirname, "../lib/harness/buildRequest.ts"),
-      "utf8",
-    );
-    expect(src).not.toMatch(/GateValidator/);
-    expect(src).not.toMatch(/contractHash\s*===/);
-  });
-
-  it("maps GO-INVALID to probe-invalid-head", () => {
-    expect(
-      actionForGateConfirm({ gateAction: "GO", stateId: "VS-UX-VAR-GO-INVALID" }),
-    ).toBe("probe-invalid-head");
-  });
-
-  it("keeps exactly four routes", () => {
-    expect(STUDIO_ROUTES).toHaveLength(4);
-    expect(STUDIO_ROUTES_ONLY).toHaveLength(4);
-  });
-});
-
-describe("Increment B — Studio derives harness status", () => {
-  it("renders harness panel and fixture labels on decision", () => {
-    render(<DecisionScreen />);
-    expect(screen.getByTestId("vs-harness-idle")).toBeInTheDocument();
-    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent("Incrément B");
-    expect(screen.getByTestId("vs-status-source")).toBeInTheDocument();
-  });
-});
-
-describe("Increment B — no live / no openai in app bridge", () => {
-  it("invokeHarness and actions contain no OpenAI or live cursor calls", () => {
-    const files = [
-      "../lib/harness/invokeHarness.ts",
-      "../lib/harness/actions.ts",
-      "../lib/harness/buildRequest.ts",
-    ];
-    for (const rel of files) {
-      const text = readFileSync(path.resolve(__dirname, rel), "utf8");
-      expect(text).not.toMatch(/api\.openai\.com/i);
-      expect(text).not.toMatch(/from ["']openai["']/);
-      expect(text).not.toMatch(/SFIA_CURSOR_REAL_SPIKE\s*=\s*["']1["']/);
-      expect(text).not.toMatch(/git push/);
-    }
-  });
-
-  it("Studio P0 routes remain exactly four (no new feature route)", () => {
-    expect(STUDIO_ROUTES_ONLY).toEqual([
-      "/nouvelle-demande",
-      "/decision",
-      "/cycle-actif",
-      "/synthese",
-    ]);
-    const appDir = path.resolve(__dirname, "../app");
-    const featurePages = readdirSync(appDir, { withFileTypes: true })
-      .filter((d) => d.isDirectory())
-      .map((d) => d.name)
-      .filter((name) =>
-        ["nouvelle-demande", "decision", "cycle-actif", "synthese"].includes(name),
-      );
-    expect(featurePages.sort()).toEqual(
-      ["cycle-actif", "decision", "nouvelle-demande", "synthese"].sort(),
-    );
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/e2e/increment-b.spec.ts`
-```typescript
-import { expect, test } from "@playwright/test";
-import fs from "fs";
-import path from "path";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots-increment-b",
-);
-
-test.beforeAll(() => {
-  fs.mkdirSync(screenshotDir, { recursive: true });
-});
-
-test.describe("Increment B — harness-derived cockpit", () => {
-  test("decision shows harness panel and four routes only", async ({ page }) => {
-    await page.goto("/decision?vs=VS-UX-04");
-    await expect(page.getByTestId("vs-demo-banner")).toContainText("Incrément B");
-    await expect(page.getByTestId("vs-harness-idle")).toBeVisible();
-    await expect(page.getByTestId("vs-status-source")).toBeVisible();
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-gate-valide-idle.png"),
-      fullPage: true,
-    });
-  });
-
-  test("GO confirm runs fixture harness and shows derived status", async ({ page }) => {
-    test.setTimeout(90_000);
-    await page.goto("/decision?vs=VS-UX-04");
-    await page.getByTestId("vs-gate-GO").click();
-    await page.getByTestId("vs-gate-confirm").click();
-    // Nominal GO navigates to cycle-actif; harness view is persisted in sessionStorage.
-    await expect(page).toHaveURL(/cycle-actif/, { timeout: 60_000 });
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-    await expect(page.getByTestId("vs-status-source")).toContainText("harness");
-    await expect(page.getByTestId("vs-go-valid")).toContainText("oui");
-    await expect(page.getByTestId("vs-report-flag")).toContainText("disponible");
-    await expect(page.getByTestId("vs-proof-flag")).toContainText("complet");
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-execution-fixture.png"),
-      fullPage: true,
-    });
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-rapport-preuves.png"),
-      fullPage: true,
-    });
-    await page.getByTestId("vs-resume").click();
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-    await expect(page.getByTestId("vs-harness-status")).toBeVisible();
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-reprise-session.png"),
-      fullPage: true,
-    });
-  });
-
-  test("GO invalid probe refuses without success", async ({ page }) => {
-    await page.goto("/decision?vs=VS-UX-04");
-    await page.getByRole("button", { name: /Simuler GO invalide/i }).click();
-    await page.getByTestId("vs-gate-GO").click();
-    await page.getByTestId("vs-gate-confirm").click();
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-    await expect(page.getByTestId("vs-go-valid")).toContainText("non");
-    await expect(page.getByTestId("vs-harness-error")).toBeVisible();
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-go-invalide.png"),
-      fullPage: true,
-    });
-  });
-
-  test("STOP via cycle harness is distinct", async ({ page }) => {
-    await page.goto("/cycle-actif?vs=VS-UX-05");
-    await page.getByTestId("vs-stop-execution").click();
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-    await expect(page.getByTestId("vs-stop-timeout")).toContainText("STOP");
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-stop.png"),
-      fullPage: true,
-    });
-  });
-
-  test("synthese shows derived closure from harness when resumed", async ({ page }) => {
-    test.setTimeout(90_000);
-    await page.goto("/decision?vs=VS-UX-04");
-    await page.getByTestId("vs-gate-GO").click();
-    await page.getByTestId("vs-gate-confirm").click();
-    await expect(page).toHaveURL(/cycle-actif/, { timeout: 60_000 });
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-    await page.goto("/synthese?vs=VS-UX-10");
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 30_000 });
-    await page.getByTestId("vs-resume").click();
-    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
-    await expect(page.getByTestId("vs-cycle-summary")).toContainText(/harness|CLOSED|fixture/i);
-    await page.screenshot({
-      path: path.join(screenshotDir, "inc-b-cloture-derivee.png"),
-      fullPage: true,
-    });
-  });
-});
-
-
-```
-
-### Diffs utiles des fichiers modifiés
-
-#### Diff `projects/sfia-studio/harness/src/gate/gateValidator.ts`
+### Diff utile complet du commit
 ```diff
+diff --git a/projects/sfia-studio/app/__tests__/increment-b.test.tsx b/projects/sfia-studio/app/__tests__/increment-b.test.tsx
+new file mode 100644
+index 0000000..870bc30
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/increment-b.test.tsx
+@@ -0,0 +1,146 @@
++import { cleanup, render, screen } from "@testing-library/react";
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++import { readFileSync, readdirSync } from "node:fs";
++import path from "node:path";
++import { STUDIO_ROUTES } from "@/lib/navigation";
++import { STUDIO_ROUTES_ONLY } from "@/lib/vertical-slice";
++import {
++  actionForGateConfirm,
++  buildStudioHarnessRequest,
++} from "@/lib/harness/buildRequest";
++import { DecisionScreen } from "@/features/decision/DecisionScreen";
++
++const push = vi.fn();
++let mockPathname = "/decision";
++let mockSearch = "vs=VS-UX-04";
++
++vi.mock("next/navigation", () => ({
++  useRouter: () => ({ push, replace: vi.fn(), prefetch: vi.fn() }),
++  usePathname: () => mockPathname,
++  useSearchParams: () => new URLSearchParams(mockSearch),
++}));
++
++vi.mock("next/link", () => ({
++  default: ({
++    children,
++    href,
++    ...props
++  }: {
++    children: React.ReactNode;
++    href: string;
++  }) => (
++    <a href={href} {...props}>
++      {children}
++    </a>
++  ),
++}));
++
++vi.mock("@/lib/harness/actions", () => ({
++  runStudioHarness: vi.fn(async () => ({
++    ok: true,
++    statusSource: "harness",
++    mode: "fixture",
++    canonicalStatus: "CLOSED",
++    goValid: true,
++    contractHash: "abc",
++    correlationId: "corr-test",
++    proofDir: "/tmp/proof",
++    events: [
++      {
++        eventId: "e1",
++        eventType: "execution.closed",
++        timestamp: "2026-07-20T00:00:00Z",
++        requestId: "r",
++        correlationId: "c",
++        result: "completed",
++      },
++    ],
++    report: { ok: true },
++    proofPack: { ok: true, missing: [], present: ["summary.json"], integrityNotes: [] },
++    reserves: [],
++    timestamps: { completedAt: "2026-07-20T00:00:00Z" },
++    realGptClaimed: false,
++    realCursorClaimed: false,
++    remoteGitWrite: false,
++  })),
++}));
++
++afterEach(() => {
++  cleanup();
++  push.mockClear();
++});
++
++beforeEach(() => {
++  mockPathname = "/decision";
++  mockSearch = "vs=VS-UX-04";
++});
++
++describe("Increment B — adapter mapping (no authority)", () => {
++  it("buildStudioHarnessRequest never invents GO validation fields as authority", () => {
++    const req = buildStudioHarnessRequest("run-fixture");
++    expect(req.action).toBe("run-fixture");
++    expect(req.morrisDecision).toBe("GO");
++    const src = readFileSync(
++      path.resolve(__dirname, "../lib/harness/buildRequest.ts"),
++      "utf8",
++    );
++    expect(src).not.toMatch(/GateValidator/);
++    expect(src).not.toMatch(/contractHash\s*===/);
++  });
++
++  it("maps GO-INVALID to probe-invalid-head", () => {
++    expect(
++      actionForGateConfirm({ gateAction: "GO", stateId: "VS-UX-VAR-GO-INVALID" }),
++    ).toBe("probe-invalid-head");
++  });
++
++  it("keeps exactly four routes", () => {
++    expect(STUDIO_ROUTES).toHaveLength(4);
++    expect(STUDIO_ROUTES_ONLY).toHaveLength(4);
++  });
++});
++
++describe("Increment B — Studio derives harness status", () => {
++  it("renders harness panel and fixture labels on decision", () => {
++    render(<DecisionScreen />);
++    expect(screen.getByTestId("vs-harness-idle")).toBeInTheDocument();
++    expect(screen.getByTestId("vs-demo-banner")).toHaveTextContent("Incrément B");
++    expect(screen.getByTestId("vs-status-source")).toBeInTheDocument();
++  });
++});
++
++describe("Increment B — no live / no openai in app bridge", () => {
++  it("invokeHarness and actions contain no OpenAI or live cursor calls", () => {
++    const files = [
++      "../lib/harness/invokeHarness.ts",
++      "../lib/harness/actions.ts",
++      "../lib/harness/buildRequest.ts",
++    ];
++    for (const rel of files) {
++      const text = readFileSync(path.resolve(__dirname, rel), "utf8");
++      expect(text).not.toMatch(/api\.openai\.com/i);
++      expect(text).not.toMatch(/from ["']openai["']/);
++      expect(text).not.toMatch(/SFIA_CURSOR_REAL_SPIKE\s*=\s*["']1["']/);
++      expect(text).not.toMatch(/git push/);
++    }
++  });
++
++  it("Studio P0 routes remain exactly four (no new feature route)", () => {
++    expect(STUDIO_ROUTES_ONLY).toEqual([
++      "/nouvelle-demande",
++      "/decision",
++      "/cycle-actif",
++      "/synthese",
++    ]);
++    const appDir = path.resolve(__dirname, "../app");
++    const featurePages = readdirSync(appDir, { withFileTypes: true })
++      .filter((d) => d.isDirectory())
++      .map((d) => d.name)
++      .filter((name) =>
++        ["nouvelle-demande", "decision", "cycle-actif", "synthese"].includes(name),
++      );
++    expect(featurePages.sort()).toEqual(
++      ["cycle-actif", "decision", "nouvelle-demande", "synthese"].sort(),
++    );
++  });
++});
+diff --git a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+index 17dea54..c02deea 100644
+--- a/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
++++ b/projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
+@@ -12,7 +12,7 @@ export function VsDemoChrome() {
+   return (
+     <div className={styles.chrome} data-testid="vs-demo-chrome">
+       <div className={styles.banner} role="status" data-testid="vs-demo-banner">
+-        <strong>Incrément A — cockpit statique gouverné</strong>
++        <strong>Incrément B — cockpit raccordé harness (fixture)</strong>
+         <span>{vsFixture.demoLabel}</span>
+         <span>{vsFixture.noLiveLabel}</span>
+       </div>
+diff --git a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
+index c273f56..108953a 100644
+--- a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
++++ b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
+@@ -1,7 +1,16 @@
+ import { vsFixture } from "@/fixtures/vertical-slice";
++import type { StudioHarnessView } from "@/lib/harness/types";
++import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+ import styles from "./vs-panels.module.css";
+ 
+ export function IdStrip() {
++  const { harnessView } = useVsDemo();
++  const source = harnessView?.statusSource
++    ? `harness (${harnessView.mode})`
++    : vsFixture.sourceStatus;
++  const hash = harnessView?.contractHash ?? vsFixture.contractHash;
++  const corr = harnessView?.correlationId ?? vsFixture.correlationId;
++
+   return (
+     <dl className={styles.idStrip} data-testid="vs-id-strip">
+       <div>
+@@ -10,7 +19,7 @@ export function IdStrip() {
+       </div>
+       <div>
+         <dt>correlationId</dt>
+-        <dd>{vsFixture.correlationId}</dd>
++        <dd>{corr}</dd>
+       </div>
+       <div>
+         <dt>contractId</dt>
+@@ -18,7 +27,7 @@ export function IdStrip() {
+       </div>
+       <div>
+         <dt>contractHash</dt>
+-        <dd>{vsFixture.contractHash}</dd>
++        <dd>{hash.length > 24 ? `${hash.slice(0, 20)}…` : hash}</dd>
+       </div>
+       <div>
+         <dt>Branche</dt>
+@@ -30,18 +39,94 @@ export function IdStrip() {
+       </div>
+       <div>
+         <dt>Source statut</dt>
+-        <dd>{vsFixture.sourceStatus}</dd>
++        <dd data-testid="vs-status-source">{source}</dd>
+       </div>
+       <div>
+         <dt>Horodatage</dt>
+         <dd>
+-          {vsFixture.timestamp} ({vsFixture.timezone})
++          {harnessView?.timestamps.completedAt ?? vsFixture.timestamp} (
++          {vsFixture.timezone})
+         </dd>
+       </div>
+     </dl>
+   );
+ }
+ 
++export function HarnessStatusPanel() {
++  const { harnessView, harnessBusy, resumeFromHarness } = useVsDemo();
++  if (harnessBusy) {
++    return (
++      <aside className={styles.finops} data-testid="vs-harness-busy">
++        <p>Transmission harness (fixture)…</p>
++      </aside>
++    );
++  }
++  if (!harnessView) {
++    return (
++      <aside className={styles.finops} data-testid="vs-harness-idle">
++        <p className={styles.finopsTitle}>Harness (Increment B)</p>
++        <p>Aucun cycle harness encore — simulation / fixture uniquement.</p>
++        <p className={styles.muted}>Aucun GPT live · aucun Cursor live</p>
++        <button type="button" data-testid="vs-resume" onClick={resumeFromHarness}>
++          Reprendre depuis journal harness
++        </button>
++      </aside>
++    );
++  }
++  return <HarnessViewCard view={harnessView} onResume={resumeFromHarness} />;
++}
++
++function HarnessViewCard({
++  view,
++  onResume,
++}: {
++  view: StudioHarnessView;
++  onResume: () => void;
++}) {
++  const last = view.events[view.events.length - 1];
++  return (
++    <aside className={styles.finops} data-testid="vs-harness-panel">
++      <p className={styles.finopsTitle}>État dérivé harness (fixture)</p>
++      <p>
++        Statut canonique :{" "}
++        <strong data-testid="vs-harness-status">{view.canonicalStatus}</strong>
++      </p>
++      <p>
++        GO valide :{" "}
++        <strong data-testid="vs-go-valid">{view.goValid ? "oui" : "non"}</strong>
++      </p>
++      <p data-testid="vs-harness-mode">Mode : {view.mode} · source : {view.statusSource}</p>
++      {view.errorCode ? (
++        <p data-testid="vs-harness-error">
++          Refus / écart : {view.errorCode}
++          {view.refusalReason ? ` — ${view.refusalReason}` : ""}
++        </p>
++      ) : null}
++      {view.stopOrTimeout ? (
++        <p data-testid="vs-stop-timeout">Classe : {view.stopOrTimeout}</p>
++      ) : null}
++      {last ? (
++        <p data-testid="vs-last-event">
++          Dernier événement : {last.eventType} ({last.result ?? "—"})
++        </p>
++      ) : null}
++      <p data-testid="vs-report-flag">
++        Rapport : {view.report ? "disponible" : "absent"}
++      </p>
++      <p data-testid="vs-proof-flag">
++        Pack preuves :{" "}
++        {view.proofPack?.ok
++          ? "complet"
++          : `incomplet (${view.proofPack?.missing.join(", ") || "n/a"})`}
++      </p>
++      <p className={styles.muted}>Aucun GPT/Cursor live · aucune écriture Git distante</p>
++      <button type="button" data-testid="vs-resume" onClick={onResume}>
++        Reprendre depuis journal harness
++      </button>
++    </aside>
++  );
++}
++
+ export function FinOpsBox({
+   phase,
+   calls,
+diff --git a/projects/sfia-studio/app/e2e/increment-b.spec.ts b/projects/sfia-studio/app/e2e/increment-b.spec.ts
+new file mode 100644
+index 0000000..e8b0aca
+--- /dev/null
++++ b/projects/sfia-studio/app/e2e/increment-b.spec.ts
+@@ -0,0 +1,98 @@
++import { expect, test } from "@playwright/test";
++import fs from "fs";
++import path from "path";
++
++const screenshotDir = path.join(
++  __dirname,
++  "../../../../.tmp-sfia-review/screenshots-increment-b",
++);
++
++test.beforeAll(() => {
++  fs.mkdirSync(screenshotDir, { recursive: true });
++});
++
++test.describe("Increment B — harness-derived cockpit", () => {
++  test("decision shows harness panel and four routes only", async ({ page }) => {
++    await page.goto("/decision?vs=VS-UX-04");
++    await expect(page.getByTestId("vs-demo-banner")).toContainText("Incrément B");
++    await expect(page.getByTestId("vs-harness-idle")).toBeVisible();
++    await expect(page.getByTestId("vs-status-source")).toBeVisible();
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-gate-valide-idle.png"),
++      fullPage: true,
++    });
++  });
++
++  test("GO confirm runs fixture harness and shows derived status", async ({ page }) => {
++    test.setTimeout(90_000);
++    await page.goto("/decision?vs=VS-UX-04");
++    await page.getByTestId("vs-gate-GO").click();
++    await page.getByTestId("vs-gate-confirm").click();
++    // Nominal GO navigates to cycle-actif; harness view is persisted in sessionStorage.
++    await expect(page).toHaveURL(/cycle-actif/, { timeout: 60_000 });
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
++    await expect(page.getByTestId("vs-status-source")).toContainText("harness");
++    await expect(page.getByTestId("vs-go-valid")).toContainText("oui");
++    await expect(page.getByTestId("vs-report-flag")).toContainText("disponible");
++    await expect(page.getByTestId("vs-proof-flag")).toContainText("complet");
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-execution-fixture.png"),
++      fullPage: true,
++    });
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-rapport-preuves.png"),
++      fullPage: true,
++    });
++    await page.getByTestId("vs-resume").click();
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
++    await expect(page.getByTestId("vs-harness-status")).toBeVisible();
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-reprise-session.png"),
++      fullPage: true,
++    });
++  });
++
++  test("GO invalid probe refuses without success", async ({ page }) => {
++    await page.goto("/decision?vs=VS-UX-04");
++    await page.getByRole("button", { name: /Simuler GO invalide/i }).click();
++    await page.getByTestId("vs-gate-GO").click();
++    await page.getByTestId("vs-gate-confirm").click();
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
++    await expect(page.getByTestId("vs-go-valid")).toContainText("non");
++    await expect(page.getByTestId("vs-harness-error")).toBeVisible();
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-go-invalide.png"),
++      fullPage: true,
++    });
++  });
++
++  test("STOP via cycle harness is distinct", async ({ page }) => {
++    await page.goto("/cycle-actif?vs=VS-UX-05");
++    await page.getByTestId("vs-stop-execution").click();
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
++    await expect(page.getByTestId("vs-stop-timeout")).toContainText("STOP");
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-stop.png"),
++      fullPage: true,
++    });
++  });
++
++  test("synthese shows derived closure from harness when resumed", async ({ page }) => {
++    test.setTimeout(90_000);
++    await page.goto("/decision?vs=VS-UX-04");
++    await page.getByTestId("vs-gate-GO").click();
++    await page.getByTestId("vs-gate-confirm").click();
++    await expect(page).toHaveURL(/cycle-actif/, { timeout: 60_000 });
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
++    await page.goto("/synthese?vs=VS-UX-10");
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 30_000 });
++    await page.getByTestId("vs-resume").click();
++    await expect(page.getByTestId("vs-harness-panel")).toBeVisible({ timeout: 60_000 });
++    await expect(page.getByTestId("vs-cycle-summary")).toContainText(/harness|CLOSED|fixture/i);
++    await page.screenshot({
++      path: path.join(screenshotDir, "inc-b-cloture-derivee.png"),
++      fullPage: true,
++    });
++  });
++});
++
+diff --git a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+index 72d3a64..7cd9fc1 100644
+--- a/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
++++ b/projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
+@@ -2,7 +2,12 @@
+ 
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+-import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
++import {
++  FinOpsBox,
++  HarnessStatusPanel,
++  IdStrip,
++  VariantBanner,
++} from "@/components/vertical-slice/VsShared";
+ import { vsFixture } from "@/fixtures/vertical-slice";
+ import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+ import styles from "@/components/vertical-slice/vs-panels.module.css";
+@@ -24,15 +29,16 @@ export function VsCycleActifScreen() {
+   return (
+     <div className={styles.panel} data-testid="vs-cycle-actif">
+       <IdStrip />
++      <HarnessStatusPanel />
+ 
+       {stateId === "VS-UX-VAR-STOP" || stopFired ? (
+         <VariantBanner tone="stop" title="STOP Morris — prioritaire">
+           <p>
+-            Exécution <strong>stoppée</strong>. STOP ≠ NO-GO ≠ Abandonner. Event mock
+-            journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
++            Exécution <strong>stoppée</strong> via harness. STOP ≠ NO-GO ≠ Abandonner.
++            Event journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
+           </p>
+           <p className={styles.muted}>
+-            eventId=evt-stop-mock · {vsFixture.timestamp}
++            Source statut = harness · fixture · {vsFixture.timestamp}
+           </p>
+         </VariantBanner>
+       ) : null}
+diff --git a/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx b/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+index e24e124..6a2d237 100644
+--- a/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
++++ b/projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
+@@ -2,7 +2,11 @@
+ 
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+-import { IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
++import {
++  HarnessStatusPanel,
++  IdStrip,
++  VariantBanner,
++} from "@/components/vertical-slice/VsShared";
+ import { vsFixture } from "@/fixtures/vertical-slice";
+ import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+ import type { VsFinalAction, VsGateAction } from "@/lib/vertical-slice/types";
+@@ -17,12 +21,12 @@ const gateOptions: {
+   {
+     action: "GO",
+     title: "GO",
+-    subtitle: "Autoriser l'exécution sandbox après revalidation harness (mock)",
++    subtitle: "Autoriser l'exécution fixture — revalidation GO côté harness",
+   },
+   {
+     action: "NO-GO",
+     title: "NO-GO",
+-    subtitle: "Refuser l'exécution — clôture négative sans spawn",
++    subtitle: "Refuser l'exécution — refus harness, pas de faux succès",
+   },
+   {
+     action: "CORRIGER",
+@@ -89,6 +93,7 @@ export function VsDecisionScreen() {
+   return (
+     <div className={styles.panel} data-testid="vs-decision">
+       <IdStrip />
++      <HarnessStatusPanel />
+ 
+       {isGoInvalid ? (
+         <VariantBanner tone="warn" title="GO invalide — ancrage divergé">
+diff --git a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+index 4f967d6..62dbba5 100644
+--- a/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
++++ b/projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
+@@ -2,7 +2,12 @@
+ 
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+-import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
++import {
++  FinOpsBox,
++  HarnessStatusPanel,
++  IdStrip,
++  VariantBanner,
++} from "@/components/vertical-slice/VsShared";
+ import { vsFixture } from "@/fixtures/vertical-slice";
+ import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+ import styles from "@/components/vertical-slice/vs-panels.module.css";
+@@ -13,6 +18,7 @@ export function VsNouvelleDemandeScreen() {
+   return (
+     <div className={styles.panel} data-testid="vs-nouvelle-demande">
+       <IdStrip />
++      <HarnessStatusPanel />
+ 
+       {stateId === "VS-UX-VAR-LOADING" || stateId === "VS-UX-02" ? (
+         <VariantBanner tone="info" title="Loading — qualification GPT (fixture)">
+diff --git a/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx b/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+index dbd1707..79df007 100644
+--- a/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
++++ b/projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
+@@ -1,17 +1,23 @@
+ "use client";
+ 
+ import { StatusPill } from "@/components/ui/StatusPill";
+-import { IdStrip } from "@/components/vertical-slice/VsShared";
++import { HarnessStatusPanel, IdStrip } from "@/components/vertical-slice/VsShared";
+ import { vsFixture } from "@/fixtures/vertical-slice";
+ import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
+ import styles from "@/components/vertical-slice/vs-panels.module.css";
+ 
+ export function VsSyntheseScreen() {
+-  const { abandoned, finalAction } = useVsDemo();
++  const { abandoned, finalAction, harnessView } = useVsDemo();
++  const finalStatus = harnessView
++    ? `dérivé harness · ${harnessView.canonicalStatus} (${harnessView.mode})`
++    : abandoned
++      ? "abandonné"
++      : vsFixture.summary.finalStatus;
+ 
+   return (
+     <div className={styles.panel} data-testid="vs-synthese">
+       <IdStrip />
++      <HarnessStatusPanel />
+ 
+       <section className={styles.hero} aria-labelledby="vs-close-hero">
+         <p className={styles.heroEyebrow}>CLÔTURE · SLICE COURANT UNIQUEMENT</p>
+@@ -24,8 +30,8 @@ export function VsSyntheseScreen() {
+       </section>
+ 
+       <section className={styles.card} data-testid="vs-cycle-summary">
+-        <StatusPill tone={abandoned ? "pink" : "greenFlush"}>
+-          {abandoned ? "abandonné" : vsFixture.summary.finalStatus}
++        <StatusPill tone={abandoned || (harnessView && !harnessView.ok) ? "pink" : "greenFlush"}>
++          {finalStatus}
+         </StatusPill>
+         <p className={styles.fieldLabel}>requestId</p>
+         <p className={styles.fieldValue}>{vsFixture.requestId}</p>
+diff --git a/projects/sfia-studio/app/fixtures/vertical-slice.ts b/projects/sfia-studio/app/fixtures/vertical-slice.ts
+index e8079e3..c933178 100644
+--- a/projects/sfia-studio/app/fixtures/vertical-slice.ts
++++ b/projects/sfia-studio/app/fixtures/vertical-slice.ts
+@@ -10,14 +10,14 @@ export const vsFixture = {
+   correlationId: "corr-vs-poc-001",
+   contractId: "ctr-vs-poc-001",
+   contractHash: "sha256:fixture9f3c2a7b1e8d0456",
+-  branch: "delivery/sfia-studio-poc-increment-a",
+-  head: "e7502bf2f1791cc4b9639cc1949006d888931f1c",
++  branch: "delivery/sfia-studio-poc-increment-b",
++  head: "ee9487797ce44c8d864846030c54fac43ee33611",
+   headInvalidated: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   allowlist: ["sandbox/vs-poc/output.md"],
+   authority: "Morris (L0)",
+   timezone: "Europe/Paris",
+-  timestamp: "2026-07-19T23:16:00+02:00",
+-  sourceStatus: "dérivé Studio (fixture)",
++  timestamp: "2026-07-20T00:10:00+02:00",
++  sourceStatus: "dérivé harness (fixture) lorsque raccordé · sinon fixture Studio",
+   gptCalls: {
+     qualification: 1,
+     analysis: 0,
+@@ -49,7 +49,7 @@ export const vsFixture = {
+     label: "Candidat GPT",
+     proven: ["Fichier Markdown mock présent dans allowlist"],
+     notProven: ["Exécution Cursor réelle", "Intégration harness"],
+-    gaps: ["Adaptateur Studio↔harness absent (Incr. B)"],
++    gaps: ["Incrément C (live) non démarré"],
+     risks: ["Confusion live / fixture si non étiqueté"],
+     reserves: ["Plafond GPT numérique À définir"],
+     morrisRequired: ["Décision finale humaine", "Aucun claim MVP"],
+@@ -62,8 +62,8 @@ export const vsFixture = {
+     proofRef: "ReviewPackReference#fixture-001",
+     gptCounter: "1 / À définir (qualification) · 0 / À définir (analyse)",
+     reserves: [
+-      "Incrément A uniquement",
+-      "Pas d’adaptateur",
++      "Incrément B — raccord fixture harness",
++      "Adaptateur fin sans autorité",
+       "Pas de live",
+       "Pas de claim MVP / production-ready",
+     ],
+diff --git a/projects/sfia-studio/app/lib/harness/actions.ts b/projects/sfia-studio/app/lib/harness/actions.ts
+new file mode 100644
+index 0000000..5d50a6a
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/harness/actions.ts
+@@ -0,0 +1,11 @@
++"use server";
++
++import { invokeHarnessStudioRun } from "./invokeHarness";
++import type { StudioHarnessRequest, StudioHarnessView } from "./types";
++
++/** Server-only forward to harness CLI. No authority in this layer. */
++export async function runStudioHarness(
++  request: StudioHarnessRequest,
++): Promise<StudioHarnessView> {
++  return invokeHarnessStudioRun(request);
++}
+diff --git a/projects/sfia-studio/app/lib/harness/buildRequest.ts b/projects/sfia-studio/app/lib/harness/buildRequest.ts
+new file mode 100644
+index 0000000..138db9e
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/harness/buildRequest.ts
+@@ -0,0 +1,42 @@
++import { vsFixture } from "@/fixtures/vertical-slice";
++import type { StudioHarnessAction, StudioHarnessRequest } from "./types";
++
++/**
++ * Pure mapping Studio fixture → adapter payload.
++ * No GO validation, no policy, no journal writes.
++ */
++export function buildStudioHarnessRequest(
++  action: StudioHarnessAction,
++  overrides: Partial<StudioHarnessRequest> = {},
++): StudioHarnessRequest {
++  return {
++    requestId: vsFixture.requestId,
++    correlationId: `${vsFixture.correlationId}-${action}`,
++    contractId: vsFixture.contractId,
++    contractHash: vsFixture.contractHash,
++    branch: "delivery/sfia-studio-poc-increment-b",
++    head: "ee9487797ce44c8d864846030c54fac43ee33611",
++    allowlist: ["projects/sfia-studio", "projects/sfia-studio/harness"],
++    morrisDecision: action === "stop" ? "STOP" : "GO",
++    decidedAt: new Date().toISOString(),
++    action,
++    ...overrides,
++  };
++}
++
++/** Map UI gate choice to harness action (still no authority). */
++export function actionForGateConfirm(input: {
++  gateAction: "GO" | "NO-GO" | "CORRIGER" | "ABANDONNER";
++  stateId: string;
++}): StudioHarnessAction | "local-only" {
++  if (input.gateAction === "ABANDONNER" || input.gateAction === "CORRIGER") {
++    return "local-only";
++  }
++  if (input.gateAction === "NO-GO") {
++    return "run-fixture"; // morrisDecision overridden by caller
++  }
++  if (input.stateId === "VS-UX-VAR-GO-INVALID") {
++    return "probe-invalid-head";
++  }
++  return "run-fixture";
++}
+diff --git a/projects/sfia-studio/app/lib/harness/index.ts b/projects/sfia-studio/app/lib/harness/index.ts
+new file mode 100644
+index 0000000..b00e32b
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/harness/index.ts
+@@ -0,0 +1,8 @@
++export type {
++  StudioHarnessAction,
++  StudioHarnessRequest,
++  StudioHarnessView,
++  StudioHarnessEvent,
++} from "./types";
++export { buildStudioHarnessRequest, actionForGateConfirm } from "./buildRequest";
++export { runStudioHarness } from "./actions";
+diff --git a/projects/sfia-studio/app/lib/harness/invokeHarness.ts b/projects/sfia-studio/app/lib/harness/invokeHarness.ts
+new file mode 100644
+index 0000000..c8d0a7d
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/harness/invokeHarness.ts
+@@ -0,0 +1,95 @@
++import { execFile } from "node:child_process";
++import { mkdtempSync, writeFileSync, mkdirSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { promisify } from "node:util";
++import type { StudioHarnessRequest, StudioHarnessView } from "./types";
++
++const execFileAsync = promisify(execFile);
++
++/**
++ * Thin process boundary: map JSON → harness CLI `studio-run` / `resume-session`.
++ * Does not validate GO. Does not call live GPT APIs or real Cursor.
++ */
++export async function invokeHarnessStudioRun(
++  request: StudioHarnessRequest,
++): Promise<StudioHarnessView> {
++  const harnessRoot = path.resolve(process.cwd(), "../harness");
++  const work = mkdtempSync(path.join(os.tmpdir(), "sfia-studio-bridge-"));
++  mkdirSync(work, { recursive: true });
++  const payloadPath = path.join(work, "payload.json");
++  writeFileSync(payloadPath, `${JSON.stringify(request, null, 2)}\n`, "utf8");
++
++  const tsxBin = path.join(harnessRoot, "node_modules/tsx/dist/cli.mjs");
++  const cliEntry = path.join(harnessRoot, "src/cli.ts");
++  const cmd = request.action === "resume" ? "resume-session" : "studio-run";
++  const cmdArg =
++    request.action === "resume"
++      ? (request.proofDir ?? "")
++      : payloadPath;
++
++  if (request.action === "resume" && !request.proofDir) {
++    return {
++      ok: false,
++      statusSource: "harness",
++      mode: "fixture",
++      canonicalStatus: "REJECTED",
++      goValid: false,
++      errorCode: "RESUME_PROOF_DIR_MISSING",
++      refusalReason: "proofDir required for resume",
++      stopOrTimeout: "refusal",
++      contractHash: request.contractHash,
++      correlationId: request.correlationId,
++      proofDir: "",
++      events: [],
++      report: null,
++      reserves: ["Adaptateur sans autorité"],
++      timestamps: { completedAt: new Date().toISOString() },
++      realGptClaimed: false,
++      realCursorClaimed: false,
++      remoteGitWrite: false,
++    };
++  }
++
++  try {
++    const { stdout } = await execFileAsync(
++      process.execPath,
++      [tsxBin, cliEntry, cmd, cmdArg],
++      {
++        cwd: harnessRoot,
++        maxBuffer: 12 * 1024 * 1024,
++        env: { ...process.env, SFIA_CURSOR_REAL_SPIKE: "0" },
++      },
++    );
++    return JSON.parse(stdout) as StudioHarnessView;
++  } catch (err) {
++    const e = err as { stdout?: string; stderr?: string; message?: string };
++    if (e.stdout) {
++      try {
++        return JSON.parse(e.stdout) as StudioHarnessView;
++      } catch {
++        /* fall through */
++      }
++    }
++    return {
++      ok: false,
++      statusSource: "harness",
++      mode: "fixture",
++      canonicalStatus: "FAILED",
++      goValid: false,
++      errorCode: "ADAPTER_FORWARD_FAILED",
++      refusalReason: e.stderr || e.message || "harness invoke failed",
++      stopOrTimeout: "refusal",
++      contractHash: request.contractHash,
++      correlationId: request.correlationId,
++      proofDir: request.proofDir ?? "",
++      events: [],
++      report: null,
++      reserves: ["Adaptateur sans autorité — échec de transmission"],
++      timestamps: { completedAt: new Date().toISOString() },
++      realGptClaimed: false,
++      realCursorClaimed: false,
++      remoteGitWrite: false,
++    };
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/harness/types.ts b/projects/sfia-studio/app/lib/harness/types.ts
+new file mode 100644
+index 0000000..e4e2a17
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/harness/types.ts
+@@ -0,0 +1,71 @@
++/** Derived Studio view of harness Incremental B responses (no second truth). */
++
++export type StudioHarnessAction =
++  | "run-fixture"
++  | "stop"
++  | "resume"
++  | "probe-invalid-hash"
++  | "probe-invalid-branch"
++  | "probe-invalid-head"
++  | "probe-invalid-allowlist"
++  | "probe-missing-decider"
++  | "probe-timeout"
++  | "probe-incomplete-report"
++  | "probe-missing-proof"
++  | "probe-live-port"
++  | "probe-write-escape";
++
++export interface StudioHarnessRequest {
++  requestId: string;
++  correlationId: string;
++  contractId: string;
++  contractHash: string;
++  branch: string;
++  head: string;
++  allowlist: string[];
++  morrisDecision: "GO" | "NO-GO" | "CORRIGER" | "STOP" | "CLOSE";
++  decidedAt: string;
++  action: StudioHarnessAction;
++  proofDir?: string;
++  decisionId?: string;
++}
++
++export interface StudioHarnessEvent {
++  eventId: string;
++  eventType: string;
++  timestamp: string;
++  requestId: string;
++  correlationId: string;
++  result?: string;
++  errorCode?: string;
++  detail?: Record<string, unknown>;
++}
++
++export interface StudioHarnessView {
++  ok: boolean;
++  statusSource: "harness";
++  mode: "fixture" | "simulation";
++  canonicalStatus: string;
++  goValid: boolean;
++  errorCode?: string;
++  refusalReason?: string;
++  stopOrTimeout?: "STOP" | "timeout" | "refusal" | null;
++  contractHash: string;
++  executionId?: string;
++  correlationId: string;
++  proofDir: string;
++  journalPath?: string;
++  events: StudioHarnessEvent[];
++  report?: Record<string, unknown> | null;
++  proofPack?: {
++    ok: boolean;
++    missing: string[];
++    present: string[];
++    integrityNotes: string[];
++  };
++  reserves: string[];
++  timestamps: { decidedAt?: string; completedAt: string };
++  realGptClaimed: false;
++  realCursorClaimed: false;
++  remoteGitWrite: false;
++}
+diff --git a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
+index 72530ff..7ee4fc3 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
++++ b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
+@@ -11,6 +11,12 @@ import {
+ } from "react";
+ import { usePathname, useRouter, useSearchParams } from "next/navigation";
+ import type { StudioRoute } from "@/lib/navigation";
++import { runStudioHarness } from "@/lib/harness/actions";
++import {
++  actionForGateConfirm,
++  buildStudioHarnessRequest,
++} from "@/lib/harness/buildRequest";
++import type { StudioHarnessView } from "@/lib/harness/types";
+ import {
+   defaultStateForRoute,
+   metaFor,
+@@ -23,6 +29,33 @@ import type {
+   VsStateId,
+ } from "@/lib/vertical-slice/types";
+ 
++const PROOF_DIR_KEY = "sfia-vs-inc-b-proofDir";
++const HARNESS_VIEW_KEY = "sfia-vs-inc-b-harnessView";
++
++function persistHarness(view: StudioHarnessView | null): void {
++  if (typeof window === "undefined") return;
++  if (!view) {
++    window.sessionStorage.removeItem(HARNESS_VIEW_KEY);
++    window.sessionStorage.removeItem(PROOF_DIR_KEY);
++    return;
++  }
++  window.sessionStorage.setItem(HARNESS_VIEW_KEY, JSON.stringify(view));
++  if (view.proofDir) {
++    window.sessionStorage.setItem(PROOF_DIR_KEY, view.proofDir);
++  }
++}
++
++function readPersistedHarness(): StudioHarnessView | null {
++  if (typeof window === "undefined") return null;
++  const raw = window.sessionStorage.getItem(HARNESS_VIEW_KEY);
++  if (!raw) return null;
++  try {
++    return JSON.parse(raw) as StudioHarnessView;
++  } catch {
++    return null;
++  }
++}
++
+ interface VsDemoContextValue extends VsDemoUiState {
+   setStateId: (id: VsStateId) => void;
+   selectGateAction: (action: VsGateAction) => void;
+@@ -33,6 +66,7 @@ interface VsDemoContextValue extends VsDemoUiState {
+   selectFinalAction: (action: VsFinalAction) => void;
+   fireStop: () => void;
+   resetDemo: () => void;
++  resumeFromHarness: () => void;
+ }
+ 
+ const VsDemoContext = createContext<VsDemoContextValue | null>(null);
+@@ -44,6 +78,25 @@ function routeFromPath(pathname: string): StudioRoute {
+   return "/nouvelle-demande";
+ }
+ 
++function deriveStateFromHarness(view: StudioHarnessView): VsStateId {
++  if (view.stopOrTimeout === "STOP") return "VS-UX-VAR-STOP";
++  if (view.stopOrTimeout === "timeout" || view.errorCode?.includes("TIMEOUT")) {
++    return "VS-UX-VAR-ERROR";
++  }
++  if (
++    view.errorCode?.includes("HASH") ||
++    view.errorCode?.includes("BRANCH") ||
++    view.errorCode?.includes("HEAD") ||
++    view.errorCode?.includes("ALLOWLIST")
++  ) {
++    return "VS-UX-VAR-GO-INVALID";
++  }
++  if (view.ok && view.goValid) return "VS-UX-05";
++  if (view.errorCode === "GATE_NO_GO") return "VS-UX-10";
++  if (!view.ok) return "VS-UX-VAR-ERROR";
++  return "VS-UX-05";
++}
++
+ export function VsDemoProvider({ children }: { children: ReactNode }) {
+   const router = useRouter();
+   const pathname = usePathname() || "/nouvelle-demande";
+@@ -59,6 +112,13 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+   const [abandonConfirmOpen, setAbandonConfirmOpen] = useState(false);
+   const [finalAction, setFinalAction] = useState<VsFinalAction | null>(null);
+   const [stopFired, setStopFired] = useState(false);
++  const [harnessView, setHarnessView] = useState<StudioHarnessView | null>(null);
++  const [harnessBusy, setHarnessBusy] = useState(false);
++
++  useEffect(() => {
++    const persisted = readPersistedHarness();
++    if (persisted) setHarnessView(persisted);
++  }, []);
+ 
+   useEffect(() => {
+     const fromQuery = parseVsQuery(searchParams.get("vs"));
+@@ -73,6 +133,11 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+     // eslint-disable-next-line react-hooks/exhaustive-deps -- sync on route/query only
+   }, [pathname, searchParams]);
+ 
++  const applyHarnessView = useCallback((view: StudioHarnessView) => {
++    setHarnessView(view);
++    persistHarness(view);
++  }, []);
++
+   const setStateId = useCallback(
+     (id: VsStateId) => {
+       const meta = metaFor(id);
+@@ -116,14 +181,30 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+   const confirmGate = useCallback(() => {
+     if (!gateAction || gateAction === "ABANDONNER") return;
+     setGateConfirmed(true);
+-    if (gateAction === "GO") {
+-      setStateId("VS-UX-05");
+-    } else if (gateAction === "NO-GO") {
+-      setStateId("VS-UX-10");
+-    } else if (gateAction === "CORRIGER") {
+-      setStateId("VS-UX-02");
++
++    const mapped = actionForGateConfirm({ gateAction, stateId });
++    if (mapped === "local-only") {
++      if (gateAction === "NO-GO") {
++        setStateId("VS-UX-10");
++      } else if (gateAction === "CORRIGER") {
++        setStateId("VS-UX-02");
++      }
++      return;
+     }
+-  }, [gateAction, setStateId]);
++
++    setHarnessBusy(true);
++    const req = buildStudioHarnessRequest(mapped, {
++      morrisDecision: gateAction === "NO-GO" ? "NO-GO" : "GO",
++      action: gateAction === "NO-GO" ? "run-fixture" : mapped,
++    });
++
++    void runStudioHarness(req)
++      .then((view) => {
++        applyHarnessView(view);
++        setStateId(deriveStateFromHarness(view));
++      })
++      .finally(() => setHarnessBusy(false));
++  }, [applyHarnessView, gateAction, setStateId, stateId]);
+ 
+   const selectFinalAction = useCallback(
+     (action: VsFinalAction) => {
+@@ -140,8 +221,31 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+ 
+   const fireStop = useCallback(() => {
+     setStopFired(true);
+-    setStateId("VS-UX-VAR-STOP");
+-  }, [setStateId]);
++    setHarnessBusy(true);
++    const req = buildStudioHarnessRequest("stop");
++    void runStudioHarness(req)
++      .then((view) => {
++        applyHarnessView(view);
++        setStateId("VS-UX-VAR-STOP");
++      })
++      .finally(() => setHarnessBusy(false));
++  }, [applyHarnessView, setStateId]);
++
++  const resumeFromHarness = useCallback(() => {
++    const proofDir =
++      typeof window !== "undefined"
++        ? window.sessionStorage.getItem(PROOF_DIR_KEY) ?? undefined
++        : undefined;
++    if (!proofDir) return;
++    setHarnessBusy(true);
++    const req = buildStudioHarnessRequest("resume", { proofDir });
++    void runStudioHarness(req)
++      .then((view) => {
++        // Resume rebuilds derived view only — no implicit GO, no forced navigation.
++        applyHarnessView(view);
++      })
++      .finally(() => setHarnessBusy(false));
++  }, [applyHarnessView]);
+ 
+   const resetDemo = useCallback(() => {
+     setAbandoned(false);
+@@ -150,6 +254,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+     setAbandonConfirmOpen(false);
+     setFinalAction(null);
+     setStopFired(false);
++    setHarnessView(null);
++    persistHarness(null);
+     setStateId("VS-UX-01");
+   }, [setStateId]);
+ 
+@@ -162,6 +268,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+       abandonConfirmOpen,
+       finalAction,
+       stopFired,
++      harnessView,
++      harnessBusy,
+       setStateId,
+       selectGateAction,
+       openAbandonConfirm,
+@@ -171,6 +279,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+       selectFinalAction,
+       fireStop,
+       resetDemo,
++      resumeFromHarness,
+     }),
+     [
+       stateId,
+@@ -180,6 +289,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+       abandonConfirmOpen,
+       finalAction,
+       stopFired,
++      harnessView,
++      harnessBusy,
+       setStateId,
+       selectGateAction,
+       openAbandonConfirm,
+@@ -189,6 +300,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
+       selectFinalAction,
+       fireStop,
+       resetDemo,
++      resumeFromHarness,
+     ],
+   );
+ 
+diff --git a/projects/sfia-studio/app/lib/vertical-slice/types.ts b/projects/sfia-studio/app/lib/vertical-slice/types.ts
+index a753c7f..e37eec3 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice/types.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice/types.ts
+@@ -1,4 +1,5 @@
+ import type { StudioRoute } from "@/lib/navigation";
++import type { StudioHarnessView } from "@/lib/harness/types";
+ 
+ /** Dix états fonctionnels + quatre variantes — pas de routes dédiées. */
+ export type VsStateId =
+@@ -42,4 +43,7 @@ export interface VsDemoUiState {
+   abandonConfirmOpen: boolean;
+   finalAction: VsFinalAction | null;
+   stopFired: boolean;
++  /** Derived from harness — never a second authoritative store. */
++  harnessView: StudioHarnessView | null;
++  harnessBusy: boolean;
+ }
+diff --git a/projects/sfia-studio/app/playwright.config.ts b/projects/sfia-studio/app/playwright.config.ts
+index 98f3659..a4c1df0 100644
+--- a/projects/sfia-studio/app/playwright.config.ts
++++ b/projects/sfia-studio/app/playwright.config.ts
+@@ -18,7 +18,8 @@ export default defineConfig({
+   webServer: {
+     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
+     url: baseURL,
+-    reuseExistingServer: !process.env.CI,
++    // Prefer local reuse: port 3020 is often already served by `npm run dev`.
++    reuseExistingServer: true,
+     timeout: 180_000,
+   },
+ });
+diff --git a/projects/sfia-studio/harness/fixtures/builders.ts b/projects/sfia-studio/harness/fixtures/builders.ts
+index 71eee28..ec840e6 100644
+--- a/projects/sfia-studio/harness/fixtures/builders.ts
++++ b/projects/sfia-studio/harness/fixtures/builders.ts
+@@ -68,6 +68,10 @@ export function makeGo(contract: ExecutionContract, overrides: Partial<GateDecis
+     decidedBy: "Morris",
+     decidedAt: new Date().toISOString(),
+     scope: "projects/sfia-studio",
++    gitBranch: "delivery/sfia-studio-poc-increment-b",
++    gitHead: "ee9487797ce44c8d864846030c54fac43ee33611",
++    allowlistSnapshot: [...contract.allowedPaths],
++    correlationId: "corr-fixture-001",
+     ...overrides,
+   };
+ }
+diff --git a/projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts b/projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts
+new file mode 100644
+index 0000000..cc41026
+--- /dev/null
++++ b/projects/sfia-studio/harness/src/adapter/thinStudioAdapter.ts
+@@ -0,0 +1,260 @@
++import { mkdtempSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { Orchestrator, type RunInput, type RunResult } from "../orchestrator.js";
++import { resumeSessionFromProofDir } from "../session/resumeSession.js";
++import { verifyProofPack } from "../proof/verifyProofPack.js";
++import { EventJournal } from "../journal/eventJournal.js";
++import { computeContractHash } from "../hash/contractHash.js";
++import { makeContract, makeRequest, WORKSPACE_ROOT } from "../../fixtures/builders.js";
++import type {
++  GateDecision,
++  StudioAdapterRequest,
++  StudioAdapterResponse,
++} from "../types/contracts.js";
++import { HarnessError } from "../types/contracts.js";
++import { ProofStore } from "../proof/proofStore.js";
++
++/**
++ * Thin Studio↔harness adapter (Increment B).
++ *
++ * Responsibilities ONLY:
++ * - map Studio payload → harness RunInput
++ * - forward to Orchestrator / resume
++ * - return derived StudioAdapterResponse
++ *
++ * NEVER:
++ * - validate or authorize a GO
++ * - own policy / gate logic
++ * - write journal or proofStore directly (harness owns those)
++ * - call live GPT / Cursor ports
++ */
++export class ThinStudioAdapter {
++  constructor(private readonly orchestrator = new Orchestrator()) {}
++
++  async forward(request: StudioAdapterRequest): Promise<StudioAdapterResponse> {
++    if (request.action === "resume") {
++      if (!request.proofDir) {
++        return this.refusalSkeleton(request, "RESUME_PROOF_DIR_MISSING", "proofDir required for resume");
++      }
++      return resumeSessionFromProofDir(request.proofDir);
++    }
++
++    const proofDir =
++      request.proofDir ?? mkdtempSync(path.join(os.tmpdir(), "sfia-studio-inc-b-"));
++    const contract = makeContract(proofDir, {
++      contractId: request.contractId,
++      requestId: request.requestId,
++      allowedPaths:
++        request.allowlist.length > 0
++          ? request.allowlist
++          : ["projects/sfia-studio", "projects/sfia-studio/harness"],
++      repositoryRoot: WORKSPACE_ROOT,
++    });
++
++    // Probe scenarios mutate mapping before forward — still no authority here.
++    let gate = this.mapGate(request, contract);
++    const runInput = this.mapRunInput(request, contract, gate, proofDir);
++
++    if (request.action === "probe-write-escape") {
++      try {
++        new ProofStore(proofDir).writeText("../escape-probe.txt", "denied");
++        return this.refusalSkeleton(request, "PROBE_UNEXPECTED", "escape write unexpectedly allowed");
++      } catch (err) {
++        const he = err as HarnessError;
++        const journal = new EventJournal(proofDir, request.correlationId);
++        journal.append({
++          eventType: "security.refusal",
++          requestId: request.requestId,
++          result: "denied",
++          errorCode: he.code,
++          detail: { message: he.message, source: "harness", probe: "write-escape" },
++        });
++        return {
++          ...this.refusalSkeleton(request, he.code, he.message),
++          proofDir,
++          journalPath: journal.filePath,
++          events: journal.readAll(),
++          proofPack: verifyProofPack(proofDir),
++        };
++      }
++    }
++
++    const result = await this.orchestrator.run(runInput);
++    return this.toResponse(request, result, gate);
++  }
++
++  /** Pure mapping — no validation. */
++  mapGate(
++    request: StudioAdapterRequest,
++    contract: ReturnType<typeof makeContract>,
++  ): GateDecision {
++    const hash = computeContractHash(contract);
++    const base: GateDecision = {
++      decisionId: request.decisionId ?? `gate-${request.correlationId}`,
++      requestId: request.requestId,
++      contractHash: hash,
++      decision: request.morrisDecision,
++      decidedBy: "Morris",
++      decidedAt: request.decidedAt,
++      scope: contract.allowedPaths[0] ?? "projects/sfia-studio",
++      gitBranch: request.branch,
++      gitHead: request.head,
++      allowlistSnapshot: [...contract.allowedPaths],
++      correlationId: request.correlationId,
++    };
++
++    switch (request.action) {
++      case "stop":
++        return { ...base, decision: "STOP" };
++      case "probe-invalid-hash":
++        return { ...base, contractHash: "0".repeat(64) };
++      case "probe-invalid-branch":
++        return { ...base, gitBranch: `${request.branch}-tampered` };
++      case "probe-invalid-head":
++        return { ...base, gitHead: "b".repeat(40) };
++      case "probe-invalid-allowlist":
++        return { ...base, allowlistSnapshot: ["forbidden/path"] };
++      case "probe-missing-decider":
++        return { ...base, decidedBy: "" };
++      default:
++        return base;
++    }
++  }
++
++  mapRunInput(
++    request: StudioAdapterRequest,
++    contract: ReturnType<typeof makeContract>,
++    gate: GateDecision,
++    proofDir: string,
++  ): RunInput {
++    const poc = makeRequest({
++      requestId: request.requestId,
++      title: "SFIA Studio Increment B fixture cycle",
++      cycle: "8",
++      scope: proofDir,
++      operator: "Morris",
++      createdAt: request.decidedAt,
++    });
++
++    const input: RunInput = {
++      request: poc,
++      contract,
++      gate,
++      expectedBranch: request.branch,
++      expectedHead: request.head,
++      revalidateBeforeExecute: true,
++      studioCorrelationId: request.correlationId,
++    };
++
++    if (request.action === "probe-timeout") {
++      input.cursorSimulate = "timeout";
++    }
++    if (request.action === "probe-incomplete-report") {
++      input.simulateIncompleteReport = true;
++    }
++    if (request.action === "probe-missing-proof") {
++      input.simulateMissingProof = true;
++    }
++    if (request.action === "probe-live-port") {
++      input.attemptLiveCursor = true;
++    }
++    return input;
++  }
++
++  toResponse(
++    request: StudioAdapterRequest,
++    result: RunResult,
++    gate: GateDecision,
++  ): StudioAdapterResponse {
++    const journal = new EventJournal(result.proofDir, result.correlationId);
++    const events = journal.readAll();
++    const requireSuccess = result.ok && result.terminalState === "CLOSED";
++    const proofPack = verifyProofPack(result.proofDir, {
++      requireSuccessArtifacts: requireSuccess,
++    });
++    const stopOrTimeout = classify(result.errorCode);
++    const goValid =
++      result.ok &&
++      gate.decision === "GO" &&
++      !result.errorCode &&
++      stopOrTimeout === null;
++
++    return {
++      ok: result.ok && proofPack.ok,
++      statusSource: "harness",
++      mode: "fixture",
++      canonicalStatus: result.projectedState ?? result.terminalState,
++      goValid,
++      errorCode: result.errorCode,
++      refusalReason: result.errorCode
++        ? `Harness refusal: ${result.errorCode}`
++        : !proofPack.ok
++          ? `Proof pack incomplete: ${proofPack.missing.join(", ")}`
++          : undefined,
++      stopOrTimeout,
++      contractHash: result.contractHash,
++      executionId: result.executionId,
++      correlationId: result.correlationId,
++      proofDir: result.proofDir,
++      journalPath: result.journalPath,
++      events,
++      report: result.report ?? null,
++      proofPack,
++      reserves: [
++        "Statut source = harness",
++        "Adaptateur sans autorité",
++        "Aucun GPT/Cursor live",
++        "Aucune écriture Git distante",
++        ...(result.ok ? [] : ["Exécution non réussie — aucun faux succès"]),
++      ],
++      timestamps: {
++        decidedAt: gate.decidedAt,
++        completedAt: new Date().toISOString(),
++      },
++      realGptClaimed: false,
++      realCursorClaimed: false,
++      remoteGitWrite: false,
++    };
++  }
++
++  private refusalSkeleton(
++    request: StudioAdapterRequest,
++    code: string,
++    message: string,
++  ): StudioAdapterResponse {
++    return {
++      ok: false,
++      statusSource: "harness",
++      mode: "fixture",
++      canonicalStatus: "REJECTED",
++      goValid: false,
++      errorCode: code,
++      refusalReason: message,
++      stopOrTimeout: "refusal",
++      contractHash: request.contractHash,
++      correlationId: request.correlationId,
++      proofDir: request.proofDir ?? "",
++      events: [],
++      report: null,
++      proofPack: { ok: false, missing: [], present: [], integrityNotes: [] },
++      reserves: ["Adaptateur sans autorité — refus harness"],
++      timestamps: { decidedAt: request.decidedAt, completedAt: new Date().toISOString() },
++      realGptClaimed: false,
++      realCursorClaimed: false,
++      remoteGitWrite: false,
++    };
++  }
++}
++
++function classify(errorCode?: string): "STOP" | "timeout" | "refusal" | null {
++  if (!errorCode) return null;
++  if (errorCode === "GATE_STOP" || errorCode === "STOP") return "STOP";
++  if (errorCode.includes("TIMEOUT")) return "timeout";
++  return "refusal";
++}
++
++/** Factory used by CLI and autonomous tests — zero React / Studio imports. */
++export function createThinStudioAdapter(): ThinStudioAdapter {
++  return new ThinStudioAdapter();
++}
+diff --git a/projects/sfia-studio/harness/src/cli.ts b/projects/sfia-studio/harness/src/cli.ts
+index 189ddd9..a5c2de7 100644
+--- a/projects/sfia-studio/harness/src/cli.ts
++++ b/projects/sfia-studio/harness/src/cli.ts
+@@ -4,7 +4,15 @@ import path from "node:path";
+ import { fileURLToPath } from "node:url";
+ import { Orchestrator, validateContractOnly } from "./orchestrator.js";
+ import { EventJournal } from "./journal/eventJournal.js";
+-import type { ExecutionContract, GateDecision, POCRequest } from "./types/contracts.js";
++import { createThinStudioAdapter } from "./adapter/thinStudioAdapter.js";
++import { resumeSessionFromProofDir } from "./session/resumeSession.js";
++import { verifyProofPack } from "./proof/verifyProofPack.js";
++import type {
++  ExecutionContract,
++  GateDecision,
++  POCRequest,
++  StudioAdapterRequest,
++} from "./types/contracts.js";
+ import { computeContractHash } from "./hash/contractHash.js";
+ 
+ function usage(): never {
+@@ -16,6 +24,8 @@ Commands:
+   request-stop <dir>                # same as run-fixture with STOP gate or --stop flag via stop gate
+   inspect-journal <proofDir>
+   verify-proofs <proofDir>
++  studio-run <payload.json>         # Increment B thin adapter forward (stdout JSON)
++  resume-session <proofDir>         # Increment B session resume from journal/proofs
+ `);
+   process.exit(2);
+ }
+@@ -89,6 +99,7 @@ async function main(): Promise<void> {
+       missing.filter((m) => m !== "summary.json").length === 0 ||
+       (missing.length <= 1 && missing[0] === "summary.json");
+     const journal = new EventJournal(proofDir, "verify");
++    const pack = verifyProofPack(proofDir);
+     console.log(
+       JSON.stringify(
+         {
+@@ -97,6 +108,7 @@ async function main(): Promise<void> {
+           eventCount: journal.readAll().length,
+           projectedState: journal.projectLastState(),
+           softOk: ok,
++          proofPack: pack,
+         },
+         null,
+         2,
+@@ -105,6 +117,24 @@ async function main(): Promise<void> {
+     return;
+   }
+ 
++  if (cmd === "studio-run") {
++    const file = args[0];
++    if (!file) usage();
++    const payload = JSON.parse(readFileSync(file, "utf8")) as StudioAdapterRequest;
++    const adapter = createThinStudioAdapter();
++    const result = await adapter.forward(payload);
++    console.log(JSON.stringify(result, null, 2));
++    process.exit(result.ok ? 0 : 1);
++  }
++
++  if (cmd === "resume-session") {
++    const proofDir = args[0];
++    if (!proofDir) usage();
++    const result = resumeSessionFromProofDir(proofDir);
++    console.log(JSON.stringify(result, null, 2));
++    process.exit(result.ok ? 0 : 1);
++  }
++
+   usage();
+ }
+ 
 diff --git a/projects/sfia-studio/harness/src/gate/gateValidator.ts b/projects/sfia-studio/harness/src/gate/gateValidator.ts
 index 1e2aea0..22518a6 100644
 --- a/projects/sfia-studio/harness/src/gate/gateValidator.ts
@@ -1360,11 +1708,18 @@ index 1e2aea0..22518a6 100644
      }
      const expires = gate.expiresAt ?? contract.gateExpiresAt;
      if (expires && new Date(expires).getTime() < now.getTime()) {
-
-```
-
-#### Diff `projects/sfia-studio/harness/src/orchestrator.ts`
-```diff
+diff --git a/projects/sfia-studio/harness/src/index.ts b/projects/sfia-studio/harness/src/index.ts
+index 82383f1..4f641ad 100644
+--- a/projects/sfia-studio/harness/src/index.ts
++++ b/projects/sfia-studio/harness/src/index.ts
+@@ -22,4 +22,7 @@ export * from "./ports/e2eSandbox.js";
+ export * from "./validation/gptOutputValidator.js";
+ export * from "./journal/eventJournal.js";
+ export * from "./proof/proofStore.js";
++export * from "./proof/verifyProofPack.js";
++export * from "./session/resumeSession.js";
++export * from "./adapter/thinStudioAdapter.js";
+ export * from "./orchestrator.js";
 diff --git a/projects/sfia-studio/harness/src/orchestrator.ts b/projects/sfia-studio/harness/src/orchestrator.ts
 index d9c6041..f21b582 100644
 --- a/projects/sfia-studio/harness/src/orchestrator.ts
@@ -1677,11 +2032,156 @@ index d9c6041..f21b582 100644
  }
  
  export function validateContractOnly(contract: ExecutionContract): { hash: string } {
-
-```
-
-#### Diff `projects/sfia-studio/harness/src/types/contracts.ts`
-```diff
+diff --git a/projects/sfia-studio/harness/src/proof/verifyProofPack.ts b/projects/sfia-studio/harness/src/proof/verifyProofPack.ts
+new file mode 100644
+index 0000000..82ec413
+--- /dev/null
++++ b/projects/sfia-studio/harness/src/proof/verifyProofPack.ts
+@@ -0,0 +1,52 @@
++import { existsSync, readFileSync } from "node:fs";
++import path from "node:path";
++import type { ProofPackVerification } from "../types/contracts.js";
++
++const CORE_ARTIFACTS = [
++  "contract.json",
++  "contractHash.txt",
++  "request.json",
++  "gate.json",
++  "events.jsonl",
++] as const;
++
++const SUCCESS_ARTIFACTS = ["summary.json", "cursor-fixture.json", "git-results.json"] as const;
++
++/**
++ * Verify fixture proof pack completeness against harness proofDir.
++ * Single source of truth — does not invent a second store.
++ */
++export function verifyProofPack(
++  proofDir: string,
++  options: { requireSuccessArtifacts?: boolean } = {},
++): ProofPackVerification {
++  const required = [
++    ...CORE_ARTIFACTS,
++    ...(options.requireSuccessArtifacts ? SUCCESS_ARTIFACTS : []),
++  ];
++  const present: string[] = [];
++  const missing: string[] = [];
++  for (const name of required) {
++    if (existsSync(path.join(proofDir, name))) present.push(name);
++    else missing.push(name);
++  }
++  const integrityNotes: string[] = [];
++  const hashFile = path.join(proofDir, "contractHash.txt");
++  if (existsSync(hashFile)) {
++    const hash = readFileSync(hashFile, "utf8").trim();
++    if (!/^[a-f0-9]{64}$/i.test(hash)) {
++      integrityNotes.push("contractHash.txt format unexpected");
++    } else {
++      integrityNotes.push("contractHash.txt present (sha256 hex)");
++    }
++  }
++  if (existsSync(path.join(proofDir, "events.jsonl"))) {
++    integrityNotes.push("events.jsonl present (journal canonical)");
++  }
++  return {
++    ok: missing.length === 0,
++    missing: [...missing],
++    present,
++    integrityNotes,
++  };
++}
+diff --git a/projects/sfia-studio/harness/src/session/resumeSession.ts b/projects/sfia-studio/harness/src/session/resumeSession.ts
+new file mode 100644
+index 0000000..56301d2
+--- /dev/null
++++ b/projects/sfia-studio/harness/src/session/resumeSession.ts
+@@ -0,0 +1,86 @@
++import { existsSync, readFileSync } from "node:fs";
++import path from "node:path";
++import { EventJournal } from "../journal/eventJournal.js";
++import { verifyProofPack } from "../proof/verifyProofPack.js";
++import type { JournalEvent, StudioAdapterResponse } from "../types/contracts.js";
++
++/**
++ * Rebuild derived Studio view from harness journal/proofs only.
++ * Never recreates an implicit GO. Never invents success from incomplete state.
++ */
++export function resumeSessionFromProofDir(proofDir: string): StudioAdapterResponse {
++  const journal = new EventJournal(proofDir, "resume");
++  const events = journal.readAll();
++  const projected = journal.projectLastState() ?? "UNKNOWN";
++  const proofPack = verifyProofPack(proofDir, {
++    requireSuccessArtifacts: projected === "CLOSED" && lastResultIsSuccess(events),
++  });
++
++  let report: Record<string, unknown> | null = null;
++  const summaryPath = path.join(proofDir, "summary.json");
++  if (existsSync(summaryPath)) {
++    report = JSON.parse(readFileSync(summaryPath, "utf8")) as Record<string, unknown>;
++  }
++
++  const lastFail = [...events].reverse().find((e) => e.errorCode || e.result === "rejected" || e.result === "stop");
++  const errorCode = lastFail?.errorCode;
++  const stopOrTimeout = classifyStopTimeout(errorCode, lastFail?.result);
++  const ok = projected === "CLOSED" && !errorCode && proofPack.ok && !!report;
++  const contractHash =
++    events.map((e) => e.contractHash).filter(Boolean).at(-1) ??
++    (existsSync(path.join(proofDir, "contractHash.txt"))
++      ? readFileSync(path.join(proofDir, "contractHash.txt"), "utf8").trim()
++      : "");
++
++  return {
++    ok,
++    statusSource: "harness",
++    mode: "fixture",
++    canonicalStatus: projected,
++    goValid: false,
++    errorCode,
++    refusalReason: lastFail?.detail?.message
++      ? String(lastFail.detail.message)
++      : errorCode
++        ? `Resumed with ${errorCode}`
++        : !ok
++          ? "Incomplete or non-success session — no implicit GO"
++          : undefined,
++    stopOrTimeout,
++    contractHash,
++    correlationId: events[0]?.correlationId ?? "resume",
++    executionId: events.find((e) => e.executionId)?.executionId,
++    proofDir,
++    journalPath: journal.filePath,
++    events,
++    report,
++    proofPack,
++    reserves: [
++      "État dérivé du journal harness uniquement",
++      "Aucun GO implicite à la reprise",
++      "Mode fixture / simulation",
++    ],
++    timestamps: {
++      completedAt: events.at(-1)?.timestamp ?? new Date().toISOString(),
++    },
++    realGptClaimed: false,
++    realCursorClaimed: false,
++    remoteGitWrite: false,
++  };
++}
++
++function lastResultIsSuccess(events: JournalEvent[]): boolean {
++  const last = [...events].reverse().find((e) => e.result);
++  return last?.result === "completed" || last?.result === "ok";
++}
++
++function classifyStopTimeout(
++  errorCode?: string,
++  result?: string,
++): "STOP" | "timeout" | "refusal" | null {
++  if (!errorCode && result !== "rejected" && result !== "stop") return null;
++  if (errorCode === "GATE_STOP" || errorCode === "STOP" || result === "stop") return "STOP";
++  if (errorCode?.includes("TIMEOUT")) return "timeout";
++  if (errorCode || result === "rejected") return "refusal";
++  return null;
++}
 diff --git a/projects/sfia-studio/harness/src/types/contracts.ts b/projects/sfia-studio/harness/src/types/contracts.ts
 index 242a5bc..66ab23d 100644
 --- a/projects/sfia-studio/harness/src/types/contracts.ts
@@ -1770,580 +2270,297 @@ index 242a5bc..66ab23d 100644
  }
  
  export interface ExecutionContext {
-
-```
-
-#### Diff `projects/sfia-studio/harness/src/cli.ts`
-```diff
-diff --git a/projects/sfia-studio/harness/src/cli.ts b/projects/sfia-studio/harness/src/cli.ts
-index 189ddd9..a5c2de7 100644
---- a/projects/sfia-studio/harness/src/cli.ts
-+++ b/projects/sfia-studio/harness/src/cli.ts
-@@ -4,7 +4,15 @@ import path from "node:path";
- import { fileURLToPath } from "node:url";
- import { Orchestrator, validateContractOnly } from "./orchestrator.js";
- import { EventJournal } from "./journal/eventJournal.js";
--import type { ExecutionContract, GateDecision, POCRequest } from "./types/contracts.js";
-+import { createThinStudioAdapter } from "./adapter/thinStudioAdapter.js";
-+import { resumeSessionFromProofDir } from "./session/resumeSession.js";
-+import { verifyProofPack } from "./proof/verifyProofPack.js";
-+import type {
-+  ExecutionContract,
-+  GateDecision,
-+  POCRequest,
-+  StudioAdapterRequest,
-+} from "./types/contracts.js";
- import { computeContractHash } from "./hash/contractHash.js";
- 
- function usage(): never {
-@@ -16,6 +24,8 @@ Commands:
-   request-stop <dir>                # same as run-fixture with STOP gate or --stop flag via stop gate
-   inspect-journal <proofDir>
-   verify-proofs <proofDir>
-+  studio-run <payload.json>         # Increment B thin adapter forward (stdout JSON)
-+  resume-session <proofDir>         # Increment B session resume from journal/proofs
- `);
-   process.exit(2);
- }
-@@ -89,6 +99,7 @@ async function main(): Promise<void> {
-       missing.filter((m) => m !== "summary.json").length === 0 ||
-       (missing.length <= 1 && missing[0] === "summary.json");
-     const journal = new EventJournal(proofDir, "verify");
-+    const pack = verifyProofPack(proofDir);
-     console.log(
-       JSON.stringify(
-         {
-@@ -97,6 +108,7 @@ async function main(): Promise<void> {
-           eventCount: journal.readAll().length,
-           projectedState: journal.projectLastState(),
-           softOk: ok,
-+          proofPack: pack,
-         },
-         null,
-         2,
-@@ -105,6 +117,24 @@ async function main(): Promise<void> {
-     return;
-   }
- 
-+  if (cmd === "studio-run") {
-+    const file = args[0];
-+    if (!file) usage();
-+    const payload = JSON.parse(readFileSync(file, "utf8")) as StudioAdapterRequest;
+diff --git a/projects/sfia-studio/harness/tests/increment-b.test.ts b/projects/sfia-studio/harness/tests/increment-b.test.ts
+new file mode 100644
+index 0000000..0e04ea7
+--- /dev/null
++++ b/projects/sfia-studio/harness/tests/increment-b.test.ts
+@@ -0,0 +1,239 @@
++import { describe, expect, it } from "vitest";
++import { readdirSync, readFileSync } from "node:fs";
++import path from "node:path";
++import { fileURLToPath } from "node:url";
++import { mkdtempSync } from "node:fs";
++import os from "node:os";
++import { createThinStudioAdapter } from "../src/adapter/thinStudioAdapter.js";
++import { Orchestrator } from "../src/orchestrator.js";
++import { GateValidator } from "../src/gate/gateValidator.js";
++import { computeContractHash } from "../src/hash/contractHash.js";
++import { resumeSessionFromProofDir } from "../src/session/resumeSession.js";
++import { verifyProofPack } from "../src/proof/verifyProofPack.js";
++import { makeContract, makeGo, makeRequest } from "../fixtures/builders.js";
++import type { StudioAdapterRequest } from "../src/types/contracts.js";
++
++const HARNESS_SRC = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../src");
++
++function tmp(): string {
++  return mkdtempSync(path.join(os.tmpdir(), "sfia-inc-b-"));
++}
++
++function baseReq(overrides: Partial<StudioAdapterRequest> = {}): StudioAdapterRequest {
++  return {
++    requestId: "req-inc-b-001",
++    correlationId: "corr-inc-b-001",
++    contractId: "ctr-inc-b-001",
++    contractHash: "claimed-ignored-by-adapter",
++    branch: "delivery/sfia-studio-poc-increment-b",
++    head: "ee9487797ce44c8d864846030c54fac43ee33611",
++    allowlist: ["projects/sfia-studio", "projects/sfia-studio/harness"],
++    morrisDecision: "GO",
++    decidedAt: "2026-07-20T00:10:00+02:00",
++    action: "run-fixture",
++    proofDir: tmp(),
++    ...overrides,
++  };
++}
++
++describe("Increment B — thin adapter (no authority)", () => {
++  it("maps and forwards without validating GO itself", async () => {
 +    const adapter = createThinStudioAdapter();
-+    const result = await adapter.forward(payload);
-+    console.log(JSON.stringify(result, null, 2));
-+    process.exit(result.ok ? 0 : 1);
-+  }
++    const src = readFileSync(
++      path.join(HARNESS_SRC, "adapter/thinStudioAdapter.ts"),
++      "utf8",
++    );
++    expect(src).not.toMatch(/GateValidator/);
++    expect(src).not.toMatch(/assertGateOk/);
++    expect(src).toMatch(/forward/);
++    const res = await adapter.forward(baseReq());
++    expect(res.statusSource).toBe("harness");
++    expect(res.mode).toBe("fixture");
++    expect(res.realGptClaimed).toBe(false);
++    expect(res.realCursorClaimed).toBe(false);
++    expect(res.remoteGitWrite).toBe(false);
++    expect(res.ok).toBe(true);
++    expect(res.goValid).toBe(true);
++    expect(res.events.length).toBeGreaterThan(3);
++    expect(res.proofPack?.ok).toBe(true);
++    expect(res.report).toBeTruthy();
++  });
 +
-+  if (cmd === "resume-session") {
-+    const proofDir = args[0];
-+    if (!proofDir) usage();
-+    const result = resumeSessionFromProofDir(proofDir);
-+    console.log(JSON.stringify(result, null, 2));
-+    process.exit(result.ok ? 0 : 1);
-+  }
++  it("does not auto-retry after GO consume (replay refused)", async () => {
++    const adapter = createThinStudioAdapter();
++    const decisionId = "gate-once-only";
++    const proof1 = tmp();
++    const first = await adapter.forward(baseReq({ proofDir: proof1, decisionId }));
++    expect(first.ok).toBe(true);
++    const second = await adapter.forward(
++      baseReq({ proofDir: tmp(), decisionId, correlationId: "corr-retry" }),
++    );
++    // Same Orchestrator instance inside adapter — replay blocked
++    expect(second.ok).toBe(false);
++    expect(second.errorCode).toBe("GATE_REPLAY");
++    expect(second.stopOrTimeout).toBe("refusal");
++  });
++});
 +
-   usage();
- }
- 
-
-```
-
-#### Diff `projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx`
-```diff
-diff --git a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-index 72530ff..7ee4fc3 100644
---- a/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-+++ b/projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
-@@ -11,6 +11,12 @@ import {
- } from "react";
- import { usePathname, useRouter, useSearchParams } from "next/navigation";
- import type { StudioRoute } from "@/lib/navigation";
-+import { runStudioHarness } from "@/lib/harness/actions";
-+import {
-+  actionForGateConfirm,
-+  buildStudioHarnessRequest,
-+} from "@/lib/harness/buildRequest";
-+import type { StudioHarnessView } from "@/lib/harness/types";
- import {
-   defaultStateForRoute,
-   metaFor,
-@@ -23,6 +29,33 @@ import type {
-   VsStateId,
- } from "@/lib/vertical-slice/types";
- 
-+const PROOF_DIR_KEY = "sfia-vs-inc-b-proofDir";
-+const HARNESS_VIEW_KEY = "sfia-vs-inc-b-harnessView";
-+
-+function persistHarness(view: StudioHarnessView | null): void {
-+  if (typeof window === "undefined") return;
-+  if (!view) {
-+    window.sessionStorage.removeItem(HARNESS_VIEW_KEY);
-+    window.sessionStorage.removeItem(PROOF_DIR_KEY);
-+    return;
-+  }
-+  window.sessionStorage.setItem(HARNESS_VIEW_KEY, JSON.stringify(view));
-+  if (view.proofDir) {
-+    window.sessionStorage.setItem(PROOF_DIR_KEY, view.proofDir);
-+  }
-+}
-+
-+function readPersistedHarness(): StudioHarnessView | null {
-+  if (typeof window === "undefined") return null;
-+  const raw = window.sessionStorage.getItem(HARNESS_VIEW_KEY);
-+  if (!raw) return null;
-+  try {
-+    return JSON.parse(raw) as StudioHarnessView;
-+  } catch {
-+    return null;
-+  }
-+}
-+
- interface VsDemoContextValue extends VsDemoUiState {
-   setStateId: (id: VsStateId) => void;
-   selectGateAction: (action: VsGateAction) => void;
-@@ -33,6 +66,7 @@ interface VsDemoContextValue extends VsDemoUiState {
-   selectFinalAction: (action: VsFinalAction) => void;
-   fireStop: () => void;
-   resetDemo: () => void;
-+  resumeFromHarness: () => void;
- }
- 
- const VsDemoContext = createContext<VsDemoContextValue | null>(null);
-@@ -44,6 +78,25 @@ function routeFromPath(pathname: string): StudioRoute {
-   return "/nouvelle-demande";
- }
- 
-+function deriveStateFromHarness(view: StudioHarnessView): VsStateId {
-+  if (view.stopOrTimeout === "STOP") return "VS-UX-VAR-STOP";
-+  if (view.stopOrTimeout === "timeout" || view.errorCode?.includes("TIMEOUT")) {
-+    return "VS-UX-VAR-ERROR";
-+  }
-+  if (
-+    view.errorCode?.includes("HASH") ||
-+    view.errorCode?.includes("BRANCH") ||
-+    view.errorCode?.includes("HEAD") ||
-+    view.errorCode?.includes("ALLOWLIST")
-+  ) {
-+    return "VS-UX-VAR-GO-INVALID";
-+  }
-+  if (view.ok && view.goValid) return "VS-UX-05";
-+  if (view.errorCode === "GATE_NO_GO") return "VS-UX-10";
-+  if (!view.ok) return "VS-UX-VAR-ERROR";
-+  return "VS-UX-05";
-+}
-+
- export function VsDemoProvider({ children }: { children: ReactNode }) {
-   const router = useRouter();
-   const pathname = usePathname() || "/nouvelle-demande";
-@@ -59,6 +112,13 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-   const [abandonConfirmOpen, setAbandonConfirmOpen] = useState(false);
-   const [finalAction, setFinalAction] = useState<VsFinalAction | null>(null);
-   const [stopFired, setStopFired] = useState(false);
-+  const [harnessView, setHarnessView] = useState<StudioHarnessView | null>(null);
-+  const [harnessBusy, setHarnessBusy] = useState(false);
-+
-+  useEffect(() => {
-+    const persisted = readPersistedHarness();
-+    if (persisted) setHarnessView(persisted);
-+  }, []);
- 
-   useEffect(() => {
-     const fromQuery = parseVsQuery(searchParams.get("vs"));
-@@ -73,6 +133,11 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-     // eslint-disable-next-line react-hooks/exhaustive-deps -- sync on route/query only
-   }, [pathname, searchParams]);
- 
-+  const applyHarnessView = useCallback((view: StudioHarnessView) => {
-+    setHarnessView(view);
-+    persistHarness(view);
-+  }, []);
-+
-   const setStateId = useCallback(
-     (id: VsStateId) => {
-       const meta = metaFor(id);
-@@ -116,14 +181,30 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-   const confirmGate = useCallback(() => {
-     if (!gateAction || gateAction === "ABANDONNER") return;
-     setGateConfirmed(true);
--    if (gateAction === "GO") {
--      setStateId("VS-UX-05");
--    } else if (gateAction === "NO-GO") {
--      setStateId("VS-UX-10");
--    } else if (gateAction === "CORRIGER") {
--      setStateId("VS-UX-02");
-+
-+    const mapped = actionForGateConfirm({ gateAction, stateId });
-+    if (mapped === "local-only") {
-+      if (gateAction === "NO-GO") {
-+        setStateId("VS-UX-10");
-+      } else if (gateAction === "CORRIGER") {
-+        setStateId("VS-UX-02");
++describe("Increment B — harness autonomy (no Studio)", () => {
++  it("src tree has no React imports", () => {
++    const walk = (dir: string): string[] => {
++      const out: string[] = [];
++      for (const ent of readdirSync(dir, { withFileTypes: true })) {
++        const p = path.join(dir, ent.name);
++        if (ent.isDirectory()) out.push(...walk(p));
++        else if (/\.(ts|js)$/.test(ent.name)) out.push(p);
 +      }
-+      return;
-     }
--  }, [gateAction, setStateId]);
++      return out;
++    };
++    for (const file of walk(HARNESS_SRC)) {
++      const text = readFileSync(file, "utf8");
++      expect(text).not.toMatch(/from ["']react["']/);
++      expect(text).not.toMatch(/from ["']react-dom["']/);
++      expect(text).not.toMatch(/from ["']next\//);
++      expect(text).not.toMatch(/from ["'][^"']*\/app\//);
++      expect(text).not.toMatch(/import\(["'][^"']*sfia-studio\/app/);
++    }
++  });
 +
-+    setHarnessBusy(true);
-+    const req = buildStudioHarnessRequest(mapped, {
-+      morrisDecision: gateAction === "NO-GO" ? "NO-GO" : "GO",
-+      action: gateAction === "NO-GO" ? "run-fixture" : mapped,
++  it("nominal + invalid GO + STOP + journal + proofs without Studio", async () => {
++    const orch = new Orchestrator();
++    const proofOk = tmp();
++    const c = makeContract(proofOk);
++    const ok = await orch.run({
++      request: makeRequest(),
++      contract: c,
++      gate: makeGo(c),
++      expectedBranch: "delivery/sfia-studio-poc-increment-b",
++      expectedHead: "ee9487797ce44c8d864846030c54fac43ee33611",
++      revalidateBeforeExecute: true,
 +    });
++    expect(ok.ok).toBe(true);
++    expect(verifyProofPack(proofOk, { requireSuccessArtifacts: true }).ok).toBe(true);
 +
-+    void runStudioHarness(req)
-+      .then((view) => {
-+        applyHarnessView(view);
-+        setStateId(deriveStateFromHarness(view));
-+      })
-+      .finally(() => setHarnessBusy(false));
-+  }, [applyHarnessView, gateAction, setStateId, stateId]);
- 
-   const selectFinalAction = useCallback(
-     (action: VsFinalAction) => {
-@@ -140,8 +221,31 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
- 
-   const fireStop = useCallback(() => {
-     setStopFired(true);
--    setStateId("VS-UX-VAR-STOP");
--  }, [setStateId]);
-+    setHarnessBusy(true);
-+    const req = buildStudioHarnessRequest("stop");
-+    void runStudioHarness(req)
-+      .then((view) => {
-+        applyHarnessView(view);
-+        setStateId("VS-UX-VAR-STOP");
-+      })
-+      .finally(() => setHarnessBusy(false));
-+  }, [applyHarnessView, setStateId]);
++    const proofBad = tmp();
++    const c2 = makeContract(proofBad);
++    const bad = await orch.run({
++      request: makeRequest(),
++      contract: c2,
++      gate: makeGo(c2, { contractHash: "0".repeat(64) }),
++      expectedBranch: "delivery/sfia-studio-poc-increment-b",
++      expectedHead: "ee9487797ce44c8d864846030c54fac43ee33611",
++    });
++    expect(bad.ok).toBe(false);
++    expect(bad.errorCode).toBe("GATE_HASH_MISMATCH");
 +
-+  const resumeFromHarness = useCallback(() => {
-+    const proofDir =
-+      typeof window !== "undefined"
-+        ? window.sessionStorage.getItem(PROOF_DIR_KEY) ?? undefined
-+        : undefined;
-+    if (!proofDir) return;
-+    setHarnessBusy(true);
-+    const req = buildStudioHarnessRequest("resume", { proofDir });
-+    void runStudioHarness(req)
-+      .then((view) => {
-+        // Resume rebuilds derived view only — no implicit GO, no forced navigation.
-+        applyHarnessView(view);
-+      })
-+      .finally(() => setHarnessBusy(false));
-+  }, [applyHarnessView]);
- 
-   const resetDemo = useCallback(() => {
-     setAbandoned(false);
-@@ -150,6 +254,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-     setAbandonConfirmOpen(false);
-     setFinalAction(null);
-     setStopFired(false);
-+    setHarnessView(null);
-+    persistHarness(null);
-     setStateId("VS-UX-01");
-   }, [setStateId]);
- 
-@@ -162,6 +268,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       abandonConfirmOpen,
-       finalAction,
-       stopFired,
-+      harnessView,
-+      harnessBusy,
-       setStateId,
-       selectGateAction,
-       openAbandonConfirm,
-@@ -171,6 +279,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       selectFinalAction,
-       fireStop,
-       resetDemo,
-+      resumeFromHarness,
-     }),
-     [
-       stateId,
-@@ -180,6 +289,8 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       abandonConfirmOpen,
-       finalAction,
-       stopFired,
-+      harnessView,
-+      harnessBusy,
-       setStateId,
-       selectGateAction,
-       openAbandonConfirm,
-@@ -189,6 +300,7 @@ export function VsDemoProvider({ children }: { children: ReactNode }) {
-       selectFinalAction,
-       fireStop,
-       resetDemo,
-+      resumeFromHarness,
-     ],
-   );
- 
++    const proofStop = tmp();
++    const c3 = makeContract(proofStop);
++    const stop = await orch.run({
++      request: makeRequest(),
++      contract: c3,
++      gate: makeGo(c3, { decision: "STOP", decisionId: "stop-b" }),
++    });
++    expect(stop.errorCode).toBe("GATE_STOP");
++    expect(stop.ok).toBe(false);
++  });
++});
++
++describe("Increment B — gates & invalidation", () => {
++  it("rejects branch / HEAD / allowlist / missing Morris", () => {
++    const dir = tmp();
++    const c = makeContract(dir);
++    const v = new GateValidator();
++    const hash = computeContractHash(c);
++    const branch = "delivery/sfia-studio-poc-increment-b";
++    const head = "ee9487797ce44c8d864846030c54fac43ee33611";
++
++    expect(
++      v.validate({
++        gate: makeGo(c, { gitBranch: "other" }),
++        contract: c,
++        expectedHash: hash,
++        expectedBranch: branch,
++        expectedHead: head,
++      }).ok,
++    ).toBe(false);
++
++    expect(
++      v.validate({
++        gate: makeGo(c, { gitHead: "a".repeat(40) }),
++        contract: c,
++        expectedHash: hash,
++        expectedBranch: branch,
++        expectedHead: head,
++      }).ok,
++    ).toBe(false);
++
++    expect(
++      v.validate({
++        gate: makeGo(c, { allowlistSnapshot: ["evil"] }),
++        contract: c,
++        expectedHash: hash,
++        expectedBranch: branch,
++        expectedHead: head,
++      }).ok,
++    ).toBe(false);
++
++    expect(
++      v.validate({
++        gate: makeGo(c, { decidedBy: "" }),
++        contract: c,
++        expectedHash: hash,
++      }).ok,
++    ).toBe(false);
++  });
++
++  it("adapter probes refuse without success", async () => {
++    const adapter = createThinStudioAdapter();
++    for (const action of [
++      "probe-invalid-hash",
++      "probe-invalid-branch",
++      "probe-invalid-head",
++      "probe-invalid-allowlist",
++      "probe-missing-decider",
++      "probe-timeout",
++      "probe-incomplete-report",
++      "probe-missing-proof",
++      "probe-live-port",
++      "probe-write-escape",
++    ] as const) {
++      const res = await adapter.forward(baseReq({ action, proofDir: tmp() }));
++      expect(res.ok, action).toBe(false);
++      expect(res.canonicalStatus === "CLOSED" || res.canonicalStatus === "REJECTED", action).toBe(
++        true,
++      );
++      if (action === "probe-timeout") {
++        expect(res.stopOrTimeout).toBe("timeout");
++        expect(res.errorCode).toMatch(/TIMEOUT/);
++      }
++      if (action === "stop" as never) {
++        /* n/a */
++      }
++    }
++    const stop = await adapter.forward(baseReq({ action: "stop", proofDir: tmp() }));
++    expect(stop.ok).toBe(false);
++    expect(stop.stopOrTimeout).toBe("STOP");
++  });
++});
++
++describe("Increment B — session resume", () => {
++  it("reconstructs state from journal without implicit GO", async () => {
++    const adapter = createThinStudioAdapter();
++    const proofDir = tmp();
++    const run = await adapter.forward(baseReq({ proofDir }));
++    expect(run.ok).toBe(true);
++    const resumed = resumeSessionFromProofDir(proofDir);
++    expect(resumed.statusSource).toBe("harness");
++    expect(resumed.canonicalStatus).toBe("CLOSED");
++    expect(resumed.goValid).toBe(false);
++    expect(resumed.events.length).toBeGreaterThan(0);
++    expect(resumed.report).toBeTruthy();
++
++    const stoppedDir = tmp();
++    await adapter.forward(baseReq({ action: "stop", proofDir: stoppedDir }));
++    const resumedStop = resumeSessionFromProofDir(stoppedDir);
++    expect(resumedStop.ok).toBe(false);
++    expect(resumedStop.stopOrTimeout).toBe("STOP");
++    expect(resumedStop.refusalReason).toBeTruthy();
++  });
++});
 
 ```
 
-#### Diff `projects/sfia-studio/app/components/vertical-slice/VsShared.tsx`
-```diff
-diff --git a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-index c273f56..108953a 100644
---- a/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-+++ b/projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
-@@ -1,7 +1,16 @@
- import { vsFixture } from "@/fixtures/vertical-slice";
-+import type { StudioHarnessView } from "@/lib/harness/types";
-+import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
- import styles from "./vs-panels.module.css";
- 
- export function IdStrip() {
-+  const { harnessView } = useVsDemo();
-+  const source = harnessView?.statusSource
-+    ? `harness (${harnessView.mode})`
-+    : vsFixture.sourceStatus;
-+  const hash = harnessView?.contractHash ?? vsFixture.contractHash;
-+  const corr = harnessView?.correlationId ?? vsFixture.correlationId;
-+
-   return (
-     <dl className={styles.idStrip} data-testid="vs-id-strip">
-       <div>
-@@ -10,7 +19,7 @@ export function IdStrip() {
-       </div>
-       <div>
-         <dt>correlationId</dt>
--        <dd>{vsFixture.correlationId}</dd>
-+        <dd>{corr}</dd>
-       </div>
-       <div>
-         <dt>contractId</dt>
-@@ -18,7 +27,7 @@ export function IdStrip() {
-       </div>
-       <div>
-         <dt>contractHash</dt>
--        <dd>{vsFixture.contractHash}</dd>
-+        <dd>{hash.length > 24 ? `${hash.slice(0, 20)}…` : hash}</dd>
-       </div>
-       <div>
-         <dt>Branche</dt>
-@@ -30,18 +39,94 @@ export function IdStrip() {
-       </div>
-       <div>
-         <dt>Source statut</dt>
--        <dd>{vsFixture.sourceStatus}</dd>
-+        <dd data-testid="vs-status-source">{source}</dd>
-       </div>
-       <div>
-         <dt>Horodatage</dt>
-         <dd>
--          {vsFixture.timestamp} ({vsFixture.timezone})
-+          {harnessView?.timestamps.completedAt ?? vsFixture.timestamp} (
-+          {vsFixture.timezone})
-         </dd>
-       </div>
-     </dl>
-   );
- }
- 
-+export function HarnessStatusPanel() {
-+  const { harnessView, harnessBusy, resumeFromHarness } = useVsDemo();
-+  if (harnessBusy) {
-+    return (
-+      <aside className={styles.finops} data-testid="vs-harness-busy">
-+        <p>Transmission harness (fixture)…</p>
-+      </aside>
-+    );
-+  }
-+  if (!harnessView) {
-+    return (
-+      <aside className={styles.finops} data-testid="vs-harness-idle">
-+        <p className={styles.finopsTitle}>Harness (Increment B)</p>
-+        <p>Aucun cycle harness encore — simulation / fixture uniquement.</p>
-+        <p className={styles.muted}>Aucun GPT live · aucun Cursor live</p>
-+        <button type="button" data-testid="vs-resume" onClick={resumeFromHarness}>
-+          Reprendre depuis journal harness
-+        </button>
-+      </aside>
-+    );
-+  }
-+  return <HarnessViewCard view={harnessView} onResume={resumeFromHarness} />;
-+}
-+
-+function HarnessViewCard({
-+  view,
-+  onResume,
-+}: {
-+  view: StudioHarnessView;
-+  onResume: () => void;
-+}) {
-+  const last = view.events[view.events.length - 1];
-+  return (
-+    <aside className={styles.finops} data-testid="vs-harness-panel">
-+      <p className={styles.finopsTitle}>État dérivé harness (fixture)</p>
-+      <p>
-+        Statut canonique :{" "}
-+        <strong data-testid="vs-harness-status">{view.canonicalStatus}</strong>
-+      </p>
-+      <p>
-+        GO valide :{" "}
-+        <strong data-testid="vs-go-valid">{view.goValid ? "oui" : "non"}</strong>
-+      </p>
-+      <p data-testid="vs-harness-mode">Mode : {view.mode} · source : {view.statusSource}</p>
-+      {view.errorCode ? (
-+        <p data-testid="vs-harness-error">
-+          Refus / écart : {view.errorCode}
-+          {view.refusalReason ? ` — ${view.refusalReason}` : ""}
-+        </p>
-+      ) : null}
-+      {view.stopOrTimeout ? (
-+        <p data-testid="vs-stop-timeout">Classe : {view.stopOrTimeout}</p>
-+      ) : null}
-+      {last ? (
-+        <p data-testid="vs-last-event">
-+          Dernier événement : {last.eventType} ({last.result ?? "—"})
-+        </p>
-+      ) : null}
-+      <p data-testid="vs-report-flag">
-+        Rapport : {view.report ? "disponible" : "absent"}
-+      </p>
-+      <p data-testid="vs-proof-flag">
-+        Pack preuves :{" "}
-+        {view.proofPack?.ok
-+          ? "complet"
-+          : `incomplet (${view.proofPack?.missing.join(", ") || "n/a"})`}
-+      </p>
-+      <p className={styles.muted}>Aucun GPT/Cursor live · aucune écriture Git distante</p>
-+      <button type="button" data-testid="vs-resume" onClick={onResume}>
-+        Reprendre depuis journal harness
-+      </button>
-+    </aside>
-+  );
-+}
-+
- export function FinOpsBox({
-   phase,
-   calls,
+## Push
+- `git push -u origin delivery/sfia-studio-poc-increment-b` — OK (push normal, pas de force)
+- HEAD local = HEAD distant = `8316f26de1ade4bbf0e698ce03666e977daa87cb`
+
+## PR
+```json
+{"baseRefName":"main","headRefName":"delivery/sfia-studio-poc-increment-b","isDraft":true,"mergeable":"MERGEABLE","number":231,"state":"OPEN","statusCheckRollup":[],"url":"https://github.com/mcleland147/sfia-workspace/pull/231"}
 
 ```
-
-## Matrice stories → fichiers → tests → preuves
-| Story | Fichiers | Tests | Preuves |
-|---|---|---|---|
-| VS-BL-US-009 contrat borné | contracts, builders, IdStrip | harness + e2e | captures gate |
-| VS-BL-US-012 invalidation GO | gateValidator, probes | increment-b harness/e2e | inc-b-go-invalide.png |
-| VS-BL-US-013 adaptateur sans autorité | thinStudioAdapter, buildRequest, invokeHarness | src sans GateValidator ; unit app | revue code |
-| VS-BL-US-014 états dérivés | VsDemoContext, HarnessStatusPanel | e2e B | panels runtime |
-| VS-BL-US-015 autonome | CLI, autonomy test | increment-b autonomy | 80 tests harness |
-| VS-BL-US-016 reprise | resumeSession, sessionStorage | e2e reprise | inc-b-reprise-session.png |
-| VS-BL-US-017 revalidation GO | orchestrator.revalidateGo | integration+B | journal gate.revalidated |
-| VS-BL-US-019 STOP/timeout | cursorFixture, classify | probes | inc-b-stop.png |
-| VS-BL-US-021 rapport | summary.json | e2e report flag | captures |
-| VS-BL-US-022 proof pack | verifyProofPack | harness+e2e | proof complet |
-| VS-BL-US-029 refus journalisés | journal security.refusal | probes live/escape | events |
-| VS-BL-US-033 négatifs | adapter probes | 10 probes | tests |
-
-## Adaptateur et preuve d’absence d’autorité
-- `ThinStudioAdapter` : mapGate/mapRunInput/forward/toResponse uniquement
-- Source inspectée : **aucun** `GateValidator` / `assertGateOk` dans l’adaptateur
-- Studio `buildRequest.ts` : mapping pur ; validation déléguée au harness
-- `invokeHarness.ts` : spawn CLI `studio-run` / `resume-session` seulement
-
-## Preuve harness autonome
-- Test « src tree has no React imports »
-- Scénario nominal + hash invalide + STOP + journal + proofs via `Orchestrator` seul
-- CLI `studio-run` / `resume-session` sans démarrer Next/Studio
-
-## Gates et invalidation
-Invalide si mismatch `contractHash` / `gitBranch` / `gitHead` / `allowlistSnapshot` / décideur absent → aucune exécution, événement `gate.rejected`, motif visible, pas de retry auto (`GATE_REPLAY`).
-
-## Journal / proofStore
-- Journal canonique `events.jsonl` (`source: harness` dans detail)
-- Proof pack : contract, hash, request, gate, events, summary, cursor-fixture, git-results
-- `verifyProofPack` ; incomplets bloquent (`REPORT_INCOMPLETE`, `PROOF_INCOMPLETE`)
-
-## Ports fixtures
-Réutilisation `CursorExecutorPortFixture` ; `attemptLiveCursor` → `LIVE_PORT_DENIED` ; `SFIA_CURSOR_REAL_SPIKE=0` côté pont Studio.
-
-## Reprise session
-`resumeSessionFromProofDir` + persistance `sessionStorage` (`proofDir` + vue) ; `goValid: false` à la reprise (pas de GO implicite).
-
-## Commandes exécutées et résultats
-| Commande | Résultat |
-|---|---|
-| harness `npm run typecheck` | OK |
-| harness `npm test` | **80 passed**, 1 skipped |
-| app `npm run typecheck` | OK |
-| app `npm run lint` | OK |
-| app `npm test` | **23 passed** |
-| app `npm run build` | OK (4 routes P0 + `/`) |
-| e2e increment-b | **5/5 passed** |
-| e2e increment-a | **13/13 passed** |
-| e2e p0-smoke | **6/6 passed** |
-| `git diff --check` | OK (vide) |
-
-## Runtime observé
-- Next.js : `http://127.0.0.1:3020`
-- Parcours GO → cycle-actif dérivé harness ; GO invalide refuse ; STOP journalisé ; reprise depuis journal
-
-## Captures produites
-`.tmp-sfia-review/screenshots-increment-b/` :
-- inc-b-gate-valide-idle.png
-- inc-b-execution-fixture.png
-- inc-b-rapport-preuves.png
-- inc-b-reprise-session.png
-- inc-b-go-invalide.png
-- inc-b-stop.png
-- inc-b-cloture-derivee.png
-
-## Absence GPT/Cursor live / secrets / Git distant
-- Aucun appel OpenAI applicatif ; spikes non activés
-- Aucun Cursor réel ; fixture only
-- Aucune écriture Git distante (`remoteGitWrite: false`, policy none-remote)
-- Aucun secret/PII réelle ; fixtures fictives
+- **Numéro** : 231
+- **URL** : https://github.com/mcleland147/sfia-workspace/pull/231
+- **state** : OPEN
+- **draft** : true
+- **base** : main
+- **head** : delivery/sfia-studio-poc-increment-b
+- **fichiers PR** : 27 sous app/** et harness/** uniquement
+- **CI** : statusCheckRollup observé au moment du pack (peut être vide / en cours)
 
 ## git status final
 ```
- M projects/sfia-studio/app/components/vertical-slice/VsDemoChrome.tsx
- M projects/sfia-studio/app/components/vertical-slice/VsShared.tsx
- M projects/sfia-studio/app/features/cycle-actif/VsCycleActifScreen.tsx
- M projects/sfia-studio/app/features/decision/VsDecisionScreen.tsx
- M projects/sfia-studio/app/features/nouvelle-demande/VsNouvelleDemandeScreen.tsx
- M projects/sfia-studio/app/features/synthese/VsSyntheseScreen.tsx
- M projects/sfia-studio/app/fixtures/vertical-slice.ts
- M projects/sfia-studio/app/lib/vertical-slice/VsDemoContext.tsx
- M projects/sfia-studio/app/lib/vertical-slice/types.ts
- M projects/sfia-studio/app/playwright.config.ts
- M projects/sfia-studio/harness/fixtures/builders.ts
- M projects/sfia-studio/harness/src/cli.ts
- M projects/sfia-studio/harness/src/gate/gateValidator.ts
- M projects/sfia-studio/harness/src/index.ts
- M projects/sfia-studio/harness/src/orchestrator.ts
- M projects/sfia-studio/harness/src/types/contracts.ts
 ?? .tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/increment-b.test.tsx
-?? projects/sfia-studio/app/e2e/increment-b.spec.ts
-?? projects/sfia-studio/app/lib/harness/
-?? projects/sfia-studio/harness/src/adapter/
-?? projects/sfia-studio/harness/src/proof/verifyProofPack.ts
-?? projects/sfia-studio/harness/src/session/
-?? projects/sfia-studio/harness/tests/increment-b.test.ts
 
 ```
 
-## Fichiers protégés
-Non modifiés : `01–40`, `prompts/**`, `method/**`, `.github/**`, `package.json` / lockfiles, Figma, `.env`.
+## Réserves
+- provider encore par écran
+- continuité mitigée par sessionStorage
+- pont Studio→harness via Server Action + CLI
+- ces choix = POC/non-live, pas architecture live cible
+- plafond GPT numérique À définir
 
-## Écarts et réserves
-- Provider VsDemo encore par écran : état harness persisté via `sessionStorage` (acceptable POC B)
-- Pont Studio = subprocess CLI (pas de dépendance workspace) — latence locale acceptable
-- Plafond GPT numérique toujours « À définir »
-- Incrément C / live non démarrés
+## Gates Morris restants
+- ready-for-review
+- merge
+- démarrage Incrément C
+- G-VS-LIVE-GPT / G-VS-LIVE-CURSOR
+- plafond GPT numérique
+- architecture technique structurante live
+- CI/CD industrialisation / MVP
 
-## Décisions Morris attendues
-1. Validation fonctionnelle et technique de B
-2. Autorisation commit / push / PR / merge (nouveaux GO)
-3. Non-démarrage Incrément C tant que B non validé
-4. Gates live GPT/Cursor toujours **non** autorisés
-
-## Anti-stub checklist
-- [x] contenu/diff fichiers (pas seulement liste)
-- [x] contrat d’intégration explicite
-- [x] preuve harness autonome
-- [x] journal/proofStore démontrés
-- [x] résultats tests
-- [x] captures runtime
+## Anti-stub
+- [x] diff commit complet inclus
+- [x] fichiers exacts
+- [x] contrôles adaptateur / autonomie / gates / journal / preuves
+- [x] tests + captures
+- [x] commit / push / PR
