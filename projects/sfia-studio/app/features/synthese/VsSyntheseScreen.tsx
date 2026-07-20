@@ -1,17 +1,23 @@
 "use client";
 
 import { StatusPill } from "@/components/ui/StatusPill";
-import { IdStrip } from "@/components/vertical-slice/VsShared";
+import { HarnessStatusPanel, IdStrip } from "@/components/vertical-slice/VsShared";
 import { vsFixture } from "@/fixtures/vertical-slice";
 import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import styles from "@/components/vertical-slice/vs-panels.module.css";
 
 export function VsSyntheseScreen() {
-  const { abandoned, finalAction } = useVsDemo();
+  const { abandoned, finalAction, harnessView } = useVsDemo();
+  const finalStatus = harnessView
+    ? `dérivé harness · ${harnessView.canonicalStatus} (${harnessView.mode})`
+    : abandoned
+      ? "abandonné"
+      : vsFixture.summary.finalStatus;
 
   return (
     <div className={styles.panel} data-testid="vs-synthese">
       <IdStrip />
+      <HarnessStatusPanel />
 
       <section className={styles.hero} aria-labelledby="vs-close-hero">
         <p className={styles.heroEyebrow}>CLÔTURE · SLICE COURANT UNIQUEMENT</p>
@@ -24,8 +30,8 @@ export function VsSyntheseScreen() {
       </section>
 
       <section className={styles.card} data-testid="vs-cycle-summary">
-        <StatusPill tone={abandoned ? "pink" : "greenFlush"}>
-          {abandoned ? "abandonné" : vsFixture.summary.finalStatus}
+        <StatusPill tone={abandoned || (harnessView && !harnessView.ok) ? "pink" : "greenFlush"}>
+          {finalStatus}
         </StatusPill>
         <p className={styles.fieldLabel}>requestId</p>
         <p className={styles.fieldValue}>{vsFixture.requestId}</p>

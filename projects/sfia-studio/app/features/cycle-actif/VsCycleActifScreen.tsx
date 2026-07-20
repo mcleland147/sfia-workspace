@@ -2,7 +2,12 @@
 
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { FinOpsBox, IdStrip, VariantBanner } from "@/components/vertical-slice/VsShared";
+import {
+  FinOpsBox,
+  HarnessStatusPanel,
+  IdStrip,
+  VariantBanner,
+} from "@/components/vertical-slice/VsShared";
 import { vsFixture } from "@/fixtures/vertical-slice";
 import { useVsDemo } from "@/lib/vertical-slice/VsDemoContext";
 import styles from "@/components/vertical-slice/vs-panels.module.css";
@@ -24,15 +29,16 @@ export function VsCycleActifScreen() {
   return (
     <div className={styles.panel} data-testid="vs-cycle-actif">
       <IdStrip />
+      <HarnessStatusPanel />
 
       {stateId === "VS-UX-VAR-STOP" || stopFired ? (
         <VariantBanner tone="stop" title="STOP Morris — prioritaire">
           <p>
-            Exécution <strong>stoppée</strong>. STOP ≠ NO-GO ≠ Abandonner. Event mock
-            journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
+            Exécution <strong>stoppée</strong> via harness. STOP ≠ NO-GO ≠ Abandonner.
+            Event journalisé. Reprise éventuelle sous <strong>nouveau GO</strong> uniquement.
           </p>
           <p className={styles.muted}>
-            eventId=evt-stop-mock · {vsFixture.timestamp}
+            Source statut = harness · fixture · {vsFixture.timestamp}
           </p>
         </VariantBanner>
       ) : null}

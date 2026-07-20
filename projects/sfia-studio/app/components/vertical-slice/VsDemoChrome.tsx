@@ -12,7 +12,7 @@ export function VsDemoChrome() {
   return (
     <div className={styles.chrome} data-testid="vs-demo-chrome">
       <div className={styles.banner} role="status" data-testid="vs-demo-banner">
-        <strong>Incrément A — cockpit statique gouverné</strong>
+        <strong>Incrément B — cockpit raccordé harness (fixture)</strong>
         <span>{vsFixture.demoLabel}</span>
         <span>{vsFixture.noLiveLabel}</span>
       </div>

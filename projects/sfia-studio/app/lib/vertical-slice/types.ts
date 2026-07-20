@@ -1,4 +1,5 @@
 import type { StudioRoute } from "@/lib/navigation";
+import type { StudioHarnessView } from "@/lib/harness/types";
 
 /** Dix états fonctionnels + quatre variantes — pas de routes dédiées. */
 export type VsStateId =
@@ -42,4 +43,7 @@ export interface VsDemoUiState {
   abandonConfirmOpen: boolean;
   finalAction: VsFinalAction | null;
   stopFired: boolean;
+  /** Derived from harness — never a second authoritative store. */
+  harnessView: StudioHarnessView | null;
+  harnessBusy: boolean;
 }

@@ -1,4 +1,6 @@
 import { randomUUID } from "node:crypto";
+import { unlinkSync, existsSync } from "node:fs";
+import path from "node:path";
 import type {
   ExecutionContract,
   GateDecision,
@@ -9,12 +11,13 @@ import type {
 import { HarnessError } from "./types/contracts.js";
 import { computeContractHash } from "./hash/contractHash.js";
 import { StateMachine } from "./state/machine.js";
-import { GateValidator, assertGateOk } from "./gate/gateValidator.js";
+import { GateValidator } from "./gate/gateValidator.js";
 import { PolicyEngine } from "./policy/policyEngine.js";
 import { GitReaderImpl, denyWriteOp } from "./ports/gitReaderImpl.js";
 import { CursorExecutorPortFixture } from "./ports/cursorFixture.js";
 import { EventJournal } from "./journal/eventJournal.js";
 import { ProofStore } from "./proof/proofStore.js";
+import { verifyProofPack } from "./proof/verifyProofPack.js";
 
 export interface RunInput {
   request: POCRequest;
@@ -23,6 +26,20 @@ export interface RunInput {
   stopAfterAuthorize?: boolean;
   cursorSimulate?: "success" | "timeout" | "error";
   attemptForbiddenGit?: boolean;
+  /** Current branch for GO anchor revalidation (Increment B). */
+  expectedBranch?: string;
+  /** Current HEAD for GO anchor revalidation (Increment B). */
+  expectedHead?: string;
+  /** Re-check GO anchors immediately before fixture cursor execution. */
+  revalidateBeforeExecute?: boolean;
+  /** Skip writing summary.json — blocks successful proof pack. */
+  simulateIncompleteReport?: boolean;
+  /** Remove a core proof artifact after run path — blocks progression. */
+  simulateMissingProof?: boolean;
+  /** Attempt to invoke non-fixture cursor mode — must fail closed. */
+  attemptLiveCursor?: boolean;
+  /** Prefer Studio correlation when provided (adapter forward). */
+  studioCorrelationId?: string;
 }
 
 export interface RunResult {
@@ -37,6 +54,7 @@ export interface RunResult {
   cursor?: CursorResult;
   errorCode?: string;
   projectedState?: string;
+  report?: Record<string, unknown> | null;
 }
 
 export class Orchestrator {
@@ -44,24 +62,27 @@ export class Orchestrator {
   readonly policy = new PolicyEngine();
 
   async run(input: RunInput): Promise<RunResult> {
-    const correlationId = randomUUID();
+    const correlationId = input.studioCorrelationId ?? randomUUID();
     const executionId = randomUUID();
     const machine = new StateMachine("CREATED");
     const journal = new EventJournal(input.contract.proofDir, correlationId);
     const proofs = new ProofStore(input.contract.proofDir);
     const gitResults: GitCommandResult[] = [];
+    let report: Record<string, unknown> | null = null;
 
     const log = (
       eventType: string,
       fields: Partial<Parameters<EventJournal["append"]>[0]> & { result?: string; errorCode?: string },
     ) => {
+      const { detail: fieldDetail, ...rest } = fields;
       journal.append({
         eventType,
         requestId: input.request.requestId,
         executionId,
         contractHash: computeContractHash(input.contract),
         stateBefore: machine.current,
-        ...fields,
+        ...rest,
+        detail: { source: "harness", ...(fieldDetail ?? {}) },
       });
     };
 
@@ -80,10 +101,29 @@ export class Orchestrator {
       log("gate.awaiting", { stateAfter: "AWAITING_GATE", result: "ok" });
 
       if (input.gate.decision === "STOP") {
+        const stopGate = this.gateValidator.validate({
+          gate: input.gate,
+          contract: input.contract,
+          expectedHash: hash,
+          expectedBranch: input.expectedBranch,
+          expectedHead: input.expectedHead,
+        });
+        if (!stopGate.ok) {
+          machine.transition("REJECTED");
+          log("gate.rejected", {
+            stateAfter: "REJECTED",
+            result: "rejected",
+            errorCode: stopGate.code,
+            detail: { message: stopGate.message },
+          });
+          machine.transition("CLOSED");
+          return finish(false, "CLOSED", hash, stopGate.code);
+        }
         machine.transition("STOP_REQUESTED");
-        log("gate.stop", { stateAfter: "STOP_REQUESTED", result: "stop" });
+        log("gate.stop", { stateAfter: "STOP_REQUESTED", result: "stop", errorCode: "GATE_STOP" });
         machine.transition("CLOSED");
         log("execution.closed", { stateAfter: "CLOSED", result: "stopped_before_run" });
+        proofs.writeJson("stop.json", { reason: "morris_stop", at: new Date().toISOString() });
         return finish(false, "CLOSED", hash, "GATE_STOP");
       }
 
@@ -91,6 +131,8 @@ export class Orchestrator {
         gate: input.gate,
         contract: input.contract,
         expectedHash: hash,
+        expectedBranch: input.expectedBranch,
+        expectedHead: input.expectedHead,
       });
       if (!gateResult.ok) {
         machine.transition("REJECTED");
@@ -102,6 +144,18 @@ export class Orchestrator {
         });
         machine.transition("CLOSED");
         return finish(false, "CLOSED", hash, gateResult.code);
+      }
+
+      if (input.gate.decision === "NO-GO") {
+        machine.transition("REJECTED");
+        log("gate.rejected", {
+          stateAfter: "REJECTED",
+          result: "rejected",
+          errorCode: "GATE_NO_GO",
+          detail: { message: "Morris NO-GO — no execution" },
+        });
+        machine.transition("CLOSED");
+        return finish(false, "CLOSED", hash, "GATE_NO_GO");
       }
 
       if (input.gate.decision !== "GO") {
@@ -121,11 +175,27 @@ export class Orchestrator {
 
       if (input.stopAfterAuthorize) {
         machine.transition("STOP_REQUESTED");
-        log("execution.stopped", { stateAfter: "STOP_REQUESTED", result: "stop" });
+        log("execution.stopped", { stateAfter: "STOP_REQUESTED", result: "stop", errorCode: "STOP" });
         machine.transition("CLOSED");
         log("execution.closed", { stateAfter: "CLOSED", result: "stopped" });
         proofs.writeJson("stop.json", { reason: "explicit_stop", at: new Date().toISOString() });
         return finish(false, "CLOSED", hash, "STOP");
+      }
+
+      if (input.revalidateBeforeExecute) {
+        const reval = this.revalidateGo(input, hash);
+        if (!reval.ok) {
+          machine.transition("REJECTED");
+          log("gate.revalidation_failed", {
+            stateAfter: "REJECTED",
+            result: "rejected",
+            errorCode: reval.code,
+            detail: { message: reval.message },
+          });
+          machine.transition("CLOSED");
+          return finish(false, "CLOSED", hash, reval.code);
+        }
+        log("gate.revalidated", { stateAfter: "AUTHORIZED", result: "ok" });
       }
 
       machine.transition("RUNNING");
@@ -168,6 +238,28 @@ export class Orchestrator {
       }
       proofs.writeJson("git-results.json", gitResults);
 
+      if (input.attemptLiveCursor) {
+        log("security.refusal", {
+          stateAfter: "RUNNING",
+          result: "denied",
+          errorCode: "LIVE_PORT_DENIED",
+          detail: { message: "Live Cursor port refused — fixtures only" },
+        });
+        machine.transition("REJECTED");
+        log("execution.rejected", {
+          stateAfter: "REJECTED",
+          result: "denied",
+          errorCode: "LIVE_PORT_DENIED",
+        });
+        machine.transition("CLOSED");
+        log("execution.closed", {
+          stateAfter: "CLOSED",
+          result: "denied",
+          errorCode: "LIVE_PORT_DENIED",
+        });
+        return finish(false, "CLOSED", hash, "LIVE_PORT_DENIED");
+      }
+
       const cursor = new CursorExecutorPortFixture();
       const cursorResult = await cursor.execute({
         requestId: input.request.requestId,
@@ -186,10 +278,57 @@ export class Orchestrator {
       });
 
       if (!cursorResult.ok) {
+        // Timeout / error never become success
         machine.transition("FAILED");
-        log("execution.failed", { stateAfter: "FAILED", result: "failed", errorCode: cursorResult.errorCode });
+        log("execution.failed", {
+          stateAfter: "FAILED",
+          result: "failed",
+          errorCode: cursorResult.errorCode,
+        });
         machine.transition("CLOSED");
+        log("execution.closed", {
+          stateAfter: "CLOSED",
+          result: "failed",
+          errorCode: cursorResult.errorCode,
+        });
         return finish(false, "CLOSED", hash, cursorResult.errorCode, cursorResult);
+      }
+
+      if (input.simulateMissingProof) {
+        const hashPath = path.join(input.contract.proofDir, "contractHash.txt");
+        if (existsSync(hashPath)) unlinkSync(hashPath);
+        const pack = verifyProofPack(input.contract.proofDir, { requireSuccessArtifacts: true });
+        machine.transition("FAILED");
+        log("proof.incomplete", {
+          stateAfter: "FAILED",
+          result: "failed",
+          errorCode: "PROOF_INCOMPLETE",
+          detail: { missing: pack.missing },
+        });
+        machine.transition("CLOSED");
+        log("execution.closed", {
+          stateAfter: "CLOSED",
+          result: "failed",
+          errorCode: "PROOF_INCOMPLETE",
+        });
+        return finish(false, "CLOSED", hash, "PROOF_INCOMPLETE", cursorResult);
+      }
+
+      if (input.simulateIncompleteReport) {
+        machine.transition("FAILED");
+        log("report.incomplete", {
+          stateAfter: "FAILED",
+          result: "failed",
+          errorCode: "REPORT_INCOMPLETE",
+          detail: { message: "summary.json not written — progression blocked" },
+        });
+        machine.transition("CLOSED");
+        log("execution.closed", {
+          stateAfter: "CLOSED",
+          result: "failed",
+          errorCode: "REPORT_INCOMPLETE",
+        });
+        return finish(false, "CLOSED", hash, "REPORT_INCOMPLETE", cursorResult);
       }
 
       machine.transition("COMPLETED");
@@ -207,8 +346,11 @@ export class Orchestrator {
         realCursorClaimed: false,
         gitEffect: "none-remote",
         terminalState: "CLOSED",
+        statusSource: "harness",
+        mode: "fixture",
       };
       proofs.writeJson("summary.json", summary);
+      report = summary;
       return finish(true, "CLOSED", hash, undefined, cursorResult);
     } catch (err) {
       const he = err as HarnessError;
@@ -247,8 +389,33 @@ export class Orchestrator {
         cursor,
         errorCode,
         projectedState: journal.projectLastState(),
+        report,
       };
     }
+  }
+
+  private revalidateGo(
+    input: RunInput,
+    hash: string,
+  ): { ok: true } | { ok: false; code: string; message: string } {
+    const gate = input.gate;
+    if (gate.contractHash !== hash) {
+      return { ok: false, code: "GATE_HASH_MISMATCH", message: "revalidation hash mismatch" };
+    }
+    if (input.expectedBranch !== undefined && gate.gitBranch !== input.expectedBranch) {
+      return { ok: false, code: "GATE_BRANCH_MISMATCH", message: "revalidation branch mismatch" };
+    }
+    if (input.expectedHead !== undefined && gate.gitHead !== input.expectedHead) {
+      return { ok: false, code: "GATE_HEAD_MISMATCH", message: "revalidation HEAD mismatch" };
+    }
+    if (
+      gate.allowlistSnapshot &&
+      JSON.stringify([...gate.allowlistSnapshot].sort()) !==
+        JSON.stringify([...input.contract.allowedPaths].sort())
+    ) {
+      return { ok: false, code: "GATE_ALLOWLIST_MISMATCH", message: "revalidation allowlist mismatch" };
+    }
+    return { ok: true };
   }
 }
 

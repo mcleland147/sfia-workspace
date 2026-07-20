@@ -22,4 +22,7 @@ export * from "./ports/e2eSandbox.js";
 export * from "./validation/gptOutputValidator.js";
 export * from "./journal/eventJournal.js";
 export * from "./proof/proofStore.js";
+export * from "./proof/verifyProofPack.js";
+export * from "./session/resumeSession.js";
+export * from "./adapter/thinStudioAdapter.js";
 export * from "./orchestrator.js";

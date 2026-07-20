@@ -4,7 +4,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Orchestrator, validateContractOnly } from "./orchestrator.js";
 import { EventJournal } from "./journal/eventJournal.js";
-import type { ExecutionContract, GateDecision, POCRequest } from "./types/contracts.js";
+import { createThinStudioAdapter } from "./adapter/thinStudioAdapter.js";
+import { resumeSessionFromProofDir } from "./session/resumeSession.js";
+import { verifyProofPack } from "./proof/verifyProofPack.js";
+import type {
+  ExecutionContract,
+  GateDecision,
+  POCRequest,
+  StudioAdapterRequest,
+} from "./types/contracts.js";
 import { computeContractHash } from "./hash/contractHash.js";
 
 function usage(): never {
@@ -16,6 +24,8 @@ Commands:
   request-stop <dir>                # same as run-fixture with STOP gate or --stop flag via stop gate
   inspect-journal <proofDir>
   verify-proofs <proofDir>
+  studio-run <payload.json>         # Increment B thin adapter forward (stdout JSON)
+  resume-session <proofDir>         # Increment B session resume from journal/proofs
 `);
   process.exit(2);
 }
@@ -89,6 +99,7 @@ async function main(): Promise<void> {
       missing.filter((m) => m !== "summary.json").length === 0 ||
       (missing.length <= 1 && missing[0] === "summary.json");
     const journal = new EventJournal(proofDir, "verify");
+    const pack = verifyProofPack(proofDir);
     console.log(
       JSON.stringify(
         {
@@ -97,12 +108,31 @@ async function main(): Promise<void> {
           eventCount: journal.readAll().length,
           projectedState: journal.projectLastState(),
           softOk: ok,
+          proofPack: pack,
         },
         null,
         2,
       ),
     );
     return;
+  }
+
+  if (cmd === "studio-run") {
+    const file = args[0];
+    if (!file) usage();
+    const payload = JSON.parse(readFileSync(file, "utf8")) as StudioAdapterRequest;
+    const adapter = createThinStudioAdapter();
+    const result = await adapter.forward(payload);
+    console.log(JSON.stringify(result, null, 2));
+    process.exit(result.ok ? 0 : 1);
+  }
+
+  if (cmd === "resume-session") {
+    const proofDir = args[0];
+    if (!proofDir) usage();
+    const result = resumeSessionFromProofDir(proofDir);
+    console.log(JSON.stringify(result, null, 2));
+    process.exit(result.ok ? 0 : 1);
   }
 
   usage();
