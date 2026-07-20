@@ -123,12 +123,13 @@ export function buildCursorAgentArgv(input: {
   return { command: input.bin, argv };
 }
 
-/** Allowed sandboxes: legacy cursor-real spike OR e2e proofs sandbox (both under harness). */
+/** Allowed sandboxes: legacy cursor-real spike OR e2e proofs sandbox OR Increment D sandbox. */
 export function isAllowedCursorSpikeSandbox(cwd: string): boolean {
   const resolved = path.resolve(cwd);
   return (
     resolved.includes(`${path.sep}spikes${path.sep}cursor-real${path.sep}sandbox`) ||
-    resolved.includes(`${path.sep}proofs${path.sep}e2e-cursor-sandbox`)
+    resolved.includes(`${path.sep}proofs${path.sep}e2e-cursor-sandbox`) ||
+    resolved.includes(`${path.sep}.sandbox${path.sep}increment-d`)
   );
 }
 
@@ -197,12 +198,15 @@ export async function spawnWithTimeout(input: {
   env: NodeJS.ProcessEnv;
   timeoutMs: number;
   maxOutputBytes: number;
+  /** Optional AbortSignal for operator STOP (soft SIGTERM then SIGKILL). */
+  abortSignal?: AbortSignal;
 }): Promise<{
   exitCode: number | null;
   signal: NodeJS.Signals | null;
   stdout: string;
   stderr: string;
   timedOut: boolean;
+  aborted: boolean;
   durationMs: number;
 }> {
   const started = Date.now();
@@ -210,6 +214,7 @@ export async function spawnWithTimeout(input: {
     let stdout = Buffer.alloc(0);
     let stderr = Buffer.alloc(0);
     let timedOut = false;
+    let aborted = false;
     let settled = false;
 
     const child = spawn(input.command, input.argv, {
@@ -219,15 +224,29 @@ export async function spawnWithTimeout(input: {
       stdio: ["ignore", "pipe", "pipe"],
     });
 
-    const timer = setTimeout(() => {
-      timedOut = true;
+    const softThenHard = () => {
       child.kill("SIGTERM");
       setTimeout(() => {
         if (!settled) child.kill("SIGKILL");
       }, 2_000).unref();
+    };
+
+    const timer = setTimeout(() => {
+      timedOut = true;
+      softThenHard();
     }, input.timeoutMs);
 
-    const append = ( whicht: "out" | "err", chunk: Buffer) => {
+    const onAbort = () => {
+      aborted = true;
+      softThenHard();
+    };
+    if (input.abortSignal?.aborted) {
+      onAbort();
+    } else {
+      input.abortSignal?.addEventListener("abort", onAbort, { once: true });
+    }
+
+    const append = (whicht: "out" | "err", chunk: Buffer) => {
       const cur = whicht === "out" ? stdout : stderr;
       const next = Buffer.concat([cur, chunk]);
       if (next.length > input.maxOutputBytes) {
@@ -247,18 +266,21 @@ export async function spawnWithTimeout(input: {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      input.abortSignal?.removeEventListener("abort", onAbort);
       reject(err);
     });
     child.on("close", (code, signal) => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      input.abortSignal?.removeEventListener("abort", onAbort);
       resolve({
         exitCode: code,
         signal,
         stdout: stdout.toString("utf8"),
         stderr: stderr.toString("utf8"),
         timedOut,
+        aborted,
         durationMs: Date.now() - started,
       });
     });

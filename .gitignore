@@ -6,6 +6,11 @@ node_modules/
 *.log
 exports.zip
 
+# Increment D Cursor sandbox outputs (keep directory via .gitkeep)
+projects/sfia-studio/.sandbox/**
+!projects/sfia-studio/.sandbox/**/
+!projects/sfia-studio/.sandbox/**/.gitkeep
+
 # Exports JSON — versionner les snapshots Notion
 exports/**
 !exports/notion/
