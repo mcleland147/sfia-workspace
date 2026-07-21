@@ -1,146 +1,1012 @@
-# Review pack Full — OPS1 I3 correction signalétique visuelle I2→I3
+# Review pack Full — OPS1 I3 delivery — commit + push + PR #250
 
 ## 1. Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Titre | OPS1 I3 — alignement signalétique runtime (badges, copilot, périmètre, fixture reply) |
-| Date / heure | 2026-07-21 13:57:32 CEST (Europe/Paris) |
+| Titre | Delivery OPS1 I3 Option B — commit / push / PR |
+| Date / heure | 2026-07-21 14:13:53 CEST (Europe/Paris) |
 | Repo | `mcleland147/sfia-workspace` |
-| Branche projet | `delivery/sfia-studio-ops1-i3-action-gate` (locale uniquement ; absente de `origin`) |
+| Branche | `delivery/sfia-studio-ops1-i3-action-gate` |
 | HEAD initial | `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` |
-| HEAD final | `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` (aucun commit projet) |
+| HEAD commit | `3607a3a9ca5fb880f7fcc0d42ca5f7c62d16af57` |
 | `origin/main` | `853959cafd85c207878b654dc3300770fed6fc08` |
-| Merge-base (`HEAD` ∩ `origin/main`) | `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` |
-| Working tree initial | Modifications préexistantes OPS1 I3 (Option B) non commitées + untracked `actionGate*` / e2e I3 |
-| Working tree final | Idem + correctif signalétique I3 (3 fichiers touchés ce cycle) + preuves `.tmp-sfia-review/` |
-| Rôle Cursor | Exécuteur Git / UI contrôlé |
-| Type de cycle | UX/UI + QA / validation |
+| Merge-base (avant commit) | `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` |
+| Rôle Cursor | Exécuteur Git contrôlé |
+| Type | PR readiness + delivery Git borné |
 | Profil SFIA | Standard |
-| Typologie | RUN — correctif UI borné (continuité OPS1 I3) |
-| Blocs activés | UX/UI, accessibilité ciblée, Review Handoff Git (publish-in-cycle), preuves runtime |
-| Figma | Aucune source Figma OPS1 I3 identifiée — validation limitée à la cohérence de signalétique I3 et au runtime existant. |
+| Typologie | INC — livraison incrémentale OPS1 I3 |
+| Blocs | PR readiness, QA, UX/UI preuves, Review Handoff, garde-fous Git |
 
-## 2. Sources consultées
+## 2. Décisions Morris
 
-### Méthode (depuis `origin/main` = `853959ca…`)
+- `GO DELIVERY OPS1 I3 — OPTION B — FOUR GATE ACTIONS — FIXTURE FIRST — NO EXECUTION — ALLOWLIST DEFERRED TO I4`
+- `GO MORRIS — CORRECTIF UI OPS1 I3 VALIDÉ`
+- `GO MORRIS — COMMIT + PUSH + PR — DELIVERY OPS1 I3`
+- Merge : **non autorisé** dans ce cycle
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `scripts/sfia/README.md`
-- `scripts/sfia/publish-review-handoff.sh`
+## 3. Sources consultées
 
-### OPS1 / signalétique (branche locale + working tree)
+- `origin/main`: template, routing, OM, guardrails, `scripts/sfia/README.md`, `scripts/sfia/publish-review-handoff.sh`
+- `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (tip antérieur `96d338b` — cycle UI I3 validé)
+- Working tree / commit OPS1 I3 (15 fichiers)
+- `package.json` scripts lint/test/typecheck
 
-- `projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx` (shell pills + COPILOT)
-- `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx` (kicker I3, panels gate — source signalétique centre)
-- `projects/sfia-studio/app/lib/ops1/types.ts` (`OPS1_I3_*` microcopy)
-- `projects/sfia-studio/app/lib/ops1/actionGate.ts` / `actions.ts` (métier I3 — non modifié ce cycle)
-- `projects/sfia-studio/app/lib/ops1/fixtureReply.ts`
-- `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx`
-- `projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts`
-- Docs backlog I1–I7 (références historiques I2 légitimes) : `60-ops1-backlog-…`, `61-…`, `62-…`
+## 4. Truth check & base main
 
-### Runtime / fixtures
+- Branche active confirmée ; staged initial vide ; remote branche absente avant push.
+- `origin/main` = SHA attendu.
+- Main en avance d’1 commit : `853959c` publisher #249 — fichiers méthode/scripts uniquement — **NO_OPS1_OVERLAP** — poursuite sans rebase.
 
-- Route : `http://127.0.0.1:3020/nouvelle-demande`
-- Viewport captures UI : 1440×900 (Playwright) ; e2e 1440×1024
-- Fixture : session `conversationMode=fixture`, ActionCandidate fixture, quatre gate actions
+## 5. Classification des fichiers (working tree avant commit)
 
-## 3. Décisions Morris
+### Inclus (code métier I3)
+- `lib/ops1/actionGate.ts` (créé)
+- `lib/ops1/actions.ts`, `types.ts`, `validation.ts`, `db.ts`, `ids.ts`, `index.ts`
 
-| Décision | Statut |
-|----------|--------|
-| `GO DELIVERY OPS1 I3 — OPTION B — FOUR GATE ACTIONS — FIXTURE FIRST — NO EXECUTION — ALLOWLIST DEFERRED TO I4` | Validée — non rouverte |
-| Option B / four gate actions / fixture first / no execution / allowlist → I4 | Préservés |
-| GO commit projet / push projet / PR / merge | **Absents** — non réalisés |
-| Push handoff L3 via publisher | Autorisé — exécuté |
+### Inclus (UI / signalétique I3)
+- `features/ops1/Ops1SessionScreen.tsx`, `ops1-session.module.css`
+- `features/nouvelle-demande/NouvelleDemandePageClient.tsx`
+- `lib/ops1/fixtureReply.ts`
 
-## 4. Qualification de la réserve
+### Inclus (tests)
+- `__tests__/ops1/actionGate.test.ts` (créé)
+- `__tests__/ops1/Ops1SessionScreen.test.tsx`
+- `__tests__/ops1/globalModeBadge.ui.test.tsx`
+- `e2e/ops1-i3-action-gate.spec.ts` (créé)
 
-### Observation
+### Exclus (temporaire / interdit)
+- `.tmp-sfia-review/**` — captures & review packs locaux
+- `projects/.tmp-sfia-review/**` — artefacts historiques hors cycle
+- worktree `sfia-review-handoff` — hors commit projet
 
-Sur `/nouvelle-demande`, le centre fonctionnel affichait déjà **I3** (`Vertical Slice Opérationnel 1 · I3`, Qualification I3, gates), tandis que le **shell** (badge topbar, panneau Copilot / Parcours / PÉRIMÈTRE) et le texte de réponse fixture affichaient encore **I2**.
+### Étranger au cycle
+Aucun fichier étranger détecté dans le diff projet.
 
-### Cause
+## 6. Périmètre staged exact (15)
 
-Libellés shell figés depuis la livraison I2 (`NouvelleDemandePageClient` COPILOT + pill) et chaîne fixture (`fixtureReply.ts`) non réalignés lors de l’incrément I3 métier.
+```
+M  projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+A  projects/sfia-studio/app/__tests__/ops1/actionGate.test.ts
+M  projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+A  projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts
+M  projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
+M  projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+M  projects/sfia-studio/app/features/ops1/ops1-session.module.css
+A  projects/sfia-studio/app/lib/ops1/actionGate.ts
+M  projects/sfia-studio/app/lib/ops1/actions.ts
+M  projects/sfia-studio/app/lib/ops1/db.ts
+M  projects/sfia-studio/app/lib/ops1/fixtureReply.ts
+M  projects/sfia-studio/app/lib/ops1/ids.ts
+M  projects/sfia-studio/app/lib/ops1/index.ts
+M  projects/sfia-studio/app/lib/ops1/types.ts
+M  projects/sfia-studio/app/lib/ops1/validation.ts
+```
 
-### Périmètre affecté
+STAGED_SCOPE_OK vs liste autorisée.
 
-- Badge topbar `OPS1 I2`
-- Copilot subtitle / summary / checklist / périmètre
-- Réponse chat fixture « … OPS1 I2 »
+## 7. Diff stat commit
 
-### Occurrences I2 légitimes (non modifiées)
+```
+15 files changed, 2067 insertions(+), 229 deletions(-)
+```
 
-| Zone | Classe |
-|------|--------|
-| `e2e/ops1-i2-*.ts(x)`, smoke I2 | a — historique / suites I2 |
-| Commentaires migration `db.ts`, types I1/I2 | a — historique schéma |
-| Docs backlog `I1→I2→I3…` | a — trajectoire |
-| Tests `describe("… I2 …")` | a — périmètre test I2 |
+## 8. Justification par fichier
 
-### Occurrences I2 obsolètes (corrigées — classe b)
+| Fichier | Rôle |
+|---------|------|
+| `actionGate.ts` | Domaine I3 : qualification, candidate, 4 gates, refuseExecution fail-closed |
+| `actions.ts` | Wiring server actions I3 |
+| `types.ts` | Types + microcopy GO ≠ exécution |
+| `validation.ts` / `db.ts` / `ids.ts` / `index.ts` | Persistance / IDs / exports |
+| `Ops1SessionScreen.tsx` + CSS | UI centre I3 + panneaux gate |
+| `NouvelleDemandePageClient.tsx` | Shell signalétique OPS1 I3 |
+| `fixtureReply.ts` | Texte journal fixture I3 |
+| `actionGate.test.ts` | Unit domaine |
+| `Ops1SessionScreen.test.tsx` / `globalModeBadge.ui.test.tsx` | UI / shell |
+| `ops1-i3-action-gate.spec.ts` | E2E Option B |
 
-| Élément | Avant | Après |
-|---------|-------|-------|
-| Pill topbar | `OPS1 I2` | `OPS1 I3` |
-| Copilot subtitle | `OPS1 I2 — conversation live/fixture` | `OPS1 I3 — action gate / fixture first` |
-| Copilot checklistTitle | `Parcours I2` | `Parcours I3` |
-| Copilot riskText | `I2 n’ouvre pas I3–I7…` | `I3 n’ouvre pas l’exécution ni l’allowlist I4…` |
-| Copilot summary / checklist | Chat I2 sans gate | Gate I3 / fixture first / no exec |
-| Fixture reply | `… OPS1 I2.` | `… OPS1 I3.` |
+## 9. Contenu exploitable — fichiers créés (complets)
 
-### Risques de régression
 
-- Faible : textes / test UI uniquement.
-- Métier gate : non touché (vérifié par unit `actionGate` + e2e I3).
+### `projects/sfia-studio/app/lib/ops1/actionGate.ts` (complet, 480 lignes)
 
-## 5. Contrat visuel OPS1 I3 (avant code)
+```typescript
+import type { DatabaseSync } from "node:sqlite";
+import {
+  createActionCandidateId,
+  createEventId,
+  createGateDecisionId,
+} from "./ids";
+import { openOps1Db, nowIsoWithOffset } from "./db";
+import { Ops1Error } from "./errors";
+import {
+  OPS1_I3_GO_MICROCOPY,
+  type ActionCandidate,
+  type ActionCandidateStatus,
+  type ActionQualification,
+  type GateDecision,
+  type GateDecisionKind,
+  type SessionEvent,
+  type SessionEventType,
+  type SessionQualification,
+} from "./types";
 
-Aucune source Figma OPS1 I3 identifiée — validation limitée à la cohérence de signalétique I3 et au runtime existant.
+function insertEvent(
+  db: DatabaseSync,
+  sessionId: string | null,
+  type: SessionEventType,
+  detail: string,
+  createdAt = nowIsoWithOffset(),
+): SessionEvent {
+  const eventId = createEventId();
+  db.prepare(
+    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
+     VALUES (?, ?, ?, ?, ?)`,
+  ).run(eventId, sessionId, type, createdAt, detail);
+  return { eventId, sessionId, type, createdAt, detail };
+}
 
-| Écran / route | Viewport | Élément | Observé avant | Attendu I3 | Source Git | Statut | Impact fonctionnel |
-|---------------|----------|---------|---------------|------------|------------|--------|--------------------|
-| `/nouvelle-demande` | 1440×900 | Kicker centre | `… · I3` | `… · I3` | `Ops1SessionScreen.tsx` | Hors périmètre (déjà OK) | aucun |
-| idem | idem | Pill topbar | `OPS1 I2` | `OPS1 I3` | Alignement centre + GO I3 | **correction requise** | aucun |
-| idem | idem | Copilot subtitle | `OPS1 I2 — …` | `OPS1 I3 — action gate / fixture first` | Centre I3 + Option B | **correction requise** | aucun |
-| idem | idem | Parcours | `Parcours I2` | `Parcours I3` | idem | **correction requise** | aucun |
-| idem | idem | PÉRIMÈTRE | `I2 n’ouvre pas I3–I7…` | Périmètre I3 (no exec / allowlist I4) | `types.ts` / GO | **correction requise** | aucun |
-| idem | idem | Fixture reply | `… OPS1 I2` | `… OPS1 I3` | Signalétique runtime | **correction requise** | aucun |
-| Specs / docs I2 | n/a | Suites e2e I2, backlog | I2 | I2 | Historique | **historique I2 légitime** | n/a |
+function requireOpenSession(db: DatabaseSync, sessionId: string): void {
+  const row = db
+    .prepare(
+      `SELECT status FROM cycle_sessions WHERE session_id = ?`,
+    )
+    .get(sessionId) as { status: string } | undefined;
+  if (!row) {
+    throw new Ops1Error("NOT_FOUND", "Session introuvable.");
+  }
+  if (row.status !== "OPEN") {
+    throw new Ops1Error(
+      "CONFLICT",
+      "La session n’est pas OPEN — I3 n’autorise pas CLOSED.",
+    );
+  }
+}
 
-## 6. Fichiers
+function mapCandidate(row: Record<string, unknown>): ActionCandidate {
+  return {
+    actionCandidateId: String(row.action_candidate_id),
+    sessionId: String(row.session_id),
+    status: row.status as ActionCandidateStatus,
+    title: String(row.title),
+    objective: String(row.objective),
+    scopeSummary: String(row.scope_summary),
+    riskSummary: String(row.risk_summary),
+    version: Number(row.version),
+    createdAt: String(row.created_at),
+    updatedAt: String(row.updated_at),
+  };
+}
 
-### Fichiers créés (projet)
+function mapGate(row: Record<string, unknown>): GateDecision {
+  return {
+    gateDecisionId: String(row.gate_decision_id),
+    sessionId: String(row.session_id),
+    actionCandidateId: String(row.action_candidate_id),
+    actionVersion: Number(row.action_version),
+    kind: row.kind as GateDecisionKind,
+    motif: row.motif == null ? null : String(row.motif),
+    createdAt: String(row.created_at),
+  };
+}
 
-Aucun fichier projet créé par ce cycle.
+export function getSessionQualification(
+  sessionId: string,
+  db = openOps1Db(),
+): SessionQualification | null {
+  const row = db
+    .prepare(
+      `SELECT session_id, qualification, updated_at
+       FROM session_qualifications WHERE session_id = ?`,
+    )
+    .get(sessionId) as Record<string, unknown> | undefined;
+  if (!row) return null;
+  return {
+    sessionId: String(row.session_id),
+    qualification: row.qualification as ActionQualification,
+    updatedAt: String(row.updated_at),
+  };
+}
 
-Preuves temporaires :
+export function listActionCandidates(
+  sessionId: string,
+  db = openOps1Db(),
+): ActionCandidate[] {
+  const rows = db
+    .prepare(
+      `SELECT * FROM action_candidates
+       WHERE session_id = ?
+       ORDER BY created_at ASC`,
+    )
+    .all(sessionId) as Array<Record<string, unknown>>;
+  return rows.map(mapCandidate);
+}
 
-- `.tmp-sfia-review/chatgpt-review.md` (ce pack — réinitialisé)
-- `.tmp-sfia-review/screenshots-ops1-i3-ui/*` (avant/après)
-- `.tmp-sfia-review/screenshots-ops1-i3/*` (e2e I3 régénérés)
+export function getActionCandidate(
+  actionCandidateId: string,
+  db = openOps1Db(),
+): ActionCandidate | null {
+  const row = db
+    .prepare(`SELECT * FROM action_candidates WHERE action_candidate_id = ?`)
+    .get(actionCandidateId) as Record<string, unknown> | undefined;
+  return row ? mapCandidate(row) : null;
+}
 
-### Fichiers modifiés **par ce cycle** (signalétique)
+export function listGateDecisionsForAction(
+  actionCandidateId: string,
+  db = openOps1Db(),
+): GateDecision[] {
+  const rows = db
+    .prepare(
+      `SELECT * FROM gate_decisions
+       WHERE action_candidate_id = ?
+       ORDER BY created_at ASC`,
+    )
+    .all(actionCandidateId) as Array<Record<string, unknown>>;
+  return rows.map(mapGate);
+}
 
-1. `projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx`
-   Justification : unique source des libellés shell (badge + COPILOT) encore en I2.
-2. `projects/sfia-studio/app/lib/ops1/fixtureReply.ts`
-   Justification : texte visible dans le journal runtime.
-3. `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx`
-   Justification : test de non-régression signalétique I3 (+ mocks I3 déjà requis par le working tree préexistant).
+export function getLatestGateDecision(
+  actionCandidateId: string,
+  actionVersion?: number,
+  db = openOps1Db(),
+): GateDecision | null {
+  if (actionVersion != null) {
+    const row = db
+      .prepare(
+        `SELECT * FROM gate_decisions
+         WHERE action_candidate_id = ? AND action_version = ?
+         ORDER BY created_at DESC LIMIT 1`,
+      )
+      .get(actionCandidateId, actionVersion) as
+      | Record<string, unknown>
+      | undefined;
+    return row ? mapGate(row) : null;
+  }
+  const row = db
+    .prepare(
+      `SELECT * FROM gate_decisions
+       WHERE action_candidate_id = ?
+       ORDER BY created_at DESC LIMIT 1`,
+    )
+    .get(actionCandidateId) as Record<string, unknown> | undefined;
+  return row ? mapGate(row) : null;
+}
 
-### Fichiers préexistants OPS1 I3 (hors correctif signalétique — non commités)
+export function qualifyActionNotRequired(
+  sessionId: string,
+  db = openOps1Db(),
+): { qualification: SessionQualification; event: SessionEvent } {
+  requireOpenSession(db, sessionId);
+  const now = nowIsoWithOffset();
+  db.prepare(
+    `INSERT INTO session_qualifications (session_id, qualification, updated_at)
+     VALUES (?, 'ACTION_NOT_REQUIRED', ?)
+     ON CONFLICT(session_id) DO UPDATE SET
+       qualification = excluded.qualification,
+       updated_at = excluded.updated_at`,
+  ).run(sessionId, now);
+  const event = insertEvent(
+    db,
+    sessionId,
+    "ACTION_QUALIFIED_NOT_REQUIRED",
+    "qualification=ACTION_NOT_REQUIRED",
+    now,
+  );
+  return {
+    qualification: {
+      sessionId,
+      qualification: "ACTION_NOT_REQUIRED",
+      updatedAt: now,
+    },
+    event,
+  };
+}
 
-`Ops1SessionScreen.tsx`, `ops1-session.module.css`, `actions.ts`, `db.ts`, `ids.ts`, `index.ts`, `types.ts`, `validation.ts`, `Ops1SessionScreen.test.tsx`, untracked `actionGate.ts`, `actionGate.test.ts`, `e2e/ops1-i3-action-gate.spec.ts`.
+const FIXTURE_DEFAULT = {
+  title: "Proposition fixture OPS1 I3",
+  objective:
+    "Valider une proposition d’action structurée hors chat, sans exécution.",
+  scopeSummary:
+    "Périmètre documentaire simulé — allowlist exécutable reportée à I4.",
+  riskSummary:
+    "Aucun effet Cursor/Git/filesystem. GO = validation uniquement.",
+};
 
-### Diff utile complet — `NouvelleDemandePageClient.tsx`
+export function createFixtureActionCandidate(
+  sessionId: string,
+  overrides?: Partial<
+    Pick<ActionCandidate, "title" | "objective" | "scopeSummary" | "riskSummary">
+  >,
+  db = openOps1Db(),
+): { candidate: ActionCandidate; event: SessionEvent } {
+  requireOpenSession(db, sessionId);
+  const now = nowIsoWithOffset();
+  const actionCandidateId = createActionCandidateId();
+  const title = overrides?.title?.trim() || FIXTURE_DEFAULT.title;
+  const objective = overrides?.objective?.trim() || FIXTURE_DEFAULT.objective;
+  const scopeSummary =
+    overrides?.scopeSummary?.trim() || FIXTURE_DEFAULT.scopeSummary;
+  const riskSummary =
+    overrides?.riskSummary?.trim() || FIXTURE_DEFAULT.riskSummary;
+
+  db.prepare(
+    `INSERT INTO session_qualifications (session_id, qualification, updated_at)
+     VALUES (?, 'ACTION_REQUIRED', ?)
+     ON CONFLICT(session_id) DO UPDATE SET
+       qualification = excluded.qualification,
+       updated_at = excluded.updated_at`,
+  ).run(sessionId, now);
+
+  db.prepare(
+    `INSERT INTO action_candidates (
+      action_candidate_id, session_id, status, title, objective,
+      scope_summary, risk_summary, version, created_at, updated_at
+    ) VALUES (?, ?, 'PROPOSED', ?, ?, ?, ?, 1, ?, ?)`,
+  ).run(
+    actionCandidateId,
+    sessionId,
+    title,
+    objective,
+    scopeSummary,
+    riskSummary,
+    now,
+    now,
+  );
+
+  const event = insertEvent(
+    db,
+    sessionId,
+    "ACTION_CANDIDATE_CREATED",
+    `actionCandidateId=${actionCandidateId};version=1;status=PROPOSED`,
+    now,
+  );
+
+  const candidate = getActionCandidate(actionCandidateId, db);
+  if (!candidate) {
+    throw new Ops1Error("PERSISTENCE", "ActionCandidate non relisible.");
+  }
+  return { candidate, event };
+}
+
+export function refineActionCandidate(
+  input: {
+    sessionId: string;
+    actionCandidateId: string;
+    title: string;
+    objective: string;
+    scopeSummary: string;
+    riskSummary: string;
+  },
+  db = openOps1Db(),
+): { candidate: ActionCandidate; event: SessionEvent } {
+  requireOpenSession(db, input.sessionId);
+  const existing = getActionCandidate(input.actionCandidateId, db);
+  if (!existing || existing.sessionId !== input.sessionId) {
+    throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
+  }
+  if (
+    existing.status === "ABANDONED" ||
+    existing.status === "REJECTED" ||
+    existing.status === "NOT_REQUIRED"
+  ) {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Ce candidat ne peut plus être raffiné dans cet état.",
+    );
+  }
+  if (existing.status === "APPROVED") {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Candidat déjà validé (GO). Utilisez CORRIGER pour rouvrir le raffinement.",
+    );
+  }
+
+  const now = nowIsoWithOffset();
+  const nextVersion = existing.version + 1;
+  const title = input.title.trim();
+  const objective = input.objective.trim();
+  const scopeSummary = input.scopeSummary.trim();
+  const riskSummary = input.riskSummary.trim();
+  if (!title || !objective || !scopeSummary || !riskSummary) {
+    throw new Ops1Error("VALIDATION", "Tous les champs action sont requis.");
+  }
+
+  db.prepare(
+    `UPDATE action_candidates
+     SET title = ?, objective = ?, scope_summary = ?, risk_summary = ?,
+         version = ?, status = 'UNDER_REVIEW', updated_at = ?
+     WHERE action_candidate_id = ?`,
+  ).run(
+    title,
+    objective,
+    scopeSummary,
+    riskSummary,
+    nextVersion,
+    now,
+    input.actionCandidateId,
+  );
+
+  const event = insertEvent(
+    db,
+    input.sessionId,
+    "ACTION_CANDIDATE_REFINED",
+    `actionCandidateId=${input.actionCandidateId};version=${nextVersion}`,
+    now,
+  );
+
+  const candidate = getActionCandidate(input.actionCandidateId, db);
+  if (!candidate) {
+    throw new Ops1Error("PERSISTENCE", "ActionCandidate non relisible.");
+  }
+  return { candidate, event };
+}
+
+function statusAfterGate(kind: GateDecisionKind): ActionCandidateStatus {
+  switch (kind) {
+    case "GO":
+      return "APPROVED";
+    case "NO_GO":
+      return "REJECTED";
+    case "CORRIGER":
+      return "CHANGES_REQUESTED";
+    case "ABANDONNER":
+      return "ABANDONED";
+  }
+}
+
+export function recordGateDecision(
+  input: {
+    sessionId: string;
+    actionCandidateId: string;
+    kind: GateDecisionKind;
+    motif?: string | null;
+  },
+  db = openOps1Db(),
+): {
+  decision: GateDecision;
+  candidate: ActionCandidate;
+  event: SessionEvent;
+  microcopy: string | null;
+} {
+  requireOpenSession(db, input.sessionId);
+  const existing = getActionCandidate(input.actionCandidateId, db);
+  if (!existing || existing.sessionId !== input.sessionId) {
+    throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
+  }
+  if (
+    existing.status === "ABANDONED" ||
+    existing.status === "REJECTED" ||
+    existing.status === "NOT_REQUIRED"
+  ) {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Aucune décision de gate possible sur ce candidat.",
+    );
+  }
+  if (existing.status === "APPROVED" && input.kind !== "CORRIGER") {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Candidat déjà validé — seul CORRIGER peut rouvrir le raffinement.",
+    );
+  }
+  if (
+    (existing.status === "PROPOSED" ||
+      existing.status === "UNDER_REVIEW" ||
+      existing.status === "CHANGES_REQUESTED") &&
+    input.kind === "CORRIGER"
+  ) {
+    // CORRIGER is allowed from review states to explicitly request changes
+  }
+
+  const now = nowIsoWithOffset();
+  const gateDecisionId = createGateDecisionId();
+  const nextStatus = statusAfterGate(input.kind);
+  const motif = input.motif?.trim() || null;
+
+  db.prepare(
+    `INSERT INTO gate_decisions (
+      gate_decision_id, session_id, action_candidate_id, action_version,
+      kind, motif, created_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+  ).run(
+    gateDecisionId,
+    input.sessionId,
+    input.actionCandidateId,
+    existing.version,
+    input.kind,
+    motif,
+    now,
+  );
+
+  db.prepare(
+    `UPDATE action_candidates
+     SET status = ?, updated_at = ?
+     WHERE action_candidate_id = ?`,
+  ).run(nextStatus, now, input.actionCandidateId);
+
+  const event = insertEvent(
+    db,
+    input.sessionId,
+    "GATE_DECISION_RECORDED",
+    `gateDecisionId=${gateDecisionId};kind=${input.kind};actionVersion=${existing.version};status=${nextStatus}`,
+    now,
+  );
+
+  const decision = getLatestGateDecision(
+    input.actionCandidateId,
+    existing.version,
+    db,
+  );
+  const candidate = getActionCandidate(input.actionCandidateId, db);
+  if (!decision || !candidate) {
+    throw new Ops1Error("PERSISTENCE", "Décision gate non relisible.");
+  }
+
+  return {
+    decision,
+    candidate,
+    event,
+    microcopy: input.kind === "GO" ? OPS1_I3_GO_MICROCOPY : null,
+  };
+}
+
+/**
+ * Fail-closed: I3 never executes. Always records EXECUTION_REFUSED.
+ */
+export function refuseExecutionAttempt(
+  sessionId: string,
+  reason = "I3 — aucune exécution autorisée",
+  db = openOps1Db(),
+): SessionEvent {
+  requireOpenSession(db, sessionId);
+  return insertEvent(
+    db,
+    sessionId,
+    "EXECUTION_REFUSED",
+    reason,
+  );
+}
+
+export function getI3Bundle(
+  sessionId: string,
+  db = openOps1Db(),
+): {
+  qualification: SessionQualification | null;
+  candidates: ActionCandidate[];
+  latestDecisionsByAction: Record<string, GateDecision | null>;
+} {
+  const candidates = listActionCandidates(sessionId, db);
+  const latestDecisionsByAction: Record<string, GateDecision | null> = {};
+  for (const c of candidates) {
+    latestDecisionsByAction[c.actionCandidateId] = getLatestGateDecision(
+      c.actionCandidateId,
+      c.version,
+      db,
+    );
+  }
+  return {
+    qualification: getSessionQualification(sessionId, db),
+    candidates,
+    latestDecisionsByAction,
+  };
+}
+```
+
+### `projects/sfia-studio/app/__tests__/ops1/actionGate.test.ts` (complet, 210 lignes)
+
+```typescript
+/** @vitest-environment node */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { createOpenSession, resetOps1DbForTests } from "@/lib/ops1/repository";
+import { openOps1Db } from "@/lib/ops1/db";
+import { Ops1Error } from "@/lib/ops1/errors";
+import {
+  createFixtureActionCandidate,
+  getI3Bundle,
+  qualifyActionNotRequired,
+  recordGateDecision,
+  refineActionCandidate,
+  refuseExecutionAttempt,
+} from "@/lib/ops1/actionGate";
+import { OPS1_I3_GO_MICROCOPY } from "@/lib/ops1/types";
+import {
+  assertActionCandidateId,
+  assertGateDecisionKind,
+} from "@/lib/ops1/validation";
+import { createActionCandidateId, createGateDecisionId } from "@/lib/ops1/ids";
+
+describe("ops1 I3 action gate domain", () => {
+  let tmpRoot: string;
+
+  beforeEach(() => {
+    resetOps1DbForTests();
+    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i3-"));
+    process.env.OPS1_EXEC_ROOT = tmpRoot;
+  });
+
+  afterEach(() => {
+    resetOps1DbForTests();
+    delete process.env.OPS1_EXEC_ROOT;
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  it("creates action and gate ids", () => {
+    expect(createActionCandidateId()).toMatch(/^ops1-act-/);
+    expect(createGateDecisionId()).toMatch(/^ops1-gate-/);
+    expect(assertActionCandidateId(createActionCandidateId())).toMatch(
+      /^ops1-act-/,
+    );
+    expect(assertGateDecisionKind("GO")).toBe("GO");
+    expect(() => assertGateDecisionKind("EXECUTE")).toThrow(Ops1Error);
+  });
+
+  it("qualifies ACTION_NOT_REQUIRED and keeps session OPEN", () => {
+    const { session } = createOpenSession();
+    const { qualification } = qualifyActionNotRequired(session.sessionId);
+    expect(qualification.qualification).toBe("ACTION_NOT_REQUIRED");
+    const bundle = getI3Bundle(session.sessionId);
+    expect(bundle.qualification?.qualification).toBe("ACTION_NOT_REQUIRED");
+    expect(bundle.candidates).toHaveLength(0);
+    const status = openOps1Db()
+      .prepare(`SELECT status FROM cycle_sessions WHERE session_id = ?`)
+      .get(session.sessionId) as { status: string };
+    expect(status.status).toBe("OPEN");
+  });
+
+  it("creates ActionCandidate distinct from chat and persists", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    expect(candidate.status).toBe("PROPOSED");
+    expect(candidate.version).toBe(1);
+    expect(candidate.title).toContain("fixture");
+    const reloaded = getI3Bundle(session.sessionId);
+    expect(reloaded.candidates).toHaveLength(1);
+    expect(reloaded.candidates[0].actionCandidateId).toBe(
+      candidate.actionCandidateId,
+    );
+    expect(reloaded.qualification?.qualification).toBe("ACTION_REQUIRED");
+  });
+
+  it("refines candidate and bumps version", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    const refined = refineActionCandidate({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      title: "Titre raffiné",
+      objective: "Objectif raffiné",
+      scopeSummary: "Scope raffiné",
+      riskSummary: "Risque raffiné",
+    });
+    expect(refined.candidate.version).toBe(2);
+    expect(refined.candidate.status).toBe("UNDER_REVIEW");
+    expect(refined.candidate.title).toBe("Titre raffiné");
+  });
+
+  it("records GO without execution side effects", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    const result = recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "GO",
+    });
+    expect(result.candidate.status).toBe("APPROVED");
+    expect(result.decision.kind).toBe("GO");
+    expect(result.microcopy).toBe(OPS1_I3_GO_MICROCOPY);
+    expect(result.decision.actionVersion).toBe(1);
+    const status = openOps1Db()
+      .prepare(`SELECT status FROM cycle_sessions WHERE session_id = ?`)
+      .get(session.sessionId) as { status: string };
+    expect(status.status).toBe("OPEN");
+  });
+
+  it("records NO_GO, CORRIGER, ABANDONNER", () => {
+    const { session: s1 } = createOpenSession();
+    const c1 = createFixtureActionCandidate(s1.sessionId).candidate;
+    expect(
+      recordGateDecision({
+        sessionId: s1.sessionId,
+        actionCandidateId: c1.actionCandidateId,
+        kind: "NO_GO",
+      }).candidate.status,
+    ).toBe("REJECTED");
+
+    const { session: s2 } = createOpenSession();
+    const c2 = createFixtureActionCandidate(s2.sessionId).candidate;
+    expect(
+      recordGateDecision({
+        sessionId: s2.sessionId,
+        actionCandidateId: c2.actionCandidateId,
+        kind: "CORRIGER",
+        motif: "à corriger",
+      }).candidate.status,
+    ).toBe("CHANGES_REQUESTED");
+
+    const { session: s3 } = createOpenSession();
+    const c3 = createFixtureActionCandidate(s3.sessionId).candidate;
+    expect(
+      recordGateDecision({
+        sessionId: s3.sessionId,
+        actionCandidateId: c3.actionCandidateId,
+        kind: "ABANDONNER",
+      }).candidate.status,
+    ).toBe("ABANDONED");
+  });
+
+  it("GO then CORRIGER reopens refinement; refine bumps version", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "GO",
+    });
+    recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "CORRIGER",
+      motif: "reopen",
+    });
+    const refined = refineActionCandidate({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      title: "v2",
+      objective: "obj",
+      scopeSummary: "scope",
+      riskSummary: "risk",
+    });
+    expect(refined.candidate.version).toBe(2);
+    expect(refined.candidate.status).toBe("UNDER_REVIEW");
+  });
+
+  it("isolates candidates between sessions", () => {
+    const a = createOpenSession().session;
+    const b = createOpenSession().session;
+    createFixtureActionCandidate(a.sessionId);
+    createFixtureActionCandidate(b.sessionId);
+    expect(getI3Bundle(a.sessionId).candidates).toHaveLength(1);
+    expect(getI3Bundle(b.sessionId).candidates).toHaveLength(1);
+    expect(getI3Bundle(a.sessionId).candidates[0].sessionId).toBe(a.sessionId);
+  });
+
+  it("refuses execution and records EXECUTION_REFUSED", () => {
+    const { session } = createOpenSession();
+    const event = refuseExecutionAttempt(session.sessionId);
+    expect(event.type).toBe("EXECUTION_REFUSED");
+    const row = openOps1Db()
+      .prepare(
+        `SELECT type FROM session_events WHERE session_id = ? AND type = ?`,
+      )
+      .get(session.sessionId, "EXECUTION_REFUSED") as { type: string };
+    expect(row.type).toBe("EXECUTION_REFUSED");
+  });
+
+  it("blocks refine after GO until CORRIGER", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "GO",
+    });
+    expect(() =>
+      refineActionCandidate({
+        sessionId: session.sessionId,
+        actionCandidateId: candidate.actionCandidateId,
+        title: "x",
+        objective: "y",
+        scopeSummary: "z",
+        riskSummary: "r",
+      }),
+    ).toThrow(Ops1Error);
+  });
+});
+```
+
+### `projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts` (complet, 180 lignes)
+
+```typescript
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-ops1-i3",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+async function createFixtureSession(page: import("@playwright/test").Page) {
+  await page.goto("/nouvelle-demande");
+  await page.evaluate(() => window.sessionStorage.clear());
+  await page.reload();
+  await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+  await page.getByTestId("ops1-create-mode-fixture").check();
+  await page.getByTestId("ops1-create-session").click();
+  await expect(page.getByTestId("ops1-open-session")).toBeVisible();
+  await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+}
+
+test.describe("OPS1 I3 action gate — fixture first / no execution", () => {
+  test("ACTION_NOT_REQUIRED after conversation", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-message-input").fill("Besoin d’info seulement");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-turn").first()).toBeVisible();
+
+    await page.getByTestId("ops1-i3-qualify-not-required").click();
+    await expect(page.getByTestId("ops1-i3-qualification")).toHaveAttribute(
+      "data-qualification",
+      "ACTION_NOT_REQUIRED",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByTestId("ops1-action-panel")).toHaveCount(0);
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "01-action-not-required.png"),
+      fullPage: true,
+    });
+  });
+
+  test("ActionCandidate outside chat + four gates + refine + GO + reload", async ({
+    page,
+  }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-message-input").fill("Proposition à structurer");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-turn").first()).toBeVisible();
+
+    await page.getByTestId("ops1-i3-create-candidate").click();
+    await expect(page.getByTestId("ops1-action-panel")).toBeVisible();
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON AUTORISÉE",
+    );
+    await expect(page.getByTestId("ops1-go-ne-exec")).toContainText(
+      "GO ≠ exécution",
+    );
+    await expect(page.getByTestId("ops1-gate-panel")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-go")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-no-go")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-corriger")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-abandonner")).toBeVisible();
+
+    // Chat GO does not create gate decision
+    await page.getByTestId("ops1-message-input").fill("GO");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-gate-no-decision")).toBeVisible();
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON AUTORISÉE",
+    );
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "02-candidate-proposed-unauthorized.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "03-gate-four-actions.png"),
+      fullPage: true,
+    });
+
+    // Refine
+    await page.getByTestId("ops1-action-title-input").fill("Titre raffiné I3");
+    await page
+      .getByTestId("ops1-action-objective-input")
+      .fill("Objectif raffiné I3");
+    await page.getByTestId("ops1-action-scope-input").fill("Périmètre raffiné");
+    await page.getByTestId("ops1-action-risk-input").fill("Risques raffinés");
+    await page.getByTestId("ops1-action-refine-submit").click();
+    await expect(page.getByTestId("ops1-action-version")).toHaveText("2");
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "UNDER_REVIEW",
+    );
+
+    // GO
+    await page.getByTestId("ops1-gate-go").click();
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON EXÉCUTÉE",
+    );
+    await expect(page.getByTestId("ops1-gate-go-microcopy")).toContainText(
+      "Aucune exécution n’est lancée dans I3",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByRole("button", { name: /^Exécuter$/i })).toHaveCount(
+      0,
+    );
+    await expect(
+      page.getByRole("button", { name: /Lancer Cursor/i }),
+    ).toHaveCount(0);
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "04-go-validated-not-executed.png"),
+      fullPage: true,
+    });
+
+    const sessionId = await page.getByTestId("ops1-session-id").innerText();
+    const actionId = await page.getByTestId("ops1-action-id").innerText();
+
+    await page.reload();
+    await expect(page.getByTestId("ops1-session-id")).toHaveText(sessionId);
+    await expect(page.getByTestId("ops1-action-id")).toHaveText(actionId);
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON EXÉCUTÉE",
+    );
+    await expect(page.getByTestId("ops1-gate-latest-decision")).toHaveAttribute(
+      "data-kind",
+      "GO",
+    );
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "05-after-reload.png"),
+      fullPage: true,
+    });
+
+    // CORRIGER returns to refinement
+    await page.getByTestId("ops1-gate-corriger").click();
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "CHANGES_REQUESTED",
+    );
+    await expect(page.getByTestId("ops1-action-refine")).toBeVisible();
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "06-corriger-refinement.png"),
+      fullPage: true,
+    });
+  });
+
+  test("NO_GO keeps session OPEN", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-i3-create-candidate").click();
+    await page.getByTestId("ops1-gate-no-go").click();
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "REJECTED",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByTestId("ops1-gate-panel")).toHaveCount(0);
+  });
+
+  test("ABANDONNER keeps session OPEN", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-i3-create-candidate").click();
+    await page.getByTestId("ops1-gate-abandonner").click();
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "ABANDONED",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+  });
+
+  test("execution attempt is refused", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-i3-refuse-execution").click();
+    await expect(page.getByTestId("ops1-i3-execution-refused")).toContainText(
+      "Exécution refusée",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+  });
+});
+```
+
+## 10. Diffs utiles — signalétique & petits modules
+
+### `fixtureReply.ts` + `NouvelleDemandePageClient.tsx` + `ids.ts` + `index.ts`
 
 ```diff
+commit 3607a3a9ca5fb880f7fcc0d42ca5f7c62d16af57
+Author: Morris Cleland <morris@macbook-air1.home>
+Date:   Tue Jul 21 14:13:23 2026 +0200
+
+    feat(sfia-studio): deliver OPS1 I3 action gate
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
 index c1f4fb4..5244a82 100644
 --- a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
@@ -184,11 +1050,6 @@ index c1f4fb4..5244a82 100644
        ]}
        copilot={COPILOT}
      >
-```
-
-### Diff utile complet — `fixtureReply.ts`
-
-```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts b/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
 index 8c70d74..de79cb7 100644
 --- a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
@@ -202,158 +1063,338 @@ index 8c70d74..de79cb7 100644
      "Aucun fournisseur GPT n’a été appelé.",
      `Echo borné : « ${preview} »`,
    ].join(" ");
+diff --git a/projects/sfia-studio/app/lib/ops1/ids.ts b/projects/sfia-studio/app/lib/ops1/ids.ts
+index 45f2b8d..cf0923e 100644
+--- a/projects/sfia-studio/app/lib/ops1/ids.ts
++++ b/projects/sfia-studio/app/lib/ops1/ids.ts
+@@ -15,3 +15,11 @@ export function createEventId(): string {
+ export function createAttemptId(): string {
+   return `ops1-att-${randomUUID()}`;
+ }
++
++export function createActionCandidateId(): string {
++  return `ops1-act-${randomUUID()}`;
++}
++
++export function createGateDecisionId(): string {
++  return `ops1-gate-${randomUUID()}`;
++}
+diff --git a/projects/sfia-studio/app/lib/ops1/index.ts b/projects/sfia-studio/app/lib/ops1/index.ts
+index b6ae73e..d9493e6 100644
+--- a/projects/sfia-studio/app/lib/ops1/index.ts
++++ b/projects/sfia-studio/app/lib/ops1/index.ts
+@@ -11,3 +11,11 @@ export {
+   mapGlobalModeBadgeTone,
+   resolveGlobalModePresentation,
+ } from "./globalModeBadge";
++export {
++  createFixtureActionCandidate,
++  getI3Bundle,
++  qualifyActionNotRequired,
++  recordGateDecision,
++  refineActionCandidate,
++  refuseExecutionAttempt,
++} from "./actionGate";
 ```
 
-### Diff utile — `globalModeBadge.ui.test.tsx` (section signalétique ajoutée)
+### Extraits critiques — `types.ts` microcopy I3
 
-```diff
-+  it("shows OPS1 I3 shell signaling (not obsolete I2)", async () => {
-+    render(<NouvelleDemandePageClient />);
-+    await waitFor(() => {
-+      expect(screen.getByTestId("ops1-increment-badge")).toHaveTextContent(
-+        "OPS1 I3",
-+      );
-+    });
-+    expect(screen.queryByText("OPS1 I2")).not.toBeInTheDocument();
-+    expect(screen.getByText("Parcours I3")).toBeInTheDocument();
-+    expect(
-+      screen.getByText(/OPS1 I3 — action gate \/ fixture first/),
-+    ).toBeInTheDocument();
-+    expect(screen.queryByText(/Parcours I2/)).not.toBeInTheDocument();
-+  });
+```typescript
+86-  | "ACTION_CANDIDATE_REFINED"
+87-  | "GATE_DECISION_RECORDED"
+88:  | "EXECUTION_REFUSED";
+89-
+90-export interface SessionEvent {
+--
+96-}
+97-
+98:/** I3 — qualification outcome for a session (no execution). */
+99-export type ActionQualification = "ACTION_REQUIRED" | "ACTION_NOT_REQUIRED";
+100-
+101-/**
+102: * I3 ActionCandidate lifecycle — no execution states.
+103- * GO → APPROVED means "validated for I4 preparation", never "executed".
+104- */
+105:export type ActionCandidateStatus =
+106-  | "PROPOSED"
+107-  | "UNDER_REVIEW"
+--
+112-  | "NOT_REQUIRED";
+113-
+114:export type GateDecisionKind = "GO" | "NO_GO" | "CORRIGER" | "ABANDONNER";
+115-
+116:export interface ActionCandidate {
+117-  actionCandidateId: string;
+118-  sessionId: string;
+119:  status: ActionCandidateStatus;
+120-  title: string;
+121-  objective: string;
+--
+127-}
+128-
+129:export interface GateDecision {
+130-  gateDecisionId: string;
+131-  sessionId: string;
+132-  actionCandidateId: string;
+133-  actionVersion: number;
+134:  kind: GateDecisionKind;
+135-  motif: string | null;
+136-  createdAt: string;
+--
+139-export interface SessionQualification {
+140-  sessionId: string;
+141:  qualification: ActionQualification;
+142-  updatedAt: string;
+143-}
+--
+152-
+153-/** I3 microcopy — GO never means execution started. */
+154:export const OPS1_I3_GO_MICROCOPY =
+155-  "Proposition validée. Aucune exécution n’est lancée dans I3.";
+156-
+157:export const OPS1_I3_STATUS_UNAUTHORIZED = "ACTION PROPOSÉE — NON AUTORISÉE";
+158:export const OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED =
+159-  "ACTION VALIDÉE — NON EXÉCUTÉE";
+160:export const OPS1_I3_GO_NE_PAS_EXEC =
+161-  "GO ≠ exécution — préparation I4 uniquement";
 ```
 
-(Le même fichier contient aussi des mocks/actions I3 et champs `qualification` / `candidates` ajoutés dans le working tree préexistant pour compatibilité avec `Ops1SessionScreen` I3.)
+### Extraits critiques — `actions.ts` refuseExecution
 
-## 7. Tests
+```typescript
+7-} from "./repository";
+8-import {
+9-  createFixtureActionCandidate,
+10:  getI3Bundle,
+11-  qualifyActionNotRequired,
+12-  recordGateDecision,
+13-  refineActionCandidate,
+14:  refuseExecutionAttempt,
+15-} from "./actionGate";
+16-import { Ops1Error, toSafeClientError } from "./errors";
+17-import {
+--
+115-    if (!bundle) {
+116-      throw new Ops1Error("NOT_FOUND", "Session introuvable.");
+117-    }
+118:    const i3 = getI3Bundle(id);
+119-    return {
+120-      ok: true,
+121-      data: {
+--
+234-  };
+235-}
+236-
+237:/* ─── OPS1 I3 — action candidate + gate (no execution) ─── */
+238-
+239:export async function ops1QualifyActionNotRequiredAction(input: {
+240-  sessionId: string;
+241-}): Promise<Ops1ActionResult<{ qualification: SessionQualification }>> {
+242-  try {
+--
+248-  }
+249-}
+250-
+251:export async function ops1CreateFixtureActionCandidateAction(input: {
+252-  sessionId: string;
+253-}): Promise<Ops1ActionResult<{ candidate: ActionCandidate }>> {
+254-  try {
+--
+285-  }
+286-}
+287-
+288:export async function ops1RecordGateDecisionAction(input: {
+289-  sessionId: string;
+290-  actionCandidateId: string;
+291-  kind: GateDecisionKind;
+--
+320-  }
+321-}
+322-
+323:/** Explicit fail-closed — I3 never executes Cursor/Git/filesystem. */
+324:export async function ops1RefuseExecutionAction(input: {
+325-  sessionId: string;
+326-}): Promise<Ops1ActionResult<{ refused: true; message: string }>> {
+327-  try {
+328-    const sessionId = assertSessionId(input.sessionId);
+329:    refuseExecutionAttempt(sessionId);
+330-    return {
+331-      ok: true,
+332-      data: {
+333-        refused: true,
+334-        message:
+335:          "Exécution refusée — I3 n’autorise aucune exécution Cursor, Git ou filesystem.",
+336-      },
+337-    };
+338-  } catch (error) {
+```
+
+### Extraits critiques — UI quatre gates (`Ops1SessionScreen.tsx`)
+
+```tsx
+27-} from "@/lib/ops1/types";
+28-import {
+29:  OPS1_I3_GO_MICROCOPY,
+30:  OPS1_I3_GO_NE_PAS_EXEC,
+31-  OPS1_I3_STATUS_UNAUTHORIZED,
+32-  OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED,
+--
+414-    <div className={styles.root} data-testid="ops1-session-root">
+415-      <header className={styles.header}>
+416:        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I3</p>
+417-        <h2 className={styles.title} id="ops1-session-heading">
+418-          Session OPS1
+--
+799-          >
+800-            <h2 id="ops1-i3-controls-title" className={styles.panelTitle}>
+801:              Qualification I3 (fixture)
+802-            </h2>
+803-            <p className={styles.muted}>
+--
+854-              </p>
+855-              <p className={styles.goNeExec} data-testid="ops1-go-ne-exec">
+856:                {OPS1_I3_GO_NE_PAS_EXEC}
+857-              </p>
+858-              <dl className={styles.meta}>
+--
+990-              <p className={styles.muted} data-testid="ops1-gate-lede">
+991-                Décision humaine explicite. Aucun effet Cursor, Git ou
+992:                filesystem. {OPS1_I3_GO_NE_PAS_EXEC}.
+993-              </p>
+994-              {activeDecision ? (
+--
+1010-              )}
+1011-              {gateMicrocopy ||
+1012:              (activeCandidate.status === "APPROVED" ? OPS1_I3_GO_MICROCOPY : null) ? (
+1013-                <p
+1014-                  className={styles.goMicrocopy}
+1015:                  data-testid="ops1-gate-go-microcopy"
+1016-                  role="status"
+1017-                >
+1018:                  {gateMicrocopy ?? OPS1_I3_GO_MICROCOPY}
+1019-                </p>
+1020-              ) : null}
+--
+1025-                      onClick={() => onGate("GO")}
+1026-                      disabled={pending}
+1027:                      data-testid="ops1-gate-go"
+1028-                    >
+1029-                      GO
+--
+1033-                      onClick={() => onGate("NO_GO")}
+1034-                      disabled={pending}
+1035:                      data-testid="ops1-gate-no-go"
+1036-                    >
+1037-                      NO_GO
+--
+1041-                      onClick={() => onGate("CORRIGER")}
+1042-                      disabled={pending}
+1043:                      data-testid="ops1-gate-corriger"
+1044-                    >
+1045-                      CORRIGER
+--
+1049-                      onClick={() => onGate("ABANDONNER")}
+1050-                      disabled={pending}
+1051:                      data-testid="ops1-gate-abandonner"
+1052-                    >
+1053-                      ABANDONNER
+--
+1060-                    onClick={() => onGate("CORRIGER")}
+1061-                    disabled={pending}
+1062:                    data-testid="ops1-gate-corriger"
+1063-                  >
+1064-                    CORRIGER
+```
+
+> Diff intégral du commit disponible : `git show 3607a3a9ca5fb880f7fcc0d42ca5f7c62d16af57` (Ops1SessionScreen ~964 lignes nettes de diff ; CSS +128 ; tests UI).
+
+## 11. Tests
 
 | Commande | Résultat |
 |----------|----------|
-| `npm run test -- __tests__/ops1/globalModeBadge.ui.test.tsx __tests__/ops1/globalModeBadge.test.ts __tests__/ops1/domain.test.ts __tests__/ops1/actionGate.test.ts __tests__/ops1/Ops1SessionScreen.test.tsx` | **PASS** — 5 files / 31 tests |
+| vitest OPS1 ciblé (5 fichiers) | **PASS** 31/31 |
 | `npm run typecheck` | **PASS** |
-| `npx playwright test e2e/ops1-i3-action-gate.spec.ts` | **PASS** — 5/5 |
-| `git diff --check` | **PASS** |
-| Lint global `next lint` | Non exécuté (non bloquant ; typecheck + tests ciblés OK) |
-| Suites e2e I2 historiques | Non exécutées (hors périmètre signalétique I3) |
+| `npm run lint` (`next lint`) | **PASS** — 0 warnings/errors ; notice dépréciation Next 16 |
+| `npx playwright test e2e/ops1-i3-action-gate.spec.ts` | **PASS** 5/5 |
+| `git diff --check` / `git diff --cached --check` | **PASS** |
 
-## 8. Preuves runtime
+## 12. Validation fonctionnelle
 
-| Élément | Valeur |
-|---------|--------|
-| Lancement | `npm run dev -- --hostname 127.0.0.1 --port 3020` puis Playwright / browser |
-| Environnement | macOS darwin 25.6.0 · Next.js local · Node via npm scripts |
-| Route | `/nouvelle-demande` |
-| Fixture | Mode fixture + create session + message + create ActionCandidate |
-| Viewport | 1440×900 (UI) ; e2e 1440×1024 |
+- Quatre gates exactes : GO, NO_GO, CORRIGER, ABANDONNER (`actionGate.ts` switch + UI testIds)
+- Fixture first : create mode fixture, e2e createFixtureSession
+- No execution : `refuseExecutionAttempt` → `EXECUTION_REFUSED` ; e2e « execution attempt is refused »
+- Allowlist I4 : texte « allowlist exécutable reportée à I4 » ; aucun module allowlist exécutable
 
-### Captures
+## 13. Validation visuelle
 
-| Chemin | Description |
-|--------|-------------|
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/00-before-empty-shell.png` | Avant : centre I3 + shell I2 |
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/00-before-evidence.json` | `hasOps1I2/hasParcoursI2/hasI2Perimeter=true`, `hasI3Kicker=true` |
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/01-after-empty-shell.png` | Après : shell + centre I3 alignés |
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/01-after-empty-evidence.json` | `hasOps1I2=false`, `incrementBadge=OPS1 I3` |
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/02-after-gates-full.png` | Après : journal + qualification + proposition + shell I3 |
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/02-after-gates-evidence.json` | Quatre gates présents ; fixture reply I3 ; aucun I2 |
-| `.tmp-sfia-review/screenshots-ops1-i3-ui/03-after-increment-badge.png` | Badge `OPS1 I3` |
-| `.tmp-sfia-review/screenshots-ops1-i3/03-gate-four-actions.png` | E2E — quatre gate actions |
+- Captures : `.tmp-sfia-review/screenshots-ops1-i3-ui/` (avant/après) + `screenshots-ops1-i3/` (e2e)
+- Signalétique shell + fixture en I3 (plus d’OPS1 I2 / Parcours I2 obsolètes)
+- `GO MORRIS — CORRECTIF UI OPS1 I3 VALIDÉ`
 
-### Comparaison visuelle I3 attendu vs runtime
-
-| Élément | Attendu (source Git) | Observé runtime après | Statut | Preuve |
-|---------|----------------------|------------------------|--------|--------|
-| Kicker | `… · I3` | `… · I3` | conforme | `01-after-empty-shell.png` |
-| Pill incrément | `OPS1 I3` | `OPS1 I3` | conforme | `03-after-increment-badge.png` |
-| Copilot subtitle | I3 action gate / fixture first | idem | conforme | `01-after-empty-shell.png` |
-| Parcours | `Parcours I3` | `Parcours I3` | conforme | idem |
-| PÉRIMÈTRE | I3 / no exec / allowlist I4 | idem | conforme | idem |
-| Fixture reply | `… OPS1 I3` | idem | conforme | `02-after-gates-full.png` |
-| Badge I2 obsolète | absent | absent | conforme | evidence JSON |
-| Quatre gates | GO / NO_GO / CORRIGER / ABANDONNER | présents | conforme | e2e + evidence |
-
-## 9. Non-régression métier
-
-| Exigence | Preuve |
-|----------|--------|
-| Option B / 4 gate actions | E2E PASS + `gateGo/NoGo/Corriger/Abandonner=true` |
-| Fixture first | Create mode fixture ; badges FIXTURE / NON LIVE |
-| No execution | Microcopy `GO ≠ exécution` ; test « execution attempt is refused » PASS |
-| Allowlist I4 différée | Texte périmètre + summary ; aucun module allowlist ajouté |
-| Logique métier inchangée ce cycle | Diff signalétique uniquement sur 3 fichiers UI/texte/test ; `actionGate.ts` / handlers non modifiés dans ce cycle |
-
-## 10. Garde-fous
-
-- Aucun commit projet
-- Aucun push projet / main
-- Aucune PR / merge
-- Aucun force push / reset / clean / `git add -A`
-- Fichiers protégés (template, méthode, publisher, CI) non modifiés
-- Aucun secret dans le diff
-- Racine `latest-chatgpt-review.md` non utilisée
-- Handoff uniquement via publisher canonique
-
-## 11. Review Handoff
+## 14. Commit projet
 
 | Champ | Valeur |
 |-------|--------|
-| Commande | `bash "$TMP_PUB" --source "$(pwd)/.tmp-sfia-review/chatgpt-review.md" --commit-message "docs(review-handoff): publish OPS1 I3 UI correction review" --handoff-worktree "/Users/morris/Projects/sfia-workspace/sfia-review-handoff"` avec `$TMP_PUB` = `git show origin/main:scripts/sfia/publish-review-handoff.sh` |
-| Source | `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/chatgpt-review.md` |
-| Commit message | `docs(review-handoff): publish OPS1 I3 UI correction review` |
-| Worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
-| Commit handoff | `11210b6cdee7b870402af958dfdc124ed75c694a` |
-| Blob distant | `75b58b50b2d74ccd62a17e4af58e1531445a0af4` (= source au moment de la publication initiale) |
-| Fichier distant | `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff` |
-| Racine non canonique | absente (confirmé) |
-| Retour branche initiale | `delivery/sfia-studio-ops1-i3-action-gate` @ `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` |
-| Note | Une republication éventuelle peut suivre pour synchroniser cette section 11 remplie ; le contenu substantiel (diffs, tests, captures) était déjà dans le commit `11210b6`. |
+| SHA | `3607a3a9ca5fb880f7fcc0d42ca5f7c62d16af57` |
+| Message | `feat(sfia-studio): deliver OPS1 I3 action gate` |
+| Fichiers | 15 (voir §6) |
+| Amend | non |
 
-## 12. Réserves
+## 15. Push projet
 
-### Bloquantes
+| Champ | Valeur |
+|-------|--------|
+| Branche | `origin/delivery/sfia-studio-ops1-i3-action-gate` |
+| SHA distant | `3607a3a9ca5fb880f7fcc0d42ca5f7c62d16af57` (= local) |
+| Mode | premier push `-u` ; pas de force |
+| FF | n/a (branche nouvelle) |
 
-Aucune.
+## 16. Pull Request
+
+| Champ | Valeur |
+|-------|--------|
+| Numéro | **#250** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/250 |
+| Base | `main` |
+| Head | `delivery/sfia-studio-ops1-i3-action-gate` |
+| Titre | `feat(sfia-studio): deliver OPS1 I3 action gate` |
+| État | **OPEN** (non draft, `mergedAt=null`) |
+| Body | Summary Option B + décisions Morris + scope + behavior + UI + test plan + guardrails + réserves + rollback + décision merge distincte |
+
+## 17. Garde-fous
+
+- Aucun merge de la PR
+- Aucune suppression de branche
+- Aucune modification de `main`
+- Aucune action I4 / allowlist / exécution réelle
+- Aucun fichier méthode / publisher / CI dans le commit
+- Aucun secret
+
+## 18. Réserves
 
 ### Non bloquantes
+- Main en avance (#249 publisher) sans overlap OPS1 — éventuel merge GitHub pourra créer un merge commit ; pas de rebase local.
+- `next lint` déprécié (Next 16) — lint PASS aujourd’hui.
 
-- Branche projet absente de `origin` (locale only) — attendu tant qu’aucun GO push.
-- Working tree contient encore l’intégralité du delivery I3 non commité (hors signalétique) — commit projet sous GO Morris distinct.
-- Lint `next lint` non relancé ce cycle.
-- README handoff / docs peuvent encore mentionner cleanup racine comme « requires GO » (hors périmètre UI).
+### Bloquantes
+Aucune.
 
-### Dette / I4
+## 19. Décision Morris suivante
 
-- Allowlist exécutable toujours différée à I4.
-- Exécution réelle hors scope.
+**GO MERGE** distinct après revue ChatGPT / Morris du handoff et de la PR #250 — **interdit** dans ce cycle.
 
-## 13. Décision attendue de Morris
+## 20. Review Handoff (métadonnées publication)
 
-1. Valider le correctif de signalétique (captures + handoff).
-2. Décider séparément d’un **GO commit** (éventuellement bundlé avec le delivery I3 métier déjà local) puis push / PR.
-3. Ne pas merger sans GO distinct.
+| Champ | Valeur |
+|-------|--------|
+| Source | `.tmp-sfia-review/chatgpt-review.md` |
+| Publisher | `scripts/sfia/publish-review-handoff.sh` depuis `origin/main` |
+| Worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
+| Commit message | `docs(review-handoff): publish OPS1 I3 delivery PR review` |
+| Verdict / SHA / blob | *(complétés après publication)* |
 
-## 14. Verdict final
+## 21. Verdict final
 
-**READY FOR MORRIS REVIEW — OPS1 I3 VISUAL SIGNALING ALIGNED**
+**PR OPEN — READY FOR CHATGPT REVIEW**
 
----
-
-## Annexe — Local Git Truth Check (extrait)
-
-```
-pwd: /Users/morris/Projects/sfia-workspace
-remote: origin https://github.com/mcleland147/sfia-workspace.git
-branch: delivery/sfia-studio-ops1-i3-action-gate
-HEAD: ae39a8c0375c2f8980d3ee394fa679dee8b06c0f
-origin/main: 853959cafd85c207878b654dc3300770fed6fc08
-staged: (vide)
-branche locale OPS1 I3: présente ; origin/delivery/… : absente
-```
-
-## Annexe — accessibilité ciblée
-
-- Structure sémantique shell inchangée (`StudioShell` / `Topbar` / `CopilotPanel`).
-- Badge `OPS1 I3` textuel (pas couleur seule) ; `testId=ops1-increment-badge`.
-- Aria labels navigation non modifiés.
-- Aucun chantier a11y global.
+(READY FOR MERGE interdit.)
