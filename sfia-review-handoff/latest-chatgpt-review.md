@@ -297,14 +297,17 @@ index 8c70d74..de79cb7 100644
 
 | Champ | Valeur |
 |-------|--------|
-| Commande | `bash <(git show origin/main:scripts/sfia/publish-review-handoff.sh)` via script extrait — voir exécution ci-dessous |
+| Commande | `bash "$TMP_PUB" --source "$(pwd)/.tmp-sfia-review/chatgpt-review.md" --commit-message "docs(review-handoff): publish OPS1 I3 UI correction review" --handoff-worktree "/Users/morris/Projects/sfia-workspace/sfia-review-handoff"` avec `$TMP_PUB` = `git show origin/main:scripts/sfia/publish-review-handoff.sh` |
 | Source | `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/chatgpt-review.md` |
 | Commit message | `docs(review-handoff): publish OPS1 I3 UI correction review` |
 | Worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| Verdict publisher | *(rempli après publication)* |
-| SHA distant | *(rempli après publication)* |
+| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Commit handoff | `11210b6cdee7b870402af958dfdc124ed75c694a` |
+| Blob distant | `75b58b50b2d74ccd62a17e4af58e1531445a0af4` (= source au moment de la publication initiale) |
 | Fichier distant | `sfia-review-handoff/latest-chatgpt-review.md` sur `origin/sfia/review-handoff` |
-| Retour branche initiale | `delivery/sfia-studio-ops1-i3-action-gate` |
+| Racine non canonique | absente (confirmé) |
+| Retour branche initiale | `delivery/sfia-studio-ops1-i3-action-gate` @ `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` |
+| Note | Une republication éventuelle peut suivre pour synchroniser cette section 11 remplie ; le contenu substantiel (diffs, tests, captures) était déjà dans le commit `11210b6`. |
 
 ## 12. Réserves
 
