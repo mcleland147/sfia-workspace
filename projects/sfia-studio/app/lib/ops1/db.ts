@@ -61,6 +61,49 @@ CREATE INDEX IF NOT EXISTS idx_turns_session_seq
 
 CREATE INDEX IF NOT EXISTS idx_attempts_session
   ON conversation_attempts(session_id, request_started_at);
+
+CREATE TABLE IF NOT EXISTS session_qualifications (
+  session_id TEXT PRIMARY KEY NOT NULL,
+  qualification TEXT NOT NULL
+    CHECK (qualification IN ('ACTION_REQUIRED', 'ACTION_NOT_REQUIRED')),
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
+);
+
+CREATE TABLE IF NOT EXISTS action_candidates (
+  action_candidate_id TEXT PRIMARY KEY NOT NULL,
+  session_id TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN (
+    'PROPOSED', 'UNDER_REVIEW', 'APPROVED', 'REJECTED',
+    'CHANGES_REQUESTED', 'ABANDONED', 'NOT_REQUIRED'
+  )),
+  title TEXT NOT NULL,
+  objective TEXT NOT NULL,
+  scope_summary TEXT NOT NULL,
+  risk_summary TEXT NOT NULL,
+  version INTEGER NOT NULL CHECK (version >= 1),
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
+);
+
+CREATE TABLE IF NOT EXISTS gate_decisions (
+  gate_decision_id TEXT PRIMARY KEY NOT NULL,
+  session_id TEXT NOT NULL,
+  action_candidate_id TEXT NOT NULL,
+  action_version INTEGER NOT NULL CHECK (action_version >= 1),
+  kind TEXT NOT NULL CHECK (kind IN ('GO', 'NO_GO', 'CORRIGER', 'ABANDONNER')),
+  motif TEXT,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id),
+  FOREIGN KEY (action_candidate_id) REFERENCES action_candidates(action_candidate_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_actions_session
+  ON action_candidates(session_id, updated_at);
+
+CREATE INDEX IF NOT EXISTS idx_gates_action
+  ON gate_decisions(action_candidate_id, created_at);
 `;
 
 let singleton: DatabaseSync | null = null;

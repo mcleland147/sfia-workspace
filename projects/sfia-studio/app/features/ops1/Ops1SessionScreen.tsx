@@ -4,19 +4,34 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { StatusPill } from "@/components/ui/StatusPill";
 import {
+  ops1CreateFixtureActionCandidateAction,
   ops1CreateSessionAction,
   ops1GetLiveConfigAction,
   ops1GetSessionAction,
+  ops1QualifyActionNotRequiredAction,
+  ops1RecordGateDecisionAction,
+  ops1RefineActionCandidateAction,
+  ops1RefuseExecutionAction,
   ops1SendMessageAction,
 } from "@/lib/ops1/actions";
 import type {
+  ActionCandidate,
   ConversationMode,
   ConversationUsageCounters,
   CycleSession,
+  GateDecision,
+  GateDecisionKind,
   JournalTurn,
   ProviderPresentation,
+  SessionQualification,
 } from "@/lib/ops1/types";
-import { OPS1_MAX_MESSAGE_CHARS } from "@/lib/ops1/types";
+import {
+  OPS1_I3_GO_MICROCOPY,
+  OPS1_I3_GO_NE_PAS_EXEC,
+  OPS1_I3_STATUS_UNAUTHORIZED,
+  OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED,
+  OPS1_MAX_MESSAGE_CHARS,
+} from "@/lib/ops1/types";
 import type { GlobalModeContext } from "@/lib/ops1/globalModeBadge";
 import styles from "./ops1-session.module.css";
 
@@ -41,6 +56,37 @@ function roleLabel(
   return "Assistant live";
 }
 
+function actionStatusLabel(
+  candidate: ActionCandidate,
+  decision: GateDecision | null,
+): string {
+  if (candidate.status === "APPROVED" || decision?.kind === "GO") {
+    return OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED;
+  }
+  if (candidate.status === "NOT_REQUIRED") {
+    return "ACTION NON REQUISE";
+  }
+  if (candidate.status === "REJECTED") {
+    return "ACTION REFUSÉE (NO_GO)";
+  }
+  if (candidate.status === "ABANDONED") {
+    return "ACTION ABANDONNÉE";
+  }
+  if (candidate.status === "CHANGES_REQUESTED") {
+    return "CORRECTIONS DEMANDÉES";
+  }
+  return OPS1_I3_STATUS_UNAUTHORIZED;
+}
+
+function gateAvailable(candidate: ActionCandidate): boolean {
+  return (
+    candidate.status === "PROPOSED" ||
+    candidate.status === "UNDER_REVIEW" ||
+    candidate.status === "CHANGES_REQUESTED" ||
+    candidate.status === "APPROVED"
+  );
+}
+
 export function Ops1SessionScreen({
   onGlobalModeContextChange,
 }: {
@@ -60,6 +106,20 @@ export function Ops1SessionScreen({
   const [lastUsage, setLastUsage] = useState<ConversationUsageCounters | null>(
     null,
   );
+  const [qualification, setQualification] =
+    useState<SessionQualification | null>(null);
+  const [candidates, setCandidates] = useState<ActionCandidate[]>([]);
+  const [decisionsByAction, setDecisionsByAction] = useState<
+    Record<string, GateDecision | null>
+  >({});
+  const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
+  const [execRefuseMsg, setExecRefuseMsg] = useState<string | null>(null);
+  const [refineDraft, setRefineDraft] = useState({
+    title: "",
+    objective: "",
+    scopeSummary: "",
+    riskSummary: "",
+  });
   const [pending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -79,24 +139,53 @@ export function Ops1SessionScreen({
     onGlobalModeContextChange,
   ]);
 
-  const loadBundle = useCallback(async (sessionId: string) => {
-    const result = await ops1GetSessionAction(sessionId);
-    if (!result.ok) {
-      setError(result.message);
-      setSession(null);
-      setTurns([]);
-      setPhase("idle");
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(STORAGE_KEY);
+  const applyI3 = useCallback(
+    (data: {
+      qualification: SessionQualification | null;
+      candidates: ActionCandidate[];
+      latestDecisionsByAction: Record<string, GateDecision | null>;
+    }) => {
+      setQualification(data.qualification);
+      setCandidates(data.candidates);
+      setDecisionsByAction(data.latestDecisionsByAction);
+      const latest = data.candidates[data.candidates.length - 1];
+      if (latest) {
+        setRefineDraft({
+          title: latest.title,
+          objective: latest.objective,
+          scopeSummary: latest.scopeSummary,
+          riskSummary: latest.riskSummary,
+        });
       }
-      return;
-    }
-    setSession(result.data.session);
-    setTurns(result.data.turns);
-    setPresentation(result.data.presentation);
-    setError(null);
-    setPhase("open");
-  }, []);
+    },
+    [],
+  );
+
+  const loadBundle = useCallback(
+    async (sessionId: string) => {
+      const result = await ops1GetSessionAction(sessionId);
+      if (!result.ok) {
+        setError(result.message);
+        setSession(null);
+        setTurns([]);
+        setQualification(null);
+        setCandidates([]);
+        setDecisionsByAction({});
+        setPhase("idle");
+        if (typeof window !== "undefined") {
+          window.sessionStorage.removeItem(STORAGE_KEY);
+        }
+        return;
+      }
+      setSession(result.data.session);
+      setTurns(result.data.turns);
+      setPresentation(result.data.presentation);
+      applyI3(result.data);
+      setError(null);
+      setPhase("open");
+    },
+    [applyI3],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -132,6 +221,11 @@ export function Ops1SessionScreen({
     }
     setError(null);
     setLastUsage(null);
+    setGateMicrocopy(null);
+    setExecRefuseMsg(null);
+    setQualification(null);
+    setCandidates([]);
+    setDecisionsByAction({});
     setPhase("creating");
     startTransition(async () => {
       const result = await ops1CreateSessionAction({ mode: createMode });
@@ -190,7 +284,107 @@ export function Ops1SessionScreen({
     setError(null);
     setLastUsage(null);
     setPresentation("fixture");
+    setQualification(null);
+    setCandidates([]);
+    setDecisionsByAction({});
+    setGateMicrocopy(null);
+    setExecRefuseMsg(null);
     setPhase("idle");
+  };
+
+  const onQualifyNotRequired = () => {
+    if (!session) return;
+    setError(null);
+    startTransition(async () => {
+      const result = await ops1QualifyActionNotRequiredAction({
+        sessionId: session.sessionId,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setGateMicrocopy(null);
+      await loadBundle(session.sessionId);
+    });
+  };
+
+  const onCreateCandidate = () => {
+    if (!session) return;
+    setError(null);
+    startTransition(async () => {
+      const result = await ops1CreateFixtureActionCandidateAction({
+        sessionId: session.sessionId,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setGateMicrocopy(null);
+      await loadBundle(session.sessionId);
+    });
+  };
+
+  const onRefine = () => {
+    if (!session) return;
+    const candidate = candidates[candidates.length - 1];
+    if (!candidate) return;
+    setError(null);
+    startTransition(async () => {
+      const result = await ops1RefineActionCandidateAction({
+        sessionId: session.sessionId,
+        actionCandidateId: candidate.actionCandidateId,
+        ...refineDraft,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setGateMicrocopy(null);
+      await loadBundle(session.sessionId);
+    });
+  };
+
+  const onGate = (kind: GateDecisionKind) => {
+    if (!session) return;
+    const candidate = candidates[candidates.length - 1];
+    if (!candidate) return;
+    setError(null);
+    startTransition(async () => {
+      const result = await ops1RecordGateDecisionAction({
+        sessionId: session.sessionId,
+        actionCandidateId: candidate.actionCandidateId,
+        kind,
+        motif:
+          kind === "CORRIGER"
+            ? "Corrections demandées par Morris"
+            : kind === "NO_GO"
+              ? "Proposition refusée"
+              : kind === "ABANDONNER"
+                ? "Proposition abandonnée"
+                : null,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setGateMicrocopy(result.data.microcopy);
+      await loadBundle(session.sessionId);
+    });
+  };
+
+  const onRefuseExecution = () => {
+    if (!session) return;
+    setError(null);
+    startTransition(async () => {
+      const result = await ops1RefuseExecutionAction({
+        sessionId: session.sessionId,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setExecRefuseMsg(result.data.message);
+    });
   };
 
   const lockedMode = session?.conversationMode;
@@ -198,17 +392,34 @@ export function Ops1SessionScreen({
   const isLiveSession = lockedMode === "live";
   const isTestPresentation = presentation === "test_provider";
   const isOpenAiLive = presentation === "openai_live";
+  const activeCandidate = candidates[candidates.length - 1] ?? null;
+  const activeDecision = activeCandidate
+    ? (decisionsByAction[activeCandidate.actionCandidateId] ?? null)
+    : null;
+  const canRefine =
+    activeCandidate &&
+    (activeCandidate.status === "PROPOSED" ||
+      activeCandidate.status === "UNDER_REVIEW" ||
+      activeCandidate.status === "CHANGES_REQUESTED");
+  const canGate = activeCandidate && gateAvailable(activeCandidate);
+  const showGoButtons =
+    activeCandidate &&
+    (activeCandidate.status === "PROPOSED" ||
+      activeCandidate.status === "UNDER_REVIEW" ||
+      activeCandidate.status === "CHANGES_REQUESTED");
+  const showCorrigerOnly =
+    activeCandidate && activeCandidate.status === "APPROVED";
 
   return (
     <div className={styles.root} data-testid="ops1-session-root">
       <header className={styles.header}>
-        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I2</p>
+        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I3</p>
         <h2 className={styles.title} id="ops1-session-heading">
           Session OPS1
         </h2>
         <p className={styles.lede}>
-          Conversation multi-tours. Le mode est choisi à la création puis
-          verrouillé. Aucune exécution, aucun gate, aucun Cursor depuis le chat.
+          Conversation, proposition d’action et gate Morris — sans exécution.
+          GO valide la proposition pour préparer I4 ; GO ≠ exécution.
         </p>
         <div className={styles.badgeRow} aria-live="polite">
           {!session ? (
@@ -258,7 +469,11 @@ export function Ops1SessionScreen({
               <StatusPill tone="blueFlush">LIVE DISPONIBLE</StatusPill>
             </span>
           ) : null}
-          {session ? <StatusPill tone="green">OPEN</StatusPill> : null}
+          {session ? (
+            <span data-testid="ops1-badge-session-open">
+              <StatusPill tone="green">OPEN</StatusPill>
+            </span>
+          ) : null}
         </div>
       </header>
 
@@ -355,225 +570,538 @@ export function Ops1SessionScreen({
       ) : null}
 
       {session ? (
-        <section
-          className={styles.panel}
-          data-testid="ops1-open-session"
-          aria-labelledby="ops1-open-title"
-        >
-          <h2 id="ops1-open-title" className={styles.panelTitle}>
-            Session ouverte
-          </h2>
-          <dl className={styles.meta}>
-            <div>
-              <dt>sessionId</dt>
-              <dd data-testid="ops1-session-id">{session.sessionId}</dd>
-            </div>
-            <div>
-              <dt>Statut</dt>
-              <dd data-testid="ops1-session-status">{session.status}</dd>
-            </div>
-            <div>
-              <dt>Créée</dt>
-              <dd>{session.createdAt}</dd>
-            </div>
-            <div>
-              <dt>Projet</dt>
-              <dd>{session.projectKey}</dd>
-            </div>
-          </dl>
-
-          <div
-            className={styles.lockedMode}
-            data-testid="ops1-mode-locked"
-            aria-live="polite"
+        <>
+          <section
+            className={styles.panel}
+            data-testid="ops1-open-session"
+            aria-labelledby="ops1-open-title"
           >
-            <p className={styles.lockedModeLabel} data-testid="ops1-mode-label">
-              {session.conversationMode === "fixture"
-                ? "Mode de session : FIXTURE — verrouillé"
-                : isTestPresentation
-                  ? "Mode de session : LIVE TECHNIQUE (TEST) — verrouillé"
-                  : "Mode de session : GPT LIVE — verrouillé"}
-            </p>
-            <p className={styles.hint} data-testid="ops1-mode-lock-hint">
-              Le mode ne peut pas être modifié dans cette session. Créez une
-              nouvelle session pour changer de mode.
-            </p>
-            {/* Radios disabled — non-interactive lock proof for E2E */}
-            <div
-              className={styles.modeRow}
-              role="group"
-              aria-label="Mode de session verrouillé"
-              data-testid="ops1-mode-selector"
-            >
-              <label className={styles.modeOption}>
-                <input
-                  type="radio"
-                  name="ops1-mode-locked"
-                  value="fixture"
-                  checked={session.conversationMode === "fixture"}
-                  disabled
-                  data-testid="ops1-mode-fixture"
-                  readOnly
-                />
-                Fixture / non live
-              </label>
-              <label className={styles.modeOption}>
-                <input
-                  type="radio"
-                  name="ops1-mode-locked"
-                  value="live"
-                  checked={session.conversationMode === "live"}
-                  disabled
-                  data-testid="ops1-mode-live"
-                  readOnly
-                />
-                Live GPT
-              </label>
-            </div>
-          </div>
-
-          {isTestPresentation ? (
-            <p className={styles.warn} data-testid="ops1-test-env-notice">
-              Environnement de test — aucun appel OpenAI.
-            </p>
-          ) : null}
-
-          <div className={styles.journal} data-testid="ops1-journal">
-            <h3 className={styles.journalTitle}>Journal</h3>
-            {turns.length === 0 ? (
-              <p className={styles.muted} data-testid="ops1-journal-empty">
-                Aucun tour pour l’instant.
-              </p>
-            ) : (
-              <ol className={styles.turnList}>
-                {turns.map((turn) => (
-                  <li
-                    key={turn.turnId}
-                    className={
-                      turn.role === "user"
-                        ? styles.turnUser
-                        : styles.turnAssistant
-                    }
-                    data-testid="ops1-turn"
-                    data-role={turn.role}
-                    data-sequence={turn.sequence}
-                    data-fixture={turn.fixture ? "1" : "0"}
-                  >
-                    <div className={styles.turnMeta}>
-                      <span>#{turn.sequence}</span>
-                      <span>{roleLabel(turn.role, presentation)}</span>
-                      {turn.role === "assistant_fixture" ? (
-                        <span className={styles.fixtureTag}>
-                          FIXTURE / NON LIVE
-                        </span>
-                      ) : null}
-                      {turn.role === "assistant_live" &&
-                      isTestPresentation ? (
-                        <span className={styles.testTag}>TEST / FAKE</span>
-                      ) : null}
-                      {turn.role === "assistant_live" && isOpenAiLive ? (
-                        <span className={styles.liveTag}>GPT LIVE</span>
-                      ) : null}
-                    </div>
-                    <p className={styles.turnContent}>{turn.content}</p>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </div>
-
-          {lastUsage ? (
-            <dl className={styles.usage} data-testid="ops1-usage">
+            <h2 id="ops1-open-title" className={styles.panelTitle}>
+              Conversation
+            </h2>
+            <dl className={styles.meta}>
               <div>
-                <dt>Provider</dt>
-                <dd>{lastUsage.provider}</dd>
+                <dt>sessionId</dt>
+                <dd data-testid="ops1-session-id">{session.sessionId}</dd>
               </div>
               <div>
-                <dt>Modèle</dt>
-                <dd>{lastUsage.model ?? "—"}</dd>
+                <dt>Statut</dt>
+                <dd data-testid="ops1-session-status">{session.status}</dd>
               </div>
               <div>
-                <dt>Tokens in/out/total</dt>
-                <dd>
-                  {lastUsage.inputTokens ?? "—"} /{" "}
-                  {lastUsage.outputTokens ?? "—"} /{" "}
-                  {lastUsage.totalTokens ?? "—"}
-                </dd>
+                <dt>Créée</dt>
+                <dd>{session.createdAt}</dd>
               </div>
               <div>
-                <dt>Durée (ms)</dt>
-                <dd>{lastUsage.durationMs ?? "—"}</dd>
+                <dt>Projet</dt>
+                <dd>{session.projectKey}</dd>
               </div>
             </dl>
-          ) : null}
 
-          {error ? (
-            <p className={styles.error} role="alert" data-testid="ops1-error">
-              {error}
-            </p>
-          ) : null}
+            <div
+              className={styles.lockedMode}
+              data-testid="ops1-mode-locked"
+              aria-live="polite"
+            >
+              <p
+                className={styles.lockedModeLabel}
+                data-testid="ops1-mode-label"
+              >
+                {session.conversationMode === "fixture"
+                  ? "Mode de session : FIXTURE — verrouillé"
+                  : isTestPresentation
+                    ? "Mode de session : LIVE TECHNIQUE (TEST) — verrouillé"
+                    : "Mode de session : GPT LIVE — verrouillé"}
+              </p>
+              <p className={styles.hint} data-testid="ops1-mode-lock-hint">
+                Le mode ne peut pas être modifié dans cette session. Créez une
+                nouvelle session pour changer de mode.
+              </p>
+              <div
+                className={styles.modeRow}
+                role="group"
+                aria-label="Mode de session verrouillé"
+                data-testid="ops1-mode-selector"
+              >
+                <label className={styles.modeOption}>
+                  <input
+                    type="radio"
+                    name="ops1-mode-locked"
+                    value="fixture"
+                    checked={session.conversationMode === "fixture"}
+                    disabled
+                    data-testid="ops1-mode-fixture"
+                    readOnly
+                  />
+                  Fixture / non live
+                </label>
+                <label className={styles.modeOption}>
+                  <input
+                    type="radio"
+                    name="ops1-mode-locked"
+                    value="live"
+                    checked={session.conversationMode === "live"}
+                    disabled
+                    data-testid="ops1-mode-live"
+                    readOnly
+                  />
+                  Live GPT
+                </label>
+              </div>
+            </div>
 
-          {phase === "sending" ? (
-            <p className={styles.muted} data-testid="ops1-sending">
-              Envoi en cours…
-            </p>
-          ) : null}
+            {isTestPresentation ? (
+              <p className={styles.warn} data-testid="ops1-test-env-notice">
+                Environnement de test — aucun appel OpenAI.
+              </p>
+            ) : null}
 
-          <form
-            className={styles.composer}
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSend();
-            }}
+            <div className={styles.journal} data-testid="ops1-journal">
+              <h3 className={styles.journalTitle}>Journal</h3>
+              {turns.length === 0 ? (
+                <p className={styles.muted} data-testid="ops1-journal-empty">
+                  Aucun tour pour l’instant.
+                </p>
+              ) : (
+                <ol className={styles.turnList}>
+                  {turns.map((turn) => (
+                    <li
+                      key={turn.turnId}
+                      className={
+                        turn.role === "user"
+                          ? styles.turnUser
+                          : styles.turnAssistant
+                      }
+                      data-testid="ops1-turn"
+                      data-role={turn.role}
+                      data-sequence={turn.sequence}
+                      data-fixture={turn.fixture ? "1" : "0"}
+                    >
+                      <div className={styles.turnMeta}>
+                        <span>#{turn.sequence}</span>
+                        <span>{roleLabel(turn.role, presentation)}</span>
+                        {turn.role === "assistant_fixture" ? (
+                          <span className={styles.fixtureTag}>
+                            FIXTURE / NON LIVE
+                          </span>
+                        ) : null}
+                        {turn.role === "assistant_live" &&
+                        isTestPresentation ? (
+                          <span className={styles.testTag}>TEST / FAKE</span>
+                        ) : null}
+                        {turn.role === "assistant_live" && isOpenAiLive ? (
+                          <span className={styles.liveTag}>GPT LIVE</span>
+                        ) : null}
+                      </div>
+                      <p className={styles.turnContent}>{turn.content}</p>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+
+            {lastUsage ? (
+              <dl className={styles.usage} data-testid="ops1-usage">
+                <div>
+                  <dt>Provider</dt>
+                  <dd>{lastUsage.provider}</dd>
+                </div>
+                <div>
+                  <dt>Modèle</dt>
+                  <dd>{lastUsage.model ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt>Tokens in/out/total</dt>
+                  <dd>
+                    {lastUsage.inputTokens ?? "—"} /{" "}
+                    {lastUsage.outputTokens ?? "—"} /{" "}
+                    {lastUsage.totalTokens ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Durée (ms)</dt>
+                  <dd>{lastUsage.durationMs ?? "—"}</dd>
+                </div>
+              </dl>
+            ) : null}
+
+            {error ? (
+              <p className={styles.error} role="alert" data-testid="ops1-error">
+                {error}
+              </p>
+            ) : null}
+
+            {phase === "sending" ? (
+              <p className={styles.muted} data-testid="ops1-sending">
+                Envoi en cours…
+              </p>
+            ) : null}
+
+            <form
+              className={styles.composer}
+              onSubmit={(e) => {
+                e.preventDefault();
+                onSend();
+              }}
+            >
+              <label className={styles.label} htmlFor="ops1-message">
+                Message (
+                {isFixtureSession
+                  ? "fixture locale"
+                  : isTestPresentation
+                    ? "test provider / non live"
+                    : "GPT live serveur"}
+                )
+              </label>
+              <textarea
+                id="ops1-message"
+                className={styles.textarea}
+                data-testid="ops1-message-input"
+                value={draft}
+                maxLength={OPS1_MAX_MESSAGE_CHARS}
+                rows={4}
+                disabled={pending || phase === "sending"}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="Saisir un tour utilisateur…"
+              />
+              <div className={styles.composerActions}>
+                <CtaButton
+                  type="submit"
+                  disabled={pending || !draft.trim()}
+                  data-testid="ops1-send-message"
+                >
+                  {isFixtureSession
+                    ? "Envoyer (fixture)"
+                    : isTestPresentation
+                      ? "Envoyer (test provider)"
+                      : "Envoyer (GPT live)"}
+                </CtaButton>
+                <CtaButton
+                  variant="secondary"
+                  onClick={onClearLocalPointer}
+                  data-testid="ops1-clear-pointer"
+                >
+                  Revenir à l’écran vide
+                </CtaButton>
+              </div>
+              <p className={styles.hint} data-testid="ops1-no-execution-hint">
+                Un message du type « GO » ou « exécute Cursor » reste du texte
+                conversationnel — il ne crée aucune décision de gate. Max{" "}
+                {OPS1_MAX_MESSAGE_CHARS} caractères.
+              </p>
+            </form>
+          </section>
+
+          <section
+            className={`${styles.panel} ${styles.i3Panel}`}
+            data-testid="ops1-i3-controls"
+            aria-labelledby="ops1-i3-controls-title"
           >
-            <label className={styles.label} htmlFor="ops1-message">
-              Message (
-              {isFixtureSession
-                ? "fixture locale"
-                : isTestPresentation
-                  ? "test provider / non live"
-                  : "GPT live serveur"}
-              )
-            </label>
-            <textarea
-              id="ops1-message"
-              className={styles.textarea}
-              data-testid="ops1-message-input"
-              value={draft}
-              maxLength={OPS1_MAX_MESSAGE_CHARS}
-              rows={4}
-              disabled={pending || phase === "sending"}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="Saisir un tour utilisateur…"
-            />
+            <h2 id="ops1-i3-controls-title" className={styles.panelTitle}>
+              Qualification I3 (fixture)
+            </h2>
+            <p className={styles.muted}>
+              Détermine si une action structurée est nécessaire. Aucune
+              exécution n’est déclenchée.
+            </p>
+            {qualification ? (
+              <p
+                className={styles.qualificationBadge}
+                data-testid="ops1-i3-qualification"
+                data-qualification={qualification.qualification}
+              >
+                Qualification : {qualification.qualification}
+              </p>
+            ) : (
+              <p className={styles.muted} data-testid="ops1-i3-qualification-empty">
+                Aucune qualification enregistrée.
+              </p>
+            )}
             <div className={styles.composerActions}>
               <CtaButton
-                type="submit"
-                disabled={pending || !draft.trim()}
-                data-testid="ops1-send-message"
+                variant="secondary"
+                onClick={onQualifyNotRequired}
+                disabled={pending}
+                data-testid="ops1-i3-qualify-not-required"
               >
-                {isFixtureSession
-                  ? "Envoyer (fixture)"
-                  : isTestPresentation
-                    ? "Envoyer (test provider)"
-                    : "Envoyer (GPT live)"}
+                ACTION_NOT_REQUIRED
               </CtaButton>
               <CtaButton
-                variant="secondary"
-                onClick={onClearLocalPointer}
-                data-testid="ops1-clear-pointer"
+                onClick={onCreateCandidate}
+                disabled={pending}
+                data-testid="ops1-i3-create-candidate"
               >
-                Revenir à l’écran vide
+                Créer ActionCandidate (fixture)
               </CtaButton>
             </div>
-            <p className={styles.hint} data-testid="ops1-no-execution-hint">
-              L’exécution (Cursor, gate, contrat, Git) nécessite un parcours
-              distinct — non disponible dans I2. Un message du type « exécute
-              Cursor » reste du texte conversationnel. Max{" "}
-              {OPS1_MAX_MESSAGE_CHARS} caractères.
+          </section>
+
+          {activeCandidate ? (
+            <section
+              className={`${styles.panel} ${styles.actionPanel}`}
+              data-testid="ops1-action-panel"
+              aria-labelledby="ops1-action-title"
+            >
+              <h2 id="ops1-action-title" className={styles.panelTitle}>
+                Proposition d’action
+              </h2>
+              <p
+                className={styles.actionStatus}
+                data-testid="ops1-action-status"
+                data-status={activeCandidate.status}
+              >
+                {actionStatusLabel(activeCandidate, activeDecision)}
+              </p>
+              <p className={styles.goNeExec} data-testid="ops1-go-ne-exec">
+                {OPS1_I3_GO_NE_PAS_EXEC}
+              </p>
+              <dl className={styles.meta}>
+                <div>
+                  <dt>actionCandidateId</dt>
+                  <dd data-testid="ops1-action-id">
+                    {activeCandidate.actionCandidateId}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Statut candidat</dt>
+                  <dd data-testid="ops1-action-candidate-status">
+                    {activeCandidate.status}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Version</dt>
+                  <dd data-testid="ops1-action-version">
+                    {activeCandidate.version}
+                  </dd>
+                </div>
+              </dl>
+
+              {canRefine ? (
+                <div
+                  className={styles.refineForm}
+                  data-testid="ops1-action-refine"
+                >
+                  <label className={styles.label} htmlFor="ops1-action-title-input">
+                    Titre
+                  </label>
+                  <input
+                    id="ops1-action-title-input"
+                    className={styles.fieldInput}
+                    data-testid="ops1-action-title-input"
+                    value={refineDraft.title}
+                    onChange={(e) =>
+                      setRefineDraft((d) => ({ ...d, title: e.target.value }))
+                    }
+                  />
+                  <label className={styles.label} htmlFor="ops1-action-objective">
+                    Objectif
+                  </label>
+                  <textarea
+                    id="ops1-action-objective"
+                    className={styles.textarea}
+                    rows={2}
+                    data-testid="ops1-action-objective-input"
+                    value={refineDraft.objective}
+                    onChange={(e) =>
+                      setRefineDraft((d) => ({
+                        ...d,
+                        objective: e.target.value,
+                      }))
+                    }
+                  />
+                  <label className={styles.label} htmlFor="ops1-action-scope">
+                    Périmètre
+                  </label>
+                  <textarea
+                    id="ops1-action-scope"
+                    className={styles.textarea}
+                    rows={2}
+                    data-testid="ops1-action-scope-input"
+                    value={refineDraft.scopeSummary}
+                    onChange={(e) =>
+                      setRefineDraft((d) => ({
+                        ...d,
+                        scopeSummary: e.target.value,
+                      }))
+                    }
+                  />
+                  <label className={styles.label} htmlFor="ops1-action-risk">
+                    Risques
+                  </label>
+                  <textarea
+                    id="ops1-action-risk"
+                    className={styles.textarea}
+                    rows={2}
+                    data-testid="ops1-action-risk-input"
+                    value={refineDraft.riskSummary}
+                    onChange={(e) =>
+                      setRefineDraft((d) => ({
+                        ...d,
+                        riskSummary: e.target.value,
+                      }))
+                    }
+                  />
+                  <CtaButton
+                    onClick={onRefine}
+                    disabled={pending}
+                    data-testid="ops1-action-refine-submit"
+                  >
+                    Enregistrer raffinement
+                  </CtaButton>
+                </div>
+              ) : (
+                <dl className={styles.actionFields} data-testid="ops1-action-readonly">
+                  <div>
+                    <dt>Titre</dt>
+                    <dd data-testid="ops1-action-title">{activeCandidate.title}</dd>
+                  </div>
+                  <div>
+                    <dt>Objectif</dt>
+                    <dd data-testid="ops1-action-objective">
+                      {activeCandidate.objective}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Périmètre</dt>
+                    <dd data-testid="ops1-action-scope">
+                      {activeCandidate.scopeSummary}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Risques</dt>
+                    <dd data-testid="ops1-action-risk">
+                      {activeCandidate.riskSummary}
+                    </dd>
+                  </div>
+                </dl>
+              )}
+            </section>
+          ) : null}
+
+          {activeCandidate && canGate ? (
+            <section
+              className={`${styles.panel} ${styles.gatePanel}`}
+              data-testid="ops1-gate-panel"
+              aria-labelledby="ops1-gate-title"
+            >
+              <h2 id="ops1-gate-title" className={styles.panelTitle}>
+                Gate Morris
+              </h2>
+              <p className={styles.muted} data-testid="ops1-gate-lede">
+                Décision humaine explicite. Aucun effet Cursor, Git ou
+                filesystem. {OPS1_I3_GO_NE_PAS_EXEC}.
+              </p>
+              {activeDecision ? (
+                <p
+                  className={styles.decisionBadge}
+                  data-testid="ops1-gate-latest-decision"
+                  data-kind={activeDecision.kind}
+                >
+                  Dernière décision (v{activeDecision.actionVersion}) :{" "}
+                  {activeDecision.kind}
+                </p>
+              ) : (
+                <p
+                  className={styles.muted}
+                  data-testid="ops1-gate-no-decision"
+                >
+                  Aucune décision sur cette version.
+                </p>
+              )}
+              {gateMicrocopy ||
+              (activeCandidate.status === "APPROVED" ? OPS1_I3_GO_MICROCOPY : null) ? (
+                <p
+                  className={styles.goMicrocopy}
+                  data-testid="ops1-gate-go-microcopy"
+                  role="status"
+                >
+                  {gateMicrocopy ?? OPS1_I3_GO_MICROCOPY}
+                </p>
+              ) : null}
+              <div className={styles.gateActions} data-testid="ops1-gate-actions">
+                {showGoButtons ? (
+                  <>
+                    <CtaButton
+                      onClick={() => onGate("GO")}
+                      disabled={pending}
+                      data-testid="ops1-gate-go"
+                    >
+                      GO
+                    </CtaButton>
+                    <CtaButton
+                      variant="secondary"
+                      onClick={() => onGate("NO_GO")}
+                      disabled={pending}
+                      data-testid="ops1-gate-no-go"
+                    >
+                      NO_GO
+                    </CtaButton>
+                    <CtaButton
+                      variant="secondary"
+                      onClick={() => onGate("CORRIGER")}
+                      disabled={pending}
+                      data-testid="ops1-gate-corriger"
+                    >
+                      CORRIGER
+                    </CtaButton>
+                    <CtaButton
+                      variant="secondary"
+                      onClick={() => onGate("ABANDONNER")}
+                      disabled={pending}
+                      data-testid="ops1-gate-abandonner"
+                    >
+                      ABANDONNER
+                    </CtaButton>
+                  </>
+                ) : null}
+                {showCorrigerOnly ? (
+                  <CtaButton
+                    variant="secondary"
+                    onClick={() => onGate("CORRIGER")}
+                    disabled={pending}
+                    data-testid="ops1-gate-corriger"
+                  >
+                    CORRIGER
+                  </CtaButton>
+                ) : null}
+              </div>
+            </section>
+          ) : null}
+
+          <section
+            className={`${styles.panel} ${styles.safetyPanel}`}
+            data-testid="ops1-i3-safety"
+            aria-labelledby="ops1-i3-safety-title"
+          >
+            <h2 id="ops1-i3-safety-title" className={styles.panelTitle}>
+              Garde-fou exécution
+            </h2>
+            <p className={styles.muted}>
+              I3 refuse toute tentative d’exécution. Preuve négative explicite.
             </p>
-          </form>
-        </section>
+            <CtaButton
+              variant="secondary"
+              onClick={onRefuseExecution}
+              disabled={pending}
+              data-testid="ops1-i3-refuse-execution"
+            >
+              Tenter exécution (doit refuser)
+            </CtaButton>
+            {execRefuseMsg ? (
+              <p
+                className={styles.error}
+                role="status"
+                data-testid="ops1-i3-execution-refused"
+              >
+                {execRefuseMsg}
+              </p>
+            ) : null}
+            <p className={styles.hint} data-testid="ops1-i3-no-exec-cta">
+              Aucun bouton « Exécuter », « Lancer Cursor » ou équivalent n’est
+              disponible dans I3.
+            </p>
+          </section>
+        </>
       ) : null}
     </div>
   );

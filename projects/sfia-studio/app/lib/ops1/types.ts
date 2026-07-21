@@ -80,7 +80,12 @@ export type SessionEventType =
   | "TURN_PERSISTENCE_FAILED"
   | "CONVERSATION_ATTEMPT_STARTED"
   | "CONVERSATION_ATTEMPT_SUCCEEDED"
-  | "CONVERSATION_ATTEMPT_FAILED";
+  | "CONVERSATION_ATTEMPT_FAILED"
+  | "ACTION_QUALIFIED_NOT_REQUIRED"
+  | "ACTION_CANDIDATE_CREATED"
+  | "ACTION_CANDIDATE_REFINED"
+  | "GATE_DECISION_RECORDED"
+  | "EXECUTION_REFUSED";
 
 export interface SessionEvent {
   eventId: string;
@@ -90,6 +95,53 @@ export interface SessionEvent {
   detail: string;
 }
 
+/** I3 — qualification outcome for a session (no execution). */
+export type ActionQualification = "ACTION_REQUIRED" | "ACTION_NOT_REQUIRED";
+
+/**
+ * I3 ActionCandidate lifecycle — no execution states.
+ * GO → APPROVED means "validated for I4 preparation", never "executed".
+ */
+export type ActionCandidateStatus =
+  | "PROPOSED"
+  | "UNDER_REVIEW"
+  | "APPROVED"
+  | "REJECTED"
+  | "CHANGES_REQUESTED"
+  | "ABANDONED"
+  | "NOT_REQUIRED";
+
+export type GateDecisionKind = "GO" | "NO_GO" | "CORRIGER" | "ABANDONNER";
+
+export interface ActionCandidate {
+  actionCandidateId: string;
+  sessionId: string;
+  status: ActionCandidateStatus;
+  title: string;
+  objective: string;
+  scopeSummary: string;
+  riskSummary: string;
+  version: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GateDecision {
+  gateDecisionId: string;
+  sessionId: string;
+  actionCandidateId: string;
+  actionVersion: number;
+  kind: GateDecisionKind;
+  motif: string | null;
+  createdAt: string;
+}
+
+export interface SessionQualification {
+  sessionId: string;
+  qualification: ActionQualification;
+  updatedAt: string;
+}
+
 export const OPS1_PROJECT_KEY = "sfia-studio-ops1";
 
 /** Local input guardrail — not a FinOps decision. */
@@ -97,3 +149,13 @@ export const OPS1_MAX_MESSAGE_CHARS = 4000;
 
 export const LEGACY_SESSION_MODE_AMBIGUOUS =
   "MORRIS DECISION REQUIRED — LEGACY SESSION MODE AMBIGUOUS";
+
+/** I3 microcopy — GO never means execution started. */
+export const OPS1_I3_GO_MICROCOPY =
+  "Proposition validée. Aucune exécution n’est lancée dans I3.";
+
+export const OPS1_I3_STATUS_UNAUTHORIZED = "ACTION PROPOSÉE — NON AUTORISÉE";
+export const OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED =
+  "ACTION VALIDÉE — NON EXÉCUTÉE";
+export const OPS1_I3_GO_NE_PAS_EXEC =
+  "GO ≠ exécution — préparation I4 uniquement";

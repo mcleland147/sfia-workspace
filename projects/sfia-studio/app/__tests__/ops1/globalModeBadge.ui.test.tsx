@@ -18,6 +18,11 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1SendMessageAction: (...args: unknown[]) => send(...args),
   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
   ops1AppendUserMessageAction: vi.fn(),
+  ops1QualifyActionNotRequiredAction: vi.fn(),
+  ops1CreateFixtureActionCandidateAction: vi.fn(),
+  ops1RefineActionCandidateAction: vi.fn(),
+  ops1RecordGateDecisionAction: vi.fn(),
+  ops1RefuseExecutionAction: vi.fn(),
 }));
 
 const fixtureSession = {
@@ -56,6 +61,21 @@ describe("global mode badge on nouvelle-demande shell", () => {
     });
   });
 
+  it("shows OPS1 I3 shell signaling (not obsolete I2)", async () => {
+    render(<NouvelleDemandePageClient />);
+    await waitFor(() => {
+      expect(screen.getByTestId("ops1-increment-badge")).toHaveTextContent(
+        "OPS1 I3",
+      );
+    });
+    expect(screen.queryByText("OPS1 I2")).not.toBeInTheDocument();
+    expect(screen.getByText("Parcours I3")).toBeInTheDocument();
+    expect(
+      screen.getByText(/OPS1 I3 — action gate \/ fixture first/),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/Parcours I2/)).not.toBeInTheDocument();
+  });
+
   it("keeps MODE FIXTURE after fixture session create", async () => {
     const user = userEvent.setup();
     create.mockResolvedValue({ ok: true, data: { session: fixtureSession } });
@@ -66,6 +86,9 @@ describe("global mode badge on nouvelle-demande shell", () => {
         turns: [],
         attempts: [],
         presentation: "fixture",
+        qualification: null,
+        candidates: [],
+        latestDecisionsByAction: {},
       },
     });
     render(<NouvelleDemandePageClient />);
@@ -100,6 +123,9 @@ describe("global mode badge on nouvelle-demande shell", () => {
         turns: [],
         attempts: [],
         presentation: "test_provider",
+        qualification: null,
+        candidates: [],
+        latestDecisionsByAction: {},
       },
     });
     window.sessionStorage.setItem(
@@ -131,6 +157,9 @@ describe("global mode badge on nouvelle-demande shell", () => {
         turns: [],
         attempts: [],
         presentation: "openai_live",
+        qualification: null,
+        candidates: [],
+        latestDecisionsByAction: {},
       },
     });
     window.sessionStorage.setItem(

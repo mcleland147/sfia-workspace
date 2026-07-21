@@ -11,3 +11,11 @@ export {
   mapGlobalModeBadgeTone,
   resolveGlobalModePresentation,
 } from "./globalModeBadge";
+export {
+  createFixtureActionCandidate,
+  getI3Bundle,
+  qualifyActionNotRequired,
+  recordGateDecision,
+  refineActionCandidate,
+  refuseExecutionAttempt,
+} from "./actionGate";

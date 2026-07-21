@@ -14,21 +14,21 @@ import {
 const COPILOT = {
   variant: "flush" as const,
   name: "Nora · SFIA Copilot",
-  subtitle: "OPS1 I2 — conversation live/fixture",
+  subtitle: "OPS1 I3 — action gate / fixture first",
   avatarTone: "blue" as const,
   levelPill: "L0 humain",
   summary:
-    "Conversation multi-tours (fixture ou GPT live serveur). Aucune exécution Cursor, aucun gate d’action.",
+    "Proposition d’action hors chat et gate Morris (GO / NO_GO / CORRIGER / ABANDONNER). Fixture first — aucune exécution ; allowlist reportée à I4.",
   checklist: [
-    "Créer session OPEN",
-    "Échanger fixture ou live",
-    "Persister journal + usage",
-    "Aucun effet d’exécution depuis le chat",
+    "Créer session OPEN (fixture first)",
+    "Qualifier ou proposer un ActionCandidate",
+    "Décider via les quatre gate actions",
+    "Aucune exécution Cursor / Git / filesystem",
   ],
-  checklistTitle: "Parcours I2",
+  checklistTitle: "Parcours I3",
   riskTitle: "PÉRIMÈTRE",
   riskText:
-    "I2 n’ouvre pas I3–I7, la clôture CLOSED, ni la CI. Chat ≠ exécution.",
+    "I3 n’ouvre pas l’exécution ni l’allowlist I4, ni la clôture CLOSED, ni la CI. GO ≠ exécution.",
 };
 
 function NouvelleDemandeBody({
@@ -81,7 +81,7 @@ export function NouvelleDemandePageClient() {
           tone: badge.tone,
           testId: "global-mode-badge",
         },
-        { label: "OPS1 I2", tone: "blueFlush" },
+        { label: "OPS1 I3", tone: "blueFlush", testId: "ops1-increment-badge" },
       ]}
       copilot={COPILOT}
     >
