@@ -6,13 +6,17 @@ import { StatusPill } from "@/components/ui/StatusPill";
 import {
   ops1CreateFixtureActionCandidateAction,
   ops1CreateSessionAction,
+  ops1CreateExecutionContractAction,
   ops1EvaluateAllowlistAction,
   ops1GetLiveConfigAction,
+  ops1GetRealCursorAvailabilityAction,
   ops1GetSessionAction,
   ops1QualifyActionNotRequiredAction,
+  ops1RecordExecutionGateAction,
   ops1RecordGateDecisionAction,
   ops1RefineActionCandidateAction,
   ops1RefuseExecutionAction,
+  ops1RunExecutionAttemptAction,
   ops1SendMessageAction,
 } from "@/lib/ops1/actions";
 import type {
@@ -23,11 +27,14 @@ import type {
   ConversationMode,
   ConversationUsageCounters,
   CycleSession,
+  ExecutionAttempt,
+  ExecutionContract,
   GateDecision,
   GateDecisionKind,
   JournalTurn,
   ProviderPresentation,
   SessionQualification,
+  CursorAdapterMode,
 } from "@/lib/ops1/types";
 import {
   OPS1_I3_GO_MICROCOPY,
@@ -39,6 +46,13 @@ import {
   OPS1_I4_GO_I3_NE_EXEC,
   OPS1_I4_NO_EXEC,
   OPS1_I4_NOT_LISTED_FORBIDDEN,
+  OPS1_I5_CONTRACT_FROZEN,
+  OPS1_I5_CURSOR_BOUNDED,
+  OPS1_I5_GO_DELIVERY_NE_EXEC,
+  OPS1_I5_GO_LINKED_HASH,
+  OPS1_I5_I6_BOUNDARY,
+  OPS1_I5_NO_AUTO_RETRY,
+  OPS1_I5_WORKTREE_NO_PUSH,
   OPS1_MAX_MESSAGE_CHARS,
 } from "@/lib/ops1/types";
 import type { GlobalModeContext } from "@/lib/ops1/globalModeBadge";
@@ -49,8 +63,38 @@ const STORAGE_KEY = "sfia-ops1-i1-active-session";
 const DEFAULT_ALLOWLIST_DRAFT: AllowlistInputEntry[] = [
   { path: "projects/campus360/README.md", mode: "READ" },
   { path: "projects/campus360/01-opportunity-and-vision.md", mode: "MODIFY" },
-  { path: "projects/campus360/04-ops1-i4-note.md", mode: "CREATE" },
+  {
+    path: "projects/campus360/04-ops1-i5-execution-proof.md",
+    mode: "CREATE",
+  },
 ];
+
+const DEFAULT_I5_OBJECTIVE =
+  "Créer une preuve documentaire minimale de la première exécution Cursor réelle OPS1 I5 (Campus360).";
+
+const DEFAULT_I5_INSTRUCTIONS = `# Preuve d’exécution OPS1 I5
+
+Ce document a été créé dans le cadre de la première exécution Cursor réelle et bornée du cycle OPS1 I5.
+
+## Périmètre
+
+- Projet pilote : Campus360
+- Opération autorisée : création d’un fichier Markdown
+- Exécution : worktree local dédié
+- Effets Git distants : aucun
+- Commit automatique : aucun
+
+## Finalité
+
+Vérifier que SFIA Studio peut exécuter une action Cursor réelle après :
+
+1. validation de l’allowlist ;
+2. génération d’un contrat final ;
+3. calcul du contractHash ;
+4. décision Morris explicitement liée au contrat ;
+5. revalidation fail-closed avant exécution.
+
+Ce document constitue une preuve technique OPS1 I5. Il ne modifie pas la baseline documentaire Campus360 et ne constitue ni une validation d’OPS1 complet, ni une validation MVP ou production.`;
 
 function modeCategoryLabel(mode: AllowlistMode): string {
   if (mode === "READ") return "CONSULTATION";
@@ -139,6 +183,22 @@ export function Ops1SessionScreen({
   const [allowlistDraft, setAllowlistDraft] = useState<AllowlistInputEntry[]>(
     DEFAULT_ALLOWLIST_DRAFT,
   );
+  const [contractByAction, setContractByAction] = useState<
+    Record<string, ExecutionContract | null>
+  >({});
+  const [attemptByContract, setAttemptByContract] = useState<
+    Record<string, ExecutionAttempt | null>
+  >({});
+  const [i5Objective, setI5Objective] = useState(DEFAULT_I5_OBJECTIVE);
+  const [i5Instructions, setI5Instructions] = useState(DEFAULT_I5_INSTRUCTIONS);
+  const [i5AdapterMode, setI5AdapterMode] =
+    useState<CursorAdapterMode>("fixture");
+  const [realCursorAvail, setRealCursorAvail] = useState<{
+    flagEnabled: boolean;
+    binPath: string | null;
+    available: boolean;
+  } | null>(null);
+  const [i5Error, setI5Error] = useState<string | null>(null);
   const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
   const [execRefuseMsg, setExecRefuseMsg] = useState<string | null>(null);
   const [refineDraft, setRefineDraft] = useState({
@@ -175,11 +235,15 @@ export function Ops1SessionScreen({
         string,
         ActionAllowlistEvaluation | null
       >;
+      latestContractByAction?: Record<string, ExecutionContract | null>;
+      latestAttemptByContract?: Record<string, ExecutionAttempt | null>;
     }) => {
       setQualification(data.qualification);
       setCandidates(data.candidates);
       setDecisionsByAction(data.latestDecisionsByAction);
       setAllowlistByAction(data.latestAllowlistByAction ?? {});
+      setContractByAction(data.latestContractByAction ?? {});
+      setAttemptByContract(data.latestAttemptByContract ?? {});
       const latest = data.candidates[data.candidates.length - 1];
       if (latest) {
         setRefineDraft({
@@ -204,6 +268,8 @@ export function Ops1SessionScreen({
         setCandidates([]);
         setDecisionsByAction({});
         setAllowlistByAction({});
+        setContractByAction({});
+        setAttemptByContract({});
         setPhase("idle");
         if (typeof window !== "undefined") {
           window.sessionStorage.removeItem(STORAGE_KEY);
@@ -228,6 +294,10 @@ export function Ops1SessionScreen({
         setLiveAvailable(cfg.data.available);
         setLiveMissing(cfg.data.missing);
         setTestProvider(cfg.data.testProvider);
+      }
+      const cursor = await ops1GetRealCursorAvailabilityAction();
+      if (!cancelled && cursor.ok) {
+        setRealCursorAvail(cursor.data);
       }
       const stored =
         typeof window !== "undefined"
@@ -259,6 +329,10 @@ export function Ops1SessionScreen({
     setQualification(null);
     setCandidates([]);
     setDecisionsByAction({});
+    setAllowlistByAction({});
+    setContractByAction({});
+    setAttemptByContract({});
+    setI5Error(null);
     setPhase("creating");
     startTransition(async () => {
       const result = await ops1CreateSessionAction({ mode: createMode });
@@ -485,17 +559,101 @@ export function Ops1SessionScreen({
     ? (allowlistByAction[activeCandidate.actionCandidateId] ?? null)
     : null;
   const showAllowlistPanel = Boolean(activeCandidate);
+  const activeContract = activeCandidate
+    ? (contractByAction[activeCandidate.actionCandidateId] ?? null)
+    : null;
+  const activeAttempt = activeContract
+    ? (attemptByContract[activeContract.contractId] ?? null)
+    : null;
+  const canBuildI5Contract =
+    Boolean(activeCandidate) &&
+    activeCandidate?.status === "APPROVED" &&
+    activeAllowlist?.status === "VALID";
+  const canRecordI5Gate =
+    Boolean(activeContract) && activeContract?.status === "READY_FOR_GATE";
+  const canRunI5 =
+    Boolean(activeContract) &&
+    activeContract?.status === "APPROVED" &&
+    (!activeAttempt ||
+      !["RUNNING", "SUCCEEDED", "PREPARING", "REVALIDATING"].includes(
+        activeAttempt.status,
+      ));
+
+  const onCreateI5Contract = () => {
+    if (!session || !activeCandidate) return;
+    setI5Error(null);
+    startTransition(async () => {
+      const result = await ops1CreateExecutionContractAction({
+        sessionId: session.sessionId,
+        actionCandidateId: activeCandidate.actionCandidateId,
+        actionObjective: i5Objective,
+        actionInstructions: i5Instructions,
+        adapterMode: i5AdapterMode,
+      });
+      if (!result.ok) {
+        setI5Error(result.message);
+        return;
+      }
+      setContractByAction((prev) => ({
+        ...prev,
+        [activeCandidate.actionCandidateId]: result.data.contract,
+      }));
+    });
+  };
+
+  const onRecordI5Gate = () => {
+    if (!session || !activeCandidate || !activeContract) return;
+    setI5Error(null);
+    startTransition(async () => {
+      const result = await ops1RecordExecutionGateAction({
+        sessionId: session.sessionId,
+        contractId: activeContract.contractId,
+        contractHash: activeContract.contractHash,
+        actionCandidateId: activeCandidate.actionCandidateId,
+        actionVersion: activeCandidate.version,
+        baseHeadSha: activeContract.baseHeadSha,
+      });
+      if (!result.ok) {
+        setI5Error(result.message);
+        return;
+      }
+      setContractByAction((prev) => ({
+        ...prev,
+        [activeCandidate.actionCandidateId]: result.data.contract,
+      }));
+    });
+  };
+
+  const onRunI5Execution = () => {
+    if (!session || !activeContract) return;
+    setI5Error(null);
+    startTransition(async () => {
+      const result = await ops1RunExecutionAttemptAction({
+        sessionId: session.sessionId,
+        contractId: activeContract.contractId,
+        adapterMode: activeContract.adapterMode,
+      });
+      if (!result.ok) {
+        setI5Error(result.message);
+        return;
+      }
+      setAttemptByContract((prev) => ({
+        ...prev,
+        [activeContract.contractId]: result.data.attempt,
+      }));
+    });
+  };
 
   return (
     <div className={styles.root} data-testid="ops1-session-root">
       <header className={styles.header}>
-        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I4</p>
+        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I5</p>
         <h2 className={styles.title} id="ops1-session-heading">
           Session OPS1
         </h2>
         <p className={styles.lede}>
-          Conversation, gate Morris et évaluation d’allowlist Campus360 — sans
-          exécution. {OPS1_I4_GO_I3_NE_EXEC}. {OPS1_I4_NO_EXEC}.
+          Contrat final, GO lié au hash, worktree local et exécution Cursor bornée.
+          {OPS1_I5_GO_DELIVERY_NE_EXEC}. {OPS1_I5_I6_BOUNDARY}.
         </p>
         <div className={styles.badgeRow} aria-live="polite">
           {!session ? (
@@ -1276,6 +1434,176 @@ export function Ops1SessionScreen({
               </p>
             </section>
           ) : null}
+
+
+          {showAllowlistPanel && canBuildI5Contract ? (
+            <section
+              className={`${styles.panel} ${styles.executionPanel}`}
+              data-testid="ops1-i5-execution"
+              aria-labelledby="ops1-i5-title"
+            >
+              <h2 id="ops1-i5-title" className={styles.panelTitle}>
+                Contrat final & exécution (I5)
+              </h2>
+              <ul className={styles.microcopyList} aria-label="Règles I5">
+                <li>{OPS1_I5_GO_DELIVERY_NE_EXEC}</li>
+                <li>{OPS1_I5_GO_LINKED_HASH}</li>
+                <li>{OPS1_I5_CONTRACT_FROZEN}</li>
+                <li>{OPS1_I5_WORKTREE_NO_PUSH}</li>
+                <li>{OPS1_I5_CURSOR_BOUNDED}</li>
+                <li>{OPS1_I5_NO_AUTO_RETRY}</li>
+                <li>{OPS1_I5_I6_BOUNDARY}</li>
+              </ul>
+              <label className={styles.field}>
+                <span>Objectif (Morris)</span>
+                <textarea
+                  value={i5Objective}
+                  onChange={(e) => setI5Objective(e.target.value)}
+                  rows={2}
+                  data-testid="ops1-i5-objective"
+                />
+              </label>
+              <label className={styles.field}>
+                <span>Instructions Markdown exactes (Morris)</span>
+                <textarea
+                  value={i5Instructions}
+                  onChange={(e) => setI5Instructions(e.target.value)}
+                  rows={8}
+                  data-testid="ops1-i5-instructions"
+                />
+              </label>
+              <fieldset
+                className={styles.field}
+                data-testid="ops1-i5-adapter-fieldset"
+              >
+                <legend>Adaptateur Cursor (explicite, sans fallback)</legend>
+                <div
+                  className={styles.modeRow}
+                  role="radiogroup"
+                  aria-label="Adaptateur Cursor I5"
+                >
+                  <label className={styles.modeOption}>
+                    <input
+                      type="radio"
+                      name="ops1-i5-adapter"
+                      value="fixture"
+                      checked={i5AdapterMode === "fixture"}
+                      data-testid="ops1-i5-adapter-fixture"
+                      onChange={() => setI5AdapterMode("fixture")}
+                      disabled={Boolean(activeContract)}
+                    />
+                    Fixture (déterministe)
+                  </label>
+                  <label className={styles.modeOption}>
+                    <input
+                      type="radio"
+                      name="ops1-i5-adapter"
+                      value="real"
+                      checked={i5AdapterMode === "real"}
+                      data-testid="ops1-i5-adapter-real"
+                      onChange={() => setI5AdapterMode("real")}
+                      disabled={
+                        Boolean(activeContract) ||
+                        !(realCursorAvail?.available ?? false)
+                      }
+                    />
+                    Real (OPS1_CURSOR_REAL=1 + binaire)
+                  </label>
+                </div>
+                <p className={styles.muted} data-testid="ops1-i5-adapter-avail">
+                  {realCursorAvail == null
+                    ? "Disponibilité real : …"
+                    : realCursorAvail.available
+                      ? `Real disponible (${realCursorAvail.binPath ?? "bin"})`
+                      : realCursorAvail.flagEnabled
+                        ? "Real indisponible — binaire Cursor introuvable (aucun fallback fixture)."
+                        : "Real indisponible — OPS1_CURSOR_REAL≠1 (aucun fallback fixture)."}
+                </p>
+              </fieldset>
+              <div className={styles.gateActions}>
+                <CtaButton
+                  onClick={onCreateI5Contract}
+                  disabled={pending || !canBuildI5Contract}
+                  data-testid="ops1-i5-create-contract"
+                >
+                  Geler contrat + hash
+                </CtaButton>
+                <CtaButton
+                  variant="secondary"
+                  onClick={onRecordI5Gate}
+                  disabled={pending || !canRecordI5Gate}
+                  data-testid="ops1-i5-record-gate"
+                >
+                  GO exécution (lié au hash)
+                </CtaButton>
+                <CtaButton
+                  onClick={onRunI5Execution}
+                  disabled={pending || !canRunI5}
+                  data-testid="ops1-i5-run-execution"
+                >
+                  {activeContract?.adapterMode === "real"
+                    ? "Lancer exécution bornée (real)"
+                    : "Lancer exécution bornée (fixture)"}
+                </CtaButton>
+              </div>
+              {i5Error ? (
+                <p className={styles.error} role="alert" data-testid="ops1-i5-error">
+                  {i5Error}
+                </p>
+              ) : null}
+              {activeContract ? (
+                <div className={styles.allowlistResult} data-testid="ops1-i5-contract">
+                  <p data-testid="ops1-i5-contract-status">
+                    Statut contrat : {activeContract.status}
+                  </p>
+                  <p data-testid="ops1-i5-contract-hash">
+                    contractHash : {activeContract.contractHash}
+                  </p>
+                  <p data-testid="ops1-i5-base-head">
+                    baseHeadSha : {activeContract.baseHeadSha}
+                  </p>
+                  <p data-testid="ops1-i5-adapter-mode">
+                    Adaptateur : {activeContract.adapterMode}
+                  </p>
+                  <p className={styles.muted} data-testid="ops1-i5-allowlist-summary">
+                    READ {activeContract.allowedReads.length} · CREATE{" "}
+                    {activeContract.allowedCreates.length} · MODIFY{" "}
+                    {activeContract.allowedModifies.length}
+                  </p>
+                </div>
+              ) : (
+                <p className={styles.muted} data-testid="ops1-i5-contract-empty">
+                  Aucun contrat — saisir objectif/instructions puis geler.
+                </p>
+              )}
+              {activeAttempt ? (
+                <div className={styles.allowlistResult} data-testid="ops1-i5-attempt">
+                  <p data-testid="ops1-i5-attempt-id">
+                    executionAttemptId : {activeAttempt.executionAttemptId}
+                  </p>
+                  <p data-testid="ops1-i5-attempt-status">
+                    Statut tentative : {activeAttempt.status}
+                  </p>
+                  <p data-testid="ops1-i5-worktree">
+                    Worktree : {activeAttempt.worktreePath ?? "—"}
+                  </p>
+                  {activeAttempt.result ? (
+                    <p data-testid="ops1-i5-result-status">
+                      Résultat technique : {activeAttempt.result.status}
+                      {activeAttempt.result.outOfContract
+                        ? " — HORS CONTRAT"
+                        : ""}
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
+              <p className={styles.hint} data-testid="ops1-i5-no-remote">
+                Aucun commit / push / PR / merge. Worktree local uniquement.
+                Résultat = preuve technique minimale I5 (pas le rapport I6).
+              </p>
+            </section>
+          ) : null}
+
 
           {activeCandidate && canGate ? (
             <section

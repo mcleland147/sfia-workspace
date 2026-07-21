@@ -13,6 +13,10 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1GetSessionAction: (...args: unknown[]) => get(...args),
   ops1SendMessageAction: (...args: unknown[]) => send(...args),
   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+  ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
+    ok: true,
+    data: { flagEnabled: false, binPath: null, available: false },
+  })),
   ops1AppendUserMessageAction: vi.fn(),
   ops1QualifyActionNotRequiredAction: vi.fn(),
   ops1CreateFixtureActionCandidateAction: vi.fn(),
@@ -20,6 +24,9 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1RecordGateDecisionAction: vi.fn(),
   ops1RefuseExecutionAction: vi.fn(),
   ops1EvaluateAllowlistAction: vi.fn(),
+  ops1CreateExecutionContractAction: vi.fn(),
+  ops1RecordExecutionGateAction: vi.fn(),
+  ops1RunExecutionAttemptAction: vi.fn(),
 }));
 
 const emptyI3 = {

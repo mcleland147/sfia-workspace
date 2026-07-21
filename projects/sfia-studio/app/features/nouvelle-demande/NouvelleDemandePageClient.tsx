@@ -14,21 +14,21 @@ import {
 const COPILOT = {
   variant: "flush" as const,
   name: "Nora · SFIA Copilot",
-  subtitle: "OPS1 I4 — allowlist evaluation / no execution",
+  subtitle: "OPS1 I5 — contrat final / exécution Cursor bornée",
   avatarTone: "blue" as const,
   levelPill: "L0 humain",
   summary:
-    "Évaluation déterministe de l’allowlist Campus360 (READ / CREATE / MODIFY). Éligible ≠ autorisé — aucune exécution Cursor.",
+    "Contrat final, GO lié au hash, revalidation, worktree local et exécution Cursor bornée. I5 exécute — I6 analyse le rapport.",
   checklist: [
-    "Action candidate I3 disponible",
-    "Saisir allowlist exhaustive 1..n",
-    "Évaluer (VALID / CORRECTION / REFUSÉE)",
-    "Aucune exécution — worktree / push / PR reportés",
+    "Allowlist I4 VALID",
+    "Saisir objectif + instructions Morris",
+    "GO d’exécution lié au contractHash",
+    "Revalidation → worktree → Cursor (fixture ou réel gated)",
   ],
-  checklistTitle: "Parcours I4",
+  checklistTitle: "Parcours I5",
   riskTitle: "PÉRIMÈTRE",
   riskText:
-    "I4 n’ouvre pas l’exécution, le worktree d’action, ni l’allowlist I5. Non listé = interdit. GO I3 ≠ exécution.",
+    "GO DELIVERY ≠ GO d’exécution. Worktree local — pas de push. Aucun retry automatique. I6/I7 hors scope.",
 };
 
 function NouvelleDemandeBody({
@@ -81,7 +81,7 @@ export function NouvelleDemandePageClient() {
           tone: badge.tone,
           testId: "global-mode-badge",
         },
-        { label: "OPS1 I4", tone: "blueFlush", testId: "ops1-increment-badge" },
+        { label: "OPS1 I5", tone: "blueFlush", testId: "ops1-increment-badge" },
       ]}
       copilot={COPILOT}
     >

@@ -14,6 +14,14 @@ import {
   refuseExecutionAttempt,
 } from "./actionGate";
 import { evaluateAndPersistAllowlist } from "./allowlistService";
+import {
+  createExecutionContract,
+  recordExecutionGate,
+} from "./executionContractService";
+import {
+  getI5Bundle,
+  runExecutionAttempt,
+} from "./executionOrchestrator";
 import { Ops1Error, toSafeClientError } from "./errors";
 import {
   assertActionCandidateId,
@@ -29,6 +37,7 @@ import {
   isFakeConversationProviderForced,
 } from "./conversation/config";
 import { sendConversationMessage } from "./conversation/service";
+import { getRealCursorAvailability } from "./cursorExecutionAdapter";
 import type {
   ActionAllowlistEvaluation,
   ActionCandidate,
@@ -36,9 +45,13 @@ import type {
   ConversationMode,
   ConversationUsageCounters,
   CycleSession,
+  ExecutionAttempt,
+  ExecutionContract,
+  ExecutionGateRecord,
   GateDecision,
   GateDecisionKind,
   JournalTurn,
+  MinimalExecutionResult,
   ProviderPresentation,
   SessionQualification,
 } from "./types";
@@ -111,6 +124,8 @@ export async function ops1GetSessionAction(
     candidates: ActionCandidate[];
     latestDecisionsByAction: Record<string, GateDecision | null>;
     latestAllowlistByAction: Record<string, ActionAllowlistEvaluation | null>;
+    latestContractByAction: Record<string, ExecutionContract | null>;
+    latestAttemptByContract: Record<string, ExecutionAttempt | null>;
   }>
 > {
   try {
@@ -120,6 +135,7 @@ export async function ops1GetSessionAction(
       throw new Ops1Error("NOT_FOUND", "Session introuvable.");
     }
     const i3 = getI3Bundle(id);
+    const i5 = getI5Bundle(id);
     return {
       ok: true,
       data: {
@@ -129,6 +145,8 @@ export async function ops1GetSessionAction(
         candidates: i3.candidates,
         latestDecisionsByAction: i3.latestDecisionsByAction,
         latestAllowlistByAction: i3.latestAllowlistByAction,
+        latestContractByAction: i5.latestContractByAction,
+        latestAttemptByContract: i5.latestAttemptByContract,
       },
     };
   } catch (error) {
@@ -362,6 +380,123 @@ export async function ops1EvaluateAllowlistAction(input: {
       entries,
     });
     return { ok: true, data: { evaluation } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+/* ─── OPS1 I5 — contract + bounded execution ─── */
+
+export async function ops1GetRealCursorAvailabilityAction(): Promise<
+  Ops1ActionResult<{
+    flagEnabled: boolean;
+    binPath: string | null;
+    available: boolean;
+  }>
+> {
+  try {
+    return { ok: true, data: getRealCursorAvailability() };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1CreateExecutionContractAction(input: {
+  sessionId: string;
+  actionCandidateId: string;
+  actionObjective: string;
+  actionInstructions: string;
+  adapterMode?: "fixture" | "real";
+}): Promise<Ops1ActionResult<{ contract: ExecutionContract }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
+    const { contract } = createExecutionContract({
+      sessionId,
+      actionCandidateId,
+      actionObjective: assertActionField("Objectif", input.actionObjective),
+      actionInstructions: assertActionField(
+        "Instructions",
+        input.actionInstructions,
+      ),
+      adapterMode: input.adapterMode === "real" ? "real" : "fixture",
+    });
+    return { ok: true, data: { contract } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1RecordExecutionGateAction(input: {
+  sessionId: string;
+  contractId: string;
+  contractHash: string;
+  actionCandidateId: string;
+  actionVersion: number;
+  baseHeadSha: string;
+}): Promise<
+  Ops1ActionResult<{
+    gate: ExecutionGateRecord;
+    contract: ExecutionContract;
+  }>
+> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
+    if (
+      typeof input.contractId !== "string" ||
+      typeof input.contractHash !== "string" ||
+      typeof input.baseHeadSha !== "string" ||
+      typeof input.actionVersion !== "number"
+    ) {
+      throw new Ops1Error("VALIDATION", "Paramètres de gate I5 invalides.");
+    }
+    const result = recordExecutionGate({
+      sessionId,
+      contractId: input.contractId,
+      contractHash: input.contractHash,
+      actionCandidateId,
+      actionVersion: input.actionVersion,
+      baseHeadSha: input.baseHeadSha,
+    });
+    return {
+      ok: true,
+      data: { gate: result.gate, contract: result.contract },
+    };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1RunExecutionAttemptAction(input: {
+  sessionId: string;
+  contractId: string;
+  adapterMode?: "fixture" | "real";
+}): Promise<
+  Ops1ActionResult<{
+    attempt: ExecutionAttempt;
+    result: MinimalExecutionResult;
+    adapterPayload: Record<string, unknown>;
+  }>
+> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    if (typeof input.contractId !== "string" || !input.contractId) {
+      throw new Ops1Error("VALIDATION", "contractId invalide.");
+    }
+    const result = await runExecutionAttempt({
+      sessionId,
+      contractId: input.contractId,
+      adapterMode: input.adapterMode,
+    });
+    return {
+      ok: true,
+      data: {
+        attempt: result.attempt,
+        result: result.result,
+        adapterPayload: result.adapterPayload,
+      },
+    };
   } catch (error) {
     return fail(error);
   }

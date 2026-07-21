@@ -89,7 +89,18 @@ export type SessionEventType =
   | "ALLOWLIST_EVALUATION_STARTED"
   | "ALLOWLIST_EVALUATION_SUCCEEDED"
   | "ALLOWLIST_EVALUATION_FAILED"
-  | "ALLOWLIST_CORRECTION_REQUIRED";
+  | "ALLOWLIST_CORRECTION_REQUIRED"
+  | "EXECUTION_CONTRACT_CREATED"
+  | "EXECUTION_CONTRACT_HASHED"
+  | "EXECUTION_GATE_RECORDED"
+  | "EXECUTION_REVALIDATION_STARTED"
+  | "EXECUTION_REVALIDATION_FAILED"
+  | "EXECUTION_WORKTREE_CREATED"
+  | "CURSOR_EXECUTION_STARTED"
+  | "CURSOR_EXECUTION_SUCCEEDED"
+  | "CURSOR_EXECUTION_FAILED"
+  | "EXECUTION_OUT_OF_SCOPE_DETECTED"
+  | "EXECUTION_STOPPED";
 
 export interface SessionEvent {
   eventId: string;
@@ -222,3 +233,139 @@ export const OPS1_I4_STATUS_CORRECTION =
   "CORRECTION REQUISE — AUCUNE EXÉCUTION";
 export const OPS1_I4_STATUS_REFUSED =
   "ALLOWLIST REFUSÉE — AUCUNE EXÉCUTION";
+
+/* ─── OPS1 I5 — execution contract + bounded Cursor run ─── */
+
+export type ExecutionContractStatus =
+  | "DRAFT"
+  | "READY_FOR_GATE"
+  | "APPROVED"
+  | "SUPERSEDED"
+  | "INVALID";
+
+export type ExecutionAttemptStatus =
+  | "PREPARING"
+  | "REVALIDATING"
+  | "RUNNING"
+  | "SUCCEEDED"
+  | "FAILED"
+  | "REFUSED"
+  | "STOPPED"
+  | "TIMED_OUT";
+
+export type CursorAdapterMode = "fixture" | "real";
+
+/** Immutable executable contract (pre-hash payload + frozen hash). */
+export interface ExecutionContractPayload {
+  contractVersion: string;
+  sessionId: string;
+  actionCandidateId: string;
+  actionVersion: number;
+  gateDecisionId: string | null;
+  gateDecisionType: "GO" | null;
+  gateDecidedBy: "Morris" | null;
+  gateDecidedAt: string | null;
+  repositoryRoot: string;
+  baseBranch: string;
+  baseHeadSha: string;
+  executionBranchName: string;
+  actionObjective: string;
+  actionInstructions: string;
+  allowedReads: string[];
+  allowedCreates: string[];
+  allowedModifies: string[];
+  forbiddenPaths: string[];
+  allowedOperations: AllowlistMode[];
+  maxFilesRead: number;
+  maxFilesCreated: number;
+  maxFilesModified: number;
+  maxDiffLines: number;
+  timeoutSeconds: number;
+  noRemoteGit: true;
+  noCommit: true;
+  noPush: true;
+  noPr: true;
+  noMerge: true;
+  createdAt: string;
+}
+
+export interface ExecutionContract extends ExecutionContractPayload {
+  contractId: string;
+  contractHash: string;
+  status: ExecutionContractStatus;
+  allowlistEvaluationId: string;
+  adapterMode: CursorAdapterMode;
+  supersededAt?: string | null;
+}
+
+export interface ExecutionGateRecord {
+  executionGateId: string;
+  contractId: string;
+  contractHash: string;
+  actionCandidateId: string;
+  actionVersion: number;
+  baseHeadSha: string;
+  decidedBy: "Morris";
+  decidedAt: string;
+  supersededAt?: string | null;
+}
+
+export interface MinimalExecutionResult {
+  resultId: string;
+  executionAttemptId: string;
+  contractHash: string;
+  status: ExecutionAttemptStatus;
+  adapterMode: CursorAdapterMode;
+  worktreePath: string | null;
+  exitCode: number | null;
+  timedOut: boolean;
+  stdoutDigest: string;
+  stderrDigest: string;
+  filesRead: string[];
+  filesCreated: string[];
+  filesModified: string[];
+  filesDeleted: string[];
+  filesRenamed: string[];
+  diffStat: string;
+  outOfContract: boolean;
+  refusalReason: string | null;
+  completedAt: string;
+}
+
+export interface ExecutionAttempt {
+  executionAttemptId: string;
+  contractId: string;
+  contractHash: string;
+  sessionId: string;
+  status: ExecutionAttemptStatus;
+  worktreePath: string | null;
+  localBranchName: string | null;
+  adapterMode: CursorAdapterMode;
+  startedAt: string;
+  completedAt: string | null;
+  result?: MinimalExecutionResult | null;
+}
+
+export const OPS1_I5_CONTRACT_VERSION = "ops1-i5-1.0.0";
+
+export const OPS1_I5_GO_DELIVERY_NE_EXEC =
+  "GO DELIVERY ≠ GO D’EXÉCUTION";
+export const OPS1_I5_GO_LINKED_HASH = "GO LIÉ AU CONTRACT HASH";
+export const OPS1_I5_CONTRACT_FROZEN = "CONTRAT GELÉ APRÈS GO";
+export const OPS1_I5_WORKTREE_NO_PUSH = "WORKTREE LOCAL — PAS DE PUSH";
+export const OPS1_I5_CURSOR_BOUNDED = "CURSOR RÉEL — EXÉCUTION BORNÉE";
+export const OPS1_I5_NO_AUTO_RETRY = "AUCUN RETRY AUTOMATIQUE";
+export const OPS1_I5_I6_BOUNDARY =
+  "I5 EXÉCUTE — I6 ANALYSE LE RAPPORT";
+
+export const OPS1_DEFAULT_FORBIDDEN_PATHS = [
+  "method/",
+  "prompts/",
+  "docs/",
+  "scripts/",
+  ".github/",
+  "projects/sfia-studio/",
+  "projects/chantiers360-v2/",
+  "projects/interv360/",
+  "projects/task-tracker/",
+] as const;

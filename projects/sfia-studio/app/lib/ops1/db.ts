@@ -123,6 +123,76 @@ CREATE TABLE IF NOT EXISTS allowlist_evaluations (
 
 CREATE INDEX IF NOT EXISTS idx_allowlist_action_version
   ON allowlist_evaluations(action_candidate_id, action_version, evaluated_at);
+
+CREATE TABLE IF NOT EXISTS execution_contracts (
+  contract_id TEXT PRIMARY KEY NOT NULL,
+  session_id TEXT NOT NULL,
+  action_candidate_id TEXT NOT NULL,
+  action_version INTEGER NOT NULL CHECK (action_version >= 1),
+  allowlist_evaluation_id TEXT NOT NULL,
+  contract_hash TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN (
+    'DRAFT', 'READY_FOR_GATE', 'APPROVED', 'SUPERSEDED', 'INVALID'
+  )),
+  adapter_mode TEXT NOT NULL CHECK (adapter_mode IN ('fixture', 'real')),
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  superseded_at TEXT,
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id),
+  FOREIGN KEY (action_candidate_id) REFERENCES action_candidates(action_candidate_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_exec_contracts_action
+  ON execution_contracts(action_candidate_id, action_version, created_at);
+
+CREATE TABLE IF NOT EXISTS execution_gates (
+  execution_gate_id TEXT PRIMARY KEY NOT NULL,
+  contract_id TEXT NOT NULL,
+  contract_hash TEXT NOT NULL,
+  session_id TEXT NOT NULL,
+  action_candidate_id TEXT NOT NULL,
+  action_version INTEGER NOT NULL CHECK (action_version >= 1),
+  base_head_sha TEXT NOT NULL,
+  decided_by TEXT NOT NULL CHECK (decided_by = 'Morris'),
+  decided_at TEXT NOT NULL,
+  superseded_at TEXT,
+  FOREIGN KEY (contract_id) REFERENCES execution_contracts(contract_id),
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_exec_gates_contract
+  ON execution_gates(contract_id, decided_at);
+
+CREATE TABLE IF NOT EXISTS execution_attempts (
+  execution_attempt_id TEXT PRIMARY KEY NOT NULL,
+  contract_id TEXT NOT NULL,
+  contract_hash TEXT NOT NULL,
+  session_id TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN (
+    'PREPARING', 'REVALIDATING', 'RUNNING', 'SUCCEEDED',
+    'FAILED', 'REFUSED', 'STOPPED', 'TIMED_OUT'
+  )),
+  worktree_path TEXT,
+  local_branch_name TEXT,
+  adapter_mode TEXT NOT NULL CHECK (adapter_mode IN ('fixture', 'real')),
+  started_at TEXT NOT NULL,
+  completed_at TEXT,
+  FOREIGN KEY (contract_id) REFERENCES execution_contracts(contract_id),
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_exec_attempts_hash
+  ON execution_attempts(contract_hash, status, started_at);
+
+CREATE TABLE IF NOT EXISTS execution_results (
+  result_id TEXT PRIMARY KEY NOT NULL,
+  execution_attempt_id TEXT NOT NULL UNIQUE,
+  contract_hash TEXT NOT NULL,
+  status TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  completed_at TEXT NOT NULL,
+  FOREIGN KEY (execution_attempt_id) REFERENCES execution_attempts(execution_attempt_id)
+);
 `;
 
 let singleton: DatabaseSync | null = null;
