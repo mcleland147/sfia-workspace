@@ -1,98 +1,91 @@
-# Review pack Full — OPS1 I4 allowlist evaluation (no execution)
+# SFIA Review Pack — Correctif OPS1 I4 (allowlist declarative fail-closed)
 
-## 1. Métadonnées
+## Métadonnées
 
-| Champ | Valeur |
-|-------|--------|
-| Titre | OPS1 I4 — évaluation déterministe allowlist Campus360 |
-| Date / heure | 2026-07-21 18:15:43 CEST (Europe/Paris) |
-| Rôle Cursor | Exécuteur repository contrôlé |
-| Cycle | Delivery OPS1 I4 (périmètre réduit) |
-| Profil SFIA | Standard |
-| Gate Morris | `GO DELIVERY OPS1 I4` |
-| Repo | `mcleland147/sfia-workspace` |
-| Branche | `delivery/sfia-studio-ops1-i4-allowlist-evaluation` |
-| HEAD initial / courant | `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b` (= origin/main, aucun commit projet) |
-| origin/main | `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b` |
-| Typologie | EVOL / DELIVERY / UX-UI / QA / SECURITY |
+- **date/heure** : 2026-07-21 18:28:47 CEST
+- **cycle** : Correctif Delivery OPS1 I4
+- **repo** : mcleland147/sfia-workspace
+- **branche** : `delivery/sfia-studio-ops1-i4-allowlist-evaluation`
+- **HEAD** : `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`
+- **origin/main** : `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`
+- **commit/push/PR projet** : **AUCUN** (gate correctif local uniquement)
+- **handoff branch** : `sfia/review-handoff`
+- **handoff path** : `sfia-review-handoff/latest-chatgpt-review.md`
 
-## 2. Qualification du périmètre réduit I4
+## 1. Git status initial (truth check correctif)
 
-I4 livré = **évaluation déterministe et visible de l’allowlist** uniquement.
-Non livré (reporté) : contrat final, worktree d’action, exécution Cursor, hash contractuel final, I5.
+Attendus validés au démarrage du correctif :
 
-## 3. Sources Git consultées
+- branche = `delivery/sfia-studio-ops1-i4-allowlist-evaluation`
+- HEAD = origin/main = `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`
+- working tree = livraison I4 non commitée + `.tmp-sfia-review/**`
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` (docs/foundation/* absent — OM via method/)
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `projects/sfia-studio/51-ops1-ux-ui-contract.md`
-- `projects/sfia-studio/52-ops1-visual-contract-and-figma-spec.md` (dimensions 1440×1024, nodes 61:275 / 61:1755 / 61:2148)
-- `projects/sfia-studio/54`–`59` OPS1 scenario/tech
-- `projects/sfia-studio/55-ops1-campus360-scope-and-allowlist-rules.md`
-- code I1–I3 : types, db, actionGate, Ops1SessionScreen, paths
+Aucun changement hors périmètre I4 / review temporaires.
 
-## 4. Figma
+## 2. Cause du correctif
 
-| Élément | Valeur |
-|---------|--------|
-| fileKey | `lrjA1WEyRpL05vKR8k29LO` |
-| Page | UX-B — OPS1 `61:2` |
-| Frames ciblées | `61:275` action+allowlist ; `61:1755` dérive ; `61:2148` hors allowlist |
-| Dimensions Figma (doc 52) | **1440 × 1024** desktop |
-| MCP Figma runtime | **Indisponible** — `CallDynamicTool` échoue systématiquement (`server: Required`) |
-| Fallback | Contrat Git validé doc 52 + captures runtime |
+Validation ChatGPT : le validateur I4 initial fermait le périmètre à `projects/campus360/` mais **n’exigeait pas** que READ/MODIFY ciblent uniquement les chemins déclarés par la politique validée.
 
-**Comparaison Figma/runtime :**
-- Similitudes : shell Studio, panneau allowlist séparé, catégories READ/CREATE/MODIFY/INTERDIT, statut anti-exécution, pas de CTA exécuter.
-- Écarts acceptables : layout local hérité I3 (pas clone pixel-perfect Figma) ; tokens Inter/blue/purple alignés doc 52.
-- Écarts bloquants : aucun pour le périmètre I4 réduit.
-- Tablette/mobile : non revendiqué (UX-R01).
+**Risque** : un autre Markdown existant sous Campus360 (ex. `99-unlisted-extra.md`) pouvait être ACCEPTÉ en READ/MODIFY.
 
-## 5. Working tree initial
+**Décision Morris** : politique déclarative, explicite, deny-by-default.
 
-Propre hors `.tmp-sfia-review/**` et `projects/.tmp-sfia-review/**` (temporaires exclus).
-Branche créée depuis `origin/main` @ `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`.
+## 3. Analyse de l’écart fail-closed
 
-## 6. Fichiers créés / modifiés
+Avant correctif (conceptuel) : appartenance à `projects/campus360/` + existence + mode CREATE/MODIFY rules structurelles ≈ éligibilité trop large.
 
-### Créés
+Après correctif :
+
+1. Map canonique `CAMPUS360_ALLOWLIST_POLICY` (chemins exacts → modes exacts).
+2. Fonction unique `decideAgainstAllowlistPolicy()` pour READ/MODIFY.
+3. CREATE uniquement via règle `NN-*.md` absent (jamais via la map).
+4. Chemin Campus360 non déclaré → `DENIED` + motif `Chemin absent de la politique allowlist déclarative.`
+5. Aucun fallback implicite sur « sous campus360 ».
+
+## 4. Politique TypeScript complète
+
+```ts
+export const CAMPUS360_ALLOWLIST_POLICY: Readonly<
+  Record<string, readonly AllowlistMode[]>
+> = {
+  "projects/campus360/README.md": ["READ", "MODIFY"],
+  "projects/campus360/01-opportunity-and-vision.md": ["READ", "MODIFY"],
+  "projects/campus360/02-sfia-cycle-coverage-hypothesis.md": ["READ", "MODIFY"],
+  "projects/campus360/03-pre-framing-decision-pack.md": ["READ"],
+};
+
+export const UNDECLARED_PATH_REASON =
+  "Chemin absent de la politique allowlist déclarative.";
+```
+
+### Matrice exacte chemins / modes
+
+| Chemin | READ | MODIFY | CREATE |
+|--------|------|--------|--------|
+| `projects/campus360/README.md` | ALLOWED | ALLOWED | DENIED |
+| `projects/campus360/01-opportunity-and-vision.md` | ALLOWED | ALLOWED | DENIED |
+| `projects/campus360/02-sfia-cycle-coverage-hypothesis.md` | ALLOWED | ALLOWED | DENIED |
+| `projects/campus360/03-pre-framing-decision-pack.md` | ALLOWED | DENIED (protégé) | DENIED |
+| nouveau `projects/campus360/NN-*.md` absent | DENIED | DENIED | ALLOWED (si exact + absent) |
+| tout autre chemin / combinaison | DENIED / INVALID | — | — |
+
+## 5. Fichiers modifiés / créés (périmètre correctif)
+
+**Créés / portés (I4 + correctif)** :
 
 - `projects/sfia-studio/app/lib/ops1/allowlistEvaluation.ts`
 - `projects/sfia-studio/app/lib/ops1/allowlistService.ts`
 - `projects/sfia-studio/app/__tests__/ops1/allowlistEvaluation.test.ts`
 - `projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts`
 
-### Modifiés
-- `lib/ops1/types.ts`, `db.ts`, `ids.ts`, `index.ts`, `validation.ts`, `actions.ts`, `actionGate.ts`, `fixtureReply.ts`
-- `features/ops1/Ops1SessionScreen.tsx`, `ops1-session.module.css`
-- `features/nouvelle-demande/NouvelleDemandePageClient.tsx`
-- tests UI mocks (`Ops1SessionScreen.test.tsx`, `globalModeBadge.ui.test.tsx`)
+**Modifiés (livraison I4 existante, hors refactor UI correctif)** :
 
-### Interdits vérifiés non touchés
-method/**, prompts/**, docs/**, scripts/**, .github/**, projects/campus360/**, CI, secrets.
+- `projects/sfia-studio/app/lib/ops1/types.ts` (types + microcopies I4)
+- UI `Ops1SessionScreen.tsx` / CSS (affichage motif via `evaluationReason` existant — pas de refonte)
 
-## 7. Modèle de données & migration
+**Interdits non touchés** : `projects/campus360/**`, `method/**`, `prompts/**`, etc.
 
-Types : `AllowlistEntry`, `AllowlistEvaluationStatus`, `ActionAllowlistEvaluation`, statuts VALID / INVALID / REQUIRES_CORRECTION.
-Table additive `allowlist_evaluations` (idempotente via CREATE IF NOT EXISTS) liée à `action_candidate_id` + `action_version`, avec `superseded_at`.
-Événements : ALLOWLIST_EVALUATION_STARTED / SUCCEEDED / FAILED / CORRECTION_REQUIRED.
-Aucun état EXECUTING/COMPLETED.
-
-## 8. Règles d’évaluation
-
-- Normalisation ; refus absolu / `..` / vide / wildcards / hors campus360 / method/prompts/code/CI/secrets
-- README/01/02 READ|MODIFY si listés ; 03 READ ok, MODIFY interdit ; CREATE = NN-*.md absent exact
-- CREATE+MODIFY même chemin, doublons, symlink sortant, fichier existant CREATE, absent MODIFY → refus
-- Non listé = interdit ; aucune mutation FS d’écriture ; pas de réseau
-
-## 9. Matrice cas tests
-
-Autorisés : READ/MODIFY README, READ 01, MODIFY 02, READ 03, CREATE 04-*.md
-Refusés : MODIFY 03, hors campus360, wildcard, absolu, .., vide, symlink, CREATE existant, MODIFY absent, CREATE+MODIFY, doublon, method/prompts/.env, action absente
-
-## 10. Contenu fichiers créés (complets)
+## 6. Contenu complet des fichiers créés / corrigés
 
 ### `projects/sfia-studio/app/lib/ops1/allowlistEvaluation.ts`
 
@@ -126,6 +119,60 @@ export interface EvaluateAllowlistInput {
   /** Absolute workspace root (repo root containing projects/). */
   workspaceRoot: string;
   evaluatedAt?: string;
+}
+
+/**
+ * Declarative Campus360 allowlist policy — deny-by-default.
+ * Exact path → exact modes. No implicit eligibility from directory membership.
+ */
+export const CAMPUS360_ALLOWLIST_POLICY: Readonly<
+  Record<string, readonly AllowlistMode[]>
+> = {
+  "projects/campus360/README.md": ["READ", "MODIFY"],
+  "projects/campus360/01-opportunity-and-vision.md": ["READ", "MODIFY"],
+  "projects/campus360/02-sfia-cycle-coverage-hypothesis.md": ["READ", "MODIFY"],
+  "projects/campus360/03-pre-framing-decision-pack.md": ["READ"],
+};
+
+export const UNDECLARED_PATH_REASON =
+  "Chemin absent de la politique allowlist déclarative.";
+
+/**
+ * Single decision point for policy modes.
+ * CREATE is never granted via the static map (only via NN-*.md create rule).
+ */
+export function decideAgainstAllowlistPolicy(
+  normalizedPath: string,
+  mode: AllowlistMode,
+): { allowed: true } | { allowed: false; reason: string } {
+  if (mode === "CREATE") {
+    // CREATE is handled by the dedicated NN-*.md rule, not the static map.
+    return {
+      allowed: false,
+      reason: UNDECLARED_PATH_REASON,
+    };
+  }
+  const allowedModes = CAMPUS360_ALLOWLIST_POLICY[normalizedPath];
+  if (!allowedModes) {
+    return { allowed: false, reason: UNDECLARED_PATH_REASON };
+  }
+  if (!allowedModes.includes(mode)) {
+    if (
+      normalizedPath === CAMPUS360_PROTECTED_MODIFY &&
+      mode === "MODIFY"
+    ) {
+      return {
+        allowed: false,
+        reason:
+          "03-pre-framing-decision-pack.md est protégé — MODIFY interdit dans le scénario nominal OPS1.",
+      };
+    }
+    return {
+      allowed: false,
+      reason: `Mode ${mode} non autorisé par la politique pour ce chemin.`,
+    };
+  }
+  return { allowed: true };
 }
 
 const FORBIDDEN_PREFIXES = [
@@ -203,9 +250,6 @@ export function normalizeAllowlistPath(raw: string): {
   }
   // Collapse ./ only
   const cleaned = parts.filter((p) => p !== ".").join("/");
-  if (!cleaned.startsWith(`${CAMPUS360_ROOT_PREFIX}/`) && cleaned !== CAMPUS360_ROOT_PREFIX) {
-    // still may fail later for prefix; normalization itself OK if relative
-  }
   return { ok: true, normalized: cleaned };
 }
 
@@ -412,7 +456,7 @@ export function evaluateAllowlist(
     }
   }
 
-  // Existence / symlink / protected 03 / naming rules
+  // Existence / symlink / declarative policy / CREATE NN-*.md
   for (const draft of drafts) {
     if (draft.evaluationStatus !== "ALLOWED") continue;
 
@@ -430,18 +474,18 @@ export function evaluateAllowlist(
       continue;
     }
 
-    if (draft.mode === "MODIFY" && draft.normalizedPath === CAMPUS360_PROTECTED_MODIFY) {
-      draft.evaluationStatus = "DENIED";
-      draft.evaluationReason =
-        "03-pre-framing-decision-pack.md est protégé — MODIFY interdit dans le scénario nominal OPS1.";
-      continue;
-    }
-
     if (draft.mode === "CREATE") {
       if (!isNnMarkdownCreate(draft.normalizedPath)) {
         draft.evaluationStatus = "DENIED";
         draft.evaluationReason =
           "CREATE réservé aux nouveaux fichiers projects/campus360/NN-*.md exacts.";
+        continue;
+      }
+      // CREATE paths must not collide with declared policy files
+      if (CAMPUS360_ALLOWLIST_POLICY[draft.normalizedPath]) {
+        draft.evaluationStatus = "DENIED";
+        draft.evaluationReason =
+          "CREATE interdit sur un chemin déjà déclaré dans la politique (utiliser READ/MODIFY).";
         continue;
       }
       if (disk.exists) {
@@ -450,6 +494,18 @@ export function evaluateAllowlist(
           "Fichier existant déclaré CREATE — utiliser MODIFY si éligible.";
         continue;
       }
+      continue;
+    }
+
+    // READ / MODIFY — declarative policy only (deny-by-default)
+    const policy = decideAgainstAllowlistPolicy(
+      draft.normalizedPath,
+      draft.mode,
+    );
+    if (!policy.allowed) {
+      draft.evaluationStatus = "DENIED";
+      draft.evaluationReason = policy.reason;
+      continue;
     }
 
     if (draft.mode === "MODIFY") {
@@ -462,16 +518,9 @@ export function evaluateAllowlist(
     }
 
     if (draft.mode === "READ") {
-      // READ may target existing files; absent READ is denied (non listable phantom)
-      if (!disk.exists && draft.normalizedPath !== CAMPUS360_PROTECTED_MODIFY) {
-        // Allow READ of existing only — absent = denied
+      if (!disk.exists) {
         draft.evaluationStatus = "DENIED";
         draft.evaluationReason = "Fichier absent — READ impossible.";
-        continue;
-      }
-      if (!disk.exists && draft.normalizedPath === CAMPUS360_PROTECTED_MODIFY) {
-        draft.evaluationStatus = "DENIED";
-        draft.evaluationReason = "Fichier 03 introuvable sur disque.";
         continue;
       }
     }
@@ -726,7 +775,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { evaluateAllowlist } from "@/lib/ops1/allowlistEvaluation";
+import {
+  CAMPUS360_ALLOWLIST_POLICY,
+  UNDECLARED_PATH_REASON,
+  decideAgainstAllowlistPolicy,
+  evaluateAllowlist,
+} from "@/lib/ops1/allowlistEvaluation";
 import {
   evaluateAndPersistAllowlist,
   getLatestAllowlistEvaluation,
@@ -734,10 +788,71 @@ import {
 } from "@/lib/ops1/allowlistService";
 import { createFixtureActionCandidate } from "@/lib/ops1/actionGate";
 import { createOpenSession } from "@/lib/ops1/repository";
-import { resetOps1DbForTests } from "@/lib/ops1/db";
-import { openOps1Db } from "@/lib/ops1/db";
+import { openOps1Db, resetOps1DbForTests } from "@/lib/ops1/db";
+import type { AllowlistMode } from "@/lib/ops1/types";
 
-describe("ops1 I4 allowlist evaluation", () => {
+const ACTION_ID = "ops1-act-11111111-1111-4111-8111-111111111111";
+
+function expectRejected(
+  pathValue: string,
+  mode: AllowlistMode,
+  workspaceRoot: string,
+  reasonMatch: RegExp | string,
+) {
+  const result = evaluateAllowlist({
+    actionCandidateId: ACTION_ID,
+    actionVersion: 1,
+    workspaceRoot,
+    entries: [{ path: pathValue, mode }],
+  });
+  const entry = result.evaluatedEntries[0];
+  expect(entry?.evaluationStatus).toMatch(/DENIED|INVALID/);
+  expect(entry?.evaluationReason).toMatch(
+    typeof reasonMatch === "string" ? new RegExp(reasonMatch, "i") : reasonMatch,
+  );
+  expect(result.allowedReads).not.toContain(
+    entry?.normalizedPath ?? pathValue,
+  );
+  expect(result.allowedModifies).not.toContain(
+    entry?.normalizedPath ?? pathValue,
+  );
+  expect(result.allowedCreates).not.toContain(
+    entry?.normalizedPath ?? pathValue,
+  );
+  expect(result.status).not.toBe("VALID");
+}
+
+function expectDenied(
+  pathValue: string,
+  mode: AllowlistMode,
+  workspaceRoot: string,
+  reasonMatch: RegExp | string,
+) {
+  const result = evaluateAllowlist({
+    actionCandidateId: ACTION_ID,
+    actionVersion: 1,
+    workspaceRoot,
+    entries: [{ path: pathValue, mode }],
+  });
+  const entry = result.evaluatedEntries[0];
+  expect(entry?.evaluationStatus).toBe("DENIED");
+  expect(entry?.evaluationReason).toMatch(
+    typeof reasonMatch === "string" ? new RegExp(reasonMatch, "i") : reasonMatch,
+  );
+  expect(result.allowedReads).not.toContain(
+    entry?.normalizedPath ?? pathValue,
+  );
+  expect(result.allowedModifies).not.toContain(
+    entry?.normalizedPath ?? pathValue,
+  );
+  expect(result.allowedCreates).not.toContain(
+    entry?.normalizedPath ?? pathValue,
+  );
+  expect(result.deniedPaths.length).toBeGreaterThan(0);
+  expect(result.status).not.toBe("VALID");
+}
+
+describe("ops1 I4 allowlist evaluation — declarative deny-by-default", () => {
   let tmpRoot: string;
   let workspaceRoot: string;
 
@@ -754,6 +869,7 @@ describe("ops1 I4 allowlist evaluation", () => {
       "01-opportunity-and-vision.md",
       "02-sfia-cycle-coverage-hypothesis.md",
       "03-pre-framing-decision-pack.md",
+      "99-unlisted-extra.md",
     ]) {
       fs.writeFileSync(path.join(campus, name), `# ${name}\n`, "utf8");
     }
@@ -765,9 +881,27 @@ describe("ops1 I4 allowlist evaluation", () => {
     fs.rmSync(tmpRoot, { recursive: true, force: true });
   });
 
-  it("allows READ/MODIFY/CREATE campus360 cases", () => {
+  it("exposes an explicit policy map", () => {
+    expect(CAMPUS360_ALLOWLIST_POLICY["projects/campus360/README.md"]).toEqual([
+      "READ",
+      "MODIFY",
+    ]);
+    expect(
+      CAMPUS360_ALLOWLIST_POLICY[
+        "projects/campus360/03-pre-framing-decision-pack.md"
+      ],
+    ).toEqual(["READ"]);
+    expect(
+      decideAgainstAllowlistPolicy(
+        "projects/campus360/99-unlisted-extra.md",
+        "READ",
+      ).allowed,
+    ).toBe(false);
+  });
+
+  it("allows only declared READ/MODIFY/CREATE cases", () => {
     const result = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
+      actionCandidateId: ACTION_ID,
       actionVersion: 1,
       workspaceRoot,
       entries: [
@@ -775,6 +909,14 @@ describe("ops1 I4 allowlist evaluation", () => {
         { path: "projects/campus360/README.md", mode: "MODIFY" },
         {
           path: "projects/campus360/01-opportunity-and-vision.md",
+          mode: "READ",
+        },
+        {
+          path: "projects/campus360/01-opportunity-and-vision.md",
+          mode: "MODIFY",
+        },
+        {
+          path: "projects/campus360/02-sfia-cycle-coverage-hypothesis.md",
           mode: "READ",
         },
         {
@@ -789,74 +931,143 @@ describe("ops1 I4 allowlist evaluation", () => {
       ],
     });
     expect(result.status).toBe("VALID");
-    expect(result.allowedReads).toContain(
-      "projects/campus360/README.md",
+    expect(result.evaluatedEntries.every((e) => e.evaluationStatus === "ALLOWED")).toBe(
+      true,
     );
-    expect(result.allowedCreates).toContain(
-      "projects/campus360/04-new-note.md",
-    );
+    expect(result.deniedPaths).toEqual([]);
     expect(result.uiStatusLabel).toContain("AUCUNE EXÉCUTION");
   });
 
-  it("denies MODIFY on protected 03", () => {
-    const result = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
-      actionVersion: 1,
+  it("denies MODIFY on protected 03 with explicit reason", () => {
+    expectDenied(
+      "projects/campus360/03-pre-framing-decision-pack.md",
+      "MODIFY",
       workspaceRoot,
-      entries: [
-        {
-          path: "projects/campus360/03-pre-framing-decision-pack.md",
-          mode: "MODIFY",
-        },
-      ],
-    });
-    expect(result.status).toBe("REQUIRES_CORRECTION");
-    expect(result.evaluatedEntries[0]?.evaluationStatus).toBe("DENIED");
-    expect(result.evaluatedEntries[0]?.evaluationReason).toMatch(/protégé/i);
+      /protégé|MODIFY interdit/i,
+    );
   });
 
-  it("denies outside campus360, wildcards, absolute, .., empty", () => {
-    const cases = [
-      { path: "projects/sfia-studio/app/lib/ops1/types.ts", mode: "READ" as const },
-      { path: "projects/campus360/**", mode: "READ" as const },
-      { path: "/tmp/x.md", mode: "READ" as const },
-      { path: "projects/campus360/../secret.md", mode: "READ" as const },
-      { path: "   ", mode: "READ" as const },
-      { path: "method/sfia-fast-track/core/x.md", mode: "READ" as const },
-      { path: "prompts/templates/x.md", mode: "READ" as const },
-      { path: "projects/campus360/.env", mode: "READ" as const },
-    ];
-    for (const entry of cases) {
+  it("TOUT CHEMIN NON DÉCLARÉ = DENIED — unlisted existing Campus360 markdown", () => {
+    for (const mode of ["READ", "MODIFY"] as const) {
       const result = evaluateAllowlist({
-        actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
+        actionCandidateId: ACTION_ID,
         actionVersion: 1,
         workspaceRoot,
-        entries: [entry],
+        entries: [
+          { path: "projects/campus360/99-unlisted-extra.md", mode },
+        ],
       });
-      expect(result.status).not.toBe("VALID");
-      expect(result.evaluatedEntries[0]?.evaluationStatus).not.toBe("ALLOWED");
+      const entry = result.evaluatedEntries[0];
+      expect(entry?.evaluationStatus).toBe("DENIED");
+      expect(entry?.evaluationReason).toBe(UNDECLARED_PATH_REASON);
+      expect(result.allowedReads).not.toContain(
+        "projects/campus360/99-unlisted-extra.md",
+      );
+      expect(result.allowedModifies).not.toContain(
+        "projects/campus360/99-unlisted-extra.md",
+      );
+      expect(result.deniedPaths).toContain(
+        "projects/campus360/99-unlisted-extra.md",
+      );
     }
   });
 
-  it("denies CREATE existing, MODIFY absent, CREATE+MODIFY contradiction, duplicate", () => {
-    const createExisting = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
-      actionVersion: 1,
+  it("denies READ/MODIFY of absent NN-*.md and CREATE on declared files", () => {
+    expectDenied(
+      "projects/campus360/04-future.md",
+      "READ",
       workspaceRoot,
-      entries: [{ path: "projects/campus360/README.md", mode: "CREATE" }],
-    });
-    expect(createExisting.evaluatedEntries[0]?.evaluationStatus).toBe("DENIED");
+      UNDECLARED_PATH_REASON,
+    );
+    expectDenied(
+      "projects/campus360/04-future.md",
+      "MODIFY",
+      workspaceRoot,
+      UNDECLARED_PATH_REASON,
+    );
+    expectDenied(
+      "projects/campus360/README.md",
+      "CREATE",
+      workspaceRoot,
+      /CREATE|politique/i,
+    );
+    expectDenied(
+      "projects/campus360/01-opportunity-and-vision.md",
+      "CREATE",
+      workspaceRoot,
+      /CREATE|politique/i,
+    );
+  });
 
-    const modifyAbsent = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
+  it("denies case mismatch, trailing slash, wildcard, absolute, .., outside, secrets", () => {
+    expectRejected(
+      "Projects/campus360/README.md",
+      "READ",
+      workspaceRoot,
+      /Hors projects\/campus360|absent de la politique|interdit/i,
+    );
+    const trailing = evaluateAllowlist({
+      actionCandidateId: ACTION_ID,
       actionVersion: 1,
       workspaceRoot,
-      entries: [{ path: "projects/campus360/09-missing.md", mode: "MODIFY" }],
+      entries: [{ path: "projects/campus360/README.md/", mode: "READ" }],
     });
-    expect(modifyAbsent.evaluatedEntries[0]?.evaluationStatus).toBe("DENIED");
+    expect(trailing.evaluatedEntries[0]?.evaluationStatus).toMatch(
+      /DENIED|INVALID/,
+    );
+    expect(trailing.evaluatedEntries[0]?.evaluationReason).toMatch(
+      /Segment vide|« \.\. »|interdit/i,
+    );
+    expect(trailing.status).not.toBe("VALID");
+    expectRejected("projects/campus360/**", "READ", workspaceRoot, /Wildcard/i);
+    expectRejected("/tmp/x.md", "READ", workspaceRoot, /absolu/i);
+    expectRejected(
+      "projects/campus360/../secret.md",
+      "READ",
+      workspaceRoot,
+      /\.\./i,
+    );
+    expectDenied(
+      "projects/sfia-studio/app/lib/ops1/types.ts",
+      "READ",
+      workspaceRoot,
+      /hors|protég/i,
+    );
+    expectDenied(
+      "method/sfia-fast-track/core/x.md",
+      "READ",
+      workspaceRoot,
+      /method/i,
+    );
+    expectDenied(
+      "prompts/templates/x.md",
+      "READ",
+      workspaceRoot,
+      /prompts|protég/i,
+    );
+    expectDenied("projects/campus360/.env", "READ", workspaceRoot, /\.env|interdit/i);
+  });
+
+  it("denies CREATE existing, MODIFY absent declared path, CREATE+MODIFY, duplicate, symlink escape", () => {
+    expectDenied(
+      "projects/campus360/README.md",
+      "CREATE",
+      workspaceRoot,
+      /CREATE|politique/i,
+    );
+    // MODIFY on declared path but file deleted
+    fs.unlinkSync(
+      path.join(workspaceRoot, "projects/campus360/README.md"),
+    );
+    expectDenied(
+      "projects/campus360/README.md",
+      "MODIFY",
+      workspaceRoot,
+      /absent/i,
+    );
 
     const contradiction = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
+      actionCandidateId: ACTION_ID,
       actionVersion: 1,
       workspaceRoot,
       entries: [
@@ -868,37 +1079,27 @@ describe("ops1 I4 allowlist evaluation", () => {
       contradiction.evaluatedEntries.every((e) => e.evaluationStatus !== "ALLOWED"),
     ).toBe(true);
 
-    const dup = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
-      actionVersion: 1,
-      workspaceRoot,
-      entries: [
-        { path: "projects/campus360/README.md", mode: "READ" },
-        { path: "./projects/campus360/README.md", mode: "READ" },
-      ],
-    });
-    // second may normalize same — duplicate of mode+path
-    expect(dup.evaluatedEntries.some((e) => e.evaluationStatus === "INVALID")).toBe(
-      true,
+    // restore README for symlink test setup in fresh state — recreate workspace file
+    fs.writeFileSync(
+      path.join(workspaceRoot, "projects/campus360/README.md"),
+      "# README\n",
+      "utf8",
     );
-  });
-
-  it("denies escaping symlink", () => {
     const campus = path.join(workspaceRoot, "projects", "campus360");
     const outside = path.join(workspaceRoot, "outside-secret.md");
     fs.writeFileSync(outside, "nope", "utf8");
     fs.symlinkSync(outside, path.join(campus, "linked.md"));
-    const result = evaluateAllowlist({
-      actionCandidateId: "ops1-act-11111111-1111-4111-8111-111111111111",
-      actionVersion: 1,
+    expectDenied(
+      "projects/campus360/linked.md",
+      "READ",
       workspaceRoot,
-      entries: [{ path: "projects/campus360/linked.md", mode: "READ" }],
-    });
-    expect(result.evaluatedEntries[0]?.evaluationStatus).toBe("DENIED");
-    expect(result.evaluatedEntries[0]?.evaluationReason).toMatch(/Symlink/i);
+      /Symlink|absent de la politique/i,
+    );
   });
 
-  it("persists evaluation linked to action+version and supersedes on refine", () => {
+  it("denies outside campus360, empty, and persists/supersedes evaluations", () => {
+    expectRejected("   ", "READ", workspaceRoot, /vide/i);
+
     openOps1Db();
     const { session } = createOpenSession("fixture");
     const { candidate } = createFixtureActionCandidate(session.sessionId);
@@ -909,11 +1110,12 @@ describe("ops1 I4 allowlist evaluation", () => {
       workspaceRoot,
     });
     expect(evaluation.status).toBe("VALID");
-    const latest = getLatestAllowlistEvaluation(
-      candidate.actionCandidateId,
-      candidate.version,
-    );
-    expect(latest?.evaluationId).toBe(evaluation.evaluationId);
+    expect(
+      getLatestAllowlistEvaluation(
+        candidate.actionCandidateId,
+        candidate.version,
+      )?.evaluationId,
+    ).toBe(evaluation.evaluationId);
 
     supersedeAllowlistEvaluationsForAction(candidate.actionCandidateId);
     expect(
@@ -1033,6 +1235,30 @@ test.describe("OPS1 I4 allowlist evaluation — no execution", () => {
     });
   });
 
+  test("refuses unlisted existing Campus360 markdown", async ({ page }) => {
+    await prepareCandidate(page);
+    await page
+      .getByTestId("ops1-i4-draft-path-0")
+      .fill("projects/campus360/99-unlisted-extra.md");
+    await page.getByTestId("ops1-i4-draft-mode-0").selectOption("READ");
+    while (
+      (await page.locator('[data-testid^="ops1-i4-draft-remove-"]').count()) > 1
+    ) {
+      await page.getByTestId("ops1-i4-draft-remove-1").click();
+    }
+    await page.getByTestId("ops1-i4-evaluate").click();
+    await expect(page.getByTestId("ops1-i4-global-status")).toContainText(
+      "CORRECTION REQUISE — AUCUNE EXÉCUTION",
+    );
+    await expect(page.getByTestId("ops1-i4-entry-reason-0")).toContainText(
+      "Chemin absent de la politique allowlist déclarative.",
+    );
+    await page.screenshot({
+      path: path.join(screenshotDir, "04-deny-unlisted-campus360-markdown.png"),
+      fullPage: true,
+    });
+  });
+
   test("refuses wildcard / outside campus360", async ({ page }) => {
     await prepareCandidate(page);
     await page
@@ -1058,95 +1284,9 @@ test.describe("OPS1 I4 allowlist evaluation — no execution", () => {
 
 ```
 
-## 11. Diffs utiles (fichiers modifiés sélectionnés)
+### Diff utile `types.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
-index 5244a82..5931b3d 100644
---- a/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
-+++ b/projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
-@@ -14,21 +14,21 @@ import {
- const COPILOT = {
-   variant: "flush" as const,
-   name: "Nora · SFIA Copilot",
--  subtitle: "OPS1 I3 — action gate / fixture first",
-+  subtitle: "OPS1 I4 — allowlist evaluation / no execution",
-   avatarTone: "blue" as const,
-   levelPill: "L0 humain",
-   summary:
--    "Proposition d’action hors chat et gate Morris (GO / NO_GO / CORRIGER / ABANDONNER). Fixture first — aucune exécution ; allowlist reportée à I4.",
-+    "Évaluation déterministe de l’allowlist Campus360 (READ / CREATE / MODIFY). Éligible ≠ autorisé — aucune exécution Cursor.",
-   checklist: [
--    "Créer session OPEN (fixture first)",
--    "Qualifier ou proposer un ActionCandidate",
--    "Décider via les quatre gate actions",
--    "Aucune exécution Cursor / Git / filesystem",
-+    "Action candidate I3 disponible",
-+    "Saisir allowlist exhaustive 1..n",
-+    "Évaluer (VALID / CORRECTION / REFUSÉE)",
-+    "Aucune exécution — worktree / push / PR reportés",
-   ],
--  checklistTitle: "Parcours I3",
-+  checklistTitle: "Parcours I4",
-   riskTitle: "PÉRIMÈTRE",
-   riskText:
--    "I3 n’ouvre pas l’exécution ni l’allowlist I4, ni la clôture CLOSED, ni la CI. GO ≠ exécution.",
-+    "I4 n’ouvre pas l’exécution, le worktree d’action, ni l’allowlist I5. Non listé = interdit. GO I3 ≠ exécution.",
- };
-
- function NouvelleDemandeBody({
-@@ -81,7 +81,7 @@ export function NouvelleDemandePageClient() {
-           tone: badge.tone,
-           testId: "global-mode-badge",
-         },
--        { label: "OPS1 I3", tone: "blueFlush", testId: "ops1-increment-badge" },
-+        { label: "OPS1 I4", tone: "blueFlush", testId: "ops1-increment-badge" },
-       ]}
-       copilot={COPILOT}
-     >
-diff --git a/projects/sfia-studio/app/lib/ops1/db.ts b/projects/sfia-studio/app/lib/ops1/db.ts
-index 27eeeed..8915781 100644
---- a/projects/sfia-studio/app/lib/ops1/db.ts
-+++ b/projects/sfia-studio/app/lib/ops1/db.ts
-@@ -104,6 +104,25 @@ CREATE INDEX IF NOT EXISTS idx_actions_session
-
- CREATE INDEX IF NOT EXISTS idx_gates_action
-   ON gate_decisions(action_candidate_id, created_at);
-+
-+CREATE TABLE IF NOT EXISTS allowlist_evaluations (
-+  evaluation_id TEXT PRIMARY KEY NOT NULL,
-+  session_id TEXT NOT NULL,
-+  action_candidate_id TEXT NOT NULL,
-+  action_version INTEGER NOT NULL CHECK (action_version >= 1),
-+  status TEXT NOT NULL CHECK (status IN (
-+    'VALID', 'INVALID', 'REQUIRES_CORRECTION'
-+  )),
-+  ui_status_label TEXT NOT NULL,
-+  payload_json TEXT NOT NULL,
-+  evaluated_at TEXT NOT NULL,
-+  superseded_at TEXT,
-+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id),
-+  FOREIGN KEY (action_candidate_id) REFERENCES action_candidates(action_candidate_id)
-+);
-+
-+CREATE INDEX IF NOT EXISTS idx_allowlist_action_version
-+  ON allowlist_evaluations(action_candidate_id, action_version, evaluated_at);
- `;
-
- let singleton: DatabaseSync | null = null;
-diff --git a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts b/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-index de79cb7..c2e014b 100644
---- a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-+++ b/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-@@ -3,7 +3,7 @@ export function buildFixtureAssistantReply(userContent: string): string {
-   const preview =
-     userContent.length > 120 ? `${userContent.slice(0, 117)}…` : userContent;
-   return [
--    "[FIXTURE / NON LIVE] Réponse locale déterministe OPS1 I3.",
-+    "[FIXTURE / NON LIVE] Réponse locale déterministe OPS1 I4.",
-     "Aucun fournisseur GPT n’a été appelé.",
-     `Echo borné : « ${preview} »`,
-   ].join(" ");
 diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
 index f38fbcb..f9f9e33 100644
 --- a/projects/sfia-studio/app/lib/ops1/types.ts
@@ -1227,98 +1367,104 @@ index f38fbcb..f9f9e33 100644
 +  "CORRECTION REQUISE — AUCUNE EXÉCUTION";
 +export const OPS1_I4_STATUS_REFUSED =
 +  "ALLOWLIST REFUSÉE — AUCUNE EXÉCUTION";
-diff --git a/projects/sfia-studio/app/lib/ops1/validation.ts b/projects/sfia-studio/app/lib/ops1/validation.ts
-index 0a18d3e..ed21ba4 100644
---- a/projects/sfia-studio/app/lib/ops1/validation.ts
-+++ b/projects/sfia-studio/app/lib/ops1/validation.ts
-@@ -1,5 +1,7 @@
- import {
-   OPS1_MAX_MESSAGE_CHARS,
-+  type AllowlistInputEntry,
-+  type AllowlistMode,
-   type ConversationMode,
-   type GateDecisionKind,
-   type TurnRole,
-@@ -81,3 +83,40 @@ export function assertConversationMode(mode: unknown): ConversationMode {
-   if (mode === "fixture" || mode === "live") return mode;
-   throw new Ops1Error("VALIDATION", "Mode conversationnel invalide.");
- }
-+
-+export function assertAllowlistMode(mode: unknown): AllowlistMode {
-+  if (mode === "READ" || mode === "CREATE" || mode === "MODIFY") return mode;
-+  throw new Ops1Error("VALIDATION", "Mode allowlist invalide.");
-+}
-+
-+export function assertAllowlistEntries(raw: unknown): AllowlistInputEntry[] {
-+  if (!Array.isArray(raw) || raw.length === 0) {
-+    throw new Ops1Error(
-+      "VALIDATION",
-+      "Allowlist exhaustive requise (au moins une entrée).",
-+    );
-+  }
-+  if (raw.length > 50) {
-+    throw new Ops1Error("VALIDATION", "Allowlist trop longue (max 50).");
-+  }
-+  return raw.map((item, index) => {
-+    if (!item || typeof item !== "object") {
-+      throw new Ops1Error(
-+        "VALIDATION",
-+        `Entrée allowlist #${index + 1} invalide.`,
-+      );
-+    }
-+    const record = item as Record<string, unknown>;
-+    const pathValue = record.path;
-+    if (typeof pathValue !== "string") {
-+      throw new Ops1Error(
-+        "VALIDATION",
-+        `Chemin allowlist #${index + 1} invalide.`,
-+      );
-+    }
-+    return {
-+      path: pathValue,
-+      mode: assertAllowlistMode(record.mode),
-+    };
-+  });
-+}
 
 ```
 
-## 12. Tests exécutés
+## 7. Nouveaux tests négatifs / positifs
+
+Unit (`allowlistEvaluation.test.ts`) — 9 tests :
+
+- politique explicite exposée
+- cas autorisés READ/MODIFY 01/02/README + READ 03 + CREATE NN-*.md
+- MODIFY 03 refusé
+- **TOUT CHEMIN NON DÉCLARÉ = DENIED** (`99-unlisted-extra.md` READ+MODIFY, motif exact `UNDECLARED_PATH_REASON`)
+- READ/MODIFY absent NN + CREATE sur fichiers déclarés
+- casse, slash final, wildcard, absolu, `..`, hors Campus360, secrets
+- CREATE existant, MODIFY absent, CREATE+MODIFY, symlink escape
+- persist / supersede
+
+E2E (`ops1-i4-allowlist.spec.ts`) — 4 scénarios + captures :
+
+1. allowlist valide + absence CTA Exécuter / Lancer Cursor → `01-allowlist-valid.png`
+2. refus MODIFY 03 → `02-deny-modify-03.png`
+3. refus Markdown Campus360 non déclaré → `04-deny-unlisted-campus360-markdown.png`
+4. refus wildcard → `03-deny-wildcard.png`
+
+Assertions : `evaluationStatus` / `evaluationReason` / `deniedPaths` / absence des buckets allowed*.
+
+## 8. Résultats tests complets
+
+Depuis `projects/sfia-studio/app` :
 
 | Commande | Résultat |
 |----------|----------|
-| `npm run typecheck` | PASS |
-| `npm run lint` (`next lint`) | PASS (0 errors ; dépréciation Next 16) |
-| `npm test` | PASS 102/102 |
-| `npm run build` | PASS |
-| `npx playwright test e2e/ops1-i4-allowlist.spec.ts` | PASS 3/3 |
-| `npx playwright test e2e/ops1-i3-action-gate.spec.ts` | PASS 5/5 (non-régression) |
+| `npm run typecheck` | PASS (0) |
+| `npm run lint` | PASS (0) |
+| `npm test` | PASS — 21 files / **104** tests |
+| `npm run build` | PASS (0) |
+| `npx playwright test e2e/ops1-i4-allowlist.spec.ts` | PASS — 4/4 |
+| `npx playwright test e2e/ops1-i3-action-gate.spec.ts` | PASS — 5/5 (pas de régression I3) |
 | `git diff --check` | PASS |
 
-## 13. Preuves runtime
+## 9. Preuve deny-by-default
 
-Viewport e2e ~1440×1024 ; route `/nouvelle-demande` ; fixture session + ActionCandidate.
+- Unitaire : `99-unlisted-extra.md` existant → DENIED + `Chemin absent de la politique allowlist déclarative.` + hors `allowedReads`/`allowedModifies`.
+- E2E capture `04-deny-unlisted-campus360-markdown.png` : statut `CORRECTION REQUISE — AUCUNE EXÉCUTION` + motif déclaratif.
+- CREATE n’est jamais accordé via la map ; READ/MODIFY exigent entrée exacte + mode exact.
 
-| Capture | Chemin |
-|---------|--------|
-| Allowlist valide | `.tmp-sfia-review/screenshots-ops1-i4/01-allowlist-valid.png` |
-| Refus MODIFY 03 | `.tmp-sfia-review/screenshots-ops1-i4/02-deny-modify-03.png` |
-| Refus wildcard | `.tmp-sfia-review/screenshots-ops1-i4/03-deny-wildcard.png` |
+## 10. UI (sans refonte)
 
-Statuts observés : `ALLOWLIST VALIDE — AUCUNE EXÉCUTION` ; `CORRECTION REQUISE — AUCUNE EXÉCUTION` ; absence boutons Exécuter / Lancer Cursor.
+Microcopies toujours présentes :
 
-## 14. Accessibilité
+- ALLOWLIST VALIDE — AUCUNE EXÉCUTION
+- CORRECTION REQUISE — AUCUNE EXÉCUTION
+- ALLOWLIST REFUSÉE — AUCUNE EXÉCUTION
+- Éligible ≠ autorisé / Non listé = interdit / GO I3 ≠ exécution
 
-- Verdict textuel (ALLOWED/DENIED/INVALID) + motif associé
-- `aria-live` sur résultat ; labels sur inputs/selects ; focus visible CSS
-- Pas de verdict couleur seule
+Aucun CTA d’exécution. Le motif `UNDECLARED_PATH_REASON` est affiché via `ops1-i4-entry-reason-*`.
 
-## 15. Sécurité
+## 11. MCP Figma — nouvelle tentative
 
-- Fail-closed path rules ; pas de secrets dans le diff ; campus360 non modifié
-- Pas d’exécution / réseau / Git distant depuis I4
+- Namespace : `plugin-figma-figma` (`namespaceStatus: ready`)
+- Tentative incorrecte (wrapper) : `CallDynamicTool` avec paramètre `server` → erreur `Invalid arguments: server: Required` (forme d’appel incorrecte / confusion server vs namespace)
+- Tentative correcte : `namespace=plugin-figma-figma` + `toolName=get_metadata|get_screenshot` + `arguments.fileKey/nodeId` → **SUCCÈS**
 
-## 16. git status / diff
+Frames consultées (fileKey `lrjA1WEyRpL05vKR8k29LO`, page UX-B 61:2) :
+
+| nodeId | Nom | Dimensions metadata |
+|--------|-----|---------------------|
+| 61:275 | OPS1-UX-03 — Action candidate + allowlist | 1440×1024 |
+| 61:1755 | OPS1-UX-VAR-D — GO invalide / dérive allowlist | 1440×1024 |
+| 61:2148 | OPS1-UX-VAR-G — Hors allowlist / sans GO | 1440×1024 |
+
+Capture MCP enregistrée :
+
+- `.tmp-sfia-review/screenshots-ops1-i4/figma-61-275-action-candidate-allowlist.png` (asset MCP 1024×729 export)
+
+Fallback Git `52-ops1-visual-contract-and-figma-spec.md` : non requis pour accès (MCP OK), conservé comme contrat sémantique.
+
+## 12. Captures runtime
+
+Viewport Playwright : **1440 × 1024**
+
+| Fichier | Scénario | Texte / statut attendu | Dimensions |
+|---------|----------|------------------------|------------|
+| `.tmp-sfia-review/screenshots-ops1-i4/01-allowlist-valid.png` | chemins déclarés READ/CREATE/MODIFY | ALLOWLIST VALIDE — AUCUNE EXÉCUTION ; pas de bouton Exécuter | 1440×1024 |
+| `.tmp-sfia-review/screenshots-ops1-i4/02-deny-modify-03.png` | MODIFY 03 | CORRECTION REQUISE — AUCUNE EXÉCUTION ; motif protégé | 1440×1024 |
+| `.tmp-sfia-review/screenshots-ops1-i4/03-deny-wildcard.png` | wildcard | motif Wildcard / interdit | 1440×1024 |
+| `.tmp-sfia-review/screenshots-ops1-i4/04-deny-unlisted-campus360-markdown.png` | Markdown Campus360 non déclaré | Chemin absent de la politique allowlist déclarative. | 1440×1024 |
+
+## 13. Comparaison visuelle + réserve
+
+**Congruence structurelle** (non pixel-perfect) :
+
+- Frames Figma 1440×1024 alignées au viewport runtime.
+- Panel allowlist + Action candidate présents dans 61:275 ; libellés Figma incluent « Éligible ≠ autorisation globale », chemins exacts.
+- Runtime : panel I4, buckets, statuts anti-exécution, aucun CTA Exécuter.
+
+**Réserve** : pas de conformité pixel-perfect / visual READY fort. Comparaison limitée metadata + screenshot MCP + captures runtime.
+
+## 14. Git status final
 
 ```
  M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
@@ -1334,12 +1480,16 @@ Statuts observés : `ALLOWLIST VALIDE — AUCUNE EXÉCUTION` ; `CORRECTION REQUI
  M projects/sfia-studio/app/lib/ops1/index.ts
  M projects/sfia-studio/app/lib/ops1/types.ts
  M projects/sfia-studio/app/lib/ops1/validation.ts
+?? .tmp-sfia-review/
+?? projects/.tmp-sfia-review/
 ?? projects/sfia-studio/app/__tests__/ops1/allowlistEvaluation.test.ts
 ?? projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts
 ?? projects/sfia-studio/app/lib/ops1/allowlistEvaluation.ts
 ?? projects/sfia-studio/app/lib/ops1/allowlistService.ts
 
 ```
+
+### diff --stat
 
 ```
  .../app/__tests__/ops1/Ops1SessionScreen.test.tsx  |   2 +
@@ -1352,47 +1502,32 @@ Statuts observés : `ALLOWLIST VALIDE — AUCUNE EXÉCUTION` ; `CORRECTION REQUI
  projects/sfia-studio/app/lib/ops1/db.ts            |  19 ++
  projects/sfia-studio/app/lib/ops1/fixtureReply.ts  |   2 +-
  projects/sfia-studio/app/lib/ops1/ids.ts           |   4 +
- projects/sfia-studio/app/lib/ops1/index.ts         |   9 +
+ projects/sfia-studio/app/lib/ops1/index.ts         |  12 +
  projects/sfia-studio/app/lib/ops1/types.ts         |  65 ++++-
  projects/sfia-studio/app/lib/ops1/validation.ts    |  39 +++
- 13 files changed, 670 insertions(+), 18 deletions(-)
+ 13 files changed, 673 insertions(+), 18 deletions(-)
 
 ```
 
-## 17. Réserves & dette
+### diff --cached --stat
 
-- MCP Figma inaccessible (harness) — validation visuelle via doc 52 + runtime
-- `next lint` déprécié Next 16
-- Tablette/mobile non validés Figma
-- I4 historique complet (worktree, exécution, contrat final) **non** livré — reporté
+```
+(vide)
+```
 
-## 18. Éléments reportés
+## 15. Absence commit / push / PR projet
 
-I5 / cycles ultérieurs : exécution Cursor, worktree action, contrat/hash final, gel post-GO exécution, rapport diffs multi-fichiers.
+Confirmé : aucun `git commit` / `git push` / `gh pr create` sur la branche projet `delivery/sfia-studio-ops1-i4-allowlist-evaluation`.
 
-## 19. Garde-fous
+Seul le publisher handoff est autorisé (branche `sfia/review-handoff`).
 
-Aucun commit / push / PR / merge projet. Aucune modification method/prompts/docs/campus360/CI.
-Handoff uniquement via publisher canonique.
+## 16. Verdict Cursor
 
-## 20. Review Handoff
+**OPS1 I4 CORRECTED WITH FIGMA RESERVATION — READY FOR CHATGPT VALIDATION**
 
-| Champ | Valeur |
-|-------|--------|
-| Source | `.tmp-sfia-review/chatgpt-review.md` |
-| Message | `docs(review-handoff): publish OPS1 I4 allowlist evaluation review` |
-| Worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| Verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
-| Commit handoff | `707a4a396a9416fbc4ce9fb3b964368f2145726e` |
-| Blob | `4f2b6fe519a6c0f83bc0eed2ea861fc3add7b200` |
-| Path | `sfia-review-handoff/latest-chatgpt-review.md` |
+Décision Morris attendue : validation ChatGPT du correctif fail-closed, puis éventuel GO commit/push/PR (hors de ce gate).
 
-## 21. Décision Morris attendue
+ChatGPT doit lire obligatoirement :
 
-Revue ChatGPT du handoff distant puis GO éventuel commit/push/PR I4 (distinct).
-
-## 22. Verdict Cursor
-
-**OPS1 I4 IMPLEMENTED WITH RESERVATIONS — READY FOR CHATGPT VALIDATION**
-
-Réserve principale : MCP Figma non consultable en live ; preuves runtime + contrat Git 52 présents.
+- branche : `sfia/review-handoff`
+- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
