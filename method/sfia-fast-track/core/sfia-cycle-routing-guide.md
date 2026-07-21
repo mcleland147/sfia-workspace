@@ -71,6 +71,8 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
 
 **Complément Review Handoff commit + push + remote verification (candidate v2.5 — PR 4) :** handoff required = commit + push `origin/sfia/review-handoff` + vérification remote obligatoires — template §7.10 ; operating model §18.2.8.H.
 
+**Complément Review Handoff canonical publisher (tooling) :** lorsque `scripts/sfia/publish-review-handoff.sh` est disponible, publication **uniquement** via ce publisher vers `sfia-review-handoff/latest-chatgpt-review.md` — template §7.10.4 ; `scripts/sfia/README.md`.
+
 **Complément Review Handoff routing fix (candidate v2.5 — correctif) :** matrice d'obligation — template §7.11 ; routing §2.1 ci-dessous.
 
 ### 2.1 Matrice Review Handoff Git × review pack
