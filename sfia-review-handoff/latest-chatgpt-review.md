@@ -1391,7 +1391,11 @@ Aucune.
 | Publisher | `scripts/sfia/publish-review-handoff.sh` depuis `origin/main` |
 | Worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | Commit message | `docs(review-handoff): publish OPS1 I3 delivery PR review` |
-| Verdict / SHA / blob | *(complétés après publication)* |
+| Verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Commit handoff | `a8a3bf19a41f13e165535cbcdd5bdf1e66f43038` |
+| Blob distant | `837e71309baf9ebd3131240e9baac45feb349d45` |
+| Path | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Retour branche projet | `delivery/sfia-studio-ops1-i3-action-gate` @ `3607a3a` |
 
 ## 21. Verdict final
 
