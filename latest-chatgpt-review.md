@@ -1,1272 +1,2859 @@
-# SFIA Studio — Review Handoff Git — OPS1 Scénario candidat
+# Review pack Full — OPS1 I3 Option B (Delivery)
 
-- **Date/heure/fuseau republication :** 2026-07-20 18:20:11 CEST
-- **Repository :** mcleland147/sfia-workspace
-- **Cycle handoff :** Validation — republication Review Handoff Git
-- **Profil handoff :** Light
-- **Branche handoff :** `sfia/review-handoff`
-- **Fichier canonique :** `sfia-review-handoff/latest-chatgpt-review.md`
-- **Handoff remplacé :** `b47a98b472a8b6ce35d16bf1e83d238355562ab2` (post-merge UX PR #240)
-- **Branche projet (non poussée) :** `design/sfia-studio-ops1-scenario` @ `5a595b0dfcc01302ce8e7f729fee2dd383735388`
-- **GO Morris :** republication handoff scénario candidat uniquement
-- **Commit / push projet :** **non** autorisés
-- **Validation décisions CAND-01…22 :** **non** effectuée
+## Métadonnées
 
-> Verdict porté : `OPS1 SCENARIO DOCUMENTED — READY FOR MORRIS VALIDATION`
-> Ce verdict ne valide pas les 22 décisions, n’ouvre ni architecture technique ni backlog, et n’autorise aucun commit ou push projet.
-
----
-
-# SFIA Studio — Review Pack — OPS1 Scénario opérationnel (candidat)
-
-- **Date/heure/fuseau :** 2026-07-20 18:10:20 CEST
-- **Repository :** mcleland147/sfia-workspace
-- **Branche :** `design/sfia-studio-ops1-scenario`
-- **HEAD :** `5a595b0dfcc01302ce8e7f729fee2dd383735388`
-- **Base / origin/main :** `5a595b0dfcc01302ce8e7f729fee2dd383735388`
-- **Merge-base :** `5a595b0dfcc01302ce8e7f729fee2dd383735388`
-- **Cycle :** Conception du scénario opérationnel OPS1
+- **Date / heure / fuseau :** 2026-07-21 07:40:26 CEST
+- **Repo :** mcleland147/sfia-workspace
+- **Cycle principal :** 8 — Delivery
+- **Cycles associés :** 4 UX/UI · 9 QA · 10 Sécurité
 - **Profil :** Standard
-- **Typologie :** DOC / SCENARIO / UX / GOVERNANCE / VALIDATION
-- **Gate Morris ouverture :** `G-OPS1-SCENARIO-VAL` — consommé pour production documentaire candidate
-- **Gate Morris validation :** **AWAITING** (GO distinct)
-- **Handoff Git distant :** non modifié (préparation locale uniquement)
-- **HEAD handoff attendu (inchangé) :** `b47a98b472a8b6ce35d16bf1e83d238355562ab2`
+- **Typologie :** EVOL / delivery
+- **Incrément :** OPS1 I3
+- **Option validée :** B — intermédiaire
+- **Décision Morris :** `GO DELIVERY OPS1 I3 — OPTION B — FOUR GATE ACTIONS — FIXTURE FIRST — NO EXECUTION — ALLOWLIST DEFERRED TO I4`
+- **Branche delivery :** `delivery/sfia-studio-ops1-i3-action-gate`
+- **Base attendue / observée :** `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f`
+- **HEAD initial / courant (sans commit projet) :** `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f`
+- **Merge-base vs origin/main :** `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f`
+- **Review pack :** Full
+- **Mode handoff :** publish-in-cycle
+- **Branche handoff :** `sfia/review-handoff`
+- **Fichier handoff :** `sfia-review-handoff/latest-chatgpt-review.md`
 
----
+## État Git initial (truth check)
 
-## 1. État Git initial et final (ce cycle)
+- `git fetch origin --prune` exécuté avant création de branche
+- `origin/main` = `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` (OPS1 I2 live conversation #248)
+- Worktree principal : branche créée `delivery/sfia-studio-ops1-i3-action-gate` depuis `origin/main`
+- Staged initial : vide
+- Fichiers suivis modifiés initiaux : aucun (hors résidus `.tmp-*` non suivis)
+- Aucune branche I3 préexistante avec travail à préserver
+- OPS1 I1 + I2 présents sur la base
 
-### Initial (Truth Check)
+## Sources consultées (Git)
 
-- Branche de départ : `main` @ `5a595b0…`
-- Tracked propre ; staged vide
-- Untracked connus : `.tmp-sfia-review/` · `projects/.tmp-sfia-review/`
-- Branche créée : `design/sfia-studio-ops1-scenario` depuis `origin/main`
-- **Aucun push**
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `projects/sfia-studio/41-operational-vertical-slice-1-framing.md`
+3. `projects/sfia-studio/44-operational-vertical-slice-1-decision-pack.md`
+4. `projects/sfia-studio/45-ops1-functional-design.md`
+5. `projects/sfia-studio/46-ops1-functional-flows-and-rules.md`
+6. `projects/sfia-studio/51-ops1-ux-ui-contract.md`
+7. `projects/sfia-studio/57-ops1-technical-architecture.md`
+8. `projects/sfia-studio/60-ops1-backlog-framing-and-prioritization.md`
+9. `projects/sfia-studio/61-ops1-epics-stories-and-acceptance-criteria.md`
+10. `projects/sfia-studio/62-ops1-backlog-decision-pack.md`
+11. Code OPS1 I1/I2 sur main (`lib/ops1/**`, `features/ops1/**`)
+12. Tests unitaires / E2E OPS1 existants
+13. Handoff cadrage I3 distant (`e7d74075…`)
 
-### Final
+## Contrat I3 retenu (Option B)
 
-```
- M projects/sfia-studio/41-operational-vertical-slice-1-framing.md
- M projects/sfia-studio/45-ops1-functional-design.md
- M projects/sfia-studio/48-ops1-functional-architecture.md
- M projects/sfia-studio/51-ops1-ux-ui-contract.md
- M projects/sfia-studio/README.md
-?? .tmp-sfia-review/
-?? projects/.tmp-sfia-review/
-?? projects/sfia-studio/54-ops1-operational-scenario.md
-?? projects/sfia-studio/55-ops1-campus360-scope-and-allowlist-rules.md
-?? projects/sfia-studio/56-ops1-scenario-decision-pack.md
+I3 = couche de décision humaine entre conversation I2 et exécution I4.
 
-```
+1. Session reste `OPEN`
+2. Conversation I2 continue
+3. Qualification `ACTION_REQUIRED` | `ACTION_NOT_REQUIRED`
+4. `ActionCandidate` structuré distinct du chat
+5. Panneau proposition + panneau gate
+6. Raffinement titre / objectif / périmètre / risques
+7. Quatre décisions : `GO` · `NO_GO` · `CORRIGER` · `ABANDONNER`
+8. Persistance SQLite + survie au reload
+9. **Aucune** exécution Cursor / Git / filesystem
+10. Allowlist exécutable reportée à I4
 
-```
- .../41-operational-vertical-slice-1-framing.md          |  6 +++---
- projects/sfia-studio/45-ops1-functional-design.md       |  7 ++++---
- projects/sfia-studio/48-ops1-functional-architecture.md |  6 +++---
- projects/sfia-studio/51-ops1-ux-ui-contract.md          |  8 ++++----
- projects/sfia-studio/README.md                          | 17 +++++++++++++----
- 5 files changed, 27 insertions(+), 17 deletions(-)
+### Règle produit centrale
 
-```
+`GO` = **Proposition validée — préparation I4 autorisée**
+`GO` ≠ **Exécution démarrée**
 
----
+Microcopy GO : `Proposition validée. Aucune exécution n’est lancée dans I3.`
+Statuts UI : `ACTION PROPOSÉE — NON AUTORISÉE` → après GO `ACTION VALIDÉE — NON EXÉCUTÉE`
+Banner : `GO ≠ exécution — préparation I4 uniquement`
+
+## Architecture implémentée
 
-## 2. Sources consultées
+Réutilise Session Store I1, journal/providers I2, server actions, SQLite, `Ops1SessionScreen`.
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `projects/sfia-studio/README.md`
-- `projects/sfia-studio/41` … `53` (cadrage, conception, archi fct, UX)
-- `projects/campus360/README.md` + `01` + `02` + `03` (inventaire réel)
-- Handoff `sfia/review-handoff` @ `b47a98b…` (lecture)
+Ajouts :
 
----
+- Types : `ActionCandidate`, `GateDecision`, `ActionQualification`, `SessionQualification`
+- Module `actionGate.ts` (persist-only) : qualify, create fixture candidate, refine, recordGateDecision, refuseExecutionAttempt, getI3Bundle
+- Tables SQLite : `session_qualifications`, `action_candidates`, `gate_decisions`
+- Server actions I3 dans `actions.ts`
+- UI : panneau qualification, panneau action, panneau gate (4 boutons), garde-fou refus exécution
+- Tests unitaires `actionGate.test.ts` + E2E `ops1-i3-action-gate.spec.ts`
 
-## 3. Qualification / blocs
+**Absent volontairement (I4+) :** ExecutionOrchestrator, CursorRunnerAdapter, GitWorkspaceManager, hash contrat exécutable, allowlist opposable, worktree d’exécution.
 
-**Activés :** scénario · gouvernance Morris · sécurité fonctionnelle · Git/branches · UX comportement · FinOps réserve · RGPD fct · a11y · perf perçue · QA preuves · traçabilité.
+## Modèle de données
 
-**Désactivés :** architecture technique · stack/API/BDD · implémentation · backlog · delivery · CI · déploiement · live · MVP · production · modification Figma.
-
----
-
-## 4. Fichiers créés
-
-1. `projects/sfia-studio/54-ops1-operational-scenario.md`
-2. `projects/sfia-studio/55-ops1-campus360-scope-and-allowlist-rules.md`
-3. `projects/sfia-studio/56-ops1-scenario-decision-pack.md`
-
-## 5. Fichiers modifiés (propagation minimale)
-
-1. `41-operational-vertical-slice-1-framing.md`
-2. `45-ops1-functional-design.md`
-3. `48-ops1-functional-architecture.md`
-4. `51-ops1-ux-ui-contract.md`
-5. `README.md`
-
-Non modifiés (interdit / hors scope) : `44`, `47`, `50`, `53`, méthode, prompts, app, harness, Figma, handoff distant.
-
----
-
-## 6. Cartographie Campus360 (synthèse)
-
-Inventaire réel sous `projects/campus360/` :
-
-- `README.md`
-- `01-opportunity-and-vision.md`
-- `02-sfia-cycle-coverage-hypothesis.md`
-- `03-pre-framing-decision-pack.md`
-
-Éligibles (candidats) : Markdown documentaires non protégés de ce dossier.
-Exclusions : hors `projects/campus360/` · method · prompts · app · harness · `.github` · lockfiles · secrets · autres projets.
-Allowlist par action obligatoire ; pas d’autorisation globale.
-Convention branche candidate : `scenario/campus360-<action-slug>-<session-id-court>`.
-
----
-
-## 7. Scénario / variantes / PN / allowlist / branche / décisions
-
-- Nominal : 16 étapes (§4 doc 54)
-- Variantes : sans action · correction avant GO · extension après GO · NO-GO · STOP · échec Cursor · rapport incomplet
-- PN-01…09
-- Allowlist : exhaustivité, gel post-GO, multi-fichiers proportionné
-- Décisions : `OPS1-SCENARIO-CAND-01`…`22` · toutes `AWAITING G-OPS1-SCENARIO-VAL`
-
----
-
-## 8. Réserves maintenues
-
-FD-CAND-13/15/20/26 · UX-R01…R04 · FinOps · live · CI · isolation · tech-arch · stack/protocole.
-FD-CAND-20/26 **précisées** en candidat, **non clôturées**.
-
----
-
-## 9. Contrôles
-
-- `git diff --check` : OK
-- Périmètre : uniquement `projects/sfia-studio/**` autorisé
-- 22 décisions candidates ; 0 validées
-- Aucun claim positif READY FOR DELIVERY / PRODUCTION READY / MVP DEFINED / OPS1 PROVEN (occurrences = garde-fous / anti-claims)
-- Scénario non présenté comme VALIDATED
-- Liens Markdown 54–56 présents dans propagation
-- Secrets/PII : aucun secret réel ; mentions « secrets » = exclusions
-- Decision packs validés 44/47/50/53 : non réécrits
-
----
-
-## 10. Anomalies
-
-Aucune bloquante.
-Note : le handoff post-merge porte le verdict `…POST-MERGE VALIDATED…` (libellé publié) ; non modifié ici.
-
----
-
-## 11. Dette
-
-- Validation Morris scénario
-- Démo live + PN
-- FinOps numériques
-- UX-R01…R03
-- Continuation post-CLOSE
-- Cleanup branches d’exécution futures
-
----
-
-## 12. Arbitrages Morris requis
-
-1. Valider ou amender `OPS1-SCENARIO-CAND-01`…`22` sous `G-OPS1-SCENARIO-VAL`.
-2. Confirmer cartographie / exclusions / vigilance sur `03`.
-3. Confirmer convention de branche.
-4. Autoriser éventuellement push handoff / commit / PR (cycles distincts) — **non faits ici**.
-5. Ne pas ouvrir tech-arch / backlog / delivery sans GO séparé.
-
----
-
-## 13. Prochaine étape
-
-Revue ChatGPT + décision Morris de validation scénario.
-Handoff Git : push uniquement après GO Morris distinct.
-
----
-
-## 14. Verdict
-
-`OPS1 SCENARIO DOCUMENTED — READY FOR MORRIS VALIDATION`
-
-`REVIEW HANDOFF PREPARED LOCALLY — PUSH REQUIRES MORRIS GO`
-
----
-
-## Annexe A — Document 54 (complet)
-
-# SFIA Studio — Scénario opérationnel OPS1
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `54-ops1-operational-scenario.md` |
-| **Cycle** | Conception du scénario opérationnel OPS1 |
-| **Profil** | Standard |
-| **Typologie** | DOC / SCENARIO / UX / GOVERNANCE / VALIDATION |
-| **Gate d’ouverture** | `G-OPS1-SCENARIO-VAL` — **consommé pour production documentaire candidate** |
-| **Gate de validation** | `G-OPS1-SCENARIO-VAL` — **AWAITING** (GO Morris de validation distinct) |
-| **Statut** | `scenario-candidate` — **candidat** ; non validé |
-| **Branche** | `design/sfia-studio-ops1-scenario` |
-| **Baseline Git** | `origin/main` @ `5a595b0dfcc01302ce8e7f729fee2dd383735388` |
-| **Companions** | [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) · [`56`](./56-ops1-scenario-decision-pack.md) |
-| **Héritage** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) |
-| **Autorité** | Morris (L0) |
-| **Horodatage production** | 2026-07-20 18:08:37 CEST |
-
-> Scénario opérationnel **candidat** du Vertical Slice OPS1.
-> Transforme les contrats validés (cadrage, conception, architecture fonctionnelle, UX/UI) en **preuve opératoire** bornée et vérifiable.
-> **Ne valide pas** le scénario. **N’ouvre pas** l’architecture technique, le backlog, le code, la delivery, le live, le MVP ni la production.
-> Décisions : voir [`56`](./56-ops1-scenario-decision-pack.md) — `OPS1-SCENARIO-CAND-*` · `AWAITING G-OPS1-SCENARIO-VAL`.
-
----
-
-## 1. Finalité de la preuve
-
-### 1.1 Ce qu’OPS1 doit démontrer
-
-1. Une **conversation GPT réelle**, libre, multi-tours, non scénarisée phrase par phrase.
-2. Une **action Markdown optionnelle**, séparée du chat, sur le projet pilote **Campus360**.
-3. Un **gate Morris explicite** (GO / NO-GO / CORRIGER / ABANDONNER / STOP) avant toute exécution.
-4. Une **allowlist exhaustive 1..n** présentée avant le gate ; Campus360 éligible ≠ autorisation globale.
-5. Une **exécution Cursor réelle** strictement bornée au contrat ancré (HEAD, hash, allowlist, denylist).
-6. Un **rapport complet** (consolidé + par fichier) et une **reprise conversationnelle** post-exécution.
-7. Une **clôture de session immuable** avec historique et preuves consultables.
-8. Des **preuves négatives** fail-closed (sans GO, hors allowlist, extension post-GO, HEAD dérivé, hash invalide, double-exécution, timeout ≠ GO, aucun remote auto).
-
-### 1.2 Ce qu’OPS1 ne démontre pas
-
-- Architecture technique, stack, API, BDD, protocole.
-- Backlog détaillé, delivery, CI industrielle, déploiement.
-- Live industrialisé, MVP, production, multi-projets hors Campus360.
-- Design system publié, responsive tablette/mobile (UX-R01…R03).
-- Résolution FinOps numérique, isolation OS/réseau, continuation post-CLOSE (FD-CAND-13).
-- Autorisation globale sur tout Campus360.
-
-### 1.3 Preuve opératoire ≠ POC technique ≠ MVP ≠ production
-
-| Terme | Rôle dans OPS1 |
-|-------|----------------|
-| **Preuve opératoire** | Démonstration gouvernée bout-en-bout du parcours conversation → gate → Cursor → rapport → clôture |
-| **POC** | Cadre produit SFIA Studio maintenu ; OPS1 = marche du POC, pas le produit cible |
-| **MVP** | **Non défini** et **non ouvert** |
-| **Production** | **Hors périmètre** |
-
-### 1.4 Critères d’entrée (candidats)
-
-- Docs `41`–`53` disponibles et cohérents sur la base Git.
-- Projet `projects/campus360/` présent (cartographie doc [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md)).
-- Branche de travail locale propre ; `origin/main` connu.
-- GPT réel et Cursor réel disponibles pour la démonstration (preuve live = réserve jusqu’à exécution).
-- Gate d’ouverture scénario accordé pour la production documentaire.
-
-### 1.5 Critères de sortie documentaire (ce cycle)
-
-- Docs `54`–`56` candidats complets.
-- Propagation minimale dans `41` / `45` / `48` / `51` / `README`.
-- Review pack + handoff local préparés.
-- Aucun commit / push / PR / merge dans ce cycle.
-- Validation Morris **distincte** requise avant statut « scénario validé ».
-
----
-
-## 2. Acteurs et autorités
-
-| Acteur | Responsabilités | Interdictions |
-|--------|-----------------|---------------|
-| **Morris** | Ouvre/clôture session ; dialogue ; GO/NO-GO/CORRIGER/ABANDONNER/STOP ; décision finale ; validation scénario | Déléguer l’autorité d’exécution au texte GPT |
-| **ChatGPT** | Dialogue libre ; clarification ; proposition d’action candidate ; analyse rapport (candidate) | Créer un GO ; exécuter ; élargir allowlist ; autoriser remote |
-| **Harness** | Revalide schémas, gate, HEAD, contractHash, allowlist, denylist, plafonds ; fail-closed ; anti double-exécution | Inventer un GO ; ignorer denylist |
-| **Cursor** | Exécute uniquement le contrat ancré après GO valide | Lire/écrire hors allowlist ; commit/push/PR/merge auto ; retry implicite |
-| **Git** | Vérité technique (HEAD, diffs, fichiers, branches) | Être remplacé par le store conversationnel |
-| **Store / journal de session** | Historique messages, décisions, preuves, états | Contredire Git sur le contenu fichiers ; autoriser écriture après CLOSE |
-
-**Règle structurante :** le texte du chat **n’est jamais** une autorisation d’exécution.
-
----
-
-## 3. Préconditions
-
-| Précondition | Détail |
-|--------------|--------|
-| Repository | `mcleland147/sfia-workspace` |
-| Base | `origin/main` (SHA ancré dans le contrat) |
-| Projet pilote | **Campus360** exclusivement (`projects/campus360/`) |
-| Fichiers éligibles | Markdown documentaires non protégés — voir doc [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) |
-| Session | Ouverte par Morris ; non CLOSE |
-| GPT | Disponible (réel) pour le dialogue |
-| Cursor | Disponible (réel) pour l’exécution après GO |
-| Git local | Working tree tracked propre ; staged vide avant exécution |
-| Réserves | FD-CAND-13/15/20/26 · UX-R01…R04 · FinOps · live · CI · isolation — **OPEN** |
-| Limites | Pas de remote auto ; pas de secrets ; default deny |
-
----
-
-## 4. Scénario nominal complet
-
-Les étapes fixent le **comportement** ; elles **ne figent pas** les phrases conversationnelles.
-
-1. **Ouverture** — Morris ouvre une `CycleSession` OPS1.
-2. **Demande** — Morris formule une demande réelle, éventuellement imprécise, relative à Campus360 / SFIA.
-3. **Dialogue** — ChatGPT échange librement, clarifie objectif, cycle, profil, risques.
-4. **Challenge** — Morris corrige, précise ou challenge.
-5. **Sans action possible** — ChatGPT peut conclure `ACTION_NOT_REQUIRED` (variante §5).
-6. **Action candidate** — Si pertinente, ChatGPT produit un **contrat d’action séparé** du fil chat.
-7. **Allowlist** — Le contrat porte une allowlist **exhaustive** (consultables / créables / modifiables) + `forbiddenPaths` + branche + HEAD + objectif.
-8. **Gate Morris** — Morris choisit GO, NO-GO, CORRIGER, ABANDONNER ou STOP.
-9. **Revalidation harness** — Indépendamment du texte GPT : gate, HEAD, `contractHash`, allowlist, denylist, stop conditions.
-10. **Exécution Cursor** — Uniquement après GO + revalidation OK ; strictement bornée.
-11. **Rapport** — Couverture de **chaque** fichier de l’allowlist ; diff consolidé + par fichier ; erreurs ; complétude.
-12. **Analyse** — ChatGPT produit une analyse **candidate** du rapport.
-13. **Reprise** — Morris reprend la conversation (questions, corrections, suite).
-14. **Décision finale** — Morris valide le résultat, corrige (nouveau cycle d’action), refuse ou abandonne.
-15. **Clôture** — Session CLOSE → **lecture seule** ; pas de reprise implicite d’exécution.
-16. **Consultation** — Historique, décisions, preuves et diffs restent consultables ; Git prime sur le contenu fichiers.
-
----
-
-## 5. Variante sans action
-
-- Dialogue utile et multi-tours.
-- Conclusion explicite `ACTION_NOT_REQUIRED`.
-- **Aucune** branche d’exécution créée ; **aucune** exécution Cursor.
-- La conversation **peut continuer**.
-- Clôture possible sans action.
-- Preuve attendue : journal de session + signal `ACTION_NOT_REQUIRED` + absence d’effets Git d’exécution.
-
----
-
-## 6. Variante correction avant GO
-
-1. Action candidate initiale présentée.
-2. Morris choisit **CORRIGER** (périmètre, fichiers, objectif, risques).
-3. L’ancien contrat candidat est **invalidé** (non exécutable).
-4. Nouveau contrat avec nouvelle allowlist / ancrage.
-5. Nouveau `contractHash`.
-6. Nouveau gate Morris explicite (GO/NO-GO/…).
-7. Aucune exécution sur l’ancien hash.
-
----
-
-## 7. Variante extension après GO
-
-1. Tentative d’ajouter un fichier à l’allowlist **après** GO.
-2. Harness / Cursor : **refus fail-closed** (FR-030).
-3. Exécution en cours : STOP ou non-démarrage selon état ; pas d’élargissement.
-4. Correction = **nouveau contrat** + **nouveau gate Morris** obligatoire.
-5. Preuve négative obligatoire (PN-extension).
-
----
-
-## 8. Variante NO-GO / abandon
-
-- Morris choisit **NO-GO** ou **ABANDONNER**.
-- **Aucun effet Git** d’exécution.
-- Décision journalisée (motif, timestamp, fuseau).
-- Conversation peut continuer ou session clôturée.
-- Contrat non exécutable.
-
----
-
-## 9. Variante STOP
-
-- **STOP** a priorité sur tous les autres états.
-- Cursor : arrêt immédiat ou non-démarrage.
-- Preuves et journal **conservés**.
-- **Aucune reprise implicite** ; reprise = nouvelle décision Morris explicite.
-- Timeout ≠ STOP ≠ GO.
-
----
-
-## 10. Variante échec Cursor
-
-- Rapport d’échec structuré (statut, fichiers, erreurs).
-- **Aucun retry automatique**.
-- Contexte session conservé.
-- Analyse candidate ChatGPT.
-- Décision Morris : corriger, abandonner, nouveau contrat, ou clôturer.
-
----
-
-## 11. Variante rapport incomplet
-
-- Couverture allowlist incomplète ⇒ **clôture nominale interdite**.
-- Nouvelle exécution sur le **même** `contractHash` : **bloquée** (anti double-exécution / complétude).
-- Requis : correction (nouveau contrat + gate) ou abandon explicite.
-- Preuve : flag d’incomplétude visible.
-
----
-
-## 12. Preuves négatives obligatoires
-
-| ID | Preuve | Résultat attendu |
-|----|--------|------------------|
-| PN-01 | Exécution sans GO | Refus ; aucun effet |
-| PN-02 | Fichier hors allowlist | Refus fail-closed |
-| PN-03 | Extension allowlist après GO | Refus ; nouveau gate requis |
-| PN-04 | HEAD modifié après GO | Refus / invalidation ancrage |
-| PN-05 | `contractHash` invalide | Refus |
-| PN-06 | Contenu fichier / chat prétendant autoriser | Ignoré ; seule la décision Morris compte |
-| PN-07 | Double-exécution même hash | Refus |
-| PN-08 | Timeout | ≠ GO ; pas d’exécution implicite |
-| PN-09 | Effet distant automatique (push/PR/merge) | Interdit ; aucun effet |
-
----
-
-## 13. Contrat d’action scénario (fonctionnel)
-
-Champs minimaux du contrat **fonctionnel** (pas de schéma JSON technique figé) :
-
-| Champ | Rôle |
-|-------|------|
-| `sessionId` | Session OPS1 |
-| `actionId` | Identifiant d’action |
-| `cycle` | Cycle / profil proposés |
-| `project` | `campus360` (exclusif) |
-| `repository` | `mcleland147/sfia-workspace` |
-| `baseRef` | Réf. autorisée (ex. `origin/main`) |
-| `headSha` | SHA ancré au GO |
-| `branchName` | Branche locale selon convention candidate (doc 55) |
-| `objective` | Objectif substantiel de l’action |
-| `allowedReads` | Fichiers consultables (liste exhaustive) |
-| `allowedCreates` | Fichiers créables (liste exhaustive) |
-| `allowedModifies` | Fichiers modifiables (liste exhaustive) |
-| `forbiddenPaths` | Interdits explicites + héritage denylist |
-| `contractHash` | Empreinte d’ancrage du contrat |
-| `morrisDecision` | GO / NO-GO / CORRIGER / ABANDONNER / STOP |
-| `decisionTimestamp` | Horodatage décision |
-| `decisionTimezone` | Fuseau (ex. CEST) |
-| `stopConditions` | Conditions d’arrêt |
-| `expectedReport` | Attentes de preuve |
-| `finOpsContext` | Contexte FinOps (placeholders ; chiffres OPEN) |
-| `reservations` | Réserves applicables à l’action |
-
----
-
-## 14. Critères de réussite de la démonstration OPS1
-
-| Critère | Type de preuve | Source | Validateur | Attendu | Bloquant si | Réserve |
-|---------|----------------|--------|------------|---------|-------------|---------|
-| Conversation réelle non scénarisée | Journal multi-tours | Session | Morris | Allers-retours libres | Script unique | — |
-| Corrections Morris | Journal | Session | Morris | Au moins une correction possible | Chat = GO | — |
-| Action facultative | Signal / absence branche | Session + Git | Morris | `ACTION_NOT_REQUIRED` possible | Action forcée | — |
-| Séparation chat / action | UI + objets | UX 51 + session | Morris | Panneaux distincts | GO dans le fil | UX-R02 |
-| Gate explicite | Décision journalisée | Gate | Morris | Une des 5 actions | Timeout = GO | — |
-| Allowlist visible | Contrat | Action | Morris | Liste 1..n exhaustive | « Tout Campus360 » | FD-20/26 |
-| Exécution Cursor réelle | Rapport | Cursor | Morris | Exécution bornée | Fixture seule pour preuve cible | live |
-| Aucun effet hors allowlist | Diff / PN | Git | Morris + harness | Hors allowlist = 0 | Écriture hors liste | — |
-| Rapport complet | Rapport | Cursor | Morris | Tous fichiers couverts | Incomplet + clôture OK | — |
-| Reprise post-exécution | Journal | Session | Morris | Dialogue après rapport | Session morte | — |
-| Décision finale | Journal | Morris | Morris | Valider / corriger / refuser / abandonner | Auto-clôture | — |
-| Clôture immuable | État CLOSE | Session | Morris | Lecture seule | Écriture post-CLOSE | FD-13 |
-| Historique consultable | Store + Git | Session/Git | Morris | Preuves relisibles | Perte preuves | — |
-| Preuves négatives | PN-01…09 | Harness/Cursor | Morris | Refus observés | Contournement | — |
-| Pas de claim MVP/prod | Revue docs | Docs | Morris | Anti-claims tenus | READY FOR DELIVERY etc. | — |
-
----
-
-## 15. Gouvernance, sécurité, FinOps, RGPD, a11y, perf
-
-| Domaine | Règle scénario |
-|---------|----------------|
-| **Gouvernance** | Morris L0 ; gates explicites ; décisions candidates jusqu’à validation |
-| **Sécurité fonctionnelle** | Default deny ; denylist ; secrets exclus ; fail-closed |
-| **Git** | Branche locale ; pas de remote auto ; Git = vérité fichiers |
-| **UX** | Comportement selon docs `51`–`53` ; pas de redesign Figma ici |
-| **FinOps** | Placeholders ; valeurs numériques **OPEN** (FD-CAND-15) |
-| **RGPD** | Pas de PII/secrets dans allowlist ; majeurs / données minimales côté Campus360 produit |
-| **Accessibilité** | Critères FD-CAND-17 applicables aux surfaces ; non retestés ici |
-| **Performance perçue** | FD-CAND-18 ; timeout ≠ GO |
-| **QA** | Matrice §14 + PN §12 |
-
----
-
-## 16. Cleanup et suite
-
-| Sujet | Règle candidate |
-|-------|-----------------|
-| Cleanup branche d’exécution | Après décision Morris ; pas automatique dans OPS1 |
-| Cleanup branche de conception scénario | Après intégration éventuelle + GO distinct |
-| Architecture technique | **Fermée** — ouverture uniquement par GO Morris explicite séparé |
-| Backlog / delivery / live | **Fermés** |
-
----
-
-## 17. Réserves maintenues
-
-FD-CAND-13 · FD-CAND-15 · FD-CAND-20 · FD-CAND-26 · UX-R01 · UX-R02 · UX-R03 · UX-R04 · FinOps · live · CI · isolation · architecture technique · stack/protocole.
-
-La cartographie et la convention de branche de ce cycle **précisent** FD-CAND-20/26 mais restent **candidates** jusqu’à validation Morris.
-
----
-
-## 18. Anti-claims
-
-Ce document **n’affirme pas** : scénario VALIDATED · READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · Campus360 entièrement autorisé · architecture technique ouverte · backlog ouvert · code autorisé · live validé.
-
----
-
-## 19. Verdict documentaire
-
-`scenario-candidate`
-
-`OPS1 SCENARIO DOCUMENTED — READY FOR MORRIS VALIDATION`
-
-Gate d’ouverture consommé pour production candidate. Validation Morris **AWAITING**.
-
-
----
-
-## Annexe B — Document 55 (complet)
-
-# SFIA Studio — Campus360 : périmètre, cartographie et règles d’allowlist OPS1
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `55-ops1-campus360-scope-and-allowlist-rules.md` |
-| **Cycle** | Conception du scénario opérationnel OPS1 |
-| **Profil** | Standard |
-| **Statut** | `scenario-scope-candidate` — **candidat** ; non validé |
-| **Gate** | Ouverture `G-OPS1-SCENARIO-VAL` consommée (production) · validation **AWAITING** |
-| **Companions** | [`54`](./54-ops1-operational-scenario.md) · [`56`](./56-ops1-scenario-decision-pack.md) |
-| **Baseline Git** | `origin/main` @ `5a595b0dfcc01302ce8e7f729fee2dd383735388` |
-| **Horodatage** | 2026-07-20 18:08:37 CEST |
-| **Autorité** | Morris (L0) |
-
-> Cartographie **repo-informed** de Campus360 et règles d’allowlist OPS1.
-> **Campus360 éligible ≠ autorisation globale.**
-> Précise FD-CAND-20 / FD-CAND-26 sans les clôturer : validation finale = GO Morris distinct.
-
----
-
-## 1. Ancrage projet pilote
-
-| Élément | Valeur |
-|---------|--------|
-| Projet pilote OPS1 | **Campus360 exclusivement** |
-| Chemin racine | `projects/campus360/` |
-| Nature | Projet produit fictif étalon SFIA v2.6 (pré-cadrage clôturé) |
-| Rôle pour OPS1 | Contexte métier/documentaire du pilote d’action |
-| Non-rôle | OPS1 n’est **pas** une feature produit Campus360 |
-| Repo | `mcleland147/sfia-workspace` |
-
----
-
-## 2. Inventaire repo-informed (état constaté)
-
-Recherche effectuée sur le repository (branche de conception scénario, base `5a595b0…`).
-
-### 2.1 Arborescence réelle
-
-```text
-projects/campus360/
-├── README.md
-├── 01-opportunity-and-vision.md
-├── 02-sfia-cycle-coverage-hypothesis.md
-└── 03-pre-framing-decision-pack.md
-```
-
-**Aucun** autre fichier sous `projects/campus360/` au moment de la cartographie.
-**Aucun** code, test, lockfile, secret ou configuration sous ce chemin.
-
-### 2.2 Autres projets workspace (hors pilote d’action)
-
-| Chemin | Statut OPS1 |
-|--------|-------------|
-| `projects/sfia-studio/**` | Hors allowlist d’action OPS1 (sauf lecture de contrats SFIA Studio hors exécution scénario) |
-| `projects/chantiers360-v2/**` | **Exclu** du pilote |
-| `projects/interv360/**` | **Exclu** |
-| `projects/task-tracker/**` | **Exclu** |
-| `method/**`, `prompts/**` | **Exclu** |
-| `projects/sfia-studio/app/**`, `harness/**` | **Exclu** |
-| `.github/**`, lockfiles, secrets | **Exclu** |
-
----
-
-## 3. Distinction périmètre éligible / allowlist
-
-| Notion | Définition |
-|--------|------------|
-| **Périmètre éligible** | Ensemble des Markdown documentaires **non protégés** sous `projects/campus360/` pouvant *être déclarés* dans une action |
-| **Allowlist d’une action** | Liste **explicite, exhaustive, 1..n** des chemins réellement autorisés (reads / creates / modifies) pour **cette** action, présentée **avant** le gate et gelée au GO |
-
-Règles :
-
-- Le rattachement à Campus360 **n’autorise aucun fichier** implicitement.
-- Hors allowlist = **interdit** (fail-closed), même si éligible.
-- Pas de wildcard implicite non explicitée dans le contrat.
-- Pas d’accès au dépôt entier.
-- Multi-fichiers **uniquement si nécessaire** au besoin.
-- Extension après GO = **interdite** ; correction + **nouveau gate**.
-
----
-
-## 4. Cartographie fichier par fichier
-
-| Chemin | Nature | Catégorie candidate | Risque | Autorité | Éligibilité | Protection / contraintes |
-|--------|--------|---------------------|--------|----------|-------------|--------------------------|
-| `projects/campus360/README.md` | Identité, navigation, gates, séparation | **Consultable** · **Modifiable** (proportionné) | Moyen (identité projet) | Morris via gate action | Oui si justifié | Ne pas altérer la séparation méthode/projet ; pas de secrets |
-| `projects/campus360/01-opportunity-and-vision.md` | Vision / opportunité pré-cadrage | **Consultable** · **Modifiable** | Faible–moyen | Morris via gate | Oui | Diff vérifiable ; pas de PII |
-| `projects/campus360/02-sfia-cycle-coverage-hypothesis.md` | Hypothèse couverture cycles | **Consultable** · **Modifiable** | Faible | Morris via gate | Oui | Ne pas promouvoir en doctrine méthode |
-| `projects/campus360/03-pre-framing-decision-pack.md` | Decision pack clôture pré-cadrage | **Consultable** · **Modifiable avec vigilance** | Élevé (décisions Morris historisées) | Morris via gate + motif fort | Oui mais **proportion** | Préférer append/clarification ; éviter réécriture silencieuse des gates G1–G7 |
-| Nouveau `projects/campus360/NN-*.md` | Prochain document documentaire | **Créable** (candidat) | Moyen | Morris via gate | Oui si naming cohérent | Pas de code ; Markdown seul ; justification besoin |
-| Tout hors `projects/campus360/` | — | **Exclu** | — | — | Non | Denylist structurelle |
-| Secrets, `.env`, clés, PII | — | **Exclu / protégé** | Critique | — | Non | Absents aujourd’hui ; restent interdits |
-| `method/**`, `prompts/**`, `app/**`, `harness/**`, `.github/**` | Méthode / code / CI | **Exclu** | Critique | Cycle distinct | Non | Hors OPS1 action |
-
-### 4.1 Synthèse des catégories
-
-| Catégorie | Contenu constaté / candidat |
-|-----------|-----------------------------|
-| **Consultable** | Les 4 fichiers existants |
-| **Créable** | Nouveaux Markdown sous `projects/campus360/` (ex. suite cadrage) — **absents** aujourd’hui |
-| **Modifiable** | `README`, `01`, `02` ; `03` sous vigilance |
-| **Protégée** | Décisions historisées dans `03` (sections gates) — modification non triviale |
-| **Exclue** | Hors `projects/campus360/` ; code ; méthode ; prompts ; secrets ; autres projets |
-| **Absente / à confirmer** | Docs cadrage détaillé `04+`, code Campus360, assets — **non présents** ; ne pas inventer |
-
-### 4.2 Conflits possibles
-
-| Zone | Conflit | Règle |
-|------|---------|-------|
-| Méthode SFIA | Apprentissage Campus360 ≠ standard méthode | CAPA + GO requis |
-| Prompts | Hors allowlist | Cycle distinct |
-| Code Studio | `app/**` / `harness/**` | Exclu de l’action OPS1 |
-| Configuration / CI | `.github/**`, lockfiles | Exclu |
-| Decision pack `03` | Réécriture des gates validés | Vigilance ; motif Morris obligatoire |
-
----
-
-## 5. Règles d’allowlist opératoires (candidates)
-
-1. **Exhaustivité** — chaque chemin read/create/modify est listé avant le gate.
-2. **Distinction des rôles** — `allowedReads` / `allowedCreates` / `allowedModifies` séparés si besoin.
-3. **Justification** — chaque fichier porte une raison liée à l’objectif.
-4. **Proportion** — multi-fichiers seulement si le besoin le justifie.
-5. **Interdits explicites** — `forbiddenPaths` + denylist structurelle.
-6. **Ancrage** — `baseRef`, `headSha`, `branchName`, `contractHash` au GO.
-7. **Gel** — allowlist immuable après GO.
-8. **Extension post-GO** — refus ; nouveau contrat + nouveau gate.
-9. **Rapport** — couverture de chaque fichier ; diff consolidé + par fichier.
-10. **Default deny** — non listé = interdit.
-11. **Pas de wildcard** non explicitée (`projects/campus360/**` seul = insuffisant sauf décision Morris contraire explicite listant la sémantique).
-12. **Pas de secrets / lockfiles / code / méthode / prompts / config** sans cycle distinct.
-
----
-
-## 6. Convention de branche candidate
-
-### 6.1 Proposition à challenger
-
-```text
-scenario/campus360-<action-slug>-<session-id-court>
-```
-
-Exemple illustratif (non exécuté) : `scenario/campus360-clarify-vision-a1b2`
-
-### 6.2 Règles candidates
-
-| Règle | Proposition |
-|-------|-------------|
-| Base | Création depuis `origin/main` (ou base **explicitement** autorisée dans le contrat) |
-| Localité | **Locale par défaut** ; **pas de push automatique** |
-| Unicité | Un `branchName` distinct par action / session courte |
-| Longueur | ≤ 80 caractères recommandés |
-| Caractères | `[a-z0-9-]` après le préfixe ; slug ASCII ; pas d’espaces |
-| Collision | Si branche existe déjà → STOP / nouveau nom / nouveau gate |
-| Branche sale | Working tree dirty hors allowlist → refus démarrage |
-| Reprise session | Même session sans nouvel actionId → pas de réutilisation opaque d’une branche d’une autre action |
-| Cleanup | Après clôture / décision Morris ; **non automatique** dans OPS1 |
-| Nouveau gate | Changement de base, de HEAD ancré, d’allowlist ou de branche ⇒ nouveau contrat + gate |
-
-**Statut :** convention **candidate** jusqu’à validation Morris (`OPS1-SCENARIO-CAND-07`).
-
----
-
-## 7. Lien avec les réserves FD-CAND-20 / 26
-
-| Réserve | Apport de ce document | Statut après ce cycle |
-|---------|----------------------|------------------------|
-| FD-CAND-20 | Cartographie chemins/catégories + règles allowlist | **Précisée en candidat** — non clôturée |
-| FD-CAND-26 | Détails opérationnels Campus360 (inventaire réel, exclusions, vigilance `03`) | **Précisée en candidat** — non clôturée |
-
----
-
-## 8. Options si structure future change
-
-Si de nouveaux fichiers apparaissent sous `projects/campus360/` :
-
-1. Mettre à jour la cartographie (cycle doc ou amendement sous GO).
-2. Ne **pas** les considérer allowlistés par défaut.
-3. Réévaluer éligibilité (critères §11.4 du doc [`45`](./45-ops1-functional-design.md)).
-
-Si Campus360 disparaissait ou devenait ambigu : **STOP — CAMPUS360 SCOPE REQUIRES MORRIS DECISION**. *Non applicable* : structure claire et présente.
-
----
-
-## 9. Anti-claims
-
-Pas de VALIDATED scénario · pas d’autorisation globale Campus360 · pas de READY FOR DELIVERY · pas de MVP · pas d’ouverture tech-arch / backlog / code.
-
----
-
-## 10. Verdict documentaire
-
-`scenario-scope-candidate`
-
-Cartographie repo-informed **complète pour l’état actuel** (4 fichiers). Allowlist et branche **candidates**.
-
-
----
-
-## Annexe C — Document 56 (complet)
-
-# SFIA Studio — Decision pack scénario OPS1 (candidat)
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `56-ops1-scenario-decision-pack.md` |
-| **Cycle** | Conception du scénario opérationnel OPS1 |
-| **Profil** | Standard |
-| **Statut** | `scenario-decisions-candidate` — **aucune décision validée** |
-| **Gate d’ouverture** | `G-OPS1-SCENARIO-VAL` — consommé pour production candidate |
-| **Gate de validation** | **AWAITING** `G-OPS1-SCENARIO-VAL` (GO Morris distinct) |
-| **Décisions** | `OPS1-SCENARIO-CAND-01`…`22` |
-| **Companions** | [`54`](./54-ops1-operational-scenario.md) · [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) |
-| **Baseline Git** | `origin/main` @ `5a595b0dfcc01302ce8e7f729fee2dd383735388` |
-| **Horodatage** | 2026-07-20 18:08:37 CEST |
-| **Autorité** | Morris (L0) |
-
-> Decision pack **candidat**. Aucune `OPS1-SCENARIO-CAND-*` n’est validée.
-> Ne pas confondre consommation du GO d’**ouverture** avec validation du scénario.
-
----
-
-## 1. Synthèse
-
-| Élément | Valeur |
-|---------|--------|
-| Nombre de décisions | **22** |
-| Statut collectif | `AWAITING G-OPS1-SCENARIO-VAL` |
-| Projet pilote | Campus360 |
-| Docs | `54` scénario · `55` cartographie/allowlist/branche · `56` décisions |
-| Fermé | Tech-arch · backlog · code · delivery · live · MVP · production · Figma |
-
----
-
-## 2. Décisions candidates
-
-## OPS1-SCENARIO-CAND-01 — Projet pilote Campus360
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Projet pilote Campus360 |
-| **Proposition** | Confirmer Campus360 comme projet pilote **exclusif** d’action OPS1. |
-| **Options alternatives** | Autre projet workspace ; multi-projets. |
-| **Impacts** | Ancre le scénario ; exclut les autres projets d’action. |
-| **Risques** | Confusion OPS1 = feature Campus360. |
-| **Dette** | Maintenir la distinction Studio vs Campus360. |
-| **Recommandation** | Retenir Campus360 exclusif. |
-| **Réserve** | FD-CAND-26 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-02 — Chemins éligibles constatés
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Chemins éligibles constatés |
-| **Proposition** | Retenir comme éligibles les 4 Markdown sous `projects/campus360/` + futurs `NN-*.md` documentaires non protégés. |
-| **Options alternatives** | Éligibilité limitée à un seul fichier ; éligibilité dossier entier via wildcard. |
-| **Impacts** | Cartographie exploitable immédiatement. |
-| **Risques** | Sur-interprétation « tout le dossier ». |
-| **Dette** | Réviser si nouveaux fichiers. |
-| **Recommandation** | Retenir la liste repo-informed + règle de révision. |
-| **Réserve** | FD-CAND-20 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-03 — Catégories consultables
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Catégories consultables |
-| **Proposition** | Les 4 fichiers existants sont consultables dans une allowlist. |
-| **Options alternatives** | Lecture seule hors contrat. |
-| **Impacts** | Permet contextualisation GPT/Cursor bornée. |
-| **Risques** | Lecture excessive hors besoin. |
-| **Dette** | Proportionner `allowedReads`. |
-| **Recommandation** | Autoriser reads listés uniquement. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-04 — Catégories créables
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Catégories créables |
-| **Proposition** | Autoriser la création de nouveaux Markdown sous `projects/campus360/` s’ils sont listés dans `allowedCreates`. |
-| **Options alternatives** | Interdire toute création dans OPS1. |
-| **Impacts** | Couvre le cas cadrage détaillé / suite documentaire. |
-| **Risques** | Création hors naming / hors besoin. |
-| **Dette** | Convention de nommage à respecter. |
-| **Recommandation** | Création possible si listée et justifiée. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-05 — Catégories modifiables
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Catégories modifiables |
-| **Proposition** | `README`, `01`, `02` modifiables ; `03` modifiable avec vigilance (gates historisés). |
-| **Options alternatives** | Tout en lecture seule ; `03` totalement gelé. |
-| **Impacts** | Preuve d’écriture réelle possible. |
-| **Risques** | Réécriture silencieuse des décisions Morris dans `03`. |
-| **Dette** | Motif fort obligatoire pour `03`. |
-| **Recommandation** | Retenir vigilance sur `03`. |
-| **Réserve** | FD-CAND-20 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-06 — Exclusions structurelles
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Exclusions structurelles |
-| **Proposition** | Exclure hors `projects/campus360/`, méthode, prompts, app, harness, `.github`, lockfiles, secrets, autres projets. |
-| **Options alternatives** | Allowlist large workspace. |
-| **Impacts** | Fail-closed structurel. |
-| **Risques** | Tentative d’élargissement implicite. |
-| **Dette** | Denylist à rappeler dans chaque contrat. |
-| **Recommandation** | Retenir exclusions listées. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-07 — Convention de branche
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Convention de branche |
-| **Proposition** | Adopter candidate `scenario/campus360-<action-slug>-<session-id-court>` (locale, sans push auto). |
-| **Options alternatives** | Réutiliser branche design ; nom libre non préfixé. |
-| **Impacts** | Traçabilité Git locale. |
-| **Risques** | Collision / branche sale. |
-| **Dette** | Cleanup non automatique. |
-| **Recommandation** | Retenir la convention candidate §6 doc 55. |
-| **Réserve** | FD-CAND-26 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-08 — Allowlist exhaustive avant gate
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Allowlist exhaustive avant gate |
-| **Proposition** | Toute action présente une allowlist 1..n exhaustive avant décision Morris. |
-| **Options alternatives** | Allowlist après GO ; wildcard dossier. |
-| **Impacts** | Alignement FR-026…032. |
-| **Risques** | Oubli de fichier nécessaire. |
-| **Dette** | Correction avant GO. |
-| **Recommandation** | Retenir exhaustivité avant gate. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-09 — Règle multi-fichiers
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Règle multi-fichiers |
-| **Proposition** | Multi-fichiers autorisé **uniquement si nécessaire** ; pas de plafond mono-fichier. |
-| **Options alternatives** | Revenir au mono-fichier obligatoire. |
-| **Impacts** | Alignement amendement Morris 2026-07-20 13:36 CEST. |
-| **Risques** | Allowlist disproportionnée. |
-| **Dette** | Justification par fichier. |
-| **Recommandation** | Retenir proportionnalité. |
-| **Réserve** | FD-CAND-20 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-10 — Scénario nominal
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Scénario nominal |
-| **Proposition** | Adopter le scénario nominal §4 du doc 54 (16 étapes). |
-| **Options alternatives** | Scénario purement simulé / scripté. |
-| **Impacts** | Preuve opératoire alignée UX/flows. |
-| **Risques** | Sur-scripting des phrases. |
-| **Dette** | Ne pas figer les microcopies conversationnelles. |
-| **Recommandation** | Retenir §4. |
-| **Réserve** | UX-R02 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-11 — Scénario sans action
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Scénario sans action |
-| **Proposition** | Adopter variante `ACTION_NOT_REQUIRED` (§5 doc 54). |
-| **Options alternatives** | Action toujours obligatoire. |
-| **Impacts** | Prouve le caractère facultatif de l’action. |
-| **Risques** | Confusion avec abandon. |
-| **Dette** | Signal explicite distinct de NO-GO. |
-| **Recommandation** | Retenir la variante. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-12 — Correction avant GO
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Correction avant GO |
-| **Proposition** | CORRIGER invalide l’ancien contrat ; nouveau hash + nouveau gate. |
-| **Options alternatives** | Mutation in-place du contrat GO-able. |
-| **Impacts** | Alignement FR-030 amont. |
-| **Risques** | Réutilisation accidentelle ancien hash. |
-| **Dette** | Journaliser invalidation. |
-| **Recommandation** | Retenir invalidation + nouveau contrat. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-13 — Extension après GO
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Extension après GO |
-| **Proposition** | Extension allowlist post-GO refusée ; nouveau contrat + gate obligatoires. |
-| **Options alternatives** | Patch allowlist à chaud. |
-| **Impacts** | Fail-closed ; preuve PN-03. |
-| **Risques** | Pression à élargir pendant exécution. |
-| **Dette** | STOP si tentative en cours d’exécution. |
-| **Recommandation** | Retenir refus strict. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-14 — NO-GO / abandon
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | NO-GO / abandon |
-| **Proposition** | NO-GO et ABANDONNER : aucun effet Git d’exécution ; journalisation ; suite conversationnelle possible. |
-| **Options alternatives** | Effacer la session. |
-| **Impacts** | Traçabilité décisionnelle. |
-| **Risques** | Confusion NO-GO vs ACTION_NOT_REQUIRED. |
-| **Dette** | Motifs distincts. |
-| **Recommandation** | Retenir §8 doc 54. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-15 — STOP
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | STOP |
-| **Proposition** | STOP prioritaire ; arrêt / non-démarrage ; preuves conservées ; pas de reprise implicite. |
-| **Options alternatives** | STOP = pause temporaire auto-reprise. |
-| **Impacts** | Sécurité opératoire. |
-| **Risques** | Reprise ambiguë. |
-| **Dette** | Reprise = décision Morris explicite. |
-| **Recommandation** | Retenir §9 doc 54. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-16 — Échec Cursor
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Échec Cursor |
-| **Proposition** | Rapport d’échec ; pas de retry auto ; analyse candidate ; décision Morris. |
-| **Options alternatives** | Retry automatique N fois. |
-| **Impacts** | Contrôle Morris. |
-| **Risques** | Boucles coûteuses (FinOps). |
-| **Dette** | FD-CAND-15 chiffres OPEN. |
-| **Recommandation** | Retenir §10 doc 54. |
-| **Réserve** | FD-CAND-15 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-17 — Rapport incomplet
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Rapport incomplet |
-| **Proposition** | Clôture nominale interdite ; re-exécution même hash bloquée ; correction ou abandon. |
-| **Options alternatives** | Clôture avec dette silencieuse. |
-| **Impacts** | Intégrité de preuve. |
-| **Risques** | Pression à clôturer. |
-| **Dette** | Flag d’incomplétude visible UX. |
-| **Recommandation** | Retenir §11 doc 54. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-18 — Preuves négatives
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Preuves négatives |
-| **Proposition** | Exiger PN-01…09 comme batterie minimale de la démonstration OPS1. |
-| **Options alternatives** | Uniquement happy path. |
-| **Impacts** | Crédibilité fail-closed. |
-| **Risques** | Non-exécution des PN. |
-| **Dette** | Planifier PN dans la démo. |
-| **Recommandation** | Retenir §12 doc 54. |
-| **Réserve** | live |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-19 — Critères de réussite
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Critères de réussite |
-| **Proposition** | Adopter la matrice §14 doc 54 comme critères de succès de démonstration. |
-| **Options alternatives** | Critères delivery/MVP. |
-| **Impacts** | Borne la preuve opératoire. |
-| **Risques** | Glissement vers claims production. |
-| **Dette** | Anti-claims obligatoires. |
-| **Recommandation** | Retenir la matrice. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-20 — Cleanup branche d’exécution
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Cleanup branche d’exécution |
-| **Proposition** | Cleanup local (et distant si jamais poussée) uniquement après GO Morris distinct ; pas automatique. |
-| **Options alternatives** | Cleanup auto en fin de session. |
-| **Impacts** | Évite perte de preuves. |
-| **Risques** | Branches orphelines. |
-| **Dette** | Procédure post-démo. |
-| **Recommandation** | Retenir cleanup gouverné. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-21 — Limites FinOps
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Limites FinOps |
-| **Proposition** | FinOps reste placeholder ; aucun plafond numérique figé dans ce cycle. |
-| **Options alternatives** |  inventer des seuils. |
-| **Impacts** | Évite fausse précision. |
-| **Risques** | Coût live non borné numériquement. |
-| **Dette** | FD-CAND-15 avant live. |
-| **Recommandation** | Maintenir OPEN. |
-| **Réserve** | FD-CAND-15 |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-## OPS1-SCENARIO-CAND-22 — Condition d’ouverture architecture technique
-
-| Champ | Contenu |
-|-------|---------|
-| **Sujet** | Condition d’ouverture architecture technique |
-| **Proposition** | L’architecture technique OPS1 reste **fermée** ; ouverture uniquement par GO Morris explicite distinct après validation scénario (si retenue). |
-| **Options alternatives** | Ouvrir tech-arch automatiquement après ce document. |
-| **Impacts** | Respect du routage SFIA. |
-| **Risques** | Ouverture prématurée. |
-| **Dette** | Gate tech-arch séparé. |
-| **Recommandation** | Ne pas ouvrir tech-arch dans ce cycle. |
-| **Réserve** | — |
-| **Décision Morris** | `AWAITING G-OPS1-SCENARIO-VAL` |
-
-
----
-
-## 3. Matrice de couverture minimale
-
-| Thème requis | Décision(s) |
-|--------------|-------------|
-| Projet pilote Campus360 | CAND-01 |
-| Chemins éligibles | CAND-02 |
-| Consultables / créables / modifiables | CAND-03…05 |
-| Exclusions | CAND-06 |
-| Multi-fichiers | CAND-09 |
-| Allowlist exhaustive | CAND-08 |
-| Convention de branche | CAND-07 |
-| Scénario nominal | CAND-10 |
-| Sans action | CAND-11 |
-| Correction avant GO | CAND-12 |
-| Extension après GO | CAND-13 |
-| NO-GO | CAND-14 |
-| STOP | CAND-15 |
-| Échec Cursor | CAND-16 |
-| Rapport incomplet | CAND-17 |
-| Critères de réussite | CAND-19 |
-| Preuves négatives | CAND-18 |
-| Cleanup | CAND-20 |
-| FinOps | CAND-21 |
-| Ouverture architecture technique | CAND-22 |
-
----
-
-## 4. Réserves
-
-FD-CAND-13 · FD-CAND-15 · FD-CAND-20 · FD-CAND-26 · UX-R01…R04 · live · CI · isolation · tech-arch · stack/protocole.
-
-FD-CAND-20/26 sont **précisées** par docs 54–55 mais **non clôturées**.
-
----
-
-## 5. Anti-claims
-
-Aucune décision marquée VALIDATED. Pas de READY FOR DELIVERY · PRODUCTION READY · OPS1 PROVEN · MVP DEFINED · tech-arch ouverte.
-
----
-
-## 6. Verdict
-
-`scenario-decisions-candidate`
-
-`OPS1 SCENARIO DECISIONS READY FOR MORRIS VALIDATION`
-
-En attente du GO Morris de validation sous `G-OPS1-SCENARIO-VAL`.
-
-
----
-
-## Annexe D — Diff complet des fichiers modifiés
-
-```diff
-diff --git a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-index b15b29d..40da148 100644
---- a/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-+++ b/projects/sfia-studio/41-operational-vertical-slice-1-framing.md
-@@ -9,7 +9,7 @@
- | **Baseline** | SFIA v2.6 opérationnelle sur `main` |
- | **Gates consommés** | `G-SFIA-STUDIO-OPERATIONAL-SLICE-1-FRAMING` · `G-OPS1-FRAMING-REAL-CONVERSATION-AMENDMENT` · `G-OPS1-FRAMING-VAL` |
- | **Statut** | `framing-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 12:21 CEST) ; cadrage `41`–`44` **intégré** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1`) — post-merge + cleanup **terminés** ; conception fonctionnelle `45`–`47` **intégrée** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) ; UX OPS1 `51`–`53` **validés avec réserves** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; POC **maintenu** ; réserves fonctionnelles **inchangées** ; architecture technique, backlog, delivery, live, MVP **fermés** |
--| **Companions** | [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) |
-+| **Companions** | [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**candidats** ; validation `AWAITING G-OPS1-SCENARIO-VAL`) |
- | **Base Git de cadrage** | `origin/main` @ `6a4c4a7044a54698f96e5ba8ce3a85f60c0afc25` |
- | **Intégration cadrage** | PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) MERGED — squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
- | **Intégration conception fonctionnelle** | PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) MERGED — squash `6cbf37482c7d384ef5630259d58a2e223a607925` |
-@@ -19,7 +19,7 @@
- > **Cadrage validé avec réserves** sous `G-OPS1-FRAMING-VAL` — conversation GPT réelle et libre au centre ; action Markdown gouvernée.
- > Documents `41`–`44` **intégrés sur `main`** via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) (squash `b686eb1394bb4d550eeff1dd64669b3d405579ad`) ; post-merge et cleanup **terminés**.
- > Conception fonctionnelle OPS1 (`45`–`47`) **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST), **intégrée et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash merge `6cbf37482c7d384ef5630259d58a2e223a607925`) ; post-merge **validé** (2026-07-20 14:29 CEST).
--> Réserves fonctionnelles **inchangées**. UX OPS1 **validée avec réserves** (`G-OPS1-UX-VAL` consommé). Architecture technique, backlog, delivery, live et MVP **restent fermés**. Aucun cycle suivant ouvert automatiquement.
-+> Réserves fonctionnelles **inchangées**. UX OPS1 **validée avec réserves** (`G-OPS1-UX-VAL` consommé). Scénario OPS1 docs `54`–`56` **candidats** (ouverture documentaire sous `G-OPS1-SCENARIO-VAL` ; validation Morris **AWAITING**). Architecture technique, backlog, delivery, live et MVP **restent fermés**. Aucun cycle suivant ouvert automatiquement.
- > Aucun claim MVP, production-ready ou industrialisation.
-
- ---
-@@ -365,4 +365,4 @@ Conversation réelle et libre
- `SFIA STUDIO OPS1 FRAMING VALIDATED WITH RESERVATIONS`
-
- Cadrage **intégré** et **canonique** sur `main` (PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235)). Conception fonctionnelle OPS1 **validée avec réserves** sous `G-OPS1-FUNC-DESIGN-VAL` (2026-07-20 13:46 CEST), **intégrée et canonique sur `main`** via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) (squash `6cbf37482c7d384ef5630259d58a2e223a607925`) — post-merge **validé** (2026-07-20 14:29 CEST) — voir [`45`](./45-ops1-functional-design.md)–[`47`](./47-ops1-functional-decision-pack.md).
--Réserves fonctionnelles **inchangées**. UX OPS1 **validée avec réserves** (`G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST ; UX-R01…UX-R04 ouvertes). Gates architecture technique / backlog / delivery / live / MVP : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Aucun cycle suivant ouvert automatiquement.
-+Réserves fonctionnelles **inchangées**. UX OPS1 **validée avec réserves** (`G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST ; UX-R01…UX-R04 ouvertes). Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) **candidats** — validation `AWAITING G-OPS1-SCENARIO-VAL`. Gates architecture technique / backlog / delivery / live / MVP : **fermés** — voir [`44`](./44-operational-vertical-slice-1-decision-pack.md). Aucun cycle suivant ouvert automatiquement.
-diff --git a/projects/sfia-studio/45-ops1-functional-design.md b/projects/sfia-studio/45-ops1-functional-design.md
-index ef6b645..b58ca63 100644
---- a/projects/sfia-studio/45-ops1-functional-design.md
-+++ b/projects/sfia-studio/45-ops1-functional-design.md
-@@ -12,7 +12,7 @@
- | **Branche de conception** | `design/sfia-studio-ops1-functional` — fusionnée via PR [#237](https://github.com/mcleland147/sfia-workspace/pull/237) ; branche conservée temporairement en attente du cleanup Morris |
- | **Statut** | `functional-design-validated-with-reservations` — **validé Morris avec réserves** (2026-07-20 13:46 CEST) ; amendement final multi-fichiers + allowlist (2026-07-20 13:36 CEST) ; **intégré et canonique sur `main`** ; post-merge **validé** (2026-07-20 14:29 CEST) ; réserves 13, 15, 20, 26 **inchangées** ; aucun cycle suivant ouvert automatiquement |
- | **Autorité** | Morris (L0) |
--| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) |
-+| **Companions** | [`46`](./46-ops1-functional-flows-and-rules.md) · [`47`](./47-ops1-functional-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves** ; `G-OPS1-UX-VAL` consommé — 2026-07-20 16:52 CEST) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**candidats** ; `AWAITING G-OPS1-SCENARIO-VAL`) |
- | **Entrées cadrage** | [`41`](./41-operational-vertical-slice-1-framing.md) · [`42`](./42-operational-vertical-slice-1-flow-and-session-model.md) · [`43`](./43-operational-vertical-slice-1-scope-and-success-criteria.md) · [`44`](./44-operational-vertical-slice-1-decision-pack.md) |
- | **Socle historique (lecture)** | [`08`](./08-functional-design.md) · [`09`](./09-functional-flows-and-rules.md) · [`10`](./10-functional-decision-pack.md) |
- | **Horodatage production** | 2026-07-20 13:10 CEST |
-@@ -543,7 +543,7 @@ Souhaitables `43` §6.2 : couverts comme **candidats** (coût visible, condensat
- | Stack / BDD / API / protocole | Cycle **6 — Architecture technique** (`G-OPS1-TECH-ARCH` si établi) | **Routé** — hors réserves conception |
- | Découpage I1–I7 en stories | `G-OPS1-BACKLOG` | Fermé |
- | Implémentation / live GPT / Cursor | Delivery / live (gates distincts) | Fermé |
--| Cartographie chemins éligibles Campus360 + branche + allowlist | `G-OPS1-SCENARIO-VAL` | Réserve conception |
-+| Cartographie chemins éligibles Campus360 + branche + allowlist | `G-OPS1-SCENARIO-VAL` | Docs candidats [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) produits — **validation Morris AWAITING** ; réserve conception non clôturée |
- | Plafonds FinOps numériques | GO avant live | Réserve conception (non bloquante pour FUNC-DESIGN-VAL) |
- | Mécanisme continuation après CLOSE | Archi fonctionnelle / UX | Réserve conception (`OPS1-FD-CAND-13`) |
-
-@@ -607,7 +607,8 @@ Valider :
- - scénario de preuve.
-
- **Ne plus** valider un fichier unique obligatoire.
--**Non choisis dans ce cycle :** liste globale définitive de chemins réels ; nom de branche exact ; demande métier exacte.
-+**État scénario (candidat) :** cartographie repo-informed, exclusions, convention de branche et règles d’allowlist proposées dans [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) — **validation Morris AWAITING** (`G-OPS1-SCENARIO-VAL`).
-+**Non figés tant que non validés :** liste définitive ; nom de branche exact ; demande métier exacte de démonstration.
-
- ---
-
-diff --git a/projects/sfia-studio/48-ops1-functional-architecture.md b/projects/sfia-studio/48-ops1-functional-architecture.md
-index 46b71c4..be2fb08 100644
---- a/projects/sfia-studio/48-ops1-functional-architecture.md
-+++ b/projects/sfia-studio/48-ops1-functional-architecture.md
-@@ -15,7 +15,7 @@
- | **Décisions** | `OPS1-FA-CAND-01`…`22` **validées** (réserves maintenues) |
- | **Horodatage validation Morris** | 2026-07-20 15:30 CEST |
- | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`47`](./47-ops1-functional-decision-pack.md) |
--| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves**) |
-+| **Companions** | [`49`](./49-ops1-functional-components-and-interactions.md) · [`50`](./50-ops1-functional-architecture-decision-pack.md) · UX OPS1 [`51`](./51-ops1-ux-ui-contract.md)–[`53`](./53-ops1-ux-ui-decision-pack.md) (**validés avec réserves**) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**candidats**) |
- | **Horodatage production** | 2026-07-20 15:14 CEST |
-
- > Architecture **fonctionnelle** du Vertical Slice Opérationnel 1 — **validée avec réserves** sous `G-OPS1-FUNC-ARCH-VAL` (2026-07-20 15:30 CEST).
-@@ -328,7 +328,7 @@ Audit Journal reconstruit l’historique (CAP-21).
- |------|---------------|------|
- | UX/UI | Surfaces, Figma, microcopy visuelle | `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (UX-R01…UX-R04) |
- | Architecture technique | Stack, BDD, API, protocole, isolation OS/réseau | `G-OPS1-TECH-ARCH` (fermé) |
--| Scénario | Cartographie chemins Campus360, convention branche | `G-OPS1-SCENARIO-VAL` (fermé) |
-+| Scénario | Cartographie chemins Campus360, convention branche | Docs candidats `54`–`56` — ouverture documentaire consommée ; validation `AWAITING G-OPS1-SCENARIO-VAL` |
- | Backlog | Découpage I1–I7 opérationnel | `G-OPS1-BACKLOG` (fermé) |
-
- Aucune ouverture automatique.
-@@ -373,4 +373,4 @@ Gate `G-OPS1-FUNC-ARCH` consommé — 2026-07-20 15:14 CEST.
- Gate `G-OPS1-FUNC-ARCH-VAL` **consommé** — Morris — 2026-07-20 15:30 CEST.
- 11 domaines D1–D11 retenus ; 14 composants fonctionnels retenus ; frontières Morris / GPT / harness / Cursor / Git / persistance retenues ; couverture CAP/FLOW/FR confirmée.
- Réserves maintenues (continuation CLOSE ; FinOps numériques ; Campus360 cartographie/branche ; live ; CI ; isolation ; FD-CAND-13/15/20/26).
--UX : `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues. Architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
-+UX : `G-OPS1-UX` + `G-OPS1-UX-VAL` **consommés** — docs `51`–`53` **validés avec réserves** (2026-07-20 16:52 CEST) ; réserves UX-R01…UX-R04 maintenues. Scénario : docs `54`–`56` **candidats** — validation `AWAITING G-OPS1-SCENARIO-VAL`. Architecture technique (`G-OPS1-TECH-ARCH`), backlog, delivery, live et MVP : **fermés** — aucun cycle suivant ouvert automatiquement.
-diff --git a/projects/sfia-studio/51-ops1-ux-ui-contract.md b/projects/sfia-studio/51-ops1-ux-ui-contract.md
-index 03e2e24..0ef5300 100644
---- a/projects/sfia-studio/51-ops1-ux-ui-contract.md
-+++ b/projects/sfia-studio/51-ops1-ux-ui-contract.md
-@@ -11,7 +11,7 @@
- | **Baseline Git** | `origin/main` @ `bfa2cdf949f417fcbce47d1687824c223eeed8f7` |
- | **Branche** | `design/sfia-studio-ops1-ux-ui` |
- | **Statut** | `ux-ui-validated-with-reservations` |
--| **Companions** | [`52`](./52-ops1-visual-contract-and-figma-spec.md) · [`53`](./53-ops1-ux-ui-decision-pack.md) |
-+| **Companions** | [`52`](./52-ops1-visual-contract-and-figma-spec.md) · [`53`](./53-ops1-ux-ui-decision-pack.md) · Scénario OPS1 [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) (**candidats** ; `AWAITING G-OPS1-SCENARIO-VAL`) |
- | **Sources** | [`41`](./41-operational-vertical-slice-1-framing.md)–[`50`](./50-ops1-functional-architecture-decision-pack.md) |
- | **Figma** | fileKey `lrjA1WEyRpL05vKR8k29LO` · page `UX-B — OPS1` (`61:2`) — **référence visuelle desktop validée avec réserves** |
- | **Horodatage production** | 2026-07-20 16:15 CEST |
-@@ -366,9 +366,9 @@ Confirmés sous validation Morris (2026-07-20 16:52 CEST) — sous réserves UX-
-
- - Continuation après CLOSE (FD-CAND-13).
- - FinOps numériques (FD-CAND-15).
--- Cartographie / catégories Campus360 (FD-CAND-20).
--- Détails opérationnels Campus360 (FD-CAND-26).
--- Convention de branche scénario.
-+- Cartographie / catégories Campus360 (FD-CAND-20) — précisée en **candidat** dans [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) ; non clôturée.
-+- Détails opérationnels Campus360 (FD-CAND-26) — précisés en **candidat** ; non clôturés.
-+- Convention de branche scénario — candidate dans [`55`](./55-ops1-campus360-scope-and-allowlist-rules.md) §6.
- - Preuves GPT / Cursor live ; CI distante ; isolation OS/réseau.
-
- ---
-diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 3b0d6bf..47445e7 100644
---- a/projects/sfia-studio/README.md
-+++ b/projects/sfia-studio/README.md
-@@ -21,7 +21,7 @@
- | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
- | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
- | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
--| **Prochaine décision** | Choix Morris du cycle suivant — scénario, architecture technique, backlog ou autre cycle explicitement ouvert ; tech-arch / backlog / delivery / live / MVP — **non ouverts automatiquement** |
-+| **Prochaine décision** | Validation Morris du scénario OPS1 (`G-OPS1-SCENARIO-VAL`) — docs `54`–`56` **candidats** ; architecture technique, backlog, delivery, live, MVP — **non ouverts automatiquement** |
-
- ---
-
-@@ -368,11 +368,11 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
-
- ## 8. Prochaine décision
-
--1. Choix Morris du cycle suivant — scénario (`G-OPS1-SCENARIO-VAL`), architecture technique, backlog ou autre cycle **explicitement** ouvert.
-+1. Validation Morris du scénario OPS1 — docs candidats [`54`](./54-ops1-operational-scenario.md)–[`56`](./56-ops1-scenario-decision-pack.md) · `AWAITING G-OPS1-SCENARIO-VAL`.
- 2. Architecture technique / backlog / delivery / live GPT-Cursor / MVP — **FERMÉS** (non ouverts automatiquement).
- 3. Réserves OPS1 maintenues (FD-CAND-13/15/20/26 · FinOps · Campus360 · live · CI · isolation · UX-R01…UX-R04).
-
--**Verdict documentaire courant :** `SFIA STUDIO OPS1 FRAMING / DESIGN / ARCH / UX VALIDATED WITH RESERVATIONS`
-+**Verdict documentaire courant :** `SFIA STUDIO OPS1 SCENARIO CANDIDATE — AWAITING G-OPS1-SCENARIO-VAL`
-
-
- ---
-@@ -387,6 +387,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | Cadrage OPS1 | Docs `41`–`44` — **VALIDATED WITH RESERVATIONS** ; **intégrés** sur `main` via PR [#235](https://github.com/mcleland147/sfia-workspace/pull/235) / squash `b686eb1394bb4d550eeff1dd64669b3d405579ad` ; cleanup branche effectué |
- | Conception / archi OPS1 | Docs `45`–`50` — **VALIDATED WITH RESERVATIONS** ; intégrés (PR #237 / #239) |
- | UX/UI OPS1 | Docs `51`–`53` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-UX-VAL` 2026-07-20 16:52 CEST) ; Figma page `61:2` référence desktop ; UX-R01…UX-R04 ouvertes |
-+| Scénario OPS1 | Docs `54`–`56` — **CANDIDATES** (ouverture documentaire sous `G-OPS1-SCENARIO-VAL` ; validation Morris **AWAITING**) ; cartographie Campus360 repo-informed |
- | Handoff | `sfia/review-handoff` |
-
- ---
-@@ -438,4 +439,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [52-ops1-visual-contract-and-figma-spec.md](./52-ops1-visual-contract-and-figma-spec.md) | Contrat visuel / Figma — page `61:2` référence desktop validée |
- | [53-ops1-ux-ui-decision-pack.md](./53-ops1-ux-ui-decision-pack.md) | `OPS1-UX-CAND-01`…`20` — **VALIDATED WITH RESERVATIONS** ; UX-R01…UX-R04 ouvertes |
-
--*SFIA Studio — POC maintenu — A–E CLOSED_WITH_RESERVATIONS — OPS1 framing/design/arch/UX VALIDATED WITH RESERVATIONS — MVP / delivery non ouverts.*
-+### Scénario opérationnel OPS1 (candidats — validation `AWAITING G-OPS1-SCENARIO-VAL`)
+### ActionCandidate
+
+- `actionCandidateId`, `sessionId`, `status`, `title`, `objective`, `scopeSummary`, `riskSummary`, `version`, `createdAt`, `updatedAt`
+
+### Statuts candidat (sans exécution)
+
+`PROPOSED` · `UNDER_REVIEW` · `APPROVED` · `REJECTED` · `CHANGES_REQUESTED` · `ABANDONED` · `NOT_REQUIRED`
+
+### GateDecision
+
+- `gateDecisionId`, `sessionId`, `actionCandidateId`, `actionVersion`, `kind`, `motif`, `createdAt`
+- Kinds : `GO` · `NO_GO` · `CORRIGER` · `ABANDONNER`
+
+### SessionQualification
+
+- `sessionId`, `qualification` (`ACTION_REQUIRED` | `ACTION_NOT_REQUIRED`), `updatedAt`
+
+### Événements audit
+
+`ACTION_QUALIFIED_NOT_REQUIRED` · `ACTION_CANDIDATE_CREATED` · `ACTION_CANDIDATE_REFINED` · `GATE_DECISION_RECORDED` · `EXECUTION_REFUSED`
+
+## Transitions d’état
+
+| Action | Effet statut candidat | Session |
+|---|---|---|
+| qualify NOT_REQUIRED | (pas de candidat) | OPEN |
+| create fixture candidate | PROPOSED + qualif ACTION_REQUIRED | OPEN |
+| refine | version+1, UNDER_REVIEW | OPEN |
+| GO | APPROVED | OPEN |
+| NO_GO | REJECTED | OPEN |
+| CORRIGER | CHANGES_REQUESTED | OPEN |
+| ABANDONNER | ABANDONED | OPEN |
+| refuse execution | event EXECUTION_REFUSED | OPEN |
+
+Après GO, seul `CORRIGER` peut rouvrir le raffinement. Raffiner après GO sans CORRIGER → refus CONFLICT.
+
+## Règles ACTION_NOT_REQUIRED
+
+- Fixture explicite via CTA `ACTION_NOT_REQUIRED`
+- Persiste dans `session_qualifications`
+- N’invente pas d’ActionCandidate
+- Session reste OPEN
+- Chat reste utilisable
+
+## Règles des quatre gates
+
+1. **GO** — valide ; microcopy no-exec ; pas d’effet exécution
+2. **NO_GO** — refuse ; session OPEN
+3. **CORRIGER** — journalise motif ; statut CHANGES_REQUESTED ; pas d’exécution
+4. **ABANDONNER** — abandonne la proposition ; ne ferme pas la session
+
+Fail-closed : message chat « GO » ≠ décision ; seule interaction gate crée une décision ; IDs validés ; tentative exécution → refus + event.
+
+## Garde-fous no-execution
+
+- Aucun CTA « Exécuter » / « Lancer Cursor »
+- `ops1RefuseExecutionAction` / `refuseExecutionAttempt` toujours refuse
+- Pas de runner, worktree, allowlist, hash I4
+- Mot « GO » dans le chat ne change pas le statut candidat
+
+## Fichiers créés
+
+| Fichier | Justification |
+|---|---|
+| `projects/sfia-studio/app/lib/ops1/actionGate.ts` | Domaine persist-only I3 |
+| `projects/sfia-studio/app/__tests__/ops1/actionGate.test.ts` | Tests unitaires/intégration I3 |
+| `projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts` | E2E fixture I3 + captures |
+
+## Fichiers modifiés
+
+| Fichier | Justification |
+|---|---|
+| `types.ts` | Types + microcopy I3 + events |
+| `ids.ts` | IDs action/gate |
+| `db.ts` | Schéma SQLite I3 |
+| `validation.ts` | Asserts action/gate |
+| `actions.ts` | Server actions I3 + getSession enrichi |
+| `index.ts` | Exports |
+| `Ops1SessionScreen.tsx` | UI conversation / action / gate |
+| `ops1-session.module.css` | Styles panneaux I3 |
+| `Ops1SessionScreen.test.tsx` | Mocks I3 |
+| `globalModeBadge.ui.test.tsx` | Mocks I3 |
+
+## Fichiers supprimés
+
+Aucun.
+
+## Contenu complet — fichiers créés
+
+### actionGate.ts
+
+```typescript
+import type { DatabaseSync } from "node:sqlite";
+import {
+  createActionCandidateId,
+  createEventId,
+  createGateDecisionId,
+} from "./ids";
+import { openOps1Db, nowIsoWithOffset } from "./db";
+import { Ops1Error } from "./errors";
+import {
+  OPS1_I3_GO_MICROCOPY,
+  type ActionCandidate,
+  type ActionCandidateStatus,
+  type ActionQualification,
+  type GateDecision,
+  type GateDecisionKind,
+  type SessionEvent,
+  type SessionEventType,
+  type SessionQualification,
+} from "./types";
+
+function insertEvent(
+  db: DatabaseSync,
+  sessionId: string | null,
+  type: SessionEventType,
+  detail: string,
+  createdAt = nowIsoWithOffset(),
+): SessionEvent {
+  const eventId = createEventId();
+  db.prepare(
+    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
+     VALUES (?, ?, ?, ?, ?)`,
+  ).run(eventId, sessionId, type, createdAt, detail);
+  return { eventId, sessionId, type, createdAt, detail };
+}
+
+function requireOpenSession(db: DatabaseSync, sessionId: string): void {
+  const row = db
+    .prepare(
+      `SELECT status FROM cycle_sessions WHERE session_id = ?`,
+    )
+    .get(sessionId) as { status: string } | undefined;
+  if (!row) {
+    throw new Ops1Error("NOT_FOUND", "Session introuvable.");
+  }
+  if (row.status !== "OPEN") {
+    throw new Ops1Error(
+      "CONFLICT",
+      "La session n’est pas OPEN — I3 n’autorise pas CLOSED.",
+    );
+  }
+}
+
+function mapCandidate(row: Record<string, unknown>): ActionCandidate {
+  return {
+    actionCandidateId: String(row.action_candidate_id),
+    sessionId: String(row.session_id),
+    status: row.status as ActionCandidateStatus,
+    title: String(row.title),
+    objective: String(row.objective),
+    scopeSummary: String(row.scope_summary),
+    riskSummary: String(row.risk_summary),
+    version: Number(row.version),
+    createdAt: String(row.created_at),
+    updatedAt: String(row.updated_at),
+  };
+}
+
+function mapGate(row: Record<string, unknown>): GateDecision {
+  return {
+    gateDecisionId: String(row.gate_decision_id),
+    sessionId: String(row.session_id),
+    actionCandidateId: String(row.action_candidate_id),
+    actionVersion: Number(row.action_version),
+    kind: row.kind as GateDecisionKind,
+    motif: row.motif == null ? null : String(row.motif),
+    createdAt: String(row.created_at),
+  };
+}
+
+export function getSessionQualification(
+  sessionId: string,
+  db = openOps1Db(),
+): SessionQualification | null {
+  const row = db
+    .prepare(
+      `SELECT session_id, qualification, updated_at
+       FROM session_qualifications WHERE session_id = ?`,
+    )
+    .get(sessionId) as Record<string, unknown> | undefined;
+  if (!row) return null;
+  return {
+    sessionId: String(row.session_id),
+    qualification: row.qualification as ActionQualification,
+    updatedAt: String(row.updated_at),
+  };
+}
+
+export function listActionCandidates(
+  sessionId: string,
+  db = openOps1Db(),
+): ActionCandidate[] {
+  const rows = db
+    .prepare(
+      `SELECT * FROM action_candidates
+       WHERE session_id = ?
+       ORDER BY created_at ASC`,
+    )
+    .all(sessionId) as Array<Record<string, unknown>>;
+  return rows.map(mapCandidate);
+}
+
+export function getActionCandidate(
+  actionCandidateId: string,
+  db = openOps1Db(),
+): ActionCandidate | null {
+  const row = db
+    .prepare(`SELECT * FROM action_candidates WHERE action_candidate_id = ?`)
+    .get(actionCandidateId) as Record<string, unknown> | undefined;
+  return row ? mapCandidate(row) : null;
+}
+
+export function listGateDecisionsForAction(
+  actionCandidateId: string,
+  db = openOps1Db(),
+): GateDecision[] {
+  const rows = db
+    .prepare(
+      `SELECT * FROM gate_decisions
+       WHERE action_candidate_id = ?
+       ORDER BY created_at ASC`,
+    )
+    .all(actionCandidateId) as Array<Record<string, unknown>>;
+  return rows.map(mapGate);
+}
+
+export function getLatestGateDecision(
+  actionCandidateId: string,
+  actionVersion?: number,
+  db = openOps1Db(),
+): GateDecision | null {
+  if (actionVersion != null) {
+    const row = db
+      .prepare(
+        `SELECT * FROM gate_decisions
+         WHERE action_candidate_id = ? AND action_version = ?
+         ORDER BY created_at DESC LIMIT 1`,
+      )
+      .get(actionCandidateId, actionVersion) as
+      | Record<string, unknown>
+      | undefined;
+    return row ? mapGate(row) : null;
+  }
+  const row = db
+    .prepare(
+      `SELECT * FROM gate_decisions
+       WHERE action_candidate_id = ?
+       ORDER BY created_at DESC LIMIT 1`,
+    )
+    .get(actionCandidateId) as Record<string, unknown> | undefined;
+  return row ? mapGate(row) : null;
+}
+
+export function qualifyActionNotRequired(
+  sessionId: string,
+  db = openOps1Db(),
+): { qualification: SessionQualification; event: SessionEvent } {
+  requireOpenSession(db, sessionId);
+  const now = nowIsoWithOffset();
+  db.prepare(
+    `INSERT INTO session_qualifications (session_id, qualification, updated_at)
+     VALUES (?, 'ACTION_NOT_REQUIRED', ?)
+     ON CONFLICT(session_id) DO UPDATE SET
+       qualification = excluded.qualification,
+       updated_at = excluded.updated_at`,
+  ).run(sessionId, now);
+  const event = insertEvent(
+    db,
+    sessionId,
+    "ACTION_QUALIFIED_NOT_REQUIRED",
+    "qualification=ACTION_NOT_REQUIRED",
+    now,
+  );
+  return {
+    qualification: {
+      sessionId,
+      qualification: "ACTION_NOT_REQUIRED",
+      updatedAt: now,
+    },
+    event,
+  };
+}
+
+const FIXTURE_DEFAULT = {
+  title: "Proposition fixture OPS1 I3",
+  objective:
+    "Valider une proposition d’action structurée hors chat, sans exécution.",
+  scopeSummary:
+    "Périmètre documentaire simulé — allowlist exécutable reportée à I4.",
+  riskSummary:
+    "Aucun effet Cursor/Git/filesystem. GO = validation uniquement.",
+};
+
+export function createFixtureActionCandidate(
+  sessionId: string,
+  overrides?: Partial<
+    Pick<ActionCandidate, "title" | "objective" | "scopeSummary" | "riskSummary">
+  >,
+  db = openOps1Db(),
+): { candidate: ActionCandidate; event: SessionEvent } {
+  requireOpenSession(db, sessionId);
+  const now = nowIsoWithOffset();
+  const actionCandidateId = createActionCandidateId();
+  const title = overrides?.title?.trim() || FIXTURE_DEFAULT.title;
+  const objective = overrides?.objective?.trim() || FIXTURE_DEFAULT.objective;
+  const scopeSummary =
+    overrides?.scopeSummary?.trim() || FIXTURE_DEFAULT.scopeSummary;
+  const riskSummary =
+    overrides?.riskSummary?.trim() || FIXTURE_DEFAULT.riskSummary;
+
+  db.prepare(
+    `INSERT INTO session_qualifications (session_id, qualification, updated_at)
+     VALUES (?, 'ACTION_REQUIRED', ?)
+     ON CONFLICT(session_id) DO UPDATE SET
+       qualification = excluded.qualification,
+       updated_at = excluded.updated_at`,
+  ).run(sessionId, now);
+
+  db.prepare(
+    `INSERT INTO action_candidates (
+      action_candidate_id, session_id, status, title, objective,
+      scope_summary, risk_summary, version, created_at, updated_at
+    ) VALUES (?, ?, 'PROPOSED', ?, ?, ?, ?, 1, ?, ?)`,
+  ).run(
+    actionCandidateId,
+    sessionId,
+    title,
+    objective,
+    scopeSummary,
+    riskSummary,
+    now,
+    now,
+  );
+
+  const event = insertEvent(
+    db,
+    sessionId,
+    "ACTION_CANDIDATE_CREATED",
+    `actionCandidateId=${actionCandidateId};version=1;status=PROPOSED`,
+    now,
+  );
+
+  const candidate = getActionCandidate(actionCandidateId, db);
+  if (!candidate) {
+    throw new Ops1Error("PERSISTENCE", "ActionCandidate non relisible.");
+  }
+  return { candidate, event };
+}
+
+export function refineActionCandidate(
+  input: {
+    sessionId: string;
+    actionCandidateId: string;
+    title: string;
+    objective: string;
+    scopeSummary: string;
+    riskSummary: string;
+  },
+  db = openOps1Db(),
+): { candidate: ActionCandidate; event: SessionEvent } {
+  requireOpenSession(db, input.sessionId);
+  const existing = getActionCandidate(input.actionCandidateId, db);
+  if (!existing || existing.sessionId !== input.sessionId) {
+    throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
+  }
+  if (
+    existing.status === "ABANDONED" ||
+    existing.status === "REJECTED" ||
+    existing.status === "NOT_REQUIRED"
+  ) {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Ce candidat ne peut plus être raffiné dans cet état.",
+    );
+  }
+  if (existing.status === "APPROVED") {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Candidat déjà validé (GO). Utilisez CORRIGER pour rouvrir le raffinement.",
+    );
+  }
+
+  const now = nowIsoWithOffset();
+  const nextVersion = existing.version + 1;
+  const title = input.title.trim();
+  const objective = input.objective.trim();
+  const scopeSummary = input.scopeSummary.trim();
+  const riskSummary = input.riskSummary.trim();
+  if (!title || !objective || !scopeSummary || !riskSummary) {
+    throw new Ops1Error("VALIDATION", "Tous les champs action sont requis.");
+  }
+
+  db.prepare(
+    `UPDATE action_candidates
+     SET title = ?, objective = ?, scope_summary = ?, risk_summary = ?,
+         version = ?, status = 'UNDER_REVIEW', updated_at = ?
+     WHERE action_candidate_id = ?`,
+  ).run(
+    title,
+    objective,
+    scopeSummary,
+    riskSummary,
+    nextVersion,
+    now,
+    input.actionCandidateId,
+  );
+
+  const event = insertEvent(
+    db,
+    input.sessionId,
+    "ACTION_CANDIDATE_REFINED",
+    `actionCandidateId=${input.actionCandidateId};version=${nextVersion}`,
+    now,
+  );
+
+  const candidate = getActionCandidate(input.actionCandidateId, db);
+  if (!candidate) {
+    throw new Ops1Error("PERSISTENCE", "ActionCandidate non relisible.");
+  }
+  return { candidate, event };
+}
+
+function statusAfterGate(kind: GateDecisionKind): ActionCandidateStatus {
+  switch (kind) {
+    case "GO":
+      return "APPROVED";
+    case "NO_GO":
+      return "REJECTED";
+    case "CORRIGER":
+      return "CHANGES_REQUESTED";
+    case "ABANDONNER":
+      return "ABANDONED";
+  }
+}
+
+export function recordGateDecision(
+  input: {
+    sessionId: string;
+    actionCandidateId: string;
+    kind: GateDecisionKind;
+    motif?: string | null;
+  },
+  db = openOps1Db(),
+): {
+  decision: GateDecision;
+  candidate: ActionCandidate;
+  event: SessionEvent;
+  microcopy: string | null;
+} {
+  requireOpenSession(db, input.sessionId);
+  const existing = getActionCandidate(input.actionCandidateId, db);
+  if (!existing || existing.sessionId !== input.sessionId) {
+    throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
+  }
+  if (
+    existing.status === "ABANDONED" ||
+    existing.status === "REJECTED" ||
+    existing.status === "NOT_REQUIRED"
+  ) {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Aucune décision de gate possible sur ce candidat.",
+    );
+  }
+  if (existing.status === "APPROVED" && input.kind !== "CORRIGER") {
+    throw new Ops1Error(
+      "CONFLICT",
+      "Candidat déjà validé — seul CORRIGER peut rouvrir le raffinement.",
+    );
+  }
+  if (
+    (existing.status === "PROPOSED" ||
+      existing.status === "UNDER_REVIEW" ||
+      existing.status === "CHANGES_REQUESTED") &&
+    input.kind === "CORRIGER"
+  ) {
+    // CORRIGER is allowed from review states to explicitly request changes
+  }
+
+  const now = nowIsoWithOffset();
+  const gateDecisionId = createGateDecisionId();
+  const nextStatus = statusAfterGate(input.kind);
+  const motif = input.motif?.trim() || null;
+
+  db.prepare(
+    `INSERT INTO gate_decisions (
+      gate_decision_id, session_id, action_candidate_id, action_version,
+      kind, motif, created_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+  ).run(
+    gateDecisionId,
+    input.sessionId,
+    input.actionCandidateId,
+    existing.version,
+    input.kind,
+    motif,
+    now,
+  );
+
+  db.prepare(
+    `UPDATE action_candidates
+     SET status = ?, updated_at = ?
+     WHERE action_candidate_id = ?`,
+  ).run(nextStatus, now, input.actionCandidateId);
+
+  const event = insertEvent(
+    db,
+    input.sessionId,
+    "GATE_DECISION_RECORDED",
+    `gateDecisionId=${gateDecisionId};kind=${input.kind};actionVersion=${existing.version};status=${nextStatus}`,
+    now,
+  );
+
+  const decision = getLatestGateDecision(
+    input.actionCandidateId,
+    existing.version,
+    db,
+  );
+  const candidate = getActionCandidate(input.actionCandidateId, db);
+  if (!decision || !candidate) {
+    throw new Ops1Error("PERSISTENCE", "Décision gate non relisible.");
+  }
+
+  return {
+    decision,
+    candidate,
+    event,
+    microcopy: input.kind === "GO" ? OPS1_I3_GO_MICROCOPY : null,
+  };
+}
+
+/**
+ * Fail-closed: I3 never executes. Always records EXECUTION_REFUSED.
+ */
+export function refuseExecutionAttempt(
+  sessionId: string,
+  reason = "I3 — aucune exécution autorisée",
+  db = openOps1Db(),
+): SessionEvent {
+  requireOpenSession(db, sessionId);
+  return insertEvent(
+    db,
+    sessionId,
+    "EXECUTION_REFUSED",
+    reason,
+  );
+}
+
+export function getI3Bundle(
+  sessionId: string,
+  db = openOps1Db(),
+): {
+  qualification: SessionQualification | null;
+  candidates: ActionCandidate[];
+  latestDecisionsByAction: Record<string, GateDecision | null>;
+} {
+  const candidates = listActionCandidates(sessionId, db);
+  const latestDecisionsByAction: Record<string, GateDecision | null> = {};
+  for (const c of candidates) {
+    latestDecisionsByAction[c.actionCandidateId] = getLatestGateDecision(
+      c.actionCandidateId,
+      c.version,
+      db,
+    );
+  }
+  return {
+    qualification: getSessionQualification(sessionId, db),
+    candidates,
+    latestDecisionsByAction,
+  };
+}
+
+\`\`\`
+
+### actionGate.test.ts
+
+\`\`\`typescript
+/** @vitest-environment node */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { createOpenSession, resetOps1DbForTests } from "@/lib/ops1/repository";
+import { openOps1Db } from "@/lib/ops1/db";
+import { Ops1Error } from "@/lib/ops1/errors";
+import {
+  createFixtureActionCandidate,
+  getI3Bundle,
+  qualifyActionNotRequired,
+  recordGateDecision,
+  refineActionCandidate,
+  refuseExecutionAttempt,
+} from "@/lib/ops1/actionGate";
+import { OPS1_I3_GO_MICROCOPY } from "@/lib/ops1/types";
+import {
+  assertActionCandidateId,
+  assertGateDecisionKind,
+} from "@/lib/ops1/validation";
+import { createActionCandidateId, createGateDecisionId } from "@/lib/ops1/ids";
+
+describe("ops1 I3 action gate domain", () => {
+  let tmpRoot: string;
+
+  beforeEach(() => {
+    resetOps1DbForTests();
+    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i3-"));
+    process.env.OPS1_EXEC_ROOT = tmpRoot;
+  });
+
+  afterEach(() => {
+    resetOps1DbForTests();
+    delete process.env.OPS1_EXEC_ROOT;
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  it("creates action and gate ids", () => {
+    expect(createActionCandidateId()).toMatch(/^ops1-act-/);
+    expect(createGateDecisionId()).toMatch(/^ops1-gate-/);
+    expect(assertActionCandidateId(createActionCandidateId())).toMatch(
+      /^ops1-act-/,
+    );
+    expect(assertGateDecisionKind("GO")).toBe("GO");
+    expect(() => assertGateDecisionKind("EXECUTE")).toThrow(Ops1Error);
+  });
+
+  it("qualifies ACTION_NOT_REQUIRED and keeps session OPEN", () => {
+    const { session } = createOpenSession();
+    const { qualification } = qualifyActionNotRequired(session.sessionId);
+    expect(qualification.qualification).toBe("ACTION_NOT_REQUIRED");
+    const bundle = getI3Bundle(session.sessionId);
+    expect(bundle.qualification?.qualification).toBe("ACTION_NOT_REQUIRED");
+    expect(bundle.candidates).toHaveLength(0);
+    const status = openOps1Db()
+      .prepare(`SELECT status FROM cycle_sessions WHERE session_id = ?`)
+      .get(session.sessionId) as { status: string };
+    expect(status.status).toBe("OPEN");
+  });
+
+  it("creates ActionCandidate distinct from chat and persists", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    expect(candidate.status).toBe("PROPOSED");
+    expect(candidate.version).toBe(1);
+    expect(candidate.title).toContain("fixture");
+    const reloaded = getI3Bundle(session.sessionId);
+    expect(reloaded.candidates).toHaveLength(1);
+    expect(reloaded.candidates[0].actionCandidateId).toBe(
+      candidate.actionCandidateId,
+    );
+    expect(reloaded.qualification?.qualification).toBe("ACTION_REQUIRED");
+  });
+
+  it("refines candidate and bumps version", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    const refined = refineActionCandidate({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      title: "Titre raffiné",
+      objective: "Objectif raffiné",
+      scopeSummary: "Scope raffiné",
+      riskSummary: "Risque raffiné",
+    });
+    expect(refined.candidate.version).toBe(2);
+    expect(refined.candidate.status).toBe("UNDER_REVIEW");
+    expect(refined.candidate.title).toBe("Titre raffiné");
+  });
+
+  it("records GO without execution side effects", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    const result = recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "GO",
+    });
+    expect(result.candidate.status).toBe("APPROVED");
+    expect(result.decision.kind).toBe("GO");
+    expect(result.microcopy).toBe(OPS1_I3_GO_MICROCOPY);
+    expect(result.decision.actionVersion).toBe(1);
+    const status = openOps1Db()
+      .prepare(`SELECT status FROM cycle_sessions WHERE session_id = ?`)
+      .get(session.sessionId) as { status: string };
+    expect(status.status).toBe("OPEN");
+  });
+
+  it("records NO_GO, CORRIGER, ABANDONNER", () => {
+    const { session: s1 } = createOpenSession();
+    const c1 = createFixtureActionCandidate(s1.sessionId).candidate;
+    expect(
+      recordGateDecision({
+        sessionId: s1.sessionId,
+        actionCandidateId: c1.actionCandidateId,
+        kind: "NO_GO",
+      }).candidate.status,
+    ).toBe("REJECTED");
+
+    const { session: s2 } = createOpenSession();
+    const c2 = createFixtureActionCandidate(s2.sessionId).candidate;
+    expect(
+      recordGateDecision({
+        sessionId: s2.sessionId,
+        actionCandidateId: c2.actionCandidateId,
+        kind: "CORRIGER",
+        motif: "à corriger",
+      }).candidate.status,
+    ).toBe("CHANGES_REQUESTED");
+
+    const { session: s3 } = createOpenSession();
+    const c3 = createFixtureActionCandidate(s3.sessionId).candidate;
+    expect(
+      recordGateDecision({
+        sessionId: s3.sessionId,
+        actionCandidateId: c3.actionCandidateId,
+        kind: "ABANDONNER",
+      }).candidate.status,
+    ).toBe("ABANDONED");
+  });
+
+  it("GO then CORRIGER reopens refinement; refine bumps version", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "GO",
+    });
+    recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "CORRIGER",
+      motif: "reopen",
+    });
+    const refined = refineActionCandidate({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      title: "v2",
+      objective: "obj",
+      scopeSummary: "scope",
+      riskSummary: "risk",
+    });
+    expect(refined.candidate.version).toBe(2);
+    expect(refined.candidate.status).toBe("UNDER_REVIEW");
+  });
+
+  it("isolates candidates between sessions", () => {
+    const a = createOpenSession().session;
+    const b = createOpenSession().session;
+    createFixtureActionCandidate(a.sessionId);
+    createFixtureActionCandidate(b.sessionId);
+    expect(getI3Bundle(a.sessionId).candidates).toHaveLength(1);
+    expect(getI3Bundle(b.sessionId).candidates).toHaveLength(1);
+    expect(getI3Bundle(a.sessionId).candidates[0].sessionId).toBe(a.sessionId);
+  });
+
+  it("refuses execution and records EXECUTION_REFUSED", () => {
+    const { session } = createOpenSession();
+    const event = refuseExecutionAttempt(session.sessionId);
+    expect(event.type).toBe("EXECUTION_REFUSED");
+    const row = openOps1Db()
+      .prepare(
+        `SELECT type FROM session_events WHERE session_id = ? AND type = ?`,
+      )
+      .get(session.sessionId, "EXECUTION_REFUSED") as { type: string };
+    expect(row.type).toBe("EXECUTION_REFUSED");
+  });
+
+  it("blocks refine after GO until CORRIGER", () => {
+    const { session } = createOpenSession();
+    const { candidate } = createFixtureActionCandidate(session.sessionId);
+    recordGateDecision({
+      sessionId: session.sessionId,
+      actionCandidateId: candidate.actionCandidateId,
+      kind: "GO",
+    });
+    expect(() =>
+      refineActionCandidate({
+        sessionId: session.sessionId,
+        actionCandidateId: candidate.actionCandidateId,
+        title: "x",
+        objective: "y",
+        scopeSummary: "z",
+        riskSummary: "r",
+      }),
+    ).toThrow(Ops1Error);
+  });
+});
+
+\`\`\`
+
+### ops1-i3-action-gate.spec.ts
+
+\`\`\`typescript
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-ops1-i3",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+async function createFixtureSession(page: import("@playwright/test").Page) {
+  await page.goto("/nouvelle-demande");
+  await page.evaluate(() => window.sessionStorage.clear());
+  await page.reload();
+  await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+  await page.getByTestId("ops1-create-mode-fixture").check();
+  await page.getByTestId("ops1-create-session").click();
+  await expect(page.getByTestId("ops1-open-session")).toBeVisible();
+  await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+}
+
+test.describe("OPS1 I3 action gate — fixture first / no execution", () => {
+  test("ACTION_NOT_REQUIRED after conversation", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-message-input").fill("Besoin d’info seulement");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-turn").first()).toBeVisible();
+
+    await page.getByTestId("ops1-i3-qualify-not-required").click();
+    await expect(page.getByTestId("ops1-i3-qualification")).toHaveAttribute(
+      "data-qualification",
+      "ACTION_NOT_REQUIRED",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByTestId("ops1-action-panel")).toHaveCount(0);
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "01-action-not-required.png"),
+      fullPage: true,
+    });
+  });
+
+  test("ActionCandidate outside chat + four gates + refine + GO + reload", async ({
+    page,
+  }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-message-input").fill("Proposition à structurer");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-turn").first()).toBeVisible();
+
+    await page.getByTestId("ops1-i3-create-candidate").click();
+    await expect(page.getByTestId("ops1-action-panel")).toBeVisible();
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON AUTORISÉE",
+    );
+    await expect(page.getByTestId("ops1-go-ne-exec")).toContainText(
+      "GO ≠ exécution",
+    );
+    await expect(page.getByTestId("ops1-gate-panel")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-go")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-no-go")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-corriger")).toBeVisible();
+    await expect(page.getByTestId("ops1-gate-abandonner")).toBeVisible();
+
+    // Chat GO does not create gate decision
+    await page.getByTestId("ops1-message-input").fill("GO");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-gate-no-decision")).toBeVisible();
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON AUTORISÉE",
+    );
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "02-candidate-proposed-unauthorized.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "03-gate-four-actions.png"),
+      fullPage: true,
+    });
+
+    // Refine
+    await page.getByTestId("ops1-action-title-input").fill("Titre raffiné I3");
+    await page
+      .getByTestId("ops1-action-objective-input")
+      .fill("Objectif raffiné I3");
+    await page.getByTestId("ops1-action-scope-input").fill("Périmètre raffiné");
+    await page.getByTestId("ops1-action-risk-input").fill("Risques raffinés");
+    await page.getByTestId("ops1-action-refine-submit").click();
+    await expect(page.getByTestId("ops1-action-version")).toHaveText("2");
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "UNDER_REVIEW",
+    );
+
+    // GO
+    await page.getByTestId("ops1-gate-go").click();
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON EXÉCUTÉE",
+    );
+    await expect(page.getByTestId("ops1-gate-go-microcopy")).toContainText(
+      "Aucune exécution n’est lancée dans I3",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByRole("button", { name: /^Exécuter$/i })).toHaveCount(
+      0,
+    );
+    await expect(
+      page.getByRole("button", { name: /Lancer Cursor/i }),
+    ).toHaveCount(0);
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "04-go-validated-not-executed.png"),
+      fullPage: true,
+    });
+
+    const sessionId = await page.getByTestId("ops1-session-id").innerText();
+    const actionId = await page.getByTestId("ops1-action-id").innerText();
+
+    await page.reload();
+    await expect(page.getByTestId("ops1-session-id")).toHaveText(sessionId);
+    await expect(page.getByTestId("ops1-action-id")).toHaveText(actionId);
+    await expect(page.getByTestId("ops1-action-status")).toContainText(
+      "NON EXÉCUTÉE",
+    );
+    await expect(page.getByTestId("ops1-gate-latest-decision")).toHaveAttribute(
+      "data-kind",
+      "GO",
+    );
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "05-after-reload.png"),
+      fullPage: true,
+    });
+
+    // CORRIGER returns to refinement
+    await page.getByTestId("ops1-gate-corriger").click();
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "CHANGES_REQUESTED",
+    );
+    await expect(page.getByTestId("ops1-action-refine")).toBeVisible();
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "06-corriger-refinement.png"),
+      fullPage: true,
+    });
+  });
+
+  test("NO_GO keeps session OPEN", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-i3-create-candidate").click();
+    await page.getByTestId("ops1-gate-no-go").click();
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "REJECTED",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByTestId("ops1-gate-panel")).toHaveCount(0);
+  });
+
+  test("ABANDONNER keeps session OPEN", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-i3-create-candidate").click();
+    await page.getByTestId("ops1-gate-abandonner").click();
+    await expect(page.getByTestId("ops1-action-candidate-status")).toHaveText(
+      "ABANDONED",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+  });
+
+  test("execution attempt is refused", async ({ page }) => {
+    await createFixtureSession(page);
+    await page.getByTestId("ops1-i3-refuse-execution").click();
+    await expect(page.getByTestId("ops1-i3-execution-refused")).toContainText(
+      "Exécution refusée",
+    );
+    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+  });
+});
+
+\`\`\`
+
+## Diff utile complet — fichiers modifiés
+
+\`\`\`diff
+diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+index 579223e..c4cbc53 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
++++ b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+@@ -14,8 +14,19 @@ vi.mock("@/lib/ops1/actions", () => ({
+   ops1SendMessageAction: (...args: unknown[]) => send(...args),
+   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+   ops1AppendUserMessageAction: vi.fn(),
++  ops1QualifyActionNotRequiredAction: vi.fn(),
++  ops1CreateFixtureActionCandidateAction: vi.fn(),
++  ops1RefineActionCandidateAction: vi.fn(),
++  ops1RecordGateDecisionAction: vi.fn(),
++  ops1RefuseExecutionAction: vi.fn(),
+ }));
+
++const emptyI3 = {
++  qualification: null,
++  candidates: [] as unknown[],
++  latestDecisionsByAction: {} as Record<string, null>,
++};
 +
-+| Document | Rôle |
-+|----------|------|
-+| [54-ops1-operational-scenario.md](./54-ops1-operational-scenario.md) | Scénario nominal, variantes, PN, critères — **CANDIDATE** |
-+| [55-ops1-campus360-scope-and-allowlist-rules.md](./55-ops1-campus360-scope-and-allowlist-rules.md) | Cartographie Campus360 + allowlist + branche — **CANDIDATE** |
-+| [56-ops1-scenario-decision-pack.md](./56-ops1-scenario-decision-pack.md) | `OPS1-SCENARIO-CAND-01`…`22` — **AWAITING G-OPS1-SCENARIO-VAL** |
-+
-+*SFIA Studio — POC maintenu — A–E CLOSED_WITH_RESERVATIONS — OPS1 framing/design/arch/UX VALIDATED WITH RESERVATIONS — scénario CANDIDATE — MVP / delivery non ouverts.*
+ const fixtureSession = {
+   sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
+   projectKey: "sfia-studio-ops1",
+@@ -69,6 +80,7 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
+         turns: [],
+         attempts: [],
+         presentation: "fixture",
++        ...emptyI3,
+       },
+     });
+     render(<Ops1SessionScreen />);
+@@ -117,6 +129,7 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
+         ],
+         attempts: [],
+         presentation: "test_provider",
++        ...emptyI3,
+       },
+     });
+     window.sessionStorage.setItem(
+@@ -157,6 +170,7 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
+         ],
+         attempts: [],
+         presentation: "openai_live",
++        ...emptyI3,
+       },
+     });
+     window.sessionStorage.setItem(
+diff --git a/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx b/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+index 97db07a..26b126a 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+@@ -18,6 +18,11 @@ vi.mock("@/lib/ops1/actions", () => ({
+   ops1SendMessageAction: (...args: unknown[]) => send(...args),
+   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+   ops1AppendUserMessageAction: vi.fn(),
++  ops1QualifyActionNotRequiredAction: vi.fn(),
++  ops1CreateFixtureActionCandidateAction: vi.fn(),
++  ops1RefineActionCandidateAction: vi.fn(),
++  ops1RecordGateDecisionAction: vi.fn(),
++  ops1RefuseExecutionAction: vi.fn(),
+ }));
 
-```
+ const fixtureSession = {
+@@ -66,6 +71,9 @@ describe("global mode badge on nouvelle-demande shell", () => {
+         turns: [],
+         attempts: [],
+         presentation: "fixture",
++        qualification: null,
++        candidates: [],
++        latestDecisionsByAction: {},
+       },
+     });
+     render(<NouvelleDemandePageClient />);
+@@ -100,6 +108,9 @@ describe("global mode badge on nouvelle-demande shell", () => {
+         turns: [],
+         attempts: [],
+         presentation: "test_provider",
++        qualification: null,
++        candidates: [],
++        latestDecisionsByAction: {},
+       },
+     });
+     window.sessionStorage.setItem(
+@@ -131,6 +142,9 @@ describe("global mode badge on nouvelle-demande shell", () => {
+         turns: [],
+         attempts: [],
+         presentation: "openai_live",
++        qualification: null,
++        candidates: [],
++        latestDecisionsByAction: {},
+       },
+     });
+     window.sessionStorage.setItem(
+diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+index 8189cbf..74d4d47 100644
+--- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
++++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+@@ -4,19 +4,34 @@ import { useCallback, useEffect, useState, useTransition } from "react";
+ import { CtaButton } from "@/components/ui/CtaButton";
+ import { StatusPill } from "@/components/ui/StatusPill";
+ import {
++  ops1CreateFixtureActionCandidateAction,
+   ops1CreateSessionAction,
+   ops1GetLiveConfigAction,
+   ops1GetSessionAction,
++  ops1QualifyActionNotRequiredAction,
++  ops1RecordGateDecisionAction,
++  ops1RefineActionCandidateAction,
++  ops1RefuseExecutionAction,
+   ops1SendMessageAction,
+ } from "@/lib/ops1/actions";
+ import type {
++  ActionCandidate,
+   ConversationMode,
+   ConversationUsageCounters,
+   CycleSession,
++  GateDecision,
++  GateDecisionKind,
+   JournalTurn,
+   ProviderPresentation,
++  SessionQualification,
++} from "@/lib/ops1/types";
++import {
++  OPS1_I3_GO_MICROCOPY,
++  OPS1_I3_GO_NE_PAS_EXEC,
++  OPS1_I3_STATUS_UNAUTHORIZED,
++  OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED,
++  OPS1_MAX_MESSAGE_CHARS,
+ } from "@/lib/ops1/types";
+-import { OPS1_MAX_MESSAGE_CHARS } from "@/lib/ops1/types";
+ import type { GlobalModeContext } from "@/lib/ops1/globalModeBadge";
+ import styles from "./ops1-session.module.css";
+
+@@ -41,6 +56,37 @@ function roleLabel(
+   return "Assistant live";
+ }
+
++function actionStatusLabel(
++  candidate: ActionCandidate,
++  decision: GateDecision | null,
++): string {
++  if (candidate.status === "APPROVED" || decision?.kind === "GO") {
++    return OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED;
++  }
++  if (candidate.status === "NOT_REQUIRED") {
++    return "ACTION NON REQUISE";
++  }
++  if (candidate.status === "REJECTED") {
++    return "ACTION REFUSÉE (NO_GO)";
++  }
++  if (candidate.status === "ABANDONED") {
++    return "ACTION ABANDONNÉE";
++  }
++  if (candidate.status === "CHANGES_REQUESTED") {
++    return "CORRECTIONS DEMANDÉES";
++  }
++  return OPS1_I3_STATUS_UNAUTHORIZED;
++}
++
++function gateAvailable(candidate: ActionCandidate): boolean {
++  return (
++    candidate.status === "PROPOSED" ||
++    candidate.status === "UNDER_REVIEW" ||
++    candidate.status === "CHANGES_REQUESTED" ||
++    candidate.status === "APPROVED"
++  );
++}
++
+ export function Ops1SessionScreen({
+   onGlobalModeContextChange,
+ }: {
+@@ -60,6 +106,20 @@ export function Ops1SessionScreen({
+   const [lastUsage, setLastUsage] = useState<ConversationUsageCounters | null>(
+     null,
+   );
++  const [qualification, setQualification] =
++    useState<SessionQualification | null>(null);
++  const [candidates, setCandidates] = useState<ActionCandidate[]>([]);
++  const [decisionsByAction, setDecisionsByAction] = useState<
++    Record<string, GateDecision | null>
++  >({});
++  const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
++  const [execRefuseMsg, setExecRefuseMsg] = useState<string | null>(null);
++  const [refineDraft, setRefineDraft] = useState({
++    title: "",
++    objective: "",
++    scopeSummary: "",
++    riskSummary: "",
++  });
+   const [pending, startTransition] = useTransition();
+
+   useEffect(() => {
+@@ -79,24 +139,53 @@ export function Ops1SessionScreen({
+     onGlobalModeContextChange,
+   ]);
+
+-  const loadBundle = useCallback(async (sessionId: string) => {
+-    const result = await ops1GetSessionAction(sessionId);
+-    if (!result.ok) {
+-      setError(result.message);
+-      setSession(null);
+-      setTurns([]);
+-      setPhase("idle");
+-      if (typeof window !== "undefined") {
+-        window.sessionStorage.removeItem(STORAGE_KEY);
++  const applyI3 = useCallback(
++    (data: {
++      qualification: SessionQualification | null;
++      candidates: ActionCandidate[];
++      latestDecisionsByAction: Record<string, GateDecision | null>;
++    }) => {
++      setQualification(data.qualification);
++      setCandidates(data.candidates);
++      setDecisionsByAction(data.latestDecisionsByAction);
++      const latest = data.candidates[data.candidates.length - 1];
++      if (latest) {
++        setRefineDraft({
++          title: latest.title,
++          objective: latest.objective,
++          scopeSummary: latest.scopeSummary,
++          riskSummary: latest.riskSummary,
++        });
+       }
+-      return;
+-    }
+-    setSession(result.data.session);
+-    setTurns(result.data.turns);
+-    setPresentation(result.data.presentation);
+-    setError(null);
+-    setPhase("open");
+-  }, []);
++    },
++    [],
++  );
++
++  const loadBundle = useCallback(
++    async (sessionId: string) => {
++      const result = await ops1GetSessionAction(sessionId);
++      if (!result.ok) {
++        setError(result.message);
++        setSession(null);
++        setTurns([]);
++        setQualification(null);
++        setCandidates([]);
++        setDecisionsByAction({});
++        setPhase("idle");
++        if (typeof window !== "undefined") {
++          window.sessionStorage.removeItem(STORAGE_KEY);
++        }
++        return;
++      }
++      setSession(result.data.session);
++      setTurns(result.data.turns);
++      setPresentation(result.data.presentation);
++      applyI3(result.data);
++      setError(null);
++      setPhase("open");
++    },
++    [applyI3],
++  );
+
+   useEffect(() => {
+     let cancelled = false;
+@@ -132,6 +221,11 @@ export function Ops1SessionScreen({
+     }
+     setError(null);
+     setLastUsage(null);
++    setGateMicrocopy(null);
++    setExecRefuseMsg(null);
++    setQualification(null);
++    setCandidates([]);
++    setDecisionsByAction({});
+     setPhase("creating");
+     startTransition(async () => {
+       const result = await ops1CreateSessionAction({ mode: createMode });
+@@ -190,25 +284,142 @@ export function Ops1SessionScreen({
+     setError(null);
+     setLastUsage(null);
+     setPresentation("fixture");
++    setQualification(null);
++    setCandidates([]);
++    setDecisionsByAction({});
++    setGateMicrocopy(null);
++    setExecRefuseMsg(null);
+     setPhase("idle");
+   };
+
++  const onQualifyNotRequired = () => {
++    if (!session) return;
++    setError(null);
++    startTransition(async () => {
++      const result = await ops1QualifyActionNotRequiredAction({
++        sessionId: session.sessionId,
++      });
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      setGateMicrocopy(null);
++      await loadBundle(session.sessionId);
++    });
++  };
++
++  const onCreateCandidate = () => {
++    if (!session) return;
++    setError(null);
++    startTransition(async () => {
++      const result = await ops1CreateFixtureActionCandidateAction({
++        sessionId: session.sessionId,
++      });
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      setGateMicrocopy(null);
++      await loadBundle(session.sessionId);
++    });
++  };
++
++  const onRefine = () => {
++    if (!session) return;
++    const candidate = candidates[candidates.length - 1];
++    if (!candidate) return;
++    setError(null);
++    startTransition(async () => {
++      const result = await ops1RefineActionCandidateAction({
++        sessionId: session.sessionId,
++        actionCandidateId: candidate.actionCandidateId,
++        ...refineDraft,
++      });
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      setGateMicrocopy(null);
++      await loadBundle(session.sessionId);
++    });
++  };
++
++  const onGate = (kind: GateDecisionKind) => {
++    if (!session) return;
++    const candidate = candidates[candidates.length - 1];
++    if (!candidate) return;
++    setError(null);
++    startTransition(async () => {
++      const result = await ops1RecordGateDecisionAction({
++        sessionId: session.sessionId,
++        actionCandidateId: candidate.actionCandidateId,
++        kind,
++        motif:
++          kind === "CORRIGER"
++            ? "Corrections demandées par Morris"
++            : kind === "NO_GO"
++              ? "Proposition refusée"
++              : kind === "ABANDONNER"
++                ? "Proposition abandonnée"
++                : null,
++      });
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      setGateMicrocopy(result.data.microcopy);
++      await loadBundle(session.sessionId);
++    });
++  };
++
++  const onRefuseExecution = () => {
++    if (!session) return;
++    setError(null);
++    startTransition(async () => {
++      const result = await ops1RefuseExecutionAction({
++        sessionId: session.sessionId,
++      });
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      setExecRefuseMsg(result.data.message);
++    });
++  };
++
+   const lockedMode = session?.conversationMode;
+   const isFixtureSession = lockedMode === "fixture";
+   const isLiveSession = lockedMode === "live";
+   const isTestPresentation = presentation === "test_provider";
+   const isOpenAiLive = presentation === "openai_live";
++  const activeCandidate = candidates[candidates.length - 1] ?? null;
++  const activeDecision = activeCandidate
++    ? (decisionsByAction[activeCandidate.actionCandidateId] ?? null)
++    : null;
++  const canRefine =
++    activeCandidate &&
++    (activeCandidate.status === "PROPOSED" ||
++      activeCandidate.status === "UNDER_REVIEW" ||
++      activeCandidate.status === "CHANGES_REQUESTED");
++  const canGate = activeCandidate && gateAvailable(activeCandidate);
++  const showGoButtons =
++    activeCandidate &&
++    (activeCandidate.status === "PROPOSED" ||
++      activeCandidate.status === "UNDER_REVIEW" ||
++      activeCandidate.status === "CHANGES_REQUESTED");
++  const showCorrigerOnly =
++    activeCandidate && activeCandidate.status === "APPROVED";
+
+   return (
+     <div className={styles.root} data-testid="ops1-session-root">
+       <header className={styles.header}>
+-        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I2</p>
++        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I3</p>
+         <h2 className={styles.title} id="ops1-session-heading">
+           Session OPS1
+         </h2>
+         <p className={styles.lede}>
+-          Conversation multi-tours. Le mode est choisi à la création puis
+-          verrouillé. Aucune exécution, aucun gate, aucun Cursor depuis le chat.
++          Conversation, proposition d’action et gate Morris — sans exécution.
++          GO valide la proposition pour préparer I4 ; GO ≠ exécution.
+         </p>
+         <div className={styles.badgeRow} aria-live="polite">
+           {!session ? (
+@@ -258,7 +469,11 @@ export function Ops1SessionScreen({
+               <StatusPill tone="blueFlush">LIVE DISPONIBLE</StatusPill>
+             </span>
+           ) : null}
+-          {session ? <StatusPill tone="green">OPEN</StatusPill> : null}
++          {session ? (
++            <span data-testid="ops1-badge-session-open">
++              <StatusPill tone="green">OPEN</StatusPill>
++            </span>
++          ) : null}
+         </div>
+       </header>
+
+@@ -355,225 +570,538 @@ export function Ops1SessionScreen({
+       ) : null}
+
+       {session ? (
+-        <section
+-          className={styles.panel}
+-          data-testid="ops1-open-session"
+-          aria-labelledby="ops1-open-title"
+-        >
+-          <h2 id="ops1-open-title" className={styles.panelTitle}>
+-            Session ouverte
+-          </h2>
+-          <dl className={styles.meta}>
+-            <div>
+-              <dt>sessionId</dt>
+-              <dd data-testid="ops1-session-id">{session.sessionId}</dd>
+-            </div>
+-            <div>
+-              <dt>Statut</dt>
+-              <dd data-testid="ops1-session-status">{session.status}</dd>
+-            </div>
+-            <div>
+-              <dt>Créée</dt>
+-              <dd>{session.createdAt}</dd>
+-            </div>
+-            <div>
+-              <dt>Projet</dt>
+-              <dd>{session.projectKey}</dd>
+-            </div>
+-          </dl>
+-
+-          <div
+-            className={styles.lockedMode}
+-            data-testid="ops1-mode-locked"
+-            aria-live="polite"
++        <>
++          <section
++            className={styles.panel}
++            data-testid="ops1-open-session"
++            aria-labelledby="ops1-open-title"
+           >
+-            <p className={styles.lockedModeLabel} data-testid="ops1-mode-label">
+-              {session.conversationMode === "fixture"
+-                ? "Mode de session : FIXTURE — verrouillé"
+-                : isTestPresentation
+-                  ? "Mode de session : LIVE TECHNIQUE (TEST) — verrouillé"
+-                  : "Mode de session : GPT LIVE — verrouillé"}
+-            </p>
+-            <p className={styles.hint} data-testid="ops1-mode-lock-hint">
+-              Le mode ne peut pas être modifié dans cette session. Créez une
+-              nouvelle session pour changer de mode.
+-            </p>
+-            {/* Radios disabled — non-interactive lock proof for E2E */}
+-            <div
+-              className={styles.modeRow}
+-              role="group"
+-              aria-label="Mode de session verrouillé"
+-              data-testid="ops1-mode-selector"
+-            >
+-              <label className={styles.modeOption}>
+-                <input
+-                  type="radio"
+-                  name="ops1-mode-locked"
+-                  value="fixture"
+-                  checked={session.conversationMode === "fixture"}
+-                  disabled
+-                  data-testid="ops1-mode-fixture"
+-                  readOnly
+-                />
+-                Fixture / non live
+-              </label>
+-              <label className={styles.modeOption}>
+-                <input
+-                  type="radio"
+-                  name="ops1-mode-locked"
+-                  value="live"
+-                  checked={session.conversationMode === "live"}
+-                  disabled
+-                  data-testid="ops1-mode-live"
+-                  readOnly
+-                />
+-                Live GPT
+-              </label>
+-            </div>
+-          </div>
+-
+-          {isTestPresentation ? (
+-            <p className={styles.warn} data-testid="ops1-test-env-notice">
+-              Environnement de test — aucun appel OpenAI.
+-            </p>
+-          ) : null}
+-
+-          <div className={styles.journal} data-testid="ops1-journal">
+-            <h3 className={styles.journalTitle}>Journal</h3>
+-            {turns.length === 0 ? (
+-              <p className={styles.muted} data-testid="ops1-journal-empty">
+-                Aucun tour pour l’instant.
+-              </p>
+-            ) : (
+-              <ol className={styles.turnList}>
+-                {turns.map((turn) => (
+-                  <li
+-                    key={turn.turnId}
+-                    className={
+-                      turn.role === "user"
+-                        ? styles.turnUser
+-                        : styles.turnAssistant
+-                    }
+-                    data-testid="ops1-turn"
+-                    data-role={turn.role}
+-                    data-sequence={turn.sequence}
+-                    data-fixture={turn.fixture ? "1" : "0"}
+-                  >
+-                    <div className={styles.turnMeta}>
+-                      <span>#{turn.sequence}</span>
+-                      <span>{roleLabel(turn.role, presentation)}</span>
+-                      {turn.role === "assistant_fixture" ? (
+-                        <span className={styles.fixtureTag}>
+-                          FIXTURE / NON LIVE
+-                        </span>
+-                      ) : null}
+-                      {turn.role === "assistant_live" &&
+-                      isTestPresentation ? (
+-                        <span className={styles.testTag}>TEST / FAKE</span>
+-                      ) : null}
+-                      {turn.role === "assistant_live" && isOpenAiLive ? (
+-                        <span className={styles.liveTag}>GPT LIVE</span>
+-                      ) : null}
+-                    </div>
+-                    <p className={styles.turnContent}>{turn.content}</p>
+-                  </li>
+-                ))}
+-              </ol>
+-            )}
+-          </div>
+-
+-          {lastUsage ? (
+-            <dl className={styles.usage} data-testid="ops1-usage">
++            <h2 id="ops1-open-title" className={styles.panelTitle}>
++              Conversation
++            </h2>
++            <dl className={styles.meta}>
+               <div>
+-                <dt>Provider</dt>
+-                <dd>{lastUsage.provider}</dd>
++                <dt>sessionId</dt>
++                <dd data-testid="ops1-session-id">{session.sessionId}</dd>
+               </div>
+               <div>
+-                <dt>Modèle</dt>
+-                <dd>{lastUsage.model ?? "—"}</dd>
++                <dt>Statut</dt>
++                <dd data-testid="ops1-session-status">{session.status}</dd>
+               </div>
+               <div>
+-                <dt>Tokens in/out/total</dt>
+-                <dd>
+-                  {lastUsage.inputTokens ?? "—"} /{" "}
+-                  {lastUsage.outputTokens ?? "—"} /{" "}
+-                  {lastUsage.totalTokens ?? "—"}
+-                </dd>
++                <dt>Créée</dt>
++                <dd>{session.createdAt}</dd>
+               </div>
+               <div>
+-                <dt>Durée (ms)</dt>
+-                <dd>{lastUsage.durationMs ?? "—"}</dd>
++                <dt>Projet</dt>
++                <dd>{session.projectKey}</dd>
+               </div>
+             </dl>
+-          ) : null}
+
+-          {error ? (
+-            <p className={styles.error} role="alert" data-testid="ops1-error">
+-              {error}
+-            </p>
+-          ) : null}
++            <div
++              className={styles.lockedMode}
++              data-testid="ops1-mode-locked"
++              aria-live="polite"
++            >
++              <p
++                className={styles.lockedModeLabel}
++                data-testid="ops1-mode-label"
++              >
++                {session.conversationMode === "fixture"
++                  ? "Mode de session : FIXTURE — verrouillé"
++                  : isTestPresentation
++                    ? "Mode de session : LIVE TECHNIQUE (TEST) — verrouillé"
++                    : "Mode de session : GPT LIVE — verrouillé"}
++              </p>
++              <p className={styles.hint} data-testid="ops1-mode-lock-hint">
++                Le mode ne peut pas être modifié dans cette session. Créez une
++                nouvelle session pour changer de mode.
++              </p>
++              <div
++                className={styles.modeRow}
++                role="group"
++                aria-label="Mode de session verrouillé"
++                data-testid="ops1-mode-selector"
++              >
++                <label className={styles.modeOption}>
++                  <input
++                    type="radio"
++                    name="ops1-mode-locked"
++                    value="fixture"
++                    checked={session.conversationMode === "fixture"}
++                    disabled
++                    data-testid="ops1-mode-fixture"
++                    readOnly
++                  />
++                  Fixture / non live
++                </label>
++                <label className={styles.modeOption}>
++                  <input
++                    type="radio"
++                    name="ops1-mode-locked"
++                    value="live"
++                    checked={session.conversationMode === "live"}
++                    disabled
++                    data-testid="ops1-mode-live"
++                    readOnly
++                  />
++                  Live GPT
++                </label>
++              </div>
++            </div>
+
+-          {phase === "sending" ? (
+-            <p className={styles.muted} data-testid="ops1-sending">
+-              Envoi en cours…
+-            </p>
+-          ) : null}
++            {isTestPresentation ? (
++              <p className={styles.warn} data-testid="ops1-test-env-notice">
++                Environnement de test — aucun appel OpenAI.
++              </p>
++            ) : null}
++
++            <div className={styles.journal} data-testid="ops1-journal">
++              <h3 className={styles.journalTitle}>Journal</h3>
++              {turns.length === 0 ? (
++                <p className={styles.muted} data-testid="ops1-journal-empty">
++                  Aucun tour pour l’instant.
++                </p>
++              ) : (
++                <ol className={styles.turnList}>
++                  {turns.map((turn) => (
++                    <li
++                      key={turn.turnId}
++                      className={
++                        turn.role === "user"
++                          ? styles.turnUser
++                          : styles.turnAssistant
++                      }
++                      data-testid="ops1-turn"
++                      data-role={turn.role}
++                      data-sequence={turn.sequence}
++                      data-fixture={turn.fixture ? "1" : "0"}
++                    >
++                      <div className={styles.turnMeta}>
++                        <span>#{turn.sequence}</span>
++                        <span>{roleLabel(turn.role, presentation)}</span>
++                        {turn.role === "assistant_fixture" ? (
++                          <span className={styles.fixtureTag}>
++                            FIXTURE / NON LIVE
++                          </span>
++                        ) : null}
++                        {turn.role === "assistant_live" &&
++                        isTestPresentation ? (
++                          <span className={styles.testTag}>TEST / FAKE</span>
++                        ) : null}
++                        {turn.role === "assistant_live" && isOpenAiLive ? (
++                          <span className={styles.liveTag}>GPT LIVE</span>
++                        ) : null}
++                      </div>
++                      <p className={styles.turnContent}>{turn.content}</p>
++                    </li>
++                  ))}
++                </ol>
++              )}
++            </div>
+
+-          <form
+-            className={styles.composer}
+-            onSubmit={(e) => {
+-              e.preventDefault();
+-              onSend();
+-            }}
++            {lastUsage ? (
++              <dl className={styles.usage} data-testid="ops1-usage">
++                <div>
++                  <dt>Provider</dt>
++                  <dd>{lastUsage.provider}</dd>
++                </div>
++                <div>
++                  <dt>Modèle</dt>
++                  <dd>{lastUsage.model ?? "—"}</dd>
++                </div>
++                <div>
++                  <dt>Tokens in/out/total</dt>
++                  <dd>
++                    {lastUsage.inputTokens ?? "—"} /{" "}
++                    {lastUsage.outputTokens ?? "—"} /{" "}
++                    {lastUsage.totalTokens ?? "—"}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Durée (ms)</dt>
++                  <dd>{lastUsage.durationMs ?? "—"}</dd>
++                </div>
++              </dl>
++            ) : null}
++
++            {error ? (
++              <p className={styles.error} role="alert" data-testid="ops1-error">
++                {error}
++              </p>
++            ) : null}
++
++            {phase === "sending" ? (
++              <p className={styles.muted} data-testid="ops1-sending">
++                Envoi en cours…
++              </p>
++            ) : null}
++
++            <form
++              className={styles.composer}
++              onSubmit={(e) => {
++                e.preventDefault();
++                onSend();
++              }}
++            >
++              <label className={styles.label} htmlFor="ops1-message">
++                Message (
++                {isFixtureSession
++                  ? "fixture locale"
++                  : isTestPresentation
++                    ? "test provider / non live"
++                    : "GPT live serveur"}
++                )
++              </label>
++              <textarea
++                id="ops1-message"
++                className={styles.textarea}
++                data-testid="ops1-message-input"
++                value={draft}
++                maxLength={OPS1_MAX_MESSAGE_CHARS}
++                rows={4}
++                disabled={pending || phase === "sending"}
++                onChange={(e) => setDraft(e.target.value)}
++                placeholder="Saisir un tour utilisateur…"
++              />
++              <div className={styles.composerActions}>
++                <CtaButton
++                  type="submit"
++                  disabled={pending || !draft.trim()}
++                  data-testid="ops1-send-message"
++                >
++                  {isFixtureSession
++                    ? "Envoyer (fixture)"
++                    : isTestPresentation
++                      ? "Envoyer (test provider)"
++                      : "Envoyer (GPT live)"}
++                </CtaButton>
++                <CtaButton
++                  variant="secondary"
++                  onClick={onClearLocalPointer}
++                  data-testid="ops1-clear-pointer"
++                >
++                  Revenir à l’écran vide
++                </CtaButton>
++              </div>
++              <p className={styles.hint} data-testid="ops1-no-execution-hint">
++                Un message du type « GO » ou « exécute Cursor » reste du texte
++                conversationnel — il ne crée aucune décision de gate. Max{" "}
++                {OPS1_MAX_MESSAGE_CHARS} caractères.
++              </p>
++            </form>
++          </section>
++
++          <section
++            className={`${styles.panel} ${styles.i3Panel}`}
++            data-testid="ops1-i3-controls"
++            aria-labelledby="ops1-i3-controls-title"
+           >
+-            <label className={styles.label} htmlFor="ops1-message">
+-              Message (
+-              {isFixtureSession
+-                ? "fixture locale"
+-                : isTestPresentation
+-                  ? "test provider / non live"
+-                  : "GPT live serveur"}
+-              )
+-            </label>
+-            <textarea
+-              id="ops1-message"
+-              className={styles.textarea}
+-              data-testid="ops1-message-input"
+-              value={draft}
+-              maxLength={OPS1_MAX_MESSAGE_CHARS}
+-              rows={4}
+-              disabled={pending || phase === "sending"}
+-              onChange={(e) => setDraft(e.target.value)}
+-              placeholder="Saisir un tour utilisateur…"
+-            />
++            <h2 id="ops1-i3-controls-title" className={styles.panelTitle}>
++              Qualification I3 (fixture)
++            </h2>
++            <p className={styles.muted}>
++              Détermine si une action structurée est nécessaire. Aucune
++              exécution n’est déclenchée.
++            </p>
++            {qualification ? (
++              <p
++                className={styles.qualificationBadge}
++                data-testid="ops1-i3-qualification"
++                data-qualification={qualification.qualification}
++              >
++                Qualification : {qualification.qualification}
++              </p>
++            ) : (
++              <p className={styles.muted} data-testid="ops1-i3-qualification-empty">
++                Aucune qualification enregistrée.
++              </p>
++            )}
+             <div className={styles.composerActions}>
+               <CtaButton
+-                type="submit"
+-                disabled={pending || !draft.trim()}
+-                data-testid="ops1-send-message"
++                variant="secondary"
++                onClick={onQualifyNotRequired}
++                disabled={pending}
++                data-testid="ops1-i3-qualify-not-required"
+               >
+-                {isFixtureSession
+-                  ? "Envoyer (fixture)"
+-                  : isTestPresentation
+-                    ? "Envoyer (test provider)"
+-                    : "Envoyer (GPT live)"}
++                ACTION_NOT_REQUIRED
+               </CtaButton>
+               <CtaButton
+-                variant="secondary"
+-                onClick={onClearLocalPointer}
+-                data-testid="ops1-clear-pointer"
++                onClick={onCreateCandidate}
++                disabled={pending}
++                data-testid="ops1-i3-create-candidate"
+               >
+-                Revenir à l’écran vide
++                Créer ActionCandidate (fixture)
+               </CtaButton>
+             </div>
+-            <p className={styles.hint} data-testid="ops1-no-execution-hint">
+-              L’exécution (Cursor, gate, contrat, Git) nécessite un parcours
+-              distinct — non disponible dans I2. Un message du type « exécute
+-              Cursor » reste du texte conversationnel. Max{" "}
+-              {OPS1_MAX_MESSAGE_CHARS} caractères.
++          </section>
++
++          {activeCandidate ? (
++            <section
++              className={`${styles.panel} ${styles.actionPanel}`}
++              data-testid="ops1-action-panel"
++              aria-labelledby="ops1-action-title"
++            >
++              <h2 id="ops1-action-title" className={styles.panelTitle}>
++                Proposition d’action
++              </h2>
++              <p
++                className={styles.actionStatus}
++                data-testid="ops1-action-status"
++                data-status={activeCandidate.status}
++              >
++                {actionStatusLabel(activeCandidate, activeDecision)}
++              </p>
++              <p className={styles.goNeExec} data-testid="ops1-go-ne-exec">
++                {OPS1_I3_GO_NE_PAS_EXEC}
++              </p>
++              <dl className={styles.meta}>
++                <div>
++                  <dt>actionCandidateId</dt>
++                  <dd data-testid="ops1-action-id">
++                    {activeCandidate.actionCandidateId}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Statut candidat</dt>
++                  <dd data-testid="ops1-action-candidate-status">
++                    {activeCandidate.status}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Version</dt>
++                  <dd data-testid="ops1-action-version">
++                    {activeCandidate.version}
++                  </dd>
++                </div>
++              </dl>
++
++              {canRefine ? (
++                <div
++                  className={styles.refineForm}
++                  data-testid="ops1-action-refine"
++                >
++                  <label className={styles.label} htmlFor="ops1-action-title-input">
++                    Titre
++                  </label>
++                  <input
++                    id="ops1-action-title-input"
++                    className={styles.fieldInput}
++                    data-testid="ops1-action-title-input"
++                    value={refineDraft.title}
++                    onChange={(e) =>
++                      setRefineDraft((d) => ({ ...d, title: e.target.value }))
++                    }
++                  />
++                  <label className={styles.label} htmlFor="ops1-action-objective">
++                    Objectif
++                  </label>
++                  <textarea
++                    id="ops1-action-objective"
++                    className={styles.textarea}
++                    rows={2}
++                    data-testid="ops1-action-objective-input"
++                    value={refineDraft.objective}
++                    onChange={(e) =>
++                      setRefineDraft((d) => ({
++                        ...d,
++                        objective: e.target.value,
++                      }))
++                    }
++                  />
++                  <label className={styles.label} htmlFor="ops1-action-scope">
++                    Périmètre
++                  </label>
++                  <textarea
++                    id="ops1-action-scope"
++                    className={styles.textarea}
++                    rows={2}
++                    data-testid="ops1-action-scope-input"
++                    value={refineDraft.scopeSummary}
++                    onChange={(e) =>
++                      setRefineDraft((d) => ({
++                        ...d,
++                        scopeSummary: e.target.value,
++                      }))
++                    }
++                  />
++                  <label className={styles.label} htmlFor="ops1-action-risk">
++                    Risques
++                  </label>
++                  <textarea
++                    id="ops1-action-risk"
++                    className={styles.textarea}
++                    rows={2}
++                    data-testid="ops1-action-risk-input"
++                    value={refineDraft.riskSummary}
++                    onChange={(e) =>
++                      setRefineDraft((d) => ({
++                        ...d,
++                        riskSummary: e.target.value,
++                      }))
++                    }
++                  />
++                  <CtaButton
++                    onClick={onRefine}
++                    disabled={pending}
++                    data-testid="ops1-action-refine-submit"
++                  >
++                    Enregistrer raffinement
++                  </CtaButton>
++                </div>
++              ) : (
++                <dl className={styles.actionFields} data-testid="ops1-action-readonly">
++                  <div>
++                    <dt>Titre</dt>
++                    <dd data-testid="ops1-action-title">{activeCandidate.title}</dd>
++                  </div>
++                  <div>
++                    <dt>Objectif</dt>
++                    <dd data-testid="ops1-action-objective">
++                      {activeCandidate.objective}
++                    </dd>
++                  </div>
++                  <div>
++                    <dt>Périmètre</dt>
++                    <dd data-testid="ops1-action-scope">
++                      {activeCandidate.scopeSummary}
++                    </dd>
++                  </div>
++                  <div>
++                    <dt>Risques</dt>
++                    <dd data-testid="ops1-action-risk">
++                      {activeCandidate.riskSummary}
++                    </dd>
++                  </div>
++                </dl>
++              )}
++            </section>
++          ) : null}
++
++          {activeCandidate && canGate ? (
++            <section
++              className={`${styles.panel} ${styles.gatePanel}`}
++              data-testid="ops1-gate-panel"
++              aria-labelledby="ops1-gate-title"
++            >
++              <h2 id="ops1-gate-title" className={styles.panelTitle}>
++                Gate Morris
++              </h2>
++              <p className={styles.muted} data-testid="ops1-gate-lede">
++                Décision humaine explicite. Aucun effet Cursor, Git ou
++                filesystem. {OPS1_I3_GO_NE_PAS_EXEC}.
++              </p>
++              {activeDecision ? (
++                <p
++                  className={styles.decisionBadge}
++                  data-testid="ops1-gate-latest-decision"
++                  data-kind={activeDecision.kind}
++                >
++                  Dernière décision (v{activeDecision.actionVersion}) :{" "}
++                  {activeDecision.kind}
++                </p>
++              ) : (
++                <p
++                  className={styles.muted}
++                  data-testid="ops1-gate-no-decision"
++                >
++                  Aucune décision sur cette version.
++                </p>
++              )}
++              {gateMicrocopy ||
++              (activeCandidate.status === "APPROVED" ? OPS1_I3_GO_MICROCOPY : null) ? (
++                <p
++                  className={styles.goMicrocopy}
++                  data-testid="ops1-gate-go-microcopy"
++                  role="status"
++                >
++                  {gateMicrocopy ?? OPS1_I3_GO_MICROCOPY}
++                </p>
++              ) : null}
++              <div className={styles.gateActions} data-testid="ops1-gate-actions">
++                {showGoButtons ? (
++                  <>
++                    <CtaButton
++                      onClick={() => onGate("GO")}
++                      disabled={pending}
++                      data-testid="ops1-gate-go"
++                    >
++                      GO
++                    </CtaButton>
++                    <CtaButton
++                      variant="secondary"
++                      onClick={() => onGate("NO_GO")}
++                      disabled={pending}
++                      data-testid="ops1-gate-no-go"
++                    >
++                      NO_GO
++                    </CtaButton>
++                    <CtaButton
++                      variant="secondary"
++                      onClick={() => onGate("CORRIGER")}
++                      disabled={pending}
++                      data-testid="ops1-gate-corriger"
++                    >
++                      CORRIGER
++                    </CtaButton>
++                    <CtaButton
++                      variant="secondary"
++                      onClick={() => onGate("ABANDONNER")}
++                      disabled={pending}
++                      data-testid="ops1-gate-abandonner"
++                    >
++                      ABANDONNER
++                    </CtaButton>
++                  </>
++                ) : null}
++                {showCorrigerOnly ? (
++                  <CtaButton
++                    variant="secondary"
++                    onClick={() => onGate("CORRIGER")}
++                    disabled={pending}
++                    data-testid="ops1-gate-corriger"
++                  >
++                    CORRIGER
++                  </CtaButton>
++                ) : null}
++              </div>
++            </section>
++          ) : null}
++
++          <section
++            className={`${styles.panel} ${styles.safetyPanel}`}
++            data-testid="ops1-i3-safety"
++            aria-labelledby="ops1-i3-safety-title"
++          >
++            <h2 id="ops1-i3-safety-title" className={styles.panelTitle}>
++              Garde-fou exécution
++            </h2>
++            <p className={styles.muted}>
++              I3 refuse toute tentative d’exécution. Preuve négative explicite.
+             </p>
+-          </form>
+-        </section>
++            <CtaButton
++              variant="secondary"
++              onClick={onRefuseExecution}
++              disabled={pending}
++              data-testid="ops1-i3-refuse-execution"
++            >
++              Tenter exécution (doit refuser)
++            </CtaButton>
++            {execRefuseMsg ? (
++              <p
++                className={styles.error}
++                role="status"
++                data-testid="ops1-i3-execution-refused"
++              >
++                {execRefuseMsg}
++              </p>
++            ) : null}
++            <p className={styles.hint} data-testid="ops1-i3-no-exec-cta">
++              Aucun bouton « Exécuter », « Lancer Cursor » ou équivalent n’est
++              disponible dans I3.
++            </p>
++          </section>
++        </>
+       ) : null}
+     </div>
+   );
+diff --git a/projects/sfia-studio/app/features/ops1/ops1-session.module.css b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
+index 675dc7c..1def9aa 100644
+--- a/projects/sfia-studio/app/features/ops1/ops1-session.module.css
++++ b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
+@@ -261,3 +261,116 @@
+   font-size: 0.8rem;
+   color: var(--sfia-muted);
+ }
++
++.i3Panel {
++  border-color: #c5d4e8;
++  background: #f7fafc;
++}
++
++.actionPanel {
++  border-color: #d4c5e8;
++  background: #faf8fc;
++}
++
++.gatePanel {
++  border-color: #e8d4c5;
++  background: #fcfaf7;
++}
++
++.safetyPanel {
++  border-color: #e8c5c5;
++  background: #fcf7f7;
++}
++
++.qualificationBadge,
++.actionStatus,
++.decisionBadge {
++  margin: 0;
++  padding: 0.65rem 0.85rem;
++  border-radius: 8px;
++  font-weight: 600;
++  font-size: 0.9rem;
++}
++
++.qualificationBadge {
++  background: #eef4fb;
++  border: 1px solid #b8cce0;
++  color: #1e3a5f;
++}
++
++.actionStatus {
++  background: #f3eefb;
++  border: 1px solid #c9b6e0;
++  color: #3d2a5c;
++}
++
++.goNeExec {
++  margin: 0;
++  font-size: 0.85rem;
++  font-weight: 600;
++  color: #7a3b12;
++}
++
++.goMicrocopy {
++  margin: 0;
++  padding: 0.75rem 0.9rem;
++  border-radius: 8px;
++  background: #e8f6ee;
++  border: 1px solid #9dcfb0;
++  color: #1b5c38;
++  font-weight: 600;
++}
++
++.decisionBadge {
++  background: #fff6ee;
++  border: 1px solid #e0c4a8;
++  color: #5c3a1e;
++}
++
++.gateActions {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 0.65rem;
++}
++
++.refineForm {
++  display: flex;
++  flex-direction: column;
++  gap: 0.45rem;
++}
++
++.fieldInput {
++  width: 100%;
++  border-radius: 10px;
++  border: 1px solid var(--sfia-border);
++  padding: 0.65rem 0.85rem;
++  font: inherit;
++  color: var(--sfia-ink);
++  background: #fff;
++}
++
++.fieldInput:focus {
++  outline: 2px solid var(--sfia-blue);
++  outline-offset: 1px;
++}
++
++.actionFields {
++  display: flex;
++  flex-direction: column;
++  gap: 0.65rem;
++  margin: 0;
++}
++
++.actionFields dt {
++  font-size: 0.7rem;
++  text-transform: uppercase;
++  letter-spacing: 0.04em;
++  color: var(--sfia-muted);
++}
++
++.actionFields dd {
++  margin: 0.15rem 0 0;
++  color: var(--sfia-ink);
++  line-height: 1.45;
++  white-space: pre-wrap;
++}
+diff --git a/projects/sfia-studio/app/lib/ops1/actions.ts b/projects/sfia-studio/app/lib/ops1/actions.ts
+index d756c8e..3b8b912 100644
+--- a/projects/sfia-studio/app/lib/ops1/actions.ts
++++ b/projects/sfia-studio/app/lib/ops1/actions.ts
+@@ -5,9 +5,20 @@ import {
+   getSessionBundle,
+   listOpenSessions,
+ } from "./repository";
++import {
++  createFixtureActionCandidate,
++  getI3Bundle,
++  qualifyActionNotRequired,
++  recordGateDecision,
++  refineActionCandidate,
++  refuseExecutionAttempt,
++} from "./actionGate";
+ import { Ops1Error, toSafeClientError } from "./errors";
+ import {
++  assertActionCandidateId,
++  assertActionField,
+   assertConversationMode,
++  assertGateDecisionKind,
+   assertMessageContent,
+   assertSessionId,
+ } from "./validation";
+@@ -17,12 +28,16 @@ import {
+ } from "./conversation/config";
+ import { sendConversationMessage } from "./conversation/service";
+ import type {
++  ActionCandidate,
+   ConversationAttempt,
+   ConversationMode,
+   ConversationUsageCounters,
+   CycleSession,
++  GateDecision,
++  GateDecisionKind,
+   JournalTurn,
+   ProviderPresentation,
++  SessionQualification,
+ } from "./types";
+
+ export type Ops1ActionResult<T> =
+@@ -89,6 +104,9 @@ export async function ops1GetSessionAction(
+     turns: JournalTurn[];
+     attempts: ConversationAttempt[];
+     presentation: ProviderPresentation;
++    qualification: SessionQualification | null;
++    candidates: ActionCandidate[];
++    latestDecisionsByAction: Record<string, GateDecision | null>;
+   }>
+ > {
+   try {
+@@ -97,11 +115,15 @@ export async function ops1GetSessionAction(
+     if (!bundle) {
+       throw new Ops1Error("NOT_FOUND", "Session introuvable.");
+     }
++    const i3 = getI3Bundle(id);
+     return {
+       ok: true,
+       data: {
+         ...bundle,
+         presentation: resolvePresentation(bundle.session.conversationMode),
++        qualification: i3.qualification,
++        candidates: i3.candidates,
++        latestDecisionsByAction: i3.latestDecisionsByAction,
+       },
+     };
+   } catch (error) {
+@@ -211,3 +233,109 @@ export async function ops1AppendUserMessageAction(input: {
+     },
+   };
+ }
++
++/* ─── OPS1 I3 — action candidate + gate (no execution) ─── */
++
++export async function ops1QualifyActionNotRequiredAction(input: {
++  sessionId: string;
++}): Promise<Ops1ActionResult<{ qualification: SessionQualification }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    const { qualification } = qualifyActionNotRequired(sessionId);
++    return { ok: true, data: { qualification } };
++  } catch (error) {
++    return fail(error);
++  }
++}
++
++export async function ops1CreateFixtureActionCandidateAction(input: {
++  sessionId: string;
++}): Promise<Ops1ActionResult<{ candidate: ActionCandidate }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    const { candidate } = createFixtureActionCandidate(sessionId);
++    return { ok: true, data: { candidate } };
++  } catch (error) {
++    return fail(error);
++  }
++}
++
++export async function ops1RefineActionCandidateAction(input: {
++  sessionId: string;
++  actionCandidateId: string;
++  title: string;
++  objective: string;
++  scopeSummary: string;
++  riskSummary: string;
++}): Promise<Ops1ActionResult<{ candidate: ActionCandidate }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
++    const { candidate } = refineActionCandidate({
++      sessionId,
++      actionCandidateId,
++      title: assertActionField("Titre", input.title),
++      objective: assertActionField("Objectif", input.objective),
++      scopeSummary: assertActionField("Périmètre", input.scopeSummary),
++      riskSummary: assertActionField("Risques", input.riskSummary),
++    });
++    return { ok: true, data: { candidate } };
++  } catch (error) {
++    return fail(error);
++  }
++}
++
++export async function ops1RecordGateDecisionAction(input: {
++  sessionId: string;
++  actionCandidateId: string;
++  kind: GateDecisionKind;
++  motif?: string | null;
++}): Promise<
++  Ops1ActionResult<{
++    decision: GateDecision;
++    candidate: ActionCandidate;
++    microcopy: string | null;
++  }>
++> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
++    const kind = assertGateDecisionKind(input.kind);
++    const result = recordGateDecision({
++      sessionId,
++      actionCandidateId,
++      kind,
++      motif: input.motif ?? null,
++    });
++    return {
++      ok: true,
++      data: {
++        decision: result.decision,
++        candidate: result.candidate,
++        microcopy: result.microcopy,
++      },
++    };
++  } catch (error) {
++    return fail(error);
++  }
++}
++
++/** Explicit fail-closed — I3 never executes Cursor/Git/filesystem. */
++export async function ops1RefuseExecutionAction(input: {
++  sessionId: string;
++}): Promise<Ops1ActionResult<{ refused: true; message: string }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    refuseExecutionAttempt(sessionId);
++    return {
++      ok: true,
++      data: {
++        refused: true,
++        message:
++          "Exécution refusée — I3 n’autorise aucune exécution Cursor, Git ou filesystem.",
++      },
++    };
++  } catch (error) {
++    return fail(error);
++  }
++}
+diff --git a/projects/sfia-studio/app/lib/ops1/db.ts b/projects/sfia-studio/app/lib/ops1/db.ts
+index 68446e4..27eeeed 100644
+--- a/projects/sfia-studio/app/lib/ops1/db.ts
++++ b/projects/sfia-studio/app/lib/ops1/db.ts
+@@ -61,6 +61,49 @@ CREATE INDEX IF NOT EXISTS idx_turns_session_seq
+
+ CREATE INDEX IF NOT EXISTS idx_attempts_session
+   ON conversation_attempts(session_id, request_started_at);
++
++CREATE TABLE IF NOT EXISTS session_qualifications (
++  session_id TEXT PRIMARY KEY NOT NULL,
++  qualification TEXT NOT NULL
++    CHECK (qualification IN ('ACTION_REQUIRED', 'ACTION_NOT_REQUIRED')),
++  updated_at TEXT NOT NULL,
++  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
++);
++
++CREATE TABLE IF NOT EXISTS action_candidates (
++  action_candidate_id TEXT PRIMARY KEY NOT NULL,
++  session_id TEXT NOT NULL,
++  status TEXT NOT NULL CHECK (status IN (
++    'PROPOSED', 'UNDER_REVIEW', 'APPROVED', 'REJECTED',
++    'CHANGES_REQUESTED', 'ABANDONED', 'NOT_REQUIRED'
++  )),
++  title TEXT NOT NULL,
++  objective TEXT NOT NULL,
++  scope_summary TEXT NOT NULL,
++  risk_summary TEXT NOT NULL,
++  version INTEGER NOT NULL CHECK (version >= 1),
++  created_at TEXT NOT NULL,
++  updated_at TEXT NOT NULL,
++  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
++);
++
++CREATE TABLE IF NOT EXISTS gate_decisions (
++  gate_decision_id TEXT PRIMARY KEY NOT NULL,
++  session_id TEXT NOT NULL,
++  action_candidate_id TEXT NOT NULL,
++  action_version INTEGER NOT NULL CHECK (action_version >= 1),
++  kind TEXT NOT NULL CHECK (kind IN ('GO', 'NO_GO', 'CORRIGER', 'ABANDONNER')),
++  motif TEXT,
++  created_at TEXT NOT NULL,
++  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id),
++  FOREIGN KEY (action_candidate_id) REFERENCES action_candidates(action_candidate_id)
++);
++
++CREATE INDEX IF NOT EXISTS idx_actions_session
++  ON action_candidates(session_id, updated_at);
++
++CREATE INDEX IF NOT EXISTS idx_gates_action
++  ON gate_decisions(action_candidate_id, created_at);
+ `;
+
+ let singleton: DatabaseSync | null = null;
+diff --git a/projects/sfia-studio/app/lib/ops1/ids.ts b/projects/sfia-studio/app/lib/ops1/ids.ts
+index 45f2b8d..cf0923e 100644
+--- a/projects/sfia-studio/app/lib/ops1/ids.ts
++++ b/projects/sfia-studio/app/lib/ops1/ids.ts
+@@ -15,3 +15,11 @@ export function createEventId(): string {
+ export function createAttemptId(): string {
+   return `ops1-att-${randomUUID()}`;
+ }
++
++export function createActionCandidateId(): string {
++  return `ops1-act-${randomUUID()}`;
++}
++
++export function createGateDecisionId(): string {
++  return `ops1-gate-${randomUUID()}`;
++}
+diff --git a/projects/sfia-studio/app/lib/ops1/index.ts b/projects/sfia-studio/app/lib/ops1/index.ts
+index b6ae73e..d9493e6 100644
+--- a/projects/sfia-studio/app/lib/ops1/index.ts
++++ b/projects/sfia-studio/app/lib/ops1/index.ts
+@@ -11,3 +11,11 @@ export {
+   mapGlobalModeBadgeTone,
+   resolveGlobalModePresentation,
+ } from "./globalModeBadge";
++export {
++  createFixtureActionCandidate,
++  getI3Bundle,
++  qualifyActionNotRequired,
++  recordGateDecision,
++  refineActionCandidate,
++  refuseExecutionAttempt,
++} from "./actionGate";
+diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
+index bb2f2fd..f38fbcb 100644
+--- a/projects/sfia-studio/app/lib/ops1/types.ts
++++ b/projects/sfia-studio/app/lib/ops1/types.ts
+@@ -80,7 +80,12 @@ export type SessionEventType =
+   | "TURN_PERSISTENCE_FAILED"
+   | "CONVERSATION_ATTEMPT_STARTED"
+   | "CONVERSATION_ATTEMPT_SUCCEEDED"
+-  | "CONVERSATION_ATTEMPT_FAILED";
++  | "CONVERSATION_ATTEMPT_FAILED"
++  | "ACTION_QUALIFIED_NOT_REQUIRED"
++  | "ACTION_CANDIDATE_CREATED"
++  | "ACTION_CANDIDATE_REFINED"
++  | "GATE_DECISION_RECORDED"
++  | "EXECUTION_REFUSED";
+
+ export interface SessionEvent {
+   eventId: string;
+@@ -90,6 +95,53 @@ export interface SessionEvent {
+   detail: string;
+ }
+
++/** I3 — qualification outcome for a session (no execution). */
++export type ActionQualification = "ACTION_REQUIRED" | "ACTION_NOT_REQUIRED";
++
++/**
++ * I3 ActionCandidate lifecycle — no execution states.
++ * GO → APPROVED means "validated for I4 preparation", never "executed".
++ */
++export type ActionCandidateStatus =
++  | "PROPOSED"
++  | "UNDER_REVIEW"
++  | "APPROVED"
++  | "REJECTED"
++  | "CHANGES_REQUESTED"
++  | "ABANDONED"
++  | "NOT_REQUIRED";
++
++export type GateDecisionKind = "GO" | "NO_GO" | "CORRIGER" | "ABANDONNER";
++
++export interface ActionCandidate {
++  actionCandidateId: string;
++  sessionId: string;
++  status: ActionCandidateStatus;
++  title: string;
++  objective: string;
++  scopeSummary: string;
++  riskSummary: string;
++  version: number;
++  createdAt: string;
++  updatedAt: string;
++}
++
++export interface GateDecision {
++  gateDecisionId: string;
++  sessionId: string;
++  actionCandidateId: string;
++  actionVersion: number;
++  kind: GateDecisionKind;
++  motif: string | null;
++  createdAt: string;
++}
++
++export interface SessionQualification {
++  sessionId: string;
++  qualification: ActionQualification;
++  updatedAt: string;
++}
++
+ export const OPS1_PROJECT_KEY = "sfia-studio-ops1";
+
+ /** Local input guardrail — not a FinOps decision. */
+@@ -97,3 +149,13 @@ export const OPS1_MAX_MESSAGE_CHARS = 4000;
+
+ export const LEGACY_SESSION_MODE_AMBIGUOUS =
+   "MORRIS DECISION REQUIRED — LEGACY SESSION MODE AMBIGUOUS";
++
++/** I3 microcopy — GO never means execution started. */
++export const OPS1_I3_GO_MICROCOPY =
++  "Proposition validée. Aucune exécution n’est lancée dans I3.";
++
++export const OPS1_I3_STATUS_UNAUTHORIZED = "ACTION PROPOSÉE — NON AUTORISÉE";
++export const OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED =
++  "ACTION VALIDÉE — NON EXÉCUTÉE";
++export const OPS1_I3_GO_NE_PAS_EXEC =
++  "GO ≠ exécution — préparation I4 uniquement";
+diff --git a/projects/sfia-studio/app/lib/ops1/validation.ts b/projects/sfia-studio/app/lib/ops1/validation.ts
+index eda1313..0a18d3e 100644
+--- a/projects/sfia-studio/app/lib/ops1/validation.ts
++++ b/projects/sfia-studio/app/lib/ops1/validation.ts
+@@ -1,11 +1,13 @@
+ import {
+   OPS1_MAX_MESSAGE_CHARS,
+   type ConversationMode,
++  type GateDecisionKind,
+   type TurnRole,
+ } from "./types";
+ import { Ops1Error } from "./errors";
+
+ const SESSION_ID_RE = /^ops1-sess-[0-9a-f-]{36}$/i;
++const ACTION_ID_RE = /^ops1-act-[0-9a-f-]{36}$/i;
+
+ export function assertSessionId(sessionId: unknown): string {
+   if (typeof sessionId !== "string" || !SESSION_ID_RE.test(sessionId)) {
+@@ -14,6 +16,39 @@ export function assertSessionId(sessionId: unknown): string {
+   return sessionId;
+ }
+
++export function assertActionCandidateId(id: unknown): string {
++  if (typeof id !== "string" || !ACTION_ID_RE.test(id)) {
++    throw new Ops1Error("VALIDATION", "Identifiant d’action invalide.");
++  }
++  return id;
++}
++
++export function assertGateDecisionKind(kind: unknown): GateDecisionKind {
++  if (
++    kind === "GO" ||
++    kind === "NO_GO" ||
++    kind === "CORRIGER" ||
++    kind === "ABANDONNER"
++  ) {
++    return kind;
++  }
++  throw new Ops1Error("VALIDATION", "Décision de gate invalide.");
++}
++
++export function assertActionField(label: string, value: unknown): string {
++  if (typeof value !== "string") {
++    throw new Ops1Error("VALIDATION", `${label} doit être du texte.`);
++  }
++  const trimmed = value.trim();
++  if (!trimmed) {
++    throw new Ops1Error("VALIDATION", `${label} ne peut pas être vide.`);
++  }
++  if (trimmed.length > OPS1_MAX_MESSAGE_CHARS) {
++    throw new Ops1Error("VALIDATION", `${label} trop long.`);
++  }
++  return trimmed;
++}
++
+ export function assertMessageContent(content: unknown): string {
+   if (typeof content !== "string") {
+     throw new Ops1Error("VALIDATION", "Le message doit être du texte.");
+
+\`\`\`
+
+## Résultats QA
+
+| Contrôle | Résultat |
+|---|---|
+| lint (\`next lint\`) | PASS — 0 warning/error |
+| typecheck (\`tsc --noEmit\`) | PASS |
+| tests unitaires/intégration (\`vitest run\`) | PASS — 20 files / 94 tests |
+| suite OPS1 (domain, repository, conversation, actionGate, UI) | PASS |
+| build production (\`next build\`) | PASS |
+| E2E I1 | PASS |
+| E2E I2 (fixture/test provider) | PASS |
+| E2E I3 fixture | PASS — 5 scénarios |
+| \`git diff --check\` | PASS |
+| Secrets bornés au diff I3 | PASS — seules mentions \`OPENAI_API_KEY\` nom de variable (I2), aucune valeur secrète |
+
+## Preuves visuelles
+
+Viewport Playwright : **1440×1024**
+Dossier : \`.tmp-sfia-review/screenshots-ops1-i3/\` (hors commit)
+
+| Capture | Contenu | Dimensions pixels |
+|---|---|---|
+| \`01-action-not-required.png\` | Qualification ACTION_NOT_REQUIRED | 1440×1024 |
+| \`02-candidate-proposed-unauthorized.png\` | ActionCandidate NON AUTORISÉE | 1440×1024 |
+| \`03-gate-four-actions.png\` | Gate GO/NO_GO/CORRIGER/ABANDONNER | 1440×1024 |
+| \`04-go-validated-not-executed.png\` | GO — VALIDÉE NON EXÉCUTÉE + microcopy | 1440×1024 |
+| \`05-after-reload.png\` | Persistance après reload | 1440×1024 |
+| \`06-corriger-refinement.png\` | CORRIGER → raffinement | 1440×1024 |
+
+Éléments visibles attendus (runtime) : badge FIXTURE, statut OPEN, panneau conversation, panneau action, panneau gate, message \`GO ≠ exécution\`.
+
+## Contrôles sécurité / preuves négatives
+
+- Chat « GO » → aucune décision gate (E2E)
+- Tentative exécution → refus explicite + event \`EXECUTION_REFUSED\`
+- Aucun bouton Exécuter / Lancer Cursor
+- Session jamais CLOSED
+- Isolation multi-sessions (unit)
+- Décision liée à \`actionVersion\`
+- Fail-closed validation IDs / kinds
+
+## Diff stat
+
+\`\`\`
+ .../app/__tests__/ops1/Ops1SessionScreen.test.tsx  |  14 +
+ .../app/__tests__/ops1/globalModeBadge.ui.test.tsx |  14 +
+ .../app/features/ops1/Ops1SessionScreen.tsx        | 964 ++++++++++++++++-----
+ .../app/features/ops1/ops1-session.module.css      | 113 +++
+ projects/sfia-studio/app/lib/ops1/actions.ts       | 128 +++
+ projects/sfia-studio/app/lib/ops1/db.ts            |  43 +
+ projects/sfia-studio/app/lib/ops1/ids.ts           |   8 +
+ projects/sfia-studio/app/lib/ops1/index.ts         |   8 +
+ projects/sfia-studio/app/lib/ops1/types.ts         |  64 +-
+ projects/sfia-studio/app/lib/ops1/validation.ts    |  35 +
+ 10 files changed, 1172 insertions(+), 219 deletions(-)
+?? projects/sfia-studio/app/lib/ops1/actionGate.ts
+?? projects/sfia-studio/app/__tests__/ops1/actionGate.test.ts
+?? projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts
+\`\`\`
+
+## État Git final (projet)
+
+- Branche : \`delivery/sfia-studio-ops1-i3-action-gate\`
+- HEAD inchangé (aucun commit projet) : \`ae39a8c0375c2f8980d3ee394fa679dee8b06c0f\`
+- Modifications locales non stagées / non commitées
+- Aucun push projet
+- Aucune PR
+- Aucun merge
+
+## Réserves
+
+1. Génération GPT structurée d’ActionCandidate **non incluse** (fixture-first uniquement) — volontaire pour tenir le scope B.
+2. Allowlist exécutable / hash contrat / runner **reportés à I4**.
+3. Captures fullPage reportent 1440×1024 (viewport) ; contenu utile visible dans frame.
+4. Résidus non suivis préexistants : \`projects/.tmp-sfia-review/\`, \`.tmp-sfia-review/\` — hors commit projet.
+
+## Décisions Morris futures
+
+1. Validation ChatGPT (ce handoff)
+2. Validation visuelle Morris (captures)
+3. GO commit / push / PR de la branche delivery I3 (cycle ultérieur)
+4. Cadrage / GO I4 (exécution contrôlée)
+
+## Verdict
+
+\`OPS1 I3 OPTION B DELIVERED LOCALLY — FOUR GATES — NO EXECUTION — HANDOFF REMOTE VERIFIED — READY FOR REVIEW\`
+
+*(Verdict handoff distant finalisé après publication L3 bornée ci-dessous.)*
