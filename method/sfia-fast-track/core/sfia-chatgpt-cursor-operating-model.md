@@ -789,7 +789,8 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
 **Cursor :**
 
 - **produit le review pack** puis **publie le handoff** dans le même cycle (template §7.10.1) ;
-- **copie, commit, push, vérifie remote** — L3 borné ;
+- **utilise** `scripts/sfia/publish-review-handoff.sh` dès qu'il est disponible (L1 contrôles + L3 push borné) — sinon séquence manuelle fail-closed du template ;
+- **copie, commit, push, vérifie remote** — L3 borné — preuve = path canonique distant + blob, pas seulement l'existence d'un commit ;
 - **affiche** le bloc Instruction ChatGPT obligatoire (template §9.1) ;
 - **rapporte** tous les champs handoff §9.1 ;
 - **ne merge jamais** `sfia/review-handoff` ;
@@ -802,7 +803,7 @@ Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, san
 - **n'a pas** à répéter un micro-GO handoff lorsque publish-in-cycle est conforme à §7.11 ;
 - **garde** l'autorité exclusive sur commit/push/PR/merge **projet**.
 
-**Automatisation :** L3 bornée pour tout cycle produisant un rapport Cursor (sauf exception technique documentée).
+**Automatisation :** L3 bornée pour tout cycle produisant un rapport Cursor (sauf exception technique documentée). Publisher = automatisation L1+L3 **bornée** — **pas** L5 globale.
 
 ##### I. Figma visual contract / Figma-to-code (candidate — capitalisation v2.5 PR 3)
 
