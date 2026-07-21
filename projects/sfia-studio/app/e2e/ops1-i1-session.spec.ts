@@ -20,7 +20,7 @@ test.describe("OPS1 I1 session + journal", () => {
     await page.reload();
     await expect(page.getByTestId("ops1-session-root")).toBeVisible();
     await expect(
-      page.getByTestId("ops1-session-root").getByText("MODE FIXTURE / NON LIVE"),
+      page.getByTestId("ops1-session-root").getByText("FIXTURE / NON LIVE"),
     ).toBeVisible();
     await expect(page.getByTestId("ops1-empty-state")).toBeVisible();
 
@@ -29,9 +29,12 @@ test.describe("OPS1 I1 session + journal", () => {
       fullPage: true,
     });
 
+    await page.getByTestId("ops1-create-mode-fixture").check();
     await page.getByTestId("ops1-create-session").click();
     await expect(page.getByTestId("ops1-open-session")).toBeVisible();
-    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "FIXTURE — verrouillé",
+    );
     const sessionId = await page.getByTestId("ops1-session-id").innerText();
     expect(sessionId).toMatch(/^ops1-sess-/);
 

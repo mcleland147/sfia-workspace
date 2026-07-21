@@ -1,4 +1,8 @@
-import { OPS1_MAX_MESSAGE_CHARS, type TurnRole } from "./types";
+import {
+  OPS1_MAX_MESSAGE_CHARS,
+  type ConversationMode,
+  type TurnRole,
+} from "./types";
 import { Ops1Error } from "./errors";
 
 const SESSION_ID_RE = /^ops1-sess-[0-9a-f-]{36}$/i;
@@ -28,6 +32,17 @@ export function assertMessageContent(content: unknown): string {
 }
 
 export function assertTurnRole(role: unknown): TurnRole {
-  if (role === "user" || role === "assistant_fixture") return role;
+  if (
+    role === "user" ||
+    role === "assistant_fixture" ||
+    role === "assistant_live"
+  ) {
+    return role;
+  }
   throw new Ops1Error("VALIDATION", "Rôle de tour invalide.");
+}
+
+export function assertConversationMode(mode: unknown): ConversationMode {
+  if (mode === "fixture" || mode === "live") return mode;
+  throw new Ops1Error("VALIDATION", "Mode conversationnel invalide.");
 }

@@ -1,98 +1,173 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Ops1SessionScreen } from "@/features/ops1/Ops1SessionScreen";
 
 const create = vi.fn();
 const get = vi.fn();
-const append = vi.fn();
+const send = vi.fn();
+const liveConfig = vi.fn();
 
 vi.mock("@/lib/ops1/actions", () => ({
   ops1CreateSessionAction: (...args: unknown[]) => create(...args),
   ops1GetSessionAction: (...args: unknown[]) => get(...args),
-  ops1AppendUserMessageAction: (...args: unknown[]) => append(...args),
+  ops1SendMessageAction: (...args: unknown[]) => send(...args),
+  ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+  ops1AppendUserMessageAction: vi.fn(),
 }));
 
-describe("Ops1SessionScreen", () => {
+const fixtureSession = {
+  sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
+  projectKey: "sfia-studio-ops1",
+  status: "OPEN" as const,
+  createdAt: "2026-07-20T21:00:00+02:00",
+  updatedAt: "2026-07-20T21:00:00+02:00",
+  parentSessionId: null,
+  fixtureMode: true,
+  conversationMode: "fixture" as const,
+};
+
+const liveSession = {
+  ...fixtureSession,
+  fixtureMode: false,
+  conversationMode: "live" as const,
+};
+
+describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
+  afterEach(() => cleanup());
+
   beforeEach(() => {
     vi.clearAllMocks();
     window.sessionStorage.clear();
+    liveConfig.mockResolvedValue({
+      ok: true,
+      data: {
+        available: false,
+        missing: ["OPENAI_API_KEY", "OPENAI_MODEL"],
+        testProvider: false,
+      },
+    });
   });
 
-  it("shows empty state and fixture badge", async () => {
+  it("shows mode selection and live unavailable", async () => {
     render(<Ops1SessionScreen />);
     await waitFor(() => {
       expect(screen.getByTestId("ops1-empty-state")).toBeInTheDocument();
     });
-    expect(screen.getByText("MODE FIXTURE / NON LIVE")).toBeInTheDocument();
-    expect(screen.getByText("Aucune session active")).toBeInTheDocument();
+    expect(screen.getByTestId("ops1-create-mode-selector")).toBeInTheDocument();
+    expect(screen.getByTestId("ops1-badge-live-unavailable")).toBeInTheDocument();
+    expect(screen.getByTestId("ops1-create-mode-live")).toBeDisabled();
   });
 
-  it("creates OPEN session and shows sessionId", async () => {
+  it("creates fixture session locked and refuses interactive mode change", async () => {
     const user = userEvent.setup();
-    create.mockResolvedValue({
+    create.mockResolvedValue({ ok: true, data: { session: fixtureSession } });
+    get.mockResolvedValue({
       ok: true,
       data: {
-        session: {
-          sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
-          projectKey: "sfia-studio-ops1",
-          status: "OPEN",
-          createdAt: "2026-07-20T21:00:00+02:00",
-          updatedAt: "2026-07-20T21:00:00+02:00",
-          parentSessionId: null,
-          fixtureMode: true,
-        },
+        session: fixtureSession,
+        turns: [],
+        attempts: [],
+        presentation: "fixture",
       },
+    });
+    render(<Ops1SessionScreen />);
+    await waitFor(() =>
+      expect(
+        screen.getAllByTestId("ops1-create-session").length,
+      ).toBeGreaterThan(0),
+    );
+    await user.click(screen.getAllByTestId("ops1-create-session")[0]);
+    expect(screen.getByTestId("ops1-mode-locked").textContent).toMatch(
+      /FIXTURE — verrouillé/,
+    );
+    expect(screen.getByTestId("ops1-mode-fixture")).toBeDisabled();
+    expect(screen.getByTestId("ops1-mode-live")).toBeDisabled();
+    expect(create.mock.calls[0][0]).toEqual({ mode: "fixture" });
+  });
+
+  it("shows test provider badges — never LIVE GPT", async () => {
+    liveConfig.mockResolvedValue({
+      ok: true,
+      data: { available: true, missing: [], testProvider: true },
     });
     get.mockResolvedValue({
       ok: true,
       data: {
-        session: {
-          sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
-          projectKey: "sfia-studio-ops1",
-          status: "OPEN",
-          createdAt: "2026-07-20T21:00:00+02:00",
-          updatedAt: "2026-07-20T21:00:00+02:00",
-          parentSessionId: null,
-          fixtureMode: true,
-        },
-        turns: [],
+        session: liveSession,
+        turns: [
+          {
+            turnId: "t1",
+            sessionId: liveSession.sessionId,
+            sequence: 1,
+            role: "user",
+            content: "q",
+            fixture: false,
+            createdAt: "t",
+          },
+          {
+            turnId: "t2",
+            sessionId: liveSession.sessionId,
+            sequence: 2,
+            role: "assistant_live",
+            content: "[TEST/FAKE · NON LIVE] reply",
+            fixture: false,
+            createdAt: "t",
+          },
+        ],
+        attempts: [],
+        presentation: "test_provider",
       },
     });
-
-    render(<Ops1SessionScreen />);
-    await waitFor(() =>
-      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
-        0,
-      ),
+    window.sessionStorage.setItem(
+      "sfia-ops1-i1-active-session",
+      liveSession.sessionId,
     );
-    await user.click(screen.getAllByTestId("ops1-create-session")[0]);
+    render(<Ops1SessionScreen />);
     await waitFor(() => {
-      expect(screen.getByTestId("ops1-session-id")).toHaveTextContent(
-        "ops1-sess-11111111-1111-4111-8111-111111111111",
-      );
+      expect(screen.getByTestId("ops1-badge-test-provider")).toBeInTheDocument();
     });
-    expect(screen.getByTestId("ops1-session-status")).toHaveTextContent("OPEN");
+    expect(screen.queryByTestId("ops1-badge-live")).toBeNull();
+    expect(screen.getByText("TEST / FAKE")).toBeInTheDocument();
+    expect(screen.getByText("Assistant test")).toBeInTheDocument();
+    expect(screen.getByTestId("ops1-mode-locked").textContent).toMatch(
+      /verrouillé/,
+    );
   });
 
-  it("shows create error", async () => {
-    const user = userEvent.setup();
-    create.mockResolvedValue({
-      ok: false,
-      code: "PERSISTENCE",
-      message: "Échec de création de la session.",
+  it("shows GPT LIVE badges for real live presentation", async () => {
+    liveConfig.mockResolvedValue({
+      ok: true,
+      data: { available: true, missing: [], testProvider: false },
     });
-    render(<Ops1SessionScreen />);
-    await waitFor(() =>
-      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
-        0,
-      ),
+    get.mockResolvedValue({
+      ok: true,
+      data: {
+        session: liveSession,
+        turns: [
+          {
+            turnId: "t2",
+            sessionId: liveSession.sessionId,
+            sequence: 2,
+            role: "assistant_live",
+            content: "hello from openai",
+            fixture: false,
+            createdAt: "t",
+          },
+        ],
+        attempts: [],
+        presentation: "openai_live",
+      },
+    });
+    window.sessionStorage.setItem(
+      "sfia-ops1-i1-active-session",
+      liveSession.sessionId,
     );
-    await user.click(screen.getAllByTestId("ops1-create-session")[0]);
+    render(<Ops1SessionScreen />);
     await waitFor(() => {
-      expect(screen.getByTestId("ops1-error")).toHaveTextContent(
-        "Échec de création de la session.",
-      );
+      expect(screen.getByTestId("ops1-badge-live")).toHaveTextContent("GPT LIVE");
     });
+    expect(screen.queryByText("TEST / FAKE")).toBeNull();
+    expect(screen.getByText("Assistant live")).toBeInTheDocument();
   });
 });

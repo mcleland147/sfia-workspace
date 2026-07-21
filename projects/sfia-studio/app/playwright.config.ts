@@ -18,8 +18,22 @@ export default defineConfig({
   webServer: {
     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
     url: baseURL,
-    // Prefer local reuse: port 3020 is often already served by `npm run dev`.
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 180_000,
+    env: {
+      ...process.env,
+      // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
+      // without forcing fake (secrets must already be in the environment).
+      ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
+        ? {
+            OPS1_CONVERSATION_PROVIDER: "",
+          }
+        : {
+            OPS1_CONVERSATION_PROVIDER: "fake",
+            OPENAI_API_KEY:
+              process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
+            OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
+          }),
+    },
   },
 });

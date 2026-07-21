@@ -12,6 +12,7 @@ import styles from "./topbar.module.css";
 interface TopbarPill {
   label: string;
   tone?: "blueFlush" | "purpleFlush" | "orange" | "green";
+  testId?: string;
 }
 
 interface TopbarProps {
@@ -42,9 +43,14 @@ export function Topbar({
             <h1 className={styles.titleFloating}>{title}</h1>
             <div className={styles.pills}>
               {pills.map((pill) => (
-                <StatusPill key={pill.label} tone={pill.tone ?? "orange"}>
-                  {pill.label}
-                </StatusPill>
+                <span
+                  key={pill.label}
+                  data-testid={pill.testId}
+                >
+                  <StatusPill tone={pill.tone ?? "orange"}>
+                    {pill.label}
+                  </StatusPill>
+                </span>
               ))}
             </div>
           </div>
@@ -76,9 +82,11 @@ export function Topbar({
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.pills}>
           {pills.map((pill) => (
-            <StatusPill key={pill.label} tone={pill.tone ?? "blueFlush"}>
-              {pill.label}
-            </StatusPill>
+            <span key={pill.label} data-testid={pill.testId}>
+              <StatusPill tone={pill.tone ?? "blueFlush"}>
+                {pill.label}
+              </StatusPill>
+            </span>
           ))}
           <CtaButton href="/nouvelle-demande">Nouvelle demande</CtaButton>
         </div>

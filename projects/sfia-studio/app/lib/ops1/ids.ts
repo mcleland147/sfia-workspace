@@ -11,3 +11,7 @@ export function createTurnId(): string {
 export function createEventId(): string {
   return `ops1-evt-${randomUUID()}`;
 }
+
+export function createAttemptId(): string {
+  return `ops1-att-${randomUUID()}`;
+}
