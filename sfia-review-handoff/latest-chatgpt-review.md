@@ -1,3640 +1,920 @@
-# Review Pack — OPS1 I2 Mixed-Mode Reserve Fix + UX Signalétique
+# Review pack Full — Review pack obligatoire pour tous les rapports Cursor
 
 ## Métadonnées
 
-| Champ | Valeur |
-|---|---|
-| Date / heure / fuseau | 2026-07-21 00:03:53 CEST (+0200) |
-| Repository | `mcleland147/sfia-workspace` |
-| Branche | `delivery/sfia-studio-ops1-i2-live-conversation` |
-| HEAD | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
-| origin/main | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
-| merge-base | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
-| Cycle | 8 Delivery corrective + 9 QA + 4 UX/UI borné · Standard |
-| Gates Morris | `GO TRAITEMENT RÉSERVE OPS1 I2 — SESSION MODE IMMUTABLE` · `GO CORRECTIONS VISUELLES I2 — SIGNALÉTIQUE FAKE/LIVE ET MODE VERROUILLÉ` |
-| Handoff Git | **local-only** — push **non** autorisé |
-| Commit / push / PR projet | **aucun** |
-| Staged | vide |
-| Smoke live post-correction | **OK** — `assistant_live`, provider `openai`, model `gpt-5-mini-2025-08-07`, tokens 21/215/236 |
-| Verdict | `OPS1 I2 MIXED-MODE RESERVE FIXED — UX SIGNALS ALIGNED — LIVE VERIFIED — READY FOR REVIEW` |
+- Date / heure / fuseau : 2026-07-21 04:41:00 CEST
+- Repo : mcleland147/sfia-workspace
+- Branche méthode : `method/review-pack-mandatory-routing`
+- HEAD méthode : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
+- Base / origin/main : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
+- Merge-base : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
+- Worktree méthode : `/Users/morris/Projects/sfia-workspace-method-review-pack`
+- Worktree projet préservé : `/Users/morris/Projects/sfia-workspace` (`delivery/sfia-studio-ops1-i2-live-conversation`)
+- Review pack niveau : **Full**
+- Review Handoff Git : **required**
+- Mode handoff : **publish-in-cycle**
+- Push handoff autorisé : **oui — L3 borné**
+- Commit / push / PR / merge méthode : **non** (aucun effectué)
 
-## État Git
+## Décision Morris appliquée
 
-### Initial (attendu)
-- Branche delivery I2, HEAD = origin/main tip I1 merge
-- Modifications I2 locales non commitées
-- Staged vide
+Gate : `GO DOCTRINE — REVIEW PACK OBLIGATOIRE POUR TOUS LES RAPPORTS CURSOR`
 
-### Final
+Décision validée :
+
+1. Tout cycle Cursor SFIA produisant un rapport doit créer/mettre à jour un review pack.
+2. Granularité Light / Full **conservée** selon la portée.
+3. Publication handoff obligatoire dans le **même cycle** sur `sfia/review-handoff`.
+4. Vérification distante obligatoire.
+5. Worktree projet préservé intégralement.
+6. `local-only` = exception technique documentée uniquement.
+7. `review pack = none` et `Review Handoff Git = not required` ne doivent plus être proposés pour un rapport Cursor.
+
+## Qualification SFIA
+
+- Cycle principal : 15 — Capitalisation / évolution méthode
+- Profil : Capitalization
+- Profondeur : Standard
+- Typologie : CAPA / DOC
+- Blocs : gouvernance ; automatisation L3 bornée ; capitalisation / REX
+
+## Sources consultées (Git)
+
+| Source | Rôle |
+|--------|------|
+| `prompts/templates/sfia-cycle-execution-template.md` | Template canonique — §2, §3, §5, §7, §8, §9, §10 |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Matrice Review Handoff × review pack §2.1 |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Boucle standard + §18.2.8 |
+| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | Alignement minimal §13.1 (règle déjà portée) |
+
+## Analyse de l'écart doctrinal
+
+### Anciennes règles (ambiguës)
+
+- Review pack `none / light / full` — `none` utilisable même avec rapport Cursor.
+- Review Handoff `required / not required` — `not required` possible avec light/full si « pas d'analyse ChatGPT ».
+- Mode `local-only` / `not-required` comme options de routage courantes.
+- Matrice permettant `light/full + analyse ChatGPT non = not required` et `cycle local sans ChatGPT = not required` même si un rapport Cursor était produit.
+- Push handoff L3 parfois perçu comme optionnel / second cycle.
+
+### Nouvelles règles
+
+Règle centrale :
+
+```text
+RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE
 ```
- M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
- M projects/sfia-studio/app/app/nouvelle-demande/page.tsx
- M projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
- M projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
- M projects/sfia-studio/app/features/ops1/ops1-session.module.css
- M projects/sfia-studio/app/lib/ops1/actions.ts
- M projects/sfia-studio/app/lib/ops1/db.ts
- M projects/sfia-studio/app/lib/ops1/errors.ts
- M projects/sfia-studio/app/lib/ops1/fixtureReply.ts
- M projects/sfia-studio/app/lib/ops1/ids.ts
- M projects/sfia-studio/app/lib/ops1/index.ts
- M projects/sfia-studio/app/lib/ops1/repository.ts
- M projects/sfia-studio/app/lib/ops1/types.ts
- M projects/sfia-studio/app/lib/ops1/validation.ts
- M projects/sfia-studio/app/package-lock.json
- M projects/sfia-studio/app/package.json
- M projects/sfia-studio/app/playwright.config.ts
-?? .tmp-sfia-review/
-?? projects/.tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts
-?? projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
-?? projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
-?? projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
-?? projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
-?? projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts
-?? projects/sfia-studio/app/lib/ops1/conversation/
 
-```
+- Review pack : exclusivement **light / full** pour tout rapport Cursor.
+- Handoff : **required** + **publish-in-cycle** + Push **oui — L3 borné** automatiques.
+- `local-only` : exception technique uniquement + `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED`.
+- Opération read-only sans rapport Cursor : **hors contrat**.
+- Flux handoff distinct du flux projet (pas d'autorisation push projet).
 
-## Décisions Morris appliquées
+## Matrice avant / après
 
-1. Mode choisi à la création (fixture | live), immuable ensuite
-2. UI matérialise le verrouillage
-3. Fake provider jamais présenté comme GPT live réel
-4. Preuves visuelles distinguent fixture / test provider / GPT live
+| Situation | Avant | Après |
+|-----------|-------|-------|
+| Rapport Cursor simple | light/full possible ; handoff parfois not required | Light + required + publish-in-cycle |
+| Cycle substantiel | full + required si ChatGPT | Full + required + publish-in-cycle |
+| light/full sans analyse ChatGPT | not required (justifié) | **Supprimé** si rapport Cursor produit |
+| review pack none | not required | **Interdit** pour rapport Cursor |
+| Publication bloquée | local-only / HANDOFF LOCAL ONLY | local-only exception + HANDOFF PUBLICATION BLOCKED |
+| Read-only sans rapport | souvent none / not required | Hors contrat |
 
-## Réserve traitée
+## Anti-patterns ajoutés
 
-Contexte fixture/live partageable dans une même session → **corrigé** via `conversationMode` persisté + refus mismatch avant write/provider + défense builder.
+- Produire un rapport Cursor sans review pack.
+- Utiliser `review pack = none` pour un cycle Cursor avec rapport.
+- Déclarer le handoff `not required` alors qu'un rapport Cursor est produit.
+- Confondre interdiction de push projet et interdiction de push handoff.
+- Utiliser `local-only` parce que le cycle est Light.
+- Créer systématiquement un second cycle uniquement pour republier le rapport.
+- Conclure READY alors que le handoff distant est obsolète.
+- Demander à ChatGPT de valider un rapport inaccessible depuis Git.
 
-## Architecture retenue
+## Verdicts
 
-- `CycleSession.conversationMode: 'fixture' | 'live'` (colonne SQLite `conversation_mode`)
-- `createOpenSession(mode)` — mode figé à la création
-- `sendConversationMessage` utilise **uniquement** le mode session ; `requestedMode` optionnel doit matcher sinon refus **avant** persistance
-- `buildProviderMessagesFromJournal(turns, expectedMode)` — refuse journal incompatible (pas de filtre silencieux)
-- `ProviderPresentation`: `fixture` | `test_provider` | `openai_live` pour signalétique UI
-- Fake provider (`OPS1_CONVERSATION_PROVIDER=fake`) → présentation TEST, jamais badge GPT LIVE
+### Conservés
 
-## Migration legacy
+- `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING`
+- `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`
+- `HANDOFF UPDATED — REMOTE VERIFIED`
+- `REVIEW HANDOFF INCOMPLETE — REMOTE PUBLICATION NOT PERFORMED`
+- `REVIEW HANDOFF INCOMPLETE — REMOTE VERIFICATION MISSING`
+- `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
 
-- ADD COLUMN `conversation_mode` si absent
-- Inférence : live si `assistant_live` ou attempt provider réel ; sinon fixture
-- Ambiguïté (`assistant_fixture` + `assistant_live`, ou attempt réel + seulement fixture) → `MORRIS DECISION REQUIRED — LEGACY SESSION MODE AMBIGUOUS`
-- Idempotente ; pas de réécriture après backfill initial (validation seule)
+### Ajoutés / mis en avant
 
-## Matrice signalétique
+- `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` (nouveau routage)
+- `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` (exception local-only)
 
-| État | Badge session | Mode verrouillé | Rôle tour | Badge tour |
-|---|---|---|---|---|
-| Fixture | FIXTURE / NON LIVE | FIXTURE — verrouillé | Assistant fixture | FIXTURE / NON LIVE |
-| Fake/test | TEST PROVIDER / NON LIVE | LIVE TECHNIQUE (TEST) — verrouillé | Assistant test | TEST / FAKE |
-| GPT live réel | GPT LIVE | GPT LIVE — verrouillé | Assistant live | GPT LIVE |
+### Remplacés / dépréciés pour rapport Cursor
 
-## QA
+- `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` → remplacé opérationnellement par `MANDATORY REVIEW HANDOFF MISSING`
+- `HANDOFF NOT REQUIRED — JUSTIFIED` → hors contrat rapport Cursor
+- `HANDOFF LOCAL ONLY — PUSH MISSING` → alias legacy de `HANDOFF PUBLICATION BLOCKED`
 
-| Contrôle | Résultat |
-|---|---|
-| lint | clean |
-| typecheck | clean |
-| vitest | **74 passed** |
-| build | OK |
-| E2E I1 | OK |
-| E2E I2 fixture + fake | OK |
-| p0-smoke | OK |
-| smoke live | OK post-correction |
-| capture live locked | OK |
-| git diff --check | clean |
-| secret scan | clean |
-| .env tracké | aucun |
+## Fichiers modifiés
 
-## Captures 1440×1024
-
-Sous `.tmp-sfia-review/screenshots-ops1-i2/` :
-
-| Fichier | Env | Provider | Mode | Live réel |
-|---|---|---|---|---|
-| ops1-i2-mode-selection.png | E2E fake | — | pré-création | non |
-| ops1-i2-fixture-locked.png | E2E | fixture | fixture verrouillé | non |
-| ops1-i2-test-provider-non-live.png | E2E | fake-test | live technique | non |
-| ops1-i2-live-locked.png | live smoke UI | openai | GPT LIVE verrouillé | **oui** |
-| ops1-i2-provider-error.png | E2E fake | fake-test | live technique | non |
-| ops1-i2-after-reload-locked.png | E2E | fixture | fixture | non |
-| ops1-i2-mode-change-refused.png | E2E | fixture | fixture | non |
-
-Réserve visuelle : revue pixel ChatGPT directe non effectuée.
-
-## Réserves restantes
-
-FD-CAND-15 · UX-R01…R04 · Node non figé · stack/fournisseur non finalisé au-delà adaptateur · CI absente · worktree ≠ sandbox · I3–I7 / Cursor live / gates action / MVP fermés · OpenAI = adaptateur borné.
-
-## Actions interdites respectées
-
-Aucun commit · push · PR · merge · suppression branche · I3 · secret affiché · handoff distant push · modification `.env.local`.
-
-## Fichiers créés (contenu complet)
-
-### `projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts`
-
-```typescript
-/** @vitest-environment node */
-import { describe, expect, it } from "vitest";
-import {
-  buildProviderMessagesFromJournal,
-} from "@/lib/ops1/conversation/types";
-import { getLiveConversationAvailability } from "@/lib/ops1/conversation/config";
-import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
-import { inferLegacyConversationMode } from "@/lib/ops1/db";
-import type { JournalTurn } from "@/lib/ops1/types";
-import { LEGACY_SESSION_MODE_AMBIGUOUS } from "@/lib/ops1/types";
-import { assertConversationMode, assertTurnRole } from "@/lib/ops1/validation";
-import { Ops1Error } from "@/lib/ops1/errors";
-
-function turn(
-  partial: Pick<JournalTurn, "role" | "content" | "sequence">,
-): JournalTurn {
-  return {
-    turnId: `ops1-turn-${partial.sequence}`,
-    sessionId: "ops1-sess-00000000-0000-4000-8000-000000000001",
-    fixture: partial.role === "assistant_fixture",
-    createdAt: "2026-07-20T22:00:00+02:00",
-    ...partial,
-  };
-}
-
-describe("ops1 conversation domain (immutable mode)", () => {
-  it("builds live context from user + assistant_live only", () => {
-    const messages = buildProviderMessagesFromJournal(
-      [
-        turn({ sequence: 1, role: "user", content: "u1" }),
-        turn({ sequence: 2, role: "assistant_live", content: "a1" }),
-        turn({ sequence: 3, role: "user", content: "u2" }),
-      ],
-      "live",
-    );
-    expect(messages).toEqual([
-      { role: "user", content: "u1" },
-      { role: "assistant", content: "a1" },
-      { role: "user", content: "u2" },
-    ]);
-  });
-
-  it("refuses fixture assistant in live context without filtering", () => {
-    expect(() =>
-      buildProviderMessagesFromJournal(
-        [
-          turn({ sequence: 1, role: "user", content: "u1" }),
-          turn({ sequence: 2, role: "assistant_fixture", content: "bad" }),
-        ],
-        "live",
-      ),
-    ).toThrow(Ops1Error);
-  });
-
-  it("refuses live assistant in fixture context", () => {
-    expect(() =>
-      buildProviderMessagesFromJournal(
-        [
-          turn({ sequence: 1, role: "user", content: "u1" }),
-          turn({ sequence: 2, role: "assistant_live", content: "bad" }),
-        ],
-        "fixture",
-      ),
-    ).toThrow(Ops1Error);
-  });
-
-  it("fake provider returns usage and non-live tagged text", async () => {
-    const provider = new FakeConversationProvider();
-    const result = await provider.complete([
-      { role: "user", content: "bonjour" },
-    ]);
-    expect(result.text).toContain("TEST/FAKE");
-    expect(result.text).toContain("NON LIVE");
-  });
-
-  it("reports missing live config without exposing secrets", () => {
-    const prevKey = process.env.OPENAI_API_KEY;
-    const prevModel = process.env.OPENAI_MODEL;
-    delete process.env.OPENAI_API_KEY;
-    delete process.env.OPENAI_MODEL;
-    const status = getLiveConversationAvailability();
-    expect(status.available).toBe(false);
-    if (prevKey !== undefined) process.env.OPENAI_API_KEY = prevKey;
-    if (prevModel !== undefined) process.env.OPENAI_MODEL = prevModel;
-  });
-
-  it("infers legacy modes and detects ambiguity", () => {
-    expect(inferLegacyConversationMode(["user", "assistant_fixture"], [])).toBe(
-      "fixture",
-    );
-    expect(inferLegacyConversationMode(["user", "assistant_live"], [])).toBe(
-      "live",
-    );
-    expect(inferLegacyConversationMode(["user"], ["openai"])).toBe("live");
-    expect(() =>
-      inferLegacyConversationMode(
-        ["assistant_fixture", "assistant_live"],
-        [],
-      ),
-    ).toThrow(Ops1Error);
-    try {
-      inferLegacyConversationMode(
-        ["assistant_fixture", "assistant_live"],
-        [],
-      );
-    } catch (e) {
-      expect((e as Ops1Error).safeMessage).toBe(LEGACY_SESSION_MODE_AMBIGUOUS);
-    }
-  });
-
-  it("accepts assistant_live role and conversation modes", () => {
-    expect(assertTurnRole("assistant_live")).toBe("assistant_live");
-    expect(assertConversationMode("live")).toBe("live");
-  });
-});
+```text
+ .../core/sfia-chatgpt-cursor-operating-model.md    |  68 ++++--
+ .../core/sfia-cycle-routing-guide.md               |  29 +--
+ .../core/sfia-rules-and-guardrails.md              |  19 +-
+ prompts/templates/sfia-cycle-execution-template.md | 270 +++++++++++++--------
+ 4 files changed, 241 insertions(+), 145 deletions(-)
 
 ```
 
-### `projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts`
-
-```typescript
-/** @vitest-environment node */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  appendTurn,
-  completeConversationAttemptFailure,
-  createOpenSession,
-  getConversationAttempt,
-  getSession,
-  listConversationAttempts,
-  listTurns,
-  resetOps1DbForTests,
-  startConversationAttempt,
-} from "@/lib/ops1/repository";
-import { openOps1Db, migrateOps1Schema } from "@/lib/ops1/db";
-import { sendConversationMessage } from "@/lib/ops1/conversation/service";
-import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
-import { DatabaseSync } from "node:sqlite";
-import type {
-  ConversationProvider,
-  ProviderChatMessage,
-  ProviderCompletionResult,
-} from "@/lib/ops1/conversation/types";
-import { Ops1Error } from "@/lib/ops1/errors";
-import { LEGACY_SESSION_MODE_AMBIGUOUS } from "@/lib/ops1/types";
-
-describe("ops1 i2 repository + immutable session mode", () => {
-  let tmpRoot: string;
-
-  beforeEach(() => {
-    resetOps1DbForTests();
-    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i2-"));
-    process.env.OPS1_EXEC_ROOT = tmpRoot;
-  });
-
-  afterEach(() => {
-    resetOps1DbForTests();
-    delete process.env.OPS1_EXEC_ROOT;
-    fs.rmSync(tmpRoot, { recursive: true, force: true });
-  });
-
-  it("creates fixture and live sessions with persisted immutable mode", () => {
-    const f = createOpenSession("fixture");
-    expect(f.session.conversationMode).toBe("fixture");
-    expect(getSession(f.session.sessionId)?.conversationMode).toBe("fixture");
-
-    const l = createOpenSession("live");
-    expect(l.session.conversationMode).toBe("live");
-    expect(getSession(l.session.sessionId)?.conversationMode).toBe("live");
-  });
-
-  it("migrates I1 DB and backfills conversation_mode", () => {
-    const dbPath = path.join(tmpRoot, "legacy.sqlite");
-    const legacy = new DatabaseSync(dbPath);
-    legacy.exec(`
-      PRAGMA foreign_keys = ON;
-      CREATE TABLE cycle_sessions (
-        session_id TEXT PRIMARY KEY NOT NULL,
-        project_key TEXT NOT NULL,
-        status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
-        created_at TEXT NOT NULL,
-        updated_at TEXT NOT NULL,
-        parent_session_id TEXT,
-        fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
-      );
-      CREATE TABLE journal_turns (
-        turn_id TEXT PRIMARY KEY NOT NULL,
-        session_id TEXT NOT NULL,
-        sequence INTEGER NOT NULL,
-        role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture')),
-        content TEXT NOT NULL,
-        fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
-        created_at TEXT NOT NULL,
-        UNIQUE (session_id, sequence),
-        FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
-      );
-      INSERT INTO cycle_sessions VALUES (
-        'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-        'sfia-studio-ops1', 'OPEN', 't', 't', NULL, 1
-      );
-      INSERT INTO journal_turns VALUES (
-        'ops1-turn-1', 'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-        1, 'user', 'hello i1', 1, 't'
-      );
-      INSERT INTO journal_turns VALUES (
-        'ops1-turn-2', 'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-        2, 'assistant_fixture', 'reply', 1, 't'
-      );
-    `);
-    legacy.close();
-
-    const db = new DatabaseSync(dbPath);
-    migrateOps1Schema(db);
-    const row = db
-      .prepare(
-        `SELECT conversation_mode FROM cycle_sessions WHERE session_id = ?`,
-      )
-      .get("ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa") as {
-      conversation_mode: string;
-    };
-    expect(row.conversation_mode).toBe("fixture");
-    db.close();
-  });
-
-  it("detects ambiguous legacy session on migration", () => {
-    const dbPath = path.join(tmpRoot, "ambiguous.sqlite");
-    const legacy = new DatabaseSync(dbPath);
-    legacy.exec(`
-      PRAGMA foreign_keys = ON;
-      CREATE TABLE cycle_sessions (
-        session_id TEXT PRIMARY KEY NOT NULL,
-        project_key TEXT NOT NULL,
-        status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
-        created_at TEXT NOT NULL,
-        updated_at TEXT NOT NULL,
-        parent_session_id TEXT,
-        fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
-      );
-      CREATE TABLE journal_turns (
-        turn_id TEXT PRIMARY KEY NOT NULL,
-        session_id TEXT NOT NULL,
-        sequence INTEGER NOT NULL,
-        role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture', 'assistant_live')),
-        content TEXT NOT NULL,
-        fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
-        created_at TEXT NOT NULL,
-        UNIQUE (session_id, sequence),
-        FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
-      );
-      INSERT INTO cycle_sessions VALUES (
-        'ops1-sess-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
-        'sfia-studio-ops1', 'OPEN', 't', 't', NULL, 1
-      );
-      INSERT INTO journal_turns VALUES (
-        't1', 'ops1-sess-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
-        1, 'assistant_fixture', 'a', 1, 't'
-      );
-      INSERT INTO journal_turns VALUES (
-        't2', 'ops1-sess-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
-        2, 'assistant_live', 'b', 0, 't'
-      );
-    `);
-    legacy.close();
-    const db = new DatabaseSync(dbPath);
-    expect(() => migrateOps1Schema(db)).toThrow(Ops1Error);
-    try {
-      migrateOps1Schema(db);
-    } catch (e) {
-      expect((e as Ops1Error).safeMessage).toBe(LEGACY_SESSION_MODE_AMBIGUOUS);
-    }
-    db.close();
-  });
-
-  it("persists live multi-turn with ordered history; rejects mode mismatch before write", async () => {
-    const { session } = createOpenSession("live");
-    const provider = new FakeConversationProvider({
-      scripted: ["A1 TEST/FAKE", "A2 TEST/FAKE", "A3 TEST/FAKE"],
-    });
-    const histories: number[] = [];
-    const wrapping: ConversationProvider = {
-      providerId: "fake-test",
-      complete: async (
-        messages: ProviderChatMessage[],
-      ): Promise<ProviderCompletionResult> => {
-        histories.push(messages.length);
-        return provider.complete(messages);
-      },
-    };
-
-    await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "tour 1",
-      provider: wrapping,
-    });
-    await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "tour 2",
-      provider: wrapping,
-    });
-    const third = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "tour 3",
-      provider: wrapping,
-    });
-
-    expect(histories).toEqual([1, 3, 5]);
-    expect(third.assistantTurn?.role).toBe("assistant_live");
-    expect(listTurns(session.sessionId)).toHaveLength(6);
-
-    const before = listTurns(session.sessionId).length;
-    await expect(
-      sendConversationMessage({
-        sessionId: session.sessionId,
-        content: "should fail",
-        requestedMode: "fixture",
-      }),
-    ).rejects.toBeInstanceOf(Ops1Error);
-    expect(listTurns(session.sessionId)).toHaveLength(before);
-  });
-
-  it("fixture session refuses live requestedMode without provider call", async () => {
-    const { session } = createOpenSession("fixture");
-    let called = false;
-    const provider: ConversationProvider = {
-      providerId: "fake-test",
-      complete: async () => {
-        called = true;
-        return {
-          text: "nope",
-          usage: {
-            inputTokens: 1,
-            outputTokens: 1,
-            totalTokens: 2,
-            model: "x",
-            providerResponseId: "x",
-          },
-        };
-      },
-    };
-    await expect(
-      sendConversationMessage({
-        sessionId: session.sessionId,
-        content: "x",
-        requestedMode: "live",
-        provider,
-      }),
-    ).rejects.toBeInstanceOf(Ops1Error);
-    expect(called).toBe(false);
-    expect(listTurns(session.sessionId)).toHaveLength(0);
-    expect(listConversationAttempts(session.sessionId)).toHaveLength(0);
-  });
-
-  it("keeps user turn and marks attempt failed without fake assistant on provider error", async () => {
-    const { session } = createOpenSession("live");
-    const provider = new FakeConversationProvider({ failOnCall: 1 });
-    const result = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "will fail",
-      provider,
-    });
-    expect(result.assistantTurn).toBeNull();
-    expect(listTurns(session.sessionId)).toHaveLength(1);
-    expect(listConversationAttempts(session.sessionId)[0].status).toBe(
-      "failed",
-    );
-  });
-
-  it("fixture mode never creates conversation_attempts or live roles", async () => {
-    const { session } = createOpenSession("fixture");
-    await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "fixture only",
-    });
-    expect(listTurns(session.sessionId).map((t) => t.role)).toEqual([
-      "user",
-      "assistant_fixture",
-    ]);
-    expect(listConversationAttempts(session.sessionId)).toHaveLength(0);
-  });
-
-  it("start/fail attempt helpers leave no secret fields", () => {
-    const { session } = createOpenSession("live");
-    const { turn } = appendTurn({
-      sessionId: session.sessionId,
-      role: "user",
-      content: "x",
-      fixture: false,
-    });
-    const started = startConversationAttempt({
-      sessionId: session.sessionId,
-      userTurnId: turn.turnId,
-      provider: "fake-test",
-    });
-    const failed = completeConversationAttemptFailure({
-      attemptId: started.attemptId,
-      sessionId: session.sessionId,
-      errorCode: "PROVIDER",
-    });
-    expect(getConversationAttempt(failed.attemptId)?.status).toBe("failed");
-    expect(JSON.stringify(failed)).not.toMatch(/api[_-]?key/i);
-  });
-
-  it("creates fresh schema with conversation_mode", () => {
-    openOps1Db();
-    const db = openOps1Db();
-    const cols = db.prepare(`PRAGMA table_info(cycle_sessions)`).all() as Array<{
-      name: string;
-    }>;
-    expect(cols.map((c) => c.name)).toContain("conversation_mode");
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts`
-
-```typescript
-/** @vitest-environment node */
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const createMock = vi.fn();
-
-vi.mock("openai", () => ({
-  default: class OpenAI {
-    responses = { create: createMock };
-  },
-}));
-
-describe("OpenAIConversationProvider mapping", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("extracts text and usage; requests empty tools", async () => {
-    createMock.mockResolvedValue({
-      id: "resp_123",
-      model: "gpt-test",
-      output_text: "  hello live  ",
-      usage: { input_tokens: 3, output_tokens: 4, total_tokens: 7 },
-    });
-    const { OpenAIConversationProvider } = await import(
-      "@/lib/ops1/conversation/openaiProvider"
-    );
-    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
-    const result = await provider.complete([
-      { role: "user", content: "hi" },
-      { role: "assistant", content: "prev" },
-      { role: "user", content: "again" },
-    ]);
-    expect(result.text).toBe("hello live");
-    expect(result.usage).toEqual({
-      inputTokens: 3,
-      outputTokens: 4,
-      totalTokens: 7,
-      model: "gpt-test",
-      providerResponseId: "resp_123",
-    });
-    expect(createMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        model: "gpt-test",
-        tools: [],
-      }),
-    );
-    const payload = createMock.mock.calls[0][0];
-    expect(payload.input).toHaveLength(3);
-  });
-
-  it("maps provider failures to safe Ops1Error", async () => {
-    createMock.mockRejectedValue(new Error("upstream boom sk-secret"));
-    const { OpenAIConversationProvider } = await import(
-      "@/lib/ops1/conversation/openaiProvider"
-    );
-    const { Ops1Error } = await import("@/lib/ops1/errors");
-    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
-    await expect(
-      provider.complete([{ role: "user", content: "x" }]),
-    ).rejects.toBeInstanceOf(Ops1Error);
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts`
-
-```typescript
-import { test, expect } from "@playwright/test";
-import path from "path";
-import fs from "fs";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots-ops1-i2",
-);
-
-test.beforeAll(() => {
-  fs.mkdirSync(screenshotDir, { recursive: true });
-});
-
-test.describe("OPS1 I2 immutable mode + signalétique", () => {
-  test("mode selection, fixture locked, reload, no execution", async ({
-    page,
-  }) => {
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-    await expect(page.getByTestId("ops1-session-root")).toBeVisible();
-    await expect(page.getByTestId("ops1-create-mode-selector")).toBeVisible();
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-mode-selection.png"),
-      fullPage: true,
-    });
-
-    // Also keep legacy name for unavailable state when applicable
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-live-unavailable.png"),
-      fullPage: true,
-    });
-
-    await page.getByTestId("ops1-create-mode-fixture").check();
-    await page.getByTestId("ops1-create-session").click();
-    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-      "FIXTURE — verrouillé",
-    );
-    await expect(page.getByTestId("ops1-mode-fixture")).toBeDisabled();
-    await expect(page.getByTestId("ops1-mode-live")).toBeDisabled();
-
-    // Attempt to change mode via click — must remain fixture
-    await page.getByTestId("ops1-mode-live").click({ force: true });
-    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-      "FIXTURE — verrouillé",
-    );
-    await expect(page.getByTestId("ops1-mode-fixture")).toBeChecked();
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-mode-change-refused.png"),
-      fullPage: true,
-    });
-
-    await page.getByTestId("ops1-message-input").fill("Tour fixture 1");
-    await page.getByTestId("ops1-send-message").click();
-    await page.getByTestId("ops1-message-input").fill("Tour fixture 2");
-    await page.getByTestId("ops1-send-message").click();
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("exécute Cursor maintenant");
-    await page.getByTestId("ops1-send-message").click();
-
-    await expect(page.getByTestId("ops1-turn")).toHaveCount(6);
-    await expect(page.getByTestId("ops1-badge-fixture")).toBeVisible();
-    await expect(page.getByTestId("ops1-badge-live")).toHaveCount(0);
-    await expect(
-      page.getByRole("button", { name: /exécuter|gate|cursor/i }),
-    ).toHaveCount(0);
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-fixture-locked.png"),
-      fullPage: true,
-    });
-
-    const sessionId = await page.getByTestId("ops1-session-id").innerText();
-    await page.reload();
-    await expect(page.getByTestId("ops1-session-id")).toHaveText(sessionId);
-    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-      "FIXTURE — verrouillé",
-    );
-    await expect(page.getByTestId("ops1-turn")).toHaveCount(6);
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-after-reload-locked.png"),
-      fullPage: true,
-    });
-  });
-
-  test("test provider path — never presented as GPT live", async ({ page }) => {
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-
-    const liveCreate = page.getByTestId("ops1-create-mode-live");
-    if (!(await liveCreate.isEnabled())) {
-      await page.screenshot({
-        path: path.join(screenshotDir, "ops1-i2-test-provider-non-live.png"),
-        fullPage: true,
-      });
-      test.info().annotations.push({
-        type: "note",
-        description: "Live create disabled — fake provider env not active",
-      });
-      return;
-    }
-
-    await liveCreate.check();
-    await page.getByTestId("ops1-create-session").click();
-    await expect(page.getByTestId("ops1-mode-locked")).toBeVisible();
-    await expect(page.getByTestId("ops1-badge-test-provider")).toBeVisible();
-    await expect(page.getByTestId("ops1-badge-live")).toHaveCount(0);
-
-    await page.getByTestId("ops1-message-input").fill("Live fake tour 1");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-turn").nth(1)).toHaveAttribute(
-      "data-role",
-      "assistant_live",
-    );
-    await expect(page.getByText("TEST / FAKE").first()).toBeVisible();
-    await expect(page.getByText("Assistant test").first()).toBeVisible();
-    await expect(page.getByTestId("ops1-badge-live")).toHaveCount(0);
-    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-      "LIVE TECHNIQUE (TEST)",
-    );
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-test-provider-non-live.png"),
-      fullPage: true,
-    });
-    // legacy alias used by prior pack naming
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-live-ready.png"),
-      fullPage: true,
-    });
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-multiturn.png"),
-      fullPage: true,
-    });
-
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("__OPS1_FORCE_PROVIDER_ERROR__");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-error")).toBeVisible();
-    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-      "verrouillé",
-    );
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-provider-error.png"),
-      fullPage: true,
-    });
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts`
-
-```typescript
-/**
- * Real GPT live UI capture — skipped unless OPS1_ALLOW_LIVE_SMOKE=1
- * and OPS1_CONVERSATION_PROVIDER is not "fake".
- * Never prints secrets.
- */
-import { test, expect } from "@playwright/test";
-import path from "path";
-import fs from "fs";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots-ops1-i2",
-);
-
-const allow =
-  process.env.OPS1_ALLOW_LIVE_SMOKE === "1" &&
-  process.env.OPS1_CONVERSATION_PROVIDER !== "fake" &&
-  Boolean(process.env.OPENAI_API_KEY?.trim()) &&
-  Boolean(process.env.OPENAI_MODEL?.trim());
-
-test.describe("OPS1 I2 real live locked capture", () => {
-  test.skip(!allow, "Live capture preconditions missing");
-
-  test("GPT LIVE locked session with real assistant_live", async ({ page }) => {
-    fs.mkdirSync(screenshotDir, { recursive: true });
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-
-    await page.getByTestId("ops1-create-mode-live").check();
-    await page.getByTestId("ops1-create-session").click();
-    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-      "GPT LIVE — verrouillé",
-    );
-    await expect(page.getByTestId("ops1-badge-live")).toBeVisible();
-    await expect(page.getByTestId("ops1-badge-test-provider")).toHaveCount(0);
-
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("Réponds en une seule phrase courte : ping capture I2.");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-turn").nth(1)).toHaveAttribute(
-      "data-role",
-      "assistant_live",
-    );
-    await expect(page.getByText("GPT LIVE").first()).toBeVisible();
-    await expect(page.getByText("TEST / FAKE")).toHaveCount(0);
-    await expect(page.getByText("Assistant live").first()).toBeVisible();
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-live-locked.png"),
-      fullPage: true,
-    });
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts`
-
-```typescript
-/**
- * OPS1 I2 live smoke — NOT part of npm test / default E2E.
- *
- * Runs only when ALL are set:
- * - OPENAI_API_KEY
- * - OPENAI_MODEL
- * - OPS1_ALLOW_LIVE_SMOKE=1
- *
- * Never prints secrets or full env.
- *
- * Usage:
- *   OPS1_ALLOW_LIVE_SMOKE=1 OPENAI_API_KEY=… OPENAI_MODEL=… \
- *     npx tsx e2e/ops1-i2-live-smoke.ts
- *   or: node --import tsx e2e/ops1-i2-live-smoke.ts
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-
-function present(name: string): boolean {
-  return Boolean(process.env[name]?.trim());
-}
-
-async function main(): Promise<void> {
-  const allow = process.env.OPS1_ALLOW_LIVE_SMOKE === "1";
-  const hasKey = present("OPENAI_API_KEY");
-  const hasModel = present("OPENAI_MODEL");
-
-  if (!allow || !hasKey || !hasModel) {
-    console.log(
-      JSON.stringify({
-        ok: false,
-        skipped: true,
-        reason: "LIVE_SMOKE_PRECONDITIONS_MISSING",
-        allow,
-        hasKey,
-        hasModel,
-        // never include values
-      }),
-    );
-    process.exit(0);
-  }
-
-  if (process.env.OPS1_CONVERSATION_PROVIDER === "fake") {
-    console.log(
-      JSON.stringify({
-        ok: false,
-        skipped: true,
-        reason: "FAKE_PROVIDER_FORCED_INCOMPATIBLE_WITH_LIVE_SMOKE",
-      }),
-    );
-    process.exit(1);
-  }
-
-  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i2-live-smoke-"));
-  process.env.OPS1_EXEC_ROOT = tmpRoot;
-
-  const { resetOps1DbForTests, createOpenSession, listTurns, listConversationAttempts } =
-    await import("../lib/ops1/repository");
-  const { sendConversationMessage } = await import(
-    "../lib/ops1/conversation/service"
-  );
-
-  resetOps1DbForTests();
-  const { session } = createOpenSession("live");
-  const result = await sendConversationMessage({
-    sessionId: session.sessionId,
-    content: "Réponds en une phrase courte : ping OPS1 I2 smoke.",
-  });
-
-  const turns = listTurns(session.sessionId);
-  const attempts = listConversationAttempts(session.sessionId);
-  const assistant = result.assistantTurn;
-
-  const report = {
-    ok: Boolean(assistant && assistant.content.trim() && !result.assistantError),
-    mode: result.mode,
-    assistantRole: assistant?.role ?? null,
-    assistantNonEmpty: Boolean(assistant?.content.trim()),
-    turnsCount: turns.length,
-    attemptStatus: attempts[0]?.status ?? null,
-    usage: result.usage
-      ? {
-          provider: result.usage.provider,
-          model: result.usage.model,
-          inputTokens: result.usage.inputTokens,
-          outputTokens: result.usage.outputTokens,
-          totalTokens: result.usage.totalTokens,
-          durationMs: result.usage.durationMs,
-        }
-      : null,
-    error: result.assistantError,
-  };
-
-  console.log(JSON.stringify(report));
-  resetOps1DbForTests();
-  fs.rmSync(tmpRoot, { recursive: true, force: true });
-  process.exit(report.ok ? 0 : 1);
-}
-
-main().catch((error) => {
-  console.log(
-    JSON.stringify({
-      ok: false,
-      error: "LIVE_SMOKE_INTERNAL",
-      code: error instanceof Error ? error.name : "Error",
-    }),
-  );
-  process.exit(1);
-});
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/conversation/config.ts`
-
-```typescript
-import { Ops1Error } from "../errors";
-
-export type LiveConfigStatus =
-  | { available: true; modelConfigured: true }
-  | {
-      available: false;
-      missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
-    };
-
-/** Public availability probe — never returns secret values. */
-export function getLiveConversationAvailability(): LiveConfigStatus {
-  const missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL"> = [];
-  if (!process.env.OPENAI_API_KEY?.trim()) missing.push("OPENAI_API_KEY");
-  if (!process.env.OPENAI_MODEL?.trim()) missing.push("OPENAI_MODEL");
-  if (missing.length > 0) {
-    return { available: false, missing };
-  }
-  return { available: true, modelConfigured: true };
-}
-
-/** Server-only resolved config — fail-closed, no silent defaults. */
-export function requireLiveConversationSecrets(): {
-  apiKey: string;
-  model: string;
-} {
-  const availability = getLiveConversationAvailability();
-  if (!availability.available) {
-    throw new Ops1Error(
-      "CONFIG",
-      `Configuration live indisponible (variables manquantes : ${availability.missing.join(", ")}).`,
-    );
-  }
-  return {
-    apiKey: process.env.OPENAI_API_KEY!.trim(),
-    model: process.env.OPENAI_MODEL!.trim(),
-  };
-}
-
-/** True when E2E / unit harness forces the fake provider (never live). */
-export function isFakeConversationProviderForced(): boolean {
-  return process.env.OPS1_CONVERSATION_PROVIDER === "fake";
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts`
-
-```typescript
-import type {
-  ConversationProvider,
-  ProviderChatMessage,
-  ProviderCompletionResult,
-} from "./types";
-
-/**
- * Deterministic fake provider for unit/E2E non-live tests.
- * Never presented as live GPT; replies are tagged TEST/FAKE.
- */
-export class FakeConversationProvider implements ConversationProvider {
-  readonly providerId = "fake-test";
-  private callCount = 0;
-  private readonly scripted?: string[];
-  private readonly failOnCall?: number;
-
-  constructor(options?: { scripted?: string[]; failOnCall?: number }) {
-    this.scripted = options?.scripted;
-    this.failOnCall = options?.failOnCall;
-  }
-
-  async complete(
-    messages: ProviderChatMessage[],
-  ): Promise<ProviderCompletionResult> {
-    this.callCount += 1;
-    const lastUser = [...messages].reverse().find((m) => m.role === "user");
-    if (
-      this.failOnCall !== undefined && this.callCount === this.failOnCall
-    ) {
-      throw new Error("FAKE_PROVIDER_ERROR");
-    }
-    if (lastUser?.content.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
-      throw new Error("FAKE_PROVIDER_ERROR");
-    }
-    const historyLen = messages.length;
-    const text =
-      this.scripted?.[this.callCount - 1] ??
-      `[TEST/FAKE · NON LIVE] Réponse fake #${this.callCount} (historique=${historyLen}). Echo: « ${(lastUser?.content ?? "").slice(0, 80)} »`;
-    return {
-      text,
-      usage: {
-        inputTokens: 10 * this.callCount,
-        outputTokens: 5 * this.callCount,
-        totalTokens: 15 * this.callCount,
-        model: "fake-test-model",
-        providerResponseId: `fake-resp-${this.callCount}`,
-      },
-    };
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts`
-
-```typescript
-import OpenAI from "openai";
-import { Ops1Error } from "../errors";
-import type {
-  ConversationProvider,
-  ProviderChatMessage,
-  ProviderCompletionResult,
-} from "./types";
-
-/**
- * OpenAI Responses adapter — server-only.
- * Domain/UI must not import this module from client components.
- */
-export class OpenAIConversationProvider implements ConversationProvider {
-  readonly providerId = "openai";
-  private readonly client: OpenAI;
-  private readonly model: string;
-
-  constructor(apiKey: string, model: string) {
-    this.client = new OpenAI({ apiKey });
-    this.model = model;
-  }
-
-  async complete(
-    messages: ProviderChatMessage[],
-  ): Promise<ProviderCompletionResult> {
-    try {
-      const response = await this.client.responses.create({
-        model: this.model,
-        input: messages.map((m) => ({
-          role: m.role,
-          content: m.content,
-        })),
-        // Explicitly no tools — conversation only.
-        tools: [],
-      });
-
-      const text = (response.output_text ?? "").trim();
-      if (!text) {
-        throw new Ops1Error(
-          "PROVIDER",
-          "Réponse fournisseur vide. Aucun tour assistant live n’a été créé.",
-        );
-      }
-
-      const usage = response.usage;
-      const inputTokens = usage?.input_tokens ?? null;
-      const outputTokens = usage?.output_tokens ?? null;
-      const totalTokens =
-        usage?.total_tokens ??
-        (inputTokens != null && outputTokens != null
-          ? inputTokens + outputTokens
-          : null);
-
-      return {
-        text,
-        usage: {
-          inputTokens,
-          outputTokens,
-          totalTokens,
-          model: response.model ?? this.model,
-          providerResponseId: response.id ?? null,
-        },
-      };
-    } catch (error) {
-      if (error instanceof Ops1Error) throw error;
-      throw new Ops1Error(
-        "PROVIDER",
-        "Échec de l’appel fournisseur GPT. Réessayez manuellement.",
-        error,
-      );
-    }
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/conversation/provider.ts`
-
-```typescript
-import {
-  isFakeConversationProviderForced,
-  requireLiveConversationSecrets,
-} from "./config";
-import { FakeConversationProvider } from "./fakeProvider";
-import { OpenAIConversationProvider } from "./openaiProvider";
-import type { ConversationProvider } from "./types";
-
-let providerOverride: ConversationProvider | null = null;
-
-/** Test-only injection — never used by client code. */
-export function setConversationProviderForTests(
-  provider: ConversationProvider | null,
-): void {
-  providerOverride = provider;
-}
-
-export function resolveConversationProvider(): ConversationProvider {
-  if (providerOverride) return providerOverride;
-  if (isFakeConversationProviderForced()) {
-    return new FakeConversationProvider();
-  }
-  const { apiKey, model } = requireLiveConversationSecrets();
-  return new OpenAIConversationProvider(apiKey, model);
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/conversation/service.ts`
-
-```typescript
-import { buildFixtureAssistantReply } from "../fixtureReply";
-import { Ops1Error, toSafeClientError } from "../errors";
-import {
-  appendTurn,
-  completeConversationAttemptFailure,
-  completeConversationAttemptSuccess,
-  getSession,
-  listTurns,
-  startConversationAttempt,
-} from "../repository";
-import type {
-  ConversationMode,
-  ConversationUsageCounters,
-  JournalTurn,
-} from "../types";
-import {
-  assertJournalMatchesMode,
-  buildProviderMessagesFromJournal,
-} from "./types";
-import { resolveConversationProvider } from "./provider";
-import type { ConversationProvider } from "./types";
-
-export interface SendMessageResult {
-  userTurn: JournalTurn;
-  assistantTurn: JournalTurn | null;
-  assistantError: string | null;
-  usage: ConversationUsageCounters | null;
-  mode: ConversationMode;
-  providerId: string | null;
-}
-
-function durationMs(startedAt: string, completedAt: string): number | null {
-  const a = Date.parse(startedAt);
-  const b = Date.parse(completedAt);
-  if (Number.isNaN(a) || Number.isNaN(b)) return null;
-  return Math.max(0, b - a);
-}
-
-/**
- * Orchestrates fixture or live conversation turn using the session's
- * immutable conversationMode. Optional requestedMode is validated then ignored
- * if matching; mismatch is rejected before any persistence or provider call.
- */
-export async function sendConversationMessage(input: {
-  sessionId: string;
-  content: string;
-  /** Optional client hint — must match session mode or be omitted. */
-  requestedMode?: ConversationMode;
-  provider?: ConversationProvider;
-}): Promise<SendMessageResult> {
-  const session = getSession(input.sessionId);
-  if (!session) {
-    throw new Ops1Error("NOT_FOUND", "Session introuvable.");
-  }
-  if (session.status !== "OPEN") {
-    throw new Ops1Error(
-      "CONFLICT",
-      "La session n’accepte plus de tours (statut non OPEN).",
-    );
-  }
-
-  const mode = session.conversationMode;
-
-  if (input.requestedMode && input.requestedMode !== mode) {
-    throw new Ops1Error(
-      "CONFLICT",
-      `Mode refusé : cette session est verrouillée en « ${mode} ». Créez une nouvelle session pour changer de mode.`,
-    );
-  }
-
-  // Defense: refuse mixed journals before any write.
-  assertJournalMatchesMode(listTurns(input.sessionId), mode);
-
-  if (mode === "fixture") {
-    const { turn: userTurn } = appendTurn({
-      sessionId: input.sessionId,
-      role: "user",
-      content: input.content,
-      fixture: true,
-    });
-
-    let assistantTurn: JournalTurn | null = null;
-    let assistantError: string | null = null;
-    try {
-      const reply = buildFixtureAssistantReply(input.content);
-      const appended = appendTurn({
-        sessionId: input.sessionId,
-        role: "assistant_fixture",
-        content: reply,
-        fixture: true,
-      });
-      assistantTurn = appended.turn;
-    } catch (error) {
-      assistantError = toSafeClientError(error).message;
-    }
-
-    return {
-      userTurn,
-      assistantTurn,
-      assistantError,
-      usage: null,
-      mode: "fixture",
-      providerId: null,
-    };
-  }
-
-  // LIVE path — no silent fallback to fixture.
-  const provider = input.provider ?? resolveConversationProvider();
-
-  const { turn: userTurn } = appendTurn({
-    sessionId: input.sessionId,
-    role: "user",
-    content: input.content,
-    fixture: false,
-  });
-
-  const attempt = startConversationAttempt({
-    sessionId: input.sessionId,
-    userTurnId: userTurn.turnId,
-    provider: provider.providerId,
-  });
-
-  console.info(
-    "[ops1] CONVERSATION_ATTEMPT_STARTED",
-    input.sessionId,
-    attempt.attemptId,
-    provider.providerId,
-  );
-
-  try {
-    const history = listTurns(input.sessionId);
-    const messages = buildProviderMessagesFromJournal(history, "live");
-    const completion = await provider.complete(messages);
-
-    const { turn: assistantTurn } = appendTurn({
-      sessionId: input.sessionId,
-      role: "assistant_live",
-      content: completion.text,
-      fixture: false,
-    });
-
-    const finalized = completeConversationAttemptSuccess({
-      attemptId: attempt.attemptId,
-      sessionId: input.sessionId,
-      assistantTurnId: assistantTurn.turnId,
-      providerResponseId: completion.usage.providerResponseId,
-      model: completion.usage.model,
-      inputTokens: completion.usage.inputTokens,
-      outputTokens: completion.usage.outputTokens,
-      totalTokens: completion.usage.totalTokens,
-    });
-
-    console.info(
-      "[ops1] CONVERSATION_ATTEMPT_SUCCEEDED",
-      input.sessionId,
-      attempt.attemptId,
-      finalized.totalTokens,
-    );
-
-    return {
-      userTurn,
-      assistantTurn,
-      assistantError: null,
-      usage: {
-        inputTokens: finalized.inputTokens,
-        outputTokens: finalized.outputTokens,
-        totalTokens: finalized.totalTokens,
-        model: finalized.model,
-        provider: finalized.provider,
-        attemptId: finalized.attemptId,
-        durationMs: durationMs(
-          finalized.requestStartedAt,
-          finalized.requestCompletedAt ?? finalized.requestStartedAt,
-        ),
-      },
-      mode: "live",
-      providerId: provider.providerId,
-    };
-  } catch (error) {
-    const safe = toSafeClientError(error);
-    completeConversationAttemptFailure({
-      attemptId: attempt.attemptId,
-      sessionId: input.sessionId,
-      errorCode: safe.code,
-    });
-    console.error(
-      "[ops1] CONVERSATION_ATTEMPT_FAILED",
-      input.sessionId,
-      attempt.attemptId,
-      safe.code,
-    );
-    return {
-      userTurn,
-      assistantTurn: null,
-      assistantError: safe.message,
-      usage: null,
-      mode: "live",
-      providerId: provider.providerId,
-    };
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/conversation/types.ts`
-
-```typescript
-import type { ConversationMode, JournalTurn } from "../types";
-import { Ops1Error } from "../errors";
-
-/** Provider-facing roles — domain roles mapped without SDK types. */
-export type ProviderChatRole = "user" | "assistant";
-
-export interface ProviderChatMessage {
-  role: ProviderChatRole;
-  content: string;
-}
-
-export interface ProviderUsage {
-  inputTokens: number | null;
-  outputTokens: number | null;
-  totalTokens: number | null;
-  model: string | null;
-  providerResponseId: string | null;
-}
-
-export interface ProviderCompletionResult {
-  text: string;
-  usage: ProviderUsage;
-}
-
-export interface ConversationProvider {
-  readonly providerId: string;
-  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
-}
-
-/**
- * Map local journal turns into ordered provider context.
- * Defense in depth: journal must match the expected session mode.
- * Never silently filters incompatible roles.
- */
-export function buildProviderMessagesFromJournal(
-  turns: JournalTurn[],
-  expectedMode: ConversationMode,
-): ProviderChatMessage[] {
-  const out: ProviderChatMessage[] = [];
-  for (const turn of turns) {
-    if (turn.role === "user") {
-      out.push({ role: "user", content: turn.content });
-      continue;
-    }
-    if (turn.role === "assistant_fixture") {
-      if (expectedMode === "live") {
-        throw new Ops1Error(
-          "CONFLICT",
-          "Journal incompatible avec une session live (tour fixture détecté). Aucun appel fournisseur n’a été effectué.",
-        );
-      }
-      out.push({ role: "assistant", content: turn.content });
-      continue;
-    }
-    if (turn.role === "assistant_live") {
-      if (expectedMode === "fixture") {
-        throw new Ops1Error(
-          "CONFLICT",
-          "Journal incompatible avec une session fixture (tour live détecté).",
-        );
-      }
-      out.push({ role: "assistant", content: turn.content });
-      continue;
-    }
-    throw new Ops1Error("VALIDATION", "Rôle de tour inconnu dans le journal.");
-  }
-  return out;
-}
-
-/** Validate journal integrity against session mode without building messages. */
-export function assertJournalMatchesMode(
-  turns: JournalTurn[],
-  mode: ConversationMode,
-): void {
-  for (const turn of turns) {
-    if (mode === "live" && turn.role === "assistant_fixture") {
-      throw new Ops1Error(
-        "CONFLICT",
-        "Journal incompatible avec une session live (tour fixture détecté).",
-      );
-    }
-    if (mode === "fixture" && turn.role === "assistant_live") {
-      throw new Ops1Error(
-        "CONFLICT",
-        "Journal incompatible avec une session fixture (tour live détecté).",
-      );
-    }
-  }
-}
-
-```
-
-## Fichiers modifiés — diff utile vs HEAD
-
-### `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx`
+1. `prompts/templates/sfia-cycle-execution-template.md`
+2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` (alignement minimal §13.1)
+
+## Diff utile complet — routing guide
 
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-index cb9eb9a..579223e 100644
---- a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-@@ -1,98 +1,173 @@
--import { render, screen, waitFor } from "@testing-library/react";
-+import { cleanup, render, screen, waitFor } from "@testing-library/react";
- import userEvent from "@testing-library/user-event";
--import { beforeEach, describe, expect, it, vi } from "vitest";
-+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
- import { Ops1SessionScreen } from "@/features/ops1/Ops1SessionScreen";
+diff --git a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+index f2a402c..b3925cc 100644
+--- a/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
++++ b/method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+@@ -61,7 +61,7 @@ Chaque cycle doit déclarer explicitement les références qu'il utilise.
 
- const create = vi.fn();
- const get = vi.fn();
--const append = vi.fn();
-+const send = vi.fn();
-+const liveConfig = vi.fn();
+ La documentation SFIA est appliquée par le **routage des cycles**, pas uniquement par la mémoire du modèle.
 
- vi.mock("@/lib/ops1/actions", () => ({
-   ops1CreateSessionAction: (...args: unknown[]) => create(...args),
-   ops1GetSessionAction: (...args: unknown[]) => get(...args),
--  ops1AppendUserMessageAction: (...args: unknown[]) => append(...args),
-+  ops1SendMessageAction: (...args: unknown[]) => send(...args),
-+  ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
-+  ops1AppendUserMessageAction: vi.fn(),
- }));
+-**Complément Repo-informed (candidate v2.5 — PR 2) :** avant génération d'un prompt Cursor repo-based, ChatGPT consulte Git si accessible et applique la matrice de routage documentaire. Le détail de la procédure Repo-informed pre-check et du review pack proportionné (none / light / full) est dans `prompts/templates/sfia-cycle-execution-template.md` §2.0 et §7. Le **Review Handoff Git Branch** exige une décision **required / not required** explicite (template §7.10–§7.11) ; il ne remplace pas le routage documentaire ni Git `main`.
++**Complément Repo-informed (candidate v2.5 — PR 2) :** avant génération d'un prompt Cursor repo-based, ChatGPT consulte Git si accessible et applique la matrice de routage documentaire. Le détail de la procédure Repo-informed pre-check et du review pack proportionné (**light / full** pour tout rapport Cursor — template §2.0, §7.0, §7) est dans `prompts/templates/sfia-cycle-execution-template.md`. Le **Review Handoff Git Branch** est **required + publish-in-cycle** pour tout cycle Cursor produisant un rapport (template §7.10–§7.11) ; il ne remplace pas le routage documentaire ni Git `main`.
 
--describe("Ops1SessionScreen", () => {
-+const fixtureSession = {
-+  sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
-+  projectKey: "sfia-studio-ops1",
-+  status: "OPEN" as const,
-+  createdAt: "2026-07-20T21:00:00+02:00",
-+  updatedAt: "2026-07-20T21:00:00+02:00",
-+  parentSessionId: null,
-+  fixtureMode: true,
-+  conversationMode: "fixture" as const,
-+};
-+
-+const liveSession = {
-+  ...fixtureSession,
-+  fixtureMode: false,
-+  conversationMode: "live" as const,
-+};
-+
-+describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
-+  afterEach(() => cleanup());
-+
-   beforeEach(() => {
-     vi.clearAllMocks();
-     window.sessionStorage.clear();
-+    liveConfig.mockResolvedValue({
-+      ok: true,
-+      data: {
-+        available: false,
-+        missing: ["OPENAI_API_KEY", "OPENAI_MODEL"],
-+        testProvider: false,
-+      },
-+    });
-   });
+ **Complément Figma visual contract (candidate v2.5 — PR 3) :** pour les cycles UX/UI ou delivery UI avec fidélité Figma attendue, appliquer le standard Figma visual contract du template d'exécution §6.6 ; **aucun verdict visuel fort** sans contrat visuel extrait et sans comparaison runtime.
 
--  it("shows empty state and fixture badge", async () => {
-+  it("shows mode selection and live unavailable", async () => {
-     render(<Ops1SessionScreen />);
-     await waitFor(() => {
-       expect(screen.getByTestId("ops1-empty-state")).toBeInTheDocument();
-     });
--    expect(screen.getByText("MODE FIXTURE / NON LIVE")).toBeInTheDocument();
--    expect(screen.getByText("Aucune session active")).toBeInTheDocument();
-+    expect(screen.getByTestId("ops1-create-mode-selector")).toBeInTheDocument();
-+    expect(screen.getByTestId("ops1-badge-live-unavailable")).toBeInTheDocument();
-+    expect(screen.getByTestId("ops1-create-mode-live")).toBeDisabled();
-   });
+@@ -75,19 +75,20 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
 
--  it("creates OPEN session and shows sessionId", async () => {
-+  it("creates fixture session locked and refuses interactive mode change", async () => {
-     const user = userEvent.setup();
--    create.mockResolvedValue({
--      ok: true,
--      data: {
--        session: {
--          sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
--          projectKey: "sfia-studio-ops1",
--          status: "OPEN",
--          createdAt: "2026-07-20T21:00:00+02:00",
--          updatedAt: "2026-07-20T21:00:00+02:00",
--          parentSessionId: null,
--          fixtureMode: true,
--        },
--      },
--    });
-+    create.mockResolvedValue({ ok: true, data: { session: fixtureSession } });
-     get.mockResolvedValue({
-       ok: true,
-       data: {
--        session: {
--          sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
--          projectKey: "sfia-studio-ops1",
--          status: "OPEN",
--          createdAt: "2026-07-20T21:00:00+02:00",
--          updatedAt: "2026-07-20T21:00:00+02:00",
--          parentSessionId: null,
--          fixtureMode: true,
--        },
-+        session: fixtureSession,
-         turns: [],
-+        attempts: [],
-+        presentation: "fixture",
-       },
-     });
+ ### 2.1 Matrice Review Handoff Git × review pack
+
+-| Review pack | Analyse ChatGPT | Handoff | Notes |
+-|-------------|-----------------|---------|-------|
+-| **none** | — | **not required** | |
+-| **light / full** | oui | **required** | Publication remote obligatoire |
+-| **light / full** | non | **not required** | Justification obligatoire |
+-| PR readiness documentaire | oui | **required** | |
+-| Capitalisation / méthode / template / règle | oui | **required** | |
+-| Audit documentaire | oui | **required** | |
+-| Contrôle contenu créé/modifié | oui | **required** | |
+-| Cycle local sans ChatGPT | non | **not required** | Justification |
+-| Décision Morris contraire | — | **not required** | Traçabilité |
 -
-     render(<Ops1SessionScreen />);
-     await waitFor(() =>
--      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
--        0,
--      ),
-+      expect(
-+        screen.getAllByTestId("ops1-create-session").length,
-+      ).toBeGreaterThan(0),
-     );
-     await user.click(screen.getAllByTestId("ops1-create-session")[0]);
-+    expect(screen.getByTestId("ops1-mode-locked").textContent).toMatch(
-+      /FIXTURE — verrouillé/,
-+    );
-+    expect(screen.getByTestId("ops1-mode-fixture")).toBeDisabled();
-+    expect(screen.getByTestId("ops1-mode-live")).toBeDisabled();
-+    expect(create.mock.calls[0][0]).toEqual({ mode: "fixture" });
-+  });
+-> Verdict prompt incomplet : `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`.
++> **Règle centrale :** `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE` (template §7.0).
 +
-+  it("shows test provider badges — never LIVE GPT", async () => {
-+    liveConfig.mockResolvedValue({
-+      ok: true,
-+      data: { available: true, missing: [], testProvider: true },
-+    });
-+    get.mockResolvedValue({
-+      ok: true,
-+      data: {
-+        session: liveSession,
-+        turns: [
-+          {
-+            turnId: "t1",
-+            sessionId: liveSession.sessionId,
-+            sequence: 1,
-+            role: "user",
-+            content: "q",
-+            fixture: false,
-+            createdAt: "t",
-+          },
-+          {
-+            turnId: "t2",
-+            sessionId: liveSession.sessionId,
-+            sequence: 2,
-+            role: "assistant_live",
-+            content: "[TEST/FAKE · NON LIVE] reply",
-+            fixture: false,
-+            createdAt: "t",
-+          },
-+        ],
-+        attempts: [],
-+        presentation: "test_provider",
-+      },
-+    });
-+    window.sessionStorage.setItem(
-+      "sfia-ops1-i1-active-session",
-+      liveSession.sessionId,
-+    );
-+    render(<Ops1SessionScreen />);
-     await waitFor(() => {
--      expect(screen.getByTestId("ops1-session-id")).toHaveTextContent(
--        "ops1-sess-11111111-1111-4111-8111-111111111111",
--      );
-+      expect(screen.getByTestId("ops1-badge-test-provider")).toBeInTheDocument();
-     });
--    expect(screen.getByTestId("ops1-session-status")).toHaveTextContent("OPEN");
-+    expect(screen.queryByTestId("ops1-badge-live")).toBeNull();
-+    expect(screen.getByText("TEST / FAKE")).toBeInTheDocument();
-+    expect(screen.getByText("Assistant test")).toBeInTheDocument();
-+    expect(screen.getByTestId("ops1-mode-locked").textContent).toMatch(
-+      /verrouillé/,
-+    );
-   });
++| Situation | Review pack | Handoff |
++|-----------|-------------|---------|
++| Cycle Cursor produisant un rapport simple | Light | Required + publish-in-cycle |
++| Cycle Cursor substantiel | Full | Required + publish-in-cycle |
++| Cycle documentaire / méthode / template / règle | Light ou Full selon portée | Required + publish-in-cycle |
++| PR readiness / post-merge / capitalisation | Light ou Full selon portée | Required + publish-in-cycle |
++| Publication techniquement bloquée | Light ou Full | Local-only exceptionnel + régularisation |
++| Opération read-only sans rapport Cursor | Hors contrat | Aucun rapport / aucun handoff |
++
++> Verdict prompt incomplet : `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` (rapport Cursor + review pack absent/`none`, handoff `not required`, ou `local-only` non conforme).
++>
++> La granularité Light / Full existante est **conservée**. `none` et `not required` ne sont **plus** des options pour un cycle Cursor produisant un rapport.
 
--  it("shows create error", async () => {
--    const user = userEvent.setup();
--    create.mockResolvedValue({
--      ok: false,
--      code: "PERSISTENCE",
--      message: "Échec de création de la session.",
-+  it("shows GPT LIVE badges for real live presentation", async () => {
-+    liveConfig.mockResolvedValue({
-+      ok: true,
-+      data: { available: true, missing: [], testProvider: false },
-     });
--    render(<Ops1SessionScreen />);
--    await waitFor(() =>
--      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
--        0,
--      ),
-+    get.mockResolvedValue({
-+      ok: true,
-+      data: {
-+        session: liveSession,
-+        turns: [
-+          {
-+            turnId: "t2",
-+            sessionId: liveSession.sessionId,
-+            sequence: 2,
-+            role: "assistant_live",
-+            content: "hello from openai",
-+            fixture: false,
-+            createdAt: "t",
-+          },
-+        ],
-+        attempts: [],
-+        presentation: "openai_live",
-+      },
-+    });
-+    window.sessionStorage.setItem(
-+      "sfia-ops1-i1-active-session",
-+      liveSession.sessionId,
-     );
--    await user.click(screen.getAllByTestId("ops1-create-session")[0]);
-+    render(<Ops1SessionScreen />);
-     await waitFor(() => {
--      expect(screen.getByTestId("ops1-error")).toHaveTextContent(
--        "Échec de création de la session.",
--      );
-+      expect(screen.getByTestId("ops1-badge-live")).toHaveTextContent("GPT LIVE");
-     });
-+    expect(screen.queryByText("TEST / FAKE")).toBeNull();
-+    expect(screen.getByText("Assistant live")).toBeInTheDocument();
-   });
- });
-
-```
-
-### `projects/sfia-studio/app/app/nouvelle-demande/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-index 5878171..8754b03 100644
---- a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-+++ b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-@@ -9,26 +9,26 @@ export default function NouvelleDemandePage() {
-       title="Nouvelle demande"
-       pills={[
-         { label: "MODE FIXTURE / NON LIVE", tone: "orange" },
--        { label: "OPS1 I1", tone: "blueFlush" },
-+        { label: "OPS1 I2", tone: "blueFlush" },
-       ]}
-       copilot={{
-         variant: "flush",
-         name: "Nora · SFIA Copilot",
--        subtitle: "OPS1 I1 — session locale",
-+        subtitle: "OPS1 I2 — conversation live/fixture",
-         avatarTone: "blue",
-         levelPill: "L0 humain",
-         summary:
--          "Session CycleSession OPEN et journal fixture. Aucun GPT live, aucun Cursor live, aucune action Markdown.",
-+          "Conversation multi-tours (fixture ou GPT live serveur). Aucune exécution Cursor, aucun gate d’action.",
-         checklist: [
-           "Créer session OPEN",
--          "Journaliser tours fixture",
--          "Recharger et retrouver le journal",
--          "Aucun effet d’exécution",
-+          "Échanger fixture ou live",
-+          "Persister journal + usage",
-+          "Aucun effet d’exécution depuis le chat",
-         ],
--        checklistTitle: "Parcours I1",
-+        checklistTitle: "Parcours I2",
-         riskTitle: "PÉRIMÈTRE",
-         riskText:
--          "I1 n’ouvre pas I2–I7, la clôture CLOSED, ni la CI. E01-03 hors scope.",
-+          "I2 n’ouvre pas I3–I7, la clôture CLOSED, ni la CI. Chat ≠ exécution.",
-       }}
-     >
-       <NouvelleDemandeScreen />
-
-```
-
-### `projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts b/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
-index c6e97f6..36b868f 100644
---- a/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
-+++ b/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
-@@ -20,7 +20,7 @@ test.describe("OPS1 I1 session + journal", () => {
-     await page.reload();
-     await expect(page.getByTestId("ops1-session-root")).toBeVisible();
-     await expect(
--      page.getByTestId("ops1-session-root").getByText("MODE FIXTURE / NON LIVE"),
-+      page.getByTestId("ops1-session-root").getByText("FIXTURE / NON LIVE"),
-     ).toBeVisible();
-     await expect(page.getByTestId("ops1-empty-state")).toBeVisible();
-
-@@ -29,9 +29,12 @@ test.describe("OPS1 I1 session + journal", () => {
-       fullPage: true,
-     });
-
-+    await page.getByTestId("ops1-create-mode-fixture").check();
-     await page.getByTestId("ops1-create-session").click();
-     await expect(page.getByTestId("ops1-open-session")).toBeVisible();
--    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
-+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
-+      "FIXTURE — verrouillé",
-+    );
-     const sessionId = await page.getByTestId("ops1-session-id").innerText();
-     expect(sessionId).toMatch(/^ops1-sess-/);
+ ## 3. Positionnement dans SFIA
 
 
 ```
 
-### `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
+## Diff utile complet — operating model
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-index bb0d8ee..8437b50 100644
---- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-+++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-@@ -4,11 +4,18 @@ import { useCallback, useEffect, useState, useTransition } from "react";
- import { CtaButton } from "@/components/ui/CtaButton";
- import { StatusPill } from "@/components/ui/StatusPill";
- import {
--  ops1AppendUserMessageAction,
-   ops1CreateSessionAction,
-+  ops1GetLiveConfigAction,
-   ops1GetSessionAction,
-+  ops1SendMessageAction,
- } from "@/lib/ops1/actions";
--import type { CycleSession, JournalTurn } from "@/lib/ops1/types";
-+import type {
-+  ConversationMode,
-+  ConversationUsageCounters,
-+  CycleSession,
-+  JournalTurn,
-+  ProviderPresentation,
-+} from "@/lib/ops1/types";
- import { OPS1_MAX_MESSAGE_CHARS } from "@/lib/ops1/types";
- import styles from "./ops1-session.module.css";
+diff --git a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+index c3e219d..b5c3135 100644
+--- a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
++++ b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+@@ -166,11 +166,25 @@ La boucle ChatGPT ↔ Cursor suit le flux suivant :
 
-@@ -23,12 +30,31 @@ type UiPhase =
-   | "error_create"
-   | "error_journal";
+ ```text
+ Humain → ChatGPT (cadrage + prompt) → Cursor (exécution)
+-       → Retour Cursor → ChatGPT (validation) → Humain (GO/NO-GO)
+-       → Commit → PR → Merge → Post-merge → Capitalisation
++       → Retour Cursor
++         → review pack obligatoire (light/full)
++         → publication handoff (sfia/review-handoff) — L3 borné
++         → vérification distante
++       → ChatGPT (analyse via handoff Git) → Humain (GO/NO-GO)
++       → Commit projet / PR / Merge (gates Morris — flux projet distinct)
++       → Post-merge → Capitalisation
+        → [Notion preparation — optional, after validation]
+ ```
 
-+function roleLabel(
-+  role: JournalTurn["role"],
-+  presentation: ProviderPresentation,
-+): string {
-+  if (role === "user") return "Vous";
-+  if (role === "assistant_fixture") return "Assistant fixture";
-+  if (presentation === "test_provider") return "Assistant test";
-+  return "Assistant live";
-+}
++**Distinction des flux :**
 +
- export function Ops1SessionScreen() {
-   const [phase, setPhase] = useState<UiPhase>("boot");
-   const [session, setSession] = useState<CycleSession | null>(null);
-   const [turns, setTurns] = useState<JournalTurn[]>([]);
-   const [draft, setDraft] = useState("");
-   const [error, setError] = useState<string | null>(null);
-+  const [createMode, setCreateMode] = useState<ConversationMode>("fixture");
-+  const [liveAvailable, setLiveAvailable] = useState(false);
-+  const [liveMissing, setLiveMissing] = useState<string[]>([]);
-+  const [testProvider, setTestProvider] = useState(false);
-+  const [presentation, setPresentation] =
-+    useState<ProviderPresentation>("fixture");
-+  const [lastUsage, setLastUsage] = useState<ConversationUsageCounters | null>(
-+    null,
-+  );
-   const [pending, startTransition] = useTransition();
++| Flux | Contenu | Autorisation |
++|------|---------|--------------|
++| **Flux handoff de validation** | Review pack → `sfia-review-handoff/latest-chatgpt-review.md` → push `sfia/review-handoff` → vérification distante | L3 bornée automatique pour tout rapport Cursor |
++| **Flux projet** | Commit / push branche projet / PR / merge / baseline | Gates Morris — **jamais** autorisés par le push handoff |
++
++> Le push L3 borné du handoff est une étape technique répétable incluse dans tout cycle produisant un rapport. Il ne constitue pas une autorisation de push du travail projet.
++
+ ## 6. Détail des étapes
 
-   const loadBundle = useCallback(async (sessionId: string) => {
-@@ -45,6 +71,7 @@ export function Ops1SessionScreen() {
-     }
-     setSession(result.data.session);
-     setTurns(result.data.turns);
-+    setPresentation(result.data.presentation);
-     setError(null);
-     setPhase("open");
-   }, []);
-@@ -52,6 +79,12 @@ export function Ops1SessionScreen() {
-   useEffect(() => {
-     let cancelled = false;
-     (async () => {
-+      const cfg = await ops1GetLiveConfigAction();
-+      if (!cancelled && cfg.ok) {
-+        setLiveAvailable(cfg.data.available);
-+        setLiveMissing(cfg.data.missing);
-+        setTestProvider(cfg.data.testProvider);
-+      }
-       const stored =
-         typeof window !== "undefined"
-           ? window.sessionStorage.getItem(STORAGE_KEY)
-@@ -68,10 +101,18 @@ export function Ops1SessionScreen() {
-   }, [loadBundle]);
+ | Étape | Description | Responsable principal | Sortie attendue |
+@@ -580,7 +594,7 @@ Cycle simple, faible risque, faible impact.
 
-   const onCreate = () => {
-+    if (createMode === "live" && !liveAvailable) {
-+      setError(
-+        `Création live impossible (variables manquantes : ${liveMissing.join(", ") || "OPENAI_API_KEY, OPENAI_MODEL"}).`,
-+      );
-+      setPhase("error_create");
-+      return;
-+    }
-     setError(null);
-+    setLastUsage(null);
-     setPhase("creating");
-     startTransition(async () => {
--      const result = await ops1CreateSessionAction();
-+      const result = await ops1CreateSessionAction({ mode: createMode });
-       if (!result.ok) {
-         setError(result.message);
-         setPhase("error_create");
-@@ -80,6 +121,13 @@ export function Ops1SessionScreen() {
-       window.sessionStorage.setItem(STORAGE_KEY, result.data.session.sessionId);
-       setSession(result.data.session);
-       setTurns([]);
-+      setPresentation(
-+        result.data.session.conversationMode === "fixture"
-+          ? "fixture"
-+          : testProvider
-+            ? "test_provider"
-+            : "openai_live",
-+      );
-       setPhase("open");
-     });
-   };
-@@ -89,9 +137,10 @@ export function Ops1SessionScreen() {
-     setError(null);
-     setPhase("sending");
-     startTransition(async () => {
--      const result = await ops1AppendUserMessageAction({
-+      const result = await ops1SendMessageAction({
-         sessionId: session.sessionId,
-         content: draft,
-+        mode: session.conversationMode,
-       });
-       if (!result.ok) {
-         setError(result.message);
-@@ -99,13 +148,16 @@ export function Ops1SessionScreen() {
-         return;
-       }
-       setDraft("");
-+      setLastUsage(result.data.usage);
-+      setPresentation(result.data.presentation);
-+      await loadBundle(session.sessionId);
-       if (result.data.assistantError) {
-         setError(result.data.assistantError);
-         setPhase("error_journal");
-       } else {
-+        setError(null);
-         setPhase("open");
-       }
--      await loadBundle(session.sessionId);
-     });
-   };
+ **Critères indicatifs :** correction doc simple ; mono-fichier ou ≤ 3 fichiers ; pas de code applicatif ; pas de chemin protégé ; pas de décision doctrine ; pas de décision produit structurante ; pas de risque sécurité ; pas de relance tooling ou architecture.
 
-@@ -114,22 +166,76 @@ export function Ops1SessionScreen() {
-     setSession(null);
-     setTurns([]);
-     setError(null);
-+    setLastUsage(null);
-+    setPresentation("fixture");
-     setPhase("idle");
-   };
+-**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; review pack **none** par défaut — **light** si consultation documentaire (template §7).
++**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; review pack **light** obligatoire si rapport Cursor (template §7.0) — jamais `none` pour un rapport ; handoff **required + publish-in-cycle**.
 
-+  const lockedMode = session?.conversationMode;
-+  const isFixtureSession = lockedMode === "fixture";
-+  const isLiveSession = lockedMode === "live";
-+  const isTestPresentation = presentation === "test_provider";
-+  const isOpenAiLive = presentation === "openai_live";
-+
-   return (
-     <div className={styles.root} data-testid="ops1-session-root">
-       <header className={styles.header}>
--        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I1</p>
-+        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I2</p>
-         <h2 className={styles.title} id="ops1-session-heading">
-           Session OPS1
-         </h2>
-         <p className={styles.lede}>
--          Ouvrir une CycleSession locale, journaliser des tours fixture, et
--          retrouver le journal après rechargement. Aucun fournisseur live.
-+          Conversation multi-tours. Le mode est choisi à la création puis
-+          verrouillé. Aucune exécution, aucun gate, aucun Cursor depuis le chat.
-         </p>
-         <div className={styles.badgeRow} aria-live="polite">
--          <StatusPill tone="orange">MODE FIXTURE / NON LIVE</StatusPill>
-+          {!session ? (
-+            <>
-+              <span data-testid="ops1-badge-fixture">
-+                <StatusPill tone="orange">FIXTURE / NON LIVE</StatusPill>
-+              </span>
-+              {testProvider ? (
-+                <span data-testid="ops1-badge-test-provider">
-+                  <StatusPill tone="purple">TEST PROVIDER / NON LIVE</StatusPill>
-+                </span>
-+              ) : null}
-+              {!liveAvailable ? (
-+                <span data-testid="ops1-badge-live-unavailable">
-+                  <StatusPill tone="muted">LIVE INDISPONIBLE</StatusPill>
-+                </span>
-+              ) : testProvider ? (
-+                <span data-testid="ops1-badge-live-ready">
-+                  <StatusPill tone="blueFlush">
-+                    LIVE TECHNIQUE (TEST)
-+                  </StatusPill>
-+                </span>
-+              ) : (
-+                <span data-testid="ops1-badge-live-ready">
-+                  <StatusPill tone="blueFlush">LIVE DISPONIBLE</StatusPill>
-+                </span>
-+              )}
-+            </>
-+          ) : null}
-+          {session && isFixtureSession ? (
-+            <span data-testid="ops1-badge-fixture">
-+              <StatusPill tone="orange">FIXTURE / NON LIVE</StatusPill>
-+            </span>
-+          ) : null}
-+          {session && isLiveSession && isTestPresentation ? (
-+            <span data-testid="ops1-badge-test-provider">
-+              <StatusPill tone="purple">TEST PROVIDER / NON LIVE</StatusPill>
-+            </span>
-+          ) : null}
-+          {session && isLiveSession && isOpenAiLive ? (
-+            <span data-testid="ops1-badge-live">
-+              <StatusPill tone="green">GPT LIVE</StatusPill>
-+            </span>
-+          ) : null}
-+          {session && isLiveSession && isOpenAiLive ? (
-+            <span data-testid="ops1-badge-live-ready">
-+              <StatusPill tone="blueFlush">LIVE DISPONIBLE</StatusPill>
-+            </span>
-+          ) : null}
-           {session ? <StatusPill tone="green">OPEN</StatusPill> : null}
-         </div>
-       </header>
-@@ -150,9 +256,63 @@ export function Ops1SessionScreen() {
-             Aucune session active
-           </h2>
-           <p className={styles.muted}>
--            Projet cible : <strong>sfia-studio-ops1</strong>. La session sera
--            créée en statut OPEN avec journal initialisé.
-+            Projet cible : <strong>sfia-studio-ops1</strong>. Choisissez le mode
-+            avant de créer la session — il sera ensuite immuable.
-           </p>
-+
-+          <div
-+            className={styles.modeRow}
-+            role="radiogroup"
-+            aria-label="Choix du mode de session"
-+            data-testid="ops1-create-mode-selector"
-+          >
-+            <label className={styles.modeOption}>
-+              <input
-+                type="radio"
-+                name="ops1-create-mode"
-+                value="fixture"
-+                checked={createMode === "fixture"}
-+                data-testid="ops1-create-mode-fixture"
-+                onChange={() => setCreateMode("fixture")}
-+              />
-+              Fixture locale — test non live
-+            </label>
-+            <label className={styles.modeOption}>
-+              <input
-+                type="radio"
-+                name="ops1-create-mode"
-+                value="live"
-+                checked={createMode === "live"}
-+                data-testid="ops1-create-mode-live"
-+                disabled={!liveAvailable}
-+                onChange={() => {
-+                  if (liveAvailable) setCreateMode("live");
-+                }}
-+              />
-+              GPT live — appel fournisseur réel
-+              {testProvider ? " (environnement de test)" : ""}
-+            </label>
-+          </div>
-+
-+          {!liveAvailable ? (
-+            <p
-+              className={styles.warn}
-+              data-testid="ops1-live-unavailable-notice"
-+            >
-+              Configuration live indisponible (
-+              {liveMissing.join(", ") || "OPENAI_API_KEY, OPENAI_MODEL"}).
-+              L’option GPT live est désactivée. Aucune valeur secrète n’est
-+              affichée.
-+            </p>
-+          ) : null}
-+
-+          {testProvider ? (
-+            <p className={styles.warn} data-testid="ops1-test-env-notice">
-+              Environnement de test — aucun appel OpenAI. Les réponses du
-+              provider fake ne sont jamais présentées comme GPT live.
-+            </p>
-+          ) : null}
-+
-           {error ? (
-             <p className={styles.error} role="alert" data-testid="ops1-error">
-               {error}
-@@ -160,10 +320,14 @@ export function Ops1SessionScreen() {
-           ) : null}
-           <CtaButton
-             onClick={onCreate}
--            disabled={pending}
-+            disabled={pending || (createMode === "live" && !liveAvailable)}
-             data-testid="ops1-create-session"
-           >
--            Nouvelle session
-+            {createMode === "live"
-+              ? testProvider
-+                ? "Créer session live (test provider)"
-+                : "Créer session GPT live"
-+              : "Créer session fixture"}
-           </CtaButton>
-         </section>
-       ) : null}
-@@ -196,6 +360,62 @@ export function Ops1SessionScreen() {
-             </div>
-           </dl>
+ ##### Standard
 
-+          <div
-+            className={styles.lockedMode}
-+            data-testid="ops1-mode-locked"
-+            aria-live="polite"
-+          >
-+            <p className={styles.lockedModeLabel} data-testid="ops1-mode-label">
-+              {session.conversationMode === "fixture"
-+                ? "Mode de session : FIXTURE — verrouillé"
-+                : isTestPresentation
-+                  ? "Mode de session : LIVE TECHNIQUE (TEST) — verrouillé"
-+                  : "Mode de session : GPT LIVE — verrouillé"}
-+            </p>
-+            <p className={styles.hint} data-testid="ops1-mode-lock-hint">
-+              Le mode ne peut pas être modifié dans cette session. Créez une
-+              nouvelle session pour changer de mode.
-+            </p>
-+            {/* Radios disabled — non-interactive lock proof for E2E */}
-+            <div
-+              className={styles.modeRow}
-+              role="group"
-+              aria-label="Mode de session verrouillé"
-+              data-testid="ops1-mode-selector"
-+            >
-+              <label className={styles.modeOption}>
-+                <input
-+                  type="radio"
-+                  name="ops1-mode-locked"
-+                  value="fixture"
-+                  checked={session.conversationMode === "fixture"}
-+                  disabled
-+                  data-testid="ops1-mode-fixture"
-+                  readOnly
-+                />
-+                Fixture / non live
-+              </label>
-+              <label className={styles.modeOption}>
-+                <input
-+                  type="radio"
-+                  name="ops1-mode-locked"
-+                  value="live"
-+                  checked={session.conversationMode === "live"}
-+                  disabled
-+                  data-testid="ops1-mode-live"
-+                  readOnly
-+                />
-+                Live GPT
-+              </label>
-+            </div>
-+          </div>
-+
-+          {isTestPresentation ? (
-+            <p className={styles.warn} data-testid="ops1-test-env-notice">
-+              Environnement de test — aucun appel OpenAI.
-+            </p>
-+          ) : null}
-+
-           <div className={styles.journal} data-testid="ops1-journal">
-             <h3 className={styles.journalTitle}>Journal</h3>
-             {turns.length === 0 ? (
-@@ -215,14 +435,22 @@ export function Ops1SessionScreen() {
-                     data-testid="ops1-turn"
-                     data-role={turn.role}
-                     data-sequence={turn.sequence}
-+                    data-fixture={turn.fixture ? "1" : "0"}
-                   >
-                     <div className={styles.turnMeta}>
-                       <span>#{turn.sequence}</span>
--                      <span>
--                        {turn.role === "user" ? "Vous" : "Assistant fixture"}
--                      </span>
--                      {turn.fixture ? (
--                        <span className={styles.fixtureTag}>fixture</span>
-+                      <span>{roleLabel(turn.role, presentation)}</span>
-+                      {turn.role === "assistant_fixture" ? (
-+                        <span className={styles.fixtureTag}>
-+                          FIXTURE / NON LIVE
-+                        </span>
-+                      ) : null}
-+                      {turn.role === "assistant_live" &&
-+                      isTestPresentation ? (
-+                        <span className={styles.testTag}>TEST / FAKE</span>
-+                      ) : null}
-+                      {turn.role === "assistant_live" && isOpenAiLive ? (
-+                        <span className={styles.liveTag}>GPT LIVE</span>
-                       ) : null}
-                     </div>
-                     <p className={styles.turnContent}>{turn.content}</p>
-@@ -232,12 +460,43 @@ export function Ops1SessionScreen() {
-             )}
-           </div>
+@@ -681,7 +695,7 @@ routing guide → méthode cycles v2.5 → template d'exécution → operating m
 
-+          {lastUsage ? (
-+            <dl className={styles.usage} data-testid="ops1-usage">
-+              <div>
-+                <dt>Provider</dt>
-+                <dd>{lastUsage.provider}</dd>
-+              </div>
-+              <div>
-+                <dt>Modèle</dt>
-+                <dd>{lastUsage.model ?? "—"}</dd>
-+              </div>
-+              <div>
-+                <dt>Tokens in/out/total</dt>
-+                <dd>
-+                  {lastUsage.inputTokens ?? "—"} /{" "}
-+                  {lastUsage.outputTokens ?? "—"} /{" "}
-+                  {lastUsage.totalTokens ?? "—"}
-+                </dd>
-+              </div>
-+              <div>
-+                <dt>Durée (ms)</dt>
-+                <dd>{lastUsage.durationMs ?? "—"}</dd>
-+              </div>
-+            </dl>
-+          ) : null}
-+
-           {error ? (
-             <p className={styles.error} role="alert" data-testid="ops1-error">
-               {error}
-             </p>
-           ) : null}
+ - **prépare** le contrat Cursor (prompt d'exécution) ;
+ - **distingue** observations, options, recommandations et décisions validées ;
+-- **recommande** le niveau review pack : none / light / full ;
++- **recommande** le niveau review pack : **light / full** (obligatoire si rapport Cursor — jamais `none`) ;
+ - **ne décide pas** à la place de Morris.
 
-+          {phase === "sending" ? (
-+            <p className={styles.muted} data-testid="ops1-sending">
-+              Envoi en cours…
-+            </p>
-+          ) : null}
+ Si Git n'est pas accessible : signaler explicitement et générer un prompt prudent — Cursor renforce la découverte locale.
+@@ -695,7 +709,7 @@ Cursor :
+ - **vérifie** que le workspace local correspond au contrat généré ;
+ - **stoppe** si divergence ;
+ - **ne découvre pas** un scope large si ChatGPT a déjà cadré le repo ;
+-- **remplit** le review pack selon le niveau demandé (none / light / full) ;
++- **remplit** le review pack selon le niveau demandé (**light / full** si rapport Cursor) ;
+ - **ne laisse pas** de stub final si review pack light/full requis ;
+ - **ne push / PR / merge jamais** sans GO Morris.
+
+@@ -737,13 +751,15 @@ Morris :
+ | **Review pack temporaire** | Hors commit ; purge/suppression possible après validation Morris/ChatGPT |
+ | **Apprentissages durables** | Document versionné dédié — jamais `.tmp-sfia-review/` comme doctrine permanente |
+
+-**Niveaux :**
++**Niveaux (si rapport Cursor) :**
+
+ | Niveau | Quand |
+ |--------|-------|
+-| **none** | Micro-cycle technique sans doc consulté/modifié/créé |
+-| **light** | Cycle standard borné ; Git accessible ; diff suffisant |
+-| **full** | Capitalisation ; modification méthode/template ; décision structurante ; sources non accessibles Git |
++| **light** | Cycle simple/borné ; Git accessible ; diff suffisant |
++| **full** | Capitalisation ; modification méthode/template ; décision structurante ; delivery/QA/PR readiness/post-merge selon portée ; sources non accessibles Git |
++| **Hors contrat** | Opération read-only **sans** rapport Cursor — pas de review pack / handoff |
 +
-           <form
-             className={styles.composer}
-             onSubmit={(e) => {
-@@ -246,7 +505,13 @@ export function Ops1SessionScreen() {
-             }}
-           >
-             <label className={styles.label} htmlFor="ops1-message">
--              Message local (fixture)
-+              Message (
-+              {isFixtureSession
-+                ? "fixture locale"
-+                : isTestPresentation
-+                  ? "test provider / non live"
-+                  : "GPT live serveur"}
-+              )
-             </label>
-             <textarea
-               id="ops1-message"
-@@ -257,7 +522,7 @@ export function Ops1SessionScreen() {
-               rows={4}
-               disabled={pending || phase === "sending"}
-               onChange={(e) => setDraft(e.target.value)}
--              placeholder="Saisir un tour utilisateur local…"
-+              placeholder="Saisir un tour utilisateur…"
-             />
-             <div className={styles.composerActions}>
-               <CtaButton
-@@ -265,7 +530,11 @@ export function Ops1SessionScreen() {
-                 disabled={pending || !draft.trim()}
-                 data-testid="ops1-send-message"
-               >
--                Envoyer (fixture)
-+                {isFixtureSession
-+                  ? "Envoyer (fixture)"
-+                  : isTestPresentation
-+                    ? "Envoyer (test provider)"
-+                    : "Envoyer (GPT live)"}
-               </CtaButton>
-               <CtaButton
-                 variant="secondary"
-@@ -275,8 +544,10 @@ export function Ops1SessionScreen() {
-                 Revenir à l’écran vide
-               </CtaButton>
-             </div>
--            <p className={styles.hint}>
--              Pas d’action d’exécution, pas de gate, pas de Campus360. Max{" "}
-+            <p className={styles.hint} data-testid="ops1-no-execution-hint">
-+              L’exécution (Cursor, gate, contrat, Git) nécessite un parcours
-+              distinct — non disponible dans I2. Un message du type « exécute
-+              Cursor » reste du texte conversationnel. Max{" "}
-               {OPS1_MAX_MESSAGE_CHARS} caractères.
-             </p>
-           </form>
++> Ancienne valeur `none` : **retirée** pour les cycles Cursor produisant un rapport (template §7.0).
+
+ **Anti-stub final :** si light ou full requis, le review pack doit être complété avant le rapport final Cursor — jamais un stub minimal en clôture.
+
+@@ -751,40 +767,42 @@ Morris :
+
+ Proposition d'instruction (à ajouter aux projets ChatGPT — hors modification directe Git) :
+
+-> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push branche projet, PR, merge et promotions de baseline. Le review pack est proportionné. **Tout prompt nécessitant review pack light/full et analyse ChatGPT doit inclure une décision Review Handoff Git required / not required (template §7.10–§7.11). Lorsque required : copie, commit, push et vérification remote du handoff, plus instruction ChatGPT §9.1 dans le rapport final.**
++> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push branche projet, PR, merge et promotions de baseline. **Règle centrale : RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE (light/full) = PUBLICATION HANDOFF DANS LE MÊME CYCLE (template §7.0, §7.10–§7.11). publish-in-cycle + push L3 borné automatiques. local-only = exception technique uniquement. Aucun `none` / `not required` pour un rapport Cursor.**
+
+ Détail opérationnel : template §10.
+
+-##### H. Review Handoff Git Branch — décision required / not required
++##### H. Review Handoff Git Branch — obligatoire pour tout rapport Cursor
+
+-> **Référence détaillée :** template §7.10–§7.11 — **candidate** ; décision **obligatoire** ; plus « optionnel par omission ».
++> **Référence détaillée :** template §7.0, §7.10–§7.11 — règle centrale : `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE`.
+
+-Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, sans extension ni copier-coller.
++Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, sans extension ni copier-coller. Le push L3 borné du handoff est une étape technique répétable incluse dans tout cycle produisant un rapport. Il ne constitue pas une autorisation de push du travail projet.
+
+ **ChatGPT :**
+
+-- **qualifie explicitement** required / not required dans chaque prompt ;
++- **exige** review pack light/full + handoff **required** + **publish-in-cycle** pour tout prompt produisant un rapport Cursor ;
++- **refuse** `none` / `not required` / `local-only` non conforme — **`PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`** ;
+ - **injecte** la section Review Handoff Git complète (template §5) ;
+-- **refuse** un prompt sans décision — **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** ;
+-- **doit consulter** le handoff remote **avant** de répondre lorsque handoff = required ;
+-- **refuse** un verdict READY si handoff required absent, obsolète ou synthesis-only ;
++- **doit consulter** le handoff remote **avant** de répondre ;
++- **refuse** un verdict READY si handoff absent, obsolète ou synthesis-only ;
+ - **signale** `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` si incohérent.
+
+ **Cursor :**
+
+-- **publie le handoff** lorsque prompt qualifie **required** — ne désactive pas un handoff required ;
+-- **copie, commit, push, vérifie remote** — L3 borné (template §7.10.1) ;
+-- **affiche** le bloc Instruction ChatGPT obligatoire (template §9.1) si required ;
++- **produit le review pack** puis **publie le handoff** dans le même cycle (template §7.10.1) ;
++- **copie, commit, push, vérifie remote** — L3 borné ;
++- **affiche** le bloc Instruction ChatGPT obligatoire (template §9.1) ;
+ - **rapporte** tous les champs handoff §9.1 ;
+-- **ne merge jamais** `sfia/review-handoff`.
++- **ne merge jamais** `sfia/review-handoff` ;
++- en exception technique `local-only` : **`HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED`**.
+
+ **Morris :**
+
+-- **valide** la règle candidate ;
+-- **décide** des exceptions not required ;
+-- **n'a pas** à répéter un micro-GO handoff lorsque required est conforme à §7.11.
++- **valide** la règle ;
++- **peut interdire explicitement** une publication handoff (exception technique) ;
++- **n'a pas** à répéter un micro-GO handoff lorsque publish-in-cycle est conforme à §7.11 ;
++- **garde** l'autorité exclusive sur commit/push/PR/merge **projet**.
+
+-**Automatisation :** L3 bornée lorsque handoff = required.
++**Automatisation :** L3 bornée pour tout cycle produisant un rapport Cursor (sauf exception technique documentée).
+
+ ##### I. Figma visual contract / Figma-to-code (candidate — capitalisation v2.5 PR 3)
+
 
 ```
 
-### `projects/sfia-studio/app/features/ops1/ops1-session.module.css`
+## Diff utile complet — guardrails (alignement minimal)
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/ops1/ops1-session.module.css b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
-index dec85d4..675dc7c 100644
---- a/projects/sfia-studio/app/features/ops1/ops1-session.module.css
-+++ b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
-@@ -141,6 +141,79 @@
-   font-weight: 600;
- }
+diff --git a/method/sfia-fast-track/core/sfia-rules-and-guardrails.md b/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+index e1445c1..a0ac9e0 100644
+--- a/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
++++ b/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+@@ -213,21 +213,24 @@ SFIA utilise les décisions suivantes :
+ | Document créé sans source | Connaissance non traçable |
+ | UI avant maquette stable | Écart visuel et rework |
+ | Mélange UI + backend + auth | Dérive de périmètre |
+-| Prompt sans décision Review Handoff Git | Handoff omis — ChatGPT lit un cycle obsolète |
+-| Review pack light/full pour ChatGPT sans handoff required | Cycle incomplet — pas de publication remote |
++| Rapport Cursor sans review pack light/full | Cycle incomplet — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` |
++| Rapport Cursor avec handoff `not required` ou `none` | Ambiguïté interdite — publication handoff obligatoire |
++| Review pack light/full sans publish-in-cycle | Cycle incomplet — pas de publication remote |
 
-+.liveTag {
-+  color: var(--sfia-green, #1b7a4e);
-+  font-weight: 600;
-+}
-+
-+.testTag {
-+  color: var(--sfia-purple, #6b4fbb);
-+  font-weight: 600;
-+}
-+
-+.lockedMode {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 0.5rem;
-+  padding: 0.75rem 0.9rem;
-+  border-radius: 8px;
-+  border: 1px solid var(--sfia-border);
-+  background: #f7f8fa;
-+}
-+
-+.lockedModeLabel {
-+  margin: 0;
-+  font-weight: 600;
-+  color: var(--sfia-ink);
-+}
-+
-+.modeRow {
-+  display: flex;
-+  flex-wrap: wrap;
-+  gap: 1rem;
-+}
-+
-+.modeOption {
-+  display: inline-flex;
-+  align-items: center;
-+  gap: 0.4rem;
-+  font-size: 0.9rem;
-+  color: var(--sfia-ink);
-+}
-+
-+.warn {
-+  margin: 0;
-+  padding: 0.75rem 0.9rem;
-+  border-radius: 8px;
-+  background: #fff8e8;
-+  border: 1px solid #efd39a;
-+  color: #7a5a12;
-+}
-+
-+.usage {
-+  display: grid;
-+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-+  gap: 0.65rem 1rem;
-+  margin: 0;
-+  padding: 0.75rem 0.9rem;
-+  border-radius: 8px;
-+  border: 1px dashed var(--sfia-border);
-+  background: #fafafa;
-+}
-+
-+.usage dt {
-+  font-size: 0.7rem;
-+  text-transform: uppercase;
-+  letter-spacing: 0.04em;
-+  color: var(--sfia-muted);
-+}
-+
-+.usage dd {
-+  margin: 0.15rem 0 0;
-+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-+  font-size: 0.85rem;
-+}
-+
- .turnContent {
-   margin: 0;
-   white-space: pre-wrap;
+ ## 13.1 Review Handoff Git — règle transverse (absorbée v2.6 — origine capitalisation v2.5)
+
+-> **Référence :** template §7.10–§7.11 ; operating model §18.2.8.H ; routing guide §2.1.
++> **Référence :** template §7.0, §7.10–§7.11 ; operating model §18.2.8.H ; routing guide §2.1.
++> **Règle centrale :** `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE`.
+
+ | Règle | Application |
+ |-------|-------------|
+-| **Décision obligatoire** | Tout prompt Cursor SFIA doit qualifier Review Handoff Git : **required** ou **not required** |
+-| **Prompt incomplet** | Review pack light/full destiné à ChatGPT sans décision handoff → **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** |
+-| **Handoff required** | Copie review pack → commit → push `origin/sfia/review-handoff` → vérification remote — L3 borné |
++| **Décision obligatoire** | Tout cycle Cursor produisant un rapport : Review Handoff Git = **required** + Mode **`publish-in-cycle`** + Push **oui — L3 borné** |
++| **Prompt incomplet** | Rapport Cursor avec review pack absent/`none`, handoff `not required`, ou `local-only` non conforme → **`PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`** |
++| **Handoff required** | Copie review pack → commit → push `origin/sfia/review-handoff` → vérification remote — L3 borné **dans le même cycle** |
++| **Exception `local-only`** | Uniquement blocage technique / interdiction Morris explicite → **`HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED`** |
+ | **Rapport incomplet** | Rapport demandant lecture handoff sans push/remote confirmés → cycle incomplet |
+-| **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor lorsque handoff required |
+-| **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 |
++| **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor pour tout rapport Cursor |
++| **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 — alignement mandatory routing en attente de merge méthode |
+
+ ## 14. Documents associés
+
 
 ```
 
-### `projects/sfia-studio/app/lib/ops1/actions.ts`
+## Diff utile complet — template d'exécution
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/actions.ts b/projects/sfia-studio/app/lib/ops1/actions.ts
-index 9836fd1..d756c8e 100644
---- a/projects/sfia-studio/app/lib/ops1/actions.ts
-+++ b/projects/sfia-studio/app/lib/ops1/actions.ts
-@@ -1,15 +1,29 @@
- "use server";
+diff --git a/prompts/templates/sfia-cycle-execution-template.md b/prompts/templates/sfia-cycle-execution-template.md
+index c5d8dbb..8270388 100644
+--- a/prompts/templates/sfia-cycle-execution-template.md
++++ b/prompts/templates/sfia-cycle-execution-template.md
+@@ -93,12 +93,12 @@ Repo-informed pre-check ChatGPT
+ - fichiers autorisés :
+ - fichiers interdits :
+ - gates Morris :
+-- niveau review pack recommandé : none / light / full
+-- review handoff Git : required / not required — obligatoire
++- niveau review pack recommandé : light / full (obligatoire si rapport Cursor ; hors contrat si opération read-only sans rapport)
++- review handoff Git : required (obligatoire si rapport Cursor) — exception technique local-only documentée uniquement
+ - justification handoff :
+-- mode handoff : publish-in-cycle / local-only / not-required
+-- motif local-only : [obligatoire si local-only]
+-- push handoff autorisé : oui — L3 borné / non
++- mode handoff : publish-in-cycle (défaut) / local-only (exception technique uniquement)
++- motif local-only : [obligatoire si local-only — exception technique conforme §7.10.3]
++- push handoff autorisé : oui — L3 borné (automatique si rapport Cursor, sauf exception technique)
+ - limites / incertitudes :
+ - verdict : PROMPT CURSOR READY / NEED MORRIS CLARIFICATION
+ ```
+@@ -137,8 +137,8 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
+ 5. **Activer les blocs pertinents** — §6 selon type, risque, transverses
+ 6. **Identifier les gates Morris** — liste fermée ; pas de gate implicite
+ 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
+-8. **Décider review pack** — §7 : niveau none / light / full
+-9. **Décider Review Handoff Git** — §7.10–§7.11 : **required** ou **not required** — **obligatoire, pas de valeur vide** ; décider aussi le **mode** `publish-in-cycle` / `local-only` / `not-required` ; `required` + `Push handoff autorisé = oui — L3 borné` implique **automatiquement** `publish-in-cycle` (publication distante **dans le même cycle**) ; combinaison `required` + push oui + `local-only` = invalide → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT` ; verdict `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` si décision absente
++8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
++9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
+ 10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite
 
- import {
--  appendTurn,
-   createOpenSession,
-   getSessionBundle,
-   listOpenSessions,
- } from "./repository";
--import { buildFixtureAssistantReply } from "./fixtureReply";
- import { Ops1Error, toSafeClientError } from "./errors";
--import { assertMessageContent, assertSessionId } from "./validation";
--import type { CycleSession, JournalTurn } from "./types";
-+import {
-+  assertConversationMode,
-+  assertMessageContent,
-+  assertSessionId,
-+} from "./validation";
-+import {
-+  getLiveConversationAvailability,
-+  isFakeConversationProviderForced,
-+} from "./conversation/config";
-+import { sendConversationMessage } from "./conversation/service";
-+import type {
-+  ConversationAttempt,
-+  ConversationMode,
-+  ConversationUsageCounters,
-+  CycleSession,
-+  JournalTurn,
-+  ProviderPresentation,
-+} from "./types";
+ ### 2.2 Nouveau chat et sources projet
+@@ -156,10 +156,16 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
+ - Omettre type de cycle ou profil SFIA
+ - Critical sans justification
+ - Prompt sans périmètre / hors périmètre
+-- Oublier review pack sur cycle documentaire
+-- Omettre la décision Review Handoff Git (required / not required)
++- Produire un rapport Cursor sans review pack (light/full)
++- Utiliser `review pack = none` pour un cycle Cursor produisant un rapport
++- Déclarer le handoff `not required` alors qu'un rapport Cursor est produit
++- Confondre interdiction de push projet et interdiction de push handoff
++- Utiliser `local-only` parce que le cycle est Light, par prudence générique, ou pour reporter la publication
++- Créer systématiquement un second cycle uniquement pour republier le rapport
++- Conclure READY alors que le handoff distant est obsolète
++- Demander à ChatGPT de valider un rapport inaccessible depuis Git
+ - Déclarer handoff `required` + push L3 autorisé puis s'arrêter après une préparation **locale** sans publication distante (`publish-in-cycle`)
+-- Combiner `required` + `Push handoff autorisé = oui` avec `Mode handoff = local-only`
++- Combiner `required` + `Push handoff autorisé = oui` avec `Mode handoff = local-only` sans exception technique conforme
+ - Présenter le fichier racine `latest-chatgpt-review.md` comme chemin canonique (le canonique unique est `sfia-review-handoff/latest-chatgpt-review.md`)
+ - Présenter une candidate non mergée comme baseline validée
+ - Présenter une version non mergée comme baseline officielle
+@@ -195,26 +201,28 @@ Blocs activés :                 [liste §6]
+ Blocs désactivés :
 
- export type Ops1ActionResult<T> =
-   | { ok: true; data: T }
-@@ -17,16 +31,40 @@ export type Ops1ActionResult<T> =
+ Gates Morris :                  [liste explicite ou « aucun sauf merge si demandé »]
+-Review pack :                   [none / light / full — voir §7]
++Review pack :                   [light / full — OBLIGATOIRE si rapport Cursor — jamais none — voir §7]
++                                  [hors contrat si opération read-only sans rapport Cursor]
 
- function fail(error: unknown): Ops1ActionResult<never> {
-   const safe = toSafeClientError(error);
--  console.error("[ops1]", safe.code, safe.message, error);
-+  console.error("[ops1]", safe.code, safe.message);
-   return { ok: false, code: safe.code, message: safe.message };
- }
+-Review Handoff Git :            [required / not required — OBLIGATOIRE — pas de valeur vide]
+-Justification handoff :         [obligatoire dans les deux cas]
+-Mode handoff :                  [publish-in-cycle / local-only / not-required]
+-Motif local-only :              [obligatoire si local-only — sinon N/A]
++Review Handoff Git :            [required — OBLIGATOIRE si rapport Cursor — jamais not required pour un rapport]
++Justification handoff :         [obligatoire]
++Mode handoff :                  [publish-in-cycle (défaut automatique) / local-only (exception technique uniquement)]
++Motif local-only :              [obligatoire si local-only — exception technique §7.10.3 — sinon N/A]
+ Branche handoff :               sfia/review-handoff
+ Fichier handoff :               sfia-review-handoff/latest-chatgpt-review.md
+-Push handoff autorisé :         [oui — L3 borné / non]
++Push handoff autorisé :         [oui — L3 borné — automatique si rapport Cursor, sauf exception technique]
+ Commit handoff attendu :        [message ou convention — ex. docs(review-handoff): publish …]
+ Retour branche initiale :       [obligatoire si publish-in-cycle]
+ Vérification remote :           [obligatoire si publish-in-cycle]
+-Verdict distant attendu :       [ex. HANDOFF UPDATED — REMOTE VERIFIED / N/A]
+-Instruction ChatGPT finale :  [bloc §9.1 si required / N/A si not required]
++Verdict distant attendu :       [ex. HANDOFF UPDATED — REMOTE VERIFIED / HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED]
++Instruction ChatGPT finale :  [bloc §9.1 — obligatoire si rapport Cursor + publish-in-cycle]
 
--export async function ops1CreateSessionAction(): Promise<
--  Ops1ActionResult<{ session: CycleSession }>
--> {
-+function resolvePresentation(
-+  mode: ConversationMode,
-+): ProviderPresentation {
-+  if (mode === "fixture") return "fixture";
-+  if (isFakeConversationProviderForced()) return "test_provider";
-+  return "openai_live";
-+}
+ Règles mode handoff (ChatGPT — avant génération) :
+-- required + Push handoff autorisé = oui — L3 borné  →  Mode = publish-in-cycle (automatique)
+-- required + local-only                              →  Motif local-only obligatoire
+-- required + push oui + local-only                   →  INVALIDE → PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT
+-- not required                                       →  Mode = not-required
++Règle centrale : RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE
++- rapport Cursor attendu → Review pack light/full + Handoff required + Mode publish-in-cycle + Push oui — L3 borné (automatiques)
++- local-only                                              → Motif exception technique obligatoire (§7.10.3) + verdict HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED
++- rapport + none / not required / local-only non conforme → INVALIDE → PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING
++- required + push oui + local-only sans exception         → INVALIDE → PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT
+ - Chemin canonique UNIQUE : sfia-review-handoff/latest-chatgpt-review.md
+   (le fichier racine latest-chatgpt-review.md n'est JAMAIS le canonique)
+
+@@ -380,34 +388,36 @@ Validations attendues :
+ - [Contrôles spécifiques]
+
+ Review pack :
+-[none / light / full — si light ou full, référencer §7 — réinitialiser le fichier en début de cycle (étape 2) avant toute écriture ; mono-cycle uniquement ; anti-stub final obligatoire]
++[light / full — OBLIGATOIRE si rapport Cursor — jamais none — référencer §7 — réinitialiser le fichier en début de cycle (étape 2) ; mono-cycle ; anti-stub final obligatoire]
++[hors contrat si opération read-only sans rapport Cursor]
+
+ Review Handoff Git :
+-- décision : [required / not required — obligatoire]
++- décision : [required — OBLIGATOIRE si rapport Cursor — jamais not required pour un rapport]
+ - justification : [obligatoire]
+-- mode handoff : [publish-in-cycle / local-only / not-required]
+-- motif local-only : [obligatoire si local-only / N/A]
++- mode handoff : [publish-in-cycle (défaut) / local-only (exception technique uniquement)]
++- motif local-only : [obligatoire si local-only — exception technique §7.10.3 / N/A]
+ - branche : sfia/review-handoff
+ - fichier canonique UNIQUE : sfia-review-handoff/latest-chatgpt-review.md
+   (interdit : traiter latest-chatgpt-review.md à la racine comme canonique)
+ - review pack source : .tmp-sfia-review/chatgpt-review.md
+-- push handoff autorisé : [oui — L3 borné / non]
++- push handoff autorisé : [oui — L3 borné — automatique si rapport Cursor, sauf exception technique]
+ - commit handoff attendu : [message]
+ - retour branche initiale : obligatoire si publish-in-cycle
+ - vérification remote : obligatoire si publish-in-cycle (SHA + relecture fichier distant)
+-- règle atomique : required + push oui — L3 borné ⇒ publish-in-cycle dans le MÊME cycle (pas de second GO Morris)
++- règle atomique : RAPPORT CURSOR ⇒ review pack light/full + required + publish-in-cycle + push L3 dans le MÊME cycle (pas de second GO Morris)
+ - verdicts handoff :
+   - HANDOFF UPDATED — REMOTE VERIFIED
+-  - HANDOFF LOCAL ONLY — PUSH MISSING (uniquement si mode local-only justifié)
++  - HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED (local-only exception technique)
++  - HANDOFF LOCAL ONLY — PUSH MISSING (alias legacy — préférer HANDOFF PUBLICATION BLOCKED)
+   - REVIEW HANDOFF INCOMPLETE — REMOTE PUBLICATION NOT PERFORMED
+   - REVIEW HANDOFF INCOMPLETE — REMOTE VERIFICATION MISSING
+   - REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING
+   - REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED
+   - STOP — REVIEW HANDOFF SCOPE MISMATCH
+   - STOP — REVIEW HANDOFF REMOTE DIVERGENCE
++  - PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING
+   - PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT
+-  - HANDOFF NOT REQUIRED — JUSTIFIED
+-- instruction ChatGPT finale : inclure bloc §9.1 si required
++- instruction ChatGPT finale : inclure bloc §9.1 si rapport Cursor
+ - Actions interdites par le push handoff L3 : commit projet · push projet · PR · merge · modification main · suppression de branche
+
+ Rapport final attendu :
+@@ -827,14 +837,47 @@ Lorsqu'un **post-merge check** est demandé par Morris après une PR mergée, le
+
+ ## 7. Review pack proportionné
+
++### 7.0 Règle centrale — rapport Cursor = review pack = handoff
 +
-+export async function ops1CreateSessionAction(input?: {
-+  mode?: ConversationMode;
-+}): Promise<Ops1ActionResult<{ session: CycleSession }>> {
-   try {
--    const { session, event } = createOpenSession();
--    console.info("[ops1] SESSION_OPENED", session.sessionId, event.eventId);
-+    const mode = assertConversationMode(input?.mode ?? "fixture");
-+    if (mode === "live") {
-+      const availability = getLiveConversationAvailability();
-+      // Fake provider may satisfy E2E without real secrets when forced.
-+      if (!availability.available && !isFakeConversationProviderForced()) {
-+        throw new Ops1Error(
-+          "CONFIG",
-+          `Création live impossible (variables manquantes : ${availability.missing.join(", ")}).`,
-+        );
-+      }
-+    }
-+    const { session, event } = createOpenSession(mode);
-+    console.info(
-+      "[ops1] SESSION_OPENED",
-+      session.sessionId,
-+      event.eventId,
-+      session.conversationMode,
-+    );
-     return { ok: true, data: { session } };
-   } catch (error) {
-     return fail(error);
-@@ -46,7 +84,12 @@ export async function ops1ListOpenSessionsAction(): Promise<
- export async function ops1GetSessionAction(
-   sessionId: string,
- ): Promise<
--  Ops1ActionResult<{ session: CycleSession; turns: JournalTurn[] }>
-+  Ops1ActionResult<{
-+    session: CycleSession;
-+    turns: JournalTurn[];
-+    attempts: ConversationAttempt[];
-+    presentation: ProviderPresentation;
-+  }>
- > {
-   try {
-     const id = assertSessionId(sessionId);
-@@ -54,67 +97,117 @@ export async function ops1GetSessionAction(
-     if (!bundle) {
-       throw new Ops1Error("NOT_FOUND", "Session introuvable.");
-     }
--    return { ok: true, data: bundle };
-+    return {
-+      ok: true,
-+      data: {
-+        ...bundle,
-+        presentation: resolvePresentation(bundle.session.conversationMode),
-+      },
-+    };
-   } catch (error) {
-     return fail(error);
-   }
- }
-
--export async function ops1AppendUserMessageAction(input: {
-+/** Availability only — never returns secret values. */
-+export async function ops1GetLiveConfigAction(): Promise<
-+  Ops1ActionResult<{
-+    available: boolean;
-+    missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
-+    testProvider: boolean;
-+  }>
-+> {
-+  try {
-+    const status = getLiveConversationAvailability();
-+    const testProvider = isFakeConversationProviderForced();
-+    if (status.available || testProvider) {
-+      return {
-+        ok: true,
-+        data: {
-+          available: true,
-+          missing: status.available ? [] : status.missing,
-+          testProvider,
-+        },
-+      };
-+    }
-+    return {
-+      ok: true,
-+      data: { available: false, missing: status.missing, testProvider: false },
-+    };
-+  } catch (error) {
-+    return fail(error);
-+  }
-+}
++> **RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE**
 +
-+/**
-+ * Append user message using the session's immutable mode.
-+ * Optional requestedMode must match or the call is rejected before write.
-+ */
-+export async function ops1SendMessageAction(input: {
-   sessionId: string;
-   content: string;
-+  /** Optional; if provided must equal session.conversationMode. */
-+  mode?: ConversationMode;
- }): Promise<
-   Ops1ActionResult<{
-     userTurn: JournalTurn;
-     assistantTurn: JournalTurn | null;
-     assistantError: string | null;
-+    usage: ConversationUsageCounters | null;
-+    mode: ConversationMode;
-+    presentation: ProviderPresentation;
-   }>
- > {
-   try {
-     const sessionId = assertSessionId(input.sessionId);
-     const content = assertMessageContent(input.content);
-+    const requestedMode =
-+      input.mode !== undefined ? assertConversationMode(input.mode) : undefined;
++Pour **tout cycle Cursor SFIA qui produit un rapport** :
++
++1. un review pack est **obligatoire** ;
++2. le niveau est exclusivement **Light** ou **Full** selon la qualification existante (§7.3) — **la granularité Light / Full n'est pas modifiée** ;
++3. `publish-in-cycle` est le mode **normal et automatique** ;
++4. le push du handoff est une action **L3 bornée** automatiquement incluse dans le cycle ;
++5. la branche autorisée est exclusivement `sfia/review-handoff` ;
++6. le fichier canonique unique est `sfia-review-handoff/latest-chatgpt-review.md` ;
++7. la vérification distante est **obligatoire** ;
++8. le retour au worktree / branche initiale est **obligatoire** ;
++9. les changements projet doivent rester **intacts**.
++
++**Hors contrat :** une opération **read-only sans rapport Cursor** n'exige ni review pack ni handoff.
++
++**Valeurs interdites** pour un cycle Cursor produisant un rapport :
++
++- `review pack = none` ;
++- `Review Handoff Git = not required` ;
++- `Mode handoff = local-only` **sans** exception technique conforme (§7.10.3).
++
++**Contrôle bloquant** (ChatGPT avant génération / Cursor avant exécution) — si un prompt contient un rapport Cursor attendu **et** (review pack absent / `none` **ou** handoff `not required` **ou** `local-only` non conforme) :
++
++```text
++PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING
++```
++
++Le push L3 borné du handoff **ne constitue pas** une autorisation de push du travail projet.
++
+ ### 7.1 Règle structurante — artefact temporaire mono-cycle
 
--    const { turn: userTurn, event } = appendTurn({
-+    const result = await sendConversationMessage({
-       sessionId,
--      role: "user",
-       content,
--      fixture: true,
-+      requestedMode,
-     });
--    console.info(
--      "[ops1] TURN_APPENDED",
--      sessionId,
--      userTurn.turnId,
--      event.eventId,
--    );
+ Le review pack `.tmp-sfia-review/chatgpt-review.md` est un **artefact temporaire mono-cycle** de revue — **pas** un miroir intégral de tous les documents consultés lorsque Git est accessible à ChatGPT.
+
+-Tout prompt Cursor impliquant **consultation**, **modification** ou **création** documentaire structurante doit déclarer un niveau review pack — **none**, **light** ou **full** (§7.3).
++Tout cycle Cursor **produisant un rapport** doit déclarer un niveau review pack — exclusivement **light** ou **full** (§7.3). La granularité Light / Full existante est **conservée**.
+
+-> **none** : pas de fichier `chatgpt-review.md` requis — rapport chat ou rapport Cursor court suffit.
+ > **light** / **full** : fichier obligatoire, complété avant le rapport final — jamais un stub final (§7.5).
++> **`none` n'est plus une valeur valide** pour un cycle Cursor produisant un rapport (§7.0).
++> Opération **read-only sans rapport Cursor** : hors contrat review pack / handoff.
+
+ **Au démarrage de chaque cycle Cursor (avant toute écriture du review pack) :**
+
+@@ -919,13 +962,15 @@ Le review pack **ne peut pas** être considéré complet dans ce cas.
+
+ ### 7.3 Niveaux de review pack
+
+-#### none
++#### Hors contrat (pas un niveau review pack Cursor)
+
+ | Champ | Contenu |
+ |-------|---------|
+-| **Usage** | Checks Git simples ; post-merge simple ; cleanup branche ; micro-cycle sans document consulté/modifié/créé ; vérification technique sans décision structurante |
+-| **Contenu** | Pas de fichier `chatgpt-review.md` requis — rapport chat ou rapport Cursor court suffit |
+-| **Interdit si** | Création/modification documentaire structurante ; consultation documentaire comme base de décision ; PR readiness ; capitalisation ; modification méthode/template/règle |
++| **Usage** | Opération **read-only sans rapport Cursor** (hors contrat §7.0) |
++| **Contenu** | Aucun review pack / aucun handoff exigés par ce contrat |
++| **Interdit** | Proposer `review pack = none` pour un cycle Cursor **produisant un rapport** — utiliser **light** ou **full** |
++
++> Ancienne valeur `none` : **retirée** de la fiche d'instanciation des cycles Cursor avec rapport. Ne pas la réintroduire.
+
+ #### light
+
+@@ -957,7 +1002,7 @@ Git Review Index
+ - diff stat :
+ - diff name-status :
+ - décisions Morris requises :
+-- review pack : none / light / full
++- review pack : light / full (obligatoire si rapport Cursor)
+ - réserves :
+ ```
+
+@@ -974,7 +1019,7 @@ Le rapport final Cursor doit confirmer :
+
+ - review pack réinitialisé au début : oui / non ;
+ - review pack complété avant rapport final : oui / non ;
+-- niveau appliqué : none / light / full ;
++- niveau appliqué : light / full ;
+ - absence de stub final : confirmé / non ;
+ - **Review pack content coverage** (§7.2.1) :
+   - created files full content : yes / no / not applicable ;
+@@ -1034,31 +1079,34 @@ Cursor doit :
+ - **Ne jamais** recopier intégralement des documents consultés accessibles dans Git — sauf extrait court justifiant une décision
+ - **Ne jamais** laisser un stub final si light ou full est requis (§7.5)
+
+-### 7.10 Review Handoff Git Branch — décision required / not required
++### 7.10 Review Handoff Git Branch — obligatoire pour tout rapport Cursor
+
+-> **Candidate v2.5 — correctif routing PR handoff.** Tout prompt Cursor SFIA doit **qualifier explicitement** le Review Handoff Git : **required** ou **not required**. Aucune omission silencieuse. Le handoff n'est plus « optionnel par défaut » lorsque review pack light/full est destiné à ChatGPT.
++> **Règle centrale (§7.0) :** `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE`.
++> Pour tout cycle Cursor produisant un rapport : Review Handoff Git = **required** ; Mode = **`publish-in-cycle`** ; Push = **oui — L3 borné**. Aucune valeur `not required` pour un rapport Cursor. `local-only` = **exception technique documentée uniquement**.
+
+ #### Décision obligatoire (fiche d'instanciation §3 et squelette §5)
+
+ | Champ | Règle |
+ |-------|-------|
+-| **Review Handoff Git** | **required** ou **not required** — valeur **obligatoire** |
+-| **Justification** | Obligatoire dans les deux cas |
+-| **Valeur vide / implicite** | Interdite — verdict ChatGPT : **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** |
++| **Review Handoff Git** | **required** pour tout cycle Cursor produisant un rapport |
++| **Justification** | Obligatoire |
++| **Valeur `not required`** | **Interdite** si un rapport Cursor est produit → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` |
++| **Valeur vide / implicite** | Interdite — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` |
+
+-#### Mode handoff (obligatoire dès que la décision est prise)
++#### Mode handoff
+
+ | Mode | Quand | Effet |
+ |------|-------|-------|
+-| **`publish-in-cycle`** | `required` + `Push handoff autorisé = oui — L3 borné` | Publication distante **obligatoire dans le même cycle** avant tout verdict métier/documentaire |
+-| **`local-only`** | `required` + push **non**, ou motif explicite (interdit distant, divergence, contenu incomplet, etc.) | Préparation locale uniquement — **revue Git distante non disponible** |
+-| **`not-required`** | `Review Handoff Git = not required` | Aucun handoff |
++| **`publish-in-cycle`** | **Défaut automatique** pour tout rapport Cursor | Publication distante **obligatoire dans le même cycle** avant tout verdict métier/documentaire |
++| **`local-only`** | **Exception technique uniquement** (§7.10.3) | Préparation locale + régularisation obligatoire — cycle **non complètement clôturé** |
++| **`not-required`** | **Hors contrat** pour un rapport Cursor | Réservé aux opérations read-only **sans** rapport Cursor |
+
+ **Règles de cohérence :**
+
+-- `required` + push oui → mode **`publish-in-cycle` automatique** ;
+-- `required` + `local-only` → **motif local-only obligatoire** ;
+-- `required` + push oui + `local-only` → **invalide** → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT` ;
++- rapport Cursor → review pack light/full + `required` + push oui → mode **`publish-in-cycle` automatique** ;
++- `local-only` → **motif d'exception technique obligatoire** + verdict `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` ;
++- rapport + `none` / `not required` / `local-only` non conforme → **`PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`** ;
++- `required` + push oui + `local-only` sans exception technique → **`PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`** ;
+ - chemin canonique **unique** : `sfia-review-handoff/latest-chatgpt-review.md` ;
+ - le fichier racine `latest-chatgpt-review.md` **n'est jamais** le canonique.
+
+@@ -1102,7 +1150,7 @@ Permettre à ChatGPT de **lire directement** le dernier rapport Cursor via Git,
+ - **aucun** secret ;
+ - **aucune** décision Morris déduite automatiquement du contenu ;
+ - `main` reste source de vérité ;
+-- **décision required / not required obligatoire** dans chaque prompt (§3, §5) ;
++- **décision handoff = required** obligatoire pour tout prompt produisant un rapport Cursor (§3, §5, §7.0) ;
+ - lorsque Mode = **`publish-in-cycle`** : exécution L3 bornée **sans micro-GO Morris supplémentaire** (§7.10.1–§7.10.2) — publication distante **dans le même cycle** ;
+ - **push autorisé** uniquement vers `sfia/review-handoff` et uniquement pour `sfia-review-handoff/latest-chatgpt-review.md` ;
+ - toute autre action Git distante reste **interdite** sans GO explicite ;
+@@ -1162,21 +1210,48 @@ Ce push est une exécution **répétable, bornée et réversible** de niveau **L
+ - **aucune** inclusion de `.tmp-sfia-review/**` dans Git ;
+ - aucun secret ; aucune PR ; aucun merge ; aucun impact `main`.
+
+-#### 7.10.3 Cas `local-only` / publication interdite
++#### 7.10.3 Cas `local-only` — exception technique uniquement
+
+-La publication distante reste **interdite** (mode `local-only` ou arrêt) si **l'une** des situations suivantes est explicite :
++Le mode `local-only` reste possible **uniquement** si la publication est **techniquement bloquée** par :
+
+-- `Review Handoff Git : not required` ;
+-- `Push handoff autorisé : non` ;
+-- Morris interdit explicitement toute action distante ;
+-- divergence incompatible de la branche handoff → `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` ;
++- Git distant indisponible ;
++- réseau ou authentification indisponible ;
++- secret détecté ou risque de secret non résolu ;
++- impossibilité de préserver le worktree ;
++- **interdiction explicite de Morris**.
++
++`local-only` **ne doit jamais** être utilisé :
++
++- par prudence générique ;
++- pour éviter un push handoff ;
++- parce que le cycle est Light ;
++- parce qu'aucun push projet n'est autorisé ;
++- pour reporter automatiquement la publication dans un second cycle.
++
++Un cycle en `local-only` doit **obligatoirement** documenter :
++
++- le motif ;
++- l'impact ;
++- l'action de régularisation ;
++- le gate Morris éventuel ;
++- le fait que le cycle **n'est pas complètement clôturé**.
++
++Verdict obligatoire :
++
++```text
++HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED
++```
++
++(Alias legacy acceptable dans les rapports : `HANDOFF LOCAL ONLY — PUSH MISSING` — préciser « revue Git distante non disponible ».)
++
++Autres arrêts (sans assimilation à une exception `local-only` « choisie ») :
++
++- divergence incompatible → `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` ;
+ - force push requis ;
+ - contenu incomplet → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` ;
+-- mauvais chemin canonique / multi-fichiers → `STOP — REVIEW HANDOFF SCOPE MISMATCH`.
 -
--    let assistantTurn: JournalTurn | null = null;
--    let assistantError: string | null = null;
--    try {
--      const reply = buildFixtureAssistantReply(content);
--      const appended = appendTurn({
--        sessionId,
--        role: "assistant_fixture",
--        content: reply,
--        fixture: true,
--      });
--      assistantTurn = appended.turn;
--      console.info(
--        "[ops1] TURN_APPENDED",
--        sessionId,
--        appended.turn.turnId,
--        appended.event.eventId,
--      );
--    } catch (error) {
--      const safe = toSafeClientError(error);
--      assistantError = safe.message;
--      console.error("[ops1] TURN_PERSISTENCE_FAILED assistant", error);
--    }
+-Dans ces cas, le verdict / rapport doit indiquer clairement que la **revue Git distante n'est pas disponible**.
++- mauvais chemin / multi-fichiers → `STOP — REVIEW HANDOFF SCOPE MISMATCH`.
 
-     return {
-       ok: true,
--      data: { userTurn, assistantTurn, assistantError },
-+      data: {
-+        userTurn: result.userTurn,
-+        assistantTurn: result.assistantTurn,
-+        assistantError: result.assistantError,
-+        usage: result.usage,
-+        mode: result.mode,
-+        presentation: resolvePresentation(result.mode),
-+      },
-     };
-   } catch (error) {
-     return fail(error);
-   }
- }
-+
-+/** @deprecated I1 name — fixture sessions only. */
-+export async function ops1AppendUserMessageAction(input: {
-+  sessionId: string;
-+  content: string;
-+}): Promise<
-+  Ops1ActionResult<{
-+    userTurn: JournalTurn;
-+    assistantTurn: JournalTurn | null;
-+    assistantError: string | null;
-+  }>
-+> {
-+  const result = await ops1SendMessageAction({
-+    ...input,
-+    mode: "fixture",
-+  });
-+  if (!result.ok) return result;
-+  return {
-+    ok: true,
-+    data: {
-+      userTurn: result.data.userTurn,
-+      assistantTurn: result.data.assistantTurn,
-+      assistantError: result.data.assistantError,
-+    },
-+  };
-+}
+-**Exceptions `not required`** (justification obligatoire) : review pack **none** ; revue locale sans analyse ChatGPT ; absence d'action documentaire ; **GO Morris explicite** de ne pas utiliser le handoff.
++> **`not required` pour un rapport Cursor :** interdit (§7.0). Hors contrat uniquement pour opération read-only **sans** rapport Cursor.
 
-```
+ #### 7.10.4 Séquence et verdicts — `publish-in-cycle`
 
-### `projects/sfia-studio/app/lib/ops1/db.ts`
+@@ -1200,7 +1275,7 @@ Dans ces cas, le verdict / rapport doit indiquer clairement que la **revue Git d
+ | Poussé mais fichier distant non relu | **`REVIEW HANDOFF INCOMPLETE — REMOTE VERIFICATION MISSING`** |
+ | Contenu synthétique / manquant | **`REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`** |
+ | Cursor annonce publié mais remote ancien/absent/incomplet | **`REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`** |
+-| Mode `local-only` justifié (push non) | `HANDOFF LOCAL ONLY — PUSH MISSING` — préciser « revue Git distante non disponible » |
++| Mode `local-only` exception technique | `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` (alias legacy `HANDOFF LOCAL ONLY — PUSH MISSING`) |
+ | Autre fichier inclus / mauvais chemin | `STOP — REVIEW HANDOFF SCOPE MISMATCH` |
+ | Divergence remote incompatible | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` |
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/db.ts b/projects/sfia-studio/app/lib/ops1/db.ts
-index 5f6662b..68446e4 100644
---- a/projects/sfia-studio/app/lib/ops1/db.ts
-+++ b/projects/sfia-studio/app/lib/ops1/db.ts
-@@ -1,6 +1,7 @@
- import { DatabaseSync } from "node:sqlite";
- import { resolveOps1SqlitePath } from "./paths";
- import { Ops1Error } from "./errors";
-+import { LEGACY_SESSION_MODE_AMBIGUOUS } from "./types";
+@@ -1259,54 +1334,51 @@ Cursor doit **stopper** si :
+ 16. Verdict — seulement après 11–14
+ ```
 
- const SCHEMA_SQL = `
- PRAGMA foreign_keys = ON;
-@@ -12,14 +13,16 @@ CREATE TABLE IF NOT EXISTS cycle_sessions (
-   created_at TEXT NOT NULL,
-   updated_at TEXT NOT NULL,
-   parent_session_id TEXT,
--  fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
-+  fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1)),
-+  conversation_mode TEXT NOT NULL DEFAULT 'fixture'
-+    CHECK (conversation_mode IN ('fixture', 'live'))
- );
+-#### Séquence Cursor (si Mode = `local-only`)
++#### Séquence Cursor (si Mode = `local-only` — exception technique)
 
- CREATE TABLE IF NOT EXISTS journal_turns (
-   turn_id TEXT PRIMARY KEY NOT NULL,
-   session_id TEXT NOT NULL,
-   sequence INTEGER NOT NULL,
--  role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture')),
-+  role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture', 'assistant_live')),
-   content TEXT NOT NULL,
-   fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
-   created_at TEXT NOT NULL,
-@@ -35,13 +38,221 @@ CREATE TABLE IF NOT EXISTS session_events (
-   detail TEXT NOT NULL
- );
+ ```text
+-1. Compléter le review pack
+-2. Écrire le handoff local (.tmp-sfia-review/handoff-local/… ou équivalent)
+-3. NE PAS push / NE PAS commit la branche handoff sauf instruction contraire explicite
+-4. Rapport : HANDOFF LOCAL ONLY — PUSH MISSING + « revue Git distante non disponible » + motif
+-5. Ne pas présenter un verdict de readiness comme si ChatGPT pouvait lire le handoff Git
++1. Compléter le review pack (light/full)
++2. Documenter motif / impact / action de régularisation / gate Morris éventuel
++3. Écrire le handoff local (.tmp-sfia-review/handoff-local/… ou équivalent) si utile
++4. NE PAS push / NE PAS commit la branche handoff sauf instruction contraire explicite
++5. Rapport : HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED + « revue Git distante non disponible »
++6. Ne pas présenter un verdict de readiness comme si ChatGPT pouvait lire le handoff Git
++7. Le cycle n'est PAS complètement clôturé
+ ```
 
-+CREATE TABLE IF NOT EXISTS conversation_attempts (
-+  attempt_id TEXT PRIMARY KEY NOT NULL,
-+  session_id TEXT NOT NULL,
-+  user_turn_id TEXT,
-+  assistant_turn_id TEXT,
-+  provider TEXT NOT NULL,
-+  status TEXT NOT NULL CHECK (status IN ('started', 'succeeded', 'failed')),
-+  provider_response_id TEXT,
-+  model TEXT,
-+  input_tokens INTEGER,
-+  output_tokens INTEGER,
-+  total_tokens INTEGER,
-+  request_started_at TEXT NOT NULL,
-+  request_completed_at TEXT,
-+  error_code TEXT,
-+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
-+);
-+
- CREATE INDEX IF NOT EXISTS idx_turns_session_seq
-   ON journal_turns(session_id, sequence);
-+
-+CREATE INDEX IF NOT EXISTS idx_attempts_session
-+  ON conversation_attempts(session_id, request_started_at);
- `;
+-### 7.11 Matrice d'activation Review Handoff Git
++### 7.11 Matrice Review Handoff Git × review pack
 
- let singleton: DatabaseSync | null = null;
- let singletonPath: string | null = null;
+-> **Règle non ambiguë.** Le Review Handoff Git est **required** lorsqu'un review pack **light** ou **full** doit être utilisé par ChatGPT pour analyser, valider ou décider à partir du rapport Cursor et que Git est le canal de transmission disponible.
++> **Règle non ambiguë (§7.0).** Tout cycle Cursor produisant un rapport → review pack **Light** ou **Full** + handoff **required** + **`publish-in-cycle`**.
 
-+function tableHasColumn(
-+  db: DatabaseSync,
-+  table: string,
-+  column: string,
-+): boolean {
-+  const rows = db.prepare(`PRAGMA table_info(${table})`).all() as Array<{
-+    name: string;
-+  }>;
-+  return rows.some((r) => r.name === column);
-+}
-+
-+function isRealProvider(provider: string): boolean {
-+  return provider !== "fake-test";
-+}
-+
-+/**
-+ * Infer immutable conversation mode for a legacy session.
-+ * Throws LEGACY_SESSION_MODE_AMBIGUOUS when journal/attempts conflict.
-+ */
-+export function inferLegacyConversationMode(
-+  roles: string[],
-+  providers: string[],
-+): "fixture" | "live" {
-+  const hasFixtureAssistant = roles.includes("assistant_fixture");
-+  const hasLiveAssistant = roles.includes("assistant_live");
-+  const hasRealAttempt = providers.some(isRealProvider);
-+  const hasFakeAttempt = providers.some((p) => p === "fake-test");
-+
-+  if (hasFixtureAssistant && hasLiveAssistant) {
-+    throw new Ops1Error("CONFLICT", LEGACY_SESSION_MODE_AMBIGUOUS);
-+  }
-+  if (hasRealAttempt && hasFixtureAssistant && !hasLiveAssistant) {
-+    throw new Ops1Error("CONFLICT", LEGACY_SESSION_MODE_AMBIGUOUS);
-+  }
-+  // Real OpenAI attempt + only fixture assistants already caught above.
-+  // Fake attempts with live assistant roles → live technical mode.
-+  if (hasLiveAssistant || hasRealAttempt) {
-+    return "live";
-+  }
-+  if (hasFakeAttempt && !hasLiveAssistant && !hasFixtureAssistant) {
-+    // attempts without assistant turns (all failed) → still live path intent
-+    return "live";
-+  }
-+  return "fixture";
-+}
-+
-+function validateNoAmbiguousLegacySessions(db: DatabaseSync): void {
-+  const sessions = db
-+    .prepare(`SELECT session_id FROM cycle_sessions`)
-+    .all() as Array<{ session_id: string }>;
-+
-+  for (const { session_id } of sessions) {
-+    const roles = (
-+      db
-+        .prepare(
-+          `SELECT DISTINCT role FROM journal_turns WHERE session_id = ?`,
-+        )
-+        .all(session_id) as Array<{ role: string }>
-+    ).map((r) => r.role);
-+    const providers = (
-+      db
-+        .prepare(
-+          `SELECT DISTINCT provider FROM conversation_attempts WHERE session_id = ?`,
-+        )
-+        .all(session_id) as Array<{ provider: string }>
-+    ).map((r) => r.provider);
-+    // Throws on ambiguity; return value unused — persisted mode already set.
-+    inferLegacyConversationMode(roles, providers);
-+  }
-+}
-+
-+function backfillConversationModes(db: DatabaseSync): void {
-+  const sessions = db
-+    .prepare(`SELECT session_id FROM cycle_sessions`)
-+    .all() as Array<{ session_id: string }>;
-+
-+  for (const { session_id } of sessions) {
-+    const roles = (
-+      db
-+        .prepare(
-+          `SELECT DISTINCT role FROM journal_turns WHERE session_id = ?`,
-+        )
-+        .all(session_id) as Array<{ role: string }>
-+    ).map((r) => r.role);
-+    const providers = (
-+      db
-+        .prepare(
-+          `SELECT DISTINCT provider FROM conversation_attempts WHERE session_id = ?`,
-+        )
-+        .all(session_id) as Array<{ provider: string }>
-+    ).map((r) => r.provider);
-+
-+    const mode = inferLegacyConversationMode(roles, providers);
-+    db.prepare(
-+      `UPDATE cycle_sessions
-+       SET conversation_mode = ?, fixture_mode = ?
-+       WHERE session_id = ?`,
-+    ).run(mode, mode === "fixture" ? 1 : 0, session_id);
-+  }
-+}
-+
-+/** Idempotent additive migration I1 → I2 (+ conversation_mode immutability). */
-+export function migrateOps1Schema(db: DatabaseSync): void {
-+  db.exec("PRAGMA foreign_keys = ON;");
-+  db.exec(SCHEMA_SQL);
-+
-+  const turnSqlRow = db
-+    .prepare(
-+      `SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'journal_turns'`,
-+    )
-+    .get() as { sql: string } | undefined;
-+  const turnSql = turnSqlRow?.sql ?? "";
-+
-+  if (turnSql && !turnSql.includes("assistant_live")) {
-+    db.exec("BEGIN IMMEDIATE");
-+    try {
-+      db.exec(`
-+        CREATE TABLE journal_turns_i2 (
-+          turn_id TEXT PRIMARY KEY NOT NULL,
-+          session_id TEXT NOT NULL,
-+          sequence INTEGER NOT NULL,
-+          role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture', 'assistant_live')),
-+          content TEXT NOT NULL,
-+          fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
-+          created_at TEXT NOT NULL,
-+          UNIQUE (session_id, sequence),
-+          FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
-+        );
-+        INSERT INTO journal_turns_i2 (
-+          turn_id, session_id, sequence, role, content, fixture, created_at
-+        )
-+        SELECT turn_id, session_id, sequence, role, content, fixture, created_at
-+        FROM journal_turns;
-+        DROP TABLE journal_turns;
-+        ALTER TABLE journal_turns_i2 RENAME TO journal_turns;
-+        CREATE INDEX IF NOT EXISTS idx_turns_session_seq
-+          ON journal_turns(session_id, sequence);
-+      `);
-+      db.exec("COMMIT");
-+    } catch (error) {
-+      try {
-+        db.exec("ROLLBACK");
-+      } catch {
-+        /* ignore */
-+      }
-+      throw new Ops1Error(
-+        "PERSISTENCE",
-+        "Échec de migration schéma journal I2.",
-+        error,
-+      );
-+    }
-+  }
-+
-+  if (!tableHasColumn(db, "cycle_sessions", "conversation_mode")) {
-+    db.exec("BEGIN IMMEDIATE");
-+    try {
-+      db.exec(
-+        `ALTER TABLE cycle_sessions ADD COLUMN conversation_mode TEXT NOT NULL DEFAULT 'fixture'`,
-+      );
-+      backfillConversationModes(db);
-+      db.exec("COMMIT");
-+    } catch (error) {
-+      try {
-+        db.exec("ROLLBACK");
-+      } catch {
-+        /* ignore */
-+      }
-+      if (error instanceof Ops1Error) throw error;
-+      throw new Ops1Error(
-+        "PERSISTENCE",
-+        "Échec de migration conversation_mode.",
-+        error,
-+      );
-+    }
-+  } else {
-+    validateNoAmbiguousLegacySessions(db);
-+  }
-+
-+  const integrity = db.prepare("PRAGMA integrity_check").get() as
-+    | Record<string, string>
-+    | undefined;
-+  const raw = integrity ? String(Object.values(integrity)[0] ?? "") : "";
-+  if (raw !== "ok") {
-+    throw new Ops1Error("PERSISTENCE", "Intégrité SQLite invalide.");
-+  }
-+}
-+
- export function openOps1Db(dbPath = resolveOps1SqlitePath()): DatabaseSync {
-   if (singleton && singletonPath === dbPath) {
-     return singleton;
-@@ -58,15 +269,7 @@ export function openOps1Db(dbPath = resolveOps1SqlitePath()): DatabaseSync {
+-| Situation | Handoff | Justification type |
+-|-----------|---------|-------------------|
+-| Review pack **none** | **not required** | Pas de matière review pack à transmettre |
+-| Review pack light/full **sans** analyse ChatGPT ultérieure | **not required** | Revue locale uniquement — justification explicite |
+-| Review pack light/full **destiné à ChatGPT** | **required** | Canal Git — publication remote obligatoire |
+-| PR readiness documentaire analysée par ChatGPT | **required** | Contrôle contenu avant GO PR |
+-| Capitalisation / REX | **required** | Contrôle contenu et diff |
+-| Modification méthode / template / règle / garde-fou | **required** | Contrôle sections modifiées |
+-| Audit documentaire | **required** | Contrôle livrables |
+-| Décision structurante | **required** | Traçabilité Morris |
+-| Fichier créé ou modifié — ChatGPT doit contrôler contenu complet ou diff | **required** | Review pack completeness |
+-| Rapport final demande lecture handoff / review pack par ChatGPT | **required** | Cohérence cycle courant |
+-| Décision Morris contraire | **not required** | GO Morris explicite + traçabilité |
++| Situation | Review pack | Handoff |
++|-----------|-------------|---------|
++| Cycle Cursor produisant un rapport simple | Light | Required + publish-in-cycle |
++| Cycle Cursor substantiel | Full | Required + publish-in-cycle |
++| Cycle documentaire / méthode / template / règle | Light ou Full selon portée | Required + publish-in-cycle |
++| PR readiness / post-merge / capitalisation | Light ou Full selon portée | Required + publish-in-cycle |
++| Publication techniquement bloquée | Light ou Full | Local-only exceptionnel + régularisation |
++| Opération read-only sans rapport Cursor | Hors contrat | Aucun rapport / aucun handoff |
 
-   try {
-     const db = new DatabaseSync(dbPath);
--    db.exec("PRAGMA foreign_keys = ON;");
--    db.exec(SCHEMA_SQL);
--    const integrity = db.prepare("PRAGMA integrity_check").get() as
--      | Record<string, string>
--      | undefined;
--    const raw = integrity ? String(Object.values(integrity)[0] ?? "") : "";
--    if (raw !== "ok") {
--      throw new Ops1Error("PERSISTENCE", "Intégrité SQLite invalide.");
--    }
-+    migrateOps1Schema(db);
-     singleton = db;
-     singletonPath = dbPath;
-     return db;
+ **Verdicts handoff (Cursor) :**
+
+ | Verdict | Condition |
+ |---------|-----------|
+ | `HANDOFF UPDATED — REMOTE VERIFIED` | Commit + push + SHA OK + relecture distante OK |
+-| `HANDOFF LOCAL ONLY — PUSH MISSING` | Mode `local-only` justifié — revue Git distante non disponible |
++| `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` | Exception technique `local-only` — cycle non complètement clôturé |
++| `HANDOFF LOCAL ONLY — PUSH MISSING` | Alias legacy de l'exception `local-only` |
+ | `REVIEW HANDOFF INCOMPLETE — REMOTE PUBLICATION NOT PERFORMED` | `publish-in-cycle` requis mais non poussé |
+ | `REVIEW HANDOFF INCOMPLETE — REMOTE VERIFICATION MISSING` | Poussé mais relecture / SHA distant manquant |
+ | `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` | Handoff synthesis-only ou contenu manquant |
+ | `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED` | Annonce publiée mais remote ancien/absent/incomplet |
+ | `STOP — REVIEW HANDOFF SCOPE MISMATCH` | Autre fichier / mauvais chemin |
+ | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` | Divergence incompatible / force push requis |
+-| `HANDOFF NOT REQUIRED — JUSTIFIED` | not required avec justification |
+
+ **Verdicts prompt (ChatGPT) :**
+
+ | Verdict | Condition |
+ |---------|-----------|
+-| `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` | Décision required/not required absente |
+-| `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT` | Combinaison mode/push contradictoire (ex. required + push oui + local-only) |
++| `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` | Rapport Cursor attendu avec review pack absent/`none`, handoff `not required`, ou `local-only` non conforme |
++| `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT` | Combinaison mode/push contradictoire (ex. required + push oui + local-only sans exception) |
+
+ **Règle :** un verdict de readiness métier ou documentaire **ne peut pas** être émis avant publication + vérification lorsque `publish-in-cycle` est requis.
+
+@@ -1331,7 +1403,7 @@ Cursor doit **stopper** et demander Morris si :
+ 13. Relance SFIA 3.0 implicite
+ 14. Modification Prompt Catalog sans GO Morris
+ 15. Tentative d'automatiser un arbitrage humain
+-16. **Absence de review pack** alors que niveau **light** ou **full** requis
++16. **Absence de review pack** alors qu'un rapport Cursor est produit — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` / niveau **light** ou **full** requis
+ 17. Contenu créé/modifié **absent** du review pack (niveau light/full)
+ 18. **Divergence** entre fichier réel et contenu présenté dans le review pack
+ 19. **Stub final** du review pack alors que light ou full requis (§7.5)
+@@ -1350,10 +1422,10 @@ Cursor doit **stopper** et demander Morris si :
+ 32. **Git granularity** : micro-PR non justifiée ; commit/PR dispersé sans livrable cohérent
+ 33. **Post-MVP stop** : arrêt post-MVP sans décision Morris ; réserve ouverte non qualifiée ; Option B/C lancée sans GO Morris
+ 34. **Post-merge cleanup** : branche ambiguë ; branche non mergée ; `git branch -d` refuse ; branche spéciale/handoff ciblée ; cleanup sans GO post-merge
+-35. **Review Handoff** : Mode `local-only` justifié — verdict `HANDOFF LOCAL ONLY — PUSH MISSING` + « revue Git distante non disponible » ; **ne pas** présenter comme publication réussie
++35. **Review Handoff** : Mode `local-only` exception technique — `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` ; cycle non complètement clôturé ; **ne pas** présenter comme publication réussie
+ 36. **Review Handoff** : Mode `publish-in-cycle` mais **non poussé** — `REVIEW HANDOFF INCOMPLETE — REMOTE PUBLICATION NOT PERFORMED` ; **interdit** readiness métier/documentaire
+ 37. **Review Handoff** : poussé sans relecture / SHA distant — `REVIEW HANDOFF INCOMPLETE — REMOTE VERIFICATION MISSING`
+-38. **Review Handoff** : décision required / not required **absente** — `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`
++38. **Review Handoff** : rapport Cursor avec review pack absent/`none`, handoff `not required`, ou `local-only` non conforme — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`
+ 39. **Review Handoff** : mode incohérent (required + push oui + local-only) — `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
+ 40. **Review Handoff** : Cursor annonce publié mais remote ancien/absent/incomplet — `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`
+ 41. **Review Handoff** : force push requis ou divergence incompatible — `STOP — REVIEW HANDOFF REMOTE DIVERGENCE`
+@@ -1379,7 +1451,7 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
+ 8. Garde-fous confirmés
+ 9. Review pack réinitialisé au début du cycle (oui/non)
+ 10. Review pack créé / mis à jour (oui/non) — **mono-cycle uniquement**
+-11. Niveau review pack appliqué : none / light / full
++11. Niveau review pack appliqué : light / full (obligatoire si rapport Cursor)
+ 12. Review pack complété avant rapport final — absence de stub final (confirmé / non)
+ 13. Review pack ne contient que le cycle courant (confirmé / non)
+ 14. Ouverture review pack (confirmé / best effort)
+@@ -1387,7 +1459,7 @@ Chaque rapport final Cursor doit indiquer la **date et l'heure du rapport** (fus
+ 16. Décisions Morris requises (oui/non + liste)
+ 17. **Review pack content coverage** (§7.5 — created/modified/diff/synthesis only/verdict)
+ 18. **Review Handoff Git** (§7.10–§7.11) :
+-    - handoff decision : required / not required
++    - handoff decision : required (obligatoire si rapport Cursor)
+     - handoff justification
+     - mode handoff : publish-in-cycle / local-only / not-required
+     - motif local-only : … / N/A
+@@ -1461,7 +1533,9 @@ Si `synthesis only = yes` → verdict **ne peut pas** être READY.
+ > branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md`
+ > (jamais le fichier racine historique comme canonique).
+
+-Si handoff = **not required** : indiquer `HANDOFF NOT REQUIRED — JUSTIFIED` + justification — **ne pas** afficher le bloc ci-dessus.
++Si opération **read-only sans rapport Cursor** (hors contrat) : indiquer clairement « hors contrat review pack / handoff » — **ne pas** afficher le bloc ci-dessus.
++Si exception `local-only` : indiquer `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` + motif — **ne pas** présenter le handoff Git comme disponible.
++`not required` pour un rapport Cursor : **interdit** → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`.
+
+ Si Mode = **`local-only`** : indiquer clairement que la revue Git distante **n'est pas disponible** ; ne pas traiter le rapport Cursor comme substitut du handoff distant.
+
+@@ -1490,7 +1564,7 @@ Si Mode = **`local-only`** : indiquer clairement que la revue Git distante **n'e
+ | `READY FOR MORRIS GO PUSH / PR` | À utiliser uniquement si le prompt mentionne explicitement qu'un GO Morris préalable ou attendu couvre cette étape. Sinon utiliser READY FOR PR READINESS. |
+ | `STOP — MORRIS DECISION REQUIRED` | Gate ou arbitrage requis |
+ | `NOT READY` | Écart bloquant documenté |
+-| `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` | Prompt sans décision handoff required/not required |
++| `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` | Rapport Cursor avec review pack absent/`none`, handoff `not required`, ou `local-only` non conforme |
+ | `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT` | Mode/push contradictoires (ex. required + push oui + local-only) |
+ | `HANDOFF UPDATED — REMOTE VERIFIED` | Handoff publié, SHA vérifié, fichier distant relu |
+ | `HANDOFF LOCAL ONLY — PUSH MISSING` | Mode local-only justifié — revue Git distante non disponible |
+@@ -1500,7 +1574,7 @@ Si Mode = **`local-only`** : indiquer clairement que la revue Git distante **n'e
+ | `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED` | Annonce publiée mais remote non à jour |
+ | `STOP — REVIEW HANDOFF SCOPE MISMATCH` | Périmètre handoff multi-fichier / mauvais chemin |
+ | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` | Divergence incompatible ou force push requis |
+-| `HANDOFF NOT REQUIRED — JUSTIFIED` | Handoff not required avec justification |
++| `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` | Exception technique local-only — régularisation requise |
+
+ ---
+
+@@ -1519,8 +1593,8 @@ Procédure détaillée :
+ 3. Utiliser le template canonique : prompts/templates/sfia-cycle-execution-template.md (Git main).
+ 4. Si ajouté aux sources projet ChatGPT : aide d'instanciation — en cas d'écart, Git main > sources projet.
+ 5. Critical : toujours justifier. Standard par défaut si doute.
+-6. Review pack proportionné : none / light / full — voir template §7. Jamais de stub final si light ou full requis.
+-7. Review Handoff Git : décision required / not required + mode publish-in-cycle / local-only / not-required (template §3, §5, §7.10–§7.11). required + Push handoff autorisé = oui — L3 borné ⇒ publish-in-cycle dans le MÊME cycle (copie, commit mono-fichier, push origin/sfia/review-handoff, vérification SHA + relecture distante, retour branche) — pas de second GO Morris. local-only exige un motif. Combinaison contradictoire → PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT. Décision absente → PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING. Chemin canonique unique : sfia-review-handoff/latest-chatgpt-review.md.
++6. Review pack : light / full obligatoire pour tout cycle Cursor produisant un rapport (§7.0). Jamais `none` pour un rapport. Jamais de stub final.
++7. Review Handoff Git : required + publish-in-cycle + Push oui — L3 borné automatiques pour tout rapport Cursor (template §3, §5, §7.0, §7.10–§7.11). Publication dans le MÊME cycle. local-only = exception technique uniquement → HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED. Rapport + none/not required/local-only non conforme → PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING. Chemin canonique unique : sfia-review-handoff/latest-chatgpt-review.md.
+ 8. v2.6 = baseline opérationnelle officielle (active sur `main`). v2.4 = historique précédente. v2.5 = candidate absorbée. v3.0 = hors trajectoire.
+ 9. Morris décide push branche projet, PR, merge, gates structurants. Cursor exécute le contrat — ne décide pas. Push handoff publish-in-cycle = L3 borné sans micro-GO Morris — n'autorise jamais push projet, PR, merge, force push ni L5.
+ ```
 
 ```
 
-### `projects/sfia-studio/app/lib/ops1/errors.ts`
+## QA documentaire
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/errors.ts b/projects/sfia-studio/app/lib/ops1/errors.ts
-index 6a32fc8..0420b3e 100644
---- a/projects/sfia-studio/app/lib/ops1/errors.ts
-+++ b/projects/sfia-studio/app/lib/ops1/errors.ts
-@@ -3,6 +3,8 @@ export type Ops1ErrorCode =
-   | "NOT_FOUND"
-   | "PERSISTENCE"
-   | "CONFLICT"
-+  | "CONFIG"
-+  | "PROVIDER"
-   | "INTERNAL";
+1. Cohérence des trois documents (+ guardrails) : **OK** — règle centrale alignée.
+2. Pas de contradiction review pack obligatoire / Light-Full / handoff / L3 / gates / interdiction push projet : **OK**.
+3. Pas de valeur active `none` / `not required` pour rapport Cursor dans fiches d'instanciation : **OK** (mentions restantes = interdictions / diagnostics).
+4. Exemples / tableaux / verdicts / chemins canoniques : **OK**.
+5. `git diff --check` : **OK** (pas d'espace en fin de ligne / conflit).
+6. Contrôle secrets borné au diff : hits uniquement sur le mot « secret » doctrinaire — **OK**.
+7. Liens/chemins internes (`sfia-review-handoff/latest-chatgpt-review.md`, `sfia/review-handoff`) : **OK**.
 
- export class Ops1Error extends Error {
+## Réserves
 
-```
+1. **Références historiques restantes** (hors périmètre — correction disproportionnée) :
+   - `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/*`
+   - `method/sfia-fast-track/documentation/archive/version-history/sfia-v2.5/*`
+   - drafts Notion editorial (`sfia-notion-*-editorial-draft.md`)
+2. Branche méthode **non commitée / non poussée** — doctrine locale en attente de GO Morris pour commit/PR méthode.
+3. Worktree projet OPS1 I2 conserve des modifications non commitées — **intactes**, non mélangées.
+4. Baseline officielle `main` **non modifiée** (pas de push/merge méthode).
 
-### `projects/sfia-studio/app/lib/ops1/fixtureReply.ts`
+## Confirmations d'exécution
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts b/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-index 11c69ad..8c70d74 100644
---- a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-+++ b/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-@@ -3,7 +3,7 @@ export function buildFixtureAssistantReply(userContent: string): string {
-   const preview =
-     userContent.length > 120 ? `${userContent.slice(0, 117)}…` : userContent;
-   return [
--    "[FIXTURE / NON LIVE] Réponse locale déterministe OPS1 I1.",
-+    "[FIXTURE / NON LIVE] Réponse locale déterministe OPS1 I2.",
-     "Aucun fournisseur GPT n’a été appelé.",
-     `Echo borné : « ${preview} »`,
-   ].join(" ");
+- Aucun commit méthode : **oui**
+- Aucun push méthode : **oui**
+- Aucune PR / merge : **oui**
+- Aucune modification applicative / OPS1 dans ce cycle : **oui**
+- Granularité Light / Full inchangée : **oui**
+- Handoff : publication prévue dans le même cycle (section suivante du cycle exécuteur)
 
-```
+## Verdict
 
-### `projects/sfia-studio/app/lib/ops1/ids.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/ids.ts b/projects/sfia-studio/app/lib/ops1/ids.ts
-index 850458d..45f2b8d 100644
---- a/projects/sfia-studio/app/lib/ops1/ids.ts
-+++ b/projects/sfia-studio/app/lib/ops1/ids.ts
-@@ -11,3 +11,7 @@ export function createTurnId(): string {
- export function createEventId(): string {
-   return `ops1-evt-${randomUUID()}`;
- }
-+
-+export function createAttemptId(): string {
-+  return `ops1-att-${randomUUID()}`;
-+}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/index.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/index.ts b/projects/sfia-studio/app/lib/ops1/index.ts
-index b03b14b..4f46cad 100644
---- a/projects/sfia-studio/app/lib/ops1/index.ts
-+++ b/projects/sfia-studio/app/lib/ops1/index.ts
-@@ -2,3 +2,6 @@ export * from "./types";
- export * from "./errors";
- export * from "./validation";
- export * from "./fixtureReply";
-+export { buildProviderMessagesFromJournal } from "./conversation/types";
-+export { getLiveConversationAvailability } from "./conversation/config";
-+export { inferLegacyConversationMode } from "./db";
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/repository.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/repository.ts b/projects/sfia-studio/app/lib/ops1/repository.ts
-index 5734373..9944057 100644
---- a/projects/sfia-studio/app/lib/ops1/repository.ts
-+++ b/projects/sfia-studio/app/lib/ops1/repository.ts
-@@ -1,9 +1,17 @@
- import type { DatabaseSync } from "node:sqlite";
--import { createEventId, createSessionId, createTurnId } from "./ids";
-+import {
-+  createAttemptId,
-+  createEventId,
-+  createSessionId,
-+  createTurnId,
-+} from "./ids";
- import { openOps1Db, nowIsoWithOffset, resetOps1DbForTests } from "./db";
- import { Ops1Error } from "./errors";
- import {
-   OPS1_PROJECT_KEY,
-+  type ConversationAttempt,
-+  type ConversationAttemptStatus,
-+  type ConversationMode,
-   type CycleSession,
-   type JournalTurn,
-   type SessionEvent,
-@@ -14,6 +22,9 @@ import {
- export { resetOps1DbForTests };
-
- function mapSession(row: Record<string, unknown>): CycleSession {
-+  const conversationMode =
-+    (row.conversation_mode as ConversationMode | undefined) ??
-+    (Number(row.fixture_mode) === 1 ? "fixture" : "live");
-   return {
-     sessionId: String(row.session_id),
-     projectKey: String(row.project_key),
-@@ -23,7 +34,8 @@ function mapSession(row: Record<string, unknown>): CycleSession {
-     parentSessionId: row.parent_session_id
-       ? String(row.parent_session_id)
-       : null,
--    fixtureMode: Number(row.fixture_mode) === 1,
-+    fixtureMode: conversationMode === "fixture",
-+    conversationMode,
-   };
- }
-
-@@ -39,6 +51,34 @@ function mapTurn(row: Record<string, unknown>): JournalTurn {
-   };
- }
-
-+function mapAttempt(row: Record<string, unknown>): ConversationAttempt {
-+  return {
-+    attemptId: String(row.attempt_id),
-+    sessionId: String(row.session_id),
-+    userTurnId: row.user_turn_id ? String(row.user_turn_id) : null,
-+    assistantTurnId: row.assistant_turn_id
-+      ? String(row.assistant_turn_id)
-+      : null,
-+    provider: String(row.provider),
-+    status: row.status as ConversationAttemptStatus,
-+    providerResponseId: row.provider_response_id
-+      ? String(row.provider_response_id)
-+      : null,
-+    model: row.model ? String(row.model) : null,
-+    inputTokens:
-+      row.input_tokens == null ? null : Number(row.input_tokens),
-+    outputTokens:
-+      row.output_tokens == null ? null : Number(row.output_tokens),
-+    totalTokens:
-+      row.total_tokens == null ? null : Number(row.total_tokens),
-+    requestStartedAt: String(row.request_started_at),
-+    requestCompletedAt: row.request_completed_at
-+      ? String(row.request_completed_at)
-+      : null,
-+    errorCode: row.error_code ? String(row.error_code) : null,
-+  };
-+}
-+
- function insertEvent(
-   db: DatabaseSync,
-   sessionId: string | null,
-@@ -54,27 +94,38 @@ function insertEvent(
-   return { eventId, sessionId, type, createdAt, detail };
- }
-
--export function createOpenSession(db = openOps1Db()): {
-+export function createOpenSession(
-+  mode: ConversationMode = "fixture",
-+  db = openOps1Db(),
-+): {
-   session: CycleSession;
-   event: SessionEvent;
- } {
-+  if (mode !== "fixture" && mode !== "live") {
-+    throw new Ops1Error("VALIDATION", "Mode de session invalide.");
-+  }
-   const sessionId = createSessionId();
-   const createdAt = nowIsoWithOffset();
-+  const fixtureMode = mode === "fixture" ? 1 : 0;
-
-   try {
-     db.exec("BEGIN IMMEDIATE");
-     db.prepare(
-       `INSERT INTO cycle_sessions (
-          session_id, project_key, status, created_at, updated_at,
--         parent_session_id, fixture_mode
--       ) VALUES (?, ?, 'OPEN', ?, ?, NULL, 1)`,
--    ).run(sessionId, OPS1_PROJECT_KEY, createdAt, createdAt);
-+         parent_session_id, fixture_mode, conversation_mode
-+       ) VALUES (?, ?, 'OPEN', ?, ?, NULL, ?, ?)`,
-+    ).run(sessionId, OPS1_PROJECT_KEY, createdAt, createdAt, fixtureMode, mode);
-
-     const event = insertEvent(
-       db,
-       sessionId,
-       "SESSION_OPENED",
--      JSON.stringify({ projectKey: OPS1_PROJECT_KEY, fixtureMode: true }),
-+      JSON.stringify({
-+        projectKey: OPS1_PROJECT_KEY,
-+        fixtureMode: mode === "fixture",
-+        conversationMode: mode,
-+      }),
-       createdAt,
-     );
-     db.exec("COMMIT");
-@@ -87,7 +138,8 @@ export function createOpenSession(db = openOps1Db()): {
-         createdAt,
-         updatedAt: createdAt,
-         parentSessionId: null,
--        fixtureMode: true,
-+        fixtureMode: mode === "fixture",
-+        conversationMode: mode,
-       },
-       event,
-     };
-@@ -252,11 +304,240 @@ export function appendTurn(
-   }
- }
-
-+export function startConversationAttempt(
-+  input: {
-+    sessionId: string;
-+    userTurnId: string;
-+    provider: string;
-+  },
-+  db = openOps1Db(),
-+): ConversationAttempt {
-+  const session = getSession(input.sessionId, db);
-+  if (!session) {
-+    throw new Ops1Error("NOT_FOUND", "Session introuvable.");
-+  }
-+  if (session.status !== "OPEN") {
-+    throw new Ops1Error("CONFLICT", "Session non OPEN.");
-+  }
-+
-+  const attemptId = createAttemptId();
-+  const startedAt = nowIsoWithOffset();
-+
-+  try {
-+    db.exec("BEGIN IMMEDIATE");
-+    db.prepare(
-+      `INSERT INTO conversation_attempts (
-+         attempt_id, session_id, user_turn_id, assistant_turn_id, provider,
-+         status, provider_response_id, model, input_tokens, output_tokens,
-+         total_tokens, request_started_at, request_completed_at, error_code
-+       ) VALUES (?, ?, ?, NULL, ?, 'started', NULL, NULL, NULL, NULL, NULL, ?, NULL, NULL)`,
-+    ).run(
-+      attemptId,
-+      input.sessionId,
-+      input.userTurnId,
-+      input.provider,
-+      startedAt,
-+    );
-+    insertEvent(
-+      db,
-+      input.sessionId,
-+      "CONVERSATION_ATTEMPT_STARTED",
-+      JSON.stringify({
-+        attemptId,
-+        userTurnId: input.userTurnId,
-+        provider: input.provider,
-+      }),
-+      startedAt,
-+    );
-+    db.exec("COMMIT");
-+  } catch (error) {
-+    try {
-+      db.exec("ROLLBACK");
-+    } catch {
-+      /* ignore */
-+    }
-+    throw new Ops1Error(
-+      "PERSISTENCE",
-+      "Échec d’enregistrement de la tentative conversationnelle.",
-+      error,
-+    );
-+  }
-+
-+  return {
-+    attemptId,
-+    sessionId: input.sessionId,
-+    userTurnId: input.userTurnId,
-+    assistantTurnId: null,
-+    provider: input.provider,
-+    status: "started",
-+    providerResponseId: null,
-+    model: null,
-+    inputTokens: null,
-+    outputTokens: null,
-+    totalTokens: null,
-+    requestStartedAt: startedAt,
-+    requestCompletedAt: null,
-+    errorCode: null,
-+  };
-+}
-+
-+export function completeConversationAttemptSuccess(
-+  input: {
-+    attemptId: string;
-+    sessionId: string;
-+    assistantTurnId: string;
-+    providerResponseId: string | null;
-+    model: string | null;
-+    inputTokens: number | null;
-+    outputTokens: number | null;
-+    totalTokens: number | null;
-+  },
-+  db = openOps1Db(),
-+): ConversationAttempt {
-+  const completedAt = nowIsoWithOffset();
-+  try {
-+    db.exec("BEGIN IMMEDIATE");
-+    db.prepare(
-+      `UPDATE conversation_attempts SET
-+         status = 'succeeded',
-+         assistant_turn_id = ?,
-+         provider_response_id = ?,
-+         model = ?,
-+         input_tokens = ?,
-+         output_tokens = ?,
-+         total_tokens = ?,
-+         request_completed_at = ?,
-+         error_code = NULL
-+       WHERE attempt_id = ? AND session_id = ? AND status = 'started'`,
-+    ).run(
-+      input.assistantTurnId,
-+      input.providerResponseId,
-+      input.model,
-+      input.inputTokens,
-+      input.outputTokens,
-+      input.totalTokens,
-+      completedAt,
-+      input.attemptId,
-+      input.sessionId,
-+    );
-+    insertEvent(
-+      db,
-+      input.sessionId,
-+      "CONVERSATION_ATTEMPT_SUCCEEDED",
-+      JSON.stringify({
-+        attemptId: input.attemptId,
-+        assistantTurnId: input.assistantTurnId,
-+        model: input.model,
-+        totalTokens: input.totalTokens,
-+      }),
-+      completedAt,
-+    );
-+    db.exec("COMMIT");
-+  } catch (error) {
-+    try {
-+      db.exec("ROLLBACK");
-+    } catch {
-+      /* ignore */
-+    }
-+    throw new Ops1Error(
-+      "PERSISTENCE",
-+      "Échec de finalisation de la tentative (succès).",
-+      error,
-+    );
-+  }
-+  const attempt = getConversationAttempt(input.attemptId, db);
-+  if (!attempt) {
-+    throw new Ops1Error("NOT_FOUND", "Tentative introuvable après succès.");
-+  }
-+  return attempt;
-+}
-+
-+export function completeConversationAttemptFailure(
-+  input: {
-+    attemptId: string;
-+    sessionId: string;
-+    errorCode: string;
-+  },
-+  db = openOps1Db(),
-+): ConversationAttempt {
-+  const completedAt = nowIsoWithOffset();
-+  const safeCode = input.errorCode.slice(0, 64);
-+  try {
-+    db.exec("BEGIN IMMEDIATE");
-+    db.prepare(
-+      `UPDATE conversation_attempts SET
-+         status = 'failed',
-+         request_completed_at = ?,
-+         error_code = ?
-+       WHERE attempt_id = ? AND session_id = ? AND status = 'started'`,
-+    ).run(completedAt, safeCode, input.attemptId, input.sessionId);
-+    insertEvent(
-+      db,
-+      input.sessionId,
-+      "CONVERSATION_ATTEMPT_FAILED",
-+      JSON.stringify({
-+        attemptId: input.attemptId,
-+        errorCode: safeCode,
-+      }),
-+      completedAt,
-+    );
-+    db.exec("COMMIT");
-+  } catch (error) {
-+    try {
-+      db.exec("ROLLBACK");
-+    } catch {
-+      /* ignore */
-+    }
-+    throw new Ops1Error(
-+      "PERSISTENCE",
-+      "Échec de finalisation de la tentative (échec).",
-+      error,
-+    );
-+  }
-+  const attempt = getConversationAttempt(input.attemptId, db);
-+  if (!attempt) {
-+    throw new Ops1Error("NOT_FOUND", "Tentative introuvable après échec.");
-+  }
-+  return attempt;
-+}
-+
-+export function getConversationAttempt(
-+  attemptId: string,
-+  db = openOps1Db(),
-+): ConversationAttempt | null {
-+  const row = db
-+    .prepare(`SELECT * FROM conversation_attempts WHERE attempt_id = ?`)
-+    .get(attemptId) as Record<string, unknown> | undefined;
-+  return row ? mapAttempt(row) : null;
-+}
-+
-+export function listConversationAttempts(
-+  sessionId: string,
-+  db = openOps1Db(),
-+): ConversationAttempt[] {
-+  const rows = db
-+    .prepare(
-+      `SELECT * FROM conversation_attempts
-+       WHERE session_id = ?
-+       ORDER BY request_started_at ASC`,
-+    )
-+    .all(sessionId) as Record<string, unknown>[];
-+  return rows.map(mapAttempt);
-+}
-+
- export function getSessionBundle(
-   sessionId: string,
-   db = openOps1Db(),
--): { session: CycleSession; turns: JournalTurn[] } | null {
-+): {
-+  session: CycleSession;
-+  turns: JournalTurn[];
-+  attempts: ConversationAttempt[];
-+} | null {
-   const session = getSession(sessionId, db);
-   if (!session) return null;
--  return { session, turns: listTurns(sessionId, db) };
-+  return {
-+    session,
-+    turns: listTurns(sessionId, db),
-+    attempts: listConversationAttempts(sessionId, db),
-+  };
- }
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/types.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
-index 5c42bad..bb2f2fd 100644
---- a/projects/sfia-studio/app/lib/ops1/types.ts
-+++ b/projects/sfia-studio/app/lib/ops1/types.ts
-@@ -1,8 +1,27 @@
--/** OPS1 I1 — Session + journal (fixture/local). CLOSED reserved; not mutated in I1. */
-+/** OPS1 I1/I2 — Session + journal. CLOSED reserved; not mutated in I1/I2. */
-
- export type SessionStatus = "OPEN" | "CLOSED";
-
--export type TurnRole = "user" | "assistant_fixture";
-+/** I2 extends roles with assistant_live; fixture role retained for non-live. */
-+export type TurnRole = "user" | "assistant_fixture" | "assistant_live";
-+
-+/** Immutable session conversation mode — chosen at creation, never mixed. */
-+export type ConversationMode = "fixture" | "live";
-+
-+export type ConversationAttemptStatus =
-+  | "started"
-+  | "succeeded"
-+  | "failed";
-+
-+/**
-+ * Runtime presentation kind for UI signalétique.
-+ * Distinct from ConversationMode: a live-mode session can still be served
-+ * by the fake test provider (TEST / NON LIVE), never as genuine GPT live.
-+ */
-+export type ProviderPresentation =
-+  | "fixture"
-+  | "test_provider"
-+  | "openai_live";
-
- export interface CycleSession {
-   sessionId: string;
-@@ -11,7 +30,10 @@ export interface CycleSession {
-   createdAt: string;
-   updatedAt: string;
-   parentSessionId: string | null;
-+  /** @deprecated Prefer conversationMode; kept as mirror of fixture mode. */
-   fixtureMode: boolean;
-+  /** Immutable conversation mode for the whole session lifetime. */
-+  conversationMode: ConversationMode;
- }
-
- export interface JournalTurn {
-@@ -24,11 +46,41 @@ export interface JournalTurn {
-   createdAt: string;
- }
-
-+export interface ConversationAttempt {
-+  attemptId: string;
-+  sessionId: string;
-+  userTurnId: string | null;
-+  assistantTurnId: string | null;
-+  provider: string;
-+  status: ConversationAttemptStatus;
-+  providerResponseId: string | null;
-+  model: string | null;
-+  inputTokens: number | null;
-+  outputTokens: number | null;
-+  totalTokens: number | null;
-+  requestStartedAt: string;
-+  requestCompletedAt: string | null;
-+  errorCode: string | null;
-+}
-+
-+export interface ConversationUsageCounters {
-+  inputTokens: number | null;
-+  outputTokens: number | null;
-+  totalTokens: number | null;
-+  model: string | null;
-+  provider: string;
-+  attemptId: string;
-+  durationMs: number | null;
-+}
-+
- export type SessionEventType =
-   | "SESSION_OPENED"
-   | "TURN_APPENDED"
-   | "SESSION_PERSISTENCE_FAILED"
--  | "TURN_PERSISTENCE_FAILED";
-+  | "TURN_PERSISTENCE_FAILED"
-+  | "CONVERSATION_ATTEMPT_STARTED"
-+  | "CONVERSATION_ATTEMPT_SUCCEEDED"
-+  | "CONVERSATION_ATTEMPT_FAILED";
-
- export interface SessionEvent {
-   eventId: string;
-@@ -42,3 +94,6 @@ export const OPS1_PROJECT_KEY = "sfia-studio-ops1";
-
- /** Local input guardrail — not a FinOps decision. */
- export const OPS1_MAX_MESSAGE_CHARS = 4000;
-+
-+export const LEGACY_SESSION_MODE_AMBIGUOUS =
-+  "MORRIS DECISION REQUIRED — LEGACY SESSION MODE AMBIGUOUS";
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/validation.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/validation.ts b/projects/sfia-studio/app/lib/ops1/validation.ts
-index 1a7858b..eda1313 100644
---- a/projects/sfia-studio/app/lib/ops1/validation.ts
-+++ b/projects/sfia-studio/app/lib/ops1/validation.ts
-@@ -1,4 +1,8 @@
--import { OPS1_MAX_MESSAGE_CHARS, type TurnRole } from "./types";
-+import {
-+  OPS1_MAX_MESSAGE_CHARS,
-+  type ConversationMode,
-+  type TurnRole,
-+} from "./types";
- import { Ops1Error } from "./errors";
-
- const SESSION_ID_RE = /^ops1-sess-[0-9a-f-]{36}$/i;
-@@ -28,6 +32,17 @@ export function assertMessageContent(content: unknown): string {
- }
-
- export function assertTurnRole(role: unknown): TurnRole {
--  if (role === "user" || role === "assistant_fixture") return role;
-+  if (
-+    role === "user" ||
-+    role === "assistant_fixture" ||
-+    role === "assistant_live"
-+  ) {
-+    return role;
-+  }
-   throw new Ops1Error("VALIDATION", "Rôle de tour invalide.");
- }
-+
-+export function assertConversationMode(mode: unknown): ConversationMode {
-+  if (mode === "fixture" || mode === "live") return mode;
-+  throw new Ops1Error("VALIDATION", "Mode conversationnel invalide.");
-+}
-
-```
-
-### `projects/sfia-studio/app/package-lock.json`
-
-```diff
-diff --git a/projects/sfia-studio/app/package-lock.json b/projects/sfia-studio/app/package-lock.json
-index 5d23e54..239be78 100644
---- a/projects/sfia-studio/app/package-lock.json
-+++ b/projects/sfia-studio/app/package-lock.json
-@@ -9,6 +9,7 @@
-       "version": "0.1.0",
-       "dependencies": {
-         "next": "^15.3.3",
-+        "openai": "^6.48.0",
-         "react": "^19.1.0",
-         "react-dom": "^19.1.0"
-       },
-@@ -6035,6 +6036,36 @@
-         "url": "https://github.com/sponsors/ljharb"
-       }
-     },
-+    "node_modules/openai": {
-+      "version": "6.48.0",
-+      "resolved": "https://registry.npmjs.org/openai/-/openai-6.48.0.tgz",
-+      "integrity": "sha512-KhVp+FyV50QrXNextvL9hIU5l6ox5HYuKQjGVk7lIqprgJol90+dQXWONV6S1lRWsKA1bXjrow8RsUT14M1hNA==",
-+      "license": "Apache-2.0",
-+      "peerDependencies": {
-+        "@aws-sdk/credential-provider-node": ">=3.972.0 <4",
-+        "@smithy/hash-node": ">=4.3.0 <5",
-+        "@smithy/signature-v4": ">=5.4.0 <6",
-+        "ws": "^8.18.0",
-+        "zod": "^3.25 || ^4.0"
-+      },
-+      "peerDependenciesMeta": {
-+        "@aws-sdk/credential-provider-node": {
-+          "optional": true
-+        },
-+        "@smithy/hash-node": {
-+          "optional": true
-+        },
-+        "@smithy/signature-v4": {
-+          "optional": true
-+        },
-+        "ws": {
-+          "optional": true
-+        },
-+        "zod": {
-+          "optional": true
-+        }
-+      }
-+    },
-     "node_modules/optionator": {
-       "version": "0.9.4",
-       "resolved": "https://registry.npmjs.org/optionator/-/optionator-0.9.4.tgz",
-@@ -7952,7 +7983,7 @@
-       "version": "8.21.1",
-       "resolved": "https://registry.npmjs.org/ws/-/ws-8.21.1.tgz",
-       "integrity": "sha512-+0NTnW77fFN/DjQi6k/Sq/Yvk4Sgajw7urW8V+asjXnRgDs9gyGkdb7EzgfhA4goXsRIZKE28fzIXBHEzhuiWw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=10.0.0"
-
-```
-
-### `projects/sfia-studio/app/package.json`
-
-```diff
-diff --git a/projects/sfia-studio/app/package.json b/projects/sfia-studio/app/package.json
-index 0022a01..64b70fe 100644
---- a/projects/sfia-studio/app/package.json
-+++ b/projects/sfia-studio/app/package.json
-@@ -15,6 +15,7 @@
-   },
-   "dependencies": {
-     "next": "^15.3.3",
-+    "openai": "^6.48.0",
-     "react": "^19.1.0",
-     "react-dom": "^19.1.0"
-   },
-
-```
-
-### `projects/sfia-studio/app/playwright.config.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/playwright.config.ts b/projects/sfia-studio/app/playwright.config.ts
-index a4c1df0..b0eaaaf 100644
---- a/projects/sfia-studio/app/playwright.config.ts
-+++ b/projects/sfia-studio/app/playwright.config.ts
-@@ -18,8 +18,22 @@ export default defineConfig({
-   webServer: {
-     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
-     url: baseURL,
--    // Prefer local reuse: port 3020 is often already served by `npm run dev`.
--    reuseExistingServer: true,
-+    reuseExistingServer: false,
-     timeout: 180_000,
-+    env: {
-+      ...process.env,
-+      // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
-+      // without forcing fake (secrets must already be in the environment).
-+      ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
-+        ? {
-+            OPS1_CONVERSATION_PROVIDER: "",
-+          }
-+        : {
-+            OPS1_CONVERSATION_PROVIDER: "fake",
-+            OPENAI_API_KEY:
-+              process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
-+            OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
-+          }),
-+    },
-   },
- });
-
-```
-
-## Instruction ChatGPT
-
-1. Lire ce review pack local (handoff distant non republished)
-2. Vérifier immuabilité mode + signalétique fixture/fake/live
-3. Vérifier migration et défense builder
-4. Vérifier smoke live et capture `ops1-i2-live-locked.png`
-5. Ne pas autoriser commit/push/PR/I3 sans nouveau GO Morris
-
----
-
-**Verdict Cursor :** `OPS1 I2 MIXED-MODE RESERVE FIXED — UX SIGNALS ALIGNED — LIVE VERIFIED — READY FOR REVIEW`
+`SFIA REVIEW PACK MANDATORY ROUTING UPDATED — HANDOFF REMOTE VERIFIED — READY FOR REVIEW` (après publication)
