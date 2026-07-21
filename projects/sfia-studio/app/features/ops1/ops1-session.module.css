@@ -261,3 +261,116 @@
   font-size: 0.8rem;
   color: var(--sfia-muted);
 }
+
+.i3Panel {
+  border-color: #c5d4e8;
+  background: #f7fafc;
+}
+
+.actionPanel {
+  border-color: #d4c5e8;
+  background: #faf8fc;
+}
+
+.gatePanel {
+  border-color: #e8d4c5;
+  background: #fcfaf7;
+}
+
+.safetyPanel {
+  border-color: #e8c5c5;
+  background: #fcf7f7;
+}
+
+.qualificationBadge,
+.actionStatus,
+.decisionBadge {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.qualificationBadge {
+  background: #eef4fb;
+  border: 1px solid #b8cce0;
+  color: #1e3a5f;
+}
+
+.actionStatus {
+  background: #f3eefb;
+  border: 1px solid #c9b6e0;
+  color: #3d2a5c;
+}
+
+.goNeExec {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7a3b12;
+}
+
+.goMicrocopy {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  background: #e8f6ee;
+  border: 1px solid #9dcfb0;
+  color: #1b5c38;
+  font-weight: 600;
+}
+
+.decisionBadge {
+  background: #fff6ee;
+  border: 1px solid #e0c4a8;
+  color: #5c3a1e;
+}
+
+.gateActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.refineForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.fieldInput {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--sfia-border);
+  padding: 0.65rem 0.85rem;
+  font: inherit;
+  color: var(--sfia-ink);
+  background: #fff;
+}
+
+.fieldInput:focus {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 1px;
+}
+
+.actionFields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.actionFields dt {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sfia-muted);
+}
+
+.actionFields dd {
+  margin: 0.15rem 0 0;
+  color: var(--sfia-ink);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}

@@ -15,3 +15,11 @@ export function createEventId(): string {
 export function createAttemptId(): string {
   return `ops1-att-${randomUUID()}`;
 }
+
+export function createActionCandidateId(): string {
+  return `ops1-act-${randomUUID()}`;
+}
+
+export function createGateDecisionId(): string {
+  return `ops1-gate-${randomUUID()}`;
+}

@@ -14,7 +14,18 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1SendMessageAction: (...args: unknown[]) => send(...args),
   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
   ops1AppendUserMessageAction: vi.fn(),
+  ops1QualifyActionNotRequiredAction: vi.fn(),
+  ops1CreateFixtureActionCandidateAction: vi.fn(),
+  ops1RefineActionCandidateAction: vi.fn(),
+  ops1RecordGateDecisionAction: vi.fn(),
+  ops1RefuseExecutionAction: vi.fn(),
 }));
+
+const emptyI3 = {
+  qualification: null,
+  candidates: [] as unknown[],
+  latestDecisionsByAction: {} as Record<string, null>,
+};
 
 const fixtureSession = {
   sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
@@ -69,6 +80,7 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
         turns: [],
         attempts: [],
         presentation: "fixture",
+        ...emptyI3,
       },
     });
     render(<Ops1SessionScreen />);
@@ -117,6 +129,7 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
         ],
         attempts: [],
         presentation: "test_provider",
+        ...emptyI3,
       },
     });
     window.sessionStorage.setItem(
@@ -157,6 +170,7 @@ describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
         ],
         attempts: [],
         presentation: "openai_live",
+        ...emptyI3,
       },
     });
     window.sessionStorage.setItem(

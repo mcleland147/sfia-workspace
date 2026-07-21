@@ -5,9 +5,20 @@ import {
   getSessionBundle,
   listOpenSessions,
 } from "./repository";
+import {
+  createFixtureActionCandidate,
+  getI3Bundle,
+  qualifyActionNotRequired,
+  recordGateDecision,
+  refineActionCandidate,
+  refuseExecutionAttempt,
+} from "./actionGate";
 import { Ops1Error, toSafeClientError } from "./errors";
 import {
+  assertActionCandidateId,
+  assertActionField,
   assertConversationMode,
+  assertGateDecisionKind,
   assertMessageContent,
   assertSessionId,
 } from "./validation";
@@ -17,12 +28,16 @@ import {
 } from "./conversation/config";
 import { sendConversationMessage } from "./conversation/service";
 import type {
+  ActionCandidate,
   ConversationAttempt,
   ConversationMode,
   ConversationUsageCounters,
   CycleSession,
+  GateDecision,
+  GateDecisionKind,
   JournalTurn,
   ProviderPresentation,
+  SessionQualification,
 } from "./types";
 
 export type Ops1ActionResult<T> =
@@ -89,6 +104,9 @@ export async function ops1GetSessionAction(
     turns: JournalTurn[];
     attempts: ConversationAttempt[];
     presentation: ProviderPresentation;
+    qualification: SessionQualification | null;
+    candidates: ActionCandidate[];
+    latestDecisionsByAction: Record<string, GateDecision | null>;
   }>
 > {
   try {
@@ -97,11 +115,15 @@ export async function ops1GetSessionAction(
     if (!bundle) {
       throw new Ops1Error("NOT_FOUND", "Session introuvable.");
     }
+    const i3 = getI3Bundle(id);
     return {
       ok: true,
       data: {
         ...bundle,
         presentation: resolvePresentation(bundle.session.conversationMode),
+        qualification: i3.qualification,
+        candidates: i3.candidates,
+        latestDecisionsByAction: i3.latestDecisionsByAction,
       },
     };
   } catch (error) {
@@ -210,4 +232,110 @@ export async function ops1AppendUserMessageAction(input: {
       assistantError: result.data.assistantError,
     },
   };
+}
+
+/* ─── OPS1 I3 — action candidate + gate (no execution) ─── */
+
+export async function ops1QualifyActionNotRequiredAction(input: {
+  sessionId: string;
+}): Promise<Ops1ActionResult<{ qualification: SessionQualification }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const { qualification } = qualifyActionNotRequired(sessionId);
+    return { ok: true, data: { qualification } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1CreateFixtureActionCandidateAction(input: {
+  sessionId: string;
+}): Promise<Ops1ActionResult<{ candidate: ActionCandidate }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const { candidate } = createFixtureActionCandidate(sessionId);
+    return { ok: true, data: { candidate } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1RefineActionCandidateAction(input: {
+  sessionId: string;
+  actionCandidateId: string;
+  title: string;
+  objective: string;
+  scopeSummary: string;
+  riskSummary: string;
+}): Promise<Ops1ActionResult<{ candidate: ActionCandidate }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
+    const { candidate } = refineActionCandidate({
+      sessionId,
+      actionCandidateId,
+      title: assertActionField("Titre", input.title),
+      objective: assertActionField("Objectif", input.objective),
+      scopeSummary: assertActionField("Périmètre", input.scopeSummary),
+      riskSummary: assertActionField("Risques", input.riskSummary),
+    });
+    return { ok: true, data: { candidate } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1RecordGateDecisionAction(input: {
+  sessionId: string;
+  actionCandidateId: string;
+  kind: GateDecisionKind;
+  motif?: string | null;
+}): Promise<
+  Ops1ActionResult<{
+    decision: GateDecision;
+    candidate: ActionCandidate;
+    microcopy: string | null;
+  }>
+> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
+    const kind = assertGateDecisionKind(input.kind);
+    const result = recordGateDecision({
+      sessionId,
+      actionCandidateId,
+      kind,
+      motif: input.motif ?? null,
+    });
+    return {
+      ok: true,
+      data: {
+        decision: result.decision,
+        candidate: result.candidate,
+        microcopy: result.microcopy,
+      },
+    };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+/** Explicit fail-closed — I3 never executes Cursor/Git/filesystem. */
+export async function ops1RefuseExecutionAction(input: {
+  sessionId: string;
+}): Promise<Ops1ActionResult<{ refused: true; message: string }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    refuseExecutionAttempt(sessionId);
+    return {
+      ok: true,
+      data: {
+        refused: true,
+        message:
+          "Exécution refusée — I3 n’autorise aucune exécution Cursor, Git ou filesystem.",
+      },
+    };
+  } catch (error) {
+    return fail(error);
+  }
 }
