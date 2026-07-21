@@ -8,7 +8,9 @@
 - **branche** : `delivery/sfia-studio-ops1-i4-allowlist-evaluation`
 - **HEAD** : `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`
 - **origin/main** : `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`
-- **commit/push/PR projet** : **AUCUN** (gate correctif local uniquement)
+- **commit/push/PR projet** : **COMMIT + PUSH + PR créés** (gate GO COMMIT PUSH PR OPS1 I4)
+- **commit projet** : `161f9d8ab06c886413c81bd92b7f0a5cc38a8b1b`
+- **PR** : #251 — https://github.com/mcleland147/sfia-workspace/pull/251
 - **handoff branch** : `sfia/review-handoff`
 - **handoff path** : `sfia-review-handoff/latest-chatgpt-review.md`
 
@@ -1531,3 +1533,131 @@ ChatGPT doit lire obligatoirement :
 
 - branche : `sfia/review-handoff`
 - fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+
+
+---
+
+# Addendum — PR readiness OPS1 I4
+
+## Métadonnées addendum
+
+- **date/heure** : 2026-07-21 18:35:28 CEST
+- **gate Morris consommé** : `GO COMMIT PUSH PR OPS1 I4`
+- **HEAD avant commit** : `33de2fc41d6c1f5d92198ceb0f75b972a460cb7b`
+- **SHA commit projet** : `161f9d8ab06c886413c81bd92b7f0a5cc38a8b1b`
+- **message commit** : `feat(sfia-studio): deliver OPS1 I4 allowlist evaluation`
+- **branche distante** : `origin/delivery/sfia-studio-ops1-i4-allowlist-evaluation`
+- **SHA local** : `161f9d8ab06c886413c81bd92b7f0a5cc38a8b1b`
+- **SHA distant** : `161f9d8ab06c886413c81bd92b7f0a5cc38a8b1b`
+- **égalité SHA local/distant** : OUI
+
+## Pull request
+
+- **numéro** : #251
+- **URL** : https://github.com/mcleland147/sfia-workspace/pull/251
+- **titre** : feat(sfia-studio): deliver OPS1 I4 allowlist evaluation
+- **base** : `main`
+- **head** : `delivery/sfia-studio-ops1-i4-allowlist-evaluation`
+- **état** : `OPEN`
+- **fichiers** : 17
+- **additions** : 1846
+- **deletions** : 18
+
+### Fichiers dans la PR
+
+- `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx` (MODIFIED, +2/-0)
+- `projects/sfia-studio/app/__tests__/ops1/allowlistEvaluation.test.ts` (ADDED, +368/-0)
+- `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx` (MODIFIED, +8/-4)
+- `projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts` (ADDED, +136/-0)
+- `projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx` (MODIFIED, +9/-9)
+- `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx` (MODIFIED, +302/-3)
+- `projects/sfia-studio/app/features/ops1/ops1-session.module.css` (MODIFIED, +167/-0)
+- `projects/sfia-studio/app/lib/ops1/actionGate.ts` (MODIFIED, +19/-0)
+- `projects/sfia-studio/app/lib/ops1/actions.ts` (MODIFIED, +27/-0)
+- `projects/sfia-studio/app/lib/ops1/allowlistEvaluation.ts` (ADDED, +482/-0)
+- `projects/sfia-studio/app/lib/ops1/allowlistService.ts` (ADDED, +187/-0)
+- `projects/sfia-studio/app/lib/ops1/db.ts` (MODIFIED, +19/-0)
+- `projects/sfia-studio/app/lib/ops1/fixtureReply.ts` (MODIFIED, +1/-1)
+- `projects/sfia-studio/app/lib/ops1/ids.ts` (MODIFIED, +4/-0)
+- `projects/sfia-studio/app/lib/ops1/index.ts` (MODIFIED, +12/-0)
+- `projects/sfia-studio/app/lib/ops1/types.ts` (MODIFIED, +64/-1)
+- `projects/sfia-studio/app/lib/ops1/validation.ts` (MODIFIED, +39/-0)
+
+## Staging / commit
+
+Fichiers staged (= commités), 17 chemins autorisés uniquement :
+
+- projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+- projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+- projects/sfia-studio/app/__tests__/ops1/allowlistEvaluation.test.ts
+- projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts
+- projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
+- projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+- projects/sfia-studio/app/features/ops1/ops1-session.module.css
+- projects/sfia-studio/app/lib/ops1/actionGate.ts
+- projects/sfia-studio/app/lib/ops1/actions.ts
+- projects/sfia-studio/app/lib/ops1/allowlistEvaluation.ts
+- projects/sfia-studio/app/lib/ops1/allowlistService.ts
+- projects/sfia-studio/app/lib/ops1/db.ts
+- projects/sfia-studio/app/lib/ops1/fixtureReply.ts
+- projects/sfia-studio/app/lib/ops1/ids.ts
+- projects/sfia-studio/app/lib/ops1/index.ts
+- projects/sfia-studio/app/lib/ops1/types.ts
+- projects/sfia-studio/app/lib/ops1/validation.ts
+
+Exclus du commit projet : `.tmp-sfia-review/**`, `projects/.tmp-sfia-review/**`, captures, artefacts locaux.
+
+## Tests finaux avant commit
+
+| Commande | Résultat |
+|----------|----------|
+| npm run typecheck | PASS |
+| npm run lint | PASS |
+| npm test | PASS — 104 tests |
+| npm run build | PASS |
+| npx playwright test e2e/ops1-i4-allowlist.spec.ts | PASS — 4/4 |
+| npx playwright test e2e/ops1-i3-action-gate.spec.ts | PASS — 5/5 |
+| git diff --cached --check | PASS |
+
+## Contrôle périmètre PR
+
+Chemins interdits absents de la PR :
+
+- projects/campus360/**
+- method/**
+- prompts/**
+- docs/**
+- scripts/**
+- .github/**
+- .tmp-sfia-review/**
+
+**Résultat** : PR SCOPE OK
+
+## Confirmations gate
+
+- **merge** : NON effectué
+- **branche delivery** : conservée (non supprimée)
+- **force push** : NON
+- **push main** : NON
+- **exécution Cursor / I5 / écriture Campus360** : NON
+
+## Réserves
+
+- Validation visuelle structurelle uniquement (Figma MCP frames 61:275, 61:1755, 61:2148)
+- Pas de pixel-perfect / visual READY fort
+
+## git status après commit/push/PR
+
+```
+?? .tmp-sfia-review/
+?? projects/.tmp-sfia-review/
+
+```
+
+## Décision Morris attendue
+
+Validation PR readiness ChatGPT, puis éventuel GO merge (hors de ce gate).
+
+## Verdict Cursor
+
+**OPS1 I4 PR CREATED — READY FOR PR READINESS VALIDATION**
