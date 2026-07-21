@@ -3,6 +3,8 @@ export type Ops1ErrorCode =
   | "NOT_FOUND"
   | "PERSISTENCE"
   | "CONFLICT"
+  | "CONFIG"
+  | "PROVIDER"
   | "INTERNAL";
 
 export class Ops1Error extends Error {

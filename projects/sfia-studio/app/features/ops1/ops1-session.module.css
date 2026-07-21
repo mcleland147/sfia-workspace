@@ -141,6 +141,79 @@
   font-weight: 600;
 }
 
+.liveTag {
+  color: var(--sfia-green, #1b7a4e);
+  font-weight: 600;
+}
+
+.testTag {
+  color: var(--sfia-purple, #6b4fbb);
+  font-weight: 600;
+}
+
+.lockedMode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--sfia-border);
+  background: #f7f8fa;
+}
+
+.lockedModeLabel {
+  margin: 0;
+  font-weight: 600;
+  color: var(--sfia-ink);
+}
+
+.modeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.modeOption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--sfia-ink);
+}
+
+.warn {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  background: #fff8e8;
+  border: 1px solid #efd39a;
+  color: #7a5a12;
+}
+
+.usage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.65rem 1rem;
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  border: 1px dashed var(--sfia-border);
+  background: #fafafa;
+}
+
+.usage dt {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sfia-muted);
+}
+
+.usage dd {
+  margin: 0.15rem 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+}
+
 .turnContent {
   margin: 0;
   white-space: pre-wrap;

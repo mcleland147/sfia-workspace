@@ -7,6 +7,7 @@ import shellStyles from "@/styles/shell.module.css";
 interface TopbarPill {
   label: string;
   tone?: "blueFlush" | "purpleFlush" | "orange" | "green";
+  testId?: string;
 }
 
 interface StudioShellProps {
