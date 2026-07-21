@@ -1,144 +1,42 @@
-# Review pack Full — OPS1 I2 PR readiness
+# Review pack Full — Post-merge PR #248 OPS1 I2
 
 ## Métadonnées
 
-- Date / heure / fuseau : 2026-07-21 07:03:39 CEST
+- Date / heure / fuseau : 2026-07-21 07:06:24 CEST
 - Repo : mcleland147/sfia-workspace
-- Cycle : 13 PR readiness + 8 Delivery
-- Profil : Standard
-- Typologie : INC / delivery
+- Cycle : post-merge
+- Gate Morris : go merge
 - Incrément : OPS1 I2
-- Gate Morris : `GO COMMIT PUSH PR — OPS1 I2 LIVE CONVERSATION`
-- Branche : `delivery/sfia-studio-ops1-i2-live-conversation`
-- HEAD initial : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
-- origin/main : `abd0541e23fcbc279196d9f862b7bddc86623eff`
-- merge-base : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
-- HEAD après commit : `42e3c02481f62e44dc8ef68a124e2dde223c9aae`
-- SHA distant : `42e3c02481f62e44dc8ef68a124e2dde223c9aae`
 - Review pack : Full
 - Review Handoff Git : required
 - Mode handoff : publish-in-cycle
-- Merge : **interdit / non effectué**
 
 ## Décision Morris
 
-GO commit / push / PR pour le delivery OPS1 I2. Merge interdit.
+Merge autorisé de la PR OPS1 I2 live conversation modes.
 
-## État Git initial
+## Git
 
-- Branche correcte, staged vide
-- 19 fichiers modifiés + untracked I2 (conversation/, badges, E2E, tests)
-- Aucun fichier méthode / handoff dans le diff projet
-- `.env.local` présent localement (chmod 600) — **exclu du commit**
-- `.tmp-sfia-review/**` — **exclu du commit**
-- Aucune PR ouverte préexistante
+- origin/main avant : `abd0541e23fcbc279196d9f862b7bddc86623eff`
+- origin/main après / merge commit : `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f`
+- PR : https://github.com/mcleland147/sfia-workspace/pull/248
+- État : MERGED
+- Merged at : 2026-07-21T05:06:02Z
+- Titre : feat(ops1): deliver I2 live conversation modes
+- Mode merge : squash
 
-## Sources consultées
-
-- Diff local Git (source de vérité)
-- `projects/sfia-studio/app/lib/ops1/**` + UI + tests + E2E
-- Captures `.tmp-sfia-review/screenshots-ops1-i2/`
-- package.json scripts (lint/typecheck/test/build/e2e)
-- Template SFIA (contraintes PR readiness / handoff)
-
-## Périmètre fonctionnel confirmé
-
-1. Session OPEN
-2. Mode choisi à la création puis verrouillé
-3. Multi-tours
-4. Fixture déterministe sans GPT
-5. Fake/test provider sans OpenAI
-6. GPT live serveur
-7. Journal + métriques
-8. Pas d'effet d'exécution depuis le chat
-9. Erreurs fournisseur bornées
-10. Distinction visuelle 3 modes
-11. Badge global cohérent
-
-## Contrôles fonctionnels / QA
-
-| Contrôle | Résultat |
-|----------|----------|
-| lint | OK |
-| typecheck | OK |
-| vitest | **84 / 84** OK |
-| build | OK (Next 15.5.20) |
-| E2E I1 + I2 conversation | 3 passed |
-| E2E live GPT (`OPS1_ALLOW_LIVE_SMOKE=1`) | 1 passed |
-| `git diff --check` | OK |
-| secrets | OK — pas de clé réelle ; placeholder E2E `sk-e2e-fake-not-a-real-key` uniquement |
-| fixture sans OpenAI | OK (E2E + code provider) |
-| fake provider erreur | OK |
-| verrouillage + reload | OK |
-| anti-exécution chat | OK (E2E) |
-| badge global 3 modes | OK (E2E + captures) |
-
-## Validation visuelle (captures hors commit)
-
-| Mode | Badge global | Preuve |
-|------|--------------|--------|
-| Fixture | `MODE FIXTURE / NON LIVE` | `ops1-i2-global-badge-fixture.png` |
-| Test provider | `TEST PROVIDER / NON LIVE` | `ops1-i2-global-badge-test-provider.png` |
-| GPT live | `MODE GPT LIVE` | `ops1-i2-global-badge-live.png` / `ops1-i2-live-locked.png` |
-
-Verdict visuel confirmé runtime : aligné avec le code committé.
-
-## Justification des fichiers committés
-
-- `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx` — Tests UI session I2
-- `projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts` — Tests domaine conversation
-- `projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts` — Tests repo multi-tours / erreur
-- `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.test.ts` — Tests mapping badge
-- `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx` — Tests UI badge global
-- `projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts` — Tests provider OpenAI (mocks)
-- `projects/sfia-studio/app/app/nouvelle-demande/page.tsx` — Page server → client shell
-- `projects/sfia-studio/app/components/shell/StudioShell.tsx` — Prop badge vers Topbar
-- `projects/sfia-studio/app/components/shell/Topbar.tsx` — Affichage data-testid global-mode-badge
-- `projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts` — Compat I1 avec I2 UI
-- `projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts` — E2E fixture + test provider + anti-exécution
-- `projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts` — E2E GPT live réel (opt-in)
-- `projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts` — Smoke manuel live documenté
-- `projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx` — Shell client + badge global dynamique
-- `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx` — UI session I2 + signalétique + verrouillage
-- `projects/sfia-studio/app/features/ops1/ops1-session.module.css` — Styles badges/modes
-- `projects/sfia-studio/app/lib/ops1/actions.ts` — Server actions create/send/get
-- `projects/sfia-studio/app/lib/ops1/conversation/config.ts` — Config live (clé/modèle serveur) + détection variables manquantes
-- `projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts` — Fake/test provider sans OpenAI
-- `projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts` — Provider OpenAI serveur réel
-- `projects/sfia-studio/app/lib/ops1/conversation/provider.ts` — Interface ConversationProvider + factory
-- `projects/sfia-studio/app/lib/ops1/conversation/service.ts` — Orchestration multi-tours + anti mixed-mode
-- `projects/sfia-studio/app/lib/ops1/conversation/types.ts` — Types conversation / attempts / métriques
-- `projects/sfia-studio/app/lib/ops1/db.ts` — Schéma SQLite I2 (assistant_live, attempts, conversationMode)
-- `projects/sfia-studio/app/lib/ops1/errors.ts` — Erreurs utilisateur bornées
-- `projects/sfia-studio/app/lib/ops1/fixtureReply.ts` — Réponses fixture déterministes
-- `projects/sfia-studio/app/lib/ops1/globalModeBadge.ts` — Mapping badge global fixture/test/live
-- `projects/sfia-studio/app/lib/ops1/ids.ts` — IDs attempts
-- `projects/sfia-studio/app/lib/ops1/index.ts` — Exports publics
-- `projects/sfia-studio/app/lib/ops1/repository.ts` — Persistance journal + mode immuable
-- `projects/sfia-studio/app/lib/ops1/types.ts` — Types session/mode/presentation
-- `projects/sfia-studio/app/lib/ops1/validation.ts` — Validation entrées I2
-- `projects/sfia-studio/app/package-lock.json` — Lockfile openai
-- `projects/sfia-studio/app/package.json` — Dépendance openai@6.48.0
-- `projects/sfia-studio/app/playwright.config.ts` — E2E fake vs live smoke
-
-## Commit
-
-- Message : `feat(ops1): deliver I2 live conversation modes`
-- SHA : `42e3c02481f62e44dc8ef68a124e2dde223c9aae`
-- Parent : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
-- Diff : 35 files, +3029 / −197
-
-### Métadonnées commit
+## Métadonnées commit merge
 
 ```text
-commit 42e3c02481f62e44dc8ef68a124e2dde223c9aae
-Author:     Morris Cleland <morris@macbook-air1.home>
-AuthorDate: Tue Jul 21 07:02:15 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air1.home>
-CommitDate: Tue Jul 21 07:02:15 2026 +0200
+commit ae39a8c0375c2f8980d3ee394fa679dee8b06c0f
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Tue Jul 21 07:06:02 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Jul 21 07:06:02 2026 +0200
 
-    feat(ops1): deliver I2 live conversation modes
+    feat(ops1): deliver I2 live conversation modes (#248)
 
+    Co-authored-by: Morris Cleland <morris@macbook-air1.home>
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
  .../app/__tests__/ops1/Ops1SessionScreen.test.tsx  | 185 +++++++----
@@ -180,128 +78,53 @@ CommitDate: Tue Jul 21 07:02:15 2026 +0200
 
 ```
 
-### Name-status
+## Fichiers sur main
 
 ```text
-M	projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-A	projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts
-A	projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
-A	projects/sfia-studio/app/__tests__/ops1/globalModeBadge.test.ts
-A	projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
-A	projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
-M	projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-M	projects/sfia-studio/app/components/shell/StudioShell.tsx
-M	projects/sfia-studio/app/components/shell/Topbar.tsx
-M	projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
-A	projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
-A	projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
-A	projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts
-A	projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
-M	projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-M	projects/sfia-studio/app/features/ops1/ops1-session.module.css
-M	projects/sfia-studio/app/lib/ops1/actions.ts
-A	projects/sfia-studio/app/lib/ops1/conversation/config.ts
-A	projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
-A	projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
-A	projects/sfia-studio/app/lib/ops1/conversation/provider.ts
-A	projects/sfia-studio/app/lib/ops1/conversation/service.ts
-A	projects/sfia-studio/app/lib/ops1/conversation/types.ts
-M	projects/sfia-studio/app/lib/ops1/db.ts
-M	projects/sfia-studio/app/lib/ops1/errors.ts
-M	projects/sfia-studio/app/lib/ops1/fixtureReply.ts
-A	projects/sfia-studio/app/lib/ops1/globalModeBadge.ts
-M	projects/sfia-studio/app/lib/ops1/ids.ts
-M	projects/sfia-studio/app/lib/ops1/index.ts
-M	projects/sfia-studio/app/lib/ops1/repository.ts
-M	projects/sfia-studio/app/lib/ops1/types.ts
-M	projects/sfia-studio/app/lib/ops1/validation.ts
-M	projects/sfia-studio/app/package-lock.json
-M	projects/sfia-studio/app/package.json
-M	projects/sfia-studio/app/playwright.config.ts
+projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts
+projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
+projects/sfia-studio/app/__tests__/ops1/globalModeBadge.test.ts
+projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
+projects/sfia-studio/app/app/nouvelle-demande/page.tsx
+projects/sfia-studio/app/components/shell/StudioShell.tsx
+projects/sfia-studio/app/components/shell/Topbar.tsx
+projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
+projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
+projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
+projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts
+projects/sfia-studio/app/features/nouvelle-demande/NouvelleDemandePageClient.tsx
+projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+projects/sfia-studio/app/features/ops1/ops1-session.module.css
+projects/sfia-studio/app/lib/ops1/actions.ts
+projects/sfia-studio/app/lib/ops1/conversation/config.ts
+projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
+projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
+projects/sfia-studio/app/lib/ops1/conversation/provider.ts
+projects/sfia-studio/app/lib/ops1/conversation/service.ts
+projects/sfia-studio/app/lib/ops1/conversation/types.ts
+projects/sfia-studio/app/lib/ops1/db.ts
+projects/sfia-studio/app/lib/ops1/errors.ts
+projects/sfia-studio/app/lib/ops1/fixtureReply.ts
+projects/sfia-studio/app/lib/ops1/globalModeBadge.ts
+projects/sfia-studio/app/lib/ops1/ids.ts
+projects/sfia-studio/app/lib/ops1/index.ts
+projects/sfia-studio/app/lib/ops1/repository.ts
+projects/sfia-studio/app/lib/ops1/types.ts
+projects/sfia-studio/app/lib/ops1/validation.ts
+projects/sfia-studio/app/package-lock.json
+projects/sfia-studio/app/package.json
+projects/sfia-studio/app/playwright.config.ts
 ```
 
-## Pull Request
+## Preuves sur main
 
-- Numéro : **248**
-- URL : https://github.com/mcleland147/sfia-workspace/pull/248
-- Titre : feat(ops1): deliver I2 live conversation modes
-- Base : `main`
-- Head : `delivery/sfia-studio-ops1-i2-live-conversation` @ `42e3c02481f62e44dc8ef68a124e2dde223c9aae`
-- État : OPEN
-- Merged : None
-- Diff GitHub : +3029 / −197 · 35 files
+- `projects/sfia-studio/app/lib/ops1/globalModeBadge.ts` contient `MODE GPT LIVE` : OK
+- `projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts` contient `OpenAIConversationProvider` : OK
+- `projects/sfia-studio/app/package.json` contient `"openai"` : OK
 
-### Corps PR
-
-```markdown
-## Contexte
-
-OPS1 I2 introduit la conversation multi-tours avec trois modes explicitement distingués : fixture locale, fournisseur de test non live et GPT live serveur.
-
-## Périmètre
-
-- création de session OPEN ;
-- sélection puis verrouillage du mode ;
-- fixture déterministe ;
-- fake provider sans appel OpenAI ;
-- GPT live côté serveur ;
-- journal multi-tours persistant ;
-- métriques d’usage ;
-- gestion bornée des erreurs ;
-- absence d’effet d’exécution depuis le chat ;
-- badges globaux et locaux cohérents.
-
-## Correction incluse
-
-Le badge global reflète désormais le mode réel de la session :
-
-- `MODE FIXTURE / NON LIVE`
-- `TEST PROVIDER / NON LIVE`
-- `MODE GPT LIVE`
-
-## Validation
-
-- lint : OK (0 warning / 0 error)
-- typecheck : OK
-- tests : **84 / 84** vitest OK
-- build : OK (Next.js production)
-- E2E : OPS1 I1 + I2 conversation OK (3 passed) ; capture live GPT réelle OK (1 passed avec `OPS1_ALLOW_LIVE_SMOKE=1`)
-- validation visuelle des trois modes : badges globaux + session confirmés (captures `.tmp-sfia-review/screenshots-ops1-i2/`)
-- verrouillage après reload : OK
-- fake provider erreur : OK
-- contrôle secrets : OK (aucune clé réelle dans le commit ; `.env.local` exclu)
-- `git diff --check` : OK
-
-## Garde-fous
-
-- aucun effet d’exécution depuis le chat ;
-- aucun appel OpenAI en fixture ou fake provider ;
-- secret OpenAI exclusivement serveur ;
-- aucun périmètre I3–I7 ;
-- aucun changement de doctrine SFIA ;
-- aucun merge demandé dans ce cycle.
-
-## Preuves visuelles
-
-Scénarios validés (hors commit — dossier temporaire) :
-
-- fixture : badge global `MODE FIXTURE / NON LIVE` ;
-- test provider : badge global `TEST PROVIDER / NON LIVE` + erreur forcée ;
-- GPT live : badge global `MODE GPT LIVE` + `assistant_live` réel.
-
-## Réserves
-
-- La branche delivery est basée sur `84e624f` ; `main` contient en plus le merge documentaire PR #247 (`abd0541`). Aucun rebase effectué (GO explicite). GitHub peut indiquer « behind main » d’un commit docs uniquement.
-- Captures runtime conservées hors repo (`.tmp-sfia-review/screenshots-ops1-i2/`).
-
-## Décision attendue
-
-Review puis GO/NO-GO Morris pour merge.
-
-Made with [Cursor](https://cursor.com)
-```
-
-## Diff utile complet (commit `42e3c02481f62e44dc8ef68a124e2dde223c9aae`)
+## Diff utile complet (squash sur main)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
@@ -4247,21 +4070,16 @@ index a4c1df0..b0eaaaf 100644
 
 ```
 
-## Réserves
-
-1. Branche based on `84e624f` ; `main` a le commit docs PR #247 (`abd0541`) en plus — pas de rebase (conforme GO).
-2. Captures runtime hors repo (`.tmp-sfia-review/screenshots-ops1-i2/`).
-3. Merge interdit sans nouveau GO Morris.
-
 ## Confirmations
 
-- Aucun merge effectué : oui
-- Aucun force push : oui
-- Aucun push `main` : oui
-- `.env*` / `.tmp-sfia-review` non committés : oui
-- Aucun changement méthode SFIA : oui
-- Worktree OPS1 après commit : working tree clean hors `.tmp-sfia-review/` et `projects/.tmp-sfia-review/`
+- Aucune suppression de branche demandée / effectuée
+- Aucun force push
+- Delivery branch locale encore présente (cleanup non demandé)
+
+## Réserves
+
+- Cleanup branche delivery / worktree : non demandé dans ce cycle
 
 ## Verdict
 
-`OPS1 I2 — COMMITTED — PUSHED — PR OPEN — READY FOR HANDOFF`
+`OPS1 I2 — MERGED TO MAIN — READY FOR HANDOFF`
