@@ -1,93 +1,74 @@
-# Review pack Full — Review Handoff Canonical Publisher
+# Review pack Full — Review Handoff Publisher Retry Correction
 
 ## Métadonnées
 
-- **Date / heure / fuseau :** 2026-07-21 13:11:10 CEST
+- **Date / heure / fuseau :** 2026-07-21 13:20:27 CEST
 - **Repo :** mcleland147/sfia-workspace
-- **Cycle principal :** 7 — Intégration / DevOps
-- **Cycles associés :** 6 Architecture · 9 QA · 10 Sécurité · 15 Capitalisation ciblée
+- **Cycle principal :** 8 — Delivery correctif
+- **Cycles associés :** 7 DevOps · 9 QA · 10 Sécurité · 15 Capitalisation
 - **Profil :** Critical
-- **Justification Critical :** mécanisme transversal conditionnant la validation ChatGPT de tous les futurs rapports Cursor SFIA
-- **Typologie :** tooling / corrective / method
-- **Objet :** sécurisation du routage canonique Review Handoff
-- **Décision Morris :** `GO IMPLEMENT REVIEW HANDOFF CANONICAL ROUTING — LOCAL DELIVERY ONLY`
-- **Branche projet :** `tooling/review-handoff-canonical-publisher`
-- **Base / HEAD / merge-base :** `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` / `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` / `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f`
+- **Typologie :** tooling / corrective
+- **Décision Morris :** `GO CORRECTION REVIEW HANDOFF PUBLISHER — RESUME AFTER FAILED PUSH — REASSESS GITIGNORE — LOCAL DELIVERY ONLY`
+- **Branche :** `tooling/review-handoff-canonical-publisher`
 - **Worktree tooling :** `/Users/morris/Projects/sfia-workspace-review-handoff-publisher`
+- **Base / HEAD / merge-base :** `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` / `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f` / `ae39a8c0375c2f8980d3ee394fa679dee8b06c0f`
 - **Review pack :** Full
-- **Mode handoff :** publish-in-cycle
 - **Chemin canonique :** `sfia-review-handoff/latest-chatgpt-review.md`
 
 ## État Git initial
 
-- Worktree principal resté sur `delivery/sfia-studio-ops1-i3-action-gate` avec travail OPS1 I3 local **non modifié**
-- Branche candidate absente → créée depuis `origin/main` via worktree dédié
-- Staged vide sur worktree tooling
-- Aucun publisher handoff préexistant sous `scripts/**`
+- Branche exacte tooling ; HEAD = base sans commit projet ; staged vide
+- Héritage local : publisher + tests + README + docs méthode du cycle précédent
+- `.gitignore` tracked avait une règle `/sfia-review-handoff/` du cycle précédent (retirée dans cette correction)
+- OPS1 I3 intact sur autre worktree
 
-## Sources consultées
+## Diagnostic du défaut
 
-1. `prompts/templates/sfia-cycle-execution-template.md`
-2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-5. `.gitignore` + `.git/info/exclude`
-6. Inventaire `scripts/**` / `tools/**` / `.sfia/**`
-7. PR #242 (publish-in-cycle)
-8. PR #247 (handoff obligatoire pour tout rapport)
-9. Commits handoff `2ff45df…` et `78f4dde…`
-10. Branche `sfia/review-handoff` et les deux chemins racine / canonique
+Après commit local réussi et push échoué :
 
-## Diagnostic de cause racine
+1. `RELATION=ahead` n'était pas traité comme reprise ;
+2. le flux nominal faisait `copy_canonical` puis `assert_diff_canonical_only` ;
+3. le working tree était déjà propre (= tip) → **pas de diff** → `HANDOFF COPY FAILED — NO DIFF` ;
+4. relance impossible sans intervention manuelle.
 
-1. Publication manuelle Cursor sans contrôle path-in-commit suffisant
-2. Vérification centrée sur existence commit/blob, pas sur le path distant canonique
-3. Exclusion locale `.git/info/exclude` : `sfia-review-handoff/` (worktree imbriqué) — signalée comme `.gitignore` alors que le tracked `.gitignore` ne contenait pas la règle
-4. Fichier racine historique encore présent et trompeur
+## Correction
 
-## Alternatives étudiées
+Classification explicite local/remote après fetch :
 
-| Option | Décision |
-|--------|----------|
-| Continuer les étapes manuelles template | Rejeté — incident déjà survenu |
-| Publisher Node/Python | Rejeté v1 — Bash+`/bin/bash`+Git suffisent macOS |
-| GitHub Action | Hors scope — GO séparé |
-| Deux publishers | Interdit |
-| Supprimer fichier racine maintenant | Interdit — GO Morris cleanup futur |
+- **equal** → already-current ou publish ;
+- **behind** → FF only puis equal ;
+- **diverge** → STOP ;
+- **ahead** → validate resume invariants → push only → `HANDOFF RESUMED — REMOTE VERIFIED`.
 
-**Retenu :** `scripts/sfia/publish-review-handoff.sh` (unique) + tests bare remote + docs minimales.
+Invariants ahead :
 
-## Architecture retenue
+1. remote ancêtre de HEAD ;
+2. chaque commit `remote..HEAD` mono-fichier canonique (plusieurs commits canoniques acceptés après contrôle exhaustif) ;
+3. aucun touch de la racine / autre fichier ;
+4. blob `HEAD:canonical` = blob `--source` ;
+5. worktree/staged propres ;
+6. push FF ; tip mono-fichier.
 
-- **L1 :** contrôles source / worktree / path / diff / blob
-- **L3 borné :** commit mono-fichier + push FF `sfia/review-handoff`
-- Constantes non configurables : branche + path canonique
-- Stage : `git add -f -- sfia-review-handoff/latest-chatgpt-review.md` uniquement
-- Vérification distante : path + blob + taille + titre + mono-fichier tip
+Aucun second commit, amend, reset, force push.
 
-## Fichiers créés
+## Verdicts ajoutés
 
-| Fichier | Justification |
-|---------|---------------|
-| `scripts/sfia/publish-review-handoff.sh` | Publisher fail-closed |
-| `scripts/sfia/README.md` | Contrat CLI / verdicts / invariants |
-| `scripts/sfia/tests/publish-review-handoff.test.sh` | Suite bare-remote |
+- `HANDOFF RESUMED — REMOTE VERIFIED`
+- `HANDOFF RESUME REFUSED — LOCAL COMMIT SOURCE MISMATCH`
+- `HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS`
 
-## Fichiers modifiés
+## Analyse `.gitignore`
 
-| Fichier | Justification |
-|---------|---------------|
-| `.gitignore` | Documenter/ignorer worktree imbriqué `/sfia-review-handoff/` |
-| `prompts/templates/sfia-cycle-execution-template.md` | Obligation publisher §7.10.4 |
-| `method/.../sfia-rules-and-guardrails.md` | Invariant publisher |
-| `method/.../sfia-chatgpt-cursor-operating-model.md` | Responsabilité Cursor + L1/L3 |
-| `method/.../sfia-cycle-routing-guide.md` | Pointeur publisher |
+| Fait | Observation |
+|------|-------------|
+| Worktree handoff réel | `…/sfia-workspace/sfia-review-handoff` (imbriqué) |
+| Exclude locale | `.git/info/exclude` → `sfia-review-handoff/` |
+| Règle tracked ajoutée | `/sfia-review-handoff/` — masquage théorique partagé |
+| Besoin démontré | Non — exclude locale suffit ; tooling WT est externe |
 
-## Fichiers supprimés
+**Décision :** retirer la modification tracked `.gitignore` (revenu à l'état `origin/main`). Conserver `git add -f -- <canonical>` comme garde-fou de compatibilité locale. Ne pas modifier automatiquement `.git/info/exclude`.
 
-Aucun. Fichier racine non canonique **conservé**.
-
-## Contenu complet — fichiers créés
+## Fichiers créés (contenu intégral)
 
 ### scripts/sfia/publish-review-handoff.sh
 
@@ -110,6 +91,8 @@ SOURCE=""
 COMMIT_MESSAGE=""
 HANDOFF_WT=""
 DRY_RUN=0
+HANDOFF_ROOT=""
+TARGET=""
 
 usage() {
   cat <<'USAGE'
@@ -122,14 +105,16 @@ Constants (non-overridable):
 
 Options:
   --source PATH              Review pack source file (required)
-  --commit-message MSG       Commit message (required unless dry-run with already-current)
+  --commit-message MSG       Commit message (required for new commits)
   --handoff-worktree PATH    Clean worktree checked out on sfia/review-handoff (required)
-  --dry-run                  Run all controls and copy into a temp check; no commit/push
+  --dry-run                  Validate without commit/push (including resume checks)
   -h, --help                 Show help
 
 Success verdicts:
   HANDOFF UPDATED — REMOTE VERIFIED
   HANDOFF ALREADY CURRENT — REMOTE VERIFIED
+  HANDOFF RESUMED — REMOTE VERIFIED
+  HANDOFF DRY-RUN OK — NO MUTATION
 USAGE
 }
 
@@ -236,11 +221,9 @@ resolve_target() {
   TARGET="${handoff_root}/${CANONICAL_REL}"
   mkdir -p "$(dirname "$TARGET")"
 
-  # Resolve after mkdir; reject symlink escape
   if [[ -e "$TARGET" ]]; then
     target_real=$(abs_path "$TARGET")
   else
-    # Parent must stay under handoff root
     local parent
     parent=$(abs_path "$(dirname "$TARGET")")
     is_under_prefix "$parent" "$handoff_root" \
@@ -255,7 +238,6 @@ resolve_target() {
   [[ "$relative" == "$CANONICAL_REL" ]] \
     || die "HANDOFF PATH INVALID — CANONICAL TARGET MISMATCH"
 
-  # Explicitly refuse root non-canonical path as write target
   [[ "$relative" != "$ROOT_NONCANONICAL_REL" ]] \
     || die "HANDOFF ROUTING FAILED — ROOT REVIEW FILE MODIFIED"
 
@@ -263,7 +245,45 @@ resolve_target() {
   HANDOFF_ROOT="$handoff_root"
 }
 
-ensure_ff_possible() {
+source_blob() {
+  git -C "$HANDOFF_WT" hash-object "$SOURCE"
+}
+
+target_blob() {
+  git -C "$HANDOFF_WT" hash-object "$TARGET"
+}
+
+remote_canonical_blob() {
+  git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}:${CANONICAL_REL}" 2>/dev/null || true
+}
+
+head_canonical_blob() {
+  git -C "$HANDOFF_WT" rev-parse "HEAD:${CANONICAL_REL}" 2>/dev/null || true
+}
+
+# Verify every commit in origin/branch..HEAD touches ONLY the canonical path.
+# Multiple strictly-canonical commits are accepted after exhaustive check.
+assert_ahead_range_canonical_only() {
+  local remote_sha="$1"
+  local commits c files
+  commits=$(git -C "$HANDOFF_WT" rev-list --reverse "${remote_sha}..HEAD")
+  [[ -n "$commits" ]] || die "HANDOFF RESUME REFUSED — EMPTY AHEAD RANGE"
+
+  while IFS= read -r c; do
+    [[ -n "$c" ]] || continue
+    files=$(git -C "$HANDOFF_WT" diff-tree --no-commit-id --name-only -r "$c")
+    if printf '%s\n' "$files" | grep -qx "$ROOT_NONCANONICAL_REL"; then
+      die "HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS"
+    fi
+    if [[ "$files" != "$CANONICAL_REL" ]]; then
+      die "HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS"
+    fi
+  done <<<"$commits"
+}
+
+# Classify after fetch. Sets RELATION to: equal | behind | ahead | diverge
+# For behind: performs FF-only merge then reclassifies to equal (or die).
+classify_and_align() {
   git -C "$HANDOFF_WT" fetch origin --prune "$HANDOFF_BRANCH" >/dev/null 2>&1 \
     || die "HANDOFF FETCH FAILED"
 
@@ -272,18 +292,57 @@ ensure_ff_possible() {
   remote_sha=$(git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}")
   merge_base=$(git -C "$HANDOFF_WT" merge-base HEAD "origin/${HANDOFF_BRANCH}")
 
-  if [[ "$local_sha" != "$remote_sha" ]]; then
-    if [[ "$merge_base" != "$remote_sha" && "$merge_base" != "$local_sha" ]]; then
-      die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
-    fi
-    if [[ "$merge_base" == "$local_sha" && "$local_sha" != "$remote_sha" ]]; then
-      # Local behind remote — fast-forward only, no reset --hard
-      git -C "$HANDOFF_WT" merge --ff-only "origin/${HANDOFF_BRANCH}" \
-        || die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
-    elif [[ "$merge_base" != "$remote_sha" ]]; then
-      die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
-    fi
+  if [[ "$local_sha" == "$remote_sha" ]]; then
+    RELATION="equal"
+    return 0
   fi
+
+  if [[ "$merge_base" != "$remote_sha" && "$merge_base" != "$local_sha" ]]; then
+    die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
+  fi
+
+  if [[ "$merge_base" == "$local_sha" ]]; then
+    # Local behind remote — FF only
+    git -C "$HANDOFF_WT" merge --ff-only "origin/${HANDOFF_BRANCH}" \
+      || die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
+    local_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
+    remote_sha=$(git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}")
+    [[ "$local_sha" == "$remote_sha" ]] || die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
+    RELATION="equal"
+    return 0
+  fi
+
+  if [[ "$merge_base" == "$remote_sha" ]]; then
+    RELATION="ahead"
+    return 0
+  fi
+
+  die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
+}
+
+validate_resume_invariants() {
+  local expected="$1"
+  local remote_sha tip_files head_blob
+
+  remote_sha=$(git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}")
+  # origin must be ancestor of HEAD
+  git -C "$HANDOFF_WT" merge-base --is-ancestor "$remote_sha" HEAD \
+    || die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
+
+  assert_ahead_range_canonical_only "$remote_sha"
+
+  tip_files=$(git -C "$HANDOFF_WT" diff-tree --no-commit-id --name-only -r HEAD)
+  [[ "$tip_files" == "$CANONICAL_REL" ]] \
+    || die "HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS"
+
+  head_blob=$(head_canonical_blob)
+  [[ -n "$head_blob" ]] || die "HANDOFF RESUME REFUSED — LOCAL COMMIT SOURCE MISMATCH"
+  [[ "$head_blob" == "$expected" ]] \
+    || die "HANDOFF RESUME REFUSED — LOCAL COMMIT SOURCE MISMATCH"
+
+  # Worktree/staged already checked in preflight; reaffirm clean
+  [[ -z "$(git -C "$HANDOFF_WT" status --porcelain)" ]] \
+    || die "HANDOFF WORKTREE NOT CLEAN"
 }
 
 copy_canonical() {
@@ -310,20 +369,10 @@ assert_diff_canonical_only() {
   return 0
 }
 
-source_blob() {
-  git -C "$HANDOFF_WT" hash-object "$SOURCE"
-}
-
-target_blob() {
-  git -C "$HANDOFF_WT" hash-object "$TARGET"
-}
-
-remote_canonical_blob() {
-  git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}:${CANONICAL_REL}" 2>/dev/null || true
-}
-
 commit_and_verify() {
-  # Stage ONLY canonical path; -f covers local exclude of nested worktree dir name
+  # Explicit path only — never git add . / -A.
+  # Always -f: a local .git/info/exclude of sfia-review-handoff/ (nested worktree)
+  # can block plain `git add` even when the path is already tracked.
   git -C "$HANDOFF_WT" add -f -- "$CANONICAL_REL"
 
   local staged
@@ -352,16 +401,15 @@ push_bounded() {
   remote_sha=$(git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}")
   merge_base=$(git -C "$HANDOFF_WT" merge-base HEAD "origin/${HANDOFF_BRANCH}")
 
-  # HEAD must be descendant of remote (FF push)
   [[ "$merge_base" == "$remote_sha" ]] \
     || die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
 
-  # Explicit normal push — never --force
   git -C "$HANDOFF_WT" push origin "refs/heads/${HANDOFF_BRANCH}:refs/heads/${HANDOFF_BRANCH}"
 }
 
 verify_remote() {
-  local expected_blob remote_blob committed remote_title source_title
+  local expected_blob remote_blob committed tip local_sha src_size rem_size
+  local source_title remote_title
 
   git -C "$HANDOFF_WT" fetch origin --prune "$HANDOFF_BRANCH" >/dev/null 2>&1 \
     || die "HANDOFF FETCH FAILED"
@@ -371,9 +419,6 @@ verify_remote() {
   [[ "$remote_blob" == "$expected_blob" ]] \
     || die "HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED"
 
-  committed=$(git -C "$HANDOFF_WT" diff-tree --no-commit-id --name-only -r "origin/${HANDOFF_BRANCH}")
-  # Only enforce mono-file on the tip if tip equals our HEAD (we just pushed)
-  local tip local_sha
   tip=$(git -C "$HANDOFF_WT" rev-parse "origin/${HANDOFF_BRANCH}")
   local_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
   [[ "$tip" == "$local_sha" ]] \
@@ -383,8 +428,6 @@ verify_remote() {
   [[ "$committed" == "$CANONICAL_REL" ]] \
     || die "HANDOFF COMMIT INVALID — NON-CANONICAL CONTENT"
 
-  # Content not truncated: remote size equals source size
-  local src_size rem_size
   src_size=$(wc -c <"$SOURCE" | tr -d ' ')
   rem_size=$(git -C "$HANDOFF_WT" cat-file -s "origin/${HANDOFF_BRANCH}:${CANONICAL_REL}")
   [[ "$src_size" == "$rem_size" ]] \
@@ -395,8 +438,54 @@ verify_remote() {
   [[ "$remote_title" == "$source_title" ]] \
     || die "HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED"
 
-  # Explicit remote path read (proof artifact)
   git -C "$HANDOFF_WT" show "origin/${HANDOFF_BRANCH}:${CANONICAL_REL}" >/dev/null
+}
+
+publish_new_commit() {
+  local expected="$1"
+  copy_canonical
+  assert_diff_canonical_only || die "HANDOFF COPY FAILED — NO DIFF"
+  [[ "$(target_blob)" == "$expected" ]] || die "HANDOFF COPY FAILED — BLOB MISMATCH"
+  commit_and_verify
+  push_bounded
+  verify_remote
+  printf '%s\n' "HANDOFF UPDATED — REMOTE VERIFIED"
+  printf 'canonical_path=%s\n' "$CANONICAL_REL"
+  printf 'blob=%s\n' "$expected"
+  printf 'commit=%s\n' "$(git -C "$HANDOFF_WT" rev-parse HEAD)"
+}
+
+resume_push() {
+  local expected="$1"
+  local before_sha
+  before_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
+  # No copy, no second commit, no amend, no reset
+  push_bounded
+  verify_remote
+  local after_sha
+  after_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
+  [[ "$before_sha" == "$after_sha" ]] || die "HANDOFF RESUME REFUSED — HEAD MUTATED"
+  printf '%s\n' "HANDOFF RESUMED — REMOTE VERIFIED"
+  printf 'canonical_path=%s\n' "$CANONICAL_REL"
+  printf 'blob=%s\n' "$expected"
+  printf 'commit=%s\n' "$after_sha"
+}
+
+dry_run_new_copy() {
+  local expected="$1"
+  local before_sha after_sha
+  before_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
+  copy_canonical
+  assert_diff_canonical_only || die "HANDOFF COPY FAILED — NO DIFF"
+  [[ "$(target_blob)" == "$expected" ]] || die "HANDOFF COPY FAILED — BLOB MISMATCH"
+  git -C "$HANDOFF_WT" restore --source=HEAD --worktree --staged -- "$CANONICAL_REL" 2>/dev/null \
+    || git -C "$HANDOFF_WT" checkout HEAD -- "$CANONICAL_REL"
+  after_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
+  [[ "$before_sha" == "$after_sha" ]] || die "HANDOFF DRY-RUN MUTATED HEAD"
+  [[ -z "$(git -C "$HANDOFF_WT" status --porcelain)" ]] || die "HANDOFF DRY-RUN LEFT DIRTY WORKTREE"
+  printf '%s\n' "HANDOFF DRY-RUN OK — NO MUTATION"
+  printf 'canonical_path=%s\n' "$CANONICAL_REL"
+  printf 'blob=%s\n' "$expected"
 }
 
 main() {
@@ -410,51 +499,44 @@ main() {
   preflight_source
   preflight_worktree
   resolve_target
-  ensure_ff_possible
+  classify_and_align
 
   local expected already
   expected=$(source_blob)
   already=$(remote_canonical_blob)
 
-  if [[ -n "$already" && "$already" == "$expected" ]]; then
-    # Ensure working tree still clean / no accidental root write
-    printf '%s\n' "HANDOFF ALREADY CURRENT — REMOTE VERIFIED"
-    printf 'canonical_path=%s\n' "$CANONICAL_REL"
-    printf 'blob=%s\n' "$expected"
+  # A. Local == remote (after optional FF)
+  if [[ "$RELATION" == "equal" ]]; then
+    if [[ -n "$already" && "$already" == "$expected" ]]; then
+      printf '%s\n' "HANDOFF ALREADY CURRENT — REMOTE VERIFIED"
+      printf 'canonical_path=%s\n' "$CANONICAL_REL"
+      printf 'blob=%s\n' "$expected"
+      exit 0
+    fi
+    if [[ "$DRY_RUN" -eq 1 ]]; then
+      dry_run_new_copy "$expected"
+      exit 0
+    fi
+    publish_new_commit "$expected"
     exit 0
   fi
 
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    # Dry-run: copy, validate mono-file diff, restore tracked file — no commit/push
-    local before_sha after_sha
-    before_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
-    copy_canonical
-    assert_diff_canonical_only || die "HANDOFF COPY FAILED — NO DIFF"
-    [[ "$(target_blob)" == "$expected" ]] || die "HANDOFF COPY FAILED — BLOB MISMATCH"
-    # Restore only the canonical path (never checkout --force / reset --hard / clean -fd)
-    git -C "$HANDOFF_WT" restore --source=HEAD --worktree --staged -- "$CANONICAL_REL" 2>/dev/null \
-      || git -C "$HANDOFF_WT" checkout HEAD -- "$CANONICAL_REL"
-    after_sha=$(git -C "$HANDOFF_WT" rev-parse HEAD)
-    [[ "$before_sha" == "$after_sha" ]] || die "HANDOFF DRY-RUN MUTATED HEAD"
-    [[ -z "$(git -C "$HANDOFF_WT" status --porcelain)" ]] || die "HANDOFF DRY-RUN LEFT DIRTY WORKTREE"
-    printf '%s\n' "HANDOFF DRY-RUN OK — NO MUTATION"
-    printf 'canonical_path=%s\n' "$CANONICAL_REL"
-    printf 'blob=%s\n' "$expected"
+  # D. Local ahead of remote — resume path (failed push / unpushed canonical tip)
+  if [[ "$RELATION" == "ahead" ]]; then
+    validate_resume_invariants "$expected"
+    if [[ "$DRY_RUN" -eq 1 ]]; then
+      printf '%s\n' "HANDOFF DRY-RUN OK — NO MUTATION"
+      printf 'mode=resume\n'
+      printf 'canonical_path=%s\n' "$CANONICAL_REL"
+      printf 'blob=%s\n' "$expected"
+      printf 'commit=%s\n' "$(git -C "$HANDOFF_WT" rev-parse HEAD)"
+      exit 0
+    fi
+    resume_push "$expected"
     exit 0
   fi
 
-  copy_canonical
-  assert_diff_canonical_only || die "HANDOFF COPY FAILED — NO DIFF"
-  [[ "$(target_blob)" == "$expected" ]] || die "HANDOFF COPY FAILED — BLOB MISMATCH"
-
-  commit_and_verify
-  push_bounded
-  verify_remote
-
-  printf '%s\n' "HANDOFF UPDATED — REMOTE VERIFIED"
-  printf 'canonical_path=%s\n' "$CANONICAL_REL"
-  printf 'blob=%s\n' "$expected"
-  printf 'commit=%s\n' "$(git -C "$HANDOFF_WT" rev-parse HEAD)"
+  die "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
 }
 
 main "$@"
@@ -467,6 +549,8 @@ main "$@"
 # Review Handoff — Canonical Publisher
 
 Fail-closed publisher for the SFIA Review Handoff Git branch.
+
+**Status:** candidate on branch `tooling/review-handoff-canonical-publisher` — not baseline until Morris merge.
 
 ## Path
 
@@ -486,7 +570,7 @@ on branch:
 
 | Level | Scope |
 |-------|--------|
-| **L1** | Source/worktree/path/diff/blob controls |
+| **L1** | Source/worktree/path/diff/blob/resume controls |
 | **L3 borné** | Mono-file commit + normal push of `sfia/review-handoff` only |
 
 **Not automated:** Light/Full choice, Morris decisions, project commit/push/PR/merge.
@@ -501,63 +585,75 @@ scripts/sfia/publish-review-handoff.sh \
   [--dry-run]
 ```
 
-### Arguments
-
-| Flag | Required | Description |
-|------|----------|-------------|
-| `--source` | yes | Review pack file (non-empty regular file) |
-| `--commit-message` | yes (unless already-current / with care) | Commit message for handoff tip |
-| `--handoff-worktree` | yes | Clean worktree on `sfia/review-handoff` |
-| `--dry-run` | no | Validate copy + controls; restore; no commit/push |
-
 ### Non-configurable constants
 
 - Branch: `sfia/review-handoff`
 - Target: `sfia-review-handoff/latest-chatgpt-review.md`
 
-A standard invocation **cannot** retarget the root file `latest-chatgpt-review.md`.
+## Local / remote classification
 
-## Invariants
+After `fetch`:
 
-1. Source exists, is a regular file, and is non-empty.
-2. Handoff worktree exists, is clean, staged empty, branch exact.
-3. Target resolves under handoff toplevel to the canonical relative path only.
-4. Diff before commit is exactly one path: the canonical file.
-5. Root `latest-chatgpt-review.md` is never written or staged.
-6. Stage uses `git add -f -- <canonical>` only (never `git add .` / `-A`).
-7. Commit content is mono-file (verified via `git diff-tree`).
-8. Push is normal FF only (never `--force`).
-9. Remote verification re-reads `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`, compares blob + size + title.
-10. No `reset --hard`, `clean -fd`, `checkout --force`, worktree deletion, or branch deletion.
+| Relation | Action |
+|----------|--------|
+| **A. Local = remote** | If remote blob = source → `HANDOFF ALREADY CURRENT — REMOTE VERIFIED`. Else publish (copy → commit → push → verify) → `HANDOFF UPDATED — REMOTE VERIFIED`. |
+| **B. Local behind remote** | Fast-forward only, then reclassify as equal. |
+| **C. Divergent histories** | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` |
+| **D. Local ahead of remote** | **Resume path** (see below). |
 
-## Verdicts
+## Resume after failed push (local-ahead)
+
+Scenario:
+
+1. Canonical file updated and committed locally.
+2. Push fails (network, auth, transient).
+3. Worktree is clean; `HEAD` is ahead of `origin/sfia/review-handoff`.
+4. Same command is re-run with the same `--source`.
+
+The publisher then:
+
+1. Confirms `origin/sfia/review-handoff` is an ancestor of `HEAD`.
+2. Verifies **every** commit in `origin/sfia/review-handoff..HEAD` modifies **exactly** `sfia-review-handoff/latest-chatgpt-review.md` (multiple strictly-canonical commits accepted after exhaustive check).
+3. Refuses if any commit touches `latest-chatgpt-review.md` (root) or another path → `HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS`.
+4. Compares `HEAD:sfia-review-handoff/latest-chatgpt-review.md` blob to `--source` → mismatch → `HANDOFF RESUME REFUSED — LOCAL COMMIT SOURCE MISMATCH`.
+5. Does **not** copy again, does **not** create a second commit, does **not** amend, does **not** reset.
+6. Pushes FF-only, fetches, verifies path + blob + size + title + tip mono-file.
+7. Verdict: `HANDOFF RESUMED — REMOTE VERIFIED`.
+
+### Difference between success modes
 
 | Verdict | Meaning |
 |---------|---------|
-| `HANDOFF UPDATED — REMOTE VERIFIED` | Published and remote canonical blob matches source |
-| `HANDOFF ALREADY CURRENT — REMOTE VERIFIED` | Remote canonical blob already identical; no empty commit |
-| `HANDOFF DRY-RUN OK — NO MUTATION` | Dry-run passed; HEAD unchanged |
-| `HANDOFF WORKTREE NOT CLEAN` | Dirty worktree |
-| `HANDOFF WORKTREE STAGED NOT EMPTY` | Staged files present |
-| `HANDOFF WORKTREE INVALID — BRANCH …` | Wrong branch |
-| `HANDOFF PATH INVALID — CANONICAL TARGET MISMATCH` | Resolved target ≠ canonical |
-| `HANDOFF PATH INVALID — UNAUTHORIZED FILE MODIFIED` | Diff/stage not mono-file |
-| `HANDOFF ROUTING FAILED — ROOT REVIEW FILE MODIFIED` | Root non-canonical path touched |
-| `HANDOFF COMMIT INVALID — NON-CANONICAL CONTENT` | Commit tree not mono-canonical |
+| `HANDOFF ALREADY CURRENT — REMOTE VERIFIED` | Local == remote and remote canonical blob already equals source |
+| `HANDOFF UPDATED — REMOTE VERIFIED` | New mono-file commit created and pushed |
+| `HANDOFF RESUMED — REMOTE VERIFIED` | Existing local-ahead canonical tip pushed without a new commit |
+
+## Staging and ignore rules
+
+- Stage is always the explicit canonical path only — never `git add .` / `git add -A`.
+- Staging uses `git add -f -- sfia-review-handoff/latest-chatgpt-review.md` as a **compatibility guard**: a local `.git/info/exclude` entry `sfia-review-handoff/` (used to hide a nested handoff worktree under the main clone) can block a plain `git add` even for an already-tracked file.
+- The publisher does **not** rewrite `.git/info/exclude`.
+
+### `.gitignore` (tracked)
+
+**No shared `/sfia-review-handoff/` rule** on `main`. Nested worktree hiding stays a **local** `.git/info/exclude` concern. A tracked rule was considered and **rejected** (no shared need; it only forced `-f` without benefit).
+
+### Root file
+
+`latest-chatgpt-review.md` remains non-canonical. This publisher never writes it. Cleanup requires a separate Morris GO.
+
+## Verdicts (selected)
+
+| Verdict | Meaning |
+|---------|---------|
+| `HANDOFF UPDATED — REMOTE VERIFIED` | Published |
+| `HANDOFF ALREADY CURRENT — REMOTE VERIFIED` | No-op; remote already matches |
+| `HANDOFF RESUMED — REMOTE VERIFIED` | Push resumed after local-ahead |
+| `HANDOFF DRY-RUN OK — NO MUTATION` | Dry-run passed |
+| `HANDOFF RESUME REFUSED — LOCAL COMMIT SOURCE MISMATCH` | Ahead tip blob ≠ source |
+| `HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS` | Ahead range not mono-canonical |
 | `STOP — REVIEW HANDOFF REMOTE DIVERGENCE` | Non-FF divergence |
-| `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` | Remote blob/title/size mismatch |
-
-## `.gitignore` / local exclude
-
-The nested worktree directory is often named `sfia-review-handoff/` inside the main clone. A **local** `.git/info/exclude` rule `sfia-review-handoff/` hides that directory from the main worktree status. That rule is **not** in the tracked root `.gitignore` on `main`.
-
-Tracked updates to the canonical file still require an explicit add. This publisher always stages with:
-
-`git add -f -- sfia-review-handoff/latest-chatgpt-review.md`
-
-so a local exclude cannot silently skip the canonical path.
-
-**Do not** treat root `latest-chatgpt-review.md` as canonical. Cleanup of that file requires a separate Morris GO.
+| `HANDOFF COPY FAILED — NO DIFF` | Equal branch expected a working-tree change (should not fire on valid resume) |
 
 ## Tests
 
@@ -571,10 +667,10 @@ Uses temporary bare remotes only — never the real `origin/sfia/review-handoff`
 
 | Option | Decision |
 |--------|----------|
-| Ad-hoc Cursor shell steps only | Rejected — path mistakes already occurred |
-| Node/Python publisher | Rejected for v1 — Bash + Git are guaranteed on macOS runners here (`/bin/bash`) |
-| GitHub Action | Out of scope — would need a separate Morris GO |
-| Second publisher beside this script | Forbidden — extend this one |
+| Auto-amend / reset after failed push | Rejected — masks failure |
+| Second commit on resume | Rejected — duplicates tip |
+| Shared tracked `.gitignore` for nested WT | Rejected — local exclude sufficient |
+| Force push | Forbidden |
 
 \`\`\`
 
@@ -637,7 +733,8 @@ assert_exit() {
 static_policy() {
   local body
   body=$(cat "$PUBLISHER")
-  assert_contains "no git add ." "$body" 'add -f -- "$CANONICAL_REL"'
+  assert_contains "explicit canonical add -f" "$body" 'add -f -- "$CANONICAL_REL"'
+  assert_contains "resume verdict" "$body" "HANDOFF RESUMED — REMOTE VERIFIED"
   # Strip comments before scanning for forbidden *commands*
   local cmds
   cmds=$(grep -v '^[[:space:]]*#' "$PUBLISHER" | grep -v 'never \|no \|Never \|No ')
@@ -648,13 +745,13 @@ static_policy() {
     printf 'PASS absent git add . / -A\n'
     PASS=$((PASS + 1))
   fi
-  if printf '%s\n' "$cmds" | grep -E 'git[[:space:]]+push.*--force|git[[:space:]]+push.*[[:space:]]-f[[:space:]]|git[[:space:]]+push.*[[:space:]]-f$|git[[:space:]]+reset[[:space:]]+--hard|git[[:space:]]+clean[[:space:]]+-fd|git[[:space:]]+checkout[[:space:]]+--force|ignore-other-worktrees' >/dev/null; then
-    printf 'FAIL forbidden destructive/force pattern present\n'
+  if printf '%s\n' "$cmds" | grep -E 'git[[:space:]]+push.*--force|git[[:space:]]+push.*[[:space:]]-f[[:space:]]|git[[:space:]]+push.*[[:space:]]-f$|git[[:space:]]+reset[[:space:]]+--hard|git[[:space:]]+clean[[:space:]]+-fd|git[[:space:]]+checkout[[:space:]]+--force|ignore-other-worktrees|git[[:space:]]+commit[[:space:]]+--amend' >/dev/null; then
+    printf 'FAIL forbidden destructive/force/amend pattern present\n'
     FAIL=$((FAIL + 1))
   else
-    printf 'PASS absent force/reset/clean/checkout --force\n'
+    printf 'PASS absent force/reset/clean/amend\n'
     PASS=$((PASS + 1))
-  fi  # Target constant is canonical only
+  fi
   assert_contains "canonical constant" "$body" 'sfia-review-handoff/latest-chatgpt-review.md'
   printf 'PASS target is nested canonical path\n'
   PASS=$((PASS + 1))
@@ -869,28 +966,114 @@ fi
 
 # 18-20 covered by static_policy
 
+# 21. Local-ahead resume after simulated failed push (no second commit)
+WT=$(setup_handoff_fixture resume-ok)
+RESUME_SRC="$TMP_BASE/resume-pack.md"
+printf '# Resume pack\n\nresume body\n' >"$RESUME_SRC"
+# First publish normally
+run_pub "$WT" --source "$RESUME_SRC" --commit-message "docs(review-handoff): resume seed" >/dev/null
+# Create a new local-ahead commit without push (simulate push failure after commit)
+printf '# Resume pack\n\nresume body v2\n' >"$RESUME_SRC"
+cp "$RESUME_SRC" "$WT/sfia-review-handoff/latest-chatgpt-review.md"
+git -C "$WT" add -- sfia-review-handoff/latest-chatgpt-review.md
+git -C "$WT" -c user.email=test@example.com -c user.name=Test \
+  commit -m "docs(review-handoff): local ahead unpushed" >/dev/null
+# Do NOT push — leave local ahead
+BEFORE_SHA=$(git -C "$WT" rev-parse HEAD)
+BEFORE_COUNT=$(git -C "$WT" rev-list --count HEAD)
+ROOT_BEFORE=$(git -C "$WT" rev-parse "HEAD:latest-chatgpt-review.md")
+set +e
+OUT=$(run_pub "$WT" --source "$RESUME_SRC" --commit-message "should-not-create" 2>&1)
+CODE=$?
+set -e
+AFTER_SHA=$(git -C "$WT" rev-parse HEAD)
+AFTER_COUNT=$(git -C "$WT" rev-list --count HEAD)
+REMOTE_SHA=$(git -C "$WT" rev-parse origin/sfia/review-handoff)
+REMOTE_BLOB=$(git -C "$WT" rev-parse "origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md")
+WANT_BLOB=$(git -C "$WT" hash-object "$RESUME_SRC")
+ROOT_AFTER=$(git -C "$WT" rev-parse "HEAD:latest-chatgpt-review.md")
+assert_exit "resume exit" "$CODE" 0
+assert_contains "resume verdict" "$OUT" "HANDOFF RESUMED — REMOTE VERIFIED"
+assert_eq "resume no new commit sha" "$AFTER_SHA" "$BEFORE_SHA"
+assert_eq "resume commit count unchanged" "$AFTER_COUNT" "$BEFORE_COUNT"
+assert_eq "resume remote=local" "$REMOTE_SHA" "$BEFORE_SHA"
+assert_eq "resume remote blob" "$REMOTE_BLOB" "$WANT_BLOB"
+assert_eq "resume root unchanged" "$ROOT_AFTER" "$ROOT_BEFORE"
+assert_eq "resume tip mono-file" "$(git -C "$WT" diff-tree --no-commit-id --name-only -r HEAD)" "sfia-review-handoff/latest-chatgpt-review.md"
+
+# 22. Local-ahead but blob ≠ source
+WT=$(setup_handoff_fixture resume-mismatch)
+printf '# A\n\na\n' >"$TMP_BASE/a.md"
+run_pub "$WT" --source "$TMP_BASE/a.md" --commit-message "seed a" >/dev/null
+printf '# B\n\nb\n' >"$WT/sfia-review-handoff/latest-chatgpt-review.md"
+git -C "$WT" add -- sfia-review-handoff/latest-chatgpt-review.md
+git -C "$WT" -c user.email=test@example.com -c user.name=Test commit -m "ahead b" >/dev/null
+printf '# C\n\nc\n' >"$TMP_BASE/c.md"
+set +e
+OUT=$(run_pub "$WT" --source "$TMP_BASE/c.md" --commit-message "x" 2>&1)
+CODE=$?
+set -e
+assert_exit "resume mismatch exit" "$CODE" 1
+assert_contains "resume mismatch msg" "$OUT" "HANDOFF RESUME REFUSED — LOCAL COMMIT SOURCE MISMATCH"
+
+# 23. Local-ahead with non-canonical other file in commit
+WT=$(setup_handoff_fixture resume-other)
+printf '# O\n\no\n' >"$TMP_BASE/o.md"
+run_pub "$WT" --source "$TMP_BASE/o.md" --commit-message "seed o" >/dev/null
+echo other >"$WT/other.txt"
+git -C "$WT" add -- other.txt
+git -C "$WT" -c user.email=test@example.com -c user.name=Test commit -m "ahead other" >/dev/null
+set +e
+OUT=$(run_pub "$WT" --source "$TMP_BASE/o.md" --commit-message "x" 2>&1)
+CODE=$?
+set -e
+assert_exit "resume other-file exit" "$CODE" 1
+assert_contains "resume other-file msg" "$OUT" "HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS"
+
+# 24. Local-ahead with root file modified in commit
+WT=$(setup_handoff_fixture resume-root)
+printf '# R\n\nr\n' >"$TMP_BASE/r.md"
+run_pub "$WT" --source "$TMP_BASE/r.md" --commit-message "seed r" >/dev/null
+echo root-changed >"$WT/latest-chatgpt-review.md"
+git -C "$WT" add -- latest-chatgpt-review.md
+git -C "$WT" -c user.email=test@example.com -c user.name=Test commit -m "ahead root" >/dev/null
+set +e
+OUT=$(run_pub "$WT" --source "$TMP_BASE/r.md" --commit-message "x" 2>&1)
+CODE=$?
+set -e
+assert_exit "resume root exit" "$CODE" 1
+assert_contains "resume root msg" "$OUT" "HANDOFF RESUME REFUSED — NON-CANONICAL LOCAL COMMITS"
+
+# 25. Local-ahead + divergent remote (already covered by diverge; ensure ahead+diverge still dies)
+# Reuse diverge fixture pattern briefly
+WT=$(setup_handoff_fixture resume-diverge)
+printf '# D\n\nd\n' >"$TMP_BASE/d.md"
+run_pub "$WT" --source "$TMP_BASE/d.md" --commit-message "seed d" >/dev/null
+CLONE="$TMP_BASE/resume-diverge-clone"
+git clone "$(git -C "$WT" remote get-url origin)" "$CLONE" >/dev/null 2>&1
+git -C "$CLONE" checkout sfia/review-handoff >/dev/null 2>&1
+echo remote-advance >>"$CLONE/sfia-review-handoff/latest-chatgpt-review.md"
+git -C "$CLONE" add -- sfia-review-handoff/latest-chatgpt-review.md
+git -C "$CLONE" -c user.email=test@example.com -c user.name=Test commit -m "remote advance" >/dev/null
+git -C "$CLONE" push origin sfia/review-handoff >/dev/null 2>&1
+printf '# Local advance\n\nl\n' >"$WT/sfia-review-handoff/latest-chatgpt-review.md"
+git -C "$WT" add -- sfia-review-handoff/latest-chatgpt-review.md
+git -C "$WT" -c user.email=test@example.com -c user.name=Test commit -m "local advance" >/dev/null
+set +e
+OUT=$(run_pub "$WT" --source "$TMP_BASE/d.md" --commit-message "x" 2>&1)
+CODE=$?
+set -e
+assert_exit "resume diverge exit" "$CODE" 1
+assert_contains "resume diverge msg" "$OUT" "STOP — REVIEW HANDOFF REMOTE DIVERGENCE"
+
 printf '\nSummary: PASS=%s FAIL=%s\n' "$PASS" "$FAIL"
 [[ "$FAIL" -eq 0 ]]
 
 \`\`\`
 
-## Diff utile complet — fichiers modifiés
+## Diff utile — docs méthode / template (héritage cycle précédent, inchangé dans cette correction hors .gitignore)
 
 \`\`\`diff
-diff --git a/.gitignore b/.gitignore
-index 48abd28..7121ce8 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -22,3 +22,9 @@ exports/**
-
- # Exports locaux du connecteur embarqué
- tools/cmp-001/exports/
-+
-+# Nested local worktree directory for branch sfia/review-handoff (often checked out
-+# as ./sfia-review-handoff/). Hides the nested checkout from the main worktree status.
-+# Canonical handoff *content* lives on branch sfia/review-handoff and is published via
-+# scripts/sfia/publish-review-handoff.sh (stages with: git add -f -- sfia-review-handoff/latest-chatgpt-review.md).
-+/sfia-review-handoff/
 diff --git a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md b/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
 index b5c3135..6d99639 100644
 --- a/method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
@@ -1004,68 +1187,41 @@ index 8270388..d2a45b0 100644
 
 \`\`\`
 
-## Contrat CLI
+## \`.gitignore\`
 
-Voir README : \`--source\` \`--commit-message\` \`--handoff-worktree\` \`[--dry-run]\`.
+Aucun diff final vs \`HEAD\`/\`origin/main\` — règle \`/sfia-review-handoff/\` **retirée**.
 
-## Invariants de sécurité
+## Tests
 
-- Path canonique exclusive
-- Mono-fichier
-- Pas de force push / reset --hard / clean -fd / add . / add -A
-- Blob distant = blob source
-- Racine non écrite
+- \`bash -n\` : OK (publisher + tests)
+- ShellCheck : non installé
+- Suite : **PASS=53 FAIL=0**
+- Nouveaux : resume-ok, resume-mismatch, resume-other, resume-root, resume-diverge
+- Preuve resume-ok : SHA avant=après ; count inchangé ; remote=local ; blob=source ; racine inchangée
+- Négatifs : mismatch / other file / root / diverge → refus attendus
+- Aucun test contre handoff réel
 
-## Gestion \`.gitignore\`
+## Commandes interdites
 
-- Tracked : ajout \`/sfia-review-handoff/\` pour masquer le worktree imbriqué sur main
-- Publisher stage toujours avec \`git add -f --\` le path canonique
-- Exclude locale historique documentée ; pas de suppression du fichier racine
+Absentes (hors commentaires « never ») : \`git add .\` / \`-A\`, force push, \`reset --hard\`, \`clean -fd\`, \`commit --amend\`.
 
-## Statut fichier racine
+## État Git final projet
 
-\`latest-chatgpt-review.md\` : **non canonique**, non modifié, non supprimé — cleanup = GO Morris séparé.
-
-## Tests et résultats
-
-\`scripts/sfia/tests/publish-review-handoff.test.sh\` → **PASS=36 FAIL=0**
-
-Couvre : nominal, source missing/empty, dirty, staged, mauvaise branche, diff --check, already current, divergence, spaces, dry-run, exclude+\`-f\`, static policy commandes interdites, blob match, mono-fichier, root untouched.
-
-## Simulation remote bare
-
-Oui — chaque cas crée un bare local + clone ; **aucun** push vers le handoff canonique réel durant les tests.
-
-## Preuves
-
-- Path canonique dans commits de test
-- Mono-fichier via \`git diff-tree\`
-- Comparaison blob source/remote
-- Commandes interdites absentes (hors mentions dans commentaires « never »)
-
-## État Git final (projet tooling)
-
-- Branche locale : \`tooling/review-handoff-canonical-publisher\`
-- Modifications non stagées / non commitées
-- Aucun commit projet ; aucun push projet ; aucune PR
-- Worktree OPS1 I3 intact
+- Branche tooling locale ; staged vide ; aucun commit/push/PR projet
+- OPS1 I3 intact ; racine handoff non touchée par ce cycle projet
 
 ## Réserves
 
-1. Publisher non encore mergé sur \`main\` — cycles futurs l'utilisent après merge Morris
-2. Cleanup racine non fait
-3. Pas de GitHub Action
-4. \`move_agent_to_root\` vers le worktree tooling a échoué (fetch branche delivery absente du remote) — travail effectué via chemins absolus
+- Publisher non mergé (candidate)
+- Cleanup racine différé
+- ShellCheck non disponible localement
 
 ## Décisions Morris futures
 
-1. Validation ChatGPT de ce pack
-2. GO commit/push/PR branche \`tooling/review-handoff-canonical-publisher\`
-3. GO cleanup éventuel de \`latest-chatgpt-review.md\` racine
-4. GO éventuel Action CI (hors ce cycle)
+1. Review ChatGPT
+2. GO commit/push/PR tooling
+3. GO cleanup racine éventuel
 
 ## Verdict
 
-\`REVIEW HANDOFF CANONICAL PUBLISHER DELIVERED LOCALLY — FAIL-CLOSED — HANDOFF REMOTE VERIFIED — READY FOR REVIEW\`
-
-*(Verdict handoff distant finalisé après publication L3 bornée ci-dessous.)*
+\`REVIEW HANDOFF PUBLISHER RETRY CORRECTED LOCALLY — FAIL-CLOSED — HANDOFF REMOTE VERIFIED — READY FOR REVIEW\`
