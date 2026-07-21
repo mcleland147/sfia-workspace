@@ -1,135 +1,191 @@
-# Review pack Full — Review pack obligatoire pour tous les rapports Cursor
+# Review pack Full — PR readiness review pack mandatory routing
 
 ## Métadonnées
 
-- Date / heure / fuseau : 2026-07-21 04:41:00 CEST
+- Date / heure / fuseau : 2026-07-21 04:49:09 CEST
 - Repo : mcleland147/sfia-workspace
 - Branche méthode : `method/review-pack-mandatory-routing`
-- HEAD méthode : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
 - Base / origin/main : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
+- HEAD initial : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
+- HEAD après commit : `89c796e108d29a27169be42933ae83d7705831c8`
+- SHA distant branche méthode : `89c796e108d29a27169be42933ae83d7705831c8`
 - Merge-base : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
-- Worktree méthode : `/Users/morris/Projects/sfia-workspace-method-review-pack`
-- Worktree projet préservé : `/Users/morris/Projects/sfia-workspace` (`delivery/sfia-studio-ops1-i2-live-conversation`)
-- Review pack niveau : **Full**
-- Review Handoff Git : **required**
-- Mode handoff : **publish-in-cycle**
-- Push handoff autorisé : **oui — L3 borné**
-- Commit / push / PR / merge méthode : **non** (aucun effectué)
+- Parent commit : `84e624feaf7cc318c9c0729da66bfefa1c730d6f`
+- Review pack : Full
+- Review Handoff Git : required
+- Mode handoff : publish-in-cycle
+- Merge : **interdit / non effectué**
 
-## Décision Morris appliquée
+## Décision Morris
 
-Gate : `GO DOCTRINE — REVIEW PACK OBLIGATOIRE POUR TOUS LES RAPPORTS CURSOR`
+Gate : `GO COMMIT PUSH PR — REVIEW PACK MANDATORY ROUTING`
 
-Décision validée :
-
-1. Tout cycle Cursor SFIA produisant un rapport doit créer/mettre à jour un review pack.
-2. Granularité Light / Full **conservée** selon la portée.
-3. Publication handoff obligatoire dans le **même cycle** sur `sfia/review-handoff`.
-4. Vérification distante obligatoire.
-5. Worktree projet préservé intégralement.
-6. `local-only` = exception technique documentée uniquement.
-7. `review pack = none` et `Review Handoff Git = not required` ne doivent plus être proposés pour un rapport Cursor.
-
-## Qualification SFIA
-
-- Cycle principal : 15 — Capitalisation / évolution méthode
-- Profil : Capitalization
-- Profondeur : Standard
-- Typologie : CAPA / DOC
-- Blocs : gouvernance ; automatisation L3 bornée ; capitalisation / REX
-
-## Sources consultées (Git)
-
-| Source | Rôle |
-|--------|------|
-| `prompts/templates/sfia-cycle-execution-template.md` | Template canonique — §2, §3, §5, §7, §8, §9, §10 |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Matrice Review Handoff × review pack §2.1 |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Boucle standard + §18.2.8 |
-| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | Alignement minimal §13.1 (règle déjà portée) |
-
-## Analyse de l'écart doctrinal
-
-### Anciennes règles (ambiguës)
-
-- Review pack `none / light / full` — `none` utilisable même avec rapport Cursor.
-- Review Handoff `required / not required` — `not required` possible avec light/full si « pas d'analyse ChatGPT ».
-- Mode `local-only` / `not-required` comme options de routage courantes.
-- Matrice permettant `light/full + analyse ChatGPT non = not required` et `cycle local sans ChatGPT = not required` même si un rapport Cursor était produit.
-- Push handoff L3 parfois perçu comme optionnel / second cycle.
-
-### Nouvelles règles
-
-Règle centrale :
+Règle portée par la PR :
 
 ```text
 RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE
 ```
 
-- Review pack : exclusivement **light / full** pour tout rapport Cursor.
-- Handoff : **required** + **publish-in-cycle** + Push **oui — L3 borné** automatiques.
-- `local-only` : exception technique uniquement + `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED`.
-- Opération read-only sans rapport Cursor : **hors contrat**.
-- Flux handoff distinct du flux projet (pas d'autorisation push projet).
+Granularité Light / Full **inchangée**.
 
-## Matrice avant / après
+## Qualification SFIA
 
-| Situation | Avant | Après |
-|-----------|-------|-------|
-| Rapport Cursor simple | light/full possible ; handoff parfois not required | Light + required + publish-in-cycle |
-| Cycle substantiel | full + required si ChatGPT | Full + required + publish-in-cycle |
-| light/full sans analyse ChatGPT | not required (justifié) | **Supprimé** si rapport Cursor produit |
-| review pack none | not required | **Interdit** pour rapport Cursor |
-| Publication bloquée | local-only / HANDOFF LOCAL ONLY | local-only exception + HANDOFF PUBLICATION BLOCKED |
-| Read-only sans rapport | souvent none / not required | Hors contrat |
+- Cycle principal : 13 — PR readiness
+- Cycle complémentaire : 15 — Capitalisation / évolution méthode
+- Profil : Standard
+- Typologie : CAPA / DOC
 
-## Anti-patterns ajoutés
+## Sources consultées
 
-- Produire un rapport Cursor sans review pack.
-- Utiliser `review pack = none` pour un cycle Cursor avec rapport.
-- Déclarer le handoff `not required` alors qu'un rapport Cursor est produit.
-- Confondre interdiction de push projet et interdiction de push handoff.
-- Utiliser `local-only` parce que le cycle est Light.
-- Créer systématiquement un second cycle uniquement pour republier le rapport.
-- Conclure READY alors que le handoff distant est obsolète.
-- Demander à ChatGPT de valider un rapport inaccessible depuis Git.
+| Source | Rôle |
+|--------|------|
+| `prompts/templates/sfia-cycle-execution-template.md` | Template canonique modifié |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | Matrice handoff |
+| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | Boucle + §18.2.8 |
+| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | Alignement §13.1 |
+| Handoff antérieur `3921e2c` | Alignement doctrine pré-PR |
+| PR #247 | Métadonnées GitHub |
 
-## Verdicts
+## État Git initial
 
-### Conservés
+- Worktree : `/Users/morris/Projects/sfia-workspace-method-review-pack`
+- Branche : `method/review-pack-mandatory-routing`
+- HEAD : `84e624f…` (= origin/main)
+- Staged : vide
+- Modifiés : 4 fichiers méthode attendus
+- Untracked : `.tmp-sfia-review/` (hors commit)
+- Branche distante méthode : absente
+- PR existante : aucune
+- Worktree OPS1 : `delivery/sfia-studio-ops1-i2-live-conversation` @ `84e624f…` — intact
 
-- `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING`
-- `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`
-- `HANDOFF UPDATED — REMOTE VERIFIED`
-- `REVIEW HANDOFF INCOMPLETE — REMOTE PUBLICATION NOT PERFORMED`
-- `REVIEW HANDOFF INCOMPLETE — REMOTE VERIFICATION MISSING`
-- `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
+## État Git final (pré-handoff)
 
-### Ajoutés / mis en avant
+- Commit : `89c796e108d29a27169be42933ae83d7705831c8`
+- Push : `origin/method/review-pack-mandatory-routing` synchronisé
+- PR : #247 OPEN
+- Staged : vide
+- Untracked : `.tmp-sfia-review/` uniquement
+- Merge : non
 
-- `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` (nouveau routage)
-- `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` (exception local-only)
-
-### Remplacés / dépréciés pour rapport Cursor
-
-- `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING` → remplacé opérationnellement par `MANDATORY REVIEW HANDOFF MISSING`
-- `HANDOFF NOT REQUIRED — JUSTIFIED` → hors contrat rapport Cursor
-- `HANDOFF LOCAL ONLY — PUSH MISSING` → alias legacy de `HANDOFF PUBLICATION BLOCKED`
-
-## Fichiers modifiés
+## Fichiers committés
 
 ```text
- .../core/sfia-chatgpt-cursor-operating-model.md    |  68 ++++--
+.../core/sfia-chatgpt-cursor-operating-model.md    |  68 ++++--
  .../core/sfia-cycle-routing-guide.md               |  29 +--
  .../core/sfia-rules-and-guardrails.md              |  19 +-
  prompts/templates/sfia-cycle-execution-template.md | 270 +++++++++++++--------
  4 files changed, 241 insertions(+), 145 deletions(-)
-
 ```
 
 1. `prompts/templates/sfia-cycle-execution-template.md`
 2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 3. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` (alignement minimal §13.1)
+4. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+## Message de commit
+
+```text
+docs(method): require review handoff for every Cursor report
+```
+
+## PR
+
+- Numéro : **247**
+- URL : https://github.com/mcleland147/sfia-workspace/pull/247
+- Titre : docs(method): require review handoff for every Cursor report
+- Base : `main`
+- Head : `method/review-pack-mandatory-routing`
+- Head OID : `89c796e108d29a27169be42933ae83d7705831c8`
+- État : OPEN
+- Diff GitHub : +241 / −145 · 4 files
+- Mergée : **non**
+
+### Corps de la PR
+
+```markdown
+## Contexte
+
+Un cycle correctif OPS1 a produit un review pack local sans republier immédiatement le handoff Git. La cause était une ambiguïté de routage entre push projet et push handoff.
+
+## Décision Morris
+
+Tout cycle Cursor SFIA produisant un rapport doit :
+
+- produire un review pack Light ou Full selon la portée ;
+- publier ce review pack dans le même cycle sur `sfia/review-handoff` ;
+- vérifier le contenu distant ;
+- préserver le worktree projet.
+
+La granularité Light / Full reste inchangée.
+
+## Modifications
+
+- template d’exécution : review pack et handoff obligatoires pour tout rapport Cursor ;
+- routing guide : matrice simplifiée ;
+- operating model : flux handoff distinct du flux projet ;
+- guardrails : alignement minimal ;
+- `local-only` limité aux exceptions techniques documentées ;
+- nouveaux verdicts de routage.
+
+## Garde-fous
+
+- aucun changement applicatif ;
+- aucun changement OPS1 ;
+- aucun changement de granularité Light / Full ;
+- aucun changement SFIA v3.0 ;
+- aucun merge demandé dans ce cycle.
+
+## Validation
+
+- cohérence documentaire vérifiée ;
+- `git diff --check` OK ;
+- contrôle secrets OK ;
+- review handoff publié et vérifié.
+
+## Réserves
+
+Les documents historiques v2.5/v2.6 et les supports Notion non canoniques ne sont pas réécrits dans cette PR.
+
+## Décision attendue
+
+Review puis GO/NO-GO Morris pour merge.
+
+Made with [Cursor](https://cursor.com)
+
+```
+
+## Contrôles PR readiness
+
+| Contrôle | Résultat |
+|----------|----------|
+| Exactement 4 fichiers méthode | OK |
+| Aucun fichier OPS1 / applicatif | OK |
+| Aucun `.tmp-sfia-review` / capture / `.env` / `.github` | OK |
+| Aucun fichier handoff dans commit méthode | OK |
+| Base `origin/main` inchangée `84e624f` | OK |
+| Isolation worktree méthode | OK |
+| Alignement doctrine / handoff `3921e2c` | OK |
+
+## QA documentaire
+
+| Contrôle | Résultat |
+|----------|----------|
+| `git diff --check` | OK |
+| Secrets bornés au diff | OK |
+| Chemins canoniques `sfia/review-handoff` + `sfia-review-handoff/latest-chatgpt-review.md` | OK |
+| Règle centrale présente | OK |
+| `none` / `not required` comme options actives pour rapport Cursor | Absents (mentions = interdictions/diagnostics) |
+| Verdict `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` | Présent |
+| Verdict `HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED` | Présent |
+| Distinction flux handoff / flux projet | Présente |
+| Granularité Light / Full conservée | OK |
+
+### Recherches de cohérence (fichiers PR)
+
+- `none / light / full` comme liste d'instanciation active : **non trouvé** (remplacé par `light / full`)
+- `HANDOFF NOT REQUIRED — JUSTIFIED` : **absent** des 4 fichiers
+- `REVIEW HANDOFF DECISION MISSING` : **absent** des 4 fichiers (remplacé par `MANDATORY REVIEW HANDOFF MISSING`)
+- Mentions `local-only` / `not required` : présentes uniquement comme exception technique ou interdiction
 
 ## Diff utile complet — routing guide
 
@@ -328,7 +384,7 @@ index c3e219d..b5c3135 100644
 
 ```
 
-## Diff utile complet — guardrails (alignement minimal)
+## Diff utile complet — guardrails
 
 ```diff
 diff --git a/method/sfia-fast-track/core/sfia-rules-and-guardrails.md b/method/sfia-fast-track/core/sfia-rules-and-guardrails.md
@@ -886,35 +942,22 @@ index c5d8dbb..8270388 100644
 
 ```
 
-## QA documentaire
-
-1. Cohérence des trois documents (+ guardrails) : **OK** — règle centrale alignée.
-2. Pas de contradiction review pack obligatoire / Light-Full / handoff / L3 / gates / interdiction push projet : **OK**.
-3. Pas de valeur active `none` / `not required` pour rapport Cursor dans fiches d'instanciation : **OK** (mentions restantes = interdictions / diagnostics).
-4. Exemples / tableaux / verdicts / chemins canoniques : **OK**.
-5. `git diff --check` : **OK** (pas d'espace en fin de ligne / conflit).
-6. Contrôle secrets borné au diff : hits uniquement sur le mot « secret » doctrinaire — **OK**.
-7. Liens/chemins internes (`sfia-review-handoff/latest-chatgpt-review.md`, `sfia/review-handoff`) : **OK**.
-
 ## Réserves
 
-1. **Références historiques restantes** (hors périmètre — correction disproportionnée) :
-   - `method/sfia-fast-track/documentation/capitalization/sfia-v2.6/*`
-   - `method/sfia-fast-track/documentation/archive/version-history/sfia-v2.5/*`
-   - drafts Notion editorial (`sfia-notion-*-editorial-draft.md`)
-2. Branche méthode **non commitée / non poussée** — doctrine locale en attente de GO Morris pour commit/PR méthode.
-3. Worktree projet OPS1 I2 conserve des modifications non commitées — **intactes**, non mélangées.
-4. Baseline officielle `main` **non modifiée** (pas de push/merge méthode).
+1. Documents historiques v2.5/v2.6 et drafts Notion non réécrits (périmètre disproportionné).
+2. Merge interdit sans nouveau GO Morris.
+3. Worktree OPS1 conserve des modifications locales non liées — intactes.
+4. Handoff doctrinal antérieur `3921e2c` remplacé par le handoff PR de ce cycle après publication.
 
-## Confirmations d'exécution
+## Confirmations
 
-- Aucun commit méthode : **oui**
-- Aucun push méthode : **oui**
-- Aucune PR / merge : **oui**
-- Aucune modification applicative / OPS1 dans ce cycle : **oui**
+- Aucun merge effectué : **oui**
+- Aucun force push : **oui**
+- Aucun push `main` : **oui**
+- Aucune modification OPS1 dans ce cycle : **oui**
+- `.tmp-sfia-review/**` non committé : **oui**
 - Granularité Light / Full inchangée : **oui**
-- Handoff : publication prévue dans le même cycle (section suivante du cycle exécuteur)
 
 ## Verdict
 
-`SFIA REVIEW PACK MANDATORY ROUTING UPDATED — HANDOFF REMOTE VERIFIED — READY FOR REVIEW` (après publication)
+`SFIA REVIEW PACK MANDATORY ROUTING — COMMITTED — PUSHED — PR OPEN — READY FOR HANDOFF PUBLICATION`
