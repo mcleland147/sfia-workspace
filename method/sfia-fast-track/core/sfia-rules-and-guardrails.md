@@ -213,21 +213,24 @@ SFIA utilise les décisions suivantes :
 | Document créé sans source | Connaissance non traçable |
 | UI avant maquette stable | Écart visuel et rework |
 | Mélange UI + backend + auth | Dérive de périmètre |
-| Prompt sans décision Review Handoff Git | Handoff omis — ChatGPT lit un cycle obsolète |
-| Review pack light/full pour ChatGPT sans handoff required | Cycle incomplet — pas de publication remote |
+| Rapport Cursor sans review pack light/full | Cycle incomplet — `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` |
+| Rapport Cursor avec handoff `not required` ou `none` | Ambiguïté interdite — publication handoff obligatoire |
+| Review pack light/full sans publish-in-cycle | Cycle incomplet — pas de publication remote |
 
 ## 13.1 Review Handoff Git — règle transverse (absorbée v2.6 — origine capitalisation v2.5)
 
-> **Référence :** template §7.10–§7.11 ; operating model §18.2.8.H ; routing guide §2.1.
+> **Référence :** template §7.0, §7.10–§7.11 ; operating model §18.2.8.H ; routing guide §2.1.
+> **Règle centrale :** `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE`.
 
 | Règle | Application |
 |-------|-------------|
-| **Décision obligatoire** | Tout prompt Cursor SFIA doit qualifier Review Handoff Git : **required** ou **not required** |
-| **Prompt incomplet** | Review pack light/full destiné à ChatGPT sans décision handoff → **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** |
-| **Handoff required** | Copie review pack → commit → push `origin/sfia/review-handoff` → vérification remote — L3 borné |
+| **Décision obligatoire** | Tout cycle Cursor produisant un rapport : Review Handoff Git = **required** + Mode **`publish-in-cycle`** + Push **oui — L3 borné** |
+| **Prompt incomplet** | Rapport Cursor avec review pack absent/`none`, handoff `not required`, ou `local-only` non conforme → **`PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`** |
+| **Handoff required** | Copie review pack → commit → push `origin/sfia/review-handoff` → vérification remote — L3 borné **dans le même cycle** |
+| **Exception `local-only`** | Uniquement blocage technique / interdiction Morris explicite → **`HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED`** |
 | **Rapport incomplet** | Rapport demandant lecture handoff sans push/remote confirmés → cycle incomplet |
-| **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor lorsque handoff required |
-| **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 |
+| **Instruction ChatGPT** | Bloc §9.1 obligatoire dans rapport final Cursor pour tout rapport Cursor |
+| **Baseline** | Règle **absorbée dans SFIA v2.6 (baseline opérationnelle)** — origine capitalisation v2.5 ; v2.6 active sur `main` après merge PR #204 — alignement mandatory routing en attente de merge méthode |
 
 ## 14. Documents associés
 
