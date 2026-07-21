@@ -61,7 +61,7 @@ Chaque cycle doit déclarer explicitement les références qu'il utilise.
 
 La documentation SFIA est appliquée par le **routage des cycles**, pas uniquement par la mémoire du modèle.
 
-**Complément Repo-informed (candidate v2.5 — PR 2) :** avant génération d'un prompt Cursor repo-based, ChatGPT consulte Git si accessible et applique la matrice de routage documentaire. Le détail de la procédure Repo-informed pre-check et du review pack proportionné (none / light / full) est dans `prompts/templates/sfia-cycle-execution-template.md` §2.0 et §7. Le **Review Handoff Git Branch** exige une décision **required / not required** explicite (template §7.10–§7.11) ; il ne remplace pas le routage documentaire ni Git `main`.
+**Complément Repo-informed (candidate v2.5 — PR 2) :** avant génération d'un prompt Cursor repo-based, ChatGPT consulte Git si accessible et applique la matrice de routage documentaire. Le détail de la procédure Repo-informed pre-check et du review pack proportionné (**light / full** pour tout rapport Cursor — template §2.0, §7.0, §7) est dans `prompts/templates/sfia-cycle-execution-template.md`. Le **Review Handoff Git Branch** est **required + publish-in-cycle** pour tout cycle Cursor produisant un rapport (template §7.10–§7.11) ; il ne remplace pas le routage documentaire ni Git `main`.
 
 **Complément Figma visual contract (candidate v2.5 — PR 3) :** pour les cycles UX/UI ou delivery UI avec fidélité Figma attendue, appliquer le standard Figma visual contract du template d'exécution §6.6 ; **aucun verdict visuel fort** sans contrat visuel extrait et sans comparaison runtime.
 
@@ -75,19 +75,20 @@ La documentation SFIA est appliquée par le **routage des cycles**, pas uniqueme
 
 ### 2.1 Matrice Review Handoff Git × review pack
 
-| Review pack | Analyse ChatGPT | Handoff | Notes |
-|-------------|-----------------|---------|-------|
-| **none** | — | **not required** | |
-| **light / full** | oui | **required** | Publication remote obligatoire |
-| **light / full** | non | **not required** | Justification obligatoire |
-| PR readiness documentaire | oui | **required** | |
-| Capitalisation / méthode / template / règle | oui | **required** | |
-| Audit documentaire | oui | **required** | |
-| Contrôle contenu créé/modifié | oui | **required** | |
-| Cycle local sans ChatGPT | non | **not required** | Justification |
-| Décision Morris contraire | — | **not required** | Traçabilité |
+> **Règle centrale :** `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE` (template §7.0).
 
-> Verdict prompt incomplet : `PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`.
+| Situation | Review pack | Handoff |
+|-----------|-------------|---------|
+| Cycle Cursor produisant un rapport simple | Light | Required + publish-in-cycle |
+| Cycle Cursor substantiel | Full | Required + publish-in-cycle |
+| Cycle documentaire / méthode / template / règle | Light ou Full selon portée | Required + publish-in-cycle |
+| PR readiness / post-merge / capitalisation | Light ou Full selon portée | Required + publish-in-cycle |
+| Publication techniquement bloquée | Light ou Full | Local-only exceptionnel + régularisation |
+| Opération read-only sans rapport Cursor | Hors contrat | Aucun rapport / aucun handoff |
+
+> Verdict prompt incomplet : `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` (rapport Cursor + review pack absent/`none`, handoff `not required`, ou `local-only` non conforme).
+>
+> La granularité Light / Full existante est **conservée**. `none` et `not required` ne sont **plus** des options pour un cycle Cursor produisant un rapport.
 
 ## 3. Positionnement dans SFIA
 

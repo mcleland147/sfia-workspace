@@ -166,10 +166,24 @@ La boucle ChatGPT ↔ Cursor suit le flux suivant :
 
 ```text
 Humain → ChatGPT (cadrage + prompt) → Cursor (exécution)
-       → Retour Cursor → ChatGPT (validation) → Humain (GO/NO-GO)
-       → Commit → PR → Merge → Post-merge → Capitalisation
+       → Retour Cursor
+         → review pack obligatoire (light/full)
+         → publication handoff (sfia/review-handoff) — L3 borné
+         → vérification distante
+       → ChatGPT (analyse via handoff Git) → Humain (GO/NO-GO)
+       → Commit projet / PR / Merge (gates Morris — flux projet distinct)
+       → Post-merge → Capitalisation
        → [Notion preparation — optional, after validation]
 ```
+
+**Distinction des flux :**
+
+| Flux | Contenu | Autorisation |
+|------|---------|--------------|
+| **Flux handoff de validation** | Review pack → `sfia-review-handoff/latest-chatgpt-review.md` → push `sfia/review-handoff` → vérification distante | L3 bornée automatique pour tout rapport Cursor |
+| **Flux projet** | Commit / push branche projet / PR / merge / baseline | Gates Morris — **jamais** autorisés par le push handoff |
+
+> Le push L3 borné du handoff est une étape technique répétable incluse dans tout cycle produisant un rapport. Il ne constitue pas une autorisation de push du travail projet.
 
 ## 6. Détail des étapes
 
@@ -580,7 +594,7 @@ Cycle simple, faible risque, faible impact.
 
 **Critères indicatifs :** correction doc simple ; mono-fichier ou ≤ 3 fichiers ; pas de code applicatif ; pas de chemin protégé ; pas de décision doctrine ; pas de décision produit structurante ; pas de risque sécurité ; pas de relance tooling ou architecture.
 
-**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; review pack **none** par défaut — **light** si consultation documentaire (template §7).
+**Exécution :** prompt court mais clair ; rapport Cursor court ; readiness allégée et unique ; post-merge court ou optionnel si trivial ; review pack **light** obligatoire si rapport Cursor (template §7.0) — jamais `none` pour un rapport ; handoff **required + publish-in-cycle**.
 
 ##### Standard
 
@@ -681,7 +695,7 @@ routing guide → méthode cycles v2.5 → template d'exécution → operating m
 
 - **prépare** le contrat Cursor (prompt d'exécution) ;
 - **distingue** observations, options, recommandations et décisions validées ;
-- **recommande** le niveau review pack : none / light / full ;
+- **recommande** le niveau review pack : **light / full** (obligatoire si rapport Cursor — jamais `none`) ;
 - **ne décide pas** à la place de Morris.
 
 Si Git n'est pas accessible : signaler explicitement et générer un prompt prudent — Cursor renforce la découverte locale.
@@ -695,7 +709,7 @@ Cursor :
 - **vérifie** que le workspace local correspond au contrat généré ;
 - **stoppe** si divergence ;
 - **ne découvre pas** un scope large si ChatGPT a déjà cadré le repo ;
-- **remplit** le review pack selon le niveau demandé (none / light / full) ;
+- **remplit** le review pack selon le niveau demandé (**light / full** si rapport Cursor) ;
 - **ne laisse pas** de stub final si review pack light/full requis ;
 - **ne push / PR / merge jamais** sans GO Morris.
 
@@ -737,13 +751,15 @@ Morris :
 | **Review pack temporaire** | Hors commit ; purge/suppression possible après validation Morris/ChatGPT |
 | **Apprentissages durables** | Document versionné dédié — jamais `.tmp-sfia-review/` comme doctrine permanente |
 
-**Niveaux :**
+**Niveaux (si rapport Cursor) :**
 
 | Niveau | Quand |
 |--------|-------|
-| **none** | Micro-cycle technique sans doc consulté/modifié/créé |
-| **light** | Cycle standard borné ; Git accessible ; diff suffisant |
-| **full** | Capitalisation ; modification méthode/template ; décision structurante ; sources non accessibles Git |
+| **light** | Cycle simple/borné ; Git accessible ; diff suffisant |
+| **full** | Capitalisation ; modification méthode/template ; décision structurante ; delivery/QA/PR readiness/post-merge selon portée ; sources non accessibles Git |
+| **Hors contrat** | Opération read-only **sans** rapport Cursor — pas de review pack / handoff |
+
+> Ancienne valeur `none` : **retirée** pour les cycles Cursor produisant un rapport (template §7.0).
 
 **Anti-stub final :** si light ou full requis, le review pack doit être complété avant le rapport final Cursor — jamais un stub minimal en clôture.
 
@@ -751,40 +767,42 @@ Morris :
 
 Proposition d'instruction (à ajouter aux projets ChatGPT — hors modification directe Git) :
 
-> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push branche projet, PR, merge et promotions de baseline. Le review pack est proportionné. **Tout prompt nécessitant review pack light/full et analyse ChatGPT doit inclure une décision Review Handoff Git required / not required (template §7.10–§7.11). Lorsque required : copie, commit, push et vérification remote du handoff, plus instruction ChatGPT §9.1 dans le rapport final.**
+> Avant tout prompt Cursor SFIA repo-based, ChatGPT doit effectuer un Repo-informed pre-check si l'accès Git est disponible. Git main prime sur les sources projet ChatGPT. Si Git n'est pas accessible, ChatGPT doit le signaler explicitement et générer un prompt prudent. Cursor reste responsable du Local Git Truth Check avant exécution locale. Morris décide les gates structurants, push branche projet, PR, merge et promotions de baseline. **Règle centrale : RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE (light/full) = PUBLICATION HANDOFF DANS LE MÊME CYCLE (template §7.0, §7.10–§7.11). publish-in-cycle + push L3 borné automatiques. local-only = exception technique uniquement. Aucun `none` / `not required` pour un rapport Cursor.**
 
 Détail opérationnel : template §10.
 
-##### H. Review Handoff Git Branch — décision required / not required
+##### H. Review Handoff Git Branch — obligatoire pour tout rapport Cursor
 
-> **Référence détaillée :** template §7.10–§7.11 — **candidate** ; décision **obligatoire** ; plus « optionnel par omission ».
+> **Référence détaillée :** template §7.0, §7.10–§7.11 — règle centrale : `RAPPORT CURSOR = REVIEW PACK OBLIGATOIRE = PUBLICATION HANDOFF DANS LE MÊME CYCLE`.
 
-Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, sans extension ni copier-coller.
+Mode permettant à ChatGPT de récupérer le dernier rapport Cursor via Git, sans extension ni copier-coller. Le push L3 borné du handoff est une étape technique répétable incluse dans tout cycle produisant un rapport. Il ne constitue pas une autorisation de push du travail projet.
 
 **ChatGPT :**
 
-- **qualifie explicitement** required / not required dans chaque prompt ;
+- **exige** review pack light/full + handoff **required** + **publish-in-cycle** pour tout prompt produisant un rapport Cursor ;
+- **refuse** `none` / `not required` / `local-only` non conforme — **`PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING`** ;
 - **injecte** la section Review Handoff Git complète (template §5) ;
-- **refuse** un prompt sans décision — **`PROMPT INCOMPLETE — REVIEW HANDOFF DECISION MISSING`** ;
-- **doit consulter** le handoff remote **avant** de répondre lorsque handoff = required ;
-- **refuse** un verdict READY si handoff required absent, obsolète ou synthesis-only ;
+- **doit consulter** le handoff remote **avant** de répondre ;
+- **refuse** un verdict READY si handoff absent, obsolète ou synthesis-only ;
 - **signale** `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` si incohérent.
 
 **Cursor :**
 
-- **publie le handoff** lorsque prompt qualifie **required** — ne désactive pas un handoff required ;
-- **copie, commit, push, vérifie remote** — L3 borné (template §7.10.1) ;
-- **affiche** le bloc Instruction ChatGPT obligatoire (template §9.1) si required ;
+- **produit le review pack** puis **publie le handoff** dans le même cycle (template §7.10.1) ;
+- **copie, commit, push, vérifie remote** — L3 borné ;
+- **affiche** le bloc Instruction ChatGPT obligatoire (template §9.1) ;
 - **rapporte** tous les champs handoff §9.1 ;
-- **ne merge jamais** `sfia/review-handoff`.
+- **ne merge jamais** `sfia/review-handoff` ;
+- en exception technique `local-only` : **`HANDOFF PUBLICATION BLOCKED — REGULARIZATION REQUIRED`**.
 
 **Morris :**
 
-- **valide** la règle candidate ;
-- **décide** des exceptions not required ;
-- **n'a pas** à répéter un micro-GO handoff lorsque required est conforme à §7.11.
+- **valide** la règle ;
+- **peut interdire explicitement** une publication handoff (exception technique) ;
+- **n'a pas** à répéter un micro-GO handoff lorsque publish-in-cycle est conforme à §7.11 ;
+- **garde** l'autorité exclusive sur commit/push/PR/merge **projet**.
 
-**Automatisation :** L3 bornée lorsque handoff = required.
+**Automatisation :** L3 bornée pour tout cycle produisant un rapport Cursor (sauf exception technique documentée).
 
 ##### I. Figma visual contract / Figma-to-code (candidate — capitalisation v2.5 PR 3)
 
