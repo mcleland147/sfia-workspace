@@ -23,3 +23,7 @@ export function createActionCandidateId(): string {
 export function createGateDecisionId(): string {
   return `ops1-gate-${randomUUID()}`;
 }
+
+export function createAllowlistEvaluationId(): string {
+  return `ops1-alw-${randomUUID()}`;
+}

@@ -6,6 +6,7 @@ import { StatusPill } from "@/components/ui/StatusPill";
 import {
   ops1CreateFixtureActionCandidateAction,
   ops1CreateSessionAction,
+  ops1EvaluateAllowlistAction,
   ops1GetLiveConfigAction,
   ops1GetSessionAction,
   ops1QualifyActionNotRequiredAction,
@@ -15,7 +16,10 @@ import {
   ops1SendMessageAction,
 } from "@/lib/ops1/actions";
 import type {
+  ActionAllowlistEvaluation,
   ActionCandidate,
+  AllowlistInputEntry,
+  AllowlistMode,
   ConversationMode,
   ConversationUsageCounters,
   CycleSession,
@@ -30,12 +34,29 @@ import {
   OPS1_I3_GO_NE_PAS_EXEC,
   OPS1_I3_STATUS_UNAUTHORIZED,
   OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED,
+  OPS1_I4_ELIGIBLE_NE_AUTHORIZED,
+  OPS1_I4_EXHAUSTIVE,
+  OPS1_I4_GO_I3_NE_EXEC,
+  OPS1_I4_NO_EXEC,
+  OPS1_I4_NOT_LISTED_FORBIDDEN,
   OPS1_MAX_MESSAGE_CHARS,
 } from "@/lib/ops1/types";
 import type { GlobalModeContext } from "@/lib/ops1/globalModeBadge";
 import styles from "./ops1-session.module.css";
 
 const STORAGE_KEY = "sfia-ops1-i1-active-session";
+
+const DEFAULT_ALLOWLIST_DRAFT: AllowlistInputEntry[] = [
+  { path: "projects/campus360/README.md", mode: "READ" },
+  { path: "projects/campus360/01-opportunity-and-vision.md", mode: "MODIFY" },
+  { path: "projects/campus360/04-ops1-i4-note.md", mode: "CREATE" },
+];
+
+function modeCategoryLabel(mode: AllowlistMode): string {
+  if (mode === "READ") return "CONSULTATION";
+  if (mode === "CREATE") return "CRÉATION";
+  return "MODIFICATION";
+}
 
 type UiPhase =
   | "boot"
@@ -112,6 +133,12 @@ export function Ops1SessionScreen({
   const [decisionsByAction, setDecisionsByAction] = useState<
     Record<string, GateDecision | null>
   >({});
+  const [allowlistByAction, setAllowlistByAction] = useState<
+    Record<string, ActionAllowlistEvaluation | null>
+  >({});
+  const [allowlistDraft, setAllowlistDraft] = useState<AllowlistInputEntry[]>(
+    DEFAULT_ALLOWLIST_DRAFT,
+  );
   const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
   const [execRefuseMsg, setExecRefuseMsg] = useState<string | null>(null);
   const [refineDraft, setRefineDraft] = useState({
@@ -144,10 +171,15 @@ export function Ops1SessionScreen({
       qualification: SessionQualification | null;
       candidates: ActionCandidate[];
       latestDecisionsByAction: Record<string, GateDecision | null>;
+      latestAllowlistByAction?: Record<
+        string,
+        ActionAllowlistEvaluation | null
+      >;
     }) => {
       setQualification(data.qualification);
       setCandidates(data.candidates);
       setDecisionsByAction(data.latestDecisionsByAction);
+      setAllowlistByAction(data.latestAllowlistByAction ?? {});
       const latest = data.candidates[data.candidates.length - 1];
       if (latest) {
         setRefineDraft({
@@ -171,6 +203,7 @@ export function Ops1SessionScreen({
         setQualification(null);
         setCandidates([]);
         setDecisionsByAction({});
+        setAllowlistByAction({});
         setPhase("idle");
         if (typeof window !== "undefined") {
           window.sessionStorage.removeItem(STORAGE_KEY);
@@ -387,6 +420,45 @@ export function Ops1SessionScreen({
     });
   };
 
+  const onEvaluateAllowlist = () => {
+    if (!session) return;
+    const candidate = candidates[candidates.length - 1];
+    if (!candidate) return;
+    setError(null);
+    startTransition(async () => {
+      const result = await ops1EvaluateAllowlistAction({
+        sessionId: session.sessionId,
+        actionCandidateId: candidate.actionCandidateId,
+        entries: allowlistDraft,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      await loadBundle(session.sessionId);
+    });
+  };
+
+  const updateDraftRow = (
+    index: number,
+    patch: Partial<AllowlistInputEntry>,
+  ) => {
+    setAllowlistDraft((rows) =>
+      rows.map((row, i) => (i === index ? { ...row, ...patch } : row)),
+    );
+  };
+
+  const addDraftRow = () => {
+    setAllowlistDraft((rows) => [
+      ...rows,
+      { path: "projects/campus360/", mode: "READ" },
+    ]);
+  };
+
+  const removeDraftRow = (index: number) => {
+    setAllowlistDraft((rows) => rows.filter((_, i) => i !== index));
+  };
+
   const lockedMode = session?.conversationMode;
   const isFixtureSession = lockedMode === "fixture";
   const isLiveSession = lockedMode === "live";
@@ -409,17 +481,21 @@ export function Ops1SessionScreen({
       activeCandidate.status === "CHANGES_REQUESTED");
   const showCorrigerOnly =
     activeCandidate && activeCandidate.status === "APPROVED";
+  const activeAllowlist = activeCandidate
+    ? (allowlistByAction[activeCandidate.actionCandidateId] ?? null)
+    : null;
+  const showAllowlistPanel = Boolean(activeCandidate);
 
   return (
     <div className={styles.root} data-testid="ops1-session-root">
       <header className={styles.header}>
-        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I3</p>
+        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I4</p>
         <h2 className={styles.title} id="ops1-session-heading">
           Session OPS1
         </h2>
         <p className={styles.lede}>
-          Conversation, proposition d’action et gate Morris — sans exécution.
-          GO valide la proposition pour préparer I4 ; GO ≠ exécution.
+          Conversation, gate Morris et évaluation d’allowlist Campus360 — sans
+          exécution. {OPS1_I4_GO_I3_NE_EXEC}. {OPS1_I4_NO_EXEC}.
         </p>
         <div className={styles.badgeRow} aria-live="polite">
           {!session ? (
@@ -975,6 +1051,229 @@ export function Ops1SessionScreen({
                   </div>
                 </dl>
               )}
+            </section>
+          ) : null}
+
+          {showAllowlistPanel && activeCandidate ? (
+            <section
+              className={`${styles.panel} ${styles.allowlistPanel}`}
+              data-testid="ops1-i4-allowlist"
+              aria-labelledby="ops1-i4-allowlist-title"
+            >
+              <h2 id="ops1-i4-allowlist-title" className={styles.panelTitle}>
+                Allowlist Campus360 (I4)
+              </h2>
+              <p className={styles.muted} data-testid="ops1-i4-allowlist-lede">
+                {OPS1_I4_ELIGIBLE_NE_AUTHORIZED}. {OPS1_I4_NOT_LISTED_FORBIDDEN}.{" "}
+                {OPS1_I4_EXHAUSTIVE}. {OPS1_I4_NO_EXEC}. {OPS1_I4_GO_I3_NE_EXEC}.
+              </p>
+              <ul className={styles.microcopyList} aria-label="Règles I4">
+                <li>{OPS1_I4_ELIGIBLE_NE_AUTHORIZED}</li>
+                <li>{OPS1_I4_NOT_LISTED_FORBIDDEN}</li>
+                <li>{OPS1_I4_EXHAUSTIVE}</li>
+                <li>{OPS1_I4_NO_EXEC}</li>
+                <li>{OPS1_I4_GO_I3_NE_EXEC}</li>
+              </ul>
+
+              <div className={styles.allowlistDraft} role="group" aria-label="Saisie allowlist">
+                {allowlistDraft.map((row, index) => (
+                  <div
+                    key={`alw-draft-${index}`}
+                    className={styles.allowlistDraftRow}
+                    data-testid={`ops1-i4-draft-row-${index}`}
+                  >
+                    <label className={styles.field}>
+                      <span>Chemin</span>
+                      <input
+                        value={row.path}
+                        onChange={(e) =>
+                          updateDraftRow(index, { path: e.target.value })
+                        }
+                        aria-label={`Chemin allowlist ${index + 1}`}
+                        data-testid={`ops1-i4-draft-path-${index}`}
+                      />
+                    </label>
+                    <label className={styles.field}>
+                      <span>Mode</span>
+                      <select
+                        value={row.mode}
+                        onChange={(e) =>
+                          updateDraftRow(index, {
+                            mode: e.target.value as AllowlistMode,
+                          })
+                        }
+                        aria-label={`Mode allowlist ${index + 1}`}
+                        data-testid={`ops1-i4-draft-mode-${index}`}
+                      >
+                        <option value="READ">CONSULTATION (READ)</option>
+                        <option value="CREATE">CRÉATION (CREATE)</option>
+                        <option value="MODIFY">MODIFICATION (MODIFY)</option>
+                      </select>
+                    </label>
+                    <button
+                      type="button"
+                      className={styles.secondaryBtn}
+                      onClick={() => removeDraftRow(index)}
+                      disabled={allowlistDraft.length <= 1 || pending}
+                      aria-label={`Retirer l’entrée ${index + 1}`}
+                      data-testid={`ops1-i4-draft-remove-${index}`}
+                    >
+                      Retirer
+                    </button>
+                  </div>
+                ))}
+                <div className={styles.actions}>
+                  <button
+                    type="button"
+                    className={styles.secondaryBtn}
+                    onClick={addDraftRow}
+                    disabled={pending}
+                    data-testid="ops1-i4-draft-add"
+                  >
+                    Ajouter un chemin
+                  </button>
+                  <CtaButton
+                    type="button"
+                    onClick={onEvaluateAllowlist}
+                    disabled={pending}
+                    data-testid="ops1-i4-evaluate"
+                  >
+                    Évaluer l’allowlist
+                  </CtaButton>
+                </div>
+              </div>
+
+              {activeAllowlist ? (
+                <div
+                  className={styles.allowlistResult}
+                  data-testid="ops1-i4-evaluation-result"
+                  data-status={activeAllowlist.status}
+                  aria-live="polite"
+                >
+                  <p
+                    className={styles.allowlistStatus}
+                    data-testid="ops1-i4-global-status"
+                    role="status"
+                  >
+                    {activeAllowlist.uiStatusLabel}
+                  </p>
+                  <p className={styles.muted} data-testid="ops1-i4-eval-meta">
+                    Action {activeAllowlist.actionCandidateId} · v
+                    {activeAllowlist.actionVersion} ·{" "}
+                    {activeAllowlist.evaluatedAt}
+                  </p>
+
+                  <div className={styles.allowlistBuckets}>
+                    <div data-testid="ops1-i4-bucket-reads">
+                      <h3>CONSULTATION</h3>
+                      <ul>
+                        {activeAllowlist.allowedReads.length === 0 ? (
+                          <li className={styles.muted}>Aucun</li>
+                        ) : (
+                          activeAllowlist.allowedReads.map((p) => (
+                            <li key={`read-${p}`}>{p}</li>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+                    <div data-testid="ops1-i4-bucket-creates">
+                      <h3>CRÉATION</h3>
+                      <ul>
+                        {activeAllowlist.allowedCreates.length === 0 ? (
+                          <li className={styles.muted}>Aucun</li>
+                        ) : (
+                          activeAllowlist.allowedCreates.map((p) => (
+                            <li key={`create-${p}`}>{p}</li>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+                    <div data-testid="ops1-i4-bucket-modifies">
+                      <h3>MODIFICATION</h3>
+                      <ul>
+                        {activeAllowlist.allowedModifies.length === 0 ? (
+                          <li className={styles.muted}>Aucun</li>
+                        ) : (
+                          activeAllowlist.allowedModifies.map((p) => (
+                            <li key={`modify-${p}`}>{p}</li>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+                    <div data-testid="ops1-i4-bucket-denied">
+                      <h3>INTERDIT</h3>
+                      <ul>
+                        {activeAllowlist.deniedPaths.length === 0 ? (
+                          <li className={styles.muted}>Aucun</li>
+                        ) : (
+                          activeAllowlist.deniedPaths.map((p) => (
+                            <li key={`denied-${p}`}>{p}</li>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <table
+                    className={styles.allowlistTable}
+                    data-testid="ops1-i4-entries-table"
+                  >
+                    <caption className={styles.srOnly}>
+                      Détail des entrées allowlist évaluées
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Saisi</th>
+                        <th scope="col">Normalisé</th>
+                        <th scope="col">Verdict</th>
+                        <th scope="col">Motif</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activeAllowlist.evaluatedEntries.map((entry, idx) => (
+                        <tr
+                          key={`entry-${idx}-${entry.normalizedPath}-${entry.mode}`}
+                          data-testid={`ops1-i4-entry-${idx}`}
+                          data-verdict={entry.evaluationStatus}
+                        >
+                          <td>{modeCategoryLabel(entry.mode)}</td>
+                          <td>{entry.path}</td>
+                          <td data-testid={`ops1-i4-entry-normalized-${idx}`}>
+                            {entry.normalizedPath}
+                          </td>
+                          <td>
+                            <span
+                              className={
+                                entry.evaluationStatus === "ALLOWED"
+                                  ? styles.verdictOk
+                                  : styles.verdictBad
+                              }
+                            >
+                              {entry.evaluationStatus}
+                            </span>
+                          </td>
+                          <td
+                            id={`ops1-i4-reason-${idx}`}
+                            data-testid={`ops1-i4-entry-reason-${idx}`}
+                          >
+                            {entry.evaluationReason ?? "—"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className={styles.muted} data-testid="ops1-i4-evaluation-empty">
+                  Aucune évaluation persistée pour cette version d’action.
+                </p>
+              )}
+
+              <p className={styles.hint} data-testid="ops1-i4-no-exec-cta">
+                Aucun bouton Exécuter / Lancer Cursor / worktree / push / PR
+                n’est disponible dans I4.
+              </p>
             </section>
           ) : null}
 

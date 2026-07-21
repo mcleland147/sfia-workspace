@@ -8,6 +8,7 @@ import { openOps1Db, nowIsoWithOffset } from "./db";
 import { Ops1Error } from "./errors";
 import {
   OPS1_I3_GO_MICROCOPY,
+  type ActionAllowlistEvaluation,
   type ActionCandidate,
   type ActionCandidateStatus,
   type ActionQualification,
@@ -17,6 +18,10 @@ import {
   type SessionEventType,
   type SessionQualification,
 } from "./types";
+import {
+  getLatestAllowlistEvaluation,
+  supersedeAllowlistEvaluationsForAction,
+} from "./allowlistService";
 
 function insertEvent(
   db: DatabaseSync,
@@ -314,6 +319,9 @@ export function refineActionCandidate(
     input.actionCandidateId,
   );
 
+  // I4: refining the action invalidates prior allowlist evaluations.
+  supersedeAllowlistEvaluationsForAction(input.actionCandidateId, db);
+
   const event = insertEvent(
     db,
     input.sessionId,
@@ -462,11 +470,21 @@ export function getI3Bundle(
   qualification: SessionQualification | null;
   candidates: ActionCandidate[];
   latestDecisionsByAction: Record<string, GateDecision | null>;
+  latestAllowlistByAction: Record<string, ActionAllowlistEvaluation | null>;
 } {
   const candidates = listActionCandidates(sessionId, db);
   const latestDecisionsByAction: Record<string, GateDecision | null> = {};
+  const latestAllowlistByAction: Record<
+    string,
+    ActionAllowlistEvaluation | null
+  > = {};
   for (const c of candidates) {
     latestDecisionsByAction[c.actionCandidateId] = getLatestGateDecision(
+      c.actionCandidateId,
+      c.version,
+      db,
+    );
+    latestAllowlistByAction[c.actionCandidateId] = getLatestAllowlistEvaluation(
       c.actionCandidateId,
       c.version,
       db,
@@ -476,5 +494,6 @@ export function getI3Bundle(
     qualification: getSessionQualification(sessionId, db),
     candidates,
     latestDecisionsByAction,
+    latestAllowlistByAction,
   };
 }

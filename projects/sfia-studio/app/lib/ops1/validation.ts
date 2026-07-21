@@ -1,5 +1,7 @@
 import {
   OPS1_MAX_MESSAGE_CHARS,
+  type AllowlistInputEntry,
+  type AllowlistMode,
   type ConversationMode,
   type GateDecisionKind,
   type TurnRole,
@@ -80,4 +82,41 @@ export function assertTurnRole(role: unknown): TurnRole {
 export function assertConversationMode(mode: unknown): ConversationMode {
   if (mode === "fixture" || mode === "live") return mode;
   throw new Ops1Error("VALIDATION", "Mode conversationnel invalide.");
+}
+
+export function assertAllowlistMode(mode: unknown): AllowlistMode {
+  if (mode === "READ" || mode === "CREATE" || mode === "MODIFY") return mode;
+  throw new Ops1Error("VALIDATION", "Mode allowlist invalide.");
+}
+
+export function assertAllowlistEntries(raw: unknown): AllowlistInputEntry[] {
+  if (!Array.isArray(raw) || raw.length === 0) {
+    throw new Ops1Error(
+      "VALIDATION",
+      "Allowlist exhaustive requise (au moins une entrée).",
+    );
+  }
+  if (raw.length > 50) {
+    throw new Ops1Error("VALIDATION", "Allowlist trop longue (max 50).");
+  }
+  return raw.map((item, index) => {
+    if (!item || typeof item !== "object") {
+      throw new Ops1Error(
+        "VALIDATION",
+        `Entrée allowlist #${index + 1} invalide.`,
+      );
+    }
+    const record = item as Record<string, unknown>;
+    const pathValue = record.path;
+    if (typeof pathValue !== "string") {
+      throw new Ops1Error(
+        "VALIDATION",
+        `Chemin allowlist #${index + 1} invalide.`,
+      );
+    }
+    return {
+      path: pathValue,
+      mode: assertAllowlistMode(record.mode),
+    };
+  });
 }

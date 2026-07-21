@@ -23,6 +23,7 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1RefineActionCandidateAction: vi.fn(),
   ops1RecordGateDecisionAction: vi.fn(),
   ops1RefuseExecutionAction: vi.fn(),
+  ops1EvaluateAllowlistAction: vi.fn(),
 }));
 
 const fixtureSession = {
@@ -61,17 +62,17 @@ describe("global mode badge on nouvelle-demande shell", () => {
     });
   });
 
-  it("shows OPS1 I3 shell signaling (not obsolete I2)", async () => {
+  it("shows OPS1 I4 shell signaling (not obsolete I2/I3)", async () => {
     render(<NouvelleDemandePageClient />);
     await waitFor(() => {
       expect(screen.getByTestId("ops1-increment-badge")).toHaveTextContent(
-        "OPS1 I3",
+        "OPS1 I4",
       );
     });
     expect(screen.queryByText("OPS1 I2")).not.toBeInTheDocument();
-    expect(screen.getByText("Parcours I3")).toBeInTheDocument();
+    expect(screen.getByText("Parcours I4")).toBeInTheDocument();
     expect(
-      screen.getByText(/OPS1 I3 — action gate \/ fixture first/),
+      screen.getByText(/OPS1 I4 — allowlist evaluation \/ no execution/),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Parcours I2/)).not.toBeInTheDocument();
   });
@@ -89,6 +90,7 @@ describe("global mode badge on nouvelle-demande shell", () => {
         qualification: null,
         candidates: [],
         latestDecisionsByAction: {},
+        latestAllowlistByAction: {},
       },
     });
     render(<NouvelleDemandePageClient />);
@@ -126,6 +128,7 @@ describe("global mode badge on nouvelle-demande shell", () => {
         qualification: null,
         candidates: [],
         latestDecisionsByAction: {},
+        latestAllowlistByAction: {},
       },
     });
     window.sessionStorage.setItem(
@@ -160,6 +163,7 @@ describe("global mode badge on nouvelle-demande shell", () => {
         qualification: null,
         candidates: [],
         latestDecisionsByAction: {},
+        latestAllowlistByAction: {},
       },
     });
     window.sessionStorage.setItem(
