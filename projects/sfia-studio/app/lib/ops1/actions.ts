@@ -22,6 +22,15 @@ import {
   getI5Bundle,
   runExecutionAttempt,
 } from "./executionOrchestrator";
+import {
+  generateExecutionReport,
+  getLatestReportForSession,
+} from "./reportService";
+import {
+  closeSession,
+  openContinuation,
+  resumePostReportChat,
+} from "./sessionLifecycle";
 import { Ops1Error, toSafeClientError } from "./errors";
 import {
   assertActionCandidateId,
@@ -54,6 +63,7 @@ import type {
   MinimalExecutionResult,
   ProviderPresentation,
   SessionQualification,
+  ExecutionReport,
 } from "./types";
 
 export type Ops1ActionResult<T> =
@@ -126,6 +136,7 @@ export async function ops1GetSessionAction(
     latestAllowlistByAction: Record<string, ActionAllowlistEvaluation | null>;
     latestContractByAction: Record<string, ExecutionContract | null>;
     latestAttemptByContract: Record<string, ExecutionAttempt | null>;
+    latestReport: ExecutionReport | null;
   }>
 > {
   try {
@@ -147,6 +158,7 @@ export async function ops1GetSessionAction(
         latestAllowlistByAction: i3.latestAllowlistByAction,
         latestContractByAction: i5.latestContractByAction,
         latestAttemptByContract: i5.latestAttemptByContract,
+        latestReport: getLatestReportForSession(id),
       },
     };
   } catch (error) {
@@ -495,6 +507,86 @@ export async function ops1RunExecutionAttemptAction(input: {
         attempt: result.attempt,
         result: result.result,
         adapterPayload: result.adapterPayload,
+      },
+    };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+/* ─── OPS1 I6 — report + continuation ─── */
+
+export async function ops1GenerateExecutionReportAction(input: {
+  sessionId: string;
+  contractId: string;
+  executionAttemptId?: string;
+}): Promise<Ops1ActionResult<{ report: ExecutionReport }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    if (typeof input.contractId !== "string" || !input.contractId) {
+      throw new Ops1Error("VALIDATION", "contractId invalide.");
+    }
+    const { report } = generateExecutionReport({
+      sessionId,
+      contractId: input.contractId,
+      executionAttemptId: input.executionAttemptId,
+    });
+    return { ok: true, data: { report } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1ResumePostReportChatAction(input: {
+  sessionId: string;
+}): Promise<
+  Ops1ActionResult<{ session: CycleSession; reportSummary: string }>
+> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const result = resumePostReportChat(sessionId);
+    return {
+      ok: true,
+      data: {
+        session: result.session,
+        reportSummary: result.reportSummary,
+      },
+    };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1CloseSessionAction(input: {
+  sessionId: string;
+}): Promise<Ops1ActionResult<{ session: CycleSession }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const { session } = closeSession(sessionId);
+    return { ok: true, data: { session } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1OpenContinuationAction(input: {
+  parentSessionId: string;
+}): Promise<
+  Ops1ActionResult<{
+    session: CycleSession;
+    parent: CycleSession;
+    sourceReportId: string | null;
+  }>
+> {
+  try {
+    const parentSessionId = assertSessionId(input.parentSessionId);
+    const result = openContinuation({ parentSessionId });
+    return {
+      ok: true,
+      data: {
+        session: result.session,
+        parent: result.parent,
+        sourceReportId: result.sourceReportId,
       },
     };
   } catch (error) {

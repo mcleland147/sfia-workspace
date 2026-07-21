@@ -43,3 +43,7 @@ export function createExecutionAttemptId(): string {
 export function createExecutionResultId(): string {
   return `ops1-xres-${randomUUID()}`;
 }
+
+export function createReportId(): string {
+  return `ops1-rep-${randomUUID()}`;
+}

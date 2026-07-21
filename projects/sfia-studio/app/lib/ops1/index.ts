@@ -54,3 +54,16 @@ export {
   isRealCursorRequested,
   runCursorAdapter,
 } from "./cursorExecutionAdapter";
+export {
+  buildCoverageAndMetrics,
+  generateExecutionReport,
+  getLatestReportForSession,
+  getReportByAttemptId,
+  getReportById,
+} from "./reportService";
+export { formatOps1WorktreeRef } from "./worktreeDisplay";
+export {
+  closeSession,
+  openContinuation,
+  resumePostReportChat,
+} from "./sessionLifecycle";

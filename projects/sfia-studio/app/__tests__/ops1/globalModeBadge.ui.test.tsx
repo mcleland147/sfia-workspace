@@ -31,6 +31,10 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1CreateExecutionContractAction: vi.fn(),
   ops1RecordExecutionGateAction: vi.fn(),
   ops1RunExecutionAttemptAction: vi.fn(),
+  ops1GenerateExecutionReportAction: vi.fn(),
+  ops1ResumePostReportChatAction: vi.fn(),
+  ops1CloseSessionAction: vi.fn(),
+  ops1OpenContinuationAction: vi.fn(),
 }));
 
 const fixtureSession = {
@@ -69,17 +73,19 @@ describe("global mode badge on nouvelle-demande shell", () => {
     });
   });
 
-  it("shows OPS1 I5 shell signaling (not obsolete I2/I3/I4)", async () => {
+  it("shows OPS1 I6 shell signaling (not obsolete I2/I3/I4)", async () => {
     render(<NouvelleDemandePageClient />);
     await waitFor(() => {
       expect(screen.getByTestId("ops1-increment-badge")).toHaveTextContent(
-        "OPS1 I5",
+        "OPS1 I6",
       );
     });
     expect(screen.queryByText("OPS1 I2")).not.toBeInTheDocument();
-    expect(screen.getByText("Parcours I5")).toBeInTheDocument();
+    expect(screen.getByText("Parcours I6")).toBeInTheDocument();
     expect(
-      screen.getByText(/OPS1 I5 — contrat final \/ exécution Cursor bornée/),
+      screen.getByText(
+        /OPS1 I6 — rapport post-exécution \/ reprise conversationnelle/,
+      ),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Parcours I2/)).not.toBeInTheDocument();
   });

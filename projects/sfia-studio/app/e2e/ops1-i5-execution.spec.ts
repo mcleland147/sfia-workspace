@@ -35,7 +35,7 @@ test.describe("OPS1 I5 contract + fixture execution", () => {
   test("contract without GO blocks execution button", async ({ page }) => {
     await prepareThroughI4(page);
     await expect(page.getByTestId("ops1-increment-badge")).toContainText(
-      "OPS1 I5",
+      "OPS1 I6",
     );
     await expect(page.getByTestId("ops1-i5-execution")).toBeVisible();
     await expect(page.getByTestId("ops1-i5-run-execution")).toBeDisabled();
