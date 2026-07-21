@@ -380,6 +380,11 @@
   background: linear-gradient(180deg, #faf8ff 0%, #ffffff 40%);
 }
 
+.executionPanel {
+  border-color: #8fc4bb;
+  background: linear-gradient(180deg, #f3fbf9 0%, #ffffff 42%);
+}
+
 .microcopyList {
   margin: 0;
   padding-left: 1.2rem;

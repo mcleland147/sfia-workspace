@@ -17,6 +17,10 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1GetSessionAction: (...args: unknown[]) => get(...args),
   ops1SendMessageAction: (...args: unknown[]) => send(...args),
   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+  ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
+    ok: true,
+    data: { flagEnabled: false, binPath: null, available: false },
+  })),
   ops1AppendUserMessageAction: vi.fn(),
   ops1QualifyActionNotRequiredAction: vi.fn(),
   ops1CreateFixtureActionCandidateAction: vi.fn(),
@@ -24,6 +28,9 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1RecordGateDecisionAction: vi.fn(),
   ops1RefuseExecutionAction: vi.fn(),
   ops1EvaluateAllowlistAction: vi.fn(),
+  ops1CreateExecutionContractAction: vi.fn(),
+  ops1RecordExecutionGateAction: vi.fn(),
+  ops1RunExecutionAttemptAction: vi.fn(),
 }));
 
 const fixtureSession = {
@@ -62,17 +69,17 @@ describe("global mode badge on nouvelle-demande shell", () => {
     });
   });
 
-  it("shows OPS1 I4 shell signaling (not obsolete I2/I3)", async () => {
+  it("shows OPS1 I5 shell signaling (not obsolete I2/I3/I4)", async () => {
     render(<NouvelleDemandePageClient />);
     await waitFor(() => {
       expect(screen.getByTestId("ops1-increment-badge")).toHaveTextContent(
-        "OPS1 I4",
+        "OPS1 I5",
       );
     });
     expect(screen.queryByText("OPS1 I2")).not.toBeInTheDocument();
-    expect(screen.getByText("Parcours I4")).toBeInTheDocument();
+    expect(screen.getByText("Parcours I5")).toBeInTheDocument();
     expect(
-      screen.getByText(/OPS1 I4 — allowlist evaluation \/ no execution/),
+      screen.getByText(/OPS1 I5 — contrat final \/ exécution Cursor bornée/),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Parcours I2/)).not.toBeInTheDocument();
   });

@@ -31,3 +31,26 @@ export {
   getLatestAllowlistEvaluation,
   supersedeAllowlistEvaluationsForAction,
 } from "./allowlistService";
+export {
+  canonicalize,
+  computeContractHash,
+} from "./executionCanonicalize";
+export {
+  buildContractPayload,
+  createExecutionContract,
+  getActiveExecutionGate,
+  getExecutionContractById,
+  getLatestExecutionContract,
+  recordExecutionGate,
+} from "./executionContractService";
+export { revalidateBeforeExecution } from "./executionRevalidation";
+export {
+  getI5Bundle,
+  getLatestExecutionAttempt,
+  runExecutionAttempt,
+} from "./executionOrchestrator";
+export { postCheckExecution } from "./executionPostCheck";
+export {
+  isRealCursorRequested,
+  runCursorAdapter,
+} from "./cursorExecutionAdapter";

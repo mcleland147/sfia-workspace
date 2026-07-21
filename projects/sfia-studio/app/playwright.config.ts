@@ -22,6 +22,7 @@ export default defineConfig({
     timeout: 180_000,
     env: {
       ...process.env,
+      OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
       // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
       // without forcing fake (secrets must already be in the environment).
       ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"

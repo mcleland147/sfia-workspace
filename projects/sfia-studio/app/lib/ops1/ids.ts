@@ -27,3 +27,19 @@ export function createGateDecisionId(): string {
 export function createAllowlistEvaluationId(): string {
   return `ops1-alw-${randomUUID()}`;
 }
+
+export function createContractId(): string {
+  return `ops1-ctr-${randomUUID()}`;
+}
+
+export function createExecutionGateId(): string {
+  return `ops1-xgate-${randomUUID()}`;
+}
+
+export function createExecutionAttemptId(): string {
+  return `ops1-xatt-${randomUUID()}`;
+}
+
+export function createExecutionResultId(): string {
+  return `ops1-xres-${randomUUID()}`;
+}

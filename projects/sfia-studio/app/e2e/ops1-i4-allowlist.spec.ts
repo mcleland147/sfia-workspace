@@ -32,7 +32,7 @@ test.describe("OPS1 I4 allowlist evaluation — no execution", () => {
   }) => {
     await prepareCandidate(page);
     await expect(page.getByTestId("ops1-increment-badge")).toContainText(
-      "OPS1 I4",
+      "OPS1 I5",
     );
     await expect(page.getByTestId("ops1-i4-allowlist-lede")).toContainText(
       "Aucune exécution",
@@ -53,7 +53,7 @@ test.describe("OPS1 I4 allowlist evaluation — no execution", () => {
       "README.md",
     );
     await expect(page.getByTestId("ops1-i4-bucket-creates")).toContainText(
-      "04-ops1-i4-note.md",
+      "04-ops1-i5-execution-proof.md",
     );
     await expect(page.getByTestId("ops1-i4-bucket-modifies")).toContainText(
       "01-opportunity-and-vision.md",
