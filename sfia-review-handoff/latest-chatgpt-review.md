@@ -1382,7 +1382,10 @@ Handoff uniquement via publisher canonique.
 | Source | `.tmp-sfia-review/chatgpt-review.md` |
 | Message | `docs(review-handoff): publish OPS1 I4 allowlist evaluation review` |
 | Worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| Verdict / tip / blob | *(après publication)* |
+| Verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Commit handoff | `707a4a396a9416fbc4ce9fb3b964368f2145726e` |
+| Blob | `4f2b6fe519a6c0f83bc0eed2ea861fc3add7b200` |
+| Path | `sfia-review-handoff/latest-chatgpt-review.md` |
 
 ## 21. Décision Morris attendue
 
