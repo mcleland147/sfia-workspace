@@ -19,12 +19,14 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1RefineActionCandidateAction: vi.fn(),
   ops1RecordGateDecisionAction: vi.fn(),
   ops1RefuseExecutionAction: vi.fn(),
+  ops1EvaluateAllowlistAction: vi.fn(),
 }));
 
 const emptyI3 = {
   qualification: null,
   candidates: [] as unknown[],
   latestDecisionsByAction: {} as Record<string, null>,
+  latestAllowlistByAction: {} as Record<string, null>,
 };
 
 const fixtureSession = {

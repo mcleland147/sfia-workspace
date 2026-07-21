@@ -19,3 +19,15 @@ export {
   refineActionCandidate,
   refuseExecutionAttempt,
 } from "./actionGate";
+export {
+  evaluateAllowlist,
+  resolveWorkspaceRootFromAppCwd,
+  CAMPUS360_ALLOWLIST_POLICY,
+  UNDECLARED_PATH_REASON,
+  decideAgainstAllowlistPolicy,
+} from "./allowlistEvaluation";
+export {
+  evaluateAndPersistAllowlist,
+  getLatestAllowlistEvaluation,
+  supersedeAllowlistEvaluationsForAction,
+} from "./allowlistService";

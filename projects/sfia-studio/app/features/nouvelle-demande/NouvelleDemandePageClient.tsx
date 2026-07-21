@@ -14,21 +14,21 @@ import {
 const COPILOT = {
   variant: "flush" as const,
   name: "Nora · SFIA Copilot",
-  subtitle: "OPS1 I3 — action gate / fixture first",
+  subtitle: "OPS1 I4 — allowlist evaluation / no execution",
   avatarTone: "blue" as const,
   levelPill: "L0 humain",
   summary:
-    "Proposition d’action hors chat et gate Morris (GO / NO_GO / CORRIGER / ABANDONNER). Fixture first — aucune exécution ; allowlist reportée à I4.",
+    "Évaluation déterministe de l’allowlist Campus360 (READ / CREATE / MODIFY). Éligible ≠ autorisé — aucune exécution Cursor.",
   checklist: [
-    "Créer session OPEN (fixture first)",
-    "Qualifier ou proposer un ActionCandidate",
-    "Décider via les quatre gate actions",
-    "Aucune exécution Cursor / Git / filesystem",
+    "Action candidate I3 disponible",
+    "Saisir allowlist exhaustive 1..n",
+    "Évaluer (VALID / CORRECTION / REFUSÉE)",
+    "Aucune exécution — worktree / push / PR reportés",
   ],
-  checklistTitle: "Parcours I3",
+  checklistTitle: "Parcours I4",
   riskTitle: "PÉRIMÈTRE",
   riskText:
-    "I3 n’ouvre pas l’exécution ni l’allowlist I4, ni la clôture CLOSED, ni la CI. GO ≠ exécution.",
+    "I4 n’ouvre pas l’exécution, le worktree d’action, ni l’allowlist I5. Non listé = interdit. GO I3 ≠ exécution.",
 };
 
 function NouvelleDemandeBody({
@@ -81,7 +81,7 @@ export function NouvelleDemandePageClient() {
           tone: badge.tone,
           testId: "global-mode-badge",
         },
-        { label: "OPS1 I3", tone: "blueFlush", testId: "ops1-increment-badge" },
+        { label: "OPS1 I4", tone: "blueFlush", testId: "ops1-increment-badge" },
       ]}
       copilot={COPILOT}
     >

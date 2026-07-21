@@ -104,6 +104,25 @@ CREATE INDEX IF NOT EXISTS idx_actions_session
 
 CREATE INDEX IF NOT EXISTS idx_gates_action
   ON gate_decisions(action_candidate_id, created_at);
+
+CREATE TABLE IF NOT EXISTS allowlist_evaluations (
+  evaluation_id TEXT PRIMARY KEY NOT NULL,
+  session_id TEXT NOT NULL,
+  action_candidate_id TEXT NOT NULL,
+  action_version INTEGER NOT NULL CHECK (action_version >= 1),
+  status TEXT NOT NULL CHECK (status IN (
+    'VALID', 'INVALID', 'REQUIRES_CORRECTION'
+  )),
+  ui_status_label TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  evaluated_at TEXT NOT NULL,
+  superseded_at TEXT,
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id),
+  FOREIGN KEY (action_candidate_id) REFERENCES action_candidates(action_candidate_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_allowlist_action_version
+  ON allowlist_evaluations(action_candidate_id, action_version, evaluated_at);
 `;
 
 let singleton: DatabaseSync | null = null;

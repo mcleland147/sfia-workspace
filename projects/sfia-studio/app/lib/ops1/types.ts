@@ -85,7 +85,11 @@ export type SessionEventType =
   | "ACTION_CANDIDATE_CREATED"
   | "ACTION_CANDIDATE_REFINED"
   | "GATE_DECISION_RECORDED"
-  | "EXECUTION_REFUSED";
+  | "EXECUTION_REFUSED"
+  | "ALLOWLIST_EVALUATION_STARTED"
+  | "ALLOWLIST_EVALUATION_SUCCEEDED"
+  | "ALLOWLIST_EVALUATION_FAILED"
+  | "ALLOWLIST_CORRECTION_REQUIRED";
 
 export interface SessionEvent {
   eventId: string;
@@ -159,3 +163,62 @@ export const OPS1_I3_STATUS_VALIDATED_NOT_EXECUTED =
   "ACTION VALIDÉE — NON EXÉCUTÉE";
 export const OPS1_I3_GO_NE_PAS_EXEC =
   "GO ≠ exécution — préparation I4 uniquement";
+
+/* ─── OPS1 I4 — allowlist evaluation (no execution) ─── */
+
+export type AllowlistMode = "READ" | "CREATE" | "MODIFY";
+
+export type AllowlistEvaluationStatus = "ALLOWED" | "DENIED" | "INVALID";
+
+export type AllowlistGlobalStatus =
+  | "VALID"
+  | "INVALID"
+  | "REQUIRES_CORRECTION";
+
+export interface AllowlistInputEntry {
+  path: string;
+  mode: AllowlistMode;
+}
+
+export interface AllowlistEntry {
+  path: string;
+  mode: AllowlistMode;
+  normalizedPath: string;
+  evaluationStatus: AllowlistEvaluationStatus;
+  evaluationReason: string | null;
+}
+
+export interface ActionAllowlistEvaluation {
+  evaluationId?: string;
+  actionCandidateId: string;
+  actionVersion: number;
+  evaluatedEntries: AllowlistEntry[];
+  allowedReads: string[];
+  allowedCreates: string[];
+  allowedModifies: string[];
+  deniedPaths: string[];
+  status: AllowlistGlobalStatus;
+  uiStatusLabel: string;
+  evaluatedAt: string;
+  supersededAt?: string | null;
+}
+
+export const CAMPUS360_ROOT_PREFIX = "projects/campus360";
+
+export const CAMPUS360_PROTECTED_MODIFY =
+  "projects/campus360/03-pre-framing-decision-pack.md";
+
+/** I4 microcopies — evaluation never means execution. */
+export const OPS1_I4_ELIGIBLE_NE_AUTHORIZED = "Éligible ≠ autorisé";
+export const OPS1_I4_NOT_LISTED_FORBIDDEN = "Non listé = interdit";
+export const OPS1_I4_EXHAUSTIVE = "Allowlist exhaustive 1..n";
+export const OPS1_I4_NO_EXEC =
+  "Aucune exécution n’est lancée dans I4";
+export const OPS1_I4_GO_I3_NE_EXEC = "GO I3 ≠ exécution";
+
+export const OPS1_I4_STATUS_VALID =
+  "ALLOWLIST VALIDE — AUCUNE EXÉCUTION";
+export const OPS1_I4_STATUS_CORRECTION =
+  "CORRECTION REQUISE — AUCUNE EXÉCUTION";
+export const OPS1_I4_STATUS_REFUSED =
+  "ALLOWLIST REFUSÉE — AUCUNE EXÉCUTION";

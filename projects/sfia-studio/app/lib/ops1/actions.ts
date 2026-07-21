@@ -13,10 +13,12 @@ import {
   refineActionCandidate,
   refuseExecutionAttempt,
 } from "./actionGate";
+import { evaluateAndPersistAllowlist } from "./allowlistService";
 import { Ops1Error, toSafeClientError } from "./errors";
 import {
   assertActionCandidateId,
   assertActionField,
+  assertAllowlistEntries,
   assertConversationMode,
   assertGateDecisionKind,
   assertMessageContent,
@@ -28,6 +30,7 @@ import {
 } from "./conversation/config";
 import { sendConversationMessage } from "./conversation/service";
 import type {
+  ActionAllowlistEvaluation,
   ActionCandidate,
   ConversationAttempt,
   ConversationMode,
@@ -107,6 +110,7 @@ export async function ops1GetSessionAction(
     qualification: SessionQualification | null;
     candidates: ActionCandidate[];
     latestDecisionsByAction: Record<string, GateDecision | null>;
+    latestAllowlistByAction: Record<string, ActionAllowlistEvaluation | null>;
   }>
 > {
   try {
@@ -124,6 +128,7 @@ export async function ops1GetSessionAction(
         qualification: i3.qualification,
         candidates: i3.candidates,
         latestDecisionsByAction: i3.latestDecisionsByAction,
+        latestAllowlistByAction: i3.latestAllowlistByAction,
       },
     };
   } catch (error) {
@@ -335,6 +340,28 @@ export async function ops1RefuseExecutionAction(input: {
           "Exécution refusée — I3 n’autorise aucune exécution Cursor, Git ou filesystem.",
       },
     };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+/* ─── OPS1 I4 — allowlist evaluation (no execution) ─── */
+
+export async function ops1EvaluateAllowlistAction(input: {
+  sessionId: string;
+  actionCandidateId: string;
+  entries: unknown;
+}): Promise<Ops1ActionResult<{ evaluation: ActionAllowlistEvaluation }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
+    const entries = assertAllowlistEntries(input.entries);
+    const { evaluation } = evaluateAndPersistAllowlist({
+      sessionId,
+      actionCandidateId,
+      entries,
+    });
+    return { ok: true, data: { evaluation } };
   } catch (error) {
     return fail(error);
   }
