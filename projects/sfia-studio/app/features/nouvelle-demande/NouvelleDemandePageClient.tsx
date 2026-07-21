@@ -14,7 +14,7 @@ import {
 const COPILOT = {
   variant: "flush" as const,
   name: "Nora · SFIA Copilot",
-  subtitle: "OPS1 I5 — contrat final / exécution Cursor bornée",
+  subtitle: "OPS1 I6 — rapport post-exécution / reprise conversationnelle",
   avatarTone: "blue" as const,
   levelPill: "L0 humain",
   summary:
@@ -25,7 +25,7 @@ const COPILOT = {
     "GO d’exécution lié au contractHash",
     "Revalidation → worktree → Cursor (fixture ou réel gated)",
   ],
-  checklistTitle: "Parcours I5",
+  checklistTitle: "Parcours I6",
   riskTitle: "PÉRIMÈTRE",
   riskText:
     "GO DELIVERY ≠ GO d’exécution. Worktree local — pas de push. Aucun retry automatique. I6/I7 hors scope.",
@@ -81,7 +81,7 @@ export function NouvelleDemandePageClient() {
           tone: badge.tone,
           testId: "global-mode-badge",
         },
-        { label: "OPS1 I5", tone: "blueFlush", testId: "ops1-increment-badge" },
+        { label: "OPS1 I6", tone: "blueFlush", testId: "ops1-increment-badge" },
       ]}
       copilot={COPILOT}
     >

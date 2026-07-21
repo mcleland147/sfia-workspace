@@ -27,6 +27,10 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1CreateExecutionContractAction: vi.fn(),
   ops1RecordExecutionGateAction: vi.fn(),
   ops1RunExecutionAttemptAction: vi.fn(),
+  ops1GenerateExecutionReportAction: vi.fn(),
+  ops1ResumePostReportChatAction: vi.fn(),
+  ops1CloseSessionAction: vi.fn(),
+  ops1OpenContinuationAction: vi.fn(),
 }));
 
 const emptyI3 = {

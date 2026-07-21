@@ -193,6 +193,45 @@ CREATE TABLE IF NOT EXISTS execution_results (
   completed_at TEXT NOT NULL,
   FOREIGN KEY (execution_attempt_id) REFERENCES execution_attempts(execution_attempt_id)
 );
+
+CREATE TABLE IF NOT EXISTS execution_reports (
+  report_id TEXT PRIMARY KEY NOT NULL,
+  session_id TEXT NOT NULL,
+  contract_id TEXT NOT NULL,
+  contract_hash TEXT NOT NULL,
+  execution_attempt_id TEXT NOT NULL UNIQUE,
+  adapter_mode TEXT NOT NULL,
+  execution_status TEXT NOT NULL,
+  report_status TEXT NOT NULL CHECK (report_status IN (
+    'PENDING', 'GENERATING', 'COMPLETED', 'REPORT_INCOMPLETE', 'FAILED'
+  )),
+  base_head_sha TEXT NOT NULL,
+  started_at TEXT NOT NULL,
+  finished_at TEXT,
+  duration_ms INTEGER,
+  payload_json TEXT NOT NULL,
+  sealed INTEGER NOT NULL CHECK (sealed IN (0, 1)),
+  created_at TEXT NOT NULL,
+  sealed_at TEXT,
+  FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id),
+  FOREIGN KEY (contract_id) REFERENCES execution_contracts(contract_id),
+  FOREIGN KEY (execution_attempt_id) REFERENCES execution_attempts(execution_attempt_id)
+);
+
+CREATE TABLE IF NOT EXISTS report_file_coverage (
+  coverage_id TEXT PRIMARY KEY NOT NULL,
+  report_id TEXT NOT NULL,
+  path TEXT NOT NULL,
+  expected_mode TEXT NOT NULL CHECK (expected_mode IN ('READ', 'CREATE', 'MODIFY')),
+  observed INTEGER NOT NULL CHECK (observed IN (0, 1)),
+  coverage_status TEXT NOT NULL CHECK (coverage_status IN (
+    'COVERED', 'MISSING', 'UNEXPECTED', 'NOT_APPLICABLE'
+  )),
+  evidence_available INTEGER NOT NULL CHECK (evidence_available IN (0, 1)),
+  gap_reason TEXT,
+  UNIQUE (report_id, path, expected_mode),
+  FOREIGN KEY (report_id) REFERENCES execution_reports(report_id)
+);
 `;
 
 let singleton: DatabaseSync | null = null;
@@ -374,6 +413,12 @@ export function migrateOps1Schema(db: DatabaseSync): void {
     }
   } else {
     validateNoAmbiguousLegacySessions(db);
+  }
+
+  if (!tableHasColumn(db, "cycle_sessions", "source_report_id")) {
+    db.exec(
+      `ALTER TABLE cycle_sessions ADD COLUMN source_report_id TEXT`,
+    );
   }
 
   const integrity = db.prepare("PRAGMA integrity_check").get() as

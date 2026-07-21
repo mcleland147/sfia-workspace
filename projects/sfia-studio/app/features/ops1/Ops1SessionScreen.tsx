@@ -17,8 +17,13 @@ import {
   ops1RefineActionCandidateAction,
   ops1RefuseExecutionAction,
   ops1RunExecutionAttemptAction,
+  ops1GenerateExecutionReportAction,
+  ops1ResumePostReportChatAction,
+  ops1CloseSessionAction,
+  ops1OpenContinuationAction,
   ops1SendMessageAction,
 } from "@/lib/ops1/actions";
+import { formatOps1WorktreeRef } from "@/lib/ops1/worktreeDisplay";
 import type {
   ActionAllowlistEvaluation,
   ActionCandidate,
@@ -29,6 +34,7 @@ import type {
   CycleSession,
   ExecutionAttempt,
   ExecutionContract,
+  ExecutionReport,
   GateDecision,
   GateDecisionKind,
   JournalTurn,
@@ -53,6 +59,11 @@ import {
   OPS1_I5_I6_BOUNDARY,
   OPS1_I5_NO_AUTO_RETRY,
   OPS1_I5_WORKTREE_NO_PUSH,
+  OPS1_I6_CHAT_NE_EXEC,
+  OPS1_I6_CLOSED_IMMUTABLE,
+  OPS1_I6_CONTINUATION_NEW,
+  OPS1_I6_NO_AUTO_RETRY,
+  OPS1_I6_REPORT_BOUNDARY,
   OPS1_MAX_MESSAGE_CHARS,
 } from "@/lib/ops1/types";
 import type { GlobalModeContext } from "@/lib/ops1/globalModeBadge";
@@ -199,6 +210,11 @@ export function Ops1SessionScreen({
     available: boolean;
   } | null>(null);
   const [i5Error, setI5Error] = useState<string | null>(null);
+  const [latestReport, setLatestReport] = useState<ExecutionReport | null>(
+    null,
+  );
+  const [i6Error, setI6Error] = useState<string | null>(null);
+  const [resumeSummary, setResumeSummary] = useState<string | null>(null);
   const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
   const [execRefuseMsg, setExecRefuseMsg] = useState<string | null>(null);
   const [refineDraft, setRefineDraft] = useState({
@@ -237,6 +253,7 @@ export function Ops1SessionScreen({
       >;
       latestContractByAction?: Record<string, ExecutionContract | null>;
       latestAttemptByContract?: Record<string, ExecutionAttempt | null>;
+      latestReport?: ExecutionReport | null;
     }) => {
       setQualification(data.qualification);
       setCandidates(data.candidates);
@@ -244,6 +261,7 @@ export function Ops1SessionScreen({
       setAllowlistByAction(data.latestAllowlistByAction ?? {});
       setContractByAction(data.latestContractByAction ?? {});
       setAttemptByContract(data.latestAttemptByContract ?? {});
+      setLatestReport(data.latestReport ?? null);
       const latest = data.candidates[data.candidates.length - 1];
       if (latest) {
         setRefineDraft({
@@ -270,6 +288,8 @@ export function Ops1SessionScreen({
         setAllowlistByAction({});
         setContractByAction({});
         setAttemptByContract({});
+        setLatestReport(null);
+        setResumeSummary(null);
         setPhase("idle");
         if (typeof window !== "undefined") {
           window.sessionStorage.removeItem(STORAGE_KEY);
@@ -644,16 +664,94 @@ export function Ops1SessionScreen({
     });
   };
 
+  const canGenerateI6Report =
+    Boolean(activeContract) &&
+    Boolean(activeAttempt) &&
+    !latestReport &&
+    ["SUCCEEDED", "FAILED", "STOPPED", "TIMED_OUT", "REFUSED"].includes(
+      activeAttempt?.status ?? "",
+    ) &&
+    session?.status === "OPEN";
+
+  const onGenerateI6Report = () => {
+    if (!session || !activeContract || !activeAttempt) return;
+    setI6Error(null);
+    startTransition(async () => {
+      const result = await ops1GenerateExecutionReportAction({
+        sessionId: session.sessionId,
+        contractId: activeContract.contractId,
+        executionAttemptId: activeAttempt.executionAttemptId,
+      });
+      if (!result.ok) {
+        setI6Error(result.message);
+        return;
+      }
+      setLatestReport(result.data.report);
+    });
+  };
+
+  const onResumeI6Chat = () => {
+    if (!session) return;
+    setI6Error(null);
+    startTransition(async () => {
+      const result = await ops1ResumePostReportChatAction({
+        sessionId: session.sessionId,
+      });
+      if (!result.ok) {
+        setI6Error(result.message);
+        return;
+      }
+      setResumeSummary(result.data.reportSummary);
+    });
+  };
+
+  const onCloseSession = () => {
+    if (!session) return;
+    setI6Error(null);
+    startTransition(async () => {
+      const result = await ops1CloseSessionAction({
+        sessionId: session.sessionId,
+      });
+      if (!result.ok) {
+        setI6Error(result.message);
+        return;
+      }
+      setSession(result.data.session);
+    });
+  };
+
+  const onOpenContinuation = () => {
+    if (!session || session.status !== "CLOSED") return;
+    setI6Error(null);
+    startTransition(async () => {
+      const result = await ops1OpenContinuationAction({
+        parentSessionId: session.sessionId,
+      });
+      if (!result.ok) {
+        setI6Error(result.message);
+        return;
+      }
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem(
+          STORAGE_KEY,
+          result.data.session.sessionId,
+        );
+      }
+      await loadBundle(result.data.session.sessionId);
+      setResumeSummary(null);
+    });
+  };
+
   return (
     <div className={styles.root} data-testid="ops1-session-root">
       <header className={styles.header}>
-        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I5</p>
+        <p className={styles.kicker}>Vertical Slice Opérationnel 1 · I6</p>
         <h2 className={styles.title} id="ops1-session-heading">
           Session OPS1
         </h2>
         <p className={styles.lede}>
-          Contrat final, GO lié au hash, worktree local et exécution Cursor bornée.
-          {OPS1_I5_GO_DELIVERY_NE_EXEC}. {OPS1_I5_I6_BOUNDARY}.
+          Rapport post-exécution, reprise conversationnelle et continuation liée.
+          {OPS1_I6_REPORT_BOUNDARY}. {OPS1_I6_CHAT_NE_EXEC}.
         </p>
         <div className={styles.badgeRow} aria-live="polite">
           {!session ? (
@@ -1585,7 +1683,8 @@ export function Ops1SessionScreen({
                     Statut tentative : {activeAttempt.status}
                   </p>
                   <p data-testid="ops1-i5-worktree">
-                    Worktree : {activeAttempt.worktreePath ?? "—"}
+                    Worktree :{" "}
+                    {formatOps1WorktreeRef(activeAttempt.worktreePath) ?? "—"}
                   </p>
                   {activeAttempt.result ? (
                     <p data-testid="ops1-i5-result-status">
@@ -1601,6 +1700,143 @@ export function Ops1SessionScreen({
                 Aucun commit / push / PR / merge. Worktree local uniquement.
                 Résultat = preuve technique minimale I5 (pas le rapport I6).
               </p>
+            </section>
+          ) : null}
+
+          {session &&
+          (activeAttempt ||
+            latestReport ||
+            session.status === "CLOSED" ||
+            Boolean(session.parentSessionId)) ? (
+            <section
+              className={`${styles.panel} ${styles.executionPanel}`}
+              data-testid="ops1-i6-report"
+              aria-labelledby="ops1-i6-title"
+            >
+              <h2 id="ops1-i6-title" className={styles.panelTitle}>
+                Rapport & reprise (I6)
+              </h2>
+              <ul className={styles.microcopyList} aria-label="Règles I6">
+                <li>{OPS1_I6_REPORT_BOUNDARY}</li>
+                <li>{OPS1_I6_CHAT_NE_EXEC}</li>
+                <li>{OPS1_I6_CLOSED_IMMUTABLE}</li>
+                <li>{OPS1_I6_CONTINUATION_NEW}</li>
+                <li>{OPS1_I6_NO_AUTO_RETRY}</li>
+              </ul>
+              <div className={styles.gateActions}>
+                <CtaButton
+                  onClick={onGenerateI6Report}
+                  disabled={pending || !canGenerateI6Report}
+                  data-testid="ops1-i6-generate-report"
+                >
+                  Générer rapport
+                </CtaButton>
+                <CtaButton
+                  variant="secondary"
+                  onClick={onResumeI6Chat}
+                  disabled={pending || !latestReport || session.status !== "OPEN"}
+                  data-testid="ops1-i6-resume-chat"
+                >
+                  Reprendre la conversation
+                </CtaButton>
+                <CtaButton
+                  variant="secondary"
+                  onClick={onCloseSession}
+                  disabled={pending || session.status !== "OPEN"}
+                  data-testid="ops1-i6-close-session"
+                >
+                  Clôturer la session
+                </CtaButton>
+                <CtaButton
+                  variant="secondary"
+                  onClick={onOpenContinuation}
+                  disabled={pending || session.status !== "CLOSED"}
+                  title={
+                    session.status === "CLOSED"
+                      ? "Ouvre une nouvelle session liée (parent immuable)"
+                      : "Disponible uniquement si la session est CLOSED"
+                  }
+                  data-testid="ops1-i6-open-continuation"
+                >
+                  Ouvrir une continuation
+                </CtaButton>
+              </div>
+              {i6Error ? (
+                <p className={styles.error} role="alert" data-testid="ops1-i6-error">
+                  {i6Error}
+                </p>
+              ) : null}
+              {resumeSummary ? (
+                <p className={styles.muted} data-testid="ops1-i6-resume-summary">
+                  Contexte rapport : {resumeSummary}
+                </p>
+              ) : null}
+              {latestReport ? (
+                <div
+                  className={styles.allowlistResult}
+                  data-testid="ops1-i6-report-body"
+                  data-report-status={latestReport.reportStatus}
+                >
+                  <p data-testid="ops1-i6-report-status">
+                    Statut rapport : {latestReport.reportStatus}
+                    {latestReport.reportStatus === "REPORT_INCOMPLETE"
+                      ? " — PAS UN SUCCÈS"
+                      : ""}
+                  </p>
+                  <p data-testid="ops1-i6-exec-status">
+                    Statut exécution : {latestReport.executionStatus}
+                  </p>
+                  <p data-testid="ops1-i6-report-id">
+                    reportId : {latestReport.reportId}
+                  </p>
+                  <p data-testid="ops1-i6-attempt-id">
+                    executionAttemptId : {latestReport.executionAttemptId}
+                  </p>
+                  <p data-testid="ops1-i6-contract-hash">
+                    contractHash : {latestReport.contractHash.slice(0, 16)}…
+                  </p>
+                  <p data-testid="ops1-i6-duration">
+                    durationMs : {latestReport.durationMs ?? "—"}
+                    {latestReport.metrics.metricsIncomplete
+                      ? " — METRICS_INCOMPLETE"
+                      : ""}
+                  </p>
+                  <p data-testid="ops1-i6-file-counts">
+                    attendus {latestReport.metrics.expectedPathCount} · touchés{" "}
+                    {latestReport.metrics.touchedPathCount} · CREATE{" "}
+                    {latestReport.metrics.createCount} · MODIFY{" "}
+                    {latestReport.metrics.modifyCount} · DELETE{" "}
+                    {latestReport.metrics.deleteCount}
+                  </p>
+                  <p data-testid="ops1-i6-out-of-contract">
+                    Hors contrat : {latestReport.outOfContract ? "oui" : "non"}
+                  </p>
+                  {latestReport.incompletenessReason ? (
+                    <p data-testid="ops1-i6-incomplete-reason">
+                      Incomplétude : {latestReport.incompletenessReason}
+                    </p>
+                  ) : null}
+                  <ul data-testid="ops1-i6-coverage-list">
+                    {latestReport.coverage.map((c) => (
+                      <li key={`${c.expectedMode}:${c.path}`}>
+                        {c.expectedMode} {c.path} → {c.coverageStatus}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <p className={styles.muted} data-testid="ops1-i6-report-empty">
+                  Aucun rapport — générer après une tentative I5 terminée.
+                </p>
+              )}
+              {session.parentSessionId ? (
+                <p className={styles.muted} data-testid="ops1-i6-parent-session">
+                  Continuation de {session.parentSessionId}
+                  {session.sourceReportId
+                    ? ` · sourceReportId=${session.sourceReportId}`
+                    : ""}
+                </p>
+              ) : null}
             </section>
           ) : null}
 

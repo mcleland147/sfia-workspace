@@ -34,6 +34,9 @@ function mapSession(row: Record<string, unknown>): CycleSession {
     parentSessionId: row.parent_session_id
       ? String(row.parent_session_id)
       : null,
+    sourceReportId: row.source_report_id
+      ? String(row.source_report_id)
+      : null,
     fixtureMode: conversationMode === "fixture",
     conversationMode,
   };

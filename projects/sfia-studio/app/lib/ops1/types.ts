@@ -30,6 +30,8 @@ export interface CycleSession {
   createdAt: string;
   updatedAt: string;
   parentSessionId: string | null;
+  /** Continuation context — sealed report id of the closed parent session. */
+  sourceReportId?: string | null;
   /** @deprecated Prefer conversationMode; kept as mirror of fixture mode. */
   fixtureMode: boolean;
   /** Immutable conversation mode for the whole session lifetime. */
@@ -100,7 +102,15 @@ export type SessionEventType =
   | "CURSOR_EXECUTION_SUCCEEDED"
   | "CURSOR_EXECUTION_FAILED"
   | "EXECUTION_OUT_OF_SCOPE_DETECTED"
-  | "EXECUTION_STOPPED";
+  | "EXECUTION_STOPPED"
+  | "EXECUTION_REPORT_STARTED"
+  | "EXECUTION_REPORT_COMPLETED"
+  | "EXECUTION_REPORT_INCOMPLETE"
+  | "EXECUTION_REPORT_FAILED"
+  | "POST_REPORT_CHAT_RESUMED"
+  | "SESSION_CLOSED"
+  | "SESSION_CONTINUATION_OPENED"
+  | "CLOSED_SESSION_MUTATION_REFUSED";
 
 export interface SessionEvent {
   eventId: string;
@@ -357,6 +367,83 @@ export const OPS1_I5_CURSOR_BOUNDED = "CURSOR RÉEL — EXÉCUTION BORNÉE";
 export const OPS1_I5_NO_AUTO_RETRY = "AUCUN RETRY AUTOMATIQUE";
 export const OPS1_I5_I6_BOUNDARY =
   "I5 EXÉCUTE — I6 ANALYSE LE RAPPORT";
+
+/* ─── OPS1 I6 — post-execution report + continuation ─── */
+
+export type ExecutionReportStatus =
+  | "PENDING"
+  | "GENERATING"
+  | "COMPLETED"
+  | "REPORT_INCOMPLETE"
+  | "FAILED";
+
+export type ReportCoverageStatus =
+  | "COVERED"
+  | "MISSING"
+  | "UNEXPECTED"
+  | "NOT_APPLICABLE";
+
+export interface ReportFileCoverage {
+  path: string;
+  expectedMode: AllowlistMode;
+  observed: boolean;
+  coverageStatus: ReportCoverageStatus;
+  evidenceAvailable: boolean;
+  gapReason: string | null;
+}
+
+export interface ExecutionReportMetrics {
+  durationMs: number | null;
+  metricsIncomplete: boolean;
+  metricsIncompleteReason: string | null;
+  expectedPathCount: number;
+  touchedPathCount: number;
+  createCount: number;
+  modifyCount: number;
+  deleteCount: number;
+  outOfContract: boolean;
+}
+
+export interface ExecutionReport {
+  reportId: string;
+  sessionId: string;
+  contractId: string;
+  contractHash: string;
+  executionAttemptId: string;
+  adapterMode: CursorAdapterMode;
+  executionStatus: ExecutionAttemptStatus;
+  reportStatus: ExecutionReportStatus;
+  baseHeadSha: string;
+  startedAt: string;
+  finishedAt: string | null;
+  durationMs: number | null;
+  expectedPaths: string[];
+  filesCreated: string[];
+  filesModified: string[];
+  filesDeleted: string[];
+  filesOutOfContract: string[];
+  outOfContract: boolean;
+  exitCode: number | null;
+  timedOut: boolean;
+  worktreeRef: string | null;
+  reserves: string[];
+  errors: string[];
+  incompletenessReason: string | null;
+  metrics: ExecutionReportMetrics;
+  coverage: ReportFileCoverage[];
+  sealed: boolean;
+  createdAt: string;
+  sealedAt: string | null;
+}
+
+export const OPS1_I6_REPORT_BOUNDARY =
+  "I6 ANALYSE — I5 EXÉCUTE — I7 ABSENT";
+export const OPS1_I6_CHAT_NE_EXEC =
+  "REPRISE CHAT ≠ NOUVELLE EXÉCUTION";
+export const OPS1_I6_CLOSED_IMMUTABLE = "SESSION CLOSED — IMMUABLE";
+export const OPS1_I6_CONTINUATION_NEW =
+  "CONTINUATION = NOUVELLE SESSION + PARENT";
+export const OPS1_I6_NO_AUTO_RETRY = "AUCUN RETRY AUTOMATIQUE DE RAPPORT";
 
 export const OPS1_DEFAULT_FORBIDDEN_PATHS = [
   "method/",
