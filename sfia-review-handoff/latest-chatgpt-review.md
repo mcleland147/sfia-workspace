@@ -1,260 +1,212 @@
-# SFIA Review Pack — Delivery OPS1 I6 (Full)
+# SFIA Review Pack — PR readiness OPS1 I6 (Full)
 
 ## Métadonnées
 
-- **date/heure** : 2026-07-21 22:52:11 CEST
-- **cycle** : Delivery OPS1 I6
+- **date/heure** : 2026-07-21 23:16:53 CEST
+- **cycle** : PR readiness OPS1 I6
 - **profil** : Standard
-- **gate Morris** : `GO I6`
+- **gate Morris** : `GO PR READINESS I6`
 - **repo** : mcleland147/sfia-workspace
 - **branche** : `delivery/sfia-studio-ops1-i6-report-and-continuation`
 - **base / origin/main** : `27811e8f5f3747706bbbe417a5dc949a066c9187`
-- **HEAD** : `27811e8f5f3747706bbbe417a5dc949a066c9187`
-- **HEAD attendu** : `27811e8f5f3747706bbbe417a5dc949a066c9187` — **aligné**
-- **status initial** : branche créée depuis main propre ; seul `.tmp-sfia-review/**` non suivi
-- **status final** : modifications locales non commitables sous `projects/sfia-studio/app/**` + `.tmp-sfia-review/**`
-- **staged** : vide
+- **HEAD** : `27811e8f5f3747706bbbe417a5dc949a066c9187` (aligné — 27811e8)
+- **status initial** : livraison I6 non commitée sous `app/**` + `.tmp-sfia-review/**` ; staged vide
+- **status final** : idem + corrections PR readiness locales ; staged vide
 - **commit projet** : **AUCUN**
 - **push branche delivery** : **AUCUN**
 - **PR / merge** : **AUCUN**
 - **I7** : **non démarré**
-- **exécution Cursor réelle** : **aucune** (fixture uniquement)
+- **exécution Cursor réelle** : **aucune**
 
 ## Verdict Cursor
 
-**OPS1 I6 DELIVERY COMPLETED WITH RESERVATIONS — READY FOR CHATGPT VALIDATION**
+**OPS1 I6 PR READY WITH RESERVATIONS — COMMIT/PUSH/PR GATE REQUIRED**
 
-## 1. Sources consultées
+## 1. Handoff I6 lu
 
-### Méthode (Git main)
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+Branche `sfia/review-handoff` — verdict source :
 
-### OPS1
-- `projects/sfia-studio/41-operational-vertical-slice-1-framing.md`
-- `projects/sfia-studio/43-operational-vertical-slice-1-scope-and-success-criteria.md`
-- `projects/sfia-studio/54-ops1-operational-scenario.md`
-- `projects/sfia-studio/55-ops1-campus360-scope-and-allowlist-rules.md`
-- `projects/sfia-studio/57-ops1-technical-architecture.md`
-- `projects/sfia-studio/58-ops1-technical-components-security-and-runtime.md`
-- `projects/sfia-studio/61-ops1-epics-stories-and-acceptance-criteria.md`
-- `projects/sfia-studio/63-ops1-integration-devops-foundation.md`
-- `projects/sfia-studio/64-ops1-local-controls-ci-and-evidence-contract.md`
-- `projects/sfia-studio/README.md`
+`OPS1 I6 DELIVERY COMPLETED WITH RESERVATIONS — READY FOR CHATGPT VALIDATION`
 
-### Handoff
-- branche `sfia/review-handoff`
-- `sfia-review-handoff/latest-chatgpt-review.md` — clôture post-merge I5 confirmée (`OPS1 I5 POST-MERGE VALIDATED — CLEANUP COMPLETED`, HEAD `27811e8`)
+## 2. Sources consultées
 
-## 2. Découverte locale (avant code)
+Méthode : template / routing / operating-model / guardrails.
+OPS1 : 41, 43, 54, 55, 57, 58, 61, 63, 64, README.
+Handoff delivery I6 (ci-dessus).
 
-### Réutilisable I5
-- `ExecutionContract` + hash scellé
-- `ExecutionAttempt` + `MinimalExecutionResult` (payload JSON)
-- post-check / outOfContract / filesCreated|Modified|Deleted
-- `parent_session_id` déjà présent sur `cycle_sessions`
-- journal conversationnel + refus tours si non-OPEN
-- actions serveur I1–I5, events audit
+## 3. Inventaire du diff
 
-### Manques I6
-- tables `execution_reports` / `report_file_coverage`
-- génération/scellement rapport (COMPLETED / REPORT_INCOMPLETE / FAILED)
-- couverture par chemin allowlisté
-- métriques + METRICS_INCOMPLETE
-- reprise chat post-rapport (sans exécution)
-- clôture session + continuation liée (`parentSessionId`, `sourceReportId`)
-- surface UI I6 séparée
-- tests unit + E2E I6
+### Classification
 
-### Modèle proposé (retenu)
-- SQLite = source opérationnelle unique
-- rapport dérivé des preuves I5 (pas de 2e source d’état)
-- 1 rapport scellé / `execution_attempt_id` (unicité)
-- continuation = nouvelle session OPEN, parent CLOSED immuable
+| Fichier | Classe |
+|---------|--------|
+| `lib/ops1/types.ts` | modèle de domaine |
+| `lib/ops1/db.ts` | migration SQLite |
+| `lib/ops1/reportService.ts` | service rapport |
+| `lib/ops1/sessionLifecycle.ts` | service lifecycle |
+| `lib/ops1/worktreeDisplay.ts` | util affichage (client-safe) |
+| `lib/ops1/actions.ts` | actions serveur |
+| `lib/ops1/repository.ts` | repository |
+| `lib/ops1/ids.ts` / `index.ts` | ids / exports |
+| `features/ops1/Ops1SessionScreen.tsx` | UI I6 |
+| `features/nouvelle-demande/NouvelleDemandePageClient.tsx` | badge / shell I6 |
+| `__tests__/ops1/executionI6.test.ts` | tests unitaires |
+| `e2e/ops1-i6-report-and-continuation.spec.ts` | E2E I6 |
+| tests UI + e2e I4/I5 | adaptation non-régression |
 
-### Dette évitée
-- pas de duplication résultat I5 dans un store parallèle
-- pas de refonte architecture
-- pas de nouvelle dépendance npm
+### Stat
 
-## 3. Fichiers créés / modifiés
-
-### Créés (4)
-- `projects/sfia-studio/app/lib/ops1/reportService.ts`
-- `projects/sfia-studio/app/lib/ops1/sessionLifecycle.ts`
-- `projects/sfia-studio/app/__tests__/ops1/executionI6.test.ts`
-- `projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts`
-
-### Modifiés (12)
 ```
 .../app/__tests__/ops1/Ops1SessionScreen.test.tsx  |   4 +
  .../app/__tests__/ops1/globalModeBadge.ui.test.tsx |  14 +-
  .../sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts  |   2 +-
  .../sfia-studio/app/e2e/ops1-i5-execution.spec.ts  |   2 +-
  .../nouvelle-demande/NouvelleDemandePageClient.tsx |   6 +-
- .../app/features/ops1/Ops1SessionScreen.tsx        | 234 ++++++++++++++++++++-
+ .../app/features/ops1/Ops1SessionScreen.tsx        | 244 ++++++++++++++++++++-
  projects/sfia-studio/app/lib/ops1/actions.ts       |  92 ++++++++
  projects/sfia-studio/app/lib/ops1/db.ts            |  45 ++++
  projects/sfia-studio/app/lib/ops1/ids.ts           |   4 +
- projects/sfia-studio/app/lib/ops1/index.ts         |  12 ++
+ projects/sfia-studio/app/lib/ops1/index.ts         |  13 ++
  projects/sfia-studio/app/lib/ops1/repository.ts    |   3 +
  projects/sfia-studio/app/lib/ops1/types.ts         |  89 +++++++-
- 12 files changed, 494 insertions(+), 13 deletions(-)
+ 12 files changed, 504 insertions(+), 14 deletions(-)
 ```
 
-## 4. Modèle de données
+### Créés (5)
 
-### Tables ajoutées (migration idempotente `migrateOps1Schema`)
-- `execution_reports` — PK `report_id`, UNIQUE `execution_attempt_id`, FK session/contract/attempt, `report_status` CHECK fermé, `payload_json`, timestamps ISO+offset
-- `report_file_coverage` — PK `(report_id, path, expected_mode)`, couverture par fichier
-- `cycle_sessions.source_report_id` — référence optionnelle pour continuation
+- `reportService.ts`
+- `sessionLifecycle.ts`
+- `worktreeDisplay.ts`
+- `executionI6.test.ts`
+- `ops1-i6-report-and-continuation.spec.ts`
 
-### Types
-- `ExecutionReportStatus` : `PENDING | GENERATING | COMPLETED | REPORT_INCOMPLETE | FAILED`
-- `ReportCoverageStatus` : `COVERED | MISSING | EXTRA | PARTIAL`
-- `ExecutionReportMetrics` inclut `metricsIncomplete` + `metricsIncompleteReason`
+### Périmètre
 
-## 5. Statuts et transitions
+- uniquement `projects/sfia-studio/app/**`
+- `.tmp-sfia-review/**` hors livraison
+- aucun Campus360 / method / prompts / scripts / harness / I7
 
-1. Tentative I5 terminée → `generateExecutionReport`
-2. Event `EXECUTION_REPORT_STARTED`
-3. Calcul couverture + métriques
-4. Scellement unique → `COMPLETED` | `REPORT_INCOMPLETE` | `FAILED`
-5. Event terminal correspondant
-6. Reprise chat (`POST_REPORT_CHAT_RESUMED`) si OPEN + rapport
-7. Clôture → `SESSION_CLOSED` (immuable)
-8. Continuation → nouveau `sessionId` OPEN + `parentSessionId` + `SESSION_CONTINUATION_OPENED`
+## 4. Modèle SQLite
 
-**Aucun retry automatique.** Rapport scellé non écrasable (CONFLICT).
+- `execution_reports` UNIQUE(`execution_attempt_id`), FK session/contract/attempt, CHECK statut fermé, `sealed`
+- `report_file_coverage` UNIQUE(report_id, path, expected_mode)
+- `cycle_sessions.source_report_id` ADD COLUMN idempotent
+- `parent_session_id` réutilisé
+- migration `migrateOps1Schema` idempotente (test double exécution)
+- scellement sous `BEGIN IMMEDIATE` — overwrite scellé → CONFLICT
+- SQLite reste source unique ; pas d’état parallèle
 
-## 6. REPORT_INCOMPLETE
+## 5. Statuts rapport
 
-Règles implémentées :
-- chemin allowlisté sans couverture observée → `MISSING` → **interdit COMPLETED**
-- preuve obligatoire absente (pas de `result`) → `REPORT_INCOMPLETE` / `FAILED` selon cas
-- COMPLETED uniquement si couverture complète + preuves + métriques OK
-- UI : suffixe « PAS UN SUCCÈS » pour REPORT_INCOMPLETE
+Liste : `PENDING | GENERATING | COMPLETED | REPORT_INCOMPLETE | FAILED`
 
-## 7. Couverture fichiers
+- persistés en terminal scellé (`COMPLETED` / `REPORT_INCOMPLETE` / `FAILED`)
+- `PENDING`/`GENERATING` réservés au contrat de types / CHECK (pas de finalisation partielle persistée)
+- transitions explicites + events ; aucun retry auto
+- COMPLETED interdit si MISSING / preuve absente / METRICS_INCOMPLETE
+- FAILED si résultat I5 introuvable
+- REPORT_INCOMPLETE ≠ FAILED
 
-Pour chaque chemin attendu (READ/CREATE/MODIFY) :
-- `expectedMode`, `observedOutcome`, `coverageStatus`, `evidenceAvailable`, écart
+## 6. Couverture allowlist
 
-Un allowlist CREATE/MODIFY/READ sans observation → MISSING → REPORT_INCOMPLETE.
+Par entrée : path, expectedMode (READ/CREATE/MODIFY), observed (bool ≡ observedOutcome), coverageStatus, evidenceAvailable, gapReason.
 
-## 8. Métriques
+Règle métier confirmée :
 
-- `durationMs`
-- `expectedPathCount` / `touchedPathCount`
-- compteurs CREATE / MODIFY / DELETE
-- `outOfContract`
-- si durée absente → `metricsIncomplete=true` + `METRICS_INCOMPLETE` (pas de succès complet)
+**MODIFY allowlisté non observé → MISSING → REPORT_INCOMPLETE**
 
-## 9. Reprise conversationnelle
+Cohérent : chaque entrée allowlist est une obligation de couverture contractuelle, pas un artefact de test. Les parcours COMPLETED retirent volontairement les MODIFY non exécutés.
 
-- `ops1ResumePostReportChatAction` / `resumePostReportChat`
-- conserve `sessionId` OPEN + historique
-- expose résumé structuré du rapport
-- **ne crée pas** d’exécution / contrat / attempt
-- preuve négative unit + E2E : message type « exécute Cursor » → tour conversationnel seulement
+Pas de faux COMPLETED trouvé.
 
-## 10. Clôture et continuation
+## 7. Métriques / observabilité
 
-- CLOSED immuable ; mutations → `CLOSED_SESSION_MUTATION_REFUSED`
-- continuation : nouveau sessionId, `parentSessionId`, `sourceReportId`, parent inchangé
-- UI : « Ouvrir une continuation » **disabled** sauf `session.status === "CLOSED"`
+durationMs, expected/touched, CREATE/MODIFY/DELETE, outOfContract, metricsIncomplete + cause.
 
-## 11. Audit et sécurité
+Events corrélés : reportId / sessionId / attempt / contractHash / statut.
 
-Événements :
-- EXECUTION_REPORT_STARTED / COMPLETED / INCOMPLETE / FAILED
-- POST_REPORT_CHAT_RESUMED
-- SESSION_CLOSED
-- SESSION_CONTINUATION_OPENED
-- CLOSED_SESSION_MUTATION_REFUSED
+Pas de stack observabilité supplémentaire.
 
-Sécurité :
-- redaction `sk-…` dans réserves
-- pas de secrets dans events
-- chemins worktree relatifs / tronqués en UI
+## 8. Reprise conversationnelle
+
+- requiert rapport + session OPEN
+- historique conservé
+- résumé structuré sans secrets
+- aucune création contrat/attempt/exécution
+- preuve négative unit + E2E : « Exécute Cursor… » → tour chat ; compte attempts inchangé
+
+## 9. CLOSED / continuation
+
+- CLOSED immuable ; message/rapport refusés ; `CLOSED_SESSION_MUTATION_REFUSED`
+- continuation : nouveau sessionId OPEN, parentSessionId + sourceReportId, parent intact
+- bouton continuation : `disabled` si non CLOSED + `variant=secondary` + title explicatif
+- E2E A/C assert disabled avant clôture / enabled après
+
+## 10. Sécurité
+
+- redaction `sk-…`
 - pas de contenu fichier complet
-- pas de lien exécutable depuis le rapport
-- pas d’écriture Git distante
+- worktree UI tronqué via `formatOps1WorktreeRef` (module client-safe — corrige import webpack `node:sqlite`)
+- pas d’écriture git distante / pas d’exécution Cursor réelle
+- HTML React échappé
 
-## 12. UX/UI
+## 11. UX/UI
 
-Surface I6 séparée (`ops1-i6-report`) :
-- statuts exécution/rapport, IDs, durée, compteurs, hors contrat, incomplétudes
-- actions Générer / Reprendre / Clôturer / Continuation (gated)
-- badge **OPS1 I6** + microcopies Nora
-- I7 absent
+- panneau I6 séparé
+- REPORT_INCOMPLETE → « PAS UN SUCCÈS »
+- captures mises à jour :
+  - `01-report-completed-resume.png`
+  - `02-report-status.png` (REPORT_INCOMPLETE visible)
+  - `03-continuation.png`
 
-### Captures runtime (obligatoires)
-- `.tmp-sfia-review/screenshots-ops1-i6/01-report-completed-resume.png`
-- `.tmp-sfia-review/screenshots-ops1-i6/02-report-status.png`
-- `.tmp-sfia-review/screenshots-ops1-i6/03-continuation.png`
+**VISUAL STRUCTURE VALIDATED WITH RESERVATIONS** (non pixel-perfect)
 
-Verdict visuel : structure/fonctionnel OK ; **pas** de claim pixel-perfect.
+## 12. Corrections PR readiness effectuées
+
+1. Scellement re-vérifié sous `BEGIN IMMEDIATE` ; STARTED après check scellé
+2. Bouton continuation secondary + title disabled clair
+3. Troncature worktree UI + module `worktreeDisplay.ts` (évite fuite node:sqlite côté client)
+4. Tests : MODIFY non observé ; migration idempotente
+5. E2E B réel REPORT_INCOMPLETE ; asserts disabled continuation
 
 ## 13. Tests
 
-| Suite | Résultat |
-|-------|----------|
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS |
-| `npm test` | PASS — **117** |
-| `npm run build` | PASS |
-| e2e I1 | PASS |
-| e2e I2 | PASS |
-| e2e I3 | PASS |
-| e2e I4 | PASS |
-| e2e I5 | PASS |
-| e2e I6 (A/B/C) | PASS — **3/3** |
-| I1–I6 combinés | PASS — **18/18** |
-| `git diff --check` | PASS |
+| Commande | Résultat |
+|----------|----------|
+| typecheck | PASS |
+| lint | PASS |
+| npm test | PASS — **119** |
+| build | PASS |
+| e2e I1–I6 | PASS — **18/18** |
+| git diff --check | PASS |
 
-Aucune exécution Cursor réelle.
+## 14. Risques / réserves
 
-## 14. Risques
+1. Allowlist large (MODIFY inutilisé) → REPORT_INCOMPLETE by design
+2. PENDING/GENERATING non persistés comme états intermédiaires durables
+3. Réserves I5 héritées (adapterMode hors hash, dirty policy Campus360-scoped, etc.)
+4. Non pixel-perfect
+5. Pas de commit/push/PR projet (gate)
 
-- Allowlist avec MODIFY non observé → REPORT_INCOMPLETE (by design) ; E2E I6 utilise allowlist READ+CREATE
-- Chemins worktree absolus encore présents côté I5 attempt display (héritage I5)
-- Continuation UI primary styling peut paraître « active » alors que disabled (CSS) — comportement gated correct
-
-## 15. Réserves
-
-1. Validation pixel-perfect non revendiquée
-2. I5 reserves héritées (adapterMode hors hash, dirty policy Campus360-scoped, etc.)
-3. Périmètre allowlist E2E I6 volontairement réduit pour COMPLETED déterministe
-4. Pas de commit/push/PR projet (gate)
-
-## 16. Rollback
+## 15. Rollback
 
 ```bash
 git switch main
 git branch -D delivery/sfia-studio-ops1-i6-report-and-continuation
-# ou discard working tree app changes
-git checkout -- projects/sfia-studio/app
-git clean -fd projects/sfia-studio/app
+# ou discard app/**
 ```
 
-Aucun effet distant projet.
+## 16. Absence commit/push/PR/merge projet
 
-## 17. Absence commit/push/PR/merge projet
+Confirmé. Publisher handoff uniquement.
 
-Confirmé. Seul le publisher handoff peut commit/push `sfia/review-handoff`.
+## 17. I7 non démarré
 
-## 18. I7 non démarré
+Confirmé.
 
-Confirmé — aucun code/surface I7.
+## 18. Décision Morris attendue
 
-## 19. Décision Morris suivante
-
-Attendu après lecture ChatGPT du handoff :
-- validation I6 / corrections
-- puis éventuel gate commit/push/PR (hors scope actuel)
+Gate distinct **Commit / Push / PR** pour OPS1 I6.
 
 ---
 
@@ -275,7 +227,7 @@ import { runExecutionAttempt } from "@/lib/ops1/executionOrchestrator";
 import { createFixtureActionCandidate } from "@/lib/ops1/actionGate";
 import { evaluateAndPersistAllowlist } from "@/lib/ops1/allowlistService";
 import { createOpenSession, appendTurn } from "@/lib/ops1/repository";
-import { openOps1Db, resetOps1DbForTests } from "@/lib/ops1/db";
+import { openOps1Db, resetOps1DbForTests, migrateOps1Schema } from "@/lib/ops1/db";
 import { recordGateDecision } from "@/lib/ops1/actionGate";
 import {
   buildCoverageAndMetrics,
@@ -585,7 +537,6 @@ describe("ops1 I6 report + continuation", () => {
 
   it("stores redacted refusal reasons on sealed report", async () => {
     const { session, contract, run } = await prepareSucceededFixture();
-    // Patch result payload with a fake secret-bearing refusal for redaction check
     openOps1Db()
       .prepare(
         `UPDATE execution_results SET payload_json = ?
@@ -598,7 +549,6 @@ describe("ops1 I6 report + continuation", () => {
         }),
         run.attempt.executionAttemptId,
       );
-    // Delete any prior report if present (none)
     const { report } = generateExecutionReport({
       sessionId: session.sessionId,
       contractId: contract.contractId,
@@ -606,6 +556,64 @@ describe("ops1 I6 report + continuation", () => {
     });
     expect(report.errors.join(" ")).not.toMatch(/sk-[A-Za-z0-9]{10,}/);
     expect(report.errors.join(" ")).toMatch(/\[redacted\]/);
+  });
+
+  it("marks REPORT_INCOMPLETE when MODIFY allowlisted but not observed", () => {
+    const built = buildCoverageAndMetrics({
+      allowedReads: ["projects/campus360/README.md"],
+      allowedCreates: ["projects/campus360/04-ops1-i5-note.md"],
+      allowedModifies: ["projects/campus360/01-opportunity-and-vision.md"],
+      result: {
+        resultId: "ops1-xres-00000000-0000-4000-8000-000000000004",
+        executionAttemptId: "ops1-xatt-00000000-0000-4000-8000-000000000004",
+        contractHash: "d".repeat(64),
+        status: "SUCCEEDED",
+        adapterMode: "fixture",
+        worktreePath: null,
+        exitCode: 0,
+        timedOut: false,
+        stdoutDigest: "",
+        stderrDigest: "",
+        filesRead: ["projects/campus360/README.md"],
+        filesCreated: ["projects/campus360/04-ops1-i5-note.md"],
+        filesModified: [],
+        filesDeleted: [],
+        filesRenamed: [],
+        diffStat: "",
+        outOfContract: false,
+        refusalReason: null,
+        completedAt: "2026-01-01T00:00:01.000+00:00",
+      },
+      startedAt: "2026-01-01T00:00:00.000+00:00",
+      finishedAt: "2026-01-01T00:00:01.000+00:00",
+    });
+    expect(built.reportStatus).toBe("REPORT_INCOMPLETE");
+    expect(
+      built.coverage.find(
+        (c) =>
+          c.path === "projects/campus360/01-opportunity-and-vision.md" &&
+          c.expectedMode === "MODIFY",
+      )?.coverageStatus,
+    ).toBe("MISSING");
+  });
+
+  it("migration I6 remains idempotent on existing store", () => {
+    const db = openOps1Db();
+    migrateOps1Schema(db);
+    migrateOps1Schema(db);
+    const cols = db.prepare(`PRAGMA table_info(cycle_sessions)`).all() as Array<{
+      name: string;
+    }>;
+    expect(cols.some((c) => c.name === "source_report_id")).toBe(true);
+    const tables = db
+      .prepare(
+        `SELECT name FROM sqlite_master WHERE type='table' AND name IN ('execution_reports','report_file_coverage')`,
+      )
+      .all() as Array<{ name: string }>;
+    expect(tables.map((t) => t.name).sort()).toEqual([
+      "execution_reports",
+      "report_file_coverage",
+    ]);
   });
 });
 
@@ -625,6 +633,7 @@ test.beforeAll(() => {
 
 async function prepareThroughI5Fixture(
   page: import("@playwright/test").Page,
+  opts?: { keepUnusedModify?: boolean },
 ) {
   await page.goto("/nouvelle-demande");
   await page.evaluate(() => window.sessionStorage.clear());
@@ -639,18 +648,29 @@ async function prepareThroughI5Fixture(
   await page.getByTestId("ops1-i3-create-candidate").click();
   await page.getByTestId("ops1-gate-go").click();
   await expect(page.getByTestId("ops1-i4-allowlist")).toBeVisible();
-  // I6 coverage: only READ+CREATE so fixture CREATE yields COMPLETED (no unused MODIFY).
-  while (
-    (await page.locator('[data-testid^="ops1-i4-draft-remove-"]').count()) > 2
-  ) {
-    await page.getByTestId("ops1-i4-draft-remove-2").click();
+
+  if (!opts?.keepUnusedModify) {
+    // COMPLETED path: only READ+CREATE so fixture CREATE covers allowlist.
+    while (
+      (await page.locator('[data-testid^="ops1-i4-draft-remove-"]').count()) > 2
+    ) {
+      await page.getByTestId("ops1-i4-draft-remove-2").click();
+    }
   }
-  // Ensure row 1 is CREATE proof file if needed
+  // Ensure CREATE proof file on last CREATE row when present
   const path1 = page.getByTestId("ops1-i4-draft-path-1");
-  if (await path1.count()) {
+  if ((await path1.count()) && !opts?.keepUnusedModify) {
     await path1.fill("projects/campus360/04-ops1-i5-execution-proof.md");
     await page.getByTestId("ops1-i4-draft-mode-1").selectOption("CREATE");
   }
+  if (opts?.keepUnusedModify) {
+    // Default draft: READ + unused MODIFY + CREATE → REPORT_INCOMPLETE by design.
+    await page
+      .getByTestId("ops1-i4-draft-path-2")
+      .fill("projects/campus360/04-ops1-i5-execution-proof.md");
+    await page.getByTestId("ops1-i4-draft-mode-2").selectOption("CREATE");
+  }
+
   await page.getByTestId("ops1-i4-evaluate").click();
   await expect(page.getByTestId("ops1-i4-global-status")).toContainText(
     "ALLOWLIST VALIDE",
@@ -674,6 +694,7 @@ test.describe("OPS1 I6 report + continuation", () => {
       "OPS1 I6",
     );
     await expect(page.getByTestId("ops1-i6-report")).toBeVisible();
+    await expect(page.getByTestId("ops1-i6-open-continuation")).toBeDisabled();
     await page.getByTestId("ops1-i6-generate-report").click();
     await expect(page.getByTestId("ops1-i6-report-status")).toContainText(
       "COMPLETED",
@@ -682,6 +703,7 @@ test.describe("OPS1 I6 report + continuation", () => {
       "METRICS_INCOMPLETE",
     );
     await expect(page.getByTestId("ops1-i6-coverage-list")).toBeVisible();
+    await expect(page.getByTestId("ops1-i6-open-continuation")).toBeDisabled();
     const attemptBefore = await page
       .getByTestId("ops1-i5-attempt-id")
       .innerText();
@@ -703,19 +725,21 @@ test.describe("OPS1 I6 report + continuation", () => {
     });
   });
 
-  test("B — REPORT_INCOMPLETE when coverage forced missing", async ({
+  test("B — REPORT_INCOMPLETE when unused MODIFY remains allowlisted", async ({
     page,
   }) => {
-    // Use UI path then rely on allowlist CREATE path; incomplete is covered in unit tests.
-    // Here verify UI never shows COMPLETED as success label for INCOMPLETE status via microcopy.
-    await prepareThroughI5Fixture(page);
+    await prepareThroughI5Fixture(page, { keepUnusedModify: true });
     await page.getByTestId("ops1-i6-generate-report").click();
-    await expect(page.getByTestId("ops1-i6-report-status")).toBeVisible();
+    await expect(page.getByTestId("ops1-i6-report-status")).toContainText(
+      "REPORT_INCOMPLETE",
+    );
+    await expect(page.getByTestId("ops1-i6-report-status")).toContainText(
+      "PAS UN SUCCÈS",
+    );
+    await expect(page.getByTestId("ops1-i6-report-status")).not.toContainText(
+      "COMPLETED",
+    );
     await expect(page.getByTestId("ops1-i6-generate-report")).toBeDisabled();
-    // Sealed: second generate should error if clicked — button stays disabled once report exists
-    // after SUCCEEDED with complete coverage this is COMPLETED; incompleteness proven in unit tests.
-    const status = await page.getByTestId("ops1-i6-report-status").innerText();
-    expect(status).toMatch(/COMPLETED|REPORT_INCOMPLETE|FAILED/);
     await page.screenshot({
       path: path.join(screenshotDir, "02-report-status.png"),
       fullPage: true,
@@ -728,6 +752,7 @@ test.describe("OPS1 I6 report + continuation", () => {
     await prepareThroughI5Fixture(page);
     await page.getByTestId("ops1-i6-generate-report").click();
     await expect(page.getByTestId("ops1-i6-report-id")).toBeVisible();
+    await expect(page.getByTestId("ops1-i6-open-continuation")).toBeDisabled();
     const parentId = await page.evaluate(() =>
       window.sessionStorage.getItem("sfia-ops1-i1-active-session"),
     );
@@ -767,6 +792,7 @@ import { createEventId, createReportId } from "./ids";
 import { openOps1Db, nowIsoWithOffset } from "./db";
 import { Ops1Error } from "./errors";
 import { getExecutionContractById } from "./executionContractService";
+import { formatOps1WorktreeRef } from "./worktreeDisplay";
 import type {
   AllowlistMode,
   CursorAdapterMode,
@@ -804,16 +830,6 @@ function parseMs(iso: string | null | undefined): number | null {
 
 function redactReserves(text: string): string {
   return text.replace(/sk-[A-Za-z0-9]+/g, "[redacted]");
-}
-
-function relativeWorktreeRef(abs: string | null): string | null {
-  if (!abs) return null;
-  const idx = abs.indexOf(".sfia-exec/");
-  if (idx >= 0) return abs.slice(idx);
-  const parts = abs.split("/");
-  const i = parts.findIndex((p) => p.startsWith("ops1-xatt-"));
-  if (i >= 0) return parts.slice(Math.max(0, i - 2)).join("/");
-  return "[worktree-local]";
 }
 
 function loadAttempt(
@@ -1090,24 +1106,6 @@ export function generateExecutionReport(input: {
     throw new Ops1Error("NOT_FOUND", "Aucune tentative I5 pour ce contrat.");
   }
 
-  const existing = getReportByAttemptId(
-    attemptResolved.executionAttemptId,
-    db,
-  );
-  if (existing?.sealed) {
-    throw new Ops1Error(
-      "CONFLICT",
-      "Rapport déjà scellé — écrasement interdit (aucun retry auto).",
-    );
-  }
-
-  insertEvent(
-    db,
-    input.sessionId,
-    "EXECUTION_REPORT_STARTED",
-    `attempt=${attemptResolved.executionAttemptId}`,
-  );
-
   const finishedAt =
     attemptResolved.completedAt ??
     attemptResolved.result?.completedAt ??
@@ -1150,7 +1148,7 @@ export function generateExecutionReport(input: {
     outOfContract: built.metrics.outOfContract,
     exitCode: attemptResolved.result?.exitCode ?? null,
     timedOut: attemptResolved.result?.timedOut ?? false,
-    worktreeRef: relativeWorktreeRef(attemptResolved.worktreePath),
+    worktreeRef: formatOps1WorktreeRef(attemptResolved.worktreePath),
     reserves: [
       "I6 analyse le rapport — I5 exécute — I7 absent.",
       "Worktree ≠ sandbox OS forte.",
@@ -1165,8 +1163,19 @@ export function generateExecutionReport(input: {
     sealedAt: createdAt,
   };
 
+  // Seal under exclusive lock — refuse overwrite; no auto-retry.
   db.exec("BEGIN IMMEDIATE");
   try {
+    const existing = getReportByAttemptId(
+      attemptResolved.executionAttemptId,
+      db,
+    );
+    if (existing?.sealed) {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Rapport déjà scellé — écrasement interdit (aucun retry auto).",
+      );
+    }
     if (existing && !existing.sealed) {
       db.prepare(`DELETE FROM report_file_coverage WHERE report_id = ?`).run(
         existing.reportId,
@@ -1175,6 +1184,13 @@ export function generateExecutionReport(input: {
         existing.reportId,
       );
     }
+
+    insertEvent(
+      db,
+      input.sessionId,
+      "EXECUTION_REPORT_STARTED",
+      `attempt=${attemptResolved.executionAttemptId}`,
+    );
 
     db.prepare(
       `INSERT INTO execution_reports (
@@ -1473,6 +1489,21 @@ export function openContinuation(input: {
   }
 }
 
+===== CREATED: worktreeDisplay.ts =====
+/**
+ * Client-safe worktree path truncation for UI / report display.
+ * Keep free of node:sqlite / fs imports.
+ */
+export function formatOps1WorktreeRef(abs: string | null): string | null {
+  if (!abs) return null;
+  const idx = abs.indexOf(".sfia-exec/");
+  if (idx >= 0) return abs.slice(idx);
+  const parts = abs.split("/");
+  const i = parts.findIndex((p) => p.startsWith("ops1-xatt-"));
+  if (i >= 0) return parts.slice(Math.max(0, i - 2)).join("/");
+  return "[worktree-local]";
+}
+
 ```
 
 ---
@@ -1592,10 +1623,10 @@ index 2247f33..bc5642a 100644
        copilot={COPILOT}
      >
 diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-index b10ab6c..ed82804 100644
+index b10ab6c..23608f4 100644
 --- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
 +++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-@@ -17,6 +17,10 @@ import {
+@@ -17,8 +17,13 @@ import {
    ops1RefineActionCandidateAction,
    ops1RefuseExecutionAction,
    ops1RunExecutionAttemptAction,
@@ -1605,8 +1636,11 @@ index b10ab6c..ed82804 100644
 +  ops1OpenContinuationAction,
    ops1SendMessageAction,
  } from "@/lib/ops1/actions";
++import { formatOps1WorktreeRef } from "@/lib/ops1/worktreeDisplay";
  import type {
-@@ -29,6 +33,7 @@ import type {
+   ActionAllowlistEvaluation,
+   ActionCandidate,
+@@ -29,6 +34,7 @@ import type {
    CycleSession,
    ExecutionAttempt,
    ExecutionContract,
@@ -1614,7 +1648,7 @@ index b10ab6c..ed82804 100644
    GateDecision,
    GateDecisionKind,
    JournalTurn,
-@@ -53,6 +58,11 @@ import {
+@@ -53,6 +59,11 @@ import {
    OPS1_I5_I6_BOUNDARY,
    OPS1_I5_NO_AUTO_RETRY,
    OPS1_I5_WORKTREE_NO_PUSH,
@@ -1626,7 +1660,7 @@ index b10ab6c..ed82804 100644
    OPS1_MAX_MESSAGE_CHARS,
  } from "@/lib/ops1/types";
  import type { GlobalModeContext } from "@/lib/ops1/globalModeBadge";
-@@ -199,6 +209,11 @@ export function Ops1SessionScreen({
+@@ -199,6 +210,11 @@ export function Ops1SessionScreen({
      available: boolean;
    } | null>(null);
    const [i5Error, setI5Error] = useState<string | null>(null);
@@ -1638,7 +1672,7 @@ index b10ab6c..ed82804 100644
    const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
    const [execRefuseMsg, setExecRefuseMsg] = useState<string | null>(null);
    const [refineDraft, setRefineDraft] = useState({
-@@ -237,6 +252,7 @@ export function Ops1SessionScreen({
+@@ -237,6 +253,7 @@ export function Ops1SessionScreen({
        >;
        latestContractByAction?: Record<string, ExecutionContract | null>;
        latestAttemptByContract?: Record<string, ExecutionAttempt | null>;
@@ -1646,7 +1680,7 @@ index b10ab6c..ed82804 100644
      }) => {
        setQualification(data.qualification);
        setCandidates(data.candidates);
-@@ -244,6 +260,7 @@ export function Ops1SessionScreen({
+@@ -244,6 +261,7 @@ export function Ops1SessionScreen({
        setAllowlistByAction(data.latestAllowlistByAction ?? {});
        setContractByAction(data.latestContractByAction ?? {});
        setAttemptByContract(data.latestAttemptByContract ?? {});
@@ -1654,7 +1688,7 @@ index b10ab6c..ed82804 100644
        const latest = data.candidates[data.candidates.length - 1];
        if (latest) {
          setRefineDraft({
-@@ -270,6 +287,8 @@ export function Ops1SessionScreen({
+@@ -270,6 +288,8 @@ export function Ops1SessionScreen({
          setAllowlistByAction({});
          setContractByAction({});
          setAttemptByContract({});
@@ -1663,7 +1697,7 @@ index b10ab6c..ed82804 100644
          setPhase("idle");
          if (typeof window !== "undefined") {
            window.sessionStorage.removeItem(STORAGE_KEY);
-@@ -644,16 +663,94 @@ export function Ops1SessionScreen({
+@@ -644,16 +664,94 @@ export function Ops1SessionScreen({
      });
    };
 
@@ -1761,7 +1795,17 @@ index b10ab6c..ed82804 100644
          </p>
          <div className={styles.badgeRow} aria-live="polite">
            {!session ? (
-@@ -1604,6 +1701,137 @@ export function Ops1SessionScreen({
+@@ -1585,7 +1683,8 @@ export function Ops1SessionScreen({
+                     Statut tentative : {activeAttempt.status}
+                   </p>
+                   <p data-testid="ops1-i5-worktree">
+-                    Worktree : {activeAttempt.worktreePath ?? "—"}
++                    Worktree :{" "}
++                    {formatOps1WorktreeRef(activeAttempt.worktreePath) ?? "—"}
+                   </p>
+                   {activeAttempt.result ? (
+                     <p data-testid="ops1-i5-result-status">
+@@ -1604,6 +1703,143 @@ export function Ops1SessionScreen({
              </section>
            ) : null}
 
@@ -1810,8 +1854,14 @@ index b10ab6c..ed82804 100644
 +                  Clôturer la session
 +                </CtaButton>
 +                <CtaButton
++                  variant="secondary"
 +                  onClick={onOpenContinuation}
 +                  disabled={pending || session.status !== "CLOSED"}
++                  title={
++                    session.status === "CLOSED"
++                      ? "Ouvre une nouvelle session liée (parent immuable)"
++                      : "Disponible uniquement si la session est CLOSED"
++                  }
 +                  data-testid="ops1-i6-open-continuation"
 +                >
 +                  Ouvrir une continuation
@@ -2103,10 +2153,10 @@ index e373e9a..1bf2989 100644
 +  return `ops1-rep-${randomUUID()}`;
 +}
 diff --git a/projects/sfia-studio/app/lib/ops1/index.ts b/projects/sfia-studio/app/lib/ops1/index.ts
-index f676972..cfad21e 100644
+index f676972..0f7cec3 100644
 --- a/projects/sfia-studio/app/lib/ops1/index.ts
 +++ b/projects/sfia-studio/app/lib/ops1/index.ts
-@@ -54,3 +54,15 @@ export {
+@@ -54,3 +54,16 @@ export {
    isRealCursorRequested,
    runCursorAdapter,
  } from "./cursorExecutionAdapter";
@@ -2117,6 +2167,7 @@ index f676972..cfad21e 100644
 +  getReportByAttemptId,
 +  getReportById,
 +} from "./reportService";
++export { formatOps1WorktreeRef } from "./worktreeDisplay";
 +export {
 +  closeSession,
 +  openContinuation,
@@ -2255,7 +2306,7 @@ index ff23ed8..a92e16d 100644
 
 ---
 
-## ANNEXE C — git status final (extrait)
+## ANNEXE C — git status final
 
 ```
 M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
@@ -2275,4 +2326,5 @@ M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
 ?? projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts
 ?? projects/sfia-studio/app/lib/ops1/reportService.ts
 ?? projects/sfia-studio/app/lib/ops1/sessionLifecycle.ts
+?? projects/sfia-studio/app/lib/ops1/worktreeDisplay.ts
 ```
