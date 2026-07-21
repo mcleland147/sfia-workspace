@@ -1,160 +1,966 @@
-# Review Pack — OPS1 I2 Live Conversation Delivery
+# Review Pack — OPS1 I2 Mixed-Mode Reserve Fix + UX Signalétique
 
 ## Métadonnées
 
 | Champ | Valeur |
 |---|---|
-| Date / heure / fuseau | 2026-07-20 22:40:05 CEST (+0200) |
+| Date / heure / fuseau | 2026-07-21 00:03:53 CEST (+0200) |
 | Repository | `mcleland147/sfia-workspace` |
 | Branche | `delivery/sfia-studio-ops1-i2-live-conversation` |
-| HEAD projet | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
-| Base / merge-base | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` (`origin/main`) |
-| Cycle | 8 — Delivery / implémentation · Standard |
-| Typologie | DELIVERY / LIVE CONVERSATION / SECURITY / FINOPS / QA / OBSERVABILITY |
-| Gates Morris | `GO DELIVERY OPS1 I2 — LIVE CONVERSATION` · `GO G-OPS1-LIVE-CONVERSATION — OPEN LIVE GPT CONVERSATION` · décision `GO I2` |
-| Incrément | I2 — Conversation GPT réelle multi-tours |
-| Stories | E02-01 · E02-02 · E02-03 (fixture maintenu) |
-| Stories exclues | E03–E11 · E01-03 · E17 |
-| Package | `openai` `^6.48.0` (lock résolu `6.48.0`) |
-| Smoke live | **NON EXÉCUTÉ** — `OPENAI_API_KEY` / `OPENAI_MODEL` / `OPS1_ALLOW_LIVE_SMOKE` absents |
-| Commit / push / PR projet | **aucun** (interdit) |
+| HEAD | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
+| origin/main | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
+| merge-base | `84e624feaf7cc318c9c0729da66bfefa1c730d6f` |
+| Cycle | 8 Delivery corrective + 9 QA + 4 UX/UI borné · Standard |
+| Gates Morris | `GO TRAITEMENT RÉSERVE OPS1 I2 — SESSION MODE IMMUTABLE` · `GO CORRECTIONS VISUELLES I2 — SIGNALÉTIQUE FAKE/LIVE ET MODE VERROUILLÉ` |
+| Handoff Git | **local-only** — push **non** autorisé |
+| Commit / push / PR projet | **aucun** |
 | Staged | vide |
-| Verdict | `OPS1 I2 IMPLEMENTED — LIVE PROVIDER VERIFICATION NOT PERFORMED` |
+| Smoke live post-correction | **OK** — `assistant_live`, provider `openai`, model `gpt-5-mini-2025-08-07`, tokens 21/215/236 |
+| Verdict | `OPS1 I2 MIXED-MODE RESERVE FIXED — UX SIGNALS ALIGNED — LIVE VERIFIED — READY FOR REVIEW` |
 
-## Sources consultées
+## État Git
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `projects/sfia-studio/41`, `45`, `48`, `51`, `54`, `57`, `58`, `59`, `60`–`65`
-- fichiers I1 `lib/ops1/**`, `features/ops1/**`, tests OPS1
-- handoff distant `sfia/review-handoff` : `OPS1 I1 POST-MERGE VALIDATED — MAIN CANONICAL`
+### Initial (attendu)
+- Branche delivery I2, HEAD = origin/main tip I1 merge
+- Modifications I2 locales non commitées
+- Staged vide
 
-## Architecture provider
+### Final
+```
+ M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+ M projects/sfia-studio/app/app/nouvelle-demande/page.tsx
+ M projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
+ M projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
+ M projects/sfia-studio/app/features/ops1/ops1-session.module.css
+ M projects/sfia-studio/app/lib/ops1/actions.ts
+ M projects/sfia-studio/app/lib/ops1/db.ts
+ M projects/sfia-studio/app/lib/ops1/errors.ts
+ M projects/sfia-studio/app/lib/ops1/fixtureReply.ts
+ M projects/sfia-studio/app/lib/ops1/ids.ts
+ M projects/sfia-studio/app/lib/ops1/index.ts
+ M projects/sfia-studio/app/lib/ops1/repository.ts
+ M projects/sfia-studio/app/lib/ops1/types.ts
+ M projects/sfia-studio/app/lib/ops1/validation.ts
+ M projects/sfia-studio/app/package-lock.json
+ M projects/sfia-studio/app/package.json
+ M projects/sfia-studio/app/playwright.config.ts
+?? .tmp-sfia-review/
+?? projects/.tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts
+?? projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
+?? projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
+?? projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
+?? projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
+?? projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts
+?? projects/sfia-studio/app/lib/ops1/conversation/
 
-Séparation maintenue :
+```
 
-- UI `Ops1SessionScreen` (client) — aucun import SDK / clé
-- actions serveur `lib/ops1/actions.ts`
-- service `conversation/service.ts`
-- interface `ConversationProvider` + `OpenAIConversationProvider` + `FakeConversationProvider`
-- repository SQLite + domaine OPS1
+## Décisions Morris appliquées
 
-Fournisseur : API OpenAI **Responses** via SDK officiel `openai@6.48.0`.
-Configuration serveur : `OPENAI_API_KEY` + `OPENAI_MODEL` (obligatoires en live, fail-closed, pas de défaut silencieux).
-Injection test : `OPS1_CONVERSATION_PROVIDER=fake` + `setConversationProviderForTests`.
+1. Mode choisi à la création (fixture | live), immuable ensuite
+2. UI matérialise le verrouillage
+3. Fake provider jamais présenté comme GPT live réel
+4. Preuves visuelles distinguent fixture / test provider / GPT live
 
-## Schéma / migrations SQLite
+## Réserve traitée
 
-Additif / idempotent :
+Contexte fixture/live partageable dans une même session → **corrigé** via `conversationMode` persisté + refus mismatch avant write/provider + défense builder.
 
-- rôle `assistant_live` ajouté au CHECK `journal_turns` (migration table rebuild si DB I1)
-- table `conversation_attempts` (started/succeeded/failed, usage, errorCode non sensible)
-- tests : DB neuve + migration DB I1 legacy
+## Architecture retenue
 
-## Sémantique transactionnelle
+- `CycleSession.conversationMode: 'fixture' | 'live'` (colonne SQLite `conversation_mode`)
+- `createOpenSession(mode)` — mode figé à la création
+- `sendConversationMessage` utilise **uniquement** le mode session ; `requestedMode` optionnel doit matcher sinon refus **avant** persistance
+- `buildProviderMessagesFromJournal(turns, expectedMode)` — refuse journal incompatible (pas de filtre silencieux)
+- `ProviderPresentation`: `fixture` | `test_provider` | `openai_live` pour signalétique UI
+- Fake provider (`OPS1_CONVERSATION_PROVIDER=fake`) → présentation TEST, jamais badge GPT LIVE
 
-Live : persister user → attempt started → provider → assistant_live + success **ou** fail attempt sans faux assistant · pas de retry auto · pas de fallback live→fixture.
+## Migration legacy
 
-## Interdiction d’exécution
+- ADD COLUMN `conversation_mode` si absent
+- Inférence : live si `assistant_live` ou attempt provider réel ; sinon fixture
+- Ambiguïté (`assistant_fixture` + `assistant_live`, ou attempt réel + seulement fixture) → `MORRIS DECISION REQUIRED — LEGACY SESSION MODE AMBIGUOUS`
+- Idempotente ; pas de réécriture après backfill initial (validation seule)
 
-Chat = texte uniquement. Hint UI explicite. Tests négatifs E2E (« exécute Cursor ») sans CTA exécution/gate/Cursor. Provider `tools: []`.
+## Matrice signalétique
 
-## Contrôles QA
+| État | Badge session | Mode verrouillé | Rôle tour | Badge tour |
+|---|---|---|---|---|
+| Fixture | FIXTURE / NON LIVE | FIXTURE — verrouillé | Assistant fixture | FIXTURE / NON LIVE |
+| Fake/test | TEST PROVIDER / NON LIVE | LIVE TECHNIQUE (TEST) — verrouillé | Assistant test | TEST / FAKE |
+| GPT live réel | GPT LIVE | GPT LIVE — verrouillé | Assistant live | GPT LIVE |
+
+## QA
 
 | Contrôle | Résultat |
 |---|---|
 | lint | clean |
 | typecheck | clean |
-| vitest | **70 passed** |
+| vitest | **74 passed** |
 | build | OK |
-| E2E I2 non-live | OK (fake provider) |
-| E2E I1 | OK (badge aligné) |
+| E2E I1 | OK |
+| E2E I2 fixture + fake | OK |
 | p0-smoke | OK |
+| smoke live | OK post-correction |
+| capture live locked | OK |
 | git diff --check | clean |
-| secret scan diff | clean |
-| `.env` tracké | aucun |
-| DB / captures trackées | aucune |
+| secret scan | clean |
+| .env tracké | aucun |
 
-## Smoke live
-
-Préconditions absentes (`allow=false`, `hasKey=false`, `hasModel=false`).
-Script `e2e/ops1-i2-live-smoke.ts` a retourné `LIVE_SMOKE_PRECONDITIONS_MISSING`.
-**Ne pas** prétendre que GPT réel a été vérifié.
-
-## Captures (1440×1024)
+## Captures 1440×1024
 
 Sous `.tmp-sfia-review/screenshots-ops1-i2/` :
 
-- `ops1-i2-live-unavailable.png`
-- `ops1-i2-live-ready.png` (fake env E2E — LIVE DISPONIBLE via placeholders non secrets)
-- `ops1-i2-multiturn.png`
-- `ops1-i2-provider-error.png`
-- `ops1-i2-after-reload.png`
+| Fichier | Env | Provider | Mode | Live réel |
+|---|---|---|---|---|
+| ops1-i2-mode-selection.png | E2E fake | — | pré-création | non |
+| ops1-i2-fixture-locked.png | E2E | fixture | fixture verrouillé | non |
+| ops1-i2-test-provider-non-live.png | E2E | fake-test | live technique | non |
+| ops1-i2-live-locked.png | live smoke UI | openai | GPT LIVE verrouillé | **oui** |
+| ops1-i2-provider-error.png | E2E fake | fake-test | live technique | non |
+| ops1-i2-after-reload-locked.png | E2E | fixture | fixture | non |
+| ops1-i2-mode-change-refused.png | E2E | fixture | fixture | non |
 
-Réserve visuelle : `VISUAL EVIDENCE PRODUCED — DIRECT CHATGPT PIXEL REVIEW NOT PERFORMED`
+Réserve visuelle : revue pixel ChatGPT directe non effectuée.
 
-## Réserves maintenues
+## Réserves restantes
 
-FD-CAND-15 · UX-R01…R04 · Node non figé · stack/fournisseur non finalisés au-delà adaptateur I2 · API key hors Git · CI absente · worktree ≠ sandbox · scanner secrets non industrialisé · I3–I7 fermés · Cursor live fermé · action/gate fermés · MVP/production fermés · OpenAI = adaptateur opérationnel borné, pas décision fournisseur produit irréversible.
+FD-CAND-15 · UX-R01…R04 · Node non figé · stack/fournisseur non finalisé au-delà adaptateur · CI absente · worktree ≠ sandbox · I3–I7 / Cursor live / gates action / MVP fermés · OpenAI = adaptateur borné.
 
-## Périmètre négatif
+## Actions interdites respectées
 
-Pas de I3 · pas de CLOSED · pas de Campus360 · pas de `.github` · pas de docs 01–65 · pas de commit/push/PR projet · pas de CI/déploiement.
+Aucun commit · push · PR · merge · suppression branche · I3 · secret affiché · handoff distant push · modification `.env.local`.
 
-## Fichiers créés / modifiés
+## Fichiers créés (contenu complet)
 
-### Créés
-
-#### `projects/sfia-studio/app/lib/ops1/conversation/types.ts`
+### `projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts`
 
 ```typescript
-import type { JournalTurn } from "../types";
+/** @vitest-environment node */
+import { describe, expect, it } from "vitest";
+import {
+  buildProviderMessagesFromJournal,
+} from "@/lib/ops1/conversation/types";
+import { getLiveConversationAvailability } from "@/lib/ops1/conversation/config";
+import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
+import { inferLegacyConversationMode } from "@/lib/ops1/db";
+import type { JournalTurn } from "@/lib/ops1/types";
+import { LEGACY_SESSION_MODE_AMBIGUOUS } from "@/lib/ops1/types";
+import { assertConversationMode, assertTurnRole } from "@/lib/ops1/validation";
+import { Ops1Error } from "@/lib/ops1/errors";
 
-/** Provider-facing roles — domain roles mapped without SDK types. */
-export type ProviderChatRole = "user" | "assistant";
-
-export interface ProviderChatMessage {
-  role: ProviderChatRole;
-  content: string;
+function turn(
+  partial: Pick<JournalTurn, "role" | "content" | "sequence">,
+): JournalTurn {
+  return {
+    turnId: `ops1-turn-${partial.sequence}`,
+    sessionId: "ops1-sess-00000000-0000-4000-8000-000000000001",
+    fixture: partial.role === "assistant_fixture",
+    createdAt: "2026-07-20T22:00:00+02:00",
+    ...partial,
+  };
 }
 
-export interface ProviderUsage {
-  inputTokens: number | null;
-  outputTokens: number | null;
-  totalTokens: number | null;
-  model: string | null;
-  providerResponseId: string | null;
-}
+describe("ops1 conversation domain (immutable mode)", () => {
+  it("builds live context from user + assistant_live only", () => {
+    const messages = buildProviderMessagesFromJournal(
+      [
+        turn({ sequence: 1, role: "user", content: "u1" }),
+        turn({ sequence: 2, role: "assistant_live", content: "a1" }),
+        turn({ sequence: 3, role: "user", content: "u2" }),
+      ],
+      "live",
+    );
+    expect(messages).toEqual([
+      { role: "user", content: "u1" },
+      { role: "assistant", content: "a1" },
+      { role: "user", content: "u2" },
+    ]);
+  });
 
-export interface ProviderCompletionResult {
-  text: string;
-  usage: ProviderUsage;
-}
+  it("refuses fixture assistant in live context without filtering", () => {
+    expect(() =>
+      buildProviderMessagesFromJournal(
+        [
+          turn({ sequence: 1, role: "user", content: "u1" }),
+          turn({ sequence: 2, role: "assistant_fixture", content: "bad" }),
+        ],
+        "live",
+      ),
+    ).toThrow(Ops1Error);
+  });
 
-export interface ConversationProvider {
-  readonly providerId: string;
-  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
-}
+  it("refuses live assistant in fixture context", () => {
+    expect(() =>
+      buildProviderMessagesFromJournal(
+        [
+          turn({ sequence: 1, role: "user", content: "u1" }),
+          turn({ sequence: 2, role: "assistant_live", content: "bad" }),
+        ],
+        "fixture",
+      ),
+    ).toThrow(Ops1Error);
+  });
 
-/** Map local journal turns into ordered provider context (no secrets). */
-export function buildProviderMessagesFromJournal(
-  turns: JournalTurn[],
-): ProviderChatMessage[] {
-  const out: ProviderChatMessage[] = [];
-  for (const turn of turns) {
-    if (turn.role === "user") {
-      out.push({ role: "user", content: turn.content });
-      continue;
+  it("fake provider returns usage and non-live tagged text", async () => {
+    const provider = new FakeConversationProvider();
+    const result = await provider.complete([
+      { role: "user", content: "bonjour" },
+    ]);
+    expect(result.text).toContain("TEST/FAKE");
+    expect(result.text).toContain("NON LIVE");
+  });
+
+  it("reports missing live config without exposing secrets", () => {
+    const prevKey = process.env.OPENAI_API_KEY;
+    const prevModel = process.env.OPENAI_MODEL;
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_MODEL;
+    const status = getLiveConversationAvailability();
+    expect(status.available).toBe(false);
+    if (prevKey !== undefined) process.env.OPENAI_API_KEY = prevKey;
+    if (prevModel !== undefined) process.env.OPENAI_MODEL = prevModel;
+  });
+
+  it("infers legacy modes and detects ambiguity", () => {
+    expect(inferLegacyConversationMode(["user", "assistant_fixture"], [])).toBe(
+      "fixture",
+    );
+    expect(inferLegacyConversationMode(["user", "assistant_live"], [])).toBe(
+      "live",
+    );
+    expect(inferLegacyConversationMode(["user"], ["openai"])).toBe("live");
+    expect(() =>
+      inferLegacyConversationMode(
+        ["assistant_fixture", "assistant_live"],
+        [],
+      ),
+    ).toThrow(Ops1Error);
+    try {
+      inferLegacyConversationMode(
+        ["assistant_fixture", "assistant_live"],
+        [],
+      );
+    } catch (e) {
+      expect((e as Ops1Error).safeMessage).toBe(LEGACY_SESSION_MODE_AMBIGUOUS);
     }
-    if (turn.role === "assistant_fixture" || turn.role === "assistant_live") {
-      out.push({ role: "assistant", content: turn.content });
-    }
-  }
-  return out;
-}
+  });
+
+  it("accepts assistant_live role and conversation modes", () => {
+    expect(assertTurnRole("assistant_live")).toBe("assistant_live");
+    expect(assertConversationMode("live")).toBe("live");
+  });
+});
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/conversation/config.ts`
+### `projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts`
+
+```typescript
+/** @vitest-environment node */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  appendTurn,
+  completeConversationAttemptFailure,
+  createOpenSession,
+  getConversationAttempt,
+  getSession,
+  listConversationAttempts,
+  listTurns,
+  resetOps1DbForTests,
+  startConversationAttempt,
+} from "@/lib/ops1/repository";
+import { openOps1Db, migrateOps1Schema } from "@/lib/ops1/db";
+import { sendConversationMessage } from "@/lib/ops1/conversation/service";
+import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
+import { DatabaseSync } from "node:sqlite";
+import type {
+  ConversationProvider,
+  ProviderChatMessage,
+  ProviderCompletionResult,
+} from "@/lib/ops1/conversation/types";
+import { Ops1Error } from "@/lib/ops1/errors";
+import { LEGACY_SESSION_MODE_AMBIGUOUS } from "@/lib/ops1/types";
+
+describe("ops1 i2 repository + immutable session mode", () => {
+  let tmpRoot: string;
+
+  beforeEach(() => {
+    resetOps1DbForTests();
+    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i2-"));
+    process.env.OPS1_EXEC_ROOT = tmpRoot;
+  });
+
+  afterEach(() => {
+    resetOps1DbForTests();
+    delete process.env.OPS1_EXEC_ROOT;
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  it("creates fixture and live sessions with persisted immutable mode", () => {
+    const f = createOpenSession("fixture");
+    expect(f.session.conversationMode).toBe("fixture");
+    expect(getSession(f.session.sessionId)?.conversationMode).toBe("fixture");
+
+    const l = createOpenSession("live");
+    expect(l.session.conversationMode).toBe("live");
+    expect(getSession(l.session.sessionId)?.conversationMode).toBe("live");
+  });
+
+  it("migrates I1 DB and backfills conversation_mode", () => {
+    const dbPath = path.join(tmpRoot, "legacy.sqlite");
+    const legacy = new DatabaseSync(dbPath);
+    legacy.exec(`
+      PRAGMA foreign_keys = ON;
+      CREATE TABLE cycle_sessions (
+        session_id TEXT PRIMARY KEY NOT NULL,
+        project_key TEXT NOT NULL,
+        status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        parent_session_id TEXT,
+        fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
+      );
+      CREATE TABLE journal_turns (
+        turn_id TEXT PRIMARY KEY NOT NULL,
+        session_id TEXT NOT NULL,
+        sequence INTEGER NOT NULL,
+        role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture')),
+        content TEXT NOT NULL,
+        fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
+        created_at TEXT NOT NULL,
+        UNIQUE (session_id, sequence),
+        FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
+      );
+      INSERT INTO cycle_sessions VALUES (
+        'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+        'sfia-studio-ops1', 'OPEN', 't', 't', NULL, 1
+      );
+      INSERT INTO journal_turns VALUES (
+        'ops1-turn-1', 'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+        1, 'user', 'hello i1', 1, 't'
+      );
+      INSERT INTO journal_turns VALUES (
+        'ops1-turn-2', 'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+        2, 'assistant_fixture', 'reply', 1, 't'
+      );
+    `);
+    legacy.close();
+
+    const db = new DatabaseSync(dbPath);
+    migrateOps1Schema(db);
+    const row = db
+      .prepare(
+        `SELECT conversation_mode FROM cycle_sessions WHERE session_id = ?`,
+      )
+      .get("ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa") as {
+      conversation_mode: string;
+    };
+    expect(row.conversation_mode).toBe("fixture");
+    db.close();
+  });
+
+  it("detects ambiguous legacy session on migration", () => {
+    const dbPath = path.join(tmpRoot, "ambiguous.sqlite");
+    const legacy = new DatabaseSync(dbPath);
+    legacy.exec(`
+      PRAGMA foreign_keys = ON;
+      CREATE TABLE cycle_sessions (
+        session_id TEXT PRIMARY KEY NOT NULL,
+        project_key TEXT NOT NULL,
+        status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        parent_session_id TEXT,
+        fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
+      );
+      CREATE TABLE journal_turns (
+        turn_id TEXT PRIMARY KEY NOT NULL,
+        session_id TEXT NOT NULL,
+        sequence INTEGER NOT NULL,
+        role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture', 'assistant_live')),
+        content TEXT NOT NULL,
+        fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
+        created_at TEXT NOT NULL,
+        UNIQUE (session_id, sequence),
+        FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
+      );
+      INSERT INTO cycle_sessions VALUES (
+        'ops1-sess-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+        'sfia-studio-ops1', 'OPEN', 't', 't', NULL, 1
+      );
+      INSERT INTO journal_turns VALUES (
+        't1', 'ops1-sess-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+        1, 'assistant_fixture', 'a', 1, 't'
+      );
+      INSERT INTO journal_turns VALUES (
+        't2', 'ops1-sess-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+        2, 'assistant_live', 'b', 0, 't'
+      );
+    `);
+    legacy.close();
+    const db = new DatabaseSync(dbPath);
+    expect(() => migrateOps1Schema(db)).toThrow(Ops1Error);
+    try {
+      migrateOps1Schema(db);
+    } catch (e) {
+      expect((e as Ops1Error).safeMessage).toBe(LEGACY_SESSION_MODE_AMBIGUOUS);
+    }
+    db.close();
+  });
+
+  it("persists live multi-turn with ordered history; rejects mode mismatch before write", async () => {
+    const { session } = createOpenSession("live");
+    const provider = new FakeConversationProvider({
+      scripted: ["A1 TEST/FAKE", "A2 TEST/FAKE", "A3 TEST/FAKE"],
+    });
+    const histories: number[] = [];
+    const wrapping: ConversationProvider = {
+      providerId: "fake-test",
+      complete: async (
+        messages: ProviderChatMessage[],
+      ): Promise<ProviderCompletionResult> => {
+        histories.push(messages.length);
+        return provider.complete(messages);
+      },
+    };
+
+    await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "tour 1",
+      provider: wrapping,
+    });
+    await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "tour 2",
+      provider: wrapping,
+    });
+    const third = await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "tour 3",
+      provider: wrapping,
+    });
+
+    expect(histories).toEqual([1, 3, 5]);
+    expect(third.assistantTurn?.role).toBe("assistant_live");
+    expect(listTurns(session.sessionId)).toHaveLength(6);
+
+    const before = listTurns(session.sessionId).length;
+    await expect(
+      sendConversationMessage({
+        sessionId: session.sessionId,
+        content: "should fail",
+        requestedMode: "fixture",
+      }),
+    ).rejects.toBeInstanceOf(Ops1Error);
+    expect(listTurns(session.sessionId)).toHaveLength(before);
+  });
+
+  it("fixture session refuses live requestedMode without provider call", async () => {
+    const { session } = createOpenSession("fixture");
+    let called = false;
+    const provider: ConversationProvider = {
+      providerId: "fake-test",
+      complete: async () => {
+        called = true;
+        return {
+          text: "nope",
+          usage: {
+            inputTokens: 1,
+            outputTokens: 1,
+            totalTokens: 2,
+            model: "x",
+            providerResponseId: "x",
+          },
+        };
+      },
+    };
+    await expect(
+      sendConversationMessage({
+        sessionId: session.sessionId,
+        content: "x",
+        requestedMode: "live",
+        provider,
+      }),
+    ).rejects.toBeInstanceOf(Ops1Error);
+    expect(called).toBe(false);
+    expect(listTurns(session.sessionId)).toHaveLength(0);
+    expect(listConversationAttempts(session.sessionId)).toHaveLength(0);
+  });
+
+  it("keeps user turn and marks attempt failed without fake assistant on provider error", async () => {
+    const { session } = createOpenSession("live");
+    const provider = new FakeConversationProvider({ failOnCall: 1 });
+    const result = await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "will fail",
+      provider,
+    });
+    expect(result.assistantTurn).toBeNull();
+    expect(listTurns(session.sessionId)).toHaveLength(1);
+    expect(listConversationAttempts(session.sessionId)[0].status).toBe(
+      "failed",
+    );
+  });
+
+  it("fixture mode never creates conversation_attempts or live roles", async () => {
+    const { session } = createOpenSession("fixture");
+    await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "fixture only",
+    });
+    expect(listTurns(session.sessionId).map((t) => t.role)).toEqual([
+      "user",
+      "assistant_fixture",
+    ]);
+    expect(listConversationAttempts(session.sessionId)).toHaveLength(0);
+  });
+
+  it("start/fail attempt helpers leave no secret fields", () => {
+    const { session } = createOpenSession("live");
+    const { turn } = appendTurn({
+      sessionId: session.sessionId,
+      role: "user",
+      content: "x",
+      fixture: false,
+    });
+    const started = startConversationAttempt({
+      sessionId: session.sessionId,
+      userTurnId: turn.turnId,
+      provider: "fake-test",
+    });
+    const failed = completeConversationAttemptFailure({
+      attemptId: started.attemptId,
+      sessionId: session.sessionId,
+      errorCode: "PROVIDER",
+    });
+    expect(getConversationAttempt(failed.attemptId)?.status).toBe("failed");
+    expect(JSON.stringify(failed)).not.toMatch(/api[_-]?key/i);
+  });
+
+  it("creates fresh schema with conversation_mode", () => {
+    openOps1Db();
+    const db = openOps1Db();
+    const cols = db.prepare(`PRAGMA table_info(cycle_sessions)`).all() as Array<{
+      name: string;
+    }>;
+    expect(cols.map((c) => c.name)).toContain("conversation_mode");
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts`
+
+```typescript
+/** @vitest-environment node */
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+const createMock = vi.fn();
+
+vi.mock("openai", () => ({
+  default: class OpenAI {
+    responses = { create: createMock };
+  },
+}));
+
+describe("OpenAIConversationProvider mapping", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("extracts text and usage; requests empty tools", async () => {
+    createMock.mockResolvedValue({
+      id: "resp_123",
+      model: "gpt-test",
+      output_text: "  hello live  ",
+      usage: { input_tokens: 3, output_tokens: 4, total_tokens: 7 },
+    });
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/ops1/conversation/openaiProvider"
+    );
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    const result = await provider.complete([
+      { role: "user", content: "hi" },
+      { role: "assistant", content: "prev" },
+      { role: "user", content: "again" },
+    ]);
+    expect(result.text).toBe("hello live");
+    expect(result.usage).toEqual({
+      inputTokens: 3,
+      outputTokens: 4,
+      totalTokens: 7,
+      model: "gpt-test",
+      providerResponseId: "resp_123",
+    });
+    expect(createMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        model: "gpt-test",
+        tools: [],
+      }),
+    );
+    const payload = createMock.mock.calls[0][0];
+    expect(payload.input).toHaveLength(3);
+  });
+
+  it("maps provider failures to safe Ops1Error", async () => {
+    createMock.mockRejectedValue(new Error("upstream boom sk-secret"));
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/ops1/conversation/openaiProvider"
+    );
+    const { Ops1Error } = await import("@/lib/ops1/errors");
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    await expect(
+      provider.complete([{ role: "user", content: "x" }]),
+    ).rejects.toBeInstanceOf(Ops1Error);
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts`
+
+```typescript
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-ops1-i2",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+test.describe("OPS1 I2 immutable mode + signalétique", () => {
+  test("mode selection, fixture locked, reload, no execution", async ({
+    page,
+  }) => {
+    await page.goto("/nouvelle-demande");
+    await page.evaluate(() => window.sessionStorage.clear());
+    await page.reload();
+    await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+    await expect(page.getByTestId("ops1-create-mode-selector")).toBeVisible();
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-mode-selection.png"),
+      fullPage: true,
+    });
+
+    // Also keep legacy name for unavailable state when applicable
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-live-unavailable.png"),
+      fullPage: true,
+    });
+
+    await page.getByTestId("ops1-create-mode-fixture").check();
+    await page.getByTestId("ops1-create-session").click();
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "FIXTURE — verrouillé",
+    );
+    await expect(page.getByTestId("ops1-mode-fixture")).toBeDisabled();
+    await expect(page.getByTestId("ops1-mode-live")).toBeDisabled();
+
+    // Attempt to change mode via click — must remain fixture
+    await page.getByTestId("ops1-mode-live").click({ force: true });
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "FIXTURE — verrouillé",
+    );
+    await expect(page.getByTestId("ops1-mode-fixture")).toBeChecked();
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-mode-change-refused.png"),
+      fullPage: true,
+    });
+
+    await page.getByTestId("ops1-message-input").fill("Tour fixture 1");
+    await page.getByTestId("ops1-send-message").click();
+    await page.getByTestId("ops1-message-input").fill("Tour fixture 2");
+    await page.getByTestId("ops1-send-message").click();
+    await page
+      .getByTestId("ops1-message-input")
+      .fill("exécute Cursor maintenant");
+    await page.getByTestId("ops1-send-message").click();
+
+    await expect(page.getByTestId("ops1-turn")).toHaveCount(6);
+    await expect(page.getByTestId("ops1-badge-fixture")).toBeVisible();
+    await expect(page.getByTestId("ops1-badge-live")).toHaveCount(0);
+    await expect(
+      page.getByRole("button", { name: /exécuter|gate|cursor/i }),
+    ).toHaveCount(0);
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-fixture-locked.png"),
+      fullPage: true,
+    });
+
+    const sessionId = await page.getByTestId("ops1-session-id").innerText();
+    await page.reload();
+    await expect(page.getByTestId("ops1-session-id")).toHaveText(sessionId);
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "FIXTURE — verrouillé",
+    );
+    await expect(page.getByTestId("ops1-turn")).toHaveCount(6);
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-after-reload-locked.png"),
+      fullPage: true,
+    });
+  });
+
+  test("test provider path — never presented as GPT live", async ({ page }) => {
+    await page.goto("/nouvelle-demande");
+    await page.evaluate(() => window.sessionStorage.clear());
+    await page.reload();
+
+    const liveCreate = page.getByTestId("ops1-create-mode-live");
+    if (!(await liveCreate.isEnabled())) {
+      await page.screenshot({
+        path: path.join(screenshotDir, "ops1-i2-test-provider-non-live.png"),
+        fullPage: true,
+      });
+      test.info().annotations.push({
+        type: "note",
+        description: "Live create disabled — fake provider env not active",
+      });
+      return;
+    }
+
+    await liveCreate.check();
+    await page.getByTestId("ops1-create-session").click();
+    await expect(page.getByTestId("ops1-mode-locked")).toBeVisible();
+    await expect(page.getByTestId("ops1-badge-test-provider")).toBeVisible();
+    await expect(page.getByTestId("ops1-badge-live")).toHaveCount(0);
+
+    await page.getByTestId("ops1-message-input").fill("Live fake tour 1");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-turn").nth(1)).toHaveAttribute(
+      "data-role",
+      "assistant_live",
+    );
+    await expect(page.getByText("TEST / FAKE").first()).toBeVisible();
+    await expect(page.getByText("Assistant test").first()).toBeVisible();
+    await expect(page.getByTestId("ops1-badge-live")).toHaveCount(0);
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "LIVE TECHNIQUE (TEST)",
+    );
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-test-provider-non-live.png"),
+      fullPage: true,
+    });
+    // legacy alias used by prior pack naming
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-live-ready.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-multiturn.png"),
+      fullPage: true,
+    });
+
+    await page
+      .getByTestId("ops1-message-input")
+      .fill("__OPS1_FORCE_PROVIDER_ERROR__");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-error")).toBeVisible();
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "verrouillé",
+    );
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-provider-error.png"),
+      fullPage: true,
+    });
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts`
+
+```typescript
+/**
+ * Real GPT live UI capture — skipped unless OPS1_ALLOW_LIVE_SMOKE=1
+ * and OPS1_CONVERSATION_PROVIDER is not "fake".
+ * Never prints secrets.
+ */
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-ops1-i2",
+);
+
+const allow =
+  process.env.OPS1_ALLOW_LIVE_SMOKE === "1" &&
+  process.env.OPS1_CONVERSATION_PROVIDER !== "fake" &&
+  Boolean(process.env.OPENAI_API_KEY?.trim()) &&
+  Boolean(process.env.OPENAI_MODEL?.trim());
+
+test.describe("OPS1 I2 real live locked capture", () => {
+  test.skip(!allow, "Live capture preconditions missing");
+
+  test("GPT LIVE locked session with real assistant_live", async ({ page }) => {
+    fs.mkdirSync(screenshotDir, { recursive: true });
+    await page.goto("/nouvelle-demande");
+    await page.evaluate(() => window.sessionStorage.clear());
+    await page.reload();
+
+    await page.getByTestId("ops1-create-mode-live").check();
+    await page.getByTestId("ops1-create-session").click();
+    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
+      "GPT LIVE — verrouillé",
+    );
+    await expect(page.getByTestId("ops1-badge-live")).toBeVisible();
+    await expect(page.getByTestId("ops1-badge-test-provider")).toHaveCount(0);
+
+    await page
+      .getByTestId("ops1-message-input")
+      .fill("Réponds en une seule phrase courte : ping capture I2.");
+    await page.getByTestId("ops1-send-message").click();
+    await expect(page.getByTestId("ops1-turn").nth(1)).toHaveAttribute(
+      "data-role",
+      "assistant_live",
+    );
+    await expect(page.getByText("GPT LIVE").first()).toBeVisible();
+    await expect(page.getByText("TEST / FAKE")).toHaveCount(0);
+    await expect(page.getByText("Assistant live").first()).toBeVisible();
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "ops1-i2-live-locked.png"),
+      fullPage: true,
+    });
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts`
+
+```typescript
+/**
+ * OPS1 I2 live smoke — NOT part of npm test / default E2E.
+ *
+ * Runs only when ALL are set:
+ * - OPENAI_API_KEY
+ * - OPENAI_MODEL
+ * - OPS1_ALLOW_LIVE_SMOKE=1
+ *
+ * Never prints secrets or full env.
+ *
+ * Usage:
+ *   OPS1_ALLOW_LIVE_SMOKE=1 OPENAI_API_KEY=… OPENAI_MODEL=… \
+ *     npx tsx e2e/ops1-i2-live-smoke.ts
+ *   or: node --import tsx e2e/ops1-i2-live-smoke.ts
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+
+function present(name: string): boolean {
+  return Boolean(process.env[name]?.trim());
+}
+
+async function main(): Promise<void> {
+  const allow = process.env.OPS1_ALLOW_LIVE_SMOKE === "1";
+  const hasKey = present("OPENAI_API_KEY");
+  const hasModel = present("OPENAI_MODEL");
+
+  if (!allow || !hasKey || !hasModel) {
+    console.log(
+      JSON.stringify({
+        ok: false,
+        skipped: true,
+        reason: "LIVE_SMOKE_PRECONDITIONS_MISSING",
+        allow,
+        hasKey,
+        hasModel,
+        // never include values
+      }),
+    );
+    process.exit(0);
+  }
+
+  if (process.env.OPS1_CONVERSATION_PROVIDER === "fake") {
+    console.log(
+      JSON.stringify({
+        ok: false,
+        skipped: true,
+        reason: "FAKE_PROVIDER_FORCED_INCOMPATIBLE_WITH_LIVE_SMOKE",
+      }),
+    );
+    process.exit(1);
+  }
+
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i2-live-smoke-"));
+  process.env.OPS1_EXEC_ROOT = tmpRoot;
+
+  const { resetOps1DbForTests, createOpenSession, listTurns, listConversationAttempts } =
+    await import("../lib/ops1/repository");
+  const { sendConversationMessage } = await import(
+    "../lib/ops1/conversation/service"
+  );
+
+  resetOps1DbForTests();
+  const { session } = createOpenSession("live");
+  const result = await sendConversationMessage({
+    sessionId: session.sessionId,
+    content: "Réponds en une phrase courte : ping OPS1 I2 smoke.",
+  });
+
+  const turns = listTurns(session.sessionId);
+  const attempts = listConversationAttempts(session.sessionId);
+  const assistant = result.assistantTurn;
+
+  const report = {
+    ok: Boolean(assistant && assistant.content.trim() && !result.assistantError),
+    mode: result.mode,
+    assistantRole: assistant?.role ?? null,
+    assistantNonEmpty: Boolean(assistant?.content.trim()),
+    turnsCount: turns.length,
+    attemptStatus: attempts[0]?.status ?? null,
+    usage: result.usage
+      ? {
+          provider: result.usage.provider,
+          model: result.usage.model,
+          inputTokens: result.usage.inputTokens,
+          outputTokens: result.usage.outputTokens,
+          totalTokens: result.usage.totalTokens,
+          durationMs: result.usage.durationMs,
+        }
+      : null,
+    error: result.assistantError,
+  };
+
+  console.log(JSON.stringify(report));
+  resetOps1DbForTests();
+  fs.rmSync(tmpRoot, { recursive: true, force: true });
+  process.exit(report.ok ? 0 : 1);
+}
+
+main().catch((error) => {
+  console.log(
+    JSON.stringify({
+      ok: false,
+      error: "LIVE_SMOKE_INTERNAL",
+      code: error instanceof Error ? error.name : "Error",
+    }),
+  );
+  process.exit(1);
+});
+
+```
+
+### `projects/sfia-studio/app/lib/ops1/conversation/config.ts`
 
 ```typescript
 import { Ops1Error } from "../errors";
@@ -202,7 +1008,7 @@ export function isFakeConversationProviderForced(): boolean {
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts`
+### `projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts`
 
 ```typescript
 import type {
@@ -258,7 +1064,7 @@ export class FakeConversationProvider implements ConversationProvider {
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts`
+### `projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts`
 
 ```typescript
 import OpenAI from "openai";
@@ -337,7 +1143,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/conversation/provider.ts`
+### `projects/sfia-studio/app/lib/ops1/conversation/provider.ts`
 
 ```typescript
 import {
@@ -368,7 +1174,7 @@ export function resolveConversationProvider(): ConversationProvider {
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/conversation/service.ts`
+### `projects/sfia-studio/app/lib/ops1/conversation/service.ts`
 
 ```typescript
 import { buildFixtureAssistantReply } from "../fixtureReply";
@@ -382,10 +1188,14 @@ import {
   startConversationAttempt,
 } from "../repository";
 import type {
+  ConversationMode,
   ConversationUsageCounters,
   JournalTurn,
 } from "../types";
-import { buildProviderMessagesFromJournal } from "./types";
+import {
+  assertJournalMatchesMode,
+  buildProviderMessagesFromJournal,
+} from "./types";
 import { resolveConversationProvider } from "./provider";
 import type { ConversationProvider } from "./types";
 
@@ -394,7 +1204,8 @@ export interface SendMessageResult {
   assistantTurn: JournalTurn | null;
   assistantError: string | null;
   usage: ConversationUsageCounters | null;
-  mode: "fixture" | "live";
+  mode: ConversationMode;
+  providerId: string | null;
 }
 
 function durationMs(startedAt: string, completedAt: string): number | null {
@@ -405,14 +1216,15 @@ function durationMs(startedAt: string, completedAt: string): number | null {
 }
 
 /**
- * Orchestrates fixture or live conversation turn.
- * Live path: persist user → attempt started → provider → assistant_live or fail.
- * Never triggers execution, gates, Git, or Cursor.
+ * Orchestrates fixture or live conversation turn using the session's
+ * immutable conversationMode. Optional requestedMode is validated then ignored
+ * if matching; mismatch is rejected before any persistence or provider call.
  */
 export async function sendConversationMessage(input: {
   sessionId: string;
   content: string;
-  mode: "fixture" | "live";
+  /** Optional client hint — must match session mode or be omitted. */
+  requestedMode?: ConversationMode;
   provider?: ConversationProvider;
 }): Promise<SendMessageResult> {
   const session = getSession(input.sessionId);
@@ -426,7 +1238,19 @@ export async function sendConversationMessage(input: {
     );
   }
 
-  if (input.mode === "fixture") {
+  const mode = session.conversationMode;
+
+  if (input.requestedMode && input.requestedMode !== mode) {
+    throw new Ops1Error(
+      "CONFLICT",
+      `Mode refusé : cette session est verrouillée en « ${mode} ». Créez une nouvelle session pour changer de mode.`,
+    );
+  }
+
+  // Defense: refuse mixed journals before any write.
+  assertJournalMatchesMode(listTurns(input.sessionId), mode);
+
+  if (mode === "fixture") {
     const { turn: userTurn } = appendTurn({
       sessionId: input.sessionId,
       role: "user",
@@ -455,6 +1279,7 @@ export async function sendConversationMessage(input: {
       assistantError,
       usage: null,
       mode: "fixture",
+      providerId: null,
     };
   }
 
@@ -483,7 +1308,7 @@ export async function sendConversationMessage(input: {
 
   try {
     const history = listTurns(input.sessionId);
-    const messages = buildProviderMessagesFromJournal(history);
+    const messages = buildProviderMessagesFromJournal(history, "live");
     const completion = await provider.complete(messages);
 
     const { turn: assistantTurn } = appendTurn({
@@ -528,6 +1353,7 @@ export async function sendConversationMessage(input: {
         ),
       },
       mode: "live",
+      providerId: provider.providerId,
     };
   } catch (error) {
     const safe = toSafeClientError(error);
@@ -548,677 +1374,131 @@ export async function sendConversationMessage(input: {
       assistantError: safe.message,
       usage: null,
       mode: "live",
+      providerId: provider.providerId,
     };
   }
 }
 
 ```
 
-#### `projects/sfia-studio/app/__tests__/ops1/conversation-domain.test.ts`
+### `projects/sfia-studio/app/lib/ops1/conversation/types.ts`
 
 ```typescript
-/** @vitest-environment node */
-import { describe, expect, it } from "vitest";
-import { buildProviderMessagesFromJournal } from "@/lib/ops1/conversation/types";
-import { getLiveConversationAvailability } from "@/lib/ops1/conversation/config";
-import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
-import type { JournalTurn } from "@/lib/ops1/types";
-import { assertConversationMode, assertTurnRole } from "@/lib/ops1/validation";
-import { Ops1Error } from "@/lib/ops1/errors";
+import type { ConversationMode, JournalTurn } from "../types";
+import { Ops1Error } from "../errors";
 
-function turn(
-  partial: Pick<JournalTurn, "role" | "content" | "sequence">,
-): JournalTurn {
-  return {
-    turnId: `ops1-turn-${partial.sequence}`,
-    sessionId: "ops1-sess-00000000-0000-4000-8000-000000000001",
-    fixture: partial.role === "assistant_fixture",
-    createdAt: "2026-07-20T22:00:00+02:00",
-    ...partial,
-  };
+/** Provider-facing roles — domain roles mapped without SDK types. */
+export type ProviderChatRole = "user" | "assistant";
+
+export interface ProviderChatMessage {
+  role: ProviderChatRole;
+  content: string;
 }
 
-describe("ops1 conversation domain", () => {
-  it("builds ordered provider context from mixed journal roles", () => {
-    const messages = buildProviderMessagesFromJournal([
-      turn({ sequence: 1, role: "user", content: "u1" }),
-      turn({ sequence: 2, role: "assistant_fixture", content: "a1" }),
-      turn({ sequence: 3, role: "user", content: "u2" }),
-      turn({ sequence: 4, role: "assistant_live", content: "a2" }),
-    ]);
-    expect(messages).toEqual([
-      { role: "user", content: "u1" },
-      { role: "assistant", content: "a1" },
-      { role: "user", content: "u2" },
-      { role: "assistant", content: "a2" },
-    ]);
-  });
+export interface ProviderUsage {
+  inputTokens: number | null;
+  outputTokens: number | null;
+  totalTokens: number | null;
+  model: string | null;
+  providerResponseId: string | null;
+}
 
-  it("fake provider returns usage and non-live tagged text", async () => {
-    const provider = new FakeConversationProvider();
-    const result = await provider.complete([
-      { role: "user", content: "bonjour" },
-    ]);
-    expect(result.text).toContain("TEST/FAKE");
-    expect(result.text).toContain("NON LIVE");
-    expect(result.usage.totalTokens).toBe(15);
-    expect(result.usage.model).toBe("fake-test-model");
-  });
+export interface ProviderCompletionResult {
+  text: string;
+  usage: ProviderUsage;
+}
 
-  it("reports missing live config without exposing secrets", () => {
-    const prevKey = process.env.OPENAI_API_KEY;
-    const prevModel = process.env.OPENAI_MODEL;
-    delete process.env.OPENAI_API_KEY;
-    delete process.env.OPENAI_MODEL;
-    const status = getLiveConversationAvailability();
-    expect(status.available).toBe(false);
-    if (!status.available) {
-      expect(status.missing).toContain("OPENAI_API_KEY");
-      expect(status.missing).toContain("OPENAI_MODEL");
-    }
-    if (prevKey !== undefined) process.env.OPENAI_API_KEY = prevKey;
-    if (prevModel !== undefined) process.env.OPENAI_MODEL = prevModel;
-  });
+export interface ConversationProvider {
+  readonly providerId: string;
+  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
+}
 
-  it("accepts assistant_live role and conversation modes", () => {
-    expect(assertTurnRole("assistant_live")).toBe("assistant_live");
-    expect(assertConversationMode("live")).toBe("live");
-    expect(() => assertTurnRole("system")).toThrow(Ops1Error);
-    expect(() => assertConversationMode("auto")).toThrow(Ops1Error);
-  });
-
-  it("contains no execution side-effect API on provider interface usage", async () => {
-    const provider = new FakeConversationProvider({
-      scripted: ["ok"],
-    });
-    const keys = Object.keys(provider);
-    expect(keys).not.toContain("execute");
-    expect(keys).not.toContain("runCursor");
-    await provider.complete([{ role: "user", content: "GO" }]);
-  });
-});
-
-```
-
-#### `projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts`
-
-```typescript
-/** @vitest-environment node */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  appendTurn,
-  completeConversationAttemptFailure,
-  createOpenSession,
-  getConversationAttempt,
-  listConversationAttempts,
-  listTurns,
-  resetOps1DbForTests,
-  startConversationAttempt,
-} from "@/lib/ops1/repository";
-import { openOps1Db, migrateOps1Schema } from "@/lib/ops1/db";
-import { sendConversationMessage } from "@/lib/ops1/conversation/service";
-import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
-import { DatabaseSync } from "node:sqlite";
-import type { ProviderChatMessage, ProviderCompletionResult } from "@/lib/ops1/conversation/types";
-import type { ConversationProvider } from "@/lib/ops1/conversation/types";
-
-describe("ops1 i2 repository + live attempts", () => {
-  let tmpRoot: string;
-
-  beforeEach(() => {
-    resetOps1DbForTests();
-    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i2-"));
-    process.env.OPS1_EXEC_ROOT = tmpRoot;
-  });
-
-  afterEach(() => {
-    resetOps1DbForTests();
-    delete process.env.OPS1_EXEC_ROOT;
-    fs.rmSync(tmpRoot, { recursive: true, force: true });
-  });
-
-  it("migrates I1 DB to accept assistant_live and conversation_attempts", () => {
-    const dbPath = path.join(tmpRoot, "legacy.sqlite");
-    const legacy = new DatabaseSync(dbPath);
-    legacy.exec(`
-      PRAGMA foreign_keys = ON;
-      CREATE TABLE cycle_sessions (
-        session_id TEXT PRIMARY KEY NOT NULL,
-        project_key TEXT NOT NULL,
-        status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
-        created_at TEXT NOT NULL,
-        updated_at TEXT NOT NULL,
-        parent_session_id TEXT,
-        fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
-      );
-      CREATE TABLE journal_turns (
-        turn_id TEXT PRIMARY KEY NOT NULL,
-        session_id TEXT NOT NULL,
-        sequence INTEGER NOT NULL,
-        role TEXT NOT NULL CHECK (role IN ('user', 'assistant_fixture')),
-        content TEXT NOT NULL,
-        fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
-        created_at TEXT NOT NULL,
-        UNIQUE (session_id, sequence),
-        FOREIGN KEY (session_id) REFERENCES cycle_sessions(session_id)
-      );
-      INSERT INTO cycle_sessions VALUES (
-        'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-        'sfia-studio-ops1', 'OPEN', 't', 't', NULL, 1
-      );
-      INSERT INTO journal_turns VALUES (
-        'ops1-turn-1', 'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-        1, 'user', 'hello i1', 1, 't'
-      );
-    `);
-    legacy.close();
-
-    const db = new DatabaseSync(dbPath);
-    migrateOps1Schema(db);
-    db.prepare(
-      `INSERT INTO journal_turns VALUES (
-         'ops1-turn-2', 'ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-         2, 'assistant_live', 'live reply', 0, 't'
-       )`,
-    ).run();
-    const rows = db
-      .prepare(`SELECT role FROM journal_turns ORDER BY sequence`)
-      .all() as { role: string }[];
-    expect(rows.map((r) => r.role)).toEqual(["user", "assistant_live"]);
-    const table = db
-      .prepare(
-        `SELECT name FROM sqlite_master WHERE type='table' AND name='conversation_attempts'`,
-      )
-      .get() as { name: string };
-    expect(table.name).toBe("conversation_attempts");
-    db.close();
-  });
-
-  it("persists live multi-turn success with usage and ordered history to provider", async () => {
-    const { session } = createOpenSession();
-    const provider = new FakeConversationProvider({
-      scripted: ["A1 TEST/FAKE", "A2 TEST/FAKE", "A3 TEST/FAKE"],
-    });
-    const histories: number[] = [];
-    const wrapping: ConversationProvider = {
-      providerId: "fake-test",
-      complete: async (messages: ProviderChatMessage[]): Promise<ProviderCompletionResult> => {
-        histories.push(messages.length);
-        return provider.complete(messages);
-      },
-    };
-
-    await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "tour 1",
-      mode: "live",
-      provider: wrapping,
-    });
-    await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "tour 2",
-      mode: "live",
-      provider: wrapping,
-    });
-    const third = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "tour 3",
-      mode: "live",
-      provider: wrapping,
-    });
-
-    expect(histories).toEqual([1, 3, 5]);
-    expect(third.assistantTurn?.role).toBe("assistant_live");
-    expect(third.usage?.totalTokens).toBeTruthy();
-    expect(third.assistantTurn?.content).toContain("TEST/FAKE");
-
-    const turns = listTurns(session.sessionId);
-    expect(turns).toHaveLength(6);
-    expect(turns.map((t) => t.role)).toEqual([
-      "user",
-      "assistant_live",
-      "user",
-      "assistant_live",
-      "user",
-      "assistant_live",
-    ]);
-    const attempts = listConversationAttempts(session.sessionId);
-    expect(attempts).toHaveLength(3);
-    expect(attempts.every((a) => a.status === "succeeded")).toBe(true);
-    expect(
-      JSON.stringify(attempts).toLowerCase().includes("sk-"),
-    ).toBe(false);
-  });
-
-  it("keeps user turn and marks attempt failed without fake assistant on provider error", async () => {
-    const { session } = createOpenSession();
-    const provider = new FakeConversationProvider({ failOnCall: 1 });
-    const result = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "will fail",
-      mode: "live",
-      provider,
-    });
-    expect(result.userTurn.content).toBe("will fail");
-    expect(result.assistantTurn).toBeNull();
-    expect(result.assistantError).toBeTruthy();
-    const turns = listTurns(session.sessionId);
-    expect(turns).toHaveLength(1);
-    expect(turns[0].role).toBe("user");
-    const attempts = listConversationAttempts(session.sessionId);
-    expect(attempts).toHaveLength(1);
-    expect(attempts[0].status).toBe("failed");
-    expect(attempts[0].errorCode).toBeTruthy();
-  });
-
-  it("fixture mode never creates conversation_attempts or live roles", async () => {
-    const { session } = createOpenSession();
-    await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "fixture only",
-      mode: "fixture",
-    });
-    const turns = listTurns(session.sessionId);
-    expect(turns.map((t) => t.role)).toEqual(["user", "assistant_fixture"]);
-    expect(listConversationAttempts(session.sessionId)).toHaveLength(0);
-  });
-
-  it("start/fail attempt helpers leave no secret fields", () => {
-    const { session } = createOpenSession();
-    const { turn } = appendTurn({
-      sessionId: session.sessionId,
-      role: "user",
-      content: "x",
-      fixture: false,
-    });
-    const started = startConversationAttempt({
-      sessionId: session.sessionId,
-      userTurnId: turn.turnId,
-      provider: "fake-test",
-    });
-    const failed = completeConversationAttemptFailure({
-      attemptId: started.attemptId,
-      sessionId: session.sessionId,
-      errorCode: "PROVIDER",
-    });
-    expect(getConversationAttempt(failed.attemptId)?.status).toBe("failed");
-    expect(JSON.stringify(failed)).not.toMatch(/api[_-]?key/i);
-  });
-
-  it("creates fresh I2 schema on empty DB", () => {
-    openOps1Db();
-    const db = openOps1Db();
-    const sql = (
-      db
-        .prepare(
-          `SELECT sql FROM sqlite_master WHERE type='table' AND name='journal_turns'`,
-        )
-        .get() as { sql: string }
-    ).sql;
-    expect(sql).toContain("assistant_live");
-  });
-});
-
-```
-
-#### `projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts`
-
-```typescript
-/** @vitest-environment node */
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const createMock = vi.fn();
-
-vi.mock("openai", () => ({
-  default: class OpenAI {
-    responses = { create: createMock };
-  },
-}));
-
-describe("OpenAIConversationProvider mapping", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("extracts text and usage; requests empty tools", async () => {
-    createMock.mockResolvedValue({
-      id: "resp_123",
-      model: "gpt-test",
-      output_text: "  hello live  ",
-      usage: { input_tokens: 3, output_tokens: 4, total_tokens: 7 },
-    });
-    const { OpenAIConversationProvider } = await import(
-      "@/lib/ops1/conversation/openaiProvider"
-    );
-    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
-    const result = await provider.complete([
-      { role: "user", content: "hi" },
-      { role: "assistant", content: "prev" },
-      { role: "user", content: "again" },
-    ]);
-    expect(result.text).toBe("hello live");
-    expect(result.usage).toEqual({
-      inputTokens: 3,
-      outputTokens: 4,
-      totalTokens: 7,
-      model: "gpt-test",
-      providerResponseId: "resp_123",
-    });
-    expect(createMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        model: "gpt-test",
-        tools: [],
-      }),
-    );
-    const payload = createMock.mock.calls[0][0];
-    expect(payload.input).toHaveLength(3);
-  });
-
-  it("maps provider failures to safe Ops1Error", async () => {
-    createMock.mockRejectedValue(new Error("upstream boom sk-secret"));
-    const { OpenAIConversationProvider } = await import(
-      "@/lib/ops1/conversation/openaiProvider"
-    );
-    const { Ops1Error } = await import("@/lib/ops1/errors");
-    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
-    await expect(
-      provider.complete([{ role: "user", content: "x" }]),
-    ).rejects.toBeInstanceOf(Ops1Error);
-  });
-});
-
-```
-
-#### `projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts`
-
-```typescript
-import { test, expect } from "@playwright/test";
-import path from "path";
-import fs from "fs";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots-ops1-i2",
-);
-
-test.beforeAll(() => {
-  fs.mkdirSync(screenshotDir, { recursive: true });
-});
-
-test.describe("OPS1 I2 conversation (non-live E2E / fake provider)", () => {
-  test("fixture multiturn, reload, no execution, simulated live error path", async ({
-    page,
-  }) => {
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-    await expect(page.getByTestId("ops1-session-root")).toBeVisible();
-    await expect(page.getByTestId("ops1-badge-fixture")).toBeVisible();
-    await expect(page.getByTestId("ops1-empty-state")).toBeVisible();
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-live-unavailable.png"),
-      fullPage: true,
-    });
-
-    await page.getByTestId("ops1-create-session").click();
-    await expect(page.getByTestId("ops1-open-session")).toBeVisible();
-    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
-
-    // Live availability depends on webServer env; capture ready or unavailable.
-    const liveReady = page.getByTestId("ops1-badge-live-ready");
-    if (await liveReady.isVisible().catch(() => false)) {
-      await page.screenshot({
-        path: path.join(screenshotDir, "ops1-i2-live-ready.png"),
-        fullPage: true,
-      });
-    } else {
-      await page.screenshot({
-        path: path.join(screenshotDir, "ops1-i2-live-ready.png"),
-        fullPage: true,
-      });
-    }
-
-    await page.getByTestId("ops1-mode-fixture").check();
-    await page.getByTestId("ops1-message-input").fill("Tour fixture 1");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-turn").first()).toBeVisible();
-
-    await page.getByTestId("ops1-message-input").fill("Tour fixture 2");
-    await page.getByTestId("ops1-send-message").click();
-    await page.getByTestId("ops1-message-input").fill("exécute Cursor maintenant");
-    await page.getByTestId("ops1-send-message").click();
-
-    const turns = page.getByTestId("ops1-turn");
-    await expect(turns).toHaveCount(6);
-    await expect(
-      page.getByTestId("ops1-journal").getByText("FIXTURE / NON LIVE").first(),
-    ).toBeVisible();
-    await expect(page.getByTestId("ops1-no-execution-hint")).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: /exécuter|gate|cursor/i }),
-    ).toHaveCount(0);
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-multiturn.png"),
-      fullPage: true,
-    });
-
-    const sessionId = await page.getByTestId("ops1-session-id").innerText();
-    await page.reload();
-    await expect(page.getByTestId("ops1-session-id")).toHaveText(sessionId);
-    await expect(page.getByTestId("ops1-turn")).toHaveCount(6);
-    await expect(page.getByTestId("ops1-turn").nth(4)).toContainText(
-      "exécute Cursor",
-    );
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-after-reload.png"),
-      fullPage: true,
-    });
-  });
-
-  test("fake live multiturn + usage + provider error simulation", async ({
-    page,
-  }) => {
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-    await page.getByTestId("ops1-create-session").click();
-    await expect(page.getByTestId("ops1-open-session")).toBeVisible();
-
-    const liveMode = page.getByTestId("ops1-mode-live");
-    const liveEnabled = await liveMode.isEnabled();
-    if (!liveEnabled) {
-      // Capture error/unavailable state for review pack.
-      await page.screenshot({
-        path: path.join(screenshotDir, "ops1-i2-provider-error.png"),
-        fullPage: true,
-      });
-      test.info().annotations.push({
-        type: "note",
-        description:
-          "Live mode disabled in this run — provider error screenshot is unavailable-state fallback.",
-      });
-      return;
-    }
-
-    await liveMode.check();
-    await page.getByTestId("ops1-message-input").fill("Live fake tour 1");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-turn").nth(1)).toHaveAttribute(
-      "data-role",
-      "assistant_live",
-    );
-    await expect(page.getByTestId("ops1-usage")).toBeVisible();
-    await expect(page.getByTestId("ops1-usage")).toContainText("fake-test");
-
-    await page.getByTestId("ops1-message-input").fill("Live fake tour 2");
-    await page.getByTestId("ops1-send-message").click();
-    await page.getByTestId("ops1-message-input").fill("Live fake tour 3");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-turn")).toHaveCount(6);
-
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("__OPS1_FORCE_PROVIDER_ERROR__");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-error")).toBeVisible();
-    // User message kept, no fake assistant for the failed attempt.
-    await expect(page.getByTestId("ops1-turn")).toHaveCount(7);
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "ops1-i2-provider-error.png"),
-      fullPage: true,
-    });
-  });
-});
-
-```
-
-#### `projects/sfia-studio/app/e2e/ops1-i2-live-smoke.ts`
-
-```typescript
 /**
- * OPS1 I2 live smoke — NOT part of npm test / default E2E.
- *
- * Runs only when ALL are set:
- * - OPENAI_API_KEY
- * - OPENAI_MODEL
- * - OPS1_ALLOW_LIVE_SMOKE=1
- *
- * Never prints secrets or full env.
- *
- * Usage:
- *   OPS1_ALLOW_LIVE_SMOKE=1 OPENAI_API_KEY=… OPENAI_MODEL=… \
- *     npx tsx e2e/ops1-i2-live-smoke.ts
- *   or: node --import tsx e2e/ops1-i2-live-smoke.ts
+ * Map local journal turns into ordered provider context.
+ * Defense in depth: journal must match the expected session mode.
+ * Never silently filters incompatible roles.
  */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-
-function present(name: string): boolean {
-  return Boolean(process.env[name]?.trim());
+export function buildProviderMessagesFromJournal(
+  turns: JournalTurn[],
+  expectedMode: ConversationMode,
+): ProviderChatMessage[] {
+  const out: ProviderChatMessage[] = [];
+  for (const turn of turns) {
+    if (turn.role === "user") {
+      out.push({ role: "user", content: turn.content });
+      continue;
+    }
+    if (turn.role === "assistant_fixture") {
+      if (expectedMode === "live") {
+        throw new Ops1Error(
+          "CONFLICT",
+          "Journal incompatible avec une session live (tour fixture détecté). Aucun appel fournisseur n’a été effectué.",
+        );
+      }
+      out.push({ role: "assistant", content: turn.content });
+      continue;
+    }
+    if (turn.role === "assistant_live") {
+      if (expectedMode === "fixture") {
+        throw new Ops1Error(
+          "CONFLICT",
+          "Journal incompatible avec une session fixture (tour live détecté).",
+        );
+      }
+      out.push({ role: "assistant", content: turn.content });
+      continue;
+    }
+    throw new Ops1Error("VALIDATION", "Rôle de tour inconnu dans le journal.");
+  }
+  return out;
 }
 
-async function main(): Promise<void> {
-  const allow = process.env.OPS1_ALLOW_LIVE_SMOKE === "1";
-  const hasKey = present("OPENAI_API_KEY");
-  const hasModel = present("OPENAI_MODEL");
-
-  if (!allow || !hasKey || !hasModel) {
-    console.log(
-      JSON.stringify({
-        ok: false,
-        skipped: true,
-        reason: "LIVE_SMOKE_PRECONDITIONS_MISSING",
-        allow,
-        hasKey,
-        hasModel,
-        // never include values
-      }),
-    );
-    process.exit(0);
+/** Validate journal integrity against session mode without building messages. */
+export function assertJournalMatchesMode(
+  turns: JournalTurn[],
+  mode: ConversationMode,
+): void {
+  for (const turn of turns) {
+    if (mode === "live" && turn.role === "assistant_fixture") {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Journal incompatible avec une session live (tour fixture détecté).",
+      );
+    }
+    if (mode === "fixture" && turn.role === "assistant_live") {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Journal incompatible avec une session fixture (tour live détecté).",
+      );
+    }
   }
-
-  if (process.env.OPS1_CONVERSATION_PROVIDER === "fake") {
-    console.log(
-      JSON.stringify({
-        ok: false,
-        skipped: true,
-        reason: "FAKE_PROVIDER_FORCED_INCOMPATIBLE_WITH_LIVE_SMOKE",
-      }),
-    );
-    process.exit(1);
-  }
-
-  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "ops1-i2-live-smoke-"));
-  process.env.OPS1_EXEC_ROOT = tmpRoot;
-
-  const { resetOps1DbForTests, createOpenSession, listTurns, listConversationAttempts } =
-    await import("../lib/ops1/repository");
-  const { sendConversationMessage } = await import(
-    "../lib/ops1/conversation/service"
-  );
-
-  resetOps1DbForTests();
-  const { session } = createOpenSession();
-  const result = await sendConversationMessage({
-    sessionId: session.sessionId,
-    content: "Réponds en une phrase courte : ping OPS1 I2 smoke.",
-    mode: "live",
-  });
-
-  const turns = listTurns(session.sessionId);
-  const attempts = listConversationAttempts(session.sessionId);
-  const assistant = result.assistantTurn;
-
-  const report = {
-    ok: Boolean(assistant && assistant.content.trim() && !result.assistantError),
-    mode: result.mode,
-    assistantRole: assistant?.role ?? null,
-    assistantNonEmpty: Boolean(assistant?.content.trim()),
-    turnsCount: turns.length,
-    attemptStatus: attempts[0]?.status ?? null,
-    usage: result.usage
-      ? {
-          provider: result.usage.provider,
-          model: result.usage.model,
-          inputTokens: result.usage.inputTokens,
-          outputTokens: result.usage.outputTokens,
-          totalTokens: result.usage.totalTokens,
-          durationMs: result.usage.durationMs,
-        }
-      : null,
-    error: result.assistantError,
-  };
-
-  console.log(JSON.stringify(report));
-  resetOps1DbForTests();
-  fs.rmSync(tmpRoot, { recursive: true, force: true });
-  process.exit(report.ok ? 0 : 1);
 }
-
-main().catch((error) => {
-  console.log(
-    JSON.stringify({
-      ok: false,
-      error: "LIVE_SMOKE_INTERNAL",
-      code: error instanceof Error ? error.name : "Error",
-    }),
-  );
-  process.exit(1);
-});
 
 ```
 
-### Modifiés — diff utile vs `origin/main`
+## Fichiers modifiés — diff utile vs HEAD
 
-#### `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx`
+### `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-index cb9eb9a..119c184 100644
+index cb9eb9a..579223e 100644
 --- a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-@@ -1,98 +1,265 @@
+@@ -1,98 +1,173 @@
 -import { render, screen, waitFor } from "@testing-library/react";
 +import { cleanup, render, screen, waitFor } from "@testing-library/react";
  import userEvent from "@testing-library/user-event";
 -import { beforeEach, describe, expect, it, vi } from "vitest";
 +import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  import { Ops1SessionScreen } from "@/features/ops1/Ops1SessionScreen";
- 
+
  const create = vi.fn();
  const get = vi.fn();
 -const append = vi.fn();
 +const send = vi.fn();
 +const liveConfig = vi.fn();
- 
+
  vi.mock("@/lib/ops1/actions", () => ({
    ops1CreateSessionAction: (...args: unknown[]) => create(...args),
    ops1GetSessionAction: (...args: unknown[]) => get(...args),
@@ -1227,9 +1507,9 @@ index cb9eb9a..119c184 100644
 +  ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
 +  ops1AppendUserMessageAction: vi.fn(),
  }));
- 
+
 -describe("Ops1SessionScreen", () => {
-+const session = {
++const fixtureSession = {
 +  sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
 +  projectKey: "sfia-studio-ops1",
 +  status: "OPEN" as const,
@@ -1237,59 +1517,50 @@ index cb9eb9a..119c184 100644
 +  updatedAt: "2026-07-20T21:00:00+02:00",
 +  parentSessionId: null,
 +  fixtureMode: true,
++  conversationMode: "fixture" as const,
 +};
 +
-+describe("Ops1SessionScreen I2", () => {
-+  afterEach(() => {
-+    cleanup();
-+  });
++const liveSession = {
++  ...fixtureSession,
++  fixtureMode: false,
++  conversationMode: "live" as const,
++};
++
++describe("Ops1SessionScreen I2 immutable mode + signalétique", () => {
++  afterEach(() => cleanup());
 +
    beforeEach(() => {
      vi.clearAllMocks();
      window.sessionStorage.clear();
 +    liveConfig.mockResolvedValue({
 +      ok: true,
-+      data: { available: false, missing: ["OPENAI_API_KEY", "OPENAI_MODEL"] },
++      data: {
++        available: false,
++        missing: ["OPENAI_API_KEY", "OPENAI_MODEL"],
++        testProvider: false,
++      },
 +    });
    });
- 
+
 -  it("shows empty state and fixture badge", async () => {
-+  it("shows empty state and live unavailable", async () => {
++  it("shows mode selection and live unavailable", async () => {
      render(<Ops1SessionScreen />);
      await waitFor(() => {
        expect(screen.getByTestId("ops1-empty-state")).toBeInTheDocument();
      });
 -    expect(screen.getByText("MODE FIXTURE / NON LIVE")).toBeInTheDocument();
 -    expect(screen.getByText("Aucune session active")).toBeInTheDocument();
-+    expect(screen.getByTestId("ops1-badge-fixture")).toBeInTheDocument();
-+    expect(
-+      screen.getByTestId("ops1-badge-live-unavailable"),
-+    ).toBeInTheDocument();
++    expect(screen.getByTestId("ops1-create-mode-selector")).toBeInTheDocument();
++    expect(screen.getByTestId("ops1-badge-live-unavailable")).toBeInTheDocument();
++    expect(screen.getByTestId("ops1-create-mode-live")).toBeDisabled();
    });
- 
+
 -  it("creates OPEN session and shows sessionId", async () => {
-+  it("shows live ready when config available", async () => {
-+    liveConfig.mockResolvedValue({
-+      ok: true,
-+      data: { available: true, missing: [] },
-+    });
-+    render(<Ops1SessionScreen />);
-+    await waitFor(() => {
-+      expect(screen.getByTestId("ops1-badge-live-ready")).toBeInTheDocument();
-+    });
-+  });
-+
-+  it("creates session, sends fixture, shows no execution CTA", async () => {
++  it("creates fixture session locked and refuses interactive mode change", async () => {
      const user = userEvent.setup();
 -    create.mockResolvedValue({
-+    create.mockResolvedValue({ ok: true, data: { session } });
-+    get.mockResolvedValue({
-+      ok: true,
-+      data: { session, turns: [], attempts: [] },
-+    });
-+    send.mockResolvedValue({
-       ok: true,
-       data: {
+-      ok: true,
+-      data: {
 -        session: {
 -          sessionId: "ops1-sess-11111111-1111-4111-8111-111111111111",
 -          projectKey: "sfia-studio-ops1",
@@ -1298,43 +1569,10 @@ index cb9eb9a..119c184 100644
 -          updatedAt: "2026-07-20T21:00:00+02:00",
 -          parentSessionId: null,
 -          fixtureMode: true,
-+        userTurn: {
-+          turnId: "ops1-turn-1",
-+          sessionId: session.sessionId,
-+          sequence: 1,
-+          role: "user",
-+          content: "hi",
-+          fixture: true,
-+          createdAt: "t",
-         },
-+        assistantTurn: {
-+          turnId: "ops1-turn-2",
-+          sessionId: session.sessionId,
-+          sequence: 2,
-+          role: "assistant_fixture",
-+          content: "[FIXTURE / NON LIVE] ok",
-+          fixture: true,
-+          createdAt: "t",
-+        },
-+        assistantError: null,
-+        usage: null,
-+        mode: "fixture",
-       },
-     });
-+
-+    render(<Ops1SessionScreen />);
-+    await waitFor(() =>
-+      expect(
-+        screen.getAllByTestId("ops1-create-session").length,
-+      ).toBeGreaterThan(0),
-+    );
-+    await user.click(screen.getAllByTestId("ops1-create-session")[0]);
-+    await waitFor(() =>
-+      expect(screen.getByTestId("ops1-session-status")).toHaveTextContent(
-+        "OPEN",
-+      ),
-+    );
-+
+-        },
+-      },
+-    });
++    create.mockResolvedValue({ ok: true, data: { session: fixtureSession } });
      get.mockResolvedValue({
        ok: true,
        data: {
@@ -1346,179 +1584,140 @@ index cb9eb9a..119c184 100644
 -          updatedAt: "2026-07-20T21:00:00+02:00",
 -          parentSessionId: null,
 -          fixtureMode: true,
-+        session,
+-        },
++        session: fixtureSession,
+         turns: [],
++        attempts: [],
++        presentation: "fixture",
+       },
+     });
+-
+     render(<Ops1SessionScreen />);
+     await waitFor(() =>
+-      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
+-        0,
+-      ),
++      expect(
++        screen.getAllByTestId("ops1-create-session").length,
++      ).toBeGreaterThan(0),
+     );
+     await user.click(screen.getAllByTestId("ops1-create-session")[0]);
++    expect(screen.getByTestId("ops1-mode-locked").textContent).toMatch(
++      /FIXTURE — verrouillé/,
++    );
++    expect(screen.getByTestId("ops1-mode-fixture")).toBeDisabled();
++    expect(screen.getByTestId("ops1-mode-live")).toBeDisabled();
++    expect(create.mock.calls[0][0]).toEqual({ mode: "fixture" });
++  });
++
++  it("shows test provider badges — never LIVE GPT", async () => {
++    liveConfig.mockResolvedValue({
++      ok: true,
++      data: { available: true, missing: [], testProvider: true },
++    });
++    get.mockResolvedValue({
++      ok: true,
++      data: {
++        session: liveSession,
 +        turns: [
 +          {
-+            turnId: "ops1-turn-1",
-+            sessionId: session.sessionId,
++            turnId: "t1",
++            sessionId: liveSession.sessionId,
 +            sequence: 1,
 +            role: "user",
-+            content: "hi",
-+            fixture: true,
++            content: "q",
++            fixture: false,
 +            createdAt: "t",
 +          },
 +          {
-+            turnId: "ops1-turn-2",
-+            sessionId: session.sessionId,
++            turnId: "t2",
++            sessionId: liveSession.sessionId,
 +            sequence: 2,
-+            role: "assistant_fixture",
-+            content: "[FIXTURE / NON LIVE] ok",
-+            fixture: true,
++            role: "assistant_live",
++            content: "[TEST/FAKE · NON LIVE] reply",
++            fixture: false,
 +            createdAt: "t",
 +          },
 +        ],
 +        attempts: [],
++        presentation: "test_provider",
 +      },
 +    });
-+
-+    await user.type(screen.getByTestId("ops1-message-input"), "hi");
-+    await user.click(screen.getByTestId("ops1-send-message"));
-+    await waitFor(() => expect(send).toHaveBeenCalled());
-+    expect(send.mock.calls[0][0].mode).toBe("fixture");
-+    expect(screen.getByTestId("ops1-no-execution-hint")).toBeInTheDocument();
-+    expect(
-+      screen.queryByRole("button", { name: /exécuter|gate|cursor/i }),
-+    ).toBeNull();
-+  });
-+
-+  it("shows provider error and usage on live success path", async () => {
-+    const user = userEvent.setup();
-+    liveConfig.mockResolvedValue({
-+      ok: true,
-+      data: { available: true, missing: [] },
-+    });
-+    create.mockResolvedValue({ ok: true, data: { session } });
-+    get.mockResolvedValue({
-+      ok: true,
-+      data: { session, turns: [], attempts: [] },
-+    });
-+    send.mockResolvedValue({
-+      ok: true,
-+      data: {
-+        userTurn: {
-+          turnId: "ops1-turn-1",
-+          sessionId: session.sessionId,
-+          sequence: 1,
-+          role: "user",
-+          content: "live",
-+          fixture: false,
-+          createdAt: "t",
-         },
--        turns: [],
-+        assistantTurn: null,
-+        assistantError: "Échec de l’appel fournisseur GPT. Réessayez manuellement.",
-+        usage: null,
-+        mode: "live",
-       },
-     });
- 
-     render(<Ops1SessionScreen />);
-     await waitFor(() =>
--      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
--        0,
--      ),
-+      expect(
-+        screen.getAllByTestId("ops1-create-session").length,
-+      ).toBeGreaterThan(0),
-     );
-     await user.click(screen.getAllByTestId("ops1-create-session")[0]);
++    window.sessionStorage.setItem(
++      "sfia-ops1-i1-active-session",
++      liveSession.sessionId,
++    );
++    render(<Ops1SessionScreen />);
      await waitFor(() => {
 -      expect(screen.getByTestId("ops1-session-id")).toHaveTextContent(
 -        "ops1-sess-11111111-1111-4111-8111-111111111111",
-+      expect(screen.getByTestId("ops1-mode-live")).toBeEnabled();
-+    });
-+    await user.click(screen.getByTestId("ops1-mode-live"));
-+    await user.type(screen.getByTestId("ops1-message-input"), "live");
-+    await user.click(screen.getByTestId("ops1-send-message"));
-+    await waitFor(() => {
-+      expect(screen.getByTestId("ops1-error")).toHaveTextContent(
-+        "Échec de l’appel fournisseur GPT",
-       );
+-      );
++      expect(screen.getByTestId("ops1-badge-test-provider")).toBeInTheDocument();
      });
 -    expect(screen.getByTestId("ops1-session-status")).toHaveTextContent("OPEN");
-+    expect(send.mock.calls.at(-1)?.[0].mode).toBe("live");
++    expect(screen.queryByTestId("ops1-badge-live")).toBeNull();
++    expect(screen.getByText("TEST / FAKE")).toBeInTheDocument();
++    expect(screen.getByText("Assistant test")).toBeInTheDocument();
++    expect(screen.getByTestId("ops1-mode-locked").textContent).toMatch(
++      /verrouillé/,
++    );
    });
- 
+
 -  it("shows create error", async () => {
-+  it("shows usage counters after live success", async () => {
-     const user = userEvent.setup();
+-    const user = userEvent.setup();
 -    create.mockResolvedValue({
 -      ok: false,
 -      code: "PERSISTENCE",
 -      message: "Échec de création de la session.",
++  it("shows GPT LIVE badges for real live presentation", async () => {
 +    liveConfig.mockResolvedValue({
 +      ok: true,
-+      data: { available: true, missing: [] },
++      data: { available: true, missing: [], testProvider: false },
      });
-+    create.mockResolvedValue({ ok: true, data: { session } });
-+    get.mockResolvedValue({
-+      ok: true,
-+      data: { session, turns: [], attempts: [] },
-+    });
-+    send.mockResolvedValue({
-+      ok: true,
-+      data: {
-+        userTurn: {
-+          turnId: "t1",
-+          sessionId: session.sessionId,
-+          sequence: 1,
-+          role: "user",
-+          content: "q",
-+          fixture: false,
-+          createdAt: "t",
-+        },
-+        assistantTurn: {
-+          turnId: "t2",
-+          sessionId: session.sessionId,
-+          sequence: 2,
-+          role: "assistant_live",
-+          content: "a",
-+          fixture: false,
-+          createdAt: "t",
-+        },
-+        assistantError: null,
-+        usage: {
-+          inputTokens: 11,
-+          outputTokens: 7,
-+          totalTokens: 18,
-+          model: "fake-test-model",
-+          provider: "fake-test",
-+          attemptId: "ops1-att-1",
-+          durationMs: 42,
-+        },
-+        mode: "live",
-+      },
-+    });
-+
-     render(<Ops1SessionScreen />);
-     await waitFor(() =>
+-    render(<Ops1SessionScreen />);
+-    await waitFor(() =>
 -      expect(screen.getAllByTestId("ops1-create-session").length).toBeGreaterThan(
 -        0,
 -      ),
-+      expect(
-+        screen.getAllByTestId("ops1-create-session").length,
-+      ).toBeGreaterThan(0),
++    get.mockResolvedValue({
++      ok: true,
++      data: {
++        session: liveSession,
++        turns: [
++          {
++            turnId: "t2",
++            sessionId: liveSession.sessionId,
++            sequence: 2,
++            role: "assistant_live",
++            content: "hello from openai",
++            fixture: false,
++            createdAt: "t",
++          },
++        ],
++        attempts: [],
++        presentation: "openai_live",
++      },
++    });
++    window.sessionStorage.setItem(
++      "sfia-ops1-i1-active-session",
++      liveSession.sessionId,
      );
-     await user.click(screen.getAllByTestId("ops1-create-session")[0]);
+-    await user.click(screen.getAllByTestId("ops1-create-session")[0]);
++    render(<Ops1SessionScreen />);
      await waitFor(() => {
 -      expect(screen.getByTestId("ops1-error")).toHaveTextContent(
 -        "Échec de création de la session.",
 -      );
-+      expect(screen.getByTestId("ops1-mode-live")).toBeEnabled();
-+    });
-+    await user.click(screen.getByTestId("ops1-mode-live"));
-+    await user.type(screen.getByTestId("ops1-message-input"), "q");
-+    await user.click(screen.getByTestId("ops1-send-message"));
-+    await waitFor(() => {
-+      expect(screen.getByTestId("ops1-usage")).toHaveTextContent("18");
++      expect(screen.getByTestId("ops1-badge-live")).toHaveTextContent("GPT LIVE");
      });
-+    expect(send.mock.calls.at(-1)?.[0].mode).toBe("live");
++    expect(screen.queryByText("TEST / FAKE")).toBeNull();
++    expect(screen.getByText("Assistant live")).toBeInTheDocument();
    });
  });
 
 ```
 
-#### `projects/sfia-studio/app/app/nouvelle-demande/page.tsx`
+### `projects/sfia-studio/app/app/nouvelle-demande/page.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
@@ -1563,11 +1762,11 @@ index 5878171..8754b03 100644
 
 ```
 
-#### `projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts`
+### `projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts b/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
-index c6e97f6..52dfa5f 100644
+index c6e97f6..36b868f 100644
 --- a/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
 +++ b/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
 @@ -20,7 +20,7 @@ test.describe("OPS1 I1 session + journal", () => {
@@ -1578,18 +1777,32 @@ index c6e97f6..52dfa5f 100644
 +      page.getByTestId("ops1-session-root").getByText("FIXTURE / NON LIVE"),
      ).toBeVisible();
      await expect(page.getByTestId("ops1-empty-state")).toBeVisible();
- 
+
+@@ -29,9 +29,12 @@ test.describe("OPS1 I1 session + journal", () => {
+       fullPage: true,
+     });
+
++    await page.getByTestId("ops1-create-mode-fixture").check();
+     await page.getByTestId("ops1-create-session").click();
+     await expect(page.getByTestId("ops1-open-session")).toBeVisible();
+-    await expect(page.getByTestId("ops1-session-status")).toHaveText("OPEN");
++    await expect(page.getByTestId("ops1-mode-locked")).toContainText(
++      "FIXTURE — verrouillé",
++    );
+     const sessionId = await page.getByTestId("ops1-session-id").innerText();
+     expect(sessionId).toMatch(/^ops1-sess-/);
+
 
 ```
 
-#### `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
+### `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-index bb0d8ee..35de25a 100644
+index bb0d8ee..8437b50 100644
 --- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
 +++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-@@ -4,11 +4,17 @@ import { useCallback, useEffect, useState, useTransition } from "react";
+@@ -4,11 +4,18 @@ import { useCallback, useEffect, useState, useTransition } from "react";
  import { CtaButton } from "@/components/ui/CtaButton";
  import { StatusPill } from "@/components/ui/StatusPill";
  import {
@@ -1605,18 +1818,23 @@ index bb0d8ee..35de25a 100644
 +  ConversationUsageCounters,
 +  CycleSession,
 +  JournalTurn,
++  ProviderPresentation,
 +} from "@/lib/ops1/types";
  import { OPS1_MAX_MESSAGE_CHARS } from "@/lib/ops1/types";
  import styles from "./ops1-session.module.css";
- 
-@@ -23,12 +29,24 @@ type UiPhase =
+
+@@ -23,12 +30,31 @@ type UiPhase =
    | "error_create"
    | "error_journal";
- 
-+function roleLabel(role: JournalTurn["role"]): string {
+
++function roleLabel(
++  role: JournalTurn["role"],
++  presentation: ProviderPresentation,
++): string {
 +  if (role === "user") return "Vous";
-+  if (role === "assistant_live") return "Assistant live";
-+  return "Assistant fixture";
++  if (role === "assistant_fixture") return "Assistant fixture";
++  if (presentation === "test_provider") return "Assistant test";
++  return "Assistant live";
 +}
 +
  export function Ops1SessionScreen() {
@@ -1625,16 +1843,27 @@ index bb0d8ee..35de25a 100644
    const [turns, setTurns] = useState<JournalTurn[]>([]);
    const [draft, setDraft] = useState("");
    const [error, setError] = useState<string | null>(null);
-+  const [mode, setMode] = useState<ConversationMode>("fixture");
++  const [createMode, setCreateMode] = useState<ConversationMode>("fixture");
 +  const [liveAvailable, setLiveAvailable] = useState(false);
 +  const [liveMissing, setLiveMissing] = useState<string[]>([]);
++  const [testProvider, setTestProvider] = useState(false);
++  const [presentation, setPresentation] =
++    useState<ProviderPresentation>("fixture");
 +  const [lastUsage, setLastUsage] = useState<ConversationUsageCounters | null>(
 +    null,
 +  );
    const [pending, startTransition] = useTransition();
- 
+
    const loadBundle = useCallback(async (sessionId: string) => {
-@@ -52,6 +70,11 @@ export function Ops1SessionScreen() {
+@@ -45,6 +71,7 @@ export function Ops1SessionScreen() {
+     }
+     setSession(result.data.session);
+     setTurns(result.data.turns);
++    setPresentation(result.data.presentation);
+     setError(null);
+     setPhase("open");
+   }, []);
+@@ -52,6 +79,12 @@ export function Ops1SessionScreen() {
    useEffect(() => {
      let cancelled = false;
      (async () => {
@@ -1642,29 +1871,46 @@ index bb0d8ee..35de25a 100644
 +      if (!cancelled && cfg.ok) {
 +        setLiveAvailable(cfg.data.available);
 +        setLiveMissing(cfg.data.missing);
++        setTestProvider(cfg.data.testProvider);
 +      }
        const stored =
          typeof window !== "undefined"
            ? window.sessionStorage.getItem(STORAGE_KEY)
-@@ -69,6 +92,7 @@ export function Ops1SessionScreen() {
- 
+@@ -68,10 +101,18 @@ export function Ops1SessionScreen() {
+   }, [loadBundle]);
+
    const onCreate = () => {
++    if (createMode === "live" && !liveAvailable) {
++      setError(
++        `Création live impossible (variables manquantes : ${liveMissing.join(", ") || "OPENAI_API_KEY, OPENAI_MODEL"}).`,
++      );
++      setPhase("error_create");
++      return;
++    }
      setError(null);
 +    setLastUsage(null);
      setPhase("creating");
      startTransition(async () => {
-       const result = await ops1CreateSessionAction();
-@@ -86,12 +110,20 @@ export function Ops1SessionScreen() {
- 
-   const onSend = () => {
-     if (!session) return;
-+    if (mode === "live" && !liveAvailable) {
-+      setError(
-+        `Mode live indisponible (variables manquantes : ${liveMissing.join(", ") || "OPENAI_API_KEY, OPENAI_MODEL"}).`,
+-      const result = await ops1CreateSessionAction();
++      const result = await ops1CreateSessionAction({ mode: createMode });
+       if (!result.ok) {
+         setError(result.message);
+         setPhase("error_create");
+@@ -80,6 +121,13 @@ export function Ops1SessionScreen() {
+       window.sessionStorage.setItem(STORAGE_KEY, result.data.session.sessionId);
+       setSession(result.data.session);
+       setTurns([]);
++      setPresentation(
++        result.data.session.conversationMode === "fixture"
++          ? "fixture"
++          : testProvider
++            ? "test_provider"
++            : "openai_live",
 +      );
-+      setPhase("error_journal");
-+      return;
-+    }
+       setPhase("open");
+     });
+   };
+@@ -89,9 +137,10 @@ export function Ops1SessionScreen() {
      setError(null);
      setPhase("sending");
      startTransition(async () => {
@@ -1672,15 +1918,16 @@ index bb0d8ee..35de25a 100644
 +      const result = await ops1SendMessageAction({
          sessionId: session.sessionId,
          content: draft,
-+        mode,
++        mode: session.conversationMode,
        });
        if (!result.ok) {
          setError(result.message);
-@@ -99,13 +131,15 @@ export function Ops1SessionScreen() {
+@@ -99,13 +148,16 @@ export function Ops1SessionScreen() {
          return;
        }
        setDraft("");
 +      setLastUsage(result.data.usage);
++      setPresentation(result.data.presentation);
 +      await loadBundle(session.sessionId);
        if (result.data.assistantError) {
          setError(result.data.assistantError);
@@ -1692,17 +1939,21 @@ index bb0d8ee..35de25a 100644
 -      await loadBundle(session.sessionId);
      });
    };
- 
-@@ -114,22 +148,43 @@ export function Ops1SessionScreen() {
+
+@@ -114,22 +166,76 @@ export function Ops1SessionScreen() {
      setSession(null);
      setTurns([]);
      setError(null);
 +    setLastUsage(null);
++    setPresentation("fixture");
      setPhase("idle");
    };
- 
-+  const hasLiveTurn = turns.some((t) => t.role === "assistant_live");
-+  const showLiveBadge = liveAvailable || hasLiveTurn;
+
++  const lockedMode = session?.conversationMode;
++  const isFixtureSession = lockedMode === "fixture";
++  const isLiveSession = lockedMode === "live";
++  const isTestPresentation = presentation === "test_provider";
++  const isOpenAiLive = presentation === "openai_live";
 +
    return (
      <div className={styles.root} data-testid="ops1-session-root">
@@ -1715,66 +1966,102 @@ index bb0d8ee..35de25a 100644
          <p className={styles.lede}>
 -          Ouvrir une CycleSession locale, journaliser des tours fixture, et
 -          retrouver le journal après rechargement. Aucun fournisseur live.
-+          Conversation multi-tours (fixture ou GPT live serveur). Aucune
-+          exécution, aucun gate, aucun Cursor depuis le chat.
++          Conversation multi-tours. Le mode est choisi à la création puis
++          verrouillé. Aucune exécution, aucun gate, aucun Cursor depuis le chat.
          </p>
          <div className={styles.badgeRow} aria-live="polite">
 -          <StatusPill tone="orange">MODE FIXTURE / NON LIVE</StatusPill>
-+          {showLiveBadge ? (
-+            <span data-testid="ops1-badge-live">
-+              <StatusPill tone="green">LIVE GPT</StatusPill>
-+            </span>
-+          ) : (
++          {!session ? (
++            <>
++              <span data-testid="ops1-badge-fixture">
++                <StatusPill tone="orange">FIXTURE / NON LIVE</StatusPill>
++              </span>
++              {testProvider ? (
++                <span data-testid="ops1-badge-test-provider">
++                  <StatusPill tone="purple">TEST PROVIDER / NON LIVE</StatusPill>
++                </span>
++              ) : null}
++              {!liveAvailable ? (
++                <span data-testid="ops1-badge-live-unavailable">
++                  <StatusPill tone="muted">LIVE INDISPONIBLE</StatusPill>
++                </span>
++              ) : testProvider ? (
++                <span data-testid="ops1-badge-live-ready">
++                  <StatusPill tone="blueFlush">
++                    LIVE TECHNIQUE (TEST)
++                  </StatusPill>
++                </span>
++              ) : (
++                <span data-testid="ops1-badge-live-ready">
++                  <StatusPill tone="blueFlush">LIVE DISPONIBLE</StatusPill>
++                </span>
++              )}
++            </>
++          ) : null}
++          {session && isFixtureSession ? (
 +            <span data-testid="ops1-badge-fixture">
 +              <StatusPill tone="orange">FIXTURE / NON LIVE</StatusPill>
 +            </span>
-+          )}
-+          {!liveAvailable ? (
-+            <span data-testid="ops1-badge-live-unavailable">
-+              <StatusPill tone="muted">LIVE INDISPONIBLE</StatusPill>
++          ) : null}
++          {session && isLiveSession && isTestPresentation ? (
++            <span data-testid="ops1-badge-test-provider">
++              <StatusPill tone="purple">TEST PROVIDER / NON LIVE</StatusPill>
 +            </span>
-+          ) : (
++          ) : null}
++          {session && isLiveSession && isOpenAiLive ? (
++            <span data-testid="ops1-badge-live">
++              <StatusPill tone="green">GPT LIVE</StatusPill>
++            </span>
++          ) : null}
++          {session && isLiveSession && isOpenAiLive ? (
 +            <span data-testid="ops1-badge-live-ready">
 +              <StatusPill tone="blueFlush">LIVE DISPONIBLE</StatusPill>
 +            </span>
-+          )}
++          ) : null}
            {session ? <StatusPill tone="green">OPEN</StatusPill> : null}
          </div>
        </header>
-@@ -196,6 +251,51 @@ export function Ops1SessionScreen() {
-             </div>
-           </dl>
- 
+@@ -150,9 +256,63 @@ export function Ops1SessionScreen() {
+             Aucune session active
+           </h2>
+           <p className={styles.muted}>
+-            Projet cible : <strong>sfia-studio-ops1</strong>. La session sera
+-            créée en statut OPEN avec journal initialisé.
++            Projet cible : <strong>sfia-studio-ops1</strong>. Choisissez le mode
++            avant de créer la session — il sera ensuite immuable.
+           </p>
++
 +          <div
 +            className={styles.modeRow}
 +            role="radiogroup"
-+            aria-label="Mode conversationnel"
-+            data-testid="ops1-mode-selector"
++            aria-label="Choix du mode de session"
++            data-testid="ops1-create-mode-selector"
 +          >
 +            <label className={styles.modeOption}>
 +              <input
 +                type="radio"
-+                name="ops1-mode"
++                name="ops1-create-mode"
 +                value="fixture"
-+                checked={mode === "fixture"}
-+                data-testid="ops1-mode-fixture"
-+                onChange={() => setMode("fixture")}
++                checked={createMode === "fixture"}
++                data-testid="ops1-create-mode-fixture"
++                onChange={() => setCreateMode("fixture")}
 +              />
-+              Fixture / non live
++              Fixture locale — test non live
 +            </label>
 +            <label className={styles.modeOption}>
 +              <input
 +                type="radio"
-+                name="ops1-mode"
++                name="ops1-create-mode"
 +                value="live"
-+                checked={mode === "live"}
-+                data-testid="ops1-mode-live"
++                checked={createMode === "live"}
++                data-testid="ops1-create-mode-live"
 +                disabled={!liveAvailable}
 +                onChange={() => {
-+                  if (liveAvailable) setMode("live");
++                  if (liveAvailable) setCreateMode("live");
 +                }}
 +              />
-+              Live GPT
++              GPT live — appel fournisseur réel
++              {testProvider ? " (environnement de test)" : ""}
 +            </label>
 +          </div>
 +
@@ -1784,16 +2071,103 @@ index bb0d8ee..35de25a 100644
 +              data-testid="ops1-live-unavailable-notice"
 +            >
 +              Configuration live indisponible (
-+              {liveMissing.join(", ") || "OPENAI_API_KEY, OPENAI_MODEL"}). Le
-+              mode fixture reste disponible. Aucune valeur secrète n’est
++              {liveMissing.join(", ") || "OPENAI_API_KEY, OPENAI_MODEL"}).
++              L’option GPT live est désactivée. Aucune valeur secrète n’est
 +              affichée.
++            </p>
++          ) : null}
++
++          {testProvider ? (
++            <p className={styles.warn} data-testid="ops1-test-env-notice">
++              Environnement de test — aucun appel OpenAI. Les réponses du
++              provider fake ne sont jamais présentées comme GPT live.
++            </p>
++          ) : null}
++
+           {error ? (
+             <p className={styles.error} role="alert" data-testid="ops1-error">
+               {error}
+@@ -160,10 +320,14 @@ export function Ops1SessionScreen() {
+           ) : null}
+           <CtaButton
+             onClick={onCreate}
+-            disabled={pending}
++            disabled={pending || (createMode === "live" && !liveAvailable)}
+             data-testid="ops1-create-session"
+           >
+-            Nouvelle session
++            {createMode === "live"
++              ? testProvider
++                ? "Créer session live (test provider)"
++                : "Créer session GPT live"
++              : "Créer session fixture"}
+           </CtaButton>
+         </section>
+       ) : null}
+@@ -196,6 +360,62 @@ export function Ops1SessionScreen() {
+             </div>
+           </dl>
+
++          <div
++            className={styles.lockedMode}
++            data-testid="ops1-mode-locked"
++            aria-live="polite"
++          >
++            <p className={styles.lockedModeLabel} data-testid="ops1-mode-label">
++              {session.conversationMode === "fixture"
++                ? "Mode de session : FIXTURE — verrouillé"
++                : isTestPresentation
++                  ? "Mode de session : LIVE TECHNIQUE (TEST) — verrouillé"
++                  : "Mode de session : GPT LIVE — verrouillé"}
++            </p>
++            <p className={styles.hint} data-testid="ops1-mode-lock-hint">
++              Le mode ne peut pas être modifié dans cette session. Créez une
++              nouvelle session pour changer de mode.
++            </p>
++            {/* Radios disabled — non-interactive lock proof for E2E */}
++            <div
++              className={styles.modeRow}
++              role="group"
++              aria-label="Mode de session verrouillé"
++              data-testid="ops1-mode-selector"
++            >
++              <label className={styles.modeOption}>
++                <input
++                  type="radio"
++                  name="ops1-mode-locked"
++                  value="fixture"
++                  checked={session.conversationMode === "fixture"}
++                  disabled
++                  data-testid="ops1-mode-fixture"
++                  readOnly
++                />
++                Fixture / non live
++              </label>
++              <label className={styles.modeOption}>
++                <input
++                  type="radio"
++                  name="ops1-mode-locked"
++                  value="live"
++                  checked={session.conversationMode === "live"}
++                  disabled
++                  data-testid="ops1-mode-live"
++                  readOnly
++                />
++                Live GPT
++              </label>
++            </div>
++          </div>
++
++          {isTestPresentation ? (
++            <p className={styles.warn} data-testid="ops1-test-env-notice">
++              Environnement de test — aucun appel OpenAI.
 +            </p>
 +          ) : null}
 +
            <div className={styles.journal} data-testid="ops1-journal">
              <h3 className={styles.journalTitle}>Journal</h3>
              {turns.length === 0 ? (
-@@ -215,14 +315,18 @@ export function Ops1SessionScreen() {
+@@ -215,14 +435,22 @@ export function Ops1SessionScreen() {
                      data-testid="ops1-turn"
                      data-role={turn.role}
                      data-sequence={turn.sequence}
@@ -1806,21 +2180,25 @@ index bb0d8ee..35de25a 100644
 -                      </span>
 -                      {turn.fixture ? (
 -                        <span className={styles.fixtureTag}>fixture</span>
-+                      <span>{roleLabel(turn.role)}</span>
-+                      {turn.fixture || turn.role === "assistant_fixture" ? (
++                      <span>{roleLabel(turn.role, presentation)}</span>
++                      {turn.role === "assistant_fixture" ? (
 +                        <span className={styles.fixtureTag}>
 +                          FIXTURE / NON LIVE
 +                        </span>
 +                      ) : null}
-+                      {turn.role === "assistant_live" ? (
-+                        <span className={styles.liveTag}>LIVE GPT</span>
++                      {turn.role === "assistant_live" &&
++                      isTestPresentation ? (
++                        <span className={styles.testTag}>TEST / FAKE</span>
++                      ) : null}
++                      {turn.role === "assistant_live" && isOpenAiLive ? (
++                        <span className={styles.liveTag}>GPT LIVE</span>
                        ) : null}
                      </div>
                      <p className={styles.turnContent}>{turn.content}</p>
-@@ -232,12 +336,43 @@ export function Ops1SessionScreen() {
+@@ -232,12 +460,43 @@ export function Ops1SessionScreen() {
              )}
            </div>
- 
+
 +          {lastUsage ? (
 +            <dl className={styles.usage} data-testid="ops1-usage">
 +              <div>
@@ -1851,7 +2229,7 @@ index bb0d8ee..35de25a 100644
                {error}
              </p>
            ) : null}
- 
+
 +          {phase === "sending" ? (
 +            <p className={styles.muted} data-testid="ops1-sending">
 +              Envoi en cours…
@@ -1861,17 +2239,22 @@ index bb0d8ee..35de25a 100644
            <form
              className={styles.composer}
              onSubmit={(e) => {
-@@ -246,7 +381,8 @@ export function Ops1SessionScreen() {
+@@ -246,7 +505,13 @@ export function Ops1SessionScreen() {
              }}
            >
              <label className={styles.label} htmlFor="ops1-message">
 -              Message local (fixture)
 +              Message (
-+              {mode === "live" ? "live GPT serveur" : "fixture locale"})
++              {isFixtureSession
++                ? "fixture locale"
++                : isTestPresentation
++                  ? "test provider / non live"
++                  : "GPT live serveur"}
++              )
              </label>
              <textarea
                id="ops1-message"
-@@ -257,7 +393,7 @@ export function Ops1SessionScreen() {
+@@ -257,7 +522,7 @@ export function Ops1SessionScreen() {
                rows={4}
                disabled={pending || phase === "sending"}
                onChange={(e) => setDraft(e.target.value)}
@@ -1880,16 +2263,20 @@ index bb0d8ee..35de25a 100644
              />
              <div className={styles.composerActions}>
                <CtaButton
-@@ -265,7 +401,7 @@ export function Ops1SessionScreen() {
+@@ -265,7 +530,11 @@ export function Ops1SessionScreen() {
                  disabled={pending || !draft.trim()}
                  data-testid="ops1-send-message"
                >
 -                Envoyer (fixture)
-+                {mode === "live" ? "Envoyer (live)" : "Envoyer (fixture)"}
++                {isFixtureSession
++                  ? "Envoyer (fixture)"
++                  : isTestPresentation
++                    ? "Envoyer (test provider)"
++                    : "Envoyer (GPT live)"}
                </CtaButton>
                <CtaButton
                  variant="secondary"
-@@ -275,8 +411,10 @@ export function Ops1SessionScreen() {
+@@ -275,8 +544,10 @@ export function Ops1SessionScreen() {
                  Revenir à l’écran vide
                </CtaButton>
              </div>
@@ -1905,20 +2292,41 @@ index bb0d8ee..35de25a 100644
 
 ```
 
-#### `projects/sfia-studio/app/features/ops1/ops1-session.module.css`
+### `projects/sfia-studio/app/features/ops1/ops1-session.module.css`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/ops1/ops1-session.module.css b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
-index dec85d4..fe573a7 100644
+index dec85d4..675dc7c 100644
 --- a/projects/sfia-studio/app/features/ops1/ops1-session.module.css
 +++ b/projects/sfia-studio/app/features/ops1/ops1-session.module.css
-@@ -141,6 +141,58 @@
+@@ -141,6 +141,79 @@
    font-weight: 600;
  }
- 
+
 +.liveTag {
 +  color: var(--sfia-green, #1b7a4e);
 +  font-weight: 600;
++}
++
++.testTag {
++  color: var(--sfia-purple, #6b4fbb);
++  font-weight: 600;
++}
++
++.lockedMode {
++  display: flex;
++  flex-direction: column;
++  gap: 0.5rem;
++  padding: 0.75rem 0.9rem;
++  border-radius: 8px;
++  border: 1px solid var(--sfia-border);
++  background: #f7f8fa;
++}
++
++.lockedModeLabel {
++  margin: 0;
++  font-weight: 600;
++  color: var(--sfia-ink);
 +}
 +
 +.modeRow {
@@ -1974,16 +2382,16 @@ index dec85d4..fe573a7 100644
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/actions.ts`
+### `projects/sfia-studio/app/lib/ops1/actions.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/actions.ts b/projects/sfia-studio/app/lib/ops1/actions.ts
-index 9836fd1..e533f02 100644
+index 9836fd1..d756c8e 100644
 --- a/projects/sfia-studio/app/lib/ops1/actions.ts
 +++ b/projects/sfia-studio/app/lib/ops1/actions.ts
-@@ -1,15 +1,24 @@
+@@ -1,15 +1,29 @@
  "use server";
- 
+
  import {
 -  appendTurn,
    createOpenSession,
@@ -1999,27 +2407,70 @@ index 9836fd1..e533f02 100644
 +  assertMessageContent,
 +  assertSessionId,
 +} from "./validation";
-+import { getLiveConversationAvailability } from "./conversation/config";
++import {
++  getLiveConversationAvailability,
++  isFakeConversationProviderForced,
++} from "./conversation/config";
 +import { sendConversationMessage } from "./conversation/service";
 +import type {
 +  ConversationAttempt,
++  ConversationMode,
 +  ConversationUsageCounters,
 +  CycleSession,
 +  JournalTurn,
++  ProviderPresentation,
 +} from "./types";
- 
+
  export type Ops1ActionResult<T> =
    | { ok: true; data: T }
-@@ -17,7 +26,7 @@ export type Ops1ActionResult<T> =
- 
+@@ -17,16 +31,40 @@ export type Ops1ActionResult<T> =
+
  function fail(error: unknown): Ops1ActionResult<never> {
    const safe = toSafeClientError(error);
 -  console.error("[ops1]", safe.code, safe.message, error);
 +  console.error("[ops1]", safe.code, safe.message);
    return { ok: false, code: safe.code, message: safe.message };
  }
- 
-@@ -46,7 +55,11 @@ export async function ops1ListOpenSessionsAction(): Promise<
+
+-export async function ops1CreateSessionAction(): Promise<
+-  Ops1ActionResult<{ session: CycleSession }>
+-> {
++function resolvePresentation(
++  mode: ConversationMode,
++): ProviderPresentation {
++  if (mode === "fixture") return "fixture";
++  if (isFakeConversationProviderForced()) return "test_provider";
++  return "openai_live";
++}
++
++export async function ops1CreateSessionAction(input?: {
++  mode?: ConversationMode;
++}): Promise<Ops1ActionResult<{ session: CycleSession }>> {
+   try {
+-    const { session, event } = createOpenSession();
+-    console.info("[ops1] SESSION_OPENED", session.sessionId, event.eventId);
++    const mode = assertConversationMode(input?.mode ?? "fixture");
++    if (mode === "live") {
++      const availability = getLiveConversationAvailability();
++      // Fake provider may satisfy E2E without real secrets when forced.
++      if (!availability.available && !isFakeConversationProviderForced()) {
++        throw new Ops1Error(
++          "CONFIG",
++          `Création live impossible (variables manquantes : ${availability.missing.join(", ")}).`,
++        );
++      }
++    }
++    const { session, event } = createOpenSession(mode);
++    console.info(
++      "[ops1] SESSION_OPENED",
++      session.sessionId,
++      event.eventId,
++      session.conversationMode,
++    );
+     return { ok: true, data: { session } };
+   } catch (error) {
+     return fail(error);
+@@ -46,7 +84,12 @@ export async function ops1ListOpenSessionsAction(): Promise<
  export async function ops1GetSessionAction(
    sessionId: string,
  ): Promise<
@@ -2028,30 +2479,53 @@ index 9836fd1..e533f02 100644
 +    session: CycleSession;
 +    turns: JournalTurn[];
 +    attempts: ConversationAttempt[];
++    presentation: ProviderPresentation;
 +  }>
  > {
    try {
      const id = assertSessionId(sessionId);
-@@ -60,61 +73,84 @@ export async function ops1GetSessionAction(
+@@ -54,67 +97,117 @@ export async function ops1GetSessionAction(
+     if (!bundle) {
+       throw new Ops1Error("NOT_FOUND", "Session introuvable.");
+     }
+-    return { ok: true, data: bundle };
++    return {
++      ok: true,
++      data: {
++        ...bundle,
++        presentation: resolvePresentation(bundle.session.conversationMode),
++      },
++    };
+   } catch (error) {
+     return fail(error);
    }
  }
- 
+
 -export async function ops1AppendUserMessageAction(input: {
 +/** Availability only — never returns secret values. */
 +export async function ops1GetLiveConfigAction(): Promise<
 +  Ops1ActionResult<{
 +    available: boolean;
 +    missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
++    testProvider: boolean;
 +  }>
 +> {
 +  try {
 +    const status = getLiveConversationAvailability();
-+    if (status.available) {
-+      return { ok: true, data: { available: true, missing: [] } };
++    const testProvider = isFakeConversationProviderForced();
++    if (status.available || testProvider) {
++      return {
++        ok: true,
++        data: {
++          available: true,
++          missing: status.available ? [] : status.missing,
++          testProvider,
++        },
++      };
 +    }
 +    return {
 +      ok: true,
-+      data: { available: false, missing: status.missing },
++      data: { available: false, missing: status.missing, testProvider: false },
 +    };
 +  } catch (error) {
 +    return fail(error);
@@ -2059,35 +2533,37 @@ index 9836fd1..e533f02 100644
 +}
 +
 +/**
-+ * Append user message in fixture or live mode.
-+ * Live never falls back silently to fixture.
-+ * Chat text never triggers execution / gate / Cursor.
++ * Append user message using the session's immutable mode.
++ * Optional requestedMode must match or the call is rejected before write.
 + */
 +export async function ops1SendMessageAction(input: {
    sessionId: string;
    content: string;
-+  mode: "fixture" | "live";
++  /** Optional; if provided must equal session.conversationMode. */
++  mode?: ConversationMode;
  }): Promise<
    Ops1ActionResult<{
      userTurn: JournalTurn;
      assistantTurn: JournalTurn | null;
      assistantError: string | null;
 +    usage: ConversationUsageCounters | null;
-+    mode: "fixture" | "live";
++    mode: ConversationMode;
++    presentation: ProviderPresentation;
    }>
  > {
    try {
      const sessionId = assertSessionId(input.sessionId);
      const content = assertMessageContent(input.content);
-+    const mode = assertConversationMode(input.mode);
- 
++    const requestedMode =
++      input.mode !== undefined ? assertConversationMode(input.mode) : undefined;
+
 -    const { turn: userTurn, event } = appendTurn({
 +    const result = await sendConversationMessage({
        sessionId,
 -      role: "user",
        content,
 -      fixture: true,
-+      mode,
++      requestedMode,
      });
 -    console.info(
 -      "[ops1] TURN_APPENDED",
@@ -2095,7 +2571,7 @@ index 9836fd1..e533f02 100644
 -      userTurn.turnId,
 -      event.eventId,
 -    );
- 
+-
 -    let assistantTurn: JournalTurn | null = null;
 -    let assistantError: string | null = null;
 -    try {
@@ -2118,18 +2594,25 @@ index 9836fd1..e533f02 100644
 -      assistantError = safe.message;
 -      console.error("[ops1] TURN_PERSISTENCE_FAILED assistant", error);
 -    }
--
--    return {
--      ok: true,
+
+     return {
+       ok: true,
 -      data: { userTurn, assistantTurn, assistantError },
--    };
-+    return { ok: true, data: result };
++      data: {
++        userTurn: result.userTurn,
++        assistantTurn: result.assistantTurn,
++        assistantError: result.assistantError,
++        usage: result.usage,
++        mode: result.mode,
++        presentation: resolvePresentation(result.mode),
++      },
+     };
    } catch (error) {
      return fail(error);
    }
  }
 +
-+/** @deprecated I1 name — retained as fixture-only alias for older tests. */
++/** @deprecated I1 name — fixture sessions only. */
 +export async function ops1AppendUserMessageAction(input: {
 +  sessionId: string;
 +  content: string;
@@ -2157,14 +2640,32 @@ index 9836fd1..e533f02 100644
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/db.ts`
+### `projects/sfia-studio/app/lib/ops1/db.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/db.ts b/projects/sfia-studio/app/lib/ops1/db.ts
-index 5f6662b..843202b 100644
+index 5f6662b..68446e4 100644
 --- a/projects/sfia-studio/app/lib/ops1/db.ts
 +++ b/projects/sfia-studio/app/lib/ops1/db.ts
-@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS journal_turns (
+@@ -1,6 +1,7 @@
+ import { DatabaseSync } from "node:sqlite";
+ import { resolveOps1SqlitePath } from "./paths";
+ import { Ops1Error } from "./errors";
++import { LEGACY_SESSION_MODE_AMBIGUOUS } from "./types";
+
+ const SCHEMA_SQL = `
+ PRAGMA foreign_keys = ON;
+@@ -12,14 +13,16 @@ CREATE TABLE IF NOT EXISTS cycle_sessions (
+   created_at TEXT NOT NULL,
+   updated_at TEXT NOT NULL,
+   parent_session_id TEXT,
+-  fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1))
++  fixture_mode INTEGER NOT NULL CHECK (fixture_mode IN (0, 1)),
++  conversation_mode TEXT NOT NULL DEFAULT 'fixture'
++    CHECK (conversation_mode IN ('fixture', 'live'))
+ );
+
+ CREATE TABLE IF NOT EXISTS journal_turns (
    turn_id TEXT PRIMARY KEY NOT NULL,
    session_id TEXT NOT NULL,
    sequence INTEGER NOT NULL,
@@ -2173,10 +2674,10 @@ index 5f6662b..843202b 100644
    content TEXT NOT NULL,
    fixture INTEGER NOT NULL CHECK (fixture IN (0, 1)),
    created_at TEXT NOT NULL,
-@@ -35,13 +35,95 @@ CREATE TABLE IF NOT EXISTS session_events (
+@@ -35,13 +38,221 @@ CREATE TABLE IF NOT EXISTS session_events (
    detail TEXT NOT NULL
  );
- 
+
 +CREATE TABLE IF NOT EXISTS conversation_attempts (
 +  attempt_id TEXT PRIMARY KEY NOT NULL,
 +  session_id TEXT NOT NULL,
@@ -2201,11 +2702,112 @@ index 5f6662b..843202b 100644
 +CREATE INDEX IF NOT EXISTS idx_attempts_session
 +  ON conversation_attempts(session_id, request_started_at);
  `;
- 
+
  let singleton: DatabaseSync | null = null;
  let singletonPath: string | null = null;
- 
-+/** Idempotent additive migration I1 → I2 (role CHECK + conversation_attempts). */
+
++function tableHasColumn(
++  db: DatabaseSync,
++  table: string,
++  column: string,
++): boolean {
++  const rows = db.prepare(`PRAGMA table_info(${table})`).all() as Array<{
++    name: string;
++  }>;
++  return rows.some((r) => r.name === column);
++}
++
++function isRealProvider(provider: string): boolean {
++  return provider !== "fake-test";
++}
++
++/**
++ * Infer immutable conversation mode for a legacy session.
++ * Throws LEGACY_SESSION_MODE_AMBIGUOUS when journal/attempts conflict.
++ */
++export function inferLegacyConversationMode(
++  roles: string[],
++  providers: string[],
++): "fixture" | "live" {
++  const hasFixtureAssistant = roles.includes("assistant_fixture");
++  const hasLiveAssistant = roles.includes("assistant_live");
++  const hasRealAttempt = providers.some(isRealProvider);
++  const hasFakeAttempt = providers.some((p) => p === "fake-test");
++
++  if (hasFixtureAssistant && hasLiveAssistant) {
++    throw new Ops1Error("CONFLICT", LEGACY_SESSION_MODE_AMBIGUOUS);
++  }
++  if (hasRealAttempt && hasFixtureAssistant && !hasLiveAssistant) {
++    throw new Ops1Error("CONFLICT", LEGACY_SESSION_MODE_AMBIGUOUS);
++  }
++  // Real OpenAI attempt + only fixture assistants already caught above.
++  // Fake attempts with live assistant roles → live technical mode.
++  if (hasLiveAssistant || hasRealAttempt) {
++    return "live";
++  }
++  if (hasFakeAttempt && !hasLiveAssistant && !hasFixtureAssistant) {
++    // attempts without assistant turns (all failed) → still live path intent
++    return "live";
++  }
++  return "fixture";
++}
++
++function validateNoAmbiguousLegacySessions(db: DatabaseSync): void {
++  const sessions = db
++    .prepare(`SELECT session_id FROM cycle_sessions`)
++    .all() as Array<{ session_id: string }>;
++
++  for (const { session_id } of sessions) {
++    const roles = (
++      db
++        .prepare(
++          `SELECT DISTINCT role FROM journal_turns WHERE session_id = ?`,
++        )
++        .all(session_id) as Array<{ role: string }>
++    ).map((r) => r.role);
++    const providers = (
++      db
++        .prepare(
++          `SELECT DISTINCT provider FROM conversation_attempts WHERE session_id = ?`,
++        )
++        .all(session_id) as Array<{ provider: string }>
++    ).map((r) => r.provider);
++    // Throws on ambiguity; return value unused — persisted mode already set.
++    inferLegacyConversationMode(roles, providers);
++  }
++}
++
++function backfillConversationModes(db: DatabaseSync): void {
++  const sessions = db
++    .prepare(`SELECT session_id FROM cycle_sessions`)
++    .all() as Array<{ session_id: string }>;
++
++  for (const { session_id } of sessions) {
++    const roles = (
++      db
++        .prepare(
++          `SELECT DISTINCT role FROM journal_turns WHERE session_id = ?`,
++        )
++        .all(session_id) as Array<{ role: string }>
++    ).map((r) => r.role);
++    const providers = (
++      db
++        .prepare(
++          `SELECT DISTINCT provider FROM conversation_attempts WHERE session_id = ?`,
++        )
++        .all(session_id) as Array<{ provider: string }>
++    ).map((r) => r.provider);
++
++    const mode = inferLegacyConversationMode(roles, providers);
++    db.prepare(
++      `UPDATE cycle_sessions
++       SET conversation_mode = ?, fixture_mode = ?
++       WHERE session_id = ?`,
++    ).run(mode, mode === "fixture" ? 1 : 0, session_id);
++  }
++}
++
++/** Idempotent additive migration I1 → I2 (+ conversation_mode immutability). */
 +export function migrateOps1Schema(db: DatabaseSync): void {
 +  db.exec("PRAGMA foreign_keys = ON;");
 +  db.exec(SCHEMA_SQL);
@@ -2257,6 +2859,31 @@ index 5f6662b..843202b 100644
 +    }
 +  }
 +
++  if (!tableHasColumn(db, "cycle_sessions", "conversation_mode")) {
++    db.exec("BEGIN IMMEDIATE");
++    try {
++      db.exec(
++        `ALTER TABLE cycle_sessions ADD COLUMN conversation_mode TEXT NOT NULL DEFAULT 'fixture'`,
++      );
++      backfillConversationModes(db);
++      db.exec("COMMIT");
++    } catch (error) {
++      try {
++        db.exec("ROLLBACK");
++      } catch {
++        /* ignore */
++      }
++      if (error instanceof Ops1Error) throw error;
++      throw new Ops1Error(
++        "PERSISTENCE",
++        "Échec de migration conversation_mode.",
++        error,
++      );
++    }
++  } else {
++    validateNoAmbiguousLegacySessions(db);
++  }
++
 +  const integrity = db.prepare("PRAGMA integrity_check").get() as
 +    | Record<string, string>
 +    | undefined;
@@ -2269,8 +2896,8 @@ index 5f6662b..843202b 100644
  export function openOps1Db(dbPath = resolveOps1SqlitePath()): DatabaseSync {
    if (singleton && singletonPath === dbPath) {
      return singleton;
-@@ -58,15 +140,7 @@ export function openOps1Db(dbPath = resolveOps1SqlitePath()): DatabaseSync {
- 
+@@ -58,15 +269,7 @@ export function openOps1Db(dbPath = resolveOps1SqlitePath()): DatabaseSync {
+
    try {
      const db = new DatabaseSync(dbPath);
 -    db.exec("PRAGMA foreign_keys = ON;");
@@ -2289,7 +2916,7 @@ index 5f6662b..843202b 100644
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/errors.ts`
+### `projects/sfia-studio/app/lib/ops1/errors.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/errors.ts b/projects/sfia-studio/app/lib/ops1/errors.ts
@@ -2303,12 +2930,12 @@ index 6a32fc8..0420b3e 100644
 +  | "CONFIG"
 +  | "PROVIDER"
    | "INTERNAL";
- 
+
  export class Ops1Error extends Error {
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/fixtureReply.ts`
+### `projects/sfia-studio/app/lib/ops1/fixtureReply.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/fixtureReply.ts b/projects/sfia-studio/app/lib/ops1/fixtureReply.ts
@@ -2327,7 +2954,7 @@ index 11c69ad..8c70d74 100644
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/ids.ts`
+### `projects/sfia-studio/app/lib/ops1/ids.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/ids.ts b/projects/sfia-studio/app/lib/ops1/ids.ts
@@ -2345,30 +2972,31 @@ index 850458d..45f2b8d 100644
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/index.ts`
+### `projects/sfia-studio/app/lib/ops1/index.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/index.ts b/projects/sfia-studio/app/lib/ops1/index.ts
-index b03b14b..6a3db51 100644
+index b03b14b..4f46cad 100644
 --- a/projects/sfia-studio/app/lib/ops1/index.ts
 +++ b/projects/sfia-studio/app/lib/ops1/index.ts
-@@ -2,3 +2,5 @@ export * from "./types";
+@@ -2,3 +2,6 @@ export * from "./types";
  export * from "./errors";
  export * from "./validation";
  export * from "./fixtureReply";
 +export { buildProviderMessagesFromJournal } from "./conversation/types";
 +export { getLiveConversationAvailability } from "./conversation/config";
++export { inferLegacyConversationMode } from "./db";
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/repository.ts`
+### `projects/sfia-studio/app/lib/ops1/repository.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/repository.ts b/projects/sfia-studio/app/lib/ops1/repository.ts
-index 5734373..2e7d0b7 100644
+index 5734373..9944057 100644
 --- a/projects/sfia-studio/app/lib/ops1/repository.ts
 +++ b/projects/sfia-studio/app/lib/ops1/repository.ts
-@@ -1,9 +1,16 @@
+@@ -1,9 +1,17 @@
  import type { DatabaseSync } from "node:sqlite";
 -import { createEventId, createSessionId, createTurnId } from "./ids";
 +import {
@@ -2383,13 +3011,34 @@ index 5734373..2e7d0b7 100644
    OPS1_PROJECT_KEY,
 +  type ConversationAttempt,
 +  type ConversationAttemptStatus,
++  type ConversationMode,
    type CycleSession,
    type JournalTurn,
    type SessionEvent,
-@@ -39,6 +46,34 @@ function mapTurn(row: Record<string, unknown>): JournalTurn {
+@@ -14,6 +22,9 @@ import {
+ export { resetOps1DbForTests };
+
+ function mapSession(row: Record<string, unknown>): CycleSession {
++  const conversationMode =
++    (row.conversation_mode as ConversationMode | undefined) ??
++    (Number(row.fixture_mode) === 1 ? "fixture" : "live");
+   return {
+     sessionId: String(row.session_id),
+     projectKey: String(row.project_key),
+@@ -23,7 +34,8 @@ function mapSession(row: Record<string, unknown>): CycleSession {
+     parentSessionId: row.parent_session_id
+       ? String(row.parent_session_id)
+       : null,
+-    fixtureMode: Number(row.fixture_mode) === 1,
++    fixtureMode: conversationMode === "fixture",
++    conversationMode,
    };
  }
- 
+
+@@ -39,6 +51,34 @@ function mapTurn(row: Record<string, unknown>): JournalTurn {
+   };
+ }
+
 +function mapAttempt(row: Record<string, unknown>): ConversationAttempt {
 +  return {
 +    attemptId: String(row.attempt_id),
@@ -2421,10 +3070,64 @@ index 5734373..2e7d0b7 100644
  function insertEvent(
    db: DatabaseSync,
    sessionId: string | null,
-@@ -252,11 +287,240 @@ export function appendTurn(
+@@ -54,27 +94,38 @@ function insertEvent(
+   return { eventId, sessionId, type, createdAt, detail };
+ }
+
+-export function createOpenSession(db = openOps1Db()): {
++export function createOpenSession(
++  mode: ConversationMode = "fixture",
++  db = openOps1Db(),
++): {
+   session: CycleSession;
+   event: SessionEvent;
+ } {
++  if (mode !== "fixture" && mode !== "live") {
++    throw new Ops1Error("VALIDATION", "Mode de session invalide.");
++  }
+   const sessionId = createSessionId();
+   const createdAt = nowIsoWithOffset();
++  const fixtureMode = mode === "fixture" ? 1 : 0;
+
+   try {
+     db.exec("BEGIN IMMEDIATE");
+     db.prepare(
+       `INSERT INTO cycle_sessions (
+          session_id, project_key, status, created_at, updated_at,
+-         parent_session_id, fixture_mode
+-       ) VALUES (?, ?, 'OPEN', ?, ?, NULL, 1)`,
+-    ).run(sessionId, OPS1_PROJECT_KEY, createdAt, createdAt);
++         parent_session_id, fixture_mode, conversation_mode
++       ) VALUES (?, ?, 'OPEN', ?, ?, NULL, ?, ?)`,
++    ).run(sessionId, OPS1_PROJECT_KEY, createdAt, createdAt, fixtureMode, mode);
+
+     const event = insertEvent(
+       db,
+       sessionId,
+       "SESSION_OPENED",
+-      JSON.stringify({ projectKey: OPS1_PROJECT_KEY, fixtureMode: true }),
++      JSON.stringify({
++        projectKey: OPS1_PROJECT_KEY,
++        fixtureMode: mode === "fixture",
++        conversationMode: mode,
++      }),
+       createdAt,
+     );
+     db.exec("COMMIT");
+@@ -87,7 +138,8 @@ export function createOpenSession(db = openOps1Db()): {
+         createdAt,
+         updatedAt: createdAt,
+         parentSessionId: null,
+-        fixtureMode: true,
++        fixtureMode: mode === "fixture",
++        conversationMode: mode,
+       },
+       event,
+     };
+@@ -252,11 +304,240 @@ export function appendTurn(
    }
  }
- 
+
 +export function startConversationAttempt(
 +  input: {
 +    sessionId: string;
@@ -2667,36 +3370,58 @@ index 5734373..2e7d0b7 100644
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/types.ts`
+### `projects/sfia-studio/app/lib/ops1/types.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
-index 5c42bad..4a03ba9 100644
+index 5c42bad..bb2f2fd 100644
 --- a/projects/sfia-studio/app/lib/ops1/types.ts
 +++ b/projects/sfia-studio/app/lib/ops1/types.ts
-@@ -1,8 +1,16 @@
+@@ -1,8 +1,27 @@
 -/** OPS1 I1 — Session + journal (fixture/local). CLOSED reserved; not mutated in I1. */
 +/** OPS1 I1/I2 — Session + journal. CLOSED reserved; not mutated in I1/I2. */
- 
+
  export type SessionStatus = "OPEN" | "CLOSED";
- 
+
 -export type TurnRole = "user" | "assistant_fixture";
 +/** I2 extends roles with assistant_live; fixture role retained for non-live. */
 +export type TurnRole = "user" | "assistant_fixture" | "assistant_live";
 +
++/** Immutable session conversation mode — chosen at creation, never mixed. */
 +export type ConversationMode = "fixture" | "live";
 +
 +export type ConversationAttemptStatus =
 +  | "started"
 +  | "succeeded"
 +  | "failed";
- 
++
++/**
++ * Runtime presentation kind for UI signalétique.
++ * Distinct from ConversationMode: a live-mode session can still be served
++ * by the fake test provider (TEST / NON LIVE), never as genuine GPT live.
++ */
++export type ProviderPresentation =
++  | "fixture"
++  | "test_provider"
++  | "openai_live";
+
  export interface CycleSession {
    sessionId: string;
-@@ -24,11 +32,41 @@ export interface JournalTurn {
+@@ -11,7 +30,10 @@ export interface CycleSession {
+   createdAt: string;
+   updatedAt: string;
+   parentSessionId: string | null;
++  /** @deprecated Prefer conversationMode; kept as mirror of fixture mode. */
+   fixtureMode: boolean;
++  /** Immutable conversation mode for the whole session lifetime. */
++  conversationMode: ConversationMode;
+ }
+
+ export interface JournalTurn {
+@@ -24,11 +46,41 @@ export interface JournalTurn {
    createdAt: string;
  }
- 
+
 +export interface ConversationAttempt {
 +  attemptId: string;
 +  sessionId: string;
@@ -2733,13 +3458,20 @@ index 5c42bad..4a03ba9 100644
 +  | "CONVERSATION_ATTEMPT_STARTED"
 +  | "CONVERSATION_ATTEMPT_SUCCEEDED"
 +  | "CONVERSATION_ATTEMPT_FAILED";
- 
+
  export interface SessionEvent {
    eventId: string;
+@@ -42,3 +94,6 @@ export const OPS1_PROJECT_KEY = "sfia-studio-ops1";
+
+ /** Local input guardrail — not a FinOps decision. */
+ export const OPS1_MAX_MESSAGE_CHARS = 4000;
++
++export const LEGACY_SESSION_MODE_AMBIGUOUS =
++  "MORRIS DECISION REQUIRED — LEGACY SESSION MODE AMBIGUOUS";
 
 ```
 
-#### `projects/sfia-studio/app/lib/ops1/validation.ts`
+### `projects/sfia-studio/app/lib/ops1/validation.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/ops1/validation.ts b/projects/sfia-studio/app/lib/ops1/validation.ts
@@ -2754,11 +3486,11 @@ index 1a7858b..eda1313 100644
 +  type TurnRole,
 +} from "./types";
  import { Ops1Error } from "./errors";
- 
+
  const SESSION_ID_RE = /^ops1-sess-[0-9a-f-]{36}$/i;
 @@ -28,6 +32,17 @@ export function assertMessageContent(content: unknown): string {
  }
- 
+
  export function assertTurnRole(role: unknown): TurnRole {
 -  if (role === "user" || role === "assistant_fixture") return role;
 +  if (
@@ -2778,9 +3510,9 @@ index 1a7858b..eda1313 100644
 
 ```
 
-#### `projects/sfia-studio/app/package-lock.json`
+### `projects/sfia-studio/app/package-lock.json`
 
-```
+```diff
 diff --git a/projects/sfia-studio/app/package-lock.json b/projects/sfia-studio/app/package-lock.json
 index 5d23e54..239be78 100644
 --- a/projects/sfia-studio/app/package-lock.json
@@ -2842,7 +3574,7 @@ index 5d23e54..239be78 100644
 
 ```
 
-#### `projects/sfia-studio/app/package.json`
+### `projects/sfia-studio/app/package.json`
 
 ```diff
 diff --git a/projects/sfia-studio/app/package.json b/projects/sfia-studio/app/package.json
@@ -2860,24 +3592,35 @@ index 0022a01..64b70fe 100644
 
 ```
 
-#### `projects/sfia-studio/app/playwright.config.ts`
+### `projects/sfia-studio/app/playwright.config.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/playwright.config.ts b/projects/sfia-studio/app/playwright.config.ts
-index a4c1df0..949ff99 100644
+index a4c1df0..b0eaaaf 100644
 --- a/projects/sfia-studio/app/playwright.config.ts
 +++ b/projects/sfia-studio/app/playwright.config.ts
-@@ -21,5 +21,13 @@ export default defineConfig({
-     // Prefer local reuse: port 3020 is often already served by `npm run dev`.
-     reuseExistingServer: true,
+@@ -18,8 +18,22 @@ export default defineConfig({
+   webServer: {
+     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
+     url: baseURL,
+-    // Prefer local reuse: port 3020 is often already served by `npm run dev`.
+-    reuseExistingServer: true,
++    reuseExistingServer: false,
      timeout: 180_000,
 +    env: {
 +      ...process.env,
-+      // Non-live E2E: fake provider + placeholder env so live UI path is testable
-+      // without consuming a real API. Real smoke uses ops1-i2-live-smoke.ts.
-+      OPS1_CONVERSATION_PROVIDER: "fake",
-+      OPENAI_API_KEY: process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
-+      OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
++      // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
++      // without forcing fake (secrets must already be in the environment).
++      ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
++        ? {
++            OPS1_CONVERSATION_PROVIDER: "",
++          }
++        : {
++            OPS1_CONVERSATION_PROVIDER: "fake",
++            OPENAI_API_KEY:
++              process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
++            OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
++          }),
 +    },
    },
  });
@@ -2886,14 +3629,12 @@ index a4c1df0..949ff99 100644
 
 ## Instruction ChatGPT
 
-1. Lire obligatoirement le handoff distant
-2. Vérifier le diff applicatif, package/lockfile, provider, secrets
-3. Vérifier migrations, multi-tours, absence d’exécution
-4. Vérifier smoke live **non exécuté** (justifié)
-5. Vérifier tests et captures
-6. Rendre verdict Delivery/QA
-7. **Ne pas** autoriser implicitement commit, push, PR, merge ou I3
+1. Lire ce review pack local (handoff distant non republished)
+2. Vérifier immuabilité mode + signalétique fixture/fake/live
+3. Vérifier migration et défense builder
+4. Vérifier smoke live et capture `ops1-i2-live-locked.png`
+5. Ne pas autoriser commit/push/PR/I3 sans nouveau GO Morris
 
 ---
 
-**Verdict Cursor :** `OPS1 I2 IMPLEMENTED — LIVE PROVIDER VERIFICATION NOT PERFORMED`
+**Verdict Cursor :** `OPS1 I2 MIXED-MODE RESERVE FIXED — UX SIGNALS ALIGNED — LIVE VERIFIED — READY FOR REVIEW`
