@@ -1,92 +1,613 @@
-# Review Pack Full — SFIA Studio Next Product Increment Framing
+# Review Pack Full — SFIA Studio Live Product Validation Preparation
 
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-23 00:26:01 CEST
-- **Cycle/profil :** Cadrage produit — prochain incrément · Critical
-- **Typologie :** FRAMING / PRODUCT / FUNCTIONAL ARCHITECTURE / TECHNICAL DISCOVERY / ROADMAP / DECISION PACK
-- **Gate consommé :** GO CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT
-- **Gate de sortie proposé :** GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT
+- **Date/heure/fuseau :** 2026-07-23 00:57:06 CEST
+- **Cycle/profil :** Conception + archi prep + QA readiness · Critical
+- **Gate consommé :** GO PRÉPARATION — SFIA STUDIO LIVE PRODUCT VALIDATION
+- **Gate proposé :** GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION
 - **Repo :** mcleland147/sfia-workspace
-- **Worktree cadrage :** `/Users/morris/Projects/sfia-workspace-framing-next-increment`
-- **Branche :** `framing/sfia-studio-next-product-increment` (**locale, non poussée**)
-- **HEAD/base :** `88fa4658da07156614de270d8172f147535ddbf9` = `origin/main` `88fa4658da07156614de270d8172f147535ddbf9`
-- **Handoff post-merge :** `9575156b…` / blob `cad26d54…` · POST-MERGE COMPLETE — GO PRODUCT FRAMING REQUIRED
-- **Baseline :** SFIA v2.6
-- **Statut v3 :** V3-MODELED CANDIDATE
+- **Worktree :** `/Users/morris/Projects/sfia-workspace-framing-next-increment`
+- **Branche :** `framing/sfia-studio-next-product-increment` (non poussée)
+- **HEAD/base :** `88fa4658da07156614de270d8172f147535ddbf9` = origin/main `88fa4658da07156614de270d8172f147535ddbf9`
+- **Handoff cadrage :** `65fabb8b353265182b72e8e98806b52d7219569f` / blob `dfc74af175f501c4994e4710caa09cbb51dcafdf`
+- **Baseline :** SFIA v2.6 · v3 V3-MODELED CANDIDATE
 
-## 2. État Git initial (workspace principal)
+## 2. État Git initial
 
-```
-branch=delivery/sfia-studio-control-tower-fast-track (historique)
-HEAD=bb3c9e2… (delivery tip)
-origin/main=88fa4658da07156614de270d8172f147535ddbf9
-status workspace principal:
-?? .tmp-sfia-review/
-```
-
-Isolation : worktree framing créé depuis `origin/main` @ `88fa465…`. Aucun push framing. Delivery non touchée.
-
-## 3. Sources consultées
-
-- Method templates / routing / operating model / guardrails / manifest v2.6
-- Handoff post-merge + PR #254
-- Docs 66–74, README, sfia-v3-framing/modeled/design/delivery
-- Code réel : `lib/d1/**`, features D1, OPS1 tools/sfia, SQLite schema, confirmation NO_MUTATION, context UNAVAILABLE Cycle/Action
-
-## 4. Décisions validées vs candidates
-
-**Validées :** baseline v2.6 · v3 candidate · CT+D1 I1–C4 sur main · NO_MUTATION existing · Cycle/Action UNAVAILABLE · GPT propose / Morris décide / Cursor exécute
-
-**Candidates (ce cycle) :** option B′ recommandée · alternative C · packaging A · tooling parallèle · Figma non requis pour MVP B′
-
-## 5. État produit / rupture
-
-Rupture : après Project (C4), Cockpit sans suite méthodologique exécutable.
-
-Disponible : CT, OPS1, D1 I1–C4.
-Absent runtime : Cycle D1, GuidedSession, link Intake→Project, CI.
-
-## 6. Discovery (synthèse)
-
-- **Project :** runtime SQLite complet (create/audit/idempotence)
-- **Intake :** session locale non DB
-- **Cycle :** schema modeled only ; code force UNAVAILABLE
-- **GuidedSession :** schema only
-- **OPS1 Action/Gate :** matures, non liés Project
-- **Relations :** Intake→Project manquante ; Project→Cycle schema-only
-
-## 7. Options A–F
-
-Voir doc 75 §5–6. Recommandation **B′** ; alternative **C** ; différer D/F ; E parallèle.
-
-## 8. Incrément vertical candidat
-
-Project Cockpit → Controlled Cycle Proposal → gate humain → PROPOSED_ONLY (+ audit). Lots L1–L3. Pas CYCLE OPENED.
-
-## 9. Industrialisation
-
-CI / gitignore / cleanup delivery = parallèle ou cleanup séparé ; non bloquant B′.
-
-## 10. Fichiers créés / modifiés (worktree framing uniquement)
-
-Créés :
-- `projects/sfia-studio/75-next-product-increment-framing.md`
-- `projects/sfia-studio/76-next-product-increment-options-and-decision-pack.md`
-
-Modifié :
-- `projects/sfia-studio/README.md` (navigation 75/76 uniquement)
-
-Statut framing :
 ```
  M projects/sfia-studio/README.md
 ?? projects/sfia-studio/75-next-product-increment-framing.md
 ?? projects/sfia-studio/76-next-product-increment-options-and-decision-pack.md
+?? projects/sfia-studio/77-live-product-validation-framing-and-readiness.md
+?? projects/sfia-studio/78-live-product-validation-execution-decision-pack.md
 ```
 
-**Aucun commit projet. Aucun push framing.**
+Fichiers attendus présents (75/76/README) conservés ; 77/78 ajoutés. Aucun autre drift projet.
 
-## 11. Contenu complet — 75
+## 3. Décision Morris
+
+Live Product Validation = incrément immédiat. B′ différée. Pas GO delivery / pas exécution live dans ce cycle.
+
+## 4. Architecture live (synthèse)
+
+**Dual-track :** OPS1/CT (`/ops1/nouvelle-demande`) = GPT+tools+canonique ; D1 (`/nouvelle-demande`) = GPT C2 + C3/C4 Project. Pas d’unification runtime. Gap F (acceptation Morris).
+
+## 5. Readiness
+
+- **GPT :** OpenAI provider ; `OPENAI_*` présents `.env.local` (non exposés) ; `D1_INTAKE_LIVE` à activer (A)
+- **Canonique :** core paths + project 70/72/73 ; baseline v2.6
+- **Git local :** adapters RO + pathPolicy
+- **GitHub :** `gh` OK login `mcleland147` ; allowlist `mcleland147/sfia-workspace`
+- **D1-C1…C4 :** prêts ; live C2 = config flag
+- **Sécurité :** fail-closed ; redaction ; C4 humain ; no write tools
+- **Visibilité :** OPS1 forte ; D1 partielle (C)
+
+## 6. Scénarios
+
+LPV-01 create · LPV-02 existing NO_MUTATION · LPV-03 ambiguous · LPV-04 provider down · LPV-05 GH down · LPV-06 canonique — détails dans 78.
+
+## 7. Plan
+
+3 lots / 12 items. Corrections code : aucune ce cycle.
+
+## 8. Post-live → B′
+
+A may resume · B corrections · C rework · D Morris reserves.
+
+## 9. Fichiers
+
+Créés : 77, 78
+Modifiés : 75, 76, README
+Staged : 0 · Commit projet : non · Push framing : non
+
+## 10. Contenu complet — 77
+
+```markdown
+# SFIA Studio — Live Product Validation — Framing & Readiness
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `77-live-product-validation-framing-and-readiness.md` |
+| **Statut** | `live-prep-candidate` — **plan prêt** ; **non exécuté** |
+| **Gate consommé** | `GO PRÉPARATION — SFIA STUDIO LIVE PRODUCT VALIDATION` |
+| **Gate proposé** | `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` |
+| **Base** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` |
+| **Branche cadrage** | `framing/sfia-studio-next-product-increment` (locale) |
+| **Baseline méthode** | SFIA v2.6 |
+| **Statut v3** | V3-MODELED CANDIDATE |
+| **Complète** | `78-live-product-validation-execution-decision-pack.md` |
+
+---
+
+## 1. Décision Morris
+
+**Incrément immédiat :** validation live du parcours **existant** avec :
+
+- GPT réel ;
+- contexte SFIA canonique (moteur CT / OPS1) ;
+- Git local read-only ;
+- GitHub read-only via `gh` ;
+- D1-C1 → D1-C4 (Project create / NO_MUTATION).
+
+**B′ différée** jusqu’après analyse des résultats.
+Ce cycle = **préparation uniquement** (pas d’appel GPT live, pas de mutation Project).
+
+---
+
+## 2. Objectif
+
+Répondre à :
+
+> Le premier parcours SFIA Studio fonctionne-t-il réellement avec GPT, les sources SFIA canoniques et les outils Git/GitHub read-only, de manière utile, fiable, observable et gouvernée ?
+
+---
+
+## 3. Architecture live réelle (Observation)
+
+### 3.1 Deux surfaces runtime (gap structurant)
+
+| Surface | Route | GPT live | Tools Git/GitHub | Contexte canonique | Mutation Project |
+|---------|-------|----------|------------------|--------------------|------------------|
+| **Control Tower / OPS1** | `/ops1/nouvelle-demande` | Oui (`OPENAI_*`, mode live UI) | Oui (`toolLoop` + adapters) | Oui (`lib/ops1/sfia/**`) | Non (ActionCandidate / gates OPS1) |
+| **D1 Intake** | `/nouvelle-demande` | Oui si `D1_INTAKE_LIVE=1` | **Non** (pas de tool loop) | **Non** (prompt C2 local) | Oui via C4 confirm → `createProject` |
+
+**Observation.** Il n’existe **pas** aujourd’hui une conversation unique qui enchaîne GPT+tools+canonique **et** C4 Project.
+**Hypothèse de plan :** validation **dual-track** acceptable pour ce GO (preuve du socle sans unifier le code).
+**Décision Morris requise :** accepter dual-track **ou** exiger une correction d’unification (hors ce cycle prep → delivery).
+
+### 3.2 Chaîne logique cible (composée)
+
+```
+Track CT:  User → OPS1 live → GPT → tools (Git/GitHub) → contexte SFIA → UI tools/sources
+Track D1:  User → Intake → GPT live C2 → matching C3 → confirm C4 → Project / NO_MUTATION → Cockpit
+```
+
+---
+
+## 4. Matrice d’étapes
+
+| Étape | Runtime | Live prêt | Configuration | Mutation | Gate | Preuve attendue | Réserve |
+|-------|---------|-----------|---------------|----------|------|-----------------|---------|
+| UI D1-C1 | Oui | Oui | — | Non | — | Route `/nouvelle-demande` | — |
+| Provider GPT D1 | Oui | **Config** | `D1_INTAKE_LIVE=1` + `OPENAI_*` | Non | — | mode `live` UI | Défaut = fake |
+| Provider GPT OPS1 | Oui | **Config** | `OPENAI_*` + mode live UI | Non | — | badge GPT LIVE | — |
+| Tools CT | Oui | Oui si gh/git OK | allowlists | Non | — | tool events UI | — |
+| Contexte canonique | Oui (OPS1) | Oui | paths allowlist | Non | — | sources chargées | Pas dans D1 |
+| Git local RO | Oui | Oui | repo root | Non | — | head/status/read | — |
+| GitHub RO `gh` | Oui | **Probe OK** | `gh auth` | Non | — | repo/branch/PR | OAuth Studio absent (OK mono) |
+| Matching C3 | Oui | Oui | — | Non | — | scores / UNAVAILABLE Cycle | — |
+| Confirm C4 | Oui | Oui | — | **Oui** create | Humain | audit PROJECT_* | Existing = NO_MUTATION |
+| Cockpit | Oui | Oui | — | Non | — | project + audit | Next-step placeholder |
+| Cursor exec | Oui OPS1 | **Hors live LPV** | — | Potentiel | Morris GO | — | **NO-GO** ce plan |
+
+---
+
+## 5. GPT live readiness
+
+| Élément | État |
+|---------|------|
+| Provider | `OpenAIConversationProvider` (`openai`) |
+| Env | `OPENAI_API_KEY`, `OPENAI_MODEL` — **présents** dans `.env.local` local (valeurs non exposées) |
+| D1 live flag | `D1_INTAKE_LIVE=1` — **absent** du `.env.local` → D1 reste fake jusqu’à config |
+| Fail-closed D1 | Live demandé + secrets absents → `CONFIG`, **pas** de fake silencieux |
+| OPS1 fake force | `OPS1_CONVERSATION_PROVIDER=fake` |
+| Timeout D1 | `D1_INTAKE_PROVIDER_TIMEOUT_MS = 25000` |
+| Tool rounds CT | `CT_MAX_TOOL_ROUNDS=4`, `CT_MAX_TOOL_CALLS_PER_ROUND=4` |
+| UI D1 mode | hint `mode fake|live` après analyse |
+| UI OPS1 | badges FIXTURE / LIVE DISPONIBLE / GPT LIVE |
+
+**Probes ce cycle :** présence config uniquement — **aucun** appel API GPT.
+
+**Scénarios GPT futurs :** nominal, clarification, JSON valide/invalide, timeout, indisponible, tool pertinent/refusé, action non autorisée, limites.
+
+---
+
+## 6. Contexte SFIA canonique
+
+**Chemins core (allowlist fermée) :**
+
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+
+**Project context optionnel :** docs `70`, `72`, `73` Studio.
+
+**Baseline runtime :** `SFIA_METHOD_BASELINE = "SFIA v2.6"`.
+
+**Preuves live (track CT) :**
+
+1. Demande fondateurs Studio / méthode → sources core citées/chargées.
+2. Demande décision Morris / gates → pas d’invention de GO.
+3. Contradiction candidate vs baseline → réserve / stop, pas d’adoption v3.
+
+---
+
+## 7. Git local read-only
+
+Capacités : status, head, search, read_file, diff, worktrees, log — via `gitLocalReadAdapter` + `pathPolicy` (deny write / hors préfixes).
+
+Preuves : HEAD, status, search doc fondateur, read borné template, deny path, deny write, source visible UI.
+
+---
+
+## 8. GitHub read-only via `gh`
+
+| Probe prep (exécutée) | Résultat |
+|-----------------------|----------|
+| `gh --version` | 2.96.0 |
+| `gh auth status` | Logged in `mcleland147` (keyring) ; token **redacted** |
+| `gh api user --jq '{login}'` | `mcleland147` |
+| `gh repo view mcleland147/sfia-workspace` | `nameWithOwner` OK ; defaultBranch `main` |
+
+Allowlist repo : `mcleland147/sfia-workspace` uniquement.
+Transport : `gh_cli` si auth ; sinon REST si `GITHUB_TOKEN` (non requis ici).
+
+Preuves live : compte, repo, branche main, commit, PR #254, checks, deny autre repo, indisponibilité `gh`.
+
+---
+
+## 9. D1-C1 → C4
+
+| Capacité | Live prêt | Note |
+|----------|-----------|------|
+| C1 shell | Oui | 2 actions ; Reprendre → Workspace |
+| C2 live | Config | `D1_INTAKE_LIVE=1` |
+| C3 | Oui | déterministe ; Cycle/Action UNAVAILABLE |
+| C4 create | Oui | gate humain ; audit |
+| C4 existing | Oui | NO_MUTATION + note domaine |
+
+---
+
+## 10. Visibilité produit
+
+| Élément | État |
+|---------|------|
+| Mode live OPS1 | **Déjà visible** (badges) |
+| Mode live D1 | **Partiel** (hint après analyse) |
+| Modèle GPT | Partiel / logs — pas de secret |
+| Outils appelés/OK/KO | **OPS1 visible** ; D1 N/A |
+| Transport GitHub | Partiel (tool events) |
+| Proposition / match / confirm | D1 visible |
+| Mutation / NO_MUTATION | Visible |
+| Erreurs | Visible fail-closed |
+| Figma | **Non requis** si dual-track + badges OPS1 suffisent |
+
+---
+
+## 11. Sécurité
+
+| Risque | Contrôle | Preuve | Gap | Bloquant live |
+|--------|----------|--------|-----|---------------|
+| GPT mute Project | C4 only | Code confirm | — | Non |
+| Git write | Policy deny | Unit/E2E | — | Non |
+| GitHub write | Tools read-only | Code | — | Non |
+| Shell libre | Absent tools | — | — | Non |
+| Secret logs/UI | redaction | Code | Vigilance review pack | Non |
+| Fake silencieux | CONFIG fail-closed | Code D1/OPS1 | — | Non |
+| Repo hors allowlist | CT_GITHUB_REPO_ALLOWLIST | Code | — | Non |
+| Cursor exec | Hors scénarios LPV | Plan | Discipline exécution | Non si respecté |
+| Dual-surface confusion | Docs | Ce doc | Acceptation Morris | **Décision** |
+
+---
+
+## 12. Performance / coût (candidats)
+
+| Seuil | Valeur candidate | Mécanisme | Gap | Décision |
+|-------|------------------|-----------|-----|----------|
+| Timeout GPT D1 | 25 s | Code | — | OK |
+| Tool rounds | 4×4 | Code | — | OK |
+| Read max | 32 KiB / 12k chars result | Code | — | OK |
+| Parcours wall-clock | ≤ 10 min / scénario | Manuel | Runbook | Morris soft |
+| Port 3020 | 1 serveur | Playwright reuse | Contention connue | Runbook |
+| Tokens | Journaliser usage provider si exposé | OPS1 usage fields | Pas de budget $ | Soft |
+
+---
+
+## 13. DoD candidate (non validée)
+
+1. GPT réel répond (OPS1 et/ou D1 selon track).
+2. Mode live identifiable.
+3. Contexte canonique traçable (track CT).
+4. ≥1 lecture Git locale visible.
+5. ≥1 lecture GitHub `gh` visible.
+6. Aucun outil write.
+7. Proposition C2 valide (track D1).
+8. Matching C3 déterministe.
+9. C4 humain.
+10. Project créé + audité.
+11. Existing → NO_MUTATION sans faux link.
+12. Erreurs visibles.
+13. Aucun secret exposé.
+14. Négatifs critiques prouvés.
+15. Preuves capturées.
+16. Tests automatisés existants toujours verts (rejeu ciblé).
+17. Verdict A/B/C/D explicite.
+
+---
+
+## 14. Gaps classés
+
+| ID | Gap | Classe | Notes |
+|----|-----|--------|-------|
+| G1 | `D1_INTAKE_LIVE` non positionné | **A** config | Ajouter `=1` local avant track D1 |
+| G2 | Dual-surface (pas d’unification tools dans D1) | **F** Morris | Accepter pour LPV ou exiger delivery |
+| G3 | Visibilité live D1 faible vs OPS1 | **C** | Amélioration non bloquante |
+| G4 | CI GitHub absente | **D** | Différable |
+| G5 | Port 3020 contention | **A/C** | Runbook / un seul serveur |
+| G6 | Canonical paths n’incluent pas encore 75–78 | **C** | Optionnel après merge docs |
+| G7 | Unifier D1↔toolLoop | **E/B** | Hors prep ; delivery si Morris l’exige |
+| G8 | B′ | **E** | Différée |
+
+**Corrections code minimales :** aucune dans ce cycle. Si G2/G7 → cycle delivery séparé.
+
+---
+
+## 15. Plan d’exécution candidat (≤3 lots · ≤12 items)
+
+### Lot 1 — Readiness (config + probes)
+
+1. Vérifier `OPENAI_*` + démarrer app
+2. Positionner `D1_INTAKE_LIVE=1`
+3. Probe `gh` + Git local HEAD
+4. Checklist allowlists / badges live
+
+### Lot 2 — Scénarios live LPV-01…06
+
+5–10. Exécuter scénarios (`78`) — captures + logs
+
+### Lot 3 — Clôture
+
+11. Rejeu tsc/lint/vitest ciblés si dérive
+12. Verdict A/B/C/D + impact B′
+
+---
+
+## 16. Stop conditions (exécution future)
+
+- Secret exposé
+- Write Git/GitHub tenté/réussi
+- Cursor execution hors GO
+- Fake substitué en live
+- Mutation Project sans confirm
+- Unification code improvisée
+- Périmètre B′ glissé
+
+---
+
+## 17. Anti-claims
+
+Pas GPT LIVE VALIDATED · pas LIVE PRODUCT READY · pas D1 COMPLETE · pas PROJECT LINKED · pas CYCLE OPENED · pas V3 IMPLEMENTED/ADOPTED · plan ≠ exécution · `gh` local ≠ OAuth produit.
+
+**Statut :** `LIVE PRODUCT VALIDATION PLAN READY` — en attente de GO EXÉCUTION Morris.
+
+```
+
+## 11. Contenu complet — 78
+
+```markdown
+# SFIA Studio — Live Product Validation — Execution Decision Pack
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `78-live-product-validation-execution-decision-pack.md` |
+| **Statut** | `execution-pack-candidate` — **non autorisé à exécuter** sans GO Morris |
+| **Complète** | `77-live-product-validation-framing-and-readiness.md` |
+| **Gate proposé** | `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` |
+| **Base** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` |
+
+---
+
+## 1. Décisions déjà actées
+
+| Décision | Statut |
+|----------|--------|
+| Baseline SFIA v2.6 | Actée |
+| CT + D1-I1…C4 sur main | Actée (PR #254) |
+| Incrément immédiat = Live Product Validation | Actée (Morris) |
+| B′ différée | Actée |
+| GPT propose / Morris décide / Cursor exécute | Actée |
+| Préparation sans appel GPT / sans mutation | Actée (ce cycle) |
+
+---
+
+## 2. Configuration requise (avant Lot 2)
+
+| Variable / outil | Requis | État prep |
+|------------------|--------|-----------|
+| `OPENAI_API_KEY` | Oui | Présent `.env.local` (non affiché) |
+| `OPENAI_MODEL` | Oui | Présent `.env.local` |
+| `D1_INTAKE_LIVE=1` | Track D1 | **À ajouter** (config A) |
+| Ne pas forcer `D1_INTAKE_PROVIDER=fake` | Track D1 | Vérifier shell/env |
+| Ne pas forcer `OPS1_CONVERSATION_PROVIDER=fake` | Track CT | Vérifier |
+| `gh` auth | Track CT GitHub | **OK** `mcleland147` |
+| Serveur app `:3020` | Oui | Un seul process |
+| Données Project test | Track D1 LPV-02 | Créer via LPV-01 ou manuel |
+
+**Interdit d’afficher** clés, tokens, contenus `.env`.
+
+---
+
+## 3. Probes (prep — déjà faites / à refaire au démarrage exécution)
+
+```text
+gh --version
+gh auth status          # login only ; token redacted
+gh api user --jq '{login}'
+gh repo view mcleland147/sfia-workspace --json nameWithOwner,defaultBranchRef
+git rev-parse HEAD      # depuis repo root
+git status -sb
+```
+
+Pas d’appel OpenAI en préparation. En exécution : uniquement via UI Studio.
+
+---
+
+## 4. Stratégie dual-track (à confirmer Morris)
+
+| Track | Où | Couvre |
+|-------|-----|--------|
+| **CT** | `/ops1/nouvelle-demande` mode **live** | GPT + tools Git/GitHub + contexte canonique + UI outils |
+| **D1** | `/nouvelle-demande` + `D1_INTAKE_LIVE=1` | C1–C4 + Project create / NO_MUTATION |
+
+**PASS global** exige les deux tracks verts sur leurs scénarios assignés, sauf décision Morris contraire.
+
+---
+
+## 5. Scénarios LPV-01 … LPV-06
+
+### LPV-01 — Création d’un nouveau Project (Track D1)
+
+| Champ | Contenu |
+|-------|---------|
+| Données | Aucun Project homonyme ; intention réelle non sensible |
+| Demande | Ex. « Créer un projet Studio pour documenter la validation live mono-opérateur » |
+| Outils attendus | Aucun tool CT (D1) |
+| Outils interdits | Write ; Cursor |
+| Événements | mode live ; proposal CREATE ; match NO_MATCH/faible ; confirm ; PROJECT_CREATED |
+| Résultat | Project ACTIVE/DRAFT selon flux ; Cockpit |
+| Mutation | **Oui** (après confirm) |
+| Audit | `PROJECT_*` visibles |
+| Captures | intake → proposal → confirm → cockpit |
+| PASS | Project persisté + audit + pas de claim LINKED/CYCLE |
+| FAIL | Mutation sans confirm ; fake en live ; erreur opaque |
+
+### LPV-02 — Project existant (Track D1)
+
+| Champ | Contenu |
+|-------|---------|
+| Données | Project créé en LPV-01 (nom/objectif proches) |
+| Demande | Intention référençant ce Project |
+| Événements | STRONG/POSSIBLE match ; confirm existing ; **NO_MUTATION** + note domaine |
+| Mutation | Non |
+| PASS | Navigation Project OK ; note visible ; pas PROJECT LINKED |
+| FAIL | Création dupliquée silencieuse ; claim link |
+
+### LPV-03 — Ambiguë (Track D1)
+
+| Champ | Contenu |
+|-------|---------|
+| Demande | Intention vague (« je veux avancer sur SFIA ») |
+| Attendu | Clarification NEED_CLARIFICATION ; pas d’outils CT ; pas mutation |
+| PASS | Questions claires ; aucune proposition exécutable prématurée |
+| FAIL | Create Project sans clarif ; fake tools |
+
+### LPV-04 — Provider indisponible (Track D1 ou OPS1)
+
+| Champ | Contenu |
+|-------|---------|
+| Setup | Live demandé + clé retirée temporairement **ou** modèle invalide (sans commit) |
+| Attendu | Erreur CONFIG/PROVIDER claire ; **pas** de fallback fake silencieux |
+| Mutation | Non |
+| PASS | Message actionnable ; reprise après restauration config |
+| FAIL | Fake silencieux ; mutation |
+
+### LPV-05 — GitHub indisponible (Track CT)
+
+| Champ | Contenu |
+|-------|---------|
+| Setup | Session OPS1 live ; simuler indispo `gh` (PATH / logout temporaire) **ou** tool deny |
+| Attendu | Erreur transport explicite ; Git local peut réussir ; pas de faux succès GH |
+| PASS | UI montre échec GH ; proposition/analyse partielle honnête |
+| FAIL | Succès GH inventé ; crash non récupérable |
+
+### LPV-06 — Source canonique / contradiction (Track CT)
+
+| Champ | Contenu |
+|-------|---------|
+| Demande | Exiger template/routing **et** tenter d’obtenir une « adoption v3 » ou Cycle inventé |
+| Attendu | Sources core chargées ; refus d’improviser doctrine ; anti-claims respectés |
+| Outils | git_local_read / search sur allowlist |
+| PASS | Citations/paths réels ; pas V3-ADOPTED ; pas CYCLE OPENED |
+| FAIL | Prompt Cursor inventé ; doctrine hors repo |
+
+### Couverture tools (Track CT — intégrée à LPV-05/06 + smoke)
+
+Ajouter smoke CT en Lot 2 :
+
+- `git_local_get_head` / `git_local_get_status`
+- `github_get_repository` ou `github_get_branch`
+- deny path hors allowlist
+
+---
+
+## 6. Critères PASS/FAIL globaux
+
+**PASS (verdict A candidate)** si :
+
+- LPV-01, 02, 03 PASS (D1)
+- LPV-04 PASS (au moins un track)
+- LPV-05, 06 PASS (CT)
+- Smoke Git+GitHub PASS
+- Aucun secret exposé
+- DoD `77` §13 items 1–15 satisfaits
+
+**PARTIEL (B)** si nominal OK mais ≥1 négatif critique flaky/non prouvé, ou visibilité insuffisante.
+
+**NOT READY (C)** si fail-closed cassé, write possible, confusion fixture/live, ou GPT autorise mutation.
+
+**WITH RESERVES (D)** si A sauf réserves documentées acceptables (ex. dual-track, badge D1 minimal).
+
+---
+
+## 7. Corrections candidates (pas dans ce cycle)
+
+| Gap | Classe | Fichier probable | Effort | Gate |
+|-----|--------|------------------|--------|------|
+| `D1_INTAKE_LIVE` | A | `.env.local` local | S | Aucun (config) |
+| Badge live D1 renforcé | C | `IntakeView` / rail | S | Delivery optionnel |
+| Unifier tools dans D1 | B/F | intake + toolLoop | L | GO delivery + archi |
+| CI | D | `.github` | M | GO tooling |
+
+---
+
+## 8. Lots / items (exécution)
+
+| Lot | Item | Objectif | AC | Effort |
+|-----|------|----------|----|--------|
+| 1 | R1 | Config OpenAI + D1 live flag | Live D1 possible | S |
+| 1 | R2 | Probes gh + git | Auth OK | S |
+| 1 | R3 | App up :3020 unique | UI joignable | S |
+| 2 | S1 | LPV-01 | PASS table | M |
+| 2 | S2 | LPV-02 | PASS | M |
+| 2 | S3 | LPV-03 | PASS | S |
+| 2 | S4 | LPV-04 | PASS | S |
+| 2 | S5 | LPV-05 + smoke GH/Git | PASS | M |
+| 2 | S6 | LPV-06 + canonique | PASS | M |
+| 3 | V1 | Captures/logs rangés `.tmp-sfia-review/` | Dossier preuves | S |
+| 3 | V2 | Verdict A/B/C/D | Doc clôture | S |
+| 3 | V3 | Impact B′ | Décision pack update | S |
+
+**Total items : 12.** Pas de B′. Pas de Cursor write/exec.
+
+---
+
+## 9. Risques
+
+- Confusion OPS1 vs D1 (opérateur)
+- `.env` exporté dans logs
+- Port 3020 double serveur
+- Coût tokens OpenAI
+- Tentation d’« améliorer » le code mid-flight
+
+---
+
+## 10. Arbitrages Morris (exécution)
+
+1. **GO EXÉCUTION** oui/non
+2. Dual-track accepté ?
+3. Budget temps / tokens soft ?
+4. Qui capture les preuves (Morris / Cursor) ?
+5. Autoriser correctif **config only** mid-run ?
+
+---
+
+## 11. Gate d’exécution proposé
+
+```text
+GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION
+```
+
+Périmètre = ce pack + `77`.
+Hors périmètre = B′, GuidedSession, Cycle runtime, writes, OAuth, CI, Figma.
+
+---
+
+## 12. NO-GO
+
+- Claim live validé avant fin Lot 3
+- B′ / C5 naming
+- Git/GitHub write
+- Cursor execution
+- Commit/push/PR pendant live
+- Secrets dans handoff
+- Fallback fake silencieux
+
+---
+
+## 13. Verdicts post-live → B′
+
+| Verdict | Libellé | B′ |
+|---------|---------|-----|
+| **A** | LIVE PRODUCT VALIDATED — OPTION B′ FRAMING MAY RESUME | Reprise cadrage B′ autorisable |
+| **B** | LIVE PRODUCT PARTIALLY VALIDATED — CORRECTIONS REQUIRED | B′ différée ; correctifs |
+| **C** | LIVE PRODUCT NOT READY — ARCHITECTURE OR PROVIDER REWORK REQUIRED | B′ fermée |
+| **D** | LIVE PRODUCT VALIDATED WITH RESERVES — MORRIS DECISION REQUIRED | Morris tranche B′ |
+
+---
+
+## 14. Anti-claims
+
+Ce document n’autorise pas l’exécution.
+Il ne valide pas GPT live ni le produit.
+Il ne rouvre pas B′.
+
+**Prochaine action :** Décision Morris sur `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION`.
+
+```
+
+## 12. Contenu complet mis à jour — 75
 
 ```markdown
 # SFIA Studio — Cadrage du prochain incrément produit
@@ -94,9 +615,10 @@ Statut framing :
 | Métadonnée | Valeur |
 |------------|--------|
 | **Document** | `75-next-product-increment-framing.md` |
-| **Statut** | `framing-candidate` — **non validé** |
-| **Gate consommé** | `GO CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT` |
-| **Gate de sortie demandé** | `GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT` |
+| **Statut** | `framing-candidate` — trajectoire **réordonnée** (Live Validation prioritaire) |
+| **Gate consommé (cadrage)** | `GO CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT` |
+| **Décision Morris ultérieure** | `GO PRÉPARATION — SFIA STUDIO LIVE PRODUCT VALIDATION` (2026-07-23) |
+| **Gate de sortie demandé (live prep)** | `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` |
 | **Base Git** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` (PR #254 squash) |
 | **Branche cadrage locale** | `framing/sfia-studio-next-product-increment` (**non poussée**) |
 | **Baseline méthode** | **SFIA v2.6** |
@@ -114,6 +636,31 @@ Statut framing :
 **Formulation correcte.** Control Tower Fast Track et D1-I1 à D1-C4 constituent la nouvelle **base produit intégrée** sur `main`, sous baseline méthode SFIA v2.6.
 
 **Anti-claims.** Pas D1 COMPLETE · pas PROJECT LINKED · pas CYCLE OPENED · pas ACTION RESUMED · pas GUIDED SESSION STARTED · pas SFIA v3.0 IMPLEMENTED/ADOPTED · pas de prochain incrément validé avant GO Morris · capacités Studio ≠ promotion méthode.
+
+---
+
+## 1bis. Décision Morris — incrément immédiat = Live Product Validation
+
+**Décision Morris (actée — préparation).** L’incrément immédiat n’est **pas** B′. C’est la **validation live du parcours existant** :
+
+- GPT réel ;
+- contexte SFIA canonique (surface Control Tower / OPS1) ;
+- Git local read-only ;
+- GitHub read-only via `gh` ;
+- parcours D1-C1 → D1-C4 (création / sélection Project).
+
+**Conséquence pour B′.** Option B′ — Project → Controlled Cycle Proposal — reste une **extension fonctionnelle candidate différée**. Elle ne doit être réouverte qu’**après** analyse des résultats live (`77`/`78`). Ce document conserve l’analyse B′ ci-dessous comme capitalisation ; elle n’est **pas** le périmètre d’exécution immédiat.
+
+**Séquence mise à jour :**
+
+```
+Palier actuel (main)
+  → Live Product Validation (préparation → exécution → verdict)
+  → décision Morris (A/B/C/D live)
+  → éventuelle reprise framing B′ / architecture Cycle proposal
+```
+
+Documents de préparation live : `77-live-product-validation-framing-and-readiness.md`, `78-live-product-validation-execution-decision-pack.md`.
 
 ---
 
@@ -341,32 +888,36 @@ demande → proposition → matching → confirmation → Project créé/sélect
 
 ---
 
-## 7. Recommandation (candidate)
+## 7. Recommandation (historique de cadrage) + priorité live
 
-### Recommandation principale
+### Priorité immédiate (Décision Morris)
+
+**Live Product Validation** du parcours existant — voir `77` / `78`.
+Ce n’est **pas** une validation déjà exécutée.
+
+### Recommandation fonctionnelle différée (toujours candidate)
 
 **Option B′ — « Project → Controlled Cycle Proposal (PROPOSED_ONLY) »**
-avec sous-lot A *minimal* uniquement pour lier la proposition au `projectId` (et éventuellement remplacer NO_MUTATION par un *binding* non claimé PROJECT LINKED si Morris l’exige dans le même vertical).
+reste la recommandation d’*extension* après preuve live, avec sous-lot A *minimal* éventuel.
 
-**Identifiant candidat (non validé) :** `D1-NEXT` / éventuellement étiquette interne `D1-C5-candidate` — **pas** « C5 validé ».
+**Identifiant candidat (non validé) :** `D1-NEXT` / `D1-C5-candidate` — **pas** « C5 validé ».
 
-**Rationnel.**
+**Rationnel (conservé).**
 
-1. Traite la rupture utilisateur réelle après C4.
+1. Traite la rupture utilisateur après C4.
 2. Réutilise le moteur de contexte canonique et les patterns propose→confirm.
-3. Évite de simuler un Cycle runtime alors que le schema n’est pas branché.
+3. Évite de simuler un Cycle runtime.
 4. Prépare Option C sans fausse adoption.
-5. Reste démontrable et testable (E2E Cockpit → proposition → gate → PROPOSED_ONLY).
+5. Démontrable après que le live du socle soit prouvé.
 
-### Alternative de repli
+### Alternative de repli (toujours)
 
-**Option C** précédée d’un cycle **GO ARCHITECTURE Cycle foundation** si Morris préfère figer le contrat Cycle avant toute UX de suite.
+**Option C** avec **GO ARCHITECTURE Cycle foundation** si Morris préfère la fondation Cycle après (ou à la place de) B′.
 
-### Différées / écartées pour maintenant
+### Différées
 
-- D (GuidedSession) — après Cycle proposal ou fondation Cycle
-- E — cycle tooling parallèle
-- F — UX-R04 après valeur métier
+- B′ / C / D / F — **après** verdict live
+- E — parallèle tooling possible pendant/après live
 - A seule — insuffisante comme incrément visible
 
 ### Préconditions
@@ -478,7 +1029,10 @@ avec sous-lot A *minimal* uniquement pour lier la proposition au `projectId` (et
 Palier actuel
   CT + OPS1 + D1-I1…C4 (main 88fa465)
 
-Palier suivant candidat (recommandé)
+Palier immédiat (Décision Morris)
+  Live Product Validation (GPT + canonique CT + Git/GitHub RO + D1-C1…C4)
+
+Palier suivant candidat (conditionnel — après verdict live)
   Project → Controlled Cycle Proposal (PROPOSED_ONLY)  [Option B′]
 
 Paliers ultérieurs possibles
@@ -491,13 +1045,14 @@ Paliers ultérieurs possibles
 
 | | |
 |--|--|
-| Prochain incrément | B′ |
-| Dépendances | Archi proposition courte ; anti-claims |
-| Différé | D, F, live GPT, CI |
-| Preuves | E2E + audit |
-| Gates | Validation cadrage → Archi (léger) → Delivery |
-| Dette temporaire OK | Proposition sans Cycle table |
-| Dette interdite | Simuler Cycle/Action comme existants ; V3-ADOPTED |
+| Prochain incrément **immédiat** | Live Product Validation |
+| Prochain incrément **fonctionnel différé** | B′ (si live OK) |
+| Dépendances B′ | Verdict live A ou D accepté |
+| Différé | D, F, live GPT comme *critère de release produit* permanent |
+| Preuves live | Scénarios LPV-01…06 (`78`) |
+| Gates | GO EXÉCUTION LIVE → verdict → éventuel GO ARCHITECTURE B′ |
+| Dette temporaire OK | Dual-surface OPS1/CT + D1 jusqu’à décision Morris |
+| Dette interdite | Simuler Cycle ; confondre fixture et live ; V3-ADOPTED |
 
 ---
 
@@ -513,11 +1068,13 @@ Paliers ultérieurs possibles
 
 ## 13. Gates Morris
 
-1. **GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT** (sortie de ce cycle)
-2. Si B′ retenu : **GO ARCHITECTURE** (contrat proposition / audit / anti-claims) — Light/Standard
-3. Puis **GO DELIVERY** borné
-4. Parallèle optionnel : **GO CLEANUP** branche delivery / gitignore / CI
-5. Si C retenu à la place : **GO ARCHITECTURE Cycle foundation** **avant** tout delivery
+1. **GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION** (immédiat — demandé via `78`)
+2. Après live : appliquer verdict A/B/C/D (`78` § verdicts)
+3. Si live OK et Morris le souhaite : **GO ARCHITECTURE — CYCLE PROPOSAL (B′)**
+4. Si C retenu : **GO ARCHITECTURE Cycle foundation**
+5. Parallèle optionnel : **GO CLEANUP** / CI / gitignore
+
+~~GO VALIDATION CADRAGE pour B′~~ — **différé** tant que la preuve live n’est pas tranchée.
 
 ---
 
@@ -530,7 +1087,7 @@ Il ne revendique pas D1 COMPLETE, PROJECT LINKED, CYCLE OPENED, ni SFIA v3 IMPLE
 
 ```
 
-## 12. Contenu complet — 76
+## 13. Contenu complet mis à jour — 76
 
 ```markdown
 # SFIA Studio — Options et decision pack — prochain incrément produit
@@ -539,9 +1096,10 @@ Il ne revendique pas D1 COMPLETE, PROJECT LINKED, CYCLE OPENED, ni SFIA v3 IMPLE
 |------------|--------|
 | **Document** | `76-next-product-increment-options-and-decision-pack.md` |
 | **Complète** | `75-next-product-increment-framing.md` |
-| **Statut** | `decision-pack-candidate` — **aucune décision actée ici** |
+| **Statut** | `decision-pack-candidate` — priorité **Live Product Validation** actée ; B′ différée |
 | **Base** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` |
-| **Gate validation demandé** | `GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT` |
+| **Gate immédiat demandé** | `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` |
+| **Compléments live** | `77`, `78` |
 
 ---
 
@@ -557,6 +1115,8 @@ Il ne revendique pas D1 COMPLETE, PROJECT LINKED, CYCLE OPENED, ni SFIA v3 IMPLE
 | GPT propose / Morris décide / Cursor exécute | Operating model |
 | L5 global interdit | Doctrine Studio |
 | Pas de package.json / deps dans le lot CT/D1 | PR readiness |
+| **Incrément immédiat = Live Product Validation** (GPT + canonique CT + Git/GitHub RO + D1-C1…C4) | Morris — GO PRÉPARATION LIVE (2026-07-23) |
+| **Option B′ différée** jusqu’après analyse des résultats live | Même décision |
 
 ## 2. Décisions à ne pas rouvrir dans ce decision pack
 
@@ -565,7 +1125,8 @@ Il ne revendique pas D1 COMPLETE, PROJECT LINKED, CYCLE OPENED, ni SFIA v3 IMPLE
 - Refondre OPS1 pour « coller » à D1 sans preuve
 - Rendre GPT autorisateur
 - Traiter CI comme substitut de valeur produit
-- Valider « C5 » par simple naming
+- Valider « C5 » / B′ par simple naming **avant** preuve live
+- Inclure B′ dans le périmètre d’exécution live
 
 ---
 
@@ -632,7 +1193,34 @@ Détail et challenge : voir `75`.
 
 ## 5. Arbitrages Morris demandés
 
-### Décision D1 — Quel prochain incrément ?
+### Immédiat — Live Product Validation
+
+1. **GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION** (voir `78`)
+2. Accepter la validation **dual-surface** (OPS1/CT tools+canonique **et** D1 intake C1–C4) sans unifier le code dans ce cycle ?
+3. Autoriser `D1_INTAKE_LIVE=1` local pour le track D1 ?
+4. Seuil d’acceptation des réserves (visibilité D1 mode live partielle, etc.)
+
+### Différé — après verdict live
+
+### Décision D1 — Quel prochain incrément **fonctionnel** ?
+
+Choisir **une** trajectoire **après** live :
+
+1. **Reprendre B′** si verdict live A ou D (réserves acceptées)
+2. **Retenir C** (Cycle foundation) si live OK mais B′ rejeté
+3. **Corrections live** (verdict B) avant toute extension
+4. **Rework** (verdict C) — pas d’extension
+5. **E/F** seulement si Morris priorise outillage/polish
+
+### Décision D2–D5 (B′)
+
+Inchangées par rapport au cadrage initial — **non ouvertes** tant que live non tranché. Voir historique §5 ci-dessous et `75`.
+
+---
+
+## 5bis. Historique — arbitrages B′ (conservés, non actifs)
+
+### Décision D1 historique — Quel prochain incrément ?
 
 Choisir **une** trajectoire :
 
@@ -664,27 +1252,19 @@ Exiger un cycle design Figma avant delivery B′ ? (recommandation cadrage : **n
 
 ---
 
-## 6. Recommandations (non décisions)
+## 6. Recommandations (mises à jour)
 
-1. **Recommandation :** GO VALIDATION sur option **B′**.
-2. **Alternative :** C avec GO ARCHITECTURE préalable.
-3. **Différer :** D, F ; traiter E en parallèle sous GO tooling.
-4. **Séquence cycles :**
-
-```
-GO VALIDATION CADRAGE (ce pack)
-  → GO ARCHITECTURE (contrat proposal / audit / anti-claims)   [si B′]
-  → GO DELIVERY (lots L1–L3)
-  → GO PR READINESS → COMMIT/PUSH → CREATE PR → MERGE → POST-MERGE
-```
-
-Si C :
+1. **Immédiat :** exécuter le plan live (`77`/`78`) sous GO EXÉCUTION.
+2. **B′ :** rester différée ; ne pas lancer architecture/delivery B′ avant verdict live.
+3. **Séquence :**
 
 ```
-GO VALIDATION CADRAGE
-  → GO ARCHITECTURE Cycle foundation
-  → (éventuel) GO DESIGN
-  → GO DELIVERY
+GO EXÉCUTION LIVE PRODUCT VALIDATION
+  → collecte preuves LPV-01…06
+  → verdict A | B | C | D
+  → si A ou D(+accept) : éventuel GO ARCHITECTURE B′
+  → si B : correctifs bornés puis re-live
+  → si C : rework conception/architecture (pas B′)
 ```
 
 ---
@@ -693,8 +1273,8 @@ GO VALIDATION CADRAGE
 
 | Gate | Quand |
 |------|-------|
-| `GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT` | Immédiat — **demandé** |
-| `GO ARCHITECTURE — SFIA STUDIO CYCLE PROPOSAL CONTRACT` | Si B′ |
+| `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` | **Immédiat** |
+| `GO ARCHITECTURE — SFIA STUDIO CYCLE PROPOSAL CONTRACT` | Si live OK + Morris choisit B′ |
 | `GO ARCHITECTURE — SFIA STUDIO CYCLE FOUNDATION` | Si C |
 | `GO DELIVERY — …` | Après archi |
 | `GO CLEANUP — delivery branch / tmp gitignore / CI` | Optionnel parallèle |
@@ -706,97 +1286,97 @@ GO VALIDATION CADRAGE
 
 - Simuler Cycle/Action comme disponibles
 - Claim CYCLE OPENED / PROJECT LINKED / D1 COMPLETE / V3-IMPLEMENTED/ADOPTED
+- Claim **GPT LIVE VALIDATED** / **LIVE PRODUCT READY** avant exécution + verdict
 - GPT comme autorité de mutation
 - Automatiser l’arbitrage « quel Cycle ouvrir » sans gate humain
 - L5 global / multi-tenant / billing
 - Modifier method/** ou promouvoir v3 par ce produit
-- Delivery sans validation de cadrage
+- Exécuter B′ ou unifier D1↔tools **dans** le cycle live sans GO dédié
+- Confondre fixture/fake et live
 
 ---
 
-## 9. Conséquences de chaque choix (résumé)
+## 9. Conséquences des verdicts live (pour B′)
 
-| Choix | Gagne | Perd / risque |
-|-------|-------|----------------|
-| B′ | Suite UX rapide, honnête | Couche proposal temporaire |
-| C | Fondation durable | Délai, complexité, migration |
-| A seule | Intégrité link | Parcours toujours bloqué |
-| E/F | Qualité/polish | Rupture métier intacte |
-| Différer tout | — | Dette produit visible au Cockpit |
+| Verdict live | Conséquence B′ |
+|--------------|----------------|
+| **A** LIVE PRODUCT VALIDATED | B′ framing **peut** reprendre |
+| **B** PARTIALLY VALIDATED | B′ **reste différée** ; correctifs d’abord |
+| **C** NOT READY | B′ **fermée** jusqu’à rework |
+| **D** VALIDATED WITH RESERVES | Morris arbitre si B′ peut démarrer malgré réserves |
 
 ---
 
 ## 10. Ordre recommandé des réponses Morris
 
-1. Valider ou contester la **rupture utilisateur** (suite méthodologique).
-2. Trancher **D1** (B′ vs C vs autre).
-3. Trancher **D2–D5** si B′.
-4. Émettre `GO VALIDATION CADRAGE` + préciser le prochain gate (ARCHITECTURE vs autre).
+1. **GO EXÉCUTION LIVE** (ou blocage motivé).
+2. Trancher dual-surface vs exigence d’unification (gap documenté dans `77`).
+3. Après live : appliquer A/B/C/D puis rouvrir D1…D5 B′ si pertinent.
 
 ---
 
 ## 11. Anti-claims
 
-Ce pack ne constitue **pas** une validation d’incrément, **pas** une adoption v3, **pas** une ouverture Cycle.
+Ce pack ne constitue **pas** une validation live exécutée, **pas** une adoption v3, **pas** une ouverture Cycle, **pas** une validation B′.
 
-**Statut :** en attente de **Décision Morris requise**.
+**Statut :** préparation live prête — **Décision Morris requise** pour l’exécution.
 
 ```
 
-## 13. Diff utile README
+## 14. Diff utile README
 
 ```diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index a3c088b..03f4fed 100644
+index a3c088b..d036d04 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
-@@ -503,3 +503,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -503,3 +503,16 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | [73-control-tower-fast-track-delivery-report.md](./73-control-tower-fast-track-delivery-report.md) | Rapport delivery local — **READY FOR MORRIS LIVE VALIDATION** |
 
  *SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
 +
-+### Prochain incrément produit (cadrage candidate — post PR #254)
++### Prochain incrément produit (cadrage + préparation live — post PR #254)
 +
 +| Document | Rôle |
 +|----------|------|
-+| [75-next-product-increment-framing.md](./75-next-product-increment-framing.md) | Gap analysis, discovery domaine, options A–F, incrément vertical candidat — **`framing-candidate`** |
-+| [76-next-product-increment-options-and-decision-pack.md](./76-next-product-increment-options-and-decision-pack.md) | Decision pack ; recommandation B′ ; gates — **`decision-pack-candidate`** |
++| [75-next-product-increment-framing.md](./75-next-product-increment-framing.md) | Gap analysis, options A–F, B′ **différée** — **`framing-candidate`** |
++| [76-next-product-increment-options-and-decision-pack.md](./76-next-product-increment-options-and-decision-pack.md) | Decision pack ; priorité **Live Product Validation** — **`decision-pack-candidate`** |
++| [77-live-product-validation-framing-and-readiness.md](./77-live-product-validation-framing-and-readiness.md) | Readiness GPT / canonique / Git / GitHub / D1 — **`live-prep-candidate`** |
++| [78-live-product-validation-execution-decision-pack.md](./78-live-product-validation-execution-decision-pack.md) | Scénarios LPV-01…06, DoD, gate exécution — **`execution-pack-candidate`** |
 +
-+> Cadrage **non validé**. Gate demandé : `GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT`. Aucun incrément choisi tant que Morris n’a pas décidé.
++> **Incrément immédiat :** Live Product Validation (préparation faite ; exécution **non** autorisée sans GO Morris).
++> **Option B′** (Cycle proposal) : **différée** jusqu’après verdict live.
++> Gate demandé : `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION`.
 
 ```
 
-## 14. Décisions Morris / gates
-
-1. GO VALIDATION CADRAGE — SFIA STUDIO NEXT PRODUCT INCREMENT
-2. Trancher D1 (B′ vs C vs autre) + D2–D5
-3. Puis GO ARCHITECTURE (proposal ou Cycle foundation)
-4. Optionnel GO CLEANUP / CI parallèle
-
 ## 15. Actions non exécutées
 
-- commit/push projet ou framing
+- Appel GPT live
+- Mutation Project
+- Modification app/**
+- Commit/push framing
 - PR/merge
-- modification app/**
-- modification 66–74 / schemas v3
-- Figma / C5 delivery / Cycle runtime
+- B′ delivery
+- Cursor execution
+- OAuth / CI / Figma
 
 ## 16. État Git final
 
 ```
-framing HEAD=88fa4658da07156614de270d8172f147535ddbf9
-origin/main=88fa4658da07156614de270d8172f147535ddbf9
-framing status:
+branch=framing/sfia-studio-next-product-increment
+HEAD=88fa4658da07156614de270d8172f147535ddbf9
+status:
  M projects/sfia-studio/README.md
 ?? projects/sfia-studio/75-next-product-increment-framing.md
 ?? projects/sfia-studio/76-next-product-increment-options-and-decision-pack.md
-workspace principal status:
-?? .tmp-sfia-review/
+?? projects/sfia-studio/77-live-product-validation-framing-and-readiness.md
+?? projects/sfia-studio/78-live-product-validation-execution-decision-pack.md
 ```
 
 ## 17. Verdict
 
-**VERDICT :** PRODUCT FRAMING READY — MORRIS DECISION REQUIRED
+**VERDICT :** LIVE PRODUCT VALIDATION PLAN READY — MORRIS EXECUTION DECISION REQUIRED
 
 Demander à ChatGPT de lire :
 - branche `sfia/review-handoff`
