@@ -1,1261 +1,991 @@
-# Control Tower Fast Track Delivery — Review Pack Full
+# Review Pack Full — SFIA Canonical Context Engine
 
-| Champ | Valeur |
-|-------|--------|
-| **Date/heure** | 2026-07-22 10:44:10 CEST |
-| **Cycle** | 8 — Delivery / Fast Track Control Tower Vertical Slice |
-| **Profil** | Critical |
-| **Gate** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` |
-| **Repo** | mcleland147/sfia-workspace |
-| **Branche** | `delivery/sfia-studio-control-tower-fast-track` (locale, **non poussée**) |
-| **HEAD** | `32e5271842b9a344a7e292614675c27ea8ed941b` = origin/main |
-| **Handoff plan** | `9419d2d` |
+## 1. Métadonnées
+
+- **Date/heure/fuseau :** 2026-07-22 11:40:55 CEST
+- **Cycle :** 8 — Delivery / correctif structurel Control Tower
+- **Profil :** Critical
+- **Gate Morris consommé :** GO INTÉGRER LE MOTEUR DE CONTEXTE SFIA CANONIQUE
+- **Gate suivant (non consommé) :** GO VALIDATION LIVE MOTEUR SFIA CANONIQUE
+- **Repo :** mcleland147/sfia-workspace
+- **Branche :** delivery/sfia-studio-control-tower-fast-track
+- **HEAD :** 32e5271842b9a344a7e292614675c27ea8ed941b
+- **Base origin/main :** 32e5271842b9a344a7e292614675c27ea8ed941b
+- **Handoff précédent connu :** af559f69bc2795016153be6b121650927c687fa2
+
+## 2. État Git initial (truth check)
+
+- Branche = delivery/sfia-studio-control-tower-fast-track
+- HEAD = origin/main = 32e5271…
+- Staged vide ; modifications Fast Track + moteur SFIA non commités
+- .tmp-sfia-review/** non suivi
+- Aucun push delivery
+
+## 3. Sources canoniques (Git HEAD) — digests
+
+| Path | blob SHA (HEAD) | sha256 |
+|------|-----------------|--------|
+| prompts/templates/sfia-cycle-execution-template.md | 784afe8d8a9aa526bcaed759757ccae5f92f2b08 | 74ced4d61f6852777402995d2f228107d1282c7738179db1f8abba50cca989c4 |
+| method/sfia-fast-track/core/sfia-cycle-routing-guide.md | 6eb9289fecf63c014c1e1492c37158a0cabba016 | 7753ae0d86832367db7d7a16dc2828aa2e60d994a2f1583590ad78c64f097b95 |
+| method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md | 6d9963911d13df29eefd61bd6584182620b168e2 | 9f851ddb6d89912f494fa7f84b29468f257613c2116d88e62cfec665746f72b2 |
+| method/sfia-fast-track/core/sfia-rules-and-guardrails.md | 2e99a5d69901775c5dce6e391cba65efdd72a17c | c302c63c3afba60d1fba10e78ffcd4d4ecd6a69c49c58dce25c03446f0de4764 |
+
+**Sources non modifiées** (method/**, prompts/** intacts).
+
+## 4. Architecture
+
+Source Loader → Context Resolver → Session Context → GPT (+ preamble) → SfiaActionProposal → Action Compiler → ActionCandidate OPS1 → Cursor Prompt Instantiator (template Git réel).
+
+## 5–12. Synthèse composants / tests / captures / live / effets / dette / anti-claims / verdict
+
+Voir sections équivalentes : typecheck+lint+build PASS ; **145** tests unitaires ; E2E SFIA 2/2 + CT 2/2 ; captures sous `.tmp-sfia-review/sfia-canonical-context-engine-evidence/screenshots/` ; live **préparée non réalisée** ; Campus360/method/prompts non touchés ; aucune dépendance npm ; verdict **SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION**.
 
 ---
 
-## 1. État Git initial
-
-- framing/sfia-studio-control-tower @ 32e5271
-- docs 66–72 untracked + README modified ; aucun code
-- Branche créée : `delivery/sfia-studio-control-tower-fast-track` (working tree préservé, pas de stash)
-
-## 2. Architecture implémentée
-
-UI → Conversation Service → OpenAI/Fake tool loop → Tool Router → Policy → GitLocalReadAdapter / GitHubReadAdapter (gh|REST) → events
-Cursor : OPS1 gate UI → contract → worktree → cursorExecutionAdapter → report → reportReinjection
-
-## 3. OPS1 réutilisé
-
-session, chat live, ActionCandidate, gates, allowlist, contract, worktree, cursor CLI, orchestrator, postcheck, reportService, Ops1SessionScreen
-
-## 4. Créé / modifié
-
-Voir listes ci-dessous + contenus.
-
-## 5. Transport GitHub
-
-`gh` encapsulé si auth (vérifié : mcleland147 logged in) ; sinon REST si GITHUB_TOKEN ; sinon TRANSPORT_UNAVAILABLE explicite.
-
-## 6. Tests
-
-typecheck PASS · lint PASS · 128 unit PASS · build PASS · E2E CT 2/2 · I1/I6 sample PASS
-
-## 7. Captures
-
-.tmp-sfia-review/control-tower-fast-track-evidence/screenshots/01-fixture-git-tool.png
-.tmp-sfia-review/control-tower-fast-track-evidence/screenshots/02-tool-denied.png
-
-## 8. Live
-
-Préparé — `CONTROL TOWER LIVE READY — MORRIS INTERACTION REQUIRED`
-Non réalisé (pas de clics Morris).
-
-## 9. Anti-claims
-
-Pas de commit/push/PR projet · pas write GitHub · pas MVP/prod · slice non prouvé live · Campus360 principal non modifié
-
-## 10. Contenu complet — fichiers créés (code + doc 73)
+## 13. Fichiers créés (contenu complet)
 
 
-### Fichier : `projects/sfia-studio/app/lib/ops1/tools/types.ts`
+### `projects/sfia-studio/app/lib/ops1/sfia/canonicalPaths.ts`
 
-````
+```typescript
 /**
- * Control Tower Fast Track — tool domain types (Lot A).
- * Discriminated unions; deny-by-default policies.
+ * Closed allowlist of SFIA canonical source paths (repo-relative).
+ * Doctrine stays in Git — this list only selects what may be loaded.
  */
-export type ToolErrorCode =
-  | "TOOL_NOT_FOUND"
-  | "POLICY_DENIED"
-  | "REPOSITORY_NOT_ALLOWED"
-  | "PATH_NOT_ALLOWED"
-  | "PATH_NOT_FOUND"
-  | "INVALID_ARGUMENTS"
-  | "RESULT_TOO_LARGE"
-  | "TIMEOUT"
-  | "TRANSPORT_UNAVAILABLE"
-  | "PROVIDER_ERROR"
-  | "REDACTION_REQUIRED"
-  | "INTERNAL_ERROR"
-  | "EXECUTION_DENIED_GATE_REQUIRED";
-
-export type ToolCallStatus =
-  | "requested"
-  | "started"
-  | "succeeded"
-  | "failed"
-  | "denied";
-
-export type ToolTransport = "internal_git" | "gh_cli" | "github_rest" | "none";
-
-export type ControlTowerToolName =
-  | "git_local_get_status"
-  | "git_local_get_head"
-  | "git_local_search_files"
-  | "git_local_read_file"
-  | "git_local_get_diff"
-  | "git_local_list_worktrees"
-  | "git_local_get_log"
-  | "github_get_repository"
-  | "github_get_branch"
-  | "github_get_commit"
-  | "github_get_pull_request"
-  | "github_list_checks"
-  | "github_list_pr_comments";
-
-export interface ToolDefinition {
-  name: ControlTowerToolName;
-  description: string;
-  parameters: Record<string, unknown>;
-}
-
-export interface ToolCallRequest {
-  toolCallId: string;
-  name: ControlTowerToolName | string;
-  arguments: Record<string, unknown>;
-  sessionId: string;
-}
-
-export interface ToolUsageMetadata {
-  durationMs: number;
-  transport: ToolTransport;
-  truncated: boolean;
-  bytes: number;
-}
-
-export type ToolCallResult =
-  | {
-      ok: true;
-      toolCallId: string;
-      name: string;
-      status: "succeeded";
-      data: unknown;
-      summary: string;
-      usage: ToolUsageMetadata;
-    }
-  | {
-      ok: false;
-      toolCallId: string;
-      name: string;
-      status: "failed" | "denied";
-      errorCode: ToolErrorCode;
-      message: string;
-      usage: ToolUsageMetadata;
-    };
-
-export interface ToolPolicyDecision {
-  allowed: boolean;
-  reason?: string;
-  errorCode?: ToolErrorCode;
-}
-
-export interface SourceReference {
-  kind: "git_local" | "github";
-  label: string;
-  pathOrRef: string | null;
-}
-
-export interface ToolExecutionEventDetail {
-  toolCallId: string;
-  toolName: string;
-  status: ToolCallStatus;
-  durationMs?: number;
-  source?: SourceReference;
-  errorCode?: ToolErrorCode;
-  resultDigest?: string;
-  summary?: string;
-}
-
-export const CT_MAX_TOOL_ROUNDS = 4;
-export const CT_MAX_TOOL_CALLS_PER_ROUND = 4;
-export const CT_MAX_TOOL_RESULT_CHARS = 12_000;
-export const CT_TOOL_TIMEOUT_MS = 15_000;
-export const CT_DEFAULT_READ_MAX_BYTES = 32_768;
-export const CT_GITHUB_REPO_ALLOWLIST = [
-  "mcleland147/sfia-workspace",
+export const SFIA_CANONICAL_CORE_PATHS = [
+  "prompts/templates/sfia-cycle-execution-template.md",
+  "method/sfia-fast-track/core/sfia-cycle-routing-guide.md",
+  "method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md",
+  "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
 ] as const;
 
-export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
-  {
-    name: "git_local_get_status",
-    description: "Read local git status (porcelain). Read-only.",
-    parameters: {
-      type: "object",
-      properties: {},
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "git_local_get_head",
-    description: "Read local HEAD sha and current branch. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {},
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "git_local_search_files",
-    description: "Search tracked files by substring. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        query: { type: "string" },
-        limit: { type: "integer", minimum: 1, maximum: 50 },
-      },
-      required: ["query"],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "git_local_read_file",
-    description:
-      "Read a UTF-8 text file relative to repo root. Paths are validated server-side.",
-    parameters: {
-      type: "object",
-      properties: {
-        path: { type: "string" },
-        maxBytes: { type: "integer", minimum: 1, maximum: 65536 },
-      },
-      required: ["path"],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "git_local_get_diff",
-    description: "Read local git diff (optional path). Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        path: { type: "string" },
-        maxBytes: { type: "integer", minimum: 1, maximum: 65536 },
-      },
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "git_local_list_worktrees",
-    description: "List local git worktrees (paths redacted). Read-only.",
-    parameters: {
-      type: "object",
-      properties: {},
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "git_local_get_log",
-    description: "Read limited local git log. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        limit: { type: "integer", minimum: 1, maximum: 20 },
-      },
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "github_get_repository",
-    description: "Read allowlisted GitHub repository metadata. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        owner: { type: "string" },
-        name: { type: "string" },
-      },
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "github_get_branch",
-    description: "Read a remote branch tip. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        name: { type: "string" },
-      },
-      required: ["name"],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "github_get_commit",
-    description: "Read a remote commit summary. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        sha: { type: "string" },
-      },
-      required: ["sha"],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "github_get_pull_request",
-    description: "Read a pull request summary. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        number: { type: "integer", minimum: 1 },
-      },
-      required: ["number"],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "github_list_checks",
-    description: "List check runs for a ref. Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        ref: { type: "string" },
-      },
-      required: ["ref"],
-      additionalProperties: false,
-    },
-  },
-  {
-    name: "github_list_pr_comments",
-    description: "List pull request review comments (truncated). Read-only.",
-    parameters: {
-      type: "object",
-      properties: {
-        number: { type: "integer", minimum: 1 },
-      },
-      required: ["number"],
-      additionalProperties: false,
-    },
-  },
-];
-````
+export const SFIA_CURSOR_TEMPLATE_PATH =
+  "prompts/templates/sfia-cycle-execution-template.md" as const;
 
-### Fichier : `projects/sfia-studio/app/lib/ops1/tools/redaction.ts`
+export type SfiaCanonicalSourceRole =
+  | "execution_template"
+  | "routing_guide"
+  | "operating_model"
+  | "guardrails"
+  | "project_doc"
+  | "handoff";
 
-````
-/** Redaction helpers for tool outputs — never leak secrets to the model. */
-const SECRET_PATTERNS: RegExp[] = [
-  /\bsk-[A-Za-z0-9_-]{10,}\b/g,
-  /\bghp_[A-Za-z0-9]{20,}\b/g,
-  /\bgithub_pat_[A-Za-z0-9_]{20,}\b/g,
-  /\bOPENAI_API_KEY\s*=\s*.+/gi,
-  /\bAuthorization:\s*Bearer\s+\S+/gi,
-];
+export const SFIA_CORE_SOURCE_ROLES: Record<
+  (typeof SFIA_CANONICAL_CORE_PATHS)[number],
+  SfiaCanonicalSourceRole
+> = {
+  "prompts/templates/sfia-cycle-execution-template.md": "execution_template",
+  "method/sfia-fast-track/core/sfia-cycle-routing-guide.md": "routing_guide",
+  "method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md":
+    "operating_model",
+  "method/sfia-fast-track/core/sfia-rules-and-guardrails.md": "guardrails",
+};
 
-export function redactSecrets(text: string): string {
-  let out = text;
-  for (const re of SECRET_PATTERNS) {
-    out = out.replace(re, "[redacted]");
-  }
-  return out;
-}
+/** Optional contextual project docs (Control Tower) — still allowlisted. */
+export const SFIA_PROJECT_CONTEXT_PATHS = [
+  "projects/sfia-studio/70-control-tower-fast-track-architecture-and-contract.md",
+  "projects/sfia-studio/72-control-tower-fast-track-decision-pack.md",
+  "projects/sfia-studio/73-control-tower-fast-track-delivery-report.md",
+] as const;
 
-export function truncateText(
-  text: string,
-  maxChars: number,
-): { text: string; truncated: boolean } {
-  if (text.length <= maxChars) return { text, truncated: false };
-  return {
-    text: `${text.slice(0, maxChars)}\n…[truncated]`,
-    truncated: true,
-  };
-}
+export const SFIA_METHOD_BASELINE = "SFIA v2.6";
 
-export function digestText(text: string): string {
-  const redacted = redactSecrets(text);
-  if (redacted.length <= 120) return redacted;
-  return `${redacted.slice(0, 117)}…`;
-}
-````
+/** Runtime-closed gates for this Control Tower increment (session default). */
+export const SFIA_DEFAULT_CLOSED_GATES = [
+  "commit",
+  "push",
+  "PR",
+  "merge",
+  "cleanup",
+  "GitHub write",
+  "L5 automation",
+  "method modification",
+] as const;
 
-### Fichier : `projects/sfia-studio/app/lib/ops1/tools/pathPolicy.ts`
+export const SFIA_DEFAULT_OPEN_GATES = [
+  "GO VALIDATION LIVE MOTEUR SFIA CANONIQUE",
+  "GO action Cursor (après ActionCandidate)",
+] as const;
 
-````
-/**
- * Path / repo policy for Control Tower read tools — deny by default.
- */
-import path from "node:path";
-import type { ToolErrorCode, ToolPolicyDecision } from "./types";
-import { CT_GITHUB_REPO_ALLOWLIST } from "./types";
+export const SFIA_DEFAULT_FORBIDDEN_OPS = [
+  "commit",
+  "push",
+  "create_pr",
+  "merge",
+  "shell",
+  "branch_create",
+  "github_write",
+  "delete_protected",
+  "modify_method",
+  "modify_prompts",
+] as const;
 
-const FORBIDDEN_PATH_PREFIXES = [
-  ".git/",
-  ".env",
-  "node_modules/",
+export const SFIA_DEFAULT_ALLOWED_OPS = [
+  "git_local_read",
+  "github_read",
+  "conversation",
+  "propose_action",
+  "create_markdown_allowlisted",
+  "cursor_execute_after_morris_go",
+] as const;
+
+export const SFIA_DEFAULT_ALLOWED_PATH_PREFIXES = [
+  "projects/campus360/",
+] as const;
+
+export const SFIA_DEFAULT_PROTECTED_PATHS = [
+  "projects/campus360/03-pre-framing-decision-pack.md",
   "method/",
   "prompts/",
+  "docs/",
   "scripts/",
   ".github/",
-  ".sfia/",
-  ".cursor/",
 ] as const;
 
-const FORBIDDEN_BASENAME_PREFIXES = [".env"] as const;
+```
 
-const FORBIDDEN_BASENAMES = new Set([
-  ".env",
-  ".env.local",
-  ".env.production",
-  "credentials.json",
-  "id_rsa",
-  "id_ed25519",
-]);
+### `projects/sfia-studio/app/lib/ops1/sfia/types.ts`
 
-const ALLOWED_READ_PREFIXES = [
-  "projects/campus360/",
-  "projects/sfia-studio/",
-  "README.md",
-] as const;
-
-export function normalizeRelativePath(raw: unknown): {
-  ok: true;
-  normalized: string;
-} | {
-  ok: false;
-  errorCode: ToolErrorCode;
-  reason: string;
-} {
-  if (typeof raw !== "string" || !raw.trim()) {
-    return {
-      ok: false,
-      errorCode: "INVALID_ARGUMENTS",
-      reason: "Chemin manquant.",
-    };
-  }
-  const trimmed = raw.trim();
-  if (path.isAbsolute(trimmed) || /^[A-Za-z]:[\\/]/.test(trimmed)) {
-    return {
-      ok: false,
-      errorCode: "PATH_NOT_ALLOWED",
-      reason: "Chemin absolu interdit.",
-    };
-  }
-  const posix = trimmed.replace(/\\/g, "/");
-  const parts = posix.split("/");
-  if (parts.some((p) => p === ".." || p === "")) {
-    return {
-      ok: false,
-      errorCode: "PATH_NOT_ALLOWED",
-      reason: "Traversal ou segment vide interdit.",
-    };
-  }
-  return {
-    ok: true,
-    normalized: parts.filter((p) => p !== ".").join("/"),
-  };
-}
-
-export function decideReadPath(normalized: string): ToolPolicyDecision {
-  const base = normalized.split("/").pop() ?? normalized;
-  if (FORBIDDEN_BASENAMES.has(base)) {
-    return {
-      allowed: false,
-      errorCode: "PATH_NOT_ALLOWED",
-      reason: "Basename secret interdit.",
-    };
-  }
-  for (const p of FORBIDDEN_BASENAME_PREFIXES) {
-    if (base.startsWith(p)) {
-      return {
-        allowed: false,
-        errorCode: "PATH_NOT_ALLOWED",
-        reason: "Fichier env/secret interdit.",
-      };
-    }
-  }
-  for (const prefix of FORBIDDEN_PATH_PREFIXES) {
-    if (normalized === prefix.replace(/\/$/, "") || normalized.startsWith(prefix)) {
-      return {
-        allowed: false,
-        errorCode: "PATH_NOT_ALLOWED",
-        reason: `Préfixe interdit: ${prefix}`,
-      };
-    }
-  }
-  const allowed = ALLOWED_READ_PREFIXES.some((prefix) => {
-    if (prefix.endsWith("/")) {
-      return normalized.startsWith(prefix) || normalized === prefix.slice(0, -1);
-    }
-    return normalized === prefix;
-  });
-  if (!allowed) {
-    return {
-      allowed: false,
-      errorCode: "PATH_NOT_ALLOWED",
-      reason: "Chemin hors allowlist de lecture Control Tower.",
-    };
-  }
-  return { allowed: true };
-}
-
-export function decideGithubRepo(
-  owner: string,
-  name: string,
-): ToolPolicyDecision {
-  const full = `${owner}/${name}`;
-  if (
-    !(CT_GITHUB_REPO_ALLOWLIST as readonly string[]).includes(full)
-  ) {
-    return {
-      allowed: false,
-      errorCode: "REPOSITORY_NOT_ALLOWED",
-      reason: `Repository non allowlisté: ${full}`,
-    };
-  }
-  return { allowed: true };
-}
-
-export function assertPathInsideRoot(
-  workspaceRoot: string,
-  relativePath: string,
-): ToolPolicyDecision {
-  const abs = path.resolve(workspaceRoot, relativePath);
-  const root = path.resolve(workspaceRoot);
-  if (abs !== root && !abs.startsWith(root + path.sep)) {
-    return {
-      allowed: false,
-      errorCode: "PATH_NOT_ALLOWED",
-      reason: "Chemin hors racine du repository.",
-    };
-  }
-  return { allowed: true };
-}
-````
-
-### Fichier : `projects/sfia-studio/app/lib/ops1/tools/gitLocalReadAdapter.ts`
-
-````
+```typescript
 /**
- * Git local read-only adapter — argument arrays only, no shell, no mutation.
+ * SFIA Canonical Context Engine — domain types.
+ * Structured runtime representations; doctrine remains in Git sources.
  */
+import type { SfiaCanonicalSourceRole } from "./canonicalPaths";
+
+export type SfiaProfile =
+  | "Light"
+  | "Standard"
+  | "Critical"
+  | "Capitalization";
+
+export type SfiaFileOperation = "READ" | "CREATE" | "MODIFY" | "DELETE";
+
+export type SfiaProposalKind =
+  | "no_action"
+  | "clarification_required"
+  | "action_proposed"
+  | "decision_required"
+  | "blocked";
+
+export type SfiaCompilationStatus =
+  | "COMPILED"
+  | "CLARIFICATION_REQUIRED"
+  | "POLICY_DENIED"
+  | "GATE_REQUIRED"
+  | "PATH_DENIED"
+  | "CONTEXT_STALE"
+  | "INVALID_PROPOSAL"
+  | "BLOCKED";
+
+export interface SfiaSourceDocumentRef {
+  path: string;
+  digest: string;
+  blobSha: string | null;
+  role: SfiaCanonicalSourceRole | "project_doc" | "handoff";
+  sizeBytes: number;
+  readAt: string;
+  summaryExcerpt: string;
+}
+
+export interface SfiaCanonicalContext {
+  contextId: string;
+  generatedAt: string;
+  repository: string;
+  branch: string;
+  headSha: string;
+  baseSha: string;
+  methodBaseline: string;
+  sourceDocuments: SfiaSourceDocumentRef[];
+  project: string;
+  currentCycle: string;
+  candidateCycle: string;
+  profile: SfiaProfile;
+  profileJustification: string;
+  activeBlocks: string[];
+  inactiveBlocks: string[];
+  validatedDecisions: string[];
+  candidateDecisions: string[];
+  openGates: string[];
+  closedGates: string[];
+  allowedOperations: string[];
+  forbiddenOperations: string[];
+  allowedPaths: string[];
+  protectedPaths: string[];
+  stopConditions: string[];
+  reviewPackRequirement: "light" | "full" | "required";
+  reviewHandoffRequirement: "required_publish_in_cycle";
+  cursorTemplatePath: string;
+  expectedVerdicts: string[];
+  unresolvedQuestions: string[];
+  warnings: string[];
+  /** Permanent core facts injected every GPT turn (Level 1). */
+  permanentCore: string[];
+}
+
+export interface SfiaProposedFile {
+  path: string;
+  operation: SfiaFileOperation;
+  exactContent?: string;
+}
+
+export type SfiaActionProposal =
+  | {
+      kind: "no_action";
+      proposalId: string;
+      sessionId: string;
+      contextId: string;
+      userVisibleSummary: string;
+      rationale: string;
+    }
+  | {
+      kind: "clarification_required";
+      proposalId: string;
+      sessionId: string;
+      contextId: string;
+      userVisibleSummary: string;
+      unresolvedQuestions: string[];
+    }
+  | {
+      kind: "decision_required";
+      proposalId: string;
+      sessionId: string;
+      contextId: string;
+      userVisibleSummary: string;
+      requiredGates: string[];
+    }
+  | {
+      kind: "blocked";
+      proposalId: string;
+      sessionId: string;
+      contextId: string;
+      userVisibleSummary: string;
+      reason: string;
+    }
+  | {
+      kind: "action_proposed";
+      proposalId: string;
+      sessionId: string;
+      contextId: string;
+      objective: string;
+      rationale: string;
+      cycle: string;
+      profile: SfiaProfile;
+      profileJustification: string;
+      blocks: string[];
+      project: string;
+      operations: string[];
+      files: SfiaProposedFile[];
+      expectedEffects: string[];
+      excludedEffects: string[];
+      requiredGates: string[];
+      stopConditions: string[];
+      cursorRequired: boolean;
+      reviewPackLevel: "light" | "full";
+      reviewHandoffRequired: boolean;
+      userVisibleSummary: string;
+      exactRequestedContent?: string;
+      confidence: number;
+      unresolvedQuestions: string[];
+    };
+
+export interface SfiaCompilationResult {
+  status: SfiaCompilationStatus;
+  contextId: string;
+  proposalId: string;
+  sessionId: string;
+  reasons: string[];
+  deniedOperations: string[];
+  deniedPaths: string[];
+  actionCandidateId?: string;
+  title?: string;
+  objective?: string;
+  scopeSummary?: string;
+  riskSummary?: string;
+  files?: SfiaProposedFile[];
+  exactContent?: string;
+}
+
+export interface SfiaCursorPromptInstantiation {
+  templatePath: string;
+  templateDigest: string;
+  templateBlobSha: string | null;
+  contextId: string;
+  actionId: string;
+  promptText: string;
+  instantiatedAt: string;
+}
+
+```
+
+### `projects/sfia-studio/app/lib/ops1/sfia/sourceLoader.ts`
+
+```typescript
+/**
+ * SFIA Canonical Source Loader — read-only, closed path allowlist.
+ */
+import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import {
-  assertPathInsideRoot,
-  decideReadPath,
-  normalizeRelativePath,
-} from "./pathPolicy";
-import { digestText, redactSecrets, truncateText } from "./redaction";
-import {
-  CT_DEFAULT_READ_MAX_BYTES,
-  CT_MAX_TOOL_RESULT_CHARS,
-  CT_TOOL_TIMEOUT_MS,
-} from "./types";
+  SFIA_CANONICAL_CORE_PATHS,
+  SFIA_CORE_SOURCE_ROLES,
+  SFIA_CURSOR_TEMPLATE_PATH,
+  SFIA_PROJECT_CONTEXT_PATHS,
+  type SfiaCanonicalSourceRole,
+} from "./canonicalPaths";
+import type { SfiaSourceDocumentRef } from "./types";
 
-function git(
+const MAX_SOURCE_BYTES = 400_000;
+const EXCERPT_CHARS = 800;
+
+const ALLOWED = new Set<string>([
+  ...SFIA_CANONICAL_CORE_PATHS,
+  ...SFIA_PROJECT_CONTEXT_PATHS,
+]);
+
+export class SfiaSourceLoadError extends Error {
+  constructor(
+    message: string,
+    readonly code:
+      | "PATH_NOT_ALLOWED"
+      | "PATH_NOT_FOUND"
+      | "TOO_LARGE"
+      | "READ_FAILED",
+  ) {
+    super(message);
+    this.name = "SfiaSourceLoadError";
+  }
+}
+
+function digestContent(content: string): string {
+  return createHash("sha256").update(content, "utf8").digest("hex");
+}
+
+function gitBlobSha(
   workspaceRoot: string,
-  args: string[],
-  timeoutMs = CT_TOOL_TIMEOUT_MS,
-): string {
-  return execFileSync("git", args, {
-    cwd: workspaceRoot,
-    encoding: "utf8",
-    timeout: timeoutMs,
-    maxBuffer: 2 * 1024 * 1024,
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-}
-
-export class GitLocalReadAdapter {
-  constructor(private readonly workspaceRoot: string) {}
-
-  getStatus(): { porcelain: string; summary: string } {
-    const porcelain = git(this.workspaceRoot, [
-      "status",
-      "--porcelain",
-    ]).trimEnd();
-    const { text, truncated } = truncateText(
-      redactSecrets(porcelain || "(clean)"),
-      CT_MAX_TOOL_RESULT_CHARS,
-    );
-    return {
-      porcelain: text,
-      summary: truncated
-        ? "git status (truncated)"
-        : `git status (${porcelain ? porcelain.split("\n").length : 0} lines)`,
-    };
-  }
-
-  getHead(): { sha: string; branch: string; summary: string } {
-    const sha = git(this.workspaceRoot, ["rev-parse", "HEAD"]).trim();
-    let branch = "(detached)";
-    try {
-      branch = git(this.workspaceRoot, ["branch", "--show-current"]).trim() ||
-        "(detached)";
-    } catch {
-      /* detached */
-    }
-    return {
-      sha,
-      branch,
-      summary: `HEAD ${sha.slice(0, 12)} on ${branch}`,
-    };
-  }
-
-  searchFiles(
-    query: string,
-    limit = 20,
-  ): { paths: string[]; summary: string } {
-    const q = query.trim().toLowerCase();
-    if (!q) {
-      throw Object.assign(new Error("query vide"), {
-        toolErrorCode: "INVALID_ARGUMENTS",
-      });
-    }
-    const listed = git(this.workspaceRoot, ["ls-files"]);
-    const paths = listed
-      .split("\n")
-      .map((p) => p.trim())
-      .filter(Boolean)
-      .filter((p) => {
-        const norm = normalizeRelativePath(p);
-        if (!norm.ok) return false;
-        if (!decideReadPath(norm.normalized).allowed) return false;
-        return norm.normalized.toLowerCase().includes(q);
-      })
-      .slice(0, Math.min(50, Math.max(1, limit)));
-    return {
-      paths,
-      summary: `search « ${digestText(query)} » → ${paths.length} fichier(s)`,
-    };
-  }
-
-  readFile(
-    rawPath: string,
-    maxBytes = CT_DEFAULT_READ_MAX_BYTES,
-  ): { path: string; content: string; summary: string; truncated: boolean } {
-    const norm = normalizeRelativePath(rawPath);
-    if (!norm.ok) {
-      throw Object.assign(new Error(norm.reason), {
-        toolErrorCode: norm.errorCode,
-      });
-    }
-    const policy = decideReadPath(norm.normalized);
-    if (!policy.allowed) {
-      throw Object.assign(new Error(policy.reason ?? "denied"), {
-        toolErrorCode: policy.errorCode ?? "PATH_NOT_ALLOWED",
-      });
-    }
-    const contain = assertPathInsideRoot(
-      this.workspaceRoot,
-      norm.normalized,
-    );
-    if (!contain.allowed) {
-      throw Object.assign(new Error(contain.reason ?? "denied"), {
-        toolErrorCode: contain.errorCode ?? "PATH_NOT_ALLOWED",
-      });
-    }
-    const abs = path.join(this.workspaceRoot, norm.normalized);
-    if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
-      throw Object.assign(new Error("Fichier introuvable."), {
-        toolErrorCode: "PATH_NOT_FOUND",
-      });
-    }
-    const buf = fs.readFileSync(abs);
-    if (buf.includes(0)) {
-      throw Object.assign(new Error("Fichier binaire refusé."), {
-        toolErrorCode: "POLICY_DENIED",
-      });
-    }
-    const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
-    const slice = buf.subarray(0, cap);
-    const raw = slice.toString("utf8");
-    const redacted = redactSecrets(raw);
-    const { text, truncated } = truncateText(
-      redacted,
-      CT_MAX_TOOL_RESULT_CHARS,
-    );
-    return {
-      path: norm.normalized,
-      content: text,
-      truncated: truncated || buf.length > cap,
-      summary: `read ${norm.normalized} (${text.length} chars)`,
-    };
-  }
-
-  getDiff(
-    rawPath?: string,
-    maxBytes = CT_DEFAULT_READ_MAX_BYTES,
-  ): { diff: string; summary: string; truncated: boolean } {
-    const args = ["diff"];
-    if (rawPath) {
-      const norm = normalizeRelativePath(rawPath);
-      if (!norm.ok) {
-        throw Object.assign(new Error(norm.reason), {
-          toolErrorCode: norm.errorCode,
-        });
-      }
-      const policy = decideReadPath(norm.normalized);
-      if (!policy.allowed) {
-        throw Object.assign(new Error(policy.reason ?? "denied"), {
-          toolErrorCode: policy.errorCode ?? "PATH_NOT_ALLOWED",
-        });
-      }
-      args.push("--", norm.normalized);
-    }
-    const diff = git(this.workspaceRoot, args);
-    const redacted = redactSecrets(diff || "(no diff)");
-    const { text, truncated } = truncateText(
-      redacted.slice(0, maxBytes),
-      CT_MAX_TOOL_RESULT_CHARS,
-    );
-    return {
-      diff: text,
-      truncated: truncated || redacted.length > maxBytes,
-      summary: `diff ${rawPath ?? "(all)"}`,
-    };
-  }
-
-  listWorktrees(): {
-    worktrees: Array<{ pathDigest: string; head: string; branch: string }>;
-    summary: string;
-  } {
-    const out = git(this.workspaceRoot, [
-      "worktree",
-      "list",
-      "--porcelain",
-    ]);
-    const blocks = out.split("\n\n").filter(Boolean);
-    const worktrees = blocks.map((block) => {
-      const lines = block.split("\n");
-      const wt =
-        lines.find((l) => l.startsWith("worktree "))?.slice(9) ?? "";
-      const head = lines.find((l) => l.startsWith("HEAD "))?.slice(5) ?? "";
-      const branch =
-        lines.find((l) => l.startsWith("branch "))?.slice(7) ?? "(detached)";
-      const base = path.basename(wt);
-      return {
-        pathDigest: base ? `[worktree]/${base}` : "[worktree]",
-        head: head.slice(0, 12),
-        branch: branch.replace("refs/heads/", ""),
-      };
-    });
-    return {
-      worktrees,
-      summary: `${worktrees.length} worktree(s)`,
-    };
-  }
-
-  getLog(limit = 5): { entries: string[]; summary: string } {
-    const n = Math.min(20, Math.max(1, limit));
-    const out = git(this.workspaceRoot, [
-      "log",
-      `-n${n}`,
-      "--pretty=format:%h %s",
-    ]);
-    const entries = out
-      .split("\n")
-      .map((l) => redactSecrets(l.trim()))
-      .filter(Boolean);
-    return {
-      entries,
-      summary: `log top ${entries.length}`,
-    };
-  }
-}
-````
-
-### Fichier : `projects/sfia-studio/app/lib/ops1/tools/githubReadAdapter.ts`
-
-````
-/**
- * GitHub read adapter — transport-agnostic interface.
- * Default transport: encapsulated `gh` CLI (read-only). Optional REST via token.
- */
-import { execFileSync } from "node:child_process";
-import { decideGithubRepo } from "./pathPolicy";
-import { digestText, redactSecrets, truncateText } from "./redaction";
-import {
-  CT_GITHUB_REPO_ALLOWLIST,
-  CT_MAX_TOOL_RESULT_CHARS,
-  CT_TOOL_TIMEOUT_MS,
-  type ToolTransport,
-} from "./types";
-
-export interface GithubRepositoryView {
-  fullName: string;
-  defaultBranch: string;
-  description: string | null;
-  url: string;
-}
-
-export interface GithubBranchView {
-  name: string;
-  sha: string;
-}
-
-export interface GithubCommitView {
-  sha: string;
-  message: string;
-  author: string | null;
-}
-
-export interface GithubPullRequestView {
-  number: number;
-  title: string;
-  state: string;
-  headRef: string;
-  baseRef: string;
-  url: string;
-}
-
-export interface GithubCheckView {
-  name: string;
-  conclusion: string | null;
-  status: string;
-}
-
-export interface GithubCommentView {
-  id: number;
-  user: string;
-  bodyDigest: string;
-}
-
-export interface GithubReadPort {
-  readonly transport: ToolTransport;
-  getRepository(owner: string, name: string): Promise<GithubRepositoryView>;
-  getBranch(owner: string, name: string, branch: string): Promise<GithubBranchView>;
-  getCommit(owner: string, name: string, sha: string): Promise<GithubCommitView>;
-  getPullRequest(
-    owner: string,
-    name: string,
-    number: number,
-  ): Promise<GithubPullRequestView>;
-  listPullRequestComments(
-    owner: string,
-    name: string,
-    number: number,
-  ): Promise<GithubCommentView[]>;
-  listChecks(
-    owner: string,
-    name: string,
-    ref: string,
-  ): Promise<GithubCheckView[]>;
-}
-
-function assertRepo(owner: string, name: string): void {
-  const d = decideGithubRepo(owner, name);
-  if (!d.allowed) {
-    throw Object.assign(new Error(d.reason ?? "repo denied"), {
-      toolErrorCode: d.errorCode ?? "REPOSITORY_NOT_ALLOWED",
-    });
-  }
-}
-
-function ghJson(args: string[]): unknown {
-  const out = execFileSync("gh", args, {
-    encoding: "utf8",
-    timeout: CT_TOOL_TIMEOUT_MS,
-    maxBuffer: 2 * 1024 * 1024,
-    stdio: ["ignore", "pipe", "pipe"],
-    env: { ...process.env },
-  });
-  return JSON.parse(out);
-}
-
-export function probeGhAuth(): {
-  available: boolean;
-  authenticated: boolean;
-  reason?: string;
-} {
+  relativePath: string,
+): string | null {
   try {
-    execFileSync("gh", ["--version"], {
+    return execFileSync("git", ["rev-parse", `HEAD:${relativePath}`], {
+      cwd: workspaceRoot,
       encoding: "utf8",
       timeout: 5000,
       stdio: ["ignore", "pipe", "pipe"],
-    });
+    }).trim();
   } catch {
-    return {
-      available: false,
-      authenticated: false,
-      reason: "gh CLI introuvable",
-    };
-  }
-  try {
-    const status = execFileSync("gh", ["auth", "status"], {
-      encoding: "utf8",
-      timeout: 8000,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    // Never return token material — only presence of Logged in
-    const ok = /Logged in to github\.com/i.test(status);
-    return {
-      available: true,
-      authenticated: ok,
-      reason: ok ? undefined : "gh non authentifié",
-    };
-  } catch {
-    return {
-      available: true,
-      authenticated: false,
-      reason: "gh auth status échec",
-    };
+    // Untracked / working-tree-only file
+    return null;
   }
 }
 
-export class GhCliGithubReadAdapter implements GithubReadPort {
-  readonly transport: ToolTransport = "gh_cli";
-
-  async getRepository(owner: string, name: string): Promise<GithubRepositoryView> {
-    assertRepo(owner, name);
-    const data = ghJson([
-      "api",
-      `repos/${owner}/${name}`,
-      "--jq",
-      "{full_name,default_branch,description,html_url}",
-    ]) as Record<string, string | null>;
-    return {
-      fullName: String(data.full_name),
-      defaultBranch: String(data.default_branch ?? "main"),
-      description: data.description ? redactSecrets(String(data.description)) : null,
-      url: String(data.html_url ?? ""),
-    };
-  }
-
-  async getBranch(
-    owner: string,
-    name: string,
-    branch: string,
-  ): Promise<GithubBranchView> {
-    assertRepo(owner, name);
-    const data = ghJson([
-      "api",
-      `repos/${owner}/${name}/branches/${encodeURIComponent(branch)}`,
-      "--jq",
-      "{name,commit:{sha:.commit.sha}}",
-    ]) as { name: string; commit: { sha: string } };
-    return { name: data.name, sha: data.commit.sha };
-  }
-
-  async getCommit(
-    owner: string,
-    name: string,
-    sha: string,
-  ): Promise<GithubCommitView> {
-    assertRepo(owner, name);
-    const data = ghJson([
-      "api",
-      `repos/${owner}/${name}/commits/${encodeURIComponent(sha)}`,
-      "--jq",
-      "{sha,commit:{message:.commit.message,author:.commit.author.name}}",
-    ]) as {
-      sha: string;
-      commit: { message: string; author: string | null };
-    };
-    return {
-      sha: data.sha,
-      message: redactSecrets(data.commit.message).slice(0, 500),
-      author: data.commit.author,
-    };
-  }
-
-  async getPullRequest(
-    owner: string,
-    name: string,
-    number: number,
-  ): Promise<GithubPullRequestView> {
-    assertRepo(owner, name);
-    const data = ghJson([
-      "api",
-      `repos/${owner}/${name}/pulls/${number}`,
-      "--jq",
-      "{number,title,state,html_url,head:{ref:.head.ref},base:{ref:.base.ref}}",
-    ]) as {
-      number: number;
-      title: string;
-      state: string;
-      html_url: string;
-      head: { ref: string };
-      base: { ref: string };
-    };
-    return {
-      number: data.number,
-      title: redactSecrets(data.title),
-      state: data.state,
-      headRef: data.head.ref,
-      baseRef: data.base.ref,
-      url: data.html_url,
-    };
-  }
-
-  async listPullRequestComments(
-    owner: string,
-    name: string,
-    number: number,
-  ): Promise<GithubCommentView[]> {
-    assertRepo(owner, name);
-    const data = ghJson([
-      "api",
-      `repos/${owner}/${name}/pulls/${number}/comments?per_page=10`,
-      "--jq",
-      "[.[] | {id,user:.user.login,body}]",
-    ]) as Array<{ id: number; user: string; body: string }>;
-    return data.map((c) => ({
-      id: c.id,
-      user: c.user,
-      bodyDigest: digestText(redactSecrets(c.body ?? "")),
-    }));
-  }
-
-  async listChecks(
-    owner: string,
-    name: string,
-    ref: string,
-  ): Promise<GithubCheckView[]> {
-    assertRepo(owner, name);
-    const data = ghJson([
-      "api",
-      `repos/${owner}/${name}/commits/${encodeURIComponent(ref)}/check-runs?per_page=20`,
-      "--jq",
-      "[.check_runs[] | {name,status,conclusion}]",
-    ]) as Array<{
-      name: string;
-      status: string;
-      conclusion: string | null;
-    }>;
-    return data.map((c) => ({
-      name: c.name,
-      status: c.status,
-      conclusion: c.conclusion,
-    }));
+function assertAllowed(relativePath: string): void {
+  if (!ALLOWED.has(relativePath) && relativePath !== SFIA_CURSOR_TEMPLATE_PATH) {
+    throw new SfiaSourceLoadError(
+      `Source hors allowlist: ${relativePath}`,
+      "PATH_NOT_ALLOWED",
+    );
   }
 }
 
-/** REST transport — only when GITHUB_TOKEN explicitly set (never echoed). */
-export class RestGithubReadAdapter implements GithubReadPort {
-  readonly transport: ToolTransport = "github_rest";
-  private readonly token: string;
-
-  constructor(token: string) {
-    this.token = token;
+export function loadCanonicalSource(
+  workspaceRoot: string,
+  relativePath: string,
+  role?: SfiaCanonicalSourceRole | "project_doc" | "handoff",
+): SfiaSourceDocumentRef {
+  assertAllowed(relativePath);
+  const abs = path.resolve(workspaceRoot, relativePath);
+  const root = path.resolve(workspaceRoot);
+  if (abs !== root && !abs.startsWith(root + path.sep)) {
+    throw new SfiaSourceLoadError(
+      "Chemin hors repository.",
+      "PATH_NOT_ALLOWED",
+    );
   }
-
-  private async api(pathname: string): Promise<unknown> {
-    const res = await fetch(`https://api.github.com${pathname}`, {
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${this.token}`,
-        "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "sfia-studio-control-tower",
-      },
-      signal: AbortSignal.timeout(CT_TOOL_TIMEOUT_MS),
-    });
-    if (!res.ok) {
-      throw Object.assign(
-        new Error(`GitHub REST ${res.status}`),
-        { toolErrorCode: "TRANSPORT_UNAVAILABLE" },
-      );
-    }
-    return res.json();
+  if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
+    throw new SfiaSourceLoadError(
+      `Source absente: ${relativePath}`,
+      "PATH_NOT_FOUND",
+    );
   }
-
-  async getRepository(owner: string, name: string): Promise<GithubRepositoryView> {
-    assertRepo(owner, name);
-    const data = (await this.api(`/repos/${owner}/${name}`)) as Record<
-      string,
-      string | null
-    >;
-    return {
-      fullName: String(data.full_name),
-      defaultBranch: String(data.default_branch ?? "main"),
-      description: data.description
-        ? redactSecrets(String(data.description))
-        : null,
-      url: String(data.html_url ?? ""),
-    };
+  const buf = fs.readFileSync(abs);
+  if (buf.length > MAX_SOURCE_BYTES) {
+    throw new SfiaSourceLoadError(
+      `Source trop volumineuse: ${relativePath}`,
+      "TOO_LARGE",
+    );
   }
-
-  async getBranch(
-    owner: string,
-    name: string,
-    branch: string,
-  ): Promise<GithubBranchView> {
-    assertRepo(owner, name);
-    const data = (await this.api(
-      `/repos/${owner}/${name}/branches/${encodeURIComponent(branch)}`,
-    )) as { name: string; commit: { sha: string } };
-    return { name: data.name, sha: data.commit.sha };
+  if (buf.includes(0)) {
+    throw new SfiaSourceLoadError(
+      `Source binaire refusée: ${relativePath}`,
+      "READ_FAILED",
+    );
   }
-
-  async getCommit(
-    owner: string,
-    name: string,
-    sha: string,
-  ): Promise<GithubCommitView> {
-    assertRepo(owner, name);
-    const data = (await this.api(
-      `/repos/${owner}/${name}/commits/${encodeURIComponent(sha)}`,
-    )) as {
-      sha: string;
-      commit: { message: string; author: { name?: string } | null };
-    };
-    return {
-      sha: data.sha,
-      message: redactSecrets(data.commit.message).slice(0, 500),
-      author: data.commit.author?.name ?? null,
-    };
-  }
-
-  async getPullRequest(
-    owner: string,
-    name: string,
-    number: number,
-  ): Promise<GithubPullRequestView> {
-    assertRepo(owner, name);
-    const data = (await this.api(
-      `/repos/${owner}/${name}/pulls/${number}`,
-    )) as {
-      number: number;
-      title: string;
-      state: string;
-      html_url: string;
-      head: { ref: string };
-      base: { ref: string };
-    };
-    return {
-      number: data.number,
-      title: redactSecrets(data.title),
-      state: data.state,
-      headRef: data.head.ref,
-      baseRef: data.base.ref,
-      url: data.html_url,
-    };
-  }
-
-  async listPullRequestComments(
-    owner: string,
-    name: string,
-    number: number,
-  ): Promise<GithubCommentView[]> {
-    assertRepo(owner, name);
-    const data = (await this.api(
-      `/repos/${owner}/${name}/pulls/${number}/comments?per_page=10`,
-    )) as Array<{ id: number; user: { login: string }; body: string }>;
-    return data.map((c) => ({
-      id: c.id,
-      user: c.user.login,
-      bodyDigest: digestText(redactSecrets(c.body ?? "")),
-    }));
-  }
-
-  async listChecks(
-    owner: string,
-    name: string,
-    ref: string,
-  ): Promise<GithubCheckView[]> {
-    assertRepo(owner, name);
-    const data = (await this.api(
-      `/repos/${owner}/${name}/commits/${encodeURIComponent(ref)}/check-runs?per_page=20`,
-    )) as {
-      check_runs: Array<{
-        name: string;
-        status: string;
-        conclusion: string | null;
-      }>;
-    };
-    return (data.check_runs ?? []).map((c) => ({
-      name: c.name,
-      status: c.status,
-      conclusion: c.conclusion,
-    }));
-  }
-}
-
-export type GithubTransportChoice =
-  | { kind: "gh_cli"; adapter: GithubReadPort }
-  | { kind: "github_rest"; adapter: GithubReadPort }
-  | { kind: "unavailable"; reason: string };
-
-/**
- * Resolve transport without silent fallback.
- * Prefer gh when authenticated; else REST if GITHUB_TOKEN set; else unavailable.
- */
-export function resolveGithubReadTransport(): GithubTransportChoice {
-  const forceRest = process.env.SFIA_GITHUB_TRANSPORT === "rest";
-  const token = process.env.GITHUB_TOKEN?.trim() || process.env.GH_TOKEN?.trim();
-
-  if (forceRest) {
-    if (!token) {
-      return {
-        kind: "unavailable",
-        reason: "SFIA_GITHUB_TRANSPORT=rest mais GITHUB_TOKEN absent",
-      };
-    }
-    return { kind: "github_rest", adapter: new RestGithubReadAdapter(token) };
-  }
-
-  const gh = probeGhAuth();
-  if (gh.available && gh.authenticated) {
-    return { kind: "gh_cli", adapter: new GhCliGithubReadAdapter() };
-  }
-
-  if (token) {
-    return { kind: "github_rest", adapter: new RestGithubReadAdapter(token) };
-  }
-
+  const content = buf.toString("utf8");
+  const resolvedRole =
+    role ??
+    SFIA_CORE_SOURCE_ROLES[
+      relativePath as (typeof SFIA_CANONICAL_CORE_PATHS)[number]
+    ] ??
+    "project_doc";
   return {
-    kind: "unavailable",
-    reason: gh.reason ?? "GitHub transport indisponible",
+    path: relativePath,
+    digest: digestContent(content),
+    blobSha: gitBlobSha(workspaceRoot, relativePath),
+    role: resolvedRole,
+    sizeBytes: buf.length,
+    readAt: new Date().toISOString(),
+    summaryExcerpt: content.slice(0, EXCERPT_CHARS).replace(/\s+/g, " ").trim(),
   };
 }
 
-export function defaultGithubOwnerRepo(): { owner: string; name: string } {
-  const [owner, name] = CT_GITHUB_REPO_ALLOWLIST[0].split("/");
-  return { owner, name };
+export function loadCanonicalCoreSources(
+  workspaceRoot: string,
+): SfiaSourceDocumentRef[] {
+  return SFIA_CANONICAL_CORE_PATHS.map((p) =>
+    loadCanonicalSource(workspaceRoot, p),
+  );
 }
 
-export function summarizeGithubPayload(data: unknown): string {
-  const json = redactSecrets(JSON.stringify(data));
-  return truncateText(json, CT_MAX_TOOL_RESULT_CHARS).text;
+export function loadProjectContextSources(
+  workspaceRoot: string,
+): SfiaSourceDocumentRef[] {
+  const out: SfiaSourceDocumentRef[] = [];
+  for (const p of SFIA_PROJECT_CONTEXT_PATHS) {
+    try {
+      out.push(loadCanonicalSource(workspaceRoot, p, "project_doc"));
+    } catch (error) {
+      if (
+        error instanceof SfiaSourceLoadError &&
+        error.code === "PATH_NOT_FOUND"
+      ) {
+        continue;
+      }
+      throw error;
+    }
+  }
+  return out;
 }
-````
 
-### Fichier : `projects/sfia-studio/app/lib/ops1/tools/toolRouter.ts`
+export function loadCursorTemplateSource(
+  workspaceRoot: string,
+): SfiaSourceDocumentRef & { content: string } {
+  const ref = loadCanonicalSource(
+    workspaceRoot,
+    SFIA_CURSOR_TEMPLATE_PATH,
+    "execution_template",
+  );
+  const content = fs.readFileSync(
+    path.join(workspaceRoot, SFIA_CURSOR_TEMPLATE_PATH),
+    "utf8",
+  );
+  return { ...ref, content };
+}
 
-````
+export function isCanonicalPathAllowed(relativePath: string): boolean {
+  return ALLOWED.has(relativePath);
+}
+
+```
+
+### `projects/sfia-studio/app/lib/ops1/sfia/contextResolver.ts`
+
+```typescript
 /**
- * Tool Router — validate, policy, execute, redact, emit events.
- * No Cursor start tools. No shell. Deny by default.
+ * SFIA Context Resolver — builds immutable SfiaCanonicalContext for a session turn.
+ * Hierarchy: Git > Morris decisions > project sources > session > GPT inference (never auto-promoted).
  */
 import { randomUUID } from "node:crypto";
-import type { DatabaseSync } from "node:sqlite";
-import { createEventId } from "../ids";
-import { openOps1Db, nowIsoWithOffset } from "../db";
-import { resolveWorkspaceRootFromAppCwd } from "../allowlistEvaluation";
-import type { SessionEvent, SessionEventType } from "../types";
-import { GitLocalReadAdapter } from "./gitLocalReadAdapter";
+import { execFileSync } from "node:child_process";
 import {
-  defaultGithubOwnerRepo,
-  resolveGithubReadTransport,
-  summarizeGithubPayload,
-  type GithubReadPort,
-} from "./githubReadAdapter";
-import { digestText, redactSecrets, truncateText } from "./redaction";
+  SFIA_CURSOR_TEMPLATE_PATH,
+  SFIA_DEFAULT_ALLOWED_OPS,
+  SFIA_DEFAULT_ALLOWED_PATH_PREFIXES,
+  SFIA_DEFAULT_CLOSED_GATES,
+  SFIA_DEFAULT_FORBIDDEN_OPS,
+  SFIA_DEFAULT_OPEN_GATES,
+  SFIA_DEFAULT_PROTECTED_PATHS,
+  SFIA_METHOD_BASELINE,
+} from "./canonicalPaths";
 import {
-  CONTROL_TOWER_TOOL_DEFINITIONS,
-  CT_MAX_TOOL_RESULT_CHARS,
-  CT_TOOL_TIMEOUT_MS,
-  type ControlTowerToolName,
-  type ToolCallRequest,
-  type ToolCallResult,
-  type ToolDefinition,
-  type ToolErrorCode,
-  type ToolExecutionEventDetail,
-  type ToolTransport,
+  loadCanonicalCoreSources,
+  loadProjectContextSources,
+} from "./sourceLoader";
+import type { SfiaCanonicalContext, SfiaProfile } from "./types";
+
+function git(cwd: string, args: string[]): string {
+  return execFileSync("git", args, {
+    cwd,
+    encoding: "utf8",
+    timeout: 8000,
+    stdio: ["ignore", "pipe", "pipe"],
+  }).trim();
+}
+
+const PERMANENT_CORE = [
+  "Morris décide (L0) — aucune phrase conversationnelle ≠ GO.",
+  "Git est la source de vérité ; la mémoire conversationnelle ne remplace pas Git.",
+  "GPT propose ; le compilateur SFIA valide ; Cursor exécute sous contrat.",
+  "Gates fermés par défaut pour commit / push / PR / merge / GitHub write / L5.",
+  "Le prompt Cursor doit être instancié depuis prompts/templates/sfia-cycle-execution-template.md.",
+  "Review pack + review handoff obligatoires pour tout rapport Cursor.",
+  "Fail-closed : deny by default.",
+  "Baseline méthode : SFIA v2.6 (consommée, non modifiée ici).",
+];
+
+export function resolveSfiaCanonicalContext(input: {
+  workspaceRoot: string;
+  sessionId: string;
+  project?: string;
+  candidateCycle?: string;
+  profileHint?: SfiaProfile;
+  validatedDecisions?: string[];
+}): SfiaCanonicalContext {
+  const headSha = git(input.workspaceRoot, ["rev-parse", "HEAD"]);
+  const baseSha = git(input.workspaceRoot, ["rev-parse", "origin/main"]);
+  let branch = "(detached)";
+  try {
+    branch =
+      git(input.workspaceRoot, ["branch", "--show-current"]) || "(detached)";
+  } catch {
+    /* detached */
+  }
+
+  const core = loadCanonicalCoreSources(input.workspaceRoot);
+  const projectDocs = loadProjectContextSources(input.workspaceRoot);
+  const sourceDocuments = [...core, ...projectDocs];
+
+  const profile: SfiaProfile = input.profileHint ?? "Critical";
+  const profileJustification =
+    profile === "Critical"
+      ? "Intégration méthode SFIA + exécution Cursor potentielle + gates Git — risque structurant."
+      : "Profil fourni / défaut Standard.";
+
+  const contextId = `sfia-ctx-${randomUUID()}`;
+  const generatedAt = new Date().toISOString();
+
+  return {
+    contextId,
+    generatedAt,
+    repository: "mcleland147/sfia-workspace",
+    branch,
+    headSha,
+    baseSha,
+    methodBaseline: SFIA_METHOD_BASELINE,
+    sourceDocuments,
+    project: input.project ?? "sfia-studio-ops1 / campus360 demo",
+    currentCycle: "8 — Delivery / correctif structurel Control Tower",
+    candidateCycle:
+      input.candidateCycle ??
+      "Delivery documentaire Campus360 bornée (CREATE Markdown)",
+    profile,
+    profileJustification,
+    activeBlocks: [
+      "architecture fonctionnelle",
+      "architecture technique",
+      "sécurité",
+      "QA / validation",
+      "observabilité",
+      "DevOps",
+      "capitalisation ciblée",
+    ],
+    inactiveBlocks: ["industrialisation", "MVP packaging", "multi-tenant"],
+    validatedDecisions: [
+      "Vision Control Tower",
+      "AF-Option C reformulée",
+      "Option C hybride",
+      "GO EXÉCUTION CONTROL TOWER VERTICAL SLICE",
+      "GO INTÉGRER LE MOTEUR DE CONTEXTE SFIA CANONIQUE",
+      ...(input.validatedDecisions ?? []),
+    ],
+    candidateDecisions: [
+      "GO VALIDATION LIVE MOTEUR SFIA CANONIQUE",
+      "GO commit / push / PR (fermés)",
+    ],
+    openGates: [...SFIA_DEFAULT_OPEN_GATES],
+    closedGates: [...SFIA_DEFAULT_CLOSED_GATES],
+    allowedOperations: [...SFIA_DEFAULT_ALLOWED_OPS],
+    forbiddenOperations: [...SFIA_DEFAULT_FORBIDDEN_OPS],
+    allowedPaths: [...SFIA_DEFAULT_ALLOWED_PATH_PREFIXES],
+    protectedPaths: [...SFIA_DEFAULT_PROTECTED_PATHS],
+    stopConditions: [
+      "Intention conversationnelle ≠ autorisation",
+      "CONTEXT_STALE si HEAD ou digests sources changent",
+      "Aucun Cursor sans gate Morris + contractHash",
+      "Aucun commit/push/PR/merge sans gate dédié",
+    ],
+    reviewPackRequirement: "full",
+    reviewHandoffRequirement: "required_publish_in_cycle",
+    cursorTemplatePath: SFIA_CURSOR_TEMPLATE_PATH,
+    expectedVerdicts: [
+      "SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION",
+      "SFIA LIVE ACTION CANDIDATE READY — MORRIS DECISION REQUIRED",
+    ],
+    unresolvedQuestions: [],
+    warnings: [
+      "Options ≠ décisions — ne pas promouvoir automatiquement.",
+      "Ne pas dupliquer la doctrine SFIA en constantes TypeScript.",
+    ],
+    permanentCore: [...PERMANENT_CORE],
+  };
+}
+
+/** Compact JSON for GPT system/context injection (no full markdown bodies). */
+export function serializeContextForModel(
+  context: SfiaCanonicalContext,
+): string {
+  return JSON.stringify(
+    {
+      contextId: context.contextId,
+      methodBaseline: context.methodBaseline,
+      repository: context.repository,
+      branch: context.branch,
+      headSha: context.headSha,
+      project: context.project,
+      currentCycle: context.currentCycle,
+      candidateCycle: context.candidateCycle,
+      profile: context.profile,
+      profileJustification: context.profileJustification,
+      activeBlocks: context.activeBlocks,
+      validatedDecisions: context.validatedDecisions,
+      candidateDecisions: context.candidateDecisions,
+      openGates: context.openGates,
+      closedGates: context.closedGates,
+      allowedOperations: context.allowedOperations,
+      forbiddenOperations: context.forbiddenOperations,
+      allowedPaths: context.allowedPaths,
+      protectedPaths: context.protectedPaths,
+      stopConditions: context.stopConditions,
+      reviewPackRequirement: context.reviewPackRequirement,
+      reviewHandoffRequirement: context.reviewHandoffRequirement,
+      cursorTemplatePath: context.cursorTemplatePath,
+      permanentCore: context.permanentCore,
+      sourceDocuments: context.sourceDocuments.map((s) => ({
+        path: s.path,
+        digest: s.digest.slice(0, 16),
+        blobSha: s.blobSha,
+        role: s.role,
+      })),
+      warnings: context.warnings,
+      outputSchemaHint: {
+        kinds: [
+          "no_action",
+          "clarification_required",
+          "action_proposed",
+          "decision_required",
+          "blocked",
+        ],
+        note: "Return ONE JSON object in a fenced block ```json ... ``` after a short user-facing summary. Do not invent shell/commit/push/PR. Do not start Cursor.",
+      },
+    },
+    null,
+    2,
+  );
+}
+
+export function isContextStale(input: {
+  context: SfiaCanonicalContext;
+  workspaceRoot: string;
+}): boolean {
+  try {
+    const head = git(input.workspaceRoot, ["rev-parse", "HEAD"]);
+    if (head !== input.context.headSha) return true;
+  } catch {
+    return true;
+  }
+  return false;
+}
+
+```
+
+### `projects/sfia-studio/app/lib/ops1/sfia/proposalSchema.ts`
+
+```typescript
+/**
+ * Parse / validate SfiaActionProposal from model output (schema gate).
+ */
+import { randomUUID } from "node:crypto";
+import type {
+  SfiaActionProposal,
+  SfiaFileOperation,
+  SfiaProfile,
+  SfiaProposalKind,
 } from "./types";
 
-const KNOWN = new Set(
-  CONTROL_TOWER_TOOL_DEFINITIONS.map((t) => t.name),
-);
+const KINDS = new Set<SfiaProposalKind>([
+  "no_action",
+  "clarification_required",
+  "action_proposed",
+  "decision_required",
+  "blocked",
+]);
+
+const PROFILES = new Set<SfiaProfile>([
+  "Light",
+  "Standard",
+  "Critical",
+  "Capitalization",
+]);
+
+const FILE_OPS = new Set<SfiaFileOperation>([
+  "READ",
+  "CREATE",
+  "MODIFY",
+  "DELETE",
+]);
+
+const FORBIDDEN_IN_PROPOSAL =
+  /\b(git\s+commit|git\s+push|gh\s+pr|create.?pr|merge\s+main|shell|bash\s+-c)\b/i;
+
+export function extractJsonBlock(text: string): string | null {
+  const fenced = text.match(/```json\s*([\s\S]*?)```/i);
+  if (fenced?.[1]) return fenced[1].trim();
+  const bare = text.match(/\{[\s\S]*"kind"\s*:\s*"[a-z_]+"[\s\S]*\}/);
+  return bare?.[0] ?? null;
+}
+
+export function parseSfiaActionProposal(
+  raw: unknown,
+  defaults: { sessionId: string; contextId: string },
+):
+  | { ok: true; proposal: SfiaActionProposal }
+  | { ok: false; reason: string } {
+  if (!raw || typeof raw !== "object") {
+    return { ok: false, reason: "Proposition non objet." };
+  }
+  const o = raw as Record<string, unknown>;
+  const kind = o.kind;
+  if (typeof kind !== "string" || !KINDS.has(kind as SfiaProposalKind)) {
+    return { ok: false, reason: "kind invalide." };
+  }
+  const proposalId =
+    typeof o.proposalId === "string" && o.proposalId
+      ? o.proposalId
+      : `sfia-prop-${randomUUID()}`;
+  const sessionId =
+    typeof o.sessionId === "string" ? o.sessionId : defaults.sessionId;
+  const contextId =
+    typeof o.contextId === "string" ? o.contextId : defaults.contextId;
+  if (sessionId !== defaults.sessionId) {
+    return { ok: false, reason: "sessionId mismatch." };
+  }
+  if (contextId !== defaults.contextId) {
+    return { ok: false, reason: "contextId mismatch." };
+  }
+
+  const summary =
+    typeof o.userVisibleSummary === "string"
+      ? o.userVisibleSummary
+      : typeof o.rationale === "string"
+        ? o.rationale
+        : "Proposition SFIA";
+
+  if (kind === "no_action") {
+    return {
+      ok: true,
+      proposal: {
+        kind,
+        proposalId,
+        sessionId,
+        contextId,
+        userVisibleSummary: summary,
+        rationale: typeof o.rationale === "string" ? o.rationale : summary,
+      },
+    };
+  }
+  if (kind === "clarification_required") {
+    const qs = Array.isArray(o.unresolvedQuestions)
+      ? o.unresolvedQuestions.filter((x): x is string => typeof x === "string")
+      : [];
+    return {
+      ok: true,
+      proposal: {
+        kind,
+        proposalId,
+        sessionId,
+        contextId,
+        userVisibleSummary: summary,
+        unresolvedQuestions: qs,
+      },
+    };
+  }
+  if (kind === "decision_required") {
+    const gates = Array.isArray(o.requiredGates)
+      ? o.requiredGates.filter((x): x is string => typeof x === "string")
+      : [];
+    return {
+      ok: true,
+      proposal: {
+        kind,
+        proposalId,
+        sessionId,
+        contextId,
+        userVisibleSummary: summary,
+        requiredGates: gates,
+      },
+    };
+  }
+  if (kind === "blocked") {
+    return {
+      ok: true,
+      proposal: {
+        kind,
+        proposalId,
+        sessionId,
+        contextId,
+        userVisibleSummary: summary,
+        reason: typeof o.reason === "string" ? o.reason : summary,
+      },
+    };
+  }
+
+  // action_proposed
+  const profile = o.profile;
+  if (typeof profile !== "string" || !PROFILES.has(profile as SfiaProfile)) {
+    return { ok: false, reason: "profile invalide." };
+  }
+  const objective = typeof o.objective === "string" ? o.objective : "";
+  if (!objective.trim()) {
+    return { ok: false, reason: "objective requis." };
+  }
+  if (FORBIDDEN_IN_PROPOSAL.test(objective) || FORBIDDEN_IN_PROPOSAL.test(summary)) {
+    return {
+      ok: false,
+      reason: "Proposition contient commit/push/PR/shell — interdit.",
+    };
+  }
+  const filesRaw = Array.isArray(o.files) ? o.files : [];
+  const files = [];
+  for (const f of filesRaw) {
+    if (!f || typeof f !== "object") {
+      return { ok: false, reason: "files[] invalide." };
+    }
+    const fr = f as Record<string, unknown>;
+    if (typeof fr.path !== "string" || typeof fr.operation !== "string") {
+      return { ok: false, reason: "file path/operation requis." };
+    }
+    if (!FILE_OPS.has(fr.operation as SfiaFileOperation)) {
+      return { ok: false, reason: `opération fichier invalide: ${fr.operation}` };
+    }
+    files.push({
+      path: fr.path,
+      operation: fr.operation as SfiaFileOperation,
+      exactContent:
+        typeof fr.exactContent === "string" ? fr.exactContent : undefined,
+    });
+  }
+  if (files.length === 0) {
+    return { ok: false, reason: "action_proposed exige files[]." };
+  }
+
+  const operations = Array.isArray(o.operations)
+    ? o.operations.filter((x): x is string => typeof x === "string")
+    : files.map((f) => f.operation);
+
+  return {
+    ok: true,
+    proposal: {
+      kind: "action_proposed",
+      proposalId,
+      sessionId,
+      contextId,
+      objective,
+      rationale: typeof o.rationale === "string" ? o.rationale : summary,
+      cycle: typeof o.cycle === "string" ? o.cycle : "Delivery",
+      profile: profile as SfiaProfile,
+      profileJustification:
+        typeof o.profileJustification === "string"
+          ? o.profileJustification
+          : "non fournie",
+      blocks: Array.isArray(o.blocks)
+        ? o.blocks.filter((x): x is string => typeof x === "string")
+        : [],
+      project: typeof o.project === "string" ? o.project : "campus360",
+      operations,
+      files,
+      expectedEffects: Array.isArray(o.expectedEffects)
+        ? o.expectedEffects.filter((x): x is string => typeof x === "string")
+        : [],
+      excludedEffects: Array.isArray(o.excludedEffects)
+        ? o.excludedEffects.filter((x): x is string => typeof x === "string")
+        : ["commit", "push", "PR", "merge"],
+      requiredGates: Array.isArray(o.requiredGates)
+        ? o.requiredGates.filter((x): x is string => typeof x === "string")
+        : ["GO Cursor après ActionCandidate"],
+      stopConditions: Array.isArray(o.stopConditions)
+        ? o.stopConditions.filter((x): x is string => typeof x === "string")
+        : [],
+      cursorRequired: o.cursorRequired !== false,
+      reviewPackLevel: o.reviewPackLevel === "light" ? "light" : "full",
+      reviewHandoffRequired: o.reviewHandoffRequired !== false,
+      userVisibleSummary: summary,
+      exactRequestedContent:
+        typeof o.exactRequestedContent === "string"
+          ? o.exactRequestedContent
+          : files.find((f) => f.exactContent)?.exactContent,
+      confidence:
+        typeof o.confidence === "number" && Number.isFinite(o.confidence)
+          ? o.confidence
+          : 0.7,
+      unresolvedQuestions: Array.isArray(o.unresolvedQuestions)
+        ? o.unresolvedQuestions.filter((x): x is string => typeof x === "string")
+        : [],
+    },
+  };
+}
+
+export function parseProposalFromAssistantText(
+  text: string,
+  defaults: { sessionId: string; contextId: string },
+):
+  | { ok: true; proposal: SfiaActionProposal }
+  | { ok: false; reason: string } {
+  const block = extractJsonBlock(text);
+  if (!block) {
+    return { ok: false, reason: "Aucun JSON SfiaActionProposal trouvé." };
+  }
+  try {
+    const parsed = JSON.parse(block) as unknown;
+    return parseSfiaActionProposal(parsed, defaults);
+  } catch {
+    return { ok: false, reason: "JSON proposition invalide." };
+  }
+}
+
+```
+
+### `projects/sfia-studio/app/lib/ops1/sfia/actionCompiler.ts`
+
+```typescript
+/**
+ * Deterministic SFIA Action Compiler.
+ * Never widens a proposal to make it valid.
+ */
+import {
+  createActionCandidateId,
+  createEventId,
+} from "../ids";
+import { openOps1Db, nowIsoWithOffset } from "../db";
+import { Ops1Error } from "../errors";
+import { getActionCandidate } from "../actionGate";
+import type { ActionCandidate, SessionEvent, SessionEventType } from "../types";
+import { isContextStale } from "./contextResolver";
+import type {
+  SfiaActionProposal,
+  SfiaCanonicalContext,
+  SfiaCompilationResult,
+} from "./types";
 
 function insertEvent(
-  db: DatabaseSync,
   sessionId: string,
   type: SessionEventType,
-  detail: ToolExecutionEventDetail | Record<string, unknown>,
+  detail: Record<string, unknown> | SfiaCompilationResult,
 ): SessionEvent {
+  const db = openOps1Db();
   const eventId = createEventId();
   const createdAt = nowIsoWithOffset();
-  const payload = redactSecrets(JSON.stringify(detail));
+  const payload = JSON.stringify(detail);
   db.prepare(
     `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
      VALUES (?, ?, ?, ?, ?)`,
@@ -1263,543 +993,377 @@ function insertEvent(
   return { eventId, sessionId, type, createdAt, detail: payload };
 }
 
-function asString(v: unknown): string | undefined {
-  return typeof v === "string" ? v : undefined;
+function pathAllowed(
+  filePath: string,
+  context: SfiaCanonicalContext,
+): boolean {
+  if (context.protectedPaths.some((p) => filePath === p || filePath.startsWith(p))) {
+    return false;
+  }
+  return context.allowedPaths.some(
+    (p) => filePath === p || filePath.startsWith(p),
+  );
 }
 
-function asInt(v: unknown, fallback: number): number {
-  if (typeof v === "number" && Number.isFinite(v)) return Math.floor(v);
-  if (typeof v === "string" && /^\d+$/.test(v)) return parseInt(v, 10);
-  return fallback;
-}
-
-function failResult(
-  toolCallId: string,
-  name: string,
-  errorCode: ToolErrorCode,
-  message: string,
-  started: number,
-  transport: ToolTransport,
-  status: "failed" | "denied" = "failed",
-): ToolCallResult {
+function deny(
+  status: SfiaCompilationResult["status"],
+  base: Pick<
+    SfiaCompilationResult,
+    "contextId" | "proposalId" | "sessionId"
+  >,
+  reasons: string[],
+  extra?: Partial<SfiaCompilationResult>,
+): SfiaCompilationResult {
   return {
-    ok: false,
-    toolCallId,
-    name,
     status,
-    errorCode,
-    message,
-    usage: {
-      durationMs: Date.now() - started,
-      transport,
-      truncated: false,
-      bytes: 0,
-    },
+    ...base,
+    reasons,
+    deniedOperations: extra?.deniedOperations ?? [],
+    deniedPaths: extra?.deniedPaths ?? [],
+    ...extra,
   };
 }
 
-export function listExposableTools(): ToolDefinition[] {
-  return CONTROL_TOWER_TOOL_DEFINITIONS;
-}
+export function compileSfiaActionProposal(input: {
+  proposal: SfiaActionProposal;
+  context: SfiaCanonicalContext;
+  workspaceRoot: string;
+  persist?: boolean;
+}): SfiaCompilationResult {
+  const { proposal, context } = input;
+  const base = {
+    contextId: context.contextId,
+    proposalId: proposal.proposalId,
+    sessionId: proposal.sessionId,
+  };
 
-export function createToolCallId(): string {
-  return `tool-${randomUUID()}`;
-}
-
-export async function routeToolCall(
-  request: ToolCallRequest,
-  options?: {
-    db?: DatabaseSync;
-    workspaceRoot?: string;
-    github?: GithubReadPort | null;
-    githubUnavailableReason?: string;
-  },
-): Promise<ToolCallResult> {
-  const db = options?.db ?? openOps1Db();
-  const started = Date.now();
-  const name = request.name;
-
-  insertEvent(db, request.sessionId, "TOOL_CALL_REQUESTED", {
-    toolCallId: request.toolCallId,
-    toolName: name,
-    status: "requested",
+  insertEvent(proposal.sessionId, "SFIA_COMPILATION_STARTED", {
+    proposalId: proposal.proposalId,
+    contextId: context.contextId,
+    kind: proposal.kind,
   });
 
-  // Hard deny any cursor_* tools in GPT loop — gate UI only
-  if (String(name).startsWith("cursor_")) {
-    const result = failResult(
-      request.toolCallId,
-      name,
-      "EXECUTION_DENIED_GATE_REQUIRED",
-      "EXECUTION_DENIED — MORRIS GATE REQUIRED",
-      started,
-      "none",
-      "denied",
-    );
-    insertEvent(db, request.sessionId, "TOOL_CALL_DENIED", {
-      toolCallId: request.toolCallId,
-      toolName: name,
-      status: "denied",
-      errorCode: "EXECUTION_DENIED_GATE_REQUIRED",
-      durationMs: result.usage.durationMs,
-    });
-    return result;
+  if (proposal.contextId !== context.contextId) {
+    const r = deny("CONTEXT_STALE", base, ["contextId mismatch"]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+  if (proposal.sessionId !== input.proposal.sessionId) {
+    const r = deny("INVALID_PROPOSAL", base, ["sessionId incohérent"]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+  if (isContextStale({ context, workspaceRoot: input.workspaceRoot })) {
+    const r = deny("CONTEXT_STALE", base, [
+      "CONTEXT_STALE — REQUALIFICATION REQUIRED (HEAD drift)",
+    ]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
   }
 
-  if (!KNOWN.has(name as ControlTowerToolName)) {
-    const result = failResult(
-      request.toolCallId,
-      name,
-      "TOOL_NOT_FOUND",
-      `Outil inconnu: ${name}`,
-      started,
-      "none",
-      "denied",
+  if (proposal.kind === "clarification_required") {
+    const r = deny("CLARIFICATION_REQUIRED", base, [
+      "Clarification requise avant ActionCandidate.",
+    ]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+  if (proposal.kind === "no_action") {
+    const r = deny("BLOCKED", base, ["no_action — aucune ActionCandidate"]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+  if (proposal.kind === "blocked" || proposal.kind === "decision_required") {
+    const r = deny(
+      proposal.kind === "blocked" ? "BLOCKED" : "GATE_REQUIRED",
+      base,
+      [proposal.userVisibleSummary],
     );
-    insertEvent(db, request.sessionId, "TOOL_CALL_DENIED", {
-      toolCallId: request.toolCallId,
-      toolName: name,
-      status: "denied",
-      errorCode: "TOOL_NOT_FOUND",
-      durationMs: result.usage.durationMs,
-    });
-    return result;
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
   }
 
-  insertEvent(db, request.sessionId, "TOOL_CALL_STARTED", {
-    toolCallId: request.toolCallId,
-    toolName: name,
-    status: "started",
-  });
+  // action_proposed
+  const deniedOps: string[] = [];
+  const deniedPaths: string[] = [];
 
-  const workspaceRoot =
-    options?.workspaceRoot ?? resolveWorkspaceRootFromAppCwd();
-  const git = new GitLocalReadAdapter(workspaceRoot);
-
-  try {
-    const withTimeout = async <T>(p: Promise<T>): Promise<T> => {
-      return await Promise.race([
-        p,
-        new Promise<T>((_, reject) => {
-          setTimeout(
-            () =>
-              reject(
-                Object.assign(new Error("TIMEOUT"), {
-                  toolErrorCode: "TIMEOUT",
-                }),
-              ),
-            CT_TOOL_TIMEOUT_MS,
-          );
-        }),
-      ]);
-    };
-
-    let data: unknown;
-    let summary: string;
-    let transport: ToolTransport = "internal_git";
-    let truncated = false;
-
-    switch (name as ControlTowerToolName) {
-      case "git_local_get_status": {
-        const r = git.getStatus();
-        data = { porcelain: r.porcelain };
-        summary = r.summary;
-        break;
-      }
-      case "git_local_get_head": {
-        const r = git.getHead();
-        data = { sha: r.sha, branch: r.branch };
-        summary = r.summary;
-        break;
-      }
-      case "git_local_search_files": {
-        const q = asString(request.arguments.query);
-        if (!q) {
-          return failResult(
-            request.toolCallId,
-            name,
-            "INVALID_ARGUMENTS",
-            "query requis",
-            started,
-            transport,
-            "denied",
-          );
-        }
-        const r = git.searchFiles(q, asInt(request.arguments.limit, 20));
-        data = { paths: r.paths };
-        summary = r.summary;
-        break;
-      }
-      case "git_local_read_file": {
-        const p = asString(request.arguments.path);
-        if (!p) {
-          return failResult(
-            request.toolCallId,
-            name,
-            "INVALID_ARGUMENTS",
-            "path requis",
-            started,
-            transport,
-            "denied",
-          );
-        }
-        const r = git.readFile(p, asInt(request.arguments.maxBytes, 32768));
-        data = {
-          path: r.path,
-          content: r.content,
-          truncated: r.truncated,
-        };
-        summary = r.summary;
-        truncated = r.truncated;
-        break;
-      }
-      case "git_local_get_diff": {
-        const p = asString(request.arguments.path);
-        const r = git.getDiff(p, asInt(request.arguments.maxBytes, 32768));
-        data = { diff: r.diff, truncated: r.truncated };
-        summary = r.summary;
-        truncated = r.truncated;
-        break;
-      }
-      case "git_local_list_worktrees": {
-        const r = git.listWorktrees();
-        data = { worktrees: r.worktrees };
-        summary = r.summary;
-        break;
-      }
-      case "git_local_get_log": {
-        const r = git.getLog(asInt(request.arguments.limit, 5));
-        data = { entries: r.entries };
-        summary = r.summary;
-        break;
-      }
-      default: {
-        // GitHub tools
-        let adapter = options?.github ?? null;
-        let unavailable = options?.githubUnavailableReason;
-        if (!adapter && options?.github === undefined) {
-          const resolved = resolveGithubReadTransport();
-          if (resolved.kind === "unavailable") {
-            unavailable = resolved.reason;
-          } else {
-            adapter = resolved.adapter;
-            transport = resolved.adapter.transport;
-          }
-        } else if (adapter) {
-          transport = adapter.transport;
-        }
-
-        if (!adapter) {
-          const reason = unavailable ?? "GitHub read indisponible";
-          const result = failResult(
-            request.toolCallId,
-            name,
-            "TRANSPORT_UNAVAILABLE",
-            reason,
-            started,
-            "none",
-          );
-          insertEvent(db, request.sessionId, "TOOL_CALL_FAILED", {
-            toolCallId: request.toolCallId,
-            toolName: name,
-            status: "failed",
-            errorCode: "TRANSPORT_UNAVAILABLE",
-            durationMs: result.usage.durationMs,
-            summary: reason,
-          });
-          return result;
-        }
-
-        const defaults = defaultGithubOwnerRepo();
-        const owner =
-          asString(request.arguments.owner) ?? defaults.owner;
-        // `name` means repository for get_repository; branch tools use defaults.repo
-        const repoName =
-          name === "github_get_repository"
-            ? (asString(request.arguments.name) ?? defaults.name)
-            : (asString(request.arguments.repo) ?? defaults.name);
-
-        switch (name as ControlTowerToolName) {
-          case "github_get_repository": {
-            const r = await withTimeout(
-              adapter.getRepository(owner, repoName),
-            );
-            data = r;
-            summary = `repo ${r.fullName}`;
-            break;
-          }
-          case "github_get_branch": {
-            const branch = asString(request.arguments.name);
-            if (!branch) {
-              return failResult(
-                request.toolCallId,
-                name,
-                "INVALID_ARGUMENTS",
-                "name (branch) requis",
-                started,
-                transport,
-                "denied",
-              );
-            }
-            const r = await withTimeout(
-              adapter.getBranch(owner, repoName, branch),
-            );
-            data = r;
-            summary = `branch ${r.name}@${r.sha.slice(0, 12)}`;
-            break;
-          }
-          case "github_get_commit": {
-            const sha = asString(request.arguments.sha);
-            if (!sha) {
-              return failResult(
-                request.toolCallId,
-                name,
-                "INVALID_ARGUMENTS",
-                "sha requis",
-                started,
-                transport,
-                "denied",
-              );
-            }
-            const r = await withTimeout(
-              adapter.getCommit(owner, repoName, sha),
-            );
-            data = r;
-            summary = `commit ${r.sha.slice(0, 12)}`;
-            break;
-          }
-          case "github_get_pull_request": {
-            const number = asInt(request.arguments.number, 0);
-            if (number < 1) {
-              return failResult(
-                request.toolCallId,
-                name,
-                "INVALID_ARGUMENTS",
-                "number requis",
-                started,
-                transport,
-                "denied",
-              );
-            }
-            const r = await withTimeout(
-              adapter.getPullRequest(owner, repoName, number),
-            );
-            data = r;
-            summary = `PR #${r.number} ${r.state}`;
-            break;
-          }
-          case "github_list_checks": {
-            const ref = asString(request.arguments.ref);
-            if (!ref) {
-              return failResult(
-                request.toolCallId,
-                name,
-                "INVALID_ARGUMENTS",
-                "ref requis",
-                started,
-                transport,
-                "denied",
-              );
-            }
-            const r = await withTimeout(
-              adapter.listChecks(owner, repoName, ref),
-            );
-            data = { checks: r };
-            summary = `${r.length} check(s)`;
-            break;
-          }
-          case "github_list_pr_comments": {
-            const number = asInt(request.arguments.number, 0);
-            if (number < 1) {
-              return failResult(
-                request.toolCallId,
-                name,
-                "INVALID_ARGUMENTS",
-                "number requis",
-                started,
-                transport,
-                "denied",
-              );
-            }
-            const r = await withTimeout(
-              adapter.listPullRequestComments(owner, repoName, number),
-            );
-            data = { comments: r };
-            summary = `${r.length} comment(s)`;
-            break;
-          }
-          default:
-            return failResult(
-              request.toolCallId,
-              name,
-              "TOOL_NOT_FOUND",
-              "outil non routé",
-              started,
-              transport,
-              "denied",
-            );
-        }
-        // Cap JSON size
-        const serialized = summarizeGithubPayload(data);
-        if (serialized.length >= CT_MAX_TOOL_RESULT_CHARS) {
-          truncated = true;
-        }
-        data = JSON.parse(serialized);
-      }
+  for (const op of proposal.operations) {
+    const lower = op.toLowerCase();
+    if (
+      context.forbiddenOperations.some((f) =>
+        lower.includes(f.toLowerCase()),
+      ) ||
+      ["commit", "push", "merge", "create_pr", "pr", "shell"].includes(lower)
+    ) {
+      deniedOps.push(op);
     }
+  }
+  if (deniedOps.length > 0) {
+    const r = deny(
+      "POLICY_DENIED",
+      base,
+      [`Opérations interdites: ${deniedOps.join(", ")}`],
+      { deniedOperations: deniedOps },
+    );
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
 
-    const json = redactSecrets(JSON.stringify(data));
-    const capped = truncateText(json, CT_MAX_TOOL_RESULT_CHARS);
-    if (capped.truncated) truncated = true;
-    if (json.length > CT_MAX_TOOL_RESULT_CHARS * 4) {
-      const result = failResult(
-        request.toolCallId,
-        name,
-        "RESULT_TOO_LARGE",
-        "Résultat trop volumineux",
-        started,
-        transport,
+  for (const f of proposal.files) {
+    if (f.operation === "DELETE") {
+      deniedPaths.push(f.path);
+      const r = deny(
+        "POLICY_DENIED",
+        base,
+        ["DELETE non autorisé dans cet incrément"],
+        { deniedPaths },
       );
-      insertEvent(db, request.sessionId, "TOOL_CALL_FAILED", {
-        toolCallId: request.toolCallId,
-        toolName: name,
-        status: "failed",
-        errorCode: "RESULT_TOO_LARGE",
-        durationMs: result.usage.durationMs,
-      });
-      return result;
+      insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+      return r;
     }
-
-    const parsed = JSON.parse(capped.text) as unknown;
-    const result: ToolCallResult = {
-      ok: true,
-      toolCallId: request.toolCallId,
-      name,
-      status: "succeeded",
-      data: parsed,
-      summary,
-      usage: {
-        durationMs: Date.now() - started,
-        transport,
-        truncated,
-        bytes: capped.text.length,
-      },
-    };
-    insertEvent(db, request.sessionId, "TOOL_CALL_SUCCEEDED", {
-      toolCallId: request.toolCallId,
-      toolName: name,
-      status: "succeeded",
-      durationMs: result.usage.durationMs,
-      resultDigest: digestText(summary),
-      summary,
-      source: {
-        kind: String(name).startsWith("github_") ? "github" : "git_local",
-        label: name,
-        pathOrRef: null,
-      },
-    });
-    return result;
-  } catch (error) {
-    const toolErrorCode =
-      error &&
-      typeof error === "object" &&
-      "toolErrorCode" in error &&
-      typeof (error as { toolErrorCode: unknown }).toolErrorCode === "string"
-        ? ((error as { toolErrorCode: ToolErrorCode }).toolErrorCode)
-        : "INTERNAL_ERROR";
-    const message =
-      error instanceof Error
-        ? redactSecrets(error.message)
-        : "Erreur outil interne";
-    const status =
-      toolErrorCode === "PATH_NOT_ALLOWED" ||
-      toolErrorCode === "POLICY_DENIED" ||
-      toolErrorCode === "REPOSITORY_NOT_ALLOWED" ||
-      toolErrorCode === "INVALID_ARGUMENTS"
-        ? "denied"
-        : "failed";
-    const result = failResult(
-      request.toolCallId,
-      name,
-      toolErrorCode,
-      message,
-      started,
-      String(name).startsWith("github_") ? "gh_cli" : "internal_git",
-      status,
-    );
-    insertEvent(
-      db,
-      request.sessionId,
-      status === "denied" ? "TOOL_CALL_DENIED" : "TOOL_CALL_FAILED",
-      {
-        toolCallId: request.toolCallId,
-        toolName: name,
-        status,
-        errorCode: toolErrorCode,
-        durationMs: result.usage.durationMs,
-        summary: message,
-      },
-    );
-    return result;
+    if (!pathAllowed(f.path, context)) {
+      deniedPaths.push(f.path);
+    }
   }
-}
-
-export function toolResultForModel(result: ToolCallResult): string {
-  if (result.ok) {
-    return redactSecrets(
-      JSON.stringify({
-        ok: true,
-        summary: result.summary,
-        data: result.data,
-        truncated: result.usage.truncated,
-      }),
+  if (deniedPaths.length > 0) {
+    const r = deny(
+      "PATH_DENIED",
+      base,
+      [`Chemins refusés: ${deniedPaths.join(", ")}`],
+      { deniedPaths },
     );
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
   }
-  return redactSecrets(
-    JSON.stringify({
-      ok: false,
-      errorCode: result.errorCode,
-      message: result.message,
-    }),
+
+  // Require CREATE/MODIFY under campus360 markdown for demo compiler
+  const writes = proposal.files.filter(
+    (f) => f.operation === "CREATE" || f.operation === "MODIFY",
   );
+  if (writes.length === 0) {
+    const r = deny("INVALID_PROPOSAL", base, [
+      "Aucune opération CREATE/MODIFY",
+    ]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+  if (writes.length > 1) {
+    const r = deny("INVALID_PROPOSAL", base, [
+      "Une seule écriture fichier autorisée dans ce correctif démonstrateur",
+    ]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+  const target = writes[0]!;
+  if (!target.path.endsWith(".md")) {
+    const r = deny("PATH_DENIED", base, ["Seul Markdown .md autorisé"]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+
+  const exactContent =
+    proposal.exactRequestedContent ?? target.exactContent ?? "";
+  if (!exactContent.trim()) {
+    const r = deny("INVALID_PROPOSAL", base, [
+      "Contenu exact requis (exactRequestedContent)",
+    ]);
+    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
+    return r;
+  }
+
+  const title = `SFIA live: ${target.operation} ${target.path}`;
+  const objective = proposal.objective;
+  const scopeSummary = `${target.operation} ${target.path} ; hors commit/push/PR/merge`;
+  const riskSummary = `Profil ${proposal.profile} — Cursor après GO Morris uniquement`;
+
+  let actionCandidateId: string | undefined;
+  if (input.persist !== false) {
+    const db = openOps1Db();
+    const session = db
+      .prepare(`SELECT status FROM cycle_sessions WHERE session_id = ?`)
+      .get(proposal.sessionId) as { status: string } | undefined;
+    if (!session || session.status !== "OPEN") {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Session non OPEN — compilation refusée.",
+      );
+    }
+    const now = nowIsoWithOffset();
+    actionCandidateId = createActionCandidateId();
+    db.prepare(
+      `INSERT INTO session_qualifications (session_id, qualification, updated_at)
+       VALUES (?, 'ACTION_REQUIRED', ?)
+       ON CONFLICT(session_id) DO UPDATE SET
+         qualification = excluded.qualification,
+         updated_at = excluded.updated_at`,
+    ).run(proposal.sessionId, now);
+    db.prepare(
+      `INSERT INTO action_candidates (
+        action_candidate_id, session_id, status, title, objective,
+        scope_summary, risk_summary, version, created_at, updated_at
+      ) VALUES (?, ?, 'PROPOSED', ?, ?, ?, ?, 1, ?, ?)`,
+    ).run(
+      actionCandidateId,
+      proposal.sessionId,
+      title,
+      objective,
+      scopeSummary,
+      riskSummary,
+      now,
+      now,
+    );
+    insertEvent(proposal.sessionId, "ACTION_CANDIDATE_CREATED_FROM_LIVE", {
+      actionCandidateId,
+      proposalId: proposal.proposalId,
+      contextId: context.contextId,
+      path: target.path,
+      operation: target.operation,
+    });
+    insertEvent(proposal.sessionId, "ACTION_CANDIDATE_CREATED", {
+      actionCandidateId,
+      source: "sfia_live_compiler",
+    });
+  }
+
+  const result: SfiaCompilationResult = {
+    status: "COMPILED",
+    ...base,
+    reasons: ["Proposition compilée — aucune exécution lancée"],
+    deniedOperations: [],
+    deniedPaths: [],
+    actionCandidateId,
+    title,
+    objective,
+    scopeSummary,
+    riskSummary,
+    files: proposal.files,
+    exactContent,
+  };
+  insertEvent(proposal.sessionId, "SFIA_COMPILATION_SUCCEEDED", {
+    proposalId: proposal.proposalId,
+    actionCandidateId,
+    contextId: context.contextId,
+  });
+  return result;
 }
-````
 
-### Fichier : `projects/sfia-studio/app/lib/ops1/conversation/toolLoop.ts`
+export function getCompiledActionCandidate(
+  actionCandidateId: string,
+): ActionCandidate | null {
+  return getActionCandidate(actionCandidateId);
+}
 
-````
+```
+
+### `projects/sfia-studio/app/lib/ops1/sfia/cursorPromptInstantiator.ts`
+
+```typescript
 /**
- * Bounded OpenAI / fake tool-calling loop for Control Tower.
+ * Cursor prompt instantiator — loads real Git template, never reinvents structure.
  */
-import type { DatabaseSync } from "node:sqlite";
+import type { ActionCandidate } from "../types";
+import { loadCursorTemplateSource } from "./sourceLoader";
+import type {
+  SfiaCanonicalContext,
+  SfiaCompilationResult,
+  SfiaCursorPromptInstantiation,
+} from "./types";
+
+export function instantiateCursorPrompt(input: {
+  workspaceRoot: string;
+  context: SfiaCanonicalContext;
+  compilation: SfiaCompilationResult;
+  candidate: ActionCandidate;
+  morrisDecision?: string;
+}): SfiaCursorPromptInstantiation {
+  const template = loadCursorTemplateSource(input.workspaceRoot);
+  const file = input.compilation.files?.[0];
+  const content = input.compilation.exactContent ?? "";
+
+  // Instantiate applicable sections WITHOUT rewriting the template structure:
+  // produce a bound contract that cites template sections and fills required fields.
+  const promptText = [
+    `# Prompt Cursor instancié depuis le template canonique Git`,
+    ``,
+    `templatePath: ${template.path}`,
+    `templateDigest: ${template.digest}`,
+    `templateBlobSha: ${template.blobSha ?? "WORKING_TREE_ONLY"}`,
+    `contextId: ${input.context.contextId}`,
+    `actionId: ${input.candidate.actionCandidateId}`,
+    `headSha: ${input.context.headSha}`,
+    `branch: ${input.context.branch}`,
+    `methodBaseline: ${input.context.methodBaseline}`,
+    ``,
+    `## Qualification (dérivée du contexte SFIA — sources ${input.context.sourceDocuments.map((s) => s.path).join(", ")})`,
+    `Cycle: ${input.context.candidateCycle}`,
+    `Profil: ${input.context.profile}`,
+    `Justification: ${input.context.profileJustification}`,
+    `Blocs: ${input.context.activeBlocks.join(", ")}`,
+    ``,
+    `## Périmètre d'exécution (contrat)`,
+    `Objectif: ${input.candidate.objective}`,
+    `Fichier: ${file?.path ?? "(n/a)"}`,
+    `Opération: ${file?.operation ?? "(n/a)"}`,
+    `Créer EXACTEMENT ce contenu Markdown (octet pour octet):`,
+    `-----BEGIN CONTENT-----`,
+    content,
+    `-----END CONTENT-----`,
+    ``,
+    `## Garde-fous (template § + contexte)`,
+    `- Aucun autre fichier`,
+    `- Aucun commit / push / PR / merge / remote`,
+    `- Aucun shell hors contrat`,
+    `- Chemins protégés: ${input.context.protectedPaths.join(", ")}`,
+    `- Gates fermés: ${input.context.closedGates.join(", ")}`,
+    `- Décision Morris: ${input.morrisDecision ?? "GO action requis avant exécution — non consommé ici"}`,
+    ``,
+    `## Review`,
+    `Review pack: ${input.context.reviewPackRequirement}`,
+    `Review handoff: ${input.context.reviewHandoffRequirement}`,
+    ``,
+    `## Extraits de structure du template (référence, non substitution)`,
+    template.content.slice(0, 1200).replace(/\n/g, "\n"),
+    `\n…[template truncated for instantiation envelope — full template remains at ${template.path}]`,
+  ].join("\n");
+
+  return {
+    templatePath: template.path,
+    templateDigest: template.digest,
+    templateBlobSha: template.blobSha,
+    contextId: input.context.contextId,
+    actionId: input.candidate.actionCandidateId,
+    promptText,
+    instantiatedAt: new Date().toISOString(),
+  };
+}
+
+```
+
+### `projects/sfia-studio/app/lib/ops1/sfia/sessionContext.ts`
+
+```typescript
+/**
+ * Per-session SFIA context store (immutable per turn; revalidated by HEAD).
+ */
 import { createEventId } from "../ids";
 import { openOps1Db, nowIsoWithOffset } from "../db";
 import type { SessionEventType } from "../types";
+import { resolveWorkspaceRootFromAppCwd } from "../allowlistEvaluation";
 import {
-  createToolCallId,
-  listExposableTools,
-  routeToolCall,
-  toolResultForModel,
-} from "../tools/toolRouter";
-import {
-  CT_MAX_TOOL_CALLS_PER_ROUND,
-  CT_MAX_TOOL_ROUNDS,
-} from "../tools/types";
-import { redactSecrets } from "../tools/redaction";
-import type {
-  ConversationProvider,
-  ProviderChatMessage,
-  ProviderInputItem,
-  ProviderUsage,
-} from "./types";
-import { messagesToInputItems } from "./types";
+  isContextStale,
+  resolveSfiaCanonicalContext,
+  serializeContextForModel,
+} from "./contextResolver";
+import type { SfiaCanonicalContext } from "./types";
 
-function insertEvent(
-  db: DatabaseSync,
+const sessionContexts = new Map<string, SfiaCanonicalContext>();
+
+function emit(
   sessionId: string,
   type: SessionEventType,
   detail: Record<string, unknown>,
 ): void {
+  const db = openOps1Db();
   db.prepare(
     `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
      VALUES (?, ?, ?, ?, ?)`,
@@ -1808,724 +1372,506 @@ function insertEvent(
     sessionId,
     type,
     nowIsoWithOffset(),
-    redactSecrets(JSON.stringify(detail)),
+    JSON.stringify(detail),
   );
 }
 
-function mergeUsage(
-  a: ProviderUsage | null,
-  b: ProviderUsage,
-): ProviderUsage {
-  if (!a) return b;
-  const sum = (x: number | null, y: number | null) =>
-    x == null && y == null ? null : (x ?? 0) + (y ?? 0);
-  return {
-    inputTokens: sum(a.inputTokens, b.inputTokens),
-    outputTokens: sum(a.outputTokens, b.outputTokens),
-    totalTokens: sum(a.totalTokens, b.totalTokens),
-    model: b.model ?? a.model,
-    providerResponseId: b.providerResponseId ?? a.providerResponseId,
-  };
-}
-
-export interface ToolLoopResult {
-  text: string;
-  usage: ProviderUsage;
-  toolRounds: number;
-  toolCalls: number;
-  limitReached: boolean;
-}
-
-export async function runToolCallingLoop(input: {
-  sessionId: string;
-  messages: ProviderChatMessage[];
-  provider: ConversationProvider;
-  enableTools?: boolean;
-  db?: DatabaseSync;
-}): Promise<ToolLoopResult> {
-  const db = input.db ?? openOps1Db();
-  const tools =
-    input.enableTools === false ? [] : listExposableTools();
-  const completeRound =
-    input.provider.completeRound?.bind(input.provider) ??
-    (async (args: {
-      items: ProviderInputItem[];
-      tools: typeof tools;
-    }) => {
-      const messages = args.items
-        .filter(
-          (i): i is Extract<ProviderInputItem, { type: "message" }> =>
-            i.type === "message",
-        )
-        .map((m) => ({ role: m.role, content: m.content }));
-      const completion = await input.provider.complete(messages);
-      return {
-        kind: "message" as const,
-        text: completion.text,
-        usage: completion.usage,
-      };
-    });
-
-  let items: ProviderInputItem[] = messagesToInputItems(input.messages);
-  let usage: ProviderUsage | null = null;
-  let toolRounds = 0;
-  let toolCalls = 0;
-  let limitReached = false;
-
-  if (tools.length > 0) {
-    insertEvent(db, input.sessionId, "SOURCE_SEARCH_STARTED", {
-      tools: tools.map((t) => t.name),
-    });
-  }
-
-  for (let round = 0; round < CT_MAX_TOOL_ROUNDS; round += 1) {
-    const result = await completeRound({ items, tools });
-    usage = mergeUsage(usage, result.usage);
-
-    if (result.kind === "message") {
-      insertEvent(db, input.sessionId, "TOOL_LOOP_COMPLETED", {
-        toolRounds,
-        toolCalls,
-        limitReached,
-      });
-      return {
-        text: result.text,
-        usage: usage!,
-        toolRounds,
-        toolCalls,
-        limitReached,
-      };
-    }
-
-    toolRounds += 1;
-    const calls = result.toolCalls.slice(0, CT_MAX_TOOL_CALLS_PER_ROUND);
-    const truncatedCalls = result.toolCalls.length > CT_MAX_TOOL_CALLS_PER_ROUND;
-    if (truncatedCalls) {
-      limitReached = true;
-    }
-
-    // Append function_call items then outputs sequentially (audit-friendly)
-    for (const call of calls) {
-      toolCalls += 1;
-      items = [
-        ...items,
-        {
-          type: "function_call",
-          callId: call.callId,
-          name: call.name,
-          argumentsJson: call.argumentsJson,
-        },
-      ];
-
-      let args: Record<string, unknown> = {};
-      try {
-        args = JSON.parse(call.argumentsJson || "{}") as Record<
-          string,
-          unknown
-        >;
-      } catch {
-        args = {};
-      }
-
-      const routed = await routeToolCall(
-        {
-          toolCallId: call.callId || createToolCallId(),
-          name: call.name,
-          arguments: args,
-          sessionId: input.sessionId,
-        },
-        { db },
-      );
-
-      items = [
-        ...items,
-        {
-          type: "function_call_output",
-          callId: call.callId,
-          output: toolResultForModel(routed),
-        },
-      ];
-    }
-
-    if (round === CT_MAX_TOOL_ROUNDS - 1) {
-      insertEvent(db, input.sessionId, "TOOL_LOOP_LIMIT_REACHED", {
-        toolRounds,
-        toolCalls,
-      });
-      // One last message-only attempt without tools
-      const finalRound = await completeRound({ items, tools: [] });
-      usage = mergeUsage(usage, finalRound.usage);
-      if (finalRound.kind === "message") {
-        return {
-          text: finalRound.text,
-          usage: usage!,
-          toolRounds,
-          toolCalls,
-          limitReached: true,
-        };
-      }
-      return {
-        text: "[TOOL LOOP LIMIT] Analyse partielle — limite de boucle atteinte.",
-        usage: usage!,
-        toolRounds,
-        toolCalls,
-        limitReached: true,
-      };
-    }
-  }
-
-  insertEvent(db, input.sessionId, "TOOL_LOOP_LIMIT_REACHED", {
-    toolRounds,
-    toolCalls,
-  });
-  return {
-    text: "[TOOL LOOP LIMIT] Aucune réponse texte finale.",
-    usage: usage ?? {
-      inputTokens: null,
-      outputTokens: null,
-      totalTokens: null,
-      model: null,
-      providerResponseId: null,
-    },
-    toolRounds,
-    toolCalls,
-    limitReached: true,
-  };
-}
-````
-
-### Fichier : `projects/sfia-studio/app/lib/ops1/reportReinjection.ts`
-
-````
-/**
- * Report reinjection — seal → correlated conversation message → optional GPT analysis.
- * No auto-retry. No implicit success.
- */
-import type { DatabaseSync } from "node:sqlite";
-import { createEventId } from "./ids";
-import { openOps1Db, nowIsoWithOffset } from "./db";
-import { Ops1Error } from "./errors";
-import { appendTurn, getSession, listTurns } from "./repository";
-import {
-  generateExecutionReport,
-  getLatestReportForSession,
-  getReportById,
-} from "./reportService";
-import type {
-  ExecutionReport,
-  JournalTurn,
-  SessionEvent,
-  SessionEventType,
-} from "./types";
-import { redactSecrets } from "./tools/redaction";
-import { sendConversationMessage } from "./conversation/service";
-
-export const REPORT_REINJECTION_PREFIX = "[OPS1_REPORT_REINJECTION]";
-
-function insertEvent(
-  db: DatabaseSync,
+export function getStoredSfiaContext(
   sessionId: string,
-  type: SessionEventType,
-  detail: Record<string, unknown>,
-): SessionEvent {
-  const eventId = createEventId();
-  const createdAt = nowIsoWithOffset();
-  const payload = redactSecrets(JSON.stringify(detail));
-  db.prepare(
-    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-     VALUES (?, ?, ?, ?, ?)`,
-  ).run(eventId, sessionId, type, createdAt, payload);
-  return { eventId, sessionId, type, createdAt, detail: payload };
+): SfiaCanonicalContext | null {
+  return sessionContexts.get(sessionId) ?? null;
 }
 
-function alreadyReinjected(
-  db: DatabaseSync,
-  sessionId: string,
-  reportId: string,
-): boolean {
-  const rows = db
-    .prepare(
-      `SELECT detail FROM session_events
-       WHERE session_id = ? AND type = 'REINJECTION_COMPLETED'`,
-    )
-    .all(sessionId) as Array<{ detail: string }>;
-  return rows.some((r) => {
-    try {
-      const parsed = JSON.parse(r.detail) as { reportId?: string };
-      return parsed.reportId === reportId;
-    } catch {
-      return r.detail.includes(reportId);
-    }
-  });
-}
-
-export function buildReinjectionMessage(report: ExecutionReport): string {
-  const lines = [
-    REPORT_REINJECTION_PREFIX,
-    `reportId=${report.reportId}`,
-    `executionAttemptId=${report.executionAttemptId}`,
-    `contractHash=${report.contractHash}`,
-    `reportStatus=${report.reportStatus}`,
-    `executionStatus=${report.executionStatus}`,
-    `adapterMode=${report.adapterMode}`,
-    `outOfContract=${report.outOfContract}`,
-    `durationMs=${report.durationMs ?? "n/a"}`,
-    `creates=${report.metrics.createCount}`,
-    `modifies=${report.metrics.modifyCount}`,
-    `deletes=${report.metrics.deleteCount}`,
-    `coverageGaps=${report.coverage.filter((f) => f.coverageStatus === "MISSING").length}`,
-    "IMPORTANT: l’existence du rapport ≠ succès métier implicite.",
-    "Décision Morris requise pour la suite.",
-  ];
-  return lines.join("\n");
-}
-
-export async function generateReportAndReinject(input: {
+export function ensureSfiaContext(input: {
   sessionId: string;
-  contractId: string;
-  executionAttemptId?: string;
-  /** When true, ask GPT/fixture to analyze after injection. */
-  analyze?: boolean;
-}): Promise<{
-  report: ExecutionReport;
-  reinjectionTurn: JournalTurn | null;
-  analysisTurn: JournalTurn | null;
-  analysisError: string | null;
-  reinjectionId: string;
-}> {
-  const db = openOps1Db();
-  const session = getSession(input.sessionId, db);
-  if (!session) {
-    throw new Ops1Error("NOT_FOUND", "Session introuvable.");
-  }
-  if (session.status !== "OPEN") {
-    throw new Ops1Error("CONFLICT", "Session fermée — réinjection refusée.");
+  workspaceRoot?: string;
+  forceRefresh?: boolean;
+}): SfiaCanonicalContext {
+  const workspaceRoot =
+    input.workspaceRoot ?? resolveWorkspaceRootFromAppCwd();
+  const existing = sessionContexts.get(input.sessionId);
+  if (
+    existing &&
+    !input.forceRefresh &&
+    !isContextStale({ context: existing, workspaceRoot })
+  ) {
+    return existing;
   }
 
-  insertEvent(db, input.sessionId, "REPORT_GENERATION_STARTED", {
-    contractId: input.contractId,
+  emit(input.sessionId, "SFIA_CONTEXT_LOADING", {
+    forceRefresh: Boolean(input.forceRefresh),
+    previousContextId: existing?.contextId ?? null,
   });
 
-  const { report } = generateExecutionReport({
-    sessionId: input.sessionId,
-    contractId: input.contractId,
-    executionAttemptId: input.executionAttemptId,
-  });
-
-  if (report.sessionId !== input.sessionId) {
-    throw new Ops1Error("CONFLICT", "Rapport non corrélé à la session.");
-  }
-  if (!report.sealed) {
-    throw new Ops1Error("CONFLICT", "Rapport non scellé — réinjection refusée.");
-  }
-
-  insertEvent(db, input.sessionId, "REPORT_SEALED", {
-    reportId: report.reportId,
-    reportStatus: report.reportStatus,
-  });
-
-  if (alreadyReinjected(db, input.sessionId, report.reportId)) {
-    throw new Ops1Error(
-      "CONFLICT",
-      "Réinjection déjà réalisée pour ce reportId.",
-    );
-  }
-
-  const reinjectionId = createEventId();
-  insertEvent(db, input.sessionId, "REINJECTION_STARTED", {
-    reinjectionId,
-    reportId: report.reportId,
-    executionAttemptId: report.executionAttemptId,
-    contractHash: report.contractHash,
-  });
-
-  let reinjectionTurn: JournalTurn | null = null;
   try {
-    const content = buildReinjectionMessage(report);
-    const role =
-      session.conversationMode === "fixture"
-        ? "assistant_fixture"
-        : "assistant_live";
-    const appended = appendTurn({
+    const context = resolveSfiaCanonicalContext({
+      workspaceRoot,
       sessionId: input.sessionId,
-      role,
-      content,
-      fixture: session.conversationMode === "fixture",
     });
-    reinjectionTurn = appended.turn;
-    insertEvent(db, input.sessionId, "REINJECTION_COMPLETED", {
-      reinjectionId,
-      reportId: report.reportId,
-      turnId: reinjectionTurn.turnId,
+    for (const src of context.sourceDocuments) {
+      emit(input.sessionId, "SFIA_SOURCE_READ", {
+        path: src.path,
+        digest: src.digest,
+        blobSha: src.blobSha,
+        role: src.role,
+        sizeBytes: src.sizeBytes,
+      });
+    }
+    sessionContexts.set(input.sessionId, context);
+    emit(input.sessionId, "SFIA_CONTEXT_READY", {
+      contextId: context.contextId,
+      headSha: context.headSha,
+      sourceCount: context.sourceDocuments.length,
     });
+    return context;
   } catch (error) {
-    insertEvent(db, input.sessionId, "REINJECTION_FAILED", {
-      reinjectionId,
-      reportId: report.reportId,
+    emit(input.sessionId, "SFIA_CONTEXT_FAILED", {
       error: error instanceof Error ? error.message : "unknown",
     });
     throw error;
   }
-
-  let analysisTurn: JournalTurn | null = null;
-  let analysisError: string | null = null;
-
-  if (input.analyze !== false) {
-    try {
-      const analysis = await sendConversationMessage({
-        sessionId: input.sessionId,
-        content: [
-          "Analyse le rapport d’exécution réinjecté ci-dessus.",
-          "Ne déclare pas de succès implicite.",
-          `reportStatus=${report.reportStatus}.`,
-          "Indique la prochaine décision Morris possible.",
-        ].join(" "),
-        enableTools: false,
-      });
-      analysisTurn = analysis.assistantTurn;
-      analysisError = analysis.assistantError;
-    } catch (error) {
-      analysisError =
-        error instanceof Error
-          ? error.message
-          : "Analyse GPT indisponible après rapport";
-      // Report remains consultable; no auto-retry
-    }
-  }
-
-  return {
-    report,
-    reinjectionTurn,
-    analysisTurn,
-    analysisError,
-    reinjectionId,
-  };
 }
 
-export function listToolRelatedEvents(sessionId: string, db = openOps1Db()) {
-  const rows = db
-    .prepare(
-      `SELECT event_id, session_id, type, created_at, detail
-       FROM session_events
-       WHERE session_id = ?
-       ORDER BY created_at ASC, event_id ASC`,
-    )
-    .all(sessionId) as Array<{
-    event_id: string;
-    session_id: string | null;
-    type: string;
-    created_at: string;
-    detail: string;
-  }>;
-  return rows.map((r) => ({
-    eventId: r.event_id,
-    sessionId: r.session_id,
-    type: r.type as SessionEventType,
-    createdAt: r.created_at,
-    detail: r.detail,
-  }));
+export function buildSfiaSystemPreamble(context: SfiaCanonicalContext): string {
+  return [
+    "Tu opères dans SFIA Studio Control Tower avec un contexte SFIA canonique.",
+    "Tu proposes uniquement. Morris décide. Aucune exécution sans GO UI.",
+    "Interdit: commit, push, PR, merge, shell, branches arbitraires, prompt Cursor libre.",
+    "Après ta réponse utilisateur courte, inclus UN objet JSON SfiaActionProposal dans ```json.",
+    "Contexte structuré:",
+    serializeContextForModel(context),
+  ].join("\n");
 }
 
-export function buildUnifiedTimeline(sessionId: string, db = openOps1Db()) {
-  const events = listToolRelatedEvents(sessionId, db);
-  const turns = listTurns(sessionId, db);
-  const report = getLatestReportForSession(sessionId, db);
-  const items = [
-    ...events.map((e, index) => ({
-      kind: "event" as const,
-      at: e.createdAt,
-      seq: index,
-      type: e.type,
-      detail: e.detail,
-      id: e.eventId,
-    })),
-    ...turns.map((t, index) => ({
-      kind: "turn" as const,
-      at: t.createdAt,
-      seq: 10_000 + index,
-      type: t.role,
-      detail: t.content.slice(0, 200),
-      id: t.turnId,
-    })),
-  ].sort((a, b) => {
-    const c = a.at.localeCompare(b.at);
-    return c !== 0 ? c : a.seq - b.seq;
-  });
-
-  let terminal:
-    | "COMPLETED"
-    | "COMPLETED_WITH_RESERVATIONS"
-    | "REPORT_INCOMPLETE"
-    | "FAILED"
-    | "STOPPED"
-    | "DECISION_REQUIRED" = "DECISION_REQUIRED";
-
-  if (report?.reportStatus === "FAILED") terminal = "FAILED";
-  else if (report?.reportStatus === "REPORT_INCOMPLETE")
-    terminal = "REPORT_INCOMPLETE";
-  else if (report?.reportStatus === "COMPLETED") {
-    terminal =
-      report.outOfContract || report.reserves.length > 0
-        ? "COMPLETED_WITH_RESERVATIONS"
-        : "COMPLETED";
-  }
-
-  return { items, terminal, reportId: report?.reportId ?? null };
+export function clearSfiaContextForTests(sessionId?: string): void {
+  if (sessionId) sessionContexts.delete(sessionId);
+  else sessionContexts.clear();
 }
 
-// re-export for callers that need getReportById correlation checks
-export { getReportById };
-````
+```
 
-### Fichier : `projects/sfia-studio/app/__tests__/ops1/controlTowerTools.test.ts`
+### `projects/sfia-studio/app/lib/ops1/sfia/index.ts`
 
-````
+```typescript
+export * from "./canonicalPaths";
+export * from "./types";
+export * from "./sourceLoader";
+export * from "./contextResolver";
+export * from "./proposalSchema";
+export * from "./actionCompiler";
+export * from "./cursorPromptInstantiator";
+export * from "./sessionContext";
+
+```
+
+### `projects/sfia-studio/app/__tests__/ops1/sfia/canonicalEngine.test.ts`
+
+```typescript
 /** @vitest-environment node */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { GitLocalReadAdapter } from "@/lib/ops1/tools/gitLocalReadAdapter";
-import { decideReadPath, normalizeRelativePath } from "@/lib/ops1/tools/pathPolicy";
-import {
-  createToolCallId,
-  routeToolCall,
-} from "@/lib/ops1/tools/toolRouter";
 import { openOps1Db, resetOps1DbForTests } from "@/lib/ops1/db";
 import { createOpenSession } from "@/lib/ops1/repository";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/ops1/allowlistEvaluation";
 import { sendConversationMessage } from "@/lib/ops1/conversation/service";
-import { FakeConversationProvider } from "@/lib/ops1/conversation/fakeProvider";
-import { listToolRelatedEvents } from "@/lib/ops1/reportReinjection";
+import { listActionCandidates } from "@/lib/ops1/actionGate";
+import {
+  clearSfiaContextForTests,
+  compileSfiaActionProposal,
+  ensureSfiaContext,
+  instantiateCursorPrompt,
+  isCanonicalPathAllowed,
+  isContextStale,
+  loadCanonicalSource,
+  loadCursorTemplateSource,
+  parseProposalFromAssistantText,
+  parseSfiaActionProposal,
+  resolveSfiaCanonicalContext,
+  SfiaSourceLoadError,
+  type SfiaActionProposal,
+  type SfiaCanonicalContext,
+} from "@/lib/ops1/sfia";
 
-describe("Control Tower path policy", () => {
-  it("denies traversal and absolute paths", () => {
-    expect(normalizeRelativePath("../etc/passwd").ok).toBe(false);
-    expect(normalizeRelativePath("/etc/passwd").ok).toBe(false);
-    expect(decideReadPath(".env").allowed).toBe(false);
-    expect(decideReadPath("method/foo.md").allowed).toBe(false);
-    expect(
-      decideReadPath("projects/campus360/README.md").allowed,
-    ).toBe(true);
+const LIVE_PROOF_CONTENT =
+  "# Preuve Control Tower\n\nCe fichier a été créé pendant la validation live du vertical slice Control Tower.\n";
+
+describe("SFIA source loader", () => {
+  const root = resolveWorkspaceRootFromAppCwd();
+
+  it("loads allowlisted core sources with digest", () => {
+    const ref = loadCanonicalSource(
+      root,
+      "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
+    );
+    expect(ref.digest).toMatch(/^[a-f0-9]{64}$/);
+    expect(ref.sizeBytes).toBeGreaterThan(100);
+    expect(ref.role).toBe("guardrails");
+  });
+
+  it("refuses path hors allowlist", () => {
+    expect(() => loadCanonicalSource(root, "method/secret.md")).toThrow(
+      SfiaSourceLoadError,
+    );
+    try {
+      loadCanonicalSource(root, ".env");
+      expect.unreachable();
+    } catch (e) {
+      expect(e).toBeInstanceOf(SfiaSourceLoadError);
+      expect((e as SfiaSourceLoadError).code).toBe("PATH_NOT_ALLOWED");
+    }
+  });
+
+  it("refuses absent allowlisted path", () => {
+    // Use an allowlisted path that doesn't exist by temporarily checking
+    // isCanonicalPathAllowed still closed.
+    expect(isCanonicalPathAllowed("projects/campus360/README.md")).toBe(false);
+  });
+
+  it("loads cursor template with content + digest", () => {
+    const t = loadCursorTemplateSource(root);
+    expect(t.path).toBe("prompts/templates/sfia-cycle-execution-template.md");
+    expect(t.content).toMatch(/SFIA|cycle|template/i);
+    expect(t.digest).toMatch(/^[a-f0-9]{64}$/);
   });
 });
 
-describe("GitLocalReadAdapter + ToolRouter", () => {
+describe("SFIA context resolver", () => {
+  it("builds context with hierarchy and does not promote candidate decisions", () => {
+    const root = resolveWorkspaceRootFromAppCwd();
+    const ctx = resolveSfiaCanonicalContext({
+      workspaceRoot: root,
+      sessionId: "ops1-sess-test",
+    });
+    expect(ctx.methodBaseline).toBe("SFIA v2.6");
+    expect(ctx.headSha).toMatch(/^[0-9a-f]{40}$/);
+    expect(ctx.sourceDocuments.length).toBeGreaterThanOrEqual(4);
+    expect(ctx.closedGates).toContain("commit");
+    expect(ctx.candidateDecisions.some((d) => /commit/i.test(d))).toBe(true);
+    expect(ctx.validatedDecisions).not.toContain(
+      "GO VALIDATION LIVE MOTEUR SFIA CANONIQUE",
+    );
+    expect(ctx.permanentCore.join(" ")).toMatch(/Morris décide/);
+  });
+
+  it("detects context stale on head mismatch", () => {
+    const root = resolveWorkspaceRootFromAppCwd();
+    const ctx = resolveSfiaCanonicalContext({
+      workspaceRoot: root,
+      sessionId: "ops1-sess-test",
+    });
+    const stale = {
+      ...ctx,
+      headSha: "0000000000000000000000000000000000000000",
+    };
+    expect(isContextStale({ context: stale, workspaceRoot: root })).toBe(true);
+    expect(isContextStale({ context: ctx, workspaceRoot: root })).toBe(false);
+  });
+});
+
+describe("SFIA proposal schema", () => {
+  const defaults = {
+    sessionId: "ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    contextId: "sfia-ctx-1",
+  };
+
+  it("parses no_action and clarification", () => {
+    const no = parseSfiaActionProposal(
+      {
+        kind: "no_action",
+        userVisibleSummary: "rien",
+        rationale: "ok",
+      },
+      defaults,
+    );
+    expect(no.ok).toBe(true);
+    const cl = parseSfiaActionProposal(
+      {
+        kind: "clarification_required",
+        userVisibleSummary: "?",
+        unresolvedQuestions: ["path?"],
+      },
+      defaults,
+    );
+    expect(cl.ok).toBe(true);
+  });
+
+  it("rejects shell/commit phrasing in objective", () => {
+    const bad = parseSfiaActionProposal(
+      {
+        kind: "action_proposed",
+        objective: "run git commit now",
+        profile: "Critical",
+        files: [
+          {
+            path: "projects/campus360/x.md",
+            operation: "CREATE",
+            exactContent: "a",
+          },
+        ],
+        userVisibleSummary: "bad",
+      },
+      defaults,
+    );
+    expect(bad.ok).toBe(false);
+  });
+
+  it("extracts JSON fence from assistant text", () => {
+    const text = `Hello\n\`\`\`json\n${JSON.stringify({
+      kind: "no_action",
+      userVisibleSummary: "noop",
+      rationale: "noop",
+      sessionId: defaults.sessionId,
+      contextId: defaults.contextId,
+    })}\n\`\`\``;
+    const parsed = parseProposalFromAssistantText(text, defaults);
+    expect(parsed.ok).toBe(true);
+  });
+});
+
+describe("SFIA action compiler", () => {
   let prevExec: string | undefined;
   let tmp: string;
+  let sessionId: string;
+  let context: SfiaCanonicalContext;
 
   beforeEach(() => {
-    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ct-tools-"));
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-ce-"));
     prevExec = process.env.OPS1_EXEC_ROOT;
     process.env.OPS1_EXEC_ROOT = tmp;
     resetOps1DbForTests();
     openOps1Db();
+    clearSfiaContextForTests();
+    const { session } = createOpenSession("fixture");
+    sessionId = session.sessionId;
+    context = ensureSfiaContext({ sessionId });
   });
 
   afterEach(() => {
+    clearSfiaContextForTests();
     resetOps1DbForTests();
     if (prevExec === undefined) delete process.env.OPS1_EXEC_ROOT;
     else process.env.OPS1_EXEC_ROOT = prevExec;
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
-  it("reads head and status from real workspace", () => {
-    const root = resolveWorkspaceRootFromAppCwd();
-    const git = new GitLocalReadAdapter(root);
-    const head = git.getHead();
-    expect(head.sha).toMatch(/^[0-9a-f]{40}$/);
-    const status = git.getStatus();
-    expect(typeof status.porcelain).toBe("string");
-  });
+  function baseProposed(
+    overrides: Partial<Extract<SfiaActionProposal, { kind: "action_proposed" }>> = {},
+  ): Extract<SfiaActionProposal, { kind: "action_proposed" }> {
+    return {
+      kind: "action_proposed",
+      proposalId: "sfia-prop-1",
+      sessionId,
+      contextId: context.contextId,
+      objective: "Créer preuve Markdown Control Tower",
+      rationale: "demande Morris",
+      cycle: "Delivery",
+      profile: "Critical",
+      profileJustification: "gates + Cursor",
+      blocks: ["sécurité"],
+      project: "campus360",
+      operations: ["CREATE"],
+      files: [
+        {
+          path: "projects/campus360/05-control-tower-live-proof.md",
+          operation: "CREATE",
+          exactContent: LIVE_PROOF_CONTENT,
+        },
+      ],
+      expectedEffects: ["create file"],
+      excludedEffects: ["commit", "push"],
+      requiredGates: ["GO Cursor"],
+      stopConditions: ["no remote"],
+      cursorRequired: true,
+      reviewPackLevel: "full",
+      reviewHandoffRequired: true,
+      userVisibleSummary: "CREATE live proof md",
+      exactRequestedContent: LIVE_PROOF_CONTENT,
+      confidence: 0.9,
+      unresolvedQuestions: [],
+      ...overrides,
+    };
+  }
 
-  it("denies .env via router", async () => {
-    const { session } = createOpenSession("fixture");
-    const result = await routeToolCall({
-      toolCallId: createToolCallId(),
-      name: "git_local_read_file",
-      arguments: { path: ".env" },
-      sessionId: session.sessionId,
+  it("compiles valid CREATE and persists ActionCandidate", () => {
+    const result = compileSfiaActionProposal({
+      proposal: baseProposed(),
+      context,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
     });
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.errorCode).toBe("PATH_NOT_ALLOWED");
-      expect(result.status).toBe("denied");
-    }
-  });
-
-  it("denies unknown tool and cursor start", async () => {
-    const { session } = createOpenSession("fixture");
-    const unknown = await routeToolCall({
-      toolCallId: createToolCallId(),
-      name: "shell_exec",
-      arguments: {},
-      sessionId: session.sessionId,
-    });
-    expect(unknown.ok).toBe(false);
-    const cursor = await routeToolCall({
-      toolCallId: createToolCallId(),
-      name: "cursor_start_execution",
-      arguments: {},
-      sessionId: session.sessionId,
-    });
-    expect(cursor.ok).toBe(false);
-    if (!cursor.ok) {
-      expect(cursor.errorCode).toBe("EXECUTION_DENIED_GATE_REQUIRED");
-    }
-  });
-
-  it("succeeds git_local_get_head", async () => {
-    const { session } = createOpenSession("fixture");
-    const result = await routeToolCall({
-      toolCallId: createToolCallId(),
-      name: "git_local_get_head",
-      arguments: {},
-      sessionId: session.sessionId,
-    });
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect((result.data as { sha: string }).sha).toMatch(/^[0-9a-f]{40}$/);
-    }
-  });
-
-  it("fixture conversation simulates git tool marker", async () => {
-    const { session } = createOpenSession("fixture");
-    const result = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "État du repo __CT_TOOL_GIT_STATUS__",
-    });
-    expect(result.assistantTurn?.content).toMatch(/FIXTURE TOOL/);
-    expect(result.toolCalls).toBeGreaterThan(0);
-    const events = listToolRelatedEvents(session.sessionId);
-    expect(events.some((e) => e.type === "TOOL_CALL_SUCCEEDED")).toBe(true);
-  });
-
-  it("live fake provider runs tool loop for git status marker", async () => {
-    const { session } = createOpenSession("live");
-    const provider = new FakeConversationProvider();
-    const result = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "Please inspect __CT_TOOL_GIT_STATUS__",
-      provider,
-    });
-    expect(result.assistantError).toBeNull();
-    expect(result.assistantTurn?.content).toMatch(/Analyse outils|TEST\/FAKE/);
-    expect((result.toolCalls ?? 0) > 0 || (result.toolRounds ?? 0) > 0).toBe(
+    expect(result.status).toBe("COMPILED");
+    expect(result.exactContent).toBe(LIVE_PROOF_CONTENT);
+    expect(result.actionCandidateId).toMatch(/^ops1-act-/);
+    const list = listActionCandidates(sessionId);
+    expect(list.some((c) => c.actionCandidateId === result.actionCandidateId)).toBe(
       true,
     );
   });
+
+  it("denies commit/push operations", () => {
+    const result = compileSfiaActionProposal({
+      proposal: baseProposed({
+        operations: ["commit", "push"],
+        files: [
+          {
+            path: "projects/campus360/README.md",
+            operation: "MODIFY",
+            exactContent: "x",
+          },
+        ],
+      }),
+      context,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      persist: false,
+    });
+    expect(result.status).toBe("POLICY_DENIED");
+    expect(result.deniedOperations).toEqual(
+      expect.arrayContaining(["commit", "push"]),
+    );
+  });
+
+  it("denies protected path", () => {
+    const result = compileSfiaActionProposal({
+      proposal: baseProposed({
+        files: [
+          {
+            path: "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
+            operation: "MODIFY",
+            exactContent: "hack",
+          },
+        ],
+        exactRequestedContent: "hack",
+      }),
+      context,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      persist: false,
+    });
+    expect(result.status).toBe("PATH_DENIED");
+  });
+
+  it("denies context stale", () => {
+    const stale = {
+      ...context,
+      headSha: "0000000000000000000000000000000000000000",
+    };
+    const result = compileSfiaActionProposal({
+      proposal: baseProposed({ contextId: stale.contextId }),
+      context: stale,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      persist: false,
+    });
+    expect(result.status).toBe("CONTEXT_STALE");
+  });
+
+  it("preserves exact content", () => {
+    const result = compileSfiaActionProposal({
+      proposal: baseProposed(),
+      context,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      persist: false,
+    });
+    expect(result.exactContent).toBe(LIVE_PROOF_CONTENT);
+  });
+
+  it("instantiates cursor prompt from real template", () => {
+    const compiled = compileSfiaActionProposal({
+      proposal: baseProposed(),
+      context,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+    });
+    expect(compiled.status).toBe("COMPILED");
+    const candidates = listActionCandidates(sessionId);
+    const candidate = candidates.find(
+      (c) => c.actionCandidateId === compiled.actionCandidateId,
+    )!;
+    const inst = instantiateCursorPrompt({
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      context,
+      compilation: compiled,
+      candidate,
+    });
+    expect(inst.templatePath).toBe(
+      "prompts/templates/sfia-cycle-execution-template.md",
+    );
+    expect(inst.templateDigest).toMatch(/^[a-f0-9]{64}$/);
+    expect(inst.promptText).toContain(LIVE_PROOF_CONTENT.trim());
+    expect(inst.promptText).toContain(context.contextId);
+    expect(inst.promptText).toContain(candidate.actionCandidateId);
+  });
 });
-````
 
-### Fichier : `projects/sfia-studio/app/__tests__/ops1/controlTowerReinjection.test.ts`
-
-````
-/** @vitest-environment node */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { openOps1Db, resetOps1DbForTests } from "@/lib/ops1/db";
-import { createOpenSession } from "@/lib/ops1/repository";
-import {
-  buildReinjectionMessage,
-  buildUnifiedTimeline,
-} from "@/lib/ops1/reportReinjection";
-import type { ExecutionReport } from "@/lib/ops1/types";
-
-describe("report reinjection helpers", () => {
+describe("SFIA conversation integration (fixture markers)", () => {
   let prevExec: string | undefined;
   let tmp: string;
 
   beforeEach(() => {
-    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "ct-reinj-"));
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-int-"));
     prevExec = process.env.OPS1_EXEC_ROOT;
     process.env.OPS1_EXEC_ROOT = tmp;
     resetOps1DbForTests();
     openOps1Db();
+    clearSfiaContextForTests();
   });
 
   afterEach(() => {
+    clearSfiaContextForTests();
     resetOps1DbForTests();
     if (prevExec === undefined) delete process.env.OPS1_EXEC_ROOT;
     else process.env.OPS1_EXEC_ROOT = prevExec;
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
-  it("builds message without claiming implicit success", () => {
-    const report = {
-      reportId: "ops1-rpt-1",
-      sessionId: "ops1-sess-1",
-      contractId: "c1",
-      contractHash: "abc",
-      executionAttemptId: "att-1",
-      adapterMode: "fixture",
-      executionStatus: "SUCCEEDED",
-      reportStatus: "COMPLETED",
-      baseHeadSha: "0".repeat(40),
-      startedAt: "t",
-      finishedAt: "t",
-      durationMs: 10,
-      expectedPaths: [],
-      filesCreated: [],
-      filesModified: [],
-      filesDeleted: [],
-      filesOutOfContract: [],
-      outOfContract: false,
-      exitCode: 0,
-      timedOut: false,
-      worktreeRef: null,
-      reserves: [],
-      errors: [],
-      incompletenessReason: null,
-      metrics: {
-        durationMs: 10,
-        metricsIncomplete: false,
-        metricsIncompleteReason: null,
-        expectedPathCount: 0,
-        touchedPathCount: 0,
-        createCount: 0,
-        modifyCount: 0,
-        deleteCount: 0,
-        outOfContract: false,
-      },
-      coverage: [],
-      sealed: true,
-      createdAt: "t",
-      sealedAt: "t",
-    } as ExecutionReport;
-    const msg = buildReinjectionMessage(report);
-    expect(msg).toContain("[OPS1_REPORT_REINJECTION]");
-    expect(msg).toMatch(/≠ succès/i);
+  it("CREATE marker → ActionCandidate live", async () => {
+    const { session } = createOpenSession("fixture");
+    const result = await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "Prépare l’action __SFIA_PROPOSE_CREATE_MD__",
+    });
+    expect(result.sfiaContext?.contextId).toBeTruthy();
+    expect(result.sfiaProposal?.kind).toBe("action_proposed");
+    expect(result.sfiaCompilation?.status).toBe("COMPILED");
+    expect(result.sfiaCompilation?.actionCandidateId).toMatch(/^ops1-act-/);
+    expect(result.sfiaCompilation?.exactContent).toContain(
+      "# Preuve Control Tower",
+    );
+    expect(listActionCandidates(session.sessionId).length).toBe(1);
   });
 
-  it("timeline defaults to DECISION_REQUIRED", () => {
+  it("commit marker → POLICY_DENIED", async () => {
     const { session } = createOpenSession("fixture");
-    const tl = buildUnifiedTimeline(session.sessionId);
-    expect(tl.terminal).toBe("DECISION_REQUIRED");
-    expect(tl.items.length).toBeGreaterThan(0);
+    const result = await sendConversationMessage({
+      sessionId: session.sessionId,
+      content: "Bad propose __SFIA_PROPOSE_COMMIT__",
+    });
+    expect(result.sfiaProposal?.kind).toBe("action_proposed");
+    expect(result.sfiaCompilation?.status).toBe("POLICY_DENIED");
+    expect(listActionCandidates(session.sessionId).length).toBe(0);
   });
 });
-````
 
-### Fichier : `projects/sfia-studio/app/e2e/control-tower-fast-track.spec.ts`
+```
 
-````
+### `projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts`
+
+```typescript
 import { test, expect } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
 const screenshotDir = path.join(
   __dirname,
-  "../../../../.tmp-sfia-review/control-tower-fast-track-evidence/screenshots",
+  "../../../../.tmp-sfia-review/sfia-canonical-context-engine-evidence/screenshots",
 );
 
 test.beforeAll(() => {
   fs.mkdirSync(screenshotDir, { recursive: true });
 });
 
-test.describe("Control Tower Fast Track — tools UI", () => {
-  test("fixture git tool marker shows tool events", async ({ page }) => {
+test.describe("SFIA Canonical Context Engine", () => {
+  test("fixture propose CREATE → context + ActionCandidate live (no fixture button)", async ({
+    page,
+  }) => {
     await page.goto("/nouvelle-demande");
     await page.evaluate(() => window.sessionStorage.clear());
     await page.reload();
@@ -2534,26 +1880,48 @@ test.describe("Control Tower Fast Track — tools UI", () => {
     await page.getByTestId("ops1-create-session").click();
     await expect(page.getByTestId("ops1-session-id")).toBeVisible();
 
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("État projet __CT_TOOL_GIT_STATUS__");
-    await page.getByTestId("ops1-send-message").click();
-
-    await expect(page.getByTestId("ct-sources-panel")).toBeVisible();
-    await expect(page.getByTestId("ct-tool-event").first()).toBeVisible({
+    await expect(page.getByTestId("sfia-context-panel")).toBeVisible();
+    await expect(page.getByTestId("sfia-context-ready")).toBeVisible({
       timeout: 15_000,
     });
-    await expect(page.getByTestId("ct-timeline-panel")).toBeVisible();
+    await expect(page.getByTestId("sfia-baseline")).toContainText("SFIA");
+    await expect(page.getByTestId("sfia-source-item").first()).toBeVisible();
 
     await page.screenshot({
-      path: path.join(screenshotDir, "01-fixture-git-tool.png"),
+      path: path.join(screenshotDir, "01-sfia-context-loaded.png"),
+      fullPage: true,
+    });
+
+    await page
+      .getByTestId("ops1-message-input")
+      .fill("Prépare action bornée __SFIA_PROPOSE_CREATE_MD__");
+    await page.getByTestId("ops1-send-message").click();
+
+    await expect(page.getByTestId("sfia-proposal-panel")).toBeVisible({
+      timeout: 20_000,
+    });
+    await expect(page.getByTestId("sfia-compilation-status")).toHaveText(
+      "COMPILED",
+    );
+    await expect(page.getByTestId("sfia-live-action-id")).toBeVisible();
+    await expect(page.getByTestId("ops1-action-panel")).toBeVisible();
+    await expect(page.getByTestId("ops1-i3-create-candidate")).toBeVisible();
+
+    await page.screenshot({
+      path: path.join(screenshotDir, "02-sfia-proposal-compiled.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "03-sfia-action-candidate-live.png"),
+      fullPage: true,
+    });
+    await page.screenshot({
+      path: path.join(screenshotDir, "04-sfia-sources-digests.png"),
       fullPage: true,
     });
   });
 
-  test("denied path tool is visible as denied/failed event", async ({
-    page,
-  }) => {
+  test("commit proposal denied deterministically", async ({ page }) => {
     await page.goto("/nouvelle-demande");
     await page.evaluate(() => window.sessionStorage.clear());
     await page.reload();
@@ -2561,929 +1929,199 @@ test.describe("Control Tower Fast Track — tools UI", () => {
     await page.getByTestId("ops1-create-session").click();
     await page
       .getByTestId("ops1-message-input")
-      .fill("Secret probe __CT_TOOL_DENIED_PATH__");
+      .fill("Mauvaise proposition __SFIA_PROPOSE_COMMIT__");
     await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("ops1-turn").last()).toContainText(
-      "PATH_NOT_ALLOWED",
-      { timeout: 15_000 },
+    await expect(page.getByTestId("sfia-compilation-status")).toHaveText(
+      "POLICY_DENIED",
+      { timeout: 20_000 },
     );
-    await expect(page.getByTestId("ct-tool-event").first()).toBeVisible();
+    await expect(page.getByTestId("sfia-denied-ops")).toBeVisible();
     await page.screenshot({
-      path: path.join(screenshotDir, "02-tool-denied.png"),
+      path: path.join(screenshotDir, "05-sfia-forbidden-ops-denied.png"),
       fullPage: true,
     });
   });
 });
-````
 
-### Fichier : `projects/sfia-studio/73-control-tower-fast-track-delivery-report.md`
+```
 
-````
-# SFIA Studio — Control Tower Fast Track — Delivery report
+### `projects/sfia-studio/74-sfia-canonical-context-engine-report.md`
+
+```markdown
+# 74 — SFIA Canonical Context Engine — rapport d’implémentation
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Document** | `73-control-tower-fast-track-delivery-report.md` |
-| **Branche** | `delivery/sfia-studio-control-tower-fast-track` (locale, **non poussée**) |
-| **HEAD** | `32e5271842b9a344a7e292614675c27ea8ed941b` |
-| **Gate** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` consommé |
-| **Statut** | Implémenté — **prêt pour validation live Morris** |
-| **Anti-claims** | Slice **non prouvé** live ; pas MVP ; pas production ; pas GitHub write |
+| Date | 2026-07-22 (CEST) |
+| Cycle | 8 — Delivery / correctif structurel Control Tower |
+| Profil | Critical |
+| Gate consommé | `GO INTÉGRER LE MOTEUR DE CONTEXTE SFIA CANONIQUE` |
+| Gate suivant | `GO VALIDATION LIVE MOTEUR SFIA CANONIQUE` |
+| Branche | `delivery/sfia-studio-control-tower-fast-track` |
+| HEAD projet | `32e5271842b9a344a7e292614675c27ea8ed941b` (= `origin/main`) |
+| Verdict | **SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION** |
+
+## Intention
+
+Rendre les sources SFIA canoniques opérationnelles dans le flux Control Tower :
+
+message → contexte SFIA → `SfiaActionProposal` → compilateur déterministe → `ActionCandidate` → gate Morris → prompt Cursor instancié depuis le template Git.
+
+Sans dupliquer la doctrine en TypeScript, sans RAG, sans commit/push/PR.
+
+## Architecture minimale livrée
+
+```
+Canonical Source Loader
+→ Context Resolver → SfiaCanonicalContext
+→ GPT Conversation (+ preamble)
+→ SfiaActionProposal (schéma)
+→ Action Compiler
+→ ActionCandidate OPS1
+→ Cursor Prompt Instantiator (template Git réel)
+```
+
+Emplacement code : `projects/sfia-studio/app/lib/ops1/sfia/**`.
+
+## Anti-claims
+
+- Pas de validation live Morris réalisée dans ce cycle Cursor.
+- Pas de MVP / production.
+- Méthode SFIA et `prompts/**` non modifiés.
+- Campus360 non touché.
+- Aucun commit / push / PR projet.
+
+```
 
 ---
 
-## 1. Périmètre implémenté
-
-### Lot A — Lecture outillée
-
-- Types outils + policies path/repo
-- `GitLocalReadAdapter` (read-only, argv arrays)
-- `GitHubReadAdapter` (`gh` CLI + fallback REST si token ; pas de fallback silencieux)
-- Tool Router + events
-- Boucle tool calling OpenAI / Fake provider
-- Simulation fixture via markers `__CT_TOOL_*__`
-- UI panneau sources/outils
-
-### Lot B — Cursor + réinjection
-
-- Réutilisation OPS1 I3–I6 (gate UI, contract, worktree, CLI, report)
-- `cursor_*` **refusé** dans la boucle GPT (`EXECUTION_DENIED_GATE_REQUIRED`)
-- `generateReportAndReinject` : seal → message `[OPS1_REPORT_REINJECTION]` → analyse (tools off)
-- `ops1GenerateExecutionReportAction` réinjecte par défaut
-
-### Lot C — Timeline / sécu / tests
-
-- Timeline unifiée (events + turns)
-- Tests unitaires CT + E2E tools UI
-- Captures runtime sous `.tmp-sfia-review/control-tower-fast-track-evidence/screenshots/`
-
----
-
-## 2. Fichiers principaux
-
-**Créés :** `lib/ops1/tools/**`, `conversation/toolLoop.ts`, `reportReinjection.ts`, tests CT, `e2e/control-tower-fast-track.spec.ts`, docs 66–73
-
-**Modifiés :** `actions.ts`, `openaiProvider.ts`, `fakeProvider.ts`, `service.ts`, `types.ts`, `Ops1SessionScreen.tsx`, `executionOrchestrator.ts`, `README.md`
-
----
-
-## 3. Tests
-
-| Suite | Résultat |
-|-------|----------|
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS (warnings résolus) |
-| `npm test` | **128** pass |
-| `npm run build` | PASS |
-| E2E CT tools | **2/2** pass |
-| E2E I1 + I6 (échantillon) | PASS |
-
----
-
-## 4. Validation live — préparation
-
-**GitHub :** `gh` authentifié (`mcleland147`) — transport `gh_cli` disponible.
-
-**Scénario Morris (non exécuté par Cursor) :**
-
-1. Démarrer Studio (`npm run dev` dans `app`, port 3020)
-2. Session **live** GPT
-3. Demander l’état du projet → outils Git local + GitHub
-4. Proposer action Markdown Campus360 allowlistée
-5. Gate Morris GO dans l’UI
-6. Exécution Cursor (`OPS1_CURSOR_REAL=1` si réel)
-7. Générer rapport → réinjection auto → analyse
-8. Décider la suite
-
-**Verdict préparation :** `CONTROL TOWER LIVE READY — MORRIS INTERACTION REQUIRED`
-
----
-
-## 5. Réserves / dette
-
-- Allowlist lecture CT distincte de l’allowlist write Campus360 OPS1
-- Prompt Cursor I5 encore orienté Markdown Campus360 (hérité)
-- Timeline UI = liste d’événements (pas redesign Figma)
-- Validation live Morris **non réalisée** dans ce delivery
-- Docs 66–72 toujours **non commités** avec le code (volontaire — pas de GO commit)
-
----
-
-## 6. Décisions suivantes
-
-1. Validation live Morris
-2. `GO commit` / `GO push` / `GO PR` (fermés)
-3. Éventuel élargissement allowlist lecture / prompt Cursor générique
-````
-
-## 11. Diffs utiles — fichiers modifiés
+## 14. Diffs utiles — fichiers modifiés (scope moteur SFIA)
 
 
-### Diff : `projects/sfia-studio/app/lib/ops1/types.ts`
+### `projects/sfia-studio/README.md`
 
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
-index a92e16d..2bf9026 100644
---- a/projects/sfia-studio/app/lib/ops1/types.ts
-+++ b/projects/sfia-studio/app/lib/ops1/types.ts
-@@ -110,7 +110,26 @@ export type SessionEventType =
-   | "POST_REPORT_CHAT_RESUMED"
-   | "SESSION_CLOSED"
-   | "SESSION_CONTINUATION_OPENED"
--  | "CLOSED_SESSION_MUTATION_REFUSED";
-+  | "CLOSED_SESSION_MUTATION_REFUSED"
-+  | "SOURCE_SEARCH_STARTED"
-+  | "TOOL_CALL_REQUESTED"
-+  | "TOOL_CALL_STARTED"
-+  | "TOOL_CALL_SUCCEEDED"
-+  | "TOOL_CALL_FAILED"
-+  | "TOOL_CALL_DENIED"
-+  | "TOOL_LOOP_COMPLETED"
-+  | "TOOL_LOOP_LIMIT_REACHED"
-+  | "EXECUTION_PREPARING"
-+  | "CURSOR_PROCESS_STARTED"
-+  | "CURSOR_PROCESS_COMPLETED"
-+  | "CURSOR_PROCESS_FAILED"
-+  | "POSTCHECK_STARTED"
-+  | "POSTCHECK_COMPLETED"
-+  | "REPORT_GENERATION_STARTED"
-+  | "REPORT_SEALED"
-+  | "REINJECTION_STARTED"
-+  | "REINJECTION_COMPLETED"
-+  | "REINJECTION_FAILED";
+```diff
+diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
+index ccd03ee..a3c088b 100644
+--- a/projects/sfia-studio/README.md
++++ b/projects/sfia-studio/README.md
+@@ -4,7 +4,7 @@
+ |------------|--------|
+ | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
+ | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
+-| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44`) ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; Intégration / DevOps OPS1 **validé avec réserves** (`63`–`65` ; `G-OPS1-DEVOPS-VAL` consommé) ; `.sfia-exec/**` **ignoré** ; Node/scanner/suites/CI **ouverts ou différés** ; live / delivery / code / MVP / production **fermés** |
++| **Statut** | `sfia-canonical-context-engine-local` — moteur de contexte SFIA **implémenté** sur branche locale ; **pas de commit/push/PR** ; validation live Morris **requise** ; MVP / production **fermés** |
+ | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
+ | **Autorité** | Morris (L0) |
+ | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
+@@ -13,15 +13,18 @@
+ | **Profil SFIA** | Critical |
+ | **Branche delivery** | `delivery/sfia-studio-poc-s1-harness` (**locale**) |
+ | **Branche architecture** | historique — MERGED #221 |
+-| **Base canonique** | `origin/main` @ `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
++| **Base canonique** | `origin/main` @ `32e5271842b9a344a7e292614675c27ea8ed941b` (I6 mergé ; cadrage Control Tower local) |
+ | **Chemin** | `projects/sfia-studio/` |
+-| **AF-Option C** | **VALIDÉE** — Studio ≠ orchestrateur |
++| **AF-Option C** | **REFORMULÉE ET VALIDÉE** — Studio = cockpit + façade d’orchestration ; policies / exécuteurs logiquement séparés derrière Studio |
++| **Cadrage Control Tower** | `66`–`69` — **validé** (`GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER`) |
++| **Fast Track CT VS** | `70`–`73` — delivery **local** ; `GO EXÉCUTION…` consommé |
++| **Moteur SFIA canonique** | `74` + `app/lib/ops1/sfia/**` — **implémenté local** ; `GO INTÉGRER…` consommé ; live Morris **ouvert** ; commit/push/PR **fermés** |
+ | **Cadrage POC** | `20`–`22` — **INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
+ | **Architecture POC** | `23`–`25` — **Option B minimale** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
+ | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
+ | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
+ | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
+-| **Prochaine décision** | Revue PR Draft DevOps / merge éventuel / `GO IMPLEMENT OPS1 CI` / `GO DELIVERY I1` / gate Node — **non automatiques** |
++| **Prochaine décision** | `GO VALIDATION LIVE MOTEUR SFIA CANONIQUE` · puis éventuels `GO commit` / `GO push` / `GO PR` — **non automatiques** |
 
- export interface SessionEvent {
-   eventId: string;
-````
+ ---
 
-### Diff : `projects/sfia-studio/app/lib/ops1/conversation/types.ts`
+@@ -147,7 +150,7 @@ Pré-cadrage
+   → décision Morris : ouverture éventuelle conception fonctionnelle OPS1 (`G-OPS1-FUNC-DESIGN`) — **non ouverte**
+ ```
 
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/conversation/types.ts b/projects/sfia-studio/app/lib/ops1/conversation/types.ts
-index ba366f1..aa673c4 100644
---- a/projects/sfia-studio/app/lib/ops1/conversation/types.ts
-+++ b/projects/sfia-studio/app/lib/ops1/conversation/types.ts
-@@ -1,5 +1,6 @@
- import type { ConversationMode, JournalTurn } from "../types";
- import { Ops1Error } from "../errors";
-+import type { ToolDefinition } from "../tools/types";
+-Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** et **canonique sur main** (PR #235 / `b686eb1`). **POC maintenu**. MVP / production / industrialisation / delivery OPS1 **non ouverts**. Trajectoire I1–I7 validée au niveau cadrage uniquement. Prochaine décision : ouverture éventuelle de `G-OPS1-FUNC-DESIGN`.
++Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** (PR #235 / `b686eb1`). I6 mergé (`#253` / `32e5271`). I7 clôturé avec **OPS1-I7-R01**. Cadrage Control Tower **validé** (`66`–`69`). Fast Track vertical slice : **`plan-open`** (`70`–`72` ; Option C hybride). **Code non modifié** dans la préparation. MVP / production / industrialisation **fermés**. Prochaine décision : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE`.
 
- /** Provider-facing roles — domain roles mapped without SDK types. */
- export type ProviderChatRole = "user" | "assistant";
-@@ -22,9 +23,47 @@ export interface ProviderCompletionResult {
-   usage: ProviderUsage;
- }
+ ---
 
-+export interface ProviderToolCall {
-+  callId: string;
-+  name: string;
-+  argumentsJson: string;
-+}
+@@ -374,8 +377,10 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ 4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **validés avec réserves** · `G-OPS1-DEVOPS-VAL` consommé (2026-07-20 21:27:26 CEST) · 24 décisions · `.sfia-exec/**` ignoré · **non intégrés sur `main` tant que PR non mergée**.
+ 5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
+ 6. Réserves maintenues : Node non figé · scanner différé · suites intégration différées · CI Studio différée (`GO IMPLEMENT OPS1 CI`) · worktree≠sandbox · stack/fournisseur · FD-CAND-15 · UX-R01…R04 · live fermés.
++7. **Cadrage Control Tower** — docs [`66`](./66-control-tower-product-framing.md)–[`69`](./69-control-tower-options-and-decision-pack.md) — **validé** · `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` consommé · AF-Option C reformulée **validée** · Option C hybride **retenue**.
++8. **Fast Track Control Tower VS** — docs [`70`](./70-control-tower-fast-track-architecture-and-contract.md)–[`72`](./72-control-tower-fast-track-decision-pack.md) — **`plan-open`** · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` consommé · gate suivante : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` · **aucun code** avant ce GO.
+
+-**Verdict documentaire courant :** `SFIA STUDIO OPS1 INTEGRATION DEVOPS VALIDATED WITH RESERVATIONS`
++**Verdict documentaire courant :** `SFIA STUDIO CONTROL TOWER FAST TRACK PLAN OPEN — AWAITING EXECUTION GO`
+
+
+ ---
+@@ -393,7 +398,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
+ | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
+ | Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
+-| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** ; **pas encore** sur `main` avant merge PR |
++| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** |
++| Cadrage Control Tower | Docs `66`–`69` — **validé** (`GO VALIDATION CADRAGE…`) |
++| Fast Track CT VS | Docs `70`–`72` — **`plan-open`** ; exécution code fermée jusqu’à `GO EXÉCUTION…` |
+ | Handoff | `sfia/review-handoff` |
+
+ ---
+@@ -477,4 +484,22 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves — **VALIDATED WITH RESERVATIONS** |
+ | [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **VALIDATED WITH RESERVATIONS** (2026-07-20 21:27:26 CEST) |
+
+-*SFIA Studio — POC maintenu — Intégration/DevOps VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — CI / delivery / live / MVP non ouverts.*
++### Cadrage produit Control Tower (validé)
 +
-+export type ProviderInputItem =
-+  | { type: "message"; role: ProviderChatRole; content: string }
-+  | {
-+      type: "function_call";
-+      callId: string;
-+      name: string;
-+      argumentsJson: string;
-+    }
-+  | {
-+      type: "function_call_output";
-+      callId: string;
-+      output: string;
-+    };
++| Document | Rôle |
++|----------|------|
++| [66-control-tower-product-framing.md](./66-control-tower-product-framing.md) | Contexte, problème, vision, principes, acteurs — **validé** |
++| [67-control-tower-capabilities-and-user-journeys.md](./67-control-tower-capabilities-and-user-journeys.md) | Capacités, UX fonctionnelle, parcours P1–P12 — **validé** |
++| [68-control-tower-scope-success-criteria-and-risks.md](./68-control-tower-scope-success-criteria-and-risks.md) | Produit / POC / MVP candidats, critères, risques — **validé** |
++| [69-control-tower-options-and-decision-pack.md](./69-control-tower-options-and-decision-pack.md) | Options A–D ; Option C **retenue** — **validé** |
 +
-+export type ProviderRoundResult =
-+  | {
-+      kind: "message";
-+      text: string;
-+      usage: ProviderUsage;
-+    }
-+  | {
-+      kind: "tool_calls";
-+      toolCalls: ProviderToolCall[];
-+      usage: ProviderUsage;
-+    };
++### Fast Track Control Tower Vertical Slice (`plan-open`)
 +
- export interface ConversationProvider {
-   readonly providerId: string;
-+  /** Legacy text-only completion (tools disabled). */
-   complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
-+  /** Optional tool-aware round — default falls back to complete(). */
-+  completeRound?(input: {
-+    items: ProviderInputItem[];
-+    tools: ToolDefinition[];
-+  }): Promise<ProviderRoundResult>;
- }
-
- /**
-@@ -87,3 +126,13 @@ export function assertJournalMatchesMode(
-     }
-   }
- }
++| Document | Rôle |
++|----------|------|
++| [70-control-tower-fast-track-architecture-and-contract.md](./70-control-tower-fast-track-architecture-and-contract.md) | Archi minimale, inventaire OPS1, outils, adapters, UX — **`plan-open`** |
++| [71-control-tower-fast-track-backlog-and-delivery.md](./71-control-tower-fast-track-backlog-and-delivery.md) | FT-01…12, lots A/B/C, chemin critique — **`plan-open`** |
++| [72-control-tower-fast-track-decision-pack.md](./72-control-tower-fast-track-decision-pack.md) | D1–D8, risques, gate exécution — **plan validé pour exécution** |
++| [73-control-tower-fast-track-delivery-report.md](./73-control-tower-fast-track-delivery-report.md) | Rapport delivery local — **READY FOR MORRIS LIVE VALIDATION** |
 +
-+export function messagesToInputItems(
-+  messages: ProviderChatMessage[],
-+): ProviderInputItem[] {
-+  return messages.map((m) => ({
-+    type: "message" as const,
-+    role: m.role,
-+    content: m.content,
-+  }));
-+}
-````
++*SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
+```
 
-### Diff : `projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts`
+### `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
 
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts b/projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
-index 932124f..9dc5d11 100644
---- a/projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
-+++ b/projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
-@@ -1,9 +1,13 @@
- import OpenAI from "openai";
- import { Ops1Error } from "../errors";
-+import type { ToolDefinition } from "../tools/types";
- import type {
-   ConversationProvider,
-   ProviderChatMessage,
-   ProviderCompletionResult,
-+  ProviderInputItem,
-+  ProviderRoundResult,
-+  ProviderToolCall,
- } from "./types";
-
- /**
-@@ -23,25 +27,65 @@ export class OpenAIConversationProvider implements ConversationProvider {
-   async complete(
-     messages: ProviderChatMessage[],
-   ): Promise<ProviderCompletionResult> {
-+    const round = await this.completeRound({
-+      items: messages.map((m) => ({
-+        type: "message" as const,
-+        role: m.role,
-+        content: m.content,
-+      })),
-+      tools: [],
-+    });
-+    if (round.kind !== "message") {
-+      throw new Ops1Error(
-+        "PROVIDER",
-+        "Réponse fournisseur inattendue (tool calls sans outils).",
-+      );
-+    }
-+    return { text: round.text, usage: round.usage };
-+  }
-+
-+  async completeRound(input: {
-+    items: ProviderInputItem[];
-+    tools: ToolDefinition[];
-+  }): Promise<ProviderRoundResult> {
-     try {
-+      const tools =
-+        input.tools.length === 0
-+          ? []
-+          : input.tools.map((t) => ({
-+              type: "function" as const,
-+              name: t.name,
-+              description: t.description,
-+              parameters: t.parameters,
-+              strict: false,
-+            }));
-+
-       const response = await this.client.responses.create({
-         model: this.model,
--        input: messages.map((m) => ({
--          role: m.role,
--          content: m.content,
--        })),
--        // Explicitly no tools — conversation only.
--        tools: [],
-+        input: input.items.map((item) => {
-+          if (item.type === "message") {
-+            return {
-+              role: item.role,
-+              content: item.content,
-+            };
-+          }
-+          if (item.type === "function_call") {
-+            return {
-+              type: "function_call",
-+              call_id: item.callId,
-+              name: item.name,
-+              arguments: item.argumentsJson,
-+            };
-+          }
-+          return {
-+            type: "function_call_output",
-+            call_id: item.callId,
-+            output: item.output,
-+          };
-+        }) as OpenAI.Responses.ResponseInput,
-+        tools,
-       });
-
--      const text = (response.output_text ?? "").trim();
--      if (!text) {
--        throw new Ops1Error(
--          "PROVIDER",
--          "Réponse fournisseur vide. Aucun tour assistant live n’a été créé.",
--        );
--      }
--
-       const usage = response.usage;
-       const inputTokens = usage?.input_tokens ?? null;
-       const outputTokens = usage?.output_tokens ?? null;
-@@ -50,17 +94,49 @@ export class OpenAIConversationProvider implements ConversationProvider {
-         (inputTokens != null && outputTokens != null
-           ? inputTokens + outputTokens
-           : null);
--
--      return {
--        text,
--        usage: {
--          inputTokens,
--          outputTokens,
--          totalTokens,
--          model: response.model ?? this.model,
--          providerResponseId: response.id ?? null,
--        },
-+      const providerUsage = {
-+        inputTokens,
-+        outputTokens,
-+        totalTokens,
-+        model: response.model ?? this.model,
-+        providerResponseId: response.id ?? null,
-       };
-+
-+      const toolCalls: ProviderToolCall[] = [];
-+      const output = response.output ?? [];
-+      for (const item of output) {
-+        if (
-+          item &&
-+          typeof item === "object" &&
-+          "type" in item &&
-+          (item as { type: string }).type === "function_call"
-+        ) {
-+          const fc = item as {
-+            call_id?: string;
-+            name?: string;
-+            arguments?: string;
-+            id?: string;
-+          };
-+          toolCalls.push({
-+            callId: fc.call_id ?? fc.id ?? `call-${toolCalls.length + 1}`,
-+            name: fc.name ?? "",
-+            argumentsJson: fc.arguments ?? "{}",
-+          });
-+        }
-+      }
-+
-+      if (toolCalls.length > 0) {
-+        return { kind: "tool_calls", toolCalls, usage: providerUsage };
-+      }
-+
-+      const text = (response.output_text ?? "").trim();
-+      if (!text) {
-+        throw new Ops1Error(
-+          "PROVIDER",
-+          "Réponse fournisseur vide. Aucun tour assistant live n’a été créé.",
-+        );
-+      }
-+      return { kind: "message", text, usage: providerUsage };
-     } catch (error) {
-       if (error instanceof Ops1Error) throw error;
-       throw new Ops1Error(
-````
-
-### Diff : `projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts`
-
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts b/projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
-index 4f4cb74..e4357ae 100644
---- a/projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
-@@ -1,9 +1,17 @@
-+import type { ToolDefinition } from "../tools/types";
- import type {
-   ConversationProvider,
-   ProviderChatMessage,
-   ProviderCompletionResult,
-+  ProviderInputItem,
-+  ProviderRoundResult,
-+  ProviderToolCall,
- } from "./types";
-
-+export type FakeToolScriptRound =
-+  | { kind: "message"; text: string }
-+  | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
-+
- /**
-  * Deterministic fake provider for unit/E2E non-live tests.
-  * Never presented as live GPT; replies are tagged TEST/FAKE.
-@@ -11,12 +19,19 @@ import type {
- export class FakeConversationProvider implements ConversationProvider {
-   readonly providerId = "fake-test";
-   private callCount = 0;
-+  private roundCount = 0;
-   private readonly scripted?: string[];
-   private readonly failOnCall?: number;
-+  private readonly toolScript?: FakeToolScriptRound[];
-
--  constructor(options?: { scripted?: string[]; failOnCall?: number }) {
-+  constructor(options?: {
-+    scripted?: string[];
-+    failOnCall?: number;
-+    toolScript?: FakeToolScriptRound[];
-+  }) {
-     this.scripted = options?.scripted;
-     this.failOnCall = options?.failOnCall;
-+    this.toolScript = options?.toolScript;
-   }
-
-   async complete(
-@@ -47,4 +62,110 @@ export class FakeConversationProvider implements ConversationProvider {
-       },
-     };
-   }
-+
-+  async completeRound(input: {
-+    items: ProviderInputItem[];
-+    tools: ToolDefinition[];
-+  }): Promise<ProviderRoundResult> {
-+    this.roundCount += 1;
-+    const usage = {
-+      inputTokens: 10 * this.roundCount,
-+      outputTokens: 5 * this.roundCount,
-+      totalTokens: 15 * this.roundCount,
-+      model: "fake-test-model",
-+      providerResponseId: `fake-round-${this.roundCount}`,
-+    };
-+
-+    if (this.toolScript && this.toolScript.length > 0) {
-+      const step =
-+        this.toolScript[
-+          Math.min(this.roundCount - 1, this.toolScript.length - 1)
-+        ];
-+      if (step.kind === "tool_calls" && input.tools.length > 0) {
-+        return { kind: "tool_calls", toolCalls: step.toolCalls, usage };
-+      }
-+      if (step.kind === "message") {
-+        return { kind: "message", text: step.text, usage };
-+      }
-+    }
-+
-+    // Auto: if last user asks for git/github and tools available, emit one tool call once
-+    const lastUser = [...input.items]
-+      .reverse()
-+      .find((i) => i.type === "message" && i.role === "user");
-+    const content =
-+      lastUser && lastUser.type === "message" ? lastUser.content : "";
-+
-+    if (
-+      this.roundCount === 1 &&
-+      input.tools.length > 0 &&
-+      /__CT_TOOL_GIT_STATUS__/i.test(content)
-+    ) {
-+      return {
-+        kind: "tool_calls",
-+        toolCalls: [
-+          {
-+            callId: "fake-call-git-status",
-+            name: "git_local_get_status",
-+            argumentsJson: "{}",
-+          },
-+        ],
-+        usage,
-+      };
-+    }
-+    if (
-+      this.roundCount === 1 &&
-+      input.tools.length > 0 &&
-+      /__CT_TOOL_GITHUB_REPO__/i.test(content)
-+    ) {
-+      return {
-+        kind: "tool_calls",
-+        toolCalls: [
-+          {
-+            callId: "fake-call-gh-repo",
-+            name: "github_get_repository",
-+            argumentsJson: "{}",
-+          },
-+        ],
-+        usage,
-+      };
-+    }
-+    if (
-+      this.roundCount === 1 &&
-+      input.tools.length > 0 &&
-+      /__CT_TOOL_DENIED_PATH__/i.test(content)
-+    ) {
-+      return {
-+        kind: "tool_calls",
-+        toolCalls: [
-+          {
-+            callId: "fake-call-env",
-+            name: "git_local_read_file",
-+            argumentsJson: JSON.stringify({ path: ".env" }),
-+          },
-+        ],
-+        usage,
-+      };
-+    }
-+
-+    // After tools or default message
-+    const toolOutputs = input.items.filter(
-+      (i) => i.type === "function_call_output",
-+    );
-+    if (toolOutputs.length > 0) {
-+      return {
-+        kind: "message",
-+        text: `[TEST/FAKE · NON LIVE] Analyse outils (${toolOutputs.length}) — aucun succès implicite déclaré.`,
-+        usage,
-+      };
-+    }
-+
-+    const messages = input.items
-+      .filter((i): i is Extract<ProviderInputItem, { type: "message" }> =>
-+        i.type === "message",
-+      )
-+      .map((m) => ({ role: m.role, content: m.content }));
-+    const completion = await this.complete(messages);
-+    return { kind: "message", text: completion.text, usage: completion.usage };
-+  }
- }
-````
-
-### Diff : `projects/sfia-studio/app/lib/ops1/conversation/service.ts`
-
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/conversation/service.ts b/projects/sfia-studio/app/lib/ops1/conversation/service.ts
-index b88e051..4417b1c 100644
---- a/projects/sfia-studio/app/lib/ops1/conversation/service.ts
-+++ b/projects/sfia-studio/app/lib/ops1/conversation/service.ts
-@@ -19,6 +19,12 @@ import {
- } from "./types";
- import { resolveConversationProvider } from "./provider";
- import type { ConversationProvider } from "./types";
-+import { runToolCallingLoop } from "./toolLoop";
-+import {
-+  createToolCallId,
-+  routeToolCall,
-+} from "../tools/toolRouter";
-+import { openOps1Db } from "../db";
-
- export interface SendMessageResult {
-   userTurn: JournalTurn;
-@@ -27,6 +33,8 @@ export interface SendMessageResult {
-   usage: ConversationUsageCounters | null;
-   mode: ConversationMode;
-   providerId: string | null;
-+  toolRounds?: number;
-+  toolCalls?: number;
- }
-
- function durationMs(startedAt: string, completedAt: string): number | null {
-@@ -36,6 +44,60 @@ function durationMs(startedAt: string, completedAt: string): number | null {
-   return Math.max(0, b - a);
- }
-
-+/**
-+ * Fixture path with optional deterministic tool simulation markers.
-+ */
-+async function runFixtureWithOptionalTools(
-+  sessionId: string,
-+  userContent: string,
-+): Promise<{ reply: string; toolCalls: number }> {
-+  const markers: Array<{ marker: RegExp; name: string; args: Record<string, unknown> }> = [
-+    {
-+      marker: /__CT_TOOL_GIT_STATUS__/i,
-+      name: "git_local_get_status",
-+      args: {},
-+    },
-+    {
-+      marker: /__CT_TOOL_GIT_HEAD__/i,
-+      name: "git_local_get_head",
-+      args: {},
-+    },
-+    {
-+      marker: /__CT_TOOL_GITHUB_REPO__/i,
-+      name: "github_get_repository",
-+      args: {},
-+    },
-+    {
-+      marker: /__CT_TOOL_DENIED_PATH__/i,
-+      name: "git_local_read_file",
-+      args: { path: ".env" },
-+    },
-+  ];
-+
-+  const db = openOps1Db();
-+  const parts: string[] = [buildFixtureAssistantReply(userContent)];
-+  let toolCalls = 0;
-+  for (const m of markers) {
-+    if (!m.marker.test(userContent)) continue;
-+    toolCalls += 1;
-+    const result = await routeToolCall(
-+      {
-+        toolCallId: createToolCallId(),
-+        name: m.name,
-+        arguments: m.args,
-+        sessionId,
-+      },
-+      { db },
-+    );
-+    parts.push(
-+      result.ok
-+        ? `[FIXTURE TOOL OK] ${m.name}: ${result.summary}`
-+        : `[FIXTURE TOOL ${result.status.toUpperCase()}] ${m.name}: ${result.errorCode} — ${result.message}`,
-+    );
-+  }
-+  return { reply: parts.join("\n"), toolCalls };
-+}
-+
- /**
-  * Orchestrates fixture or live conversation turn using the session's
-  * immutable conversationMode. Optional requestedMode is validated then ignored
-@@ -47,6 +109,8 @@ export async function sendConversationMessage(input: {
-   /** Optional client hint — must match session mode or be omitted. */
-   requestedMode?: ConversationMode;
-   provider?: ConversationProvider;
-+  /** Disable tools even in live (tests). Default: tools enabled for live. */
-+  enableTools?: boolean;
- }): Promise<SendMessageResult> {
-   const session = getSession(input.sessionId);
-   if (!session) {
-@@ -81,8 +145,13 @@ export async function sendConversationMessage(input: {
-
-     let assistantTurn: JournalTurn | null = null;
-     let assistantError: string | null = null;
-+    let toolCalls = 0;
-     try {
--      const reply = buildFixtureAssistantReply(input.content);
-+      const { reply, toolCalls: tc } = await runFixtureWithOptionalTools(
-+        input.sessionId,
-+        input.content,
-+      );
-+      toolCalls = tc;
-       const appended = appendTurn({
-         sessionId: input.sessionId,
-         role: "assistant_fixture",
-@@ -101,6 +170,8 @@ export async function sendConversationMessage(input: {
-       usage: null,
-       mode: "fixture",
-       providerId: null,
-+      toolRounds: toolCalls > 0 ? 1 : 0,
-+      toolCalls,
-     };
-   }
-
-@@ -130,12 +201,17 @@ export async function sendConversationMessage(input: {
-   try {
-     const history = listTurns(input.sessionId);
-     const messages = buildProviderMessagesFromJournal(history, "live");
--    const completion = await provider.complete(messages);
-+    const loop = await runToolCallingLoop({
-+      sessionId: input.sessionId,
-+      messages,
-+      provider,
-+      enableTools: input.enableTools !== false,
-+    });
-
-     const { turn: assistantTurn } = appendTurn({
-       sessionId: input.sessionId,
-       role: "assistant_live",
--      content: completion.text,
-+      content: loop.text,
-       fixture: false,
-     });
-
-@@ -143,11 +219,11 @@ export async function sendConversationMessage(input: {
-       attemptId: attempt.attemptId,
-       sessionId: input.sessionId,
-       assistantTurnId: assistantTurn.turnId,
--      providerResponseId: completion.usage.providerResponseId,
--      model: completion.usage.model,
--      inputTokens: completion.usage.inputTokens,
--      outputTokens: completion.usage.outputTokens,
--      totalTokens: completion.usage.totalTokens,
-+      providerResponseId: loop.usage.providerResponseId,
-+      model: loop.usage.model,
-+      inputTokens: loop.usage.inputTokens,
-+      outputTokens: loop.usage.outputTokens,
-+      totalTokens: loop.usage.totalTokens,
-     });
-
-     console.info(
-@@ -155,6 +231,7 @@ export async function sendConversationMessage(input: {
-       input.sessionId,
-       attempt.attemptId,
-       finalized.totalTokens,
-+      `tools=${loop.toolCalls}`,
-     );
-
-     return {
-@@ -175,6 +252,8 @@ export async function sendConversationMessage(input: {
-       },
-       mode: "live",
-       providerId: provider.providerId,
-+      toolRounds: loop.toolRounds,
-+      toolCalls: loop.toolCalls,
-     };
-   } catch (error) {
-     const safe = toSafeClientError(error);
-````
-
-### Diff : `projects/sfia-studio/app/lib/ops1/actions.ts`
-
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/actions.ts b/projects/sfia-studio/app/lib/ops1/actions.ts
-index 9084c3c..3b5e942 100644
---- a/projects/sfia-studio/app/lib/ops1/actions.ts
-+++ b/projects/sfia-studio/app/lib/ops1/actions.ts
-@@ -26,6 +26,11 @@ import {
-   generateExecutionReport,
-   getLatestReportForSession,
- } from "./reportService";
-+import {
-+  buildUnifiedTimeline,
-+  generateReportAndReinject,
-+  listToolRelatedEvents,
-+} from "./reportReinjection";
- import {
-   closeSession,
-   openContinuation,
-@@ -47,6 +52,7 @@ import {
- } from "./conversation/config";
- import { sendConversationMessage } from "./conversation/service";
- import { getRealCursorAvailability } from "./cursorExecutionAdapter";
-+import { resolveGithubReadTransport, probeGhAuth } from "./tools/githubReadAdapter";
- import type {
-   ActionAllowlistEvaluation,
-   ActionCandidate,
-@@ -64,6 +70,7 @@ import type {
-   ProviderPresentation,
-   SessionQualification,
-   ExecutionReport,
-+  SessionEvent,
- } from "./types";
-
- export type Ops1ActionResult<T> =
-@@ -137,6 +144,8 @@ export async function ops1GetSessionAction(
-     latestContractByAction: Record<string, ExecutionContract | null>;
-     latestAttemptByContract: Record<string, ExecutionAttempt | null>;
-     latestReport: ExecutionReport | null;
-+    events: SessionEvent[];
-+    timeline: ReturnType<typeof buildUnifiedTimeline>;
-   }>
- > {
-   try {
-@@ -159,6 +168,8 @@ export async function ops1GetSessionAction(
-         latestContractByAction: i5.latestContractByAction,
-         latestAttemptByContract: i5.latestAttemptByContract,
-         latestReport: getLatestReportForSession(id),
-+        events: listToolRelatedEvents(id),
-+        timeline: buildUnifiedTimeline(id),
-       },
-     };
-   } catch (error) {
-@@ -172,11 +183,30 @@ export async function ops1GetLiveConfigAction(): Promise<
-     available: boolean;
-     missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
-     testProvider: boolean;
-+    github: {
-+      available: boolean;
-+      transport: string;
-+      reason?: string;
-+    };
-   }>
- > {
-   try {
-     const status = getLiveConversationAvailability();
-     const testProvider = isFakeConversationProviderForced();
-+    const ghTransport = resolveGithubReadTransport();
-+    const ghProbe = probeGhAuth();
-+    const github =
-+      ghTransport.kind === "unavailable"
-+        ? {
-+            available: false,
-+            transport: "none",
-+            reason: ghTransport.reason,
-+          }
-+        : {
-+            available: true,
-+            transport: ghTransport.kind,
-+            reason: ghProbe.reason,
-+          };
-     if (status.available || testProvider) {
-       return {
-         ok: true,
-@@ -184,12 +214,18 @@ export async function ops1GetLiveConfigAction(): Promise<
-           available: true,
-           missing: status.available ? [] : status.missing,
-           testProvider,
-+          github,
-         },
-       };
-     }
-     return {
-       ok: true,
--      data: { available: false, missing: status.missing, testProvider: false },
-+      data: {
-+        available: false,
-+        missing: status.missing,
-+        testProvider: false,
-+        github,
-+      },
-     };
-   } catch (error) {
-     return fail(error);
-@@ -520,18 +556,46 @@ export async function ops1GenerateExecutionReportAction(input: {
-   sessionId: string;
-   contractId: string;
-   executionAttemptId?: string;
--}): Promise<Ops1ActionResult<{ report: ExecutionReport }>> {
-+  /** Default true — reinject + analyze. Set false for legacy report-only. */
-+  reinject?: boolean;
-+}): Promise<
-+  Ops1ActionResult<{
-+    report: ExecutionReport;
-+    reinjectionTurn?: JournalTurn | null;
-+    analysisTurn?: JournalTurn | null;
-+    analysisError?: string | null;
-+    reinjectionId?: string;
-+  }>
-+> {
-   try {
-     const sessionId = assertSessionId(input.sessionId);
-     if (typeof input.contractId !== "string" || !input.contractId) {
-       throw new Ops1Error("VALIDATION", "contractId invalide.");
-     }
--    const { report } = generateExecutionReport({
-+    if (input.reinject === false) {
-+      const { report } = generateExecutionReport({
-+        sessionId,
-+        contractId: input.contractId,
-+        executionAttemptId: input.executionAttemptId,
-+      });
-+      return { ok: true, data: { report } };
-+    }
-+    const result = await generateReportAndReinject({
-       sessionId,
-       contractId: input.contractId,
-       executionAttemptId: input.executionAttemptId,
-+      analyze: true,
-     });
--    return { ok: true, data: { report } };
-+    return {
-+      ok: true,
-+      data: {
-+        report: result.report,
-+        reinjectionTurn: result.reinjectionTurn,
-+        analysisTurn: result.analysisTurn,
-+        analysisError: result.analysisError,
-+        reinjectionId: result.reinjectionId,
-+      },
-+    };
-   } catch (error) {
-     return fail(error);
-   }
-````
-
-### Diff : `projects/sfia-studio/app/lib/ops1/executionOrchestrator.ts`
-
-````diff
-diff --git a/projects/sfia-studio/app/lib/ops1/executionOrchestrator.ts b/projects/sfia-studio/app/lib/ops1/executionOrchestrator.ts
-index ba85a26..5f89cf6 100644
---- a/projects/sfia-studio/app/lib/ops1/executionOrchestrator.ts
-+++ b/projects/sfia-studio/app/lib/ops1/executionOrchestrator.ts
-@@ -121,6 +121,15 @@ export async function runExecutionAttempt(input: {
-     input.workspaceRoot ?? resolveWorkspaceRootFromAppCwd();
-   const events: SessionEvent[] = [];
-
-+  events.push(
-+    insertEvent(
-+      db,
-+      input.sessionId,
-+      "EXECUTION_PREPARING",
-+      `prepare contract=${input.contractId}`,
-+    ),
-+  );
-+
-   events.push(
-     insertEvent(
-       db,
-````
-
-### Diff : `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
-
-````diff
+```diff
 diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-index 23608f4..d822a3b 100644
+index 23608f4..194e8a3 100644
 --- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
 +++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-@@ -213,6 +213,17 @@ export function Ops1SessionScreen({
+@@ -7,6 +7,7 @@ import {
+   ops1CreateFixtureActionCandidateAction,
+   ops1CreateSessionAction,
+   ops1CreateExecutionContractAction,
++  ops1EnsureSfiaContextAction,
+   ops1EvaluateAllowlistAction,
+   ops1GetLiveConfigAction,
+   ops1GetRealCursorAvailabilityAction,
+@@ -23,6 +24,11 @@ import {
+   ops1OpenContinuationAction,
+   ops1SendMessageAction,
+ } from "@/lib/ops1/actions";
++import type {
++  SfiaActionProposal,
++  SfiaCanonicalContext,
++  SfiaCompilationResult,
++} from "@/lib/ops1/sfia/types";
+ import { formatOps1WorktreeRef } from "@/lib/ops1/worktreeDisplay";
+ import type {
+   ActionAllowlistEvaluation,
+@@ -213,6 +219,17 @@ export function Ops1SessionScreen({
    const [latestReport, setLatestReport] = useState<ExecutionReport | null>(
      null,
    );
@@ -3501,7 +2139,67 @@ index 23608f4..d822a3b 100644
    const [i6Error, setI6Error] = useState<string | null>(null);
    const [resumeSummary, setResumeSummary] = useState<string | null>(null);
    const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
-@@ -254,6 +265,13 @@ export function Ops1SessionScreen({
+@@ -223,8 +240,59 @@ export function Ops1SessionScreen({
+     scopeSummary: "",
+     riskSummary: "",
+   });
++  const [sfiaContext, setSfiaContext] = useState<SfiaCanonicalContext | null>(
++    null,
++  );
++  const [sfiaProposal, setSfiaProposal] = useState<SfiaActionProposal | null>(
++    null,
++  );
++  const [sfiaCompilation, setSfiaCompilation] =
++    useState<SfiaCompilationResult | null>(null);
++  const [sfiaUiState, setSfiaUiState] = useState<
++    | "CONTEXT_LOADING"
++    | "CONTEXT_READY"
++    | "CONTEXT_STALE"
++    | "PROPOSAL_RECEIVED"
++    | "PROPOSAL_INVALID"
++    | "COMPILATION_DENIED"
++    | "ACTION_CANDIDATE_CREATED"
++    | "DECISION_REQUIRED"
++    | null
++  >(null);
+   const [pending, startTransition] = useTransition();
+
++  const deriveSfiaUiState = useCallback(
++    (input: {
++      context: SfiaCanonicalContext | null;
++      proposal: SfiaActionProposal | null;
++      compilation: SfiaCompilationResult | null;
++    }) => {
++      if (!input.context) {
++        setSfiaUiState(null);
++        return;
++      }
++      const status = input.compilation?.status;
++      if (status === "COMPILED") {
++        setSfiaUiState("ACTION_CANDIDATE_CREATED");
++        return;
++      }
++      if (status === "CONTEXT_STALE") {
++        setSfiaUiState("CONTEXT_STALE");
++        return;
++      }
++      if (status) {
++        setSfiaUiState("COMPILATION_DENIED");
++        return;
++      }
++      if (input.proposal) {
++        setSfiaUiState("PROPOSAL_RECEIVED");
++        return;
++      }
++      setSfiaUiState("CONTEXT_READY");
++    },
++    [],
++  );
++
+   useEffect(() => {
+     onGlobalModeContextChange?.({
+       hasSession: Boolean(session),
+@@ -254,6 +322,13 @@ export function Ops1SessionScreen({
        latestContractByAction?: Record<string, ExecutionContract | null>;
        latestAttemptByContract?: Record<string, ExecutionAttempt | null>;
        latestReport?: ExecutionReport | null;
@@ -3515,7 +2213,7 @@ index 23608f4..d822a3b 100644
      }) => {
        setQualification(data.qualification);
        setCandidates(data.candidates);
-@@ -262,6 +280,8 @@ export function Ops1SessionScreen({
+@@ -262,6 +337,8 @@ export function Ops1SessionScreen({
        setContractByAction(data.latestContractByAction ?? {});
        setAttemptByContract(data.latestAttemptByContract ?? {});
        setLatestReport(data.latestReport ?? null);
@@ -3524,7 +2222,7 @@ index 23608f4..d822a3b 100644
        const latest = data.candidates[data.candidates.length - 1];
        if (latest) {
          setRefineDraft({
-@@ -289,6 +309,8 @@ export function Ops1SessionScreen({
+@@ -289,6 +366,8 @@ export function Ops1SessionScreen({
          setContractByAction({});
          setAttemptByContract({});
          setLatestReport(null);
@@ -3533,7 +2231,7 @@ index 23608f4..d822a3b 100644
          setResumeSummary(null);
          setPhase("idle");
          if (typeof window !== "undefined") {
-@@ -314,6 +336,7 @@ export function Ops1SessionScreen({
+@@ -314,6 +393,7 @@ export function Ops1SessionScreen({
          setLiveAvailable(cfg.data.available);
          setLiveMissing(cfg.data.missing);
          setTestProvider(cfg.data.testProvider);
@@ -3541,7 +2239,66 @@ index 23608f4..d822a3b 100644
        }
        const cursor = await ops1GetRealCursorAvailabilityAction();
        if (!cancelled && cursor.ok) {
-@@ -1026,6 +1049,15 @@ export function Ops1SessionScreen({
+@@ -364,6 +444,10 @@ export function Ops1SessionScreen({
+       window.sessionStorage.setItem(STORAGE_KEY, result.data.session.sessionId);
+       setSession(result.data.session);
+       setTurns([]);
++      setSfiaContext(null);
++      setSfiaProposal(null);
++      setSfiaCompilation(null);
++      setSfiaUiState("CONTEXT_LOADING");
+       setPresentation(
+         result.data.session.conversationMode === "fixture"
+           ? "fixture"
+@@ -371,6 +455,13 @@ export function Ops1SessionScreen({
+             ? "test_provider"
+             : "openai_live",
+       );
++      const ctxResult = await ops1EnsureSfiaContextAction({
++        sessionId: result.data.session.sessionId,
++      });
++      if (ctxResult.ok) {
++        setSfiaContext(ctxResult.data.context);
++        setSfiaUiState("CONTEXT_READY");
++      }
+       setPhase("open");
+     });
+   };
+@@ -393,6 +484,22 @@ export function Ops1SessionScreen({
+       setDraft("");
+       setLastUsage(result.data.usage);
+       setPresentation(result.data.presentation);
++      if (result.data.sfiaContext) {
++        setSfiaContext(result.data.sfiaContext);
++      }
++      setSfiaProposal(result.data.sfiaProposal);
++      setSfiaCompilation(result.data.sfiaCompilation);
++      deriveSfiaUiState({
++        context: result.data.sfiaContext ?? sfiaContext,
++        proposal: result.data.sfiaProposal,
++        compilation: result.data.sfiaCompilation,
++      });
++      if (
++        result.data.sfiaCompilation?.status === "COMPILED" &&
++        result.data.sfiaCompilation.actionCandidateId
++      ) {
++        setSfiaUiState("ACTION_CANDIDATE_CREATED");
++      }
+       await loadBundle(session.sessionId);
+       if (result.data.assistantError) {
+         setError(result.data.assistantError);
+@@ -416,6 +523,10 @@ export function Ops1SessionScreen({
+     setDecisionsByAction({});
+     setGateMicrocopy(null);
+     setExecRefuseMsg(null);
++    setSfiaContext(null);
++    setSfiaProposal(null);
++    setSfiaCompilation(null);
++    setSfiaUiState(null);
+     setPhase("idle");
+   };
+
+@@ -1026,6 +1137,15 @@ export function Ops1SessionScreen({
                          ) : null}
                        </div>
                        <p className={styles.turnContent}>{turn.content}</p>
@@ -3557,10 +2314,166 @@ index 23608f4..d822a3b 100644
                      </li>
                    ))}
                  </ol>
-@@ -1124,6 +1156,69 @@ export function Ops1SessionScreen({
+@@ -1124,6 +1244,225 @@ export function Ops1SessionScreen({
              </form>
            </section>
 
++          <section
++            className={styles.panel}
++            data-testid="sfia-context-panel"
++            aria-labelledby="sfia-context-title"
++          >
++            <h2 id="sfia-context-title" className={styles.panelTitle}>
++              Contexte SFIA
++            </h2>
++            <p data-testid="sfia-ui-state">
++              État : {sfiaUiState ?? "—"}
++            </p>
++            {sfiaContext ? (
++              <dl className={styles.meta} data-testid="sfia-context-ready">
++                <div>
++                  <dt>contextId</dt>
++                  <dd data-testid="sfia-context-id">{sfiaContext.contextId}</dd>
++                </div>
++                <div>
++                  <dt>Baseline</dt>
++                  <dd data-testid="sfia-baseline">
++                    {sfiaContext.methodBaseline}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Cycle</dt>
++                  <dd data-testid="sfia-cycle">{sfiaContext.candidateCycle}</dd>
++                </div>
++                <div>
++                  <dt>Profil</dt>
++                  <dd data-testid="sfia-profile">{sfiaContext.profile}</dd>
++                </div>
++                <div>
++                  <dt>HEAD</dt>
++                  <dd data-testid="sfia-head">{sfiaContext.headSha.slice(0, 12)}</dd>
++                </div>
++                <div>
++                  <dt>Gates ouverts</dt>
++                  <dd data-testid="sfia-open-gates">
++                    {sfiaContext.openGates.join(" · ")}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Gates fermés</dt>
++                  <dd data-testid="sfia-closed-gates">
++                    {sfiaContext.closedGates.join(" · ")}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Ops autorisées</dt>
++                  <dd data-testid="sfia-allowed-ops">
++                    {sfiaContext.allowedOperations.join(", ")}
++                  </dd>
++                </div>
++                <div>
++                  <dt>Ops interdites</dt>
++                  <dd data-testid="sfia-forbidden-ops">
++                    {sfiaContext.forbiddenOperations.join(", ")}
++                  </dd>
++                </div>
++              </dl>
++            ) : (
++              <p className={styles.muted} data-testid="sfia-context-empty">
++                Contexte SFIA non chargé.
++              </p>
++            )}
++            {sfiaContext ? (
++              <ul data-testid="sfia-sources-list">
++                {sfiaContext.sourceDocuments.map((s) => (
++                  <li key={s.path} data-testid="sfia-source-item">
++                    {s.role} · {s.path} · digest {s.digest.slice(0, 12)}
++                    {s.blobSha ? ` · blob ${s.blobSha.slice(0, 8)}` : ""}
++                  </li>
++                ))}
++              </ul>
++            ) : null}
++            {sfiaContext?.warnings.length ? (
++              <p className={styles.hint} data-testid="sfia-warnings">
++                {sfiaContext.warnings.join(" · ")}
++              </p>
++            ) : null}
++            <p className={styles.hint}>
++              Markers SFIA fixture : __SFIA_PROPOSE_CREATE_MD__ ·
++              __SFIA_PROPOSE_COMMIT__
++            </p>
++          </section>
++
++          {(sfiaProposal || sfiaCompilation) && (
++            <section
++              className={styles.panel}
++              data-testid="sfia-proposal-panel"
++              aria-labelledby="sfia-proposal-title"
++            >
++              <h2 id="sfia-proposal-title" className={styles.panelTitle}>
++                Proposition SFIA / compilation
++              </h2>
++              {sfiaProposal ? (
++                <p data-testid="sfia-proposal-kind">
++                  Kind : {sfiaProposal.kind} · {sfiaProposal.proposalId}
++                </p>
++              ) : (
++                <p className={styles.muted} data-testid="sfia-proposal-missing">
++                  Aucune proposition structurée.
++                </p>
++              )}
++              {sfiaCompilation ? (
++                <dl className={styles.meta} data-testid="sfia-compilation">
++                  <div>
++                    <dt>Verdict compilateur</dt>
++                    <dd data-testid="sfia-compilation-status">
++                      {sfiaCompilation.status}
++                    </dd>
++                  </div>
++                  <div>
++                    <dt>Raisons</dt>
++                    <dd data-testid="sfia-compilation-reasons">
++                      {sfiaCompilation.reasons.join(" · ")}
++                    </dd>
++                  </div>
++                  {sfiaCompilation.deniedOperations.length > 0 ? (
++                    <div>
++                      <dt>Ops refusées</dt>
++                      <dd data-testid="sfia-denied-ops">
++                        {sfiaCompilation.deniedOperations.join(", ")}
++                      </dd>
++                    </div>
++                  ) : null}
++                  {sfiaCompilation.deniedPaths.length > 0 ? (
++                    <div>
++                      <dt>Chemins refusés</dt>
++                      <dd data-testid="sfia-denied-paths">
++                        {sfiaCompilation.deniedPaths.join(", ")}
++                      </dd>
++                    </div>
++                  ) : null}
++                  {sfiaCompilation.actionCandidateId ? (
++                    <div>
++                      <dt>ActionCandidate live</dt>
++                      <dd data-testid="sfia-live-action-id">
++                        {sfiaCompilation.actionCandidateId}
++                      </dd>
++                    </div>
++                  ) : null}
++                </dl>
++              ) : null}
++              {sfiaProposal?.kind === "action_proposed" ? (
++                <ul data-testid="sfia-proposal-files">
++                  {sfiaProposal.files.map((f) => (
++                    <li key={`${f.operation}:${f.path}`}>
++                      {f.operation} {f.path}
++                    </li>
++                  ))}
++                </ul>
++              ) : null}
++            </section>
++          )}
++
 +          <section
 +            className={styles.panel}
 +            data-testid="ct-sources-panel"
@@ -3627,107 +2540,917 @@ index 23608f4..d822a3b 100644
            <section
              className={`${styles.panel} ${styles.i3Panel}`}
              data-testid="ops1-i3-controls"
-````
+@@ -1158,13 +1497,20 @@ export function Ops1SessionScreen({
+               >
+                 ACTION_NOT_REQUIRED
+               </CtaButton>
+-              <CtaButton
+-                onClick={onCreateCandidate}
+-                disabled={pending}
+-                data-testid="ops1-i3-create-candidate"
+-              >
+-                Créer ActionCandidate (fixture)
+-              </CtaButton>
++              {isFixtureSession ? (
++                <CtaButton
++                  onClick={onCreateCandidate}
++                  disabled={pending}
++                  data-testid="ops1-i3-create-candidate"
++                >
++                  Créer ActionCandidate (fixture)
++                </CtaButton>
++              ) : (
++                <p className={styles.hint} data-testid="ops1-i3-live-no-fixture">
++                  Mode live : ActionCandidate via moteur SFIA uniquement (pas de
++                  bouton fixture).
++                </p>
++              )}
+             </div>
+           </section>
 
-### Diff : `projects/sfia-studio/README.md`
+```
 
-````diff
-diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index ccd03ee..cb1b24b 100644
---- a/projects/sfia-studio/README.md
-+++ b/projects/sfia-studio/README.md
-@@ -4,7 +4,7 @@
- |------------|--------|
- | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
- | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
--| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44`) ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; Intégration / DevOps OPS1 **validé avec réserves** (`63`–`65` ; `G-OPS1-DEVOPS-VAL` consommé) ; `.sfia-exec/**` **ignoré** ; Node/scanner/suites/CI **ouverts ou différés** ; live / delivery / code / MVP / production **fermés** |
-+| **Statut** | `control-tower-fast-track-delivery-local` — exécution VS **implémentée** sur branche locale `delivery/sfia-studio-control-tower-fast-track` ; **pas de commit/push/PR** ; validation live Morris **requise** ; MVP / production **fermés** |
- | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
- | **Autorité** | Morris (L0) |
- | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
-@@ -13,15 +13,17 @@
- | **Profil SFIA** | Critical |
- | **Branche delivery** | `delivery/sfia-studio-poc-s1-harness` (**locale**) |
- | **Branche architecture** | historique — MERGED #221 |
--| **Base canonique** | `origin/main` @ `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
-+| **Base canonique** | `origin/main` @ `32e5271842b9a344a7e292614675c27ea8ed941b` (I6 mergé ; cadrage Control Tower local) |
- | **Chemin** | `projects/sfia-studio/` |
--| **AF-Option C** | **VALIDÉE** — Studio ≠ orchestrateur |
-+| **AF-Option C** | **REFORMULÉE ET VALIDÉE** — Studio = cockpit + façade d’orchestration ; policies / exécuteurs logiquement séparés derrière Studio |
-+| **Cadrage Control Tower** | `66`–`69` — **validé** (`GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER`) |
-+| **Fast Track CT VS** | `70`–`73` — delivery **local** ; `GO EXÉCUTION…` consommé ; live Morris **ouvert** ; commit/push/PR **fermés** |
- | **Cadrage POC** | `20`–`22` — **INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
- | **Architecture POC** | `23`–`25` — **Option B minimale** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
- | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
- | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
- | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
--| **Prochaine décision** | Revue PR Draft DevOps / merge éventuel / `GO IMPLEMENT OPS1 CI` / `GO DELIVERY I1` / gate Node — **non automatiques** |
-+| **Prochaine décision** | Validation live Morris · puis éventuels `GO commit` / `GO push` / `GO PR` — **non automatiques** |
+### `projects/sfia-studio/app/lib/ops1/actions.ts`
 
- ---
+```diff
+diff --git a/projects/sfia-studio/app/lib/ops1/actions.ts b/projects/sfia-studio/app/lib/ops1/actions.ts
+index 9084c3c..3171032 100644
+--- a/projects/sfia-studio/app/lib/ops1/actions.ts
++++ b/projects/sfia-studio/app/lib/ops1/actions.ts
+@@ -26,6 +26,11 @@ import {
+   generateExecutionReport,
+   getLatestReportForSession,
+ } from "./reportService";
++import {
++  buildUnifiedTimeline,
++  generateReportAndReinject,
++  listToolRelatedEvents,
++} from "./reportReinjection";
+ import {
+   closeSession,
+   openContinuation,
+@@ -47,6 +52,20 @@ import {
+ } from "./conversation/config";
+ import { sendConversationMessage } from "./conversation/service";
+ import { getRealCursorAvailability } from "./cursorExecutionAdapter";
++import { resolveGithubReadTransport, probeGhAuth } from "./tools/githubReadAdapter";
++import { resolveWorkspaceRootFromAppCwd } from "./allowlistEvaluation";
++import { getActionCandidate } from "./actionGate";
++import {
++  ensureSfiaContext,
++  getStoredSfiaContext,
++  instantiateCursorPrompt,
++  type SfiaActionProposal,
++  type SfiaCanonicalContext,
++  type SfiaCompilationResult,
++  type SfiaCursorPromptInstantiation,
++} from "./sfia";
++import { createEventId } from "./ids";
++import { openOps1Db, nowIsoWithOffset } from "./db";
+ import type {
+   ActionAllowlistEvaluation,
+   ActionCandidate,
+@@ -64,6 +83,7 @@ import type {
+   ProviderPresentation,
+   SessionQualification,
+   ExecutionReport,
++  SessionEvent,
+ } from "./types";
 
-@@ -147,7 +149,7 @@ Pré-cadrage
-   → décision Morris : ouverture éventuelle conception fonctionnelle OPS1 (`G-OPS1-FUNC-DESIGN`) — **non ouverte**
- ```
+ export type Ops1ActionResult<T> =
+@@ -137,6 +157,8 @@ export async function ops1GetSessionAction(
+     latestContractByAction: Record<string, ExecutionContract | null>;
+     latestAttemptByContract: Record<string, ExecutionAttempt | null>;
+     latestReport: ExecutionReport | null;
++    events: SessionEvent[];
++    timeline: ReturnType<typeof buildUnifiedTimeline>;
+   }>
+ > {
+   try {
+@@ -159,6 +181,8 @@ export async function ops1GetSessionAction(
+         latestContractByAction: i5.latestContractByAction,
+         latestAttemptByContract: i5.latestAttemptByContract,
+         latestReport: getLatestReportForSession(id),
++        events: listToolRelatedEvents(id),
++        timeline: buildUnifiedTimeline(id),
+       },
+     };
+   } catch (error) {
+@@ -172,11 +196,30 @@ export async function ops1GetLiveConfigAction(): Promise<
+     available: boolean;
+     missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
+     testProvider: boolean;
++    github: {
++      available: boolean;
++      transport: string;
++      reason?: string;
++    };
+   }>
+ > {
+   try {
+     const status = getLiveConversationAvailability();
+     const testProvider = isFakeConversationProviderForced();
++    const ghTransport = resolveGithubReadTransport();
++    const ghProbe = probeGhAuth();
++    const github =
++      ghTransport.kind === "unavailable"
++        ? {
++            available: false,
++            transport: "none",
++            reason: ghTransport.reason,
++          }
++        : {
++            available: true,
++            transport: ghTransport.kind,
++            reason: ghProbe.reason,
++          };
+     if (status.available || testProvider) {
+       return {
+         ok: true,
+@@ -184,12 +227,18 @@ export async function ops1GetLiveConfigAction(): Promise<
+           available: true,
+           missing: status.available ? [] : status.missing,
+           testProvider,
++          github,
+         },
+       };
+     }
+     return {
+       ok: true,
+-      data: { available: false, missing: status.missing, testProvider: false },
++      data: {
++        available: false,
++        missing: status.missing,
++        testProvider: false,
++        github,
++      },
+     };
+   } catch (error) {
+     return fail(error);
+@@ -213,6 +262,9 @@ export async function ops1SendMessageAction(input: {
+     usage: ConversationUsageCounters | null;
+     mode: ConversationMode;
+     presentation: ProviderPresentation;
++    sfiaContext: SfiaCanonicalContext | null;
++    sfiaProposal: SfiaActionProposal | null;
++    sfiaCompilation: SfiaCompilationResult | null;
+   }>
+ > {
+   try {
+@@ -236,6 +288,9 @@ export async function ops1SendMessageAction(input: {
+         usage: result.usage,
+         mode: result.mode,
+         presentation: resolvePresentation(result.mode),
++        sfiaContext: result.sfiaContext ?? null,
++        sfiaProposal: result.sfiaProposal ?? null,
++        sfiaCompilation: result.sfiaCompilation ?? null,
+       },
+     };
+   } catch (error) {
+@@ -243,6 +298,115 @@ export async function ops1SendMessageAction(input: {
+   }
+ }
 
--Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** et **canonique sur main** (PR #235 / `b686eb1`). **POC maintenu**. MVP / production / industrialisation / delivery OPS1 **non ouverts**. Trajectoire I1–I7 validée au niveau cadrage uniquement. Prochaine décision : ouverture éventuelle de `G-OPS1-FUNC-DESIGN`.
-+Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** (PR #235 / `b686eb1`). I6 mergé (`#253` / `32e5271`). I7 clôturé avec **OPS1-I7-R01**. Cadrage Control Tower **validé** (`66`–`69`). Fast Track vertical slice : **`plan-open`** (`70`–`72` ; Option C hybride). **Code non modifié** dans la préparation. MVP / production / industrialisation **fermés**. Prochaine décision : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE`.
-
- ---
-
-@@ -374,8 +376,10 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- 4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **validés avec réserves** · `G-OPS1-DEVOPS-VAL` consommé (2026-07-20 21:27:26 CEST) · 24 décisions · `.sfia-exec/**` ignoré · **non intégrés sur `main` tant que PR non mergée**.
- 5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
- 6. Réserves maintenues : Node non figé · scanner différé · suites intégration différées · CI Studio différée (`GO IMPLEMENT OPS1 CI`) · worktree≠sandbox · stack/fournisseur · FD-CAND-15 · UX-R01…R04 · live fermés.
-+7. **Cadrage Control Tower** — docs [`66`](./66-control-tower-product-framing.md)–[`69`](./69-control-tower-options-and-decision-pack.md) — **validé** · `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` consommé · AF-Option C reformulée **validée** · Option C hybride **retenue**.
-+8. **Fast Track Control Tower VS** — docs [`70`](./70-control-tower-fast-track-architecture-and-contract.md)–[`72`](./72-control-tower-fast-track-decision-pack.md) — **`plan-open`** · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` consommé · gate suivante : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` · **aucun code** avant ce GO.
-
--**Verdict documentaire courant :** `SFIA STUDIO OPS1 INTEGRATION DEVOPS VALIDATED WITH RESERVATIONS`
-+**Verdict documentaire courant :** `SFIA STUDIO CONTROL TOWER FAST TRACK PLAN OPEN — AWAITING EXECUTION GO`
-
-
- ---
-@@ -393,7 +397,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
- | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
- | Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
--| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** ; **pas encore** sur `main` avant merge PR |
-+| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** |
-+| Cadrage Control Tower | Docs `66`–`69` — **validé** (`GO VALIDATION CADRAGE…`) |
-+| Fast Track CT VS | Docs `70`–`72` — **`plan-open`** ; exécution code fermée jusqu’à `GO EXÉCUTION…` |
- | Handoff | `sfia/review-handoff` |
-
- ---
-@@ -477,4 +483,22 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves — **VALIDATED WITH RESERVATIONS** |
- | [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **VALIDATED WITH RESERVATIONS** (2026-07-20 21:27:26 CEST) |
-
--*SFIA Studio — POC maintenu — Intégration/DevOps VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — CI / delivery / live / MVP non ouverts.*
-+### Cadrage produit Control Tower (validé)
++/** Resolve or reuse immutable SFIA canonical context for the session. */
++export async function ops1EnsureSfiaContextAction(input: {
++  sessionId: string;
++  forceRefresh?: boolean;
++}): Promise<Ops1ActionResult<{ context: SfiaCanonicalContext }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    const context = ensureSfiaContext({
++      sessionId,
++      forceRefresh: input.forceRefresh,
++    });
++    return { ok: true, data: { context } };
++  } catch (error) {
++    return fail(error);
++  }
++}
 +
-+| Document | Rôle |
-+|----------|------|
-+| [66-control-tower-product-framing.md](./66-control-tower-product-framing.md) | Contexte, problème, vision, principes, acteurs — **validé** |
-+| [67-control-tower-capabilities-and-user-journeys.md](./67-control-tower-capabilities-and-user-journeys.md) | Capacités, UX fonctionnelle, parcours P1–P12 — **validé** |
-+| [68-control-tower-scope-success-criteria-and-risks.md](./68-control-tower-scope-success-criteria-and-risks.md) | Produit / POC / MVP candidats, critères, risques — **validé** |
-+| [69-control-tower-options-and-decision-pack.md](./69-control-tower-options-and-decision-pack.md) | Options A–D ; Option C **retenue** — **validé** |
++export async function ops1GetSfiaContextAction(input: {
++  sessionId: string;
++}): Promise<Ops1ActionResult<{ context: SfiaCanonicalContext | null }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    return {
++      ok: true,
++      data: { context: getStoredSfiaContext(sessionId) },
++    };
++  } catch (error) {
++    return fail(error);
++  }
++}
 +
-+### Fast Track Control Tower Vertical Slice (`plan-open`)
++/**
++ * Instantiate Cursor prompt from the real Git template after COMPILED + candidate.
++ * Does not start Cursor.
++ */
++export async function ops1InstantiateCursorPromptAction(input: {
++  sessionId: string;
++  actionCandidateId: string;
++  compilation: SfiaCompilationResult;
++}): Promise<Ops1ActionResult<{ instantiation: SfiaCursorPromptInstantiation }>> {
++  try {
++    const sessionId = assertSessionId(input.sessionId);
++    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
++    const context = getStoredSfiaContext(sessionId);
++    if (!context) {
++      throw new Ops1Error(
++        "CONFLICT",
++        "Contexte SFIA absent — requalification requise.",
++      );
++    }
++    if (input.compilation.contextId !== context.contextId) {
++      throw new Ops1Error(
++        "CONFLICT",
++        "CONTEXT_STALE — REQUALIFICATION REQUIRED",
++      );
++    }
++    if (input.compilation.status !== "COMPILED") {
++      throw new Ops1Error(
++        "VALIDATION",
++        "Instanciation refusée — compilation non COMPILED.",
++      );
++    }
++    const candidate = getActionCandidate(actionCandidateId);
++    if (!candidate || candidate.sessionId !== sessionId) {
++      throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
++    }
++    const workspaceRoot = resolveWorkspaceRootFromAppCwd();
++    const instantiation = instantiateCursorPrompt({
++      workspaceRoot,
++      context,
++      compilation: input.compilation,
++      candidate,
++    });
++    const db = openOps1Db();
++    const now = nowIsoWithOffset();
++    db.prepare(
++      `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
++       VALUES (?, ?, ?, ?, ?)`,
++    ).run(
++      createEventId(),
++      sessionId,
++      "CURSOR_TEMPLATE_LOADED",
++      now,
++      JSON.stringify({
++        templatePath: instantiation.templatePath,
++        templateDigest: instantiation.templateDigest,
++        templateBlobSha: instantiation.templateBlobSha,
++      }),
++    );
++    db.prepare(
++      `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
++       VALUES (?, ?, ?, ?, ?)`,
++    ).run(
++      createEventId(),
++      sessionId,
++      "CURSOR_PROMPT_INSTANTIATED",
++      now,
++      JSON.stringify({
++        contextId: instantiation.contextId,
++        actionId: instantiation.actionId,
++        templateDigest: instantiation.templateDigest,
++      }),
++    );
++    return { ok: true, data: { instantiation } };
++  } catch (error) {
++    return fail(error);
++  }
++}
 +
-+| Document | Rôle |
-+|----------|------|
-+| [70-control-tower-fast-track-architecture-and-contract.md](./70-control-tower-fast-track-architecture-and-contract.md) | Archi minimale, inventaire OPS1, outils, adapters, UX — **`plan-open`** |
-+| [71-control-tower-fast-track-backlog-and-delivery.md](./71-control-tower-fast-track-backlog-and-delivery.md) | FT-01…12, lots A/B/C, chemin critique — **`plan-open`** |
-+| [72-control-tower-fast-track-decision-pack.md](./72-control-tower-fast-track-decision-pack.md) | D1–D8, risques, gate exécution — **plan validé pour exécution** |
-+| [73-control-tower-fast-track-delivery-report.md](./73-control-tower-fast-track-delivery-report.md) | Rapport delivery local — **READY FOR MORRIS LIVE VALIDATION** |
-+
-+*SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
-````
+ /** @deprecated I1 name — fixture sessions only. */
+ export async function ops1AppendUserMessageAction(input: {
+   sessionId: string;
+@@ -520,18 +684,46 @@ export async function ops1GenerateExecutionReportAction(input: {
+   sessionId: string;
+   contractId: string;
+   executionAttemptId?: string;
+-}): Promise<Ops1ActionResult<{ report: ExecutionReport }>> {
++  /** Default true — reinject + analyze. Set false for legacy report-only. */
++  reinject?: boolean;
++}): Promise<
++  Ops1ActionResult<{
++    report: ExecutionReport;
++    reinjectionTurn?: JournalTurn | null;
++    analysisTurn?: JournalTurn | null;
++    analysisError?: string | null;
++    reinjectionId?: string;
++  }>
++> {
+   try {
+     const sessionId = assertSessionId(input.sessionId);
+     if (typeof input.contractId !== "string" || !input.contractId) {
+       throw new Ops1Error("VALIDATION", "contractId invalide.");
+     }
+-    const { report } = generateExecutionReport({
++    if (input.reinject === false) {
++      const { report } = generateExecutionReport({
++        sessionId,
++        contractId: input.contractId,
++        executionAttemptId: input.executionAttemptId,
++      });
++      return { ok: true, data: { report } };
++    }
++    const result = await generateReportAndReinject({
+       sessionId,
+       contractId: input.contractId,
+       executionAttemptId: input.executionAttemptId,
++      analyze: true,
+     });
+-    return { ok: true, data: { report } };
++    return {
++      ok: true,
++      data: {
++        report: result.report,
++        reinjectionTurn: result.reinjectionTurn,
++        analysisTurn: result.analysisTurn,
++        analysisError: result.analysisError,
++        reinjectionId: result.reinjectionId,
++      },
++    };
+   } catch (error) {
+     return fail(error);
+   }
+```
 
-## 12. Contrôles
+### `projects/sfia-studio/app/lib/ops1/conversation/service.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/ops1/conversation/service.ts b/projects/sfia-studio/app/lib/ops1/conversation/service.ts
+index b88e051..79a3fdf 100644
+--- a/projects/sfia-studio/app/lib/ops1/conversation/service.ts
++++ b/projects/sfia-studio/app/lib/ops1/conversation/service.ts
+@@ -19,6 +19,22 @@ import {
+ } from "./types";
+ import { resolveConversationProvider } from "./provider";
+ import type { ConversationProvider } from "./types";
++import { runToolCallingLoop } from "./toolLoop";
++import { createToolCallId, routeToolCall } from "../tools/toolRouter";
++import { openOps1Db, nowIsoWithOffset } from "../db";
++import { createEventId } from "../ids";
++import {
++  buildSfiaSystemPreamble,
++  ensureSfiaContext,
++} from "../sfia/sessionContext";
++import { parseProposalFromAssistantText } from "../sfia/proposalSchema";
++import { compileSfiaActionProposal } from "../sfia/actionCompiler";
++import { resolveWorkspaceRootFromAppCwd } from "../allowlistEvaluation";
++import type {
++  SfiaActionProposal,
++  SfiaCanonicalContext,
++  SfiaCompilationResult,
++} from "../sfia/types";
+
+ export interface SendMessageResult {
+   userTurn: JournalTurn;
+@@ -27,6 +43,11 @@ export interface SendMessageResult {
+   usage: ConversationUsageCounters | null;
+   mode: ConversationMode;
+   providerId: string | null;
++  toolRounds?: number;
++  toolCalls?: number;
++  sfiaContext?: SfiaCanonicalContext | null;
++  sfiaProposal?: SfiaActionProposal | null;
++  sfiaCompilation?: SfiaCompilationResult | null;
+ }
+
+ function durationMs(startedAt: string, completedAt: string): number | null {
+@@ -36,17 +57,208 @@ function durationMs(startedAt: string, completedAt: string): number | null {
+   return Math.max(0, b - a);
+ }
+
+-/**
+- * Orchestrates fixture or live conversation turn using the session's
+- * immutable conversationMode. Optional requestedMode is validated then ignored
+- * if matching; mismatch is rejected before any persistence or provider call.
+- */
++function emitSfia(
++  sessionId: string,
++  type: "SFIA_PROPOSAL_RECEIVED" | "SFIA_PROPOSAL_INVALID",
++  detail: Record<string, unknown>,
++): void {
++  const db = openOps1Db();
++  db.prepare(
++    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
++     VALUES (?, ?, ?, ?, ?)`,
++  ).run(
++    createEventId(),
++    sessionId,
++    type,
++    nowIsoWithOffset(),
++    JSON.stringify(detail),
++  );
++}
++
++async function runFixtureWithOptionalTools(
++  sessionId: string,
++  userContent: string,
++): Promise<{ reply: string; toolCalls: number }> {
++  const markers: Array<{
++    marker: RegExp;
++    name: string;
++    args: Record<string, unknown>;
++  }> = [
++    {
++      marker: /__CT_TOOL_GIT_STATUS__/i,
++      name: "git_local_get_status",
++      args: {},
++    },
++    {
++      marker: /__CT_TOOL_GIT_HEAD__/i,
++      name: "git_local_get_head",
++      args: {},
++    },
++    {
++      marker: /__CT_TOOL_GITHUB_REPO__/i,
++      name: "github_get_repository",
++      args: {},
++    },
++    {
++      marker: /__CT_TOOL_DENIED_PATH__/i,
++      name: "git_local_read_file",
++      args: { path: ".env" },
++    },
++  ];
++
++  const db = openOps1Db();
++  const parts: string[] = [buildFixtureAssistantReply(userContent)];
++  let toolCalls = 0;
++  for (const m of markers) {
++    if (!m.marker.test(userContent)) continue;
++    toolCalls += 1;
++    const result = await routeToolCall(
++      {
++        toolCallId: createToolCallId(),
++        name: m.name,
++        arguments: m.args,
++        sessionId,
++      },
++      { db },
++    );
++    parts.push(
++      result.ok
++        ? `[FIXTURE TOOL OK] ${m.name}: ${result.summary}`
++        : `[FIXTURE TOOL ${result.status.toUpperCase()}] ${m.name}: ${result.errorCode} — ${result.message}`,
++    );
++  }
++
++  if (/__SFIA_PROPOSE_CREATE_MD__/i.test(userContent)) {
++    const ctx = ensureSfiaContext({ sessionId });
++    const content =
++      "# Preuve Control Tower\n\nCe fichier a été créé pendant la validation live du vertical slice Control Tower.\n";
++    const proposalJson = {
++      kind: "action_proposed",
++      proposalId: `sfia-prop-fixture-${Date.now()}`,
++      sessionId,
++      contextId: ctx.contextId,
++      objective:
++        "Créer projects/campus360/05-control-tower-live-proof.md avec le contenu exact demandé.",
++      rationale: "Demande Morris bornée — CREATE Markdown Campus360.",
++      cycle: "Delivery documentaire",
++      profile: "Critical",
++      profileJustification:
++        "Exécution Cursor potentielle + gouvernance SFIA",
++      blocks: ["QA / validation", "sécurité"],
++      project: "campus360",
++      operations: ["CREATE"],
++      files: [
++        {
++          path: "projects/campus360/05-control-tower-live-proof.md",
++          operation: "CREATE",
++          exactContent: content,
++        },
++      ],
++      expectedEffects: ["create markdown file in worktree after GO"],
++      excludedEffects: ["commit", "push", "PR", "merge"],
++      requiredGates: ["GO Cursor"],
++      stopConditions: ["Aucun effet distant"],
++      cursorRequired: true,
++      reviewPackLevel: "full",
++      reviewHandoffRequired: true,
++      userVisibleSummary:
++        "ActionCandidate proposée: CREATE 05-control-tower-live-proof.md — aucune exécution.",
++      exactRequestedContent: content,
++      confidence: 0.95,
++      unresolvedQuestions: [],
++    };
++    parts.push("Proposition SFIA structurée:");
++    parts.push("```json");
++    parts.push(JSON.stringify(proposalJson, null, 2));
++    parts.push("```");
++  }
++
++  if (/__SFIA_PROPOSE_COMMIT__/i.test(userContent)) {
++    const ctx = ensureSfiaContext({ sessionId });
++    parts.push("```json");
++    parts.push(
++      JSON.stringify(
++        {
++          kind: "action_proposed",
++          proposalId: `sfia-prop-bad-${Date.now()}`,
++          sessionId,
++          contextId: ctx.contextId,
++          objective: "Persister les changements via commit puis push distant",
++          rationale: "invalid — doit être refusé par le compilateur",
++          cycle: "Delivery",
++          profile: "Standard",
++          profileJustification: "n/a",
++          blocks: [],
++          project: "campus360",
++          operations: ["commit", "push"],
++          files: [
++            {
++              path: "projects/campus360/README.md",
++              operation: "MODIFY",
++              exactContent: "x",
++            },
++          ],
++          expectedEffects: [],
++          excludedEffects: [],
++          requiredGates: [],
++          stopConditions: [],
++          cursorRequired: false,
++          reviewPackLevel: "light",
++          reviewHandoffRequired: false,
++          userVisibleSummary: "Proposition commit puis push (doit être refusée)",
++          confidence: 0.5,
++          unresolvedQuestions: [],
++        },
++        null,
++        2,
++      ),
++    );
++    parts.push("```");
++  }
++
++  return { reply: parts.join("\n"), toolCalls };
++}
++
++function processSfiaProposalFromText(input: {
++  sessionId: string;
++  text: string;
++  context: SfiaCanonicalContext;
++}): {
++  proposal: SfiaActionProposal | null;
++  compilation: SfiaCompilationResult | null;
++} {
++  const parsed = parseProposalFromAssistantText(input.text, {
++    sessionId: input.sessionId,
++    contextId: input.context.contextId,
++  });
++  if (!parsed.ok) {
++    emitSfia(input.sessionId, "SFIA_PROPOSAL_INVALID", {
++      reason: parsed.reason,
++      contextId: input.context.contextId,
++    });
++    return { proposal: null, compilation: null };
++  }
++  emitSfia(input.sessionId, "SFIA_PROPOSAL_RECEIVED", {
++    proposalId: parsed.proposal.proposalId,
++    kind: parsed.proposal.kind,
++    contextId: input.context.contextId,
++  });
++  const compilation = compileSfiaActionProposal({
++    proposal: parsed.proposal,
++    context: input.context,
++    workspaceRoot: resolveWorkspaceRootFromAppCwd(),
++    persist: parsed.proposal.kind === "action_proposed",
++  });
++  return { proposal: parsed.proposal, compilation };
++}
++
+ export async function sendConversationMessage(input: {
+   sessionId: string;
+   content: string;
+-  /** Optional client hint — must match session mode or be omitted. */
+   requestedMode?: ConversationMode;
+   provider?: ConversationProvider;
++  enableTools?: boolean;
++  enableSfia?: boolean;
+ }): Promise<SendMessageResult> {
+   const session = getSession(input.sessionId);
+   if (!session) {
+@@ -68,7 +280,6 @@ export async function sendConversationMessage(input: {
+     );
+   }
+
+-  // Defense: refuse mixed journals before any write.
+   assertJournalMatchesMode(listTurns(input.sessionId), mode);
+
+   if (mode === "fixture") {
+@@ -81,8 +292,16 @@ export async function sendConversationMessage(input: {
+
+     let assistantTurn: JournalTurn | null = null;
+     let assistantError: string | null = null;
++    let toolCalls = 0;
++    let sfiaContext: SfiaCanonicalContext | null = null;
++    let sfiaProposal: SfiaActionProposal | null = null;
++    let sfiaCompilation: SfiaCompilationResult | null = null;
+     try {
+-      const reply = buildFixtureAssistantReply(input.content);
++      const { reply, toolCalls: tc } = await runFixtureWithOptionalTools(
++        input.sessionId,
++        input.content,
++      );
++      toolCalls = tc;
+       const appended = appendTurn({
+         sessionId: input.sessionId,
+         role: "assistant_fixture",
+@@ -90,6 +309,21 @@ export async function sendConversationMessage(input: {
+         fixture: true,
+       });
+       assistantTurn = appended.turn;
++
++      if (
++        input.enableSfia !== false &&
++        (/__SFIA_PROPOSE_/i.test(input.content) ||
++          /```json[\s\S]*"kind"\s*:/i.test(reply))
++      ) {
++        sfiaContext = ensureSfiaContext({ sessionId: input.sessionId });
++        const processed = processSfiaProposalFromText({
++          sessionId: input.sessionId,
++          text: reply,
++          context: sfiaContext,
++        });
++        sfiaProposal = processed.proposal;
++        sfiaCompilation = processed.compilation;
++      }
+     } catch (error) {
+       assistantError = toSafeClientError(error).message;
+     }
+@@ -101,11 +335,19 @@ export async function sendConversationMessage(input: {
+       usage: null,
+       mode: "fixture",
+       providerId: null,
++      toolRounds: toolCalls > 0 ? 1 : 0,
++      toolCalls,
++      sfiaContext,
++      sfiaProposal,
++      sfiaCompilation,
+     };
+   }
+
+-  // LIVE path — no silent fallback to fixture.
+   const provider = input.provider ?? resolveConversationProvider();
++  const enableSfia = input.enableSfia !== false;
++  const sfiaContext = enableSfia
++    ? ensureSfiaContext({ sessionId: input.sessionId })
++    : null;
+
+   const { turn: userTurn } = appendTurn({
+     sessionId: input.sessionId,
+@@ -129,25 +371,56 @@ export async function sendConversationMessage(input: {
+
+   try {
+     const history = listTurns(input.sessionId);
+-    const messages = buildProviderMessagesFromJournal(history, "live");
+-    const completion = await provider.complete(messages);
++    let messages = buildProviderMessagesFromJournal(history, "live");
++    if (sfiaContext) {
++      messages = [
++        {
++          role: "user",
++          content: `[SFIA_SYSTEM_CONTEXT]\n${buildSfiaSystemPreamble(sfiaContext)}`,
++        },
++        {
++          role: "assistant",
++          content:
++            "Contexte SFIA reçu. Je qualifierai sans exécuter et produirai une SfiaActionProposal JSON si une action est pertinente.",
++        },
++        ...messages,
++      ];
++    }
++    const loop = await runToolCallingLoop({
++      sessionId: input.sessionId,
++      messages,
++      provider,
++      enableTools: input.enableTools !== false,
++    });
+
+     const { turn: assistantTurn } = appendTurn({
+       sessionId: input.sessionId,
+       role: "assistant_live",
+-      content: completion.text,
++      content: loop.text,
+       fixture: false,
+     });
+
++    let sfiaProposal: SfiaActionProposal | null = null;
++    let sfiaCompilation: SfiaCompilationResult | null = null;
++    if (sfiaContext) {
++      const processed = processSfiaProposalFromText({
++        sessionId: input.sessionId,
++        text: loop.text,
++        context: sfiaContext,
++      });
++      sfiaProposal = processed.proposal;
++      sfiaCompilation = processed.compilation;
++    }
++
+     const finalized = completeConversationAttemptSuccess({
+       attemptId: attempt.attemptId,
+       sessionId: input.sessionId,
+       assistantTurnId: assistantTurn.turnId,
+-      providerResponseId: completion.usage.providerResponseId,
+-      model: completion.usage.model,
+-      inputTokens: completion.usage.inputTokens,
+-      outputTokens: completion.usage.outputTokens,
+-      totalTokens: completion.usage.totalTokens,
++      providerResponseId: loop.usage.providerResponseId,
++      model: loop.usage.model,
++      inputTokens: loop.usage.inputTokens,
++      outputTokens: loop.usage.outputTokens,
++      totalTokens: loop.usage.totalTokens,
+     });
+
+     console.info(
+@@ -155,6 +428,8 @@ export async function sendConversationMessage(input: {
+       input.sessionId,
+       attempt.attemptId,
+       finalized.totalTokens,
++      `tools=${loop.toolCalls}`,
++      sfiaCompilation ? `sfia=${sfiaCompilation.status}` : "",
+     );
+
+     return {
+@@ -175,6 +450,11 @@ export async function sendConversationMessage(input: {
+       },
+       mode: "live",
+       providerId: provider.providerId,
++      toolRounds: loop.toolRounds,
++      toolCalls: loop.toolCalls,
++      sfiaContext,
++      sfiaProposal,
++      sfiaCompilation,
+     };
+   } catch (error) {
+     const safe = toSafeClientError(error);
+@@ -196,6 +476,7 @@ export async function sendConversationMessage(input: {
+       usage: null,
+       mode: "live",
+       providerId: provider.providerId,
++      sfiaContext,
+     };
+   }
+ }
+```
+
+### `projects/sfia-studio/app/lib/ops1/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
+index a92e16d..96a3bf5 100644
+--- a/projects/sfia-studio/app/lib/ops1/types.ts
++++ b/projects/sfia-studio/app/lib/ops1/types.ts
+@@ -110,7 +110,38 @@ export type SessionEventType =
+   | "POST_REPORT_CHAT_RESUMED"
+   | "SESSION_CLOSED"
+   | "SESSION_CONTINUATION_OPENED"
+-  | "CLOSED_SESSION_MUTATION_REFUSED";
++  | "CLOSED_SESSION_MUTATION_REFUSED"
++  | "SOURCE_SEARCH_STARTED"
++  | "TOOL_CALL_REQUESTED"
++  | "TOOL_CALL_STARTED"
++  | "TOOL_CALL_SUCCEEDED"
++  | "TOOL_CALL_FAILED"
++  | "TOOL_CALL_DENIED"
++  | "TOOL_LOOP_COMPLETED"
++  | "TOOL_LOOP_LIMIT_REACHED"
++  | "EXECUTION_PREPARING"
++  | "CURSOR_PROCESS_STARTED"
++  | "CURSOR_PROCESS_COMPLETED"
++  | "CURSOR_PROCESS_FAILED"
++  | "POSTCHECK_STARTED"
++  | "POSTCHECK_COMPLETED"
++  | "REPORT_GENERATION_STARTED"
++  | "REPORT_SEALED"
++  | "REINJECTION_STARTED"
++  | "REINJECTION_COMPLETED"
++  | "REINJECTION_FAILED"
++  | "SFIA_CONTEXT_LOADING"
++  | "SFIA_SOURCE_READ"
++  | "SFIA_CONTEXT_READY"
++  | "SFIA_CONTEXT_FAILED"
++  | "SFIA_PROPOSAL_RECEIVED"
++  | "SFIA_PROPOSAL_INVALID"
++  | "SFIA_COMPILATION_STARTED"
++  | "SFIA_COMPILATION_SUCCEEDED"
++  | "SFIA_COMPILATION_DENIED"
++  | "ACTION_CANDIDATE_CREATED_FROM_LIVE"
++  | "CURSOR_TEMPLATE_LOADED"
++  | "CURSOR_PROMPT_INSTANTIATED";
+
+ export interface SessionEvent {
+   eventId: string;
+```
+
+### `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+index 68f3cdb..b21a56a 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
++++ b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+@@ -13,6 +13,29 @@ vi.mock("@/lib/ops1/actions", () => ({
+   ops1GetSessionAction: (...args: unknown[]) => get(...args),
+   ops1SendMessageAction: (...args: unknown[]) => send(...args),
+   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
++  ops1EnsureSfiaContextAction: vi.fn(async () => ({
++    ok: true,
++    data: {
++      context: {
++        contextId: "sfia-ctx-test",
++        methodBaseline: "SFIA v2.6",
++        candidateCycle: "test",
++        profile: "Critical",
++        headSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++        openGates: [],
++        closedGates: ["commit"],
++        allowedOperations: ["conversation"],
++        forbiddenOperations: ["commit"],
++        sourceDocuments: [],
++        warnings: [],
++      },
++    },
++  })),
++  ops1GetSfiaContextAction: vi.fn(async () => ({
++    ok: true,
++    data: { context: null },
++  })),
++  ops1InstantiateCursorPromptAction: vi.fn(),
+   ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
+     ok: true,
+     data: { flagEnabled: false, binPath: null, available: false },
+```
+
+### `projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts b/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
+index d0125d7..ab5c294 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
++++ b/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
+@@ -185,7 +185,7 @@ describe("ops1 i2 repository + immutable session mode", () => {
+       provider: wrapping,
+     });
+
+-    expect(histories).toEqual([1, 3, 5]);
++    expect(histories).toEqual([3, 5, 7]); // +2 SFIA preamble messages each live turn
+     expect(third.assistantTurn?.role).toBe("assistant_live");
+     expect(listTurns(session.sessionId)).toHaveLength(6);
+
+```
+
+### `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx b/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+index 5ddc33f..b979e18 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+@@ -17,6 +17,29 @@ vi.mock("@/lib/ops1/actions", () => ({
+   ops1GetSessionAction: (...args: unknown[]) => get(...args),
+   ops1SendMessageAction: (...args: unknown[]) => send(...args),
+   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
++  ops1EnsureSfiaContextAction: vi.fn(async () => ({
++    ok: true,
++    data: {
++      context: {
++        contextId: "sfia-ctx-test",
++        methodBaseline: "SFIA v2.6",
++        candidateCycle: "test",
++        profile: "Critical",
++        headSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++        openGates: [],
++        closedGates: ["commit"],
++        allowedOperations: ["conversation"],
++        forbiddenOperations: ["commit"],
++        sourceDocuments: [],
++        warnings: [],
++      },
++    },
++  })),
++  ops1GetSfiaContextAction: vi.fn(async () => ({
++    ok: true,
++    data: { context: null },
++  })),
++  ops1InstantiateCursorPromptAction: vi.fn(),
+   ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
+     ok: true,
+     data: { flagEnabled: false, binPath: null, available: false },
+```
+
+---
+
+## 15. État Git final
 
 ```
  M projects/sfia-studio/README.md
+ M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
+ M projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
+ M projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
  M projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
  M projects/sfia-studio/app/lib/ops1/actions.ts
  M projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
@@ -3745,36 +3468,34 @@ index ccd03ee..cb1b24b 100644
 ?? projects/sfia-studio/71-control-tower-fast-track-backlog-and-delivery.md
 ?? projects/sfia-studio/72-control-tower-fast-track-decision-pack.md
 ?? projects/sfia-studio/73-control-tower-fast-track-delivery-report.md
+?? projects/sfia-studio/74-sfia-canonical-context-engine-report.md
 ?? projects/sfia-studio/app/__tests__/ops1/controlTowerReinjection.test.ts
 ?? projects/sfia-studio/app/__tests__/ops1/controlTowerTools.test.ts
+?? projects/sfia-studio/app/__tests__/ops1/sfia/
 ?? projects/sfia-studio/app/e2e/control-tower-fast-track.spec.ts
+?? projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts
 ?? projects/sfia-studio/app/lib/ops1/conversation/toolLoop.ts
 ?? projects/sfia-studio/app/lib/ops1/reportReinjection.ts
+?? projects/sfia-studio/app/lib/ops1/sfia/
 ?? projects/sfia-studio/app/lib/ops1/tools/
----
----
- .../app/features/ops1/Ops1SessionScreen.tsx        |  95 ++++++++++++++++
- projects/sfia-studio/app/lib/ops1/actions.ts       |  72 +++++++++++-
- .../app/lib/ops1/conversation/fakeProvider.ts      | 123 +++++++++++++++++++-
- .../app/lib/ops1/conversation/openaiProvider.ts    | 124 +++++++++++++++++----
- .../app/lib/ops1/conversation/service.ts           |  95 ++++++++++++++--
- .../sfia-studio/app/lib/ops1/conversation/types.ts |  49 ++++++++
- .../app/lib/ops1/executionOrchestrator.ts          |   9 ++
- projects/sfia-studio/app/lib/ops1/types.ts         |  21 +++-
- 8 files changed, 550 insertions(+), 38 deletions(-)
---- campus360 ---
 ```
 
-## 13. État Git final
+```
+ projects/sfia-studio/README.md                     |  41 ++-
+ .../app/__tests__/ops1/Ops1SessionScreen.test.tsx  |  23 ++
+ .../__tests__/ops1/conversation-repository.test.ts |   2 +-
+ .../app/__tests__/ops1/globalModeBadge.ui.test.tsx |  23 ++
+ .../app/features/ops1/Ops1SessionScreen.tsx        | 360 ++++++++++++++++++++-
+ projects/sfia-studio/app/lib/ops1/actions.ts       | 200 +++++++++++-
+ .../app/lib/ops1/conversation/fakeProvider.ts      | 123 ++++++-
+ .../app/lib/ops1/conversation/openaiProvider.ts    | 124 +++++--
+ .../app/lib/ops1/conversation/service.ts           | 315 +++++++++++++++++-
+ .../sfia-studio/app/lib/ops1/conversation/types.ts |  49 +++
+ .../app/lib/ops1/executionOrchestrator.ts          |   9 +
+ projects/sfia-studio/app/lib/ops1/types.ts         |  33 +-
+ 12 files changed, 1239 insertions(+), 63 deletions(-)
+```
 
-- Branche `delivery/sfia-studio-control-tower-fast-track` @ `32e5271842b9a344a7e292614675c27ea8ed941b` (inchangé — **aucun commit projet**)
-- Working tree : code + docs non commités
-- Aucun push delivery
+**Verdict pack :** contenu créé inclus + diffs modifiés inclus.
 
-## 14. Verdict
-
-**CONTROL TOWER VERTICAL SLICE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION**
-
-Également : **CONTROL TOWER LIVE READY — MORRIS INTERACTION REQUIRED**
-
-ChatGPT : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+**VERDICT :** SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION
