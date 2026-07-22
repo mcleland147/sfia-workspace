@@ -1,872 +1,2531 @@
-# Review Pack Full — SFIA v3.0 D1 UX/UI Doctrine-aligned Shell and Project Journey
-
-## 0. Completeness attestation (regularization republish)
-
-- **Republish reason :** régularisation handoff distant — contenu Full vérifié, aucune nouvelle conception.
-- **Date/heure/fuseau :** 2026-07-22 18:59:24 CEST
-- **Checklist inclus :**
-  - [x] documents 01 à 18 complets (contenu source inliné, digests ci-dessous)
-  - [x] registre Figma complet (doc 15)
-  - [x] tous les node IDs et dimensions
-  - [x] comparaison Figma/runtime (doc 16 + metrics)
-  - [x] réserves UX-R01 à UX-R03
-  - [x] decision pack (doc 18)
-  - [x] décisions humaines requises
-  - [x] état Git final
-  - [x] verdict final
-
-### Integrity digests (source files embedded below)
-
-```json
-[
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/README.md",
-    "bytes": 1562,
-    "sha256": "d12af776fa89b9f9e54d8c05e53c2adb12724730d462db033ffc57baf2ba8978"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/01-current-state-ux-audit.md",
-    "bytes": 2469,
-    "sha256": "fbaab3f0508e4fd761a75ebb3f739a3a23fa7d79cb2bc58361cf6b0bc50bb69e"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/02-doctrine-to-information-architecture.md",
-    "bytes": 987,
-    "sha256": "fd8016fddf9d93245f48fbd504ce3b3894933433f1bb508d2fce7b1c6eb0ba56"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/03-d1-navigation-and-route-model.md",
-    "bytes": 731,
-    "sha256": "b656a30144f11f2c0e4e47accf5d1e58bf0f84be3a2f0b7ce19e67d9f9c2ee5a"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/04-studio-shell-layout-contract.md",
-    "bytes": 1270,
-    "sha256": "d313681ff5451bae8f8d4b0fa9cf91a0fb12e4156228020c5483f6c281703059"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/05-d1-screen-inventory-and-priorities.md",
-    "bytes": 901,
-    "sha256": "7cea153ee73635e3a4f8769952e463f4474e8966471e2123ecea883e69181a96"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/06-workspace-home-contract.md",
-    "bytes": 546,
-    "sha256": "16464a03660ced8ce15b585c4b1b79145f25fec8c928f269058e5c996c69bc6b"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/07-new-project-contract.md",
-    "bytes": 470,
-    "sha256": "d8c21f669d8d0c00614e35dddf10089922ede3172eebbcb350312f4acb016301"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/08-project-cockpit-contract.md",
-    "bytes": 524,
-    "sha256": "d7c7b851d295bb18b284c9848aa605900dd6846bfaa944d009d56af102c512ce"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/09-project-framing-and-guided-session-contract.md",
-    "bytes": 612,
-    "sha256": "23381a8cdd93a3913ae15264253b93e12f5f51bde3fabfdfe33fa5293165a26b"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/10-context-reserves-decisions-and-gates-contract.md",
-    "bytes": 465,
-    "sha256": "1ee9ccc59204b67fad914a124097a19caf245d083f6f151d6849f987ae982d46"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/11-transition-reviewbundle-and-audit-contract.md",
-    "bytes": 340,
-    "sha256": "683e384bb3570fb8ac3a67426163206ad948a22f441faf3d917bc55f0edd3dc3"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/12-responsive-and-breakpoint-contract.md",
-    "bytes": 427,
-    "sha256": "c4d84d70d270e8ace6db1e03fbefa4529deb3eb868c368f34c626c8d791f21ff"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/13-accessibility-and-interaction-contract.md",
-    "bytes": 836,
-    "sha256": "8559b2c53f9603928615ac789745462cb2c7d332870696bda0d78a4f2f592813"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/14-design-tokens-and-component-contract.md",
-    "bytes": 1550,
-    "sha256": "88d3e94f57bd4c0b6a63564d16130fdfcf02f81642c51dedf06aa8d1818b76e8"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/15-figma-frame-register.md",
-    "bytes": 2953,
-    "sha256": "f2fb127f17fad5fb0c9ded28849f673c9e752f3b2b41d604c1b1e6e449b9bb36"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/16-figma-runtime-comparison-plan.md",
-    "bytes": 1468,
-    "sha256": "1892df2bd178516dd9ff7b6decb3389c36443d917c5d2fe6ae9c8b1005e669e5"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/17-d1-ux-acceptance-and-test-matrix.md",
-    "bytes": 728,
-    "sha256": "282b297d5a1adedf5cf8feafe9328d0145ce046528c39d5cd6e9bdf281d9c316"
-  },
-  {
-    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/18-d1-ux-decision-pack.md",
-    "bytes": 926,
-    "sha256": "5d351952827670ac382f8b3e01c92ad3968cb59bd449baacf2424ba81c8a20ff"
-  }
-]
-```
+# Review Pack Full — SFIA v3.0 D1-I1 Project Foundation
 
 ## 1. Métadonnées
 
-- **Cycle :** 4 — UX/UI (UX/CONCEPTION/ARCHI/DOC)
+- **Date/heure/fuseau :** 2026-07-22 19:18:46 CEST
+- **Cycle :** 9 — Delivery (EVOL/DELIVERY/UX/DATA)
 - **Profil :** Critical
-- **Gate consommé :** GO CYCLE UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
-- **Gate suivant :** GO VALIDATION UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
-- **Gate fermé :** GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION
+- **Gate consommé :** GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION
+- **Gate suivant :** GO VALIDATION D1-I1 — PROJECT FOUNDATION
 - **Repo/branche :** mcleland147/sfia-workspace · delivery/sfia-studio-control-tower-fast-track
 - **HEAD/base :** 32e5271842b9a344a7e292614675c27ea8ed941b
-- **Handoff précédent :** 162542c82235b54677f5a30a2d516aea81616d0e
+- **Handoff précédent :** b8b84e70395ce178fa67d5e42bf926bcce103782
 - **Baseline :** SFIA v2.6
 - **Statut v3 :** V3-MODELED CANDIDATE
-- **BCDI :** BCDI-D1-UX-DOCTRINE-ALIGNED-JOURNEY
+- **BCDI :** BCDI-D1-I1-PROJECT-FOUNDATION
+- **Statut livraison :** D1-I1 IMPLEMENTED CANDIDATE
 
-## 2. Décisions humaines déjà validées
+## 2. État Git initial / isolation
 
-- DESIGN-R01 mono-opérateur I1 : accepté
-- DESIGN-R02 SLI/SLO : accepté (SLO reportés)
-- DESIGN-R04 audit trajectoire générique : accepté
-- DESIGN-R03 Figma obligatoire avant I1 : exécuté
+- Dirty attendu (CT + framing + modeled + design) · staged vide · HEAD=origin/main
+- Fichiers OPS1 préexistants **non écrasés** (hors UtilityRail link + playwright reuseExistingServer)
+- Diff I1 isolé sous `lib/d1`, `features/d1`, routes workspace/projects, tests, delivery
 
-## 3. Runtime evidence
+## 3. Tests
 
-- URL : http://127.0.0.1:3020/nouvelle-demande
-- Captures locales : `.tmp-sfia-review/screenshots-d1-ux/runtime-{1728,1440,1280,1024}.png`
-- Figma runtime capture (preuve, non cible) : node `4:2` · https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2?node-id=4-2
-- Previews Figma cibles : `.tmp-sfia-review/screenshots-d1-ux/figma-cockpit-1440.png`, `figma-cockpit-1728.png`
+- vitest d1: 7/7 pass
+- playwright d1-i1: 6/6 pass
+- playwright p0-smoke régression: 6/6 pass
+- tsc: pass
 
-### Métriques
+## 4. Viewport metrics D1 shell
 
 ```json
 [
   {
-    "viewport": 1728,
-    "title": "SFIA Studio",
-    "h1": "Nouvelle demande",
-    "viewportInner": {
-      "w": 1728,
-      "h": 1024
-    },
-    "scroll": {
-      "x": 1728,
-      "y": 1024
-    },
-    "bodyWidth": 1728,
-    "pageWidth": 1440,
-    "pageMinWidth": "1440px",
-    "pageWidthCss": "1440px",
-    "railWidth": 64,
-    "mainWidth": 1376,
-    "copilotWidth": 340,
-    "unusedRight": 288,
-    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1728.png"
+    "w": 1728,
+    "inner": 1728,
+    "shellW": 1728,
+    "scrollW": 1728,
+    "unused": 0
   },
   {
-    "viewport": 1440,
-    "title": "SFIA Studio",
-    "h1": "Nouvelle demande",
-    "viewportInner": {
-      "w": 1440,
-      "h": 1024
-    },
-    "scroll": {
-      "x": 1440,
-      "y": 1024
-    },
-    "bodyWidth": 1440,
-    "pageWidth": 1440,
-    "pageMinWidth": "1440px",
-    "pageWidthCss": "1440px",
-    "railWidth": 64,
-    "mainWidth": 1376,
-    "copilotWidth": 340,
-    "unusedRight": 0,
-    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1440.png"
+    "w": 1440,
+    "inner": 1440,
+    "shellW": 1440,
+    "scrollW": 1440,
+    "unused": 0
   },
   {
-    "viewport": 1280,
-    "title": "SFIA Studio",
-    "h1": "Nouvelle demande",
-    "viewportInner": {
-      "w": 1280,
-      "h": 1024
-    },
-    "scroll": {
-      "x": 1440,
-      "y": 1024
-    },
-    "bodyWidth": 1280,
-    "pageWidth": 1440,
-    "pageMinWidth": "1440px",
-    "pageWidthCss": "1440px",
-    "railWidth": 64,
-    "mainWidth": 1376,
-    "copilotWidth": 340,
-    "unusedRight": -160,
-    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1280.png"
+    "w": 1280,
+    "inner": 1280,
+    "shellW": 1280,
+    "scrollW": 1280,
+    "unused": 0
   },
   {
-    "viewport": 1024,
-    "title": "SFIA Studio",
-    "h1": "Nouvelle demande",
-    "viewportInner": {
-      "w": 1024,
-      "h": 1024
-    },
-    "scroll": {
-      "x": 1440,
-      "y": 1024
-    },
-    "bodyWidth": 1024,
-    "pageWidth": 1440,
-    "pageMinWidth": "1440px",
-    "pageWidthCss": "1440px",
-    "railWidth": 64,
-    "mainWidth": 1376,
-    "copilotWidth": 340,
-    "unusedRight": -416,
-    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1024.png"
+    "w": 1024,
+    "inner": 1024,
+    "shellW": 1024,
+    "scrollW": 1024,
+    "unused": 0
   }
 ]
 ```
 
-## 4. Cause technique confirmée
+## 5. Figma / runtime comparison
 
-`app/styles/shell.module.css` + `tokens.css` :
-- `min-width/width: 1440px`, `height: 1024px` artboard
-- canvas/copilot largeurs fixes
-- pas de shell fluide `minmax(0,1fr)` + clamp rail
+fileKey `IS70XDnBMvZuJYmaI5eZT2`
 
-**Aucune modification code** dans ce cycle.
+| Aspect | Runtime I1 | Figma cible | Écart | Verdict |
+|--------|------------|-------------|-------|---------|
+| Largeur globale | 100% viewport, unused=0 @1728 | shell fluide | conforme | OK |
+| Overflow ≥1024 | none | none | conforme | OK |
+| Project-first | Workspace/Cockpit | frames 2:2/2:46 | conforme | OK |
+| Rail | ContextualRail I1 placeholders | ContextualRail | fidélité moyenne contenu | OK structure |
+| Chat centre | absent | absent | conforme | OK |
+| Tokens | Studio existants | Figma D1 primitives | non pixel-perfect | accepté |
 
-## 5. Figma summary
+Captures: `.tmp-sfia-review/screenshots-d1-i1/*.png`
 
-- Plan unique : `team::1653291379918403018`
-- File : SFIA Studio — D1 Doctrine-aligned UX
-- fileKey : `IS70XDnBMvZuJYmaI5eZT2`
-- URL : https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2
-- Page : D1 — Project Framing UX (`1:2`)
-- Node IDs obligatoires : `2:2`, `2:24`, `2:46`, `3:2`, `3:25`, `3:51`, `3:73`, `3:97`, `3:120`, `3:143`, `3:165`, `3:187`, `3:209` (+ components `1:3`, evidence `4:2`)
-- Dimensions confirmées : 1440×1024 · 1728×1024 · 1280×1024 · 1024×1024
+## 6. Fichiers créés/modifiés (liste)
 
-## 6. Documents UX (contenu complet 01–18 + README)
-
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/README.md`
-
-```markdown
-# SFIA v3.0 — D1 UX/UI — Doctrine-aligned Shell and Project Journey
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | **D1 UX/UI CONTRACT CANDIDATE** |
-| **BCDI** | `BCDI-D1-UX-DOCTRINE-ALIGNED-JOURNEY` |
-| **Gate consommé** | `GO CYCLE UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY` |
-| **Gate suivant** | `GO VALIDATION UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY` |
-| **Gate fermé** | `GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION` |
-| **Baseline** | SFIA v2.6 |
-| **Statut v3** | V3-MODELED CANDIDATE |
-| **Code/CSS** | Interdits |
-
-## Décisions humaines déjà validées
-
-- **DESIGN-R01** : mono-opérateur accepté pour D1-I1 uniquement.
-- **DESIGN-R02** : SLI instrumentés ; SLO chiffrés reportés au RUN readiness.
-- **DESIGN-R04** : audit générique provisoire pour trajectoire.
-- **DESIGN-R03** : Figma + validation UX **obligatoires** avant GO IMPLEMENTATION D1-I1.
-
-## Principe
-
-Le chat est un **composant** du parcours. L’objet principal reste **Project**.
-
-## Contenu
-
-| # | Fichier |
-|---|---------|
-| 01 | Audit UX runtime actuel |
-| 02 | Doctrine → IA |
-| 03 | Navigation & routes |
-| 04 | Studio Shell layout contract |
-| 05 | Inventaire écrans & priorités |
-| 06–11 | Contrats écrans |
-| 12 | Responsive |
-| 13 | Accessibilité |
-| 14 | Tokens & composants |
-| 15 | Registre frames Figma |
-| 16 | Comparaison Figma/runtime |
-| 17 | Acceptation & tests |
-| 18 | Decision pack |
-
-## Anti-claims
-
-Pas de code · pas CSS · pas D1-I1 · pas V3-IMPLEMENTED · framing/modeled/design D1 non modifiés.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/01-current-state-ux-audit.md`
-
-```markdown
-# 01 — Current-state UX audit
-
-## 1. Observation visuelle (Morris + captures locales)
-
-| Observation | Statut |
-|-------------|--------|
-| Page « Nouvelle demande » centrée Session OPS1 | Confirmé runtime |
-| Journal conversationnel = zone principale | Confirmé |
-| Copilot + parcours I6 panneau droit | Confirmé |
-| Hiérarchie demande/session/exécution | Confirmé |
-| Large zone inutilisée à droite sur viewports > 1440 | **Mesuré** |
-| Contenu ne remplit pas viewport large | **Mesuré** |
-| Colonnes insuffisamment fluides | Confirmé code |
-| Project/Cycle/Context/Gates peu matérialisés | Confirmé |
-
-## 2. Preuves runtime (2026-07-22)
-
-URL : `http://127.0.0.1:3020/nouvelle-demande`
-Captures : `.tmp-sfia-review/screenshots-d1-ux/runtime-{1728,1440,1280,1024}.png`
-Métriques : `.tmp-sfia-review/screenshots-d1-ux/runtime-metrics.json`
-
-| Viewport | pageWidth CSS | unusedRight | scrollWidth | h1 |
-|----------|---------------|-------------|-------------|-----|
-| 1728 | 1440px | **288px** | 1728 | Nouvelle demande |
-| 1440 | 1440px | 0 | 1440 | Nouvelle demande |
-| 1280 | 1440px | -160 (overflow H) | **1440** | Nouvelle demande |
-| 1024 | 1440px | -416 (overflow H) | **1440** | Nouvelle demande |
-
-Rail = 64px · Copilot = 340px · Main ≈ 1376px (dans shell 1440).
-
-## 3. Cause technique confirmée (lecture code, non corrigée)
-
-Fichiers : `app/styles/shell.module.css`, `app/styles/tokens.css`.
-
-- `.page { min-width: 1440px; }`
-- `.pageFloating` / `.pageFlush` : `width: 1440px; height: 1024px;`
-- Tokens layout figés sur référence Figma P0 1440×1024 (`--sfia-canvas-width-flush: 972px`, `--sfia-copilot-width-flush: 340px`, etc.)
-- Grid floating à largeurs fixes, pas `minmax(0,1fr)` + clamp rail contextuel.
-
-**Conclusion :** le shell est un **cadre artboard 1440×1024**, pas un layout fluide viewport. Sur 1728 → bande vide ; sur <1440 → scroll horizontal.
-
-## 4. Écart doctrinal
-
-| Doctrine D1 | Runtime actuel |
-|-------------|----------------|
-| Project-first | Session/Demande-first |
-| Cycle Header / MethodMode | Badge mode partiel OPS1 ; pas Cycle métier |
-| Contextual rail = Context/Reserves/Decisions | Copilot + I6 steps |
-| Chat = composant GuidedSession | Chat = centre produit |
-| E0–E4 language | Gates action OPS1, pas langage E0–E4 D1 |
-
-## 5. Recommandation UX (hors correction code)
-
-Remplacer artboard fixe par shell fluide (doc 04) ; Project Cockpit pivot ; Copilot → ContextualRail doctrinal.
+projects/sfia-studio/app/__tests__/d1/project-foundation.test.ts
+projects/sfia-studio/app/app/projects/[id]/page.tsx
+projects/sfia-studio/app/app/projects/new/page.tsx
+projects/sfia-studio/app/app/workspace/page.tsx
+projects/sfia-studio/app/e2e/d1-i1-project-foundation.spec.ts
+projects/sfia-studio/app/features/d1/Badges.tsx
+projects/sfia-studio/app/features/d1/ContextualRail.tsx
+projects/sfia-studio/app/features/d1/D1AppShell.tsx
+projects/sfia-studio/app/features/d1/NewProjectForm.tsx
+projects/sfia-studio/app/features/d1/ProjectCockpitView.tsx
+projects/sfia-studio/app/features/d1/WorkspaceHomeView.tsx
+projects/sfia-studio/app/features/d1/d1-shell.module.css
+projects/sfia-studio/app/lib/d1/actions.ts
+projects/sfia-studio/app/lib/d1/authz.ts
+projects/sfia-studio/app/lib/d1/commands.ts
+projects/sfia-studio/app/lib/d1/db.ts
+projects/sfia-studio/app/lib/d1/domain.ts
+projects/sfia-studio/app/lib/d1/errors.ts
+projects/sfia-studio/app/lib/d1/ids.ts
+projects/sfia-studio/app/lib/d1/index.ts
+projects/sfia-studio/app/lib/d1/observability.ts
+projects/sfia-studio/app/lib/d1/paths.ts
+projects/sfia-studio/app/lib/d1/repository.ts
+projects/sfia-studio/app/lib/d1/types.ts
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/01-implemented-scope.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/02-technical-implementation.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/03-data-and-audit-implementation.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/04-ux-runtime-validation.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/05-test-results.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/06-known-reserves-and-debt.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/07-d1-i1-validation-decision-pack.md
+projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/README.md
+projects/sfia-studio/app/components/shell/UtilityRail.tsx
+projects/sfia-studio/app/playwright.config.ts
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/02-doctrine-to-information-architecture.md`
 
-```markdown
-# 02 — Doctrine to information architecture
+## 7. Diff fichiers trackés modifiés
 
-## Niveaux visibles
+```diff
+diff --git a/projects/sfia-studio/app/components/shell/UtilityRail.tsx b/projects/sfia-studio/app/components/shell/UtilityRail.tsx
+index 796bb59..c7efe83 100644
+--- a/projects/sfia-studio/app/components/shell/UtilityRail.tsx
++++ b/projects/sfia-studio/app/components/shell/UtilityRail.tsx
+@@ -66,6 +66,16 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
 
-| Niveau | Objet | Visible où |
-|--------|-------|------------|
-| 1 | Workspace | Shell / Workspace Home |
-| 2 | Project | Cockpit, breadcrumbs, header |
-| 3 | Cycle | Cycle Header, stepper |
-| 4 | GuidedSession / travail | Guided Session main |
-| 5 | Context / Reserves / Decisions / Review / Audit | Contextual rail + écrans dédiés |
+       <div className={styles.spacer} />
 
-## Navigation
++      <Link
++        href="/workspace"
++        className={isFloating ? styles.item : styles.itemFlush}
++        aria-label="Workspace D1"
++        title="Workspace D1-I1"
++        data-testid="rail-d1-workspace"
++      >
++        W
++      </Link>
++
+       <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
+     </nav>
+   );
+diff --git a/projects/sfia-studio/app/playwright.config.ts b/projects/sfia-studio/app/playwright.config.ts
+index ddfb29a..3e47483 100644
+--- a/projects/sfia-studio/app/playwright.config.ts
++++ b/projects/sfia-studio/app/playwright.config.ts
+@@ -18,7 +18,7 @@ export default defineConfig({
+   webServer: {
+     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
+     url: baseURL,
+-    reuseExistingServer: false,
++    reuseExistingServer: !process.env.CI,
+     timeout: 180_000,
+     env: {
+       ...process.env,
 
-- **Primaire** : Workspace → Projects → (Settings stub)
-- **Secondaire (projet)** : Cockpit · Framing · Cycle · Session · Decisions · Review · Audit
-- **Breadcrumbs** : Workspace / Project / Cycle / Session
-- **Persistants** : MethodModeBadge · ProjectStateBadge · Cycle actif · ContextStatus · open gates count
-
-## Interdit comme IA visible
-
-Incréments techniques OPS1 I4/I5/I6 comme architecture métier.
-
-## Mapping design 08
-
-Les 13 écrans design D1 restent la référence fonctionnelle ; ce dossier UX précise hiérarchie visuelle et shell.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/03-d1-navigation-and-route-model.md`
 
-```markdown
-# 03 — Navigation and route model (candidat)
+## 8. Contenu complet des fichiers créés
 
-| Route candidate | Écran | Notes |
-|-----------------|-------|-------|
-| `/` ou `/workspace` | Workspace Home | I1 |
-| `/projects/new` | New Project | I1 |
-| `/projects/[id]` | Project Cockpit | I1 pivot |
-| `/projects/[id]/method-mode` | Method Mode | I1 |
-| `/projects/[id]/framing` | Project Framing | post-I1 |
-| `/projects/[id]/cycles/[cid]` | Cycle Header + hub | I2 |
-| `/projects/[id]/cycles/[cid]/session/[sid]` | Guided Session | I2 |
-| `/projects/[id]/decisions` | Decision Center | I5 |
-| `/projects/[id]/cycles/[cid]/review` | Cycle Review | I7 |
-| `/projects/[id]/audit` | Audit Timeline | I7/I8 |
+### `projects/sfia-studio/app/__tests__/d1/project-foundation.test.ts`
 
-OPS1 `/nouvelle-demande` = **legacy runtime preuve**, pas cible D1.
+```tsx
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import fs from "node:fs";
+import os from "node:fs";
+import path from "node:path";
+import {
+  assertMethodMode,
+  assertNoForbiddenClaim,
+  canActivate,
+  validateCreateProjectInput,
+} from "@/lib/d1/domain";
+import { D1Error } from "@/lib/d1/errors";
+import {
+  createProject,
+  listProjectAudit,
+  resetD1DbForTests,
+  selectMethodMode,
+} from "@/lib/d1/commands";
+
+describe("d1 domain", () => {
+  it("accepts authorized method modes", () => {
+    expect(assertMethodMode("SFIA_V2_6")).toBe("SFIA_V2_6");
+    expect(assertMethodMode("V3_CANDIDATE")).toBe("V3_CANDIDATE");
+  });
+
+  it("rejects forbidden claims", () => {
+    expect(() => assertNoForbiddenClaim("go V3-ADOPTED now")).toThrow(D1Error);
+    expect(() => assertNoForbiddenClaim("V3_IMPLEMENTED")).toThrow(D1Error);
+  });
+
+  it("validates create input", () => {
+    expect(() =>
+      validateCreateProjectInput({
+        name: "",
+        objective: "x",
+        methodMode: "SFIA_V2_6",
+        activate: true,
+        idempotencyKey: "k",
+      }),
+    ).toThrow(D1Error);
+  });
+
+  it("allows activate only from DRAFT with mode", () => {
+    expect(canActivate("DRAFT", "TRANSITION")).toBe(true);
+    expect(canActivate("DRAFT", null)).toBe(false);
+    expect(canActivate("ACTIVE", "TRANSITION")).toBe(false);
+  });
+});
+
+describe("d1 repository commands", () => {
+  let tmpDir: string;
+
+  beforeEach(() => {
+    resetD1DbForTests();
+    tmpDir = fs.mkdtempSync(path.join(require("node:os").tmpdir(), "d1-i1-"));
+    process.env.D1_SQLITE_PATH = path.join(tmpDir, "d1.sqlite");
+  });
+
+  afterEach(() => {
+    resetD1DbForTests();
+    delete process.env.D1_SQLITE_PATH;
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it("creates project with audit and mono-operator assignments", () => {
+    const { project, idempotent } = createProject({
+      name: "Demo Framing",
+      objective: "Cadrer D1-I1",
+      methodMode: "V3_CANDIDATE",
+      activate: true,
+      idempotencyKey: "key-1",
+    });
+    expect(idempotent).toBe(false);
+    expect(project.state).toBe("ACTIVE");
+    expect(project.methodMode).toBe("V3_CANDIDATE");
+    const audit = listProjectAudit(project.projectId);
+    const types = audit.map((e) => e.eventType);
+    expect(types).toContain("PROJECT_CREATED");
+    expect(types).toContain("PROJECT_MODE_SELECTED");
+    expect(types).toContain("PROJECT_ACTIVATED");
+  });
+
+  it("is idempotent on duplicate key", () => {
+    const a = createProject({
+      name: "Idem",
+      objective: "same",
+      methodMode: "SFIA_V2_6",
+      activate: false,
+      idempotencyKey: "key-dup",
+    });
+    const b = createProject({
+      name: "Idem changed",
+      objective: "different",
+      methodMode: "TRANSITION",
+      activate: true,
+      idempotencyKey: "key-dup",
+    });
+    expect(b.idempotent).toBe(true);
+    expect(b.project.projectId).toBe(a.project.projectId);
+    expect(b.project.name).toBe("Idem");
+  });
+
+  it("selects method mode with optimistic locking", () => {
+    const { project } = createProject({
+      name: "Mode",
+      objective: "switch",
+      methodMode: "SFIA_V2_6",
+      activate: false,
+      idempotencyKey: "key-mode",
+    });
+    const updated = selectMethodMode({
+      projectId: project.projectId,
+      methodMode: "TRANSITION",
+      expectedVersion: project.version,
+      activate: true,
+    });
+    expect(updated.methodMode).toBe("TRANSITION");
+    expect(updated.state).toBe("ACTIVE");
+    expect(updated.version).toBe(project.version + 1);
+    expect(() =>
+      selectMethodMode({
+        projectId: project.projectId,
+        methodMode: "V3_CANDIDATE",
+        expectedVersion: project.version,
+      }),
+    ).toThrow(D1Error);
+  });
+});
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/04-studio-shell-layout-contract.md`
+### `projects/sfia-studio/app/app/projects/[id]/page.tsx`
 
-```markdown
-# 04 — Studio Shell layout contract
+```tsx
+import { notFound } from "next/navigation";
+import { getProject, listProjectAudit } from "@/lib/d1/commands";
+import { D1Error } from "@/lib/d1/errors";
+import { ProjectCockpitView } from "@/features/d1/ProjectCockpitView";
 
-## Verdict sur le candidat proposé
+export const dynamic = "force-dynamic";
 
-Le modèle `nav | minmax(0,1fr) | clamp(320px,24vw,420px)` est **retenu** avec ajustements.
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  try {
+    const project = getProject(id);
+    const audit = listProjectAudit(id);
+    return <ProjectCockpitView project={project} audit={audit} />;
+  } catch (error) {
+    if (error instanceof D1Error && error.code === "NOT_FOUND") {
+      notFound();
+    }
+    throw error;
+  }
+}
+```
+### `projects/sfia-studio/app/app/projects/new/page.tsx`
 
-## Zones
+```tsx
+import { NewProjectForm } from "@/features/d1/NewProjectForm";
 
-| Zone | Largeur | Comportement |
-|------|---------|--------------|
-| Navigation latérale | 64–80px | fixe/compacte ; tooltip ; actif/focus |
-| Zone métier | `minmax(0, 1fr)` | **aucun max-width global** ; scroll vertical maîtrisé ; max-width **local** optionnel (ex. prose 72ch) |
-| Panneau contextuel | desktop large `clamp(320px, 24vw, 420px)` ; desktop `320–360px` | collapsible 1100–1280 ; drawer tablet ; bottom sheet / vue dédiée mobile |
+export default function NewProjectPage() {
+  return <NewProjectForm />;
+}
+```
+### `projects/sfia-studio/app/app/workspace/page.tsx`
 
-## Gutters
+```tsx
+import { listWorkspaceProjects } from "@/lib/d1/commands";
+import { D1Error } from "@/lib/d1/errors";
+import { WorkspaceHomeView } from "@/features/d1/WorkspaceHomeView";
 
-24–32 desktop · 16–24 medium · 16 tablet
+export const dynamic = "force-dynamic";
 
-## CSS futur (documentation seule — non implémenté)
+export default function WorkspacePage() {
+  try {
+    const projects = listWorkspaceProjects();
+    return <WorkspaceHomeView projects={projects} />;
+  } catch (error) {
+    const message =
+      error instanceof D1Error ? error.message : "Erreur de chargement workspace";
+    return <WorkspaceHomeView projects={[]} error={message} />;
+  }
+}
+```
+### `projects/sfia-studio/app/e2e/d1-i1-project-foundation.spec.ts`
+
+```tsx
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
+
+const shotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-d1-i1",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(shotDir, { recursive: true });
+});
+
+test.describe("D1-I1 Project Foundation", () => {
+  test("workspace → create project → cockpit → reload + audit", async ({
+    page,
+  }) => {
+    await page.goto("/workspace");
+    await expect(
+      page.getByRole("heading", { name: "Workspace Home", level: 1 }),
+    ).toBeVisible();
+    await page.screenshot({
+      path: path.join(shotDir, "workspace-home-1440.png"),
+      fullPage: false,
+    });
+
+    await page.getByTestId("cta-new-project").click();
+    await expect(page).toHaveURL(/\/projects\/new/);
+    await expect(
+      page.getByRole("heading", { name: "Nouveau projet", level: 1 }),
+    ).toBeVisible();
+    await page.screenshot({
+      path: path.join(shotDir, "new-project-1440.png"),
+      fullPage: false,
+    });
+
+    await page.getByTestId("project-name").fill("Projet D1-I1 E2E");
+    await page
+      .getByTestId("project-objective")
+      .fill("Valider Project-first foundation");
+    await page.getByTestId("project-context").fill("Contexte léger I1");
+    await page.getByTestId("project-method-mode").selectOption("V3_CANDIDATE");
+    await page.getByTestId("project-submit").click();
+
+    await expect(page).toHaveURL(/\/projects\/proj-/);
+    await expect(page.getByTestId("project-title")).toHaveText(
+      "Projet D1-I1 E2E",
+    );
+    await expect(page.getByTestId("project-state-badge")).toContainText(
+      "ACTIVE",
+    );
+    await expect(page.getByTestId("audit-timeline")).toContainText(
+      "PROJECT_CREATED",
+    );
+    await expect(page.getByTestId("audit-timeline")).toContainText(
+      "PROJECT_MODE_SELECTED",
+    );
+
+    await page.screenshot({
+      path: path.join(shotDir, "project-cockpit-1440.png"),
+      fullPage: false,
+    });
+
+    const url = page.url();
+    await page.reload();
+    await expect(page).toHaveURL(url);
+    await expect(page.getByTestId("project-title")).toHaveText(
+      "Projet D1-I1 E2E",
+    );
+
+    await page.goto("/workspace");
+    await expect(page.getByTestId("project-list")).toContainText(
+      "Projet D1-I1 E2E",
+    );
+  });
+
+  test("legacy /nouvelle-demande remains accessible", async ({ page }) => {
+    await page.goto("/nouvelle-demande");
+    await expect(
+      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
+    ).toBeVisible();
+  });
+
+  for (const width of [1728, 1440, 1280, 1024] as const) {
+    test(`no horizontal overflow at ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 1024 });
+      await page.goto("/workspace");
+      const metrics = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth: window.innerWidth,
+        shellWidth: document
+          .querySelector('[data-testid="d1-app-shell"]')
+          ?.getBoundingClientRect().width,
+      }));
+      expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
+      expect(metrics.shellWidth).toBeGreaterThanOrEqual(metrics.innerWidth - 1);
+      await page.screenshot({
+        path: path.join(shotDir, `workspace-${width}.png`),
+        fullPage: false,
+      });
+
+      // cockpit if any project exists — open new then capture
+      await page.goto("/projects/new");
+      await page.getByTestId("project-name").fill(`Overflow ${width}`);
+      await page.getByTestId("project-objective").fill("Responsive check");
+      await page.getByTestId("project-method-mode").selectOption("SFIA_V2_6");
+      await page.getByTestId("project-submit").click();
+      await expect(page.getByTestId("project-title")).toBeVisible();
+      const cockpitMetrics = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth: window.innerWidth,
+      }));
+      expect(cockpitMetrics.scrollWidth).toBeLessThanOrEqual(
+        cockpitMetrics.innerWidth + 1,
+      );
+      await page.screenshot({
+        path: path.join(shotDir, `project-cockpit-${width}.png`),
+        fullPage: false,
+      });
+    });
+  }
+});
+```
+### `projects/sfia-studio/app/features/d1/Badges.tsx`
+
+```tsx
+import {
+  METHOD_MODE_LABELS,
+  type MethodMode,
+  type ProjectState,
+} from "@/lib/d1/types";
+import styles from "./d1-shell.module.css";
+
+export function MethodModeBadge({ mode }: { mode: MethodMode | null }) {
+  if (!mode) {
+    return (
+      <span className={`${styles.badge} ${styles.badgeWarn}`} data-testid="method-mode-badge">
+        MethodMode non sélectionné
+      </span>
+    );
+  }
+  return (
+    <span className={`${styles.badge} ${styles.badgeMode}`} data-testid="method-mode-badge">
+      {METHOD_MODE_LABELS[mode]}
+    </span>
+  );
+}
+
+export function ProjectStateBadge({ state }: { state: ProjectState }) {
+  return (
+    <span className={`${styles.badge} ${styles.badgeState}`} data-testid="project-state-badge">
+      {state}
+    </span>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/ContextualRail.tsx`
+
+```tsx
+import type { D1AuditEvent, D1Project } from "@/lib/d1/types";
+import { METHOD_MODE_CLAIMS } from "@/lib/d1/types";
+import styles from "./d1-shell.module.css";
+
+export function ContextualRailI1({
+  project,
+  audit,
+}: {
+  project?: D1Project | null;
+  audit?: D1AuditEvent[];
+}) {
+  return (
+    <>
+      <h2>Contextual rail</h2>
+      <div className={styles.railCard}>
+        <strong>Mode</strong>
+        <p>
+          {project?.methodMode
+            ? METHOD_MODE_CLAIMS[project.methodMode]
+            : "Aucun mode"}
+        </p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>État projet</strong>
+        <p>{project?.state ?? "—"}</p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>Prochaine action</strong>
+        <p>
+          {project?.state === "DRAFT"
+            ? "Sélectionner / confirmer MethodMode puis activer"
+            : "Ouvrir un cycle (D1-I2 — non implémenté)"}
+        </p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>Derniers événements</strong>
+        {(audit ?? []).slice(0, 5).map((e) => (
+          <p key={e.eventId}>
+            {e.eventType} · {e.occurredAt}
+          </p>
+        ))}
+        {!audit?.length ? (
+          <p className={styles.placeholder}>Aucun événement</p>
+        ) : null}
+      </div>
+      <div className={styles.railCard}>
+        <strong>Placeholders</strong>
+        <p className={styles.placeholder}>Context — non chargé (I3)</p>
+        <p className={styles.placeholder}>Reserves — absentes (I4)</p>
+        <p className={styles.placeholder}>Decisions — absentes (I5)</p>
+      </div>
+      <p className={styles.monoNote}>
+        Mono-opérateur I1 : owner = decision_maker (temporaire).
+      </p>
+    </>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/D1AppShell.tsx`
+
+```tsx
+import Link from "next/link";
+import styles from "./d1-shell.module.css";
+
+export type D1Route = "/workspace" | "/projects/new" | `/projects/${string}`;
+
+interface D1AppShellProps {
+  active: "workspace" | "new" | "cockpit";
+  title: string;
+  children: React.ReactNode;
+  rail?: React.ReactNode;
+}
+
+export function D1AppShell({ active, title, children, rail }: D1AppShellProps) {
+  return (
+    <div className={styles.shell} data-testid="d1-app-shell">
+      <nav className={styles.nav} aria-label="Navigation D1">
+        <Link
+          href="/workspace"
+          className={styles.navLink}
+          aria-label="Workspace"
+          aria-current={active === "workspace" ? "page" : undefined}
+          title="Workspace"
+        >
+          WS
+        </Link>
+        <Link
+          href="/projects/new"
+          className={styles.navLink}
+          aria-label="Nouveau projet"
+          aria-current={active === "new" ? "page" : undefined}
+          title="Nouveau projet"
+        >
+          +
+        </Link>
+        <Link
+          href="/nouvelle-demande"
+          className={styles.navLink}
+          aria-label="Legacy OPS1 Nouvelle demande"
+          title="Legacy OPS1"
+        >
+          OPS
+        </Link>
+      </nav>
+      <main className={styles.main} id="main-content" aria-label={title}>
+        {children}
+        {rail ? (
+          <aside className={styles.railStacked} aria-label="Contexte projet">
+            {rail}
+          </aside>
+        ) : null}
+      </main>
+      {rail ? (
+        <aside className={styles.rail} aria-label="Rail contextuel">
+          {rail}
+        </aside>
+      ) : (
+        <aside className={styles.rail} aria-label="Rail contextuel">
+          <h2>Contextual rail</h2>
+          <div className={styles.railCard}>
+            <strong>I1</strong>
+            <p className={styles.placeholder}>
+              Context / Reserves / Decisions — placeholders (non implémentés)
+            </p>
+          </div>
+        </aside>
+      )}
+    </div>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/NewProjectForm.tsx`
+
+```tsx
+"use client";
+
+import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { actionCreateProject } from "@/lib/d1/actions";
+import {
+  METHOD_MODE_CLAIMS,
+  METHOD_MODE_LABELS,
+  METHOD_MODES,
+  type MethodMode,
+} from "@/lib/d1/types";
+import { D1AppShell } from "./D1AppShell";
+import styles from "./d1-shell.module.css";
+
+export function NewProjectForm() {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [name, setName] = useState("");
+  const [objective, setObjective] = useState("");
+  const [context, setContext] = useState("");
+  const [methodMode, setMethodMode] = useState<MethodMode>("SFIA_V2_6");
+  const [activate, setActivate] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const idempotencyKey = useMemo(
+    () => `idemp-${crypto.randomUUID()}`,
+    [],
+  );
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    startTransition(async () => {
+      const result = await actionCreateProject({
+        name,
+        objective,
+        initialContextSummary: context || undefined,
+        methodMode,
+        activate,
+        idempotencyKey,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      router.push(`/projects/${result.project.projectId}`);
+      router.refresh();
+    });
+  }
+
+  return (
+    <D1AppShell active="new" title="Nouveau projet">
+      <div className={styles.header}>
+        <h1>Nouveau projet</h1>
+      </div>
+      <p className={styles.hint}>
+        Parcours court doctrinal · max 6 étapes · mono-opérateur I1
+      </p>
+      <form className={`${styles.card} ${styles.form}`} onSubmit={onSubmit} noValidate>
+        <label className={styles.label}>
+          1. Identité
+          <input
+            className={styles.input}
+            name="name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            data-testid="project-name"
+            aria-required
+          />
+        </label>
+        <label className={styles.label}>
+          2. Objectif
+          <textarea
+            className={styles.textarea}
+            name="objective"
+            required
+            value={objective}
+            onChange={(e) => setObjective(e.target.value)}
+            data-testid="project-objective"
+          />
+        </label>
+        <label className={styles.label}>
+          3. Contexte initial
+          <span className={styles.hint}>Léger — cadrage détaillé = cycles futurs</span>
+          <textarea
+            className={styles.textarea}
+            name="context"
+            value={context}
+            onChange={(e) => setContext(e.target.value)}
+            data-testid="project-context"
+          />
+        </label>
+        <label className={styles.label}>
+          4. MethodMode
+          <select
+            className={styles.select}
+            value={methodMode}
+            onChange={(e) => setMethodMode(e.target.value as MethodMode)}
+            data-testid="project-method-mode"
+          >
+            {METHOD_MODES.map((m) => (
+              <option key={m} value={m}>
+                {METHOD_MODE_LABELS[m]}
+              </option>
+            ))}
+          </select>
+          <span className={styles.hint}>{METHOD_MODE_CLAIMS[methodMode]}</span>
+        </label>
+        <label className={styles.label}>
+          5. Responsable / décideur
+          <span className={styles.hint}>
+            Même utilisateur autorisé en I1 (DESIGN-R01) — actor-mono-i1
+          </span>
+        </label>
+        <label className={styles.label} style={{ fontWeight: 500 }}>
+          <input
+            type="checkbox"
+            checked={activate}
+            onChange={(e) => setActivate(e.target.checked)}
+            data-testid="project-activate"
+          />{" "}
+          6. Activer immédiatement (ACTIVE) après création
+        </label>
+        {error ? (
+          <p className={styles.error} role="alert">
+            {error}
+          </p>
+        ) : null}
+        <button
+          className={styles.cta}
+          type="submit"
+          disabled={pending}
+          data-testid="project-submit"
+        >
+          {pending ? "Création…" : "Confirmer la création"}
+        </button>
+      </form>
+    </D1AppShell>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/ProjectCockpitView.tsx`
+
+```tsx
+"use client";
+
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { actionSelectMethodMode } from "@/lib/d1/actions";
+import type { D1AuditEvent, D1Project, MethodMode } from "@/lib/d1/types";
+import {
+  METHOD_MODE_CLAIMS,
+  METHOD_MODE_LABELS,
+  METHOD_MODES,
+} from "@/lib/d1/types";
+import { D1AppShell } from "./D1AppShell";
+import { MethodModeBadge, ProjectStateBadge } from "./Badges";
+import { ContextualRailI1 } from "./ContextualRail";
+import styles from "./d1-shell.module.css";
+
+export function ProjectCockpitView({
+  project: initial,
+  audit: initialAudit,
+}: {
+  project: D1Project;
+  audit: D1AuditEvent[];
+}) {
+  const router = useRouter();
+  const [project, setProject] = useState(initial);
+  const [audit, setAudit] = useState(initialAudit);
+  const [mode, setMode] = useState<MethodMode>(
+    initial.methodMode ?? "SFIA_V2_6",
+  );
+  const [error, setError] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  const rail = <ContextualRailI1 project={project} audit={audit} />;
+
+  function onSaveMode(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    startTransition(async () => {
+      const result = await actionSelectMethodMode({
+        projectId: project.projectId,
+        methodMode: mode,
+        expectedVersion: project.version,
+        activate: true,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setProject(result.project);
+      router.refresh();
+    });
+  }
+
+  return (
+    <D1AppShell active="cockpit" title={project.name} rail={rail}>
+      <div className={styles.header}>
+        <h1 data-testid="project-title">{project.name}</h1>
+        <div className={styles.badges}>
+          <ProjectStateBadge state={project.state} />
+          <MethodModeBadge mode={project.methodMode} />
+        </div>
+      </div>
+
+      <section className={styles.card}>
+        <h2>Objectif</h2>
+        <p>{project.objective}</p>
+        {project.initialContextSummary ? (
+          <>
+            <h2>Contexte initial</h2>
+            <p className={styles.hint}>{project.initialContextSummary}</p>
+          </>
+        ) : null}
+      </section>
+
+      <section className={styles.card}>
+        <h2>Trajectoire</h2>
+        <p className={styles.placeholder}>
+          Placeholder I1 — ProjectTrajectory détaillée hors scope (cycles futurs).
+        </p>
+      </section>
+
+      <section className={styles.card}>
+        <h2>Prochaine action</h2>
+        <p>
+          {project.state === "ACTIVE"
+            ? "Ouvrir un CycleInstance de cadrage (D1-I2 — non disponible)."
+            : "Confirmer MethodMode et activer le projet."}
+        </p>
+      </section>
+
+      <section className={styles.card}>
+        <h2>MethodMode</h2>
+        <form className={styles.form} onSubmit={onSaveMode}>
+          <label className={styles.label}>
+            Sélection
+            <select
+              className={styles.select}
+              value={mode}
+              onChange={(e) => setMode(e.target.value as MethodMode)}
+              data-testid="cockpit-method-mode"
+            >
+              {METHOD_MODES.map((m) => (
+                <option key={m} value={m}>
+                  {METHOD_MODE_LABELS[m]}
+                </option>
+              ))}
+            </select>
+            <span className={styles.hint}>{METHOD_MODE_CLAIMS[mode]}</span>
+          </label>
+          {error ? (
+            <p className={styles.error} role="alert">
+              {error}
+            </p>
+          ) : null}
+          <button
+            className={styles.cta}
+            type="submit"
+            disabled={pending}
+            data-testid="cockpit-save-mode"
+          >
+            Enregistrer le mode
+          </button>
+        </form>
+      </section>
+
+      <section className={styles.card} data-testid="audit-timeline">
+        <h2>Audit récent</h2>
+        <ul className={styles.list}>
+          {audit.map((e) => (
+            <li key={e.eventId}>
+              <strong>{e.eventType}</strong>
+              <p className={styles.hint}>
+                {e.occurredAt} · {e.correlationId}
+              </p>
+            </li>
+          ))}
+        </ul>
+        {!audit.length ? (
+          <p className={styles.placeholder}>Aucun événement</p>
+        ) : null}
+      </section>
+    </D1AppShell>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/WorkspaceHomeView.tsx`
+
+```tsx
+import Link from "next/link";
+import type { D1Project } from "@/lib/d1/types";
+import { D1AppShell } from "./D1AppShell";
+import { MethodModeBadge, ProjectStateBadge } from "./Badges";
+import styles from "./d1-shell.module.css";
+
+export function WorkspaceHomeView({
+  projects,
+  error,
+}: {
+  projects: D1Project[];
+  error?: string;
+}) {
+  return (
+    <D1AppShell active="workspace" title="Workspace Home">
+      <div className={styles.header}>
+        <h1>Workspace Home</h1>
+        <Link className={styles.cta} href="/projects/new" data-testid="cta-new-project">
+          Nouveau projet
+        </Link>
+      </div>
+      <p className={styles.hint}>
+        Parcours D1-I1 Project-first · baseline SFIA v2.6 · v3 reste candidate
+      </p>
+      {error ? (
+        <p className={styles.error} role="alert">
+          {error}
+        </p>
+      ) : null}
+      {projects.length === 0 ? (
+        <div className={`${styles.card} ${styles.empty}`} data-testid="workspace-empty">
+          <h2>Aucun projet</h2>
+          <p className={styles.hint}>
+            Créez le premier projet pour démarrer le cadrage Project-first.
+          </p>
+          <Link className={styles.cta} href="/projects/new">
+            Créer un projet
+          </Link>
+        </div>
+      ) : (
+        <ul className={styles.list} data-testid="project-list">
+          {projects.map((p) => (
+            <li key={p.projectId}>
+              <Link href={`/projects/${p.projectId}`}>
+                <strong>{p.name}</strong>
+                <div className={styles.badges} style={{ marginTop: 8 }}>
+                  <ProjectStateBadge state={p.state} />
+                  <MethodModeBadge mode={p.methodMode} />
+                </div>
+                <p className={styles.hint}>{p.objective}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </D1AppShell>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/d1-shell.module.css`
 
 ```css
 .shell {
   display: grid;
   grid-template-columns:
-    var(--sfia-nav, 72px)
+    var(--d1-nav-width, 72px)
     minmax(0, 1fr)
     clamp(320px, 24vw, 420px);
-  min-height: 100dvh;
   width: 100%;
+  min-height: 100dvh;
+  background: var(--sfia-bg);
+  color: var(--sfia-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  box-sizing: border-box;
+  gap: 0;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 8px;
+  background: #fff;
+  border-right: 1px solid var(--sfia-border);
+}
+
+.navLink {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--sfia-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.navLink[aria-current="page"] {
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+}
+
+.main {
+  min-width: 0;
+  padding: 24px 32px;
+  overflow: auto;
+}
+
+.rail {
+  min-width: 0;
+  border-left: 1px solid var(--sfia-border);
+  background: #fff;
+  padding: 20px 16px;
+  overflow: auto;
+}
+
+.rail h2 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.railCard {
+  border: 1px solid var(--sfia-border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: var(--sfia-surface);
+}
+
+.railCard p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+}
+
+.placeholder {
+  color: var(--sfia-muted);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.badgeMode {
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+  border-color: #c9d6ff;
+}
+
+.badgeState {
+  background: var(--sfia-green-soft-00c, #e5faf2);
+  color: #0f7a52;
+  border-color: #b6ebd6;
+}
+
+.badgeWarn {
+  background: var(--sfia-orange-soft-00c, #fff7e0);
+  color: #8a5a00;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--sfia-shadow-sm);
+  margin-bottom: 16px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.list a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #fff;
+}
+
+.list a:hover,
+.list a:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: none;
+  background: var(--sfia-blue);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ctaSecondary {
+  background: #fff;
+  color: var(--sfia-blue);
+  border: 1px solid var(--sfia-border);
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+  max-width: 42rem;
+}
+
+.label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--sfia-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  min-height: 44px;
+}
+
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.error {
+  color: #a11;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--sfia-muted);
+  font-weight: 400;
+}
+
+.empty {
+  padding: 28px;
+  text-align: left;
+}
+
+.monoNote {
+  font-size: 12px;
+  color: var(--sfia-muted);
+  margin-top: 8px;
+}
+
+@media (max-width: 1279px) {
+  .shell {
+    grid-template-columns:
+      var(--d1-nav-width, 72px)
+      minmax(0, 1fr);
+  }
+
+  .rail {
+    display: none;
+  }
+
+  .railStacked {
+    display: block;
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .railStacked {
+    display: none;
+  }
+}
+
+@media (max-width: 1099px) {
+  .main {
+    padding: 16px;
+  }
 }
 ```
+### `projects/sfia-studio/app/lib/d1/actions.ts`
 
-## Interdits
+```tsx
+"use server";
 
-- artboard global 1440×1024 laissant bande vide ;
-- largeurs fixes ignorant viewport ;
-- conversation imposant largeur page ;
-- Copilot dominant hiérarchie métier ;
-- scrolls imbriqués non maîtrisés.
+import {
+  createProject,
+  getProject,
+  listProjectAudit,
+  listWorkspaceProjects,
+  selectMethodMode,
+} from "./commands";
+import { D1Error } from "./errors";
+import type { CreateProjectInput, MethodMode, SelectMethodModeInput } from "./types";
 
-## Remplacement conceptuel
+function serializeError(error: unknown): { ok: false; code: string; message: string } {
+  if (error instanceof D1Error) {
+    return { ok: false, code: error.code, message: error.message };
+  }
+  return {
+    ok: false,
+    code: "UNKNOWN",
+    message: error instanceof Error ? error.message : "Erreur inconnue",
+  };
+}
 
-`CopilotPanel` → `ContextualRail` (Context, Reserves, Decisions, Gates, Next action).
+export async function actionCreateProject(input: CreateProjectInput) {
+  try {
+    const result = createProject(input);
+    return { ok: true as const, ...result };
+  } catch (error) {
+    return serializeError(error);
+  }
+}
+
+export async function actionSelectMethodMode(input: SelectMethodModeInput) {
+  try {
+    const project = selectMethodMode(input);
+    return { ok: true as const, project };
+  } catch (error) {
+    return serializeError(error);
+  }
+}
+
+export async function actionListProjects() {
+  try {
+    const projects = listWorkspaceProjects();
+    return { ok: true as const, projects };
+  } catch (error) {
+    return serializeError(error);
+  }
+}
+
+export async function actionGetProject(projectId: string) {
+  try {
+    const project = getProject(projectId);
+    const audit = listProjectAudit(projectId);
+    return { ok: true as const, project, audit };
+  } catch (error) {
+    return serializeError(error);
+  }
+}
+
+export type { MethodMode };
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/05-d1-screen-inventory-and-priorities.md`
+### `projects/sfia-studio/app/lib/d1/authz.ts`
+
+```tsx
+import {
+  D1_MONO_OPERATOR_ACTOR_ID,
+  type D1Project,
+} from "./types";
+import { D1Error } from "./errors";
+
+/** I1 AuthZ stub: single operator owns all actions. */
+export function requireMonoOperator(actorId = D1_MONO_OPERATOR_ACTOR_ID): string {
+  if (actorId !== D1_MONO_OPERATOR_ACTOR_ID) {
+    throw new D1Error(
+      "UNAUTHORIZED",
+      "D1-I1 mono-opérateur uniquement (actor-mono-i1).",
+    );
+  }
+  return actorId;
+}
+
+export function assertProjectOwner(
+  project: D1Project,
+  actorId = D1_MONO_OPERATOR_ACTOR_ID,
+): void {
+  requireMonoOperator(actorId);
+  if (project.ownerActorId !== actorId) {
+    throw new D1Error("UNAUTHORIZED", "Acteur non propriétaire du projet.");
+  }
+}
+```
+### `projects/sfia-studio/app/lib/d1/commands.ts`
+
+```tsx
+import { D1ProjectRepository } from "./repository";
+import { openD1Db, nowIso, resetD1DbForTests } from "./db";
+import { createAuditEventId, createCorrelationId, createProjectId } from "./ids";
+import { validateCreateProjectInput, assertMethodMode } from "./domain";
+import { requireMonoOperator } from "./authz";
+import { D1Error } from "./errors";
+import {
+  D1_DEFAULT_WORKSPACE_ID,
+  D1_MONO_OPERATOR_ACTOR_ID,
+  type CreateProjectInput,
+  type D1Project,
+  type SelectMethodModeInput,
+} from "./types";
+import { logD1 } from "./observability";
+
+export { resetD1DbForTests };
+
+export interface CreateProjectResult {
+  project: D1Project;
+  idempotent: boolean;
+}
+
+export function createProject(
+  input: CreateProjectInput,
+  repo = new D1ProjectRepository(openD1Db()),
+): CreateProjectResult {
+  const started = Date.now();
+  try {
+    validateCreateProjectInput(input);
+    const actorId = requireMonoOperator();
+
+    const cached = repo.getIdempotentResponse(input.idempotencyKey.trim());
+    if (cached) {
+      const parsed = JSON.parse(cached) as { project: D1Project };
+      logD1("project_create", {
+        status: "idempotent",
+        projectId: parsed.project.projectId,
+        durationMs: Date.now() - started,
+      });
+      return { project: parsed.project, idempotent: true };
+    }
+
+    const correlationId = input.correlationId?.trim() || createCorrelationId();
+    const ts = nowIso();
+    const projectId = createProjectId();
+    const state = input.activate ? "ACTIVE" : "DRAFT";
+    const project: D1Project = {
+      projectId,
+      workspaceId: D1_DEFAULT_WORKSPACE_ID,
+      name: input.name.trim(),
+      objective: input.objective.trim(),
+      initialContextSummary: input.initialContextSummary?.trim() || null,
+      methodMode: input.methodMode,
+      state,
+      ownerActorId: actorId,
+      createdAt: ts,
+      updatedAt: ts,
+      version: 1,
+    };
+
+    const events: Array<{
+      eventId: string;
+      eventType: "PROJECT_CREATED" | "PROJECT_MODE_SELECTED" | "PROJECT_ACTIVATED";
+      actorId: string;
+      correlationId: string;
+      payload: Record<string, unknown>;
+    }> = [
+      {
+        eventId: createAuditEventId(),
+        eventType: "PROJECT_CREATED",
+        actorId,
+        correlationId,
+        payload: {
+          name: project.name,
+          methodMode: project.methodMode,
+          state: project.state,
+          monoOperator: true,
+        },
+      },
+      {
+        eventId: createAuditEventId(),
+        eventType: "PROJECT_MODE_SELECTED",
+        actorId,
+        correlationId,
+        payload: { methodMode: project.methodMode },
+      },
+    ];
+    if (state === "ACTIVE") {
+      events.push({
+        eventId: createAuditEventId(),
+        eventType: "PROJECT_ACTIVATED",
+        actorId,
+        correlationId,
+        payload: { from: "DRAFT", to: "ACTIVE" },
+      });
+    }
+
+    const responseJson = JSON.stringify({ project });
+    const outcome = repo.createProjectAtomic({
+      project,
+      assignments: [
+        {
+          principalId: actorId,
+          projectId,
+          role: "project_owner",
+          createdAt: ts,
+        },
+        {
+          principalId: actorId,
+          projectId,
+          role: "decision_maker",
+          createdAt: ts,
+        },
+      ],
+      events,
+      idempotencyKey: input.idempotencyKey.trim(),
+      responseJson,
+    });
+
+    if (outcome.kind === "idempotent") {
+      const parsed = JSON.parse(outcome.responseJson) as { project: D1Project };
+      logD1("project_create", {
+        status: "idempotent",
+        projectId: parsed.project.projectId,
+        durationMs: Date.now() - started,
+      });
+      return { project: parsed.project, idempotent: true };
+    }
+
+    logD1("project_create", {
+      status: "ok",
+      projectId,
+      durationMs: Date.now() - started,
+    });
+    return { project, idempotent: false };
+  } catch (error) {
+    logD1("project_create", {
+      status: "failed",
+      durationMs: Date.now() - started,
+      errorCode: error instanceof D1Error ? error.code : "UNKNOWN",
+    });
+    throw error;
+  }
+}
+
+export function selectMethodMode(
+  input: SelectMethodModeInput,
+  repo = new D1ProjectRepository(openD1Db()),
+): D1Project {
+  const started = Date.now();
+  try {
+    const actorId = requireMonoOperator();
+    assertMethodMode(input.methodMode);
+    const current = repo.getProject(input.projectId);
+    if (!current) {
+      throw new D1Error("NOT_FOUND", "Projet introuvable.");
+    }
+    if (current.ownerActorId !== actorId) {
+      throw new D1Error("UNAUTHORIZED", "Acteur non propriétaire.");
+    }
+
+    const activate = input.activate !== false;
+    const nextState =
+      activate && input.methodMode ? "ACTIVE" : current.state === "ACTIVE" ? "ACTIVE" : "DRAFT";
+
+    const updated = repo.selectMethodModeAtomic({
+      projectId: input.projectId,
+      methodMode: input.methodMode,
+      expectedVersion: input.expectedVersion,
+      nextState,
+      actorId,
+      correlationId: input.correlationId?.trim() || createCorrelationId(),
+      eventIds: {
+        mode: createAuditEventId(),
+        activated:
+          nextState === "ACTIVE" && current.state !== "ACTIVE"
+            ? createAuditEventId()
+            : undefined,
+      },
+    });
+
+    logD1("method_mode_selected", {
+      status: "ok",
+      projectId: updated.projectId,
+      durationMs: Date.now() - started,
+    });
+    return updated;
+  } catch (error) {
+    logD1("method_mode_selected", {
+      status: "failed",
+      durationMs: Date.now() - started,
+      errorCode: error instanceof D1Error ? error.code : "UNKNOWN",
+    });
+    throw error;
+  }
+}
+
+export function listWorkspaceProjects(
+  workspaceId = D1_DEFAULT_WORKSPACE_ID,
+  repo = new D1ProjectRepository(openD1Db()),
+): D1Project[] {
+  requireMonoOperator();
+  return repo.listProjects(workspaceId);
+}
+
+export function getProject(
+  projectId: string,
+  repo = new D1ProjectRepository(openD1Db()),
+): D1Project {
+  requireMonoOperator();
+  const project = repo.getProject(projectId);
+  if (!project) {
+    throw new D1Error("NOT_FOUND", "Projet introuvable.");
+  }
+  return project;
+}
+
+export function listProjectAudit(
+  projectId: string,
+  repo = new D1ProjectRepository(openD1Db()),
+) {
+  requireMonoOperator();
+  return repo.listAuditEvents(projectId);
+}
+
+export { D1_MONO_OPERATOR_ACTOR_ID };
+```
+### `projects/sfia-studio/app/lib/d1/db.ts`
+
+```tsx
+import { DatabaseSync } from "node:sqlite";
+import { resolveD1SqlitePath } from "./paths";
+import { D1Error } from "./errors";
+
+const SCHEMA_SQL = `
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS d1_projects (
+  project_id TEXT PRIMARY KEY NOT NULL,
+  workspace_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  objective TEXT NOT NULL,
+  initial_context_summary TEXT,
+  method_mode TEXT CHECK (
+    method_mode IS NULL OR method_mode IN ('SFIA_V2_6', 'TRANSITION', 'V3_CANDIDATE')
+  ),
+  state TEXT NOT NULL CHECK (state IN ('DRAFT', 'ACTIVE')),
+  owner_actor_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  version INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS d1_assignments (
+  principal_id TEXT NOT NULL,
+  project_id TEXT NOT NULL,
+  role TEXT NOT NULL CHECK (role IN ('project_owner', 'decision_maker')),
+  created_at TEXT NOT NULL,
+  PRIMARY KEY (principal_id, project_id, role),
+  FOREIGN KEY (project_id) REFERENCES d1_projects(project_id)
+);
+
+CREATE TABLE IF NOT EXISTS d1_audit_events (
+  event_id TEXT PRIMARY KEY NOT NULL,
+  event_type TEXT NOT NULL CHECK (
+    event_type IN ('PROJECT_CREATED', 'PROJECT_MODE_SELECTED', 'PROJECT_ACTIVATED')
+  ),
+  occurred_at TEXT NOT NULL,
+  actor_id TEXT NOT NULL,
+  correlation_id TEXT NOT NULL,
+  project_id TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES d1_projects(project_id)
+);
+
+CREATE TABLE IF NOT EXISTS d1_idempotency_keys (
+  idempotency_key TEXT PRIMARY KEY NOT NULL,
+  command TEXT NOT NULL,
+  response_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_d1_projects_workspace
+  ON d1_projects(workspace_id, state);
+CREATE INDEX IF NOT EXISTS idx_d1_audit_project
+  ON d1_audit_events(project_id, occurred_at);
+`;
+
+let singleton: DatabaseSync | null = null;
+let singletonPath: string | null = null;
+
+function migrate(db: DatabaseSync): void {
+  db.exec(SCHEMA_SQL);
+  const integrity = db.prepare("PRAGMA integrity_check").get() as
+    | Record<string, string>
+    | undefined;
+  const raw = integrity ? String(Object.values(integrity)[0] ?? "") : "";
+  if (raw !== "ok") {
+    throw new D1Error("PERSISTENCE", "Intégrité SQLite D1 invalide.");
+  }
+}
+
+export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
+  if (singleton && singletonPath === dbPath) {
+    return singleton;
+  }
+  if (singleton) {
+    try {
+      singleton.close();
+    } catch {
+      /* ignore */
+    }
+    singleton = null;
+    singletonPath = null;
+  }
+  try {
+    const db = new DatabaseSync(dbPath);
+    migrate(db);
+    singleton = db;
+    singletonPath = dbPath;
+    return db;
+  } catch (error) {
+    if (error instanceof D1Error) throw error;
+    throw new D1Error("PERSISTENCE", "Impossible d’ouvrir SQLite D1.", error);
+  }
+}
+
+export function resetD1DbForTests(): void {
+  if (singleton) {
+    try {
+      singleton.close();
+    } catch {
+      /* ignore */
+    }
+  }
+  singleton = null;
+  singletonPath = null;
+}
+
+export function nowIso(): string {
+  return new Date().toISOString();
+}
+```
+### `projects/sfia-studio/app/lib/d1/domain.ts`
+
+```tsx
+import {
+  METHOD_MODES,
+  type CreateProjectInput,
+  type MethodMode,
+  type ProjectState,
+} from "./types";
+import { D1Error } from "./errors";
+
+const FORBIDDEN_CLAIMS = [
+  "V3-ADOPTED",
+  "V3-IMPLEMENTED",
+  "V3_ADOPTED",
+  "V3_IMPLEMENTED",
+] as const;
+
+export function assertMethodMode(value: string): MethodMode {
+  if (!(METHOD_MODES as readonly string[]).includes(value)) {
+    throw new D1Error("VALIDATION", `MethodMode invalide: ${value}`);
+  }
+  return value as MethodMode;
+}
+
+export function assertNoForbiddenClaim(text: string): void {
+  const upper = text.toUpperCase();
+  for (const claim of FORBIDDEN_CLAIMS) {
+    if (upper.includes(claim.replace("-", "_")) || upper.includes(claim)) {
+      throw new D1Error(
+        "CLAIM_FORBIDDEN",
+        `Claim interdit en D1-I1: ${claim}. Seul V3_CANDIDATE est autorisé.`,
+      );
+    }
+  }
+}
+
+export function validateCreateProjectInput(input: CreateProjectInput): void {
+  const name = input.name?.trim() ?? "";
+  const objective = input.objective?.trim() ?? "";
+  if (!name || name.length > 200) {
+    throw new D1Error("VALIDATION", "Le nom du projet est requis (max 200).");
+  }
+  if (!objective || objective.length > 2000) {
+    throw new D1Error("VALIDATION", "L’objectif est requis (max 2000).");
+  }
+  if (input.initialContextSummary && input.initialContextSummary.length > 4000) {
+    throw new D1Error("VALIDATION", "Contexte initial trop long (max 4000).");
+  }
+  assertMethodMode(input.methodMode);
+  assertNoForbiddenClaim(name);
+  assertNoForbiddenClaim(objective);
+  if (input.initialContextSummary) {
+    assertNoForbiddenClaim(input.initialContextSummary);
+  }
+  if (!input.idempotencyKey?.trim()) {
+    throw new D1Error("VALIDATION", "idempotencyKey requis.");
+  }
+}
+
+/** DRAFT → ACTIVE only when methodMode is set. */
+export function canActivate(
+  state: ProjectState,
+  methodMode: MethodMode | null,
+): boolean {
+  return state === "DRAFT" && methodMode != null;
+}
+
+export function nextStateAfterCreate(activate: boolean): ProjectState {
+  return activate ? "ACTIVE" : "DRAFT";
+}
+```
+### `projects/sfia-studio/app/lib/d1/errors.ts`
+
+```tsx
+export type D1ErrorCode =
+  | "VALIDATION"
+  | "NOT_FOUND"
+  | "CONFLICT"
+  | "UNAUTHORIZED"
+  | "IDEMPOTENCY"
+  | "PERSISTENCE"
+  | "CLAIM_FORBIDDEN";
+
+export class D1Error extends Error {
+  readonly code: D1ErrorCode;
+  readonly cause?: unknown;
+
+  constructor(code: D1ErrorCode, message: string, cause?: unknown) {
+    super(message);
+    this.name = "D1Error";
+    this.code = code;
+    this.cause = cause;
+  }
+}
+```
+### `projects/sfia-studio/app/lib/d1/ids.ts`
+
+```tsx
+import { randomUUID } from "node:crypto";
+
+export function createProjectId(): string {
+  return `proj-${randomUUID()}`;
+}
+
+export function createAuditEventId(): string {
+  return `d1-evt-${randomUUID()}`;
+}
+
+export function createCorrelationId(): string {
+  return `corr-${randomUUID()}`;
+}
+```
+### `projects/sfia-studio/app/lib/d1/index.ts`
+
+```tsx
+export * from "./types";
+export * from "./commands";
+export * from "./errors";
+export { resetD1DbForTests } from "./db";
+```
+### `projects/sfia-studio/app/lib/d1/observability.ts`
+
+```tsx
+/** Structured logs for D1-I1 SLI candidates (no contract SLO). */
+
+export function logD1(
+  event: string,
+  fields: Record<string, string | number | boolean | undefined>,
+): void {
+  const payload = {
+    event: `d1.${event}`,
+    ts: new Date().toISOString(),
+    ...fields,
+  };
+  // eslint-disable-next-line no-console
+  console.info(JSON.stringify(payload));
+}
+```
+### `projects/sfia-studio/app/lib/d1/paths.ts`
+
+```tsx
+import fs from "node:fs";
+import path from "node:path";
+import { D1Error } from "./errors";
+
+/**
+ * D1 SQLite lives beside OPS1 under .sfia-exec — separate file to avoid
+ * colliding with OPS1 migrations. Override: D1_SQLITE_PATH or OPS1_EXEC_ROOT.
+ */
+export function resolveD1SqlitePath(): string {
+  const explicit = process.env.D1_SQLITE_PATH?.trim();
+  if (explicit) {
+    const resolved = path.resolve(explicit);
+    ensureDir(path.dirname(resolved));
+    return resolved;
+  }
+
+  const override = process.env.OPS1_EXEC_ROOT?.trim();
+  if (override) {
+    const stateDir = path.join(path.resolve(override), "state");
+    ensureDir(stateDir);
+    return path.join(stateDir, "d1.sqlite");
+  }
+
+  const studioRoot = path.resolve(process.cwd(), "..");
+  const stateDir = path.join(studioRoot, ".sfia-exec", "local-i1", "state");
+  ensureDir(stateDir);
+  const dbPath = path.join(stateDir, "d1.sqlite");
+  const execBase = path.resolve(studioRoot, ".sfia-exec");
+  if (!dbPath.startsWith(execBase + path.sep)) {
+    throw new D1Error("PERSISTENCE", "Chemin SQLite D1 hors .sfia-exec.");
+  }
+  return dbPath;
+}
+
+function ensureDir(dir: string): void {
+  fs.mkdirSync(dir, { recursive: true });
+}
+```
+### `projects/sfia-studio/app/lib/d1/repository.ts`
+
+```tsx
+import type { DatabaseSync } from "node:sqlite";
+import { openD1Db, nowIso } from "./db";
+import { D1Error } from "./errors";
+import type {
+  D1Assignment,
+  D1AuditEvent,
+  D1AuditEventType,
+  D1Project,
+  MethodMode,
+  ProjectState,
+} from "./types";
+
+function mapProject(row: Record<string, unknown>): D1Project {
+  return {
+    projectId: String(row.project_id),
+    workspaceId: String(row.workspace_id),
+    name: String(row.name),
+    objective: String(row.objective),
+    initialContextSummary: row.initial_context_summary
+      ? String(row.initial_context_summary)
+      : null,
+    methodMode: row.method_mode ? (String(row.method_mode) as MethodMode) : null,
+    state: String(row.state) as ProjectState,
+    ownerActorId: String(row.owner_actor_id),
+    createdAt: String(row.created_at),
+    updatedAt: String(row.updated_at),
+    version: Number(row.version),
+  };
+}
+
+export class D1ProjectRepository {
+  constructor(private readonly db: DatabaseSync = openD1Db()) {}
+
+  listProjects(workspaceId: string): D1Project[] {
+    const rows = this.db
+      .prepare(
+        `SELECT * FROM d1_projects
+         WHERE workspace_id = ?
+         ORDER BY updated_at DESC`,
+      )
+      .all(workspaceId) as Record<string, unknown>[];
+    return rows.map(mapProject);
+  }
+
+  getProject(projectId: string): D1Project | null {
+    const row = this.db
+      .prepare(`SELECT * FROM d1_projects WHERE project_id = ?`)
+      .get(projectId) as Record<string, unknown> | undefined;
+    return row ? mapProject(row) : null;
+  }
+
+  getIdempotentResponse(key: string): string | null {
+    const row = this.db
+      .prepare(
+        `SELECT response_json FROM d1_idempotency_keys WHERE idempotency_key = ?`,
+      )
+      .get(key) as { response_json?: string } | undefined;
+    return row?.response_json ?? null;
+  }
+
+  listAuditEvents(projectId: string, limit = 20): D1AuditEvent[] {
+    const rows = this.db
+      .prepare(
+        `SELECT * FROM d1_audit_events
+         WHERE project_id = ?
+         ORDER BY occurred_at DESC
+         LIMIT ?`,
+      )
+      .all(projectId, limit) as Record<string, unknown>[];
+    return rows.map((row) => ({
+      eventId: String(row.event_id),
+      eventType: String(row.event_type) as D1AuditEventType,
+      occurredAt: String(row.occurred_at),
+      actorId: String(row.actor_id),
+      correlationId: String(row.correlation_id),
+      projectId: String(row.project_id),
+      payloadJson: String(row.payload_json),
+    }));
+  }
+
+  /**
+   * Atomic CreateProject: project + dual assignment (owner+decideur mono-op) + audits + idempotency.
+   */
+  createProjectAtomic(args: {
+    project: D1Project;
+    assignments: D1Assignment[];
+    events: Array<{
+      eventId: string;
+      eventType: D1AuditEventType;
+      actorId: string;
+      correlationId: string;
+      payload: Record<string, unknown>;
+    }>;
+    idempotencyKey: string;
+    responseJson: string;
+  }): { kind: "created" } | { kind: "idempotent"; responseJson: string } {
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      const existing = this.getIdempotentResponse(args.idempotencyKey);
+      if (existing) {
+        this.db.exec("ROLLBACK");
+        return { kind: "idempotent", responseJson: existing };
+      }
+
+      this.db
+        .prepare(
+          `INSERT INTO d1_projects (
+            project_id, workspace_id, name, objective, initial_context_summary,
+            method_mode, state, owner_actor_id, created_at, updated_at, version
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        )
+        .run(
+          args.project.projectId,
+          args.project.workspaceId,
+          args.project.name,
+          args.project.objective,
+          args.project.initialContextSummary,
+          args.project.methodMode,
+          args.project.state,
+          args.project.ownerActorId,
+          args.project.createdAt,
+          args.project.updatedAt,
+          args.project.version,
+        );
+
+      const assignStmt = this.db.prepare(
+        `INSERT INTO d1_assignments (principal_id, project_id, role, created_at)
+         VALUES (?, ?, ?, ?)`,
+      );
+      for (const a of args.assignments) {
+        assignStmt.run(a.principalId, a.projectId, a.role, a.createdAt);
+      }
+
+      const evtStmt = this.db.prepare(
+        `INSERT INTO d1_audit_events (
+          event_id, event_type, occurred_at, actor_id, correlation_id, project_id, payload_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      );
+      for (const e of args.events) {
+        evtStmt.run(
+          e.eventId,
+          e.eventType,
+          nowIso(),
+          e.actorId,
+          e.correlationId,
+          args.project.projectId,
+          JSON.stringify(e.payload),
+        );
+      }
+
+      this.db
+        .prepare(
+          `INSERT INTO d1_idempotency_keys (idempotency_key, command, response_json, created_at)
+           VALUES (?, 'CreateProject', ?, ?)`,
+        )
+        .run(args.idempotencyKey, args.responseJson, nowIso());
+
+      this.db.exec("COMMIT");
+      return { kind: "created" };
+    } catch (error) {
+      try {
+        this.db.exec("ROLLBACK");
+      } catch {
+        /* ignore */
+      }
+      if (error instanceof D1Error) throw error;
+      throw new D1Error("PERSISTENCE", "Échec CreateProject.", error);
+    }
+  }
+
+  selectMethodModeAtomic(args: {
+    projectId: string;
+    methodMode: MethodMode;
+    expectedVersion: number;
+    nextState: ProjectState;
+    actorId: string;
+    correlationId: string;
+    eventIds: { mode: string; activated?: string };
+  }): D1Project {
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      const current = this.getProject(args.projectId);
+      if (!current) {
+        throw new D1Error("NOT_FOUND", "Projet introuvable.");
+      }
+      if (current.version !== args.expectedVersion) {
+        throw new D1Error("CONFLICT", "Version projet obsolète.");
+      }
+
+      const updatedAt = nowIso();
+      const result = this.db
+        .prepare(
+          `UPDATE d1_projects
+           SET method_mode = ?, state = ?, updated_at = ?, version = version + 1
+           WHERE project_id = ? AND version = ?`,
+        )
+        .run(
+          args.methodMode,
+          args.nextState,
+          updatedAt,
+          args.projectId,
+          args.expectedVersion,
+        );
+      if (Number(result.changes) !== 1) {
+        throw new D1Error("CONFLICT", "Mise à jour concurrente détectée.");
+      }
+
+      this.db
+        .prepare(
+          `INSERT INTO d1_audit_events (
+            event_id, event_type, occurred_at, actor_id, correlation_id, project_id, payload_json
+          ) VALUES (?, 'PROJECT_MODE_SELECTED', ?, ?, ?, ?, ?)`,
+        )
+        .run(
+          args.eventIds.mode,
+          updatedAt,
+          args.actorId,
+          args.correlationId,
+          args.projectId,
+          JSON.stringify({ methodMode: args.methodMode }),
+        );
+
+      if (args.nextState === "ACTIVE" && current.state !== "ACTIVE") {
+        if (!args.eventIds.activated) {
+          throw new D1Error("VALIDATION", "eventIds.activated requis.");
+        }
+        this.db
+          .prepare(
+            `INSERT INTO d1_audit_events (
+              event_id, event_type, occurred_at, actor_id, correlation_id, project_id, payload_json
+            ) VALUES (?, 'PROJECT_ACTIVATED', ?, ?, ?, ?, ?)`,
+          )
+          .run(
+            args.eventIds.activated,
+            updatedAt,
+            args.actorId,
+            args.correlationId,
+            args.projectId,
+            JSON.stringify({ from: current.state, to: "ACTIVE" }),
+          );
+      }
+
+      this.db.exec("COMMIT");
+      const updated = this.getProject(args.projectId);
+      if (!updated) {
+        throw new D1Error("PERSISTENCE", "Projet perdu après update.");
+      }
+      return updated;
+    } catch (error) {
+      try {
+        this.db.exec("ROLLBACK");
+      } catch {
+        /* ignore */
+      }
+      if (error instanceof D1Error) throw error;
+      throw new D1Error("PERSISTENCE", "Échec SelectMethodMode.", error);
+    }
+  }
+}
+```
+### `projects/sfia-studio/app/lib/d1/types.ts`
+
+```tsx
+/** D1-I1 Project Foundation — domain types (bounded). */
+
+export const D1_SCHEMA_VERSION = "0.1.0-d1" as const;
+
+/** Method modes authorized for I1 — no V3-ADOPTED / V3-IMPLEMENTED claims. */
+export const METHOD_MODES = ["SFIA_V2_6", "TRANSITION", "V3_CANDIDATE"] as const;
+export type MethodMode = (typeof METHOD_MODES)[number];
+
+export const PROJECT_STATES = ["DRAFT", "ACTIVE"] as const;
+export type ProjectState = (typeof PROJECT_STATES)[number];
+
+export const AUDIT_EVENT_TYPES = [
+  "PROJECT_CREATED",
+  "PROJECT_MODE_SELECTED",
+  "PROJECT_ACTIVATED",
+] as const;
+export type D1AuditEventType = (typeof AUDIT_EVENT_TYPES)[number];
+
+/** I1 temporary mono-operator — owner == decision maker (explicit). */
+export const D1_MONO_OPERATOR_ACTOR_ID = "actor-mono-i1" as const;
+export const D1_DEFAULT_WORKSPACE_ID = "ws-studio-default" as const;
+
+export interface D1Project {
+  projectId: string;
+  workspaceId: string;
+  name: string;
+  objective: string;
+  initialContextSummary: string | null;
+  methodMode: MethodMode | null;
+  state: ProjectState;
+  ownerActorId: string;
+  createdAt: string;
+  updatedAt: string;
+  version: number;
+}
+
+export interface D1Assignment {
+  principalId: string;
+  projectId: string;
+  role: "project_owner" | "decision_maker";
+  createdAt: string;
+}
+
+export interface D1AuditEvent {
+  eventId: string;
+  eventType: D1AuditEventType;
+  occurredAt: string;
+  actorId: string;
+  correlationId: string;
+  projectId: string;
+  payloadJson: string;
+}
+
+export interface CreateProjectInput {
+  name: string;
+  objective: string;
+  initialContextSummary?: string;
+  methodMode: MethodMode;
+  activate: boolean;
+  idempotencyKey: string;
+  correlationId?: string;
+}
+
+export interface SelectMethodModeInput {
+  projectId: string;
+  methodMode: MethodMode;
+  expectedVersion: number;
+  activate?: boolean;
+  correlationId?: string;
+}
+
+export const METHOD_MODE_LABELS: Record<MethodMode, string> = {
+  SFIA_V2_6: "SFIA v2.6 (baseline opérationnelle)",
+  TRANSITION: "Transition v2.6 → v3 candidate",
+  V3_CANDIDATE: "SFIA v3.0 candidate (Studio-native) — non adopté",
+};
+
+export const METHOD_MODE_CLAIMS: Record<MethodMode, string> = {
+  SFIA_V2_6: "Baseline v2.6 active. Aucun claim v3.",
+  TRANSITION: "Mode transition. Pas d’adoption v3.",
+  V3_CANDIDATE:
+    "Claim limité à V3-MODELED CANDIDATE / prototype. Interdit : V3-ADOPTED, V3-IMPLEMENTED global.",
+};
+```
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/01-implemented-scope.md`
 
 ```markdown
-# 05 — Screen inventory and priorities
+# 01 — Implemented scope
 
-| # | Écran | Priorité Figma I1 | Fidélité |
-|---|-------|-------------------|----------|
-| 1 | Workspace Home | **Obligatoire** | haute |
-| 2 | New Project | **Obligatoire** | haute |
-| 3 | Project Cockpit | **Obligatoire** | haute |
-| — | Method Mode | **Obligatoire** | haute |
-| 4 | Project Framing | cohérente | medium |
-| 5 | Cycle Header | partiel dans Cockpit/Session | medium |
-| 6 | Guided Session | **Obligatoire** desktop | haute |
-| 7 | Context Status | dans rail | medium |
-| 8 | Reserve Panel | dans rail / Decision | medium |
-| 9 | Decision Center | **Obligatoire** | haute |
-| 10 | Gate Modal | overlay Decision | medium |
-| 11 | Transition Review | medium | medium |
-| 12 | Cycle Review | **Obligatoire** | haute |
-| 13 | Audit Timeline | medium | medium |
+## Inclus
+- Workspace Home `/workspace`
+- New Project `/projects/new`
+- Project Cockpit `/projects/[id]`
+- MethodMode SFIA_V2_6 / TRANSITION / V3_CANDIDATE
+- SQLite `d1.sqlite` (node:sqlite)
+- Assignments mono-opérateur (owner + decision_maker même acteur)
+- Audit PROJECT_CREATED / PROJECT_MODE_SELECTED / PROJECT_ACTIVATED
+- D1 AppShell fluide isolé (OPS1 shell inchangé structurellement)
+- Lien rail OPS1 → Workspace (`W`)
 
-Hors scope : ExecutionContract, Cursor, Evidence D2, Action/Release Review.
+## Exclus
+GuidedSession · GPT · Context Git · Policy E0–E4 · Gates · Transition · ReviewBundle · Cursor · D2/D3 · PostgreSQL · IdP
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/06-workspace-home-contract.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/02-technical-implementation.md`
 
 ```markdown
-# 06 — Workspace Home contract
+# 02 — Technical implementation
 
-## Objectif
-Point d’entrée Project-first : lister, créer, voir ce qui bloque.
+## Architecture
+UI → Server Actions (`lib/d1/actions.ts`) → commands (`commands.ts`) → repository/tx → audit
 
-## Contenu
-- Projets récents / actifs
-- Projets nécessitant décision
-- Cycles bloqués / réserves ouvertes
-- MethodMode badge par projet
-- CTA Nouveau projet
-- Accès clôturés (lecture seule)
+## Modules
+- `lib/d1/*` domain, db, repository, authz, commands, actions, observability
+- `features/d1/*` AppShell, views, rail, badges, CSS
+- Routes App Router sous `app/workspace`, `app/projects/**`
 
-## États
-empty · loading · error · single project · many · mono-opérateur (R01)
+## Stack
+Next 15 · React 19 · node:sqlite · Vitest · Playwright — **aucune nouvelle dépendance**
 
-## Non-objectifs
-Dashboard métriques surchargé avant données réelles.
-
-## Acceptation
-CTA create visible ; aucune session OPS1 comme hub.
+## Isolation
+D1 AppShell séparé de `StudioShell` artboard 1440 pour ne pas casser OPS1.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/07-new-project-contract.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/03-data-and-audit-implementation.md`
 
 ```markdown
-# 07 — New Project contract
+# 03 — Data and audit
 
-## Parcours court (max 6 étapes)
-1. Identité
-2. Objectif
-3. Contexte initial (léger)
-4. MethodMode (v2.6 / transition / v3 candidate) + claims
-5. Responsable/décideur (même user OK en I1 / R01)
-6. Confirmation → Project DRAFT + audit
+## SQLite file
+`.sfia-exec/local-i1/state/d1.sqlite` (override `D1_SQLITE_PATH`)
 
-## Principes
-Pas de questionnaire exhaustif. Cadrage détaillé = Cycle + GuidedSession.
+## Tables
+- d1_projects
+- d1_assignments
+- d1_audit_events (append-only)
+- d1_idempotency_keys
 
-## Matérialiser
-Différence modes · claims · décision humaine · effet création · audit générique.
+## Events
+PROJECT_CREATED · PROJECT_MODE_SELECTED · PROJECT_ACTIVATED
+
+## Mono-opérateur
+`actor-mono-i1` = project_owner + decision_maker (DESIGN-R01, temporaire)
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/08-project-cockpit-contract.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/04-ux-runtime-validation.md`
 
 ```markdown
-# 08 — Project Cockpit contract (écran pivot)
+# 04 — UX runtime validation
 
-## Zones
-1. **ProjectHeader** — identité, MethodModeBadge, ProjectStateBadge
-2. **Project nav** — Framing / Cycle / Session / Decisions / Review / Audit
-3. **Main work** — cycle actif, étape, prochaine action, trajectoire résumé (pas journal permanent)
-4. **ContextualRail** — ContextStatus, reserves, open decisions/gates, last events
-5. **Actions gated** — E3 visibles, pas contournables
+## Captures
+`.tmp-sfia-review/screenshots-d1-i1/`
 
-## Règle
-Le chat n’apparaît qu’après **Open Guided Session**.
+## Metrics (unused right)
+1728/1440/1280/1024 → unused=0, no H-scroll (viewport-metrics.json)
+
+## Figma refs (fileKey IS70XDnBMvZuJYmaI5eZT2)
+| Screen | Frame | Runtime |
+|--------|-------|---------|
+| Workspace Home | 2:2 | workspace-home-1440.png / workspace-*.png |
+| New Project | 2:24 | new-project-1440.png |
+| Cockpit 1440 | 2:46 | project-cockpit-1440.png |
+| Cockpit 1728 | 3:97 | project-cockpit-1728.png |
+| Cockpit 1280 | 3:143 | project-cockpit-1280.png |
+| Cockpit 1024 | 3:187 | project-cockpit-1024.png |
+
+## Conformité
+Structurelle forte (nav/main/rail, Project-first, badges, empty states).
+Pas pixel-perfect tokens Figma vs Studio existants — écart attendu documenté.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/09-project-framing-and-guided-session-contract.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/05-test-results.md`
 
 ```markdown
-# 09 — Project Framing & Guided Session
+# 05 — Test results
 
-## Framing
-Édition trajectoire + synthèse ; GPT draft optionnel ; commit humain.
+| Suite | Résultat |
+|-------|----------|
+| vitest `__tests__/d1/project-foundation.test.ts` | 7/7 pass |
+| playwright `e2e/d1-i1-project-foundation.spec.ts` | 6/6 pass |
+| playwright `e2e/p0-smoke.spec.ts` (régression) | 6/6 pass |
+| tsc --noEmit | pass (D1) |
 
-## Guided Session — dual channel
-| Canal conversationnel | Canal de contrôle |
-|-----------------------|-------------------|
-| prose, clarification, challenge, synthèse | ContextStatus, proposals, reserves, DR, gates, transitions, preuves |
-
-## Jamais masqué
-Project · Cycle · Context · MethodMode · Gate ouvert · stale · actions structurantes
-
-## Transition visuelle
-Cockpit → Open Session → Work → Review proposals → Human decision → Cockpit / Transition Review
+## Non exécutés
+Suites OPS1 I2–I6 / Control Tower complètes — hors nécessité I1 ; smoke P0 couvre legacy routes.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/10-context-reserves-decisions-and-gates-contract.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/06-known-reserves-and-debt.md`
 
 ```markdown
-# 10 — Context, Reserves, Decisions, Gates
+# 06 — Reserves and debt
 
-## Context Status
-headSha · digests · READY/STALE/UNAVAILABLE · reload · live region stale
-
-## Reserves (E2)
-ReserveCard list · obligatoire avant continuation soft
-
-## Decision Center
-DR OPEN · Gate cards · deep link Gate Modal
-
-## Gate Modal
-focus trap · verdict GO/NO-GO · rationale · expired state · E3 block
-
-## Langage E0–E4 (non couleur seule)
-icône + libellé + texte + statut + focus + annonce SR
+- I1-R01 : mono-opérateur temporaire
+- I1-R02 : pas de ProjectTrajectory persistée (placeholder UI)
+- I1-R03 : rail medium = empilé (CSS hide desktop rail <1280), pas drawer animé
+- I1-R04 : playwrigh reuseExistingServer=!CI (config locale)
+- Dette : I2 GuidedSession · Context · Policy · Gates · a11y axe dédié D1
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/11-transition-reviewbundle-and-audit-contract.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/07-d1-i1-validation-decision-pack.md`
 
 ```markdown
-# 11 — Transition, ReviewBundle, Audit
-
-## Transition Review
-proposal from→to · preconds · ReviewBundle status · DecideTransition
-
-## Cycle Review
-refs résolvables+vérifiées · digests · seal · export MD optionnel (baseline v2.6)
-
-## Audit Timeline
-events append-only · filter project/cycle · correlationId · pas de mutation
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/12-responsive-and-breakpoint-contract.md`
-
-```markdown
-# 12 — Responsive & breakpoints
-
-| Breakpoint | Zones | Rail |
-|------------|-------|------|
-| Large ≥1600 | 3 zones | 360–420 |
-| Desktop 1280–1599 | 3 zones | 320–360 |
-| Medium 1100–1279 | rail collapsible | — |
-| Tablet 768–1099 | drawer | nav compacte |
-| Mobile <768 | séquentiel | gates en vues dédiées |
-
-Frames Figma détaillées : 1728 / 1440 / 1280 / 1024. Mobile documenté, frames optionnelles.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/13-accessibility-and-interaction-contract.md`
-
-```markdown
-# 13 — Accessibility & interaction (WCAG 2.2 AA candidat)
-
-## Exigences
-clavier complet · focus visible · landmarks · titres · contraste · états non-couleur · targets · modal trap · live regions (gates/stale) · reduced motion · zoom 200% · responsive sans perte info
-
-## Matrice (synthèse)
-
-| Screen | Keyboard | Focus | Semantics | Contrast | Errors | Live |
-|--------|----------|-------|-----------|----------|--------|------|
-| Workspace Home | Y | Y | main/nav | Y | Y | — |
-| New Project | Y | Y | form | Y | Y | — |
-| Project Cockpit | Y | Y | complementary rail | Y | Y | gates count |
-| Guided Session | Y | Y | log+form | Y | Y | stale |
-| Decision Center | Y | Y | list | Y | Y | — |
-| Gate Modal | trap | initial | dialog | Y | Y | announce open |
-| Cycle Review | Y | Y | status | Y | Y | seal result |
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/14-design-tokens-and-component-contract.md`
-
-```markdown
-# 14 — Tokens & components
-
-## Audit tokens existants (`tokens.css`)
-Réutiliser couleurs/ombres/fonts Studio. **Ne pas** réutiliser layout artboard 1440×1024 comme vérité D1.
-
-Nouveaux tokens candidats (non implémentés) :
-`--sfia-nav-width`, `--sfia-context-rail-min/max`, `--sfia-shell-gutter`, `--sfia-e0..e4-*`
-
-## Composants UX candidats
-
-| Composant | Rôle | Variants | A11y | Mapping code futur |
-|-----------|------|----------|------|--------------------|
-| AppShell | grid 3 zones | collapsed rail | landmarks | remplace StudioShell layout |
-| WorkspaceSwitcher | WS | — | combobox | new |
-| ProjectHeader | identité+badges | — | heading | new |
-| MethodModeBadge | mode | v26/transition/v3 | status | extend globalModeBadge |
-| ProjectStateBadge | state | DRAFT… | status | new |
-| CycleHeader | cycle state | — | status | new |
-| CycleStepper | progression | — | — | new |
-| ContextStatus | digests | ready/stale | live | new |
-| ReserveCard | E2 | open/resolved | — | new |
-| DecisionCard | DR | open/decided | — | new |
-| GateDialog | E3 | open/expired | dialog | extend action gate UI |
-| GuidedConversation | chat | — | log | from Ops1 journal |
-| StructuredProposal | proposals | kinds | — | new |
-| ContextualRail | control channel | collapsed | complementary | replace Copilot |
-| ReviewSummary | bundle | draft/sealed | — | new |
-| AuditTimeline | events | — | table | extend events |
-| Empty/Error/StaleBanner | states | — | alert | new |
-
-Aucun composant n’est baseline avant validation UX.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/15-figma-frame-register.md`
-
-```markdown
-# 15 — Figma frame register
+# 07 — D1-I1 validation decision pack
 
 | Champ | Valeur |
 |-------|--------|
-| **Plan** | L'équipe de Morris CLELAND (`team::1653291379918403018`) — unique |
-| **File** | SFIA Studio — D1 Doctrine-aligned UX |
-| **fileKey** | `IS70XDnBMvZuJYmaI5eZT2` |
-| **URL** | https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2 |
-| **Page** | D1 — Project Framing UX (`1:2`) |
-| **Statut** | Frames éditables Auto Layout · dimensions confirmées |
-
-## Frames
-
-| Frame | node id | W×H | Layout | Source doctrinale | Runtime correspondant | Statut |
-|-------|---------|-----|--------|-------------------|----------------------|--------|
-| D1 / Components | `1:3` | 364×79 | HORIZONTAL | tokens/components | — | primitives |
-| D1 / 1440 / Workspace Home | `2:2` | **1440×1024** | HORIZONTAL AL | framing 11/15 · design 08 | aucun (cible) ; legacy `/` | OK |
-| D1 / 1440 / New Project | `2:24` | **1440×1024** | HORIZONTAL AL | design 07 · UX 07 | — | OK |
-| D1 / 1440 / Project Cockpit | `2:46` | **1440×1024** | HORIZONTAL AL | design 08 · UX 08 | — | OK I1 |
-| D1 / 1440 / Method Mode | `3:2` | **1440×1024** | HORIZONTAL AL | modeled mode · UX 07 | — | OK I1 |
-| D1 / 1440 / Guided Session | `3:25` | **1440×1024** | HORIZONTAL AL | design 06/09 · UX 09 | `/nouvelle-demande` (écart) | OK |
-| D1 / 1440 / Decision Center | `3:51` | **1440×1024** | HORIZONTAL AL | design 07/10 · UX 10 | OPS1 action gate (écart) | OK |
-| D1 / 1440 / Cycle Review | `3:73` | **1440×1024** | HORIZONTAL AL | modeled 07 · UX 11 | — | OK |
-| D1 / 1728 / Project Cockpit | `3:97` | **1728×1024** | HORIZONTAL AL | UX 12 large | runtime unusedRight 288px | OK |
-| D1 / 1728 / Guided Session | `3:120` | **1728×1024** | HORIZONTAL AL | UX 12 | runtime 1728 | OK |
-| D1 / 1280 / Project Cockpit | `3:143` | **1280×1024** | HORIZONTAL AL | UX 12 | runtime overflow H | OK |
-| D1 / 1280 / Guided Session | `3:165` | **1280×1024** | HORIZONTAL AL | UX 12 | runtime 1280 | OK |
-| D1 / 1024 / Project Cockpit | `3:187` | **1024×1024** | HORIZONTAL AL | UX 12 tablet | runtime 1024 | OK |
-| D1 / 1024 / Guided Session | `3:209` | **1024×1024** | HORIZONTAL AL | UX 12 tablet | runtime 1024 | OK |
-
-## Shell contract encoded in frames
-
-`Nav 72` + `Main FILL` + `ContextualRail` (≈320–415 selon largeur) · gutters 24 · Auto Layout HORIZONTAL.
-
-## Réserves Figma
-
-- UX-R02 : composants from-scratch (pas de Code Connect Studio riche)
-- Capture runtime Figma : via injection navigateur (sans modif source) — voir registre preuves
-- Mobile frames non produites (documentées doc 12)
-
-
-## Runtime capture in Figma
-
-| Item | Value |
-|------|-------|
-| node | `4:2` (renamed evidence) |
-| URL | https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2?node-id=4-2 |
-| Role | **Preuve existant** — pas la cible D1 |
-| Local screenshots | `.tmp-sfia-review/screenshots-d1-ux/runtime-*.png` |
-| Metrics | `.tmp-sfia-review/screenshots-d1-ux/runtime-metrics.json` |
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/16-figma-runtime-comparison-plan.md`
-
-```markdown
-# 16 — Figma / runtime comparison
-
-| Aspect | Runtime observé | Cible Figma | Écart | Impact doctrine | Priorité | Lot | Preuve |
-|--------|-----------------|-------------|-------|-----------------|----------|-----|--------|
-| Largeur globale | 1440px fixe | 100% viewport fluide | critique | shell | P0 | I1 | metrics+frames |
-| Usage viewport | 288px vides @1728 | plein usage | critique | trust | P0 | I1 | runtime-1728.png |
-| Overflow <1440 | scrollH 1440 | fluide/collapse | critique | usable | P0 | I1 | runtime-1280/1024 |
-| Navigation | rail icons OPS1 | Workspace/Project IA | fort | Project-first | P0 | I1 | frames Home/Cockpit |
-| Page identity | Nouvelle demande | Workspace/Project | fort | D1 | P0 | I1 | h1 metrics |
-| Project-first | absent | Cockpit pivot | critique | P1 | P0 | I1 | frame Cockpit |
-| Cycle visibility | I6 steps copilot | CycleHeader | fort | D1 | P1 | I2 | frames |
-| Context visibility | faible | ContextStatus rail | fort | git-truth | P1 | I3 | frames Session |
-| Rail | Copilot dominant | ContextualRail | fort | hierarchy | P0 | I1 | frames |
-| Conversation | centre | composant Session | critique | doctrine | P0 | I2 | frames Session |
-| Decisions/gates | action gate OPS1 | Decision Center + GateDialog E3 | fort | E3 | P1 | I5 | frames |
-| Responsive | artboard only | breakpoints doc12 | critique | a11y | P0 | I1/I8 | frames 1728–1024 |
-| Accessibility | partielle | contrat 13 | moyen | AA | P1 | I8 | matrix |
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/17-d1-ux-acceptance-and-test-matrix.md`
-
-```markdown
-# 17 — UX acceptance & test matrix
-
-| Critère | Preuve | Gate |
-|---------|--------|------|
-| Frames I1 éditables Auto Layout | registre 15 | GO VALIDATION UX/UI D1 |
-| Dimensions confirmées | get_metadata / use_figma return | same |
-| Runtime capturé 4 viewports | screenshots-d1-ux | same |
-| Cause 1440 confirmée | doc 01 + shell.module.css | same |
-| Project-first IA | docs 02/08 | same |
-| 13 écrans contractés | 06–11 | same |
-| E0–E4 IHM | 10 + 14 | same |
-| A11y/responsive | 12–13 | same |
-| Comparaison complète | 16 | same |
-| Aucun code modifié | git status app unchanged this cycle | same |
-
-Tests futurs I1 : visual regression shell fluide · a11y axe · keyboard Cockpit · no H-scroll ≥1024.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/18-d1-ux-decision-pack.md`
-
-```markdown
-# 18 — D1 UX decision pack
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **D1 UX/UI CONTRACT CANDIDATE** |
-| Verdict cible | SFIA v3.0 D1 UX/UI CONTRACT READY — FIGMA VERIFIED — HUMAN DECISION REQUIRED |
-| Gate suivant | GO VALIDATION UX/UI D1 |
-| R03 | **Satisfait** si frames Figma + dimensions + comparaison OK |
+| Statut | D1-I1 IMPLEMENTED CANDIDATE |
+| Verdict | SFIA v3.0 D1-I1 PROJECT FOUNDATION IMPLEMENTED — VALIDATION REQUIRED |
+| Gate suivant | GO VALIDATION D1-I1 — PROJECT FOUNDATION |
 
 ## Décisions humaines requises
-1. Valider contrat UX/UI D1 (gate)
-2. Valider shell fluide vs artboard 1440
-3. Valider ContextualRail vs Copilot
-4. Autoriser GO IMPLEMENTATION D1-I1 **seulement après** ce gate
-
-## Non prises
-Implémentation CSS/React · D2 UX · SLO chiffrés · multi-op UI
-
-## Réserves
-- UX-R01 : mobile frames non détaillées
-- UX-R02 : design system Figma créé from-scratch (peu de composants lib existants Code Connect Studio)
-- UX-R03 : capture runtime = preuve existant, pas cible
+1. Valider I1 (gate)
+2. Accepter AppShell isolé vs refonte OPS1 shell
+3. Accepter mono-opérateur jusqu’à I5/sécu
+4. Prioriser I2 vs durcissement UX I1
 
 ## Anti-claims
-Pas code · pas I1 · pas IMPLEMENTED · d1-project-framing non modifié
+Pas V3-IMPLEMENTED · pas adoption · pas commit projet
 ```
-## 7. Diagrammes Mermaid (contenu complet)
+### `projects/sfia-studio/sfia-v3-delivery/d1-i1-project-foundation/README.md`
 
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-decision-and-gate-flow.mmd`
+```markdown
+# SFIA v3.0 — D1-I1 Project Foundation (delivery)
 
-```mermaid
-```mermaid
-flowchart LR
-  E0[E0 info] --> E1[E1 suggest]
-  E1 --> E2[E2 Reserve]
-  E2 --> E3[E3 Gate Modal]
-  E3 --> E4[E4 Hard block]
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **D1-I1 IMPLEMENTED CANDIDATE** |
+| **BCDI** | BCDI-D1-I1-PROJECT-FOUNDATION |
+| **Gate consommé** | GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION |
+| **Gate suivant** | GO VALIDATION D1-I1 — PROJECT FOUNDATION |
+| **Baseline** | SFIA v2.6 |
+| **Statut v3** | V3-MODELED CANDIDATE (inchangé) |
+
+## Anti-claims
+
+Pas V3-IMPLEMENTED global · pas adoption · pas GPT/Cycle/Context/Gates · pas deps · pas commit projet.
 ```
+### `projects/sfia-studio/app/components/shell/UtilityRail.tsx`
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { STUDIO_ROUTES, type StudioRoute } from "@/lib/navigation";
+import styles from "./utility-rail.module.css";
+
+interface UtilityRailProps {
+  variant: "floating" | "flush";
+  activeRoute: StudioRoute;
+}
+
+export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+  const isFloating = variant === "floating";
+  const railClass = isFloating ? styles.floating : styles.flush;
+
+  return (
+    <nav
+      className={railClass}
+      aria-label="Navigation principale"
+      data-testid="utility-rail"
+    >
+      <Link
+        href="/synthese"
+        className={isFloating ? styles.brand : styles.brandFlush}
+        aria-label="SFIA Studio"
+      >
+        S
+      </Link>
+
+      {STUDIO_ROUTES.map((item) => {
+        const active = activeRoute === item.route;
+        const itemClass = [
+          isFloating ? styles.item : styles.itemFlush,
+          active
+            ? isFloating
+              ? styles.itemActive
+              : styles.itemActiveFlush
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        return (
+          <Link
+            key={item.id}
+            href={item.route}
+            className={itemClass}
+            aria-label={item.label}
+            aria-current={active ? "page" : undefined}
+          >
+            {item.railIcon}
+          </Link>
+        );
+      })}
+
+      <button
+        type="button"
+        className={isFloating ? styles.itemDisabled : styles.itemFlush}
+        aria-disabled
+        disabled
+        title="Paramètres — simulation"
+        aria-label="Paramètres (désactivé)"
+      >
+        ◎
+      </button>
+
+      <div className={styles.spacer} />
+
+      <Link
+        href="/workspace"
+        className={isFloating ? styles.item : styles.itemFlush}
+        aria-label="Workspace D1"
+        title="Workspace D1-I1"
+        data-testid="rail-d1-workspace"
+      >
+        W
+      </Link>
+
+      <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
+    </nav>
+  );
+}
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-information-architecture.mmd`
+### `projects/sfia-studio/app/playwright.config.ts`
 
-```mermaid
-```mermaid
-flowchart TB
-  WS[Workspace] --> PR[Project]
-  PR --> CY[Cycle]
-  CY --> GS[GuidedSession]
-  GS --> CTL[Context / Reserves / Decisions / Review / Audit]
+```tsx
+import { defineConfig, devices } from "@playwright/test";
+
+const baseURL = "http://127.0.0.1:3020";
+
+export default defineConfig({
+  testDir: "./e2e",
+  fullyParallel: false,
+  workers: 1,
+  forbidOnly: !!process.env.CI,
+  retries: 0,
+  reporter: [["list"]],
+  use: {
+    ...devices["Desktop Chrome"],
+    baseURL,
+    trace: "on-first-retry",
+    viewport: { width: 1440, height: 1024 },
+  },
+  webServer: {
+    command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
+    url: baseURL,
+    reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
+    env: {
+      ...process.env,
+      OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
+      // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
+      // without forcing fake (secrets must already be in the environment).
+      ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
+        ? {
+            OPS1_CONVERSATION_PROVIDER: "",
+          }
+        : {
+            OPS1_CONVERSATION_PROVIDER: "fake",
+            OPENAI_API_KEY:
+              process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
+            OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
+          }),
+    },
+  },
+});
 ```
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-navigation-flow.mmd`
 
-```mermaid
-```mermaid
-flowchart LR
-  Home[Workspace Home] --> New[New Project]
-  Home --> Cockpit[Project Cockpit]
-  New --> Cockpit
-  Cockpit --> Mode[Method Mode]
-  Cockpit --> Session[Guided Session]
-  Cockpit --> Dec[Decision Center]
-  Session --> Dec
-  Dec --> Review[Cycle Review]
-  Review --> Audit[Audit Timeline]
-```
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-responsive-layout.mmd`
+## 9. Réserves / dette / anti-claims
 
-```mermaid
-```mermaid
-flowchart TB
-  L[Large 3 zones rail 360-420] --> D[Desktop rail 320-360]
-  D --> M[Medium rail collapsible]
-  M --> T[Tablet drawer]
-  T --> Mob[Mobile sequential]
-```
-```
+- I1-R01 mono-opérateur temporaire
+- I1-R02 trajectory placeholder
+- I1-R03 rail medium empilé
+- I1-R04 playwright reuseExistingServer=!CI
+- Anti-claims: pas V3-IMPLEMENTED · pas adoption · pas GPT/D2 · pas deps · pas commit projet
 
-## 8. Réserves / dette / anti-claims
+## 10. Décisions humaines requises / non prises
 
-- **UX-R01** : mobile frames non détaillées
-- **UX-R02** : design system Figma from-scratch
-- **UX-R03** : capture runtime = preuve, pas cible
-- Dette : tokens layout fluides en code (I1) · ContextualRail React · a11y hardening I8
-- Anti-claims : pas code/CSS · pas I1 · pas IMPLEMENTED · framing/modeled/d1-project-framing non modifiés · pas commit projet
+Requises: GO VALIDATION D1-I1 ; accepter AppShell isolé ; mono-op ; prioriser suite.
+Non prises: I2 · PG · IdP · adoption · commit projet.
 
-## 9. Décisions humaines requises / non prises
-
-### Requises
-1. GO VALIDATION UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
-2. Valider shell fluide vs artboard 1440
-3. Valider ContextualRail vs Copilot
-4. N’ouvrir GO IMPLEMENTATION D1-I1 qu’après validation UX
-
-### Non prises
-Implémentation · D2 UX · SLO chiffrés · multi-op UI
-
-## 10. État Git final
+## 11. État Git final
 
 ```
 HEAD=32e5271842b9a344a7e292614675c27ea8ed941b
@@ -874,6 +2533,6 @@ branch=delivery/sfia-studio-control-tower-fast-track
 staged=0
 ```
 
-## 11. Verdict
+## 12. Verdict
 
-**VERDICT :** SFIA v3.0 D1 UX/UI CONTRACT READY — FIGMA VERIFIED — HUMAN DECISION REQUIRED
+**VERDICT :** SFIA v3.0 D1-I1 PROJECT FOUNDATION IMPLEMENTED — VALIDATION REQUIRED
