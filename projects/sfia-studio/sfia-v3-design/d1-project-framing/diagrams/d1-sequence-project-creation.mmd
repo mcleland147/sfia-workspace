@@ -1,0 +1,23 @@
+```mermaid
+sequenceDiagram
+  actor U as User
+  participant UI as Project UI
+  participant SA as CreateProject Handler
+  participant AZ as AuthZ
+  participant PS as Project Service
+  participant DB as Persistence
+  participant AU as Audit
+
+  U->>UI: New Project submit
+  UI->>SA: CreateProject(cmd, idemKey, corrId)
+  SA->>AZ: authorize(workspace)
+  AZ-->>SA: ok
+  SA->>DB: BEGIN
+  SA->>PS: create DRAFT
+  PS->>DB: INSERT project + assignment
+  PS->>AU: PROJECT_CREATED
+  AU->>DB: INSERT audit_event
+  SA->>DB: COMMIT
+  SA-->>UI: projectId
+  UI-->>U: Cockpit
+```

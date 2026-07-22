@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "snapshotId": "snap-ctx-001",
+  "sessionId": "sess-guided-001",
+  "git": {
+    "repository": "mcleland147/sfia-workspace",
+    "branch": "delivery/sfia-studio-control-tower-fast-track",
+    "headSha": "32e5271842b9a344a7e292614675c27ea8ed941b",
+    "baseSha": "32e5271842b9a344a7e292614675c27ea8ed941b"
+  },
+  "doctrine": {
+    "doctrineVersion": "SFIA-v2.6",
+    "methodMode": "transition",
+    "definitionDigests": {
+      "projects/sfia-studio/sfia-v3-framing/29-sfia-v3-option-d-bounded-codesign-trajectory.md": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "generatedAt": "2026-07-22T15:12:30.000Z",
+  "immutable": true,
+  "stale": false
+}

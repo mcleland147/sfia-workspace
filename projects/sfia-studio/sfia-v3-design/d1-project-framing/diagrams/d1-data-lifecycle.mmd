@@ -1,0 +1,19 @@
+```mermaid
+stateDiagram-v2
+  [*] --> ProjectDRAFT: CreateProject
+  ProjectDRAFT --> ProjectACTIVE: ModeSelected + activate
+  ProjectACTIVE --> CyclePROPOSED: ProposeCycle
+  CyclePROPOSED --> CycleREADY: Qualify + ContextREADY
+  CycleREADY --> SessionACTIVE: GuidedSession
+  SessionACTIVE --> DecisionOPEN: E3 rule
+  DecisionOPEN --> DecisionDECIDED: HumanDecision
+  DecisionDECIDED --> ReviewDRAFT: BuildBundle
+  ReviewDRAFT --> ReviewSEALED: Seal verified
+  ReviewSEALED --> CycleCOMPLETED: Transition GO
+  CycleCOMPLETED --> [*]: Audit retained
+
+  note right of ReviewSEALED
+    snapshots, human_decisions,
+    audit_events immutable
+  end note
+```

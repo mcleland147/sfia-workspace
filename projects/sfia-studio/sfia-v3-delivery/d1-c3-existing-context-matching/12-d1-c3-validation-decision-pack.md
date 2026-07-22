@@ -1,0 +1,6 @@
+# 12 — Decision pack
+
+**Verdict :** SFIA v3.0 D1-C3 EXISTING CONTEXT MATCHING IMPLEMENTED — VALIDATION REQUIRED
+
+Décisions Morris : GO VALIDATION D1-C3 ; ouvrir C4 confirmation.
+Anti-claims : pas CONTEXT SELECTED AND APPLIED · pas CYCLE OPENED · pas V3-IMPLEMENTED.

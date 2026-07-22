@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/cycle/transition-proposal.schema.json",
+  "title": "TransitionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proposalId",
+    "cycleId",
+    "fromState",
+    "toState",
+    "schemaVersion",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "proposalId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "fromState": {
+      "type": "string"
+    },
+    "toState": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "APPROVED",
+        "REJECTED",
+        "CANCELLED"
+      ]
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    }
+  }
+}

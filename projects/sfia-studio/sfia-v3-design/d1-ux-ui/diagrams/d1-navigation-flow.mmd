@@ -1,0 +1,12 @@
+```mermaid
+flowchart LR
+  Home[Workspace Home] --> New[New Project]
+  Home --> Cockpit[Project Cockpit]
+  New --> Cockpit
+  Cockpit --> Mode[Method Mode]
+  Cockpit --> Session[Guided Session]
+  Cockpit --> Dec[Decision Center]
+  Session --> Dec
+  Dec --> Review[Cycle Review]
+  Review --> Audit[Audit Timeline]
+```

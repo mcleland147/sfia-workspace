@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/project/project-trajectory.schema.json",
+  "title": "ProjectTrajectory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trajectoryId",
+    "projectId",
+    "summary",
+    "schemaVersion"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "trajectoryId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidateOptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Options ≠ decisions"
+    }
+  }
+}

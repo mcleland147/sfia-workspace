@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/cycle/guided-session.schema.json",
+  "title": "GuidedSession",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sessionId",
+    "projectId",
+    "cycleId",
+    "state",
+    "schemaVersion",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "sessionId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "CONTEXT_LOADING",
+        "READY",
+        "IN_PROGRESS",
+        "AWAITING_HUMAN",
+        "COMPLETED",
+        "BLOCKED",
+        "ABANDONED"
+      ]
+    },
+    "contextSnapshotId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    }
+  }
+}

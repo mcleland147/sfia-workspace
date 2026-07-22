@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "manifest": {
+    "schemaVersion": "0.1.0-d1",
+    "reviewBundleId": "rb-cycle-001",
+    "reviewType": "CycleReview",
+    "projectId": "proj-demo-framing-001",
+    "cycleId": "cycle-framing-001",
+    "state": "SEALED",
+    "doctrine": {
+      "doctrineVersion": "SFIA-v2.6",
+      "methodMode": "transition",
+      "definitionDigests": {
+        "projects/sfia-studio/sfia-v3-framing/29-sfia-v3-option-d-bounded-codesign-trajectory.md": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "createdAt": "2026-07-22T15:55:00.000Z"
+  },
+  "contextSnapshotRef": {
+    "objectId": "snap-ctx-001",
+    "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "accessibilityStatus": "RESOLVED",
+    "verified": true
+  },
+  "deliverableReferences": [
+    {
+      "objectId": "traj-001",
+      "path": "logical:project_trajectory/traj-001",
+      "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "accessibilityStatus": "RESOLVED",
+      "verified": true
+    }
+  ],
+  "validationResults": {
+    "status": "PASS_WITH_RESERVES",
+    "notes": "D1 modeled only"
+  },
+  "decisionRequests": [
+    "dr-transition-001"
+  ],
+  "reserves": [
+    "MODELED-R01-draft07"
+  ],
+  "humanVerdict": {
+    "verdict": "GO",
+    "decisionId": "hd-001"
+  },
+  "auditReferences": [
+    "evt-001"
+  ]
+}

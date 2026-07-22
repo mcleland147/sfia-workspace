@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/audit/audit-event.schema.json",
+  "title": "AuditEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "eventType",
+    "occurredAt",
+    "actor",
+    "correlationId",
+    "projectId",
+    "objectType",
+    "objectId",
+    "schemaVersion"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "eventId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "eventType": {
+      "type": "string"
+    },
+    "occurredAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "actor": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "correlationId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "causationId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "doctrineVersion": {
+      "type": "string"
+    },
+    "definitionDigests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "objectType": {
+      "type": "string"
+    },
+    "objectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "payload": {
+      "type": "object"
+    }
+  }
+}

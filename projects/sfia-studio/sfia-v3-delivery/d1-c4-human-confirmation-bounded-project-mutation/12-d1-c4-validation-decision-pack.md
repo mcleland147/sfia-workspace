@@ -1,0 +1,6 @@
+# 12 — Decision pack
+
+**Verdict :** SFIA v3.0 D1-C4 HUMAN CONFIRMATION AND BOUNDED PROJECT MUTATION IMPLEMENTED — VALIDATION REQUIRED
+
+Décisions Morris : GO VALIDATION D1-C4 ; contrat domaine rattachement ; C5.
+Anti-claims : pas PROJECT LINKED · pas CYCLE OPENED · pas V3-IMPLEMENTED.
