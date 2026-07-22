@@ -1,8 +1,124 @@
 # Review Pack Full — SFIA v3.0 D1 UX/UI Doctrine-aligned Shell and Project Journey
 
+## 0. Completeness attestation (regularization republish)
+
+- **Republish reason :** régularisation handoff distant — contenu Full vérifié, aucune nouvelle conception.
+- **Date/heure/fuseau :** 2026-07-22 18:59:24 CEST
+- **Checklist inclus :**
+  - [x] documents 01 à 18 complets (contenu source inliné, digests ci-dessous)
+  - [x] registre Figma complet (doc 15)
+  - [x] tous les node IDs et dimensions
+  - [x] comparaison Figma/runtime (doc 16 + metrics)
+  - [x] réserves UX-R01 à UX-R03
+  - [x] decision pack (doc 18)
+  - [x] décisions humaines requises
+  - [x] état Git final
+  - [x] verdict final
+
+### Integrity digests (source files embedded below)
+
+```json
+[
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/README.md",
+    "bytes": 1562,
+    "sha256": "d12af776fa89b9f9e54d8c05e53c2adb12724730d462db033ffc57baf2ba8978"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/01-current-state-ux-audit.md",
+    "bytes": 2469,
+    "sha256": "fbaab3f0508e4fd761a75ebb3f739a3a23fa7d79cb2bc58361cf6b0bc50bb69e"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/02-doctrine-to-information-architecture.md",
+    "bytes": 987,
+    "sha256": "fd8016fddf9d93245f48fbd504ce3b3894933433f1bb508d2fce7b1c6eb0ba56"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/03-d1-navigation-and-route-model.md",
+    "bytes": 731,
+    "sha256": "b656a30144f11f2c0e4e47accf5d1e58bf0f84be3a2f0b7ce19e67d9f9c2ee5a"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/04-studio-shell-layout-contract.md",
+    "bytes": 1270,
+    "sha256": "d313681ff5451bae8f8d4b0fa9cf91a0fb12e4156228020c5483f6c281703059"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/05-d1-screen-inventory-and-priorities.md",
+    "bytes": 901,
+    "sha256": "7cea153ee73635e3a4f8769952e463f4474e8966471e2123ecea883e69181a96"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/06-workspace-home-contract.md",
+    "bytes": 546,
+    "sha256": "16464a03660ced8ce15b585c4b1b79145f25fec8c928f269058e5c996c69bc6b"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/07-new-project-contract.md",
+    "bytes": 470,
+    "sha256": "d8c21f669d8d0c00614e35dddf10089922ede3172eebbcb350312f4acb016301"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/08-project-cockpit-contract.md",
+    "bytes": 524,
+    "sha256": "d7c7b851d295bb18b284c9848aa605900dd6846bfaa944d009d56af102c512ce"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/09-project-framing-and-guided-session-contract.md",
+    "bytes": 612,
+    "sha256": "23381a8cdd93a3913ae15264253b93e12f5f51bde3fabfdfe33fa5293165a26b"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/10-context-reserves-decisions-and-gates-contract.md",
+    "bytes": 465,
+    "sha256": "1ee9ccc59204b67fad914a124097a19caf245d083f6f151d6849f987ae982d46"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/11-transition-reviewbundle-and-audit-contract.md",
+    "bytes": 340,
+    "sha256": "683e384bb3570fb8ac3a67426163206ad948a22f441faf3d917bc55f0edd3dc3"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/12-responsive-and-breakpoint-contract.md",
+    "bytes": 427,
+    "sha256": "c4d84d70d270e8ace6db1e03fbefa4529deb3eb868c368f34c626c8d791f21ff"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/13-accessibility-and-interaction-contract.md",
+    "bytes": 836,
+    "sha256": "8559b2c53f9603928615ac789745462cb2c7d332870696bda0d78a4f2f592813"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/14-design-tokens-and-component-contract.md",
+    "bytes": 1550,
+    "sha256": "88d3e94f57bd4c0b6a63564d16130fdfcf02f81642c51dedf06aa8d1818b76e8"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/15-figma-frame-register.md",
+    "bytes": 2953,
+    "sha256": "f2fb127f17fad5fb0c9ded28849f673c9e752f3b2b41d604c1b1e6e449b9bb36"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/16-figma-runtime-comparison-plan.md",
+    "bytes": 1468,
+    "sha256": "1892df2bd178516dd9ff7b6decb3389c36443d917c5d2fe6ae9c8b1005e669e5"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/17-d1-ux-acceptance-and-test-matrix.md",
+    "bytes": 728,
+    "sha256": "282b297d5a1adedf5cf8feafe9328d0145ce046528c39d5cd6e9bdf281d9c316"
+  },
+  {
+    "path": "projects/sfia-studio/sfia-v3-design/d1-ux-ui/18-d1-ux-decision-pack.md",
+    "bytes": 926,
+    "sha256": "5d351952827670ac382f8b3e01c92ad3968cb59bd449baacf2424ba81c8a20ff"
+  }
+]
+```
+
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-22 18:52:41 CEST
 - **Cycle :** 4 — UX/UI (UX/CONCEPTION/ARCHI/DOC)
 - **Profil :** Critical
 - **Gate consommé :** GO CYCLE UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
@@ -10,24 +126,24 @@
 - **Gate fermé :** GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION
 - **Repo/branche :** mcleland147/sfia-workspace · delivery/sfia-studio-control-tower-fast-track
 - **HEAD/base :** 32e5271842b9a344a7e292614675c27ea8ed941b
-- **Handoff précédent :** 46bad298f5875e99a7ca4d804842cd5ebe9a6814
+- **Handoff précédent :** 162542c82235b54677f5a30a2d516aea81616d0e
 - **Baseline :** SFIA v2.6
 - **Statut v3 :** V3-MODELED CANDIDATE
 - **BCDI :** BCDI-D1-UX-DOCTRINE-ALIGNED-JOURNEY
 
-## 2. Décisions humaines
+## 2. Décisions humaines déjà validées
 
 - DESIGN-R01 mono-opérateur I1 : accepté
 - DESIGN-R02 SLI/SLO : accepté (SLO reportés)
 - DESIGN-R04 audit trajectoire générique : accepté
-- DESIGN-R03 Figma obligatoire avant I1 : **exécuté dans ce cycle**
+- DESIGN-R03 Figma obligatoire avant I1 : exécuté
 
 ## 3. Runtime evidence
 
 - URL : http://127.0.0.1:3020/nouvelle-demande
-- Captures : `.tmp-sfia-review/screenshots-d1-ux/runtime-{1728,1440,1280,1024}.png`
+- Captures locales : `.tmp-sfia-review/screenshots-d1-ux/runtime-{1728,1440,1280,1024}.png`
 - Figma runtime capture (preuve, non cible) : node `4:2` · https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2?node-id=4-2
-- Figma previews cibles : `.tmp-sfia-review/screenshots-d1-ux/figma-cockpit-1440.png`, `figma-cockpit-1728.png`
+- Previews Figma cibles : `.tmp-sfia-review/screenshots-d1-ux/figma-cockpit-1440.png`, `figma-cockpit-1728.png`
 
 ### Métriques
 
@@ -133,17 +249,17 @@
 
 **Aucune modification code** dans ce cycle.
 
-## 5. Figma
+## 5. Figma summary
 
-- Plan unique : team::1653291379918403018
+- Plan unique : `team::1653291379918403018`
 - File : SFIA Studio — D1 Doctrine-aligned UX
-- fileKey : IS70XDnBMvZuJYmaI5eZT2
+- fileKey : `IS70XDnBMvZuJYmaI5eZT2`
 - URL : https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2
 - Page : D1 — Project Framing UX (`1:2`)
-- 13 frames écran + components · Auto Layout · dimensions confirmées (registre 15)
+- Node IDs obligatoires : `2:2`, `2:24`, `2:46`, `3:2`, `3:25`, `3:51`, `3:73`, `3:97`, `3:120`, `3:143`, `3:165`, `3:187`, `3:209` (+ components `1:3`, evidence `4:2`)
+- Dimensions confirmées : 1440×1024 · 1728×1024 · 1280×1024 · 1024×1024
 
-## 6. Documents UX (contenu complet)
-
+## 6. Documents UX (contenu complet 01–18 + README)
 
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/README.md`
 
@@ -193,9 +309,7 @@ Le chat est un **composant** du parcours. L’objet principal reste **Project**.
 ## Anti-claims
 
 Pas de code · pas CSS · pas D1-I1 · pas V3-IMPLEMENTED · framing/modeled/design D1 non modifiés.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/01-current-state-ux-audit.md`
 
 ```markdown
@@ -253,9 +367,7 @@ Fichiers : `app/styles/shell.module.css`, `app/styles/tokens.css`.
 ## 5. Recommandation UX (hors correction code)
 
 Remplacer artboard fixe par shell fluide (doc 04) ; Project Cockpit pivot ; Copilot → ContextualRail doctrinal.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/02-doctrine-to-information-architecture.md`
 
 ```markdown
@@ -285,9 +397,7 @@ Incréments techniques OPS1 I4/I5/I6 comme architecture métier.
 ## Mapping design 08
 
 Les 13 écrans design D1 restent la référence fonctionnelle ; ce dossier UX précise hiérarchie visuelle et shell.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/03-d1-navigation-and-route-model.md`
 
 ```markdown
@@ -307,9 +417,7 @@ Les 13 écrans design D1 restent la référence fonctionnelle ; ce dossier UX pr
 | `/projects/[id]/audit` | Audit Timeline | I7/I8 |
 
 OPS1 `/nouvelle-demande` = **legacy runtime preuve**, pas cible D1.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/04-studio-shell-layout-contract.md`
 
 ```markdown
@@ -356,9 +464,7 @@ Le modèle `nav | minmax(0,1fr) | clamp(320px,24vw,420px)` est **retenu** avec a
 ## Remplacement conceptuel
 
 `CopilotPanel` → `ContextualRail` (Context, Reserves, Decisions, Gates, Next action).
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/05-d1-screen-inventory-and-priorities.md`
 
 ```markdown
@@ -382,9 +488,7 @@ Le modèle `nav | minmax(0,1fr) | clamp(320px,24vw,420px)` est **retenu** avec a
 | 13 | Audit Timeline | medium | medium |
 
 Hors scope : ExecutionContract, Cursor, Evidence D2, Action/Release Review.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/06-workspace-home-contract.md`
 
 ```markdown
@@ -409,9 +513,7 @@ Dashboard métriques surchargé avant données réelles.
 
 ## Acceptation
 CTA create visible ; aucune session OPS1 comme hub.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/07-new-project-contract.md`
 
 ```markdown
@@ -430,9 +532,7 @@ Pas de questionnaire exhaustif. Cadrage détaillé = Cycle + GuidedSession.
 
 ## Matérialiser
 Différence modes · claims · décision humaine · effet création · audit générique.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/08-project-cockpit-contract.md`
 
 ```markdown
@@ -447,9 +547,7 @@ Différence modes · claims · décision humaine · effet création · audit gé
 
 ## Règle
 Le chat n’apparaît qu’après **Open Guided Session**.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/09-project-framing-and-guided-session-contract.md`
 
 ```markdown
@@ -468,9 +566,7 @@ Project · Cycle · Context · MethodMode · Gate ouvert · stale · actions str
 
 ## Transition visuelle
 Cockpit → Open Session → Work → Review proposals → Human decision → Cockpit / Transition Review
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/10-context-reserves-decisions-and-gates-contract.md`
 
 ```markdown
@@ -490,9 +586,7 @@ focus trap · verdict GO/NO-GO · rationale · expired state · E3 block
 
 ## Langage E0–E4 (non couleur seule)
 icône + libellé + texte + statut + focus + annonce SR
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/11-transition-reviewbundle-and-audit-contract.md`
 
 ```markdown
@@ -506,9 +600,7 @@ refs résolvables+vérifiées · digests · seal · export MD optionnel (baselin
 
 ## Audit Timeline
 events append-only · filter project/cycle · correlationId · pas de mutation
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/12-responsive-and-breakpoint-contract.md`
 
 ```markdown
@@ -523,9 +615,7 @@ events append-only · filter project/cycle · correlationId · pas de mutation
 | Mobile <768 | séquentiel | gates en vues dédiées |
 
 Frames Figma détaillées : 1728 / 1440 / 1280 / 1024. Mobile documenté, frames optionnelles.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/13-accessibility-and-interaction-contract.md`
 
 ```markdown
@@ -545,9 +635,7 @@ clavier complet · focus visible · landmarks · titres · contraste · états n
 | Decision Center | Y | Y | list | Y | Y | — |
 | Gate Modal | trap | initial | dialog | Y | Y | announce open |
 | Cycle Review | Y | Y | status | Y | Y | seal result |
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/14-design-tokens-and-component-contract.md`
 
 ```markdown
@@ -582,9 +670,7 @@ Nouveaux tokens candidats (non implémentés) :
 | Empty/Error/StaleBanner | states | — | alert | new |
 
 Aucun composant n’est baseline avant validation UX.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/15-figma-frame-register.md`
 
 ```markdown
@@ -638,9 +724,7 @@ Aucun composant n’est baseline avant validation UX.
 | Role | **Preuve existant** — pas la cible D1 |
 | Local screenshots | `.tmp-sfia-review/screenshots-d1-ux/runtime-*.png` |
 | Metrics | `.tmp-sfia-review/screenshots-d1-ux/runtime-metrics.json` |
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/16-figma-runtime-comparison-plan.md`
 
 ```markdown
@@ -661,9 +745,7 @@ Aucun composant n’est baseline avant validation UX.
 | Decisions/gates | action gate OPS1 | Decision Center + GateDialog E3 | fort | E3 | P1 | I5 | frames |
 | Responsive | artboard only | breakpoints doc12 | critique | a11y | P0 | I1/I8 | frames 1728–1024 |
 | Accessibility | partielle | contrat 13 | moyen | AA | P1 | I8 | matrix |
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/17-d1-ux-acceptance-and-test-matrix.md`
 
 ```markdown
@@ -683,9 +765,7 @@ Aucun composant n’est baseline avant validation UX.
 | Aucun code modifié | git status app unchanged this cycle | same |
 
 Tests futurs I1 : visual regression shell fluide · a11y axe · keyboard Cockpit · no H-scroll ≥1024.
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/18-d1-ux-decision-pack.md`
 
 ```markdown
@@ -714,10 +794,8 @@ Implémentation CSS/React · D2 UX · SLO chiffrés · multi-op UI
 
 ## Anti-claims
 Pas code · pas I1 · pas IMPLEMENTED · d1-project-framing non modifié
-
 ```
-
-## 7. Diagrammes
+## 7. Diagrammes Mermaid (contenu complet)
 
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-decision-and-gate-flow.mmd`
 
@@ -729,9 +807,7 @@ flowchart LR
   E2 --> E3[E3 Gate Modal]
   E3 --> E4[E4 Hard block]
 ```
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-information-architecture.mmd`
 
 ```mermaid
@@ -742,9 +818,7 @@ flowchart TB
   CY --> GS[GuidedSession]
   GS --> CTL[Context / Reserves / Decisions / Review / Audit]
 ```
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-navigation-flow.mmd`
 
 ```mermaid
@@ -760,9 +834,7 @@ flowchart LR
   Dec --> Review[Cycle Review]
   Review --> Audit[Audit Timeline]
 ```
-
 ```
-
 ### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-responsive-layout.mmd`
 
 ```mermaid
@@ -773,21 +845,26 @@ flowchart TB
   M --> T[Tablet drawer]
   T --> Mob[Mobile sequential]
 ```
-
 ```
 
 ## 8. Réserves / dette / anti-claims
 
-- UX-R01 mobile frames non détaillées
-- UX-R02 design system Figma from-scratch
-- UX-R03 capture runtime = preuve, pas cible
+- **UX-R01** : mobile frames non détaillées
+- **UX-R02** : design system Figma from-scratch
+- **UX-R03** : capture runtime = preuve, pas cible
 - Dette : tokens layout fluides en code (I1) · ContextualRail React · a11y hardening I8
 - Anti-claims : pas code/CSS · pas I1 · pas IMPLEMENTED · framing/modeled/d1-project-framing non modifiés · pas commit projet
 
-## 9. Décisions humaines / non prises
+## 9. Décisions humaines requises / non prises
 
-Requises : GO VALIDATION UX/UI D1 ; valider shell fluide ; ContextualRail vs Copilot ; n’ouvrir I1 qu’après ce gate.
-Non prises : implémentation · D2 UX · SLO chiffrés · multi-op UI.
+### Requises
+1. GO VALIDATION UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
+2. Valider shell fluide vs artboard 1440
+3. Valider ContextualRail vs Copilot
+4. N’ouvrir GO IMPLEMENTATION D1-I1 qu’après validation UX
+
+### Non prises
+Implémentation · D2 UX · SLO chiffrés · multi-op UI
 
 ## 10. État Git final
 
@@ -796,5 +873,7 @@ HEAD=32e5271842b9a344a7e292614675c27ea8ed941b
 branch=delivery/sfia-studio-control-tower-fast-track
 staged=0
 ```
+
+## 11. Verdict
 
 **VERDICT :** SFIA v3.0 D1 UX/UI CONTRACT READY — FIGMA VERIFIED — HUMAN DECISION REQUIRED
