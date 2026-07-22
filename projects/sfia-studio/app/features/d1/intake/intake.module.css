@@ -1,0 +1,481 @@
+.hero {
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+  line-height: 1.2;
+  color: var(--sfia-ink);
+}
+
+.heroLead {
+  margin: 0;
+  font-size: 15px;
+  color: var(--sfia-muted);
+  max-width: 42rem;
+  line-height: 1.5;
+}
+
+.valueStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 20px;
+}
+
+.valueChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.composer {
+  display: grid;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--sfia-shadow-sm);
+  margin-bottom: 16px;
+}
+
+.composerLabel {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.composerHelp {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+}
+
+.composerArea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font: inherit;
+  resize: vertical;
+  background: var(--sfia-bg, #f6f7fa);
+}
+
+.composerArea:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.composerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exampleBtn {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px dashed var(--sfia-border);
+  background: #fff;
+  color: var(--sfia-ink);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.exampleBtn:hover,
+.exampleBtn:focus-visible {
+  border-color: var(--sfia-blue);
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 1px;
+}
+
+.quickActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.quickBtn {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  color: var(--sfia-ink);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.quickBtn:hover,
+.quickBtn:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.quickBtnPrimary {
+  background: var(--sfia-blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.statusPanel {
+  border-radius: 14px;
+  border: 1px solid #c9d6ff;
+  background: var(--sfia-blue-soft);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.statusPanel h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.statusPanel p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--sfia-ink);
+}
+
+.statusMeta {
+  font-size: 12px;
+  color: var(--sfia-muted);
+  font-style: italic;
+}
+
+.statusActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.resumeSection {
+  margin-top: 8px;
+}
+
+.resumeSection h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.resumeHint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--sfia-muted);
+}
+
+.resumeGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.resumeCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  min-height: 44px;
+}
+
+.resumeCard:hover,
+.resumeCard:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.resumeCard strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.staticNote {
+  border: 1px dashed var(--sfia-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fffaf0;
+  color: #8a5a00;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.manualBanner {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.manualBanner p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+  max-width: 36rem;
+}
+
+.proposalCard {
+  border: 1.5px solid var(--sfia-blue);
+  border-radius: 14px;
+  background: #fff;
+  padding: 18px;
+  margin-bottom: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.proposalCard h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.proposalMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.proposalSection h3 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: var(--sfia-muted);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.proposalSection p,
+.proposalSection li {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.proposalSection ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.bannerWarn {
+  border-radius: 12px;
+  border: 1px solid #f0c36d;
+  background: #fff7e0;
+  color: #8a5a00;
+  padding: 12px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.bannerError {
+  border-radius: 12px;
+  border: 1px solid #f0b4b4;
+  background: #ffecec;
+  color: #a11;
+  padding: 12px 14px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.loadingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.clarificationBox {
+  border-radius: 14px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  padding: 16px;
+  margin-bottom: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.contextCard {
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  background: #fff;
+  padding: 18px;
+  margin-bottom: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.contextCard h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.contextLead {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+  line-height: 1.45;
+}
+
+.contextList {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.contextCandidate {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: var(--sfia-bg, #f6f7fa);
+  cursor: pointer;
+}
+
+.contextCandidateSelected {
+  border-color: var(--sfia-blue);
+  background: var(--sfia-blue-soft);
+}
+
+.contextCandidate input {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.contextCandidateBody {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.contextCandidateHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.contextCandidateBody p,
+.contextCandidateBody li {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.contextCandidateBody ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.contextWarnings {
+  color: #8a5a00;
+}
+
+.confirmCard {
+  border: 1.5px solid var(--sfia-blue);
+  border-radius: 14px;
+  background: #fff;
+  padding: 18px;
+  margin-bottom: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.confirmCard h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.confirmCard h2:focus {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.confirmFields {
+  display: grid;
+  gap: 8px;
+}
+
+.confirmInput {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--sfia-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  background: var(--sfia-bg, #f6f7fa);
+}
+
+.confirmInput:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.confirmCheck {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.bannerOk {
+  border-radius: 12px;
+  border: 1px solid #9dcea8;
+  background: #eef9f0;
+  color: #1f6b35;
+  padding: 12px 14px;
+  font-size: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingRow {
+    animation: none;
+  }
+}
+
