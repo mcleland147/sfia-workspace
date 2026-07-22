@@ -70,12 +70,15 @@ test.describe("P0 smoke", () => {
     const rail = page.getByTestId("utility-rail");
 
     await rail.getByRole("link", { name: "Nouvelle demande" }).click();
-    await expect(page).toHaveURL(/nouvelle-demande/);
+    await expect(page).toHaveURL(/\/nouvelle-demande\/?$/);
+    // D1-C1: intake uses D1AppShell (no OPS1 utility-rail). Return to Studio shell.
+    await page.goto("/synthese");
+    const railAfter = page.getByTestId("utility-rail");
 
-    await rail.getByRole("link", { name: "Cycle actif" }).click();
+    await railAfter.getByRole("link", { name: "Cycle actif" }).click();
     await expect(page).toHaveURL(/cycle-actif/);
 
-    await rail.getByRole("link", { name: "Décision Morris" }).click();
+    await railAfter.getByRole("link", { name: "Décision Morris" }).click();
     await expect(page).toHaveURL(/decision/);
   });
 

@@ -26,7 +26,7 @@ test.beforeAll(() => {
 
 test.describe("Increment C — GPT qualification UI", () => {
   test("empty demand blocks confirmation + invalid capture", async ({ page }) => {
-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
     await expect(page.getByTestId("vs-demand-input")).toHaveValue("");
     await expect(page.getByTestId("vs-qualify-open-confirm")).toHaveAttribute(
       "aria-disabled",
@@ -46,7 +46,7 @@ test.describe("Increment C — GPT qualification UI", () => {
 
   test("Campus360 user demand → confirmation → fixture candidate", async ({ page }) => {
     test.setTimeout(90_000);
-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
     await page.getByTestId("vs-demand-input").fill(CAMPUS);
     await page.screenshot({
       path: path.join(userInputDir, "inc-c-demand-campus360.png"),
@@ -95,7 +95,7 @@ test.describe("Increment C — GPT qualification UI", () => {
 
   test("edit demand after fixture uses new text", async ({ page }) => {
     test.setTimeout(90_000);
-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
     await page.getByTestId("vs-demand-input").fill(CAMPUS);
     await page.getByTestId("vs-qualify-open-confirm").click();
     await page.getByTestId("vs-gpt-confirm-fixture").click();
@@ -110,7 +110,7 @@ test.describe("Increment C — GPT qualification UI", () => {
   });
 
   test("Nora composer is explicitly non-editable", async ({ page }) => {
-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
     await expect(page.getByTestId("copilot-composer-disabled")).toContainText(
       "Chat non disponible",
     );

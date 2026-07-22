@@ -15,7 +15,7 @@ async function prepareThroughI5Fixture(
   page: import("@playwright/test").Page,
   opts?: { keepUnusedModify?: boolean },
 ) {
-  await page.goto("/nouvelle-demande");
+  await page.goto("/ops1/nouvelle-demande");
   await page.evaluate(() => window.sessionStorage.clear());
   await page.reload();
   await expect(page.getByTestId("ops1-session-root")).toBeVisible();

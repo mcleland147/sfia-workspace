@@ -23,7 +23,7 @@ test.describe("OPS1 I2 real live locked capture", () => {
 
   test("GPT LIVE locked session with real assistant_live", async ({ page }) => {
     fs.mkdirSync(screenshotDir, { recursive: true });
-    await page.goto("/nouvelle-demande");
+    await page.goto("/ops1/nouvelle-demande");
     await page.evaluate(() => window.sessionStorage.clear());
     await page.reload();
 

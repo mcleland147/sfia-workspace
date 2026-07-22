@@ -15,7 +15,7 @@ test.describe("OPS1 I1 session + journal", () => {
   test("creates session, appends turns, persists after reload", async ({
     page,
   }) => {
-    await page.goto("/nouvelle-demande");
+    await page.goto("/ops1/nouvelle-demande");
     await page.evaluate(() => window.sessionStorage.clear());
     await page.reload();
     await expect(page.getByTestId("ops1-session-root")).toBeVisible();

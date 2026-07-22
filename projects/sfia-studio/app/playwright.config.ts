@@ -18,11 +18,12 @@ export default defineConfig({
   webServer: {
     command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
     url: baseURL,
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI,
     timeout: 180_000,
     env: {
       ...process.env,
       OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
+      D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",
       // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
       // without forcing fake (secrets must already be in the environment).
       ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
