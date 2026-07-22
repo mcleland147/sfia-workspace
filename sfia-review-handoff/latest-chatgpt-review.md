@@ -1,99 +1,782 @@
-# SFIA Studio Control Tower — Review Pack Full
+# Control Tower Fast Track Plan — Review Pack Full
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-22 09:44:30 CEST |
-| **Cycle** | 1 — Cadrage produit « SFIA Studio Control Tower » |
+| **Date/heure** | 2026-07-22 10:23:19 CEST |
+| **Cycle** | Fast Track intégré — Control Tower Vertical Slice (préparation) |
 | **Profil** | Critical |
-| **Gate Morris** | `GO CADRAGE SFIA STUDIO` (consommé) → sortie attendue `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` |
+| **Gates consommés** | `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` |
+| **Gate demandé** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` |
 | **Repo** | mcleland147/sfia-workspace |
-| **Branche** | `framing/sfia-studio-control-tower` (locale, **non poussée**) |
+| **Branche** | `framing/sfia-studio-control-tower` (locale, non poussée) |
 | **HEAD / base** | `32e5271842b9a344a7e292614675c27ea8ed941b` = `origin/main` |
-| **HEAD de référence** | `32e5271842b9a344a7e292614675c27ea8ed941b` |
+| **Handoff précédent** | `ddae017` (cadrage CT) — attendu et vérifié |
 
 ---
 
 ## 1. État Git initial
 
-- repo = mcleland147/sfia-workspace
-- branche initiale main @ origin/main = `32e5271`
-- staged vide ; aucun tracked modified
-- seuls `.tmp-sfia-review/**` non suivis (artefacts)
-- branche créée : `framing/sfia-studio-control-tower` depuis origin/main
-- aucun push projet
+- branche `framing/sfia-studio-control-tower` @ `32e5271`
+- docs 66–69 untracked ; README modified ; staged vide ; aucun code
+- `.tmp-sfia-review/**` untracked
+- handoff remote `ddae017`
 
 ---
 
-## 2. Sources consultées
+## 2. Sources
 
-### Méthode
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-
-### Cadrage produit historique
-- projects/sfia-studio/README.md
-- projects/sfia-studio/01…07 (opportunity → trajectory)
-
-### OPS1
-- 41–45, 51, 54, 57, 60–61, 63–65 (note : 63 = `63-ops1-integration-devops-foundation.md`, pas `…-contract.md`)
-
-### Handoff I7
-- branche `sfia/review-handoff`
-- `sfia-review-handoff/latest-chatgpt-review.md`
-- Clôture : `OPS1 I7 CLOSED WITH STRUCTURAL PRODUCT RESERVE`
-- Réserve **OPS1-I7-R01** : besoin tour de contrôle unique ; cible/archi non cadrées avant ce cycle
-- Expérience live : readiness + interaction GPT démarrée (2 tours) ; pas d’ActionCandidate / Cursor action / VS1
-- Recommandation candidate Control Tower : **ouverte en cadrage uniquement** ici
+Méthode (template, routing, operating model, guardrails).
+Cadrage CT 66–69 + README.
+OPS1 docs 41–45, 51, 54, 57, 60–61, 63–65 (noms réels : `60-ops1-backlog-framing-and-prioritization.md`, `64-ops1-local-controls-ci-and-evidence-contract.md` — pas les alias du prompt).
+Code : `app/lib/ops1/**`, `features/ops1/**`, tests/e2e ops1.
+Handoff `ddae017`.
 
 ---
 
-## 3. Documents historiques retenus / contradictions
+## 3. Décisions Morris validées (prises comme entrées)
 
-| Observation | Statut |
-|-------------|--------|
-| AF-Option C VALIDÉE : « Studio ≠ orchestrateur » | **Tension** avec vision Control Tower candidate (cockpit + orchestration visible) — **non tranchée** |
-| OPS1 I1–I6 livrés sur main | **Capitalisables** (session, gates, allowlist, CLI, report) |
-| I7 clôturé avec R01 | **Déclencheur** du présent cadrage |
-| Docs 20–28 orchestration POC | Historique ; distincts de Control Tower 66–69 |
-| Aucun doc `*tower*` / collision 66–69 | Numérotation **66–69** retenue |
-
-**Obsolescence :** aucune déclaration d’obsolescence OPS1. Reformulation AF-Option C = **décision Morris**.
+1. Vision Control Tower
+2. AF-Option C reformulée
+3. Option C hybride
+4. Fast Track ouvert (préparation)
+5. Plan archi/contrat/backlog/delivery autorisé
+6. Pas de code sans revue plan + GO exécution
+7. Pas commit/push/PR/merge projet
 
 ---
 
-## 4. Qualification nouvelle cible
+## 4. Inventaire OPS1 réutilisable (synthèse)
 
-- Cycle : Cadrage produit Critical
-- Blocs activés (non décisionnels tech) : AF exploratoire, UX, sécu, DevOps, obs, FinOps, perf, REX
-- Non ouverts : archi tech cible, backlog delivery, fournisseurs, commercial détaillé, indu, prod
-- Cible candidate : SFIA Studio = Control Tower unique du workflow SFIA
+Réutiliser : db/repository/session, openaiProvider (étendre tools), conversation service, actions/gates/allowlist, contract/worktree/orchestrator, **cursorExecutionAdapter** (`agent --print --workspace --trust --sandbox`), postcheck, reportService, UI Ops1SessionScreen, tests I1–I6.
 
----
+Créer : Tool Router, Git local read adapter, GitHub read adapter+transport, tool-event UI, report reinjection into conversation, unified timeline, tool schemas.
 
-## 5. Numérotation documentaire
-
-Dernier historique : `65-ops1-integration-devops-decision-pack.md`
-Séquence retenue : **66, 67, 68, 69**
+Écart clé : `openaiProvider` a encore `tools: []` ; aucun GitHub ; pas de réinjection auto rapport→GPT.
 
 ---
 
-## 6. Fichiers créés
+## 5–9. Architecture / outils / adapters / réinjection / UX
 
-1. projects/sfia-studio/66-control-tower-product-framing.md
-2. projects/sfia-studio/67-control-tower-capabilities-and-user-journeys.md
-3. projects/sfia-studio/68-control-tower-scope-success-criteria-and-risks.md
-4. projects/sfia-studio/69-control-tower-options-and-decision-pack.md
+Voir contenu complet doc `70` ci-dessous.
 
-## 7. Fichiers modifiés
+## 10–12. Backlog / lots / décisions
 
-1. projects/sfia-studio/README.md — navigation + état `framing-open` + GO + anti-claims (pas de réécriture historique)
+Voir docs `71` et `72` (FT-01…12 ; lots A/B/C ; D1–D8).
+
+**Reco transport GitHub (D2) :** `gh` encapsulé avec fallback API REST ; interface métier découplée.
+**Reco Cursor (D3) :** réutiliser OPS1 I5/I6 sans rewrite.
+**Start Cursor :** UI gate only (fail-closed si tool start).
 
 ---
 
-## 8. Contenu complet — fichiers créés
+## 13. Fichiers créés
 
+- projects/sfia-studio/70-control-tower-fast-track-architecture-and-contract.md
+- projects/sfia-studio/71-control-tower-fast-track-backlog-and-delivery.md
+- projects/sfia-studio/72-control-tower-fast-track-decision-pack.md
+
+## 14. Fichiers modifiés
+
+- projects/sfia-studio/README.md (navigation + états validés / plan-open)
+- projects/sfia-studio/66…69 (métadonnée statut → validated uniquement)
+
+---
+
+## 15. Contenu complet — fichiers créés / mis à jour statut
+
+
+### Fichier : `projects/sfia-studio/70-control-tower-fast-track-architecture-and-contract.md`
+
+````markdown
+# SFIA Studio — Control Tower Fast Track — Architecture minimale et contrats
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `70-control-tower-fast-track-architecture-and-contract.md` |
+| **Cycle** | Fast Track intégré — Vertical Slice Control Tower |
+| **Profil** | Critical |
+| **Gates consommés** | `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` |
+| **Gate de sortie (préparation)** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` — **requis avant tout code** |
+| **Statut** | `plan-open` — exécutable après GO Morris ; **non implémenté** |
+| **Branche** | `framing/sfia-studio-control-tower` (locale) |
+| **Base** | `origin/main` @ `32e5271842b9a344a7e292614675c27ea8ed941b` |
+| **Direction** | Option C hybride (**validée**) |
+| **AF-Option C** | **Reformulée et validée** : Studio = cockpit + façade d’orchestration ; policies / exécuteurs logiquement séparés derrière Studio |
+
+> **Anti-claims :** architecture **planifiée**, pas implémentée. Pas de MVP. Pas de GitHub write. Pas de plateforme MCP universelle. Aucun code modifié dans cette phase.
+
+---
+
+## 1. Objectif du vertical slice
+
+Démontrer **sans copier-coller** :
+
+Conversation live GPT → outils Git/GitHub **read-only** visibles → ActionCandidate → gate Morris → Cursor CLI sous contrat → events → rapport/diff/tests → **réinjection auto** dans la conversation → analyse GPT → décision Morris.
+
+---
+
+## 2. Inventaire OPS1 réutilisable (fichier par fichier)
+
+### Réutiliser tel quel (ou extension minimale)
+
+| Fichier | Rôle actuel | Usage Fast Track |
+|---------|-------------|------------------|
+| `app/lib/ops1/db.ts` + `repository.ts` | SQLite session/tours/events | Persistance + journal |
+| `app/lib/ops1/sessionLifecycle.ts` | OPEN/CLOSED, post-report resume | Cycle de vie |
+| `app/lib/ops1/conversation/openaiProvider.ts` | Responses API, `tools: []` | **Étendre** tool calling |
+| `app/lib/ops1/conversation/service.ts` | sendMessage live/fixture | Boucle outils + réinjection |
+| `app/lib/ops1/conversation/config.ts` | clés serveur | Secrets backend |
+| `app/lib/ops1/actions.ts` + `actionGate.ts` | ActionCandidate + 4 actions gate | Gouvernance action |
+| `app/lib/ops1/allowlistEvaluation.ts` + `allowlistService.ts` | Allowlist chemins | Policy lecture/écriture |
+| `app/lib/ops1/executionContractService.ts` | Seal contrat / hash | Contrat Cursor |
+| `app/lib/ops1/executionRevalidation.ts` | Pré-checks | Avant run |
+| `app/lib/ops1/executionWorktree.ts` | Worktree + payload | Isolation action |
+| `app/lib/ops1/cursorExecutionAdapter.ts` | `cursor agent --print --workspace …` | **Réutiliser** spawn réel |
+| `app/lib/ops1/executionOrchestrator.ts` | Attempt + events | Suivi exécution |
+| `app/lib/ops1/executionPostCheck.ts` | Diff/fichiers touchés | Preuves |
+| `app/lib/ops1/reportService.ts` | Rapport scellé I6 | Base réinjection |
+| `app/lib/ops1/types.ts` / `errors.ts` / `ids.ts` | Domaine | Étendre types events/outils |
+| `app/features/ops1/Ops1SessionScreen.tsx` | UI slice | Étendre panneaux outils/timeline |
+| Tests `app/__tests__/ops1/**` + `app/e2e/ops1-i*.spec.ts` | Preuves I1–I6 | Pattern pour FT |
+
+### À créer (écarts)
+
+| Élément | Pourquoi |
+|---------|----------|
+| Tool Router + policy lecture | GPT n’a aucun outil aujourd’hui (`tools: []`) |
+| Git Local Read Adapter | Lectures git dispersées côté exécution, **pas** exposées à GPT |
+| GitHub Read Adapter + transport | **Absent** |
+| Tool-call event store / UI | **Absent** |
+| Report Reinjection Service | Rapport I6 affiché ; **pas** injecté comme message outil/système pour analyse GPT auto |
+| Unified timeline UI | Events partiels ; pas de timeline produit unifiée |
+| Schémas outils + redaction/plafonds | **Absent** |
+
+### Cursor CLI observé (réutilisation)
+
+```
+<bin> agent --print --workspace <worktree> --trust --sandbox enabled <instruction>
+```
+
+- Bin : `SFIA_CURSOR_BIN` ou `/Applications/Cursor.app/.../bin/cursor` ou `~/.local/bin/cursor-agent`
+- Gate env : `OPS1_CURSOR_REAL=1`
+- Timeout : `contract.timeoutSeconds`
+- CWD : worktree sous `.sfia-exec`
+- MCP Cursor (ex. Figma) : éventuels **côté Cursor**, hors Studio ; **non requis** pour réussir le slice
+
+---
+
+## 3. Architecture minimale (Option C)
+
+```
+SFIA Studio UI
+  → Session / Conversation Service          [OPS1 étendu]
+  → OpenAI Responses API + tool calling     [OPS1 openaiProvider étendu]
+  → Tool Router                             [NOUVEAU]
+  → Policy Engine OPS1                      [allowlist + gates + read/write split]
+  → Git Local Read Adapter                  [NOUVEAU — interne]
+  → GitHub Read Adapter                     [NOUVEAU — interface + transport]
+  → Cursor CLI Adapter                      [OPS1 cursorExecutionAdapter]
+  → Execution Event Store                   [OPS1 session_events étendu]
+  → Report Reinjection Service              [NOUVEAU sur reportService]
+```
+
+Séparation logique validée : UI/façade Studio · policies déterministes · adapters · exécuteur Cursor · Git vérité.
+
+Pas de framework MCP Studio. Pas de shell libre.
+
+---
+
+## 4. Composants — contrats
+
+### 4.1 Session / Conversation Service
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Tours, mode live, boucle outils, reprise post-rapport |
+| Entrées | sessionId, message, mode |
+| Sorties | tours, usage, tool events |
+| Erreurs | NOT_FOUND, CONFLICT, PROVIDER |
+| Timeouts | timeout provider + timeout outil agrégé |
+| Observabilité | conversation_attempts, events |
+| OPS1 | `conversation/service.ts`, `repository.ts` |
+| Créer | loop tool→router→réponse |
+| Secrets | via config serveur uniquement |
+| Risque | Moyen (tokens, boucle) |
+
+### 4.2 OpenAI Responses + tools
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Raisonnement + sélection d’outils bornés |
+| Entrées | messages + tool defs filtrées |
+| Sorties | texte / tool_calls |
+| Erreurs | PROVIDER, empty |
+| OPS1 | `openaiProvider.ts` (`tools: []` → tools session) |
+| Créer | mapping tool results → input suivant |
+| Secrets | `OPENAI_API_KEY` backend |
+| Risque | Moyen |
+
+### 4.3 Tool Router
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Dispatch outil → adapter ; enforce policy ; émettre events |
+| Entrées | tool name + args + session context |
+| Sorties | résultat structuré plafonné / erreur typée |
+| Erreurs | POLICY_DENIED, TIMEOUT, NOT_ALLOWLISTED |
+| Retry | **absent** ou 1 retry lecture idempotente max — jamais write |
+| Secrets | aucun au modèle |
+| Risque | Haut (surface outils) |
+
+### 4.4 Policy Engine OPS1
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Allowlist repos/chemins ; séparer lecture / action Cursor ; gates |
+| OPS1 | allowlist*, actionGate, contract seal |
+| Créer | scopes **read tools** distincts des writes Cursor |
+| Risque | Haut |
+
+### 4.5 Git Local Read Adapter
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Lectures git/fs bornées |
+| Interface | status, head, search, readFile, diff, logLimited, listWorktrees |
+| Commandes OK | `rev-parse`, `status --porcelain`, `diff`, `log` limité, `ls-files`, `show`, `worktree list`, read fs borné |
+| Interdit | commit, checkout, switch, branch ±, reset, clean, stash, push, fetch auto non cadré, shell |
+| Secrets | aucun |
+| Risque | Moyen (fuite contenu) — plafonds + redaction |
+
+### 4.6 GitHub Read Adapter
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Lecture remote allowlistée |
+| Interface (métier) | getRepository, getBranch, getCommit, getPullRequest, listPullRequestComments, listChecks |
+| Transport | **indépendant** du métier (voir décision D2) |
+| Contraintes | read-only ; creds backend ; pas de token GPT ; pas de fallback silencieux |
+| Risque | Moyen (auth, quotas) |
+
+### 4.7 Cursor CLI Adapter
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Exécuter **uniquement** un contrat déjà GO |
+| OPS1 | `cursorExecutionAdapter.ts` + orchestrator + worktree |
+| Entrées | ExecutionContract scellé + worktree |
+| Sorties | exit, digests stdout/stderr, durée |
+| Annulation | kill timeout (existant) ; cancel UI = lot C optionnel |
+| Reprise | pas d’auto-retry ; nouvel attempt = nouveau GO |
+| Risque | Haut (écriture locale bornée) |
+
+### 4.8 Execution Event Store
+
+| Champ | Contenu |
+|-------|---------|
+| Responsabilité | Timeline corrélée session/action/attempt/tool |
+| OPS1 | `session_events` |
+| Créer | types TOOL_CALL_*, SOURCE_*, REINJECTION_* |
+| Risque | Faible |
+
+### 4.9 Report Reinjection Service
+
+| Champ | Contenu |
+|-------|---------|
+| Flux | Cursor → MinimalExecutionResult → reportService seal → message système/outil corrélé (sessionId/actionId/attemptId) → GPT analyse → Morris décide |
+| Interdit | copier-coller ; rapport non corrélé ; rewrite sealed ; succès implicite ; auto-retry |
+| OPS1 | `reportService.ts` + `POST_REPORT_CHAT_RESUMED` |
+| Créer | injection tour/outil structurée post-seal |
+| Risque | Moyen |
+
+---
+
+## 5. Contrats d’outils GPT (minimaux)
+
+Restrictions transverses : pas de shell ; pas de path absolu GPT sans résolution interne ; repo allowlisté ; chemins normalisés ; taille plafonnée ; redaction ; timeout ; pas de write GitHub ; Cursor tools **ne démarrent pas** sans gate (prepare OK ; start exige GO).
+
+### 5.1 Git local
+
+| Outil | Params (schéma) | Réponse | Policy | Events |
+|-------|-----------------|---------|--------|--------|
+| `git_local_get_status` | `{}` | porcelain résumé | read repo session | TOOL_CALL_STARTED/SUCCEEDED/FAILED |
+| `git_local_get_head` | `{}` | sha, branch | idem | idem |
+| `git_local_search_files` | `{ query: string, limit?: number }` | paths[] | glob borné | idem |
+| `git_local_read_file` | `{ path: string, maxBytes?: number }` | content trunc | allowlist read | idem |
+| `git_local_get_diff` | `{ path?: string, maxBytes?: number }` | diff trunc | read | idem |
+| `git_local_list_worktrees` | `{}` | list redacted | read | idem |
+
+Erreurs : `POLICY_DENIED`, `PATH_NOT_FOUND`, `TOO_LARGE`, `TIMEOUT`.
+
+### 5.2 GitHub
+
+| Outil | Params | Réponse | Policy |
+|-------|--------|---------|--------|
+| `github_get_repository` | `{ owner?, name? }` défauts session | meta | allowlist repo |
+| `github_get_branch` | `{ name }` | tip sha | idem |
+| `github_get_commit` | `{ sha }` | message, author (redact email opt) | idem |
+| `github_get_pull_request` | `{ number }` | title, state, head/base | idem |
+| `github_list_checks` | `{ ref }` | conclusions[] | idem |
+
+(+ commentaires PR via `github_list_pr_comments` si besoin démo — même policy).
+
+### 5.3 Cursor (gouvernés)
+
+| Outil | Comportement |
+|-------|----------------|
+| `cursor_prepare_execution` | Matérialise/affiche candidat+contrat ; **pas** d’exécution |
+| `cursor_start_execution` | **Refusé** sans décision Morris GO ancrée au contractHash ; sinon lance orchestrator |
+| `cursor_get_execution_status` | Lecture attempt |
+| `cursor_get_report` | Lecture rapport scellé |
+
+Alternative UX (recommandée) : start **uniquement** via bouton gate UI (pas tool GPT) — tools Cursor limités à prepare/status/report. Décision D3/D5.
+
+---
+
+## 6. UX minimale (contrat fonctionnel)
+
+### Écran
+
+- Colonne conversation
+- Panneau contexte Git/GitHub (sources)
+- Timeline cycle
+- Action candidate
+- Gate Morris
+- Panneau exécution Cursor
+- Fichiers / diff / tests
+- Rapport
+- Décision suivante
+
+### États visibles
+
+recherche source · outil appelé · lecture OK/KO · action candidate · attente gate · exécution préparation · Cursor running · rapport en cours/reçu · analyse GPT · décision attendue · terminé avec réserves · échec fail-closed
+
+Pas de design final. Pas de Figma obligatoire.
+
+---
+
+## 7. Sécurité / FinOps / Observabilité (slice)
+
+| Domaine | Exigence candidate |
+|---------|-------------------|
+| Secrets | Backend only ; jamais dans tool results bruts non redactés |
+| Read vs write | Classes séparées ; write = Cursor sous gate seulement |
+| FinOps | Afficher usage tokens si dispo ; pas d’estimation inventée |
+| Obs | Corrélation sessionId / toolCallId / actionId / attemptId / reportId |
+| Timeouts | Provider, outil, Cursor — explicites |
+| Fail-closed | Deny by default |
+
+---
+
+## 8. Critères de succès (preuve)
+
+1. Live GPT multi-tours dans Studio
+2. ≥1 outil Git local + ≥1 GitHub read réussis, visibles UI
+3. Aucun copier-coller Studio↔Cursor
+4. GO Morris avant exécution
+5. Cursor CLI sous contrat + events
+6. Rapport/diff/tests réinjectés ; GPT analyse
+7. Aucun write GitHub
+8. Journal audit rejouable
+
+---
+
+## 9. Liens
+
+- Backlog / lots : `71-control-tower-fast-track-backlog-and-delivery.md`
+- Decision pack : `72-control-tower-fast-track-decision-pack.md`
+````
+
+### Fichier : `projects/sfia-studio/71-control-tower-fast-track-backlog-and-delivery.md`
+
+````markdown
+# SFIA Studio — Control Tower Fast Track — Backlog et delivery
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `71-control-tower-fast-track-backlog-and-delivery.md` |
+| **Complète** | `70`, `72` |
+| **Statut** | `plan-open` — backlog borné ; **non exécuté** |
+| **Gate exécution** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` |
+
+> ≤ 12 items. ≤ 3 lots. Pas d’epics artificiels. Pas de code avant GO exécution.
+
+---
+
+## 1. Backlog borné
+
+### FT-01 — Inventory OPS1 reuse (preuve documentaire → checklist code)
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Verrouiller la matrice réutiliser / étendre / créer avant code |
+| Fichiers | `app/lib/ops1/**`, `features/ops1/**`, tests/e2e ops1 |
+| Dépendances | Aucune |
+| AC | Checklist fichier→décision jointe au lot A ; aucun rebuild inutile |
+| Tests | N/A (doc→checklist) |
+| Risques | Sur-ingénierie |
+| Gate | Inclus dans GO exécution |
+| Effort | S |
+| Parallel | Oui (avec FT-02) |
+
+### FT-02 — Tool contracts
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Types + schémas + plafonds + erreurs des outils §5 du doc 70 |
+| Fichiers | `lib/ops1/tools/**` (nouveau), `types.ts` |
+| Dépendances | FT-01 |
+| AC | Chaque outil a schéma params/réponse/policy ; pas de shell |
+| Tests | Unit schémas / validation deny |
+| Risques | Surface trop large |
+| Effort | M |
+| Parallel | Oui avec FT-01 |
+
+### FT-03 — Git local read adapter
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Adapter interne read-only |
+| Fichiers | `lib/ops1/tools/gitLocalReadAdapter.ts` |
+| Dépendances | FT-02 |
+| AC | status/head/search/read/diff/worktrees ; commandes interdites impossibles |
+| Tests | Unit + preuve négative path hors allowlist |
+| Risques | Fuite secrets fichiers |
+| Effort | M |
+| Parallel | Avec FT-04 si contrats figés |
+
+### FT-04 — GitHub read adapter
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Interface métier + 1er transport (reco : API REST ou `gh` encapsulé) |
+| Fichiers | `lib/ops1/tools/githubReadAdapter.ts`, `githubTransport*.ts` |
+| Dépendances | FT-02 ; D2 transport |
+| AC | getRepo/branch/commit/PR/checks ; creds backend ; fail explicite |
+| Tests | Unit mock transport ; pas de write |
+| Risques | Auth locale ; quotas |
+| Effort | M |
+| Parallel | Avec FT-03 |
+
+### FT-05 — OpenAI tool-calling loop
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Étendre `openaiProvider` + `conversation/service` : tools → router → résultats |
+| Fichiers | `conversation/openaiProvider.ts`, `service.ts`, Tool Router |
+| Dépendances | FT-02, FT-03, FT-04 |
+| AC | Live multi-tours avec ≥1 tool call Git + GitHub ; `tools: []` abandonné en live FT |
+| Tests | Unit fake provider tools ; e2e fixture tools |
+| Risques | Boucle infinie / coût tokens |
+| Effort | L |
+| Parallel | Non (chemin critique) |
+
+### FT-06 — Tool-event UI
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Afficher appels d’outils et sources dans Ops1SessionScreen |
+| Fichiers | `features/ops1/Ops1SessionScreen.tsx` (+ composants légers) |
+| Dépendances | Events FT-05 |
+| AC | États outil appelé / OK / KO visibles sans quitter la conversation |
+| Tests | UI/unit + e2e smoke |
+| Risques | Bruit UX |
+| Effort | M |
+| Parallel | Après contrats events ; parallèle partiel FT-05 fin |
+
+### FT-07 — Cursor Adapter integration
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Brancher prepare→gate→start sans copier-coller ; réutiliser CLI OPS1 |
+| Fichiers | `cursorExecutionAdapter.ts`, `executionOrchestrator.ts`, gate UI |
+| Dépendances | FT-05 (proposition action), OPS1 I3–I5 |
+| AC | Prompt/contrat transmis auto ; spawn CLI ; events running/done |
+| Tests | e2e fixture ; real sous flag |
+| Risques | Refonte inutile de l’adapter |
+| Effort | M (si réutilise) |
+| Parallel | Non avec FT-08 |
+
+### FT-08 — Report reinjection
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Après seal rapport : message corrélé dans conversation ; GPT peut analyser |
+| Fichiers | `reportService.ts`, reinjection service, conversation |
+| Dépendances | FT-07 |
+| AC | Zéro copier-coller ; sealed immutable ; analyse post-rapport possible |
+| Tests | Unit + e2e i6 étendu |
+| Risques | Double injection / race |
+| Effort | M |
+| Parallel | Non |
+
+### FT-09 — Unified timeline
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Timeline unique demande→outils→gate→exec→rapport→décision |
+| Fichiers | UI + events |
+| Dépendances | FT-06, FT-07, FT-08 |
+| AC | Parcours démo lisible en une vue |
+| Tests | e2e snapshot états |
+| Effort | S–M |
+| Parallel | Fin Lot C |
+
+### FT-10 — Security and policy checks
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Preuves deny : path, repo, write GitHub, start sans GO, redaction |
+| Fichiers | tests policy + adapters |
+| Dépendances | FT-03–05, FT-07 |
+| AC | Matrice contrôles documentée + tests verts |
+| Effort | M |
+| Parallel | Avec FT-11 |
+
+### FT-11 — Integrated tests
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Suite unit + e2e vertical slice FT |
+| Fichiers | `__tests__`, `e2e` |
+| Dépendances | Lots A–B |
+| AC | Parcours nominal fixture vert ; cas deny verts |
+| Effort | M |
+| Parallel | Avec FT-10 |
+
+### FT-12 — Live demonstration
+
+| Champ | Contenu |
+|-------|---------|
+| Objectif | Preuve live Morris (GPT réel + GitHub read + Cursor réel si dispo) |
+| Fichiers | preuves `.tmp-sfia-review/**` (hors commit projet) |
+| Dépendances | FT-09–11 |
+| AC | Checklist 8 critères doc 70 §8 ; réserves explicites si Cursor real KO |
+| Effort | S (exec) + prep |
+| Parallel | Non — clôture |
+
+---
+
+## 2. Lots (≤ 3)
+
+### Lot A — Lecture outillée
+
+**Items :** FT-01, FT-02, FT-03, FT-04, FT-05, FT-06
+**Preuve :** GPT lit Git local + GitHub ; UI montre tool events ; aucun Cursor write requis.
+
+### Lot B — Cursor intégré
+
+**Items :** FT-07, FT-08
+**Preuve :** Gate → CLI auto → rapport réinjecté ; zéro copier-coller.
+
+### Lot C — Démonstration complète
+
+**Items :** FT-09, FT-10, FT-11, FT-12
+**Preuve :** Timeline + contrôles sécu + tests + live (ou live partiel documenté).
+
+---
+
+## 3. Chemin critique
+
+```
+FT-01/02 → FT-03 & FT-04 → FT-05 → FT-06
+                ↓
+              FT-07 → FT-08 → FT-09 → FT-10/11 → FT-12
+```
+
+Bloquant principal : **FT-05** (tool loop). Ensuite **FT-07→FT-08**.
+
+---
+
+## 4. Parallélisation autorisée
+
+| Pair | OK si |
+|------|-------|
+| FT-01 ∥ FT-02 | Oui |
+| FT-03 ∥ FT-04 | Oui — contrats FT-02 gelés ; fichiers distincts |
+| FT-06 fin ∥ polish FT-05 | Oui si events schema stable |
+| FT-10 ∥ FT-11 | Oui |
+| FT-07 ∥ FT-08 | **Non** |
+| Multi-branches | **Déconseillé** — une branche delivery après GO |
+
+---
+
+## 5. Dette temporaire acceptée (candidate)
+
+- Allowlist encore orientée Campus360 / patterns OPS1 — élargir seulement si démo l’exige
+- Transport GitHub V1 unique (pas d’abstraction sur-ingéniée)
+- Timeline UI « suffisante » pas pixel-perfect
+- Cancel Cursor manuel non prioritaire
+- Pas de multi-repo
+
+---
+
+## 6. Stratégie branche (après GO exécution — non ouverte ici)
+
+Recommandation : **une** branche `delivery/sfia-studio-control-tower-ft-vs` depuis `main` (+ commits docs 66–72 si intégrés avant). Pas de multiplication worktrees FT.
+````
+
+### Fichier : `projects/sfia-studio/72-control-tower-fast-track-decision-pack.md`
+
+````markdown
+# SFIA Studio — Control Tower Fast Track — Decision pack
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `72-control-tower-fast-track-decision-pack.md` |
+| **Cycle** | Fast Track Control Tower Vertical Slice — préparation |
+| **Profil** | Critical |
+| **Gates déjà consommés** | `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` |
+| **Gate demandé** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` |
+| **Statut** | `plan-open` — recommandations ≠ décisions d’exécution |
+
+---
+
+## 1. Périmètre (rappel validé)
+
+**Inclus :** live GPT + tool calling read Git local/GitHub + UI tools/sources + ActionCandidate + gate + Cursor CLI auto + suivi + réinjection rapport/diff/tests + analyse GPT.
+
+**Exclus :** GitHub write · commit/push/PR/merge Studio · Figma Studio · MCP universel · multi-users · prod · indu · MVP définitif · L5 · mobile · facturation.
+
+---
+
+## 2. Architecture
+
+Option C hybride **retenue** (Morris). Détail exécutable : doc `70`.
+
+Reformulation AF-Option C **validée** : Studio = cockpit + façade d’orchestration ; moteur policies/exécuteurs logiquement séparés.
+
+---
+
+## 3. Options locales restantes (à trancher pour exécution)
+
+### D1 — Architecture minimale Fast Track
+
+| | |
+|--|--|
+| **Reco** | Adopter le graphe doc 70 (Tool Router + 2 read adapters + Cursor OPS1 + Reinjection) sans framework générique |
+| **Alt** | Repousser GitHub read au lot B (réduit démo) — **non recommandé** |
+| **Décision Morris** | Approuver D1 pour exécution ? |
+
+### D2 — Transport GitHub initial
+
+| Option | Avantage | Limite |
+|--------|----------|--------|
+| **A — API REST GitHub** (token backend) | Contrôle ; portable CI | Setup token |
+| **B — `gh` CLI encapsulé** | Déjà présent sur machine Morris (`/opt/homebrew/bin/gh`) | Couplage CLI locale |
+| **C — MCP GitHub** | Standard | Effort + surface MCP — **hors volonté slice** |
+
+| | |
+|--|--|
+| **Reco** | **B (`gh` encapsulé)** pour démo locale rapide si auth OK ; interface métier stable pour bascule A sans changer le router. Si `gh` non auth → **A**. |
+| **Décision Morris** | B avec fallback A ? |
+
+### D3 — Réutilisation Cursor Adapter OPS1
+
+| | |
+|--|--|
+| **Reco** | **Réutiliser** `cursorExecutionAdapter.ts` + orchestrator/worktree/contract/postcheck/report ; étendre uniquement prompt générique (au-delà Markdown Campus360 strict) **si** la démo l’exige, sinon garder bornage OPS1 pour la 1re preuve |
+| **Alt** | Réécrire adapter — **refusé** (hors accélération) |
+| **Décision Morris** | Confirmer réutilisation OPS1 I5/I6 sans rewrite ? |
+
+### D4 — Organisation des trois lots
+
+| | |
+|--|--|
+| **Reco** | Lot A lecture outillée → Lot B Cursor+réinjection → Lot C timeline/sécu/tests/live (doc 71) |
+| **Décision Morris** | Approuver découpage A/B/C ? |
+
+### D5 — Périmètre démonstration
+
+| | |
+|--|--|
+| **Reco** | Démo = critères §8 doc 70 ; scénario unique repo `sfia-workspace` ; action Cursor = modification allowlistée **minimale** (héritage OPS1 Markdown) ; GitHub read sur ce repo ; Figma **hors** succès |
+| **Décision Morris** | Approuver scénario démo ? |
+
+### D6 — Critères de succès
+
+| | |
+|--|--|
+| **Reco** | Les 8 critères doc 70 §8 sont le contrat de preuve FT |
+| **Décision Morris** | Valider comme DoD du vertical slice ? |
+
+### D7 — Dette temporaire
+
+| | |
+|--|--|
+| **Reco** | Accepter dette §5 doc 71 (allowlist étroite, UI minimale, un transport GH, pas de cancel fancy) |
+| **Décision Morris** | Accepter dette listée ? |
+
+### D8 — Autorisation d’exécution code
+
+| | |
+|--|--|
+| **Reco** | Après revue de ce plan : consommer `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` ; **alors seulement** modifier `app/**` |
+| **Décision Morris** | **GO / NO-GO** exécution |
+
+---
+
+## 4. Backlog et lots
+
+12 items FT-01…FT-12 · 3 lots · chemin critique FT-05 puis FT-07→FT-08 · parallélisation FT-03∥FT-04 seulement après FT-02 — voir `71`.
+
+---
+
+## 5. Risques structurants
+
+| ID | Risque | Contrôle |
+|----|--------|----------|
+| R1 | Tool loop coûteuse / diverge | Max tool rounds ; timeout ; deny write |
+| R2 | Fuite secrets via read_file | Allowlist + redaction + maxBytes |
+| R3 | Start Cursor via GPT sans gate | Start **UI gate only** (reco) ; tool start fail-closed |
+| R4 | `gh`/API auth manquante | Erreur explicite ; pas de faux succès |
+| R5 | Cursor real indisponible | Fixture pour CI ; live partiel documenté |
+| R6 | Scope creep MVP | Exclusions §1 ; question « utile à la démo ? » |
+| R7 | Tension docs historiques AF-C | Décision Morris déjà validée — README à aligner navigation |
+
+---
+
+## 6. Décisions Morris déjà actées (ne pas re-demander)
+
+1. Vision Control Tower validée
+2. AF-Option C reformulée validée
+3. Option C hybride direction de travail
+4. Fast Track autorisé (préparation)
+5. OPS1 capitalisé, non obsolète
+6. Pas d’implémentation code avant revue plan + GO exécution
+7. Pas de commit/push/PR/merge projet dans la préparation
+
+---
+
+## 7. Anti-claims
+
+- Plan ≠ implémentation
+- Pas de MVP / production / industrialisation
+- Pas de GitHub write
+- Pas de Control Tower « terminé »
+- Pas de plateforme MCP Studio
+- Handoff ≠ merge docs sur main
+
+---
+
+## 8. Gate d’exécution (formulation)
+
+**Demande :** `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE`
+
+**Autorise si GO :** modification code sous `projects/sfia-studio/app/**` selon backlog 71 ; tests ; preuves locales ; **toujours** sans commit/push/PR tant qu’un GO distinct ne l’ouvre pas.
+
+**N’autorise pas :** write GitHub produit · méthode · hors périmètre · merge.
+
+---
+
+## 9. Verdict préparation
+
+Si D1–D8 revue sans bloqueur structurel :
+
+**CONTROL TOWER FAST TRACK PLAN READY FOR MORRIS REVIEW**
+
+Prochaine action Morris : trancher D2 (transport) + D8 (GO exécution) ; D1/D3–D7 peuvent être confirmés en bloc avec le plan.
+````
 
 ### Fichier : `projects/sfia-studio/66-control-tower-product-framing.md`
 
@@ -108,7 +791,7 @@ Séquence retenue : **66, 67, 68, 69**
 | **Profil** | Critical |
 | **Gate consommé** | `GO CADRAGE SFIA STUDIO` |
 | **Gate de sortie attendu** | `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` |
-| **Statut** | `framing-open` — **candidat** ; **non validé** |
+| **Statut** | **`validated`** — `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` consommé ; suite Fast Track : `70`–`72` |
 | **Baseline méthode** | SFIA v2.6 (Option C méthode — inchangée) |
 | **Autorité** | Morris (L0) |
 | **Exécuteur** | Cursor — cadrage documentaire uniquement |
@@ -270,7 +953,6 @@ Réponse candidate (non décision) : en faisant de Studio le **point unique d’
 - Réserve source : handoff I7 — OPS1-I7-R01
 ````
 
-
 ### Fichier : `projects/sfia-studio/67-control-tower-capabilities-and-user-journeys.md`
 
 ````markdown
@@ -280,7 +962,7 @@ Réponse candidate (non décision) : en faisant de Studio le **point unique d’
 |------------|--------|
 | **Document** | `67-control-tower-capabilities-and-user-journeys.md` |
 | **Cycle** | Cadrage produit Control Tower |
-| **Statut** | `framing-open` — candidat ; **non validé** |
+| **Statut** | **`validated`** (cadrage CT) — suite Fast Track : `70`–`72` |
 | **Complète** | `66-control-tower-product-framing.md` |
 | **Gate** | `GO CADRAGE SFIA STUDIO` |
 
@@ -533,7 +1215,6 @@ Aucun design ne devient baseline dans ce cycle.
 Voir aussi `68` (périmètre) et `69` (options).
 ````
 
-
 ### Fichier : `projects/sfia-studio/68-control-tower-scope-success-criteria-and-risks.md`
 
 ````markdown
@@ -543,7 +1224,7 @@ Voir aussi `68` (périmètre) et `69` (options).
 |------------|--------|
 | **Document** | `68-control-tower-scope-success-criteria-and-risks.md` |
 | **Cycle** | Cadrage produit Control Tower |
-| **Statut** | `framing-open` — candidat ; **non validé** |
+| **Statut** | **`validated`** (cadrage CT) — suite Fast Track : `70`–`72` |
 | **Complète** | `66`, `67`, `69` |
 
 > **MVP non défini / non validé.** POC et produit cible sont **distingués**. Aucun claim production / live-ready.
@@ -781,7 +1462,6 @@ Voir détail opérationnel dans `69`. Exigences minimales :
 Cette séquence est une **option**.
 ````
 
-
 ### Fichier : `projects/sfia-studio/69-control-tower-options-and-decision-pack.md`
 
 ````markdown
@@ -791,7 +1471,7 @@ Cette séquence est une **option**.
 |------------|--------|
 | **Document** | `69-control-tower-options-and-decision-pack.md` |
 | **Cycle** | Cadrage produit Control Tower |
-| **Statut** | `framing-open` — candidat ; **non validé** |
+| **Statut** | **`validated`** — Option C hybride **retenue** ; AF-Option C reformulée **validée** ; suite Fast Track : `70`–`72` |
 | **Complète** | `66`, `67`, `68` |
 | **Gate de sortie attendue** | `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` |
 
@@ -998,12 +1678,11 @@ Puis, si validé : gate d’architecture fonctionnelle (T1) — **non ouverte** 
 | Campus360-only slice | Élargir progressivement (pas immédiat) |
 ````
 
-
-## 9. Diff utile complet — README.md
+## 16. Diff utile — README.md
 
 ````diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index ccd03ee..1875d24 100644
+index ccd03ee..739b10c 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
 @@ -4,7 +4,7 @@
@@ -1011,11 +1690,11 @@ index ccd03ee..1875d24 100644
  | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
  | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
 -| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44`) ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; Intégration / DevOps OPS1 **validé avec réserves** (`63`–`65` ; `G-OPS1-DEVOPS-VAL` consommé) ; `.sfia-exec/**` **ignoré** ; Node/scanner/suites/CI **ouverts ou différés** ; live / delivery / code / MVP / production **fermés** |
-+| **Statut** | `control-tower-framing-open` — cadrage produit **Control Tower** ouvert (`66`–`69` ; `GO CADRAGE SFIA STUDIO` consommé) ; cible / architecture / MVP / delivery **non validés** ; héritage OPS1 : A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44`) ; backlog OPS1 **validé avec réserves** (`60`–`62`) ; Intégration / DevOps OPS1 **validé avec réserves** (`63`–`65`) ; I7 **CLOSED WITH STRUCTURAL PRODUCT RESERVE** (`OPS1-I7-R01`) ; live / production **fermés** |
++| **Statut** | `control-tower-fast-track-plan-open` — cadrage Control Tower **validé** (`GO VALIDATION CADRAGE…`) ; Fast Track vertical slice **plan ouvert** (`70`–`72` ; `GO FAST TRACK…`) ; **AF-Option C reformulée validée** ; Option C hybride **retenue** ; code / exécution **fermés** jusqu’à `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` ; MVP / production **fermés** ; héritage OPS1 capitalisé (I1–I6 ; I7 + `OPS1-I7-R01`) |
  | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
  | **Autorité** | Morris (L0) |
  | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
-@@ -13,15 +13,16 @@
+@@ -13,15 +13,17 @@
  | **Profil SFIA** | Critical |
  | **Branche delivery** | `delivery/sfia-studio-poc-s1-harness` (**locale**) |
  | **Branche architecture** | historique — MERGED #221 |
@@ -1023,152 +1702,111 @@ index ccd03ee..1875d24 100644
 +| **Base canonique** | `origin/main` @ `32e5271842b9a344a7e292614675c27ea8ed941b` (I6 mergé ; cadrage Control Tower local) |
  | **Chemin** | `projects/sfia-studio/` |
 -| **AF-Option C** | **VALIDÉE** — Studio ≠ orchestrateur |
-+| **AF-Option C** | **VALIDÉE** (historique) — Studio ≠ orchestrateur ; **tension** avec cible Control Tower candidate — **non reformulée** ici |
-+| **Cadrage Control Tower** | `66`–`69` — **`framing-open`** ; branche locale `framing/sfia-studio-control-tower` ; **non poussée** ; architecture / MVP / backlog delivery **non ouverts** |
++| **AF-Option C** | **REFORMULÉE ET VALIDÉE** — Studio = cockpit + façade d’orchestration ; policies / exécuteurs logiquement séparés derrière Studio |
++| **Cadrage Control Tower** | `66`–`69` — **validé** (`GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER`) |
++| **Fast Track CT VS** | `70`–`72` — **`plan-open`** ; branche locale `framing/sfia-studio-control-tower` ; **non poussée** ; exécution code **fermée** |
  | **Cadrage POC** | `20`–`22` — **INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
  | **Architecture POC** | `23`–`25` — **Option B minimale** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
  | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
  | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
  | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
 -| **Prochaine décision** | Revue PR Draft DevOps / merge éventuel / `GO IMPLEMENT OPS1 CI` / `GO DELIVERY I1` / gate Node — **non automatiques** |
-+| **Prochaine décision** | `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` — **non consommé** ; aucune validation architecture / MVP / delivery implicite |
++| **Prochaine décision** | `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` (+ D2 transport GitHub) — **non consommé** ; aucun commit/push/PR projet implicite |
 
  ---
 
-@@ -147,7 +148,7 @@ Pré-cadrage
+@@ -147,7 +149,7 @@ Pré-cadrage
    → décision Morris : ouverture éventuelle conception fonctionnelle OPS1 (`G-OPS1-FUNC-DESIGN`) — **non ouverte**
  ```
 
 -Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** et **canonique sur main** (PR #235 / `b686eb1`). **POC maintenu**. MVP / production / industrialisation / delivery OPS1 **non ouverts**. Trajectoire I1–I7 validée au niveau cadrage uniquement. Prochaine décision : ouverture éventuelle de `G-OPS1-FUNC-DESIGN`.
-+Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** et **canonique sur main** (PR #235 / `b686eb1`). I6 mergé (`#253` / `32e5271`). I7 clôturé avec réserve structurante **OPS1-I7-R01**. Cadrage produit **Control Tower** : **`framing-open`** (`66`–`69` ; `GO CADRAGE SFIA STUDIO`). **POC maintenu**. Architecture technique Control Tower / MVP / production / industrialisation / backlog delivery **non validés / non ouverts**. Prochaine décision : `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER`.
++Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** (PR #235 / `b686eb1`). I6 mergé (`#253` / `32e5271`). I7 clôturé avec **OPS1-I7-R01**. Cadrage Control Tower **validé** (`66`–`69`). Fast Track vertical slice : **`plan-open`** (`70`–`72` ; Option C hybride). **Code non modifié** dans la préparation. MVP / production / industrialisation **fermés**. Prochaine décision : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE`.
 
  ---
 
-@@ -374,8 +375,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -374,8 +376,10 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **validés avec réserves** · `G-OPS1-DEVOPS-VAL` consommé (2026-07-20 21:27:26 CEST) · 24 décisions · `.sfia-exec/**` ignoré · **non intégrés sur `main` tant que PR non mergée**.
  5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
  6. Réserves maintenues : Node non figé · scanner différé · suites intégration différées · CI Studio différée (`GO IMPLEMENT OPS1 CI`) · worktree≠sandbox · stack/fournisseur · FD-CAND-15 · UX-R01…R04 · live fermés.
-+7. **Cadrage Control Tower** — docs [`66`](./66-control-tower-product-framing.md)–[`69`](./69-control-tower-options-and-decision-pack.md) — **`framing-open`** · `GO CADRAGE SFIA STUDIO` consommé · réserve source **OPS1-I7-R01** · gate de sortie attendue : `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` · architecture / MVP / delivery **non ouverts**.
++7. **Cadrage Control Tower** — docs [`66`](./66-control-tower-product-framing.md)–[`69`](./69-control-tower-options-and-decision-pack.md) — **validé** · `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` consommé · AF-Option C reformulée **validée** · Option C hybride **retenue**.
++8. **Fast Track Control Tower VS** — docs [`70`](./70-control-tower-fast-track-architecture-and-contract.md)–[`72`](./72-control-tower-fast-track-decision-pack.md) — **`plan-open`** · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` consommé · gate suivante : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` · **aucun code** avant ce GO.
 
 -**Verdict documentaire courant :** `SFIA STUDIO OPS1 INTEGRATION DEVOPS VALIDATED WITH RESERVATIONS`
-+**Verdict documentaire courant :** `SFIA STUDIO CONTROL TOWER FRAMING OPEN — AWAITING MORRIS VALIDATION`
++**Verdict documentaire courant :** `SFIA STUDIO CONTROL TOWER FAST TRACK PLAN OPEN — AWAITING EXECUTION GO`
 
 
  ---
-@@ -393,7 +395,8 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -393,7 +397,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
  | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
  | Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
 -| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** ; **pas encore** sur `main` avant merge PR |
 +| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** |
-+| Cadrage Control Tower | Docs `66`–`69` — **`framing-open`** (`GO CADRAGE SFIA STUDIO`) ; branche locale `framing/sfia-studio-control-tower` ; cible / archi / MVP **non validés** |
++| Cadrage Control Tower | Docs `66`–`69` — **validé** (`GO VALIDATION CADRAGE…`) |
++| Fast Track CT VS | Docs `70`–`72` — **`plan-open`** ; exécution code fermée jusqu’à `GO EXÉCUTION…` |
  | Handoff | `sfia/review-handoff` |
 
  ---
-@@ -477,4 +480,13 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -477,4 +483,21 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves — **VALIDATED WITH RESERVATIONS** |
  | [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **VALIDATED WITH RESERVATIONS** (2026-07-20 21:27:26 CEST) |
 
 -*SFIA Studio — POC maintenu — Intégration/DevOps VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — CI / delivery / live / MVP non ouverts.*
-+### Cadrage produit Control Tower (`framing-open` — non validé)
++### Cadrage produit Control Tower (validé)
 +
 +| Document | Rôle |
 +|----------|------|
-+| [66-control-tower-product-framing.md](./66-control-tower-product-framing.md) | Contexte, problème, vision candidate, principes, acteurs — **`framing-open`** |
-+| [67-control-tower-capabilities-and-user-journeys.md](./67-control-tower-capabilities-and-user-journeys.md) | Capacités, UX fonctionnelle, parcours P1–P12 — **`framing-open`** |
-+| [68-control-tower-scope-success-criteria-and-risks.md](./68-control-tower-scope-success-criteria-and-risks.md) | Produit / POC / MVP candidats, critères, risques, trajectoire T0–T9 — **`framing-open`** |
-+| [69-control-tower-options-and-decision-pack.md](./69-control-tower-options-and-decision-pack.md) | Options A–D, Q1–Q25, recommandation candidate — **`framing-open`** |
++| [66-control-tower-product-framing.md](./66-control-tower-product-framing.md) | Contexte, problème, vision, principes, acteurs — **validé** |
++| [67-control-tower-capabilities-and-user-journeys.md](./67-control-tower-capabilities-and-user-journeys.md) | Capacités, UX fonctionnelle, parcours P1–P12 — **validé** |
++| [68-control-tower-scope-success-criteria-and-risks.md](./68-control-tower-scope-success-criteria-and-risks.md) | Produit / POC / MVP candidats, critères, risques — **validé** |
++| [69-control-tower-options-and-decision-pack.md](./69-control-tower-options-and-decision-pack.md) | Options A–D ; Option C **retenue** — **validé** |
 +
-+*SFIA Studio — Control Tower **cadrage ouvert** (`66`–`69`) — architecture / MVP / delivery **non validés** — OPS1 capitalisé, non déclaré obsolète — CI / live / production non ouverts.*
++### Fast Track Control Tower Vertical Slice (`plan-open`)
++
++| Document | Rôle |
++|----------|------|
++| [70-control-tower-fast-track-architecture-and-contract.md](./70-control-tower-fast-track-architecture-and-contract.md) | Archi minimale, inventaire OPS1, outils, adapters, UX — **`plan-open`** |
++| [71-control-tower-fast-track-backlog-and-delivery.md](./71-control-tower-fast-track-backlog-and-delivery.md) | FT-01…12, lots A/B/C, chemin critique — **`plan-open`** |
++| [72-control-tower-fast-track-decision-pack.md](./72-control-tower-fast-track-decision-pack.md) | D1–D8, risques, gate exécution — **`plan-open`** |
++
++*SFIA Studio — Control Tower **cadrage validé** · Fast Track **plan ouvert** (`70`–`72`) — code / MVP / production **non ouverts** — prochaine gate : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE`.*
 ````
 
 ---
 
-## 10. Options étudiées
+## 17. Risques / dette / anti-claims
 
-| Option | Intitulé |
-|--------|----------|
-| A | Intégrations propriétaires internes |
-| B | Architecture MCP dominante |
-| C | Architecture hybride (Git/Cursor adapters + OpenAI tools + GitHub API/MCP + policy Studio) |
-| D | Maintien OPS1 enrichi sans refonte cockpit |
+Risques R1–R7 (doc 72). Dette temporaire doc 71 §5.
+Anti-claims : plan≠code ; pas MVP/prod ; pas GitHub write ; pas MCP Studio universel ; pas merge.
 
-## 11. Recommandation candidate (≠ décision)
-
-**Option C (hybride)** avec réutilisation maximale OPS1 ; preuve minimale T2–T4 (Tool Gateway read-only + Cursor Adapter + orchestration bout-en-bout) ; Option D seulement si Morris refuse la reformulation de cible.
-
-## 12. Décisions Morris nécessaires
-
-1. Valider ou non la vision Control Tower
-2. Trancher / reformuler AF-Option C
-3. Direction options A/B/C/D (sans figer l’archi)
-4. Autoriser ou non POC T2–T4 après validation cadrage
-5. Libellé OPS1 vs trajectoire Control Tower
-6. Ambition MVP candidat (interne vs tiers) — sans figer MVP
-
-## 13. Explicitement non validés
-
-- Architecture technique cible
-- Choix MCP / function calling / fournisseur définitif
-- MVP
-- Backlog delivery exécutable
-- POC / MVP lancés
-- Intégrations GitHub/Cursor/OpenAI productisées
-- Commit / push / PR / merge projet
-- Modification méthode SFIA
-- Promotion SFIA v3.0
-- Automatisation L5 globale
-- Control Tower « validé »
-
-## 14. Garde-fous
-
-- Intention ≠ autorisation
-- Fail-closed
-- Gates distincts par classe d’opération
-- Git = vérité
-- Pas de shell libre à GPT
-- Secrets backend-only
-- Anti-claims systématiques
-
-## 15. Risques
-
-R1 tension AF-C · R2 scope creep MVP · R3 secrets · R4 lock-in · R5 dette OPS1 · R6 coûts tokens · R7 démo≠indu
-
-## 16. Réserves
-
-- OPS1-I7-R01 (source) : adressée en **cadrage**, non en delivery
-- AF-Option C : tension ouverte
-- Estimation FinOps : aucune estimation financière non sourcée présentée comme décision
-
-## 17. Contrôles
+## 18. Contrôles
 
 ```
-git diff --check:
-
-git status --short:
+--- status ---
  M projects/sfia-studio/README.md
 ?? .tmp-sfia-review/
 ?? projects/sfia-studio/66-control-tower-product-framing.md
 ?? projects/sfia-studio/67-control-tower-capabilities-and-user-journeys.md
 ?? projects/sfia-studio/68-control-tower-scope-success-criteria-and-risks.md
 ?? projects/sfia-studio/69-control-tower-options-and-decision-pack.md
-
-git diff --stat:
- projects/sfia-studio/README.md | 28 ++++++++++++++++++++--------
- 1 file changed, 20 insertions(+), 8 deletions(-)
+?? projects/sfia-studio/70-control-tower-fast-track-architecture-and-contract.md
+?? projects/sfia-studio/71-control-tower-fast-track-backlog-and-delivery.md
+?? projects/sfia-studio/72-control-tower-fast-track-decision-pack.md
+--- stat ---
+ projects/sfia-studio/README.md | 39 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 8 deletions(-)
+--- no app code ---
+(none)
 ```
 
-## 18. État Git final (pré-handoff)
+## 19. État Git final (pré-handoff)
 
-- Branche projet : `framing/sfia-studio-control-tower` @ `32e5271842b9a344a7e292614675c27ea8ed941b`
-- Fichiers cadrage **non commités** (volontaire — aucun commit projet autorisé)
-- Working tree : untracked docs 66–69 + README modified + `.tmp-sfia-review/**`
-- Aucun push `framing/sfia-studio-control-tower`
+- Branche `framing/sfia-studio-control-tower` @ `32e5271842b9a344a7e292614675c27ea8ed941b` inchangé
+- Docs non commités (volontaire)
+- Aucun push framing
 
-## 19. Verdict
+## 20. Verdict
 
-**SFIA STUDIO CONTROL TOWER FRAMING READY FOR MORRIS REVIEW**
+**CONTROL TOWER FAST TRACK PLAN READY FOR MORRIS REVIEW**
 
-Après publication handoff, ChatGPT doit lire :
-- branche `sfia/review-handoff`
-- fichier `sfia-review-handoff/latest-chatgpt-review.md`
+ChatGPT : lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
