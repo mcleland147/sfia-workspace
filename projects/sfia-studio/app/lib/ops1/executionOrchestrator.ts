@@ -125,6 +125,15 @@ export async function runExecutionAttempt(input: {
     insertEvent(
       db,
       input.sessionId,
+      "EXECUTION_PREPARING",
+      `prepare contract=${input.contractId}`,
+    ),
+  );
+
+  events.push(
+    insertEvent(
+      db,
+      input.sessionId,
       "EXECUTION_REVALIDATION_STARTED",
       `revalidate contract=${input.contractId}`,
     ),

@@ -19,6 +19,22 @@ import {
 } from "./types";
 import { resolveConversationProvider } from "./provider";
 import type { ConversationProvider } from "./types";
+import { runToolCallingLoop } from "./toolLoop";
+import { createToolCallId, routeToolCall } from "../tools/toolRouter";
+import { openOps1Db, nowIsoWithOffset } from "../db";
+import { createEventId } from "../ids";
+import {
+  buildSfiaSystemPreamble,
+  ensureSfiaContext,
+} from "../sfia/sessionContext";
+import { parseProposalFromAssistantText } from "../sfia/proposalSchema";
+import { compileSfiaActionProposal } from "../sfia/actionCompiler";
+import { resolveWorkspaceRootFromAppCwd } from "../allowlistEvaluation";
+import type {
+  SfiaActionProposal,
+  SfiaCanonicalContext,
+  SfiaCompilationResult,
+} from "../sfia/types";
 
 export interface SendMessageResult {
   userTurn: JournalTurn;
@@ -27,6 +43,11 @@ export interface SendMessageResult {
   usage: ConversationUsageCounters | null;
   mode: ConversationMode;
   providerId: string | null;
+  toolRounds?: number;
+  toolCalls?: number;
+  sfiaContext?: SfiaCanonicalContext | null;
+  sfiaProposal?: SfiaActionProposal | null;
+  sfiaCompilation?: SfiaCompilationResult | null;
 }
 
 function durationMs(startedAt: string, completedAt: string): number | null {
@@ -36,17 +57,208 @@ function durationMs(startedAt: string, completedAt: string): number | null {
   return Math.max(0, b - a);
 }
 
-/**
- * Orchestrates fixture or live conversation turn using the session's
- * immutable conversationMode. Optional requestedMode is validated then ignored
- * if matching; mismatch is rejected before any persistence or provider call.
- */
+function emitSfia(
+  sessionId: string,
+  type: "SFIA_PROPOSAL_RECEIVED" | "SFIA_PROPOSAL_INVALID",
+  detail: Record<string, unknown>,
+): void {
+  const db = openOps1Db();
+  db.prepare(
+    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
+     VALUES (?, ?, ?, ?, ?)`,
+  ).run(
+    createEventId(),
+    sessionId,
+    type,
+    nowIsoWithOffset(),
+    JSON.stringify(detail),
+  );
+}
+
+async function runFixtureWithOptionalTools(
+  sessionId: string,
+  userContent: string,
+): Promise<{ reply: string; toolCalls: number }> {
+  const markers: Array<{
+    marker: RegExp;
+    name: string;
+    args: Record<string, unknown>;
+  }> = [
+    {
+      marker: /__CT_TOOL_GIT_STATUS__/i,
+      name: "git_local_get_status",
+      args: {},
+    },
+    {
+      marker: /__CT_TOOL_GIT_HEAD__/i,
+      name: "git_local_get_head",
+      args: {},
+    },
+    {
+      marker: /__CT_TOOL_GITHUB_REPO__/i,
+      name: "github_get_repository",
+      args: {},
+    },
+    {
+      marker: /__CT_TOOL_DENIED_PATH__/i,
+      name: "git_local_read_file",
+      args: { path: ".env" },
+    },
+  ];
+
+  const db = openOps1Db();
+  const parts: string[] = [buildFixtureAssistantReply(userContent)];
+  let toolCalls = 0;
+  for (const m of markers) {
+    if (!m.marker.test(userContent)) continue;
+    toolCalls += 1;
+    const result = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        name: m.name,
+        arguments: m.args,
+        sessionId,
+      },
+      { db },
+    );
+    parts.push(
+      result.ok
+        ? `[FIXTURE TOOL OK] ${m.name}: ${result.summary}`
+        : `[FIXTURE TOOL ${result.status.toUpperCase()}] ${m.name}: ${result.errorCode} — ${result.message}`,
+    );
+  }
+
+  if (/__SFIA_PROPOSE_CREATE_MD__/i.test(userContent)) {
+    const ctx = ensureSfiaContext({ sessionId });
+    const content =
+      "# Preuve Control Tower\n\nCe fichier a été créé pendant la validation live du vertical slice Control Tower.\n";
+    const proposalJson = {
+      kind: "action_proposed",
+      proposalId: `sfia-prop-fixture-${Date.now()}`,
+      sessionId,
+      contextId: ctx.contextId,
+      objective:
+        "Créer projects/campus360/05-control-tower-live-proof.md avec le contenu exact demandé.",
+      rationale: "Demande Morris bornée — CREATE Markdown Campus360.",
+      cycle: "Delivery documentaire",
+      profile: "Critical",
+      profileJustification:
+        "Exécution Cursor potentielle + gouvernance SFIA",
+      blocks: ["QA / validation", "sécurité"],
+      project: "campus360",
+      operations: ["CREATE"],
+      files: [
+        {
+          path: "projects/campus360/05-control-tower-live-proof.md",
+          operation: "CREATE",
+          exactContent: content,
+        },
+      ],
+      expectedEffects: ["create markdown file in worktree after GO"],
+      excludedEffects: ["commit", "push", "PR", "merge"],
+      requiredGates: ["GO Cursor"],
+      stopConditions: ["Aucun effet distant"],
+      cursorRequired: true,
+      reviewPackLevel: "full",
+      reviewHandoffRequired: true,
+      userVisibleSummary:
+        "ActionCandidate proposée: CREATE 05-control-tower-live-proof.md — aucune exécution.",
+      exactRequestedContent: content,
+      confidence: 0.95,
+      unresolvedQuestions: [],
+    };
+    parts.push("Proposition SFIA structurée:");
+    parts.push("```json");
+    parts.push(JSON.stringify(proposalJson, null, 2));
+    parts.push("```");
+  }
+
+  if (/__SFIA_PROPOSE_COMMIT__/i.test(userContent)) {
+    const ctx = ensureSfiaContext({ sessionId });
+    parts.push("```json");
+    parts.push(
+      JSON.stringify(
+        {
+          kind: "action_proposed",
+          proposalId: `sfia-prop-bad-${Date.now()}`,
+          sessionId,
+          contextId: ctx.contextId,
+          objective: "Persister les changements via commit puis push distant",
+          rationale: "invalid — doit être refusé par le compilateur",
+          cycle: "Delivery",
+          profile: "Standard",
+          profileJustification: "n/a",
+          blocks: [],
+          project: "campus360",
+          operations: ["commit", "push"],
+          files: [
+            {
+              path: "projects/campus360/README.md",
+              operation: "MODIFY",
+              exactContent: "x",
+            },
+          ],
+          expectedEffects: [],
+          excludedEffects: [],
+          requiredGates: [],
+          stopConditions: [],
+          cursorRequired: false,
+          reviewPackLevel: "light",
+          reviewHandoffRequired: false,
+          userVisibleSummary: "Proposition commit puis push (doit être refusée)",
+          confidence: 0.5,
+          unresolvedQuestions: [],
+        },
+        null,
+        2,
+      ),
+    );
+    parts.push("```");
+  }
+
+  return { reply: parts.join("\n"), toolCalls };
+}
+
+function processSfiaProposalFromText(input: {
+  sessionId: string;
+  text: string;
+  context: SfiaCanonicalContext;
+}): {
+  proposal: SfiaActionProposal | null;
+  compilation: SfiaCompilationResult | null;
+} {
+  const parsed = parseProposalFromAssistantText(input.text, {
+    sessionId: input.sessionId,
+    contextId: input.context.contextId,
+  });
+  if (!parsed.ok) {
+    emitSfia(input.sessionId, "SFIA_PROPOSAL_INVALID", {
+      reason: parsed.reason,
+      contextId: input.context.contextId,
+    });
+    return { proposal: null, compilation: null };
+  }
+  emitSfia(input.sessionId, "SFIA_PROPOSAL_RECEIVED", {
+    proposalId: parsed.proposal.proposalId,
+    kind: parsed.proposal.kind,
+    contextId: input.context.contextId,
+  });
+  const compilation = compileSfiaActionProposal({
+    proposal: parsed.proposal,
+    context: input.context,
+    workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+    persist: parsed.proposal.kind === "action_proposed",
+  });
+  return { proposal: parsed.proposal, compilation };
+}
+
 export async function sendConversationMessage(input: {
   sessionId: string;
   content: string;
-  /** Optional client hint — must match session mode or be omitted. */
   requestedMode?: ConversationMode;
   provider?: ConversationProvider;
+  enableTools?: boolean;
+  enableSfia?: boolean;
 }): Promise<SendMessageResult> {
   const session = getSession(input.sessionId);
   if (!session) {
@@ -68,7 +280,6 @@ export async function sendConversationMessage(input: {
     );
   }
 
-  // Defense: refuse mixed journals before any write.
   assertJournalMatchesMode(listTurns(input.sessionId), mode);
 
   if (mode === "fixture") {
@@ -81,8 +292,16 @@ export async function sendConversationMessage(input: {
 
     let assistantTurn: JournalTurn | null = null;
     let assistantError: string | null = null;
+    let toolCalls = 0;
+    let sfiaContext: SfiaCanonicalContext | null = null;
+    let sfiaProposal: SfiaActionProposal | null = null;
+    let sfiaCompilation: SfiaCompilationResult | null = null;
     try {
-      const reply = buildFixtureAssistantReply(input.content);
+      const { reply, toolCalls: tc } = await runFixtureWithOptionalTools(
+        input.sessionId,
+        input.content,
+      );
+      toolCalls = tc;
       const appended = appendTurn({
         sessionId: input.sessionId,
         role: "assistant_fixture",
@@ -90,6 +309,21 @@ export async function sendConversationMessage(input: {
         fixture: true,
       });
       assistantTurn = appended.turn;
+
+      if (
+        input.enableSfia !== false &&
+        (/__SFIA_PROPOSE_/i.test(input.content) ||
+          /```json[\s\S]*"kind"\s*:/i.test(reply))
+      ) {
+        sfiaContext = ensureSfiaContext({ sessionId: input.sessionId });
+        const processed = processSfiaProposalFromText({
+          sessionId: input.sessionId,
+          text: reply,
+          context: sfiaContext,
+        });
+        sfiaProposal = processed.proposal;
+        sfiaCompilation = processed.compilation;
+      }
     } catch (error) {
       assistantError = toSafeClientError(error).message;
     }
@@ -101,11 +335,19 @@ export async function sendConversationMessage(input: {
       usage: null,
       mode: "fixture",
       providerId: null,
+      toolRounds: toolCalls > 0 ? 1 : 0,
+      toolCalls,
+      sfiaContext,
+      sfiaProposal,
+      sfiaCompilation,
     };
   }
 
-  // LIVE path — no silent fallback to fixture.
   const provider = input.provider ?? resolveConversationProvider();
+  const enableSfia = input.enableSfia !== false;
+  const sfiaContext = enableSfia
+    ? ensureSfiaContext({ sessionId: input.sessionId })
+    : null;
 
   const { turn: userTurn } = appendTurn({
     sessionId: input.sessionId,
@@ -129,25 +371,56 @@ export async function sendConversationMessage(input: {
 
   try {
     const history = listTurns(input.sessionId);
-    const messages = buildProviderMessagesFromJournal(history, "live");
-    const completion = await provider.complete(messages);
+    let messages = buildProviderMessagesFromJournal(history, "live");
+    if (sfiaContext) {
+      messages = [
+        {
+          role: "user",
+          content: `[SFIA_SYSTEM_CONTEXT]\n${buildSfiaSystemPreamble(sfiaContext)}`,
+        },
+        {
+          role: "assistant",
+          content:
+            "Contexte SFIA reçu. Je qualifierai sans exécuter et produirai une SfiaActionProposal JSON si une action est pertinente.",
+        },
+        ...messages,
+      ];
+    }
+    const loop = await runToolCallingLoop({
+      sessionId: input.sessionId,
+      messages,
+      provider,
+      enableTools: input.enableTools !== false,
+    });
 
     const { turn: assistantTurn } = appendTurn({
       sessionId: input.sessionId,
       role: "assistant_live",
-      content: completion.text,
+      content: loop.text,
       fixture: false,
     });
+
+    let sfiaProposal: SfiaActionProposal | null = null;
+    let sfiaCompilation: SfiaCompilationResult | null = null;
+    if (sfiaContext) {
+      const processed = processSfiaProposalFromText({
+        sessionId: input.sessionId,
+        text: loop.text,
+        context: sfiaContext,
+      });
+      sfiaProposal = processed.proposal;
+      sfiaCompilation = processed.compilation;
+    }
 
     const finalized = completeConversationAttemptSuccess({
       attemptId: attempt.attemptId,
       sessionId: input.sessionId,
       assistantTurnId: assistantTurn.turnId,
-      providerResponseId: completion.usage.providerResponseId,
-      model: completion.usage.model,
-      inputTokens: completion.usage.inputTokens,
-      outputTokens: completion.usage.outputTokens,
-      totalTokens: completion.usage.totalTokens,
+      providerResponseId: loop.usage.providerResponseId,
+      model: loop.usage.model,
+      inputTokens: loop.usage.inputTokens,
+      outputTokens: loop.usage.outputTokens,
+      totalTokens: loop.usage.totalTokens,
     });
 
     console.info(
@@ -155,6 +428,8 @@ export async function sendConversationMessage(input: {
       input.sessionId,
       attempt.attemptId,
       finalized.totalTokens,
+      `tools=${loop.toolCalls}`,
+      sfiaCompilation ? `sfia=${sfiaCompilation.status}` : "",
     );
 
     return {
@@ -175,6 +450,11 @@ export async function sendConversationMessage(input: {
       },
       mode: "live",
       providerId: provider.providerId,
+      toolRounds: loop.toolRounds,
+      toolCalls: loop.toolCalls,
+      sfiaContext,
+      sfiaProposal,
+      sfiaCompilation,
     };
   } catch (error) {
     const safe = toSafeClientError(error);
@@ -196,6 +476,7 @@ export async function sendConversationMessage(input: {
       usage: null,
       mode: "live",
       providerId: provider.providerId,
+      sfiaContext,
     };
   }
 }

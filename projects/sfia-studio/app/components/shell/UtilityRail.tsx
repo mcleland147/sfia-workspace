@@ -66,6 +66,26 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
 
       <div className={styles.spacer} />
 
+      <Link
+        href="/workspace"
+        className={isFloating ? styles.item : styles.itemFlush}
+        aria-label="Workspace D1"
+        title="Workspace D1"
+        data-testid="rail-d1-workspace"
+      >
+        W
+      </Link>
+
+      <Link
+        href="/ops1/nouvelle-demande"
+        className={isFloating ? styles.item : styles.itemFlush}
+        aria-label="OPS1 legacy"
+        title="OPS1 Nouvelle demande (legacy)"
+        data-testid="rail-ops1-legacy"
+      >
+        O
+      </Link>
+
       <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
     </nav>
   );
