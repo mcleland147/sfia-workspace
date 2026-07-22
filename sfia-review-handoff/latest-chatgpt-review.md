@@ -1,109 +1,735 @@
-# Review Pack Full — SFIA v3.0 Framing (Studio Project Operating System)
+# Review Pack Full — SFIA v3.0 Consolidated Framing (Studio-native)
 
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-22 12:17:47 CEST
-- **Cycle :** 1 — Cadrage (+ contributifs : conception, archi, UX, backlog, sécu, DevOps, QA, RUN, capitalisation)
+- **Date/heure/fuseau :** 2026-07-22 12:54:12 CEST
+- **Cycle :** 1 — Cadrage complémentaire
 - **Profil :** Critical
-- **Gate consommé :** GO OUVERTURE CADRAGE SFIA v3.0 — STUDIO PROJECT OPERATING SYSTEM
-- **Gate suivant :** GO VALIDATION CADRAGE SFIA v3.0
+- **Gate consommé :** GO COMPLÉMENT CADRAGE SFIA v3.0 — STUDIO-NATIVE DOCTRINE, USER JOURNEYS AND INFORMATION ARCHITECTURE
+- **Gate suivant :** GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0
 - **Repo :** mcleland147/sfia-workspace
 - **Branche :** delivery/sfia-studio-control-tower-fast-track
-- **HEAD :** 32e5271842b9a344a7e292614675c27ea8ed941b
-- **Base origin/main :** 32e5271842b9a344a7e292614675c27ea8ed941b
-- **Handoff précédent :** 90bf5c4b27772a88c646ba0efba4fd11d53f5717
+- **HEAD/base :** 32e5271842b9a344a7e292614675c27ea8ed941b
+- **Handoff précédent :** cf84980ea2e95469d1fdb737dcf5aa47f99bb2aa
 
 ## 2. État Git initial
 
-- Branche delivery locale dirty (Control Tower + moteur SFIA non commités) — **préservée**
-- Staged vide
-- Aucun commit/push projet dans ce cycle
-- Nouveaux fichiers uniquement sous `projects/sfia-studio/sfia-v3-framing/**` et `.tmp-sfia-review/**`
+- Branche delivery dirty (CT + moteur SFIA + framing v3) — préservée
+- Staged vide ; aucun commit/push projet
+- Périmètre écriture : `sfia-v3-framing/**` + `.tmp-sfia-review/**` uniquement
 
-## 3. Sources consultées (lecture seule)
+## 3. Sources consultées
 
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/.../2026-07-16-sfia-v2.6-baseline-release-manifest.md
-- projects/sfia-studio/66–74 + README (lecture)
-- handoff 90bf5c4 (canonical context engine)
-- code ops1/** en lecture pour acquis réutilisables
+Canoniques v2.6 (lecture) · framing 01–14 · handoff cf84980 · docs 66–74 / code CT (lecture acquis)
 
-## 4. Baseline / statut v3.0
+## 4. Baseline / statut v3
 
-- **Baseline active :** SFIA v2.6
-- **SFIA v3.0 :** trajectoire **candidate** ouverte — **non** adoptée
+- Baseline : **SFIA v2.6**
+- v3 : candidat consolidé Studio-native — **non adopté**
+- Statut adoption : **V3-DOCUMENTED** (cible de ce cycle)
 
-## 5. Synthèse cadrage
+## 5. Synthèse challenge
 
-- **Vision :** Studio = Project Operating System (pilotage projet bout en bout), pas chat généraliste
-- **Principes candidats P1–P12 :** projet-first, cycle-aware, human-governed, AI-reasoned, deterministic-effects, git-truth, explainable-routing, no-free-chat, fail-closed, progressive-automation, doctrine-as-source, contracts-as-runtime
-- **Gouvernance :** décideur humain habilité (plus de doctrine individu-nommée)
-- **Rôles :** utilisateur / responsable / décideur / approbateur · Studio · moteur SFIA · GPT · Cursor · Git · GitHub
-- **Modèle projet/cycle :** objets + états candidats documentés (04)
-- **Conversation :** dual-channel (prose libre + contrôle structuré)
-- **Routage/transitions :** conserver routing v2.6 ; adapter Studio-native
-- **Automatisation :** élevée sur répétable/borné ; décision structurante jamais auto
-- **Doctrine exécutable :** A Markdown · B contrats · C projections
-- **Archi fonctionnelle / technique / UX :** candidates (09–11)
-- **Gap v2.6→v3.0 :** matrice C/A/R/D/N (12)
-- **Vertical slice :** créer projet → … → transition (13)
-- **Recommandation trajectoire :** Option C/A-hybride — produit sous v2.6 d’abord ; adoption méthode v3 plus tard
-- **Décisions non prises :** adoption baseline, modif canoniques, implémentation, commit/PR
+- v3 = Studio-native exclusive ; manuel ChatGPT→Cursor = v2.6
+- 5 couches info (MD / JSON / SQL / artefacts / restitutions)
+- Parcours = projection doctrine ; GPT libre ; effets bornés
+- ExecutionContract pivot ; template MD fallback/legacy
+- Modes 1–5 coexistence
+- Option D co-design borné (recomm. candidate)
+- Slice 20 étapes
+- Chaîne V3-DOCUMENTED…ADOPTED
 
 ## 6. Fichiers créés (contenu complet)
 
 
+### `projects/sfia-studio/sfia-v3-framing/15-sfia-v3-studio-native-applicability-model.md`
+
+```markdown
+# 15 — Modèle d’applicabilité Studio-native (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Baseline | SFIA v2.6 |
+| Gate | Complément cadrage SFIA v3.0 |
+
+## 1. Ce que signifie « appliquer SFIA v3.0 »
+
+**Observation :** le cadrage initial (01–14) décrivait un Project OS sans assez fermer le critère *où* la doctrine s’applique.
+
+**Décision de cadrage candidate (≠ adoption baseline) :** SFIA v3.0 n’est applicable que lorsque **SFIA Studio pilote effectivement** le projet, le cycle, le contexte, les décisions, les actions, les exécutions, les preuves, les validations et les transitions.
+
+Le modèle suivant **n’est pas** SFIA v3.0 :
+
+```
+Humain → ChatGPT → prompt → copier-coller Cursor → retour manuel → ChatGPT
+```
+
+Ce modèle reste **SFIA v2.6** (ou legacy assisté).
+
+## 2. Composants indispensables (candidats)
+
+| Composant | Pourquoi indispensable |
+|-----------|------------------------|
+| Project persisté | Sans projet, pas de v3 |
+| CycleInstance | Routage et états |
+| Canonical + project context | Doctrine exécutable |
+| GuidedSession rattachée | No-free-chat |
+| HumanDecision / GateInstance | Gouvernance |
+| ActionCandidate + Compiler | Effets structurés |
+| ExecutionContract + Attempt | Cursor borné |
+| Evidence + Validation | Preuves |
+| Transition tracée | Enchaînement |
+| Audit trail | Non-répudiation minimale |
+
+## 3. Capacités minimales / contrôles / preuves
+
+**Capacités :** UI cockpit projet ; chargement digests Git ; dual-channel GPT ; persist SQL états ; gates UI ; Cursor sous contrat ; postcheck ; reinjection ; export review.
+
+**Contrôles :** fail-closed ; allowlist ; CONTEXT_STALE ; gates fermés par défaut pour remote writes ; pas d’effet hors contrat.
+
+**Preuves :** events corrélés ; digests sources ; contractHash ; fichiers touchés ; ValidationResult ; handoff si rapport Cursor.
+
+## 4. Matrice des modes
+
+| Mode | Acteurs | SoT | Projet/Cycle | Conversation | Contrats | Gates | Exécution | Claims |
+|------|---------|-----|--------------|--------------|----------|-------|-----------|--------|
+| **1. v2.6 manuel** | Humain, ChatGPT, Cursor | Git + chat | Hors Studio | Libre hors produit | Prompt Markdown | Humain hors UI | Copier-coller | v2.6 only |
+| **2. v2.6 assisté Studio** | + Studio partiel | Git + OPS1 partiel | Session loose | Studio chat | Partiels OPS1 | UI OPS1 | Cursor OPS1 possible | **Pas de claim v3** |
+| **3. Transitionnel** | Studio + GPT + Cursor | Git + SQL partiel | Projet/cycle partiels | Rattachée si dispo | Partiels | Mixtes | Sous contrat si dispo | « v3 candidate / transition » |
+| **4. v3.0 Studio-native** | Tous rôles Studio | Git defs + SQL état + artefacts | Complets | Dual-channel | Complets | UI + policy | Contract→Cursor | Claim v3 **si éligible** |
+| **5. v3 indisponible / fallback** | Opérateur | Mode 1 ou 2 | — | — | — | — | Legacy | **Interdit claim v3** |
+
+## 5. Critères d’entrée / sortie v3 (candidats — non figés)
+
+**Entrée éligibilité v3 (projet) :** checklist capacités §2 + mode 4 actif + doctrine version affichée + audit on.
+
+**Sortie / fallback :** capacité manquante, stale non résolu, authz insuffisante, divergence Git/SQL non réparée → bascule mode 5 avec message explicite.
+
+## 6. Comportements dégradés
+
+- Afficher le mode courant dans l’IHM.
+- Interdire les claims v3 hors mode 4 éligible.
+- Ne jamais « simuler » un gate.
+- Conserver export Git des artefacts critiques.
+
+## 7. Décisions humaines requises
+
+- Valider la définition Studio-native.
+- Valider la matrice des 5 modes.
+- Trancher les critères minimaux (renforcer ou alléger).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/16-sfia-v3-user-journey-and-doctrine-enforcement.md`
+
+```markdown
+# 16 — Parcours utilisateurs et enforcement doctrinal (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+
+## 1. Principe
+
+Le parcours utilisateur est une **projection de la doctrine**, pas un workflow libre.
+GPT reste libre de raisonner ; le moteur borne contexte, outils, états, transitions et effets.
+
+## 2. Patron commun de parcours
+
+Pour chaque parcours : entrée IHM · contexte · états requis · rôles · sources · livrables · actions · gates · effets · transitions · preuves · sortie · blocages.
+
+### 2.1 Créer un projet
+- **Entrée :** Accueil → Nouveau projet
+- **États :** Workspace OK ; Project DRAFT
+- **Humain :** responsable + décideur (création)
+- **GPT :** clarifier intention, baseline, risques
+- **Moteur :** allouer ids ; refuser hors Workspace
+- **Sources :** doctrine applicable (v2.6 ou defs v3 candidates)
+- **Livrables :** Project + ProjectTrajectory draft
+- **Gates :** confirmation création
+- **Effets :** INSERT SQL Project ; scaffold Git optionnel gated
+- **Blocage :** baseline inconnue ; permissions
+
+### 2.2 Reprendre / importer / consulter clôturé
+- Reprendre : Project existant → cockpit
+- Importer : mapping artefacts → objets SQL + refs Git ; validation colonnes
+- Consulter clôturé : read-only ; pas d’exécution
+
+### 2.3 Qualifier une demande / initier ou poursuivre un cycle
+- Cycle Router propose type/profil
+- GuidedSession QUALIFYING → READY
+- GPT peut challenger et proposer **autre** cycle
+- Moteur refuse transition sans préconditions
+
+### 2.4 Suspendre / reprendre
+- PAUSED avec snapshot digests
+- Reprise → revalidate CONTEXT_STALE
+
+### 2.5 Demander une décision
+- DecisionRequest → DECISION_REQUIRED
+- Gate UI (pas de phrase chat = GO)
+
+### 2.6 Proposer / exécuter / corriger une action
+- ActionProposal → Compiler → ActionCandidate → Gate → ExecutionContract → Cursor
+- Correction : refine / nouvelle proposal ; **pas** d’élargissement silencieux
+
+### 2.7 Valider / clôturer / capitaliser
+- ValidationResult → TransitionProposal → HumanDecision
+- CapitalizationRecord + éventuel review pack/handoff
+
+## 3. Matrice parcours × enforcement
+
+| Parcours | GPT libre | Moteur contraint | Gate humain typique |
+|----------|-----------|------------------|---------------------|
+| Créer projet | Intention, naming | Ids, mode méthodo | Création |
+| Qualifier cycle | Challenge type/profil | Routing defs | Si ambigu |
+| Décision | Options/reco | Persist Decision | **Oui** |
+| Action | Proposal prose | Compiler/paths | Avant Cursor |
+| Exécution | Analyse post | Contrat/hash | GO exécution |
+| Transition | Proposition | State machine | Structurante |
+| Import Excel | Aide mapping | Schema colonnes | Si write large |
+
+## 4. Anti-questionnaire
+
+Interdit : arbre de phrases figées exclusives.
+Autorisé : questions guidées **suggérées**, questions GPT ad hoc, découverte d’info inattendue — tant que le canal de contrôle reste valide.
+
+## 5. Doctrine enforcement dans Studio
+
+Studio doit :
+
+1. Identifier ProjectState / CycleState
+2. Proposer parcours pertinents seulement
+3. Ouvrir/reprendre le bon cycle
+4. Charger SourceContext
+5. Matérialiser gates
+6. Limiter transitions
+7. Tracer décisions
+8. Orchestrer exécutions
+
+L’utilisateur **ne choisit pas** un workflow hors méthode (sauf mode v2.6 explicite).
+
+## 6. Décisions humaines requises
+
+- Valider le catalogue de parcours.
+- Valider l’interdiction du free-chat en mode v3.
+- Prioriser parcours du vertical slice (13/22).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/17-sfia-v3-information-and-artifact-architecture.md`
+
+```markdown
+# 17 — Architecture de l’information et des artefacts (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Note | Aucun fichier JSON/SQL/XLSX/PPTX créé dans ce cycle |
+
+## 1. Cinq couches
+
+### Couche 1 — Doctrine humaine
+- **Formats :** Markdown
+- **Contenu :** principes, gouvernance, rationale, règles explicables
+- **Stockage :** Git (`method/`, framing candidats)
+- **SoT :** Git
+- **MAJ :** cycles méthode gated
+
+### Couche 2 — Définitions exécutables
+- **Formats candidats :** JSON **préféré** pour contrats machine ; YAML acceptable pour defs lisibles si schéma équivalent ; **JSON Schema** pour validation
+- **Contenu :** CycleDefinition, StateDefinition, TransitionDefinition, GateDefinition, RoleDefinition, PolicyDefinition, ArtifactDefinition, ValidationDefinition, EventDefinition, ContractSchema
+- **Stockage :** Git (versionnés)
+- **SoT :** Git + digest
+- **Règle :** ne pas dupliquer en TypeScript comme SoT
+
+### Couche 3 — État opérationnel
+- **Support :** SQL
+- **Contenu :** Workspace, Project, CycleInstance, GuidedSession, HumanDecision, GateInstance, ActionCandidate, ExecutionAttempt, Evidence, Reserve, Transition, AuditEvent, permissions
+- **SoT runtime :** SQL
+- **Réf Git :** doctrineVersion, definitionDigests, headSha
+
+### Couche 4 — Artefacts métier
+- **Formats :** XLSX, CSV, diagrammes, images, PJ, docs bureautiques
+- **Exemples :** RACI, backlog, risques, inventaire, mapping, coûts
+- **Rôle :** import / artefact utilisateur / preuve — **jamais** doctrine
+- **Stockage :** blob store ou Git LFS/PJ + métadonnées SQL
+
+### Couche 5 — Restitutions
+- **Formats :** slides, PDF, rapports MD, dashboards, exports
+- **Exemples :** decision pack, COPIL, REX, revue de cycle
+- **Règle :** générées ; **pas** source concurrente
+
+## 2. Fiche couche (commun)
+
+Pour chaque couche : finalité · SoT · ownership · versionnement · stockage · API · validation · sync · audit · rétention · sécurité · génération · import/export · règles de MAJ — voir matrices ci-dessus + docs 19.
+
+## 3. Hiérarchie des sources (candidate)
+
+1. Doctrine + définitions exécutables (Git)
+2. Décisions humaines enregistrées (SQL immuables)
+3. État opérationnel SQL
+4. Artefacts métier (fichiers + meta)
+5. Restitutions générées
+6. Contexte conversationnel temporaire
+7. Inférences GPT
+
+**En cas de conflit :** Git defs > HumanDecision > SQL state dérivé > artefact importé > restitution > chat > inférence.
+Stale si HEAD/digests ≠ context → blocage effets.
+
+## 4. Conflits typiques et résolution
+
+| Conflit | Autorité | Action |
+|---------|----------|--------|
+| Git vs SQL | Git defs + HumanDecision | Rehydrate / requalify |
+| SQL vs Excel importé | SQL après validation mapping | Conserver fichier source en preuve |
+| JSON vs Markdown | Markdown rationale ; JSON exécutable | Lien bidirectionnel + tests conformité |
+| Rapport vs Evidence | Evidence | Régénérer rapport |
+| Cache vs HEAD | HEAD | CONTEXT_STALE |
+
+## 5. Décisions humaines requises
+
+- Valider les 5 couches.
+- Valider JSON-first pour defs exécutables.
+- Valider « Excel jamais canonique ».
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/18-sfia-v3-doctrine-to-runtime-projection-matrix.md`
+
+```markdown
+# 18 — Matrice doctrine → runtime (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Règle | Une ligne = un élément doctrinal ; éviter triple maintenance MD/JSON/TS |
+
+Légende colonnes : **Doc** doctrine MD · **Def** JSON/Schema · **SQL** · **GPT** · **UI** · **Gate** · **Policy** · **Event** · **Preuve** · **Restit** · **Test** · **Risque dup.**
+
+## Matrice transverse (minimum)
+
+| Élément | Doc | Def | SQL | GPT | UI Studio | Gate | Policy | Event | Preuve | Restitution | Testable | Risque dup. |
+|---------|-----|-----|-----|-----|-----------|------|--------|-------|--------|-------------|----------|-------------|
+| Principe | MD | ref id | — | preamble | aide | — | enforce flags | — | — | slide principes | review | Haut si recopié TS |
+| Rôle | MD | RoleDefinition | assignment | mention | admin rôles | habilitation | RBAC | ROLE_* | — | RACI export | oui | Moyen |
+| Cycle | routing MD | CycleDefinition | CycleInstance | propose | cycles | entrée | routing | CYCLE_* | livrables | revue cycle | oui | Moyen |
+| Profil | MD | enum | on instance | qualify | badge | — | depth rules | — | — | — | oui | Bas |
+| Bloc | MD | enum[] | active_blocks | cite | chips | — | — | — | — | — | oui | Bas |
+| Gate | MD | GateDefinition | GateInstance | request | boutons | **humain** | closed/open | GATE_* | decision record | decision pack | oui | Haut si chat=GO |
+| Entrée cycle | MD | preconditions | check | explain | checklist | si critique | fail-closed | — | — | — | oui | Bas |
+| Sortie cycle | MD | exit criteria | ValidationResult | analyse | validation | parfois | — | — | evidence | rapport | oui | Bas |
+| Livrable | MD | ArtifactDefinition | artifact meta | propose | liste | — | path policy | — | files | pack | oui | Moyen |
+| Stop condition | MD | StopDefinition | — | respect | alertes | — | deny | STOP_* | — | — | oui | Haut si oublié |
+| Automatisation | MD | AutomationClass | — | — | mode badge | selon classe | caps | — | — | — | oui | Moyen |
+| Décision | MD | DecisionSchema | HumanDecision | options | decision panel | **oui** | immutability | DECISION_* | motif | slides | oui | Bas |
+| Action | MD | ProposalSchema | ActionCandidate | proposal | action panel | avant exec | compiler | ACTION_* | exact content | — | oui | Moyen |
+| Validation | MD | ValidationDefinition | ValidationResult | analyse | validation | si structurant | — | VALID_* | checks | rapport | oui | Bas |
+| Transition | MD | TransitionDefinition | Transition | propose | next steps | structurant | state machine | TRANS_* | — | trajectoire | oui | Moyen |
+| Réserve | MD | ReserveClass | Reserve | cite | risques | — | — | RESERVE_* | — | REX | oui | Bas |
+| Review pack | template MD | PackProfile | report meta | — | export | — | completeness | — | full content | handoff MD | oui | Haut si résumé seul |
+| Handoff | guardrails | publish rules | — | — | status | — | branch only | — | remote SHA | latest-chatgpt-review | oui | Bas |
+| Capitalisation | MD | CapRecord schema | CapitalizationRecord | propose | capitalisation | — | — | CAPA_* | assets | REX | oui | Moyen |
+
+## Mécanisme anti-duplication (candidat)
+
+1. **SoT humaine** = Markdown (pourquoi).
+2. **SoT machine** = JSON + JSON Schema versionnés Git (quoi exécutable).
+3. **Runtime** = SQL instances + digests des defs.
+4. **Code** = chargeurs/validateurs uniquement — pas de re-codage des enums métier sans test de conformité Schema.
+5. CI candidate (futur) : `schema validate` + `doc anchors` + `no orphan enums in TS`.
+
+## Source / responsable / auditabilité
+
+- Responsable doctrine : cycles méthode gated.
+- Responsable defs : co-design avec Studio (Option D).
+- Audit : chaque effet cite `definitionId@digest` + `decisionId` si gate.
+
+## Décisions humaines requises
+
+- Valider cette matrice comme contrat de conception.
+- Trancher l’outil de conformité croisée (CI) pour plus tard.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/19-sfia-v3-canonical-data-and-contract-strategy.md`
+
+```markdown
+# 19 — Stratégie données canoniques et contrats (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Interdit ici | créer JSON/YAML/SQL/XLSX/PPTX réels |
+
+## 1. JSON / YAML / JSON Schema
+
+**Recommandation candidate :** JSON + JSON Schema comme format primaire des définitions exécutables ; YAML optionnel en authoring si projection JSON générée et validée.
+
+| Besoin | Choix candidat |
+|--------|----------------|
+| Contrats machine | JSON |
+| Authoring humain dense | YAML → compile JSON |
+| Validation | JSON Schema (Draft moderne) |
+| Versionnement | Git path + `schemaVersion` + digest |
+| Migrations | lots versionnés ; dual-read temporaire |
+| IDs | kebab/stable ids ; pas d’UUID dans defs |
+| Enums | Schema enum ; tests conformité code |
+| Extensibilité | `x-sfia-*` extensions documentées |
+| i18n | labels séparés ; ids stables |
+| Gén. types | optionnelle plus tard — jamais SoT inverse |
+| Sécurité | pas de secrets dans defs |
+
+**Rôles des fichiers structurés :** sources canoniques de **définitions** (Git) ; snapshots digests en SQL ; contrats d’échange API ; **pas** cache conversationnel comme SoT.
+
+## 2. SQL — état vivant, pas doctrine
+
+SQL représente l’état opérationnel :
+
+- tables/agrégats candidats : projects, cycle_instances, sessions, decisions (immuables), gate_instances, action_candidates, execution_contracts, attempts, evidence, reserves, transitions, audit_events, memberships
+- **Event store** recommandé pour audit ; modèle transactionnel pour état courant
+- Historisation décisions : append-only
+- Soft delete projets ; jamais delete silencieux des decisions
+- Concurrence : optimistic locking sur Project/Cycle
+- Permissions / multi-projets / multi-users : tables d’assignment
+- Colonne `doctrine_version` + `definition_digests`
+- Export / anonymisation / rétention : politiques RUN
+
+| Objet | Git only | SQL only | SQL→Git ref | Snapshot | Rebuild events |
+|-------|----------|----------|-------------|----------|----------------|
+| CycleDefinition | ✓ | | | | |
+| ProjectState | | ✓ | digests | option | partiel |
+| HumanDecision | | ✓ | | ✓ | ✓ |
+| Evidence files | paths | meta | blob/path | | |
+| ExecutionContract | | ✓ | | ✓ | ✓ |
+
+**Aucune migration SQL dans ce cycle.**
+
+## 3. Excel / CSV
+
+| Usage | Autorisé ? |
+|-------|------------|
+| Source d’import | Oui, après validation template |
+| Artefact utilisateur | Oui |
+| Preuve | Oui (fichier conservé) |
+| Restitution | Oui |
+| Doctrine / SoT | **Non** |
+
+Priorités : RACI, risques, backlog, stakeholders, inventaire, migration, mapping données, coûts.
+Contrôles : version template, colonnes, doublons, PII, volumétrie, mapping objets Studio, conservation source, réexport.
+
+## 4. Slides / PDF / restitutions
+
+Générés depuis Git defs + SQL state + Evidence.
+Métadonnées : version, date, auteur rôle, statut, décisions, réserves, preuves.
+**Ne deviennent pas** une source concurrente.
+Archivage : blob + hash + lien cycle.
+
+## 5. Template Cursor — rôle futur
+
+**Modèle actuel (v2.6 / CT) :** Template MD → instantiation → prompt.
+
+**Modèle cible candidat v3 :**
+
+```
+Doctrine + CycleDefinition + ProjectState + HumanDecision
++ ActionCandidate + Policies
+→ ExecutionContract (SoT runtime de l’exécution)
+→ Cursor Prompt Projection
+→ Cursor
+```
+
+Le template Markdown devient principalement : **documentation + projection/fallback/debug + compatibilité legacy v2.6** — plus l’objet pivot d’exécution v3.
+
+Champs ExecutionContract : objective, paths, ops, exact content, stop, gates, digests, hash, version, allowlist, timeout, evidence expectations, reinjection hooks.
+
+**Ne pas modifier** `prompts/templates/sfia-cycle-execution-template.md` dans ce cycle.
+
+## 6. Décisions humaines requises
+
+- JSON-first vs YAML-first.
+- Event-sourced vs state+audit hybride.
+- Confirmer déclassement du template MD comme pivot d’exécution v3.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/20-sfia-v2.6-v3-coexistence-and-migration-model.md`
+
+```markdown
+# 20 — Coexistence SFIA v2.6 / v3.0 et migration (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+
+## 1. Régimes
+
+Voir aussi doc 15 (modes 1–5). Synthèse migration :
+
+| Régime | Doctrine | Studio | Claim |
+|--------|----------|--------|-------|
+| v2.6 manuel | v2.6 | absent | v2.6 |
+| v2.6 assisté | v2.6 | partiel OPS1/CT | v2.6 — **interdit v3** |
+| Transitionnel | v2.6 + defs v3 candidates | capacités partielles | « v3 candidate / transition » |
+| v3 Studio-native | defs v3 + MD rationale | complet | v3 si éligible (21) |
+| Fallback | v2.6 | dégradé | jamais v3 |
+
+## 2. Sélection de mode
+
+Règles candidates :
+
+1. Afficher le mode dans l’IHM (badge).
+2. Mode par **projet** (pas global silencieux).
+3. Upgrade mode 3→4 seulement si checklist éligibilité OK.
+4. Downgrade automatique si capacité critique absente.
+5. Opérateur peut forcer fallback avec motif tracé.
+
+## 3. Migration projet
+
+| Étape | Contenu |
+|-------|---------|
+| Inventaire | sessions OPS1, docs projet, preuves |
+| Import | créer Project/Cycles ; lier artefacts |
+| Mapping | décisions historiques → HumanDecision si possible |
+| Validation | digests ; gaps → réserves |
+| Cutover | bascule mode après GO projet |
+| Rollback | retour mode 2/1 ; SQL conservé read-only |
+
+## 4. Import historique / incompatibilités
+
+- Sessions OPS1 sans Project → rattachement manuel.
+- Prompts collés sans contractHash → non rejouables en v3 claims.
+- Docs v2.6 restent lisibles ; non réécrits.
+
+## 5. Abandon v2.6 vs maintien legacy
+
+**Abandon (lointain, gated) :** tous projets éligibles v3 ; support manuel documenté ; GO ADOPTION + période dual.
+**Maintien legacy :** projets hors Studio ; audits ; formation.
+**Risque :** deux doctrines actives trop longtemps → dette (V3-R05).
+
+## 6. Support / dette
+
+- Formation modes.
+- Runbooks fallback.
+- Interdiction marketing « tout est v3 » tant que mode ≠ 4 éligible.
+
+## 7. Décisions humaines requises
+
+- Valider modes et claims.
+- Politique de durée du dual-run.
+- Priorité migration vs nouveaux projets v3.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/21-sfia-v3-adoption-eligibility-and-gates.md`
+
+```markdown
+# 21 — Éligibilité et gates d’adoption SFIA v3.0 (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Rappel | Documents validés ≠ adoption |
+
+## 1. Statuts d’adoption candidats
+
+| Statut | Signification | Conditions candidates |
+|--------|---------------|----------------------|
+| **V3-DOCUMENTED** | Cadrage écrit | Pack framing 01–22 cohérent |
+| **V3-MODELED** | Defs structurées conçues | Stratégie JSON/SQL validée (pas forcément fichiers runtime) |
+| **V3-IMPLEMENTED** | Capacités runtime | Slice produit implémentée locale |
+| **V3-VALIDATED** | Preuves live | Exécution+preuves+validation+audit |
+| **V3-ELIGIBLE** | Critères produit OK | Checklist §2 + sécu + non-régression |
+| **V3-ADOPTED** | Baseline méthode | **GO ADOPTION** + merge doctrine `method/` |
+
+Aujourd’hui (ce cycle) : cible **V3-DOCUMENTED** consolidée — **pas** ADOPTED.
+
+## 2. Gates candidats (chaîne)
+
+1. Doctrine candidate validée (humain)
+2. Définitions structurées validées (modèle)
+3. Parcours utilisateurs validés
+4. Modèle SQL validé (conception)
+5. Sécurité validée
+6. Vertical slice fonctionnelle
+7. Cursor sous contrat
+8. Preuves
+9. Validation
+10. Transition
+11. Audit
+12. Non-régression
+13. Migration
+14. Documentation RUN
+15. **GO ADOPTION** (baseline)
+
+## 3. Critères d’éligibilité runtime (rappel 15)
+
+Projet + cycle + contexte + conversation rattachée + décision tracée + action structurée + exécution sous contrat + preuves + validation + transition + audit.
+
+## 4. Anti-claims
+
+- V3-DOCUMENTED ≠ production.
+- Control Tower ≠ V3-ADOPTED.
+- Handoff framing ≠ baseline.
+
+## 5. Décisions humaines requises
+
+- Valider la chaîne de statuts.
+- Nommer le GO entre VALIDATED et ELIGIBLE.
+- Séparer clairement validation cadrage vs adoption.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/22-sfia-v3-consolidated-challenge-and-decision-pack.md`
+
+```markdown
+# 22 — Challenge consolidé et decision pack SFIA v3.0
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat consolidé** |
+| Gate consommé | `GO COMPLÉMENT CADRAGE SFIA v3.0 — STUDIO-NATIVE DOCTRINE, USER JOURNEYS AND INFORMATION ARCHITECTURE` |
+| Gate suivant | `GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0` |
+| Baseline | SFIA v2.6 |
+| Adoption v3 | **Non** |
+
+## 1. Synthèse du challenge
+
+Le cadrage initial (01–14) posait correctement le Project OS, les rôles, le dual-channel et la réutilisation OPS1/CT.
+**Écarts challengés :**
+
+| Écart | Observation | Correction candidate |
+|-------|-------------|----------------------|
+| Applicabilité floue | v3 pouvait sembler « docs + Studio un jour » | Studio-native strict (15) |
+| Template Cursor encore pivot | Héritage v2.6/CT | ExecutionContract = pivot ; template = projection/fallback (19) |
+| Trop Markdown-centré | Risque SoT unique narrative | 5 couches info (17) |
+| Trajectoire « produit sous v2.6 puis v3 » | Sous-estime co-design defs | Option **D** co-design borné (ci-dessous) |
+| Parcours UX | Liste d’écrans sans enforcement | Parcours = projection doctrine (16) |
+| Adoption | Confusion docs validés = baseline | Statuts V3-DOCUMENTED…ADOPTED (21) |
+
+## 2. Décisions déjà validées (humaines, hors adoption)
+
+| Type | Contenu |
+|------|---------|
+| **Décision validée** | Ouverture cadrage v3 (GO précédent) |
+| **Décision validée** | Complément cadrage Studio-native / IA / artefacts (GO actuel) |
+| **Décision validée** | v2.6 reste baseline opérationnelle |
+| **Non décision** | Adoption v3, modif canoniques, implémentation |
+
+## 3. Options trajectoire (rechallenge)
+
+| Option | Bénéfices | Risques | Rework |
+|--------|-----------|---------|--------|
+| A Produit d’abord | Valeur UI rapide | Doctrine papier retardée ; rework defs | Moyen-haut |
+| B Doctrine d’abord | Clarté | Architecture papier ; touche `method/` gated | Haut délai |
+| C Parallel tracks | Isolation | Divergence ; claims confus | Moyen |
+| **D Co-design borné** | Chaque incrément lie parcours+doctrine+def+SQL+UI+GPT+effet+preuve+gate | Discipline ; plus lent au début | **Bas** si tenu |
+
+## 4. Recommandation candidate (≠ décision)
+
+**Option D — co-design borné**, compatible coexistence v2.6 :
+
+Chaque incrément cible valide simultanément : un parcours · un élément doctrinal · une définition structurée · un état SQL · une projection Studio · une interaction GPT · une règle d’effet · une preuve · une décision humaine.
+
+Les capacités CT/OPS1 restent le **laboratoire d’exécution** en modes 2–3, sans claim v3 adopté.
+
+## 5. Architecture documentaire consolidée
+
+- Couches 1–5 (17)
+- Hiérarchie sources (17)
+- Matrice doctrine→runtime (18)
+- JSON/Schema + SQL + Excel + restitutions + Cursor projection (19)
+- Modes & migration (20)
+- Éligibilité (21)
+
+## 6. Vertical slice révisée (20 étapes)
+
+1 Créer projet Studio · 2 Responsable humain · 3 Mode méthodo · 4 Cycle cadrage · 5 Charger doctrine+defs · 6 Conversation guidée · 7 Persister SQL objets · 8 Générer/importer artefact · 9 Décision humaine · 10 ActionCandidate · 11 ExecutionContract · 12 Projection Cursor · 13 Exécution · 14 Preuves · 15 Validation · 16 Restitution · 17 Transition proposée · 18 Décision humaine · 19 MAJ états · 20 Audit
+
+**Succès :** bout en bout auditable sans free-chat ; sans modif `method/` ; sans claim ADOPTED.
+**Anti-claims :** pas MVP ; pas baseline ; pas multi-tenant requis.
+
+## 7. Risques / réserves / dette
+
+| Id | Contenu |
+|----|---------|
+| V3-R01 | AF-Option C vs orchestration — reconfirmer |
+| V3-R02 | Working tree CT dirty |
+| V3-R03 | Live CT moteur SFIA ouvert |
+| V3-R04 | Sur-modélisation états |
+| V3-R05 | Dual-run v2.6/v3 trop long |
+| V3-R06 | Excel traité à tort comme SoT |
+| V3-R07 | Template MD encore utilisé comme pivot par habitude |
+
+**Dette :** framing hors method/ ; pas de fichiers Schema réels ; pas SQL ; UI OPS1 ≠ cockpit.
+
+## 8. Décisions humaines requises
+
+1. Valider cadrage consolidé (`GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0`).
+2. Valider Studio-native + modes 1–5.
+3. Valider Option D (ou A/B/C).
+4. Valider 5 couches info + hiérarchie sources.
+5. Valider déclassement template MD comme pivot d’exécution v3.
+6. Valider JSON-first + SQL état.
+7. Valider Excel non canonique.
+8. Valider slice 20 étapes.
+9. Valider chaîne V3-DOCUMENTED…ADOPTED.
+10. Prioriser vs validation live CT.
+
+## 9. Décisions non prises
+
+Adoption · modif v2.6 · code · migrations · commit/PR · cleanup · production claims.
+
+## 10. Verdict
+
+**SFIA v3.0 CONSOLIDATED FRAMING READY — HUMAN DECISION REQUIRED**
+
+```
+
+## 7. Fichiers modifiés (contenu complet post-consolidation)
+
 ### `projects/sfia-studio/sfia-v3-framing/README.md`
 
 ```markdown
-# SFIA v3.0 — Cadrage Studio Project Operating System
+# SFIA v3.0 — Cadrage Studio Project Operating System (consolidé)
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | **Candidat** — cadrage ouvert ; **non** baseline |
-| **Baseline opérationnelle** | **SFIA v2.6** (inchangée) |
-| **Gate consommé** | `GO OUVERTURE CADRAGE SFIA v3.0 — STUDIO PROJECT OPERATING SYSTEM` |
-| **Gate suivant** | `GO VALIDATION CADRAGE SFIA v3.0` |
-| **Cycle** | 1 — Cadrage |
-| **Profil** | Critical |
-| **Branche locale** | `delivery/sfia-studio-control-tower-fast-track` |
+| **Statut** | **Candidat consolidé** — **non** baseline |
+| **Baseline opérationnelle** | **SFIA v2.6** |
+| **Gates consommés** | Ouverture cadrage · Complément Studio-native / journeys / IA |
+| **Gate suivant** | `GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0` |
+| **Branche** | `delivery/sfia-studio-control-tower-fast-track` |
 | **HEAD** | `32e5271842b9a344a7e292614675c27ea8ed941b` |
 
-> **Anti-claims :** SFIA v3.0 n’est **pas** adoptée. Les documents v2.6 ne sont **pas** modifiés. Aucune implémentation. Aucun commit/push/PR projet. Les travaux Control Tower (66–74 + code local) sont **préservés**.
+> **Anti-claims :** v3 non adoptée ; canoniques v2.6 non modifiées ; pas d’implémentation ; pas de JSON/SQL/XLSX/PPTX réels ; travaux CT préservés.
 
-## Intention
+## Intention consolidée
 
-Ouvrir le cadrage produit et méthodologique d’un **Studio Project Operating System** : système de pilotage projet bout en bout, assisté par IA, gouverné par SFIA — sans chat libre hors projet/cycle.
+SFIA v3.0 est une doctrine **Studio-native** : doctrine + modèle opératoire + information + contrats + workflow + UX + orchestration — applicable seulement lorsque Studio pilote réellement projet→audit.
 
-## Index des livrables
+## Index
 
-| # | Fichier | Contenu |
-|---|---------|---------|
-| 01 | `01-sfia-v3-product-vision-and-positioning.md` | Vision et positionnement |
-| 02 | `02-sfia-v3-principles-and-human-governance.md` | Principes candidats et gouvernance humaine |
-| 03 | `03-sfia-v3-roles-and-responsibilities.md` | Rôles humain / Studio / GPT / Cursor / Git |
-| 04 | `04-sfia-v3-project-and-cycle-domain-model.md` | Objets métier, états, relations |
-| 05 | `05-sfia-v3-guided-reasoning-and-conversation-model.md` | Conversation guidée + canal de contrôle |
-| 06 | `06-sfia-v3-cycle-routing-and-transition-model.md` | Cycles, routage, transitions |
-| 07 | `07-sfia-v3-automation-and-human-decision-model.md` | Automatisation vs décisions humaines |
-| 08 | `08-sfia-v3-executable-doctrine-and-contract-model.md` | Doctrine lisible / contrats / projections |
-| 09 | `09-sfia-v3-functional-architecture.md` | Architecture fonctionnelle candidate |
-| 10 | `10-sfia-v3-technical-architecture-candidate.md` | Architecture technique candidate + acquis |
-| 11 | `11-sfia-v3-ux-information-architecture.md` | UX / IA / parcours (pas de Figma) |
-| 12 | `12-sfia-v2.6-to-v3-gap-analysis.md` | Analyse d’écart v2.6 → v3.0 |
-| 13 | `13-sfia-v3-target-vertical-slice.md` | Vertical slice produit cible |
-| 14 | `14-sfia-v3-roadmap-and-decision-pack.md` | Roadmap et décisions humaines requises |
+| # | Fichier |
+|---|---------|
+| 01–14 | Cadrage initial (mis à jour 01, 08–14) |
+| 15 | Applicabilité Studio-native & modes |
+| 16 | Parcours utilisateurs & enforcement |
+| 17 | Architecture information / artefacts |
+| 18 | Matrice doctrine → runtime |
+| 19 | Stratégie JSON/SQL/Excel/slides/Cursor |
+| 20 | Coexistence v2.6 / v3.0 |
+| 21 | Éligibilité & gates d’adoption |
+| 22 | Challenge consolidé & decision pack |
 
-## Relation aux acquis Control Tower
+## Recommandation trajectoire (candidate)
 
-Les documents `66`–`74` et le code OPS1/Control Tower local démontrent une **chaîne technique** (conversation, outils Git/GitHub read, ActionCandidate, gates, Cursor, rapport, contexte canonique). Ils constituent un **socle réutilisable**, pas l’architecture produit définitive v3.0.
+**Option D — co-design borné** (voir 22) : chaque incrément lie parcours + doctrine + définition + état + UI + GPT + effet + preuve + gate.
 
-## Verdict de ce pack
+## Verdict
 
-**SFIA v3.0 FRAMING READY — HUMAN DECISION REQUIRED**
+**SFIA v3.0 CONSOLIDATED FRAMING READY — HUMAN DECISION REQUIRED**
 
 ```
 
@@ -116,11 +742,19 @@ Les documents `66`–`74` et le code OPS1/Control Tower local démontrent une **
 |-------|--------|
 | Statut | **Candidat** |
 | Baseline active | SFIA v2.6 |
-| Gate | Ouverture cadrage SFIA v3.0 |
+| Gate | Ouverture + complément cadrage SFIA v3.0 |
+
+## 0. Applicabilité Studio-native (complément)
+
+**SFIA v3.0 n’est pas** le modèle manuel ChatGPT → prompt → copier-coller Cursor → retour ChatGPT (cela reste **v2.6 / legacy**).
+
+**SFIA v3.0 (candidat)** n’est applicable que si Studio pilote : projet, cycle, contexte, décisions, actions, exécutions, preuves, validations, transitions (détail : doc 15).
+
+Doctrine et produit sont **couplés** : v3 = doctrine + opératoire + information + contrats + workflow + UX + orchestration.
 
 ## 1. Positionnement exact candidat
 
-**SFIA Studio v3.0 (candidat)** est un **Project Operating System** : système de pilotage projet bout en bout, assisté par IA et gouverné par la méthode SFIA versionnée dans Git.
+**SFIA Studio v3.0 (candidat)** est un **Project Operating System** : système de pilotage projet bout en bout, assisté par IA et gouverné par la méthode SFIA — **exécutée via Studio**, avec définitions versionnées dans Git et état vivant en SQL.
 
 Il n’est **pas** :
 
@@ -193,9 +827,10 @@ v3.0 **généralise** cette chaîne en **système de projet**, pas seulement en 
 
 ## 8. Décisions humaines requises (hors validation ici)
 
-- Valider ou reformuler cette vision (`GO VALIDATION CADRAGE SFIA v3.0`).
+- Valider ou reformuler cette vision (`GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0`).
 - Confirmer que v2.6 reste baseline jusqu’à un GO d’adoption v3.0 distinct.
-- Trancher le périmètre MVP produit vs trajectoire complète.
+- Valider le caractère Studio-native exclusif (15).
+- Trancher Option D co-design vs A/B/C (22).
 
 ## 9. Anti-claims
 
@@ -205,696 +840,72 @@ v3.0 **généralise** cette chaîne en **système de projet**, pas seulement en 
 
 ```
 
-### `projects/sfia-studio/sfia-v3-framing/02-sfia-v3-principles-and-human-governance.md`
-
-```markdown
-# 02 — Principes candidats et gouvernance humaine
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **Candidats** — non promus en doctrine validée |
-| Baseline | SFIA v2.6 |
-
-## 1. Règle de lecture
-
-Les principes ci-dessous sont **candidats**. Aucun n’est automatiquement validé. Toute promotion en doctrine v3.0 exige un GO humain explicite.
-
-Terminologie cible : remplacer « Morris décide » par **« la décision structurante appartient à un décideur humain habilité »**.
-
-## 2. Douze principes candidats
-
-### P1 — Projet-first
-Toute interaction Studio est rattachée à un projet, ou à une opération bornée de création / import.
-
-**Raison :** éviter le chat orphelin.
-**Risque si absent :** dérive conversationnelle, effets hors contexte.
-
-### P2 — Cycle-aware
-Toute conversation de travail est rattachée à un cycle actif ou à une phase de qualification de cycle.
-
-**Raison :** SFIA est cycle-driven (routing guide v2.6).
-**Risque :** actions sans typologie / profil / gates.
-
-### P3 — Human-governed
-Les arbitrages structurants exigent une décision humaine explicite (gate UI ou équivalent audité).
-
-**Raison :** héritage L0 / fail-closed v2.6.
-**Risque :** automatisation de décision.
-
-### P4 — AI-reasoned
-GPT conserve la liberté d’analyse, reformulation, questionnement et recommandation.
-
-**Raison :** valeur SFIA = raisonnement, pas scripts de réponses.
-**Risque inverse :** questionnaire rigide / réponses préfabriquées.
-
-### P5 — Deterministic-effects
-Les effets (fichiers, Git, Cursor, remote) passent par contrats et policies déterministes.
-
-**Raison :** acquis OPS1 (allowlist, contractHash, revalidation).
-**Risque :** prompt libre = exécution libre.
-
-### P6 — Git-truth
-Git reste la source de vérité documentaire et technique ; la mémoire conversationnelle ne remplace pas Git.
-
-**Raison :** operating model + guardrails v2.6.
-**Risque :** doctrine « dans le chat ».
-
-### P7 — Explainable-routing
-Chaque routage de cycle ou transition doit être explicable (sources, critères, alternatives écartées).
-
-**Raison :** routing guide.
-**Risque :** boîte noire.
-
-### P8 — No-free-chat
-Studio ne répond pas aux demandes sans relation cohérente avec le projet ou le cycle (sinon clarification / blocked).
-
-**Raison :** gouvernance produit.
-**Risque :** usage généraliste.
-
-### P9 — Fail-closed
-En cas d’incertitude sur une action ou une autorité : bloquer ou demander clarification.
-
-**Raison :** guardrails + OPS1.
-**Risque :** deny-by-default affaibli.
-
-### P10 — Progressive-automation
-Automatiser d’abord préparation, collecte, contrôle et exécution bornée — avant tout arbitrage structurant.
-
-**Raison :** trajectoire L0–L5 à redécouper (voir doc 07).
-**Risque :** L5 décisionnel.
-
-### P11 — Doctrine-as-source
-La doctrine reste versionnée et lisible dans Git (Markdown).
-
-**Raison :** v2.6 baseline ; éviter seconde doctrine TS.
-**Risque :** divergence Markdown/code.
-
-### P12 — Contracts-as-runtime
-Les objets structurés (états, gates, schémas) servent à l’exécution sans devenir une doctrine indépendante.
-
-**Raison :** moteur de contexte canonique (74).
-**Risque :** constantes métier dispersées.
-
-## 3. Modèle de gouvernance humaine candidat
-
-| Niveau | Qui | Quoi |
-|--------|-----|------|
-| L-H0 | Décideur humain habilité | Gates structurants, adoption baseline, merge doctrine |
-| L-H1 | Approbateur opérationnel | GO action Cursor, GO write borné, GO remote selon policy |
-| L-H2 | Responsable de projet | Trajectoire, priorités, clôture projet |
-| L-S | Studio / moteurs | Préparation, contrôle, blocage, audit |
-| L-A | Agents (GPT/Cursor) | Raisonnement / exécution sous contrat — **jamais** gate structurant |
-
-## 4. Formes de décision humaine
-
-1. **Gate explicite UI** (préféré pour effets).
-2. **DecisionRequest** structurée (arbitrage documenté).
-3. **Refus / report / refine** (pas seulement GO).
-4. **Expiration / stale** → revalidation obligatoire.
-
-Une phrase conversationnelle **n’équivaut jamais** à un gate.
-
-## 5. Lien v2.6
-
-Conserver : fail-closed, Git-truth, human validation first, prompt-as-contract, review handoff required pour rapports Cursor.
-Adapter : terminologie individu → rôles ; orchestration manuelle → Studio-native.
-Ne pas remplacer sans GO : documents canoniques v2.6.
-
-## 6. Décisions humaines requises
-
-- Valider / amender / rejeter P1–P12.
-- Valider le modèle L-H0…L-A.
-- Confirmer l’interdiction du free-chat hors projet.
-
-```
-
-### `projects/sfia-studio/sfia-v3-framing/03-sfia-v3-roles-and-responsibilities.md`
-
-```markdown
-# 03 — Rôles et responsabilités (candidats)
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **Candidat** |
-| Note | Une personne peut cumuler plusieurs rôles humains |
-
-## 1. Rôles humains
-
-| Rôle | Finalité | Peut | Ne peut pas (candidat) |
-|------|----------|------|-------------------------|
-| **Utilisateur humain** | Utiliser Studio | Naviguer, converser, consulter | Valider un gate hors habilitation |
-| **Responsable de projet** | Porter trajectoire et objectifs | Définir priorités, demander clôture | Contourner policies techniques |
-| **Décideur humain** | Valider arbitrages structurants | Consommer gates structurants | Déléguer silencieusement à un agent |
-| **Approbateur** | Valider une opération spécifique | GO Cursor, GO write, GO remote selon scope | Élargir le scope hors allowlist |
-
-Le décideur n’est **pas** un individu nommé dans la doctrine produit.
-
-## 2. Rôles système
-
-### SFIA Studio
-Interface de pilotage et **orchestrateur visible**.
-Présente états, sources, décisions, actions, preuves.
-Ne remplace pas le décideur. Ne réécrit pas la doctrine.
-
-### Moteur SFIA
-Contexte, routage, policies, états, transitions, contrats.
-Compile et contrôle. Fail-closed.
-Charge la doctrine depuis Git ; ne la duplique pas.
-
-### GPT
-Raisonnement, qualification, analyse, challenge, conversation guidée.
-Produit des artefacts intermédiaires (clarification, options, ActionProposal…).
-**Ne décide pas** les gates structurants. **N’exécute pas** Cursor seul.
-
-### Cursor
-Agent d’exécution bornée sous contrat (prompt instancié, allowlist, worktree).
-Produit diffs / preuves.
-**Ne choisit pas** le périmètre hors contrat.
-
-### Git
-Source de vérité, versionnement, auditabilité.
-Baseline méthode, documents projet, historique.
-
-### GitHub
-Collaboration distante, revue, CI, publication.
-Writes distants = gated (fermés par défaut hors GO).
-
-## 3. Matrice RACI candidate (synthèse)
-
-| Activité | Humain décideur | Studio | Moteur | GPT | Cursor | Git |
-|----------|-----------------|--------|--------|-----|--------|-----|
-| Qualifier cycle | C | I | A/R policies | R analyse | — | C sources |
-| Décision gate | **A/R** | R UI | R enforce | C propose | — | C audit |
-| Compiler action | C | I | **A/R** | R proposal | — | C |
-| Exécuter | A (GO) | R orchestrate | R contract | I | **R** exec | R truth |
-| Valider résultat | A/C | R display | R checks | R analyse | I | C |
-| Transition cycle | A | R | R | C | — | C |
-
-(R=Responsible, A=Accountable, C=Consulted, I=Informed — candidat)
-
-## 4. Évolution depuis v2.6
-
-| v2.6 | v3.0 candidat |
-|------|----------------|
-| ChatGPT hors Studio + copier-coller fréquent | GPT **dans** Studio, contextuel |
-| « Morris (L0) » nommé | Décideur humain habilité (rôle) |
-| Cursor via prompt manuel ou OPS1 | Cursor via Execution Orchestrator produit |
-| Operating model boucle manuelle dominante | Boucle Studio-native, même principes |
-
-## 5. Séparation des pouvoirs
-
-- Qui **propose** ≠ qui **décide** ≠ qui **exécute**.
-- GPT propose ; décideur tranche ; Cursor exécute ; Git enregistre.
-- Studio/moteur **empêchent** la confusion des rôles (pas seulement « rappellent »).
-
-## 6. Décisions humaines requises
-
-- Valider la taxonomie des rôles humains.
-- Valider que Studio = cockpit + façade d’orchestration (continuité AF-Option C reformulée Control Tower).
-- Décider du modèle multi-utilisateurs (hors scope implémentation actuelle).
-
-```
-
-### `projects/sfia-studio/sfia-v3-framing/04-sfia-v3-project-and-cycle-domain-model.md`
-
-```markdown
-# 04 — Modèle domaine projet et cycle (candidat)
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **Candidat** — listes non figées |
-
-## 1. Objets centraux
-
-Pour chaque objet : finalité, propriétaire logique, id, cycle de vie, source de vérité, relations, mutation, audit, décision humaine.
-
-### Workspace
-- **Finalité :** conteneur multi-projets d’une organisation / utilisateur.
-- **Propriétaire :** organisation / admin.
-- **Id :** `ws-*`.
-- **SoT :** Studio + Git org config.
-- **Mutation :** admin.
-- **Décision humaine :** création workspace.
-
-### Project
-- **Finalité :** unité de pilotage (ex. Campus360, SFIA Studio).
-- **Propriétaire :** responsable de projet.
-- **Id :** `proj-*` + chemin `projects/<key>/`.
-- **SoT :** Git (docs) + ProjectState (runtime).
-- **Relations :** Cycles, Baseline, Trajectory, Decisions.
-- **Décision humaine :** création, clôture, archivage.
-
-### ProjectState
-États candidats : `DRAFT | FRAMING | ACTIVE | PAUSED | BLOCKED | DELIVERED | RUN | CLOSED | ARCHIVED`.
-Mutations via Transition Engine + gates selon criticité.
-
-### ProjectBaseline
-Référence méthode applicable (`SFIA v2.6` aujourd’hui ; `v3.0` **candidate** seulement).
-Ne change **pas** sans GO d’adoption.
-
-### ProjectTrajectory
-Intention produit / jalons / lots (candidats vs validés).
-Options ≠ décisions.
-
-### Cycle / CycleInstance / CycleState
-- **Cycle :** type méthodologique (cadrage, delivery, QA…).
-- **CycleInstance :** occurrence runtime liée à un Project.
-- **États candidats :** `PROPOSED | QUALIFYING | READY | ACTIVE | DECISION_REQUIRED | EXECUTION_READY | EXECUTING | VALIDATING | BLOCKED | COMPLETED | CLOSED | CAPITALIZED`.
-
-### GuidedSession
-Conversation rattachée (projet/cycle/décision/action/rapport).
-Remplace la notion « session OPS1 orpheline » à terme.
-
-### SourceContext
-Ensemble de sources chargées (canoniques + projet) avec digests.
-Hérite du Canonical Context Engine (74).
-
-### Hypothesis / Observation / Option / Recommendation
-Artefacts de raisonnement. **Jamais** auto-promus en HumanDecision.
-
-### HumanDecision / Gate / DecisionRequest
-Décision auditable. Gate = point de contrôle UI/policy. DecisionRequest = demande structurée.
-
-### ActionProposal / ActionCandidate / ExecutionContract / ExecutionAttempt
-Chaîne déjà partiellement prouvée OPS1/CT : proposal → compile → candidate → gate → contract → attempt.
-
-### Evidence / ValidationResult / Reserve
-Preuves d’exécution, verdict de validation, réserves classifiées (héritage guardrails).
-
-### TransitionProposal / TransitionDecision
-Proposition d’enchaînement de cycle / d’état ; décision humaine pour transitions structurantes.
-
-### ReviewPack / ReviewHandoff / CapitalizationRecord
-Héritage v2.6 : pack de revue, publication handoff, capitalisation.
-
-## 2. Relations clés
-
-```
-Workspace 1—* Project
-Project 1—* CycleInstance
-CycleInstance 1—* GuidedSession
-GuidedSession *—* SourceContext
-CycleInstance *—* HumanDecision
-CycleInstance *—* ActionCandidate
-ActionCandidate 1—* ExecutionContract
-ExecutionContract 1—* ExecutionAttempt
-ExecutionAttempt 1—* Evidence
-CycleInstance *—* TransitionProposal
-```
-
-## 3. Règles de mutation (candidats)
-
-1. Pas de mutation d’état projet/cycle sans événement audité.
-2. Options / Recommendations ne mutent pas ProjectBaseline.
-3. ActionCandidate n’implique aucune exécution.
-4. ExecutionAttempt exige contractHash + gate lié.
-5. CONTEXT_STALE bloque compilation / exécution jusqu’à requalification.
-6. Chemins protégés (`method/`, `prompts/`, …) hors écriture sauf GO méthode dédié.
-
-## 4. Identifiants et audit
-
-Corrélation cible :
-
-`workspaceId → projectId → cycleInstanceId → sessionId → contextId → proposalId → actionId → contractHash → attemptId → reportId / evidenceId`
-
-## 5. Écart vs OPS1 actuel
-
-| OPS1 aujourd’hui | Cible v3.0 |
-|------------------|------------|
-| CycleSession loosely bound | Project + CycleInstance first-class |
-| Fixture/live mode session | GuidedSession contextualisée projet |
-| ActionCandidate I3 | ActionCandidate issu du moteur SFIA |
-| Pas de ProjectState | ProjectState Engine |
-
-## 6. Décisions humaines requises
-
-- Valider la liste d’états projet/cycle (ou la réduire).
-- Valider le rattachement obligatoire conversation → objet.
-- Décider du modèle d’import de projets finalisés.
-
-```
-
-### `projects/sfia-studio/sfia-v3-framing/05-sfia-v3-guided-reasoning-and-conversation-model.md`
-
-```markdown
-# 05 — Raisonnement guidé et modèle conversationnel (candidat)
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **Candidat** |
-
-## 1. Définition
-
-Une **GuidedSession** est une conversation :
-
-- toujours rattachée à un objet (projet / cycle / décision / action / rapport / réserve) ;
-- **guidée** par le contexte et l’état ;
-- **libre** dans le raisonnement GPT ;
-- **bornée** dans les outils, transitions et effets.
-
-## 2. Deux canaux obligatoires
-
-### Canal conversationnel (humain-lisible)
-Réponse naturelle GPT : explication, challenge, reformulation, questions.
-
-### Canal de contrôle (machine-lisible)
-Structure minimale candidate :
-
-| Champ | Rôle |
-|-------|------|
-| `intent` | intention détectée / déclarée |
-| `projectRelevance` | lien projet OK / doute / hors scope |
-| `cycleRelevance` | lien cycle OK / qualification requise |
-| `sourcesUsed[]` | path + digest |
-| `missingInfo[]` | clarifications |
-| `proposedTransition` | éventuelle |
-| `actionProposal` | SfiaActionProposal ou null |
-| `requiredGate` | si applicable |
-| `status` | ok / clarification / decision_required / blocked / no_action |
-
-Le canal de contrôle **n’est pas** un script de phrases. Il **contraint les effets**, pas le style.
-
-## 3. Sorties autorisées du moteur / GPT
-
-1. Réponse directe contextualisée
-2. Question de clarification
-3. Analyse
-4. Hypothèses
-5. Options
-6. Recommandation
-7. Demande de décision humaine (`DecisionRequest`)
-8. Proposition de cycle
-9. Proposition de transition
-10. `ActionProposal`
-11. `no_action`
-12. `blocked`
-
-## 4. Ce qu’il ne faut pas faire
-
-- Arbre rigide de phrases préfabriquées.
-- Questionnaire type wizard exclusif (le guidage peut **suggérer** des questions, pas imposer un script).
-- Confondre recommandation et décision.
-- Laisser GPT émettre commit/push/PR hors gates.
-- Remplacer le canal de contrôle par du prose seul.
-
-## 5. Guidage sans rigidité — mécanique candidate
-
-1. Charger `SourceContext` (canonique + projet).
-2. Injecter état (ProjectState, CycleState, open/closed gates).
-3. Laisser GPT produire prose + structure.
-4. Valider structure (schéma).
-5. Compiler effets via Action Compiler / Transition Engine.
-6. Si ambigu : `clarification_required` — **pas** d’effet.
-
-## 6. Exemples (illustratifs)
-
-**OK :** « D’après le routing guide et l’état FRAMING, je propose un cycle Delivery documentaire. Questions : … » + JSON contrôle.
-
-**KO :** réponses génériques hors projet ; ou « j’ai commit & push » dans le texte avec effet réel.
-
-## 7. Lien acquis
-
-- Journal OPS1 = proto GuidedSession.
-- Moteur contexte SFIA (74) = SourceContext runtime.
-- SfiaActionProposal = canal de contrôle action.
-
-## 8. Décisions humaines requises
-
-- Valider le dual-channel.
-- Valider l’interdiction du free-chat.
-- Trancher le niveau d’UI pour afficher le canal de contrôle (compact vs détail).
-
-```
-
-### `projects/sfia-studio/sfia-v3-framing/06-sfia-v3-cycle-routing-and-transition-model.md`
-
-```markdown
-# 06 — Routage des cycles et modèle de transitions (candidat)
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **Candidat** |
-| Source v2.6 | `sfia-cycle-routing-guide.md` (non modifié) |
-
-## 1. Principe hérité (à conserver)
-
-```
-type de cycle → documents à lire → template → validation → décision
-```
-
-SFIA ne repose pas sur la mémoire implicite du modèle. Le routage est **explicite** et **explicable**.
-
-## 2. Cycles existants — traitement candidat
-
-### Conserver (pertinence haute)
-Cadrage, conception fonctionnelle, architecture fonctionnelle/technique, UX/UI, backlog, delivery, QA/validation, sécurité, DevOps/intégration, capitalisation/REX, post-merge, PR readiness (process).
-
-### Adapter (Studio-native)
-- Qualification **dans** Studio (pas seulement ChatGPT externe).
-- Review pack / handoff déclenchés depuis Validation Engine.
-- Template Cursor **instancié** (pas collé manuellement).
-
-### Fusionner (candidats à analyser)
-- Certains micro-cycles documentaires redondants avec « GuidedSession de qualification ».
-- Monitoring isolé → vues du cockpit (pas un cycle séparé obligatoire).
-
-### Scinder (candidats)
-- « Delivery » : préparation contrat vs exécution vs validation (déjà partiellement OPS1 I3–I6).
-- « Cadrage » : vision produit vs méthode vs gap analysis (ce pack v3.0 en est l’illustration).
-
-### Manquants Studio-specific (candidats)
-- Project bootstrap / import.
-- Role & permission setup (multi-user).
-- Transition governance pack (enchaînement cycles).
-- Evidence review cycle dédié si volume élevé.
-
-### Transverses
-Sécurité, observabilité, FinOps, GreenOps, accessibilité, RGPD : **blocs** activables dans un cycle plutôt que cycles isolés systématiques (héritage profils/blocs v2.6).
-
-## 3. Conditions d’entrée / sortie (patron)
-
-Pour chaque CycleInstance :
-
-| Élément | Contenu |
-|---------|---------|
-| Entrée | ProjectState compatible, intention, sources mini, profil proposé |
-| Infos requises | Objectif, périmètre, risques, gates ouverts/fermés |
-| Conversation guidée | Dual-channel (doc 05) |
-| Livrables | Docs / code / preuves selon type |
-| Actions possibles | READ / propose / compile / execute-after-GO |
-| Gates | Selon criticité + type d’effet |
-| Validation | Critères explicites + ValidationResult |
-| Transition | TransitionProposal → TransitionDecision |
-
-## 4. Modèle de transition candidat
-
-Chaque transition déclare :
-
-1. **Déclencheur** (humain, validation OK, timer stale…)
-2. **Préconditions** (états, preuves, digests)
-3. **Acteurs** (décideur / moteur / GPT)
-4. **Gate** (oui/non + kind)
-5. **Objets d’entrée / sortie**
-6. **Contrôles** (policy, allowlist, stale)
-7. **Événements** audit
-8. **Erreurs / reprise**
-9. **Audit** corrélation ids
-
-Exemple :
-
-`ACTIVE + ValidationResult=PASS → TransitionProposal(cycle suivant) → DECISION_REQUIRED → TransitionDecision=GO → nouvel CycleInstance READY`
-
-## 5. Profils et typologie
-
-Conserver la distinction v2.6 :
-
-- **Type de cycle** = nature du travail.
-- **Profil** Light / Standard / Critical / Capitalization = profondeur / contrôles.
-- **Typologie** INC / EVOL / RUN / CAPA / DOC = cadre consolidation.
-
-Ne pas « Critical par défaut ».
-
-## 6. Template Cursor — rôle futur
-
-Le template Git `prompts/templates/sfia-cycle-execution-template.md` reste la **structure de référence**.
-Studio **instancie** les sections applicables (acquis 74) ; ne réinvente pas la structure en constante TS.
-
-## 7. Décisions humaines requises
-
-- Valider la cartographie conserver/adapter/fusionner/scinder.
-- Valider les états de cycle retenus.
-- Décider quels cycles Studio-specific créer en premier.
-
-```
-
-### `projects/sfia-studio/sfia-v3-framing/07-sfia-v3-automation-and-human-decision-model.md`
-
-```markdown
-# 07 — Automatisation et décisions humaines (candidat)
-
-| Champ | Valeur |
-|-------|--------|
-| Statut | **Candidat** |
-| Source | Grille L0–L5 v2.6 / operating model — à étendre, non remplacer silencieusement |
-
-## 1. Principe candidat cardinal
-
-> L’automatisation peut être élevée sur les opérations **répétables, bornées, contrôlables et réversibles**.
-> La **décision structurante** ne doit **jamais** être déléguée automatiquement à un agent.
-
-## 2. Redécoupage candidat (au-delà d’un seul axe L0–L5)
-
-| Domaine | Exemple | Niveau candidat max sans GO structurant | Gate humain ? |
-|---------|---------|------------------------------------------|---------------|
-| Collecte | lire Git/GitHub, digests | Élevé | Non (policy read) |
-| Qualification | proposer cycle/profil | Moyen | Clarification si doute |
-| Raisonnement | analyse GPT | Élevé (prose) | Non pour prose seule |
-| Préparation | ActionProposal, review pack draft | Moyen-élevé | Non jusqu’à effet |
-| Exécution | Cursor sous contrat | Moyen | **Oui** GO action |
-| Contrôle | allowlist, postcheck, stale | Élevé | Non (déterministe) |
-| Transition | proposer cycle suivant | Moyen | **Oui** si structurant |
-| Décision | adopter baseline, merge doctrine, remote write large | **Nul (agent)** | **Toujours** |
-
-## 3. Grille risque / réversibilité
-
-| Classe d’effet | Risque | Réversibilité | Automatisation candidate |
-|----------------|-------|---------------|--------------------------|
-| Lecture locale | Bas | N/A | Auto |
-| CREATE markdown allowlisté | Moyen | Haute (revert Git) | Préparer auto ; exécuter après GO |
-| MODIFY code allowlisté | Moyen-haut | Moyenne | GO + contrat |
-| commit local | Haut | Moyenne | GO dédié |
-| push / PR / merge | Très haut | Basse | GO dédiés séparés |
-| modifier `method/` / `prompts/` | Critique | Basse | GO méthode + cycle dédié |
-| L5 décisionnel | Interdit | — | Bloqué |
-
-## 4. Conditions de supervision
-
-Toute automatisation doit :
-
-1. produire des **traces** (events) ;
-2. pouvoir être **arrêtée** ;
-3. être **bornée** (timeout, paths, ops) ;
-4. échouer **fermé** ;
-5. exposer le **pourquoi** (explainable).
-
-## 5. Stop conditions candidats (automatisation)
-
-- Autorité ambiguë.
-- Contexte stale.
-- Effet hors allowlist.
-- Gate fermé.
-- Divergence digest sources.
-- Multi-écriture non déclarée.
-- Demande de décision structurante détectée dans un flux « auto ».
-
-## 6. Cartographie décisions humaines (non déléguables)
-
-| Décision | Pourquoi humaine |
-|----------|------------------|
-| Adoption baseline méthode | Changement de doctrine |
-| GO validation cadrage | Orientation produit |
-| GO action Cursor | Effet workspace |
-| GO commit / push / PR / merge | Effets Git/GitHub |
-| Promotion option → décision | Gouvernance |
-| Clôture projet / archivage | Responsabilité |
-| Exception chemin protégé | Sécurité |
-
-## 7. Lien Control Tower / OPS1
-
-Déjà automatisable / prouvé partiellement : collecte read, compilation ActionCandidate, contrôles allowlist, exécution après GO, rapport, reinjection.
-Toujours humain : gates, adoption v3.0, writes distants.
-
-## 8. Décisions humaines requises
-
-- Valider le redécoupage par domaine.
-- Confirmer l’interdiction L5 décisionnel.
-- Trancher le niveau d’auto pour transitions non structurantes (ex. purement documentaires).
-
-```
-
 ### `projects/sfia-studio/sfia-v3-framing/08-sfia-v3-executable-doctrine-and-contract-model.md`
 
 ```markdown
-# 08 — Doctrine exécutable et modèle de contrats (candidat)
+# 08 — Doctrine exécutable et modèle de contrats (candidat, consolidé)
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **Candidat** |
+| Statut | **Candidat consolidé** |
+| Voir aussi | 17 (couches) · 18 (matrice) · 19 (JSON/SQL/Cursor) |
 
-## 1. Séparation en trois couches
+## 1. Cinq couches (remplace l’ancien modèle A/B/C trop étroit)
 
-### A. Doctrine lisible (Git Markdown)
-Principes, rôles, gouvernance, cycles, responsabilités, règles narratives.
-**SoT :** `method/**`, `prompts/**`, docs fondation.
-**v2.6 :** baseline officielle — **non modifiée** par ce cadrage.
+| Couche | Contenu | Format | SoT |
+|--------|---------|--------|-----|
+| 1 Doctrine humaine | Principes, rationale | Markdown | Git |
+| 2 Définitions exécutables | Cycles, states, gates, policies… | JSON (+ Schema) ; YAML authoring optionnel | Git |
+| 3 État opérationnel | Instances, décisions, attempts… | SQL | SQL (+ refs digests Git) |
+| 4 Artefacts métier | RACI, risques, backlog… | XLSX/CSV/PJ | Fichier + meta SQL — **pas doctrine** |
+| 5 Restitutions | Slides, PDF, rapports | Générés | Dérivé — **pas SoT** |
 
-### B. Contrats structurés (runtime)
-Schémas, états, gates, opérations, événements, validations.
-**SoT :** schémas versionnés + stores Studio + hashes.
-Exemples : `SfiaCanonicalContext`, `SfiaActionProposal`, `ExecutionContract`, `ValidationResult`.
+L’ancien découpage A/B/C (MD / contrats runtime / projections) **subsiste** comme vue simplifiée : A⊂1, B⊂2+3, C⊂5 (+ projections GPT/Cursor).
 
-### C. Projections
-Vues dérivées : contexte GPT, prompt Cursor instancié, écrans Studio, rapports, review pack, timeline.
-**Règle :** une projection **cite** doctrine + contrats ; elle ne devient pas une 4ᵉ baseline.
-
-## 2. Flux de vérité
+## 2. Flux de vérité consolidé
 
 ```
-Doctrine Git (A)
-   ↓ load + digest
-Contrats runtime (B)
-   ↓ project
-Projections (C) → GPT / UI / Cursor / Review
-   ↓ effects under gates
-Git (preuves) → re-lecture (A/B)
+Git (doctrine MD + defs JSON)
+   ↓ load digests
+SQL (état + HumanDecision)
+   ↓ + artefacts
+Projections (UI, GPT context, Cursor prompt, slides, review pack)
+   ↓ effects gated
+Evidence → Git/SQL → re-lecture
 ```
 
-## 3. Anti-patterns à éviter
+## 3. Pivot d’exécution Cursor (évolué)
+
+**Avant (v2.6/CT) :** Template MD pivot.
+**Cible v3 candidate :** `ExecutionContract` pivot ; template MD = documentation / projection / fallback / legacy.
+
+Chaîne :
+
+`Doctrine + CycleDefinition + ProjectState + HumanDecision + ActionCandidate + Policies → ExecutionContract → Cursor Prompt Projection → Cursor`
+
+## 4. Anti-patterns
 
 | Anti-pattern | Contre-mesure |
 |--------------|---------------|
-| Duplication doctrine en TS | Loader allowlisté + digests (acquis 74) |
-| Constantes métier dispersées | Policy Engine central + refs sources |
-| Divergence Markdown/code | CONTEXT_STALE + revalidation digests |
-| Prompts Cursor libres | Instantiation template Git réel |
-| Règles implicites | Canal de contrôle + events |
-| Décisions non tracées | HumanDecision + Gate records |
+| Triple maintenance MD/JSON/TS | Matrice 18 + Schema SoT machine |
+| Excel comme doctrine | Couche 4 seulement |
+| Slides comme SoT | Couche 5 générée |
+| Prompt libre | Projection depuis contrat |
+| Chat = GO | GateInstance SQL |
 
-## 4. Contrats minimaux candidats
+## 5. Contrats minimaux (inchangés + étendus)
 
-1. **SourceRef** — path, digest, blobSha, role
-2. **ContextContract** — contextId, headSha, gates, ops
-3. **ProposalContract** — kind, files, ops, exactContent
-4. **CompilationContract** — status, denied*, actionId
-5. **GateContract** — kind, actorRole, motif, linked hashes
-6. **ExecutionContract** — objective, instructions, allowlist, hash
-7. **EvidenceContract** — files touched, tests, redacted logs
-8. **TransitionContract** — from/to, preconditions, decisionId
-
-## 5. Rôle du template Cursor
-
-- **A :** structure et obligations (dans Git).
-- **B :** fields filled + digests tracés.
-- **C :** promptText instancié envoyé à Cursor.
-
-Ne jamais envoyer le template brut non lié.
-Ne jamais reconstruire sa structure depuis une constante simplifiée comme SoT.
+SourceRef, ContextContract, ProposalContract, CompilationContract, GateContract, **ExecutionContract (pivot)**, EvidenceContract, TransitionContract, plus définitions Cycle/State/Policy en Git JSON (non créées ici).
 
 ## 6. Review pack / handoff
 
-Héritage v2.6 **à conserver** dans la cible :
-
-- review pack proportionné light/full ;
-- contenu exploitable des fichiers créés/modifiés ;
-- handoff Git `sfia/review-handoff` publish-in-cycle pour rapports Cursor.
-
-Studio doit **produire** ces artefacts ; ne pas les remplacer par un résumé UI seul.
+Héritage v2.6 conservé comme **restitution/preuve process** ; produits par Studio en mode v3, pas remplacés par UI seule.
 
 ## 7. Décisions humaines requises
 
-- Valider la séparation A/B/C.
-- Valider la liste des contrats minimaux.
-- Décider où versionner les schémas (repo method vs studio packages) **sans** casser v2.6.
+- Valider 5 couches.
+- Valider ExecutionContract comme pivot Cursor v3.
+- Valider JSON-first pour defs.
 
 ```
 
@@ -905,27 +916,39 @@ Studio doit **produire** ces artefacts ; ne pas les remplacer par un résumé UI
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **Candidat** — non implémentée |
+| Statut | **Candidat consolidé** |
+
+## 0. Complément Studio-native
+
+Cette architecture **n’est revendiquable en v3** que si les capacités minimales du mode Studio-native (doc 15) sont présentes. Sinon : modes v2.6 / transitionnel / fallback — sans claim v3.
+
+Ajouts moteurs / services d’information :
+
+- **Definition Registry** (charge JSON/Schema Git)
+- **Artifact Service** (import/export Excel/CSV)
+- **Restitution Generator** (slides/PDF/MD)
+- **Mode Controller** (v2.6 / transition / v3 / fallback)
 
 ## 1. Vue d’ensemble
 
 ```
 Humain (utilisateur / responsable / décideur / approbateur)
-  → SFIA Studio (cockpit + façade)
+  → SFIA Studio (cockpit + façade + Mode Controller)
     → Project State Engine
-    → Cycle Router
-    → Canonical Context Engine
+    → Cycle Router (+ CycleDefinitions Git)
+    → Canonical Context Engine (+ Definition Registry)
     → Guided Reasoning Engine / GPT
     → Decision Engine  OR  Action Compiler
     → Gate humain
-    → Execution Orchestrator
-    → Cursor
+    → Execution Orchestrator (ExecutionContract pivot)
+    → Cursor Prompt Projection → Cursor
     → Git / GitHub
     → Validation Engine
     → Transition Engine
+    → Artifact / Restitution services
     → Studio (feedback)
-  ↔ Audit Trail (transverse)
-  ↔ Source Resolver + Policy Engine (transverse)
+  ↔ Audit Trail · Source Resolver · Policy Engine
+  ↔ SQL operational store
 ```
 
 ## 2. Moteurs — responsabilités
@@ -998,25 +1021,35 @@ Terminal UX candidat : `DECISION_REQUIRED` | `BLOCKED` | `EXECUTING` | `VALIDATI
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **Candidat** |
-| Interdit ici | code, deps, commit |
+| Statut | **Candidat consolidé** — non implémentée |
+| Interdit ici | code, deps, migrations, fichiers Schema |
+
+## 0. Clarifications consolidation
+
+- SQL = état vivant (couche 3), pas doctrine.
+- JSON Schema = validation defs Git (couche 2) — **documenté**, non créé.
+- Excel/slides = artefacts/restitutions — pas SoT.
+- Template Cursor MD = fallback/legacy ; pivot = ExecutionContract.
+- Acquis OPS1/CT = modes 2–3, pas V3-ADOPTED.
 
 ## 1. Composants candidats
 
 | Composant | Rôle | Frontière |
 |-----------|------|-----------|
-| Studio Web App | UI cockpit | browser |
+| Studio Web App | UI cockpit + mode badge | browser |
 | API / Server Actions | orchestration façade | serveur |
-| Context Service | load sources + resolve | serveur |
+| Definition Registry | load JSON/Schema digests | serveur |
+| Context Service | doctrine + projet | serveur |
 | Conversation Service | GPT + tools | serveur |
 | Policy Service | allow/deny | serveur |
-| Execution Service | contracts + Cursor | serveur + worktrees |
+| Execution Service | ExecutionContract + Cursor | serveur + worktrees |
+| Artifact Service | import/export XLSX/CSV | serveur |
+| Restitution Service | slides/PDF/MD | serveur |
 | Evidence Service | postcheck + reports | serveur |
-| Audit Store | events | DB locale→évolutive |
-| Project Store | projects/cycles/state | DB + Git docs |
-| Git Adapter | local read/write gated | process |
-| GitHub Adapter | read ; write gated | CLI/API |
-| Cursor Adapter | spawn borné | process |
+| Audit Store | events | SQL |
+| Project Store | projects/cycles/state | SQL + Git docs |
+| Mode Controller | v2.6/transition/v3/fallback | serveur |
+| Git / GitHub / Cursor Adapters | I/O bornés | process |
 
 ## 2. Données
 
@@ -1093,18 +1126,25 @@ Hors vertical slice immédiat, mais à prévoir :
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **Candidat** |
+| Statut | **Candidat consolidé** |
 | Hors scope | Maquettes HF, Figma |
+
+## 0. Enforcement doctrinal (complément)
+
+L’utilisateur ne choisit pas un workflow hors méthode en mode v3.
+Studio propose les parcours pertinents selon ProjectState/CycleState (doc 16).
+Badge de **mode** (v2.6 / transition / v3 / fallback) toujours visible.
 
 ## 1. Principes UX candidats
 
-1. **Cockpit avant chat** — la conversation est un panneau du cycle, pas la page entière.
-2. **État toujours visible** — projet, cycle, gates, contexte, terminal.
-3. **Décision explicite** — boutons de gate, jamais « dire GO dans le chat ».
-4. **Preuves à portée** — diffs, fichiers, tests, digests accessibles.
-5. **Progressive disclosure** — canal de contrôle compact par défaut.
-6. **Fail-closed perceptible** — blocked/stale/denied compréhensibles.
-7. **Pas de dashboard fourre-tout** — une job par vue.
+1. **Cockpit avant chat** — conversation = panneau du cycle.
+2. **État toujours visible** — projet, cycle, mode, gates, contexte.
+3. **Décision explicite** — gates UI ; jamais « GO » chat seul.
+4. **Preuves à portée** — diffs, digests, artefacts, restitutions.
+5. **Progressive disclosure** — canal de contrôle compact.
+6. **Fail-closed perceptible** — blocked/stale/denied + fallback mode.
+7. **Parcours conditionnés** — actions disponibles = doctrine × état.
+8. **Pas de dashboard fourre-tout**.
 
 ## 2. Architecture d’information
 
@@ -1204,31 +1244,26 @@ Légende : **C** conserver · **A** adapter · **R** remplacer · **D** dépréc
 
 | Domaine | Classe | Raison | Impact | Risque | Gate humain |
 |---------|--------|--------|--------|--------|-------------|
-| Doctrine Markdown v2.6 | **C** | Baseline opérationnelle | Stable | Divergence si fork précoce | Adoption v3.0 distinct |
+| Doctrine Markdown v2.6 | **C** | Baseline opérationnelle | Stable | Divergence si fork précoce | Adoption v3 distinct |
+| Applicabilité Studio-native | **N** | v3 ≠ manuel ChatGPT→Cursor | Produit+méthode | Claim abusif | Validation consolidée |
 | Rôles (« Morris L0 ») | **A** | Rôles génériques | Docs + UI | Confusion transition | Validation cadrage |
-| Operating model ChatGPT↔Cursor | **A** | Studio-native loop | Process | Perte de clarté si mal migré | Validation archi |
-| Cycles / routing guide | **C+A** | Garder routage ; adapter Studio | Méthode+produit | Sur-fusion cycles | Validation cycles |
-| Profils / blocs | **C** | Toujours pertinents | Faible | Critical-by-default | — |
-| Gates | **A** | UI produit + rôles | Gouvernance | Contournement chat | Validation gouvernance |
-| Niveaux L0–L5 | **A** | Redécouper par domaine | Automation | L5 décisionnel | Validation automation |
-| Template Cursor | **C+A** | Structure Git ; instantiation | Runtime | Prompt libre | — |
+| Operating model | **A** | Studio-native loop | Process | Perte clarté | Validation archi |
+| Cycles / routing | **C+A** | Garder routage ; defs JSON | Méthode+produit | Sur-fusion | Validation cycles |
+| Template Cursor pivot | **A/D** | Pivot → ExecutionContract ; MD fallback | Runtime | Habitudes legacy | Validation contrats |
+| Formats info (JSON/SQL/Excel/slides) | **N** | 5 couches | Données | Multi-SoT | Validation IA |
+| Profils / blocs / gates | **C/A** | UI + rôles | Gouvernance | Chat=GO | Validation gouvernance |
+| L0–L5 automation | **A** | Redécoupe domaines | Automation | L5 décisionnel | Validation automation |
 | Review pack / handoff | **C** | Preuve revue | Process | Pack incomplet | — |
-| PR readiness / post-merge | **C** | Process Git | Delivery | Skip cleanup | — |
-| Capitalisation | **A** | Intégrer CapitalizationRecord | Produit | Oubli REX | — |
-| Gouvernance Git | **C** | Git-truth | — | — | — |
-| Architecture Studio | **N/A** | Control Tower = proto ; v3 OS | Produit | Sur-ingénierie | Validation archi |
-| UX | **N** | Cockpit projet | Produit | Chat-only relapse | Validation UX |
-| Contrats runtime | **N/A** | Étendre 74 + OPS1 | Technique | Seconde doctrine | — |
-| Observabilité | **A** | Timeline produit | Ops | Bruit events | — |
-| Sécurité multi-user | **N** | Absent aujourd’hui | Sécurité | Fuite cross-project | Security review |
+| Architecture Studio / UX | **N/A** | Cockpit + enforcement | Produit | Chat-only | Validation UX |
+| Coexistence modes | **N** | Dual-run contrôlé | Ops | Dual trop long | Validation migration |
+| Adoption statuses | **N** | DOCUMENTED…ADOPTED | Gouvernance | Docs≠baseline | GO ADOPTION |
 
-## Synthèse
+## Synthèse consolidation
 
-- **Ne pas toucher** aux canoniques v2.6 dans cette phase.
-- **Construire à côté** (`sfia-v3-framing/` puis, plus tard, lots méthode v3 sous GO).
-- **Réutiliser** runtime OPS1/CT comme laboratoire d’exécution.
-- **Remplacer progressivement** l’UI session-only par cockpit projet.
-- **Déprécier** (plus tard) les pratiques copier-coller comme chemin nominal.
+- Canoniques v2.6 **intactes**.
+- Framing v3 **à côté** (`sfia-v3-framing/`).
+- Runtime CT = laboratoire modes 2–3.
+- Option trajectoire challengée : **D co-design** (22).
 
 ## Dette anticipée
 
@@ -1248,267 +1283,117 @@ Légende : **C** conserver · **A** adapter · **R** remplacer · **D** dépréc
 ### `projects/sfia-studio/sfia-v3-framing/13-sfia-v3-target-vertical-slice.md`
 
 ```markdown
-# 13 — Vertical slice produit cible (candidat)
+# 13 — Vertical slice produit cible (révisée, candidat)
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **Candidat** |
-| Objectif | Démontrer la **valeur produit** réelle (pas seulement l’outil) |
+| Statut | **Candidat consolidé** |
+| Objectif | Valeur **produit Studio-native**, pas seulement chaîne d’outils |
 
-## 1. Slice cible
+## 1. Slice révisée (20 étapes)
 
-```
-Créer un projet
-→ cadrage guidé par GPT (dual-channel)
-→ sources + hypothèses + options
-→ décision humaine (vision / trajectoire)
-→ ouverture d’un cycle (ex. Delivery documentaire)
-→ ActionProposal → ActionCandidate
-→ gate humain
-→ Cursor sous contrat
-→ Git (preuves worktree / diff)
-→ Evidence + Validation
-→ TransitionProposal (cycle suivant ou clôture)
-→ décision humaine
-→ cycle suivant / capitalisation légère
-```
+1. Création d’un projet dans Studio
+2. Attribution d’un responsable humain
+3. Sélection du mode méthodologique (v2.6 assisté / transition / v3 candidate)
+4. Ouverture d’un cycle de cadrage
+5. Chargement doctrine + définitions structurées (digests)
+6. Conversation guidée GPT (dual-channel)
+7. Persistance SQL des objets de cadrage
+8. Génération ou import d’un artefact métier (ex. RACI/risques)
+9. Décision humaine (gate UI)
+10. Création ActionCandidate
+11. Compilation → ExecutionContract
+12. Projection prompt Cursor
+13. Exécution Cursor bornée
+14. Collecte de preuves
+15. Validation
+16. Génération d’une restitution (rapport/slides MD)
+17. Transition proposée
+18. Décision humaine sur transition
+19. Mise à jour états projet/cycle
+20. Audit corrélé bout en bout
 
-## 2. Comparaison au démonstrateur actuel (Control Tower / OPS1)
+## 2. Comparaison CT / OPS1
 
-| Étape | CT / OPS1 aujourd’hui | Slice v3.0 |
-|-------|------------------------|------------|
-| Créer projet | Non (session OPS1) | **Oui** first-class |
-| Cadrage guidé | Partiel (chat) | GuidedSession + control channel |
-| Décision trajectoire | Hors produit | DecisionRequest UI |
-| Ouvrir cycle | Implicite | Cycle Router explicite |
-| ActionCandidate | Oui (fixture/live compiler) | Oui, projet-lié |
-| Gate | Oui | Oui + rôles |
-| Cursor | Oui borné | Oui |
-| Preuves / rapport | Oui | Oui |
-| Transition cycle suivant | Continuation session | TransitionEngine projet |
-| Capitalisation | Handoff méthode | CapitalizationRecord projet |
+CT prouve outils + ActionCandidate + Cursor + rapport.
+Cette slice ajoute : **projet first-class**, mode méthodo, SQL cadrage, artefact, restitution, transition projet, audit OS — sans claim V3-ADOPTED.
 
-**Verdict comparatif :** CT prouve la **chaîne d’effets**. v3.0 slice doit prouver le **pilotage de projet**.
+## 3. Critères de succès
 
-## 3. Prérequis
+- Mode affiché ; pas de free-chat.
+- Digests doctrine/defs tracés.
+- Gate ≠ phrase conversationnelle.
+- ExecutionContract hashé avant Cursor.
+- Artefact non traité comme doctrine.
+- Restitution régénérable depuis sources.
+- Aucune modif `method/` / `prompts/`.
+- Claim au plus « v3 candidate / transition ».
 
-- Validation cadrage v3.0 (`GO VALIDATION CADRAGE SFIA v3.0`).
-- GO d’exécution slice distinct (non ouvert ici).
-- Réutilisation OPS1/CT/sfia engine.
-- Baseline v2.6 inchangée.
-- Projet pilote (ex. Campus360 ou sandbox dédié) — **sans** toucher canoniques.
+## 4. Anti-claims
 
-## 4. Composants réutilisables
+Non implémentée · pas MVP · pas baseline · pas multi-user requis · pas génération réelle XLSX/PPTX dans le cadrage.
 
-Context engine, action compiler, gates, allowlist, contract, Cursor adapter, report/reinjection, git/github read tools.
+## 5. Prérequis gates
 
-## 5. Écarts à construire (après GO exécution)
-
-- Project / CycleInstance stores.
-- UI cockpit (remplacer session-only).
-- Decision Engine UI.
-- Transition Engine minimal.
-- Bootstrap projet.
-
-## 6. Risques
-
-| Risque | Mitigation |
-|--------|------------|
-| Rescope en « encore un chat OPS1 » | Critères succès projet-first |
-| Implémenter avant validation cadrage | Gates fermés |
-| Modifier v2.6 | Interdit |
-| Sur-architecture multi-user | Slice mono-opérateur OK |
-| Confondre live CT et slice v3 | Anti-claims explicites |
-
-## 7. Critères de succès candidats
-
-1. Un humain crée un projet dans Studio.
-2. Une GuidedSession de cadrage produit options ≠ décisions.
-3. Une HumanDecision ouvre un cycle.
-4. Une ActionCandidate live est compilée sans bouton fixture.
-5. Un GO humain lance Cursor ; preuves visibles.
-6. Une TransitionProposal apparaît ; décision humaine requise.
-7. Aucun commit/push/PR sans gates dédiés.
-8. Aucune modification `method/` / `prompts/`.
-
-## 8. Anti-claims
-
-- Slice **non implémentée** ici.
-- Ne valide pas MVP / production.
-- Ne remplace pas la validation live du moteur SFIA CT si encore ouverte.
-
-## 9. Effort candidat (ordre de grandeur)
-
-- Après GO : plusieurs lots delivery (domaine projet → UI cockpit → transitions).
-- Ne pas sous-estimer UX cockpit vs extension OPS1.
-
-## 10. Décisions humaines requises
-
-- Valider ce slice comme démonstrateur produit prioritaire.
-- Choisir projet pilote.
-- Ordonnancer vs finalisation live CT.
+`GO VALIDATION CADRAGE CONSOLIDÉ` puis GO plan/exécution slice distincts.
 
 ```
 
 ### `projects/sfia-studio/sfia-v3-framing/14-sfia-v3-roadmap-and-decision-pack.md`
 
 ```markdown
-# 14 — Roadmap et decision pack SFIA v3.0 (candidat)
+# 14 — Roadmap et decision pack (aligné consolidation)
 
 | Champ | Valeur |
 |-------|--------|
-| Statut | **Candidat** |
-| Gate actuel consommé | `GO OUVERTURE CADRAGE SFIA v3.0 — STUDIO PROJECT OPERATING SYSTEM` |
-| Gate suivant | `GO VALIDATION CADRAGE SFIA v3.0` |
+| Statut | **Candidat consolidé** — voir aussi **22** (pack maître) |
+| Gates consommés | Ouverture cadrage · Complément Studio-native |
+| Gate suivant | `GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0` |
 
-## 1. Options de trajectoire
+## 1. Trajectoire
 
-### Option A — Produit Studio d’abord
-Valider cadrage → implémenter vertical slice projet (doc 13) sous v2.6 → capitaliser → lots méthode v3.0 plus tard.
+La recommandation initiale « C/A-hybride produit sous v2.6 » est **challengée**.
+**Recommandation consolidée candidate :** **Option D — co-design borné** (détail 22), avec coexistence modes (15, 20).
 
-**Pour :** valeur démontrable ; doctrine stable.
-**Contre :** double narration temporaire.
+## 2. Jalons mis à jour
 
-### Option B — Doctrine v3.0 d’abord
-Rédiger/adopter packs méthode v3 dans `method/` avant produit.
+| Jalon | Contenu | GO |
+|-------|---------|-----|
+| J0 | Ouverture cadrage | Consommé |
+| J0b | Complément Studio-native / IA / artefacts | **Consommé** |
+| J1 | Validation cadrage **consolidé** | `GO VALIDATION CADRAGE CONSOLIDÉ SFIA v3.0` |
+| J2 | Plan slice 20 étapes | GO plan |
+| J3–J4 | Implémentation + validation live slice | GO exécution / live |
+| J5 | Capitalisation → defs JSON sous sandbox puis method | GO capitalisation |
+| J6 | V3-ELIGIBLE → **V3-ADOPTED** | **GO ADOPTION** |
+| — | commit/push/PR | Fermés |
 
-**Pour :** clarté doctrinale.
-**Contre :** risque architecture papier ; bloque valeur UI ; **interdit** sans GO adoption + touche canoniques.
+## 3. Décisions humaines requises
 
-### Option C — Parallel track contrôlé
-Cadrage produit + sandbox méthode `sfia-v3-framing/` (déjà) ; runtime sous v2.6 ; adoption méthode seulement après preuve slice.
+Voir liste consolidée dans **22 §8** (applicabilité, Option D, 5 couches, ExecutionContract pivot, JSON/SQL, Excel, slice, statuts adoption, priorité vs live CT).
 
-**Pour :** aligné fail-closed.
-**Contre :** discipline de non-promotion requise.
+## 4. Non prises / anti-claims
 
-## 2. Recommandation candidate (≠ décision)
+Inchangés : pas d’adoption, pas de modif v2.6, pas d’implémentation, pas de fichiers runtime Schema/SQL/XLSX.
 
-**Option C / A-hybride :**
-1) Valider ce cadrage.
-2) Ne pas adopter v3.0 comme baseline.
-3) Préparer un GO d’exécution du vertical slice **produit** réutilisant OPS1/CT.
-4) Garder v2.6 comme SoT méthode.
-5) N’ouvrir la modification `method/` qu’avec un GO d’adoption v3.0 distinct après preuves.
+## 5. Verdict
 
-## 3. Roadmap candidate (jalons)
-
-| Jalon | Contenu | GO humain |
-|-------|---------|-----------|
-| J0 | Ouverture cadrage (ce pack) | **Consommé** |
-| J1 | Validation cadrage | `GO VALIDATION CADRAGE SFIA v3.0` |
-| J2 | Plan d’exécution slice produit | GO plan / exécution (à nommer) |
-| J3 | Slice projet implémentée locale | GO exécution |
-| J4 | Validation live slice | GO validation live |
-| J5 | Capitalisation → proposition lots méthode v3 | GO capitalisation |
-| J6 | Adoption baseline v3.0 (éventuel) | **GO ADOPTION** dédié |
-| — | commit/push/PR projet | GO séparés — fermés maintenant |
-
-## 4. Décisions humaines requises maintenant
-
-1. Valider / amender / rejeter la vision (01).
-2. Valider principes P1–P12 (02).
-3. Valider rôles génériques (03).
-4. Valider objets/états (04) — ou demander réduction.
-5. Valider dual-channel conversation (05).
-6. Valider orientation cycles (06).
-7. Valider modèle automation (07).
-8. Valider couches doctrine/contrats (08).
-9. Valider archi fonctionnelle (09) et technique candidate (10).
-10. Valider IA UX (11).
-11. Approuver gap matrix (12).
-12. Approuver vertical slice (13).
-13. Choisir option trajectoire A/B/C.
-14. Décider priorité relative vs `GO VALIDATION LIVE MOTEUR SFIA CANONIQUE` (CT).
-
-## 5. Décisions explicitement **non** prises
-
-- Adoption SFIA v3.0 comme baseline.
-- Modification des canoniques v2.6.
-- Architecture technique définitive.
-- Stack multi-user.
-- Implémentation.
-- Commit / push / PR / merge projet.
-- Suppression des travaux Control Tower.
-- Monétisation / MVP claim.
-
-## 6. Réserves
-
-| Id | Réserve |
-|----|---------|
-| V3-R01 | Tension AF-Option C historique vs Studio orchestrateur — déjà reformulée CT ; à reconfirmer au niveau OS |
-| V3-R02 | Working tree dirty CT + moteur SFIA non commités — cadrage v3 ne doit pas les écraser |
-| V3-R03 | Live validation moteur SFIA CT encore ouverte |
-| V3-R04 | Risque de sur-modélisation d’états avant usage réel |
-
-## 7. Dette
-
-- Documents v3 framing hors `method/` (voulu).
-- Pas de schémas JSON formels versionnés.
-- Pas d’UI.
-- Terminologie v2.6 encore « Morris » dans canoniques (non modifiés).
-
-## 8. Anti-claims
-
-Ce decision pack **ne valide pas** SFIA v3.0.
-Il prépare uniquement `GO VALIDATION CADRAGE SFIA v3.0`.
-
-## 9. Verdict pack cadrage
-
-**SFIA v3.0 FRAMING READY — HUMAN DECISION REQUIRED**
+Pointer vers **22** :
+**SFIA v3.0 CONSOLIDATED FRAMING READY — HUMAN DECISION REQUIRED**
 
 ```
 
-## 7. Fichiers modifiés
-
-Aucun fichier existant modifié dans ce cycle de cadrage v3.0.
-(Les dirty files Control Tower / app préexistants sont inchangés par cette passe.)
-
 ## 8. Réserves / dette / anti-claims
 
-- V3-R01 à V3-R04 (voir 14)
-- Dette : framing hors method/ ; pas de schémas JSON ; pas d’UI
-- Anti-claims : pas baseline v3 ; pas implémentation ; pas MVP/prod ; pas modif v2.6
+V3-R01…R07 · dette framing hors method/ · pas de Schema/SQL/XLSX réels · anti-claims : pas adoption, pas implémentation, pas MVP
 
 ## 9. État Git final
 
 ```
- M projects/sfia-studio/README.md
- M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
- M projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
- M projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
- M projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
- M projects/sfia-studio/app/lib/ops1/actions.ts
- M projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
- M projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
- M projects/sfia-studio/app/lib/ops1/conversation/service.ts
- M projects/sfia-studio/app/lib/ops1/conversation/types.ts
- M projects/sfia-studio/app/lib/ops1/executionOrchestrator.ts
- M projects/sfia-studio/app/lib/ops1/types.ts
-?? .tmp-sfia-review/
-?? projects/sfia-studio/66-control-tower-product-framing.md
-?? projects/sfia-studio/67-control-tower-capabilities-and-user-journeys.md
-?? projects/sfia-studio/68-control-tower-scope-success-criteria-and-risks.md
-?? projects/sfia-studio/69-control-tower-options-and-decision-pack.md
-?? projects/sfia-studio/70-control-tower-fast-track-architecture-and-contract.md
-?? projects/sfia-studio/71-control-tower-fast-track-backlog-and-delivery.md
-?? projects/sfia-studio/72-control-tower-fast-track-decision-pack.md
-?? projects/sfia-studio/73-control-tower-fast-track-delivery-report.md
-?? projects/sfia-studio/74-sfia-canonical-context-engine-report.md
-?? projects/sfia-studio/app/__tests__/ops1/controlTowerReinjection.test.ts
-?? projects/sfia-studio/app/__tests__/ops1/controlTowerTools.test.ts
-?? projects/sfia-studio/app/__tests__/ops1/sfia/
-?? projects/sfia-studio/app/e2e/control-tower-fast-track.spec.ts
-?? projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts
-?? projects/sfia-studio/app/lib/ops1/conversation/toolLoop.ts
-?? projects/sfia-studio/app/lib/ops1/reportReinjection.ts
-?? projects/sfia-studio/app/lib/ops1/sfia/
-?? projects/sfia-studio/app/lib/ops1/tools/
 ?? projects/sfia-studio/sfia-v3-framing/
-```
-
-```
+...
 32e5271842b9a344a7e292614675c27ea8ed941b
 delivery/sfia-studio-control-tower-fast-track
 ```
 
-**VERDICT :** SFIA v3.0 FRAMING READY — HUMAN DECISION REQUIRED
+**VERDICT :** SFIA v3.0 CONSOLIDATED FRAMING READY — HUMAN DECISION REQUIRED
