@@ -1,1278 +1,800 @@
-# Review Pack Full — SFIA v3.0 D1 Implementation Design
+# Review Pack Full — SFIA v3.0 D1 UX/UI Doctrine-aligned Shell and Project Journey
 
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-22 18:18:19 CEST
-- **Cycle :** 7 — Architecture technique (ARCHI/CONCEPTION/EVOL)
+- **Date/heure/fuseau :** 2026-07-22 18:52:41 CEST
+- **Cycle :** 4 — UX/UI (UX/CONCEPTION/ARCHI/DOC)
 - **Profil :** Critical
-- **Gate consommé :** GO VALIDATION V3-MODELED — FOUNDATION AND SLICE D1
-- **Gate suivant :** GO VALIDATION CONCEPTION D1 — IMPLEMENTATION READINESS
+- **Gate consommé :** GO CYCLE UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
+- **Gate suivant :** GO VALIDATION UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY
+- **Gate fermé :** GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION
 - **Repo/branche :** mcleland147/sfia-workspace · delivery/sfia-studio-control-tower-fast-track
 - **HEAD/base :** 32e5271842b9a344a7e292614675c27ea8ed941b
-- **Handoff précédent :** 5f5e2758821d10ac06d9b8e7b3e11e4b8d189857
+- **Handoff précédent :** 46bad298f5875e99a7ca4d804842cd5ebe9a6814
 - **Baseline :** SFIA v2.6
-- **Statut v3 :** V3-MODELED CANDIDATE (inchangé)
-- **BCDI :** BCDI-D1-PROJECT-FRAMING-DESIGN
-- **État Git initial :** dirty attendu (CT + framing + modeled) · staged vide · HEAD=origin/main
+- **Statut v3 :** V3-MODELED CANDIDATE
+- **BCDI :** BCDI-D1-UX-DOCTRINE-ALIGNED-JOURNEY
 
-## 2. Sources consultées
+## 2. Décisions humaines
 
-- sfia-v3-modeled README + 01–10 + schemas/** + examples/**
-- sfia-v3-framing 01–29 (priorité archi 09/10, journeys, enforcement, review, Option D)
-- handoff modeled 5f5e275
-- docs 66–74 + OPS1/CT code en lecture (Next 15, node:sqlite, openai, ajv6, server actions patterns)
-- method/prompts canoniques v2.6 en lecture
+- DESIGN-R01 mono-opérateur I1 : accepté
+- DESIGN-R02 SLI/SLO : accepté (SLO reportés)
+- DESIGN-R04 audit trajectoire générique : accepté
+- DESIGN-R03 Figma obligatoire avant I1 : **exécuté dans ce cycle**
 
-## 3. Périmètre / hors scope
+## 3. Runtime evidence
 
-Inclus : conception implémentable D1 Project Framing.
-Exclus : code, migrations, deps, API runtime, écrans runtime, D2/D3 complets, adoption v3.
+- URL : http://127.0.0.1:3020/nouvelle-demande
+- Captures : `.tmp-sfia-review/screenshots-d1-ux/runtime-{1728,1440,1280,1024}.png`
+- Figma runtime capture (preuve, non cible) : node `4:2` · https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2?node-id=4-2
+- Figma previews cibles : `.tmp-sfia-review/screenshots-d1-ux/figma-cockpit-1440.png`, `figma-cockpit-1728.png`
 
-## 4. Synthèse décisions
+### Métriques
 
-- Modular monolith Next.js
-- Server Actions + command handlers
-- SQLite node:sqlite pour I1 ; SQL portable PG later
-- GPT dual-channel non-mutateur
-- Policy déterministe E0–E4
-- Premier incrément : D1-I1 Project foundation
+```json
+[
+  {
+    "viewport": 1728,
+    "title": "SFIA Studio",
+    "h1": "Nouvelle demande",
+    "viewportInner": {
+      "w": 1728,
+      "h": 1024
+    },
+    "scroll": {
+      "x": 1728,
+      "y": 1024
+    },
+    "bodyWidth": 1728,
+    "pageWidth": 1440,
+    "pageMinWidth": "1440px",
+    "pageWidthCss": "1440px",
+    "railWidth": 64,
+    "mainWidth": 1376,
+    "copilotWidth": 340,
+    "unusedRight": 288,
+    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1728.png"
+  },
+  {
+    "viewport": 1440,
+    "title": "SFIA Studio",
+    "h1": "Nouvelle demande",
+    "viewportInner": {
+      "w": 1440,
+      "h": 1024
+    },
+    "scroll": {
+      "x": 1440,
+      "y": 1024
+    },
+    "bodyWidth": 1440,
+    "pageWidth": 1440,
+    "pageMinWidth": "1440px",
+    "pageWidthCss": "1440px",
+    "railWidth": 64,
+    "mainWidth": 1376,
+    "copilotWidth": 340,
+    "unusedRight": 0,
+    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1440.png"
+  },
+  {
+    "viewport": 1280,
+    "title": "SFIA Studio",
+    "h1": "Nouvelle demande",
+    "viewportInner": {
+      "w": 1280,
+      "h": 1024
+    },
+    "scroll": {
+      "x": 1440,
+      "y": 1024
+    },
+    "bodyWidth": 1280,
+    "pageWidth": 1440,
+    "pageMinWidth": "1440px",
+    "pageWidthCss": "1440px",
+    "railWidth": 64,
+    "mainWidth": 1376,
+    "copilotWidth": 340,
+    "unusedRight": -160,
+    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1280.png"
+  },
+  {
+    "viewport": 1024,
+    "title": "SFIA Studio",
+    "h1": "Nouvelle demande",
+    "viewportInner": {
+      "w": 1024,
+      "h": 1024
+    },
+    "scroll": {
+      "x": 1440,
+      "y": 1024
+    },
+    "bodyWidth": 1024,
+    "pageWidth": 1440,
+    "pageMinWidth": "1440px",
+    "pageWidthCss": "1440px",
+    "railWidth": 64,
+    "mainWidth": 1376,
+    "copilotWidth": 340,
+    "unusedRight": -416,
+    "shot": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/screenshots-d1-ux/runtime-1024.png"
+  }
+]
+```
 
-## 5. Fichiers Markdown (contenu complet)
+## 4. Cause technique confirmée
+
+`app/styles/shell.module.css` + `tokens.css` :
+- `min-width/width: 1440px`, `height: 1024px` artboard
+- canvas/copilot largeurs fixes
+- pas de shell fluide `minmax(0,1fr)` + clamp rail
+
+**Aucune modification code** dans ce cycle.
+
+## 5. Figma
+
+- Plan unique : team::1653291379918403018
+- File : SFIA Studio — D1 Doctrine-aligned UX
+- fileKey : IS70XDnBMvZuJYmaI5eZT2
+- URL : https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2
+- Page : D1 — Project Framing UX (`1:2`)
+- 13 frames écran + components · Auto Layout · dimensions confirmées (registre 15)
+
+## 6. Documents UX (contenu complet)
 
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/README.md`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/README.md`
 
 ```markdown
-# SFIA v3.0 — D1 Project Framing — Implementation Design
+# SFIA v3.0 — D1 UX/UI — Doctrine-aligned Shell and Project Journey
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | **D1 IMPLEMENTATION DESIGN CANDIDATE** |
-| **BCDI** | `BCDI-D1-PROJECT-FRAMING-DESIGN` |
-| **Gate consommé** | `GO VALIDATION V3-MODELED — FOUNDATION AND SLICE D1` |
-| **Gate suivant** | `GO VALIDATION CONCEPTION D1 — IMPLEMENTATION READINESS` |
+| **Statut** | **D1 UX/UI CONTRACT CANDIDATE** |
+| **BCDI** | `BCDI-D1-UX-DOCTRINE-ALIGNED-JOURNEY` |
+| **Gate consommé** | `GO CYCLE UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY` |
+| **Gate suivant** | `GO VALIDATION UX/UI D1 — DOCTRINE-ALIGNED SHELL AND PROJECT JOURNEY` |
+| **Gate fermé** | `GO IMPLEMENTATION D1-I1 — PROJECT FOUNDATION` |
 | **Baseline** | SFIA v2.6 |
-| **Statut v3** | V3-MODELED CANDIDATE (inchangé) |
-| **Code / migrations** | Interdits dans ce cycle |
+| **Statut v3** | V3-MODELED CANDIDATE |
+| **Code/CSS** | Interdits |
 
-## Objectif
+## Décisions humaines déjà validées
 
-Transformer `sfia-v3-modeled` (slice D1) en dossier de conception implémentable : composants, services, API/commandes, persistance, GPT borné, policies/gates, UX, ReviewBundle, sécurité, RUN, tests, backlog.
+- **DESIGN-R01** : mono-opérateur accepté pour D1-I1 uniquement.
+- **DESIGN-R02** : SLI instrumentés ; SLO chiffrés reportés au RUN readiness.
+- **DESIGN-R04** : audit générique provisoire pour trajectoire.
+- **DESIGN-R03** : Figma + validation UX **obligatoires** avant GO IMPLEMENTATION D1-I1.
+
+## Principe
+
+Le chat est un **composant** du parcours. L’objet principal reste **Project**.
 
 ## Contenu
 
 | # | Fichier |
 |---|---------|
-| 01 | Scope & décisions de conception |
-| 02 | Architecture de composants cible |
-| 03 | Services applicatifs & responsabilités |
-| 04 | Contrats API / commandes |
-| 05 | Persistance & transactions |
-| 06 | Conception GuidedSession GPT |
-| 07 | Policy & orchestration des gates |
-| 08 | Parcours UX & contrats d’écran |
-| 09 | ReviewBundle & audit |
-| 10 | Sécurité, RGPD, permissions |
-| 11 | Observabilité, RUN, résilience |
-| 12 | Stratégie de tests & acceptation |
-| 13 | Découpage delivery & backlog |
-| 14 | ADR technologiques candidats |
-| 15 | Decision pack — implementation readiness |
-| diagrams/ | Mermaid (conteneurs, composants, séquences, data lifecycle) |
-
-## Sources d’entrée
-
-- `projects/sfia-studio/sfia-v3-modeled/**` (validé gate)
-- `projects/sfia-studio/sfia-v3-framing/01–29`
-- Acquis Control Tower / OPS1 (`node:sqlite`, Next.js server actions, conversation GPT, Git read, policy/gate patterns) — **réutilisation logique**, pas modification ici
+| 01 | Audit UX runtime actuel |
+| 02 | Doctrine → IA |
+| 03 | Navigation & routes |
+| 04 | Studio Shell layout contract |
+| 05 | Inventaire écrans & priorités |
+| 06–11 | Contrats écrans |
+| 12 | Responsive |
+| 13 | Accessibilité |
+| 14 | Tokens & composants |
+| 15 | Registre frames Figma |
+| 16 | Comparaison Figma/runtime |
+| 17 | Acceptation & tests |
+| 18 | Decision pack |
 
 ## Anti-claims
 
-Pas V3-IMPLEMENTED · pas adoption v3 · pas code · pas migrations · pas D2/D3 complets · canoniques v2.6 intactes.
+Pas de code · pas CSS · pas D1-I1 · pas V3-IMPLEMENTED · framing/modeled/design D1 non modifiés.
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/01-design-scope-and-decisions.md`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/01-current-state-ux-audit.md`
 
 ```markdown
-# 01 — Design scope and decisions
+# 01 — Current-state UX audit
+
+## 1. Observation visuelle (Morris + captures locales)
+
+| Observation | Statut |
+|-------------|--------|
+| Page « Nouvelle demande » centrée Session OPS1 | Confirmé runtime |
+| Journal conversationnel = zone principale | Confirmé |
+| Copilot + parcours I6 panneau droit | Confirmé |
+| Hiérarchie demande/session/exécution | Confirmé |
+| Large zone inutilisée à droite sur viewports > 1440 | **Mesuré** |
+| Contenu ne remplit pas viewport large | **Mesuré** |
+| Colonnes insuffisamment fluides | Confirmé code |
+| Project/Cycle/Context/Gates peu matérialisés | Confirmé |
+
+## 2. Preuves runtime (2026-07-22)
+
+URL : `http://127.0.0.1:3020/nouvelle-demande`
+Captures : `.tmp-sfia-review/screenshots-d1-ux/runtime-{1728,1440,1280,1024}.png`
+Métriques : `.tmp-sfia-review/screenshots-d1-ux/runtime-metrics.json`
+
+| Viewport | pageWidth CSS | unusedRight | scrollWidth | h1 |
+|----------|---------------|-------------|-------------|-----|
+| 1728 | 1440px | **288px** | 1728 | Nouvelle demande |
+| 1440 | 1440px | 0 | 1440 | Nouvelle demande |
+| 1280 | 1440px | -160 (overflow H) | **1440** | Nouvelle demande |
+| 1024 | 1440px | -416 (overflow H) | **1440** | Nouvelle demande |
+
+Rail = 64px · Copilot = 340px · Main ≈ 1376px (dans shell 1440).
+
+## 3. Cause technique confirmée (lecture code, non corrigée)
+
+Fichiers : `app/styles/shell.module.css`, `app/styles/tokens.css`.
+
+- `.page { min-width: 1440px; }`
+- `.pageFloating` / `.pageFlush` : `width: 1440px; height: 1024px;`
+- Tokens layout figés sur référence Figma P0 1440×1024 (`--sfia-canvas-width-flush: 972px`, `--sfia-copilot-width-flush: 340px`, etc.)
+- Grid floating à largeurs fixes, pas `minmax(0,1fr)` + clamp rail contextuel.
+
+**Conclusion :** le shell est un **cadre artboard 1440×1024**, pas un layout fluide viewport. Sur 1728 → bande vide ; sur <1440 → scroll horizontal.
+
+## 4. Écart doctrinal
+
+| Doctrine D1 | Runtime actuel |
+|-------------|----------------|
+| Project-first | Session/Demande-first |
+| Cycle Header / MethodMode | Badge mode partiel OPS1 ; pas Cycle métier |
+| Contextual rail = Context/Reserves/Decisions | Copilot + I6 steps |
+| Chat = composant GuidedSession | Chat = centre produit |
+| E0–E4 language | Gates action OPS1, pas langage E0–E4 D1 |
+
+## 5. Recommandation UX (hors correction code)
+
+Remplacer artboard fixe par shell fluide (doc 04) ; Project Cockpit pivot ; Copilot → ContextualRail doctrinal.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/02-doctrine-to-information-architecture.md`
+
+```markdown
+# 02 — Doctrine to information architecture
+
+## Niveaux visibles
+
+| Niveau | Objet | Visible où |
+|--------|-------|------------|
+| 1 | Workspace | Shell / Workspace Home |
+| 2 | Project | Cockpit, breadcrumbs, header |
+| 3 | Cycle | Cycle Header, stepper |
+| 4 | GuidedSession / travail | Guided Session main |
+| 5 | Context / Reserves / Decisions / Review / Audit | Contextual rail + écrans dédiés |
+
+## Navigation
+
+- **Primaire** : Workspace → Projects → (Settings stub)
+- **Secondaire (projet)** : Cockpit · Framing · Cycle · Session · Decisions · Review · Audit
+- **Breadcrumbs** : Workspace / Project / Cycle / Session
+- **Persistants** : MethodModeBadge · ProjectStateBadge · Cycle actif · ContextStatus · open gates count
+
+## Interdit comme IA visible
+
+Incréments techniques OPS1 I4/I5/I6 comme architecture métier.
+
+## Mapping design 08
+
+Les 13 écrans design D1 restent la référence fonctionnelle ; ce dossier UX précise hiérarchie visuelle et shell.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/03-d1-navigation-and-route-model.md`
+
+```markdown
+# 03 — Navigation and route model (candidat)
+
+| Route candidate | Écran | Notes |
+|-----------------|-------|-------|
+| `/` ou `/workspace` | Workspace Home | I1 |
+| `/projects/new` | New Project | I1 |
+| `/projects/[id]` | Project Cockpit | I1 pivot |
+| `/projects/[id]/method-mode` | Method Mode | I1 |
+| `/projects/[id]/framing` | Project Framing | post-I1 |
+| `/projects/[id]/cycles/[cid]` | Cycle Header + hub | I2 |
+| `/projects/[id]/cycles/[cid]/session/[sid]` | Guided Session | I2 |
+| `/projects/[id]/decisions` | Decision Center | I5 |
+| `/projects/[id]/cycles/[cid]/review` | Cycle Review | I7 |
+| `/projects/[id]/audit` | Audit Timeline | I7/I8 |
+
+OPS1 `/nouvelle-demande` = **legacy runtime preuve**, pas cible D1.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/04-studio-shell-layout-contract.md`
+
+```markdown
+# 04 — Studio Shell layout contract
+
+## Verdict sur le candidat proposé
+
+Le modèle `nav | minmax(0,1fr) | clamp(320px,24vw,420px)` est **retenu** avec ajustements.
+
+## Zones
+
+| Zone | Largeur | Comportement |
+|------|---------|--------------|
+| Navigation latérale | 64–80px | fixe/compacte ; tooltip ; actif/focus |
+| Zone métier | `minmax(0, 1fr)` | **aucun max-width global** ; scroll vertical maîtrisé ; max-width **local** optionnel (ex. prose 72ch) |
+| Panneau contextuel | desktop large `clamp(320px, 24vw, 420px)` ; desktop `320–360px` | collapsible 1100–1280 ; drawer tablet ; bottom sheet / vue dédiée mobile |
+
+## Gutters
+
+24–32 desktop · 16–24 medium · 16 tablet
+
+## CSS futur (documentation seule — non implémenté)
+
+```css
+.shell {
+  display: grid;
+  grid-template-columns:
+    var(--sfia-nav, 72px)
+    minmax(0, 1fr)
+    clamp(320px, 24vw, 420px);
+  min-height: 100dvh;
+  width: 100%;
+}
+```
+
+## Interdits
+
+- artboard global 1440×1024 laissant bande vide ;
+- largeurs fixes ignorant viewport ;
+- conversation imposant largeur page ;
+- Copilot dominant hiérarchie métier ;
+- scrolls imbriqués non maîtrisés.
+
+## Remplacement conceptuel
+
+`CopilotPanel` → `ContextualRail` (Context, Reserves, Decisions, Gates, Next action).
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/05-d1-screen-inventory-and-priorities.md`
+
+```markdown
+# 05 — Screen inventory and priorities
+
+| # | Écran | Priorité Figma I1 | Fidélité |
+|---|-------|-------------------|----------|
+| 1 | Workspace Home | **Obligatoire** | haute |
+| 2 | New Project | **Obligatoire** | haute |
+| 3 | Project Cockpit | **Obligatoire** | haute |
+| — | Method Mode | **Obligatoire** | haute |
+| 4 | Project Framing | cohérente | medium |
+| 5 | Cycle Header | partiel dans Cockpit/Session | medium |
+| 6 | Guided Session | **Obligatoire** desktop | haute |
+| 7 | Context Status | dans rail | medium |
+| 8 | Reserve Panel | dans rail / Decision | medium |
+| 9 | Decision Center | **Obligatoire** | haute |
+| 10 | Gate Modal | overlay Decision | medium |
+| 11 | Transition Review | medium | medium |
+| 12 | Cycle Review | **Obligatoire** | haute |
+| 13 | Audit Timeline | medium | medium |
+
+Hors scope : ExecutionContract, Cursor, Evidence D2, Action/Release Review.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/06-workspace-home-contract.md`
+
+```markdown
+# 06 — Workspace Home contract
+
+## Objectif
+Point d’entrée Project-first : lister, créer, voir ce qui bloque.
+
+## Contenu
+- Projets récents / actifs
+- Projets nécessitant décision
+- Cycles bloqués / réserves ouvertes
+- MethodMode badge par projet
+- CTA Nouveau projet
+- Accès clôturés (lecture seule)
+
+## États
+empty · loading · error · single project · many · mono-opérateur (R01)
+
+## Non-objectifs
+Dashboard métriques surchargé avant données réelles.
+
+## Acceptation
+CTA create visible ; aucune session OPS1 comme hub.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/07-new-project-contract.md`
+
+```markdown
+# 07 — New Project contract
+
+## Parcours court (max 6 étapes)
+1. Identité
+2. Objectif
+3. Contexte initial (léger)
+4. MethodMode (v2.6 / transition / v3 candidate) + claims
+5. Responsable/décideur (même user OK en I1 / R01)
+6. Confirmation → Project DRAFT + audit
+
+## Principes
+Pas de questionnaire exhaustif. Cadrage détaillé = Cycle + GuidedSession.
+
+## Matérialiser
+Différence modes · claims · décision humaine · effet création · audit générique.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/08-project-cockpit-contract.md`
+
+```markdown
+# 08 — Project Cockpit contract (écran pivot)
+
+## Zones
+1. **ProjectHeader** — identité, MethodModeBadge, ProjectStateBadge
+2. **Project nav** — Framing / Cycle / Session / Decisions / Review / Audit
+3. **Main work** — cycle actif, étape, prochaine action, trajectoire résumé (pas journal permanent)
+4. **ContextualRail** — ContextStatus, reserves, open decisions/gates, last events
+5. **Actions gated** — E3 visibles, pas contournables
+
+## Règle
+Le chat n’apparaît qu’après **Open Guided Session**.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/09-project-framing-and-guided-session-contract.md`
+
+```markdown
+# 09 — Project Framing & Guided Session
+
+## Framing
+Édition trajectoire + synthèse ; GPT draft optionnel ; commit humain.
+
+## Guided Session — dual channel
+| Canal conversationnel | Canal de contrôle |
+|-----------------------|-------------------|
+| prose, clarification, challenge, synthèse | ContextStatus, proposals, reserves, DR, gates, transitions, preuves |
+
+## Jamais masqué
+Project · Cycle · Context · MethodMode · Gate ouvert · stale · actions structurantes
+
+## Transition visuelle
+Cockpit → Open Session → Work → Review proposals → Human decision → Cockpit / Transition Review
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/10-context-reserves-decisions-and-gates-contract.md`
+
+```markdown
+# 10 — Context, Reserves, Decisions, Gates
+
+## Context Status
+headSha · digests · READY/STALE/UNAVAILABLE · reload · live region stale
+
+## Reserves (E2)
+ReserveCard list · obligatoire avant continuation soft
+
+## Decision Center
+DR OPEN · Gate cards · deep link Gate Modal
+
+## Gate Modal
+focus trap · verdict GO/NO-GO · rationale · expired state · E3 block
+
+## Langage E0–E4 (non couleur seule)
+icône + libellé + texte + statut + focus + annonce SR
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/11-transition-reviewbundle-and-audit-contract.md`
+
+```markdown
+# 11 — Transition, ReviewBundle, Audit
+
+## Transition Review
+proposal from→to · preconds · ReviewBundle status · DecideTransition
+
+## Cycle Review
+refs résolvables+vérifiées · digests · seal · export MD optionnel (baseline v2.6)
+
+## Audit Timeline
+events append-only · filter project/cycle · correlationId · pas de mutation
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/12-responsive-and-breakpoint-contract.md`
+
+```markdown
+# 12 — Responsive & breakpoints
+
+| Breakpoint | Zones | Rail |
+|------------|-------|------|
+| Large ≥1600 | 3 zones | 360–420 |
+| Desktop 1280–1599 | 3 zones | 320–360 |
+| Medium 1100–1279 | rail collapsible | — |
+| Tablet 768–1099 | drawer | nav compacte |
+| Mobile <768 | séquentiel | gates en vues dédiées |
+
+Frames Figma détaillées : 1728 / 1440 / 1280 / 1024. Mobile documenté, frames optionnelles.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/13-accessibility-and-interaction-contract.md`
+
+```markdown
+# 13 — Accessibility & interaction (WCAG 2.2 AA candidat)
+
+## Exigences
+clavier complet · focus visible · landmarks · titres · contraste · états non-couleur · targets · modal trap · live regions (gates/stale) · reduced motion · zoom 200% · responsive sans perte info
+
+## Matrice (synthèse)
+
+| Screen | Keyboard | Focus | Semantics | Contrast | Errors | Live |
+|--------|----------|-------|-----------|----------|--------|------|
+| Workspace Home | Y | Y | main/nav | Y | Y | — |
+| New Project | Y | Y | form | Y | Y | — |
+| Project Cockpit | Y | Y | complementary rail | Y | Y | gates count |
+| Guided Session | Y | Y | log+form | Y | Y | stale |
+| Decision Center | Y | Y | list | Y | Y | — |
+| Gate Modal | trap | initial | dialog | Y | Y | announce open |
+| Cycle Review | Y | Y | status | Y | Y | seal result |
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/14-design-tokens-and-component-contract.md`
+
+```markdown
+# 14 — Tokens & components
+
+## Audit tokens existants (`tokens.css`)
+Réutiliser couleurs/ombres/fonts Studio. **Ne pas** réutiliser layout artboard 1440×1024 comme vérité D1.
+
+Nouveaux tokens candidats (non implémentés) :
+`--sfia-nav-width`, `--sfia-context-rail-min/max`, `--sfia-shell-gutter`, `--sfia-e0..e4-*`
+
+## Composants UX candidats
+
+| Composant | Rôle | Variants | A11y | Mapping code futur |
+|-----------|------|----------|------|--------------------|
+| AppShell | grid 3 zones | collapsed rail | landmarks | remplace StudioShell layout |
+| WorkspaceSwitcher | WS | — | combobox | new |
+| ProjectHeader | identité+badges | — | heading | new |
+| MethodModeBadge | mode | v26/transition/v3 | status | extend globalModeBadge |
+| ProjectStateBadge | state | DRAFT… | status | new |
+| CycleHeader | cycle state | — | status | new |
+| CycleStepper | progression | — | — | new |
+| ContextStatus | digests | ready/stale | live | new |
+| ReserveCard | E2 | open/resolved | — | new |
+| DecisionCard | DR | open/decided | — | new |
+| GateDialog | E3 | open/expired | dialog | extend action gate UI |
+| GuidedConversation | chat | — | log | from Ops1 journal |
+| StructuredProposal | proposals | kinds | — | new |
+| ContextualRail | control channel | collapsed | complementary | replace Copilot |
+| ReviewSummary | bundle | draft/sealed | — | new |
+| AuditTimeline | events | — | table | extend events |
+| Empty/Error/StaleBanner | states | — | alert | new |
+
+Aucun composant n’est baseline avant validation UX.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/15-figma-frame-register.md`
+
+```markdown
+# 15 — Figma frame register
 
 | Champ | Valeur |
 |-------|--------|
-| BCDI | BCDI-D1-PROJECT-FRAMING-DESIGN |
-| Modeled source | BCDI-D1-PROJECT-FRAMING-MODEL |
+| **Plan** | L'équipe de Morris CLELAND (`team::1653291379918403018`) — unique |
+| **File** | SFIA Studio — D1 Doctrine-aligned UX |
+| **fileKey** | `IS70XDnBMvZuJYmaI5eZT2` |
+| **URL** | https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2 |
+| **Page** | D1 — Project Framing UX (`1:2`) |
+| **Statut** | Frames éditables Auto Layout · dimensions confirmées |
 
-## 1. Périmètre inclus
+## Frames
 
-Parcours unique :
+| Frame | node id | W×H | Layout | Source doctrinale | Runtime correspondant | Statut |
+|-------|---------|-----|--------|-------------------|----------------------|--------|
+| D1 / Components | `1:3` | 364×79 | HORIZONTAL | tokens/components | — | primitives |
+| D1 / 1440 / Workspace Home | `2:2` | **1440×1024** | HORIZONTAL AL | framing 11/15 · design 08 | aucun (cible) ; legacy `/` | OK |
+| D1 / 1440 / New Project | `2:24` | **1440×1024** | HORIZONTAL AL | design 07 · UX 07 | — | OK |
+| D1 / 1440 / Project Cockpit | `2:46` | **1440×1024** | HORIZONTAL AL | design 08 · UX 08 | — | OK I1 |
+| D1 / 1440 / Method Mode | `3:2` | **1440×1024** | HORIZONTAL AL | modeled mode · UX 07 | — | OK I1 |
+| D1 / 1440 / Guided Session | `3:25` | **1440×1024** | HORIZONTAL AL | design 06/09 · UX 09 | `/nouvelle-demande` (écart) | OK |
+| D1 / 1440 / Decision Center | `3:51` | **1440×1024** | HORIZONTAL AL | design 07/10 · UX 10 | OPS1 action gate (écart) | OK |
+| D1 / 1440 / Cycle Review | `3:73` | **1440×1024** | HORIZONTAL AL | modeled 07 · UX 11 | — | OK |
+| D1 / 1728 / Project Cockpit | `3:97` | **1728×1024** | HORIZONTAL AL | UX 12 large | runtime unusedRight 288px | OK |
+| D1 / 1728 / Guided Session | `3:120` | **1728×1024** | HORIZONTAL AL | UX 12 | runtime 1728 | OK |
+| D1 / 1280 / Project Cockpit | `3:143` | **1280×1024** | HORIZONTAL AL | UX 12 | runtime overflow H | OK |
+| D1 / 1280 / Guided Session | `3:165` | **1280×1024** | HORIZONTAL AL | UX 12 | runtime 1280 | OK |
+| D1 / 1024 / Project Cockpit | `3:187` | **1024×1024** | HORIZONTAL AL | UX 12 tablet | runtime 1024 | OK |
+| D1 / 1024 / Guided Session | `3:209` | **1024×1024** | HORIZONTAL AL | UX 12 tablet | runtime 1024 | OK |
 
-Workspace → CreateProject → SelectMethodMode → ProjectTrajectory → Propose/Open Cycle cadrage → GuidedSession → ContextSnapshot → conversation guidée → EnforcementEvaluation → Reserve/DecisionRequest → GateInstance → HumanDecision → TransitionProposal → CycleReviewBundle → DecideTransition → CompleteCycle → AuditEvents.
+## Shell contract encoded in frames
 
-Objets : WorkspaceReference, Project, ProjectTrajectory, CycleInstance, GuidedSession, ContextSnapshot, EnforcementRule/Evaluation, Reserve, DecisionRequest, GateInstance, HumanDecision, TransitionProposal, CycleReviewBundle, AuditEvent, Assignment, DoctrineDefinitionApplied.
+`Nav 72` + `Main FILL` + `ContextualRail` (≈320–415 selon largeur) · gutters 24 · Auto Layout HORIZONTAL.
 
-## 2. Hors périmètre (placeholders / refs externes)
+## Réserves Figma
 
-ActionCandidate, ExecutionContract, Cursor runtime, Evidence technique D2, Action/ReleaseReview, Capitalization D3, connecteurs externes complets, OpenAPI exécutable, Figma.
+- UX-R02 : composants from-scratch (pas de Code Connect Studio riche)
+- Capture runtime Figma : via injection navigateur (sans modif source) — voir registre preuves
+- Mobile frames non produites (documentées doc 12)
 
-## 3. Décisions de conception candidates (ce cycle)
 
-| ID | Décision | Statut |
-|----|----------|--------|
-| DD-01 | Modular monolith Next.js (même app Studio) | candidate |
-| DD-02 | Façade = Server Actions + command handlers internes | candidate |
-| DD-03 | Persistance D1 : SQLite (`node:sqlite`) pour 1er incrément ; schéma portable PostgreSQL | candidate |
-| DD-04 | JSON Schema Draft-07 (ajv6 présent) pour validation instances | candidate (héritage modeled) |
-| DD-05 | GPT = dual channel (prose + propositions structurées) ; jamais mutateur d’état | candidate |
-| DD-06 | Policy Engine déterministe avant/après GPT | candidate |
-| DD-07 | Audit append-only ; pas d’event sourcing complet | candidate (D5 framing) |
-| DD-08 | Premier incrément utile = D1-I1 Project foundation | candidate |
+## Runtime capture in Figma
 
-## 4. Non-décisions (gates humains)
-
-- Adoption v3 · GO IMPLEMENTATION D1 · choix définitif PostgreSQL prod · multi-user IdP · ajv8 / Draft 2020-12 · découpage microservices.
-
-## 5. Contraintes dures
-
-- Fail-closed E4 · human-governed E3 · git-truth ContextSnapshot · ReviewBundle résolvable+vérifié · aucune règle déterministe portée par GPT.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/02-target-component-architecture.md`
-
-```markdown
-# 02 — Target component architecture
-
-## 1. Recommandation de déploiement
-
-| Option | Verdict |
-|--------|---------|
-| **Modular monolith** (Next.js app + modules domaine) | **Recommandé candidat** |
-| Services séparés | Rejeté pour D1 (ops/coût prématurés) |
-| Hybride (monolithe + workers) | Reporté ; jobs sync suffisent D1 |
-
-**Justification :** stack Studio existante = Next 15 + React 19 + `node:sqlite` OPS1 + OpenAI provider + server-side orchestration. D1 doit étendre le monolithe modulaire (Option C CT) sans inventer une plateforme.
-
-Voir `diagrams/d1-container-diagram.mmd` et `d1-component-diagram.mmd`.
-
-## 2. Composants logiques D1
-
-| Composant | Responsabilité | Possède | Fusion possible |
-|-----------|----------------|---------|-----------------|
-| Studio Web Shell | Navigation workspace, mode badge, layout | — | — |
-| Project Cockpit UI | Vue projet, cycles, décisions | — | Shell |
-| Project Service | CRUD Project, mode, trajectory, archive | Project, Trajectory | — |
-| Cycle Service | CycleInstance lifecycle | CycleInstance | Transition Service |
-| Guided Session Service | Session + turns orchestration | GuidedSession | Conversation (OPS1) |
-| Canonical Context Service | Load/seal ContextSnapshot, stale checks | ContextSnapshot | Definition Registry |
-| Definition Registry | doctrineVersion + definitionDigests | DoctrineDefinitionApplied | Context Service |
-| Policy Engine | Évalue E0–E4 D1 rules | EnforcementEvaluation | — |
-| Decision & Gate Service | DR, Gate, HumanDecision | Decision*, Gate* | — |
-| Transition Service | TransitionProposal + effets état | TransitionProposal | Cycle Service |
-| Review Service | Build/seal CycleReviewBundle | ReviewBundle | — |
-| Audit Service | Append-only AuditEvent | AuditEvent | — |
-| Identity/AuthZ Adapter | Rôles, assignments | Assignment | Stub mono-opérateur |
-| Git Context Adapter | HEAD, blobs, digests (read-only) | — | Réutilise CT Git local |
-| GPT Adapter | Completions structurées bornées | — | Réutilise openaiProvider |
-| Persistence Layer | Transactions SQL | tables D1 | `node:sqlite` + future PG |
-
-## 3. Matrice composants (extraits)
-
-### Project Service
-- API : CreateProject, SelectMethodMode, DefineTrajectory, ArchiveProject
-- Deps : Persistence, AuthZ, Audit, Policy
-- Events : PROJECT_CREATED, PROJECT_MODE_SELECTED, PROJECT_ACTIVATED
-- GPT : aucun
-- Erreurs : UNAUTHORIZED, CONFLICT (optimistic lock), MODE_REQUIRED
-- Observabilité : project_create_total, project_state
-
-### Guided Session Service
-- API : CreateGuidedSession, StartGuidedConversation
-- Deps : Context, GPT Adapter, Policy, Audit
-- Events : SESSION_*, CONTEXT_*, RULE_MATCHED
-- GPT : reformule/propose ; n’écrit pas l’état
-- Risque : prompt injection → isolation contexte + redaction
-
-### Policy Engine
-- API : EvaluatePolicy
-- Deps : rules catalog (JSON defs), Project/Cycle state
-- Deterministe 100 %
-- Events : ENFORCEMENT_EVALUATED
-- Cache : candidate court TTL ; invalidé sur digest/state change
-
-### Decision & Gate Service
-- API : RequestHumanDecision, OpenGate, RecordHumanDecision
-- Sealed HumanDecision immutable
-- Events : DECISION_*, GATE_*
-
-### Review Service
-- Règle : MODIFIED CONTENT MUST BE RESOLVABLE AND VERIFIED
-- Deps : Git Adapter, Context, Audit refs
-- Events : CYCLE_REVIEW_SEALED
-
-## 4. Frontières
-
-- **UI** ne mute jamais SQL directement.
-- **GPT Adapter** n’appelle pas Persistence.
-- **Policy** avant effet d’état.
-- **Cursor/Execution** hors D1 (pas de composant D1).
-
-## 5. Mapping acquis OPS1/CT (lecture seule)
-
-| Acquis | Usage D1 design |
-|--------|-----------------|
-| `conversation/service.ts` + openaiProvider | Pattern Guided Session |
-| `db.ts` / repository / session_events | Pattern persistence + audit table |
-| actionGate / decisions UI | Pattern Gate Modal / Decision Center |
-| Git tools read | Git Context Adapter |
-| sfia canonical context engine | Canonical Context + Definition Registry |
-| Ops1SessionScreen | Expérimental → remplacé par Project Cockpit / Guided Session screens |
+| Item | Value |
+|------|-------|
+| node | `4:2` (renamed evidence) |
+| URL | https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2?node-id=4-2 |
+| Role | **Preuve existant** — pas la cible D1 |
+| Local screenshots | `.tmp-sfia-review/screenshots-d1-ux/runtime-*.png` |
+| Metrics | `.tmp-sfia-review/screenshots-d1-ux/runtime-metrics.json` |
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/03-application-services-and-responsibilities.md`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/16-figma-runtime-comparison-plan.md`
 
 ```markdown
-# 03 — Application services and responsibilities
+# 16 — Figma / runtime comparison
 
-Chaque cas d’usage = commande applicative (handler) dans le modular monolith.
-
-Légende colonnes : AuthZ · Preconditions · Aggregates · Rules · Tx · Events · Idempotence · Errors.
-
-## Catalogue des use cases
-
-### CreateProject
-- Commande : `CreateProject`
-- Acteur : user assignable `project_owner`
-- AuthZ : workspace membership
-- Précond : WorkspaceReference résolu
-- Aggregats : Workspace → new Project(DRAFT)
-- Rules : —
-- Tx : insert project + assignment owner + audit
-- Events : PROJECT_CREATED
-- Résultat : projectId
-- Idempotence : Idempotency-Key → même projectId
-- Errors : WS_NOT_FOUND, UNAUTHORIZED
-- Tests : nominal + duplicate key
-
-### SelectProjectMethodMode
-- Acteur : project_owner
-- Précond : Project DRAFT|ACTIVE ; mode null ou change gated
-- Rules : D1-MODE-REQUIRED (si activate sans mode)
-- Events : PROJECT_MODE_SELECTED
-- Gate : MethodModeGate (E3) si claim v3_candidate
-
-### DefineProjectTrajectory
-- Acteur : owner + GPT suggestion optionnelle
-- Aggregats : ProjectTrajectory
-- Events : (candidate) TRAJECTORY_UPDATED — ou audit générique
-- GPT : peut proposer draft ; commit = humain
-
-### ProposeCycle / OpenCycle
-- Acteur : owner
-- Précond : methodMode set ; Project not ARCHIVED
-- Rules : D1-MODE-REQUIRED, D1-CYCLE-INCOMPAT, D1-V3-CLAIM-INELIGIBLE
-- States : PROPOSED → QUALIFYING → READY
-- Events : CYCLE_PROPOSED, CYCLE_QUALIFICATION_STARTED, CYCLE_OPENED
-
-### CreateGuidedSession
-- Précond : Cycle READY|ACTIVE
-- Rules : D1-FREE-CHAT, D1-NO-PROJECT
-- Events : SESSION_CREATED
-
-### LoadCanonicalContext
-- Service : Canonical Context + Git Adapter + Definition Registry
-- Rules : D1-CONTEXT-UNAVAILABLE, D1-CONTEXT-STALE, D1-DIGEST-MISMATCH
-- Events : CONTEXT_LOADING_STARTED, CONTEXT_READY | CONTEXT_STALE
-- Snapshot sealed immutable
-
-### StartGuidedConversation
-- Dual channel GPT
-- Policy evaluate after each structured proposal
-- Events : RULE_MATCHED, ENFORCEMENT_EVALUATED
-- GPT ne mute pas state
-
-### EvaluatePolicy
-- Input : trigger + object refs + actor
-- Output : EnforcementEvaluation { level, ruleIds, effect, explanationKey, correctionOptions }
-- Fail-closed on engine error (E4)
-
-### CreateReserve / RequestHumanDecision / OpenGate
-- E2/E3 paths
-- Events : RESERVE_CREATED, DECISION_REQUESTED
-- Gate types : voir doc 07
-
-### RecordHumanDecision
-- Acteur : decision_maker / approver selon gate
-- Rules : D1-ROLE-UNAUTHORIZED
-- Sealed record immutable
-- Events : HUMAN_DECISION_RECORDED, GATE_APPROVED|REJECTED
-
-### ProposeTransition / DecideTransition
-- Rules : D1-HUMAN-DECISION-REQUIRED, D1-INVALID-TRANSITION
-- Events : TRANSITION_PROPOSED, TRANSITION_APPROVED
-
-### BuildCycleReviewBundle / SealCycleReviewBundle
-- Rules : refs résolvables + digests vérifiés
-- Events : CYCLE_REVIEW_SEALED
-- Incomplete → cannot complete cycle
-
-### CompleteCycle / OpenNextCycle
-- Rules : D1-CYCLE-NO-REVIEW
-- Events : CYCLE_COMPLETED, NEXT_CYCLE_OPENED
-
-### ArchiveProject
-- Précond : CLOSED or GO
-- Soft delete assignments optional ; audit retained
-
-## Responsabilités croisées
-
-| Concern | Owner |
-|---------|-------|
-| State machine integrity | Cycle / Project Services + Policy |
-| Deterministic rules | Policy Engine only |
-| Prose & suggestions | GPT Adapter via Guided Session |
-| Proof & non-repudiation | HumanDecision + Audit + ReviewBundle |
-| Git truth | Context Service + Git Adapter |
+| Aspect | Runtime observé | Cible Figma | Écart | Impact doctrine | Priorité | Lot | Preuve |
+|--------|-----------------|-------------|-------|-----------------|----------|-----|--------|
+| Largeur globale | 1440px fixe | 100% viewport fluide | critique | shell | P0 | I1 | metrics+frames |
+| Usage viewport | 288px vides @1728 | plein usage | critique | trust | P0 | I1 | runtime-1728.png |
+| Overflow <1440 | scrollH 1440 | fluide/collapse | critique | usable | P0 | I1 | runtime-1280/1024 |
+| Navigation | rail icons OPS1 | Workspace/Project IA | fort | Project-first | P0 | I1 | frames Home/Cockpit |
+| Page identity | Nouvelle demande | Workspace/Project | fort | D1 | P0 | I1 | h1 metrics |
+| Project-first | absent | Cockpit pivot | critique | P1 | P0 | I1 | frame Cockpit |
+| Cycle visibility | I6 steps copilot | CycleHeader | fort | D1 | P1 | I2 | frames |
+| Context visibility | faible | ContextStatus rail | fort | git-truth | P1 | I3 | frames Session |
+| Rail | Copilot dominant | ContextualRail | fort | hierarchy | P0 | I1 | frames |
+| Conversation | centre | composant Session | critique | doctrine | P0 | I2 | frames Session |
+| Decisions/gates | action gate OPS1 | Decision Center + GateDialog E3 | fort | E3 | P1 | I5 | frames |
+| Responsive | artboard only | breakpoints doc12 | critique | a11y | P0 | I1/I8 | frames 1728–1024 |
+| Accessibility | partielle | contrat 13 | moyen | AA | P1 | I8 | matrix |
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/04-api-and-command-contracts.md`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/17-d1-ux-acceptance-and-test-matrix.md`
 
 ```markdown
-# 04 — API and command contracts
+# 17 — UX acceptance & test matrix
 
-## 1. Modèle d’accès recommandé (candidat)
+| Critère | Preuve | Gate |
+|---------|--------|------|
+| Frames I1 éditables Auto Layout | registre 15 | GO VALIDATION UX/UI D1 |
+| Dimensions confirmées | get_metadata / use_figma return | same |
+| Runtime capturé 4 viewports | screenshots-d1-ux | same |
+| Cause 1440 confirmée | doc 01 + shell.module.css | same |
+| Project-first IA | docs 02/08 | same |
+| 13 écrans contractés | 06–11 | same |
+| E0–E4 IHM | 10 + 14 | same |
+| A11y/responsive | 12–13 | same |
+| Comparaison complète | 16 | same |
+| Aucun code modifié | git status app unchanged this cycle | same |
 
-| Option | Verdict |
-|--------|---------|
-| REST public large | Non pour D1 |
-| **Server Actions + command handlers** | **Recommandé** (aligné Next/OPS1) |
-| Event bus distribué | Non |
-| Internal in-process command bus | Oui (handlers purs testables) |
-
-Version API logique : `d1/v0`. Correlation-ID obligatoire. Idempotency-Key sur mutations.
-
-## 2. Commandes synchrones (candidats)
-
-| Commande | Méthode/chemin candidat | Rôle | Enforcement | Request (min) | Response | Errors |
-|----------|-------------------------|------|-------------|---------------|----------|--------|
-| CreateProject | SA `d1.createProject` | user→owner | — | `{workspaceId,title,idempotencyKey}` | `{projectId,state}` | 403,404,409 |
-| SelectMethodMode | SA `d1.selectMethodMode` | owner | D1-MODE / V3-CLAIM | `{projectId,methodMode,expectedVersion}` | `{project}` | 403,409,422 |
-| DefineTrajectory | SA `d1.defineTrajectory` | owner | — | `{projectId,contentRef}` | `{trajectoryId}` | 403,409 |
-| ProposeCycle | SA `d1.proposeCycle` | owner | D1-MODE, CYCLE-INCOMPAT | `{projectId,cycleType}` | `{cycleId,state}` | 422 |
-| OpenCycle | SA `d1.openCycle` | owner | same | `{cycleId}` | `{cycle}` | 409 |
-| CreateGuidedSession | SA `d1.createGuidedSession` | user | D1-FREE-CHAT | `{cycleId}` | `{sessionId}` | 422 |
-| LoadCanonicalContext | SA `d1.loadCanonicalContext` | system/user | CONTEXT-* | `{sessionId}` | `{snapshotId,status}` | 503,STALE |
-| StartGuidedConversation | SA `d1.sendGuidedTurn` | user | FREE-CHAT, CONTEXT-STALE | `{sessionId,message}` | `{turn,proposals[]}` | 429,503 |
-| EvaluatePolicy | internal | system | — | `{trigger,refs,actor}` | `{evaluation}` | ENGINE_FAIL→E4 |
-| CreateReserve | SA/internal | system/user | E2 | `{cycleId,type,reason}` | `{reserveId}` | — |
-| RequestHumanDecision | SA `d1.requestDecision` | system/user | E3 | `{cycleId,kind}` | `{decisionRequestId}` | — |
-| OpenGate | SA `d1.openGate` | system | ROLE | `{decisionRequestId,gateKind}` | `{gateId}` | 403 |
-| RecordHumanDecision | SA `d1.recordDecision` | decideur | ROLE | `{gateId,verdict,rationale,expectedVersion}` | `{decisionId}` | 403,409,EXPIRED |
-| ProposeTransition | SA `d1.proposeTransition` | owner/GPT-draft | HUMAN-DECISION, INVALID-TRANSITION | `{cycleId,to}` | `{proposalId}` | 422 |
-| BuildReviewBundle | SA `d1.buildReviewBundle` | system/owner | — | `{cycleId}` | `{bundleId,status:DRAFT}` | — |
-| SealReviewBundle | SA `d1.sealReviewBundle` | decideur | NO-REVIEW | `{bundleId}` | `{status:SEALED,digests}` | UNRESOLVED_REF |
-| DecideTransition | SA `d1.decideTransition` | decideur | gates | `{proposalId,verdict}` | `{cycleState}` | 403 |
-| CompleteCycle | SA `d1.completeCycle` | owner/decideur | NO-REVIEW | `{cycleId}` | `{state:COMPLETED}` | 422 |
-| OpenNextCycle | SA `d1.openNextCycle` | owner | — | `{projectId,fromCycleId}` | `{nextCycleId}` | — |
-| ArchiveProject | SA `d1.archiveProject` | admin/owner | — | `{projectId}` | `{state:ARCHIVED}` | 409 |
-
-## 3. Lectures
-
-| Query | Path candidat | Notes |
-|-------|---------------|-------|
-| GetWorkspaceHome | `d1.getWorkspace` | projects list |
-| GetProjectCockpit | `d1.getProject` | cycles, mode, open gates |
-| GetGuidedSession | `d1.getSession` | turns, context status |
-| GetDecisionCenter | `d1.listOpenDecisions` | gates OPEN |
-| GetAuditTimeline | `d1.listAuditEvents` | filter project/cycle |
-| GetReviewBundle | `d1.getReviewBundle` | DRAFT/SEALED view |
-
-## 4. Événements internes
-
-Bus **in-process** : après commit SQL, émettre vers Audit Service (même transaction) + hooks UI (revalidate). Pas de broker externe D1.
-
-## 5. Contrats GPT / Git / Review
-
-- GPT : input `GuidedTurnRequest` → output `{prose, proposals: GuidedProposal[]}` validé JSON Schema candidat
-- Git : `resolveBlob(path,ref) → {bytes,sha256}` ; `getHead() → sha`
-- Review : `resolveAndVerify(refs[]) → {ok,failures[]}`
-
-## 6. Headers / meta communs
-
-`correlationId`, `causationId?`, `actorId`, `idempotencyKey?`, `doctrineVersion`, `clientSchemaVersion: 0.1.0-d1`.
+Tests futurs I1 : visual regression shell fluide · a11y axe · keyboard Cockpit · no H-scroll ≥1024.
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/05-persistence-and-transaction-design.md`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/18-d1-ux-decision-pack.md`
 
 ```markdown
-# 05 — Persistence and transaction design
-
-## 1. Recommandation candidate (1er incrément)
-
-| Option | Verdict |
-|--------|---------|
-| **SQLite via `node:sqlite` (comme OPS1)** | **Recommandé candidat D1-I1** |
-| PostgreSQL immédiat | Option future prod multi-user |
-| Abstraction SQL portable (types + repositories) | **Oui** — écrire SQL dialect-safe |
-| ORM (Prisma/Drizzle) | **Non pour D1** — absent du package.json ; SQL explicite |
-
-Statut : **candidate jusqu’au gate humain**. Pas de migration dans ce cycle.
-
-## 2. Agrégats transactionnels
-
-| Agrégat | Racine | Inclus |
-|---------|--------|--------|
-| ProjectAgg | projects | trajectories, assignments, doctrine_definitions_applied |
-| CycleAgg | cycle_instances | guided_sessions (ref), transition_proposals |
-| SessionAgg | guided_sessions | turns (table fille), context_snapshot_id |
-| DecisionAgg | decision_requests | gate_instances, human_decisions |
-| ReviewAgg | review_bundles | review_bundle_refs |
-| AuditStream | audit_events | append-only, no update |
-
-## 3. Frontières de transaction
-
-Une commande = **une transaction SQL** :
-1. load aggregates + version check
-2. EvaluatePolicy (read)
-3. mutate aggregates
-4. insert audit_events
-5. commit
-
-Exceptions : LoadCanonicalContext peut commit snapshot même si session BLOCKED ; GPT call **hors** transaction (call → puis commande ApplyGuidedProposals).
-
-## 4. Tables candidates (physique logique)
-
-Alignées modeled doc 04 + :
-
-- `guided_turns` (session_id, seq, role, prose_ref, proposals_json, created_at)
-- `enforcement_evaluations` (optional materialization ; sinon payload audit)
-- `idempotency_keys` (key, command, response_json, created_at)
-- `schema_meta` (version)
-
-Contraintes CHECK sur enums d’état (modeled 03).
-`version INTEGER NOT NULL` sur projects, cycles, sessions, gates, bundles.
-Sealed : human_decisions, context_snapshots, audit_events, sealed review payload — **no UPDATE**.
-
-## 5. Index
-
-Comme modeled + `idempotency_keys(key UNIQUE)` · `guided_turns(session_id,seq UNIQUE)` · `assignments(project_id,principal_id)`.
-
-## 6. Soft delete / rétention
-
-- projects/cycles/sessions : `deleted_at` nullable
-- audit_events : never delete ; redaction job candidate
-- PII actors : store actorId ; email hors audit payload
-
-## 7. Concurrence
-
-Optimistic locking `WHERE version=?` → 409 CONFLICT.
-Gates EXPIRED via job/lecture lazy.
-Pas de distributed lock D1.
-
-## 8. Snapshots & digests
-
-ContextSnapshot stocke `head_sha`, `definition_digests_json`, `created_at`.
-Stale si `head_sha != current HEAD` ou digest map mismatch.
-
-## 9. Portabilité PG
-
-Éviter extensions SQLite-only dans SQL D1 ; JSON as TEXT ; timestamps ISO-8601 TEXT/TIMESTAMPTZ compatible.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/06-gpt-guided-session-design.md`
-
-```markdown
-# 06 — GPT guided session design
-
-## 1. Rôle exact
-
-| GPT peut | GPT ne peut pas |
-|----------|-----------------|
-| Clarifier, reformuler, challenger | Modifier l’état SQL |
-| Proposer trajectoire / synthèse | Approuver un gate |
-| Identifier un manque | Enregistrer HumanDecision |
-| Suggérer décision / transition (draft) | Autoriser transition / contourner policy |
-| | Lever une réserve / lancer exécution D2 |
-
-## 2. Dual channel
-
-1. **Prose** : texte libre affiché (non exécutable)
-2. **Proposals structurées** : validées JSON Schema candidat → Policy Engine → éventuellement DecisionRequest
-
-## 3. Contrats candidats (pas schémas figés hors modeled)
-
-### GuidedTurn
-`{ turnId, sessionId, role: user|assistant, prose, createdAt, contextSnapshotId }`
-
-### GuidedProposal
-`{ proposalId, kind: trajectory|decision|transition|reserve|question, payload, confidence? }`
-
-### DecisionProposal / TransitionProposalDraft
-Sous-types de GuidedProposal ; application = commandes humaines/moteur, pas auto-apply.
-
-### ContextUsageReceipt
-`{ snapshotId, headSha, doctrineVersion, definitionDigests, tokenEstimate, redactions[] }` — audit minimal + UI Context Status.
-
-## 4. Construction du contexte
-
-Priorité (budget tokens) :
-1. System instructions D1 (rôle GPT borné, anti-claims)
-2. ContextUsageReceipt + digests
-3. Project + Cycle summaries
-4. Open reserves / DecisionRequests
-5. Trajectory excerpt
-6. Recent turns (fenêtre)
-7. Doctrine excerpts **via digests allowlisted** (pas de lecture libre filesystem GPT)
-
-Stale detection : si snapshot stale → bloquer send (E4 D1-CONTEXT-STALE) avant appel GPT.
-
-## 5. Validation sortie
-
-- Parse JSON proposals
-- Schema validate
-- Reject unknown kinds
-- Policy EvaluatePolicy on each proposal
-- Hallucination guards : refuse claims of GO/APPROVED ; refuse file paths hors allowlist context
-
-## 6. Retries / erreurs
-
-- Provider timeout → user-visible retry ; no state mutate
-- Malformed output → one repair prompt max puis BLOCKED + Reserve
-- Injection : strip tool/system markers ; no secrets in context
-
-## 7. Audit
-
-Log : attempt ids, model, token counts, snapshotId, proposalIds — **not** full prose if PII flagged (redaction policy).
-
-## 8. Réutilisation OPS1
-
-Pattern `conversation/service.ts` + `openaiProvider` + toolLoop **sans** tools d’exécution D2 ; tools éventuels = lecture contexte déjà chargé uniquement (candidate, borné).
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/07-policy-and-gate-orchestration-design.md`
-
-```markdown
-# 07 — Policy and gate orchestration design
-
-## 1. Projection runtime E0–E4
-
-| Niveau | Effet runtime D1 |
-|--------|------------------|
-| E0 | Informational UI / log |
-| E1 | Warning ; continue |
-| E2 | Create Reserve ; may continue with banner |
-| E3 | DecisionRequest + Gate ; block effect until HumanDecision |
-| E4 | Hard block ; no state transition |
-
-## 2. Moments d’évaluation
-
-- Before command mutate
-- After GPT structured proposal
-- Before CompleteCycle / DecideTransition
-- On context load and before each guided turn
-
-## 3. Priorité / conflits
-
-1. E4 wins over lower
-2. Same level : union of correctionOptions ; most restrictive effect
-3. Engine failure → treat as E4 fail-closed
-4. No GPT arbitration of conflicts
-
-## 4. Composition
-
-Rules catalog JSON (modeled) loaded by Definition Registry digests.
-`EvaluatePolicy(trigger, facts)` → ordered matched rules + dominant effect.
-
-## 5. Explication / réserve / dérogation
-
-- `userExplanationKey` → i18n UI
-- Reserve : E2 path ; status OPEN until resolved
-- Dérogation : **non** en D1 sauf gate humain explicite futur (hors scope)
-- Expiration gates : `expires_at` ; lazy expire on read
-- Révocation : Gate REVOKED + audit ; does not delete HumanDecision history
-
-## 6. Cache / stale policy
-
-Cache evaluations by `(ruleDigest, factsHash)` TTL short.
-Invalidate on project/cycle version bump or context digest change.
-
-## 7. Gates D1
-
-| Gate | Trigger | Role | Preuves | Effet débloqué | Events |
-|------|---------|------|---------|----------------|--------|
-| ProjectCreationGate | optional org policy | owner | workspace auth | CreateProject | GATE_* |
-| MethodModeGate | select mode / activate | owner/decideur | eligibility facts | mode persisted / ACTIVE | PROJECT_MODE_SELECTED |
-| CycleOpeningGate | OpenCycle | owner | mode, project state | CYCLE_OPENED | |
-| HumanDecisionGate | DecisionRequest OPEN | decideur | DR payload, context receipt | DECIDED | HUMAN_DECISION_RECORDED |
-| TransitionGate | DecideTransition | decideur | proposal + review sealed? | state transition | TRANSITION_APPROVED |
-| CycleCompletionGate | CompleteCycle | decideur/owner | ReviewBundle SEALED | COMPLETED | CYCLE_COMPLETED |
-
-États gate : OPEN → APPROVED|REJECTED|EXPIRED|REVOKED (modeled 03).
-
-## 8. Mapping rules → gates
-
-D1-MODE-REQUIRED → MethodModeGate
-D1-HUMAN-DECISION-REQUIRED / D1-CYCLE-NO-REVIEW → HumanDecisionGate / CycleCompletionGate
-D1-ROLE-UNAUTHORIZED → block OpenGate/Record
-D1-INVALID-TRANSITION → no TransitionGate open
-E4 rules → no gate (hard stop) except informational link to correction.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/08-user-journey-and-screen-contracts.md`
-
-```markdown
-# 08 — User journey and screen contracts
-
-## Parcours nominal
-
-Workspace Home → New Project → Project Cockpit → select MethodMode → Project Framing (trajectory) → open Cycle → Guided Session (+ Context Status) → Reserve Panel / Decision Center → Gate Modal → Transition Review → Cycle Review seal → Audit Timeline.
-
-## Contrats d’écran
-
-| Écran | Objectif | Données | Actions | États | E | A11y | Acceptation |
-|-------|----------|---------|---------|-------|---|------|-------------|
-| Workspace Home | Lister projets | projects[] | create, open | L/E/Err | E4 no-project en v3 | landmarks | liste + CTA visible |
-| New Project | Créer | form title | submit | validating | — | labels | CreateProject OK |
-| Project Cockpit | Pilotage | project, cycles, openGates | open cycle, archive | stale badge | mode badge | headings | mode visible |
-| Project Framing | Trajectory | trajectory | edit, ask GPT draft | — | E1 | — | save trajectory |
-| Cycle Header | État cycle | cycle state machine | pause/cancel | — | — | live region state | state announced |
-| Guided Session | Conversation | turns, proposals | send, apply draft? | context stale lock | E4 stale/free-chat | chat a11y | cannot send if stale |
-| Context Status | Digests/HEAD | ContextUsageReceipt | reload | stale/unavail | E4 | status text | shows headSha |
-| Reserve Panel | E2 items | reserves | acknowledge | — | E2 | — | reserve listed |
-| Decision Center | Open DRs/gates | list | open gate | empty | E3 | — | gate reachable |
-| Gate Modal | Décider | gate payload | approve/reject | expired | E3/E4 role | focus trap | RecordHumanDecision |
-| Transition Review | Review proposal | proposal | approve/reject | — | E3 | — | invalid transition blocked |
-| Cycle Review | Bundle | refs+digests | seal, export MD | unresolved | E3 no-review | — | seal only if verified |
-| Audit Timeline | Preuve | events | filter | — | — | table | events append-only visible |
-
-## Visuel
-
-Réutiliser design system Studio existant ; pas de nouveau Figma obligatoire.
-Recommandation : cycle UX ultérieur pour cockpits D1 si GO design.
-
-## Permissions UI
-
-Masquer actions non autorisées **et** refuser côté serveur (doc 10). Responsive : mobile lecture + décisions ; drafting préféré desktop.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/09-reviewbundle-and-audit-design.md`
-
-```markdown
-# 09 — ReviewBundle and audit design
-
-## 1. CycleReviewBundle D1
-
-### Moment
-- Build : dès VALIDATING / fin cadrage (DRAFT)
-- Progressive : ajouter refs à chaque livrable (trajectory, decisions, context, validation results, reserves)
-- Seal : décideur après resolve+verify
-- Export : Markdown handoff optionnel (baseline v2.6 encore active)
-- Archive : après COMPLETED
-
-### Règle
-**MODIFIED CONTENT MUST BE RESOLVABLE AND VERIFIED**
-
-Même sans code modifié, résoudre : docs cadrage projet, décisions, trajectoire, contexte, validation results, réserves, audit refs.
-
-### Pipeline
-1. Review Service collecte refs
-2. Git Adapter / Persistence résolvent contenu
-3. sha256 digests
-4. ValidationResults struct
-5. Seal → immutable payload + state SEALED
-6. Audit CYCLE_REVIEW_SEALED
-7. CompleteCycle autorisé
-
-### Erreurs / reprise
-- UNRESOLVED_REF / DIGEST_MISMATCH → rester DRAFT
-- Retry reload context puis rebuild
-- Pas de seal partiel silencieux
-
-## 2. Responsabilités
-
-| Service | Rôle |
-|---------|------|
-| Review Service | orchestration build/seal |
-| Git Adapter | blobs/paths |
-| Context Service | snapshot ref + digests |
-| Decision Service | DR/HD refs |
-| Audit Service | event ids referenced |
-
-## 3. Audit append-only
-
-Tous eventTypes modeled doc 06.
-Champs communs AuditEvent schema.
-Redaction : pas d’email, pas de secrets, pas de prose complète si flagged.
-CorrelationId = parcours utilisateur ; CausationId = event parent.
-
-## 4. Contrôles obligatoires au seal
-
-| Contrôle | Fail |
-|----------|------|
-| Resolve all refs | block seal |
-| Verify digests | block seal |
-| Accessibility not `missing` for required | block |
-| HumanVerdict present for completion path | block complete |
-| AuditReferences non-empty for sealed cycle | warn E1 / policy candidate |
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/10-security-rgpd-and-permission-model.md`
-
-```markdown
-# 10 — Security, RGPD and permission model
-
-## 1. Rôles D1
-
-| Rôle | Capacité principale |
-|------|---------------------|
-| user | participer session liée |
-| project_owner (responsable) | créer/activer projet, cycles, trajectory |
-| decision_maker (décideur) | gates E3, seal review, transitions |
-| approver | gates où séparation requise (candidate) |
-| admin | assignments, archive policies |
-| system | context load, policy eval |
-
-Séparation **responsable / décideur** recommandée pour TransitionGate & CycleCompletionGate (même personne tolérée en proto mono-opérateur avec audit explicite — **risque** à gate sécurité).
-
-## 2. Matrice Role × Action × Object × Enforcement × Audit
-
-| Role | Action | Object | E | Audit |
-|------|--------|--------|---|-------|
-| user | sendGuidedTurn | GuidedSession | E4 free-chat/stale | SESSION/ENFORCEMENT |
-| owner | createProject | Workspace | — | PROJECT_CREATED |
-| owner | selectMethodMode | Project | E3/E4 claim | PROJECT_MODE_SELECTED |
-| owner | openCycle | Cycle | E3 incompat | CYCLE_* |
-| decideur | recordDecision | Gate | E4 role | HUMAN_DECISION_* |
-| decideur | sealReview | Bundle | E3 | CYCLE_REVIEW_SEALED |
-| decideur | decideTransition | Proposal | E3/E4 | TRANSITION_* |
-| admin | assignRole | Assignment | — | (audit) |
-| system | evaluatePolicy | * | fail-closed | ENFORCEMENT_* |
-| * | writeDoctrine | defs | E4 DEF-MODIFY | ENFORCEMENT |
-
-## 3. Contrôles serveur
-
-Toujours AuthZ server-side. UI hide ≠ security.
-Workspace isolation : queries filtrées `workspace_id`.
-Git : read-only adapter ; path allowlist doctrine.
-GPT : no secrets ; limited tools ; prompt-injection guards (doc 06).
-Idempotency keys bound to actor.
-
-## 4. RGPD
-
-- Données perso : actor identifiers, conversation prose
-- Base légale candidate : intérêt légitime outil interne / contrat travail (à valider RSSI)
-- Rétention : audit long ; prose session TTL plus court (candidate)
-- Soft delete projets ; anonymiser actor display on export
-- Droit d’accès : export ReviewBundle redacted
-- Pas de sous-traitance GPT sans DPA revue (risque cycle sécu)
-
-## 5. Risques → cycle sécurité dédié avant implémentation large
-
-- Multi-user réel / IdP
-- Séparation des devoirs stricte
-- DPA OpenAI / logging prompts
-- Retention & purge jobs
-- Threat model prompt injection avancé
-
-Proto mono-opérateur D1-I1 acceptable **si** anti-claims et audit présents.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/11-observability-run-and-resilience.md`
-
-```markdown
-# 11 — Observability, RUN and resilience
-
-## 1. Télémétrie
-
-- **Logs** structurés JSON : correlationId, projectId, cycleId, command, outcome
-- **Metrics** : counters/histograms (création projet, context load ms, stale rate, gate latency, seal rate, transition errors)
-- **Traces** : span per command ; child span GPT/Git
-- **Business events** = AuditEvent stream (source of truth métier)
-
-## 2. Dépendances & modes dégradés
-
-| Dépendance | Indispo | Comportement D1 |
-|------------|---------|-----------------|
-| SQL | down | fail closed 503 ; no mute GPT-only |
-| Git | down | CONTEXT_UNAVAILABLE E4 ; fallback claim v2.6 manual path (UI) |
-| GPT | down | session BLOCKED ; reserves ; no auto-success |
-| Policy engine | fail | E4 |
-
-## 3. Reprise
-
-- Idempotent command retry
-- Rebuild ContextSnapshot
-- Rebuild ReviewBundle DRAFT
-- No silent auto-retry of sealed mutations
-
-## 4. Backup / restore / archive
-
-- SQLite file backup candidate (ops)
-- Audit export
-- Archived projects read-only
-
-## 5. Support / diagnostic
-
-Audit Timeline + correlationId search + ContextUsageReceipt + gate history.
-
-## 6. SLI candidats (pas de SLO contractuel)
-
-| SLI | Description |
-|-----|-------------|
-| project_create_success_rate | CreateProject OK |
-| context_load_latency_p95 | LoadCanonicalContext |
-| context_stale_rate | stale detections / sessions |
-| decision_latency | OPEN gate → HumanDecision |
-| gates_blocked_rate | E3/E4 blocks |
-| review_sealed_rate | cycles with SEALED bundle |
-| transition_error_rate | invalid transitions |
-| d1_journey_availability | end-to-end readiness probe |
-
-SLO chiffrés : **gate humain requis** (non fixés ici).
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/12-test-strategy-and-acceptance-criteria.md`
-
-```markdown
-# 12 — Test strategy and acceptance criteria
-
-## 1. Pyramide
-
-| Couche | Cible |
-|--------|-------|
-| Unit | state machines, policy pure functions, validators |
-| Schema | ajv Draft-07 modeled schemas + examples |
-| Policy | 13 rules D1 × match/non-match |
-| Service | command handlers + tx boundaries (sqlite test db) |
-| Integration | Git adapter fake + GPT fake provider |
-| Persistence | optimistic lock, sealed immutability, idempotency |
-| GPT contract | structured output schema + hallucination guards |
-| Security | AuthZ matrix samples ; injection fixtures |
-| A11y | axe on screens (pattern Studio) |
-| E2E | Playwright parcours nominal + stops |
-| Resilience | GPT/Git/SQL down |
-| Audit | append-only + correlation |
-
-## 2. Scénarios critiques
-
-1. Création nominale bout-en-bout
-2. Projet sans mode → E3 MethodModeGate
-3. Contexte indisponible → E4
-4. Contexte stale → E4 block send
-5. Rôle non habilité → E4
-6. Décision rejetée → no transition
-7. Gate expiré → EXPIRED
-8. Transition invalide → E4
-9. Complete sans ReviewBundle sealed → E3
-10. Retry idempotent CreateProject
-11. Conflict optimistic locking
-12. Fallback UI v2.6 claim
-13. Claim v3 ineligible → E4
-
-## 3. Matrice Requirement → Test → Evidence → Gate
-
-| Req | Test | Evidence | Gate |
-|-----|------|----------|------|
-| D1 parcours | E2E nominal | playwright report | GO IMPLEMENTATION lots |
-| E0–E4 | policy tests | vitest | same |
-| States | state machine unit | vitest | same |
-| Review resolve/verify | review service tests | vitest | I7 |
-| No GPT mutate | GPT contract tests | vitest | I2 |
-| AuthZ | security tests | vitest | I5/I8 |
-| Schemas | ajv validate | validation json | modeled heritage |
-| A11y | axe | report | I8 |
-| RUN SLI hooks | metrics unit | code | I8 |
-
-## 4. Critères d’acceptation transverses
-
-- Aucune mutation sans AuthZ
-- Aucune transition hors machine
-- Seal impossible si ref unresolved
-- Audit event pour chaque commande structurante
-- Baseline v2.6 non modifiée
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/13-delivery-slicing-and-backlog.md`
-
-```markdown
-# 13 — Delivery slicing and backlog
-
-## 1. Lots candidats
-
-| Lot | Valeur | Dépendances | Modules candidats | Tests | Risques | Gate | Sortie |
-|-----|--------|-------------|-------------------|-------|---------|------|--------|
-| **D1-I1 Project foundation** | 1er objet métier réel | design GO | Project Service, WS ref, assignments stub, UI New Project/Cockpit minimal, audit | unit+e2e create | schema drift | GO IMPLEMENTATION D1-I1 | Project DRAFT/ACTIVE + mode |
-| D1-I2 Cycle + GuidedSession | conversation liée projet | I1 | Cycle/Session services, UI session | service+e2e | GPT cost | I2 | session bound |
-| D1-I3 Context + Definition Registry | git-truth | I2 | Context, Git adapter, digests | integration | git perf | I3 | CONTEXT_READY/STALE |
-| D1-I4 Policy E0–E4 + reserves | enforcement | I3 | Policy Engine, Reserve panel | policy tests | rule conflicts | I4 | E4 stops proven |
-| D1-I5 Decisions + gates | human governance | I4 | Decision/Gate, Gate Modal | security+e2e | SoD | I5 | HumanDecision sealed |
-| D1-I6 Transition + completion | clôture cycle | I5 | Transition Service | state tests | invalid edges | I6 | COMPLETED |
-| D1-I7 ReviewBundle + audit UX | preuve cycle | I6 | Review Service, timeline | resolve/verify | digest bugs | I7 | SEALED bundle |
-| D1-I8 UX harden, security, RUN | production-grade | I1–I7 | a11y, metrics, auth | a11y+resilience | scope creep | I8 | readiness pack |
-
-## 2. Challenge du découpage
-
-Fusion I2+I3 possible si trop fin ; **ne pas** fusionner I1 avec GPT (valeur sans provider).
-I7 ne doit pas précéder I5 (bundle sans décisions = creux).
-
-## 3. Premier incrément réellement utile (recommandation)
-
-**D1-I1 — Project foundation**
-
-Pourquoi : prouve Project-first (P1), mode méthodo, persistence D1, audit, AuthZ stub, sans dépendre GPT/Git complexes.
-
-Critères de sortie I1 :
-- CreateProject + SelectMethodMode + Cockpit lecture
-- Audit PROJECT_*
-- Tests schema/state project
-- Aucun Cursor/D2
-- Feature flag / route isolée sous Studio
-
-Dette I1 : mono-opérateur ; SQLite only ; UI minimale.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/14-dependency-and-technology-decision-record.md`
-
-```markdown
-# 14 — Dependency and technology decision record
-
-Toutes les décisions sont **candidates** jusqu’au gate humain. Aucune install / modif package.json dans ce cycle.
-
-| ID | Domaine | Contexte | Options | Recommandation | Impacts | Dette | Réversibilité | Gate |
-|----|---------|----------|---------|----------------|---------|-------|---------------|------|
-| T-01 | Architecture | D1 dans Studio | micro / modular mono / hybrid | **Modular monolith** | simple ops | extract later | haute | readiness |
-| T-02 | Web | existant Next 15 | Next / other | **Next.js 15 App Router** | align CT | — | basse | — |
-| T-03 | API | mutations | REST / SA+handlers / tRPC | **Server Actions + handlers** | testable | versioning | moyenne | readiness |
-| T-04 | Persistence | OPS1 sqlite | sqlite / PG / both-abs | **sqlite node:sqlite I1** ; SQL portable | fast | PG later | moyenne | impl I1 |
-| T-05 | ORM | none in pkg | raw SQL / drizzle / prisma | **raw SQL repositories** | explicite | ORM later | haute | — |
-| T-06 | SQL engine prod | future | PG / other | **PG candidate later** | multi-user | dual-run | moyenne | sécu/run |
-| T-07 | JSON Schema | ajv6 present | draft-07 / 2020-12+ajv8 | **Draft-07 + ajv6** | no install | migrate | moyenne | modeled |
-| T-08 | UI state | React 19 | RSC+SA / client stores | **RSC + SA ; local client state minimal** | simple | — | haute | — |
-| T-09 | Event journal | D5 hybrid | ES full / append table | **append audit table** | align doctrine | no replay engine | haute | — |
-| T-10 | Jobs | expirations | sync lazy / queue | **lazy expire + optional cron later** | simple | missed expire delay | haute | I8 |
-| T-11 | Auth | mono-op | stub / IdP | **stub assignments I1** ; IdP later | risk SoD | sécu cycle | moyenne | sécu |
-| T-12 | Observability | none product | console / OTEL | **structured logs + metrics hooks** | enough D1 | OTEL later | haute | I8 |
-| T-13 | Artifacts | review export | MD file / blob store | **MD export + DB sealed JSON** | v2.6 handoff | object store | haute | I7 |
-| T-14 | Tests | vitest+playwright | keep | **keep** | align | — | — | — |
-| T-15 | GPT | openai sdk | keep | **keep openai provider pattern** | cost | model pin | moyenne | I2 |
-
-## Interdits technologiques ce cycle
-
-Installer deps · modifier lockfiles · choisir définitivement PG · introduire broker · MCP universel.
-
-```
-
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/15-d1-implementation-readiness-decision-pack.md`
-
-```markdown
-# 15 — D1 implementation readiness decision pack
+# 18 — D1 UX decision pack
 
 | Champ | Valeur |
 |-------|--------|
-| Statut proposé | **D1 IMPLEMENTATION DESIGN CANDIDATE** |
-| Verdict cible | SFIA v3.0 D1 IMPLEMENTATION DESIGN READY — HUMAN DECISION REQUIRED |
-| Gate suivant | `GO VALIDATION CONCEPTION D1 — IMPLEMENTATION READINESS` |
-| Gate fermé | `GO IMPLEMENTATION D1` (non consommé) |
-
-## Synthèse readiness
-
-| Critère | Statut |
-|---------|--------|
-| Périmètre D1 borné | OK |
-| Composants / responsabilités | OK |
-| API/commandes | OK |
-| Transactions | OK |
-| GPT borné dual-channel | OK |
-| E0–E4 + gates | OK |
-| Écrans contractuels | OK |
-| ReviewBundle + audit | OK |
-| Sécurité/RGPD traités | OK (risques listés) |
-| Observabilité/RUN | OK (SLI sans SLO) |
-| Tests | OK |
-| Backlog I1–I8 | OK |
-| Décisions tech explicites candidates | OK |
-| Aucune implémentation | OK |
-| Hors périmètre intact | OK |
+| Statut | **D1 UX/UI CONTRACT CANDIDATE** |
+| Verdict cible | SFIA v3.0 D1 UX/UI CONTRACT READY — FIGMA VERIFIED — HUMAN DECISION REQUIRED |
+| Gate suivant | GO VALIDATION UX/UI D1 |
+| R03 | **Satisfait** si frames Figma + dimensions + comparaison OK |
 
 ## Décisions humaines requises
+1. Valider contrat UX/UI D1 (gate)
+2. Valider shell fluide vs artboard 1440
+3. Valider ContextualRail vs Copilot
+4. Autoriser GO IMPLEMENTATION D1-I1 **seulement après** ce gate
 
-1. Valider conception (`GO VALIDATION CONCEPTION D1 — IMPLEMENTATION READINESS`)
-2. Approuver modular monolith + Server Actions + SQLite I1
-3. Approuver premier lot **D1-I1 Project foundation**
-4. Trancher tolérance mono-opérateur / SoD pour proto
-5. Autoriser ou non cycle sécurité dédié avant I5 multi-user
-
-## Décisions non prises
-
-GO IMPLEMENTATION · V3-IMPLEMENTED · adoption v3 · PG prod · IdP · ajv8 · D2 design · code/migrations
+## Non prises
+Implémentation CSS/React · D2 UX · SLO chiffrés · multi-op UI
 
 ## Réserves
-
-- DESIGN-R01 : Auth stub insuffisant pour multi-user
-- DESIGN-R02 : SLOs non chiffrés
-- DESIGN-R03 : Figma D1 non produit (cycle UX optionnel)
-- DESIGN-R04 : Event `TRAJECTORY_UPDATED` non dans catalog modeled (audit générique)
-
-## Dette
-
-Schémas GuidedTurn non ajoutés au modeled · dual DB sqlite/PG · extraction Policy package · UX polish I8
+- UX-R01 : mobile frames non détaillées
+- UX-R02 : design system Figma créé from-scratch (peu de composants lib existants Code Connect Studio)
+- UX-R03 : capture runtime = preuve existant, pas cible
 
 ## Anti-claims
-
-Pas code · pas migrations · pas deps · pas V3-IMPLEMENTED · pas adoption · framing/modeled non modifiés · v2.6 intact · pas commit projet
-
-## Verdict
-
-**SFIA v3.0 D1 IMPLEMENTATION DESIGN READY — HUMAN DECISION REQUIRED**
+Pas code · pas I1 · pas IMPLEMENTED · d1-project-framing non modifié
 
 ```
 
-## 6. Diagrammes Mermaid (contenu complet)
+## 7. Diagrammes
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/diagrams/d1-component-diagram.mmd`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-decision-and-gate-flow.mmd`
 
 ```mermaid
 ```mermaid
 flowchart LR
-  Shell[Studio Web Shell]
-  Cockpit[Project Cockpit UI]
-  PS[Project Service]
-  CS[Cycle Service]
-  GSS[Guided Session Service]
-  CCS[Canonical Context Service]
-  DR[Definition Registry]
-  PE[Policy Engine]
-  DGS[Decision and Gate Service]
-  TS[Transition Service]
-  RS[Review Service]
-  AS[Audit Service]
-  PL[Persistence Layer]
-  GA[Git Adapter]
-  GPTA[GPT Adapter]
-  IA[AuthZ Adapter]
-
-  Shell --> Cockpit
-  Cockpit --> PS
-  Cockpit --> CS
-  Cockpit --> GSS
-  Cockpit --> DGS
-  Cockpit --> RS
-  GSS --> CCS
-  GSS --> GPTA
-  GSS --> PE
-  CCS --> DR
-  CCS --> GA
-  PS --> PE
-  CS --> PE
-  DGS --> PE
-  TS --> PE
-  PS --> PL
-  CS --> PL
-  GSS --> PL
-  DGS --> PL
-  TS --> PL
-  RS --> PL
-  AS --> PL
-  PS --> AS
-  CS --> AS
-  GSS --> AS
-  DGS --> AS
-  TS --> AS
-  RS --> AS
-  PS --> IA
-  DGS --> IA
+  E0[E0 info] --> E1[E1 suggest]
+  E1 --> E2[E2 Reserve]
+  E2 --> E3[E3 Gate Modal]
+  E3 --> E4[E4 Hard block]
 ```
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/diagrams/d1-container-diagram.mmd`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-information-architecture.mmd`
 
 ```mermaid
 ```mermaid
 flowchart TB
-  subgraph Browser
-    UI[Studio Web Shell + Project Cockpit]
-  end
-  subgraph StudioMonolith["SFIA Studio Modular Monolith (Next.js)"]
-    SA[Server Actions / Command Facade]
-    Dom[D1 Domain Modules]
-    Pol[Policy Engine]
-    Pers[(Persistence Layer)]
-    Aud[Audit Service]
-  end
-  subgraph Adapters
-    GPT[GPT Adapter]
-    Git[Git Context Adapter]
-    Auth[Identity/AuthZ Adapter]
-  end
-  UI --> SA
-  SA --> Dom
-  Dom --> Pol
-  Dom --> Pers
-  Dom --> Aud
-  Dom --> GPT
-  Dom --> Git
-  Dom --> Auth
-  Pers --> SQL[(SQLite candidate / PG later)]
-  Git --> Repo[(Git workspace read-only)]
-  GPT --> OpenAI[OpenAI API]
+  WS[Workspace] --> PR[Project]
+  PR --> CY[Cycle]
+  CY --> GS[GuidedSession]
+  GS --> CTL[Context / Reserves / Decisions / Review / Audit]
 ```
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/diagrams/d1-data-lifecycle.mmd`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-navigation-flow.mmd`
 
 ```mermaid
 ```mermaid
-stateDiagram-v2
-  [*] --> ProjectDRAFT: CreateProject
-  ProjectDRAFT --> ProjectACTIVE: ModeSelected + activate
-  ProjectACTIVE --> CyclePROPOSED: ProposeCycle
-  CyclePROPOSED --> CycleREADY: Qualify + ContextREADY
-  CycleREADY --> SessionACTIVE: GuidedSession
-  SessionACTIVE --> DecisionOPEN: E3 rule
-  DecisionOPEN --> DecisionDECIDED: HumanDecision
-  DecisionDECIDED --> ReviewDRAFT: BuildBundle
-  ReviewDRAFT --> ReviewSEALED: Seal verified
-  ReviewSEALED --> CycleCOMPLETED: Transition GO
-  CycleCOMPLETED --> [*]: Audit retained
-
-  note right of ReviewSEALED
-    snapshots, human_decisions,
-    audit_events immutable
-  end note
+flowchart LR
+  Home[Workspace Home] --> New[New Project]
+  Home --> Cockpit[Project Cockpit]
+  New --> Cockpit
+  Cockpit --> Mode[Method Mode]
+  Cockpit --> Session[Guided Session]
+  Cockpit --> Dec[Decision Center]
+  Session --> Dec
+  Dec --> Review[Cycle Review]
+  Review --> Audit[Audit Timeline]
 ```
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/diagrams/d1-sequence-decision-transition.mmd`
+### `projects/sfia-studio/sfia-v3-design/d1-ux-ui/diagrams/d1-responsive-layout.mmd`
 
 ```mermaid
 ```mermaid
-sequenceDiagram
-  actor D as Decideur
-  participant UI as Decision Center
-  participant DG as Decision Gate Service
-  participant RS as Review Service
-  participant TS as Transition Service
-  participant CS as Cycle Service
-  participant AU as Audit
-
-  D->>UI: open gate
-  UI->>DG: RecordHumanDecision(GO)
-  DG->>AU: HUMAN_DECISION_RECORDED / GATE_APPROVED
-  UI->>RS: Build + Seal CycleReviewBundle
-  RS->>RS: resolve + verify refs
-  alt unresolved
-    RS-->>UI: block seal
-  else ok
-    RS->>AU: CYCLE_REVIEW_SEALED
-    UI->>TS: DecideTransition(GO)
-    TS->>CS: apply state machine
-    CS->>AU: TRANSITION_APPROVED / CYCLE_COMPLETED
-    CS-->>UI: COMPLETED
-  end
+flowchart TB
+  L[Large 3 zones rail 360-420] --> D[Desktop rail 320-360]
+  D --> M[Medium rail collapsible]
+  M --> T[Tablet drawer]
+  T --> Mob[Mobile sequential]
 ```
 
 ```
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/diagrams/d1-sequence-guided-session.mmd`
+## 8. Réserves / dette / anti-claims
 
-```mermaid
-```mermaid
-sequenceDiagram
-  actor U as User
-  participant UI as Guided Session UI
-  participant GS as Guided Session Service
-  participant CX as Context Service
-  participant PE as Policy Engine
-  participant GPT as GPT Adapter
-  participant AU as Audit
+- UX-R01 mobile frames non détaillées
+- UX-R02 design system Figma from-scratch
+- UX-R03 capture runtime = preuve, pas cible
+- Dette : tokens layout fluides en code (I1) · ContextualRail React · a11y hardening I8
+- Anti-claims : pas code/CSS · pas I1 · pas IMPLEMENTED · framing/modeled/d1-project-framing non modifiés · pas commit projet
 
-  U->>UI: open session
-  UI->>GS: CreateGuidedSession
-  GS->>CX: LoadCanonicalContext
-  alt unavailable/stale
-    CX-->>GS: E4 stop
-    GS->>AU: CONTEXT_STALE/UNAVAILABLE
-    GS-->>UI: blocked
-  else ready
-    CX-->>GS: snapshot sealed
-    GS->>AU: CONTEXT_READY
-    U->>UI: message
-    UI->>GS: StartGuidedConversation
-    GS->>PE: EvaluatePolicy(pre)
-    GS->>GPT: complete(dual channel)
-    GPT-->>GS: prose + proposals
-    GS->>PE: EvaluatePolicy(proposals)
-    GS->>AU: ENFORCEMENT_EVALUATED
-    GS-->>UI: turn + gated proposals
-  end
-```
+## 9. Décisions humaines / non prises
 
-```
+Requises : GO VALIDATION UX/UI D1 ; valider shell fluide ; ContextualRail vs Copilot ; n’ouvrir I1 qu’après ce gate.
+Non prises : implémentation · D2 UX · SLO chiffrés · multi-op UI.
 
-### `projects/sfia-studio/sfia-v3-design/d1-project-framing/diagrams/d1-sequence-project-creation.mmd`
-
-```mermaid
-```mermaid
-sequenceDiagram
-  actor U as User
-  participant UI as Project UI
-  participant SA as CreateProject Handler
-  participant AZ as AuthZ
-  participant PS as Project Service
-  participant DB as Persistence
-  participant AU as Audit
-
-  U->>UI: New Project submit
-  UI->>SA: CreateProject(cmd, idemKey, corrId)
-  SA->>AZ: authorize(workspace)
-  AZ-->>SA: ok
-  SA->>DB: BEGIN
-  SA->>PS: create DRAFT
-  PS->>DB: INSERT project + assignment
-  PS->>AU: PROJECT_CREATED
-  AU->>DB: INSERT audit_event
-  SA->>DB: COMMIT
-  SA-->>UI: projectId
-  UI-->>U: Cockpit
-```
-
-```
-
-## 7. Réserves / dette / anti-claims
-
-- DESIGN-R01 Auth stub multi-user
-- DESIGN-R02 SLOs non chiffrés
-- DESIGN-R03 Figma D1 non produit
-- DESIGN-R04 TRAJECTORY_UPDATED hors catalog modeled
-- Dette : GuidedTurn schemas · dual DB · Policy package · UX I8
-- Anti-claims : pas IMPLEMENTED · pas code · pas migrations · pas deps · framing/modeled/app non modifiés ce cycle · v2.6 intact · pas commit projet
-
-## 8. Décisions humaines / non prises
-
-Requises : GO VALIDATION CONCEPTION D1 ; stack I1 ; lot D1-I1 ; SoD mono-op ; cycle sécu avant multi-user.
-Non prises : GO IMPLEMENTATION · adoption · PG définitif · IdP · ajv8 · D2.
-
-## 9. État Git final
+## 10. État Git final
 
 ```
 HEAD=32e5271842b9a344a7e292614675c27ea8ed941b
 branch=delivery/sfia-studio-control-tower-fast-track
 staged=0
-?? projects/sfia-studio/sfia-v3-design/
 ```
 
-**VERDICT :** SFIA v3.0 D1 IMPLEMENTATION DESIGN READY — HUMAN DECISION REQUIRED
+**VERDICT :** SFIA v3.0 D1 UX/UI CONTRACT READY — FIGMA VERIFIED — HUMAN DECISION REQUIRED
