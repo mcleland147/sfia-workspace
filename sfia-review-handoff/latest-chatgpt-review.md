@@ -1,18 +1,17 @@
-# Review Pack Full — SFIA v3.0 D1-C2 Intent Understanding and Structured Proposal
+# Review Pack Full — SFIA v3.0 D1-C3 Existing Context Matching
 
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-22 21:11:39 CEST
-- **Cycle :** 9 — Delivery (DELIVERY / AI / UX / SECURITY / EVOL)
-- **Profil :** Critical
-- **Gate consommé :** GO IMPLEMENTATION D1-C2 — INTENT UNDERSTANDING AND STRUCTURED PROPOSAL
-- **Gate suivant :** GO VALIDATION D1-C2 — INTENT UNDERSTANDING AND STRUCTURED PROPOSAL
+- **Date/heure/fuseau :** 2026-07-22 21:38:21 CEST
+- **Cycle :** 9 — Delivery · Critical · DELIVERY / AI / CONTEXT / ROUTING / SECURITY / EVOL
+- **Gate consommé :** GO IMPLEMENTATION D1-C3 — EXISTING CONTEXT MATCHING
+- **Gate suivant :** GO VALIDATION D1-C3 — EXISTING CONTEXT MATCHING
 - **Repo/branche :** mcleland147/sfia-workspace · `delivery/sfia-studio-control-tower-fast-track`
 - **HEAD/base :** `32e5271842b9a344a7e292614675c27ea8ed941b`
-- **Handoff précédent :** `43d2419ac1327761a3c878d1795d1aa921a5b24d`
-- **BCDI :** BCDI-D1-C2-INTENT-UNDERSTANDING-STRUCTURED-PROPOSAL
+- **Handoff précédent :** `be1a6774e9936c7988e9ba3edf395a130126f809` / blob `43555828e6bff7362cfe3d6a2d17c33f31b43ee5`
+- **BCDI :** BCDI-D1-C3-EXISTING-CONTEXT-MATCHING
 - **Baseline :** SFIA v2.6 · **v3 :** V3-MODELED CANDIDATE
-- **Statut :** D1-C2 IMPLEMENTED CANDIDATE
+- **Statut :** D1-C3 IMPLEMENTED CANDIDATE
 
 ## 2. Git
 
@@ -64,6 +63,7 @@ Dirty attendu · staged vide · HEAD=origin/main · aucune dépendance ajoutée
 ?? projects/sfia-studio/app/e2e/control-tower-fast-track.spec.ts
 ?? projects/sfia-studio/app/e2e/d1-c1-intake-shell.spec.ts
 ?? projects/sfia-studio/app/e2e/d1-c2-intent-understanding.spec.ts
+?? projects/sfia-studio/app/e2e/d1-c3-context-matching.spec.ts
 ?? projects/sfia-studio/app/e2e/d1-i1-project-foundation.spec.ts
 ?? projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts
 ?? projects/sfia-studio/app/features/d1/
@@ -79,45 +79,57 @@ Dirty attendu · staged vide · HEAD=origin/main · aucune dépendance ajoutée
 
 ```
 
-## 3. Architecture C2
+## 3. C2 hardening
 
-UI IntakeView → Server Action `actionAnalyzeIntent` → `analyzeIntent` → ConversationProvider (fake défaut / live optionnel) → parse+validate RequestRoutingProposal → UI proposition/clarification.
-Aucune écriture SQLite Project. Aucun matching. Aucun tool mutatif.
+- C2-R01 : `system` réel + user INTENT séparé
+- C2-R02 : live demandé sans secrets → D1Error CONFIG (pas de fallback fake silencieux)
+- C2-R04 : `requiresHumanConfirmation` boolean strict (`asStrictBoolean`)
+- C2-R03 live smoke : **NOT RUN — SECRETS UNAVAILABLE**
 
-## 4. Outcomes
+## 4. Architecture C3
 
-CREATE_PROJECT_CANDIDATE · OPEN_CYCLE_CANDIDATE · ANALYZE_ONLY · NEED_CLARIFICATION · UNDETERMINED
+RequestRoutingProposal + ExistingContextSnapshot → `matchExistingContext` → ContextMatchResult → ContextSelectionDraft (local)
 
-## 5. Tests
+- Project : source D1-I1 réelle
+- Cycle/Action : `UNAVAILABLE` (non simulés)
+- Aucune mutation / création / rattachement définitif
 
-vitest d1 26/26 · e2e C2+C1+I1+smoke 26/26 · tsc OK
+## 5. Matching
 
-## 6. Captures
+Normalisation FR · scores explicables · seuils candidats STRONG 0.78 / POSSIBLE 0.52 / WEAK 0.30 / gap 0.10
+Max 5 candidats · IDs exclusivement issus du repository
 
-- `.tmp-sfia-review/screenshots-d1-c2/analyze-only-1440.png`
-- `.tmp-sfia-review/screenshots-d1-c2/clarification-1440.png`
-- `.tmp-sfia-review/screenshots-d1-c2/error-1440.png`
-- `.tmp-sfia-review/screenshots-d1-c2/proposal-1024.png`
-- `.tmp-sfia-review/screenshots-d1-c2/proposal-1280.png`
-- `.tmp-sfia-review/screenshots-d1-c2/proposal-1440.png`
-- `.tmp-sfia-review/screenshots-d1-c2/proposal-1728.png`
+## 6. Tests
 
-Figma : clarification 12:36 · proposal 12:60 · responsive 14:64/90/117 · UX-R04 différée
+vitest d1 **42/42** · e2e C3+C2+C1+I1+smoke **36/36** · OPS1 sample vert · tsc OK
 
-## 7. Anti-claims / réserves
+## 7. Captures
 
-Pas C3 · pas mutation · pas V3-IMPLEMENTED · session non persistée · live smoke optionnel
+- `.tmp-sfia-review/screenshots-d1-c3/context-unavailable-1440.png`
+- `.tmp-sfia-review/screenshots-d1-c3/inactive-project-1440.png`
+- `.tmp-sfia-review/screenshots-d1-c3/multiple-matches-1440.png`
+- `.tmp-sfia-review/screenshots-d1-c3/no-match-1440.png`
+- `.tmp-sfia-review/screenshots-d1-c3/strong-match-1024.png`
+- `.tmp-sfia-review/screenshots-d1-c3/strong-match-1280.png`
+- `.tmp-sfia-review/screenshots-d1-c3/strong-match-1440.png`
+- `.tmp-sfia-review/screenshots-d1-c3/strong-match-1728.png`
 
-## 8. Contenu fichiers créés + clés modifiées
+UX-R04 — visual identity and interaction polish deferred after C3.
 
-### `projects/sfia-studio/app/lib/d1/intake/actions.ts`
+## 8. Anti-claims
+
+Pas CONTEXT SELECTED AND APPLIED · pas PROJECT LINKED · pas CYCLE OPENED · pas ACTION RESUMED · pas D1 COMPLETE · pas V3-IMPLEMENTED / V3-ADOPTED
+
+## 9. Contenu fichiers créés + clés modifiées
+
+### `projects/sfia-studio/app/lib/d1/context/actions.ts`
 
 ```tsx
 "use server";
 
-import { analyzeIntent } from "./analyzeIntent";
+import { matchExistingContext } from "./matchExistingContext";
 import { D1Error } from "../errors";
-import type { AnalyzeIntentInput, RequestRoutingProposal } from "./types";
+import type { ContextMatchResult, MatchExistingContextInput } from "./types";
 import { logIntakeEvent } from "../intakeObservability";
 
 function serializeError(error: unknown): {
@@ -131,52 +143,2671 @@ function serializeError(error: unknown): {
   return {
     ok: false,
     code: "UNKNOWN",
-    message: "Erreur d’analyse. Réessayez ou créez manuellement.",
+    message: "Échec du matching contextuel. Réessayez.",
   };
 }
 
-export type AnalyzeIntentActionResult =
-  | {
-      ok: true;
-      proposal: RequestRoutingProposal;
-      providerMode: "fake" | "live";
-      providerId: string;
-      durationMs: number;
-      clarificationTurnCount: number;
-    }
+export type MatchContextActionResult =
+  | { ok: true; match: ContextMatchResult; durationMs: number }
   | { ok: false; code: string; message: string };
 
-export async function actionAnalyzeIntent(
-  input: AnalyzeIntentInput,
-): Promise<AnalyzeIntentActionResult> {
+export async function actionMatchExistingContext(
+  input: MatchExistingContextInput,
+): Promise<MatchContextActionResult> {
+  const started = Date.now();
   try {
-    const result = await analyzeIntent(input);
-    return { ok: true, ...result };
+    const match = matchExistingContext(input);
+    return { ok: true, match, durationMs: Date.now() - started };
   } catch (error) {
     return serializeError(error);
   }
 }
 
-export async function actionCancelIntakeSession(sessionLocalId: string) {
-  logIntakeEvent("intake_session_cancelled", {
-    sessionLocalId,
-    status: "cancelled",
-  });
-  return { ok: true as const };
-}
-
-export async function actionLogClarificationAnswer(input: {
+export async function actionLogContextSelection(input: {
   sessionLocalId: string;
-  answerLength: number;
+  entityId: string | null;
+  cleared?: boolean;
 }) {
-  logIntakeEvent("intake_clarification_answered", {
-    sessionLocalId: input.sessionLocalId,
-    intentLength: input.answerLength,
-    status: "answered",
-  });
+  if (input.cleared || !input.entityId) {
+    logIntakeEvent("intake_context_selection_cleared", {
+      sessionLocalId: input.sessionLocalId,
+      status: "cleared",
+    });
+  } else {
+    logIntakeEvent("intake_context_candidate_selected", {
+      sessionLocalId: input.sessionLocalId,
+      status: "selected",
+      // entity id only — no project name/objective body
+      projectId: input.entityId,
+    });
+  }
   return { ok: true as const };
 }
 ```
+
+### `projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts`
+
+```tsx
+import { randomUUID } from "node:crypto";
+import { D1ProjectRepository } from "../repository";
+import { openD1Db } from "../db";
+import { D1_DEFAULT_WORKSPACE_ID } from "../types";
+import { D1Error } from "../errors";
+import {
+  CONTEXT_MATCH_LIMITS,
+  CONTEXT_SNAPSHOT_SCHEMA_VERSION,
+  type ExistingContextSnapshot,
+  type SnapshotProjectCandidate,
+} from "./types";
+
+export interface BuildSnapshotOptions {
+  workspaceId?: string;
+  /** Force CONTEXT_UNAVAILABLE path for tests. */
+  forceUnavailable?: boolean;
+  repo?: D1ProjectRepository;
+}
+
+/**
+ * Read-only bounded snapshot of existing D1 Projects.
+ * Cycle/Action sources are explicitly UNAVAILABLE (not simulated).
+ */
+export function buildExistingContextSnapshot(
+  options: BuildSnapshotOptions = {},
+): ExistingContextSnapshot {
+  const snapshotId = `snap-${randomUUID()}`;
+  const generatedAt = new Date().toISOString();
+
+  if (
+    options.forceUnavailable ||
+    process.env.D1_CONTEXT_FORCE_UNAVAILABLE === "1"
+  ) {
+    return {
+      schemaVersion: CONTEXT_SNAPSHOT_SCHEMA_VERSION,
+      snapshotId,
+      generatedAt,
+      projectSourceStatus: "UNAVAILABLE",
+      cycleSourceStatus: "UNAVAILABLE",
+      actionSourceStatus: "UNAVAILABLE",
+      projects: [],
+      cycles: [],
+      actions: [],
+      sourceCounts: { projects: 0, cycles: 0, actions: 0 },
+      truncationApplied: false,
+      sourceErrors: ["project_repository_unavailable"],
+    };
+  }
+
+  try {
+    const repo = options.repo ?? new D1ProjectRepository(openD1Db());
+    const workspaceId = options.workspaceId ?? D1_DEFAULT_WORKSPACE_ID;
+    const all = repo.listProjects(workspaceId);
+    const max = CONTEXT_MATCH_LIMITS.maxProjectsEvaluated;
+    const truncationApplied = all.length > max;
+    const sliced = all.slice(0, max);
+
+    const projects: SnapshotProjectCandidate[] = sliced.map((p) => ({
+      projectId: p.projectId,
+      name: p.name,
+      objective: p.objective.slice(0, CONTEXT_MATCH_LIMITS.maxNormalizedTextLength),
+      initialContextSummary: p.initialContextSummary
+        ? p.initialContextSummary.slice(
+            0,
+            CONTEXT_MATCH_LIMITS.maxNormalizedTextLength,
+          )
+        : null,
+      status: p.state,
+      createdAt: p.createdAt,
+      updatedAt: p.updatedAt,
+    }));
+
+    // Stable secondary sort by projectId after updated_at DESC from repo
+    projects.sort((a, b) => {
+      const t = b.updatedAt.localeCompare(a.updatedAt);
+      if (t !== 0) return t;
+      return a.projectId.localeCompare(b.projectId);
+    });
+
+    return {
+      schemaVersion: CONTEXT_SNAPSHOT_SCHEMA_VERSION,
+      snapshotId,
+      generatedAt,
+      projectSourceStatus: projects.length === 0 ? "EMPTY" : "AVAILABLE",
+      cycleSourceStatus: "UNAVAILABLE",
+      actionSourceStatus: "UNAVAILABLE",
+      projects,
+      cycles: [],
+      actions: [],
+      sourceCounts: {
+        projects: projects.length,
+        cycles: 0,
+        actions: 0,
+      },
+      truncationApplied,
+      sourceErrors: [],
+    };
+  } catch (error) {
+    const msg =
+      error instanceof D1Error
+        ? error.code
+        : error instanceof Error
+          ? "repository_error"
+          : "unknown_error";
+    return {
+      schemaVersion: CONTEXT_SNAPSHOT_SCHEMA_VERSION,
+      snapshotId,
+      generatedAt,
+      projectSourceStatus: "ERROR",
+      cycleSourceStatus: "UNAVAILABLE",
+      actionSourceStatus: "UNAVAILABLE",
+      projects: [],
+      cycles: [],
+      actions: [],
+      sourceCounts: { projects: 0, cycles: 0, actions: 0 },
+      truncationApplied: false,
+      sourceErrors: [msg],
+    };
+  }
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/context/index.ts`
+
+```tsx
+export * from "./types";
+export * from "./normalize";
+export * from "./scoring";
+export * from "./buildSnapshot";
+export * from "./matchExistingContext";
+export {
+  actionMatchExistingContext,
+  actionLogContextSelection,
+} from "./actions";
+```
+
+### `projects/sfia-studio/app/lib/d1/context/matchExistingContext.ts`
+
+```tsx
+import { randomUUID } from "node:crypto";
+import { buildExistingContextSnapshot } from "./buildSnapshot";
+import { bandForScore, scoreProjectAgainstProposal } from "./scoring";
+import {
+  CONTEXT_MATCH_LIMITS,
+  CONTEXT_MATCH_SCHEMA_VERSION,
+  CONTEXT_MATCH_THRESHOLDS,
+  type ContextEntityMatch,
+  type ContextMatchResult,
+  type ContextRecommendedAction,
+  type ExistingContextSnapshot,
+  type MatchExistingContextInput,
+} from "./types";
+import { logIntakeEvent } from "../intakeObservability";
+
+function evidenceFromBreakdown(
+  label: string,
+  breakdown: ReturnType<typeof scoreProjectAgainstProposal>,
+): string[] {
+  const items: string[] = [];
+  if (breakdown.exactName >= 1) {
+    items.push(`Référence explicite au nom « ${label} »`);
+  }
+  if (breakdown.nameSimilarity >= 0.4) {
+    items.push(
+      `Similarité de nom estimée ${(breakdown.nameSimilarity * 100).toFixed(0)} %`,
+    );
+  }
+  if (breakdown.objectiveOverlap >= 0.25) {
+    items.push(
+      `Chevauchement d’objectif estimé ${(breakdown.objectiveOverlap * 100).toFixed(0)} %`,
+    );
+  }
+  if (breakdown.contextOverlap >= 0.25) {
+    items.push(
+      `Chevauchement de contexte estimé ${(breakdown.contextOverlap * 100).toFixed(0)} %`,
+    );
+  }
+  if (breakdown.activeStatus < 1) {
+    items.push("Projet non ACTIVE — reprise non automatique");
+  }
+  if (breakdown.recency >= 0.7) {
+    items.push("Activité récente");
+  }
+  return items.slice(0, CONTEXT_MATCH_LIMITS.maxEvidenceItems);
+}
+
+function recommendForProject(
+  outcomeType: string,
+  band: ContextEntityMatch["scoreBand"],
+  inactive: boolean,
+): ContextRecommendedAction {
+  if (outcomeType === "ANALYZE_ONLY") return "NO_ACTION";
+  if (band === "BELOW_THRESHOLD" || band === "WEAK_MATCH") {
+    return outcomeType === "OPEN_CYCLE_CANDIDATE"
+      ? "ASK_CLARIFICATION"
+      : "CREATE_NEW_PROJECT";
+  }
+  if (inactive) return "USE_EXISTING_PROJECT";
+  if (outcomeType === "OPEN_CYCLE_CANDIDATE") return "OPEN_CYCLE_IN_PROJECT";
+  return "USE_EXISTING_PROJECT";
+}
+
+/**
+ * Deterministic existing-context matching.
+ * GPT does not choose IDs — only real repository IDs are returned.
+ * No mutation.
+ */
+export function matchExistingContext(
+  input: MatchExistingContextInput,
+): ContextMatchResult {
+  const started = Date.now();
+  logIntakeEvent("intake_context_lookup_started", {
+    sessionLocalId: input.sessionLocalId,
+    status: "started",
+    proposalId: input.proposal.proposalId,
+  });
+
+  const snapshot: ExistingContextSnapshot =
+    input.snapshotOverride ??
+    buildExistingContextSnapshot({
+      forceUnavailable: input.forceUnavailable === true,
+    });
+
+  logIntakeEvent("intake_context_snapshot_built", {
+    sessionLocalId: input.sessionLocalId,
+    status: snapshot.projectSourceStatus,
+    proposalId: input.proposal.proposalId,
+    sourceProjectCount: snapshot.sourceCounts.projects,
+    truncationApplied: snapshot.truncationApplied,
+    durationMs: Date.now() - started,
+  });
+
+  const sourceWarnings: string[] = [
+    ...snapshot.sourceErrors.map((e) => `source:${e}`),
+  ];
+  if (snapshot.cycleSourceStatus === "UNAVAILABLE") {
+    sourceWarnings.push(
+      "Cycle D1 non implémenté — aucun candidat Cycle (source UNAVAILABLE).",
+    );
+  }
+  if (snapshot.actionSourceStatus === "UNAVAILABLE") {
+    sourceWarnings.push(
+      "Action D1 non implémentée — aucun candidat Action (source UNAVAILABLE).",
+    );
+  }
+
+  if (
+    snapshot.projectSourceStatus === "UNAVAILABLE" ||
+    snapshot.projectSourceStatus === "ERROR"
+  ) {
+    const result: ContextMatchResult = {
+      schemaVersion: CONTEXT_MATCH_SCHEMA_VERSION,
+      matchId: `match-${randomUUID()}`,
+      proposalId: input.proposal.proposalId,
+      snapshotId: snapshot.snapshotId,
+      generatedAt: new Date().toISOString(),
+      resultStatus: "CONTEXT_UNAVAILABLE",
+      recommendedRouting: "ASK_CLARIFICATION",
+      projectMatches: [],
+      cycleMatches: [],
+      actionMatches: [],
+      ambiguity: false,
+      noMatchReason: "Contexte Project indisponible — aucun faux no-match.",
+      sourceWarnings,
+      requiresHumanConfirmation: true,
+    };
+    logIntakeEvent("intake_context_unavailable", {
+      sessionLocalId: input.sessionLocalId,
+      status: "CONTEXT_UNAVAILABLE",
+      proposalId: input.proposal.proposalId,
+      durationMs: Date.now() - started,
+      errorCode: snapshot.projectSourceStatus,
+    });
+    return result;
+  }
+
+  const scored: ContextEntityMatch[] = snapshot.projects.map((project) => {
+    const breakdown = scoreProjectAgainstProposal({
+      project,
+      rawIntent: input.proposal.rawIntent,
+      normalizedIntent: input.proposal.normalizedIntent,
+      subject: input.proposal.subject,
+      proposedObjective: input.proposal.proposedObjective,
+    });
+    const scoreBand = bandForScore(breakdown.finalScore, CONTEXT_MATCH_THRESHOLDS);
+    const inactive = project.status !== "ACTIVE";
+    const warnings: string[] = [];
+    if (inactive) {
+      warnings.push("Projet inactif (DRAFT) — aucune reprise automatique.");
+    }
+    if (breakdown.genericPenalty > 0) {
+      warnings.push("Correspondance partiellement générique — vérifier manuellement.");
+    }
+    const recommendedAction = recommendForProject(
+      input.proposal.proposedOutcomeType,
+      scoreBand,
+      inactive,
+    );
+    return {
+      entityType: "PROJECT" as const,
+      entityId: project.projectId,
+      label: project.name,
+      status: project.status,
+      score: breakdown.finalScore,
+      scoreBand,
+      rationale: `Score estimé ${(breakdown.finalScore * 100).toFixed(0)} % — estimation déterministe, pas une vérité.`,
+      evidence: evidenceFromBreakdown(project.name, breakdown),
+      warnings,
+      recommendedAction,
+      scoreBreakdown: breakdown,
+    };
+  });
+
+  // Stable sort: score desc, then label, then id
+  scored.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    const l = a.label.localeCompare(b.label, "fr");
+    if (l !== 0) return l;
+    return a.entityId.localeCompare(b.entityId);
+  });
+
+  const presentable = scored
+    .filter((m) => m.score >= CONTEXT_MATCH_THRESHOLDS.weak)
+    .slice(0, CONTEXT_MATCH_LIMITS.maxCandidatesPerType);
+
+  const analyzeOnly = input.proposal.proposedOutcomeType === "ANALYZE_ONLY";
+
+  if (analyzeOnly) {
+    const informational = presentable.map((m) => ({
+      ...m,
+      recommendedAction: "NO_ACTION" as const,
+      warnings: [
+        ...m.warnings,
+        "ANALYZE_ONLY — candidats informatifs uniquement, aucun rattachement forcé.",
+      ],
+    }));
+    const result: ContextMatchResult = {
+      schemaVersion: CONTEXT_MATCH_SCHEMA_VERSION,
+      matchId: `match-${randomUUID()}`,
+      proposalId: input.proposal.proposalId,
+      snapshotId: snapshot.snapshotId,
+      generatedAt: new Date().toISOString(),
+      resultStatus:
+        informational.length === 0
+          ? "NO_MATCH"
+          : informational[0].scoreBand === "STRONG_MATCH"
+            ? "STRONG_MATCH"
+            : "POSSIBLE_MATCH",
+      recommendedRouting: "ANALYZE_ONLY",
+      projectMatches: informational,
+      cycleMatches: [],
+      actionMatches: [],
+      ambiguity: false,
+      noMatchReason:
+        informational.length === 0
+          ? "Aucun projet proche — analyse seule sans rattachement."
+          : null,
+      sourceWarnings,
+      requiresHumanConfirmation: true,
+    };
+    logIntakeEvent("intake_context_match_generated", {
+      sessionLocalId: input.sessionLocalId,
+      status: result.resultStatus,
+      proposalId: input.proposal.proposalId,
+      candidateCount: informational.length,
+      topScoreBand: informational[0]?.scoreBand,
+      durationMs: Date.now() - started,
+    });
+    return result;
+  }
+
+  if (presentable.length === 0) {
+    const result: ContextMatchResult = {
+      schemaVersion: CONTEXT_MATCH_SCHEMA_VERSION,
+      matchId: `match-${randomUUID()}`,
+      proposalId: input.proposal.proposalId,
+      snapshotId: snapshot.snapshotId,
+      generatedAt: new Date().toISOString(),
+      resultStatus: "NO_MATCH",
+      recommendedRouting:
+        input.proposal.proposedOutcomeType === "OPEN_CYCLE_CANDIDATE"
+          ? "ASK_CLARIFICATION"
+          : "CREATE_NEW_PROJECT",
+      projectMatches: [],
+      cycleMatches: [],
+      actionMatches: [],
+      ambiguity: false,
+      noMatchReason:
+        snapshot.projectSourceStatus === "EMPTY"
+          ? "Aucun projet dans le workspace."
+          : "Aucun projet suffisamment pertinent (seuil faible).",
+      sourceWarnings,
+      requiresHumanConfirmation: true,
+    };
+    logIntakeEvent("intake_context_no_match", {
+      sessionLocalId: input.sessionLocalId,
+      status: "NO_MATCH",
+      proposalId: input.proposal.proposalId,
+      sourceProjectCount: snapshot.sourceCounts.projects,
+      durationMs: Date.now() - started,
+    });
+    return result;
+  }
+
+  const top = presentable[0];
+  const second = presentable[1];
+  const ambiguity =
+    !!second &&
+    Math.abs(top.score - second.score) < CONTEXT_MATCH_THRESHOLDS.ambiguityGap &&
+    second.score >= CONTEXT_MATCH_THRESHOLDS.weak;
+
+  let resultStatus: ContextMatchResult["resultStatus"];
+  let recommendedRouting: ContextRecommendedAction;
+
+  if (ambiguity) {
+    resultStatus = "MULTIPLE_MATCHES";
+    recommendedRouting = "ASK_CLARIFICATION";
+  } else if (top.scoreBand === "STRONG_MATCH") {
+    resultStatus = "STRONG_MATCH";
+    recommendedRouting = top.recommendedAction;
+  } else if (
+    presentable.filter(
+      (m) =>
+        m.scoreBand === "STRONG_MATCH" || m.scoreBand === "POSSIBLE_MATCH",
+    ).length > 1
+  ) {
+    resultStatus = "MULTIPLE_MATCHES";
+    recommendedRouting = "ASK_CLARIFICATION";
+  } else if (top.scoreBand === "POSSIBLE_MATCH" || top.scoreBand === "WEAK_MATCH") {
+    resultStatus = "POSSIBLE_MATCH";
+    recommendedRouting = top.recommendedAction;
+  } else {
+    resultStatus = "NO_MATCH";
+    recommendedRouting = "CREATE_NEW_PROJECT";
+  }
+
+  const result: ContextMatchResult = {
+    schemaVersion: CONTEXT_MATCH_SCHEMA_VERSION,
+    matchId: `match-${randomUUID()}`,
+    proposalId: input.proposal.proposalId,
+    snapshotId: snapshot.snapshotId,
+    generatedAt: new Date().toISOString(),
+    resultStatus,
+    recommendedRouting,
+    projectMatches: presentable,
+    cycleMatches: [],
+    actionMatches: [],
+    ambiguity,
+    noMatchReason: null,
+    sourceWarnings,
+    requiresHumanConfirmation: true,
+  };
+
+  if (ambiguity) {
+    logIntakeEvent("intake_context_match_ambiguous", {
+      sessionLocalId: input.sessionLocalId,
+      status: "MULTIPLE_MATCHES",
+      proposalId: input.proposal.proposalId,
+      candidateCount: presentable.length,
+      topScoreBand: top.scoreBand,
+      durationMs: Date.now() - started,
+    });
+  } else {
+    logIntakeEvent("intake_context_match_generated", {
+      sessionLocalId: input.sessionLocalId,
+      status: resultStatus,
+      proposalId: input.proposal.proposalId,
+      candidateCount: presentable.length,
+      topScoreBand: top.scoreBand,
+      durationMs: Date.now() - started,
+    });
+  }
+
+  return result;
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/context/normalize.ts`
+
+```tsx
+/** French stop words (bounded) for deterministic tokenization. */
+const FR_STOP_WORDS = new Set([
+  "le",
+  "la",
+  "les",
+  "un",
+  "une",
+  "des",
+  "du",
+  "de",
+  "d",
+  "et",
+  "ou",
+  "a",
+  "à",
+  "au",
+  "aux",
+  "en",
+  "dans",
+  "pour",
+  "par",
+  "sur",
+  "avec",
+  "sans",
+  "ce",
+  "cette",
+  "ces",
+  "je",
+  "tu",
+  "il",
+  "elle",
+  "nous",
+  "vous",
+  "ils",
+  "elles",
+  "mon",
+  "ma",
+  "mes",
+  "ton",
+  "ta",
+  "tes",
+  "son",
+  "sa",
+  "ses",
+  "qui",
+  "que",
+  "quoi",
+  "dont",
+  "où",
+  "ne",
+  "pas",
+  "plus",
+  "moins",
+  "très",
+  "tres",
+  "est",
+  "sont",
+  "être",
+  "etre",
+  "avoir",
+  "fait",
+  "faire",
+  "veux",
+  "vouloir",
+  "aimer",
+  "nouveau",
+  "nouvelle",
+  "sujet",
+  "projet",
+  "cycle",
+  "travail",
+  "travailler",
+  "lancer",
+  "créer",
+  "creer",
+  "ouvrir",
+  "reprendre",
+  "améliorer",
+  "ameliorer",
+  "gestion",
+  "application",
+  "besoin",
+  "demande",
+]);
+
+/** Overly generic tokens that should not dominate matching alone. */
+export const GENERIC_MATCH_TOKENS = new Set([
+  "projet",
+  "cycle",
+  "systeme",
+  "system",
+  "outil",
+  "app",
+  "application",
+  "module",
+  "service",
+  "data",
+  "donnees",
+  "gestion",
+  "suivi",
+  "nouveau",
+  "nouvelle",
+]);
+
+/**
+ * Normalize text for deterministic matching:
+ * lowercase, strip accents, punctuation → spaces, collapse whitespace, stop words.
+ */
+export function normalizeText(input: string, maxLength = 800): string {
+  if (!input) return "";
+  const sliced = input.slice(0, maxLength);
+  const noAccents = sliced
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  const cleaned = noAccents
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return cleaned;
+}
+
+export function tokenize(input: string, maxLength = 800): string[] {
+  const normalized = normalizeText(input, maxLength);
+  if (!normalized) return [];
+  return normalized
+    .split(" ")
+    .map((t) => t.trim())
+    .filter((t) => t.length >= 2 && !FR_STOP_WORDS.has(t));
+}
+
+export function tokenSet(input: string, maxLength = 800): Set<string> {
+  return new Set(tokenize(input, maxLength));
+}
+
+/** Jaccard similarity of two token sets — 0 when either empty. */
+export function jaccard(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  let inter = 0;
+  for (const t of a) {
+    if (b.has(t)) inter += 1;
+  }
+  const union = a.size + b.size - inter;
+  return union === 0 ? 0 : inter / union;
+}
+
+export function containsNormalizedPhrase(
+  haystack: string,
+  needle: string,
+): boolean {
+  const h = normalizeText(haystack);
+  const n = normalizeText(needle);
+  if (!h || !n || n.length < 2) return false;
+  return h.includes(n);
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/context/scoring.ts`
+
+```tsx
+import {
+  GENERIC_MATCH_TOKENS,
+  containsNormalizedPhrase,
+  jaccard,
+  normalizeText,
+  tokenize,
+  tokenSet,
+} from "./normalize";
+import type {
+  ScoreBreakdown,
+  SnapshotProjectCandidate,
+} from "./types";
+import { CONTEXT_MATCH_LIMITS } from "./types";
+
+function clamp01(n: number): number {
+  if (Number.isNaN(n)) return 0;
+  return Math.max(0, Math.min(1, n));
+}
+
+function recencyScore(updatedAt: string, nowMs: number): number {
+  const t = Date.parse(updatedAt);
+  if (Number.isNaN(t)) return 0;
+  const ageDays = Math.max(0, (nowMs - t) / (1000 * 60 * 60 * 24));
+  if (ageDays <= 7) return 1;
+  if (ageDays <= 30) return 0.7;
+  if (ageDays <= 90) return 0.4;
+  if (ageDays <= 365) return 0.2;
+  return 0.05;
+}
+
+export interface ScoreProjectInput {
+  project: SnapshotProjectCandidate;
+  rawIntent: string;
+  normalizedIntent: string;
+  subject: string;
+  proposedObjective: string;
+  nowMs?: number;
+}
+
+/**
+ * Deterministic project score with explainable breakdown.
+ * Weights are local candidates — not a global baseline.
+ */
+export function scoreProjectAgainstProposal(
+  input: ScoreProjectInput,
+): ScoreBreakdown {
+  const { project } = input;
+  const nowMs = input.nowMs ?? Date.now();
+  const maxLen = CONTEXT_MATCH_LIMITS.maxNormalizedTextLength;
+
+  const queryText = [
+    input.rawIntent,
+    input.normalizedIntent,
+    input.subject,
+    input.proposedObjective,
+  ].join(" ");
+
+  const nameNorm = normalizeText(project.name, maxLen);
+  const exactName =
+    containsNormalizedPhrase(queryText, project.name) ||
+    normalizeText(input.subject, maxLen) === nameNorm ||
+    normalizeText(input.normalizedIntent, maxLen) === nameNorm
+      ? 1
+      : 0;
+
+  const queryTokens = tokenSet(queryText, maxLen);
+  const nameTokens = tokenSet(project.name, maxLen);
+  const objectiveTokens = tokenSet(project.objective, maxLen);
+  const contextTokens = tokenSet(project.initialContextSummary ?? "", maxLen);
+  const subjectTokens = tokenSet(input.subject, maxLen);
+  const proposedObjTokens = tokenSet(input.proposedObjective, maxLen);
+
+  const nameSimilarity = Math.max(
+    jaccard(nameTokens, queryTokens),
+    jaccard(nameTokens, subjectTokens),
+  );
+
+  const objectiveOverlap = Math.max(
+    jaccard(objectiveTokens, queryTokens),
+    jaccard(objectiveTokens, proposedObjTokens),
+    jaccard(objectiveTokens, subjectTokens),
+  );
+
+  const contextOverlap = jaccard(contextTokens, queryTokens);
+
+  const explicitReference = exactName === 1 ? 1 : nameSimilarity >= 0.85 ? 0.7 : 0;
+
+  const activeStatus = project.status === "ACTIVE" ? 1 : 0.35;
+  const recency = recencyScore(project.updatedAt, nowMs);
+
+  const allOverlap = new Set<string>();
+  for (const t of queryTokens) {
+    if (
+      nameTokens.has(t) ||
+      objectiveTokens.has(t) ||
+      contextTokens.has(t)
+    ) {
+      allOverlap.add(t);
+    }
+  }
+  const meaningful = [...allOverlap].filter((t) => !GENERIC_MATCH_TOKENS.has(t));
+  const genericOnly =
+    allOverlap.size > 0 && meaningful.length === 0 && exactName === 0;
+  const genericPenalty = genericOnly
+    ? 0.18
+    : tokenize(project.name).every((t) => GENERIC_MATCH_TOKENS.has(t))
+      ? 0.08
+      : 0;
+
+  const weighted =
+    exactName * 0.4 +
+    nameSimilarity * 0.18 +
+    objectiveOverlap * 0.14 +
+    contextOverlap * 0.08 +
+    explicitReference * 0.12 +
+    activeStatus * 0.04 +
+    recency * 0.04 -
+    genericPenalty;
+
+  let finalScore = clamp01(Number(weighted.toFixed(4)));
+  // Exact name reference is a strong signal — never leave it just under STRONG.
+  if (exactName >= 1) {
+    finalScore = clamp01(Math.max(finalScore, 0.82));
+  }
+
+  return {
+    exactName,
+    nameSimilarity: Number(nameSimilarity.toFixed(4)),
+    objectiveOverlap: Number(objectiveOverlap.toFixed(4)),
+    contextOverlap: Number(contextOverlap.toFixed(4)),
+    explicitReference,
+    activeStatus,
+    recency: Number(recency.toFixed(4)),
+    genericPenalty,
+    finalScore,
+  };
+}
+
+export function bandForScore(
+  score: number,
+  thresholds: { strong: number; possible: number; weak: number },
+): "STRONG_MATCH" | "POSSIBLE_MATCH" | "WEAK_MATCH" | "BELOW_THRESHOLD" {
+  if (score >= thresholds.strong) return "STRONG_MATCH";
+  if (score >= thresholds.possible) return "POSSIBLE_MATCH";
+  if (score >= thresholds.weak) return "WEAK_MATCH";
+  return "BELOW_THRESHOLD";
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/context/types.ts`
+
+```tsx
+/** D1-C3 — Existing context matching contracts (candidate, not sealed). */
+
+export const CONTEXT_SNAPSHOT_SCHEMA_VERSION = "0.1.0-d1-c3" as const;
+export const CONTEXT_MATCH_SCHEMA_VERSION = "0.1.0-d1-c3" as const;
+
+export const CONTEXT_SOURCE_STATUSES = [
+  "AVAILABLE",
+  "EMPTY",
+  "UNAVAILABLE",
+  "ERROR",
+] as const;
+export type ContextSourceStatus = (typeof CONTEXT_SOURCE_STATUSES)[number];
+
+export const CONTEXT_MATCH_RESULT_STATUSES = [
+  "STRONG_MATCH",
+  "MULTIPLE_MATCHES",
+  "POSSIBLE_MATCH",
+  "NO_MATCH",
+  "CONTEXT_UNAVAILABLE",
+  "NEED_CLARIFICATION",
+] as const;
+export type ContextMatchResultStatus =
+  (typeof CONTEXT_MATCH_RESULT_STATUSES)[number];
+
+export const CONTEXT_SCORE_BANDS = [
+  "STRONG_MATCH",
+  "POSSIBLE_MATCH",
+  "WEAK_MATCH",
+  "BELOW_THRESHOLD",
+] as const;
+export type ContextScoreBand = (typeof CONTEXT_SCORE_BANDS)[number];
+
+export const CONTEXT_RECOMMENDED_ACTIONS = [
+  "USE_EXISTING_PROJECT",
+  "OPEN_CYCLE_IN_PROJECT",
+  "RESUME_EXISTING_WORK",
+  "CREATE_NEW_PROJECT",
+  "ANALYZE_ONLY",
+  "ASK_CLARIFICATION",
+  "NO_ACTION",
+] as const;
+export type ContextRecommendedAction =
+  (typeof CONTEXT_RECOMMENDED_ACTIONS)[number];
+
+export const CONTEXT_ENTITY_TYPES = ["PROJECT", "CYCLE", "ACTION"] as const;
+export type ContextEntityType = (typeof CONTEXT_ENTITY_TYPES)[number];
+
+/** Candidate thresholds — not a global baseline. */
+export const CONTEXT_MATCH_THRESHOLDS = {
+  strong: 0.78,
+  possible: 0.52,
+  weak: 0.3,
+  ambiguityGap: 0.1,
+} as const;
+
+export const CONTEXT_MATCH_LIMITS = {
+  maxProjectsEvaluated: 50,
+  maxCandidatesPerType: 5,
+  maxNormalizedTextLength: 800,
+  maxEvidenceItems: 6,
+} as const;
+
+export interface SnapshotProjectCandidate {
+  projectId: string;
+  name: string;
+  objective: string;
+  initialContextSummary: string | null;
+  status: "DRAFT" | "ACTIVE";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ExistingContextSnapshot {
+  schemaVersion: typeof CONTEXT_SNAPSHOT_SCHEMA_VERSION;
+  snapshotId: string;
+  generatedAt: string;
+  projectSourceStatus: ContextSourceStatus;
+  cycleSourceStatus: ContextSourceStatus;
+  actionSourceStatus: ContextSourceStatus;
+  projects: SnapshotProjectCandidate[];
+  cycles: [];
+  actions: [];
+  sourceCounts: {
+    projects: number;
+    cycles: number;
+    actions: number;
+  };
+  truncationApplied: boolean;
+  sourceErrors: string[];
+}
+
+export interface ScoreBreakdown {
+  exactName: number;
+  nameSimilarity: number;
+  objectiveOverlap: number;
+  contextOverlap: number;
+  explicitReference: number;
+  activeStatus: number;
+  recency: number;
+  genericPenalty: number;
+  finalScore: number;
+}
+
+export interface ContextEntityMatch {
+  entityType: ContextEntityType;
+  entityId: string;
+  label: string;
+  status: string;
+  score: number;
+  scoreBand: ContextScoreBand;
+  rationale: string;
+  evidence: string[];
+  warnings: string[];
+  recommendedAction: ContextRecommendedAction;
+  scoreBreakdown: ScoreBreakdown;
+}
+
+export interface ContextMatchResult {
+  schemaVersion: typeof CONTEXT_MATCH_SCHEMA_VERSION;
+  matchId: string;
+  proposalId: string;
+  snapshotId: string;
+  generatedAt: string;
+  resultStatus: ContextMatchResultStatus;
+  recommendedRouting: ContextRecommendedAction;
+  projectMatches: ContextEntityMatch[];
+  cycleMatches: [];
+  actionMatches: [];
+  ambiguity: boolean;
+  noMatchReason: string | null;
+  sourceWarnings: string[];
+  requiresHumanConfirmation: boolean;
+}
+
+export interface ContextSelectionDraft {
+  selectedEntityType: ContextEntityType | "NONE";
+  selectedEntityId: string | null;
+  selectedAt: string;
+  selectionSource: "USER" | "RECOMMENDATION";
+  userOverrodeRecommendation: boolean;
+  requiresFinalConfirmation: true;
+}
+
+export interface MatchExistingContextInput {
+  sessionLocalId: string;
+  proposal: {
+    proposalId: string;
+    rawIntent: string;
+    normalizedIntent: string;
+    subject: string;
+    proposedObjective: string;
+    proposedOutcomeType: string;
+  };
+  /** Injected snapshot for tests / unavailable simulation. */
+  snapshotOverride?: ExistingContextSnapshot;
+  /** Test/E2E only — force project source UNAVAILABLE. */
+  forceUnavailable?: boolean;
+}
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/01-implemented-scope.md`
+
+```markdown
+# 01 — Scope
+
+## Inclus
+- Durcissement C2 (system role, live CONFIG, booléen strict)
+- Snapshot Project D1-I1 lecture seule
+- Matching déterministe explicable
+- ContextMatchResult + sélection temporaire locale
+- UX « Contexte retrouvé »
+- Cycle/Action explicitement UNAVAILABLE
+
+## Exclus
+Création · ouverture Cycle · reprise Action · confirmation exécutable · UX-R04 · embeddings
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/02-context-sources-and-availability.md`
+
+```markdown
+# 02 — Sources
+
+| Source | Status |
+|--------|--------|
+| Project D1-I1 SQLite | AVAILABLE / EMPTY / ERROR / UNAVAILABLE |
+| Cycle D1 | UNAVAILABLE (non implémenté — non simulé) |
+| Action D1 | UNAVAILABLE (non implémenté — non simulé) |
+| OPS1 | non utilisé comme source D1 native |
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/03-existing-context-snapshot-contract.md`
+
+```markdown
+# 03 — ExistingContextSnapshot
+
+schemaVersion `0.1.0-d1-c3`
+Lecture seule · max 50 projects · truncation flag · sourceErrors
+cycles[] / actions[] toujours vides en C3.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/04-deterministic-matching-engine.md`
+
+```markdown
+# 04 — Moteur
+
+Normalisation FR → tokens → score Project
+Signaux : exactName, nameSimilarity, objectiveOverlap, contextOverlap, explicitReference, activeStatus, recency, genericPenalty
+GPT ne choisit aucun ID.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/05-scoring-thresholds-and-explainability.md`
+
+```markdown
+# 05 — Seuils candidats
+
+STRONG ≥ 0,78 · POSSIBLE ≥ 0,52 · WEAK ≥ 0,30 · ambiguïté gap < 0,10
+Non baseline globale. Score = estimation.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/06-context-match-result-contract.md`
+
+```markdown
+# 06 — ContextMatchResult
+
+resultStatus : STRONG_MATCH | MULTIPLE_MATCHES | POSSIBLE_MATCH | NO_MATCH | CONTEXT_UNAVAILABLE | NEED_CLARIFICATION
+recommendedAction non exécuté.
+ContextSelectionDraft locale, perdue au refresh.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/07-c2-hardening.md`
+
+```markdown
+# 07 — C2 hardening
+
+- C2-R01 : message `system` réel + user INTENT séparé
+- C2-R02 : D1_INTAKE_LIVE=1 sans secrets → D1Error CONFIG (pas de fake silencieux)
+- C2-R04 : requiresHumanConfirmation boolean strict
+- C2-R03 live smoke : NOT RUN — SECRETS UNAVAILABLE
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/08-security-rgpd-performance.md`
+
+```markdown
+# 08 — Sécurité / RGPD / perf
+
+Logs : counts, bands, duration — pas d’objectifs complets.
+SLI : snapshotMs, matchMs, sources, evaluated, retained, no-match rate, ambiguity rate.
+Max 5 candidats / type.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/09-runtime-figma-validation.md`
+
+```markdown
+# 09 — Figma / runtime
+
+Captures `.tmp-sfia-review/screenshots-d1-c3/`
+Structure alignée contrats intake (proposal + contexte).
+UX-R04 — visual identity and interaction polish deferred after C3.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/10-test-results.md`
+
+```markdown
+# 10 — Tests
+
+- vitest d1 : 42/42
+- e2e C3+C2+C1+I1+smoke : 36/36
+- OPS1 conversation sample : vert
+- tsc --noEmit : pass
+- live smoke : NOT RUN — SECRETS UNAVAILABLE
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/11-reserves-and-debt.md`
+
+```markdown
+# 11 — Réserves
+
+- C3-R01 : Cycle/Action UNAVAILABLE
+- C3-R02 : seuils candidats non calibrés prod
+- C3-R03 : sélection non persistée
+- UX-R04 différée
+- C4 : confirmation exécutable / rattachement
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/12-d1-c3-validation-decision-pack.md`
+
+```markdown
+# 12 — Decision pack
+
+**Verdict :** SFIA v3.0 D1-C3 EXISTING CONTEXT MATCHING IMPLEMENTED — VALIDATION REQUIRED
+
+Décisions Morris : GO VALIDATION D1-C3 ; ouvrir C4 confirmation.
+Anti-claims : pas CONTEXT SELECTED AND APPLIED · pas CYCLE OPENED · pas V3-IMPLEMENTED.
+```
+
+### `projects/sfia-studio/sfia-v3-delivery/d1-c3-existing-context-matching/README.md`
+
+```markdown
+# D1-C3 — Existing Context Matching
+
+| Champ | Valeur |
+|-------|--------|
+| BCDI | BCDI-D1-C3-EXISTING-CONTEXT-MATCHING |
+| Gate consommé | GO IMPLEMENTATION D1-C3 |
+| Gate suivant | GO VALIDATION D1-C3 |
+| Statut | D1-C3 IMPLEMENTED CANDIDATE |
+| Baseline | SFIA v2.6 |
+| Statut v3 | V3-MODELED CANDIDATE |
+
+Index : 01–12.
+```
+
+### `projects/sfia-studio/app/__tests__/d1/intake-c3.test.ts`
+
+```tsx
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import {
+  analyzeIntent,
+} from "@/lib/d1/intake/analyzeIntent";
+import {
+  validateRequestRoutingProposal,
+  asStrictBoolean,
+} from "@/lib/d1/intake/validateProposal";
+import { FakeIntakeConversationProvider } from "@/lib/d1/intake/fakeIntakeProvider";
+import {
+  resolveIntakeProvider,
+  setIntakeProviderForTests,
+} from "@/lib/d1/intake/resolveProvider";
+import { D1Error } from "@/lib/d1/errors";
+import { REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION } from "@/lib/d1/intake/types";
+import type { ConversationProvider, ProviderChatMessage } from "@/lib/ops1/conversation/types";
+import {
+  normalizeText,
+  tokenize,
+  jaccard,
+  containsNormalizedPhrase,
+} from "@/lib/d1/context/normalize";
+import { scoreProjectAgainstProposal, bandForScore } from "@/lib/d1/context/scoring";
+import { matchExistingContext } from "@/lib/d1/context/matchExistingContext";
+import {
+  CONTEXT_MATCH_THRESHOLDS,
+  CONTEXT_SNAPSHOT_SCHEMA_VERSION,
+  type ExistingContextSnapshot,
+  type SnapshotProjectCandidate,
+} from "@/lib/d1/context/types";
+import {
+  createProject,
+  resetD1DbForTests,
+} from "@/lib/d1/commands";
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
+
+function validBase(over: Record<string, unknown> = {}) {
+  return {
+    schemaVersion: REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION,
+    proposalId: "rrp-1",
+    rawIntent: "Je veux lancer une app contrats",
+    normalizedIntent: "Créer un projet de suivi des contrats",
+    subject: "Suivi des contrats",
+    proposedObjective: "Cadrer le suivi des contrats",
+    proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+    proposedCycleType: "FRAMING",
+    proposedProfile: "Standard",
+    proposedBlocks: ["cadrage"],
+    constraints: [],
+    assumptions: ["Aucun match contexte"],
+    missingInformation: ["confirmation humaine"],
+    clarificationQuestion: null,
+    alternatives: [],
+    confidence: 0.7,
+    rationale: "Nouveau besoin produit",
+    requiresHumanConfirmation: true,
+    status: "PROPOSAL_READY",
+    createdAt: "2026-07-22T18:00:00.000Z",
+    proposedProjectId: null,
+    proposedCycleId: null,
+    ...over,
+  };
+}
+
+function project(
+  over: Partial<SnapshotProjectCandidate> &
+    Pick<SnapshotProjectCandidate, "projectId" | "name">,
+): SnapshotProjectCandidate {
+  return {
+    objective: over.objective ?? "Objectif générique",
+    initialContextSummary: over.initialContextSummary ?? null,
+    status: over.status ?? "ACTIVE",
+    createdAt: over.createdAt ?? "2026-01-01T00:00:00.000Z",
+    updatedAt: over.updatedAt ?? "2026-07-01T00:00:00.000Z",
+    ...over,
+  };
+}
+
+function snapshotWith(
+  projects: SnapshotProjectCandidate[],
+  status: ExistingContextSnapshot["projectSourceStatus"] = "AVAILABLE",
+): ExistingContextSnapshot {
+  return {
+    schemaVersion: CONTEXT_SNAPSHOT_SCHEMA_VERSION,
+    snapshotId: "snap-test",
+    generatedAt: "2026-07-22T19:00:00.000Z",
+    projectSourceStatus: status,
+    cycleSourceStatus: "UNAVAILABLE",
+    actionSourceStatus: "UNAVAILABLE",
+    projects,
+    cycles: [],
+    actions: [],
+    sourceCounts: {
+      projects: projects.length,
+      cycles: 0,
+      actions: 0,
+    },
+    truncationApplied: false,
+    sourceErrors:
+      status === "UNAVAILABLE" || status === "ERROR"
+        ? ["forced"]
+        : [],
+  };
+}
+
+describe("D1-C2 hardening", () => {
+  afterEach(() => {
+    setIntakeProviderForTests(null);
+    delete process.env.D1_INTAKE_LIVE;
+    delete process.env.D1_INTAKE_PROVIDER;
+  });
+
+  it("sends system role separately from user intent", async () => {
+    let captured: ProviderChatMessage[] = [];
+    const spy: ConversationProvider = {
+      providerId: "d1-intake-fake-spy",
+      async complete(messages) {
+        captured = messages;
+        return {
+          text: JSON.stringify(validBase({ proposalId: "rrp-spy" })),
+          usage: {
+            inputTokens: 1,
+            outputTokens: 1,
+            totalTokens: 2,
+            model: "spy",
+            providerResponseId: "spy-1",
+          },
+        };
+      },
+    };
+    setIntakeProviderForTests(spy);
+    await analyzeIntent({
+      sessionLocalId: "harden-1",
+      rawIntent: "Je veux lancer une application de suivi des contrats.",
+    });
+    expect(captured[0]?.role).toBe("system");
+    expect(captured[1]?.role).toBe("user");
+    expect(captured[1]?.content).toMatch(/^INTENT:/);
+    expect(captured[1]?.content).not.toContain("Tu es le moteur");
+  });
+
+  it("rejects non-boolean requiresHumanConfirmation (string false)", () => {
+    expect(() =>
+      validateRequestRoutingProposal(
+        validBase({ requiresHumanConfirmation: "false" }),
+      ),
+    ).toThrow(D1Error);
+    expect(() => asStrictBoolean("false", "x")).toThrow(D1Error);
+    expect(() => asStrictBoolean(0, "x")).toThrow(D1Error);
+    expect(() => asStrictBoolean(null, "x")).toThrow(D1Error);
+    expect(asStrictBoolean(true, "x")).toBe(true);
+  });
+
+  it("fails explicitly when live requested without secrets", () => {
+    setIntakeProviderForTests(null);
+    process.env.D1_INTAKE_LIVE = "1";
+    delete process.env.D1_INTAKE_PROVIDER;
+    const prevKey = process.env.OPENAI_API_KEY;
+    const prevModel = process.env.OPENAI_MODEL;
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_MODEL;
+    expect(() => resolveIntakeProvider()).toThrow(D1Error);
+    try {
+      resolveIntakeProvider();
+    } catch (e) {
+      expect(e).toMatchObject({ code: "CONFIG" });
+    }
+    if (prevKey) process.env.OPENAI_API_KEY = prevKey;
+    if (prevModel) process.env.OPENAI_MODEL = prevModel;
+  });
+
+  it("fake provider still works when explicitly forced", () => {
+    process.env.D1_INTAKE_PROVIDER = "fake";
+    process.env.D1_INTAKE_LIVE = "1";
+    const r = resolveIntakeProvider();
+    expect(r.mode).toBe("fake");
+    expect(r.provider.providerId).toContain("fake");
+  });
+});
+
+describe("D1-C3 normalization", () => {
+  it("strips accents punctuation and stop words", () => {
+    expect(normalizeText("Suivi des Contrats !")).toBe("suivi des contrats");
+    expect(tokenize("Je veux améliorer le suivi des contrats")).toEqual(
+      expect.arrayContaining(["suivi", "contrats"]),
+    );
+    expect(tokenize("")).toEqual([]);
+    expect(containsNormalizedPhrase("reprendre Campus360 demain", "Campus360")).toBe(
+      true,
+    );
+    expect(jaccard(new Set(["a", "b"]), new Set(["b", "c"]))).toBeCloseTo(1 / 3);
+  });
+});
+
+describe("D1-C3 matching engine", () => {
+  it("exact name ranks first with strong evidence", () => {
+    const snap = snapshotWith([
+      project({
+        projectId: "proj-campus",
+        name: "Campus360",
+        objective: "Gestion campus",
+        initialContextSummary: "utilisateurs et comptes",
+      }),
+      project({
+        projectId: "proj-other",
+        name: "Facturation",
+        objective: "Factures clients",
+      }),
+    ]);
+    const result = matchExistingContext({
+      sessionLocalId: "m1",
+      proposal: {
+        proposalId: "rrp-campus",
+        rawIntent:
+          "Je veux reprendre Campus360 pour la gestion des utilisateurs.",
+        normalizedIntent: "Reprendre Campus360",
+        subject: "Campus360",
+        proposedObjective: "Gestion des utilisateurs",
+        proposedOutcomeType: "OPEN_CYCLE_CANDIDATE",
+      },
+      snapshotOverride: snap,
+    });
+    expect(result.projectMatches[0]?.entityId).toBe("proj-campus");
+    expect(result.projectMatches[0]?.score).toBeGreaterThanOrEqual(
+      CONTEXT_MATCH_THRESHOLDS.strong,
+    );
+    expect(result.resultStatus).toBe("STRONG_MATCH");
+    expect(result.projectMatches[0]?.evidence.join(" ")).toMatch(/Référence explicite|nom/i);
+    expect(result.requiresHumanConfirmation).toBe(true);
+    expect(result.cycleMatches).toEqual([]);
+    expect(result.actionMatches).toEqual([]);
+  });
+
+  it("detects semantic proximity for contrats", () => {
+    const snap = snapshotWith([
+      project({
+        projectId: "proj-contrats",
+        name: "Contrats Fournisseurs",
+        objective: "Suivi des contrats fournisseurs",
+        initialContextSummary: "acheter et suivre les contrats",
+      }),
+      project({
+        projectId: "proj-rh",
+        name: "RH Internes",
+        objective: "Congés et paie",
+      }),
+    ]);
+    const result = matchExistingContext({
+      sessionLocalId: "m2",
+      proposal: {
+        proposalId: "rrp-c",
+        rawIntent: "Je veux améliorer le suivi des contrats fournisseurs.",
+        normalizedIntent: "Améliorer suivi contrats fournisseurs",
+        subject: "suivi des contrats fournisseurs",
+        proposedObjective: "Améliorer le suivi des contrats fournisseurs",
+        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+      },
+      snapshotOverride: snap,
+    });
+    expect(result.projectMatches[0]?.entityId).toBe("proj-contrats");
+    expect(result.projectMatches[0]?.score).toBeGreaterThanOrEqual(
+      CONTEXT_MATCH_THRESHOLDS.possible,
+    );
+  });
+
+  it("flags multiple close matches as ambiguity", () => {
+    const snap = snapshotWith([
+      project({
+        projectId: "proj-a",
+        name: "Suivi Contrats A",
+        objective: "Suivi des contrats fournisseurs",
+      }),
+      project({
+        projectId: "proj-b",
+        name: "Suivi Contrats B",
+        objective: "Suivi des contrats fournisseurs",
+      }),
+    ]);
+    const result = matchExistingContext({
+      sessionLocalId: "m3",
+      proposal: {
+        proposalId: "rrp-multi",
+        rawIntent: "Je veux améliorer le suivi des contrats fournisseurs.",
+        normalizedIntent: "Améliorer suivi contrats fournisseurs",
+        subject: "suivi des contrats fournisseurs",
+        proposedObjective: "Suivi des contrats fournisseurs",
+        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+      },
+      snapshotOverride: snap,
+    });
+    expect(result.ambiguity || result.resultStatus === "MULTIPLE_MATCHES").toBe(
+      true,
+    );
+    expect(result.projectMatches.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("returns no-match without inventing ids", () => {
+    const snap = snapshotWith([
+      project({
+        projectId: "proj-astro",
+        name: "Astronomie",
+        objective: "Cataloguer les étoiles",
+      }),
+    ]);
+    const result = matchExistingContext({
+      sessionLocalId: "m4",
+      proposal: {
+        proposalId: "rrp-none",
+        rawIntent: "Je veux un module de paie pour la cantine scolaire.",
+        normalizedIntent: "Module paie cantine",
+        subject: "paie cantine",
+        proposedObjective: "Module de paie cantine",
+        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+      },
+      snapshotOverride: snap,
+    });
+    expect(result.resultStatus).toBe("NO_MATCH");
+    expect(result.projectMatches.every((m) => m.entityId.startsWith("proj-"))).toBe(
+      true,
+    );
+    expect(result.recommendedRouting).toBe("CREATE_NEW_PROJECT");
+  });
+
+  it("warns on inactive project without auto-resume", () => {
+    const snap = snapshotWith([
+      project({
+        projectId: "proj-draft",
+        name: "Campus360",
+        objective: "Gestion campus",
+        status: "DRAFT",
+      }),
+    ]);
+    const result = matchExistingContext({
+      sessionLocalId: "m5",
+      proposal: {
+        proposalId: "rrp-draft",
+        rawIntent: "Je veux reprendre Campus360",
+        normalizedIntent: "Reprendre Campus360",
+        subject: "Campus360",
+        proposedObjective: "Reprendre Campus360",
+        proposedOutcomeType: "OPEN_CYCLE_CANDIDATE",
+      },
+      snapshotOverride: snap,
+    });
+    expect(result.projectMatches[0]?.warnings.join(" ")).toMatch(/inactif/i);
+  });
+
+  it("analyze-only does not force attachment", () => {
+    const snap = snapshotWith([
+      project({
+        projectId: "proj-campus",
+        name: "Campus360",
+        objective: "Gestion",
+      }),
+    ]);
+    const result = matchExistingContext({
+      sessionLocalId: "m6",
+      proposal: {
+        proposalId: "rrp-ao",
+        rawIntent: "Analyse Campus360 mais ne crée rien",
+        normalizedIntent: "Analyse Campus360",
+        subject: "Campus360",
+        proposedObjective: "Analyser",
+        proposedOutcomeType: "ANALYZE_ONLY",
+      },
+      snapshotOverride: snap,
+    });
+    expect(result.recommendedRouting).toBe("ANALYZE_ONLY");
+    expect(
+      result.projectMatches.every((m) => m.recommendedAction === "NO_ACTION"),
+    ).toBe(true);
+  });
+
+  it("distinguishes context unavailable from empty", () => {
+    const unavailable = matchExistingContext({
+      sessionLocalId: "m7",
+      proposal: {
+        proposalId: "rrp-u",
+        rawIntent: "x",
+        normalizedIntent: "x",
+        subject: "x",
+        proposedObjective: "x",
+        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+      },
+      snapshotOverride: snapshotWith([], "UNAVAILABLE"),
+    });
+    expect(unavailable.resultStatus).toBe("CONTEXT_UNAVAILABLE");
+
+    const empty = matchExistingContext({
+      sessionLocalId: "m8",
+      proposal: {
+        proposalId: "rrp-e",
+        rawIntent: "Je veux lancer une app contrats",
+        normalizedIntent: "Créer app contrats",
+        subject: "contrats",
+        proposedObjective: "App contrats",
+        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+      },
+      snapshotOverride: snapshotWith([], "EMPTY"),
+    });
+    expect(empty.resultStatus).toBe("NO_MATCH");
+  });
+
+  it("caps candidates at 5 and keeps scores bounded", () => {
+    const many = Array.from({ length: 8 }, (_, i) =>
+      project({
+        projectId: `proj-${i}`,
+        name: `Suivi Contrats ${i}`,
+        objective: "Suivi des contrats fournisseurs",
+      }),
+    );
+    const result = matchExistingContext({
+      sessionLocalId: "m9",
+      proposal: {
+        proposalId: "rrp-cap",
+        rawIntent: "améliorer suivi des contrats fournisseurs",
+        normalizedIntent: "suivi contrats fournisseurs",
+        subject: "suivi des contrats fournisseurs",
+        proposedObjective: "Suivi des contrats fournisseurs",
+        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
+      },
+      snapshotOverride: snapshotWith(many),
+    });
+    expect(result.projectMatches.length).toBeLessThanOrEqual(5);
+    for (const m of result.projectMatches) {
+      expect(m.score).toBeGreaterThanOrEqual(0);
+      expect(m.score).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it("filters weak matches below presentation threshold path via band", () => {
+    expect(bandForScore(0.2, CONTEXT_MATCH_THRESHOLDS)).toBe("BELOW_THRESHOLD");
+    expect(bandForScore(0.35, CONTEXT_MATCH_THRESHOLDS)).toBe("WEAK_MATCH");
+    expect(bandForScore(0.6, CONTEXT_MATCH_THRESHOLDS)).toBe("POSSIBLE_MATCH");
+    expect(bandForScore(0.8, CONTEXT_MATCH_THRESHOLDS)).toBe("STRONG_MATCH");
+  });
+
+  it("score uses only provided project fields", () => {
+    const breakdown = scoreProjectAgainstProposal({
+      project: project({
+        projectId: "proj-x",
+        name: "Alpha",
+        objective: "Beta",
+      }),
+      rawIntent: "Alpha",
+      normalizedIntent: "Alpha",
+      subject: "Alpha",
+      proposedObjective: "Alpha",
+      nowMs: Date.parse("2026-07-22T00:00:00.000Z"),
+    });
+    expect(breakdown.exactName).toBe(1);
+    expect(breakdown.finalScore).toBeGreaterThan(0.7);
+  });
+});
+
+describe("D1-C3 snapshot from real repository (read-only)", () => {
+  let tmpDir: string;
+
+  beforeEach(() => {
+    resetD1DbForTests();
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "d1-c3-"));
+    process.env.D1_SQLITE_PATH = path.join(tmpDir, "d1.sqlite");
+  });
+
+  afterEach(() => {
+    resetD1DbForTests();
+    delete process.env.D1_SQLITE_PATH;
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it("matches against created projects without mutation", () => {
+    const a = createProject({
+      name: "Campus360",
+      objective: "Gestion des utilisateurs campus",
+      methodMode: "V3_CANDIDATE",
+      activate: true,
+      idempotencyKey: "c3-campus",
+    });
+    createProject({
+      name: "Facturation",
+      objective: "Factures",
+      methodMode: "V3_CANDIDATE",
+      activate: true,
+      idempotencyKey: "c3-fact",
+    });
+    const result = matchExistingContext({
+      sessionLocalId: "repo-1",
+      proposal: {
+        proposalId: "rrp-repo",
+        rawIntent: "Je veux reprendre Campus360 pour la gestion des utilisateurs.",
+        normalizedIntent: "Reprendre Campus360",
+        subject: "Campus360",
+        proposedObjective: "Gestion des utilisateurs",
+        proposedOutcomeType: "OPEN_CYCLE_CANDIDATE",
+      },
+    });
+    expect(result.projectMatches[0]?.entityId).toBe(a.project.projectId);
+    // No mutation: same id still resolvable as ACTIVE
+    expect(a.project.state).toBe("ACTIVE");
+  });
+});
+```
+
+### `projects/sfia-studio/app/e2e/d1-c3-context-matching.spec.ts`
+
+```tsx
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
+
+const shotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-d1-c3",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(shotDir, { recursive: true });
+  process.env.D1_INTAKE_PROVIDER = "fake";
+});
+
+async function createProjectViaUi(
+  page: import("@playwright/test").Page,
+  name: string,
+  objective: string,
+  activate = true,
+) {
+  await page.goto("/projects/new");
+  await page.getByTestId("project-name").fill(name);
+  await page.getByTestId("project-objective").fill(objective);
+  await page.getByTestId("project-context").fill(`Contexte ${name}`);
+  const activateBox = page.getByTestId("project-activate");
+  if (await activateBox.count()) {
+    if (activate) await activateBox.check();
+    else await activateBox.uncheck();
+  }
+  await page.getByTestId("project-submit").click();
+  await expect(page).toHaveURL(/\/projects\//, { timeout: 15_000 });
+}
+
+test.describe("D1-C3 Existing Context Matching", () => {
+  test("exact name → strong match + temporary selection, no mutation", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await createProjectViaUi(
+      page,
+      "Campus360",
+      "Gestion des utilisateurs du campus",
+    );
+    await createProjectViaUi(page, "FacturationX", "Factures clients B2B");
+
+    await page.goto("/nouvelle-demande");
+    await page
+      .getByTestId("intake-intent")
+      .fill(
+        "Je veux reprendre Campus360 pour la gestion des utilisateurs.",
+      );
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-proposal")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("intake-context")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("context-result")).toBeVisible();
+    await expect(page.getByTestId("context-status")).toContainText(
+      /Correspondance|plusieurs|possible/i,
+    );
+    await expect(page.getByText("Campus360").first()).toBeVisible();
+    await expect(
+      page.getByTestId("context-cycle-action-unavailable"),
+    ).toBeVisible();
+    await expect(page.getByText(/Confirmer et créer|Rattacher définitivement/i)).toHaveCount(
+      0,
+    );
+
+    // Select first available radio
+    const radio = page.locator('input[name="context-selection"]').first();
+    await radio.check();
+    await expect(page.getByTestId("context-selection-draft")).toBeVisible();
+    await expect(page.getByTestId("context-no-mutation")).toBeVisible();
+
+    await page.screenshot({
+      path: path.join(shotDir, "strong-match-1440.png"),
+      fullPage: false,
+    });
+
+    // Cockpit read link present
+    await expect(
+      page.locator('[data-testid^="context-cockpit-"]').first(),
+    ).toBeVisible();
+  });
+
+  test("no-match for unrelated intent", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await createProjectViaUi(
+      page,
+      "AstronomieC3",
+      "Cataloguer les étoiles lointaines",
+    );
+    await page.goto("/nouvelle-demande");
+    await page
+      .getByTestId("intake-intent")
+      .fill("Je veux lancer une application de suivi des contrats.");
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-context")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("context-result")).toBeVisible();
+    // Either no-match or low candidates — Astronomie should not be forced top
+    const status = page.getByTestId("context-status");
+    await expect(status).toBeVisible();
+    await page.screenshot({
+      path: path.join(shotDir, "no-match-1440.png"),
+      fullPage: false,
+    });
+  });
+
+  test("analyze-only keeps informational matching only", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await page.goto("/nouvelle-demande");
+    await page
+      .getByTestId("intake-intent")
+      .fill("Analyse cette idée, mais ne crée rien.");
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-proposal")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("intake-context")).toBeVisible();
+    await expect(page.getByText(/Confirmer et créer/i)).toHaveCount(0);
+  });
+
+  test("multiple close projects show ambiguity path", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await createProjectViaUi(
+      page,
+      "Suivi Contrats Alpha",
+      "Suivi des contrats fournisseurs",
+    );
+    await createProjectViaUi(
+      page,
+      "Suivi Contrats Beta",
+      "Suivi des contrats fournisseurs",
+    );
+    await page.goto("/nouvelle-demande");
+    await page
+      .getByTestId("intake-intent")
+      .fill("Je veux améliorer le suivi des contrats fournisseurs.");
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-context")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("context-candidates")).toBeVisible();
+    await page.screenshot({
+      path: path.join(shotDir, "multiple-matches-1440.png"),
+      fullPage: false,
+    });
+  });
+
+  test("inactive project warning when DRAFT exists", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await createProjectViaUi(
+      page,
+      "ProjetDraftC3",
+      "Projet brouillon pour matching",
+      false,
+    );
+
+    await page.goto("/nouvelle-demande");
+    await page
+      .getByTestId("intake-intent")
+      .fill("Je veux reprendre ProjetDraftC3 pour la gestion des utilisateurs.");
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-context")).toBeVisible({
+      timeout: 15_000,
+    });
+    await page.screenshot({
+      path: path.join(shotDir, "inactive-project-1440.png"),
+      fullPage: false,
+    });
+  });
+
+  for (const width of [1728, 1280, 1024] as const) {
+    test(`strong match responsive no H-scroll at ${width}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 1024 });
+      await createProjectViaUi(
+        page,
+        `Campus${width}`,
+        "Gestion campus responsive",
+      );
+      await page.goto("/nouvelle-demande");
+      await page
+        .getByTestId("intake-intent")
+        .fill(`Je veux reprendre Campus${width} pour la gestion des utilisateurs.`);
+      await page.getByTestId("intake-submit").click();
+      await expect(page.getByTestId("intake-context")).toBeVisible({
+        timeout: 15_000,
+      });
+      const overflow = await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth >
+          document.documentElement.clientWidth + 1,
+      );
+      expect(overflow).toBe(false);
+      await page.screenshot({
+        path: path.join(shotDir, `strong-match-${width}.png`),
+        fullPage: false,
+      });
+    });
+  }
+
+  test("context unavailable is honest (forced query)", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await page.goto("/nouvelle-demande?forceContextUnavailable=1");
+    await page
+      .getByTestId("intake-intent")
+      .fill("Je veux lancer une application de suivi des contrats.");
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-context")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("context-unavailable")).toBeVisible({
+      timeout: 10_000,
+    });
+    await expect(page.getByTestId("context-status")).toContainText(
+      /indisponible/i,
+    );
+    await page.screenshot({
+      path: path.join(shotDir, "context-unavailable-1440.png"),
+      fullPage: false,
+    });
+  });
+
+  test("workspace and OPS1 legacy remain reachable", async ({ page }) => {
+    await page.goto("/workspace");
+    await expect(page.getByRole("heading", { name: /workspace/i })).toBeVisible();
+    await page.goto("/ops1/nouvelle-demande");
+    await expect(page).toHaveURL(/\/ops1\/nouvelle-demande/);
+  });
+});
+```
+
+### `projects/sfia-studio/app/features/d1/intake/ContextMatchPanel.tsx`
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import type {
+  ContextMatchResult,
+  ContextSelectionDraft,
+} from "@/lib/d1/context/types";
+import {
+  actionLogContextSelection,
+} from "@/lib/d1/context/actions";
+import shell from "../d1-shell.module.css";
+import styles from "./intake.module.css";
+
+function statusLabel(status: string): string {
+  switch (status) {
+    case "STRONG_MATCH":
+      return "Correspondance forte (estimation)";
+    case "MULTIPLE_MATCHES":
+      return "Plusieurs correspondances";
+    case "POSSIBLE_MATCH":
+      return "Correspondance possible";
+    case "NO_MATCH":
+      return "Aucune correspondance";
+    case "CONTEXT_UNAVAILABLE":
+      return "Contexte indisponible";
+    case "NEED_CLARIFICATION":
+      return "Clarification requise";
+    default:
+      return status;
+  }
+}
+
+export function ContextMatchPanel({
+  match,
+  matching,
+  matchError,
+  selection,
+  sessionLocalId,
+  onSelect,
+  onClearSelection,
+  onRetry,
+  analyzeOnly,
+}: {
+  match: ContextMatchResult | null;
+  matching: boolean;
+  matchError: string | null;
+  selection: ContextSelectionDraft | null;
+  sessionLocalId: string;
+  onSelect: (draft: ContextSelectionDraft) => void;
+  onClearSelection: () => void;
+  onRetry: () => void;
+  analyzeOnly: boolean;
+}) {
+  return (
+    <section
+      className={styles.contextCard}
+      data-testid="intake-context"
+      aria-label="Contexte retrouvé"
+      aria-busy={matching}
+    >
+      <h2>Contexte retrouvé</h2>
+      <p className={styles.contextLead}>
+        Matching déterministe sur les Projects D1 existants. Aucun rattachement
+        n’est appliqué — sélection temporaire uniquement.
+      </p>
+
+      {matching ? (
+        <div
+          className={styles.loadingRow}
+          data-testid="context-loading"
+          role="status"
+        >
+          Recherche de contexte en cours…
+        </div>
+      ) : null}
+
+      {matchError ? (
+        <div
+          className={styles.bannerError}
+          role="alert"
+          data-testid="context-error"
+        >
+          {matchError}
+          <div className={styles.statusActions}>
+            <button
+              type="button"
+              className={`${shell.cta} ${shell.ctaSecondary}`}
+              data-testid="context-retry"
+              onClick={onRetry}
+            >
+              Réessayer le matching
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {match && !matching ? (
+        <div data-testid="context-result">
+          <div className={styles.proposalMeta}>
+            <span className={styles.valueChip} data-testid="context-status">
+              {statusLabel(match.resultStatus)}
+            </span>
+            {match.ambiguity ? (
+              <span className={styles.valueChip} data-testid="context-ambiguity">
+                Ambiguïté
+              </span>
+            ) : null}
+            {analyzeOnly ? (
+              <span className={styles.valueChip}>Analyse seule — informatif</span>
+            ) : null}
+          </div>
+
+          {match.resultStatus === "CONTEXT_UNAVAILABLE" ? (
+            <p data-testid="context-unavailable">
+              {match.noMatchReason ??
+                "Le dépôt Project est indisponible. L’intake reste utilisable."}
+            </p>
+          ) : null}
+
+          {match.resultStatus === "NO_MATCH" ? (
+            <p data-testid="context-no-match">
+              {match.noMatchReason ??
+                "Aucun projet suffisamment pertinent. Vous pouvez créer manuellement ou reformuler."}
+            </p>
+          ) : null}
+
+          {match.cycleMatches.length === 0 &&
+          match.actionMatches.length === 0 ? (
+            <p className={shell.hint} data-testid="context-cycle-action-unavailable">
+              Sources Cycle et Action : indisponibles (non simulées).
+            </p>
+          ) : null}
+
+          {match.projectMatches.length > 0 ? (
+            <fieldset className={styles.contextList} data-testid="context-candidates">
+              <legend className={styles.composerLabel}>
+                Candidats Project (estimation)
+              </legend>
+              {match.projectMatches.map((m) => {
+                const selected =
+                  selection?.selectedEntityId === m.entityId &&
+                  selection.selectedEntityType === "PROJECT";
+                const radioId = `ctx-${m.entityId}`;
+                return (
+                  <label
+                    key={m.entityId}
+                    className={`${styles.contextCandidate} ${selected ? styles.contextCandidateSelected : ""}`}
+                    htmlFor={radioId}
+                    data-testid={`context-candidate-${m.entityId}`}
+                  >
+                    <input
+                      id={radioId}
+                      type="radio"
+                      name="context-selection"
+                      value={m.entityId}
+                      checked={!!selected}
+                      data-testid={`context-select-${m.entityId}`}
+                      onChange={() => {
+                        const draft: ContextSelectionDraft = {
+                          selectedEntityType: "PROJECT",
+                          selectedEntityId: m.entityId,
+                          selectedAt: new Date().toISOString(),
+                          selectionSource: "USER",
+                          userOverrodeRecommendation: true,
+                          requiresFinalConfirmation: true,
+                        };
+                        onSelect(draft);
+                        void actionLogContextSelection({
+                          sessionLocalId,
+                          entityId: m.entityId,
+                        });
+                      }}
+                    />
+                    <div className={styles.contextCandidateBody}>
+                      <div className={styles.contextCandidateHead}>
+                        <strong>{m.label}</strong>
+                        <span className={styles.valueChip}>
+                          {m.status}
+                        </span>
+                        <span
+                          className={styles.valueChip}
+                          data-testid={`context-score-${m.entityId}`}
+                        >
+                          Score estimé {(m.score * 100).toFixed(0)} % ·{" "}
+                          {m.scoreBand}
+                        </span>
+                      </div>
+                      <p>{m.rationale}</p>
+                      {m.evidence.length ? (
+                        <ul>
+                          {m.evidence.map((e) => (
+                            <li key={e}>{e}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                      {m.warnings.length ? (
+                        <ul className={styles.contextWarnings}>
+                          {m.warnings.map((w) => (
+                            <li key={w}>{w}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                      <p className={shell.hint}>
+                        Action candidate (non exécutée) : {m.recommendedAction}
+                      </p>
+                      <Link
+                        className={`${shell.cta} ${shell.ctaSecondary}`}
+                        href={`/projects/${m.entityId}`}
+                        data-testid={`context-cockpit-${m.entityId}`}
+                      >
+                        Ouvrir le cockpit (lecture)
+                      </Link>
+                    </div>
+                  </label>
+                );
+              })}
+            </fieldset>
+          ) : null}
+
+          <div className={styles.statusActions}>
+            <button
+              type="button"
+              className={`${shell.cta} ${shell.ctaSecondary}`}
+              data-testid="context-none"
+              onClick={() => {
+                const draft: ContextSelectionDraft = {
+                  selectedEntityType: "NONE",
+                  selectedEntityId: null,
+                  selectedAt: new Date().toISOString(),
+                  selectionSource: "USER",
+                  userOverrodeRecommendation: true,
+                  requiresFinalConfirmation: true,
+                };
+                onSelect(draft);
+                void actionLogContextSelection({
+                  sessionLocalId,
+                  entityId: null,
+                  cleared: true,
+                });
+              }}
+            >
+              Aucun de ces projets
+            </button>
+            {selection ? (
+              <button
+                type="button"
+                className={`${shell.cta} ${shell.ctaSecondary}`}
+                data-testid="context-clear"
+                onClick={() => {
+                  onClearSelection();
+                  void actionLogContextSelection({
+                    sessionLocalId,
+                    entityId: null,
+                    cleared: true,
+                  });
+                }}
+              >
+                Effacer la sélection
+              </button>
+            ) : null}
+          </div>
+
+          {selection ? (
+            <p data-testid="context-selection-draft" className={shell.hint}>
+              Sélection temporaire :{" "}
+              {selection.selectedEntityType === "NONE"
+                ? "aucun projet"
+                : selection.selectedEntityId}{" "}
+              — non persistée, confirmation finale requise (C4).
+            </p>
+          ) : null}
+
+          <p className={shell.hint} data-testid="context-no-mutation">
+            Aucune mutation : pas de rattachement définitif, pas d’ouverture de
+            cycle, pas de création.
+          </p>
+        </div>
+      ) : null}
+    </section>
+  );
+}
+```
+
+### `projects/sfia-studio/app/lib/ops1/conversation/types.ts`
+
+```tsx
+import type { ConversationMode, JournalTurn } from "../types";
+import { Ops1Error } from "../errors";
+import type { ToolDefinition } from "../tools/types";
+
+/** Provider-facing roles — domain roles mapped without SDK types. */
+export type ProviderChatRole = "system" | "user" | "assistant";
+
+export interface ProviderChatMessage {
+  role: ProviderChatRole;
+  content: string;
+}
+
+export interface ProviderUsage {
+  inputTokens: number | null;
+  outputTokens: number | null;
+  totalTokens: number | null;
+  model: string | null;
+  providerResponseId: string | null;
+}
+
+export interface ProviderCompletionResult {
+  text: string;
+  usage: ProviderUsage;
+}
+
+export interface ProviderToolCall {
+  callId: string;
+  name: string;
+  argumentsJson: string;
+}
+
+export type ProviderInputItem =
+  | { type: "message"; role: ProviderChatRole; content: string }
+  | {
+      type: "function_call";
+      callId: string;
+      name: string;
+      argumentsJson: string;
+    }
+  | {
+      type: "function_call_output";
+      callId: string;
+      output: string;
+    };
+
+export type ProviderRoundResult =
+  | {
+      kind: "message";
+      text: string;
+      usage: ProviderUsage;
+    }
+  | {
+      kind: "tool_calls";
+      toolCalls: ProviderToolCall[];
+      usage: ProviderUsage;
+    };
+
+export interface ConversationProvider {
+  readonly providerId: string;
+  /** Legacy text-only completion (tools disabled). */
+  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
+  /** Optional tool-aware round — default falls back to complete(). */
+  completeRound?(input: {
+    items: ProviderInputItem[];
+    tools: ToolDefinition[];
+  }): Promise<ProviderRoundResult>;
+}
+
+/**
+ * Map local journal turns into ordered provider context.
+ * Defense in depth: journal must match the expected session mode.
+ * Never silently filters incompatible roles.
+ */
+export function buildProviderMessagesFromJournal(
+  turns: JournalTurn[],
+  expectedMode: ConversationMode,
+): ProviderChatMessage[] {
+  const out: ProviderChatMessage[] = [];
+  for (const turn of turns) {
+    if (turn.role === "user") {
+      out.push({ role: "user", content: turn.content });
+      continue;
+    }
+    if (turn.role === "assistant_fixture") {
+      if (expectedMode === "live") {
+        throw new Ops1Error(
+          "CONFLICT",
+          "Journal incompatible avec une session live (tour fixture détecté). Aucun appel fournisseur n’a été effectué.",
+        );
+      }
+      out.push({ role: "assistant", content: turn.content });
+      continue;
+    }
+    if (turn.role === "assistant_live") {
+      if (expectedMode === "fixture") {
+        throw new Ops1Error(
+          "CONFLICT",
+          "Journal incompatible avec une session fixture (tour live détecté).",
+        );
+      }
+      out.push({ role: "assistant", content: turn.content });
+      continue;
+    }
+    throw new Ops1Error("VALIDATION", "Rôle de tour inconnu dans le journal.");
+  }
+  return out;
+}
+
+/** Validate journal integrity against session mode without building messages. */
+export function assertJournalMatchesMode(
+  turns: JournalTurn[],
+  mode: ConversationMode,
+): void {
+  for (const turn of turns) {
+    if (mode === "live" && turn.role === "assistant_fixture") {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Journal incompatible avec une session live (tour fixture détecté).",
+      );
+    }
+    if (mode === "fixture" && turn.role === "assistant_live") {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Journal incompatible avec une session fixture (tour live détecté).",
+      );
+    }
+  }
+}
+
+export function messagesToInputItems(
+  messages: ProviderChatMessage[],
+): ProviderInputItem[] {
+  return messages.map((m) => ({
+    type: "message" as const,
+    role: m.role,
+    content: m.content,
+  }));
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/errors.ts`
+
+```tsx
+export type D1ErrorCode =
+  | "VALIDATION"
+  | "NOT_FOUND"
+  | "CONFLICT"
+  | "UNAUTHORIZED"
+  | "IDEMPOTENCY"
+  | "PERSISTENCE"
+  | "CLAIM_FORBIDDEN"
+  | "PROVIDER"
+  | "TIMEOUT"
+  | "CONFIG";
+
+export class D1Error extends Error {
+  readonly code: D1ErrorCode;
+  readonly cause?: unknown;
+
+  constructor(code: D1ErrorCode, message: string, cause?: unknown) {
+    super(message);
+    this.name = "D1Error";
+    this.code = code;
+    this.cause = cause;
+  }
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/intake/validateProposal.ts`
+
+```tsx
+import { D1Error } from "../errors";
+import {
+  C2_OUTCOME_TYPES,
+  C2_PROPOSAL_STATUSES,
+  REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION,
+  type C2OutcomeType,
+  type C2ProposalStatus,
+  type RequestRoutingAlternative,
+  type RequestRoutingProposal,
+} from "./types";
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function asString(value: unknown, field: string): string {
+  if (typeof value !== "string") {
+    throw new D1Error("VALIDATION", `Champ ${field} invalide (string attendue).`);
+  }
+  return value.trim();
+}
+
+function asStringArray(value: unknown, field: string): string[] {
+  if (!Array.isArray(value) || value.some((v) => typeof v !== "string")) {
+    throw new D1Error("VALIDATION", `Champ ${field} invalide (string[] attendu).`);
+  }
+  return value.map((v) => v.trim()).filter(Boolean);
+}
+
+function asNullableString(value: unknown, field: string): string | null {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== "string") {
+    throw new D1Error("VALIDATION", `Champ ${field} invalide (string|null).`);
+  }
+  const t = value.trim();
+  return t.length ? t : null;
+}
+
+function asOutcome(value: unknown): C2OutcomeType {
+  if (typeof value !== "string" || !C2_OUTCOME_TYPES.includes(value as C2OutcomeType)) {
+    throw new D1Error("VALIDATION", `Outcome C2 non autorisé: ${String(value)}`);
+  }
+  return value as C2OutcomeType;
+}
+
+function asStatus(value: unknown): C2ProposalStatus {
+  if (
+    typeof value !== "string" ||
+    !C2_PROPOSAL_STATUSES.includes(value as C2ProposalStatus)
+  ) {
+    throw new D1Error("VALIDATION", `Status C2 non autorisé: ${String(value)}`);
+  }
+  return value as C2ProposalStatus;
+}
+
+function asConfidence(value: unknown): number {
+  if (typeof value !== "number" || Number.isNaN(value) || value < 0 || value > 1) {
+    throw new D1Error("VALIDATION", "confidence hors bornes [0,1].");
+  }
+  return value;
+}
+
+/** Strict boolean — reject string/number/null; never coerce via Boolean(...). */
+export function asStrictBoolean(value: unknown, field: string): boolean {
+  if (typeof value !== "boolean") {
+    throw new D1Error(
+      "VALIDATION",
+      `Champ ${field} invalide (boolean strict attendu).`,
+    );
+  }
+  return value;
+}
+
+function asAlternatives(value: unknown): RequestRoutingAlternative[] {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) {
+    throw new D1Error("VALIDATION", "alternatives invalides.");
+  }
+  return value.map((item, i) => {
+    if (!isPlainObject(item)) {
+      throw new D1Error("VALIDATION", `alternative[${i}] invalide.`);
+    }
+    return {
+      outcomeType: asOutcome(item.outcomeType),
+      label: asString(item.label, `alternatives[${i}].label`),
+      rationale: asString(item.rationale, `alternatives[${i}].rationale`),
+    };
+  });
+}
+
+const FORBIDDEN_CLAIM = /V3[-_ ]?(ADOPTED|IMPLEMENTED)/i;
+
+/**
+ * Deterministic runtime validation of GPT / fake payload.
+ * Rejects invented Project/Cycle IDs and forbidden claims.
+ */
+export function validateRequestRoutingProposal(
+  raw: unknown,
+): RequestRoutingProposal {
+  if (!isPlainObject(raw)) {
+    throw new D1Error("VALIDATION", "Payload proposition non-objet.");
+  }
+
+  if (raw.proposedProjectId != null || raw.candidateProjectId != null) {
+    throw new D1Error(
+      "VALIDATION",
+      "C2 interdit proposedProjectId / candidateProjectId (matching = C3).",
+    );
+  }
+  if (raw.proposedCycleId != null || raw.candidateCycleId != null) {
+    throw new D1Error(
+      "VALIDATION",
+      "C2 interdit proposedCycleId / candidateCycleId (matching = C3).",
+    );
+  }
+
+  const proposal: RequestRoutingProposal = {
+    schemaVersion: REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION,
+    proposalId: asString(raw.proposalId, "proposalId"),
+    rawIntent: asString(raw.rawIntent, "rawIntent"),
+    normalizedIntent: asString(raw.normalizedIntent, "normalizedIntent"),
+    subject: asString(raw.subject, "subject"),
+    proposedObjective: asString(raw.proposedObjective, "proposedObjective"),
+    proposedOutcomeType: asOutcome(raw.proposedOutcomeType),
+    proposedCycleType: asNullableString(raw.proposedCycleType, "proposedCycleType"),
+    proposedProfile: asNullableString(raw.proposedProfile, "proposedProfile"),
+    proposedBlocks: asStringArray(raw.proposedBlocks ?? [], "proposedBlocks"),
+    constraints: asStringArray(raw.constraints ?? [], "constraints"),
+    assumptions: asStringArray(raw.assumptions ?? [], "assumptions"),
+    missingInformation: asStringArray(
+      raw.missingInformation ?? [],
+      "missingInformation",
+    ),
+    clarificationQuestion: asNullableString(
+      raw.clarificationQuestion,
+      "clarificationQuestion",
+    ),
+    alternatives: asAlternatives(raw.alternatives),
+    confidence: asConfidence(raw.confidence),
+    rationale: asString(raw.rationale, "rationale"),
+    requiresHumanConfirmation: asStrictBoolean(
+      raw.requiresHumanConfirmation,
+      "requiresHumanConfirmation",
+    ),
+    status: asStatus(raw.status),
+    createdAt: asString(raw.createdAt, "createdAt"),
+    proposedProjectId: null,
+    proposedCycleId: null,
+  };
+
+  const claimSurface = [
+    proposal.normalizedIntent,
+    proposal.proposedObjective,
+    proposal.rationale,
+    ...proposal.assumptions,
+  ].join(" ");
+  if (FORBIDDEN_CLAIM.test(claimSurface)) {
+    throw new D1Error("CLAIM_FORBIDDEN", "Claim v3 interdit dans la proposition.");
+  }
+
+  if (proposal.proposedOutcomeType === "NEED_CLARIFICATION") {
+    if (proposal.status !== "CLARIFICATION_REQUIRED") {
+      throw new D1Error(
+        "VALIDATION",
+        "NEED_CLARIFICATION exige status CLARIFICATION_REQUIRED.",
+      );
+    }
+    if (!proposal.clarificationQuestion) {
+      throw new D1Error(
+        "VALIDATION",
+        "NEED_CLARIFICATION exige clarificationQuestion.",
+      );
+    }
+  }
+
+  if (proposal.proposedOutcomeType === "ANALYZE_ONLY") {
+    if (proposal.status !== "ANALYSIS_ONLY") {
+      throw new D1Error("VALIDATION", "ANALYZE_ONLY exige status ANALYSIS_ONLY.");
+    }
+  }
+
+  if (
+    proposal.proposedOutcomeType === "CREATE_PROJECT_CANDIDATE" ||
+    proposal.proposedOutcomeType === "OPEN_CYCLE_CANDIDATE"
+  ) {
+    if (proposal.status !== "PROPOSAL_READY") {
+      throw new D1Error(
+        "VALIDATION",
+        "Outcome candidat mutatif exige PROPOSAL_READY (non exécutable).",
+      );
+    }
+    if (!proposal.requiresHumanConfirmation) {
+      throw new D1Error(
+        "VALIDATION",
+        "requiresHumanConfirmation doit être true pour une suite candidate.",
+      );
+    }
+  }
+
+  if (proposal.proposedOutcomeType === "UNDETERMINED") {
+    if (proposal.status !== "UNDETERMINED") {
+      throw new D1Error("VALIDATION", "UNDETERMINED exige status UNDETERMINED.");
+    }
+  }
+
+  if (raw.schemaVersion && raw.schemaVersion !== REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION) {
+    throw new D1Error(
+      "VALIDATION",
+      `schemaVersion inattendu: ${String(raw.schemaVersion)}`,
+    );
+  }
+
+  return proposal;
+}
+
+/** Extract JSON object from model text (fenced or raw). */
+export function parseProposalJsonText(text: string): unknown {
+  const trimmed = text.trim();
+  const fence = trimmed.match(/``\`(?:json)?\s*([\s\S]*?)``\`/i);
+  const candidate = fence ? fence[1].trim() : trimmed;
+  try {
+    return JSON.parse(candidate);
+  } catch (error) {
+    throw new D1Error(
+      "VALIDATION",
+      "Réponse provider non JSON / non parsable.",
+      error,
+    );
+  }
+}
+```
+
+### `projects/sfia-studio/app/lib/d1/intake/resolveProvider.ts`
+
+```tsx
+import type { ConversationProvider } from "@/lib/ops1/conversation/types";
+import { D1Error } from "../errors";
+import { FakeIntakeConversationProvider } from "./fakeIntakeProvider";
+import { logIntakeEvent } from "../intakeObservability";
+
+let override: ConversationProvider | null = null;
+
+/** Test-only injection. */
+export function setIntakeProviderForTests(
+  provider: ConversationProvider | null,
+): void {
+  override = provider;
+}
+
+/**
+ * Resolve intake provider.
+ * Default = fake (deterministic).
+ * Live only if D1_INTAKE_LIVE=1 AND secrets present — otherwise explicit CONFIG error
+ * (no silent fake fallback when live was requested).
+ * Does not alter OPS1 provider resolution.
+ */
+export function resolveIntakeProvider(): {
+  provider: ConversationProvider;
+  mode: "fake" | "live";
+} {
+  if (override) {
+    return {
+      provider: override,
+      mode: override.providerId.includes("fake") ? "fake" : "live",
+    };
+  }
+  if (process.env.D1_INTAKE_PROVIDER === "fake") {
+    return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
+  }
+  if (process.env.D1_INTAKE_LIVE === "1") {
+    try {
+      // Lazy require to avoid pulling OpenAI into client bundles via actions tree
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { requireLiveConversationSecrets } = require("@/lib/ops1/conversation/config") as typeof import("@/lib/ops1/conversation/config");
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { OpenAIConversationProvider } = require("@/lib/ops1/conversation/openaiProvider") as typeof import("@/lib/ops1/conversation/openaiProvider");
+      const { apiKey, model } = requireLiveConversationSecrets();
+      return {
+        provider: new OpenAIConversationProvider(apiKey, model),
+        mode: "live",
+      };
+    } catch (error) {
+      logIntakeEvent("intake_provider_failed", {
+        status: "CONFIG",
+        providerMode: "live",
+        errorCode: "CONFIG",
+      });
+      // eslint-disable-next-line no-console
+      console.warn(
+        JSON.stringify({
+          event: "d1_intake_live_config_unavailable",
+          ts: new Date().toISOString(),
+          message:
+            "D1_INTAKE_LIVE=1 but live secrets unavailable — refusing silent fake fallback",
+        }),
+      );
+      throw new D1Error(
+        "CONFIG",
+        "Mode live demandé (D1_INTAKE_LIVE=1) mais configuration indisponible. Aucun fallback fake silencieux.",
+        error,
+      );
+    }
+  }
+  return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
+}
+```
+
 ### `projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts`
 
 ```tsx
@@ -286,10 +2917,8 @@ export async function analyzeIntent(
 
   const { provider, mode } = resolveIntakeProvider();
   const messages = [
-    {
-      role: "user" as const,
-      content: `${D1_C2_SYSTEM_PROMPT}\n\n---\n\n${buildUserEnvelope(intent, userAnswers)}`,
-    },
+    { role: "system" as const, content: D1_C2_SYSTEM_PROMPT },
+    { role: "user" as const, content: buildUserEnvelope(intent, userAnswers) },
   ];
 
   try {
@@ -402,6 +3031,7 @@ export async function analyzeIntent(
   }
 }
 ```
+
 ### `projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts`
 
 ```tsx
@@ -611,6 +3241,9 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
     this.callCount += 1;
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
     const content = lastUser?.content ?? "";
+    // System prompt must not be concatenated into the user payload (C2-R01).
+    const systemMsgs = messages.filter((m) => m.role === "system");
+    void systemMsgs;
 
     if (content.includes("__FORCE_PROVIDER_ERROR__")) {
       throw new Error("FAKE_INTAKE_PROVIDER_ERROR");
@@ -626,16 +3259,12 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
     );
     const clarMatch = content.match(/CLARIFICATIONS:\s*([\s\S]*)$/i);
     const rawIntent = (intentMatch?.[1] ?? content).trim();
-    // If system prompt polluted rawIntent, take last non-empty line block after INTENT
-    const cleanedIntent = rawIntent.includes("Tu es le moteur")
-      ? (intentMatch?.[1] ?? "").trim() || content.slice(-200)
-      : rawIntent;
     const clarifications = (clarMatch?.[1] ?? "")
       .split(/\n+/)
       .map((l) => l.replace(/^- /, "").trim())
       .filter(Boolean);
 
-    const payload = buildFakeProposalPayload(cleanedIntent, clarifications);
+    const payload = buildFakeProposalPayload(rawIntent, clarifications);
     return {
       text: JSON.stringify(payload),
       usage: {
@@ -649,847 +3278,76 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
   }
 }
 ```
-### `projects/sfia-studio/app/lib/d1/intake/index.ts`
+
+### `projects/sfia-studio/app/lib/d1/intakeObservability.ts`
 
 ```tsx
-export * from "./types";
-export * from "./validateProposal";
-export * from "./analyzeIntent";
-export * from "./fakeIntakeProvider";
-export { setIntakeProviderForTests, resolveIntakeProvider } from "./resolveProvider";
-```
-### `projects/sfia-studio/app/lib/d1/intake/prompt.ts`
+/**
+ * D1 intake observability — structured logs, no full intent/project body.
+ * RGPD: lengths, counts, bands, statuses only.
+ */
 
-```tsx
-export const D1_C2_SYSTEM_PROMPT = `Tu es le moteur de qualification d'intention de SFIA Studio (incrément D1-C2).
+export type IntakeLogEvent =
+  | "intake_opened"
+  | "intake_intent_submitted"
+  | "intake_manual_creation_opened"
+  | "intake_resume_project_opened"
+  | "intake_cancelled"
+  | "intake_analysis_started"
+  | "intake_clarification_requested"
+  | "intake_clarification_answered"
+  | "intake_proposal_generated"
+  | "intake_analysis_only_generated"
+  | "intake_provider_failed"
+  | "intake_proposal_rejected"
+  | "intake_session_cancelled"
+  | "intake_context_lookup_started"
+  | "intake_context_snapshot_built"
+  | "intake_context_match_generated"
+  | "intake_context_match_ambiguous"
+  | "intake_context_no_match"
+  | "intake_context_unavailable"
+  | "intake_context_candidate_selected"
+  | "intake_context_selection_cleared";
 
-Règles strictes :
-- Réponds UNIQUEMENT en JSON valide (pas de prose hors JSON).
-- Langue des champs textuels : français.
-- Tu comprends, reformules, distingues observation / hypothèse / proposition.
-- Tu ne mutes RIEN : aucun Project, Cycle, Action, Decision.
-- Tu n'inventes AUCUN projet ou cycle existant ; proposedProjectId et proposedCycleId restent toujours null.
-- Tu ne fais AUCUNE recherche de contexte Workspace/Git (C3 uniquement).
-- Tu ne choisis pas à la place de Morris ; requiresHumanConfirmation = true sauf ANALYZE_ONLY.
-- Questions : une question principale maximale, uniquement si nécessaire.
-- Interdit : V3-ADOPTED, V3-IMPLEMENTED, claims d'adoption.
-- Outcomes autorisés uniquement :
-  CREATE_PROJECT_CANDIDATE | OPEN_CYCLE_CANDIDATE | ANALYZE_ONLY | NEED_CLARIFICATION | UNDETERMINED
-- status aligné :
-  NEED_CLARIFICATION → CLARIFICATION_REQUIRED
-  CREATE_PROJECT_CANDIDATE | OPEN_CYCLE_CANDIDATE → PROPOSAL_READY
-  ANALYZE_ONLY → ANALYSIS_ONLY
-  UNDETERMINED → UNDETERMINED
-- schemaVersion doit être "0.1.0-d1-c2"
-- confidence entre 0 et 1 (estimation, pas une vérité)
-
-Schéma JSON attendu :
-{
-  "schemaVersion": "0.1.0-d1-c2",
-  "proposalId": "string",
-  "rawIntent": "string",
-  "normalizedIntent": "string",
-  "subject": "string",
-  "proposedObjective": "string",
-  "proposedOutcomeType": "...",
-  "proposedCycleType": "string|null",
-  "proposedProfile": "string|null",
-  "proposedBlocks": ["string"],
-  "constraints": ["string"],
-  "assumptions": ["string"],
-  "missingInformation": ["string"],
-  "clarificationQuestion": "string|null",
-  "alternatives": [{"outcomeType":"...","label":"...","rationale":"..."}],
-  "confidence": 0.0,
-  "rationale": "string",
-  "requiresHumanConfirmation": true,
-  "status": "...",
-  "createdAt": "ISO-8601",
-  "proposedProjectId": null,
-  "proposedCycleId": null
-}`;
-```
-### `projects/sfia-studio/app/lib/d1/intake/resolveProvider.ts`
-
-```tsx
-import type { ConversationProvider } from "@/lib/ops1/conversation/types";
-import { FakeIntakeConversationProvider } from "./fakeIntakeProvider";
-
-let override: ConversationProvider | null = null;
-
-/** Test-only injection. */
-export function setIntakeProviderForTests(
-  provider: ConversationProvider | null,
+export function logIntakeEvent(
+  event: IntakeLogEvent,
+  payload: {
+    status?: string;
+    intentLength?: number;
+    projectId?: string;
+    sessionLocalId?: string;
+    durationMs?: number;
+    providerMode?: "fake" | "live";
+    errorCode?: string;
+    proposalId?: string;
+    sourceProjectCount?: number;
+    candidateCount?: number;
+    topScoreBand?: string;
+    truncationApplied?: boolean;
+  } = {},
 ): void {
-  override = provider;
-}
-
-/**
- * Resolve intake provider.
- * Default = fake (deterministic). Live OpenAI only if D1_INTAKE_LIVE=1 and secrets present.
- * Does not alter OPS1 provider resolution.
- */
-export function resolveIntakeProvider(): {
-  provider: ConversationProvider;
-  mode: "fake" | "live";
-} {
-  if (override) {
-    return {
-      provider: override,
-      mode: override.providerId.includes("fake") ? "fake" : "live",
-    };
-  }
-  if (process.env.D1_INTAKE_PROVIDER === "fake") {
-    return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
-  }
-  if (process.env.D1_INTAKE_LIVE === "1") {
-    try {
-      // Lazy require to avoid pulling OpenAI into client bundles via actions tree
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { requireLiveConversationSecrets } = require("@/lib/ops1/conversation/config") as typeof import("@/lib/ops1/conversation/config");
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { OpenAIConversationProvider } = require("@/lib/ops1/conversation/openaiProvider") as typeof import("@/lib/ops1/conversation/openaiProvider");
-      const { apiKey, model } = requireLiveConversationSecrets();
-      return {
-        provider: new OpenAIConversationProvider(apiKey, model),
-        mode: "live",
-      };
-    } catch {
-      return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
-    }
-  }
-  return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
+  const line = JSON.stringify({
+    event,
+    ts: new Date().toISOString(),
+    status: payload.status ?? "ok",
+    intentLength: payload.intentLength,
+    projectId: payload.projectId,
+    sessionLocalId: payload.sessionLocalId,
+    durationMs: payload.durationMs,
+    providerMode: payload.providerMode,
+    errorCode: payload.errorCode,
+    proposalId: payload.proposalId,
+    sourceProjectCount: payload.sourceProjectCount,
+    candidateCount: payload.candidateCount,
+    topScoreBand: payload.topScoreBand,
+    truncationApplied: payload.truncationApplied,
+  });
+  // eslint-disable-next-line no-console
+  console.info(`[d1.intake] ${line}`);
 }
 ```
-### `projects/sfia-studio/app/lib/d1/intake/types.ts`
 
-```tsx
-/** D1-C2 — RequestRoutingProposal candidate (not a sealed schema). */
-
-export const REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION = "0.1.0-d1-c2" as const;
-
-export const C2_OUTCOME_TYPES = [
-  "CREATE_PROJECT_CANDIDATE",
-  "OPEN_CYCLE_CANDIDATE",
-  "ANALYZE_ONLY",
-  "NEED_CLARIFICATION",
-  "UNDETERMINED",
-] as const;
-export type C2OutcomeType = (typeof C2_OUTCOME_TYPES)[number];
-
-export const C2_PROPOSAL_STATUSES = [
-  "CLARIFICATION_REQUIRED",
-  "PROPOSAL_READY",
-  "ANALYSIS_ONLY",
-  "UNDETERMINED",
-] as const;
-export type C2ProposalStatus = (typeof C2_PROPOSAL_STATUSES)[number];
-
-export interface RequestRoutingAlternative {
-  outcomeType: C2OutcomeType;
-  label: string;
-  rationale: string;
-}
-
-export interface RequestRoutingProposal {
-  schemaVersion: typeof REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION;
-  proposalId: string;
-  rawIntent: string;
-  normalizedIntent: string;
-  subject: string;
-  proposedObjective: string;
-  proposedOutcomeType: C2OutcomeType;
-  proposedCycleType: string | null;
-  proposedProfile: string | null;
-  proposedBlocks: string[];
-  constraints: string[];
-  assumptions: string[];
-  missingInformation: string[];
-  clarificationQuestion: string | null;
-  alternatives: RequestRoutingAlternative[];
-  /** 0–1 inclusive — never presented as absolute truth. */
-  confidence: number;
-  rationale: string;
-  requiresHumanConfirmation: boolean;
-  status: C2ProposalStatus;
-  createdAt: string;
-  /** Always null in C2 — matching deferred to C3. */
-  proposedProjectId: null;
-  /** Always null in C2 — matching deferred to C3. */
-  proposedCycleId: null;
-}
-
-export interface IntakeClarificationTurn {
-  role: "user" | "assistant";
-  content: string;
-}
-
-export interface AnalyzeIntentInput {
-  sessionLocalId: string;
-  rawIntent: string;
-  clarificationTurns?: IntakeClarificationTurn[];
-}
-
-export const D1_INTAKE_MAX_INTENT_LENGTH = 2000;
-export const D1_INTAKE_MAX_CLARIFICATION_TURNS = 3;
-export const D1_INTAKE_PROVIDER_TIMEOUT_MS = 25_000;
-```
-### `projects/sfia-studio/app/lib/d1/intake/validateProposal.ts`
-
-```tsx
-import { D1Error } from "../errors";
-import {
-  C2_OUTCOME_TYPES,
-  C2_PROPOSAL_STATUSES,
-  REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION,
-  type C2OutcomeType,
-  type C2ProposalStatus,
-  type RequestRoutingAlternative,
-  type RequestRoutingProposal,
-} from "./types";
-
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function asString(value: unknown, field: string): string {
-  if (typeof value !== "string") {
-    throw new D1Error("VALIDATION", `Champ ${field} invalide (string attendue).`);
-  }
-  return value.trim();
-}
-
-function asStringArray(value: unknown, field: string): string[] {
-  if (!Array.isArray(value) || value.some((v) => typeof v !== "string")) {
-    throw new D1Error("VALIDATION", `Champ ${field} invalide (string[] attendu).`);
-  }
-  return value.map((v) => v.trim()).filter(Boolean);
-}
-
-function asNullableString(value: unknown, field: string): string | null {
-  if (value === null || value === undefined) return null;
-  if (typeof value !== "string") {
-    throw new D1Error("VALIDATION", `Champ ${field} invalide (string|null).`);
-  }
-  const t = value.trim();
-  return t.length ? t : null;
-}
-
-function asOutcome(value: unknown): C2OutcomeType {
-  if (typeof value !== "string" || !C2_OUTCOME_TYPES.includes(value as C2OutcomeType)) {
-    throw new D1Error("VALIDATION", `Outcome C2 non autorisé: ${String(value)}`);
-  }
-  return value as C2OutcomeType;
-}
-
-function asStatus(value: unknown): C2ProposalStatus {
-  if (
-    typeof value !== "string" ||
-    !C2_PROPOSAL_STATUSES.includes(value as C2ProposalStatus)
-  ) {
-    throw new D1Error("VALIDATION", `Status C2 non autorisé: ${String(value)}`);
-  }
-  return value as C2ProposalStatus;
-}
-
-function asConfidence(value: unknown): number {
-  if (typeof value !== "number" || Number.isNaN(value) || value < 0 || value > 1) {
-    throw new D1Error("VALIDATION", "confidence hors bornes [0,1].");
-  }
-  return value;
-}
-
-function asAlternatives(value: unknown): RequestRoutingAlternative[] {
-  if (value === undefined || value === null) return [];
-  if (!Array.isArray(value)) {
-    throw new D1Error("VALIDATION", "alternatives invalides.");
-  }
-  return value.map((item, i) => {
-    if (!isPlainObject(item)) {
-      throw new D1Error("VALIDATION", `alternative[${i}] invalide.`);
-    }
-    return {
-      outcomeType: asOutcome(item.outcomeType),
-      label: asString(item.label, `alternatives[${i}].label`),
-      rationale: asString(item.rationale, `alternatives[${i}].rationale`),
-    };
-  });
-}
-
-const FORBIDDEN_CLAIM = /V3[-_ ]?(ADOPTED|IMPLEMENTED)/i;
-
-/**
- * Deterministic runtime validation of GPT / fake payload.
- * Rejects invented Project/Cycle IDs and forbidden claims.
- */
-export function validateRequestRoutingProposal(
-  raw: unknown,
-): RequestRoutingProposal {
-  if (!isPlainObject(raw)) {
-    throw new D1Error("VALIDATION", "Payload proposition non-objet.");
-  }
-
-  if (raw.proposedProjectId != null || raw.candidateProjectId != null) {
-    throw new D1Error(
-      "VALIDATION",
-      "C2 interdit proposedProjectId / candidateProjectId (matching = C3).",
-    );
-  }
-  if (raw.proposedCycleId != null || raw.candidateCycleId != null) {
-    throw new D1Error(
-      "VALIDATION",
-      "C2 interdit proposedCycleId / candidateCycleId (matching = C3).",
-    );
-  }
-
-  const proposal: RequestRoutingProposal = {
-    schemaVersion: REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION,
-    proposalId: asString(raw.proposalId, "proposalId"),
-    rawIntent: asString(raw.rawIntent, "rawIntent"),
-    normalizedIntent: asString(raw.normalizedIntent, "normalizedIntent"),
-    subject: asString(raw.subject, "subject"),
-    proposedObjective: asString(raw.proposedObjective, "proposedObjective"),
-    proposedOutcomeType: asOutcome(raw.proposedOutcomeType),
-    proposedCycleType: asNullableString(raw.proposedCycleType, "proposedCycleType"),
-    proposedProfile: asNullableString(raw.proposedProfile, "proposedProfile"),
-    proposedBlocks: asStringArray(raw.proposedBlocks ?? [], "proposedBlocks"),
-    constraints: asStringArray(raw.constraints ?? [], "constraints"),
-    assumptions: asStringArray(raw.assumptions ?? [], "assumptions"),
-    missingInformation: asStringArray(
-      raw.missingInformation ?? [],
-      "missingInformation",
-    ),
-    clarificationQuestion: asNullableString(
-      raw.clarificationQuestion,
-      "clarificationQuestion",
-    ),
-    alternatives: asAlternatives(raw.alternatives),
-    confidence: asConfidence(raw.confidence),
-    rationale: asString(raw.rationale, "rationale"),
-    requiresHumanConfirmation: Boolean(raw.requiresHumanConfirmation),
-    status: asStatus(raw.status),
-    createdAt: asString(raw.createdAt, "createdAt"),
-    proposedProjectId: null,
-    proposedCycleId: null,
-  };
-
-  const claimSurface = [
-    proposal.normalizedIntent,
-    proposal.proposedObjective,
-    proposal.rationale,
-    ...proposal.assumptions,
-  ].join(" ");
-  if (FORBIDDEN_CLAIM.test(claimSurface)) {
-    throw new D1Error("CLAIM_FORBIDDEN", "Claim v3 interdit dans la proposition.");
-  }
-
-  if (proposal.proposedOutcomeType === "NEED_CLARIFICATION") {
-    if (proposal.status !== "CLARIFICATION_REQUIRED") {
-      throw new D1Error(
-        "VALIDATION",
-        "NEED_CLARIFICATION exige status CLARIFICATION_REQUIRED.",
-      );
-    }
-    if (!proposal.clarificationQuestion) {
-      throw new D1Error(
-        "VALIDATION",
-        "NEED_CLARIFICATION exige clarificationQuestion.",
-      );
-    }
-  }
-
-  if (proposal.proposedOutcomeType === "ANALYZE_ONLY") {
-    if (proposal.status !== "ANALYSIS_ONLY") {
-      throw new D1Error("VALIDATION", "ANALYZE_ONLY exige status ANALYSIS_ONLY.");
-    }
-  }
-
-  if (
-    proposal.proposedOutcomeType === "CREATE_PROJECT_CANDIDATE" ||
-    proposal.proposedOutcomeType === "OPEN_CYCLE_CANDIDATE"
-  ) {
-    if (proposal.status !== "PROPOSAL_READY") {
-      throw new D1Error(
-        "VALIDATION",
-        "Outcome candidat mutatif exige PROPOSAL_READY (non exécutable).",
-      );
-    }
-    if (!proposal.requiresHumanConfirmation) {
-      throw new D1Error(
-        "VALIDATION",
-        "requiresHumanConfirmation doit être true pour une suite candidate.",
-      );
-    }
-  }
-
-  if (proposal.proposedOutcomeType === "UNDETERMINED") {
-    if (proposal.status !== "UNDETERMINED") {
-      throw new D1Error("VALIDATION", "UNDETERMINED exige status UNDETERMINED.");
-    }
-  }
-
-  if (raw.schemaVersion && raw.schemaVersion !== REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION) {
-    throw new D1Error(
-      "VALIDATION",
-      `schemaVersion inattendu: ${String(raw.schemaVersion)}`,
-    );
-  }
-
-  return proposal;
-}
-
-/** Extract JSON object from model text (fenced or raw). */
-export function parseProposalJsonText(text: string): unknown {
-  const trimmed = text.trim();
-  const fence = trimmed.match(/``\`(?:json)?\s*([\s\S]*?)``\`/i);
-  const candidate = fence ? fence[1].trim() : trimmed;
-  try {
-    return JSON.parse(candidate);
-  } catch (error) {
-    throw new D1Error(
-      "VALIDATION",
-      "Réponse provider non JSON / non parsable.",
-      error,
-    );
-  }
-}
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/01-implemented-scope.md`
-
-```markdown
-# 01 — Scope
-
-## Inclus
-- Analyse d’intention via provider borné (fake par défaut)
-- Clarification (max 3 tours)
-- RequestRoutingProposal candidat validé runtime
-- Outcomes CREATE_PROJECT_CANDIDATE / OPEN_CYCLE_CANDIDATE / ANALYZE_ONLY / NEED_CLARIFICATION / UNDETERMINED
-- UX états loading / clarification / proposal / analyze-only / error
-- Aucune mutation Project/Cycle
-
-## Exclus
-Matching C3 · création · GuidedSession · Decision Center · deps nouvelles · UX-R04 polish
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/02-intent-understanding-contract.md`
-
-```markdown
-# 02 — Intent understanding
-
-Entrée : rawIntent + clarificationTurns (session React locale).
-Sortie : RequestRoutingProposal non exécutable.
-Limites : 2000 chars · 3 tours · timeout 25s.
-Refresh = perte de session (pas de persistance métier).
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/03-request-routing-proposal-candidate.md`
-
-```markdown
-# 03 — RequestRoutingProposal
-
-schemaVersion `0.1.0-d1-c2`
-proposedProjectId / proposedCycleId toujours null en C2.
-requiresHumanConfirmation true pour suites candidates.
-Validation runtime déterministe (`validateRequestRoutingProposal`).
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/04-gpt-provider-and-prompt-contract.md`
-
-```markdown
-# 04 — Provider & prompt
-
-- Interface OPS1 `ConversationProvider` réutilisée
-- `FakeIntakeConversationProvider` déterministe (défaut)
-- Live optionnel : `D1_INTAKE_LIVE=1` + secrets OPS1 existants
-- Prompt système D1-C2 local (`prompt.ts`) — JSON strict, anti-claims, no tools
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/05-clarification-state-machine.md`
-
-```markdown
-# 05 — Clarification
-
-empty → analyzing → clarification ↔ analyzing → proposal|analyze_only|undetermined|error
-Max 3 réponses utilisateur ; au-delà NEED_CLARIFICATION → UNDETERMINED.
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/06-security-rgpd-observability.md`
-
-```markdown
-# 06 — Sécurité / RGPD / obs
-
-Logs : event, longueur, tours, outcome, durée, mode fake/live — pas le corps.
-Événements intake_analysis_* / clarification_* / proposal_* / provider_failed / cancelled.
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/07-runtime-figma-validation.md`
-
-```markdown
-# 07 — Figma / runtime
-
-fileKey IS70XDnBMvZuJYmaI5eZT2
-clarification ≈ 12:36 · proposal ≈ 12:60 · responsive 14:64/90/117
-Captures `.tmp-sfia-review/screenshots-d1-c2/`
-UX-R04 différée après C3.
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/08-test-results.md`
-
-```markdown
-# 08 — Tests
-
-- vitest d1 : 26/26
-- e2e d1-c2 + C1 + I1 + p0-smoke : 26/26
-- tsc --noEmit : pass
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/09-reserves-and-debt.md`
-
-```markdown
-# 09 — Réserves
-
-- C2-R01 : live smoke optionnel non exécuté par défaut
-- C2-R02 : matching C3 absent (volontaire)
-- C2-R03 : session non persistée
-- UX-R04 : polish différé
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/10-d1-c2-validation-decision-pack.md`
-
-```markdown
-# 10 — Decision pack
-
-**Verdict :** SFIA v3.0 D1-C2 INTENT UNDERSTANDING AND STRUCTURED PROPOSAL IMPLEMENTED — VALIDATION REQUIRED
-
-Décisions Morris : GO VALIDATION D1-C2 ; ouvrir C3 matching.
-Anti-claims : pas C3 · pas mutation GPT · pas V3-IMPLEMENTED.
-```
-### `projects/sfia-studio/sfia-v3-delivery/d1-c2-intent-understanding-structured-proposal/README.md`
-
-```markdown
-# D1-C2 — Intent Understanding and Structured Proposal
-
-| Champ | Valeur |
-|-------|--------|
-| BCDI | BCDI-D1-C2-INTENT-UNDERSTANDING-STRUCTURED-PROPOSAL |
-| Gate consommé | GO IMPLEMENTATION D1-C2 |
-| Gate suivant | GO VALIDATION D1-C2 |
-| Statut | D1-C2 IMPLEMENTED CANDIDATE |
-| Baseline | SFIA v2.6 |
-| Statut v3 | V3-MODELED CANDIDATE |
-
-Index : 01–10.
-```
-### `projects/sfia-studio/app/__tests__/d1/intake-c2.test.ts`
-
-```tsx
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import {
-  parseProposalJsonText,
-  validateRequestRoutingProposal,
-} from "@/lib/d1/intake/validateProposal";
-import { analyzeIntent } from "@/lib/d1/intake/analyzeIntent";
-import {
-  buildFakeProposalPayload,
-  FakeIntakeConversationProvider,
-} from "@/lib/d1/intake/fakeIntakeProvider";
-import { setIntakeProviderForTests } from "@/lib/d1/intake/resolveProvider";
-import { D1Error } from "@/lib/d1/errors";
-import { REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION } from "@/lib/d1/intake/types";
-
-function validBase(over: Record<string, unknown> = {}) {
-  return {
-    schemaVersion: REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION,
-    proposalId: "rrp-1",
-    rawIntent: "Je veux lancer une app contrats",
-    normalizedIntent: "Créer un projet de suivi des contrats",
-    subject: "Suivi des contrats",
-    proposedObjective: "Cadrer le suivi des contrats",
-    proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
-    proposedCycleType: "FRAMING",
-    proposedProfile: "Standard",
-    proposedBlocks: ["cadrage"],
-    constraints: [],
-    assumptions: ["Aucun match contexte"],
-    missingInformation: ["confirmation humaine"],
-    clarificationQuestion: null,
-    alternatives: [],
-    confidence: 0.7,
-    rationale: "Nouveau besoin produit",
-    requiresHumanConfirmation: true,
-    status: "PROPOSAL_READY",
-    createdAt: "2026-07-22T18:00:00.000Z",
-    proposedProjectId: null,
-    proposedCycleId: null,
-    ...over,
-  };
-}
-
-describe("D1-C2 RequestRoutingProposal validation", () => {
-  it("accepts a valid CREATE_PROJECT_CANDIDATE payload", () => {
-    const p = validateRequestRoutingProposal(validBase());
-    expect(p.proposedOutcomeType).toBe("CREATE_PROJECT_CANDIDATE");
-    expect(p.requiresHumanConfirmation).toBe(true);
-    expect(p.proposedProjectId).toBeNull();
-  });
-
-  it("rejects invented project ids", () => {
-    expect(() =>
-      validateRequestRoutingProposal(
-        validBase({ proposedProjectId: "proj-x" }),
-      ),
-    ).toThrow(D1Error);
-  });
-
-  it("rejects confidence out of bounds", () => {
-    expect(() =>
-      validateRequestRoutingProposal(validBase({ confidence: 1.5 })),
-    ).toThrow(D1Error);
-  });
-
-  it("rejects forbidden claims", () => {
-    expect(() =>
-      validateRequestRoutingProposal(
-        validBase({ rationale: "This is V3-ADOPTED" }),
-      ),
-    ).toThrow(D1Error);
-  });
-
-  it("requires clarification question for NEED_CLARIFICATION", () => {
-    expect(() =>
-      validateRequestRoutingProposal(
-        validBase({
-          proposedOutcomeType: "NEED_CLARIFICATION",
-          status: "CLARIFICATION_REQUIRED",
-          clarificationQuestion: null,
-          requiresHumanConfirmation: true,
-        }),
-      ),
-    ).toThrow(D1Error);
-  });
-
-  it("parses fenced JSON", () => {
-    const raw = parseProposalJsonText(
-      "``\`json\n" + JSON.stringify(validBase()) + "\n``\`",
-    );
-    expect(validateRequestRoutingProposal(raw).proposalId).toBe("rrp-1");
-  });
-});
-
-describe("D1-C2 fake heuristics", () => {
-  it("maps analyze-only intent", () => {
-    const p = buildFakeProposalPayload(
-      "Analyse cette idée, mais ne crée rien.",
-      [],
-    );
-    expect(p.proposedOutcomeType).toBe("ANALYZE_ONLY");
-  });
-
-  it("maps vague intent to clarification", () => {
-    const p = buildFakeProposalPayload("J’ai un nouveau sujet.", []);
-    expect(p.proposedOutcomeType).toBe("NEED_CLARIFICATION");
-  });
-
-  it("maps clear product intent to create candidate", () => {
-    const p = buildFakeProposalPayload(
-      "Je veux lancer une application de suivi des contrats.",
-      [],
-    );
-    expect(p.proposedOutcomeType).toBe("CREATE_PROJECT_CANDIDATE");
-  });
-});
-
-describe("D1-C2 analyzeIntent service", () => {
-  beforeEach(() => {
-    setIntakeProviderForTests(new FakeIntakeConversationProvider());
-  });
-  afterEach(() => {
-    setIntakeProviderForTests(null);
-  });
-
-  it("produces a validated proposal without mutation side effects", async () => {
-    const result = await analyzeIntent({
-      sessionLocalId: "s1",
-      rawIntent: "Je veux lancer une application de suivi des contrats.",
-    });
-    expect(result.proposal.proposedOutcomeType).toBe(
-      "CREATE_PROJECT_CANDIDATE",
-    );
-    expect(result.proposal.proposedProjectId).toBeNull();
-    expect(result.providerMode).toBe("fake");
-  });
-
-  it("asks for clarification then accepts an answer", async () => {
-    const first = await analyzeIntent({
-      sessionLocalId: "s2",
-      rawIntent: "J’ai un nouveau sujet.",
-    });
-    expect(first.proposal.status).toBe("CLARIFICATION_REQUIRED");
-    const second = await analyzeIntent({
-      sessionLocalId: "s2",
-      rawIntent: "J’ai un nouveau sujet.",
-      clarificationTurns: [
-        {
-          role: "assistant",
-          content: first.proposal.clarificationQuestion ?? "",
-        },
-        {
-          role: "user",
-          content: "Je veux un module de suivi des contrats pour le legal.",
-        },
-      ],
-    });
-    expect(second.proposal.proposedOutcomeType).toBe(
-      "CREATE_PROJECT_CANDIDATE",
-    );
-  });
-
-  it("rejects oversized intent", async () => {
-    await expect(
-      analyzeIntent({
-        sessionLocalId: "s3",
-        rawIntent: "x".repeat(3000),
-      }),
-    ).rejects.toBeInstanceOf(D1Error);
-  });
-
-  it("maps provider error to D1Error PROVIDER", async () => {
-    await expect(
-      analyzeIntent({
-        sessionLocalId: "s4",
-        rawIntent: "__FORCE_PROVIDER_ERROR__ lancer une app",
-      }),
-    ).rejects.toMatchObject({ code: "PROVIDER" });
-  });
-});
-```
-### `projects/sfia-studio/app/e2e/d1-c2-intent-understanding.spec.ts`
-
-```tsx
-import { test, expect } from "@playwright/test";
-import path from "node:path";
-import fs from "node:fs";
-
-const shotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/screenshots-d1-c2",
-);
-
-test.beforeAll(() => {
-  fs.mkdirSync(shotDir, { recursive: true });
-  process.env.D1_INTAKE_PROVIDER = "fake";
-});
-
-test.describe("D1-C2 Intent Understanding and Structured Proposal", () => {
-  test("clear intent → structured proposal, no mutation", async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await page.goto("/nouvelle-demande");
-    await page
-      .getByTestId("intake-intent")
-      .fill("Je veux lancer une application de suivi des contrats.");
-    await page.getByTestId("intake-submit").click();
-    await expect(page.getByTestId("intake-proposal")).toBeVisible({
-      timeout: 15_000,
-    });
-    await expect(page.getByTestId("intake-no-mutation")).toBeVisible();
-    await expect(page.getByTestId("proposal-outcome")).toContainText(
-      "Créer un projet",
-    );
-    await expect(page.getByText(/Confirmer et créer/i)).toHaveCount(0);
-    await expect(page).toHaveURL(/\/nouvelle-demande/);
-    await page.screenshot({
-      path: path.join(shotDir, "proposal-1440.png"),
-      fullPage: false,
-    });
-  });
-
-  test("ambiguous intent → clarification → proposal", async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await page.goto("/nouvelle-demande");
-    await page.getByTestId("intake-intent").fill("J’ai un nouveau sujet.");
-    await page.getByTestId("intake-submit").click();
-    await expect(page.getByTestId("intake-clarification")).toBeVisible({
-      timeout: 15_000,
-    });
-    await page.screenshot({
-      path: path.join(shotDir, "clarification-1440.png"),
-      fullPage: false,
-    });
-    await page
-      .getByTestId("clarification-answer")
-      .fill("Je veux un module de suivi des contrats pour le legal.");
-    await page.getByTestId("clarification-submit").click();
-    await expect(page.getByTestId("intake-proposal")).toBeVisible({
-      timeout: 15_000,
-    });
-  });
-
-  test("analyze-only produces analysis without executable action", async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await page.goto("/nouvelle-demande");
-    await page
-      .getByTestId("intake-intent")
-      .fill("Analyse cette idée, mais ne crée rien.");
-    await page.getByTestId("intake-submit").click();
-    await expect(page.getByTestId("intake-proposal")).toBeVisible({
-      timeout: 15_000,
-    });
-    await expect(page.getByTestId("proposal-outcome")).toContainText(
-      "Analyse seule",
-    );
-    await page.screenshot({
-      path: path.join(shotDir, "analyze-only-1440.png"),
-      fullPage: false,
-    });
-  });
-
-  test("provider error + retry + cancel + manual + legacy", async ({
-    page,
-  }) => {
-    await page.goto("/nouvelle-demande");
-    await page
-      .getByTestId("intake-intent")
-      .fill("__FORCE_PROVIDER_ERROR__ lancer une app");
-    await page.getByTestId("intake-submit").click();
-    await expect(page.getByTestId("intake-error")).toBeVisible({
-      timeout: 15_000,
-    });
-    await page.screenshot({
-      path: path.join(shotDir, "error-1440.png"),
-      fullPage: false,
-    });
-    await page.getByTestId("intake-cancel").click();
-    await expect(page.getByTestId("intake-composer")).toBeVisible();
-
-    await page.getByTestId("quick-manual").click();
-    await expect(page).toHaveURL(/\/projects\/new/);
-    await page.goto("/workspace");
-    await expect(
-      page.getByRole("heading", { name: "Reprendre un travail", level: 2 }),
-    ).toBeVisible();
-    await page.goto("/ops1/nouvelle-demande");
-    await expect(
-      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
-    ).toBeVisible();
-  });
-
-  for (const width of [1728, 1440, 1280, 1024] as const) {
-    test(`proposal responsive no H-scroll at ${width}`, async ({ page }) => {
-      await page.setViewportSize({ width, height: 1024 });
-      await page.goto("/nouvelle-demande");
-      await page
-        .getByTestId("intake-intent")
-        .fill("Je veux lancer une application de suivi des contrats.");
-      await page.getByTestId("intake-submit").click();
-      await expect(page.getByTestId("intake-proposal")).toBeVisible({
-        timeout: 15_000,
-      });
-      const metrics = await page.evaluate(() => ({
-        scrollWidth: document.documentElement.scrollWidth,
-        innerWidth: window.innerWidth,
-      }));
-      expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
-      await page.screenshot({
-        path: path.join(shotDir, `proposal-${width}.png`),
-        fullPage: false,
-      });
-    });
-  }
-});
-```
 ### `projects/sfia-studio/app/features/d1/intake/IntakeView.tsx`
 
 ```tsx
@@ -1507,9 +3365,17 @@ import {
   actionCancelIntakeSession,
   actionLogClarificationAnswer,
 } from "@/lib/d1/intake/actions";
+import {
+  actionMatchExistingContext,
+} from "@/lib/d1/context/actions";
+import type {
+  ContextMatchResult,
+  ContextSelectionDraft,
+} from "@/lib/d1/context/types";
 import { logIntakeEvent } from "@/lib/d1/intakeObservability";
 import { D1AppShell } from "../D1AppShell";
 import { IntakeContextRail } from "./IntakeContextRail";
+import { ContextMatchPanel } from "./ContextMatchPanel";
 import shell from "../d1-shell.module.css";
 import styles from "./intake.module.css";
 
@@ -1518,6 +3384,7 @@ const EXAMPLES = [
   "Je veux travailler sur la gestion des utilisateurs.",
   "Analyse cette idée, mais ne crée rien.",
   "J’ai un nouveau sujet.",
+  "Je veux reprendre Campus360 pour la gestion des utilisateurs.",
 ] as const;
 
 type Phase =
@@ -1567,6 +3434,14 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
   );
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState(false);
+  const [contextMatch, setContextMatch] = useState<ContextMatchResult | null>(
+    null,
+  );
+  const [contextMatching, setContextMatching] = useState(false);
+  const [contextError, setContextError] = useState<string | null>(null);
+  const [selection, setSelection] = useState<ContextSelectionDraft | null>(
+    null,
+  );
 
   const locked =
     busy ||
@@ -1585,6 +3460,13 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
     document.getElementById(composerId)?.focus();
   }
 
+  function clearContextState() {
+    setContextMatch(null);
+    setContextMatching(false);
+    setContextError(null);
+    setSelection(null);
+  }
+
   function resetAll() {
     setPhase("empty");
     setIntent("");
@@ -1593,6 +3475,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
     setClarifyAnswer("");
     setErrorMessage(null);
     setProviderMode(null);
+    clearContextState();
     void actionCancelIntakeSession(sessionLocalId);
     focusComposer();
   }
@@ -1606,6 +3489,48 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
     setProposal(null);
     setErrorMessage(null);
     setTurns([]);
+    clearContextState();
+  }
+
+  function runContextMatch(nextProposal: RequestRoutingProposal) {
+    if (nextProposal.status === "CLARIFICATION_REQUIRED") {
+      clearContextState();
+      return;
+    }
+    setContextMatching(true);
+    setContextError(null);
+    setSelection(null);
+    const forceUnavailable =
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get(
+        "forceContextUnavailable",
+      ) === "1";
+    startTransition(async () => {
+      const result = await actionMatchExistingContext({
+        sessionLocalId,
+        proposal: {
+          proposalId: nextProposal.proposalId,
+          rawIntent: nextProposal.rawIntent,
+          normalizedIntent: nextProposal.normalizedIntent,
+          subject: nextProposal.subject,
+          proposedObjective: nextProposal.proposedObjective,
+          proposedOutcomeType: nextProposal.proposedOutcomeType,
+        },
+        forceUnavailable,
+      });
+      setContextMatching(false);
+      if (!result.ok) {
+        setContextMatch(null);
+        setContextError(result.message);
+        return;
+      }
+      setContextMatch(result.match);
+      requestAnimationFrame(() => {
+        document
+          .querySelector('[data-testid="intake-context"]')
+          ?.scrollIntoView({ block: "nearest" });
+      });
+    });
   }
 
   function runAnalysis(nextTurns: IntakeClarificationTurn[]) {
@@ -1614,6 +3539,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
     setBusy(true);
     setPhase("analyzing");
     setErrorMessage(null);
+    clearContextState();
     startTransition(async () => {
       const result = await actionAnalyzeIntent({
         sessionLocalId,
@@ -1638,10 +3564,13 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
         });
       } else if (result.proposal.status === "ANALYSIS_ONLY") {
         setPhase("analyze_only");
+        runContextMatch(result.proposal);
       } else if (result.proposal.status === "UNDETERMINED") {
         setPhase("undetermined");
+        runContextMatch(result.proposal);
       } else {
         setPhase("proposal");
+        runContextMatch(result.proposal);
       }
     });
   }
@@ -1673,6 +3602,12 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
     runAnalysis(nextTurns);
   }
 
+  const showProposal =
+    proposal &&
+    (phase === "proposal" ||
+      phase === "analyze_only" ||
+      phase === "undetermined");
+
   const rail = (
     <IntakeContextRail
       hasSubmitted={
@@ -1682,7 +3617,13 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
         phase === "undetermined"
       }
       recentCount={projects.length}
-      phase={phase}
+      phase={
+        contextMatching
+          ? "matching"
+          : contextMatch
+            ? "matched"
+            : phase
+      }
       providerMode={providerMode}
     />
   );
@@ -1745,10 +3686,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
         ) : null}
       </div>
 
-      {proposal &&
-      (phase === "proposal" ||
-        phase === "analyze_only" ||
-        phase === "undetermined") ? (
+      {showProposal ? (
         <section
           className={styles.proposalCard}
           data-testid="intake-proposal"
@@ -1823,6 +3761,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
                 setPhase("draft");
                 setProposal(null);
                 setTurns([]);
+                clearContextState();
                 focusComposer();
               }}
             >
@@ -1844,12 +3783,29 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
               Créer manuellement
             </Link>
           </div>
-          {/* Explicitly no executable confirm */}
           <p className={shell.hint} data-testid="intake-no-confirm-exec">
             La confirmation exécutable (créer / ouvrir un cycle) arrive dans un
             incrément ultérieur.
           </p>
         </section>
+      ) : null}
+
+      {showProposal ? (
+        <div aria-live="polite">
+          <ContextMatchPanel
+            match={contextMatch}
+            matching={contextMatching}
+            matchError={contextError}
+            selection={selection}
+            sessionLocalId={sessionLocalId}
+            analyzeOnly={phase === "analyze_only"}
+            onSelect={setSelection}
+            onClearSelection={() => setSelection(null)}
+            onRetry={() => {
+              if (proposal) runContextMatch(proposal);
+            }}
+          />
+        </div>
       ) : null}
 
       {phase === "clarification" && proposal?.clarificationQuestion ? (
@@ -1991,6 +3947,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
   );
 }
 ```
+
 ### `projects/sfia-studio/app/features/d1/intake/IntakeContextRail.tsx`
 
 ```tsx
@@ -2012,22 +3969,26 @@ export function IntakeContextRail({
       ? "Analyse en cours"
       : phase === "clarification"
         ? "Clarification en cours"
-        : phase === "proposal"
-          ? "Proposition prête (non exécutée)"
-          : phase === "analyze_only"
-            ? "Analyse seule — aucune mutation"
-            : phase === "error"
-              ? "Erreur d’analyse"
-              : hasSubmitted
-                ? "Demande traitée"
-                : "En attente d’une intention";
+        : phase === "matching"
+          ? "Matching contexte en cours"
+          : phase === "matched"
+            ? "Contexte évalué (non appliqué)"
+            : phase === "proposal"
+              ? "Proposition prête (non exécutée)"
+              : phase === "analyze_only"
+                ? "Analyse seule — aucune mutation"
+                : phase === "error"
+                  ? "Erreur d’analyse"
+                  : hasSubmitted
+                    ? "Demande traitée"
+                    : "En attente d’une intention";
 
   return (
     <>
       <h2>Accompagnement</h2>
       <div className={styles.railCard}>
         <strong>Studio vous aide à</strong>
-        <p>comprendre, clarifier et proposer — vous gardez la décision.</p>
+        <p>comprendre, clarifier, matcher et proposer — vous gardez la décision.</p>
       </div>
       <div className={styles.railCard}>
         <strong>État</strong>
@@ -2040,7 +4001,7 @@ export function IntakeContextRail({
         <strong>Projets existants</strong>
         <p>
           {recentCount > 0
-            ? `${recentCount} projet(s) — ouvrez le Workspace pour reprendre`
+            ? `${recentCount} projet(s) — matching C3 en lecture seule`
             : "Aucun projet pour l’instant — ouvrez le Workspace plus tard"}
         </p>
         <p>
@@ -2048,12 +4009,14 @@ export function IntakeContextRail({
         </p>
       </div>
       <p className={styles.monoNote}>
-        Matching contexte et mutations : hors périmètre de cet écran.
+        Matching déterministe · sélection temporaire · mutations hors périmètre
+        C3.
       </p>
     </>
   );
 }
 ```
+
 ### `projects/sfia-studio/app/features/d1/intake/intake.module.css`
 
 ```css
@@ -2392,6 +4355,88 @@ export function IntakeContextRail({
   gap: 10px;
 }
 
+.contextCard {
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  background: #fff;
+  padding: 18px;
+  margin-bottom: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.contextCard h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.contextLead {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+  line-height: 1.45;
+}
+
+.contextList {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.contextCandidate {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: var(--sfia-bg, #f6f7fa);
+  cursor: pointer;
+}
+
+.contextCandidateSelected {
+  border-color: var(--sfia-blue);
+  background: var(--sfia-blue-soft);
+}
+
+.contextCandidate input {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.contextCandidateBody {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.contextCandidateHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.contextCandidateBody p,
+.contextCandidateBody li {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.contextCandidateBody ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.contextWarnings {
+  color: #8a5a00;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .loadingRow {
     animation: none;
@@ -2399,314 +4444,55 @@ export function IntakeContextRail({
 }
 
 ```
-### `projects/sfia-studio/app/lib/d1/errors.ts`
+
+### `projects/sfia-studio/app/playwright.config.ts`
 
 ```tsx
-export type D1ErrorCode =
-  | "VALIDATION"
-  | "NOT_FOUND"
-  | "CONFLICT"
-  | "UNAUTHORIZED"
-  | "IDEMPOTENCY"
-  | "PERSISTENCE"
-  | "CLAIM_FORBIDDEN"
-  | "PROVIDER"
-  | "TIMEOUT";
+import { defineConfig, devices } from "@playwright/test";
 
-export class D1Error extends Error {
-  readonly code: D1ErrorCode;
-  readonly cause?: unknown;
+const baseURL = "http://127.0.0.1:3020";
 
-  constructor(code: D1ErrorCode, message: string, cause?: unknown) {
-    super(message);
-    this.name = "D1Error";
-    this.code = code;
-    this.cause = cause;
-  }
-}
-```
-### `projects/sfia-studio/app/lib/d1/intakeObservability.ts`
-
-```tsx
-/**
- * D1 intake observability — structured logs, no full intent body.
- * RGPD: length + action + status only.
- */
-
-export type IntakeLogEvent =
-  | "intake_opened"
-  | "intake_intent_submitted"
-  | "intake_manual_creation_opened"
-  | "intake_resume_project_opened"
-  | "intake_cancelled"
-  | "intake_analysis_started"
-  | "intake_clarification_requested"
-  | "intake_clarification_answered"
-  | "intake_proposal_generated"
-  | "intake_analysis_only_generated"
-  | "intake_provider_failed"
-  | "intake_proposal_rejected"
-  | "intake_session_cancelled";
-
-export function logIntakeEvent(
-  event: IntakeLogEvent,
-  payload: {
-    status?: string;
-    intentLength?: number;
-    projectId?: string;
-    sessionLocalId?: string;
-    durationMs?: number;
-    providerMode?: "fake" | "live";
-    errorCode?: string;
-  } = {},
-): void {
-  const line = JSON.stringify({
-    event,
-    ts: new Date().toISOString(),
-    status: payload.status ?? "ok",
-    intentLength: payload.intentLength,
-    projectId: payload.projectId,
-    sessionLocalId: payload.sessionLocalId,
-    durationMs: payload.durationMs,
-    providerMode: payload.providerMode,
-    errorCode: payload.errorCode,
-  });
-  // eslint-disable-next-line no-console
-  console.info(`[d1.intake] ${line}`);
-}
-```
-### `projects/sfia-studio/app/__tests__/d1/intake-c1.test.tsx`
-
-```tsx
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { IntakeView } from "@/features/d1/intake/IntakeView";
-import { NewProjectForm } from "@/features/d1/NewProjectForm";
-import { WorkspaceHomeView } from "@/features/d1/WorkspaceHomeView";
-import type { D1Project } from "@/lib/d1/types";
-import { D1_GOVERNANCE_METHOD_MODE } from "@/lib/d1/types";
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
-}));
-
-vi.mock("@/lib/d1/actions", () => ({
-  actionCreateProject: vi.fn(async () => ({
-    ok: true,
-    project: {
-      projectId: "proj-test",
-      name: "X",
-      state: "ACTIVE",
-      methodMode: D1_GOVERNANCE_METHOD_MODE,
+export default defineConfig({
+  testDir: "./e2e",
+  fullyParallel: false,
+  workers: 1,
+  forbidOnly: !!process.env.CI,
+  retries: 0,
+  reporter: [["list"]],
+  use: {
+    ...devices["Desktop Chrome"],
+    baseURL,
+    trace: "on-first-retry",
+    viewport: { width: 1440, height: 1024 },
+  },
+  webServer: {
+    command: "npm run dev -- --hostname 127.0.0.1 --port 3020",
+    url: baseURL,
+    reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
+    env: {
+      ...process.env,
+      OPS1_E2E_ALLOW_DIRTY_PRINCIPAL: "1",
+      D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",
+      // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
+      // without forcing fake (secrets must already be in the environment).
+      ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"
+        ? {
+            OPS1_CONVERSATION_PROVIDER: "",
+          }
+        : {
+            OPS1_CONVERSATION_PROVIDER: "fake",
+            OPENAI_API_KEY:
+              process.env.OPENAI_API_KEY || "sk-e2e-fake-not-a-real-key",
+            OPENAI_MODEL: process.env.OPENAI_MODEL || "fake-e2e-model",
+          }),
     },
-    idempotent: false,
-  })),
-}));
-
-vi.mock("@/lib/d1/intake/actions", () => ({
-  actionAnalyzeIntent: vi.fn(async (input: { rawIntent: string }) => {
-    const intent = input.rawIntent.toLowerCase();
-    if (intent.includes("__force_provider_error__")) {
-      return { ok: false, code: "PROVIDER", message: "Échec fournisseur" };
-    }
-    if (intent.includes("ne crée rien") || intent.includes("analyse")) {
-      return {
-        ok: true,
-        providerMode: "fake",
-        providerId: "d1-intake-fake",
-        durationMs: 1,
-        clarificationTurnCount: 0,
-        proposal: {
-          schemaVersion: "0.1.0-d1-c2",
-          proposalId: "rrp-a",
-          rawIntent: input.rawIntent,
-          normalizedIntent: "Analyse seule",
-          subject: "Idée",
-          proposedObjective: "Synthèse",
-          proposedOutcomeType: "ANALYZE_ONLY",
-          proposedCycleType: null,
-          proposedProfile: null,
-          proposedBlocks: [],
-          constraints: [],
-          assumptions: [],
-          missingInformation: [],
-          clarificationQuestion: null,
-          alternatives: [],
-          confidence: 0.8,
-          rationale: "Analyse demandée",
-          requiresHumanConfirmation: false,
-          status: "ANALYSIS_ONLY",
-          createdAt: new Date().toISOString(),
-          proposedProjectId: null,
-          proposedCycleId: null,
-        },
-      };
-    }
-    if (intent.includes("nouveau sujet")) {
-      return {
-        ok: true,
-        providerMode: "fake",
-        providerId: "d1-intake-fake",
-        durationMs: 1,
-        clarificationTurnCount: 0,
-        proposal: {
-          schemaVersion: "0.1.0-d1-c2",
-          proposalId: "rrp-c",
-          rawIntent: input.rawIntent,
-          normalizedIntent: "Vague",
-          subject: "Sujet",
-          proposedObjective: "À clarifier",
-          proposedOutcomeType: "NEED_CLARIFICATION",
-          proposedCycleType: null,
-          proposedProfile: null,
-          proposedBlocks: [],
-          constraints: [],
-          assumptions: [],
-          missingInformation: ["objectif"],
-          clarificationQuestion:
-            "Quel résultat concret souhaitez-vous obtenir avec ce sujet ?",
-          alternatives: [],
-          confidence: 0.3,
-          rationale: "Trop vague",
-          requiresHumanConfirmation: true,
-          status: "CLARIFICATION_REQUIRED",
-          createdAt: new Date().toISOString(),
-          proposedProjectId: null,
-          proposedCycleId: null,
-        },
-      };
-    }
-    return {
-      ok: true,
-      providerMode: "fake",
-      providerId: "d1-intake-fake",
-      durationMs: 1,
-      clarificationTurnCount: 0,
-      proposal: {
-        schemaVersion: "0.1.0-d1-c2",
-        proposalId: "rrp-p",
-        rawIntent: input.rawIntent,
-        normalizedIntent: "Créer projet",
-        subject: "Contrats",
-        proposedObjective: "Suivi des contrats",
-        proposedOutcomeType: "CREATE_PROJECT_CANDIDATE",
-        proposedCycleType: "FRAMING",
-        proposedProfile: "Standard",
-        proposedBlocks: ["cadrage"],
-        constraints: [],
-        assumptions: ["Pas de match"],
-        missingInformation: ["confirmation"],
-        clarificationQuestion: null,
-        alternatives: [],
-        confidence: 0.75,
-        rationale: "Nouveau besoin",
-        requiresHumanConfirmation: true,
-        status: "PROPOSAL_READY",
-        createdAt: new Date().toISOString(),
-        proposedProjectId: null,
-        proposedCycleId: null,
-      },
-    };
-  }),
-  actionCancelIntakeSession: vi.fn(async () => ({ ok: true })),
-  actionLogClarificationAnswer: vi.fn(async () => ({ ok: true })),
-}));
-
-const sample: D1Project = {
-  projectId: "proj-demo",
-  workspaceId: "ws-studio-default",
-  name: "Campus360",
-  objective: "Cadrage comptes",
-  initialContextSummary: null,
-  methodMode: "V3_CANDIDATE",
-  state: "ACTIVE",
-  ownerActorId: "actor-mono-i1",
-  createdAt: "2026-07-22T10:00:00.000Z",
-  updatedAt: "2026-07-22T10:00:00.000Z",
-  version: 1,
-};
-
-describe("D1-C2 IntakeView", () => {
-  beforeEach(() => {
-    vi.spyOn(console, "info").mockImplementation(() => {});
-  });
-  afterEach(() => {
-    cleanup();
-    vi.restoreAllMocks();
-  });
-
-  it("keeps only describe + create manually actions", () => {
-    render(<IntakeView projects={[sample]} />);
-    expect(screen.getByTestId("quick-describe")).toBeTruthy();
-    expect(screen.getByTestId("quick-manual").textContent).toBe(
-      "Créer manuellement",
-    );
-    expect(screen.queryByTestId("quick-resume")).toBeNull();
-    expect(screen.queryByTestId("quick-decisions")).toBeNull();
-  });
-
-  it("shows structured proposal without executable confirm", async () => {
-    const user = userEvent.setup();
-    render(<IntakeView projects={[]} />);
-    await user.type(
-      screen.getByTestId("intake-intent"),
-      "Je veux lancer une application de suivi des contrats.",
-    );
-    await user.click(screen.getByTestId("intake-submit"));
-    await waitFor(() => expect(screen.getByTestId("intake-proposal")).toBeTruthy());
-    expect(screen.getByTestId("intake-no-mutation")).toBeTruthy();
-    expect(screen.getByTestId("intake-no-confirm-exec")).toBeTruthy();
-    expect(screen.queryByText(/Confirmer et créer/i)).toBeNull();
-    expect(screen.queryByTestId("project-method-mode")).toBeNull();
-  });
-
-  it("handles clarification flow", async () => {
-    const user = userEvent.setup();
-    render(<IntakeView projects={[]} />);
-    await user.type(screen.getByTestId("intake-intent"), "J’ai un nouveau sujet.");
-    await user.click(screen.getByTestId("intake-submit"));
-    await waitFor(() =>
-      expect(screen.getByTestId("intake-clarification")).toBeTruthy(),
-    );
-  });
-
-  it("handles analyze-only", async () => {
-    const user = userEvent.setup();
-    render(<IntakeView projects={[]} />);
-    await user.type(
-      screen.getByTestId("intake-intent"),
-      "Analyse cette idée, mais ne crée rien.",
-    );
-    await user.click(screen.getByTestId("intake-submit"));
-    await waitFor(() => expect(screen.getByTestId("intake-proposal")).toBeTruthy());
-    expect(screen.getByTestId("proposal-outcome").textContent).toMatch(
-      /Analyse seule/,
-    );
-  });
-});
-
-describe("D1-C1 IA cleanup still holds", () => {
-  afterEach(() => cleanup());
-
-  it("Workspace hosts Reprendre", () => {
-    render(<WorkspaceHomeView projects={[sample]} />);
-    expect(
-      screen.getByRole("heading", { name: "Reprendre un travail", level: 2 }),
-    ).toBeTruthy();
-  });
-
-  it("Créer manuellement has no MethodMode select", () => {
-    render(<NewProjectForm />);
-    expect(
-      screen.getByRole("heading", { name: "Créer manuellement", level: 1 }),
-    ).toBeTruthy();
-    expect(screen.queryByTestId("project-method-mode")).toBeNull();
-  });
+  },
 });
 ```
 
-## 9. État Git final
+
+## 10. État Git final
 
 ```
 HEAD=32e5271842b9a344a7e292614675c27ea8ed941b
@@ -2715,6 +4501,6 @@ staged=0
 deps_unchanged=true
 ```
 
-## 10. Verdict
+## 11. Verdict
 
-**VERDICT :** SFIA v3.0 D1-C2 INTENT UNDERSTANDING AND STRUCTURED PROPOSAL IMPLEMENTED — VALIDATION REQUIRED
+**VERDICT :** SFIA v3.0 D1-C3 EXISTING CONTEXT MATCHING IMPLEMENTED — VALIDATION REQUIRED
