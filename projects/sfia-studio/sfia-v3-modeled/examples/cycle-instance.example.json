@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "cycleId": "cycle-framing-001",
+  "projectId": "proj-demo-framing-001",
+  "cycleType": "framing",
+  "profile": "Critical",
+  "state": "ACTIVE",
+  "createdAt": "2026-07-22T15:10:00.000Z",
+  "doctrine": {
+    "doctrineVersion": "SFIA-v2.6",
+    "methodMode": "transition",
+    "definitionDigests": {
+      "projects/sfia-studio/sfia-v3-framing/29-sfia-v3-option-d-bounded-codesign-trajectory.md": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  }
+}

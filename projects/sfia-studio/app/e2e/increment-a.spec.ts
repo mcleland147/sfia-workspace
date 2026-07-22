@@ -9,7 +9,7 @@ const screenshotDir = path.join(
 
 const captures = [
   {
-    path: "/nouvelle-demande?vs=VS-UX-01",
+    path: "/ops1/nouvelle-demande?vs=VS-UX-01",
     name: "inc-a-nouvelle-demande",
     assert: async (page: import("@playwright/test").Page) => {
       await expect(page.getByTestId("vs-demo-banner")).toBeVisible();
@@ -17,7 +17,7 @@ const captures = [
     },
   },
   {
-    path: "/nouvelle-demande?vs=VS-UX-03",
+    path: "/ops1/nouvelle-demande?vs=VS-UX-03",
     name: "inc-a-qualification-proposee",
     assert: async (page: import("@playwright/test").Page) => {
       await expect(
@@ -104,7 +104,7 @@ test.describe("Increment A visual & functional", () => {
   });
 
   test("demo switcher reaches ten states", async ({ page }) => {
-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
+    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
     const switcher = page.getByTestId("vs-demo-switcher");
     await expect(switcher).toBeVisible();
     const values = await switcher.locator("option").evaluateAll((opts) =>
@@ -141,7 +141,7 @@ test.describe("Increment A visual & functional", () => {
   });
 
   test("GPT counter shows À définir and no-retry", async ({ page }) => {
-    await page.goto("/nouvelle-demande?vs=VS-UX-02");
+    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-02");
     await expect(page.getByTestId("vs-gpt-counter").first()).toContainText(
       "À définir",
     );

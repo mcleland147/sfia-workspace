@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "gateId": "gate-001",
+  "decisionRequestId": "dr-transition-001",
+  "kind": "transition_approval",
+  "state": "OPEN",
+  "openedAt": "2026-07-22T15:41:00.000Z",
+  "requiredRole": "decision_maker"
+}

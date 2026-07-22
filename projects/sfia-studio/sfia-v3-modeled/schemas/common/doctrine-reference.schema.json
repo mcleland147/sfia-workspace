@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/common/doctrine-reference.schema.json",
+  "title": "DoctrineReference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["doctrineVersion"],
+  "properties": {
+    "doctrineVersion": { "type": "string", "enum": ["SFIA-v2.6", "SFIA-v3.0-candidate"] },
+    "definitionDigests": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "methodMode": { "type": "string", "enum": ["v2.6_manual", "v2.6_assisted", "transition", "v3_studio_native", "fallback"] }
+  }
+}

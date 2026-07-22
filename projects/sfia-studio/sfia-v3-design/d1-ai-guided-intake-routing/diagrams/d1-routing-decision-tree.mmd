@@ -1,0 +1,14 @@
+flowchart TD
+  I[Intent + matches] --> A{Analyze-only?}
+  A -->|oui| AO[ANALYZE_ONLY]
+  A -->|non| D{Décision demandée?}
+  D -->|oui| OD[OPEN_DECISION]
+  D -->|non| R{Action ouverte forte?}
+  R -->|oui| RA[RESUME_ACTION]
+  R -->|non| C{Cycle ouvert fort?}
+  C -->|oui| RC[RESUME_CYCLE]
+  C -->|non| P{Projet match + nouveau sujet?}
+  P -->|oui| OC[OPEN_CYCLE]
+  P -->|non| N{Nouveau besoin crédible?}
+  N -->|oui| CP[CREATE_PROJECT]
+  N -->|non| NC[NEED_CLARIFICATION]

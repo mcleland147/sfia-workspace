@@ -17,6 +17,29 @@ vi.mock("@/lib/ops1/actions", () => ({
   ops1GetSessionAction: (...args: unknown[]) => get(...args),
   ops1SendMessageAction: (...args: unknown[]) => send(...args),
   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
+  ops1EnsureSfiaContextAction: vi.fn(async () => ({
+    ok: true,
+    data: {
+      context: {
+        contextId: "sfia-ctx-test",
+        methodBaseline: "SFIA v2.6",
+        candidateCycle: "test",
+        profile: "Critical",
+        headSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        openGates: [],
+        closedGates: ["commit"],
+        allowedOperations: ["conversation"],
+        forbiddenOperations: ["commit"],
+        sourceDocuments: [],
+        warnings: [],
+      },
+    },
+  })),
+  ops1GetSfiaContextAction: vi.fn(async () => ({
+    ok: true,
+    data: { context: null },
+  })),
+  ops1InstantiateCursorPromptAction: vi.fn(),
   ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
     ok: true,
     data: { flagEnabled: false, binPath: null, available: false },

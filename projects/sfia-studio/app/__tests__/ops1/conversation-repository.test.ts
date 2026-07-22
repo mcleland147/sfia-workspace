@@ -185,7 +185,7 @@ describe("ops1 i2 repository + immutable session mode", () => {
       provider: wrapping,
     });
 
-    expect(histories).toEqual([1, 3, 5]);
+    expect(histories).toEqual([3, 5, 7]); // +2 SFIA preamble messages each live turn
     expect(third.assistantTurn?.role).toBe("assistant_live");
     expect(listTurns(session.sessionId)).toHaveLength(6);
 

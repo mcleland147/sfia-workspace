@@ -1,0 +1,29 @@
+```mermaid
+flowchart TB
+  subgraph Browser
+    UI[Studio Web Shell + Project Cockpit]
+  end
+  subgraph StudioMonolith["SFIA Studio Modular Monolith (Next.js)"]
+    SA[Server Actions / Command Facade]
+    Dom[D1 Domain Modules]
+    Pol[Policy Engine]
+    Pers[(Persistence Layer)]
+    Aud[Audit Service]
+  end
+  subgraph Adapters
+    GPT[GPT Adapter]
+    Git[Git Context Adapter]
+    Auth[Identity/AuthZ Adapter]
+  end
+  UI --> SA
+  SA --> Dom
+  Dom --> Pol
+  Dom --> Pers
+  Dom --> Aud
+  Dom --> GPT
+  Dom --> Git
+  Dom --> Auth
+  Pers --> SQL[(SQLite candidate / PG later)]
+  Git --> Repo[(Git workspace read-only)]
+  GPT --> OpenAI[OpenAI API]
+```

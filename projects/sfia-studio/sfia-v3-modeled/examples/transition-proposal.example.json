@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "proposalId": "tp-001",
+  "cycleId": "cycle-framing-001",
+  "fromState": "VALIDATING",
+  "toState": "COMPLETED",
+  "rationale": "Framing complete; propose COMPLETED then next cycle",
+  "status": "PROPOSED",
+  "createdAt": "2026-07-22T15:50:00.000Z"
+}

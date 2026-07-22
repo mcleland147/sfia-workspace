@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/review/cycle-review-bundle.schema.json",
+  "title": "CycleReviewBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest",
+    "contextSnapshotRef",
+    "deliverableReferences",
+    "validationResults",
+    "decisionRequests",
+    "reserves",
+    "humanVerdict",
+    "auditReferences",
+    "schemaVersion"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "manifest": {
+      "$ref": "review-manifest.schema.json"
+    },
+    "contextSnapshotRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "objectId",
+        "digest",
+        "accessibilityStatus"
+      ],
+      "properties": {
+        "objectId": {
+          "$ref": "../common/identifier.schema.json"
+        },
+        "path": {
+          "type": "string"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "accessibilityStatus": {
+          "type": "string",
+          "enum": [
+            "RESOLVED",
+            "MISSING",
+            "DENIED"
+          ]
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "deliverableReferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "objectId",
+          "digest",
+          "accessibilityStatus"
+        ],
+        "properties": {
+          "objectId": {
+            "$ref": "../common/identifier.schema.json"
+          },
+          "path": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "accessibilityStatus": {
+            "type": "string",
+            "enum": [
+              "RESOLVED",
+              "MISSING",
+              "DENIED"
+            ]
+          },
+          "verified": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "validationResults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "PASS_WITH_RESERVES",
+            "PENDING"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "decisionRequests": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "reserves": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "humanVerdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict"
+      ],
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "GO",
+            "NO_GO",
+            "DEFER",
+            "PENDING"
+          ]
+        },
+        "decisionId": {
+          "$ref": "../common/identifier.schema.json"
+        }
+      }
+    },
+    "auditReferences": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    }
+  }
+}

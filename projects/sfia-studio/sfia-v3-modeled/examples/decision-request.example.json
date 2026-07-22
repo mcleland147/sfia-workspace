@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "decisionRequestId": "dr-transition-001",
+  "projectId": "proj-demo-framing-001",
+  "cycleId": "cycle-framing-001",
+  "kind": "transition",
+  "state": "OPEN",
+  "question": "Approve transition to next cycle after framing?",
+  "options": [
+    "GO",
+    "NO_GO",
+    "DEFER"
+  ],
+  "createdAt": "2026-07-22T15:40:00.000Z"
+}

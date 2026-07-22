@@ -1,0 +1,50 @@
+```mermaid
+flowchart LR
+  Shell[Studio Web Shell]
+  Cockpit[Project Cockpit UI]
+  PS[Project Service]
+  CS[Cycle Service]
+  GSS[Guided Session Service]
+  CCS[Canonical Context Service]
+  DR[Definition Registry]
+  PE[Policy Engine]
+  DGS[Decision and Gate Service]
+  TS[Transition Service]
+  RS[Review Service]
+  AS[Audit Service]
+  PL[Persistence Layer]
+  GA[Git Adapter]
+  GPTA[GPT Adapter]
+  IA[AuthZ Adapter]
+
+  Shell --> Cockpit
+  Cockpit --> PS
+  Cockpit --> CS
+  Cockpit --> GSS
+  Cockpit --> DGS
+  Cockpit --> RS
+  GSS --> CCS
+  GSS --> GPTA
+  GSS --> PE
+  CCS --> DR
+  CCS --> GA
+  PS --> PE
+  CS --> PE
+  DGS --> PE
+  TS --> PE
+  PS --> PL
+  CS --> PL
+  GSS --> PL
+  DGS --> PL
+  TS --> PL
+  RS --> PL
+  AS --> PL
+  PS --> AS
+  CS --> AS
+  GSS --> AS
+  DGS --> AS
+  TS --> AS
+  RS --> AS
+  PS --> IA
+  DGS --> IA
+```

@@ -7,6 +7,7 @@ import {
   ops1CreateFixtureActionCandidateAction,
   ops1CreateSessionAction,
   ops1CreateExecutionContractAction,
+  ops1EnsureSfiaContextAction,
   ops1EvaluateAllowlistAction,
   ops1GetLiveConfigAction,
   ops1GetRealCursorAvailabilityAction,
@@ -23,6 +24,11 @@ import {
   ops1OpenContinuationAction,
   ops1SendMessageAction,
 } from "@/lib/ops1/actions";
+import type {
+  SfiaActionProposal,
+  SfiaCanonicalContext,
+  SfiaCompilationResult,
+} from "@/lib/ops1/sfia/types";
 import { formatOps1WorktreeRef } from "@/lib/ops1/worktreeDisplay";
 import type {
   ActionAllowlistEvaluation,
@@ -213,6 +219,17 @@ export function Ops1SessionScreen({
   const [latestReport, setLatestReport] = useState<ExecutionReport | null>(
     null,
   );
+  const [sessionEvents, setSessionEvents] = useState<
+    Array<{ eventId: string; type: string; createdAt: string; detail: string }>
+  >([]);
+  const [timelineTerminal, setTimelineTerminal] = useState<string>(
+    "DECISION_REQUIRED",
+  );
+  const [githubStatus, setGithubStatus] = useState<{
+    available: boolean;
+    transport: string;
+    reason?: string;
+  } | null>(null);
   const [i6Error, setI6Error] = useState<string | null>(null);
   const [resumeSummary, setResumeSummary] = useState<string | null>(null);
   const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
@@ -223,7 +240,58 @@ export function Ops1SessionScreen({
     scopeSummary: "",
     riskSummary: "",
   });
+  const [sfiaContext, setSfiaContext] = useState<SfiaCanonicalContext | null>(
+    null,
+  );
+  const [sfiaProposal, setSfiaProposal] = useState<SfiaActionProposal | null>(
+    null,
+  );
+  const [sfiaCompilation, setSfiaCompilation] =
+    useState<SfiaCompilationResult | null>(null);
+  const [sfiaUiState, setSfiaUiState] = useState<
+    | "CONTEXT_LOADING"
+    | "CONTEXT_READY"
+    | "CONTEXT_STALE"
+    | "PROPOSAL_RECEIVED"
+    | "PROPOSAL_INVALID"
+    | "COMPILATION_DENIED"
+    | "ACTION_CANDIDATE_CREATED"
+    | "DECISION_REQUIRED"
+    | null
+  >(null);
   const [pending, startTransition] = useTransition();
+
+  const deriveSfiaUiState = useCallback(
+    (input: {
+      context: SfiaCanonicalContext | null;
+      proposal: SfiaActionProposal | null;
+      compilation: SfiaCompilationResult | null;
+    }) => {
+      if (!input.context) {
+        setSfiaUiState(null);
+        return;
+      }
+      const status = input.compilation?.status;
+      if (status === "COMPILED") {
+        setSfiaUiState("ACTION_CANDIDATE_CREATED");
+        return;
+      }
+      if (status === "CONTEXT_STALE") {
+        setSfiaUiState("CONTEXT_STALE");
+        return;
+      }
+      if (status) {
+        setSfiaUiState("COMPILATION_DENIED");
+        return;
+      }
+      if (input.proposal) {
+        setSfiaUiState("PROPOSAL_RECEIVED");
+        return;
+      }
+      setSfiaUiState("CONTEXT_READY");
+    },
+    [],
+  );
 
   useEffect(() => {
     onGlobalModeContextChange?.({
@@ -254,6 +322,13 @@ export function Ops1SessionScreen({
       latestContractByAction?: Record<string, ExecutionContract | null>;
       latestAttemptByContract?: Record<string, ExecutionAttempt | null>;
       latestReport?: ExecutionReport | null;
+      events?: Array<{
+        eventId: string;
+        type: string;
+        createdAt: string;
+        detail: string;
+      }>;
+      timeline?: { terminal: string };
     }) => {
       setQualification(data.qualification);
       setCandidates(data.candidates);
@@ -262,6 +337,8 @@ export function Ops1SessionScreen({
       setContractByAction(data.latestContractByAction ?? {});
       setAttemptByContract(data.latestAttemptByContract ?? {});
       setLatestReport(data.latestReport ?? null);
+      setSessionEvents(data.events ?? []);
+      setTimelineTerminal(data.timeline?.terminal ?? "DECISION_REQUIRED");
       const latest = data.candidates[data.candidates.length - 1];
       if (latest) {
         setRefineDraft({
@@ -289,6 +366,8 @@ export function Ops1SessionScreen({
         setContractByAction({});
         setAttemptByContract({});
         setLatestReport(null);
+        setSessionEvents([]);
+        setTimelineTerminal("DECISION_REQUIRED");
         setResumeSummary(null);
         setPhase("idle");
         if (typeof window !== "undefined") {
@@ -314,6 +393,7 @@ export function Ops1SessionScreen({
         setLiveAvailable(cfg.data.available);
         setLiveMissing(cfg.data.missing);
         setTestProvider(cfg.data.testProvider);
+        setGithubStatus(cfg.data.github ?? null);
       }
       const cursor = await ops1GetRealCursorAvailabilityAction();
       if (!cancelled && cursor.ok) {
@@ -364,6 +444,10 @@ export function Ops1SessionScreen({
       window.sessionStorage.setItem(STORAGE_KEY, result.data.session.sessionId);
       setSession(result.data.session);
       setTurns([]);
+      setSfiaContext(null);
+      setSfiaProposal(null);
+      setSfiaCompilation(null);
+      setSfiaUiState("CONTEXT_LOADING");
       setPresentation(
         result.data.session.conversationMode === "fixture"
           ? "fixture"
@@ -371,6 +455,13 @@ export function Ops1SessionScreen({
             ? "test_provider"
             : "openai_live",
       );
+      const ctxResult = await ops1EnsureSfiaContextAction({
+        sessionId: result.data.session.sessionId,
+      });
+      if (ctxResult.ok) {
+        setSfiaContext(ctxResult.data.context);
+        setSfiaUiState("CONTEXT_READY");
+      }
       setPhase("open");
     });
   };
@@ -393,6 +484,22 @@ export function Ops1SessionScreen({
       setDraft("");
       setLastUsage(result.data.usage);
       setPresentation(result.data.presentation);
+      if (result.data.sfiaContext) {
+        setSfiaContext(result.data.sfiaContext);
+      }
+      setSfiaProposal(result.data.sfiaProposal);
+      setSfiaCompilation(result.data.sfiaCompilation);
+      deriveSfiaUiState({
+        context: result.data.sfiaContext ?? sfiaContext,
+        proposal: result.data.sfiaProposal,
+        compilation: result.data.sfiaCompilation,
+      });
+      if (
+        result.data.sfiaCompilation?.status === "COMPILED" &&
+        result.data.sfiaCompilation.actionCandidateId
+      ) {
+        setSfiaUiState("ACTION_CANDIDATE_CREATED");
+      }
       await loadBundle(session.sessionId);
       if (result.data.assistantError) {
         setError(result.data.assistantError);
@@ -416,6 +523,10 @@ export function Ops1SessionScreen({
     setDecisionsByAction({});
     setGateMicrocopy(null);
     setExecRefuseMsg(null);
+    setSfiaContext(null);
+    setSfiaProposal(null);
+    setSfiaCompilation(null);
+    setSfiaUiState(null);
     setPhase("idle");
   };
 
@@ -1026,6 +1137,15 @@ export function Ops1SessionScreen({
                         ) : null}
                       </div>
                       <p className={styles.turnContent}>{turn.content}</p>
+                      {turn.content.startsWith("[OPS1_REPORT_REINJECTION]") ? (
+                        <p
+                          className={styles.hint}
+                          data-testid="ct-reinjection-turn"
+                        >
+                          Rapport réinjecté automatiquement — pas un succès
+                          implicite.
+                        </p>
+                      ) : null}
                     </li>
                   ))}
                 </ol>
@@ -1125,6 +1245,225 @@ export function Ops1SessionScreen({
           </section>
 
           <section
+            className={styles.panel}
+            data-testid="sfia-context-panel"
+            aria-labelledby="sfia-context-title"
+          >
+            <h2 id="sfia-context-title" className={styles.panelTitle}>
+              Contexte SFIA
+            </h2>
+            <p data-testid="sfia-ui-state">
+              État : {sfiaUiState ?? "—"}
+            </p>
+            {sfiaContext ? (
+              <dl className={styles.meta} data-testid="sfia-context-ready">
+                <div>
+                  <dt>contextId</dt>
+                  <dd data-testid="sfia-context-id">{sfiaContext.contextId}</dd>
+                </div>
+                <div>
+                  <dt>Baseline</dt>
+                  <dd data-testid="sfia-baseline">
+                    {sfiaContext.methodBaseline}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Cycle</dt>
+                  <dd data-testid="sfia-cycle">{sfiaContext.candidateCycle}</dd>
+                </div>
+                <div>
+                  <dt>Profil</dt>
+                  <dd data-testid="sfia-profile">{sfiaContext.profile}</dd>
+                </div>
+                <div>
+                  <dt>HEAD</dt>
+                  <dd data-testid="sfia-head">{sfiaContext.headSha.slice(0, 12)}</dd>
+                </div>
+                <div>
+                  <dt>Gates ouverts</dt>
+                  <dd data-testid="sfia-open-gates">
+                    {sfiaContext.openGates.join(" · ")}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Gates fermés</dt>
+                  <dd data-testid="sfia-closed-gates">
+                    {sfiaContext.closedGates.join(" · ")}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Ops autorisées</dt>
+                  <dd data-testid="sfia-allowed-ops">
+                    {sfiaContext.allowedOperations.join(", ")}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Ops interdites</dt>
+                  <dd data-testid="sfia-forbidden-ops">
+                    {sfiaContext.forbiddenOperations.join(", ")}
+                  </dd>
+                </div>
+              </dl>
+            ) : (
+              <p className={styles.muted} data-testid="sfia-context-empty">
+                Contexte SFIA non chargé.
+              </p>
+            )}
+            {sfiaContext ? (
+              <ul data-testid="sfia-sources-list">
+                {sfiaContext.sourceDocuments.map((s) => (
+                  <li key={s.path} data-testid="sfia-source-item">
+                    {s.role} · {s.path} · digest {s.digest.slice(0, 12)}
+                    {s.blobSha ? ` · blob ${s.blobSha.slice(0, 8)}` : ""}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {sfiaContext?.warnings.length ? (
+              <p className={styles.hint} data-testid="sfia-warnings">
+                {sfiaContext.warnings.join(" · ")}
+              </p>
+            ) : null}
+            <p className={styles.hint}>
+              Markers SFIA fixture : __SFIA_PROPOSE_CREATE_MD__ ·
+              __SFIA_PROPOSE_COMMIT__
+            </p>
+          </section>
+
+          {(sfiaProposal || sfiaCompilation) && (
+            <section
+              className={styles.panel}
+              data-testid="sfia-proposal-panel"
+              aria-labelledby="sfia-proposal-title"
+            >
+              <h2 id="sfia-proposal-title" className={styles.panelTitle}>
+                Proposition SFIA / compilation
+              </h2>
+              {sfiaProposal ? (
+                <p data-testid="sfia-proposal-kind">
+                  Kind : {sfiaProposal.kind} · {sfiaProposal.proposalId}
+                </p>
+              ) : (
+                <p className={styles.muted} data-testid="sfia-proposal-missing">
+                  Aucune proposition structurée.
+                </p>
+              )}
+              {sfiaCompilation ? (
+                <dl className={styles.meta} data-testid="sfia-compilation">
+                  <div>
+                    <dt>Verdict compilateur</dt>
+                    <dd data-testid="sfia-compilation-status">
+                      {sfiaCompilation.status}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Raisons</dt>
+                    <dd data-testid="sfia-compilation-reasons">
+                      {sfiaCompilation.reasons.join(" · ")}
+                    </dd>
+                  </div>
+                  {sfiaCompilation.deniedOperations.length > 0 ? (
+                    <div>
+                      <dt>Ops refusées</dt>
+                      <dd data-testid="sfia-denied-ops">
+                        {sfiaCompilation.deniedOperations.join(", ")}
+                      </dd>
+                    </div>
+                  ) : null}
+                  {sfiaCompilation.deniedPaths.length > 0 ? (
+                    <div>
+                      <dt>Chemins refusés</dt>
+                      <dd data-testid="sfia-denied-paths">
+                        {sfiaCompilation.deniedPaths.join(", ")}
+                      </dd>
+                    </div>
+                  ) : null}
+                  {sfiaCompilation.actionCandidateId ? (
+                    <div>
+                      <dt>ActionCandidate live</dt>
+                      <dd data-testid="sfia-live-action-id">
+                        {sfiaCompilation.actionCandidateId}
+                      </dd>
+                    </div>
+                  ) : null}
+                </dl>
+              ) : null}
+              {sfiaProposal?.kind === "action_proposed" ? (
+                <ul data-testid="sfia-proposal-files">
+                  {sfiaProposal.files.map((f) => (
+                    <li key={`${f.operation}:${f.path}`}>
+                      {f.operation} {f.path}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+          )}
+
+          <section
+            className={styles.panel}
+            data-testid="ct-sources-panel"
+            aria-labelledby="ct-sources-title"
+          >
+            <h2 id="ct-sources-title" className={styles.panelTitle}>
+              Sources & outils (Control Tower)
+            </h2>
+            <p className={styles.muted} data-testid="ct-github-status">
+              GitHub read :{" "}
+              {githubStatus
+                ? githubStatus.available
+                  ? `disponible (${githubStatus.transport})`
+                  : `indisponible — ${githubStatus.reason ?? "auth requise"}`
+                : "—"}
+            </p>
+            <p className={styles.hint}>
+              Markers fixture : __CT_TOOL_GIT_STATUS__ · __CT_TOOL_GITHUB_REPO__
+              · __CT_TOOL_DENIED_PATH__
+            </p>
+            <ul data-testid="ct-tool-events">
+              {sessionEvents
+                .filter(
+                  (e) =>
+                    e.type.startsWith("TOOL_") ||
+                    e.type === "SOURCE_SEARCH_STARTED",
+                )
+                .slice(-20)
+                .map((e) => (
+                  <li key={e.eventId} data-testid="ct-tool-event">
+                    <strong>{e.type}</strong> · {e.createdAt} ·{" "}
+                    {e.detail.slice(0, 160)}
+                  </li>
+                ))}
+            </ul>
+            {sessionEvents.filter((e) => e.type.startsWith("TOOL_")).length ===
+            0 ? (
+              <p className={styles.muted} data-testid="ct-tool-events-empty">
+                Aucun appel d’outil pour cette session.
+              </p>
+            ) : null}
+          </section>
+
+          <section
+            className={styles.panel}
+            data-testid="ct-timeline-panel"
+            aria-labelledby="ct-timeline-title"
+          >
+            <h2 id="ct-timeline-title" className={styles.panelTitle}>
+              Timeline unifiée
+            </h2>
+            <p data-testid="ct-timeline-terminal">
+              État terminal : {timelineTerminal}
+            </p>
+            <ol data-testid="ct-timeline-list">
+              {sessionEvents.slice(-30).map((e) => (
+                <li key={e.eventId} data-testid="ct-timeline-item">
+                  {e.createdAt} — {e.type}
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section
             className={`${styles.panel} ${styles.i3Panel}`}
             data-testid="ops1-i3-controls"
             aria-labelledby="ops1-i3-controls-title"
@@ -1158,13 +1497,20 @@ export function Ops1SessionScreen({
               >
                 ACTION_NOT_REQUIRED
               </CtaButton>
-              <CtaButton
-                onClick={onCreateCandidate}
-                disabled={pending}
-                data-testid="ops1-i3-create-candidate"
-              >
-                Créer ActionCandidate (fixture)
-              </CtaButton>
+              {isFixtureSession ? (
+                <CtaButton
+                  onClick={onCreateCandidate}
+                  disabled={pending}
+                  data-testid="ops1-i3-create-candidate"
+                >
+                  Créer ActionCandidate (fixture)
+                </CtaButton>
+              ) : (
+                <p className={styles.hint} data-testid="ops1-i3-live-no-fixture">
+                  Mode live : ActionCandidate via moteur SFIA uniquement (pas de
+                  bouton fixture).
+                </p>
+              )}
             </div>
           </section>
 

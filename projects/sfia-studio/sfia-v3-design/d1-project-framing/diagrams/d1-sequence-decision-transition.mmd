@@ -1,0 +1,25 @@
+```mermaid
+sequenceDiagram
+  actor D as Decideur
+  participant UI as Decision Center
+  participant DG as Decision Gate Service
+  participant RS as Review Service
+  participant TS as Transition Service
+  participant CS as Cycle Service
+  participant AU as Audit
+
+  D->>UI: open gate
+  UI->>DG: RecordHumanDecision(GO)
+  DG->>AU: HUMAN_DECISION_RECORDED / GATE_APPROVED
+  UI->>RS: Build + Seal CycleReviewBundle
+  RS->>RS: resolve + verify refs
+  alt unresolved
+    RS-->>UI: block seal
+  else ok
+    RS->>AU: CYCLE_REVIEW_SEALED
+    UI->>TS: DecideTransition(GO)
+    TS->>CS: apply state machine
+    CS->>AU: TRANSITION_APPROVED / CYCLE_COMPLETED
+    CS-->>UI: COMPLETED
+  end
+```

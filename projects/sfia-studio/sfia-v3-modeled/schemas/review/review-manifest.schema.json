@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/review/review-manifest.schema.json",
+  "title": "ReviewManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reviewBundleId",
+    "reviewType",
+    "projectId",
+    "cycleId",
+    "state",
+    "schemaVersion",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "reviewBundleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "reviewType": {
+      "type": "string",
+      "enum": [
+        "CycleReview",
+        "ActionReview",
+        "TransitionReview",
+        "ReleaseReview",
+        "CapitalizationReview"
+      ]
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "SEALED",
+        "EXPORTED",
+        "ARCHIVED"
+      ]
+    },
+    "doctrine": {
+      "$ref": "../common/doctrine-reference.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    }
+  }
+}

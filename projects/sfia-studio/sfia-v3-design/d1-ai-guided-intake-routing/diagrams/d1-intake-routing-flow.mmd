@@ -1,0 +1,13 @@
+flowchart TD
+  U[Utilisateur intention] --> A[A Intent capture]
+  A --> B[B Context lookup]
+  B --> C{Besoin clarification?}
+  C -->|oui| Q[C Clarification]
+  Q --> D[D Structured understanding]
+  C -->|non| D
+  D --> E[E Routing proposal]
+  E --> F{F Confirmation humaine}
+  F -->|confirme| G[G Mutation bornée]
+  F -->|modifie| Q
+  F -->|refuse| X[Cancel / alternatives]
+  G --> H[H GuidedSession continuation]

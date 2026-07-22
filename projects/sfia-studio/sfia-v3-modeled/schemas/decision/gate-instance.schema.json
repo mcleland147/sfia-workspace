@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/decision/gate-instance.schema.json",
+  "title": "GateInstance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "gateId",
+    "decisionRequestId",
+    "kind",
+    "state",
+    "schemaVersion",
+    "openedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "gateId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "decisionRequestId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "APPROVED",
+        "REJECTED",
+        "EXPIRED",
+        "REVOKED"
+      ]
+    },
+    "openedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "expiresAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "requiredRole": {
+      "type": "string",
+      "enum": [
+        "decision_maker",
+        "approver",
+        "project_owner"
+      ]
+    }
+  }
+}

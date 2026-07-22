@@ -1,0 +1,15 @@
+flowchart LR
+  Intent --> Proposal
+  Proposal --> CP[CREATE_PROJECT]
+  Proposal --> OC[OPEN_CYCLE]
+  Proposal --> RC[RESUME_CYCLE]
+  Proposal --> RA[RESUME_ACTION]
+  Proposal --> OD[OPEN_DECISION]
+  Proposal --> AO[ANALYZE_ONLY]
+  CP --> Project
+  OC --> Cycle
+  RC --> Cycle
+  RA --> Action
+  OD --> Decision
+  Project --> Session[GuidedSession]
+  Cycle --> Session

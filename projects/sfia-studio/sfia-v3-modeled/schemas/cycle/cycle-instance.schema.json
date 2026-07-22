@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/cycle/cycle-instance.schema.json",
+  "title": "CycleInstance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cycleId",
+    "projectId",
+    "cycleType",
+    "state",
+    "schemaVersion",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "cycleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleType": {
+      "type": "string",
+      "enum": [
+        "framing",
+        "delivery",
+        "qa",
+        "capitalization",
+        "other"
+      ]
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "Light",
+        "Standard",
+        "Critical",
+        "Capitalization"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "QUALIFYING",
+        "READY",
+        "ACTIVE",
+        "DECISION_REQUIRED",
+        "VALIDATING",
+        "COMPLETED",
+        "PAUSED",
+        "BLOCKED",
+        "CANCELLED"
+      ]
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "doctrine": {
+      "$ref": "../common/doctrine-reference.schema.json"
+    }
+  }
+}

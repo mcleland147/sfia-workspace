@@ -1,0 +1,30 @@
+```mermaid
+sequenceDiagram
+  actor U as User
+  participant UI as Guided Session UI
+  participant GS as Guided Session Service
+  participant CX as Context Service
+  participant PE as Policy Engine
+  participant GPT as GPT Adapter
+  participant AU as Audit
+
+  U->>UI: open session
+  UI->>GS: CreateGuidedSession
+  GS->>CX: LoadCanonicalContext
+  alt unavailable/stale
+    CX-->>GS: E4 stop
+    GS->>AU: CONTEXT_STALE/UNAVAILABLE
+    GS-->>UI: blocked
+  else ready
+    CX-->>GS: snapshot sealed
+    GS->>AU: CONTEXT_READY
+    U->>UI: message
+    UI->>GS: StartGuidedConversation
+    GS->>PE: EvaluatePolicy(pre)
+    GS->>GPT: complete(dual channel)
+    GPT-->>GS: prose + proposals
+    GS->>PE: EvaluatePolicy(proposals)
+    GS->>AU: ENFORCEMENT_EVALUATED
+    GS-->>UI: turn + gated proposals
+  end
+```

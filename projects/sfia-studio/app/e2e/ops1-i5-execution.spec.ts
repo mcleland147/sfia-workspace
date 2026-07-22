@@ -12,7 +12,7 @@ test.beforeAll(() => {
 });
 
 async function prepareThroughI4(page: import("@playwright/test").Page) {
-  await page.goto("/nouvelle-demande");
+  await page.goto("/ops1/nouvelle-demande");
   await page.evaluate(() => window.sessionStorage.clear());
   await page.reload();
   await expect(page.getByTestId("ops1-session-root")).toBeVisible();

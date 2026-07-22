@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/common/git-reference.schema.json",
+  "title": "GitReference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["headSha", "branch"],
+  "properties": {
+    "repository": { "type": "string" },
+    "branch": { "type": "string" },
+    "headSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "baseSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+  }
+}

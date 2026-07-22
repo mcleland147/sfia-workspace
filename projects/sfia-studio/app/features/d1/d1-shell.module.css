@@ -1,0 +1,265 @@
+.shell {
+  display: grid;
+  grid-template-columns:
+    var(--d1-nav-width, 72px)
+    minmax(0, 1fr)
+    clamp(320px, 24vw, 420px);
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--sfia-bg);
+  color: var(--sfia-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  box-sizing: border-box;
+  gap: 0;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 8px;
+  background: #fff;
+  border-right: 1px solid var(--sfia-border);
+}
+
+.navLink {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--sfia-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.navLink[aria-current="page"] {
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+}
+
+.main {
+  min-width: 0;
+  padding: 24px 32px;
+  overflow: auto;
+}
+
+.rail {
+  min-width: 0;
+  border-left: 1px solid var(--sfia-border);
+  background: #fff;
+  padding: 20px 16px;
+  overflow: auto;
+}
+
+.rail h2 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.railCard {
+  border: 1px solid var(--sfia-border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: var(--sfia-surface);
+}
+
+.railCard p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+}
+
+.placeholder {
+  color: var(--sfia-muted);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.badgeMode {
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+  border-color: #c9d6ff;
+}
+
+.badgeState {
+  background: var(--sfia-green-soft-00c, #e5faf2);
+  color: #0f7a52;
+  border-color: #b6ebd6;
+}
+
+.badgeWarn {
+  background: var(--sfia-orange-soft-00c, #fff7e0);
+  color: #8a5a00;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--sfia-shadow-sm);
+  margin-bottom: 16px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.list a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #fff;
+}
+
+.list a:hover,
+.list a:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: none;
+  background: var(--sfia-blue);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ctaSecondary {
+  background: #fff;
+  color: var(--sfia-blue);
+  border: 1px solid var(--sfia-border);
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+  max-width: 42rem;
+}
+
+.label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--sfia-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  min-height: 44px;
+}
+
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.error {
+  color: #a11;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--sfia-muted);
+  font-weight: 400;
+}
+
+.empty {
+  padding: 28px;
+  text-align: left;
+}
+
+.monoNote {
+  font-size: 12px;
+  color: var(--sfia-muted);
+  margin-top: 8px;
+}
+
+@media (max-width: 1279px) {
+  .shell {
+    grid-template-columns:
+      var(--d1-nav-width, 72px)
+      minmax(0, 1fr);
+  }
+
+  .rail {
+    display: none;
+  }
+
+  .railStacked {
+    display: block;
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .railStacked {
+    display: none;
+  }
+}
+
+@media (max-width: 1099px) {
+  .main {
+    padding: 16px;
+  }
+}

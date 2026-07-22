@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/cycle/context-snapshot.schema.json",
+  "title": "ContextSnapshot",
+  "description": "Immutable snapshot — sealed",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshotId",
+    "sessionId",
+    "git",
+    "doctrine",
+    "generatedAt",
+    "schemaVersion",
+    "immutable"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "snapshotId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "sessionId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "git": {
+      "$ref": "../common/git-reference.schema.json"
+    },
+    "doctrine": {
+      "$ref": "../common/doctrine-reference.schema.json"
+    },
+    "generatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "immutable": {
+      "type": "boolean",
+      "const": true
+    },
+    "stale": {
+      "type": "boolean"
+    }
+  }
+}

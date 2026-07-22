@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/decision/decision-request.schema.json",
+  "title": "DecisionRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decisionRequestId",
+    "projectId",
+    "cycleId",
+    "kind",
+    "state",
+    "schemaVersion",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-d1"
+    },
+    "decisionRequestId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "project_activation",
+        "transition",
+        "mode_selection",
+        "other"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "OPEN",
+        "DECIDED",
+        "CANCELLED",
+        "EXPIRED"
+      ]
+    },
+    "question": {
+      "type": "string"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    }
+  }
+}

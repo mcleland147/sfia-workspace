@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "decisionId": "hd-001",
+  "decisionRequestId": "dr-transition-001",
+  "gateId": "gate-001",
+  "verdict": "GO",
+  "motif": "Framing sufficient for D1 modeled exit",
+  "decidedAt": "2026-07-22T16:00:00.000Z",
+  "decidedBy": {
+    "actorId": "actor-morris-demo",
+    "role": "decision_maker",
+    "displayName": "Demo Decision Maker"
+  },
+  "immutable": true
+}

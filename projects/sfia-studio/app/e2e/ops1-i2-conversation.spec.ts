@@ -15,7 +15,7 @@ test.describe("OPS1 I2 immutable mode + signalétique", () => {
   test("mode selection, fixture locked, reload, no execution", async ({
     page,
   }) => {
-    await page.goto("/nouvelle-demande");
+    await page.goto("/ops1/nouvelle-demande");
     await page.evaluate(() => window.sessionStorage.clear());
     await page.reload();
     await expect(page.getByTestId("ops1-session-root")).toBeVisible();
@@ -98,7 +98,7 @@ test.describe("OPS1 I2 immutable mode + signalétique", () => {
   });
 
   test("test provider path — never presented as GPT live", async ({ page }) => {
-    await page.goto("/nouvelle-demande");
+    await page.goto("/ops1/nouvelle-demande");
     await page.evaluate(() => window.sessionStorage.clear());
     await page.reload();
 

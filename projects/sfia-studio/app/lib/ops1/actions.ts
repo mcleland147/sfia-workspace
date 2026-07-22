@@ -27,6 +27,11 @@ import {
   getLatestReportForSession,
 } from "./reportService";
 import {
+  buildUnifiedTimeline,
+  generateReportAndReinject,
+  listToolRelatedEvents,
+} from "./reportReinjection";
+import {
   closeSession,
   openContinuation,
   resumePostReportChat,
@@ -47,6 +52,20 @@ import {
 } from "./conversation/config";
 import { sendConversationMessage } from "./conversation/service";
 import { getRealCursorAvailability } from "./cursorExecutionAdapter";
+import { resolveGithubReadTransport, probeGhAuth } from "./tools/githubReadAdapter";
+import { resolveWorkspaceRootFromAppCwd } from "./allowlistEvaluation";
+import { getActionCandidate } from "./actionGate";
+import {
+  ensureSfiaContext,
+  getStoredSfiaContext,
+  instantiateCursorPrompt,
+  type SfiaActionProposal,
+  type SfiaCanonicalContext,
+  type SfiaCompilationResult,
+  type SfiaCursorPromptInstantiation,
+} from "./sfia";
+import { createEventId } from "./ids";
+import { openOps1Db, nowIsoWithOffset } from "./db";
 import type {
   ActionAllowlistEvaluation,
   ActionCandidate,
@@ -64,6 +83,7 @@ import type {
   ProviderPresentation,
   SessionQualification,
   ExecutionReport,
+  SessionEvent,
 } from "./types";
 
 export type Ops1ActionResult<T> =
@@ -137,6 +157,8 @@ export async function ops1GetSessionAction(
     latestContractByAction: Record<string, ExecutionContract | null>;
     latestAttemptByContract: Record<string, ExecutionAttempt | null>;
     latestReport: ExecutionReport | null;
+    events: SessionEvent[];
+    timeline: ReturnType<typeof buildUnifiedTimeline>;
   }>
 > {
   try {
@@ -159,6 +181,8 @@ export async function ops1GetSessionAction(
         latestContractByAction: i5.latestContractByAction,
         latestAttemptByContract: i5.latestAttemptByContract,
         latestReport: getLatestReportForSession(id),
+        events: listToolRelatedEvents(id),
+        timeline: buildUnifiedTimeline(id),
       },
     };
   } catch (error) {
@@ -172,11 +196,30 @@ export async function ops1GetLiveConfigAction(): Promise<
     available: boolean;
     missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
     testProvider: boolean;
+    github: {
+      available: boolean;
+      transport: string;
+      reason?: string;
+    };
   }>
 > {
   try {
     const status = getLiveConversationAvailability();
     const testProvider = isFakeConversationProviderForced();
+    const ghTransport = resolveGithubReadTransport();
+    const ghProbe = probeGhAuth();
+    const github =
+      ghTransport.kind === "unavailable"
+        ? {
+            available: false,
+            transport: "none",
+            reason: ghTransport.reason,
+          }
+        : {
+            available: true,
+            transport: ghTransport.kind,
+            reason: ghProbe.reason,
+          };
     if (status.available || testProvider) {
       return {
         ok: true,
@@ -184,12 +227,18 @@ export async function ops1GetLiveConfigAction(): Promise<
           available: true,
           missing: status.available ? [] : status.missing,
           testProvider,
+          github,
         },
       };
     }
     return {
       ok: true,
-      data: { available: false, missing: status.missing, testProvider: false },
+      data: {
+        available: false,
+        missing: status.missing,
+        testProvider: false,
+        github,
+      },
     };
   } catch (error) {
     return fail(error);
@@ -213,6 +262,9 @@ export async function ops1SendMessageAction(input: {
     usage: ConversationUsageCounters | null;
     mode: ConversationMode;
     presentation: ProviderPresentation;
+    sfiaContext: SfiaCanonicalContext | null;
+    sfiaProposal: SfiaActionProposal | null;
+    sfiaCompilation: SfiaCompilationResult | null;
   }>
 > {
   try {
@@ -236,8 +288,120 @@ export async function ops1SendMessageAction(input: {
         usage: result.usage,
         mode: result.mode,
         presentation: resolvePresentation(result.mode),
+        sfiaContext: result.sfiaContext ?? null,
+        sfiaProposal: result.sfiaProposal ?? null,
+        sfiaCompilation: result.sfiaCompilation ?? null,
       },
     };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+/** Resolve or reuse immutable SFIA canonical context for the session. */
+export async function ops1EnsureSfiaContextAction(input: {
+  sessionId: string;
+  forceRefresh?: boolean;
+}): Promise<Ops1ActionResult<{ context: SfiaCanonicalContext }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const context = ensureSfiaContext({
+      sessionId,
+      forceRefresh: input.forceRefresh,
+    });
+    return { ok: true, data: { context } };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function ops1GetSfiaContextAction(input: {
+  sessionId: string;
+}): Promise<Ops1ActionResult<{ context: SfiaCanonicalContext | null }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    return {
+      ok: true,
+      data: { context: getStoredSfiaContext(sessionId) },
+    };
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+/**
+ * Instantiate Cursor prompt from the real Git template after COMPILED + candidate.
+ * Does not start Cursor.
+ */
+export async function ops1InstantiateCursorPromptAction(input: {
+  sessionId: string;
+  actionCandidateId: string;
+  compilation: SfiaCompilationResult;
+}): Promise<Ops1ActionResult<{ instantiation: SfiaCursorPromptInstantiation }>> {
+  try {
+    const sessionId = assertSessionId(input.sessionId);
+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
+    const context = getStoredSfiaContext(sessionId);
+    if (!context) {
+      throw new Ops1Error(
+        "CONFLICT",
+        "Contexte SFIA absent — requalification requise.",
+      );
+    }
+    if (input.compilation.contextId !== context.contextId) {
+      throw new Ops1Error(
+        "CONFLICT",
+        "CONTEXT_STALE — REQUALIFICATION REQUIRED",
+      );
+    }
+    if (input.compilation.status !== "COMPILED") {
+      throw new Ops1Error(
+        "VALIDATION",
+        "Instanciation refusée — compilation non COMPILED.",
+      );
+    }
+    const candidate = getActionCandidate(actionCandidateId);
+    if (!candidate || candidate.sessionId !== sessionId) {
+      throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
+    }
+    const workspaceRoot = resolveWorkspaceRootFromAppCwd();
+    const instantiation = instantiateCursorPrompt({
+      workspaceRoot,
+      context,
+      compilation: input.compilation,
+      candidate,
+    });
+    const db = openOps1Db();
+    const now = nowIsoWithOffset();
+    db.prepare(
+      `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
+       VALUES (?, ?, ?, ?, ?)`,
+    ).run(
+      createEventId(),
+      sessionId,
+      "CURSOR_TEMPLATE_LOADED",
+      now,
+      JSON.stringify({
+        templatePath: instantiation.templatePath,
+        templateDigest: instantiation.templateDigest,
+        templateBlobSha: instantiation.templateBlobSha,
+      }),
+    );
+    db.prepare(
+      `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
+       VALUES (?, ?, ?, ?, ?)`,
+    ).run(
+      createEventId(),
+      sessionId,
+      "CURSOR_PROMPT_INSTANTIATED",
+      now,
+      JSON.stringify({
+        contextId: instantiation.contextId,
+        actionId: instantiation.actionId,
+        templateDigest: instantiation.templateDigest,
+      }),
+    );
+    return { ok: true, data: { instantiation } };
   } catch (error) {
     return fail(error);
   }
@@ -520,18 +684,46 @@ export async function ops1GenerateExecutionReportAction(input: {
   sessionId: string;
   contractId: string;
   executionAttemptId?: string;
-}): Promise<Ops1ActionResult<{ report: ExecutionReport }>> {
+  /** Default true — reinject + analyze. Set false for legacy report-only. */
+  reinject?: boolean;
+}): Promise<
+  Ops1ActionResult<{
+    report: ExecutionReport;
+    reinjectionTurn?: JournalTurn | null;
+    analysisTurn?: JournalTurn | null;
+    analysisError?: string | null;
+    reinjectionId?: string;
+  }>
+> {
   try {
     const sessionId = assertSessionId(input.sessionId);
     if (typeof input.contractId !== "string" || !input.contractId) {
       throw new Ops1Error("VALIDATION", "contractId invalide.");
     }
-    const { report } = generateExecutionReport({
+    if (input.reinject === false) {
+      const { report } = generateExecutionReport({
+        sessionId,
+        contractId: input.contractId,
+        executionAttemptId: input.executionAttemptId,
+      });
+      return { ok: true, data: { report } };
+    }
+    const result = await generateReportAndReinject({
       sessionId,
       contractId: input.contractId,
       executionAttemptId: input.executionAttemptId,
+      analyze: true,
     });
-    return { ok: true, data: { report } };
+    return {
+      ok: true,
+      data: {
+        report: result.report,
+        reinjectionTurn: result.reinjectionTurn,
+        analysisTurn: result.analysisTurn,
+        analysisError: result.analysisError,
+        reinjectionId: result.reinjectionId,
+      },
+    };
   } catch (error) {
     return fail(error);
   }

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "0.1.0-d1",
+  "events": [
+    {
+      "schemaVersion": "0.1.0-d1",
+      "eventId": "evt-001",
+      "eventType": "PROJECT_CREATED",
+      "occurredAt": "2026-07-22T15:00:00.000Z",
+      "actor": { "actorId": "actor-owner", "role": "project_owner" },
+      "correlationId": "corr-d1-001",
+      "projectId": "proj-demo-framing-001",
+      "doctrineVersion": "SFIA-v2.6",
+      "objectType": "Project",
+      "objectId": "proj-demo-framing-001",
+      "payload": { "title": "Demo Project Framing D1", "workspaceId": "ws-demo-001" }
+    },
+    {
+      "schemaVersion": "0.1.0-d1",
+      "eventId": "evt-002",
+      "eventType": "PROJECT_MODE_SELECTED",
+      "occurredAt": "2026-07-22T15:01:00.000Z",
+      "actor": { "actorId": "actor-owner", "role": "project_owner" },
+      "correlationId": "corr-d1-001",
+      "causationId": "evt-001",
+      "projectId": "proj-demo-framing-001",
+      "doctrineVersion": "SFIA-v2.6",
+      "objectType": "Project",
+      "objectId": "proj-demo-framing-001",
+      "payload": { "methodMode": "v3_candidate" }
+    },
+    {
+      "schemaVersion": "0.1.0-d1",
+      "eventId": "evt-003",
+      "eventType": "CYCLE_PROPOSED",
+      "occurredAt": "2026-07-22T15:02:00.000Z",
+      "actor": { "actorId": "actor-owner", "role": "project_owner" },
+      "correlationId": "corr-d1-001",
+      "causationId": "evt-002",
+      "projectId": "proj-demo-framing-001",
+      "cycleId": "cycle-demo-framing-001",
+      "doctrineVersion": "SFIA-v2.6",
+      "objectType": "CycleInstance",
+      "objectId": "cycle-demo-framing-001",
+      "payload": { "cycleType": "project_framing" }
+    },
+    {
+      "schemaVersion": "0.1.0-d1",
+      "eventId": "evt-004",
+      "eventType": "CONTEXT_READY",
+      "occurredAt": "2026-07-22T15:05:00.000Z",
+      "actor": { "actorId": "system", "role": "system" },
+      "correlationId": "corr-d1-001",
+      "projectId": "proj-demo-framing-001",
+      "cycleId": "cycle-demo-framing-001",
+      "doctrineVersion": "SFIA-v2.6",
+      "definitionDigests": {
+        "method/sfia-fast-track/core/sfia-rules-and-guardrails.md": "sha256:deadbeef"
+      },
+      "objectType": "ContextSnapshot",
+      "objectId": "ctx-demo-001",
+      "payload": { "headSha": "32e5271842b9a344a7e292614675c27ea8ed941b", "digestsCount": 1 }
+    },
+    {
+      "schemaVersion": "0.1.0-d1",
+      "eventId": "evt-005",
+      "eventType": "HUMAN_DECISION_RECORDED",
+      "occurredAt": "2026-07-22T15:30:00.000Z",
+      "actor": { "actorId": "actor-decider", "role": "decision_maker" },
+      "correlationId": "corr-d1-001",
+      "projectId": "proj-demo-framing-001",
+      "cycleId": "cycle-demo-framing-001",
+      "doctrineVersion": "SFIA-v2.6",
+      "objectType": "HumanDecision",
+      "objectId": "hd-demo-001",
+      "payload": { "verdict": "GO" }
+    },
+    {
+      "schemaVersion": "0.1.0-d1",
+      "eventId": "evt-006",
+      "eventType": "CYCLE_REVIEW_SEALED",
+      "occurredAt": "2026-07-22T15:40:00.000Z",
+      "actor": { "actorId": "actor-decider", "role": "decision_maker" },
+      "correlationId": "corr-d1-001",
+      "projectId": "proj-demo-framing-001",
+      "cycleId": "cycle-demo-framing-001",
+      "doctrineVersion": "SFIA-v2.6",
+      "objectType": "ReviewBundle",
+      "objectId": "rb-demo-001",
+      "payload": { "reviewBundleId": "rb-demo-001" }
+    }
+  ]
+}
