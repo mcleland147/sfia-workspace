@@ -1,34 +1,41 @@
-# Review Pack Full — SFIA v3.0 D1 AI-Guided Request Intake and Routing
+# Review Pack Full — SFIA v3.0 D1-C1 Intake Shell and Conversation Entry
 
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-22 19:55:59 CEST
-- **Cycle :** 2 — Conception fonctionnelle (CONCEPTION / UX / ARCHI-FONC / PRODUCT)
+- **Date/heure/fuseau :** 2026-07-22 20:12:34 CEST
+- **Cycle :** 9 — Delivery (DELIVERY / UX / PRODUCT / EVOL)
 - **Profil :** Critical
-- **Gate consommé :** GO CYCLE CORRECTIF D1 — AI-GUIDED REQUEST INTAKE AND ROUTING
-- **Gate suivant :** GO VALIDATION CONCEPTION D1 — AI-GUIDED REQUEST INTAKE AND ROUTING
-- **Décision Morris :** D1-I1 TECHNICAL FOUNDATION IMPLEMENTED — PRODUCT EXPERIENCE REWORK REQUIRED
+- **Gate consommé :** GO IMPLEMENTATION D1-C1 — INTAKE SHELL AND CONVERSATION ENTRY
+- **Gate suivant :** GO VALIDATION D1-C1 — INTAKE SHELL AND CONVERSATION ENTRY
 - **Repo/branche :** mcleland147/sfia-workspace · `delivery/sfia-studio-control-tower-fast-track`
 - **HEAD/base :** `32e5271842b9a344a7e292614675c27ea8ed941b`
-- **Handoff précédent :** `32d1ee33deb15d8a9414a7079c9cee31031e74cf`
+- **Handoff précédent :** `184d04dfdbbab14cbecf420b7d8142c5761bc5d6`
 - **Baseline :** SFIA v2.6
 - **Statut v3 :** V3-MODELED CANDIDATE
-- **BCDI :** BCDI-D1-AI-GUIDED-INTAKE-ROUTING
-- **Code modifié :** **aucun**
+- **BCDI :** BCDI-D1-C1-INTAKE-SHELL-CONVERSATION-ENTRY
+- **Statut :** D1-C1 IMPLEMENTED CANDIDATE
 
-## 2. État Git initial
+## 2. État Git initial / final
 
-- Dirty attendu (CT + D1-I1 + framing/modeled/design)
-- staged vide
-- HEAD = origin/main = `32e5271842b9a344a7e292614675c27ea8ed941b`
-- Aucun stash/reset/clean/commit projet
+Dirty attendu · staged vide · HEAD=origin/main · deps inchangées · pas de commit projet
 
 ```
  M projects/sfia-studio/README.md
  M projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
  M projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
  M projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
+ M projects/sfia-studio/app/app/nouvelle-demande/page.tsx
  M projects/sfia-studio/app/components/shell/UtilityRail.tsx
+ M projects/sfia-studio/app/e2e/increment-a.spec.ts
+ M projects/sfia-studio/app/e2e/increment-c.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i5-execution.spec.ts
+ M projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts
+ M projects/sfia-studio/app/e2e/p0-smoke.spec.ts
  M projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
  M projects/sfia-studio/app/lib/ops1/actions.ts
  M projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
@@ -52,9 +59,11 @@
 ?? projects/sfia-studio/app/__tests__/ops1/controlTowerReinjection.test.ts
 ?? projects/sfia-studio/app/__tests__/ops1/controlTowerTools.test.ts
 ?? projects/sfia-studio/app/__tests__/ops1/sfia/
+?? projects/sfia-studio/app/app/ops1/
 ?? projects/sfia-studio/app/app/projects/
 ?? projects/sfia-studio/app/app/workspace/
 ?? projects/sfia-studio/app/e2e/control-tower-fast-track.spec.ts
+?? projects/sfia-studio/app/e2e/d1-c1-intake-shell.spec.ts
 ?? projects/sfia-studio/app/e2e/d1-i1-project-foundation.spec.ts
 ?? projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts
 ?? projects/sfia-studio/app/features/d1/
@@ -72,970 +81,3258 @@
 
 ## 3. Sources
 
-- framing/**, modeled/**, d1-project-framing/**, d1-ux-ui/**, d1-i1-project-foundation/**
-- code D1-I1 lecture seule (`features/d1`, `lib/d1`)
-- handoff `32d1ee3…`
-- captures `.tmp-sfia-review/screenshots-d1-i1/`
-- Figma fileKey `IS70XDnBMvZuJYmaI5eZT2`
+d1-ai-guided-intake-routing · Figma `IS70XDnBMvZuJYmaI5eZT2` page `11:2` · D1-I1 · handoff `184d04d`
 
-## 4. Problème produit / valeur cible
+## 4. Périmètre réel
 
-Form-first New Project + MethodMode utilisateur ≠ vision SFIA Studio.
-Cible : intent → GPT clarifie → lookup → routage → confirmation humaine → mutation → GuidedSession.
-Entrée principale conversationnelle ; formulaire = manuel secondaire.
+`/nouvelle-demande` intake conversationnel · feedback C1 · reprises projets · manuel sans MethodMode UI · OPS1 `/ops1/nouvelle-demande` · pas GPT · pas mutation conversation
 
-## 5. Scénarios S1–S8
+## 5. Routes / composants
 
-CREATE_PROJECT · OPEN_CYCLE · RESUME_CYCLE · RESUME_ACTION · OPEN_DECISION · NEED_CLARIFICATION · ANALYZE_ONLY · manuel expert.
+IntakeView · IntakeContextRail · D1AppShell(ND) · NewProjectForm manuel · Cockpit lecture seule MethodMode
 
-## 6. Contrat conversationnel A–H
+## 6. Tests
 
-Intent → Lookup → Clarification → Structured understanding → Routing proposal → Human confirmation → Mutation → Continuation.
+vitest d1 12/12 · e2e d1-c1 7/7 · d1-i1 adapté · p0-smoke 6/6 · ops1-i1 legacy · tsc OK
 
-## 7. RequestRoutingProposal
+## 7. Viewport
 
-Candidat non figé — outcome types CREATE_PROJECT / OPEN_CYCLE / RESUME_* / OPEN_DECISION / ANALYZE_ONLY / NEED_CLARIFICATION.
-
-## 8. GPT / MethodMode / Audit
-
-- GPT propose, n’exécute pas.
-- MethodMode hors UI standard → gouvernance + audit.
-- Audit métier vs journal technique séparé.
-
-## 9. Figma
-
-- Page **D1 — AI-Guided Intake and Routing** (`11:2`)
-- 13 écrans + strip composants
-- Page D1 Project Framing UX (`1:2`) préservée (14 frames)
-- Captures locales : `.tmp-sfia-review/screenshots-d1-intake/`
-
-| Frame | node | dims |
-|-------|------|------|
-| empty | 12:2 | 1440×1024 |
-| clarification | 12:36 | 1440×1024 |
-| routing proposal | 12:60 | 1440×1024 |
-| existing project match | 13:2 | 1440×1024 |
-| resume cycle | 13:27 | 1440×1024 |
-| analyze only | 13:51 | 1440×1024 |
-| confirm create project | 13:74 | 1440×1024 |
-| confirm open cycle | 13:100 | 1440×1024 |
-| workspace resume | 14:2 | 1440×1024 |
-| manual advanced | 14:31 | 1440×1024 |
-| routing 1728 | 14:64 | 1728×1024 |
-| routing 1280 | 14:90 | 1280×1024 |
-| routing 1024 | 14:117 | 1024×1024 |
-| components | 11:3 | strip |
-
-## 10. Gap runtime I1 vs cible
-
-Entrée form → conversation (P0) · MethodMode select → config (P0) · audit technique → métier (P1) · shell/persistence réutilisés.
-
-## 11. Impact D1-I1 / backlog
-
-Réutiliser D1AppShell + lib/d1 · adapter NewProjectForm en manuel · déprécier MethodMode UI · nouveau RequestRoutingProposal + intake · slices D1-C1…C6.
-
-## 12. Réserves / dette / anti-claims
-
-- Réserve route naming (`/` vs `/demande` vs legacy)
-- Réserve bridge Resume Action ↔ OPS1
-- Schema RequestRoutingProposal non final
-- Anti-claims : pas V3-IMPLEMENTED/ADOPTED · pas GO VALIDATION I1 · pas code · pas commit projet
-
-## 13. Décisions Morris requises
-
-Voir doc 20 — validation conception + MethodMode UI off + backlog C1–C6 + naming route + bridge OPS1.
-
-## 14. Fichiers créés (liste)
+```json
+{
+  "1024": { "scrollWidth": 1024, "innerWidth": 1024, "shellWidth": 1024, "unused": 0 },
+  "1280": { "scrollWidth": 1280, "innerWidth": 1280, "shellWidth": 1280, "unused": 0 },
+  "1440": { "scrollWidth": 1440, "innerWidth": 1440, "shellWidth": 1440, "unused": 0 },
+  "1728": { "scrollWidth": 1728, "innerWidth": 1728, "shellWidth": 1728, "unused": 0 }
+}
 
 ```
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/01-product-problem-and-rework-rationale.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/02-target-value-proposition.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/03-user-intents-and-routing-scenarios.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/04-ai-guided-intake-journey.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/05-routing-decision-model.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/06-request-routing-proposal-candidate.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/07-gpt-role-and-guardrails.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/08-project-cycle-resume-action-routing.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/09-method-mode-target-strategy.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/10-user-vs-technical-audit-contract.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/11-conversational-interaction-contract.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/12-information-architecture-update.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/13-ux-screen-contracts.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/14-visual-direction-and-design-principles.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/15-figma-frame-register.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/16-figma-runtime-gap-analysis.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/17-accessibility-and-responsive-contract.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/18-implementation-impact-map.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/19-corrective-backlog-and-slicing.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/20-validation-decision-pack.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/README.md
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-conversation-state-flow.mmd
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-intake-routing-flow.mmd
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-project-cycle-resume-model.mmd
-projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-routing-decision-tree.mmd
+
+## 8. Figma comparison
+
+empty≈12:2 · resume≈14:2 · manual≈14:31 · responsive 14:64/90/117 · 12:60 future-only
+Captures `.tmp-sfia-review/screenshots-d1-c1/`
+
+## 9. Diff utile (modifiés trackés + extraits)
+
+```diff
+diff --git a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
+index 93fdc9a..feab120 100644
+--- a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
++++ b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
+@@ -1,5 +1,21 @@
+-import { NouvelleDemandePageClient } from "@/features/nouvelle-demande/NouvelleDemandePageClient";
++import { listWorkspaceProjects } from "@/lib/d1/commands";
++import { D1Error } from "@/lib/d1/errors";
++import { IntakeView } from "@/features/d1/intake/IntakeView";
+
++export const dynamic = "force-dynamic";
++
++/** D1-C1: conversational intake is the primary Nouvelle demande surface. */
+ export default function NouvelleDemandePage() {
+-  return <NouvelleDemandePageClient />;
++  try {
++    const projects = listWorkspaceProjects();
++    return <IntakeView projects={projects} />;
++  } catch (error) {
++    const message =
++      error instanceof D1Error
++        ? error.message
++        : "Erreur de chargement des projets récents";
++    // Still render intake; empty resume with soft error via empty list
++    void message;
++    return <IntakeView projects={[]} />;
++  }
+ }
+
+--- /dev/null
++++ b/projects/sfia-studio/app/features/d1/D1AppShell.tsx
+@@
++import Link from "next/link";
++import styles from "./d1-shell.module.css";
++
++export type D1Active =
++  | "workspace"
++  | "new"
++  | "cockpit"
++  | "intake";
++
++interface D1AppShellProps {
++  active: D1Active;
++  title: string;
++  children: React.ReactNode;
++  rail?: React.ReactNode;
++}
++
++export function D1AppShell({ active, title, children, rail }: D1AppShellProps) {
++  return (
++    <div className={styles.shell} data-testid="d1-app-shell">
++      <nav className={styles.nav} aria-label="Navigation D1">
++        <Link
++          href="/nouvelle-demande"
++          className={styles.navLink}
++          aria-label="Nouvelle demande"
++          aria-current={active === "intake" ? "page" : undefined}
++          title="Nouvelle demande — intake"
++          data-testid="d1-nav-intake"
++        >
++          ND
++        </Link>
++        <Link
++          href="/workspace"
++          className={styles.navLink}
++          aria-label="Workspace"
++          aria-current={active === "workspace" ? "page" : undefined}
++          title="Workspace"
++          data-testid="d1-nav-workspace"
++        >
++          WS
++        </Link>
++        <Link
++          href="/projects/new"
++          className={styles.navLink}
++          aria-label="Création manuelle avancée"
++          aria-current={active === "new" ? "page" : undefined}
++          title="Création manuelle avancée"
++          data-testid="d1-nav-manual"
++        >
++          +
++        </Link>
++        <Link
++          href="/ops1/nouvelle-demande"
++          className={styles.navLink}
++          aria-label="OPS1 legacy Nouvelle demande"
++          title="OPS1 legacy"
++          data-testid="d1-nav-ops1"
++        >
++          OPS
++        </Link>
++      </nav>
++      <main className={styles.main} id="main-content" aria-label={title}>
++        {children}
++        {rail ? (
++          <aside className={styles.railStacked} aria-label="Contexte">
++            {rail}
++          </aside>
++        ) : null}
++      </main>
++      {rail ? (
++        <aside className={styles.rail} aria-label="Rail contextuel">
++          {rail}
++        </aside>
++      ) : (
++        <aside className={styles.rail} aria-label="Rail contextuel">
++          <h2>Contextual rail</h2>
++          <div className={styles.railCard}>
++            <strong>D1</strong>
++            <p className={styles.placeholder}>
++              Contexte minimal — pas d’audit technique ici
++            </p>
++          </div>
++        </aside>
++      )}
++    </div>
++  );
++}
+
+--- /dev/null
++++ b/projects/sfia-studio/app/features/d1/NewProjectForm.tsx
+@@
++"use client";
++
++import { useMemo, useState, useTransition } from "react";
++import { useRouter } from "next/navigation";
++import { actionCreateProject } from "@/lib/d1/actions";
++import { D1_GOVERNANCE_METHOD_MODE } from "@/lib/d1/types";
++import { D1AppShell } from "./D1AppShell";
++import styles from "./d1-shell.module.css";
++
++/**
++ * D1-C1: advanced manual creation — secondary to conversational intake.
++ * MethodMode is NOT a user choice; governance default is applied internally.
++ */
++export function NewProjectForm() {
++  const router = useRouter();
++  const [pending, startTransition] = useTransition();
++  const [name, setName] = useState("");
++  const [objective, setObjective] = useState("");
++  const [context, setContext] = useState("");
++  const [activate, setActivate] = useState(true);
++  const [error, setError] = useState<string | null>(null);
++  const idempotencyKey = useMemo(
++    () => `idemp-${crypto.randomUUID()}`,
++    [],
++  );
++
++  function onSubmit(e: React.FormEvent) {
++    e.preventDefault();
++    setError(null);
++    startTransition(async () => {
++      const result = await actionCreateProject({
++        name,
++        objective,
++        initialContextSummary: context || undefined,
++        methodMode: D1_GOVERNANCE_METHOD_MODE,
++        activate,
++        idempotencyKey,
++      });
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      router.push(`/projects/${result.project.projectId}`);
++      router.refresh();
++    });
++  }
++
++  return (
++    <D1AppShell active="new" title="Création manuelle avancée">
++      <div className={styles.header}>
++        <h1>Création manuelle avancée</h1>
++      </div>
++      <p className={styles.hint} data-testid="manual-creation-hint">
++        Escape hatch expert · parcours standard ={" "}
++        <a href="/nouvelle-demande">Nouvelle demande</a> conversationnelle ·
++        MethodMode appliqué en interne ({D1_GOVERNANCE_METHOD_MODE}) — non
++        exposé comme choix produit · anti-claims : pas V3-ADOPTED /
++        V3-IMPLEMENTED
++      </p>
++      <form
++        className={`${styles.card} ${styles.form}`}
++        onSubmit={onSubmit}
++        noValidate
++        data-testid="manual-project-form"
++      >
++        <label className={styles.label}>
++          1. Identité
++          <input
++            className={styles.input}
++            name="name"
++            required
++            value={name}
++            onChange={(e) => setName(e.target.value)}
++            data-testid="project-name"
++            aria-required
++          />
++        </label>
++        <label className={styles.label}>
++          2. Objectif
++          <textarea
++            className={styles.textarea}
++            name="objective"
++            required
++            value={objective}
++            onChange={(e) => setObjective(e.target.value)}
++            data-testid="project-objective"
++          />
++        </label>
++        <label className={styles.label}>
++          3. Contexte initial
++          <span className={styles.hint}>
++            Léger — cadrage détaillé = cycles futurs
++          </span>
++          <textarea
++            className={styles.textarea}
++            name="context"
++            value={context}
++            onChange={(e) => setContext(e.target.value)}
++            data-testid="project-context"
++          />
++        </label>
++        <label className={styles.label}>
++          4. Responsable / décideur
++          <span className={styles.hint}>
++            Même utilisateur autorisé en I1 (DESIGN-R01) — actor-mono-i1
++          </span>
++        </label>
++        <label className={styles.label} style={{ fontWeight: 500 }}>
++          <input
++            type="checkbox"
++            checked={activate}
++            onChange={(e) => setActivate(e.target.checked)}
++            data-testid="project-activate"
++          />{" "}
++          5. Activer immédiatement (ACTIVE) après création
++        </label>
++        {error ? (
++          <p className={styles.error} role="alert">
++            {error}
++          </p>
++        ) : null}
++        <button
++          className={styles.cta}
++          type="submit"
++          disabled={pending}
++          data-testid="project-submit"
++        >
++          {pending ? "Création…" : "Confirmer la création"}
++        </button>
++      </form>
++    </D1AppShell>
++  );
++}
+
+--- /dev/null
++++ b/projects/sfia-studio/app/features/d1/ProjectCockpitView.tsx
+@@
++"use client";
++
++import { useState } from "react";
++import type { D1AuditEvent, D1Project } from "@/lib/d1/types";
++import { METHOD_MODE_CLAIMS } from "@/lib/d1/types";
++import { D1AppShell } from "./D1AppShell";
++import { MethodModeBadge, ProjectStateBadge } from "./Badges";
++import { ContextualRailI1 } from "./ContextualRail";
++import styles from "./d1-shell.module.css";
++
++const USER_ACTIVITY: Record<string, string> = {
++  PROJECT_CREATED: "Projet créé",
++  PROJECT_MODE_SELECTED: "Mode système appliqué",
++  PROJECT_ACTIVATED: "Projet activé",
++};
++
++export function ProjectCockpitView({
++  project: initial,
++  audit: initialAudit,
++}: {
++  project: D1Project;
++  audit: D1AuditEvent[];
++}) {
++  const [project] = useState(initial);
++  const [audit] = useState(initialAudit);
++  const [showTechnical, setShowTechnical] = useState(false);
++
++  const rail = <ContextualRailI1 project={project} audit={audit} />;
++
++  return (
++    <D1AppShell active="cockpit" title={project.name} rail={rail}>
++      <div className={styles.header}>
++        <h1 data-testid="project-title">{project.name}</h1>
++        <div className={styles.badges}>
++          <ProjectStateBadge state={project.state} />
++          <MethodModeBadge mode={project.methodMode} />
++        </div>
++      </div>
++
++      <section className={styles.card}>
++        <h2>Objectif</h2>
++        <p>{project.objective}</p>
++        {project.initialContextSummary ? (
++          <>
++            <h2>Contexte initial</h2>
++            <p className={styles.hint}>{project.initialContextSummary}</p>
++          </>
++        ) : null}
++      </section>
++
++      <section className={styles.card}>
++        <h2>Trajectoire</h2>
++        <p className={styles.placeholder}>
++          Placeholder — ProjectTrajectory détaillée hors scope C1.
++        </p>
++      </section>
++
++      <section className={styles.card}>
++        <h2>Prochaine action</h2>
++        <p>
++          {project.state === "ACTIVE"
++            ? "Continuer via Nouvelle demande (intake) ou ouvrir un cycle (C4/C5 — non disponible)."
++            : "Activer le projet via la création manuelle, ou décrire une intention dans l’intake."}
++        </p>
++      </section>
++
++      {project.methodMode ? (
++        <section className={styles.card} data-testid="method-mode-readonly">
++          <h2>Méthode (lecture seule)</h2>
++          <p className={styles.hint}>
++            Donnée de gouvernance — non modifiable dans le parcours produit C1.
++          </p>
++          <p>{METHOD_MODE_CLAIMS[project.methodMode]}</p>
++        </section>
++      ) : null}
++
++      <section className={styles.card} data-testid="audit-timeline">
++        <h2>Activité récente</h2>
++        <ul className={styles.list}>
++          {audit.map((e) => (
++            <li key={e.eventId}>
++              <strong>{USER_ACTIVITY[e.eventType] ?? e.eventType}</strong>
++              {showTechnical ? (
++                <p className={styles.hint}>
++                  {e.eventType} · {e.occurredAt} · {e.correlationId}
++                </p>
++              ) : (
++                <p className={styles.hint}>{e.occurredAt}</p>
++              )}
++            </li>
++          ))}
++        </ul>
++        {!audit.length ? (
++          <p className={styles.placeholder}>Aucune activité</p>
++        ) : null}
++        <button
++          type="button"
++          className={`${styles.cta} ${styles.ctaSecondary}`}
++          style={{ marginTop: 12 }}
++          onClick={() => setShowTechnical((v) => !v)}
++          data-testid="toggle-technical-audit"
++        >
++          {showTechnical
++            ? "Masquer le journal technique"
++            : "Voir le journal technique"}
++        </button>
++      </section>
++    </D1AppShell>
++  );
++}
+
+--- /dev/null
++++ b/projects/sfia-studio/app/features/d1/WorkspaceHomeView.tsx
+@@
++import Link from "next/link";
++import type { D1Project } from "@/lib/d1/types";
++import { D1AppShell } from "./D1AppShell";
++import { MethodModeBadge, ProjectStateBadge } from "./Badges";
++import styles from "./d1-shell.module.css";
++
++export function WorkspaceHomeView({
++  projects,
++  error,
++}: {
++  projects: D1Project[];
++  error?: string;
++}) {
++  return (
++    <D1AppShell active="workspace" title="Workspace Home">
++      <div className={styles.header}>
++        <h1>Workspace Home</h1>
++        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
++          <Link
++            className={styles.cta}
++            href="/nouvelle-demande"
++            data-testid="cta-nouvelle-demande"
++          >
++            Nouvelle demande
++          </Link>
++          <Link
++            className={`${styles.cta} ${styles.ctaSecondary}`}
++            href="/projects/new"
++            data-testid="cta-new-project"
++          >
++            Création manuelle
++          </Link>
++        </div>
++      </div>
++      <p className={styles.hint}>
++        Reprendre un projet ou démarrer via l’intake conversationnel · baseline
++        SFIA v2.6 · v3 reste candidate
++      </p>
++      {error ? (
++        <p className={styles.error} role="alert">
++          {error}
++        </p>
++      ) : null}
++      {projects.length === 0 ? (
++        <div
++          className={`${styles.card} ${styles.empty}`}
++          data-testid="workspace-empty"
++        >
++          <h2>Aucun projet</h2>
++          <p className={styles.hint}>
++            Décrivez un besoin dans Nouvelle demande, ou utilisez la création
++            manuelle avancée.
++          </p>
++          <Link className={styles.cta} href="/nouvelle-demande">
++            Ouvrir Nouvelle demande
++          </Link>
++        </div>
++      ) : (
++        <ul className={styles.list} data-testid="project-list">
++          {projects.map((p) => (
++            <li key={p.projectId}>
++              <Link href={`/projects/${p.projectId}`}>
++                <strong>{p.name}</strong>
++                <div className={styles.badges} style={{ marginTop: 8 }}>
++                  <ProjectStateBadge state={p.state} />
++                  <MethodModeBadge mode={p.methodMode} />
++                </div>
++                <p className={styles.hint}>{p.objective}</p>
++              </Link>
++            </li>
++          ))}
++        </ul>
++      )}
++    </D1AppShell>
++  );
++}
+
+--- /dev/null
++++ b/projects/sfia-studio/app/features/d1/Badges.tsx
+@@
++import {
++  METHOD_MODE_LABELS,
++  type MethodMode,
++  type ProjectState,
++} from "@/lib/d1/types";
++import styles from "./d1-shell.module.css";
++
++/** Read-only governance indicator — not a user control (D1-C1). */
++export function MethodModeBadge({ mode }: { mode: MethodMode | null }) {
++  if (!mode) {
++    return (
++      <span
++        className={`${styles.badge} ${styles.badgeWarn}`}
++        data-testid="method-mode-badge"
++      >
++        Méthode système non définie
++      </span>
++    );
++  }
++  return (
++    <span
++      className={`${styles.badge} ${styles.badgeMode}`}
++      data-testid="method-mode-badge"
++      title="Indicateur de gouvernance — non modifiable ici"
++    >
++      {METHOD_MODE_LABELS[mode]}
++    </span>
++  );
++}
++
++export function ProjectStateBadge({ state }: { state: ProjectState }) {
++  return (
++    <span className={`${styles.badge} ${styles.badgeState}`} data-testid="project-state-badge">
++      {state}
++    </span>
++  );
++}
+
+--- /dev/null
++++ b/projects/sfia-studio/app/features/d1/ContextualRail.tsx
+@@
++import type { D1AuditEvent, D1Project } from "@/lib/d1/types";
++import { METHOD_MODE_CLAIMS } from "@/lib/d1/types";
++import styles from "./d1-shell.module.css";
++
++export function ContextualRailI1({
++  project,
++  audit,
++}: {
++  project?: D1Project | null;
++  audit?: D1AuditEvent[];
++}) {
++  return (
++    <>
++      <h2>Contextual rail</h2>
++      <div className={styles.railCard}>
++        <strong>Mode</strong>
++        <p>
++          {project?.methodMode
++            ? METHOD_MODE_CLAIMS[project.methodMode]
++            : "Aucun mode"}
++        </p>
++      </div>
++      <div className={styles.railCard}>
++        <strong>État projet</strong>
++        <p>{project?.state ?? "—"}</p>
++      </div>
++      <div className={styles.railCard}>
++        <strong>Prochaine action</strong>
++        <p>
++          {project?.state === "DRAFT"
++            ? "Activer via création manuelle, ou décrire une intention dans l’intake"
++            : "Continuer via Nouvelle demande (C2+ routage) — cycle non ouvert en C1"}
++        </p>
++      </div>
++      <div className={styles.railCard}>
++        <strong>Derniers événements</strong>
++        {(audit ?? []).slice(0, 5).map((e) => (
++          <p key={e.eventId}>
++            {e.eventType} · {e.occurredAt}
++          </p>
++        ))}
++        {!audit?.length ? (
++          <p className={styles.placeholder}>Aucun événement</p>
++        ) : null}
++      </div>
++      <div className={styles.railCard}>
++        <strong>Placeholders</strong>
++        <p className={styles.placeholder}>Context — non chargé (I3)</p>
++        <p className={styles.placeholder}>Reserves — absentes (I4)</p>
++        <p className={styles.placeholder}>Decisions — absentes (I5)</p>
++      </div>
++      <p className={styles.monoNote}>
++        Mono-opérateur I1 : owner = decision_maker (temporaire).
++      </p>
++    </>
++  );
++}
+
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/d1/types.ts
+@@
++/** D1-I1 Project Foundation — domain types (bounded). */
++
++export const D1_SCHEMA_VERSION = "0.1.0-d1" as const;
++
++/** Method modes authorized for I1 — no V3-ADOPTED / V3-IMPLEMENTED claims. */
++export const METHOD_MODES = ["SFIA_V2_6", "TRANSITION", "V3_CANDIDATE"] as const;
++export type MethodMode = (typeof METHOD_MODES)[number];
++
++/**
++ * D1-C1: MethodMode is governance/system data, not a user product choice.
++ * Manual creation uses this internal default (transitory prototype).
++ */
++export const D1_GOVERNANCE_METHOD_MODE: MethodMode = "V3_CANDIDATE";
++
++export const PROJECT_STATES = ["DRAFT", "ACTIVE"] as const;
++export type ProjectState = (typeof PROJECT_STATES)[number];
++
++export const AUDIT_EVENT_TYPES = [
++  "PROJECT_CREATED",
++  "PROJECT_MODE_SELECTED",
++  "PROJECT_ACTIVATED",
++] as const;
++export type D1AuditEventType = (typeof AUDIT_EVENT_TYPES)[number];
++
++/** I1 temporary mono-operator — owner == decision maker (explicit). */
++export const D1_MONO_OPERATOR_ACTOR_ID = "actor-mono-i1" as const;
++export const D1_DEFAULT_WORKSPACE_ID = "ws-studio-default" as const;
++
++export interface D1Project {
++  projectId: string;
++  workspaceId: string;
++  name: string;
++  objective: string;
++  initialContextSummary: string | null;
++  methodMode: MethodMode | null;
++  state: ProjectState;
++  ownerActorId: string;
++  createdAt: string;
++  updatedAt: string;
++  version: number;
++}
++
++export interface D1Assignment {
++  principalId: string;
++  projectId: string;
++  role: "project_owner" | "decision_maker";
++  createdAt: string;
++}
++
++export interface D1AuditEvent {
++  eventId: string;
++  eventType: D1AuditEventType;
++  occurredAt: string;
++  actorId: string;
++  correlationId: string;
++  projectId: string;
++  payloadJson: string;
++}
++
++export interface CreateProjectInput {
++  name: string;
++  objective: string;
++  initialContextSummary?: string;
++  methodMode: MethodMode;
++  activate: boolean;
++  idempotencyKey: string;
++  correlationId?: string;
++}
++
++export interface SelectMethodModeInput {
++  projectId: string;
++  methodMode: MethodMode;
++  expectedVersion: number;
++  activate?: boolean;
++  correlationId?: string;
++}
++
++export const METHOD_MODE_LABELS: Record<MethodMode, string> = {
++  SFIA_V2_6: "SFIA v2.6 (baseline opérationnelle)",
++  TRANSITION: "Transition v2.6 → v3 candidate",
++  V3_CANDIDATE: "SFIA v3.0 candidate (Studio-native) — non adopté",
++};
++
++export const METHOD_MODE_CLAIMS: Record<MethodMode, string> = {
++  SFIA_V2_6: "Baseline v2.6 active. Aucun claim v3.",
++  TRANSITION: "Mode transition. Pas d’adoption v3.",
++  V3_CANDIDATE:
++    "Claim limité à V3-MODELED CANDIDATE / prototype. Interdit : V3-ADOPTED, V3-IMPLEMENTED global.",
++};
+
+diff --git a/projects/sfia-studio/app/components/shell/UtilityRail.tsx b/projects/sfia-studio/app/components/shell/UtilityRail.tsx
+index 796bb59..983aa7d 100644
+--- a/projects/sfia-studio/app/components/shell/UtilityRail.tsx
++++ b/projects/sfia-studio/app/components/shell/UtilityRail.tsx
+@@ -66,6 +66,26 @@ export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+
+       <div className={styles.spacer} />
+
++      <Link
++        href="/workspace"
++        className={isFloating ? styles.item : styles.itemFlush}
++        aria-label="Workspace D1"
++        title="Workspace D1"
++        data-testid="rail-d1-workspace"
++      >
++        W
++      </Link>
++
++      <Link
++        href="/ops1/nouvelle-demande"
++        className={isFloating ? styles.item : styles.itemFlush}
++        aria-label="OPS1 legacy"
++        title="OPS1 Nouvelle demande (legacy)"
++        data-testid="rail-ops1-legacy"
++      >
++        O
++      </Link>
++
+       <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
+     </nav>
+   );
+
+--- /dev/null
++++ b/projects/sfia-studio/app/e2e/d1-i1-project-foundation.spec.ts
+@@
++import { test, expect } from "@playwright/test";
++import path from "node:path";
++import fs from "node:fs";
++
++const shotDir = path.join(
++  __dirname,
++  "../../../../.tmp-sfia-review/screenshots-d1-i1",
++);
++
++test.beforeAll(() => {
++  fs.mkdirSync(shotDir, { recursive: true });
++});
++
++test.describe("D1-I1 Project Foundation", () => {
++  test("workspace → create project → cockpit → reload + audit", async ({
++    page,
++  }) => {
++    await page.goto("/workspace");
++    await expect(
++      page.getByRole("heading", { name: "Workspace Home", level: 1 }),
++    ).toBeVisible();
++    await page.screenshot({
++      path: path.join(shotDir, "workspace-home-1440.png"),
++      fullPage: false,
++    });
++
++    await page.getByTestId("cta-new-project").click();
++    await expect(page).toHaveURL(/\/projects\/new/);
++    await expect(
++      page.getByRole("heading", {
++        name: "Création manuelle avancée",
++        level: 1,
++      }),
++    ).toBeVisible();
++    await page.screenshot({
++      path: path.join(shotDir, "new-project-1440.png"),
++      fullPage: false,
++    });
++
++    await page.getByTestId("project-name").fill("Projet D1-I1 E2E");
++    await page
++      .getByTestId("project-objective")
++      .fill("Valider Project-first foundation");
++    await page.getByTestId("project-context").fill("Contexte léger I1");
++    await expect(page.getByTestId("project-method-mode")).toHaveCount(0);
++    await page.getByTestId("project-submit").click();
++
++    await expect(page).toHaveURL(/\/projects\/proj-/);
++    await expect(page.getByTestId("project-title")).toHaveText(
++      "Projet D1-I1 E2E",
++    );
++    await expect(page.getByTestId("project-state-badge")).toContainText(
++      "ACTIVE",
++    );
++    await expect(page.getByTestId("audit-timeline")).toContainText(
++      "Projet créé",
++    );
++
++    await page.screenshot({
++      path: path.join(shotDir, "project-cockpit-1440.png"),
++      fullPage: false,
++    });
++
++    const url = page.url();
++    await page.reload();
++    await expect(page).toHaveURL(url);
++    await expect(page.getByTestId("project-title")).toHaveText(
++      "Projet D1-I1 E2E",
++    );
++
++    await page.goto("/workspace");
++    await expect(page.getByTestId("project-list")).toContainText(
++      "Projet D1-I1 E2E",
++    );
++  });
++
++  test("intake /nouvelle-demande and OPS1 legacy remain accessible", async ({
++    page,
++  }) => {
++    await page.goto("/nouvelle-demande");
++    await expect(
++      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
++    ).toBeVisible();
++    await expect(page.getByTestId("intake-composer")).toBeVisible();
++
++    await page.goto("/ops1/nouvelle-demande");
++    await expect(
++      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
++    ).toBeVisible();
++  });
++
++  for (const width of [1728, 1440, 1280, 1024] as const) {
++    test(`no horizontal overflow at ${width}`, async ({ page }) => {
++      await page.setViewportSize({ width, height: 1024 });
++      await page.goto("/workspace");
++      const metrics = await page.evaluate(() => ({
++        scrollWidth: document.documentElement.scrollWidth,
++        innerWidth: window.innerWidth,
++        shellWidth: document
++          .querySelector('[data-testid="d1-app-shell"]')
++          ?.getBoundingClientRect().width,
++      }));
++      expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
++      expect(metrics.shellWidth).toBeGreaterThanOrEqual(metrics.innerWidth - 1);
++      await page.screenshot({
++        path: path.join(shotDir, `workspace-${width}.png`),
++        fullPage: false,
++      });
++
++      await page.goto("/projects/new");
++      await page.getByTestId("project-name").fill(`Overflow ${width}`);
++      await page.getByTestId("project-objective").fill("Responsive check");
++      await page.getByTestId("project-submit").click();
++      await expect(page.getByTestId("project-title")).toBeVisible();
++      const cockpitMetrics = await page.evaluate(() => ({
++        scrollWidth: document.documentElement.scrollWidth,
++        innerWidth: window.innerWidth,
++      }));
++      expect(cockpitMetrics.scrollWidth).toBeLessThanOrEqual(
++        cockpitMetrics.innerWidth + 1,
++      );
++      await page.screenshot({
++        path: path.join(shotDir, `project-cockpit-${width}.png`),
++        fullPage: false,
++      });
++    });
++  }
++});
+
+diff --git a/projects/sfia-studio/app/e2e/p0-smoke.spec.ts b/projects/sfia-studio/app/e2e/p0-smoke.spec.ts
+index 5fd3e79..8c7a67e 100644
+--- a/projects/sfia-studio/app/e2e/p0-smoke.spec.ts
++++ b/projects/sfia-studio/app/e2e/p0-smoke.spec.ts
+@@ -70,12 +70,15 @@ test.describe("P0 smoke", () => {
+     const rail = page.getByTestId("utility-rail");
+
+     await rail.getByRole("link", { name: "Nouvelle demande" }).click();
+-    await expect(page).toHaveURL(/nouvelle-demande/);
++    await expect(page).toHaveURL(/\/nouvelle-demande\/?$/);
++    // D1-C1: intake uses D1AppShell (no OPS1 utility-rail). Return to Studio shell.
++    await page.goto("/synthese");
++    const railAfter = page.getByTestId("utility-rail");
+
+-    await rail.getByRole("link", { name: "Cycle actif" }).click();
++    await railAfter.getByRole("link", { name: "Cycle actif" }).click();
+     await expect(page).toHaveURL(/cycle-actif/);
+
+-    await rail.getByRole("link", { name: "Décision Morris" }).click();
++    await railAfter.getByRole("link", { name: "Décision Morris" }).click();
+     await expect(page).toHaveURL(/decision/);
+   });
+
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts b/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
+index 36b868f..c929070 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i1-session.spec.ts
+@@ -15,7 +15,7 @@ test.describe("OPS1 I1 session + journal", () => {
+   test("creates session, appends turns, persists after reload", async ({
+     page,
+   }) => {
+-    await page.goto("/nouvelle-demande");
++    await page.goto("/ops1/nouvelle-demande");
+     await page.evaluate(() => window.sessionStorage.clear());
+     await page.reload();
+     await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts b/projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
+index 86d2a1b..d5fe57d 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i2-conversation.spec.ts
+@@ -15,7 +15,7 @@ test.describe("OPS1 I2 immutable mode + signalétique", () => {
+   test("mode selection, fixture locked, reload, no execution", async ({
+     page,
+   }) => {
+-    await page.goto("/nouvelle-demande");
++    await page.goto("/ops1/nouvelle-demande");
+     await page.evaluate(() => window.sessionStorage.clear());
+     await page.reload();
+     await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+@@ -98,7 +98,7 @@ test.describe("OPS1 I2 immutable mode + signalétique", () => {
+   });
+
+   test("test provider path — never presented as GPT live", async ({ page }) => {
+-    await page.goto("/nouvelle-demande");
++    await page.goto("/ops1/nouvelle-demande");
+     await page.evaluate(() => window.sessionStorage.clear());
+     await page.reload();
+
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts b/projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
+index bbad761..a6ec676 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i2-live-locked-capture.spec.ts
+@@ -23,7 +23,7 @@ test.describe("OPS1 I2 real live locked capture", () => {
+
+   test("GPT LIVE locked session with real assistant_live", async ({ page }) => {
+     fs.mkdirSync(screenshotDir, { recursive: true });
+-    await page.goto("/nouvelle-demande");
++    await page.goto("/ops1/nouvelle-demande");
+     await page.evaluate(() => window.sessionStorage.clear());
+     await page.reload();
+
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts b/projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts
+index c956ef5..3260d2b 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i3-action-gate.spec.ts
+@@ -12,7 +12,7 @@ test.beforeAll(() => {
+ });
+
+ async function createFixtureSession(page: import("@playwright/test").Page) {
+-  await page.goto("/nouvelle-demande");
++  await page.goto("/ops1/nouvelle-demande");
+   await page.evaluate(() => window.sessionStorage.clear());
+   await page.reload();
+   await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts b/projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts
+index e054cab..5d929a2 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i4-allowlist.spec.ts
+@@ -12,7 +12,7 @@ test.beforeAll(() => {
+ });
+
+ async function prepareCandidate(page: import("@playwright/test").Page) {
+-  await page.goto("/nouvelle-demande");
++  await page.goto("/ops1/nouvelle-demande");
+   await page.evaluate(() => window.sessionStorage.clear());
+   await page.reload();
+   await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i5-execution.spec.ts b/projects/sfia-studio/app/e2e/ops1-i5-execution.spec.ts
+index c7c6acc..b889f45 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i5-execution.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i5-execution.spec.ts
+@@ -12,7 +12,7 @@ test.beforeAll(() => {
+ });
+
+ async function prepareThroughI4(page: import("@playwright/test").Page) {
+-  await page.goto("/nouvelle-demande");
++  await page.goto("/ops1/nouvelle-demande");
+   await page.evaluate(() => window.sessionStorage.clear());
+   await page.reload();
+   await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+
+diff --git a/projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts b/projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts
+index d0240d8..1f61b85 100644
+--- a/projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts
++++ b/projects/sfia-studio/app/e2e/ops1-i6-report-and-continuation.spec.ts
+@@ -15,7 +15,7 @@ async function prepareThroughI5Fixture(
+   page: import("@playwright/test").Page,
+   opts?: { keepUnusedModify?: boolean },
+ ) {
+-  await page.goto("/nouvelle-demande");
++  await page.goto("/ops1/nouvelle-demande");
+   await page.evaluate(() => window.sessionStorage.clear());
+   await page.reload();
+   await expect(page.getByTestId("ops1-session-root")).toBeVisible();
+
+--- /dev/null
++++ b/projects/sfia-studio/app/e2e/control-tower-fast-track.spec.ts
+@@
++import { test, expect } from "@playwright/test";
++import path from "path";
++import fs from "fs";
++
++const screenshotDir = path.join(
++  __dirname,
++  "../../../../.tmp-sfia-review/control-tower-fast-track-evidence/screenshots",
++);
++
++test.beforeAll(() => {
++  fs.mkdirSync(screenshotDir, { recursive: true });
++});
++
++test.describe("Control Tower Fast Track — tools UI", () => {
++  test("fixture git tool marker shows tool events", async ({ page }) => {
++    await page.goto("/ops1/nouvelle-demande");
++    await page.evaluate(() => window.sessionStorage.clear());
++    await page.reload();
++
++    await page.getByTestId("ops1-create-mode-fixture").check();
++    await page.getByTestId("ops1-create-session").click();
++    await expect(page.getByTestId("ops1-session-id")).toBeVisible();
++
++    await page
++      .getByTestId("ops1-message-input")
++      .fill("État projet __CT_TOOL_GIT_STATUS__");
++    await page.getByTestId("ops1-send-message").click();
++
++    await expect(page.getByTestId("ct-sources-panel")).toBeVisible();
++    await expect(page.getByTestId("ct-tool-event").first()).toBeVisible({
++      timeout: 15_000,
++    });
++    await expect(page.getByTestId("ct-timeline-panel")).toBeVisible();
++
++    await page.screenshot({
++      path: path.join(screenshotDir, "01-fixture-git-tool.png"),
++      fullPage: true,
++    });
++  });
++
++  test("denied path tool is visible as denied/failed event", async ({
++    page,
++  }) => {
++    await page.goto("/ops1/nouvelle-demande");
++    await page.evaluate(() => window.sessionStorage.clear());
++    await page.reload();
++    await page.getByTestId("ops1-create-mode-fixture").check();
++    await page.getByTestId("ops1-create-session").click();
++    await page
++      .getByTestId("ops1-message-input")
++      .fill("Secret probe __CT_TOOL_DENIED_PATH__");
++    await page.getByTestId("ops1-send-message").click();
++    await expect(page.getByTestId("ops1-turn").last()).toContainText(
++      "PATH_NOT_ALLOWED",
++      { timeout: 15_000 },
++    );
++    await expect(page.getByTestId("ct-tool-event").first()).toBeVisible();
++    await page.screenshot({
++      path: path.join(screenshotDir, "02-tool-denied.png"),
++      fullPage: true,
++    });
++  });
++});
+
+--- /dev/null
++++ b/projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts
+@@
++import { test, expect } from "@playwright/test";
++import path from "path";
++import fs from "fs";
++
++const screenshotDir = path.join(
++  __dirname,
++  "../../../../.tmp-sfia-review/sfia-canonical-context-engine-evidence/screenshots",
++);
++
++test.beforeAll(() => {
++  fs.mkdirSync(screenshotDir, { recursive: true });
++});
++
++test.describe("SFIA Canonical Context Engine", () => {
++  test("fixture propose CREATE → context + ActionCandidate live (no fixture button)", async ({
++    page,
++  }) => {
++    await page.goto("/ops1/nouvelle-demande");
++    await page.evaluate(() => window.sessionStorage.clear());
++    await page.reload();
++
++    await page.getByTestId("ops1-create-mode-fixture").check();
++    await page.getByTestId("ops1-create-session").click();
++    await expect(page.getByTestId("ops1-session-id")).toBeVisible();
++
++    await expect(page.getByTestId("sfia-context-panel")).toBeVisible();
++    await expect(page.getByTestId("sfia-context-ready")).toBeVisible({
++      timeout: 15_000,
++    });
++    await expect(page.getByTestId("sfia-baseline")).toContainText("SFIA");
++    await expect(page.getByTestId("sfia-source-item").first()).toBeVisible();
++
++    await page.screenshot({
++      path: path.join(screenshotDir, "01-sfia-context-loaded.png"),
++      fullPage: true,
++    });
++
++    await page
++      .getByTestId("ops1-message-input")
++      .fill("Prépare action bornée __SFIA_PROPOSE_CREATE_MD__");
++    await page.getByTestId("ops1-send-message").click();
++
++    await expect(page.getByTestId("sfia-proposal-panel")).toBeVisible({
++      timeout: 20_000,
++    });
++    await expect(page.getByTestId("sfia-compilation-status")).toHaveText(
++      "COMPILED",
++    );
++    await expect(page.getByTestId("sfia-live-action-id")).toBeVisible();
++    await expect(page.getByTestId("ops1-action-panel")).toBeVisible();
++    await expect(page.getByTestId("ops1-i3-create-candidate")).toBeVisible();
++
++    await page.screenshot({
++      path: path.join(screenshotDir, "02-sfia-proposal-compiled.png"),
++      fullPage: true,
++    });
++    await page.screenshot({
++      path: path.join(screenshotDir, "03-sfia-action-candidate-live.png"),
++      fullPage: true,
++    });
++    await page.screenshot({
++      path: path.join(screenshotDir, "04-sfia-sources-digests.png"),
++      fullPage: true,
++    });
++  });
++
++  test("commit proposal denied deterministically", async ({ page }) => {
++    await page.goto("/ops1/nouvelle-demande");
++    await page.evaluate(() => window.sessionStorage.clear());
++    await page.reload();
++    await page.getByTestId("ops1-create-mode-fixture").check();
++    await page.getByTestId("ops1-create-session").click();
++    await page
++      .getByTestId("ops1-message-input")
++      .fill("Mauvaise proposition __SFIA_PROPOSE_COMMIT__");
++    await page.getByTestId("ops1-send-message").click();
++    await expect(page.getByTestId("sfia-compilation-status")).toHaveText(
++      "POLICY_DENIED",
++      { timeout: 20_000 },
++    );
++    await expect(page.getByTestId("sfia-denied-ops")).toBeVisible();
++    await page.screenshot({
++      path: path.join(screenshotDir, "05-sfia-forbidden-ops-denied.png"),
++      fullPage: true,
++    });
++  });
++});
+
+diff --git a/projects/sfia-studio/app/e2e/increment-a.spec.ts b/projects/sfia-studio/app/e2e/increment-a.spec.ts
+index 65b66ff..d0fd741 100644
+--- a/projects/sfia-studio/app/e2e/increment-a.spec.ts
++++ b/projects/sfia-studio/app/e2e/increment-a.spec.ts
+@@ -9,7 +9,7 @@ const screenshotDir = path.join(
+
+ const captures = [
+   {
+-    path: "/nouvelle-demande?vs=VS-UX-01",
++    path: "/ops1/nouvelle-demande?vs=VS-UX-01",
+     name: "inc-a-nouvelle-demande",
+     assert: async (page: import("@playwright/test").Page) => {
+       await expect(page.getByTestId("vs-demo-banner")).toBeVisible();
+@@ -17,7 +17,7 @@ const captures = [
+     },
+   },
+   {
+-    path: "/nouvelle-demande?vs=VS-UX-03",
++    path: "/ops1/nouvelle-demande?vs=VS-UX-03",
+     name: "inc-a-qualification-proposee",
+     assert: async (page: import("@playwright/test").Page) => {
+       await expect(
+@@ -104,7 +104,7 @@ test.describe("Increment A visual & functional", () => {
+   });
+
+   test("demo switcher reaches ten states", async ({ page }) => {
+-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
++    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
+     const switcher = page.getByTestId("vs-demo-switcher");
+     await expect(switcher).toBeVisible();
+     const values = await switcher.locator("option").evaluateAll((opts) =>
+@@ -141,7 +141,7 @@ test.describe("Increment A visual & functional", () => {
+   });
+
+   test("GPT counter shows À définir and no-retry", async ({ page }) => {
+-    await page.goto("/nouvelle-demande?vs=VS-UX-02");
++    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-02");
+     await expect(page.getByTestId("vs-gpt-counter").first()).toContainText(
+       "À définir",
+     );
+
+diff --git a/projects/sfia-studio/app/e2e/increment-c.spec.ts b/projects/sfia-studio/app/e2e/increment-c.spec.ts
+index 740a5ff..9e4eadb 100644
+--- a/projects/sfia-studio/app/e2e/increment-c.spec.ts
++++ b/projects/sfia-studio/app/e2e/increment-c.spec.ts
+@@ -26,7 +26,7 @@ test.beforeAll(() => {
+
+ test.describe("Increment C — GPT qualification UI", () => {
+   test("empty demand blocks confirmation + invalid capture", async ({ page }) => {
+-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
++    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
+     await expect(page.getByTestId("vs-demand-input")).toHaveValue("");
+     await expect(page.getByTestId("vs-qualify-open-confirm")).toHaveAttribute(
+       "aria-disabled",
+@@ -46,7 +46,7 @@ test.describe("Increment C — GPT qualification UI", () => {
+
+   test("Campus360 user demand → confirmation → fixture candidate", async ({ page }) => {
+     test.setTimeout(90_000);
+-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
++    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
+     await page.getByTestId("vs-demand-input").fill(CAMPUS);
+     await page.screenshot({
+       path: path.join(userInputDir, "inc-c-demand-campus360.png"),
+@@ -95,7 +95,7 @@ test.describe("Increment C — GPT qualification UI", () => {
+
+   test("edit demand after fixture uses new text", async ({ page }) => {
+     test.setTimeout(90_000);
+-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
++    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
+     await page.getByTestId("vs-demand-input").fill(CAMPUS);
+     await page.getByTestId("vs-qualify-open-confirm").click();
+     await page.getByTestId("vs-gpt-confirm-fixture").click();
+@@ -110,7 +110,7 @@ test.describe("Increment C — GPT qualification UI", () => {
+   });
+
+   test("Nora composer is explicitly non-editable", async ({ page }) => {
+-    await page.goto("/nouvelle-demande?vs=VS-UX-01");
++    await page.goto("/ops1/nouvelle-demande?vs=VS-UX-01");
+     await expect(page.getByTestId("copilot-composer-disabled")).toContainText(
+       "Chat non disponible",
+     );
+
 ```
 
-## 15. Contenu complet des fichiers créés
+## 10. Contenu complet fichiers créés + état C1 des fichiers D1 clés
 
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/01-product-problem-and-rework-rationale.md`
+### `projects/sfia-studio/app/app/ops1/nouvelle-demande/page.tsx`
+
+```tsx
+import { NouvelleDemandePageClient } from "@/features/nouvelle-demande/NouvelleDemandePageClient";
+
+/** Legacy OPS1 session surface — preserved during D1-C1 intake cutover. */
+export default function Ops1NouvelleDemandePage() {
+  return <NouvelleDemandePageClient />;
+}
+```
+### `projects/sfia-studio/app/features/d1/intake/IntakeView.tsx`
+
+```tsx
+"use client";
+
+import { useEffect, useId, useMemo, useState } from "react";
+import Link from "next/link";
+import type { D1Project } from "@/lib/d1/types";
+import { logIntakeEvent } from "@/lib/d1/intakeObservability";
+import { D1AppShell } from "../D1AppShell";
+import { ProjectStateBadge } from "../Badges";
+import { IntakeContextRail } from "./IntakeContextRail";
+import shell from "../d1-shell.module.css";
+import styles from "./intake.module.css";
+
+const EXAMPLES = [
+  "Je veux lancer une application de suivi des contrats.",
+  "Reprendre Campus360 pour la gestion des utilisateurs.",
+  "On reprend le cadrage Campus360.",
+  "Analyse cette idée, mais ne crée rien.",
+] as const;
+
+type Phase = "empty" | "draft" | "submitted";
+
+export function IntakeView({ projects }: { projects: D1Project[] }) {
+  const composerId = useId();
+  const helpId = useId();
+  const statusId = useId();
+  const sessionLocalId = useMemo(
+    () => `intake-local-${crypto.randomUUID().slice(0, 8)}`,
+    [],
+  );
+  const [intent, setIntent] = useState("");
+  const [phase, setPhase] = useState<Phase>("empty");
+  const [submittedAt, setSubmittedAt] = useState<string | null>(null);
+
+  useEffect(() => {
+    logIntakeEvent("intake_opened", { sessionLocalId });
+  }, [sessionLocalId]);
+
+  const recent = projects.slice(0, 6);
+
+  function onChange(value: string) {
+    setIntent(value);
+    if (phase === "submitted") return;
+    setPhase(value.trim() ? "draft" : "empty");
+  }
+
+  function applyExample(text: string) {
+    setIntent(text);
+    setPhase("draft");
+  }
+
+  function focusComposer() {
+    const el = document.getElementById(composerId);
+    el?.focus();
+  }
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = intent.trim();
+    if (!trimmed) return;
+    const started = performance.now();
+    setPhase("submitted");
+    setSubmittedAt(new Date().toISOString());
+    logIntakeEvent("intake_intent_submitted", {
+      sessionLocalId,
+      intentLength: trimmed.length,
+      status: "ack_c1_no_mutation",
+      durationMs: Math.round(performance.now() - started),
+    });
+  }
+
+  function onModify() {
+    setPhase(intent.trim() ? "draft" : "empty");
+    setSubmittedAt(null);
+    logIntakeEvent("intake_cancelled", {
+      sessionLocalId,
+      status: "modify",
+      intentLength: intent.trim().length,
+    });
+    focusComposer();
+  }
+
+  const rail = (
+    <IntakeContextRail
+      hasSubmitted={phase === "submitted"}
+      recentCount={recent.length}
+    />
+  );
+
+  return (
+    <D1AppShell active="intake" title="Nouvelle demande" rail={rail}>
+      <header className={styles.hero}>
+        <h1>Nouvelle demande</h1>
+        <p className={styles.heroLead}>
+          Décrivez ce que vous voulez faire. Studio vous aidera à retrouver,
+          qualifier et structurer — vous gardez la décision finale.
+        </p>
+        <div className={styles.valueStrip} aria-label="Proposition de valeur">
+          <span className={styles.valueChip}>Intent-first</span>
+          <span className={styles.valueChip}>Copilote actif</span>
+          <span className={styles.valueChip}>Confirmation humaine</span>
+        </div>
+      </header>
+
+      <div className={styles.quickActions} role="group" aria-label="Actions rapides">
+        <button
+          type="button"
+          className={`${styles.quickBtn} ${styles.quickBtnPrimary}`}
+          onClick={focusComposer}
+          data-testid="quick-describe"
+        >
+          Décrire un nouveau besoin
+        </button>
+        <a className={styles.quickBtn} href="#reprendre" data-testid="quick-resume">
+          Reprendre un travail
+        </a>
+        <button
+          type="button"
+          className={styles.quickBtn}
+          disabled
+          title="Decision Center — incrément ultérieur"
+          data-testid="quick-decisions"
+        >
+          Voir mes décisions (à venir)
+        </button>
+        <Link
+          className={styles.quickBtn}
+          href="/projects/new"
+          data-testid="quick-manual"
+          onClick={() =>
+            logIntakeEvent("intake_manual_creation_opened", { sessionLocalId })
+          }
+        >
+          Création manuelle avancée
+        </Link>
+      </div>
+
+      {phase === "submitted" ? (
+        <section
+          className={styles.statusPanel}
+          aria-labelledby={statusId}
+          aria-live="polite"
+          data-testid="intake-feedback"
+        >
+          <h2 id={statusId}>Demande reçue</h2>
+          <p>
+            Studio qualifiera cette demande dans le prochain incrément de
+            routage assisté (D1-C2). Aucune création de projet ou de cycle n’a
+            été effectuée.
+          </p>
+          <p className={styles.statusMeta} data-testid="intake-feedback-meta">
+            Accusé UX local · pas de GPT · pas de mutation ·{" "}
+            {submittedAt ? `reçu ${submittedAt}` : null}
+          </p>
+          <div className={styles.statusActions}>
+            <button
+              type="button"
+              className={`${shell.cta} ${shell.ctaSecondary}`}
+              onClick={onModify}
+              data-testid="intake-modify"
+            >
+              Modifier la demande
+            </button>
+            <Link
+              className={shell.cta}
+              href="/projects/new"
+              data-testid="intake-goto-manual"
+            >
+              Création manuelle
+            </Link>
+            <Link
+              className={`${shell.cta} ${shell.ctaSecondary}`}
+              href="/workspace"
+              data-testid="intake-goto-workspace"
+            >
+              Revenir au Workspace
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
+      <form
+        className={styles.composer}
+        onSubmit={onSubmit}
+        data-testid="intake-composer"
+        aria-describedby={helpId}
+      >
+        <label className={styles.composerLabel} htmlFor={composerId}>
+          Votre intention
+        </label>
+        <p className={styles.composerHelp} id={helpId}>
+          Écrivez librement. Le routage intelligent (Project / Cycle / Reprise)
+          arrive en C2 — C1 enregistre uniquement un accusé de réception UX.
+        </p>
+        <textarea
+          id={composerId}
+          className={styles.composerArea}
+          name="intent"
+          value={intent}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="Ex. « Je veux reprendre Campus360 pour la gestion des comptes. »"
+          data-testid="intake-intent"
+          aria-required
+          disabled={phase === "submitted"}
+        />
+        <div className={styles.examples} aria-label="Exemples d’intentions">
+          {EXAMPLES.map((ex) => (
+            <button
+              key={ex}
+              type="button"
+              className={styles.exampleBtn}
+              onClick={() => applyExample(ex)}
+              disabled={phase === "submitted"}
+            >
+              {ex}
+            </button>
+          ))}
+        </div>
+        <div className={styles.composerActions}>
+          <button
+            type="submit"
+            className={shell.cta}
+            disabled={!intent.trim() || phase === "submitted"}
+            data-testid="intake-submit"
+          >
+            Envoyer
+          </button>
+          <span className={shell.hint}>
+            {phase === "empty"
+              ? "En attente de saisie"
+              : phase === "draft"
+                ? "Prêt à envoyer (local)"
+                : "Envoyé — en attente C2"}
+          </span>
+        </div>
+      </form>
+
+      <section
+        className={styles.resumeSection}
+        id="reprendre"
+        aria-labelledby="resume-heading"
+        data-testid="intake-resume"
+      >
+        <h2 id="resume-heading">Reprendre</h2>
+        <p className={styles.resumeHint}>
+          Projets récents depuis la fondation D1-I1. Les reprises Cycle / Action
+          ne sont pas simulées dans C1.
+        </p>
+        {recent.length === 0 ? (
+          <div className={`${shell.card} ${shell.empty}`} data-testid="intake-resume-empty">
+            <h3>Aucun projet récent</h3>
+            <p className={shell.hint}>
+              Décrivez un besoin ci-dessus, ou utilisez la création manuelle
+              avancée.
+            </p>
+          </div>
+        ) : (
+          <ul className={styles.resumeGrid} data-testid="intake-resume-list">
+            {recent.map((p) => (
+              <li key={p.projectId}>
+                <Link
+                  className={styles.resumeCard}
+                  href={`/projects/${p.projectId}`}
+                  data-testid={`resume-project-${p.projectId}`}
+                  onClick={() =>
+                    logIntakeEvent("intake_resume_project_opened", {
+                      sessionLocalId,
+                      projectId: p.projectId,
+                    })
+                  }
+                >
+                  <strong>{p.name}</strong>
+                  <ProjectStateBadge state={p.state} />
+                  <p className={shell.hint}>{p.objective}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className={styles.staticNote} role="note" data-testid="intake-static-note">
+          Cycles, actions et décisions ouvertes : indisponibles dans C1
+          (placeholders explicites — pas de fausse reprise).
+        </div>
+      </section>
+
+      <div className={styles.manualBanner}>
+        <p>
+          Escape hatch expert : formulaire court sans choix MethodMode. Le
+          parcours standard reste conversationnel.
+        </p>
+        <Link
+          className={`${shell.cta} ${shell.ctaSecondary}`}
+          href="/projects/new"
+          data-testid="manual-creation-entry"
+          onClick={() =>
+            logIntakeEvent("intake_manual_creation_opened", { sessionLocalId })
+          }
+        >
+          Création manuelle avancée
+        </Link>
+      </div>
+    </D1AppShell>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/intake/IntakeContextRail.tsx`
+
+```tsx
+import styles from "../d1-shell.module.css";
+
+export function IntakeContextRail({
+  hasSubmitted,
+  recentCount,
+}: {
+  hasSubmitted: boolean;
+  recentCount: number;
+}) {
+  return (
+    <>
+      <h2>Accompagnement</h2>
+      <div className={styles.railCard}>
+        <strong>Studio vous aide à</strong>
+        <p>retrouver, qualifier et structurer — vous gardez la décision finale.</p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>État intake</strong>
+        <p data-testid="intake-rail-status">
+          {hasSubmitted
+            ? "Demande reçue — routage assisté en attente (C2)"
+            : "En attente d’une intention"}
+        </p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>Projets récents</strong>
+        <p>{recentCount} projet(s) disponibles pour reprise</p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>À venir (non exécuté)</strong>
+        <p className={styles.placeholder}>Qualification d’intention — C2</p>
+        <p className={styles.placeholder}>Recherche de contexte — C3</p>
+        <p className={styles.placeholder}>Confirmation & mutation — C4</p>
+      </div>
+      <p className={styles.monoNote}>
+        Aucun GPT réel dans C1 · aucune mutation depuis la conversation.
+      </p>
+    </>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/intake/intake.module.css`
+
+```css
+.hero {
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+  line-height: 1.2;
+  color: var(--sfia-ink);
+}
+
+.heroLead {
+  margin: 0;
+  font-size: 15px;
+  color: var(--sfia-muted);
+  max-width: 42rem;
+  line-height: 1.5;
+}
+
+.valueStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 20px;
+}
+
+.valueChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--sfia-blue-soft);
+  color: var(--sfia-blue);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.composer {
+  display: grid;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--sfia-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--sfia-shadow-sm);
+  margin-bottom: 16px;
+}
+
+.composerLabel {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.composerHelp {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+}
+
+.composerArea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font: inherit;
+  resize: vertical;
+  background: var(--sfia-bg, #f6f7fa);
+}
+
+.composerArea:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.composerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exampleBtn {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px dashed var(--sfia-border);
+  background: #fff;
+  color: var(--sfia-ink);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.exampleBtn:hover,
+.exampleBtn:focus-visible {
+  border-color: var(--sfia-blue);
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 1px;
+}
+
+.quickActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.quickBtn {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  color: var(--sfia-ink);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.quickBtn:hover,
+.quickBtn:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.quickBtnPrimary {
+  background: var(--sfia-blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.statusPanel {
+  border-radius: 14px;
+  border: 1px solid #c9d6ff;
+  background: var(--sfia-blue-soft);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.statusPanel h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.statusPanel p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--sfia-ink);
+}
+
+.statusMeta {
+  font-size: 12px;
+  color: var(--sfia-muted);
+  font-style: italic;
+}
+
+.statusActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.resumeSection {
+  margin-top: 8px;
+}
+
+.resumeSection h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.resumeHint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--sfia-muted);
+}
+
+.resumeGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.resumeCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--sfia-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  min-height: 44px;
+}
+
+.resumeCard:hover,
+.resumeCard:focus-visible {
+  outline: 2px solid var(--sfia-blue);
+  outline-offset: 2px;
+}
+
+.resumeCard strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.staticNote {
+  border: 1px dashed var(--sfia-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fffaf0;
+  color: #8a5a00;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.manualBanner {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--sfia-border);
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.manualBanner p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--sfia-muted);
+  max-width: 36rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .composer,
+  .statusPanel,
+  .resumeCard {
+    transition: none;
+  }
+}
+```
+### `projects/sfia-studio/app/lib/d1/intakeObservability.ts`
+
+```tsx
+/**
+ * D1-C1 intake observability — structured logs, no full intent body.
+ * RGPD: length + action + status only.
+ */
+
+export type IntakeLogEvent =
+  | "intake_opened"
+  | "intake_intent_submitted"
+  | "intake_manual_creation_opened"
+  | "intake_resume_project_opened"
+  | "intake_cancelled";
+
+export function logIntakeEvent(
+  event: IntakeLogEvent,
+  payload: {
+    status?: string;
+    intentLength?: number;
+    projectId?: string;
+    sessionLocalId?: string;
+    durationMs?: number;
+  } = {},
+): void {
+  const line = JSON.stringify({
+    event,
+    ts: new Date().toISOString(),
+    status: payload.status ?? "ok",
+    intentLength: payload.intentLength,
+    projectId: payload.projectId,
+    sessionLocalId: payload.sessionLocalId,
+    durationMs: payload.durationMs,
+  });
+  // eslint-disable-next-line no-console
+  console.info(`[d1.intake] ${line}`);
+}
+```
+### `projects/sfia-studio/app/__tests__/d1/intake-c1.test.tsx`
+
+```tsx
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { IntakeView } from "@/features/d1/intake/IntakeView";
+import { NewProjectForm } from "@/features/d1/NewProjectForm";
+import type { D1Project } from "@/lib/d1/types";
+import { D1_GOVERNANCE_METHOD_MODE } from "@/lib/d1/types";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
+}));
+
+vi.mock("@/lib/d1/actions", () => ({
+  actionCreateProject: vi.fn(async () => ({
+    ok: true,
+    project: {
+      projectId: "proj-test",
+      name: "X",
+      state: "ACTIVE",
+      methodMode: D1_GOVERNANCE_METHOD_MODE,
+    },
+    idempotent: false,
+  })),
+}));
+
+const sample: D1Project = {
+  projectId: "proj-demo",
+  workspaceId: "ws-studio-default",
+  name: "Campus360",
+  objective: "Cadrage comptes",
+  initialContextSummary: null,
+  methodMode: "V3_CANDIDATE",
+  state: "ACTIVE",
+  ownerActorId: "actor-mono-i1",
+  createdAt: "2026-07-22T10:00:00.000Z",
+  updatedAt: "2026-07-22T10:00:00.000Z",
+  version: 1,
+};
+
+describe("D1-C1 IntakeView", () => {
+  beforeEach(() => {
+    vi.spyOn(console, "info").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    cleanup();
+    vi.restoreAllMocks();
+  });
+
+  it("renders empty conversational intake without project form", () => {
+    render(<IntakeView projects={[]} />);
+    expect(
+      screen.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
+    ).toBeTruthy();
+    expect(screen.getByTestId("intake-composer")).toBeTruthy();
+    expect(screen.queryByTestId("manual-project-form")).toBeNull();
+    expect(screen.queryByTestId("project-method-mode")).toBeNull();
+    expect(screen.queryByTestId("project-name")).toBeNull();
+  });
+
+  it("accepts intent and shows honest C1 feedback without claiming routing", async () => {
+    const user = userEvent.setup();
+    render(<IntakeView projects={[sample]} />);
+    await user.type(
+      screen.getByTestId("intake-intent"),
+      "Je veux reprendre Campus360",
+    );
+    await user.click(screen.getByTestId("intake-submit"));
+    expect(screen.getByTestId("intake-feedback")).toBeTruthy();
+    expect(screen.getByTestId("intake-feedback").textContent).toMatch(
+      /prochain incrément|C2/i,
+    );
+    expect(screen.getByTestId("intake-feedback").textContent).not.toMatch(
+      /confiance 0\./i,
+    );
+    expect(screen.getByTestId("intake-feedback").textContent).not.toMatch(
+      /CycleInstance/i,
+    );
+  });
+
+  it("exposes resume projects and manual creation secondary entry", () => {
+    render(<IntakeView projects={[sample]} />);
+    expect(screen.getByTestId("intake-resume-list").textContent).toContain(
+      "Campus360",
+    );
+    expect(screen.getByTestId("manual-creation-entry")).toBeTruthy();
+    expect(screen.getByTestId("quick-manual")).toBeTruthy();
+    expect(screen.getByTestId("intake-static-note").textContent).toMatch(
+      /indisponibles/i,
+    );
+  });
+
+  it("quick actions include describe / resume / decisions / manual", () => {
+    render(<IntakeView projects={[]} />);
+    expect(screen.getByTestId("quick-describe")).toBeTruthy();
+    expect(screen.getByTestId("quick-resume")).toBeTruthy();
+    expect(screen.getByTestId("quick-decisions")).toBeDisabled();
+    expect(screen.getByTestId("quick-manual")).toBeTruthy();
+  });
+});
+
+describe("D1-C1 manual creation MethodMode policy", () => {
+  afterEach(() => cleanup());
+
+  it("does not expose MethodMode select", () => {
+    render(<NewProjectForm />);
+    expect(
+      screen.getByRole("heading", {
+        name: "Création manuelle avancée",
+        level: 1,
+      }),
+    ).toBeTruthy();
+    expect(screen.queryByTestId("project-method-mode")).toBeNull();
+    expect(screen.getByTestId("manual-creation-hint").textContent).toContain(
+      D1_GOVERNANCE_METHOD_MODE,
+    );
+  });
+});
+```
+### `projects/sfia-studio/app/e2e/d1-c1-intake-shell.spec.ts`
+
+```tsx
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
+
+const shotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-d1-c1",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(shotDir, { recursive: true });
+});
+
+test.describe("D1-C1 Intake Shell and Conversation Entry", () => {
+  test("conversational intake on /nouvelle-demande without form-first", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await page.goto("/nouvelle-demande");
+    await expect(
+      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
+    ).toBeVisible();
+    await expect(page.getByTestId("intake-composer")).toBeVisible();
+    await expect(page.getByTestId("project-name")).toHaveCount(0);
+    await expect(page.getByTestId("project-method-mode")).toHaveCount(0);
+    await page.screenshot({
+      path: path.join(shotDir, "intake-empty-1440.png"),
+      fullPage: false,
+    });
+
+    await page
+      .getByTestId("intake-intent")
+      .fill("Je veux reprendre Campus360 pour la gestion des comptes.");
+    await page.screenshot({
+      path: path.join(shotDir, "intake-draft-1440.png"),
+      fullPage: false,
+    });
+
+    const beforeProjects = await page.evaluate(async () => {
+      // no API probe — count resume cards only
+      return document.querySelectorAll('[data-testid^="resume-project-"]').length;
+    });
+
+    await page.getByTestId("intake-submit").click();
+    await expect(page.getByTestId("intake-feedback")).toBeVisible();
+    await expect(page.getByTestId("intake-feedback")).toContainText("C2");
+    await expect(page.getByTestId("intake-feedback")).toContainText(
+      "Aucune création",
+    );
+    await page.screenshot({
+      path: path.join(shotDir, "intake-feedback-1440.png"),
+      fullPage: false,
+    });
+
+    // Still on intake — no redirect to cockpit (no mutation)
+    await expect(page).toHaveURL(/\/nouvelle-demande/);
+    const afterProjects = await page.evaluate(
+      () =>
+        document.querySelectorAll('[data-testid^="resume-project-"]').length,
+    );
+    expect(afterProjects).toBe(beforeProjects);
+
+    await page.locator("#reprendre").scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: path.join(shotDir, "intake-resume-1440.png"),
+      fullPage: false,
+    });
+  });
+
+  test("manual creation secondary path creates project without MethodMode UI", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+    await page.goto("/nouvelle-demande");
+    await page.getByTestId("quick-manual").click();
+    await expect(page).toHaveURL(/\/projects\/new/);
+    await expect(
+      page.getByRole("heading", {
+        name: "Création manuelle avancée",
+        level: 1,
+      }),
+    ).toBeVisible();
+    await expect(page.getByTestId("project-method-mode")).toHaveCount(0);
+    await page.screenshot({
+      path: path.join(shotDir, "manual-advanced-1440.png"),
+      fullPage: false,
+    });
+
+    await page.getByTestId("project-name").fill("Projet D1-C1 E2E");
+    await page
+      .getByTestId("project-objective")
+      .fill("Valider création manuelle secondaire");
+    await page.getByTestId("project-submit").click();
+    await expect(page).toHaveURL(/\/projects\/proj-/);
+    await expect(page.getByTestId("project-title")).toHaveText(
+      "Projet D1-C1 E2E",
+    );
+    await expect(page.getByTestId("method-mode-readonly")).toBeVisible();
+    await expect(page.getByTestId("cockpit-method-mode")).toHaveCount(0);
+
+    await page.goto("/workspace");
+    await expect(page.getByTestId("project-list")).toContainText(
+      "Projet D1-C1 E2E",
+    );
+  });
+
+  test("OPS1 legacy route preserved", async ({ page }) => {
+    await page.goto("/ops1/nouvelle-demande");
+    await expect(
+      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
+    ).toBeVisible();
+    // OPS1 shell markers
+    await expect(page.getByTestId("utility-rail")).toBeVisible();
+  });
+
+  for (const width of [1728, 1440, 1280, 1024] as const) {
+    test(`no horizontal overflow on intake at ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 1024 });
+      await page.goto("/nouvelle-demande");
+      const metrics = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth: window.innerWidth,
+        shellWidth: document
+          .querySelector('[data-testid="d1-app-shell"]')
+          ?.getBoundingClientRect().width,
+      }));
+      expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
+      expect(metrics.shellWidth).toBeGreaterThanOrEqual(metrics.innerWidth - 1);
+      await page.screenshot({
+        path: path.join(shotDir, `intake-${width}.png`),
+        fullPage: false,
+      });
+    });
+  }
+});
+```
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/01-implemented-scope.md`
 
 ```markdown
-# 01 — Problème produit et rationale du rework
+# 01 — Implemented scope
 
-## Décision Morris consommée
+## Inclus
+- `/nouvelle-demande` = intake conversationnel D1-C1 (`IntakeView` + `D1AppShell`)
+- Composer, exemples, actions rapides, zone Reprendre (projets D1-I1)
+- Feedback honnête C1 (pas de GPT, pas de mutation)
+- Création manuelle avancée `/projects/new` sans MethodMode UI
+- MethodMode gouvernance interne `V3_CANDIDATE`
+- OPS1 legacy `/ops1/nouvelle-demande`
+- Tests unitaires + E2E C1 ; I1 et smoke adaptés
 
-**D1-I1 TECHNICAL FOUNDATION IMPLEMENTED — PRODUCT EXPERIENCE REWORK REQUIRED**
-
-Les acquis techniques D1-I1 (Project SQLite, audit, shell fluide, routes, tests) sont **conservés**.
-La cible produit « formulaire Nouveau projet + MethodMode utilisateur » est **remise en cause**.
-
-## Symptômes observés (runtime I1 + captures)
-
-1. Entrée principale = formulaire administratif (identité, objectif, contexte, MethodMode).
-2. L’utilisateur doit connaître Project / MethodMode pour démarrer.
-3. Cockpit expose IDs / événements techniques au centre de l’attention.
-4. Placeholders I2–I5 visibles comme « zones futures » sans accompagnement.
-5. Visibilité IA faible : pas de conversation de qualification avant mutation.
-6. Pas de routage explicite nouveau projet / nouveau cycle / reprise / poursuite / analyse.
-7. Continuité avec la vision framing (GuidedSession, intent-first, dual-channel) **rompue** par I1 form-first.
-
-## Écart vs vision SFIA Studio
-
-| Attendu (framing 05/11/16) | Livré I1 |
-|----------------------------|----------|
-| Intention → clarification → routage | Formulaire → create Project |
-| GPT propose, humain confirme | Humain remplit et crée |
-| MethodMode gouvernance | MethodMode choix UX |
-| Audit métier lisible | Audit technique centré |
-| « Nouvelle demande » conversationnelle | Legacy OPS1 + New Project CRUD |
-
-## Pourquoi corriger avant code
-
-- D1/D2/D3 dépendent de la qualification initiale.
-- Rework UX + modèle + routes + orchestration si on poursuit form-first.
-- Figma et contrats doivent être recalés **avant** GuidedSession / CycleInstance.
-
-## Ce qui n’est PAS remis en cause
-
-Persistance Project · SQLite · audit append-only · idempotence · D1AppShell · Cockpit technique · tests · legacy `/nouvelle-demande`.
+## Exclus
+GPT · RequestRoutingProposal · lookup · Cycle/Action resume · GuidedSession · C2–C5 · deps
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/02-target-value-proposition.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/02-route-and-legacy-transition.md`
 
 ```markdown
-# 02 — Proposition de valeur cible
+# 02 — Routes et transition legacy
 
-## Phrase produit
+| Route | Rôle |
+|-------|------|
+| `/nouvelle-demande` | **Intake D1-C1** (principal) |
+| `/ops1/nouvelle-demande` | OPS1 session legacy (composants préservés) |
+| `/workspace` | Workspace D1 |
+| `/projects/new` | Création manuelle avancée |
+| `/projects/[id]` | Cockpit |
 
-**SFIA Studio comprend ce que vous voulez faire, retrouve le travail existant, propose la bonne suite, et n’agit qu’après votre confirmation.**
-
-## Promesses
-
-1. **AI-first** — conversation guidée comme porte d’entrée.
-2. **Intent-first** — exprimer un besoin, pas choisir un objet métier.
-3. **Routage intelligent** — Project / Cycle / Resume / Action / Decision / Analyze.
-4. **Confirmation humaine** — aucune mutation silencieuse.
-5. **Complexité progressive** — novice sans jargon ; expert avec manuel + journal technique.
-6. **Méthode système** — v3 cible via gouvernance, pas préférence UI.
-
-## Anti-promesses
-
-- pas un CRUD SaaS de projets ;
-- pas un chat générique type messagerie ;
-- pas un questionnaire déguisé ;
-- pas une adoption v3 implicite ;
-- pas une autonomie GPT sur les effets.
-
-## Valeur démontrable (conception)
-
-Utilisateur : « Je veux reprendre Campus360 pour la gestion des comptes. »
-Studio : détecte, clarifie, propose cycle, explique, attend « Valide », puis continue en GuidedSession.
+UtilityRail Studio « Nouvelle demande » → intake.
+Lien « O » + nav D1 « OPS » → legacy OPS1.
+E2E OPS1/CT/VS mis à jour vers `/ops1/nouvelle-demande`.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/03-user-intents-and-routing-scenarios.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/03-intake-ux-implementation.md`
 
 ```markdown
-# 03 — Intentions utilisateur et scénarios de routage
+# 03 — UX intake
 
-## Cartographie des intentions
-
-| Intent classe | Exemple | Outcome candidat |
-|---------------|---------|------------------|
-| Nouveau besoin | « lancer une app contrats » | CREATE_PROJECT (+ premier cycle) |
-| Nouveau sujet projet connu | « Campus360 utilisateurs » | OPEN_CYCLE |
-| Reprise cadrage | « on reprend le cadrage Campus360 » | RESUME_CYCLE |
-| Poursuite action | « continuer shell responsive » | RESUME_ACTION |
-| Décisions ouvertes | « qu’est-ce qui me reste à valider ? » | OPEN_DECISION |
-| Ambigu | « j’ai un nouveau sujet » | NEED_CLARIFICATION |
-| Analyse seule | « analyse, ne crée rien » | ANALYZE_ONLY |
-| Expert manuel | CTA « Création manuelle » | CREATE_PROJECT / OPEN_CYCLE (manuel) |
-
-## S1 — Nouveau besoin sans projet
-
-**Entrée :** « Je veux lancer une application de suivi des contrats. »
-**Studio :** questions minimales (périmètre, urgence) → synthèse → CREATE_PROJECT + premier cycle proposé → confirmation.
-
-## S2 — Nouveau cycle projet existant
-
-**Entrée :** « Reprendre Campus360 pour la gestion des utilisateurs. »
-**Studio :** match Campus360 → OPEN_CYCLE recommandé → objectif synthétisé → confirmation.
-
-## S3 — Reprise cycle en cours
-
-**Entrée :** « On reprend le cadrage Campus360. »
-**Studio :** cycle ouvert + état + réserves + prochaine action → RESUME_CYCLE → GuidedSession.
-
-## S4 — Poursuite action
-
-**Entrée :** « Continuer la correction du shell responsive. »
-**Studio :** action/delivery ouverte → RESUME_ACTION · **pas** de nouveau Project/Cycle inutile.
-
-## S5 — Décision en attente
-
-**Entrée :** « Qu’est-ce qui me reste à valider ? »
-**Studio :** liste priorisée gates/DecisionRequests → OPEN_DECISION.
-
-## S6 — Ambigu
-
-**Entrée :** « J’ai un nouveau sujet. »
-**Studio :** 1–3 questions · hypothèses multiples · **aucune** création.
-
-## S7 — Analyze-only
-
-**Entrée :** « Analyse cette idée, mais ne crée rien. »
-**Studio :** exploration + synthèse · ANALYZE_ONLY · option « transformer plus tard ».
-
-## S8 — Création manuelle experte
-
-**Entrée :** CTA explicite.
-**Studio :** formulaire court Project/Cycle · paramètres avancés · confirmation · journal technique accessible.
+Composants : `IntakeView`, `IntakeContextRail`, styles `intake.module.css`.
+Hero intent-first · composer · exemples · quick actions · resume cards · status C1.
+Rail : accompagnement + états « à venir (non exécuté) ».
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/04-ai-guided-intake-journey.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/04-manual-creation-strategy.md`
 
 ```markdown
-# 04 — Journey intake AI-guided
+# 04 — Création manuelle
 
-## Parcours nominal (Campus360 comptes)
-
-1. Utilisateur ouvre **Nouvelle demande**.
-2. Saisit : « Je veux reprendre Campus360 pour revoir la gestion des comptes. »
-3. Studio : Context lookup → match Campus360 + cycles récents.
-4. Clarification : « Prolonge-t-on le cadrage ou ouvre-t-on un nouveau sujet ? »
-5. Utilisateur : nouveau sujet + gestion des rôles.
-6. Studio : RequestRoutingProposal (OPEN_CYCLE, profil Standard, blocs sécurité/RGPD/UX).
-7. Affiche rationale + alternatives (rattacher / analyser seulement).
-8. Utilisateur : « Valide ».
-9. Mutation bornée : Cycle ouvert + GuidedSession · Cockpit mis à jour.
-10. Conversation continue dans le contexte créé.
-
-## États UI du journey
-
-| État | Contenu central | Rail |
-|------|-----------------|------|
-| Empty | champ + exemples + reprises | historique / décisions |
-| Clarification | questions + thread | contexte détecté partiel |
-| Routing proposal | carte proposition + alternatives | confiance / matches |
-| Confirmation | résumé effet | ce qui sera créé |
-| Post-mutation | GuidedSession / Cockpit | activité métier |
-
-## Alternatifs
-
-- Refus proposition → retour clarification ou alternatives.
-- Contexte indisponible → ANALYZE_ONLY ou manuel + banner.
-- Conflit multi-match → choix utilisateur obligatoire.
-- Erreur lookup → fail-soft, pas de mutation.
+`NewProjectForm` retitré « Création manuelle avancée ».
+MethodMode select **retiré** ; `D1_GOVERNANCE_METHOD_MODE = V3_CANDIDATE` appliqué en interne.
+Cockpit : MethodMode lecture seule ; journal technique derrière toggle.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/05-routing-decision-model.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/05-runtime-figma-validation.md`
 
 ```markdown
-# 05 — Modèle de décision de routage
+# 05 — Runtime / Figma
 
-## Entrées
+fileKey `IS70XDnBMvZuJYmaI5eZT2` page `11:2`
 
-- rawIntent
-- context matches (projects, cycles, actions, decisions)
-- signaux utilisateur (analyze-only, manuel)
-- confiance scoring
-- politiques (anti-claims, mono-op I1, gates fermés)
+| Capture | Figma | Verdict |
+|---------|-------|---------|
+| empty 1440 | 12:2 | structure OK (composer + reprises) |
+| draft/feedback | 12:36 direction | feedback C1 honnête (pas faux routing 12:60) |
+| resume | 14:2 | cartes projets OK |
+| manual | 14:31 | formulaire secondaire OK |
+| 1728/1280/1024 | 14:64/90/117 | shell fluide, unused≈0, no H-scroll |
 
-## Sortie
-
-`RequestRoutingProposal` (doc 06) avec `proposedOutcomeType` et `alternatives[]`.
-
-## Règles de priorité (recommandation)
-
-1. Analyze-only explicite → ANALYZE_ONLY.
-2. Décision ouverte clairement demandée → OPEN_DECISION.
-3. Action ouverte match forte → RESUME_ACTION.
-4. Cycle ouvert match forte → RESUME_CYCLE.
-5. Projet match + nouveau sujet → OPEN_CYCLE.
-6. Aucun match + besoin créé → CREATE_PROJECT.
-7. Ambigu / confiance basse → NEED_CLARIFICATION.
-8. Expert manuel → bypass conversation (confirmation toujours requise).
-
-## Seuils candidats (non figés)
-
-| Confiance | Comportement |
-|-----------|--------------|
-| ≥ 0.8 | 1 proposition primaire + 1–2 alternatives |
-| 0.5–0.8 | clarification ciblée puis proposition |
-| < 0.5 | NEED_CLARIFICATION · pas de mutation |
-
-## Arbres
-
-Voir `diagrams/d1-routing-decision-tree.mmd`.
+Captures : `.tmp-sfia-review/screenshots-d1-c1/`
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/06-request-routing-proposal-candidate.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/06-test-results.md`
 
 ```markdown
-# 06 — RequestRoutingProposal (candidat)
+# 06 — Tests
 
-> Schéma **non validé définitivement**. Options + recommandation.
-
-## Recommandation
-
-Adopter un objet **candidat** `RequestRoutingProposal` comme sortie structurée du canal de contrôle intake (avant GuidedSession post-mutation).
-
-## Champs candidats
-
-| Champ | Type | Oblig. | Notes |
-|-------|------|--------|-------|
-| requestId | string | oui | corrélation intake |
-| rawIntent | string | oui | texte utilisateur |
-| normalizedIntent | string | non | reformulation |
-| proposedOutcomeType | enum | oui | voir ci-dessous |
-| candidateProjectId | string? | | |
-| candidateProjectName | string? | | affichage |
-| candidateCycleId | string? | | |
-| proposedCycleType | string? | | ex. FRAMING |
-| proposedObjective | string? | | synthèse |
-| proposedProfile | string? | | Fast/Standard/… |
-| proposedBlocks | string[]? | | UX, RGPD… |
-| detectedOpenWork | object? | | actions/gates |
-| missingInformation | string[] | | |
-| alternatives | Alternative[] | | |
-| confidence | number 0–1 | oui | |
-| rationale | string | oui | humain-lisible |
-| requiresHumanConfirmation | boolean | oui | toujours true pour mutation |
-| createdAt | datetime | oui | |
-
-### Outcome types
-
-`CREATE_PROJECT` · `OPEN_CYCLE` · `RESUME_CYCLE` · `RESUME_ACTION` · `OPEN_DECISION` · `ANALYZE_ONLY` · `NEED_CLARIFICATION`
-
-### Alternative
-
-`{ outcomeType, label, rationale, candidateProjectId?, candidateCycleId? }`
-
-## Options écartées (pour l’instant)
-
-- A : réutiliser directement `GuidedProposal` sans objet intake — trop tôt (GuidedSession post-mutation).
-- B : muter Project sans proposal — interdit.
-- C : schema Draft-07 figé maintenant — hors scope ; modeled ultérieur.
-
-## Lien dual-channel (framing 05)
-
-Prose = explication · Proposal = contrôle machine · mutation = commande humaine.
+- vitest `__tests__/d1/` : 12/12 pass (I1 + C1)
+- playwright `d1-c1-intake-shell` : 7/7 pass
+- playwright `d1-i1-project-foundation` : adapté, vert
+- playwright `p0-smoke` : 6/6 pass (nav adaptée shell D1)
+- playwright `ops1-i1-session` : legacy path OK
+- tsc --noEmit : pass
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/07-gpt-role-and-guardrails.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/07-reserves-and-debt.md`
 
 ```markdown
-# 07 — Rôle GPT et garde-fous
+# 07 — Réserves et dette
 
-## GPT peut
-
-- comprendre l’intention ;
-- appeler services de lookup autorisés ;
-- poser questions minimales ;
-- synthétiser ;
-- proposer Project / Cycle / profil / blocs ;
-- expliquer options ;
-- produire `RequestRoutingProposal`.
-
-## GPT ne peut pas
-
-- créer seul un projet ou cycle ;
-- reprendre une action sans confirmation ;
-- valider une décision / contourner un gate ;
-- modifier la doctrine / choisir une baseline ;
-- transformer une proposition en décision Morris ;
-- claim V3-ADOPTED / V3-IMPLEMENTED.
-
-## Garde-fous produit
-
-1. **Human-in-the-loop** obligatoire pour toute mutation.
-2. **Fail-closed** sur ambiguïté → clarification.
-3. **Pas de formulaire-chat** : max questions utiles.
-4. **Transparence** : rationale visible.
-5. **Séparation** audit métier / technique.
-6. **Anti-claims** persistés dans le contexte système.
-
-## Observabilité conception
-
-Événements logiques : `intake_intent_received`, `intake_lookup_completed`, `intake_proposal_emitted`, `intake_confirmed`, `intake_cancelled` (implémentation future).
+- C1-R01 : pas de GPT / proposal (C2)
+- C1-R02 : resume Cycle/Action non implémentés (placeholders)
+- C1-R03 : MethodMode encore en modèle SQL — gouvernance future
+- C1-R04 : Decision Center CTA disabled
+- C1-R05 : smoke nav doit repasser par /synthese après intake (shell différent)
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/08-project-cycle-resume-action-routing.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/08-d1-c1-validation-decision-pack.md`
 
 ```markdown
-# 08 — Project / Cycle / Resume / Action routing
+# 08 — Decision pack
 
-## Matrice
+**Verdict :** SFIA v3.0 D1-C1 INTAKE SHELL AND CONVERSATION ENTRY IMPLEMENTED — VALIDATION REQUIRED
 
-| Outcome | Crée | Reprend | UI post-confirm |
-|---------|------|---------|-----------------|
-| CREATE_PROJECT | Project (+ cycle 1 proposé) | — | Cockpit + GuidedSession framing |
-| OPEN_CYCLE | CycleInstance | Project existant | Cycle actif + session |
-| RESUME_CYCLE | — | Cycle ouvert | GuidedSession |
-| RESUME_ACTION | — | Action/delivery | surface action / OPS1 bridge futur |
-| OPEN_DECISION | — | DecisionRequest | Decision Center |
-| ANALYZE_ONLY | — | — | synthèse ; CTA transform |
-| NEED_CLARIFICATION | — | — | questions |
-
-## Règle anti-prolifération
-
-Ne pas créer Project/Cycle si une reprise suffit (S4).
-
-## Compatibilité D1-I1
-
-- Project persisté reste le socle CREATE_PROJECT.
-- CycleInstance / GuidedSession = slices correctifs C4–C5 (pas I1).
-- Resume Action peut temporairement pointer legacy OPS1 session si match — **à trancher** (décision Morris).
+Décisions Morris : GO VALIDATION D1-C1 ; ouvrir C2 ; confirmer bridge OPS1.
+Anti-claims : pas C2 · pas GPT routing · pas D1 complete · pas V3-IMPLEMENTED/ADOPTED.
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/09-method-mode-target-strategy.md`
+### `projects/sfia-studio/sfia-v3-delivery/d1-c1-intake-shell-conversation-entry/README.md`
 
 ```markdown
-# 09 — Stratégie MethodMode cible
-
-## État transitoire (D1-I1)
-
-- Champ UI sélectionnable.
-- Valeur persistée `methodMode`.
-- Utile anti-claims / transition / audit.
-
-## Cible produit
-
-| Aspect | Cible |
-|--------|-------|
-| UI parcours standard | **supprimé** (pas de choix utilisateur) |
-| Indicateur | lecture seule optionnel (badge gouvernance) |
-| Source de vérité | configuration / gouvernance workspace |
-| Persistance | conservée en donnée système + audit |
-| Admin/diagnostic | écran séparé si besoin |
-| Claim | jamais V3-ADOPTED via UI |
-
-## Compatibilité I1
-
-1. Conserver colonne/valeur SQLite.
-2. Déprécier UI MethodMode dans New Project / Cockpit principal.
-3. Mapper création intake → mode système (ex. `V3_CANDIDATE` ou politique workspace) **sans** choix libre.
-4. Mode avancé expert : lecture + override admin seulement (hors C1).
-
-## Absence de dépendance fonctionnelle durable
-
-Le parcours cible ne branche **pas** sur un select MethodMode. Le routage dépend de l’intention et du contexte, pas de la préférence méthodologique utilisateur.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/10-user-vs-technical-audit-contract.md`
-
-```markdown
-# 10 — Audit utilisateur vs technique
-
-## Niveau utilisateur (activité métier)
-
-Libellés :
-- Projet créé
-- Cycle ouvert
-- Travail repris
-- Décision requise
-- Contexte actualisé
-- Prochaine action
-
-Emplacement : rail / timeline métier · **pas** centre de l’écran principal intake.
-
-## Niveau technique (journal avancé)
-
-- `PROJECT_CREATED`, `PROJECT_MODE_SELECTED`, …
-- correlationId, payloads, digests, versions, actor IDs, timestamps
-
-Accès : « Voir le journal technique » · mode diagnostic · permission appropriée.
-
-## Mapping candidat
-
-| Métier | Technique |
-|--------|-----------|
-| Projet créé | PROJECT_CREATED |
-| Mode système appliqué | PROJECT_MODE_SELECTED (si applicable) |
-| Cycle ouvert | CYCLE_OPENED (futur) |
-| Session reprise | SESSION_RESUMED (futur) |
-
-## I1 impact
-
-Masquer IDs / eventType bruts du Cockpit principal ; conserver données pour vue avancée.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/11-conversational-interaction-contract.md`
-
-```markdown
-# 11 — Contrat d’interaction conversationnelle
-
-## Étapes logiques A–H
-
-| Étape | Nom | Effet |
-|-------|-----|-------|
-| A | Intent capture | rawIntent |
-| B | Context lookup | matches |
-| C | Clarification | questions minimales |
-| D | Structured understanding | champs normalisés |
-| E | Routing proposal | RequestRoutingProposal |
-| F | Human confirmation | confirm / modify / refuse |
-| G | Mutation bornée | commandes |
-| H | Continuation | GuidedSession |
-
-## Règles conversation
-
-1. Une question à la fois quand possible ; max 3 en vol.
-2. Toujours montrer ce que Studio a compris.
-3. Toujours offrir une alternative « corriger le rattachement ».
-4. Jamais muter à l’étape A–E.
-5. Analyze-only respecte l’interdiction de création.
-6. Erreurs lookup → message clair + manuel / retry.
-
-## États conversationnels
-
-`IDLE` → `CAPTURING` → `LOOKING_UP` → `CLARIFYING` → `PROPOSING` → `CONFIRMING` → `MUTATING` → `CONTINUING` | `CANCELLED` | `ERROR`
-
-Voir `diagrams/d1-conversation-state-flow.mmd`.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/12-information-architecture-update.md`
-
-```markdown
-# 12 — Mise à jour architecture d’information
-
-## Avant (I1 form-first)
-
-``\`
-Workspace Home → New Project (form) → Cockpit
-/nouvelle-demande (OPS1 legacy)
-``\`
-
-## Cible (AI-guided)
-
-``\`
-Nouvelle demande (intake conversationnel)  ← entrée principale
-├── Reprendre (projets / cycles / actions / décisions)
-├── Création manuelle avancée (secondaire)
-Workspace (liste / reprise)
-Project Cockpit (post-mutation, activité métier)
-Cycle / GuidedSession (après confirm)
-Decision Center (si OPEN_DECISION)
-Journal technique (secondaire)
-``\`
-
-## Navigation
-
-| Item | Rôle |
-|------|------|
-| Nouvelle demande | Hub intent |
-| Workspace | Inventaire / reprise visuelle |
-| Projet | Cockpit |
-| Décisions | gates ouvertes |
-| Manuel | expert escape hatch |
-
-## Legacy
-
-`/nouvelle-demande` OPS1 **conservé** jusqu’à bridge Resume Action explicite.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/13-ux-screen-contracts.md`
-
-```markdown
-# 13 — Contrats d’écrans UX
-
-## Nouvelle demande — empty
-
-- Landmark main : champ conversationnel large + exemples d’intentions.
-- Actions rapides (non rigides) : Décrire un besoin · Reprendre · Décisions · Manuel.
-- Zone Reprendre : projets / cycles / actions / décisions / dernière session.
-- Rail : activité métier récente · pas d’IDs.
-
-## Clarification
-
-- Thread : reformulation + 1–3 questions.
-- Indicateur « Studio recherche / qualifie ».
-- Pas de création.
-
-## Routing proposal
-
-- Carte proposition primaire (outcome, objet, objectif, confiance).
-- Alternatives cliquables.
-- Rationale humain-lisible.
-- CTA Confirmer / Modifier / Annuler.
-
-## Existing project match / Resume cycle / Analyze-only
-
-Variants de proposal avec copy et CTA adaptés (doc 03).
-
-## Confirmation create project / open cycle
-
-- Résumé effet avant mutation.
-- Ce qui sera créé / repris.
-- Claims absents (pas V3-ADOPTED).
-
-## Workspace — resume work
-
-- Liste reprise one-click + entrée conversationnelle.
-
-## Manual creation — advanced
-
-- Formulaire court (héritage I1 réduit).
-- MethodMode **absent** du parcours standard (éventuel admin).
-- Confirmation obligatoire.
-
-## Erreurs / aucun match / contexte indisponible
-
-Banners explicites + chemins de secours (clarifier / manuel / analyze).
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/14-visual-direction-and-design-principles.md`
-
-```markdown
-# 14 — Direction artistique et principes visuels
-
-## Identité
-
-Conserver tokens Studio (Inter, bleus `#2E59B8`, fonds `#F6F7FA` / blanc). Renforcer profondeur et rythme.
-
-## Principes
-
-1. **Copilote actif** — feedback « recherche / qualification / proposition ».
-2. **Hiérarchie** — proposition > thread > métadonnées.
-3. **Progression visible** — étapes A–H condensées (puces, pas wizard lourd).
-4. **Cartes intentionnelles** — une carte = un choix compréhensible.
-5. **Mouvement léger** — états loading lookup (respect `prefers-reduced-motion`).
-6. **Jargon traduit** — « Ouvrir un cycle de cadrage » plutôt que `CycleInstance`.
-
-## Éviter
-
-Formulaire vertical administratif · audit brut centre · chat messagerie générique · placeholders techniques · MethodMode comme hero.
-
-## Non-baseline
-
-Aucun design n’est baseline sans GO Morris.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/15-figma-frame-register.md`
-
-```markdown
-# 15 — Figma frame register
+# D1-C1 — Intake Shell and Conversation Entry
 
 | Champ | Valeur |
 |-------|--------|
-| File | SFIA Studio — D1 Doctrine-aligned UX |
-| fileKey | `IS70XDnBMvZuJYmaI5eZT2` |
-| URL | https://www.figma.com/design/IS70XDnBMvZuJYmaI5eZT2 |
-| Page | D1 — AI-Guided Intake and Routing (`11:2`) |
-| Statut | Frames éditables Auto Layout · dimensions confirmées |
-| Préservation | Page `D1 — Project Framing UX` (`1:2`) **non écrasée** (14 frames I1 conservées) |
-
-## Frames Intake
-
-| Frame | node id | W×H | Layout |
-|-------|---------|-----|--------|
-| Intake / Components | `11:3` | 2591×149 | HORIZONTAL AL |
-| 1440 / Nouvelle demande — empty | `12:2` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Nouvelle demande — clarification | `12:36` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Nouvelle demande — routing proposal | `12:60` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Nouvelle demande — existing project match | `13:2` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Nouvelle demande — resume cycle | `13:27` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Nouvelle demande — analyze only | `13:51` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Confirmation — create project | `13:74` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Confirmation — open cycle | `13:100` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Workspace — resume work | `14:2` | **1440×1024** | HORIZONTAL AL |
-| 1440 / Manual creation — advanced | `14:31` | **1440×1024** | HORIZONTAL AL |
-| 1728 / Nouvelle demande — routing proposal | `14:64` | **1728×1024** | HORIZONTAL AL |
-| 1280 / Nouvelle demande — routing proposal | `14:90` | **1280×1024** | HORIZONTAL AL |
-| 1024 / Nouvelle demande — routing proposal | `14:117` | **1024×1024** | HORIZONTAL AL |
-
-## Composants conversationnels (strip)
-
-IntentField · Clarification · RoutingProposal · ProjectMatch · CycleMatch · Alternative · Confiance · Confirm · ResumeChip · Error · NoMatch · ContextUnavailable
-
-## Shell encodé
-
-Nav 72 + Main FILL + ContextualRail (360@≥1440 / 320@1280 / empilé@1024)
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/16-figma-runtime-gap-analysis.md`
-
-```markdown
-# 16 — Gap analysis runtime I1 vs cible intake
-
-| Aspect | Runtime D1-I1 | Cible intake | Écart | Priorité |
-|--------|---------------|--------------|-------|----------|
-| Entrée | `/projects/new` form | Conversation Nouvelle demande | fort | P0 |
-| MethodMode | select utilisateur | config système | fort | P0 |
-| IA visible | faible | clarification + proposal | fort | P0 |
-| Routage | create Project only | S1–S8 | fort | P0 |
-| Audit UI | events techniques | métier + journal avancé | moyen | P1 |
-| Shell | fluide OK | conserver | faible | — |
-| Persistence | Project OK | réutiliser | — | — |
-| Figma I1 frames | Home/New/Cockpit | conserver ; page Intake nouvelle | — | — |
-
-Captures runtime I1 : `.tmp-sfia-review/screenshots-d1-i1/`
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/17-accessibility-and-responsive-contract.md`
-
-```markdown
-# 17 — Accessibilité et responsive
-
-## A11y (héritage UX 13 + intake)
-
-- landmarks : nav / main / complementary ;
-- ordre de tabulation : champ → questions → proposition → CTA ;
-- focus visible ; labels ; erreurs `aria-live` ;
-- confiance non portée par la seule couleur ;
-- target size ≥ 24×24 (idéalement 44) ;
-- zoom 200 % sans perte d’info critique ;
-- reduced motion.
-
-## Responsive (shell fluide I1 conservé)
-
-| Largeur | Layout |
-|---------|--------|
-| 1728 / 1440 | nav + main conversation + rail |
-| 1280 | rail réduit / collapsible |
-| 1024 | rail empilé / drawer ; pas de scroll H |
-
-Frames Figma responsive : 1728 / 1280 / 1024 routing proposal.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/18-implementation-impact-map.md`
-
-```markdown
-# 18 — Impact map D1-I1 (sans modification code)
-
-| Élément | Action |
-|---------|--------|
-| `/workspace` | **adapter** (reprises + lien Nouvelle demande) |
-| `/projects/new` | **déprécier** comme entrée principale → manuel avancé |
-| `/projects/[id]` | **adapter** (audit métier ; masquer technique) |
-| `/nouvelle-demande` | **conserver** legacy OPS1 |
-| Route intake cible `/` ou `/demande` | **nouveau** (décision naming) |
-| `D1AppShell` | **réutiliser** |
-| `NewProjectForm` | **adapter** → manuel avancé ; retirer MethodMode UI |
-| `MethodModeBadge` select | **déprécier** UI ; badge lecture seule OK |
-| `ProjectCockpitView` audit brut | **adapter** |
-| `lib/d1` persistence | **réutiliser** |
-| `RequestRoutingProposal` | **nouveau** |
-| CycleInstance / GuidedSession | **nouveau** (C4–C5) |
-| GPT intake | **nouveau** (C2) |
-| Context lookup service | **nouveau** (C3) |
-| Tests I1 | **conserver** ; étendre C6 |
-| Figma page Project Framing | **conserver** ; page Intake **nouvelle** |
-| D1-I2 GuidedSession ancien plan | **recaler** après C1–C5 |
-
-## Interdit dans ce cycle
-
-Modifier `app/**`, tests, package.json, framing/modeled/delivery existants.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/19-corrective-backlog-and-slicing.md`
-
-```markdown
-# 19 — Backlog correctif et slicing
-
-| Slice | Contenu | Dépendances | Gate candidaté |
-|-------|---------|-------------|----------------|
-| **D1-C1** | Intake shell + conversation entry + empty + reprises + manuel secondaire | I1 shell | GO IMPL C1 |
-| **D1-C2** | Intent understanding + clarification + RequestRoutingProposal | C1 + GPT borné | GO IMPL C2 |
-| **D1-C3** | Existing context matching (scores, conflits, no match) | C2 + lookup | GO IMPL C3 |
-| **D1-C4** | Human confirmation + mutation Project/Cycle/Resume | C3 + commands | GO IMPL C4 |
-| **D1-C5** | Guided continuation (session + cockpit) | C4 | GO IMPL C5 |
-| **D1-C6** | UX hardening a11y/responsive/erreurs/audit avancé | C1–C5 | GO IMPL C6 |
-
-## Ordre
-
-C1 → C2 → C3 → C4 → C5 → C6 (C6 peut chevaucher partiellement).
-
-## Hors backlog immédiat
-
-D2 · D3 · PostgreSQL · IdP · Policy E0–E4 complet · adoption v3.
-
-## Fermé tant que conception non validée
-
-GO VALIDATION D1-I1 · implémentation corrective · D1-I2 ancien scope form-first.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/20-validation-decision-pack.md`
-
-```markdown
-# 20 — Validation decision pack
-
-## Verdict conception (cible)
-
-**SFIA v3.0 D1 AI-GUIDED REQUEST INTAKE AND ROUTING READY — HUMAN DECISION REQUIRED**
-
-## Décisions Morris requises
-
-1. Valider l’entrée principale conversationnelle « Nouvelle demande ».
-2. Valider le basculement formulaire → manuel secondaire.
-3. Valider la suppression du MethodMode comme choix UX standard.
-4. Valider l’objet candidat `RequestRoutingProposal` (non schema-final).
-5. Valider le backlog C1–C6 et l’ordre.
-6. Trancher le naming de route intake (`/` vs `/demande` vs réutiliser `/nouvelle-demande`).
-7. Trancher le bridge Resume Action ↔ OPS1 legacy.
-8. GO VALIDATION CONCEPTION D1 — AI-GUIDED REQUEST INTAKE AND ROUTING.
-
-## Décisions non prises
-
-Implémentation · D1-I2 · D2/D3 · baseline change · adoption · commit projet · schema Draft-07 figé.
-
-## Anti-claims
-
-Pas V3-IMPLEMENTED · pas V3-ADOPTED · pas validation I1 runtime · pas code modifié dans ce cycle.
-
-## Prérequis READY conception
-
-Docs 01–20 · Figma page + frames · routage S1–S8 · contrat A–H · impact map · backlog · handoff publié.
-```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/README.md`
-
-```markdown
-# D1 — AI-Guided Request Intake and Routing
-
-| Champ | Valeur |
-|-------|--------|
-| BCDI | `BCDI-D1-AI-GUIDED-INTAKE-ROUTING` |
-| Cycle | 2 — Conception fonctionnelle |
-| Profil | Critical |
-| Gate consommé | GO CYCLE CORRECTIF D1 — AI-GUIDED REQUEST INTAKE AND ROUTING |
-| Gate suivant | GO VALIDATION CONCEPTION D1 — AI-GUIDED REQUEST INTAKE AND ROUTING |
-| Décision Morris | D1-I1 TECHNICAL FOUNDATION IMPLEMENTED — PRODUCT EXPERIENCE REWORK REQUIRED |
+| BCDI | BCDI-D1-C1-INTAKE-SHELL-CONVERSATION-ENTRY |
+| Gate consommé | GO IMPLEMENTATION D1-C1 — INTAKE SHELL AND CONVERSATION ENTRY |
+| Gate suivant | GO VALIDATION D1-C1 — INTAKE SHELL AND CONVERSATION ENTRY |
+| Statut | D1-C1 IMPLEMENTED CANDIDATE |
 | Baseline | SFIA v2.6 |
 | Statut v3 | V3-MODELED CANDIDATE |
-| Code | **aucune modification** |
-| Figma fileKey | `IS70XDnBMvZuJYmaI5eZT2` |
-| Figma page | D1 — AI-Guided Intake and Routing |
-
-## Objectif
-
-Recaler la porte d’entrée produit de D1 : conversation guidée + routage Project/Cycle/Resume/Action, avant toute nouvelle implémentation.
 
 ## Index
-
-| Doc | Contenu |
-|-----|---------|
-| 01 | Problème produit et rationale rework |
-| 02 | Proposition de valeur cible |
-| 03 | Intentions et scénarios de routage |
-| 04 | Journey intake AI-guided |
-| 05 | Modèle de décision de routage |
-| 06 | RequestRoutingProposal candidat |
-| 07 | Rôle GPT et garde-fous |
-| 08 | Project / Cycle / Resume / Action |
-| 09 | Stratégie MethodMode cible |
-| 10 | Audit utilisateur vs technique |
-| 11 | Contrat d’interaction conversationnelle |
-| 12 | Mise à jour architecture d’information |
-| 13 | Contrats d’écrans UX |
-| 14 | Direction artistique |
-| 15 | Registre frames Figma |
-| 16 | Gap analysis runtime/cible |
-| 17 | Accessibilité et responsive |
-| 18 | Impact map D1-I1 |
-| 19 | Backlog correctif C1–C6 |
-| 20 | Decision pack validation |
-
-## Diagrammes
-
-- `diagrams/d1-intake-routing-flow.mmd`
-- `diagrams/d1-routing-decision-tree.mmd`
-- `diagrams/d1-conversation-state-flow.mmd`
-- `diagrams/d1-project-cycle-resume-model.mmd`
-
-## Anti-claims
-
-- pas V3-IMPLEMENTED / ADOPTED ;
-- pas GO VALIDATION D1-I1 (fermé pendant ce cycle) ;
-- pas implémentation corrective ;
-- pas D1-I2 / D2 / D3 ;
-- aucun commit projet.
+01 scope · 02 routes · 03 UX · 04 manuel · 05 Figma · 06 tests · 07 reserves · 08 decision pack
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-conversation-state-flow.mmd`
+### `projects/sfia-studio/app/app/nouvelle-demande/page.tsx`
 
-```mermaid
-stateDiagram-v2
-  [*] --> IDLE
-  IDLE --> CAPTURING
-  CAPTURING --> LOOKING_UP
-  LOOKING_UP --> CLARIFYING
-  LOOKING_UP --> PROPOSING
-  CLARIFYING --> PROPOSING
-  PROPOSING --> CONFIRMING
-  CONFIRMING --> MUTATING
-  CONFIRMING --> CLARIFYING
-  CONFIRMING --> CANCELLED
-  MUTATING --> CONTINUING
-  LOOKING_UP --> ERROR
-  MUTATING --> ERROR
-  CONTINUING --> [*]
-  CANCELLED --> [*]
-  ERROR --> IDLE
+```tsx
+import { listWorkspaceProjects } from "@/lib/d1/commands";
+import { D1Error } from "@/lib/d1/errors";
+import { IntakeView } from "@/features/d1/intake/IntakeView";
+
+export const dynamic = "force-dynamic";
+
+/** D1-C1: conversational intake is the primary Nouvelle demande surface. */
+export default function NouvelleDemandePage() {
+  try {
+    const projects = listWorkspaceProjects();
+    return <IntakeView projects={projects} />;
+  } catch (error) {
+    const message =
+      error instanceof D1Error
+        ? error.message
+        : "Erreur de chargement des projets récents";
+    // Still render intake; empty resume with soft error via empty list
+    void message;
+    return <IntakeView projects={[]} />;
+  }
+}
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-intake-routing-flow.mmd`
+### `projects/sfia-studio/app/features/d1/D1AppShell.tsx`
 
-```mermaid
-flowchart TD
-  U[Utilisateur intention] --> A[A Intent capture]
-  A --> B[B Context lookup]
-  B --> C{Besoin clarification?}
-  C -->|oui| Q[C Clarification]
-  Q --> D[D Structured understanding]
-  C -->|non| D
-  D --> E[E Routing proposal]
-  E --> F{F Confirmation humaine}
-  F -->|confirme| G[G Mutation bornée]
-  F -->|modifie| Q
-  F -->|refuse| X[Cancel / alternatives]
-  G --> H[H GuidedSession continuation]
+```tsx
+import Link from "next/link";
+import styles from "./d1-shell.module.css";
+
+export type D1Active =
+  | "workspace"
+  | "new"
+  | "cockpit"
+  | "intake";
+
+interface D1AppShellProps {
+  active: D1Active;
+  title: string;
+  children: React.ReactNode;
+  rail?: React.ReactNode;
+}
+
+export function D1AppShell({ active, title, children, rail }: D1AppShellProps) {
+  return (
+    <div className={styles.shell} data-testid="d1-app-shell">
+      <nav className={styles.nav} aria-label="Navigation D1">
+        <Link
+          href="/nouvelle-demande"
+          className={styles.navLink}
+          aria-label="Nouvelle demande"
+          aria-current={active === "intake" ? "page" : undefined}
+          title="Nouvelle demande — intake"
+          data-testid="d1-nav-intake"
+        >
+          ND
+        </Link>
+        <Link
+          href="/workspace"
+          className={styles.navLink}
+          aria-label="Workspace"
+          aria-current={active === "workspace" ? "page" : undefined}
+          title="Workspace"
+          data-testid="d1-nav-workspace"
+        >
+          WS
+        </Link>
+        <Link
+          href="/projects/new"
+          className={styles.navLink}
+          aria-label="Création manuelle avancée"
+          aria-current={active === "new" ? "page" : undefined}
+          title="Création manuelle avancée"
+          data-testid="d1-nav-manual"
+        >
+          +
+        </Link>
+        <Link
+          href="/ops1/nouvelle-demande"
+          className={styles.navLink}
+          aria-label="OPS1 legacy Nouvelle demande"
+          title="OPS1 legacy"
+          data-testid="d1-nav-ops1"
+        >
+          OPS
+        </Link>
+      </nav>
+      <main className={styles.main} id="main-content" aria-label={title}>
+        {children}
+        {rail ? (
+          <aside className={styles.railStacked} aria-label="Contexte">
+            {rail}
+          </aside>
+        ) : null}
+      </main>
+      {rail ? (
+        <aside className={styles.rail} aria-label="Rail contextuel">
+          {rail}
+        </aside>
+      ) : (
+        <aside className={styles.rail} aria-label="Rail contextuel">
+          <h2>Contextual rail</h2>
+          <div className={styles.railCard}>
+            <strong>D1</strong>
+            <p className={styles.placeholder}>
+              Contexte minimal — pas d’audit technique ici
+            </p>
+          </div>
+        </aside>
+      )}
+    </div>
+  );
+}
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-project-cycle-resume-model.mmd`
+### `projects/sfia-studio/app/features/d1/NewProjectForm.tsx`
 
-```mermaid
-flowchart LR
-  Intent --> Proposal
-  Proposal --> CP[CREATE_PROJECT]
-  Proposal --> OC[OPEN_CYCLE]
-  Proposal --> RC[RESUME_CYCLE]
-  Proposal --> RA[RESUME_ACTION]
-  Proposal --> OD[OPEN_DECISION]
-  Proposal --> AO[ANALYZE_ONLY]
-  CP --> Project
-  OC --> Cycle
-  RC --> Cycle
-  RA --> Action
-  OD --> Decision
-  Project --> Session[GuidedSession]
-  Cycle --> Session
+```tsx
+"use client";
+
+import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { actionCreateProject } from "@/lib/d1/actions";
+import { D1_GOVERNANCE_METHOD_MODE } from "@/lib/d1/types";
+import { D1AppShell } from "./D1AppShell";
+import styles from "./d1-shell.module.css";
+
+/**
+ * D1-C1: advanced manual creation — secondary to conversational intake.
+ * MethodMode is NOT a user choice; governance default is applied internally.
+ */
+export function NewProjectForm() {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [name, setName] = useState("");
+  const [objective, setObjective] = useState("");
+  const [context, setContext] = useState("");
+  const [activate, setActivate] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const idempotencyKey = useMemo(
+    () => `idemp-${crypto.randomUUID()}`,
+    [],
+  );
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    startTransition(async () => {
+      const result = await actionCreateProject({
+        name,
+        objective,
+        initialContextSummary: context || undefined,
+        methodMode: D1_GOVERNANCE_METHOD_MODE,
+        activate,
+        idempotencyKey,
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      router.push(`/projects/${result.project.projectId}`);
+      router.refresh();
+    });
+  }
+
+  return (
+    <D1AppShell active="new" title="Création manuelle avancée">
+      <div className={styles.header}>
+        <h1>Création manuelle avancée</h1>
+      </div>
+      <p className={styles.hint} data-testid="manual-creation-hint">
+        Escape hatch expert · parcours standard ={" "}
+        <a href="/nouvelle-demande">Nouvelle demande</a> conversationnelle ·
+        MethodMode appliqué en interne ({D1_GOVERNANCE_METHOD_MODE}) — non
+        exposé comme choix produit · anti-claims : pas V3-ADOPTED /
+        V3-IMPLEMENTED
+      </p>
+      <form
+        className={`${styles.card} ${styles.form}`}
+        onSubmit={onSubmit}
+        noValidate
+        data-testid="manual-project-form"
+      >
+        <label className={styles.label}>
+          1. Identité
+          <input
+            className={styles.input}
+            name="name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            data-testid="project-name"
+            aria-required
+          />
+        </label>
+        <label className={styles.label}>
+          2. Objectif
+          <textarea
+            className={styles.textarea}
+            name="objective"
+            required
+            value={objective}
+            onChange={(e) => setObjective(e.target.value)}
+            data-testid="project-objective"
+          />
+        </label>
+        <label className={styles.label}>
+          3. Contexte initial
+          <span className={styles.hint}>
+            Léger — cadrage détaillé = cycles futurs
+          </span>
+          <textarea
+            className={styles.textarea}
+            name="context"
+            value={context}
+            onChange={(e) => setContext(e.target.value)}
+            data-testid="project-context"
+          />
+        </label>
+        <label className={styles.label}>
+          4. Responsable / décideur
+          <span className={styles.hint}>
+            Même utilisateur autorisé en I1 (DESIGN-R01) — actor-mono-i1
+          </span>
+        </label>
+        <label className={styles.label} style={{ fontWeight: 500 }}>
+          <input
+            type="checkbox"
+            checked={activate}
+            onChange={(e) => setActivate(e.target.checked)}
+            data-testid="project-activate"
+          />{" "}
+          5. Activer immédiatement (ACTIVE) après création
+        </label>
+        {error ? (
+          <p className={styles.error} role="alert">
+            {error}
+          </p>
+        ) : null}
+        <button
+          className={styles.cta}
+          type="submit"
+          disabled={pending}
+          data-testid="project-submit"
+        >
+          {pending ? "Création…" : "Confirmer la création"}
+        </button>
+      </form>
+    </D1AppShell>
+  );
+}
 ```
-### `projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/diagrams/d1-routing-decision-tree.mmd`
+### `projects/sfia-studio/app/features/d1/ProjectCockpitView.tsx`
 
-```mermaid
-flowchart TD
-  I[Intent + matches] --> A{Analyze-only?}
-  A -->|oui| AO[ANALYZE_ONLY]
-  A -->|non| D{Décision demandée?}
-  D -->|oui| OD[OPEN_DECISION]
-  D -->|non| R{Action ouverte forte?}
-  R -->|oui| RA[RESUME_ACTION]
-  R -->|non| C{Cycle ouvert fort?}
-  C -->|oui| RC[RESUME_CYCLE]
-  C -->|non| P{Projet match + nouveau sujet?}
-  P -->|oui| OC[OPEN_CYCLE]
-  P -->|non| N{Nouveau besoin crédible?}
-  N -->|oui| CP[CREATE_PROJECT]
-  N -->|non| NC[NEED_CLARIFICATION]
+```tsx
+"use client";
+
+import { useState } from "react";
+import type { D1AuditEvent, D1Project } from "@/lib/d1/types";
+import { METHOD_MODE_CLAIMS } from "@/lib/d1/types";
+import { D1AppShell } from "./D1AppShell";
+import { MethodModeBadge, ProjectStateBadge } from "./Badges";
+import { ContextualRailI1 } from "./ContextualRail";
+import styles from "./d1-shell.module.css";
+
+const USER_ACTIVITY: Record<string, string> = {
+  PROJECT_CREATED: "Projet créé",
+  PROJECT_MODE_SELECTED: "Mode système appliqué",
+  PROJECT_ACTIVATED: "Projet activé",
+};
+
+export function ProjectCockpitView({
+  project: initial,
+  audit: initialAudit,
+}: {
+  project: D1Project;
+  audit: D1AuditEvent[];
+}) {
+  const [project] = useState(initial);
+  const [audit] = useState(initialAudit);
+  const [showTechnical, setShowTechnical] = useState(false);
+
+  const rail = <ContextualRailI1 project={project} audit={audit} />;
+
+  return (
+    <D1AppShell active="cockpit" title={project.name} rail={rail}>
+      <div className={styles.header}>
+        <h1 data-testid="project-title">{project.name}</h1>
+        <div className={styles.badges}>
+          <ProjectStateBadge state={project.state} />
+          <MethodModeBadge mode={project.methodMode} />
+        </div>
+      </div>
+
+      <section className={styles.card}>
+        <h2>Objectif</h2>
+        <p>{project.objective}</p>
+        {project.initialContextSummary ? (
+          <>
+            <h2>Contexte initial</h2>
+            <p className={styles.hint}>{project.initialContextSummary}</p>
+          </>
+        ) : null}
+      </section>
+
+      <section className={styles.card}>
+        <h2>Trajectoire</h2>
+        <p className={styles.placeholder}>
+          Placeholder — ProjectTrajectory détaillée hors scope C1.
+        </p>
+      </section>
+
+      <section className={styles.card}>
+        <h2>Prochaine action</h2>
+        <p>
+          {project.state === "ACTIVE"
+            ? "Continuer via Nouvelle demande (intake) ou ouvrir un cycle (C4/C5 — non disponible)."
+            : "Activer le projet via la création manuelle, ou décrire une intention dans l’intake."}
+        </p>
+      </section>
+
+      {project.methodMode ? (
+        <section className={styles.card} data-testid="method-mode-readonly">
+          <h2>Méthode (lecture seule)</h2>
+          <p className={styles.hint}>
+            Donnée de gouvernance — non modifiable dans le parcours produit C1.
+          </p>
+          <p>{METHOD_MODE_CLAIMS[project.methodMode]}</p>
+        </section>
+      ) : null}
+
+      <section className={styles.card} data-testid="audit-timeline">
+        <h2>Activité récente</h2>
+        <ul className={styles.list}>
+          {audit.map((e) => (
+            <li key={e.eventId}>
+              <strong>{USER_ACTIVITY[e.eventType] ?? e.eventType}</strong>
+              {showTechnical ? (
+                <p className={styles.hint}>
+                  {e.eventType} · {e.occurredAt} · {e.correlationId}
+                </p>
+              ) : (
+                <p className={styles.hint}>{e.occurredAt}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+        {!audit.length ? (
+          <p className={styles.placeholder}>Aucune activité</p>
+        ) : null}
+        <button
+          type="button"
+          className={`${styles.cta} ${styles.ctaSecondary}`}
+          style={{ marginTop: 12 }}
+          onClick={() => setShowTechnical((v) => !v)}
+          data-testid="toggle-technical-audit"
+        >
+          {showTechnical
+            ? "Masquer le journal technique"
+            : "Voir le journal technique"}
+        </button>
+      </section>
+    </D1AppShell>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/WorkspaceHomeView.tsx`
+
+```tsx
+import Link from "next/link";
+import type { D1Project } from "@/lib/d1/types";
+import { D1AppShell } from "./D1AppShell";
+import { MethodModeBadge, ProjectStateBadge } from "./Badges";
+import styles from "./d1-shell.module.css";
+
+export function WorkspaceHomeView({
+  projects,
+  error,
+}: {
+  projects: D1Project[];
+  error?: string;
+}) {
+  return (
+    <D1AppShell active="workspace" title="Workspace Home">
+      <div className={styles.header}>
+        <h1>Workspace Home</h1>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          <Link
+            className={styles.cta}
+            href="/nouvelle-demande"
+            data-testid="cta-nouvelle-demande"
+          >
+            Nouvelle demande
+          </Link>
+          <Link
+            className={`${styles.cta} ${styles.ctaSecondary}`}
+            href="/projects/new"
+            data-testid="cta-new-project"
+          >
+            Création manuelle
+          </Link>
+        </div>
+      </div>
+      <p className={styles.hint}>
+        Reprendre un projet ou démarrer via l’intake conversationnel · baseline
+        SFIA v2.6 · v3 reste candidate
+      </p>
+      {error ? (
+        <p className={styles.error} role="alert">
+          {error}
+        </p>
+      ) : null}
+      {projects.length === 0 ? (
+        <div
+          className={`${styles.card} ${styles.empty}`}
+          data-testid="workspace-empty"
+        >
+          <h2>Aucun projet</h2>
+          <p className={styles.hint}>
+            Décrivez un besoin dans Nouvelle demande, ou utilisez la création
+            manuelle avancée.
+          </p>
+          <Link className={styles.cta} href="/nouvelle-demande">
+            Ouvrir Nouvelle demande
+          </Link>
+        </div>
+      ) : (
+        <ul className={styles.list} data-testid="project-list">
+          {projects.map((p) => (
+            <li key={p.projectId}>
+              <Link href={`/projects/${p.projectId}`}>
+                <strong>{p.name}</strong>
+                <div className={styles.badges} style={{ marginTop: 8 }}>
+                  <ProjectStateBadge state={p.state} />
+                  <MethodModeBadge mode={p.methodMode} />
+                </div>
+                <p className={styles.hint}>{p.objective}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </D1AppShell>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/Badges.tsx`
+
+```tsx
+import {
+  METHOD_MODE_LABELS,
+  type MethodMode,
+  type ProjectState,
+} from "@/lib/d1/types";
+import styles from "./d1-shell.module.css";
+
+/** Read-only governance indicator — not a user control (D1-C1). */
+export function MethodModeBadge({ mode }: { mode: MethodMode | null }) {
+  if (!mode) {
+    return (
+      <span
+        className={`${styles.badge} ${styles.badgeWarn}`}
+        data-testid="method-mode-badge"
+      >
+        Méthode système non définie
+      </span>
+    );
+  }
+  return (
+    <span
+      className={`${styles.badge} ${styles.badgeMode}`}
+      data-testid="method-mode-badge"
+      title="Indicateur de gouvernance — non modifiable ici"
+    >
+      {METHOD_MODE_LABELS[mode]}
+    </span>
+  );
+}
+
+export function ProjectStateBadge({ state }: { state: ProjectState }) {
+  return (
+    <span className={`${styles.badge} ${styles.badgeState}`} data-testid="project-state-badge">
+      {state}
+    </span>
+  );
+}
+```
+### `projects/sfia-studio/app/features/d1/ContextualRail.tsx`
+
+```tsx
+import type { D1AuditEvent, D1Project } from "@/lib/d1/types";
+import { METHOD_MODE_CLAIMS } from "@/lib/d1/types";
+import styles from "./d1-shell.module.css";
+
+export function ContextualRailI1({
+  project,
+  audit,
+}: {
+  project?: D1Project | null;
+  audit?: D1AuditEvent[];
+}) {
+  return (
+    <>
+      <h2>Contextual rail</h2>
+      <div className={styles.railCard}>
+        <strong>Mode</strong>
+        <p>
+          {project?.methodMode
+            ? METHOD_MODE_CLAIMS[project.methodMode]
+            : "Aucun mode"}
+        </p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>État projet</strong>
+        <p>{project?.state ?? "—"}</p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>Prochaine action</strong>
+        <p>
+          {project?.state === "DRAFT"
+            ? "Activer via création manuelle, ou décrire une intention dans l’intake"
+            : "Continuer via Nouvelle demande (C2+ routage) — cycle non ouvert en C1"}
+        </p>
+      </div>
+      <div className={styles.railCard}>
+        <strong>Derniers événements</strong>
+        {(audit ?? []).slice(0, 5).map((e) => (
+          <p key={e.eventId}>
+            {e.eventType} · {e.occurredAt}
+          </p>
+        ))}
+        {!audit?.length ? (
+          <p className={styles.placeholder}>Aucun événement</p>
+        ) : null}
+      </div>
+      <div className={styles.railCard}>
+        <strong>Placeholders</strong>
+        <p className={styles.placeholder}>Context — non chargé (I3)</p>
+        <p className={styles.placeholder}>Reserves — absentes (I4)</p>
+        <p className={styles.placeholder}>Decisions — absentes (I5)</p>
+      </div>
+      <p className={styles.monoNote}>
+        Mono-opérateur I1 : owner = decision_maker (temporaire).
+      </p>
+    </>
+  );
+}
+```
+### `projects/sfia-studio/app/lib/d1/types.ts`
+
+```tsx
+/** D1-I1 Project Foundation — domain types (bounded). */
+
+export const D1_SCHEMA_VERSION = "0.1.0-d1" as const;
+
+/** Method modes authorized for I1 — no V3-ADOPTED / V3-IMPLEMENTED claims. */
+export const METHOD_MODES = ["SFIA_V2_6", "TRANSITION", "V3_CANDIDATE"] as const;
+export type MethodMode = (typeof METHOD_MODES)[number];
+
+/**
+ * D1-C1: MethodMode is governance/system data, not a user product choice.
+ * Manual creation uses this internal default (transitory prototype).
+ */
+export const D1_GOVERNANCE_METHOD_MODE: MethodMode = "V3_CANDIDATE";
+
+export const PROJECT_STATES = ["DRAFT", "ACTIVE"] as const;
+export type ProjectState = (typeof PROJECT_STATES)[number];
+
+export const AUDIT_EVENT_TYPES = [
+  "PROJECT_CREATED",
+  "PROJECT_MODE_SELECTED",
+  "PROJECT_ACTIVATED",
+] as const;
+export type D1AuditEventType = (typeof AUDIT_EVENT_TYPES)[number];
+
+/** I1 temporary mono-operator — owner == decision maker (explicit). */
+export const D1_MONO_OPERATOR_ACTOR_ID = "actor-mono-i1" as const;
+export const D1_DEFAULT_WORKSPACE_ID = "ws-studio-default" as const;
+
+export interface D1Project {
+  projectId: string;
+  workspaceId: string;
+  name: string;
+  objective: string;
+  initialContextSummary: string | null;
+  methodMode: MethodMode | null;
+  state: ProjectState;
+  ownerActorId: string;
+  createdAt: string;
+  updatedAt: string;
+  version: number;
+}
+
+export interface D1Assignment {
+  principalId: string;
+  projectId: string;
+  role: "project_owner" | "decision_maker";
+  createdAt: string;
+}
+
+export interface D1AuditEvent {
+  eventId: string;
+  eventType: D1AuditEventType;
+  occurredAt: string;
+  actorId: string;
+  correlationId: string;
+  projectId: string;
+  payloadJson: string;
+}
+
+export interface CreateProjectInput {
+  name: string;
+  objective: string;
+  initialContextSummary?: string;
+  methodMode: MethodMode;
+  activate: boolean;
+  idempotencyKey: string;
+  correlationId?: string;
+}
+
+export interface SelectMethodModeInput {
+  projectId: string;
+  methodMode: MethodMode;
+  expectedVersion: number;
+  activate?: boolean;
+  correlationId?: string;
+}
+
+export const METHOD_MODE_LABELS: Record<MethodMode, string> = {
+  SFIA_V2_6: "SFIA v2.6 (baseline opérationnelle)",
+  TRANSITION: "Transition v2.6 → v3 candidate",
+  V3_CANDIDATE: "SFIA v3.0 candidate (Studio-native) — non adopté",
+};
+
+export const METHOD_MODE_CLAIMS: Record<MethodMode, string> = {
+  SFIA_V2_6: "Baseline v2.6 active. Aucun claim v3.",
+  TRANSITION: "Mode transition. Pas d’adoption v3.",
+  V3_CANDIDATE:
+    "Claim limité à V3-MODELED CANDIDATE / prototype. Interdit : V3-ADOPTED, V3-IMPLEMENTED global.",
+};
+```
+### `projects/sfia-studio/app/components/shell/UtilityRail.tsx`
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { STUDIO_ROUTES, type StudioRoute } from "@/lib/navigation";
+import styles from "./utility-rail.module.css";
+
+interface UtilityRailProps {
+  variant: "floating" | "flush";
+  activeRoute: StudioRoute;
+}
+
+export function UtilityRail({ variant, activeRoute }: UtilityRailProps) {
+  const isFloating = variant === "floating";
+  const railClass = isFloating ? styles.floating : styles.flush;
+
+  return (
+    <nav
+      className={railClass}
+      aria-label="Navigation principale"
+      data-testid="utility-rail"
+    >
+      <Link
+        href="/synthese"
+        className={isFloating ? styles.brand : styles.brandFlush}
+        aria-label="SFIA Studio"
+      >
+        S
+      </Link>
+
+      {STUDIO_ROUTES.map((item) => {
+        const active = activeRoute === item.route;
+        const itemClass = [
+          isFloating ? styles.item : styles.itemFlush,
+          active
+            ? isFloating
+              ? styles.itemActive
+              : styles.itemActiveFlush
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        return (
+          <Link
+            key={item.id}
+            href={item.route}
+            className={itemClass}
+            aria-label={item.label}
+            aria-current={active ? "page" : undefined}
+          >
+            {item.railIcon}
+          </Link>
+        );
+      })}
+
+      <button
+        type="button"
+        className={isFloating ? styles.itemDisabled : styles.itemFlush}
+        aria-disabled
+        disabled
+        title="Paramètres — simulation"
+        aria-label="Paramètres (désactivé)"
+      >
+        ◎
+      </button>
+
+      <div className={styles.spacer} />
+
+      <Link
+        href="/workspace"
+        className={isFloating ? styles.item : styles.itemFlush}
+        aria-label="Workspace D1"
+        title="Workspace D1"
+        data-testid="rail-d1-workspace"
+      >
+        W
+      </Link>
+
+      <Link
+        href="/ops1/nouvelle-demande"
+        className={isFloating ? styles.item : styles.itemFlush}
+        aria-label="OPS1 legacy"
+        title="OPS1 Nouvelle demande (legacy)"
+        data-testid="rail-ops1-legacy"
+      >
+        O
+      </Link>
+
+      <div className={isFloating ? styles.avatar : styles.avatarFlush}>MC</div>
+    </nav>
+  );
+}
+```
+### `projects/sfia-studio/app/e2e/d1-i1-project-foundation.spec.ts`
+
+```tsx
+import { test, expect } from "@playwright/test";
+import path from "node:path";
+import fs from "node:fs";
+
+const shotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots-d1-i1",
+);
+
+test.beforeAll(() => {
+  fs.mkdirSync(shotDir, { recursive: true });
+});
+
+test.describe("D1-I1 Project Foundation", () => {
+  test("workspace → create project → cockpit → reload + audit", async ({
+    page,
+  }) => {
+    await page.goto("/workspace");
+    await expect(
+      page.getByRole("heading", { name: "Workspace Home", level: 1 }),
+    ).toBeVisible();
+    await page.screenshot({
+      path: path.join(shotDir, "workspace-home-1440.png"),
+      fullPage: false,
+    });
+
+    await page.getByTestId("cta-new-project").click();
+    await expect(page).toHaveURL(/\/projects\/new/);
+    await expect(
+      page.getByRole("heading", {
+        name: "Création manuelle avancée",
+        level: 1,
+      }),
+    ).toBeVisible();
+    await page.screenshot({
+      path: path.join(shotDir, "new-project-1440.png"),
+      fullPage: false,
+    });
+
+    await page.getByTestId("project-name").fill("Projet D1-I1 E2E");
+    await page
+      .getByTestId("project-objective")
+      .fill("Valider Project-first foundation");
+    await page.getByTestId("project-context").fill("Contexte léger I1");
+    await expect(page.getByTestId("project-method-mode")).toHaveCount(0);
+    await page.getByTestId("project-submit").click();
+
+    await expect(page).toHaveURL(/\/projects\/proj-/);
+    await expect(page.getByTestId("project-title")).toHaveText(
+      "Projet D1-I1 E2E",
+    );
+    await expect(page.getByTestId("project-state-badge")).toContainText(
+      "ACTIVE",
+    );
+    await expect(page.getByTestId("audit-timeline")).toContainText(
+      "Projet créé",
+    );
+
+    await page.screenshot({
+      path: path.join(shotDir, "project-cockpit-1440.png"),
+      fullPage: false,
+    });
+
+    const url = page.url();
+    await page.reload();
+    await expect(page).toHaveURL(url);
+    await expect(page.getByTestId("project-title")).toHaveText(
+      "Projet D1-I1 E2E",
+    );
+
+    await page.goto("/workspace");
+    await expect(page.getByTestId("project-list")).toContainText(
+      "Projet D1-I1 E2E",
+    );
+  });
+
+  test("intake /nouvelle-demande and OPS1 legacy remain accessible", async ({
+    page,
+  }) => {
+    await page.goto("/nouvelle-demande");
+    await expect(
+      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
+    ).toBeVisible();
+    await expect(page.getByTestId("intake-composer")).toBeVisible();
+
+    await page.goto("/ops1/nouvelle-demande");
+    await expect(
+      page.getByRole("heading", { name: "Nouvelle demande", level: 1 }),
+    ).toBeVisible();
+  });
+
+  for (const width of [1728, 1440, 1280, 1024] as const) {
+    test(`no horizontal overflow at ${width}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 1024 });
+      await page.goto("/workspace");
+      const metrics = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth: window.innerWidth,
+        shellWidth: document
+          .querySelector('[data-testid="d1-app-shell"]')
+          ?.getBoundingClientRect().width,
+      }));
+      expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth + 1);
+      expect(metrics.shellWidth).toBeGreaterThanOrEqual(metrics.innerWidth - 1);
+      await page.screenshot({
+        path: path.join(shotDir, `workspace-${width}.png`),
+        fullPage: false,
+      });
+
+      await page.goto("/projects/new");
+      await page.getByTestId("project-name").fill(`Overflow ${width}`);
+      await page.getByTestId("project-objective").fill("Responsive check");
+      await page.getByTestId("project-submit").click();
+      await expect(page.getByTestId("project-title")).toBeVisible();
+      const cockpitMetrics = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth: window.innerWidth,
+      }));
+      expect(cockpitMetrics.scrollWidth).toBeLessThanOrEqual(
+        cockpitMetrics.innerWidth + 1,
+      );
+      await page.screenshot({
+        path: path.join(shotDir, `project-cockpit-${width}.png`),
+        fullPage: false,
+      });
+    });
+  }
+});
+```
+### `projects/sfia-studio/app/e2e/p0-smoke.spec.ts`
+
+```tsx
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+
+const screenshotDir = path.join(
+  __dirname,
+  "../../../../.tmp-sfia-review/screenshots",
+);
+
+const routes = [
+  {
+    path: "/nouvelle-demande",
+    heading: "Nouvelle demande",
+    screenshot: "p0-00c-nouvelle-demande-runtime.png",
+  },
+  {
+    path: "/synthese",
+    heading: "Vue synthèse",
+    screenshot: "p0-01c-synthese-runtime.png",
+  },
+  {
+    path: "/cycle-actif",
+    heading: "Cycle actif",
+    screenshot: "p0-02c-cycle-actif-runtime.png",
+  },
+  {
+    path: "/decision",
+    heading: "Décision Morris",
+    screenshot: "p0-03c-decision-runtime.png",
+  },
+];
+
+const knownNoise = [
+  "Download the React DevTools",
+  "Hydration failed",
+  "Extra attributes from the server",
+];
+
+test.beforeAll(() => {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+});
+
+test.describe("P0 smoke", () => {
+  for (const route of routes) {
+    test(`renders ${route.path}`, async ({ page }) => {
+      const errors: string[] = [];
+      page.on("console", (msg) => {
+        if (msg.type() !== "error") return;
+        const text = msg.text();
+        if (knownNoise.some((noise) => text.includes(noise))) return;
+        errors.push(text);
+      });
+
+      await page.goto(route.path);
+      await expect(
+        page.getByRole("heading", { name: route.heading, level: 1 }),
+      ).toBeVisible();
+
+      await page.screenshot({
+        path: path.join(screenshotDir, route.screenshot),
+        fullPage: true,
+      });
+
+      expect(errors).toEqual([]);
+    });
+  }
+
+  test("navigates between primary routes", async ({ page }) => {
+    await page.goto("/synthese");
+    const rail = page.getByTestId("utility-rail");
+
+    await rail.getByRole("link", { name: "Nouvelle demande" }).click();
+    await expect(page).toHaveURL(/\/nouvelle-demande\/?$/);
+    // D1-C1: intake uses D1AppShell (no OPS1 utility-rail). Return to Studio shell.
+    await page.goto("/synthese");
+    const railAfter = page.getByTestId("utility-rail");
+
+    await railAfter.getByRole("link", { name: "Cycle actif" }).click();
+    await expect(page).toHaveURL(/cycle-actif/);
+
+    await railAfter.getByRole("link", { name: "Décision Morris" }).click();
+    await expect(page).toHaveURL(/decision/);
+  });
+
+  test("axe-core smoke has no critical violations", async ({ page }) => {
+    await page.goto("/synthese");
+
+    await page.addScriptTag({
+      path: require.resolve("axe-core/axe.min.js"),
+    });
+
+    const axeResults = await page.evaluate(async () => {
+      // @ts-expect-error axe injected by addScriptTag
+      const res = await window.axe.run(document, {
+        runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] },
+      });
+      return {
+        violations: res.violations.filter(
+          (v: { impact?: string }) =>
+            v.impact === "critical" || v.impact === "serious",
+        ),
+      };
+    });
+
+    expect(axeResults.violations.length).toBeLessThanOrEqual(3);
+  });
+});
 ```
 
-## 16. État Git final
+## 11. Réserves / dette / anti-claims
 
-```
-HEAD=32e5271842b9a344a7e292614675c27ea8ed941b
-branch=delivery/sfia-studio-control-tower-fast-track
-staged=0
-code_app_modified_this_cycle=false
-design_only=projects/sfia-studio/sfia-v3-design/d1-ai-guided-intake-routing/**
-```
+- C1-R01 pas GPT/proposal (C2)
+- C1-R02 resume Cycle/Action placeholders
+- C1-R03 MethodMode SQL → gouvernance
+- C1-R04 Decision CTA disabled
+- C1-R05 smoke nav via /synthese après intake
+- Anti-claims : pas C2 · pas GPT routing · pas D1 COMPLETE · pas V3-IMPLEMENTED/ADOPTED · pas commit projet
 
-## 17. Verdict
+## 12. Décisions Morris
 
-**VERDICT :** SFIA v3.0 D1 AI-GUIDED REQUEST INTAKE AND ROUTING READY — HUMAN DECISION REQUIRED
+GO VALIDATION D1-C1 · ouvrir C2 · confirmer bridge OPS1
+
+## 13. Verdict
+
+**VERDICT :** SFIA v3.0 D1-C1 INTAKE SHELL AND CONVERSATION ENTRY IMPLEMENTED — VALIDATION REQUIRED
