@@ -1,3450 +1,1475 @@
-# Review Pack Full — SFIA Canonical Context Engine
+# Review Pack Full — SFIA v3.0 Framing (Studio Project Operating System)
 
 ## 1. Métadonnées
 
-- **Date/heure/fuseau :** 2026-07-22 11:40:55 CEST
-- **Cycle :** 8 — Delivery / correctif structurel Control Tower
+- **Date/heure/fuseau :** 2026-07-22 12:17:47 CEST
+- **Cycle :** 1 — Cadrage (+ contributifs : conception, archi, UX, backlog, sécu, DevOps, QA, RUN, capitalisation)
 - **Profil :** Critical
-- **Gate Morris consommé :** GO INTÉGRER LE MOTEUR DE CONTEXTE SFIA CANONIQUE
-- **Gate suivant (non consommé) :** GO VALIDATION LIVE MOTEUR SFIA CANONIQUE
+- **Gate consommé :** GO OUVERTURE CADRAGE SFIA v3.0 — STUDIO PROJECT OPERATING SYSTEM
+- **Gate suivant :** GO VALIDATION CADRAGE SFIA v3.0
 - **Repo :** mcleland147/sfia-workspace
 - **Branche :** delivery/sfia-studio-control-tower-fast-track
 - **HEAD :** 32e5271842b9a344a7e292614675c27ea8ed941b
 - **Base origin/main :** 32e5271842b9a344a7e292614675c27ea8ed941b
-- **Handoff précédent connu :** af559f69bc2795016153be6b121650927c687fa2
-
-## 2. État Git initial (truth check)
-
-- Branche = delivery/sfia-studio-control-tower-fast-track
-- HEAD = origin/main = 32e5271…
-- Staged vide ; modifications Fast Track + moteur SFIA non commités
-- .tmp-sfia-review/** non suivi
-- Aucun push delivery
-
-## 3. Sources canoniques (Git HEAD) — digests
-
-| Path | blob SHA (HEAD) | sha256 |
-|------|-----------------|--------|
-| prompts/templates/sfia-cycle-execution-template.md | 784afe8d8a9aa526bcaed759757ccae5f92f2b08 | 74ced4d61f6852777402995d2f228107d1282c7738179db1f8abba50cca989c4 |
-| method/sfia-fast-track/core/sfia-cycle-routing-guide.md | 6eb9289fecf63c014c1e1492c37158a0cabba016 | 7753ae0d86832367db7d7a16dc2828aa2e60d994a2f1583590ad78c64f097b95 |
-| method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md | 6d9963911d13df29eefd61bd6584182620b168e2 | 9f851ddb6d89912f494fa7f84b29468f257613c2116d88e62cfec665746f72b2 |
-| method/sfia-fast-track/core/sfia-rules-and-guardrails.md | 2e99a5d69901775c5dce6e391cba65efdd72a17c | c302c63c3afba60d1fba10e78ffcd4d4ecd6a69c49c58dce25c03446f0de4764 |
-
-**Sources non modifiées** (method/**, prompts/** intacts).
-
-## 4. Architecture
-
-Source Loader → Context Resolver → Session Context → GPT (+ preamble) → SfiaActionProposal → Action Compiler → ActionCandidate OPS1 → Cursor Prompt Instantiator (template Git réel).
-
-## 5–12. Synthèse composants / tests / captures / live / effets / dette / anti-claims / verdict
-
-Voir sections équivalentes : typecheck+lint+build PASS ; **145** tests unitaires ; E2E SFIA 2/2 + CT 2/2 ; captures sous `.tmp-sfia-review/sfia-canonical-context-engine-evidence/screenshots/` ; live **préparée non réalisée** ; Campus360/method/prompts non touchés ; aucune dépendance npm ; verdict **SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION**.
-
----
-
-## 13. Fichiers créés (contenu complet)
-
-
-### `projects/sfia-studio/app/lib/ops1/sfia/canonicalPaths.ts`
-
-```typescript
-/**
- * Closed allowlist of SFIA canonical source paths (repo-relative).
- * Doctrine stays in Git — this list only selects what may be loaded.
- */
-export const SFIA_CANONICAL_CORE_PATHS = [
-  "prompts/templates/sfia-cycle-execution-template.md",
-  "method/sfia-fast-track/core/sfia-cycle-routing-guide.md",
-  "method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md",
-  "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
-] as const;
-
-export const SFIA_CURSOR_TEMPLATE_PATH =
-  "prompts/templates/sfia-cycle-execution-template.md" as const;
-
-export type SfiaCanonicalSourceRole =
-  | "execution_template"
-  | "routing_guide"
-  | "operating_model"
-  | "guardrails"
-  | "project_doc"
-  | "handoff";
-
-export const SFIA_CORE_SOURCE_ROLES: Record<
-  (typeof SFIA_CANONICAL_CORE_PATHS)[number],
-  SfiaCanonicalSourceRole
-> = {
-  "prompts/templates/sfia-cycle-execution-template.md": "execution_template",
-  "method/sfia-fast-track/core/sfia-cycle-routing-guide.md": "routing_guide",
-  "method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md":
-    "operating_model",
-  "method/sfia-fast-track/core/sfia-rules-and-guardrails.md": "guardrails",
-};
-
-/** Optional contextual project docs (Control Tower) — still allowlisted. */
-export const SFIA_PROJECT_CONTEXT_PATHS = [
-  "projects/sfia-studio/70-control-tower-fast-track-architecture-and-contract.md",
-  "projects/sfia-studio/72-control-tower-fast-track-decision-pack.md",
-  "projects/sfia-studio/73-control-tower-fast-track-delivery-report.md",
-] as const;
-
-export const SFIA_METHOD_BASELINE = "SFIA v2.6";
-
-/** Runtime-closed gates for this Control Tower increment (session default). */
-export const SFIA_DEFAULT_CLOSED_GATES = [
-  "commit",
-  "push",
-  "PR",
-  "merge",
-  "cleanup",
-  "GitHub write",
-  "L5 automation",
-  "method modification",
-] as const;
-
-export const SFIA_DEFAULT_OPEN_GATES = [
-  "GO VALIDATION LIVE MOTEUR SFIA CANONIQUE",
-  "GO action Cursor (après ActionCandidate)",
-] as const;
-
-export const SFIA_DEFAULT_FORBIDDEN_OPS = [
-  "commit",
-  "push",
-  "create_pr",
-  "merge",
-  "shell",
-  "branch_create",
-  "github_write",
-  "delete_protected",
-  "modify_method",
-  "modify_prompts",
-] as const;
-
-export const SFIA_DEFAULT_ALLOWED_OPS = [
-  "git_local_read",
-  "github_read",
-  "conversation",
-  "propose_action",
-  "create_markdown_allowlisted",
-  "cursor_execute_after_morris_go",
-] as const;
-
-export const SFIA_DEFAULT_ALLOWED_PATH_PREFIXES = [
-  "projects/campus360/",
-] as const;
-
-export const SFIA_DEFAULT_PROTECTED_PATHS = [
-  "projects/campus360/03-pre-framing-decision-pack.md",
-  "method/",
-  "prompts/",
-  "docs/",
-  "scripts/",
-  ".github/",
-] as const;
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/types.ts`
-
-```typescript
-/**
- * SFIA Canonical Context Engine — domain types.
- * Structured runtime representations; doctrine remains in Git sources.
- */
-import type { SfiaCanonicalSourceRole } from "./canonicalPaths";
-
-export type SfiaProfile =
-  | "Light"
-  | "Standard"
-  | "Critical"
-  | "Capitalization";
-
-export type SfiaFileOperation = "READ" | "CREATE" | "MODIFY" | "DELETE";
-
-export type SfiaProposalKind =
-  | "no_action"
-  | "clarification_required"
-  | "action_proposed"
-  | "decision_required"
-  | "blocked";
-
-export type SfiaCompilationStatus =
-  | "COMPILED"
-  | "CLARIFICATION_REQUIRED"
-  | "POLICY_DENIED"
-  | "GATE_REQUIRED"
-  | "PATH_DENIED"
-  | "CONTEXT_STALE"
-  | "INVALID_PROPOSAL"
-  | "BLOCKED";
-
-export interface SfiaSourceDocumentRef {
-  path: string;
-  digest: string;
-  blobSha: string | null;
-  role: SfiaCanonicalSourceRole | "project_doc" | "handoff";
-  sizeBytes: number;
-  readAt: string;
-  summaryExcerpt: string;
-}
-
-export interface SfiaCanonicalContext {
-  contextId: string;
-  generatedAt: string;
-  repository: string;
-  branch: string;
-  headSha: string;
-  baseSha: string;
-  methodBaseline: string;
-  sourceDocuments: SfiaSourceDocumentRef[];
-  project: string;
-  currentCycle: string;
-  candidateCycle: string;
-  profile: SfiaProfile;
-  profileJustification: string;
-  activeBlocks: string[];
-  inactiveBlocks: string[];
-  validatedDecisions: string[];
-  candidateDecisions: string[];
-  openGates: string[];
-  closedGates: string[];
-  allowedOperations: string[];
-  forbiddenOperations: string[];
-  allowedPaths: string[];
-  protectedPaths: string[];
-  stopConditions: string[];
-  reviewPackRequirement: "light" | "full" | "required";
-  reviewHandoffRequirement: "required_publish_in_cycle";
-  cursorTemplatePath: string;
-  expectedVerdicts: string[];
-  unresolvedQuestions: string[];
-  warnings: string[];
-  /** Permanent core facts injected every GPT turn (Level 1). */
-  permanentCore: string[];
-}
-
-export interface SfiaProposedFile {
-  path: string;
-  operation: SfiaFileOperation;
-  exactContent?: string;
-}
-
-export type SfiaActionProposal =
-  | {
-      kind: "no_action";
-      proposalId: string;
-      sessionId: string;
-      contextId: string;
-      userVisibleSummary: string;
-      rationale: string;
-    }
-  | {
-      kind: "clarification_required";
-      proposalId: string;
-      sessionId: string;
-      contextId: string;
-      userVisibleSummary: string;
-      unresolvedQuestions: string[];
-    }
-  | {
-      kind: "decision_required";
-      proposalId: string;
-      sessionId: string;
-      contextId: string;
-      userVisibleSummary: string;
-      requiredGates: string[];
-    }
-  | {
-      kind: "blocked";
-      proposalId: string;
-      sessionId: string;
-      contextId: string;
-      userVisibleSummary: string;
-      reason: string;
-    }
-  | {
-      kind: "action_proposed";
-      proposalId: string;
-      sessionId: string;
-      contextId: string;
-      objective: string;
-      rationale: string;
-      cycle: string;
-      profile: SfiaProfile;
-      profileJustification: string;
-      blocks: string[];
-      project: string;
-      operations: string[];
-      files: SfiaProposedFile[];
-      expectedEffects: string[];
-      excludedEffects: string[];
-      requiredGates: string[];
-      stopConditions: string[];
-      cursorRequired: boolean;
-      reviewPackLevel: "light" | "full";
-      reviewHandoffRequired: boolean;
-      userVisibleSummary: string;
-      exactRequestedContent?: string;
-      confidence: number;
-      unresolvedQuestions: string[];
-    };
-
-export interface SfiaCompilationResult {
-  status: SfiaCompilationStatus;
-  contextId: string;
-  proposalId: string;
-  sessionId: string;
-  reasons: string[];
-  deniedOperations: string[];
-  deniedPaths: string[];
-  actionCandidateId?: string;
-  title?: string;
-  objective?: string;
-  scopeSummary?: string;
-  riskSummary?: string;
-  files?: SfiaProposedFile[];
-  exactContent?: string;
-}
-
-export interface SfiaCursorPromptInstantiation {
-  templatePath: string;
-  templateDigest: string;
-  templateBlobSha: string | null;
-  contextId: string;
-  actionId: string;
-  promptText: string;
-  instantiatedAt: string;
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/sourceLoader.ts`
-
-```typescript
-/**
- * SFIA Canonical Source Loader — read-only, closed path allowlist.
- */
-import { createHash } from "node:crypto";
-import { execFileSync } from "node:child_process";
-import fs from "node:fs";
-import path from "node:path";
-import {
-  SFIA_CANONICAL_CORE_PATHS,
-  SFIA_CORE_SOURCE_ROLES,
-  SFIA_CURSOR_TEMPLATE_PATH,
-  SFIA_PROJECT_CONTEXT_PATHS,
-  type SfiaCanonicalSourceRole,
-} from "./canonicalPaths";
-import type { SfiaSourceDocumentRef } from "./types";
-
-const MAX_SOURCE_BYTES = 400_000;
-const EXCERPT_CHARS = 800;
-
-const ALLOWED = new Set<string>([
-  ...SFIA_CANONICAL_CORE_PATHS,
-  ...SFIA_PROJECT_CONTEXT_PATHS,
-]);
-
-export class SfiaSourceLoadError extends Error {
-  constructor(
-    message: string,
-    readonly code:
-      | "PATH_NOT_ALLOWED"
-      | "PATH_NOT_FOUND"
-      | "TOO_LARGE"
-      | "READ_FAILED",
-  ) {
-    super(message);
-    this.name = "SfiaSourceLoadError";
-  }
-}
-
-function digestContent(content: string): string {
-  return createHash("sha256").update(content, "utf8").digest("hex");
-}
-
-function gitBlobSha(
-  workspaceRoot: string,
-  relativePath: string,
-): string | null {
-  try {
-    return execFileSync("git", ["rev-parse", `HEAD:${relativePath}`], {
-      cwd: workspaceRoot,
-      encoding: "utf8",
-      timeout: 5000,
-      stdio: ["ignore", "pipe", "pipe"],
-    }).trim();
-  } catch {
-    // Untracked / working-tree-only file
-    return null;
-  }
-}
-
-function assertAllowed(relativePath: string): void {
-  if (!ALLOWED.has(relativePath) && relativePath !== SFIA_CURSOR_TEMPLATE_PATH) {
-    throw new SfiaSourceLoadError(
-      `Source hors allowlist: ${relativePath}`,
-      "PATH_NOT_ALLOWED",
-    );
-  }
-}
-
-export function loadCanonicalSource(
-  workspaceRoot: string,
-  relativePath: string,
-  role?: SfiaCanonicalSourceRole | "project_doc" | "handoff",
-): SfiaSourceDocumentRef {
-  assertAllowed(relativePath);
-  const abs = path.resolve(workspaceRoot, relativePath);
-  const root = path.resolve(workspaceRoot);
-  if (abs !== root && !abs.startsWith(root + path.sep)) {
-    throw new SfiaSourceLoadError(
-      "Chemin hors repository.",
-      "PATH_NOT_ALLOWED",
-    );
-  }
-  if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) {
-    throw new SfiaSourceLoadError(
-      `Source absente: ${relativePath}`,
-      "PATH_NOT_FOUND",
-    );
-  }
-  const buf = fs.readFileSync(abs);
-  if (buf.length > MAX_SOURCE_BYTES) {
-    throw new SfiaSourceLoadError(
-      `Source trop volumineuse: ${relativePath}`,
-      "TOO_LARGE",
-    );
-  }
-  if (buf.includes(0)) {
-    throw new SfiaSourceLoadError(
-      `Source binaire refusée: ${relativePath}`,
-      "READ_FAILED",
-    );
-  }
-  const content = buf.toString("utf8");
-  const resolvedRole =
-    role ??
-    SFIA_CORE_SOURCE_ROLES[
-      relativePath as (typeof SFIA_CANONICAL_CORE_PATHS)[number]
-    ] ??
-    "project_doc";
-  return {
-    path: relativePath,
-    digest: digestContent(content),
-    blobSha: gitBlobSha(workspaceRoot, relativePath),
-    role: resolvedRole,
-    sizeBytes: buf.length,
-    readAt: new Date().toISOString(),
-    summaryExcerpt: content.slice(0, EXCERPT_CHARS).replace(/\s+/g, " ").trim(),
-  };
-}
-
-export function loadCanonicalCoreSources(
-  workspaceRoot: string,
-): SfiaSourceDocumentRef[] {
-  return SFIA_CANONICAL_CORE_PATHS.map((p) =>
-    loadCanonicalSource(workspaceRoot, p),
-  );
-}
-
-export function loadProjectContextSources(
-  workspaceRoot: string,
-): SfiaSourceDocumentRef[] {
-  const out: SfiaSourceDocumentRef[] = [];
-  for (const p of SFIA_PROJECT_CONTEXT_PATHS) {
-    try {
-      out.push(loadCanonicalSource(workspaceRoot, p, "project_doc"));
-    } catch (error) {
-      if (
-        error instanceof SfiaSourceLoadError &&
-        error.code === "PATH_NOT_FOUND"
-      ) {
-        continue;
-      }
-      throw error;
-    }
-  }
-  return out;
-}
-
-export function loadCursorTemplateSource(
-  workspaceRoot: string,
-): SfiaSourceDocumentRef & { content: string } {
-  const ref = loadCanonicalSource(
-    workspaceRoot,
-    SFIA_CURSOR_TEMPLATE_PATH,
-    "execution_template",
-  );
-  const content = fs.readFileSync(
-    path.join(workspaceRoot, SFIA_CURSOR_TEMPLATE_PATH),
-    "utf8",
-  );
-  return { ...ref, content };
-}
-
-export function isCanonicalPathAllowed(relativePath: string): boolean {
-  return ALLOWED.has(relativePath);
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/contextResolver.ts`
-
-```typescript
-/**
- * SFIA Context Resolver — builds immutable SfiaCanonicalContext for a session turn.
- * Hierarchy: Git > Morris decisions > project sources > session > GPT inference (never auto-promoted).
- */
-import { randomUUID } from "node:crypto";
-import { execFileSync } from "node:child_process";
-import {
-  SFIA_CURSOR_TEMPLATE_PATH,
-  SFIA_DEFAULT_ALLOWED_OPS,
-  SFIA_DEFAULT_ALLOWED_PATH_PREFIXES,
-  SFIA_DEFAULT_CLOSED_GATES,
-  SFIA_DEFAULT_FORBIDDEN_OPS,
-  SFIA_DEFAULT_OPEN_GATES,
-  SFIA_DEFAULT_PROTECTED_PATHS,
-  SFIA_METHOD_BASELINE,
-} from "./canonicalPaths";
-import {
-  loadCanonicalCoreSources,
-  loadProjectContextSources,
-} from "./sourceLoader";
-import type { SfiaCanonicalContext, SfiaProfile } from "./types";
-
-function git(cwd: string, args: string[]): string {
-  return execFileSync("git", args, {
-    cwd,
-    encoding: "utf8",
-    timeout: 8000,
-    stdio: ["ignore", "pipe", "pipe"],
-  }).trim();
-}
-
-const PERMANENT_CORE = [
-  "Morris décide (L0) — aucune phrase conversationnelle ≠ GO.",
-  "Git est la source de vérité ; la mémoire conversationnelle ne remplace pas Git.",
-  "GPT propose ; le compilateur SFIA valide ; Cursor exécute sous contrat.",
-  "Gates fermés par défaut pour commit / push / PR / merge / GitHub write / L5.",
-  "Le prompt Cursor doit être instancié depuis prompts/templates/sfia-cycle-execution-template.md.",
-  "Review pack + review handoff obligatoires pour tout rapport Cursor.",
-  "Fail-closed : deny by default.",
-  "Baseline méthode : SFIA v2.6 (consommée, non modifiée ici).",
-];
-
-export function resolveSfiaCanonicalContext(input: {
-  workspaceRoot: string;
-  sessionId: string;
-  project?: string;
-  candidateCycle?: string;
-  profileHint?: SfiaProfile;
-  validatedDecisions?: string[];
-}): SfiaCanonicalContext {
-  const headSha = git(input.workspaceRoot, ["rev-parse", "HEAD"]);
-  const baseSha = git(input.workspaceRoot, ["rev-parse", "origin/main"]);
-  let branch = "(detached)";
-  try {
-    branch =
-      git(input.workspaceRoot, ["branch", "--show-current"]) || "(detached)";
-  } catch {
-    /* detached */
-  }
-
-  const core = loadCanonicalCoreSources(input.workspaceRoot);
-  const projectDocs = loadProjectContextSources(input.workspaceRoot);
-  const sourceDocuments = [...core, ...projectDocs];
-
-  const profile: SfiaProfile = input.profileHint ?? "Critical";
-  const profileJustification =
-    profile === "Critical"
-      ? "Intégration méthode SFIA + exécution Cursor potentielle + gates Git — risque structurant."
-      : "Profil fourni / défaut Standard.";
-
-  const contextId = `sfia-ctx-${randomUUID()}`;
-  const generatedAt = new Date().toISOString();
-
-  return {
-    contextId,
-    generatedAt,
-    repository: "mcleland147/sfia-workspace",
-    branch,
-    headSha,
-    baseSha,
-    methodBaseline: SFIA_METHOD_BASELINE,
-    sourceDocuments,
-    project: input.project ?? "sfia-studio-ops1 / campus360 demo",
-    currentCycle: "8 — Delivery / correctif structurel Control Tower",
-    candidateCycle:
-      input.candidateCycle ??
-      "Delivery documentaire Campus360 bornée (CREATE Markdown)",
-    profile,
-    profileJustification,
-    activeBlocks: [
-      "architecture fonctionnelle",
-      "architecture technique",
-      "sécurité",
-      "QA / validation",
-      "observabilité",
-      "DevOps",
-      "capitalisation ciblée",
-    ],
-    inactiveBlocks: ["industrialisation", "MVP packaging", "multi-tenant"],
-    validatedDecisions: [
-      "Vision Control Tower",
-      "AF-Option C reformulée",
-      "Option C hybride",
-      "GO EXÉCUTION CONTROL TOWER VERTICAL SLICE",
-      "GO INTÉGRER LE MOTEUR DE CONTEXTE SFIA CANONIQUE",
-      ...(input.validatedDecisions ?? []),
-    ],
-    candidateDecisions: [
-      "GO VALIDATION LIVE MOTEUR SFIA CANONIQUE",
-      "GO commit / push / PR (fermés)",
-    ],
-    openGates: [...SFIA_DEFAULT_OPEN_GATES],
-    closedGates: [...SFIA_DEFAULT_CLOSED_GATES],
-    allowedOperations: [...SFIA_DEFAULT_ALLOWED_OPS],
-    forbiddenOperations: [...SFIA_DEFAULT_FORBIDDEN_OPS],
-    allowedPaths: [...SFIA_DEFAULT_ALLOWED_PATH_PREFIXES],
-    protectedPaths: [...SFIA_DEFAULT_PROTECTED_PATHS],
-    stopConditions: [
-      "Intention conversationnelle ≠ autorisation",
-      "CONTEXT_STALE si HEAD ou digests sources changent",
-      "Aucun Cursor sans gate Morris + contractHash",
-      "Aucun commit/push/PR/merge sans gate dédié",
-    ],
-    reviewPackRequirement: "full",
-    reviewHandoffRequirement: "required_publish_in_cycle",
-    cursorTemplatePath: SFIA_CURSOR_TEMPLATE_PATH,
-    expectedVerdicts: [
-      "SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION",
-      "SFIA LIVE ACTION CANDIDATE READY — MORRIS DECISION REQUIRED",
-    ],
-    unresolvedQuestions: [],
-    warnings: [
-      "Options ≠ décisions — ne pas promouvoir automatiquement.",
-      "Ne pas dupliquer la doctrine SFIA en constantes TypeScript.",
-    ],
-    permanentCore: [...PERMANENT_CORE],
-  };
-}
-
-/** Compact JSON for GPT system/context injection (no full markdown bodies). */
-export function serializeContextForModel(
-  context: SfiaCanonicalContext,
-): string {
-  return JSON.stringify(
-    {
-      contextId: context.contextId,
-      methodBaseline: context.methodBaseline,
-      repository: context.repository,
-      branch: context.branch,
-      headSha: context.headSha,
-      project: context.project,
-      currentCycle: context.currentCycle,
-      candidateCycle: context.candidateCycle,
-      profile: context.profile,
-      profileJustification: context.profileJustification,
-      activeBlocks: context.activeBlocks,
-      validatedDecisions: context.validatedDecisions,
-      candidateDecisions: context.candidateDecisions,
-      openGates: context.openGates,
-      closedGates: context.closedGates,
-      allowedOperations: context.allowedOperations,
-      forbiddenOperations: context.forbiddenOperations,
-      allowedPaths: context.allowedPaths,
-      protectedPaths: context.protectedPaths,
-      stopConditions: context.stopConditions,
-      reviewPackRequirement: context.reviewPackRequirement,
-      reviewHandoffRequirement: context.reviewHandoffRequirement,
-      cursorTemplatePath: context.cursorTemplatePath,
-      permanentCore: context.permanentCore,
-      sourceDocuments: context.sourceDocuments.map((s) => ({
-        path: s.path,
-        digest: s.digest.slice(0, 16),
-        blobSha: s.blobSha,
-        role: s.role,
-      })),
-      warnings: context.warnings,
-      outputSchemaHint: {
-        kinds: [
-          "no_action",
-          "clarification_required",
-          "action_proposed",
-          "decision_required",
-          "blocked",
-        ],
-        note: "Return ONE JSON object in a fenced block ```json ... ``` after a short user-facing summary. Do not invent shell/commit/push/PR. Do not start Cursor.",
-      },
-    },
-    null,
-    2,
-  );
-}
-
-export function isContextStale(input: {
-  context: SfiaCanonicalContext;
-  workspaceRoot: string;
-}): boolean {
-  try {
-    const head = git(input.workspaceRoot, ["rev-parse", "HEAD"]);
-    if (head !== input.context.headSha) return true;
-  } catch {
-    return true;
-  }
-  return false;
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/proposalSchema.ts`
-
-```typescript
-/**
- * Parse / validate SfiaActionProposal from model output (schema gate).
- */
-import { randomUUID } from "node:crypto";
-import type {
-  SfiaActionProposal,
-  SfiaFileOperation,
-  SfiaProfile,
-  SfiaProposalKind,
-} from "./types";
-
-const KINDS = new Set<SfiaProposalKind>([
-  "no_action",
-  "clarification_required",
-  "action_proposed",
-  "decision_required",
-  "blocked",
-]);
-
-const PROFILES = new Set<SfiaProfile>([
-  "Light",
-  "Standard",
-  "Critical",
-  "Capitalization",
-]);
-
-const FILE_OPS = new Set<SfiaFileOperation>([
-  "READ",
-  "CREATE",
-  "MODIFY",
-  "DELETE",
-]);
-
-const FORBIDDEN_IN_PROPOSAL =
-  /\b(git\s+commit|git\s+push|gh\s+pr|create.?pr|merge\s+main|shell|bash\s+-c)\b/i;
-
-export function extractJsonBlock(text: string): string | null {
-  const fenced = text.match(/```json\s*([\s\S]*?)```/i);
-  if (fenced?.[1]) return fenced[1].trim();
-  const bare = text.match(/\{[\s\S]*"kind"\s*:\s*"[a-z_]+"[\s\S]*\}/);
-  return bare?.[0] ?? null;
-}
-
-export function parseSfiaActionProposal(
-  raw: unknown,
-  defaults: { sessionId: string; contextId: string },
-):
-  | { ok: true; proposal: SfiaActionProposal }
-  | { ok: false; reason: string } {
-  if (!raw || typeof raw !== "object") {
-    return { ok: false, reason: "Proposition non objet." };
-  }
-  const o = raw as Record<string, unknown>;
-  const kind = o.kind;
-  if (typeof kind !== "string" || !KINDS.has(kind as SfiaProposalKind)) {
-    return { ok: false, reason: "kind invalide." };
-  }
-  const proposalId =
-    typeof o.proposalId === "string" && o.proposalId
-      ? o.proposalId
-      : `sfia-prop-${randomUUID()}`;
-  const sessionId =
-    typeof o.sessionId === "string" ? o.sessionId : defaults.sessionId;
-  const contextId =
-    typeof o.contextId === "string" ? o.contextId : defaults.contextId;
-  if (sessionId !== defaults.sessionId) {
-    return { ok: false, reason: "sessionId mismatch." };
-  }
-  if (contextId !== defaults.contextId) {
-    return { ok: false, reason: "contextId mismatch." };
-  }
-
-  const summary =
-    typeof o.userVisibleSummary === "string"
-      ? o.userVisibleSummary
-      : typeof o.rationale === "string"
-        ? o.rationale
-        : "Proposition SFIA";
-
-  if (kind === "no_action") {
-    return {
-      ok: true,
-      proposal: {
-        kind,
-        proposalId,
-        sessionId,
-        contextId,
-        userVisibleSummary: summary,
-        rationale: typeof o.rationale === "string" ? o.rationale : summary,
-      },
-    };
-  }
-  if (kind === "clarification_required") {
-    const qs = Array.isArray(o.unresolvedQuestions)
-      ? o.unresolvedQuestions.filter((x): x is string => typeof x === "string")
-      : [];
-    return {
-      ok: true,
-      proposal: {
-        kind,
-        proposalId,
-        sessionId,
-        contextId,
-        userVisibleSummary: summary,
-        unresolvedQuestions: qs,
-      },
-    };
-  }
-  if (kind === "decision_required") {
-    const gates = Array.isArray(o.requiredGates)
-      ? o.requiredGates.filter((x): x is string => typeof x === "string")
-      : [];
-    return {
-      ok: true,
-      proposal: {
-        kind,
-        proposalId,
-        sessionId,
-        contextId,
-        userVisibleSummary: summary,
-        requiredGates: gates,
-      },
-    };
-  }
-  if (kind === "blocked") {
-    return {
-      ok: true,
-      proposal: {
-        kind,
-        proposalId,
-        sessionId,
-        contextId,
-        userVisibleSummary: summary,
-        reason: typeof o.reason === "string" ? o.reason : summary,
-      },
-    };
-  }
-
-  // action_proposed
-  const profile = o.profile;
-  if (typeof profile !== "string" || !PROFILES.has(profile as SfiaProfile)) {
-    return { ok: false, reason: "profile invalide." };
-  }
-  const objective = typeof o.objective === "string" ? o.objective : "";
-  if (!objective.trim()) {
-    return { ok: false, reason: "objective requis." };
-  }
-  if (FORBIDDEN_IN_PROPOSAL.test(objective) || FORBIDDEN_IN_PROPOSAL.test(summary)) {
-    return {
-      ok: false,
-      reason: "Proposition contient commit/push/PR/shell — interdit.",
-    };
-  }
-  const filesRaw = Array.isArray(o.files) ? o.files : [];
-  const files = [];
-  for (const f of filesRaw) {
-    if (!f || typeof f !== "object") {
-      return { ok: false, reason: "files[] invalide." };
-    }
-    const fr = f as Record<string, unknown>;
-    if (typeof fr.path !== "string" || typeof fr.operation !== "string") {
-      return { ok: false, reason: "file path/operation requis." };
-    }
-    if (!FILE_OPS.has(fr.operation as SfiaFileOperation)) {
-      return { ok: false, reason: `opération fichier invalide: ${fr.operation}` };
-    }
-    files.push({
-      path: fr.path,
-      operation: fr.operation as SfiaFileOperation,
-      exactContent:
-        typeof fr.exactContent === "string" ? fr.exactContent : undefined,
-    });
-  }
-  if (files.length === 0) {
-    return { ok: false, reason: "action_proposed exige files[]." };
-  }
-
-  const operations = Array.isArray(o.operations)
-    ? o.operations.filter((x): x is string => typeof x === "string")
-    : files.map((f) => f.operation);
-
-  return {
-    ok: true,
-    proposal: {
-      kind: "action_proposed",
-      proposalId,
-      sessionId,
-      contextId,
-      objective,
-      rationale: typeof o.rationale === "string" ? o.rationale : summary,
-      cycle: typeof o.cycle === "string" ? o.cycle : "Delivery",
-      profile: profile as SfiaProfile,
-      profileJustification:
-        typeof o.profileJustification === "string"
-          ? o.profileJustification
-          : "non fournie",
-      blocks: Array.isArray(o.blocks)
-        ? o.blocks.filter((x): x is string => typeof x === "string")
-        : [],
-      project: typeof o.project === "string" ? o.project : "campus360",
-      operations,
-      files,
-      expectedEffects: Array.isArray(o.expectedEffects)
-        ? o.expectedEffects.filter((x): x is string => typeof x === "string")
-        : [],
-      excludedEffects: Array.isArray(o.excludedEffects)
-        ? o.excludedEffects.filter((x): x is string => typeof x === "string")
-        : ["commit", "push", "PR", "merge"],
-      requiredGates: Array.isArray(o.requiredGates)
-        ? o.requiredGates.filter((x): x is string => typeof x === "string")
-        : ["GO Cursor après ActionCandidate"],
-      stopConditions: Array.isArray(o.stopConditions)
-        ? o.stopConditions.filter((x): x is string => typeof x === "string")
-        : [],
-      cursorRequired: o.cursorRequired !== false,
-      reviewPackLevel: o.reviewPackLevel === "light" ? "light" : "full",
-      reviewHandoffRequired: o.reviewHandoffRequired !== false,
-      userVisibleSummary: summary,
-      exactRequestedContent:
-        typeof o.exactRequestedContent === "string"
-          ? o.exactRequestedContent
-          : files.find((f) => f.exactContent)?.exactContent,
-      confidence:
-        typeof o.confidence === "number" && Number.isFinite(o.confidence)
-          ? o.confidence
-          : 0.7,
-      unresolvedQuestions: Array.isArray(o.unresolvedQuestions)
-        ? o.unresolvedQuestions.filter((x): x is string => typeof x === "string")
-        : [],
-    },
-  };
-}
-
-export function parseProposalFromAssistantText(
-  text: string,
-  defaults: { sessionId: string; contextId: string },
-):
-  | { ok: true; proposal: SfiaActionProposal }
-  | { ok: false; reason: string } {
-  const block = extractJsonBlock(text);
-  if (!block) {
-    return { ok: false, reason: "Aucun JSON SfiaActionProposal trouvé." };
-  }
-  try {
-    const parsed = JSON.parse(block) as unknown;
-    return parseSfiaActionProposal(parsed, defaults);
-  } catch {
-    return { ok: false, reason: "JSON proposition invalide." };
-  }
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/actionCompiler.ts`
-
-```typescript
-/**
- * Deterministic SFIA Action Compiler.
- * Never widens a proposal to make it valid.
- */
-import {
-  createActionCandidateId,
-  createEventId,
-} from "../ids";
-import { openOps1Db, nowIsoWithOffset } from "../db";
-import { Ops1Error } from "../errors";
-import { getActionCandidate } from "../actionGate";
-import type { ActionCandidate, SessionEvent, SessionEventType } from "../types";
-import { isContextStale } from "./contextResolver";
-import type {
-  SfiaActionProposal,
-  SfiaCanonicalContext,
-  SfiaCompilationResult,
-} from "./types";
-
-function insertEvent(
-  sessionId: string,
-  type: SessionEventType,
-  detail: Record<string, unknown> | SfiaCompilationResult,
-): SessionEvent {
-  const db = openOps1Db();
-  const eventId = createEventId();
-  const createdAt = nowIsoWithOffset();
-  const payload = JSON.stringify(detail);
-  db.prepare(
-    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-     VALUES (?, ?, ?, ?, ?)`,
-  ).run(eventId, sessionId, type, createdAt, payload);
-  return { eventId, sessionId, type, createdAt, detail: payload };
-}
-
-function pathAllowed(
-  filePath: string,
-  context: SfiaCanonicalContext,
-): boolean {
-  if (context.protectedPaths.some((p) => filePath === p || filePath.startsWith(p))) {
-    return false;
-  }
-  return context.allowedPaths.some(
-    (p) => filePath === p || filePath.startsWith(p),
-  );
-}
-
-function deny(
-  status: SfiaCompilationResult["status"],
-  base: Pick<
-    SfiaCompilationResult,
-    "contextId" | "proposalId" | "sessionId"
-  >,
-  reasons: string[],
-  extra?: Partial<SfiaCompilationResult>,
-): SfiaCompilationResult {
-  return {
-    status,
-    ...base,
-    reasons,
-    deniedOperations: extra?.deniedOperations ?? [],
-    deniedPaths: extra?.deniedPaths ?? [],
-    ...extra,
-  };
-}
-
-export function compileSfiaActionProposal(input: {
-  proposal: SfiaActionProposal;
-  context: SfiaCanonicalContext;
-  workspaceRoot: string;
-  persist?: boolean;
-}): SfiaCompilationResult {
-  const { proposal, context } = input;
-  const base = {
-    contextId: context.contextId,
-    proposalId: proposal.proposalId,
-    sessionId: proposal.sessionId,
-  };
-
-  insertEvent(proposal.sessionId, "SFIA_COMPILATION_STARTED", {
-    proposalId: proposal.proposalId,
-    contextId: context.contextId,
-    kind: proposal.kind,
-  });
-
-  if (proposal.contextId !== context.contextId) {
-    const r = deny("CONTEXT_STALE", base, ["contextId mismatch"]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-  if (proposal.sessionId !== input.proposal.sessionId) {
-    const r = deny("INVALID_PROPOSAL", base, ["sessionId incohérent"]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-  if (isContextStale({ context, workspaceRoot: input.workspaceRoot })) {
-    const r = deny("CONTEXT_STALE", base, [
-      "CONTEXT_STALE — REQUALIFICATION REQUIRED (HEAD drift)",
-    ]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-
-  if (proposal.kind === "clarification_required") {
-    const r = deny("CLARIFICATION_REQUIRED", base, [
-      "Clarification requise avant ActionCandidate.",
-    ]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-  if (proposal.kind === "no_action") {
-    const r = deny("BLOCKED", base, ["no_action — aucune ActionCandidate"]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-  if (proposal.kind === "blocked" || proposal.kind === "decision_required") {
-    const r = deny(
-      proposal.kind === "blocked" ? "BLOCKED" : "GATE_REQUIRED",
-      base,
-      [proposal.userVisibleSummary],
-    );
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-
-  // action_proposed
-  const deniedOps: string[] = [];
-  const deniedPaths: string[] = [];
-
-  for (const op of proposal.operations) {
-    const lower = op.toLowerCase();
-    if (
-      context.forbiddenOperations.some((f) =>
-        lower.includes(f.toLowerCase()),
-      ) ||
-      ["commit", "push", "merge", "create_pr", "pr", "shell"].includes(lower)
-    ) {
-      deniedOps.push(op);
-    }
-  }
-  if (deniedOps.length > 0) {
-    const r = deny(
-      "POLICY_DENIED",
-      base,
-      [`Opérations interdites: ${deniedOps.join(", ")}`],
-      { deniedOperations: deniedOps },
-    );
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-
-  for (const f of proposal.files) {
-    if (f.operation === "DELETE") {
-      deniedPaths.push(f.path);
-      const r = deny(
-        "POLICY_DENIED",
-        base,
-        ["DELETE non autorisé dans cet incrément"],
-        { deniedPaths },
-      );
-      insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-      return r;
-    }
-    if (!pathAllowed(f.path, context)) {
-      deniedPaths.push(f.path);
-    }
-  }
-  if (deniedPaths.length > 0) {
-    const r = deny(
-      "PATH_DENIED",
-      base,
-      [`Chemins refusés: ${deniedPaths.join(", ")}`],
-      { deniedPaths },
-    );
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-
-  // Require CREATE/MODIFY under campus360 markdown for demo compiler
-  const writes = proposal.files.filter(
-    (f) => f.operation === "CREATE" || f.operation === "MODIFY",
-  );
-  if (writes.length === 0) {
-    const r = deny("INVALID_PROPOSAL", base, [
-      "Aucune opération CREATE/MODIFY",
-    ]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-  if (writes.length > 1) {
-    const r = deny("INVALID_PROPOSAL", base, [
-      "Une seule écriture fichier autorisée dans ce correctif démonstrateur",
-    ]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-  const target = writes[0]!;
-  if (!target.path.endsWith(".md")) {
-    const r = deny("PATH_DENIED", base, ["Seul Markdown .md autorisé"]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-
-  const exactContent =
-    proposal.exactRequestedContent ?? target.exactContent ?? "";
-  if (!exactContent.trim()) {
-    const r = deny("INVALID_PROPOSAL", base, [
-      "Contenu exact requis (exactRequestedContent)",
-    ]);
-    insertEvent(proposal.sessionId, "SFIA_COMPILATION_DENIED", r);
-    return r;
-  }
-
-  const title = `SFIA live: ${target.operation} ${target.path}`;
-  const objective = proposal.objective;
-  const scopeSummary = `${target.operation} ${target.path} ; hors commit/push/PR/merge`;
-  const riskSummary = `Profil ${proposal.profile} — Cursor après GO Morris uniquement`;
-
-  let actionCandidateId: string | undefined;
-  if (input.persist !== false) {
-    const db = openOps1Db();
-    const session = db
-      .prepare(`SELECT status FROM cycle_sessions WHERE session_id = ?`)
-      .get(proposal.sessionId) as { status: string } | undefined;
-    if (!session || session.status !== "OPEN") {
-      throw new Ops1Error(
-        "CONFLICT",
-        "Session non OPEN — compilation refusée.",
-      );
-    }
-    const now = nowIsoWithOffset();
-    actionCandidateId = createActionCandidateId();
-    db.prepare(
-      `INSERT INTO session_qualifications (session_id, qualification, updated_at)
-       VALUES (?, 'ACTION_REQUIRED', ?)
-       ON CONFLICT(session_id) DO UPDATE SET
-         qualification = excluded.qualification,
-         updated_at = excluded.updated_at`,
-    ).run(proposal.sessionId, now);
-    db.prepare(
-      `INSERT INTO action_candidates (
-        action_candidate_id, session_id, status, title, objective,
-        scope_summary, risk_summary, version, created_at, updated_at
-      ) VALUES (?, ?, 'PROPOSED', ?, ?, ?, ?, 1, ?, ?)`,
-    ).run(
-      actionCandidateId,
-      proposal.sessionId,
-      title,
-      objective,
-      scopeSummary,
-      riskSummary,
-      now,
-      now,
-    );
-    insertEvent(proposal.sessionId, "ACTION_CANDIDATE_CREATED_FROM_LIVE", {
-      actionCandidateId,
-      proposalId: proposal.proposalId,
-      contextId: context.contextId,
-      path: target.path,
-      operation: target.operation,
-    });
-    insertEvent(proposal.sessionId, "ACTION_CANDIDATE_CREATED", {
-      actionCandidateId,
-      source: "sfia_live_compiler",
-    });
-  }
-
-  const result: SfiaCompilationResult = {
-    status: "COMPILED",
-    ...base,
-    reasons: ["Proposition compilée — aucune exécution lancée"],
-    deniedOperations: [],
-    deniedPaths: [],
-    actionCandidateId,
-    title,
-    objective,
-    scopeSummary,
-    riskSummary,
-    files: proposal.files,
-    exactContent,
-  };
-  insertEvent(proposal.sessionId, "SFIA_COMPILATION_SUCCEEDED", {
-    proposalId: proposal.proposalId,
-    actionCandidateId,
-    contextId: context.contextId,
-  });
-  return result;
-}
-
-export function getCompiledActionCandidate(
-  actionCandidateId: string,
-): ActionCandidate | null {
-  return getActionCandidate(actionCandidateId);
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/cursorPromptInstantiator.ts`
-
-```typescript
-/**
- * Cursor prompt instantiator — loads real Git template, never reinvents structure.
- */
-import type { ActionCandidate } from "../types";
-import { loadCursorTemplateSource } from "./sourceLoader";
-import type {
-  SfiaCanonicalContext,
-  SfiaCompilationResult,
-  SfiaCursorPromptInstantiation,
-} from "./types";
-
-export function instantiateCursorPrompt(input: {
-  workspaceRoot: string;
-  context: SfiaCanonicalContext;
-  compilation: SfiaCompilationResult;
-  candidate: ActionCandidate;
-  morrisDecision?: string;
-}): SfiaCursorPromptInstantiation {
-  const template = loadCursorTemplateSource(input.workspaceRoot);
-  const file = input.compilation.files?.[0];
-  const content = input.compilation.exactContent ?? "";
-
-  // Instantiate applicable sections WITHOUT rewriting the template structure:
-  // produce a bound contract that cites template sections and fills required fields.
-  const promptText = [
-    `# Prompt Cursor instancié depuis le template canonique Git`,
-    ``,
-    `templatePath: ${template.path}`,
-    `templateDigest: ${template.digest}`,
-    `templateBlobSha: ${template.blobSha ?? "WORKING_TREE_ONLY"}`,
-    `contextId: ${input.context.contextId}`,
-    `actionId: ${input.candidate.actionCandidateId}`,
-    `headSha: ${input.context.headSha}`,
-    `branch: ${input.context.branch}`,
-    `methodBaseline: ${input.context.methodBaseline}`,
-    ``,
-    `## Qualification (dérivée du contexte SFIA — sources ${input.context.sourceDocuments.map((s) => s.path).join(", ")})`,
-    `Cycle: ${input.context.candidateCycle}`,
-    `Profil: ${input.context.profile}`,
-    `Justification: ${input.context.profileJustification}`,
-    `Blocs: ${input.context.activeBlocks.join(", ")}`,
-    ``,
-    `## Périmètre d'exécution (contrat)`,
-    `Objectif: ${input.candidate.objective}`,
-    `Fichier: ${file?.path ?? "(n/a)"}`,
-    `Opération: ${file?.operation ?? "(n/a)"}`,
-    `Créer EXACTEMENT ce contenu Markdown (octet pour octet):`,
-    `-----BEGIN CONTENT-----`,
-    content,
-    `-----END CONTENT-----`,
-    ``,
-    `## Garde-fous (template § + contexte)`,
-    `- Aucun autre fichier`,
-    `- Aucun commit / push / PR / merge / remote`,
-    `- Aucun shell hors contrat`,
-    `- Chemins protégés: ${input.context.protectedPaths.join(", ")}`,
-    `- Gates fermés: ${input.context.closedGates.join(", ")}`,
-    `- Décision Morris: ${input.morrisDecision ?? "GO action requis avant exécution — non consommé ici"}`,
-    ``,
-    `## Review`,
-    `Review pack: ${input.context.reviewPackRequirement}`,
-    `Review handoff: ${input.context.reviewHandoffRequirement}`,
-    ``,
-    `## Extraits de structure du template (référence, non substitution)`,
-    template.content.slice(0, 1200).replace(/\n/g, "\n"),
-    `\n…[template truncated for instantiation envelope — full template remains at ${template.path}]`,
-  ].join("\n");
-
-  return {
-    templatePath: template.path,
-    templateDigest: template.digest,
-    templateBlobSha: template.blobSha,
-    contextId: input.context.contextId,
-    actionId: input.candidate.actionCandidateId,
-    promptText,
-    instantiatedAt: new Date().toISOString(),
-  };
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/sessionContext.ts`
-
-```typescript
-/**
- * Per-session SFIA context store (immutable per turn; revalidated by HEAD).
- */
-import { createEventId } from "../ids";
-import { openOps1Db, nowIsoWithOffset } from "../db";
-import type { SessionEventType } from "../types";
-import { resolveWorkspaceRootFromAppCwd } from "../allowlistEvaluation";
-import {
-  isContextStale,
-  resolveSfiaCanonicalContext,
-  serializeContextForModel,
-} from "./contextResolver";
-import type { SfiaCanonicalContext } from "./types";
-
-const sessionContexts = new Map<string, SfiaCanonicalContext>();
-
-function emit(
-  sessionId: string,
-  type: SessionEventType,
-  detail: Record<string, unknown>,
-): void {
-  const db = openOps1Db();
-  db.prepare(
-    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-     VALUES (?, ?, ?, ?, ?)`,
-  ).run(
-    createEventId(),
-    sessionId,
-    type,
-    nowIsoWithOffset(),
-    JSON.stringify(detail),
-  );
-}
-
-export function getStoredSfiaContext(
-  sessionId: string,
-): SfiaCanonicalContext | null {
-  return sessionContexts.get(sessionId) ?? null;
-}
-
-export function ensureSfiaContext(input: {
-  sessionId: string;
-  workspaceRoot?: string;
-  forceRefresh?: boolean;
-}): SfiaCanonicalContext {
-  const workspaceRoot =
-    input.workspaceRoot ?? resolveWorkspaceRootFromAppCwd();
-  const existing = sessionContexts.get(input.sessionId);
-  if (
-    existing &&
-    !input.forceRefresh &&
-    !isContextStale({ context: existing, workspaceRoot })
-  ) {
-    return existing;
-  }
-
-  emit(input.sessionId, "SFIA_CONTEXT_LOADING", {
-    forceRefresh: Boolean(input.forceRefresh),
-    previousContextId: existing?.contextId ?? null,
-  });
-
-  try {
-    const context = resolveSfiaCanonicalContext({
-      workspaceRoot,
-      sessionId: input.sessionId,
-    });
-    for (const src of context.sourceDocuments) {
-      emit(input.sessionId, "SFIA_SOURCE_READ", {
-        path: src.path,
-        digest: src.digest,
-        blobSha: src.blobSha,
-        role: src.role,
-        sizeBytes: src.sizeBytes,
-      });
-    }
-    sessionContexts.set(input.sessionId, context);
-    emit(input.sessionId, "SFIA_CONTEXT_READY", {
-      contextId: context.contextId,
-      headSha: context.headSha,
-      sourceCount: context.sourceDocuments.length,
-    });
-    return context;
-  } catch (error) {
-    emit(input.sessionId, "SFIA_CONTEXT_FAILED", {
-      error: error instanceof Error ? error.message : "unknown",
-    });
-    throw error;
-  }
-}
-
-export function buildSfiaSystemPreamble(context: SfiaCanonicalContext): string {
-  return [
-    "Tu opères dans SFIA Studio Control Tower avec un contexte SFIA canonique.",
-    "Tu proposes uniquement. Morris décide. Aucune exécution sans GO UI.",
-    "Interdit: commit, push, PR, merge, shell, branches arbitraires, prompt Cursor libre.",
-    "Après ta réponse utilisateur courte, inclus UN objet JSON SfiaActionProposal dans ```json.",
-    "Contexte structuré:",
-    serializeContextForModel(context),
-  ].join("\n");
-}
-
-export function clearSfiaContextForTests(sessionId?: string): void {
-  if (sessionId) sessionContexts.delete(sessionId);
-  else sessionContexts.clear();
-}
-
-```
-
-### `projects/sfia-studio/app/lib/ops1/sfia/index.ts`
-
-```typescript
-export * from "./canonicalPaths";
-export * from "./types";
-export * from "./sourceLoader";
-export * from "./contextResolver";
-export * from "./proposalSchema";
-export * from "./actionCompiler";
-export * from "./cursorPromptInstantiator";
-export * from "./sessionContext";
-
-```
-
-### `projects/sfia-studio/app/__tests__/ops1/sfia/canonicalEngine.test.ts`
-
-```typescript
-/** @vitest-environment node */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { openOps1Db, resetOps1DbForTests } from "@/lib/ops1/db";
-import { createOpenSession } from "@/lib/ops1/repository";
-import { resolveWorkspaceRootFromAppCwd } from "@/lib/ops1/allowlistEvaluation";
-import { sendConversationMessage } from "@/lib/ops1/conversation/service";
-import { listActionCandidates } from "@/lib/ops1/actionGate";
-import {
-  clearSfiaContextForTests,
-  compileSfiaActionProposal,
-  ensureSfiaContext,
-  instantiateCursorPrompt,
-  isCanonicalPathAllowed,
-  isContextStale,
-  loadCanonicalSource,
-  loadCursorTemplateSource,
-  parseProposalFromAssistantText,
-  parseSfiaActionProposal,
-  resolveSfiaCanonicalContext,
-  SfiaSourceLoadError,
-  type SfiaActionProposal,
-  type SfiaCanonicalContext,
-} from "@/lib/ops1/sfia";
-
-const LIVE_PROOF_CONTENT =
-  "# Preuve Control Tower\n\nCe fichier a été créé pendant la validation live du vertical slice Control Tower.\n";
-
-describe("SFIA source loader", () => {
-  const root = resolveWorkspaceRootFromAppCwd();
-
-  it("loads allowlisted core sources with digest", () => {
-    const ref = loadCanonicalSource(
-      root,
-      "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
-    );
-    expect(ref.digest).toMatch(/^[a-f0-9]{64}$/);
-    expect(ref.sizeBytes).toBeGreaterThan(100);
-    expect(ref.role).toBe("guardrails");
-  });
-
-  it("refuses path hors allowlist", () => {
-    expect(() => loadCanonicalSource(root, "method/secret.md")).toThrow(
-      SfiaSourceLoadError,
-    );
-    try {
-      loadCanonicalSource(root, ".env");
-      expect.unreachable();
-    } catch (e) {
-      expect(e).toBeInstanceOf(SfiaSourceLoadError);
-      expect((e as SfiaSourceLoadError).code).toBe("PATH_NOT_ALLOWED");
-    }
-  });
-
-  it("refuses absent allowlisted path", () => {
-    // Use an allowlisted path that doesn't exist by temporarily checking
-    // isCanonicalPathAllowed still closed.
-    expect(isCanonicalPathAllowed("projects/campus360/README.md")).toBe(false);
-  });
-
-  it("loads cursor template with content + digest", () => {
-    const t = loadCursorTemplateSource(root);
-    expect(t.path).toBe("prompts/templates/sfia-cycle-execution-template.md");
-    expect(t.content).toMatch(/SFIA|cycle|template/i);
-    expect(t.digest).toMatch(/^[a-f0-9]{64}$/);
-  });
-});
-
-describe("SFIA context resolver", () => {
-  it("builds context with hierarchy and does not promote candidate decisions", () => {
-    const root = resolveWorkspaceRootFromAppCwd();
-    const ctx = resolveSfiaCanonicalContext({
-      workspaceRoot: root,
-      sessionId: "ops1-sess-test",
-    });
-    expect(ctx.methodBaseline).toBe("SFIA v2.6");
-    expect(ctx.headSha).toMatch(/^[0-9a-f]{40}$/);
-    expect(ctx.sourceDocuments.length).toBeGreaterThanOrEqual(4);
-    expect(ctx.closedGates).toContain("commit");
-    expect(ctx.candidateDecisions.some((d) => /commit/i.test(d))).toBe(true);
-    expect(ctx.validatedDecisions).not.toContain(
-      "GO VALIDATION LIVE MOTEUR SFIA CANONIQUE",
-    );
-    expect(ctx.permanentCore.join(" ")).toMatch(/Morris décide/);
-  });
-
-  it("detects context stale on head mismatch", () => {
-    const root = resolveWorkspaceRootFromAppCwd();
-    const ctx = resolveSfiaCanonicalContext({
-      workspaceRoot: root,
-      sessionId: "ops1-sess-test",
-    });
-    const stale = {
-      ...ctx,
-      headSha: "0000000000000000000000000000000000000000",
-    };
-    expect(isContextStale({ context: stale, workspaceRoot: root })).toBe(true);
-    expect(isContextStale({ context: ctx, workspaceRoot: root })).toBe(false);
-  });
-});
-
-describe("SFIA proposal schema", () => {
-  const defaults = {
-    sessionId: "ops1-sess-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
-    contextId: "sfia-ctx-1",
-  };
-
-  it("parses no_action and clarification", () => {
-    const no = parseSfiaActionProposal(
-      {
-        kind: "no_action",
-        userVisibleSummary: "rien",
-        rationale: "ok",
-      },
-      defaults,
-    );
-    expect(no.ok).toBe(true);
-    const cl = parseSfiaActionProposal(
-      {
-        kind: "clarification_required",
-        userVisibleSummary: "?",
-        unresolvedQuestions: ["path?"],
-      },
-      defaults,
-    );
-    expect(cl.ok).toBe(true);
-  });
-
-  it("rejects shell/commit phrasing in objective", () => {
-    const bad = parseSfiaActionProposal(
-      {
-        kind: "action_proposed",
-        objective: "run git commit now",
-        profile: "Critical",
-        files: [
-          {
-            path: "projects/campus360/x.md",
-            operation: "CREATE",
-            exactContent: "a",
-          },
-        ],
-        userVisibleSummary: "bad",
-      },
-      defaults,
-    );
-    expect(bad.ok).toBe(false);
-  });
-
-  it("extracts JSON fence from assistant text", () => {
-    const text = `Hello\n\`\`\`json\n${JSON.stringify({
-      kind: "no_action",
-      userVisibleSummary: "noop",
-      rationale: "noop",
-      sessionId: defaults.sessionId,
-      contextId: defaults.contextId,
-    })}\n\`\`\``;
-    const parsed = parseProposalFromAssistantText(text, defaults);
-    expect(parsed.ok).toBe(true);
-  });
-});
-
-describe("SFIA action compiler", () => {
-  let prevExec: string | undefined;
-  let tmp: string;
-  let sessionId: string;
-  let context: SfiaCanonicalContext;
-
-  beforeEach(() => {
-    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-ce-"));
-    prevExec = process.env.OPS1_EXEC_ROOT;
-    process.env.OPS1_EXEC_ROOT = tmp;
-    resetOps1DbForTests();
-    openOps1Db();
-    clearSfiaContextForTests();
-    const { session } = createOpenSession("fixture");
-    sessionId = session.sessionId;
-    context = ensureSfiaContext({ sessionId });
-  });
-
-  afterEach(() => {
-    clearSfiaContextForTests();
-    resetOps1DbForTests();
-    if (prevExec === undefined) delete process.env.OPS1_EXEC_ROOT;
-    else process.env.OPS1_EXEC_ROOT = prevExec;
-    fs.rmSync(tmp, { recursive: true, force: true });
-  });
-
-  function baseProposed(
-    overrides: Partial<Extract<SfiaActionProposal, { kind: "action_proposed" }>> = {},
-  ): Extract<SfiaActionProposal, { kind: "action_proposed" }> {
-    return {
-      kind: "action_proposed",
-      proposalId: "sfia-prop-1",
-      sessionId,
-      contextId: context.contextId,
-      objective: "Créer preuve Markdown Control Tower",
-      rationale: "demande Morris",
-      cycle: "Delivery",
-      profile: "Critical",
-      profileJustification: "gates + Cursor",
-      blocks: ["sécurité"],
-      project: "campus360",
-      operations: ["CREATE"],
-      files: [
-        {
-          path: "projects/campus360/05-control-tower-live-proof.md",
-          operation: "CREATE",
-          exactContent: LIVE_PROOF_CONTENT,
-        },
-      ],
-      expectedEffects: ["create file"],
-      excludedEffects: ["commit", "push"],
-      requiredGates: ["GO Cursor"],
-      stopConditions: ["no remote"],
-      cursorRequired: true,
-      reviewPackLevel: "full",
-      reviewHandoffRequired: true,
-      userVisibleSummary: "CREATE live proof md",
-      exactRequestedContent: LIVE_PROOF_CONTENT,
-      confidence: 0.9,
-      unresolvedQuestions: [],
-      ...overrides,
-    };
-  }
-
-  it("compiles valid CREATE and persists ActionCandidate", () => {
-    const result = compileSfiaActionProposal({
-      proposal: baseProposed(),
-      context,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-    });
-    expect(result.status).toBe("COMPILED");
-    expect(result.exactContent).toBe(LIVE_PROOF_CONTENT);
-    expect(result.actionCandidateId).toMatch(/^ops1-act-/);
-    const list = listActionCandidates(sessionId);
-    expect(list.some((c) => c.actionCandidateId === result.actionCandidateId)).toBe(
-      true,
-    );
-  });
-
-  it("denies commit/push operations", () => {
-    const result = compileSfiaActionProposal({
-      proposal: baseProposed({
-        operations: ["commit", "push"],
-        files: [
-          {
-            path: "projects/campus360/README.md",
-            operation: "MODIFY",
-            exactContent: "x",
-          },
-        ],
-      }),
-      context,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      persist: false,
-    });
-    expect(result.status).toBe("POLICY_DENIED");
-    expect(result.deniedOperations).toEqual(
-      expect.arrayContaining(["commit", "push"]),
-    );
-  });
-
-  it("denies protected path", () => {
-    const result = compileSfiaActionProposal({
-      proposal: baseProposed({
-        files: [
-          {
-            path: "method/sfia-fast-track/core/sfia-rules-and-guardrails.md",
-            operation: "MODIFY",
-            exactContent: "hack",
-          },
-        ],
-        exactRequestedContent: "hack",
-      }),
-      context,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      persist: false,
-    });
-    expect(result.status).toBe("PATH_DENIED");
-  });
-
-  it("denies context stale", () => {
-    const stale = {
-      ...context,
-      headSha: "0000000000000000000000000000000000000000",
-    };
-    const result = compileSfiaActionProposal({
-      proposal: baseProposed({ contextId: stale.contextId }),
-      context: stale,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      persist: false,
-    });
-    expect(result.status).toBe("CONTEXT_STALE");
-  });
-
-  it("preserves exact content", () => {
-    const result = compileSfiaActionProposal({
-      proposal: baseProposed(),
-      context,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      persist: false,
-    });
-    expect(result.exactContent).toBe(LIVE_PROOF_CONTENT);
-  });
-
-  it("instantiates cursor prompt from real template", () => {
-    const compiled = compileSfiaActionProposal({
-      proposal: baseProposed(),
-      context,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-    });
-    expect(compiled.status).toBe("COMPILED");
-    const candidates = listActionCandidates(sessionId);
-    const candidate = candidates.find(
-      (c) => c.actionCandidateId === compiled.actionCandidateId,
-    )!;
-    const inst = instantiateCursorPrompt({
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      context,
-      compilation: compiled,
-      candidate,
-    });
-    expect(inst.templatePath).toBe(
-      "prompts/templates/sfia-cycle-execution-template.md",
-    );
-    expect(inst.templateDigest).toMatch(/^[a-f0-9]{64}$/);
-    expect(inst.promptText).toContain(LIVE_PROOF_CONTENT.trim());
-    expect(inst.promptText).toContain(context.contextId);
-    expect(inst.promptText).toContain(candidate.actionCandidateId);
-  });
-});
-
-describe("SFIA conversation integration (fixture markers)", () => {
-  let prevExec: string | undefined;
-  let tmp: string;
-
-  beforeEach(() => {
-    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-int-"));
-    prevExec = process.env.OPS1_EXEC_ROOT;
-    process.env.OPS1_EXEC_ROOT = tmp;
-    resetOps1DbForTests();
-    openOps1Db();
-    clearSfiaContextForTests();
-  });
-
-  afterEach(() => {
-    clearSfiaContextForTests();
-    resetOps1DbForTests();
-    if (prevExec === undefined) delete process.env.OPS1_EXEC_ROOT;
-    else process.env.OPS1_EXEC_ROOT = prevExec;
-    fs.rmSync(tmp, { recursive: true, force: true });
-  });
-
-  it("CREATE marker → ActionCandidate live", async () => {
-    const { session } = createOpenSession("fixture");
-    const result = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "Prépare l’action __SFIA_PROPOSE_CREATE_MD__",
-    });
-    expect(result.sfiaContext?.contextId).toBeTruthy();
-    expect(result.sfiaProposal?.kind).toBe("action_proposed");
-    expect(result.sfiaCompilation?.status).toBe("COMPILED");
-    expect(result.sfiaCompilation?.actionCandidateId).toMatch(/^ops1-act-/);
-    expect(result.sfiaCompilation?.exactContent).toContain(
-      "# Preuve Control Tower",
-    );
-    expect(listActionCandidates(session.sessionId).length).toBe(1);
-  });
-
-  it("commit marker → POLICY_DENIED", async () => {
-    const { session } = createOpenSession("fixture");
-    const result = await sendConversationMessage({
-      sessionId: session.sessionId,
-      content: "Bad propose __SFIA_PROPOSE_COMMIT__",
-    });
-    expect(result.sfiaProposal?.kind).toBe("action_proposed");
-    expect(result.sfiaCompilation?.status).toBe("POLICY_DENIED");
-    expect(listActionCandidates(session.sessionId).length).toBe(0);
-  });
-});
-
-```
-
-### `projects/sfia-studio/app/e2e/sfia-canonical-context-engine.spec.ts`
-
-```typescript
-import { test, expect } from "@playwright/test";
-import path from "path";
-import fs from "fs";
-
-const screenshotDir = path.join(
-  __dirname,
-  "../../../../.tmp-sfia-review/sfia-canonical-context-engine-evidence/screenshots",
-);
-
-test.beforeAll(() => {
-  fs.mkdirSync(screenshotDir, { recursive: true });
-});
-
-test.describe("SFIA Canonical Context Engine", () => {
-  test("fixture propose CREATE → context + ActionCandidate live (no fixture button)", async ({
-    page,
-  }) => {
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-
-    await page.getByTestId("ops1-create-mode-fixture").check();
-    await page.getByTestId("ops1-create-session").click();
-    await expect(page.getByTestId("ops1-session-id")).toBeVisible();
-
-    await expect(page.getByTestId("sfia-context-panel")).toBeVisible();
-    await expect(page.getByTestId("sfia-context-ready")).toBeVisible({
-      timeout: 15_000,
-    });
-    await expect(page.getByTestId("sfia-baseline")).toContainText("SFIA");
-    await expect(page.getByTestId("sfia-source-item").first()).toBeVisible();
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "01-sfia-context-loaded.png"),
-      fullPage: true,
-    });
-
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("Prépare action bornée __SFIA_PROPOSE_CREATE_MD__");
-    await page.getByTestId("ops1-send-message").click();
-
-    await expect(page.getByTestId("sfia-proposal-panel")).toBeVisible({
-      timeout: 20_000,
-    });
-    await expect(page.getByTestId("sfia-compilation-status")).toHaveText(
-      "COMPILED",
-    );
-    await expect(page.getByTestId("sfia-live-action-id")).toBeVisible();
-    await expect(page.getByTestId("ops1-action-panel")).toBeVisible();
-    await expect(page.getByTestId("ops1-i3-create-candidate")).toBeVisible();
-
-    await page.screenshot({
-      path: path.join(screenshotDir, "02-sfia-proposal-compiled.png"),
-      fullPage: true,
-    });
-    await page.screenshot({
-      path: path.join(screenshotDir, "03-sfia-action-candidate-live.png"),
-      fullPage: true,
-    });
-    await page.screenshot({
-      path: path.join(screenshotDir, "04-sfia-sources-digests.png"),
-      fullPage: true,
-    });
-  });
-
-  test("commit proposal denied deterministically", async ({ page }) => {
-    await page.goto("/nouvelle-demande");
-    await page.evaluate(() => window.sessionStorage.clear());
-    await page.reload();
-    await page.getByTestId("ops1-create-mode-fixture").check();
-    await page.getByTestId("ops1-create-session").click();
-    await page
-      .getByTestId("ops1-message-input")
-      .fill("Mauvaise proposition __SFIA_PROPOSE_COMMIT__");
-    await page.getByTestId("ops1-send-message").click();
-    await expect(page.getByTestId("sfia-compilation-status")).toHaveText(
-      "POLICY_DENIED",
-      { timeout: 20_000 },
-    );
-    await expect(page.getByTestId("sfia-denied-ops")).toBeVisible();
-    await page.screenshot({
-      path: path.join(screenshotDir, "05-sfia-forbidden-ops-denied.png"),
-      fullPage: true,
-    });
-  });
-});
-
-```
-
-### `projects/sfia-studio/74-sfia-canonical-context-engine-report.md`
+- **Handoff précédent :** 90bf5c4b27772a88c646ba0efba4fd11d53f5717
+
+## 2. État Git initial
+
+- Branche delivery locale dirty (Control Tower + moteur SFIA non commités) — **préservée**
+- Staged vide
+- Aucun commit/push projet dans ce cycle
+- Nouveaux fichiers uniquement sous `projects/sfia-studio/sfia-v3-framing/**` et `.tmp-sfia-review/**`
+
+## 3. Sources consultées (lecture seule)
+
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- method/.../2026-07-16-sfia-v2.6-baseline-release-manifest.md
+- projects/sfia-studio/66–74 + README (lecture)
+- handoff 90bf5c4 (canonical context engine)
+- code ops1/** en lecture pour acquis réutilisables
+
+## 4. Baseline / statut v3.0
+
+- **Baseline active :** SFIA v2.6
+- **SFIA v3.0 :** trajectoire **candidate** ouverte — **non** adoptée
+
+## 5. Synthèse cadrage
+
+- **Vision :** Studio = Project Operating System (pilotage projet bout en bout), pas chat généraliste
+- **Principes candidats P1–P12 :** projet-first, cycle-aware, human-governed, AI-reasoned, deterministic-effects, git-truth, explainable-routing, no-free-chat, fail-closed, progressive-automation, doctrine-as-source, contracts-as-runtime
+- **Gouvernance :** décideur humain habilité (plus de doctrine individu-nommée)
+- **Rôles :** utilisateur / responsable / décideur / approbateur · Studio · moteur SFIA · GPT · Cursor · Git · GitHub
+- **Modèle projet/cycle :** objets + états candidats documentés (04)
+- **Conversation :** dual-channel (prose libre + contrôle structuré)
+- **Routage/transitions :** conserver routing v2.6 ; adapter Studio-native
+- **Automatisation :** élevée sur répétable/borné ; décision structurante jamais auto
+- **Doctrine exécutable :** A Markdown · B contrats · C projections
+- **Archi fonctionnelle / technique / UX :** candidates (09–11)
+- **Gap v2.6→v3.0 :** matrice C/A/R/D/N (12)
+- **Vertical slice :** créer projet → … → transition (13)
+- **Recommandation trajectoire :** Option C/A-hybride — produit sous v2.6 d’abord ; adoption méthode v3 plus tard
+- **Décisions non prises :** adoption baseline, modif canoniques, implémentation, commit/PR
+
+## 6. Fichiers créés (contenu complet)
+
+
+### `projects/sfia-studio/sfia-v3-framing/README.md`
 
 ```markdown
-# 74 — SFIA Canonical Context Engine — rapport d’implémentation
+# SFIA v3.0 — Cadrage Studio Project Operating System
 
 | Métadonnée | Valeur |
 |------------|--------|
-| Date | 2026-07-22 (CEST) |
-| Cycle | 8 — Delivery / correctif structurel Control Tower |
-| Profil | Critical |
-| Gate consommé | `GO INTÉGRER LE MOTEUR DE CONTEXTE SFIA CANONIQUE` |
-| Gate suivant | `GO VALIDATION LIVE MOTEUR SFIA CANONIQUE` |
-| Branche | `delivery/sfia-studio-control-tower-fast-track` |
-| HEAD projet | `32e5271842b9a344a7e292614675c27ea8ed941b` (= `origin/main`) |
-| Verdict | **SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION** |
+| **Statut** | **Candidat** — cadrage ouvert ; **non** baseline |
+| **Baseline opérationnelle** | **SFIA v2.6** (inchangée) |
+| **Gate consommé** | `GO OUVERTURE CADRAGE SFIA v3.0 — STUDIO PROJECT OPERATING SYSTEM` |
+| **Gate suivant** | `GO VALIDATION CADRAGE SFIA v3.0` |
+| **Cycle** | 1 — Cadrage |
+| **Profil** | Critical |
+| **Branche locale** | `delivery/sfia-studio-control-tower-fast-track` |
+| **HEAD** | `32e5271842b9a344a7e292614675c27ea8ed941b` |
+
+> **Anti-claims :** SFIA v3.0 n’est **pas** adoptée. Les documents v2.6 ne sont **pas** modifiés. Aucune implémentation. Aucun commit/push/PR projet. Les travaux Control Tower (66–74 + code local) sont **préservés**.
 
 ## Intention
 
-Rendre les sources SFIA canoniques opérationnelles dans le flux Control Tower :
+Ouvrir le cadrage produit et méthodologique d’un **Studio Project Operating System** : système de pilotage projet bout en bout, assisté par IA, gouverné par SFIA — sans chat libre hors projet/cycle.
 
-message → contexte SFIA → `SfiaActionProposal` → compilateur déterministe → `ActionCandidate` → gate Morris → prompt Cursor instancié depuis le template Git.
+## Index des livrables
 
-Sans dupliquer la doctrine en TypeScript, sans RAG, sans commit/push/PR.
+| # | Fichier | Contenu |
+|---|---------|---------|
+| 01 | `01-sfia-v3-product-vision-and-positioning.md` | Vision et positionnement |
+| 02 | `02-sfia-v3-principles-and-human-governance.md` | Principes candidats et gouvernance humaine |
+| 03 | `03-sfia-v3-roles-and-responsibilities.md` | Rôles humain / Studio / GPT / Cursor / Git |
+| 04 | `04-sfia-v3-project-and-cycle-domain-model.md` | Objets métier, états, relations |
+| 05 | `05-sfia-v3-guided-reasoning-and-conversation-model.md` | Conversation guidée + canal de contrôle |
+| 06 | `06-sfia-v3-cycle-routing-and-transition-model.md` | Cycles, routage, transitions |
+| 07 | `07-sfia-v3-automation-and-human-decision-model.md` | Automatisation vs décisions humaines |
+| 08 | `08-sfia-v3-executable-doctrine-and-contract-model.md` | Doctrine lisible / contrats / projections |
+| 09 | `09-sfia-v3-functional-architecture.md` | Architecture fonctionnelle candidate |
+| 10 | `10-sfia-v3-technical-architecture-candidate.md` | Architecture technique candidate + acquis |
+| 11 | `11-sfia-v3-ux-information-architecture.md` | UX / IA / parcours (pas de Figma) |
+| 12 | `12-sfia-v2.6-to-v3-gap-analysis.md` | Analyse d’écart v2.6 → v3.0 |
+| 13 | `13-sfia-v3-target-vertical-slice.md` | Vertical slice produit cible |
+| 14 | `14-sfia-v3-roadmap-and-decision-pack.md` | Roadmap et décisions humaines requises |
 
-## Architecture minimale livrée
+## Relation aux acquis Control Tower
 
-```
-Canonical Source Loader
-→ Context Resolver → SfiaCanonicalContext
-→ GPT Conversation (+ preamble)
-→ SfiaActionProposal (schéma)
-→ Action Compiler
-→ ActionCandidate OPS1
-→ Cursor Prompt Instantiator (template Git réel)
-```
+Les documents `66`–`74` et le code OPS1/Control Tower local démontrent une **chaîne technique** (conversation, outils Git/GitHub read, ActionCandidate, gates, Cursor, rapport, contexte canonique). Ils constituent un **socle réutilisable**, pas l’architecture produit définitive v3.0.
 
-Emplacement code : `projects/sfia-studio/app/lib/ops1/sfia/**`.
+## Verdict de ce pack
 
-## Anti-claims
-
-- Pas de validation live Morris réalisée dans ce cycle Cursor.
-- Pas de MVP / production.
-- Méthode SFIA et `prompts/**` non modifiés.
-- Campus360 non touché.
-- Aucun commit / push / PR projet.
-
-```
-
----
-
-## 14. Diffs utiles — fichiers modifiés (scope moteur SFIA)
-
-
-### `projects/sfia-studio/README.md`
-
-```diff
-diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index ccd03ee..a3c088b 100644
---- a/projects/sfia-studio/README.md
-+++ b/projects/sfia-studio/README.md
-@@ -4,7 +4,7 @@
- |------------|--------|
- | **Identité** | SFIA Studio — **projet officiel** : plateforme métier opérationnelle et durable pour piloter les cycles SFIA et orchestrer Git, GPT, Cursor et un mécanisme d’orchestration déterministe (Runtime candidat) sous contrôle Morris |
- | **Nom** | **SFIA Studio** — projet officiel (**G1 validé**) |
--| **Statut** | `poc-ops1-framing-validated-with-reservations` — A–E **CLOSED_WITH_RESERVATIONS** ; cadrage OPS1 **VALIDATED WITH RESERVATIONS** (`41`–`44`) ; backlog OPS1 **validé avec réserves** (`60`–`62` sur `main`) ; Intégration / DevOps OPS1 **validé avec réserves** (`63`–`65` ; `G-OPS1-DEVOPS-VAL` consommé) ; `.sfia-exec/**` **ignoré** ; Node/scanner/suites/CI **ouverts ou différés** ; live / delivery / code / MVP / production **fermés** |
-+| **Statut** | `sfia-canonical-context-engine-local` — moteur de contexte SFIA **implémenté** sur branche locale ; **pas de commit/push/PR** ; validation live Morris **requise** ; MVP / production **fermés** |
- | **Baseline méthode** | **SFIA v2.6** (Option C méthode ; inchangée) |
- | **Autorité** | Morris (L0) |
- | **Exécuteur** | Cursor — delivery harness-only POC-G9 (DELIVERY/POC/ARCH/SEC/QA, Critical) |
-@@ -13,15 +13,18 @@
- | **Profil SFIA** | Critical |
- | **Branche delivery** | `delivery/sfia-studio-poc-s1-harness` (**locale**) |
- | **Branche architecture** | historique — MERGED #221 |
--| **Base canonique** | `origin/main` @ `b686eb1394bb4d550eeff1dd64669b3d405579ad` |
-+| **Base canonique** | `origin/main` @ `32e5271842b9a344a7e292614675c27ea8ed941b` (I6 mergé ; cadrage Control Tower local) |
- | **Chemin** | `projects/sfia-studio/` |
--| **AF-Option C** | **VALIDÉE** — Studio ≠ orchestrateur |
-+| **AF-Option C** | **REFORMULÉE ET VALIDÉE** — Studio = cockpit + façade d’orchestration ; policies / exécuteurs logiquement séparés derrière Studio |
-+| **Cadrage Control Tower** | `66`–`69` — **validé** (`GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER`) |
-+| **Fast Track CT VS** | `70`–`73` — delivery **local** ; `GO EXÉCUTION…` consommé |
-+| **Moteur SFIA canonique** | `74` + `app/lib/ops1/sfia/**` — **implémenté local** ; `GO INTÉGRER…` consommé ; live Morris **ouvert** ; commit/push/PR **fermés** |
- | **Cadrage POC** | `20`–`22` — **INTÉGRÉS** ; POC-G1…G6 **VALIDÉS** ; POC-G10 **CONSOMMÉ** |
- | **Architecture POC** | `23`–`25` — **Option B minimale** ; POC-G7 **VALIDÉ AVEC RÉSERVES — INTÉGRÉ** |
- | **Backlog POC** | `26`–`28` — **INTÉGRÉS** (#223) |
- | **Harness POC** | `harness/` — delivery local POC-G9 ; Cursor **fixture** ; Docker **non retenu** |
- | **POC** | **Non lancé** (pas d’industrialisation / daemon) |
--| **Prochaine décision** | Revue PR Draft DevOps / merge éventuel / `GO IMPLEMENT OPS1 CI` / `GO DELIVERY I1` / gate Node — **non automatiques** |
-+| **Prochaine décision** | `GO VALIDATION LIVE MOTEUR SFIA CANONIQUE` · puis éventuels `GO commit` / `GO push` / `GO PR` — **non automatiques** |
-
- ---
-
-@@ -147,7 +150,7 @@ Pré-cadrage
-   → décision Morris : ouverture éventuelle conception fonctionnelle OPS1 (`G-OPS1-FUNC-DESIGN`) — **non ouverte**
- ```
-
--Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** et **canonique sur main** (PR #235 / `b686eb1`). **POC maintenu**. MVP / production / industrialisation / delivery OPS1 **non ouverts**. Trajectoire I1–I7 validée au niveau cadrage uniquement. Prochaine décision : ouverture éventuelle de `G-OPS1-FUNC-DESIGN`.
-+Architecture Option B **intégrée**. A–E **CLOSED_WITH_RESERVATIONS**. Cadrage OPS1 **validé avec réserves** (PR #235 / `b686eb1`). I6 mergé (`#253` / `32e5271`). I7 clôturé avec **OPS1-I7-R01**. Cadrage Control Tower **validé** (`66`–`69`). Fast Track vertical slice : **`plan-open`** (`70`–`72` ; Option C hybride). **Code non modifié** dans la préparation. MVP / production / industrialisation **fermés**. Prochaine décision : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE`.
-
- ---
-
-@@ -374,8 +377,10 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- 4. Intégration / DevOps OPS1 — docs [`63`](./63-ops1-integration-devops-foundation.md)–[`65`](./65-ops1-integration-devops-decision-pack.md) **validés avec réserves** · `G-OPS1-DEVOPS-VAL` consommé (2026-07-20 21:27:26 CEST) · 24 décisions · `.sfia-exec/**` ignoré · **non intégrés sur `main` tant que PR non mergée**.
- 5. Delivery / code / CI implémentée / live GPT-Cursor / MVP / production — **FERMÉS** (GO Morris distincts requis ; non ouverts automatiquement).
- 6. Réserves maintenues : Node non figé · scanner différé · suites intégration différées · CI Studio différée (`GO IMPLEMENT OPS1 CI`) · worktree≠sandbox · stack/fournisseur · FD-CAND-15 · UX-R01…R04 · live fermés.
-+7. **Cadrage Control Tower** — docs [`66`](./66-control-tower-product-framing.md)–[`69`](./69-control-tower-options-and-decision-pack.md) — **validé** · `GO VALIDATION CADRAGE SFIA STUDIO CONTROL TOWER` consommé · AF-Option C reformulée **validée** · Option C hybride **retenue**.
-+8. **Fast Track Control Tower VS** — docs [`70`](./70-control-tower-fast-track-architecture-and-contract.md)–[`72`](./72-control-tower-fast-track-decision-pack.md) — **`plan-open`** · `GO FAST TRACK CONTROL TOWER VERTICAL SLICE` consommé · gate suivante : `GO EXÉCUTION CONTROL TOWER VERTICAL SLICE` · **aucun code** avant ce GO.
-
--**Verdict documentaire courant :** `SFIA STUDIO OPS1 INTEGRATION DEVOPS VALIDATED WITH RESERVATIONS`
-+**Verdict documentaire courant :** `SFIA STUDIO CONTROL TOWER FAST TRACK PLAN OPEN — AWAITING EXECUTION GO`
-
-
- ---
-@@ -393,7 +398,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | Scénario OPS1 | Docs `54`–`56` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-SCENARIO-VAL` — 2026-07-20 18:34:47 CEST) ; FD-CAND-13/20/26 levées (OPS1) ; FD-CAND-15 maintenue ; UX-R01…R04 maintenues |
- | Architecture technique OPS1 | Docs `57`–`59` — **VALIDATED WITH AMENDMENTS** (`G-OPS1-TECH-ARCH-VAL` — 2026-07-20 19:17:11 CEST) ; 26 CAND validées ; stack non finalisée |
- | Backlog OPS1 | Docs `60`–`62` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-BACKLOG-VAL` — 2026-07-20 20:52:00 CEST) ; intégrés sur `main` (PR #244) ; 17 epics / 41 stories / 20 décisions |
--| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** ; **pas encore** sur `main` avant merge PR |
-+| Intégration / DevOps OPS1 | Docs `63`–`65` — **VALIDATED WITH RESERVATIONS** (`G-OPS1-DEVOPS-VAL` — 2026-07-20 21:27:26 CEST) ; 24 CAND ; `.sfia-exec/**` ignoré ; CI/delivery/live/MVP **fermés** |
-+| Cadrage Control Tower | Docs `66`–`69` — **validé** (`GO VALIDATION CADRAGE…`) |
-+| Fast Track CT VS | Docs `70`–`72` — **`plan-open`** ; exécution code fermée jusqu’à `GO EXÉCUTION…` |
- | Handoff | `sfia/review-handoff` |
-
- ---
-@@ -477,4 +484,22 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [64-ops1-local-controls-ci-and-evidence-contract.md](./64-ops1-local-controls-ci-and-evidence-contract.md) | Matrice contrôles / commandes / preuves — **VALIDATED WITH RESERVATIONS** |
- | [65-ops1-integration-devops-decision-pack.md](./65-ops1-integration-devops-decision-pack.md) | `OPS1-DEVOPS-CAND-01`…`24` — **VALIDATED WITH RESERVATIONS** (2026-07-20 21:27:26 CEST) |
-
--*SFIA Studio — POC maintenu — Intégration/DevOps VALIDATED WITH RESERVATIONS — non encore intégré sur `main` tant que PR non mergée — CI / delivery / live / MVP non ouverts.*
-+### Cadrage produit Control Tower (validé)
-+
-+| Document | Rôle |
-+|----------|------|
-+| [66-control-tower-product-framing.md](./66-control-tower-product-framing.md) | Contexte, problème, vision, principes, acteurs — **validé** |
-+| [67-control-tower-capabilities-and-user-journeys.md](./67-control-tower-capabilities-and-user-journeys.md) | Capacités, UX fonctionnelle, parcours P1–P12 — **validé** |
-+| [68-control-tower-scope-success-criteria-and-risks.md](./68-control-tower-scope-success-criteria-and-risks.md) | Produit / POC / MVP candidats, critères, risques — **validé** |
-+| [69-control-tower-options-and-decision-pack.md](./69-control-tower-options-and-decision-pack.md) | Options A–D ; Option C **retenue** — **validé** |
-+
-+### Fast Track Control Tower Vertical Slice (`plan-open`)
-+
-+| Document | Rôle |
-+|----------|------|
-+| [70-control-tower-fast-track-architecture-and-contract.md](./70-control-tower-fast-track-architecture-and-contract.md) | Archi minimale, inventaire OPS1, outils, adapters, UX — **`plan-open`** |
-+| [71-control-tower-fast-track-backlog-and-delivery.md](./71-control-tower-fast-track-backlog-and-delivery.md) | FT-01…12, lots A/B/C, chemin critique — **`plan-open`** |
-+| [72-control-tower-fast-track-decision-pack.md](./72-control-tower-fast-track-decision-pack.md) | D1–D8, risques, gate exécution — **plan validé pour exécution** |
-+| [73-control-tower-fast-track-delivery-report.md](./73-control-tower-fast-track-delivery-report.md) | Rapport delivery local — **READY FOR MORRIS LIVE VALIDATION** |
-+
-+*SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
-```
-
-### `projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-index 23608f4..194e8a3 100644
---- a/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-+++ b/projects/sfia-studio/app/features/ops1/Ops1SessionScreen.tsx
-@@ -7,6 +7,7 @@ import {
-   ops1CreateFixtureActionCandidateAction,
-   ops1CreateSessionAction,
-   ops1CreateExecutionContractAction,
-+  ops1EnsureSfiaContextAction,
-   ops1EvaluateAllowlistAction,
-   ops1GetLiveConfigAction,
-   ops1GetRealCursorAvailabilityAction,
-@@ -23,6 +24,11 @@ import {
-   ops1OpenContinuationAction,
-   ops1SendMessageAction,
- } from "@/lib/ops1/actions";
-+import type {
-+  SfiaActionProposal,
-+  SfiaCanonicalContext,
-+  SfiaCompilationResult,
-+} from "@/lib/ops1/sfia/types";
- import { formatOps1WorktreeRef } from "@/lib/ops1/worktreeDisplay";
- import type {
-   ActionAllowlistEvaluation,
-@@ -213,6 +219,17 @@ export function Ops1SessionScreen({
-   const [latestReport, setLatestReport] = useState<ExecutionReport | null>(
-     null,
-   );
-+  const [sessionEvents, setSessionEvents] = useState<
-+    Array<{ eventId: string; type: string; createdAt: string; detail: string }>
-+  >([]);
-+  const [timelineTerminal, setTimelineTerminal] = useState<string>(
-+    "DECISION_REQUIRED",
-+  );
-+  const [githubStatus, setGithubStatus] = useState<{
-+    available: boolean;
-+    transport: string;
-+    reason?: string;
-+  } | null>(null);
-   const [i6Error, setI6Error] = useState<string | null>(null);
-   const [resumeSummary, setResumeSummary] = useState<string | null>(null);
-   const [gateMicrocopy, setGateMicrocopy] = useState<string | null>(null);
-@@ -223,8 +240,59 @@ export function Ops1SessionScreen({
-     scopeSummary: "",
-     riskSummary: "",
-   });
-+  const [sfiaContext, setSfiaContext] = useState<SfiaCanonicalContext | null>(
-+    null,
-+  );
-+  const [sfiaProposal, setSfiaProposal] = useState<SfiaActionProposal | null>(
-+    null,
-+  );
-+  const [sfiaCompilation, setSfiaCompilation] =
-+    useState<SfiaCompilationResult | null>(null);
-+  const [sfiaUiState, setSfiaUiState] = useState<
-+    | "CONTEXT_LOADING"
-+    | "CONTEXT_READY"
-+    | "CONTEXT_STALE"
-+    | "PROPOSAL_RECEIVED"
-+    | "PROPOSAL_INVALID"
-+    | "COMPILATION_DENIED"
-+    | "ACTION_CANDIDATE_CREATED"
-+    | "DECISION_REQUIRED"
-+    | null
-+  >(null);
-   const [pending, startTransition] = useTransition();
-
-+  const deriveSfiaUiState = useCallback(
-+    (input: {
-+      context: SfiaCanonicalContext | null;
-+      proposal: SfiaActionProposal | null;
-+      compilation: SfiaCompilationResult | null;
-+    }) => {
-+      if (!input.context) {
-+        setSfiaUiState(null);
-+        return;
-+      }
-+      const status = input.compilation?.status;
-+      if (status === "COMPILED") {
-+        setSfiaUiState("ACTION_CANDIDATE_CREATED");
-+        return;
-+      }
-+      if (status === "CONTEXT_STALE") {
-+        setSfiaUiState("CONTEXT_STALE");
-+        return;
-+      }
-+      if (status) {
-+        setSfiaUiState("COMPILATION_DENIED");
-+        return;
-+      }
-+      if (input.proposal) {
-+        setSfiaUiState("PROPOSAL_RECEIVED");
-+        return;
-+      }
-+      setSfiaUiState("CONTEXT_READY");
-+    },
-+    [],
-+  );
-+
-   useEffect(() => {
-     onGlobalModeContextChange?.({
-       hasSession: Boolean(session),
-@@ -254,6 +322,13 @@ export function Ops1SessionScreen({
-       latestContractByAction?: Record<string, ExecutionContract | null>;
-       latestAttemptByContract?: Record<string, ExecutionAttempt | null>;
-       latestReport?: ExecutionReport | null;
-+      events?: Array<{
-+        eventId: string;
-+        type: string;
-+        createdAt: string;
-+        detail: string;
-+      }>;
-+      timeline?: { terminal: string };
-     }) => {
-       setQualification(data.qualification);
-       setCandidates(data.candidates);
-@@ -262,6 +337,8 @@ export function Ops1SessionScreen({
-       setContractByAction(data.latestContractByAction ?? {});
-       setAttemptByContract(data.latestAttemptByContract ?? {});
-       setLatestReport(data.latestReport ?? null);
-+      setSessionEvents(data.events ?? []);
-+      setTimelineTerminal(data.timeline?.terminal ?? "DECISION_REQUIRED");
-       const latest = data.candidates[data.candidates.length - 1];
-       if (latest) {
-         setRefineDraft({
-@@ -289,6 +366,8 @@ export function Ops1SessionScreen({
-         setContractByAction({});
-         setAttemptByContract({});
-         setLatestReport(null);
-+        setSessionEvents([]);
-+        setTimelineTerminal("DECISION_REQUIRED");
-         setResumeSummary(null);
-         setPhase("idle");
-         if (typeof window !== "undefined") {
-@@ -314,6 +393,7 @@ export function Ops1SessionScreen({
-         setLiveAvailable(cfg.data.available);
-         setLiveMissing(cfg.data.missing);
-         setTestProvider(cfg.data.testProvider);
-+        setGithubStatus(cfg.data.github ?? null);
-       }
-       const cursor = await ops1GetRealCursorAvailabilityAction();
-       if (!cancelled && cursor.ok) {
-@@ -364,6 +444,10 @@ export function Ops1SessionScreen({
-       window.sessionStorage.setItem(STORAGE_KEY, result.data.session.sessionId);
-       setSession(result.data.session);
-       setTurns([]);
-+      setSfiaContext(null);
-+      setSfiaProposal(null);
-+      setSfiaCompilation(null);
-+      setSfiaUiState("CONTEXT_LOADING");
-       setPresentation(
-         result.data.session.conversationMode === "fixture"
-           ? "fixture"
-@@ -371,6 +455,13 @@ export function Ops1SessionScreen({
-             ? "test_provider"
-             : "openai_live",
-       );
-+      const ctxResult = await ops1EnsureSfiaContextAction({
-+        sessionId: result.data.session.sessionId,
-+      });
-+      if (ctxResult.ok) {
-+        setSfiaContext(ctxResult.data.context);
-+        setSfiaUiState("CONTEXT_READY");
-+      }
-       setPhase("open");
-     });
-   };
-@@ -393,6 +484,22 @@ export function Ops1SessionScreen({
-       setDraft("");
-       setLastUsage(result.data.usage);
-       setPresentation(result.data.presentation);
-+      if (result.data.sfiaContext) {
-+        setSfiaContext(result.data.sfiaContext);
-+      }
-+      setSfiaProposal(result.data.sfiaProposal);
-+      setSfiaCompilation(result.data.sfiaCompilation);
-+      deriveSfiaUiState({
-+        context: result.data.sfiaContext ?? sfiaContext,
-+        proposal: result.data.sfiaProposal,
-+        compilation: result.data.sfiaCompilation,
-+      });
-+      if (
-+        result.data.sfiaCompilation?.status === "COMPILED" &&
-+        result.data.sfiaCompilation.actionCandidateId
-+      ) {
-+        setSfiaUiState("ACTION_CANDIDATE_CREATED");
-+      }
-       await loadBundle(session.sessionId);
-       if (result.data.assistantError) {
-         setError(result.data.assistantError);
-@@ -416,6 +523,10 @@ export function Ops1SessionScreen({
-     setDecisionsByAction({});
-     setGateMicrocopy(null);
-     setExecRefuseMsg(null);
-+    setSfiaContext(null);
-+    setSfiaProposal(null);
-+    setSfiaCompilation(null);
-+    setSfiaUiState(null);
-     setPhase("idle");
-   };
-
-@@ -1026,6 +1137,15 @@ export function Ops1SessionScreen({
-                         ) : null}
-                       </div>
-                       <p className={styles.turnContent}>{turn.content}</p>
-+                      {turn.content.startsWith("[OPS1_REPORT_REINJECTION]") ? (
-+                        <p
-+                          className={styles.hint}
-+                          data-testid="ct-reinjection-turn"
-+                        >
-+                          Rapport réinjecté automatiquement — pas un succès
-+                          implicite.
-+                        </p>
-+                      ) : null}
-                     </li>
-                   ))}
-                 </ol>
-@@ -1124,6 +1244,225 @@ export function Ops1SessionScreen({
-             </form>
-           </section>
-
-+          <section
-+            className={styles.panel}
-+            data-testid="sfia-context-panel"
-+            aria-labelledby="sfia-context-title"
-+          >
-+            <h2 id="sfia-context-title" className={styles.panelTitle}>
-+              Contexte SFIA
-+            </h2>
-+            <p data-testid="sfia-ui-state">
-+              État : {sfiaUiState ?? "—"}
-+            </p>
-+            {sfiaContext ? (
-+              <dl className={styles.meta} data-testid="sfia-context-ready">
-+                <div>
-+                  <dt>contextId</dt>
-+                  <dd data-testid="sfia-context-id">{sfiaContext.contextId}</dd>
-+                </div>
-+                <div>
-+                  <dt>Baseline</dt>
-+                  <dd data-testid="sfia-baseline">
-+                    {sfiaContext.methodBaseline}
-+                  </dd>
-+                </div>
-+                <div>
-+                  <dt>Cycle</dt>
-+                  <dd data-testid="sfia-cycle">{sfiaContext.candidateCycle}</dd>
-+                </div>
-+                <div>
-+                  <dt>Profil</dt>
-+                  <dd data-testid="sfia-profile">{sfiaContext.profile}</dd>
-+                </div>
-+                <div>
-+                  <dt>HEAD</dt>
-+                  <dd data-testid="sfia-head">{sfiaContext.headSha.slice(0, 12)}</dd>
-+                </div>
-+                <div>
-+                  <dt>Gates ouverts</dt>
-+                  <dd data-testid="sfia-open-gates">
-+                    {sfiaContext.openGates.join(" · ")}
-+                  </dd>
-+                </div>
-+                <div>
-+                  <dt>Gates fermés</dt>
-+                  <dd data-testid="sfia-closed-gates">
-+                    {sfiaContext.closedGates.join(" · ")}
-+                  </dd>
-+                </div>
-+                <div>
-+                  <dt>Ops autorisées</dt>
-+                  <dd data-testid="sfia-allowed-ops">
-+                    {sfiaContext.allowedOperations.join(", ")}
-+                  </dd>
-+                </div>
-+                <div>
-+                  <dt>Ops interdites</dt>
-+                  <dd data-testid="sfia-forbidden-ops">
-+                    {sfiaContext.forbiddenOperations.join(", ")}
-+                  </dd>
-+                </div>
-+              </dl>
-+            ) : (
-+              <p className={styles.muted} data-testid="sfia-context-empty">
-+                Contexte SFIA non chargé.
-+              </p>
-+            )}
-+            {sfiaContext ? (
-+              <ul data-testid="sfia-sources-list">
-+                {sfiaContext.sourceDocuments.map((s) => (
-+                  <li key={s.path} data-testid="sfia-source-item">
-+                    {s.role} · {s.path} · digest {s.digest.slice(0, 12)}
-+                    {s.blobSha ? ` · blob ${s.blobSha.slice(0, 8)}` : ""}
-+                  </li>
-+                ))}
-+              </ul>
-+            ) : null}
-+            {sfiaContext?.warnings.length ? (
-+              <p className={styles.hint} data-testid="sfia-warnings">
-+                {sfiaContext.warnings.join(" · ")}
-+              </p>
-+            ) : null}
-+            <p className={styles.hint}>
-+              Markers SFIA fixture : __SFIA_PROPOSE_CREATE_MD__ ·
-+              __SFIA_PROPOSE_COMMIT__
-+            </p>
-+          </section>
-+
-+          {(sfiaProposal || sfiaCompilation) && (
-+            <section
-+              className={styles.panel}
-+              data-testid="sfia-proposal-panel"
-+              aria-labelledby="sfia-proposal-title"
-+            >
-+              <h2 id="sfia-proposal-title" className={styles.panelTitle}>
-+                Proposition SFIA / compilation
-+              </h2>
-+              {sfiaProposal ? (
-+                <p data-testid="sfia-proposal-kind">
-+                  Kind : {sfiaProposal.kind} · {sfiaProposal.proposalId}
-+                </p>
-+              ) : (
-+                <p className={styles.muted} data-testid="sfia-proposal-missing">
-+                  Aucune proposition structurée.
-+                </p>
-+              )}
-+              {sfiaCompilation ? (
-+                <dl className={styles.meta} data-testid="sfia-compilation">
-+                  <div>
-+                    <dt>Verdict compilateur</dt>
-+                    <dd data-testid="sfia-compilation-status">
-+                      {sfiaCompilation.status}
-+                    </dd>
-+                  </div>
-+                  <div>
-+                    <dt>Raisons</dt>
-+                    <dd data-testid="sfia-compilation-reasons">
-+                      {sfiaCompilation.reasons.join(" · ")}
-+                    </dd>
-+                  </div>
-+                  {sfiaCompilation.deniedOperations.length > 0 ? (
-+                    <div>
-+                      <dt>Ops refusées</dt>
-+                      <dd data-testid="sfia-denied-ops">
-+                        {sfiaCompilation.deniedOperations.join(", ")}
-+                      </dd>
-+                    </div>
-+                  ) : null}
-+                  {sfiaCompilation.deniedPaths.length > 0 ? (
-+                    <div>
-+                      <dt>Chemins refusés</dt>
-+                      <dd data-testid="sfia-denied-paths">
-+                        {sfiaCompilation.deniedPaths.join(", ")}
-+                      </dd>
-+                    </div>
-+                  ) : null}
-+                  {sfiaCompilation.actionCandidateId ? (
-+                    <div>
-+                      <dt>ActionCandidate live</dt>
-+                      <dd data-testid="sfia-live-action-id">
-+                        {sfiaCompilation.actionCandidateId}
-+                      </dd>
-+                    </div>
-+                  ) : null}
-+                </dl>
-+              ) : null}
-+              {sfiaProposal?.kind === "action_proposed" ? (
-+                <ul data-testid="sfia-proposal-files">
-+                  {sfiaProposal.files.map((f) => (
-+                    <li key={`${f.operation}:${f.path}`}>
-+                      {f.operation} {f.path}
-+                    </li>
-+                  ))}
-+                </ul>
-+              ) : null}
-+            </section>
-+          )}
-+
-+          <section
-+            className={styles.panel}
-+            data-testid="ct-sources-panel"
-+            aria-labelledby="ct-sources-title"
-+          >
-+            <h2 id="ct-sources-title" className={styles.panelTitle}>
-+              Sources & outils (Control Tower)
-+            </h2>
-+            <p className={styles.muted} data-testid="ct-github-status">
-+              GitHub read :{" "}
-+              {githubStatus
-+                ? githubStatus.available
-+                  ? `disponible (${githubStatus.transport})`
-+                  : `indisponible — ${githubStatus.reason ?? "auth requise"}`
-+                : "—"}
-+            </p>
-+            <p className={styles.hint}>
-+              Markers fixture : __CT_TOOL_GIT_STATUS__ · __CT_TOOL_GITHUB_REPO__
-+              · __CT_TOOL_DENIED_PATH__
-+            </p>
-+            <ul data-testid="ct-tool-events">
-+              {sessionEvents
-+                .filter(
-+                  (e) =>
-+                    e.type.startsWith("TOOL_") ||
-+                    e.type === "SOURCE_SEARCH_STARTED",
-+                )
-+                .slice(-20)
-+                .map((e) => (
-+                  <li key={e.eventId} data-testid="ct-tool-event">
-+                    <strong>{e.type}</strong> · {e.createdAt} ·{" "}
-+                    {e.detail.slice(0, 160)}
-+                  </li>
-+                ))}
-+            </ul>
-+            {sessionEvents.filter((e) => e.type.startsWith("TOOL_")).length ===
-+            0 ? (
-+              <p className={styles.muted} data-testid="ct-tool-events-empty">
-+                Aucun appel d’outil pour cette session.
-+              </p>
-+            ) : null}
-+          </section>
-+
-+          <section
-+            className={styles.panel}
-+            data-testid="ct-timeline-panel"
-+            aria-labelledby="ct-timeline-title"
-+          >
-+            <h2 id="ct-timeline-title" className={styles.panelTitle}>
-+              Timeline unifiée
-+            </h2>
-+            <p data-testid="ct-timeline-terminal">
-+              État terminal : {timelineTerminal}
-+            </p>
-+            <ol data-testid="ct-timeline-list">
-+              {sessionEvents.slice(-30).map((e) => (
-+                <li key={e.eventId} data-testid="ct-timeline-item">
-+                  {e.createdAt} — {e.type}
-+                </li>
-+              ))}
-+            </ol>
-+          </section>
-+
-           <section
-             className={`${styles.panel} ${styles.i3Panel}`}
-             data-testid="ops1-i3-controls"
-@@ -1158,13 +1497,20 @@ export function Ops1SessionScreen({
-               >
-                 ACTION_NOT_REQUIRED
-               </CtaButton>
--              <CtaButton
--                onClick={onCreateCandidate}
--                disabled={pending}
--                data-testid="ops1-i3-create-candidate"
--              >
--                Créer ActionCandidate (fixture)
--              </CtaButton>
-+              {isFixtureSession ? (
-+                <CtaButton
-+                  onClick={onCreateCandidate}
-+                  disabled={pending}
-+                  data-testid="ops1-i3-create-candidate"
-+                >
-+                  Créer ActionCandidate (fixture)
-+                </CtaButton>
-+              ) : (
-+                <p className={styles.hint} data-testid="ops1-i3-live-no-fixture">
-+                  Mode live : ActionCandidate via moteur SFIA uniquement (pas de
-+                  bouton fixture).
-+                </p>
-+              )}
-             </div>
-           </section>
+**SFIA v3.0 FRAMING READY — HUMAN DECISION REQUIRED**
 
 ```
 
-### `projects/sfia-studio/app/lib/ops1/actions.ts`
+### `projects/sfia-studio/sfia-v3-framing/01-sfia-v3-product-vision-and-positioning.md`
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/actions.ts b/projects/sfia-studio/app/lib/ops1/actions.ts
-index 9084c3c..3171032 100644
---- a/projects/sfia-studio/app/lib/ops1/actions.ts
-+++ b/projects/sfia-studio/app/lib/ops1/actions.ts
-@@ -26,6 +26,11 @@ import {
-   generateExecutionReport,
-   getLatestReportForSession,
- } from "./reportService";
-+import {
-+  buildUnifiedTimeline,
-+  generateReportAndReinject,
-+  listToolRelatedEvents,
-+} from "./reportReinjection";
- import {
-   closeSession,
-   openContinuation,
-@@ -47,6 +52,20 @@ import {
- } from "./conversation/config";
- import { sendConversationMessage } from "./conversation/service";
- import { getRealCursorAvailability } from "./cursorExecutionAdapter";
-+import { resolveGithubReadTransport, probeGhAuth } from "./tools/githubReadAdapter";
-+import { resolveWorkspaceRootFromAppCwd } from "./allowlistEvaluation";
-+import { getActionCandidate } from "./actionGate";
-+import {
-+  ensureSfiaContext,
-+  getStoredSfiaContext,
-+  instantiateCursorPrompt,
-+  type SfiaActionProposal,
-+  type SfiaCanonicalContext,
-+  type SfiaCompilationResult,
-+  type SfiaCursorPromptInstantiation,
-+} from "./sfia";
-+import { createEventId } from "./ids";
-+import { openOps1Db, nowIsoWithOffset } from "./db";
- import type {
-   ActionAllowlistEvaluation,
-   ActionCandidate,
-@@ -64,6 +83,7 @@ import type {
-   ProviderPresentation,
-   SessionQualification,
-   ExecutionReport,
-+  SessionEvent,
- } from "./types";
+```markdown
+# 01 — Vision produit et positionnement SFIA v3.0
 
- export type Ops1ActionResult<T> =
-@@ -137,6 +157,8 @@ export async function ops1GetSessionAction(
-     latestContractByAction: Record<string, ExecutionContract | null>;
-     latestAttemptByContract: Record<string, ExecutionAttempt | null>;
-     latestReport: ExecutionReport | null;
-+    events: SessionEvent[];
-+    timeline: ReturnType<typeof buildUnifiedTimeline>;
-   }>
- > {
-   try {
-@@ -159,6 +181,8 @@ export async function ops1GetSessionAction(
-         latestContractByAction: i5.latestContractByAction,
-         latestAttemptByContract: i5.latestAttemptByContract,
-         latestReport: getLatestReportForSession(id),
-+        events: listToolRelatedEvents(id),
-+        timeline: buildUnifiedTimeline(id),
-       },
-     };
-   } catch (error) {
-@@ -172,11 +196,30 @@ export async function ops1GetLiveConfigAction(): Promise<
-     available: boolean;
-     missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL">;
-     testProvider: boolean;
-+    github: {
-+      available: boolean;
-+      transport: string;
-+      reason?: string;
-+    };
-   }>
- > {
-   try {
-     const status = getLiveConversationAvailability();
-     const testProvider = isFakeConversationProviderForced();
-+    const ghTransport = resolveGithubReadTransport();
-+    const ghProbe = probeGhAuth();
-+    const github =
-+      ghTransport.kind === "unavailable"
-+        ? {
-+            available: false,
-+            transport: "none",
-+            reason: ghTransport.reason,
-+          }
-+        : {
-+            available: true,
-+            transport: ghTransport.kind,
-+            reason: ghProbe.reason,
-+          };
-     if (status.available || testProvider) {
-       return {
-         ok: true,
-@@ -184,12 +227,18 @@ export async function ops1GetLiveConfigAction(): Promise<
-           available: true,
-           missing: status.available ? [] : status.missing,
-           testProvider,
-+          github,
-         },
-       };
-     }
-     return {
-       ok: true,
--      data: { available: false, missing: status.missing, testProvider: false },
-+      data: {
-+        available: false,
-+        missing: status.missing,
-+        testProvider: false,
-+        github,
-+      },
-     };
-   } catch (error) {
-     return fail(error);
-@@ -213,6 +262,9 @@ export async function ops1SendMessageAction(input: {
-     usage: ConversationUsageCounters | null;
-     mode: ConversationMode;
-     presentation: ProviderPresentation;
-+    sfiaContext: SfiaCanonicalContext | null;
-+    sfiaProposal: SfiaActionProposal | null;
-+    sfiaCompilation: SfiaCompilationResult | null;
-   }>
- > {
-   try {
-@@ -236,6 +288,9 @@ export async function ops1SendMessageAction(input: {
-         usage: result.usage,
-         mode: result.mode,
-         presentation: resolvePresentation(result.mode),
-+        sfiaContext: result.sfiaContext ?? null,
-+        sfiaProposal: result.sfiaProposal ?? null,
-+        sfiaCompilation: result.sfiaCompilation ?? null,
-       },
-     };
-   } catch (error) {
-@@ -243,6 +298,115 @@ export async function ops1SendMessageAction(input: {
-   }
- }
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Baseline active | SFIA v2.6 |
+| Gate | Ouverture cadrage SFIA v3.0 |
 
-+/** Resolve or reuse immutable SFIA canonical context for the session. */
-+export async function ops1EnsureSfiaContextAction(input: {
-+  sessionId: string;
-+  forceRefresh?: boolean;
-+}): Promise<Ops1ActionResult<{ context: SfiaCanonicalContext }>> {
-+  try {
-+    const sessionId = assertSessionId(input.sessionId);
-+    const context = ensureSfiaContext({
-+      sessionId,
-+      forceRefresh: input.forceRefresh,
-+    });
-+    return { ok: true, data: { context } };
-+  } catch (error) {
-+    return fail(error);
-+  }
-+}
-+
-+export async function ops1GetSfiaContextAction(input: {
-+  sessionId: string;
-+}): Promise<Ops1ActionResult<{ context: SfiaCanonicalContext | null }>> {
-+  try {
-+    const sessionId = assertSessionId(input.sessionId);
-+    return {
-+      ok: true,
-+      data: { context: getStoredSfiaContext(sessionId) },
-+    };
-+  } catch (error) {
-+    return fail(error);
-+  }
-+}
-+
-+/**
-+ * Instantiate Cursor prompt from the real Git template after COMPILED + candidate.
-+ * Does not start Cursor.
-+ */
-+export async function ops1InstantiateCursorPromptAction(input: {
-+  sessionId: string;
-+  actionCandidateId: string;
-+  compilation: SfiaCompilationResult;
-+}): Promise<Ops1ActionResult<{ instantiation: SfiaCursorPromptInstantiation }>> {
-+  try {
-+    const sessionId = assertSessionId(input.sessionId);
-+    const actionCandidateId = assertActionCandidateId(input.actionCandidateId);
-+    const context = getStoredSfiaContext(sessionId);
-+    if (!context) {
-+      throw new Ops1Error(
-+        "CONFLICT",
-+        "Contexte SFIA absent — requalification requise.",
-+      );
-+    }
-+    if (input.compilation.contextId !== context.contextId) {
-+      throw new Ops1Error(
-+        "CONFLICT",
-+        "CONTEXT_STALE — REQUALIFICATION REQUIRED",
-+      );
-+    }
-+    if (input.compilation.status !== "COMPILED") {
-+      throw new Ops1Error(
-+        "VALIDATION",
-+        "Instanciation refusée — compilation non COMPILED.",
-+      );
-+    }
-+    const candidate = getActionCandidate(actionCandidateId);
-+    if (!candidate || candidate.sessionId !== sessionId) {
-+      throw new Ops1Error("NOT_FOUND", "ActionCandidate introuvable.");
-+    }
-+    const workspaceRoot = resolveWorkspaceRootFromAppCwd();
-+    const instantiation = instantiateCursorPrompt({
-+      workspaceRoot,
-+      context,
-+      compilation: input.compilation,
-+      candidate,
-+    });
-+    const db = openOps1Db();
-+    const now = nowIsoWithOffset();
-+    db.prepare(
-+      `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-+       VALUES (?, ?, ?, ?, ?)`,
-+    ).run(
-+      createEventId(),
-+      sessionId,
-+      "CURSOR_TEMPLATE_LOADED",
-+      now,
-+      JSON.stringify({
-+        templatePath: instantiation.templatePath,
-+        templateDigest: instantiation.templateDigest,
-+        templateBlobSha: instantiation.templateBlobSha,
-+      }),
-+    );
-+    db.prepare(
-+      `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-+       VALUES (?, ?, ?, ?, ?)`,
-+    ).run(
-+      createEventId(),
-+      sessionId,
-+      "CURSOR_PROMPT_INSTANTIATED",
-+      now,
-+      JSON.stringify({
-+        contextId: instantiation.contextId,
-+        actionId: instantiation.actionId,
-+        templateDigest: instantiation.templateDigest,
-+      }),
-+    );
-+    return { ok: true, data: { instantiation } };
-+  } catch (error) {
-+    return fail(error);
-+  }
-+}
-+
- /** @deprecated I1 name — fixture sessions only. */
- export async function ops1AppendUserMessageAction(input: {
-   sessionId: string;
-@@ -520,18 +684,46 @@ export async function ops1GenerateExecutionReportAction(input: {
-   sessionId: string;
-   contractId: string;
-   executionAttemptId?: string;
--}): Promise<Ops1ActionResult<{ report: ExecutionReport }>> {
-+  /** Default true — reinject + analyze. Set false for legacy report-only. */
-+  reinject?: boolean;
-+}): Promise<
-+  Ops1ActionResult<{
-+    report: ExecutionReport;
-+    reinjectionTurn?: JournalTurn | null;
-+    analysisTurn?: JournalTurn | null;
-+    analysisError?: string | null;
-+    reinjectionId?: string;
-+  }>
-+> {
-   try {
-     const sessionId = assertSessionId(input.sessionId);
-     if (typeof input.contractId !== "string" || !input.contractId) {
-       throw new Ops1Error("VALIDATION", "contractId invalide.");
-     }
--    const { report } = generateExecutionReport({
-+    if (input.reinject === false) {
-+      const { report } = generateExecutionReport({
-+        sessionId,
-+        contractId: input.contractId,
-+        executionAttemptId: input.executionAttemptId,
-+      });
-+      return { ok: true, data: { report } };
-+    }
-+    const result = await generateReportAndReinject({
-       sessionId,
-       contractId: input.contractId,
-       executionAttemptId: input.executionAttemptId,
-+      analyze: true,
-     });
--    return { ok: true, data: { report } };
-+    return {
-+      ok: true,
-+      data: {
-+        report: result.report,
-+        reinjectionTurn: result.reinjectionTurn,
-+        analysisTurn: result.analysisTurn,
-+        analysisError: result.analysisError,
-+        reinjectionId: result.reinjectionId,
-+      },
-+    };
-   } catch (error) {
-     return fail(error);
-   }
-```
+## 1. Positionnement exact candidat
 
-### `projects/sfia-studio/app/lib/ops1/conversation/service.ts`
+**SFIA Studio v3.0 (candidat)** est un **Project Operating System** : système de pilotage projet bout en bout, assisté par IA et gouverné par la méthode SFIA versionnée dans Git.
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/conversation/service.ts b/projects/sfia-studio/app/lib/ops1/conversation/service.ts
-index b88e051..79a3fdf 100644
---- a/projects/sfia-studio/app/lib/ops1/conversation/service.ts
-+++ b/projects/sfia-studio/app/lib/ops1/conversation/service.ts
-@@ -19,6 +19,22 @@ import {
- } from "./types";
- import { resolveConversationProvider } from "./provider";
- import type { ConversationProvider } from "./types";
-+import { runToolCallingLoop } from "./toolLoop";
-+import { createToolCallId, routeToolCall } from "../tools/toolRouter";
-+import { openOps1Db, nowIsoWithOffset } from "../db";
-+import { createEventId } from "../ids";
-+import {
-+  buildSfiaSystemPreamble,
-+  ensureSfiaContext,
-+} from "../sfia/sessionContext";
-+import { parseProposalFromAssistantText } from "../sfia/proposalSchema";
-+import { compileSfiaActionProposal } from "../sfia/actionCompiler";
-+import { resolveWorkspaceRootFromAppCwd } from "../allowlistEvaluation";
-+import type {
-+  SfiaActionProposal,
-+  SfiaCanonicalContext,
-+  SfiaCompilationResult,
-+} from "../sfia/types";
+Il n’est **pas** :
 
- export interface SendMessageResult {
-   userTurn: JournalTurn;
-@@ -27,6 +43,11 @@ export interface SendMessageResult {
-   usage: ConversationUsageCounters | null;
-   mode: ConversationMode;
-   providerId: string | null;
-+  toolRounds?: number;
-+  toolCalls?: number;
-+  sfiaContext?: SfiaCanonicalContext | null;
-+  sfiaProposal?: SfiaActionProposal | null;
-+  sfiaCompilation?: SfiaCompilationResult | null;
- }
+- un chat généraliste ;
+- une simple interface ChatGPT ;
+- un lanceur de prompts ;
+- un écran de monitoring isolé ;
+- une duplication de la doctrine SFIA en code.
 
- function durationMs(startedAt: string, completedAt: string): number | null {
-@@ -36,17 +57,208 @@ function durationMs(startedAt: string, completedAt: string): number | null {
-   return Math.max(0, b - a);
- }
+Il **est** (candidat) :
 
--/**
-- * Orchestrates fixture or live conversation turn using the session's
-- * immutable conversationMode. Optional requestedMode is validated then ignored
-- * if matching; mismatch is rejected before any persistence or provider call.
-- */
-+function emitSfia(
-+  sessionId: string,
-+  type: "SFIA_PROPOSAL_RECEIVED" | "SFIA_PROPOSAL_INVALID",
-+  detail: Record<string, unknown>,
-+): void {
-+  const db = openOps1Db();
-+  db.prepare(
-+    `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-+     VALUES (?, ?, ?, ?, ?)`,
-+  ).run(
-+    createEventId(),
-+    sessionId,
-+    type,
-+    nowIsoWithOffset(),
-+    JSON.stringify(detail),
-+  );
-+}
-+
-+async function runFixtureWithOptionalTools(
-+  sessionId: string,
-+  userContent: string,
-+): Promise<{ reply: string; toolCalls: number }> {
-+  const markers: Array<{
-+    marker: RegExp;
-+    name: string;
-+    args: Record<string, unknown>;
-+  }> = [
-+    {
-+      marker: /__CT_TOOL_GIT_STATUS__/i,
-+      name: "git_local_get_status",
-+      args: {},
-+    },
-+    {
-+      marker: /__CT_TOOL_GIT_HEAD__/i,
-+      name: "git_local_get_head",
-+      args: {},
-+    },
-+    {
-+      marker: /__CT_TOOL_GITHUB_REPO__/i,
-+      name: "github_get_repository",
-+      args: {},
-+    },
-+    {
-+      marker: /__CT_TOOL_DENIED_PATH__/i,
-+      name: "git_local_read_file",
-+      args: { path: ".env" },
-+    },
-+  ];
-+
-+  const db = openOps1Db();
-+  const parts: string[] = [buildFixtureAssistantReply(userContent)];
-+  let toolCalls = 0;
-+  for (const m of markers) {
-+    if (!m.marker.test(userContent)) continue;
-+    toolCalls += 1;
-+    const result = await routeToolCall(
-+      {
-+        toolCallId: createToolCallId(),
-+        name: m.name,
-+        arguments: m.args,
-+        sessionId,
-+      },
-+      { db },
-+    );
-+    parts.push(
-+      result.ok
-+        ? `[FIXTURE TOOL OK] ${m.name}: ${result.summary}`
-+        : `[FIXTURE TOOL ${result.status.toUpperCase()}] ${m.name}: ${result.errorCode} — ${result.message}`,
-+    );
-+  }
-+
-+  if (/__SFIA_PROPOSE_CREATE_MD__/i.test(userContent)) {
-+    const ctx = ensureSfiaContext({ sessionId });
-+    const content =
-+      "# Preuve Control Tower\n\nCe fichier a été créé pendant la validation live du vertical slice Control Tower.\n";
-+    const proposalJson = {
-+      kind: "action_proposed",
-+      proposalId: `sfia-prop-fixture-${Date.now()}`,
-+      sessionId,
-+      contextId: ctx.contextId,
-+      objective:
-+        "Créer projects/campus360/05-control-tower-live-proof.md avec le contenu exact demandé.",
-+      rationale: "Demande Morris bornée — CREATE Markdown Campus360.",
-+      cycle: "Delivery documentaire",
-+      profile: "Critical",
-+      profileJustification:
-+        "Exécution Cursor potentielle + gouvernance SFIA",
-+      blocks: ["QA / validation", "sécurité"],
-+      project: "campus360",
-+      operations: ["CREATE"],
-+      files: [
-+        {
-+          path: "projects/campus360/05-control-tower-live-proof.md",
-+          operation: "CREATE",
-+          exactContent: content,
-+        },
-+      ],
-+      expectedEffects: ["create markdown file in worktree after GO"],
-+      excludedEffects: ["commit", "push", "PR", "merge"],
-+      requiredGates: ["GO Cursor"],
-+      stopConditions: ["Aucun effet distant"],
-+      cursorRequired: true,
-+      reviewPackLevel: "full",
-+      reviewHandoffRequired: true,
-+      userVisibleSummary:
-+        "ActionCandidate proposée: CREATE 05-control-tower-live-proof.md — aucune exécution.",
-+      exactRequestedContent: content,
-+      confidence: 0.95,
-+      unresolvedQuestions: [],
-+    };
-+    parts.push("Proposition SFIA structurée:");
-+    parts.push("```json");
-+    parts.push(JSON.stringify(proposalJson, null, 2));
-+    parts.push("```");
-+  }
-+
-+  if (/__SFIA_PROPOSE_COMMIT__/i.test(userContent)) {
-+    const ctx = ensureSfiaContext({ sessionId });
-+    parts.push("```json");
-+    parts.push(
-+      JSON.stringify(
-+        {
-+          kind: "action_proposed",
-+          proposalId: `sfia-prop-bad-${Date.now()}`,
-+          sessionId,
-+          contextId: ctx.contextId,
-+          objective: "Persister les changements via commit puis push distant",
-+          rationale: "invalid — doit être refusé par le compilateur",
-+          cycle: "Delivery",
-+          profile: "Standard",
-+          profileJustification: "n/a",
-+          blocks: [],
-+          project: "campus360",
-+          operations: ["commit", "push"],
-+          files: [
-+            {
-+              path: "projects/campus360/README.md",
-+              operation: "MODIFY",
-+              exactContent: "x",
-+            },
-+          ],
-+          expectedEffects: [],
-+          excludedEffects: [],
-+          requiredGates: [],
-+          stopConditions: [],
-+          cursorRequired: false,
-+          reviewPackLevel: "light",
-+          reviewHandoffRequired: false,
-+          userVisibleSummary: "Proposition commit puis push (doit être refusée)",
-+          confidence: 0.5,
-+          unresolvedQuestions: [],
-+        },
-+        null,
-+        2,
-+      ),
-+    );
-+    parts.push("```");
-+  }
-+
-+  return { reply: parts.join("\n"), toolCalls };
-+}
-+
-+function processSfiaProposalFromText(input: {
-+  sessionId: string;
-+  text: string;
-+  context: SfiaCanonicalContext;
-+}): {
-+  proposal: SfiaActionProposal | null;
-+  compilation: SfiaCompilationResult | null;
-+} {
-+  const parsed = parseProposalFromAssistantText(input.text, {
-+    sessionId: input.sessionId,
-+    contextId: input.context.contextId,
-+  });
-+  if (!parsed.ok) {
-+    emitSfia(input.sessionId, "SFIA_PROPOSAL_INVALID", {
-+      reason: parsed.reason,
-+      contextId: input.context.contextId,
-+    });
-+    return { proposal: null, compilation: null };
-+  }
-+  emitSfia(input.sessionId, "SFIA_PROPOSAL_RECEIVED", {
-+    proposalId: parsed.proposal.proposalId,
-+    kind: parsed.proposal.kind,
-+    contextId: input.context.contextId,
-+  });
-+  const compilation = compileSfiaActionProposal({
-+    proposal: parsed.proposal,
-+    context: input.context,
-+    workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-+    persist: parsed.proposal.kind === "action_proposed",
-+  });
-+  return { proposal: parsed.proposal, compilation };
-+}
-+
- export async function sendConversationMessage(input: {
-   sessionId: string;
-   content: string;
--  /** Optional client hint — must match session mode or be omitted. */
-   requestedMode?: ConversationMode;
-   provider?: ConversationProvider;
-+  enableTools?: boolean;
-+  enableSfia?: boolean;
- }): Promise<SendMessageResult> {
-   const session = getSession(input.sessionId);
-   if (!session) {
-@@ -68,7 +280,6 @@ export async function sendConversationMessage(input: {
-     );
-   }
+- le cockpit où un utilisateur humain crée, reprend, pilote et clôture un projet ;
+- le lieu où les cycles sont ouverts, conduits, validés et enchaînés ;
+- la façade où les décisions humaines structurantes sont demandées, tracées et appliquées ;
+- l’orchestrateur visible des effets déterministes (outils, Cursor, Git) sous contrats ;
+- le point de collecte des preuves, validations, réserves et capitalisations.
 
--  // Defense: refuse mixed journals before any write.
-   assertJournalMatchesMode(listTurns(input.sessionId), mode);
+## 2. Problème que v3.0 adresse
 
-   if (mode === "fixture") {
-@@ -81,8 +292,16 @@ export async function sendConversationMessage(input: {
+| Problème | Observation actuelle (v2.6 + Control Tower local) |
+|----------|--------------------------------------------------|
+| Fragmentation outils | ChatGPT, Cursor, Git, GitHub, Studio OPS1 encore partiellement séparés |
+| Conversation hors projet | Risque de « chat libre » sans rattachement projet/cycle |
+| Doctrine ≠ runtime | Méthode Markdown riche ; runtime encore partiel (OPS1/CT) |
+| Démonstration produit | Vertical slice technique ≠ parcours produit complet (créer projet → clôturer) |
+| Terminologie individu-centrique | « Morris décide » doit devenir rôle de décideur humain habilité |
 
-     let assistantTurn: JournalTurn | null = null;
-     let assistantError: string | null = null;
-+    let toolCalls = 0;
-+    let sfiaContext: SfiaCanonicalContext | null = null;
-+    let sfiaProposal: SfiaActionProposal | null = null;
-+    let sfiaCompilation: SfiaCompilationResult | null = null;
-     try {
--      const reply = buildFixtureAssistantReply(input.content);
-+      const { reply, toolCalls: tc } = await runFixtureWithOptionalTools(
-+        input.sessionId,
-+        input.content,
-+      );
-+      toolCalls = tc;
-       const appended = appendTurn({
-         sessionId: input.sessionId,
-         role: "assistant_fixture",
-@@ -90,6 +309,21 @@ export async function sendConversationMessage(input: {
-         fixture: true,
-       });
-       assistantTurn = appended.turn;
-+
-+      if (
-+        input.enableSfia !== false &&
-+        (/__SFIA_PROPOSE_/i.test(input.content) ||
-+          /```json[\s\S]*"kind"\s*:/i.test(reply))
-+      ) {
-+        sfiaContext = ensureSfiaContext({ sessionId: input.sessionId });
-+        const processed = processSfiaProposalFromText({
-+          sessionId: input.sessionId,
-+          text: reply,
-+          context: sfiaContext,
-+        });
-+        sfiaProposal = processed.proposal;
-+        sfiaCompilation = processed.compilation;
-+      }
-     } catch (error) {
-       assistantError = toSafeClientError(error).message;
-     }
-@@ -101,11 +335,19 @@ export async function sendConversationMessage(input: {
-       usage: null,
-       mode: "fixture",
-       providerId: null,
-+      toolRounds: toolCalls > 0 ? 1 : 0,
-+      toolCalls,
-+      sfiaContext,
-+      sfiaProposal,
-+      sfiaCompilation,
-     };
-   }
+## 3. Vision formulée
 
--  // LIVE path — no silent fallback to fixture.
-   const provider = input.provider ?? resolveConversationProvider();
-+  const enableSfia = input.enableSfia !== false;
-+  const sfiaContext = enableSfia
-+    ? ensureSfiaContext({ sessionId: input.sessionId })
-+    : null;
+> SFIA Studio permet de **piloter un projet** de bout en bout sous méthode SFIA : qualifier, décider, exécuter sous contrat, prouver, valider, enchaîner — avec GPT qui raisonne librement dans un **contexte contraint**, et des effets **déterministes** validés par des policies et gates humains.
 
-   const { turn: userTurn } = appendTurn({
-     sessionId: input.sessionId,
-@@ -129,25 +371,56 @@ export async function sendConversationMessage(input: {
+## 4. Ce que le produit doit permettre
 
-   try {
-     const history = listTurns(input.sessionId);
--    const messages = buildProviderMessagesFromJournal(history, "live");
--    const completion = await provider.complete(messages);
-+    let messages = buildProviderMessagesFromJournal(history, "live");
-+    if (sfiaContext) {
-+      messages = [
-+        {
-+          role: "user",
-+          content: `[SFIA_SYSTEM_CONTEXT]\n${buildSfiaSystemPreamble(sfiaContext)}`,
-+        },
-+        {
-+          role: "assistant",
-+          content:
-+            "Contexte SFIA reçu. Je qualifierai sans exécuter et produirai une SfiaActionProposal JSON si une action est pertinente.",
-+        },
-+        ...messages,
-+      ];
-+    }
-+    const loop = await runToolCallingLoop({
-+      sessionId: input.sessionId,
-+      messages,
-+      provider,
-+      enableTools: input.enableTools !== false,
-+    });
+1. Créer un projet
+2. Reprendre un projet existant
+3. Importer / consulter un projet finalisé
+4. Ouvrir un cycle
+5. Reprendre un cycle
+6. Guider une réflexion (sans questionnaire rigide)
+7. Consulter les sources projet et canoniques
+8. Qualifier une demande
+9. Préparer une décision humaine
+10. Compiler une action
+11. Orchestrer Cursor sous contrat
+12. Contrôler Git (lecture / écritures gouvernées)
+13. Collecter les preuves
+14. Valider un résultat
+15. Proposer la transition suivante
+16. Capitaliser
 
-     const { turn: assistantTurn } = appendTurn({
-       sessionId: input.sessionId,
-       role: "assistant_live",
--      content: completion.text,
-+      content: loop.text,
-       fixture: false,
-     });
+## 5. Règle conversationnelle structurante
 
-+    let sfiaProposal: SfiaActionProposal | null = null;
-+    let sfiaCompilation: SfiaCompilationResult | null = null;
-+    if (sfiaContext) {
-+      const processed = processSfiaProposalFromText({
-+        sessionId: input.sessionId,
-+        text: loop.text,
-+        context: sfiaContext,
-+      });
-+      sfiaProposal = processed.proposal;
-+      sfiaCompilation = processed.compilation;
-+    }
-+
-     const finalized = completeConversationAttemptSuccess({
-       attemptId: attempt.attemptId,
-       sessionId: input.sessionId,
-       assistantTurnId: assistantTurn.turnId,
--      providerResponseId: completion.usage.providerResponseId,
--      model: completion.usage.model,
--      inputTokens: completion.usage.inputTokens,
--      outputTokens: completion.usage.outputTokens,
--      totalTokens: completion.usage.totalTokens,
-+      providerResponseId: loop.usage.providerResponseId,
-+      model: loop.usage.model,
-+      inputTokens: loop.usage.inputTokens,
-+      outputTokens: loop.usage.outputTokens,
-+      totalTokens: loop.usage.totalTokens,
-     });
+Toute conversation est rattachée à au moins un objet : **projet**, **cycle**, **décision**, **action**, **rapport** ou **réserve**.
 
-     console.info(
-@@ -155,6 +428,8 @@ export async function sendConversationMessage(input: {
-       input.sessionId,
-       attempt.attemptId,
-       finalized.totalTokens,
-+      `tools=${loop.toolCalls}`,
-+      sfiaCompilation ? `sfia=${sfiaCompilation.status}` : "",
-     );
+Il n’existe **pas** de conversation libre sans contexte projet (sauf opérations bornées de création / import de projet).
 
-     return {
-@@ -175,6 +450,11 @@ export async function sendConversationMessage(input: {
-       },
-       mode: "live",
-       providerId: provider.providerId,
-+      toolRounds: loop.toolRounds,
-+      toolCalls: loop.toolCalls,
-+      sfiaContext,
-+      sfiaProposal,
-+      sfiaCompilation,
-     };
-   } catch (error) {
-     const safe = toSafeClientError(error);
-@@ -196,6 +476,7 @@ export async function sendConversationMessage(input: {
-       usage: null,
-       mode: "live",
-       providerId: provider.providerId,
-+      sfiaContext,
-     };
-   }
- }
-```
+## 6. Séparation liberté / contrainte
 
-### `projects/sfia-studio/app/lib/ops1/types.ts`
+| Libre | Contraint |
+|-------|-----------|
+| Formulation naturelle GPT | Contexte injecté (sources, état, gates) |
+| Analyse, challenge, reformulation | Outils exposés |
+| Hypothèses et recommandations | Transitions d’état |
+| Questions de clarification | Effets (écriture, Cursor, remote) |
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/ops1/types.ts b/projects/sfia-studio/app/lib/ops1/types.ts
-index a92e16d..96a3bf5 100644
---- a/projects/sfia-studio/app/lib/ops1/types.ts
-+++ b/projects/sfia-studio/app/lib/ops1/types.ts
-@@ -110,7 +110,38 @@ export type SessionEventType =
-   | "POST_REPORT_CHAT_RESUMED"
-   | "SESSION_CLOSED"
-   | "SESSION_CONTINUATION_OPENED"
--  | "CLOSED_SESSION_MUTATION_REFUSED";
-+  | "CLOSED_SESSION_MUTATION_REFUSED"
-+  | "SOURCE_SEARCH_STARTED"
-+  | "TOOL_CALL_REQUESTED"
-+  | "TOOL_CALL_STARTED"
-+  | "TOOL_CALL_SUCCEEDED"
-+  | "TOOL_CALL_FAILED"
-+  | "TOOL_CALL_DENIED"
-+  | "TOOL_LOOP_COMPLETED"
-+  | "TOOL_LOOP_LIMIT_REACHED"
-+  | "EXECUTION_PREPARING"
-+  | "CURSOR_PROCESS_STARTED"
-+  | "CURSOR_PROCESS_COMPLETED"
-+  | "CURSOR_PROCESS_FAILED"
-+  | "POSTCHECK_STARTED"
-+  | "POSTCHECK_COMPLETED"
-+  | "REPORT_GENERATION_STARTED"
-+  | "REPORT_SEALED"
-+  | "REINJECTION_STARTED"
-+  | "REINJECTION_COMPLETED"
-+  | "REINJECTION_FAILED"
-+  | "SFIA_CONTEXT_LOADING"
-+  | "SFIA_SOURCE_READ"
-+  | "SFIA_CONTEXT_READY"
-+  | "SFIA_CONTEXT_FAILED"
-+  | "SFIA_PROPOSAL_RECEIVED"
-+  | "SFIA_PROPOSAL_INVALID"
-+  | "SFIA_COMPILATION_STARTED"
-+  | "SFIA_COMPILATION_SUCCEEDED"
-+  | "SFIA_COMPILATION_DENIED"
-+  | "ACTION_CANDIDATE_CREATED_FROM_LIVE"
-+  | "CURSOR_TEMPLATE_LOADED"
-+  | "CURSOR_PROMPT_INSTANTIATED";
+## 7. Relation Control Tower
 
- export interface SessionEvent {
-   eventId: string;
-```
+Control Tower (66–74) prouve une **chaîne d’intégration** (Studio ↔ GPT ↔ Git ↔ GitHub read ↔ Cursor).
+v3.0 **généralise** cette chaîne en **système de projet**, pas seulement en démonstrateur d’outil.
 
-### `projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx`
+## 8. Décisions humaines requises (hors validation ici)
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-index 68f3cdb..b21a56a 100644
---- a/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/ops1/Ops1SessionScreen.test.tsx
-@@ -13,6 +13,29 @@ vi.mock("@/lib/ops1/actions", () => ({
-   ops1GetSessionAction: (...args: unknown[]) => get(...args),
-   ops1SendMessageAction: (...args: unknown[]) => send(...args),
-   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
-+  ops1EnsureSfiaContextAction: vi.fn(async () => ({
-+    ok: true,
-+    data: {
-+      context: {
-+        contextId: "sfia-ctx-test",
-+        methodBaseline: "SFIA v2.6",
-+        candidateCycle: "test",
-+        profile: "Critical",
-+        headSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-+        openGates: [],
-+        closedGates: ["commit"],
-+        allowedOperations: ["conversation"],
-+        forbiddenOperations: ["commit"],
-+        sourceDocuments: [],
-+        warnings: [],
-+      },
-+    },
-+  })),
-+  ops1GetSfiaContextAction: vi.fn(async () => ({
-+    ok: true,
-+    data: { context: null },
-+  })),
-+  ops1InstantiateCursorPromptAction: vi.fn(),
-   ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
-     ok: true,
-     data: { flagEnabled: false, binPath: null, available: false },
-```
+- Valider ou reformuler cette vision (`GO VALIDATION CADRAGE SFIA v3.0`).
+- Confirmer que v2.6 reste baseline jusqu’à un GO d’adoption v3.0 distinct.
+- Trancher le périmètre MVP produit vs trajectoire complète.
 
-### `projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts`
+## 9. Anti-claims
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts b/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
-index d0125d7..ab5c294 100644
---- a/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
-+++ b/projects/sfia-studio/app/__tests__/ops1/conversation-repository.test.ts
-@@ -185,7 +185,7 @@ describe("ops1 i2 repository + immutable session mode", () => {
-       provider: wrapping,
-     });
-
--    expect(histories).toEqual([1, 3, 5]);
-+    expect(histories).toEqual([3, 5, 7]); // +2 SFIA preamble messages each live turn
-     expect(third.assistantTurn?.role).toBe("assistant_live");
-     expect(listTurns(session.sessionId)).toHaveLength(6);
+- Vision **candidate**, non baseline.
+- Pas d’implémentation autorisée par ce document.
+- Pas de monétisation / production claim.
 
 ```
 
-### `projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx`
+### `projects/sfia-studio/sfia-v3-framing/02-sfia-v3-principles-and-human-governance.md`
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx b/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
-index 5ddc33f..b979e18 100644
---- a/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/ops1/globalModeBadge.ui.test.tsx
-@@ -17,6 +17,29 @@ vi.mock("@/lib/ops1/actions", () => ({
-   ops1GetSessionAction: (...args: unknown[]) => get(...args),
-   ops1SendMessageAction: (...args: unknown[]) => send(...args),
-   ops1GetLiveConfigAction: (...args: unknown[]) => liveConfig(...args),
-+  ops1EnsureSfiaContextAction: vi.fn(async () => ({
-+    ok: true,
-+    data: {
-+      context: {
-+        contextId: "sfia-ctx-test",
-+        methodBaseline: "SFIA v2.6",
-+        candidateCycle: "test",
-+        profile: "Critical",
-+        headSha: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-+        openGates: [],
-+        closedGates: ["commit"],
-+        allowedOperations: ["conversation"],
-+        forbiddenOperations: ["commit"],
-+        sourceDocuments: [],
-+        warnings: [],
-+      },
-+    },
-+  })),
-+  ops1GetSfiaContextAction: vi.fn(async () => ({
-+    ok: true,
-+    data: { context: null },
-+  })),
-+  ops1InstantiateCursorPromptAction: vi.fn(),
-   ops1GetRealCursorAvailabilityAction: vi.fn(async () => ({
-     ok: true,
-     data: { flagEnabled: false, binPath: null, available: false },
+```markdown
+# 02 — Principes candidats et gouvernance humaine
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidats** — non promus en doctrine validée |
+| Baseline | SFIA v2.6 |
+
+## 1. Règle de lecture
+
+Les principes ci-dessous sont **candidats**. Aucun n’est automatiquement validé. Toute promotion en doctrine v3.0 exige un GO humain explicite.
+
+Terminologie cible : remplacer « Morris décide » par **« la décision structurante appartient à un décideur humain habilité »**.
+
+## 2. Douze principes candidats
+
+### P1 — Projet-first
+Toute interaction Studio est rattachée à un projet, ou à une opération bornée de création / import.
+
+**Raison :** éviter le chat orphelin.
+**Risque si absent :** dérive conversationnelle, effets hors contexte.
+
+### P2 — Cycle-aware
+Toute conversation de travail est rattachée à un cycle actif ou à une phase de qualification de cycle.
+
+**Raison :** SFIA est cycle-driven (routing guide v2.6).
+**Risque :** actions sans typologie / profil / gates.
+
+### P3 — Human-governed
+Les arbitrages structurants exigent une décision humaine explicite (gate UI ou équivalent audité).
+
+**Raison :** héritage L0 / fail-closed v2.6.
+**Risque :** automatisation de décision.
+
+### P4 — AI-reasoned
+GPT conserve la liberté d’analyse, reformulation, questionnement et recommandation.
+
+**Raison :** valeur SFIA = raisonnement, pas scripts de réponses.
+**Risque inverse :** questionnaire rigide / réponses préfabriquées.
+
+### P5 — Deterministic-effects
+Les effets (fichiers, Git, Cursor, remote) passent par contrats et policies déterministes.
+
+**Raison :** acquis OPS1 (allowlist, contractHash, revalidation).
+**Risque :** prompt libre = exécution libre.
+
+### P6 — Git-truth
+Git reste la source de vérité documentaire et technique ; la mémoire conversationnelle ne remplace pas Git.
+
+**Raison :** operating model + guardrails v2.6.
+**Risque :** doctrine « dans le chat ».
+
+### P7 — Explainable-routing
+Chaque routage de cycle ou transition doit être explicable (sources, critères, alternatives écartées).
+
+**Raison :** routing guide.
+**Risque :** boîte noire.
+
+### P8 — No-free-chat
+Studio ne répond pas aux demandes sans relation cohérente avec le projet ou le cycle (sinon clarification / blocked).
+
+**Raison :** gouvernance produit.
+**Risque :** usage généraliste.
+
+### P9 — Fail-closed
+En cas d’incertitude sur une action ou une autorité : bloquer ou demander clarification.
+
+**Raison :** guardrails + OPS1.
+**Risque :** deny-by-default affaibli.
+
+### P10 — Progressive-automation
+Automatiser d’abord préparation, collecte, contrôle et exécution bornée — avant tout arbitrage structurant.
+
+**Raison :** trajectoire L0–L5 à redécouper (voir doc 07).
+**Risque :** L5 décisionnel.
+
+### P11 — Doctrine-as-source
+La doctrine reste versionnée et lisible dans Git (Markdown).
+
+**Raison :** v2.6 baseline ; éviter seconde doctrine TS.
+**Risque :** divergence Markdown/code.
+
+### P12 — Contracts-as-runtime
+Les objets structurés (états, gates, schémas) servent à l’exécution sans devenir une doctrine indépendante.
+
+**Raison :** moteur de contexte canonique (74).
+**Risque :** constantes métier dispersées.
+
+## 3. Modèle de gouvernance humaine candidat
+
+| Niveau | Qui | Quoi |
+|--------|-----|------|
+| L-H0 | Décideur humain habilité | Gates structurants, adoption baseline, merge doctrine |
+| L-H1 | Approbateur opérationnel | GO action Cursor, GO write borné, GO remote selon policy |
+| L-H2 | Responsable de projet | Trajectoire, priorités, clôture projet |
+| L-S | Studio / moteurs | Préparation, contrôle, blocage, audit |
+| L-A | Agents (GPT/Cursor) | Raisonnement / exécution sous contrat — **jamais** gate structurant |
+
+## 4. Formes de décision humaine
+
+1. **Gate explicite UI** (préféré pour effets).
+2. **DecisionRequest** structurée (arbitrage documenté).
+3. **Refus / report / refine** (pas seulement GO).
+4. **Expiration / stale** → revalidation obligatoire.
+
+Une phrase conversationnelle **n’équivaut jamais** à un gate.
+
+## 5. Lien v2.6
+
+Conserver : fail-closed, Git-truth, human validation first, prompt-as-contract, review handoff required pour rapports Cursor.
+Adapter : terminologie individu → rôles ; orchestration manuelle → Studio-native.
+Ne pas remplacer sans GO : documents canoniques v2.6.
+
+## 6. Décisions humaines requises
+
+- Valider / amender / rejeter P1–P12.
+- Valider le modèle L-H0…L-A.
+- Confirmer l’interdiction du free-chat hors projet.
+
 ```
 
----
+### `projects/sfia-studio/sfia-v3-framing/03-sfia-v3-roles-and-responsibilities.md`
 
-## 15. État Git final
+```markdown
+# 03 — Rôles et responsabilités (candidats)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Note | Une personne peut cumuler plusieurs rôles humains |
+
+## 1. Rôles humains
+
+| Rôle | Finalité | Peut | Ne peut pas (candidat) |
+|------|----------|------|-------------------------|
+| **Utilisateur humain** | Utiliser Studio | Naviguer, converser, consulter | Valider un gate hors habilitation |
+| **Responsable de projet** | Porter trajectoire et objectifs | Définir priorités, demander clôture | Contourner policies techniques |
+| **Décideur humain** | Valider arbitrages structurants | Consommer gates structurants | Déléguer silencieusement à un agent |
+| **Approbateur** | Valider une opération spécifique | GO Cursor, GO write, GO remote selon scope | Élargir le scope hors allowlist |
+
+Le décideur n’est **pas** un individu nommé dans la doctrine produit.
+
+## 2. Rôles système
+
+### SFIA Studio
+Interface de pilotage et **orchestrateur visible**.
+Présente états, sources, décisions, actions, preuves.
+Ne remplace pas le décideur. Ne réécrit pas la doctrine.
+
+### Moteur SFIA
+Contexte, routage, policies, états, transitions, contrats.
+Compile et contrôle. Fail-closed.
+Charge la doctrine depuis Git ; ne la duplique pas.
+
+### GPT
+Raisonnement, qualification, analyse, challenge, conversation guidée.
+Produit des artefacts intermédiaires (clarification, options, ActionProposal…).
+**Ne décide pas** les gates structurants. **N’exécute pas** Cursor seul.
+
+### Cursor
+Agent d’exécution bornée sous contrat (prompt instancié, allowlist, worktree).
+Produit diffs / preuves.
+**Ne choisit pas** le périmètre hors contrat.
+
+### Git
+Source de vérité, versionnement, auditabilité.
+Baseline méthode, documents projet, historique.
+
+### GitHub
+Collaboration distante, revue, CI, publication.
+Writes distants = gated (fermés par défaut hors GO).
+
+## 3. Matrice RACI candidate (synthèse)
+
+| Activité | Humain décideur | Studio | Moteur | GPT | Cursor | Git |
+|----------|-----------------|--------|--------|-----|--------|-----|
+| Qualifier cycle | C | I | A/R policies | R analyse | — | C sources |
+| Décision gate | **A/R** | R UI | R enforce | C propose | — | C audit |
+| Compiler action | C | I | **A/R** | R proposal | — | C |
+| Exécuter | A (GO) | R orchestrate | R contract | I | **R** exec | R truth |
+| Valider résultat | A/C | R display | R checks | R analyse | I | C |
+| Transition cycle | A | R | R | C | — | C |
+
+(R=Responsible, A=Accountable, C=Consulted, I=Informed — candidat)
+
+## 4. Évolution depuis v2.6
+
+| v2.6 | v3.0 candidat |
+|------|----------------|
+| ChatGPT hors Studio + copier-coller fréquent | GPT **dans** Studio, contextuel |
+| « Morris (L0) » nommé | Décideur humain habilité (rôle) |
+| Cursor via prompt manuel ou OPS1 | Cursor via Execution Orchestrator produit |
+| Operating model boucle manuelle dominante | Boucle Studio-native, même principes |
+
+## 5. Séparation des pouvoirs
+
+- Qui **propose** ≠ qui **décide** ≠ qui **exécute**.
+- GPT propose ; décideur tranche ; Cursor exécute ; Git enregistre.
+- Studio/moteur **empêchent** la confusion des rôles (pas seulement « rappellent »).
+
+## 6. Décisions humaines requises
+
+- Valider la taxonomie des rôles humains.
+- Valider que Studio = cockpit + façade d’orchestration (continuité AF-Option C reformulée Control Tower).
+- Décider du modèle multi-utilisateurs (hors scope implémentation actuelle).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/04-sfia-v3-project-and-cycle-domain-model.md`
+
+```markdown
+# 04 — Modèle domaine projet et cycle (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** — listes non figées |
+
+## 1. Objets centraux
+
+Pour chaque objet : finalité, propriétaire logique, id, cycle de vie, source de vérité, relations, mutation, audit, décision humaine.
+
+### Workspace
+- **Finalité :** conteneur multi-projets d’une organisation / utilisateur.
+- **Propriétaire :** organisation / admin.
+- **Id :** `ws-*`.
+- **SoT :** Studio + Git org config.
+- **Mutation :** admin.
+- **Décision humaine :** création workspace.
+
+### Project
+- **Finalité :** unité de pilotage (ex. Campus360, SFIA Studio).
+- **Propriétaire :** responsable de projet.
+- **Id :** `proj-*` + chemin `projects/<key>/`.
+- **SoT :** Git (docs) + ProjectState (runtime).
+- **Relations :** Cycles, Baseline, Trajectory, Decisions.
+- **Décision humaine :** création, clôture, archivage.
+
+### ProjectState
+États candidats : `DRAFT | FRAMING | ACTIVE | PAUSED | BLOCKED | DELIVERED | RUN | CLOSED | ARCHIVED`.
+Mutations via Transition Engine + gates selon criticité.
+
+### ProjectBaseline
+Référence méthode applicable (`SFIA v2.6` aujourd’hui ; `v3.0` **candidate** seulement).
+Ne change **pas** sans GO d’adoption.
+
+### ProjectTrajectory
+Intention produit / jalons / lots (candidats vs validés).
+Options ≠ décisions.
+
+### Cycle / CycleInstance / CycleState
+- **Cycle :** type méthodologique (cadrage, delivery, QA…).
+- **CycleInstance :** occurrence runtime liée à un Project.
+- **États candidats :** `PROPOSED | QUALIFYING | READY | ACTIVE | DECISION_REQUIRED | EXECUTION_READY | EXECUTING | VALIDATING | BLOCKED | COMPLETED | CLOSED | CAPITALIZED`.
+
+### GuidedSession
+Conversation rattachée (projet/cycle/décision/action/rapport).
+Remplace la notion « session OPS1 orpheline » à terme.
+
+### SourceContext
+Ensemble de sources chargées (canoniques + projet) avec digests.
+Hérite du Canonical Context Engine (74).
+
+### Hypothesis / Observation / Option / Recommendation
+Artefacts de raisonnement. **Jamais** auto-promus en HumanDecision.
+
+### HumanDecision / Gate / DecisionRequest
+Décision auditable. Gate = point de contrôle UI/policy. DecisionRequest = demande structurée.
+
+### ActionProposal / ActionCandidate / ExecutionContract / ExecutionAttempt
+Chaîne déjà partiellement prouvée OPS1/CT : proposal → compile → candidate → gate → contract → attempt.
+
+### Evidence / ValidationResult / Reserve
+Preuves d’exécution, verdict de validation, réserves classifiées (héritage guardrails).
+
+### TransitionProposal / TransitionDecision
+Proposition d’enchaînement de cycle / d’état ; décision humaine pour transitions structurantes.
+
+### ReviewPack / ReviewHandoff / CapitalizationRecord
+Héritage v2.6 : pack de revue, publication handoff, capitalisation.
+
+## 2. Relations clés
+
+```
+Workspace 1—* Project
+Project 1—* CycleInstance
+CycleInstance 1—* GuidedSession
+GuidedSession *—* SourceContext
+CycleInstance *—* HumanDecision
+CycleInstance *—* ActionCandidate
+ActionCandidate 1—* ExecutionContract
+ExecutionContract 1—* ExecutionAttempt
+ExecutionAttempt 1—* Evidence
+CycleInstance *—* TransitionProposal
+```
+
+## 3. Règles de mutation (candidats)
+
+1. Pas de mutation d’état projet/cycle sans événement audité.
+2. Options / Recommendations ne mutent pas ProjectBaseline.
+3. ActionCandidate n’implique aucune exécution.
+4. ExecutionAttempt exige contractHash + gate lié.
+5. CONTEXT_STALE bloque compilation / exécution jusqu’à requalification.
+6. Chemins protégés (`method/`, `prompts/`, …) hors écriture sauf GO méthode dédié.
+
+## 4. Identifiants et audit
+
+Corrélation cible :
+
+`workspaceId → projectId → cycleInstanceId → sessionId → contextId → proposalId → actionId → contractHash → attemptId → reportId / evidenceId`
+
+## 5. Écart vs OPS1 actuel
+
+| OPS1 aujourd’hui | Cible v3.0 |
+|------------------|------------|
+| CycleSession loosely bound | Project + CycleInstance first-class |
+| Fixture/live mode session | GuidedSession contextualisée projet |
+| ActionCandidate I3 | ActionCandidate issu du moteur SFIA |
+| Pas de ProjectState | ProjectState Engine |
+
+## 6. Décisions humaines requises
+
+- Valider la liste d’états projet/cycle (ou la réduire).
+- Valider le rattachement obligatoire conversation → objet.
+- Décider du modèle d’import de projets finalisés.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/05-sfia-v3-guided-reasoning-and-conversation-model.md`
+
+```markdown
+# 05 — Raisonnement guidé et modèle conversationnel (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+
+## 1. Définition
+
+Une **GuidedSession** est une conversation :
+
+- toujours rattachée à un objet (projet / cycle / décision / action / rapport / réserve) ;
+- **guidée** par le contexte et l’état ;
+- **libre** dans le raisonnement GPT ;
+- **bornée** dans les outils, transitions et effets.
+
+## 2. Deux canaux obligatoires
+
+### Canal conversationnel (humain-lisible)
+Réponse naturelle GPT : explication, challenge, reformulation, questions.
+
+### Canal de contrôle (machine-lisible)
+Structure minimale candidate :
+
+| Champ | Rôle |
+|-------|------|
+| `intent` | intention détectée / déclarée |
+| `projectRelevance` | lien projet OK / doute / hors scope |
+| `cycleRelevance` | lien cycle OK / qualification requise |
+| `sourcesUsed[]` | path + digest |
+| `missingInfo[]` | clarifications |
+| `proposedTransition` | éventuelle |
+| `actionProposal` | SfiaActionProposal ou null |
+| `requiredGate` | si applicable |
+| `status` | ok / clarification / decision_required / blocked / no_action |
+
+Le canal de contrôle **n’est pas** un script de phrases. Il **contraint les effets**, pas le style.
+
+## 3. Sorties autorisées du moteur / GPT
+
+1. Réponse directe contextualisée
+2. Question de clarification
+3. Analyse
+4. Hypothèses
+5. Options
+6. Recommandation
+7. Demande de décision humaine (`DecisionRequest`)
+8. Proposition de cycle
+9. Proposition de transition
+10. `ActionProposal`
+11. `no_action`
+12. `blocked`
+
+## 4. Ce qu’il ne faut pas faire
+
+- Arbre rigide de phrases préfabriquées.
+- Questionnaire type wizard exclusif (le guidage peut **suggérer** des questions, pas imposer un script).
+- Confondre recommandation et décision.
+- Laisser GPT émettre commit/push/PR hors gates.
+- Remplacer le canal de contrôle par du prose seul.
+
+## 5. Guidage sans rigidité — mécanique candidate
+
+1. Charger `SourceContext` (canonique + projet).
+2. Injecter état (ProjectState, CycleState, open/closed gates).
+3. Laisser GPT produire prose + structure.
+4. Valider structure (schéma).
+5. Compiler effets via Action Compiler / Transition Engine.
+6. Si ambigu : `clarification_required` — **pas** d’effet.
+
+## 6. Exemples (illustratifs)
+
+**OK :** « D’après le routing guide et l’état FRAMING, je propose un cycle Delivery documentaire. Questions : … » + JSON contrôle.
+
+**KO :** réponses génériques hors projet ; ou « j’ai commit & push » dans le texte avec effet réel.
+
+## 7. Lien acquis
+
+- Journal OPS1 = proto GuidedSession.
+- Moteur contexte SFIA (74) = SourceContext runtime.
+- SfiaActionProposal = canal de contrôle action.
+
+## 8. Décisions humaines requises
+
+- Valider le dual-channel.
+- Valider l’interdiction du free-chat.
+- Trancher le niveau d’UI pour afficher le canal de contrôle (compact vs détail).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/06-sfia-v3-cycle-routing-and-transition-model.md`
+
+```markdown
+# 06 — Routage des cycles et modèle de transitions (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Source v2.6 | `sfia-cycle-routing-guide.md` (non modifié) |
+
+## 1. Principe hérité (à conserver)
+
+```
+type de cycle → documents à lire → template → validation → décision
+```
+
+SFIA ne repose pas sur la mémoire implicite du modèle. Le routage est **explicite** et **explicable**.
+
+## 2. Cycles existants — traitement candidat
+
+### Conserver (pertinence haute)
+Cadrage, conception fonctionnelle, architecture fonctionnelle/technique, UX/UI, backlog, delivery, QA/validation, sécurité, DevOps/intégration, capitalisation/REX, post-merge, PR readiness (process).
+
+### Adapter (Studio-native)
+- Qualification **dans** Studio (pas seulement ChatGPT externe).
+- Review pack / handoff déclenchés depuis Validation Engine.
+- Template Cursor **instancié** (pas collé manuellement).
+
+### Fusionner (candidats à analyser)
+- Certains micro-cycles documentaires redondants avec « GuidedSession de qualification ».
+- Monitoring isolé → vues du cockpit (pas un cycle séparé obligatoire).
+
+### Scinder (candidats)
+- « Delivery » : préparation contrat vs exécution vs validation (déjà partiellement OPS1 I3–I6).
+- « Cadrage » : vision produit vs méthode vs gap analysis (ce pack v3.0 en est l’illustration).
+
+### Manquants Studio-specific (candidats)
+- Project bootstrap / import.
+- Role & permission setup (multi-user).
+- Transition governance pack (enchaînement cycles).
+- Evidence review cycle dédié si volume élevé.
+
+### Transverses
+Sécurité, observabilité, FinOps, GreenOps, accessibilité, RGPD : **blocs** activables dans un cycle plutôt que cycles isolés systématiques (héritage profils/blocs v2.6).
+
+## 3. Conditions d’entrée / sortie (patron)
+
+Pour chaque CycleInstance :
+
+| Élément | Contenu |
+|---------|---------|
+| Entrée | ProjectState compatible, intention, sources mini, profil proposé |
+| Infos requises | Objectif, périmètre, risques, gates ouverts/fermés |
+| Conversation guidée | Dual-channel (doc 05) |
+| Livrables | Docs / code / preuves selon type |
+| Actions possibles | READ / propose / compile / execute-after-GO |
+| Gates | Selon criticité + type d’effet |
+| Validation | Critères explicites + ValidationResult |
+| Transition | TransitionProposal → TransitionDecision |
+
+## 4. Modèle de transition candidat
+
+Chaque transition déclare :
+
+1. **Déclencheur** (humain, validation OK, timer stale…)
+2. **Préconditions** (états, preuves, digests)
+3. **Acteurs** (décideur / moteur / GPT)
+4. **Gate** (oui/non + kind)
+5. **Objets d’entrée / sortie**
+6. **Contrôles** (policy, allowlist, stale)
+7. **Événements** audit
+8. **Erreurs / reprise**
+9. **Audit** corrélation ids
+
+Exemple :
+
+`ACTIVE + ValidationResult=PASS → TransitionProposal(cycle suivant) → DECISION_REQUIRED → TransitionDecision=GO → nouvel CycleInstance READY`
+
+## 5. Profils et typologie
+
+Conserver la distinction v2.6 :
+
+- **Type de cycle** = nature du travail.
+- **Profil** Light / Standard / Critical / Capitalization = profondeur / contrôles.
+- **Typologie** INC / EVOL / RUN / CAPA / DOC = cadre consolidation.
+
+Ne pas « Critical par défaut ».
+
+## 6. Template Cursor — rôle futur
+
+Le template Git `prompts/templates/sfia-cycle-execution-template.md` reste la **structure de référence**.
+Studio **instancie** les sections applicables (acquis 74) ; ne réinvente pas la structure en constante TS.
+
+## 7. Décisions humaines requises
+
+- Valider la cartographie conserver/adapter/fusionner/scinder.
+- Valider les états de cycle retenus.
+- Décider quels cycles Studio-specific créer en premier.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/07-sfia-v3-automation-and-human-decision-model.md`
+
+```markdown
+# 07 — Automatisation et décisions humaines (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Source | Grille L0–L5 v2.6 / operating model — à étendre, non remplacer silencieusement |
+
+## 1. Principe candidat cardinal
+
+> L’automatisation peut être élevée sur les opérations **répétables, bornées, contrôlables et réversibles**.
+> La **décision structurante** ne doit **jamais** être déléguée automatiquement à un agent.
+
+## 2. Redécoupage candidat (au-delà d’un seul axe L0–L5)
+
+| Domaine | Exemple | Niveau candidat max sans GO structurant | Gate humain ? |
+|---------|---------|------------------------------------------|---------------|
+| Collecte | lire Git/GitHub, digests | Élevé | Non (policy read) |
+| Qualification | proposer cycle/profil | Moyen | Clarification si doute |
+| Raisonnement | analyse GPT | Élevé (prose) | Non pour prose seule |
+| Préparation | ActionProposal, review pack draft | Moyen-élevé | Non jusqu’à effet |
+| Exécution | Cursor sous contrat | Moyen | **Oui** GO action |
+| Contrôle | allowlist, postcheck, stale | Élevé | Non (déterministe) |
+| Transition | proposer cycle suivant | Moyen | **Oui** si structurant |
+| Décision | adopter baseline, merge doctrine, remote write large | **Nul (agent)** | **Toujours** |
+
+## 3. Grille risque / réversibilité
+
+| Classe d’effet | Risque | Réversibilité | Automatisation candidate |
+|----------------|-------|---------------|--------------------------|
+| Lecture locale | Bas | N/A | Auto |
+| CREATE markdown allowlisté | Moyen | Haute (revert Git) | Préparer auto ; exécuter après GO |
+| MODIFY code allowlisté | Moyen-haut | Moyenne | GO + contrat |
+| commit local | Haut | Moyenne | GO dédié |
+| push / PR / merge | Très haut | Basse | GO dédiés séparés |
+| modifier `method/` / `prompts/` | Critique | Basse | GO méthode + cycle dédié |
+| L5 décisionnel | Interdit | — | Bloqué |
+
+## 4. Conditions de supervision
+
+Toute automatisation doit :
+
+1. produire des **traces** (events) ;
+2. pouvoir être **arrêtée** ;
+3. être **bornée** (timeout, paths, ops) ;
+4. échouer **fermé** ;
+5. exposer le **pourquoi** (explainable).
+
+## 5. Stop conditions candidats (automatisation)
+
+- Autorité ambiguë.
+- Contexte stale.
+- Effet hors allowlist.
+- Gate fermé.
+- Divergence digest sources.
+- Multi-écriture non déclarée.
+- Demande de décision structurante détectée dans un flux « auto ».
+
+## 6. Cartographie décisions humaines (non déléguables)
+
+| Décision | Pourquoi humaine |
+|----------|------------------|
+| Adoption baseline méthode | Changement de doctrine |
+| GO validation cadrage | Orientation produit |
+| GO action Cursor | Effet workspace |
+| GO commit / push / PR / merge | Effets Git/GitHub |
+| Promotion option → décision | Gouvernance |
+| Clôture projet / archivage | Responsabilité |
+| Exception chemin protégé | Sécurité |
+
+## 7. Lien Control Tower / OPS1
+
+Déjà automatisable / prouvé partiellement : collecte read, compilation ActionCandidate, contrôles allowlist, exécution après GO, rapport, reinjection.
+Toujours humain : gates, adoption v3.0, writes distants.
+
+## 8. Décisions humaines requises
+
+- Valider le redécoupage par domaine.
+- Confirmer l’interdiction L5 décisionnel.
+- Trancher le niveau d’auto pour transitions non structurantes (ex. purement documentaires).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/08-sfia-v3-executable-doctrine-and-contract-model.md`
+
+```markdown
+# 08 — Doctrine exécutable et modèle de contrats (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+
+## 1. Séparation en trois couches
+
+### A. Doctrine lisible (Git Markdown)
+Principes, rôles, gouvernance, cycles, responsabilités, règles narratives.
+**SoT :** `method/**`, `prompts/**`, docs fondation.
+**v2.6 :** baseline officielle — **non modifiée** par ce cadrage.
+
+### B. Contrats structurés (runtime)
+Schémas, états, gates, opérations, événements, validations.
+**SoT :** schémas versionnés + stores Studio + hashes.
+Exemples : `SfiaCanonicalContext`, `SfiaActionProposal`, `ExecutionContract`, `ValidationResult`.
+
+### C. Projections
+Vues dérivées : contexte GPT, prompt Cursor instancié, écrans Studio, rapports, review pack, timeline.
+**Règle :** une projection **cite** doctrine + contrats ; elle ne devient pas une 4ᵉ baseline.
+
+## 2. Flux de vérité
+
+```
+Doctrine Git (A)
+   ↓ load + digest
+Contrats runtime (B)
+   ↓ project
+Projections (C) → GPT / UI / Cursor / Review
+   ↓ effects under gates
+Git (preuves) → re-lecture (A/B)
+```
+
+## 3. Anti-patterns à éviter
+
+| Anti-pattern | Contre-mesure |
+|--------------|---------------|
+| Duplication doctrine en TS | Loader allowlisté + digests (acquis 74) |
+| Constantes métier dispersées | Policy Engine central + refs sources |
+| Divergence Markdown/code | CONTEXT_STALE + revalidation digests |
+| Prompts Cursor libres | Instantiation template Git réel |
+| Règles implicites | Canal de contrôle + events |
+| Décisions non tracées | HumanDecision + Gate records |
+
+## 4. Contrats minimaux candidats
+
+1. **SourceRef** — path, digest, blobSha, role
+2. **ContextContract** — contextId, headSha, gates, ops
+3. **ProposalContract** — kind, files, ops, exactContent
+4. **CompilationContract** — status, denied*, actionId
+5. **GateContract** — kind, actorRole, motif, linked hashes
+6. **ExecutionContract** — objective, instructions, allowlist, hash
+7. **EvidenceContract** — files touched, tests, redacted logs
+8. **TransitionContract** — from/to, preconditions, decisionId
+
+## 5. Rôle du template Cursor
+
+- **A :** structure et obligations (dans Git).
+- **B :** fields filled + digests tracés.
+- **C :** promptText instancié envoyé à Cursor.
+
+Ne jamais envoyer le template brut non lié.
+Ne jamais reconstruire sa structure depuis une constante simplifiée comme SoT.
+
+## 6. Review pack / handoff
+
+Héritage v2.6 **à conserver** dans la cible :
+
+- review pack proportionné light/full ;
+- contenu exploitable des fichiers créés/modifiés ;
+- handoff Git `sfia/review-handoff` publish-in-cycle pour rapports Cursor.
+
+Studio doit **produire** ces artefacts ; ne pas les remplacer par un résumé UI seul.
+
+## 7. Décisions humaines requises
+
+- Valider la séparation A/B/C.
+- Valider la liste des contrats minimaux.
+- Décider où versionner les schémas (repo method vs studio packages) **sans** casser v2.6.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/09-sfia-v3-functional-architecture.md`
+
+```markdown
+# 09 — Architecture fonctionnelle candidate SFIA v3.0
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** — non implémentée |
+
+## 1. Vue d’ensemble
+
+```
+Humain (utilisateur / responsable / décideur / approbateur)
+  → SFIA Studio (cockpit + façade)
+    → Project State Engine
+    → Cycle Router
+    → Canonical Context Engine
+    → Guided Reasoning Engine / GPT
+    → Decision Engine  OR  Action Compiler
+    → Gate humain
+    → Execution Orchestrator
+    → Cursor
+    → Git / GitHub
+    → Validation Engine
+    → Transition Engine
+    → Studio (feedback)
+  ↔ Audit Trail (transverse)
+  ↔ Source Resolver + Policy Engine (transverse)
+```
+
+## 2. Moteurs — responsabilités
+
+| Moteur | Responsabilité | Entrées | Sorties | Décision humaine |
+|--------|----------------|---------|---------|------------------|
+| Project State Engine | États projet, lifecycle | events, decisions | ProjectState | clôture / archive |
+| Cycle Router | Type/profil/sources | intention, context | cycle plan | si ambigu |
+| Canonical Context Engine | Charger doctrine/projet | allowlist paths | SfiaCanonicalContext | non |
+| Guided Reasoning Engine | Dual-channel GPT | context, message | prose + control | non (sauf gate) |
+| Decision Engine | DecisionRequest / gates | options, risks | HumanDecision records | **oui** |
+| Action Compiler | Proposal → Candidate | proposal+context | CompilationResult | non |
+| Execution Orchestrator | Contrat → Cursor | GO+contract | Attempt+Evidence | GO avant run |
+| Validation Engine | Critères / preuves | evidence | ValidationResult | validation structurante |
+| Transition Engine | Enchaînements | validation, state | TransitionProposal | transitions structurantes |
+| Source Resolver | Résoudre fichiers | refs | SourceRef | non |
+| Policy Engine | Allow/deny ops/paths | request | allow/deny | policy change = humaine |
+| Audit Trail | Corrélation / immutabilité | all | events | non |
+
+## 3. Flux nominaux
+
+### 3.1 Clarification
+Message → Context → GPT → `clarification_required` → UI questions → (boucle) — **aucun effet**.
+
+### 3.2 Décision
+Analyse/options → DecisionRequest → Gate UI → HumanDecision → état mis à jour → audit.
+
+### 3.3 Action
+ActionProposal → Compiler → ActionCandidate → Gate → Contract → Cursor → Evidence → reinjection → analyse.
+
+### 3.4 Blocage
+Policy deny / stale / missing authority → `blocked` + raisons + reprise guidée.
+
+### 3.5 Correction
+CHANGES_REQUESTED / refine candidate / nouveau proposal — sans élargissement silencieux.
+
+### 3.6 Validation
+Evidence → Validation Engine → PASS/FAIL/PASS_WITH_RESERVES → décideur si besoin.
+
+### 3.7 Clôture / capitalisation
+Cycle COMPLETED → Transition CAPITALIZED / Project CLOSED — gates selon criticité.
+
+### 3.8 Reprise
+Session/projet PAUSED → reload context digests → requalify si stale → continuer.
+
+## 4. Limites de cette architecture
+
+- Candidate : pas de choix technique figé (DB, bus, multi-tenant).
+- Ne remplace pas v2.6.
+- Ne prescrit pas MCP universel.
+- Réutilise la séparation cockpit / policies / exécuteurs (AF-Option C reformulée).
+
+## 5. Observabilité fonctionnelle
+
+États visibles : projet, cycle, contexte, proposal, compilation, gate, contrat, exécution, validation, transition.
+Terminal UX candidat : `DECISION_REQUIRED` | `BLOCKED` | `EXECUTING` | `VALIDATING` | `READY_NEXT`.
+
+## 6. Décisions humaines requises
+
+- Valider ce schéma fonctionnel.
+- Valider la liste des moteurs (fusion possibles : Decision⊂Transition ?).
+- Trancher la frontière Studio UI vs services moteurs (monolithe logique vs packages).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/10-sfia-v3-technical-architecture-candidate.md`
+
+```markdown
+# 10 — Architecture technique candidate (non implémentée)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Interdit ici | code, deps, commit |
+
+## 1. Composants candidats
+
+| Composant | Rôle | Frontière |
+|-----------|------|-----------|
+| Studio Web App | UI cockpit | browser |
+| API / Server Actions | orchestration façade | serveur |
+| Context Service | load sources + resolve | serveur |
+| Conversation Service | GPT + tools | serveur |
+| Policy Service | allow/deny | serveur |
+| Execution Service | contracts + Cursor | serveur + worktrees |
+| Evidence Service | postcheck + reports | serveur |
+| Audit Store | events | DB locale→évolutive |
+| Project Store | projects/cycles/state | DB + Git docs |
+| Git Adapter | local read/write gated | process |
+| GitHub Adapter | read ; write gated | CLI/API |
+| Cursor Adapter | spawn borné | process |
+
+## 2. Données
+
+- **Git** : doctrine + docs projet + preuves commitables.
+- **DB** : états runtime, sessions, events, contracts (OPS1 SQLite = proto).
+- **Secrets** : serveur only ; jamais dans contexte GPT.
+- **Worktrees** : isolation exécution (acquis OPS1).
+
+## 3. Événements
+
+Bus logique (au minimum table events) : `PROJECT_*`, `CYCLE_*`, `SFIA_*`, `TOOL_*`, `GATE_*`, `EXECUTION_*`, `VALIDATION_*`, `TRANSITION_*`.
+
+## 4. Sécurité technique candidate
+
+- AuthN/AuthZ multi-user (futur) ; proto single-operator aujourd’hui.
+- Permissions par rôle (doc 03).
+- Redaction secrets.
+- Path containment.
+- Timeout / sandbox Cursor.
+- CONTEXT_STALE.
+- Pas de shell libre GPT.
+
+## 5. Multi-utilisateurs / permissions (cadrage)
+
+Hors vertical slice immédiat, mais à prévoir :
+
+- isolation projets ;
+- habilitations de gate ;
+- délégation / expiration ;
+- non-répudiation des HumanDecision.
+
+## 6. Inventaire acquis OPS1 / Control Tower / SFIA engine
+
+| Acquis | Verdict candidat |
+|--------|------------------|
+| GitLocalReadAdapter | **Réutilisable** (étendre writes gated plus tard) |
+| GitHubReadAdapter | **Réutilisable** ; write = nouveau gated |
+| Tool Router | **Réutilisable** / isoler en Policy+Router |
+| Session / event store | **Adapter** → Project/Cycle first-class |
+| ActionCandidate + actionGate | **Réutilisable** cœur gouvernance |
+| Allowlist | **Réutilisable** |
+| contractHash + revalidation | **Réutilisable** |
+| Cursor adapter + orchestrator | **Réutilisable** |
+| Report + reinjection | **Réutilisable** |
+| Canonical context loader/compiler | **Réutilisable** / généraliser multi-projet |
+| Ops1SessionScreen | **Expérimental UI** → remplacer par cockpit projet |
+| Fixture markers | **Test-only** — pas produit |
+
+## 7. Résilience / reprise
+
+- Rejouer lecture contexte par digests.
+- Interrompre EXECUTING → état BLOCKED + evidence partielle.
+- Pas d’auto-retry silencieux (héritage I5/I6).
+- Continuation = nouvelle CycleInstance / session liée (parentId).
+
+## 8. Évolutivité
+
+- Commencer mono-opérateur + SQLite acceptable pour slice.
+- Prévoir extraction services quand multi-projets / multi-users l’exige.
+- Éviter plateforme MCP générique comme prérequis (Option C hybride validée CT).
+
+## 9. Décisions humaines requises
+
+- Valider réutilisation massive OPS1 vs rewrite.
+- Trancher horizon multi-user.
+- Confirmer « pas de MCP universel » pour la prochaine phase.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/11-sfia-v3-ux-information-architecture.md`
+
+```markdown
+# 11 — UX / architecture d’information (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Hors scope | Maquettes HF, Figma |
+
+## 1. Principes UX candidats
+
+1. **Cockpit avant chat** — la conversation est un panneau du cycle, pas la page entière.
+2. **État toujours visible** — projet, cycle, gates, contexte, terminal.
+3. **Décision explicite** — boutons de gate, jamais « dire GO dans le chat ».
+4. **Preuves à portée** — diffs, fichiers, tests, digests accessibles.
+5. **Progressive disclosure** — canal de contrôle compact par défaut.
+6. **Fail-closed perceptible** — blocked/stale/denied compréhensibles.
+7. **Pas de dashboard fourre-tout** — une job par vue.
+
+## 2. Architecture d’information
+
+```
+Accueil
+├── Créer projet
+├── Reprendre projet
+└── Consulter / importer finalisé
+Projet (cockpit)
+├── Trajectoire
+├── Cycles (liste)
+├── Cycle actif
+│   ├── Contexte SFIA
+│   ├── Conversation guidée
+│   ├── Décisions
+│   ├── Actions
+│   ├── Exécutions
+│   ├── Preuves
+│   └── Validation / transition
+├── Risques / réserves
+├── Capitalisation
+└── Admin / rôles (futur)
+```
+
+## 3. Points d’entrée
+
+| Entrée | Destination | Précondition |
+|--------|-------------|--------------|
+| Nouveau projet | Wizard léger + GuidedSession FRAMING | Auth |
+| Reprendre projet | Cockpit projet | Project existant |
+| Initier cycle | Cycle Router + qualification | Project ACTIVE/FRAMING |
+| Poursuivre cycle | Cycle actif | CycleInstance ouverte |
+| Traiter décision | Panneau DecisionRequest | DECISION_REQUIRED |
+| Analyser résultat | Preuves + reinjection | Evidence disponible |
+| Valider | Validation panel | VALIDATING |
+| Clôturer | Transition CLOSE | Critères + gate |
+| Capitaliser | CapitalizationRecord | COMPLETED |
+
+## 4. Écrans candidats (responsabilité)
+
+| Vue | Une job |
+|-----|---------|
+| Accueil | Choisir créer/reprendre |
+| Création projet | Identité + baseline + intention |
+| Cockpit projet | Santé + prochaines décisions |
+| Trajectoire | Jalons candidats vs validés |
+| Cycles | Historique + états |
+| Cycle actif | Conduire le travail (chat + contrôle) |
+| Décisions | Gates et DecisionRequests |
+| Actions | ActionCandidates |
+| Exécutions | Attempts + statut |
+| Preuves | Evidence browser |
+| Validation | ValidationResult |
+| Réserves | Classification + suivi |
+| Capitalisation | REX / assets |
+| Admin | Rôles / permissions (futur) |
+
+## 5. Conversation dans le cycle
+
+- Panneau latéral ou inférieur, **jamais** page blanche type ChatGPT seul.
+- Afficher : `contextId`, profil, gates fermés, ops interdites.
+- Après proposal : panneau compilation + ActionCandidate.
+- Boutons fixture **hors** parcours live produit.
+
+## 6. Accessibilité / i18n (cadrage)
+
+- Contrastes, focus gates, labels explicites.
+- FR d’abord ; i18n plus tard.
+- Pas de dépendance au seul code couleur pour blocked/GO.
+
+## 7. Écart vs UI OPS1 actuelle
+
+OPS1 = excellent **banc d’essai**.
+v3.0 UX = **produit projet** ; l’écran session unique devient insuffisant.
+
+## 8. Décisions humaines requises
+
+- Valider IA et points d’entrée.
+- Trancher densité du canal de contrôle.
+- Prioriser vues du vertical slice (doc 13).
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/12-sfia-v2.6-to-v3-gap-analysis.md`
+
+```markdown
+# 12 — Analyse d’écart SFIA v2.6 → v3.0 (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Baseline | **v2.6 officielle** |
+| v3.0 | **Trajectoire candidate uniquement** |
+
+Légende : **C** conserver · **A** adapter · **R** remplacer · **D** déprécier · **N** créer.
+
+## Matrice par domaine
+
+| Domaine | Classe | Raison | Impact | Risque | Gate humain |
+|---------|--------|--------|--------|--------|-------------|
+| Doctrine Markdown v2.6 | **C** | Baseline opérationnelle | Stable | Divergence si fork précoce | Adoption v3.0 distinct |
+| Rôles (« Morris L0 ») | **A** | Rôles génériques | Docs + UI | Confusion transition | Validation cadrage |
+| Operating model ChatGPT↔Cursor | **A** | Studio-native loop | Process | Perte de clarté si mal migré | Validation archi |
+| Cycles / routing guide | **C+A** | Garder routage ; adapter Studio | Méthode+produit | Sur-fusion cycles | Validation cycles |
+| Profils / blocs | **C** | Toujours pertinents | Faible | Critical-by-default | — |
+| Gates | **A** | UI produit + rôles | Gouvernance | Contournement chat | Validation gouvernance |
+| Niveaux L0–L5 | **A** | Redécouper par domaine | Automation | L5 décisionnel | Validation automation |
+| Template Cursor | **C+A** | Structure Git ; instantiation | Runtime | Prompt libre | — |
+| Review pack / handoff | **C** | Preuve revue | Process | Pack incomplet | — |
+| PR readiness / post-merge | **C** | Process Git | Delivery | Skip cleanup | — |
+| Capitalisation | **A** | Intégrer CapitalizationRecord | Produit | Oubli REX | — |
+| Gouvernance Git | **C** | Git-truth | — | — | — |
+| Architecture Studio | **N/A** | Control Tower = proto ; v3 OS | Produit | Sur-ingénierie | Validation archi |
+| UX | **N** | Cockpit projet | Produit | Chat-only relapse | Validation UX |
+| Contrats runtime | **N/A** | Étendre 74 + OPS1 | Technique | Seconde doctrine | — |
+| Observabilité | **A** | Timeline produit | Ops | Bruit events | — |
+| Sécurité multi-user | **N** | Absent aujourd’hui | Sécurité | Fuite cross-project | Security review |
+
+## Synthèse
+
+- **Ne pas toucher** aux canoniques v2.6 dans cette phase.
+- **Construire à côté** (`sfia-v3-framing/` puis, plus tard, lots méthode v3 sous GO).
+- **Réutiliser** runtime OPS1/CT comme laboratoire d’exécution.
+- **Remplacer progressivement** l’UI session-only par cockpit projet.
+- **Déprécier** (plus tard) les pratiques copier-coller comme chemin nominal.
+
+## Dette anticipée
+
+- Double narration v2.6 opérationnelle + v3 candidate.
+- Terminologie mixte pendant transition.
+- UI OPS1 vs IA v3.
+- Schémas runtime encore locaux à `app/lib/ops1/sfia`.
+
+## Décisions humaines requises
+
+- Approuver cette matrice.
+- Décider l’ordre : produit Studio d’abord vs lots méthode v3 d’abord (recommandation doc 14).
+- Ne **pas** merger de doctrine v3 dans `method/` sans GO d’adoption.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/13-sfia-v3-target-vertical-slice.md`
+
+```markdown
+# 13 — Vertical slice produit cible (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Objectif | Démontrer la **valeur produit** réelle (pas seulement l’outil) |
+
+## 1. Slice cible
+
+```
+Créer un projet
+→ cadrage guidé par GPT (dual-channel)
+→ sources + hypothèses + options
+→ décision humaine (vision / trajectoire)
+→ ouverture d’un cycle (ex. Delivery documentaire)
+→ ActionProposal → ActionCandidate
+→ gate humain
+→ Cursor sous contrat
+→ Git (preuves worktree / diff)
+→ Evidence + Validation
+→ TransitionProposal (cycle suivant ou clôture)
+→ décision humaine
+→ cycle suivant / capitalisation légère
+```
+
+## 2. Comparaison au démonstrateur actuel (Control Tower / OPS1)
+
+| Étape | CT / OPS1 aujourd’hui | Slice v3.0 |
+|-------|------------------------|------------|
+| Créer projet | Non (session OPS1) | **Oui** first-class |
+| Cadrage guidé | Partiel (chat) | GuidedSession + control channel |
+| Décision trajectoire | Hors produit | DecisionRequest UI |
+| Ouvrir cycle | Implicite | Cycle Router explicite |
+| ActionCandidate | Oui (fixture/live compiler) | Oui, projet-lié |
+| Gate | Oui | Oui + rôles |
+| Cursor | Oui borné | Oui |
+| Preuves / rapport | Oui | Oui |
+| Transition cycle suivant | Continuation session | TransitionEngine projet |
+| Capitalisation | Handoff méthode | CapitalizationRecord projet |
+
+**Verdict comparatif :** CT prouve la **chaîne d’effets**. v3.0 slice doit prouver le **pilotage de projet**.
+
+## 3. Prérequis
+
+- Validation cadrage v3.0 (`GO VALIDATION CADRAGE SFIA v3.0`).
+- GO d’exécution slice distinct (non ouvert ici).
+- Réutilisation OPS1/CT/sfia engine.
+- Baseline v2.6 inchangée.
+- Projet pilote (ex. Campus360 ou sandbox dédié) — **sans** toucher canoniques.
+
+## 4. Composants réutilisables
+
+Context engine, action compiler, gates, allowlist, contract, Cursor adapter, report/reinjection, git/github read tools.
+
+## 5. Écarts à construire (après GO exécution)
+
+- Project / CycleInstance stores.
+- UI cockpit (remplacer session-only).
+- Decision Engine UI.
+- Transition Engine minimal.
+- Bootstrap projet.
+
+## 6. Risques
+
+| Risque | Mitigation |
+|--------|------------|
+| Rescope en « encore un chat OPS1 » | Critères succès projet-first |
+| Implémenter avant validation cadrage | Gates fermés |
+| Modifier v2.6 | Interdit |
+| Sur-architecture multi-user | Slice mono-opérateur OK |
+| Confondre live CT et slice v3 | Anti-claims explicites |
+
+## 7. Critères de succès candidats
+
+1. Un humain crée un projet dans Studio.
+2. Une GuidedSession de cadrage produit options ≠ décisions.
+3. Une HumanDecision ouvre un cycle.
+4. Une ActionCandidate live est compilée sans bouton fixture.
+5. Un GO humain lance Cursor ; preuves visibles.
+6. Une TransitionProposal apparaît ; décision humaine requise.
+7. Aucun commit/push/PR sans gates dédiés.
+8. Aucune modification `method/` / `prompts/`.
+
+## 8. Anti-claims
+
+- Slice **non implémentée** ici.
+- Ne valide pas MVP / production.
+- Ne remplace pas la validation live du moteur SFIA CT si encore ouverte.
+
+## 9. Effort candidat (ordre de grandeur)
+
+- Après GO : plusieurs lots delivery (domaine projet → UI cockpit → transitions).
+- Ne pas sous-estimer UX cockpit vs extension OPS1.
+
+## 10. Décisions humaines requises
+
+- Valider ce slice comme démonstrateur produit prioritaire.
+- Choisir projet pilote.
+- Ordonnancer vs finalisation live CT.
+
+```
+
+### `projects/sfia-studio/sfia-v3-framing/14-sfia-v3-roadmap-and-decision-pack.md`
+
+```markdown
+# 14 — Roadmap et decision pack SFIA v3.0 (candidat)
+
+| Champ | Valeur |
+|-------|--------|
+| Statut | **Candidat** |
+| Gate actuel consommé | `GO OUVERTURE CADRAGE SFIA v3.0 — STUDIO PROJECT OPERATING SYSTEM` |
+| Gate suivant | `GO VALIDATION CADRAGE SFIA v3.0` |
+
+## 1. Options de trajectoire
+
+### Option A — Produit Studio d’abord
+Valider cadrage → implémenter vertical slice projet (doc 13) sous v2.6 → capitaliser → lots méthode v3.0 plus tard.
+
+**Pour :** valeur démontrable ; doctrine stable.
+**Contre :** double narration temporaire.
+
+### Option B — Doctrine v3.0 d’abord
+Rédiger/adopter packs méthode v3 dans `method/` avant produit.
+
+**Pour :** clarté doctrinale.
+**Contre :** risque architecture papier ; bloque valeur UI ; **interdit** sans GO adoption + touche canoniques.
+
+### Option C — Parallel track contrôlé
+Cadrage produit + sandbox méthode `sfia-v3-framing/` (déjà) ; runtime sous v2.6 ; adoption méthode seulement après preuve slice.
+
+**Pour :** aligné fail-closed.
+**Contre :** discipline de non-promotion requise.
+
+## 2. Recommandation candidate (≠ décision)
+
+**Option C / A-hybride :**
+1) Valider ce cadrage.
+2) Ne pas adopter v3.0 comme baseline.
+3) Préparer un GO d’exécution du vertical slice **produit** réutilisant OPS1/CT.
+4) Garder v2.6 comme SoT méthode.
+5) N’ouvrir la modification `method/` qu’avec un GO d’adoption v3.0 distinct après preuves.
+
+## 3. Roadmap candidate (jalons)
+
+| Jalon | Contenu | GO humain |
+|-------|---------|-----------|
+| J0 | Ouverture cadrage (ce pack) | **Consommé** |
+| J1 | Validation cadrage | `GO VALIDATION CADRAGE SFIA v3.0` |
+| J2 | Plan d’exécution slice produit | GO plan / exécution (à nommer) |
+| J3 | Slice projet implémentée locale | GO exécution |
+| J4 | Validation live slice | GO validation live |
+| J5 | Capitalisation → proposition lots méthode v3 | GO capitalisation |
+| J6 | Adoption baseline v3.0 (éventuel) | **GO ADOPTION** dédié |
+| — | commit/push/PR projet | GO séparés — fermés maintenant |
+
+## 4. Décisions humaines requises maintenant
+
+1. Valider / amender / rejeter la vision (01).
+2. Valider principes P1–P12 (02).
+3. Valider rôles génériques (03).
+4. Valider objets/états (04) — ou demander réduction.
+5. Valider dual-channel conversation (05).
+6. Valider orientation cycles (06).
+7. Valider modèle automation (07).
+8. Valider couches doctrine/contrats (08).
+9. Valider archi fonctionnelle (09) et technique candidate (10).
+10. Valider IA UX (11).
+11. Approuver gap matrix (12).
+12. Approuver vertical slice (13).
+13. Choisir option trajectoire A/B/C.
+14. Décider priorité relative vs `GO VALIDATION LIVE MOTEUR SFIA CANONIQUE` (CT).
+
+## 5. Décisions explicitement **non** prises
+
+- Adoption SFIA v3.0 comme baseline.
+- Modification des canoniques v2.6.
+- Architecture technique définitive.
+- Stack multi-user.
+- Implémentation.
+- Commit / push / PR / merge projet.
+- Suppression des travaux Control Tower.
+- Monétisation / MVP claim.
+
+## 6. Réserves
+
+| Id | Réserve |
+|----|---------|
+| V3-R01 | Tension AF-Option C historique vs Studio orchestrateur — déjà reformulée CT ; à reconfirmer au niveau OS |
+| V3-R02 | Working tree dirty CT + moteur SFIA non commités — cadrage v3 ne doit pas les écraser |
+| V3-R03 | Live validation moteur SFIA CT encore ouverte |
+| V3-R04 | Risque de sur-modélisation d’états avant usage réel |
+
+## 7. Dette
+
+- Documents v3 framing hors `method/` (voulu).
+- Pas de schémas JSON formels versionnés.
+- Pas d’UI.
+- Terminologie v2.6 encore « Morris » dans canoniques (non modifiés).
+
+## 8. Anti-claims
+
+Ce decision pack **ne valide pas** SFIA v3.0.
+Il prépare uniquement `GO VALIDATION CADRAGE SFIA v3.0`.
+
+## 9. Verdict pack cadrage
+
+**SFIA v3.0 FRAMING READY — HUMAN DECISION REQUIRED**
+
+```
+
+## 7. Fichiers modifiés
+
+Aucun fichier existant modifié dans ce cycle de cadrage v3.0.
+(Les dirty files Control Tower / app préexistants sont inchangés par cette passe.)
+
+## 8. Réserves / dette / anti-claims
+
+- V3-R01 à V3-R04 (voir 14)
+- Dette : framing hors method/ ; pas de schémas JSON ; pas d’UI
+- Anti-claims : pas baseline v3 ; pas implémentation ; pas MVP/prod ; pas modif v2.6
+
+## 9. État Git final
 
 ```
  M projects/sfia-studio/README.md
@@ -3478,24 +1503,12 @@ index 5ddc33f..b979e18 100644
 ?? projects/sfia-studio/app/lib/ops1/reportReinjection.ts
 ?? projects/sfia-studio/app/lib/ops1/sfia/
 ?? projects/sfia-studio/app/lib/ops1/tools/
+?? projects/sfia-studio/sfia-v3-framing/
 ```
 
 ```
- projects/sfia-studio/README.md                     |  41 ++-
- .../app/__tests__/ops1/Ops1SessionScreen.test.tsx  |  23 ++
- .../__tests__/ops1/conversation-repository.test.ts |   2 +-
- .../app/__tests__/ops1/globalModeBadge.ui.test.tsx |  23 ++
- .../app/features/ops1/Ops1SessionScreen.tsx        | 360 ++++++++++++++++++++-
- projects/sfia-studio/app/lib/ops1/actions.ts       | 200 +++++++++++-
- .../app/lib/ops1/conversation/fakeProvider.ts      | 123 ++++++-
- .../app/lib/ops1/conversation/openaiProvider.ts    | 124 +++++--
- .../app/lib/ops1/conversation/service.ts           | 315 +++++++++++++++++-
- .../sfia-studio/app/lib/ops1/conversation/types.ts |  49 +++
- .../app/lib/ops1/executionOrchestrator.ts          |   9 +
- projects/sfia-studio/app/lib/ops1/types.ts         |  33 +-
- 12 files changed, 1239 insertions(+), 63 deletions(-)
+32e5271842b9a344a7e292614675c27ea8ed941b
+delivery/sfia-studio-control-tower-fast-track
 ```
 
-**Verdict pack :** contenu créé inclus + diffs modifiés inclus.
-
-**VERDICT :** SFIA CANONICAL CONTEXT ENGINE IMPLEMENTED — READY FOR MORRIS LIVE VALIDATION
+**VERDICT :** SFIA v3.0 FRAMING READY — HUMAN DECISION REQUIRED
