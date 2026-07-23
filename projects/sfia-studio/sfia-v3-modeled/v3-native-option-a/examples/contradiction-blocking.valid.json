@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "epistemicItemId": "epi:contr-001",
+  "type": "Contradiction",
+  "statement": "Package doctrine piné vs sources stale",
+  "status": "active",
+  "confidence": "high",
+  "source": "domain-C",
+  "createdBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio"
+  },
+  "createdAt": "2026-07-23T21:00:00.000Z",
+  "blocking": true
+}

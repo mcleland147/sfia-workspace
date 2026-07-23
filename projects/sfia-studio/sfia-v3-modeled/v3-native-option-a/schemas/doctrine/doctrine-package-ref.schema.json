@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/doctrine/doctrine-package-ref.schema.json",
+  "title": "DoctrinePackageRef",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "doctrinePackageId",
+    "version",
+    "digest",
+    "resolvedAt",
+    "resolver",
+    "status"
+  ],
+  "properties": {
+    "doctrinePackageId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "version": {
+      "type": "string"
+    },
+    "digest": {
+      "$ref": "../common/digest.schema.json"
+    },
+    "resolvedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "resolver": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "resolved",
+        "unresolved",
+        "stale",
+        "invalid"
+      ]
+    }
+  }
+}

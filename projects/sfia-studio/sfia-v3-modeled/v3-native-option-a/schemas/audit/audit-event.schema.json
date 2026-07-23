@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/audit/audit-event.schema.json",
+  "title": "AuditEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "auditEventId",
+    "eventName",
+    "occurredAt",
+    "actor",
+    "correlationId",
+    "projectId"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "auditEventId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "eventName": {
+      "type": "string"
+    },
+    "occurredAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "actor": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "correlationId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleInstanceId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "appendOnly": {
+      "type": "boolean",
+      "const": true
+    }
+  }
+}

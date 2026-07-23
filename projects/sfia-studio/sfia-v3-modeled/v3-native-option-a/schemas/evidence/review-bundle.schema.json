@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/evidence/review-bundle.schema.json",
+  "title": "ReviewBundle",
+  "description": "Synthesis alone is never a complete ReviewBundle.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reviewBundleId",
+    "projectId",
+    "evidenceRefs",
+    "completeness",
+    "status",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "reviewBundleId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleInstanceId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "executionContractId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "completeness": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "incomplete"
+      ]
+    },
+    "reservations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reviewer": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready_for_review",
+        "accepted",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "validatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "synthesisOnly": {
+      "type": "boolean",
+      "description": "If true, completeness must be incomplete"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

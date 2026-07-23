@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "evidenceId": "ev:incomplete-001",
+  "type": "artifact",
+  "source": "agent",
+  "location": "refs/evidence/partial",
+  "producedBy": {
+    "actorId": "actor:studio",
+    "role": "system",
+    "displayName": "Studio"
+  },
+  "producedAt": "2026-07-23T21:00:00.000Z",
+  "freshness": "fresh",
+  "status": "incomplete",
+  "containsSecrets": false,
+  "links": {
+    "executionContractId": "xct:oa-001"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "doctrinePackageId": "pkg:studio-v3-oa",
+  "version": "1.0.0",
+  "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "status": "published",
+  "sources": [
+    {
+      "doctrineSourceRef": "src:framing-30-37",
+      "kind": "framing",
+      "label": "Doctrine v3"
+    }
+  ],
+  "allowlist": [
+    "sfia-v3-framing",
+    "v3-native-option-a"
+  ],
+  "publishedAt": "2026-07-23T21:00:00.000Z",
+  "freshness": "current",
+  "compatibility": {
+    "studioNativeV3": true,
+    "legacyV26Fallback": false
+  }
+}

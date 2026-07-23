@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/maturity/maturity-assessment.schema.json",
+  "title": "MaturityAssessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "maturityAssessmentId",
+    "subjectRef",
+    "level",
+    "evaluator",
+    "evaluatedAt",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "maturityAssessmentId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "subjectRef": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "DOCUMENTED",
+        "VALIDATED",
+        "MODELED",
+        "IMPLEMENTED",
+        "ADOPTED"
+      ]
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "evaluator": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "evaluatedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "reservations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "autoPromoted": {
+      "type": "boolean",
+      "const": false
+    }
+  }
+}

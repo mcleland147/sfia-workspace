@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "reviewBundleId": "rb:bad",
+  "projectId": "prj:x",
+  "evidenceRefs": [],
+  "completeness": "complete",
+  "status": "accepted",
+  "createdAt": "2026-07-23T21:00:00.000Z",
+  "synthesisOnly": true
+}

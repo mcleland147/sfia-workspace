@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "executionContractId": "xct:bad-001",
+  "projectId": "prj:campus360-oa",
+  "action": "do-something",
+  "target": "x",
+  "scope": "y",
+  "requiredCapabilities": [
+    "cap:x"
+  ],
+  "constraints": [
+    "c"
+  ],
+  "stopConditions": [
+    "s"
+  ],
+  "evidenceRequirements": [
+    "e"
+  ],
+  "reversibility": "reversible",
+  "idempotencyKey": "idem-bad-001",
+  "correlationId": "corr:oa-demo-001",
+  "status": "confirmed",
+  "version": 1,
+  "immutableAfterConfirm": true
+}

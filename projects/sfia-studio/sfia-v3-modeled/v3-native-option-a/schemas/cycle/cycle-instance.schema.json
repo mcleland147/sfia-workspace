@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/cycle/cycle-instance.schema.json",
+  "title": "CycleInstance",
+  "description": "Project ≠ Cycle. Critical remains proposed until explicit acknowledgment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "cycleInstanceId",
+    "cycleTypeId",
+    "projectId",
+    "profile",
+    "status",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "cycleInstanceId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleTypeId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "Light",
+        "Standard",
+        "Critical"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "acknowledged",
+        "active",
+        "blocked",
+        "completed",
+        "cancelled",
+        "superseded"
+      ]
+    },
+    "acknowledgedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "closedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    }
+  }
+}

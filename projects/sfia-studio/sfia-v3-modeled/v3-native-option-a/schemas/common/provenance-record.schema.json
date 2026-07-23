@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/common/provenance-record.schema.json",
+  "title": "ProvenanceRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "provenanceRecordId",
+    "actor",
+    "source",
+    "timestamp",
+    "correlationId",
+    "schemaVersion"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "provenanceRecordId": {
+      "$ref": "identifier.schema.json"
+    },
+    "actor": {
+      "$ref": "actor-reference.schema.json"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "conversation",
+        "system",
+        "human_decision",
+        "confirmation",
+        "execution_adapter",
+        "review",
+        "migration_future"
+      ]
+    },
+    "timestamp": {
+      "$ref": "timestamp.schema.json"
+    },
+    "correlationId": {
+      "$ref": "identifier.schema.json"
+    },
+    "projectId": {
+      "$ref": "identifier.schema.json"
+    },
+    "cycleInstanceId": {
+      "$ref": "identifier.schema.json"
+    },
+    "doctrinePackageRef": {
+      "type": "string"
+    },
+    "supersedes": {
+      "$ref": "identifier.schema.json"
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "identifier.schema.json"
+      }
+    }
+  }
+}

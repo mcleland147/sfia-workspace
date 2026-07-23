@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/doctrine/ckc-resolution.schema.json",
+  "title": "CkcResolution",
+  "description": "CKC resolution is guidance only — never execution authority. No v2.6 fallback.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "ckcResolutionId",
+    "cycleTypeId",
+    "level",
+    "status",
+    "resolvedAt",
+    "fallbackPolicy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "ckcResolutionId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "cycleTypeId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "detailed",
+        "synthetic",
+        "absent"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "repository_candidate",
+        "intra_v3_synthetic",
+        "unavailable"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "freshness": {
+      "type": "string",
+      "enum": [
+        "fresh",
+        "aging",
+        "stale",
+        "unknown"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "none"
+      ]
+    },
+    "resolvedAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "fallbackPolicy": {
+      "type": "string",
+      "enum": [
+        "intra_v3_only",
+        "none"
+      ],
+      "description": "v2.6 fallback forbidden"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "resolved",
+        "synthetic",
+        "unavailable",
+        "invalid"
+      ]
+    },
+    "executionAuthority": {
+      "type": "boolean",
+      "const": false
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}

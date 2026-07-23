@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "0.1.0-oa",
+  "reviewBundleId": "rb:oa-incomplete-001",
+  "projectId": "prj:campus360-oa",
+  "evidenceRefs": [],
+  "completeness": "incomplete",
+  "status": "draft",
+  "createdAt": "2026-07-23T21:00:00.000Z",
+  "synthesisOnly": true,
+  "reservations": [
+    "synthèse seule"
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/error/error-record.schema.json",
+  "title": "ErrorRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "errorRecordId",
+    "code",
+    "domain",
+    "severity",
+    "blocking",
+    "retryable",
+    "recoverable",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "errorRecordId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "DOCTRINE_UNRESOLVED",
+        "CONTEXT_STALE",
+        "CKC_UNAVAILABLE",
+        "CONTRADICTION_OPEN",
+        "INSUFFICIENT_EVIDENCE",
+        "DECISION_REQUIRED",
+        "CONFIRMATION_REQUIRED",
+        "CAPABILITY_MISSING",
+        "AUTHORITY_DENIED",
+        "EXECUTION_FAILED",
+        "EXECUTION_TIMEOUT",
+        "EVIDENCE_INCOMPLETE",
+        "STATE_CONFLICT",
+        "REPLAN_REQUIRED"
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "error",
+        "critical"
+      ]
+    },
+    "blocking": {
+      "type": "boolean"
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "recoverable": {
+      "type": "boolean"
+    },
+    "relatedObject": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "userMessageKey": {
+      "type": "string"
+    },
+    "technicalDetailsRef": {
+      "type": "string"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    }
+  }
+}
