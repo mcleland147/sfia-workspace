@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Architecture fonctionnelle **candidate** — validation Morris requise |
+| **Statut** | Architecture fonctionnelle **VALIDATED BY MORRIS** |
 | **Pack** | `v3-native-option-a/functional-architecture` |
 | **Gate** | `GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Base conception** | FD-OA-01…06 **VALIDATED** · commit conception `e22bc243…` |
@@ -34,8 +34,8 @@ A Conversation & Intent · B Doctrine & Knowledge · C Project State · D Cycle 
 
 ## Gate suivant candidat
 
-`GO VALIDATION ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE OPTION A`
+`GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` (consommé) · puis validation UX
 
 ## Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL ARCHITECTURE DOCUMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL ARCHITECTURE VALIDATED — UX/UI IN PROGRESS**

@@ -7,7 +7,8 @@
 | **Gate conception** | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE — TRANCHE VERTICALE OPTION A` |
 | **Gate validation** | `GO VALIDATION CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE OPTION A` |
 | **Gate architecture (consommé)** | `GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A` |
-| **Décisions** | ARB-V3-01…06 · **FD-OA-01…06 validées** |
+| **Décisions** | ARB-V3-01…06 · FD-OA-01…06 · **FA-OA-01…05 validées** |
+| **Gate UX/UI (consommé)** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Doctrine** | SFIA Studio v3 exclusive (VALIDATED framing 30–37) |
 | **Anti-claims** | Pas MODELED · Pas IMPLEMENTED · Pas ADOPTED runtime · Pas READY FOR MODELED/DELIVERY · Pas v2.6 removed |
 | **Code / schemas / SQL** | **Interdits** |
@@ -23,7 +24,8 @@ intention → DoctrinePackage → qualification → CKC → clarification → Li
 | # | Fichier |
 |---|---------|
 | 01–10 | Pack conception fonctionnelle (validé) |
-| **FA** | `functional-architecture/` — architecture fonctionnelle candidate |
+| **FA** | `functional-architecture/` — architecture fonctionnelle **VALIDATED** |
+| **UX** | `ux-ui/` — contrat UX/UI + Figma (candidate) |
 
 ## Décisions FD-OA validées
 
@@ -45,4 +47,4 @@ intention → DoctrinePackage → qualification → CKC → clarification → Li
 
 ## Verdict conception
 
-**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN VALIDATED — ARCHITECTURE IN PROGRESS**
+**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN VALIDATED · ARCHITECTURE VALIDATED — UX/UI IN PROGRESS**
