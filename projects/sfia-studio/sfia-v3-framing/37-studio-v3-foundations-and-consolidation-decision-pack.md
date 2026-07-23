@@ -1,21 +1,57 @@
-# 37 — Pack de consolidation et fondations V3-F01…F15 (candidate)
+# 37 — Pack fondations V3-F01…F15 et décisions Morris de validation
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | `doctrine-candidate` — **soumis à validation Morris** · **non adopté** · **non baseline** |
-| **Maturité fondation** | `DOCUMENTED` candidate seulement |
-| **Baseline opérationnelle** | SFIA **v2.6** (inchangée) |
-| **Adoption v3** | **Non** |
-| **Gate** | `GO CONSOLIDATION CIBLÉE — SFIA STUDIO V3 DOCTRINE` |
-| **Branche** | `method/sfia-studio-v3-doctrine-consolidation` |
-| **CKC guidance** | Pilote Conception fonctionnelle · candidate · aucune autorité d'exécution |
-| **Anti-claims** | Pas V3-VALIDATED · Pas V3-ADOPTED · Pas READY FOR DELIVERY · Pas CKC ADOPTED · Pas décision autonome |
+| **Statut** | Pack doctrinal **VALIDATED** pour SFIA Studio · merge `main` en attente |
+| **Fondations** | **V3-F01…F15 validées** (D-V3-01) |
+| **Doctrine produit Studio** | **SFIA v3 exclusive** (D-V3-02 · D-V3-03) |
+| **Maturité** | Doctrine **VALIDATED** · non MODELED complet · non IMPLEMENTED runtime · non ADOPTED runtime |
+| **Adoption v3 hors Studio** | **Non** |
+| **Gates consommés** | `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD` · `GO PR READINESS, PUSH ET DRAFT PR — SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE` |
+| **Gate suivant** | `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE` |
+| **Anti-claims** | Pas merge · Pas runtime migré · Pas READY FOR DELIVERY · Pas baseline globale · Pas suppression v2.6 du repo |
 | **Document** | `37-studio-v3-foundations-and-consolidation-decision-pack.md` |
-| **Rôle** | Registre · impact map · arbitrages · **ne valide pas** les fondations |
 
 ---
 
-## 1. Décisions déjà validées (ne pas réécrire)
+## 1. Décisions Morris consommées lors de la validation doctrinale
+
+| Id | Décision validée | Impact | Action future | Gate futur | Hors périmètre PR |
+|----|------------------|--------|---------------|------------|-------------------|
+| **D-V3-01** | V3-F01…F15 validées comme fondations Studio v3 | Statut DOCUMENTED→**VALIDATED** doctrine | Enrichir modeled | Enrichissement modeled | Schemas |
+| **D-V3-02** | Doctrine v3 **exclusive** pour Studio | Remplace toute coexistence opérationnelle | DoctrinePackage pin runtime | Modeled + delivery | Activation runtime |
+| **D-V3-03** | Aucune coexistence doctrinale opérationnelle v2.6/v3 | v2.6 = historique/externe uniquement | Retrait dépendances v2.6 du fonctionnement Studio | Audit dépendances | Audit code |
+| **D-V3-04** | Réévaluation des actifs existants | Conserver / adapter / remplacer / retirer / preuve historique | Cycles reconception possibles | Par couche | Refonte dans cette PR |
+| **D-V3-05** | Commit · push · draft PR · handoff autorisés | Intégration Git | Review Morris · merge séparé | `GO MORRIS REVIEW` puis GO merge | Merge |
+
+### Conséquences opérationnelles explicitement autorisées (futures)
+
+- retrait futur de toutes les dépendances v2.6 du **fonctionnement** Studio ;
+- nouvelle conception autorisée si nécessaire ;
+- audit de dépendances v2.6 **requis** avant nouvelle implémentation ;
+- merge restant soumis à un **GO Morris distinct**.
+
+## 2. Fondations V3-F01…F15 — statut
+
+| ID | Titre | Doc | Statut Morris |
+|----|-------|-----|---------------|
+| V3-F01 | CKC couche cognitive | `30` | **VALIDATED** |
+| V3-F02 | Living Project State | `32` | **VALIDATED** |
+| V3-F03 | DoctrinePackage | `31` | **VALIDATED** |
+| V3-F04 | Épistémologie | `33` | **VALIDATED** |
+| V3-F05 | Chaîne conversation→exécution | `30` | **VALIDATED** |
+| V3-F06 | ProjectTrajectory | `32` | **VALIDATED** |
+| V3-F07 | Provenance / hiérarchie sources | `31` | **VALIDATED** |
+| V3-F08 | Contradictions | `33` | **VALIDATED** |
+| V3-F09 | Replanification gouvernée | `32` | **VALIDATED** |
+| V3-F10 | DebtItem | `35` | **VALIDATED** |
+| V3-F11 | AgentCapability | `34` | **VALIDATED** |
+| V3-F12 | Réversibilité actions | `34` | **VALIDATED** |
+| V3-F13 | Apprentissage contrôlé | `35` | **VALIDATED** |
+| V3-F14 | Artifact Completeness | `35` | **VALIDATED** |
+| V3-F15 | Maturité distribuée | `35` | **VALIDATED** |
+
+## 3. Décisions déjà validées (cadrage / UX)
 
 ### Cadrage v3 — D1–D8
 
@@ -34,43 +70,30 @@
 
 CC-D01 Option A · CC-D03 panneau vivant · CC-D05 décisions/gates · CC-D06 confirmations N1–N3 · CC-D12 fallback CKC silencieux · CC-D13 Project ≠ Cycle.
 
-## 2. Fondations proposées V3-F01…F15 — statut
+### Amendement framing 11
 
-| ID | Titre | Doc | Statut Morris |
-|----|-------|-----|---------------|
-| V3-F01 | CKC couche cognitive | `30` | **Proposée — validation requise** |
-| V3-F02 | Living Project State | `32` | **Proposée — validation requise** |
-| V3-F03 | DoctrinePackage | `31` | **Proposée — validation requise** |
-| V3-F04 | Épistémologie | `33` | **Proposée — validation requise** |
-| V3-F05 | Chaîne conversation→exécution | `30` | **Proposée — validation requise** |
-| V3-F06 | ProjectTrajectory | `32` | **Proposée — validation requise** |
-| V3-F07 | Provenance / hiérarchie sources | `31` | **Proposée — validation requise** |
-| V3-F08 | Contradictions | `33` | **Proposée — validation requise** |
-| V3-F09 | Replanification gouvernée | `32` | **Proposée — validation requise** |
-| V3-F10 | DebtItem | `35` | **Proposée — validation requise** |
-| V3-F11 | AgentCapability | `34` | **Proposée — validation requise** |
-| V3-F12 | Réversibilité actions | `34` | **Proposée — validation requise** |
-| V3-F13 | Apprentissage contrôlé | `35` | **Proposée — validation requise** |
-| V3-F14 | Artifact Completeness | `35` | **Proposée — validation requise** |
-| V3-F15 | Maturité distribuée | `35` | **Proposée — validation requise** |
+**Décision de lecture :** CC-D01 Option A prévaut pour Studio.
+**Action future :** aligner le texte de `11` lors d'un cycle documentaire dédié.
+**Statut :** résolu pour doctrine Studio · amendement textuel `11` encore dû.
 
-**Aucune fondation n'est validée Morris dans ce cycle.**
+## 4. Exclusivité v3 — règles consolidées
 
-## 3. Amendement candidate du framing 11
+1. Studio consomme exclusivement sa doctrine SFIA v3.
+2. DoctrinePackage v3 = future source doctrinale canonique.
+3. CKC résolus via doctrine v3 et sources autorisées.
+4. ExecutionContract v3 = contrat natif d'exécution.
+5. Export Markdown Cursor = adaptateur technique seulement.
+6. v2.6 = historique / traçabilité / outillage repository actuel — **pas** doctrine produit.
 
-**Observation (audit) :** tension cockpit-first vs CC-D01.
-**Proposition de consolidation :** adopter **CC-D01 Option A** comme doctrine UX Studio candidate ; conserver le cockpit projet comme surface **après** création/reprise de Project.
-**Statut :** unresolved jusqu'à GO VALIDATION DOCTRINE.
-
-## 4. Impact map aval
+## 5. Impact map aval
 
 | Fondation | Framing | Design | Modeled | Delivery | Gate suivant |
 |-----------|---------|--------|---------|----------|--------------|
-| F01 CKC | `30` | reconcil. intake/UX | CkcResolution schema | resolver opaque | Enrichissement CKC / modeled |
+| F01 CKC | `30` | reconcil. intake/UX | CkcResolution | resolver opaque | Enrichissement CKC / modeled |
 | F02 LPS | `32` | panneau CC-D03 | LivingProjectState | persist sélective | Modeled |
 | F03 Package | `31` | — | DoctrinePackageManifest | pin runtime | Modeled |
 | F04 Épistémologie | `33` | tags UI | Observation/Hypothesis/… | affichage | Modeled + design |
-| F05 Chaîne | `30` | align CC-D* | — | flow C1–C4 | Validation doctrine |
+| F05 Chaîne | `30` | align CC-D* | — | flow C1–C4 | Post-merge + reconception |
 | F06 Trajectoire | `32` | — | ProjectTrajectory | — | Modeled |
 | F07 Provenance | `31` | — | ProvenanceRecord | — | Modeled |
 | F08 Contradiction | `33` | banners | Contradiction | stop UI | Modeled |
@@ -80,38 +103,40 @@ CC-D01 Option A · CC-D03 panneau vivant · CC-D05 décisions/gates · CC-D06 co
 | F12 Actions | `34` | confirmations | ActionPolicy | enforce | Modeled + delivery |
 | F13 Learning | `35` | — | REX records | — | Capitalisation |
 | F14 Artefacts | `35` | — | ArtifactCompletenessContract | gates passage | Modeled |
-| F15 Maturité | `35` | badges | maturity fields | anti-claims | Validation |
+| F15 Maturité | `35` | badges | maturity fields | anti-claims | Distributed |
 
 ### Objets futurs à modéliser (non créés ici)
 
 DoctrinePackage · DoctrinePackageManifest · KnowledgeSource · CkcResolution · LivingProjectState · ProjectTrajectory · Observation · Hypothesis · Recommendation · HumanDecision · Contradiction · EvidenceLink · ProvenanceRecord · DebtItem · AgentCapability · ActionPolicy · ExecutionContract · ArtifactCompletenessContract · AuditEvent.
 
-## 5. Arbitrages Morris requis
+## 6. Arbitrages encore ouverts (hors validation F01–F15)
 
-1. Valider ou amender le pack V3-F01…F15.
-2. Trancher amendement framing 11 ↔ CC-D01.
-3. Autoriser enrichissement modeled (schemas) après validation.
-4. Clarifier vocabulaire IMPLEMENTED CANDIDATE.
-5. Décider intégration 87–89 sur `main`.
-6. Prioriser D2/D3 Option D.
+1. Root exact DoctrinePackage (U2).
+2. Priorité D2/D3 Option D (U3).
+3. Intégration 87–89 sur `main` (U4).
+4. Vocabulaire IMPLEMENTED CANDIDATE (U5).
+5. Périmètre et calendrier de l'audit dépendances v2.6.
 
-## 6. Réserves
+## 7. Réserves
 
 | ID | Réserve |
 |----|---------|
-| CON-R01 | Fondations non validées |
-| CON-R02 | Schemas non créés |
-| CON-R03 | Design/modeled/delivery non modifiés |
-| CON-R04 | UX 87–89 hors main |
-| CON-R05 | Runtime ≠ Option A |
-| CON-R06 | CKC onze absents (attendu) |
+| VAL-R01 | Runtime / design / modeled / delivery non migrés |
+| VAL-R02 | Dépendances v2.6 code non auditées |
+| VAL-R03 | Schemas non créés |
+| VAL-R04 | UX 87–89 hors main |
+| VAL-R05 | Onze CKC détaillés absents |
+| VAL-R06 | Merge soumis à GO Morris distinct |
+| VAL-R07 | Amendement textuel framing `11` encore dû |
 
-## 7. Trajectoire aval
+## 8. Trajectoire aval
 
-1. `GO VALIDATION DOCTRINE — SFIA STUDIO V3 KNOWLEDGE-DRIVEN METHOD`
-2. Puis `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3 FOUNDATIONAL CONTRACTS`
+1. `GO MORRIS REVIEW — DRAFT PR SFIA STUDIO V3 DOCTRINE`
+2. GO merge distinct (si review OK)
+3. Audit dépendances v2.6 (Studio)
+4. `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3 FOUNDATIONAL CONTRACTS`
+5. Réévaluation design / delivery / UX (D-V3-04)
 
-## 8. Verdict documentaire
+## 9. Verdict documentaire
 
-Pack de consolidation **documenté candidat**.
-**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE DOCUMENTED — MORRIS VALIDATION REQUIRED** (au niveau pack).
+**SFIA STUDIO V3 KNOWLEDGE-DRIVEN DOCTRINE VALIDATED — DRAFT PR PENDING MERGE**

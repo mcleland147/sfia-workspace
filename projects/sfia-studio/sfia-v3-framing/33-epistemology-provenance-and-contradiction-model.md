@@ -1,21 +1,17 @@
-# 33 — Épistémologie, provenance et contradictions (candidate)
+# 33 — Épistémologie, provenance et contradictions
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | `doctrine-candidate` — **soumis à validation Morris** · **non adopté** · **non baseline** |
-| **Maturité fondation** | `DOCUMENTED` candidate seulement |
-| **Baseline opérationnelle** | SFIA **v2.6** (inchangée) |
-| **Adoption v3** | **Non** |
-| **Gate** | `GO CONSOLIDATION CIBLÉE — SFIA STUDIO V3 DOCTRINE` |
-| **Branche** | `method/sfia-studio-v3-doctrine-consolidation` |
-| **CKC guidance** | Pilote Conception fonctionnelle · candidate · aucune autorité d'exécution |
-| **Anti-claims** | Pas V3-VALIDATED · Pas V3-ADOPTED · Pas READY FOR DELIVERY · Pas CKC ADOPTED · Pas décision autonome |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Fondations** | **V3-F04 · V3-F08 validées** (D-V3-01) |
+| **Doctrine produit Studio** | **SFIA v3 exclusive** |
+| **Maturité fondations** | **VALIDATED** (doctrine) |
+| **Anti-claims** | Phrase utilisateur ≠ décision · Recommandation ≠ exécution |
 | **Document** | `33-epistemology-provenance-and-contradiction-model.md` |
-| **Fondations** | V3-F04 · V3-F08 |
 
 ---
 
-## 1. V3-F04 — Épistémologie explicite (candidate)
+## 1. V3-F04 — Épistémologie explicite (VALIDATED)
 
 | Type | Définition | Source typique | Autorité | Transition | Persistance | UX | Preuve | Anti-claim |
 |------|------------|----------------|----------|------------|-------------|-----|--------|------------|
@@ -37,12 +33,13 @@
 3. Une Option **≠** Décision.
 4. Contradiction → signalement (`V3-F08`) avant claim.
 5. Alignement CC-D05 : labels texte, pas couleur seule.
+6. Une source v2.6 historique **n'est pas** un Fact de doctrine Studio active.
 
 ## 2. Provenance (lien V3-F07)
 
 Chaque item épistémique porte : origin (gpt|human|system|git|runtime) · status · sourceRefs · updatedAt · authorityLevel.
 
-## 3. V3-F08 — Détection des contradictions (candidate)
+## 3. V3-F08 — Détection des contradictions (VALIDATED)
 
 ### Catégories
 
@@ -66,6 +63,8 @@ sévérité (info / warning / blocking) · sources · objet impacté · blocante
 - warning → réserve visible ;
 - info → trace audit.
 
+**Cas particulier D-V3-03 :** toute tentative de charger v2.6 comme doctrine Studio active est une contradiction **C-DOC-RT** / gouvernance → stop.
+
 ## 4. Maturité
 
-V3-F04 / F08 : **DOCUMENTED candidate**.
+V3-F04 / F08 : **VALIDATED** (doctrine) · schemas : non créés.

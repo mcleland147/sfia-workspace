@@ -1,40 +1,37 @@
-# 30 — Doctrine connaissance, contexte et décision humaine (candidate)
+# 30 — Doctrine connaissance, contexte et décision humaine
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Statut** | `doctrine-candidate` — **soumis à validation Morris** · **non adopté** · **non baseline** |
-| **Maturité fondation** | `DOCUMENTED` candidate seulement |
-| **Baseline opérationnelle** | SFIA **v2.6** (inchangée) |
-| **Adoption v3** | **Non** |
-| **Gate** | `GO CONSOLIDATION CIBLÉE — SFIA STUDIO V3 DOCTRINE` |
-| **Branche** | `method/sfia-studio-v3-doctrine-consolidation` |
-| **CKC guidance** | Pilote Conception fonctionnelle `pilots/02-conception-fonctionnelle.md` · candidate · aucune autorité d'exécution |
-| **Anti-claims** | Pas V3-VALIDATED · Pas V3-ADOPTED · Pas READY FOR DELIVERY · Pas CKC ADOPTED · Pas décision autonome |
+| **Statut** | Doctrine SFIA Studio v3 **validée par Morris** · merge `main` en attente |
+| **Fondations** | **V3-F01 · V3-F05 validées** (D-V3-01) |
+| **Doctrine produit Studio** | **SFIA v3 exclusive** |
+| **SFIA v2.6** | Externe à Studio · historique / traçabilité uniquement |
+| **Maturité fondations** | **VALIDATED** (doctrine Studio) |
+| **Maturité runtime** | Non migré |
+| **Gates** | Validation doctrine + PR readiness (consommés) |
+| **Anti-claims** | Pas runtime actif · Pas ADOPTED runtime · Pas READY FOR DELIVERY · Pas baseline globale |
 | **Document** | `30-knowledge-context-human-decision-doctrine.md` |
-| **Fondations** | V3-F01 · V3-F05 · architecture doctrinale (couches) |
-
-> Ce document **propose**. Il ne valide pas. Morris décide.
 
 ---
 
-## 1. Doctrine cible (candidate)
+## 1. Doctrine cible (validée)
 
 SFIA Studio v3 est un **système méthodologique conversationnel, gouverné et piloté par la connaissance, le contexte et la décision humaine**. Il transforme une intention en projet structuré, mobilise les connaissances adaptées à chaque cycle, maintient un état projet vivant, propose une trajectoire révisable et prépare des exécutions bornées et auditables.
 
-**Studio-native** · **candidate** · **sans autorité d'exécution autonome**.
+**Studio-native** · **doctrine exclusive Studio** · **sans autorité d'exécution autonome**.
 
-## 2. Chaîne canonique candidate
+## 2. Chaîne canonique
 
 ```
 intention utilisateur
 → compréhension de l'intention
-→ résolution du contexte et des sources
+→ résolution du contexte et des sources (DoctrinePackage v3)
 → qualification cycle / profil / blocs
-→ résolution CKC (pilote ou fallback silencieux)
+→ résolution CKC (pilote v3-autorisé ou fallback silencieux carte synthétique)
 → analyse et clarification
 → détection des contradictions
 → mise à jour du Living Project State
-→ trajectoire candidate
+→ trajectoire (recommandation jusqu'à validation)
 → options et recommandation
 → décision Morris
 → confirmation proportionnée (N1–N3)
@@ -45,7 +42,7 @@ intention utilisateur
 → replanification ou capitalisation
 ```
 
-## 3. V3-F01 — CKC comme couche cognitive canonique (candidate)
+## 3. V3-F01 — CKC comme couche cognitive canonique (VALIDATED)
 
 ### Définition
 
@@ -53,7 +50,7 @@ Un **Cycle Knowledge Contract (CKC)** est un contrat de connaissance associé à
 
 ### Fournit
 
-dimensions d'analyse · questions adaptatives · risques · critères de maturité · preuves attendues · anti-claims · entrées/sorties · dépendances · limites · règles de fallback.
+dimensions d'analyse · questions adaptatives · risques · critères de maturité · preuves attendues · anti-claims · entrées/sorties · dépendances · limites · règles de fallback **intra-doctrine v3**.
 
 ### Garde-fous (obligatoires)
 
@@ -61,32 +58,30 @@ dimensions d'analyse · questions adaptatives · risques · critères de maturit
 |-------|---------|
 | Autorité | **Aucune** autorité d'exécution |
 | Décision | **Aucune** décision Morris implicite |
-| UI | **Jamais** exposé comme formulaire / checklist 25 sections / dimensions brutes |
-| Couverture | 4 pilotes détaillés (1, 2, 6, 9) · 11 cycles en fallback |
-| Fallback | Carte synthétique + méthode v2.6 · **silencieux** côté utilisateur (CC-D12) |
-| Traçabilité | path · version · statut `candidate`/`absent` · digest si disponible |
+| UI | **Jamais** exposé comme formulaire / checklist / dimensions brutes |
+| Couverture | 4 pilotes détaillés (1, 2, 6, 9) · 11 cycles en fallback silencieux |
+| Fallback | Carte synthétique / sources **autorisées par DoctrinePackage v3** · **silencieux** UI (CC-D12) · **jamais** bascule doctrinale vers SFIA v2.6 |
+| Traçabilité | path · version · statut `detailed`/`synthetic`/`absent` · digest si disponible |
 | Invention | **Interdit** d'inventer un CKC détaillé absent |
 
 ### Consommation Studio
 
-Résolution **interne** après qualification cycle · influence questions/challenges · trace audit interne seulement · n'élargit pas le périmètre Cursor.
+Résolution **interne** après qualification cycle · influence questions/challenges · trace audit · n'élargit pas le périmètre Cursor · **pas** de chargement de `method/sfia-fast-track/` comme doctrine produit.
 
-Réf. : routing guide §4.4.5 · pack CKC `method/.../cycle-knowledge-contracts/` · décisions UX CC-D12.
-
-## 4. V3-F05 — Chaîne conversation → décision → exécution (candidate)
+## 4. V3-F05 — Chaîne conversation → décision → exécution (VALIDATED)
 
 Alignement **décisions UX validées** (2026-07-23) :
 
-| Décision | Règle doctrinale candidate |
-|----------|----------------------------|
+| Décision | Règle doctrinale |
+|----------|------------------|
 | CC-D01 | Conversation **dominante** + panneau vivant + confirmations structurantes · pas de stepper principal · pas de workspace multi-panneaux MVP |
 | CC-D03 | Panneau sticky 360–400@1440 · ~320@1280 · sheet/drawer ≤1024 · contenu = état utile |
-| CC-D05 | Observation / Hypothèse / Option / Recommandation / Décision distinctes · gates visibles · métier + ID SFIA secondaire · pas de CTA générique |
-| CC-D06 | Confirmations N1 (réversible) · N2 (structurante) · N3 (critique/irréversible) · explicite avant mutation |
-| CC-D12 | Fallback CKC silencieux |
-| CC-D13 | **Project ≠ Cycle** · aucun claim projet validé/lancé/terminé via seul état de cycle |
+| CC-D05 | Observation / Hypothèse / Option / Recommandation / Décision distinctes · gates visibles · métier + ID SFIA secondaire |
+| CC-D06 | Confirmations N1 · N2 · N3 · explicite avant mutation |
+| CC-D12 | Fallback CKC silencieux (intra-v3) |
+| CC-D13 | **Project ≠ Cycle** |
 
-**Tension historique :** framing `11` (« cockpit avant chat ») est **amendé candidate** par CC-D01. Arbitrage formel de validation : document `37`.
+**Lecture UX de framing `11` :** la surface conversationnelle (CC-D01 Option A) prévaut pour Studio ; le cockpit projet reste surface **après** création/reprise de Project (voir `37`).
 
 **Règles :**
 
@@ -95,31 +90,31 @@ Alignement **décisions UX validées** (2026-07-23) :
 - phrase conversationnelle ≠ gate ;
 - Composer libre toujours disponible hors modal stricte.
 
-## 5. Architecture doctrinale candidate — 7 couches
+## 5. Architecture doctrinale — 7 couches
 
 | # | Couche | Responsabilités | Sorties | Autorité |
 |---|--------|-----------------|---------|----------|
 | 1 | Governance | Morris, gates, maturité, anti-claims | Décisions, stop | Morris |
-| 2 | Knowledge & Context | DoctrinePackage, CKC, sources, provenance | Contexte résolu | Cognitive |
-| 3 | Project Method | Cycles, profils, blocs/lenses, routage | Qualification | Cognitive |
+| 2 | Knowledge & Context | DoctrinePackage v3, CKC, sources, provenance | Contexte résolu | Cognitive |
+| 3 | Project Method | Cycles, profils, lenses, routage | Qualification | Cognitive |
 | 4 | Living Project State | État utile persisté | LPS mis à jour | Studio |
 | 5 | Trajectory & Decision | Trajectoire, options, reco, HumanDecision | Décision / réserve | Morris |
 | 6 | Execution & Agent | ExecutionContract, capacités, réversibilité | Exécution bornée | Cursor/Runtime sous contrat |
-| 7 | Evidence & Learning | Preuves, ReviewBundle, REX, dette | Capitalisation candidate | Morris pour promotion |
+| 7 | Evidence & Learning | Preuves, ReviewBundle, REX, dette | Capitalisation | Morris pour promotion |
 
-**Anti-claims couches :** aucune couche n'autorise L5 décisionnel global · aucune couche n'adopte v3 seule.
+**Anti-claims couches :** aucune couche n'autorise L5 décisionnel global · aucune couche n'active seule le runtime ADOPTED.
 
 ## 6. Boucle de vie projet (native)
 
-cadrage → conception → architecture → UX → backlog → delivery → QA → sécurité → release → RUN readiness → PR readiness → post-merge → capitalisation → évolution doctrine/CKC **candidate**.
+cadrage → conception → architecture → UX → backlog → delivery → QA → sécurité → release → RUN readiness → PR readiness → post-merge → capitalisation → évolution doctrine/CKC (sous décision Morris).
 
 Le **merge ne termine pas** automatiquement un projet ni un cycle.
 
 ## 7. Relation aux documents antérieurs
 
-Complète et **ne remplace pas** : `01`–`29` (D1–D8, Option D, E0–E4, MD/JSON/SQL).
-Amende **candidate** : lecture UX de `11` (voir `37`).
+Complète : `01`–`29` (D1–D8, Option D, E0–E4, MD/JSON/SQL).
+Amende la lecture UX de `11` au profit de CC-D01 (voir `37`).
 
 ## 8. Maturité
 
-Fondations V3-F01 / V3-F05 : **DOCUMENTED candidate** — validation Morris requise.
+Fondations V3-F01 / V3-F05 : **VALIDATED** (doctrine Studio) · non MODELED · non IMPLEMENTED runtime.
