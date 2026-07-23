@@ -66,4 +66,4 @@ export interface AnalyzeIntentInput {
 
 export const D1_INTAKE_MAX_INTENT_LENGTH = 2000;
 export const D1_INTAKE_MAX_CLARIFICATION_TURNS = 3;
-export const D1_INTAKE_PROVIDER_TIMEOUT_MS = 25_000;
+export const D1_INTAKE_PROVIDER_TIMEOUT_MS = 60_000;
