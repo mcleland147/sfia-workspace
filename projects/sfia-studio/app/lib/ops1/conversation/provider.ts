@@ -1,25 +1,10 @@
-import {
-  isFakeConversationProviderForced,
-  requireLiveConversationSecrets,
-} from "./config";
-import { FakeConversationProvider } from "./fakeProvider";
-import { OpenAIConversationProvider } from "./openaiProvider";
-import type { ConversationProvider } from "./types";
+/**
+ * TEMP_OPS1_PLATFORM_WRAPPER — re-export from shared platform.
+ * Remove when no OPS1 consumer imports this path (Phase 6 cleanup gate).
+ * Do not add generic logic here. Do not import from D1.
+ */
 
-let providerOverride: ConversationProvider | null = null;
-
-/** Test-only injection — never used by client code. */
-export function setConversationProviderForTests(
-  provider: ConversationProvider | null,
-): void {
-  providerOverride = provider;
-}
-
-export function resolveConversationProvider(): ConversationProvider {
-  if (providerOverride) return providerOverride;
-  if (isFakeConversationProviderForced()) {
-    return new FakeConversationProvider();
-  }
-  const { apiKey, model } = requireLiveConversationSecrets();
-  return new OpenAIConversationProvider(apiKey, model);
-}
+export {
+  resolveConversationProvider,
+  setConversationProviderForTests,
+} from "@/lib/platform/ai/provider";
