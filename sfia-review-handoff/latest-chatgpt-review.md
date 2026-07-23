@@ -1,56 +1,32 @@
-# SFIA Studio — Review Pack FULL — Shared Technical Platform Delivery
+# SFIA Studio — Review Pack FULL — Shared Technical Platform PR Readiness
 
-**Date/heure :** 2026-07-23 06:46:53 CEST
+**Date/heure :** 2026-07-23 07:12:38 CEST
 **Niveau :** FULL
-**Cycle :** Delivery projet — Shared Technical Platform
-**Profil SFIA :** Critical
-**Typologie :** EVOL / DELIVERY / ARCHITECTURE / SECURITY / MIGRATION / QA
-**Gate consommé :** `GO DELIVERY — SFIA STUDIO SHARED TECHNICAL PLATFORM`
-**Gate proposé (NON consommé) :** `GO VALIDATION — SFIA STUDIO SHARED TECHNICAL PLATFORM`
+**Cycle :** PR readiness (+ validation, push, PR create)
+**Profil :** Critical
+**Gate consommé :** `GO COMMIT PUSH PR — SFIA STUDIO SHARED TECHNICAL PLATFORM`
+**Autorisations Morris :** validation · PR readiness · commit doc/fix borné · push branche · créer PR · **pas de merge**
 **Repo :** `mcleland147/sfia-workspace`
 **Worktree :** `/Users/morris/Projects/sfia-workspace-shared-platform-delivery`
 **Branche :** `delivery/sfia-studio-shared-technical-platform`
-**HEAD initial / base :** `88fa4658da07156614de270d8172f147535ddbf9`
-**HEAD final :** `ea95a09b39eb6b9d9137c2bda8822b6f71468fbc`
-**HEAD == origin/main tip + 5 commits locaux :** YES (no push)
-**Baseline méthode :** SFIA v2.6
-**Statut v3 :** V3-MODELED CANDIDATE
-**Architecture handoff attendu :** commit `1c87b6e9…` / blob `dc647bfe…` (vérifié avant delivery)
+**HEAD initial :** `ea95a09b39eb6b9d9137c2bda8822b6f71468fbc`
+**HEAD final :** `08c282abafd97685bcc0b7e525ec96e6721ec589`
+**origin/main :** `88fa4658da07156614de270d8172f147535ddbf9`
+**merge-base :** `88fa4658da07156614de270d8172f147535ddbf9`
+**Handoff précédent :** commit `c6793e6f…` / blob `26a27dd1…`
 
 ---
 
-## 1. État Git initial (delivery WT)
+## 1. État Git initial
 
-- Worktree créé propre depuis `origin/main` @ `88fa465…`
-- Branche `delivery/sfia-studio-shared-technical-platform`
-- Framing WT `/Users/morris/Projects/sfia-workspace-framing-next-increment` **préservé** (non utilisé pour delivery)
+- Branche delivery · 5 commits · seul `.tmp-sfia-review/` dirty · framing intact · base `88fa465…` inchangée
 
-## 2. Tests baseline (avant modification)
+## 2. Diff
 
-- `npx vitest run __tests__/ops1 __tests__/d1` → **157/157 PASS** (~5s)
-
-## 3. Sources
-
-- Handoff architecture `1c87b6e9…` / `dc647bfe…`
-- Docs 79/80 (cadrage WT) + 66–74 main
-- Code `lib/ops1/**`, `lib/d1/**`, features, tests, package.json
-
-## 4. Décisions Morris appliquées
-
-Option B · `lib/platform/**` · EventSink · D1↛OPS1 · wrappers temporaires · pas de suppression OPS1 · live/B′ différés · pas de push/PR/merge
-
-## 5. Architecture / structure réelle
-
-```
-app/lib/platform/{ai,tools,repository,sfia-context,security,observability}/**
-```
-
-Deps cibles : D1→platform · OPS1→platform · platform↛domaines · D1↛OPS1
-
-## 6. Inventaire fichiers (name-status vs origin/main)
-
+### name-status
 ```
 A	projects/sfia-studio/81-shared-technical-platform-delivery-report.md
+A	projects/sfia-studio/82-shared-technical-platform-validation-and-pr-readiness.md
 M	projects/sfia-studio/README.md
 M	projects/sfia-studio/app/__tests__/d1/intake-c3.test.ts
 M	projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
@@ -104,10 +80,10 @@ A	projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
 A	projects/sfia-studio/app/lib/platform/tools/types.ts
 ```
 
-## 7. Diff stat
-
+### stat
 ```
 ...81-shared-technical-platform-delivery-report.md | 155 ++++++
+ ...chnical-platform-validation-and-pr-readiness.md | 147 ++++++
  projects/sfia-studio/README.md                     |  10 +
  .../sfia-studio/app/__tests__/d1/intake-c3.test.ts |   2 +-
  .../app/__tests__/ops1/openai-provider.test.ts     |  10 +-
@@ -121,7 +97,7 @@ A	projects/sfia-studio/app/lib/platform/tools/types.ts
  .../app/lib/ops1/conversation/provider.ts          |  33 +-
  .../app/lib/ops1/conversation/toolLoop.ts          | 224 +-------
  .../sfia-studio/app/lib/ops1/conversation/types.ts |  97 +---
- projects/sfia-studio/app/lib/ops1/errors.ts        |  24 +
+ projects/sfia-studio/app/lib/ops1/errors.ts        |  23 +
  projects/sfia-studio/app/lib/ops1/ops1EventSink.ts |  56 ++
  .../app/lib/ops1/sfia/canonicalPaths.ts            |  94 +---
  .../app/lib/ops1/sfia/contextResolver.ts           | 205 +-------
@@ -156,15 +132,17 @@ A	projects/sfia-studio/app/lib/platform/tools/types.ts
  .../app/lib/platform/sfia-context/sourceLoader.ts  | 165 ++++++
  .../app/lib/platform/sfia-context/types.ts         |  68 +++
  .../sfia-studio/app/lib/platform/tools/index.ts    |  30 ++
- .../sfia-studio/app/lib/platform/tools/toolLoop.ts | 211 ++++++++
+ .../sfia-studio/app/lib/platform/tools/toolLoop.ts | 210 ++++++++
  .../app/lib/platform/tools/toolRouter.ts           | 560 ++++++++++++++++++++
  .../sfia-studio/app/lib/platform/tools/types.ts    | 266 ++++++++++
- 52 files changed, 3612 insertions(+), 2830 deletions(-)
+ 53 files changed, 3757 insertions(+), 2830 deletions(-)
 ```
 
-## 8. Commits locaux
-
+### commits finaux
 ```
+08c282a docs(sfia-studio): record shared platform PR #255 metadata
+7d2beaa docs(sfia-studio): validate shared technical platform for PR
+cac8f20 fix(sfia-studio): remove trailing whitespace for PR readiness
 ea95a09 test(sfia-studio): enforce shared platform dependency boundaries
 cf3747f refactor(d1): remove OPS1 technical dependency
 957e1da refactor(sfia-studio): migrate OPS1 to shared platform
@@ -172,83 +150,122 @@ cf3747f refactor(d1): remove OPS1 technical dependency
 c16f2b8 refactor(platform): extract shared AI and observability foundations
 ```
 
-## 9. Imports D1→OPS1
+## 3. Architecture / frontières
 
-**Avant :** resolveProvider + fakeIntakeProvider + tests → `@/lib/ops1/conversation/*`
+D1→platform · OPS1→platform · platform↛domaines · D1↛OPS1 — **vérifié par rg + import-boundaries tests**
 
-**Après :**
-```
-(none)
-```
+## 4. Wrappers / EventSink / sécurité
 
-## 10. Wrappers TEMP_OPS1_PLATFORM_WRAPPER
+Wrappers `TEMP_OPS1_PLATFORM_WRAPPER` (passifs + adapters EventSink).
+Git/GitHub RO · allowlists · redaction · timeouts · 4×4 · fail-closed · pas de secret valeur dans diff.
+GPT live non exécuté.
 
-```
-projects/sfia-studio/app/lib/ops1/conversation/config.ts
-projects/sfia-studio/app/lib/ops1/conversation/toolLoop.ts
-projects/sfia-studio/app/lib/ops1/conversation/provider.ts
-projects/sfia-studio/app/lib/ops1/conversation/fakeProvider.ts
-projects/sfia-studio/app/lib/ops1/conversation/openaiProvider.ts
-projects/sfia-studio/app/lib/ops1/tools/githubReadAdapter.ts
-projects/sfia-studio/app/lib/ops1/conversation/types.ts
-projects/sfia-studio/app/lib/ops1/tools/toolRouter.ts
-projects/sfia-studio/app/lib/ops1/tools/redaction.ts
-projects/sfia-studio/app/lib/ops1/tools/pathPolicy.ts
-projects/sfia-studio/app/lib/ops1/ops1EventSink.ts
-projects/sfia-studio/app/lib/ops1/tools/gitLocalReadAdapter.ts
-projects/sfia-studio/app/lib/ops1/tools/types.ts
-projects/sfia-studio/app/lib/ops1/sfia/contextResolver.ts
-projects/sfia-studio/app/lib/ops1/sfia/canonicalPaths.ts
-projects/sfia-studio/app/lib/ops1/sfia/sourceLoader.ts
-```
+## 5. Corrections
 
-Critère retrait : gate `GO CLEANUP OPS1 WRAPPERS` après stabilité + D1 unifié.
+`cac8f20` — trailing whitespace / EOF blank (`git diff --check` → PASS)
 
-## 11. EventSink
-
-Platform toolRouter/toolLoop n’ouvrent plus OPS1 DB. OPS1 `createOps1SessionEventSink` mappe vers `session_events`.
-
-## 12. Sécurité
-
-RO Git/GitHub · allowlists · redaction · timeouts · 4×4 · fail-closed · pas de mutation platform · C4 inchangé.
-
-## 13. Tests finaux
+## 6. Tests validation
 
 | Suite | Résultat |
 |-------|----------|
-| Vitest full | 205/205 |
-| Platform + guards | 8/8 |
+| platform | 8/8 |
+| OPS1 | 105/105 |
+| D1 | 52/52 |
+| vitest full | 205/205 |
+| E2E CT+D1 | 36/36 |
 | lint | PASS |
 | typecheck | PASS |
-| build | PASS (~8s) |
-| E2E CT+D1 ciblés | 36/36 PASS (~29s) |
-| E2E increment-b harness | hors périmètre — timeouts observés (POC harness), non liés platform |
+| build | PASS |
 
-Aucun GPT live. Aucune mutation GitHub. Aucun push projet.
+## 7. Push
 
-## 14. Réserves
+`git push -u origin delivery/sfia-studio-shared-technical-platform`
+SHA local/remote match : `08c282abafd97685bcc0b7e525ec96e6721ec589`
 
-- D1 tools + contexte canonique **non branchés** (lot suivant, sans élargissement UX ici).
-- Wrappers OPS1 dette temporaire.
-- increment-b harness E2E flaky/timeout hors scope.
+## 8. Pull Request
 
-## 15. Rollback
+- Titre : `refactor(sfia-studio): extract shared technical platform`
+- Number : **255**
+- URL : https://github.com/mcleland147/sfia-workspace/pull/255
+- state OPEN · base main · head delivery/sfia-studio-shared-technical-platform · non-draft
+- 8 commits · 53 files · +3753/−2830 (après metadata commit)
+- **Merge non exécuté**
 
-`git reset --hard origin/main` sur branche delivery (locale) ou revert des 5 commits.
+### Corps PR
+```
+## Summary
 
-## 16. Impacts Live / B′
+Extracts reusable technical capabilities from OPS1 into a shared SFIA Studio platform and removes the direct D1 → OPS1 dependency.
 
-Live unifié réalisable après lot D1 tools/context. Live exécution et B′ **différés**.
+## Delivered
 
-## 17. Actions non exécutées
+- shared `platform/ai`
+- shared `platform/tools`
+- read-only Git and GitHub repository adapters
+- shared canonical SFIA context
+- shared security and redaction policies
+- injectable local `EventSink`
+- OPS1 compatibility wrappers
+- D1 provider migration to `platform/ai`
+- automated import-boundary guard
+- validation and PR-readiness documentation
 
-push projet · PR · merge · GPT live · D1_INTAKE_LIVE · suppression OPS1 · B′ · OAuth · CI · Figma · modification 75–80
+## Architecture boundaries
 
-## 18. DIFF README
+- D1 → platform
+- OPS1 → platform
+- platform ↛ D1
+- platform ↛ OPS1
+- D1 ↛ OPS1
+
+## Validation
+
+- Vitest full: **205/205 PASS**
+- Platform/import guards: **8/8 PASS**
+- OPS1 tests: **105/105 PASS**
+- D1 tests: **52/52 PASS**
+- E2E CT + D1: **36/36 PASS**
+- Lint: **PASS**
+- Typecheck: **PASS**
+- Build: **PASS**
+
+## Security
+
+- Git/GitHub remain read-only
+- repository and path allowlists preserved
+- redaction preserved
+- timeouts and bounded tool rounds preserved
+- no secrets committed
+- no GPT live call performed
+
+## Deferred
+
+- D1 tool-loop and canonical-context integration
+- Live Product Validation
+- OPS1 wrapper cleanup and decommissioning
+- Option B′
+
+## Risk and rollback
+
+The change is split into granular commits and can be rolled back by reverting the branch commits. OPS1 compatibility wrappers remain temporary until D1 unification and a dedicated cleanup gate.
+
+## Anti-claims
+
+This PR does not:
+
+- complete the unified live D1 journey
+- decommission OPS1
+- remove all OPS1 wrappers
+- implement Option B′
+- adopt SFIA v3
+
+```
+
+## 9. DIFF README
 
 ```diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index a3c088b..68d7721 100644
+index a3c088b..266ee4d 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
 @@ -503,3 +503,13 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
@@ -256,672 +273,188 @@ index a3c088b..68d7721 100644
 
  *SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
 +
-+### Shared Technical Platform (delivery local candidat)
++### Shared Technical Platform (PR readiness)
 +
 +| Document | Rôle |
 +|----------|------|
 +| [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery Option B — `lib/platform/**` — **`delivery-local-candidate`** |
++| [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation + PR readiness — **`PR opened`** [#255](https://github.com/mcleland147/sfia-workspace/pull/255) |
 +
-+> **Statut :** delivery local **candidat** — validation Morris requise (`GO VALIDATION` **non** consommé).
++> **Statut :** **PR opened** [#255](https://github.com/mcleland147/sfia-workspace/pull/255) — merge **fermé** ; pas de baseline claim.
 +> **Séquence candidate :** Shared Technical Platform → D1 unifié (tools/context) → Live Product Validation → décision B′.
-+> Push / PR / merge / live GPT / B′ : **fermés** dans ce cycle.
 ```
 
-## 19. CONTENU COMPLET — Document 81
+## 10. CONTENU COMPLET — Document 82
 
-BEGIN_FILE projects/sfia-studio/81-shared-technical-platform-delivery-report.md
-# SFIA Studio — Shared Technical Platform — Delivery Report
+BEGIN_FILE projects/sfia-studio/82-shared-technical-platform-validation-and-pr-readiness.md
+# SFIA Studio — Shared Technical Platform — Validation & PR Readiness
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Document** | `81-shared-technical-platform-delivery-report.md` |
-| **Statut** | `delivery-local-candidate` — validation Morris **requise** |
-| **Gate consommé** | `GO DELIVERY — SFIA STUDIO SHARED TECHNICAL PLATFORM` |
-| **Gate proposé** | `GO VALIDATION — SFIA STUDIO SHARED TECHNICAL PLATFORM` |
-| **Base** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` |
+| **Document** | `82-shared-technical-platform-validation-and-pr-readiness.md` |
+| **Statut** | `PR opened` — revue Morris / GitHub requise |
+| **Gate consommé** | `GO COMMIT PUSH PR — SFIA STUDIO SHARED TECHNICAL PLATFORM` |
+| **Date/heure** | 2026-07-23 07:12:00 CEST (Europe/Paris) |
+| **Cycle / profil** | PR readiness · Critical |
+| **Repo** | `mcleland147/sfia-workspace` |
 | **Branche** | `delivery/sfia-studio-shared-technical-platform` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-shared-platform-delivery` |
-| **Option** | **B** (plateforme technique + EventSink) |
-| **Structure** | `app/lib/platform/**` |
+| **HEAD initial validation** | `ea95a09b39eb6b9d9137c2bda8822b6f71468fbc` |
+| **HEAD final (push)** | `7d2beaa9be42b6e6195d4ce8e6a5b7960cca5f10` |
+| **Base / merge-base** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` |
+| **Correction** | `cac8f20` trailing whitespace (`git diff --check`) |
+| **Commit documentaire** | `7d2beaa` (+ mise à jour PR metadata ci-dessous) |
+| **PR** | [#255](https://github.com/mcleland147/sfia-workspace/pull/255) — OPEN · base `main` · non-draft |
 
 ---
 
 ## 1. Décisions Morris appliquées
 
-- Option B retenue.
-- Structure `app/lib/platform/**`.
-- EventSink local injectable.
-- Aucun nouveau générique sous `lib/ops1/**` (wrappers temporaires uniquement).
-- D1 ↛ OPS1.
-- OPS1 consommateur temporaire via wrappers.
-- Migration incrémentale / réversible.
-- Pas de suppression OPS1.
-- Live Product Validation et B′ différées.
-- Aucun push / PR / merge projet.
+- Option B · `lib/platform/**` · EventSink injectable
+- D1 ↛ OPS1 · wrappers temporaires autorisés
+- Pas de suppression OPS1 / wrappers cleanup
+- Live / B′ / D1 tools-context : différés
+- Push branche + création PR autorisés · **merge interdit**
 
 ---
 
-## 2. Architecture livrée
+## 2. Diff
 
-```
-D1 → platform
-OPS1 → platform (via wrappers TEMP_OPS1_PLATFORM_WRAPPER)
-platform ↛ D1
-platform ↛ OPS1
-D1 ↛ OPS1
-```
+| Métrique | Valeur |
+|----------|--------|
+| Fichiers | **52** (avant commits doc/fix de ce cycle) |
+| Additions / deletions | **+3612 / −2830** |
+| `git diff --check` | **PASS** après `cac8f20` |
 
-### Structure réelle
+Commits delivery (au-dessus de main) :
 
-```
-app/lib/platform/
-  ai/              ConversationProvider, OpenAI, Fake, config, TechnicalError
-  tools/           ToolDefinition, toolRouter, toolLoop (+ EventSink)
-  repository/      GitLocalReadAdapter, GithubReadAdapter, workspaceRoot
-  sfia-context/    canonicalPaths, sourceLoader, contextResolver, context types
-  security/        redaction, pathPolicy
-  observability/   EventSink, NoopEventSink, TechnicalEvent
-```
-
-Pas d’`index.ts` racine fourre-tout. Modules bornés.
+1. `c16f2b8` — AI + observability
+2. `607487e` — tools + repository
+3. `957e1da` — OPS1 → platform
+4. `cf3747f` — D1 découplé
+5. `ea95a09` — guards + doc 81
+6. `cac8f20` — fix trailing whitespace
+7. (+ commit docs 82 / README de ce cycle)
 
 ---
 
-## 3. Composants extraits
+## 3. Validation architecture
 
-| Zone | Extraits |
-|------|----------|
-| AI | types provider, openai, fake, config, resolve provider, TechnicalError |
-| Tools | types CT tools, router, loop |
-| Repository | git local RO, github RO transports |
-| Security | redaction, path/repo policy |
-| Observability | EventSink, NoopEventSink |
-| SFIA context | paths, loader, resolver, SfiaCanonicalContext |
+| Contrôle | Résultat |
+|----------|----------|
+| `platform/ai` sans règles D1/OPS1 | OK |
+| `platform/tools` sans DB OPS1 | OK (EventSink) |
+| `platform/repository` read-only | OK |
+| `platform/sfia-context` sans ActionCandidate | OK |
+| `platform/security` redaction + pathPolicy | OK |
+| `platform/observability` EventSink local | OK |
+| Pas de mutation Project depuis platform | OK |
+| Métier OPS1 / D1 hors platform | OK |
+| Pas de framework / IoC | OK |
+| D1 → platform | OK |
+| OPS1 → platform | OK |
+| platform ↛ D1/OPS1 | OK (`rg` vide) |
+| D1 ↛ OPS1 | OK (`rg` vide) |
 
-## 4. Composants non extraits (conservés domaine)
+### Wrappers `TEMP_OPS1_PLATFORM_WRAPPER`
 
-**OPS1 :** `conversation/service`, ActionCandidate / proposalSchema / actionCompiler / sessionContext / cursorPromptInstantiator, db/session, execution*, actionGate, reports, allowlistService (actions), UI OPS1.
+| Wrapper | Classe | Critère de retrait |
+|---------|--------|-------------------|
+| conversation `{config,openai,fake,provider}` | passif (re-export) | plus d’imports OPS1 path |
+| tools `{types,redaction,pathPolicy,git,github}` | passif | idem |
+| sfia `{canonicalPaths,sourceLoader,contextResolver}` | passif | idem |
+| `conversation/types` journal helpers | logique OPS1 domaine (conservée) | reste OPS1 |
+| `tools/toolRouter` | **adapter** EventSink | après cleanup OPS1 events |
+| `conversation/toolLoop` | **adapter** EventSink | idem |
+| `ops1EventSink.ts` | **adapter** nécessaire | gate cleanup wrappers |
 
-**D1 :** proposal C2, matching C3, confirmation C4, createProject, audit, UI D1.
-
-**Réserve :** D1 n’est **pas** encore branché sur tool loop ni contexte canonique (pas d’élargissement UX/fonctionnel dans ce delivery).
+Aucune logique générique nouvelle dupliquée dans les wrappers.
 
 ---
 
-## 5. Migration OPS1
+## 4. Sécurité
 
-- Fichiers génériques remplacés par wrappers `TEMP_OPS1_PLATFORM_WRAPPER`.
-- `ops1EventSink.ts` adapte EventSink → `session_events`.
-- `toolLoop` / `toolRouter` wrappers injectent le sink OPS1.
-- Comportement CT préservé (tests verts).
+- Git/GitHub read-only · allowlists · redaction · timeouts · 4×4 rounds · fail-closed · pas de shell libre
+- Secrets : seules des **références de noms de variables** / fake keys de test — **aucune valeur secrète dans le diff**
+- C4 reste le seul point de mutation Project
+- GPT live **non** appelé
 
-**Critère de retrait wrappers :** plus aucun import hors re-export ; D1 déjà sur platform ; tests verts ; gate `GO CLEANUP OPS1 WRAPPERS`.
+---
 
-## 6. Migration D1
-
-- `resolveProvider` / `fakeIntakeProvider` importent `@/lib/platform/ai/**` uniquement.
-- Flags `D1_INTAKE_LIVE` / fake / fail-closed conservés.
-- C2/C3/C4 inchangés.
-
-## 7. EventSink
-
-- Contrat `EventSink.emit(TechnicalEvent)`.
-- Platform tool router/loop n’ouvrent pas la DB OPS1.
-- OPS1 : `createOps1SessionEventSink`.
-- D1 : peut utiliser `NoopEventSink` (non branché tools dans ce lot).
-
-## 8. Import guards
-
-`__tests__/platform/import-boundaries.test.ts` :
-
-- D1 ↛ OPS1
-- platform ↛ OPS1/D1
-- wrappers marqués `TEMP_OPS1_PLATFORM_WRAPPER`
-
-## 9. Sécurité
-
-Conservé : Git/GitHub RO, allowlists, redaction, timeouts, 4×4 rounds, fail-closed, pas de mutation platform, C4 humain inchangé, pas d’exécution Cursor depuis platform.
-
-## 10. Tests
+## 5. Tests (validation)
 
 | Suite | Résultat |
 |-------|----------|
-| Baseline OPS1+D1 (avant) | 157/157 (~5s) |
-| Après migration OPS1+D1 | 157/157 |
-| Platform unit + guards | 8/8 |
-| Vitest full | 205/205 (~4s) |
-| typecheck | PASS (~1s) |
-| lint | PASS (unused `_event` corrigé) |
-| build | PASS (~8s) |
-| E2E ciblés CT + D1 | **36/36 PASS** (~29s) |
-| E2E `increment-b` harness POC | **hors périmètre platform** — timeouts observés (GO fixture harness) ; non liés aux imports platform ; non bloquants pour ce delivery |
+| `__tests__/platform` | **8/8 PASS** |
+| `__tests__/ops1` | **105/105 PASS** |
+| `__tests__/d1` | **52/52 PASS** |
+| Vitest full | **205/205 PASS** (~4.3s) |
+| lint | **PASS** |
+| typecheck | **PASS** |
+| build | **PASS** |
+| E2E CT + D1 ciblés | **36/36 PASS** (~28.7s) |
 
-Aucun GPT live. Aucune mutation GitHub.
+Réserve non bloquante : E2E `increment-b` harness POC (hors périmètre platform) — non rejoué comme gate.
 
-## 11. Commits locaux (pas de push)
+---
 
-1. `refactor(platform): extract shared AI and observability foundations`
-2. `refactor(platform): extract shared tools and repository adapters`
-3. `refactor(sfia-studio): migrate OPS1 to shared platform`
-4. `refactor(d1): remove OPS1 technical dependency`
-5. `test(sfia-studio): enforce shared platform dependency boundaries` (+ doc 81)
+## 6. Réserves / dette / rollback
 
-## 12. Risques / réserves / dette
+**Réserves non bloquantes :** D1 tools/context non branchés · wrappers temporaires · live / B′ différés · cleanup OPS1 ultérieur.
 
-| Item | Note |
-|------|------|
-| Wrappers OPS1 | Dette temporaire acceptée |
-| D1 tools/context unifiés | **Réserve** — lot suivant |
-| EventSink mapping noms | OPS1 conserve types session historiques via adapter |
-| Rollback | revert commits 1–5 ; wrappers isolent le changement |
+**Dette :** wrappers OPS1 · EventSink mapping noms historiques.
 
-## 13. Impacts
+**Rollback :** revert des commits de branche (granulaire) ; wrappers isolent OPS1.
 
-- **Live Product Validation :** unifié devient réalisable après branchement D1 tools/context (lot suivant) ; exécution live toujours différée.
-- **B′ :** différée ; platform ne l’implémente pas.
+---
 
-## 14. Anti-claims
+## 7. Anti-claims
 
-Pas READY production. Pas LIVE VALIDATED. Pas OPS1 décommissionné. Pas B′. Pas V3-ADOPTED. Pas push/PR/merge. Pas D1 tools unifiés livrés.
+Pas de D1 live unifié · pas OPS1 décommissionné · pas wrappers tous retirables maintenant · pas Live Validation terminée · pas B′ · pas V3-ADOPTED · **pas merged**.
 
-**Verdict delivery :** `SHARED TECHNICAL PLATFORM DELIVERED — READY FOR VALIDATION`
+---
 
-END_FILE projects/sfia-studio/81-shared-technical-platform-delivery-report.md
+## 8. PR readiness verdict
 
-## 20. CONTRATS / WRAPPERS / GUARDS (contenu complet)
+**READY FOR PUSH AND PR** — preuves suffisantes ; réserves exposées et non bloquantes.
 
-BEGIN_FILE ai/types.ts
-import type { ToolDefinition } from "../tools/types";
+### Titre PR
 
-/** Provider-facing roles — domain roles mapped without SDK types. */
-export type ProviderChatRole = "system" | "user" | "assistant";
+`refactor(sfia-studio): extract shared technical platform`
 
-export interface ProviderChatMessage {
-  role: ProviderChatRole;
-  content: string;
-}
+### Corps PR
 
-export interface ProviderUsage {
-  inputTokens: number | null;
-  outputTokens: number | null;
-  totalTokens: number | null;
-  model: string | null;
-  providerResponseId: string | null;
-}
+Voir handoff / fichier temporaire de création `gh pr create`.
 
-export interface ProviderCompletionResult {
-  text: string;
-  usage: ProviderUsage;
-}
+### Push / PR
 
-export interface ProviderToolCall {
-  callId: string;
-  name: string;
-  argumentsJson: string;
-}
+- Push : `git push -u origin delivery/sfia-studio-shared-technical-platform` — **SUCCESS**
+- SHA remote : `7d2beaa9be42b6e6195d4ce8e6a5b7960cca5f10` (match local)
+- PR number : **255**
+- URL : https://github.com/mcleland147/sfia-workspace/pull/255
+- Métadonnées : OPEN · base `main` · head `delivery/sfia-studio-shared-technical-platform` · 7 commits · 53 files · +3753 / −2830 · non-draft
+- **Merge : non exécuté**
 
-export type ProviderInputItem =
-  | { type: "message"; role: ProviderChatRole; content: string }
-  | {
-      type: "function_call";
-      callId: string;
-      name: string;
-      argumentsJson: string;
-    }
-  | {
-      type: "function_call_output";
-      callId: string;
-      output: string;
-    };
+END_FILE projects/sfia-studio/82-shared-technical-platform-validation-and-pr-readiness.md
 
-export type ProviderRoundResult =
-  | {
-      kind: "message";
-      text: string;
-      usage: ProviderUsage;
-    }
-  | {
-      kind: "tool_calls";
-      toolCalls: ProviderToolCall[];
-      usage: ProviderUsage;
-    };
+## 11. Réserves / risques / dette / rollback / anti-claims
 
-export interface ConversationProvider {
-  readonly providerId: string;
-  /** Legacy text-only completion (tools disabled). */
-  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
-  /** Optional tool-aware round — default falls back to complete(). */
-  completeRound?(input: {
-    items: ProviderInputItem[];
-    tools: ToolDefinition[];
-  }): Promise<ProviderRoundResult>;
-}
+Réserves : D1 tools/context · wrappers · live · B′ · cleanup OPS1.
+Rollback : revert commits branche.
+Anti-claims : pas merged · pas live unifié · pas OPS1 gone · pas B′ · pas V3.
 
-export function messagesToInputItems(
-  messages: ProviderChatMessage[],
-): ProviderInputItem[] {
-  return messages.map((m) => ({
-    type: "message" as const,
-    role: m.role,
-    content: m.content,
-  }));
-}
+## 12. Actions non exécutées
 
-END_FILE ai/types.ts
+merge · squash · delete branch · GPT live · D1_INTAKE_LIVE · D1 tools wiring · B′ · décommission OPS1
 
-BEGIN_FILE ai/errors.ts
-/** Platform technical errors — domain-agnostic. */
-export type TechnicalErrorCode =
-  | "CONFIG"
-  | "PROVIDER"
-  | "TIMEOUT"
-  | "VALIDATION"
-  | "INTERNAL";
-
-export class TechnicalError extends Error {
-  readonly code: TechnicalErrorCode;
-  readonly safeMessage: string;
-
-  constructor(code: TechnicalErrorCode, safeMessage: string, cause?: unknown) {
-    super(safeMessage);
-    this.name = "TechnicalError";
-    this.code = code;
-    this.safeMessage = safeMessage;
-    if (cause !== undefined) {
-      (this as Error & { cause?: unknown }).cause = cause;
-    }
-  }
-}
-
-END_FILE ai/errors.ts
-
-BEGIN_FILE observability/eventSink.ts
-import type { TechnicalEvent } from "./types";
-
-/** Local injectable sink — no global bus, no shared storage. */
-export interface EventSink {
-  emit(event: TechnicalEvent): void;
-}
-
-export class NoopEventSink implements EventSink {
-  emit(event: TechnicalEvent): void {
-    void event;
-  }
-}
-
-export const noopEventSink = new NoopEventSink();
-
-END_FILE observability/eventSink.ts
-
-BEGIN_FILE observability/types.ts
-/** Generic technical event types for Studio platform. */
-export type TechnicalEventType =
-  | "AI_REQUESTED"
-  | "AI_COMPLETED"
-  | "AI_FAILED"
-  | "TOOL_REQUESTED"
-  | "TOOL_STARTED"
-  | "TOOL_SUCCEEDED"
-  | "TOOL_DENIED"
-  | "TOOL_FAILED"
-  | "SOURCE_LOADED"
-  | "SOURCE_REJECTED"
-  | "SOURCE_SEARCH_STARTED"
-  | "STRUCTURED_OUTPUT_VALIDATED"
-  | "STRUCTURED_OUTPUT_REJECTED"
-  | "TOOL_LOOP_COMPLETED"
-  | "TOOL_LOOP_LIMIT_REACHED";
-
-export interface TechnicalEvent {
-  type: TechnicalEventType;
-  /** Correlation id (session, intake run, …) — opaque to platform. */
-  correlationId?: string;
-  detail: Record<string, unknown>;
-}
-
-END_FILE observability/types.ts
-
-BEGIN_FILE ops1EventSink.ts
-/**
- * TEMP_OPS1_PLATFORM_WRAPPER — EventSink → OPS1 session_events.
- * Remove when OPS1 session event store is retired or fully domain-owned.
- */
-import type { DatabaseSync } from "node:sqlite";
-import type { EventSink } from "@/lib/platform/observability/eventSink";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
-import { createEventId } from "./ids";
-import { openOps1Db, nowIsoWithOffset } from "./db";
-import { redactSecrets } from "@/lib/platform/security/redaction";
-import type { SessionEventType } from "./types";
-
-const TECHNICAL_TO_OPS1: Record<string, SessionEventType> = {
-  TOOL_REQUESTED: "TOOL_CALL_REQUESTED",
-  TOOL_STARTED: "TOOL_CALL_STARTED",
-  TOOL_SUCCEEDED: "TOOL_CALL_SUCCEEDED",
-  TOOL_DENIED: "TOOL_CALL_DENIED",
-  TOOL_FAILED: "TOOL_CALL_FAILED",
-  SOURCE_SEARCH_STARTED: "SOURCE_SEARCH_STARTED",
-  TOOL_LOOP_COMPLETED: "TOOL_LOOP_COMPLETED",
-  TOOL_LOOP_LIMIT_REACHED: "TOOL_LOOP_LIMIT_REACHED",
-  SOURCE_LOADED: "SFIA_SOURCE_READ",
-  SOURCE_REJECTED: "SFIA_CONTEXT_FAILED",
-  AI_REQUESTED: "CONVERSATION_ATTEMPT_STARTED",
-  AI_COMPLETED: "CONVERSATION_ATTEMPT_SUCCEEDED",
-  AI_FAILED: "CONVERSATION_ATTEMPT_FAILED",
-  STRUCTURED_OUTPUT_VALIDATED: "SFIA_PROPOSAL_RECEIVED",
-  STRUCTURED_OUTPUT_REJECTED: "SFIA_PROPOSAL_INVALID",
-};
-
-export function createOps1SessionEventSink(
-  sessionId: string,
-  db?: DatabaseSync,
-): EventSink {
-  const database = db ?? openOps1Db();
-  return {
-    emit(event: TechnicalEvent): void {
-      const type =
-        TECHNICAL_TO_OPS1[event.type] ??
-        ("TOOL_CALL_FAILED" as SessionEventType);
-      const correlation = event.correlationId ?? sessionId;
-      database
-        .prepare(
-          `INSERT INTO session_events (event_id, session_id, type, created_at, detail)
-           VALUES (?, ?, ?, ?, ?)`,
-        )
-        .run(
-          createEventId(),
-          correlation,
-          type,
-          nowIsoWithOffset(),
-          redactSecrets(JSON.stringify(event.detail)),
-        );
-    },
-  };
-}
-
-END_FILE ops1EventSink.ts
-
-BEGIN_FILE import-boundaries.test.ts
-/** @vitest-environment node */
-/**
- * Import boundary guards for Shared Technical Platform.
- * Fails closed with an explicit message when forbidden edges appear.
- */
-import fs from "node:fs";
-import path from "node:path";
-import { describe, expect, it } from "vitest";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-
-function listTsFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  const out: string[] = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      if (entry.name === "node_modules" || entry.name === ".next") continue;
-      out.push(...listTsFiles(full));
-    } else if (/\.(ts|tsx)$/.test(entry.name)) {
-      out.push(full);
-    }
-  }
-  return out;
-}
-
-function collectForbiddenImports(
-  files: string[],
-  forbiddenPattern: RegExp,
-): Array<{ file: string; line: string }> {
-  const hits: Array<{ file: string; line: string }> = [];
-  for (const file of files) {
-    const text = fs.readFileSync(file, "utf8");
-    for (const line of text.split("\n")) {
-      if (forbiddenPattern.test(line)) {
-        hits.push({
-          file: path.relative(APP_ROOT, file),
-          line: line.trim(),
-        });
-      }
-    }
-  }
-  return hits;
-}
-
-describe("shared platform import boundaries", () => {
-  it("forbids lib/d1 from importing lib/ops1", () => {
-    const files = [
-      ...listTsFiles(path.join(APP_ROOT, "lib/d1")),
-      ...listTsFiles(path.join(APP_ROOT, "features/d1")),
-    ];
-    const hits = collectForbiddenImports(
-      files,
-      /from\s+["']@\/lib\/ops1(?:\/|["'])|require\(["']@\/lib\/ops1/,
-    );
-    expect(
-      hits,
-      hits
-        .map((h) => `${h.file}: ${h.line}`)
-        .join("\n") || "D1 must not import OPS1",
-    ).toEqual([]);
-  });
-
-  it("forbids lib/platform from importing lib/ops1 or lib/d1", () => {
-    const files = listTsFiles(path.join(APP_ROOT, "lib/platform"));
-    const hits = collectForbiddenImports(
-      files,
-      /from\s+["']@\/lib\/(?:ops1|d1)(?:\/|["'])|require\(["']@\/lib\/(?:ops1|d1)/,
-    );
-    expect(
-      hits,
-      hits
-        .map((h) => `${h.file}: ${h.line}`)
-        .join("\n") || "platform must not import domain modules",
-    ).toEqual([]);
-  });
-
-  it("marks OPS1 platform wrappers as temporary", () => {
-    const wrappers = [
-      "lib/ops1/conversation/config.ts",
-      "lib/ops1/conversation/openaiProvider.ts",
-      "lib/ops1/conversation/fakeProvider.ts",
-      "lib/ops1/conversation/provider.ts",
-      "lib/ops1/conversation/toolLoop.ts",
-      "lib/ops1/tools/types.ts",
-      "lib/ops1/tools/redaction.ts",
-      "lib/ops1/tools/pathPolicy.ts",
-      "lib/ops1/tools/gitLocalReadAdapter.ts",
-      "lib/ops1/tools/githubReadAdapter.ts",
-      "lib/ops1/tools/toolRouter.ts",
-      "lib/ops1/sfia/canonicalPaths.ts",
-      "lib/ops1/sfia/sourceLoader.ts",
-      "lib/ops1/sfia/contextResolver.ts",
-      "lib/ops1/ops1EventSink.ts",
-    ];
-    for (const rel of wrappers) {
-      const text = fs.readFileSync(path.join(APP_ROOT, rel), "utf8");
-      expect(
-        text.includes("TEMP_OPS1_PLATFORM_WRAPPER"),
-        `${rel} missing TEMP_OPS1_PLATFORM_WRAPPER marker`,
-      ).toBe(true);
-    }
-  });
-});
-
-END_FILE import-boundaries.test.ts
-
-BEGIN_FILE d1/resolveProvider.ts
-import type { ConversationProvider } from "@/lib/platform/ai/types";
-import { D1Error } from "../errors";
-import { FakeIntakeConversationProvider } from "./fakeIntakeProvider";
-import { logIntakeEvent } from "../intakeObservability";
-
-let override: ConversationProvider | null = null;
-
-/** Test-only injection. */
-export function setIntakeProviderForTests(
-  provider: ConversationProvider | null,
-): void {
-  override = provider;
-}
-
-/**
- * Resolve intake provider.
- * Default = fake (deterministic).
- * Live only if D1_INTAKE_LIVE=1 AND secrets present — otherwise explicit CONFIG error
- * (no silent fake fallback when live was requested).
- * Imports shared platform only — never OPS1.
- */
-export function resolveIntakeProvider(): {
-  provider: ConversationProvider;
-  mode: "fake" | "live";
-} {
-  if (override) {
-    return {
-      provider: override,
-      mode: override.providerId.includes("fake") ? "fake" : "live",
-    };
-  }
-  if (process.env.D1_INTAKE_PROVIDER === "fake") {
-    return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
-  }
-  if (process.env.D1_INTAKE_LIVE === "1") {
-    try {
-      // Lazy require to avoid pulling OpenAI into client bundles via actions tree
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { requireLiveConversationSecrets } = require("@/lib/platform/ai/config") as typeof import("@/lib/platform/ai/config");
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { OpenAIConversationProvider } = require("@/lib/platform/ai/openaiProvider") as typeof import("@/lib/platform/ai/openaiProvider");
-      const { apiKey, model } = requireLiveConversationSecrets();
-      return {
-        provider: new OpenAIConversationProvider(apiKey, model),
-        mode: "live",
-      };
-    } catch (error) {
-      logIntakeEvent("intake_provider_failed", {
-        status: "CONFIG",
-        providerMode: "live",
-        errorCode: "CONFIG",
-      });
-      console.warn(
-        JSON.stringify({
-          event: "d1_intake_live_config_unavailable",
-          ts: new Date().toISOString(),
-          message:
-            "D1_INTAKE_LIVE=1 but live secrets unavailable — refusing silent fake fallback",
-        }),
-      );
-      throw new D1Error(
-        "CONFIG",
-        "Mode live demandé (D1_INTAKE_LIVE=1) mais configuration indisponible. Aucun fallback fake silencieux.",
-        error,
-      );
-    }
-  }
-  return { provider: new FakeIntakeConversationProvider(), mode: "fake" };
-}
-
-END_FILE d1/resolveProvider.ts
-
-BEGIN_FILE ops1/tools/toolRouter.ts (wrapper)
-/**
- * TEMP_OPS1_PLATFORM_WRAPPER — re-export from shared platform.
- * Remove when no OPS1 consumer imports this path (Phase 6 cleanup gate).
- * Do not add generic logic here. Do not import from D1.
- */
-
-import type { DatabaseSync } from "node:sqlite";
-import {
-  createToolCallId,
-  listExposableTools,
-  routeToolCall as platformRouteToolCall,
-  toolResultForModel,
-} from "@/lib/platform/tools/toolRouter";
-import type {
-  ToolCallRequest,
-  ToolCallResult,
-} from "@/lib/platform/tools/types";
-import type { GithubReadPort } from "@/lib/platform/repository/githubReadAdapter";
-import { createOps1SessionEventSink } from "../ops1EventSink";
-
-export {
-  createToolCallId,
-  listExposableTools,
-  toolResultForModel,
-};
-
-/** OPS1 adapter: default EventSink writes to session_events. */
-export async function routeToolCall(
-  request: ToolCallRequest,
-  options?: {
-    db?: DatabaseSync;
-    workspaceRoot?: string;
-    github?: GithubReadPort | null;
-    githubUnavailableReason?: string;
-  },
-): Promise<ToolCallResult> {
-  const sink = createOps1SessionEventSink(request.sessionId, options?.db);
-  return platformRouteToolCall(request, {
-    sink,
-    workspaceRoot: options?.workspaceRoot,
-    github: options?.github,
-    githubUnavailableReason: options?.githubUnavailableReason,
-  });
-}
-
-END_FILE ops1/tools/toolRouter.ts (wrapper)
-
-BEGIN_FILE ops1/conversation/toolLoop.ts (wrapper)
-/**
- * TEMP_OPS1_PLATFORM_WRAPPER — re-export from shared platform.
- * Remove when no OPS1 consumer imports this path (Phase 6 cleanup gate).
- * Do not add generic logic here. Do not import from D1.
- */
-
-import type { DatabaseSync } from "node:sqlite";
-import {
-  runToolCallingLoop as platformRunToolCallingLoop,
-  type ToolLoopResult,
-} from "@/lib/platform/tools/toolLoop";
-import type {
-  ConversationProvider,
-  ProviderChatMessage,
-} from "@/lib/platform/ai/types";
-import { createOps1SessionEventSink } from "../ops1EventSink";
-import { openOps1Db } from "../db";
-
-export type { ToolLoopResult };
-
-/** OPS1 adapter: injects session EventSink + sessionId correlation. */
-export async function runToolCallingLoop(input: {
-  sessionId: string;
-  messages: ProviderChatMessage[];
-  provider: ConversationProvider;
-  enableTools?: boolean;
-  db?: DatabaseSync;
-}): Promise<ToolLoopResult> {
-  const db = input.db ?? openOps1Db();
-  const sink = createOps1SessionEventSink(input.sessionId, db);
-  return platformRunToolCallingLoop({
-    correlationId: input.sessionId,
-    messages: input.messages,
-    provider: input.provider,
-    enableTools: input.enableTools,
-    sink,
-  });
-}
-
-END_FILE ops1/conversation/toolLoop.ts (wrapper)
-
-## 21. État Git final
+## 13. État Git final
 
 ```
 ?? .tmp-sfia-review/
 ```
 
-HEAD `ea95a09b39eb6b9d9137c2bda8822b6f71468fbc` · staged vide · **aucun push** de la branche delivery.
+## 14. Verdict
 
-## 22. Verdict
+**PR CREATED — SHARED TECHNICAL PLATFORM READY FOR REVIEW**
 
-**SHARED TECHNICAL PLATFORM DELIVERED — READY FOR VALIDATION**
-
-ChatGPT : lire branche `sfia/review-handoff` · fichier `sfia-review-handoff/latest-chatgpt-review.md`.
+ChatGPT : lire `sfia/review-handoff` · `sfia-review-handoff/latest-chatgpt-review.md`.
