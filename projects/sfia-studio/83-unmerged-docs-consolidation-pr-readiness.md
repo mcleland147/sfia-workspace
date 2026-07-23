@@ -42,11 +42,12 @@ Aucun conflit de versions concurrentes pour 79/80 (une seule source : framing WT
 
 ## 4. Validations
 
-- `git diff --check` : à confirmer avant push
+- `git diff --check` : PASS
 - Chemins protégés : absents du diff
 - Secrets : absents
 - Code produit : absent
 - Cohérence : 79/80 ne prétendent pas remplacer 81/82
+- Draft PR : [#256](https://github.com/mcleland147/sfia-workspace/pull/256)
 
 ## 5. Anti-claims
 
