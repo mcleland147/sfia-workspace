@@ -122,3 +122,9 @@ Puis, uniquement après validation technique :
 ## 12. Verdict delivery
 
 **D1 SHARED PLATFORM INTEGRATION DELIVERED — READY FOR VALIDATION**
+
+---
+
+## Note postérieure (non décisionnelle)
+
+**Observation (Git / cycle).** Le gate `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` a ensuite été consommé. Voir `85-d1-shared-platform-integration-validation-report.md`. Ce document **84** conserve son statut `delivery-local-candidate`. Le gate Live n’est pas consommé ici.
