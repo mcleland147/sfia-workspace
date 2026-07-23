@@ -1,40 +1,49 @@
-# SFIA Review Pack — Unmerged branches consolidation (docs 75–80)
+# SFIA Review Pack — Post-merge PR #256 (Documentary Consolidation)
 
 ## Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure | 2026-07-23 07:39:15 CEST |
-| Cycle | PR readiness — consolidation documents Studio non intégrés |
-| Profil | Critical — agrégation multi-branches + push + draft PR |
+| Date/heure | 2026-07-23 07:51:06 CEST |
+| Cycle | Post-merge |
+| Profil | Critical |
+| Gate consommé | `GO POST-MERGE — PR #256 DOCUMENTARY CONSOLIDATION` |
 | Repo | mcleland147/sfia-workspace |
-| Base origin/main | `445702dcad750734cef4b97122e7ccb1e67b24ee` (PR #255 squash merge — inchangé depuis référence connue) |
-| Branche consolidation | `docs/sfia-studio-recover-unmerged-project-docs` |
-| HEAD final | `1a2fa31fab6343bdd0eab7211febb3bcc5326c33` |
-| Draft PR | [#256](https://github.com/mcleland147/sfia-workspace/pull/256) (draft, OPEN) |
-| Worktree exécution | `/Users/morris/Projects/sfia-workspace-docs-recover` |
-| Source docs | Untracked files dans worktree framing `/Users/morris/Projects/sfia-workspace-framing-next-increment` (branche tip ancêtre de main, 0 commits propres) |
+| PR | [#256](https://github.com/mcleland147/sfia-workspace/pull/256) — **MERGED** (squash) |
+| Merge commit / main HEAD | `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
+| Parent (pré-merge) | `445702dcad750734cef4b97122e7ccb1e67b24ee` (PR #255) |
+| Branche source | `docs/sfia-studio-recover-unmerged-project-docs` @ `1a2fa31…` — **conservée** |
+| Worktree initial | `delivery/sfia-studio-control-tower-fast-track` @ `bb3c9e29936a925174beb0c1758e8fe887e58bc3` |
+| Untracked local | uniquement `.tmp-sfia-review/**` (attributable ; non projet) |
 
 ## Verdict
 
-**UNMERGED BRANCHES CONSOLIDATED — DRAFT PR READY FOR MORRIS REVIEW**
+**PR #256 POST-MERGE VERIFIED — DOCUMENTARY CONSOLIDATION CLOSED**
 
-## État Git final (worktree consolidation)
+## Local Git Truth Check
+
+- remote origin = `https://github.com/mcleland147/sfia-workspace.git`
+- `origin/main` = `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` (attendu confirmé)
+- staged = vide
+- untracked = `.tmp-sfia-review/**` seulement
+- aucune action destructrice
+
+## Validations Git
 
 ```
-## docs/sfia-studio-recover-unmerged-project-docs...origin/docs/sfia-studio-recover-unmerged-project-docs
+416af8a docs(sfia-studio): consolidate unmerged project documents (#256)
+ .../75-next-product-increment-framing.md           | 474 +++++++++++++++++++++
+ ...-product-increment-options-and-decision-pack.md | 230 ++++++++++
+ ...ive-product-validation-framing-and-readiness.md | 277 ++++++++++++
+ ...e-product-validation-execution-decision-pack.md | 257 +++++++++++
+ .../79-shared-technical-platform-architecture.md   | 401 +++++++++++++++++
+ ...d-technical-platform-migration-decision-pack.md | 235 ++++++++++
+ .../83-unmerged-docs-consolidation-pr-readiness.md |  60 +++
+ projects/sfia-studio/README.md                     |  24 +-
+ 8 files changed, 1953 insertions(+), 5 deletions(-)
 ```
 
-## Commits origin/main..HEAD
-
-```
-1a2fa31 (HEAD -> docs/sfia-studio-recover-unmerged-project-docs, origin/docs/sfia-studio-recover-unmerged-project-docs) docs(sfia-studio): record draft PR #256 on consolidation report
-7534adf docs(sfia-studio): align README post-merge and add consolidation report
-3557be3 docs(sfia-studio): recover shared platform architecture candidates
-42190d4 docs(sfia-studio): recover next-increment and live-prep framing docs
-```
-
-## Diff name-status
+### name-status
 
 ```
 A	projects/sfia-studio/75-next-product-increment-framing.md
@@ -47,7 +56,7 @@ A	projects/sfia-studio/83-unmerged-docs-consolidation-pr-readiness.md
 M	projects/sfia-studio/README.md
 ```
 
-## Diff stat
+### stat
 
 ```
 .../75-next-product-increment-framing.md           | 474 +++++++++++++++++++++
@@ -61,368 +70,219 @@ M	projects/sfia-studio/README.md
  8 files changed, 1953 insertions(+), 5 deletions(-)
 ```
 
-## Blobs fichiers consolidés
+### `git diff --check`
 
-- `projects/sfia-studio/75-next-product-increment-framing.md` → `71b2699db8e4138aacc032a68c57fac7b42f2748`
-- `projects/sfia-studio/76-next-product-increment-options-and-decision-pack.md` → `513c9c0e73df0e136b6c68cdae261173b202a461`
-- `projects/sfia-studio/77-live-product-validation-framing-and-readiness.md` → `35c3df1906f317c159dc8379c808104e8cf0d2cc`
-- `projects/sfia-studio/78-live-product-validation-execution-decision-pack.md` → `7205302e178fa4a7f0be344d1479504e9a452470`
-- `projects/sfia-studio/79-shared-technical-platform-architecture.md` → `82ff90decdcb5305ffb00bf0264e2754fe63abfa`
-- `projects/sfia-studio/80-shared-technical-platform-migration-decision-pack.md` → `3f6b9f4595b0dfeea0c2a71f6c91d88364a4e08d`
-- `projects/sfia-studio/83-unmerged-docs-consolidation-pr-readiness.md` → `80878a9b748bee2a8cd693dcd97851dc3e1ca5e5`
-- `projects/sfia-studio/README.md` → `544e1634839a99b07e2e7786c77f87db92b3a997`
+PASS (exit 0)
 
-## Sources consultées
+### Chemins protégés / produit
 
-- `prompts/templates/sfia-cycle-execution-template.md` (origin/main)
+ABSENTS du merge : `method/**`, `prompts/**`, `docs/**`, `scripts/**`, `.github/**`, `.sfia/**`, `.cursor/**`, `projects/sfia-studio/app/**`, secrets.
+
+### GitHub (`gh pr view 256`)
+
+| Champ | Valeur |
+|-------|--------|
+| state | MERGED |
+| mergedAt | 2026-07-23T05:43:10Z |
+| mergeCommit | `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
+| base | main |
+| head | docs/sfia-studio-recover-unmerged-project-docs |
+| files | 8 |
+| additions / deletions | +1953 / −5 |
+| reviews / comments | aucun |
+| statusCheckRollup | **[] — CI absente (≠ PASS)** |
+| force-push | non signalé |
+
+## Sources consultées (origin/main)
+
+- `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- `projects/sfia-studio/README.md` (pre/post)
-- `projects/sfia-studio/81-shared-technical-platform-delivery-report.md`
-- `projects/sfia-studio/82-shared-technical-platform-validation-and-pr-readiness.md`
-- Handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (pré-cycle)
-- PR #255 merge `445702dc…` vérifié = `origin/main`
+- docs Studio 75–83 + README (lecture intégrale)
+- handoff distant pré-cycle : `b57dd8e…` / blob `14d81a6c…`
 
-## Inventaire branches
+## Statut sémantique documents 75–83
 
-### Règle d'écartement
+### `75-next-product-increment-framing.md`
 
-- Tip ancêtre de main → absorbé
-- Contenu squash-équivalent (ex. 81 blob identique delivery ↔ main) → absorbé
-- Produit OPS1 / platform / method / prompts hors scope → écarté
-- Seule source utile : fichiers **untracked** framing WT (75–80)
+- blob `origin/main` : `71b2699db8e4138aacc032a68c57fac7b42f2748`
+- ligne statut : | **Statut** | `framing-candidate` — trajectoire **réordonnée** (Live Validation prioritaire) |
+- verdict sémantique : OK candidate. Live Validation = priorité immédiate ; B′ différée (capitalisation). Anti-claims : pas D1 COMPLETE / PROJECT LINKED / CYCLE OPENED / V3-ADOPTED. Aucune exécution live prétendue.
 
-### Branches / tips retenus
+### `76-next-product-increment-options-and-decision-pack.md`
 
-| Source | SHA tip | Rôle |
-|--------|---------|------|
-| Worktree framing untracked 75–80 | N/A (jamais commités) | Restauration ciblée |
-| Nouvelle branche consolidation depuis origin/main | `1a2fa31fab6343bdd0eab7211febb3bcc5326c33` | Porte la draft PR #256 |
+- blob `origin/main` : `513c9c0e73df0e136b6c68cdae261173b202a461`
+- ligne statut : | **Statut** | `decision-pack-candidate` — priorité **Live Product Validation** actée ; B′ différée |
+- verdict sémantique : OK candidate. GO EXÉCUTION LIVE proposé, non consommé. B′ différée. Anti-claims LIVE VALIDATED / CYCLE OPENED présents comme interdictions.
 
-### Branches Studio / delivery pertinentes écartées
+### `77-live-product-validation-framing-and-readiness.md`
 
-| Branche | Motif |
-|---------|--------|
-| `delivery/sfia-studio-shared-technical-platform` | Squash #255 ; tip non ancêtre mais contenu absorbé |
-| `delivery/sfia-studio-control-tower-fast-track` | Squash #254 |
-| `framing/sfia-studio-next-product-increment` @ `88fa465` | Tip ancêtre ; 0 commits propres ; docs seulement untracked |
-| `sfia/review-handoff` | Hors consolidation docs Studio |
-| Autres delivery/design/backlog Studio historiques | Code/docs déjà mergés via squash ou obsolètes / hors périmètre docs 75–80 |
+- blob `origin/main` : `35c3df1906f317c159dc8379c808104e8cf0d2cc`
+- ligne statut : | **Statut** | `live-prep-candidate` — **plan prêt** ; **non exécuté** |
+- verdict sémantique : OK `live-prep-candidate` — plan prêt, non exécuté. Dual-track = hypothèse à arbitrer Morris. Pas d’appel GPT live.
 
-### Inventaire local (tips non-ancêtres)
+### `78-live-product-validation-execution-decision-pack.md`
 
-```
-=== local branches not ancestor of main (sample) ===
-architecture/interv360-product-roadmap-after-persistence|572d061|2026-07-01 22:29:16 +0200|Morris Cleland|ahead=1|behind=529
-backlog/sfia-studio-ops1|4032c25|2026-07-20 20:53:09 +0200|Morris Cleland|ahead=1|behind=12
-backlog/sfia-studio-poc-vertical-slice|b4b26b2|2026-07-19 23:06:24 +0200|Morris Cleland|ahead=1|behind=27
-capitalization/sfia-studio-p0-status-sync|e97e083|2026-07-19 12:14:47 +0200|Morris Cleland|ahead=1|behind=38
-capitalization/sfia-studio-poc-framing-post-merge|18d2151|2026-07-19 13:15:19 +0200|Morris Cleland|ahead=2|behind=36
-consolidation/interv360-application-rex|dc4c971|2026-07-03 13:48:32 +0200|Morris Cleland|ahead=1|behind=354
-consolidation/interv360-current-app-audit|8099a96|2026-07-03 13:30:01 +0200|Morris Cleland|ahead=1|behind=356
-consolidation/sfia-documentation-review|45e4498|2026-07-03 14:50:43 +0200|Morris Cleland|ahead=1|behind=350
-consolidation/sfia-global-capitalization|b11b318|2026-07-03 14:20:55 +0200|Morris Cleland|ahead=2|behind=352
-cycle/chantiers360-v2-design-figma|5fa9fcb|2026-07-06 02:05:08 +0200|Morris Cleland|ahead=4|behind=296
-cycle/chantiers360-v2-detailed-framing|4546d88|2026-07-05 15:20:37 +0200|Morris Cleland|ahead=1|behind=301
-cycle/chantiers360-v2-figma-fidelity-spike|6d44882|2026-07-06 07:58:44 +0200|Morris Cleland|ahead=2|behind=293
-cycle/chantiers360-v2-functional-architecture|934be03|2026-07-05 16:13:33 +0200|Morris Cleland|ahead=2|behind=300
-cycle/chantiers360-v2-light-architecture|55b2f0c|2026-07-06 07:14:58 +0200|Morris Cleland|ahead=3|behind=295
-cycle/chantiers360-v2-mvp-backlog|9babc8c|2026-07-05 18:49:16 +0200|Morris Cleland|ahead=2|behind=298
-cycle/chantiers360-v2-ux-ui|be9b2f3|2026-07-05 17:40:06 +0200|Morris Cleland|ahead=1|behind=299
-decision/chantiers360-v2-architecture-arbitrages|9d425dd|2026-07-06 07:35:24 +0200|Morris Cleland|ahead=3|behind=294
-delivery/chantiers360-v2-inc-01|e65a4d2|2026-07-06 10:37:37 +0200|Morris Cleland|ahead=5|behind=289
-delivery/chantiers360-v2-inc-02|c4cc4dc|2026-07-06 17:21:29 +0200|Morris Cleland|ahead=2|behind=282
-delivery/chantiers360-v2-inc-03|6583ddf|2026-07-06 18:43:22 +0200|Morris Cleland|ahead=2|behind=278
-delivery/chantiers360-v2-inc-04|406a883|2026-07-06 19:53:25 +0200|Morris Cleland|ahead=2|behind=275
-delivery/chantiers360-v2-inc-05|bcc6d37|2026-07-07 06:01:46 +0200|Morris Cleland|ahead=3|behind=272
-delivery/sfia-studio-control-tower-fast-track|bb3c9e2|2026-07-22 23:00:53 +0200|Morris Cleland|ahead=6|behind=2
-delivery/sfia-studio-ops1-i1-session-journal|97df7d5|2026-07-20 22:04:54 +0200|Morris Cleland|ahead=1|behind=10
-delivery/sfia-studio-ops1-i3-action-gate|3607a3a|2026-07-21 14:13:23 +0200|Morris Cleland|ahead=1|behind=7
-delivery/sfia-studio-poc-increment-a|89cb756|2026-07-19 23:52:50 +0200|Morris Cleland|ahead=1|behind=26
-delivery/sfia-studio-poc-increment-b|8316f26|2026-07-20 06:17:45 +0200|Morris Cleland|ahead=1|behind=25
-delivery/sfia-studio-poc-increment-c|96bb808|2026-07-20 07:54:22 +0200|Morris Cleland|ahead=1|behind=24
-delivery/sfia-studio-poc-increment-d|41b9c46|2026-07-20 08:36:12 +0200|Morris Cleland|ahead=1|behind=23
-delivery/sfia-studio-shared-technical-platform|08c282a|2026-07-23 07:12:24 +0200|Morris Cleland|ahead=8|behind=1
-design/sfia-studio-ops1-scenario|d248b9d|2026-07-20 18:43:23 +0200|Morris Cleland|ahead=1|behind=15
-design/sfia-studio-ops1-technical-architecture|b495a56|2026-07-20 20:09:13 +0200|Morris Cleland|ahead=1|behind=13
-design/sfia-studio-poc-vertical-slice|58fb275|2026-07-19 22:39:25 +0200|Morris Cleland|ahead=3|behind=28
-devops/sfia-studio-ops1-foundation|04a3b45|2026-07-20 21:28:53 +0200|Morris Cleland|ahead=1|behind=11
-docs/chantiers360-v0-vs-sfia-v2-comparison|158bdf0|2026-07-07 10:06:32 +0200|Morris Cleland|ahead=1|behind=261
-docs/chantiers360-v0-vs-v2-post-merge|2e68166|2026-07-07 10:13:01 +0200|Morris Cleland|ahead=1|behind=260
-docs/chantiers360-v2-design-coverage-post-merge|bbd54bf|2026-07-07 07:28:27 +0200|Morris Cleland|ahead=1|behind=267
-docs/chantiers360-v2-final-pilot-rex|438b3bb|2026-07-07 10:51:32 +0200|Morris Cleland|ahead=1|behind=259
-docs/chantiers360-v2-inc-01-closure|09204fc|2026-07-06 10:59:42 +0200|Morris Cleland|ahead=1|behind=287
-docs/chantiers360-v2-inc-01-qa-g4|94f71f2|2026-07-06 10:46:52 +0200|Morris Cleland|ahead=1|behind=288
-docs/chantiers360-v2-inc-02-closure|e461c6f|2026-07-06 18:08:44 +0200|Morris Cleland|ahead=3|behind=280
-docs/chantiers360-v2-inc-02-qa-g4|ec073f6|2026-07-06 17:30:30 +0200|Morris Cleland|ahead=1|behind=281
-docs/chantiers360-v2-inc-03-closure|1d795fc|2026-07-06 19:13:19 +0200|Morris Cleland|ahead=1|behind=276
-docs/chantiers360-v2-inc-03-qa-g4|f136c33|2026-07-06 18:52:32 +0200|Morris Cleland|ahead=1|behind=277
-docs/chantiers360-v2-inc-04-closure|eb174d0|2026-07-06 21:40:52 +0200|Morris Cleland|ahead=1|behind=273
-docs/chantiers360-v2-inc-04-qa-g4|96bd25e|2026-07-06 21:15:08 +0200|Morris Cleland|ahead=1|behind=274
-docs/chantiers360-v2-inc-05-closure|9987df6|2026-07-07 06:33:02 +0200|Morris Cleland|ahead=1|behind=270
-docs/chantiers360-v2-inc-05-qa-g4|d30ca72|2026-07-07 06:14:56 +0200|Morris Cleland|ahead=1|behind=271
-docs/chantiers360-v2-post-capitalization-alignment|314794a|2026-07-06 11:33:45 +0200|Morris Cleland|ahead=1|behind=285
-docs/chantiers360-v2-post-spike-alignment|fe93090|2026-07-06 08:11:01 +0200|Morris Cleland|ahead=1|behind=292
-docs/chantiers360-v2-readme-post-closure|d672317|2026-07-06 18:13:37 +0200|Morris Cleland|ahead=1|behind=279
-docs/chantiers360-v2-technical-architecture-post-merge|9e7bcb3|2026-07-07 07:52:39 +0200|Morris Cleland|ahead=1|behind=265
-docs/sfia-studio-pr226-post-merge-sync|ed33044|2026-07-19 20:59:50 +0200|Morris Cleland|ahead=1|behind=29
-docs/sfia-studio-recover-unmerged-project-docs|1a2fa31|2026-07-23 07:38:35 +0200|Morris Cleland|ahead=4|behind=0
-docs/sfia-v231-final-status|2bddced|2026-07-07 08:35:47 +0200|Morris Cleland|ahead=1|behind=262
-docs/sfia-v2x-versioning-post-merge|c0a4a74|2026-07-07 08:24:28 +0200|Morris Cleland|ahead=1|behind=263
-fix/chantiers360-v2-rqa02-status-alignment|1ef4d67|2026-07-06 12:39:55 +0200|Morris Cleland|ahead=1|behind=283
-method/chantiers360-v2-inc-01-capitalization|5b5758f|2026-07-06 11:12:28 +0200|Morris Cleland|ahead=1|behind=286
-method/chantiers360-v2-mvp-capitalization|adcda83|2026-07-07 07:02:57 +0200|Morris Cleland|ahead=2|behind=269
-method/interv360-final-capitalization|8763417|2026-07-03 13:04:12 +0200|Morris Cleland|ahead=1|behind=360
-method/sfia-consolidation-roadmap|10cb8c0|2026-07-03 13:16:26 +0200|Morris Cleland|ahead=1|behind=358
-method/sfia-v2-automation-levels|80aac9c|2026-07-05 09:26:19 +0200|Morris Cleland|ahead=2|behind=306
-method/sfia-v2-automation-vision|1398a46|2026-07-05 08:30:21 +0200|Morris Cleland|ahead=1|behind=307
-method/sfia-v2-delivery-qa-test-standard|2645df2|2026-07-06 09:57:15 +0200|Morris Cleland|ahead=2|behind=290
-method/sfia-v2-design-coverage-rules|bc697d8|2026-07-07 07:16:12 +0200|Morris Cleland|ahead=1|behind=268
-method/sfia-v2-figma-design-cycle|1bb55f0|2026-07-05 19:09:27 +0200|Morris Cleland|ahead=1|behind=297
-method/sfia-v2-figma-fidelity-gate-standard|672d72b|2026-07-06 08:20:51 +0200|Morris Cleland|ahead=1|behind=291
-method/sfia-v2-pilot-selection-decision|7282317|2026-07-05 10:49:12 +0200|Morris Cleland|ahead=1|behind=304
-method/sfia-v2-pilot-selection-scoring|22d8dcf|2026-07-05 14:10:43 +0200|Morris Cleland|ahead=2|behind=303
-method/sfia-v2-project-bootstrap-standard|cbba66b|2026-07-05 10:12:18 +0200|Morris Cleland|ahead=1|behind=305
-method/sfia-v2-prompt-routing-alignment|1bc9f3a|2026-07-06 11:58:19 +0200|Morris Cleland|ahead=1|behind=284
-method/sfia-v2-technical-architecture-decision-standard|d8f4377|2026-07-07 07:42:37 +0200|Morris Cleland|ahead=1|behind=266
-method/sfia-v2.4-consolidation-operating-efficiency|d96dfce|2026-07-07 11:18:06 +0200|Morris Cleland|ahead=1|behind=258
-method/sfia-v2.4-reference-documentation-alignment|e79a440|2026-07-07 12:11:16 +0200|Morris Cleland|ahead=3|behind=257
-method/sfia-v2.4.1-documentation-status-promotion|ecaf416|2026-07-08 03:15:58 +0200|Morris Cleland|ahead=2|behind=256
-method/sfia-v2x-method-versioning-standard|a76c3f8|2026-07-07 08:13:44 +0200|Morris Cleland|ahead=1|behind=264
-notion/pause-notion-publication-track|c79992b|2026-07-04 21:18:33 +0200|Morris Cleland|ahead=1|behind=309
-project/chantiers360-v2-bootstrap|774beed|2026-07-05 15:13:53 +0200|Morris Cleland|ahead=2|behind=302
-project/sfia-studio-poc-orchestration-framing|3b162ec|2026-07-19 12:47:55 +0200|Morris Cleland|ahead=1|behind=37
-prompts/create-templates-context-pack|b6d9a88|2026-07-04 22:13:11 +0200|Morris Cleland|ahead=1|behind=308
-recovery/campus360-detailed-framing|32690b6|2026-07-19 02:42:53 +0200|Morris Cleland|ahead=1|behind=39
-recovery/sfia-studio-functional-architecture-sync|a5ad0c0|2026-07-19 02:43:27 +0200|Morris Cleland|ahead=1|behind=39
-sfia/review-handoff|bb226b1|2026-07-23 07:22:13 +0200|Morris Cleland|ahead=369|behind=946
-spike/sfia-studio-openai-gpt-adapter|056c97f|2026-07-19 20:48:07 +0200|Morris Cleland|ahead=2|behind=30
-tooling/review-handoff-canonical-publisher|14d58fe|2026-07-21 13:32:09 +0200|Morris Cleland|ahead=1|behind=7
+- blob `origin/main` : `7205302e178fa4a7f0be344d1479504e9a452470`
+- ligne statut : | **Statut** | `execution-pack-candidate` — **non autorisé à exécuter** sans GO Morris |
+- verdict sémantique : OK `execution-pack-candidate` — non autorisé sans GO. Verdicts A/B/C/D = critères candidats, non résultats. Dual-track à confirmer.
 
+### `79-shared-technical-platform-architecture.md`
+
+- blob `origin/main` : `82ff90decdcb5305ffb00bf0264e2754fe63abfa`
+- ligne statut : | **Statut** | `architecture-candidate` — **non validée** |
+- verdict sémantique : OK `architecture-candidate` historique + Note historique postérieure → PR #255 / 81–82. Ne réouvre pas delivery. Anti-claims platform « livrée » dans corps historique ; note Git clarifie post-merge.
+
+### `80-shared-technical-platform-migration-decision-pack.md`
+
+- blob `origin/main` : `3f6b9f4595b0dfeea0c2a71f6c91d88364a4e08d`
+- ligne statut : | **Statut** | `decision-pack-candidate` — **non validé** |
+- verdict sémantique : OK `decision-pack-candidate` historique + Note historique → #255. « Pas OPS1 décommissionné » = anti-claim. Lots D1 tools/context / Live / B′ différés.
+
+### `81-shared-technical-platform-delivery-report.md`
+
+- blob `origin/main` : `bf259167998b95018a06153126f2a98bfac31e65`
+- ligne statut : | **Statut** | `delivery-local-candidate` — validation Morris **requise** |
+- verdict sémantique : Hors diff #256 (déjà sur main via #255). Métadonnée interne encore `delivery-local-candidate` — **réserve documentaire historique** (non réécrite ; hors autorisation).
+
+### `82-shared-technical-platform-validation-and-pr-readiness.md`
+
+- blob `origin/main` : `a9e7cdd3c21a3958955771062c1f7ec28b40d1a6`
+- ligne statut : | **Statut** | `PR opened` — revue Morris / GitHub requise |
+- verdict sémantique : Hors diff #256. Métadonnée interne encore `PR opened` alors que README/#255 = MERGED — **réserve documentaire historique** (gate séparé possible).
+
+### `83-unmerged-docs-consolidation-pr-readiness.md`
+
+- blob `origin/main` : `80878a9b748bee2a8cd693dcd97851dc3e1ca5e5`
+- ligne statut : | **Statut** | `draft-pr-candidate` |
+- verdict sémantique : Rapport **pré-merge** intégré tel quel. Statut `draft-pr-candidate` + « MERGE REQUIRES MORRIS GO » désormais **historiques post-merge**. Non réécrit (autorisé).
+
+## Notes historiques 79 / 80 (extrait complet utile)
+
+### 79 — fin de document
+
+```markdown
+
+Pas de platform « livrée ». Pas de suppression OPS1. Pas LIVE VALIDATED. Pas B′. Pas V3-ADOPTED. Pas D1 COMPLETE.
+
+**Statut :** `SHARED TECHNICAL PLATFORM ARCHITECTURE READY — MORRIS DECISION REQUIRED`.
+
+---
+
+## Note historique postérieure (non décisionnelle)
+
+**Observation (Git).** Après rédaction de ce document candidate, Morris a consommé `GO DELIVERY — SFIA STUDIO SHARED TECHNICAL PLATFORM`. La delivery Option B a été intégrée sur `main` via PR [#255](https://github.com/mcleland147/sfia-workspace/pull/255) (squash `445702dcad750734cef4b97122e7ccb1e67b24ee`). Les rapports d’exécution et de validation sont `81` et `82`.
+
+Ce document **79** conserve son statut `architecture-candidate` d’origine (historique de cadrage). Il ne remplace pas `81`/`82` et ne réouvre pas la delivery.
 ```
 
-### Inventaire remote (extrait généré)
+### 80 — fin de document
 
-```
-=== remote branches tips not ancestor (truncated useful) ===
-ABSORBED_TIP|origin|445702d|2026-07-23 07:15:59 +0200
-ABSORBED_TIP|origin/architecture/interv360-backend-persistence-decision|4ee36ee|2026-07-01 21:50:26 +0200
-ABSORBED_TIP|origin/architecture/interv360-product-industrialization-framing|bf01af0|2026-07-01 21:39:03 +0200
-ABSORBED_TIP|origin/architecture/interv360-product-roadmap-after-role-simulation|70a1110|2026-07-02 00:42:39 +0200
-ABSORBED_TIP|origin/architecture/interv360-product-roadmap-next|69b8246|2026-07-02 00:00:50 +0200
-ABSORBED_TIP|origin/architecture/interv360-role-simulation-review|733cbff|2026-07-02 03:48:53 +0200
-ABSORBED_TIP|origin/archive/sfia-v2.6-lot-0-completion|2830efd|2026-07-12 05:59:41 +0200
-ABSORBED_TIP|origin/archive/sfia-v2.6-lot-0-inventories|6cf7d36|2026-07-12 05:04:23 +0200
-ABSORBED_TIP|origin/archive/sfia-v2.6-lot-c-v3-mcp|d4401c3|2026-07-12 17:09:44 +0200
-ABSORBED_TIP|origin/audit/sfia-v2.6-lot-0-qualification|e200689|2026-07-12 04:26:14 +0200
-ABSORBED_TIP|origin/audit/sfia-v2.6-repository-cartography|4ae75a9|2026-07-11 20:52:32 +0200
-NOT_ANCESTOR|origin/backlog/sfia-studio-poc-vertical-slice|b4b26b2|2026-07-19 23:06:24 +0200|ahead=1
-ABSORBED_TIP|origin/cadrage/sfia-v2.6-lot-h|d54c952|2026-07-13 06:56:56 +0200
-ABSORBED_TIP|origin/cadrage/task-tracker-light|b763a31|2026-07-13 17:45:49 +0200
-NOT_ANCESTOR|origin/capitalization/sfia-studio-p0-status-sync|e97e083|2026-07-19 12:14:47 +0200|ahead=1
-NOT_ANCESTOR|origin/capitalization/sfia-studio-poc-framing-post-merge|18d2151|2026-07-19 13:15:19 +0200|ahead=2
-ABSORBED_TIP|origin/capitalization/sfia-v2.6-repository-rationalization|40b6f00|2026-07-13 12:02:03 +0200
-ABSORBED_TIP|origin/cleanup/sfia-v2.6-lot-j|c4cc0b0|2026-07-13 11:30:15 +0200
-ABSORBED_TIP|origin/conception/sfia-notion-product-space|f7f2e18|2026-07-13 13:02:14 +0200
-NOT_ANCESTOR|origin/consolidation/interv360-application-rex|dc4c971|2026-07-03 13:48:32 +0200|ahead=1
-NOT_ANCESTOR|origin/consolidation/interv360-current-app-audit|8099a96|2026-07-03 13:30:01 +0200|ahead=1
-NOT_ANCESTOR|origin/consolidation/sfia-documentation-review|45e4498|2026-07-03 14:50:43 +0200|ahead=1
-NOT_ANCESTOR|origin/consolidation/sfia-global-capitalization|b11b318|2026-07-03 14:20:55 +0200|ahead=2
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-design-figma|5fa9fcb|2026-07-06 02:05:08 +0200|ahead=4
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-detailed-framing|4546d88|2026-07-05 15:20:37 +0200|ahead=1
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-figma-fidelity-spike|6d44882|2026-07-06 07:58:44 +0200|ahead=2
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-functional-architecture|934be03|2026-07-05 16:13:33 +0200|ahead=2
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-light-architecture|55b2f0c|2026-07-06 07:14:58 +0200|ahead=3
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-mvp-backlog|9babc8c|2026-07-05 18:49:16 +0200|ahead=2
-NOT_ANCESTOR|origin/cycle/chantiers360-v2-ux-ui|be9b2f3|2026-07-05 17:40:06 +0200|ahead=1
-NOT_ANCESTOR|origin/decision/chantiers360-v2-architecture-arbitrages|9d425dd|2026-07-06 07:35:24 +0200|ahead=3
-ABSORBED_TIP|origin/delivery/chantiers360-r-qa-04-dashboard-real-data|824883c|2026-07-09 21:04:45 +0200
-NOT_ANCESTOR|origin/delivery/chantiers360-v2-inc-01|e65a4d2|2026-07-06 10:37:37 +0200|ahead=5
-NOT_ANCESTOR|origin/delivery/chantiers360-v2-inc-02|c4cc4dc|2026-07-06 17:21:29 +0200|ahead=2
-NOT_ANCESTOR|origin/delivery/chantiers360-v2-inc-03|6583ddf|2026-07-06 18:43:22 +0200|ahead=2
-NOT_ANCESTOR|origin/delivery/chantiers360-v2-inc-04|406a883|2026-07-06 19:53:25 +0200|ahead=2
-NOT_ANCESTOR|origin/delivery/chantiers360-v2-inc-05|bcc6d37|2026-07-07 06:01:46 +0200|ahead=3
-ABSORBED_TIP|origin/delivery/interv360-api-demo-hardening|7ef233a|2026-07-01 22:23:00 +0200
-ABSORBED_TIP|origin/delivery/interv360-api-product-hardening|0418305|2026-07-02 19:42:12 +0200
-ABSORBED_TIP|origin/delivery/interv360-api-product-validation|69a33ed|2026-07-01 23:11:19 +0200
-ABSORBED_TIP|origin/delivery/interv360-audit-trail|87662a2|2026-07-02 16:33:13 +0200
-ABSORBED_TIP|origin/delivery/interv360-auth-user-switcher|be10f7a|2026-07-02 09:53:32 +0200
-ABSORBED_TIP|origin/delivery/interv360-backend-minimal-prototype|a310850|2026-07-01 18:54:40 +0200
-ABSORBED_TIP|origin/delivery/interv360-backend-persistence|f39adb8|2026-07-01 22:03:04 +0200
-ABSORBED_TIP|origin/delivery/interv360-backend-users-session|1c0311d|2026-07-02 13:58:27 +0200
-ABSORBED_TIP|origin/delivery/interv360-batch-01-demo-credibility|12efbb6|2026-07-01 10:56:00 +0200
-ABSORBED_TIP|origin/delivery/interv360-batch-02-demo-control-scenario|a6eb49d|2026-07-01 12:36:06 +0200
-ABSORBED_TIP|origin/delivery/interv360-batch-03-demo-readiness-package|4d6e465|2026-07-01 13:16:59 +0200
-ABSORBED_TIP|origin/delivery/interv360-batch-04-demo-presentation-package|bfa5e28|2026-07-01 16:24:21 +0200
-ABSORBED_TIP|origin/delivery/interv360-connected-ux-productization|6f8c72b|2026-07-01 23:37:15 +0200
-ABSORBED_TIP|origin/delivery/interv360-demo-feedback-review|5febd0f|2026-07-01 19:41:43 +0200
-ABSORBED_TIP|origin/delivery/interv360-demo-mvp-closure|091eebb|2026-07-01 21:21:19 +0200
-ABSORBED_TIP|origin/delivery/interv360-demo-polish|d8394b7|2026-07-01 20:47:41 +0200
-ABSORBED_TIP|origin/delivery/interv360-demo-presentation-feedback|5481b74|2026-07-01 20:24:07 +0200
-ABSORBED_TIP|origin/delivery/interv360-demo-presentation-review|4a6c7b7|2026-07-01 19:51:48 +0200
-ABSORBED_TIP|origin/delivery/interv360-end-to-end-demo-hardening|ed2c0f4|2026-07-01 19:31:07 +0200
-ABSORBED_TIP|origin/delivery/interv360-frontend-api-connection|a23cefc|2026-07-01 19:18:28 +0200
-ABSORBED_TIP|origin/delivery/interv360-inc-01-push-and-pr|06751ad|2026-07-01 08:59:39 +0200
-ABSORBED_TIP|origin/delivery/interv360-inc-02-pr-preparation|82c7823|2026-07-01 09:59:52 +0200
-ABSORBED_TIP|origin/delivery/interv360-inc-03-pr-preparation|69325d0|2026-07-01 10:21:48 +0200
-ABSORBED_TIP|origin/delivery/interv360-inc-04-list-filtering-local-summary|d306054|2026-07-01 10:41:29 +0200
-ABSORBED_TIP|origin/delivery/interv360-product-demo-consolidation|1b44bc1|2026-07-01 23:52:00 +0200
-ABSORBED_TIP|origin/delivery/interv360-product-industrialization|3bba55b|2026-07-02 21:30:57 +0200
-ABSORBED_TIP|origin/delivery/interv360-product-ux-finalization|e106d91|2026-07-02 20:48:03 +0200
-ABSORBED_TIP|origin/delivery/interv360-request-model-finalization|b3bd01f|2026-07-02 18:54:52 +0200
-ABSORBED_TIP|origin/delivery/interv360-request-model-productization|6dded20|2026-07-01 22:49:06 +0200
-ABSORBED_TIP|origin/delivery/interv360-role-simulation|1547ff5|2026-07-02 00:29:44 +0200
-ABSORBED_TIP|origin/delivery/interv360-workflow-light-extension|5cd2b4e|2026-07-02 07:40:27 +0200
-ABSORBED_TIP|origin/delivery/interv360-workflow-requalification|a830842|2026-07-02 09:02:13 +0200
-NOT_ANCESTOR|origin/delivery/sfia-studio-control-tower-fast-track|bb3c9e2|2026-07-22 23:00:53 +0200|ahead=6
-NOT_ANCESTOR|origin/delivery/sfia-studio-ops1-i3-action-gate|3607a3a|2026-07-21 14:13:23 +0200|ahead=1
-NOT_ANCESTOR|origin/delivery/sfia-studio-poc-increment-a|89cb756|2026-07-19 23:52:50 +0200|ahead=1
-NOT_ANCESTOR|origin/delivery/sfia-studio-poc-increment-b|8316f26|2026-07-20 06:17:45 +0200|ahead=1
-NOT_ANCESTOR|origin/delivery/sfia-studio-poc-increment-c|96bb808|2026-07-20 07:54:22 +0200|ahead=1
-NOT_ANCESTOR|origin/delivery/sfia-studio-poc-increment-d|41b9c46|2026-07-20 08:36:12 +0200|ahead=1
-NOT_ANCESTOR|origin/delivery/sfia-studio-shared-technical-platform|08c282a|2026-07-23 07:12:24 +0200|ahead=8
-ABSORBED_TIP|origin/delivery/sfia-v2.6-lot-e1-link-fixes|7885903|2026-07-12 20:43:19 +0200
-ABSORBED_TIP|origin/delivery/sfia-v2.6-lot-h|694fedc|2026-07-13 10:44:03 +0200
-NOT_ANCESTOR|origin/design/sfia-studio-ops1-scenario|d248b9d|2026-07-20 18:43:23 +0200|ahead=1
-NOT_ANCESTOR|origin/design/sfia-studio-poc-vertical-slice|58fb275|2026-07-19 22:39:25 +0200|ahead=3
-ABSORBED_TIP|origin/docs/chantiers360-close-r-qa-04|662f1c3|2026-07-09 21:15:01 +0200
-NOT_ANCESTOR|origin/docs/chantiers360-v0-vs-sfia-v2-comparison|158bdf0|2026-07-07 10:06:32 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v0-vs-v2-post-merge|2e68166|2026-07-07 10:13:01 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-design-coverage-post-merge|bbd54bf|2026-07-07 07:28:27 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-final-pilot-rex|438b3bb|2026-07-07 10:51:32 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-01-closure|09204fc|2026-07-06 10:59:42 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-01-qa-g4|94f71f2|2026-07-06 10:46:52 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-02-closure|e461c6f|2026-07-06 18:08:44 +0200|ahead=3
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-02-qa-g4|ec073f6|2026-07-06 17:30:30 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-03-closure|1d795fc|2026-07-06 19:13:19 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-03-qa-g4|f136c33|2026-07-06 18:52:32 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-04-closure|eb174d0|2026-07-06 21:40:52 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-04-qa-g4|96bd25e|2026-07-06 21:15:08 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-05-closure|9987df6|2026-07-07 06:33:02 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-inc-05-qa-g4|d30ca72|2026-07-07 06:14:56 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-post-capitalization-alignment|314794a|2026-07-06 11:33:45 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-post-spike-alignment|fe93090|2026-07-06 08:11:01 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-readme-post-closure|d672317|2026-07-06 18:13:37 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/chantiers360-v2-technical-architecture-post-merge|9e7bcb3|2026-07-07 07:52:39 +0200|ahead=1
-ABSORBED_TIP|origin/docs/close-lot-d1-status|8815f0f|2026-07-12 18:16:56 +0200
-ABSORBED_TIP|origin/docs/close-lot-d2-status|c0fc4b2|2026-07-12 18:41:00 +0200
-ABSORBED_TIP|origin/docs/close-lot-d3-status|6cdda92|2026-07-12 19:30:58 +0200
-ABSORBED_TIP|origin/docs/fix-lot-d-plan-status|af5d9a2|2026-07-12 17:50:55 +0200
-NOT_ANCESTOR|origin/docs/sfia-studio-pr226-post-merge-sync|ed33044|2026-07-19 20:59:50 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/sfia-studio-recover-unmerged-project-docs|1a2fa31|2026-07-23 07:38:35 +0200|ahead=4
-ABSORBED_TIP|origin/docs/sfia-v2.6-lot-e-closure|0ae4bb3|2026-07-12 21:07:05 +0200
-NOT_ANCESTOR|origin/docs/sfia-v231-final-status|2bddced|2026-07-07 08:35:47 +0200|ahead=1
-NOT_ANCESTOR|origin/docs/sfia-v2x-versioning-post-merge|c0a4a74|2026-07-07 08:24:28 +0200|ahead=1
-ABSORBED_TIP|origin/documentation/sfia-discovery-act-02-editorial|153c50b|2026-07-14 20:45:13 +0200
-ABSORBED_TIP|origin/documentation/sfia-discovery-act-03-novabuild-editorial|6fcc76a|2026-07-14 23:20:58 +0200
-ABSORBED_TIP|origin/documentation/sfia-discovery-acts-04-05-editorial|7e65429|2026-07-15 10:47:17 +0200
-ABSORBED_TIP|origin/documentation/sfia-discovery-acts-06-07-editorial|a25cb1c|2026-07-15 17:31:29 +0200
-ABSORBED_TIP|origin/documentation/sfia-discovery-legacy-migration-plan|4021502|2026-07-16 07:59:27 +0200
-ABSORBED_TIP|origin/documentation/sfia-discovery-pd-08-qa|f934a3c|2026-07-16 12:07:08 +0200
-ABSORBED_TIP|origin/documentation/sfia-discovery-pd-09-capitalization|28966a8|2026-07-16 12:32:43 +0200
-ABSORBED_TIP|origin/evol/chantiers360-post-mvp-framing|8b40a0b|2026-07-09 14:19:04 +0200
-NOT_ANCESTOR|origin/fix/chantiers360-v2-rqa02-status-alignment|1ef4d67|2026-07-06 12:39:55 +0200|ahead=1
-ABSORBED_TIP|origin/fix/remove-controlled-delivery-broken-link|b8eb945|2026-07-12 11:49:05 +0200
-NOT_ANCESTOR|origin/method/chantiers360-v2-inc-01-capitalization|5b5758f|2026-07-06 11:12:28 +0200|ahead=1
-NOT_ANCESTOR|origin/method/chantiers360-v2-mvp-capitalization|adcda83|2026-07-07 07:02:57 +0200|ahead=2
-ABSORBED_TIP|origin/method/delivery-acceleration-level-3-rex|008dbff|2026-07-01 11:36:20 +0200
-NOT_ANCESTOR|origin/method/interv360-final-capitalization|8763417|2026-07-03 13:04:12 +0200|ahead=1
-ABSORBED_TIP|origin/method/interv360-mvp-delivery-capitalization|2ef34cb|2026-07-02 23:00:23 +0200
-ABSORBED_TIP|origin/method/sfia-3-exploration-closure|f2a822e|2026-07-08 12:37:02 +0200
-NOT_ANCESTOR|origin/method/sfia-consolidation-roadmap|10cb8c0|2026-07-03 13:16:26 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-automation-levels|80aac9c|2026-07-05 09:26:19 +0200|ahead=2
-NOT_ANCESTOR|origin/method/sfia-v2-automation-vision|1398a46|2026-07-05 08:30:21 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-delivery-qa-test-standard|2645df2|2026-07-06 09:57:15 +0200|ahead=2
-NOT_ANCESTOR|origin/method/sfia-v2-design-coverage-rules|bc697d8|2026-07-07 07:16:12 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-figma-design-cycle|1bb55f0|2026-07-05 19:09:27 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-figma-fidelity-gate-standard|672d72b|2026-07-06 08:20:51 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-pilot-selection-decision|7282317|2026-07-05 10:49:12 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-pilot-selection-scoring|22d8dcf|2026-07-05 14:10:43 +0200|ahead=2
-NOT_ANCESTOR|origin/method/sfia-v2-project-bootstrap-standard|cbba66b|2026-07-05 10:12:18 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-prompt-routing-alignment|1bc9f3a|2026-07-06 11:58:19 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2-technical-architecture-decision-standard|d8f4377|2026-07-07 07:42:37 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2.4-consolidation-operating-efficiency|d96dfce|2026-07-07 11:18:06 +0200|ahead=1
-NOT_ANCESTOR|origin/method/sfia-v2.4-reference-documentation-alignment|e79a440|2026-07-07 12:11:16 +0200|ahead=3
-NOT_ANCESTOR|origin/method/sfia-v2.4.1-documentation-status-promotion|ecaf416|2026-07-08 03:15:58 +0200|ahead=2
-ABSORBED_TIP|origin/method/sfia-v2.5-cycle-1-mvp|4e3947f|2026-07-08 18:22:56 +0200
-ABSORBED_TIP|origin/method/sfia-v2.5-project-plan|7751855|2026-07-08 16:13:07 +0200
-ABSORBED_TIP|origin/method/sfia-v2.5-review-pack-reset|a5497ef|2026-07-09 13:58:28 +0200
-ABSORBED_TIP|origin/method/sfia-v2.6-repository-standard-decisions|56ce850|2026-07-11 14:21:45 +0200
-NOT_ANCESTOR|origin/method/sfia-v2x-method-versioning-standard|a76c3f8|2026-07-07 08:13:44 +0200|ahead=1
-ABSORBED_TIP|origin/migration/sfia-v2.6-lot-a-core|d630c6c|2026-07-12 16:54:06 +0200
-ABSORBED_TIP|origin/migration/sfia-v2.6-lot-d1-naming|930d5a2|2026-07-12 18:06:16 +0200
-ABSORBED_TIP|origin/migration/sfia-v2.6-lot-d2-naming|f56c768|2026-07-12 18:27:53 +0200
-ABSORBED_TIP|origin/migration/sfia-v2.6-lot-d3-naming|093c91a|2026-07-12 18:53:35 +0200
-NOT_ANCESTOR|origin/notion/pause-notion-publication-track|c79992b|2026-07-04 21:18:33 +0200|ahead=1
-ABSORBED_TIP|origin/notion/provisioning-engine-design|38b91eb|2026-07-04 20:30:43 +0200
-ABSORBED_TIP|origin/notion/sfia-live-export-audit|a7b22ec|2026-07-04 14:22:03 +0200
-ABSORBED_TIP|origin/product/interv360-mvp-final-roadmap|14cadbe|2026-07-02 10:14:54 +0200
-ABSORBED_TIP|origin/project/campus360-opportunity-framing|4275a60|2026-07-17 13:15:24 +0200
-NOT_ANCESTOR|origin/project/chantiers360-v2-bootstrap|774beed|2026-07-05 15:13:53 +0200|ahead=2
-ABSORBED_TIP|origin/project/sfia-studio-functional-architecture|4f4e7cf|2026-07-18 22:18:29 +0200
-ABSORBED_TIP|origin/project/sfia-studio-functional-design|cf64fdd|2026-07-18 18:20:05 +0200
-NOT_ANCESTOR|origin/project/sfia-studio-poc-orchestration-framing|3b162ec|2026-07-19 12:47:55 +0200|ahead=1
-ABSORBED_TIP|origin/project/sfia-studio-pre-framing|18c6427|2026-07-18 17:20:52 +0200
-ABSORBED_TIP|origin/project/sfia-studio-ux-ui-reconciliation|7bdabdc|2026-07-19 01:06:23 +0200
-NOT_ANCESTOR|origin/prompts/create-templates-context-pack|b6d9a88|2026-07-04 22:13:11 +0200|ahead=1
-ABSORBED_TIP|origin/qualification/sfia-v2.6-lot-d-naming|3a6d1e7|2026-07-12 17:37:59 +0200
-ABSORBED_TIP|origin/qualification/sfia-v2.6-lot-e-global-controls|b87413b|2026-07-12 20:13:38 +0200
-ABSORBED_TIP|origin/qualification/sfia-v2.6-lot-f-superseded|2f89afd|2026-07-12 22:04:10 +0200
-ABSORBED_TIP|origin/qualification/sfia-v2.6-lot-f2-f005|7d87331|2026-07-13 05:39:38 +0200
-ABSORBED_TIP|origin/release/interv360-mvp-release-readiness|dfc6430|2026-07-02 22:43:41 +0200
-NOT_ANCESTOR|origin/sfia/review-handoff|bb226b1|2026-07-23 07:22:13 +0200|ahead=369
-NOT_ANCESTOR|origin/spike/sfia-studio-openai-gpt-adapter|056c97f|2026-07-19 20:48:07 +0200|ahead=2
-ABSORBED_TIP|origin/tooling/penpot-mcp-self-host-feedback|16fe9c3|2026-06-28 21:59:56 +0200
-NOT_ANCESTOR|origin/tooling/review-handoff-canonical-publisher|14d58fe|2026-07-21 13:32:09 +0200|ahead=1
-ABSORBED_TIP|origin/validation/sfia-v2.6-lot-e2-validation|477fe55|2026-07-12 20:58:32 +0200
-ABSORBED_TIP|origin/validation/sfia-v2.6-lot-f1a-f1b|15185f3|2026-07-13 05:03:15 +0200
+```markdown
 
+Pas de code platform créé. Pas GO DELIVERY consommé. Pas live exécuté. Pas OPS1 décommissionné. Pas B′.
+
+**Statut :** `SHARED TECHNICAL PLATFORM ARCHITECTURE READY — MORRIS DECISION REQUIRED`.
+
+---
+
+## Note historique postérieure (non décisionnelle)
+
+**Observation (Git).** La delivery Shared Technical Platform recommandée ici (Option B) a ensuite été exécutée et mergée (PR [#255](https://github.com/mcleland147/sfia-workspace/pull/255), squash `445702dc…`). Voir `81` (delivery) et `82` (validation / PR readiness).
+
+Ce document **80** reste `decision-pack-candidate` historique. Les lots D1 tools/context, Live Product Validation, cleanup wrappers et Option B′ restent différés selon les gates Morris post-merge.
 ```
 
-## Décisions Morris appliquées
+## Document 83 — contenu complet (pré-merge historique)
 
-- Consolidation documentaire bornée uniquement
-- Statuts candidates 75–80 préservés
-- Notes historiques non décisionnelles sur 79/80 (post-#255)
-- Pas de merge PR ; pas de suppression de branches ; pas de force-push
-- Pas de modification method/prompts/app/lib
-- Live / B′ / cleanup OPS1 non ouverts
+```markdown
+# SFIA Studio — Consolidation des documents non intégrés — PR readiness
 
-## Validations
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `83-unmerged-docs-consolidation-pr-readiness.md` |
+| **Statut** | `draft-pr-candidate` |
+| **Cycle** | PR readiness — branches / worktrees non mergés |
+| **Profil** | Critical |
+| **Base** | `origin/main` @ `445702dcad750734cef4b97122e7ccb1e67b24ee` |
+| **Branche** | `docs/sfia-studio-recover-unmerged-project-docs` |
+| **Gate** | Consolidation documentaire bornée (pas de merge sans GO Morris) |
 
-| Contrôle | Résultat |
-|----------|----------|
-| `git diff --check` | PASS |
-| Chemins protégés (method/prompts/docs/scripts/.github/.sfia/.cursor/app/lib/*) | ABSENTS |
-| Secrets / .env / sqlite | ABSENTS |
-| Code produit `app/**` | ABSENT |
-| Numéro doc 83 | Premier libre après 82 sur origin/main |
-| Liens README 75–83 | Présents |
-| Draft PR | #256 ouverte |
+---
 
-## Risques / réserves / dette
+## 1. Objectif
 
-- Copies framing WT restent untracked localement (dette locale hors PR)
-- Trailing whitespace strip vs framing (diff whitespace-only sur 75/77/78)
-- Branches historiques non nettoyées (hors autorisation)
-- Doc 82 texte interne peut encore dire « PR opened » — non modifié dans ce cycle (hors stricte nécessité)
+Récupérer sur `main` les documents Studio **75–80** produits dans le worktree de cadrage et jamais commités, tout en alignant le README sur l’état **post-merge PR #255**.
 
-## Actions non exécutées
+## 2. Inventaire (synthèse)
 
-- Merge PR #256
-- Suppression branches
-- Force-push / reset / stash
-- Live Product Validation
-- Option B′
-- Cleanup OPS1
-- Modification method/prompts
+| Source | Verdict |
+|--------|---------|
+| `framing/sfia-studio-next-product-increment` @ `88fa465…` | Tip **ancêtre** de main ; **0** commit propre ; docs 75–80 **untracked** uniquement |
+| `delivery/sfia-studio-shared-technical-platform` | Contenu **absorbé** par squash #255 (blob 81 identique) ; tip non ancêtre (squash) — **écarté** |
+| `delivery/sfia-studio-control-tower-fast-track` | Absorbé par squash #254 — **écarté** |
+| Branches OPS1 delivery historiques | Code produit obsolète / déjà mergé via squash — **écartées** |
+| `sfia/review-handoff` | Branche handoff (hors consolidation Studio docs) — **écartée** |
+| Worktree framing untracked 75–80 | **Retenu** — contenu utile, absent de main |
 
-## Rollback
+Aucun conflit de versions concurrentes pour 79/80 (une seule source : framing WT).
 
-Fermer draft PR #256 ou `git revert` des commits `42190d4..1a2fa31` sur la branche.
+## 3. Contenu consolidé
 
-## Diff README (complet)
+| Fichier | Provenance | Statut préservé |
+|---------|------------|-----------------|
+| `75`…`78` | Framing WT untracked | candidates live/B′ (non exécutés) |
+| `79`, `80` | Framing WT untracked | architecture/decision **candidates** + note historique post-#255 |
+| `README.md` | Alignement | liens 75–83 ; #255 = **MERGED** |
+| `83` | Ce cycle | rapport consolidation |
+
+**Aucune** modification `app/**`, `method/**`, `prompts/**`, `.github/**`.
+
+## 4. Validations
+
+- `git diff --check` : PASS
+- Chemins protégés : absents du diff
+- Secrets : absents
+- Code produit : absent
+- Cohérence : 79/80 ne prétendent pas remplacer 81/82
+- Draft PR : [#256](https://github.com/mcleland147/sfia-workspace/pull/256)
+
+## 5. Anti-claims
+
+Pas de merge de cette PR sans GO Morris. Pas Live Validation exécutée. Pas B′. Pas cleanup OPS1. Pas V3-ADOPTED. Pas de réouverture delivery platform.
+
+## 6. Rollback
+
+`git revert` des commits de la branche docs, ou fermeture de la draft PR sans merge.
+
+## 7. MERGE REQUIRES MORRIS GO
+```
+
+## Cohérence README
+
+Liens 75–83 présents. #255 marquée MERGED. Live / B′ différées. Séquence : Platform → D1 unifié → Live → B′.
+Mention explicite PR #256 **absente** (non exigée si consolidation via 83) — réserve mineure non bloquante.
+Section README concernée :
+
+```markdown
+### Cadrage incrément suivant + Live prep (historique, non livré comme code)
+| [75-next-product-increment-framing.md](./75-next-product-increment-framing.md) | Gap analysis, options A–F, B′ différée — **`framing-candidate`** |
+| [76-next-product-increment-options-and-decision-pack.md](./76-next-product-increment-options-and-decision-pack.md) | Decision pack ; priorité Live Product Validation — **`decision-pack-candidate`** |
+| [77-live-product-validation-framing-and-readiness.md](./77-live-product-validation-framing-and-readiness.md) | Readiness GPT / canonique / Git / GitHub / D1 — **`live-prep-candidate`** |
+| [78-live-product-validation-execution-decision-pack.md](./78-live-product-validation-execution-decision-pack.md) | Scénarios LPV-01…06 — **`execution-pack-candidate`** |
+> Live Product Validation et Option B′ restent **différées** (pas d’exécution dans ce cycle de consolidation).
+### Shared Technical Platform (cadrage → delivery → merge)
+| [79-shared-technical-platform-architecture.md](./79-shared-technical-platform-architecture.md) | Architecture candidate Option B — **`architecture-candidate`** (historique) |
+| [80-shared-technical-platform-migration-decision-pack.md](./80-shared-technical-platform-migration-decision-pack.md) | Decision pack migration — **`decision-pack-candidate`** (historique) |
+| [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery — intégré via [#255](https://github.com/mcleland147/sfia-workspace/pull/255) |
+| [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation / PR readiness — [#255](https://github.com/mcleland147/sfia-workspace/pull/255) **MERGED** |
+| [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** |
+> **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash).
+> **Séquence active :** Platform intégrée → D1 unifié (tools/context) → Live Product Validation → décision B′.
+```
+
+## Diff README complet (`445702dc..416af8a`)
 
 ```diff
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
@@ -463,9 +323,77 @@ index 266ee4d..544e163 100644
 +> **Séquence active :** Platform intégrée → D1 unifié (tools/context) → Live Product Validation → décision B′.
 ```
 
-## Contenu complet des documents créés / restaurés
+## Décisions Morris validées / confirmées
 
-### `projects/sfia-studio/75-next-product-increment-framing.md`
+- SFIA v2.6 baseline officielle
+- PR #254 intégrée (CT+D1)
+- PR #255 intégrée (Shared Technical Platform)
+- PR #256 intégrée (consolidation docs 75–80 + 83 + README)
+- Shared Technical Platform livrée sur main
+- B′ différée
+- Branche source PR #256 conservée
+
+## Observations
+
+- D1 consomme `platform/ai` (post-#255)
+- D1 tools/context unifiés **non** livrés
+- Live Product Validation **non** exécutée
+- Wrappers OPS1 encore présents
+- 77/78 décrivent dual-track historique
+- 79/80 (notes) indiquent cible D1 unifiée après platform ; corps historique antérieur au merge #255
+
+## Recommandations non décisionnelles (≠ GO)
+
+1. Prochain cycle candidat : **D1 Shared Platform Integration**
+2. Puis **Live Product Validation** unifiée
+3. Puis décision Morris sur **B′**
+
+## Réserves
+
+1. Doc **83** conserve wording pré-merge (`draft-pr-candidate`, MERGE REQUIRES) — historique, non réécrit
+2. Docs **81/82** métadonnées internes pré-#255 post-merge non alignées — hors scope #256 ; gate doc séparé possible
+3. README ne cite pas explicitement #256 / `416af8a`
+4. Worktree framing peut encore avoir copies untracked locales 75–80 — dette locale hors main
+
+## Dette
+
+- Alignement post-merge docs 81/82/83 (métadonnées) si Morris ouvre un cycle doc sync
+- Dual-track 77/78 à actualiser après unification D1 tools/context
+- Nettoyage branches delivery historiques — hors autorisation
+
+## Anti-claims (ce cycle)
+
+Pas de Live exécutée · pas B′ · pas cleanup OPS1 · pas V3-ADOPTED · pas D1 COMPLETE · pas CYCLE OPENED · pas PROJECT LINKED · pas modification method/prompts/app · pas nouvelle PR projet · candidats ≠ décisions validées
+
+## Actions exécutées
+
+- Local Git Truth Check
+- Vérifications Git + `gh pr view 256`
+- Lecture sources méthode + docs 75–83 + README
+- Analyse sémantique
+- Review pack FULL
+- Publication handoff (ce cycle)
+
+## Actions non exécutées
+
+- Modification `projects/sfia-studio/**`
+- Nouvelle PR / merge / force-push / suppression branche
+- Live Product Validation / D1 Shared Platform Integration / B′ / cleanup OPS1
+- Tests applicatifs (non requis ; aucun code produit dans le merge)
+
+## Rollback
+
+Revert du squash sur main : `git revert {main}` (nécessite GO Morris). Branche source toujours disponible @ `1a2fa31…`.
+
+## Prochain cycle candidat
+
+**D1 Shared Platform Integration** (tools/context unifiés) — sous gate Morris distinct.
+
+---
+
+## Annexes — contenus intégrés (documents ajoutés par #256)
+
+### `projects/sfia-studio/75-next-product-increment-framing.md` (complet)
 
 ```markdown
 # SFIA Studio — Cadrage du prochain incrément produit
@@ -944,7 +872,7 @@ Il ne revendique pas D1 COMPLETE, PROJECT LINKED, CYCLE OPENED, ni SFIA v3 IMPLE
 **Statut :** `framing-candidate` — en attente de décision Morris.
 ```
 
-### `projects/sfia-studio/76-next-product-increment-options-and-decision-pack.md`
+### `projects/sfia-studio/76-next-product-increment-options-and-decision-pack.md` (complet)
 
 ```markdown
 # SFIA Studio — Options et decision pack — prochain incrément produit
@@ -1179,7 +1107,7 @@ Ce pack ne constitue **pas** une validation live exécutée, **pas** une adoptio
 **Statut :** préparation live prête — **Décision Morris requise** pour l’exécution.
 ```
 
-### `projects/sfia-studio/77-live-product-validation-framing-and-readiness.md`
+### `projects/sfia-studio/77-live-product-validation-framing-and-readiness.md` (complet)
 
 ```markdown
 # SFIA Studio — Live Product Validation — Framing & Readiness
@@ -1461,7 +1389,7 @@ Pas GPT LIVE VALIDATED · pas LIVE PRODUCT READY · pas D1 COMPLETE · pas PROJE
 **Statut :** `LIVE PRODUCT VALIDATION PLAN READY` — en attente de GO EXÉCUTION Morris.
 ```
 
-### `projects/sfia-studio/78-live-product-validation-execution-decision-pack.md`
+### `projects/sfia-studio/78-live-product-validation-execution-decision-pack.md` (complet)
 
 ```markdown
 # SFIA Studio — Live Product Validation — Execution Decision Pack
@@ -1723,7 +1651,7 @@ Il ne rouvre pas B′.
 **Prochaine action :** Décision Morris sur `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION`.
 ```
 
-### `projects/sfia-studio/79-shared-technical-platform-architecture.md`
+### `projects/sfia-studio/79-shared-technical-platform-architecture.md` (complet)
 
 ```markdown
 # SFIA Studio — Shared Technical Platform — Architecture candidate
@@ -2129,7 +2057,7 @@ Pas de platform « livrée ». Pas de suppression OPS1. Pas LIVE VALIDATED. Pas 
 Ce document **79** conserve son statut `architecture-candidate` d’origine (historique de cadrage). Il ne remplace pas `81`/`82` et ne réouvre pas la delivery.
 ```
 
-### `projects/sfia-studio/80-shared-technical-platform-migration-decision-pack.md`
+### `projects/sfia-studio/80-shared-technical-platform-migration-decision-pack.md` (complet)
 
 ```markdown
 # SFIA Studio — Shared Technical Platform — Migration & Decision Pack
@@ -2367,69 +2295,4 @@ Pas de code platform créé. Pas GO DELIVERY consommé. Pas live exécuté. Pas 
 **Observation (Git).** La delivery Shared Technical Platform recommandée ici (Option B) a ensuite été exécutée et mergée (PR [#255](https://github.com/mcleland147/sfia-workspace/pull/255), squash `445702dc…`). Voir `81` (delivery) et `82` (validation / PR readiness).
 
 Ce document **80** reste `decision-pack-candidate` historique. Les lots D1 tools/context, Live Product Validation, cleanup wrappers et Option B′ restent différés selon les gates Morris post-merge.
-```
-
-### `projects/sfia-studio/83-unmerged-docs-consolidation-pr-readiness.md`
-
-```markdown
-# SFIA Studio — Consolidation des documents non intégrés — PR readiness
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `83-unmerged-docs-consolidation-pr-readiness.md` |
-| **Statut** | `draft-pr-candidate` |
-| **Cycle** | PR readiness — branches / worktrees non mergés |
-| **Profil** | Critical |
-| **Base** | `origin/main` @ `445702dcad750734cef4b97122e7ccb1e67b24ee` |
-| **Branche** | `docs/sfia-studio-recover-unmerged-project-docs` |
-| **Gate** | Consolidation documentaire bornée (pas de merge sans GO Morris) |
-
----
-
-## 1. Objectif
-
-Récupérer sur `main` les documents Studio **75–80** produits dans le worktree de cadrage et jamais commités, tout en alignant le README sur l’état **post-merge PR #255**.
-
-## 2. Inventaire (synthèse)
-
-| Source | Verdict |
-|--------|---------|
-| `framing/sfia-studio-next-product-increment` @ `88fa465…` | Tip **ancêtre** de main ; **0** commit propre ; docs 75–80 **untracked** uniquement |
-| `delivery/sfia-studio-shared-technical-platform` | Contenu **absorbé** par squash #255 (blob 81 identique) ; tip non ancêtre (squash) — **écarté** |
-| `delivery/sfia-studio-control-tower-fast-track` | Absorbé par squash #254 — **écarté** |
-| Branches OPS1 delivery historiques | Code produit obsolète / déjà mergé via squash — **écartées** |
-| `sfia/review-handoff` | Branche handoff (hors consolidation Studio docs) — **écartée** |
-| Worktree framing untracked 75–80 | **Retenu** — contenu utile, absent de main |
-
-Aucun conflit de versions concurrentes pour 79/80 (une seule source : framing WT).
-
-## 3. Contenu consolidé
-
-| Fichier | Provenance | Statut préservé |
-|---------|------------|-----------------|
-| `75`…`78` | Framing WT untracked | candidates live/B′ (non exécutés) |
-| `79`, `80` | Framing WT untracked | architecture/decision **candidates** + note historique post-#255 |
-| `README.md` | Alignement | liens 75–83 ; #255 = **MERGED** |
-| `83` | Ce cycle | rapport consolidation |
-
-**Aucune** modification `app/**`, `method/**`, `prompts/**`, `.github/**`.
-
-## 4. Validations
-
-- `git diff --check` : PASS
-- Chemins protégés : absents du diff
-- Secrets : absents
-- Code produit : absent
-- Cohérence : 79/80 ne prétendent pas remplacer 81/82
-- Draft PR : [#256](https://github.com/mcleland147/sfia-workspace/pull/256)
-
-## 5. Anti-claims
-
-Pas de merge de cette PR sans GO Morris. Pas Live Validation exécutée. Pas B′. Pas cleanup OPS1. Pas V3-ADOPTED. Pas de réouverture delivery platform.
-
-## 6. Rollback
-
-`git revert` des commits de la branche docs, ou fermeture de la draft PR sans merge.
-
-## 7. MERGE REQUIRES MORRIS GO
 ```
