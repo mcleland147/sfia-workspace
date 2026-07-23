@@ -504,12 +504,12 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01�
 
 *SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
 
-### Shared Technical Platform (delivery local candidat)
+### Shared Technical Platform (PR readiness)
 
 | Document | Rôle |
 |----------|------|
 | [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery Option B — `lib/platform/**` — **`delivery-local-candidate`** |
+| [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation + PR readiness — **`PR opened`** (renseigné après création) |
 
-> **Statut :** delivery local **candidat** — validation Morris requise (`GO VALIDATION` **non** consommé).
+> **Statut :** validation locale **verte** — push/PR autorisés sous gate Morris ; merge **fermé**.
 > **Séquence candidate :** Shared Technical Platform → D1 unifié (tools/context) → Live Product Validation → décision B′.
-> Push / PR / merge / live GPT / B′ : **fermés** dans ce cycle.
