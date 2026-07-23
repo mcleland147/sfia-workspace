@@ -6,8 +6,8 @@ export interface EventSink {
 }
 
 export class NoopEventSink implements EventSink {
-  emit(_event: TechnicalEvent): void {
-    /* intentional no-op */
+  emit(event: TechnicalEvent): void {
+    void event;
   }
 }
 
