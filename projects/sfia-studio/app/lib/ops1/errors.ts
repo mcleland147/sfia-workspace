@@ -57,4 +57,3 @@ export function fromTechnicalError(error: unknown): Ops1Error | null {
   }
   return null;
 }
-
