@@ -13,7 +13,7 @@ import {
 } from "@/lib/d1/intake/resolveProvider";
 import { D1Error } from "@/lib/d1/errors";
 import { REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION } from "@/lib/d1/intake/types";
-import type { ConversationProvider, ProviderChatMessage } from "@/lib/ops1/conversation/types";
+import type { ConversationProvider, ProviderChatMessage } from "@/lib/platform/ai/types";
 import {
   normalizeText,
   tokenize,

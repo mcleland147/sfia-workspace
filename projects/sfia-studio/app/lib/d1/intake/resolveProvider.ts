@@ -1,4 +1,4 @@
-import type { ConversationProvider } from "@/lib/ops1/conversation/types";
+import type { ConversationProvider } from "@/lib/platform/ai/types";
 import { D1Error } from "../errors";
 import { FakeIntakeConversationProvider } from "./fakeIntakeProvider";
 import { logIntakeEvent } from "../intakeObservability";
@@ -17,7 +17,7 @@ export function setIntakeProviderForTests(
  * Default = fake (deterministic).
  * Live only if D1_INTAKE_LIVE=1 AND secrets present — otherwise explicit CONFIG error
  * (no silent fake fallback when live was requested).
- * Does not alter OPS1 provider resolution.
+ * Imports shared platform only — never OPS1.
  */
 export function resolveIntakeProvider(): {
   provider: ConversationProvider;
@@ -36,9 +36,9 @@ export function resolveIntakeProvider(): {
     try {
       // Lazy require to avoid pulling OpenAI into client bundles via actions tree
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { requireLiveConversationSecrets } = require("@/lib/ops1/conversation/config") as typeof import("@/lib/ops1/conversation/config");
+      const { requireLiveConversationSecrets } = require("@/lib/platform/ai/config") as typeof import("@/lib/platform/ai/config");
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { OpenAIConversationProvider } = require("@/lib/ops1/conversation/openaiProvider") as typeof import("@/lib/ops1/conversation/openaiProvider");
+      const { OpenAIConversationProvider } = require("@/lib/platform/ai/openaiProvider") as typeof import("@/lib/platform/ai/openaiProvider");
       const { apiKey, model } = requireLiveConversationSecrets();
       return {
         provider: new OpenAIConversationProvider(apiKey, model),
