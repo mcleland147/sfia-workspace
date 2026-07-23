@@ -183,7 +183,7 @@ La Documentation Routing Matrix n'est pas remplacée. Le Cycle Routing Guide la 
 
 | Phase / contexte | Sources à lire | Livrables attendus | Dossier cible | Type de capitalisation | Prompt doit mentionner |
 |------------------|----------------|--------------------|---------------|------------------------|------------------------|
-| Routage CKC candidat (expérimental) | Routing guide §4.4.5, README CKC, pilote ou carte synthétique | Déclaration de consultation CKC ; évolutions CKC si cycle méthode dédié | `…/cycle-knowledge-contracts/` | Capitalisation méthode candidate | Statut candidate ; usage experimental cognitive guidance ; aucune autorité d'exécution |
+| Routage CKC candidat (expérimental) | Routing guide §4.4.5, README CKC, pilote ou carte synthétique | Déclaration de consultation CKC ; évolutions CKC si cycle méthode dédié | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/` | Capitalisation méthode candidate | Statut candidate ; usage experimental cognitive guidance ; aucune autorité d'exécution |
 
 **Séparation préservée :** Knowledge Layer = où classer et ranger · Routing guide = quoi lire et quand.
 

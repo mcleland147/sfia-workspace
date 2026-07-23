@@ -317,6 +317,15 @@ Intention Morris
 
 **Hors périmètre Cycle 1 :** templates profil (Cycle 2) ; cartographie exhaustive cycles projet ; promotion Prompt Catalog ; relance SFIA 3.0.
 
+#### 4.4.4 Matrice profil → contrôles (synthèse)
+
+| Profil | Lecture doc | Rapport Cursor | Readiness | Post-merge | Morris |
+|--------|-------------|----------------|-----------|------------|--------|
+| **Light** | Minimale | Court | Allégée, unique | Court ou skip | Merge si doc-only ; gates si protected |
+| **Standard** | Ciblée | Structuré | Unique | Court | Scope + merge |
+| **Critical** | Complète | Complet | Renforcée | Complet | Chaque gate listé |
+| **Capitalization** | Adaptée aux sources REX / méthode | Traçabilité apprentissage | Adaptée promotion doc / méthode | Standard ou selon portée | Si promotion méthode ou décision structurante |
+
 #### 4.4.5 Cycle Knowledge Contracts — candidate routing experiment
 
 > **Expérimentation de routage** — statut **candidate** · **non baseline** · **non adopted** · **aucune autorité d'exécution**.
@@ -340,25 +349,16 @@ type de cycle
 
 | Cycle | Path |
 |-------|------|
-| 1 Cadrage | `…/cycle-knowledge-contracts/pilots/01-cadrage.md` |
-| 2 Conception fonctionnelle | `…/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md` |
-| 6 Architecture technique | `…/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
-| 9 QA / validation | `…/cycle-knowledge-contracts/pilots/04-qa-validation.md` |
+| 1 Cadrage | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` |
+| 2 Conception fonctionnelle | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md` |
+| 6 Architecture technique | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
+| 9 QA / validation | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` |
 
-**Fallback (onze cycles sans CKC détaillé) :** consulter `…/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` comme guidance légère ; appliquer la méthode SFIA v2.6 existante (template §4 + méthode cycles) ; déclarer la couverture CKC **incomplète** ; **ne pas inventer** un contrat complet ; **ne pas bloquer** le cycle si les sources canoniques suffisent.
+**Fallback (onze cycles sans CKC détaillé) :** consulter `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` comme guidance légère ; appliquer la méthode SFIA v2.6 existante (template §4 + méthode cycles) ; déclarer la couverture CKC **incomplète** ; **ne pas inventer** un contrat complet ; **ne pas bloquer** le cycle si les sources canoniques suffisent.
 
 **Obligations ChatGPT :** rechercher le CKC ; lire le statut ; déclarer la consultation (template §2.0) ; signaler explicitement `candidate` ; ne pas présenter le CKC comme baseline.
 
 **Séparations :** CKC ≠ routing guide (sélection des références) ≠ template (contrat Cursor) ≠ validation checklist (preuves). Référencer les paths — ne pas recopier les contrats ici.
-
-#### 4.4.4 Matrice profil → contrôles (synthèse)
-
-| Profil | Lecture doc | Rapport Cursor | Readiness | Post-merge | Morris |
-|--------|-------------|----------------|-----------|------------|--------|
-| **Light** | Minimale | Court | Allégée, unique | Court ou skip | Merge si doc-only ; gates si protected |
-| **Standard** | Ciblée | Structuré | Unique | Court | Scope + merge |
-| **Critical** | Complète | Complet | Renforcée | Complet | Chaque gate listé |
-| **Capitalization** | Adaptée aux sources REX / méthode | Traçabilité apprentissage | Adaptée promotion doc / méthode | Standard ou selon portée | Si promotion méthode ou décision structurante |
 
 ## 5. Références obligatoires par type de cycle (méthode / fondation)
 

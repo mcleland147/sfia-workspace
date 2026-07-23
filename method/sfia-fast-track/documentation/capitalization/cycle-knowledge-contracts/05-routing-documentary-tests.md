@@ -10,7 +10,7 @@
 
 | Étape | Attendu | Résultat |
 |-------|---------|----------|
-| Routing guide | §4.4.5 → path `pilots/01-cadrage.md` | PASS |
+| Routing guide | §4.4.5 → `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` | PASS |
 | Template | Mini-fiche + fiche exigent déclaration CKC | PASS |
 | PGE | Étape 4bis avant génération | PASS |
 | Validation | §3.1.1 pilote obligatoire + statut candidate | PASS |
@@ -19,7 +19,7 @@
 
 | Étape | Attendu | Résultat |
 |-------|---------|----------|
-| Routing | Path `pilots/03-architecture-technique.md` | PASS |
+| Routing | Path `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` | PASS |
 | Template / PGE / checklist | Même chaîne que Test 1 | PASS |
 
 ## Test 3 — Cycle sans pilote (ex. Delivery #8)
@@ -27,7 +27,7 @@
 | Étape | Attendu | Résultat |
 |-------|---------|----------|
 | Recherche | Contrat détaillé absent | PASS |
-| Fallback | Carte synthétique + méthode v2.6 | PASS |
+| Fallback | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` + méthode v2.6 | PASS |
 | Blocage | Aucune erreur bloquante injustifiée | PASS |
 | Invention | Interdite (anti-patterns template/routing) | PASS |
 
@@ -53,6 +53,32 @@
 | Exposition brute 25 sections CKC en UI | Interdite (template anti-pattern ; framing CKC) | PASS |
 | Docs 87/88 | Non modifiés | PASS |
 
+## Test 7 — Ordre des sections
+
+| Contrôle | Attendu | Résultat |
+|----------|---------|----------|
+| Headings `#### 4.4.x` | Ordre 4.4.1 → 4.4.2 → 4.4.3 → 4.4.4 → 4.4.5 | PASS |
+| Section CKC | Après `4.4.4 Matrice profil → contrôles` | PASS |
+| Référence §4.4.5 | Toujours valide (numéro conservé) | PASS |
+
+## Test 8 — Résolution des paths
+
+| Contrôle | Attendu | Résultat |
+|----------|---------|----------|
+| Pilote 01 | Path complet existe | PASS |
+| Pilote 02 | Path complet existe | PASS |
+| Pilote 03 | Path complet existe | PASS |
+| Pilote 04 | Path complet existe | PASS |
+| Fallback carte | Path complet `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` existe | PASS |
+| Points d'entrée opérationnels | Aucun `…/cycle-knowledge-contracts` abrégé | PASS |
+
+## Test 9 — Alignement numérotation
+
+| Contrôle | Attendu | Résultat |
+|----------|---------|----------|
+| Matrice 15 cycles | = template §4.1 | PASS |
+| Pilotes | Cycles 1 / 2 / 6 / 9 | PASS |
+
 ## Verdict tests
 
-**PASS** — routage candidat cohérent pour arbitrage Morris (validation méthode suivante).
+**PASS** — cohérence structurelle du routage CKC candidat restaurée ; validation méthode toujours requise.
