@@ -2,89 +2,87 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Conception fonctionnelle **candidate** — validation Morris requise |
+| **Statut** | Conception fonctionnelle **VALIDATED BY MORRIS** |
 | **Pack** | `sfia-v3-design/v3-native-option-a` |
-| **Gate** | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE — TRANCHE VERTICALE OPTION A` |
-| **Anti-claims** | Pas DESIGN VALIDATED · Pas runtime migré |
+| **Gate conception** | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE — TRANCHE VERTICALE OPTION A` |
+| **Gate validation** | `GO VALIDATION CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE OPTION A` |
+| **Gate architecture** | `GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A` (consommé) |
+| **Anti-claims** | Pas MODELED · Pas IMPLEMENTED · Pas READY FOR MODELED/DELIVERY · Pas runtime migré |
 | **Document** | `10-functional-validation-and-decision-pack.md` |
 
-## 1. Décisions Morris déjà consommées (tracées)
+## 1. Décisions doctrinales / arbitrage (consommées)
 
 | Id | Contenu |
 |----|---------|
-| ARB-V3-01 | Tranche Option A |
-| ARB-V3-02 | Cycles aval rejouables |
-| ARB-V3-03 | ExecutionContract ADAPT · MD = adaptateur |
-| ARB-V3-04 | Coupure method/ + template SoT (après composants) |
-| ARB-V3-05 | UX CC-D01/03/05/06/12/13 |
-| ARB-V3-06 | harness historique · MethodMode/badges hors cible · OPS1/D1 réemploi |
+| D-V3-01…05 | Doctrine v3 exclusive Studio |
+| ARB-V3-01…06 | Tranche A · cycles · ExecutionContract · coupure v2.6 · UX · actifs |
+| CC-D01/03/05/06/12/13 | UX conversationnelle |
 
-## 2. Décisions candidates (soumises à validation Morris)
+## 2. Décisions FD-OA — **VALIDÉES**
 
-| Id | Proposition | Impact |
-|----|-------------|--------|
-| FD-OA-01 | Valider le pack conception Option A tel que documenté | Débloque AF |
-| FD-OA-02 | Nouveau Project exige N2 + doctrine pin avant LPS actif | Création projet |
-| FD-OA-03 | Qualification cycle reste `proposed` jusqu’ack si Critical | Profil Critical |
-| FD-OA-04 | Synthetic CKC suffit pour démarrer clarification ; detailed préféré | CKC |
-| FD-OA-05 | OPS1 Campus360 peut coexister **produit** gelé pendant tranche A **sans** doctrine v2.6 active partagée | Arbitrage produit U-01 audit |
-| FD-OA-06 | Export MD Cursor optionnel derrière feature flag adaptateur | Exec |
+| Id | Décision validée | Formulation |
+|----|------------------|-------------|
+| **FD-OA-01** | Pack conception Option A validé comme base AF | Tel que documenté 01–09 |
+| **FD-OA-02** | Nouveau Project actif : confirmation **N2** + **DoctrinePackageRef** résolu avant LPS actif | Création projet |
+| **FD-OA-03** | Profil Critical : qualification cycle reste `proposed` jusqu’acknowledgment explicite | Qualification |
+| **FD-OA-04** | CKC synthétique v3 peut initier clarification ; n’autorise pas invention detailed ni exécution si preuves insuffisantes | CKC |
+| **FD-OA-05** | OPS1 reste **produit legacy gelé** : sans évolution fonctionnelle · sans partage de doctrine · sans fallback v2.6 · sans être présenté comme implémentation v3 · sans 2ᵉ cible produit. Option A = **unique** cible de refondation | Continuité legacy isolée |
+| **FD-OA-06** | Export Markdown Cursor = adaptateur optionnel dérivé de l’ExecutionContract ; ni contrat natif ni SoT | Exec adapter |
 
-*FD-OA-* = candidates · **non validées**.
-
-## 3. Inconnues
+## 3. Inconnues restantes (architecture / aval)
 
 | ID | Sujet |
 |----|-------|
-| U-OA-01 | Gel vs migration progressive OPS1 pendant AF/Delivery |
-| U-OA-02 | Moment exact merge UX 87–89 vs AF |
+| U-OA-02 | Moment merge UX 87–89 vs cycles UX/AF aval |
 | U-OA-03 | Stratégie données MethodMode existantes |
-| U-OA-04 | Périmètre exact première AF (quels composants P0) |
+| U-OA-04 | Périmètre P0 exact des premiers composants livrés |
+| U-FA-01 | LPS = agrégat unique vs projection multi-domaines (décision candidate AF) |
+
+U-OA-01 (gel vs migration OPS1) : **levé** par FD-OA-05 (legacy gelé).
 
 ## 4. Réserves
 
 | ID | Réserve |
 |----|---------|
 | FD-R01 | Pas d’architecture technique |
-| FD-R02 | Pas de schemas |
-| FD-R03 | Runtime inchangé |
+| FD-R02 | Pas de schemas exécutables |
+| FD-R03 | Runtime inchangé dans ce cycle |
 | FD-R04 | UX visuelle non retravaillée ici |
 | FD-R05 | Coupure method/ non exécutée |
-| FD-R06 | Cas d’usage en fiches ; détail AF pourra enrichir séquences |
+| FD-R07 | Pas READY FOR MODELED |
+| FD-R08 | Pas READY FOR DELIVERY |
+| FD-R09 | Aucune autorisation d’implémentation |
 
-## 5. Dette créée / évitée
-
-**Évitée :** big-bang code · coexistence doctrinale dans la cible.
-**Créée :** pack design à valider · AF/UX/modeled à enchaîner · hygiene README Studio hors scope.
-
-## 6. Maturité distribuée
+## 5. Maturité distribuée
 
 | Objet | Maturité |
 |-------|----------|
-| Pack conception Option A | DOCUMENTED candidate |
+| Pack conception Option A | **VALIDATED** (Morris) |
+| Architecture fonctionnelle | **DOCUMENTED candidate** (ce cycle) |
 | Fondations F01–F15 | VALIDATED (framing) |
-| Composants runtime v3-native | non MODELED/IMPLEMENTED |
-| UX 87–89 | validated decisions hors main |
+| Runtime v3-native | non MODELED / non IMPLEMENTED |
 | Coupure v2.6 | non exécutée |
 
-## 7. Anti-claims (ce cycle)
+## 6. Anti-claims
 
-Interdit de conclure : DESIGN VALIDATED · READY FOR MODELED/DELIVERY · RUNTIME MIGRATED · V2.6 REMOVED · OPTION A IMPLEMENTED · UX FINAL · ARCHITECTURE APPROVED.
+Interdit : MODELED · IMPLEMENTED · ADOPTED runtime · READY FOR MODELED · READY FOR DELIVERY · RUNTIME MIGRATED · V2.6 REMOVED · OPTION A IMPLEMENTED · ARCHITECTURE APPROVED (sans validation Morris AF).
 
-## 8. Critères d’acceptation conception (pour Morris)
+## 7. Critères conception — statut
 
-- [ ] Flux 14 étapes Option A compréhensible sans v2.6 runtime
-- [ ] 20 composants responsabilités claires
-- [ ] LPS / Decision / Confirmation / Contract / Evidence cohérents
-- [ ] 14 stop codes + 24 cas couverts
-- [ ] Matrice actifs sans coexistence
-- [ ] Alignement ARB-V3-01…06 et CC-D*
+- [x] Flux Option A sans v2.6 runtime comme doctrine
+- [x] 20 composants
+- [x] LPS / Decision / Confirmation / Contract / Evidence
+- [x] Stops + cas
+- [x] Matrice actifs
+- [x] Alignement ARB + CC-D*
+- [x] FD-OA validées Morris
 
-## 9. Gate suivant
+## 8. Gate
 
-`GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A`
-(UX dédié possible en parallèle selon U-OA-02)
+Architecture fonctionnelle en cours sur branche `design/sfia-studio-v3-native-option-a-functional-architecture`.
 
-## 10. Verdict
+Gate suivant après AF documentée : validation Morris AF, puis UX et/ou modeled selon arbitrage.
 
-**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN DOCUMENTED — MORRIS VALIDATION REQUIRED**
+## 9. Verdict
+
+**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN VALIDATED — ARCHITECTURE IN PROGRESS**

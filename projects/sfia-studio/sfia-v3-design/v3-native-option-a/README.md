@@ -2,48 +2,47 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Conception fonctionnelle **candidate** — validation Morris requise |
+| **Statut** | Conception fonctionnelle **VALIDATED BY MORRIS** |
 | **Pack** | `sfia-v3-design/v3-native-option-a` |
-| **Gate consommé** | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE — TRANCHE VERTICALE OPTION A` |
-| **Décisions** | ARB-V3-01…06 |
+| **Gate conception** | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE — TRANCHE VERTICALE OPTION A` |
+| **Gate validation** | `GO VALIDATION CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE OPTION A` |
+| **Gate architecture (consommé)** | `GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **Décisions** | ARB-V3-01…06 · **FD-OA-01…06 validées** |
 | **Doctrine** | SFIA Studio v3 exclusive (VALIDATED framing 30–37) |
-| **Anti-claims** | Pas DESIGN VALIDATED · Pas READY FOR MODELED/DELIVERY · Pas runtime migré · Pas v2.6 removed |
-| **Code / schemas / SQL** | **Interdits** dans ce cycle |
+| **Anti-claims** | Pas MODELED · Pas IMPLEMENTED · Pas ADOPTED runtime · Pas READY FOR MODELED/DELIVERY · Pas v2.6 removed |
+| **Code / schemas / SQL** | **Interdits** |
 
 ## Objectif
 
-Concevoir la tranche verticale :
+Tranche verticale :
 
 intention → DoctrinePackage → qualification → CKC → clarification → Living Project State → trajectoire → options/recommandation → HumanDecision → confirmation N1–N3 → ExecutionContract → exécution → preuves → mise à jour LPS
 
-## Index
+## Index conception
 
 | # | Fichier |
 |---|---------|
-| 01 | Scope & outcome utilisateur |
-| 02 | Flux de bout en bout |
-| 03 | Composants & responsabilités |
-| 04 | Contrat fonctionnel Living Project State |
-| 05 | Connaissance, DoctrinePackage & CKC |
-| 06 | Trajectoire, décision & confirmations |
-| 07 | ExecutionContract & preuves |
-| 08 | Règles, erreurs & stop conditions |
-| 09 | Réutilisation / remplacement des actifs |
-| 10 | Validation & decision pack |
+| 01–10 | Pack conception fonctionnelle (validé) |
+| **FA** | `functional-architecture/` — architecture fonctionnelle candidate |
 
-## Principes (ARB-V3)
+## Décisions FD-OA validées
 
-1. Tranche = Option A (ARB-V3-01).
-2. Cycles aval rejouables selon besoin (ARB-V3-02).
-3. ExecutionContract structuré = natif ; Markdown Cursor = adaptateur (ARB-V3-03).
-4. Cible : plus de lecture runtime `method/sfia-fast-track/**` ni template Cursor comme SoT (ARB-V3-04) — coupure technique **après** composants de remplacement.
-5. UX : conversation dominante, panneau vivant, épistémologie, N1–N3, gates, Project≠Cycle, CKC opaque (ARB-V3-05 / CC-D*).
-6. harness historique ; OPS1/D1 = réutilisation ; MethodMode & badges v2.6 hors runtime cible (ARB-V3-06).
+| Id | Décision |
+|----|----------|
+| FD-OA-01 | Pack conception Option A = base AF |
+| FD-OA-02 | Nouveau Project actif : N2 + DoctrinePackageRef avant LPS actif |
+| FD-OA-03 | Critical : qualification `proposed` jusqu’ack explicite |
+| FD-OA-04 | CKC synthétique v3 peut clarifier ; pas d’invention detailed ; pas d’exec si preuves insuffisantes |
+| FD-OA-05 | OPS1 = **continuité legacy gelée** (pas coexistence doctrinale, pas évolution, pas implémentation v3) |
+| FD-OA-06 | Export MD Cursor = adaptateur optionnel · pas contrat natif |
 
-## Gate suivant candidat
+## Réserves de validation
 
-`GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A`
+- aucune autorisation d’implémentation ;
+- pas READY FOR MODELED ;
+- pas READY FOR DELIVERY ;
+- FD-OA-05 = legacy gelé uniquement.
 
-## Verdict pack
+## Verdict conception
 
-**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN DOCUMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN VALIDATED — ARCHITECTURE IN PROGRESS**
