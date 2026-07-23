@@ -68,7 +68,9 @@ Formaliser la chaîne de sélection avant génération du prompt :
 
 ```text
 routing guide (sfia-cycle-routing-guide.md)
-→ méthode cycles v2.5 (sfia-v2.5-project-cycles-method-candidate.md)
+→ qualification type de cycle
+→ Cycle Knowledge Contract candidat si disponible (experimental cognitive guidance — non baseline)
+→ méthode cycles (sfia-v2.5-project-cycles-method-candidate.md — référence opérationnelle des 15 types)
 → template d'exécution (prompts/templates/sfia-cycle-execution-template.md)
 → operating model (sfia-chatgpt-cursor-operating-model.md)
 → guardrails (sfia-rules-and-guardrails.md)
@@ -77,6 +79,17 @@ routing guide (sfia-cycle-routing-guide.md)
 ```
 
 Chaque étape alimente la suivante. Le routage ne doit **pas** reposer sur la mémoire conversationnelle implicite.
+
+**Résolution CKC (après qualification du cycle, avant génération du prompt) :**
+
+1. qualifier le cycle ;
+2. résoudre le CKC candidat (pilote détaillé ou carte synthétique) ;
+3. lire le CKC s'il existe ; déclarer statut `candidate` ;
+4. contextualiser le raisonnement (dimensions / maturité / anti-claims) ;
+5. poursuivre le routage canonique ;
+6. instancier le contrat Cursor.
+
+Le CKC n'est **pas** une autorisation d'exécution et ne remplace pas le routing guide ni ce template.
 
 #### D. Mini-fiche visible avant prompt
 
@@ -93,6 +106,16 @@ Repo-informed pre-check ChatGPT
 - fichiers autorisés :
 - fichiers interdits :
 - gates Morris :
+- Cycle Knowledge Contract :
+  - recherché : oui
+  - cycle qualifié :
+  - contrat trouvé : oui / non
+  - path :
+  - statut : candidate / absent
+  - usage : experimental cognitive guidance
+  - autorité : aucune autorité d'exécution
+  - fallback : [carte synthétique + méthode v2.6 / N/A si pilote trouvé]
+  - limites :
 - niveau review pack recommandé : light / full (obligatoire si rapport Cursor ; hors contrat si opération read-only sans rapport)
 - review handoff Git : required (obligatoire si rapport Cursor) — exception technique local-only documentée uniquement
 - justification handoff :
@@ -132,6 +155,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 0. **Repo-informed pre-check** — §2.0 si trigger actif
 1. **Qualifier** la demande — objectif, risque, impact, livrable attendu
 2. **Identifier le type de cycle projet** — cartographie §4 (15 cycles)
+2bis. **Résoudre le Cycle Knowledge Contract candidat** — routing guide §4.4.5 ; lire pilote si disponible ; sinon carte synthétique + fallback méthode v2.6 ; déclarer statut `candidate` / `absent` dans la mini-fiche §2.0.D
 3. **Identifier le profil SFIA** — Light / Standard / Critical / Capitalization
 4. **Justifier le profil** — obligatoire si Critical ; recommandé sinon
 5. **Activer les blocs pertinents** — §6 selon type, risque, transverses
@@ -139,7 +163,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 7. **Définir le périmètre Git/documentaire** — fichiers autorisés, interdits, protégés
 8. **Décider review pack** — §7 : pour tout cycle Cursor **produisant un rapport** → **light** ou **full** obligatoire (jamais `none`) ; opération read-only sans rapport Cursor → hors contrat review pack
 9. **Décider Review Handoff Git** — §7.10–§7.11 : pour tout cycle Cursor **produisant un rapport** → **required** + Mode **`publish-in-cycle`** + `Push handoff autorisé = oui — L3 borné` **automatiques** ; `local-only` = exception technique documentée uniquement (§7.10.3) — jamais `not required` pour un rapport Cursor ; combinaison invalide (rapport + none / not required / local-only non conforme) → `PROMPT INCOMPLETE — MANDATORY REVIEW HANDOFF MISSING` ; mode contradictoire → `PROMPT INCOMPLETE — REVIEW HANDOFF MODE INCONSISTENT`
-10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite
+10. **Générer le prompt Cursor complet** — squelette §5, blocs activés injectés, verdict attendu explicite ; le CKC reste hors contrat d'exécution Cursor
 
 ### 2.2 Nouveau chat et sources projet
 
@@ -170,6 +194,11 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 - Présenter une candidate non mergée comme baseline validée
 - Présenter une version non mergée comme baseline officielle
 - Relancer SFIA v3.0 sans GO Morris
+- Présenter un Cycle Knowledge Contract candidate comme baseline / adopted / official
+- Considérer le CKC comme autorisation Cursor ou élargissement de périmètre
+- Inventer un CKC absent pour un cycle sans pilote
+- Bloquer un cycle uniquement parce qu'un CKC détaillé n'existe pas (fallback obligatoire)
+- Exposer la structure CKC brute comme questionnaire utilisateur / UI
 
 ---
 
@@ -184,6 +213,17 @@ Profil SFIA :                   [Light / Standard / Critical / Capitalization]
 Profondeur si Capitalization :  [Light / Standard / Critical selon portée]
 Justification du profil :       [obligatoire si Critical]
 Typologie v2.4 si utile :       [INC / EVOL / RUN / CAPA / DOC — optionnel]
+
+Cycle Knowledge Contract :
+  recherché :                   oui
+  cycle qualifié :
+  contrat trouvé :              oui / non
+  path :
+  statut :                      candidate / absent
+  usage :                       experimental cognitive guidance
+  autorité :                    aucune autorité d'exécution
+  fallback :
+  limites :
 
 Branche attendue :
 Base / HEAD attendu :
