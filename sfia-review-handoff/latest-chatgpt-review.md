@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date/heure** | 2026-07-23 23:16:41 CEST (+0200) |
+| **Date/heure** | 2026-07-23 23:17:11 CEST (+0200) |
 | **Cycle** | Enrichissement modeled |
 | **Profil** | Critical |
 | **Gate consommé** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
@@ -22,7 +22,7 @@
 | branche modeled | `modeled/sfia-studio-v3-native-option-a` |
 | HEAD final | `52891e5c5a9b1254143e422111ea4955ca3a0940` |
 | origin/main | `56ddf32e811f0f5f8b82f31400da18ceecf3bc30` |
-| handoff UX blob | `55a3779d5e37c61f32214720432a5c42da519335` |
+| handoff UX blob source | `55a3779d5e37c61f32214720432a5c42da519335` |
 | locks | absents |
 | branche projet poussée | non |
 | pack modeled concurrent | absent |
@@ -129,7 +129,7 @@ LPS mutation ⇒ nouvelle version · uiOwnership=false · Decision≠Confirmatio
 
 ### Validations ajv
 
-15 exemples valides **PASS**. Invalid missing-authority et chat-only **REJECTED**. `review-bundle.synthesis-as-complete.invalid.json` = invalidité **sémantique** (Draft-07 ne peut pas exprimer if/then ; invariant documenté).
+15 exemples valides **PASS**. Invalid missing-authority et chat-only **REJECTED**. `review-bundle.synthesis-as-complete.invalid.json` = invalidité **sémantique** (Draft-07 ; invariant documenté).
 
 ### Commandes / événements / erreurs
 
@@ -855,3 +855,283 @@ Contrats modeled versionnables pour la chaîne Option A (intention → LPS → d
 ---
 
 ## Annexes — fichiers modifiés (complets)
+
+### `projects/sfia-studio/sfia-v3-design/README.md`
+
+```markdown
+# SFIA Studio — Design packs
+
+| Pack | Statut | Notes |
+|------|--------|-------|
+| `d1-project-framing/` | historique D1 | Conception implémentation D1 (pré-exclusivité v3) |
+| `d1-ai-guided-intake-routing/` | historique D1 | Intake / routing |
+| `d1-ux-ui/` | historique D1 | UX D1 |
+| **`v3-native-option-a/`** | conception fonctionnelle **VALIDATED** | FD-OA-01…06 |
+| **`v3-native-option-a/functional-architecture/`** | architecture fonctionnelle **VALIDATED BY MORRIS** | FA-OA-01…05 |
+| **`v3-native-option-a/ux-ui/`** | UX/UI **VALIDATED BY MORRIS** | UX-OA-01…12 · réserves maintenues |
+| **`sfia-v3-modeled/v3-native-option-a/`** | modeled **candidate** | Gate enrichissement modeled Option A |
+
+Doctrine : `sfia-v3-framing/` VALIDATED.
+
+Anti-claims : pas MODELED VALIDATED · pas READY FOR DELIVERY · pas READY FOR IMPLEMENTATION · pas runtime migré · pas coexistence doctrinale.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/v3-native-option-a/README.md`
+
+```markdown
+# SFIA Studio v3-native — Option A — Conception fonctionnelle
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | Conception fonctionnelle **VALIDATED BY MORRIS** |
+| **Pack** | `sfia-v3-design/v3-native-option-a` |
+| **Gate conception** | `GO CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE — TRANCHE VERTICALE OPTION A` |
+| **Gate validation** | `GO VALIDATION CONCEPTION FONCTIONNELLE — SFIA STUDIO V3-NATIVE OPTION A` |
+| **Gate architecture (consommé)** | `GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **Décisions** | ARB-V3-01…06 · FD-OA-01…06 · **FA-OA-01…05 validées** |
+| **Gate UX/UI (consommé)** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **UX/UI** | **VALIDATED BY MORRIS** — UX-OA-01…12 |
+| **Gate modeled (consommé)** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **Doctrine** | SFIA Studio v3 exclusive (VALIDATED framing 30–37) |
+| **Anti-claims** | Pas MODELED · Pas IMPLEMENTED · Pas ADOPTED runtime · Pas READY FOR MODELED/DELIVERY · Pas v2.6 removed |
+| **Code / schemas / SQL** | **Interdits** |
+
+## Objectif
+
+Tranche verticale :
+
+intention → DoctrinePackage → qualification → CKC → clarification → Living Project State → trajectoire → options/recommandation → HumanDecision → confirmation N1–N3 → ExecutionContract → exécution → preuves → mise à jour LPS
+
+## Index conception
+
+| # | Fichier |
+|---|---------|
+| 01–10 | Pack conception fonctionnelle (validé) |
+| **FA** | `functional-architecture/` — architecture fonctionnelle **VALIDATED** |
+| **UX** | `ux-ui/` — contrat UX/UI + Figma **VALIDATED** |
+| **Modeled** | `../../sfia-v3-modeled/v3-native-option-a/` — contrats modeled (candidate) |
+
+## Décisions FD-OA validées
+
+| Id | Décision |
+|----|----------|
+| FD-OA-01 | Pack conception Option A = base AF |
+| FD-OA-02 | Nouveau Project actif : N2 + DoctrinePackageRef avant LPS actif |
+| FD-OA-03 | Critical : qualification `proposed` jusqu’ack explicite |
+| FD-OA-04 | CKC synthétique v3 peut clarifier ; pas d’invention detailed ; pas d’exec si preuves insuffisantes |
+| FD-OA-05 | OPS1 = **continuité legacy gelée** (pas coexistence doctrinale, pas évolution, pas implémentation v3) |
+| FD-OA-06 | Export MD Cursor = adaptateur optionnel · pas contrat natif |
+
+## Réserves de validation
+
+- aucune autorisation d’implémentation ;
+- pas READY FOR MODELED ;
+- pas READY FOR DELIVERY ;
+- FD-OA-05 = legacy gelé uniquement.
+
+## Verdict conception
+
+**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN · ARCHITECTURE · UX/UI VALIDATED · MODELED CONTRACTS DOCUMENTED (candidate) — MORRIS MODELED VALIDATION REQUIRED**
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/v3-native-option-a/ux-ui/README.md`
+
+```markdown
+# UX/UI — Option A v3-native
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | UX/UI **VALIDATED BY MORRIS** |
+| **Pack** | `v3-native-option-a/ux-ui` |
+| **Gate consommé** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **FA capitalisée** | FA-OA-01…05 **VALIDATED BY MORRIS** |
+| **FD capitalisées** | FD-OA-01…06 |
+| **Décisions UX CC** | CC-D01, CC-D03, CC-D05, CC-D06, CC-D12, CC-D13 |
+| **Figma fileKey** | `8xR5zSTfGtEVZSr6KK8Gww` |
+| **Page Option A** | `SFIA Studio v3-native — Option A` (`11:2`) |
+| **Anti-claims** | Pas UX VALIDATED · Pas DESIGN FINAL · Pas READY FOR MODELED · Pas READY FOR DELIVERY · Pas RUNTIME MATCHES FIGMA · Pas OPTION A IMPLEMENTED |
+| **Code / schemas / SQL / runtime** | **Interdits** |
+
+## Objectif
+
+Matérialiser le contrat UX/UI de la tranche verticale Option A :
+
+intention → conversation/clarification → DoctrinePackage / CKC → Living Project State → trajectoire → options/recommandation → HumanDecision → confirmations N1–N3 → ExecutionContract → exécution → preuves / ReviewBundle → mise à jour LPS → prochaine étape.
+
+## Index
+
+| # | Fichier | Contenu |
+|---|---------|---------|
+| 01 | `01-ux-principles-and-information-architecture.md` | Principes, zones A–E, IA |
+| 02 | `02-user-flows-and-navigation-model.md` | 38 parcours, navigation |
+| 03 | `03-conversation-and-epistemic-patterns.md` | Conversation + épistémologie |
+| 04 | `04-living-project-state-panel-contract.md` | Panneau LPS (FA-OA-01) |
+| 05 | `05-decisions-gates-and-confirmations.md` | HumanDecision, gates, N1–N3 |
+| 06 | `06-execution-evidence-and-review-patterns.md` | Contrat, exécution, Evidence |
+| 07 | `07-responsive-accessibility-and-error-states.md` | Responsive, a11y, erreurs |
+| 08 | `08-design-system-and-component-contract.md` | Composants et variantes |
+| 09 | `09-figma-frames-prototype-and-visual-evidence.md` | Frames, prototype, screenshots |
+| 10 | `10-ux-ui-validation-and-decision-pack.md` | UX-OA-01…12, contrats aval |
+
+## Autorité
+
+- Morris décide.
+- ChatGPT qualifie et challenge.
+- Cursor documente + Figma matérialise.
+- Git trace.
+- Aucune autorité d’implémentation.
+
+## Figma
+
+- URL : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww
+- Archive historique : page `D1 — Conversational Convergence (LF)` (`0:1`) — **non modifiée**
+- Zone Option A : page `SFIA Studio v3-native — Option A` (`11:2`)
+
+## Runtime capture
+
+`Runtime capture: not applicable — documentation/Figma-only cycle.`
+
+## Verdict
+
+**SFIA STUDIO V3-NATIVE OPTION A UX/UI VALIDATED BY MORRIS — MODELED GATE CONSUMED**
+
+Réserves maintenues : UX-U01 frame 1024 · UX-R01 a11y runtime · UX-R02 library Figma · UX-R03 erreurs non exhaustives · pas READY FOR DELIVERY · pas RUNTIME MATCHES FIGMA · aucune implémentation.
+
+```
+
+### `projects/sfia-studio/sfia-v3-design/v3-native-option-a/ux-ui/10-ux-ui-validation-and-decision-pack.md`
+
+```markdown
+# 10 — Pack de validation UX/UI et décisions candidates
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | UX/UI **VALIDATED BY MORRIS** |
+| **Gate modeled (consommé)** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **Pack** | `v3-native-option-a/ux-ui` |
+| **Gate consommé** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **FA capitalisée** | FA-OA-01…05 **VALIDATED BY MORRIS** |
+| **FD capitalisées** | FD-OA-01…06 |
+| **Décisions UX CC** | CC-D01, CC-D03, CC-D05, CC-D06, CC-D12, CC-D13 |
+| **Figma fileKey** | `8xR5zSTfGtEVZSr6KK8Gww` |
+| **Page Option A** | `SFIA Studio v3-native — Option A` (`11:2`) |
+| **Anti-claims** | Pas UX VALIDATED · Pas DESIGN FINAL · Pas READY FOR MODELED · Pas READY FOR DELIVERY · Pas RUNTIME MATCHES FIGMA · Pas OPTION A IMPLEMENTED |
+| **Code / schemas / SQL / runtime** | **Interdits** |
+| **Document** | `10-ux-ui-validation-and-decision-pack.md` |
+
+## 1. Décisions candidates UX-OA
+
+| Id | Proposition | Statut |
+|----|-------------|--------|
+| UX-OA-01 | Valider le contrat UX/UI Option A (docs 01–09 + Figma) | **VALIDATED** |
+| UX-OA-02 | Structure conversation dominante + panneau vivant | **VALIDATED** |
+| UX-OA-03 | Hiérarchie LPS panneau (doc 04) | **VALIDATED** |
+| UX-OA-04 | Patterns épistémiques 8 types | **VALIDATED** |
+| UX-OA-05 | Matérialisation HumanDecision obligatoire | **VALIDATED** |
+| UX-OA-06 | Patterns N1 / N2 / N3 | **VALIDATED** |
+| UX-OA-07 | Présentation ExecutionContract métier (MD = adaptateur) | **VALIDATED** |
+| UX-OA-08 | Evidence + ReviewBundle (synthèse ≠ bundle) | **VALIDATED** |
+| UX-OA-09 | Responsive 1440 / 1280 / 1024 sheet / 390 | **VALIDATED** |
+| UX-OA-10 | Catalogue composants doc 08 | **VALIDATED** |
+| UX-OA-11 | Prototype page Option A = référence visuelle | **VALIDATED** |
+| UX-OA-12 | Ordre recommandé : validation UX → modeled | **VALIDATED** |
+
+*UX-OA-01…12 = **VALIDATED BY MORRIS**. Réserves UX-U01/R01–R03/D01 maintenues. Gate modeled consommé. Pas READY FOR DELIVERY. Pas RUNTIME MATCHES FIGMA. Aucune implémentation autorisée.*
+
+## 2. Contrat vers modeled (besoins, pas schémas)
+
+Données visibles · états · variantes · statuts · actions · timestamps · actor · provenance · erreurs · confirmations · permissions · relations · historique · pagination · streaming · stale/conflict · hints responsive non normatifs.
+
+## 3. Contrat vers architecture technique (besoins)
+
+Streaming · attentes perçues · optimisme interdit sur mutation/exec · async · reprise · cache visible · sync LPS · conflit · notification · audit · a11y dynamique · upload · perf perçue.
+
+## 4. Slices delivery candidates (non roadmap)
+
+| Slice | Contenu |
+|-------|---------|
+| UX-A0 | Shell conversation + panneau vide |
+| UX-A1 | Intention + clarification + épistémique |
+| UX-A2 | Project + LPS + qualification |
+| UX-A3 | Trajectoire + décision + N1–N3 |
+| UX-A4 | ExecutionContract + statut |
+| UX-A5 | Evidence + ReviewBundle + replan |
+
+## 5. Inconnues / réserves / dette
+
+| Id | Item |
+|----|------|
+| UX-U01 | Frame 1024 dédiée non produite (comportement sheet décrit) |
+| UX-R01 | A11y runtime non prouvée |
+| UX-R02 | Library Figma composants non formalisée |
+| UX-R03 | Toutes les 14 erreurs pas chacune une frame dédiée |
+| UX-D01 | Dette runtime historique cockpit / MethodMode |
+
+## 6. Maturité
+
+UX **VALIDATED** · prototyped · pas READY FOR DELIVERY · modeled enrichissement en cours · pas RUNTIME MATCHES FIGMA.
+
+## 7. Anti-claims
+
+Pas DESIGN FINAL · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas RUNTIME MATCHES FIGMA · Pas VISUAL PARITY CONFIRMED · Pas OPTION A IMPLEMENTED · Pas MODELED VALIDATED.
+
+## 8. Gate suivant
+
+Gate validation UX consommé · gate enrichissement modeled consommé.
+Suivant après modeled : `GO VALIDATION MODELED — SFIA STUDIO V3-NATIVE OPTION A`
+
+## 9. Verdict
+
+**SFIA STUDIO V3-NATIVE OPTION A UX/UI VALIDATED BY MORRIS**
+
+```
+
+### `projects/sfia-studio/sfia-v3-modeled/README.md`
+
+```markdown
+# SFIA v3.0 — V3-MODELED Foundation & Slice D1
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **V3-MODELED CANDIDATE** (si critères cycle satisfaits) |
+| **Cadrage** | V3-DOCUMENTED validé (`GO VALIDATION DOCUMENTAIRE`) |
+| **Gate consommé** | `GO OUVERTURE V3-MODELED` |
+| **Gate suivant** | `GO VALIDATION V3-MODELED — FOUNDATION AND SLICE D1` |
+| **BCDI** | `BCDI-D1-PROJECT-FRAMING-MODEL` |
+| **Baseline** | SFIA v2.6 |
+| **Adoption v3** | Non |
+| **Implémentation** | Non autorisée |
+
+## Contenu
+
+| # | Fichier |
+|---|---------|
+| 01 | Conventions & scope |
+| 02 | Modèle fonctionnel D1 |
+| 03 | États & transitions |
+| 04 | Modèle SQL logique |
+| 05 | Catalogue enforcement E0–E4 |
+| 06 | Catalogue événements |
+| 07 | CycleReviewBundle |
+| 08 | Traçabilité doctrine→modèle |
+| 09 | Plan de validation |
+| 10 | Decision pack |
+| schemas/ | JSON Schema Draft-07 (compat ajv 6 local) |
+| examples/ | Exemples non canoniques |
+
+## Anti-claims
+
+Pas V3-IMPLEMENTED / VALIDATED / ELIGIBLE / ADOPTED.
+Pas de code Studio. Pas de migration SQL. Canoniques v2.6 intactes.
+
+## Option A (v3-native)
+
+| Pack | Statut |
+|------|--------|
+| `v3-native-option-a/` | modeled **candidate** — schemas `0.1.0-oa` · pas VALIDATED · pas ADOPTED |
+
+Les packs D1 ci-dessus restent HISTORICAL / fondation distincte (pas coexistence doctrinale OPS1/v2.6 dans Option A).
+
+```
