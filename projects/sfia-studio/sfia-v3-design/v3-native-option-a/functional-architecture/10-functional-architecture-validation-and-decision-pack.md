@@ -12,21 +12,21 @@
 
 FD-OA-01…06 · ARB-V3-01…06 · D-V3-* · CC-D*
 
-## 2. Décisions candidates d’architecture (soumises Morris)
+## 2. Décisions FA-OA — **VALIDÉES**
 
-| Id | Proposition |
-|----|-------------|
-| **FA-OA-01** ✓ | LPS = agrégat logique unique ownership domaine C ; panneau = vue |
-| **FA-OA-02** ✓ | Domaines A–H confirmés ; G séparé de F |
-| **FA-OA-03** ✓ | Catalogue commandes/événements `05` comme contrat AF→modeled |
-| **FA-OA-04** ✓ | Isolation legacy FD-OA-05 formalisée `08` comme architecture de transition |
-| **FA-OA-05** ✓ | Matrice autorités `06` comme enforcement fonctionnel de référence |
+| Id | Décision validée |
+|----|------------------|
+| **FA-OA-01** | LPS = agrégat logique unique ownership domaine C ; panneau = vue/projection |
+| **FA-OA-02** | Domaines A–H confirmés ; G séparé de F |
+| **FA-OA-03** | Catalogue commandes/événements = entrée conceptuelle modeled |
+| **FA-OA-04** | OPS1 legacy gelé isolé ; interactions limitées audit/historique/migration autorisée |
+| **FA-OA-05** | Matrice autorités = référence décision/capacité/confirmation/mutation/exec/maturité |
 
-*FA-OA-* = **VALIDATED BY MORRIS**.
+*FA-OA-* = **VALIDATED BY MORRIS**. Gate UX/UI consommé pour le cycle suivant.
 
 ## 3. Inconnues
 
-U-OA-02 · U-OA-03 · U-OA-04 · (FA-OA-01 en attente validation)
+U-OA-02 · U-OA-03 · U-OA-04
 
 ## 4. Réserves
 
