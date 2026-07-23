@@ -26,7 +26,7 @@ Démêler l’**intention** de la **solution supposée**, fermer un périmètre 
 
 ## Quand utiliser / ne pas utiliser
 
-**Utiliser :** nouveau chantier ; re-cadrage ; intention ambiguë ; avant conception lourde.  
+**Utiliser :** nouveau chantier ; re-cadrage ; intention ambiguë ; avant conception lourde.
 **Ne pas utiliser :** simple correction mono-fichier déjà bornée (Light delivery/doc) ; rejouer un cadrage pour éviter une décision Morris.
 
 ## Posture GPT
@@ -43,16 +43,16 @@ Trancher finalité, périmètre, profil, gates ; accepter/reporter inconnues ; o
 
 ## Dimensions d’analyse
 
-1. Intention vs solution  
-2. Finalité / valeur  
-3. Bénéficiaires & parties prenantes  
-4. Périmètre / hors périmètre  
-5. Contraintes (temps, tech, légal, org)  
-6. Dépendances  
-7. Risques structurants  
-8. Critères de succès  
-9. Décisions attendues  
-10. Inconnues critiques  
+1. Intention vs solution
+2. Finalité / valeur
+3. Bénéficiaires & parties prenantes
+4. Périmètre / hors périmètre
+5. Contraintes (temps, tech, légal, org)
+6. Dépendances
+7. Risques structurants
+8. Critères de succès
+9. Décisions attendues
+10. Inconnues critiques
 
 ## Signaux & questions adaptatives (exemples)
 
@@ -100,20 +100,20 @@ Interdits hors preuve/gate : « Cadrage validé » · « Scope gelé définitive
 
 ## Sortie / pause / arrêt
 
-**Sortie :** brief orientant + hors scope + inconnues.  
-**Pause :** OK sans mutation.  
+**Sortie :** brief orientant + hors scope + inconnues.
+**Pause :** OK sans mutation.
 **Arrêt :** doctrine, chemin protégé, décision structurante sans Morris.
 
 ## Exemples — SFIA Studio « suivi de contrats »
 
 ### Clair
 
-« Créer une app de suivi des échéances contractuelles pour l’équipe commerciale, hors signature électronique, MVP lecture + alertes. »  
+« Créer une app de suivi des échéances contractuelles pour l’équipe commerciale, hors signature électronique, MVP lecture + alertes. »
 → Dimensions 1–5 rapidement couvertes ; maturité `suffisante_pour_decider` ; transition conception ou Project D1.
 
 ### Ambigu
 
-« Créer une application de suivi de contrats. »  
+« Créer une application de suivi de contrats. »
 → Challenge intention/solution ; actors ; hors scope ; succès ; **ne pas** enchaîner architecture.
 
 ## Limites

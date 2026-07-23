@@ -12,7 +12,7 @@
 | **Baseline méthode** | SFIA **v2.6** |
 | **Source cycles** | Template v2.6 §4 + `sfia-v2.5-project-cycles-method-candidate.md` (candidate absorbée, référence opérationnelle des 15 types) |
 
-> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris requise**.  
+> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris requise**.
 > Aucune claim « METHOD BASELINE UPDATED », « CONTRACTS ADOPTED », « SFIA V2.6 UPDATED ».
 
 ---
@@ -207,7 +207,7 @@ Voir rapport final / § décisions (nécessité, nom, structure, emplacement, fo
 
 ## 11. Gate suivant candidat
 
-`GO VALIDATION MÉTHODE — SFIA CYCLE KNOWLEDGE CONTRACTS`  
+`GO VALIDATION MÉTHODE — SFIA CYCLE KNOWLEDGE CONTRACTS`
 (ou consolidation si Morris exige réduction du modèle)
 
 Non consommé ici.

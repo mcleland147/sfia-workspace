@@ -7,7 +7,7 @@
 | **Source des noms** | `sfia-cycle-execution-template.md` §4.1 + `sfia-v2.5-project-cycles-method-candidate.md` §3.1 |
 | **Baseline** | SFIA v2.6 (opérationnelle) ; liste 15 cycles = référentiel type **candidate absorbé**, utilisé opérationnellement via template |
 
-> Cette carte **n’est pas** quinze contrats détaillés.  
+> Cette carte **n’est pas** quinze contrats détaillés.
 > Priorité CKC : **P0** = pilotes ; **P1** = forte valeur cognitive ; **P2** = plutôt REUSE méthode §4 ; **P3** = allégé.
 
 | # | Nom canonique | Finalité (1 ligne) | Objet principal | Posture dominante | Dimensions majeures | Résultat attendu | Preuve centrale | Transition habituelle | Risque principal | Niveau CKC | Priorité |

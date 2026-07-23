@@ -26,7 +26,7 @@ Produire un **verdict evidence-based** : ce qui est prouvé, ce qui ne l’est p
 
 ## Quand utiliser / ne pas utiliser
 
-**Utiliser :** post-delivery ; pré-release ; audit qualité.  
+**Utiliser :** post-delivery ; pré-release ; audit qualité.
 **Ne pas utiliser :** pour découvrir le besoin (cadrage) ; pour designer l’UI.
 
 ## Posture GPT
@@ -43,16 +43,16 @@ Classer réserves ; GO validation / go-live ; accepter risque résiduel.
 
 ## Dimensions d’analyse
 
-1. Objet à valider  
-2. Référentiel attendu  
-3. Preuves disponibles  
-4. Couverture (nominale / négative / bords)  
-5. Reproductibilité  
-6. Non-régression  
-7. Sévérité des écarts  
-8. Limites de la campagne  
-9. Conditions du verdict  
-10. Claims interdits  
+1. Objet à valider
+2. Référentiel attendu
+3. Preuves disponibles
+4. Couverture (nominale / négative / bords)
+5. Reproductibilité
+6. Non-régression
+7. Sévérité des écarts
+8. Limites de la campagne
+9. Conditions du verdict
+10. Claims interdits
 
 ## Signaux & questions adaptatives
 
@@ -99,19 +99,19 @@ Faible si environnement non déclaré ; flaky ignorés ; échantillon non repré
 
 ## Sortie / pause / arrêt
 
-Sortie : PASS / PASS WITH RESERVES / FAIL + preuves.  
+Sortie : PASS / PASS WITH RESERVES / FAIL + preuves.
 Arrêt : réserve bloquante non arbitrable ; chemin protégé.
 
 ## Exemples — suivi de contrats
 
 ### Clair
 
-CA : créer échéance, alerte J-7, refus date invalide ; preuves E2E + unit.  
+CA : créer échéance, alerte J-7, refus date invalide ; preuves E2E + unit.
 → Verdict structuré ; anti-claim « sans bug ».
 
 ### Ambigu
 
-« Valide que l’app de contrats est bonne. »  
+« Valide que l’app de contrats est bonne. »
 → Exiger référentiel ; refuser verdict global ; maturité `exploratoire`.
 
 ## Limites

@@ -60,7 +60,7 @@ Concepts métier du cycle (besoin, ADR, preuve, …). INH livrables fichiers →
 
 ### 6. Posture GPT — OBL
 
-Responsabilités cognitives · type de challenge · profondeur · vigilance.  
+Responsabilités cognitives · type de challenge · profondeur · vigilance.
 **Interdit :** « tu es le meilleur expert mondial ».
 
 ### 7. Responsabilités humaines — OBL

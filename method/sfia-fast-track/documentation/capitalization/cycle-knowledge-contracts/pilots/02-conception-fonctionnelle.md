@@ -26,7 +26,7 @@ Rendre **testable et cohérent** le comportement attendu du produit : qui fait q
 
 ## Quand utiliser / ne pas utiliser
 
-**Utiliser :** post-cadrage ; nouveau module métier ; règles complexes.  
+**Utiliser :** post-cadrage ; nouveau module métier ; règles complexes.
 **Ne pas utiliser :** pure dette technique ; polish UI seul ; ADR stack.
 
 ## Posture GPT
@@ -42,16 +42,16 @@ Arbitrer règles conflit ; accepter réserves ; décider hors scope fonctionnel.
 
 ## Dimensions d’analyse
 
-1. Usagers / rôles  
-2. Parcours nominaux  
-3. Exceptions / erreurs métier  
-4. Objets métier  
-5. Données & états  
-6. Règles métier  
-7. Critères d’acceptation  
-8. Permissions / visibilité  
-9. Intégrations fonctionnelles (quoi, pas comment)  
-10. Limites vs architecture technique  
+1. Usagers / rôles
+2. Parcours nominaux
+3. Exceptions / erreurs métier
+4. Objets métier
+5. Données & états
+6. Règles métier
+7. Critères d’acceptation
+8. Permissions / visibilité
+9. Intégrations fonctionnelles (quoi, pas comment)
+10. Limites vs architecture technique
 
 ## Signaux & questions adaptatives
 
@@ -98,19 +98,19 @@ Faible si personas inventés ; règles contradictoires non signalées ; CA non o
 
 ## Sortie / pause / arrêt
 
-Sortie : périmètre fonctionnel borné + arbitrages + réserves.  
+Sortie : périmètre fonctionnel borné + arbitrages + réserves.
 Pause OK. Arrêt si décision produit structurante sans gate.
 
 ## Exemples — suivi de contrats
 
 ### Clair
 
-Rôles commercial/manager ; objet Échéance ; alerte J-7 ; pas de signature.  
+Rôles commercial/manager ; objet Échéance ; alerte J-7 ; pas de signature.
 → Maturité `suffisante_pour_decider` ; CA testables.
 
 ### Ambigu
 
-« Il faut gérer les contrats intelligemment. »  
+« Il faut gérer les contrats intelligemment. »
 → Forcer objets, rôles, règles ; **ne pas** proposer microservices.
 
 ## Limites

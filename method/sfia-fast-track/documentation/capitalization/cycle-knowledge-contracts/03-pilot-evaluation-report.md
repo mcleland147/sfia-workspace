@@ -11,7 +11,7 @@
 
 ## 1. Protocole de test
 
-Pour chaque pilote : situation **claire** + situation **ambiguë**.  
+Pour chaque pilote : situation **claire** + situation **ambiguë**.
 Critères : challenge · questions adaptatives · maturité explicable · anti-conclusion prématurée · anti-stéréotype · anti-checklist · transition raisonnable · compatibilité UX 87/88.
 
 Échelle : ●●● bon · ●● partiel · ● faible.
@@ -124,5 +124,5 @@ Critères : challenge · questions adaptatives · maturité explicable · anti-c
 
 ## 7. Verdict d’évaluation
 
-**Pilotes suffisants pour arbitrage Morris du modèle.**  
+**Pilotes suffisants pour arbitrage Morris du modèle.**
 Pas « CONTRACTS ADOPTED ». Pas « 15 CYCLES COMPLETE ».

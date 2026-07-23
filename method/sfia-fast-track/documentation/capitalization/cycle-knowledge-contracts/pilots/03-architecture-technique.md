@@ -26,7 +26,7 @@ Choisir et tracer des **options techniques** alignées sur le besoin et les NFR,
 
 ## Quand utiliser / ne pas utiliser
 
-**Utiliser :** nouveau module ; changement stack ; contraintes NFR fortes.  
+**Utiliser :** nouveau module ; changement stack ; contraintes NFR fortes.
 **Ne pas utiliser :** bugfix local ; pure UI ; spec métier non encore bornée.
 
 ## Posture GPT
@@ -42,17 +42,17 @@ GO stack / ADR structurants ; acceptation dette ; arbitrage coût/perf/sécu.
 
 ## Dimensions d’analyse
 
-1. Exigences non fonctionnelles  
-2. Composants & responsabilités  
-3. Flux & frontières  
-4. Dépendances / intégrations  
-5. Sécurité  
-6. Performance  
-7. Résilience  
-8. Observabilité  
-9. Exploitabilité / DevOps fit  
-10. Coûts & dette  
-11. Alternatives & réversibilité  
+1. Exigences non fonctionnelles
+2. Composants & responsabilités
+3. Flux & frontières
+4. Dépendances / intégrations
+5. Sécurité
+6. Performance
+7. Résilience
+8. Observabilité
+9. Exploitabilité / DevOps fit
+10. Coûts & dette
+11. Alternatives & réversibilité
 
 ## Signaux & questions adaptatives
 
@@ -105,12 +105,12 @@ Sortie : décisions tracées + impacts. Arrêt : doctrine, chemin protégé, GO 
 
 ### Clair
 
-MVP mono-app Next + SQLite local (Studio-like) ; pas de multi-tenant ; alertes cron simples.  
+MVP mono-app Next + SQLite local (Studio-like) ; pas de multi-tenant ; alertes cron simples.
 → Options : SQLite vs Postgres ; trade-offs ; maturité `suffisante_pour_decider`.
 
 ### Ambigu
 
-« Il faut une architecture cloud native event-driven. »  
+« Il faut une architecture cloud native event-driven. »
 → Challenger NFR réels ; risque sur-architecture ; ne pas figer Kafka sans besoin.
 
 ## Limites

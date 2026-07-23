@@ -22,8 +22,8 @@
 
 ## Anti-claims
 
-Ces documents ne mettent **pas** à jour la baseline SFIA v2.6.  
-Ils ne modifient pas le routing guide, le template d’exécution, ni les rules.  
+Ces documents ne mettent **pas** à jour la baseline SFIA v2.6.
+Ils ne modifient pas le routing guide, le template d’exécution, ni les rules.
 Ils ne clôturent pas le cycle UX/UI D1 Conversational Convergence.
 
 ## Gate suivant candidat
