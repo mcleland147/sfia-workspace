@@ -1,10 +1,10 @@
 # Méthode des cycles projet SFIA v2.5 candidate
 
-**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`  
-**Cycle :** SFIA v2.5 candidate — Cycle 2 — méthodologie des cycles projet  
-**Version SFIA :** v2.5 **candidate** — non validée comme baseline  
-**Baseline :** SFIA v2.4 — Consolidation & Operating Efficiency  
-**Références :** `sfia-v2.5-project-plan.md` ; operating model §18.2 ; routing guide §4.4  
+**Document :** `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
+**Cycle :** SFIA v2.5 candidate — Cycle 2 — méthodologie des cycles projet
+**Version SFIA :** v2.5 **candidate** — non validée comme baseline
+**Baseline :** SFIA v2.4 — Consolidation & Operating Efficiency
+**Références :** `sfia-v2.5-project-plan.md` ; operating model §18.2 ; routing guide §4.4
 **Date :** 2026-07-08
 
 ---
@@ -41,6 +41,21 @@ Ce document complète le Cycle 1 (profils transverses, distinction type/profil).
 **Règle centrale :** un cycle SFIA = **un type de cycle projet** + **un profil SFIA** + périmètre fermé + une readiness unique.
 
 > Les profils Light / Standard / Critical / Capitalization sont **transverses** — ils s'appliquent à chaque type de cycle projet selon risque et impact.
+
+### 2.1 Complément — Cycle Knowledge Contracts (candidate routing)
+
+> **Statut de ce document :** candidate historique absorbée dans l'usage opérationnel des 15 types sous baseline **SFIA v2.6** — **ne constitue pas** une nouvelle baseline.
+> **CKC :** `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/` — **candidate** · experimental cognitive guidance · **non baseline**.
+
+| Couverture | Contenu |
+|------------|---------|
+| Template CKC | `…/01-canonical-model-template.md` |
+| Pilotes détaillés | Cadrage · Conception fonctionnelle · Architecture technique · QA/validation |
+| Onze autres cycles | Carte synthétique `…/02-fifteen-cycles-synthetic-map.md` seulement — **pas** de contrat détaillé inventé |
+| Consommation | Via routing guide §4.4.5 **avant** prompt Cursor |
+| Autorité | Aucune autorité d'exécution |
+
+Ce document §3–§4 reste la référence méthodologique des 15 types ; les CKC **complètent** la posture cognitive sans remplacer ces tableaux.
 
 ---
 

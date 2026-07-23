@@ -8,9 +8,9 @@ scope: ChatGPT Cursor operating model
 
 # SFIA ChatGPT ↔ Cursor Operating Model v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** ChatGPT ↔ Cursor operating model
 
 ## 1. Objectif
@@ -93,7 +93,18 @@ Il évite que la boucle ChatGPT ↔ Cursor repose sur la mémoire implicite du m
 
 Règle :
 
-> type de cycle → documents à lire → template → validation → décision
+> type de cycle → CKC candidat si disponible → documents à lire → template → validation → décision
+
+### 3.1.1 Cycle Knowledge Contracts candidats — responsabilités
+
+| Acteur | Responsabilité CKC |
+|--------|-------------------|
+| **ChatGPT** | Consulte et applique le CKC pour guider son **raisonnement** ; déclare statut `candidate` |
+| **Morris** | Challenge et décide ; seule autorité de promotion / validation |
+| **Cursor** | **Ne consomme pas** le CKC comme autorisation d'élargissement de périmètre |
+| **Prompt Cursor** | Reste l'**unique** contrat d'exécution |
+
+Tout statut candidate doit rester **visible**. Réf. routing guide §4.4.5 ; template §2.0 / §2.1.
 
 ## 4. Rôles dans la boucle
 

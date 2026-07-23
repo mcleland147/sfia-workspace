@@ -303,6 +303,7 @@ Deux dimensions **orthogonales** à déclarer dans chaque prompt :
 ```text
 Intention Morris
 → type de cycle (nature du travail)
+→ Cycle Knowledge Contract candidat si disponible (guidance cognitive — §4.4.5)
 → profil SFIA (Light / Standard / Critical / Capitalization)
 → qualification type v2.4 si applicable (INC / EVOL / RUN / CAPA / DOC)
 → références obligatoires (matrice profil → lecture minimale)
@@ -324,6 +325,40 @@ Intention Morris
 | **Standard** | Ciblée | Structuré | Unique | Court | Scope + merge |
 | **Critical** | Complète | Complet | Renforcée | Complet | Chaque gate listé |
 | **Capitalization** | Adaptée aux sources REX / méthode | Traçabilité apprentissage | Adaptée promotion doc / méthode | Standard ou selon portée | Si promotion méthode ou décision structurante |
+
+#### 4.4.5 Cycle Knowledge Contracts — candidate routing experiment
+
+> **Expérimentation de routage** — statut **candidate** · **non baseline** · **non adopted** · **aucune autorité d'exécution**.
+> Décision Morris : `GO CONSOLIDATION MÉTHODE — INTÉGRATION DU ROUTAGE CKC CANDIDAT`.
+> Emplacement : `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/`.
+
+**Rôle.** Un Cycle Knowledge Contract (CKC) guide le **raisonnement cognitif** de ChatGPT après qualification du type de cycle et **avant** l'instanciation du prompt Cursor. Il n'autorise pas l'exécution, ne décide pas le cycle, ne valide pas automatiquement la maturité.
+
+**Chaîne cible (complément) :**
+
+```text
+type de cycle
+→ CKC candidat si disponible
+→ documents canoniques à lire
+→ template d'exécution
+→ validation
+→ décision
+```
+
+**Pilotes détaillés disponibles (consommation obligatoire en mode candidate si le cycle est qualifié) :**
+
+| Cycle | Path |
+|-------|------|
+| 1 Cadrage | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md` |
+| 2 Conception fonctionnelle | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md` |
+| 6 Architecture technique | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` |
+| 9 QA / validation | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` |
+
+**Fallback (onze cycles sans CKC détaillé) :** consulter `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` comme guidance légère ; appliquer la méthode SFIA v2.6 existante (template §4 + méthode cycles) ; déclarer la couverture CKC **incomplète** ; **ne pas inventer** un contrat complet ; **ne pas bloquer** le cycle si les sources canoniques suffisent.
+
+**Obligations ChatGPT :** rechercher le CKC ; lire le statut ; déclarer la consultation (template §2.0) ; signaler explicitement `candidate` ; ne pas présenter le CKC comme baseline.
+
+**Séparations :** CKC ≠ routing guide (sélection des références) ≠ template (contrat Cursor) ≠ validation checklist (preuves). Référencer les paths — ne pas recopier les contrats ici.
 
 ## 5. Références obligatoires par type de cycle (méthode / fondation)
 
@@ -920,6 +955,9 @@ Référence : `method/sfia-fast-track/automation/sfia-repository-execution-engin
 | Réécriture massive d'un historique | Perte de traçabilité |
 | Appliquer un template méthode à un besoin projet | Résultat trop théorique |
 | Appliquer un template projet à une évolution SFIA | Gouvernance méthode incomplète |
+| Présenter un CKC candidate comme baseline / adopted | Fausse autorité méthode |
+| Inventer un CKC absent pour un cycle non pilote | Guidance fictive |
+| Utiliser un CKC comme autorisation d'exécution Cursor | Contournement du template |
 
 ## 12. Exemples de routage
 

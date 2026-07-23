@@ -136,6 +136,16 @@ Le Prompt Generation Engine prend en entrée :
 | Validation attendue | GO, GO avec réserves, NO-GO, COMPLETE, etc. |
 | Commit attendu | Message de commit ou règle de commit |
 | Contraintes particulières | Pas de push, pas de PR, pas de Notion sync, etc. |
+| CKC path (si résolu) | Path du pilote ou de la carte synthétique — input **cognitif**, pas d'exécution |
+| CKC statut | `candidate` / `absent` — toujours visible ; **non baseline** |
+| CKC usage | `experimental cognitive guidance` — aucune autorité d'exécution |
+
+**Distinction obligatoire des inputs :**
+
+| Classe | Exemples | Usage |
+|--------|----------|-------|
+| Inputs cognitifs | Intention, CKC, dimensions de maturité | Raisonnement ChatGPT avant prompt |
+| Inputs d'exécution | Périmètre, fichiers, garde-fous, commit | Contrat Cursor uniquement |
 
 ## 6. Outputs
 
@@ -154,6 +164,14 @@ Le Prompt Generation Engine produit :
 | Commit attendu | Message ou logique de commit |
 | Résultat attendu | Format du compte rendu demandé |
 | Confirmation de contraintes | No push, no PR, no Notion sync, no forbidden paths |
+| Trace CKC consulté | cycle qualifié · path · statut candidate/absent · fallback · limites |
+
+**Distinction obligatoire des outputs :**
+
+| Classe | Exemples |
+|--------|----------|
+| Outputs du raisonnement | Appréciation maturité, questions, anti-claims (ChatGPT) |
+| Contrat d'exécution final | Prompt Cursor — **sans** confondre CKC et autorisation d'élargissement |
 
 ## 7. Structure obligatoire d'un prompt SFIA
 
@@ -243,6 +261,7 @@ Le Prompt Generation Engine suit le workflow suivant :
 2. qualifier le besoin ;
 3. identifier la phase ou le contexte SFIA ;
 4. consulter la Documentation Routing Matrix ;
+4bis. **résoudre le Cycle Knowledge Contract candidat** (routing guide §4.4.5) — pilote si disponible, sinon carte synthétique + fallback méthode v2.6 ; déclarer statut ; **ne pas** élargir le périmètre Cursor via le CKC ;
 5. déterminer les sources de référence ;
 6. déterminer le dossier cible ;
 7. déterminer le type de capitalisation attendu ;
@@ -261,6 +280,8 @@ La génération d'un prompt doit commencer par l'identification du type de cycle
 
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 
+Puis, **avant** la génération du contrat Cursor, résoudre le CKC candidat (§4.4.5 du routing guide) comme **source cognitive conditionnelle**.
+
 Le type de cycle sélectionné détermine :
 
 - les références obligatoires ;
@@ -270,6 +291,8 @@ Le type de cycle sélectionné détermine :
 - les validations humaines nécessaires.
 
 Un prompt généré est **incomplet** s'il ne déclare pas son type de cycle et ses références de routage.
+
+Un cycle avec CKC pilote disponible est **incomplet côté raisonnement** si la consultation CKC n'est pas déclarée (statut `candidate` visible). L'absence de pilote pour les onze autres cycles n'est **pas** une erreur bloquante si le fallback est déclaré.
 
 ## 9. Typologie des prompts générés
 
