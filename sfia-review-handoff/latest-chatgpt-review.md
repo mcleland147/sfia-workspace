@@ -1,272 +1,234 @@
-# SFIA Review Pack — PR readiness CKC candidate routing
-
-## Niveau
-FULL
+# Review pack — Light — PR #258 Post-merge CKC candidate routing
 
 ## Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure | 2026-07-23 11:35:08 CEST (+0200) |
-| Cycle | PR readiness (cycle 13) + Validation documentaire + Publication Git + Création PR |
-| Profil | Critical |
-| Gate Morris | `GO PR — CKC CANDIDATE ROUTING` |
-| Worktree | /Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts |
-| Branche | `method/sfia-cycle-knowledge-contracts` |
-| HEAD | `cae841519ed1d2dd825e6ecb998337cd47b4a1e1` |
-| Base / origin/main | `499c6b3540d8c3fae776736dc3fba29938048bfd` |
-| merge-base | = origin/main |
-| Remote SHA | `cae841519ed1d2dd825e6ecb998337cd47b4a1e1` (vérifié) |
-| PR | [#258](https://github.com/mcleland147/sfia-workspace/pull/258) |
-| Base/head PR | `main` ← `method/sfia-cycle-knowledge-contracts` |
-| Merge | **non exécuté** |
-| UX HEAD | `2888b7e1c8643236c1ecee1fd8f01aa227ddc3cc` **inchangé** |
+| **Date/heure** | 2026-07-23 11:44:24 CEST (+0200) — Europe/Paris (Truth Check) ; pack généré ensuite |
+| **Cycle** | 14 — Post-merge |
+| **Profil** | Standard |
+| **Typologie** | DOC / post-merge |
+| **Gate Morris** | `GO POST-MERGE — CKC CANDIDATE ROUTING` |
+| **Niveau review** | Light |
+| **PR** | [#258](https://github.com/mcleland147/sfia-workspace/pull/258) — `docs(sfia): integrate candidate Cycle Knowledge Contract routing` |
+| **Méthode merge** | squash |
+| **Merge commit attendu** | `2014e941f548c519d152ebc70d0d4ddad29a6397` |
+| **Branche source** | `method/sfia-cycle-knowledge-contracts` (conservée) |
+| **Base pré-merge** | `499c6b3540d8c3fae776736dc3fba29938048bfd` |
+| **Worktree vérification** | `/Users/morris/Projects/sfia-workspace-main-ckc-postmerge` (`main`) |
+| **Worktree principal** | `/Users/morris/Projects/sfia-workspace` (inchangé : `delivery/sfia-studio-control-tower-fast-track`) |
 
-## Verdict
+## 1. Gate Morris
 
-**CKC CANDIDATE ROUTING PR CREATED — MORRIS MERGE DECISION REQUIRED**
+Autorisé : lecture/vérification Git ; sync locale `main` ; contrôle merge/fichiers/routage CKC ; rapport post-merge ; handoff Git ; pas de commit projet (aucune convention de clôture versionnée exigée).
 
-## Gate suivant
+Non autorisé : cleanup branche méthode ; évolution/création/promotion CKC ; version SFIA ; UX/UI ; code ; nouvelle PR ; doctrine ; force push ; rebase ; merge supplémentaire.
 
-`GO MERGE — CKC CANDIDATE ROUTING` (**non consommé**)
-
----
-
-## Local Git Truth Check
-
-- 2026-07-23 11:34:21 CEST
-- HEAD attendu `cae8415…` confirmé
-- origin/main inchangé ; merge-base = origin/main
-- staged vide ; untracked = `.tmp-sfia-review/` seulement
-- remote branch absente avant push ; créée au push
-- aucune PR concurrente
-- `git diff --check` PASS
-- secrets absents ; lock absent
-
-## CKC PR readiness fallback
-
-```
-Cycle Knowledge Contract :
-- recherché : oui
-- cycle qualifié : 13 PR readiness
-- contrat détaillé trouvé : non
-- path : N/A
-- statut : absent
-- fallback : carte synthétique + méthode SFIA v2.6
-- usage : experimental cognitive guidance
-- autorité : aucune autorité d'exécution
-- limites : aucun CKC PR readiness détaillé n'est adopté.
-```
-
-## Commits (origin/main..HEAD) — 9
-
-```
-cae8415 docs(sfia): fix candidate CKC routing references
-8258957 docs(sfia): document CKC routing experiment
-24196b3 docs(sfia): validate candidate CKC routing usage
-852a05f docs(sfia): integrate CKC guidance into prompt generation
-2279907 docs(sfia): route candidate cycle knowledge contracts
-709a267 docs(sfia): strip trailing whitespace in cycle knowledge contracts
-1d78723 docs(sfia): evaluate cycle knowledge contract model
-c83aa45 docs(sfia): add cycle knowledge contract pilots
-813ef87 docs(sfia): frame cycle knowledge contracts
-```
-
-## Diff stat
-
-```
- .../automation/sfia-prompt-generation-engine.md    |  23 +++
- .../checklists/sfia-validation-checklist.md        |  16 ++
- .../core/sfia-chatgpt-cursor-operating-model.md    |  19 +-
- .../core/sfia-cycle-routing-guide.md               |  38 ++++
- .../sfia-fast-track/core/sfia-knowledge-layer.md   |  25 ++-
- .../00-framing-and-architecture.md                 | 227 +++++++++++++++++++++
- .../01-canonical-model-template.md                 | 188 +++++++++++++++++
- .../02-fifteen-cycles-synthetic-map.md             |  40 ++++
- .../03-pilot-evaluation-report.md                  | 128 ++++++++++++
- .../04-cycle-to-ckc-routing-matrix.md              |  31 +++
- .../05-routing-documentary-tests.md                |  84 ++++++++
- .../cycle-knowledge-contracts/README.md            |  68 ++++++
- .../cycle-knowledge-contracts/pilots/01-cadrage.md | 125 ++++++++++++
- .../pilots/02-conception-fonctionnelle.md          | 122 +++++++++++
- .../pilots/03-architecture-technique.md            | 122 +++++++++++
- .../pilots/04-qa-validation.md                     | 123 +++++++++++
- .../sfia-v2.5-project-cycles-method-candidate.md   |  25 ++-
- prompts/templates/sfia-cycle-execution-template.md |  44 +++-
- 18 files changed, 1434 insertions(+), 14 deletions(-)
-```
-
-## Fichiers (name-status)
-
-```
-M	method/sfia-fast-track/automation/sfia-prompt-generation-engine.md
-M	method/sfia-fast-track/checklists/sfia-validation-checklist.md
-M	method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-M	method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-M	method/sfia-fast-track/core/sfia-knowledge-layer.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/00-framing-and-architecture.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/01-canonical-model-template.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/03-pilot-evaluation-report.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/04-cycle-to-ckc-routing-matrix.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/05-routing-documentary-tests.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/README.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md
-A	method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md
-M	method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-M	prompts/templates/sfia-cycle-execution-template.md
-```
-
-## Contrôles documentaires
+## 2. Local Git Truth Check
 
 | Contrôle | Résultat |
 |----------|----------|
-| Statut candidate / non baseline / non adopted | PASS |
-| experimental cognitive guidance | PASS |
-| Aucune autorité d'exécution | PASS |
-| 4 pilotes seulement | PASS |
-| 11 cycles fallback | PASS |
-| Ordre 4.4.1→4.4.5 | PASS |
-| Paths complets existants | PASS |
-| Tests 1–9 | PASS |
-| git diff --check | PASS |
-| Hors périmètre code/UX | PASS |
+| `pwd` principal | `/Users/morris/Projects/sfia-workspace` |
+| Branche principale | `delivery/sfia-studio-control-tower-fast-track` @ `bb3c9e29936a925174beb0c1758e8fe887e58bc3` — **non modifiée** |
+| `origin/main` (après fetch) | `2014e941f548c519d152ebc70d0d4ddad29a6397` |
+| Worktree `main` dédié | créé : `sfia-workspace-main-ckc-postmerge` |
+| `git pull --ff-only origin main` | Already up to date |
+| HEAD `main` local | `2014e941f548c519d152ebc70d0d4ddad29a6397` |
+| HEAD = origin/main = merge | **oui** |
+| Staged | vide |
+| Untracked hors `.tmp-sfia-review/` | aucun bloquant sur `main` WT |
+| Lock Git | `NO_LOCK` |
+| PR #258 | `MERGED` @ 2026-07-23T09:38:25Z ; mergeCommit = attendu |
+| Dernier handoff distant (pré-cycle) | `761969e467f3514459de4b7a163a956ca9007432` — PR readiness CKC |
 
-## Mapping quinze cycles / pilotes
+**Stop conditions** : aucune déclenchée.
 
-Aligné template §4.1. Pilotes **1 / 2 / 6 / 9**.
+## 3. origin/main réel & merge confirmé
 
-## Push
+- `origin/main` = `2014e941f548c519d152ebc70d0d4ddad29a6397`
+- Contenu dans `remotes/origin/main` et `origin/HEAD`
+- Message : `docs(sfia): integrate candidate Cycle Knowledge Contract routing (#258)`
+- `git diff --check 499c6b3..2014e941` : **PASS**
 
-`BRANCH PUSHED — REMOTE SHA VERIFIED` — SHA `cae841519ed1d2dd825e6ecb998337cd47b4a1e1`
+## 4. Fichiers intégrés (18)
 
-## PR
+```
+M  method/sfia-fast-track/automation/sfia-prompt-generation-engine.md
+M  method/sfia-fast-track/checklists/sfia-validation-checklist.md
+M  method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+M  method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+M  method/sfia-fast-track/core/sfia-knowledge-layer.md
+A  …/cycle-knowledge-contracts/00-framing-and-architecture.md
+A  …/cycle-knowledge-contracts/01-canonical-model-template.md
+A  …/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
+A  …/cycle-knowledge-contracts/03-pilot-evaluation-report.md
+A  …/cycle-knowledge-contracts/04-cycle-to-ckc-routing-matrix.md
+A  …/cycle-knowledge-contracts/05-routing-documentary-tests.md
+A  …/cycle-knowledge-contracts/README.md
+A  …/cycle-knowledge-contracts/pilots/01-cadrage.md
+A  …/cycle-knowledge-contracts/pilots/02-conception-fonctionnelle.md
+A  …/cycle-knowledge-contracts/pilots/03-architecture-technique.md
+A  …/cycle-knowledge-contracts/pilots/04-qa-validation.md
+M  …/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
+M  prompts/templates/sfia-cycle-execution-template.md
+```
+
+Stat : **18 files**, +1434 / −14.
+
+Hors périmètre : aucun code, aucun UX 87/88, aucun manifest baseline, aucun v3.0, aucun script, aucun `.github` — **SCOPE_CLEAN**.
+
+## 5. Routage (routing guide §4.4.5)
+
+| Contrôle | Verdict |
+|----------|---------|
+| §4.4.5 présent | **PASS** |
+| Ordre 4.4.1 → 4.4.5 | **PASS** (1 Type, 2 Qualification, 3 Séquence, 4 Matrice, 5 CKC) |
+| Chaîne type → CKC → canoniques → template → validation → décision | **PASS** (séquence §4.4.3 + §4.4.5) |
+| Chemins pilotes complets | **PASS** (4 paths `method/sfia-fast-track/documentation/.../pilots/0N-…`) |
+| Fallback onze cycles | **PASS** (carte synthétique + méthode v2.6) |
+| Paths abrégés opérationnels `…/cycle-knowledge-contracts` | **NONE** dans entry points |
+
+## 6. Template
+
+| Contrôle | Verdict |
+|----------|---------|
+| Résolution CKC (pre-check / chaîne) | **PASS** |
+| Déclaration CKC mini-fiche | **PASS** |
+| Étape **2bis** | **PASS** |
+| Anti-patterns CKC | **PASS** (baseline/adopted/official) |
+| Hors autorité d’exécution | **PASS** (`aucune autorité d'exécution`) |
+
+## 7. PGE
+
+| Contrôle | Verdict |
+|----------|---------|
+| Inputs cognitifs ≠ exécution | **PASS** |
+| Résolution CKC avant génération (4bis) | **PASS** |
+| Trace CKC consulté | **PASS** |
+| Fallback documenté | **PASS** |
+
+## 8. Knowledge Layer
+
+| Contrôle | Verdict |
+|----------|---------|
+| Classe Operating Method / cognitive guidance candidate | **PASS** |
+| Emplacement actuel documenté | **PASS** |
+| Destination définitive non décidée | **PASS** (pas de claim) |
+| Routing guide = quoi lire / quand | **PASS** (§6.1.1) |
+
+## 9. Operating Model
+
+| Contrôle | Verdict |
+|----------|---------|
+| ChatGPT raisonne | **PASS** |
+| Morris décide | **PASS** (modèle inchangé) |
+| Cursor n’élargit pas | **PASS** (§3.1.1) |
+| Prompt = contrat d’exécution | **PASS** |
+
+## 10. Validation Checklist
+
+| Contrôle | Verdict |
+|----------|---------|
+| Contrôles proportionnés §3.1.1 | **PASS** |
+| Pilotes 1/2/6/9 obligatoires | **PASS** |
+| Onze cycles sans pilote non bloquants si fallback | **PASS** |
+| Claims baseline/adopted rejetés | **PASS** |
+
+## 11. Actifs CKC
+
+| Contrôle | Verdict |
+|----------|---------|
+| `method-candidate` / non baseline / non adopted / non official | **PASS** (README) |
+| `experimental cognitive guidance` | **PASS** |
+| Aucune autorité d’exécution | **PASS** |
+| Quatre pilotes seulement | **PASS** |
+| Onze cycles fallback | **PASS** (matrice 04) |
+| Tests documentaires 1–9 | **PASS** (`05-routing-documentary-tests.md`) |
+
+## 12. Mapping pilotes 1 / 2 / 6 / 9
+
+| Cycle | Path |
+|-------|------|
+| 1 Cadrage | `…/pilots/01-cadrage.md` |
+| 2 Conception fonctionnelle | `…/pilots/02-conception-fonctionnelle.md` |
+| 6 Architecture technique | `…/pilots/03-architecture-technique.md` |
+| 9 QA / validation | `…/pilots/04-qa-validation.md` |
+
+Alignement numérotation cycle ≠ numéro fichier pilote : documenté (tests 7–9).
+
+## 13. Fallback onze cycles
+
+Cycles 3, 4, 5, 7, 8, 10, 11, 12, 13, **14**, 15 → carte `02-fifteen-cycles-synthetic-map.md` + méthode cycles §4.x — **déclarer couverture incomplète ; ne pas inventer**.
+
+Ce cycle post-merge utilise correctement le fallback (CKC Post-merge absent).
+
+## 14. Statut méthode post-merge
+
+| Couche | État |
+|--------|------|
+| **Baseline** | SFIA **v2.6** inchangée |
+| **Routage** | CKC candidat **intégré et consommable depuis `main`** |
+| **CKC** | candidate · non baseline · non adopted · non official · sans autorité d’exécution |
+| **Couverture** | 4 pilotes détaillés · 11 fallback · pas de généralisation implicite |
+
+## 15. Branche source conservée
+
+| Contrôle | Résultat |
+|----------|----------|
+| `origin/method/sfia-cycle-knowledge-contracts` | présent |
+| SHA distant | `cae841519ed1d2dd825e6ecb998337cd47b4a1e1` |
+| Cleanup | **aucun** |
+
+**SOURCE BRANCH RETAINED — NO CLEANUP PERFORMED**
+
+## 16. État UX/UI
+
+| Branche | HEAD | Statut |
+|---------|------|--------|
+| `ux/sfia-studio-d1-conversational-convergence` | `2888b7e1c8643236c1ecee1fd8f01aa227ddc3cc` | **inchangé** |
+
+## 17. Fichiers créés / modifiés (ce cycle)
+
+| Path | Action |
+|------|--------|
+| `.tmp-sfia-review/chatgpt-review.md` | créé/remplacé (local only) |
+| Worktree `sfia-workspace-main-ckc-postmerge` | créé pour vérification `main` |
+| Document versionné projet | **aucun** |
+| Commit projet | **aucun** |
+
+## 18. Actions non exécutées
+
+- Suppression branche méthode (locale/distante)
+- Création des onze CKC absents
+- Promotion baseline / adoption
+- Modification version SFIA
+- Modification UX/UI ou code
+- Nouvelle PR / merge supplémentaire
+- Force push / rebase
+- Rapport de clôture versionné dans dossier CKC
+
+## 19. Réserves
+
+- Aucune réserve bloquante d’intégration.
+- Worktree principal reste sur `delivery/…` ; vérification faite via worktree `main` dédié (conforme au gate « ne pas modifier la branche courante »).
+- Decisions ouvertes hors cycle : emplacement définitif CKC ; généralisation 15 ; adoption ; promotion baseline.
+
+## 20. Dette
+
+- Onze CKC détaillés absents (attendu).
+- Emplacement définitif CKC non décidé.
+- Cycle UX/UI D1 Conversational Convergence à reprendre séparément.
+
+## 21. Handoff (à compléter après publish)
 
 | Champ | Valeur |
 |-------|--------|
-| Numéro | 258 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/258 |
-| Titre | docs(sfia): integrate candidate Cycle Knowledge Contract routing |
-| State | OPEN |
-| Commits | 9 |
-| Files | 18 |
-| Checks initiaux | aucun check rollup (vide / CI absente) |
-| Mergeable | UNKNOWN au moment de la création |
+| Mode | `publish-in-cycle` |
+| Branche | `sfia/review-handoff` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Message | `docs(review-handoff): publish CKC post-merge review` |
+| Commit / blob | *(rempli après publication)* |
 
-## Corps de PR (complet)
+## 22. Verdict
 
-## Summary
-
-- Introduces the candidate Cycle Knowledge Contract (CKC) model.
-- Adds four detailed pilots for cycles **1**, **2**, **6** and **9**.
-- Routes CKC consultation through the canonical SFIA entry points.
-- Adds fallback behavior for the eleven cycles without a detailed CKC.
-- Preserves **SFIA v2.6** as the operational baseline.
-- Keeps CKCs explicitly **candidate** and **non-executive**.
-
-## Why
-
-The name of a project cycle alone does not fully define the cognitive posture, analysis dimensions, maturity signals, reliability criteria and anti-claims expected from GPT.
-
-The CKC model provides controlled cognitive guidance without replacing:
-
-- the Cycle Routing Guide ;
-- the Prompt Generation Engine ;
-- the Cursor execution template ;
-- the Validation Checklist ;
-- Morris decisions.
-
-## Main changes
-
-### CKC candidate assets
-
-- Framework, template, fifteen-cycle map and pilot evaluation.
-- Four pilots:
-  - Cadrage ;
-  - Conception fonctionnelle ;
-  - Architecture technique ;
-  - QA / validation.
-- Cycle → CKC routing matrix with full repository paths.
-- Documentary routing tests 1–9.
-
-### Canonical candidate routing integration
-
-- Cycle Routing Guide (§4.4.5, after §4.4.4) ;
-- execution template (Repo-informed pre-check + instantiation fiche) ;
-- Prompt Generation Engine ;
-- Knowledge Layer ;
-- Operating Model ;
-- Validation Checklist ;
-- fifteen-cycle method reference (`sfia-v2.5-project-cycles-method-candidate.md`).
-
-### Structural consistency
-
-- Heading order restored: 4.4.1 → 4.4.2 → 4.4.3 → 4.4.4 → 4.4.5 ;
-- abbreviated `…/` paths replaced by full repo paths in operational entry points ;
-- cross-references verified.
-
-## Governance
-
-- CKCs remain `method-candidate`.
-- **No** baseline promotion.
-- **No** SFIA version change.
-- **No** execution authority.
-- Morris remains the decision authority.
-- Cursor remains bounded by generated execution prompts.
-- Eleven cycles use documented fallback ; no CKC is invented.
-- Status labels required: `candidate` · `non baseline` · `non adopted` · `experimental cognitive guidance`.
-
-## Validation
-
-- Fifteen-cycle mapping aligned with template §4.1.
-- Pilot mapping confirmed: **1 / 2 / 6 / 9**.
-- Routing section order corrected.
-- Repository paths made explicit and verified on disk.
-- Documentary routing tests 1–9 pass.
-- `git diff --check` passes.
-- UX/UI branch and documents **87/88** remain unchanged.
-- No application code changed.
-
-## Risks and reserves
-
-- CKCs are not yet generalized to fifteen detailed contracts.
-- Their definitive operational location remains undecided.
-- Adoption and baseline promotion require separate Morris decisions.
-- The candidate routing becomes operational only after merge.
-
-## Out of scope
-
-- Application code.
-- SFIA Studio UX/UI.
-- Eleven additional detailed CKCs.
-- Baseline promotion.
-- SFIA version change.
-- Merge and branch cleanup.
-
-## Requested decision
-
-Review and decide whether the candidate CKC routing experiment can be merged while preserving its **candidate** status.
-
-
-Made with [Cursor](https://cursor.com)
-
-## Risques / réserves / dette
-
-- Généralisation 15 CKC non faite
-- Emplacement opérationnel définitif non décidé
-- Promotion baseline = décision Morris séparée
-- Routage candidat opérationnel seulement après merge
-
-## Actions non exécutées
-
-Merge · suppression branche · force push · code · UX · baseline · 11 CKC · v3.0
-
-## UX/UI
-
-HEAD `2888b7e…` confirmé inchangé.
-
-## Fin review pack FULL
-
-Verdict: CKC CANDIDATE ROUTING PR CREATED — MORRIS MERGE DECISION REQUIRED
+**PR #258 POST-MERGE VERIFIED — CKC CANDIDATE ROUTING ACTIVE ON MAIN**
