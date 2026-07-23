@@ -8,9 +8,9 @@ scope: knowledge layer
 
 # SFIA Knowledge Layer v1.1
 
-**Version:** v1.1  
-**Status:** Foundation document  
-**Updated after:** SFIA foundation v1.1 consolidation  
+**Version:** v1.1
+**Status:** Foundation document
+**Updated after:** SFIA foundation v1.1 consolidation
 **Scope:** Knowledge layer
 
 ## SFIA v2.6 cartography status
@@ -91,6 +91,7 @@ The repository-first, curated knowledge and human validation principles apply to
 | Foundation | Architecture, pipeline, repository blueprint | `docs/architecture/` |
 | Engineering Principles | Principes d'ingénierie | `docs/foundation/` |
 | Operating Method | Fast Track, Operating Model | `method/sfia-fast-track/` |
+| Operating Method / cognitive guidance (candidate) | Cycle Knowledge Contracts — experimental | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/` |
 | Practice | QA, UX/UI, BPMN, architecture, rôles | `docs/practices/` |
 | Template | PR, cycle, audit, REX | `docs/templates/`, `method/.../templates/` |
 | Prompt | Cadrage, audit, validation, post-merge | `prompts/` |
@@ -167,6 +168,24 @@ Ensemble :
 | Cycle Routing Guide | Quoi lire / quel template / quelle validation / quelle décision |
 
 La Documentation Routing Matrix n'est pas remplacée. Le Cycle Routing Guide la complète en amont de chaque cycle.
+
+### 6.1.1 Cycle Knowledge Contracts candidats — classification
+
+| Élément | Valeur |
+|---------|--------|
+| Type | Operating Method / **cognitive guidance** |
+| Statut | **candidate** — **non baseline** · **non adopted** · **non official** |
+| Source de vérité | Git |
+| Emplacement actuel | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/` |
+| Consommation | Via **Cycle Routing Guide** §4.4.5 (quoi lire / quand) — pas via cette matrice seule |
+| Promotion future | Décision Morris requise |
+| Destination opérationnelle définitive | **Non décidée** |
+
+| Phase / contexte | Sources à lire | Livrables attendus | Dossier cible | Type de capitalisation | Prompt doit mentionner |
+|------------------|----------------|--------------------|---------------|------------------------|------------------------|
+| Routage CKC candidat (expérimental) | Routing guide §4.4.5, README CKC, pilote ou carte synthétique | Déclaration de consultation CKC ; évolutions CKC si cycle méthode dédié | `…/cycle-knowledge-contracts/` | Capitalisation méthode candidate | Statut candidate ; usage experimental cognitive guidance ; aucune autorité d'exécution |
+
+**Séparation préservée :** Knowledge Layer = où classer et ranger · Routing guide = quoi lire et quand.
 
 ### 6.2 Complément SFIA v2.4 — index méthode unique
 
