@@ -1,8 +1,11 @@
 import { randomUUID } from "node:crypto";
+import type { ToolDefinition } from "@/lib/platform/tools/types";
 import type {
   ConversationProvider,
   ProviderChatMessage,
   ProviderCompletionResult,
+  ProviderInputItem,
+  ProviderRoundResult,
 } from "@/lib/platform/ai/types";
 import { REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION } from "./types";
 import type { C2OutcomeType, C2ProposalStatus } from "./types";
@@ -190,13 +193,38 @@ export function buildFakeProposalPayload(
   };
 }
 
+function extractEnvelope(content: string): {
+  rawIntent: string;
+  clarifications: string[];
+} {
+  const intentMatch = content.match(
+    /INTENT:\s*([\s\S]*?)(?:\n\s*CLARIFICATIONS:|$)/i,
+  );
+  const clarMatch = content.match(/CLARIFICATIONS:\s*([\s\S]*)$/i);
+  const rawIntent = (intentMatch?.[1] ?? content).trim();
+  const clarifications = (clarMatch?.[1] ?? "")
+    .split(/\n+/)
+    .map((l) => l.replace(/^- /, "").trim())
+    .filter(Boolean);
+  return { rawIntent, clarifications };
+}
+
+function lastUserContent(items: ProviderInputItem[]): string {
+  const lastUser = [...items]
+    .reverse()
+    .find((i) => i.type === "message" && i.role === "user");
+  return lastUser && lastUser.type === "message" ? lastUser.content : "";
+}
+
 /**
  * Fake intake provider — implements platform ConversationProvider contract.
  * Returns JSON proposals based on deterministic heuristics.
+ * Supports completeRound for Shared Platform tool loop (fixture markers).
  */
 export class FakeIntakeConversationProvider implements ConversationProvider {
   readonly providerId = "d1-intake-fake";
   private callCount = 0;
+  private roundCount = 0;
 
   async complete(
     messages: ProviderChatMessage[],
@@ -216,17 +244,7 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
       throw new Error("FAKE_INTAKE_TIMEOUT");
     }
 
-    // Extract raw intent + answers from the user payload envelope
-    const intentMatch = content.match(
-      /INTENT:\s*([\s\S]*?)(?:\n\s*CLARIFICATIONS:|$)/i,
-    );
-    const clarMatch = content.match(/CLARIFICATIONS:\s*([\s\S]*)$/i);
-    const rawIntent = (intentMatch?.[1] ?? content).trim();
-    const clarifications = (clarMatch?.[1] ?? "")
-      .split(/\n+/)
-      .map((l) => l.replace(/^- /, "").trim())
-      .filter(Boolean);
-
+    const { rawIntent, clarifications } = extractEnvelope(content);
     const payload = buildFakeProposalPayload(rawIntent, clarifications);
     return {
       text: JSON.stringify(payload),
@@ -237,6 +255,87 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
         model: "d1-intake-fake-model",
         providerResponseId: `d1-fake-${this.callCount}`,
       },
+    };
+  }
+
+  async completeRound(input: {
+    items: ProviderInputItem[];
+    tools: ToolDefinition[];
+  }): Promise<ProviderRoundResult> {
+    this.roundCount += 1;
+    const usage = {
+      inputTokens: 20 * this.roundCount,
+      outputTokens: 40 * this.roundCount,
+      totalTokens: 60 * this.roundCount,
+      model: "d1-intake-fake-model",
+      providerResponseId: `d1-fake-round-${this.roundCount}`,
+    };
+    const content = lastUserContent(input.items);
+
+    if (content.includes("__FORCE_PROVIDER_ERROR__")) {
+      throw new Error("FAKE_INTAKE_PROVIDER_ERROR");
+    }
+    if (content.includes("__FORCE_TIMEOUT__")) {
+      await new Promise((r) => setTimeout(r, 50));
+      throw new Error("FAKE_INTAKE_TIMEOUT");
+    }
+
+    if (this.roundCount === 1 && input.tools.length > 0) {
+      if (/__D1_TOOL_GIT_STATUS__/i.test(content)) {
+        return {
+          kind: "tool_calls",
+          toolCalls: [
+            {
+              callId: "d1-fake-git-status",
+              name: "git_local_get_status",
+              argumentsJson: "{}",
+            },
+          ],
+          usage,
+        };
+      }
+      if (/__D1_TOOL_GIT_HEAD__/i.test(content)) {
+        return {
+          kind: "tool_calls",
+          toolCalls: [
+            {
+              callId: "d1-fake-git-head",
+              name: "git_local_get_head",
+              argumentsJson: "{}",
+            },
+          ],
+          usage,
+        };
+      }
+      if (/__D1_TOOL_DENIED_PATH__/i.test(content)) {
+        return {
+          kind: "tool_calls",
+          toolCalls: [
+            {
+              callId: "d1-fake-denied",
+              name: "git_local_read_file",
+              argumentsJson: JSON.stringify({ path: ".env" }),
+            },
+          ],
+          usage,
+        };
+      }
+    }
+
+    const { rawIntent, clarifications } = extractEnvelope(content);
+    // Strip fixture markers from heuristic intent classification
+    const cleanedIntent = rawIntent
+      .replace(/__D1_TOOL_[A-Z0-9_]+__/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const payload = buildFakeProposalPayload(
+      cleanedIntent || rawIntent,
+      clarifications,
+    );
+    return {
+      kind: "message",
+      text: JSON.stringify(payload),
+      usage,
     };
   }
 }
