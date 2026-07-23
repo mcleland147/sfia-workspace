@@ -81,6 +81,22 @@ Vérifier que le cycle a été correctement routé :
 - [ ] Validation attendue déclarée ;
 - [ ] Décision attendue déclarée.
 
+#### 3.1.1 Contrôle Cycle Knowledge Contract (candidate — proportionné)
+
+| Contrôle | Pilote (cycles 1, 2, 6, 9) | Autre cycle (fallback) | Sévérité si manquant |
+|----------|---------------------------|------------------------|----------------------|
+| Cycle qualifié | Obligatoire | Obligatoire | Erreur de routage |
+| CKC recherché | Obligatoire | Obligatoire | Erreur de routage |
+| Bon CKC / path chargé | Obligatoire | N/A si absent déclaré | Erreur de routage |
+| Statut `candidate` visible | Obligatoire | N/A ou `absent` déclaré | Claim invalide si « baseline » |
+| Application contextualisée (pas checklist mécanique) | Recommandé | Recommandé (carte légère) | Mauvaise utilisation |
+| Fallback explicite si contrat absent | N/A | Obligatoire | Erreur de routage |
+| Aucune autorité d'exécution attribuée au CKC | Obligatoire | Obligatoire | Claim invalide |
+| Absence de claim baseline / adopted | Obligatoire | Obligatoire | Claim invalide |
+
+**Absence normale de pilote** (onze cycles) ≠ erreur bloquante si fallback déclaré.
+**Inventer un CKC absent** ou **présenter un CKC comme baseline** = non-conformité.
+
 Si un élément de routage manque, le cycle ne peut pas être considéré comme pleinement validé.
 
 ### 3.2 Contrôle v2.4 — profil, QA et gate Morris
