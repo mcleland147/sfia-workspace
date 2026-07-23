@@ -1,861 +1,978 @@
-# SFIA Review Pack — Validation D1 Shared Platform Integration
+# SFIA Review Pack — D1 Conversational Convergence UX/UI Design
+
+## Niveau
+FULL
 
 ## Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure | 2026-07-23 08:40:37 CEST |
-| Cycle | QA / validation |
+| Date/heure | 2026-07-23 10:07:22 CEST (+0200) |
+| Cycle | UX/UI — D1 Conversational Convergence Design |
+| Cycles associés | conception fonctionnelle ; architecture fonctionnelle ; cadrage produit ; QA conceptuelle |
 | Profil | Critical |
-| Gate consommé | `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` |
-| Gate Live | **non consommé** |
+| Gate consommé | `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
 | Repo | mcleland147/sfia-workspace |
-| Branche | `delivery/sfia-studio-d1-shared-platform-integration` |
-| Base | `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
-| HEAD code validé | `67d946f883c224f47ac269f07056928b63ecff39` |
-| HEAD final (docs validation) | `97d0a65eb88d1a465ea2f6c18fec54bad67c3b02` |
-| OpenAI réel | non exécuté |
-| Push projet | non |
+| Worktree | /Users/morris/Projects/sfia-workspace-d1-conversational-convergence |
+| Branche UX | `ux/sfia-studio-d1-conversational-convergence` |
+| HEAD UX | `2888b7e1c8643236c1ecee1fd8f01aa227ddc3cc` |
+| SHA départ (D1) | `c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9` |
+| Branche D1 dépendance | `delivery/sfia-studio-d1-shared-platform-integration` |
+| origin/main (au Truth Check) | `499c6b3540d8c3fae776736dc3fba29938048bfd` (PR #257 squash) |
+| Push branche projet | **non** |
+| PR / merge projet | **non** |
+| Code modifié | **non** |
+| Doc 86 | **absent** (réservé LPV) |
 
 ## Verdict
 
-**D1 SHARED PLATFORM INTEGRATION VALIDATED WITH RESERVES — MORRIS LIVE DECISION REQUIRED**
-
-## Local Git Truth Check
-
-- HEAD code attendu `67d946f883c224f47ac269f07056928b63ecff39` confirmé avant commit docs
-- origin/main `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` inchangé
-- untracked = `.tmp-sfia-review/**`
-- handoff delivery `1652735…` / `54ce74ba…` vérifié
-- État final :
-
-```
-## delivery/sfia-studio-d1-shared-platform-integration...origin/main [ahead 5]
-?? .tmp-sfia-review/
-```
-
-## Commits origin/main..HEAD
-
-```
-97d0a65 (HEAD -> delivery/sfia-studio-d1-shared-platform-integration) docs(sfia-studio): validate D1 shared platform integration
-67d946f docs(sfia-studio): document D1 shared platform delivery
-3e7f863 test(sfia-studio): validate unified D1 platform flow
-0ef37d4 feat(sfia-studio): expose D1 tools and canonical sources
-28e9900 feat(sfia-studio): integrate D1 with shared platform
-```
-
-## Diff name-status (final)
-
-```
-A	projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
-A	projects/sfia-studio/85-d1-shared-platform-integration-validation-report.md
-M	projects/sfia-studio/README.md
-A	projects/sfia-studio/app/__tests__/d1/intake-platform-integration.test.ts
-A	projects/sfia-studio/app/e2e/d1-platform-integration.spec.ts
-M	projects/sfia-studio/app/features/d1/intake/IntakeView.tsx
-M	projects/sfia-studio/app/lib/d1/intake/actions.ts
-M	projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
-A	projects/sfia-studio/app/lib/d1/intake/canonicalContext.ts
-A	projects/sfia-studio/app/lib/d1/intake/d1EventSink.ts
-M	projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts
-M	projects/sfia-studio/app/lib/d1/intake/index.ts
-A	projects/sfia-studio/app/lib/d1/intake/platformFlag.ts
-```
-
-## Diff stat (final)
-
-```
-...-shared-platform-integration-delivery-report.md | 130 ++++++++++++
- ...hared-platform-integration-validation-report.md | 140 +++++++++++++
- projects/sfia-studio/README.md                     |   8 +-
- .../d1/intake-platform-integration.test.ts         |  84 ++++++++
- .../app/e2e/d1-platform-integration.spec.ts        |  71 +++++++
- .../app/features/d1/intake/IntakeView.tsx          |  60 +++++-
- projects/sfia-studio/app/lib/d1/intake/actions.ts  |  25 ++-
- .../sfia-studio/app/lib/d1/intake/analyzeIntent.ts | 228 ++++++++++++++++-----
- .../app/lib/d1/intake/canonicalContext.ts          |  63 ++++++
- .../sfia-studio/app/lib/d1/intake/d1EventSink.ts   |  92 +++++++++
- .../app/lib/d1/intake/fakeIntakeProvider.ts        | 121 ++++++++++-
- projects/sfia-studio/app/lib/d1/intake/index.ts    |   5 +
- .../sfia-studio/app/lib/d1/intake/platformFlag.ts  |  16 ++
- 13 files changed, 973 insertions(+), 70 deletions(-)
-```
-
-## Diff code delivery (hors commit 85)
-
-```
-A	projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
-M	projects/sfia-studio/README.md
-A	projects/sfia-studio/app/__tests__/d1/intake-platform-integration.test.ts
-A	projects/sfia-studio/app/e2e/d1-platform-integration.spec.ts
-M	projects/sfia-studio/app/features/d1/intake/IntakeView.tsx
-M	projects/sfia-studio/app/lib/d1/intake/actions.ts
-M	projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
-A	projects/sfia-studio/app/lib/d1/intake/canonicalContext.ts
-A	projects/sfia-studio/app/lib/d1/intake/d1EventSink.ts
-M	projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts
-M	projects/sfia-studio/app/lib/d1/intake/index.ts
-A	projects/sfia-studio/app/lib/d1/intake/platformFlag.ts
-```
-
-## Sources consultées
-
-Méthode (template, routing, operating model, guardrails) · docs 77–82 · 84 · README · handoff delivery · diff intégral origin/main..HEAD · fichiers analyzeIntent / canonicalContext / d1EventSink / platformFlag / fakeIntake / IntakeView / actions
-
-## Architecture
-
-Voir document 85 §4 — PASS sur imports, flag, sink technique, allowlist 4 sources, tool loop partagé, métier D1/OPS1 séparés.
-
-## Sécurité
-
-Voir document 85 §5 — tools RO only · deny .env · redaction · fail-closed · C4 mutation · NO_MUTATION · secrets absents du diff.
-
-## Fonctionnel fake
-
-Voir document 85 §6 — PASS avec réserve UX OPEN_CYCLE + anti-claim banner.
-
-## Tests (ce cycle)
-
-| Suite | Résultat |
-|-------|----------|
-| Vitest | 210/210 PASS (~4.5s) |
-| Lint | PASS |
-| Typecheck | PASS |
-| Build | PASS |
-| E2E requis (39) | 39/39 PASS (~34s) |
-| CI GitHub | absente ≠ PASS |
-| OpenAI | non exécuté |
-
-Extrait E2E final :
-
-```
-atching › context unavailable is honest (forced query) (420ms)
-  ✓  26 e2e/d1-c3-context-matching.spec.ts:230:7 › D1-C3 Existing Context Matching › workspace and OPS1 legacy remain reachable (512ms)
-  ✓  27 e2e/d1-c4-confirmation-mutation.spec.ts:29:7 › D1-C4 Human Confirmation and Bounded Project Mutation › no-match → prepare create → edit → confirm → cockpit + idempotent replay (852ms)
-  ✓  28 e2e/d1-c4-confirmation-mutation.spec.ts:84:7 › D1-C4 Human Confirmation and Bounded Project Mutation › idempotent replay via second create with same key path (unit covered; UI double-guard) (548ms)
-  ✓  29 e2e/d1-c4-confirmation-mutation.spec.ts:111:7 › D1-C4 Human Confirmation and Bounded Project Mutation › existing project confirm → NO_MUTATION + persistence note (812ms)
-  ✓  30 e2e/d1-c4-confirmation-mutation.spec.ts:149:7 › D1-C4 Human Confirmation and Bounded Project Mutation › analyze-only confirmation closes without mutation (502ms)
-  ✓  31 e2e/d1-c4-confirmation-mutation.spec.ts:173:7 › D1-C4 Human Confirmation and Bounded Project Mutation › cancel confirmation without mutation (434ms)
-  ✓  32 e2e/d1-c4-confirmation-mutation.spec.ts:186:7 › D1-C4 Human Confirmation and Bounded Project Mutation › inactive project warning on existing confirm path (788ms)
-  ✓  33 e2e/d1-c4-confirmation-mutation.spec.ts:215:9 › D1-C4 Human Confirmation and Bounded Project Mutation › confirm create responsive no H-scroll at 1728 (570ms)
-  ✓  34 e2e/d1-c4-confirmation-mutation.spec.ts:215:9 › D1-C4 Human Confirmation and Bounded Project Mutation › confirm create responsive no H-scroll at 1280 (473ms)
-  ✓  35 e2e/d1-c4-confirmation-mutation.spec.ts:215:9 › D1-C4 Human Confirmation and Bounded Project Mutation › confirm create responsive no H-scroll at 1024 (443ms)
-  ✓  36 e2e/d1-c4-confirmation-mutation.spec.ts:239:7 › D1-C4 Human Confirmation and Bounded Project Mutation › mutation error shown for invalid draft fields (536ms)
-  ✓  37 e2e/d1-platform-integration.spec.ts:9:7 › D1 Shared Platform Integration — unified fixture › fake provider + canonical sources + optional tool + C2→C3→C4 create (589ms)
-  ✓  38 e2e/d1-platform-integration.spec.ts:54:7 › D1 Shared Platform Integration — unified fixture › tool deny path remains visible without secrets (392ms)
-[WebServer]  ⨯ [Error: aborted] { code: 'ECONNRESET', digest: '2652521801' }
-  ✓  39 e2e/ops1-i1-session.spec.ts:15:7 › OPS1 I1 session + journal › creates session, appends turns, persists after reload (3.3s)
-
-  39 passed (34.0s)
-
-```
-
-## Contenu complet — document 85
-
-```markdown
-# SFIA Studio — D1 Shared Platform Integration — Validation Report
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `85-d1-shared-platform-integration-validation-report.md` |
-| **Statut** | `validation-local-candidate` |
-| **Cycle** | QA / validation |
-| **Profil** | Critical |
-| **Gate consommé** | `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` |
-| **Branche** | `delivery/sfia-studio-d1-shared-platform-integration` |
-| **Base** | `origin/main` @ `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
-| **HEAD validé** | `67d946f883c224f47ac269f07056928b63ecff39` |
-| **Rapport delivery** | `84-d1-shared-platform-integration-delivery-report.md` |
-| **Handoff delivery** | commit `1652735…` · blob `54ce74ba…` (vérifié) |
-| **OpenAI réel** | **non exécuté** |
-| **Gate suivant candidat** | `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` (non consommé) |
-
----
-
-## 1. Objectif
-
-Valider techniquement le delivery D1 ↔ Shared Platform (diff, architecture, sécurité, tests fake) avant toute Live Product Validation.
-
-## 2. Local Git Truth Check
-
-| Contrôle | Résultat |
-|----------|----------|
-| Branche | `delivery/sfia-studio-d1-shared-platform-integration` |
-| HEAD | `67d946f883c224f47ac269f07056928b63ecff39` — conforme |
-| origin/main | `416af8a5…` — inchangé |
-| merge-base | = origin/main |
-| staged | vide |
-| untracked | `.tmp-sfia-review/**` seulement |
-| `git diff --check` | PASS |
-| Handoff delivery distant | conforme |
-
-## 3. Diff contrôlé
-
-- **12 fichiers** · **+826 / −70**
-- Périmètre D1 intake/UI + tests + doc 84 + README
-- Absents : method/prompts/.github/package.json/lockfiles/migrations/secrets/writes/B′/Cycle/GuidedSession/suppression OPS1
-
-## 4. Architecture
-
-| Règle | Verdict |
-|-------|---------|
-| D1 → OPS1 = 0 | PASS |
-| platform → D1/OPS1 = 0 | PASS |
-| Wrappers OPS1 conservés | PASS |
-| Métier C2/C3/C4 dans D1 | PASS |
-| ActionCandidate OPS1 | PASS |
-| EventSink D1 technique only | PASS |
-| Sources = 4 paths méthode allowlistés | PASS |
-| Tool loop partagé platform | PASS |
-| Flag `D1_PLATFORM_INTEGRATION` (legacy `=0`) | PASS |
-
-## 5. Sécurité
-
-| Contrôle | Verdict |
-|----------|---------|
-| Tools exposés = Git/GitHub **read-only** uniquement | PASS (13 tools `get_/search_/read_/list_`) |
-| Deny `.env` (POLICY/DENIED) | PASS (unit + E2E) |
-| Redaction EventSink | PASS |
-| Secrets dans diff | ABSENTS |
-| Live fail-closed / pas de fake silencieux | PASS (`resolveProvider`) |
-| Mutation Project uniquement après C4 | PASS (E2E) |
-| Existing Project = NO_MUTATION | PASS (E2E d1-c4) |
-| Digests / modèle / tool names non secrets | PASS |
-
-## 6. Fonctionnel fake
-
-| Scénario | Verdict |
-|----------|---------|
-| Proposition directe sans tool | PASS |
-| Tool RO succès (`__D1_TOOL_GIT_*__`) | PASS |
-| Tool denied | PASS |
-| 4 sources canoniques | PASS |
-| Télémétrie UI (mode, modèle, sources, tools, rounds) | PASS |
-| Clarification / C3 / C4 create | PASS |
-| Existing NO_MUTATION | PASS |
-| Aucune ouverture Cycle réelle | PASS (banner anti-claim) |
-
-**Réserve UX :** libellé « Ouvrir un cycle (proposition) » — anti-claim banner présent (« Aucun projet ni cycle n’a été créé ») ; libellé à clarifier éventuellement en cycle UX séparé.
-
-## 7. Tests (rejoués ce cycle)
-
-| Suite | Commande | Résultat |
-|-------|----------|----------|
-| Vitest | `npx vitest run` | **210/210 PASS** (~4.5s) |
-| Import boundaries | inclus Vitest | PASS |
-| Lint | `npx next lint` | PASS |
-| Typecheck | `npx tsc --noEmit` | PASS |
-| Build | `npx next build` | PASS |
-| E2E batch requis | playwright 7 fichiers | **39/39 PASS** (~34s) |
-| CI GitHub | — | **absente** (≠ PASS) |
-| OpenAI réel | — | **non exécuté** |
-
-Note opérationnelle : serveur dev corrompu (`.next`) relancé proprement pour E2E ; aucun reset Git.
-
-## 8. Rapport 84
-
-Contenu obligatoire présent (métadonnées, architecture, tests, différés, anti-claims, rollback).
-Statut **conservé** `delivery-local-candidate` (pas promu « validated » ici).
-Gate suivant du 84 historiquement « GO VALIDATION » — désormais consommé ; la suite est documentée ici (85).
-
-## 9. Réserves (non bloquantes)
-
-1. Appels tools fake principalement via markers de fixture
-2. Libellé OPEN_CYCLE_CANDIDATE (anti-claim banner OK)
-3. Docs 77/78 encore dual-track historique
-4. CI GitHub absente
-5. Live / GPT réel non exécutés (interdit)
-
-## 10. Dette
-
-- Actualiser 77/78 après live unifié
-- Cleanup wrappers OPS1 sous gate dédié
-- Clarification microcopy OPEN_CYCLE si Morris l’exige
-
-## 11. Non testé live
-
-Appels OpenAI · Live Product Validation · OAuth · GitHub auth produit · CI
-
-## 12. Rollback
-
-Revert commits delivery `28e9900..67d946f` ou `D1_PLATFORM_INTEGRATION=0`.
-
-## 13. Anti-claims
-
-Pas LIVE PRODUCT VALIDATED · pas D1 COMPLETE · pas PROJECT LINKED · pas CYCLE OPENED · pas B′ · pas OPS1 DECOMMISSIONED · pas V3-ADOPTED · pas push/PR/merge · gate Live **non consommé**.
-
-## 14. Gate suivant candidat
-
-`GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION`
-
-Activable seulement après analyse ChatGPT de ce rapport + confirmation Morris. **Non lancé ici.**
-
-## 15. Verdict
-
-**D1 SHARED PLATFORM INTEGRATION VALIDATED WITH RESERVES — MORRIS LIVE DECISION REQUIRED**
-```
-
-## Diff docs validation (84 note + README + 85)
-
-```diff
-diff --git a/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md b/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
-index 1a26535..788aae0 100644
---- a/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
-+++ b/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
-@@ -122,3 +122,9 @@ Puis, uniquement après validation technique :
- ## 12. Verdict delivery
-
- **D1 SHARED PLATFORM INTEGRATION DELIVERED — READY FOR VALIDATION**
-+
-+---
-+
-+## Note postérieure (non décisionnelle)
-+
-+**Observation (Git / cycle).** Le gate `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` a ensuite été consommé. Voir `85-d1-shared-platform-integration-validation-report.md`. Ce document **84** conserve son statut `delivery-local-candidate`. Le gate Live n’est pas consommé ici.
-diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 1720b46..75f0598 100644
---- a/projects/sfia-studio/README.md
-+++ b/projects/sfia-studio/README.md
-@@ -525,6 +525,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation / PR readiness — [#255](https://github.com/mcleland147/sfia-workspace/pull/255) **MERGED** |
- | [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** (historique post-#256) |
- | [84-d1-shared-platform-integration-delivery-report.md](./84-d1-shared-platform-integration-delivery-report.md) | Delivery D1 ↔ Shared Platform (tools + contexte) — **`delivery-local-candidate`** |
-+| [85-d1-shared-platform-integration-validation-report.md](./85-d1-shared-platform-integration-validation-report.md) | Validation technique fake — **`validation-local-candidate`** |
-
- > **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash). Docs 75–80 consolidés via [#256](https://github.com/mcleland147/sfia-workspace/pull/256) @ `416af8a…`.
--> **Séquence active :** Platform intégrée → **D1 unifié (tools/context) livré localement** → validation → Live Product Validation → décision B′.
-+> **Séquence active :** Platform intégrée → D1 unifié livré localement → **validation technique locale (85)** → Live Product Validation (gate Morris) → décision B′.
-```
-
-## Fichiers code clés (contenu)
-
-### platformFlag.ts
-
-```typescript
-/**
- * Feature flag — D1 Shared Platform Integration (tools + canonical context).
- * Default ON. Set D1_PLATFORM_INTEGRATION=0 to force legacy complete()-only path.
- */
-export function isD1PlatformIntegrationEnabled(): boolean {
-  return process.env.D1_PLATFORM_INTEGRATION !== "0";
-}
-
-/** Test helper — temporarily force flag via env (caller restores). */
-export function setD1PlatformIntegrationForTests(enabled: boolean | null): void {
-  if (enabled === null) {
-    delete process.env.D1_PLATFORM_INTEGRATION;
-    return;
-  }
-  process.env.D1_PLATFORM_INTEGRATION = enabled ? "1" : "0";
-}
-```
-
-### canonicalContext.ts
-
-```typescript
-/**
- * Load D1-bounded canonical method sources (core allowlist only — no CT project docs).
- */
-import type { EventSink } from "@/lib/platform/observability/eventSink";
-import { loadCanonicalCoreSources } from "@/lib/platform/sfia-context/sourceLoader";
-import { SFIA_METHOD_BASELINE } from "@/lib/platform/sfia-context/canonicalPaths";
-import type { D1SourceTelemetry } from "./d1EventSink";
-
-const PLATFORM_APPENDIX = `
-## Shared platform (D1 unified — read-only)
-- Un contexte SFIA canonique (méthode) est injecté ci-dessous.
-- Des outils Git/GitHub READ-ONLY peuvent être disponibles.
-- Utilise les tools uniquement pour des faits techniques (HEAD, status, repo) — jamais pour inventer un Project existant.
-- proposedProjectId et proposedCycleId restent TOUJOURS null (matching = C3).
-- Aucune mutation Project/Cycle. Pas de claim LIVE VALIDATED / D1 COMPLETE / PROJECT LINKED / CYCLE OPENED / V3-ADOPTED.
-`.trim();
-
-export function loadD1CanonicalContext(input: {
-  workspaceRoot: string;
-  correlationId: string;
-  sink: EventSink;
-}): {
-  sources: D1SourceTelemetry[];
-  systemAppendix: string;
-} {
-  const docs = loadCanonicalCoreSources(input.workspaceRoot);
-  const sources: D1SourceTelemetry[] = [];
-
-  for (const doc of docs) {
-    const digestPrefix = doc.digest.slice(0, 16);
-    input.sink.emit({
-      type: "SOURCE_LOADED",
-      correlationId: input.correlationId,
-      detail: {
-        path: doc.path,
-        digestPrefix,
-        role: doc.role,
-      },
-    });
-    sources.push({
-      path: doc.path,
-      digestPrefix,
-      role: doc.role,
-    });
-  }
-
-  const compact = {
-    methodBaseline: SFIA_METHOD_BASELINE,
-    sourceDocuments: sources,
-    note: "Excerpts omitted — digests only. Doctrine remains in Git.",
-  };
-
-  const systemAppendix = [
-    PLATFORM_APPENDIX,
-    "",
-    "### Canonical sources (digests)",
-    "```json",
-    JSON.stringify(compact, null, 2),
-    "```",
-  ].join("\n");
-
-  return { sources, systemAppendix };
-}
-```
-
-### d1EventSink.ts
-
-```typescript
-/**
- * Minimal D1 EventSink — in-memory collector for intake telemetry.
- * No Project DB writes. Secrets must be redacted before emit when needed.
- */
-import type { EventSink } from "@/lib/platform/observability/eventSink";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
-import { redactSecrets } from "@/lib/platform/security/redaction";
-
-function redactDetail(
-  detail: Record<string, unknown>,
-): Record<string, unknown> {
-  const out: Record<string, unknown> = {};
-  for (const [k, v] of Object.entries(detail)) {
-    if (typeof v === "string") {
-      out[k] = redactSecrets(v);
-    } else if (v && typeof v === "object" && !Array.isArray(v)) {
-      out[k] = redactDetail(v as Record<string, unknown>);
-    } else {
-      out[k] = v;
-    }
-  }
-  return out;
-}
-
-export class D1MemoryEventSink implements EventSink {
-  readonly events: TechnicalEvent[] = [];
-
-  emit(event: TechnicalEvent): void {
-    this.events.push({
-      type: event.type,
-      correlationId: event.correlationId,
-      detail: redactDetail(event.detail ?? {}),
-    });
-  }
-}
-
-export type D1ToolTelemetry = {
-  name: string;
-  status: "OK" | "DENIED" | "FAILED" | "UNKNOWN";
-};
-
-export type D1SourceTelemetry = {
-  path: string;
-  digestPrefix: string;
-  role?: string;
-};
-
-export function summarizeD1Telemetry(events: TechnicalEvent[]): {
-  tools: D1ToolTelemetry[];
-  sources: D1SourceTelemetry[];
-  errors: Array<{ type: string; code?: string }>;
-} {
-  const tools: D1ToolTelemetry[] = [];
-  const sources: D1SourceTelemetry[] = [];
-  const errors: Array<{ type: string; code?: string }> = [];
-
-  for (const e of events) {
-    if (e.type === "SOURCE_LOADED") {
-      sources.push({
-        path: String(e.detail.path ?? ""),
-        digestPrefix: String(e.detail.digestPrefix ?? e.detail.digest ?? ""),
-        role: e.detail.role ? String(e.detail.role) : undefined,
-      });
-    }
-    if (e.type === "TOOL_SUCCEEDED") {
-      tools.push({
-        name: String(e.detail.toolName ?? e.detail.name ?? e.detail.tool ?? "unknown"),
-        status: "OK",
-      });
-    }
-    if (e.type === "TOOL_DENIED") {
-      tools.push({
-        name: String(e.detail.toolName ?? e.detail.name ?? e.detail.tool ?? "unknown"),
-        status: "DENIED",
-      });
-    }
-    if (e.type === "TOOL_FAILED") {
-      tools.push({
-        name: String(e.detail.toolName ?? e.detail.name ?? e.detail.tool ?? "unknown"),
-        status: "FAILED",
-      });
-    }
-    if (e.type === "AI_FAILED" || e.type === "SOURCE_REJECTED") {
-      errors.push({
-        type: e.type,
-        code: e.detail.code ? String(e.detail.code) : undefined,
-      });
-    }
-  }
-
-  return { tools, sources, errors };
-}
-```
-
-## Diff utile analyzeIntent (delivery)
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts b/projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
-index 9247025..30d02ef 100644
---- a/projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
-+++ b/projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
-@@ -13,6 +13,16 @@ import {
-   type RequestRoutingProposal,
- } from "./types";
- import { logIntakeEvent } from "../intakeObservability";
-+import { isD1PlatformIntegrationEnabled } from "./platformFlag";
-+import {
-+  D1MemoryEventSink,
-+  summarizeD1Telemetry,
-+  type D1SourceTelemetry,
-+  type D1ToolTelemetry,
-+} from "./d1EventSink";
-+import { loadD1CanonicalContext } from "./canonicalContext";
-+import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
-+import { runToolCallingLoop } from "@/lib/platform/tools/toolLoop";
-
- function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-   return new Promise((resolve, reject) => {
-@@ -58,17 +68,79 @@ function buildUserEnvelope(
-   return lines.join("\n\n");
- }
-
-+export interface AnalyzeIntentPlatformRun {
-+  enabled: boolean;
-+  toolRounds: number;
-+  toolCalls: number;
-+  sources: D1SourceTelemetry[];
-+  tools: D1ToolTelemetry[];
-+  model: string | null;
-+  events: Array<{ type: string; detail: Record<string, unknown> }>;
-+}
-+
- export interface AnalyzeIntentResult {
-   proposal: RequestRoutingProposal;
-   providerMode: "fake" | "live";
-   providerId: string;
-   durationMs: number;
-   clarificationTurnCount: number;
-+  platform: AnalyzeIntentPlatformRun;
-+}
-+
-+function finalizeProposal(
-+  proposal: RequestRoutingProposal,
-+  intent: string,
-+  userAnswers: string[],
-+): RequestRoutingProposal {
-+  if (
-+    userAnswers.length >= D1_INTAKE_MAX_CLARIFICATION_TURNS &&
-+    proposal.proposedOutcomeType === "NEED_CLARIFICATION"
-+  ) {
-+    return validateRequestRoutingProposal({
-+      ...proposal,
-+      rawIntent: intent,
-+      proposedOutcomeType: "UNDETERMINED",
-+      status: "UNDETERMINED",
-+      clarificationQuestion: null,
-+      confidence: Math.min(proposal.confidence, 0.25),
-+      missingInformation: [
-+        ...proposal.missingInformation,
-+        "informations insuffisantes après les tours de clarification",
-+      ],
-+      rationale:
-+        "Après le maximum de clarifications, la suite reste indéterminée. Aucune mutation n’a été effectuée.",
-+      requiresHumanConfirmation: true,
-+    });
-+  }
-+  return proposal;
-+}
-+
-+function parseAndValidate(
-+  text: string,
-+  intent: string,
-+): RequestRoutingProposal {
-+  const parsed = parseProposalJsonText(text);
-+  if (typeof parsed === "object" && parsed && !Array.isArray(parsed)) {
-+    (parsed as Record<string, unknown>).rawIntent = intent;
-+    if (!(parsed as Record<string, unknown>).proposalId) {
-+      (parsed as Record<string, unknown>).proposalId = `rrp-${Date.now()}`;
-+    }
-+    if (!(parsed as Record<string, unknown>).createdAt) {
-+      (parsed as Record<string, unknown>).createdAt = new Date().toISOString();
-+    }
-+    if (!(parsed as Record<string, unknown>).schemaVersion) {
-+      (parsed as Record<string, unknown>).schemaVersion = "0.1.0-d1-c2";
-+    }
-+    (parsed as Record<string, unknown>).proposedProjectId = null;
-+    (parsed as Record<string, unknown>).proposedCycleId = null;
-+  }
-+  return validateRequestRoutingProposal(parsed);
- }
-
- /**
-  * Analyze a free-form intent into a non-executable RequestRoutingProposal.
-- * No Project/Cycle mutation. No context matching.
-+ * No Project/Cycle mutation. No context matching (C3).
-+ * When platform integration is enabled: loads canonical sources + optional tool loop.
-  */
- export async function analyzeIntent(
-   input: AnalyzeIntentInput,
-@@ -88,7 +160,6 @@ export async function analyzeIntent(
-     .map((t) => t.content.trim())
-     .filter(Boolean);
-
--  // Cap user clarification answers
-   if (userAnswers.length > D1_INTAKE_MAX_CLARIFICATION_TURNS) {
-     throw new D1Error(
-       "VALIDATION",
-@@ -103,73 +174,111 @@ export async function analyzeIntent(
-   });
-
-   const { provider, mode } = resolveIntakeProvider();
-+  const platformEnabled = isD1PlatformIntegrationEnabled();
-+  const sink = new D1MemoryEventSink();
-+  const workspaceRoot = resolveWorkspaceRootFromAppCwd();
-+
-+  let systemContent = D1_C2_SYSTEM_PROMPT;
-+  let loadedSources: D1SourceTelemetry[] = [];
-+
-+  if (platformEnabled) {
-+    const canonical = loadD1CanonicalContext({
-+      workspaceRoot,
-+      correlationId: input.sessionLocalId,
-+      sink,
-+    });
-+    loadedSources = canonical.sources;
-+    systemContent = `${D1_C2_SYSTEM_PROMPT}\n\n${canonical.systemAppendix}`;
-+  }
-+
-   const messages = [
--    { role: "system" as const, content: D1_C2_SYSTEM_PROMPT },
-+    { role: "system" as const, content: systemContent },
-     { role: "user" as const, content: buildUserEnvelope(intent, userAnswers) },
-   ];
-
-+  sink.emit({
-+    type: "AI_REQUESTED",
-+    correlationId: input.sessionLocalId,
-+    detail: {
-+      providerMode: mode,
-+      providerId: provider.providerId,
-+      platformIntegration: platformEnabled,
-+    },
-+  });
-+
-   try {
--    const completion = await withTimeout(
--      provider.complete(messages),
--      D1_INTAKE_PROVIDER_TIMEOUT_MS,
--    );
-+    let text: string;
-+    let toolRounds = 0;
-+    let toolCalls = 0;
-+    let model: string | null = null;
-
--    const parsed = parseProposalJsonText(completion.text);
--    // Ensure rawIntent reflects original user intent
--    if (typeof parsed === "object" && parsed && !Array.isArray(parsed)) {
--      (parsed as Record<string, unknown>).rawIntent = intent;
--      if (!(parsed as Record<string, unknown>).proposalId) {
--        (parsed as Record<string, unknown>).proposalId = `rrp-${Date.now()}`;
--      }
--      if (!(parsed as Record<string, unknown>).createdAt) {
--        (parsed as Record<string, unknown>).createdAt = new Date().toISOString();
--      }
--      if (!(parsed as Record<string, unknown>).schemaVersion) {
--        (parsed as Record<string, unknown>).schemaVersion = "0.1.0-d1-c2";
--      }
--      (parsed as Record<string, unknown>).proposedProjectId = null;
--      (parsed as Record<string, unknown>).proposedCycleId = null;
-+    if (platformEnabled) {
-+      const loop = await withTimeout(
-+        runToolCallingLoop({
-+          correlationId: input.sessionLocalId,
-+          messages,
-+          provider,
-+          enableTools: true,
-+          sink,
-+          workspaceRoot,
-+        }),
-+        D1_INTAKE_PROVIDER_TIMEOUT_MS,
-+      );
-+      text = loop.text;
-+      toolRounds = loop.toolRounds;
-+      toolCalls = loop.toolCalls;
-+      model = loop.usage.model;
-+    } else {
-+      const completion = await withTimeout(
-+        provider.complete(messages),
-+        D1_INTAKE_PROVIDER_TIMEOUT_MS,
-+      );
-+      text = completion.text;
-+      model = completion.usage.model;
-     }
-
--    const proposal = validateRequestRoutingProposal(parsed);
--
--    // After max clarification turns, never stay in clarification loop
--    let finalProposal = proposal;
--    if (
--      userAnswers.length >= D1_INTAKE_MAX_CLARIFICATION_TURNS &&
--      proposal.proposedOutcomeType === "NEED_CLARIFICATION"
--    ) {
--      finalProposal = validateRequestRoutingProposal({
--        ...proposal,
--        proposedOutcomeType: "UNDETERMINED",
--        status: "UNDETERMINED",
--        clarificationQuestion: null,
--        confidence: Math.min(proposal.confidence, 0.25),
--        missingInformation: [
--          ...proposal.missingInformation,
--          "informations insuffisantes après les tours de clarification",
--        ],
--        rationale:
--          "Après le maximum de clarifications, la suite reste indéterminée. Aucune mutation n’a été effectuée.",
--        requiresHumanConfirmation: true,
--      });
--    }
-+    sink.emit({
-+      type: "AI_COMPLETED",
-+      correlationId: input.sessionLocalId,
-+      detail: {
-+        providerMode: mode,
-+        toolRounds,
-+        toolCalls,
-+        model,
-+      },
-+    });
-+
-+    const proposal = finalizeProposal(
-+      parseAndValidate(text, intent),
-+      intent,
-+      userAnswers,
-+    );
-+
-+    sink.emit({
-+      type: "STRUCTURED_OUTPUT_VALIDATED",
-+      correlationId: input.sessionLocalId,
-+      detail: {
-+        outcome: proposal.proposedOutcomeType,
-+        status: proposal.status,
-+      },
-+    });
-
-     const durationMs = Date.now() - started;
-+    const telemetry = summarizeD1Telemetry(sink.events);
-
--    if (finalProposal.status === "CLARIFICATION_REQUIRED") {
-+    if (proposal.status === "CLARIFICATION_REQUIRED") {
-       logIntakeEvent("intake_clarification_requested", {
-         sessionLocalId: input.sessionLocalId,
-         intentLength: intent.length,
--        status: finalProposal.proposedOutcomeType,
-+        status: proposal.proposedOutcomeType,
-         durationMs,
-         providerMode: mode,
-       });
--    } else if (finalProposal.status === "ANALYSIS_ONLY") {
-+    } else if (proposal.status === "ANALYSIS_ONLY") {
-       logIntakeEvent("intake_analysis_only_generated", {
-         sessionLocalId: input.sessionLocalId,
-         intentLength: intent.length,
--        status: finalProposal.proposedOutcomeType,
-+        status: proposal.proposedOutcomeType,
-         durationMs,
-         providerMode: mode,
-       });
-@@ -177,18 +286,30 @@ export async function analyzeIntent(
-       logIntakeEvent("intake_proposal_generated", {
-         sessionLocalId: input.sessionLocalId,
-         intentLength: intent.length,
--        status: finalProposal.proposedOutcomeType,
-+        status: proposal.proposedOutcomeType,
-         durationMs,
-         providerMode: mode,
-       });
-     }
-
-     return {
--      proposal: finalProposal,
-+      proposal,
-       providerMode: mode,
-       providerId: provider.providerId,
-       durationMs,
-       clarificationTurnCount: userAnswers.length,
-+      platform: {
-+        enabled: platformEnabled,
-+        toolRounds,
-+        toolCalls,
-+        sources: loadedSources.length ? loadedSources : telemetry.sources,
-+        tools: telemetry.tools,
-+        model,
-+        events: sink.events.map((e) => ({
-+          type: e.type,
-+          detail: e.detail,
-+        })),
-+      },
-     };
-   } catch (error) {
-     const durationMs = Date.now() - started;
-@@ -198,6 +319,11 @@ export async function analyzeIntent(
-         : error instanceof Error && /timeout/i.test(error.message)
-           ? "TIMEOUT"
-           : "PROVIDER";
-+    sink.emit({
-+      type: "AI_FAILED",
-+      correlationId: input.sessionLocalId,
-+      detail: { code, providerMode: mode },
-+    });
-     logIntakeEvent("intake_provider_failed", {
-       sessionLocalId: input.sessionLocalId,
-       intentLength: intent.length,
-```
-
-## Réserves / dette / anti-claims
-
-Voir 85 §§9–13.
-
-## Décisions Morris
-
-- GO VALIDATION consommé
-- GO EXÉCUTION LIVE **non** consommé
-- Pas push/PR/merge
-
-## Actions non exécutées
-
-Live GPT · push branche · PR · merge · B′ · cleanup OPS1 · method/prompts
-
-## Rollback
-
-Revert delivery commits ou `D1_PLATFORM_INTEGRATION=0`.
+**D1 CONVERSATIONAL CONVERGENCE DESIGN READY — MORRIS UX DECISION REQUIRED**
 
 ## Gate suivant candidat
 
-`GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` — après analyse ChatGPT + confirmation Morris.
+`GO DELIVERY — D1 CONVERSATIONAL CONVERGENCE UX` (**non consommé**)
 
-## Verdict final
+---
 
-**D1 SHARED PLATFORM INTEGRATION VALIDATED WITH RESERVES — MORRIS LIVE DECISION REQUIRED**
+## Local Git Truth Check
+
+Exécuté 2026-07-23 10:00:58 CEST depuis worktree D1, puis création WT UX.
+
+| Contrôle | Résultat |
+|----------|----------|
+| pwd D1 | `/Users/morris/Projects/sfia-workspace-d1-platform-integration` |
+| Branche D1 | `delivery/sfia-studio-d1-shared-platform-integration` |
+| HEAD D1 | `c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9` |
+| origin/main | `499c6b3540d8c3fae776736dc3fba29938048bfd` |
+| merge-base HEAD origin/main | `416af8a5…` (squash #257 : SHAs locaux ≠ ancêtres de main ; tree contenu D1 intégré) |
+| staged | vide |
+| code non commité | **aucun** (seul `.tmp-sfia-review/` untracked) |
+| secrets / .env dans status | absents |
+| Doc 86 | absent |
+| Serveur :3020 | actif (PID listen) |
+| Captures LPV | `.tmp-sfia-review/live-product-validation/lpv-u01-*.png` |
+| Branche UX préexistante | absente |
+| Worktree UX préexistant | libre |
+| Handoff distant avant | `ea05805…` validation D1 platform |
+
+Branche UX créée : `git worktree add -b ux/sfia-studio-d1-conversational-convergence … c2d39a7`
+
+Commits locaux UX :
+
+```
+2888b7e docs(sfia-studio): add D1 conversational convergence visual contract
+ec2798c docs(sfia-studio): define D1 conversational convergence workflow
+```
+
+---
+
+## Sources consultées
+
+### Méthode
+- prompts/templates/sfia-cycle-execution-template.md (référencé gate)
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+
+### Projet
+- 75, 76, 77, 78, 79, 80, 84, 85, README
+- 86 : absent
+
+### Interface / contrats
+- IntakeView.tsx, analyzeIntent.ts, actions.ts, types.ts (C2)
+- ContextMatchPanel, matchExistingContext, scoring, confirmation types/execute
+- Captures C1–C4 sous .tmp-sfia-review + LPV U01
+
+### Handoff
+- sfia/review-handoff @ ea05805 — latest-chatgpt-review.md (validation platform)
+
+### Figma
+- File historique IS70XDnBMvZuJYmaI5eZT2 **non modifié**
+- Nouveau file dédié 8xR5zSTfGtEVZSr6KK8Gww
+
+---
+
+## Captures Live utilisées
+
+- lpv-u01-intake-live.png
+- lpv-u01-confirmation.png
+- screenshots-d1-c2/proposal-*.png, clarification, analyze-only, error
+- screenshots-d1-c3/strong-match-*, multiple-matches, no-match, …
+- screenshots-d1-c4/confirm-create-*, confirm-existing, …
+
+LPV **non clôturée** — pas de rapport 86.
+
+---
+
+## Observations UX (résumé)
+
+1. Alternatives non activables ; CTA globaux décorrélés des propositions GPT
+2. Page verticale mélange compréhension / matching / confirmation
+3. Matching weak saturant ; doublons ; CREATE_NEW sous contextes
+4. « Ouvrir cockpit » ≠ Reprendre NO_MUTATION
+5. Confirmation trop tôt sans convergence conversationnelle
+6. Maturité absente (seulement confidence 0–1)
+7. Synthèse non éditable finement ; pas de consensus progressif
+
+---
+
+## Alternatives analysées (IA)
+
+- **A** Conversation + panneau latéral — **recommandée (candidat)**
+- **B** Étapes souples guidées
+- **C** Workspace hybride (différer ; emprunter confirmation dédiée)
+
+Détail complet : document 87 §14.
+
+---
+
+## Cartographies / parcours / contrat dynamique
+
+Voir documents 87 complets ci-dessous (§ états, synthèse, DynamicProposal, matching, P1–P8).
+
+---
+
+## Figma
+
+| Champ | Valeur |
+|-------|--------|
+| fileKey | 8xR5zSTfGtEVZSr6KK8Gww |
+| URL | https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww |
+| Page | D1 — Conversational Convergence (LF) |
+| Frames | CC-01…CC-12 (node-ids 2:2 … 2:230) |
+| Dimensions | 1440×1024 (01–11), 390×844 (12) |
+| Prototype | 01→02→03→05→08→09 |
+| Fidélité | LF — non HF |
+
+---
+
+## Fichiers créés / modifiés (branche UX)
+
+- A projects/sfia-studio/87-d1-conversational-convergence-ux-functional-design.md
+- A projects/sfia-studio/88-d1-conversational-convergence-visual-contract.md
+- M projects/sfia-studio/README.md
+
+Code app/** : **inchangé**.
+
+---
+
+## Réserves
+
+- LPV ouverte ; observations partielles (U01 + fixtures)
+- Recommandation ≠ décision Morris
+- Schéma C2 actuel ≠ DynamicProposal (dette Delivery)
+- Figma LF isolé du file Studio historique
+- merge-base local vs main squash : historique SHAs divergent, contenu D1 sur main
+
+## Dette
+
+- Mapping contrat C2 → DynamicProposal
+- Refonte IntakeView (hors cycle)
+- HF Figma après arbitrage
+- Clôture LPV (86) encore due
+
+## Décisions Morris requises
+
+1–14 listées dans 87 §15 (IA, synthèse, maturité, matching, pause, confirmations, doctrine séparée, …)
+
+## Hors périmètre
+
+Code, méthode, prompts, C3 scoring fix, Live GPT, B′, Cycle runtime, GuidedSession, push/PR/merge branche UX, clôture LPV implicite.
+
+## Actions non exécutées
+
+- Push branche `ux/sfia-studio-d1-conversational-convergence`
+- PR / merge projet
+- Modification code
+- Clôture LPV / doc 86
+- HF Figma / fusion file IS70XDn…
+
+---
+
+## Contenu complet — Document 87
+
+# SFIA Studio — D1 Conversational Convergence — Conception UX / fonctionnelle
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `87-d1-conversational-convergence-ux-functional-design.md` |
+| **Complète** | `88-d1-conversational-convergence-visual-contract.md` |
+| **Statut** | `ux-design-candidate` — **recommandation Cursor** ; **décision Morris requise** |
+| **Cycle** | UX/UI — D1 Conversational Convergence Design |
+| **Profil** | Critical |
+| **Gate consommé** | `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
+| **Branche** | `ux/sfia-studio-d1-conversational-convergence` |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-d1-conversational-convergence` |
+| **SHA de départ** | `c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9` (HEAD D1 post-timeout ; contenu mergé `main` via PR #257 squash `499c6b3…`) |
+| **Dépendance** | Branche D1 `delivery/sfia-studio-d1-shared-platform-integration` |
+| **Baseline méthode** | SFIA v2.6 |
+| **Doc 86** | **Réservé** à la clôture Live Product Validation — **non créé** |
+| **Gate suivant candidat** | `GO DELIVERY — D1 CONVERSATIONAL CONVERGENCE UX` (**non consommé**) |
+
+> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris requise**.  
+> Ce document **ne décide pas**. Aucune claim « DESIGN APPROVED », « D1 COMPLETE », « LIVE PRODUCT VALIDATED », « CYCLE OPENED ».
+
+---
+
+## 1. Problème
+
+**Observation.** Le parcours D1 Intake (`/nouvelle-demande`) valide techniquement GPT réel, reformulation, objectif, hypothèses, manques, propositions C2, matching C3 et confirmation C4.
+
+**Observation.** L’interface actuelle se comporte comme un **formulaire enrichi vertical** : une proposition, des alternatives non activables, des CTA globaux décorrélés (`Reformuler` / `Recommencer` / `Créer manuellement`), un matching qui envahit la page, puis une confirmation souvent trop tôt.
+
+**Problème produit.** L’humain ne dispose pas d’un espace où **construire progressivement un consensus** avec GPT sous doctrine SFIA, avant tout bornage mutatif.
+
+**Risques si non traité :** choix imposé trop tôt ; GPT trop permissif ou trop restrictif ; décisions humaines masquées ; confusion proposition / préparation / exécution ; mutations ou cycles prématurés ; perte de confiance sur le matching.
+
+---
+
+## 2. Observations Live (capitalisation LPV — non clôturée)
+
+**État LPV.** Gate d’exécution engagé ; **document 86 absent** ; rapport final et handoff LPV **non publiés**. Ne pas traiter la LPV comme clôturée.
+
+| Observation | Preuve / source | Impact UX |
+|-------------|-----------------|-----------|
+| Live GPT produit une proposition utile (sujet, objectif, CREATE_PROJECT_CANDIDATE) | Capture `lpv-u01-intake-live.png` ; latence ~24 s puis timeouts à 25 s | Besoin de patience / états loading longs ; timeout relevé à 60 s (PR #257) |
+| C4 confirmation ouverte sans click Cursor | `lpv-u01-confirmation.png` | Confirmation existe ; **convergence conversationnelle insuffisante avant C4** |
+| Alternatives C2 non cliquables | Runtime `IntakeView` + captures C2 | CTA ≠ trajectoires GPT |
+| Weak / multiple matches saturent | Captures C3 `multiple-matches`, `possible` | Charge cognitive ; fausse pertinence |
+| « Ouvrir le cockpit » ≠ « Reprendre ce Project » | Runtime ContextMatch / Confirmation | Ambiguïté NO_MUTATION vs navigation |
+| CREATE_NEW_PROJECT sous contextes existants | Matching C3 | Suggestion de création concurrente au matching |
+| Doublons / labels proches | Matching déterministe | Dégradation confiance |
+| Maturité absente de l’UI | Contrat C2 `confidence` 0–1 seulement | Pas d’appréciation explicable multi-dimensionnelle |
+| Pas d’édition fine de la synthèse | UI actuelle | Humain reformule tout ou recommence |
+
+---
+
+## 3. Challenge de l’hypothèse de travail
+
+### Hypothèse candidate (à challenger)
+
+> L’intake devient un **espace de convergence conversationnelle** : ouvert tant que le besoin se construit ; explicable pendant la convergence ; borné uniquement au moment d’agir.
+
+### Trajectoire candidate
+
+Intention → compréhension → challenge réciproque → enrichissement → synthèse vivante → maturité explicable → trajectoires → décision humaine → préparation bornée → exécution contrôlée.
+
+### Contre-arguments (obligatoires)
+
+| Risque | Contre-mesure candidate |
+|--------|-------------------------|
+| Chatbot bavard sans aboutissement | Budget de tours ; questions ciblées (1–3) ; « maturité insuffisante » visible ; pause explicite |
+| Ouverture interminable | Seuils qualitatifs de « convergence suffisante » ; invitation à décider sans forcer |
+| Sur-conception workspace | Préférer IA Option A avant hybride C ; HF différé |
+| Doctrine SFIA non visible | Panneau / traces sources + digests ; anti-claims cycle/runtime |
+| Matching trop tardif | Matching **progressif silencieux** puis révélation contextualisée (pas formulaire géant) |
+| Faux score de maturité | Bandes qualitatives + dimensions textuelles ; pas de % présentés comme vérité |
+
+**Recommandation.** Retenir l’hypothèse comme **direction produit**, sous réserve des décisions Morris §20 et d’un Delivery ultérieur. Ce n’est **pas** une validation.
+
+---
+
+## 4. Principes UX retenus (candidats)
+
+1. **Réponse libre toujours disponible** — le champ de saisie n’est jamais remplacé par des seuls boutons.
+2. **CTA contextuels = effets bornés** — un bouton n’apparaît que s’il mappe un `effect` autorisé.
+3. **Propositions dynamiques sans catalogue métier fermé** — GPT formule librement ; Studio borne les effets.
+4. **Synthèse vivante distincte du fil** — consensus progressif visible, contestable, versionné UI.
+5. **Maturité qualitative** — dimensions + bande, jamais score précis trompeur.
+6. **Matching au service de la conversation** — pas un second formulaire ; weak matches repliés.
+7. **Bornage explicite** — préparation ≠ exécution ; cycle candidat ≠ Cycle ouvert.
+8. **NO_MUTATION lisible** — reprise / mapping / voir sont des verbes distincts.
+9. **Anti-claims** — pas de « projet créé », « cycle lancé », « guidé démarré » hors preuve.
+10. **Accessibilité first** — focus, annonces, contraste, clavier avant polish HF.
+
+---
+
+## 5. Modèle de convergence
+
+```
+[Humain] intention libre
+    ↓
+[GPT] compréhension + challenge (non bloquant)
+    ↓
+[Humain] correction / enrichissement / « pourquoi ? »
+    ↓
+[Studio] synthèse vivante (état partagé)
+    ↓
+[GPT] maturité qualitative + trajectoires dynamiques
+    ↓
+[Humain] décide trajectoire OU continue exploration
+    ↓
+[Studio] préparation bornée (contrat effets / non-effets)
+    ↓
+[Humain] confirme OU revient
+    ↓
+[Studio] exécution contrôlée (create / NO_MUTATION / analyze-only)
+```
+
+**Doctrine SFIA** informe (sources, gates, profils candidats) mais **n’exécute pas**.  
+**Studio** affiche, borne, audite, empêche les mutations hors confirmation.
+
+---
+
+## 6. Rôles
+
+| Acteur | Fait | Ne fait pas |
+|--------|------|-------------|
+| **Humain (Morris / utilisateur)** | Intente, corrige, conteste, décide, confirme mutations | N’est pas forcé par un CTA trompeur |
+| **GPT** | Reformule, challenge, propose trajectoires, évalue maturité qualitative | N’ouvre pas de Cycle ; ne mute pas ; n’impose pas A/B/C |
+| **Doctrine SFIA** | Fournit règles, profils, gates, sources canoniques | N’est pas un chatbot ; pas d’exécution runtime ici |
+| **Studio** | Persiste session UI, matching déterministe, confirmation, audit | N’invente pas de consensus ; n’auto-exécute pas |
+
+---
+
+## 7. Questions de conception — réponses
+
+### 7.1 Conversation
+
+| Question | Réponse candidate |
+|----------|-------------------|
+| Champ libre à chaque étape ? | Zone composer **fixe** en bas (desktop) / sticky (mobile) ; toujours active hors confirmation modale stricte |
+| GPT challenge sans bloquer ? | Challenges = messages + chips « hypothèse à valider » ; jamais écran bloquant seul |
+| Correction hypothèse / synthèse ? | Actions sur items synthèse : *Valider* / *Corriger* / *Retirer* → message structuré réinjecté |
+| « Pourquoi ? » / alternative / challenge plus fort ? | Micro-CTA sur message GPT + saisie libre équivalente |
+| Éviter chatbot bavard ? | Max questions/tour ; synthèse mise à jour plutôt que monologues ; bande maturité « insuffisante » |
+| Historique lisible ? | Fil chronologique repliable par épisode ; ancre « dernière synthèse » |
+
+### 7.2 Maturité
+
+| Question | Réponse candidate |
+|----------|-------------------|
+| Sans faux score ? | Bandes : `exploratoire` · `partielle` · `suffisante pour décider` · `prête à borner` |
+| Dimensions ? | Clarté d’intention ; objectif ; périmètre ; acteurs ; contraintes ; risques ; contexte Project ; décisions ouvertes |
+| Observation / hypothèse / décision / question ? | Tags d’épistémologie sur chaque item de synthèse |
+| Contestation maturité ? | « Contester cette appréciation » → GPT justifie ou révise ; bande non verrouillée |
+| Exploratoire → préparatoire ? | Quand humain sélectionne une trajectoire **et** bande ≥ `suffisante pour décider` |
+
+### 7.3 Propositions GPT
+
+| Question | Réponse candidate |
+|----------|-------------------|
+| Sans catalogue métier ? | Champs libres texte + `effect` borné (enum court) |
+| Contrat minimal UI ? | Voir §9 |
+| Champs libres ? | titre, formulation, justification, objectif, résultat attendu, questions, risques, conditions, libellé CTA |
+| Effets bornés ? | `none` · `continue_conversation` · `prepare_create_project` · `prepare_resume_project` · `prepare_analyze_only` · `prepare_cycle_candidate` · `pause` · `abandon` |
+| Plusieurs trajectoires sans A/B/C ? | Cartes parallèles non numérotées ; ordre = pertinence GPT non obligatoire |
+| CTA + libre ? | CTA déclenche préparation **ou** envoie un message équivalent ; composer reste ouvert |
+
+### 7.4 Matching
+
+| Question | Réponse candidate |
+|----------|-------------------|
+| Quand rechercher ? | Après première synthèse utile **ou** signaux nominatifs ; raffiné à chaque revision d’intention |
+| Mode ? | **Progressif** : silencieux d’abord, révélation contextuelle (pas dump immédiat) |
+| Fort / faible / contradictoire ? | Fort = carte primaire + justification ; faible = groupe replié « autres pistes » ; contradictoire = alerte |
+| Voir / Comparer / Reprendre / Mapper ? | Verbes séparés — Voir (lecture) · Comparer (diff synthèse) · Reprendre (NO_MUTATION → cockpit) · Mapper (rattachement conceptuel sans mutation tant que non confirmé) |
+| NO_MUTATION ? | Libellés + bandeau confirmation « Aucune modification du Project » |
+| Doublons ? | Grouper / signaler similarité ; ne pas pré-sélectionner |
+| Masquer weak ? | Par défaut repliés si un fort existe **ou** si bande maturité encore exploratoire |
+
+### 7.5 Passage au bornage
+
+| Question | Réponse candidate |
+|----------|-------------------|
+| Conversation → décision ? | Humain choisit trajectoire ou « Je décide maintenant » |
+| Résumé validé ? | Intention, objectif, effet, objet cible, non-effets, preuves de convergence |
+| Effets / non-effets ? | Liste explicite dans écran préparation |
+| Cycle / profil / gates sans surcharge ? | Bloc secondaire repliable « Lecture SFIA » |
+| Retour exploration ? | « Revenir à la conversation » annule préparation, conserve synthèse |
+| Cycle candidat ≠ Cycle ouvert ? | Label **Proposition de cycle (non ouvert)** + anti-claim |
+
+---
+
+## 8. États (cartographie non rigide)
+
+Ne pas imposer une machine à états unique en Delivery sans décision Morris. Distinguer couches :
+
+### 8.1 États métier persistés (candidats)
+
+| État | Sens | Mutation |
+|------|------|----------|
+| `session_open` | Session intake locale | Non |
+| `draft_synthesis` | Synthèse en construction | Non |
+| `trajectory_selected` | Trajectoire choisie | Non |
+| `preparation` | Contrat affiché | Non |
+| `confirmed_create` | Project créé | Oui (C4) |
+| `confirmed_resume` | Contexte existant confirmé | NO_MUTATION |
+| `analyze_closed` | Analyse seule terminée | Non |
+| `paused` / `abandoned` | Suspension | Non |
+
+### 8.2 États UI
+
+`composing` · `waiting_gpt` · `exploring` · `clarifying` · `reviewing_synthesis` · `reviewing_trajectories` · `reviewing_matches` · `preparing` · `confirming` · `result` · `error` · `refused`
+
+### 8.3 Appréciations GPT (non états métier)
+
+`maturity_band` · `epistemic_tags` · `challenge_intensity` · `trajectory_set`
+
+### 8.4 Transitions
+
+| Depuis | Déclencheur | Vers | Type |
+|--------|-------------|------|------|
+| composing | Envoi intention | waiting_gpt | Humain |
+| waiting_gpt | Proposition | exploring / clarifying | Technique |
+| exploring | Correction item | waiting_gpt | Humain |
+| exploring | Choix trajectoire | preparing | Humain |
+| preparing | Confirmer | confirming | Humain |
+| confirming | Succès | result | Technique |
+| * | Pause / Abandon | paused / abandoned | Humain |
+| preparing | Revenir | exploring | Humain |
+
+---
+
+## 9. Synthèse vivante
+
+| Champ | Produit par | Validable | Contestable | Bornable |
+|-------|-------------|-----------|-------------|----------|
+| Intention | GPT (+ brut humain) | Oui | Oui | Oui |
+| Objectif | GPT | Oui | Oui | Oui |
+| Périmètre | GPT / humain | Oui | Oui | Oui |
+| Acteurs | GPT / humain | Oui | Oui | Optionnel |
+| Contraintes | GPT / humain | Oui | Oui | Oui |
+| Hypothèses | GPT | Oui | Oui | Non (sauf retenues) |
+| Risques | GPT | Oui | Oui | Affichés |
+| Décisions | Humain (marquées) | — | — | Oui |
+| Questions ouvertes | GPT / humain | — | — | Bloquent si critiques |
+| Trajectoires | GPT | Sélection | Oui | Sélectionnée |
+| Maturité | GPT | Contestable | Oui | Gate soft |
+| Sources | Studio / tools | Lecture | — | Trace |
+| Contexte Project | Matching + GPT | Sélection | Oui | Si reprise |
+
+**Comportement.** Chaque item porte : `origin` (gpt|human|system) · `status` (proposed|validated|contested|removed) · `history` (dernier changement). La synthèse est l’**artefact de consensus**, pas le fil chat.
+
+---
+
+## 10. Contrat de proposition dynamique
+
+### 10.1 Objet `DynamicProposal` (candidat — non scellé)
+
+Champs **libres** (texte) :
+
+- `id`, `title`, `statement`, `rationale`, `objective`, `expectedResult`
+- `relatedQuestions[]`, `suggestedCycleLabel?`, `conditions[]`, `risks[]`
+- `ctaLabel` (affichage seulement)
+
+Champs **bornés** (enums courts) :
+
+| Champ | Valeurs minimales |
+|-------|-------------------|
+| `effect` | `none` · `continue_conversation` · `prepare_create_project` · `prepare_resume_project` · `prepare_analyze_only` · `prepare_cycle_candidate` · `open_match_detail` · `pause` · `abandon` |
+| `engagementLevel` | `exploratory` · `preparatory` · `committing` |
+| `uiInteraction` | `message_only` · `primary_cta` · `secondary_cta` · `inline_chip` |
+| `mutation` | `none` · `project_create` · `none_existing_confirm` |
+| `gate` | `none` · `human_confirm` · `morris_go` |
+| `targetKind` | `none` · `new_project` · `existing_project` · `analysis` · `cycle_proposal` |
+| `reversible` | `yes` · `until_confirm` · `no_after_confirm` |
+
+**Interdit.** Catalogue fermé de propositions métier (« Refonte RH », « Audit SI », …).  
+**Autorisé.** GPT invente le libellé ; Studio refuse tout `effect` hors enum.
+
+### 10.2 Affichage
+
+- 0–N cartes dans le fil et/ou sous la synthèse.
+- Pas d’étiquette A/B/C imposée.
+- CTA primaire uniquement si `engagementLevel` ≥ preparatory **et** maturité compatible (règle UX, pas auto-exec).
+
+---
+
+## 11. Matching — modèle UX
+
+```
+Signaux intention/synthèse
+  → matching déterministe (existant C3)
+  → classification UX :
+       STRONG → carte contextuelle + CTA Voir / Comparer / Reprendre
+       MULTIPLE / WEAK → « Pistes faibles (n) » replié
+       NONE → silence utile + trajectoire création possible
+       CONFLICT → alerte + aucune présélection
+```
+
+**Garantie NO_MUTATION.** Reprendre / confirmer existant → écran C4 dédié avec bandeau non-mutation ; audit `NO_MUTATION`.
+
+**CREATE_NEW_PROJECT.** N’apparaît comme CTA primaire **que** si aucun fort match retenu **ou** humain a écarté les matches.
+
+---
+
+## 12. Passage Conversation → Action bornée
+
+### Conditions de préparation (candidats)
+
+1. Synthèse avec intention + objectif non vides.
+2. Questions critiques résolues ou explicitement reportées par l’humain.
+3. Trajectoire sélectionnée avec `effect` préparatoire.
+4. Maturité bande ≥ `suffisante pour décider` **ou** override humain explicite (« Borner malgré tout » — tracé).
+
+### Preuve de convergence (affichée)
+
+- Items validés vs contestés.
+- Décisions humaines listées.
+- Justification GPT courte de la trajectoire.
+- Matches considérés / écartés.
+
+### Contrat affiché
+
+Effets attendus · non-effets · objet · réversibilité · gate · anti-claims.
+
+### Retour / pause / abandon / reprise
+
+| Action | Effet |
+|--------|-------|
+| Revenir | Préparation annulée ; synthèse conservée |
+| Pause | Snapshot local optionnel ; aucune mutation |
+| Abandon | Demande conservation ou purge ; aucune mutation |
+| Reprise ultérieure | Si snapshot autorisé — hors détail technique ce cycle |
+
+---
+
+## 13. Parcours utilisateurs
+
+### P1 — Création nouveau Project
+
+Demande ouverte → challenge → clarification → synthèse → convergence → matching (souvent NONE/weak) → trajectoire création → préparation → C4 create → Project créé → cockpit.
+
+### P2 — Reprise Project existant
+
+Demande → hypothèse contexte → matching fort → Voir/Comparer → Reprendre → C4 NO_MUTATION → cockpit.
+
+### P3 — Analyse sans création
+
+Demande → conversation → `prepare_analyze_only` → restitution → aucun Project / Cycle → pause ou poursuite.
+
+### P4 — Besoin trop flou
+
+Demande → exploration → questions ciblées → maturité `exploratoire` → pause/poursuite → **aucune mutation**.
+
+### P5 — Désaccord humain–GPT
+
+Recommandation → contestation → explication → alternative → synthèse MAJ → nouvelle maturité.
+
+### P6 — Abandon / pause
+
+Suspendre → choisir conservation → aucun effet implicite → reprise si autorisée.
+
+### P7 — Proposition de cycle
+
+Convergence → `prepare_cycle_candidate` → profil/périmètre/gates candidats → **préparation seulement** → anti-claim « Cycle non ouvert » → gate Morris futur hors ce design.
+
+### P8 — Matching faible / multiple
+
+Plusieurs weak → groupe compact → exploration facultative → pas de présélection → création ou poursuite sans rattachement.
+
+---
+
+## 14. Architecture d’information — 3 options
+
+### Option A — Conversation + panneau latéral vivant
+
+Conversation principale · synthèse/maturité en panneau · propositions dans le fil · matching contextuel.
+
+| Critère | Éval. |
+|---------|-------|
+| Avantages | Consensus visible ; fil naturel ; proche runtime actuel |
+| Limites | Panneau étroit sur tablette ; risque panneau ignoré |
+| Dette | Refonte IntakeView majeure |
+| Complexité | Moyenne |
+| Accessibilité | Bonne si panneau dans order DOM / landmarks |
+| Mobile | Panneau → bottom sheet |
+| Cohérence SFIA | Forte (doctrine visible sans bloquer) |
+| Sur-conception | Faible–moyenne |
+| **Reco Cursor** | **Option préférée candidate** |
+
+### Option B — Conversation guidée à étapes souples
+
+Étapes visibles non bloquantes · retour dialogue · synthèse inter-phases.
+
+| Critère | Éval. |
+|---------|-------|
+| Avantages | Progression claire ; pédagogie |
+| Limites | Ressentî « wizard » ; freine le challenge libre |
+| Dette | Modèle d’étapes + sync |
+| Complexité | Moyenne–haute |
+| A11y | Stepper à soigner |
+| Mobile | Correct |
+| SFIA | Risque de formaliser trop tôt |
+| Sur-conception | Moyenne |
+| Reco | Alternative si Morris veut guidage visible |
+
+### Option C — Workspace hybride
+
+Conversation + canevas convergence + drawer Projects/sources + confirmation dédiée.
+
+| Critère | Éval. |
+|---------|-------|
+| Avantages | Puissance ; séparation nette confirmation |
+| Limites | Charge cognitive ; coût Delivery élevé |
+| Dette | Forte |
+| Complexité | Haute |
+| A11y | Difficile (multi-régions) |
+| Mobile | Dégradé |
+| SFIA | Excellent pour power users |
+| Sur-conception | **Élevé** |
+| Reco | Différer ; emprunter confirmation dédiée à A |
+
+### Tests UX conceptuels (synthèse)
+
+Scénario LPV « Créer une application de suivi de contrats » + vagues / contradictoires / match / refus / abandon / analyze-only :
+
+| Critère | A | B | C |
+|---------|---|---|---|
+| Prochaine action claire | ●●● | ●●● | ●● |
+| Liberté conversationnelle | ●●● | ●● | ●●● |
+| Challenge | ●●● | ●● | ●●● |
+| Hypothèses visibles | ●●● | ●● | ●●● |
+| Contrôle humain | ●●● | ●●● | ●●● |
+| Bornage progressif | ●●● | ●●● | ●●● |
+| Charge cognitive | ●● | ●● | ● |
+| Confiance matching | ●●● | ●● | ●●● |
+| A11y | ●●● | ●● | ●● |
+| Zéro mutation implicite | ●●● | ●●● | ●●● |
+
+**Recommandation Cursor :** **Option A**, avec confirmation plein cadre (emprunt léger à C) et matching compact. **Décision Morris requise.**
+
+---
+
+## 15. Décisions Morris requises
+
+1. Architecture d’information (A / B / C / hybride).
+2. Conversation principale vs étapes souples.
+3. Rôle et visibilité de la synthèse vivante (toujours / on-demand / desktop-only).
+4. Représentation de la maturité (bandes + dimensions proposées ?).
+5. Degré d’éditabilité humaine des items de synthèse.
+6. Timing du matching Project (immédiat / après synthèse / déclenché).
+7. Traitement des weak matches (repliés / masqués / toujours visibles).
+8. Adoption du contrat `DynamicProposal` (§10).
+9. Boutons dynamiques + réponse libre (règle CTA).
+10. Pause / abandon (conservation snapshot ?).
+11. Confirmation de création (plein cadre vs panneau).
+12. Confirmation reprise NO_MUTATION (libellés).
+13. Trajectoire Figma → Delivery (HF après GO ?).
+14. Besoin éventuel de modifier la doctrine SFIA (**cycle séparé**).
+
+---
+
+## 16. Hors périmètre
+
+- Code applicatif / prompts / méthode.
+- Correction scoring C3.
+- Live GPT supplémentaire.
+- B′ · Cycle runtime · GuidedSession.
+- Clôture LPV (doc **86**).
+- Push / PR / merge de la branche UX.
+- Design HF final.
+
+---
+
+## 17. Dette
+
+| Dette | Note |
+|-------|------|
+| Schéma C2 actuel ≠ DynamicProposal | Mapping Delivery requis |
+| Confidence 0–1 vs bandes maturité | Remplacement UX + éventuellement contrat |
+| Alternatives non activables | Remplacer par propositions à `effect` |
+| Dualité OPS1 vs D1 historique | Capitaliser ; ne pas élargir ici |
+| LPV incomplète | Observations partielles U01 |
+| Figma LF seulement | HF après décision Morris |
+
+---
+
+## 18. Gate suivant candidat
+
+`GO DELIVERY — D1 CONVERSATIONAL CONVERGENCE UX`
+
+Non consommé. Toute évolution de doctrine = GO Morris distinct.
+
+---
+
+## 19. Verdict documentaire
+
+Conception fonctionnelle **complète au niveau candidat**.  
+Validation produit = **MORRIS UX DECISION REQUIRED**.
+
+---
+
+## Contenu complet — Document 88
+
+# SFIA Studio — D1 Conversational Convergence — Contrat visuel
+
+| Métadonnée | Valeur |
+|------------|--------|
+| **Document** | `88-d1-conversational-convergence-visual-contract.md` |
+| **Complète** | `87-d1-conversational-convergence-ux-functional-design.md` |
+| **Statut** | `visual-contract-candidate` — basse/moyenne fidélité ; **non HF** |
+| **Gate** | `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
+| **Figma file** | `8xR5zSTfGtEVZSr6KK8Gww` |
+| **Figma URL** | https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww |
+| **Page** | `D1 — Conversational Convergence (LF)` |
+| **Fidélité** | Wireframes basse / moyenne — **pas** design final |
+| **Fichier Studio historique** | `IS70XDnBMvZuJYmaI5eZT2` — **non modifié** (isolation volontaire) |
+
+---
+
+## 1. Dimensions de référence (conception)
+
+| Viewport | Taille | Usage |
+|----------|--------|--------|
+| Desktop large | **1440 × 1024** | Composition primaire Option A |
+| Desktop standard | **1280 × 800** | Panneau resserré |
+| Tablette | **1024 × 768** | Panneau → sheet |
+| Mobile | **390 × 844** | Fil plein + sheet synthèse |
+
+Ces dimensions sont des **références de conception**, pas une décision de support définitive.
+
+---
+
+## 2. Structure des écrans (Option A recommandée)
+
+### Desktop 1440
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ App chrome SFIA Studio (existant)                            │
+├────────────────────────────┬─────────────────────────────────┤
+│ CONVERSATION (scroll)      │ SYNTHÈSE VIVANTE (sticky)       │
+│  · messages humain/GPT     │  · intention / objectif         │
+│  · challenges inline       │  · hypothèses taguées           │
+│  · cartes trajectoires     │  · maturité (bande)             │
+│  · match contextuel        │  · questions ouvertes           │
+│                            │  · sources (repli)              │
+├────────────────────────────┴─────────────────────────────────┤
+│ COMPOSER fixe : [ champ libre multipligne ] [ Envoyer ]      │
+│ Micro-actions contextuelles au-dessus du composer (chips)    │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Zones fixes :** chrome · composer · (option) header session.  
+**Zones défilantes :** fil conversation · contenu panneau si overflow.
+
+### Hiérarchie visuelle
+
+1. Dernier message GPT / trajectoires actives  
+2. Composer (toujours trouvable)  
+3. Bande maturité  
+4. Items synthèse  
+5. Matching secondaire  
+6. Métadonnées techniques (mode, modèle, sources) — discrètes
+
+### Navigation
+
+- Entrée : `/nouvelle-demande` (inchangée conceptuellement).
+- Sorties : cockpit Project · workspace · pause/abandon.
+- Pas de stepper bloquant (sauf si Morris choisit Option B).
+
+---
+
+## 3. Comportements conversationnels
+
+| Élément | Comportement |
+|---------|--------------|
+| Bulle humain | Alignement distinct ; éditable seulement via « reformuler ce message » (candidat) |
+| Bulle GPT | Challenge + « Pourquoi ? » + « Autre piste » |
+| Hypothèse chip | Valider / Corriger / Retirer |
+| Trajectoire carte | CTA = `ctaLabel` ; effet borné invisible en UI technique |
+| Composer | Toujours actif hors modal confirmation stricte |
+| Loading | Skeleton fil + `aria-busy` ; message « Analyse en cours (jusqu’à 60 s) » |
+| Erreur / timeout | Banner + conserver saisie + Reessayer |
+| Refus policy | Banner non alarmiste ; proposer reformulation |
+
+---
+
+## 4. Synthèse vivante (visuel)
+
+- Titre « Synthèse » + horodatage relatif.
+- Items avec tag épistémique : Observation / Hypothèse / Décision / Question.
+- Statut couleur neutre (pas de gamification) : proposé · validé · contesté.
+- Maturité : **bande textuelle** + 4–6 dimensions en liste courte (pas de jauge %).
+- Anti-claim sous maturité : « Appréciation GPT — contestable ».
+
+---
+
+## 5. Propositions dynamiques (visuel)
+
+```
+┌─────────────────────────────────────────┐
+│ Titre (libre)                           │
+│ Formulation                             │
+│ Pourquoi (replié)                       │
+│ [ CTA contextuel ]  [ Répondre libre ]  │
+│ badge engagement: exploratoire|prépa…   │
+└─────────────────────────────────────────┘
+```
+
+- Pas de numérotation A/B/C.
+- Max ~3 visibles ; « Voir d’autres pistes » si plus.
+- Engagement `committing` → style plus marqué **mais** pas d’auto-submit.
+
+---
+
+## 6. Matching (visuel)
+
+| Cas | Rendu |
+|-----|-------|
+| Fort | Carte unique : nom, justification, Voir · Comparer · Reprendre |
+| Faible multiple | Accordion « Pistes faibles (n) » fermé par défaut si fort absent et exploration |
+| Contradictoire | Alerte + liste sans sélection |
+| Aucun | Pas de faux empty state alarmiste — silence utile |
+
+**Libellés interdits :** « Ouvrir le cockpit » comme synonyme de reprise.  
+**Libellés candidats :** « Voir le Project » · « Reprendre ce Project (sans le modifier) ».
+
+---
+
+## 7. Préparation bornée & confirmation
+
+### Préparation
+
+Plein cadre léger (overlay ou route dédiée visuelle) :
+
+- Résumé convergence  
+- Effets / non-effets  
+- Objet cible  
+- Gate  
+- Anti-claims  
+- Actions : Confirmer la préparation → · Revenir à la conversation
+
+### Confirmation création
+
+- Titre « Créer ce Project »  
+- Draft éditable (nom, résumé)  
+- Effet : création SQLite Project  
+- Non-effets : pas de Cycle, pas de GuidedSession  
+- CTA : « Créer ce projet » · Annuler
+
+### Confirmation reprise NO_MUTATION
+
+- Bandeau fort : « Aucune modification du Project »  
+- CTA : « Confirmer ce Project pour la suite »  
+- Lien secondaire : Voir sans confirmer
+
+---
+
+## 8. Pause / abandon
+
+- Dialog : Pause (conserver) / Abandonner (conserver ou purger) / Annuler.
+- Aucune mutation Project/Cycle.
+- Copy : « Aucune action SFIA n’a été exécutée. »
+
+---
+
+## 9. États vides / loading / erreurs
+
+| État | Contenu |
+|------|---------|
+| Vide initial | Invitation courte + exemples non imposés + composer focus |
+| Loading GPT | Status live region ; désactiver double-submit |
+| Erreur provider | Message actionnable |
+| Refus tool/policy | Explication + suite possible |
+| Timeout | Explicit + retry |
+
+---
+
+## 10. Responsive
+
+| Breakpoint | Adaptation |
+|------------|------------|
+| 1440 | 2 colonnes ~ 1fr / 360–400px |
+| 1280 | 2 colonnes ; panneau 320px |
+| 1024 | Fil plein ; synthèse via onglet/sheet |
+| 390 | Fil + composer ; FAB « Synthèse » ; matching en sheet |
+
+---
+
+## 11. Accessibilité
+
+| Exigence | Contrat |
+|----------|---------|
+| Clavier | Tab order : fil → panneau → composer → CTA ; Esc ferme sheets |
+| Focus | Focus visible 2px ; focus trap en confirmation |
+| SR | `aria-live` polite pour nouveaux messages ; assertive pour erreurs |
+| Landmarks | `main`, `complementary` (synthèse), `form` (composer) |
+| Contraste | Texte ≥ 4.5:1 ; badges non porteurs d’info seule couleur |
+| Densité | Confortable ; éviter murs de weak matches |
+| Motion | Réduire si `prefers-reduced-motion` |
+
+---
+
+## 12. Anti-claims visuels
+
+Interdits à l’écran hors preuve :
+
+- « Cycle ouvert » / « Cycle lancé »
+- « GuidedSession démarrée »
+- « Project lié automatiquement »
+- « Maturité 87 % »
+- « Alternative recommandée exécutable » sans `effect` borné
+
+Mentions obligatoires candidates :
+
+- « Proposition — non exécutée »
+- « Cycle candidat — non ouvert »
+- « Reprise — aucune modification »
+
+---
+
+## 13. Registre des frames Figma
+
+| Champ | Valeur |
+|-------|--------|
+| fileKey | `8xR5zSTfGtEVZSr6KK8Gww` |
+| URL | https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww |
+| Page | `D1 — Conversational Convergence (LF)` |
+
+| # | Frame | node-id | Taille | Rôle |
+|---|-------|---------|--------|------|
+| 01 | `CC-01 Intake initial` | `2:2` | 1440×1024 | Composer vide |
+| 02 | `CC-02 Exploration` | `2:23` | 1440×1024 | Fil + challenges |
+| 03 | `CC-03 Synthèse vivante` | `2:48` | 1440×1024 | Panneau peuplé |
+| 04 | `CC-04 Challenge hypothèse` | `2:72` | 1440×1024 | Chip correction |
+| 05 | `CC-05 Trajectoires candidates` | `2:97` | 1440×1024 | Cartes dynamiques |
+| 06 | `CC-06 Matching fort` | `2:131` | 1440×1024 | Carte reprise |
+| 07 | `CC-07 Matching faible multiple` | `2:151` | 1440×1024 | Accordion |
+| 08 | `CC-08 Préparation bornée` | `2:169` | 1440×1024 | Contrat effets |
+| 09 | `CC-09 Confirm création` | `2:186` | 1440×1024 | C4 create |
+| 10 | `CC-10 Confirm reprise NO_MUTATION` | `2:201` | 1440×1024 | C4 existing |
+| 11 | `CC-11 Pause abandon` | `2:217` | 1440×1024 | Dialog |
+| 12 | `CC-12 Mobile exploration` | `2:230` | 390×844 | Sheet synthèse |
+
+**Prototype cliquable minimal (nominal P1) :**  
+`01 → 02 → 03 → 05 → 08 → 09` (reactions ON_CLICK sur frames).
+
+Lien frame 01 : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=2-2
+
+---
+
+## 14. Composants LF (non DS final)
+
+- `Composer` · `MessageBubble` · `HypothesisChip` · `TrajectoryCard` · `MaturityBand` · `SynthesisItem` · `MatchCard` · `WeakMatchGroup` · `PrepContract` · `ConfirmPanel` · `StatusBanner`
+
+Réutiliser tokens Studio P0 quand Delivery viendra ; ce fichier LF n’impose pas le DS.
+
+---
+
+## 15. Réserves
+
+- Fichier Figma **nouveau** (isolation) — pas encore fusionné au file `IS70XDnBMvZuJYmaI5eZT2`.
+- Fidélité LF : gris / structure, pas polish marque.
+- Option A illustrée ; B/C non framées exhaustivement (décrites dans 87).
+- LPV non clôturée : copies susceptibles d’évoluer après doc 86.
+- Prototype = parcours nominal seulement.
+
+## 16. Éléments non conçus (volontairement)
+
+- Haute fidélité / motion finale / dark mode.
+- Écrans OPS1 / Control Tower.
+- UI Cycle runtime / GuidedSession.
+- Administration matching thresholds.
+- Spécification CSS/token exacte.
+
+---
+
+## 17. Décision Morris
+
+Le contrat visuel est **prêt pour arbitrage**, pas approuvé.  
+Gate Delivery UX requis avant code.
+
+---
+
+## Fin review pack FULL
+Verdict: D1 CONVERSATIONAL CONVERGENCE DESIGN READY — MORRIS UX DECISION REQUIRED
