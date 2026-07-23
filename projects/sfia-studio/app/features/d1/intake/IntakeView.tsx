@@ -92,6 +92,14 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
   const [providerMode, setProviderMode] = useState<"fake" | "live" | null>(
     null,
   );
+  const [platformInfo, setPlatformInfo] = useState<{
+    enabled: boolean;
+    toolRounds: number;
+    toolCalls: number;
+    sources: Array<{ path: string; digestPrefix: string; role?: string }>;
+    tools: Array<{ name: string; status: string }>;
+    model: string | null;
+  } | null>(null);
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState(false);
   const [contextMatch, setContextMatch] = useState<ContextMatchResult | null>(
@@ -171,6 +179,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
     setClarifyAnswer("");
     setErrorMessage(null);
     setProviderMode(null);
+    setPlatformInfo(null);
     clearContextState();
     setIdempotencyKey(`idem-intake-${crypto.randomUUID()}`);
     void actionCancelIntakeSession(sessionLocalId);
@@ -223,9 +232,10 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
       }
       setContextMatch(result.match);
       requestAnimationFrame(() => {
-        document
-          .querySelector('[data-testid="intake-context"]')
-          ?.scrollIntoView({ block: "nearest" });
+        const el = document.querySelector('[data-testid="intake-context"]');
+        if (el && typeof (el as HTMLElement).scrollIntoView === "function") {
+          (el as HTMLElement).scrollIntoView({ block: "nearest" });
+        }
       });
     });
   }
@@ -251,6 +261,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
         return;
       }
       setProviderMode(result.providerMode);
+      setPlatformInfo(result.platform);
       setProposal(result.proposal);
       setTurns(nextTurns);
       if (result.proposal.status === "CLARIFICATION_REQUIRED") {
@@ -408,9 +419,50 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
               Confiance estimée {(proposal.confidence * 100).toFixed(0)} %
             </span>
             {providerMode ? (
-              <span className={shell.hint}>mode {providerMode}</span>
+              <span className={shell.hint} data-testid="intake-provider-mode">
+                mode {providerMode}
+              </span>
             ) : null}
           </div>
+          {platformInfo?.enabled ? (
+            <div
+              className={styles.proposalSection}
+              data-testid="intake-platform-telemetry"
+              aria-label="Shared platform"
+            >
+              <h3>Shared platform</h3>
+              <p className={shell.hint} data-testid="intake-platform-model">
+                {platformInfo.model
+                  ? `modèle ${platformInfo.model}`
+                  : "modèle non exposé"}
+                {" · "}
+                tools {platformInfo.toolCalls} / rounds {platformInfo.toolRounds}
+              </p>
+              {platformInfo.sources.length ? (
+                <ul data-testid="intake-platform-sources">
+                  {platformInfo.sources.map((s) => (
+                    <li key={s.path}>
+                      {s.path}{" "}
+                      <span className={shell.hint}>({s.digestPrefix})</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {platformInfo.tools.length ? (
+                <ul data-testid="intake-platform-tools">
+                  {platformInfo.tools.map((t, i) => (
+                    <li key={`${t.name}-${i}`}>
+                      {t.name}: {t.status}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={shell.hint} data-testid="intake-platform-tools-none">
+                  Aucun outil appelé (proposition directe).
+                </p>
+              )}
+            </div>
+          ) : null}
           <div className={styles.proposalSection}>
             <h3>Intention normalisée</h3>
             <p data-testid="proposal-normalized">{proposal.normalizedIntent}</p>
