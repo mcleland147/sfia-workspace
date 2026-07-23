@@ -37,6 +37,9 @@ Pas de code Studio. Pas de migration SQL. Canoniques v2.6 intactes.
 
 | Pack | Statut |
 |------|--------|
-| `v3-native-option-a/` | modeled **candidate** — schemas `0.1.0-oa` · pas VALIDATED · pas ADOPTED |
+| `v3-native-option-a/` | modeled **VALIDATED BY MORRIS** — M-OA-01…12 · schemas `0.1.0-oa` documentés **non adoptés runtime** |
 
 Les packs D1 ci-dessus restent HISTORICAL / fondation distincte (pas coexistence doctrinale OPS1/v2.6 dans Option A).
+
+Gate architecture technique consommé : `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A`.
+Réserves : pas READY FOR DELIVERY · aucune implémentation · aucun schema adopté runtime · aucune migration DB.

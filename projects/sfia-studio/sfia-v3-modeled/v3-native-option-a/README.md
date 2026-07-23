@@ -2,7 +2,8 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Modeled **candidate** — validation Morris requise |
+| **Statut** | Modeled **VALIDATED BY MORRIS** |
+| **Gate AT (consommé)** | `GO ARCHITECTURE TECHNIQUE — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Pack** | `sfia-v3-modeled/v3-native-option-a` |
 | **Gate consommé** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **UX** | UX-OA-01…12 **VALIDATED** |
@@ -37,4 +38,6 @@ Contrats modeled versionnables pour la chaîne Option A (intention → LPS → d
 
 ## Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A MODELED CONTRACTS DOCUMENTED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A MODELED CONTRACTS VALIDATED BY MORRIS — TECHNICAL ARCHITECTURE IN PROGRESS**
+
+Réserves maintenues : ClaimEvaluation schema · AgentCapability/Authority · invariants sémantiques · volumétrie LPS · stockage Evidence · pas READY FOR DELIVERY · schemas non adoptés runtime · aucune implémentation.
