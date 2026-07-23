@@ -13,4 +13,4 @@
 
 Doctrine : `sfia-v3-framing/` VALIDATED.
 
-Anti-claims : pas MODELED VALIDATED · pas READY FOR DELIVERY · pas READY FOR IMPLEMENTATION · pas runtime migré · pas coexistence doctrinale.
+Anti-claims : pas ARCHITECTURE VALIDATED · pas READY FOR DELIVERY · pas READY FOR IMPLEMENTATION · pas SCHEMAS ADOPTED · pas runtime migré · pas coexistence doctrinale.
