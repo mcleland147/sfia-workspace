@@ -1,49 +1,87 @@
-# SFIA Review Pack — D1 Shared Platform Integration Delivery
+# SFIA Review Pack — Validation D1 Shared Platform Integration
 
 ## Métadonnées
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure | 2026-07-23 08:15:27 CEST |
-| Cycle | Delivery |
+| Date/heure | 2026-07-23 08:40:37 CEST |
+| Cycle | QA / validation |
 | Profil | Critical |
-| Gate consommé | `GO DELIVERY — D1 SHARED PLATFORM INTEGRATION` |
+| Gate consommé | `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` |
+| Gate Live | **non consommé** |
 | Repo | mcleland147/sfia-workspace |
 | Branche | `delivery/sfia-studio-d1-shared-platform-integration` |
 | Base | `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
-| HEAD | `67d946f883c224f47ac269f07056928b63ecff39` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-d1-platform-integration` |
-| Push projet | **non effectué** |
-| Gate suivant proposé | `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` |
+| HEAD code validé | `67d946f883c224f47ac269f07056928b63ecff39` |
+| HEAD final (docs validation) | `97d0a65eb88d1a465ea2f6c18fec54bad67c3b02` |
+| OpenAI réel | non exécuté |
+| Push projet | non |
 
 ## Verdict
 
-**D1 SHARED PLATFORM INTEGRATION DELIVERED — READY FOR VALIDATION**
+**D1 SHARED PLATFORM INTEGRATION VALIDATED WITH RESERVES — MORRIS LIVE DECISION REQUIRED**
 
-## Local Git Truth Check (initial)
+## Local Git Truth Check
 
-- origin/main = `416af8a5…` (PR #256) — inchangé pendant le cycle
-- Branche créée depuis origin/main ; pas de concurrent delivery d1-platform
-- Untracked principal workspace : `.tmp-sfia-review/**` attributable
-- Handoff pré-cycle : `6ecd722…` / blob `b600c3a2…`
-
-## État Git final (delivery)
+- HEAD code attendu `67d946f883c224f47ac269f07056928b63ecff39` confirmé avant commit docs
+- origin/main `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` inchangé
+- untracked = `.tmp-sfia-review/**`
+- handoff delivery `1652735…` / `54ce74ba…` vérifié
+- État final :
 
 ```
-## delivery/sfia-studio-d1-shared-platform-integration...origin/main [ahead 4]
+## delivery/sfia-studio-d1-shared-platform-integration...origin/main [ahead 5]
 ?? .tmp-sfia-review/
 ```
 
-## Commits locaux
+## Commits origin/main..HEAD
 
 ```
-67d946f (HEAD -> delivery/sfia-studio-d1-shared-platform-integration) docs(sfia-studio): document D1 shared platform delivery
+97d0a65 (HEAD -> delivery/sfia-studio-d1-shared-platform-integration) docs(sfia-studio): validate D1 shared platform integration
+67d946f docs(sfia-studio): document D1 shared platform delivery
 3e7f863 test(sfia-studio): validate unified D1 platform flow
 0ef37d4 feat(sfia-studio): expose D1 tools and canonical sources
 28e9900 feat(sfia-studio): integrate D1 with shared platform
 ```
 
-## Diff name-status
+## Diff name-status (final)
+
+```
+A	projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
+A	projects/sfia-studio/85-d1-shared-platform-integration-validation-report.md
+M	projects/sfia-studio/README.md
+A	projects/sfia-studio/app/__tests__/d1/intake-platform-integration.test.ts
+A	projects/sfia-studio/app/e2e/d1-platform-integration.spec.ts
+M	projects/sfia-studio/app/features/d1/intake/IntakeView.tsx
+M	projects/sfia-studio/app/lib/d1/intake/actions.ts
+M	projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
+A	projects/sfia-studio/app/lib/d1/intake/canonicalContext.ts
+A	projects/sfia-studio/app/lib/d1/intake/d1EventSink.ts
+M	projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts
+M	projects/sfia-studio/app/lib/d1/intake/index.ts
+A	projects/sfia-studio/app/lib/d1/intake/platformFlag.ts
+```
+
+## Diff stat (final)
+
+```
+...-shared-platform-integration-delivery-report.md | 130 ++++++++++++
+ ...hared-platform-integration-validation-report.md | 140 +++++++++++++
+ projects/sfia-studio/README.md                     |   8 +-
+ .../d1/intake-platform-integration.test.ts         |  84 ++++++++
+ .../app/e2e/d1-platform-integration.spec.ts        |  71 +++++++
+ .../app/features/d1/intake/IntakeView.tsx          |  60 +++++-
+ projects/sfia-studio/app/lib/d1/intake/actions.ts  |  25 ++-
+ .../sfia-studio/app/lib/d1/intake/analyzeIntent.ts | 228 ++++++++++++++++-----
+ .../app/lib/d1/intake/canonicalContext.ts          |  63 ++++++
+ .../sfia-studio/app/lib/d1/intake/d1EventSink.ts   |  92 +++++++++
+ .../app/lib/d1/intake/fakeIntakeProvider.ts        | 121 ++++++++++-
+ projects/sfia-studio/app/lib/d1/intake/index.ts    |   5 +
+ .../sfia-studio/app/lib/d1/intake/platformFlag.ts  |  16 ++
+ 13 files changed, 973 insertions(+), 70 deletions(-)
+```
+
+## Diff code delivery (hors commit 85)
 
 ```
 A	projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
@@ -60,263 +98,238 @@ M	projects/sfia-studio/app/lib/d1/intake/index.ts
 A	projects/sfia-studio/app/lib/d1/intake/platformFlag.ts
 ```
 
-## Diff stat
+## Sources consultées
 
-```
-...-shared-platform-integration-delivery-report.md | 124 +++++++++++
- projects/sfia-studio/README.md                     |   7 +-
- .../d1/intake-platform-integration.test.ts         |  84 ++++++++
- .../app/e2e/d1-platform-integration.spec.ts        |  71 +++++++
- .../app/features/d1/intake/IntakeView.tsx          |  60 +++++-
- projects/sfia-studio/app/lib/d1/intake/actions.ts  |  25 ++-
- .../sfia-studio/app/lib/d1/intake/analyzeIntent.ts | 228 ++++++++++++++++-----
- .../app/lib/d1/intake/canonicalContext.ts          |  63 ++++++
- .../sfia-studio/app/lib/d1/intake/d1EventSink.ts   |  92 +++++++++
- .../app/lib/d1/intake/fakeIntakeProvider.ts        | 121 ++++++++++-
- projects/sfia-studio/app/lib/d1/intake/index.ts    |   5 +
- .../sfia-studio/app/lib/d1/intake/platformFlag.ts  |  16 ++
- 12 files changed, 826 insertions(+), 70 deletions(-)
-```
+Méthode (template, routing, operating model, guardrails) · docs 77–82 · 84 · README · handoff delivery · diff intégral origin/main..HEAD · fichiers analyzeIntent / canonicalContext / d1EventSink / platformFlag / fakeIntake / IntakeView / actions
 
-## Architecture avant / après
+## Architecture
 
-### Avant
-- D1 AI déjà sur platform ; analyzeIntent = complete() seul
-- Pas de tool loop / canonical sources dans D1
-- Dual-track live documenté
+Voir document 85 §4 — PASS sur imports, flag, sink technique, allowlist 4 sources, tool loop partagé, métier D1/OPS1 séparés.
 
-### Après
-- Flag `D1_PLATFORM_INTEGRATION` (défaut ON)
-- loadCanonicalCoreSources (4 paths méthode) + runToolCallingLoop
-- D1MemoryEventSink + UI telemetry
-- FakeIntake completeRound + markers `__D1_TOOL_*__`
-- C2/C3/C4 inchangés ; wrappers OPS1 conservés
+## Sécurité
 
-### Graphe d’imports
-- D1 → platform : ai, tools, sfia-context, observability, security, repository
-- D1 → OPS1 : **0**
-- platform → D1/OPS1 : **0**
-- OPS1 → platform : wrappers inchangés
+Voir document 85 §5 — tools RO only · deny .env · redaction · fail-closed · C4 mutation · NO_MUTATION · secrets absents du diff.
 
-## Lots
+## Fonctionnel fake
 
-1. Orchestration unifiée — DONE
-2. Observabilité/UI minimale — DONE
-3. Sécurité (deny, redaction, fail-closed existant) — DONE / prouvé fixture
-4. Tests + doc 84 — DONE
+Voir document 85 §6 — PASS avec réserve UX OPEN_CYCLE + anti-claim banner.
 
-## Tests
+## Tests (ce cycle)
 
 | Suite | Résultat |
 |-------|----------|
-| Vitest | **210/210 PASS** |
-| Import boundaries | PASS |
+| Vitest | 210/210 PASS (~4.5s) |
 | Lint | PASS |
 | Typecheck | PASS |
 | Build | PASS |
-| E2E D1 platform | **2/2 PASS** |
-| E2E D1 C1–C4 pertinents | PASS |
-| E2E OPS1 i1 + CT fast-track | **3/3 PASS** |
-| OpenAI réel | **non exécuté** (interdit) |
-| CI GitHub | **absente** (≠ PASS) |
+| E2E requis (39) | 39/39 PASS (~34s) |
+| CI GitHub | absente ≠ PASS |
+| OpenAI | non exécuté |
 
-## Preuves sécurité
+Extrait E2E final :
 
-- Tool deny `.env` → status DENIED (unit + E2E)
-- Pas de secret dans UI E2E deny
-- Live fail-closed déjà dans resolveProvider (CONFIG, pas fake silencieux)
-- Mutation Project uniquement après C4 (E2E create SUCCEEDED)
-- existing NO_MUTATION : E2E d1-c4 existant PASS
-- Git/GitHub write : non ajoutés ; tools exposés = contrats RO Control Tower
+```
+atching › context unavailable is honest (forced query) (420ms)
+  ✓  26 e2e/d1-c3-context-matching.spec.ts:230:7 › D1-C3 Existing Context Matching › workspace and OPS1 legacy remain reachable (512ms)
+  ✓  27 e2e/d1-c4-confirmation-mutation.spec.ts:29:7 › D1-C4 Human Confirmation and Bounded Project Mutation › no-match → prepare create → edit → confirm → cockpit + idempotent replay (852ms)
+  ✓  28 e2e/d1-c4-confirmation-mutation.spec.ts:84:7 › D1-C4 Human Confirmation and Bounded Project Mutation › idempotent replay via second create with same key path (unit covered; UI double-guard) (548ms)
+  ✓  29 e2e/d1-c4-confirmation-mutation.spec.ts:111:7 › D1-C4 Human Confirmation and Bounded Project Mutation › existing project confirm → NO_MUTATION + persistence note (812ms)
+  ✓  30 e2e/d1-c4-confirmation-mutation.spec.ts:149:7 › D1-C4 Human Confirmation and Bounded Project Mutation › analyze-only confirmation closes without mutation (502ms)
+  ✓  31 e2e/d1-c4-confirmation-mutation.spec.ts:173:7 › D1-C4 Human Confirmation and Bounded Project Mutation › cancel confirmation without mutation (434ms)
+  ✓  32 e2e/d1-c4-confirmation-mutation.spec.ts:186:7 › D1-C4 Human Confirmation and Bounded Project Mutation › inactive project warning on existing confirm path (788ms)
+  ✓  33 e2e/d1-c4-confirmation-mutation.spec.ts:215:9 › D1-C4 Human Confirmation and Bounded Project Mutation › confirm create responsive no H-scroll at 1728 (570ms)
+  ✓  34 e2e/d1-c4-confirmation-mutation.spec.ts:215:9 › D1-C4 Human Confirmation and Bounded Project Mutation › confirm create responsive no H-scroll at 1280 (473ms)
+  ✓  35 e2e/d1-c4-confirmation-mutation.spec.ts:215:9 › D1-C4 Human Confirmation and Bounded Project Mutation › confirm create responsive no H-scroll at 1024 (443ms)
+  ✓  36 e2e/d1-c4-confirmation-mutation.spec.ts:239:7 › D1-C4 Human Confirmation and Bounded Project Mutation › mutation error shown for invalid draft fields (536ms)
+  ✓  37 e2e/d1-platform-integration.spec.ts:9:7 › D1 Shared Platform Integration — unified fixture › fake provider + canonical sources + optional tool + C2→C3→C4 create (589ms)
+  ✓  38 e2e/d1-platform-integration.spec.ts:54:7 › D1 Shared Platform Integration — unified fixture › tool deny path remains visible without secrets (392ms)
+[WebServer]  ⨯ [Error: aborted] { code: 'ECONNRESET', digest: '2652521801' }
+  ✓  39 e2e/ops1-i1-session.spec.ts:15:7 › OPS1 I1 session + journal › creates session, appends turns, persists after reload (3.3s)
 
-## Preuves observabilité (exemples redacted)
+  39 passed (34.0s)
 
-Événements typiques d’un run fixture :
-- `SOURCE_LOADED` ×4 (digests préfixe uniquement)
-- `AI_REQUESTED` / `AI_COMPLETED`
-- `TOOL_SUCCEEDED` ou `TOOL_DENIED` (toolName)
-- `STRUCTURED_OUTPUT_VALIDATED`
-- `TOOL_LOOP_COMPLETED`
+```
 
-Aucun `sk-` / token dans review pack.
-
-## Non-régression OPS1
-
-Vitest OPS1 inclus dans 210/210 ; E2E ops1-i1 + control-tower-fast-track PASS.
-
-## Décisions Morris
-
-- Gate Delivery consommé
-- Pas push/PR/merge
-- Pas Live / B′ / cleanup OPS1
-
-## Recommandations non décisionnelles
-
-1. `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION`
-2. Puis `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION`
-3. Plus tard : cleanup wrappers OPS1
-
-## Actions non exécutées
-
-Push branche · PR · merge · Live GPT · B′ · delete branches · method/prompts · deps
-
-## Rollback
-
-Revert 4 commits ou `D1_PLATFORM_INTEGRATION=0`.
-
-## Contenu complet — document 84
+## Contenu complet — document 85
 
 ```markdown
-# SFIA Studio — D1 Shared Platform Integration — Delivery Report
+# SFIA Studio — D1 Shared Platform Integration — Validation Report
 
 | Métadonnée | Valeur |
 |------------|--------|
-| **Document** | `84-d1-shared-platform-integration-delivery-report.md` |
-| **Statut** | `delivery-local-candidate` — validation Morris requise |
-| **Cycle** | Delivery — D1 Shared Platform Integration |
+| **Document** | `85-d1-shared-platform-integration-validation-report.md` |
+| **Statut** | `validation-local-candidate` |
+| **Cycle** | QA / validation |
 | **Profil** | Critical |
-| **Gate consommé** | `GO DELIVERY — D1 SHARED PLATFORM INTEGRATION` |
+| **Gate consommé** | `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` |
 | **Branche** | `delivery/sfia-studio-d1-shared-platform-integration` |
-| **Base** | `origin/main` @ `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` (PR #256) |
-| **Gate suivant proposé** | `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` |
+| **Base** | `origin/main` @ `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
+| **HEAD validé** | `67d946f883c224f47ac269f07056928b63ecff39` |
+| **Rapport delivery** | `84-d1-shared-platform-integration-delivery-report.md` |
+| **Handoff delivery** | commit `1652735…` · blob `54ce74ba…` (vérifié) |
+| **OpenAI réel** | **non exécuté** |
+| **Gate suivant candidat** | `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` (non consommé) |
 
 ---
 
 ## 1. Objectif
 
-Brancher l’intake D1 sur la Shared Technical Platform pour :
+Valider techniquement le delivery D1 ↔ Shared Platform (diff, architecture, sécurité, tests fake) avant toute Live Product Validation.
 
-- provider GPT fake/live (déjà sur platform) ;
-- chargement borné du contexte SFIA canonique (4 sources méthode) ;
-- tool loop read-only Git/GitHub ;
-- EventSink D1 minimal + visibilité UI fonctionnelle ;
-- conservation C2→C3→C4 et mutation Project uniquement après C4.
+## 2. Local Git Truth Check
 
-## 2. Architecture avant / après
+| Contrôle | Résultat |
+|----------|----------|
+| Branche | `delivery/sfia-studio-d1-shared-platform-integration` |
+| HEAD | `67d946f883c224f47ac269f07056928b63ecff39` — conforme |
+| origin/main | `416af8a5…` — inchangé |
+| merge-base | = origin/main |
+| staged | vide |
+| untracked | `.tmp-sfia-review/**` seulement |
+| `git diff --check` | PASS |
+| Handoff delivery distant | conforme |
 
-### Avant
+## 3. Diff contrôlé
 
-- D1 AI → `lib/platform/ai` (provider) ;
-- `analyzeIntent` = `provider.complete` sans tools ni sources ;
-- dual-track live documenté (77/78) : OPS1 tools vs D1 C2-only ;
-- D1 ↛ OPS1 ; platform ↛ domaines.
+- **12 fichiers** · **+826 / −70**
+- Périmètre D1 intake/UI + tests + doc 84 + README
+- Absents : method/prompts/.github/package.json/lockfiles/migrations/secrets/writes/B′/Cycle/GuidedSession/suppression OPS1
 
-### Après
+## 4. Architecture
 
-- Flag `D1_PLATFORM_INTEGRATION` (défaut **ON**, `=0` pour legacy) ;
-- `analyzeIntent` charge `loadCanonicalCoreSources` + `runToolCallingLoop` ;
-- `FakeIntakeConversationProvider.completeRound` pour fixtures tools ;
-- `D1MemoryEventSink` (événements techniques redacted) ;
-- UI intake : panneau `intake-platform-telemetry` (mode, modèle, sources, tools) ;
-- métier C2/C3/C4 inchangé ; ActionCandidate reste OPS1 ; wrappers OPS1 conservés.
+| Règle | Verdict |
+|-------|---------|
+| D1 → OPS1 = 0 | PASS |
+| platform → D1/OPS1 = 0 | PASS |
+| Wrappers OPS1 conservés | PASS |
+| Métier C2/C3/C4 dans D1 | PASS |
+| ActionCandidate OPS1 | PASS |
+| EventSink D1 technique only | PASS |
+| Sources = 4 paths méthode allowlistés | PASS |
+| Tool loop partagé platform | PASS |
+| Flag `D1_PLATFORM_INTEGRATION` (legacy `=0`) | PASS |
 
-### Imports
+## 5. Sécurité
 
-| Edge | Règle | Statut |
-|------|-------|--------|
-| D1 → OPS1 | interdit | 0 |
-| platform → D1/OPS1 | interdit | 0 |
-| D1 → platform | autorisé | ai, tools, sfia-context, observability, security, repository |
-| OPS1 → platform | wrappers | inchangé |
+| Contrôle | Verdict |
+|----------|---------|
+| Tools exposés = Git/GitHub **read-only** uniquement | PASS (13 tools `get_/search_/read_/list_`) |
+| Deny `.env` (POLICY/DENIED) | PASS (unit + E2E) |
+| Redaction EventSink | PASS |
+| Secrets dans diff | ABSENTS |
+| Live fail-closed / pas de fake silencieux | PASS (`resolveProvider`) |
+| Mutation Project uniquement après C4 | PASS (E2E) |
+| Existing Project = NO_MUTATION | PASS (E2E d1-c4) |
+| Digests / modèle / tool names non secrets | PASS |
 
-## 3. Livré
+## 6. Fonctionnel fake
 
-| Item | Statut |
-|------|--------|
-| Orchestration D1 unifiée (sources + tool loop) | Livré |
-| Feature flag | Livré |
-| EventSink D1 mémoire + redaction | Livré |
-| Visibilité UI minimale | Livré |
-| Fake tools markers `__D1_TOOL_*__` | Livré |
-| Deny `.env` via tool | Livré |
-| Tests unitaires platform integration | Livré |
-| E2E fixture unifiée C1→C4 | Livré |
-| Document 84 + README index | Livré |
+| Scénario | Verdict |
+|----------|---------|
+| Proposition directe sans tool | PASS |
+| Tool RO succès (`__D1_TOOL_GIT_*__`) | PASS |
+| Tool denied | PASS |
+| 4 sources canoniques | PASS |
+| Télémétrie UI (mode, modèle, sources, tools, rounds) | PASS |
+| Clarification / C3 / C4 create | PASS |
+| Existing NO_MUTATION | PASS |
+| Aucune ouverture Cycle réelle | PASS (banner anti-claim) |
 
-## 4. Testé
+**Réserve UX :** libellé « Ouvrir un cycle (proposition) » — anti-claim banner présent (« Aucun projet ni cycle n’a été créé ») ; libellé à clarifier éventuellement en cycle UX séparé.
 
-| Suite | Résultat |
-|-------|----------|
-| Vitest complet | **210/210 PASS** |
-| Import boundaries | PASS |
-| Lint / typecheck / build | PASS |
-| E2E D1 platform integration | **2/2 PASS** |
-| E2E D1 C1/C2/C3/C4 (lots pertinents) | PASS |
-| E2E OPS1 i1 + Control Tower fast-track | exécutés (non-régression) |
+## 7. Tests (rejoués ce cycle)
 
-## 5. Non testé live
+| Suite | Commande | Résultat |
+|-------|----------|----------|
+| Vitest | `npx vitest run` | **210/210 PASS** (~4.5s) |
+| Import boundaries | inclus Vitest | PASS |
+| Lint | `npx next lint` | PASS |
+| Typecheck | `npx tsc --noEmit` | PASS |
+| Build | `npx next build` | PASS |
+| E2E batch requis | playwright 7 fichiers | **39/39 PASS** (~34s) |
+| CI GitHub | — | **absente** (≠ PASS) |
+| OpenAI réel | — | **non exécuté** |
 
-- Appels OpenAI réels ;
-- Live Product Validation (77/78) ;
-- GitHub live hors mocks/adapters existants en E2E fixture ;
-- OAuth / CI GitHub.
+Note opérationnelle : serveur dev corrompu (`.next`) relancé proprement pour E2E ; aucun reset Git.
 
-## 6. Différé
+## 8. Rapport 84
 
-- Option B′ ;
-- Cycle runtime / GuidedSession ;
-- cleanup / suppression wrappers OPS1 ;
-- unification runbook 77/78 post-live ;
-- push / PR / merge de cette branche.
+Contenu obligatoire présent (métadonnées, architecture, tests, différés, anti-claims, rollback).
+Statut **conservé** `delivery-local-candidate` (pas promu « validated » ici).
+Gate suivant du 84 historiquement « GO VALIDATION » — désormais consommé ; la suite est documentée ici (85).
 
-## 7. Réserves
+## 9. Réserves (non bloquantes)
 
-- Tool calls automatiques en fake uniquement via markers de fixture (pas d’appel tool spontané sur toute intention) ;
-- Sources projet CT (`SFIA_PROJECT_CONTEXT_PATHS`) volontairement **non** chargées en D1 (core méthode uniquement) ;
-- Doc 82 métadonnées historiques pré-merge #255 non touchées ;
-- Push projet non effectué (hors autorisation).
+1. Appels tools fake principalement via markers de fixture
+2. Libellé OPEN_CYCLE_CANDIDATE (anti-claim banner OK)
+3. Docs 77/78 encore dual-track historique
+4. CI GitHub absente
+5. Live / GPT réel non exécutés (interdit)
 
-## 8. Dette
+## 10. Dette
 
-- Actualiser 77/78 pour parcours unifié après validation ;
-- Retrait wrappers OPS1 sous gate dédié ;
-- Éventuelle extension allowlist sources projet D1 sous gate.
+- Actualiser 77/78 après live unifié
+- Cleanup wrappers OPS1 sous gate dédié
+- Clarification microcopy OPEN_CYCLE si Morris l’exige
 
-## 9. Anti-claims
+## 11. Non testé live
 
-Pas LIVE VALIDATED · pas D1 COMPLETE · pas PROJECT LINKED · pas CYCLE OPENED · pas B′ · pas OPS1 DECOMMISSIONED · pas V3-ADOPTED · pas push/PR/merge.
+Appels OpenAI · Live Product Validation · OAuth · GitHub auth produit · CI
 
-## 10. Rollback
+## 12. Rollback
 
-`git revert` des commits de la branche delivery, ou `D1_PLATFORM_INTEGRATION=0` pour revenir au chemin `complete()` sans tools/sources.
+Revert commits delivery `28e9900..67d946f` ou `D1_PLATFORM_INTEGRATION=0`.
 
-## 11. Gate suivant proposé
+## 13. Anti-claims
 
-`GO VALIDATION — D1 SHARED PLATFORM INTEGRATION`
+Pas LIVE PRODUCT VALIDATED · pas D1 COMPLETE · pas PROJECT LINKED · pas CYCLE OPENED · pas B′ · pas OPS1 DECOMMISSIONED · pas V3-ADOPTED · pas push/PR/merge · gate Live **non consommé**.
 
-Puis, uniquement après validation technique :
+## 14. Gate suivant candidat
 
 `GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION`
 
-## 12. Verdict delivery
+Activable seulement après analyse ChatGPT de ce rapport + confirmation Morris. **Non lancé ici.**
 
-**D1 SHARED PLATFORM INTEGRATION DELIVERED — READY FOR VALIDATION**
+## 15. Verdict
+
+**D1 SHARED PLATFORM INTEGRATION VALIDATED WITH RESERVES — MORRIS LIVE DECISION REQUIRED**
 ```
 
-## Diff README
+## Diff docs validation (84 note + README + 85)
 
 ```diff
+diff --git a/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md b/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
+index 1a26535..788aae0 100644
+--- a/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
++++ b/projects/sfia-studio/84-d1-shared-platform-integration-delivery-report.md
+@@ -122,3 +122,9 @@ Puis, uniquement après validation technique :
+ ## 12. Verdict delivery
+
+ **D1 SHARED PLATFORM INTEGRATION DELIVERED — READY FOR VALIDATION**
++
++---
++
++## Note postérieure (non décisionnelle)
++
++**Observation (Git / cycle).** Le gate `GO VALIDATION — D1 SHARED PLATFORM INTEGRATION` a ensuite été consommé. Voir `85-d1-shared-platform-integration-validation-report.md`. Ce document **84** conserve son statut `delivery-local-candidate`. Le gate Live n’est pas consommé ici.
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 544e163..1720b46 100644
+index 1720b46..75f0598 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
-@@ -523,7 +523,8 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
- | [80-shared-technical-platform-migration-decision-pack.md](./80-shared-technical-platform-migration-decision-pack.md) | Decision pack migration — **`decision-pack-candidate`** (historique) |
- | [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery — intégré via [#255](https://github.com/mcleland147/sfia-workspace/pull/255) |
+@@ -525,6 +525,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
  | [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation / PR readiness — [#255](https://github.com/mcleland147/sfia-workspace/pull/255) **MERGED** |
--| [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** |
-+| [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** (historique post-#256) |
-+| [84-d1-shared-platform-integration-delivery-report.md](./84-d1-shared-platform-integration-delivery-report.md) | Delivery D1 ↔ Shared Platform (tools + contexte) — **`delivery-local-candidate`** |
+ | [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** (historique post-#256) |
+ | [84-d1-shared-platform-integration-delivery-report.md](./84-d1-shared-platform-integration-delivery-report.md) | Delivery D1 ↔ Shared Platform (tools + contexte) — **`delivery-local-candidate`** |
++| [85-d1-shared-platform-integration-validation-report.md](./85-d1-shared-platform-integration-validation-report.md) | Validation technique fake — **`validation-local-candidate`** |
 
--> **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash).
--> **Séquence active :** Platform intégrée → D1 unifié (tools/context) → Live Product Validation → décision B′.
-+> **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash). Docs 75–80 consolidés via [#256](https://github.com/mcleland147/sfia-workspace/pull/256) @ `416af8a…`.
-+> **Séquence active :** Platform intégrée → **D1 unifié (tools/context) livré localement** → validation → Live Product Validation → décision B′.
+ > **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash). Docs 75–80 consolidés via [#256](https://github.com/mcleland147/sfia-workspace/pull/256) @ `416af8a…`.
+-> **Séquence active :** Platform intégrée → **D1 unifié (tools/context) livré localement** → validation → Live Product Validation → décision B′.
++> **Séquence active :** Platform intégrée → D1 unifié livré localement → **validation technique locale (85)** → Live Product Validation (gate Morris) → décision B′.
 ```
 
-## Fichiers nouveaux (contenu complet)
+## Fichiers code clés (contenu)
 
-### `projects/sfia-studio/app/lib/d1/intake/platformFlag.ts`
+### platformFlag.ts
 
 ```typescript
 /**
@@ -337,7 +350,75 @@ export function setD1PlatformIntegrationForTests(enabled: boolean | null): void 
 }
 ```
 
-### `projects/sfia-studio/app/lib/d1/intake/d1EventSink.ts`
+### canonicalContext.ts
+
+```typescript
+/**
+ * Load D1-bounded canonical method sources (core allowlist only — no CT project docs).
+ */
+import type { EventSink } from "@/lib/platform/observability/eventSink";
+import { loadCanonicalCoreSources } from "@/lib/platform/sfia-context/sourceLoader";
+import { SFIA_METHOD_BASELINE } from "@/lib/platform/sfia-context/canonicalPaths";
+import type { D1SourceTelemetry } from "./d1EventSink";
+
+const PLATFORM_APPENDIX = `
+## Shared platform (D1 unified — read-only)
+- Un contexte SFIA canonique (méthode) est injecté ci-dessous.
+- Des outils Git/GitHub READ-ONLY peuvent être disponibles.
+- Utilise les tools uniquement pour des faits techniques (HEAD, status, repo) — jamais pour inventer un Project existant.
+- proposedProjectId et proposedCycleId restent TOUJOURS null (matching = C3).
+- Aucune mutation Project/Cycle. Pas de claim LIVE VALIDATED / D1 COMPLETE / PROJECT LINKED / CYCLE OPENED / V3-ADOPTED.
+`.trim();
+
+export function loadD1CanonicalContext(input: {
+  workspaceRoot: string;
+  correlationId: string;
+  sink: EventSink;
+}): {
+  sources: D1SourceTelemetry[];
+  systemAppendix: string;
+} {
+  const docs = loadCanonicalCoreSources(input.workspaceRoot);
+  const sources: D1SourceTelemetry[] = [];
+
+  for (const doc of docs) {
+    const digestPrefix = doc.digest.slice(0, 16);
+    input.sink.emit({
+      type: "SOURCE_LOADED",
+      correlationId: input.correlationId,
+      detail: {
+        path: doc.path,
+        digestPrefix,
+        role: doc.role,
+      },
+    });
+    sources.push({
+      path: doc.path,
+      digestPrefix,
+      role: doc.role,
+    });
+  }
+
+  const compact = {
+    methodBaseline: SFIA_METHOD_BASELINE,
+    sourceDocuments: sources,
+    note: "Excerpts omitted — digests only. Doctrine remains in Git.",
+  };
+
+  const systemAppendix = [
+    PLATFORM_APPENDIX,
+    "",
+    "### Canonical sources (digests)",
+    "```json",
+    JSON.stringify(compact, null, 2),
+    "```",
+  ].join("\n");
+
+  return { sources, systemAppendix };
+}
+```
+
+### d1EventSink.ts
 
 ```typescript
 /**
@@ -434,75 +515,7 @@ export function summarizeD1Telemetry(events: TechnicalEvent[]): {
 }
 ```
 
-### `projects/sfia-studio/app/lib/d1/intake/canonicalContext.ts`
-
-```typescript
-/**
- * Load D1-bounded canonical method sources (core allowlist only — no CT project docs).
- */
-import type { EventSink } from "@/lib/platform/observability/eventSink";
-import { loadCanonicalCoreSources } from "@/lib/platform/sfia-context/sourceLoader";
-import { SFIA_METHOD_BASELINE } from "@/lib/platform/sfia-context/canonicalPaths";
-import type { D1SourceTelemetry } from "./d1EventSink";
-
-const PLATFORM_APPENDIX = `
-## Shared platform (D1 unified — read-only)
-- Un contexte SFIA canonique (méthode) est injecté ci-dessous.
-- Des outils Git/GitHub READ-ONLY peuvent être disponibles.
-- Utilise les tools uniquement pour des faits techniques (HEAD, status, repo) — jamais pour inventer un Project existant.
-- proposedProjectId et proposedCycleId restent TOUJOURS null (matching = C3).
-- Aucune mutation Project/Cycle. Pas de claim LIVE VALIDATED / D1 COMPLETE / PROJECT LINKED / CYCLE OPENED / V3-ADOPTED.
-`.trim();
-
-export function loadD1CanonicalContext(input: {
-  workspaceRoot: string;
-  correlationId: string;
-  sink: EventSink;
-}): {
-  sources: D1SourceTelemetry[];
-  systemAppendix: string;
-} {
-  const docs = loadCanonicalCoreSources(input.workspaceRoot);
-  const sources: D1SourceTelemetry[] = [];
-
-  for (const doc of docs) {
-    const digestPrefix = doc.digest.slice(0, 16);
-    input.sink.emit({
-      type: "SOURCE_LOADED",
-      correlationId: input.correlationId,
-      detail: {
-        path: doc.path,
-        digestPrefix,
-        role: doc.role,
-      },
-    });
-    sources.push({
-      path: doc.path,
-      digestPrefix,
-      role: doc.role,
-    });
-  }
-
-  const compact = {
-    methodBaseline: SFIA_METHOD_BASELINE,
-    sourceDocuments: sources,
-    note: "Excerpts omitted — digests only. Doctrine remains in Git.",
-  };
-
-  const systemAppendix = [
-    PLATFORM_APPENDIX,
-    "",
-    "### Canonical sources (digests)",
-    "```json",
-    JSON.stringify(compact, null, 2),
-    "```",
-  ].join("\n");
-
-  return { sources, systemAppendix };
-}
-```
-
-## Diff utile — analyzeIntent
+## Diff utile analyzeIntent (delivery)
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts b/projects/sfia-studio/app/lib/d1/intake/analyzeIntent.ts
@@ -821,446 +834,28 @@ index 9247025..30d02ef 100644
        intentLength: intent.length,
 ```
 
-## Diff utile — fakeIntakeProvider
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts b/projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts
-index c97e99f..2a62a5c 100644
---- a/projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/d1/intake/fakeIntakeProvider.ts
-@@ -1,8 +1,11 @@
- import { randomUUID } from "node:crypto";
-+import type { ToolDefinition } from "@/lib/platform/tools/types";
- import type {
-   ConversationProvider,
-   ProviderChatMessage,
-   ProviderCompletionResult,
-+  ProviderInputItem,
-+  ProviderRoundResult,
- } from "@/lib/platform/ai/types";
- import { REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION } from "./types";
- import type { C2OutcomeType, C2ProposalStatus } from "./types";
-@@ -190,13 +193,38 @@ export function buildFakeProposalPayload(
-   };
- }
-
-+function extractEnvelope(content: string): {
-+  rawIntent: string;
-+  clarifications: string[];
-+} {
-+  const intentMatch = content.match(
-+    /INTENT:\s*([\s\S]*?)(?:\n\s*CLARIFICATIONS:|$)/i,
-+  );
-+  const clarMatch = content.match(/CLARIFICATIONS:\s*([\s\S]*)$/i);
-+  const rawIntent = (intentMatch?.[1] ?? content).trim();
-+  const clarifications = (clarMatch?.[1] ?? "")
-+    .split(/\n+/)
-+    .map((l) => l.replace(/^- /, "").trim())
-+    .filter(Boolean);
-+  return { rawIntent, clarifications };
-+}
-+
-+function lastUserContent(items: ProviderInputItem[]): string {
-+  const lastUser = [...items]
-+    .reverse()
-+    .find((i) => i.type === "message" && i.role === "user");
-+  return lastUser && lastUser.type === "message" ? lastUser.content : "";
-+}
-+
- /**
-  * Fake intake provider — implements platform ConversationProvider contract.
-  * Returns JSON proposals based on deterministic heuristics.
-+ * Supports completeRound for Shared Platform tool loop (fixture markers).
-  */
- export class FakeIntakeConversationProvider implements ConversationProvider {
-   readonly providerId = "d1-intake-fake";
-   private callCount = 0;
-+  private roundCount = 0;
-
-   async complete(
-     messages: ProviderChatMessage[],
-@@ -216,17 +244,7 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
-       throw new Error("FAKE_INTAKE_TIMEOUT");
-     }
-
--    // Extract raw intent + answers from the user payload envelope
--    const intentMatch = content.match(
--      /INTENT:\s*([\s\S]*?)(?:\n\s*CLARIFICATIONS:|$)/i,
--    );
--    const clarMatch = content.match(/CLARIFICATIONS:\s*([\s\S]*)$/i);
--    const rawIntent = (intentMatch?.[1] ?? content).trim();
--    const clarifications = (clarMatch?.[1] ?? "")
--      .split(/\n+/)
--      .map((l) => l.replace(/^- /, "").trim())
--      .filter(Boolean);
--
-+    const { rawIntent, clarifications } = extractEnvelope(content);
-     const payload = buildFakeProposalPayload(rawIntent, clarifications);
-     return {
-       text: JSON.stringify(payload),
-@@ -239,4 +257,85 @@ export class FakeIntakeConversationProvider implements ConversationProvider {
-       },
-     };
-   }
-+
-+  async completeRound(input: {
-+    items: ProviderInputItem[];
-+    tools: ToolDefinition[];
-+  }): Promise<ProviderRoundResult> {
-+    this.roundCount += 1;
-+    const usage = {
-+      inputTokens: 20 * this.roundCount,
-+      outputTokens: 40 * this.roundCount,
-+      totalTokens: 60 * this.roundCount,
-+      model: "d1-intake-fake-model",
-+      providerResponseId: `d1-fake-round-${this.roundCount}`,
-+    };
-+    const content = lastUserContent(input.items);
-+
-+    if (content.includes("__FORCE_PROVIDER_ERROR__")) {
-+      throw new Error("FAKE_INTAKE_PROVIDER_ERROR");
-+    }
-+    if (content.includes("__FORCE_TIMEOUT__")) {
-+      await new Promise((r) => setTimeout(r, 50));
-+      throw new Error("FAKE_INTAKE_TIMEOUT");
-+    }
-+
-+    if (this.roundCount === 1 && input.tools.length > 0) {
-+      if (/__D1_TOOL_GIT_STATUS__/i.test(content)) {
-+        return {
-+          kind: "tool_calls",
-+          toolCalls: [
-+            {
-+              callId: "d1-fake-git-status",
-+              name: "git_local_get_status",
-+              argumentsJson: "{}",
-+            },
-+          ],
-+          usage,
-+        };
-+      }
-+      if (/__D1_TOOL_GIT_HEAD__/i.test(content)) {
-+        return {
-+          kind: "tool_calls",
-+          toolCalls: [
-+            {
-+              callId: "d1-fake-git-head",
-+              name: "git_local_get_head",
-+              argumentsJson: "{}",
-+            },
-+          ],
-+          usage,
-+        };
-+      }
-+      if (/__D1_TOOL_DENIED_PATH__/i.test(content)) {
-+        return {
-+          kind: "tool_calls",
-+          toolCalls: [
-+            {
-+              callId: "d1-fake-denied",
-+              name: "git_local_read_file",
-+              argumentsJson: JSON.stringify({ path: ".env" }),
-+            },
-+          ],
-+          usage,
-+        };
-+      }
-+    }
-+
-+    const { rawIntent, clarifications } = extractEnvelope(content);
-+    // Strip fixture markers from heuristic intent classification
-+    const cleanedIntent = rawIntent
-+      .replace(/__D1_TOOL_[A-Z0-9_]+__/g, "")
-+      .replace(/\s+/g, " ")
-+      .trim();
-+    const payload = buildFakeProposalPayload(
-+      cleanedIntent || rawIntent,
-+      clarifications,
-+    );
-+    return {
-+      kind: "message",
-+      text: JSON.stringify(payload),
-+      usage,
-+    };
-+  }
- }
-```
-
-## Diff utile — IntakeView
-
-```diff
-diff --git a/projects/sfia-studio/app/features/d1/intake/IntakeView.tsx b/projects/sfia-studio/app/features/d1/intake/IntakeView.tsx
-index 1eedff6..ac10711 100644
---- a/projects/sfia-studio/app/features/d1/intake/IntakeView.tsx
-+++ b/projects/sfia-studio/app/features/d1/intake/IntakeView.tsx
-@@ -92,6 +92,14 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
-   const [providerMode, setProviderMode] = useState<"fake" | "live" | null>(
-     null,
-   );
-+  const [platformInfo, setPlatformInfo] = useState<{
-+    enabled: boolean;
-+    toolRounds: number;
-+    toolCalls: number;
-+    sources: Array<{ path: string; digestPrefix: string; role?: string }>;
-+    tools: Array<{ name: string; status: string }>;
-+    model: string | null;
-+  } | null>(null);
-   const [pending, startTransition] = useTransition();
-   const [busy, setBusy] = useState(false);
-   const [contextMatch, setContextMatch] = useState<ContextMatchResult | null>(
-@@ -171,6 +179,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
-     setClarifyAnswer("");
-     setErrorMessage(null);
-     setProviderMode(null);
-+    setPlatformInfo(null);
-     clearContextState();
-     setIdempotencyKey(`idem-intake-${crypto.randomUUID()}`);
-     void actionCancelIntakeSession(sessionLocalId);
-@@ -223,9 +232,10 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
-       }
-       setContextMatch(result.match);
-       requestAnimationFrame(() => {
--        document
--          .querySelector('[data-testid="intake-context"]')
--          ?.scrollIntoView({ block: "nearest" });
-+        const el = document.querySelector('[data-testid="intake-context"]');
-+        if (el && typeof (el as HTMLElement).scrollIntoView === "function") {
-+          (el as HTMLElement).scrollIntoView({ block: "nearest" });
-+        }
-       });
-     });
-   }
-@@ -251,6 +261,7 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
-         return;
-       }
-       setProviderMode(result.providerMode);
-+      setPlatformInfo(result.platform);
-       setProposal(result.proposal);
-       setTurns(nextTurns);
-       if (result.proposal.status === "CLARIFICATION_REQUIRED") {
-@@ -408,9 +419,50 @@ export function IntakeView({ projects }: { projects: D1Project[] }) {
-               Confiance estimée {(proposal.confidence * 100).toFixed(0)} %
-             </span>
-             {providerMode ? (
--              <span className={shell.hint}>mode {providerMode}</span>
-+              <span className={shell.hint} data-testid="intake-provider-mode">
-+                mode {providerMode}
-+              </span>
-             ) : null}
-           </div>
-+          {platformInfo?.enabled ? (
-+            <div
-+              className={styles.proposalSection}
-+              data-testid="intake-platform-telemetry"
-+              aria-label="Shared platform"
-+            >
-+              <h3>Shared platform</h3>
-+              <p className={shell.hint} data-testid="intake-platform-model">
-+                {platformInfo.model
-+                  ? `modèle ${platformInfo.model}`
-+                  : "modèle non exposé"}
-+                {" · "}
-+                tools {platformInfo.toolCalls} / rounds {platformInfo.toolRounds}
-+              </p>
-+              {platformInfo.sources.length ? (
-+                <ul data-testid="intake-platform-sources">
-+                  {platformInfo.sources.map((s) => (
-+                    <li key={s.path}>
-+                      {s.path}{" "}
-+                      <span className={shell.hint}>({s.digestPrefix})</span>
-+                    </li>
-+                  ))}
-+                </ul>
-+              ) : null}
-+              {platformInfo.tools.length ? (
-+                <ul data-testid="intake-platform-tools">
-+                  {platformInfo.tools.map((t, i) => (
-+                    <li key={`${t.name}-${i}`}>
-+                      {t.name}: {t.status}
-+                    </li>
-+                  ))}
-+                </ul>
-+              ) : (
-+                <p className={shell.hint} data-testid="intake-platform-tools-none">
-+                  Aucun outil appelé (proposition directe).
-+                </p>
-+              )}
-+            </div>
-+          ) : null}
-           <div className={styles.proposalSection}>
-             <h3>Intention normalisée</h3>
-             <p data-testid="proposal-normalized">{proposal.normalizedIntent}</p>
-```
-
-## Tests ajoutés — unit
-
-```typescript
-/** @vitest-environment node */
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import { analyzeIntent } from "@/lib/d1/intake/analyzeIntent";
-import { FakeIntakeConversationProvider } from "@/lib/d1/intake/fakeIntakeProvider";
-import { setIntakeProviderForTests } from "@/lib/d1/intake/resolveProvider";
-import {
-  isD1PlatformIntegrationEnabled,
-  setD1PlatformIntegrationForTests,
-} from "@/lib/d1/intake/platformFlag";
-import { SFIA_CANONICAL_CORE_PATHS } from "@/lib/platform/sfia-context/canonicalPaths";
-
-describe("D1 Shared Platform Integration", () => {
-  beforeEach(() => {
-    setIntakeProviderForTests(new FakeIntakeConversationProvider());
-    setD1PlatformIntegrationForTests(true);
-  });
-  afterEach(() => {
-    setIntakeProviderForTests(null);
-    setD1PlatformIntegrationForTests(null);
-  });
-
-  it("flag defaults to enabled", () => {
-    setD1PlatformIntegrationForTests(null);
-    delete process.env.D1_PLATFORM_INTEGRATION;
-    expect(isD1PlatformIntegrationEnabled()).toBe(true);
-  });
-
-  it("loads canonical core sources and returns telemetry", async () => {
-    const result = await analyzeIntent({
-      sessionLocalId: "plat-1",
-      rawIntent: "Je veux lancer une application de suivi des contrats.",
-    });
-    expect(result.platform.enabled).toBe(true);
-    expect(result.platform.sources.length).toBe(
-      SFIA_CANONICAL_CORE_PATHS.length,
-    );
-    expect(result.platform.sources.map((s) => s.path).sort()).toEqual(
-      [...SFIA_CANONICAL_CORE_PATHS].sort(),
-    );
-    expect(result.proposal.proposedProjectId).toBeNull();
-    expect(result.platform.events.some((e) => e.type === "SOURCE_LOADED")).toBe(
-      true,
-    );
-    expect(
-      result.platform.events.some((e) => e.type === "STRUCTURED_OUTPUT_VALIDATED"),
-    ).toBe(true);
-  });
-
-  it("runs a read-only git tool when fixture marker present", async () => {
-    const result = await analyzeIntent({
-      sessionLocalId: "plat-2",
-      rawIntent:
-        "__D1_TOOL_GIT_STATUS__ Je veux lancer une application de suivi des contrats.",
-    });
-    expect(result.platform.toolCalls).toBeGreaterThanOrEqual(1);
-    expect(result.platform.tools.some((t) => t.name === "git_local_get_status")).toBe(
-      true,
-    );
-    expect(result.platform.tools.every((t) => t.status === "OK")).toBe(true);
-    expect(result.proposal.proposedOutcomeType).toBe("CREATE_PROJECT_CANDIDATE");
-  });
-
-  it("denies reading .env via tool (POLICY) without fake success", async () => {
-    const result = await analyzeIntent({
-      sessionLocalId: "plat-3",
-      rawIntent:
-        "__D1_TOOL_DENIED_PATH__ Je veux lancer une application de suivi des contrats.",
-    });
-    expect(result.platform.tools.some((t) => t.status === "DENIED")).toBe(true);
-    expect(result.proposal.proposedProjectId).toBeNull();
-  });
-
-  it("legacy path when flag disabled skips tool loop sources optional", async () => {
-    setD1PlatformIntegrationForTests(false);
-    const result = await analyzeIntent({
-      sessionLocalId: "plat-4",
-      rawIntent: "Je veux lancer une application de suivi des contrats.",
-    });
-    expect(result.platform.enabled).toBe(false);
-    expect(result.platform.toolCalls).toBe(0);
-    expect(result.platform.sources.length).toBe(0);
-    expect(result.proposal.proposedOutcomeType).toBe("CREATE_PROJECT_CANDIDATE");
-  });
-});
-```
-
-## Tests ajoutés — E2E
-
-```typescript
-import { test, expect } from "@playwright/test";
-
-test.beforeAll(() => {
-  process.env.D1_INTAKE_PROVIDER = "fake";
-  process.env.D1_PLATFORM_INTEGRATION = "1";
-});
-
-test.describe("D1 Shared Platform Integration — unified fixture", () => {
-  test("fake provider + canonical sources + optional tool + C2→C3→C4 create", async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await page.goto("/nouvelle-demande");
-    await page
-      .getByTestId("intake-intent")
-      .fill(
-        "__D1_TOOL_GIT_HEAD__ Je veux lancer une application de suivi des contrats.",
-      );
-    await page.getByTestId("intake-submit").click();
-
-    await expect(page.getByTestId("intake-proposal")).toBeVisible({
-      timeout: 20_000,
-    });
-    await expect(page.getByTestId("intake-platform-telemetry")).toBeVisible();
-    await expect(page.getByTestId("intake-platform-sources")).toBeVisible();
-    await expect(page.getByTestId("intake-provider-mode")).toContainText("fake");
-    await expect(page.getByTestId("intake-platform-tools")).toContainText(
-      "git_local_get_head",
-    );
-    await expect(page.getByTestId("intake-no-mutation")).toBeVisible();
-
-    // C3 matching panel appears for CREATE candidate
-    await expect(page.getByTestId("intake-context")).toBeVisible({
-      timeout: 15_000,
-    });
-
-    await page.getByTestId("prepare-create-project").click();
-    await expect(page.getByTestId("intake-confirmation")).toBeVisible();
-    await page.getByTestId("confirm-name").fill("D1 Platform Integration E2E");
-    await page
-      .getByTestId("confirm-objective")
-      .fill("Prouver parcours unifié platform");
-    await page.getByTestId("confirm-submit").click();
-    await expect(page.getByTestId("confirm-result")).toBeVisible({
-      timeout: 15_000,
-    });
-    await expect(page.getByTestId("confirm-result")).toHaveAttribute(
-      "data-status",
-      /SUCCEEDED|ALREADY_APPLIED/,
-    );
-    await expect(page.getByTestId("confirm-project-id")).toContainText(/proj-/);
-  });
-
-  test("tool deny path remains visible without secrets", async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 1024 });
-    await page.goto("/nouvelle-demande");
-    await page
-      .getByTestId("intake-intent")
-      .fill(
-        "__D1_TOOL_DENIED_PATH__ Je veux lancer une application de suivi des contrats.",
-      );
-    await page.getByTestId("intake-submit").click();
-    await expect(page.getByTestId("intake-platform-tools")).toContainText(
-      "DENIED",
-      { timeout: 20_000 },
-    );
-    const body = await page.locator("body").innerText();
-    expect(body).not.toMatch(/sk-[A-Za-z0-9]{10,}/);
-    expect(body).not.toMatch(/OPENAI_API_KEY\s*=/);
-  });
-});
-```
-
 ## Réserves / dette / anti-claims
 
-Voir document 84 §§7–9.
+Voir 85 §§9–13.
+
+## Décisions Morris
+
+- GO VALIDATION consommé
+- GO EXÉCUTION LIVE **non** consommé
+- Pas push/PR/merge
+
+## Actions non exécutées
+
+Live GPT · push branche · PR · merge · B′ · cleanup OPS1 · method/prompts
+
+## Rollback
+
+Revert delivery commits ou `D1_PLATFORM_INTEGRATION=0`.
+
+## Gate suivant candidat
+
+`GO EXÉCUTION — SFIA STUDIO LIVE PRODUCT VALIDATION` — après analyse ChatGPT + confirmation Morris.
 
 ## Verdict final
 
-**D1 SHARED PLATFORM INTEGRATION DELIVERED — READY FOR VALIDATION**
+**D1 SHARED PLATFORM INTEGRATION VALIDATED WITH RESERVES — MORRIS LIVE DECISION REQUIRED**
