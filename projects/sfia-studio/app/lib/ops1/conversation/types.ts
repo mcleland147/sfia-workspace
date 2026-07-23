@@ -1,75 +1,28 @@
+/**
+ * TEMP_OPS1_PLATFORM_WRAPPER — re-export from shared platform.
+ * Remove when no OPS1 consumer imports this path (Phase 6 cleanup gate).
+ * Do not add generic logic here. Do not import from D1.
+ */
+
+export type {
+  ConversationProvider,
+  ProviderChatMessage,
+  ProviderChatRole,
+  ProviderCompletionResult,
+  ProviderInputItem,
+  ProviderRoundResult,
+  ProviderToolCall,
+  ProviderUsage,
+} from "@/lib/platform/ai/types";
+export { messagesToInputItems } from "@/lib/platform/ai/types";
+
 import type { ConversationMode, JournalTurn } from "../types";
 import { Ops1Error } from "../errors";
-import type { ToolDefinition } from "../tools/types";
-
-/** Provider-facing roles — domain roles mapped without SDK types. */
-export type ProviderChatRole = "system" | "user" | "assistant";
-
-export interface ProviderChatMessage {
-  role: ProviderChatRole;
-  content: string;
-}
-
-export interface ProviderUsage {
-  inputTokens: number | null;
-  outputTokens: number | null;
-  totalTokens: number | null;
-  model: string | null;
-  providerResponseId: string | null;
-}
-
-export interface ProviderCompletionResult {
-  text: string;
-  usage: ProviderUsage;
-}
-
-export interface ProviderToolCall {
-  callId: string;
-  name: string;
-  argumentsJson: string;
-}
-
-export type ProviderInputItem =
-  | { type: "message"; role: ProviderChatRole; content: string }
-  | {
-      type: "function_call";
-      callId: string;
-      name: string;
-      argumentsJson: string;
-    }
-  | {
-      type: "function_call_output";
-      callId: string;
-      output: string;
-    };
-
-export type ProviderRoundResult =
-  | {
-      kind: "message";
-      text: string;
-      usage: ProviderUsage;
-    }
-  | {
-      kind: "tool_calls";
-      toolCalls: ProviderToolCall[];
-      usage: ProviderUsage;
-    };
-
-export interface ConversationProvider {
-  readonly providerId: string;
-  /** Legacy text-only completion (tools disabled). */
-  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
-  /** Optional tool-aware round — default falls back to complete(). */
-  completeRound?(input: {
-    items: ProviderInputItem[];
-    tools: ToolDefinition[];
-  }): Promise<ProviderRoundResult>;
-}
+import type { ProviderChatMessage } from "@/lib/platform/ai/types";
 
 /**
  * Map local journal turns into ordered provider context.
- * Defense in depth: journal must match the expected session mode.
- * Never silently filters incompatible roles.
+ * OPS1-domain helper — stays in OPS1 (session journal roles).
  */
 export function buildProviderMessagesFromJournal(
   turns: JournalTurn[],
@@ -125,14 +78,4 @@ export function assertJournalMatchesMode(
       );
     }
   }
-}
-
-export function messagesToInputItems(
-  messages: ProviderChatMessage[],
-): ProviderInputItem[] {
-  return messages.map((m) => ({
-    type: "message" as const,
-    role: m.role,
-    content: m.content,
-  }));
 }

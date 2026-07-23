@@ -1,14 +1,13 @@
 /**
- * SFIA Canonical Context Engine — domain types.
- * Structured runtime representations; doctrine remains in Git sources.
+ * SFIA types — context from platform; ActionCandidate/proposal stay OPS1-domain.
  */
-import type { SfiaCanonicalSourceRole } from "./canonicalPaths";
-
-export type SfiaProfile =
-  | "Light"
-  | "Standard"
-  | "Critical"
-  | "Capitalization";
+export type {
+  SfiaProfile,
+  SfiaSourceDocumentRef,
+  SfiaCanonicalContext,
+  CanonicalContextRequest,
+  CanonicalContextResult,
+} from "@/lib/platform/sfia-context/types";
 
 export type SfiaFileOperation = "READ" | "CREATE" | "MODIFY" | "DELETE";
 
@@ -29,50 +28,7 @@ export type SfiaCompilationStatus =
   | "INVALID_PROPOSAL"
   | "BLOCKED";
 
-export interface SfiaSourceDocumentRef {
-  path: string;
-  digest: string;
-  blobSha: string | null;
-  role: SfiaCanonicalSourceRole | "project_doc" | "handoff";
-  sizeBytes: number;
-  readAt: string;
-  summaryExcerpt: string;
-}
-
-export interface SfiaCanonicalContext {
-  contextId: string;
-  generatedAt: string;
-  repository: string;
-  branch: string;
-  headSha: string;
-  baseSha: string;
-  methodBaseline: string;
-  sourceDocuments: SfiaSourceDocumentRef[];
-  project: string;
-  currentCycle: string;
-  candidateCycle: string;
-  profile: SfiaProfile;
-  profileJustification: string;
-  activeBlocks: string[];
-  inactiveBlocks: string[];
-  validatedDecisions: string[];
-  candidateDecisions: string[];
-  openGates: string[];
-  closedGates: string[];
-  allowedOperations: string[];
-  forbiddenOperations: string[];
-  allowedPaths: string[];
-  protectedPaths: string[];
-  stopConditions: string[];
-  reviewPackRequirement: "light" | "full" | "required";
-  reviewHandoffRequirement: "required_publish_in_cycle";
-  cursorTemplatePath: string;
-  expectedVerdicts: string[];
-  unresolvedQuestions: string[];
-  warnings: string[];
-  /** Permanent core facts injected every GPT turn (Level 1). */
-  permanentCore: string[];
-}
+import type { SfiaProfile } from "@/lib/platform/sfia-context/types";
 
 export interface SfiaProposedFile {
   path: string;

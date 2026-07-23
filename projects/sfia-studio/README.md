@@ -503,3 +503,13 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01�
 | [73-control-tower-fast-track-delivery-report.md](./73-control-tower-fast-track-delivery-report.md) | Rapport delivery local — **READY FOR MORRIS LIVE VALIDATION** |
 
 *SFIA Studio — Control Tower delivery **local** (`70`–`73`) — live Morris requis — commit/push/PR/MVP/production **fermés**.*
+
+### Shared Technical Platform (PR readiness)
+
+| Document | Rôle |
+|----------|------|
+| [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery Option B — `lib/platform/**` — **`delivery-local-candidate`** |
+| [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation + PR readiness — **`PR opened`** [#255](https://github.com/mcleland147/sfia-workspace/pull/255) |
+
+> **Statut :** **PR opened** [#255](https://github.com/mcleland147/sfia-workspace/pull/255) — merge **fermé** ; pas de baseline claim.
+> **Séquence candidate :** Shared Technical Platform → D1 unifié (tools/context) → Live Product Validation → décision B′.

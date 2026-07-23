@@ -1,3 +1,5 @@
+import { TechnicalError } from "@/lib/platform/ai/errors";
+
 export type Ops1ErrorCode =
   | "VALIDATION"
   | "NOT_FOUND"
@@ -29,8 +31,29 @@ export function toSafeClientError(error: unknown): {
   if (error instanceof Ops1Error) {
     return { code: error.code, message: error.safeMessage };
   }
+  if (error instanceof TechnicalError) {
+    const code =
+      error.code === "CONFIG" || error.code === "PROVIDER"
+        ? error.code
+        : "INTERNAL";
+    return { code, message: error.safeMessage };
+  }
   return {
     code: "INTERNAL",
     message: "Une erreur technique est survenue. Réessayez ou contactez Morris.",
   };
+}
+
+/** Map platform TechnicalError into OPS1 error when crossing domain boundary. */
+export function fromTechnicalError(error: unknown): Ops1Error | null {
+  if (error instanceof TechnicalError) {
+    const code: Ops1ErrorCode =
+      error.code === "CONFIG" || error.code === "PROVIDER"
+        ? error.code
+        : error.code === "VALIDATION"
+          ? "VALIDATION"
+          : "INTERNAL";
+    return new Ops1Error(code, error.safeMessage, error);
+  }
+  return null;
 }

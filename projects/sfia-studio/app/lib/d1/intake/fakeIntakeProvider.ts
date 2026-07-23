@@ -3,7 +3,7 @@ import type {
   ConversationProvider,
   ProviderChatMessage,
   ProviderCompletionResult,
-} from "@/lib/ops1/conversation/types";
+} from "@/lib/platform/ai/types";
 import { REQUEST_ROUTING_PROPOSAL_SCHEMA_VERSION } from "./types";
 import type { C2OutcomeType, C2ProposalStatus } from "./types";
 
@@ -191,7 +191,7 @@ export function buildFakeProposalPayload(
 }
 
 /**
- * Fake intake provider — implements OPS1 ConversationProvider contract.
+ * Fake intake provider — implements platform ConversationProvider contract.
  * Returns JSON proposals based on deterministic heuristics.
  */
 export class FakeIntakeConversationProvider implements ConversationProvider {
