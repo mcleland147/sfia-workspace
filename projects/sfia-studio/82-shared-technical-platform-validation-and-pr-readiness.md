@@ -11,10 +11,11 @@
 | **Branche** | `delivery/sfia-studio-shared-technical-platform` |
 | **Worktree** | `/Users/morris/Projects/sfia-workspace-shared-platform-delivery` |
 | **HEAD initial validation** | `ea95a09b39eb6b9d9137c2bda8822b6f71468fbc` |
+| **HEAD final (push)** | `7d2beaa9be42b6e6195d4ce8e6a5b7960cca5f10` |
 | **Base / merge-base** | `origin/main` @ `88fa4658da07156614de270d8172f147535ddbf9` |
 | **Correction** | `cac8f20` trailing whitespace (`git diff --check`) |
-| **Commit documentaire** | (ce cycle) |
-| **PR** | (renseigné après création) |
+| **Commit documentaire** | `7d2beaa` (+ mise à jour PR metadata ci-dessous) |
+| **PR** | [#255](https://github.com/mcleland147/sfia-workspace/pull/255) — OPEN · base `main` · non-draft |
 
 ---
 
@@ -138,6 +139,9 @@ Voir handoff / fichier temporaire de création `gh pr create`.
 
 ### Push / PR
 
-- Push : `git push -u origin delivery/sfia-studio-shared-technical-platform`
-- SHA remote : (après push)
-- PR number / URL : (après création)
+- Push : `git push -u origin delivery/sfia-studio-shared-technical-platform` — **SUCCESS**
+- SHA remote : `7d2beaa9be42b6e6195d4ce8e6a5b7960cca5f10` (match local)
+- PR number : **255**
+- URL : https://github.com/mcleland147/sfia-workspace/pull/255
+- Métadonnées : OPEN · base `main` · head `delivery/sfia-studio-shared-technical-platform` · 7 commits · 53 files · +3753 / −2830 · non-draft
+- **Merge : non exécuté**

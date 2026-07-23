@@ -509,7 +509,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01�
 | Document | Rôle |
 |----------|------|
 | [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery Option B — `lib/platform/**` — **`delivery-local-candidate`** |
-| [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation + PR readiness — **`PR opened`** (renseigné après création) |
+| [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation + PR readiness — **`PR opened`** [#255](https://github.com/mcleland147/sfia-workspace/pull/255) |
 
-> **Statut :** validation locale **verte** — push/PR autorisés sous gate Morris ; merge **fermé**.
+> **Statut :** **PR opened** [#255](https://github.com/mcleland147/sfia-workspace/pull/255) — merge **fermé** ; pas de baseline claim.
 > **Séquence candidate :** Shared Technical Platform → D1 unifié (tools/context) → Live Product Validation → décision B′.
