@@ -28,6 +28,14 @@ export type AnalyzeIntentActionResult =
       providerId: string;
       durationMs: number;
       clarificationTurnCount: number;
+      platform: {
+        enabled: boolean;
+        toolRounds: number;
+        toolCalls: number;
+        sources: Array<{ path: string; digestPrefix: string; role?: string }>;
+        tools: Array<{ name: string; status: string }>;
+        model: string | null;
+      };
     }
   | { ok: false; code: string; message: string };
 
@@ -36,7 +44,22 @@ export async function actionAnalyzeIntent(
 ): Promise<AnalyzeIntentActionResult> {
   try {
     const result = await analyzeIntent(input);
-    return { ok: true, ...result };
+    return {
+      ok: true,
+      proposal: result.proposal,
+      providerMode: result.providerMode,
+      providerId: result.providerId,
+      durationMs: result.durationMs,
+      clarificationTurnCount: result.clarificationTurnCount,
+      platform: {
+        enabled: result.platform.enabled,
+        toolRounds: result.platform.toolRounds,
+        toolCalls: result.platform.toolCalls,
+        sources: result.platform.sources,
+        tools: result.platform.tools,
+        model: result.platform.model,
+      },
+    };
   } catch (error) {
     return serializeError(error);
   }

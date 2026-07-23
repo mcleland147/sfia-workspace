@@ -523,7 +523,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01�
 | [80-shared-technical-platform-migration-decision-pack.md](./80-shared-technical-platform-migration-decision-pack.md) | Decision pack migration — **`decision-pack-candidate`** (historique) |
 | [81-shared-technical-platform-delivery-report.md](./81-shared-technical-platform-delivery-report.md) | Rapport delivery — intégré via [#255](https://github.com/mcleland147/sfia-workspace/pull/255) |
 | [82-shared-technical-platform-validation-and-pr-readiness.md](./82-shared-technical-platform-validation-and-pr-readiness.md) | Validation / PR readiness — [#255](https://github.com/mcleland147/sfia-workspace/pull/255) **MERGED** |
-| [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** |
+| [83-unmerged-docs-consolidation-pr-readiness.md](./83-unmerged-docs-consolidation-pr-readiness.md) | Consolidation docs 75–80 + alignement post-merge — **`draft-pr-candidate`** (historique post-#256) |
+| [84-d1-shared-platform-integration-delivery-report.md](./84-d1-shared-platform-integration-delivery-report.md) | Delivery D1 ↔ Shared Platform (tools + contexte) — **`delivery-local-candidate`** |
+| [85-d1-shared-platform-integration-validation-report.md](./85-d1-shared-platform-integration-validation-report.md) | Validation technique fake — **`validation-local-candidate`** |
 
-> **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash).
-> **Séquence active :** Platform intégrée → D1 unifié (tools/context) → Live Product Validation → décision B′.
+> **Statut Git :** Shared Technical Platform **MERGED** sur `main` @ `445702dc…` (PR #255, squash). Docs 75–80 consolidés via [#256](https://github.com/mcleland147/sfia-workspace/pull/256) @ `416af8a…`.
+> **Séquence active :** Platform intégrée → D1 unifié livré localement → **validation technique locale (85)** → Live Product Validation (gate Morris) → décision B′.
