@@ -1,4 +1,4 @@
-# SFIA Review Pack — FULL — UX D1 Conversational Convergence
+# SFIA Review Pack — FULL — UX Validation Studio Conversational Flow
 
 ## Niveau
 FULL
@@ -7,33 +7,43 @@ FULL
 
 | Champ | Valeur |
 |-------|--------|
-| Date/heure | 2026-07-23 12:06:59 CEST (+0200) Truth Check ; pack 12:11:28 CEST |
+| Date/heure Truth Check | 2026-07-23 12:31:32 CEST (+0200) |
 | Fuseau | Europe/Paris |
-| Cycle | 4 — UX/UI · UX D1 — Conversational Convergence |
+| Cycle | 4 — UX/UI · UX Validation — Studio Conversational Flow |
 | Profil | Critical |
-| Typologie | DOC / UX |
-| Gate consommé | `GO UX D1 — CONVERSATIONAL CONVERGENCE` |
-| Repo | mcleland147/sfia-workspace |
+| Typologie | DOC / UX / Figma |
+| Gate consommé | `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` |
 | Worktree | /Users/morris/Projects/sfia-workspace-d1-conversational-convergence |
 | Branche | `ux/sfia-studio-d1-conversational-convergence` |
-| HEAD (départ connu) | `2888b7e1c8643236c1ecee1fd8f01aa227ddc3cc` |
-| HEAD (final) | `5cb285a78ed59bab09953bf0066b8f842b38ebde` |
+| HEAD initial | `5cb285a78ed59bab09953bf0066b8f842b38ebde` |
+| HEAD final | `7dc6f9fc7e16f13de08a1003b492b0b6e243f05e` |
 | origin/main | `2014e941f548c519d152ebc70d0d4ddad29a6397` |
-| merge-base HEAD origin/main | `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
-| Commit local | `docs(sfia-studio): consolidate D1 conversational convergence with CKC` |
-| Push branche UX | **non** |
-| PR / merge | **non** |
-| Code modifié ce cycle | **non** |
-| Doc 86 | **absent** (réservé LPV) |
+| merge-base | `416af8a5b3a8e41a996cfc52220465ab0a5b13ca` |
+| Commit local | `docs(sfia-studio): validate D1 conversational flow decisions` |
+| Push UX | **non** |
+| Code modifié | **non** |
+| Doc 86 | **absent** |
+
+## Décisions Morris validées (2026-07-23)
+
+| ID | Décision |
+|----|----------|
+| CC-D01 | Option A — conversation + panneau vivant + confirmations structurantes |
+| CC-D03 | Panneau sticky ; 360–400@1440 ; ~320@1280 ; sheet ≤1024 ; état utile ; pas de CKC brut |
+| CC-D05 | Épistémologie distincte ; gates visibles ; métier + ID SFIA secondaire ; pas de CTA générique |
+| CC-D06 | 3 niveaux de confirmation ; explicite avant mutation |
+| CC-D12 | Fallback CKC silencieux UI ; audit interne seulement |
+| CC-D13 | Project ≠ Cycle ; anti-claims projet via cycle |
+
+**Encore ouvertes (12) :** CC-D02 · D04 · D07 · D08 · D09 · D10 · D11 · D14 · D15 · D16 · D17 · D18.
 
 ## Verdict
 
-**UX D1 CONVERSATIONAL CONVERGENCE READY — MORRIS UX DECISIONS REQUIRED**
+**STUDIO CONVERSATIONAL FLOW UX VALIDATED — FUNCTIONAL DESIGN REQUIRED**
 
 ## Gate suivant candidat
 
-`GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`
-(alternatif après décisions : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`)
+`GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT`
 
 ---
 
@@ -41,1342 +51,755 @@ FULL
 
 | Contrôle | Résultat |
 |----------|----------|
-| pwd | `/Users/morris/Projects/sfia-workspace-d1-conversational-convergence` |
-| remote | `origin` → `mcleland147/sfia-workspace.git` |
-| fetch | OK |
 | branche | `ux/sfia-studio-d1-conversational-convergence` |
-| HEAD initial | `2888b7e…` (confirmé) |
-| HEAD final | `5cb285a…` |
-| origin/main | `2014e941…` (PR #258) |
+| HEAD initial | `5cb285a…` (confirmé) |
+| origin/main | `2014e941…` |
+| merge-base | `416af8a…` |
 | staged initial | vide |
-| untracked | `.tmp-sfia-review/` seulement |
+| untracked | `.tmp-sfia-review/` |
 | lock | NO_LOCK |
-| branche remote UX | **absente** (`ls-remote` vide) — locale conservée, **non recréée**, **non poussée** |
-| app/** dans ce cycle | **non modifié** (héritage commits delivery parent dans l’ancestry vs main — hors commits UX) |
-| dernier handoff distant (pré-cycle) | `9b43160…` CKC post-merge |
-
-**Stop conditions** : aucune.
+| docs 87/88/89/README | présents |
+| remote UX | absente — non poussée |
+| stop | aucun |
 
 ---
 
 ## 2. CKC et fallback
 
-| Champ | Valeur |
-|-------|--------|
-| recherché | oui |
-| cycle | 4 UX/UI |
-| contrat trouvé | non |
-| statut | absent |
-| usage | experimental cognitive guidance |
-| autorité | aucune |
-| fallback | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md` + méthode SFIA v2.6 |
-| limites | ne pas inventer de CKC UX complet |
-
-Intégration UX : CKC **opaque** (87 §4bis · 89 §2.3 · 88 §4) — fallback silencieux (scénario P5).
+Cycle 4 absent · fallback carte synthétique + v2.6 · silencieux UI (CC-D12) · aucune autorité · frame CC-15 sans jargon CKC.
 
 ---
 
 ## 3. Sources consultées
 
-### Depuis main (`2014e941…` / worktree main-ckc-postmerge)
-
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (§4.4.5)
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
-- `method/sfia-fast-track/automation/sfia-prompt-generation-engine.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/README.md`
-
-### Depuis branche UX
-
-- `87` · `88` · (créé) `89`
-- README Studio (entrées 86–89)
-- Docs UX historiques 14–16, 51–53 (contexte)
-- Handoff antérieur local `.tmp-sfia-review/chatgpt-review.md` (cycle design)
-
-### Distant
-
-- `origin/sfia/review-handoff` @ `9b43160…` (pré-publish)
+Template · routing · OM · KL · PGE · carte CKC · docs 87/88/89/README · handoff `dd03775…` · Figma MCP page D1.
 
 ---
 
-## 4. Documents UX retrouvés
-
-| Doc | État |
-|-----|------|
-| 86 | **absent** (réservé LPV) |
-| 87 | existait @ `ec2798c` / `2888b7e` — **mis à jour** |
-| 88 | existait @ `2888b7e` — **mis à jour** |
-| 89 | **créé** |
-| Figma | `8xR5zSTfGtEVZSr6KK8Gww` — 12 frames LF **confirmées** MCP |
-
----
-
-## 5. État initial → final
+## 4. Figma initial → final
 
 | | Initial | Final |
 |--|---------|-------|
-| HEAD | `2888b7e` | `5cb285a` |
-| 87/88 | candidats design | alignés CKC + refs 89 |
-| 89 | absent | decision pack complet |
-| Décisions Morris CC-D* | ouvertes (liste 87) | ouvertes formalisées registre 89 |
-| Figma | 12 frames | inchangé (pas d’écriture) |
+| fileKey | `8xR5zSTfGtEVZSr6KK8Gww` | idem |
+| page | D1 LF `0:1` | idem |
+| frames | CC-01…12 | CC-01…**17** |
+| desktop | 1440×1024 | idem |
+| mobile | 390×844 | CC-12 + **CC-17** |
+
+### Frames modifiées
+
+| Frame | node-id | Changement |
+|-------|---------|------------|
+| CC-03 | `2:48` / panel `2:53` | Panneau Projet/Cycle vivant |
+| CC-05 | panel `2:102` | Panneau archi + gate ADR |
+| CC-06 | panel `2:136` | Panneau reprise NO_MUTATION |
+
+### Frames créées
+
+| Frame | node-id | Taille | Décision |
+|-------|---------|--------|----------|
+| CC-13 Gate Morris et décisions | `6:49` | 1440×1024 | CC-D05 |
+| CC-14 Confirmation structurante N2 | `7:2` | 1440×1024 | CC-D06 |
+| CC-15 Fallback silencieux | `7:31` | 1440×1024 | CC-D12 |
+| CC-16 Erreur et blocage | `7:56` | 1440×1024 | CC-D05 |
+| CC-17 Mobile sheet état projet | `7:79` | 390×844 | CC-D03 |
+
+### Preuves Figma (liens)
+
+- https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=2-48
+- https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=6-49
+- https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=7-2
+- https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=7-31
+- https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=7-56
+- https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=7-79
+
+Captures MCP obtenues pour CC-03, CC-13, CC-15 (screenshots session).
 
 ---
 
-## 6. Synthèse livrables
+## 5. Scénarios validés (documentaire + Figma)
 
-1. **Audit** — matrice `89` §1
-2. **Modèle cible** — `89` §2 + `87` trajectoire
-3. **Conversation** — `89` §3
-4. **Panneau vivant** — `89` §4 · `88` §4
-5. **Confirmations** — `89` §5 · `88` §7
-6. **États** — `89` §6
-7. **Scénarios 1/2/6/9** — `89` §8.1–8.4
-8. **Fallback** — `89` §8.5
-9. **Registre Morris** — `89` §9 (CC-D01…D18, colonne Décision vide)
-10. **Contrat visuel** — `88` mis à jour
-11. **Frames** — `88` §13 confirmées
-12. **Réserves / dette** — `89` §11–12
-13. **Trajectoire conception fct** — `89` §10
+| # | Scénario | Preuve |
+|---|----------|--------|
+| 1 | Cadrage | CC-03 + CC-13 + CC-14 |
+| 2 | Architecture technique | CC-05 panneau gate ADR |
+| 3 | QA | CC-15 réserves · anti UX READY |
+| 4 | Cycle sans CKC | CC-15 silencieux |
+| 5 | Création | CC-09 + CC-D06/13 |
+| 6 | Mobile | CC-12 + CC-17 sheet |
 
 ---
 
-## 7. Figma / frames / dimensions
+## 6. Accessibilité (contrat)
 
-| Item | Valeur |
-|------|--------|
-| fileKey | `8xR5zSTfGtEVZSr6KK8Gww` |
-| page | `D1 — Conversational Convergence (LF)` `0:1` |
-| frames | CC-01…CC-12 (node-ids `2:2` … `2:230`) |
-| desktop | 1440×1024 |
-| mobile | 390×844 (CC-12) |
-| écriture Figma ce cycle | **aucune** |
-| claim visual validated | **non** |
+Navigation clavier · focus visible · labels texte · aria-live · aria-modal/focus trap confirmations · retour de focus · sheet accessible · pas de dépendance exclusive couleur · cibles ≥40 px LF · contraste LF à renforcer HF · structure titres.
 
 ---
 
-## 8. Fichiers créés / modifiés
+## 7. Fichiers créés/modifiés
 
 | Fichier | Action |
 |---------|--------|
-| `projects/sfia-studio/89-d1-conversational-convergence-decision-pack.md` | A |
-| `projects/sfia-studio/87-d1-conversational-convergence-ux-functional-design.md` | M |
-| `projects/sfia-studio/88-d1-conversational-convergence-visual-contract.md` | M |
-| `projects/sfia-studio/README.md` | M |
-| `.tmp-sfia-review/chatgpt-review.md` | remplacé (local) |
+| `87-…ux-functional-design.md` | M |
+| `88-…visual-contract.md` | M |
+| `89-…decision-pack.md` | M |
+| `README.md` | M |
+| Figma D1 page | M + A frames |
+| `.tmp-sfia-review/chatgpt-review.md` | remplacé |
 
 ---
 
-## 9. Validations
+## 8. Validations Git
 
 | Contrôle | Résultat |
 |----------|----------|
-| git status | clean hors `.tmp-sfia-review/` |
-| git diff --check HEAD~1..HEAD | PASS |
-| cohérence UX docs | PASS |
-| 4 pilotes + fallback | PASS |
-| hypothèse ≠ décision | PASS |
-| CKC non exposé | PASS |
-| code / doctrine / main | non touchés |
-| UX READY / VISUAL VALIDATED | **non claimés** |
+| git diff --check | PASS |
+| seuls docs UX + README | PASS |
+| 6 décisions validées seulement | PASS |
+| 12 ouvertes conservées | PASS |
+| pas de code / doctrine | PASS |
+| branche UX non poussée | PASS |
+| claims interdits absents | PASS |
 
 ---
 
-## 10. Réserves / dette / non exécuté
+## 9. Réserves / dette / non exécuté
 
-Voir `89` §11–13. Points clés : LPV ouverte · runtime ≠ cible · panneau LF incomplet vs §4 · branche UX locale seulement · onze CKC non créés · pas de push/PR/Delivery.
+Voir `89` §11–13. Points : LPV ouverte · runtime ≠ Option A · HF limité · 12 décisions ouvertes · pas de push/PR/Delivery/runtime.
 
 ---
 
-## 11. État Git final
+## 10. État Git final
 
 ```
 branche: ux/sfia-studio-d1-conversational-convergence
-HEAD: 5cb285a78ed59bab09953bf0066b8f842b38ebde
-origin/main: 2014e941f548c519d152ebc70d0d4ddad29a6397
+HEAD: 7dc6f9fc7e16f13de08a1003b492b0b6e243f05e
 push UX: non
 ```
 
 ---
 
-## 12. Contenu complet — document créé `89`
-
-# SFIA Studio — D1 Conversational Convergence — Decision pack & convergence
-
-| Métadonnée | Valeur |
-|------------|--------|
-| **Document** | `89-d1-conversational-convergence-decision-pack.md` |
-| **Complète** | `87` (conception) · `88` (contrat visuel) |
-| **Statut** | `ux-decision-pack-candidate` — **recommandations Cursor** ; **Décision Morris** non remplie sauf trace Git antérieure |
-| **Cycle** | 4 — UX/UI · UX D1 — Conversational Convergence |
-| **Profil** | Critical |
-| **Gate consommé** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` |
-| **Branche** | `ux/sfia-studio-d1-conversational-convergence` |
-| **Baseline méthode** | SFIA v2.6 |
-| **CKC** | Cycle 4 UX/UI — **absent détaillé** · fallback carte synthétique + méthode v2.6 · **aucune autorité d’exécution** |
-| **Doc 86** | **Réservé** LPV — **non créé** |
-| **Figma** | `8xR5zSTfGtEVZSr6KK8Gww` — page `D1 — Conversational Convergence (LF)` |
-
-> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris**.
-> Ce document **ne décide pas**. Aucune claim « UX READY », « VISUAL VALIDATED », « RUNTIME MATCHED », « CKC ADOPTED », « DELIVERY AUTHORIZED ».
-
----
-
-## 1. Audit de convergence UX
-
-| Élément UX | État actuel | Source | Cohérent nouvelle doctrine (v2.6 + CKC candidat) | Décision requise |
-|------------|-------------|--------|--------------------------------------------------|------------------|
-| Structure générale écran | Formulaire enrichi vertical (runtime) ; Option A documentée (2 col.) | Runtime IntakeView · `87` §14 · `88` §2 | Partiel — cible conversationnelle documentée, runtime non aligné | CC-D01 architecture A/B/C |
-| Rôle conversation | Fil partiel ; CTA globaux décorrélés | LPV U01 · `87` §2 | Faible côté runtime ; fort côté docs candidats | CC-D02 conversation dominante |
-| Panneau latéral | Absent runtime ; « Synthèse vivante » en Figma LF | `88` frames CC-01…12 | Partiel — à enrichir en « état projet vivant » sans CKC brut | CC-D03 panneau vivant |
-| Navigation | `/nouvelle-demande` → cockpit | `87` §14 · `88` §2 | OK conceptuel | CC-D04 nav artefacts |
-| État projet | Session locale ; pas d’état vivant unifié | Runtime · `87` §8–9 | À formaliser (cycle ≠ projet) | CC-D13 projet vs cycle |
-| Décisions | CTA confondent reco / action | LPV · `87` §7 | Tags épistémiques candidats | CC-D05 exposition décisions |
-| Gates Morris | Peu visibles en UI | Doctrine · Operating Model | À rendre explicites sans jargon CKC | CC-D05 / CC-D06 |
-| Progression cycle | Matching/confirm trop tôt | LPV C4 | Bornage après convergence | CC-D06 confirmations |
-| Feedback système | Loading/timeout améliorés (60 s) | PR #257 · `88` §9 | OK base | — |
-| Historique | Fil simple | Runtime | Repliable par épisode (candidat) | CC-D10 historique |
-| Documents / preuves | Sources repliables (candidat) | `87` §9 · `88` | OK | CC-D11 sources |
-| Fallback CKC | Non représenté UX (nouveau post-#258) | Carte `02-…` · matrice 04 | À intégrer **en arrière-plan** | CC-D12 fallback |
-| Erreurs | Banner + retry | `88` §9 | OK | — |
-| Attentes / empty | Invitation courte | Figma CC-01 | OK | — |
-| Chargement | `aria-busy` + message 60 s | `88` §3 | OK | — |
-| Responsive | Contrats 1440/1280/1024/390 | `88` §1, §10 | Documenté LF ; non validé runtime | CC-D08 / CC-D09 |
-| Accessibilité | Contrat a11y | `88` §11 | Documenté ; non validé | — |
-| Exposition CKC | Aucune (correct) | Gate · README CKC | **Doit rester invisible** comme formulaire | CC-D12 (garder opaque) |
-
----
-
-## 2. Modèle d’expérience conversationnelle cible
-
-### 2.1 Chaîne UX
-
-```
-intention utilisateur
-  → compréhension conversationnelle
-  → qualification candidate du cycle (interne)
-  → résolution cognitive interne (CKC pilote OU fallback — jamais UI formulaire)
-  → questions contextualisées (1–3, non checklist 25 sections)
-  → mise à jour de l’état projet vivant (panneau)
-  → synthèse / options (trajectoires dynamiques)
-  → recommandation (taguée, non exécutable)
-  → décision Morris / humaine explicite
-  → confirmation structurante
-  → préparation du contrat d’exécution (prompt Cursor / effets bornés)
-```
-
-### 2.2 Couches
-
-| Couche | Contenu | Visible utilisateur | Persisté | Confirmation |
-|--------|---------|---------------------|----------|--------------|
-| Vu | Messages, questions, synthèse, trajectoires, panneau, confirmations | Oui | Session UI (+ snapshot si autorisé) | Selon gate |
-| Raisonné (arrière-plan) | Qualification cycle, résolution CKC/fallback, maturité, matching | Non (effets seulement) | Traces audit discrètes optionnelles | Non |
-| Hypothèse | Items tagués « Hypothèse » | Oui | Oui (statut `proposed`) | Non = pas décision |
-| Recommandation | Cartes trajectoire / texte GPT | Oui | Oui | Non |
-| Décision validée | Item « Décision » après acte humain explicite | Oui | Oui (`validated`) | Oui si structurante |
-| Contrat d’exécution | Effets / non-effets préparés | Oui en préparation | Oui | Confirmation avant mutation |
-
-### 2.3 CKC — posture UX (obligatoire)
-
-| Règle | Application UX |
-|-------|----------------|
-| CKC = guidance cognitive candidate | Influence questions, challenges, ordre de clarification |
-| Aucune autorité d’exécution | Jamais CTA « Appliquer le CKC » |
-| Non exposé | Pas de questionnaire 25 sections ; pas de « dimensions CKC » permanentes |
-| Absent (cycle 4 UX) | Fallback silencieux : carte synthétique + méthode v2.6 |
-| Fallback ≠ erreur | Pas de banner « CKC manquant » pour l’utilisateur |
-| Prompt Cursor | Reste le contrat d’exécution final (hors surface chat libre) |
-
----
-
-## 3. Conversation principale
-
-### 3.1 Intentions couvertes
-
-Découvrir besoin · clarifier · contester · enrichir · choisir trajectoire · préparer action · pauser · abandonner · reprendre session.
-
-### 3.2 Types de messages
-
-| Type | Producteur | Rôle |
-|------|------------|------|
-| Intention / correction | Humain | Entrée libre |
-| Compréhension | GPT | Reformulation courte |
-| Challenge | GPT | 1–3 questions ciblées |
-| Synthèse annoncée | GPT | Pointe vers panneau |
-| Recommandation | GPT | Trajectoire non exécutée |
-| Réserve / contradiction | GPT / Studio | Signal explicite |
-| Confirmation demandée | Studio | Avant mutation |
-| Système | Studio | Loading, erreur, anti-claim |
-
-### 3.3 Artefacts conversationnels
-
-- Questions contextualisées (jamais dump CKC).
-- Synthèses référencées (pas monologue).
-- Challenges non bloquants (chips).
-- Recommandations distinctes des décisions.
-- Réserves visibles.
-- Confirmations (lien vers surface structurante).
-- Pièces jointes / preuves : liens sources, captures futures (LPV), digests — **repliés**.
-
----
-
-## 4. Panneau latéral vivant (« état utile »)
-
-Limiter le contenu **visible** à :
-
-| Bloc | Contenu | Notes |
-|------|---------|-------|
-| Cycle courant | Label candidat ou « non qualifié » | Proposition ≠ cycle ouvert |
-| Objectif | Texte validable | |
-| Périmètre | Texte / bullets | |
-| Progression | Bande qualitative (exploratoire → prête à borner) | Pas de % |
-| Hypothèses | Liste courte taguée | |
-| Décisions validées | Liste humaine | |
-| Décisions ouvertes | Gate / arbitrages | |
-| Risques | Liste courte | |
-| Réserves | Dont LPV / doctrine | |
-| Livrables | Attendus du cycle / session | |
-| Gate courant | Ex. « Décision humaine » / « Confirmation création » | Libellé métier |
-| Prochaine étape | Une phrase | |
-
-**Interdit en panneau permanent :** dimensions brutes CKC, 25 sections, score % trompeur, « CKC absent », raw digests techniques.
-
-**Mobile :** bottom sheet / FAB « État » (même contenu).
-
----
-
-## 5. Confirmations structurantes
-
-Confirmation **plein écran ou modale renforcée** lorsque :
-
-| Cas | Gate UX | Mutation |
-|-----|---------|----------|
-| Validation de cadrage (bornage intention/périmètre) | `human_confirm` | Non (état) |
-| Choix de cycle structurant (proposition de cycle) | `morris_go` / humain | Non (préparation) |
-| Modification majeure de périmètre | `human_confirm` | Non jusqu’à confirm |
-| Arbitrage architecture (futur) | `morris_go` | Hors D1 intake |
-| Lancement Delivery | `morris_go` | Hors ce cycle UX |
-| Publication Git / PR / merge | `morris_go` | Hors surface Studio intake |
-| Promotion méthode / baseline | `morris_go` | Interdit ici |
-| Création Project | `human_confirm` | Oui (C4) |
-| Reprise Project | `human_confirm` | NO_MUTATION |
-| Action irréversible | `human_confirm` | Selon effet |
-
-**Règle.** Aucune exécution automatique d’un arbitrage structurant. Composer désactivé seulement pendant modal stricte.
-
----
-
-## 6. États conversationnels
-
-| État | Sens UX | CKC / fallback |
-|------|---------|----------------|
-| découverte | Intention libre | Résolution interne silencieuse |
-| clarification | Questions ciblées | Guide quelles questions |
-| analyse | Matching / lecture sources | Opaque |
-| synthèse | Panneau peuplé | Opaque |
-| recommandation | Trajectoires | Opaque |
-| attente de décision | CTA humain | — |
-| décision validée | Tag Décision | — |
-| réserve | Blocage soft | — |
-| contradiction | Alerte sans présélection | — |
-| fallback CKC | Guidage léger | **Transparent** (pas d’erreur UX) |
-| source manquante | Message actionnable | — |
-| Git indisponible | Banner ; pas de mutation Git | — |
-| exécution préparée | Contrat effets affiché | — |
-| exécution bloquée | Garde-fou | — |
-| reprise de cycle | Snapshot / reprise session | — |
-| cycle clôturé | Anti-claim si non ouvert | — |
-
-Ne pas figer une machine à états Delivery unique sans CC-D01.
-
----
-
-## 7. Règles de transformation cognitive
-
-1. Une phrase utilisateur **ne devient pas** automatiquement une décision.
-2. Une recommandation GPT **reste** une recommandation.
-3. Une option / trajectoire **reste distincte** d’une décision.
-4. Une décision Morris / humaine doit être **explicitement identifiée** (tag + acte).
-5. Les contradictions doivent être **signalées**.
-6. Informations insuffisantes → **questions ciblées** (budget 1–3).
-7. Les questions **varient** selon contexte / cycle qualifié.
-8. Le CKC **ne devient pas** une checklist mécanique.
-9. L’absence de CKC détaillé **ne bloque pas** le cycle.
-10. Le fallback **n’est pas** exposé comme erreur utilisateur.
-11. Le prompt Cursor **reste** le contrat d’exécution final.
-
----
-
-## 8. Scénarios — quatre pilotes CKC + fallback
-
-> Les pilotes testent la **cohérence du modèle UX** Studio. Ils n’impliquent pas l’adoption des CKC ni l’ouverture de ces cycles dans D1 intake.
-
-### 8.1 Scénario P1 — Cadrage (CKC pilote 01)
-
-| Champ | Contenu |
-|-------|---------|
-| Entrée | « On doit cadrer un outil de suivi de contrats pour le commercial et le juridique. » |
-| Comportement | Challenge besoin≠solution ; questions finalité / parties / contraintes / succès / inconnues |
-| Demandé | Périmètre, hors-scope, critères de succès — **pas** formulaire CKC |
-| Panneau | Cycle candidat « Cadrage » · objectif · hypothèses · questions · gate « Décision de cadrage » |
-| Hypothèses | Acteurs, canal, urgence |
-| Risques | Scope flou ; Critical implicite |
-| Gate Morris | Validation brief / périmètre fermé |
-| Confirmation | Plein cadre si bornage retenu |
-| Sortie | Synthèse cadrage + trajectoires (conception / backlog / pause) — **Cycle non ouvert** auto |
-
-### 8.2 Scénario P2 — Conception fonctionnelle (CKC pilote 02)
-
-| Champ | Contenu |
-|-------|---------|
-| Entrée | « Spécifier les règles d’accès et le parcours de création d’un contrat. » |
-| Comportement | Usagers, parcours, règles, exceptions ; refuse technique trop tôt |
-| Demandé | Acteurs, règles métier, exceptions |
-| Panneau | Cycle « Conception fonctionnelle » · livrables « Spec bornée » · réserves |
-| Hypothèses | Périmètre déjà cadré |
-| Risques | Technique prématurée |
-| Gate | Validation spec / règles critiques |
-| Confirmation | Si gel de règles structurantes |
-| Sortie | Spec candidate + options UX / archi — sans Delivery |
-
-### 8.3 Scénario P3 — Architecture technique (CKC pilote 03)
-
-| Champ | Contenu |
-|-------|---------|
-| Entrée | « Faut-il SQLite local ou un backend partagé ? » |
-| Comportement | Options & trade-offs ; NFR ; dette ; **pas** d’ADR implicite |
-| Demandé | Contraintes prod, sécurité, coût |
-| Panneau | Cycle « Architecture technique » · décisions ouvertes · risques |
-| Hypothèses | Contexte Project existant |
-| Risques | Décision implicite |
-| Gate Morris | Arbitrage ADR |
-| Confirmation | **Toujours** avant claim « stack choisie » |
-| Sortie | Options + reco — décision Morris obligatoire |
-
-### 8.4 Scénario P4 — QA / validation (CKC pilote 04)
-
-| Champ | Contenu |
-|-------|---------|
-| Entrée | « Est-ce que la convergence D1 est validée ? » |
-| Comportement | Evidence-based ; négatifs ; sévérité ; refuse QA symbolique |
-| Demandé | Preuves Figma / runtime / docs |
-| Panneau | Réserves · preuves manquantes · verdict candidat |
-| Hypothèses | Couverture LF seule |
-| Risques | Faux « UX READY » |
-| Gate | Morris validation UX |
-| Confirmation | Aucune claim visuelle sans preuves |
-| Sortie | Verdict + réserves (ex. LPV, runtime match) |
-
-### 8.5 Scénario P5 — Cycle sans CKC détaillé (ex. UX/UI #4 ou Delivery #8)
-
-| Champ | Contenu |
-|-------|---------|
-| Entrée | Intention relevant d’un cycle **sans** pilote (ex. ce cycle UX lui-même, ou Delivery) |
-| Comportement | Fallback **transparent** : carte synthétique + méthode v2.6 ; questions légères |
-| Demandé | Selon posture cycle (fidélité vs exploration pour UX) |
-| Panneau | Cycle candidat libellé métier · **pas** de message « CKC manquant » |
-| Hypothèses | Couverture CKC incomplète (trace interne seulement) |
-| Risques | Invention d’un faux contrat |
-| Gate | Selon criticité |
-| Confirmation | Inchangée |
-| Sortie | Expérience continue · **aucune invention** · **aucune rupture** |
-
----
-
-## 9. Registre des décisions Morris
-
-| ID | Sujet | Options | Impacts | Dette | Recommandation ChatGPT / Cursor | Décision Morris |
-|----|-------|---------|---------|-------|----------------------------------|-----------------|
-| CC-D01 | Structure principale écran | A conversation+panneau · B étapes · C workspace hybride | Refonte IntakeView ; a11y ; mobile | Runtime actuel formulaire | **A** + confirmation plein cadre | *(ouverte)* |
-| CC-D02 | Conversation dominante vs étapes | Dominante libre · stepper souple | Pédagogie vs liberté | Sync étapes | Dominante libre (A) | *(ouverte)* |
-| CC-D03 | Panneau latéral — largeur / comportement | 360–400 @1440 · 320 @1280 · sheet ≤1024 | Densité ; ignore risque | Refonte layout | Sticky complémentaire `aria` | *(ouverte)* |
-| CC-D04 | Nav conversation ↔ artefacts | Inline · onglets · drawer | Charge cognitive | — | Inline + sheet preuves | *(ouverte)* |
-| CC-D05 | Visibilité cycle courant + décisions | Toujours · on-demand · desktop-only | Confusion cycle ouvert | Labels anti-claim | Toujours dans panneau (candidat) | *(ouverte)* |
-| CC-D06 | Format confirmations | Plein cadre · panneau · dialog | Erreurs de mutation | Routes | Plein cadre create/reprise ; dialog pause | *(ouverte)* |
-| CC-D07 | Densité compacte vs détaillée | Compact pro · confortable · dense | Lisibilité | — | Compact professionnel | *(ouverte)* |
-| CC-D08 | Responsive | 1440-only · set `88` · mobile first | Coût Delivery | R-UX historique | Set `88` (1440/1280/1024/390) | *(ouverte)* |
-| CC-D09 | Comportement mobile | Sheet synthèse · FAB · split | A11y | Frame CC-12 LF | FAB + sheet | *(ouverte)* |
-| CC-D10 | Historique conversationnel | Linéaire · épisodes repliables | Perf perçue | — | Épisodes + ancre synthèse | *(ouverte)* |
-| CC-D11 | Représentation maturité / sources | Bandes+dimensions · % · masqué | Confiance | Contrat C2 score | Bandes + dimensions courtes ; sources repliées | *(ouverte)* |
-| CC-D12 | Traitement fallback CKC | Silencieux · badge technique · erreur | Confiance ; doctrine | Trace audit | **Silencieux** côté UI | *(ouverte)* |
-| CC-D13 | Distinction projet vs cycle | Labels stricts · fusionnés | Anti-claims | Runtime | Strict : Project ≠ Cycle ouvert | *(ouverte)* |
-| CC-D14 | Contrat `DynamicProposal` | Adopter · adapter · différer | Mapping C2 | Schéma | Adopter comme candidat UX | *(ouverte)* |
-| CC-D15 | Timing matching | Immédiat · après synthèse · manuel | Charge | C3 | Après synthèse utile + progressif | *(ouverte)* |
-| CC-D16 | Weak matches | Repliés · masqués · toujours | Confiance | — | Repliés par défaut | *(ouverte)* |
-| CC-D17 | Pause / abandon snapshot | Conserver · purger · choix | Privacy | — | Choix utilisateur | *(ouverte)* |
-| CC-D18 | Trajectoire Figma → Delivery | HF avant code · LF suffisant · validation runtime d’abord | Gate Delivery | Isolation file | LF + décisions puis validation Figma/runtime — **pas** Delivery ici | *(ouverte)* |
-
-**Décisions déjà tracées ailleurs (ne pas réécrire comme validées pour D1 CC) :**
-
-| ID historique | Contenu | Portée |
-|---------------|---------|--------|
-| UX-DEC-08/09 (doc 16) | Option B P0 Studio historique clôturée | **P0 historique** — ne préjuge pas CC-D01 |
-| Doc 86 | Réservé LPV | Toujours absent |
-| PR #258 | Routage CKC candidat sur `main` | Méthode — **pas** adoption UX |
-
----
-
-## 10. Trajectoire vers conception fonctionnelle
-
-**Recommandation (≠ décision).**
-
-1. Morris arbitre **CC-D01…D18** (priorité D01, D03, D05, D06, D12, D13).
-2. Gate candidat : `GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`.
-3. Puis : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` (Figma + parcours).
-4. Ensuite seulement : conception fonctionnelle détaillée / Delivery UX (**GO séparés**).
-5. Ne pas ouvrir Delivery tant que décisions + preuves Figma/runtime insuffisantes.
-
----
-
-## 11. Réserves
-
-| ID | Réserve |
-|----|---------|
-| CC-R01 | LPV non clôturée (pas de doc 86) |
-| CC-R02 | Runtime IntakeView ≠ contrat conversationnel |
-| CC-R03 | Figma LF isolé (`8xR5…`) non fusionné au file Studio historique |
-| CC-R04 | Frames LF n’illustrent pas encore tous les blocs « état projet vivant » §4 |
-| CC-R05 | Options B/C non framées exhaustivement |
-| CC-R06 | Aucune capture runtime de la cible conversationnelle |
-| CC-R07 | CKC UX/UI détaillé absent — fallback seulement |
-| CC-R08 | Branche UX **locale seulement** (pas de remote au Truth Check) |
-
----
-
-## 12. Dette
-
-| Dette | Note |
-|-------|------|
-| Mapping C2 → DynamicProposal | Delivery futur |
-| Confidence 0–1 → bandes | Contrat + UI |
-| Alternatives non activables | Remplacer par `effect` |
-| Enrichissement frames panneau vivant | Après CC-D03 |
-| Clôture LPV | Doc 86 |
-| HF / tokens DS | Hors LF |
-
----
-
-## 13. Actions non exécutées (ce cycle)
-
-- Code / composants / API
-- Push branche UX / PR / merge
-- Modification `main` / doctrine CKC / onze CKC
-- Delivery / architecture technique détaillée
-- Claim UX READY / VISUAL VALIDATED
-
----
-
-## 14. Gate suivant candidat
-
-`GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`
-(alternatif après décisions : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`)
-
-**Non consommés.**
-
----
-
-## 15. Verdict documentaire
-
-Pack de convergence **complet au niveau candidat** (audit, modèle, surfaces, états, règles, 5 scénarios, registre, trajectoire).
-Validation produit = **MORRIS UX DECISIONS REQUIRED**.
-Preuve visuelle LF existante mais **non** « visual validated » runtime.
-
----
-
-## 13. Diff complet exploitable — commit `5cb285a`
+## 11. Diff complet exploitable — commit `7dc6f9f`
 
 ```diff
 diff --git a/projects/sfia-studio/87-d1-conversational-convergence-ux-functional-design.md b/projects/sfia-studio/87-d1-conversational-convergence-ux-functional-design.md
-index b3e69a7..3ac72f8 100644
+index 3ac72f8..7b3019b 100644
 --- a/projects/sfia-studio/87-d1-conversational-convergence-ux-functional-design.md
 +++ b/projects/sfia-studio/87-d1-conversational-convergence-ux-functional-design.md
-@@ -3,20 +3,22 @@
+@@ -3,20 +3,21 @@
  | Métadonnée | Valeur |
  |------------|--------|
  | **Document** | `87-d1-conversational-convergence-ux-functional-design.md` |
--| **Complète** | `88-d1-conversational-convergence-visual-contract.md` |
-+| **Complète** | `88` (visuel) · `89` (decision pack & convergence) |
- | **Statut** | `ux-design-candidate` — **recommandation Cursor** ; **décision Morris requise** |
--| **Cycle** | UX/UI — D1 Conversational Convergence Design |
-+| **Cycle** | 4 — UX/UI · UX D1 — Conversational Convergence |
+-| **Complète** | `88` (visuel) · `89` (decision pack & convergence) |
+-| **Statut** | `ux-design-candidate` — **recommandation Cursor** ; **décision Morris requise** |
+-| **Cycle** | 4 — UX/UI · UX D1 — Conversational Convergence |
++| **Complète** | `88` (visuel) · `89` (decision pack & validation) |
++| **Statut** | `ux-flow-validated-partial` — Option A **validée** (CC-D01) · 6 décisions Morris · runtime **non** matché |
++| **Cycle** | 4 — UX/UI · UX Validation — Studio Conversational Flow |
  | **Profil** | Critical |
--| **Gate consommé** | `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
-+| **Gate consommé** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` (reprise) ; conception initiale `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
+-| **Gate consommé** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` (reprise) ; conception initiale `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
++| **Gate consommé** | `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` |
  | **Branche** | `ux/sfia-studio-d1-conversational-convergence` |
  | **Worktree** | `/Users/morris/Projects/sfia-workspace-d1-conversational-convergence` |
- | **SHA de départ** | `c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9` (HEAD D1 post-timeout ; contenu mergé `main` via PR #257 squash `499c6b3…`) |
-+| **Base canonique** | `origin/main` @ `2014e941…` (PR #258 CKC routing) — branche UX **non rebasée** dans ce cycle |
+-| **SHA de départ** | `c2d39a7f6881c8d512e48c4b6e9e559ebdf938a9` (HEAD D1 post-timeout ; contenu mergé `main` via PR #257 squash `499c6b3…`) |
+-| **Base canonique** | `origin/main` @ `2014e941…` (PR #258 CKC routing) — branche UX **non rebasée** dans ce cycle |
++| **SHA de départ (validation)** | `5cb285a78ed59bab09953bf0066b8f842b38ebde` |
++| **Base canonique** | `origin/main` @ `2014e941…` (PR #258 CKC routing) |
  | **Dépendance** | Branche D1 `delivery/sfia-studio-d1-shared-platform-integration` |
  | **Baseline méthode** | SFIA v2.6 |
-+| **CKC** | Cycle 4 — **absent** · fallback `02-fifteen-cycles-synthetic-map.md` + méthode v2.6 · experimental cognitive guidance · **aucune autorité d’exécution** |
- | **Doc 86** | **Réservé** à la clôture Live Product Validation — **non créé** |
--| **Gate suivant candidat** | `GO DELIVERY — D1 CONVERSATIONAL CONVERGENCE UX` (**non consommé**) |
-+| **Gate suivant candidat** | `GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE` (**non consommé**) |
+-| **CKC** | Cycle 4 — **absent** · fallback `02-fifteen-cycles-synthetic-map.md` + méthode v2.6 · experimental cognitive guidance · **aucune autorité d’exécution** |
+-| **Doc 86** | **Réservé** à la clôture Live Product Validation — **non créé** |
+-| **Gate suivant candidat** | `GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE` (**non consommé**) |
++| **CKC** | Cycle 4 — **absent** · fallback silencieux UI (CC-D12) · **aucune autorité** |
++| **Doc 86** | **Réservé** LPV — **non créé** |
++| **Décisions validées** | CC-D01 · CC-D03 · CC-D05 · CC-D06 · CC-D12 · CC-D13 — **2026-07-23** |
++| **Gate suivant candidat** | `GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT` (**non consommé**) |
 
--> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris requise**.
-+> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris requise**.
+ > Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris requise**.
  > Ce document **ne décide pas**. Aucune claim « DESIGN APPROVED », « D1 COMPLETE », « LIVE PRODUCT VALIDATED », « CYCLE OPENED ».
+@@ -456,29 +457,30 @@ Scénario LPV « Créer une application de suivi de contrats » + vagues / contr
+ | A11y | ●●● | ●● | ●● |
+ | Zéro mutation implicite | ●●● | ●●● | ●●● |
 
- ---
-@@ -59,7 +61,7 @@
-
- ### Trajectoire candidate
-
--Intention → compréhension → challenge réciproque → enrichissement → synthèse vivante → maturité explicable → trajectoires → décision humaine → préparation bornée → exécution contrôlée.
-+Intention → compréhension conversationnelle → qualification candidate du cycle (**interne**) → résolution cognitive CKC ou fallback (**interne, non UI**) → questions contextualisées → état projet vivant → synthèse / options → recommandation → décision Morris / humaine → confirmation structurante → préparation du contrat d’exécution.
-
- ### Contre-arguments (obligatoires)
-
-@@ -88,6 +90,25 @@ Intention → compréhension → challenge réciproque → enrichissement → sy
- 8. **NO_MUTATION lisible** — reprise / mapping / voir sont des verbes distincts.
- 9. **Anti-claims** — pas de « projet créé », « cycle lancé », « guidé démarré » hors preuve.
- 10. **Accessibilité first** — focus, annonces, contraste, clavier avant polish HF.
-+11. **CKC cognitif opaque** — influence le raisonnement Studio ; **jamais** exposé comme formulaire, questionnaire ou checklist 25 sections.
-+12. **Fallback transparent** — absence de CKC détaillé ≠ erreur utilisateur ; guidance légère sans rupture d’expérience.
-+13. **Épistémologie visible** — Observation · Hypothèse · Recommandation · Décision validée restent distinctes.
+-**Recommandation Cursor :** **Option A**, avec confirmation plein cadre (emprunt léger à C) et matching compact. **Décision Morris requise.**
++**Recommandation Cursor :** **Option A**, avec confirmation plein cadre (emprunt léger à C) et matching compact.
 +
-+---
-+
-+## 4bis. Intégration cognitive CKC (post PR #258)
-+
-+**Observation.** Depuis `main` @ `2014e941…`, le routage CKC candidat est actif (§4.4.5 routing guide). Le cycle UX/UI (#4) **n’a pas** de pilote détaillé.
-+
-+| Couche | Comportement Studio |
-+|--------|---------------------|
-+| Recherche CKC | Interne après qualification de cycle |
-+| Si pilote (1/2/6/9) | Guide questions / challenges / risques — **sans** afficher le contrat |
-+| Si absent (dont UX #4) | Fallback carte synthétique + méthode v2.6 — **silencieux** en UI |
-+| Autorité | **Aucune** — n’autorise pas mutation, Delivery, ni décision Morris |
-+| Surface utilisateur | Conversation + panneau « état utile » seulement (voir `89` §3–4) |
-+
-+Détail audit, états, scénarios pilotes 1/2/6/9 + fallback, registre CC-D01…D18 : **`89-d1-conversational-convergence-decision-pack.md`**.
++**Décision Morris — 2026-07-23 (CC-D01) :** Option A **validée** — conversation principale + panneau vivant + confirmations structurantes. Stepper principal et workspace multi-panneaux complexes **hors MVP**.
 
  ---
 
-@@ -113,7 +134,7 @@ Intention → compréhension → challenge réciproque → enrichissement → sy
- [Studio] exécution contrôlée (create / NO_MUTATION / analyze-only)
- ```
-
--**Doctrine SFIA** informe (sources, gates, profils candidats) mais **n’exécute pas**.
-+**Doctrine SFIA** informe (sources, gates, profils candidats) mais **n’exécute pas**.
- **Studio** affiche, borne, audite, empêche les mutations hors confirmation.
-
- ---
-@@ -272,7 +293,7 @@ Champs **bornés** (enums courts) :
- | `targetKind` | `none` · `new_project` · `existing_project` · `analysis` · `cycle_proposal` |
- | `reversible` | `yes` · `until_confirm` · `no_after_confirm` |
-
--**Interdit.** Catalogue fermé de propositions métier (« Refonte RH », « Audit SI », …).
-+**Interdit.** Catalogue fermé de propositions métier (« Refonte RH », « Audit SI », …).
- **Autorisé.** GPT invente le libellé ; Studio refuse tout `effect` hors enum.
-
- ### 10.2 Affichage
-@@ -441,32 +462,36 @@ Scénario LPV « Créer une application de suivi de contrats » + vagues / contr
-
- ## 15. Décisions Morris requises
-
--1. Architecture d’information (A / B / C / hybride).
--2. Conversation principale vs étapes souples.
--3. Rôle et visibilité de la synthèse vivante (toujours / on-demand / desktop-only).
--4. Représentation de la maturité (bandes + dimensions proposées ?).
--5. Degré d’éditabilité humaine des items de synthèse.
--6. Timing du matching Project (immédiat / après synthèse / déclenché).
--7. Traitement des weak matches (repliés / masqués / toujours visibles).
--8. Adoption du contrat `DynamicProposal` (§10).
--9. Boutons dynamiques + réponse libre (règle CTA).
--10. Pause / abandon (conservation snapshot ?).
--11. Confirmation de création (plein cadre vs panneau).
--12. Confirmation reprise NO_MUTATION (libellés).
--13. Trajectoire Figma → Delivery (HF après GO ?).
--14. Besoin éventuel de modifier la doctrine SFIA (**cycle séparé**).
-+Registre formalisé **CC-D01…CC-D18** dans `89-d1-conversational-convergence-decision-pack.md` §9 (colonne Décision Morris **ouverte**).
+-## 15. Décisions Morris requises
++## 15. Décisions Morris
 +
-+Synthèse (inchangée en substance) :
++### Validées — 2026-07-23
 +
-+1. Architecture d’information (A / B / C / hybride) — **CC-D01**.
-+2. Conversation principale vs étapes souples — **CC-D02**.
-+3. Panneau latéral vivant (contenu §89.4 ; largeur) — **CC-D03**.
-+4. Visibilité cycle / décisions / gates — **CC-D05**.
-+5. Maturité (bandes + dimensions) — **CC-D11**.
-+6. Timing matching / weak matches — **CC-D15 / D16**.
-+7. `DynamicProposal` — **CC-D14**.
-+8. Confirmations structurantes — **CC-D06**.
-+9. Responsive / mobile — **CC-D08 / D09**.
-+10. Fallback CKC silencieux — **CC-D12**.
-+11. Projet vs cycle — **CC-D13**.
-+12. Trajectoire Figma → validation → (plus tard) Delivery — **CC-D18**.
-+13. Doctrine SFIA / onze CKC — **cycle méthode séparé** (hors périmètre).
++| ID | Décision |
++|----|----------|
++| CC-D01 | Option A — conversation + panneau vivant + confirmations structurantes |
++| CC-D03 | Panneau sticky ; 360–400@1440 ; ~320@1280 ; sheet ≤1024 ; état utile ; pas de CKC brut |
++| CC-D05 | Épistémologie distincte ; gates visibles ; métier + ID SFIA secondaire ; pas de CTA générique |
++| CC-D06 | 3 niveaux de confirmation ; explicite avant mutation |
++| CC-D12 | Fallback CKC silencieux UI ; audit interne seulement |
++| CC-D13 | Project ≠ Cycle ; anti-claims projet via cycle |
+
+-Registre formalisé **CC-D01…CC-D18** dans `89-d1-conversational-convergence-decision-pack.md` §9 (colonne Décision Morris **ouverte**).
++Registre complet : `89` §9.
+
+-Synthèse (inchangée en substance) :
++### Encore ouvertes
+
+-1. Architecture d’information (A / B / C / hybride) — **CC-D01**.
+-2. Conversation principale vs étapes souples — **CC-D02**.
+-3. Panneau latéral vivant (contenu §89.4 ; largeur) — **CC-D03**.
+-4. Visibilité cycle / décisions / gates — **CC-D05**.
+-5. Maturité (bandes + dimensions) — **CC-D11**.
+-6. Timing matching / weak matches — **CC-D15 / D16**.
+-7. `DynamicProposal` — **CC-D14**.
+-8. Confirmations structurantes — **CC-D06**.
+-9. Responsive / mobile — **CC-D08 / D09**.
+-10. Fallback CKC silencieux — **CC-D12**.
+-11. Projet vs cycle — **CC-D13**.
+-12. Trajectoire Figma → validation → (plus tard) Delivery — **CC-D18**.
+-13. Doctrine SFIA / onze CKC — **cycle méthode séparé** (hors périmètre).
++CC-D02 · CC-D04 · CC-D07 · CC-D08 · CC-D09 · CC-D10 · CC-D11 · CC-D14 · CC-D15 · CC-D16 · CC-D17 · CC-D18.
 
  ---
 
- ## 16. Hors périmètre
+@@ -486,12 +488,10 @@ Synthèse (inchangée en substance) :
 
--- Code applicatif / prompts / méthode.
-+- Code applicatif / prompts / méthode / routing CKC / PGE.
-+- Création des onze CKC · promotion baseline.
- - Correction scoring C3.
- - Live GPT supplémentaire.
- - B′ · Cycle runtime · GuidedSession.
+ - Code applicatif / prompts / méthode / routing CKC / PGE.
+ - Création des onze CKC · promotion baseline.
+-- Correction scoring C3.
+-- Live GPT supplémentaire.
+-- B′ · Cycle runtime · GuidedSession.
++- Correction scoring C3 · Live GPT · GuidedSession.
  - Clôture LPV (doc **86**).
--- Push / PR / merge de la branche UX.
--- Design HF final.
-+- Push / PR / merge de la branche UX · modification `main`.
-+- Design HF final · Delivery.
+-- Push / PR / merge de la branche UX · modification `main`.
+-- Design HF final · Delivery.
++- Push / PR / merge UX · modification `main`.
++- Design HF final · Delivery · runtime validation.
 
  ---
 
-@@ -479,19 +504,21 @@ Scénario LPV « Créer une application de suivi de contrats » + vagues / contr
- | Alternatives non activables | Remplacer par propositions à `effect` |
- | Dualité OPS1 vs D1 historique | Capitaliser ; ne pas élargir ici |
- | LPV incomplète | Observations partielles U01 |
--| Figma LF seulement | HF après décision Morris |
-+| Figma LF seulement | Enrichissement panneau vivant après CC-D03 |
-+| CKC UX absent | Fallback uniquement — ne pas inventer |
+@@ -499,26 +499,25 @@ Synthèse (inchangée en substance) :
+
+ | Dette | Note |
+ |-------|------|
+-| Schéma C2 actuel ≠ DynamicProposal | Mapping Delivery requis |
+-| Confidence 0–1 vs bandes maturité | Remplacement UX + éventuellement contrat |
+-| Alternatives non activables | Remplacer par propositions à `effect` |
+-| Dualité OPS1 vs D1 historique | Capitaliser ; ne pas élargir ici |
+-| LPV incomplète | Observations partielles U01 |
+-| Figma LF seulement | Enrichissement panneau vivant après CC-D03 |
+-| CKC UX absent | Fallback uniquement — ne pas inventer |
++| Schéma C2 ≠ DynamicProposal | CC-D14 ouverte |
++| Confidence 0–1 vs bandes | CC-D11 ouverte |
++| Alternatives non activables | `effect` bornés |
++| LPV incomplète | Doc 86 |
++| Runtime ≠ Option A | Conception fct / Delivery futurs |
++| HF / tokens | Hors LF |
 
  ---
 
  ## 18. Gate suivant candidat
 
--`GO DELIVERY — D1 CONVERSATIONAL CONVERGENCE UX`
-+`GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`
-+puis `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`.
+-`GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`
+-puis `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`.
++`GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT`
 
--Non consommé. Toute évolution de doctrine = GO Morris distinct.
-+**Non** : Delivery tant que décisions + preuves insuffisantes.
+-**Non** : Delivery tant que décisions + preuves insuffisantes.
++**Non** Delivery tant que conception + preuves runtime insuffisantes.
 
  ---
 
  ## 19. Verdict documentaire
 
--Conception fonctionnelle **complète au niveau candidat**.
--Validation produit = **MORRIS UX DECISION REQUIRED**.
-+Conception fonctionnelle **complète au niveau candidat**, alignée doctrine conversationnelle + CKC opaque.
-+Validation produit = **MORRIS UX DECISIONS REQUIRED**.
+-Conception fonctionnelle **complète au niveau candidat**, alignée doctrine conversationnelle + CKC opaque.
+-Validation produit = **MORRIS UX DECISIONS REQUIRED**.
++Architecture Option A et règles CC-D03/05/06/12/13 **validées Morris**.
++Runtime **non** matché · Delivery **non** autorisé.
++Verdict : aligné sur **STUDIO CONVERSATIONAL FLOW UX VALIDATED — FUNCTIONAL DESIGN REQUIRED**.
 diff --git a/projects/sfia-studio/88-d1-conversational-convergence-visual-contract.md b/projects/sfia-studio/88-d1-conversational-convergence-visual-contract.md
-index 0dd16e8..63523a4 100644
+index 63523a4..044f300 100644
 --- a/projects/sfia-studio/88-d1-conversational-convergence-visual-contract.md
 +++ b/projects/sfia-studio/88-d1-conversational-convergence-visual-contract.md
-@@ -3,14 +3,15 @@
- | Métadonnée | Valeur |
+@@ -4,14 +4,16 @@
  |------------|--------|
  | **Document** | `88-d1-conversational-convergence-visual-contract.md` |
--| **Complète** | `87-d1-conversational-convergence-ux-functional-design.md` |
--| **Statut** | `visual-contract-candidate` — basse/moyenne fidélité ; **non HF** |
--| **Gate** | `GO UX/UI — D1 CONVERSATIONAL CONVERGENCE DESIGN` |
-+| **Complète** | `87` (conception) · `89` (decision pack) |
-+| **Statut** | `visual-contract-candidate` — basse/moyenne fidélité ; **non HF** · **non visual-validated** |
-+| **Gate** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` (reprise) |
+ | **Complète** | `87` (conception) · `89` (decision pack) |
+-| **Statut** | `visual-contract-candidate` — basse/moyenne fidélité ; **non HF** · **non visual-validated** |
+-| **Gate** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` (reprise) |
++| **Statut** | `visual-contract-validated-lf` — LF aligné décisions Morris · **non HF** · **non runtime-matched** · **non visual-validated runtime** |
++| **Gate** | `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` |
  | **Figma file** | `8xR5zSTfGtEVZSr6KK8Gww` |
  | **Figma URL** | https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww |
  | **Page** | `D1 — Conversational Convergence (LF)` |
  | **Fidélité** | Wireframes basse / moyenne — **pas** design final |
  | **Fichier Studio historique** | `IS70XDnBMvZuJYmaI5eZT2` — **non modifié** (isolation volontaire) |
-+| **CKC en UI** | **Interdit** — aucune frame « formulaire CKC » |
+-| **CKC en UI** | **Interdit** — aucune frame « formulaire CKC » |
++| **CKC en UI** | **Interdit** — fallback silencieux (CC-D12) |
++| **Décisions validées** | CC-D01 · CC-D03 · CC-D05 · CC-D06 · CC-D12 · CC-D13 — **2026-07-23** |
++| **Architecture** | **Option A validée** (CC-D01) |
 
  ---
 
-@@ -47,16 +48,16 @@ Ces dimensions sont des **références de conception**, pas une décision de sup
+@@ -30,26 +32,29 @@ Ces dimensions sont des **références de conception**, pas une décision de sup
+
+ ## 2. Structure des écrans (Option A recommandée)
+
+-### Desktop 1440
++### Desktop 1440 — **CC-D01 / CC-D03 validés**
+
+ ```
+ ┌──────────────────────────────────────────────────────────────┐
+ │ App chrome SFIA Studio (existant)                            │
+ ├────────────────────────────┬─────────────────────────────────┤
+-│ CONVERSATION (scroll)      │ SYNTHÈSE VIVANTE (sticky)       │
+-│  · messages humain/GPT     │  · intention / objectif         │
+-│  · challenges inline       │  · hypothèses taguées           │
+-│  · cartes trajectoires     │  · maturité (bande)             │
+-│  · match contextuel        │  · questions ouvertes           │
+-│                            │  · sources (repli)              │
++│ CONVERSATION (scroll)      │ ÉTAT PROJET VIVANT (sticky)     │
++│  · messages humain/GPT     │  · Projet / Cycle actif         │
++│  · challenges inline       │  · objectif / périmètre         │
++│  · cartes trajectoires     │  · progression (bande)          │
++│  · match contextuel        │  · hypothèses / décisions       │
++│                            │  · gate + prochaine étape       │
++│                            │  · risques / réserves / livrables│
+ ├────────────────────────────┴─────────────────────────────────┤
+ │ COMPOSER fixe : [ champ libre multipligne ] [ Envoyer ]      │
+ │ Micro-actions contextuelles au-dessus du composer (chips)    │
  └──────────────────────────────────────────────────────────────┘
  ```
 
--**Zones fixes :** chrome · composer · (option) header session.
-+**Zones fixes :** chrome · composer · (option) header session.
++**Panneau :** 360–400 px @1440 · ~320 px @1280 · sticky · scroll interne.
+ **Zones fixes :** chrome · composer · (option) header session.
  **Zones défilantes :** fil conversation · contenu panneau si overflow.
++**Pas de stepper principal** (CC-D01).
 
  ### Hiérarchie visuelle
 
--1. Dernier message GPT / trajectoires actives
--2. Composer (toujours trouvable)
--3. Bande maturité
--4. Items synthèse
--5. Matching secondaire
-+1. Dernier message GPT / trajectoires actives
-+2. Composer (toujours trouvable)
-+3. Bande maturité
-+4. Items synthèse
-+5. Matching secondaire
- 6. Métadonnées techniques (mode, modèle, sources) — discrètes
-
- ### Navigation
-@@ -82,13 +83,31 @@ Ces dimensions sont des **références de conception**, pas une décision de sup
-
- ---
-
--## 4. Synthèse vivante (visuel)
-+## 4. Panneau latéral vivant (visuel)
-
--- Titre « Synthèse » + horodatage relatif.
--- Items avec tag épistémique : Observation / Hypothèse / Décision / Question.
--- Statut couleur neutre (pas de gamification) : proposé · validé · contesté.
--- Maturité : **bande textuelle** + 4–6 dimensions en liste courte (pas de jauge %).
-+**Cible documentaire** (état projet / cycle utile) — contenu autorisé :
-+
-+| Bloc visible | Rendu |
-+|--------------|--------|
-+| Cycle courant | Label candidat + anti-claim si non ouvert |
-+| Objectif / périmètre | Items tagués |
-+| Progression | Bande qualitative (pas de %) |
-+| Hypothèses | Liste courte |
-+| Décisions validées / ouvertes | Séparées clairement |
-+| Risques / réserves | Liste courte |
-+| Livrables | Attendus session |
-+| Gate courant | Libellé métier (ex. « Confirmation création ») |
-+| Prochaine étape | Une ligne |
-+
-+**Frames LF actuelles (confirmées 2026-07-23)** : le panneau est encore intitulé « Synthèse vivante » (intention / objectif / questions / maturité).
-+**Écart** : blocs gate / décisions / livrables / réserves **pas encore framés exhaustivement** → réserve **CC-R04** (`89`) ; enrichissement Figma **après** CC-D03, sans exposer le CKC.
-+
-+Règles visuelles communes :
-+
-+- Tags épistémiques : Observation / Hypothèse / Recommandation / Décision / Question.
-+- Statut neutre : proposé · validé · contesté.
- - Anti-claim sous maturité : « Appréciation GPT — contestable ».
-+- **Aucun** panneau « dimensions CKC » / checklist 25 sections / badge « CKC absent ».
-
- ---
-
-@@ -119,7 +138,7 @@ Ces dimensions sont des **références de conception**, pas une décision de sup
- | Contradictoire | Alerte + liste sans sélection |
- | Aucun | Pas de faux empty state alarmiste — silence utile |
-
--**Libellés interdits :** « Ouvrir le cockpit » comme synonyme de reprise.
-+**Libellés interdits :** « Ouvrir le cockpit » comme synonyme de reprise.
- **Libellés candidats :** « Voir le Project » · « Reprendre ce Project (sans le modifier) ».
-
- ---
-@@ -130,25 +149,25 @@ Ces dimensions sont des **références de conception**, pas une décision de sup
-
- Plein cadre léger (overlay ou route dédiée visuelle) :
-
--- Résumé convergence
--- Effets / non-effets
--- Objet cible
--- Gate
--- Anti-claims
-+- Résumé convergence
-+- Effets / non-effets
-+- Objet cible
-+- Gate
-+- Anti-claims
- - Actions : Confirmer la préparation → · Revenir à la conversation
-
- ### Confirmation création
-
--- Titre « Créer ce Project »
--- Draft éditable (nom, résumé)
--- Effet : création SQLite Project
--- Non-effets : pas de Cycle, pas de GuidedSession
-+- Titre « Créer ce Project »
-+- Draft éditable (nom, résumé)
-+- Effet : création SQLite Project
-+- Non-effets : pas de Cycle, pas de GuidedSession
- - CTA : « Créer ce projet » · Annuler
-
- ### Confirmation reprise NO_MUTATION
-
--- Bandeau fort : « Aucune modification du Project »
--- CTA : « Confirmer ce Project pour la suite »
-+- Bandeau fort : « Aucune modification du Project »
-+- CTA : « Confirmer ce Project pour la suite »
- - Lien secondaire : Voir sans confirmer
-
- ---
-@@ -222,28 +241,32 @@ Mentions obligatoires candidates :
- |-------|--------|
+@@ -242,30 +247,37 @@ Mentions obligatoires candidates :
  | fileKey | `8xR5zSTfGtEVZSr6KK8Gww` |
  | URL | https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww |
--| Page | `D1 — Conversational Convergence (LF)` |
+ | Page | `D1 — Conversational Convergence (LF)` · node page `0:1` |
+-| Vérification MCP | 2026-07-23 — `get_metadata` : **12 frames** présentes, dimensions confirmées |
+-| Modifications ce cycle | **Aucune** écriture Figma (contrat documentaire enrichi seulement) |
 -
--| # | Frame | node-id | Taille | Rôle |
--|---|-------|---------|--------|------|
--| 01 | `CC-01 Intake initial` | `2:2` | 1440×1024 | Composer vide |
--| 02 | `CC-02 Exploration` | `2:23` | 1440×1024 | Fil + challenges |
--| 03 | `CC-03 Synthèse vivante` | `2:48` | 1440×1024 | Panneau peuplé |
--| 04 | `CC-04 Challenge hypothèse` | `2:72` | 1440×1024 | Chip correction |
--| 05 | `CC-05 Trajectoires candidates` | `2:97` | 1440×1024 | Cartes dynamiques |
--| 06 | `CC-06 Matching fort` | `2:131` | 1440×1024 | Carte reprise |
--| 07 | `CC-07 Matching faible multiple` | `2:151` | 1440×1024 | Accordion |
--| 08 | `CC-08 Préparation bornée` | `2:169` | 1440×1024 | Contrat effets |
--| 09 | `CC-09 Confirm création` | `2:186` | 1440×1024 | C4 create |
--| 10 | `CC-10 Confirm reprise NO_MUTATION` | `2:201` | 1440×1024 | C4 existing |
--| 11 | `CC-11 Pause abandon` | `2:217` | 1440×1024 | Dialog |
--| 12 | `CC-12 Mobile exploration` | `2:230` | 390×844 | Sheet synthèse |
+-| # | Frame | node-id | Taille | Rôle | Confirmé |
+-|---|-------|---------|--------|------|----------|
+-| 01 | `CC-01 Intake initial` | `2:2` | 1440×1024 | Composer vide | oui |
+-| 02 | `CC-02 Exploration` | `2:23` | 1440×1024 | Fil + challenges | oui |
+-| 03 | `CC-03 Synthèse vivante` | `2:48` | 1440×1024 | Panneau peuplé | oui |
+-| 04 | `CC-04 Challenge hypothèse` | `2:72` | 1440×1024 | Chip correction | oui |
+-| 05 | `CC-05 Trajectoires candidates` | `2:97` | 1440×1024 | Cartes dynamiques | oui |
+-| 06 | `CC-06 Matching fort` | `2:131` | 1440×1024 | Carte reprise | oui |
+-| 07 | `CC-07 Matching faible multiple` | `2:151` | 1440×1024 | Accordion | oui |
+-| 08 | `CC-08 Préparation bornée` | `2:169` | 1440×1024 | Contrat effets | oui |
+-| 09 | `CC-09 Confirm création` | `2:186` | 1440×1024 | C4 create | oui |
+-| 10 | `CC-10 Confirm reprise NO_MUTATION` | `2:201` | 1440×1024 | C4 existing | oui |
+-| 11 | `CC-11 Pause abandon` | `2:217` | 1440×1024 | Dialog | oui |
+-| 12 | `CC-12 Mobile exploration` | `2:230` | 390×844 | Sheet synthèse | oui |
 -
 -**Prototype cliquable minimal (nominal P1) :**
-+| Page | `D1 — Conversational Convergence (LF)` · node page `0:1` |
-+| Vérification MCP | 2026-07-23 — `get_metadata` : **12 frames** présentes, dimensions confirmées |
-+| Modifications ce cycle | **Aucune** écriture Figma (contrat documentaire enrichi seulement) |
+-`01 → 02 → 03 → 05 → 08 → 09` (reactions ON_CLICK sur frames).
+-
+-Lien frame 01 : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=2-2
+-
+-**Non framé encore (documentaire `89`) :** états fallback CKC silencieux · contradiction · Git indisponible · gate Morris générique · panneau vivant complet §4.
++| Vérification MCP | 2026-07-23 — **17 frames** (CC-01…CC-17) |
++| Modifications ce cycle | Panneaux vivants CC-03/05/06 · créations CC-13…CC-17 |
 +
-+| # | Frame | node-id | Taille | Rôle | Confirmé |
-+|---|-------|---------|--------|------|----------|
-+| 01 | `CC-01 Intake initial` | `2:2` | 1440×1024 | Composer vide | oui |
-+| 02 | `CC-02 Exploration` | `2:23` | 1440×1024 | Fil + challenges | oui |
-+| 03 | `CC-03 Synthèse vivante` | `2:48` | 1440×1024 | Panneau peuplé | oui |
-+| 04 | `CC-04 Challenge hypothèse` | `2:72` | 1440×1024 | Chip correction | oui |
-+| 05 | `CC-05 Trajectoires candidates` | `2:97` | 1440×1024 | Cartes dynamiques | oui |
-+| 06 | `CC-06 Matching fort` | `2:131` | 1440×1024 | Carte reprise | oui |
-+| 07 | `CC-07 Matching faible multiple` | `2:151` | 1440×1024 | Accordion | oui |
-+| 08 | `CC-08 Préparation bornée` | `2:169` | 1440×1024 | Contrat effets | oui |
-+| 09 | `CC-09 Confirm création` | `2:186` | 1440×1024 | C4 create | oui |
-+| 10 | `CC-10 Confirm reprise NO_MUTATION` | `2:201` | 1440×1024 | C4 existing | oui |
-+| 11 | `CC-11 Pause abandon` | `2:217` | 1440×1024 | Dialog | oui |
-+| 12 | `CC-12 Mobile exploration` | `2:230` | 390×844 | Sheet synthèse | oui |
++| # | Frame | node-id | Taille | Rôle | Décision | Confirmé |
++|---|-------|---------|--------|------|----------|----------|
++| 01 | `CC-01 Intake initial` | `2:2` | 1440×1024 | État initial | CC-D01 | oui |
++| 02 | `CC-02 Exploration` | `2:23` | 1440×1024 | Conversation active | CC-D01 | oui |
++| 03 | `CC-03 État projet vivant` | `2:48` | 1440×1024 | Panneau Projet/Cycle enrichi | CC-D03/13 | oui (modifié) |
++| 04 | `CC-04 Challenge hypothèse` | `2:72` | 1440×1024 | Hypothèses | CC-D05 | oui |
++| 05 | `CC-05 Trajectoires candidates` | `2:97` | 1440×1024 | Options / reco + panneau archi | CC-D05 | oui (panneau modifié) |
++| 06 | `CC-06 Matching fort` | `2:131` | 1440×1024 | Reprise + panneau | CC-D13 | oui (panneau modifié) |
++| 07 | `CC-07 Matching faible multiple` | `2:151` | 1440×1024 | Weak matches | — | oui |
++| 08 | `CC-08 Préparation bornée` | `2:169` | 1440×1024 | Préparation | CC-D06 | oui |
++| 09 | `CC-09 Confirm création` | `2:186` | 1440×1024 | Création Project | CC-D06/13 | oui |
++| 10 | `CC-10 Confirm reprise NO_MUTATION` | `2:201` | 1440×1024 | Reprise | CC-D06/13 | oui |
++| 11 | `CC-11 Pause abandon` | `2:217` | 1440×1024 | Dialog N1/N2 | CC-D06 | oui |
++| 12 | `CC-12 Mobile exploration` | `2:230` | 390×844 | Mobile + FAB | CC-D03 | oui |
++| 13 | `CC-13 Gate Morris et décisions` | `6:49` | 1440×1024 | Gate + épistémologie | CC-D05 | **créé** |
++| 14 | `CC-14 Confirmation structurante N2` | `7:2` | 1440×1024 | Modale structurante | CC-D06 | **créé** |
++| 15 | `CC-15 Fallback silencieux (sans CKC UI)` | `7:31` | 1440×1024 | Continuité sans jargon CKC | CC-D12 | **créé** |
++| 16 | `CC-16 Erreur et blocage` | `7:56` | 1440×1024 | Blocage explicite | CC-D05 | **créé** |
++| 17 | `CC-17 Mobile sheet état projet` | `7:79` | 390×844 | Sheet + focus trap | CC-D03 | **créé** |
 +
-+**Prototype cliquable minimal (nominal P1) :**
- `01 → 02 → 03 → 05 → 08 → 09` (reactions ON_CLICK sur frames).
++**Prototype nominal (cadrage) :** `01 → 02 → 03 → 13 → 14 → 09`
++
++Liens utiles :
++- CC-03 : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=2-48
++- CC-13 : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=6-49
++- CC-15 : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=7-31
++
++**Accessibilité documentaire (contrat) :** landmarks conversation/panneau/composer · labels texte (pas couleur seule) · focus trap sheet/modale · Esc ferme · retour de focus · `aria-live` polite messages / assertive blocage · cibles ≥ 40 px LF · contraste LF à renforcer en HF.
 
- Lien frame 01 : https://www.figma.com/design/8xR5zSTfGtEVZSr6KK8Gww?node-id=2-2
-
-+**Non framé encore (documentaire `89`) :** états fallback CKC silencieux · contradiction · Git indisponible · gate Morris générique · panneau vivant complet §4.
-+
  ---
 
- ## 14. Composants LF (non DS final)
-@@ -258,9 +281,11 @@ Réutiliser tokens Studio P0 quand Delivery viendra ; ce fichier LF n’impose p
-
+@@ -282,10 +294,11 @@ Réutiliser tokens Studio P0 quand Delivery viendra ; ce fichier LF n’impose p
  - Fichier Figma **nouveau** (isolation) — pas encore fusionné au file `IS70XDnBMvZuJYmaI5eZT2`.
  - Fidélité LF : gris / structure, pas polish marque.
--- Option A illustrée ; B/C non framées exhaustivement (décrites dans 87).
-+- Option A illustrée ; B/C non framées exhaustivement (décrites dans 87 / 89).
-+- Écart panneau LF ↔ panneau vivant cible (§4 / `89` §4) — **CC-R04**.
+ - Option A illustrée ; B/C non framées exhaustivement (décrites dans 87 / 89).
+-- Écart panneau LF ↔ panneau vivant cible (§4 / `89` §4) — **CC-R04**.
++- Écart panneau LF ↔ panneau vivant cible (§4 / `89` §4) — **CC-R04** partiellement levé (CC-03/13/17) ; densité HF encore limitée.
++- Douze décisions CC encore ouvertes (D02/04/07–11/14–18).
  - LPV non clôturée : copies susceptibles d’évoluer après doc 86.
- - Prototype = parcours nominal seulement.
-+- **Pas** de claim « visual validated » ni match runtime.
+-- Prototype = parcours nominal seulement.
+-- **Pas** de claim « visual validated » ni match runtime.
++- Prototype = parcours nominal + scénarios validation.
++- **Pas** de claim « visual validated » runtime ni « RUNTIME MATCHED ».
 
  ## 16. Éléments non conçus (volontairement)
 
-@@ -269,10 +294,12 @@ Réutiliser tokens Studio P0 quand Delivery viendra ; ce fichier LF n’impose p
- - UI Cycle runtime / GuidedSession.
- - Administration matching thresholds.
- - Spécification CSS/token exacte.
-+- Formulaire / exposition CKC.
-+- Frames Delivery / PR / merge.
+@@ -299,7 +312,8 @@ Réutiliser tokens Studio P0 quand Delivery viendra ; ce fichier LF n’impose p
 
  ---
 
- ## 17. Décision Morris
+-## 17. Décision Morris
++## 17. Décision Morris / validation
 
 -Le contrat visuel est **prêt pour arbitrage**, pas approuvé.
--Gate Delivery UX requis avant code.
-+Le contrat visuel est **prêt pour arbitrage**, pas approuvé.
-+Prochain gate candidat : décisions Morris (`89`) puis validation Figma/flow — **pas** Delivery tant que preuves insuffisantes.
+-Prochain gate candidat : décisions Morris (`89`) puis validation Figma/flow — **pas** Delivery tant que preuves insuffisantes.
++Six décisions **validées 2026-07-23** (CC-D01/03/05/06/12/13) — contrat LF aligné.
++**Pas** HF · **pas** runtime matched · **pas** Delivery.
++Gate suivant : `GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT`.
 diff --git a/projects/sfia-studio/89-d1-conversational-convergence-decision-pack.md b/projects/sfia-studio/89-d1-conversational-convergence-decision-pack.md
-new file mode 100644
-index 0000000..4b5c653
---- /dev/null
+index 4b5c653..85ae8a4 100644
+--- a/projects/sfia-studio/89-d1-conversational-convergence-decision-pack.md
 +++ b/projects/sfia-studio/89-d1-conversational-convergence-decision-pack.md
-@@ -0,0 +1,379 @@
-+# SFIA Studio — D1 Conversational Convergence — Decision pack & convergence
+@@ -4,18 +4,20 @@
+ |------------|--------|
+ | **Document** | `89-d1-conversational-convergence-decision-pack.md` |
+ | **Complète** | `87` (conception) · `88` (contrat visuel) |
+-| **Statut** | `ux-decision-pack-candidate` — **recommandations Cursor** ; **Décision Morris** non remplie sauf trace Git antérieure |
+-| **Cycle** | 4 — UX/UI · UX D1 — Conversational Convergence |
++| **Statut** | `ux-flow-validated-partial` — **6 décisions Morris validées** (CC-D01/03/05/06/12/13) · 12 ouvertes · **pas** Delivery · **pas** runtime matched |
++| **Cycle** | 4 — UX/UI · UX Validation — Studio Conversational Flow |
+ | **Profil** | Critical |
+-| **Gate consommé** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` |
++| **Gate consommé** | `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` |
+ | **Branche** | `ux/sfia-studio-d1-conversational-convergence` |
+ | **Baseline méthode** | SFIA v2.6 |
+-| **CKC** | Cycle 4 UX/UI — **absent détaillé** · fallback carte synthétique + méthode v2.6 · **aucune autorité d’exécution** |
++| **CKC** | Cycle 4 UX/UI — **absent détaillé** · fallback carte synthétique + méthode v2.6 · **aucune autorité d’exécution** · **silencieux UI** (CC-D12) |
+ | **Doc 86** | **Réservé** LPV — **non créé** |
+ | **Figma** | `8xR5zSTfGtEVZSr6KK8Gww` — page `D1 — Conversational Convergence (LF)` |
++| **Décisions validées** | CC-D01 · CC-D03 · CC-D05 · CC-D06 · CC-D12 · CC-D13 — **2026-07-23** |
++| **Gate suivant candidat** | `GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT` (**non consommé**) |
+
+ > Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris**.
+-> Ce document **ne décide pas**. Aucune claim « UX READY », « VISUAL VALIDATED », « RUNTIME MATCHED », « CKC ADOPTED », « DELIVERY AUTHORIZED ».
++> Claims interdits : « UX READY FOR DELIVERY » · « VISUAL VALIDATED » · « RUNTIME MATCHED » · « DELIVERY AUTHORIZED » · « CKC ADOPTED ».
+
+ ---
+
+@@ -117,49 +119,124 @@ Découvrir besoin · clarifier · contester · enrichir · choisir trajectoire
+
+ ---
+
+-## 4. Panneau latéral vivant (« état utile »)
++## 4. Panneau latéral vivant (« état utile ») — **CC-D03 VALIDÉE**
+
+-Limiter le contenu **visible** à :
++### 4.1 Comportement responsive (validé)
 +
-+| Métadonnée | Valeur |
-+|------------|--------|
-+| **Document** | `89-d1-conversational-convergence-decision-pack.md` |
-+| **Complète** | `87` (conception) · `88` (contrat visuel) |
-+| **Statut** | `ux-decision-pack-candidate` — **recommandations Cursor** ; **Décision Morris** non remplie sauf trace Git antérieure |
-+| **Cycle** | 4 — UX/UI · UX D1 — Conversational Convergence |
-+| **Profil** | Critical |
-+| **Gate consommé** | `GO UX D1 — CONVERSATIONAL CONVERGENCE` |
-+| **Branche** | `ux/sfia-studio-d1-conversational-convergence` |
-+| **Baseline méthode** | SFIA v2.6 |
-+| **CKC** | Cycle 4 UX/UI — **absent détaillé** · fallback carte synthétique + méthode v2.6 · **aucune autorité d’exécution** |
-+| **Doc 86** | **Réservé** LPV — **non créé** |
-+| **Figma** | `8xR5zSTfGtEVZSr6KK8Gww` — page `D1 — Conversational Convergence (LF)` |
++| Viewport | Largeur panneau | Comportement |
++|----------|-----------------|--------------|
++| Desktop 1440 | **360–400 px** | Sticky ; hauteur viewport ; scroll interne ; conversation indépendante |
++| Desktop 1280 | **~320 px** | Sticky ; sections compactes ; priorisation du contenu |
++| ≤1024 | Sheet / drawer | Déclencheur visible ; focus trap ; Esc ferme ; retour de focus |
 +
-+> Formulations : **Observation** · **Hypothèse** · **Option** · **Recommandation** · **Décision Morris**.
-+> Ce document **ne décide pas**. Aucune claim « UX READY », « VISUAL VALIDATED », « RUNTIME MATCHED », « CKC ADOPTED », « DELIVERY AUTHORIZED ».
++### 4.2 Contenu borné (validé)
+
+ | Bloc | Contenu | Notes |
+ |------|---------|-------|
+-| Cycle courant | Label candidat ou « non qualifié » | Proposition ≠ cycle ouvert |
++| Projet | Nom + rôle conteneur long terme | **CC-D13** |
++| Cycle actif | Type + intitulé borné | Proposition ≠ ouvert |
+ | Objectif | Texte validable | |
+ | Périmètre | Texte / bullets | |
+-| Progression | Bande qualitative (exploratoire → prête à borner) | Pas de % |
++| Progression | Bande qualitative | Pas de % |
+ | Hypothèses | Liste courte taguée | |
+-| Décisions validées | Liste humaine | |
++| Décisions validées | Liste humaine | Séparées des ouvertes |
+ | Décisions ouvertes | Gate / arbitrages | |
+-| Risques | Liste courte | |
+-| Réserves | Dont LPV / doctrine | |
+-| Livrables | Attendus du cycle / session | |
+-| Gate courant | Ex. « Décision humaine » / « Confirmation création » | Libellé métier |
++| Risques / réserves | Listes courtes | |
++| Livrables | Attendus session / cycle | |
++| Gate | Formulation métier + ID SFIA secondaire | **CC-D05** |
+ | Prochaine étape | Une phrase | |
+
+-**Interdit en panneau permanent :** dimensions brutes CKC, 25 sections, score % trompeur, « CKC absent », raw digests techniques.
++**Interdit :** dimensions CKC, 25 sections, score %, « CKC absent », digests techniques.
 +
 +---
 +
-+## 1. Audit de convergence UX
++## 4bis. Architecture générale — **CC-D01 VALIDÉE**
 +
-+| Élément UX | État actuel | Source | Cohérent nouvelle doctrine (v2.6 + CKC candidat) | Décision requise |
-+|------------|-------------|--------|--------------------------------------------------|------------------|
-+| Structure générale écran | Formulaire enrichi vertical (runtime) ; Option A documentée (2 col.) | Runtime IntakeView · `87` §14 · `88` §2 | Partiel — cible conversationnelle documentée, runtime non aligné | CC-D01 architecture A/B/C |
-+| Rôle conversation | Fil partiel ; CTA globaux décorrélés | LPV U01 · `87` §2 | Faible côté runtime ; fort côté docs candidats | CC-D02 conversation dominante |
-+| Panneau latéral | Absent runtime ; « Synthèse vivante » en Figma LF | `88` frames CC-01…12 | Partiel — à enrichir en « état projet vivant » sans CKC brut | CC-D03 panneau vivant |
-+| Navigation | `/nouvelle-demande` → cockpit | `87` §14 · `88` §2 | OK conceptuel | CC-D04 nav artefacts |
-+| État projet | Session locale ; pas d’état vivant unifié | Runtime · `87` §8–9 | À formaliser (cycle ≠ projet) | CC-D13 projet vs cycle |
-+| Décisions | CTA confondent reco / action | LPV · `87` §7 | Tags épistémiques candidats | CC-D05 exposition décisions |
-+| Gates Morris | Peu visibles en UI | Doctrine · Operating Model | À rendre explicites sans jargon CKC | CC-D05 / CC-D06 |
-+| Progression cycle | Matching/confirm trop tôt | LPV C4 | Bornage après convergence | CC-D06 confirmations |
-+| Feedback système | Loading/timeout améliorés (60 s) | PR #257 · `88` §9 | OK base | — |
-+| Historique | Fil simple | Runtime | Repliable par épisode (candidat) | CC-D10 historique |
-+| Documents / preuves | Sources repliables (candidat) | `87` §9 · `88` | OK | CC-D11 sources |
-+| Fallback CKC | Non représenté UX (nouveau post-#258) | Carte `02-…` · matrice 04 | À intégrer **en arrière-plan** | CC-D12 fallback |
-+| Erreurs | Banner + retry | `88` §9 | OK | — |
-+| Attentes / empty | Invitation courte | Figma CC-01 | OK | — |
-+| Chargement | `aria-busy` + message 60 s | `88` §3 | OK | — |
-+| Responsive | Contrats 1440/1280/1024/390 | `88` §1, §10 | Documenté LF ; non validé runtime | CC-D08 / CC-D09 |
-+| Accessibilité | Contrat a11y | `88` §11 | Documenté ; non validé | — |
-+| Exposition CKC | Aucune (correct) | Gate · README CKC | **Doit rester invisible** comme formulaire | CC-D12 (garder opaque) |
++Cible **validée** :
++
++- conversation dominante ;
++- panneau vivant complémentaire ;
++- confirmations structurantes ;
++- **aucun** stepper principal ;
++- **aucun** workspace multi-panneaux complexe dans le MVP ;
++- artefacts secondaires futurs possibles **sans** remettre en cause la structure A.
 +
 +---
 +
-+## 2. Modèle d’expérience conversationnelle cible
++## 5. Confirmations structurantes — **CC-D06 VALIDÉE**
 +
-+### 2.1 Chaîne UX
++### Niveau 1 — action réversible
++
++Interaction directe ou confirmation légère · **pas** d’écran plein cadre.
++
++### Niveau 2 — action structurante
++
++Grande modale ou plein cadre · résumé · effets · projet · cycle · périmètre · décisions associées · réversibilité · bouton explicite.
++
++### Niveau 3 — action critique / irréversible
++
++Plein cadre · gate Morris · effets Git/méthode · éléments modifiés · action exacte · avertissement · confirmation explicite · **aucune** activation automatique.
++
++| Parcours | Niveau |
++|----------|--------|
++| Création de projet | 2–3 |
++| Reprise NO_MUTATION | 2 |
++| Validation de cadrage | 2 |
++| Sélection cycle structurant | 2–3 |
++| Changement majeur de périmètre | 2 |
++| Préparation Delivery / push / PR / merge | 3 (futur documenté seulement) |
++
++---
++
++## 5bis. Décisions et gates — **CC-D05 VALIDÉE**
++
++| Statut | Rôle | Visuel |
++|--------|------|--------|
++| Observation | Fait constaté | Tag texte |
++| Hypothèse | À valider / corriger | Tag + actions |
++| Option | Choix possible | Carte |
++| Recommandation | Proposition GPT | Tag — non exécutable |
++| Décision validée | Acte humain explicite | Tag + historique |
++| Décision requise | Attente Morris / humain | Mise en avant |
++| Réserve | Limitation connue | Tag |
++| Blocage | Empêche progression | Banner |
+
+-**Mobile :** bottom sheet / FAB « État » (même contenu).
++Exemple de gate dans le panneau :
 +
 +```
-+intention utilisateur
-+  → compréhension conversationnelle
-+  → qualification candidate du cycle (interne)
-+  → résolution cognitive interne (CKC pilote OU fallback — jamais UI formulaire)
-+  → questions contextualisées (1–3, non checklist 25 sections)
-+  → mise à jour de l’état projet vivant (panneau)
-+  → synthèse / options (trajectoires dynamiques)
-+  → recommandation (taguée, non exécutable)
-+  → décision Morris / humaine explicite
-+  → confirmation structurante
-+  → préparation du contrat d’exécution (prompt Cursor / effets bornés)
++Décision requise avant de poursuivre
++Choisir l’architecture cible
++Gate SFIA : GO ARCHITECTURE TECHNIQUE
 +```
 +
-+### 2.2 Couches
++Aucune validation implicite via CTA générique (« Continuer », « OK »).
+
+ ---
+
+-## 5. Confirmations structurantes
++## 5ter. Fallback CKC — **CC-D12 VALIDÉE** · Projet/Cycle — **CC-D13 VALIDÉE**
 +
-+| Couche | Contenu | Visible utilisateur | Persisté | Confirmation |
-+|--------|---------|---------------------|----------|--------------|
-+| Vu | Messages, questions, synthèse, trajectoires, panneau, confirmations | Oui | Session UI (+ snapshot si autorisé) | Selon gate |
-+| Raisonné (arrière-plan) | Qualification cycle, résolution CKC/fallback, maturité, matching | Non (effets seulement) | Traces audit discrètes optionnelles | Non |
-+| Hypothèse | Items tagués « Hypothèse » | Oui | Oui (statut `proposed`) | Non = pas décision |
-+| Recommandation | Cartes trajectoire / texte GPT | Oui | Oui | Non |
-+| Décision validée | Item « Décision » après acte humain explicite | Oui | Oui (`validated`) | Oui si structurante |
-+| Contrat d’exécution | Effets / non-effets préparés | Oui en préparation | Oui | Confirmation avant mutation |
++**UI :** aucune mention CKC · aucune erreur · aucune dégradation · questions adaptées · continuité.
 +
-+### 2.3 CKC — posture UX (obligatoire)
++**Audit interne seulement :** cycle qualifié · CKC absent · fallback activé · source synthétique · couverture incomplète · aucun contrat inventé.
+
+-Confirmation **plein écran ou modale renforcée** lorsque :
++**Projet** = conteneur long terme (objectif global, contexte, parties, décisions structurantes, artefacts, historique).
+
+-| Cas | Gate UX | Mutation |
+-|-----|---------|----------|
+-| Validation de cadrage (bornage intention/périmètre) | `human_confirm` | Non (état) |
+-| Choix de cycle structurant (proposition de cycle) | `morris_go` / humain | Non (préparation) |
+-| Modification majeure de périmètre | `human_confirm` | Non jusqu’à confirm |
+-| Arbitrage architecture (futur) | `morris_go` | Hors D1 intake |
+-| Lancement Delivery | `morris_go` | Hors ce cycle UX |
+-| Publication Git / PR / merge | `morris_go` | Hors surface Studio intake |
+-| Promotion méthode / baseline | `morris_go` | Interdit ici |
+-| Création Project | `human_confirm` | Oui (C4) |
+-| Reprise Project | `human_confirm` | NO_MUTATION |
+-| Action irréversible | `human_confirm` | Selon effet |
++**Cycle actif** = séquence bornée (type, objectif, statut, progression, gate, livrables, verdict).
+
+-**Règle.** Aucune exécution automatique d’un arbitrage structurant. Composer désactivé seulement pendant modal stricte.
++Exemple panneau :
 +
-+| Règle | Application UX |
-+|-------|----------------|
-+| CKC = guidance cognitive candidate | Influence questions, challenges, ordre de clarification |
-+| Aucune autorité d’exécution | Jamais CTA « Appliquer le CKC » |
-+| Non exposé | Pas de questionnaire 25 sections ; pas de « dimensions CKC » permanentes |
-+| Absent (cycle 4 UX) | Fallback silencieux : carte synthétique + méthode v2.6 |
-+| Fallback ≠ erreur | Pas de banner « CKC manquant » pour l’utilisateur |
-+| Prompt Cursor | Reste le contrat d’exécution final (hors surface chat libre) |
++```
++Projet
++SFIA Studio
 +
-+---
++Cycle actif
++UX/UI — D1 Conversational Convergence
 +
-+## 3. Conversation principale
++Statut
++Décisions Morris partiellement validées
++```
 +
-+### 3.1 Intentions couvertes
-+
-+Découvrir besoin · clarifier · contester · enrichir · choisir trajectoire · préparer action · pauser · abandonner · reprendre session.
-+
-+### 3.2 Types de messages
-+
-+| Type | Producteur | Rôle |
-+|------|------------|------|
-+| Intention / correction | Humain | Entrée libre |
-+| Compréhension | GPT | Reformulation courte |
-+| Challenge | GPT | 1–3 questions ciblées |
-+| Synthèse annoncée | GPT | Pointe vers panneau |
-+| Recommandation | GPT | Trajectoire non exécutée |
-+| Réserve / contradiction | GPT / Studio | Signal explicite |
-+| Confirmation demandée | Studio | Avant mutation |
-+| Système | Studio | Loading, erreur, anti-claim |
-+
-+### 3.3 Artefacts conversationnels
-+
-+- Questions contextualisées (jamais dump CKC).
-+- Synthèses référencées (pas monologue).
-+- Challenges non bloquants (chips).
-+- Recommandations distinctes des décisions.
-+- Réserves visibles.
-+- Confirmations (lien vers surface structurante).
-+- Pièces jointes / preuves : liens sources, captures futures (LPV), digests — **repliés**.
-+
-+---
-+
-+## 4. Panneau latéral vivant (« état utile »)
-+
-+Limiter le contenu **visible** à :
-+
-+| Bloc | Contenu | Notes |
-+|------|---------|-------|
-+| Cycle courant | Label candidat ou « non qualifié » | Proposition ≠ cycle ouvert |
-+| Objectif | Texte validable | |
-+| Périmètre | Texte / bullets | |
-+| Progression | Bande qualitative (exploratoire → prête à borner) | Pas de % |
-+| Hypothèses | Liste courte taguée | |
-+| Décisions validées | Liste humaine | |
-+| Décisions ouvertes | Gate / arbitrages | |
-+| Risques | Liste courte | |
-+| Réserves | Dont LPV / doctrine | |
-+| Livrables | Attendus du cycle / session | |
-+| Gate courant | Ex. « Décision humaine » / « Confirmation création » | Libellé métier |
-+| Prochaine étape | Une phrase | |
-+
-+**Interdit en panneau permanent :** dimensions brutes CKC, 25 sections, score % trompeur, « CKC absent », raw digests techniques.
-+
-+**Mobile :** bottom sheet / FAB « État » (même contenu).
-+
-+---
-+
-+## 5. Confirmations structurantes
-+
-+Confirmation **plein écran ou modale renforcée** lorsque :
-+
-+| Cas | Gate UX | Mutation |
-+|-----|---------|----------|
-+| Validation de cadrage (bornage intention/périmètre) | `human_confirm` | Non (état) |
-+| Choix de cycle structurant (proposition de cycle) | `morris_go` / humain | Non (préparation) |
-+| Modification majeure de périmètre | `human_confirm` | Non jusqu’à confirm |
-+| Arbitrage architecture (futur) | `morris_go` | Hors D1 intake |
-+| Lancement Delivery | `morris_go` | Hors ce cycle UX |
-+| Publication Git / PR / merge | `morris_go` | Hors surface Studio intake |
-+| Promotion méthode / baseline | `morris_go` | Interdit ici |
-+| Création Project | `human_confirm` | Oui (C4) |
-+| Reprise Project | `human_confirm` | NO_MUTATION |
-+| Action irréversible | `human_confirm` | Selon effet |
-+
-+**Règle.** Aucune exécution automatique d’un arbitrage structurant. Composer désactivé seulement pendant modal stricte.
-+
-+---
-+
-+## 6. États conversationnels
-+
-+| État | Sens UX | CKC / fallback |
-+|------|---------|----------------|
-+| découverte | Intention libre | Résolution interne silencieuse |
-+| clarification | Questions ciblées | Guide quelles questions |
-+| analyse | Matching / lecture sources | Opaque |
-+| synthèse | Panneau peuplé | Opaque |
-+| recommandation | Trajectoires | Opaque |
-+| attente de décision | CTA humain | — |
-+| décision validée | Tag Décision | — |
-+| réserve | Blocage soft | — |
-+| contradiction | Alerte sans présélection | — |
-+| fallback CKC | Guidage léger | **Transparent** (pas d’erreur UX) |
-+| source manquante | Message actionnable | — |
-+| Git indisponible | Banner ; pas de mutation Git | — |
-+| exécution préparée | Contrat effets affiché | — |
-+| exécution bloquée | Garde-fou | — |
-+| reprise de cycle | Snapshot / reprise session | — |
-+| cycle clôturé | Anti-claim si non ouvert | — |
-+
-+Ne pas figer une machine à états Delivery unique sans CC-D01.
-+
-+---
-+
-+## 7. Règles de transformation cognitive
-+
-+1. Une phrase utilisateur **ne devient pas** automatiquement une décision.
-+2. Une recommandation GPT **reste** une recommandation.
-+3. Une option / trajectoire **reste distincte** d’une décision.
-+4. Une décision Morris / humaine doit être **explicitement identifiée** (tag + acte).
-+5. Les contradictions doivent être **signalées**.
-+6. Informations insuffisantes → **questions ciblées** (budget 1–3).
-+7. Les questions **varient** selon contexte / cycle qualifié.
-+8. Le CKC **ne devient pas** une checklist mécanique.
-+9. L’absence de CKC détaillé **ne bloque pas** le cycle.
-+10. Le fallback **n’est pas** exposé comme erreur utilisateur.
-+11. Le prompt Cursor **reste** le contrat d’exécution final.
-+
-+---
-+
-+## 8. Scénarios — quatre pilotes CKC + fallback
-+
-+> Les pilotes testent la **cohérence du modèle UX** Studio. Ils n’impliquent pas l’adoption des CKC ni l’ouverture de ces cycles dans D1 intake.
-+
-+### 8.1 Scénario P1 — Cadrage (CKC pilote 01)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Entrée | « On doit cadrer un outil de suivi de contrats pour le commercial et le juridique. » |
-+| Comportement | Challenge besoin≠solution ; questions finalité / parties / contraintes / succès / inconnues |
-+| Demandé | Périmètre, hors-scope, critères de succès — **pas** formulaire CKC |
-+| Panneau | Cycle candidat « Cadrage » · objectif · hypothèses · questions · gate « Décision de cadrage » |
-+| Hypothèses | Acteurs, canal, urgence |
-+| Risques | Scope flou ; Critical implicite |
-+| Gate Morris | Validation brief / périmètre fermé |
-+| Confirmation | Plein cadre si bornage retenu |
-+| Sortie | Synthèse cadrage + trajectoires (conception / backlog / pause) — **Cycle non ouvert** auto |
-+
-+### 8.2 Scénario P2 — Conception fonctionnelle (CKC pilote 02)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Entrée | « Spécifier les règles d’accès et le parcours de création d’un contrat. » |
-+| Comportement | Usagers, parcours, règles, exceptions ; refuse technique trop tôt |
-+| Demandé | Acteurs, règles métier, exceptions |
-+| Panneau | Cycle « Conception fonctionnelle » · livrables « Spec bornée » · réserves |
-+| Hypothèses | Périmètre déjà cadré |
-+| Risques | Technique prématurée |
-+| Gate | Validation spec / règles critiques |
-+| Confirmation | Si gel de règles structurantes |
-+| Sortie | Spec candidate + options UX / archi — sans Delivery |
-+
-+### 8.3 Scénario P3 — Architecture technique (CKC pilote 03)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Entrée | « Faut-il SQLite local ou un backend partagé ? » |
-+| Comportement | Options & trade-offs ; NFR ; dette ; **pas** d’ADR implicite |
-+| Demandé | Contraintes prod, sécurité, coût |
-+| Panneau | Cycle « Architecture technique » · décisions ouvertes · risques |
-+| Hypothèses | Contexte Project existant |
-+| Risques | Décision implicite |
-+| Gate Morris | Arbitrage ADR |
-+| Confirmation | **Toujours** avant claim « stack choisie » |
-+| Sortie | Options + reco — décision Morris obligatoire |
-+
-+### 8.4 Scénario P4 — QA / validation (CKC pilote 04)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Entrée | « Est-ce que la convergence D1 est validée ? » |
-+| Comportement | Evidence-based ; négatifs ; sévérité ; refuse QA symbolique |
-+| Demandé | Preuves Figma / runtime / docs |
-+| Panneau | Réserves · preuves manquantes · verdict candidat |
-+| Hypothèses | Couverture LF seule |
-+| Risques | Faux « UX READY » |
-+| Gate | Morris validation UX |
-+| Confirmation | Aucune claim visuelle sans preuves |
-+| Sortie | Verdict + réserves (ex. LPV, runtime match) |
-+
-+### 8.5 Scénario P5 — Cycle sans CKC détaillé (ex. UX/UI #4 ou Delivery #8)
-+
-+| Champ | Contenu |
-+|-------|---------|
-+| Entrée | Intention relevant d’un cycle **sans** pilote (ex. ce cycle UX lui-même, ou Delivery) |
-+| Comportement | Fallback **transparent** : carte synthétique + méthode v2.6 ; questions légères |
-+| Demandé | Selon posture cycle (fidélité vs exploration pour UX) |
-+| Panneau | Cycle candidat libellé métier · **pas** de message « CKC manquant » |
-+| Hypothèses | Couverture CKC incomplète (trace interne seulement) |
-+| Risques | Invention d’un faux contrat |
-+| Gate | Selon criticité |
-+| Confirmation | Inchangée |
-+| Sortie | Expérience continue · **aucune invention** · **aucune rupture** |
-+
-+---
-+
-+## 9. Registre des décisions Morris
-+
-+| ID | Sujet | Options | Impacts | Dette | Recommandation ChatGPT / Cursor | Décision Morris |
-+|----|-------|---------|---------|-------|----------------------------------|-----------------|
-+| CC-D01 | Structure principale écran | A conversation+panneau · B étapes · C workspace hybride | Refonte IntakeView ; a11y ; mobile | Runtime actuel formulaire | **A** + confirmation plein cadre | *(ouverte)* |
-+| CC-D02 | Conversation dominante vs étapes | Dominante libre · stepper souple | Pédagogie vs liberté | Sync étapes | Dominante libre (A) | *(ouverte)* |
-+| CC-D03 | Panneau latéral — largeur / comportement | 360–400 @1440 · 320 @1280 · sheet ≤1024 | Densité ; ignore risque | Refonte layout | Sticky complémentaire `aria` | *(ouverte)* |
-+| CC-D04 | Nav conversation ↔ artefacts | Inline · onglets · drawer | Charge cognitive | — | Inline + sheet preuves | *(ouverte)* |
-+| CC-D05 | Visibilité cycle courant + décisions | Toujours · on-demand · desktop-only | Confusion cycle ouvert | Labels anti-claim | Toujours dans panneau (candidat) | *(ouverte)* |
-+| CC-D06 | Format confirmations | Plein cadre · panneau · dialog | Erreurs de mutation | Routes | Plein cadre create/reprise ; dialog pause | *(ouverte)* |
-+| CC-D07 | Densité compacte vs détaillée | Compact pro · confortable · dense | Lisibilité | — | Compact professionnel | *(ouverte)* |
-+| CC-D08 | Responsive | 1440-only · set `88` · mobile first | Coût Delivery | R-UX historique | Set `88` (1440/1280/1024/390) | *(ouverte)* |
-+| CC-D09 | Comportement mobile | Sheet synthèse · FAB · split | A11y | Frame CC-12 LF | FAB + sheet | *(ouverte)* |
-+| CC-D10 | Historique conversationnel | Linéaire · épisodes repliables | Perf perçue | — | Épisodes + ancre synthèse | *(ouverte)* |
-+| CC-D11 | Représentation maturité / sources | Bandes+dimensions · % · masqué | Confiance | Contrat C2 score | Bandes + dimensions courtes ; sources repliées | *(ouverte)* |
-+| CC-D12 | Traitement fallback CKC | Silencieux · badge technique · erreur | Confiance ; doctrine | Trace audit | **Silencieux** côté UI | *(ouverte)* |
-+| CC-D13 | Distinction projet vs cycle | Labels stricts · fusionnés | Anti-claims | Runtime | Strict : Project ≠ Cycle ouvert | *(ouverte)* |
-+| CC-D14 | Contrat `DynamicProposal` | Adopter · adapter · différer | Mapping C2 | Schéma | Adopter comme candidat UX | *(ouverte)* |
-+| CC-D15 | Timing matching | Immédiat · après synthèse · manuel | Charge | C3 | Après synthèse utile + progressif | *(ouverte)* |
-+| CC-D16 | Weak matches | Repliés · masqués · toujours | Confiance | — | Repliés par défaut | *(ouverte)* |
-+| CC-D17 | Pause / abandon snapshot | Conserver · purger · choix | Privacy | — | Choix utilisateur | *(ouverte)* |
-+| CC-D18 | Trajectoire Figma → Delivery | HF avant code · LF suffisant · validation runtime d’abord | Gate Delivery | Isolation file | LF + décisions puis validation Figma/runtime — **pas** Delivery ici | *(ouverte)* |
-+
-+**Décisions déjà tracées ailleurs (ne pas réécrire comme validées pour D1 CC) :**
-+
-+| ID historique | Contenu | Portée |
-+|---------------|---------|--------|
-+| UX-DEC-08/09 (doc 16) | Option B P0 Studio historique clôturée | **P0 historique** — ne préjuge pas CC-D01 |
-+| Doc 86 | Réservé LPV | Toujours absent |
-+| PR #258 | Routage CKC candidat sur `main` | Méthode — **pas** adoption UX |
-+
-+---
-+
-+## 10. Trajectoire vers conception fonctionnelle
-+
-+**Recommandation (≠ décision).**
-+
-+1. Morris arbitre **CC-D01…D18** (priorité D01, D03, D05, D06, D12, D13).
-+2. Gate candidat : `GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`.
-+3. Puis : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` (Figma + parcours).
-+4. Ensuite seulement : conception fonctionnelle détaillée / Delivery UX (**GO séparés**).
-+5. Ne pas ouvrir Delivery tant que décisions + preuves Figma/runtime insuffisantes.
-+
-+---
-+
-+## 11. Réserves
-+
-+| ID | Réserve |
-+|----|---------|
-+| CC-R01 | LPV non clôturée (pas de doc 86) |
-+| CC-R02 | Runtime IntakeView ≠ contrat conversationnel |
-+| CC-R03 | Figma LF isolé (`8xR5…`) non fusionné au file Studio historique |
-+| CC-R04 | Frames LF n’illustrent pas encore tous les blocs « état projet vivant » §4 |
-+| CC-R05 | Options B/C non framées exhaustivement |
-+| CC-R06 | Aucune capture runtime de la cible conversationnelle |
-+| CC-R07 | CKC UX/UI détaillé absent — fallback seulement |
-+| CC-R08 | Branche UX **locale seulement** (pas de remote au Truth Check) |
-+
-+---
-+
-+## 12. Dette
-+
-+| Dette | Note |
-+|-------|------|
-+| Mapping C2 → DynamicProposal | Delivery futur |
-+| Confidence 0–1 → bandes | Contrat + UI |
-+| Alternatives non activables | Remplacer par `effect` |
-+| Enrichissement frames panneau vivant | Après CC-D03 |
++Claims **interdits** : projet validé/terminé sur un cycle · projet créé sans mutation confirmée · cycle lancé sans gate réel.
+
+ ---
+
+@@ -284,19 +361,19 @@ Ne pas figer une machine à états Delivery unique sans CC-D01.
+
+ | ID | Sujet | Options | Impacts | Dette | Recommandation ChatGPT / Cursor | Décision Morris |
+ |----|-------|---------|---------|-------|----------------------------------|-----------------|
+-| CC-D01 | Structure principale écran | A conversation+panneau · B étapes · C workspace hybride | Refonte IntakeView ; a11y ; mobile | Runtime actuel formulaire | **A** + confirmation plein cadre | *(ouverte)* |
++| CC-D01 | Structure principale écran | A conversation+panneau · B étapes · C workspace hybride | Refonte IntakeView ; a11y ; mobile | Runtime actuel formulaire | **A** + confirmation plein cadre | **Décision Morris — 2026-07-23 :** Option A validée — conversation principale + panneau vivant + confirmations structurantes. Pas de stepper principal. Pas de workspace multi-panneaux complexe dans le MVP. |
+ | CC-D02 | Conversation dominante vs étapes | Dominante libre · stepper souple | Pédagogie vs liberté | Sync étapes | Dominante libre (A) | *(ouverte)* |
+-| CC-D03 | Panneau latéral — largeur / comportement | 360–400 @1440 · 320 @1280 · sheet ≤1024 | Densité ; ignore risque | Refonte layout | Sticky complémentaire `aria` | *(ouverte)* |
++| CC-D03 | Panneau latéral — largeur / comportement | 360–400 @1440 · 320 @1280 · sheet ≤1024 | Densité ; ignore risque | Refonte layout | Sticky complémentaire `aria` | **Décision Morris — 2026-07-23 :** Panneau sticky desktop ; 360–400 px @1440 ; ~320 px @1280 ; sheet/drawer ≤1024 ; contenu borné à l’état utile ; aucune exposition du CKC brut. |
+ | CC-D04 | Nav conversation ↔ artefacts | Inline · onglets · drawer | Charge cognitive | — | Inline + sheet preuves | *(ouverte)* |
+-| CC-D05 | Visibilité cycle courant + décisions | Toujours · on-demand · desktop-only | Confusion cycle ouvert | Labels anti-claim | Toujours dans panneau (candidat) | *(ouverte)* |
+-| CC-D06 | Format confirmations | Plein cadre · panneau · dialog | Erreurs de mutation | Routes | Plein cadre create/reprise ; dialog pause | *(ouverte)* |
++| CC-D05 | Visibilité cycle courant + décisions | Toujours · on-demand · desktop-only | Confusion cycle ouvert | Labels anti-claim | Toujours dans panneau (candidat) | **Décision Morris — 2026-07-23 :** Observations / hypothèses / options / recommandations / décisions validées distinctes ; décisions ouvertes vs validées séparées ; gates visibles dans le panneau ; formulation métier claire + identifiant SFIA secondaire ; aucune validation implicite via CTA générique. |
++| CC-D06 | Format confirmations | Plein cadre · panneau · dialog | Erreurs de mutation | Routes | Plein cadre create/reprise ; dialog pause | **Décision Morris — 2026-07-23 :** Confirmation légère si réversible ; dialog pour pause/action limitée ; plein cadre ou modale renforcée si structurante ; résumé effets / périmètre / réversibilité / gate ; confirmation explicite avant toute mutation. |
+ | CC-D07 | Densité compacte vs détaillée | Compact pro · confortable · dense | Lisibilité | — | Compact professionnel | *(ouverte)* |
+ | CC-D08 | Responsive | 1440-only · set `88` · mobile first | Coût Delivery | R-UX historique | Set `88` (1440/1280/1024/390) | *(ouverte)* |
+ | CC-D09 | Comportement mobile | Sheet synthèse · FAB · split | A11y | Frame CC-12 LF | FAB + sheet | *(ouverte)* |
+ | CC-D10 | Historique conversationnel | Linéaire · épisodes repliables | Perf perçue | — | Épisodes + ancre synthèse | *(ouverte)* |
+ | CC-D11 | Représentation maturité / sources | Bandes+dimensions · % · masqué | Confiance | Contrat C2 score | Bandes + dimensions courtes ; sources repliées | *(ouverte)* |
+-| CC-D12 | Traitement fallback CKC | Silencieux · badge technique · erreur | Confiance ; doctrine | Trace audit | **Silencieux** côté UI | *(ouverte)* |
+-| CC-D13 | Distinction projet vs cycle | Labels stricts · fusionnés | Anti-claims | Runtime | Strict : Project ≠ Cycle ouvert | *(ouverte)* |
++| CC-D12 | Traitement fallback CKC | Silencieux · badge technique · erreur | Confiance ; doctrine | Trace audit | **Silencieux** côté UI | **Décision Morris — 2026-07-23 :** Fallback CKC totalement silencieux côté utilisateur ; aucune mention « CKC manquant » ; carte synthétique + méthode v2.6 en interne ; trace audit interne seulement ; aucune invention de contrat. |
++| CC-D13 | Distinction projet vs cycle | Labels stricts · fusionnés | Anti-claims | Runtime | Strict : Project ≠ Cycle ouvert | **Décision Morris — 2026-07-23 :** Séparation stricte — Project = conteneur long terme ; Cycle = séquence de travail bornée ; aucun claim « projet validé / lancé / terminé » à partir du seul état d’un cycle. |
+ | CC-D14 | Contrat `DynamicProposal` | Adopter · adapter · différer | Mapping C2 | Schéma | Adopter comme candidat UX | *(ouverte)* |
+ | CC-D15 | Timing matching | Immédiat · après synthèse · manuel | Charge | C3 | Après synthèse utile + progressif | *(ouverte)* |
+ | CC-D16 | Weak matches | Repliés · masqués · toujours | Confiance | — | Repliés par défaut | *(ouverte)* |
+@@ -315,13 +392,14 @@ Ne pas figer une machine à états Delivery unique sans CC-D01.
+
+ ## 10. Trajectoire vers conception fonctionnelle
+
+-**Recommandation (≠ décision).**
++**État.** Six décisions structurantes **validées** (CC-D01/03/05/06/12/13). Douze décisions **encore ouvertes** (CC-D02/04/07–11/14–18).
+
+-1. Morris arbitre **CC-D01…D18** (priorité D01, D03, D05, D06, D12, D13).
+-2. Gate candidat : `GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`.
+-3. Puis : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW` (Figma + parcours).
+-4. Ensuite seulement : conception fonctionnelle détaillée / Delivery UX (**GO séparés**).
+-5. Ne pas ouvrir Delivery tant que décisions + preuves Figma/runtime insuffisantes.
++1. ~~Morris arbitre CC-D01/03/05/06/12/13~~ — **fait 2026-07-23**.
++2. ~~`GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`~~ — **consommé** (ce cycle).
++3. Gate candidat suivant : `GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT`.
++4. Décisions ouvertes restantes : arbitrage Morris ultérieur si bloquantes pour conception fct.
++5. Delivery UX : **interdit** tant que conception fct + preuves runtime insuffisantes.
++6. Ne pas conclure RUNTIME MATCHED / UX READY FOR DELIVERY.
+
+ ---
+
+@@ -332,11 +410,13 @@ Ne pas figer une machine à états Delivery unique sans CC-D01.
+ | CC-R01 | LPV non clôturée (pas de doc 86) |
+ | CC-R02 | Runtime IntakeView ≠ contrat conversationnel |
+ | CC-R03 | Figma LF isolé (`8xR5…`) non fusionné au file Studio historique |
+-| CC-R04 | Frames LF n’illustrent pas encore tous les blocs « état projet vivant » §4 |
+-| CC-R05 | Options B/C non framées exhaustivement |
++| CC-R04 | ~~Panneau vivant non framé~~ — enrichi ce cycle ; densité HF encore limitée |
++| CC-R05 | Options B/C non framées (A validée — B/C écartées pour MVP) |
+ | CC-R06 | Aucune capture runtime de la cible conversationnelle |
+-| CC-R07 | CKC UX/UI détaillé absent — fallback seulement |
+-| CC-R08 | Branche UX **locale seulement** (pas de remote au Truth Check) |
++| CC-R07 | CKC UX/UI détaillé absent — fallback silencieux seulement |
++| CC-R08 | Branche UX **locale seulement** |
++| CC-R09 | Douze décisions CC encore ouvertes (D02/04/07–11/14–18) |
++| CC-R10 | Preuve Figma = LF wireframes — **pas** HF / **pas** visual validated runtime |
+
+ ---
+
+@@ -344,29 +424,31 @@ Ne pas figer une machine à états Delivery unique sans CC-D01.
+
+ | Dette | Note |
+ |-------|------|
+-| Mapping C2 → DynamicProposal | Delivery futur |
+-| Confidence 0–1 → bandes | Contrat + UI |
++| Mapping C2 → DynamicProposal | CC-D14 ouverte |
++| Confidence 0–1 → bandes | CC-D11 ouverte |
+ | Alternatives non activables | Remplacer par `effect` |
+-| Enrichissement frames panneau vivant | Après CC-D03 |
+-| Clôture LPV | Doc 86 |
+ | HF / tokens DS | Hors LF |
 +| Clôture LPV | Doc 86 |
-+| HF / tokens DS | Hors LF |
++| Conception fonctionnelle Studio | Gate suivant |
+
+ ---
+
+ ## 13. Actions non exécutées (ce cycle)
+
+-- Code / composants / API
+-- Push branche UX / PR / merge
+-- Modification `main` / doctrine CKC / onze CKC
+-- Delivery / architecture technique détaillée
+-- Claim UX READY / VISUAL VALIDATED
++- Code / composants / API / runtime
++- Push branche UX / PR / merge / main
++- Doctrine CKC / onze CKC / baseline
++- Delivery / architecture technique
++- Claims UX READY / VISUAL VALIDATED / RUNTIME MATCHED
++- Transformation des 12 décisions ouvertes en validées
+
+ ---
+
+ ## 14. Gate suivant candidat
+
+-`GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`
+-(alternatif après décisions : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`)
++`GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT`
 +
-+---
-+
-+## 13. Actions non exécutées (ce cycle)
-+
-+- Code / composants / API
-+- Push branche UX / PR / merge
-+- Modification `main` / doctrine CKC / onze CKC
-+- Delivery / architecture technique détaillée
-+- Claim UX READY / VISUAL VALIDATED
-+
-+---
-+
-+## 14. Gate suivant candidat
-+
-+`GO MORRIS UX DECISIONS — STUDIO CONVERSATIONAL CONVERGENCE`
-+(alternatif après décisions : `GO UX VALIDATION — STUDIO CONVERSATIONAL FLOW`)
-+
-+**Non consommés.**
-+
-+---
-+
-+## 15. Verdict documentaire
-+
-+Pack de convergence **complet au niveau candidat** (audit, modèle, surfaces, états, règles, 5 scénarios, registre, trajectoire).
-+Validation produit = **MORRIS UX DECISIONS REQUIRED**.
-+Preuve visuelle LF existante mais **non** « visual validated » runtime.
++Alternatifs si besoin : `GO FIGMA COMPLETION — STUDIO CONVERSATIONAL FLOW` · `GO MORRIS UX DECISIONS` (pour D02/04/07–11/14–18).
+
+ **Non consommés.**
+
+@@ -374,6 +456,6 @@ Ne pas figer une machine à états Delivery unique sans CC-D01.
+
+ ## 15. Verdict documentaire
+
+-Pack de convergence **complet au niveau candidat** (audit, modèle, surfaces, états, règles, 5 scénarios, registre, trajectoire).
+-Validation produit = **MORRIS UX DECISIONS REQUIRED**.
+-Preuve visuelle LF existante mais **non** « visual validated » runtime.
++Six décisions Morris **tracées et intégrées** · frames D1 adaptées · preuves Figma LF.
++**Pas** de preuve runtime · **pas** Delivery.
++Verdict cycle : **STUDIO CONVERSATIONAL FLOW UX VALIDATED — FUNCTIONAL DESIGN REQUIRED**.
 diff --git a/projects/sfia-studio/README.md b/projects/sfia-studio/README.md
-index 3841a8d..c3ebfc5 100644
+index c3ebfc5..8101c0d 100644
 --- a/projects/sfia-studio/README.md
 +++ b/projects/sfia-studio/README.md
-@@ -529,6 +529,7 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+@@ -527,9 +527,9 @@ Décision Morris de validation de la conception fonctionnelle et des FD-CAND-01
+ | [84-d1-shared-platform-integration-delivery-report.md](./84-d1-shared-platform-integration-delivery-report.md) | Delivery D1 ↔ Shared Platform (tools + contexte) — intégré via [#257](https://github.com/mcleland147/sfia-workspace/pull/257) |
+ | [85-d1-shared-platform-integration-validation-report.md](./85-d1-shared-platform-integration-validation-report.md) | Validation technique fake — intégré via [#257](https://github.com/mcleland147/sfia-workspace/pull/257) |
  | `86` | **Réservé** — clôture Live Product Validation (**non créé** ; LPV engagée, non clôturée) |
- | [87-d1-conversational-convergence-ux-functional-design.md](./87-d1-conversational-convergence-ux-functional-design.md) | Conception UX/fonctionnelle convergence conversationnelle D1 — **`ux-design-candidate`** |
- | [88-d1-conversational-convergence-visual-contract.md](./88-d1-conversational-convergence-visual-contract.md) | Contrat visuel LF + frames Figma — **`visual-contract-candidate`** |
-+| [89-d1-conversational-convergence-decision-pack.md](./89-d1-conversational-convergence-decision-pack.md) | Audit, modèle cible, scénarios CKC, registre CC-D01…D18 — **`ux-decision-pack-candidate`** |
+-| [87-d1-conversational-convergence-ux-functional-design.md](./87-d1-conversational-convergence-ux-functional-design.md) | Conception UX/fonctionnelle convergence conversationnelle D1 — **`ux-design-candidate`** |
+-| [88-d1-conversational-convergence-visual-contract.md](./88-d1-conversational-convergence-visual-contract.md) | Contrat visuel LF + frames Figma — **`visual-contract-candidate`** |
+-| [89-d1-conversational-convergence-decision-pack.md](./89-d1-conversational-convergence-decision-pack.md) | Audit, modèle cible, scénarios CKC, registre CC-D01…D18 — **`ux-decision-pack-candidate`** |
++| [87-d1-conversational-convergence-ux-functional-design.md](./87-d1-conversational-convergence-ux-functional-design.md) | Conception UX/fonctionnelle convergence conversationnelle D1 — **`ux-flow-validated-partial`** (CC-D01/03/05/06/12/13) |
++| [88-d1-conversational-convergence-visual-contract.md](./88-d1-conversational-convergence-visual-contract.md) | Contrat visuel LF + frames Figma CC-01…17 — **`visual-contract-validated-lf`** |
++| [89-d1-conversational-convergence-decision-pack.md](./89-d1-conversational-convergence-decision-pack.md) | Audit, modèle, scénarios, registre — **6 décisions Morris validées** · 12 ouvertes |
 
--> **Statut Git :** Shared Technical Platform **MERGED** (#255). Docs 75–80 consolidés (#256). D1 shared platform + timeout 60s **MERGED** (#257 @ `499c6b3…`).
--> **Séquence active :** D1 unifié sur `main` → LPV **ouverte** (pas de doc 86) → conception convergence conversationnelle (`87`/`88`, décision Morris) → éventuel `GO DELIVERY — D1 CONVERSATIONAL CONVERGENCE UX`.
-+> **Statut Git :** Shared Technical Platform **MERGED** (#255). Docs 75–80 consolidés (#256). D1 shared platform + timeout 60s **MERGED** (#257 @ `499c6b3…`). Routage CKC candidat **MERGED** (#258 @ `2014e941…`).
-+> **Séquence active :** D1 unifié sur `main` → LPV **ouverte** (pas de doc 86) → convergence conversationnelle (`87`/`88`/`89`, décisions Morris ouvertes) → `GO MORRIS UX DECISIONS` / `GO UX VALIDATION` — **pas** Delivery tant que preuves insuffisantes.
+ > **Statut Git :** Shared Technical Platform **MERGED** (#255). Docs 75–80 consolidés (#256). D1 shared platform + timeout 60s **MERGED** (#257 @ `499c6b3…`). Routage CKC candidat **MERGED** (#258 @ `2014e941…`).
+-> **Séquence active :** D1 unifié sur `main` → LPV **ouverte** (pas de doc 86) → convergence conversationnelle (`87`/`88`/`89`, décisions Morris ouvertes) → `GO MORRIS UX DECISIONS` / `GO UX VALIDATION` — **pas** Delivery tant que preuves insuffisantes.
++> **Séquence active :** convergence conversationnelle — **6 décisions validées** · flow UX validé LF · gate suivant `GO CONCEPTION FONCTIONNELLE — STUDIO CKC CONTRACT` — **pas** Delivery / **pas** runtime matched.
 ```
 
 ---
 
-## 14. Handoff (post-publish)
+## 12. Handoff (post-publish)
 
 | Champ | Valeur |
 |-------|--------|
 | Mode | publish-in-cycle |
-| Branche | sfia/review-handoff |
-| Fichier | sfia-review-handoff/latest-chatgpt-review.md |
-| Message | docs(review-handoff): publish Studio D1 conversational convergence review |
+| Message | docs(review-handoff): publish Studio conversational flow validation |
 | Commit / blob | *(après publish)* |
 
 ---
 
-## 15. Verdict exact
+## 13. Verdict exact
 
-**UX D1 CONVERSATIONAL CONVERGENCE READY — MORRIS UX DECISIONS REQUIRED**
+**STUDIO CONVERSATIONAL FLOW UX VALIDATED — FUNCTIONAL DESIGN REQUIRED**
