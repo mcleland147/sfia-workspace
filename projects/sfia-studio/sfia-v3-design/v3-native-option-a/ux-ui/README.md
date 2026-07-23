@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | UX/UI **candidate** — validation Morris requise |
+| **Statut** | UX/UI **VALIDATED BY MORRIS** |
 | **Pack** | `v3-native-option-a/ux-ui` |
 | **Gate consommé** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **FA capitalisée** | FA-OA-01…05 **VALIDATED BY MORRIS** |
@@ -54,4 +54,6 @@ intention → conversation/clarification → DoctrinePackage / CKC → Living Pr
 
 ## Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A UX/UI DOCUMENTED AND PROTOTYPED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A UX/UI VALIDATED BY MORRIS — MODELED GATE CONSUMED**
+
+Réserves maintenues : UX-U01 frame 1024 · UX-R01 a11y runtime · UX-R02 library Figma · UX-R03 erreurs non exhaustives · pas READY FOR DELIVERY · pas RUNTIME MATCHES FIGMA · aucune implémentation.

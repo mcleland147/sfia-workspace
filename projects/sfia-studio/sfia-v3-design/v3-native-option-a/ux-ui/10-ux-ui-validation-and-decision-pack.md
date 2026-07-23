@@ -2,7 +2,8 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | UX/UI **candidate** — validation Morris requise |
+| **Statut** | UX/UI **VALIDATED BY MORRIS** |
+| **Gate modeled (consommé)** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Pack** | `v3-native-option-a/ux-ui` |
 | **Gate consommé** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **FA capitalisée** | FA-OA-01…05 **VALIDATED BY MORRIS** |
@@ -18,20 +19,20 @@
 
 | Id | Proposition | Statut |
 |----|-------------|--------|
-| UX-OA-01 | Valider le contrat UX/UI Option A (docs 01–09 + Figma) | **candidate** |
-| UX-OA-02 | Structure conversation dominante + panneau vivant | candidate |
-| UX-OA-03 | Hiérarchie LPS panneau (doc 04) | candidate |
-| UX-OA-04 | Patterns épistémiques 8 types | candidate |
-| UX-OA-05 | Matérialisation HumanDecision obligatoire | candidate |
-| UX-OA-06 | Patterns N1 / N2 / N3 | candidate |
-| UX-OA-07 | Présentation ExecutionContract métier (MD = adaptateur) | candidate |
-| UX-OA-08 | Evidence + ReviewBundle (synthèse ≠ bundle) | candidate |
-| UX-OA-09 | Responsive 1440 / 1280 / 1024 sheet / 390 | candidate |
-| UX-OA-10 | Catalogue composants doc 08 | candidate |
-| UX-OA-11 | Prototype page Option A = référence visuelle | candidate |
-| UX-OA-12 | Ordre recommandé : validation UX → modeled | candidate |
+| UX-OA-01 | Valider le contrat UX/UI Option A (docs 01–09 + Figma) | **VALIDATED** |
+| UX-OA-02 | Structure conversation dominante + panneau vivant | **VALIDATED** |
+| UX-OA-03 | Hiérarchie LPS panneau (doc 04) | **VALIDATED** |
+| UX-OA-04 | Patterns épistémiques 8 types | **VALIDATED** |
+| UX-OA-05 | Matérialisation HumanDecision obligatoire | **VALIDATED** |
+| UX-OA-06 | Patterns N1 / N2 / N3 | **VALIDATED** |
+| UX-OA-07 | Présentation ExecutionContract métier (MD = adaptateur) | **VALIDATED** |
+| UX-OA-08 | Evidence + ReviewBundle (synthèse ≠ bundle) | **VALIDATED** |
+| UX-OA-09 | Responsive 1440 / 1280 / 1024 sheet / 390 | **VALIDATED** |
+| UX-OA-10 | Catalogue composants doc 08 | **VALIDATED** |
+| UX-OA-11 | Prototype page Option A = référence visuelle | **VALIDATED** |
+| UX-OA-12 | Ordre recommandé : validation UX → modeled | **VALIDATED** |
 
-*Aucune validation Morris explicite dans ce cycle.*
+*UX-OA-01…12 = **VALIDATED BY MORRIS**. Réserves UX-U01/R01–R03/D01 maintenues. Gate modeled consommé. Pas READY FOR DELIVERY. Pas RUNTIME MATCHES FIGMA. Aucune implémentation autorisée.*
 
 ## 2. Contrat vers modeled (besoins, pas schémas)
 
@@ -64,17 +65,17 @@ Streaming · attentes perçues · optimisme interdit sur mutation/exec · async 
 
 ## 6. Maturité
 
-DOCUMENTED + prototyped · **candidate** · pas READY FOR MODELED · pas READY FOR DELIVERY.
+UX **VALIDATED** · prototyped · pas READY FOR DELIVERY · modeled enrichissement en cours · pas RUNTIME MATCHES FIGMA.
 
 ## 7. Anti-claims
 
-Pas UX VALIDATED · Pas DESIGN FINAL · Pas READY FOR MODELED · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas RUNTIME MATCHES FIGMA · Pas VISUAL PARITY CONFIRMED · Pas OPTION A IMPLEMENTED.
+Pas DESIGN FINAL · Pas READY FOR DELIVERY · Pas READY FOR IMPLEMENTATION · Pas RUNTIME MATCHES FIGMA · Pas VISUAL PARITY CONFIRMED · Pas OPTION A IMPLEMENTED · Pas MODELED VALIDATED.
 
 ## 8. Gate suivant
 
-Après Morris : `GO VALIDATION UX/UI — SFIA STUDIO V3-NATIVE OPTION A`
-Puis : `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A`
+Gate validation UX consommé · gate enrichissement modeled consommé.
+Suivant après modeled : `GO VALIDATION MODELED — SFIA STUDIO V3-NATIVE OPTION A`
 
 ## 9. Verdict
 
-**SFIA STUDIO V3-NATIVE OPTION A UX/UI DOCUMENTED AND PROTOTYPED — MORRIS VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A UX/UI VALIDATED BY MORRIS**

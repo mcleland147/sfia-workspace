@@ -9,6 +9,8 @@
 | **Gate architecture (consommé)** | `GO ARCHITECTURE FONCTIONNELLE — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Décisions** | ARB-V3-01…06 · FD-OA-01…06 · **FA-OA-01…05 validées** |
 | **Gate UX/UI (consommé)** | `GO UX/UI — SFIA STUDIO V3-NATIVE — OPTION A` |
+| **UX/UI** | **VALIDATED BY MORRIS** — UX-OA-01…12 |
+| **Gate modeled (consommé)** | `GO ENRICHISSEMENT MODELED — SFIA STUDIO V3-NATIVE — OPTION A` |
 | **Doctrine** | SFIA Studio v3 exclusive (VALIDATED framing 30–37) |
 | **Anti-claims** | Pas MODELED · Pas IMPLEMENTED · Pas ADOPTED runtime · Pas READY FOR MODELED/DELIVERY · Pas v2.6 removed |
 | **Code / schemas / SQL** | **Interdits** |
@@ -25,7 +27,8 @@ intention → DoctrinePackage → qualification → CKC → clarification → Li
 |---|---------|
 | 01–10 | Pack conception fonctionnelle (validé) |
 | **FA** | `functional-architecture/` — architecture fonctionnelle **VALIDATED** |
-| **UX** | `ux-ui/` — contrat UX/UI + Figma (candidate) |
+| **UX** | `ux-ui/` — contrat UX/UI + Figma **VALIDATED** |
+| **Modeled** | `../../sfia-v3-modeled/v3-native-option-a/` — contrats modeled (candidate) |
 
 ## Décisions FD-OA validées
 
@@ -47,4 +50,4 @@ intention → DoctrinePackage → qualification → CKC → clarification → Li
 
 ## Verdict conception
 
-**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN VALIDATED · ARCHITECTURE VALIDATED · UX/UI DOCUMENTED (candidate) — MORRIS UX VALIDATION REQUIRED**
+**SFIA STUDIO V3-NATIVE OPTION A FUNCTIONAL DESIGN · ARCHITECTURE · UX/UI VALIDATED — MODELED IN PROGRESS (candidate)**
